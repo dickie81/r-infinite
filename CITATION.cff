@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this preprint or code, please cite it as below."
+title: "Infinite Nested Black-Hole Tower Cosmology"
+authors:
+  - family-names: Anonymous
+    given-names: "(for arXiv submission)"
+    orcid: ""  # leave blank until arXiv submission
+date-released: "2026-02-01"
+version: "v1.0"
+doi: ""  # will be filled once on arXiv/Zenodo
+url: "https://github.com/dickie81/r-infinite"
+repository-code: "https://github.com/dickie81/r-infinite"
+license: "CC-BY-4.0"
+keywords:
+  - cosmology
+  - higher-dimensional gravity
+  - Gregory-Laflamme
+  - pregeometric plenum
+  - parameter-free theory
+references:
+  - type: article
+    title: "Infinite Nested Black-Hole Tower Cosmology: 4D as the Stable Junction from Generalized Gregory–Laflamme Instability..."
+    authors:
+      - family-names: Anonymous
+    year: 2026
+    url: "https://github.com/dickie81/r-infinite"
