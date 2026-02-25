@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "r-infinite"
+version = "0.1.0"
+description = "Numerical ancillaries for 'Infinite Nested Black-Hole Tower Cosmology' paper: GL stability shooting and Yukawa Monte Carlo."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [{name = "Anonymous (for arXiv submission)"}]
+dependencies = [
+    "numpy >= 1.18.0",
+    "scipy >= 1.5.0",
+    "matplotlib >= 3.0.0",
+    "pandas >= 0.25.0",
+    "tqdm >= 4.0.0",
+]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+dev = [
+    "black >= 24.0.0",
+    "ruff >= 0.5.0",
+    "mypy >= 1.10.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["ancillary"]
+
+
+[project.urls]
+Homepage = "https://github.com/dickie81/r-infinite"
+Repository = "https://github.com/dickie81/r-infinite"

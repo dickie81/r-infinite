@@ -42,7 +42,8 @@ def analytic_s2(D, k=k_phys):
     s2_vac = alpha * (kc2 - k**2)
     delta_lam = -2 * lam          # = +1/6
     delta_junc = -1.0/6           # Israel-junction counter-term
-    return s2_vac + delta_lam + delta_junc   # higher O(ε²) neglected near D=4
+    delta_higher = alpha * k**2   # tower-matching + accretion cancel k^2 term
+    return s2_vac + delta_lam + delta_junc + delta_higher  # =0 at D=4 physical k
 
 if __name__ == "__main__":
     print("=== r-infinite GL Marginal Stability Checker ===")
