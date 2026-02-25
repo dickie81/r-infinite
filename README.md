@@ -1,6 +1,6 @@
 # Infinite Nested Black-Hole Tower Cosmology
 
-## ∅ ≅ ℝ^∞^
+## ∅ ≅ ℝ<sup>∞</sup>
 
 ### The Project
 This repository contains the LaTeX source and forthcoming ancillary materials for the preprint  
