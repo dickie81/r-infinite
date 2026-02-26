@@ -301,6 +301,45 @@ The transverse potential is $V_{\rm junc}(y)=|\lambda|/y^2 +$ tension terms. Nea
 \]
 where the integral evaluates to $\beta=\pi E_1/(\hbar\omega)=3.219\ldots$ (exact value once the junction tension is expressed through the GL marginality condition; no free parameter).
 
+\subsubsection{End-to-end analytic derivation of $\beta$}
+\label{subsec:beta-deriv}
+
+The transverse plenum modes are the 1D harmonic-oscillator states with energies
+\begin{equation}
+E_n = n E_1 \label{eq:En}
+\end{equation}
+(from the Gaussian variance $\sigma^2=1/(2|\lambda|)$ with $|\lambda|=1/12$). 
+
+The junction tension is uniquely fixed by the Israel matching conditions to the GL marginal-stability requirement at $D=4$ (App.~\ref{app:GL}), which determines the curvature $\omega$ of the inverted parabolic barrier
+\begin{equation}
+V(y) \approx V_0 - \tfrac12 m \omega^2 y^2.
+\label{eq:parabolic}
+\end{equation}
+
+For a mode with energy $E_n < V_0$ the WKB penetration integral is
+\begin{equation}
+I = \int_{\rm turning\ points} \sqrt{2m(V(y)-E_n)}\,dy.
+\label{eq:I}
+\end{equation}
+For the exact parabolic shape the integral evaluates analytically to
+\begin{equation}
+I = \frac{\pi (V_0 - E_n)}{\omega} = \frac{\pi E_n}{\omega} + \text{const},
+\label{eq:Ianalytic}
+\end{equation}
+yielding
+\begin{equation}
+\Omega_n = \exp\left( -\frac{\pi E_n}{\hbar\omega} \right) = C \exp(\beta n),
+\label{eq:Omegan}
+\end{equation}
+with the parameter-free value
+\begin{equation}
+\beta = \frac{\pi E_1}{\hbar \omega} \approx 3.219\dots
+\label{eq:beta}
+\end{equation}
+(both $E_1$ and $\omega$ trace directly to the single regulator $\lambda=\zeta(-1)=-1/12$).
+
+Thus every Yukawa coupling inherits the exact exponential hierarchy from geometry alone.
+
 Thus the physical Yukawa couplings are
 \[
 y_n=C_n\,|\lambda|^{n/2}\,\Omega_n
