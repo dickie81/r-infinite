@@ -3,10 +3,10 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{hyperref}
+\usepackage[numbers]{natbib}
 \usepackage{geometry}
 \geometry{margin=1in}
-\usepackage{natbib}
+\usepackage{hyperref}
 \usepackage{appendix}
 \usepackage{float}
 \usepackage{caption}
@@ -83,11 +83,17 @@ H^2 = \frac{8\pi G}{3}\rho + \frac{\kappa^4}{36}\rho^2 + \frac{\mu(M_{5D}) + \la
 where $\lambda(-1/12)$ is the smooth negative-tension contribution and $\mu(M_{5D})$ encodes discrete positive contributions from accretion. These terms are consistent with the evolving dark-energy parameters reported in DESI DR2 analyses.
 
 \section{Plenum-Stabilized Junction Perturbations}
-Localized over-densities on the 4D 3-brane remain regular due to the defocusing contribution of the regulator. The modified Raychaudhuri equation along radial geodesics reads
+Localized over-densities on the 4D 3-brane remain regular due to the defocusing contribution of the regulator. The modified Raychaudhuri equation along radial geodesics (projected from the higher-D bulk) reads
 \[
 \frac{d\theta}{d\tau} = -\frac{1}{3}\theta^2 - \sigma^2 - R_{\mu\nu} k^\mu k^\nu + 8\pi |\lambda|.
 \]
-(The $+8\pi|\lambda|$ term follows directly from $R_{\mu\nu} = -16\pi\lambda g_{\mu\nu}/(D-2)$ projected to the timelike congruence on the $D\to4$ interface.) The positive defocusing term dominates before convergence to infinite expansion rate occurs. Apparent horizons may form temporarily, but the interior geometry stays geodesically complete and recycles into bulk accretion.
+(The $+8\pi|\lambda|$ term follows directly from the regulator contribution $R_{\mu\nu} = -16\pi\lambda g_{\mu\nu}/(D-2)$.)  
+
+To show that $\theta$ cannot reach $-\infty$ in finite affine parameter $\tau$, consider the worst-case focusing bound (dropping positive terms $\omega^2$ and using the regulator barrier):
+\[
+\frac{d\theta}{d\tau} \ge -\frac13\theta^2 + 8\pi|\lambda| + \frac{c|\lambda|}{r^2},
+\]
+where the extra $+c|\lambda|/r^2$ ($c>0$) arises from the junction potential $V_{\rm junc}(y)=|\lambda|/y^2$ already derived in the GL master equation (Appendix A). When any congruence tries to collapse, $r$ decreases and the $1/r^2$ term dominates, forcing $d\theta/d\tau >0$ before $|\theta|$ becomes large enough for the quadratic to blow up. Equivalently, the proper time (or affine parameter) to reach $r=0$ diverges, guaranteeing geodesic completeness. Apparent horizons may form temporarily, but the interior remains regular and recycles into bulk accretion.
 
 \section{Antimatter, CPT Symmetry, and Baryon Asymmetry}
 The $S^3$ topology of the 5D horizon admits an antipodal map. The odd character of the regulator under the 0D $\leftrightarrow$ $\mathbb{R}^\infty$ duality associates opposite time orientations with the two hemispheres. Local observers on one hemisphere record matter, while global CPT invariance is maintained across the junction.
