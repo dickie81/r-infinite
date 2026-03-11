@@ -49,7 +49,7 @@ The entire framework is a single unbroken logical chain with \textbf{zero free p
 \begin{enumerate}
 \item \textbf{Plenum Duality} -- The pre-geometric plenum $\{0\mathrm{D\ point}\} \simeq \mathbb{R}^\infty$ yields the unique spectral regulator $\lambda = \zeta(-1) = -1/12$ (Sec.~1).
 
-\item \textbf{Global Variational Principle} -- The regulator is promoted to a uniform term in the Einstein--Hilbert action integrated over the infinite tower (Sec.~1.4).
+\item \textbf{Global Variational Principle} -- The regulator is promoted to a uniform term in the Einstein--Hilbert action integrated over the infinite tower (Sec.~1.5).
 
 \item \textbf{Dimensional Selection} -- Generalized Gregory--Laflamme analysis plus junction Israel conditions admits \emph{only} the marginally stable 4D interface (Sec.~2).
 
@@ -91,6 +91,20 @@ This value is the unique classical spectral invariant of the structureless plenu
 
 \subsection{The Negative Seed as Geometric Regulator}
 The value $\lambda = -1/12$ supplies a uniform geometric regulator. When included in the higher-dimensional Einstein equations, it contributes a repulsive component scaling as $|\lambda|/r^2$ near regions of high curvature.
+
+\subsection{Dynamical Origin of the Spectral Regulator from Plenum Condensation}
+
+The pre-geometric plenum is the sole fundamental structure. Any classical geometry appearing in the infinite black-hole tower must arise as a coherent condensation of plenum modes. Let \(\{\phi_n\}\) be the orthonormal basis of isotropic excitations with eigenvalues \(n\) under the Laplace--Beltrami (number) operator \(N\). A classical \(D\)-dimensional metric \(g_{\mu\nu}\) on a given level of the tower corresponds to a macroscopic coherent state in which a large number of these modes align to produce the background curvature.
+
+To obtain the effective description for such a condensate, one integrates out the ultraviolet modes (\(n \gg 1\)) against the Gaussian plenum measure. The contribution to the effective action is governed by the trace of the heat kernel of the Laplace operator on the plenum:
+\[
+\operatorname{Tr} e^{-\varepsilon N} = \sum_{n=1}^\infty e^{-\varepsilon n} \sim \frac{1}{\varepsilon^2} - \frac{1}{12} + O(\varepsilon).
+\]
+The quadratic divergence renormalizes the bare volume term and can be absorbed by a counterterm. The finite part \(\lambda = \zeta(-1) = -1/12\), however, is invariant under the defining \(0\mathrm{D} \leftrightarrow \mathbb{R}^\infty\) duality and under rescalings of the cutoff. It is therefore an irreducible geometric invariant that cannot be removed.
+
+When the saddle-point equations for the coherent amplitudes are projected onto a finite-dimensional manifold with metric \(g_{\mu\nu}\), this invariant survives as a uniform contribution to the effective Einstein--Hilbert action. Variation with respect to \(g_{\mu\nu}\) then automatically produces the regulator term \(8\pi\lambda \, g_{\mu\nu}\) in the equations of motion. 
+
+Thus the appearance of \(\lambda\) in the classical action is not an external insertion but the direct dynamical consequence of coarse-graining the infinite plenum down to a classical geometry. The regulator is the unique fingerprint left by absolute nothing when it condenses into spacetime.
 
 \subsection{Global Variational Principle}
 The framework is derived from the single action
