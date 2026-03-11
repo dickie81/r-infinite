@@ -56,23 +56,64 @@ The universe begins as infinite-dimensional nothingness — the unique \(\mathrm
 
 \section{The Single Axiom and Inevitable Zeta Regularization}
 
-The pre-geometric plenum is the Fock space \(\mathcal{F} = \bigoplus_{n=0}^\infty \mathcal{H}_n\) of the infinite-dimensional harmonic oscillator with product Gaussian measure. The number operator \(N\) has eigenvalues \(k = 0,1,2,\dots\).
+The pre-geometric plenum is the symmetric Fock space \(\mathcal{F} = \bigoplus_{n=0}^\infty \mathcal{H}_n\) built over the infinite-dimensional Hilbert space \(L^2(\mathbb{R}^\infty, d\mu)\), where \(d\mu\) is the product Gaussian measure
+\[
+d\mu = \prod_{i=1}^\infty \frac{dx_i}{\sqrt{2\pi}} \exp\left(-\frac{x_i^2}{2}\right).
+\]
+The creation and annihilation operators \(a_i^\dagger, a_i\) for each transverse direction satisfy the usual Heisenberg algebra. The total number operator
+\[
+N = \sum_{i=1}^\infty a_i^\dagger a_i
+\]
+has eigenvalues \(k = 0,1,2,\dots\) (the transverse \(\mathrm{SO}(\infty)\) symmetry ensures that the collective radial dynamics are faithfully captured by this linear spectrum; full degeneracy counting is performed in Appendix~\ref{app:conformal}).
 
-The heat-kernel trace is exactly
-\[
-K(t) = \sum_{k=0}^\infty e^{-tk} = \frac{1}{1-e^{-t}}, \quad t>0.
-\]
-The associated zeta function
-\[
-\zeta(s) = \frac{1}{\Gamma(s)} \int_0^\infty t^{s-1} K(t)\, dt
-\]
-is evaluated after subtracting the \(k=0\) vacuum contribution (standard infrared regularization, exactly as in Casimir physics and bosonic string theory), so that \(\zeta(s)\) is the analytic continuation of \(\sum_{k=1}^\infty k^{-s}\). This yields the unique finite value \(\zeta(-1) = -1/12\). This is not an ad-hoc regulator; it is the only finite, cutoff-independent scalar at the pole \(s=-1\).
+Formally, the vacuum energy receives contributions from the zero-point energy of each oscillator. In units where \(\hbar = 1\), this leads to the divergent sum \(\sum_k \omega_k\) where the effective frequencies are identified with the occupation numbers \(\omega_k = k\). To extract a finite value, we employ zeta-function regularization via the heat kernel.
 
-The unique diffeomorphism-invariant action is
+The heat-kernel trace associated to \(N\) is
 \[
-S = \int \sqrt{-g}\,(R + 16\pi\lambda)\,d^4x, \quad \lambda = \zeta(-1),
+K(t) := \operatorname{Tr}_{\mathcal{F}} \bigl( e^{-t N} \bigr) = \sum_{k=0}^\infty e^{-t k} = \frac{1}{1 - e^{-t}}, \qquad t > 0.
 \]
-yielding \(G_{\mu\nu} = 8\pi\lambda\, g_{\mu\nu}\).
+This expression diverges as \(t \to 0^+\) (ultraviolet) and encodes the full spectral information.
+
+To isolate the contribution from excited states (standard infrared subtraction of the true vacuum, exactly as in Casimir calculations and bosonic string theory), we define the regularized kernel
+\[
+K_>(t) = K(t) - 1 = \frac{e^{-t}}{1 - e^{-t}} = \sum_{k=1}^\infty e^{-t k}.
+\]
+
+The associated spectral zeta function is obtained through the Mellin transform:
+\[
+\zeta(s) := \frac{1}{\Gamma(s)} \int_0^\infty t^{s-1} K_>(t) \, dt, \quad \operatorname{Re}(s) > 1.
+\]
+Substituting the geometric series for \(K_>(t)\) and interchanging sum and integral (justified by absolute convergence for \(\operatorname{Re}(s) > 1\)) immediately yields
+\[
+\zeta(s) = \sum_{k=1}^\infty k^{-s},
+\]
+which is the Riemann zeta function. The integral representation above supplies the unique meromorphic continuation of \(\zeta(s)\) to the entire complex plane, with a single simple pole at \(s=1\) and holomorphic everywhere else.
+
+The physically relevant value at the negative integer \(s = -1\) follows by analytic continuation. One standard route is the functional equation
+\[
+\zeta(s) = 2^s \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma(1-s) \zeta(1-s).
+\]
+Substituting \(s = -1\) and using \(\zeta(2) = \pi^2/6\), \(\Gamma(2) = 1\), and \(\sin(-\pi/2) = -1\) gives
+\[
+\zeta(-1) = -\frac{1}{12}.
+\]
+Equivalently, the Bernoulli-number formula for negative integers \(\zeta(1-2m) = (-1)^m B_{2m}/(2m)\) with \(m=1\) and \(B_2 = 1/6\) yields the same result. This is not arbitrary: it is the unique finite part that survives after subtracting the divergent pole terms in any exponential cutoff scheme. For example, with a soft cutoff \(\sum_{k=1}^\Lambda k e^{-\epsilon k}\) one obtains
+\[
+\sum_{k=1}^\Lambda k e^{-\epsilon k} = \frac{e^{-\epsilon}(1 - (\Lambda+1)e^{-\Lambda\epsilon} + \Lambda e^{-(\Lambda+1)\epsilon})}{(1-e^{-\epsilon})^2} \approx \frac{1}{2\epsilon^2} - \frac{1}{12} + \mathcal{O}(\epsilon)
+\]
+as \(\epsilon \to 0^+\) (the quadratic divergence is cutoff-dependent; the constant term \(-1/12\) is universal).
+
+In the effective field theory on the emergent 4D spacetime, this regularized spectral sum supplies the cosmological term in the unique diffeomorphism-invariant action compatible with the \(\mathrm{SO}(\infty)\) symmetry and two-derivative order (by Lovelock’s theorem):
+\[
+S = \int \sqrt{-g}\,(R - 2\lambda)\,d^4x, \qquad \lambda = \zeta(-1) = -\frac{1}{12}.
+\]
+Varying with respect to the metric (in units where \(8\pi G = 1\)) yields the vacuum Einstein equation
+\[
+G_{\mu\nu} + \lambda g_{\mu\nu} = 0.
+\]
+Because \(\lambda < 0\), the resulting curvature is AdS-like and drives the overdamped conformal collapse of the transverse dimensions described in the next section.
+
+This regularization is inevitable: any other cutoff introduces explicit scale dependence that violates the scale invariance of the original Gaussian plenum, whereas the zeta function arises canonically from the heat-kernel trace of the number operator itself. No free parameters are introduced; the finite negative vacuum energy \(\lambda = -1/12\) is the sole remnant of the infinite-dimensional origin.
 
 \section{The Infinite Tower and Marginal Stability}
 
@@ -476,7 +517,7 @@ The plenum symmetries (translations + \(\mathrm{SO}(\infty)\)) plus the zeta-reg
 \[
 S = \int d^D x\,\sqrt{-g}\,(R - 2\lambda), \qquad \lambda = \zeta(-1) = -1/12.
 \]
-(The background satisfies the Einstein equation, so the linear variation vanishes.)
+This yields the vacuum Einstein equation \(G_{MN} + \lambda g_{MN} = 0\). Since \(\lambda < 0\), the curvature is AdS-like for \(D > 4\), driving the overdamped conformal collapse of the transverse dimensions. (The background satisfies the Einstein equation, so the linear variation vanishes.)
 
 \subsection{Conformal perturbation and explicit quadratic term}
 
