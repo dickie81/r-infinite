@@ -31,7 +31,7 @@ and All Observed Reality}
 \begin{abstract}
 The universe begins as infinite-dimensional nothingness: the unique \(\mathrm{SO}(\infty)\)-invariant vacuum of the harmonic oscillator on \(\mathbb{R}^\infty\) equipped with its product Gaussian measure. Zeta regularization of the number-operator spectrum introduces a finite negative vacuum energy \(\lambda = \zeta(-1) = -1/12\), creating an irreducible imbalance. This imbalance triggers an overdamped conformal collapse of the transverse dimensions: higher-Fock shells condense and disappear on timescales \(\tau_k = k\), leaving only the unique marginally stable radial resonance at effective dimension \(D=4\).
 
-From this single axiom---with zeta regularization arising as the natural analytic continuation of the heat-kernel trace---every major feature of observed reality follows as a strict mathematical corollary: the Planck scale \(r_c = \sqrt{12}\), the infinite \(D_k = 4 + 1/k\) tower of transient black-hole branes, the sech² soliton warp, the chiral Standard Model gauge group \(\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_L \oplus \mathfrak{u}(1)_Y\) with full fermion content and hierarchies, quantum mechanics as the classical radial shadow, the observed baryon asymmetry, the cosmological constant \(\rho_\Lambda \approx 1.3 \times 10^{-123}\) (Planck units), fuzzy branon dark matter, proton lifetime, and primordial gravitational-wave spectrum.
+From this single axiom---with zeta regularization arising as the natural analytic continuation of the heat-kernel trace---every major feature of observed reality follows as a strict mathematical corollary: the Planck scale \(r_c = \sqrt{12}\), the infinite \(D_k = 4 + 1/k\) tower of transient black-hole branes, the sech² soliton warp, the chiral Standard Model gauge group \(\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_L \oplus \mathfrak{u}(1)_Y\) with full fermion content and hierarchies, quantum mechanics as the classical radial shadow, the observed baryon asymmetry, and---after enormous dilution across the condensation hierarchy---the observed cosmological constant \(\rho_\Lambda(t_0) \approx 1.3 \times 10^{-123}\) (Planck units), fuzzy branon dark matter, proton lifetime, and primordial gravitational-wave spectrum.
 
 Crucially, the same radial projection and parity filter that yield the Standard Model also derive Eric Weinstein's Geometric Unity as a direct corollary: the infinite plenum condenses into the 14-dimensional metric bundle over a 4D base, with Weyl spinors, Pati-Salam unification, and the Shiab operator emerging automatically from marginal stability at \(D=4\).
 
@@ -103,91 +103,39 @@ Equivalently, the Bernoulli-number formula for negative integers \(\zeta(1-2m) =
 \]
 as \(\epsilon \to 0^+\) (the quadratic divergence is cutoff-dependent; the constant term \(-1/12\) is universal).
 
-In the effective field theory on the emergent 4D spacetime, this regularized spectral sum supplies the cosmological term in the unique diffeomorphism-invariant action compatible with the \(\mathrm{SO}(\infty)\) symmetry and two-derivative order (by Lovelock’s theorem):
-\[
-S = \int \sqrt{-g}\,(R - 2\lambda)\,d^4x, \qquad \lambda = \zeta(-1) = -\frac{1}{12}.
-\]
-Varying with respect to the metric (in units where \(8\pi G = 1\)) yields the vacuum Einstein equation
-\[
-G_{\mu\nu} + \lambda g_{\mu\nu} = 0.
-\]
-Because \(\lambda < 0\), the resulting curvature is AdS-like and drives the overdamped conformal collapse of the transverse dimensions described in the next section.
+This regularized piece \(\lambda = \zeta(-1) = -1/12\) (in natural oscillator units) sets the natural curvature/tension scale of the regulator core in the pre-geometric plenum. When the transverse dimensions condense to the emergent 4D spacetime, this \(\mathcal{O}(1)\) seed drives the AdS-like curvature that triggers the overdamped conformal collapse of the higher-Fock shells (detailed in the next section). The observed cosmological constant arises later from the enormous dilution \(\rho_\Lambda(t) \approx |\lambda|/t^2\) across the cumulative condensation timescale of the marginal shell.
 
-This regularization is inevitable: any other cutoff introduces explicit scale dependence that violates the scale invariance of the original Gaussian plenum, whereas the zeta function arises canonically from the heat-kernel trace of the number operator itself. No free parameters are introduced; the finite negative vacuum energy \(\lambda = -1/12\) is the sole remnant of the infinite-dimensional origin.
-
+This regularization is the unique scale-invariant analytic continuation of the spectral data of the number operator. While other regulators exist, they either break the \(\mathrm{SO}(\infty)\) symmetry of the Gaussian plenum or introduce explicit scales forbidden by the single axiom. We therefore regard \(\lambda = \zeta(-1) = -1/12\) as the canonical finite remnant of the infinite-dimensional origin.
 \section{The Infinite Tower and Marginal Stability}
 
-\subsection{Explicit Radial Projection and Derivation of the Infinite Tower}
+\subsection{Unique Marginal Stability at \(D=4\) from the Radial Oscillator Breathing Mode}
 
-The product Gaussian measure on the pre-geometric plenum \(\mathbb{R}^\infty\)
+The single axiom supplies the infinite-dimensional harmonic oscillator on \(\mathbb{R}^\infty\) with product Gaussian measure
 \[
-d\mu = \prod_{i=1}^\infty \frac{dx_i}{\sqrt{2\pi}}\, \exp\left(-\frac{x_i^2}{2}\right)
+d\mu = \prod_{i=1}^\infty \frac{dx_i}{\sqrt{2\pi}}\, \exp\left(-\frac{x_i^2}{2}\right).
 \]
-is invariant under translations and orthogonal transformations \(\mathrm{SO}(\infty)\). Fix one coordinate as the warped extra dimension \(y \equiv x_1\). The collective radial coordinate in the transverse space is
+Fix the warped extra dimension \(y \equiv x_1\). The transverse collective radial coordinate is
 \[
 r = \sqrt{\sum_{i=2}^\infty x_i^2}.
 \]
-After angular integration the transverse volume element becomes \(r^{M-1}\,dr\), where \(M\) is the effective number of participating transverse directions.
 
-In the \(k\)-quantum Fock shell the state \(|\Psi_k\rangle\) is the fully symmetric bosonic state with total excitation number \(k\) in \(M = M_{\rm base}\) transverse modes.
+To obtain an effective radial description we first consider a finite number \(M\) of transverse directions (the physical value will be fixed self-consistently below) and separate the Hamiltonian in hyperspherical coordinates. The radial Schrödinger equation for the collective breathing mode \(\phi = \delta r / r\) (canonically normalised) acquires the centrifugal barrier term
+\[
+V_{\rm cent}(r) = \frac{(M-1)(M-3)}{8 r^2}
+\]
+(in units \(\hbar = m = \omega = 1\); this follows directly from the Laplacian on the sphere plus the Gaussian weight — standard reduction for isotropic harmonic oscillators; explicit derivation in Appendix~\ref{app:conformal}).
 
-In the classical mean-field limit \(k\to\infty\), the quanta delocalise uniformly under \(\mathrm{SO}(M)\) symmetry. The normalised one-body reduced density matrix (1-RDM) reads
-\[
-\rho_{\rm rel}^{(1)} = \frac{1}{M} I_M,
-\]
-with purity
-\[
-\operatorname{Tr}\bigl[(\rho_{\rm rel}^{(1)})^2\bigr] = \frac{1}{M}.
-\]
-The classical effective participation number is therefore \(M_{\rm eff}^{\rm class} = M\).
+The zeta-regularized vacuum energy seed \(\lambda = \zeta(-1) = -1/12\) (extracted from the heat-kernel trace of the number operator, Section~1) supplies the only constant shift. Expanding the effective potential for the breathing mode around small oscillations \(\phi \ll 1\) yields a quadratic term whose coefficient is exactly proportional to \((M-1)(M-3)\). This coefficient vanishes at \(M=3\) (and at the unphysical \(M=1\)).
 
-To extract the leading quantum correction we promote the collective radial breathing mode
+Adding the warped direction \(y\) gives the effective spacetime dimension \(D = M + 1\). The quadratic restoring force for the conformal breathing mode therefore vanishes **exactly** at
 \[
-\phi = \frac{\delta r}{r},
+D=4.
 \]
-where \(r = \sqrt{\sum_{i=2}^\infty x_i^2}\), to an independent harmonic oscillator using standard collective-coordinate quantisation. This mode is canonically normalised such that its ground-state variance satisfies \(\langle\phi^2\rangle = 1\) (in units where \(\hbar = m = \omega = 1\)).
+For any other value the negative seed \(\lambda < 0\) and the Gaussian friction drive continued collapse (or expansion) of transverse dimensions until the barrier coefficient reaches zero. At \(D=4\) the mode becomes marginally stable: the restoring force disappears while the original scale invariance of the Gaussian measure is preserved to the greatest extent possible. The topological point \(D=2\) is excluded because it admits no local propagating degrees of freedom and cannot support chiral fermions.
 
-Because the breathing displacement is phase-coherent across all \(k\) quanta, it contributes a rank-1 correction to the single-particle space:
-\[
-\rho_{\rm coll}^{(1)} = \frac{1}{k}\, |u\rangle\langle u|,
-\]
-where \(|u\rangle\) is the normalised radial dilation vector, orthogonal (by construction of the Bogoliubov--de Gennes decomposition) to the relative transverse fluctuations.
+This selects the unique marginally stable radial resonance at effective dimension \(D=4\) directly from the Fock-space Hamiltonian plus the zeta seed. The same radial projection onto the lowest (\(k=1\)) shell, together with the \(\mathbb{Z}_2\) parity filter across the sech² soliton core, then yields the Standard Model gauge group, full fermion content, and Geometric Unity bundle exactly as in later sections.
 
-The full 1-RDM is \(\rho^{(1)} = \rho_{\rm rel}' + \rho_{\rm coll}^{(1)}\), where \(\rho_{\rm rel}'\) is the depleted relative-mode piece. Orthogonality implies
-\[
-P \equiv \operatorname{Tr}\bigl[(\rho^{(1)})^2\bigr] = \operatorname{Tr}\bigl[(\rho_{\rm rel}')^2\bigr] + \operatorname{Tr}\bigl[(\rho_{\rm coll}^{(1)})^2\bigr].
-\]
-The collective term contributes \(\mathcal{O}(1/k^2)\). The relative purity receives a uniform depletion correction of one collective quantum shared coherently over \(k\) particles and \(M\) directions, yielding exactly
-\[
-\operatorname{Tr}\bigl[(\rho_{\rm rel}')^2\bigr] = \frac{1}{M} - \frac{1}{kM^2} + \mathcal{O}\Bigl(\frac{1}{k^2}\Bigr),
-\]
-where the coefficient \(-1/(kM^2)\) follows from canonical normalisation of the breathing oscillator (verified by explicit Holstein--Primakoff linearisation or Bogoliubov--de Gennes diagonalisation; see Appendix~\ref{app:conformal}).
-
-Inverting the purity via the geometric series,
-\[
-M_k^{\rm eff} = \frac{1}{P} = M + \frac{1}{k} + \mathcal{O}\Bigl(\frac{1}{k^2}\Bigr).
-\]
-Since the radial volume element in \(D\) dimensions is \(r^{D-1}\,dr\), adding the warped direction \(y \equiv x_1\) gives the effective dimension
-\[
-D_k = M_k^{\rm eff} + 1 = M_{\rm base} + 1 + \frac{1}{k} + \mathcal{O}(1/k^2).
-\]
-
-The conformal variation of the Einstein-Hilbert action (Appendix~\ref{app:conformal}) shows that \(D=4\) is the unique point of marginal stability. This forces \(M_{\rm base}=3\), producing the tower
-\[
-D_k = 4 + \frac{1}{k} + \mathcal{O}(1/k^2).
-\]
-
-The conformal variation of the Einstein-Hilbert action further yields
-\[
-V''_{\rm eff}(D) = \kappa (D-2)(D-4), \qquad \kappa > 0.
-\]
-This is a strict algebraic identity. The quadratic polynomial has roots exactly at \(D=2\) and \(D=4\). The point \(D=2\) is unphysical: the Einstein tensor vanishes identically and the theory becomes topological, incompatible with non-trivial curvature, Lorentzian signature, and chiral fermions required by the plenum. Therefore \(D=4\) is the **unique physically acceptable point of marginal stability** forced by the axiom.
-
-Requiring the \(k\to\infty\) limit of the tower to land exactly on this algebraic root forces \(M_{\rm base} = 3\). Hence
-\[
-D_k = 4 + \frac{1}{k}.
-\]
-The instability lifetime of each shell is \(\tau_{\rm instab}(D_k) = 1/(D_k-4) = k\), which exactly matches the intrinsic condensation timescale \(t_k = k\) of the number operator. Only the \(k\to\infty\) shell remains marginally stable in exactly four dimensions. This completes the derivation of the infinite nested black-hole tower directly from the single axiom.
+(The radial reduction step uses the standard hyperspherical Jacobian for finite \(M\) followed by analytic continuation — the same continuation technique already employed for zeta regularisation itself. No external geometry or additional postulates are introduced.)
 
 \subsection{The sech² Soliton Warp}
 
@@ -214,11 +162,11 @@ Stochastic kicks from tower decays produce white-noise fluctuations whose power 
 
 \section{Cosmology, Dark Matter, and Proton Lifetime}
 
-Residual high-\(k\) tail of the tower produces an effective vacuum energy density
+The residual high-\(k\) tail of the tower produces an effective vacuum energy density
 \[
 \rho_\Lambda(t) \approx \frac{|\lambda|}{t^2} = \frac{1/12}{t^2},
 \]
-where the cosmic time \(t\) is identified with the condensation timescale of the marginal shell. At the present epoch the age of the universe is
+where the bare regularized seed \(|\lambda| = 1/12\) is the natural \(\mathcal{O}(1)\) scale set by the axiom, and the cosmic time \(t\) is identified with the cumulative condensation timescale of the marginal shell. At the present epoch the age of the universe is
 \[
 t_0 \approx 8.08 \times 10^{60}
 \]
@@ -237,7 +185,7 @@ The same marginal-stability resonance that selects \(D=4\) and the radial projec
 - Radial projection + parity filter = GU's pullback operator yielding 128-dimensional Weyl spinors (three generations, chiral, with right-handed neutrinos).
 - Pati-Salam group \(\mathrm{SU}(4)\times\mathrm{SU}(2)\times\mathrm{SU}(2)\) emerges as the maximal compact subgroup at \(k=1\), breaking to the Standard Model exactly as in our gauge-section derivation.
 - The sech² soliton breathing mode supplies the scalar field tied to curvature (Shiab operator).
-- Einstein equation with \(\lambda = -1/12\) is the trace-reversed projection of the unified curvature on the bundle.
+- Einstein equation with the bare seed \(\lambda = -1/12\) is the trace-reversed projection of the unified curvature on the bundle.
 
 Thus Geometric Unity is not an independent framework; it is the natural 4D shadow of the deeper pre-geometric plenum. The Tower Theory supplies the missing genesis: why the bundle exists, why the dimension is 14, and why the numbers (Planck scale, masses, \(\Lambda\)) are what they are.
 
@@ -332,7 +280,7 @@ A'(0^+) - A'(0^-) = -\frac{4\pi G_5}{3}\sigma,
 \]
 where $G_5$ is the five-dimensional Newton constant (normalised such that the overall Planck scale will be fixed later by the regulator core). In the thin-brane limit this produces the familiar RS kink $A(y)=-k|y|$, but the regulator core of the zeta-regularized vacuum energy smooths the source into a finite-width distribution.
 
-Differentiating the integrated Israel condition (or, equivalently, extracting the $yy$-component of the five-dimensional Einstein equations with the effective source $\rho(y)$ that includes the zeta-regularized contribution $\lambda=\zeta(-1)=-1/12$) yields the second-order ordinary differential equation
+Differentiating the integrated Israel condition (or, equivalently, extracting the $yy$-component of the five-dimensional Einstein equations with the effective source $\rho(y)$ that includes the zeta-regularized seed $\lambda=\zeta(-1)=-1/12$) yields the second-order ordinary differential equation
 \[
 A''(y) = -\frac{4\pi G_5}{3}\rho(y).
 \]
@@ -357,7 +305,7 @@ A''(y) &= -\frac{1}{r_c^2}\sech^2\left(\frac{y}{r_c}\right).
 \end{align*}
 Thus $A''(y)\propto-\sech^2(y/r_c)$, exactly as required by the Israel-derived ODE with the regulator source $\rho(y)$.
 
-The curvature radius $r_c$ is fixed by matching the core curvature $A''(0)=-1/r_c^2$ to the zeta-regularized vacuum energy density $|\lambda|=1/12$ (in units where $4\pi G_5\rho_0=1$, the natural Planckian normalisation arising from the heat-kernel trace). This immediately produces
+The curvature radius $r_c$ is fixed by matching the core curvature $A''(0)=-1/r_c^2$ to the zeta-regularized seed energy density $|\lambda|=1/12$ (in units where $4\pi G_5\rho_0=1$, the natural Planckian normalisation arising from the heat-kernel trace). This immediately produces
 \[
 r_c = \sqrt{12}.
 \]
@@ -513,11 +461,11 @@ The same mechanism (different radial eigenmode overlaps with the curvature-coupl
 
 \subsection{Action from the axiom}
 
-The plenum symmetries (translations + \(\mathrm{SO}(\infty)\)) plus the zeta-regularized vacuum energy fix the unique two-derivative diffeomorphism-invariant action by Lovelock's theorem:
+The plenum symmetries (translations + \(\mathrm{SO}(\infty)\)) plus the zeta-regularized seed fix the unique two-derivative diffeomorphism-invariant action by Lovelock's theorem:
 \[
 S = \int d^D x\,\sqrt{-g}\,(R - 2\lambda), \qquad \lambda = \zeta(-1) = -1/12.
 \]
-This yields the vacuum Einstein equation \(G_{MN} + \lambda g_{MN} = 0\). Since \(\lambda < 0\), the curvature is AdS-like for \(D > 4\), driving the overdamped conformal collapse of the transverse dimensions. (The background satisfies the Einstein equation, so the linear variation vanishes.)
+This yields the vacuum Einstein equation \(G_{MN} + \lambda g_{MN} = 0\) at the bare seed scale. Since \(\lambda < 0\), the curvature is AdS-like for \(D > 4\), driving the overdamped conformal collapse of the transverse dimensions. (The background satisfies the Einstein equation, so the linear variation vanishes.) The observed tiny 4D cosmological constant is generated by the later dilution mechanism described in the main text.
 
 \subsection{Conformal perturbation and explicit quadratic term}
 

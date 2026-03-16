@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.31)  11 MAR 2026 09:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.31)  11 MAR 2026 11:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -709,21 +709,16 @@ File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 [1
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Overfull \hbox (1.82246pt too wide) in paragraph at lines 106--108
-\OT1/cmr/m/n/10.95 where $\OML/cmm/m/it/10.95 r \OT1/cmr/m/n/10.95 = []$, to an in-de-pen-dent har-monic os-cil-la-tor us-ing stan-dard collective-coordinate
- []
-
-
 
 [2]
-Overfull \hbox (0.27405pt too wide) in paragraph at lines 112--114
-\OT1/cmr/m/n/10.95 where $\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 u\OMS/cmsy/m/n/10.95 i$ \OT1/cmr/m/n/10.95 is the nor-malised ra-dial di-la-tion vec-tor, or-thog-o-nal (by con-struc-tion of the Bogoliubov--
- []
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 111.
 
 
 
 [3]
-Overfull \hbox (1.08247pt too wide) in paragraph at lines 172--173
+Overfull \hbox (1.08247pt too wide) in paragraph at lines 161--162
 \OT1/cmr/m/n/10.95 forces the un-cer-tainty re-la-tion and path-integral struc-ture. Col-lapse is clas-si-cal brane avalanches. 
  []
 
@@ -734,19 +729,19 @@ Overfull \hbox (1.08247pt too wide) in paragraph at lines 172--173
 [5]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 271.
+(hyperref)                than one, level fixed on input line 260.
 
 
 
 [6]
 
 [7]
-Overfull \hbox (15.7548pt too wide) in paragraph at lines 347--359
+Overfull \hbox (15.7548pt too wide) in paragraph at lines 336--348
  [][] 
  []
 
 
-Overfull \hbox (147.7548pt too wide) in paragraph at lines 367--376
+Overfull \hbox (147.7548pt too wide) in paragraph at lines 356--365
  [][] 
  []
 
@@ -755,7 +750,7 @@ Overfull \hbox (147.7548pt too wide) in paragraph at lines 367--376
 [8]
 
 [9]
-Overfull \hbox (42.21854pt too wide) in paragraph at lines 444--453
+Overfull \hbox (42.21854pt too wide) in paragraph at lines 433--442
  [][] 
  []
 
@@ -764,31 +759,33 @@ Overfull \hbox (42.21854pt too wide) in paragraph at lines 444--453
 [10]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 498.
+(hyperref)                removing `math shift' on input line 487.
 
 
 
-[11] (./bh-tower-cosmology.aux)
+[11]
+
+[12] (./bh-tower-cosmology.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `bh-tower-cosmology.out' has not changed.
-(rerunfilecheck)             Checksum: F692B52D46A5F3177C852EE48F9B7459;5874.
+(rerunfilecheck)             Checksum: 17516EC00976959C2F98E44A66FDBFFF;5935.
  ) 
 Here is how much of TeX's memory you used:
- 29389 strings out of 473190
- 606548 string characters out of 5715800
- 945128 words of memory out of 5000000
+ 29390 strings out of 473190
+ 606555 string characters out of 5715800
+ 946128 words of memory out of 5000000
  52197 multiletter control sequences out of 15000+600000
  572355 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 98i,12n,105p,883b,1182s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,12n,105p,963b,1185s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on bh-tower-cosmology.pdf (11 pages, 316057 bytes).
+Output written on bh-tower-cosmology.pdf (12 pages, 319123 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 223 compressed objects within 3 object streams
- 40 named destinations out of 1000 (max. 500000)
+ 291 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 41 named destinations out of 1000 (max. 500000)
  189 words of extra memory for PDF output out of 10000 (max. 10000000)
 
