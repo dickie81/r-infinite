@@ -1,26 +1,71 @@
 cff-version: 1.2.0
-message: "If you use this preprint or code, please cite it as below."
-title: "Infinite Nested Black-Hole Tower Cosmology"
+message: "If you use this work, please cite it as below."
+title: "The Cascade Series"
 authors:
-  - family-names: Anonymous
-    given-names: "(for arXiv submission)"
-    orcid: ""  # leave blank until arXiv submission
-date-released: "2026-02-01"
-version: "v1.0"
-doi: ""  # will be filled once on arXiv/Zenodo
+  - family-names: RTAC
+    orcid: ""
+date-released: "2026-03-01"
+version: "v0.0"
+doi: ""
 url: "https://github.com/dickie81/r-infinite"
 repository-code: "https://github.com/dickie81/r-infinite"
 license: "CC-BY-4.0"
+abstract: >-
+  The cascade series tests one hypothesis: the infinite-dimensional unit ball,
+  descended to four dimensions, is indistinguishable from our universe. From a
+  single axiom (orthogonality) and with zero free parameters, the series derives
+  the cosmological constant, quantum mechanics, general relativity with d=4 and
+  Lorentzian signature, the Standard Model gauge group and its symmetry breaking,
+  three fermion generations, precision mass and coupling predictions, and the
+  background cosmological parameters including a Hubble constant between the two
+  competing measurements.
 keywords:
-  - cosmology
-  - higher-dimensional gravity
-  - Gregory-Laflamme
-  - pregeometric plenum
+  - sphere-area cascade
+  - cosmological constant
+  - Bott periodicity
+  - Lovelock uniqueness
+  - hairy ball theorem
+  - Adams theorem
+  - Gamma function
   - parameter-free theory
+  - gauge symmetry breaking
+  - fermion mass spectrum
+  - DESI BAO
+  - Hubble tension
 references:
   - type: article
-    title: "Infinite Nested Black-Hole Tower Cosmology: 4D as the Stable Junction from Generalized Gregory–Laflamme Instability..."
+    title: "The Cascade Series --- Part I: Scale Variance from Orthogonality"
     authors:
-      - family-names: Anonymous
+      - family-names: RTAC
+    year: 2026
+    url: "https://github.com/dickie81/r-infinite"
+  - type: article
+    title: "The Cascade Series --- Part II: Quantum Mechanics from the Cascade"
+    authors:
+      - family-names: RTAC
+    year: 2026
+    url: "https://github.com/dickie81/r-infinite"
+  - type: article
+    title: "The Cascade Series --- Part III: General Relativity from the Cascade"
+    authors:
+      - family-names: RTAC
+    year: 2026
+    url: "https://github.com/dickie81/r-infinite"
+  - type: article
+    title: "The Cascade Series --- Part IVa: The Standard Model from the Cascade (Gauge Group, Symmetry Breaking, Three Generations)"
+    authors:
+      - family-names: RTAC
+    year: 2026
+    url: "https://github.com/dickie81/r-infinite"
+  - type: article
+    title: "The Cascade Series --- Part IVb: The Standard Model from the Cascade (Masses, Couplings, Precision Predictions)"
+    authors:
+      - family-names: RTAC
+    year: 2026
+    url: "https://github.com/dickie81/r-infinite"
+  - type: article
+    title: "The Cascade Series --- Part V: Cosmology from the Cascade"
+    authors:
+      - family-names: RTAC
     year: 2026
     url: "https://github.com/dickie81/r-infinite"
