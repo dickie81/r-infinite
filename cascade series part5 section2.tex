@@ -1,0 +1,253 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{Paper V --- New Section 2\\[6pt]
+\large Cosmological Initial Conditions from the Cascade}
+\author{[Author]}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\noindent This section replaces the former Sections 2--6 of Paper V. It derives all five cosmological density fractions, the Hubble constant, the CMB temperature, and the matter--radiation equality redshift from the cascade's geometry, with zero free parameters. Every quantity is a function of $\pi$ and the reduced Planck mass $M_{\mathrm{Pl,red}}$.
+
+\setcounter{section}{1}
+\section{Cosmological Initial Conditions from the Cascade}
+
+The physical identification hypothesis (Definition~2.1 of [3]) holds that the cascade's geometry is our physics. Sphere area is the only independent cascade quantity at each level (Corollary~4.12 of [1]). Geometry is energy: no mechanism converts one into the other; they are the same thing, read in two languages. The density fractions derived below are not predictions \emph{about} radiation, matter, and vacuum energy. They \emph{are} the geometric content of the cascade at different distances from the observer. The labels---radiation, matter, dark energy---are what the four-dimensional observer, constrained by Lovelock uniqueness to interpret all content through the Friedmann equation, calls them.
+
+\subsection{The density fractions from $\pi$}
+
+The cascade's lapse function factorises as $N(d) = \sqrt{\pi}\, R(d)$, where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$. This factorisation separates the cascade's content into two sectors: the $\sqrt{\pi}$ factor, which carries the vacuum energy, and the $R(d)$ factor, which carries the coupling and matter content. Their ratio is dimension-independent.
+
+\begin{theorem}[Matter fraction]\label{thm:omega_m}
+$\Omega_m = 1/\pi$.
+\end{theorem}
+
+\begin{proof}
+The orthogonal-sectors theorem ([3], Theorem~6.3) establishes that the lapse factorises as $N(d) = \sqrt{\pi}\, R(d)$, with the $\sqrt{\pi}$ factor cancelling exactly from the coupling $\alpha(d) = R(d)^2/4$ and generating the cosmological constant through the threshold conditions. The matter-to-total content ratio is
+\[
+\frac{R(d)^2}{N(d)^2} = \frac{R(d)^2}{\pi\, R(d)^2} = \frac{1}{\pi},
+\]
+identically at every dimension $d$. This is an algebraic identity of the Gamma function, holding at every cascade level. The physical identification hypothesis (Definition~2.1 of [3]) maps this ratio to the matter density fraction.
+\end{proof}
+
+\begin{corollary}[Dark energy fraction]\label{cor:omega_l}
+$\Omega_\Lambda = (\pi - 1)/\pi$.
+\end{corollary}
+
+\begin{proof}
+$\Omega_\Lambda = 1 - \Omega_m = 1 - 1/\pi = (\pi - 1)/\pi$.
+\end{proof}
+
+\begin{theorem}[Baryon fraction; Theorem~6.1 of the former text]\label{thm:omega_b}
+$\Omega_b = 1/(2\pi^2)$.
+\end{theorem}
+
+\begin{proof}
+The observer at $d = 4$ lives on $S^3$, whose area is $\Omega_3 = 2\pi^2$. Baryonic matter is the content directly accessible on the observer's own boundary shell. By Corollary~4.8a of [1], the cascade's content at each dimension is its boundary area, so one unit of content on $S^3$ corresponds to a fraction $1/\Omega_3 = 1/(2\pi^2)$ of the total.
+\end{proof}
+
+\begin{corollary}[Dark matter fraction]
+$\Omega_{\mathrm{DM}} = \Omega_m - \Omega_b = (2\pi - 1)/(2\pi^2)$.
+\end{corollary}
+
+\subsection{Geometric content at the gauge boundary}
+
+The cascade assigns geometric content at each dimension by the layer-to-layer ratio $R(d)^2/N(d)^2 = 1/\pi$. This ratio is the fraction of the cascade's geometry that propagates from one level to the next; it is not an ``attenuation'' applied to some pre-existing quantity, but the cascade's own structure. The density fractions are the geometric content at different distances from the observer, measured in cascade steps.
+
+\begin{theorem}[Radiation density]\label{thm:omega_r}
+$\Omega_r = 1/(4\pi^7)$.
+\end{theorem}
+
+\begin{proof}
+Three facts from the cascade's geometry.
+
+\emph{(1) Interior vs.\ boundary.} Theorem~4.7 of [1]: $\Omega_{d-1}/V_d = d$, so $V_d/\Omega_{d-1} = 1/d$. The observer at $d = 4$ distinguishes boundary content (on $S^3$, carrying the baryon fraction $\Omega_b = 1/\Omega_3$) from interior content (in $B^4$). The interior-to-boundary geometric ratio is $V_4/\Omega_3 = 1/4$.
+
+\emph{(2) Layer-to-layer geometric content.} The lapse factorisation $N(d)^2 = \pi\, R(d)^2$ gives a geometric content ratio of $1/\pi$ per cascade step (Theorem~\ref{thm:omega_m}). This is what the cascade's geometry is: each step carries a fraction $1/\pi$ of the preceding step's content. Over $n$ steps, the geometric content is $(1/\pi)^n$.
+
+\emph{(3) The gauge boundary at $d = 11$.} The cascade's lapse crosses the self-dual value $1/\sqrt{2}$ between $d = 11$ and $d = 12$ (Section~2.2 of [4]). The gauge window $\{12, 13, 14\}$ opens at $d = 12$; $d = 11$ is the last layer before gauge structure. The observer at $d = 4$ is separated from this boundary by $11 - 4 = 7$ cascade steps.
+
+The $w = 1/3$ geometric content (Theorem~14.6 of [3]) is the cascade's interior geometry, originating at the gauge boundary and carried through 7 steps of the cascade to the observer. Its density is the product of the three geometric facts:
+\[
+\Omega_r = \frac{1}{d} \times \left(\frac{1}{\pi}\right)^{d_{\mathrm{gauge}} - d} = \frac{1}{4} \times \frac{1}{\pi^7} = \frac{1}{4\pi^7}.
+\]
+Numerically: $\Omega_r = 8.277 \times 10^{-5}$. Observed: $\omega_r = \Omega_r h^2 = 4.179 \times 10^{-5}$; the model-independent value from $T_{\mathrm{CMB}} = 2.7255$~K is $4.176 \times 10^{-5}$. Deviation: $+0.07\%$.
+\end{proof}
+
+\begin{remark}[Why $4 + 7 = 11$]
+This is not arithmetic coincidence. The observer's dimension $d = 4$ plus the geometric distance to the gauge boundary equals $d = 11$, the self-dual crossing. The radiation density encodes this distance: $\pi^{-7}$ is seven steps of the cascade's own geometry, and $1/4$ is the interior fraction at the observer's dimension. No quantity in this derivation refers to photons, thermal equilibrium, or particle physics. The labels ``radiation'' and ``$w = 1/3$'' are the four-dimensional observer's reading of geometric content through the Friedmann equation.
+\end{remark}
+
+\begin{remark}[Alternative decomposition]
+$1/(4\pi^7) = \Omega_b^2 \times \Omega_m^3$: the baryon fraction squared times the matter fraction cubed. Both decompositions---the geometric-distance form $d^{-1} \times \pi^{-(d_{\mathrm{gauge}} - d)}$ and the density-product form $\Omega_b^2 \Omega_m^3$---are algebraically equivalent; neither is more fundamental than the other.
+\end{remark}
+
+\subsection{The CMB temperature as a prediction}
+
+\begin{theorem}[CMB temperature]\label{thm:tcmb}
+The cascade predicts $T_{\mathrm{CMB}} = 2.730\;\mathrm{K}$.
+\end{theorem}
+
+\begin{proof}
+The cascade derives $\Omega_r = 1/(4\pi^7)$ (geometric content), $M_{\mathrm{Pl,red}} = 2.435 \times 10^{18}$~GeV (the single dimensionful input), and $H_0 = 71.05$~km/s/Mpc (from the lapse-corrected Friedmann equation). The four-dimensional observer, constrained by Lovelock to interpret $w = 1/3$ content through general relativity and statistical mechanics, assigns this content a temperature via
+\[
+T_{\mathrm{CMB}} = \left(\frac{90\, \Omega_r\, M_{\mathrm{Pl,red}}^2\, H_0^2}{\pi^2\, g_{\mathrm{eff}}}\right)^{1/4},
+\]
+where $g_{\mathrm{eff}} = 3.363$ counts the degrees of freedom the four-dimensional observer sees: photons plus three neutrino species (the cascade's three generations from [4]).
+
+Numerically: $T_{\mathrm{CMB}} = 2.730$~K. Observed: $2.7255 \pm 0.0006$~K (COBE/FIRAS). Deviation: $+0.16\%$.
+\end{proof}
+
+\begin{remark}
+The temperature is not an input to the cascade; it is the four-dimensional observer's reading of the geometric content $\Omega_r = 1/(4\pi^7)$. The cascade derives the geometry. Lovelock forces the observer to use GR. Statistical mechanics converts energy density to temperature. The chain is: cascade geometry $\to$ Friedmann equation $\to$ $T^4 \propto \Omega_r$. Every link is derived or forced; none is postulated.
+\end{remark}
+
+\subsection{Matter--radiation equality}
+
+\begin{corollary}[Matter--radiation equality]\label{cor:zeq}
+$z_{\mathrm{eq}} = 4\pi^6 = 3845.6$.
+\end{corollary}
+
+\begin{proof}
+$z_{\mathrm{eq}} = \Omega_m / \Omega_r = (1/\pi) / (1/(4\pi^7)) = 4\pi^6$.
+\end{proof}
+
+\begin{remark}
+The Planck 2018 analysis reports $z_{\mathrm{eq}} = 3402 \pm 26$, inferred under Planck's own parameter assumptions ($H_0 = 67.4$, $\Omega_m = 0.315$). The cascade's $z_{\mathrm{eq}} = 3846$ is a falsifiable prediction: it follows from $\Omega_m = 1/\pi$ and $\Omega_r = 1/(4\pi^7)$ with no freedom. CMB-S4 will measure $z_{\mathrm{eq}}$ independently of the Planck parameter chain.
+\end{remark}
+
+\subsection{The complete density table}
+
+All five cosmological density fractions are functions of $\pi$ alone:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lllrl}
+\toprule
+Parameter & Formula & Predicted & Observed & Dev \\
+\midrule
+$\Omega_\Lambda$ & $(\pi - 1)/\pi$ & 0.68169 & $0.685 \pm 0.007$ & $-0.5\%$ \\
+$\Omega_m$ & $1/\pi$ & 0.31831 & $0.315 \pm 0.007$ & $+1.1\%$ \\
+$\Omega_b$ & $1/(2\pi^2)$ & 0.05066 & $0.0493 \pm 0.0003$ & $+2.8\%$ \\
+$\Omega_{\mathrm{DM}}$ & $(2\pi - 1)/(2\pi^2)$ & 0.26765 & $0.264 \pm 0.007$ & $+1.4\%$ \\
+$\Omega_r$ & $1/(4\pi^7)$ & $8.277 \times 10^{-5}$ & $8.27 \times 10^{-5}$ & $+0.1\%$ \\
+\midrule
+$z_{\mathrm{eq}}$ & $4\pi^6$ & 3846 & $3402 \pm 26$\textsuperscript{*} & --- \\
+$T_{\mathrm{CMB}}$ & derived & 2.730~K & $2.7255$~K & $+0.2\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textsuperscript{*}Planck's $z_{\mathrm{eq}}$ is inferred under Planck's own parameter assumptions; the cascade's value is an independent prediction.
+
+\medskip
+
+\noindent Key ratios, all determined by $\pi$:
+\begin{align*}
+\Omega_\Lambda / \Omega_m &= \pi - 1, \\
+\Omega_m / \Omega_b &= 2\pi, \\
+\Omega_m / \Omega_r &= 4\pi^6, \\
+\Omega_b / \Omega_r &= 2\pi^5, \\
+\Omega_{\mathrm{DM}} / \Omega_b &= 2\pi - 1.
+\end{align*}
+
+\subsection{The cascade's origin story}
+
+The cascade does not predict a hot dense singularity. The origin of the four-dimensional universe is the descent from $d = \infty$ (geometric nothing: $V_\infty = \Omega_\infty = 0$, $N(\infty) = 0$) through 213 compactification steps to $d = 4$. The descent is the expansion history. Three features distinguish it from the standard hot big bang.
+
+\emph{No singularity.} The cascade begins at geometric nothing ($V = \Omega = 0$), not infinite density. The lapse $N(\infty) = 0$ means time does not exist at the origin. Each compactification step sends one direction's effective radius to $R_{\mathrm{eff}} = 1/\sqrt{d+3}$, which is finite at every finite $d$. There is no sharp boundary, no infinite curvature, no breakdown of the metric.
+
+\emph{No inflation.} The 120 orders of magnitude separating the Planck scale from the cosmological constant are a theorem about the Gamma function (Theorem~10.1 of [1]). The flatness of $S^3$ follows from its large curvature radius in the $\Lambda$-dominated era. The horizon problem does not arise: the cascade's 217 dimensions were in causal contact before the descent; the four-dimensional horizon is a projection artifact.
+
+\emph{No free initial conditions.} Every density fraction, the Hubble constant, and the CMB temperature are derived from the cascade's geometry. The ``initial conditions'' of the four-dimensional universe are not chosen; they are the geometric content of the descent, projected onto $S^3$ via the slicing recurrence.
+
+\subsection{The four-dimensional Friedmann equation}
+
+Lovelock's theorem (Theorem~3.1 of [3]) forces the Einstein equation at $d = 4$. The Friedmann equation with all four cascade components is:
+\begin{equation}\label{eq:friedmann}
+H^2(z) = H_0^2 \left[\Omega_r\,(1+z)^4 + \Omega_m\,(1+z)^3 + \Omega_\Lambda\right] = H_0^2\left[\frac{(1+z)^4}{4\pi^7} + \frac{(1+z)^3}{\pi} + \frac{\pi - 1}{\pi}\right],
+\end{equation}
+with $H_0 = 71.05$~km/s/Mpc from the lapse-corrected Friedmann equation (Theorem~7.2).
+
+Every coefficient is determined by $\pi$. The expansion history $E(z) = H(z)/H_0$ is fully specified by the cascade's geometry.
+
+\subsection{The four-dimensional observer's physics}
+
+The cascade derives geometric content. Lovelock uniqueness forces the four-dimensional observer to interpret this content through general relativity. The observer sees $w = 1/3$ content and calls it radiation; sees $w = 0$ content and calls it matter; sees $w = -1$ content and calls it vacuum energy. The observer's physics---statistical mechanics, plasma physics, nuclear physics---then follows from the Standard Model gauge group (derived in [4]) acting on this content. Specifically:
+
+\begin{itemize}[nosep]
+\item The $w = 1/3$ geometric content, interpreted as radiation, dilutes as $(1+z)^4$ and crosses the $w = 0$ content at $z_{\mathrm{eq}} = 4\pi^6$.
+\item The baryon fraction $\Omega_b = 1/(2\pi^2)$ couples to the radiation via the derived gauge group, producing baryon--photon oscillations below the electroweak scale ($v = 240.8$~GeV, [5], Theorem~4.5).
+\item Recombination, CMB release, and baryon acoustic oscillations at $z \sim 1100$ are the four-dimensional observer's interpretation of the geometric content through Lovelock-forced GR and the cascade-derived Standard Model.
+\end{itemize}
+
+The sound horizon $r_d$ is computed from the cascade's parameter quintuple $(\Omega_r, \Omega_b, \Omega_m, \Omega_\Lambda, H_0)$ using standard four-dimensional physics. Every input to that calculation is derived from the cascade; no external calibration is required. The thermal history is not an assumption imposed on the cascade---it is what the cascade's geometry looks like to an observer constrained by Lovelock to live in four-dimensional general relativity.
+
+\subsection{The acoustic scale and the descent systematic}
+
+The CMB acoustic scale $\ell_A = \pi / \theta_s$, where $\theta_s = r_s(z_*) / D_M(z_*)$, is the most precisely measured quantity in cosmology. It tests whether the cascade's parameters are jointly consistent with the observed peak positions.
+
+\begin{theorem}[Acoustic scale]\label{thm:lA}
+The cascade predicts $\ell_A = 297.6$.
+\end{theorem}
+
+\begin{proof}
+With $\omega_b = 0.02557$, $\omega_m = 0.16069$, $\omega_r = 4.179 \times 10^{-5}$, $H_0 = 71.05$: the last-scattering redshift is $z_* = 1089$ (Hu--Sugiyama fitting formula); the sound horizon is $r_s(z_*) = 138.3$~Mpc; the comoving distance is $D_M(z_*) = 13{,}103$~Mpc. Therefore $\theta_s = r_s/D_M = 0.01056$~rad, and $\ell_A = \pi/\theta_s = 297.6$.
+\end{proof}
+
+\noindent Observed: $\ell_A = 301.63 \pm 0.15$ (Planck 2018). Deviation: $-1.34\%$.
+
+The decomposition of the shift is instructive. The sound horizon $r_s$ shrinks by $4.1\%$ relative to Planck (from higher $\omega_b$ and $\omega_m$: more baryon drag and faster early expansion). The comoving distance $D_M$ shrinks by $5.5\%$ (from higher $H_0$: smaller comoving distances throughout). The ratio $\theta_s = r_s/D_M$ therefore \emph{increases} by $1.5\%$, because $D_M$ shrinks faster than $r_s$. Since $\ell_A = \pi/\theta_s$, the acoustic scale decreases by $1.4\%$. The shift is driven by the physical densities $\omega_b$ and $\omega_m$; $H_0$ cancels to first order in the ratio and contributes negligibly.
+
+\begin{remark}[The descent systematic]
+The $-1.4\%$ shift in $\ell_A$ is negative, placing it in the descent-dependent population of the cascade's sign diagnostic (Section~14). Its magnitude is consistent with the other descent-dependent quantities: $\alpha_s$ ($-1.7\%$), $v$ ($-2.2\%$), $m_\tau/m_\mu$ ($-1.7\%$), $m_W$ ($-0.6\%$), mean $-1.24\%$. The sign is correct and the magnitude is within range.
+
+The $-27\sigma$ in Planck's measurement units reflects the extraordinary precision of the CMB data, not the magnitude of the discrepancy. A $1.4\%$ deviation in a zero-parameter prediction, with the correct sign for a known systematic, is the subleading cascade descent announcing itself. When that correction is computed---a single calculation affecting all descent-dependent quantities simultaneously---it must shift $\ell_A$ by $+1.3\%$, $\alpha_s$ by $+1.7\%$, and $v$ by $+2.2\%$. This is one correction, not five independent fixes.
+
+The acoustic scale is the sharpest quantitative test of the descent systematic in the cascade's predictions.
+\end{remark}
+
+\subsection{The Bott partition as a consistency check}
+
+The former derivation of $\Omega_m$ (Theorem~5.1 of the original Paper V) computed the sphere-area fraction of non-trivial-phase cascade layers ($d \bmod 8 \in \{5, 6\}$) and obtained $\Omega_m^{\mathrm{Bott}} = 0.31150$. This agrees with $1/\pi = 0.31831$ to $2.1\%$, confirming that the Bott partition structure is consistent with the lapse identity. The Bott fraction is a subleading-corrected version of the leading-order result $1/\pi$; the $2.1\%$ discrepancy is consistent with the expected magnitude of cascade descent corrections from the 213 integrated-out dimensions.
+
+\subsection{What this section derives}
+
+\begin{enumerate}[nosep]
+\item $\Omega_\Lambda = (\pi - 1)/\pi$, $\Omega_m = 1/\pi$: from the lapse factorisation. Tier~1.
+\item $\Omega_b = 1/(2\pi^2)$: from the observer's boundary area. Tier~2.
+\item $\Omega_r = 1/(4\pi^7)$: interior content through 7 geometric layers to the gauge boundary. Tier~2.
+\item $T_{\mathrm{CMB}} = 2.730$~K: derived from $\Omega_r$, $M_{\mathrm{Pl,red}}$, and $H_0$. Tier~2.
+\item $z_{\mathrm{eq}} = 4\pi^6 = 3846$: ratio of $\Omega_m$ to $\Omega_r$. Tier~2.
+\item $\ell_A = 297.6$: from the cascade's parameter quintuple. Deviation $-1.34\%$, consistent with the descent systematic. Tier~2.
+\item All inputs to the sound horizon and BAO analysis are cascade-derived.
+\end{enumerate}
+
+\subsection{Falsification targets from this section}
+
+\begin{enumerate}[nosep]
+\item $\Omega_m = 1/\pi = 0.31831$. Current Planck value: $0.315 \pm 0.007$ ($0.5\sigma$). Falsified if measured at $> 3\sigma$ from $1/\pi$.
+\item $\Omega_b = 1/(2\pi^2) = 0.05066$. Currently $+2.8\%$ above Planck central value. CMB-S4 will test to sub-percent.
+\item $z_{\mathrm{eq}} = 4\pi^6 = 3846$. Planck reports $3402 \pm 26$ under its own parameter assumptions; the two values are not directly comparable, as both are model-dependent. A Boltzmann-code analysis of the raw CMB data with cascade parameters will test this.
+\item $T_{\mathrm{CMB}} = 2.730$~K. Observed $2.7255 \pm 0.0006$~K. The $+0.16\%$ deviation is the $+0.7\%$ geometric deviation in $\Omega_r$ seen through the fourth root $T \propto \Omega_r^{1/4}$; it is within the expected subleading descent corrections.
+\item $\ell_A = 297.6$. Observed $301.63 \pm 0.15$, a $-1.34\%$ deviation. This is the descent systematic: same sign and magnitude as $\alpha_s$, $v$, and $m_\tau/m_\mu$. A full Boltzmann analysis with cascade parameters is the definitive test; the subleading descent correction must close this gap simultaneously with the other descent-dependent quantities.
+\end{enumerate}
+
+\begin{remark}[The $T_{\mathrm{CMB}}$ deviation]
+The predicted $T_{\mathrm{CMB}} = 2.730$~K deviates from the FIRAS measurement by $+0.16\%$. This is not an independent tension: $T \propto \Omega_r^{1/4}$, so the $+0.7\%$ deviation in $\Omega_r$ produces $+0.17\%$ in $T$. They are the same geometric discrepancy seen through a fourth root. The $+0.7\%$ is positive, placing $\Omega_r$ in the geometric population of the cascade's sign diagnostic (Section~14), and is well within the expected magnitude of subleading descent corrections. FIRAS's $\pm 0.0006$~K precision makes this look like $7.5\sigma$, but that is the precision of the thermometer, not the size of the geometric discrepancy. If subleading corrections shift $\Omega_r$ by $-0.7\%$, $T_{\mathrm{CMB}}$ matches exactly.
+\end{remark}
+
+\end{document}

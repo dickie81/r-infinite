@@ -1,0 +1,844 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{The Cascade Series --- Part III}\\[6pt]
+General Relativity, Four Dimensions,\\
+and Lorentzian Signature from the Cascade:\\
+Lovelock Uniqueness, Spinor Compatibility,\\
+and the Cosmological Constant}
+\author{[Author]}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The sphere-area cascade [1] derives a geometric invariant $I = 1.0996 \times 10^{-120}$
+from orthogonality alone. The companion paper [2] shows that the cascade geometry
+produces complex quantum mechanics via a forced precession angle $\alpha = \pi/2$. This
+paper derives, from the same orthogonality axiom and with no additional empirical
+input: (1) general relativity with cosmological constant $\Lambda = I$; (2) the observer's
+spacetime dimension $d = 4$; and (3) Lorentzian metric signature $(-,+,+,+)$.
+
+The argument has four components. \textbf{The cascade metric} (Section 4): the slicing
+recurrence produces a foliated FRW-type metric with a natural lapse function and
+extrinsic curvature. \textbf{Lovelock uniqueness} (Section 3): the Einstein equation with
+cosmological constant is the unique divergence-free symmetric rank-2 metric equation
+in exactly four spacetime dimensions. \textbf{Dimension derivation} (Section 9): $d = 4$ is the
+unique dimension satisfying simultaneously (C1) the Clifford algebra classification
+requires irreducibly complex spinors (forced by the cascade's $J^2 = -\text{Id}$), and (C2)
+Lovelock uniqueness holds. The intersection of these conditions is $\{4\}$. A third
+independent characterisation is established in Corollary 9.4: the Lorentzian cascade
+metric has Ricci scalar $R^{(n)} = (n-1)(n-4)/a^4$, vanishing uniquely at $n = 4$.
+\textbf{Lorentzian signature} (Section 10): the cascade produces both a Euclidean geometry
+and a quantum propagator $e^{-i\lambda x}$ with $\lambda > 0$ from the forced precession. Given the
+physical identification hypothesis, the propagator $e^{-iHt}$ with $H > 0$ is oscillatory
+and unitary: Lorentzian time evolution. The signature $(-,+,+,+)$ follows without
+semiclassics or analytic continuation.
+
+The cosmological constant $\Lambda = I$ is derived, not fitted. The cascade's dark
+energy equation of state is $w = -1$ exactly: $\Lambda = I$ is a fixed geometric constant
+with no time-evolution mechanism, so $w = -1$ by definition. The Gauss--Bonnet
+correction at $d = 5$ vanishes identically by two independent mechanisms (totally
+umbilic cancellation and parity of the residual integrand), confirming the prediction is
+structurally stable. The supplement (Section 14) proves the compactification radius
+at each step is $R_{\text{eff}}(d) = 1/\sqrt{d + 3}$ exactly (from the Beta function), and presents the
+exact Lorentzian Gauss--Codazzi analysis: the cascade metric contributes $w = 1/3$
+(radiation) in cascade time, and $K_{\mu\nu} = 0$ at every equatorial embedding eliminates
+the extrinsic curvature mechanism. These results resolve the question of the cascade's
+matter fraction: the geometric route via Gauss--Codazzi is definitively closed, and
+the matter fraction $\Omega_m$ is a topological quantity determined by the Bott partition of
+cascade layers, not by the cascade metric geometry.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Division of Labour and Summary of the Series}
+
+\subsection{The architecture}
+
+The three-paper core rests on one hypothesis and three uniqueness theorems.
+
+The hypothesis (this paper, Section 2): the cascade's abstract geometry is our physics.
+Without it, the series is pure mathematics; with it, every physical result is a prediction
+that tests the hypothesis.
+
+The structure: the cascade provides geometric content; classical uniqueness theorems
+identify the unique physical theory consistent with that content.
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Paper & Cascade provides & Uniqueness provides \\
+\hline
+I [1] & $\Omega_d$ cascade, $I \approx 10^{-120}$ & --- (pure geometry) \\
+II [2] & Complex state space, propagator $e^{-iHt}$ & Gleason (Born rule) \\
+III (this) & Metric, $\Lambda = I$, $d = 4$, $(-,+,+,+)$ & Lovelock, Clifford, propagator \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{What this paper proves}
+
+Given the physical identification hypothesis (Section 2), this paper derives four results
+from the orthogonality axiom of [1]:
+
+\begin{enumerate}
+\item The cascade produces a foliated spacetime geometry with a natural lapse function
+$N(d) = \sqrt{\pi} \cdot R(d)$ and a FRW-type 4D metric.
+\item By Lovelock's theorem, the unique gravitational equation available to a 4D observer
+is the Einstein equation; the cosmological constant equals the cascade invariant
+$\Lambda = I$.
+\item $d = 4$ is the unique spacetime dimension satisfying both the cascade's forced complex
+spinor requirement and Lovelock uniqueness.
+\item Lorentzian metric signature $(-,+,+,+)$ is the unique signature consistent with the
+cascade's forced propagator $e^{-iHt}$ with $H > 0$.
+\end{enumerate}
+
+\section{The Physical Identification Hypothesis}
+
+The cascade is a mathematical object: a sequence of sphere areas $\{\Omega_d\}$ derived from
+orthogonality. Paper I [1] is pure mathematics; it makes no physical claim beyond recording
+the numerical coincidence $I \approx \rho_\Lambda/M_{\text{Pl}}^4$. Paper II [2] shows the cascade's state space has the
+structure of quantum mechanics. This paper derives the cascade's gravitational structure.
+Both Papers II and III require one physical input.
+
+\begin{definition}[Physical identification hypothesis]
+The infinite-dimensional unit ball,
+descended to four dimensions, is indistinguishable from our universe. Concretely: the
+cascade metric is the spacetime metric; the cascade propagator is the physical time-evolution
+operator; the cascade invariant $I$ is the cosmological constant. This hypothesis is the
+claim that the cascade's abstract geometry is our physics. Without it, the series is pure
+mathematics; with it, every physical result is a prediction that tests the hypothesis.
+\end{definition}
+
+\begin{remark}[Uniformity of the physical identification]
+Definition 2.1 maps cascade
+content to physical energy uniformly across all layer types. By Corollary 4.8a of [1], sphere
+area $\Omega_{d-1}$ is the only independent cascade quantity at level $d$; every other cascade object
+is derived from sphere areas. Therefore the identification assigns energy $C \cdot \Omega_{d-1}$ at each
+level with $C$ a universal constant---no layer-type-dependent modulation is available, because
+no independent geometric quantity exists to carry such modulation. Matter and vacuum
+are observer labels applied to the Bott partition of cascade layers: the propagator phase
+classification ([2], Remark 6.5) establishes the partition topologically, and the fermion
+generation structure ([3]) identifies which sector is matter via the hairy ball zeros and
+observed generations. The cascade geometry itself makes no distinction between the sectors.
+\end{remark}
+
+\begin{remark}
+The physical identification hypothesis does not assume: the dimension of
+spacetime (derived as $d = 4$ in Section 9); the metric signature (derived in Section 10);
+the form of the gravitational equation (derived via Lovelock); or the value of $\Lambda$ (derived as
+$I$ from [1]). It assumes only that the cascade corresponds to something physical. This is
+the minimal assumption needed to connect abstract geometry to physics.
+\end{remark}
+
+\section{Lovelock's Theorem and the Privilege of Four Dimensions}
+
+\begin{theorem}[Lovelock {\cite{lovelock1,lovelock2}}]
+Let $(M, g)$ be a smooth $d$-dimensional Lorentzian manifold
+with $d = 4$. The most general symmetric divergence-free rank-2 tensor constructed from
+$g_{\mu\nu}$ and its first and second derivatives is
+\[
+E^{\mu\nu} = a\,G^{\mu\nu} + b\,g^{\mu\nu},
+\]
+where $G^{\mu\nu}$ is the Einstein tensor and $a$, $b$ are constants. Setting $a = 1$, $b = -\Lambda$ recovers
+the Einstein equation with cosmological constant.
+\end{theorem}
+
+The theorem is dimension-dependent. In $d$ spacetime dimensions, the most general
+such tensor is a sum of $\lfloor d/2 \rfloor$ independent Lovelock terms plus $\Lambda$.
+
+\begin{center}
+\begin{tabular}{lcl}
+\hline
+Dimension $d$ & Lovelock terms & Gravity unique? \\
+\hline
+3 & $\Lambda$ only & No propagating gravity \\
+4 & $G^{\mu\nu} + \Lambda g^{\mu\nu}$ only & Yes: GR is unique \\
+5, 6 & Einstein + Gauss--Bonnet + $\Lambda$ & No: free coupling \\
+$\geq 7$ & Further Lovelock terms + $\Lambda$ & No \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}
+Lovelock uniqueness at $d = 4$ is a theorem about tensor equations, not a
+consequence of the cascade. The cascade's role is to provide the metric that Lovelock needs
+as input. Section 9 derives $d = 4$ from the consistency of the cascade's quantum structure
+with Lovelock uniqueness.
+\end{remark}
+
+\section{The Cascade Metric}
+
+\subsection{Foliation from slicing}
+
+The cascade's slicing recurrence decomposes $B^{d+1}$ into $d$-balls parametrised by the
+perpendicular coordinate $x \in [-1, 1]$. Each cross-section at height $x$ is a $d$-ball of radius
+$r(x) = \sqrt{1 - x^2}$. This is a foliation; $x$ plays the role of time (identified in [2], Section 7 via
+the irreversibility of slicing). The full $(d + 1)$-dimensional metric is:
+\[
+ds^2 = dx^2 + (1 - x^2)\,d\sigma_{d-1}^2.
+\]
+
+\subsection{The lapse function}
+
+The ratio of adjacent volumes is the cascade's lapse:
+\[
+N(d) = \sqrt{\pi} \cdot R(d), \qquad R(d) = \frac{\Gamma((d + 1)/2)}{\Gamma((d + 2)/2)} \approx \sqrt{\frac{2\pi}{d}} \quad (d \gg 1).
+\]
+At $d = 4$: $N(4) = \sqrt{\pi} \cdot \Gamma(5/2)/\Gamma(3) = 3\pi/8 \approx 1.178$. As $d \to \infty$: $N \to 0$ (no temporal
+separation at the cascade's geometric origin).
+
+\subsection{The extrinsic curvature}
+
+The extrinsic curvature of the leaf at height $x$ is $K = -x/\sqrt{1 - x^2}$. At the equator $x = 0$:
+$K = 0$. This is the cascade's Hubble parameter.
+
+\subsection{The 4D projected metric}
+
+Projecting onto a 4-dimensional subspace, the 4D observer's metric is:
+\[
+ds^2_{\text{4D}} = -dt^2 + a(t)^2\,d\sigma_3^2.
+\]
+This is the FRW metric with unit lapse. Isotropy follows from the cascade's spherical
+symmetry; homogeneity from the uniform slicing recurrence. The Lorentzian sign $g_{tt} = -1$
+is derived in Section 10.
+
+\section{The Cosmological Constant}
+
+\subsection{From cascade invariant to $\Lambda$}
+
+By [1], Theorem 9.2:
+\[
+I = \Omega_{19} \times \Omega_{217} \times \frac{198}{217} = 1.0996 \times 10^{-120}.
+\]
+The 4D observer's vacuum energy satisfies $\rho_\Lambda/M_{\text{Pl}}^4 \approx 1.1 \times 10^{-120}$. The identification $\Lambda = I$
+is not a fit: $I$ is fixed by $\pi$ independently of any physical measurement. The agreement is
+$0.04\%$ under the reduced-Planck-mass convention.
+
+\subsection{Why $\Lambda$ is not a free parameter}
+
+In standard GR, $\Lambda$ is a free parameter: Lovelock permits any $b$ in $E^{\mu\nu} = aG^{\mu\nu} + bg^{\mu\nu}$. The
+cascade removes this freedom. The constant $b = -\Lambda$ is fixed by the cascade invariant $I$; the
+observer does not choose it. The cosmological constant problem---why $\Lambda \sim 10^{-120}M_{\text{Pl}}^4$---is
+answered by the hierarchy theorem of [1]: $\log_{10}(1/\Omega_{d_2}) \approx \pi e^{2\sqrt{\pi}}(2\sqrt{\pi} - 1)/\ln 10 \approx 120.3$
+orders of magnitude arise from the Gamma function's superexponential growth between
+$d_1 = 19$ and $d_2 = 217$.
+
+\section{The Dark Energy Equation of State}
+
+\begin{theorem}[Dark energy equation of state]
+The cascade predicts $w = -1$ exactly.
+\end{theorem}
+
+\begin{proof}
+$\Lambda = I$ is a fixed geometric constant, determined entirely by $\pi$ through the cascade's
+threshold structure ([1], Theorem 9.2). A fixed cosmological constant has $\rho_\Lambda = \text{const}$,
+giving $p_\Lambda = -\rho_\Lambda$ and $w = p/\rho = -1$ by definition. No time-evolution mechanism exists
+in the cascade for $\Lambda$: the thresholds $d_1 = 19$ and $d_2 = 217$ are permanent features of the
+Gamma function, not snapshots of a dynamical field. The lapse function $N(4) = 3\pi/8$ is a
+fixed Gamma-function value, not a cosmological-time-evolving quantity.
+\end{proof}
+
+\subsection{Gauss--Bonnet stability}
+
+The cascade geometry at $d = 5$ has $S^3$ cross-sections that are totally umbilic: $K_{ij} =
+-(x/\sqrt{1 - x^2})\,h_{ij}$ exactly, so $K_{ij} = (K/3)h_{ij}$. For totally umbilic hypersurfaces, the leading
+Gauss--Bonnet boundary terms cancel identically:
+\[
+2K_{ij}K^{ij}K - \tfrac{2}{3}K^3 = \tfrac{2}{3}K^3 - \tfrac{2}{3}K^3 = 0.
+\]
+The residual GB term $2K\tilde{R} - 2K_{ij}\tilde{R}^{ij} \propto -24x/(1 - x^2)^2$ is odd in $x$; the cascade measure
+$(1 - x^2)^{3/2}$ is even. The integral vanishes exactly:
+\[
+\int_{-1}^{1} (1 - x^2)^{3/2} \cdot \frac{-24x}{(1 - x^2)^2}\,dx = -24\int_{-1}^{1} \frac{x}{\sqrt{1 - x^2}}\,dx = 0.
+\]
+The bulk GB contribution is suppressed by $H_0^2/M_{\text{Pl}}^2 \sim 10^{-120}$.
+
+\begin{corollary}
+$w = -1$ receives zero Gauss--Bonnet correction at leading order, by two
+independent mechanisms: (i) totally umbilic cancellation from the cascade's spherical
+symmetry; (ii) parity of the residual integrand under symmetric slicing. Both follow from
+the orthogonality axiom. The prediction is structurally protected, not merely numerically
+small.
+\end{corollary}
+
+\begin{remark}[Quantitative cosmology]
+The cascade's geometric parameters determine the
+background cosmological observables. The density fractions $\Omega_\Lambda = 1 - \Omega_m = 0.68850$, $\Omega_m = 0.31150$
+(from the Bott partition of cascade layers; see [3] and Corollary 4.8a of [1]), and $\Omega_b =
+1/(2\pi^2)$ follow from the cascade's sphere-area structure. The Hubble constant $H_0 = 70.65$~km/s/Mpc follows from the lapse-corrected Friedmann equation with $N(4) = 3\pi/8$, sitting
+between the Planck measurement (67.4) and the SH0ES value (73.0). These parameters
+predict a sound horizon $r_d = 142.3$~Mpc. The apparent DESI preference for $w \neq -1$ is
+a zero-parameter consequence of imposing Planck's sound horizon $r_d = 147.6$~Mpc on a
+universe where $r_d = 142.3$~Mpc: forcing the wrong ruler onto cascade distances produces
+apparent $w \approx -0.78$, matching DESI's BAO+CMB-only report of $-0.76 \pm 0.11$ within $1\sigma$.
+With the cascade's ruler, DESI BAO is consistent with $w = -1$ throughout.
+\end{remark}
+
+\begin{theorem}[Orthogonality of coupling and vacuum sectors]
+The cascade lapse factorises
+as $N(d) = \sqrt{\pi} \cdot R(d)$. Gauge couplings satisfy $\alpha(d) = N(d)^2/(4\pi) = R(d)^2/4$: the
+factor of $\pi$ from squaring $\sqrt{\pi}$ cancels the denominator exactly, leaving $\alpha = R(d)^2/4$: the
+multiplicative $\sqrt{\pi}$ factor of the lapse drops out exactly. The cosmological constant $\Lambda = I$ is
+generated by the threshold conditions $p(d) = c_1 = \tfrac{1}{2}\ln\pi$ and $p(d) = c_2 = \sqrt{\pi}$, which are
+determined by the constant part of $p(d)$---the same $\sqrt{\pi}$ factor---with no dependence on $R(d)$
+at the threshold dimensions. The two sectors therefore draw on orthogonal factors of $N(d)$:
+the multiplicative $\sqrt{\pi}$ of the lapse cancels from $\alpha$ and generates $\Lambda$; $R(d)$ determines $\alpha$ and
+does not enter the threshold conditions. This is why $\Lambda$ does not run while couplings run.
+\end{theorem}
+
+\begin{proof}
+$\alpha(d) = N(d)^2/(4\pi) = \pi R(d)^2/(4\pi) = R(d)^2/4$. The $\sqrt{\pi}$ factor cancels entirely;
+$\alpha$ depends only on $R(d)$. The thresholds $d_1 = 19$ and $d_2 = 217$ are determined by
+$p(d) = c_1 = \tfrac{1}{2}\ln\pi$ and $p(d) = c_2 = \sqrt{\pi}$, where $c_1$, $c_2$ are generated from $\sqrt{\pi}$ alone ([1],
+Theorem 6.5). $\Lambda = I$ is a function of $\Omega_{d_1}$ and $\Omega_{d_2}$, which are values of the sphere-area
+sequence at the threshold dimensions; these values are determined by $\sqrt{\pi}$ through the
+threshold conditions. At those dimensions, $R(d_1)$ and $R(d_2)$ enter only the $d$-dependent
+decay rate, not the threshold conditions themselves. Therefore $\Lambda$ contains no dependence
+on $R(d)$ through the threshold structure.
+\end{proof}
+
+\section{Matter from Extra Dimensions}
+
+\subsection{The Kaluza--Klein perspective}
+
+The cascade produces a 217-dimensional geometry. The 4D observer has integrated out
+213 directions via the slicing recurrence. The purpose of this section is to identify the
+effective stress-energy tensor $T^{\mu\nu}_{\text{eff}}$ that enters the Einstein equation projection identity
+(Section 8): Lovelock's theorem forces $G^{\mu\nu} + \Lambda g^{\mu\nu} = 8\pi G\,T^{\mu\nu}$, and $T^{\mu\nu}_{\text{eff}}$ is the cascade's
+geometric account of what fills the right-hand side.
+
+\begin{remark}[Induced matter via Gauss--Codazzi]
+Let $G^{\mu\nu}_{(217)}$ be the Einstein tensor of
+the cascade's 217-dimensional geometry and $G^{\mu\nu}_{(4)}$ be the 4D projected Einstein tensor. The
+difference $8\pi G\,T^{\mu\nu}_{\text{eff}} = G^{\mu\nu}_{(4)} - [G^{\mu\nu}_{(217)}]_{\text{4D}}$ defines the effective stress-energy seen by the 4D
+observer, following from the Gauss--Codazzi equations for the embedding $M^4 \subset M^{217}$. This
+is a structural identification, not a dynamical calculation. Section 14 establishes exact
+results for the Lorentzian cascade metric: $K_{\mu\nu} = 0$ at every equatorial embedding in the
+chain $S^3 \hookrightarrow S^4 \hookrightarrow \cdots \hookrightarrow S^{216}$, and the single-step cascade geometry contributes $w = 1/3$
+(radiation) in cascade time. The cascade's matter fraction $\Omega_m$ is determined by the Bott
+partition of cascade layers, not by the cascade metric geometry; this is a topological rather
+than geometric quantity.
+\end{remark}
+
+\section{Self-Consistency: Einstein Equation as Projection Identity}
+
+The 4D observer has: a metric $g_{\mu\nu}$ (Section 4); $\Lambda = I$ (Section 5); $T^{\mu\nu}_{\text{eff}}$ from the extra
+dimensions (Section 7); and Lovelock's theorem (Section 3). Lovelock then requires
+$G^{\mu\nu} + \Lambda g^{\mu\nu} = 8\pi G\,T^{\mu\nu}$. This is a projection identity, not a postulate.
+
+\begin{theorem}[Einstein equation as projection identity]
+The Gauss--Codazzi equations
+for $M^4 \subset M^{217}$, combined with Lovelock's theorem at $d = 4$, yield the Einstein equation
+with $\Lambda = I$ and $T^{\mu\nu} = T^{\mu\nu}_{\text{eff}}$ as an identity. Every term is geometric output of the cascade;
+no gravitational postulate is added.
+\end{theorem}
+
+\section{Deriving $d = 4$}
+
+\begin{definition}[Cascade-compatible dimension]
+A spacetime dimension $d$ is cascade-compatible if it satisfies:
+\begin{itemize}
+\item[(C1)] The minimal spinor representation of $\text{Spin}(1, d - 1)$ is irreducibly complex (not
+realisable over $\mathbb{R}$).
+\item[(C2)] The Einstein equation with cosmological constant is the unique divergence-free symmetric rank-2 tensor metric equation (Lovelock uniqueness, Theorem 3.1).
+\end{itemize}
+\end{definition}
+
+\subsection{Why (C1) is forced by the cascade}
+
+From Theorem 6.1 of [2]: the orthogonality axiom forces the precession angle $\alpha = \pi/2$,
+producing the complex structure $J: e_1 \mapsto e_2$, $e_2 \mapsto -e_1$ with $J^2 = -\text{Id}$.
+
+\begin{lemma}[Complex $J$ requires complex spinors]
+For the cascade's state space (carrying
+$J$ with $J^2 = -\text{Id}$) to serve as the spinor representation space of $\text{Spin}(1, d - 1)$, the minimal
+spinor representation must be irreducibly complex. Majorana-real spinors are incompatible:
+by Schur's lemma over $\mathbb{R}$, the commutant algebra of an irreducibly real representation is
+$\mathbb{R}$, admitting no $J$ with $J^2 = -\text{Id}$.
+\end{lemma}
+
+\begin{proof}
+If the spinor representation is Majorana (real), the representation space is $\mathbb{R}^n$ and
+the commutant is $\mathbb{R}$ (Schur's lemma). Any $J$ commuting with all group elements satisfies
+$J = c \cdot \text{Id}$ for some $c \in \mathbb{R}$. Then $J^2 = c^2\,\text{Id}$. Since $c^2 \geq 0$, we cannot have $J^2 = -\text{Id}$.
+Contradiction.
+\end{proof}
+
+\subsection{The Clifford algebra classification}
+
+The type of the minimal spinor of $\text{Spin}(1, d - 1)$ is determined by the Clifford algebra
+$\text{Cl}(1, d - 1)$, following Bott periodicity with period 8.
+
+\begin{center}
+\begin{tabular}{lllll}
+\hline
+$d$ & $\text{Cl}(1, d - 1)$ structure & Min.\ spinor & Type & (C1) \\
+\hline
+2 & $M_2(\mathbb{R})$ & 2 real & Majorana & No \\
+3 & $M_2(\mathbb{R}) \oplus M_2(\mathbb{R})$ & 2 real & Majorana & No \\
+4 & $M_2(\mathbb{C}) \otimes_\mathbb{R} M_2(\mathbb{R})$ & 2 complex & Weyl & Yes \\
+5 & $M_4(\mathbb{C})$ & 4 complex & Dirac & Yes \\
+6 & $M_4(\mathbb{C}) \oplus M_4(\mathbb{C})$ & 4 complex & Weyl & Yes \\
+7 & $M_8(\mathbb{R})$ & 8 real & Majorana & No \\
+8 & $M_{16}(\mathbb{R})$ & 8 real & Majorana & No \\
+\hline
+\end{tabular}
+\end{center}
+
+Data from Lounesto [6], Lorentzian signature $(1, d - 1)$. Condition (C1) holds for
+$d \in \{4, 5, 6\}$ in the first Bott period, then $\{10, 11, 12\}$, etc.
+
+\subsection{The main theorem}
+
+\begin{theorem}[Unique cascade-compatible dimension]
+$d = 4$ is the unique dimension
+satisfying both (C1) and (C2).
+\end{theorem}
+
+\begin{proof}
+From the Clifford classification: (C1) holds for $d \in \{4, 5, 6, 10, 11, 12, \ldots\}$. From
+Theorem 3.1: (C2) holds if and only if $d = 4$. Intersection: $\{4, 5, 6, 10, \ldots\} \cap \{4\} = \{4\}$.
+\end{proof}
+
+\begin{corollary}[Third characterisation of $d = 4$]
+The Lorentzian cascade scale factor
+$a(t) = \sqrt{1 - t^2}$ gives $\dot{a} = -t/a$ and $\ddot{a} = -1/a^3$. The Ricci scalar of the $n$-dimensional
+FRW metric with $k = 1$ and this scale factor is:
+\[
+R^{(n)} = \frac{(n - 1)(n - 4)}{a^4}.
+\]
+This vanishes if and only if $n = 4$. The Lorentzian cascade metric is therefore Ricci-flat
+uniquely in four spacetime dimensions, providing a third independent characterisation of
+$d = 4$ complementing Lovelock uniqueness (C2) and complex spinor compatibility (C1).
+\end{corollary}
+
+\begin{proof}
+For $n$-dimensional FRW with $k = 1$: $R_{tt} = -(n - 1)\ddot{a}/a = (n - 1)/a^4$ and
+$R_{ij} = [(n - 2)(k + \dot{a}^2)/a^2 + \ddot{a}/a]\,g_{ij} = (n - 3)/a^4 \cdot g_{ij}$. The Ricci scalar: $R^{(n)} = g^{tt}R_{tt} + g^{ij}R_{ij} =
+-(n - 1)/a^4 + (n - 1)(n - 3)/a^4 = (n - 1)(n - 4)/a^4$. At $n = 4$: $R^{(4)} = 3 \cdot 0/a^4 = 0$. For
+$n \neq 4$: $(n - 1)(n - 4) \neq 0$.
+\end{proof}
+
+\begin{remark}
+Without (C1): $d = 4$ is selected by Lovelock alone, but the quantum state
+space may be incompatible with $J^2 = -\text{Id}$. Without (C2): dimensions 5, 6, 10,\ldots\ have
+complex spinors but non-unique gravity with free coupling constants. Only $d = 4$ is
+simultaneously quantum-compatible, gravitationally unique, and Ricci-flat under the cascade
+scale factor.
+\end{remark}
+
+\begin{remark}[Division algebra interpretation]
+The cascade forces the quantum amplitude
+algebra to be $\mathbb{C}$ (real dimension 2). The associative normed division algebras over $\mathbb{R}$ are $\mathbb{R}$,
+$\mathbb{C}$, $\mathbb{H}$, $\mathbb{O}$ (Hurwitz theorem [7]; $\mathbb{O}$ is non-associative and excluded from quantum mechanics
+by associativity of sequential measurements). The minimal associative algebra over $\mathbb{C}$ is $\mathbb{H}$
+(quaternions), of real dimension 4. The spacetime dimension equals the real dimension of
+the next associative division algebra: $d = \dim_\mathbb{R}\,\mathbb{H} = 4$.
+\end{remark}
+
+\section{Lorentzian Signature from the Propagator}
+
+The cascade geometry is Euclidean: $ds^2_E = dx^2 + (1 - x^2)\,d\sigma_{d-1}^2$ with positive-definite
+metric. The cascade propagator is $K(x) = |K|\,e^{-i\lambda x}$ with $\lambda > 0$---already oscillatory for
+real $x$. These are two descriptions of the same object under the physical identification
+hypothesis. The Lorentzian signature is the unique metric sign consistent with both
+descriptions simultaneously.
+
+\subsection{The propagator characterises the signature}
+
+\begin{lemma}[Spectral gap is positive]
+The cascade spectral gap satisfies $\lambda_\infty =
+\tfrac{1}{4}\psi^{(1)}(\sigma/2) > 0$ for all $\sigma > 0$, where $\psi^{(1)}$ is the trigamma function. This follows from $p'(d) =
+\tfrac{1}{4}\psi^{(1)}((d + 1)/2) > 0$ (strict monotonicity of $p$).
+\end{lemma}
+
+From Theorems 6.1 and 7.1 of [2]: the forced precession $\alpha = \pi/2$ gives the cascade
+propagator:
+\[
+K(t) = |K| \cdot e^{-iHt}, \qquad H = \lambda_\infty > 0,
+\]
+where $t = x$ is the physical time identified with the slicing coordinate.
+
+\begin{theorem}[Lorentzian signature from orthogonality]
+The spacetime metric of the
+4D cascade observer has signature $(-,+,+,+)$.
+\end{theorem}
+
+\begin{proof}
+\textbf{Temporal component.} Lorentzian signature means $g_{tt} < 0$. This is equivalent,
+by definition, to time evolution being generated by a self-adjoint Hamiltonian with real
+eigenvalues, giving unitary oscillatory evolution $e^{-iHt}$. The cascade propagator (from
+Theorems 6.1 and 7.1 of [2]) is $K(t) = |K| \cdot e^{-iHt}$ with $H = \lambda_\infty > 0$, which is oscillatory
+with $|K| = \text{const}$. Since the cascade propagator is oscillatory, the identification hypothesis
+(Definition 2.1) gives $g_{tt} < 0$.
+
+\textbf{Spatial components.} The cascade's state space is a complex Hilbert space $\mathcal{H}$ ([2]).
+The Hilbert space inner product is positive-definite: $\langle\psi|\psi\rangle > 0$ for all $|\psi\rangle \neq 0$. The
+inner product on equal-time surfaces requires a positive-definite spatial volume element
+$\sqrt{\det g^{(3)}} > 0$, which holds if and only if $g_{ij} > 0$. The signature is $(-,+,+,+)$.
+\end{proof}
+
+\begin{remark}[Euclidean geometry, Lorentzian physics]
+The cascade's underlying geometry is Euclidean; the physical spacetime is Lorentzian. These are not contradictory. The
+connection is through the propagator's character: the cascade's Euclidean geometry produces
+an oscillatory propagator (because of the forced precession), and oscillatory propagator
+character is the physical content of Lorentzian signature. The Euclidean geometry generates
+Lorentzian physics through the dynamics, not through analytic continuation of the metric.
+\end{remark}
+
+\begin{remark}[Three consequences of $\psi^{(1)} > 0$]
+The strict positivity $\psi^{(1)}(x) > 0$ simultaneously establishes: (a) unique natural zero of $p(d)$ in [1]: requires $p'(d) > 0$; (b) positive
+spectral gap $\lambda_\infty > 0$; (c) Lorentzian signature: $\lambda_\infty > 0$ makes the propagator oscillatory,
+requiring $g_{tt} < 0$ (Theorem 10.2).
+\end{remark}
+
+\section{Scale Factors: $G$ and $\hbar$}
+
+The cascade produces dimensionless quantities. Physical gravity requires $G$ (Newton) and
+$\hbar$ (Planck). Both enter as unit-matching constants when geometric rates are identified
+with physical observables:
+
+\begin{itemize}
+\item $G$: proportionality between 4D curvature and the effective stress-energy from the
+extra dimensions. Set by the embedding geometry of $M^4 \subset M^{217}$.
+\item $\hbar = (\pi/2)/\Delta t$: the ratio of the forced precession angle to the physical time increment
+(Section 9 of [2]). The angle $\pi/2$ is derived; $\Delta t$ is not.
+\end{itemize}
+
+\section{Gravitons and Degrees of Freedom}
+
+In $d$ spacetime dimensions, a massless graviton has $d(d - 3)/2$ physical polarisations. At
+$d = 4$: 2 polarisations (the standard GR plus and cross modes). The remaining 23,245
+polarisations of the 217-dimensional graviton are Kaluza--Klein modes: a tower of massive
+particles appearing to the 4D observer as matter on adjacent shells. Their mass scale is
+set by the compactification radii $R_{\text{eff}}(d) = 1/\sqrt{d + 3}$, derived in [1], Theorem 4.2.
+
+\section{The Complete Derivation}
+
+The full chain from the orthogonality axiom to the metric of general relativity:
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\hline
+Step & Result & Source \\
+\hline
+Orthogonality $\Rightarrow \sqrt{\pi}$ & Cascade constant & [1], Thm 3.1 \\
+$\sqrt{\pi} \Rightarrow I \approx 10^{-120}$ & Cascade invariant & [1], Thm 9.2 \\
+Orthogonality $\Rightarrow J^2 = -\text{Id}$ & Complex structure & [2], Thm 6.4 \\
+$J^2 = -\text{Id} \Rightarrow$ complex spinors (C1) & Schur + Clifford & Section 9 \\
+(C1)$\cap$Lovelock (C2)$\Rightarrow d = 4$ & Dimension theorem & Thm 9.3 \\
+$R^{(n)} = (n-1)(n-4)/a^4 \Rightarrow R^{(4)} = 0$ & Third char.\ of $d = 4$ & Cor 9.4 \\
+$d = 4 \Rightarrow$ FRW metric + $\Lambda = I$ & Cascade geometry & \S4, \S5 \\
+Physical identification hypothesis & Cascade geom = physics & Def 2.1 \\
+Hypothesis + $\lambda_\infty > 0 \Rightarrow g_{tt} < 0$ & Propagator & Thm 10.2 \\
+$d = 4$ + $(-,+,+,+) \Rightarrow$ Einstein eq. & Lovelock & Section 8 \\
+Fixed $\Lambda = I \Rightarrow w = -1$ & Definition & Section 6 \\
+GB corrections vanish & Two mechanisms & Section 6 \\
+$N = \sqrt{\pi}\,R \Rightarrow$ orthogonal sectors & Couplings vs vacuum & Thm 6.4 \\
+Extra dims $\Rightarrow T^{\mu\nu}$ & Gauss--Codazzi & Section 7 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Full result table}
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\hline
+Physical result & Cascade provides & Classical theorem \\
+\hline
+Complex QM, Born rule, $\hbar$ & Complex structure, propagator & Gleason, [2] \\
+Cosmological constant $\Lambda = I$ & Cascade invariant $I$ & Fixed, not free \\
+$d = 4$ spacetime dimensions & Complex spinors + gravity & Clifford, Lovelock \\
+$R^{(4)} = 0$: Ricci-flat cascade metric & Lorentzian scale factor & GR, Corollary 9.4 \\
+Lorentzian signature $(-,+,+,+)$ & Propagator $e^{-iHt}$, $H > 0$ & Path integral identity \\
+Einstein equation & Metric + $\Lambda = I$ & Lovelock \\
+FRW cosmology & Cascade foliation & Geometry \\
+$w = -1$ dark energy & Fixed $\Lambda = I$; GB vanishes & Section 6 \\
+$\Lambda \approx 10^{-120}M_{\text{Pl}}^4$ & Sphere-area hierarchy & [1], Thm 10.1 \\
+Orthogonal coupling and vacuum sectors & $N = \sqrt{\pi}\,R$ factorisation & Thm 6.4 \\
+$K_{\mu\nu} = 0$: totally geodesic embedding & Lorentzian cascade metric & Section 14 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Supplement: Asymptotic Compactification and the Cascade Metric}
+
+This section integrates the compactification results of [1], Section 4 into the gravitational
+framework, and presents the exact Lorentzian Gauss--Codazzi analysis.
+
+\subsection{The compactification radius of each dimension}
+
+\begin{theorem}[Compactification radius; {[1]}, Theorem 4.2]
+At each slicing step $d$, the
+integrated-out direction retains an effective radius
+\[
+R_{\text{eff}}(d) = \frac{1}{\sqrt{d + 3}},
+\]
+derived exactly from $\langle x^2 \rangle = B(3/2, d/2 + 1)/B(1/2, d/2 + 1) = 1/(d + 3)$.
+\end{theorem}
+
+The compactification is asymptotic: $R_{\text{eff}} \to 0$ as $d \to \infty$, but $R_{\text{eff}} \neq 0$ at any finite $d$.
+There is no sharp boundary, no horizon, no topology change---only exponential suppression.
+
+\begin{center}
+\begin{tabular}{cccc}
+\hline
+$d$ & $R_{\text{eff}}$ & $N(d)$ & Physical role \\
+\hline
+4 & 0.37796 & 1.17810 & Observer dimension \\
+5 & 0.35355 & 1.06667 & $S^3$ boundary layer \\
+7 & 0.31623 & 0.91429 & Volume maximum $d_0$ \\
+12 & 0.25820 & 0.70870 & SU(3) layer \\
+13 & 0.25000 & 0.68198 & SU(2) breaking \\
+19 & 0.21320 & 0.56755 & First threshold $d_1$ \\
+217 & 0.06742 & 0.16997 & Second threshold $d_2$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}[KK mass scale]
+The KK mass scale at dimension $d$ is $M_{\text{KK}}(d) \sim
+1/R_{\text{eff}}(d) = \sqrt{d + 3}$ in cascade units. No free parameter adjusts the mass scale.
+\end{remark}
+
+\subsection{Boundary dominance and the primacy of sphere areas}
+
+\begin{theorem}[Boundary dominance; {[1]}, Theorem 4.4]
+$\Omega_{d-1}/V_d = d$ for all $d \geq 1$.
+\end{theorem}
+
+At $d = 4$: $\Omega_3/V_4 = 4$, so the boundary $S^3$ carries $4/5 = 80\%$ of the content of $B^4$. At
+$d = 217$: essentially all content is on the boundary. The cascade's content is its boundaries,
+increasingly so at each step.
+
+\subsection{The observer on $S^3$}
+
+The 4D observer exists on the boundary $S^3$ of the $d = 5$ layer. Theorem 14.3 shows this
+boundary carries $5/6 \approx 83\%$ of the $d = 5$ content. The observer's physics is a boundary
+theory, not because holography is assumed, but because the boundary dominates the
+volume at every cascade layer.
+
+The $S^3$ horizon of a $d = 5$ Schwarzschild black hole has topology $S^3$, matching the 3
+spatial dimensions. The cascade's $d = 5$ layer provides this horizon. The de Sitter horizon
+area $A = 12\pi/\Lambda \sim 10^{120}$ in Planck units is the cascade hierarchy inverted: $\Omega_7/\Omega_{217} \approx 10^{121}$.
+
+\begin{remark}[The cosmological constant as inverse boundary area]
+With boundary
+dominance, the identification $\Lambda = I$ acquires a geometric interpretation: $\Lambda$ measures the
+inverse boundary area of the cascade's distinguished layers. The smallness of $\Lambda$ reflects the
+largeness of the boundary---a high-capacity boundary ($S^3$ with $\Omega_3 = 2\pi^2 \approx 19.7$) encodes
+an enormous cascade (213 compactified directions), giving $\Lambda = I \approx 10^{-120}$.
+\end{remark}
+
+\subsection{The Lorentzian Gauss--Codazzi analysis}
+
+We install the Lorentzian cascade metric directly from Theorem 10.2, without analytic
+continuation. The $n$-dimensional Lorentzian cascade metric is:
+\[
+g^L = -dt^2 + (1 - t^2)\,d\sigma_{n-1}^2, \qquad a(t) = \sqrt{1 - t^2}.
+\]
+With $\dot{a} = -t/a$ and $\ddot{a} = -1/a^3$, two exact identities hold:
+\[
+\frac{k + \dot{a}^2}{a^2} = \frac{1}{a^4}, \qquad \frac{\ddot{a}}{a} = -\frac{1}{a^4}.
+\]
+
+\begin{theorem}[Lorentzian cascade Ricci tensor]
+For the $n$-dimensional Lorentzian cascade metric:
+\[
+R^{(n)}_{tt} = \frac{n - 1}{a^4}, \qquad R^{(n)}_{ij} = \frac{n - 3}{a^4}\,g_{ij}, \qquad R^{(n)} = \frac{(n - 1)(n - 4)}{a^4},
+\]
+\[
+G^{(n)}_{tt} = \frac{(n - 1)(n - 2)}{2a^4}, \qquad G^{(n)}_{NN} = -\frac{(n - 2)(n - 5)}{2a^4}.
+\]
+\end{theorem}
+
+\begin{proof}
+Direct computation using the FRW Ricci tensor formulae with $k = 1$, $n - 1$ spatial
+dimensions, and the cascade identities $\dot{a}^2 + k = 1/a^2$, $\ddot{a}/a = -1/a^4$: $R_{tt} = -(n - 1)\ddot{a}/a =
+(n - 1)/a^4$; $R_{ij} = [(n - 2)(\dot{a}^2 + k)/a^2 + \ddot{a}/a]\,g_{ij} = [(n - 2)/a^4 - 1/a^4]\,g_{ij} = (n - 3)/a^4 \cdot g_{ij}$. The
+Ricci scalar: $R^{(n)} = g^{tt}R_{tt} + g^{ij}R_{ij} = -(n - 1)/a^4 + (n - 1)(n - 3)/a^4 = (n - 1)(n - 4)/a^4$.
+For the normal-normal Einstein component at the equatorial embedding $\psi = \pi/2$ in
+$S^{n-1} \subset S^n$: $N_\psi = (1 - t^2)^{-1/2}$, giving $R^{(n)}_{NN} = N_\psi N_\psi R^{(n)}_{\psi\psi} = (n - 3)/a^4$, and $G^{(n)}_{NN} =
+R^{(n)}_{NN} - \tfrac{1}{2}g_{NN}R^{(n)} = (n - 3)/a^4 - (n - 1)(n - 4)/(2a^4) = -(n - 2)(n - 5)/(2a^4)$.
+\end{proof}
+
+\begin{theorem}[Totally geodesic embedding]
+The 4D Lorentzian cascade spacetime
+$M^4 = \mathbb{R} \times S^3$ embeds in $M^5 = \mathbb{R} \times S^4$ as a totally geodesic submanifold: $K_{\mu\nu} = 0$. The
+same holds at every equatorial embedding in the chain $S^3 \hookrightarrow S^4 \hookrightarrow \cdots \hookrightarrow S^{216}$.
+\end{theorem}
+
+\begin{proof}
+Parametrise $S^4 = \{(\psi, \theta_i)\}$ with $d\sigma_4^2 = d\psi^2 + \sin^2\psi\,d\sigma_3^2$. The 4D submanifold
+sits at $\psi = \pi/2$. The spacelike unit normal is $N = (1 - t^2)^{-1/2}\partial_\psi$. For the temporal
+component: $g_{tt} = -1$ is independent of $\psi$, so $K_{tt} = 0$. For the spatial components:
+$\partial_\psi g_{\theta_i\theta_j} = 2(1 - t^2)\sin\psi\cos\psi\,\bar{g}_{ij}$; at $\psi = \pi/2$: $\cos(\pi/2) = 0$, so $K_{ij} = 0$. Therefore
+$K_{\mu\nu} = 0$ identically. The argument applies at every equatorial embedding by identical
+reasoning.
+\end{proof}
+
+\begin{corollary}[Hamiltonian constraint]
+The Hamiltonian constraint ${}^{(4)}R = -2G^{(5)}_{NN}$
+is satisfied identically: $0 = 0$ at every cascade level. The cascade embedding chain is
+geometrically self-consistent.
+\end{corollary}
+
+\begin{proof}
+The scalar Gauss equation for a hypersurface with $K_{\mu\nu} = 0$ gives ${}^{(4)}R = {}^{(5)}R - 2R^{(5)}_{NN}$.
+Since $R^{(5)}_{NN} = G^{(5)}_{NN} + \tfrac{1}{2}R^{(5)}$, substituting: ${}^{(4)}R = R^{(5)} - 2(G^{(5)}_{NN} + \tfrac{1}{2}R^{(5)}) = -2G^{(5)}_{NN}$. From
+Theorem 14.5 at $n = 5$: $G^{(5)}_{NN} = -(5 - 2)(5 - 5)/(2a^4) = 0$. From Corollary 9.4 at $n = 4$:
+$R^{(4)} = 0$. Therefore $0 = -2 \cdot 0 = 0$. \checkmark
+\end{proof}
+
+\begin{theorem}[Effective equation of state of the cascade metric]
+The 4D Lorentzian
+cascade metric has effective equation of state $w = 1/3$ (radiation) in cascade time, at every
+cascade level.
+\end{theorem}
+
+\begin{proof}
+From Theorem 14.5 at $n = 4$ (using $R^{(4)} = 0$, so $G^{(4)}_{\mu\nu} = R^{(4)}_{\mu\nu}$): $G^{(4)}_{tt} = R^{(4)}_{tt} = 3/a^4$;
+$G^{(4)}_{ij} = R^{(4)}_{ij} = (4 - 3)/a^4 \cdot g_{ij} = g_{ij}/a^4$. Identifying $\rho_{\text{eff}} \propto G^{(4)}_{tt} = 3/a^4$ and $p_{\text{eff}} \propto G^{(4)}_{ij}/g_{ij} =
+1/a^4$, the effective equation of state is:
+\[
+w_{\text{eff}} = \frac{p_{\text{eff}}}{\rho_{\text{eff}}} = \frac{1/a^4}{3/a^4} = \frac{1}{3}.
+\]
+\end{proof}
+
+\begin{remark}[Consequences for the matter fraction]
+Theorems 14.6 and 14.8 establish
+that the geometric Gauss--Codazzi route to the cascade matter fraction $\Omega_m$ is definitively
+closed. Three independent exact results confirm this:
+\begin{enumerate}
+\item $K_{\mu\nu} = 0$ (Theorem 14.6) eliminates the standard extrinsic curvature mechanism for
+KK matter generation. The cascade slicing geometry does not source matter via this
+channel.
+\item $w = 1/3$ (Theorem 14.8) shows the cascade metric contributes radiation, not matter
+($w = 0$) or dark energy ($w = -1$), in cascade time. No splitting of the cascade
+integrand into core and tail produces the combination ($w = -1$, $w = 0$) consistent
+with the Friedmann equation.
+\item The Hamiltonian constraint telescopes identically (Corollary 14.7): ${}^{(4)}R = -2G^{(5)}_{NN} =
+0 = 0$ at every level, providing geometric consistency without yielding matter content.
+\end{enumerate}
+The cascade matter fraction $\Omega_m$ is determined by the Bott partition of cascade layers---the sphere-area fraction of non-trivial-phase layers ($d \bmod 8 \in \{5, 6\}$). This requires
+three inputs: the propagator phase classification ([2], Remark 6.5), which establishes the
+topological partition; the fermion generation structure of the Bott partition ([3]), which
+identifies non-trivial-phase layers with matter via the hairy ball zeros and observed fermion
+generations; and the uniqueness of sphere areas as cascade content (Corollary 4.8a of [1]),
+which forces the energy assignment to be proportional to $\Omega_{d-1}$ with a universal constant.
+The matter fraction is a topological rather than geometric quantity; it does not require
+the cascade metric and is unaffected by the Gauss--Codazzi results above. The explicit
+derivation is given in the cosmological companion.
+\end{remark}
+
+\subsection{The information paradox}
+
+The standard black hole information paradox asks how information is preserved when it
+crosses a horizon. In the cascade:
+
+\begin{enumerate}
+\item \textbf{No sharp horizon.} The compactification at each step is asymptotic: $R_{\text{eff}} = 1/\sqrt{d + 3} >
+0$ for all finite $d$. The weight function $(1 - x^2)^{d/2}$ has support everywhere on $(-1, 1)$.
+No direction is fully removed; no information is lost.
+\item \textbf{Unitary dynamics.} The Schr\"odinger equation ([2]) preserves norms. Each slicing step
+is a unitary operation on the Hilbert space.
+\item \textbf{Apparent irreversibility is asymptotic.} From above ($d + 1$ dimensions), a slicing step
+looks irreversible: the direction's contribution is suppressed to $O(1/\sqrt{d})$. From below
+($d$ dimensions), the boundary carries the full content (boundary dominance). Both
+descriptions are correct; they describe the same asymptotic process from different
+sides.
+\end{enumerate}
+
+There is no paradox because there was never a sharp boundary to lose information
+across---only asymptotic compactification. No firewall, no information loss, no complementarity principle needed.
+
+\section{What This Paper Does Not Do}
+
+\begin{itemize}
+\item It does not derive Newton's constant $G$ or the local solutions of GR.
+\item It does not derive the Standard Model gauge group $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$.
+\item It does not unify QM and GR in the sense of a quantum gravity theory.
+\item It requires one physical identification hypothesis beyond pure mathematics (Definition 2.1): that the cascade geometry is indistinguishable from our universe. Without
+it the series is pure mathematics.
+\item It uses no result from physics: all remaining inputs are the orthogonality axiom and
+classical mathematical theorems (Lovelock, Clifford--Bott, Hurwitz).
+\end{itemize}
+
+\section{Open Questions}
+
+\begin{enumerate}
+\item \textbf{The Standard Model.} The tower $\{7, 12, 198\}$ (dimensions below $d_0$, between $d_0$
+and $d_1$, between $d_1$ and $d_2$) provides natural sub-bundles. The number 12 matches
+the generator count of $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$.
+\item \textbf{Quantum gravity.} The cascade derives QM and GR separately. Whether they
+are compatible when both are projected onto 4D simultaneously, and whether the
+cascade's discrete dimension structure plays the role of quantised geometry, remains
+open.
+\item \textbf{Black holes.} Whether the cascade's foliation structure admits horizon formation,
+and whether Bekenstein--Hawking entropy $S = A/(4l_{\text{Pl}}^2)$ can be derived from the
+sphere-area sequence, is open. The cascade is a theory of sphere areas; the structural
+hint is direct.
+\item \textbf{Newton's constant.} The cascade produces dimensionless quantities; $G$ enters as
+a unit-matching constant from the embedding $M^4 \subset M^{217}$. Deriving $G$ from the
+cascade's KK mass spectrum (with compactification radii $R_{\text{eff}}(d) = 1/\sqrt{d + 3}$ now
+determined) is the next natural step.
+\item \textbf{The cascade Friedmann equation.} The cascade metric (Section 4) foliates a
+217-dimensional geometry onto a 4D FRW slice. The projected Friedmann equation
+should follow from the Gauss--Codazzi equations applied to the $M^4 \subset M^{217}$ embedding. The Lorentzian Gauss--Codazzi analysis (Section 14.4) establishes that the
+cascade metric contributes radiation ($w = 1/3$) and that $K_{\mu\nu} = 0$ eliminates the
+extrinsic curvature mechanism. The matter and vacuum energy content of the 4D
+Friedmann equation enters via the Bott partition of cascade layers (Remark 14.9), not
+via the cascade metric geometry. A complete derivation of the Friedmann equation
+connecting the cascade's KK structure to the physical expansion history remains
+open.
+\item \textbf{The Hubble tension.} The cascade's parameter triple $(H_0, \Omega_m, \Omega_b)$ gives a sound
+horizon smaller than the Planck-inferred value. The cascade's $H_0$ sits between
+the two principal measurements. The full cosmological derivation is a separate
+programme.
+\end{enumerate}
+
+\begin{thebibliography}{12}
+
+\bibitem{paper1} {[Author]}, \textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}, March 2026.
+
+\bibitem{paper2} {[Author]}, \textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}, March 2026.
+
+\bibitem{paper4a} {[Author]}, \textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}, March 2026.
+
+\bibitem{lovelock1} D.~Lovelock, ``The Einstein tensor and its generalisations,'' \textit{Journal of Mathematical Physics} \textbf{12}, 498--501 (1971).
+
+\bibitem{lovelock2} D.~Lovelock, ``The four-dimensionality of space and the Einstein tensor,'' \textit{Journal of Mathematical Physics} \textbf{13}, 874--876 (1972).
+
+\bibitem{lounesto} P.~Lounesto, \textit{Clifford Algebras and Spinors}, 2nd ed., Cambridge University Press, 2001.
+
+\bibitem{hurwitz} A.~Hurwitz, ``\"Uber die Komposition der quadratischen Formen,'' \textit{Mathematische Annalen} \textbf{88}, 1--25 (1923).
+
+\bibitem{kaluza} T.~Kaluza, ``Zum Unit\"atsproblem der Physik,'' \textit{Sitzungsberichte der Preussischen Akademie der Wissenschaften}, 966--972 (1921).
+
+\bibitem{klein} O.~Klein, ``Quantentheorie und f\"unfdimensionale Relativit\"atstheorie,'' \textit{Zeitschrift f\"ur Physik} \textbf{37}, 895--906 (1926).
+
+\bibitem{padmanabhan} T.~Padmanabhan, ``Some aspects of the cosmological constant problem,'' \textit{Physics Reports} \textbf{380}, 235--320 (2003).
+
+\bibitem{weinberg} S.~Weinberg, ``The cosmological constant problem,'' \textit{Reviews of Modern Physics} \textbf{61}, 1--23 (1989).
+
+\bibitem{adm} R.~Arnowitt, S.~Deser, and C.~W.~Misner, ``The dynamics of general relativity,'' in \textit{Gravitation: An Introduction to Current Research}, Wiley, 1962.
+
+\end{thebibliography}
+
+\end{document}

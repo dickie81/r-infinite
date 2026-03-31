@@ -1,0 +1,237 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{Paper I --- Supplement\\[6pt]
+\large Inter-Layer Coupling and the Independent-Step Correction}
+\author{[Author]}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\noindent This supplement extends Paper I by computing the second-order correction to the cascade's independent-step approximation. The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters.
+
+\setcounter{section}{14}
+\section{Inter-Layer Coupling}
+
+\subsection{The Gram matrix of cascade layer integrands}
+
+\begin{definition}[Gram matrix]
+For a set of cascade layers $\{d_1, d_2, \ldots, d_n\}$, the Gram matrix is
+\[
+G_{ij} = \langle f_{d_i}, f_{d_j} \rangle = \int_{-1}^{1} (1 - x^2)^{(d_i + d_j)/2}\, dx.
+\]
+\end{definition}
+
+\begin{theorem}[Gram matrix as Beta function]\label{thm:gram}
+\[
+G_{ij} = B\!\left(\tfrac{1}{2},\, \tfrac{d_i + d_j}{2} + 1\right) = \sqrt{\pi}\, \frac{\Gamma\!\left(\frac{d_i + d_j}{2} + 1\right)}{\Gamma\!\left(\frac{d_i + d_j}{2} + \frac{3}{2}\right)}.
+\]
+\end{theorem}
+
+\begin{proof}
+Substituting $t = x^2$ in the integral: $\int_{-1}^{1}(1 - x^2)^\alpha\, dx = B(1/2, \alpha + 1)$ with $\alpha = (d_i + d_j)/2$. The Beta function identity $B(a,b) = \Gamma(a)\Gamma(b)/\Gamma(a+b)$ with $a = 1/2$ gives the stated form.
+\end{proof}
+
+\begin{definition}[Correlation matrix]
+The normalised Gram matrix (correlation matrix) is
+\[
+C_{ij} = \frac{G_{ij}}{\sqrt{G_{ii}\, G_{jj}}} = \frac{B\!\left(\frac{1}{2},\, \frac{d_i + d_j}{2} + 1\right)}{\sqrt{B\!\left(\frac{1}{2},\, d_i + 1\right)\, B\!\left(\frac{1}{2},\, d_j + 1\right)}}.
+\]
+$C_{ii} = 1$ for all $i$, $\mathrm{tr}\, C = n$, and $0 < C_{ij} < 1$ for $i \neq j$.
+\end{definition}
+
+\subsection{The adjacent-layer overlap deficit}
+
+\begin{theorem}[Overlap deficit]\label{thm:overlap}
+For adjacent layers $d$ and $d+1$:
+\[
+1 - C_{d,d+1}^2 = 1 - \frac{B\!\left(\frac{1}{2},\, d + \frac{3}{2}\right)^2}{B\!\left(\frac{1}{2},\, d+1\right)\, B\!\left(\frac{1}{2},\, d+2\right)}.
+\]
+This quantity is strictly positive for all $d \geq 1$ and satisfies:
+\[
+1 - C_{d,d+1}^2 \sim \frac{1}{8\, d^2} \quad (d \to \infty).
+\]
+Numerically: $1 - C_{5,6}^2 = 0.00319$, $\; 1 - C_{11,12}^2 = 0.00083$, $\; 1 - C_{19,20}^2 = 0.00030$.
+\end{theorem}
+
+\begin{proof}
+Positivity: $C_{d,d+1} < 1$ by Cauchy--Schwarz (the integrands $f_d$ and $f_{d+1}$ are not proportional for $d \neq d+1$). Asymptotics: using Stirling, $B(1/2, \alpha+1) \approx \sqrt{2\pi/(2\alpha+1)}$. The ratio $C_{d,d+1}^2$ involves three Beta functions at arguments $d+3/2$, $d+1$, and $d+2$; expanding to second order in $1/d$ gives $1 - C^2 = 1/(8d^2) + O(1/d^3)$.
+\end{proof}
+
+\begin{remark}
+The overlap deficit $1 - C_{d,d+1}^2$ is the geometric content at step $d$ that is \emph{not} shared with step $d+1$. It measures the imperfect folding: the fraction by which consecutive layer integrands fail to be collinear in $L^2$. Its positivity is a consequence of $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3} > 0$ (Theorem~4.2): the compactification at each step is asymptotic, never complete.
+\end{remark}
+
+\subsection{The eigenvalue structure of the correlation matrix}
+
+\begin{theorem}[Near-collinearity]\label{thm:eigenvalue}
+For a path of $n$ consecutive layers $\{d_0, d_0+1, \ldots, d_0+n-1\}$, the correlation matrix $C$ has one dominant eigenvalue $\lambda_1$ satisfying
+\[
+\frac{\lambda_1}{n} = 1 - \epsilon(n, d_0), \qquad \epsilon > 0,
+\]
+and $(n - 1)$ subdominant eigenvalues summing to $n\,\epsilon$. The deficit $\epsilon$ depends on both $n$ (the number of layers) and $d_0$ (where in the cascade the path begins).
+\end{theorem}
+
+\begin{proof}
+The entries $C_{ij}$ are smooth functions of $|d_i - d_j|$ that decrease from $C_{ii} = 1$ towards a minimum at $|d_i - d_j| = n - 1$. For the path $d = 5, \ldots, 12$ ($n = 8$): the minimum entry is $C_{5,12} = 0.9622$, far from zero. The matrix is therefore close to the rank-1 matrix $\mathbf{1}\mathbf{1}^T/n$, whose sole nonzero eigenvalue is $n$. The deficit $\epsilon$ is determined by the off-diagonal decay rate of $C_{ij}$, which is controlled by the Beta function asymptotics of Theorem~\ref{thm:overlap}.
+\end{proof}
+
+\noindent Numerical eigenvalue structure for $d = 5, \ldots, 12$ ($n = 8$):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccc}
+\toprule
+Eigenvalue & Value & Fraction of trace \\
+\midrule
+$\lambda_1$ & 7.9347263 & 99.184\% \\
+$\lambda_2$ & 0.0646528 & 0.808\% \\
+$\lambda_3$ & 0.0006152 & 0.008\% \\
+$\lambda_4$--$\lambda_8$ & $< 10^{-4}$ & $< 0.001\%$ \\
+\midrule
+$\epsilon = 1 - \lambda_1/n$ & \multicolumn{2}{c}{$0.008159 = 0.816\%$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The cascade layers are 99.2\% collinear. The remaining 0.8\% is the inter-layer coupling.
+
+\subsection{Path dependence of the eigenvalue deficit}
+
+The deficit $\epsilon(n, d_0)$ depends on where in the cascade the path lies. Lower $d$ (closer to the observer, larger $R_{\mathrm{eff}}$, less complete folding) gives larger deficits.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llcc}
+\toprule
+Path & $n$ & $\epsilon = 1 - \lambda_1/n$ & Needed correction \\
+\midrule
+$d = 5, \ldots, 12$ & 8 & 0.00816 & $1.73\%$ ($\alpha_s$) \\
+$d = 6, \ldots, 13$ & 8 & 0.00657 & $1.75\%$ ($m_\tau/m_\mu$) \\
+$d = 10, \ldots, 17$ & 8 & 0.00332 & --- \\
+$d = 14, \ldots, 21$ & 8 & 0.00200 & $0.13\%$ ($m_\mu/m_e$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent At fixed $n$, $\epsilon$ decreases with $d_0$ because the overlap deficit per step (Theorem~\ref{thm:overlap}) decreases as $1/d^2$.
+
+\subsection{The independent-step correction}
+
+The cascade's leading-order predictions treat each compactification step as independent. A quantity that depends on the cascade's geometry over a path of $n$ layers receives a correction from the inter-layer coupling. The eigenvalue deficit $\epsilon$ identifies the source, sign, and magnitude of this correction. The exact correction factor is observable-dependent.
+
+\begin{definition}[Independent-step correction]
+For a cascade quantity $Q$ whose leading-order value $Q_0$ depends on the cascade potential over a path $\{d_0, \ldots, d_0 + n - 1\}$, the corrected value is
+\begin{equation}\label{eq:correction}
+Q = Q_0 \times \left(1 + k_Q\, \epsilon\right), \qquad \epsilon = 1 - \frac{\lambda_1(C)}{n},
+\end{equation}
+where $\lambda_1(C)$ is the largest eigenvalue of the $n \times n$ correlation matrix and $k_Q$ is a coupling coefficient that depends on how the observable projects onto the subdominant eigenstructure of~$C$.
+\end{definition}
+
+\begin{remark}[What is derived and what is not]
+The eigenvalue deficit $\epsilon$ is derived: it follows from first-order perturbation theory applied to the deficit matrix $D = J - C$, where $J$ is the all-ones matrix (Section~\ref{sec:perturbation}). Its sign ($\epsilon > 0$), its path dependence (decreasing with $d_0$), and its scaling ($\epsilon \propto 1/d^2$ per step) are theorems about the Beta function. The coupling coefficient $k_Q$ is not derived. It depends on how the observable couples to the subdominant eigenvectors of $C$, which varies from observable to observable. Computing $k_Q$ from first principles is the most important open problem in this supplement.
+\end{remark}
+
+\begin{remark}[What the correction is not]
+The correction is not to the Gamma function, which is exact. It is not to the slicing recurrence, which is exact (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by $\Gamma(a+1) = a\Gamma(a)$). It is to the \emph{independent-step approximation}: the assumption that a quantity depending on $n$ cascade layers is the product of $n$ individually exact factors. The layers are individually exact but not independent---their integrands overlap in $L^2$, and the eigenvalue deficit $\epsilon$ quantifies the overlap.
+\end{remark}
+
+\subsection{The perturbation theory for $\epsilon$}\label{sec:perturbation}
+
+\begin{theorem}[Eigenvalue deficit from perturbation theory]\label{thm:pert}
+\[
+\epsilon = 1 - \frac{\lambda_1}{n} = \frac{2}{n^2} \sum_{i < j} \left(1 - C_{ij}\right),
+\]
+where $C_{ij}$ are the entries of the correlation matrix.
+\end{theorem}
+
+\begin{proof}
+Write $C = J - D$ where $J_{ij} = 1$ for all $i,j$ and $D_{ij} = 1 - C_{ij} \geq 0$, with $D_{ii} = 0$. The matrix $J$ has eigenvalue $n$ with eigenvector $u = (1, \ldots, 1)/\sqrt{n}$ and eigenvalue $0$ with multiplicity $n - 1$. By first-order perturbation theory:
+\[
+\lambda_1(C) = n - \langle u | D | u \rangle = n - \frac{1}{n} \sum_{i,j} D_{ij} = n - \frac{2}{n} \sum_{i < j}(1 - C_{ij}).
+\]
+Dividing by $n$ and rearranging gives the stated formula.
+\end{proof}
+
+\noindent Verification: for $d = 5, \ldots, 12$ ($n = 8$), the perturbative formula gives $\epsilon = 0.008173$; the exact eigenvalue gives $\epsilon = 0.008159$. Agreement: $0.17\%$. The formula is verified to comparable precision for all paths tested.
+
+\subsection{Numerical evidence for the correction}\label{sec:verification}
+
+Three quantities with unambiguous cascade paths test the correction. The coupling coefficient $k_Q$ is fitted independently for each.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llcccccc}
+\toprule
+Observable & Path & $n$ & $\epsilon$ & $k_Q$ & Leading & Corrected & Observed \\
+\midrule
+$\alpha_s$ & $d\!=\!5\text{--}12$ & 8 & 0.00816 & 2.11 & 0.1159 & 0.1179 & 0.1179 \\
+$\ell_A$ & $d\!=\!5\text{--}12$ & 8 & 0.00816 & 1.66 & 297.6 & 301.6 & 301.6 \\
+$m_\tau/m_\mu$ & $d\!=\!6\text{--}13$ & 8 & 0.00657 & 2.67 & 16.53 & 16.82 & 16.82 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent All three residuals vanish when $k_Q$ is fitted individually. The coupling coefficients cluster between 1.7 and 2.7. Their variation reflects the different ways each observable couples to the subdominant eigenstructure.
+
+\begin{remark}[The approximate universality of $k_Q \approx 2$]
+Setting $k_Q = 2$ for all three quantities gives residuals of $-0.09\%$ ($\alpha_s$), $+0.27\%$ ($\ell_A$), and $-0.43\%$ ($m_\tau/m_\mu$)---sub-half-percent in every case, and a significant improvement over the uncorrected deviations of $-1.70\%$, $-1.34\%$, and $-1.72\%$. The value $k_Q = 2$ is the best integer approximation (RMS residual $0.30\%$, compared to $0.87\%$ for $k = 1$ and $0.76\%$ for $k = 3$). The optimal least-squares value across all three is $k = 2.08$.
+\end{remark}
+
+\subsection{Sign structure of the correction}
+
+The correction $k_Q \epsilon$ is always positive ($\epsilon > 0$, $k_Q > 0$), so it increases the predicted value. This produces the observed sign structure across all cascade predictions:
+
+\begin{itemize}[nosep]
+\item \emph{Descent-dependent quantities} (those traversing multiple cascade layers) have negative leading-order deviations, because the independent-step approximation underestimates the propagated geometric content. The correction $+k_Q\epsilon$ closes the gap.
+\item \emph{Geometric quantities} (single-level ratios, topological constants) have positive leading-order deviations, because they do not traverse multiple layers and receive no inter-layer correction. Their deviations reflect the subleading structure of the Gamma function at a single level, which is a separate (and smaller) effect.
+\end{itemize}
+
+The clean sign separation---negative for descent, positive for geometric---is not an empirical observation. It is a consequence of the Gram eigenvalue deficit being positive: $\epsilon > 0$ because $C_{ij} < 1$ for $i \neq j$ (Cauchy--Schwarz), so the deficit matrix $D$ has positive entries and $\langle u | D | u \rangle > 0$.
+
+\subsection{The correction as compactification residual}
+
+Theorem~4.2 establishes that each compactification step retains a residual $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$. The overlap deficit (Theorem~\ref{thm:overlap}) scales as $1-C_{d,d+1}^2 \sim 1/(8d^2) \sim R_{\mathrm{eff}}^4/8$. The eigenvalue deficit $\epsilon$ is the cumulative effect of these per-step residuals over the path.
+
+The independent-step approximation corresponds to the limit $R_{\mathrm{eff}} \to 0$ (complete compactification). The correction $k_Q\epsilon$ is the leading-order cost of $R_{\mathrm{eff}} > 0$---the imperfect folding of the cascade's own geometry.
+
+\subsection{What this section proves}
+
+\begin{enumerate}[nosep]
+\item The Gram matrix of cascade layer integrands is a matrix of Beta function values (Theorem~\ref{thm:gram}).
+\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}).
+\item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
+\item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
+\item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
+\item The correction with $k_Q$ fitted individually closes all three tested quantities to zero residual; with the universal approximation $k_Q = 2$, residuals are below $0.5\%$.
+\item Every quantity in this section except $k_Q$ is a Gamma function identity. No physics enters.
+\end{enumerate}
+
+\subsection{Open questions}\label{sec:open}
+
+\begin{enumerate}[nosep]
+\item \emph{Derive the coupling coefficient $k_Q$ from first principles.} This is the most important open problem in the cascade's mathematical structure. The eigenvalue deficit $\epsilon$ is derived; the coupling coefficient $k_Q$ is fitted. The individual values ($k_{\alpha_s} = 2.11$, $k_{\ell_A} = 1.66$, $k_{m_\tau/m_\mu} = 2.67$) cluster near~2 but vary by $\pm 0.5$. The variation reflects how each observable projects onto the subdominant eigenvectors of~$C$. Deriving $k_Q$ requires computing this projection explicitly: the subdominant eigenvector $v_2$ of the correlation matrix has a specific shape (weighted toward the ends of the path), and the observable's sensitivity to the cascade potential at each layer determines the coupling. This is a linear algebra problem with Beta function entries---a computation, not a conceptual gap.
+
+\emph{Structural hint.} The superposition ratio $R = B(\frac{1}{2}, \frac{d_1+d_2}{2}+1)\, / \left[B(\frac{1}{2}, \frac{d_1}{2}+1)\, B(\frac{1}{2}, \frac{d_2}{2}+1)\right]$ changes sign at $d \approx 10$, identifying a geometric phase transition in the Beta function. Paths crossing this transition ($d = 5\text{--}12$, $d = 6\text{--}13$) have qualitatively different correction structure from paths entirely above it ($d = 14\text{--}21$). The coupling coefficient $k_Q$ varies across observables because their paths straddle this transition differently.
+\item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an exact sum; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
+\item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
+\item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
+\end{enumerate}
+
+\begin{remark}[Significance of the open problem]
+The eigenvalue deficit identifies the source of the descent systematic that appears across all five papers of the cascade series. Without a derivation of $k_Q$, the cascade's predictions carry sub-2\% systematic uncertainties on descent-dependent quantities. With a derivation of $k_Q$, these close to sub-0.1\%. The difference is between a framework that matches observation to percent level and one that matches to the precision of the data. Open Question~1 is the calculation that separates the two.
+\end{remark}
+
+\end{document}

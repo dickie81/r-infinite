@@ -1,7 +1,8 @@
-%OUTDIR%
-paper.synctex.gz
-paper.aux
-paper.fdb_latexmk
-paper.fls
-paper.log
-paper.out
+*.out
+*.aux
+*.log
+*.toc
+*.pdf
+*.fls
+*.fdb_latexmk
+*.synctex.gz

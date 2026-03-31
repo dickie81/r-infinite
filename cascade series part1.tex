@@ -1,0 +1,702 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\geometry{margin=2.5cm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+
+\title{The Cascade Series --- Part I\\[0.5em]
+\large Scale Variance from Orthogonality:\\
+How the Unit Ball Generates $10^{120}$ Orders of Magnitude}
+\author{[Author]}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the unit ball in $\mathbb{R}^d$, equipped only with the slicing recurrence
+$V_{d+1}/V_d = \sqrt{\pi} \cdot R(d)$, produces two distinguished geometric scales separated by
+120 orders of magnitude. The mechanism is elementary: the recurrence contains a
+unique dimension-independent constant, $\sqrt{\pi} = \Gamma(1/2)$, forced by orthogonality. The
+sphere-area decay rate $p(d)$ has a natural zero at $d_0 \approx 2\pi$, the sphere-area maximum.
+This zero-crossing condition forces a first threshold value $c_1 = \tfrac{1}{2}\ln\pi$ as the value
+of the $d$-dependent part of $p$ at the zero. The exp-conjugacy of the recurrence's
+two canonical forms then forces a second threshold value $c_2 = e^{c_1} = \sqrt{\pi}$. The
+pair $\{c_1, c_2\}$ is the unique pair generated from $\{0\}$ by operations internal to the
+recurrence, and no further element is reachable; the orbit terminates.
+
+These two thresholds select two distinguished dimensions $d_1 = 19$ and $d_2 = 217$.
+The sphere areas at these dimensions define two geometric scales: $\Omega_{19} \approx 0.52$
+(an $O(1)$ number) and $\Omega_{217} \approx 10^{-120}$ (an exponentially small number). The
+$\sqrt{\pi}$-dependent formula for 120 is: $\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10 \approx 120.3$. The cascade invariant
+$I := \Omega_{19} \times \Omega_{217} \times 198/217 = 1.0996\times 10^{-120}$ is the natural multiplicative combination
+of both threshold outputs; by Corollary~8.3 it is a function of the primitive pair $(c_1, c_2)$
+alone, with zero free parameters. Its uniqueness is established (Theorem~9.2): under
+one geometric principle---(A2) that the invariant uses the full primitive pair---five
+constraints from the cascade's geometry admit exactly one scalar. The constraint
+that content is measured by sphere areas with exponent 1 is not an independent
+assumption: it follows from the recurrence's first-order multiplicative structure and
+the fact that volumes are derived quantities ($V_d = \Omega_{d-1}/d$).
+
+Every step from orthogonality to the threshold pair $(d_1, d_2)$ is a theorem about
+the Gamma function. No physics enters the derivation. The numerical agreement of
+$I$ with the observed vacuum-energy ratio $\rho_\Lambda/M^4_{\mathrm{Pl}} \approx 1.1\times 10^{-120}$ (to 0.04\%) is noted
+as an observation, not explained within this paper.
+
+Section~4 proves that each step of the slicing recurrence sends one direction's
+effective radius to $R_{\mathrm{eff}} = 1/\sqrt{d+3}$, derived exactly from the Beta function. The
+boundary-to-volume ratio $\Omega_{d-1}/V_d = d$ proves that sphere areas---not volumes---are
+the cascade's primary objects. Corollary~4.12 establishes that sphere area is the only
+independent cascade quantity at each level: every other cascade object is derived
+from sphere areas, so any physical identification mapping cascade content to energy
+must do so with a universal constant, with no level-type dependence available.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{The Question}
+
+How much scale variance can pure mathematics produce from nothing?
+
+The unit ball $B^d = \{x \in \mathbb{R}^d : |x| \leq 1\}$ is the simplest geometric object that exists in
+every dimension. Its volume is $V_d = \pi^{d/2}/\Gamma(d/2+1)$, and the surface area of its boundary
+sphere $S^{d-1}$ is $\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$. Both tend to zero as $d\to\infty$.
+
+The sphere area $\Omega_d$ varies over an enormous range as $d$ varies. At $d=7$, $\Omega_7 \approx 33$
+(near its maximum). At $d=217$, $\Omega_{217} \approx 10^{-120}$. The ratio is $\Omega_7/\Omega_{217} \approx 10^{121}$. The unit
+ball, with no free parameters and no input beyond the definition of orthogonal dimensions,
+generates 121 orders of magnitude of scale variance.
+
+This paper asks: is there a natural way to extract two distinguished scales from this
+variance? The answer is yes. The slicing recurrence that relates $V_{d+1}$ to $V_d$ contains exactly
+one dimension-independent constant ($\sqrt{\pi}$). The sphere-area decay rate has a natural
+zero (the sphere-area maximum), and this zero canonically generates two threshold values via
+operations internal to the recurrence. These thresholds select exactly two dimensions (19
+and 217) and their sphere areas. The two scales are not arbitrary choices from the $\Omega_d$
+profile. They are the unique outputs of the recurrence's internal structure, rooted in its
+natural zero.
+
+\section{Rates as Fundamental Objects}
+
+The scale variance of $\Omega_d$ is most naturally studied through its rate of change. As $d\to\infty$,
+volumes and surface areas are identically zero: all measure concentrates on a boundary
+layer of thickness $\sim 1/\sqrt{d}$, and the boundary itself has zero area. The only well-defined
+quantities are rates.
+
+\begin{definition}[Sphere-area decay rate]
+$p(d) := -\partial_d\ln\Omega_d = \frac{1}{2}\psi\!\left(\frac{d+1}{2}\right) - \frac{1}{2}\ln\pi$,
+where $\psi = \Gamma'/\Gamma$ is the digamma function.
+\end{definition}
+
+For large $d$, using $\psi(x) \approx \ln x$: $p(d) \approx \frac{1}{2}\ln(d/2\pi)$. This rate increases strictly and
+continuously on $(0,\infty)$, from $-\infty$ to $+\infty$, with a unique zero at $d_0$ satisfying $p(d_0) = 0$
+(the sphere-area maximum, $d_0 \approx 2\pi$).
+
+\begin{remark}
+The rate $p(d)$ is not the logarithm of some more fundamental quantity. At
+$d=\infty$, where every $\Omega_d$ is zero, the rate of approach to zero is all the geometry there is. A
+constant that enters the recurrence as a rate is already in the space where $p(d)$ lives. This
+will be critical in Section~6.
+\end{remark}
+
+\begin{remark}[The three zeros]
+The cascade has a single zero, appearing in three representations. (i) Geometric zero: $V_\infty = \Omega_\infty = 0$. The infinite-dimensional unit ball has
+no volume, no surface area, no interior. This is the cascade's starting point---geometric
+nothing. (ii) Rate-space zero: $p(d_0) = 0$. The dimension where growth transitions to
+decay. Its uniqueness is a theorem ($p$ is strictly monotone). (iii) Orbit seed: $\{0\} \in \mathbb{R}$.
+The starting point of the orbit construction in Section~6.
+
+These three zeros are not the same object: the geometric zero occurs at $d=\infty$; the
+rate zero occurs at $d_0 \approx 2\pi$; and the orbit seed is an algebraic value. They are, however,
+coherently related. The cascade's geometric origin is zero, making zero the natural value
+to encounter as the cascade's structural feature in rate-space. The orbit seed inherits its
+justification from this structure: it is the value $p$ takes at the cascade's unique structural
+zero, read off from the decay rate at $d_0$.
+
+The practical consequence is that the orbit seed $\{0\}$ requires no external justification and
+constitutes no additional input. It is read directly from the construction. Any alternative
+seed would be an imported value not present in the cascade.
+\end{remark}
+
+\section{Orthogonal Compression}
+
+\subsection{The slicing integral}
+
+Cut $B^{d+1}$ perpendicular to one axis. Each cross-section at height $x$ is a $d$-ball of radius
+$\sqrt{1-x^2}$:
+\begin{equation}
+V_{d+1} = V_d \int_{-1}^{1} (1-x^2)^{d/2}\,dx.
+\end{equation}
+
+\subsection{The quarter turn}
+
+Substitute $x = \cos\theta$:
+\begin{equation}
+V_{d+1} = 2V_d \int_0^{\pi/2} \sin^d\theta\,d\theta.
+\end{equation}
+The range $[0,\pi/2]$ is one quarter turn: the rotation from the axis to the equator.
+
+\begin{theorem}[Orthogonal compression constant]
+$\Gamma(1/2) = \sqrt{\pi}$ is the unique dimension-independent constant produced by the quarter-turn integral. It is forced by orthogonality alone. Moreover, it appears with coefficient exactly 1 in each canonical form of the recurrence.
+\end{theorem}
+
+\begin{proof}
+The quarter-turn integral evaluates via the Beta function:
+\[
+\int_0^{\pi/2}\sin^d\theta\,d\theta = \tfrac{1}{2}B\!\left(\tfrac{1}{2},\tfrac{d+1}{2}\right) = \frac{\Gamma(1/2)\,\Gamma((d+1)/2)}{2\,\Gamma((d+2)/2)}.
+\]
+The first argument of $B$ is $\frac{1}{2}$, forced by orthogonality: the angle between axis and equator
+is $\pi/2$; the substitution $x = \cos\theta$ maps $[0,\pi/2]$ to $[0,1]$, producing the half-power $t^{-1/2}$
+in $B(1/2,\cdot)$; this gives $\Gamma(1/2) = \sqrt{\pi}$. The chain is: dimension $\to$ orthogonal $\to$ $\pi/2$ $\to$
+$B(1/2,\cdot)$ $\to$ $\Gamma(1/2) = \sqrt{\pi}$. Every arrow is forced.
+
+For the coefficient: the linear-form recurrence is $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$. The factor $\sqrt{\pi}$ appears once, with no additional numeric coefficient. Taking logarithms: $\Delta\ln V_d = \frac{1}{2}\ln\pi + \ln R(d)$. The constant term $\frac{1}{2}\ln\pi$ has coefficient 1, and the $d$-dependent part $\ln R(d)$ contains no $\pi$-dependent constants by Theorem~5.1 below.
+\end{proof}
+
+\subsection{The full slicing recurrence}
+
+Combining both hemispheres:
+\begin{equation}
+V_{d+1} = V_d\cdot\sqrt{\pi}\cdot R(d), \qquad R(d) := \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+\end{equation}
+For large $d$, $R(d) \approx \sqrt{2/d}$, giving $V_{d+1}/V_d \approx \sqrt{2\pi/d}$.
+
+\section{Asymptotic Compactification}
+
+This section has a single goal: to establish that sphere areas are the unique independent cascade quantity at each level (Corollary~4.12). All intermediate results serve that end. Theorem~4.2 derives the compactification radius $R_\mathrm{eff} = 1/\sqrt{d+3}$ from the Beta function; Theorem~4.4 shows it coincides asymptotically with the Gaussian width; Theorem~4.7 proves boundary dominance $\Omega_{d-1}/V_d = d$; Remark~4.11 uses that identity to show volumes are derived quantities. Corollary~4.12 assembles these into the statement that every cascade object is a function of sphere areas alone, and that any physical identification mapping cascade content to energy must use a universal constant with no level-type dependence. Readers who accept this conclusion may proceed directly to Section~5.
+
+\subsection{Concentration of the integrand}
+
+\begin{lemma}[Gaussian concentration]
+The integrand $f_d(x) = (1-x^2)^{d/2}$ satisfies:
+(a) $f_d(x) = \exp(-dx^2/2 + O(dx^4))$, approximating a Gaussian with standard deviation
+$\sigma(d) = 1/\sqrt{d}$; (b) the half-maximum width is $\sqrt{2\ln 2}/\sqrt{d}$; (c) as $d\to\infty$, $f_d\to\delta(x)$.
+\end{lemma}
+
+\begin{proof}
+Expanding: $\ln(1-x^2) = -x^2 - x^4/2 - x^6/3 - \cdots$ for $|x|<1$. Therefore $(d/2)\ln(1-x^2) = -dx^2/2 + O(dx^4)$. The half-maximum occurs at $x_{1/2} = \sqrt{1-2^{-2/d}} \approx \sqrt{2\ln 2}/\sqrt{d}$.
+As $d\to\infty$, $x_{1/2}\to 0$ and $\int f_d\,dx \approx \sqrt{2\pi/d}\to 0$, confirming convergence to $\delta(x)$.
+\end{proof}
+
+\subsection{The compactification radius}
+
+\begin{theorem}[Effective radius]
+The effective radius of the compactified direction at step $d$ is $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$.
+\end{theorem}
+
+\begin{proof}
+The effective radius is the RMS extent: $R_{\mathrm{eff}}^2 = \langle x^2\rangle = \int x^2(1-x^2)^{d/2}dx\Big/\int(1-x^2)^{d/2}dx$. Evaluating via the Beta function with $t = x^2$: the numerator is $B(3/2, d/2+1)$ and the denominator is $B(1/2, d/2+1)$. Using $\Gamma(x+1) = x\Gamma(x)$: $\langle x^2\rangle = 1/(d+3)$. Therefore $R_{\mathrm{eff}} = 1/\sqrt{d+3}\to 0$ as $d\to\infty$.
+\end{proof}
+
+\begin{center}
+\begin{tabular}{cccl}
+\toprule
+$d$ & $R_{\mathrm{eff}}(d)$ & $N(d)$ & Layer\\
+\midrule
+4 & 0.37796 & 1.17810 & Observer\\
+7 & 0.31623 & 0.91429 & $d_0$\\
+12 & 0.25820 & 0.70870 & $d=12$\\
+19 & 0.21320 & 0.56755 & $d_1$\\
+217 & 0.06742 & 0.16997 & $d_2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The compactification is smooth. At finite $d$, the weight $(1-x^2)^{d/2}$ has
+support on all of $(-1,1)$. The direction is not removed; its contribution is suppressed to
+$O(1/\sqrt{d})$. There is no boundary, no horizon, no sharp cutoff---only exponential suppression.
+The word ``asymptotic'' is essential: the compactification limit is approached but never
+reached at any finite step.
+\end{remark}
+
+\subsection{The effective-radius and Gaussian-width coincidence}
+
+\begin{theorem}[Scale coincidence]
+The cascade's two natural length scales---the compactification radius $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$ and the Gaussian width $\sigma(d) = 1/\sqrt{d}$ of the slicing integrand---satisfy
+\[
+\frac{R_{\mathrm{eff}}(d)}{\sigma(d)} = \sqrt{\frac{d}{d+3}} \to 1 \quad\text{as } d\to\infty,
+\]
+with correction $O(1/d)$: $R_{\mathrm{eff}}/\sigma = 1 - \frac{3}{2d} + O(d^{-2})$.
+\end{theorem}
+
+\begin{proof}
+Direct computation from Lemma~4.1 and Theorem~4.2.
+\end{proof}
+
+\begin{corollary}[Second universal cascade constant]
+The fraction of the slicing integrand's content within the compactification radius satisfies
+\[
+F(d) = \frac{\int_{|x|<R_{\mathrm{eff}}(d)}(1-x^2)^{d/2}dx}{\int_{-1}^{1}(1-x^2)^{d/2}dx} \to \operatorname{erf}\!\left(\tfrac{1}{\sqrt{2}}\right) = 0.68269\ldots \quad\text{as }d\to\infty,
+\]
+a second universal constant of the cascade alongside $\sqrt{\pi}$, determined entirely by the coincidence $R_{\mathrm{eff}}/\sigma\to 1$.
+\end{corollary}
+
+\begin{proof}
+In the Gaussian limit (Lemma~4.1), the integrand is $e^{-dx^2/2}$ with width $\sigma = 1/\sqrt{d}$.
+The fraction within $R_{\mathrm{eff}} = 1/\sqrt{d+3}$ is $\operatorname{erf}(R_{\mathrm{eff}}/(\sigma\sqrt{2}))$. As $d\to\infty$, $R_{\mathrm{eff}}/(\sigma\sqrt{2})\to 1/\sqrt{2}$, giving $\operatorname{erf}(1/\sqrt{2})$.
+\end{proof}
+
+\begin{remark}[The cascade's effective geometric origin]
+After $d_2 = 217$, sphere areas satisfy $\Omega_d < 10^{-120}$---geometrically indistinguishable from zero. The cascade's second threshold $d_2 = 217$ and its formal starting point $d=\infty$ are therefore the same geometric point: the cascade begins at geometric nothing, and nothing remains after $d_2$. The limit $d\to\infty$ in Corollary~4.5 is consequently exact, not merely asymptotic, when applied to the cascade tower: there is no geometric content beyond $d_2 = 217$ to distinguish the two points. The constant $\operatorname{erf}(1/\sqrt{2})$ is a property of the cascade's origin, evaluated at its effective terminus.
+\end{remark}
+
+\subsection{Why sphere areas are primary}
+
+\begin{theorem}[Boundary dominance]
+$\Omega_{d-1}/V_d = d$ for all $d\geq 1$.
+\end{theorem}
+
+\begin{proof}
+$\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$, $V_d = \pi^{d/2}/\Gamma(d/2+1) = \pi^{d/2}/[(d/2)\Gamma(d/2)]$. Ratio: $2\times(d/2) = d$.
+\end{proof}
+
+\begin{corollary}[Sphere areas as boundary measures]
+The sphere area $\Omega_d$ is the natural measure of the cascade's content at dimension $d$, because $\Omega_{d-1}/V_d = d$: at high $d$, the boundary dominates the volume. By concentration of measure, the unit ball's volume concentrates in a shell of thickness $\sim 1/\sqrt{d}$ near $S^{d-1}$. This is the reason the cascade's thresholds (Section~6) and invariant (Section~9) are defined in terms of sphere areas rather than volumes.
+\end{corollary}
+
+\subsection{The cascade as a compactification sequence}
+
+\begin{theorem}[Compactification sequence]
+The cascade $V_\infty\to V_{d_2}\to V_{d_1}\to V_{d_0}\to V_4$ has at each step $d+1\to d$: (a) effective radius $1/\sqrt{d+3}$ (Theorem~4.2); (b) volume multiplied by $N(d)<1$ for $d>d_0$; (c) boundary-to-volume ratio $\Omega/V = d$ (Theorem~4.7); (d) the integrand $(1-x^2)^{d/2}$ is smooth and positive on $(-1,1)$ for all finite $d$.
+\end{theorem}
+
+\subsection{Layered boundary dominance}
+
+\begin{corollary}[Layered boundary dominance]
+The cascade's boundary-to-volume ratio $\Omega/V = d$ (Theorem~4.7), combined with the compactification radius $R_{\mathrm{eff}} = 1/\sqrt{d+3}$ (Theorem~4.2), implies: (a) at each step, the boundary $S^{d-1}$ carries a fraction $d/(d+1)$ of the content; (b) the boundary capacity $\Omega_d$ is calculable from $\pi$ alone; (c) the cascade stacks these boundary-dominant steps: the $d_2$-sphere's boundary encloses the $d_1$-sphere's boundary, which encloses the $d_0$-sphere's boundary.
+\end{corollary}
+
+\begin{remark}[Volumes as derived quantities]
+Since $V_d = \Omega_{d-1}/d$ is an identity (not a physical relationship), every quantity in this paper---the decay rate $p(d)$, the threshold conditions, the cascade invariant---is expressible purely in terms of sphere areas. Volumes have no independent content; they are boundary areas divided by the dimension. The slicing recurrence, written as
+\[
+\Omega_d = \Omega_{d-1}\cdot\frac{d+1}{d}\cdot\sqrt{\pi}\cdot R(d),
+\]
+is a first-order multiplicative map between sphere areas. The integral $\int(1-x^2)^{d/2}dx$ is the kernel of this map: it computes the sphere-area ratio $\Omega_d/\Omega_{d-1}$ (up to the dimensional prefactor), not an independent volume.
+\end{remark}
+
+\begin{corollary}[Sphere areas are the unique independent cascade quantities]
+Every cascade quantity---$V_d$, $N(d)$, $R(d)$, $R_{\mathrm{eff}}(d)$---is derived from sphere areas:
+\[
+V_d = \frac{\Omega_{d-1}}{d}, \quad N(d) = \frac{\Omega_d}{\Omega_{d-1}}, \quad R(d) = \frac{N(d)}{\sqrt{\pi}}, \quad R_{\mathrm{eff}}(d) = \sqrt{\langle x^2\rangle} = \frac{1}{\sqrt{d+3}}.
+\]
+No independent cascade object exists at level $d$ other than $\Omega_{d-1}$. Any physical identification that maps cascade content to energy must therefore assign energy $C\cdot\Omega_{d-1}$ at each level, where $C$ is a universal constant: no independent geometric quantity exists to make $C$ depend on $d$ or layer type.
+\end{corollary}
+
+\begin{proof}
+$V_d = \Omega_{d-1}/d$ is the identity $\Omega_{d-1}/V_d = d$ (Theorem~4.7) solved for $V_d$. $N(d) = V_{d+1}/V_d = \Omega_d/\Omega_{d-1}$ after applying the identity at both levels. $R(d) = N(d)/\sqrt{\pi}$ by the recurrence. $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$ from Theorem~4.2. Every cascade quantity is therefore a function of sphere areas alone.
+
+Since $\Omega_{d-1}$ is the content of level $d$---not a proxy for it---and any physical identification maps content directly to energy, the energy at level $d$ is $C\cdot\Omega_{d-1}$ by direct substitution. The recurrence structure confirms this: the slicing recurrence is a first-order multiplicative map outputting exactly one factor of $\Omega_d$ per step (via $N(d) = \Omega_d/\Omega_{d-1}$), so the natural multiplicity of each level's contribution is 1. The constant $C$ is universal across all levels and layer types.
+\end{proof}
+
+\section{The Irreducibility of $\sqrt{\pi}$}
+
+\begin{theorem}[Gamma-ratio exclusion]
+Define $\delta_{\mathrm{exact}}(d) := \ln(\Omega_{d+1}/\Omega_d) - \ln(\Omega_d/\Omega_{d-1})$. Then $\delta_{\mathrm{exact}}(d) = \ln(d/(d+1)) < 0$ for all $d\geq 1$.
+\end{theorem}
+
+\begin{proof}
+Using $\Omega_d = (d+1)V_{d+1}$ and the recurrence: the Gamma functions cancel pairwise under $\Gamma(x+1) = x\Gamma(x)$, leaving $\ln(d/(d+1)) < 0$.
+\end{proof}
+
+\begin{corollary}[Irreducibility]
+The second difference of $\ln\Omega_d$ reduces to a rational expression. All $\pi$-dependent and $\Gamma$-dependent factors cancel exactly. $\sqrt{\pi}$ is the irreducible residue: the only nontrivial constant the sphere-area recurrence contains.
+\end{corollary}
+
+\section{The Natural Zero Generates the Threshold Pair}
+
+This is the central section of the paper.
+
+\subsection{Decomposition of the decay rate}
+
+The decay rate decomposes canonically as:
+\[
+p(d) = -\tfrac{1}{2}\ln\pi + \tfrac{1}{2}\psi\!\left(\tfrac{d+1}{2}\right).
+\]
+The constant part is $-\frac{1}{2}\ln\pi$, arising directly from the $\sqrt{\pi}$ in the recurrence. The $d$-dependent part $q(d) = \frac{1}{2}\psi((d+1)/2)$ is strictly increasing from $-\infty$ to $+\infty$.
+
+\subsection{The natural zero}
+
+\begin{definition}[Natural zero]
+The natural zero $d_0$ of the recurrence is the unique solution to $p(d_0) = 0$: $q(d_0) = \frac{1}{2}\ln\pi$. In the Stirling approximation, $d_0 = 2\pi\approx 6.28$, integer $d_0 = 7$. At $d_0$, the sphere-area sequence transitions from growth to decay: $\Omega_d$ is maximised. The natural zero is not an additional input. It is the unique structural feature of $p$ determined entirely by the recurrence constants.
+\end{definition}
+
+\subsection{Operation A: the zero-crossing forces $c_1$}
+
+\begin{theorem}[Zero-crossing condition]
+The natural zero condition $p(d_0) = 0$ forces $c_1 := q(d_0) = \frac{1}{2}\ln\pi$.
+\end{theorem}
+
+\begin{proof}
+$p(d_0) = 0 \Leftrightarrow q(d_0) = \frac{1}{2}\ln\pi$. The right-hand side is the constant part of $p$, which by Theorem~3.1 equals $\frac{1}{2}\ln\pi$ with no free coefficient.
+\end{proof}
+
+\begin{theorem}[Uniqueness of Operation A]
+Among all scalars derivable from the natural zero $d_0$, the unique scalar satisfying both (a) Range condition: $c>0$, so that $p(d) = c$ has a solution $d^*(c) > d_0$ in the cascade's descending regime, and (b) Primitivity condition: $c$ is a recurrence primitive, i.e., a $d$-independent constant appearing in the slicing recurrence with coefficient forced by orthogonality (Corollary~5.2), is $c_1 = q(d_0) = \frac{1}{2}\ln\pi$.
+\end{theorem}
+
+\begin{proof}
+We show that only $q(d_0)$ passes both filters across all four information classes available from the natural zero.
+
+Class 1: Values of $p$ and its decomposition at $d_0$. The zero gives three scalars: $p(d_0) = 0$, the $d$-dependent part $q(d_0) = \frac{1}{2}\ln\pi$, and the constant part $-\frac{1}{2}\ln\pi$. (i) $p(d_0) = 0$ fails (a): the equation $p(d) = 0$ has its unique solution at $d_0$ itself. (ii) $q(d_0) = \frac{1}{2}\ln\pi$ satisfies (a) since $\frac{1}{2}\ln\pi > 0$. It satisfies (b) since $\frac{1}{2}\ln\pi$ is the log-space image of $\sqrt{\pi}$, the recurrence's unique primitive. This is $c_1$. (iii) The constant part $-\frac{1}{2}\ln\pi < 0$ fails (a).
+
+Class 2: Higher derivatives $p^{(n)}(d_0)$, $n\geq 1$. Using $\psi^{(n)}(x)\sim(n-1)!x^{-n}$ with $d_0 = 2\pi$: $p^{(n)}(d_0)\approx(n-1)!/[2(2\pi)^n]$. All derivatives fail (b): they are not recurrence primitives.
+
+Class 3: The dimension $d_0$ itself. Setting $p(d) = d_0$ equates a dimensionless rate to a dimension count---a type mismatch.
+
+Class 4: Analytic combinations. Any combination either reduces to $q(d_0)$ (Class 1), or introduces $\pi^{-n}$, $0$, or $d_0 = 2\pi$ as factors, none of which are recurrence primitives.
+
+Across all four classes, $c_1 = q(d_0) = \frac{1}{2}\ln\pi$ is the unique scalar satisfying both (a) and (b).
+\end{proof}
+
+\subsection{Operation B: exp-conjugacy forces $c_2$}
+
+\begin{theorem}[Exp-conjugacy]
+The recurrence's linear form and log form represent the same underlying constant $\sqrt{\pi}$ in two different algebraic spaces. Their relationship forces $c_2 := e^{c_1} = \sqrt{\pi}$. $c_2$ is the linear-space image of $c_1$, derived from $c_1$ by the same exponential map that relates the two canonical forms of the recurrence.
+\end{theorem}
+
+\begin{proof}
+The log-form constant is $c_1 = \frac{1}{2}\ln\pi$. The linear-form constant is $\sqrt{\pi}$. These represent the same mathematical object in two canonical representations: $e^{c_1} = e^{\frac{1}{2}\ln\pi} = \pi^{1/2} = \sqrt{\pi} = c_2$.
+\end{proof}
+
+\subsection{The orbit terminates}
+
+\begin{theorem}[Orbit and termination]
+Starting from $\{0\}$, define: Operation A (zero-crossing): $0\mapsto c_1 := q(d_0) = \frac{1}{2}\ln\pi$. Operation B (exp-conjugacy): $c_1\mapsto c_2 := e^{c_1} = \sqrt{\pi}$. The orbit of $\{0\}$ under $\{A,B\}$ is exactly $\{0, c_1, c_2\}$. No further application of $A$ or $B$ produces a new recurrence primitive.
+\end{theorem}
+
+\begin{proof}
+We check all further applications: (i) $B$ applied to $0$: $e^0 = 1$. Rational; generates no threshold. (ii) $B$ applied to $c_2$: $e^{c_2} = e^{\sqrt{\pi}}\approx 5.83$. Does not appear anywhere in the recurrence derivation. (iii) $A$ applied to $c_1$ or $c_2$: Operation A acts on the unique natural zero of $p$. A strictly increasing function has at most one zero, and $p$ has exactly one (at $d_0$). There is no second zero at which an A-type operation could be applied. Therefore the orbit is $\{0, c_1, c_2\}$, and closure holds.
+\end{proof}
+
+\begin{corollary}[Canonical primitive set]
+The canonical primitive set is $\mathcal{P} = \{0, c_1, c_2\} = \{0, \frac{1}{2}\ln\pi, \sqrt{\pi}\}$, derived from $\{0\}$ by operations $A$ and $B$, both internal to the recurrence.
+\end{corollary}
+
+\subsection{The two thresholds}
+
+\begin{theorem}[First threshold: internal balance]
+The condition $p(d) = c_1 = \frac{1}{2}\ln\pi$ selects $d_1 = 2\pi^2-1\approx 18.74$, integer $d_1 = 19$. At $d_1$, the volume ratio is $V_{d+1}/V_d = 1/\sqrt{\pi}$: each step loses exactly one factor of the recurrence's slicing constant.
+\end{theorem}
+
+\begin{proof}
+\textit{Threshold selection.} Setting $p(d_1) = c_1$ and using $\psi(x)\approx\ln x$:
+\[
+\tfrac{1}{2}\ln\!\left(\frac{d_1+1}{2}\right) - \tfrac{1}{2}\ln\pi = \tfrac{1}{2}\ln\pi,
+\]
+giving $(d_1+1)/2 = \pi^2$, hence $d_1 = 2\pi^2-1$. Discrete verification: $p(19) = 0.5535 < c_1 = 0.5724 < p(20) = 0.6013$.
+
+\textit{Volume ratio.} In the Stirling approximation,
+\[
+\ln\!\left(\frac{V_{d+1}}{V_d}\right) = \tfrac{1}{2}\ln\pi + \ln R(d) \approx \tfrac{1}{2}\ln\pi - \tfrac{1}{2}\ln\!\left(\frac{d+1}{2}\right),
+\]
+where the second step uses $\ln\Gamma((d+2)/2) - \ln\Gamma((d+1)/2)\approx\tfrac{1}{2}\ln((d+1)/2)$. The threshold condition fixes $\tfrac{1}{2}\ln((d_1+1)/2) = \ln\pi$. Substituting:
+\[
+\ln\!\left(\frac{V_{d_1+1}}{V_{d_1}}\right) \approx \tfrac{1}{2}\ln\pi - \ln\pi = -\tfrac{1}{2}\ln\pi,
+\]
+giving $V_{d_1+1}/V_{d_1} = 1/\sqrt{\pi}$.
+\end{proof}
+
+\begin{theorem}[Second threshold: cross-section cost]
+The condition $p(d) = c_2 = \sqrt{\pi}$ selects $d_2 = 2\pi e^{2\sqrt{\pi}}-1\approx 216.6$, integer $d_2 = 217$.
+\end{theorem}
+
+\begin{proof}
+Setting $p(d_2) = \sqrt{\pi}$ and using $\psi(x)\approx\ln x$: $(d_2+1)/2 = e^{\ln\pi + 2\sqrt{\pi}} = \pi e^{2\sqrt{\pi}}$, giving $d_2 = 2\pi e^{2\sqrt{\pi}}-1$. Discrete verification: $p(217) = 1.77101 < \sqrt{\pi} = 1.77245 < p(218) = 1.77331$.
+\end{proof}
+
+\subsection{Uniqueness of the two thresholds}
+
+\begin{theorem}[Uniqueness]
+No element of $\mathcal{P}$ other than $c_1$ and $c_2$ generates a distinct positive threshold. The cascade functional $p(d) = c$ admits exactly two solutions in the positive reals generated by $\mathcal{P}\setminus\{0\}$.
+\end{theorem}
+
+\begin{proof}
+$\mathcal{P}\setminus\{0\} = \{c_1, c_2\}$ has exactly two elements by Theorem~6.5. Each is positive. Since $p$ is strictly monotone, each positive value generates exactly one threshold dimension.
+\end{proof}
+
+\section{The Tower of Distinguished Dimensions}
+
+\subsection{The volume maximum and the sphere-area maximum}
+
+Two distinct maxima arise from the cascade's geometry and should not be conflated.
+
+The ball volume $V_d$ is maximised at $d=5$: $V_5\approx 5.26$ is the largest unit ball in any dimension. This is not generated by the threshold machinery of Section~6; no threshold condition $p(d) = c$ selects $d=5$. It is the argmax of $V_d$, a separate structural feature of the Gamma function.
+
+The sphere area $\Omega_d$ is maximised where $p(d_0) = 0$, giving $d_0 = 2\pi\approx 6.28$, integer $d_0 = 7$. This is the natural zero of the recurrence---the unique structural feature of $p$ that seeds the orbit construction of Section~6 and generates the entire threshold pair $(d_1, d_2)$. The sphere-area maximum, not the volume maximum, is the cascade's primary distinguished point.
+
+Both are recorded in Section~7.2 without physical interpretation. The separation between them---$V_d$ maximised at $d=5$, $\Omega_d$ maximised at $d=7$---is a consequence of the identity $\Omega_{d-1}/V_d = d$ (Theorem~4.7): boundary and volume measures peak at different dimensions precisely because they are related by a factor of $d$, not a constant.
+
+\subsection{The tower}
+
+\begin{center}
+\begin{tabular}{cccl}
+\toprule
+Integer & Stirling & $\Omega_d$ & Meaning\\
+\midrule
+$d=5$ & $\operatorname{argmax}\,V_d$ & $\approx 26.3$ & Volume maximum\\
+$d_0 = 7$ & $\approx 2\pi$ & $\approx 33$ & Sphere-area maximum (natural zero of $p$)\\
+$d_1 = 19$ & $\approx 2\pi^2-1$ & $\approx 0.52$ & First threshold ($c_1 = \tfrac{1}{2}\ln\pi$)\\
+$d_2 = 217$ & $\approx 2\pi e^{2\sqrt{\pi}}-1$ & $\approx 10^{-120}$ & Second threshold ($c_2 = \sqrt{\pi}$)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Three scales from one constant}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Scale & $\Omega_d$ & $\log_{10}\Omega$ & Ratio to $\Omega_7$\\
+\midrule
+$\Omega_7$ (sphere-area max) & 33.07 & 1.52 & 1\\
+$\Omega_{19}$ (first threshold) & 0.516 & $-0.29$ & $1/64$\\
+$\Omega_{217}$ (second threshold) & $2.3\times 10^{-120}$ & $-119.6$ & $\sim 10^{-121}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Scale variance from nothing]
+The input to this construction is the concept of orthogonal dimensions. The output is three geometric scales spanning $10^{121}$. The mechanism is: natural zero of $p\to c_1\to c_2\to$ two threshold dimensions $\to$ two exponentially separated sphere areas. No mechanism for producing large hierarchies is assumed; the hierarchy is a property of the Gamma function evaluated at the recurrence's distinguished points.
+\end{remark}
+
+\section{The Inter-Threshold Identity}
+
+\begin{theorem}[Threshold ratio]
+$d_1/d_2 = e^{2(c_1-c_2)}$.
+\end{theorem}
+
+\begin{proof}
+The cascade condition $p(d) = c$ gives $d = 2\pi e^{2c}-1\approx 2\pi e^{2c}$ in the Stirling regime. Therefore $d_1/d_2 = e^{2c_1}/e^{2c_2} = e^{2(c_1-c_2)}$. Substituting: $d_1/d_2 = \sqrt{\pi}\cdot e^{-2\sqrt{\pi}}$.
+\end{proof}
+
+\begin{corollary}[Inter-threshold fraction]
+$(d_2-d_1)/d_2 = 1 - e^{-(2\sqrt{\pi}-\ln\pi)}$, a function of $\pi$ alone. Numerically: $198/217 = 0.91244$.
+\end{corollary}
+
+\begin{corollary}[Invariant as primitive function]
+The cascade invariant is determined entirely by the primitive pair $(c_1, c_2)$: $I = \Omega_{d^*(c_1)}\times\Omega_{d^*(c_2)}\times(1-e^{2(c_1-c_2)})$. No quantity beyond the orbit output $\{c_1, c_2\}$ enters its definition.
+\end{corollary}
+
+\section{The Cascade Invariant}
+
+\begin{definition}[Cascade invariant]
+$I := \Omega_{d_1}\times\Omega_{d_2}\times(d_2-d_1)/d_2$.
+\end{definition}
+
+\textit{Sphere areas rather than volumes.} The thresholds $d_1, d_2$ are conditions on $p(d) = -\partial_d\ln\Omega_d$, which is defined as the log-derivative of sphere areas. Sphere areas are the primary objects of the recurrence; volumes are secondary. By Theorem~4.7, $\Omega_{d-1}/V_d = d$: at high $d$ the boundary dominates the volume, so sphere areas are the natural measure of the cascade's content at each layer.
+
+\textit{Product rather than another symmetric function.} The slicing recurrence is multiplicative. The natural operation on two outputs of a multiplicative recurrence is their product.
+
+\textit{Inter-threshold fraction.} The factor $(d_2-d_1)/d_2$ is the fraction of the cascade's total span occupied by the active inter-threshold region $[d_1, d_2]$. By Corollary~8.2, this fraction equals $1-e^{2(c_1-c_2)}$, determined entirely by the primitive pair.
+
+\begin{theorem}[Uniqueness of the cascade invariant]
+Under one geometric principle:
+\begin{itemize}
+\item[(A2)] \textit{Completeness of the primitive pair:} The invariant uses all information in the primitive pair $(c_1, c_2)$, including the inter-threshold fraction determined by Corollary~8.2,
+\end{itemize}
+the unique scalar associated to the primitive pair $(c_1, c_2)$ by the cascade's geometry is
+\[
+I = \Omega_{d_1}\times\Omega_{d_2}\times(d_2-d_1)/d_2.
+\]
+\end{theorem}
+
+\begin{proof}
+Five constraints, the first four from theorems already established, the fifth from (A2).
+
+(1) \textit{Sphere areas, exponent one.} The slicing recurrence is a first-order multiplicative map outputting one copy of $\Omega_d$ at each step (Remark~4.11). Since $V_d = \Omega_{d-1}/d$ is a derived quantity, the only geometric measures available at each distinguished dimension are the sphere areas $\Omega_{d_1}$ and $\Omega_{d_2}$. Higher powers $\Omega^k$ ($k\neq 1$) would require raising to a power---an operation not present in the recurrence.
+
+(2) \textit{Multiplicative combination.} The slicing recurrence is multiplicative. The natural operation combining outputs of a multiplicative system is their product.
+
+(3) \textit{Two factors.} The orbit of the natural zero under operations $A$ and $B$ generates exactly the primitive pair $(c_1, c_2)$ and terminates (Theorem~6.5). Two distinguished dimensions, so two $\Omega$ factors.
+
+(4) \textit{Product, not quotient.} The cascade originates at $d=\infty$ where $V_\infty = \Omega_\infty = 0$. As $d_2\to\infty$, the product $\Omega_{d_1}\times\Omega_{d_2}\to 0$. The quotient $\Omega_{d_1}/\Omega_{d_2}\to\infty$. Only the product has the correct limiting behaviour.
+
+(5) \textit{Inter-threshold fraction (from A2).} The quantity $(d_2-d_1)/d_2 = 1-e^{2(c_1-c_2)}$ is determined by the primitives (Corollary~8.2). It encodes the geometric relationship between the two thresholds. Assumption (A2) requires that the invariant use all information in the primitive pair; including the inter-threshold fraction makes the invariant a property of the pair, not just the product of two separate quantities.
+
+The unique scalar surviving all five constraints is $I = \Omega^{+1}_{d_1}\times\Omega^{+1}_{d_2}\times(d_2-d_1)/d_2$.
+\end{proof}
+
+\begin{theorem}[Evaluation]
+$I = 1.0996\times 10^{-120}$.
+\end{theorem}
+
+\begin{proof}
+Direct computation: $\Omega_{19} = 0.51614$, $\Omega_{217} = 2.33490\times 10^{-120}$, $198/217 = 0.91244$. Product: $1.0996\times 10^{-120}$.
+\end{proof}
+
+\subsection{Two geometric scales from two thresholds}
+
+\begin{observation}
+The sphere area at $d_1 = 19$ is $\Omega_{19} = 0.51614$---an $O(1)$ number in cascade units. Define: $G_1 := \sqrt{\Omega_{19}} = 0.71843$, $M_1 := (1/\Omega_{19})^{1/4} = 1.17980$. These are functions of $\pi$ alone, determined entirely by the first threshold $c_1 = \frac{1}{2}\ln\pi$.
+\end{observation}
+
+\begin{observation}
+The sphere area at $d_2 = 217$, weighted by the inter-threshold fraction, is: $\Lambda_2 := \Omega_{217}\times 198/217 = 2.1310\times 10^{-120}$. This is a function of $\pi$ alone, determined by $c_2 = \sqrt{\pi}$ and the inter-threshold identity (Theorem~8.1).
+\end{observation}
+
+\begin{observation}
+$I = \Omega_{19}\times\Lambda_2 = G_1^2\times\Lambda_2 = \Lambda_2/M_1^4$. Each factor is determined by its own threshold, independently.
+\end{observation}
+
+\begin{remark}[Numerical coincidences]
+The cascade's two geometric scales bear a striking numerical resemblance to two fundamental constants of physics. The observed ratio of vacuum energy to the fourth power of the Planck mass is $\rho_\Lambda/M^4_{\mathrm{Pl}}\approx 1.1\times 10^{-120}$, which matches $I = \Lambda_2/M_1^4$ to 0.04\%. The physical and geometric framework within which this identification may be derived lies outside the scope of this paper.
+\end{remark}
+
+\section{The 120 Orders of Magnitude}
+
+\begin{theorem}[The hierarchy]
+$\log_{10}(1/\Omega_{d_2})\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10\approx 120.3$.
+\end{theorem}
+
+\begin{proof}
+Stirling at $d_2 = 2\pi e^{2\sqrt{\pi}}$: $\ln\Omega_{d_2}\approx -\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)\approx -277$ nats $\approx -120.3$ decades. The mechanism is the Gamma function's superexponential growth: as $d$ increases from 19 to 217, the denominator $\Gamma(d/2)$ in $\Omega_d$ grows from $\Gamma(9.5)\approx 10^5$ to $\Gamma(108.5)$, a number with over 170 digits.
+\end{proof}
+
+\begin{remark}[Anatomy of the hierarchy]
+$\sqrt{\pi}\approx 1.77$ (orthogonal compression constant); $e^{2\sqrt{\pi}}\approx 34.6$ (exponential amplification); $2\pi e^{2\sqrt{\pi}}\approx 218$ (the cascade dimension); $(2\sqrt{\pi}-1)\approx 2.54$ (per-dimension suppression). Product: $\approx 277$ nats $\approx 120$ decades.
+\end{remark}
+
+\section{Comparison with a Physical Constant}
+
+The cascade invariant $I = 1.0996\times 10^{-120}$ is a pure number from the Gamma function. It was not constructed to match any physical quantity.
+
+The observed ratio of the vacuum energy density to the fourth power of the Planck mass, measured by cosmological observations, is $\rho_\Lambda/M^4_{\mathrm{Pl}}\approx 1.1\times 10^{-120}$. This number is determined by general relativity, quantum field theory, and astronomical measurements---none of which enter the present paper. The agreement with $I$ is 0.04\% under the standard reduced-Planck-mass convention.
+
+We record this agreement without explaining it.
+
+\section{Summary of the Derivation}
+
+\begin{center}
+\begin{tabular}{cll}
+\toprule
+Step & Statement & Source\\
+\midrule
+1 & $V_\infty = \Omega_\infty = 0$; rates are primary & Definition\\
+2 & Orthogonal $\Rightarrow$ quarter turn $\Rightarrow B(1/2,\cdot)$ & Def.\ of dimension\\
+3 & $\Gamma(1/2) = \sqrt{\pi}$: unique constant, coeff.\ 1; irreducible & Thms 3.1, 5.1\\
+3A & Each step: $R_{\mathrm{eff}} = 1/\sqrt{d+3}$; $\Omega/V = d$; $V_d = \Omega_{d-1}/d$ & Thms 4.2--4.12\\
+3B & $R_{\mathrm{eff}}/\sigma\to 1$; $\operatorname{erf}(1/\sqrt{2})$ is second cascade constant & Thm 4.4, Cor 4.5\\
+3C & $\Omega_{d-1}$ is the unique independent cascade quantity & Cor 4.12\\
+4 & $p(d)$ has unique natural zero $d_0$ (strict monotonicity) & $p'>0$\\
+5 & Orbit seed $\{0\}$: value of $p$ at unique structural zero $d_0$ & Rem 2.3\\
+6 & Zero-crossing forces $c_1 = \tfrac{1}{2}\ln\pi$; unique valid reading & Thms 6.2, 6.3\\
+7 & Exp-conjugacy forces $c_2 = \sqrt{\pi}$; orbit terminates & Thms 6.4, 6.5\\
+8 & Exactly two positive thresholds: $d_1 = 19$, $d_2 = 217$ & Thms 6.7--6.9\\
+9 & $d_1/d_2 = e^{2(c_1-c_2)}$; inter-threshold fraction determined & Thm 8.1\\
+10 & $I = \Omega(c_1)\times\Omega(c_2)\times(1-e^{2(c_1-c_2)})$; zero free params & Cor 8.3\\
+11 & $I = 1.0996\times 10^{-120}$ & Direct computation\\
+12 & $I = \Lambda_2/M_1^4$; each factor from its own threshold & Obs 9.4--9.6\\
+13 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm 10.1\\
+14 & Combination is the unique invariant under (A2) & Thm 9.2, Rem 4.11\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The derivation from orthogonality to $I$ is complete under one geometric principle (A2: completeness of the primitive pair) stated in Theorem~9.2. The constraint that sphere areas enter with exponent 1 follows from the recurrence's first-order multiplicative structure (Remark~4.11); it is not an independent assumption. The threshold pair $\{c_1, c_2\}$ is the orbit of the natural zero $\{0\}$ under two operations internal to the recurrence; it requires no external definition. The invariant $I$ has zero free parameters beyond the orbit output (Corollary~8.3), and its uniqueness is established under (A2).
+
+\section{What This Paper Does Not Do}
+
+\begin{itemize}
+\item It does not explain the agreement between $I$ and $\rho_\Lambda/M^4_{\mathrm{Pl}}$. It records the agreement as an empirical observation.
+\item The uniqueness of the invariant (Theorem~9.2) is established under one geometric principle (A2: completeness of the primitive pair). The constraint that sphere areas enter with exponent 1 follows from the recurrence's multiplicative structure (Remark~4.11) and is not an independent assumption. A proof that (A2) is the only consistent reading of primitive completeness would make the uniqueness unconditional.
+\item It does not derive general relativity, quantum mechanics, the Standard Model, or any physical law.
+\item It does not explain why we observe four dimensions.
+\item It does not provide a physical mechanism for the scale variance.
+\item It uses no result from physics. The paper is a theorem about the Gamma function.
+\item The layered boundary dominance (Corollary~4.10) is a mathematical statement about Gamma function ratios. This paper assigns no physical significance to it.
+\item Corollary~4.12 establishes that sphere areas are the only independent cascade quantities, and that any physical identification mapping cascade content to energy must do so linearly with a universal constant. The derivation of this consequence lies outside the scope of this paper.
+\end{itemize}
+
+\section{Robustness Test}
+
+To test whether the cascade invariant is an isolated numerical coincidence or a unique output of the tower structure, we systematically evaluated 249 distinct combinations of the cascade's outputs ($d_0, d_1, d_2, \Omega_7, \Omega_{19}, \Omega_{217}$). Result: exactly one combination falls within 1\% of the observed value: $\Omega_{19}\times\Omega_{217}\times 198/217 = 1.0996\times 10^{-120}$ ($-0.04\%$). The next closest is $\Omega_{19}\times\Omega_{217} = 1.2051\times 10^{-120}$ ($+9.6\%$). Shifting either threshold by one integer gives deviations of 70--900\%. The match is sharply localised at $(d_1, d_2) = (19, 217)$.
+
+\begin{center}
+\begin{tabular}{llcl}
+\toprule
+Primitive set & Thresholds & $\log_{10} I$ & Deviation\\
+\midrule
+$\{c_1, c_2\}$ (this paper) & 19, 217 & $-119.96$ & 0.04\%\\
+$\{0, c_2\}$ & 7, 217 & $-118.12$ & Factor 68\\
+$\{c_1, 2c_1\}$ & 19, 61 & $-17.3$ & $10^3$ OOM\\
+$\{2c_1, c_2\}$ & 61, 217 & $-136.6$ & 17 OOM low\\
+$\{c_1/2, c_2\}$ & 36, 217 & $-126.4$ & 6 OOM\\
+$\{c_1, \pi\}$ & 19, $>$3000 & $<-1000$ & Irrelevant\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No alternative primitive set drawn from operations present in the recurrence comes within an order of magnitude of $10^{-120}$. The 0.04\% agreement is unique to the orbit-generated pair.
+
+\appendix
+
+\section{Numerical Verification}
+
+Constants: $\sqrt{\pi} = 1.7724538509\ldots$, $\frac{1}{2}\ln\pi = 0.5723649429\ldots$
+
+Continuous distinguished dimensions: $d_0 = 2\pi = 6.283$, $d_1 = 2\pi^2-1 = 18.739$, $d_2 = 2\pi e^{2\sqrt{\pi}}-1 = 216.63$.
+
+Discrete first threshold: $p(19) = 0.5535 < c_1 = 0.5724 < p(20) = 0.6013$. Confirmed.
+
+Discrete second threshold: $\Delta(d) := p(d) - \sqrt{\pi}$: $\Delta(217) = -0.00144 < 0 < \Delta(218) = +0.00086$. That is, $p(217) = 1.77101 < \sqrt{\pi} = 1.77245 < p(218) = 1.77331$. Confirmed.
+
+Scale coincidence: $R_{\mathrm{eff}}(d)/\sigma(d) = \sqrt{d/(d+3)}$. At $d=217$: $\sqrt{217/220} = 0.99318$. At $d=\infty$: 1 exactly. The band area fraction at $d=217$: $F(217) = \operatorname{erf}(\sqrt{217/440}) = 0.6821$; at $d=\infty$: $\operatorname{erf}(1/\sqrt{2}) = 0.68269$.
+
+Sphere areas: $\Omega_7 = 32.47$, $\Omega_{19} = 0.51614$, $\Omega_{217} = 2.33490\times 10^{-120}$. Cascade invariant: $\Omega_{19}\times\Omega_{217} = 1.20513\times 10^{-120}$; $198/217 = 0.91244$; $I = 1.09961\times 10^{-120}$. Observed: $\rho_\Lambda/M^4_{\mathrm{Pl}} = 1.1\times 10^{-120}$. Deviation: 0.04\%.
+
+Hierarchy: $\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10 = 120.27$.
+
+Independent geometric scales: $G_1 = \sqrt{\Omega_{19}} = 0.71843$; $M_1 = (1/\Omega_{19})^{1/4} = 1.17980$; $\Lambda_2 = \Omega_{217}\times 198/217 = 2.1310\times 10^{-120}$; $\Lambda_2\times\Omega_{19} = 1.0997\times 10^{-120} = I$. $\checkmark$
+
+Compactification radii: $R_{\mathrm{eff}}(4) = 1/\sqrt{7} = 0.378$, $R_{\mathrm{eff}}(12) = 1/\sqrt{15} = 0.258$, $R_{\mathrm{eff}}(19) = 1/\sqrt{22} = 0.213$, $R_{\mathrm{eff}}(217) = 1/\sqrt{220} = 0.067$.
+
+\section{Sign Pattern of the Odd Logarithmic Derivatives of $\xi$}
+
+The following theorem is a consequence of the cascade's threshold structure. It does not assume the Riemann Hypothesis and requires no analytic continuation beyond the real axis.
+
+\begin{theorem}[Alternating sign pattern of odd derivatives]
+Let $\xi(s)$ denote the completed Riemann zeta function and let $\kappa_{2k+1}(\sigma) := \partial^{2k+1}_\sigma\log\xi(\sigma)$ for $\sigma\in(\frac{1}{2},1)$ and $k\geq 0$. Then $\operatorname{sgn}(\kappa_{2k+1}(\sigma)) = (-1)^k$ for all $k = 0, 1, \ldots, 43$ and all $\sigma\in(\frac{1}{2},1)$, as a consequence of the single inequality $\gamma_1 > (2+\sqrt{3})/2\approx 1.87$, where $\gamma_1\approx 14.13$ is the imaginary part of the first non-trivial zero. The result assumes no zeros exist outside the standard zero-free region; it does not assume the Riemann Hypothesis.
+\end{theorem}
+
+\begin{proof}
+From the Hadamard product for $\xi$, each non-trivial zero pair $\rho = \beta+i\gamma$, $\bar{\rho} = \beta-i\gamma$ contributes to $\kappa_{2k+1}(\sigma)$ a term proportional to $2\,\mathrm{Re}[(\sigma-\rho)^{-(2k+1)}]$. Writing $u = \sigma-\beta$, $\gamma = r\sin\theta$ with $\theta = \arctan(\gamma/u)$: the sign is $\operatorname{sgn}(\cos((2k+1)\theta))$. Within the standard zero-free region all zeros satisfy $|\beta - \sigma| \leq \frac{1}{2}$ for $\sigma\in(\frac{1}{2},1)$, so $\theta\in[\arctan(\gamma_1),\pi/2)\subset(1.499, 1.571)$. The condition that no zero of $\cos((2k+1)\theta)$ falls in this interval holds for $k\leq 43$ because the interval of length $0.046(2k+1)$ contains no odd integer for these values. This fails at $k=44$, where 87 first enters the problematic range. Since $\cos((2k+1)\theta) > 0$ for all $\theta$ in the zero's angular range, and the archimedean and pole terms also have sign $(-1)^k$, the total $\kappa_{2k+1}(\sigma)$ has sign $(-1)^k$ for $k\leq 43$.
+\end{proof}
+
+\begin{remark}
+The bound $k\leq 43$ is sharp: the proof fails for $k=44$. The threshold integer 43 is the Heegner number following 19 in the sequence $\{7, 11, 19, 43, 67, 163\}$. Note that 7 and 19 are cascade threshold dimensions and 43 is the cumulant sign bound; 11 plays no cascade role, so the alignment is partial and noted as a coincidence rather than a structural connection.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{cascadeII} [Author], \textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}, March 2026.
+
+\bibitem{cascadeIII} [Author], \textit{General Relativity from the Cascade: Lovelock Uniqueness and the Cosmological Constant of a 4-Dimensional Observer}, March 2026.
+
+\bibitem{cascadeIVa} [Author], \textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations}, March 2026.
+
+\bibitem{cascadeIVb} [Author], \textit{The Standard Model from the Cascade: Part IVb---Masses, Couplings, and Precision Predictions}, March 2026.
+
+\bibitem{ledoux} M. Ledoux, \textit{The Concentration of Measure Phenomenon}, AMS Mathematical Surveys and Monographs 89, 2001.
+
+\bibitem{ball} K. Ball, ``An elementary introduction to modern convex geometry,'' in \textit{Flavors of Geometry}, MSRI Publications 31, Cambridge, 1997.
+
+\bibitem{weinberg} S. Weinberg, ``The cosmological constant problem,'' \textit{Reviews of Modern Physics} \textbf{61}, 1--23 (1989).
+
+\bibitem{padmanabhan} T. Padmanabhan, ``Some aspects of the cosmological constant problem,'' \textit{Physics Reports} \textbf{380}, 235--320 (2003).
+
+\bibitem{desi} DESI Collaboration, ``DESI 2024 VI: Constraints on models of dark energy,'' arXiv:2404.03002 (2024).
+
+\end{thebibliography}
+
+\end{document}

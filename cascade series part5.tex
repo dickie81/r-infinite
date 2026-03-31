@@ -1,0 +1,645 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{The Cascade Series --- Part V}\\[6pt]
+Cosmology from the Cascade:\\
+$\Lambda$CDM Parameters, the Hubble Constant,\\
+and the DESI BAO Observations}
+\author{[Author]}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The cascade series [1, 2, 3, 4, 5] tests one hypothesis: the infinite-dimensional
+unit ball, descended to four dimensions, is indistinguishable from our universe.
+This paper derives the background cosmological parameters of the $\Lambda$CDM model
+from the cascade's geometry, with zero free parameters, and shows that the cascade
+provides a self-consistent account of the DESI DR2 baryon acoustic oscillation (BAO)
+observations without invoking dynamical dark energy.
+
+The cosmological constant $\Lambda = I = 1.0996 \times 10^{-120}$ (in cascade units) was
+established in [1]. This paper adds five results. (1) Dark energy equation of
+state. The cascade predicts $w = -1$ exactly, from first principles. (2) Density
+fractions. $\Omega_\Lambda = 0.6885$ (observed 0.685, $+0.51\%$), $\Omega_m = 0.31150$ (observed 0.315,
+$-1.11\%$), $\Omega_b = 1/(2\pi^2) = 0.0507$ (observed 0.0493, $+2.76\%$). The matter fraction is
+derived from the sphere-area fraction of non-trivial-phase cascade layers ($d \bmod 8 \in
+\{5, 6\}$), established from the Bott partition of [4] and the sphere-area primacy of [1],
+Corollary 4.8a. (3) Hubble constant. $H_0 = 70.65$~km/s/Mpc from the lapse-corrected
+Friedmann equation, between Planck (67.4) and SH0ES (73.0). (4) Hubble time.
+$1/H_0 = 13.84$~Gyr, matching the observed age to $0.3\%$. (5) DESI BAO. The cascade's
+parameter triple $(H_0 = 70.65, \Omega_m = 0.31150, \Omega_b = 1/(2\pi^2))$ predicts a sound horizon
+$r_d = 142.3$~Mpc, $3.6\%$ smaller than Planck's 147.6~Mpc. With this ruler, the cascade
+fits DESI DR2 BAO at $\chi^2/n = 1.68$ vs.\ Planck $\Lambda$CDM at $\chi^2/n = 1.90$ ($\Delta\chi^2 = 2.87$
+in the cascade's favour). The apparent dynamical dark energy signal in DESI
+arises when Planck's $r_d$ is imposed as an external prior; the cascade's naturally
+smaller $r_d$---derived from $\Omega_b = 1/(2\pi^2)$ and $H_0 = 70.65$, independently of any BAO
+data---provides a $w = -1$ consistent alternative with zero free parameters.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Division of Labour}
+
+Papers I--IVb of the cascade series derive, from the cascade's geometry alone: a geometric
+invariant $I \approx 10^{-120}$ matching the cosmological constant [1]; the structural framework of
+quantum mechanics [2]; general relativity with $\Lambda = I$, $d = 4$, and Lorentzian signature [3];
+and the Standard Model gauge group, symmetry breaking, fermion generations, masses,
+and coupling constants [4, 5]. This paper derives the background cosmological parameters
+and the cascade's account of the DESI observations.
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Parameter & Cascade source & Section \\
+\hline
+$\Lambda = I$ & Cascade invariant & From [1] \\
+$w = -1$ & Fixed $\Lambda$; GB corrections vanish & \S3 \\
+$\Omega_k \approx 0$ & $S^3$ topology & \S4 \\
+$\Omega_\Lambda = 1 - \Omega_m$ & Complement of matter fraction & \S5 \\
+$\Omega_m = 0.31150$ & Bott partition of cascade layers & \S5 \\
+$\Omega_b = 1/(2\pi^2)$ & Observer's boundary area & \S6 \\
+$H_0 = 70.65$~km/s/Mpc & Lapse-corrected Friedmann & \S7 \\
+$r_d = 142.3$~Mpc & Derived from above triple & \S9 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{The Cosmological Constant}
+
+The cascade invariant [1]
+\[
+I = \Omega_{19} \times \Omega_{217} \times \frac{198}{217} = 1.0996 \times 10^{-120}
+\]
+is a theorem about the Gamma function. Paper III [3] identifies $\Lambda = I$ via the physical
+identification hypothesis. The value is not fitted; it is determined by $\pi$ alone through the
+cascade's threshold structure.
+
+\section{Dark Energy Equation of State: $w = -1$ Exactly}
+
+\begin{theorem}[Equation of state]
+The cascade predicts $w = -1$ exactly.
+\end{theorem}
+
+\begin{proof}
+$\Lambda = I$ is a fixed geometric constant, determined entirely by $\pi$ through the cascade's
+threshold structure ([1], Theorem 9.2). A fixed cosmological constant has $\rho_\Lambda = \text{const}$, so
+$p_\Lambda = -\rho_\Lambda$, giving $w = p/\rho = -1$ by definition. No time-evolution mechanism exists in the
+cascade for $\Lambda$: the thresholds $d_1 = 19$ and $d_2 = 217$ are permanent features of the
+Gamma function, not snapshots of a dynamical field. The lapse function $N(4) = 3\pi/8$ is a
+fixed Gamma-function value, not a cosmological-time-evolving quantity.
+\end{proof}
+
+\subsection{Gauss--Bonnet stability of $w = -1$}
+
+The cascade geometry at $d = 5$ has $S^3$ cross-sections that are totally umbilic: $K_{ij} =
+-(x/\sqrt{1 - x^2})\,h_{ij}$ exactly, so $K_{ij} = (K/3)h_{ij}$. For totally umbilic hypersurfaces, the leading
+Gauss--Bonnet boundary terms cancel identically:
+\[
+2K_{ij}K^{ij}K - \tfrac{2}{3}K^3 = \tfrac{2}{3}K^3 - \tfrac{2}{3}K^3 = 0.
+\]
+The residual GB term $2K\tilde{R} - 2K_{ij}\tilde{R}^{ij} \propto -24x/(1 - x^2)^2$ is odd in $x$; the cascade measure
+$(1 - x^2)^{3/2}$ is even. The integral vanishes exactly:
+\[
+\int_{-1}^{1} (1 - x^2)^{3/2} \cdot \frac{-24x}{(1 - x^2)^2}\,dx = -24 \int_{-1}^{1} \frac{x}{\sqrt{1 - x^2}}\,dx = 0.
+\]
+
+\begin{corollary}
+$w = -1$ receives zero Gauss--Bonnet correction at leading order, by two
+independent mechanisms: (i) totally umbilic cancellation from the cascade's spherical
+symmetry; (ii) parity of the residual integrand under the symmetric slicing. Both follow
+from the same orthogonality axiom that generates the cascade. The prediction is structurally
+protected, not merely numerically small.
+\end{corollary}
+
+\section{Spatial Curvature}
+
+\begin{theorem}
+The cascade predicts a closed universe ($S^3$ topology) with curvature radius
+far exceeding the Hubble radius, giving $\Omega_k \approx 0$ to observational precision.
+\end{theorem}
+
+\begin{proof}
+The observer at $d = 4$ lives on $S^3$, the boundary of $B^4$. The cascade's slicing
+recurrence produces round spheres at every step. The curvature radius is set by $a(t)$, which
+in the $\Lambda$-dominated era grows exponentially. For $\Omega_\Lambda \approx 0.69$, the curvature contribution is
+suppressed to undetectable levels.
+\end{proof}
+
+Observed: $\Omega_k = 0.001 \pm 0.002$ (Planck 2018 [6]). Consistent.
+
+\section{Density Fractions}
+
+\begin{theorem}[Matter fraction from the Bott partition]
+\[
+\Omega_m = \frac{\displaystyle\sum_{\substack{d=5 \\ d \bmod 8 \in \{5,6\}}}^{217} \Omega_{d-1}}{\displaystyle\sum_{d=5}^{217} \Omega_{d-1}} = 0.31150.
+\]
+\end{theorem}
+
+\begin{proof}
+\textbf{Step 1} (Paper I, Theorem 4.4 and Corollary 4.8a). Sphere area $\Omega_{d-1}$ is the only
+independent cascade quantity at level $d$. Any physical identification mapping cascade
+content to energy assigns energy $C \cdot \Omega_{d-1}$ at each level with $C$ universal and linear---no
+layer-type-dependent modulation is available.
+
+\textbf{Step 2} ([4], item 8 of ``What This Paper Proves''; [2], Remark 6.5). The Bott partition
+classifies cascade layers by propagator phase: non-trivial-phase layers ($d \bmod 8 \in \{5, 6\}$,
+phases $i$ and $-1$) carry irreducibly complex propagator amplitudes whose phase does
+not return to the real axis within one Bott period; real-phase Weyl layers ($d \bmod 8 = 4$)
+have complex spinors but return to the real axis after one period; Majorana layers
+($d \bmod 8 \in \{0, 1, 2, 3, 7\}$) carry no complex structure. This partition is topological and
+metric-independent.
+
+\textbf{Step 3} (Definition 2.1 of [3]). The physical identification hypothesis holds that the
+cascade's abstract geometry is our physics. By Step 1, the only independent cascade
+quantity at each level is $\Omega_{d-1}$, and $C$ is universal. The hypothesis therefore assigns the
+matter label to the non-trivial-phase layers ($d \bmod 8 \in \{5, 6\}$) and the vacuum/gauge label
+to the remaining layers: this is the partition identified with matter content by the fermion
+generation structure of [4], in which these same layers host hairy ball zeros and carry the
+three observed fermion generations. The cascade geometry makes no geometric distinction
+between the two sectors; the labels are an observer's reading of the Bott partition.
+
+\textbf{Step 4.} Since energy at every level is $C \cdot \Omega_{d-1}$ and $C$ cancels:
+\[
+\Omega_m = \frac{C\sum_{\{5,6\}} \Omega_{d-1}}{C\sum_{\text{all}} \Omega_{d-1}} = \frac{\sum_{\{5,6\}} \Omega_{d-1}}{\sum_{\text{all}} \Omega_{d-1}} = 0.31150. \qquad \qed
+\]
+\end{proof}
+
+Observed: $\Omega_m = 0.315 \pm 0.007$. Deviation: $-1.11\%$.
+
+\begin{remark}[The $1/\pi$ approximation]
+The lapse factorization $N(d) = \sqrt{\pi} \cdot R(d)$ gives
+$R(d)^2/N(d)^2 = 1/\pi$ at every $d$. The value $1/\pi = 0.31831$ is a $2.14\%$ approximation to the
+topological fraction $0.31150$, arising from the near-identity $\pi \times 0.31150 \approx 1$. The deviation
+from observation is $+1.05\%$ for $1/\pi$, positive, inconsistent with the negative sign shared by all descent-dependent predictions (Section 14). The topological fraction at $-1.11\%$ is consistent with the descent systematic. The
+formula $\Omega_m = 1/\pi$ is demoted to a numerical coincidence.
+\end{remark}
+
+\begin{corollary}[Dark energy fraction]
+$\Omega_\Lambda = 1 - \Omega_m = 0.68850$.
+\end{corollary}
+
+Observed: $\Omega_\Lambda = 0.685 \pm 0.007$. Deviation: $+0.51\%$.
+
+\section{The Baryon Fraction}
+
+\begin{theorem}[Baryon fraction]
+$\Omega_b = 1/\Omega_3 = 1/(2\pi^2) = 0.05066$.
+\end{theorem}
+
+\begin{proof}
+The observer at $d = 4$ lives on $S^3$, whose area is $\Omega_3 = 2\pi^{d/2}/\Gamma(d/2)|_{d=4} = 2\pi^2$.
+By Corollary 4.8a of [1], the cascade's content at each dimension is its boundary area $\Omega_d$.
+Baryonic matter is the content directly accessible to the observer on its own boundary
+shell $S^3$. The observer's boundary has area $\Omega_3 = 2\pi^2 \approx 19.74$ in cascade units. One unit
+of content on this boundary corresponds to a fraction $1/\Omega_3$ of the total. Since the total is
+normalised to 1 (critical density): $\Omega_b = 1/(2\pi^2) = 0.05066$.
+\end{proof}
+
+Observed: $\Omega_b = 0.0493 \pm 0.0003$ (Planck 2018 [6]). Deviation: $+2.76\%$.
+
+\begin{corollary}[Dark matter fraction]
+$\Omega_{\text{DM}} = \Omega_m - \Omega_b = (0.31150 - 0.05066) = 0.26084$.
+\end{corollary}
+
+Observed: $\Omega_{\text{DM}} = 0.264 \pm 0.007$. Deviation: $-1.20\%$.
+
+\begin{remark}[Dark matter is not particles]
+In the cascade, dark matter is geometric
+content on boundary shells adjacent to the observer's $S^3$---primarily $S^4$ at $d = 5$ and
+$S^5$ at $d = 6$. This content gravitates (the cascade's transport kernel couples all shells
+gravitationally) but does not interact via gauge forces (gauge fields live on the gauge-window
+shells $S^{11}$, $S^{12}$, $S^{13}$ at $d = 12$--14; see [4]). The cascade predicts: (a) no direct detection of
+dark matter particles; (b) gravitational clustering; (c) the specific fraction $0.26084$.
+\end{remark}
+
+\section{The Hubble Constant}
+
+\subsection{The cascade's lapse function}
+
+The cascade's lapse at dimension $d$ is ([1], Section 3):
+\[
+N(d) = \sqrt{\pi} \cdot R(d) = \sqrt{\pi} \cdot \frac{\Gamma((d + 1)/2)}{\Gamma((d + 2)/2)}.
+\]
+At $d = 4$: $N(4) = \sqrt{\pi} \cdot \Gamma(5/2)/\Gamma(3) = 3\pi/8 = 1.17810$.
+
+\subsection{The lapse-corrected Friedmann equation}
+
+The standard Friedmann equation for a flat universe is $H_0^2 = \rho_{\text{total}}/(3M_{\text{Pl,red}}^2)$. The
+cascade's invariant $I$ is computed in cascade time; the lapse $N(4)$ converts to proper time.
+The corrected equation is:
+\[
+H_0 = \frac{1}{N(4)\,M_{\text{Pl,red}}}\sqrt{\frac{I}{3\,\Omega_\Lambda}}\,.
+\]
+
+\begin{theorem}[Hubble constant]
+\begin{equation}
+H_0 = \frac{8\,M_{\text{Pl,red}}}{3\pi}\sqrt{\frac{I}{3(1 - \Omega_m)}} = 70.65~\text{km/s/Mpc}.\label{eq:H0}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+$I = 1.0996 \times 10^{-120}$, $\Omega_\Lambda = 1 - 0.31150 = 0.68850$, $N(4) = 3\pi/8$, $M_{\text{Pl,red}} =
+2.435 \times 10^{18}$~GeV. Steps:
+\begin{align*}
+I/(3\Omega_\Lambda) &= 5.321 \times 10^{-121},\\
+\sqrt{5.321 \times 10^{-121}} &= 7.294 \times 10^{-61},\\
+M_{\text{Pl,red}} \times 7.294 \times 10^{-61} &= 1.776 \times 10^{-42}~\text{GeV},\\
+H_0^{(\text{cascade})} &= 1.776 \times 10^{-42}~\text{GeV},\\
+H_0 = H_0^{(\text{cascade})}/N(4) &= 70.65~\text{km/s/Mpc}.\qedhere
+\end{align*}
+\end{proof}
+
+\subsection{Derivation of the lapse correction from the descent metric}
+
+The lapse correction $H_0 = H_0^{(\text{cascade})}/N(4)$ is not an additional assumption. It is a consequence of the physical identification hypothesis (Definition 2.1 of [3]) and the time identification of [2], Section 7.1. This section makes the derivation explicit.
+
+\begin{theorem}[Lapse correction from the descent metric]\label{thm:lapse}
+The cascade descent from $d = \infty$ to $d = 4$ defines a foliation with lapse function $N(d) = V_{d+1}/V_d$. The physical Friedmann equation at $d = 4$ is
+\[
+H_0^2 = \frac{I\,M_{\text{Pl,red}}^2}{3\,\Omega_\Lambda\,N(4)^2}\,,
+\]
+giving $H_0 = 70.65$~km/s/Mpc.
+\end{theorem}
+
+\begin{proof}
+The cascade has two distinct time-like structures, and the distinction is the source of the lapse factor.
+
+\textbf{Intra-level time.} The slicing coordinate $t$ within each level gives the Lorentzian cascade metric $ds^2 = -dt^2 + (1 - t^2)\,d\sigma_{d-1}^2$ with scale factor $a(t) = \sqrt{1 - t^2}$ ([3], Section 14.4). At the equator $t = 0$: $\dot{a} = 0$, $H = 0$. The 4D observer at the equatorial embedding sees a momentarily static $S^3$. This is not the physical Hubble expansion.
+
+\textbf{Inter-level time (the descent).} Paper II, Section 7.1 identifies time with the cascade's slicing direction: each step of the cascade---integrating out one orthogonal direction---corresponds to one unit of temporal evolution. The physical expansion of the universe corresponds to the sequential compactification of dimensions from $d = 217$ to $d = 4$.
+
+The descent defines a one-parameter family of geometries parametrised by the dimension $d$. In the ADM decomposition of this descent:
+\[
+ds^2_{\text{descent}} = -N(d)^2\,dd^2 + a^2(d)\,d\sigma_3^2,
+\]
+where $N(d) = V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ is the lapse of the descent foliation. This is the cascade's own lapse function, defined in [1], Section 3 and [2], Section 7.2. It measures the proper time elapsed per cascade step: $d\tau = N(d)\,dd$.
+
+The cascade computes the vacuum energy density as $\rho_\Lambda = I \cdot M_{\text{Pl,red}}^4$, where $I$ is a dimensionless geometric invariant of the sphere-area sequence. The Friedmann equation in cascade time (expansion per cascade step) gives:
+\[
+H_{\text{cascade}}^2 = \frac{\rho_\Lambda}{3\,\Omega_\Lambda\,M_{\text{Pl,red}}^2} = \frac{I\,M_{\text{Pl,red}}^2}{3\,\Omega_\Lambda}.
+\]
+Converting to proper time via $H_{\text{phys}} = H_{\text{cascade}}/N(4)$:
+\[
+H_0 = \frac{M_{\text{Pl,red}}}{N(4)}\sqrt{\frac{I}{3\,\Omega_\Lambda}} = \frac{8\,M_{\text{Pl,red}}}{3\pi}\sqrt{\frac{I}{3(1 - \Omega_m)}} = 70.65~\text{km/s/Mpc}.
+\]
+The lapse correction is a consequence of the physical identification hypothesis (which maps cascade geometry to physics) and the time identification (which identifies the descent direction with physical time at a rate set by $N(d)$). No new assumption is required.
+\end{proof}
+
+\begin{remark}[Why the Gauss--Codazzi route does not produce the lapse]
+The Gauss--Codazzi equations for the embedding chain $S^3 \hookrightarrow S^4 \hookrightarrow \cdots \hookrightarrow S^{216}$ are identically satisfied at every level: $K_{\mu\nu} = 0$ (Theorem 14.6 of [3]), and the Hamiltonian constraint telescopes to $0 = 0$ (Corollary 14.7 of [3]). These results confirm geometric self-consistency but do not source the Friedmann equation, because the matter content enters via the Bott partition (topological) rather than the cascade metric (geometric). The lapse enters through the descent metric---the inter-level time structure---not through the intra-level Gauss--Codazzi equations.
+\end{remark}
+
+\begin{remark}[Self-consistency with the cosmological table]
+The identification $\rho_\Lambda/M_{\text{Pl,red}}^4 = I/N(4)^2 = 7.9 \times 10^{-121}$ (Paper V table, Section 10) is exactly the Friedmann equation of Theorem~\ref{thm:lapse} solved for $\rho_\Lambda$: the factor $1/N(4)^2$ appears because the vacuum energy density is a rate (energy per spacetime volume), and the temporal direction's scale is $N(4)$ in cascade units. The observed value $7.2 \times 10^{-121}$ deviates by $11\%$, consistent with the descent-dependent systematic from subleading cascade corrections.
+\end{remark}
+
+\section{The Age of the Universe}
+
+\begin{theorem}[Hubble time]
+$1/H_0 = 13.84$~Gyr.
+\end{theorem}
+
+Observed: $t_0 = 13.80 \pm 0.02$~Gyr (Planck 2018 [6]). Deviation: $+0.29\%$.
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+Measurement & $H_0$ (km/s/Mpc) & Deviation from cascade \\
+\hline
+Planck 2018 (CMB) & $67.4 \pm 0.5$ & $-4.6\%$ \\
+SH0ES (distance ladder) & $73.0 \pm 1.0$ & $+3.3\%$ \\
+Cascade (standard $M_{\text{Pl,red}}$) & 70.65 & --- \\
+\hline
+\end{tabular}
+\end{center}
+
+The cascade's $H_0 = 70.65$~km/s/Mpc sits between the two principal measurements.
+
+\section{The DESI BAO Observations}
+
+\subsection{The sound horizon from cascade parameters}
+
+The BAO standard ruler is the sound horizon at the drag epoch:
+\[
+r_d \approx 147.60 \left(\frac{\omega_m}{0.1432}\right)^{-0.255} \left(\frac{\omega_b}{0.02237}\right)^{-0.127}~\text{Mpc},
+\]
+where $\omega_x = \Omega_x h^2$ (Eisenstein \& Hu 1998 [12]). With cascade parameters:
+\[
+\omega_b^{\text{cas}} = \frac{1}{2\pi^2} \times 0.7065^2 = 0.02529, \qquad \omega_m^{\text{cas}} = 0.31150 \times 0.7065^2 = 0.15548.
+\]
+
+\begin{theorem}[Cascade sound horizon]
+\[
+r_d^{\text{cas}} = 142.3~\text{Mpc},
+\]
+$3.6\%$ smaller than the Planck-inferred value $r_d^{\text{Planck}} = 147.6$~Mpc.
+\end{theorem}
+
+The difference has a clean physical origin. The cascade's $\Omega_b = 1/(2\pi^2) = 0.0507$ exceeds
+Planck's 0.0493, increasing baryon drag and shortening the sound horizon. Simultaneously,
+$H_0 = 70.65$ raises $h = 0.7065$, further compressing $r_d$ through $\omega_b = \Omega_b h^2$.
+
+\subsection{BAO observables and comparison to DESI DR2}
+
+The BAO observables are the ratios $D_M(z)/r_d$ and $D_H(z)/r_d$, where:
+\[
+D_M(z) = \int_0^z \frac{c\,dz'}{H_0\,E(z')}, \qquad D_H(z) = \frac{c}{H_0\,E(z)}, \qquad E(z) = \sqrt{\Omega_m(1 + z)^3 + \Omega_\Lambda},
+\]
+with $w = -1$ throughout.
+
+\begin{center}
+\small
+\begin{tabular}{llcccr}
+\hline
+$z_{\text{eff}}$ & Type & DESI DR2 & $\sigma$ & Cascade & Pull$_{\text{cas}}$ \\
+\hline
+0.295 & $D_V/r_d$ & 7.930 & 0.150 & 7.949 & $+0.13\sigma$ \\
+0.510 & $D_M/r_d$ & 13.650 & 0.200 & 13.323 & $-1.63\sigma$ \\
+0.510$^\dagger$ & $D_H/r_d$ & 20.890 & 0.490 & 22.471 & $+3.23\sigma$ \\
+0.706 & $D_M/r_d$ & 16.970 & 0.240 & 17.475 & $+2.11\sigma$ \\
+0.706 & $D_H/r_d$ & 20.270 & 0.470 & 19.945 & $-0.69\sigma$ \\
+0.934 & $D_M/r_d$ & 21.790 & 0.240 & 21.723 & $-0.28\sigma$ \\
+0.934 & $D_H/r_d$ & 17.730 & 0.300 & 17.385 & $-1.15\sigma$ \\
+1.321 & $D_M/r_d$ & 27.680 & 0.500 & 27.749 & $+0.14\sigma$ \\
+1.321 & $D_H/r_d$ & 13.850 & 0.340 & 13.929 & $+0.23\sigma$ \\
+1.484 & $D_M/r_d$ & 30.420 & 0.660 & 29.922 & $-0.75\sigma$ \\
+1.484 & $D_H/r_d$ & 13.240 & 0.450 & 12.758 & $-1.07\sigma$ \\
+2.330 & $D_M/r_d$ & 39.200 & 0.560 & 38.748 & $-0.81\sigma$ \\
+2.330 & $D_H/r_d$ & 8.540 & 0.140 & 8.540 & $0.00\sigma$ \\
+\hline
+\multicolumn{4}{l}{$\chi^2$ total} & 21.84 & \\
+\multicolumn{4}{l}{$\chi^2/n$ ($n = 13$)} & 1.680 & (Planck: 1.901) \\
+\hline
+\end{tabular}
+\end{center}
+
+Cascade predictions vs.\ DESI DR2 BAO measurements [7], compared with Planck
+$\Lambda$CDM. $^\dagger$: The $z = 0.510$, $D_H/r_d$ bin is a $3.23\sigma$ outlier shared by both models; see
+Remark 9.4.
+
+\subsection{The DESI dynamical dark energy signal as a ruler mismatch}
+
+\begin{theorem}[Alternative account of the DESI signal]
+The cascade cosmology ($H_0 =
+70.65$, $\Omega_m = 0.31150$, $\Omega_b = 1/(2\pi^2)$, $w = -1$) fits DESI DR2 BAO with $\chi^2/n = 1.68$,
+compared to Planck $\Lambda$CDM at $\chi^2/n = 1.90$ ($\Delta\chi^2 = 2.87$ in the cascade's favour). The
+apparent preference for dynamical dark energy in DESI arises when Planck's $r_d = 147.6$~Mpc is imposed as an external prior; the cascade's naturally smaller $r_d = 142.3$~Mpc
+provides a $w = -1$ consistent alternative with zero free parameters.
+\end{theorem}
+
+The logical structure is as follows. DESI directly observes the dimensionless ratios
+$D_M(z)/r_d$ and $D_H(z)/r_d$. These ratios are what the data constrain. Converting to a
+preference for $w \neq -1$ requires an independent determination of $r_d$---typically supplied
+by Planck CMB under the assumption that Planck's $(\Omega_b, H_0)$ are correct. The cascade
+predicts different $(\Omega_b, H_0)$ values, hence a different $r_d$, and with that ruler the DESI
+distance ratios are consistent with $w = -1$ throughout.
+
+\begin{remark}[The $r_d$-independent check]
+The ratio $D_M(z)/D_H(z)$ is independent of
+$r_d$ and tests the expansion geometry directly. The cascade and Planck $\Lambda$CDM produce
+nearly identical predictions for this ratio, indicating both models face the same geometric
+tension---driven by the $z = 0.510$ outlier---independently of ruler calibration. The difference
+between the two models lies entirely in the ruler, not the geometry.
+\end{remark}
+
+\begin{remark}[The $z = 0.510$ outlier is the primary low-$z$ driver]
+The bin $z_{\text{eff}} = 0.510$, $D_H/r_d$, shows a $3.23\sigma$ pull in the cascade and $3.60\sigma$ in Planck $\Lambda$CDM. This single bin
+contributes $\approx 9.0$ of the cascade's total $\chi^2 = 21.8$, and $\approx 11.6$ of Planck's total 24.7---without it, both fits would have $\chi^2/n \approx 1.0$. It is the dominant contributor to both totals
+and the bin DESI identifies as driving the low-redshift dark energy signal. Critically,
+it is shared by both models at comparable significance: neither the cascade nor Planck
+$\Lambda$CDM explains it. The tension in this bin is independent of ruler calibration---it persists
+in the $D_M/D_H$ ratio (which is $r_d$-free)---and represents a genuine anomaly in the LRG1
+expansion rate at $z \sim 0.5$.
+\end{remark}
+
+\subsection{Predicted apparent $w$ from the wrong ruler}
+
+The cascade makes a quantitative prediction about what DESI reports when Planck's
+ruler is imposed. The cascade's true BAO distances are computed with $w = -1$ and
+$r_d = 142.3$~Mpc. These distances are then fitted by Planck's standard pipeline, which
+assumes $r_d = 147.6$~Mpc and Planck background parameters. Minimising $\chi^2$ over the
+constant-$w$ parameter across all six BAO redshift bins yields:
+\begin{equation}
+w_{\text{apparent}} = -0.787. \label{eq:wapp}
+\end{equation}
+This is a zero-parameter prediction: if $r_d = 142.3$~Mpc is correct, Planck's fitting
+pipeline applied to DESI BAO+CMB should return apparent $w \approx -0.79$.
+
+\begin{theorem}[Decomposition of the DESI signal]
+The DESI DR2 dynamical dark energy
+signal decomposes into two independent components:
+\begin{enumerate}
+\item \textbf{The BAO-driven $w_0$ shift.} DESI BAO+CMB alone reports $w_0 \approx -0.76 \pm 0.11$ [7].
+The cascade ruler mismatch predicts $w_{\text{apparent}} \approx -0.787$. These agree within $1\sigma$. The
+$w_0$ component is fully explained by the $3.6\%$ ruler error, with zero free parameters.
+\item \textbf{The SNe-driven $w_a$ evolution.} $w_a \approx -0.6$ to $-1.1$ appears only when Type Ia
+supernova datasets are added. It is absent with Pantheon+ [10], and its significance
+ranges from $2.5\sigma$ to $3.9\sigma$ depending on SNe calibration. The cascade makes no
+prediction about SNe calibration; this component is neither explained nor contradicted
+by the ruler mismatch.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Sensitivity of $r_d$ and $w_{\text{apparent}}$ to cascade inputs}
+
+The ruler prediction rests on three cascade-derived quantities: $H_0 = 70.65$~km/s/Mpc
+(Tier 1), $\Omega_m = 0.31150$ (Tier 2), and $\Omega_b = 1/(2\pi^2)$ (Tier 2).
+
+\begin{center}
+\begin{tabular}{lcccc}
+\hline
+$\Omega_m$ deviation & $H_0$ & $r_d$ (Mpc) & $w_{\text{apparent}}$ & $\Delta$ from $-0.787$ \\
+\hline
+$-4\%$ ($\Omega_m = 0.299$) & 70.65 & 143.7 & $-0.838$ & $-0.051$ \\
+$-2\%$ ($\Omega_m = 0.305$) & 70.65 & 143.0 & $-0.812$ & $-0.025$ \\
+cascade ($\Omega_m = 0.31150$) & 70.65 & 142.3 & $-0.787$ & --- \\
+$+2\%$ ($\Omega_m = 0.318$) & 70.65 & 141.6 & $-0.762$ & $+0.025$ \\
+$+4\%$ ($\Omega_m = 0.324$) & 70.65 & 140.9 & $-0.738$ & $+0.049$ \\
+\hline
+\end{tabular}
+\end{center}
+
+A $\pm 4\%$ variation in $\Omega_m$ shifts $w_{\text{apparent}}$ by $\pm 0.05$, remaining within the DESI $1\sigma$ band.
+The prediction is robust to the uncertainty in $\Omega_m$.
+
+\subsection{Sharp falsification predictions}
+
+If the cascade is correct, an independent measurement of $r_d$ from CMB alone should return
+$r_d \approx 142$~Mpc rather than 147.6~Mpc. This is a $3.6\%$ shift driven by $\omega_b^{\text{cas}} = 0.0253$ vs.\
+Planck's 0.0224. CMB-S4 and Simons Observatory will measure $\omega_b$ to $< 1\%$ precision and
+test this directly.
+
+Three nested tests:
+
+\begin{enumerate}
+\item \textbf{CMB-S4 measures $r_d$.} If $r_d \approx 142$~Mpc, the ruler mismatch is confirmed and the
+DESI $w_0$ deviation dissolves. If $r_d > 144$~Mpc with cascade-consistent $(H_0, \Omega_m)$, the
+cascade is falsified.
+\item \textbf{DESI BAO+CMB $w_0$ stability.} As DESI accumulates more BAO data, the BAO-only
+$w_0$ should remain near $-0.79$ (ruler mismatch, not evolution) while $w_a$ from BAO
+alone remains consistent with zero. If BAO alone drives $w_a \neq 0$ at $> 3\sigma$, the
+ruler-mismatch explanation fails.
+\item \textbf{SNe systematics.} If a recalibrated DES5Y dataset consistent with Planck $\Lambda$CDM
+eliminates the $w_a$ signal, the remaining BAO-only $w_0 \approx -0.79$ is precisely what the
+cascade predicts.
+\end{enumerate}
+
+\section{Summary: The Complete Cosmological Table}
+
+\begin{center}
+\small
+\begin{tabular}{llccc}
+\hline
+Parameter & Cascade formula & Predicted & Observed & Dev \\
+\hline
+$\rho_\Lambda/M_{\text{Pl}}^4$ & $I/N(4)^2$ & $7.9 \times 10^{-121}$ & $7.2 \times 10^{-121}$ & 11\% \\
+$\Omega_k$ & $\approx 0$ ($S^3$ topology) & $\approx 0$ & $0.001 \pm 0.002$ & --- \\
+$\Omega_m$ & Bott partition (Thm 5.1) & 0.31150 & $0.315 \pm 0.007$ & $-1.1\%$ \\
+$\Omega_\Lambda$ & $1 - \Omega_m$ & 0.68850 & $0.685 \pm 0.007$ & $+0.5\%$ \\
+$\Omega_b$ & $1/(2\pi^2)$ & 0.05066 & $0.0493 \pm 0.0003$ & $+2.8\%$ \\
+$\Omega_{\text{DM}}$ & $\Omega_m - \Omega_b$ & 0.26084 & $0.264 \pm 0.007$ & $-1.2\%$ \\
+$w$ & $-1$ (fixed $\Lambda$, GB vanishes) & $-1$ & $-1.03 \pm 0.03$ & $1\sigma$ \\
+$H_0$ & Eq.~(\ref{eq:H0}) & 70.65 & 67.4--73.0 & between \\
+$1/H_0$ & (from $H_0$) & 13.84~Gyr & $13.80 \pm 0.02$ & $+0.3\%$ \\
+$r_d$ & $r_d(\Omega_b, \Omega_m, H_0)$ & 142.3~Mpc & 141--148 & --- \\
+DESI BAO fit & $\chi^2/n$, $w = -1$ & 1.68 & (Planck 1.90) & $\Delta\chi^2 = 2.87$ \\
+$w_{\text{apparent}}$ & ruler mismatch & $-0.787$ & $-0.76 \pm 0.11$ & $< 1\sigma$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{equation}
+H_0 = \frac{8\,M_{\text{Pl,red}}}{3\pi}\sqrt{\frac{I}{3(1 - \Omega_m)}} = 70.65~\text{km/s/Mpc}.\tag{\ref{eq:H0}}
+\end{equation}
+
+All quantities are functions of $\pi$, the cascade invariant $I$, and the reduced Planck mass
+$M_{\text{Pl,red}}$ (the single dimensionful input). Zero fitted parameters. Derivation status: $\Omega_\Lambda$, $\Omega_m$,
+$\Omega_{\text{DM}}$ are Tier 2 (topological derivation for $\Omega_m$; complement and difference for the others);
+$H_0$ is Tier 1 (lapse correction derived from the physical identification hypothesis and the descent metric, Theorem~\ref{thm:lapse}); all other rows are Tier 1 or Tier 2.
+
+\section{What This Paper Does Not Do}
+
+\begin{itemize}
+\item \textbf{Perturbation parameters.} The scalar spectral index $n_s$, primordial amplitude $A_s$,
+and reionisation optical depth $\tau$ are not derived. These describe initial conditions of
+density perturbations.
+\item \textbf{The CMB power spectrum.} The detailed angular power spectrum requires $n_s$, $A_s$, $\tau$,
+and Boltzmann evolution through recombination.
+\item \textbf{The $z = 0.510$ anomaly.} The $3.23\sigma$ tension in the $D_H/r_d$ bin at $z = 0.510$ is shared
+with Planck $\Lambda$CDM and is not explained.
+\end{itemize}
+
+\section{Predictions and Falsifiability}
+
+\begin{enumerate}
+\item $w = -1$ \textbf{and} $r_d = 142.3$~Mpc (linked prediction). The cascade predicts $w = -1$ exactly
+and $r_d = 142.3$~Mpc from first principles. Three nested tests follow (Section 9.6).
+\item $\Omega_m = 0.31150$. Planck gives $0.315 \pm 0.007$; the cascade is within $0.5\sigma$. Future CMB
+experiments will tighten to sub-percent; deviation from 0.31150 at $> 3\sigma$ would falsify
+the topological derivation.
+\item $\Omega_b = 1/(2\pi^2) = 0.0507$. Currently $+2.8\%$ above Planck central value ($\approx 4.7\sigma$
+from Planck). However, the Planck constraint assumes Planck's own $H_0$ and $\Omega_m$;
+reanalysis with cascade parameters may shift the inferred $\Omega_b$.
+\item $H_0 = 70$--$71$~km/s/Mpc. Independent $H_0$ measurements (gravitational wave standard
+sirens, time-delay cosmography) should converge on $\sim 70$--71, not on either extreme
+of the Hubble tension.
+\item \textbf{No dark matter particles.} Confirmed detection of a WIMP or any dark matter
+particle interacting via gauge forces would falsify the cascade's geometric dark
+matter interpretation.
+\end{enumerate}
+
+\section{Open Questions}
+
+\begin{enumerate}
+\item \textbf{Derive $\Omega_m$ from first principles: theorem status.} Theorem 5.1 derives the matter
+fraction from the Bott partition. Step 3 of the proof identifies non-trivial-phase
+layers with matter via the physical identification hypothesis (Definition 2.1 of [3]).
+Whether this identification step follows uniquely from the hypothesis, or requires
+an additional argument about why the propagator phase partition is the natural
+matter/vacuum partition, is the remaining open question.
+\item \textbf{Independent determination of $r_d$.} The cascade predicts $r_d = 142.3$~Mpc. A direct
+CMB measurement of $r_d$ without assuming Planck's $(\Omega_b, H_0)$ would simultaneously
+test whether the Bott partition derivation of $\Omega_m$ is correct.
+\item \textbf{The $z = 0.510$ anomaly.} The $3.23\sigma$ tension in $D_H/r_d$ at $z \sim 0.5$ is independent
+of ruler calibration and is not explained by either the cascade or Planck $\Lambda$CDM.
+Whether this reflects a genuine feature of the expansion history or a systematic in
+the LRG1 sample is open.
+\item \textbf{Derive the cascade's expansion history $a(t)$.} The standard $\Lambda$CDM expansion history
+assumes a sequence of domination epochs. The cascade's expansion history should
+come from the descent profile $N(d)$, a function of the Gamma function.
+\item \textbf{Perturbation spectrum from the cascade.} Whether the descent from $d = \infty$ generates
+density perturbations with a specific spectrum is the most important open question
+in the cascade's cosmology programme.
+\end{enumerate}
+
+\section{Confidence Assessment}
+
+\textbf{Two-population systematic.} The cascade's predictions separate into two populations with distinct error signatures. Descent-dependent quantities ($\alpha_s$, $v$, $\Omega_m$, mass ratios, $m_\tau$, $m_W$) carry uniformly negative deviations of $-0.13\%$ to $-2.20\%$ (7/7 negative, mean $-1.24\%$). Geometric quantities ($m_H/m_W$, $\sin^2\theta_W$, $\theta_C$, $\Omega_b$) carry positive deviations of $+0.56\%$ to $+2.76\%$ (4/4 positive). The clean sign separation identifies the subleading cascade descent from $d_2 = 217$ to $d = 4$ as the source of the dominant systematic. $\Lambda$ at $+0.04\%$ is indistinguishable from zero and belongs to neither population.
+
+\textbf{Tier 1: Theorem-level.} $\Lambda = I$ (from [1]); $w = -1$ (fixed $\Lambda$, Theorem 3.1); $\Omega_k \approx 0$ ($S^3$
+topology, structural); GB corrections vanish (two independent mechanisms, Corollary 3.2);
+$r_d = 142.3$~Mpc (direct computation from cascade parameters); cascade fits DESI DR2
+BAO at $\chi^2/n = 1.68$ vs.\ Planck's 1.90; ruler mismatch predicts apparent $w \approx -0.787$
+from BAO+CMB alone, matching DESI's reported $-0.76 \pm 0.11$ within $1\sigma$ (zero free
+parameters); $H_0 = 70.65$~km/s/Mpc from the lapse-corrected Friedmann equation (Theorem~\ref{thm:lapse}: the lapse correction is derived from the physical identification hypothesis and the descent metric, with no new assumptions).
+
+\textbf{Tier 2: Derived with clean argument.} $\Omega_m = 0.31150$: sphere-area fraction of
+non-trivial-phase cascade layers, from the Bott partition of [4] and Corollary 4.8a of [1]
+(Theorem 5.1). $\Omega_b = 1/(2\pi^2)$: from observer's boundary area (Theorem 6.1).
+
+\textbf{What would change my mind.} (i) Robust $> 5\sigma$ measurement of $w \neq -1$ with
+$r_d$ independently constrained at $> 144$~Mpc. (ii) Confirmed detection of a dark matter
+particle. (iii) $\Omega_m$ measured at $> 3\sigma$ from 0.31150. (iv) CMB-S4 measurement of $r_d > 144$~Mpc with $H_0$ consistent with cascade. (v) Independent $H_0$ measurements converging
+outside 68--74~km/s/Mpc.
+
+\begin{thebibliography}{12}
+
+\bibitem{paper1} {[Author]}, \textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders
+of Magnitude}, March 2026.
+
+\bibitem{paper2} {[Author]}, \textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional
+Observer in the Sphere-Area Geometry}, March 2026.
+
+\bibitem{paper3} {[Author]}, \textit{General Relativity from the Cascade: Lovelock Uniqueness and the Cosmological Constant of a 4-Dimensional Observer}, March 2026.
+
+\bibitem{paper4a} {[Author]}, \textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry
+Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}, March 2026.
+
+\bibitem{paper4b} {[Author]}, \textit{The Standard Model from the Cascade: Part IVb---Masses, Couplings, and
+Precision Predictions from the Geometric-Topological Factorization}, March 2026.
+
+\bibitem{planck} Planck Collaboration, ``Planck 2018 results. VI. Cosmological parameters,'' \textit{Astronomy
+\& Astrophysics} \textbf{641}, A6 (2020).
+
+\bibitem{desi2} DESI Collaboration, \textit{DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints}, arXiv:2503.14738 (2025).
+
+\bibitem{desi1} DESI Collaboration, ``DESI 2024 VI: Constraints on models of dark energy,''
+arXiv:2404.03002 (2024).
+
+\bibitem{lee} S.~Lee, ``Comparing $\Lambda$CDM, $w$CDM, and $w_0w_a$CDM models with DESI DR2 BAO,''
+arXiv:2507.01380 (2025).
+
+\bibitem{riess} A.~G.~Riess et al., ``A comprehensive measurement of the local value of the Hubble
+constant,'' \textit{Astrophysical Journal Letters} \textbf{934}, L7 (2022).
+
+\bibitem{efstathiou} G.~Efstathiou, ``Evolving dark energy or supernovae systematics?'' \textit{Monthly Notices
+of the Royal Astronomical Society} \textbf{538}, 875 (2025).
+
+\bibitem{EH98} D.~J.~Eisenstein and W.~Hu, ``Baryonic Features in the Matter Transfer Function,''
+\textit{Astrophysical Journal} \textbf{496}, 605 (1998).
+
+\end{thebibliography}
+
+\end{document}
