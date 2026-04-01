@@ -540,15 +540,24 @@ $\Omega_7 = \pi^4/3$,\;
 ratio $= 3/\pi$.
 \end{proof}
 
-\begin{remark}
-$3/\pi < 1$ because $d_V < d_0$: the volume maximum is interior to the
-area maximum, and sphere areas decrease inward from their peak. The
-cascade's geometric capacity at the volume maximum is $3/\pi\approx 95.5\%$
-of its capacity at the area maximum. The deficit is the cost of the two
-recurrence steps between $d_0 = 7$ and $d_V = 5$, each governed by the
-same $\sqrt{\pi}$ forced by orthogonality
-(Theorem~\ref{thm:sqrtpi}).
-\end{remark}
+\begin{lemma}[Scale ordering]\label{lem:ordering}
+$\Omega_{d_V} \leq \Omega_{d_0}$, with equality only if $d_V = d_0$.
+\end{lemma}
+
+\begin{proof}
+$d_0$ is the sphere-area maximum: $\Omega_{d_0}\geq\Omega_d$ for all $d$.
+In particular $\Omega_{d_0}\geq\Omega_{d_V}$. Equality requires
+$d_V = d_0$, which fails for the slicing recurrence because
+$V_d = \Omega_{d-1}/d$ shifts the volume peak below the area peak
+(dividing a unimodal sequence by a strictly increasing sequence shifts the
+maximum to a lower index).
+\end{proof}
+
+\begin{corollary}\label{cor:direction}
+$\Omega_{d_V}/\Omega_{d_0} < 1$, and $(\Omega_{d_V}/\Omega_{d_0})^n < 1$
+for any $n\geq 1$. In the physical cascade: $\Omega_5/\Omega_7 = 3/\pi
+< 1$.
+\end{corollary}
 
 \begin{lemma}[First-order reference decomposition]\label{lem:bilinear}
 In the first-order multiplicative recurrence, any sphere area $\Omega_d$
@@ -610,20 +619,14 @@ $\Omega_{19}\times\Omega_{217}$.
 \emph{(5)~Ratio for scale.} The scale dimensions (maxima) combine as a
 ratio (Theorem~\ref{thm:cs}): $\Omega_5/\Omega_7$.
 
-\emph{(6)~Scale exponent.} By Lemma~\ref{lem:bilinear}, the product
-$\Omega_{19}\times\Omega_{217}$ contains $\Omega_{d_0}^{\,2}$ at
+\emph{(6)~Scale exponent and direction.} By Lemma~\ref{lem:bilinear}, the
+product $\Omega_{19}\times\Omega_{217}$ contains $\Omega_{d_0}^{\,2}$ at
 exponent exactly~2 (first-order recurrence, two factors). The scale
 ratio replaces $\Omega_{d_0}$ with $\Omega_{d_V}$ in each factor,
-giving exponent~2 on $\Omega_{d_V}/\Omega_{d_0}$.
-
-The direction $\Omega_5/\Omega_7 < 1$ (not inverted) is forced: the
-complete invariant must satisfy $I \leq I_0$, because incorporating the
-scale structure refines the content---it cannot create content beyond
-what the partial invariant provides. Since $\Omega_5 < \Omega_7$ (the
-volume maximum is interior to the area maximum, and sphere areas decrease
-below their peak), $(\Omega_5/\Omega_7)^2 < 1$ and $I < I_0$. The
-inverse $(\Omega_7/\Omega_5)^2 > 1$ would give $I > I_0$, violating
-$I \leq I_0$.
+giving exponent~2 on $\Omega_{d_V}/\Omega_{d_0}$. The direction
+$\Omega_{d_V}/\Omega_{d_0} < 1$ is forced by the scale ordering
+(Lemma~\ref{lem:ordering}): $d_0$ is the area maximum, so no sphere area
+exceeds $\Omega_{d_0}$.
 
 The invariant is $(\Omega_5/\Omega_7)^2\times\Omega_{19}\times\Omega_{217}
 = \Omega_5^2\,\Omega_{19}\,\Omega_{217}/\Omega_7^2$. The exponents are
