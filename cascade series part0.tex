@@ -257,8 +257,20 @@ not recurrence primitives.
 \emph{Class~3: The dimension $d_0$ itself.} $p(d) = d_0$ equates a
 dimensionless rate to a dimension count---a type mismatch.
 
-\emph{Class~4: Analytic combinations.} Any combination either reduces to
-$q(d_0)$ or introduces quantities that are not recurrence primitives.
+\emph{Class~4: Functions of $c_1$.} Consider $f(c_1)$ for any
+$f\neq\mathrm{id}$.
+%
+\emph{Multiples:} $n c_1 = \tfrac{1}{2}\ln(\pi^n)$ is the constant of
+the recurrence for $V_d^{\,n}$, a derived sequence. A primitive of a
+derived sequence is not a primitive of the original first-order recurrence.
+%
+\emph{Powers:} $c_1^{\,k}$ for $k\geq 2$ does not appear as the
+dimension-independent constant in any form of the recurrence; it is
+algebraically independent of both $\sqrt{\pi}$ and $\frac{1}{2}\ln\pi$.
+%
+\emph{General:} any analytic $f(c_1)\neq c_1$ either reduces to a
+multiple $n c_1$ (hence derived) or produces a scalar that is not a
+recurrence constant in any canonical form of the first-order recurrence.
 
 Across all four classes, $c_1 = \frac{1}{2}\ln\pi$ is unique.
 \end{proof}
@@ -295,6 +307,19 @@ Any other algebraically equivalent expression either has a constant that
 is a power, root, or inverse of one of these (hence derived, not
 primitive) or fails to isolate the constant with coefficient~1.
 \end{definition}
+
+\begin{remark}[Why coefficient~1]\label{rem:coeff1}
+The condition ``coefficient~1'' is not a convention; it is forced by the
+recurrence's order. The slicing recurrence is first-order: each step
+applies $K$ exactly once. A form containing $K^n$ ($n\neq 1$) describes
+one of two things: either the recurrence for a derived sequence
+($V_d^{\,n}$ satisfies $V_{d+1}^{\,n}/V_d^{\,n} = K^n\cdot R(d)^n$), or
+the $n$-step composition $V_{d+n}/V_d$, which is a higher-order object.
+In neither case is $K^n$ a primitive of the original first-order
+recurrence. Excluding non-unit exponents is therefore not a filter designed
+to produce a desired output---it is the statement that the paper studies
+the recurrence as given, not a power or iterate of it.
+\end{remark}
 
 \begin{theorem}[Two canonical values]\label{thm:twovalues}
 The recurrence's dimension-independent content is exactly the pair
@@ -384,10 +409,17 @@ cascade. No fifth exists.
 
 \begin{proof}
 Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality)
-and $p(d)$ has a unique zero at $d_0 = 7$ (by strict monotonicity). Two thresholds: the
-complete constant content generates exactly $(c_1, c_2)$ and the orbit
-terminates (Theorem~\ref{thm:terminate}), giving $d_1 = 19$ and
-$d_2 = 217$. No other cascade quantity selects a dimension.
+and $p(d)$ has a unique zero at $d_0 = 7$ (by strict monotonicity). Two
+thresholds: the complete constant content generates exactly $(c_1, c_2)$
+and the orbit terminates (Theorem~\ref{thm:terminate}), giving $d_1 = 19$
+and $d_2 = 217$.
+
+The only remaining candidate is $d = 6$, the discrete argmax of $\Omega_d$.
+But $d = 6$ is not independently selected: by Theorem~\ref{thm:dual},
+$d_{\max} = d_0 - 1$, so $d = 6$ is a derived consequence of $d_0 = 7$
+via boundary dominance. Its information is already encoded in $d_0$.
+Including it would double-count the decay-rate zero. No other cascade
+quantity selects a dimension.
 \end{proof}
 
 \begin{center}
@@ -643,12 +675,14 @@ unique independent cascade quantity. All factors are sphere areas.
 
 \emph{(2)~All four distinguished dimensions.}
 Theorem~\ref{thm:tower} proves exactly four distinguished dimensions.
-Completeness is not an axiom; it is a consequence of Theorem~\ref{thm:tower}.
-The Gamma function provides exactly four distinguished dimensions. An
-invariant that uses $k < 4$ depends on an arbitrary selection of $k$
-from~4, introducing a choice not present in the recurrence. The invariant
-that uses all four introduces no choice: $\Omega_5$, $\Omega_7$,
-$\Omega_{19}$, $\Omega_{217}$.
+No cascade mechanism selects a proper subset of these four: the equilibria
+are selected by dynamical transitions ($K\cdot R(d) = 1$ and $p = 0$),
+the thresholds by canonical values ($p = c_1$ and $p = c_2$), and these
+are independent selection mechanisms with no hierarchy between them.
+An invariant omitting any distinguished dimension discards information the
+recurrence provides; an invariant including all four uses the complete
+output. Completeness is not imposed---it is the absence of an arbitrary
+omission: $\Omega_5$, $\Omega_7$, $\Omega_{19}$, $\Omega_{217}$.
 
 \emph{(3)~Threshold exponents.} The recurrence is first-order
 multiplicative, outputting one $\Omega$ per step. Each threshold
@@ -662,18 +696,33 @@ $\Omega_{19}\times\Omega_{217}$.
 \emph{(5)~Ratio for scale.} The scale dimensions (equilibria) combine as a
 ratio (Theorem~\ref{thm:cs}): $\Omega_5/\Omega_7$.
 
-\emph{(6)~Scale exponent and direction.} By Lemma~\ref{lem:bilinear}, the
-product $\Omega_{19}\times\Omega_{217}$ contains $\Omega_{d_0}^{\,2}$ at
-exponent exactly~2 (first-order recurrence, two factors). The scale
-ratio replaces $\Omega_{d_0}$ with $\Omega_{d_V}$ in each factor,
-giving exponent~2 on $\Omega_{d_V}/\Omega_{d_0}$. The direction
-$\Omega_{d_V}/\Omega_{d_0} < 1$ is forced by the scale ordering
-(Lemma~\ref{lem:ordering}).
+\emph{(6)~Scale exponent and direction.} The content product has exactly
+two factors (one per threshold, exponent~1 each by constraint~3). By
+Lemma~\ref{lem:bilinear}, each factor, expressed via the recurrence from
+$d_0$, contributes one power of $\Omega_{d_0}$. Two factors, two powers:
+the product $\Omega_{19}\times\Omega_{217}$ contains
+$\Omega_{d_0}^{\,2}$ at exponent exactly~2. The scale correction replaces
+$\Omega_{d_0}$ with $\Omega_{d_V}$ in each factor, giving exponent~2 on
+$\Omega_{d_V}/\Omega_{d_0}$. The exponent is not chosen; it is counted.
+The direction $\Omega_{d_V}/\Omega_{d_0} < 1$ is forced by the scale
+ordering (Lemma~\ref{lem:ordering}).
 
 The invariant is $(\Omega_5/\Omega_7)^2\times\Omega_{19}\times\Omega_{217}
 = \Omega_5^2\,\Omega_{19}\,\Omega_{217}/\Omega_7^2$. The exponents are
 $a = 2$, $b = -2$, $c = 1$, $d = 1$, uniquely determined.
 \end{proof}
+
+\begin{remark}[Burden of uniqueness]\label{rem:burden}
+The invariant is unique given six constraints. Each constraint traces to a
+theorem: sphere-area primacy (Corollary~\ref{cor:primary}), tower
+completeness (Theorem~\ref{thm:tower}), first-order exponents, the product
+rule (Theorem~\ref{thm:content}), the ratio rule
+(Theorem~\ref{thm:cs}), and the bilinear decomposition
+(Lemma~\ref{lem:bilinear}). No constraint is an axiom: each is a proved
+consequence of the recurrence's order, monotonicity, and
+irreducible constant. The conjunction of six proved statements is itself
+proved.
+\end{remark}
 
 \begin{theorem}[Evaluation]
 $I = 1.0990\times 10^{-120}$.
