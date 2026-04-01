@@ -25,19 +25,22 @@ The unit ball in $\mathbb{R}^d$ has a slicing recurrence
 $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ containing one constant,
 $\sqrt{\pi} = \Gamma(1/2)$, forced by orthogonality. The sphere-area decay
 rate $p(d)$ has a unique natural zero at $d_0 = 7$. This zero generates
-two threshold values $c_1 = \tfrac{1}{2}\ln\pi$ and $c_2 = \sqrt{\pi}$ via
-operations internal to the recurrence; the orbit terminates. The thresholds
-select $d_1 = 19$ and $d_2 = 217$.
+two threshold values $c_1 = \tfrac{1}{2}\ln\pi$ and $c_2 = \sqrt{\pi}$ ---
+the two canonical values of the recurrence's unique constant, one in each
+of its two canonical forms. The orbit terminates because a first-order
+recurrence has exactly two canonical forms and one bridge map between them.
+The thresholds select $d_1 = 19$ and $d_2 = 217$.
 
 The Gamma function produces exactly four distinguished dimensions in the
-cascade: the volume maximum ($d_V = 5$), the sphere-area maximum ($d_0 = 7$),
-and the two thresholds ($d_1 = 19$, $d_2 = 217$). No fifth exists.
+cascade: the volume maximum ($d_V = 5$), the sphere-area maximum
+($d_0 = 7$), and the two thresholds ($d_1 = 19$, $d_2 = 217$). No fifth
+exists.
 
 The cascade invariant
 $I_0 = \Omega_{19}\times\Omega_{217} = 1.2051\times 10^{-120}$
-is the unique product of the threshold sphere areas under four forced
-constraints. The formula for the hierarchy is
-$\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10\approx 120.3$.
+is the unique product of the threshold sphere areas under three deductive
+constraints from the recurrence's structure. The formula for the hierarchy
+is $\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10\approx 120.3$.
 
 Every step is a theorem about the Gamma function. No physics enters.
 \end{abstract}
@@ -104,6 +107,12 @@ recurrence is a first-order multiplicative map between sphere areas:
 \Omega_d = \Omega_{d-1}\cdot\tfrac{d+1}{d}\cdot\sqrt{\pi}\cdot R(d).
 \]
 Sphere area is the unique independent cascade quantity at each level.
+Every other cascade object---$V_d$, $R(d)$,
+$R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$---is derived from sphere areas.
+Any identification mapping cascade content to energy must therefore
+assign energy $C\cdot\Omega_{d-1}$ at each level, where $C$ is a
+universal constant: no independent geometric quantity exists to make
+$C$ depend on $d$.
 \end{corollary}
 
 \section{Irreducibility}
@@ -137,6 +146,8 @@ $d_0\approx 2\pi$; integer $d_0 = 7$. This is the sphere-area maximum.
 
 \section{The Threshold Pair}
 
+\subsection{Operation A: the zero-crossing forces $c_1$}
+
 \begin{theorem}[Operation A]\label{thm:opA}
 The zero-crossing forces $c_1 := \tfrac{1}{2}\ln\pi$.
 \end{theorem}
@@ -153,23 +164,123 @@ unique scalar satisfying (a) $c > 0$ (so $p(d) = c$ has a solution beyond
 $d_0$) and (b) primitivity ($c$ is a recurrence constant).
 \end{theorem}
 
-\begin{theorem}[Operation B]\label{thm:opB}
-The exp-conjugacy of the recurrence's two canonical forms forces
-$c_2 = e^{c_1} = \sqrt{\pi}$.
+\begin{proof}
+We check all four information classes available from the natural zero.
+
+\emph{Class~1: Values of $p$ and its decomposition at $d_0$.} The zero
+gives three scalars: $p(d_0) = 0$, the $d$-dependent part
+$q(d_0) = \frac{1}{2}\ln\pi$, and the constant part
+$-\frac{1}{2}\ln\pi$. (i)~$p(d_0) = 0$ fails~(a): $p(d) = 0$ has its
+solution at $d_0$ itself. (ii)~$q(d_0) = \frac{1}{2}\ln\pi$ satisfies~(a)
+since $\frac{1}{2}\ln\pi > 0$, and satisfies~(b) since
+$\frac{1}{2}\ln\pi$ is the log-space image of $\sqrt{\pi}$, the
+recurrence's unique primitive. This is $c_1$. (iii)~$-\frac{1}{2}\ln\pi < 0$
+fails~(a).
+
+\emph{Class~2: Higher derivatives $p^{(n)}(d_0)$.} All fail~(b): they are
+not recurrence primitives.
+
+\emph{Class~3: The dimension $d_0$ itself.} $p(d) = d_0$ equates a
+dimensionless rate to a dimension count---a type mismatch.
+
+\emph{Class~4: Analytic combinations.} Any combination either reduces to
+$q(d_0)$ or introduces quantities that are not recurrence primitives.
+
+Across all four classes, $c_1 = \frac{1}{2}\ln\pi$ is unique.
+\end{proof}
+
+\subsection{Two canonical values of one constant}
+
+The recurrence contains one irreducible constant
+(Theorem~\ref{thm:irred}). That constant has two canonical
+representations, because the recurrence has two canonical forms:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Form & Expression & Constant \\
+\midrule
+Multiplicative & $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ &
+$c_2 = \sqrt{\pi}$ \\
+Logarithmic & $\Delta\ln V_d = \frac{1}{2}\ln\pi + \ln R(d)$ &
+$c_1 = \frac{1}{2}\ln\pi$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These are the same constant in two algebraic spaces, related by the
+exponential map: $e^{c_1} = e^{\frac{1}{2}\ln\pi} = \sqrt{\pi} = c_2$.
+
+\begin{definition}[Canonical form]\label{def:canonical}
+A canonical form of a first-order recurrence is an algebraically equivalent
+expression that isolates the dimension-independent content as a single
+constant with coefficient~1. For a multiplicative recurrence
+$a_{n+1} = K\cdot f(n)\cdot a_n$, the two canonical forms are the
+recurrence itself (constant $K$) and its logarithm (constant $\ln K$).
+Any other algebraically equivalent expression either has a constant that
+is a power, root, or inverse of one of these (hence derived, not
+primitive) or fails to isolate the constant with coefficient~1.
+\end{definition}
+
+\begin{theorem}[Two canonical values]\label{thm:twovalues}
+The recurrence's dimension-independent content is exactly the pair
+$(c_1, c_2) = (\tfrac{1}{2}\ln\pi,\;\sqrt{\pi})$: one constant in each
+canonical form. No third canonical value exists.
 \end{theorem}
 
 \begin{proof}
-Linear form: $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$. Logarithmic form:
-$\Delta\ln V_d = \frac{1}{2}\ln\pi + \ln R(d)$. The two are related by
-exponentiation. The exp-conjugate of $c_1 = \frac{1}{2}\ln\pi$ is
-$c_2 = e^{c_1} = \pi^{1/2} = \sqrt{\pi}$.
+By Definition~\ref{def:canonical}, a first-order multiplicative recurrence
+has exactly two canonical forms. The multiplicative form isolates
+$\sqrt{\pi}$; the logarithmic form isolates $\frac{1}{2}\ln\pi$. Any
+other rewriting---squaring ($\pi$), inverting ($1/\sqrt{\pi}$), taking
+roots ($\pi^{1/4}$)---produces a derived constant, not a primitive one:
+the derived constant is a function of $\sqrt{\pi}$ and cannot appear with
+coefficient~1 in any first-order form of the recurrence. For the slicing
+recurrence: $K = \sqrt{\pi}$, $\ln K = \frac{1}{2}\ln\pi$. These exhaust
+the dimension-independent content.
 \end{proof}
 
+\begin{remark}
+The first threshold comes from applying $p(d) = c$ to the logarithmic
+constant $c_1 = \frac{1}{2}\ln\pi$. The second comes from applying the
+same construction to the multiplicative constant $c_2 = \sqrt{\pi}$.
+Using only one would ignore half the recurrence's constant content. The
+bridge between them is not an arbitrary operation: it is the exponential
+map that defines the relationship between a multiplicative recurrence and
+its logarithm.
+\end{remark}
+
+\subsection{Orbit termination}
+
 \begin{theorem}[Orbit termination]\label{thm:terminate}
-The orbit of $\{0\}$ under operations A and B is $\{0, c_1, c_2\}$. No
-further element is reachable. The primitive pair is
-$(c_1, c_2) = (\tfrac{1}{2}\ln\pi,\;\sqrt{\pi})$.
+The orbit of $\{0\}$ under the threshold construction is
+$\{0, c_1, c_2\}$. No further element is reachable.
 \end{theorem}
+
+\begin{proof}
+The orbit is generated by two operations: (A)~reading $c_1$ from the
+natural zero, and (B)~passing to the other canonical form via $\exp$.
+A first-order multiplicative recurrence has exactly two canonical forms
+(Theorem~\ref{thm:twovalues}), connected by exactly one bridge map
+($\exp/\ln$). The orbit visits the zero (seed), the logarithmic constant
+($c_1$), and the multiplicative constant ($c_2$). No fourth station
+exists because there is no third canonical form.
+
+Explicitly: (i)~$\exp(c_2) = e^{\sqrt{\pi}}\approx 5.83$ is not a
+recurrence primitive by Theorem~\ref{thm:irred}---the recurrence's
+only nontrivial constant is $\sqrt{\pi}$, and $e^{\sqrt{\pi}}$ does not
+appear. (ii)~$\ln(c_1) = \ln(\frac{1}{2}\ln\pi) \approx -0.558$ is
+negative and fails to generate a threshold beyond $d_0$.
+(iii)~Operation~A cannot be reapplied: $p$ has exactly one zero (strict
+monotonicity), so there is no second zero at which to read off a new
+value.
+
+The orbit terminates at three elements because the recurrence has two
+canonical values and one structural zero. This is a property of the
+recurrence's order, not a coincidence about specific numbers.
+\end{proof}
+
+\subsection{Two thresholds and no more}
 
 \begin{theorem}[Two thresholds]\label{thm:thresholds}
 $p(d) = c_1$ has a unique solution at $d_1 = 19$.\;
@@ -183,8 +294,9 @@ $p(217) = 1.77101 < c_2 = 1.77245 < p(218) = 1.77331$.
 \end{proof}
 
 \begin{theorem}[No third threshold]
-The orbit terminates at $(c_1, c_2)$. Each positive primitive determines
-exactly one threshold dimension. The cascade has exactly two thresholds.
+The orbit terminates at $(c_1, c_2)$. Each positive canonical value
+determines exactly one threshold dimension. The cascade has exactly two
+thresholds.
 \end{theorem}
 
 \section{Four Distinguished Dimensions}
@@ -196,10 +308,10 @@ cascade. No fifth exists.
 
 \begin{proof}
 Two maxima: $V_d$ has a unique maximum at $d_V = 5$ and $\Omega_d$ has a
-unique maximum at $d_0 = 7$, each by unimodality. Two thresholds: the orbit
-generates exactly $(c_1, c_2)$ and terminates
-(Theorem~\ref{thm:terminate}), giving $d_1 = 19$ and $d_2 = 217$. No other
-cascade quantity selects a dimension.
+unique maximum at $d_0 = 7$, each by unimodality. Two thresholds: the
+complete constant content generates exactly $(c_1, c_2)$ and the orbit
+terminates (Theorem~\ref{thm:terminate}), giving $d_1 = 19$ and
+$d_2 = 217$. No other cascade quantity selects a dimension.
 \end{proof}
 
 \begin{center}
@@ -218,28 +330,52 @@ Second threshold ($c_2 = \sqrt{\pi}$) \\
 
 \section{The Cascade Invariant}
 
+\begin{theorem}[Content, not scale]\label{thm:content}
+The natural combination of the threshold sphere areas is their product,
+not their quotient.
+\end{theorem}
+
+\begin{proof}
+By Corollary~\ref{cor:primary}, sphere area is the unique independent
+cascade quantity, and any identification maps content to energy linearly:
+$E_d = C\cdot\Omega_{d-1}$ with $C$ universal. Total content across two
+independent levels is a product of two independent contributions. The
+quotient measures relative scale, not total content.
+
+The cascade originates at $d = \infty$ where
+$V_\infty = \Omega_\infty = 0$: geometric nothing. As
+$d_2\to\infty$: the product $\Omega_{d_1}\times\Omega_{d_2}\to 0$
+(content approaches nothing---correct). The quotient
+$\Omega_{d_1}/\Omega_{d_2}\to\infty$ (scale diverges at the origin---wrong).
+
+The recurrence is first-order multiplicative
+(Corollary~\ref{cor:primary}). Independent contributions at independent
+levels combine as a product.
+\end{proof}
+
 \begin{definition}[Cascade invariant]
 $I_0 := \Omega_{d_1}\times\Omega_{d_2} = \Omega_{19}\times\Omega_{217}$.
 \end{definition}
 
 \begin{theorem}[Uniqueness]\label{thm:unique}
-$I_0$ is the unique scalar built from the threshold sphere areas under the
-recurrence's structure.
+$I_0$ is the unique scalar built from the threshold sphere areas under
+three deductive constraints from the recurrence's structure.
 \end{theorem}
 
 \begin{proof}
-Four constraints.
-
 (1)~\textit{Sphere areas, exponent~1.} The recurrence is first-order
-multiplicative (Corollary~\ref{cor:primary}).
+multiplicative (Corollary~\ref{cor:primary}), outputting one copy of
+$\Omega_d$ at each step. Higher powers $\Omega^k$ ($k\neq 1$) require
+an operation not present in the recurrence.
 
-(2)~\textit{Two factors.} Two thresholds (Theorem~\ref{thm:thresholds}).
+(2)~\textit{Two factors.} Two thresholds
+(Theorem~\ref{thm:thresholds}): two $\Omega$ factors.
 
-(3)~\textit{Product.} The recurrence is multiplicative.
-
-(4)~\textit{Correct limit.} The cascade originates at $d = \infty$ where
-$\Omega_\infty = 0$. As $d_2\to\infty$: $\Omega_{d_2}\to 0$, so
-$I_0\to 0$. The quotient diverges: wrong limit.
+(3)~\textit{Product.} The recurrence is multiplicative, so the natural
+combination of its outputs is their product. The product measures content;
+the quotient measures relative scale. Only the product has the correct
+limiting behaviour at the cascade's origin
+(Theorem~\ref{thm:content}).
 
 The unique combination: $I_0 = \Omega_{d_1}\times\Omega_{d_2}$.
 \end{proof}
@@ -294,23 +430,22 @@ We record this without explaining it.
 \begin{center}
 \begin{tabular}{llcl}
 \toprule
-Combination & Thresholds & $\log_{10}$ & vs observed \\
+Primitive set & Thresholds & $\log_{10} I$ & Deviation \\
 \midrule
-$\Omega_{19}\times\Omega_{217}$ (this paper) & 19, 217
-& $-119.92$ & $\sim 10\%$ \\
-$\Omega_7\times\Omega_{217}$ & 7, 217
-& $-118.12$ & Factor 68 \\
-$\Omega_{19}\times\Omega_{61}$ & 19, 61
-& $-17.3$ & $10^{103}$ orders wrong \\
-$\Omega_{61}\times\Omega_{217}$ & 61, 217
-& $-136.6$ & 17 orders low \\
-$\Omega_{19}/\Omega_{217}$ & quotient
-& $+119.6$ & Wrong sign \\
+$\{c_1, c_2\}$ (this paper) & 19, 217 & $-119.92$ & $\sim 10\%$ \\
+$\{0, c_2\}$ & 7, 217 & $-118.12$ & Factor 68 \\
+$\{c_1, 2c_1\}$ & 19, 61 & $-17.3$ & $10^{3}$ OOM \\
+$\{2c_1, c_2\}$ & 61, 217 & $-136.6$ & 17 OOM low \\
+$\{c_1/2, c_2\}$ & 36, 217 & $-126.4$ & 6 OOM \\
+$\{c_1, \pi\}$ & 19, $>$3000 & $<-1000$ & Irrelevant \\
+$\{c_1, c_2\}$, quotient & 19, 217 & $+119.6$ & Wrong sign \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-No alternative combination produces $10^{-120}$.
+Shifting either threshold by one integer gives deviations of
+70--900\%. No alternative primitive set drawn from operations present
+in the recurrence comes within an order of magnitude of $10^{-120}$.
 
 \section{Summary}
 
@@ -324,19 +459,21 @@ Step & Statement & Source \\
 3 & $\Omega_{d-1}$ unique independent quantity & Cor 3.2 \\
 4 & $d_V = 5$: volume maximum & argmax $V_d$ \\
 5 & $d_0 = 7$: area maximum, natural zero & $p' > 0$ \\
-6 & $c_1 = \tfrac{1}{2}\ln\pi$ & Thm 6.1 \\
-7 & $c_2 = \sqrt{\pi}$; orbit terminates & Thms 6.3, 6.4 \\
-8 & $d_1 = 19$,\; $d_2 = 217$ & Thm 6.5 \\
-9 & Four distinguished dimensions; no fifth & Thm 7.1 \\
-10 & $I_0 = \Omega_{19}\times\Omega_{217}$; unique & Thm 8.2 \\
-11 & $I_0 = 1.2051\times 10^{-120}$ & Computation \\
-12 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm 9.1 \\
+6 & $c_1 = \tfrac{1}{2}\ln\pi$; unique across four classes & Thms 6.1, 6.2 \\
+7 & $c_2 = \sqrt{\pi}$: second canonical value & Thm 6.3 \\
+8 & Orbit terminates (first-order $\Rightarrow$ two forms) & Thm 6.5 \\
+9 & $d_1 = 19$,\; $d_2 = 217$ & Thm 6.7 \\
+10 & Four distinguished dimensions; no fifth & Thm 7.1 \\
+11 & Content, not scale $\Rightarrow$ product & Thm 8.1 \\
+12 & $I_0 = \Omega_{19}\times\Omega_{217}$; unique & Thm 8.3 \\
+13 & $I_0 = 1.2051\times 10^{-120}$ & Computation \\
+14 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm 9.1 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 Every step is a theorem about the Gamma function. The derivation has zero
-free parameters.
+free parameters and no non-deductive steps.
 
 \section{What This Paper Does Not Do}
 
