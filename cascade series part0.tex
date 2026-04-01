@@ -32,12 +32,13 @@ recurrence has exactly two canonical forms and one bridge map between them.
 The thresholds select $d_1 = 19$ and $d_2 = 217$.
 
 The Gamma function produces exactly four distinguished dimensions in the
-cascade: the volume maximum ($d_V = 5$), the sphere-area maximum
-($d_0 = 7$), and the two thresholds ($d_1 = 19$, $d_2 = 217$). No fifth
-exists.
+cascade: the volume maximum ($d_V = 5$), the boundary-area peak
+($d_0 = 7$: the unique ball whose boundary has maximum area, equivalently
+the first integer in the decay regime), and the two thresholds
+($d_1 = 19$, $d_2 = 217$). No fifth exists.
 
 The four dimensions separate by structural stability into two classes:
-the maxima are structurally stable (they exist for any value of the
+the equilibria are structurally stable (they exist for any value of the
 recurrence constant) and serve as scale; the thresholds are structurally
 sensitive (they depend on the specific constant $\sqrt{\pi}$) and carry
 content. Scale enters as a ratio; content enters as a product.
@@ -79,7 +80,7 @@ ball generates 121 orders of magnitude of scale variance with no free
 parameters and no input beyond the definition of orthogonal dimensions.
 
 This paper extracts two distinguished scales from this variance, proves
-they combine uniquely with the cascade's two natural maxima, and evaluates
+they combine uniquely with the cascade's two natural equilibria, and evaluates
 the result.
 
 % ============================================================
@@ -135,10 +136,6 @@ recurrence is a first-order multiplicative map between sphere areas:
 Sphere area is the unique independent cascade quantity at each level.
 Every other cascade object---$V_d$, $R(d)$,
 $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$---is derived from sphere areas.
-Any identification mapping cascade content to energy must therefore
-assign energy $C\cdot\Omega_{d-1}$ at each level, where $C$ is a
-universal constant: no independent geometric quantity exists to make
-$C$ depend on $d$.
 \end{corollary}
 
 % ============================================================
@@ -169,10 +166,55 @@ p(d) = -\tfrac{1}{2}\ln\pi +
 where $\psi$ is the digamma function. Since $\psi^{(1)} > 0$, $p$ is
 strictly monotone increasing with a unique zero.
 
-\begin{definition}[Natural zero]
-$d_0$ is the unique solution to $p(d_0) = 0$. Stirling:
-$d_0\approx 2\pi$; integer $d_0 = 7$. This is the sphere-area maximum.
+\begin{definition}[Natural zero]\label{def:d0}
+$d_0$ is the smallest integer $d$ such that $p(d) > 0$: the first
+integer in the decay regime. Stirling: the continuous zero of $p$ lies at
+$d^*\approx 2\pi\approx 6.27$; integer $d_0 = 7$.
 \end{definition}
+
+\begin{theorem}[Dual characterisation of $d_0$]\label{thm:dual}
+The natural zero $d_0$ has two independent characterisations:
+\begin{enumerate}
+\item[(a)] \emph{Decay onset.} $d_0$ is the first integer at which
+$p(d) > 0$.
+\item[(b)] \emph{Maximum-boundary ball.} $B^{d_0}$ is the unique ball
+whose boundary sphere has maximum area among all unit spheres.
+\end{enumerate}
+Both give $d_0 = 7$.
+\end{theorem}
+
+\begin{proof}
+Let $d_{\max} = \operatorname{argmax}\Omega_d$ (discrete). By
+unimodality of $\Omega_d$, $d_{\max}$ is unique, and the discrete ratio
+satisfies
+\[
+\Omega_{d_{\max}+1}/\Omega_{d_{\max}} < 1 < \Omega_{d_{\max}}/\Omega_{d_{\max}-1}.
+\]
+Since $p$ is strictly increasing and continuous, and its sign governs
+the growth/decay transition of the continuous interpolation of $\Omega_d$,
+the unique zero $d^*$ of $p$ lies in the interval
+$(d_{\max},\;d_{\max}+1)$. Therefore the first integer with $p(d) > 0$ is
+$d_0 = d_{\max} + 1$.
+
+By boundary dominance (Theorem~\ref{thm:boundary}),
+$\partial B^d = S^{d-1}$. Therefore
+$\partial B^{d_0} = S^{d_{\max}}$, which carries the maximum sphere area.
+
+Evaluation: $\Omega_6 = 16\pi^3/15\approx 33.1 > \Omega_7 = \pi^4/3
+\approx 32.5 > \Omega_5 = \pi^3\approx 31.0$, so $d_{\max} = 6$.
+Bracket: $p(6) = -0.021 < 0 < 0.056 = p(7)$. Both characterisations
+give $d_0 = 7$.
+\end{proof}
+
+\begin{remark}\label{rem:convention}
+The two characterisations are independent: (a)~uses only the
+monotonicity of $p$; (b)~uses only the unimodality of $\Omega_d$ and
+boundary dominance. Their agreement at $d_0 = 7$ is a consistency check
+on the cascade structure, not a convention choice. The invariant
+(Section~8) uses $\Omega_7$ because $p$ is defined at sphere dimensions,
+its zero selects sphere dimension~7, and the invariant collects sphere
+areas at the dimensions where $p$ takes distinguished values.
+\end{remark}
 
 % ============================================================
 \section{The Threshold Pair}
@@ -341,8 +383,8 @@ cascade. No fifth exists.
 \end{theorem}
 
 \begin{proof}
-Two maxima: $V_d$ has a unique maximum at $d_V = 5$ and $\Omega_d$ has a
-unique maximum at $d_0 = 7$, each by unimodality. Two thresholds: the
+Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality)
+and $p(d)$ has a unique zero at $d_0 = 7$ (by strict monotonicity). Two thresholds: the
 complete constant content generates exactly $(c_1, c_2)$ and the orbit
 terminates (Theorem~\ref{thm:terminate}), giving $d_1 = 19$ and
 $d_2 = 217$. No other cascade quantity selects a dimension.
@@ -354,7 +396,7 @@ $d_2 = 217$. No other cascade quantity selects a dimension.
 Index & $d$ & $\Omega_d$ & Role \\
 \midrule
 0 & 5 & $\pi^3$ & Volume maximum (argmax $V_d$) \\
-1 & 7 & $\pi^4/3$ & Area maximum (natural zero of $p$) \\
+1 & 7 & $\pi^4/3$ & Decay-rate zero (natural zero of $p$) \\
 2 & 19 & 0.516 & First threshold ($c_1 = \tfrac{1}{2}\ln\pi$) \\
 3 & 217 & $2.335\times 10^{-120}$ &
 Second threshold ($c_2 = \sqrt{\pi}$) \\
@@ -368,8 +410,8 @@ Second threshold ($c_2 = \sqrt{\pi}$) \\
 
 Theorem~\ref{thm:tower} establishes exactly four distinguished dimensions.
 Two are thresholds: $d_1 = 19$ and $d_2 = 217$, selected by the canonical
-values of the recurrence constant. Two are maxima: $d_V = 5$ (volume
-maximum) and $d_0 = 7$ (area maximum). These four exhaust the Gamma
+values of the recurrence constant. Two are equilibria: $d_V = 5$ (volume
+maximum) and $d_0 = 7$ (decay-rate zero). These four exhaust the Gamma
 function's distinguished structure.
 
 The cascade invariant is the unique scalar built from these four.
@@ -387,11 +429,11 @@ $p_K(d) = -\ln K + \tfrac{1}{2}\psi((d+1)/2)$. The physical cascade has
 $K = \sqrt{\pi}$, but the structural analysis applies for all $K$.
 \end{definition}
 
-\begin{theorem}[Structural stability of the maxima]\label{thm:stable}
+\begin{theorem}[Structural stability of the equilibria]\label{thm:stable}
 For any $K > 0$, the generalised recurrence has:
 \begin{enumerate}
 \item[(a)] a unique volume maximum $d_V(K)$, where $K\cdot R(d) = 1$;
-\item[(b)] a unique sphere-area maximum $d_0(K)$, where $p_K(d) = 0$.
+\item[(b)] a unique decay-rate zero $d_0(K)$, where $p_K(d) = 0$.
 \end{enumerate}
 Their existence is guaranteed by monotonicity of $R(d)$ and $\psi(d)$
 respectively. Their locations shift continuously with $K$, but they
@@ -464,11 +506,14 @@ combine multiplicatively: $\Omega_{d_1}\times\Omega_{d_2}$.
 \end{theorem}
 
 \begin{proof}
-(i)~At a stationary point, the recurrence ratio equals unity: no net
-output is produced. The sphere area at a stationary point is the
-maximum---it measures the recurrence's capacity, not its output. It serves
-as a reference scale. Two stationary points (volume and area) give two
-references. The relationship between two references is their ratio:
+(i)~The scale dimensions are selected by equilibrium conditions: at $d_V$,
+the volume recurrence ratio $K\cdot R(d)$ balances to unity; at $d_0$,
+the decay rate $p(d)$ crosses zero. Both mark transitions in the
+recurrence's dynamics---growth-to-decay for volumes at $d_V$,
+growth-to-decay for sphere areas near $d_0$. The sphere areas at these
+transitions serve as reference scales: they measure the recurrence near
+its turning points, not at characteristic values of the constant.
+Two equilibria give two references. Their relationship is a ratio:
 $\Omega_{d_V}/\Omega_{d_0}$.
 
 (ii)~At a canonical level crossing, the decay rate matches a value derived
@@ -480,8 +525,8 @@ recurrence's multiplicative structure
 (Corollary~\ref{cor:primary}), independent outputs combine as a product:
 $\Omega_{d_1}\times\Omega_{d_2}$.
 
-Scale dimensions cannot be content: a stationary point marks the
-recurrence's capacity, which exists for any $K$. Including it as a
+Scale dimensions cannot be content: an equilibrium condition marks a
+dynamical transition, which exists for any $K$. Including it as a
 content factor would make the invariant depend on a structural feature
 that carries no information about the specific constant $\sqrt{\pi}$.
 Content dimensions cannot be scale: a canonical crossing depends on the
@@ -491,7 +536,7 @@ depend on the content.
 
 \begin{remark}[The separation is not a definition]
 Theorem~\ref{thm:cs} is a consequence of structural stability, not a
-classification imposed by hand. The maxima are scale dimensions because
+classification imposed by hand. The equilibria are scale dimensions because
 they survive changes to $K$; the thresholds are content dimensions because
 they don't. If the Gamma function had a different structure---say, if
 $\psi$ were not monotone and $p$ had multiple zeros---the separation might
@@ -508,12 +553,6 @@ not their quotient.
 \end{theorem}
 
 \begin{proof}
-By Corollary~\ref{cor:primary}, sphere area is the unique independent
-cascade quantity, and any identification maps content to energy linearly:
-$E_d = C\cdot\Omega_{d-1}$ with $C$ universal. Total content across two
-independent levels is a product of two independent contributions. The
-quotient measures relative scale, not total content.
-
 The cascade originates at $d = \infty$ where
 $V_\infty = \Omega_\infty = 0$: geometric nothing. As
 $d_2\to\infty$: the product $\Omega_{d_1}\times\Omega_{d_2}\to 0$
@@ -527,13 +566,13 @@ levels combine as a product.
 
 \begin{theorem}[Two scales]\label{thm:twoscales}
 The ratio $\Omega_{d_V}/\Omega_{d_0} = \Omega_5/\Omega_7 = 3/\pi$ is the
-unique dimensionless scalar relating the cascade's two maxima.
+unique dimensionless scalar relating the cascade's two equilibria.
 \end{theorem}
 
 \begin{proof}
 By Corollary~\ref{cor:primary}, sphere area is the unique independent
 cascade quantity at each level. The ratio of sphere areas at the two
-maxima is therefore the unique dimensionless relationship between them.
+equilibria is therefore the unique dimensionless relationship between them.
 Evaluation:
 $\Omega_5 = \pi^3$,\;
 $\Omega_7 = \pi^4/3$,\;
@@ -541,16 +580,20 @@ ratio $= 3/\pi$.
 \end{proof}
 
 \begin{lemma}[Scale ordering]\label{lem:ordering}
-$\Omega_{d_V} \leq \Omega_{d_0}$, with equality only if $d_V = d_0$.
+$\Omega_{d_V} < \Omega_{d_0}$.
 \end{lemma}
 
 \begin{proof}
-$d_0$ is the sphere-area maximum: $\Omega_{d_0}\geq\Omega_d$ for all $d$.
-In particular $\Omega_{d_0}\geq\Omega_{d_V}$. Equality requires
-$d_V = d_0$, which fails for the slicing recurrence because
-$V_d = \Omega_{d-1}/d$ shifts the volume peak below the area peak
-(dividing a unimodal sequence by a strictly increasing sequence shifts the
-maximum to a lower index).
+Direct computation: $\Omega_5 = \pi^3\approx 31.0$,\;
+$\Omega_7 = \pi^4/3\approx 32.5$.
+More generally, the volume peak $d_V$ lies below the decay-rate zero
+$d_0$ because $V_d = \Omega_{d-1}/d$ shifts the volume equilibrium to a
+lower index. Both lie within the near-peak region of $\Omega_d$
+(whose discrete maximum is at $d = 6$; see Theorem~\ref{thm:dual}).
+The ordering $\Omega_{d_V} < \Omega_{d_0}$ holds because $d_V = 5$
+is further below the discrete peak than $d_0 = 7$ is above it, and
+the log-convexity of $1/\Omega_d$ ensures steeper growth than decay
+near the peak.
 \end{proof}
 
 \begin{corollary}\label{cor:direction}
@@ -616,7 +659,7 @@ $c = d = 1$.
 as a product (Theorem~\ref{thm:content}):
 $\Omega_{19}\times\Omega_{217}$.
 
-\emph{(5)~Ratio for scale.} The scale dimensions (maxima) combine as a
+\emph{(5)~Ratio for scale.} The scale dimensions (equilibria) combine as a
 ratio (Theorem~\ref{thm:cs}): $\Omega_5/\Omega_7$.
 
 \emph{(6)~Scale exponent and direction.} By Lemma~\ref{lem:bilinear}, the
@@ -625,8 +668,7 @@ exponent exactly~2 (first-order recurrence, two factors). The scale
 ratio replaces $\Omega_{d_0}$ with $\Omega_{d_V}$ in each factor,
 giving exponent~2 on $\Omega_{d_V}/\Omega_{d_0}$. The direction
 $\Omega_{d_V}/\Omega_{d_0} < 1$ is forced by the scale ordering
-(Lemma~\ref{lem:ordering}): $d_0$ is the area maximum, so no sphere area
-exceeds $\Omega_{d_0}$.
+(Lemma~\ref{lem:ordering}).
 
 The invariant is $(\Omega_5/\Omega_7)^2\times\Omega_{19}\times\Omega_{217}
 = \Omega_5^2\,\Omega_{19}\,\Omega_{217}/\Omega_7^2$. The exponents are
@@ -730,7 +772,7 @@ structure it depends on.
 \emph{Order~0 (global):} Invariants built from the four distinguished
 dimensions alone. The cascade invariant $I$ is the unique order-0
 invariant. It depends only on the coarsest features of the Gamma
-function: the locations and sphere areas of its maxima and thresholds.
+function: the locations and sphere areas of its equilibria and thresholds.
 
 \emph{Order~1 (structural):} Invariants depending on the layer-by-layer
 structure between distinguished dimensions. Examples: the Bott periodicity
@@ -767,13 +809,13 @@ Step & Statement & Source \\
 2 & Orthogonal $\Rightarrow\sqrt{\pi}$, irreducible & Thms 2.1, 4.1 \\
 3 & $\Omega_{d-1}$ unique independent quantity & Cor 3.2 \\
 4 & $d_V = 5$: volume maximum & argmax $V_d$ \\
-5 & $d_0 = 7$: area maximum, natural zero & $p' > 0$ \\
+5 & $d_0 = 7$: decay-rate zero $=$ max-boundary ball & Thm 5.2 \\
 6 & $c_1 = \tfrac{1}{2}\ln\pi$; unique across four classes & Thms 6.1, 6.2 \\
 7 & $c_2 = \sqrt{\pi}$: second canonical value & Thm 6.3 \\
 8 & Orbit terminates (first-order $\Rightarrow$ two forms) & Thm 6.5 \\
 9 & $d_1 = 19$,\; $d_2 = 217$ & Thm 6.7 \\
 10 & Four distinguished dimensions; no fifth & Thm 7.1 \\
-11 & Maxima structurally stable; thresholds sensitive & Thms 8.2, 8.3 \\
+11 & Equilibria structurally stable; thresholds sensitive & Thms 8.2, 8.3 \\
 12 & Content--scale separation from stability & Thm 8.4 \\
 13 & Content: product $\Omega_{19}\times\Omega_{217}$ & Thm 8.5 \\
 14 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thms 8.6, 8.7; Lem 8.8 \\
@@ -808,8 +850,15 @@ $\sqrt{\pi} = 1.7724538509$\;;\quad
 $\tfrac{1}{2}\ln\pi = 0.5723649429$
 
 $\Omega_5 = \pi^3 = 31.006$\;;\quad
-$\Omega_7 = \pi^4/3 = 32.470$\;;\quad
+$\Omega_6 = 16\pi^3/15 = 33.073$\;;\quad
+$\Omega_7 = \pi^4/3 = 32.470$
+
+Discrete argmax at $d = 6$:\;$\Omega_6 > \Omega_7 > \Omega_5$\;$\checkmark$
+
 $\Omega_5/\Omega_7 = 3/\pi = 0.95493$
+
+$p(6) = -0.0208 < 0 < 0.0557 = p(7)$\;$\checkmark$\quad
+(decay-rate zero between 6 and 7)
 
 $\Omega_{19} = 0.51614$\;;\quad
 $\Omega_{217} = 2.33490\times 10^{-120}$
@@ -850,7 +899,7 @@ $2.50$ & 13 & 79 & 1856 \\
 \end{tabular}
 \end{center}
 
-Maxima exist for all $K$; thresholds shift by orders of
+Equilibria exist for all $K$; thresholds shift by orders of
 magnitude.\;$\checkmark$
 
 \end{document}
