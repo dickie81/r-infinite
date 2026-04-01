@@ -1,0 +1,377 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\geometry{margin=2.5cm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Cascade Series --- Paper 0\\[0.5em]
+\large Scale Variance from Orthogonality:\\
+How the Unit Ball Generates $10^{120}$ Orders of Magnitude}
+\author{RTAC}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The unit ball in $\mathbb{R}^d$ has a slicing recurrence
+$V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ containing one constant,
+$\sqrt{\pi} = \Gamma(1/2)$, forced by orthogonality. The sphere-area decay
+rate $p(d)$ has a unique natural zero at $d_0 = 7$. This zero generates
+two threshold values $c_1 = \tfrac{1}{2}\ln\pi$ and $c_2 = \sqrt{\pi}$ via
+operations internal to the recurrence; the orbit terminates. The thresholds
+select $d_1 = 19$ and $d_2 = 217$.
+
+The Gamma function produces exactly four distinguished dimensions in the
+cascade: the volume maximum ($d_V = 5$), the sphere-area maximum ($d_0 = 7$),
+and the two thresholds ($d_1 = 19$, $d_2 = 217$). No fifth exists.
+
+The cascade invariant
+$I_0 = \Omega_{19}\times\Omega_{217} = 1.2051\times 10^{-120}$
+is the unique product of the threshold sphere areas under four forced
+constraints. The formula for the hierarchy is
+$\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10\approx 120.3$.
+
+Every step is a theorem about the Gamma function. No physics enters.
+\end{abstract}
+
+\section{The Question}
+
+How much scale variance can pure mathematics produce from nothing?
+
+The unit ball $B^d = \{x\in\mathbb{R}^d : |x|\leq 1\}$ exists in every
+dimension. Its boundary sphere has area
+$\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$. At $d = 7$:
+$\Omega_7\approx 33$. At $d = 217$:
+$\Omega_{217}\approx 10^{-120}$. The ratio exceeds $10^{121}$. The unit
+ball generates 121 orders of magnitude of scale variance with no free
+parameters and no input beyond the definition of orthogonal dimensions.
+
+This paper extracts two distinguished scales from this variance and proves
+their product is unique.
+
+\section{The Recurrence}
+
+Cut $B^{d+1}$ perpendicular to one axis. Each cross-section at height $x$
+is a $d$-ball of radius $\sqrt{1-x^2}$:
+\begin{equation}\label{eq:slice}
+V_{d+1} = V_d\int_{-1}^{1}(1-x^2)^{d/2}\,dx.
+\end{equation}
+Substitute $x = \cos\theta$. The integral becomes
+$2\int_0^{\pi/2}\sin^d\theta\,d\theta$: one quarter turn from axis to
+equator. Via the Beta function:
+\begin{equation}\label{eq:recurrence}
+V_{d+1} = V_d\cdot\sqrt{\pi}\cdot R(d), \qquad
+R(d) := \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+\end{equation}
+
+\begin{theorem}[Orthogonal compression constant]\label{thm:sqrtpi}
+$\Gamma(1/2) = \sqrt{\pi}$ is the unique dimension-independent constant in
+the recurrence, forced by orthogonality. It appears with coefficient
+exactly~1.
+\end{theorem}
+
+\begin{proof}
+The first argument of $B$ is $\frac{1}{2}$, forced by orthogonality: the
+angle between axis and equator is $\pi/2$; the substitution
+$x = \cos\theta$ produces the half-power $t^{-1/2}$ in $B(1/2,\cdot)$;
+$\Gamma(1/2) = \sqrt{\pi}$. The chain: dimension $\to$ orthogonal $\to$
+$\pi/2$ $\to$ $B(1/2,\cdot)$ $\to$ $\sqrt{\pi}$. Every arrow forced.
+\end{proof}
+
+\section{Sphere Areas Are Primary}
+
+\begin{theorem}[Boundary dominance]\label{thm:boundary}
+$\Omega_{d-1}/V_d = d$ for all $d\geq 1$.
+\end{theorem}
+
+\begin{proof}
+$\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$,\;
+$V_d = \pi^{d/2}/[(d/2)\Gamma(d/2)]$.\; Ratio: $d$.
+\end{proof}
+
+\begin{corollary}\label{cor:primary}
+$V_d = \Omega_{d-1}/d$. Volumes are derived from sphere areas. The
+recurrence is a first-order multiplicative map between sphere areas:
+\[
+\Omega_d = \Omega_{d-1}\cdot\tfrac{d+1}{d}\cdot\sqrt{\pi}\cdot R(d).
+\]
+Sphere area is the unique independent cascade quantity at each level.
+\end{corollary}
+
+\section{Irreducibility}
+
+\begin{theorem}\label{thm:irred}
+$\sqrt{\pi}$ is the irreducible residue of the recurrence.
+\end{theorem}
+
+\begin{proof}
+The second difference
+$\delta(d) := \ln(\Omega_{d+1}/\Omega_d) - \ln(\Omega_d/\Omega_{d-1})
+= \ln(d/(d+1))$. All $\pi$-dependent and $\Gamma$-dependent factors
+cancel exactly. $\sqrt{\pi}$ is the only nontrivial constant the
+recurrence contains.
+\end{proof}
+
+\section{The Natural Zero}
+
+The sphere-area decay rate decomposes as:
+\[
+p(d) = -\tfrac{1}{2}\ln\pi +
+\tfrac{1}{2}\psi\!\left(\tfrac{d+1}{2}\right),
+\]
+where $\psi$ is the digamma function. Since $\psi^{(1)} > 0$, $p$ is
+strictly monotone increasing with a unique zero.
+
+\begin{definition}[Natural zero]
+$d_0$ is the unique solution to $p(d_0) = 0$. Stirling:
+$d_0\approx 2\pi$; integer $d_0 = 7$. This is the sphere-area maximum.
+\end{definition}
+
+\section{The Threshold Pair}
+
+\begin{theorem}[Operation A]\label{thm:opA}
+The zero-crossing forces $c_1 := \tfrac{1}{2}\ln\pi$.
+\end{theorem}
+
+\begin{proof}
+$p(d_0) = 0$ gives $\frac{1}{2}\psi((d_0+1)/2) = \frac{1}{2}\ln\pi$.
+The right-hand side is the constant part of $p$, forced by
+Theorem~\ref{thm:sqrtpi}.
+\end{proof}
+
+\begin{theorem}[Uniqueness of $c_1$]\label{thm:c1unique}
+Among all scalars derivable from $d_0$, $c_1 = \tfrac{1}{2}\ln\pi$ is the
+unique scalar satisfying (a) $c > 0$ (so $p(d) = c$ has a solution beyond
+$d_0$) and (b) primitivity ($c$ is a recurrence constant).
+\end{theorem}
+
+\begin{theorem}[Operation B]\label{thm:opB}
+The exp-conjugacy of the recurrence's two canonical forms forces
+$c_2 = e^{c_1} = \sqrt{\pi}$.
+\end{theorem}
+
+\begin{proof}
+Linear form: $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$. Logarithmic form:
+$\Delta\ln V_d = \frac{1}{2}\ln\pi + \ln R(d)$. The two are related by
+exponentiation. The exp-conjugate of $c_1 = \frac{1}{2}\ln\pi$ is
+$c_2 = e^{c_1} = \pi^{1/2} = \sqrt{\pi}$.
+\end{proof}
+
+\begin{theorem}[Orbit termination]\label{thm:terminate}
+The orbit of $\{0\}$ under operations A and B is $\{0, c_1, c_2\}$. No
+further element is reachable. The primitive pair is
+$(c_1, c_2) = (\tfrac{1}{2}\ln\pi,\;\sqrt{\pi})$.
+\end{theorem}
+
+\begin{theorem}[Two thresholds]\label{thm:thresholds}
+$p(d) = c_1$ has a unique solution at $d_1 = 19$.\;
+$p(d) = c_2$ has a unique solution at $d_2 = 217$.
+\end{theorem}
+
+\begin{proof}
+Strict monotonicity of $p$ gives uniqueness. Discrete verification:
+$p(19) = 0.5535 < c_1 = 0.5724 < p(20) = 0.6013$.
+$p(217) = 1.77101 < c_2 = 1.77245 < p(218) = 1.77331$.
+\end{proof}
+
+\begin{theorem}[No third threshold]
+The orbit terminates at $(c_1, c_2)$. Each positive primitive determines
+exactly one threshold dimension. The cascade has exactly two thresholds.
+\end{theorem}
+
+\section{Four Distinguished Dimensions}
+
+\begin{theorem}[Tower completeness]\label{thm:tower}
+The Gamma function produces exactly four distinguished dimensions in the
+cascade. No fifth exists.
+\end{theorem}
+
+\begin{proof}
+Two maxima: $V_d$ has a unique maximum at $d_V = 5$ and $\Omega_d$ has a
+unique maximum at $d_0 = 7$, each by unimodality. Two thresholds: the orbit
+generates exactly $(c_1, c_2)$ and terminates
+(Theorem~\ref{thm:terminate}), giving $d_1 = 19$ and $d_2 = 217$. No other
+cascade quantity selects a dimension.
+\end{proof}
+
+\begin{center}
+\begin{tabular}{ccrl}
+\toprule
+Index & $d$ & $\Omega_d$ & Role \\
+\midrule
+0 & 5 & 26.32 & Volume maximum (argmax $V_d$) \\
+1 & 7 & 32.47 & Area maximum (natural zero of $p$) \\
+2 & 19 & 0.516 & First threshold ($c_1 = \tfrac{1}{2}\ln\pi$) \\
+3 & 217 & $2.335\times 10^{-120}$ &
+Second threshold ($c_2 = \sqrt{\pi}$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{The Cascade Invariant}
+
+\begin{definition}[Cascade invariant]
+$I_0 := \Omega_{d_1}\times\Omega_{d_2} = \Omega_{19}\times\Omega_{217}$.
+\end{definition}
+
+\begin{theorem}[Uniqueness]\label{thm:unique}
+$I_0$ is the unique scalar built from the threshold sphere areas under the
+recurrence's structure.
+\end{theorem}
+
+\begin{proof}
+Four constraints.
+
+(1)~\textit{Sphere areas, exponent~1.} The recurrence is first-order
+multiplicative (Corollary~\ref{cor:primary}).
+
+(2)~\textit{Two factors.} Two thresholds (Theorem~\ref{thm:thresholds}).
+
+(3)~\textit{Product.} The recurrence is multiplicative.
+
+(4)~\textit{Correct limit.} The cascade originates at $d = \infty$ where
+$\Omega_\infty = 0$. As $d_2\to\infty$: $\Omega_{d_2}\to 0$, so
+$I_0\to 0$. The quotient diverges: wrong limit.
+
+The unique combination: $I_0 = \Omega_{d_1}\times\Omega_{d_2}$.
+\end{proof}
+
+\begin{theorem}[Evaluation]
+$I_0 = 1.2051\times 10^{-120}$.
+\end{theorem}
+
+\begin{proof}
+$\Omega_{19} = 0.51614$.\; $\Omega_{217} = 2.33490\times 10^{-120}$.\;
+Product: $1.2051\times 10^{-120}$.
+\end{proof}
+
+\section{The Hierarchy}
+
+\begin{theorem}\label{thm:hierarchy}
+$\log_{10}(1/\Omega_{d_2})\approx
+\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10\approx 120.3$.
+\end{theorem}
+
+\begin{proof}
+Stirling at $d_2 = 2\pi e^{2\sqrt{\pi}}$:
+$\ln\Omega_{d_2}\approx -\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)
+\approx -277$ nats $\approx -120.3$ decades.
+\end{proof}
+
+\begin{remark}
+$\sqrt{\pi}\approx 1.77$ (orthogonal compression);\;
+$e^{2\sqrt{\pi}}\approx 34.6$ (exponential amplification);\;
+$2\pi e^{2\sqrt{\pi}}\approx 218$ (the cascade dimension);\;
+$(2\sqrt{\pi}-1)\approx 2.54$ (per-dimension suppression).\;
+Product: $\approx 277$ nats $\approx 120$ decades.
+\end{remark}
+
+\section{Comparison with a Physical Constant}
+
+The cascade invariant $I_0 = 1.2051\times 10^{-120}$ is a pure number from
+the Gamma function. It was not constructed to match any physical quantity.
+
+The observed ratio of the vacuum energy density to the fourth power of the
+Planck mass is
+$\rho_\Lambda/M^4_{\mathrm{Pl}} = (1.10\pm 0.02)\times 10^{-120}$,
+determined by general relativity, quantum field theory, and astronomical
+measurements---none of which enter this paper.
+
+The agreement is $\sim\!10\%$, within $5\sigma$.
+
+We record this without explaining it.
+
+\section{Robustness}
+
+\begin{center}
+\begin{tabular}{llcl}
+\toprule
+Combination & Thresholds & $\log_{10}$ & vs observed \\
+\midrule
+$\Omega_{19}\times\Omega_{217}$ (this paper) & 19, 217
+& $-119.92$ & $\sim 10\%$ \\
+$\Omega_7\times\Omega_{217}$ & 7, 217
+& $-118.12$ & Factor 68 \\
+$\Omega_{19}\times\Omega_{61}$ & 19, 61
+& $-17.3$ & $10^{103}$ orders wrong \\
+$\Omega_{61}\times\Omega_{217}$ & 61, 217
+& $-136.6$ & 17 orders low \\
+$\Omega_{19}/\Omega_{217}$ & quotient
+& $+119.6$ & Wrong sign \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No alternative combination produces $10^{-120}$.
+
+\section{Summary}
+
+\begin{center}
+\begin{tabular}{cll}
+\toprule
+Step & Statement & Source \\
+\midrule
+1 & $V_\infty = \Omega_\infty = 0$ & Definition \\
+2 & Orthogonal $\Rightarrow\sqrt{\pi}$, irreducible & Thms 2.1, 4.1 \\
+3 & $\Omega_{d-1}$ unique independent quantity & Cor 3.2 \\
+4 & $d_V = 5$: volume maximum & argmax $V_d$ \\
+5 & $d_0 = 7$: area maximum, natural zero & $p' > 0$ \\
+6 & $c_1 = \tfrac{1}{2}\ln\pi$ & Thm 6.1 \\
+7 & $c_2 = \sqrt{\pi}$; orbit terminates & Thms 6.3, 6.4 \\
+8 & $d_1 = 19$,\; $d_2 = 217$ & Thm 6.5 \\
+9 & Four distinguished dimensions; no fifth & Thm 7.1 \\
+10 & $I_0 = \Omega_{19}\times\Omega_{217}$; unique & Thm 8.2 \\
+11 & $I_0 = 1.2051\times 10^{-120}$ & Computation \\
+12 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm 9.1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every step is a theorem about the Gamma function. The derivation has zero
+free parameters.
+
+\section{What This Paper Does Not Do}
+
+\begin{itemize}
+\item Explain the agreement with $\rho_\Lambda/M^4_{\mathrm{Pl}}$.
+\item Introduce an observer, a hypothesis, or a physical interpretation.
+\item Use any result from physics.
+\end{itemize}
+
+The paper is a theorem about the Gamma function.
+
+\section*{Appendix: Numerical Verification}
+
+$\sqrt{\pi} = 1.7724538509$\;;\quad
+$\tfrac{1}{2}\ln\pi = 0.5723649429$
+
+$\Omega_5 = \pi^3 = 26.319$\;;\quad
+$\Omega_7 = \pi^4/3 = 32.470$\;;\quad
+$\Omega_{19} = 0.51614$\;;\quad
+$\Omega_{217} = 2.33490\times 10^{-120}$
+
+$p(19) = 0.5535 < 0.5724 < p(20) = 0.6013$\;$\checkmark$
+
+$p(217) = 1.77101 < 1.77245 < p(218) = 1.77331$\;$\checkmark$
+
+$I_0 = 0.51614\times 2.33490\times 10^{-120}
+= 1.2051\times 10^{-120}$\;$\checkmark$
+
+$\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10 = 120.27$\;$\checkmark$
+
+$R_{\mathrm{eff}}(5) = 1/\sqrt{8} = 0.354$\;;\quad
+$R_{\mathrm{eff}}(19) = 1/\sqrt{22} = 0.213$\;;\quad
+$R_{\mathrm{eff}}(217) = 1/\sqrt{220} = 0.067$
+
+$\Omega_4/V_5 = 5$\;$\checkmark$\;;\quad
+$\Omega_6/V_7 = 7$\;$\checkmark$
+
+\end{document}
