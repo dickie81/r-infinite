@@ -48,9 +48,11 @@ cascade's orthogonal slicing direction yields a discrete propagator whose contin
 is a Schr\"{o}dinger-type evolution equation, with complexification arising from the forced
 precession.
 
-The compactification results of~\cite{paperI}, Corollary~3.2 are developed into a full
-geometric interpretation: each slicing step sends one direction's effective radius to
-$R_{\rm eff}=1/\sqrt{d+3}$ (proved here from the Beta function), giving concrete geometric
+Part~0 establishes that sphere areas are the unique independent cascade quantities
+(Corollary~3.2). This paper proves the compactification radius
+$R_{\rm eff}=1/\sqrt{d+3}$ from the Beta function and develops the full geometric
+interpretation: each slicing step sends one direction's effective radius to
+$R_{\rm eff}$, giving concrete geometric
 content to the arrow of time as asymptotic suppression rather than sharp elimination. The
 cascade's two natural length scales---the compactification radius and the Gaussian width of
 the slicing integrand---coincide asymptotically, producing a second universal cascade constant
@@ -143,7 +145,6 @@ sphere because the sphere carries nearly all the geometric content available to 
 This is not an axiom; it is a consequence of the Gamma function identity
 $\Omega_{d-1}/V_d = 2\pi^{d/2}/[\Gamma(d/2)] \div \pi^{d/2}/[\Gamma(d/2+1)] = d$.
 
-%%% INSERTION 4: Layered boundary dominance remark %%%
 \begin{remark}[Layered boundary dominance]
 The cascade stacks boundary-dominant steps: the $d_2$-sphere's boundary encloses the
 $d_1$-sphere's boundary, which encloses the $d_0$-sphere's boundary, which encloses the
@@ -154,7 +155,6 @@ content of its level, with the observer on the innermost shell.
 
 \section{Gaussian Statistics from Projection}
 
-%%% INSERTION 1: Gaussian concentration lemma %%%
 \subsection{Concentration of the slicing integrand}
 
 The slicing integrand $f_d(x) = (1-x^2)^{d/2}$ that defines the cascade recurrence
@@ -482,7 +482,6 @@ function.
 
 \subsection{The effective radius of each temporal step}
 
-%%% INSERTION 2: Full R_eff proof (replacing citation-only version) %%%
 \begin{theorem}[Compactification radius]\label{thm:reff}
 At each slicing step $d$, the integrated-out direction retains an effective radius
 \[
@@ -497,13 +496,15 @@ R_{\rm eff}^2 = \langle x^2\rangle
 = \frac{\int_{-1}^{1} x^2(1-x^2)^{d/2}\,dx}{\int_{-1}^{1}(1-x^2)^{d/2}\,dx}.
 \]
 Substituting $t = x^2$, the numerator is $B(3/2,\,d/2+1)$ and the denominator is
-$B(1/2,\,d/2+1)$. Using $\Gamma(x+1) = x\,\Gamma(x)$:
+$B(1/2,\,d/2+1)$. Their ratio is
 \[
 \langle x^2\rangle = \frac{B(3/2,\,d/2+1)}{B(1/2,\,d/2+1)}
-= \frac{\Gamma(3/2)\,\Gamma(d/2+1)}{\Gamma(d/2+5/2)}
-\cdot\frac{\Gamma(d/2+3/2)}{\Gamma(1/2)\,\Gamma(d/2+1)}
-= \frac{1}{d+3}.
+= \frac{\Gamma(3/2)}{\Gamma(1/2)}\cdot\frac{\Gamma(d/2+3/2)}{\Gamma(d/2+5/2)}
+= \frac{1}{2}\cdot\frac{1}{d/2+3/2}
+= \frac{1}{d+3},
 \]
+where the first factor is $\Gamma(3/2)/\Gamma(1/2) = 1/2$ and the second uses
+$\Gamma(x+1) = x\,\Gamma(x)$ once.
 Therefore $R_{\rm eff} = 1/\sqrt{d+3} \to 0$ as $d\to\infty$.
 \end{proof}
 
@@ -527,7 +528,6 @@ $d$ & $R_{\rm eff}$ & $N(d)$ & Physical role \\
 \end{tabular}
 \end{center}
 
-%%% INSERTION 3: Scale coincidence and erf(1/sqrt(2)) %%%
 \subsection{The scale coincidence}
 
 The cascade has two natural length scales at each step: the compactification radius
