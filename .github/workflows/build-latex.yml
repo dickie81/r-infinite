@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '*.tex'
+      - 'src/*.tex'
       - 'index.html'
       - '.github/workflows/build-latex.yml'
   workflow_dispatch:
@@ -31,6 +31,7 @@ jobs:
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
 
       - name: Compile LaTeX files
+        working-directory: src
         run: |
           for f in *.tex; do
             echo "Compiling: $f"
@@ -41,7 +42,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/
-          cp *.pdf _site/
+          cp src/*.pdf _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
