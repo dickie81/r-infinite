@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'src/*.tex'
+      - 'tools/*.py'
       - 'index.html'
       - '.github/workflows/build-latex.yml'
   workflow_dispatch:
@@ -25,13 +26,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache TeX Live
+        uses: actions/cache@v4
+        id: cache-texlive
+        with:
+          path: |
+            /usr/share/texlive
+            /usr/share/texmf
+            /var/lib/texmf
+            /usr/bin/latexmk
+            /usr/bin/pdflatex
+          key: texlive-${{ runner.os }}-v1
+
       - name: Install TeX Live
+        if: steps.cache-texlive.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('tools/requirements.txt') }}
+          restore-keys: pip-${{ runner.os }}-
+
       - name: Install Python dependencies
-        run: pip install numpy scipy
+        run: pip install -r tools/requirements.txt
 
       - name: Generate computed tables
         run: python3 tools/generate_bao_table.py
