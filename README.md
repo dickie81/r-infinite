@@ -9,6 +9,7 @@ The cascade series tests one hypothesis: the infinite-dimensional unit ball, des
 | File | Title |
 |------|-------|
 | [`cascade-series-cover-sheet.tex`](src/cascade-series-cover-sheet.tex) | Cover Sheet — The Thought Experiment, Hypothesis, and Series Overview |
+| [`cascade-series-prelude.tex`](src/cascade-series-prelude.tex) | Prelude — Why Nothing Has Structure |
 | [`cascade-series-part0.tex`](src/cascade-series-part0.tex) | Part 0 — Scale Variance from Orthogonality: How the Unit Ball Generates 10^120 Orders of Magnitude |
 | [`cascade-series-part0.0.tex`](src/cascade-series-part0.0.tex) | Part 0 Supplement — Inter-Layer Coupling and the Independent-Step Correction |
 | [`cascade-series-part1.tex`](src/cascade-series-part1.tex) | Part I — The Cosmological Constant from the Observer's Frame |

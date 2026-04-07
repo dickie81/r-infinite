@@ -1,0 +1,355 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\geometry{margin=2.5cm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Cascade Series --- Prelude\\[0.5em]
+\large Why Nothing Has Structure}
+\author{RTAC}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A theory of everything cannot have inputs: every input demands an
+explanation of its origin, and that explanation is either circular or
+requires a deeper theory. The only starting point that requires no
+explanation is nothing. This prelude shows that ``nothing,'' taken
+seriously as a mathematical object, is the infinite-dimensional unit
+ball---and that the unit ball is not featureless. It has a slicing
+recurrence, a unique constant ($\sqrt{\pi}$), four distinguished
+dimensions, and a cascade invariant of $10^{-120}$. These are not
+imposed; they are consequences of the single pre-mathematical fact that
+false and true are distinguishable. The series that follows is the
+derivation of what that fact implies about the geometry of the world.
+\end{abstract}
+
+% ============================================================
+\section{The Problem with Starting Points}
+% ============================================================
+
+Every theory of everything proposed to date begins with something:
+a string, a spin network, a set of fields, a symmetry group, a
+Lagrangian, a wave function, a set of rules. Each starting point
+carries structure, and that structure demands explanation.
+
+Why a string rather than a membrane? Why $\mathrm{SU}(3)\times
+\mathrm{SU}(2)\times\mathrm{U}(1)$ rather than $\mathrm{SU}(5)$?
+Why ten dimensions rather than eleven? Every choice is a free input.
+Every free input is a knob that could have been set differently. Every
+knob that could have been set differently invites the question: what
+set it?
+
+The options are limited. Either the starting point is explained by
+something deeper---in which case it was not the starting point---or it
+is accepted as given, and the theory is incomplete. A theory of
+everything that begins with something is, by construction, not a
+theory of everything. It is a theory of everything \emph{given} its
+starting point.
+
+The alternative is to begin with nothing.
+
+% ============================================================
+\section{What ``Nothing'' Means}
+% ============================================================
+
+``Nothing'' in physics is usually taken to mean empty space, or the
+quantum vacuum, or the absence of matter. These are not nothing. Empty
+space has dimension, signature, topology. The quantum vacuum has
+energy, fluctuations, fields. The absence of matter presupposes a
+stage on which matter is absent.
+
+Mathematical nothing is more austere: no space, no time, no
+dimension, no content. But pure nothing---the absence of all
+structure---cannot even be discussed, because discussion requires
+the distinction between a statement and its negation.
+
+This is the key observation. The minimal structure required for any
+formal system to exist is not a space, not a symmetry, not a
+dynamical law. It is the distinction between true and false.
+
+\begin{definition}[Pre-mathematical axiom]\label{def:axiom}
+$0 \neq 1$.
+\end{definition}
+
+This is not an axiom in the usual sense. It is not chosen from a
+menu of alternatives. It is the precondition for axioms, theorems,
+and proofs to be meaningful. A system that cannot distinguish $0$
+from $1$ cannot state any proposition, cannot derive any consequence,
+cannot describe any world. Definition~\ref{def:axiom} is the cost of
+admission for coherent thought.
+
+The question is: what does $0\neq 1$ \emph{imply}?
+
+% ============================================================
+\section{Distinction Implies Orthogonality}
+% ============================================================
+
+If $0$ and $1$ are distinguishable, they are maximally
+distinguishable. There is no sense in which $0$ partially overlaps
+with $1$; they share no content. In the language of geometry, they are
+\emph{orthogonal}: their inner product is zero.
+
+This is not a metaphor. The logical operation NOT, which maps
+$0\mapsto 1$ and $1\mapsto 0$, is an involution ($\mathrm{NOT}^2 =
+\mathrm{Id}$) that exchanges two states sharing no mutual information.
+In any inner-product space, the unique pair of unit vectors with zero
+mutual information is the orthogonal pair. The passage from
+$0\neq 1$ to orthogonality is not an additional assumption; it is a
+translation of the same fact into geometric language.
+
+\begin{theorem}[Distinction is orthogonality]\label{thm:orth}
+Let $V$ be an inner-product space and let $e_0, e_1\in V$ be unit
+vectors representing two fully distinguishable states (zero mutual
+information). Then $\langle e_0, e_1\rangle = 0$.
+\end{theorem}
+
+\begin{proof}
+Mutual information between two states is a monotone function of
+$|\langle e_0, e_1\rangle|^2$ (the fidelity). Zero mutual information
+requires $|\langle e_0,e_1\rangle|^2 = 0$, i.e.,
+$\langle e_0, e_1\rangle = 0$.
+\end{proof}
+
+% ============================================================
+\section{Orthogonality Iterates}
+% ============================================================
+
+One distinction gives two orthogonal directions and a
+one-dimensional space. But the existence of one distinction does not
+preclude a second. If $e_0$ and $e_1$ span a plane, a third
+direction $e_2$ can be independent of both. There is no logical
+obstruction: the fact that $0\neq 1$ does not limit the number of
+independent things that can be distinguished.
+
+\begin{theorem}[Countable independence]\label{thm:iterate}
+Let $\{e_0, e_1\}$ be an orthogonal pair. For any finite $n$, there
+exists a unit vector $e_n$ orthogonal to $\{e_0,\ldots,e_{n-1}\}$.
+The iteration extends to countable infinity: the resulting structure
+is a separable infinite-dimensional inner-product space (a Hilbert
+space).
+\end{theorem}
+
+\begin{proof}
+At each step, Gram--Schmidt orthogonalisation produces a unit vector
+in the orthogonal complement of the span. The complement is nonempty
+whenever the ambient space has dimension greater than $n$; since we
+impose no finite bound on the number of distinguishable directions,
+the iteration is unbounded. The completion of the resulting
+pre-Hilbert space is a separable Hilbert space $\mathcal{H}$.
+\end{proof}
+
+\begin{remark}
+The step from finite to infinite dimensions is not an assumption
+about physics. It is the observation that the logical fact $0\neq 1$
+contains no built-in bound on how many independent distinctions can
+coexist. A finite-dimensional starting point would require an
+additional axiom---``there are exactly $n$ independent
+directions''---which is precisely the kind of unexplained input a
+theory of everything cannot afford.
+\end{remark}
+
+% ============================================================
+\section{Unit Norm from the Absence of Scale}
+% ============================================================
+
+Starting from nothing, there is no external reference against which
+to measure absolute magnitude. There is no metre stick, no Planck
+mass, no energy scale. The only quantities that can be defined
+without an external reference are \emph{ratios}.
+
+The natural constraint on a vector in a space with no external scale
+is unit norm: $|x| = 1$. This is not a normalisation convention; it
+is the statement that without an external scale, only direction
+carries information. Magnitude is undefined.
+
+\begin{definition}[Unit ball]\label{def:ball}
+The unit ball in $d$ dimensions is $B^d = \{x\in\mathbb{R}^d : |x|
+\leq 1\}$. Its boundary is the unit sphere $S^{d-1}$.
+\end{definition}
+
+From Section~4: the natural ``space'' is infinite-dimensional. From
+Definition~\ref{def:ball}: the natural constraint is unit norm. The
+starting point is therefore:
+
+\begin{corollary}[The starting point]\label{cor:start}
+The mathematical object corresponding to ``nothing with the
+capacity for distinction'' is $B^\infty$, the
+infinite-dimensional unit ball.
+\end{corollary}
+
+% ============================================================
+\section{Nothing Is Empty}
+% ============================================================
+
+The infinite-dimensional unit ball is a legitimate mathematical
+object---but it is empty in every measurable sense.
+
+\begin{theorem}[Geometric nothing]\label{thm:nothing}
+$B^\infty$ has zero volume, zero surface area, and no interior
+point is farther than $\varepsilon$ from the boundary for any
+$\varepsilon > 0$ (concentration of measure).
+\end{theorem}
+
+\begin{proof}
+$V_d = \pi^{d/2}/\Gamma(d/2+1)\to 0$ as $d\to\infty$.
+$\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)\to 0$ as $d\to\infty$. By
+concentration of measure on $S^{d-1}$, the uniform distribution on
+$B^d$ places a fraction $1 - (1-\varepsilon^2/d)^{d/2} \to
+1 - e^{-\varepsilon^2/2}$ of its mass within a shell of thickness
+$\varepsilon/\sqrt{d}$ of the boundary.
+\end{proof}
+
+$B^\infty$ has no volume to fill, no boundary to inhabit, no
+interior to explore. It is the geometric expression of ``distinction
+exists but content does not.'' It is structured nothing.
+
+% ============================================================
+\section{Nothing Is Unstable}
+% ============================================================
+
+$B^\infty$ is empty---but it is not inert. It has a slicing
+recurrence: cut $B^{d+1}$ perpendicular to one axis, and each
+cross-section is a $d$-ball of radius $\sqrt{1-x^2}$. The volumes
+obey:
+\[
+V_{d+1} = V_d \cdot \sqrt{\pi}\cdot R(d), \qquad R(d) =
+\frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+\]
+The constant $\sqrt{\pi}$ is forced by orthogonality
+(Theorem~\ref{thm:orth}): the angle between axis and equator is
+$\pi/2$, forcing the half-integer argument in $B(1/2,\cdot)$, giving
+$\Gamma(1/2) = \sqrt{\pi}$.
+
+As $d$ decreases from infinity, volumes \emph{grow}. The ball acquires
+content it did not have. The volume peaks at $d = 5$. Nothing, viewed
+from a lower dimension, is no longer nothing.
+
+This is the instability: $B^\infty$ has zero volume, but its
+finite-dimensional cross-sections do not. The descent from $d=\infty$
+to finite $d$ is a transition from emptiness to content, governed
+entirely by the Gamma function, with no free parameters.
+
+\begin{remark}
+The word ``descent'' does not imply a process in time. It is a
+mathematical relationship: the volumes and areas of unit balls at
+successive finite dimensions are related by the slicing recurrence.
+Time will emerge later (Part~II) as the cascade's own orthogonal
+slicing direction. The descent is the static structure from which
+time is read off.
+\end{remark}
+
+% ============================================================
+\section{The Destination Is Forced}
+% ============================================================
+
+The volume maximum is at $d = 5$: the unique dimension where the unit
+ball has the largest volume. The observer sits at $d = 4$, the
+boundary $S^3$ of $B^5$. By boundary dominance ($\Omega_{d-1}/V_d =
+d$), this boundary carries $4/5$ of the content.
+
+Why does the observer end up here? Part~III of the series proves
+that $d = 4$ is the unique spacetime dimension satisfying two
+independent constraints simultaneously:
+
+\begin{enumerate}
+\item \textbf{Lovelock uniqueness}: the gravitational equation has
+a unique form (Einstein's equation with cosmological constant) only
+at $d = 4$.
+\item \textbf{Complex spinors}: the Clifford algebra
+$\mathrm{Cl}(1,d-1)$ has irreducibly complex minimal spinors---the
+prerequisite for quantum mechanics---only when $d\bmod 8\in\{4,5,6\}$.
+\end{enumerate}
+
+The intersection is $\{4\}$. No other dimension permits both
+unique physical laws and quantum information processing. The observer
+is not placed at $d = 4$ by assumption; $d = 4$ is where the
+mathematics forces the unique coincidence of stable laws, complex
+phase, and maximal content.
+
+% ============================================================
+\section{The Chain}
+% ============================================================
+
+The complete logical chain, from pre-mathematics to physics, is:
+
+\bigskip
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{rll}
+\toprule
+Step & Statement & Status \\
+\midrule
+0 & $0 \neq 1$ & Pre-mathematical \\
+1 & Distinction $\Rightarrow$ orthogonality & Theorem~\ref{thm:orth} \\
+2 & Orthogonality iterates $\Rightarrow$ $d = \infty$ & Theorem~\ref{thm:iterate} \\
+3 & No external scale $\Rightarrow$ unit norm & Definition~\ref{def:ball} \\
+4 & $B^\infty$: zero volume, zero area & Theorem~\ref{thm:nothing} \\
+5 & Slicing recurrence, constant $\sqrt{\pi}$ & Forced by step 1 \\
+6 & Descent: volumes grow, peak at $d = 5$ & Gamma function \\
+7 & Observer at $d = 4$: boundary of the peak & Lovelock $\cap$ Clifford \\
+8 & Four distinguished dimensions: $5, 7, 19, 217$ & Part~0 \\
+9 & Cascade invariant $\approx 10^{-120}$ & Part~0 \\
+10 & Cosmological constant, QM, GR, SM, cosmology & Parts~I--V \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip
+
+Steps 0--4 are established in this prelude. Step~5 is proved in
+Part~0 (Theorem~3.1). Steps 6--7 are proved in Parts~0 and~III.
+Steps 8--10 are the content of the series.
+
+No step introduces a free parameter. No step selects from a menu of
+alternatives. Each step is either logically necessary (0--3), a
+theorem about the Gamma function (4--6, 8--9), or a uniqueness
+result from known mathematics (7). The series is the derivation
+of what $0\neq 1$ implies about the geometry of the world.
+
+% ============================================================
+\section{What This Paper Does Not Do}
+% ============================================================
+
+\textbf{Does not derive physics.} This prelude contains no physical
+predictions. Its sole purpose is to establish that the starting point
+of the series---the infinite-dimensional unit ball---is not a choice.
+It is the unique mathematical structure that corresponds to
+``nothing with the capacity for distinction,'' and it requires no
+input beyond the precondition for coherent thought.
+
+\textbf{Does not claim necessity.} The chain from $0\neq 1$ to
+$B^\infty$ has one step that is arguably conventional rather than
+forced: the passage from an abstract inner-product space to
+$\mathbb{R}^d$ with the standard inner product (Step~3). A more
+general starting point---a Hilbert space without a preferred real
+structure---would modify the intermediate steps but not the
+destination, because the Gamma function governs the volumes of unit
+balls in all separable Hilbert spaces over $\mathbb{R}$,
+$\mathbb{C}$, or $\mathbb{H}$ (the three associative division
+algebras, themselves forced by Hurwitz's theorem). The real case
+is the most austere; whether the complex or quaternionic cases lead
+to the same cascade is an open question.
+
+\textbf{Does not resolve the hard problem.} The cascade derives the
+dimension where self-awareness is mathematically possible. It does
+not derive self-awareness itself. The question ``why is there
+something rather than nothing?''\ receives an answer: because
+nothing, taken seriously, has structure. The question ``why is there
+\emph{experience}?''\ remains open.
+
+\bigskip
+
+The series begins.
+
+\end{document}
