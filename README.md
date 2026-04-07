@@ -1,5 +1,7 @@
 # The Cascade Series
 
+**[Read the papers online](https://dickie81.github.io/r-infinite/)**
+
 The cascade series tests one hypothesis: the infinite-dimensional unit ball, descended to four dimensions, is indistinguishable from our universe. From a single axiom (orthogonality) and with zero free parameters, the series derives the cosmological constant, quantum mechanics, general relativity with d=4 and Lorentzian signature, the Standard Model gauge group and its symmetry breaking, three fermion generations, precision mass and coupling predictions, and the background cosmological parameters including a Hubble constant between the two competing measurements.
 
 ## Papers

@@ -2,12 +2,21 @@ name: Build LaTeX PDFs
 
 on:
   push:
+    branches: [main]
     paths:
       - '*.tex'
-  pull_request:
-    paths:
-      - '*.tex'
+      - 'index.html'
+      - '.github/workflows/build-latex.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -28,8 +37,24 @@ jobs:
             latexmk -pdf -interaction=nonstopmode "$f"
           done
 
-      - name: Upload PDFs
-        uses: actions/upload-artifact@v4
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp *.pdf _site/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: pdfs
-          path: "*.pdf"
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

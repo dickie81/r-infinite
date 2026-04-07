@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cascade Series</title>
+  <style>
+    :root {
+      --bg: #fdfdfd;
+      --fg: #222;
+      --accent: #1a5276;
+      --muted: #555;
+      --border: #ddd;
+      --card-bg: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a2e;
+        --fg: #e0e0e0;
+        --accent: #7fb3d8;
+        --muted: #aaa;
+        --border: #333;
+        --card-bg: #222244;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+      color: var(--accent);
+    }
+    .author {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .hypothesis {
+      font-style: italic;
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background: var(--card-bg);
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .paper {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.75rem;
+      background: var(--card-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .paper-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+    .paper-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .paper a {
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+    .paper a:hover { text-decoration: underline; }
+    p { margin-bottom: 1rem; }
+    .abstract { margin-bottom: 2rem; }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <h1>The Cascade Series</h1>
+  <div class="author">RTAC &middot; March 2026</div>
+
+  <div class="hypothesis">
+    The infinite-dimensional unit ball, descended to four dimensions, is indistinguishable from our universe.
+  </div>
+
+  <div class="abstract">
+    <p>The cascade series tests one hypothesis with zero free parameters.
+    From a single axiom (orthogonality), the series derives the cosmological constant,
+    quantum mechanics, general relativity with d=4 and Lorentzian signature,
+    the Standard Model gauge group and its symmetry breaking, three fermion generations,
+    precision mass and coupling predictions, and the background cosmological
+    parameters including a Hubble constant between the two competing measurements.</p>
+  </div>
+
+  <h2>Papers</h2>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Cover Sheet</div>
+      <div class="paper-subtitle">The Thought Experiment, Hypothesis, and Series Overview</div>
+    </div>
+    <a href="cascade%20series%20cover%20sheet.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part 0</div>
+      <div class="paper-subtitle">Scale Variance from Orthogonality: How the Unit Ball Generates 10<sup>120</sup> Orders of Magnitude</div>
+    </div>
+    <a href="cascade%20series%20part0.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part 0 Supplement</div>
+      <div class="paper-subtitle">Inter-Layer Coupling and the Independent-Step Correction</div>
+    </div>
+    <a href="cascade%20series%20part0.0.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part I</div>
+      <div class="paper-subtitle">The Cosmological Constant from the Observer's Frame</div>
+    </div>
+    <a href="cascade%20series%20part1.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part II</div>
+      <div class="paper-subtitle">Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry</div>
+    </div>
+    <a href="cascade%20series%20part2.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part III</div>
+      <div class="paper-subtitle">General Relativity, Four Dimensions, and Lorentzian Signature from the Cascade</div>
+    </div>
+    <a href="cascade%20series%20part3.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part IVa</div>
+      <div class="paper-subtitle">The Standard Model from the Cascade: Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros</div>
+    </div>
+    <a href="cascade%20series%20part4a.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part IVb</div>
+      <div class="paper-subtitle">The Standard Model from the Cascade: Masses, Couplings, and Precision Predictions from the Geometric-Topological Factorization</div>
+    </div>
+    <a href="cascade%20series%20part4b.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part V</div>
+      <div class="paper-subtitle">Cosmology from the Cascade: &Lambda;CDM Parameters, the Hubble Constant, and the DESI BAO Observations</div>
+    </div>
+    <a href="cascade%20series%20part5.pdf">PDF</a>
+  </div>
+
+  <footer>
+    <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+    Source on <a href="https://github.com/dickie81/r-infinite">GitHub</a>.</p>
+  </footer>
+
+</body>
+</html>
