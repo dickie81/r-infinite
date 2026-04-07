@@ -49,7 +49,7 @@ equation, between Planck (67.4) and SH0ES (73.0).
 The complete Friedmann equation
 $H^2(z) = H_0^2[(1+z)^4/(4\pi^7) + (1+z)^3/\pi + (\pi-1)/\pi]$
 has every coefficient determined by $\pi$.
-The DESI DR2 BAO fit gives $\chi^2/n = 1.68$ vs.\ Planck $\Lambda$CDM at $\chi^2/n = 1.90$.
+The DESI DR2 BAO fit gives $\chi^2/n = 1.70$ (Bott) or $1.76$ (leading) vs.\ Planck $\Lambda$CDM at $\chi^2/n = 1.90$.
 \end{abstract}
 
 \tableofcontents
@@ -416,17 +416,16 @@ result (descent-dependent, $-1.1\%$). Both are valid at their respective orders.
 \subsection{The acoustic scale}
 
 \begin{theorem}[Acoustic scale]
-With the cascade's parameter set, $\ell_A = 297.6$. Deviation from Planck ($301.6$): $-1.34\%$.
+With the cascade's parameter set ($H_0 = 71.05$, $\Omega_m = 1/\pi$,
+$r_d \approx 141$~Mpc), $\ell_A = 292.1$. Deviation from Planck ($301.6$): $-3.2\%$.
 \end{theorem}
 
 \begin{remark}[Sign and magnitude]
-The $-1.34\%$ deviation is negative, placing $\ell_A$ in the descent-dependent population
-(mean $-1.24\%$). A single subleading correction---the Gram eigenvalue deficit---closes
-all descent-dependent deviations simultaneously; $\ell_A$ requires a $+1.3\%$ shift,
-consistent with the universal correction.
-Note: $\ell_A = 297.6$ was computed with the previous cascade parameter set
-$(H_0 = 70.65, \Omega_m = 0.31150)$; recomputation with $(H_0 = 71.05, \Omega_m = 1/\pi)$
-is a revision item.
+The $-3.2\%$ deviation is negative, placing $\ell_A$ in the descent-dependent population.
+The Gram eigenvalue deficit (Part~0 Supplement) closes descent-dependent deviations;
+$\ell_A$ requires a larger correction than the sub-2\% quantities, suggesting it is
+more sensitive to the multi-step cascade descent. The Bott $\Omega_m = 0.31150$ gives
+$\ell_A = 293.0$ ($-2.9\%$), a modest improvement.
 \end{remark}
 
 \section{The Hubble Constant}
@@ -563,48 +562,22 @@ $H_0 = 71.05$ raises $h$ and further compresses $r_d$ through $\omega_b = \Omega
 
 \subsection{BAO observables and comparison to DESI DR2}
 
-\begin{remark}[Note on numerical values]
-The $\chi^2$ values and individual BAO pulls below were computed with the previous cascade
-parameter set $(H_0 = 70.65, \Omega_m = 0.31150, r_d = 142.3~{\rm Mpc})$. Recomputation
-with $(H_0 = 71.05, \Omega_m = 1/\pi, r_d \approx 141~{\rm Mpc})$ is a revision item.
-The qualitative conclusion---that the cascade's smaller $r_d$ gives a competitive fit to
-DESI with $w = -1$---is robust.
-\end{remark}
+The table below is auto-generated from the cascade parameters via
+\texttt{tools/generate\_bao\_table.py} and reproduced on every build. The
+``Cascade'' column uses the leading-order $\Omega_m = 1/\pi$
+($r_d^{\rm cas} \approx 141$~Mpc); the ``Bott'' column uses the
+subleading-corrected $\Omega_m^{\rm Bott} = 0.31150$
+($r_d^{\rm Bott} \approx 142$~Mpc). Both use $H_0 = 71.05$~km/s/Mpc.
 
-\begin{center}
-\small
-\begin{tabular}{llcccr}
-\hline
-$z_{\rm eff}$ & Type & DESI DR2 & $\sigma$ & Cascade & Pull$_{\rm cas}$ \\
-\hline
-0.295 & $D_V/r_d$ & 7.930 & 0.150 & 7.949 & $+0.13\sigma$ \\
-0.510 & $D_M/r_d$ & 13.650 & 0.200 & 13.323 & $-1.63\sigma$ \\
-0.510$^\dagger$ & $D_H/r_d$ & 20.890 & 0.490 & 22.471 & $+3.23\sigma$ \\
-0.706 & $D_M/r_d$ & 16.970 & 0.240 & 17.475 & $+2.11\sigma$ \\
-0.706 & $D_H/r_d$ & 20.270 & 0.470 & 19.945 & $-0.69\sigma$ \\
-0.934 & $D_M/r_d$ & 21.790 & 0.240 & 21.723 & $-0.28\sigma$ \\
-0.934 & $D_H/r_d$ & 17.730 & 0.300 & 17.385 & $-1.15\sigma$ \\
-1.321 & $D_M/r_d$ & 27.680 & 0.500 & 27.749 & $+0.14\sigma$ \\
-1.321 & $D_H/r_d$ & 13.850 & 0.340 & 13.929 & $+0.23\sigma$ \\
-1.484 & $D_M/r_d$ & 30.420 & 0.660 & 29.922 & $-0.75\sigma$ \\
-1.484 & $D_H/r_d$ & 13.240 & 0.450 & 12.758 & $-1.07\sigma$ \\
-2.330 & $D_M/r_d$ & 39.200 & 0.560 & 38.748 & $-0.81\sigma$ \\
-2.330 & $D_H/r_d$ & 8.540 & 0.140 & 8.540 & $0.00\sigma$ \\
-\hline
-\multicolumn{4}{l}{$\chi^2$ total} & 21.84 & \\
-\multicolumn{4}{l}{$\chi^2/n$ ($n = 13$)} & 1.680 & (Planck: 1.901) \\
-\hline
-\end{tabular}
-\end{center}
-\noindent$^\dagger$: The $z = 0.510$, $D_H/r_d$ bin is a $3.23\sigma$ outlier shared by both
-models; see Remark~\ref{rem:outlier}.
+% Auto-generated table: run tools/generate_bao_table.py before LaTeX build
+\input{generated/bao-table}
 
 \subsection{The DESI dynamical dark energy signal as a ruler mismatch}
 
 \begin{theorem}[Alternative account of the DESI signal]
 The cascade cosmology ($w = -1$, $r_d \approx 141$~Mpc) fits DESI DR2 BAO with
-$\chi^2/n = 1.68$, compared to Planck $\Lambda$CDM at $\chi^2/n = 1.90$
-($\Delta\chi^2 = 2.87$ in the cascade's favour). The apparent preference for dynamical
+$\chi^2/n = 1.70$ (Bott $\Omega_m$) or $1.76$ (leading $\Omega_m = 1/\pi$),
+compared to Planck $\Lambda$CDM at $\chi^2/n = 1.90$. The apparent preference for dynamical
 dark energy arises when Planck's $r_d = 147.6$~Mpc is imposed as an external prior;
 the cascade's naturally smaller $r_d$ provides a $w = -1$ consistent alternative with
 zero free parameters.
@@ -647,9 +620,9 @@ explained nor contradicted by the ruler mismatch.
 \end{theorem}
 
 \begin{remark}[The $z = 0.510$ outlier]\label{rem:outlier}
-The bin $z_{\rm eff} = 0.510$, $D_H/r_d$, shows a $3.23\sigma$ pull in the cascade and
-$3.60\sigma$ in Planck $\Lambda$CDM. This single bin contributes $\approx 9.0$ of the
-cascade's total $\chi^2 = 21.8$, and $\approx 11.6$ of Planck's total 24.7. Without it,
+The bin $z_{\rm eff} = 0.510$, $D_H/r_d$, shows a $3.20\sigma$ pull in the cascade and
+$3.60\sigma$ in Planck $\Lambda$CDM. This single bin contributes $\approx 10.2$ of the
+cascade's total $\chi^2 = 22.9$, and $\approx 13.0$ of Planck's total 24.7. Without it,
 both fits would have $\chi^2/n \approx 1.0$. The tension persists in the $r_d$-free ratio
 $D_M/D_H$---independent of ruler calibration---and represents a genuine anomaly in the
 LRG1 expansion rate at $z \sim 0.5$. Neither model explains it.
@@ -727,9 +700,6 @@ $A_s$, and reionisation optical depth $\tau$ are not derived.
 \item \textbf{The CMB power spectrum.} Requires $n_s$, $A_s$, $\tau$, and Boltzmann evolution
 through recombination.
 \item \textbf{The $z = 0.510$ anomaly.} Shared with Planck $\Lambda$CDM and not explained.
-\item \textbf{The $\chi^2$ recomputation.} The BAO comparison table was computed with
-$(H_0 = 70.65, \Omega_m = 0.31150)$; updated values with $(H_0 = 71.05, \Omega_m = 1/\pi)$
-are a revision item.
 \end{itemize}
 
 \section{Predictions and Falsifiability}
@@ -754,8 +724,6 @@ interpretation.
 \section{Open Questions}
 
 \begin{enumerate}
-\item \textbf{Recompute DESI $\chi^2$ with updated parameters.} Full recomputation with
-$(H_0 = 71.05, \Omega_m = 1/\pi, r_d \approx 141~{\rm Mpc})$ required.
 \item \textbf{Theorem status of $\Omega_m$.} The Bott partition (Theorem~\ref{thm:omega_bott})
 identifies non-trivial-phase layers with matter via the physical identification
 hypothesis. Whether this identification step follows uniquely from the hypothesis,
@@ -775,7 +743,7 @@ question in the cascade's cosmology programme.
 \textbf{Two-population systematic.} The cascade's predictions separate into two populations.
 \textit{Descent-dependent quantities} carry negative deviations: $\alpha_s$ ($-1.7\%$), $v$
 ($-2.2\%$), mass ratios, $m_\tau$ ($-1.2\%$), $m_W$ ($-0.6\%$), $\Omega_m^{\rm Bott} = 0.31150$
-($-1.1\%$), $\ell_A$ ($-1.3\%$). \textit{Geometric quantities} carry positive deviations:
+($-1.1\%$), $\ell_A$ ($-3.2\%$). \textit{Geometric quantities} carry positive deviations:
 $m_H/m_W$ ($+0.8\%$), $\sin^2\theta_W$ ($+0.6\%$), $\theta_C$ ($+1.7\%$), $\Omega_b$ ($+2.8\%$),
 and the leading-order lapse identity $\Omega_m = 1/\pi$ ($+1.1\%$), $\Omega_r$ ($+0.1\%$),
 $T_{\rm CMB}$ ($+0.2\%$). The $1/\pi$ identity is a single-step algebraic result (geometric);
