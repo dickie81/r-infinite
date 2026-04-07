@@ -30,6 +30,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
 
+      - name: Install Python dependencies
+        run: pip install numpy scipy
+
+      - name: Generate computed tables
+        run: python3 tools/generate_bao_table.py
+
       - name: Compile LaTeX files
         working-directory: src
         run: |
