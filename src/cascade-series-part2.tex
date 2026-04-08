@@ -99,8 +99,10 @@ The logical structure is:
 \item \emph{Foundation~\cite{paperI}}: Orthogonality $\to$ $\sqrt{\pi}$ $\to$ slicing
 recurrence $\to$ cascade $\to$ tower $(d_0,d_1,d_2)$ $\to$ $I\approx 10^{-120}$. Each step
 is an asymptotic compactification with $R_{\rm eff}=1/\sqrt{d+3}$.
-\item \emph{This paper}: Cascade geometry + 4D observer $\to$ Hilbert space structure +
-Gaussian measure + Born rule + unitary evolution $=$ QM.
+\item \emph{This paper}: Cascade geometry + 4D observer $\to$ Hilbert space + Gaussian
+measure + Born rule ($p=\cos^2\theta$) + complex amplitudes ($J^2=-\mathrm{Id}$) +
+discrete propagator + decoherence ($D=e^{-\Delta x^2/4R_{\rm eff}^2}$) + Bell violation
+($S=2\sqrt{2}$) $=$ QM.
 \end{itemize}
 
 The derivation does not explain why we observe four dimensions. That is an empirical input,
@@ -1217,6 +1219,7 @@ Second cascade constant $\operatorname{erf}(1/\sqrt{2})$ & Scale coincidence at 
 Irreversibility is asymptotic & $R_{\rm eff}>0$; no sharp loss & 8.3 \\
 Unitarity + apparent irreversibility & Global unitary; boundary retains info & 8.4 \\
 Decoherence $D=e^{-\Delta x^2/4R_{\rm eff}^2}$ & Tracing fibre with slicing weight & 8.5 \\
+Cascade coherence $93.9\%$ & Gram eigenvalue deficit $\varepsilon=6.1\%$ & 8.6 \\
 $\hbar$ as quantum scale & Unit matching: $\hbar=(\pi/2)/\Delta t$ & 9 \\
 Classical limit & Coarse time resolution $\Rightarrow$ no phase & 9.2 \\
 Tensor product structure & Iterated slicing decomposition & 10 \\
@@ -1240,6 +1243,15 @@ deferred to Part~III.
 \begin{itemize}
 \item Shows that a 4D observer in the cascade geometry recovers the structural framework of
 quantum mechanics.
+\item Derives the Born rule $p = \cos^2\theta$ from the geometry of the spherical cap, the
+slicing integrand, and Parseval's identity on $S^{d-1}$ (Theorem~\ref{thm:born}). No
+probability axiom enters.
+\item Proves the commutator of rank-1 projections:
+$\|[P_{e_1},P_{e_2}]\| = \tfrac{1}{2}|\sin 2\theta|$
+(Theorem~\ref{thm:commutator}), vanishing at $\theta\in\{0,\pi/2,\pi\}$ with maximum
+at $\pi/4$.
+\item Proves Bell inequality violation $S = 2\sqrt{2}$ on $S^7$
+(Theorem~\ref{thm:bell}) from the Born rule applied to tensor product directions.
 \item Proves that the precession angle $\alpha=\pi/2$ is forced by the cascade's
 orthogonality axiom, eliminating all free geometric parameters
 (Theorem~\ref{thm:precession}). The proof explicitly distinguishes the two applications of
