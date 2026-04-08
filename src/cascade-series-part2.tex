@@ -252,21 +252,75 @@ which is the definition of complementary observables.
 \subsection{Non-commutativity from sequential slicing}
 
 Slicing along axis $e_1$ then $e_2$ is not the same as slicing along $e_2$ then $e_1$,
-because the first slice discards information about the first axis before the second slice
-extracts information about the second.
+because the first slice suppresses information about the first axis before the second slice
+extracts information about the second. The cascade's slicing along axis $e$ extracts the
+component $z = x\cdot e$ and suppresses the remainder. The extraction is an orthogonal
+projection: $P_e(x) = (x\cdot e)\,e$, a rank-1 operator with $P_e^2 = P_e$.
 
 \begin{theorem}[Commutator from slicing angle]\label{thm:commutator}
-Let $e_1$, $e_2$ be two slicing axes in the 4D subspace with angle $\theta$ between them.
-The order-dependence of sequential slicing vanishes if and only if $\theta=0$ or $\theta=\pi$.
-For $\theta=\pi/2$, the order-dependence is maximal.
+Let $e_1$, $e_2$ be two slicing axes in the 4D subspace with $e_1\cdot e_2 = \cos\theta$.
+The commutator of the corresponding projections satisfies
+\begin{equation}\label{eq:commutator}
+\|P_{e_1}P_{e_2} - P_{e_2}P_{e_1}\| = \sin\theta\,|\!\cos\theta|.
+\end{equation}
+This vanishes if and only if $\theta = 0$, $\pi/2$, or $\pi$. The order-dependence of
+sequential slicing is maximal at $\theta = \pi/4$.
 \end{theorem}
+\begin{proof}
+The rank-1 projection along $e$ is $P_e = e\,e^T$, so
+$(P_{e_1}P_{e_2})(x) = (x\cdot e_2)(e_1\cdot e_2)\,e_1$ and
+$(P_{e_2}P_{e_1})(x) = (x\cdot e_1)(e_1\cdot e_2)\,e_2$. Writing $c = \cos\theta$:
+\[
+(P_{e_1}P_{e_2} - P_{e_2}P_{e_1})(x) = c\bigl[(x\cdot e_2)\,e_1 - (x\cdot e_1)\,e_2\bigr].
+\]
+The bracketed term is the component of $x$ in the $e_1$-$e_2$ plane, rotated by $\pi/2$
+within that plane.  Its operator norm is 1 (it acts as a rotation--projection on the
+plane and annihilates the orthogonal complement). Therefore
+$\|P_{e_1}P_{e_2} - P_{e_2}P_{e_1}\| = |c|\cdot 1 = |\!\cos\theta|$... but this must
+also vanish at $\theta = 0$, where $e_1 = e_2$ and the projections commute trivially.
 
-\begin{remark}
-This recovers the structure of the canonical commutation relation $[x,p]=i\hbar$. The
-position and momentum operators correspond to orthogonal slicing axes ($\theta=\pi/2$), and
-the factor $i$ arises from complexification (Section~\ref{sec:complex}). The cascade does
-not produce $\hbar$ directly; $\hbar$ enters as a scale factor when the geometric rates are
-matched to physical units (Section~\ref{sec:hbar}).
+More carefully: the bracketed operator $B(x) = (x\cdot e_2)\,e_1 - (x\cdot e_1)\,e_2$
+restricted to the $e_1$-$e_2$ plane has matrix
+$\bigl(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr)$
+in the $(e_1,e_2)$ basis when $e_1\cdot e_2 = 0$, but this basis is not orthonormal
+when $\theta\neq\pi/2$. In an orthonormal basis $\{e_1,\,e_\perp\}$ where
+$e_2 = c\,e_1 + s\,e_\perp$ with $s = \sin\theta$:
+\[
+B(x) = (x\cdot e_2)\,e_1 - (x\cdot e_1)\,e_2
+= s\bigl[(x\cdot e_\perp)\,e_1 - (x\cdot e_1)\,e_\perp\bigr].
+\]
+The operator $(x\cdot e_\perp)\,e_1 - (x\cdot e_1)\,e_\perp$ is a $\pi/2$-rotation in the
+$e_1$-$e_\perp$ plane with norm~1. Therefore $\|B\| = |s| = |\!\sin\theta|$ and
+\[
+\|P_{e_1}P_{e_2} - P_{e_2}P_{e_1}\| = |c|\,|s| = |\!\sin\theta\cos\theta|
+= \tfrac{1}{2}|\!\sin 2\theta|.
+\]
+This vanishes iff $\sin 2\theta = 0$, i.e., $\theta\in\{0,\pi/2,\pi\}$.
+Maximum at $\theta = \pi/4$ (where $\sin 2\theta = 1$).
+\end{proof}
+
+\begin{remark}[Two distinct sources of commutativity]
+The commutator vanishes at $\theta = 0$ and $\theta = \pi$ (parallel axes: same
+measurement, trivially commuting) and at $\theta = \pi/2$ (orthogonal axes: the projections
+have orthogonal ranges, so $P_{e_1}P_{e_2} = P_{e_2}P_{e_1} = 0$). These are geometrically
+distinct: parallel axes commute because they are identical; orthogonal axes commute because
+they are independent. The non-commutativity lives between these extremes, peaking at
+$\pi/4$ where the axes are maximally entangled---neither identical nor independent.
+\end{remark}
+
+\begin{remark}[Complementarity vs non-commutativity]
+In standard quantum mechanics, ``complementary observables'' (position and momentum) are
+maximally non-commuting. In the cascade, orthogonal slicing axes ($\theta = \pi/2$) give
+\emph{commuting} rank-1 projections. The non-commutativity of position and momentum arises
+not from the angle between two single slicing axes, but from the relationship between a
+\emph{complete basis} (all four axes simultaneously) and a rotated basis. For a pair of
+orthonormal bases $\{e_j\}$ and $\{f_k\}$ related by angle $\theta$, the relevant
+non-commutativity is between the complete projection operators
+$\Pi_j = \sum_j \lambda_j P_{e_j}$ and $\Pi_k = \sum_k \mu_k P_{f_k}$, which do not
+commute when the bases are related by a nontrivial rotation. The single-axis result
+$\|[P_{e_1},P_{e_2}]\| = \tfrac{1}{2}|\!\sin 2\theta|$ is the elementary building block;
+the full commutation relation $[x,p] = i\hbar$ requires the complexification of
+Section~\ref{sec:complex} and the identification of $\hbar$ in Section~\ref{sec:hbar}.
 \end{remark}
 
 \section{The Born Rule from the Geometry of the Sphere}
@@ -870,7 +924,7 @@ Gaussian integrand $(1-x^2)^{d/2}$ & Concentration of slicing measure & 3.1 \\
 Normalisation by $\sqrt{\pi}$ & Orthogonal compression constant & 3 \\
 Orthogonal measurement bases & Slicing axis choices & 4 \\
 Measurement as suppression & $R_{\rm eff}=1/\sqrt{d+3}$ & 4.1, 8 \\
-Non-commuting observables & Sequential slicing order-dependence & 4 \\
+Non-commutativity $\|[P,Q]\|=\tfrac{1}{2}|\sin 2\theta|$ & Rank-1 projection commutator & 4 \\
 Born rule $p = \cos^2\theta$ & Sphere geometry + Parseval + concentration & 5 \\
 Complex amplitudes & Forced precession $\alpha=\pi/2\Rightarrow J^2=-\mathrm{Id}$ & 6 \\
 No free geometric parameters & $\alpha=\pi/2$ forced; same axiom as $\sqrt{\pi}$ & 6.1 \\
