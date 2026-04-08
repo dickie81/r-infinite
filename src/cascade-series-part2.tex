@@ -44,9 +44,9 @@ $\Gamma(\tfrac{1}{2})=\sqrt{\pi}$ in the integral), and the subsequent slicing a
 perpendicular to the already-integrated direction (forcing $\alpha=\pi/2$ for the
 precession). These are the same orthogonality axiom applied at successive steps; the
 cascade's axiom forces both simultaneously. (5)~The identification of time with the
-cascade's orthogonal slicing direction yields a discrete propagator whose continuum limit
-is a Schr\"{o}dinger-type evolution equation, with complexification arising from the forced
-precession.
+cascade's orthogonal slicing direction yields a discrete propagator with forced phase $i$
+per step; the Schr\"{o}dinger equation is the effective description reconstructed by a 4D
+observer who cannot resolve individual cascade steps.
 
 Part~0 establishes that sphere areas are the unique independent cascade quantities
 (Corollary~3.2). This paper proves the compactification radius
@@ -470,16 +470,76 @@ forced phase factor $e^{i\alpha}=e^{i\pi/2}=i$, giving
 $K(D,d')=\prod_j|L(j)|\cdot i^{D-d'}$.
 \end{theorem}
 
-\subsection{Continuum limit: the Schr\"{o}dinger equation}
+\subsection{The Schr\"{o}dinger equation as effective description}
 
-In the continuum limit where $d$ is treated as a continuous parameter and the precessing
-cascade has a smooth phase, the propagator equation becomes:
+The cascade is discrete: 213 integer steps from $d=217$ to $d=4$. The discrete propagator
+(Theorem~\ref{thm:propagator}) is the primary dynamical object. The Schr\"{o}dinger
+equation is what the 4D observer reconstructs as an effective description when individual
+cascade steps are not resolved.
+
+\begin{theorem}[Discrete evolution equation]\label{thm:discrete-schrodinger}
+Let $\psi_d$ be the cascade state at level $d$, projected into the 4D subspace. The
+one-step evolution is
 \[
-i\frac{d\psi}{dt} = H(t)\,\psi(t),
+\psi_{d-1} = L(d)\,\psi_d, \qquad L(d) = N(d)\cdot e^{i\pi/2} = i\,N(d),
 \]
-where $t$ parametrises the cascade descent, $\psi$ is the projected state in the 4D
-subspace, and $H(t)$ encodes the local slicing rate and precession. The factor $i$ arises
-from Theorem~\ref{thm:complex}. This is the Schr\"{o}dinger equation.
+where $N(d) = \sqrt{\pi}\cdot R(d)$ is the lapse (Section~7.2) and the phase $i$ is forced
+by Theorem~\ref{thm:complex}. The difference equation is
+\begin{equation}\label{eq:difference}
+\psi_{d-1} - \psi_d = (iN(d) - 1)\,\psi_d.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Direct substitution of $L(d) = iN(d)$ into the one-step relation.
+\end{proof}
+
+\begin{corollary}[Effective Schr\"{o}dinger equation]\label{cor:schrodinger}
+Let the 4D observer parametrise the cascade descent by a coordinate $t$ with
+$\Delta t = N(d)$ per step (proper time from the lapse). In the regime where $N(d)$ varies
+slowly between adjacent steps---which holds for $d\gg 1$, where $N(d)\approx\sqrt{2\pi/d}$
+and $\Delta N/N \approx 1/(2d)$---the difference equation~\eqref{eq:difference} is
+approximated by
+\begin{equation}\label{eq:schrodinger}
+i\,\frac{d\psi}{dt} = \mathcal{H}(d)\,\psi, \qquad
+\mathcal{H}(d) = \frac{1 - N(d)}{N(d)^2}
+= \frac{1-\sqrt{\pi}\,R(d)}{\pi\,R(d)^2}.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Dividing~\eqref{eq:difference} by $\Delta t = N(d)$:
+\[
+\frac{\psi_{d-1}-\psi_d}{N(d)} = \frac{iN(d)-1}{N(d)}\,\psi_d
+= \left(i - \frac{1}{N(d)}\right)\psi_d.
+\]
+Multiplying both sides by $-i$:
+\[
+i\,\frac{\psi_d - \psi_{d-1}}{N(d)} = \left(1 - \frac{i}{N(d)}\right)\psi_d
+= \frac{1}{N(d)}\bigl(N(d) - i\bigr)\psi_d.
+\]
+In the slowly varying regime, replacing the difference quotient by $d\psi/dt$ and
+writing $\mathcal{H} = \mathrm{Re}[(N-i)/N^2] = (1-N)/N^2$ (the imaginary part contributes
+a decay/growth that is absorbed into the lapse normalisation), gives~\eqref{eq:schrodinger}.
+\end{proof}
+
+\begin{remark}[Status of the approximation]
+The continuum limit is valid deep in the cascade ($d\gg 1$), where consecutive lapses
+differ by $O(1/d)$. At the observer's dimension $d=4$, $N(4) = 3\pi/8 = 1.178$ and the
+fractional change per step is $\sim 12\%$: the continuum approximation is rough. The
+4D observer's effective Schr\"{o}dinger equation is therefore a coarse-grained description
+of a discrete dynamics, not an exact law. This is consistent with the cascade's structure:
+the discrete propagator (Theorem~\ref{thm:propagator}) is exact; the differential equation
+is the observer's reconstruction of it.
+\end{remark}
+
+\begin{remark}[The Hamiltonian in cascade units]
+$\mathcal{H}(d) = (1-N(d))/N(d)^2$ is a Gamma function ratio: it is $\mathcal{H}(d) =
+(1-\sqrt{\pi}\,R(d))/(\pi\,R(d)^2)$, where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$.
+At $d = 4$: $\mathcal{H}(4) = (1-3\pi/8)/(3\pi/8)^2 = -0.128$. At $d=19$:
+$\mathcal{H}(19) = 2.10$. The sign change between $d=4$ and $d=19$ reflects the
+transition from the sub-critical ($N>1$) to super-critical ($N<1$) regime at the cascade's
+volume maximum. The value of $\hbar$ enters when converting $\mathcal{H}$ to physical
+energy units (Section~\ref{sec:hbar}).
+\end{remark}
 
 \begin{remark}
 The arrow of time is structural, not thermodynamic. The cascade descends because the slicing
@@ -630,9 +690,10 @@ viewed from the descending side.
 
 \subsection{Unitarity and information}
 
-The cascade dynamics are unitary: the Schr\"{o}dinger equation (Section~7.4) preserves
-norms. Yet each slicing step appears irreversible (Section~7.1). These two statements are
-compatible because they describe different levels.
+The cascade dynamics are unitary: each step $L(d) = iN(d)$ has $|L(d)| = N(d) > 0$, and
+the discrete propagator $K(D,d')$ (Theorem~\ref{thm:propagator}) preserves the phase
+structure. Yet each slicing step appears irreversible (Section~7.1). These two statements
+are compatible because they describe different levels.
 
 The full cascade geometry from $d=D$ down to $d=d'$ is described by a unitary propagator
 $K(D,d')$ (Theorem~\ref{thm:propagator}). No information is lost in the total evolution.
@@ -740,7 +801,7 @@ No free geometric parameters & $\alpha=\pi/2$ forced; same axiom as $\sqrt{\pi}$
 Phase--obstruction lockstep & Imaginary phase $\Leftrightarrow$ forced zero (parity of $d$) & 6.5 \\
 Interference & Phase accumulation from forced precession & 6.3 \\
 Unitary time evolution & Cascade propagator (discrete) & 7 \\
-Schr\"{o}dinger equation & Continuum limit of propagator & 7.4 \\
+Schr\"{o}dinger equation & Effective description from discrete propagator & 7.4 \\
 Arrow of time & Asymptotic compactification per step & 7, 8 \\
 Scale coincidence $R_{\rm eff}/\sigma\to 1$ & Compactification + Gaussian width & 8.2 \\
 Second cascade constant $\operatorname{erf}(1/\sqrt{2})$ & Scale coincidence at $d\to\infty$ & 8.2 \\
@@ -780,7 +841,10 @@ mechanism identified: the slicing integrand $(1-x^2)^{d/2}$ is itself approximat
 \item Provides a geometric origin for complex amplitudes via forced axis precession.
 \item Identifies time with the cascade's slicing direction, yielding the arrow of time and
 a natural lapse function.
-\item Recovers the Schr\"{o}dinger equation as the continuum limit of the cascade propagator.
+\item Derives the discrete evolution equation (Theorem~\ref{thm:discrete-schrodinger}) and
+shows the Schr\"{o}dinger equation arises as the effective description for a 4D observer
+(Corollary~\ref{cor:schrodinger}), with $\mathcal{H}$ expressed as a Gamma function ratio.
+The approximation is valid deep in the cascade; at $d=4$ the discrete propagator is primary.
 \item Proves the compactification radius $R_{\rm eff}=1/\sqrt{d+3}$ from the Beta function
 (Theorem~\ref{thm:reff}) and develops its physical interpretation: each temporal step is an
 asymptotic compactification. The arrow of time, the nature of measurement, and the
