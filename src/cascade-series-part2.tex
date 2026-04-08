@@ -29,42 +29,42 @@ The cascade series tests one hypothesis: the infinite-dimensional unit ball, des
 four dimensions, is indistinguishable from our universe. The companion paper~\cite{paperI}
 derived a geometric invariant $I = 1.0996\times 10^{-120}$ from the sphere-area cascade
 using only orthogonality as input. Here we show that a 4-dimensional observer embedded in
-the cascade geometry recovers the structural framework of quantum mechanics without
-additional postulates. The argument proceeds in five steps. (1)~Projection of the
-high-dimensional unit-sphere measure onto a 4D subspace produces Gaussian statistics via
-the central limit theorem inherited from concentration of measure. (2)~The cascade's
-orthogonal slicing structure induces orthogonal measurement bases in the projected theory.
-(3)~Concentration of measure on $S^{d-1}$ for large $d$ recovers the Born rule as the
-unique consistent probability assignment, reproducing Gleason's theorem geometrically.
-(4)~The precession angle between consecutive slicing axes is $\alpha=\pi/2$, forced by the
-same orthogonality condition that forces $\sqrt{\pi}$ in the slicing recurrence
-(Theorem~\ref{thm:precession}). The proof distinguishes two applications of the same
-geometric fact: the slicing axis is perpendicular to the equatorial hyperplane (forcing
-$\Gamma(\tfrac{1}{2})=\sqrt{\pi}$ in the integral), and the subsequent slicing axis is
-perpendicular to the already-integrated direction (forcing $\alpha=\pi/2$ for the
-precession). These are the same orthogonality axiom applied at successive steps; the
-cascade's axiom forces both simultaneously. (5)~The identification of time with the
-cascade's orthogonal slicing direction yields a discrete propagator with forced phase $i$
-per step; the Schr\"{o}dinger equation is the effective description reconstructed by a 4D
-observer who cannot resolve individual cascade steps.
+the cascade geometry recovers the full structural framework of quantum mechanics---including
+the Born rule, complex amplitudes, non-commutativity, the Schr\"{o}dinger equation,
+entanglement, and Bell inequality violation---without quantum postulates.
 
-Part~0 establishes that sphere areas are the unique independent cascade quantities
-(Corollary~3.2). This paper proves the compactification radius
-$R_{\rm eff}=1/\sqrt{d+3}$ from the Beta function and develops the full geometric
-interpretation: each slicing step sends one direction's effective radius to
-$R_{\rm eff}$, giving concrete geometric
-content to the arrow of time as asymptotic suppression rather than sharp elimination. The
-cascade's two natural length scales---the compactification radius and the Gaussian width of
-the slicing integrand---coincide asymptotically, producing a second universal cascade constant
-$\operatorname{erf}(1/\sqrt{2}) = 0.68269$. The boundary dominance
-$\Omega_{d-1}/V_d=d$ (Theorem~3.1 of~\cite{paperI}) confirms that the observer's state
-space is the unit sphere because the cascade's content is its boundaries. The cascade fixes
-the arena (which Hilbert space), the measure (why Gaussian), and the normalisation constant
-($\sqrt{\pi}$) that standard quantum mechanics postulates. The value of $\hbar$ is not
-derived; it enters as the ratio of the forced precession scale $\pi/2$ to the physical time
-increment, and therefore encodes only the unit matching between geometric and physical time.
-No physical law or free geometric parameter beyond the observer's dimensionality enters the
-derivation.
+The argument proceeds in six steps, each a theorem about spheres and Beta functions.
+(1)~The cascade's boundary dominance ($\Omega_{d-1}/V_d = d$) fixes the state space as the
+unit sphere $S^{d-1}$; projection onto a 4D subspace produces Gaussian statistics via
+concentration of measure. (2)~The cascade's orthogonal slicing structure induces measurement
+bases; the commutator of rank-1 projections at angle $\theta$ is
+$\|[P,Q]\| = \tfrac{1}{2}|\sin 2\theta|$, vanishing at $\theta\in\{0,\pi/2,\pi\}$.
+(3)~The Born rule $p = \cos^2\theta$ is derived from the geometry of the spherical cap, the
+slicing integrand $(1-z^2)^{(d-2)/2}$, and Parseval's identity $\sum(u\cdot e_j)^2 = 1$;
+no probability axiom enters. (4)~The precession angle $\alpha = \pi/2$ between consecutive
+slicing axes is forced by the same orthogonality axiom that forces $\sqrt{\pi}$ in the
+slicing recurrence; two quarter-turns give $J^2 = -\mathrm{Id}$, producing complex
+amplitudes. The phase--obstruction lockstep (Corollary~\ref{cor:lockstep}) follows: the
+propagator phase is imaginary if and only if $S^{d-1}$ carries a hairy ball zero, both
+controlled by the parity of $d$. The cascade's classification has period~4; the Clifford
+refinement to period~8 is established in Part~III.
+(5)~Time is the cascade's slicing direction. The discrete propagator
+$K = \prod|L(j)|\cdot i^{D-d'}$ is exact; the Schr\"{o}dinger equation $i\dot\psi =
+\mathcal{H}\psi$ with $\mathcal{H} = (1-N)/N^2$ (a Gamma function ratio) is the effective
+description for a 4D observer who cannot resolve individual cascade steps. Each step
+compactifies one direction to $R_{\rm eff} = 1/\sqrt{d+3}$ (from the Beta function),
+producing geometric decoherence: the decoherence factor
+$D = \exp(-\Delta x^2/4R_{\rm eff}^2)$ identifies the compactification radius as the
+coherence length. Over the full 213-step descent, the cascade retains $93.9\%$ coherence;
+the $6.1\%$ eigenvalue deficit is the inter-layer coupling that drives the descent
+corrections in the Part~0 Supplement. (6)~Iterated slicing gives a tensor product
+structure with generic entanglement, and the CHSH correlator computed from the Born rule
+on $S^7$ gives $S = 2\sqrt{2}$, violating the classical bound of~2.
+
+The value of $\hbar$ is not derived; it enters as the ratio of the forced precession
+scale $\pi/2$ to the physical time increment, encoding only the unit matching between
+geometric and physical time. No physical law or free geometric parameter beyond the
+observer's dimensionality enters the derivation.
 \end{abstract}
 
 \tableofcontents
