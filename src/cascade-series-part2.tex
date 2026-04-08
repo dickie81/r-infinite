@@ -374,42 +374,58 @@ Since $\alpha=\pi/2$ is forced (Theorem~\ref{thm:precession}), this complex stru
 not introduced as an assumption but derived.
 \end{proof}
 
-\begin{remark}[The propagator phase at each cascade level]\label{rem:bott-phases}
+\begin{remark}[The propagator phase and sphere topology at each cascade level]\label{rem:bott-phases}
 The forced precession of $\pi/2$ per step accumulates a total propagator phase of
-$(d-4)\cdot\pi/2$ from the observer at $d=4$ to level $d$. The phase at each level is
-therefore determined entirely by $d\bmod 8$:
+$(d-4)\cdot\pi/2$ from the observer at $d=4$ to level $d$. The phase has period~4. Each
+layer $d$ also operates on the sphere $S^{d-1}$, whose topology depends on parity: $S^{d-1}$
+is even-dimensional when $d$ is odd, and the hairy ball theorem forces every continuous
+tangent field on an even-dimensional sphere to have a zero.
 \begin{center}
-\begin{tabular}{ccc}
+\begin{tabular}{cccl}
 \toprule
-$d\bmod 8$ & Spinor type & Phase \\
+$d\bmod 4$ & Phase & $\chi(S^{d-1})$ & Cascade character \\
 \midrule
-4 & Weyl (complex) & $e^{i\cdot 0} = +1$ \\
-5 & Dirac (complex) & $e^{i\pi/2} = i$ \\
-6 & Weyl (complex) & $e^{i\pi} = -1$ \\
-7 & Majorana (real) & $e^{i3\pi/2} = -i$ \\
-0 & Majorana (real) & $e^{i2\pi} = +1$ \\
-1 & Majorana (real) & $e^{i5\pi/2} = i$ \\
-2 & Majorana (real) & $e^{i3\pi} = -1$ \\
-3 & Majorana (real) & $e^{i7\pi/2} = -i$ \\
+0 & $+1$ & 0 & Real phase, no obstruction \\
+1 & $i$  & 2 & Imaginary phase, forced zero \\
+2 & $-1$ & 0 & Real phase, no obstruction \\
+3 & $-i$ & 2 & Imaginary phase, forced zero \\
 \bottomrule
 \end{tabular}
 \end{center}
-The propagator phase is a topological invariant: it depends only on $d\bmod 8$, not on the
-metric. The phase column follows from Theorem~\ref{thm:complex} alone: it is the accumulated
-precession $(d-4)\cdot\pi/2$ reduced mod $2\pi$, with no external input. The spinor type
-column follows from the Clifford algebra classification of $\mathrm{Cl}(1,d-1)$ under Bott
-periodicity, an established result of algebraic topology.
+Both columns are derived from the cascade's geometry. The phase column follows from
+Theorem~\ref{thm:complex}: it is the accumulated precession $(d-4)\cdot\pi/2$ reduced
+mod $2\pi$, with no external input. The sphere-topology column is elementary: $S^{d-1}$
+is even-dimensional when $d$ is odd; even-dimensional spheres have Euler characteristic
+$\chi = 2$, and the hairy ball theorem forces every tangent field to vanish; odd-dimensional
+spheres have $\chi = 0$ and admit nonvanishing fields.
+\end{remark}
 
-The two columns make distinct claims. The Clifford classification establishes that layers
-with $d\bmod 8\in\{4,5,6\}$ carry irreducibly complex spinors, while Majorana layers
-($d\bmod 8\in\{0,1,2,3,7\}$) are real. This applies uniformly to all three complex residues.
-The phase column then distinguishes within the complex layers: $d\bmod 8=4$ (Weyl) has
-phase $+1$, meaning the propagator returns to the real axis after one Bott period;
-$d\bmod 8\in\{5,6\}$ (Dirac and Weyl) have phases $i$ and $-1$, meaning the propagator
-does not return to the real axis within one period. The distinction between $\{4\}$ and
-$\{5,6\}$ is therefore not spinor irreducibility---all three residues share that
-property---but propagator phase non-triviality, which is derived from
-Theorem~\ref{thm:complex} alone.
+\begin{corollary}[Phase--obstruction lockstep]\label{cor:lockstep}
+The cascade's propagator phase is imaginary ($\pm i$) if and only if the sphere $S^{d-1}$
+carries a forced tangent-field zero.
+\end{corollary}
+\begin{proof}
+Both conditions reduce to the same parity test. The phase
+$e^{i(d-4)\pi/2}$ is imaginary when $(d-4)$ is odd, i.e., when $d$ is odd. The sphere
+$S^{d-1}$ is even-dimensional when $d$ is odd, and the hairy ball theorem forces a zero
+precisely on even-dimensional spheres. Therefore: $d$ odd $\Leftrightarrow$ imaginary phase
+$\Leftrightarrow$ forced zero. The forced precession and the hairy ball theorem are
+geometrically independent---one concerns the angle between consecutive slicing axes, the
+other concerns tangent fields on a sphere---but the orthogonality axiom forces them into
+lockstep: the same parity of $d$ that gives an imaginary propagator phase also gives a
+topological obstruction.
+\end{proof}
+
+\begin{remark}[Period 4 vs period 8]\label{rem:period4-vs-8}
+The cascade's phase classification has period~4. The Clifford algebra
+$\mathrm{Cl}(1,d-1)$ provides a finer classification with period~8 (Bott periodicity),
+distinguishing layers that carry irreducibly complex spinor representations from those
+that are purely real. This refinement---and its consequences for gauge structure and
+fermion generations---is established in Part~III using the Clifford algebra classification
+that also forces $d = 4$ via Lovelock uniqueness. At the level of this paper, the period-4
+classification is complete: it derives the propagator's complex character and the
+topological obstruction structure from the cascade's orthogonality axiom alone, without
+importing the Clifford algebra or any framework from quantum field theory.
 \end{remark}
 
 \subsection{Interference}
@@ -721,7 +737,7 @@ Non-commuting observables & Sequential slicing order-dependence & 4 \\
 Born rule $p=|\langle\phi|\psi\rangle|^2$ & Concentration of measure on sphere & 5 \\
 Complex amplitudes & Forced precession $\alpha=\pi/2\Rightarrow J^2=-\mathrm{Id}$ & 6 \\
 No free geometric parameters & $\alpha=\pi/2$ forced; same axiom as $\sqrt{\pi}$ & 6.1 \\
-Phase classification by $d\bmod 8$ & Forced precession (phase); Bott periodicity (spinor) & 6.5 \\
+Phase--obstruction lockstep & Imaginary phase $\Leftrightarrow$ forced zero (parity of $d$) & 6.5 \\
 Interference & Phase accumulation from forced precession & 6.3 \\
 Unitary time evolution & Cascade propagator (discrete) & 7 \\
 Schr\"{o}dinger equation & Continuum limit of propagator & 7.4 \\
@@ -743,8 +759,9 @@ Every row is derived from two inputs: (1) the cascade geometry of~\cite{paperI},
 (2) the assumption that the observer has access to 4 dimensions. The compactification
 results (Section~\ref{sec:compactification}) are proved in this paper from the Beta
 function, building on the boundary dominance identity of~\cite{paperI}, Theorem~3.1.
-The phase classification row (6.5) is derived from the forced precession of this paper
-combined with Bott periodicity.
+The phase--obstruction lockstep (Corollary~\ref{cor:lockstep}) is derived from the
+forced precession and sphere parity alone; the Clifford refinement to period~8 is
+deferred to Part~III.
 
 \section{What This Paper Does and Does Not Do}
 
@@ -774,8 +791,10 @@ and derives the second universal cascade constant $\operatorname{erf}(1/\sqrt{2}
 (Corollary~\ref{cor:erf}).
 \item Shows that boundary dominance ($\Omega_{d-1}/V_d=d$) justifies the primacy of the
 unit sphere as the observer's state space.
-\item Derives the propagator phase classification by $d\bmod 8$ from the forced precession
-and Bott periodicity (Remark~\ref{rem:bott-phases}).
+\item Derives the phase--obstruction lockstep (Corollary~\ref{cor:lockstep}): the
+propagator phase is imaginary if and only if the sphere carries a hairy ball zero, both
+controlled by the parity of $d$. The cascade-native classification has period~4; the
+Clifford refinement to period~8 is noted and deferred to Part~III.
 \end{itemize}
 
 \textbf{Does not:}
