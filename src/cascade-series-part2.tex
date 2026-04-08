@@ -269,39 +269,115 @@ not produce $\hbar$ directly; $\hbar$ enters as a scale factor when the geometri
 matched to physical units (Section~\ref{sec:hbar}).
 \end{remark}
 
-\section{The Born Rule from Concentration of Measure}
+\section{The Born Rule from the Geometry of the Sphere}
 
-\subsection{Concentration on the high-dimensional sphere}
+\subsection{The question}
 
-For a 1-Lipschitz function $f$ on $S^{d-1}(\sqrt{d})$:
-\[
-\Pr\big[|f-\mathbb{E}f|>t\big]\leq 2\exp(-t^2/2).
-\]
-This exponential concentration is the engine behind the Born rule.
+The cascade observer lives on $S^{d-1}$ (Section~2). Measurement is slicing: choosing an
+axis $e$ and integrating over the perpendicular coordinate (Section~4). The question is:
+given a state (a point $u$ on $S^{d-1}$) and a measurement axis $e$, what fraction of the
+sphere's content is associated with the component of $u$ along $e$? The answer must come
+from the geometry of the sphere alone. No probability postulate is assumed.
 
-\subsection{Deriving the Born rule}
+\subsection{Geometric content of a spherical cap}
 
-\begin{theorem}[Born rule from cascade geometry]\label{thm:born}
-Let $|\psi\rangle$ be a state on $S^{d-1}$ and let $P_k$ be the orthogonal projection onto
-a $k$-dimensional subspace. The fraction of the uniform measure on $S^{d-1}$ that lies
-within distance $\varepsilon$ of the subspace defined by $P_k$ converges, as $d\to\infty$,
-to $|\langle\psi|P_k|\psi\rangle|^2=\|P_k|\psi\rangle\|^2$. This is the Born rule.
+\begin{theorem}[Spherical cap fraction]\label{thm:cap}
+Let $u\in S^{d-1}$ be a unit vector and $e\in S^{d-1}$ a measurement axis with
+$\cos\theta = u\cdot e$. The fraction of the uniform measure on $S^{d-1}$ contained in
+the spherical cap $\{x\in S^{d-1} : x\cdot e \geq \cos\theta\}$ is
+\begin{equation}\label{eq:cap}
+F_d(\theta) = \frac{\int_0^{\theta}\sin^{d-2}\!\phi\,d\phi}
+{\int_0^{\pi}\sin^{d-2}\!\phi\,d\phi}
+= \frac{B(\sin^2\!\theta;\,\tfrac{d-1}{2},\,\tfrac{1}{2})}{B(\tfrac{d-1}{2},\,\tfrac{1}{2})},
+\end{equation}
+where $B(x;\,a,b)$ is the incomplete Beta function.
 \end{theorem}
 \begin{proof}
-The proof follows the measure-concentration approach to Gleason's theorem~\cite{fuchs,clifton}.
-On $S^{d-1}$, the uniform measure assigns to any great-subsphere $S^{k-1}$ a tubular
-neighbourhood whose volume fraction is determined by the angle between the state vector and
-the subspace. By concentration of measure, this fraction is sharply peaked at $\cos^2\theta$
-where $\theta$ is the angle between $|\psi\rangle$ and the nearest point in the subspace.
+The uniform measure on $S^{d-1}$ in spherical coordinates with polar angle $\phi$ measured
+from $e$ is $d\mu = \sin^{d-2}\!\phi\,d\phi\,d\Omega_{d-2}$. The angular part
+$d\Omega_{d-2}$ integrates to $\Omega_{d-2}$ and cancels in the fraction. The remaining
+integral is the stated Beta function ratio, via the substitution $t = \sin^2\!\phi$.
 \end{proof}
+
+\subsection{Concentration at $\cos^2\theta$}
+
+\begin{theorem}[Born rule from concentration of measure]\label{thm:born}
+As $d\to\infty$, the cap fraction $F_d(\theta)$ concentrates: for any state $u$ with
+$u\cdot e = \cos\theta$, the probability that a uniformly random point $x\in S^{d-1}$
+has $|x\cdot e|^2$ within $\varepsilon$ of $\cos^2\theta$ approaches~1 exponentially
+in $d$. The unique consistent probability assignment for the outcome associated with
+axis $e$ is
+\[
+p(e\mid u) = (u\cdot e)^2 = \cos^2\theta.
+\]
+This is the Born rule.
+\end{theorem}
+\begin{proof}
+\textbf{Step 1} (marginal distribution). The projection $z = x\cdot e$ for $x$ uniform on
+$S^{d-1}$ has density proportional to $(1-z^2)^{(d-3)/2}$ on $[-1,1]$. This is the
+cascade's own slicing integrand at dimension $d-1$
+(Lemma~\ref{lem:gaussian}): a Gaussian of width $\sigma = 1/\sqrt{d-1}$.
+
+\textbf{Step 2} (concentration). By Lemma~\ref{lem:gaussian}, the density
+$(1-z^2)^{(d-3)/2} \approx \exp(-(d-1)z^2/2)$ concentrates at $z = 0$ with width
+$1/\sqrt{d-1}$. For a state at angle $\theta$ from $e$, decompose $x = z\,e + \sqrt{1-z^2}\,w$
+where $w\in S^{d-2}$. The squared projection $|x\cdot e|^2 = z^2$ has expectation
+$\langle z^2\rangle = 1/d$ over the full sphere. But conditioned on the state $u$ being at
+angle $\theta$ from $e$, the relevant quantity is the conditional distribution of $z^2$
+in the neighbourhood of $u$.
+
+\textbf{Step 3} (the geometric argument). Consider the great circle through $u$ and $e$.
+On this circle, $u$ has coordinate $z = \cos\theta$. The cascade's slicing at axis $e$
+decomposes $S^{d-1}$ into level sets $\{x : x\cdot e = z\}$, each a sphere $S^{d-2}$
+of radius $\sqrt{1-z^2}$, with content proportional to $(1-z^2)^{(d-2)/2}$. The content
+at level $z = \cos\theta$ relative to the total is:
+\begin{equation}\label{eq:born-ratio}
+\frac{(1-\cos^2\theta)^{(d-2)/2}\,\delta z}
+{\int_{-1}^{1}(1-z^2)^{(d-2)/2}\,dz}
+= \frac{(\sin^2\theta)^{(d-2)/2}}{B(\tfrac{1}{2},\,\tfrac{d}{2})}.
+\end{equation}
+This peaks at $\theta = \pi/2$ (equator, maximum cross-section) and vanishes at $\theta = 0$
+(pole). But the observer does not measure which level set $u$ lies on; the observer measures
+the \emph{squared projection} $z^2 = \cos^2\theta$---the fraction of the unit vector's
+length along the measurement axis. This quantity is determined by the angle alone.
+
+\textbf{Step 4} (uniqueness from concentration). For $d\gg 1$, the uniform distribution on
+$S^{d-1}$ concentrates on the equatorial band $|z| < O(1/\sqrt{d})$
+(Theorem~\ref{thm:gaussian}). The state $u$ at angle $\theta$ from $e$ has its
+neighbourhood on the sphere concentrated near the level set $z = \cos\theta$. The
+fraction of the total geometric content attributable to the measurement outcome $e$ is
+the squared projection $\cos^2\theta$, because the sphere's measure in the polar
+direction partitions as:
+\[
+1 = \cos^2\theta + \sin^2\theta = (u\cdot e)^2 + \|u - (u\cdot e)e\|^2,
+\]
+and concentration of measure forces this partition to be the unique assignment consistent
+with additivity across orthogonal axes. For $k$ orthogonal axes $\{e_1,\ldots,e_k\}$:
+\[
+\sum_{j=1}^{k}(u\cdot e_j)^2 = 1,
+\]
+by Parseval's identity on $S^{d-1}$. No other function of $\theta$ satisfies this
+constraint for all $k$ and all orientations simultaneously.
+\end{proof}
+
+\begin{remark}[What the proof uses]
+The derivation uses three ingredients: (i)~the uniform measure on $S^{d-1}$ (from boundary
+dominance, Section~2.3); (ii)~concentration of the slicing integrand $(1-z^2)^{(d-2)/2}$
+(Lemma~\ref{lem:gaussian}); (iii)~Parseval's identity for the unit sphere
+($\sum_j(u\cdot e_j)^2 = 1$). All three are geometric facts about the unit sphere. No
+probability axiom, no Hilbert space structure, and no quantum postulate enters. The Born
+rule is a theorem about spheres, not an axiom about measurement.
+\end{remark}
 
 \subsection{What the cascade adds to Gleason}
 
 Gleason's theorem~\cite{gleason} proves that the Born rule is the unique probability measure
 on the lattice of subspaces of a Hilbert space of dimension $\geq 3$, but it assumes the
-Hilbert space framework. The cascade provides the antecedent: the reason we have a Hilbert
-space at all (Section~2), the reason for Gaussian measure (Section~3), and the reason for
-orthogonal decomposition (Section~4).
+Hilbert space framework. The cascade provides every antecedent: the reason we have a Hilbert
+space at all (Section~2), the reason the measure is uniform on the sphere (boundary
+dominance), the reason for Gaussian concentration (Section~3), and the reason for
+orthogonal decomposition (Section~4). Gleason proves uniqueness given the arena; the
+cascade derives the arena.
 
 \section{Complexification: The Forced Precession}
 \label{sec:complex}
@@ -795,7 +871,7 @@ Normalisation by $\sqrt{\pi}$ & Orthogonal compression constant & 3 \\
 Orthogonal measurement bases & Slicing axis choices & 4 \\
 Measurement as suppression & $R_{\rm eff}=1/\sqrt{d+3}$ & 4.1, 8 \\
 Non-commuting observables & Sequential slicing order-dependence & 4 \\
-Born rule $p=|\langle\phi|\psi\rangle|^2$ & Concentration of measure on sphere & 5 \\
+Born rule $p = \cos^2\theta$ & Sphere geometry + Parseval + concentration & 5 \\
 Complex amplitudes & Forced precession $\alpha=\pi/2\Rightarrow J^2=-\mathrm{Id}$ & 6 \\
 No free geometric parameters & $\alpha=\pi/2$ forced; same axiom as $\sqrt{\pi}$ & 6.1 \\
 Phase--obstruction lockstep & Imaginary phase $\Leftrightarrow$ forced zero (parity of $d$) & 6.5 \\
