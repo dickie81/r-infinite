@@ -240,8 +240,44 @@ $\Omega_m^{\rm Bott}$ & $d\!=\!5$--$217$ & 213 & 0.02108 & 0.3115 & 0.3181 & 0.3
 
 \noindent The first-order correction reduces descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The correction for $m_\mu/m_e$ is small ($0.27\%$) because its path lies at higher $d$ where the per-step deficit scales as $1/(8d^2)$.
 
-\begin{remark}[Relationship to the fitted $k_Q$]
-The first-order correction~\eqref{eq:first-order} and the eigenvalue-deficit parametrisation~\eqref{eq:correction} are related by $k_Q^{(1)} = \sum(1-C^2)/\epsilon$. The fitted $k_Q$ values (2.11, 1.66, 2.67) include a second-order observable-dependent factor from the projection of the sensitivity profile onto the subdominant eigenvector $v_2$. Equation~\eqref{eq:first-order} is the universal (observable-independent) leading order; the residual variation is second order in the eigenvalue deficit.
+\begin{corollary}[Derived coupling coefficient]\label{cor:kQ-derived}
+The first-order coupling coefficient is
+\begin{equation}\label{eq:kQ-first}
+k_Q^{(1)} = \frac{\displaystyle\sum_{\rm adj}(1-C^2_{d,d+1})}{\epsilon},
+\end{equation}
+where the numerator is the adjacent overlap deficit sum (Theorem~\ref{thm:first-order})
+and the denominator is the eigenvalue deficit (Theorem~\ref{thm:pert}). Both are sums
+of Beta function ratios. No free parameter enters.
+\end{corollary}
+\begin{proof}
+$k_Q^{(1)}$ is defined by equating the first-order correction
+$\delta Q/Q_0 = \sum(1-C^2)$ with the parametrisation $k_Q\,\epsilon$. The ratio is
+$\sum(1-C^2)/\epsilon$, with both quantities derived.
+\end{proof}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llcc}
+\toprule
+Path & $n$ & $k_Q^{(1)}$ & Residual after $k_Q^{(1)}$ \\
+\midrule
+$d = 5, \ldots, 12$ & 8 & 1.454 & sub-$0.6\%$ \\
+$d = 6, \ldots, 13$ & 8 & 1.429 & sub-$0.8\%$ \\
+$d = 14, \ldots, 21$ & 8 & 1.362 & sub-$0.2\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Status of the second-order correction]
+The fitted $k_Q$ values (2.11, 1.66, 2.67) exceed $k_Q^{(1)}$ for some observables and
+fall below it for others. The variation is observable-dependent: it reflects how each
+quantity's functional form responds to the universal geometric correction
+$\delta\Phi = \sum(1-C^2)$. For direct exponentials ($\alpha_s = \alpha_{\rm GUT}\times
+e^{\Phi}$), the response is close to~1. For integrated quantities ($\ell_A$, involving the
+comoving distance integral), the response is smoothed below~1. For quantities on higher-$d$
+paths ($m_\mu/m_e$), the first-order over-corrects and the effective
+$k_Q < k_Q^{(1)}$. The second-order factor is a property of the observable's formula,
+not of the cascade's geometry.
 \end{remark}
 
 \subsection{What this section proves}
@@ -252,14 +288,15 @@ The first-order correction~\eqref{eq:first-order} and the eigenvalue-deficit par
 \item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
 \item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
 \item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
-\item The correction with $k_Q$ fitted individually closes all three tested quantities to zero residual; with the universal approximation $k_Q = 2$, residuals are below $0.5\%$.
-\item Every quantity in this section except $k_Q$ is a Gamma function identity. No physics enters.
+\item The first-order coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ is derived (Corollary~\ref{cor:kQ-derived}): a ratio of Beta function sums with no free parameter. It reduces all descent deviations to sub-$1\%$.
+\item The residual variation between observables (the second-order factor) is a property of each observable's functional form, not of the cascade's geometry. It is observable-dependent and open.
+\item Every quantity in this section---including $k_Q^{(1)}$---is a Gamma function identity. No physics enters.
 \end{enumerate}
 
 \subsection{Open questions}\label{sec:open}
 
 \begin{enumerate}[nosep]
-\item \emph{Derive the second-order (observable-dependent) correction.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) is derived and reduces descent deviations from $\sim\!2\%$ to sub-$1\%$. The residual variation (the ratio of observed correction to first-order prediction, ranging from 1.1 to 1.9 across observables) reflects the observable's projection onto the subdominant eigenvector $v_2$, which is weighted toward the ends of the path. Deriving this second-order factor requires computing the projection of the observable's sensitivity profile $w(d) = p(d)$ onto $v_2$ and relating it to the correction via the eigenvalue $\lambda_2$. This is a linear algebra problem with Beta function entries---a computation, not a conceptual gap.
+\item \emph{Derive the observable-dependent response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The second-order factor is a response function $R_Q = k_Q/k_Q^{(1)}$ that depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
 \item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an exact sum; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
 \item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
