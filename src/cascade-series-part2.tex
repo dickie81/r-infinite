@@ -901,13 +901,113 @@ coupling and persists at all scales above $R_{\rm eff}$. Below $R_{\rm eff}$, th
 effectively frozen and the entanglement is inaccessible to a $d$-dimensional observer---but
 it is retained in the boundary correlations.
 
-\subsection{Bell correlations}
+\subsection{Bell inequality violation}
 
-The 4D observer, seeing projections of a $d=217$ geometry, observes correlations between
-subsystems that cannot be explained by any local hidden-variable model---because the
-correlations arise from the high-dimensional geometry that the observer cannot directly
-access. The hidden geometry is not local (it extends through 217 dimensions) and not
-classical (it has the complex structure of Theorem~\ref{thm:complex}).
+The cascade's entangled states (Theorem~\ref{thm:entangle}) produce correlations that no
+assignment of definite values can reproduce. This subsection proves it by explicit
+computation on $S^7$.
+
+\begin{lemma}[Classical CHSH bound]\label{lem:chsh}
+For any four numbers $A,A',B,B'\in\{-1,+1\}$:
+$|AB - AB' + A'B + A'B'|\leq 2$.
+\end{lemma}
+\begin{proof}
+$AB - AB' + A'B + A'B' = A(B-B')+A'(B+B')$. Since $B,B'\in\{-1,+1\}$, exactly one of
+$|B-B'|$ and $|B+B'|$ equals 2 and the other equals 0. Therefore $|S|=2$.
+\end{proof}
+
+\noindent Consequence: any model that assigns definite outcomes $\pm 1$ to all four
+settings simultaneously---regardless of which pair is measured---has
+$|\langle S\rangle|\leq 2$.
+
+\begin{theorem}[CHSH violation on $S^7$]\label{thm:bell}
+There exists a state $u\in S^7$ and measurement settings such that the CHSH correlator,
+computed from the cascade's Born rule (Theorem~\ref{thm:born}), satisfies $S = 2\sqrt{2}$.
+\end{theorem}
+\begin{proof}
+\textbf{Step 1} (bipartite structure). The complex structure $J$
+(Theorem~\ref{thm:complex}) on $\mathbb{R}^8$ gives four complex coordinates
+$\zeta_k = x_{2k-1}+ix_{2k}$ for $k=1,\ldots,4$. Partition into subsystem
+$A=\{\zeta_1,\zeta_2\}$ and subsystem $B=\{\zeta_3,\zeta_4\}$. The tensor product
+structure (Section~10.1) identifies $\mathbb{R}^8 = \mathbb{C}^4 =
+\mathbb{C}^2_A\otimes\mathbb{C}^2_B$, with basis $\{e_1,e_3,e_5,e_7\}$ corresponding to
+the real parts of $\{\zeta_1\zeta_3,\;\zeta_1\zeta_4,\;\zeta_2\zeta_3,\;\zeta_2\zeta_4\}$.
+
+\textbf{Step 2} (entangled state). Take
+$u = (e_1+e_7)/\sqrt{2}\in S^7$,
+which has $\zeta_1=\zeta_4=1/\sqrt{2}$, all others zero. This state is not separable:
+a product state $f(\zeta_1,\zeta_2)\otimes g(\zeta_3,\zeta_4)$ requires
+$\zeta_1\zeta_4 = \zeta_2\zeta_3$, but $\tfrac{1}{2}\neq 0$.
+
+\textbf{Step 3} (measurement directions). Alice measures at angle $\alpha$ via the axis
+\[
+a(\alpha) = \cos\tfrac{\alpha}{2}\,e_1 + \sin\tfrac{\alpha}{2}\,e_3\in\mathbb{R}^4_A
+\]
+(a unit vector in the $\zeta_1$-$\zeta_2$ plane). Bob measures at angle $\beta$ via
+$b(\beta) = \cos\tfrac{\beta}{2}\,e_5 + \sin\tfrac{\beta}{2}\,e_7\in\mathbb{R}^4_B$.
+The joint direction for outcome $(+,+)$ is the tensor product embedded in $\mathbb{R}^8$:
+\[
+v(\alpha,\beta) = \cos\tfrac{\alpha}{2}\cos\tfrac{\beta}{2}\,e_1
++ \cos\tfrac{\alpha}{2}\sin\tfrac{\beta}{2}\,e_3
++ \sin\tfrac{\alpha}{2}\cos\tfrac{\beta}{2}\,e_5
++ \sin\tfrac{\alpha}{2}\sin\tfrac{\beta}{2}\,e_7,
+\]
+a unit vector in $S^7$ ($|v|^2 = 1$).
+
+\textbf{Step 4} (Born rule). By Theorem~\ref{thm:born} applied to axis $v$ on $S^7$:
+\[
+P(+,+) = (u\cdot v)^2 = \left[\tfrac{1}{\sqrt{2}}\cos\tfrac{\alpha}{2}\cos\tfrac{\beta}{2}
++ \tfrac{1}{\sqrt{2}}\sin\tfrac{\alpha}{2}\sin\tfrac{\beta}{2}\right]^2
+= \tfrac{1}{2}\cos^2\!\tfrac{\alpha-\beta}{2}.
+\]
+Replacing $\alpha\to\alpha+\pi$ (Alice's $-$ outcome) and/or $\beta\to\beta+\pi$ (Bob's):
+\[
+P(+,-) = P(-,+) = \tfrac{1}{2}\sin^2\!\tfrac{\alpha-\beta}{2},\qquad
+P(-,-) = \tfrac{1}{2}\cos^2\!\tfrac{\alpha-\beta}{2}.
+\]
+Check: $\sum P = 1$. The four outcome directions are orthogonal in $\mathbb{R}^8$ and
+$u$ lies in their span, so the probabilities exhaust the Born rule by Parseval
+(Theorem~\ref{thm:born}, Step~4).
+
+\textbf{Step 5} (correlation). The correlation function is
+\[
+E(\alpha,\beta) = P(\text{agree})-P(\text{disagree})
+= \cos^2\!\tfrac{\alpha-\beta}{2} - \sin^2\!\tfrac{\alpha-\beta}{2}
+= \cos(\alpha-\beta).
+\]
+
+\textbf{Step 6} (CHSH). Choose $\alpha_1=0$, $\alpha_2=\pi/2$, $\beta_1=\pi/4$,
+$\beta_2=3\pi/4$:
+\begin{align*}
+S &= E(0,\,\tfrac{\pi}{4}) - E(0,\,\tfrac{3\pi}{4})
++ E(\tfrac{\pi}{2},\,\tfrac{\pi}{4}) + E(\tfrac{\pi}{2},\,\tfrac{3\pi}{4})\\
+&= \cos\bigl(-\tfrac{\pi}{4}\bigr) - \cos\bigl(-\tfrac{3\pi}{4}\bigr)
++ \cos\bigl(\tfrac{\pi}{4}\bigr) + \cos\bigl(-\tfrac{\pi}{4}\bigr)\\
+&= \tfrac{1}{\sqrt{2}} - \bigl(-\tfrac{1}{\sqrt{2}}\bigr) + \tfrac{1}{\sqrt{2}}
++ \tfrac{1}{\sqrt{2}}
+= \tfrac{4}{\sqrt{2}} = 2\sqrt{2}.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{remark}[What the proof uses]
+The ingredients are: (i)~a unit vector $u\in S^7$ (the cascade's state space at $d=8$);
+(ii)~the complex structure $J$ from Theorem~\ref{thm:complex}, providing the tensor product
+decomposition; (iii)~the Born rule $p=(u\cdot v)^2$ from Theorem~\ref{thm:born}, applied to
+tensor product directions on $S^7$; (iv)~the classical CHSH bound from elementary
+combinatorics. The violation $2\sqrt{2}>2$ is a theorem about unit vectors and inner products
+on the 7-sphere.
+\end{remark}
+
+\begin{remark}[Why the cascade violates the classical bound]
+The classical bound assumes that Alice's and Bob's outcomes are determined by a shared
+assignment of definite values to all four settings simultaneously. The cascade state
+$u=(e_1+e_7)/\sqrt{2}$ distributes its unit norm across two tensor product directions:
+it has amplitude in both the $\zeta_1$ and $\zeta_4$ sectors, with no amplitude in
+$\zeta_2$ or $\zeta_3$. No single pair of definite values for Alice and Bob can
+reproduce this distribution across all measurement choices. The correlations arise from
+the geometry of $S^7$, which the 4D observer cannot access directly---only through
+projections that obey the Born rule.
+\end{remark}
 
 \section{Summary: From Cascade to Quantum Mechanics}
 
@@ -941,7 +1041,7 @@ $\hbar$ as quantum scale & Unit matching: $\hbar=(\pi/2)/\Delta t$ & 9 \\
 Classical limit & Coarse time resolution $\Rightarrow$ no phase & 9.2 \\
 Tensor product structure & Iterated slicing decomposition & 10 \\
 Entanglement & Non-factorisable cascade states & 10.2 \\
-Bell inequality violation & Non-local high-dimensional geometry & 10.3 \\
+Bell violation $S=2\sqrt{2}$ & Born rule on $S^7$ + CHSH bound & 10.3 \\
 \bottomrule
 \end{tabular}
 \end{center}
