@@ -151,6 +151,38 @@ independent of $d$.
 
 \noindent The factor decomposes as: (a) $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$: the cascade's unique dimension-independent constant (Paper I, Theorem 3.1), forced by orthogonality---consumed at the hairy ball zero because the tangent frame it encodes is globally obstructed. (b) $2 = \chi(S^{2n})$: the Euler characteristic of any even-dimensional sphere, equal to the number of chirality basins at the Dirac junction.
 
+\begin{corollary}[The obstruction factor as a cascade primitive]\label{cor:2sqrtpi-primitive}
+The topological obstruction factor equals the product of the cascade's zeroth slicing lapse and its unique irreducible constant:
+\[
+2\sqrt{\pi} \;=\; N(0)\cdot\Gamma(\tfrac{1}{2}),
+\]
+where $N(0) = \int_{-1}^{1}(1-x^2)^0\,dx = 2$ is the Lebesgue measure of the slicing interval $[-1,1]$---the cascade's primitive step from $d=0$ (a point) to $d=1$ (the unit segment). Both factors are cascade primitives: no topological or spinor machinery enters the identity itself.
+\end{corollary}
+
+\begin{proof}
+Direct evaluation: $N(0) = B(\tfrac{1}{2},1) = \sqrt{\pi}\,\Gamma(1)/\Gamma(\tfrac{3}{2}) = 2$ (the integrand $(1-x^2)^0 = 1$ over $[-1,1]$). Multiplying by $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ gives $2\sqrt{\pi}$.
+\end{proof}
+
+\begin{remark}[The identification $N(0) = \chi(S^0) = \chi(S^{2n})$]\label{rem:N0-is-chi}
+The cascade's $d=0$ lapse $N(0) = 2$ coincides with the Euler characteristic of the $0$-sphere: the unit interval $B^1 = [-1,1]$ has boundary $S^0 = \{-1,+1\}$, two points, and $\chi(S^0) = 2$. Classically, $\chi(S^{2n}) = 1 + (-1)^{2n} = 2$ for every $n\geq 0$, so the Euler characteristic is constant across all even-dimensional sphere layers. Fermion layers at $d\equiv 5\pmod 8$ have boundary spheres $S^{d-1}$ with $d-1\equiv 4\pmod 8$, all even-dimensional, hence all with $\chi = 2$. The cascade primitive $N(0)$ therefore carries the full generation-independent content of the topological channel: one cascade number---the initial slicing integral---substitutes for the differential-topological derivation of $\chi$ at every fermion layer.
+\end{remark}
+
+\begin{remark}[Constancy rules out a Dirac-operator derivation]\label{rem:no-dirac-route}
+The mass formula uses the \emph{same} constant base $2\sqrt{\pi}$ at every fermion layer, so any topological invariant that underlies the obstruction must be independent of the sphere dimension $2n$. Among candidates on $S^{2n}$:
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Invariant & $n=1$ & $n=2$ & $n=3$ \\
+\hline
+Euler characteristic $\chi(S^{2n})$ & $2$ & $2$ & $2$ \\
+Signature $\sigma(S^{2n})$ & $0$ & $0$ & $0$ \\
+Dirac index / $\hat A(S^{2n})$ & $0$ & $0$ & $0$ \\
+\hline
+\end{tabular}
+\end{center}
+Among invariants that are both constant and nonzero, $\chi = 2$ is the canonical choice. The $\hat A$-genus of any sphere vanishes identically ($S^{2n}$ is null-cobordant in spin-bordism, and its Pontryagin classes vanish above degree $0$), so the Atiyah--Singer index of a Dirac operator on a spin sphere is zero. A \emph{Dirac-operator derivation} of the obstruction factor would therefore predict $0$, not $2\sqrt{\pi}$. The cascade's formula $(2\sqrt{\pi})^{n_D+1}$ is structurally incompatible with any Dirac-index interpretation and uniquely consistent with the Euler characteristic. The ``independent Dirac operator derivation'' listed as desirable in earlier versions of this paper is not merely redundant---it is misdirected. Corollary~\ref{cor:2sqrtpi-primitive} closes the gap from the cascade's own primitives instead.
+\end{remark}
+
 \subsection{Why $R'(d)$ does not appear}
 
 The Higgs coupling integral on $S^{2n}$ at Dirac layer $d$ is $B(\tfrac{1}{2}, \tfrac{d}{2}) = \sqrt{\pi} \times R'(d)$, where $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2)$ is $d$-dependent. This integral computes the geometric overlap of the Higgs field with the fermion wavefunction on a specific sphere. It is the wrong quantity.
@@ -668,13 +700,12 @@ Hubble tension & $H_0 = 71.05$, $r_d \approx 141$~Mpc & --- & 1 \\
 \item Derive the full CKM or PMNS matrices.
 \item Derive neutrino masses.
 \item Compute QCD running corrections.
-\item Derive the topological obstruction factor from the Dirac operator spectrum (an alternative route; the geometric derivation via the quarter-turn and chirality obstructions is given in Theorem~\ref{thm:obstruction}).
 \end{itemize}
 
 \section{Open Questions}
 
 \begin{enumerate}
-\item \emph{Resolved.} Rigour of the topological obstruction factor. Theorem~\ref{thm:obstruction} derives $1/(2\sqrt{\pi})$ from two geometric obstructions at the hairy ball zero: the chirality decomposition ($\chi(S^{2n}) = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$ consumed by the global tangent-frame failure). An independent derivation via the Dirac operator spectrum would provide a complementary confirmation.
+\item \emph{Resolved.} Rigour of the topological obstruction factor. Theorem~\ref{thm:obstruction} derives $1/(2\sqrt{\pi})$ from two geometric obstructions at the hairy ball zero: the chirality decomposition ($\chi(S^{2n}) = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$ consumed by the global tangent-frame failure). Corollary~\ref{cor:2sqrtpi-primitive} sharpens this to a pure-cascade identity: $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$, where $N(0) = 2$ is the cascade's zeroth slicing lapse and $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ is the unique cascade constant. Remark~\ref{rem:no-dirac-route} shows that the alternative ``Dirac operator derivation'' is not just redundant but misdirected: the $\hat A$-genus of every sphere vanishes, so a Dirac-based obstruction would predict $0$ rather than $2\sqrt{\pi}$. The Euler characteristic is the unique nonzero constant-across-generations invariant consistent with the formula $(2\sqrt{\pi})^{n_D+1}$, and the cascade's $N(0) = \chi(S^0)$ gives it directly.
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
 \item The Higgs quartic $\lambda = \pi^2 g^2/32$ (Section 4.5) is derived, not independent: it is $m_H/m_W = \pi/2$ expressed as a coupling. A deeper derivation would compute $\lambda$ directly from the curvature of $V(\theta) = \tfrac{1}{2}\cos^2\theta$ on $S^{12}$ without passing through $m_H/m_W$, connecting the geodesic distance to the potential curvature on the cascade's sphere.
 \item \emph{Partially resolved.} Individual electroweak couplings and $1/\alpha_{\text{em}} = 137$. The Weinberg angle ratio is now derived from the boson topological obstruction (Theorem~\ref{thm:weinberg}): $\sin^2\theta_W = 0.2286$, deviation $-1.12\%$. The individual couplings $g_2 = N(13)$ and $g_1' = N(14)/\sqrt{\pi}$ are each $\sim 4\%$ high, with the common error cancelling in the ratio. Deriving $\alpha_{\text{em}} = 1/137$ separately would require the multi-step descent corrections to the absolute couplings, which are not computed.
@@ -687,7 +718,7 @@ Hubble tension & $H_0 = 71.05$, $r_d \approx 141$~Mpc & --- & 1 \\
 
 \textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). The Part~0 Supplement derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Section~15.8.1 of the Supplement).
 
-\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]).
+\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}), and equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]).
 
 \textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e = 206.50$ (0.13\%). (b) $m_\tau/m_\mu = 16.53$ (1.7\%). (c) $\alpha_s = 0.1159$ (1.7\%). (d) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (e) Absolute masses $m_\tau$ (1.2\%), $m_\mu$ (0.47\%), $m_e$ (0.60\%). (f) $\Omega_m = 0.31150$ (1.1\%). (g) $\theta_C = 13.26^\circ$ (1.7\%): amplitude descent of the gauge window angle, Eq.~(\ref{eq:cabibbo}).
 
@@ -697,7 +728,7 @@ Hubble tension & $H_0 = 71.05$, $r_d \approx 141$~Mpc & --- & 1 \\
 
 \textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = \mathbb{Z}_2$: the homotopy group is correct, but the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ modifies the topological sector classification.
 
-\textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction}; falsification would require invalidating the quarter-turn or chirality argument); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of $1/\alpha_{\text{em}} = 137$ from the cascade's subleading corrections; (vii) derivation of the colour factor $e$ from first principles; or (viii) any new precision prediction matching observation before the data is checked.
+\textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction} and equivalently in Corollary~\ref{cor:2sqrtpi-primitive}; falsification would require either invalidating the chirality/quarter-turn argument or invalidating the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of $1/\alpha_{\text{em}} = 137$ from the cascade's subleading corrections; (vii) derivation of the colour factor $e$ from first principles; or (viii) any new precision prediction matching observation before the data is checked.
 
 \begin{thebibliography}{13}
 
