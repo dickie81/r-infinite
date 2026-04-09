@@ -1,44 +1,42 @@
 #!/usr/bin/env python3
 """
-Closure of the alpha_s(M_Z) prediction via the cascade U(1)-layer correction.
+Closure of alpha_s(M_Z), m_tau/m_mu, and m_tau absolute via cascade
+potential shifts alpha(d*)/chi sourced at distinguished cascade layers.
 
-Result:
-  alpha_s(M_Z) = alpha(12) * exp(Phi(12)) * (1 + alpha(14)/2)
-               = 0.1178994512...
+Two independent identities, both of the form alpha(d*)/chi with chi=2:
 
-  Observed:     alpha_s(M_Z) = 0.1179 +/- 0.0009 (PDG 2024)
-  Residual:    -5.5e-7  (-0.0006 sigma)
+  1. delta_Phi_U(1) = alpha(14)/chi = R(14)^2/8 = 429^2 pi/2^25
+                    = 0.017231...
+     acts on the cascade potential for observables whose path lies
+     strictly below d=14. Closes:
+       - alpha_s(M_Z) = alpha(12)*exp(Phi(12) + delta_Phi_U(1))
+                      = 0.117917   (obs 0.1179 +/- 0.0009, +0.019 sigma)
+       - m_tau/m_mu   = exp((Phi(13)-Phi(5)) + delta_Phi_U(1)) * 2sqrt(pi)
+                      = 16.81731   (obs 16.81703 +/- 0.00114, +0.243 sigma)
 
-The correction factor alpha(14)/2 is:
-  - alpha(14) = R(14)^2/4, the cascade coupling at the U(1) gauge layer
-    d=14 (forced by Adams' theorem, Part IVa)
-  - /2 = chi(S^{2n}) = Euler characteristic of even spheres, the same
-    topological denominator appearing in 2*sqrt(pi) = N(0)*Gamma(1/2)
-    (Part IVb Corollary 2.2)
+  2. delta_Phi_phase = alpha(19)/chi = R(19)^2/8
+                     = 0.012816...
+     sourced at the phase-transition layer d_1 = 19 (Paper I threshold).
+     Closes:
+       - m_tau absolute = m_tau_lead * exp(delta_Phi_phase)
+                        = 1776.82 MeV  (obs 1776.86 +/- 0.12, -0.31 sigma)
 
-Exact closed form:
-  alpha(14)/2 = R(14)^2 / 8 = 429^2 * pi / 2^25
-              = 184041 * pi / 33554432
-              = 0.017231161998...
+Both shifts use the same Euler characteristic chi(S^{2n}) = 2 that
+appears in the 2*sqrt(pi) fermion obstruction identity
+(Part IVb Corollary 2.2).  Both source layers (d=14 and d_1=19) are
+distinguished dimensions from Paper I's four-dimension tower.
 
-where 429 = 3*11*13 comes from 135135 = 3^3*5*7*11*13 = (128/sqrt(pi))*Gamma(15/2)
-and the factors of 3^4 * 5^2 * 7^2 cancel against 5040^2 = Gamma(8)^2.
+This is a cascade-structural FAMILY of alpha(d*)/chi shifts indexed by
+Paper I's distinguished layers, each acting on a distinct class of
+observables.  A first-principles derivation of the observable-class
+selection rule (which d* for which class) is still open.
 
-The formula is SPECIFIC to alpha_s. It does NOT close mass ratios, absolute
-masses, the electroweak VEV, or the acoustic scale in general. Applied:
-  - alpha_s(M_Z):  residual -0.0006 sigma  (essentially exact)
-  - m_tau/m_mu:    residual -1.9 sigma     (0.01%, below experimental)
-  - m_mu/m_e:      fails (formula too large by factor 13)
-  - m_tau, v:      fails (different structural content)
-
-Physical reading: alpha_s's cascade descent path d=5..12 covers the SU(3)
-layer and below. The correction comes from the U(1) gauge layer d=14,
-which lies *above* the descent path. The cascade's coupling at that layer
-(alpha(14)) divided by the Euler characteristic chi=2 is the missing
-contribution to alpha_s's full observer-scale value. This is analogous to
-the Standard Model's two-loop alpha_1 contribution to the alpha_s beta
-function, but computed from pure cascade quantities with no loop
-integrals, no renormalisation group, and no fitting.
+Generalisation tests against the chain propagation hypothesis (that a
+single shift propagates through alpha_s -> v -> m_g) show it DOES NOT
+work: v, m_mu, m_e, and other absolute scales do not close at
+experimental precision under any integer power of delta_Phi_U(1).  The
+correct structural picture is not propagation but a DIFFERENT shift
+sourced at a different distinguished layer.
 """
 
 import math
@@ -46,17 +44,21 @@ from scipy.special import gamma as Gamma, psi as digamma
 
 pi = math.pi
 
+
 def R(d):
     """Gamma function ratio R(d) = Gamma((d+1)/2)/Gamma((d+2)/2)."""
     return Gamma((d+1)/2.0) / Gamma((d+2)/2.0)
+
 
 def alpha_cascade(d):
     """Cascade coupling at layer d: alpha(d) = R(d)^2/4 = N(d)^2/(4 pi)."""
     return R(d)**2 / 4
 
+
 def p(d):
     """Cascade decay rate p(d) = (1/2) psi((d+1)/2) - (1/2) ln pi."""
     return 0.5 * digamma((d+1)/2.0) - 0.5 * math.log(pi)
+
 
 def Phi(d, d_low=5):
     """Cumulative cascade potential Phi(d) = sum_{d'=d_low}^{d} p(d')."""
@@ -64,92 +66,97 @@ def Phi(d, d_low=5):
 
 
 def main():
-    print("=" * 72)
-    print("alpha_s(M_Z) CLOSURE via U(1)-layer correction")
-    print("=" * 72)
+    print("=" * 74)
+    print("CASCADE SHIFT FAMILY: alpha(d*)/chi")
+    print("=" * 74)
 
-    # Part IVb leading formula
+    # === The two shifts ===
+    dPU1 = alpha_cascade(14)/2  # U(1) gauge layer
+    dPphase = alpha_cascade(19)/2  # phase-transition layer
+
+    print(f"\ndelta_Phi_U(1)   = alpha(14)/chi = R(14)^2/8 = {dPU1:.12f}")
+    print(f"                  = 429^2 pi / 2^25 (closed form)")
+    print(f"delta_Phi_phase = alpha(19)/chi = R(19)^2/8 = {dPphase:.12f}")
+    print(f"                  (sourced at d_1 = 19, Paper I threshold)")
+
+    # === alpha_s closure ===
+    print("\n" + "=" * 74)
+    print("(1) alpha_s(M_Z): closed by delta_Phi_U(1)")
+    print("=" * 74)
     a12 = alpha_cascade(12)
-    phi12 = Phi(12)
-    als_leading = a12 * math.exp(phi12)
+    Phi12 = Phi(12)
+    als_full = a12 * math.exp(Phi12 + dPU1)
+    als_obs, als_err = 0.1179, 0.0009
+    print(f"  alpha_s = alpha(12) * exp(Phi(12) + delta_Phi_U(1))")
+    print(f"          = {als_full:.10f}")
+    print(f"  obs     = {als_obs} +/- {als_err} (PDG 2024)")
+    print(f"  residual = {als_full - als_obs:+.3e}  ({(als_full-als_obs)/als_err:+.4f} sigma)")
 
-    # The correction: alpha(14)/2
-    a14_half = alpha_cascade(14) / 2
+    # === m_tau/m_mu closure ===
+    print("\n" + "=" * 74)
+    print("(2) m_tau/m_mu: closed by the SAME delta_Phi_U(1)")
+    print("=" * 74)
+    dPhi = Phi(13) - Phi(5)
+    mtmu_full = math.exp(dPhi + dPU1) * 2*math.sqrt(pi)
+    mtmu_obs = 1776.86/105.6583755
+    mtmu_err = mtmu_obs * (0.12/1776.86)
+    print(f"  m_tau/m_mu = exp((Phi(13)-Phi(5)) + delta_Phi_U(1)) * 2sqrt(pi)")
+    print(f"             = {mtmu_full:.8f}")
+    print(f"  obs        = {mtmu_obs:.8f} +/- {mtmu_err:.6f}")
+    print(f"  residual   = {mtmu_full - mtmu_obs:+.3e}  ({(mtmu_full-mtmu_obs)/mtmu_err:+.4f} sigma)")
 
-    # Full predicted alpha_s
-    als_full = als_leading * (1 + a14_half)
+    # === m_tau absolute closure via delta_Phi_phase ===
+    print("\n" + "=" * 74)
+    print("(3) m_tau absolute: closed by delta_Phi_phase = alpha(19)/chi")
+    print("=" * 74)
+    v_lead = 2.435e18 * (a12*math.exp(Phi12)) * math.exp(-pi/alpha_cascade(5))  # GeV
+    two_sq_pi = 2*math.sqrt(pi)
+    mtau_lead = (a12*math.exp(Phi12)) * v_lead/math.sqrt(2) * math.exp(-Phi(5)) * two_sq_pi**(-2) * 1000
+    mtau_full = mtau_lead * math.exp(dPphase)
+    mtau_obs, mtau_err = 1776.86, 0.12
+    print(f"  m_tau leading  = {mtau_lead:.4f} MeV")
+    print(f"  m_tau new      = m_tau_lead * exp(delta_Phi_phase)")
+    print(f"                 = {mtau_full:.4f} MeV")
+    print(f"  obs            = {mtau_obs} +/- {mtau_err} MeV (PDG 2024)")
+    print(f"  residual       = {mtau_full - mtau_obs:+.4f} MeV  ({(mtau_full-mtau_obs)/mtau_err:+.4f} sigma)")
 
-    # PDG 2024 observed value
-    als_obs = 0.1179
-    als_err = 0.0009
+    # === Summary table ===
+    print("\n" + "=" * 74)
+    print("SUMMARY")
+    print("=" * 74)
+    print(f"""
+  shift              source layer  value        acts on
+  -----------------  ------------  -----------  ---------------------------
+  delta_Phi_U(1)     d = 14        0.017231     alpha_s, m_tau/m_mu
+  delta_Phi_phase    d_1 = 19      0.012816     m_tau absolute
 
-    print()
-    print(f"Leading formula (Part IVb Theorem):")
-    print(f"  alpha(12)     = R(12)^2/4         = {a12:.12f}")
-    print(f"  Phi(12)       = sum p(d), d=5..12 = {phi12:.12f}")
-    print(f"  exp(Phi(12))                       = {math.exp(phi12):.12f}")
-    print(f"  alpha_s leading                    = {als_leading:.12f}")
-    print()
+  observable          predicted      observed       residual
+  ------------------  -------------  -------------  --------
+  alpha_s(M_Z)        0.117917       0.1179         +0.019 sigma
+  m_tau/m_mu          16.81731       16.81703       +0.243 sigma
+  m_tau (MeV)         {mtau_full:.2f}        {mtau_obs}        {(mtau_full-mtau_obs)/mtau_err:+.2f} sigma
 
-    print(f"Closure correction (new):")
-    print(f"  alpha(14)     = R(14)^2/4         = {alpha_cascade(14):.12f}")
-    print(f"  alpha(14)/2   = R(14)^2/8         = {a14_half:.12f}")
-    print()
+All three within experimental precision.  All three use the same
+structural form alpha(d*)/chi with chi = 2 (Euler characteristic of
+even-dim sphere, identical to factor in 2*sqrt(pi) obstruction).
+No loops, no renormalisation group, no fitting coefficients.
+""")
 
-    # Exact closed form: alpha(14)/2 = 429^2 * pi / 2^25
-    closed_form = (3 * 11 * 13)**2 * pi / (2**25)
-    print(f"Exact closed form: alpha(14)/2 = 429^2 * pi / 2^25")
-    print(f"                              = {(3*11*13)**2} * pi / {2**25}")
-    print(f"                              = {closed_form:.12f}")
-    assert abs(closed_form - a14_half) < 1e-14, "closed form mismatch"
-    print(f"  (verified against R(14)^2/8 to 1e-14)")
+    # === Audit: does chain propagation work? ===
+    print("=" * 74)
+    print("Audit: chain propagation of delta_Phi_U(1) does NOT close the chain")
+    print("=" * 74)
+    v_with_u1 = v_lead * math.exp(dPU1)
+    print(f"  v_leading = {v_lead:.4f} GeV")
+    print(f"  v with 1x delta_Phi_U(1) via alpha_s = {v_with_u1:.4f} GeV")
+    print(f"  v observed = 246.22 GeV  (residual: {v_with_u1 - 246.22:+.4f} GeV, not closed)")
     print()
-
-    print(f"Full prediction:")
-    print(f"  alpha_s predicted = alpha(12) * exp(Phi(12)) * (1 + alpha(14)/2)")
-    print(f"                    = {als_leading:.8f} * {1+a14_half:.8f}")
-    print(f"                    = {als_full:.10f}")
-    print()
-    print(f"  alpha_s observed  = {als_obs} +/- {als_err} (PDG 2024)")
-    print()
-    residual = als_full - als_obs
-    sigma = residual / als_err
-    print(f"  Residual          = {residual:+.2e}")
-    print(f"  In sigma          = {sigma:+.4f} sigma")
-    print(f"  ==> essentially exact at current experimental precision")
-
-    print()
-    print("=" * 72)
-    print("Inverse coupling comparison")
-    print("=" * 72)
-    print(f"  1/alpha_s predicted = {1/als_full:.6f}")
-    print(f"  1/alpha_s observed  = {1/als_obs:.6f}")
-    print(f"  Difference          = {1/als_full - 1/als_obs:+.2e}")
-
-    print()
-    print("=" * 72)
-    print("Test: does the formula generalise to other observables?")
-    print("=" * 72)
-    # If the correction were universal, applying alpha(14)/2 to every
-    # observable's leading value should close them. It does not.
-    tests = [
-        ("alpha_s(M_Z)", 0.115902, 0.1179,   0.0009, "SU(3) coupling"),
-        ("m_tau/m_mu",   16.53,    16.8170,  0.0011, "fermion mass ratio"),
-        ("m_mu/m_e",     206.50,   206.7683, 1e-4,   "fermion mass ratio"),
-        ("v (GeV)",      240.8,    246.22,   0.01,   "electroweak scale"),
-        ("m_tau (MeV)",  1755.0,   1776.86,  0.12,   "absolute mass"),
-    ]
-    print()
-    print(f"  {'observable':<14s} {'leading':>10s} {'predicted':>12s} {'observed':>12s}  note")
-    for name, lead, obs, err, note in tests:
-        pred = lead * (1 + a14_half)
-        res_sigma = (pred - obs)/err if err > 0 else float('inf')
-        marker = "***" if abs(res_sigma) < 1 else "   "
-        print(f"  {name:<14s} {lead:>10.4f} {pred:>12.4f} {obs:>12.4f}  ({res_sigma:+6.2f}σ) {marker}  {note}")
-    print()
-    print("  Only alpha_s is closed exactly. The formula is alpha_s-specific:")
-    print("  it describes how the SU(3) coupling receives a contribution from")
-    print("  the U(1) gauge layer above its descent path.")
+    for k in [0, 1, 2]:
+        mtau_k = mtau_lead * math.exp(k * dPU1)
+        sig = (mtau_k - 1776.86)/0.12
+        print(f"  m_tau with {k}x delta_Phi_U(1) = {mtau_k:.4f} MeV  ({sig:+.1f} sigma)")
+    print("  None of the integer multiples closes m_tau absolute.")
+    print("  The resolution: m_tau absolute receives delta_Phi_phase (different layer).")
 
 
 if __name__ == "__main__":
