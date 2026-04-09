@@ -611,6 +611,57 @@ their common Dirac structure ($d\bmod 8=5$). The Gram determinant
 $\det G_{\rm gen}\approx 0.002$ confirms near-singularity.
 \end{remark}
 
+\section{Forced Cascade Paths}\label{sec:forced-paths}
+
+The preceding sections place specific dimensions on specific physical roles: the fermion generation layers at $d\in\{5,13,21\}$ (Theorem~\ref{thm:generations}), the gauge boson layers at $d\in\{12,13,14\}$ with $\mathrm{SU}(3)$ uniquely at $d=12$ (Theorem~\ref{thm:adams-unique}), and the observer host at $d_V=5$, the volume maximum of the cascade (\cite{paperI}, Theorem~7.1). The cascade paths used by Part~IVb~\cite{paperIVb} to compute mass spectra, gauge couplings, and precision predictions are not independent inputs: once these layers are fixed, every path is forced as the cascade descent between two already-determined endpoints. This section collects the statements.
+
+\begin{definition}[Cascade potential]\label{def:cascade-potential}
+The cascade potential at dimension $d\geq 5$ is
+\[
+\Phi(d) \;:=\; \sum_{d'=5}^{d} p(d'), \qquad p(d') = \tfrac{1}{2}\psi\!\Bigl(\tfrac{d'+1}{2}\Bigr) - \tfrac{1}{2}\ln\pi,
+\]
+the cumulative log decay rate of sphere areas from the volume maximum $d_V=5$ up to dimension $d$. The definition is normalised so that $\Phi(5)=p(5)$ is the initial slicing step out of the observer host.
+\end{definition}
+
+\begin{theorem}[Derived cascade paths]\label{thm:forced-paths}
+Every cascade path invoked in Part~IVb~\cite{paperIVb} is forced by the layer assignments of this paper and Paper~I~\cite{paperI}. Specifically:
+\begin{enumerate}
+\item[(i)] \textbf{Mass ratios between fermion generations.} For two fermion generation layers $d_A<d_B$ with $d_A,d_B\in\{5,13,21\}$ (Theorem~\ref{thm:generations}), the geometric log mass ratio is the cascade potential difference between them:
+\[
+\log\!\left(\frac{m(d_A)}{m(d_B)}\right)_{\text{geometric}} \;=\; \Phi(d_B)-\Phi(d_A) \;=\; \sum_{d=d_A+1}^{d_B} p(d),
+\]
+where $m(d_A)$ is the heavier generation (smaller $d$, nearer the volume maximum, more cascade content) and $m(d_B)$ is the lighter. The sum runs over the $d_B-d_A$ slicing steps strictly between the two fermion layers. In particular, $m_\tau/m_\mu$ is forced onto $d=6..13$ and $m_\mu/m_e$ onto $d=14..21$. Both paths have $d_B-d_A=8$, the Bott period, because the generation layers are three consecutive points in the $d\bmod 8 = 5$ orbit. No other length is consistent with the generation placement.
+
+\item[(ii)] \textbf{Gauge-anchored observables.} For any observable whose cascade home is a gauge boson layer $d_B\in\{12,13,14\}$ (Theorem~\ref{thm:adams}, Theorem~\ref{thm:adams-unique}), the geometric log attenuation from its gauge layer down to the observer at $d=4$ is the cascade potential at the gauge layer:
+\[
+\log\!\left(\frac{Q_{\text{obs}}}{Q_{\text{bare}}}\right) \;=\; \Phi(d_B) \;=\; \sum_{d=5}^{d_B} p(d),
+\]
+where the sum runs over all $d_B-4$ slicing steps from the volume maximum $d_V=5$ (observer host) up to the gauge boson's own layer $d_B$. For $\mathrm{SU}(3)$ at $d=12$ this is the path $d=5..12$, giving $\alpha_s(M_Z) = \alpha_{\mathrm{GUT}}\cdot\exp(\Phi(12))$ as used in Part~IVb~\cite{paperIVb} (strong coupling theorem). For $\mathrm{SU}(2)$ at $d=13$ this is $d=5..13$ and for $\mathrm{U}(1)$ at $d=14$ this is $d=5..14$, feeding the Weinberg angle calculation of \cite{paperIVb} (Weinberg angle theorem).
+
+\item[(iii)] \textbf{Higgs-mediated scales.} The electroweak VEV $v$ and every fermion mass are built multiplicatively from $\alpha_s$ via the universal coupling $C=\alpha_s/(2\sqrt{\pi})$ (Part~IVb~\cite{paperIVb}, universal coupling theorem), so their cascade path is inherited from case~(ii) with $d_B=12$: the Higgs sits at the $\mathrm{SU}(3)$-adjacent hairy-ball zero on $S^{12}$ (Section~4.4 above), and the VEV propagates on $d=5..12$.
+
+\item[(iv)] \textbf{Intra-generation ratios} (up- vs down-type quarks, or charged leptons vs neutrinos within a single generation) are determined by the chirality sub-structure at a single fermion layer, not by a cascade descent; they do not receive a path contribution.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Case~(i). The generation layers $d=5,13,21$ are forced by (G1) complex Dirac minimal spinor at $d\bmod 8=5$ and (G2) odd $d$ ensuring an even-dimensional boundary sphere $S^{d-1}$, intersected with the $d_1=19$ phase transition cutoff (Theorem~\ref{thm:generations}). The geometric component of a mass ratio is the exponential of the cascade potential difference between the two layers. In Definition~\ref{def:cascade-potential}, $\Phi(d)$ accumulates $p(d')$ from $d'=5$; the difference $\Phi(d_B)-\Phi(d_A)$ for $d_A<d_B$ is therefore $\sum_{d=d_A+1}^{d_B} p(d)$, and no term at $d_A$ enters because it cancels between $\Phi(d_B)$ and $\Phi(d_A)$. Since the three generations are three consecutive points in the same mod-8 Bott orbit, the descent from one to the next always covers exactly $8$ layers. This fixes the path length without reference to the observer or any external scale.
+
+Case~(ii). The gauge boson layers $d=12,13,14$ are forced by the Radon--Hurwitz numbers $\rho(d)-1$ on $S^{d-1}$ (Theorem~\ref{thm:adams}), and $d=12$ is the \emph{unique} dimension in $[5,d_1=19]$ realising $\rho(d)-1=3$ (Theorem~\ref{thm:adams-unique}). The observer host $d_V=5$ is the unique volume maximum of the cascade (\cite{paperI}, Theorem~7.1). A gauge-anchored observable lives at its gauge layer in the bulk and is observed at $d=4$; its cascade descent must therefore traverse every slicing step from the gauge layer $d_B$ down to the observer host $d_V=5$, contributing $p(d)$ at each. The resulting sum is $\Phi(d_B)=\sum_{d=5}^{d_B}p(d)$, of length $d_B-4$. No free parameters enter.
+
+Case~(iii). Part~IVb's universal coupling theorem expresses every fermion mass and the electroweak VEV as products involving $\alpha_s$ and a topological factor. Since the topological factor is path-independent (Part~IVb~\cite{paperIVb}, obstruction primitive corollary: $2\sqrt{\pi}=N(0)\cdot\Gamma(\tfrac{1}{2})$), the path content of each such quantity is inherited from the cascade potential $\Phi(12)$ that builds $\alpha_s$.
+
+Case~(iv) is not a descent statement: same-layer ratios depend on the spinor decomposition of the single sphere $S^{d-1}$ at that layer, not on a multi-layer cascade integral.
+\end{proof}
+
+\begin{remark}[What is not forced]\label{rem:not-forced}
+Theorem~\ref{thm:forced-paths} derives the \emph{path} of every observable whose cascade home is a distinguished layer (generation or gauge boson). It does \emph{not} yet derive (a) the \emph{correction formula} to the leading-order $\exp(\Phi)$ on each path---this is the status of the Part~0 Supplement and the remaining observable-dependent question flagged in \cite{paperIVb}; (b) the absolute mass scale, which enters via the electroweak VEV and ultimately the reduced Planck mass as a dimensional anchor; (c) up-type quark mass ratios, which the paper classifies as Tier~4 pending a derivation of the chirality correction at the $\mathrm{SU}(3)$ layer. The theorem separates the path problem from the correction problem: with paths forced, any remaining precision deviation is isolated to the correction formula, not to the choice of cascade layers.
+\end{remark}
+
+\begin{remark}[Eight is Bott, not choice]\label{rem:bott-length}
+The mass-ratio descent in case~(i) has length exactly $8$ (the Bott period of $O(d)$ stable homotopy): $d_B-d_A=8$ for both $(d_A,d_B)=(5,13)$ and $(13,21)$. This is not arithmetic coincidence: the generation layers are three consecutive points in the $d\bmod 8 = 5$ Bott orbit. The gauge-anchored descent in case~(ii) has length $d_B-4 \in\{8,9,10\}$ for $d_B\in\{12,13,14\}$---each gauge layer lies within one Bott window $\{d_V+7,d_V+8,d_V+9\}$ of the observer host $d_V=5$. Any observable at a more distant layer would lie beyond $d_1=19$ and be suppressed by the phase transition (\cite{paperI}, Theorem~8.4). The cascade's own internal coherence length is the Bott period, and every derived path respects it.
+\end{remark}
+
 \section{What This Paper Proves}
 
 This paper proves, from the cascade's geometry and classical mathematical theorems:
