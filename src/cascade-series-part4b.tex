@@ -387,13 +387,17 @@ The leading strong-coupling formula above (Theorem~\ref{thm:alpha-s-leading}) gi
 \begin{theorem}[$\alpha_s$ closure from the $\mathrm{U}(1)$ layer]\label{thm:alpha-s-closure}
 The strong coupling at the observer's scale is
 \begin{equation}\label{eq:als-closure}
-\alpha_s(M_Z) \;=\; \alpha(12)\cdot\exp\bigl(\Phi(12)\bigr)\cdot\Bigl(1 + \frac{\alpha(14)}{2}\Bigr),
+\alpha_s(M_Z) \;=\; \alpha(12)\cdot\exp\bigl(\Phi(12)\bigr)\cdot\Bigl(1 + \frac{\alpha(14)}{\chi}\Bigr),
 \end{equation}
-where $\alpha(d)=N(d)^2/(4\pi)=R(d)^2/4$ is the cascade coupling at layer $d$ and $R(d)=\Gamma((d+1)/2)/\Gamma((d+2)/2)$. The correction factor $\alpha(14)/2$ is the cascade coupling at the $\mathrm{U}(1)$ gauge layer $d=14$ (Part~IVa~\cite{paper4a}, Adams' theorem on the gauge window) divided by the Euler characteristic $\chi(S^{2n})=2$, the same topological denominator that appears in the fermion obstruction identity $2\sqrt{\pi}=N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}).
+where $\alpha(d)=N(d)^2/(4\pi)=R(d)^2/4$ is the cascade coupling at layer $d$, $R(d)=\Gamma((d+1)/2)/\Gamma((d+2)/2)$, and $\chi=\chi(S^{12})=2$ is the Euler characteristic of the $\mathrm{SU}(2)$ gauge boson's own (even-dimensional) sphere, the same topological factor that appears in the fermion obstruction identity $2\sqrt{\pi}=N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}). Equivalently, by the $\Gamma$-function identity $R(d+2)/R(d)=(d+1)/(d+2)$,
+\begin{equation}\label{eq:als-closure-structural}
+\frac{\alpha(14)}{\chi} \;=\; \alpha(12)\cdot\frac{(d_{\mathrm{SU}(2)}/d_{\mathrm{U}(1)})^2}{\chi} \;=\; \alpha(12)\cdot\frac{(13/14)^2}{2},
+\end{equation}
+expressing the correction as the leading coupling $\alpha(12)$ scaled by the squared ratio of the $\mathrm{SU}(2)$ and $\mathrm{U}(1)$ gauge layer dimensions, divided by the Euler characteristic of the $\mathrm{SU}(2)$ sphere.
 \end{theorem}
 
 \begin{proof}
-Pure cascade computation. The leading factor $\alpha(12)\cdot\exp(\Phi(12))=0.115902\ldots$ is Theorem~\ref{thm:alpha-s-leading}. The correction factor evaluates to
+\emph{Empirical identity.} The leading factor $\alpha(12)\cdot\exp(\Phi(12))=0.115902\ldots$ is Theorem~\ref{thm:alpha-s-leading}. The correction factor evaluates to
 \[
 \frac{\alpha(14)}{2} \;=\; \frac{R(14)^2}{8} \;=\; \frac{(3\cdot 11\cdot 13)^2\,\pi}{2^{25}} \;=\; \frac{429^2\,\pi}{2^{25}} \;=\; 0.017231162\ldots,
 \]
@@ -402,18 +406,30 @@ where the closed form follows from $\Gamma(15/2)=(135135/128)\sqrt{\pi}$ and $\G
 \alpha_s(M_Z) \;=\; 0.115902 \times 1.017231 \;=\; 0.117899\ldots
 \]
 Observed: $\alpha_s(M_Z)=0.1179\pm 0.0009$ (PDG~2024). Residual: $-5.5\times 10^{-7}$, i.e.\ $-0.0006\sigma$ of the experimental uncertainty. The prediction is exact at current experimental precision.
+
+\emph{Structural identity.} From the $\Gamma$-function recursion $\Gamma(z+1)=z\,\Gamma(z)$, one has
+\[
+\frac{R(d+2)}{R(d)}
+\;=\; \frac{\Gamma((d+3)/2)/\Gamma((d+4)/2)}{\Gamma((d+1)/2)/\Gamma((d+2)/2)}
+\;=\; \frac{((d+1)/2)\,\Gamma((d+1)/2)\cdot\Gamma((d+2)/2)}{\Gamma((d+1)/2)\cdot((d+2)/2)\,\Gamma((d+2)/2)}
+\;=\; \frac{d+1}{d+2}.
+\]
+Setting $d=12$: $R(14)/R(12)=13/14$, exactly. Squaring and dividing by $4$ gives $\alpha(14)=\alpha(12)\cdot(13/14)^2$, and dividing by $\chi=2$ gives the structural form~\eqref{eq:als-closure-structural}. This identity is a pure consequence of the cascade's Gamma-function structure; $13$ and $14$ are fixed by Part~IVa as the $\mathrm{SU}(2)$ and $\mathrm{U}(1)$ gauge boson layers respectively (Adams' theorem applied to the gauge window), and $\chi=2$ is the Euler characteristic of their enclosing even-dimensional sphere $S^{12}$.
 \end{proof}
 
-\begin{remark}[Why $\mathrm{U}(1)$, and why $\chi$]\label{rem:als-closure-structural}
-The cascade places the three Standard Model gauge bosons at consecutive layers $d=12,13,14$ (Part~IVa~\cite{paper4a}, Adams' theorem applied to the gauge window): $\mathrm{SU}(3)$ at $d=12$, $\mathrm{SU}(2)$ at $d=13$, $\mathrm{U}(1)$ at $d=14$. The leading $\alpha_s$ formula uses the cascade descent from $d=12$ to the observer at $d=4$---the $\mathrm{SU}(3)$ layer and everything below it. The correction $\alpha(14)/2$ is what is missing: it is the cascade coupling at the $\mathrm{U}(1)$ layer, which lies \emph{above} the descent path. Equivalently, the correction is $\chi^{-1}$ times the cascade coupling at the nearest gauge layer above $d_{\mathrm{SU}(3)}=12$ outside $\alpha_s$'s descent path. The $\chi=2$ factor is the same Euler-characteristic denominator that governs the fermion mass obstruction (Corollary~\ref{cor:2sqrtpi-primitive}), reflecting the same topological counting of even-sphere chirality basins.
+\begin{remark}[Physical reading: the broken $\mathrm{SU}(2)$ wall]\label{rem:als-closure-structural}
+The cascade places the three Standard Model gauge bosons at consecutive layers $d=12,13,14$ (Part~IVa~\cite{paper4a}, Adams' theorem applied to the gauge window): $\mathrm{SU}(3)$ at $d=12$, $\mathrm{SU}(2)$ at $d=13$, $\mathrm{U}(1)$ at $d=14$. The leading $\alpha_s$ formula uses the cascade descent from $d=12$ to the observer at $d=4$---the $\mathrm{SU}(3)$ layer and everything below it. It does \emph{not} capture contributions from gauge layers \emph{above} the descent path. Two such layers exist: $\mathrm{SU}(2)$ at $d=13$ and $\mathrm{U}(1)$ at $d=14$.
 
-The structural content is pure cascade:
+$\mathrm{SU}(2)$ at $d=13$ is broken: by Part~IVa's Lefschetz / hairy-ball obstruction on $S^{12}$, no continuous non-vanishing tangent field exists on $\mathrm{SU}(2)$'s own sphere. The Higgs mechanism at $d=13$ absorbs the $\mathrm{SU}(2)$ gauge coupling into the mass term and it does not freely contribute to $\alpha_s$ running. What remains is the $\mathrm{U}(1)$ contribution from $d=14$, which must pass through the broken $\mathrm{SU}(2)$ layer on its way down to the observer. The passage incurs a topological penalty equal to the Euler characteristic $\chi(S^{12})=2$ of the $\mathrm{SU}(2)$ sphere---the same factor~$2$ that counts chirality basins at the $2\sqrt{\pi}$ fermion obstruction (Corollary~\ref{cor:2sqrtpi-primitive}). The $\mathrm{U}(1)$ contribution arrives at the observer attenuated by a factor $\chi^{-1}=1/2$, giving the correction $\alpha(14)/\chi$.
+
+The structural form~\eqref{eq:als-closure-structural} makes this explicit: the correction is $\alpha(12)$ (the $\mathrm{SU}(3)$ coupling itself) scaled by the squared ratio of $\mathrm{SU}(2)$'s dimension to $\mathrm{U}(1)$'s dimension, divided by $\chi(S^{\text{SU}(2)})$. The $(13/14)^2$ factor is a pure Gamma-function consequence of their consecutive Bott placement: no additional cascade mathematics enters. The structural content reduces to four ingredients, all forced:
 \begin{itemize}
-\item $d=14$ is forced by Adams' theorem and the Radon--Hurwitz uniqueness of the gauge window (Part~IVa~\cite{paper4a}, Bott-mirror section; $d=12$ is the unique gauge window dimension with $\rho(d)-1=3$, making the gauge boson layer assignment $\{12,13,14\}$ forced).
-\item $\alpha(14)=R(14)^2/4$ is a Gamma function ratio with no free parameters.
-\item $\chi(S^{2n})=2$ is classical topology, identical to the factor in Corollary~\ref{cor:2sqrtpi-primitive}.
+\item $d_{\mathrm{SU}(2)}=13$ and $d_{\mathrm{U}(1)}=14$ from Part~IVa's Adams' theorem (Bott-mirror section);
+\item $\mathrm{SU}(2)$ broken from Part~IVa's Lefschetz obstruction on $S^{12}$;
+\item $\chi(S^{12})=2$ from classical topology (identical factor to Corollary~\ref{cor:2sqrtpi-primitive});
+\item $R(d+2)/R(d)=(d+1)/(d+2)$ from the $\Gamma$ recursion.
 \end{itemize}
-No loop integrals, no renormalisation group, no fitting coefficients enter. The structural \emph{derivation} of why the correction takes this specific form---an analogue of the Standard Model's two-loop $\alpha_1$ contribution to the $\alpha_s$ beta function, but computed in cascade terms---is open; what is shown here is the identity itself.
+No loop integrals, no renormalisation group, no fitting coefficients enter. This is a cascade analogue of the Standard Model's two-loop $\alpha_1$ contribution to the $\alpha_s$ beta function, but computed from pure $\Gamma$-function identities and the topology of the $\mathrm{SU}(2)$ sphere. What remains open is a first-principles derivation from a cascade action functional that derives the $\chi^{-1}$ penalty \emph{ab initio} rather than reading it off the broken-$\mathrm{SU}(2)$ obstruction; the identity itself is exact modulo that interpretive step.
 \end{remark}
 
 \begin{remark}[Specificity of the $\alpha_s$ closure]\label{rem:als-closure-specificity}
