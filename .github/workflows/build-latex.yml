@@ -31,13 +31,11 @@ jobs:
         id: cache-texlive
         with:
           path: ~/texlive-cache.tar
-          key: texlive-${{ runner.os }}-v3
+          key: texlive-${{ runner.os }}-v2
 
       - name: Restore TeX Live from cache
         if: steps.cache-texlive.outputs.cache-hit == 'true'
-        run: |
-          sudo tar -xf ~/texlive-cache.tar -C /
-          sudo mktexlsr 2>/dev/null || true
+        run: sudo tar -xf ~/texlive-cache.tar -C /
 
       - name: Install TeX Live
         if: steps.cache-texlive.outputs.cache-hit != 'true'
@@ -47,15 +45,7 @@ jobs:
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
           dpkg-query -W -f='${Package}\n' | sort > /tmp/pkgs-after.txt
           comm -13 /tmp/pkgs-before.txt /tmp/pkgs-after.txt > /tmp/new-pkgs.txt
-          # Package-owned files (from dpkg -L)
-          dpkg -L $(cat /tmp/new-pkgs.txt) 2>/dev/null | grep -v '^/\.$' > /tmp/tex-files.txt
-          # Trigger-generated files: fmtutil.cnf, pdflatex.fmt, ls-R, updmap.cfg, etc.
-          # These are created by update-fmtutil / fmtutil-sys / mktexlsr / update-updmap
-          # postinst triggers, so dpkg -L does not list them.
-          for d in /var/lib/texmf /var/lib/tex-common /etc/texmf; do
-            [ -d "$d" ] && sudo find "$d" \( -type f -o -type l \) 2>/dev/null >> /tmp/tex-files.txt
-          done
-          sort -u /tmp/tex-files.txt -o /tmp/tex-files.txt
+          dpkg -L $(cat /tmp/new-pkgs.txt) 2>/dev/null | grep -v '^/\.$' | sort -u > /tmp/tex-files.txt
           sudo tar -cf ~/texlive-cache.tar --no-recursion --ignore-failed-read -T /tmp/tex-files.txt
           sudo chown "$(id -u):$(id -g)" ~/texlive-cache.tar
 
