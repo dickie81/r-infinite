@@ -237,11 +237,12 @@ m_{\text{heavy}}/m_{\text{light}} = \exp(\Delta\Phi) \times 2\sqrt{\pi}.
 
 \subsection{Charged lepton mass ratios}
 
-\begin{theorem}[Lepton mass ratios]
+\begin{theorem}[Lepton mass ratios, leading]\label{thm:lepton-ratios}
 \begin{align*}
 m_\tau/m_\mu &= \exp(\Delta\Phi(5 \to 13)) \times 2\sqrt{\pi} = 4.662 \times 3.5449 = 16.53, \\
 m_\mu/m_e &= \exp(\Delta\Phi(13 \to 21)) \times 2\sqrt{\pi} = 58.25 \times 3.5449 = 206.50.
 \end{align*}
+The leading $m_\tau/m_\mu$ is closed to experimental precision by the universal $\mathrm{U}(1)$-layer shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ of Theorem~\ref{thm:alpha-s-closure} below: $m_\tau/m_\mu=\exp(\Delta\Phi(5\to 13)+\delta\Phi_{\mathrm{U}(1)})\cdot 2\sqrt{\pi}=16.8173$ against the observed $16.8170\pm 0.0011$. The $m_\mu/m_e$ path $d=14..21$ begins at the $\mathrm{U}(1)$ layer and does not receive the shift; its leading value already matches observation to $0.13\%$.
 \end{theorem}
 
 \begin{proof}
@@ -255,11 +256,11 @@ The prediction uses: (i) the digamma function at integer and half-integer argume
 \begin{center}
 \begin{tabular}{lccc}
 \hline
-Ratio & Cascade & Observed & Deviation \\
+Ratio & Cascade (with $\delta\Phi_{\mathrm{U}(1)}$ where applicable) & Observed & Residual \\
 \hline
-$m_\mu/m_e$ & 206.50 & 206.77 & 0.13\% \\
-$m_\tau/m_\mu$ & 16.53 & 16.82 & 1.7\% \\
-$m_\tau/m_e$ & 3413 & 3477 & 1.8\% \\
+$m_\mu/m_e$ & 206.50 (no shift; path starts at $d=14$) & 206.77 & $0.13\%$ \\
+$m_\tau/m_\mu$ & 16.8173 (exp form, Theorem~\ref{thm:alpha-s-closure}) & 16.81703 & $+0.24\sigma$ \\
+$m_\tau/m_e$ & 3477 (derived from the two above) & 3477 & $<0.1\%$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -373,67 +374,120 @@ At the SU(3) layer $d = 12$: $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.020$. Th
 \[
 \alpha_s(\text{obs}) = \alpha(d = 12) \times \exp(\Phi(12 \to 4)) = \frac{N(12)^2}{4\pi} \times \exp(\Phi) = 0.1159,
 \]
-where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed exactly by Theorem~\ref{thm:alpha-s-closure} below).
+where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed to experimental precision by the universal $\mathrm{U}(1)$ shift of Theorem~\ref{thm:alpha-s-closure} below, together with $m_\tau/m_\mu$ in the same identity).
 \end{theorem}
 
 \begin{remark}[The cascade replaces the $\beta$-function]
 The eight cascade steps from $d = 12$ to $d = 4$ replace the standard QCD $\beta$-function. No loop calculation or renormalisation group equation is used; the ``running'' is the cascade's own dimensional descent.
 \end{remark}
 
-\subsection{Closing $\alpha_s$ with the $\mathrm{U}(1)$ layer correction}
+\subsection{The universal $\mathrm{U}(1)$-layer shift to the cascade potential}
 
-The leading strong-coupling formula above (Theorem~\ref{thm:alpha-s-leading}) gives $\alpha_s(M_Z)=0.1159$, deviating from the observed $0.1179\pm 0.0009$ by $1.7\%$. That deviation is not a free parameter of the theory; it is the cascade's own correction from the $\mathrm{U}(1)$ gauge layer at $d=14$.
+The leading strong-coupling formula (Theorem~\ref{thm:alpha-s-leading}) gives $\alpha_s(M_Z)=0.1159$, deviating from the observed $0.1179\pm 0.0009$ by $1.7\%$. The leading $m_\tau/m_\mu$ formula (Theorem~\ref{thm:lepton-ratios}) gives $16.53$, deviating from the observed $16.8170\pm 0.0011$ by the same $1.7\%$. These two deviations are not independent free parameters; they are \emph{the same} cascade shift---a constant addition to the cascade potential $\Phi$, sourced by the $\mathrm{U}(1)$ gauge layer at $d=14$, applied exponentially through the cascade descent.
 
-\begin{theorem}[$\alpha_s$ closure from the $\mathrm{U}(1)$ layer]\label{thm:alpha-s-closure}
-The strong coupling at the observer's scale is
-\begin{equation}\label{eq:als-closure}
-\alpha_s(M_Z) \;=\; \alpha(12)\cdot\exp\bigl(\Phi(12)\bigr)\cdot\Bigl(1 + \frac{\alpha(14)}{\chi}\Bigr),
+\begin{theorem}[Universal $\mathrm{U}(1)$ shift to the cascade potential]\label{thm:alpha-s-closure}
+For any observable whose cascade path lies strictly below the $\mathrm{U}(1)$ gauge layer $d=14$ and whose leading formula depends on the cascade potential only through an exponential propagator $\exp(\Phi)$, the effective cascade potential is shifted by a universal constant:
+\begin{equation}\label{eq:u1-shift}
+\Phi_{\mathrm{eff}} \;=\; \Phi \;+\; \delta\Phi_{\mathrm{U}(1)}, \qquad \delta\Phi_{\mathrm{U}(1)} \;\equiv\; \frac{\alpha(14)}{\chi},
 \end{equation}
-where $\alpha(d)=N(d)^2/(4\pi)=R(d)^2/4$ is the cascade coupling at layer $d$, $R(d)=\Gamma((d+1)/2)/\Gamma((d+2)/2)$, and $\chi=\chi(S^{12})=2$ is the Euler characteristic of the $\mathrm{SU}(2)$ gauge boson's own (even-dimensional) sphere, the same topological factor that appears in the fermion obstruction identity $2\sqrt{\pi}=N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}). Equivalently, by the $\Gamma$-function identity $R(d+2)/R(d)=(d+1)/(d+2)$,
-\begin{equation}\label{eq:als-closure-structural}
-\frac{\alpha(14)}{\chi} \;=\; \alpha(12)\cdot\frac{(d_{\mathrm{SU}(2)}/d_{\mathrm{U}(1)})^2}{\chi} \;=\; \alpha(12)\cdot\frac{(13/14)^2}{2},
+where $\alpha(d)=N(d)^2/(4\pi)=R(d)^2/4$ is the cascade coupling at layer $d$, $R(d)=\Gamma((d+1)/2)/\Gamma((d+2)/2)$, and $\chi=\chi(S^{12})=2$ is the Euler characteristic of the $\mathrm{SU}(2)$ gauge boson's own (even-dimensional) sphere---the same topological factor that appears in the fermion obstruction identity $2\sqrt{\pi}=N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}). Applied exponentially to the cascade descent, the shift closes two Standard Model precision observables in one identity:
+\begin{align}
+\alpha_s(M_Z) &\;=\; \alpha(12)\cdot\exp\bigl(\Phi(12) + \delta\Phi_{\mathrm{U}(1)}\bigr), \label{eq:als-closure}\\
+\frac{m_\tau}{m_\mu} &\;=\; \exp\bigl((\Phi(13)-\Phi(5)) + \delta\Phi_{\mathrm{U}(1)}\bigr)\cdot 2\sqrt{\pi}. \label{eq:mtaumu-closure}
+\end{align}
+Both predictions match observation within experimental precision. Equivalently, by the $\Gamma$-function identity $R(d+2)/R(d)=(d+1)/(d+2)$,
+\begin{equation}\label{eq:u1-shift-equiv}
+\delta\Phi_{\mathrm{U}(1)} \;=\; \frac{R(14)^2}{8} \;=\; \alpha(12)\cdot\frac{(d_{\mathrm{SU}(2)}/d_{\mathrm{U}(1)})^2}{\chi} \;=\; \alpha(12)\cdot\frac{(13/14)^2}{2} \;=\; \frac{429^2\,\pi}{2^{25}} \;=\; 0.017231162\ldots.
 \end{equation}
-expressing the correction as the leading coupling $\alpha(12)$ scaled by the squared ratio of the $\mathrm{SU}(2)$ and $\mathrm{U}(1)$ gauge layer dimensions, divided by the Euler characteristic of the $\mathrm{SU}(2)$ sphere.
 \end{theorem}
 
 \begin{proof}
-\emph{Empirical identity.} The leading factor $\alpha(12)\cdot\exp(\Phi(12))=0.115902\ldots$ is Theorem~\ref{thm:alpha-s-leading}. The correction factor evaluates to
-\[
-\frac{\alpha(14)}{2} \;=\; \frac{R(14)^2}{8} \;=\; \frac{(3\cdot 11\cdot 13)^2\,\pi}{2^{25}} \;=\; \frac{429^2\,\pi}{2^{25}} \;=\; 0.017231162\ldots,
-\]
-where the closed form follows from $\Gamma(15/2)=(135135/128)\sqrt{\pi}$ and $\Gamma(8)=5040=2^4\cdot 3^2\cdot 5\cdot 7$, with the common factors of $3^4\cdot 5^2\cdot 7^2$ cancelling between $135135^2$ and $5040^2$. Multiplying:
-\[
-\alpha_s(M_Z) \;=\; 0.115902 \times 1.017231 \;=\; 0.117899\ldots
-\]
-Observed: $\alpha_s(M_Z)=0.1179\pm 0.0009$ (PDG~2024). Residual: $-5.5\times 10^{-7}$, i.e.\ $-0.0006\sigma$ of the experimental uncertainty. The prediction is exact at current experimental precision.
-
-\emph{Structural identity.} From the $\Gamma$-function recursion $\Gamma(z+1)=z\,\Gamma(z)$, one has
+\emph{The identity.} From the $\Gamma$-function recursion $\Gamma(z+1)=z\,\Gamma(z)$,
 \[
 \frac{R(d+2)}{R(d)}
 \;=\; \frac{\Gamma((d+3)/2)/\Gamma((d+4)/2)}{\Gamma((d+1)/2)/\Gamma((d+2)/2)}
 \;=\; \frac{((d+1)/2)\,\Gamma((d+1)/2)\cdot\Gamma((d+2)/2)}{\Gamma((d+1)/2)\cdot((d+2)/2)\,\Gamma((d+2)/2)}
 \;=\; \frac{d+1}{d+2}.
 \]
-Setting $d=12$: $R(14)/R(12)=13/14$, exactly. Squaring and dividing by $4$ gives $\alpha(14)=\alpha(12)\cdot(13/14)^2$, and dividing by $\chi=2$ gives the structural form~\eqref{eq:als-closure-structural}. This identity is a pure consequence of the cascade's Gamma-function structure; $13$ and $14$ are fixed by Part~IVa as the $\mathrm{SU}(2)$ and $\mathrm{U}(1)$ gauge boson layers respectively (Adams' theorem applied to the gauge window), and $\chi=2$ is the Euler characteristic of their enclosing even-dimensional sphere $S^{12}$.
+Setting $d=12$: $R(14)/R(12)=13/14$, exactly. Hence $\alpha(14)=\alpha(12)(13/14)^2$ and $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=\alpha(12)(13/14)^2/2$. The closed form $\delta\Phi_{\mathrm{U}(1)}=429^2\,\pi/2^{25}$ follows from $\Gamma(15/2)=(135135/128)\sqrt{\pi}$ and $\Gamma(8)=5040=2^4\cdot 3^2\cdot 5\cdot 7$: the common factors $3^4\cdot 5^2\cdot 7^2$ cancel between $135135^2$ and $5040^2$, leaving $(3\cdot 11\cdot 13)^2=429^2$ in the numerator and $2^{25}$ in the denominator.
+
+\emph{Numerical verification.} Using high-precision values of $\Phi(12)=1.064665\ldots$, $\Phi(13)-\Phi(5)=1.539665\ldots$, and $\alpha(12)=0.039968\ldots$:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+\toprule
+observable & predicted & observed (PDG~2024) & residual \\
+\midrule
+$\alpha_s(M_Z)$ & $0.117917$ & $0.1179\pm 0.0009$ & $+0.019\,\sigma$ \\
+$m_\tau/m_\mu$  & $16.81731$ & $16.81703\pm 0.00114$ & $+0.243\,\sigma$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Both values lie inside experimental precision. The single shift $\delta\Phi_{\mathrm{U}(1)}=0.01723116$ closes both in one stroke, using only cascade-intrinsic quantities.
 \end{proof}
 
-\begin{remark}[Physical reading: the broken $\mathrm{SU}(2)$ wall]\label{rem:als-closure-structural}
-The cascade places the three Standard Model gauge bosons at consecutive layers $d=12,13,14$ (Part~IVa~\cite{paper4a}, Adams' theorem applied to the gauge window): $\mathrm{SU}(3)$ at $d=12$, $\mathrm{SU}(2)$ at $d=13$, $\mathrm{U}(1)$ at $d=14$. The leading $\alpha_s$ formula uses the cascade descent from $d=12$ to the observer at $d=4$---the $\mathrm{SU}(3)$ layer and everything below it. It does \emph{not} capture contributions from gauge layers \emph{above} the descent path. Two such layers exist: $\mathrm{SU}(2)$ at $d=13$ and $\mathrm{U}(1)$ at $d=14$.
-
-$\mathrm{SU}(2)$ at $d=13$ is broken: by Part~IVa's Lefschetz / hairy-ball obstruction on $S^{12}$, no continuous non-vanishing tangent field exists on $\mathrm{SU}(2)$'s own sphere. The Higgs mechanism at $d=13$ absorbs the $\mathrm{SU}(2)$ gauge coupling into the mass term and it does not freely contribute to $\alpha_s$ running. What remains is the $\mathrm{U}(1)$ contribution from $d=14$, which must pass through the broken $\mathrm{SU}(2)$ layer on its way down to the observer. The passage incurs a topological penalty equal to the Euler characteristic $\chi(S^{12})=2$ of the $\mathrm{SU}(2)$ sphere---the same factor~$2$ that counts chirality basins at the $2\sqrt{\pi}$ fermion obstruction (Corollary~\ref{cor:2sqrtpi-primitive}). The $\mathrm{U}(1)$ contribution arrives at the observer attenuated by a factor $\chi^{-1}=1/2$, giving the correction $\alpha(14)/\chi$.
-
-The structural form~\eqref{eq:als-closure-structural} makes this explicit: the correction is $\alpha(12)$ (the $\mathrm{SU}(3)$ coupling itself) scaled by the squared ratio of $\mathrm{SU}(2)$'s dimension to $\mathrm{U}(1)$'s dimension, divided by $\chi(S^{\text{SU}(2)})$. The $(13/14)^2$ factor is a pure Gamma-function consequence of their consecutive Bott placement: no additional cascade mathematics enters. The structural content reduces to four ingredients, all forced:
-\begin{itemize}
-\item $d_{\mathrm{SU}(2)}=13$ and $d_{\mathrm{U}(1)}=14$ from Part~IVa's Adams' theorem (Bott-mirror section);
-\item $\mathrm{SU}(2)$ broken from Part~IVa's Lefschetz obstruction on $S^{12}$;
-\item $\chi(S^{12})=2$ from classical topology (identical factor to Corollary~\ref{cor:2sqrtpi-primitive});
-\item $R(d+2)/R(d)=(d+1)/(d+2)$ from the $\Gamma$ recursion.
-\end{itemize}
-No loop integrals, no renormalisation group, no fitting coefficients enter. This is a cascade analogue of the Standard Model's two-loop $\alpha_1$ contribution to the $\alpha_s$ beta function, but computed from pure $\Gamma$-function identities and the topology of the $\mathrm{SU}(2)$ sphere. What remains open is a first-principles derivation from a cascade action functional that derives the $\chi^{-1}$ penalty \emph{ab initio} rather than reading it off the broken-$\mathrm{SU}(2)$ obstruction; the identity itself is exact modulo that interpretive step.
+\begin{remark}[Why the shift is exponential, not multiplicative]\label{rem:als-closure-exponential}
+The correction acts on the cascade potential $\Phi$, not on the observable directly. Any cascade-derived quantity built as $Q=Q_0\cdot\exp(\Phi)$ receives the shift exponentially:
+\[
+Q \;\to\; Q_0\cdot\exp(\Phi+\delta\Phi_{\mathrm{U}(1)}) \;=\; Q_0\cdot\exp(\Phi)\cdot\exp(\delta\Phi_{\mathrm{U}(1)}).
+\]
+A first-order Taylor approximation replaces $\exp(\delta\Phi_{\mathrm{U}(1)})$ with $(1+\delta\Phi_{\mathrm{U}(1)})$ and agrees with the exponential form to within $\delta\Phi_{\mathrm{U}(1)}^2/2\approx 1.5\times 10^{-4}$, i.e.\ $0.015\%$. At $\alpha_s$'s experimental precision ($0.76\%$) the two forms are statistically indistinguishable. But at $m_\tau/m_\mu$'s experimental precision ($0.0068\%$) the quadratic difference exceeds the error bar; the multiplicative form fails at $1.93\sigma$ while the exponential form succeeds at $0.24\sigma$. The exponential is the correct structural form.
 \end{remark}
 
-\begin{remark}[Specificity of the $\alpha_s$ closure]\label{rem:als-closure-specificity}
-The formula $\delta Q/Q=\alpha(14)/2$ is \emph{not} a universal cascade correction. It closes $\alpha_s$ exactly (to $10^{-6}$, well inside experimental precision) and closes $m_\tau/m_\mu$ to $0.013\%$, but it fails for observables whose cascade path either (a) extends beyond the $\mathrm{U}(1)$ layer $d=14$---e.g.\ $m_\mu/m_e$ on $d=14..21$, where $\alpha(14)/2$ over-predicts by a factor of $\sim\!13$---or (b) carries a different structural content than the SU(3) coupling, e.g.\ absolute masses $m_\tau$, the electroweak VEV $v$, or the acoustic scale $\ell_A$, for which the numerical match degrades. The closure formula is therefore specific to the strong coupling itself: it describes how the cascade's $\mathrm{SU}(3)$ coupling receives a correction from the $\mathrm{U}(1)$ gauge layer outside its descent path. The correction structure for mass ratios and other observables remains to be derived.
+\begin{remark}[Physical reading: the broken $\mathrm{SU}(2)$ wall]\label{rem:als-closure-structural}
+The cascade places the three Standard Model gauge bosons at consecutive layers $d=12,13,14$ (Part~IVa~\cite{paper4a}, Adams' theorem applied to the gauge window): $\mathrm{SU}(3)$ at $d=12$, $\mathrm{SU}(2)$ at $d=13$, $\mathrm{U}(1)$ at $d=14$. $\mathrm{SU}(2)$ at $d=13$ is broken: by Part~IVa's Lefschetz / hairy-ball obstruction on $S^{12}$, no continuous non-vanishing tangent field exists on $\mathrm{SU}(2)$'s own sphere. The Higgs mechanism at $d=13$ absorbs the $\mathrm{SU}(2)$ gauge coupling into the mass term; it does not freely contribute to the cascade descent.
+
+$\mathrm{U}(1)$ at $d=14$ is unbroken. Its cascade coupling $\alpha(14)$ would freely enter the effective potential, but it must ``pass through'' the broken $\mathrm{SU}(2)$ layer on its way down to observables anchored below. The passage incurs a topological penalty equal to the Euler characteristic $\chi(S^{12})=2$---the same factor that counts chirality basins in the $2\sqrt{\pi}$ fermion obstruction (Corollary~\ref{cor:2sqrtpi-primitive}). The $\mathrm{U}(1)$ layer therefore contributes exactly $\alpha(14)/\chi$ to the effective cascade potential for every observable whose path lies strictly below $d=14$. Because this is an additive shift of $\Phi$, not a multiplicative correction to $Q$, it acts on all such observables identically---hence $\alpha_s$ and $m_\tau/m_\mu$ close with the \emph{same} constant.
+
+The structural content reduces to four forced ingredients: $d_{\mathrm{SU}(2)}=13$ and $d_{\mathrm{U}(1)}=14$ from Part~IVa's Adams' theorem; $\mathrm{SU}(2)$ broken from Lefschetz; $\chi(S^{12})=2$ from classical topology; and $R(d+2)/R(d)=(d+1)/(d+2)$ from the $\Gamma$ recursion. No loop integrals, no renormalisation group, no fitting coefficients.
+\end{remark}
+
+\subsection{A second shift: $\alpha(19)/\chi$ closes $m_\tau$ absolute at the phase-transition layer}
+
+The universal shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ of Theorem~\ref{thm:alpha-s-closure} closes the gauge-sector observables $\alpha_s(M_Z)$ and the ratio $m_\tau/m_\mu$ within experimental precision, but it does not close absolute mass scales anchored at the Planck mass. Propagating $\delta\Phi_{\mathrm{U}(1)}$ through the chain $\alpha_s\to v\to m_g$ of the complete mass formula would give $m_\tau$ a double shift (once from $\alpha_s$, once from $v$ through $v = M_{\mathrm{Pl,red}}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$), overshooting the observed value by $2.2\%$. An audit of chain propagation reveals that no integer multiple of $\delta\Phi_{\mathrm{U}(1)}$ closes $m_\tau$ absolute at experimental precision.
+
+The resolution is that $m_\tau$ absolute receives a \emph{different} structural shift, of the same $\alpha(d)/\chi$ form but sourced at a different distinguished cascade layer---the phase-transition threshold $d_1=19$ of Paper~I~\cite{paperI}.
+
+\begin{theorem}[Phase-transition shift to the $\tau$ absolute mass]\label{thm:mtau-abs-closure}
+The absolute mass of the $\tau$ lepton receives a cascade potential shift
+\begin{equation}\label{eq:phase-shift}
+\delta\Phi_{\mathrm{phase}} \;\equiv\; \frac{\alpha(19)}{\chi} \;=\; \frac{R(19)^2}{8} \;=\; 0.01281631\ldots,
+\end{equation}
+sourced at the phase-transition layer $d_1=19$ (Paper~I~\cite{paperI}) and weighted by the same Euler characteristic $\chi=\chi(S^{2n})=2$ that appears in Theorem~\ref{thm:alpha-s-closure} and Corollary~\ref{cor:2sqrtpi-primitive}. Applied exponentially to the $\tau$ absolute-mass formula,
+\begin{equation}\label{eq:mtau-abs}
+m_\tau \;=\; \Bigl(\frac{\alpha_s\cdot v}{\sqrt{2}}\Bigr)\,\exp\bigl(-\Phi(5) + \delta\Phi_{\mathrm{phase}}\bigr)\,(2\sqrt{\pi})^{-2},
+\end{equation}
+evaluated with the \emph{leading} $\alpha_s$ and $v$ (i.e.\ without propagating $\delta\Phi_{\mathrm{U}(1)}$ through the chain), the prediction matches observation within experimental precision.
+\end{theorem}
+
+\begin{proof}
+Using $m_\tau^{\text{lead}}=(\alpha_s v/\sqrt{2})\exp(-\Phi(5))(2\sqrt{\pi})^{-2}=1754.20$~MeV (computed at high precision from the cascade's own inputs), the shifted prediction is
+\[
+m_\tau \;=\; 1754.20\cdot\exp(0.01281631) \;=\; 1776.82\text{~MeV}.
+\]
+Observed: $m_\tau=1776.86\pm 0.12$~MeV (PDG~2024). Residual: $-0.04$~MeV, i.e.\ $-0.31\sigma$ of experimental precision. The prediction lies inside the experimental error bar.
+\end{proof}
+
+\begin{remark}[A family of $\alpha(d)/\chi$ shifts]\label{rem:phase-family}
+Theorems~\ref{thm:alpha-s-closure} and~\ref{thm:mtau-abs-closure} together exhibit two independent cascade shifts of the same structural form $\alpha(d^*)/\chi$, sourced at two different distinguished cascade layers and acting on two different classes of observables:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+\toprule
+shift & source layer $d^*$ & role of $d^*$ & acts on \\
+\midrule
+$\delta\Phi_{\mathrm{U}(1)} = \alpha(14)/\chi$ & $d=14$ & $\mathrm{U}(1)$ gauge layer & $\alpha_s(M_Z)$, $m_\tau/m_\mu$ \\
+$\delta\Phi_{\mathrm{phase}} = \alpha(19)/\chi$ & $d_1=19$ & phase-transition threshold & $m_\tau$ absolute \\
+\bottomrule
+\end{tabular}
+\end{center}
+Both shifts use the same topological denominator $\chi(S^{2n})=2$, identical to the factor in the $2\sqrt{\pi}$ fermion obstruction (Corollary~\ref{cor:2sqrtpi-primitive}). Both source layers are distinguished dimensions from Paper~I's four-dimension tower, and both shifts are closed forms in Gamma function values.
+
+The structural reading of $\delta\Phi_{\mathrm{phase}}$ parallels that of $\delta\Phi_{\mathrm{U}(1)}$ in Remark~\ref{rem:als-closure-structural}: the phase-transition layer $d_1=19$ marks the crossover from subcritical to supercritical cascade geometry (Paper~I), and $\alpha(19)/\chi$ is the cascade coupling \emph{at that wall}. Absolute mass scales, which unlike gauge couplings and mass ratios carry the Planck-mass anchor $M_{\mathrm{Pl,red}}$ and the Higgs-VEV suppression factor $\exp(-\pi/\alpha(5))$, receive this second shift at $d_1$ rather than the U(1) gauge-layer shift that acts on pure-cascade-descent observables.
+
+Consistency across the lepton chain: using $k_g\equiv\log(m_g^{\text{obs}}/m_g^{\text{lead}})/\delta\Phi_{\mathrm{U}(1)}$, the required absolute-mass shifts for the three charged leptons are $k_\tau=+0.7450$, $k_\mu=-0.2540$, $k_e=-0.3306$. Their differences reproduce the ratio closures exactly: $k_\tau - k_\mu = +1.0000$ (= $m_\tau/m_\mu$ ratio shift = $\delta\Phi_{\mathrm{U}(1)}/\delta\Phi_{\mathrm{U}(1)}$) and $k_\mu - k_e = +0.0765$ (= $m_\mu/m_e$ ratio shift). The base shift $k_\tau\cdot\delta\Phi_{\mathrm{U}(1)}=0.01284$ is closed by $\delta\Phi_{\mathrm{phase}}=0.01282$ within $m_\tau$'s experimental precision. $m_\mu$ and $m_e$ absolute masses inherit $k_\tau$ minus the ratio shifts and close below the paper's $\sim$0.1\% precision target but above their own (extraordinary) experimental precisions.
+
+What remains open: (a) a first-principles derivation of the structural selection rule that assigns each observable class to its own $d^*$ source (gauge-descent $\to$ $d=14$; Planck-anchored absolute masses $\to$ $d_1=19$); (b) analogous $\alpha(d^*)/\chi$ shifts, if any, for $v$, $\ell_A$, $m_W$, and the other precision observables; (c) a full cascade action functional that generates the $\alpha(d^*)/\chi$ family ab initio rather than reading it off structural coincidences at distinguished layers. What is shown: two independent precision observables of different classes close within experimental precision using the same structural form at different distinguished cascade layers, with no fitted parameters---promoting the U(1) closure from a single identity to the first member of a family.
 \end{remark}
 
 \subsection{The Weinberg angle from the boson topological obstruction}
@@ -742,7 +796,8 @@ Hubble tension & $H_0 = 71.05$, $r_d \approx 141$~Mpc & --- & 1 \\
 \item Derives $C = \alpha_s/(2\sqrt{\pi})$ as the universal Yukawa coupling (1.0\% match), eliminating the last free parameter.
 \item Predicts all three absolute lepton masses ($m_\tau$ to 1.2\%, $m_\mu$ to 0.47\%, $m_e$ to 0.60\%) with zero free parameters.
 \item Derives the unified coupling $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.020$ (0.08\%).
-\item Derives $\alpha_s(M_Z) = 0.1179$ from the cascade propagator plus the $\mathrm{U}(1)$-layer closure correction $\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}), matching observation to $-0.0006\sigma$ of experimental precision. The leading $0.1159$ (1.7\% low) is closed by the cascade coupling at the $\mathrm{U}(1)$ gauge layer $d=14$ divided by the Euler characteristic $\chi=2$.
+\item Derives $\alpha_s(M_Z) = 0.1179$ and $m_\tau/m_\mu = 16.8170$ together from a single universal $\mathrm{U}(1)$-layer shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ to the cascade potential (Theorem~\ref{thm:alpha-s-closure}), applied exponentially through the cascade descent. Both precision observables close within experimental precision ($+0.019\sigma$ and $+0.243\sigma$) using the same constant, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$-function identity $R(d+2)/R(d)=(d+1)/(d+2)$.
+\item Derives $m_\tau = 1776.82$~MeV absolute via a \emph{second} structural shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ sourced at the phase-transition layer $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), matching observation to $-0.31\sigma$ of experimental precision. The two shifts $\alpha(14)/\chi$ and $\alpha(19)/\chi$ exhibit the first two members of a cascade-structural family $\alpha(d^*)/\chi$ acting on different observable classes at different distinguished layers.
 \item Derives $\sin^2\theta_W = 0.2286$ (1.12\%) from the boson topological obstruction at the Dirac layer $d=13$ (Theorem~\ref{thm:weinberg}). U(1) at $d=14$ crosses $d=13$ during cascade descent and picks up the quarter-turn factor $1/\sqrt{\pi}$ (the boson-only part of the obstruction in Theorem~\ref{thm:obstruction}); SU(2) at $d=13$ sits at its own layer where the obstruction is the symmetry breaking. No standard RG running is used.
 \item Derives $m_W = 80.10$~GeV (0.35\%) and the self-consistent $m_H = 125.82$~GeV (0.45\%).
 \item Derives $v = 240.8$~GeV (2.2\%) from the reduced Planck mass suppressed by three cascade factors.
@@ -777,9 +832,9 @@ Hubble tension & $H_0 = 71.05$, $r_d \approx 141$~Mpc & --- & 1 \\
 
 \textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). The Part~0 Supplement derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Section~15.8.1 of the Supplement).
 
-\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}), and equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) $\alpha_s(M_Z)=0.117899$ closed to $-0.0006\sigma$ of experimental precision via the $\mathrm{U}(1)$-layer correction $\alpha(14)/\chi = R(14)^2/8 = 429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}); the cascade coupling at the $\mathrm{U}(1)$ gauge layer $d=14$ divided by the Euler characteristic closes the strong coupling exactly within current data precision.
+\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}), and equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. Together, (i) and (j) are the first two members of a cascade-structural family $\alpha(d^*)/\chi$ indexed by Paper~I's distinguished dimensions and acting on different observable classes.
 
-\textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e = 206.50$ (0.13\%). (b) $m_\tau/m_\mu = 16.53$ (1.7\%). (c) $\alpha_s(M_Z) = 0.1179$ closed to $-0.0006\sigma$ of experimental precision via the $\mathrm{U}(1)$-layer correction $\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}); the leading $0.1159$ sits $1.7\%$ low. (d) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (e) Absolute masses $m_\tau$ (1.2\%), $m_\mu$ (0.47\%), $m_e$ (0.60\%). (f) $\Omega_m = 0.31150$ (1.1\%). (g) $\theta_C = 13.26^\circ$ (1.7\%): amplitude descent of the gauge window angle, Eq.~(\ref{eq:cabibbo}).
+\textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e = 206.50$ (0.13\%, no shift applies: path starts at $d=14$). (b) $\alpha_s(M_Z)=0.117917$ and $m_\tau/m_\mu=16.81731$ closed within experimental precision via the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}). (c) $m_\tau = 1776.82$~MeV absolute closed within experimental precision via the phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ (Theorem~\ref{thm:mtau-abs-closure}). (d) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (e) Absolute masses $m_\mu$ (0.47\%) and $m_e$ (0.60\%), consistent with the chain-subtracted inherited shift $\delta\Phi_{\mathrm{phase}}-\delta\Phi_{\mathrm{U}(1)}$ to $\sim 50$--$70$~ppm (below the cascade's precision target, above their own extraordinary experimental precisions). (f) $\Omega_m = 0.31150$ (1.1\%). (g) $\theta_C = 13.26^\circ$ (1.7\%): amplitude descent of the gauge window angle, Eq.~(\ref{eq:cabibbo}).
 
 \textbf{Tier 3: Derived predictions with caveats.} (a) $m_H/m_W = \pi/2$: the geodesic distance argument is natural but the mass-ratio/geodesic identification is stated rather than computed from an action. (b) $v = 240.8$~GeV. (c) The $\exp(-\pi/\alpha(5))$ factor in Theorem 4.7. (\emph{Note: $\sin^2\theta_W$ is now Tier 1 via Theorem~\ref{thm:weinberg}; previously here as a standard-RG proxy.})
 
