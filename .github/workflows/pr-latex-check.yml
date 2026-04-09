@@ -1,0 +1,92 @@
+name: PR LaTeX Build Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/*.tex'
+      - 'tools/*.py'
+      - 'tools/requirements.txt'
+      - '.github/workflows/pr-latex-check.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-latex-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  latex-build-check:
+    name: Verify LaTeX files build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache TeX Live
+        uses: actions/cache@v4
+        id: cache-texlive
+        with:
+          path: |
+            /usr/share/texlive
+            /usr/share/texmf
+            /var/lib/texmf
+            /usr/bin/latexmk
+            /usr/bin/pdflatex
+          key: texlive-${{ runner.os }}-v1
+
+      - name: Install TeX Live
+        if: steps.cache-texlive.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('tools/requirements.txt') }}
+          restore-keys: pip-${{ runner.os }}-
+
+      - name: Install Python dependencies
+        run: pip install -r tools/requirements.txt
+
+      - name: Generate computed tables
+        run: python3 tools/generate_bao_table.py
+
+      - name: Compile LaTeX files
+        working-directory: src
+        run: |
+          set -e
+          failed=()
+          for f in *.tex; do
+            echo "::group::Compiling $f"
+            if latexmk -pdf -interaction=nonstopmode -halt-on-error "$f"; then
+              echo "$f built successfully"
+            else
+              echo "::error file=src/$f::LaTeX build failed for $f"
+              failed+=("$f")
+            fi
+            echo "::endgroup::"
+          done
+          if [ ${#failed[@]} -ne 0 ]; then
+            echo "::error::The following LaTeX files failed to build: ${failed[*]}"
+            exit 1
+          fi
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latex-build-logs
+          path: |
+            src/*.log
+            src/*.fls
+          if-no-files-found: ignore
+          retention-days: 7
