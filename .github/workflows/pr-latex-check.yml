@@ -28,19 +28,24 @@ jobs:
         uses: actions/cache@v4
         id: cache-texlive
         with:
-          path: |
-            /usr/share/texlive
-            /usr/share/texmf
-            /var/lib/texmf
-            /usr/bin/latexmk
-            /usr/bin/pdflatex
-          key: texlive-${{ runner.os }}-v1
+          path: ~/texlive-cache.tar
+          key: texlive-${{ runner.os }}-v2
+
+      - name: Restore TeX Live from cache
+        if: steps.cache-texlive.outputs.cache-hit == 'true'
+        run: sudo tar -xf ~/texlive-cache.tar -C /
 
       - name: Install TeX Live
         if: steps.cache-texlive.outputs.cache-hit != 'true'
         run: |
+          dpkg-query -W -f='${Package}\n' | sort > /tmp/pkgs-before.txt
           sudo apt-get update
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
+          dpkg-query -W -f='${Package}\n' | sort > /tmp/pkgs-after.txt
+          comm -13 /tmp/pkgs-before.txt /tmp/pkgs-after.txt > /tmp/new-pkgs.txt
+          dpkg -L $(cat /tmp/new-pkgs.txt) 2>/dev/null | grep -v '^/\.$' | sort -u > /tmp/tex-files.txt
+          sudo tar -cf ~/texlive-cache.tar --no-recursion --ignore-failed-read -T /tmp/tex-files.txt
+          sudo chown "$(id -u):$(id -g)" ~/texlive-cache.tar
 
       - name: Set up Python
         uses: actions/setup-python@v5
