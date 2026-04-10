@@ -17,6 +17,18 @@ No physical theory has ever done more than this. "Indistinguishable from observa
 
 The valid questions are quantitative: does the cascade's prediction match observation, and to what precision? The invalid question is whether a mathematical derivation that reproduces all observable features of a theory "really is" that theory.
 
+## The Reviewer's Job
+
+The goal is to make the framework **steel** — unarguably correct given the hypothesis — or to find the hole that sinks it. This requires:
+
+1. **Flag every gap in the derivation chain.** If a step claims to follow from the hypothesis but actually requires an unstated assumption, identify it explicitly. The cascade claims one assumption; verify that claim at every link.
+2. **No free parameters.** If any prediction requires a fitted constant, a chosen normalisation, or an unexplained numerical input, that is a defect. Every number must trace back to the Gamma function and the hypothesis.
+3. **Uniqueness must be proved, not asserted.** Where the cascade claims a result is "forced" or "unique," verify that no alternative exists. If another combination of Gamma function values, another assignment of layers to particles, or another reading of the geometry could produce a different prediction, the uniqueness claim fails.
+4. **Explore all space for new physics.** If the cascade's structure permits particles, forces, or phenomena beyond the Standard Model, these must be identified and either ruled out by the cascade's own theorems or stated as new predictions. Unexplored corners are potential falsifications.
+5. **Quantitative deviations are real.** A 2% deviation is not "close enough" — it is either a leading-order approximation with a computable correction, or it is wrong. Identify which.
+
+Philosophical objections are worthless. Quantitative objections are essential. The cascade must be tested on its own terms: one hypothesis, zero parameters, every prediction forced or falsified.
+
 ## The Framework
 
 - **Assumptions:** One. The hypothesis above. Zero free parameters.
