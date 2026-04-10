@@ -15,6 +15,7 @@ The cascade series tests one hypothesis: the infinite-dimensional unit ball, des
 | [`cascade-series-part1.tex`](src/cascade-series-part1.tex) | Part I — The Cosmological Constant from the Observer's Frame |
 | [`cascade-series-part2.tex`](src/cascade-series-part2.tex) | Part II — Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry |
 | [`cascade-series-part3.tex`](src/cascade-series-part3.tex) | Part III — General Relativity, Four Dimensions, and Lorentzian Signature from the Cascade |
+| [`cascade-series-part2-equals-3.tex`](src/cascade-series-part2-equals-3.tex) | Part II = III — Quantum Gravity without Quantising Gravity: Why the Quantum and Gravitational Projections of the Cascade Are the Same Theorem |
 | [`cascade-series-part4a.tex`](src/cascade-series-part4a.tex) | Part IVa — The Standard Model from the Cascade: Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros |
 | [`cascade-series-part4b.tex`](src/cascade-series-part4b.tex) | Part IVb — The Standard Model from the Cascade: Masses, Couplings, and Precision Predictions from the Geometric-Topological Factorization |
 | [`cascade-series-part5.tex`](src/cascade-series-part5.tex) | Part V — Cosmology from the Cascade: ΛCDM Parameters, the Hubble Constant, and the DESI BAO Observations |
