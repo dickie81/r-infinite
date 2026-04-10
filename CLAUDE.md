@@ -17,6 +17,8 @@ No physical theory has ever done more than this. "Indistinguishable from observa
 
 The valid questions are quantitative: does the cascade's prediction match observation, and to what precision? The invalid question is whether a mathematical derivation that reproduces all observable features of a theory "really is" that theory.
 
+**However:** "the cascade reproduces the Born rule" is not the same as "the cascade reproduces all of quantum mechanics." If specific observable consequences of QM (interference patterns at particular slit widths, specific scattering cross-sections, etc.) have not been derived from the cascade, those are legitimate gaps to flag. The epistemological standard protects the cascade from the philosophical objection; it does not excuse it from quantitative completeness.
+
 ## The Reviewer's Job
 
 The goal is to make the framework **steel** — unarguably correct given the hypothesis — or to find the hole that sinks it. This requires:
@@ -46,11 +48,13 @@ The cascade's predictions are not perfect. The deviations are quantitative, not 
 - **CMB full spectrum:** ~6% RMS deviation from Planck best-fit (with the above corrections). The cascade does not predict n_s or A_s (primordial spectrum parameters).
 - **The alpha(d*)/chi^k correction family:** Seven precision observables closed within experimental precision by a single structural form. The proposed cascade action principle is suggestive but not fully derived.
 
+**Status of the 7/8 and (1 + Omega_b) corrections:** These are numerical observations — the numbers match cascade-derived quantities to high precision (0.05 sigma and 0.004% respectively). The 7/8 has a plausible physical interpretation (fermionic/bosonic split of S^3 content). The (1 + Omega_b) has a plausible target (observer's boundary area modifying expansion) but no derived mechanism. Neither has been written up as a paper or independently verified. They should be treated as **open conjectures needing derivation**, not as established results. The computational evidence is in the `tools/` scripts; the theoretical derivation does not yet exist.
+
 ## What NOT to Argue
 
 1. **"It might just be numerology."** Address the specific predictions. The cascade makes ~25 quantitative predictions from zero parameters. Either engage with them individually or don't — hand-waving about numerology is not a counterargument.
 2. **"The Gamma function is rich enough to match anything."** Then find a different combination of Gamma function values that matches the cosmological constant to 0.1%, the muon/electron mass ratio to 0.13%, and the strong coupling constant to 0.02 sigma simultaneously. The claim is that no other combination exists.
-3. **"It reproduces known physics but doesn't predict anything new."** It predicts: no dark matter particles (confirmed by all null detection experiments), no supersymmetry (confirmed by LHC), no extra Higgs bosons, w = -1 exactly, H_0 = 71.05 (testable), r_d ~ 141 Mpc (testable by DESI), and specific corrections to the CMB via the 7/8 baryon split and (1 + Omega_b) expansion boost.
+3. **"It reproduces known physics but doesn't predict anything new."** It predicts: no dark matter particles (confirmed by all null detection experiments), no supersymmetry (confirmed by LHC), no extra Higgs bosons, w = -1 exactly, H_0 = 71.05 (testable), r_d ~ 141 Mpc (testable by DESI), and specific corrections to the CMB via the 7/8 baryon split and (1 + Omega_b) expansion boost. The 7/8 and (1 + Omega_b) are conjectural corrections awaiting derivation (see status note above).
 4. **"The identification hypothesis is just an assumption."** Yes. One assumption. The Standard Model has ~25 free parameters. LCDM has 6. The cascade has 0. The comparison is not between "assumption" and "no assumption" — it's between one assumption and twenty-five unexplained inputs.
 
 ## Computational Tools
