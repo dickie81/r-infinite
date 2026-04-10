@@ -862,6 +862,35 @@ Hubble tension & $H_0 = 71.05$, $r_d \approx 141$~Mpc & --- & 1 \\
 \item Error compensation in absolute masses. Both $\alpha_s$ and $v$ are predicted $\sim 2\%$ low. Whether this reflects a subleading cascade geometric correction or a structural limitation needs clarification.
 \end{enumerate}
 
+\section{Roadmap for Future Research}
+
+The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and the neutrino mass derivation open several concrete research directions, ordered by tractability.
+
+\textbf{Near-term (structural, no new mathematics required):}
+\begin{enumerate}
+\item \emph{Close the electroweak VEV $v$.} The only core SM observable resisting the $\alpha(d^*)/\chi^k$ family. The $v$ formula contains the non-perturbative tunnelling factor $\exp(-\pi/\alpha(5))$, which lies outside the cascade potential $\Phi$. Determining whether $v$'s correction lives in an instanton-like sector of the cascade action or requires a modification of the tunnelling amplitude at $d=5$ is the sharpest remaining precision target.
+\item \emph{Derive the PMNS matrix and the solar neutrino splitting.} The heaviest neutrino mass is derived ($m_{29}\times\alpha(21)/\chi^8$, $-1\%$ on $\Delta m^2$). The solar splitting requires inter-generation mixing---the cascade analogue of the PMNS matrix---from the Gram overlap structure between the three generation layers and $d=29$.
+\item \emph{Derive $1/\alpha_{\mathrm{em}}=137$ from the cascade.} The Weinberg angle is closed to $+0.40\sigma$; the individual couplings $g_2$ and $g_1'$ are each $\sim 4\%$ high. Closing $\alpha_{\mathrm{em}}$ requires the subleading descent corrections to the absolute couplings.
+\item \emph{Complete the quark mass spectrum.} The ratio $(t/b)/(c/s)=3.04\approx N_c$ suggests an additional colour factor from the Weyl chirality decomposition at $d=12$. Computing this from the cascade's own spinor structure at $S^{11}$ would complete the quark sector.
+\end{enumerate}
+
+\textbf{Medium-term (requires new cascade-intrinsic derivations):}
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item \emph{Rigorous derivation of the channel-counting rule from the action.} The chirality filtering argument (Remark~\ref{rem:phase-family}) shows why each independent cascade mode attenuates by $1/\chi$, but a formal proof that the Green's function of the discrete Laplacian factorises into $\chi$ chirality sectors at even-sphere layers is needed.
+\item \emph{Derive the source selection rule.} Why does each observable class couple to a specific distinguished layer ($d=14$ for gauge-descent, $d_1=19$ for Planck-anchored masses, $d_V=5$ for mixing angles, $d_0=7$ for amplitude-descent angles)? A variational argument from the action's critical-point structure at each distinguished layer would close this.
+\item \emph{Derive the sign rule from the Morse index.} The descent/geometric sign split currently follows the paper's empirical two-population classification. A Morse-theoretic derivation from the cascade action would make it structural.
+\item \emph{The cascade's instanton sector.} The non-perturbative factor $\exp(-\pi/\alpha(5))$ in $v$ may have a saddle-point (instanton) contribution from the cascade action. If the action has a non-trivial saddle at $d=5$, its contribution would generate the $v$ correction and potentially connect to the neutrino mass mechanism.
+\end{enumerate}
+
+\textbf{Long-term (foundational):}
+\begin{enumerate}
+\setcounter{enumi}{8}
+\item \emph{Second-quantise the cascade action.} The current action $S[\varphi]=\sum(2\alpha(d))^{-1}(\Delta\varphi)^2$ is a classical field theory on the cascade lattice. A second-quantised version---with the cascade field $\varphi$ promoted to an operator---would generate the source strengths, signs, and channel counts from the action's own quantum structure rather than from structural classification.
+\item \emph{Derive time and the Lorentzian signature from the cascade action.} Part~III derives Lorentzian signature from the oscillatory propagator; the cascade action should reproduce this as a Wick rotation of the discrete Laplacian.
+\item \emph{Connect to quantum gravity.} The cascade derives QM and GR separately from the same source. Whether the cascade action generates a consistent quantum gravity---or whether the cascade IS quantum gravity in a specific sense---is the deepest open question.
+\end{enumerate}
+
 \section{Confidence Assessment}
 
 \textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). The Part~0 Supplement derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Section~15.8.1 of the Supplement).
