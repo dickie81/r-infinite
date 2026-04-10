@@ -1,0 +1,498 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{The Cascade Series --- Part II\,=\,III}\\[6pt]
+Quantum Gravity without Quantising Gravity:\\
+Why the Quantum and Gravitational Projections\\
+of the Cascade Are the Same Theorem}
+\author{RTAC}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The cascade series tests one hypothesis: the infinite-dimensional unit ball,
+descended to four dimensions, is indistinguishable from our universe.
+Paper~II~\cite{paper2} derives quantum mechanics as the measurement theory of
+a 4D observer in the cascade geometry. Paper~III~\cite{paper3} derives general
+relativity as the unique gravitational equation available to that observer.
+This paper proves they are the same theorem.
+
+Both projections map the same cascade state on the same unit sphere using the
+same propagator under the same identification hypothesis. The propagator
+$K(t) = |K|\,e^{-iHt}$ is simultaneously the quantum time-evolution operator
+(unitary, probability-preserving) and the source of Lorentzian signature
+(oscillatory, $g_{tt} < 0$). These are not two identifications of one
+expression---they are one physical fact in two vocabularies. At $d = 4$,
+Gleason's theorem forces the Born rule as the unique probability measure and
+Lovelock's theorem forces the Einstein equation as the unique gravitational
+equation. Two uniquely forced theories from a single source admit no mutual
+contradiction: the space of possible conflicts is empty.
+
+The standard conflicts between quantum mechanics and general relativity---the
+UV catastrophe, the problem of time, background independence, the information
+paradox, and non-renormalisability---are artefacts of treating the two 4D
+projections as independent theories. In the cascade, they share a common
+origin. There is nothing to reconcile because there was never a separation.
+
+As a direct application, we derive Bekenstein--Hawking entropy from boundary
+dominance alone: a horizon of area $A$ at dimension $d$ hides geometric content
+$A/d$. At $d = 4$: $S = A/4$. The derivation is one line. The factor $1/4$ is
+the boundary-to-volume ratio at the observer's dimension. Black hole
+``entropy'' is not a statistical quantity---it is the amount of cascade geometry
+the observer cannot see. Hawking's semiclassical calculation measured this
+geometry through a 4D effective theory; the cascade states it directly.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{The Schism and Its Dissolution}
+
+\subsection{The standard conflict}
+
+Quantum mechanics requires a fixed background. General relativity makes the
+background dynamical. Combining them produces perturbative
+non-renormalisability~\cite{goroff}. Eighty years of effort to resolve this
+conflict have produced candidate frameworks but no unique, predictive,
+empirically confirmed quantum theory of gravity.
+
+\subsection{Why the cascade dissolves the problem}
+
+The cascade does not quantise gravity. It does not need to. The conflict
+arises because quantum mechanics and general relativity are formulated as
+independent theories, each claiming to be fundamental. In the cascade,
+neither is fundamental. Both are 4D projections of a single 217-dimensional
+geometry. They cannot conflict for the same reason that the shadow of a cube
+on two different walls cannot be inconsistent: both shadows are determined by
+the cube.
+
+\section{Single-Source Structure}
+
+\subsection{Shared ingredients}
+
+Papers~II and~III derive their results from the same inputs.
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Ingredient & QM projection (II) & GR projection (III) \\
+\hline
+State space & Unit sphere $S^{d-1}$ & Unit sphere $S^{d-1}$ \\
+Fundamental constant & $\sqrt{\pi} = \Gamma(1/2)$ & $\sqrt{\pi} = \Gamma(1/2)$ \\
+Propagator & $K(t) = |K|\,e^{-iHt}$ & $K(t) = |K|\,e^{-iHt}$ \\
+Complex structure & $J^2 = -\mathrm{Id}$ & $J^2 = -\mathrm{Id}$ \\
+Time & Slicing direction & Slicing direction \\
+Identification & Def.\ 2.1 of III & Def.\ 2.1 of III \\
+\hline
+\end{tabular}
+\end{center}
+
+No entry differs between columns. The two projections draw on the same state
+space, the same constant, the same propagator, the same complex structure, the
+same time, and the same hypothesis.
+
+\begin{theorem}[Single-source structure]\label{thm:single}
+The quantum and gravitational projections are functions of the same cascade
+state $|\Psi\rangle \in S^{d-1}$. Neither projection introduces any structure
+not present in the cascade geometry.
+\end{theorem}
+
+\begin{proof}
+Paper~II derives the 4D Hilbert space, Born rule, and unitary evolution from
+orthogonality, concentration of measure, and the forced precession---all
+properties of $S^{d-1}$. Paper~III derives the 4D metric, Einstein equation,
+and Lorentzian signature from the foliation metric, Lovelock's theorem, and
+the same forced precession---all properties of $S^{d-1}$. No external
+structure is invoked in either derivation. Both are read from the same
+sphere.
+\end{proof}
+
+\begin{remark}[The identification hypothesis is shared]
+Definition~2.1 of Paper~III does not say ``the cascade is quantum
+mechanical'' or ``the cascade is gravitational.'' It says ``the cascade's
+geometry is our physics.'' The quantum and gravitational content are
+consequences, not inputs.
+\end{remark}
+
+\subsection{The state space is the Hilbert space is the configuration space}
+
+In standard physics, the Hilbert space of QM and the configuration space of GR
+are separate mathematical objects. In the cascade, they are the same object:
+the unit sphere $S^{d-1}$.
+
+\begin{theorem}[State space identity]\label{thm:statespace}
+The boundary $S^{d-1}$ that carries the quantum state (Paper~II) is the
+same $S^{d-1}$ whose geometry determines the metric (Paper~III). A cascade
+state $|\Psi\rangle \in S^{d-1}$ simultaneously specifies the quantum
+amplitudes and the geometric configuration. There is one sphere, not two
+sets of degrees of freedom.
+\end{theorem}
+
+\begin{proof}
+Paper~II: the state space is $S^{d-1}$ via boundary dominance
+($\Omega_{d-1}/V_d = d$; the cascade's content is its boundary).
+Paper~III: the metric is the foliation of $B^{d+1}$ into cross-sections,
+with the induced geometry on $S^{d-1}$ determining the 4D metric.
+Same sphere.
+\end{proof}
+
+\section{The Propagator Identity}
+
+\begin{theorem}[One propagator, two readings]\label{thm:propagator}
+The cascade propagator $K(t) = |K|\,e^{-iHt}$ with $H = \lambda_\infty > 0$
+is simultaneously:
+\begin{enumerate}
+\item the quantum time-evolution operator: unitary, probability-preserving
+(Paper~II, Theorem~7.1), and
+\item the source of Lorentzian signature: oscillatory character requires
+$g_{tt} < 0$ (Paper~III, Theorem~10.2).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Paper~II derives $K(t)$ from the forced precession $\alpha = \pi/2$ and
+identifies $t$ with the slicing direction. Paper~III takes the same $K(t)$
+and observes: $e^{-iHt}$ oscillates (unitary), so $g_{tt} < 0$
+(Lorentzian). The chain is:
+\[
+\text{Forced precession} \;\to\; K = |K|\,e^{-iHt}
+\;\to\; \text{unitarity (QM)} + \text{Lorentzian (GR)}.
+\]
+One propagator. One chain. Two names for the same consequence.
+\end{proof}
+
+\begin{corollary}[Unitarity and Lorentzian signature are the same theorem]
+\label{cor:same}
+Both require $H = \lambda_\infty > 0$. This is established once, from the
+forced precession, which is established once, from orthogonality. The
+cascade's single axiom forces both simultaneously.
+\end{corollary}
+
+\begin{remark}[The Euclidean/Lorentzian duality]
+The cascade is Euclidean ($B^d$ is a Euclidean object). The physical
+spacetime is Lorentzian. Paper~III explains: the Euclidean geometry
+produces an oscillatory propagator through the forced precession, and
+oscillatory propagator character IS Lorentzian signature. No Wick rotation,
+no analytic continuation, no choice of contour. There is a Euclidean
+geometry whose propagator is Lorentzian. Both facts coexist because they
+are describing the same mathematics.
+\end{remark}
+
+\section{Double Uniqueness}
+
+\begin{theorem}[Gleason $+$ Lovelock $=$ consistency]\label{thm:double}
+At $d = 4$:
+\begin{enumerate}
+\item Gleason's theorem~\cite{gleason}: the Born rule is the unique
+probability measure on a Hilbert space of dimension $\geq 3$.
+\item Lovelock's theorem~\cite{lovelock}: the Einstein equation is the
+unique symmetric divergence-free rank-2 tensor equation in exactly $d = 4$.
+\end{enumerate}
+Two uniquely forced theories from a single source admit no mutual
+contradiction.
+\end{theorem}
+
+\begin{proof}
+Suppose the quantum projection $\mathcal{Q}$ and the gravitational
+projection $\mathcal{G}$, applied to the same cascade state, yield
+contradictory predictions for some 4D observable. Then at least one is not
+the unique theory compatible with the cascade geometry---contradicting
+Gleason or Lovelock. No such observable exists.
+\end{proof}
+
+\begin{remark}[The role of $d = 4$]
+The argument depends on $d = 4$. In higher dimensions, Lovelock permits
+additional gravitational terms with free couplings; the gravitational
+projection would no longer be unique and consistency would fail. The
+cascade forces $d = 4$ (Paper~III, Section~9) precisely where both
+uniqueness theorems hold.
+\end{remark}
+
+\section{No Absolute Scale}
+
+\begin{theorem}[The cascade produces ratios]\label{thm:noscale}
+Every physical prediction of the cascade series is a dimensionless ratio.
+The cascade geometry contains no intrinsic length, time, mass, or energy
+scale. The dimensionful constants $G$, $\hbar$, $c$ are unit-conversion
+factors, not physical parameters.
+\end{theorem}
+
+\begin{proof}
+The cascade's input is $B^d$ with $|x| \leq 1$. Rescaling changes no
+ratio. Its outputs---$I$, $\alpha_s$, $\sin^2\theta_W$, $m_\mu/m_e$,
+$\Omega_m$---are pure numbers from the Gamma function. $\hbar = (\pi/2)/\Delta t$ (Paper~II): the angle is derived; $\Delta t$ is a unit
+choice. $G$ maps cascade curvature ratios to human units. $c$ converts
+spatial and temporal components of the cascade metric.
+\end{proof}
+
+\begin{corollary}[The UV problem is a projection artefact]
+The ``Planck scale'' is not a physical place. It is a ratio at which the 4D
+effective description becomes unreliable. The cascade remains well-defined
+at all ratios. Standard UV divergences arise from integrating over
+arbitrarily high momenta in 4D; in the cascade, the sum over levels
+terminates at $d = 217$. The finiteness is structural (a theorem about the
+Gamma function), not regulatory.
+\end{corollary}
+
+\section{Metric Superpositions Are Cascade States}
+
+\begin{theorem}[Gravity is already quantum]\label{thm:metricstate}
+The 4D metric $g_{\mu\nu}$ is determined by the cascade state
+$|\Psi\rangle \in S^{d-1}$. Different states produce different metrics.
+Superpositions of states produce superpositions of metrics. The Born rule
+assigns probabilities to metric outcomes. Each outcome satisfies Einstein's
+equation (Lovelock).
+\end{theorem}
+
+\begin{proof}
+Paper~III derives $g_{\mu\nu}$ from the cascade's foliation structure, which
+is a property of the cascade state. Paper~II establishes superposition on
+$S^{d-1}$. A superposition $|\Psi\rangle = a|\Psi_1\rangle + b|\Psi_2\rangle$
+with $g^{(1)}_{\mu\nu} \neq g^{(2)}_{\mu\nu}$ is a state of superposed
+metrics. The Born rule (Gleason) gives $p(k) = |\langle\Phi_k|\Psi\rangle|^2$.
+Each outcome satisfies Einstein's equation (Lovelock).
+\end{proof}
+
+\begin{remark}[No second quantisation of gravity]
+The standard approach: take $g_{\mu\nu}$, promote to $\hat{g}_{\mu\nu}$,
+impose commutation relations, struggle with non-renormalisability. The
+cascade bypasses this. The metric is never promoted to an operator. It is
+a property of the quantum state. Superpositions of metrics are
+superpositions of states. Gravity was always quantum in the cascade,
+because geometry was always quantum in the cascade.
+\end{remark}
+
+\section{Bekenstein--Hawking Entropy Is Hidden Geometry}
+
+\subsection{The claim}
+
+A black hole's ``entropy'' is not a statistical quantity. It is the amount of
+cascade geometry the observer cannot see.
+
+\begin{theorem}[Hidden geometry behind a horizon]\label{thm:bh}
+Let a $d$-dimensional cascade observer measure a horizon of boundary area $A$
+in cascade units. The geometric content hidden behind the horizon is
+\[
+\boxed{\;S = \frac{A}{d}.\;}
+\]
+At $d = 4$: $S = A/4$.
+\end{theorem}
+
+\begin{proof}
+Boundary dominance (Paper~I, Theorem~4.4): $\Omega_{d-1}/V_d = d$.
+Therefore $V_d = \Omega_{d-1}/d$. A horizon of area $A$ is a boundary.
+Its interior content is $V = A/d$. At $d = 4$: $V = A/4$.
+\end{proof}
+
+One theorem. One line. No semiclassical gravity, no QFT on curved spacetime,
+no thermal radiation, no microstate counting.
+
+\subsection{Content is geometry}
+
+Corollary~4.8a of Paper~I: sphere area is the only independent cascade
+quantity. Content IS geometry. One unit of sphere area is one unit of cascade
+content. A horizon of area $A$ hides $A/4$ units of geometric content. The
+question ``how many microstates?'' is downstream---the geometry is primary.
+
+\subsection{Why Hawking got $A/4$ from a different calculation}
+
+Hawking (1975)~\cite{hawking75} derived $S = A/4$ from QFT on a Schwarzschild
+background: Bogoliubov transformations, thermal density matrices, the
+semiclassical approximation. A statistical calculation producing a geometric
+answer. This has been mysterious for fifty years.
+
+The cascade explains: Hawking measured the hidden geometry through a 4D
+effective theory. The thermal radiation is the 4D observer's description of
+geometric content leaking across an asymptotic compactification boundary.
+Both routes arrive at $A/4$ because they measure the same geometry from
+different altitudes.
+
+\subsection{The standard interpretations are downstream}
+
+\begin{center}
+\begin{tabular}{ll}
+\hline
+Level & Statement \\
+\hline
+Cascade (primary) & Hidden geometry $= A/d$ \\
+$\downarrow$ & \\
+Thermodynamic & $Q/T = A/4$ \\
+Statistical & $\ln W = A/4$ \\
+Information-theoretic & $H = A/4$ nats \\
+\hline
+\end{tabular}
+\end{center}
+
+All three give $A/4$ because they are all measuring the same geometric
+content. None is fundamental. The geometry is fundamental.
+
+\subsection{Hawking temperature}
+
+If hidden geometry is $S = A/4$ and the first law $dM = T\,dS$ holds:
+\[
+T = \left(\frac{1}{4}\frac{dA}{dM}\right)^{-1} = \frac{1}{8\pi M},
+\]
+using $A = 16\pi M^2$ (Schwarzschild). The ``temperature'' is the rate at
+which hidden geometry becomes accessible through the asymptotic
+decompactification at the horizon.
+
+\subsection{Cosmological entropy}
+
+The de~Sitter horizon has area $A_{\mathrm{dS}} = 12\pi/\Lambda$ with
+$\Lambda = I \approx 10^{-120}$. The hidden geometry:
+\[
+S_{\mathrm{dS}} = \frac{A_{\mathrm{dS}}}{4} \sim 10^{120}.
+\]
+This is the cascade hierarchy $\Omega_7/\Omega_{217} \approx 10^{121}$
+divided by 4. The cosmological ``entropy'' and the cascade hierarchy are the
+same geometric content, seen from opposite sides of the identification
+hypothesis. The formula for 120 orders of magnitude (Paper~I, Theorem~10.1)
+is the formula for the cosmological entropy.
+
+\section{Resolution of the Standard Conflicts}
+
+\begin{center}
+\small
+\begin{tabular}{p{3.2cm}p{3.8cm}p{4.5cm}}
+\hline
+Conflict & Source & Cascade resolution \\
+\hline
+UV catastrophe & Infinite modes in 4D & Finite tower: 213 levels, structural \\
+Problem of time & $H = 0$ in canonical gravity & $H = \lambda_\infty > 0$; time is
+slicing \\
+Background dependence & QM needs fixed metric & Hilbert space on $S^{d-1}$; metric
+is output \\
+Information paradox & Sharp horizon $+$ unitarity & No sharp horizon; asymptotic
+compactification \\
+Non-renormalisability & $g_{\mu\nu} \to \hat{g}_{\mu\nu}$ & Metric is state property;
+no promotion \\
+Planck-scale physics & What happens at $l_{\mathrm{Pl}}$? & No absolute scale; cascade
+defined at all ratios \\
+Euclidean/Lorentzian & Wick rotation ambiguity & Euclidean geometry, Lorentzian
+propagator \\
+BH entropy & Statistical $\to$ geometric? & Geometry is primary: $S = A/d$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Every row uses the cascade's existing content (Papers~I--III) and classical
+theorems (Gleason, Lovelock). No new postulate, no new parameter, no new
+mathematical structure.
+
+\section{Summary}
+
+\begin{center}
+\small
+\begin{tabular}{llc}
+\hline
+Result & Mechanism & Section \\
+\hline
+QM and GR share single source & Same state space, propagator, hypothesis & 2 \\
+Hilbert space $=$ configuration space & Both are $S^{d-1}$ & 2.2 \\
+Unitarity $=$ Lorentzian signature & Same propagator, same $H > 0$ & 3 \\
+Mutual consistency & Gleason $+$ Lovelock: double uniqueness & 4 \\
+No absolute scale & All predictions are ratios & 5 \\
+UV dissolution & Finite tower; projection artefact & 5 \\
+Gravity already quantum & Metric is state property on $S^{d-1}$ & 6 \\
+$S = A/4$ & Boundary dominance at $d = 4$ & 7 \\
+Hawking temperature & First law $+$ hidden geometry & 7.5 \\
+Cosmological entropy $\sim 10^{120}$ & Cascade hierarchy $/\, 4$ & 7.6 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{What This Paper Does and Does Not Do}
+
+\textbf{Does:}
+\begin{itemize}
+\item Proves the quantum and gravitational projections are the same theorem:
+same source, same propagator, same state space, same hypothesis.
+\item Proves mutual consistency via double uniqueness (Gleason $+$ Lovelock).
+\item Dissolves all seven standard QM/GR conflicts.
+\item Derives $S = A/4$ from one theorem (boundary dominance), with no
+semiclassical input.
+\item Identifies the factor $1/4$ as $1/d$ at the observer's dimension.
+\item Recovers the Hawking temperature from the first law.
+\item Connects cosmological entropy to the cascade hierarchy.
+\item Predicts $S = A/d$ for general observer dimension.
+\end{itemize}
+
+\textbf{Does not:}
+\begin{itemize}
+\item Compute graviton scattering amplitudes.
+\item Derive Hawking radiation (thermal spectrum, greybody factors) from
+cascade geometry.
+\item Compute entropy of Kerr or Reissner--Nordstr\"{o}m black holes.
+\item Construct the explicit Hilbert space of metric superpositions or
+compute decoherence rates.
+\item Perform the BTZ cross-check ($S = A/3$ at $d = 3$).
+\item Derive the Page curve.
+\end{itemize}
+
+\section{Open Questions}
+
+\begin{enumerate}
+\item \textbf{Hawking radiation from geometry.} The temperature follows from
+the first law and $S = A/d$. The radiation mechanism---geometric content
+leaking through asymptotic compactification---is identified but not
+computed. A geometric derivation of the thermal spectrum would complete
+the connection.
+\item \textbf{BTZ cross-check.} The cascade predicts $S = A/3$ at $d = 3$.
+Computing $G_3$ from the cascade's KK reduction and verifying the BTZ
+formula would provide an independent structural test.
+\item \textbf{Graviton scattering.} A finite graviton scattering amplitude
+from the cascade's geometry would provide computational confirmation of
+the structural UV finiteness.
+\item \textbf{Decoherence of metric superpositions.} The Born rule applies
+to metric measurements (Theorem~\ref{thm:metricstate}), but the rate at
+which macroscopic metric superpositions decohere has not been computed.
+\item \textbf{Holographic entropy bound.} Boundary dominance
+($\Omega/V = d$) is structurally holographic. Whether the Bousso bound
+follows from the cascade is open.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+
+\bibitem{paper1} RTAC, \textit{The Cascade Series~--- Part~I: Scale Variance
+from Orthogonality}, March 2026.
+
+\bibitem{paper2} RTAC, \textit{The Cascade Series~--- Part~II: Quantum
+Mechanics from the Cascade}, March 2026.
+
+\bibitem{paper3} RTAC, \textit{The Cascade Series~--- Part~III: General
+Relativity from the Cascade}, March 2026.
+
+\bibitem{goroff} M.~H.~Goroff and A.~Sagnotti, ``The ultraviolet behaviour
+of Einstein gravity,'' \textit{Nuclear Physics B} \textbf{266}, 709--736
+(1986).
+
+\bibitem{gleason} A.~M.~Gleason, ``Measures on the closed subspaces of a
+Hilbert space,'' \textit{Journal of Mathematics and Mechanics} \textbf{6},
+885--893 (1957).
+
+\bibitem{lovelock} D.~Lovelock, ``The four-dimensionality of space and the
+Einstein tensor,'' \textit{Journal of Mathematical Physics} \textbf{13},
+874--876 (1972).
+
+\bibitem{dewitt} B.~S.~DeWitt, ``Quantum theory of gravity.~I. The canonical
+theory,'' \textit{Physical Review} \textbf{160}, 1113--1148 (1967).
+
+\bibitem{hawking75} S.~W.~Hawking, ``Particle creation by black holes,''
+\textit{Communications in Mathematical Physics} \textbf{43}, 199--220 (1975).
+
+\end{thebibliography}
+
+\end{document}
