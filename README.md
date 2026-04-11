@@ -2,11 +2,13 @@
 
 [![DOI](https://zenodo.org/badge/1166833443.svg)](https://doi.org/10.5281/zenodo.19520075)
 
-**[Read the papers online](https://dickie81.github.io/r-infinite/)**
-
 > **The infinite-dimensional unit ball, descended to four dimensions, is indistinguishable from our universe.**
 
-That is the hypothesis. It is the only one. There are no free parameters, no fitted constants, no choices. From a single axiom — orthogonality — the series derives the cosmological constant, quantum mechanics, general relativity with d=4 and Lorentzian signature, the Standard Model gauge group and its symmetry breaking, three fermion generations, precision mass and coupling predictions, and the background cosmological parameters including a Hubble constant between the two competing measurements.
+One hypothesis. Zero free parameters. No choices.
+
+The series derives — from this alone — the cosmological constant, quantum mechanics, general relativity at d=4 with Lorentzian signature, the Standard Model gauge group and its symmetry breaking, three fermion generations, particle masses and couplings, and the cosmological parameters including a Hubble constant between the Planck and SH0ES measurements.
+
+**[Read the papers](https://dickie81.github.io/r-infinite/)**
 
 <!-- BEGIN PREDICTIONS -->
 ## Predictions
