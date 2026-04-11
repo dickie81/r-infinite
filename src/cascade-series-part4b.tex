@@ -381,8 +381,8 @@ At the SU(3) layer $d = 12$: $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.020$. Th
 where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed to experimental precision by the universal $\mathrm{U}(1)$ shift of Theorem~\ref{thm:alpha-s-closure} below, together with $m_\tau/m_\mu$ in the same identity).
 \end{theorem}
 
-\begin{remark}[The cascade replaces the $\beta$-function]
-The eight cascade steps from $d = 12$ to $d = 4$ replace the standard QCD $\beta$-function. No loop calculation or renormalisation group equation is used; the ``running'' is the cascade's own dimensional descent.
+\begin{remark}[The cascade's analogue of the $\beta$-function]
+The eight cascade steps from $d = 12$ to $d = 4$ play the role of the standard QCD $\beta$-function: they determine the coupling at the observer's scale from the coupling at the gauge window. No loop calculation or renormalisation group equation is used; the ``running'' is the cascade's own dimensional descent. The cascade gives the coupling value at one scale, not the running structure across scales---the full scale-dependent $\beta$-function is not derived.
 \end{remark}
 
 \subsection{The universal $\mathrm{U}(1)$-layer shift to the cascade potential}
@@ -669,7 +669,8 @@ The closed form $\alpha(5)/\chi^3=8/(225\pi)$ follows directly from $\alpha(5)=R
 \end{proof}
 
 \begin{remark}[Self-consistent W and Higgs masses]
-With the cascade-derived $\sin^2\theta_W = 0.2286$:
+With the cascade-derived $\sin^2\theta_W = 0.2286$ and the observed
+$m_Z = 91.19$~GeV (a second dimensionful input alongside $M_{\mathrm{Pl,red}}$):
 \[
 m_W = m_Z\cos\theta_W = 91.19\sqrt{0.7714} = 80.10~\text{GeV}\quad(-0.35\%),
 \]
@@ -678,8 +679,9 @@ m_H = m_W\cdot\pi/2 = 125.82~\text{GeV}\quad(+0.45\%).
 \]
 Both improve over the values obtained using the standard-RG proxy
 (Section~4.4). The chain
-$N(13), N(14)\to\theta_W\to m_W\to m_H$ is now closed within the cascade
-without external input.
+$N(13), N(14)\to\theta_W\to m_W\to m_H$ is closed within the cascade
+with no free parameters; the only external inputs are $M_{\mathrm{Pl,red}}$
+(setting the gravitational scale) and $m_Z$ (setting the electroweak scale).
 \end{remark}
 
 \subsection{The $W$ boson mass}
@@ -724,7 +726,7 @@ The cascade's Higgs potential $V(\theta) = \tfrac{1}{2}\cos^2\theta$ on $S^{12}$
 
 \subsection{The electroweak scale and the hierarchy}
 
-\begin{theorem}[Electroweak scale]
+\begin{theorem}[Electroweak scale]\label{thm:vev}
 \[
 v = M_{\text{Pl,red}} \times \alpha_{\text{GUT}} \times \exp(\Phi(12 \to 4)) \times \exp(-\pi/\alpha(5)) = 240.8~\text{GeV}.
 \]
@@ -734,6 +736,17 @@ Observed: $v = 246.22$~GeV. Deviation: 2.2\%.
 \begin{proof}
 The three suppression factors are: (i) $\exp(-\pi/\alpha(5)) = \exp(-34.70) = 8.53 \times 10^{-16}$, where $\alpha(5) = N(5)^2/(4\pi)$ and $1/\alpha(5) = 11.04$; (ii) $\exp(\Phi(12 \to 4)) = \exp(1.065) = 2.90$; (iii) $\alpha_{\text{GUT}} = N(12)^2/(4\pi) = 0.03997$. Combining: $2.435 \times 10^{18} \times 0.03997 \times 2.90 \times 8.53 \times 10^{-16} = 240.8$~GeV.
 \end{proof}
+
+\begin{remark}[Status of the non-perturbative factor]
+The factor $\exp(-\pi/\alpha(5))$ has the form of an instanton suppression
+in QFT ($\exp(-\mathrm{const}/\alpha)$). Its cascade interpretation---as
+a non-perturbative propagator through the $d=5$ hairy ball
+obstruction---is proposed, not derived from the cascade action. All
+other factors in the formula ($\alpha_{\mathrm{GUT}}$, $\exp(\Phi)$,
+$M_{\mathrm{Pl,red}}$) have independent cascade derivations; this one
+does not. See Open Question~6 and Roadmap item~8 for the path to a
+cascade-intrinsic derivation.
+\end{remark}
 
 \begin{remark}[The hierarchy problem dissolves]
 The ratio $v/M_{\text{Pl}} \approx 10^{-16}$ is $\exp(-\pi/\alpha(5))$: a cascade propagator through the $d = 5$ layer, multiplied by the gauge coupling and the cascade potential. Each factor has an independent geometric origin. The ``hierarchy'' is dimensional transmutation in the cascade's own geometry.
@@ -775,7 +788,7 @@ At the gauge window, the geometric angle between the SU(3) layer ($d = 12$) and 
 
 The key observation: the $d = 13$ signal traverses one extra cascade layer to reach the observer compared to $d = 12$. The $d = 13 \to d = 4$ propagator passes through the $d = 12$ layer; the $d = 12 \to d = 4$ propagator does not pass through $d = 12$ itself. The relative coupling attenuation of the $d = 13$ signal is $\exp(-p(13))$, where $p(13) = \tfrac{1}{2}\psi(7) - \tfrac{1}{2}\ln\pi = 0.3640$.
 
-The CKM matrix element $V_{us} = \sin\theta_C$ is bilinear in the propagator---it involves the overlap of two states, one from each gauge layer. The relevant quantity is therefore the geometric mean of the coupling descent, giving an amplitude descent factor of $\exp(-p(13)/2) = 0.8336$.
+A mixing-matrix element measures the overlap of two states, one from each gauge layer. By the Born rule (Paper~II, Theorem~5.3), the transition probability is the squared amplitude: $P = |\langle\psi_1|\psi_2\rangle|^2$. Therefore the \emph{amplitude} of the overlap involves the geometric mean of the two propagators, and the relevant descent factor is $\exp(-p(13)/2) = 0.8336$---the square root of the full single-propagator factor $\exp(-p(13))$.
 
 The tangent of the mixing angle carries this factor because only the off-diagonal component ($d = 13$) is attenuated by the extra step:
 \[
