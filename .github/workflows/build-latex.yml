@@ -37,7 +37,9 @@ jobs:
         run: pip install -r tools/requirements.txt
 
       - name: Generate computed tables
-        run: python3 tools/generate_bao_table.py
+        run: |
+          python3 tools/generate_predictions.py
+          python3 tools/generate_bao_table.py
 
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
