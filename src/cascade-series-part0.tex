@@ -22,7 +22,7 @@ How the Unit Ball Generates $10^{120}$ Orders of Magnitude}
 
 \begin{abstract}
 The unit ball in $\mathbb{R}^d$ has a slicing recurrence
-$V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ containing one constant,
+$V_{d+1}/V_d = \sqrt{\pi}\cdot R(d+1)$ containing one constant,
 $\sqrt{\pi} = \Gamma(1/2)$, forced by orthogonality. The sphere-area decay
 rate $p(d)$ has a unique natural zero at $d_0 = 7$. This zero generates
 two threshold values $c_1 = \tfrac{1}{2}\ln\pi$ and $c_2 = \sqrt{\pi}$ ---
@@ -96,7 +96,7 @@ Substitute $x = \cos\theta$. The integral becomes
 $2\int_0^{\pi/2}\sin^d\theta\,d\theta$: one quarter turn from axis to
 equator. Via the Beta function:
 \begin{equation}\label{eq:recurrence}
-V_{d+1} = V_d\cdot\sqrt{\pi}\cdot R(d), \qquad
+V_{d+1} = V_d\cdot\sqrt{\pi}\cdot R(d+1), \qquad
 R(d) := \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
 \end{equation}
 
@@ -131,7 +131,7 @@ $V_d = \pi^{d/2}/[(d/2)\Gamma(d/2)]$.\; Ratio: $d$.
 $V_d = \Omega_{d-1}/d$. Volumes are derived from sphere areas. The
 recurrence is a first-order multiplicative map between sphere areas:
 \[
-\Omega_d = \Omega_{d-1}\cdot\tfrac{d+1}{d}\cdot\sqrt{\pi}\cdot R(d).
+\Omega_{d+1} = \Omega_d\cdot\sqrt{\pi}\cdot R(d).
 \]
 Sphere area is the unique independent cascade quantity at each level.
 Every other cascade object---$V_d$, $R(d)$,
@@ -286,9 +286,9 @@ representations, because the recurrence has two canonical forms:
 \toprule
 Form & Expression & Constant \\
 \midrule
-Multiplicative & $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d)$ &
+Multiplicative & $V_{d+1}/V_d = \sqrt{\pi}\cdot R(d+1)$ &
 $c_2 = \sqrt{\pi}$ \\
-Logarithmic & $\Delta\ln V_d = \frac{1}{2}\ln\pi + \ln R(d)$ &
+Logarithmic & $\Delta\ln V_d = \frac{1}{2}\ln\pi + \ln R(d+1)$ &
 $c_1 = \frac{1}{2}\ln\pi$ \\
 \bottomrule
 \end{tabular}
@@ -313,7 +313,7 @@ The condition ``coefficient~1'' is not a convention; it is forced by the
 recurrence's order. The slicing recurrence is first-order: each step
 applies $K$ exactly once. A form containing $K^n$ ($n\neq 1$) describes
 one of two things: either the recurrence for a derived sequence
-($V_d^{\,n}$ satisfies $V_{d+1}^{\,n}/V_d^{\,n} = K^n\cdot R(d)^n$), or
+($V_d^{\,n}$ satisfies $V_{d+1}^{\,n}/V_d^{\,n} = K^n\cdot R(d+1)^n$), or
 the $n$-step composition $V_{d+n}/V_d$, which is a higher-order object.
 In neither case is $K^n$ a primitive of the original first-order
 recurrence. Excluding non-unit exponents is therefore not a filter designed
@@ -456,7 +456,7 @@ role in the invariant.
 
 \begin{definition}[Generalised recurrence]\label{def:general}
 Let $K > 0$ be any constant. The generalised slicing recurrence is
-$V_{d+1} = V_d\cdot K\cdot R(d)$, with decay rate
+$V_{d+1} = V_d\cdot K\cdot R(d+1)$, with decay rate
 $p_K(d) = -\ln K + \tfrac{1}{2}\psi((d+1)/2)$. The physical cascade has
 $K = \sqrt{\pi}$, but the structural analysis applies for all $K$.
 \end{definition}

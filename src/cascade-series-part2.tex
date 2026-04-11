@@ -583,11 +583,11 @@ direction.
 
 \subsection{The lapse function}
 
-The cascade's slicing recurrence gives the ratio of adjacent volumes:
+The cascade's lapse function is the ratio of adjacent volumes:
 \[
-V_{d+1}/V_d = \sqrt{\pi}\cdot R(d),\qquad R(d) = \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+N(d) = V_d/V_{d-1} = \sqrt{\pi}\cdot R(d),\qquad R(d) = \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
 \]
-This is the cascade's lapse function: $N(d)=\sqrt{\pi}\cdot R(d)\approx\sqrt{2\pi/d}$ in
+Asymptotically $N(d)\approx\sqrt{2\pi/d}$ in
 the Stirling regime. Properties: $N(d)\to 0$ as $d\to\infty$ (time does not exist at the
 cascade's starting point); $N(d)$ monotonically increasing as $d$ decreases; $N(4)=3\pi/8
 \approx 1.178$ (the 4D observer lives in a moderate regime; the Stirling approximation
