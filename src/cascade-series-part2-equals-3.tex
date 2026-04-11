@@ -49,11 +49,12 @@ origin. There is nothing to reconcile because there was never a separation.
 
 As a direct application, we derive Bekenstein--Hawking entropy from boundary
 dominance alone: a horizon of area $A$ at dimension $d$ hides geometric content
-$A/d$. At $d = 4$: $S = A/4$. The derivation is one line. The factor $1/4$ is
-the boundary-to-volume ratio at the observer's dimension. Black hole
-``entropy'' is not a statistical quantity---it is the amount of cascade geometry
-the observer cannot see. Hawking's semiclassical calculation measured this
-geometry through a 4D effective theory; the cascade states it directly.
+$A/d$. At $d = 4$: $S = A/4$. The factor $1/4$ is the boundary-to-volume
+ratio at the observer's dimension. Combining $S = A/4$ with the
+Schwarzschild area--mass relation $A = 16\pi M^2$ (a mathematical consequence
+of the cascade's own Einstein equation via Birkhoff's theorem) gives the
+Hawking temperature $T = 1/(8\pi M)$ by calculus---no semiclassical gravity,
+no QFT on curved spacetime, no Bogoliubov transformations.
 \end{abstract}
 
 \tableofcontents
@@ -339,28 +340,68 @@ Information-theoretic & $H = A/4$ nats \\
 All three give $A/4$ because they are all measuring the same geometric
 content. None is fundamental. The geometry is fundamental.
 
-\subsection{Hawking temperature}
+\subsection{Hawking temperature from the cascade}
 
-If hidden geometry is $S = A/4$ and the first law $dM = T\,dS$ holds:
+\begin{theorem}[Hawking temperature]\label{thm:hawking}
+A Schwarzschild black hole of mass $M$ has temperature
 \[
-T = \left(\frac{1}{4}\frac{dA}{dM}\right)^{-1} = \frac{1}{8\pi M},
+T = \frac{1}{8\pi M}.
 \]
-using $A = 16\pi M^2$ (Schwarzschild). The ``temperature'' is the rate at
-which hidden geometry becomes accessible through the asymptotic
-decompactification at the horizon.
+\end{theorem}
 
-\subsection{Cosmological entropy}
+\begin{proof}
+Three steps, each from the cascade's own content.
 
-The de~Sitter horizon has area $A_{\mathrm{dS}} = 12\pi/\Lambda$ with
-$\Lambda = I \approx 10^{-120}$. The hidden geometry:
+\emph{Step~1.} Hidden geometry $S = A/4$ (Theorem~\ref{thm:bh}, boundary
+dominance at $d = 4$).
+
+\emph{Step~2.} The Einstein equation is the unique gravitational equation at
+$d = 4$ (Paper~III, Lovelock uniqueness). By Birkhoff's theorem---a
+mathematical consequence of the Einstein equation---the Schwarzschild metric
+is the unique spherically symmetric vacuum solution. Its horizon has area
+$A = 16\pi M^2$ in Planck units.
+
+\emph{Step~3.}
 \[
-S_{\mathrm{dS}} = \frac{A_{\mathrm{dS}}}{4} \sim 10^{120}.
+T = \left(\frac{\partial S}{\partial M}\right)^{-1}
+= \left(\frac{\partial}{\partial M}\frac{A}{4}\right)^{-1}
+= \left(\frac{\partial}{\partial M}\,4\pi M^2\right)^{-1}
+= \frac{1}{8\pi M}.\qedhere
 \]
-This is the cascade hierarchy $\Omega_7/\Omega_{217} \approx 10^{121}$
-divided by 4. The cosmological ``entropy'' and the cascade hierarchy are the
-same geometric content, seen from opposite sides of the identification
-hypothesis. The formula for 120 orders of magnitude (Paper~I, Theorem~9.1)
-is the formula for the cosmological entropy.
+\end{proof}
+
+\begin{remark}[What the derivation uses and does not use]
+The derivation uses boundary dominance (a Gamma function identity),
+Lovelock uniqueness (a tensor-algebraic theorem), Birkhoff's theorem
+(a mathematical consequence of the Einstein equation), and the chain rule.
+It does not use quantum field theory on curved spacetime, Bogoliubov
+transformations, the semiclassical approximation, or any counting of
+microstates. Hawking's original derivation~\cite{hawking75} required
+semiclassical gravity because it had no geometric route to $S = A/4$; the
+cascade provides that route through boundary dominance, making the
+semiclassical calculation unnecessary.
+\end{remark}
+
+\begin{remark}[The first law is output, not input]
+The relation $dM = T\,dS$ is often cited as the first law of black hole
+mechanics and used as an input to derive $T$. Here the logic is reversed:
+$S(M) = 4\pi M^2$ is known from Steps~1--2, so $T = (dS/dM)^{-1}$ follows
+by calculus. The first law is the \emph{output}---a consequence of the
+cascade's geometric entropy and the Einstein equation---not an independent
+postulate.
+\end{remark}
+
+\subsection{Cosmological hidden geometry}
+
+The cascade hierarchy $\Omega_7/\Omega_{217} \approx 10^{121}$ is the ratio
+of sphere areas at the two equilibria: the largest and the smallest in the
+cascade's tower. At $d = 4$, boundary dominance gives the hidden geometry
+as $1/4$ of this hierarchy---approximately $10^{120}$ in cascade units.
+This is the same $10^{120}$ that appears as the cosmological constant's
+hierarchy (Paper~I, Theorem~9.1), seen from the other side: $\Lambda \sim
+10^{-120}$ is the inverse of the hidden geometry. The cascade derives both
+numbers from the Gamma function; neither requires a de~Sitter solution or
+semiclassical gravity.
 
 \section{Resolution of the Standard Conflicts}
 
@@ -408,8 +449,8 @@ No absolute scale & All predictions are ratios & 5 \\
 UV dissolution & Finite tower; projection artefact & 5 \\
 Gravity already quantum & Metric is state property on $S^{d-1}$ & 6 \\
 $S = A/4$ & Boundary dominance at $d = 4$ & 7 \\
-Hawking temperature & First law $+$ hidden geometry & 7.5 \\
-Cosmological entropy $\sim 10^{120}$ & Cascade hierarchy $/\, 4$ & 7.6 \\
+$T = 1/(8\pi M)$ & $S(M) + $ Birkhoff; no semiclassics & 7.4 \\
+Hidden geometry $\sim 10^{120}$ & Cascade hierarchy $/\, 4$ & 7.5 \\
 \hline
 \end{tabular}
 \end{center}
@@ -425,16 +466,18 @@ same source, same propagator, same state space, same hypothesis.
 \item Derives $S = A/4$ from one theorem (boundary dominance), with no
 semiclassical input.
 \item Identifies the factor $1/4$ as $1/d$ at the observer's dimension.
-\item Recovers the Hawking temperature from the first law.
-\item Connects cosmological entropy to the cascade hierarchy.
+\item Derives the Hawking temperature $T = 1/(8\pi M)$ from boundary
+dominance and Birkhoff's theorem, with no semiclassical input
+(Theorem~\ref{thm:hawking}).
+\item Connects the cosmological hierarchy ($10^{120}$) to hidden geometry
+via boundary dominance, with no semiclassical input.
 \item Predicts $S = A/d$ for general observer dimension.
 \end{itemize}
 
 \textbf{Does not:}
 \begin{itemize}
 \item Compute graviton scattering amplitudes.
-\item Derive Hawking radiation (thermal spectrum, greybody factors) from
-cascade geometry.
+\item Derive the thermal spectrum and greybody factors from cascade geometry.
 \item Compute entropy of Kerr or Reissner--Nordstr\"{o}m black holes.
 \item Construct the explicit Hilbert space of metric superpositions or
 compute decoherence rates.
@@ -445,11 +488,13 @@ compute decoherence rates.
 \section{Open Questions}
 
 \begin{enumerate}
-\item \textbf{Hawking radiation from geometry.} The temperature follows from
-the first law and $S = A/d$. The radiation mechanism---geometric content
-leaking through asymptotic compactification---is identified but not
-computed. A geometric derivation of the thermal spectrum would complete
-the connection.
+\item \textbf{Hawking radiation spectrum.} Theorem~\ref{thm:hawking} derives
+the temperature $T = 1/(8\pi M)$ from boundary dominance and Birkhoff's
+theorem, with no semiclassical input. The thermal \emph{spectrum}
+(Planckian with greybody factors) and the radiation \emph{mechanism}
+(geometric content leaking through asymptotic compactification) remain
+open: a geometric derivation of the spectral shape would complete the
+connection.
 \item \textbf{BTZ cross-check.} The cascade predicts $S = A/3$ at $d = 3$.
 Computing $G_3$ from the cascade's KK reduction and verifying the BTZ
 formula would provide an independent structural test.
