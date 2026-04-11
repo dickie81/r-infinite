@@ -32,6 +32,7 @@ Mathematical uniqueness proofs leave no alternative. These are not approximation
 | No supersymmetry | — | Confirmed (LHC) | No pairing mechanism (IVa) |
 | No dark matter particles | — | Confirmed (null results) | Geometry provides content (V) |
 | No extra Higgs bosons | — | Confirmed (LHC) | One hairy ball zero (IVa) |
+| No gravitons | — | Not yet testable | Metric is state property, not quantised field (II=III, III) |
 
 ### Tier 2 — Derived: Closed-Form, Zero Free Parameters
 
