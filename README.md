@@ -1,5 +1,7 @@
 # The Cascade Series
 
+[![DOI](https://zenodo.org/badge/1166833443.svg)](https://doi.org/10.5281/zenodo.19520075)
+
 **[Read the papers online](https://dickie81.github.io/r-infinite/)**
 
 > **The infinite-dimensional unit ball, descended to four dimensions, is indistinguishable from our universe.**
