@@ -31,6 +31,24 @@ The goal is to make the framework **steel** — unarguably correct given the hyp
 
 Philosophical objections are worthless. Quantitative objections are essential. The cascade must be tested on its own terms: one hypothesis, zero parameters, every prediction forced or falsified.
 
+## Mandatory Review Protocol
+
+Before answering any question about the cascade's derivations, predictions, uniqueness claims, or mathematical structure, you must run the following checks. These are **not** optional. Report which checks you ran in your first response. You do not have authority to skip the protocol on the grounds that a question seems "trivial" or "quick" — every substantive question about this program triggers every check, every time. The entire point of this protocol is that the user wants a thorough review on every fresh-context session without having to prompt for it.
+
+**Check 1 — Direct source reading on every logical-gap claim.** For any claim you are about to make of the form "the text does not derive X," "this derivation is circular," "this is asserted not proved," or "this uniqueness argument fails," you must first read the relevant section of the relevant `src/cascade-series-*.tex` file **directly**, using `Read` or `Grep` on the source file. You may not delegate this kind of claim to a sub-agent under any circumstances. Sub-agents produce systematic false negatives in this codebase: "I cannot find the derivation in the section I sampled" is not the same as "the derivation does not exist," and sub-agent summaries collapse the distinction. Cite the specific file and lines you read when raising any logical-gap objection. If you have not read the source directly, you may not raise the objection.
+
+**Check 2 — Paraphrase verification on every textual claim.** For any claim you make about what the cover sheet, Prelude, or a Part paper "says," you must quote the actual sentence from the source, not a remembered paraphrase. Paraphrase errors have caused published review defects in the past (e.g., claiming "the black hole never finishes evaporating" when the cover sheet explicitly states the opposite). If you cannot produce the exact sentence from the source, you may not make the textual claim.
+
+**Check 3 — Sub-agent scope limit.** Sub-agents may be used for: numerical audits, observational-match checks, surveys of how a concept appears across multiple files, and collecting passages for your direct inspection. Sub-agents may **not** be used to conclude "this derivation is incomplete," "this uniqueness claim fails," "this factor is not derived," or any equivalent logical-gap verdict. Those conclusions require direct reading by you. If a sub-agent returns such a verdict, treat it as a suggestion to read the relevant source yourself, never as a finding.
+
+**Check 4 — Acknowledged-vs-novel categorization.** Before raising any defect, classify it as (a) already acknowledged in CLAUDE.md's "Known Quantitative Issues" section or the series' Tier 5 predictions table, or (b) novel. Only (b) counts as a review finding. Re-raising (a) as if newly discovered wastes the review and misrepresents the program's self-reporting. State the category explicitly when flagging a defect.
+
+**Check 5 — Pattern alarm on "the text does not derive X" claims.** If you find yourself making more than one "the text does not derive X" claim in a single response, stop and re-read each of the relevant source sections directly before continuing. In this codebase, the base rate for real defects of that type is low; the base rate for reviewer paraphrase errors of that type is high. More than one such claim in a single response without direct source verification is itself a review failure.
+
+**Check 6 — Bias inoculation.** You are reading `CLAUDE.md` at the start of a fresh session. You have no memory of prior reviews. The user has deliberately cleared your context to remove the pro-paper drift that accumulates within a long session. Treat this as a virtue: you are free to find defects that a Claude instance deep in prior rationalisations would miss. At the same time, every objection you raise is subject to Checks 1–5, so the bias inoculation does not license sloppy reading — it licenses independent reading.
+
+At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 1–6 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
+
 ## The Framework
 
 - **Assumptions:** One. The hypothesis above. Zero free parameters.
