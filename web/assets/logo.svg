@@ -16,99 +16,79 @@
         opacity="0.75" />
     </g>
   </defs>
-
   <g transform="translate(85 85)">
-    
-    <!-- Layer 1: Outermost - stays mostly stable -->
     <g>
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="1; 0.0625; 1" 
+        values="1; 1; 1" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-    
-
-    <!-- Layer 2 -->
     <g transform="scale(0.7071)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.7071; 1; 0.0625; 0.7071" 
+        values="0.7071; 1; 0.7071" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 3 -->
     <g transform="scale(0.5)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.5; 1; 0.0625; 0.5" 
+        values="0.5; 1; 0.5" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 4 -->
     <g transform="scale(0.3536)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.3536; 1; 0.0625; 0.3536" 
+        values="0.3536; 1; 0.3536" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 5 -->
     <g transform="scale(0.25)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.25; 1; 0.0625; 0.25" 
+        values="0.25; 1; 0.25" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 6 -->
     <g transform="scale(0.1768)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.1768; 1; 0.0625; 0.1768" 
+        values="0.1768; 1; 0.1768" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 7 -->
     <g transform="scale(0.125)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.125; 1; 0.0625; 0.125" 
+        values="0.125; 1; 0.125" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 8 -->
     <g transform="scale(0.0884)">
       <animateTransform 
         attributeName="transform" 
         type="scale" 
-        values="0.0884; 1; 0.0625; 0.0884" 
+        values="0.0884; 1; 0.0884" 
         dur="10s" 
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
-    <!-- Layer 9: Deepest -->
     <g transform="scale(0.0625)">
       <animateTransform 
         attributeName="transform" 
@@ -118,6 +98,5 @@
         repeatCount="indefinite" />
       <use href="#dimension" />
     </g>
-
   </g>
 </svg>

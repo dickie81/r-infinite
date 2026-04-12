@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Optimized for favicon: thicker strokes + fewer layers so it stays crisp at 16×16 / 32×32 -->
+  <defs>
+    <g id="layer">
+      <rect 
+        x="-75" y="-75" 
+        width="150" height="150" 
+        fill="none" 
+        stroke="#000" 
+        stroke-width="9" />
+      <circle 
+        r="75" 
+        fill="none" 
+        stroke="#000" 
+        stroke-width="8" />
+    </g>
+  </defs>
+
+  <g transform="translate(100 100)">
+    <use href="#layer" />
+    <g transform="scale(0.707)"><use href="#layer" /></g>
+    <g transform="scale(0.5)"><use href="#layer" /></g>
+    <g transform="scale(0.353)"><use href="#layer" /></g>
+  </g>
+</svg>
