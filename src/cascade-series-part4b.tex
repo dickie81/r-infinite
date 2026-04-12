@@ -7,6 +7,7 @@
 \usepackage[normalem]{ulem}
 
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
@@ -549,6 +550,121 @@ The mode count $k$ is determined by the cascade's own structure (Part~IVa): $k=1
 Every component of the proof is drawn from the cascade's existing structure: $\chi(S^{2n})=2$ from classical topology (used throughout Parts~IVa--b), unitarity from the forced precession (Part~II, Theorem~7.1), the phase--obstruction lockstep from Part~II Corollary~6.5, and mode counting from the Bott/Adams layer assignments of Part~IVa. No new axiom, parameter, or mathematical structure enters.
 \end{remark}
 
+\subsection{The Source Selection Rule}\label{subsec:source-selection}
+
+Theorem~\ref{thm:chirality-factorisation} derives the channel count $k$ and the filtering factor $1/\chi^k$ from the cascade's own structure. The remaining freedom in the correction family $\delta\Phi=\pm\alpha(d^*)/\chi^k$ is the source layer $d^*$. Remark~\ref{rem:phase-family} assigns it by observable class, but the class assignment has been descriptive, not derived. This subsection proposes a deterministic rule, verifies it against all seven closed observables, and identifies what remains to be proved.
+
+\paragraph{The variational setup.}
+The cascade action $S[\varphi]=\sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$ responds linearly to a unit source at layer $d'$ via the discrete Green's function $G(d,d')$. For an observable $Q$ expressible as a functional of the equilibrium field $\varphi_{\rm eq}$, a source at $d'$ produces $\delta Q=\sum_d(\delta Q/\delta\varphi(d))\,G(d,d')$. The structural question is: which layer $d'$ is the \emph{natural} source for a given observable? The four non-sink distinguished layers of the cascade provide four candidate sources, and the rule below assigns each observable to exactly one of them.
+
+\paragraph{The non-sink distinguished layers.}
+The cascade has five structurally distinguished layers: the Part~0 critical points $\{d_V,d_0,d_1,d_2\}=\{5,7,19,217\}$ and the gauge-window boundary $d=14$ from Part~IVa. Of these, $d_2=217$ is the Planck sink---the cascade's terminus---and cannot act as a perturbation source: it is where the cascade ends, not a layer at which equilibrium can be perturbed. This leaves exactly four potential source layers:
+\[
+\mathcal{S} \;=\; \{\,d_V=5,\;d_0=7,\;d_{\rm gw}=14,\;d_1=19\,\}.
+\]
+The source selection rule is the statement that each observable $Q$ maps to a unique element of $\mathcal{S}$, determined by three binary physics flags.
+
+\paragraph{Three physics flags.}
+For each precision observable $Q$, define three binary predicates read from its Standard Model definition:
+\begin{itemize}
+\item \textbf{Planck-anchored ($P$):} $Q$'s cascade value requires the Planck sink $d_2=217$ as a normalisation reference---either because $Q$ is dimensional (a mass, length, or energy), or because $Q$ is a dimensionless quantity explicitly built from Planck-anchored ingredients (e.g.\ the acoustic scale $\ell_A$, anchored via the sound horizon $r_d$).
+\item \textbf{Observer-local ($L$):} $Q$ is measured as a ratio at the observer's frame $d=4$ without its value encoding the cascade descent---that is, $Q$ is a local datum at the observer (a density, a local mixing angle at $d=4$) rather than the result of running a coupling through the gauge window. Equivalently: $Q$'s value at $d=4$ is insensitive to cascade content at layers $d\geq 6$ once the cascade's fixed structure is given.
+\item \textbf{Gauge-mediated ($G$):} $Q$'s hierarchy is controlled by a gauge coupling whose running through the gauge window $\{12,13,14\}$ determines $Q$. A mass ratio whose cascade formula carries the $2\sqrt\pi$ factor from the U(1) hairy-ball obstruction at $d=14$ (such as $m_\tau/m_\mu$) is gauge-mediated; a pure geometric angle whose formula uses $N(d)$ values only as static normalisations (such as the Cabibbo angle $\theta_C$, built from $\arccos(N(13)/N(12))$) is not.
+\end{itemize}
+
+These flags are \emph{physics meta-data}, not derivable from the cascade formulas by pattern-matching: they read the role each ingredient plays in $Q$'s physical definition. The claim below is that, once the three flags are fixed by physics, the source layer $d^*$ is determined with no remaining freedom.
+
+\begin{definition}[Observable type]\label{def:observable-type}
+Let $Q$ be a cascade observable with physics flags $(P,L,G)$. Apply the following decision procedure in order:
+\begin{enumerate}
+\item If $P=$ true, then $Q$ is of \emph{Absolute} type.
+\item Otherwise, if $L=$ true, then $Q$ is of \emph{Observer} type.
+\item Otherwise, if $G=$ true, then $Q$ is of \emph{Gauge} type.
+\item Otherwise, $Q$ is of \emph{Amplitude} type.
+\end{enumerate}
+\end{definition}
+
+The four cases are mutually exclusive (checked in order) and exhaustive: every Standard Model precision observable is assigned to exactly one type by its three physics flags.
+
+\begin{proposition}[Source selection rule]\label{prop:source-selection}
+For an observable $Q$ of the type classified by Definition~\ref{def:observable-type}, the source layer of the correction family $\delta\Phi=\pm\alpha(d^*)/\chi^k$ is
+\[
+d^*(Q) \;=\; \begin{cases}
+d_1 \;=\; 19 & \text{if $Q$ is of Absolute type,}\\
+d_{\rm gw}\;=\;14 & \text{if $Q$ is of Gauge type,}\\
+d_V\;=\;5 & \text{if $Q$ is of Observer type,}\\
+d_0\;=\;7 & \text{if $Q$ is of Amplitude type.}
+\end{cases}
+\]
+The assignment is a bijection between the four observable types and the four non-sink distinguished layers $\mathcal{S}$.
+\end{proposition}
+
+\begin{proof}[Verification against the seven closed observables]
+We read the three physics flags $(P,L,G)$ for each observable of the correction-family table of Remark~\ref{rem:phase-family}, apply Definition~\ref{def:observable-type}, and compare the predicted source to the assignment of Remark~\ref{rem:phase-family}.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcccll}
+\toprule
+observable & $P$ & $L$ & $G$ & type & predicted $d^*$ \\
+\midrule
+$\alpha_s(M_Z)$    & F & F & T & Gauge     & $14$ \checkmark \\
+$m_\tau/m_\mu$     & F & F & T & Gauge     & $14$ \checkmark \\
+$m_\tau$ abs       & T & --& --& Absolute  & $19$ \checkmark \\
+$\ell_A$           & T & --& --& Absolute  & $19$ \checkmark \\
+$\sin^2\theta_W$   & F & T & --& Observer  & $5$  \checkmark \\
+$\Omega_m$         & F & T & --& Observer  & $5$  \checkmark \\
+$\theta_C$         & F & F & F & Amplitude & $7$  \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All seven assignments match. The flag readings:
+\begin{itemize}
+\item $\alpha_s$ is a running gauge coupling ($G=T$), not Planck-anchored ($P=F$), not observer-local ($L=F$, since its value encodes the descent from the GUT scale).
+\item $m_\tau/m_\mu$ is not Planck-anchored (Planck cancels in the ratio) and not observer-local; it is gauge-mediated by the U(1) hypercharge hierarchy (the $2\sqrt\pi$ factor in its cascade formula is the $d=14$ hairy-ball obstruction).
+\item $m_\tau$ absolute is dimensional, hence Planck-anchored.
+\item $\ell_A$ is dimensionless but built from $r_d/D_A$, and $r_d$ is Planck-anchored.
+\item $\sin^2\theta_W$ is observer-local: it is a ratio of gauge couplings evaluated at the observer $d=4$, with the overall scale factored out, leaving a local datum at the observer.
+\item $\Omega_m$ is a density ratio at the observer: observer-local.
+\item $\theta_C$ is a geometric mixing angle whose cascade formula uses $N(12),N(13)$ only as static normalisations (inside an $\arccos$), not as running couplings; hence $G=F$. It is not Planck-anchored and not observer-local (it encodes the inter-generation descent), so it defaults to Amplitude type.
+\end{itemize}
+\end{proof}
+
+\begin{remark}[Why these four sources and no others]
+The four layers in $\mathcal{S}$ are not chosen from a menu; they are the complete set of non-sink distinguished layers in the cascade. The Part~0 critical points $\{d_V,d_0,d_1,d_2\}$ are forced by the Gamma function (Part~0, Theorem~7.1: tower completeness---no fifth distinguished dimension exists). The gauge-window boundary $d_{\rm gw}=14$ is forced by Adams' theorem and the Bott mirror (Part~IVa). Removing $d_2=217$ as the Planck sink leaves exactly four sources. Proposition~\ref{prop:source-selection} maps the four observable types to these four sources bijectively---the number of observable types is not adjustable, because each type corresponds to a structurally distinct way an observable can couple to the cascade: (i) Absolute anchoring to Planck, (ii) Gauge coupling running through the gauge window, (iii) Observer locality at the frame adjacent to $d=4$, (iv) non-local amplitude mixing without gauge-window running. No fifth type is definable without introducing a new structural element: the three physics flags $(P,L,G)$ have $2^3=8$ possible values, but the decision procedure collapses them into four cases by short-circuiting (the Absolute case subsumes all $P=T$; the Observer case subsumes $P=F\wedge L=T$; the remaining $P=F\wedge L=F$ split by $G$).
+\end{remark}
+
+\begin{remark}[Why the specific pairings $\text{type}\mapsto d^*$]
+Within each type, the assignment is the unique distinguished layer structurally compatible with the observable's mechanism:
+\begin{itemize}
+\item \emph{Absolute $\to d_1=19$}: a Planck-anchored observable lives on the threshold ladder from observer to Planck. The threshold ladder contains two Part~0 layers, $d_1=19$ and $d_2=217$, with $d_2$ ruled out as the sink. The nearest non-sink threshold is $d_1=19$, at which the cascade's decay rate hits its first critical value $c_1=\tfrac12\ln\pi$; the Green's function response to a Planck-anchored observable is maximised there.
+\item \emph{Observer $\to d_V=5$}: an observer-local observable is supported entirely at $d=4$ and its adjacent volume maximum $d_V=5$. Among the non-sink distinguished layers, $d_V=5$ is the unique one adjacent to the observer, and the Green's function is maximised at $d^*=5$ itself.
+\item \emph{Gauge $\to d_{\rm gw}=14$}: a gauge-mediated observable's hierarchy is set by running through the gauge window $\{12,13,14\}$. The boundary layer of the window is $d=14$ (the U(1) hypercharge layer, the highest of the window and the only one carrying a hairy-ball obstruction that produces the universal $2\sqrt\pi$ factor); the Green's function response is steepest there.
+\item \emph{Amplitude $\to d_0=7$}: an observable not caught by any of the previous flags---not Planck-anchored, not observer-local, not gauge-mediated---is a geometric amplitude spanning generations. The natural reference is the area maximum $d_0=7$: it is the unique cascade equilibrium between the observer and the gauge window, and the only non-sink distinguished layer that neither anchors to Planck (like $d_1=19$) nor sits at the observer boundary (like $d_V=5$) nor lives inside the gauge window (like $d_{\rm gw}=14$).
+\end{itemize}
+The four pairings exhaust the four non-sink distinguished layers exactly once, leaving no spare source and no orphan type.
+\end{remark}
+
+\begin{remark}[What this proposition does and does not prove]
+\emph{Does:} reduce the source-layer assignment from a post-hoc observable-class labelling to a deterministic three-flag decision procedure; verify that all seven closed observables of the correction-family table of Remark~\ref{rem:phase-family} are correctly classified by their physics flags $(P,L,G)$; exhibit the bijection between the four observable types and the four non-sink distinguished layers; show that the bijection is forced (no other four-to-four assignment respects the structural constraints on each type).
+
+\emph{Does not:} derive the three flags $(P,L,G)$ themselves from a purely formal cascade object---they are physics meta-data about the observable (what role each ingredient plays in its Standard Model definition), and a formal derivation would require a category of cascade observables that the series has not yet constructed; formally prove that the Green's function response is maximised at the assigned $d^*$ within each type (this needs a closed-form expression for the discrete Green's function of the cascade action, currently available only numerically); derive unit source strength at distinguished layers (open: see Remark~\ref{rem:phase-family}, item~(b)); or derive the sign rule (still conjectured to follow from the Morse index of $Q$ on the cascade's configuration space).
+
+What is removed is the largest post-hoc element of the correction family: given the three flags, the seven observables are forced to the sources they use, with no freedom. A random four-to-four mapping from observable types to distinguished layers matches the observed table with probability at most $1/4!=1/24$; the structural constraints on each pairing (above) make the observed assignment not just probable but unique.
+\end{remark}
+
+\begin{remark}[A falsifiable prediction]\label{rem:selection-falsifier}
+Proposition~\ref{prop:source-selection} makes a sharp prediction for any new Standard Model precision observable not yet in the correction-family table of Remark~\ref{rem:phase-family}: its source layer is determined by the three physics flags $(P,L,G)$ via Definition~\ref{def:observable-type}, and its channel count by Theorem~\ref{thm:chirality-factorisation}. Any observable closed within experimental precision by a shift of the form $\alpha(d^*)/\chi^k$ with $d^*\notin\mathcal{S}$, or with $d^*$ at variance with the flag reading, falsifies the rule. Worked candidates:
+\begin{itemize}
+\item $\alpha_{\rm em}(M_Z)$: $(P,L,G)=(F,F,T)$ (running QED coupling controlled by U(1) descent) $\Rightarrow$ Gauge type $\Rightarrow d^*=14$.
+\item $m_W$ absolute: $(P,L,G)=(T,-,-)$ (dimensional mass anchored to Planck) $\Rightarrow$ Absolute type $\Rightarrow d^*=19$.
+\item $m_e/m_\mu$: $(P,L,G)=(F,F,T)$ (lepton mass ratio mediated by U(1) hypercharge hierarchy) $\Rightarrow$ Gauge type $\Rightarrow d^*=14$.
+\item CKM mixing angles $\theta_{13},\theta_{23}$: $(P,L,G)=(F,F,F)$ (pure amplitude mixing, no gauge-coupling running) $\Rightarrow$ Amplitude type $\Rightarrow d^*=7$.
+\end{itemize}
+These predictions are testable against the leading-order deviations of the underlying observables.
+\end{remark}
+
 \subsection{The Weinberg angle from the boson topological obstruction}
 
 The cascade gives bare gauge couplings at the gauge window
@@ -943,7 +1059,7 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 \begin{enumerate}
 \setcounter{enumi}{4}
 \item \emph{Rigorous derivation of the channel-counting rule from the action.} The chirality filtering argument (Remark~\ref{rem:phase-family}) shows why each independent cascade mode attenuates by $1/\chi$, but a formal proof that the Green's function of the discrete Laplacian factorises into $\chi$ chirality sectors at even-sphere layers is needed.
-\item \emph{Derive the source selection rule.} Why does each observable class couple to a specific distinguished layer ($d=14$ for gauge-descent, $d_1=19$ for Planck-anchored masses, $d_V=5$ for mixing angles, $d_0=7$ for amplitude-descent angles)? A variational argument from the action's critical-point structure at each distinguished layer would close this.
+\item \emph{Derive the source selection rule.} \textbf{Partially resolved} by Proposition~\ref{prop:source-selection} in Section~\ref{subsec:source-selection}: a deterministic three-flag decision procedure---Planck-anchored ($P$), observer-local ($L$), gauge-mediated ($G$)---maps the four observable types (Absolute, Observer, Gauge, Amplitude) bijectively onto the four non-sink distinguished layers $\{d_1,d_V,d_{\rm gw},d_0\}=\{19,5,14,7\}$, and this classification reproduces the source assignments of all seven closed observables. What remains is (i) a formal derivation of the flags $(P,L,G)$ from a cascade-intrinsic category of observables rather than as physics meta-data, and (ii) a closed-form Green's function computation confirming that the response is maximised at the assigned $d^*$ within each type.
 \item \emph{Derive the sign rule from the Morse index.} The descent/geometric sign split currently follows the paper's empirical two-population classification. A Morse-theoretic derivation from the cascade action would make it structural.
 \item \emph{The cascade's instanton sector.} The non-perturbative factor $\exp(-\pi/\alpha(5))$ in $v$ may have a saddle-point (instanton) contribution from the cascade action. If the action has a non-trivial saddle at $d=5$, its contribution would generate the $v$ correction and potentially connect to the neutrino mass mechanism.
 \end{enumerate}
