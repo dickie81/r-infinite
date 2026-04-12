@@ -6,7 +6,7 @@ on:
     paths:
       - 'src/*.tex'
       - 'tools/*.py'
-      - 'index.html'
+      - 'web/**'
       - '.github/workflows/build-latex.yml'
   workflow_dispatch:
 
@@ -50,7 +50,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp index.html _site/
+          cp web/** _site/
           cp src/*.pdf _site/
 
       - name: Upload artifact

@@ -5,7 +5,7 @@ authors:
   - family-names: RTAC
     orcid: ""
 date-released: "2026-03-01"
-version: "v0.0"
+version: "v0.0.2"
 doi: "10.5281/zenodo.19520075"
 url: "https://github.com/dickie81/r-infinite"
 repository-code: "https://github.com/dickie81/r-infinite"

@@ -278,7 +278,7 @@ def main():
     print(f"  wrote {latex_path}")
 
     # HTML injection
-    html_path = os.path.join(REPO_ROOT, 'index.html')
+    html_path = os.path.join(REPO_ROOT, 'web/index.html')
     inject(html_path, generate_html(intro, tiers))
     print(f"  injected into {html_path}")
 
