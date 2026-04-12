@@ -50,7 +50,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp web/** _site/
+          cp -r web/** _site/
           cp src/*.pdf _site/
 
       - name: Upload artifact
