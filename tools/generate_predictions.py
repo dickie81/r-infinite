@@ -231,7 +231,10 @@ def generate_latex(intro, tiers):
         lines.append(
             r'\noindent ' + convert(tier['description'], 'latex')
         )
+        lines.append('')
         lines.append(r'\smallskip')
+        lines.append('')
+        lines.append(r'\noindent')
 
         ncols = len(tier['columns'])
         spec = colspecs.get(ncols, '@{}' + 'l' * ncols + '@{}')
