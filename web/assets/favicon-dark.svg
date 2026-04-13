@@ -5,12 +5,12 @@
         x="-75" y="-75" 
         width="150" height="150" 
         fill="none" 
-        stroke="#000" 
+        stroke="#FFF" 
         stroke-width="9" />
       <circle 
         r="75" 
         fill="none" 
-        stroke="#000" 
+        stroke="#FFF" 
         stroke-width="8" />
     </g>
   </defs>
