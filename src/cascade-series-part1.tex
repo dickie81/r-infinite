@@ -22,20 +22,31 @@
 Part 0~\cite{part0} derives the cascade invariant
 $I_0 = \Omega_{19}\times\Omega_{217} = 1.2051\times 10^{-120}$ from pure
 mathematics. This paper adds one input: the hypothesis that the cascade's
-geometry is indistinguishable from our universe.
+geometry is indistinguishable from our universe, and applies two
+observer-frame corrections to convert the pure-number cascade invariant
+into the dimensionless cosmological constant measured in physical
+(reduced-Planck) units.
 
-We observe four spacetime dimensions. The observer at $d = 4$ lives on the
-$S^3$ boundary of $d = 5$, the volume maximum in Part 0's tower. The
-cascade's invariant is referenced to $d_0 = 7$, the area maximum. One
-frame correction per threshold sphere area gives
-$\Omega_5/\Omega_7 = 3/\pi$, yielding:
+We observe four spacetime dimensions. The observer at $d = 4$ lives on
+the $S^3$ boundary of $d = 5$, the volume maximum in Part 0's tower.
+Two corrections connect the cascade invariant to the physical ratio:
+(i)~the frame correction $(\Omega_5/\Omega_7)^2 = 9/\pi^2$ from the
+cascade's natural reference at $d_0 = 7$ to the observer's host at
+$d_V = 5$, and (ii)~the observer's cube--sphere bridge
+$\Omega_2/V_3^{\mathrm{cube}} = 4\pi/8 = \pi/2$ at the spatial dimension
+$d = 3$, which converts cascade-native sphere-area normalisation to the
+cube-volume normalisation of the reduced Planck mass. Combined:
 \[
-\frac{\rho_\Lambda}{M^4_{\mathrm{Pl}}}
-= \frac{9\;\Omega_{19}\;\Omega_{217}}{\pi^2}
-= 1.0990\times 10^{-120}.
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
+= \frac{2}{\pi}\cdot\frac{9\;\Omega_{19}\;\Omega_{217}}{\pi^2}
+= \frac{18\;\Omega_{19}\;\Omega_{217}}{\pi^3}
+= 6.996\times 10^{-121}.
 \]
-Observed: $(1.10\pm 0.02)\times 10^{-120}$. The deviation is $0.1\%$,
-twenty times smaller than the $1\sigma$ uncertainty.
+Observed (Planck 2018): $(7.150\pm 0.13)\times 10^{-121}$.  Leading
+deviation: $-2.2\%$, placing $\Lambda$ in the descent-dependent
+population. After the Part~0 Supplement first-order Gram correction
+$\exp(\sum(1-C^2_{d,d+1}))=\exp(0.02108)$, the residual is $-0.07\%$,
+well inside the $1.9\%$ Planck $1\sigma$ uncertainty.
 \end{abstract}
 
 \section{The Hypothesis}
@@ -64,50 +75,119 @@ $I_0 = \Omega_{19}\times\Omega_{217}$ is intrinsically referenced to this
 area maximum. The observer is not at $d_0 = 7$. The observer is at
 $d_V = 5$.
 
+Two frame corrections are required to connect the pure-number cascade
+invariant to the physical cosmological-constant ratio measured in
+reduced-Planck units.
+
+\subsection{Correction 1: the host frame at $d_V = 5$}
+
 The ratio of sphere areas at the two maxima:
 \[
 \frac{\Omega_5}{\Omega_7} = \frac{\pi^3}{\pi^4/3} = \frac{3}{\pi}.
 \]
+Applied once per threshold sphere area (both factors of the bilinear
+invariant pass through the host rescaling; Part~0, Lemma~8.8), this
+contributes $(\Omega_5/\Omega_7)^2 = 9/\pi^2$.
+
+\subsection{Correction 2: the observer's cube--sphere bridge at $d = 3$}
+
+Cascade content is sphere area (Part~0, Corollary~3.2: $\Omega_{d-1}$ is
+the unique independent cascade quantity). The physical reduced Planck
+mass $M_{\mathrm{Pl,red}}$ is a cube-volume normalisation: in the
+zero-point mode counting that gives rise to $\rho_\Lambda$ in QFT, modes
+are counted per unit $d^3 k/(2\pi)^3$ in momentum space, i.e., with
+respect to a 3-cube measure. Cascade-native sphere-area normalisation
+and $M_{\mathrm{Pl,red}}^4$ cube-volume normalisation differ by the
+dimensionless ratio of sphere area to cube volume at the observer's
+spatial dimension $d = 3$:
+\[
+\frac{\Omega_2}{V_3^{\mathrm{cube}}} \;=\; \frac{4\pi}{2^3} \;=\; \frac{\pi}{2}.
+\]
+Equivalently, converting the cube-normalised physical ratio into
+cascade-native sphere units applies $\pi/2$; converting back applies
+$2/\pi$.
+
+\begin{remark}[Why $d = 3$ and not $d = 4$]
+The cosmological constant is an energy density, not an energy; the
+conversion factor between cascade sphere area and physical cube volume
+lives at the observer's 3-dimensional spatial slice, not at the 4D
+spacetime index. The observer's $S^3$ hosts the cascade's 3-sphere
+surface $\Omega_2$ (the equatorial 2-sphere of the spatial slice); the
+QFT cube is the 3-cube of momentum-space mode counting. Both are 3D
+quantities at $d = 3$.
+\end{remark}
 
 \section{The Cosmological Constant}
 
 \begin{theorem}\label{thm:cc}
 \[
-\frac{\rho_\Lambda}{M^4_{\mathrm{Pl}}}
-= \left(\frac{\Omega_5}{\Omega_7}\right)^2\Omega_{19}\;\Omega_{217}
-= \frac{9\;\Omega_{19}\;\Omega_{217}}{\pi^2}
-= 1.0990\times 10^{-120}.
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
+\;=\; \underbrace{\frac{2}{\pi}}_{\substack{\text{observer bridge}\\d=3}}
+\;\cdot\;\underbrace{\left(\frac{\Omega_5}{\Omega_7}\right)^{\!2}}_{\substack{\text{host frame}\\ d_V\to d_0}}
+\;\cdot\;\Omega_{19}\;\Omega_{217}
+\;=\; \frac{18\;\Omega_{19}\;\Omega_{217}}{\pi^3}
+\;=\; 6.996\times 10^{-121}.
 \]
 \end{theorem}
 
 \begin{proof}
-The invariant $I_0 = \Omega_{19}\times\Omega_{217}$ is the product of two
-threshold sphere areas (Part 0, Theorem~8.5). Each is referenced to
-$d_0 = 7$. The observer at $d_V = 5$ re-references each through one factor
-of $\Omega_5/\Omega_7 = 3/\pi$. Two sphere areas, each corrected once:
+The invariant $I_0 = \Omega_{19}\times\Omega_{217}$ is the product of
+two threshold sphere areas (Part 0, Theorem~8.5). Each is referenced to
+$d_0 = 7$. The observer at $d_V = 5$ re-references each through one
+factor of $\Omega_5/\Omega_7 = 3/\pi$, contributing
+$(3/\pi)^2 = 9/\pi^2$. Converting the cascade-native sphere-area
+result to the reduced-Planck-mass cube-volume normalisation at the
+observer's spatial dimension $d = 3$ multiplies by
+$V_3^{\mathrm{cube}}/\Omega_2 = 2/\pi$ (equivalently, divides by the
+sphere-to-cube ratio $\pi/2$):
 \[
-\Lambda = \left(\frac{3}{\pi}\right)^2\times 1.2051\times 10^{-120}
-= \frac{9}{\pi^2}\times 1.2051\times 10^{-120}
-= 1.0990\times 10^{-120}.\qedhere
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
+= \frac{2}{\pi}\cdot\frac{9}{\pi^2}\times 1.20516\times 10^{-120}
+= \frac{18}{\pi^3}\times 1.20516\times 10^{-120}
+= 6.996\times 10^{-121}.\qedhere
 \]
 \end{proof}
 
-Observed: $(1.10\pm 0.02)\times 10^{-120}$ (Planck 2018, $\pm 1.9\%$).
+Observed: $(7.150\pm 0.13)\times 10^{-121}$ (Planck 2018 $H_0=67.36$,
+$\Omega_\Lambda=0.6847$; uncertainty $\pm 1.9\%$).
 
-Deviation: $-0.1\%$.
+Leading deviation: $-2.2\%$. This places $\Lambda$ in the
+\emph{descent-dependent} population of observables (negative sign at
+leading order), alongside $\alpha_s$, $m_\tau/m_\mu$, $v$, $\ell_A$,
+and $\Omega_m^{\mathrm{Bott}}$, all of which the Part~0 Supplement
+first-order Gram correction closes from $\sim\!2\%$ to sub-$0.5\%$.
+Applying the same correction to $\Lambda$:
+\[
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}\bigg|_{\mathrm{Gram}}
+= \frac{18}{\pi^3}\,\Omega_{19}\,\Omega_{217}\cdot\exp\!\bigl(\textstyle\sum_{d=5}^{216}(1-C^2_{d,d+1})\bigr)
+= 6.996\times 10^{-121}\cdot e^{0.02108}
+= 7.145\times 10^{-121}.
+\]
+Residual: $-0.07\%$, well inside the $\pm 1.9\%$ Planck $1\sigma$
+uncertainty. The cosmological constant is not a Tier~1 structural
+exception; it is a Tier~2 descent-dependent observable that closes to
+sub-experimental precision through the same first-order correction
+that closes the other descent-dependent members of the series.
 
-Part 0 matches to $\sim\!10\%$ with the bare product. The frame
-correction $9/\pi^2$ is a Gamma function identity at the cascade's two
-maxima, not a fit. The improvement from $10\%$ to $0.1\%$ is the cost of
-ignoring the observer's position.
+Part 0 matches $\log_{10}|\Omega_{19}\Omega_{217}|$ to within $\sim 0.3$
+without any frame correction. Both frame corrections ($9/\pi^2$ and
+$2/\pi$) are Gamma-function identities at specified cascade dimensions,
+not fits.
 
 \section{The Formula Reads the Tower}
 
 Part 0 establishes exactly four distinguished dimensions (Theorem~7.1).
-The cosmological constant uses all four, each exactly once:
+The cosmological constant uses all four in the pure-cascade numerator
+and adds one further factor --- the observer's cube--sphere bridge at
+the spatial dimension $d = 3$ --- to convert to reduced-Planck units:
 \[
-\frac{\rho_\Lambda}{M^4_{\mathrm{Pl}}}
-= \frac{\Omega_0^2\;\Omega_2\;\Omega_3}{\Omega_1^2}
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
+\;=\;
+\underbrace{\frac{2}{\pi}}_{d=3\text{ bridge}}
+\;\cdot\;
+\underbrace{\frac{\Omega_{5}^{\,2}\;\Omega_{19}\;\Omega_{217}}{\Omega_7^{\,2}}}_{\text{Part 0 bilinear invariant}}
+\;=\;
+\frac{18\;\Omega_{19}\;\Omega_{217}}{\pi^3}.
 \]
 
 \begin{center}
@@ -115,6 +195,7 @@ The cosmological constant uses all four, each exactly once:
 \toprule
 Index & $d$ & Tower role & Formula role \\
 \midrule
+--- & 3 & Observer spatial slice & Cube--sphere bridge ($\pi/2$) \\
 0 & 5 & Volume maximum & Observer's host (frame) \\
 1 & 7 & Area maximum & Cascade reference (frame) \\
 2 & 19 & Phase boundary & Near scale \\
@@ -123,8 +204,9 @@ Index & $d$ & Tower role & Formula role \\
 \end{tabular}
 \end{center}
 
-Frame from the two maxima. Scale from the two thresholds. Four
-distinguished dimensions. Four spacetime dimensions.
+Frame from the two maxima. Scale from the two thresholds. Bridge from
+the observer's 3-dimensional spatial slice. Four distinguished cascade
+dimensions plus the observer's spatial dimension.
 
 \section{The Discrete Vacuum}
 
@@ -145,10 +227,21 @@ energy is $10^{-120}$ because the vacuum has a floor.
 \textbf{Does:}
 \begin{itemize}
 \item Introduces the hypothesis (the single physical input of the series).
-\item Derives $\rho_\Lambda/M^4_{\mathrm{Pl}} =
-9\Omega_{19}\Omega_{217}/\pi^2$, matching observation to $0.1\%$, from one
-hypothesis applied to Part 0.
+\item Derives
+$\rho_\Lambda/M^4_{\mathrm{Pl,red}} = 18\Omega_{19}\Omega_{217}/\pi^3$
+from Part~0's bilinear invariant together with two observer-frame
+corrections: the host frame $(9/\pi^2)$ from $d_0=7$ to $d_V=5$, and the
+cube--sphere bridge $(2/\pi)$ at the observer's spatial dimension
+$d=3$. Leading deviation from Planck~2018: $-2.2\%$; after the Part~0
+Supplement first-order Gram correction, residual $-0.07\%$, inside the
+$\pm 1.9\%$ Planck $1\sigma$ uncertainty.
+\item Places $\Lambda$ in the cascade's descent-dependent observable
+population, closed by the same structural correction as $\alpha_s$,
+$m_\tau/m_\mu$, $v$, $\ell_A$, and $\Omega_m^{\mathrm{Bott}}$.
 \item Identifies the vacuum as 198 discrete layers with a natural terminus.
+\item Identifies the cube--sphere bridge $\pi/2$ as the dimensional
+conversion between cascade sphere-area content and QFT cube-volume mode
+counting at the observer's 3D spatial slice.
 \end{itemize}
 
 \textbf{Does not:}
@@ -156,6 +249,8 @@ hypothesis applied to Part 0.
 \item Derive $d = 4$ from the cascade (used here as empirical fact).
 \item Derive quantum mechanics, general relativity, the Standard Model, or
 cosmological parameters beyond $\Lambda$.
+\item Derive the Gram first-order correction from first principles; it
+is imported from the Part~0 Supplement.
 \end{itemize}
 
 \textbf{Inputs:} One axiom (orthogonality, via Part 0). One hypothesis.

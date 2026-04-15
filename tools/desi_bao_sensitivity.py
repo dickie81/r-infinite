@@ -116,16 +116,16 @@ print("=" * 90)
 sets = [
     ("Planck LCDM",
      67.4, 0.315, 0.0493, 9.15e-5, 1 - 0.315 - 9.15e-5),
-    ("Old cascade (Bott Omega_m)",
-     70.65, 0.31150, 1/(2*pi**2), 1/(4*pi**7), (pi-1)/pi),
-    ("Updated: H0=71.05, Omega_m=1/pi",
+    ("Cascade (Option A, leading Omega_m=1/pi)",
+     66.78, 1/pi, 1/(2*pi**2), 1/(4*pi**7), (pi-1)/pi),
+    ("Cascade (Option A, Bott Omega_m)",
+     66.78, 0.31150, 1/(2*pi**2), 1/(4*pi**7),
+     1 - 0.31150 - 1/(4*pi**7)),
+    ("Historical: H0=71.05, Omega_m=1/pi (pre observer-correction)",
      71.05, 1/pi, 1/(2*pi**2), 1/(4*pi**7), (pi-1)/pi),
-    ("Updated H0, Bott Omega_m",
-     71.05, 0.31150, 1/(2*pi**2), 1/(4*pi**7), 1 - 0.31150 - 1/(4*pi**7)),
-    ("Old H0, leading Omega_m=1/pi",
-     70.65, 1/pi, 1/(2*pi**2), 1/(4*pi**7), (pi-1)/pi),
-    ("H0=70.65, Bott Omega_m (original)",
-     70.65, 0.31150, 1/(2*pi**2), 1/(4*pi**7), 1 - 0.31150 - 1/(4*pi**7)),
+    ("Historical: H0=71.05, Bott Omega_m",
+     71.05, 0.31150, 1/(2*pi**2), 1/(4*pi**7),
+     1 - 0.31150 - 1/(4*pi**7)),
 ]
 
 print(f"{'Set':<35s}  {'H0':>6s}  {'Om':>7s}  {'r_d_n':>6s}  "
