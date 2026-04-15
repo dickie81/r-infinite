@@ -114,7 +114,10 @@ lives at the observer's 3-dimensional spatial slice, not at the 4D
 spacetime index. The observer's $S^3$ hosts the cascade's 3-sphere
 surface $\Omega_2$ (the equatorial 2-sphere of the spatial slice); the
 QFT cube is the 3-cube of momentum-space mode counting. Both are 3D
-quantities at $d = 3$.
+quantities at $d = 3$. Section~\ref{sec:qft-comparison} develops the
+QFT contrast and shows that the $\pi/2$ bridge is the dimensional
+handoff between QFT's $(2\pi)^3$ cube measure and the cascade's
+$\Omega_2$ sphere measure at this slice.
 \end{remark}
 
 \section{The Cosmological Constant}
@@ -215,12 +218,152 @@ carries a specific sphere area, monotonically decreasing from
 $\Omega_{18} = 0.59$ to $\Omega_{216}\approx 10^{-120}$. The vacuum is
 198 discrete layers of geometry. The smallest fluctuation is
 $\Omega_{217}\approx 10^{-120}$: the geometric floor, forced by the Gamma
-function at $p(d) = \sqrt{\pi}$.
+function at $p(d) = \sqrt{\pi}$. The detailed contrast with the
+continuous divergent-integral picture of quantum field theory is
+developed in the next section.
 
-QFT integrates a continuous spectrum to the Planck cutoff and obtains
-$\rho_\Lambda\sim M^4_{\mathrm{Pl}}$---$10^{120}$ too large. The cascade's
-spectrum is discrete, finite, and terminates at $d_2 = 217$. The vacuum
-energy is $10^{-120}$ because the vacuum has a floor.
+\section{Comparison with Quantum Field Theory}
+\label{sec:qft-comparison}
+
+The cascade and quantum field theory are two different ways of counting
+vacuum content. They give different answers by roughly $10^{120}$ --- the
+``cosmological constant problem'' in its standard framing. This section
+shows that the difference decomposes into two distinct structural
+disagreements: a dimensional-accounting mismatch that the observer
+cube--sphere bridge of Section~2.2 resolves exactly, and a regulator
+disagreement that the cascade's Gamma-function terminus resolves
+structurally.
+
+\subsection{Two measures for the same vacuum}
+
+The QFT zero-point vacuum energy density sums the ground-state energies
+of every mode of every free field:
+\begin{equation}\label{eq:qft-vacuum}
+\rho_\Lambda^{\mathrm{QFT}} \;=\; \sum_{\text{fields}}\int \frac{d^3k}{(2\pi)^3}\,\frac{\hbar\omega_k}{2}
+\;=\; \frac{1}{4\pi^2}\int_0^{k_{\max}} k^2\sqrt{k^2+m^2}\,dk\,+\,\cdots
+\end{equation}
+The measure is $d^3k/(2\pi)^3$: modes per unit position-space 3-cube.
+The factor $(2\pi)^3$ is the volume of a 3-cube of side $2\pi$ in
+momentum space. Every step of the standard calculation of
+$\rho_\Lambda^{\mathrm{QFT}}$ lives on this cube-based measure.
+
+The cascade's analogue is a finite sum:
+\begin{equation}\label{eq:cascade-vacuum}
+\rho_\Lambda^{\mathrm{cascade}} \;\propto\; \sum_{d=d_1}^{d_2}\Omega_{d-1}
+\;=\; \sum_{d=19}^{217}\Omega_{d-1},
+\end{equation}
+where $\Omega_{d-1}$ is the area of the unit $(d{-}1)$-sphere at cascade
+layer $d$ (Part~0, Corollary~3.2: sphere area is the unique independent
+cascade quantity). The measure is sphere-area, not cube-volume. At the
+observer's 3-dimensional spatial slice, the two measures differ by
+exactly
+\[
+\frac{\Omega_2}{V_3^{\mathrm{cube}}} \;=\; \frac{4\pi}{2^3} \;=\; \frac{\pi}{2}.
+\]
+This is the cube--sphere bridge of Section~2.2, and it is the same
+$\pi/2$ that appears in Theorem~3.1's factor $(2/\pi)$. When Part~I
+converts its sphere-based cascade result to the cube-based reduced
+Planck mass normalisation, it is performing precisely the dimensional
+handoff that QFT silently builds into its $(2\pi)^3$ denominator.
+
+The observation is sharp: QFT's $(2\pi)^3$ mode-counting denominator and
+the cascade's $\Omega_2$ sphere-area numerator are not two arbitrary
+normalisation choices --- they are the two natural measures on the two
+natural 3-dimensional objects available to a 4D observer, and the
+ratio between them is fixed by geometry at $\pi/2$.
+
+\subsection{Two regulators for the same divergence}
+
+The integral \eqref{eq:qft-vacuum} diverges at $k\to\infty$ as
+$k_{\max}^4$. Standard QFT imposes a hand-chosen cutoff, typically
+$k_{\max}\sim M_{\mathrm{Pl}}$, giving
+$\rho_\Lambda^{\mathrm{QFT}}\sim M_{\mathrm{Pl}}^4$ and the standard
+$120$-orders-of-magnitude fine-tuning problem. The cutoff is external
+to the formalism: nothing inside QFT selects $k_{\max}=M_{\mathrm{Pl}}$
+as opposed to any other scale; the choice is justified by dimensional
+analysis and the assumption that quantum gravity will regulate the UV.
+
+The cascade has no divergence to regulate. The sum
+\eqref{eq:cascade-vacuum} contains exactly $198$ terms, because Part~0
+proves (Theorem~6.5, orbit termination; Section~5, the four regimes of
+$p(d)$) that the cascade has exactly two thresholds and terminates
+structurally at $d_2 = 217$. Beyond $d_2$ the decay rate $p(d)$
+satisfies $p(d)>\sqrt{\pi}$ and sphere areas collapse below
+$10^{-120}$: the ``oblivion regime'' where the cascade has no
+geometric content to contribute. The terminus is a theorem about the
+Gamma function, not an imposed UV cutoff.
+
+Concretely: QFT's $k_{\max}$ is a free parameter disguised as a
+physical input; the cascade's $d_2 = 217$ is the unique integer at
+which the recurrence's second canonical constant $c_2 = \sqrt{\pi}$ is
+reached by the decay rate (Part~0, Theorem~6.7). The ``$10^{120}$
+fine-tuning'' that arises from QFT's divergent integral does not arise
+in the cascade because the cascade's sum is convergent by construction.
+What appears to be a miraculous near-cancellation in QFT is, in the
+cascade, the natural value of a finite sum dominated by its smallest
+term ($\Omega_{217}\approx 10^{-120}$).
+
+\subsection{Architectural comparison}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lll}
+\toprule
+ & Quantum Field Theory & Cascade \\
+\midrule
+Mode counting & Continuous $\displaystyle\int\!\frac{d^3k}{(2\pi)^3}$
+ & Discrete $\displaystyle\sum_{d=19}^{217}\!\Omega_{d-1}$ \\
+Measure at the observer & Cube volume $(2\pi)^3$
+ & Sphere area $\Omega_2 = 4\pi$ \\
+Cube--sphere ratio & implicit in $1/(2\pi)^3$
+ & $\displaystyle\frac{\Omega_2}{V_3^{\mathrm{cube}}}=\frac{\pi}{2}$ \\
+UV regulator & Imposed cutoff $k_{\max}\sim M_{\mathrm{Pl}}$
+ & Structural terminus $d_2 = 217$ (Gamma theorem) \\
+Number of modes summed & Continuous (divergent) & 198 discrete layers \\
+Leading $\rho_\Lambda$ estimate & $\sim M_{\mathrm{Pl}}^4$
+ & $\sim \Omega_{217}\,M_{\mathrm{Pl,red}}^4 \sim 10^{-120}\,M_{\mathrm{Pl,red}}^4$ \\
+Fine-tuning required & $\sim 10^{120}$ & None \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Reframing the cosmological constant problem}
+
+The standard statement of the cosmological constant problem assumes QFT
+is giving a genuine estimate of $\rho_\Lambda$ that happens to be
+$10^{120}$ too large, so that some unknown physics must cancel it down
+to the observed value. The cascade reframes this in two steps:
+
+\begin{enumerate}
+\item \emph{QFT's naive estimate is not a competing prediction; it is
+the same quantity expressed in the wrong measure at the wrong
+regulator.} The cube-based $(2\pi)^3$ measure differs from the
+sphere-based $\Omega_2$ measure by $\pi/2$ at $d = 3$ ---
+$O(1)$, not $O(10^{120})$. The imposed cutoff
+$k_{\max}\sim M_{\mathrm{Pl}}$ differs from the structural terminus
+$d_2 = 217$ by neither a dimensional factor nor a physical one, but
+by the decision to regulate with a free parameter rather than to read
+the terminus off the cascade's own algebra.
+\item \emph{The $10^{120}$ ``fine-tuning'' is an artefact of
+integrating a divergent expression and then taking the integral's
+value seriously.} The cascade's $10^{-120}$ is the finite sum's
+\emph{natural} value, dominated by its smallest term, which is itself
+$\Omega_{217}$, which is itself forced by the Gamma function's
+behaviour at the threshold $p(d) = \sqrt{\pi}$. There is no
+cancellation, because there is nothing to cancel against.
+\end{enumerate}
+
+This does not ``solve'' the cosmological constant problem in the sense
+of showing how QFT's naive answer becomes the cascade's natural answer
+through some field-theoretic mechanism. The cascade is not a refinement
+of QFT's calculation. It is an alternative architecture for counting
+vacuum content: discrete rather than continuous, sphere-based rather
+than cube-based, terminated by theorem rather than by hand. The
+$\pi/2$ observer bridge of Theorem~3.1 is the dimensional handoff that
+connects the two architectures at the observer's 3D spatial slice; it
+is the only non-trivial structural factor that survives when the same
+physical $\rho_\Lambda$ is written in the cascade's natural
+normalisation.
 
 \section{What This Paper Does and Does Not Do}
 
