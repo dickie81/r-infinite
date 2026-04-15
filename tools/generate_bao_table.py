@@ -14,7 +14,13 @@ c_km_s = 299792.458
 pi = np.pi
 
 # === Cascade parameters ===
-H0 = 71.05
+# H0 is derived from the Friedmann equation at d=4 with
+# rho_Lambda/M_Pl,red^4 = (2/pi) * I (Part I, Theorem 3.1), where
+# (2/pi) is the observer's cube-sphere bridge at the spatial dimension
+# d=3 (V_3^cube / Omega_2 = 8/(4 pi) = 2/pi). This gives
+#   H0 = sqrt( 2 I / (3 (pi - 1)) ) * M_Pl,red
+# which evaluates to 66.78 km/s/Mpc. See Part V Theorem 6.1.
+H0 = 66.78
 h = H0 / 100.0
 Omega_m_leading = 1.0 / pi              # leading order
 Omega_m_bott = 0.31150                   # Bott partition (subleading)

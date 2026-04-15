@@ -9,7 +9,7 @@ from scipy import integrate
 c_km_s = 299792.458
 pi = np.pi
 
-H0 = 71.05
+H0 = 66.78  # Part V Theorem 6.1 with Part I observer bridge
 h = H0 / 100.0
 Omega_m = 1.0 / pi
 Omega_b = 1.0 / (2.0 * pi**2)
@@ -159,7 +159,7 @@ print("=" * 60)
 
 for label, rd_val in [
     ("Planck", 147.6),
-    ("E&H98 fit (cascade params)", 140.9),
+    ("E&H98 fit (cascade params)", 147.7),
     ("Cascade geometric: 2*pi^6/sqrt(3)", r_d),
 ]:
     chi2_test = 0.0

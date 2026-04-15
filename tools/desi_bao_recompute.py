@@ -1,8 +1,9 @@
 """
-Recompute the DESI DR2 BAO comparison with updated cascade parameters.
+Recompute the DESI DR2 BAO comparison with current cascade parameters.
 
-Old parameters: H0 = 70.65, Omega_m = 0.31150, r_d = 142.3 Mpc
-New parameters: H0 = 71.05, Omega_m = 1/pi, Omega_b = 1/(2*pi^2), Omega_r = 1/(4*pi^7)
+Parameters (Option A, Part I observer-corrected):
+  H0 = 66.78 (from Part V Theorem 6.1, with rho_Lambda = (2/pi) I)
+  Omega_m = 1/pi, Omega_b = 1/(2*pi^2), Omega_r = 1/(4*pi^7)
 
 All cascade density fractions are functions of pi alone.
 """
@@ -14,8 +15,8 @@ from scipy import integrate
 c_km_s = 299792.458  # speed of light in km/s
 pi = np.pi
 
-# === Updated cascade parameters ===
-H0 = 71.05  # km/s/Mpc
+# === Cascade parameters ===
+H0 = 66.78  # km/s/Mpc
 h = H0 / 100.0
 Omega_m = 1.0 / pi                     # 0.31831
 Omega_b = 1.0 / (2.0 * pi**2)          # 0.05066

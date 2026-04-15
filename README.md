@@ -26,7 +26,6 @@ Mathematical uniqueness proofs leave no alternative. These are not approximation
 | Gauge group | SU(3) × SU(2) × U(1) | Confirmed | Adams + Bott (IVa) |
 | Symmetry breaking | SU(2) broken; SU(3), U(1) exact | Confirmed | Hairy ball theorem (IVa) |
 | Fermion generations | Exactly 3 | Confirmed | Bott periodicity + d₁=19 (IVa) |
-| Cosmological constant | 1.099 × 10⁻¹²⁰ | 0.1% match | Cascade invariant (I) |
 | Dark energy EoS | w = −1 exactly | Confirmed | Fixed geometric constant (III) |
 | Strong CP phase | θ_QCD = 0 | Confirmed | π₃(S¹¹) = Z₂ (IVa) |
 | No supersymmetry | — | Confirmed (LHC) | No pairing mechanism (IVa) |
@@ -40,10 +39,13 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 
 | Observable | Formula | Predicted | Observed | Dev. |
 |---|---|---|---|---|
+| ρ_Λ / M⁴_Pl,red | 18 · Ω(19) · Ω(217) / π³ | 0.6996 × 10⁻¹²⁰ | 0.7150 × 10⁻¹²⁰ | −2.2% |
 | Ω_Λ | (π−1)/π | 0.6817 | 0.685 ± 0.007 | −0.5% |
 | Ω_m | 1/π | 0.3183 | 0.315 ± 0.007 | +1.1% |
 | Ω_r | 1/(4π⁷) | 8.28 × 10⁻⁵ | 8.27 × 10⁻⁵ | +0.1% |
-| T_CMB | from Ω_r | 2.730 K | 2.7255 K | +0.16% |
+| T_CMB | from Ω_r, H₀ | 2.642 K | 2.7255 K | −3.1% |
+| H₀ | from ρ_Λ, Ω_Λ | 66.78 km/s/Mpc | 67.4 ± 0.5 | −0.9% |
+| t₀ | ΛCDM integral | 13.88 Gyr | 13.80 ± 0.02 | +0.6% |
 | m_H / m_W | π/2 | 1.5708 | 1.559 | +0.8% |
 | m_μ / m_e | exp(ΔΦ) · 2√π | 206.50 | 206.77 | +0.13% |
 | m_e | geometric-topological | 0.514 MeV | 0.511 MeV | +0.6% |
@@ -70,9 +72,10 @@ Specific predictions testable by current or near-future experiments (DESI, Eucli
 
 | Observable | Predicted | Current data | Status |
 |---|---|---|---|
-| H₀ | 71.05 km/s/Mpc | Planck: 67.4 · SH0ES: 73.0 | Between tensions; resolves with cascade r_d |
-| r_d (sound horizon) | ≈141 Mpc | Planck: 147.6 Mpc | DESI BAO: cascade fits better (χ²/n = 1.70 vs 1.90) |
-| DESI w ≠ −1 signal | w = −1; apparent deviation is ruler mismatch | DESI DR2: w ≈ −0.76 | Cascade explains signal without dynamical dark energy |
+| H₀ | 66.78 km/s/Mpc (Gram-corrected ≈ 67.5) | Planck: 67.4 · SH0ES: 73.0 | Planck-side of Hubble tension; incompatible with SH0ES |
+| r_d (sound horizon) | ≈147.75 Mpc | Planck: 147.60 Mpc | Essentially equal to Planck; cascade and ΛCDM share a ruler |
+| DESI DR2 BAO fit | χ²/n = 2.35 (cascade) vs 1.90 (Planck) | Two shared outliers at z=0.510, z=0.706 | Cascade fits slightly worse than Planck; both face same anomalies |
+| DESI w ≠ −1 signal | w = −1 exactly (structural theorem) | DESI DR2: w ≈ −0.76 | Challenges cascade and ΛCDM equally; no ruler-based explanation |
 
 ### Tier 5 — Provisional: Derivation Incomplete
 

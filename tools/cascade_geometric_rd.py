@@ -22,7 +22,11 @@ c_km_s = 299792.458  # km/s
 pi = np.pi
 
 # === Cascade parameters (all functions of pi) ===
-H0 = 71.05  # km/s/Mpc
+# H0 derived in Part V Theorem 6.1 from
+#   H0 = sqrt(2 I / (3 (pi-1))) * M_Pl,red
+# using Part I's observer-corrected rho_Lambda/M_Pl,red^4 = (2/pi) I,
+# where (2/pi) is the cube-sphere bridge V_3^cube/Omega_2 at d=3.
+H0 = 66.78  # km/s/Mpc
 h = H0 / 100.0
 Omega_m = 1.0 / pi
 Omega_b = 1.0 / (2.0 * pi**2)
@@ -312,7 +316,7 @@ def D_V_fn(z):
 
 
 for label, rd_test in [
-    ("E&H98 fit (r_d=140.9)", 140.9),
+    ("E&H98 fit (r_d=147.7)", 147.7),
     ("z_eq geometric (r_d=%.1f)" % rd_eq, rd_eq),
     ("z(R=1) geometric (r_d=%.1f)" % rd_R1, rd_R1),
     ("Exact match (r_d=%.1f)" % rd_exact, rd_exact),
