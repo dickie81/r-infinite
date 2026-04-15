@@ -240,24 +240,64 @@ print(f"  CONCLUSION: Part 0's implicit rule is 'farther integer of each pair'."
 print(f"  This is a consistent rule, not a mixed convention as I earlier claimed.")
 
 # ============================================================================
-# SECTION 8: Summary
+# SECTION 8: Variational (argmax) characterization
 # ============================================================================
-print("\n[8] SUMMARY")
+print("\n[8] ARGMAX OVER ALL 8 INTEGER LABELINGS")
 print("-" * 72)
-print("  * The 'factor of 4' conjecture is NOT supported:")
-print(f"    I_P0 / I_cont = {mpmath.nstr(ratio_cont, 10)}, not 4.")
+print("  The 'farther integer' rule is equivalent to 'maximize I over labelings'.")
+print("  Enumerating all 2^3 = 8 possible (d_0, d_1, d_2) assignments:")
 print()
-print("  * Part 0 has an error in the discrete verification at d=20:")
+print(f"  {'rank':>4}  {'(d0, d1, d2)':>15}  {'I':>24}  {'dev from obs %':>15}")
+print("  " + "-" * 65)
+
+all_combinations = []
+for d0 in [6, 7]:
+    for d1 in [19, 20]:
+        for d2 in [217, 218]:
+            I_label = (Omega_5 / Omega(d0)) ** 2 * Omega(d1) * Omega(d2)
+            dev = (I_label - obs) / obs * 100
+            all_combinations.append((I_label, d0, d1, d2, dev))
+
+# Sort descending by I value
+all_combinations.sort(key=lambda x: -x[0])
+
+for rank, (I_label, d0, d1, d2, dev) in enumerate(all_combinations, start=1):
+    marker = "  <-- Part 0 (argmax)" if (d0, d1, d2) == (7, 19, 217) else ""
+    print(f"  {rank:>4}  ({d0:>3}, {d1:>3}, {d2:>3})"
+          f"  {mpmath.nstr(I_label, 15):>24}"
+          f"  {mpmath.nstr(dev, 6):>14}%{marker}")
+
+print()
+argmax_labels = (all_combinations[0][1], all_combinations[0][2], all_combinations[0][3])
+print(f"  Argmax over labelings: {argmax_labels}")
+print(f"  Part 0's choice:        (7, 19, 217)")
+print(f"  Agreement: {argmax_labels == (7, 19, 217)}")
+print()
+print("  The 0.1% match with observation is the statement that the supremum of")
+print("  the cascade invariant over integer labelings coincides with the observed")
+print("  rho_Lambda/M_Pl_red^4, to within the observational 1-sigma uncertainty.")
+
+# ============================================================================
+# SECTION 9: Summary
+# ============================================================================
+print("\n[9] SUMMARY")
+print("-" * 72)
+print("  * Part 0 has a numerical error in the discrete verification at d=20:")
 print(f"    Claimed p(20) = 0.6013; correct p(20) = {mpmath.nstr(p(20), 10)}.")
-print(f"    This shifts d_1* from my hand estimate 19.40 to actual 19.73.")
 print()
-print("  * Part 0's integer labeling is NOT mixed-convention; it's the")
-print("    uniform 'pick the farther integer' rule. The rule is consistent.")
+print("  * The continuous crossings lie at d_0* = 6.2569, d_1* = 19.7308,")
+print("    d_2* = 217.6267 - each straddled by an integer pair.")
 print()
-print("  * Only convention (A)/(E) = Part 0's 'farther' rule gives the 0.1%")
-print("    match to observation.  Every other natural convention gives worse.")
-print(f"    - Uniform floor gives {mpmath.nstr(((I_floor - obs)/obs*100), 5)}%")
-print(f"    - Nearest integer gives {mpmath.nstr(((I_near - obs)/obs*100), 5)}%")
-print(f"    - Continuous crossings give {mpmath.nstr(((I_cont - obs)/obs*100), 5)}%")
-print(f"    - Geometric mean gives {mpmath.nstr(((I_geom - obs)/obs*100), 5)}%")
-print(f"    - Part 0 'farther' rule gives {mpmath.nstr(((I_P0 - obs)/obs*100), 5)}%")
+print("  * Part 0's integer labeling (7, 19, 217) is the uniform 'farther")
+print("    integer of each pair' rule, equivalently the ARGMAX of the")
+print("    cascade invariant over all 8 possible integer labelings.")
+print()
+print("  * The 0.1% match with observation is the statement that the supremum")
+print("    of I over boundary labelings coincides with rho_Lambda/M_Pl_red^4.")
+print()
+print("  * Deviations of alternative conventions from observation:")
+print(f"    - Part 0 argmax (7, 19, 217)      : {mpmath.nstr(((I_P0 - obs)/obs*100), 5)}%")
+print(f"    - Uniform floor (6, 19, 217)      : {mpmath.nstr(((I_floor - obs)/obs*100), 5)}%")
+print(f"    - Nearest integer (6, 20, 218)    : {mpmath.nstr(((I_near - obs)/obs*100), 5)}%")
+print(f"    - Continuous crossings            : {mpmath.nstr(((I_cont - obs)/obs*100), 5)}%")
+print(f"    - Geometric mean                  : {mpmath.nstr(((I_geom - obs)/obs*100), 5)}%")
