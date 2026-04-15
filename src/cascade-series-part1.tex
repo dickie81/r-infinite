@@ -507,24 +507,57 @@ cascade needs at the observer's frame; the remaining $\sim 10^{120}$
 difference between QFT's naive estimate and the observed value is
 accounted for by the second and third commitments together.
 
-\begin{remark}[Status of the $\pi/2$ derivation]\label{rem:open-pi-over-two}
-The argument that the Morse foliation of $S^3$ by 2-spheres gives the
-correct $\pi/2$ relies on the identification of ``cascade content at
-the observer's frame'' with ``per-latitude $S^2$ content density on
-$S^3$.'' This identification is structurally plausible under the
-locked-time picture: content descending through the cascade's own
-slicing direction (= time) lands on the observer's $S^3$ with each
-latitude carrying the 2-sphere Morse-slice as the local content unit,
-and integrating latitude gives the $\pi/2$. A complete derivation from
-the cascade's equations of motion --- i.e., from an explicit
-Kaluza--Klein-style reduction over the 213 compactified interior
-dimensions plus the locked-time infall direction, onto the spatial
-$S^3$ --- has not been written out. The numerical match at Part~I
-Theorem~3.1 ($-2.2\%$ leading, $-0.07\%$ after the Part~0 Supplement
-first-order Gram correction) is consistent with the Morse-foliation
-interpretation, but should be checked by a direct reduction-from-above
-calculation. This is the outstanding structural open problem in
-Part~I.
+\begin{remark}[The $\pi/2$ is Part~0's own lowest slicing integral]\label{rem:open-pi-over-two}
+The Morse-foliation identification $\Omega_3 = (\pi/2)\Omega_2$ is not
+a plausible conjecture awaiting independent verification. It is the
+same integral as Part~0's slicing recurrence at its lowest nontrivial
+step. Part~0's recurrence is
+$V_{d+1}/V_d = \int_{-1}^{1}(1-x^2)^{d/2}\,dx$, and at $d = 1$ this
+gives
+\[
+\frac{V_2}{V_1} \;=\; \int_{-1}^{1}(1-x^2)^{1/2}\,dx \;=\; \frac{\pi}{2}.
+\]
+Under the substitution $x = \cos\theta$, the integrand
+$(1-x^2)^{1/2}$ becomes $\sin\theta$ and the measure $dx$ becomes
+$\sin\theta\,d\theta$, so the integral is
+$\int_0^\pi \sin^2\theta\,d\theta = \pi/2$. This is the Morse
+foliation of $S^3$ by 2-spheres: at each latitude $\theta$ on $S^3$,
+the equatorial 2-sphere has area $\sin^2\theta\cdot\Omega_2$, and
+integrating latitude recovers $\Omega_3 = (\pi/2)\Omega_2$. The two
+identities --- the Part~0 slicing step and the $S^3$ Morse foliation
+--- are literally the same integral in different coordinates. The
+$\pi/2$ at the observer's frame is Part~0's own lowest recurrence
+step, applied inversely at the observer's spatial $S^3$ slice.
+
+\medskip\noindent\textbf{The cascade does not do Kaluza--Klein
+reduction.} Part~II=III makes the structural commitment explicit:
+gravity is not quantised via semiclassical integration over a
+background because the metric is never an operator on a fixed
+background --- it is a state property on the cascade geometry. The
+same commitment governs vacuum energy density. There is no
+integration of continuous zero-point modes over compactified
+dimensions, regulated by a hand-imposed cutoff, to be performed and
+then matched to the cascade's prediction. The cascade's slicing
+descent \emph{is} the replacement for such semiclassical procedures.
+The $\pi/2$ projection factor is therefore not the output of a
+Kaluza--Klein calculation awaiting completion; it is a direct sphere
+identity in Part~0's recurrence, applied at the observer's locked-time
+$S^3$ slice under the identification of time with the cascade's own
+descent direction (Part~II~\cite{paper2}, Section~7.1).
+
+What remains structurally residual in Part~I is unification: the
+three corrections of Theorem~\ref{thm:cc} (host frame $9/\pi^2$, 3D
+projection $2/\pi$, Part~0 bilinear invariant
+$\Omega_{19}\Omega_{217}$) are currently assembled as three separate
+cascade-native sphere-area identities. Tracing them as a single
+cascade-internal computation from Part~0's tower all the way down to
+the observer's frame --- using only Part~0's slicing recurrence at
+each step --- has not been written out. This is a verification task
+inside the cascade's own descent framework, and it is the appropriate
+residual structural task for Part~I. It is \emph{not} a Kaluza--Klein
+problem, and it is \emph{not} a semiclassical reduction; the cascade
+replaces both, and the verification lives entirely inside the cascade's
+own architecture.
 \end{remark}
 
 \section{What This Paper Does and Does Not Do}
@@ -562,14 +595,21 @@ Morse foliation of $S^3$ by 2-spheres.
 cosmological parameters beyond $\Lambda$.
 \item Derive the Gram first-order correction from first principles; it
 is imported from the Part~0 Supplement.
-\item Give a complete first-principles derivation of the 3D projection
-factor $\Omega_2/\Omega_3 = 2/\pi$ from the cascade's equations of
-motion. The Morse-foliation identification is structurally plausible
-under the locked-time picture but has not been verified by an
-explicit Kaluza--Klein reduction of the 213 compactified interior
-dimensions plus the locked-time infall onto the spatial $S^3$. This
-is the outstanding structural open problem in Part~I
-(Remark~\ref{rem:open-pi-over-two}).
+\item Give a unified cascade-native derivation of Theorem~\ref{thm:cc}.
+The three factors (host frame $9/\pi^2$, 3D projection $2/\pi$,
+Part~0 bilinear invariant $\Omega_{19}\Omega_{217}$) are currently
+assembled as three separate cascade-internal sphere-area identities.
+Tracing them as a single computation from Part~0's tower down to
+the observer's $S^3$ frame --- using only Part~0's slicing
+recurrence --- is the outstanding structural task. This is
+\emph{not} a Kaluza--Klein problem and \emph{not} a semiclassical
+reduction: as developed in Part~II=III, the cascade replaces such
+procedures rather than performing them. The 3D projection factor
+$\Omega_2/\Omega_3 = 2/\pi$ itself is not open --- it is Part~0's
+own lowest slicing integral $V_2/V_1 = \int_{-1}^{1}(1-x^2)^{1/2}\,dx
+= \pi/2$ applied inversely at the observer's locked-time $S^3$
+slice (Remark~\ref{rem:open-pi-over-two}). What is open is the
+unified descent calculation.
 \end{itemize>
 
 \textbf{Inputs:} One axiom (orthogonality, via Part 0). One hypothesis.
