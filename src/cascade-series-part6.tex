@@ -141,12 +141,33 @@ implementation of Issue~\#65.
 
 \subsection{Initial truncation height}\label{subsec:N0}
 
-The simulator of Issue~\#65 initialises at $N_0 = 4$. The cover-sheet thought
-experiment suggests $N_0 = 5$: the observer's spatial slice is $S^3$, the
-boundary of $B^5$, so the host dimension $d = 5$ must structurally exist for
-the observer to exist. Under $N_0 = 5$, Phase~A shortens from 3 ticks to 2 ticks
-and total e-folds decrease marginally. The choice between $N_0 = 4$ and
-$N_0 = 5$ is open; Section~\ref{sec:open}, Open Question~2.
+The choice of the initial truncation height $N_0$ is not forced by Part~VI;
+it depends on which identification of the observer is taken as primary. The
+two candidates rest on different readings of the same $S^3$:
+
+\begin{itemize}[leftmargin=*,nosep]
+\item \textbf{Paper~II reading:} The observer at $d = 4$ has state space
+$S^{d-1} = S^3 = \partial B^4$ by boundary dominance
+(Paper~II~\cite{paper2}~\S2.3). The observer's 3-sphere is the boundary of
+the 4-ball; only $d = 4$ is structurally required. This gives $N_0 = 4$.
+\item \textbf{Cover-sheet reading:} The observer lives on the $S^3$ horizon
+of a 5D black hole (Cover sheet, ``The Thought Experiment''). That $S^3$ is
+the horizon of a 5-dimensional black hole and requires $d = 5$ to be
+structurally present. This gives $N_0 = 5$.
+\end{itemize}
+
+The two readings agree on what the observer \emph{is} (a 3-sphere) but differ
+on what minimum host structure is required for the 3-sphere to exist. The
+$N_0 = 4$ reading treats the observer's $S^3$ as a freestanding boundary of
+its own 4-ball; the $N_0 = 5$ reading treats it as a horizon embedded in a
+5D ambient geometry. Paper~I~\cite{paper1}~\S3.2 uses the cover-sheet reading
+to justify the locked-time 3D projection factor, favouring $N_0 = 5$ for
+consistency; Paper~II's boundary-dominance derivation is agnostic.
+
+The simulator of Issue~\#65 uses $N_0 = 4$. Under $N_0 = 5$, Phase~A
+shortens from 3 ticks to 2, reducing total e-folds by $\Delta N_e \approx
+-0.46$ (one Phase~A tick of $H = 0.4607$). Selection between the two is
+open; Section~\ref{sec:open}, Open Question~2.
 
 \section{Phase Structure of the Pre-Big-Bang Universe}
 \label{sec:phases}
@@ -377,20 +398,32 @@ wavenumber $k$.
 
 \subsection{Spectrum in the cascade's natural index}
 
-Evaluating $\delta_d$ across the pre-Big-Bang phases:
+Evaluating $\delta_d$ across the pre-Big-Bang phases, using the exact
+Beta-function formula (not the asymptotic $1/(2\sqrt{2}\,d)$ of
+Definition~\ref{def:gram-amp}):
 
 \begin{center}
 \renewcommand{\arraystretch}{1.25}
-\begin{tabular}{llc}
+\begin{tabular}{llcc}
 \toprule
-Phase & $d$ range & $\delta_d$ range \\
+Phase & $d$ range & $\delta_d$ range (exact) & Asymptotic $1/(2\sqrt{2}\,d)$ \\
 \midrule
-A & $4$--$6$ & $0.089$--$0.063$ \\
-B & $7$--$18$ & $0.054$--$0.019$ \\
-C & $19$--$216$ & $0.019$--$0.0016$ \\
+A & $4$--$6$ & $0.067$--$0.049$ & $0.088$--$0.059$ \\
+B & $7$--$18$ & $0.043$--$0.018$ & $0.051$--$0.020$ \\
+C & $19$--$216$ & $0.018$--$0.0016$ & $0.019$--$0.0016$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+Values in the ``exact'' column come from
+$\delta_d = \sqrt{1 - C_{d,d+1}^2}$ with
+$C_{d,d+1} = B(\tfrac{1}{2},\,d+\tfrac{3}{2}) / \sqrt{B(\tfrac{1}{2},\,d+1)\,B(\tfrac{1}{2},\,d+2)}$
+evaluated numerically. The asymptotic $1/(2\sqrt{2}\,d)$ is reliable within
+$\sim 10\%$ for $d \gtrsim 19$ (Phase~C) but overestimates by $20$--$40\%$
+in Phase~A, where finite-$d$ corrections to the Beta-function ratio are
+non-negligible. The asymptotic form remains useful for scaling arguments
+and for the conversion-to-$k$-space derivation below; all numerical
+comparisons to observation should use the exact values.
 
 \begin{proposition}[Cascade power spectrum in layer index]\label{prop:dspectrum}
 The cascade's perturbation power spectrum, indexed by the layer dimension $d$
