@@ -49,7 +49,9 @@ Before answering any question about the cascade's derivations, predictions, uniq
 
 **Check 6 — Bias inoculation.** You are reading `CLAUDE.md` at the start of a fresh session. You have no memory of prior reviews. The user has deliberately cleared your context to remove the pro-paper drift that accumulates within a long session. Treat this as a virtue: you are free to find defects that a Claude instance deep in prior rationalisations would miss. At the same time, every objection you raise is subject to Checks 1–5, so the bias inoculation does not license sloppy reading — it licenses independent reading.
 
-At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 0–6 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
+**Check 7 — No semiclassical machinery.** When proposing follow-ups, open questions, or "what would strengthen this" items, do not invoke semiclassical procedures (QFT on curved spacetime, Bogoliubov transformations, Kaluza–Klein reduction, semiclassical integration over compactified dimensions) as routes to cascade quantities. The cascade refuses these procedures by explicit commitment: Paper~I~§3.2 ("the cascade does not do Kaluza–Klein reduction"); Part~II=III~§7 ($S = A/4$ and $T = 1/(8\pi M)$ derived without QFT on curved spacetime or Bogoliubov transformations). If a proposed procedure relies on semiclassics, it is inadmissible: replace with a cascade-native route (discrete cascade action from Part~IVb Remark~4.6; sphere-area identities; boundary-dominance + first-law derivations) or drop it. Prior-physics training biases toward the forbidden procedures; this check is the companion to Check 6.
+
+At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 0–7 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
 
 ## The Framework
 
