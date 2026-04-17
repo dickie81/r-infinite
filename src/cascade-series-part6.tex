@@ -739,7 +739,7 @@ is preserved unchanged.
 Paper~II~\S7.1 states: ``The cascade does not happen in time; the cascade is
 time. The arrow of time is the direction of descent, which is irreversible.''
 
-\begin{remark}[Clarification]\label{rem:paper2-71}
+\begin{remark}[Clarification]
 This remains correct. Part~VI refines it by identifying \emph{two} coupled
 operations both called ``time'' in Paper~II:
 \begin{itemize}[nosep]
@@ -763,7 +763,7 @@ transition.
 Paper~II~\S7.3 Theorem~7.1 states that $K(D, d') = \prod_{j = d'}^{D-1} L(j)$
 is the cascade propagator, with $L(j) = iN(j)$ in the precessing cascade.
 
-\begin{remark}[Clarification]\label{rem:paper2-73}
+\begin{remark}[Clarification]
 Under Part~VI, $K$ is the \emph{within-moment projection} through the
 currently-existing tower, not the physical time-evolution operator between
 moments. Physical evolution from $t$ to $t + \alpha\,t_{\mathrm{Pl,red}}$
@@ -790,47 +790,57 @@ over the full 213-layer path $d = 5, \ldots, 217$:
 $\varepsilon = 1 - \lambda_1/n = 0.0611$ (the cascade retains $93.9\%$
 coherence over the full descent).
 
-\begin{remark}[Clarification]\label{rem:paper2-86}
+\begin{remark}[Clarification]
 The $\varepsilon = 6.11\%$ figure assumes the full cascade tower is always
 present. Under Part~VI's tower-growth reading, the tower at time $t$ is
 $[N_0, N(t)]$, so the Gram matrix at time $t$ is the submatrix over the
 currently-existing layers. The time-dependent eigenvalue deficit
 \[
-\varepsilon(t) \;=\; 1 - \frac{\lambda_1\bigl(C_{[N_0, N(t)]}\bigr)}{N(t) - N_0 + 1}
+\varepsilon(t) \;=\; 1 \,-\, \frac{\lambda_1\bigl(C_{[N_0, N(t)]}\bigr)}{N(t) - N_0 + 1}
 \]
-grows monotonically with $N(t)$. Numerical evaluation using the Beta-function
-adjacent-overlap asymptotic (Paper~0 Supplement~\cite{paper0supp}
-Theorem~15.2, $1 - C^2_{d,d+1} \sim 1/(8d^2)$) gives:
+grows monotonically with $N(t)$, saturating at $\varepsilon(217) = 6.11\%$
+when the full tower is present. Exact values (with $N_0 = 5$, matching
+Paper~II's path $d = 5, \ldots, 217$) are computed numerically from the
+Beta-function Gram matrix of Paper~0 Supplement~\cite{paper0supp}
+Theorem~15.1.
 \end{remark}
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{cccc}
 \toprule
-Tick $N$ & Layers in tower & $\varepsilon(N)$ & Fraction of $\varepsilon(\infty)$ \\
+Tick $N$ & Layers in tower & $\varepsilon(N)$ & Fraction of $\varepsilon(217)$ \\
 \midrule
-$7$   & 3   & $\sim 0.8\%$  & $13\%$ \\
-$19$  & 15  & $\sim 3.0\%$  & $49\%$ \\
-$50$  & 46  & $\sim 5.0\%$  & $82\%$ \\
-$100$ & 96  & $\sim 5.6\%$  & $92\%$ \\
-$217$ & 213 & $6.11\%$ (Paper~II) & $100\%$ \\
-$\infty$ & $\infty$ & $6.11\%$ (saturated) & --- \\
+$7$   & 3   & $0.18\%$ & $3.0\%$ \\
+$19$  & 15  & $1.63\%$ & $26.7\%$ \\
+$50$  & 46  & $3.70\%$ & $60.5\%$ \\
+$100$ & 96  & $5.03\%$ & $82.3\%$ \\
+$217$ & 213 & $6.11\%$ & $100\%$ (Paper~II saturated value) \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+Values above are computed from the exact Gram matrix using
+\texttt{tools/cascade\_decoherence\_vs\_tower\_height.py}; no approximation
+enters beyond floating-point arithmetic on the Beta-function entries. The
+dependence on $N_0$ is weak: for $N_0 = 4$ the saturated value at $N = 217$
+is $\varepsilon = 6.33\%$ (one additional layer at the bottom contributes
+$\sim 0.2\%$), with all intermediate values correspondingly $\sim 0.1\%$--$1\%$
+larger.
 
 \begin{corollary}[Pre-recombination Gram correction]\label{cor:pre-rec-gram}
 Any descent-dependent cascade observable set at an epoch before $N = 217$
 should use $\varepsilon(N_{\mathrm{set}})$ rather than $\varepsilon(217)$ in
 the Part~0 Supplement first-order correction formula. For observables set
 during Phase~C at $N \sim 100$--$200$, the appropriate correction is
-$\varepsilon(N) \lesssim 5.8\%$, slightly smaller than the saturated value.
-The numerical impact on Part~V~\cite{paper5} observables is negligible ---
-all Part~V observables (cosmological parameters, $H_0$, $r_d$, $t_0$) are set
-at post-Big-Bang epochs where $\varepsilon(N) = \varepsilon(217) = 6.11\%$
-to the precision required. Corollary~\ref{cor:pre-rec-gram} is a structural
-refinement that becomes numerically relevant only for future cascade
-observables set at specific pre-recombination epochs.
+$\varepsilon(N) \in [5.0\%, 6.0\%]$, slightly smaller than the saturated
+value. The numerical impact on Part~V~\cite{paper5} observables is
+negligible --- all Part~V observables (cosmological parameters, $H_0$, $r_d$,
+$t_0$) are set at post-Big-Bang epochs where $\varepsilon(N) =
+\varepsilon(217) = 6.11\%$ to the precision required.
+Corollary~\ref{cor:pre-rec-gram} is a structural refinement that becomes
+numerically relevant only for future cascade observables set at specific
+pre-recombination epochs.
 \end{corollary}
 
 \begin{remark}[Does not modify Part~V]
