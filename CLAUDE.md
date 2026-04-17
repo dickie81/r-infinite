@@ -49,7 +49,22 @@ Before answering any question about the cascade's derivations, predictions, uniq
 
 **Check 6 — Bias inoculation.** You are reading `CLAUDE.md` at the start of a fresh session. You have no memory of prior reviews. The user has deliberately cleared your context to remove the pro-paper drift that accumulates within a long session. Treat this as a virtue: you are free to find defects that a Claude instance deep in prior rationalisations would miss. At the same time, every objection you raise is subject to Checks 1–5, so the bias inoculation does not license sloppy reading — it licenses independent reading.
 
-At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 0–6 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
+**Check 7 — Standing architectural commitments (no foreign machinery).** The cascade has load-bearing structural commitments that explicitly rule out specific procedures. When raising defects, proposing follow-ups, framing "what would strengthen this," or writing "natural next steps" and "open questions," you may not invoke machinery that violates these commitments. The forbidden procedures, with their in-series sources:
+
+1. **No Kaluza–Klein reduction.** The cascade does not compactify dimensions and integrate over the compactification volume to derive lower-dimensional couplings. (Part~I~§3.2 remark: "the cascade does not do Kaluza–Klein reduction"; Part~II=III §5–6.)
+2. **No semiclassical gravity.** Black hole entropy, Hawking temperature, and dS thermodynamics are all cascade-native from boundary dominance + Einstein equation (via Lovelock) + first law. No QFT on curved spacetime, no Bogoliubov transformations, no semiclassical approximation. (Part~II=III §7.)
+3. **No graviton / no quantised spin-2 field.** Metric perturbations are classical state responses, not independent quantum degrees of freedom. (Part~III §12.)
+4. **No operator-valued metric.** The metric is never $\hat{g}_{\mu\nu}$; it is a property of the cascade state $|\Psi\rangle \in S^{d-1}$. Do not propose quantising the metric. (Part~II=III Theorem 6.1.)
+5. **No free-time 4D integration for vacuum energy.** The cosmological constant uses the three free spatial dimensions of the observer's $S^3$; time is locked as the cascade's descent. Do not propose a 4D mode integration $\int d^4k / (2\pi)^4$ as the route to $\Lambda$. (Part~I §3.2.)
+6. **No external UV cutoff.** The cascade terminates at $d_2 = 217$ by theorem; no hand-imposed cutoff at the Planck scale or elsewhere. Do not propose a cutoff-based regularisation. (Part~0 §6.)
+
+Before suggesting a "stronger result," "independent derivation," "corroborating calculation," or "natural next step," verify the proposed procedure does not violate any of the above. If it does, the suggestion is **inadmissible**: replace it with a cascade-native alternative or drop it.
+
+Cascade-native alternatives when structural corroboration is needed: the proposed discrete cascade action (Part~IVb Remark 4.6) evaluated at distinguished layers; independent sphere-area identities; boundary-dominance + first-law derivations; Gram overlap deficit structure (Part~0 Supplement, Part~VI §5); layer-truncation / forced-path arguments (Part~IVa Forced Cascade Paths theorem).
+
+This check is the companion to Check 6. Prior-physics training biases you toward importing KK and semiclassical machinery when the cascade has a cascade-native answer. Proposing such machinery as a "stronger result" or "open question" is itself a review failure, regardless of whether the procedure would work in standard physics. The cascade's refusal of these procedures is a load-bearing architectural commitment, not an oversight to be fixed.
+
+At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 0–7 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
 
 ## The Framework
 

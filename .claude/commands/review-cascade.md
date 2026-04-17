@@ -34,7 +34,7 @@ Every check in `CLAUDE.md` §"Mandatory Review Protocol" is active. You may not 
 
 Your response should contain, in order:
 
-1. **Protocol confirmation line.** Exactly this text: "Running mandatory review protocol. Checks 1–6 active."
+1. **Protocol confirmation line.** Exactly this text: "Running mandatory review protocol. Checks 0–7 active."
 
 2. **Sources read.** A short list of the files you read directly, with line ranges. This is the audit trail; without it, the rest of your review is not verifiable.
 
