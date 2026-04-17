@@ -1,21 +1,32 @@
 #!/usr/bin/env python3
 """
 Generate the predictions table for index.html and the LaTeX cover sheet
-by reading the canonical source from README.md.
+by reading the canonical source from PREDICTIONS.md.
 
-README.md is the single source of truth. This script:
-  1. Parses the predictions section (between markers) from README.md
+PREDICTIONS.md is the single source of truth. This script:
+  1. Parses the '## Predictions' section from PREDICTIONS.md
   2. Converts to HTML (injected into index.html between markers)
   3. Converts to LaTeX (written to src/generated/predictions-table.tex)
 
-To add or update a prediction: edit README.md, then run this script.
-CI runs it automatically before every build.
+The main README.md shows only a compact headline subset; editing README.md
+does not affect the LaTeX/HTML output. To add or update a prediction: edit
+PREDICTIONS.md, then run this script. CI runs it automatically before every
+build.
+
+PREDICTIONS.md does not use BEGIN/END markers because it is a dedicated file
+— the parser locates the predictions section via the '## Predictions' header
+and reads to end-of-file. Markers are still used in web/index.html where the
+generated HTML is injected alongside other page content.
 """
 
 import os
 import re
 
 REPO_ROOT = os.path.join(os.path.dirname(__file__), '..')
+
+# Markers used only for HTML injection into web/index.html. The source file
+# PREDICTIONS.md does not use markers — the parser locates the section by
+# its '## Predictions' header.
 BEGIN = '<!-- BEGIN PREDICTIONS -->'
 END = '<!-- END PREDICTIONS -->'
 
@@ -108,19 +119,24 @@ def convert(text, fmt):
 # ─── Parser ──────────────────────────────────────────────────────────────────
 
 def parse_readme():
-    """Parse the predictions section from README.md."""
-    path = os.path.join(REPO_ROOT, 'README.md')
+    """Parse the predictions section from PREDICTIONS.md.
+
+    The predictions section starts at '## Predictions' and continues to
+    end-of-file. No BEGIN/END markers are required in the source file.
+    """
+    path = os.path.join(REPO_ROOT, 'PREDICTIONS.md')
     with open(path, 'r') as f:
         text = f.read()
 
-    match = re.search(
-        re.escape(BEGIN) + r'\n(.*?)' + re.escape(END),
-        text, re.DOTALL,
-    )
+    match = re.search(r'## Predictions\s*\n(.*)', text, re.DOTALL)
     if not match:
-        raise ValueError(f"Markers not found in {path}")
+        raise ValueError(
+            f"'## Predictions' section header not found in {path}"
+        )
 
-    section = match.group(1).strip()
+    # Reconstruct section with its heading; downstream parser expects
+    # a blank line after the heading (matches GitHub-rendered markdown).
+    section = '## Predictions\n\n' + match.group(1).strip()
 
     # Extract intro (text before first ### heading)
     intro_match = re.match(r'## Predictions\s*\n\n(.+?)\n\n###', section,
@@ -279,7 +295,7 @@ def inject(filepath, content):
 def main():
     intro, tiers = parse_readme()
     total = sum(len(t['rows']) for t in tiers)
-    print(f"  Parsed README.md: {len(tiers)} tiers, {total} predictions")
+    print(f"  Parsed PREDICTIONS.md: {len(tiers)} tiers, {total} predictions")
 
     # LaTeX fragment
     out_dir = os.path.join(REPO_ROOT, 'src', 'generated')
