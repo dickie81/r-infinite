@@ -312,21 +312,91 @@ Applying $\rho_r = (\pi^2/30)\,g_{\mathrm{eff}}\,T^4$ to the released energy:
 T_{\mathrm{RH}} \;=\; \left(\frac{30\,\Delta\rho}{\pi^2\,g_{\mathrm{eff}}}\right)^{1/4}
 M_{\mathrm{Pl,red}}.
 \]
-Using $\Delta\rho = 0.30\,M_{\mathrm{Pl,red}}^4$ and $g_{\mathrm{eff}} = 106.75$
-(Standard Model approximation):
+Using $\Delta\rho = 0.30\,M_{\mathrm{Pl,red}}^4$ and the cascade-native
+$g_{\mathrm{eff}} = 106.75$ derived below:
 \[
 T_{\mathrm{RH}} \;=\; 0.304\,M_{\mathrm{Pl,red}} \;=\; 7.40 \times 10^{17}\,\mathrm{GeV}.
 \]
 \end{corollary}
 
-\begin{remark}[Cascade-native $g_{\mathrm{eff}}$]
-The SM value $g_{\mathrm{eff}} = 106.75$ is used provisionally. A cascade-native
-count based on propagating modes at each layer of the tower (spinor dimensions
-at Dirac layers $d \in \{5, 13, 21\}$; vector fields from Adams' theorem at
-gauge layers $d \in \{12, 13, 14\}$; one scalar from the $d = 13$ hairy-ball
-obstruction) would replace it. The substitution shifts $T_{\mathrm{RH}}$ by
-$(g_{\mathrm{SM}} / g_{\mathrm{cas}})^{1/4}$; the magnitude remains near Planck
-scale. Section~\ref{sec:open}, Open~Question~3.
+\subsection{Cascade-native $g_{\mathrm{eff}}$}\label{subsec:g_eff}
+
+The counting of relativistic degrees of freedom at $T_{\mathrm{RH}}$ is a
+cascade-internal calculation, not an SM import. Each distinguished layer
+below the phase transition $d_1 = 19$ (where fermion projections are
+subcritical; Part~IVa \S4), plus the gauge window $\{12, 13, 14\}$ and
+the Gen~1 layer at $d = 21$ (subcritical through the transition width,
+Part~IVa Thm~4.4), contributes its 4D-projected propagating modes.
+Following Part~IVa~\cite{paper4a} \S4 ``The cascade obstruction map'':
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{ccccc}
+\toprule
+$d$ & Cascade content & Bosons & Fermions & Role \\
+\midrule
+$5$  & Gen~3 Dirac                         & $0$   & $30$ & $\tau$, $b$, $\nu_\tau$ \\
+$12$ & $\mathrm{SU}(3)$ gauge              & $16$  & $0$  & $8$ gluons $\times\,2$ pol. \\
+$13$ & $\mathrm{SU}(2)$ + Gen~2 + Higgs    & $10$  & $30$ & $3\,W + $ Higgs $+$ $\mu,s,c$ \\
+$14$ & $\mathrm{U}(1)$ gauge               & $2$   & $0$  & $B$ boson $\times\,2$ pol. \\
+$21$ & Gen~1 Dirac                         & $0$   & $30$ & $e$, $d$, $u$ \\
+\midrule
+\multicolumn{2}{l}{\textbf{Total}}          & $28$  & $90$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Per-generation fermion count $30$: $1$ charged lepton (Dirac, 4 d.o.f.) +
+$1$ left-handed neutrino (2 d.o.f.) + $1$ up-type quark with 3 colours
+($3 \times 4 = 12$ d.o.f.) + $1$ down-type quark with 3 colours
+($12$ d.o.f.). Higgs content $4$: complex doublet in the unbroken phase
+(high-$T$, above the EW symmetry-breaking scale, which is automatic at
+$T \gg 10^{2}$~GeV~$\ll T_{\mathrm{RH}}$). Gauge bosons count $2$
+polarisations each at high-$T$ (massless unbroken phase).
+
+\begin{proposition}[Cascade-native $g_{\mathrm{eff}}$]\label{prop:g_eff}
+Summing over distinguished cascade layers, with fermion d.o.f.\ weighted by
+$7/8$:
+\[
+g_{\mathrm{eff}}^{\mathrm{cascade}}
+\;=\; 28 \;+\; \frac{7}{8}\cdot 90 \;=\; 106.75.
+\]
+This equals the Standard Model value exactly. The equality is not an
+assumption: Part~IVa~\cite{paper4a} forces the gauge group
+$\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ (Adams' theorem +
+Bott window), three generations (Bott period + $d_1 = 19$ cutoff), and
+one Higgs doublet (unique hairy-ball zero on $S^{12}$). The cascade's
+4D projection reproduces the Standard Model spectrum layer-by-layer; the
+$g_{\mathrm{eff}}$ count follows directly.
+\end{proposition}
+
+\begin{remark}[The $d = 29$ open question]\label{rem:d29}
+Part~IVa's Bott period~$8$ places a 4th fermion layer at $d = 29$,
+suppressed below $d_1 = 19$ to $\sim\! 0.5$~eV (Cover sheet; Part~IVb
+Open Question~5). At $T_{\mathrm{RH}} \sim 10^{18}$~GeV all such masses
+are irrelevant: the layer's modes, if they exist as RH neutrino
+partners, are relativistic and contribute to $g_{\mathrm{eff}}$. Under
+the alternative scenario with three Majorana RH neutrinos (2~d.o.f.\
+each) sourced at $d = 29$:
+\[
+g_{\mathrm{eff}}^{\mathrm{cascade},\,d{=}29}
+\;=\; 28 \;+\; \frac{7}{8}\cdot(90 + 6) \;=\; 112.00,
+\]
+giving $T_{\mathrm{RH}} = 0.3004\,M_{\mathrm{Pl,red}} = 7.31 \times 10^{17}$~GeV
+---a $-1.2\%$ shift relative to the cascade-${\equiv}$SM value. The shift
+is numerically negligible at the Planck-scale level; it does not resolve
+the gravitino-bound exposure (see Section~\ref{sec:falsifiers}).
+\end{remark}
+
+\begin{remark}[What this replaces]\label{rem:replaces-SM}
+Earlier drafts of this paper carried $g_{\mathrm{eff}} = 106.75$ as a
+``Standard Model approximation''---a provisional input flagged as the
+first Open Question. Proposition~\ref{prop:g_eff} removes the
+provisionality: the SM spectrum is the cascade's own 4D projection, not
+an external import. The Tier classification for
+Corollary~\ref{cor:TRH} and its input $g_{\mathrm{eff}}$ is correspondingly
+updated (Section~\ref{sec:tiers}). The computation is reproducible via
+\texttt{tools/cascade\_g\_eff.py}.
 \end{remark}
 
 \subsection{Why the Big Bang is not a singularity}
@@ -1100,13 +1170,16 @@ from Paper~II's boundary dominance ($\Omega_{d-1}/V_d = d$ requires $d \geq 1$
 but says nothing about a structural minimum for the observer) has not
 resolved the question.
 
-\item \textbf{Cascade-native $g_{\mathrm{eff}}$.} Count cascade propagating
-modes at each tower layer: spinor dimensions at Dirac layers $d \in
-\{5, 13, 21\}$, vector fields at gauge layers $d \in \{12, 13, 14\}$, scalar
-at the $d = 13$ hairy-ball obstruction. The sum (weighted by chirality and
-fermion/boson statistics) would replace the Standard Model $g_{\mathrm{eff}}
-= 106.75$ used in Corollary~\ref{cor:TRH}. Expected to be of the same order
-of magnitude; exact value open.
+\item \textbf{Cascade-native $g_{\mathrm{eff}}$.}
+\emph{Resolved} in Section~\ref{subsec:g_eff}:
+Proposition~\ref{prop:g_eff} derives $g_{\mathrm{eff}}^{\mathrm{cascade}} =
+106.75$ directly from Part~IVa's layer assignments (gauge window
+$\{12, 13, 14\}$, three generations at $d \in \{5, 13, 21\}$, Higgs at
+$d = 13$). The equality with the SM value is \emph{forced} by the
+cascade's 4D projection, not an assumption. The $d = 29$ open question
+(Remark~\ref{rem:d29}) remains: if $d = 29$ RH neutrino partners
+thermalise at $T_{\mathrm{RH}}$, the count shifts to $112.00$,
+producing a $-1.2\%$ shift in $T_{\mathrm{RH}}$.
 
 \item \textbf{Perturbation freeze-out mechanism.} Standard slow-roll inflation
 freezes quantum perturbations at horizon exit. The cascade has no horizon
@@ -1179,8 +1252,10 @@ $N_e = 70.94$ (Proposition~\ref{prop:efolds}) & 5 &
   Depends on tick-rate (i); landing in window suggestive \\
 $N = 217$ Big Bang (Theorem~\ref{thm:reheating}) & 5 &
   Mechanism proposed; thermalisation-to-$w=1/3$ step assumed \\
-$T_{\mathrm{RH}} = 7 \times 10^{17}$~GeV (Corollary~\ref{cor:TRH}) & 5 &
-  Uses SM $g_{\mathrm{eff}}$; cascade-native count open \\
+$g_{\mathrm{eff}}^{\mathrm{cascade}} = 106.75$ (Prop~\ref{prop:g_eff}) & 3 &
+  Forced by Part~IVa SM projection; $d=29$ alternative gives $112.00$ \\
+$T_{\mathrm{RH}} = 7.40 \times 10^{17}$~GeV (Corollary~\ref{cor:TRH}) & 3 &
+  Uses cascade-derived $g_{\mathrm{eff}}$; depends on $\Delta\rho$ at $N{=}217$ \\
 Gram deficit as perturbation source (Def~\ref{def:gram-amp}) & 4 &
   Source identified; amplitude formula is a Beta-function theorem \\
 $P_\delta(d) \sim 1/(8d^2)$ (Prop~\ref{prop:dspectrum}) & 4 &
