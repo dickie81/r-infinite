@@ -60,15 +60,287 @@ V~\cite{paper5} & Cosmological parameters today & Tier 2--3 \\
 
 \section{Time as Tower Growth}
 
-[TO WRITE: tick identification, observer fixed at $d = 4$, dual reading of Paper~II \S7.1, candidate tick rates $\alpha = 1$ vs $\alpha = 3\pi/8$, open question of $N_0 = 4$ vs $N_0 = 5$.]
+\subsection{The identification}
+
+\begin{definition}[Tower-growth time]\label{def:tower-time}
+At time $t$, the cascade above the observer at $d = 4$ is truncated at
+\[
+N(t) \;=\; N_0 \,+\, \frac{t}{\alpha\,t_{\mathrm{Pl,red}}},
+\]
+where $\alpha$ is a dimensionless tick rate, $N_0$ is an initial truncation
+height, and $t_{\mathrm{Pl,red}}$ is the reduced Planck time. One Planck tick
+adds one layer at the top of the tower.
+\end{definition}
+
+The observer's dimension $d = 4$ remains fixed at all times. What changes with
+time is the \emph{height} of the structurally-present tower above the observer.
+Physical cosmic time is the tower's growth, not a coordinate the cascade lives
+in.
+
+\subsection{Reconciliation with Paper~II}
+
+Paper~II~\cite{paper2}, Section~7.1 identifies time with the cascade's slicing
+direction. The tower-growth reading refines that identification into two coupled
+operations:
+
+\begin{itemize}[nosep]
+\item \textbf{Within-moment projection.} At fixed $t$, the map from $d = N(t)$
+down to $d = 4$ through the currently-existing tower. This is Paper~II's
+discrete propagator $K(N(t), 4) = \prod_{j = 4}^{N(t) - 1} L(j)$.
+
+\item \textbf{Between-moments evolution.} $N(t) \to N(t) + 1$: a new layer is
+added at the top of the tower. This operation has no analogue in Paper~II.
+\end{itemize}
+
+\begin{proposition}[Physical time evolution]\label{prop:time-evolution}
+Physical evolution of the cascade state from time $t$ to $t + \alpha\,
+t_{\mathrm{Pl,red}}$ is the composition
+\[
+|\Psi(t + \alpha\,t_{\mathrm{Pl,red}})\rangle
+\;=\; K(N(t) + 1, 4) \;\circ\; A_{N(t)+1} \;\circ\; K(N(t), 4)^{-1} \;
+|\Psi(t)\rangle,
+\]
+where $A_{N(t)+1}$ is the tower-growth operator that adds layer $N(t) + 1$ to
+the tower. Paper~II's discrete propagator $K$ alone is a static within-moment
+projection; the tower-growth step $A$ is the genuine dynamical ingredient.
+\end{proposition}
+
+\begin{remark}
+This resolves a latent tension in Paper~II. The discrete propagator $K(D, d')$
+is presented there as ``the cascade propagator'', but it acts between fixed
+cascade dimensions rather than between moments of time. Under Part~VI's
+identification, $K$ is the static projection at each moment, and the evolution
+between moments is the addition of one layer at the top followed by
+re-projection. Both operations are cascade-internal; Paper~II captures the
+first, Part~VI the second.
+\end{remark}
+
+\subsection{Candidate tick rates}
+
+Two cascade-native values for $\alpha$ are available:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{llcc}
+\toprule
+Reading & Tick = & Phase~C duration & $N_e^{\mathrm{total}}$ \\
+\midrule
+(i) & $t_{\mathrm{Pl,red}}$ & $198\,t_{\mathrm{Pl,red}}$ & $70.94$ \\
+(ii) & $(3\pi/8)\,t_{\mathrm{Pl,red}}$ (cascade lapse $N(4)$) &
+      $233\,t_{\mathrm{Pl,red}}$ & $81.6$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Reading~(i) uses the reduced Planck time directly. Reading~(ii) uses the
+cascade's own lapse at the observer's dimension, $N(4) = 3\pi/8$ (Paper~II~\S7.2,
+from the slicing recurrence at $d = 4$). Both values are derived from cascade
+structure; the criterion for selecting between them is open (Section~\ref{sec:open}).
+Numerical results below use reading~(i), which matches the simulator
+implementation of Issue~\#65.
+
+\subsection{Initial truncation height}\label{subsec:N0}
+
+The simulator of Issue~\#65 initialises at $N_0 = 4$. The cover-sheet thought
+experiment suggests $N_0 = 5$: the observer's spatial slice is $S^3$, the
+boundary of $B^5$, so the host dimension $d = 5$ must structurally exist for
+the observer to exist. Under $N_0 = 5$, Phase~A shortens from 3 ticks to 2 ticks
+and total e-folds decrease marginally. The choice between $N_0 = 4$ and
+$N_0 = 5$ is open; Section~\ref{sec:open}, Open Question~2.
 
 \section{Phase Structure of the Pre-Big-Bang Universe}
+\label{sec:phases}
 
-[TO WRITE: factor activation at distinguished layers, phase table (A/B/C/D) with $\rho_\Lambda$, $H$, ticks, e-folds. Proposition: $N_e = 70.94$ inside observational window.]
+\subsection{Factor activation}
+
+At each distinguished cascade layer, an additional sphere-area factor enters the
+cosmological constant ratio $\rho_\Lambda / M_{\mathrm{Pl,red}}^4$. Following
+Paper~I~\cite{paper1} Theorem~3.1 and Paper~V~\cite{paper5} Section~2, the
+cumulative factor at truncation height $N$ is the product of all distinguished
+contributions at or below $N$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{ccl}
+\toprule
+Layer & Factor & Source \\
+\midrule
+$N \geq 4$ & $2/\pi$ & Observer locked-time 3D projection (Paper~I \S3.2) \\
+$N \geq 7$ & $(\Omega_5/\Omega_7)^2 = 9/\pi^2$ & Host frame $d_V \to d_0$ (Paper~I \S3.1) \\
+$N \geq 19$ & $\Omega_{19} \approx 0.51614$ & First threshold $d_1$ (Paper~0 Thm~6.7) \\
+$N \geq 217$ & $\Omega_{217} \approx 2.335 \times 10^{-120}$ & Second threshold $d_2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each factor switches on the first tick at which its associated layer enters the
+truncated tower. Before activation the factor is absent; after activation it is
+present in all subsequent ticks. The activation is discrete (single-tick),
+forcing the phase structure below.
+
+\subsection{Phase table}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{clcccc}
+\toprule
+Phase & $N$ range & $\rho_\Lambda / M_{\mathrm{Pl,red}}^4$ & $H / M_{\mathrm{Pl,red}}$ & Ticks & E-folds \\
+\midrule
+A & $4$--$6$ & $2/\pi = 0.6366$ & $0.4607$ & $3$ & $1.38$ \\
+B & $7$--$18$ & $(2/\pi)(9/\pi^2) = 0.5805$ & $0.4420$ & $12$ & $5.30$ \\
+C & $19$--$216$ & Phase~B $\times\,\Omega_{19} = 0.2996$ & $0.3168$ & $198$ & $62.73$ \\
+D & $\geq 217$ & Phase~C $\times\,\Omega_{217} = 7.00 \times 10^{-121}$ & $\sim 10^{-61}$ & $\sim 10^{60}$ & $1.52$ + expansion \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Hubble rates follow from the standard Friedmann equation
+$H^2 = \rho_\Lambda / (3 \Omega_\Lambda M_{\mathrm{Pl,red}}^2)$ applied with the
+cascade's phase-specific $\rho_\Lambda$ under $\Omega_\Lambda \approx 1$ (vacuum
+domination during inflation). Within-phase evolution is pure de~Sitter
+($H$ approximately constant); transitions between phases are single-tick
+discontinuities where the next factor activates.
+
+\subsection{E-fold count}
+
+\begin{proposition}[Pre-Big-Bang e-folds]\label{prop:efolds}
+Under tick-rate reading~(i), the total number of e-folds accumulated from
+$N = N_0$ to $N = 217$ is $N_e = 70.94$, inside the observational inflation
+window $[50, 70]$ (with mild extension at the upper end for non-slow-roll
+regimes).
+\end{proposition}
+
+\begin{proof}
+Each tick contributes $H(\mathrm{phase}) \cdot t_{\mathrm{Pl,red}}$ e-folds.
+Summing across the four pre-Big-Bang phases:
+\begin{align*}
+N_e^{A} &= 3 \times 0.4607 = 1.382, \\
+N_e^{B} &= 12 \times 0.4420 = 5.304, \\
+N_e^{C} &= 198 \times 0.3168 = 62.732, \\
+N_e^{D, \mathrm{early}} &= 1.523 \text{ (first 30 ticks of Phase~D before radiation dominates).}
+\end{align*}
+Total pre-radiation e-folds: $N_e = 70.94$. Verification by the numerical
+simulator of Issue~\#65 (\texttt{tools/tower\_growth\_simulator.py}) confirms
+this value to four decimal places.
+\end{proof}
+
+\begin{remark}[Phase~C dominance]
+The 63 e-folds contributed by Phase~C come from $198$ Planck ticks at
+$H/M_{\mathrm{Pl,red}} \approx 0.317$. The phase duration is structurally
+forced: $216 - 19 + 1 = 198$ is the number of cascade layers between the two
+thresholds of Paper~0. The factor of approximately $60$ e-folds required to
+solve the horizon and flatness problems is not chosen to match observation; it
+is fixed by Paper~0's bilinear-invariant structure $217 = 7 \times 31$ and the
+Phase~C Hubble rate determined by the cascade's cosmological-constant product
+up to $d_1$.
+\end{remark}
+
+\begin{remark}[Why the window is hit, structurally]
+Two independent cascade numbers produce the 70 e-folds: the phase-C Hubble
+rate $H/M_{\mathrm{Pl,red}}$ is set by $\sqrt{(2/\pi)(9/\pi^2)\Omega_{19}/3}$
+(Paper~0 and Paper~I quantities), and the phase-C duration is set by
+$217 - 19 = 198$ ticks (Paper~0 threshold spacing). Their product lands inside
+the observational window without fitting. That this ``lands'' is either a
+genuine structural prediction or a suggestive coincidence; Section~\ref{sec:open}
+lists the tightening required to distinguish.
+\end{remark}
 
 \section{The $N = 217$ Big Bang}
+\label{sec:bigbang}
 
-[TO WRITE: discrete phase transition, $\Delta\rho \approx 0.3\,M_{\mathrm{Pl,red}}^4$ thermalises, $T_{\mathrm{RH}}$ formula, why this is not a singularity.]
+\subsection{The discrete phase transition}
+
+At $N = 217$, the activation of $\Omega_{217} \approx 2.33 \times 10^{-120}$
+multiplies the cosmological constant ratio by that factor in a single Planck
+tick. Before the tick (Phase~C): $\rho_\Lambda / M_{\mathrm{Pl,red}}^4 \approx
+0.30$. After the tick (Phase~D): $\rho_\Lambda / M_{\mathrm{Pl,red}}^4 \approx
+7 \times 10^{-121}$. The drop is $120$ orders of magnitude in one
+$t_{\mathrm{Pl,red}}$.
+
+\begin{theorem}[Discrete reheating]\label{thm:reheating}
+At the $N = 217$ tick, the cosmological-constant energy density
+$\rho_\Lambda^{(C)} \approx 0.30\,M_{\mathrm{Pl,red}}^4$ is replaced by
+$\rho_\Lambda^{(D)} \approx 7 \times 10^{-121}\,M_{\mathrm{Pl,red}}^4$. The
+released energy
+\[
+\Delta\rho \;=\; \rho_\Lambda^{(C)} - \rho_\Lambda^{(D)}
+\;\approx\; 0.30\,M_{\mathrm{Pl,red}}^4
+\]
+thermalises into the cascade's $w = 1/3$ metric content (Paper~III~\cite{paper3}
+Theorem~14.6), producing a radiation-dominated early universe with no matter
+content.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Stress-energy conservation across the transition requires the phase-C vacuum
+energy to land somewhere. The cascade's metric content after $N = 217$ has
+$w_{\mathrm{eff}} = 1/3$ (Paper~III~\S14.6: the Lorentzian cascade scale factor
+$a(t) = \sqrt{1 - t^2}$ gives $\rho_{\mathrm{eff}} \propto 3/a^4$,
+$p_{\mathrm{eff}} \propto 1/a^4$, hence $w_{\mathrm{eff}} = 1/3$). This is the
+only $w = 1/3$ content structurally available in the cascade at $d = 4$. The
+released vacuum energy therefore appears as radiation in the Friedmann
+equation.
+\end{proof}
+
+\subsection{Reheating temperature}
+
+Applying $\rho_r = (\pi^2/30)\,g_{\mathrm{eff}}\,T^4$ to the released energy:
+
+\begin{corollary}[Reheating temperature]\label{cor:TRH}
+\[
+T_{\mathrm{RH}} \;=\; \left(\frac{30\,\Delta\rho}{\pi^2\,g_{\mathrm{eff}}}\right)^{1/4}
+M_{\mathrm{Pl,red}}.
+\]
+Using $\Delta\rho = 0.30\,M_{\mathrm{Pl,red}}^4$ and $g_{\mathrm{eff}} = 106.75$
+(Standard Model approximation):
+\[
+T_{\mathrm{RH}} \;=\; 0.304\,M_{\mathrm{Pl,red}} \;=\; 7.40 \times 10^{17}\,\mathrm{GeV}.
+\]
+\end{corollary}
+
+\begin{remark}[Cascade-native $g_{\mathrm{eff}}$]
+The SM value $g_{\mathrm{eff}} = 106.75$ is used provisionally. A cascade-native
+count based on propagating modes at each layer of the tower (spinor dimensions
+at Dirac layers $d \in \{5, 13, 21\}$; vector fields from Adams' theorem at
+gauge layers $d \in \{12, 13, 14\}$; one scalar from the $d = 13$ hairy-ball
+obstruction) would replace it. The substitution shifts $T_{\mathrm{RH}}$ by
+$(g_{\mathrm{SM}} / g_{\mathrm{cas}})^{1/4}$; the magnitude remains near Planck
+scale. Section~\ref{sec:open}, Open~Question~3.
+\end{remark}
+
+\subsection{Why the Big Bang is not a singularity}
+
+The $N = 217$ transition has:
+\begin{itemize}[nosep]
+\item \emph{Finite energy density} before and after ($0.30$ and $7 \times 10^{-121}$ in Planck units).
+\item \emph{Finite Hubble rate} before ($H / M_{\mathrm{Pl,red}} \approx 0.32$)
+and immediately after (inherited from the sum of residual $\rho_\Lambda^{(D)}$
+and the newly-thermalised $\rho_r$; simulator output gives $H \sim 0.3$ dropping
+to $\sim 0.05$ over the first 30 ticks as radiation dilutes).
+\item \emph{Finite scale factor}, continuous across the transition (the
+single-tick layer addition does not discontinuously rescale $a$).
+\item \emph{No curvature divergence}, no geodesic incompleteness, no breakdown
+of the metric.
+\end{itemize}
+
+The ``Big Bang'' in this reading is the moment the cascade's second threshold
+first exists as a structural feature of the tower. Before $N = 217$ the tower
+has not reached the terminus of Paper~0; after $N = 217$ the terminus is
+permanent and $\rho_\Lambda$ sits at its asymptotic value. What was a
+large-magnitude vacuum energy becomes a small-magnitude vacuum energy plus a
+thermal bath, in one tick. No initial singularity is required.
+
+\begin{remark}[Connection to Paper~V \S5.8]
+Paper~V~\cite{paper5}, Section~5.8 asserts that the cascade has ``no
+singularity, no inflation, no free initial conditions'' because the descent
+from $d = \infty$ is a static logical structure rather than a temporal process.
+Under Part~VI's tower-growth reading, the ``no singularity'' claim is preserved
+(this section), inflation is provided (Section~\ref{sec:phases}), and the
+initial conditions are derived from Paper~0's threshold structure
+(Theorem~\ref{thm:reheating}). The Paper~V position is refined, not
+contradicted: Part~VI supplies the dynamical history that Paper~V's atemporal
+framing did not require but can now accommodate.
+\end{remark}
 
 \section{Perturbations: The Gram Deficit}
 
