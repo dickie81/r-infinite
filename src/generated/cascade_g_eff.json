@@ -1,0 +1,50 @@
+{
+  "layers": {
+    "5": {
+      "type": "Gen 3 Dirac",
+      "bosons": 0,
+      "fermions": 30,
+      "description": "\u03c4, b, \u03bd_\u03c4 (3 colours for quarks)"
+    },
+    "12": {
+      "type": "SU(3) gauge",
+      "bosons": 16,
+      "fermions": 0,
+      "description": "8 gluons \u00d7 2 polarisations"
+    },
+    "13": {
+      "type": "SU(2) gauge + Gen 2 Dirac + Higgs",
+      "bosons": 10,
+      "fermions": 30,
+      "description": "3 W bosons + Higgs doublet + \u03bc, s, c"
+    },
+    "14": {
+      "type": "U(1) gauge",
+      "bosons": 2,
+      "fermions": 0,
+      "description": "1 B boson \u00d7 2 polarisations"
+    },
+    "21": {
+      "type": "Gen 1 Dirac",
+      "bosons": 0,
+      "fermions": 30,
+      "description": "e, d, u (3 colours for quarks); above d\u2081=19"
+    }
+  },
+  "scenario_A": {
+    "description": "Cascade \u2261 SM: d=29 (Bott 4th fermion) not thermalised at T_RH",
+    "g_eff": 106.75,
+    "T_RH_over_MPlRed": 0.3040140955780333,
+    "T_RH_GeV": 7.402743227325111e+17
+  },
+  "scenario_B": {
+    "description": "Cascade + d=29 RH neutrinos (Part IVb Open Question 5)",
+    "g_eff": 112.0,
+    "T_RH_over_MPlRed": 0.3003870358201443,
+    "T_RH_GeV": 7.314424322220515e+17
+  },
+  "sm_reference": {
+    "g_eff": 106.75,
+    "T_RH_GeV_at_SM_g_eff": 7.402743227325111e+17
+  }
+}
