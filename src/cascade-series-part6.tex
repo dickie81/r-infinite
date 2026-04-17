@@ -844,24 +844,338 @@ current numerics.
 \end{remark}
 
 \section{Connection to the Cover-Sheet Thought Experiment}
+\label{sec:coversheet}
 
-[TO WRITE: tower growth dual to 5D BH infall, table of correspondences, both describe same asymptotic process.]
+The cover sheet describes the observer on the $S^3$ shell of a 5D black hole,
+asymptotically falling toward the pseudo-horizon. Tower growth is the dual of
+this picture:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{ll}
+\toprule
+Cover-sheet (infall) & Tower growth (this paper) \\
+\midrule
+Shell falls toward horizon & Tower grows at top \\
+Asymptotic approach, never completes & $N \to \infty$, never completes \\
+One step deeper along infall axis & One layer added above observer \\
+Pseudo-horizon recedes as BH evaporates & Terminus at $N = 217$ permanent post-Big-Bang \\
+Observer on $S^3$ shell of $d = 5$ BH & Observer at $d = 4$, host at $d = 5$ (\S\ref{subsec:N0}) \\
+Infinite time dilation at the horizon & Infinite layers above observer at $N \to \infty$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Both describe the same asymptotic process in the cascade's geometry. The
+cover-sheet picture frames the observer as falling; Part~VI frames the tower
+as growing. Neither process completes in finite time; both saturate
+asymptotically.
+
+\begin{remark}[Locking the time identification]
+The cover-sheet identification ``time is the observer's asymptotic infall
+toward the pseudo-horizon'' is used by Paper~I~\cite{paper1} Section~3.2 to
+justify the locked-time 3D projection factor $\Omega_2/\Omega_3 = 2/\pi$.
+Under tower growth, this identification becomes: time is the asymptotic
+growth of the cascade tower above the observer. The two formulations agree on
+the key feature that forces the Paper~I factor --- time is not a free fourth
+dimension --- and agree on the asymptotic character that makes the descent
+never complete. Part~VI does not alter Paper~I's derivation; it supplies an
+equivalent dynamical reading of the ``locked time'' hypothesis.
+\end{remark>
+
+\begin{remark}[Three unified pictures of time]
+The cascade series has now accumulated three descriptions of time, all
+mutually consistent under Part~VI's identification:
+\begin{enumerate}[nosep]
+\item \emph{Paper~II \S7}: time is the cascade's slicing direction; descent
+from high $d$ to low $d$ is the arrow of time. (Within-moment reading.)
+\item \emph{Cover sheet}: time is the observer's asymptotic infall toward the
+5D-BH pseudo-horizon. (Geometric dual.)
+\item \emph{Part~VI}: time is the growth of the truncated tower above the
+observer; one Planck tick adds one layer. (Dynamical reading.)
+\end{enumerate}
+These are three vocabularies for one physical fact: the cascade's structural
+descent is the observer's experience of time. The three agree on the key
+properties (asymptotic, never-completing, locked, irreversible) and differ
+only in which operation is primary. Part~VI takes (3) as primary and derives
+the cosmic-history consequences.
+\end{remark}
 
 \section{Falsifiers}
+\label{sec:falsifiers}
 
-[TO WRITE: six specific falsifiers tied to CMB-S4, LiteBIRD, gravitino bounds.]
+Part~VI is explicitly speculative and makes several sharp predictions that
+near-future experiments can test. The falsifiers listed below apply to the
+tower-growth reading specifically; none challenges Parts~0--V.
+
+\begin{enumerate}[leftmargin=*,nosep]
+
+\item \textbf{CMB-S4 running of $n_s$.} The cascade's $P_\delta(k) \propto
+1/(\ln k)^2$ spectrum predicts a specific running $\alpha_s \equiv
+d n_s / d\!\ln k \sim -2/(\ln k)^2$ (Proposition~\ref{prop:running}). A pure
+power law has $\alpha_s = 0$ exactly. If CMB-S4 measures $\alpha_s$ consistent
+with zero at $\lesssim 10^{-3}$ precision, the tower-growth spectrum is
+disfavoured.
+
+\item \textbf{LiteBIRD tensor detection with slow-roll consistency shape.} A
+primordial B-mode signal at $r \gtrsim 10^{-3}$ with tensor tilt $n_t \approx
+-r/8$ (slow-roll consistency relation) falsifies the no-graviton commitment
+(Proposition~\ref{prop:litebird}). Non-detection is compatible but not
+confirmatory.
+
+\item \textbf{Total e-folds outside $[65, 82]$.} The two cascade-native tick
+rates give $N_e = 70.94$ (reading (i), $\alpha = 1$) and $N_e = 81.6$
+(reading (ii), $\alpha = 3\pi/8$). If CMB-S4 tightens $N_e$ outside this
+combined window, both readings are falsified.
+
+\item \textbf{Reheating temperature.} Gravitino abundance constraints in
+supergravity-compatible scenarios and CMB tensor bounds jointly impose
+$T_{\mathrm{RH}} \lesssim 10^{15}$--$10^{16}$~GeV in many extensions of
+standard cosmology. If these constraints are confirmed at that level, the
+cascade's $T_{\mathrm{RH}} \sim 7 \times 10^{17}$~GeV from
+Corollary~\ref{cor:TRH} is challenged --- though the bounds themselves rely
+on particle content beyond the cascade's own framework.
+
+\item \textbf{Matter density before $N = 217$.} The cascade predicts zero
+matter and zero radiation during Phases~A--C (only vacuum energy exists). Any
+observational evidence of matter content sourced before the cascade-native
+Big Bang (e.g., primordial black holes formed during a pre-$N=217$ matter
+era) falsifies the Part~VI account of the pre-Big-Bang universe.
+
+\item \textbf{Discovery of a scalar field driving inflation.} If primordial
+non-Gaussianity, B-modes, or cross-correlations between observables jointly
+constrain the inflationary dynamics to a specific inflaton potential shape
+(at field-theoretic precision), the cascade's no-inflaton reading is
+falsified. The cascade commits to inflation being driven by discrete
+phase-dependent $\rho_\Lambda$ values, not by a rolling scalar.
+
+\item \textbf{Cascade-order sensitive observables.} If any post-Big-Bang
+observable is discovered that distinguishes Standard Model features by
+thermal decoupling order but is inconsistent with the cascade-internal
+ordering of Proposition~\ref{prop:ordering} (e.g., relic abundance patterns
+that favour Gen~1 features over Gen~3 in structural availability), the
+particle-timeline prediction is challenged.
+
+\end{enumerate}
+
+The falsifiers above are not uniform in strength. Items~1 and~2 are sharp
+and testable at near-future experimental precision. Items~3--5 test
+particular cascade-native numerical values that depend on tick-rate and
+$g_{\mathrm{eff}}$ choices flagged as open. Items~6 and~7 are qualitative and
+require additional work to sharpen.
 
 \section{What This Paper Does and Does Not Do}
 
-[TO WRITE: matches series convention; clearly separates what is proposed vs what is open.]
+\textbf{Does:}
+\begin{itemize}[leftmargin=*,nosep]
+\item Promotes the truncation height $N$ to a physical time coordinate via
+Definition~\ref{def:tower-time}: one Planck tick adds one layer at the top of
+the tower, with the observer's dimension $d = 4$ fixed.
+\item Splits Paper~II's time identification into within-moment projection
+(Paper~II's $K$) and between-moments evolution (tower-growth step $A$);
+physical time evolution is the composition $A \circ K$
+(Proposition~\ref{prop:time-evolution}).
+\item Derives a four-phase pre-Big-Bang structure (Phases~A--D) with
+cascade-native $\rho_\Lambda$, $H$, and e-fold count per phase from the
+factor-activation at distinguished cascade layers (Section~\ref{sec:phases}).
+\item Establishes $N_e = 70.94$ pre-radiation e-folds under tick-rate
+reading~(i) (Proposition~\ref{prop:efolds}), inside the observational
+inflation window.
+\item Identifies the Big Bang as the $N = 217$ discrete phase transition
+(Theorem~\ref{thm:reheating}) with reheating temperature $T_{\mathrm{RH}}
+\sim 7 \times 10^{17}$~GeV (Corollary~\ref{cor:TRH}) under Standard Model
+$g_{\mathrm{eff}}$.
+\item Identifies the Gram overlap deficit $\delta_d = \sqrt{1 - C_{d,d+1}^2}$
+as the cascade's native source of cosmological perturbations
+(Definition~\ref{def:gram-amp}), giving power spectrum $P_\delta(d) \sim
+1/(8d^2)$ in the cascade's natural index.
+\item Derives the conversion to comoving wavenumber during Phase~C:
+$P_\delta(k) \propto 1/(\ln k)^2$ (Corollary~\ref{cor:kspectrum}), predicting
+non-zero running $\alpha_s$ with specific $k$-dependence.
+\item Argues that $r = 16\epsilon$ has no cascade analogue (neither the
+quantised metric operator nor the slow-roll parameter exists); tensor
+perturbations at $d = 4$ are classical induced responses of the projected
+metric (Proposition~\ref{prop:tensor-induced}).
+\item Establishes the cascade-internal particle-structural timeline
+(Section~\ref{sec:particles}): Standard Model features assemble in a
+specific order as the tower grows during Phase~C.
+\item Clarifies three points in Paper~II (\S7.1 time identification, \S7.3
+discrete propagator, \S8.6 cumulative decoherence) without contradicting any
+of its theorems (Section~\ref{sec:paper2-amendments}).
+\item Connects tower-growth to the cover-sheet 5D-BH infall picture as dual
+descriptions of the same asymptotic process (Section~\ref{sec:coversheet}).
+\item Provides seven specific falsifiers against CMB-S4, LiteBIRD, gravitino
+bounds, and structural predictions (Section~\ref{sec:falsifiers}).
+\end{itemize}
+
+\textbf{Does not:}
+\begin{itemize}[leftmargin=*,nosep]
+\item Derive the tick rate $\alpha$ from cascade structure: two candidates
+($\alpha = 1$ and $\alpha = 3\pi/8$) are offered, with no structural criterion
+to select between them.
+\item Derive the initial truncation height $N_0$: $N_0 = 4$ (simulator) and
+$N_0 = 5$ (cover-sheet) are both defensible, not yet decided.
+\item Rigorously compute the cascade-native tensor-to-scalar ratio: the
+magnitude calculation is flagged as explicitly open, and the hand-waved
+$r \sim e^{-60}$ estimate from earlier draft discussion is retracted as
+incorrect.
+\item Derive cascade-native $g_{\mathrm{eff}}$: the Standard Model value
+$106.75$ is used provisionally in the reheating calculation.
+\item Provide a first-principles mechanism for why layer addition occurs at
+one-per-Planck-tick: the identification is proposed, not derived from the
+cascade's action.
+\item Derive the perturbation freeze-out mechanism: standard slow-roll
+horizon-crossing does not apply; geometric decoherence is the candidate
+replacement but has not been rigorously shown to convert Gram-deficit quantum
+seeds to classical density perturbations at the right amplitude.
+\item Produce a full CMB $C_\ell$ prediction: this requires coupling the
+Gram-deficit perturbation spectrum to Boltzmann-evolution machinery (CAMB or
+CLASS), which has not been done.
+\item Modify any Tier 1--3 result of Parts~0--V: Part~VI is Tier~5 throughout
+and is explicitly an overlay, not a replacement.
+\item Use any result from post-cascade physics: the only inputs are the
+cascade's own geometry from Parts~0--V and the tower-growth identification.
+\end{itemize}
 
 \section{Open Questions}
+\label{sec:open}
 
-[TO WRITE: nine open questions, from tick rate to higher distinguished layers.]
+\begin{enumerate}[leftmargin=*,nosep]
+
+\item \textbf{Tick rate $\alpha$.} Readings (i) $\alpha = 1$ and (ii) $\alpha
+= 3\pi/8$ are both cascade-native; no structural criterion currently
+distinguishes them. Option (i) uses the reduced Planck time directly; option
+(ii) uses the cascade's lapse at the observer's dimension, $N(4) = 3\pi/8$
+(Paper~II \S7.2). CMB-S4 constraints on $N_e$ to $\pm 2$ will distinguish
+them observationally; a first-principles derivation would be stronger.
+
+\item \textbf{Initial truncation height $N_0$.} Is $N_0 = 4$ (observer's own
+dimension, simulator choice) or $N_0 = 5$ (host dimension, cover-sheet
+choice)? The cover-sheet requires the 5D black hole to exist for the
+observer's $S^3$ shell to exist, favouring $N_0 = 5$. A structural argument
+from Paper~II's boundary dominance ($\Omega_{d-1}/V_d = d$ requires $d \geq 1$
+but says nothing about a structural minimum for the observer) has not
+resolved the question.
+
+\item \textbf{Cascade-native $g_{\mathrm{eff}}$.} Count cascade propagating
+modes at each tower layer: spinor dimensions at Dirac layers $d \in
+\{5, 13, 21\}$, vector fields at gauge layers $d \in \{12, 13, 14\}$, scalar
+at the $d = 13$ hairy-ball obstruction. The sum (weighted by chirality and
+fermion/boson statistics) would replace the Standard Model $g_{\mathrm{eff}}
+= 106.75$ used in Corollary~\ref{cor:TRH}. Expected to be of the same order
+of magnitude; exact value open.
+
+\item \textbf{Perturbation freeze-out mechanism.} Standard slow-roll inflation
+freezes quantum perturbations at horizon exit. The cascade has no horizon
+exit in the standard sense (the tower grows discretely). Candidate mechanism:
+geometric decoherence (Paper~II \S8.5) acting over the subsequent layers
+between mode seeding and the Big Bang. Whether this produces the correct
+classical amplitude at the right epoch is open.
+
+\item \textbf{Tensor-to-scalar ratio $r$, rigorously.} The magnitude of the
+classical induced tensor response (Proposition~\ref{prop:tensor-induced})
+requires solving the linearised Einstein equation with the Gram-deficit
+scalar source and propagating the tensor response through Phase~D. No
+rigorous calculation has been performed.
+
+\item \textbf{Pre-$N_0$ ticks.} If $N_0 > 4$, what does the structure at
+$N < N_0$ look like? There is no observer (observer requires $d = 4$, needing
+$d = 4$ to exist as the bottom of the tower), so the question may be
+ill-posed. Whether the cascade admits a ``pre-observer'' phase at all is
+open.
+
+\item \textbf{Non-perturbative sector during inflation.} Paper~IVb~\cite{paper4b}
+uses $\exp(-\pi/\alpha(5))$ as a non-perturbative factor in the electroweak
+VEV $v$. If an instanton-like mechanism operates during the cascade's descent,
+the uniform ``one tick per layer'' identification of Definition~\ref{def:tower-time}
+may require refinement. Whether the cascade has a non-perturbative sector
+relevant to cosmic history is open.
+
+\item \textbf{Higher distinguished layers beyond $d = 217$.} Paper~0's
+bilinear-invariant structure singles out the pair $(19, 217)$ as the
+distinguished thresholds for $\rho_\Lambda$. No further distinguished $d$ for
+this observable. But Bott periodicity continues beyond $d = 217$: a Dirac
+layer exists at $d = 29$ (suppressed below the $d_1 = 19$ phase transition;
+identified with the neutrino mass scale in the cover sheet) and at $d = 37$,
+etc. Whether any of these produces a future phase transition in non-Λ
+observables (e.g., a dark sector at $d = 29$ becoming dynamically active at
+some future tick) is open.
+
+\item \textbf{Cascade-order-sensitive observables.} Proposition~\ref{prop:ordering}
+establishes a strict cascade-internal ordering for Standard Model feature
+addition during inflation. Whether any post-Big-Bang observable retains
+memory of this ordering (beyond the standard thermal freeze-out ordering) is
+open. Candidates include non-thermal relic abundances or CMB non-Gaussian
+correlations between modes seeded at different cascade ticks; no concrete
+candidate has been identified.
+
+\end{enumerate}
 
 \section{Tier Classification}
 
-[TO WRITE: table with tier assigned to each result in the paper.]
+Following the tier framework used across the cascade series (most explicitly
+in Part~V \S11 and Part~IVb \S11), each result of Part~VI is classified below.
+Tiers match the series convention: Tier~1 for theorem-level forced results;
+Tier~2 for derived numerical predictions with clean structural arguments; Tier~3
+for derivations with caveats or provisional inputs; Tier~5 for proposed
+extensions or identifications not yet theorem-level.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcl}
+\toprule
+Result & Tier & Justification \\
+\midrule
+Time = tower growth (Def~\ref{def:tower-time}) & 5 &
+  Identification, not theorem \\
+Paper~II clarifications (\S\ref{sec:paper2-amendments}) & 3 &
+  Structural refinements, no Paper~II theorem modified \\
+Phase table (Section~\ref{sec:phases}) & 5 &
+  Depends on tick-rate and factor-activation rule \\
+$N_e = 70.94$ (Proposition~\ref{prop:efolds}) & 5 &
+  Depends on tick-rate (i); landing in window suggestive \\
+$N = 217$ Big Bang (Theorem~\ref{thm:reheating}) & 5 &
+  Mechanism proposed; thermalisation-to-$w=1/3$ step assumed \\
+$T_{\mathrm{RH}} = 7 \times 10^{17}$~GeV (Corollary~\ref{cor:TRH}) & 5 &
+  Uses SM $g_{\mathrm{eff}}$; cascade-native count open \\
+Gram deficit as perturbation source (Def~\ref{def:gram-amp}) & 4 &
+  Source identified; amplitude formula is a Beta-function theorem \\
+$P_\delta(d) \sim 1/(8d^2)$ (Prop~\ref{prop:dspectrum}) & 4 &
+  Direct consequence of Paper~0 Supplement Thm~15.2 \\
+$P_\delta(k) \propto 1/(\ln k)^2$ (Cor~\ref{cor:kspectrum}) & 5 &
+  Functional form derived; comparison to $n_s$ fuzzy at current precision \\
+$r$ structurally suppressed (Prop~\ref{prop:tensor-provisional}) & 4 &
+  Qualitative argument from no-graviton commitment; magnitude open \\
+Tensors as classical induced (Prop~\ref{prop:tensor-induced}) & 3 &
+  Follows from Paper~II=III Thm~6.1 + Paper~III Lovelock \\
+Particle structural timeline (Prop~\ref{prop:ordering}) & 5 &
+  Follows from Paper~IVa layer assignments under tower-growth reading \\
+Cover-sheet duality (\S\ref{sec:coversheet}) & 3 &
+  Dual descriptions of known cascade picture \\
+Falsifier list (\S\ref{sec:falsifiers}) & 4 &
+  Structural predictions tied to cascade content \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No result of Part~VI is Tier~1 or Tier~2. The paper's function is to provide
+a speculative but concrete cascade-native cosmic history and a battery of
+falsifiers; its content is not robust enough to support precision predictions
+at the level of Parts~0--V. If the tower-growth identification matures ---
+specifically, if the tick rate $\alpha$ is fixed structurally, the tensor $r$
+is computed rigorously, and the perturbation freeze-out mechanism is derived
+--- relevant results here would promote to Tier~2 and the paper would be
+promoted from speculative extension to regular entry in the series.
+
+\begin{remark}[On the honesty of the tier classification]
+Part~VI commits to the discipline of the rest of the series: every result
+carries its tier, and Tier~5 is explicitly not sufficient for the cascade to
+claim a prediction. The ``inflation e-folds land at $70$'' coincidence is
+suggestive but not a prediction; the ``$r$ is structurally suppressed''
+argument is qualitative, not quantitative. These are correctly flagged.
+Readers should not conflate ``interesting speculation that is internally
+self-consistent'' with ``derivation that compels belief.''
+\end{remark}
 
 \begin{thebibliography}{9}
 
