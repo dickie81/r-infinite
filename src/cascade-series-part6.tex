@@ -629,12 +629,219 @@ origin.
 \end{remark}
 
 \section{Particle Structural Timeline}
+\label{sec:particles}
 
-[TO WRITE: table of layer-addition events, what structural existence means vs particle occupancy, prediction of layer-ordering for any future observable that distinguishes by cascade order.]
+\subsection{Layer addition and topological features}
+
+Each cascade layer, when added to the truncated tower, brings its topological
+features into structural existence. Parts~IVa and~IVb~\cite{paper4a,paper4b}
+identify what each distinguished layer carries: Dirac obstructions at fermion
+layers, Adams vector fields at gauge layers, hairy-ball zeros at
+even-dimensional spheres. Under tower-growth, the \emph{time} at which each
+feature becomes structurally available is the tick at which its layer is added.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{cccl}
+\toprule
+Added at tick & Layer & Feature & Source \\
+\midrule
+$N = 5$   & $d = 5$   & Gen~3 Dirac obstruction ($\tau$, $b$, $\nu_\tau$); observer host & Paper~IVa~\cite{paper4a} \S4 \\
+$N = 7$   & $d = 7$   & Area maximum $d_0$; decay-rate zero & Paper~0~\cite{paper0} \S5 \\
+$N = 12$  & $d = 12$  & $\mathrm{SU}(3)$ layer (Adams $\rho(12)-1=3$) & Paper~IVa \S2.5 \\
+$N = 13$  & $d = 13$  & $\mathrm{SU}(2)$ layer + Gen~2 Dirac obstruction ($\mu$, $s$, $c$) & Paper~IVa \S2--\S4 \\
+$N = 14$  & $d = 14$  & $\mathrm{U}(1)$ layer & Paper~IVa \S2 \\
+$N = 19$  & $d = 19$  & Phase-transition threshold $d_1$ & Paper~0 Thm~6.7 \\
+$N = 21$  & $d = 21$  & Gen~1 Dirac obstruction ($e$, $d$, $u$) & Paper~IVa \S4 \\
+$N = 217$ & $d = 217$ & Second threshold $d_2$; Big Bang & Paper~0 Thm~6.7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The ordering is strict and cascade-internal: colour ($d = 12$) precedes weak
+isospin ($d = 13$) by one tick, which precedes hypercharge ($d = 14$) by one
+tick. Fermion generations are spaced by the Bott period: Gen~3 ($d = 5$) to
+Gen~2 ($d = 13$) to Gen~1 ($d = 21$), eight ticks apart. The Standard Model's
+structural features assemble themselves during Phase~C of inflation in a
+specific order that is not adjustable.
+
+\subsection{Structural existence versus particle occupancy}
+
+\begin{remark}[What ``structural existence'' means]
+A layer is \emph{structurally present} at time $t$ if it is part of the
+truncated tower $[N_0, N(t)]$. Structural presence implies: the layer's
+sphere-area contributes to cascade sums; its topological obstruction (hairy-ball
+zero if applicable) exists as part of the active tower topology; its gauge or
+fermion projection is available as a feature that any cascade state can couple
+to.
+
+It does \emph{not} imply that particles with the layer's quantum numbers
+physically occupy the layer during the pre-Big-Bang phase. Pre-$N = 217$ the
+universe has zero matter density and zero radiation density; only vacuum energy
+exists (Section~\ref{sec:phases}). The ``particles'' of the Standard Model are
+features of the \emph{post}-$N = 217$ tower projected to $d = 4$ under
+post-Big-Bang dynamics; their structural layers are added during inflation, but
+their observable occupancy does not begin until the $N = 217$ thermalisation
+produces a radiation bath.
+\end{remark}
+
+\subsection{Structural prediction}
+
+\begin{proposition}[Cascade-internal ordering]\label{prop:ordering}
+Any cosmological observable that distinguishes Standard Model features by
+cascade-internal addition order must respect the ordering of the table above.
+Specifically:
+\begin{itemize}[nosep]
+\item $\mathrm{SU}(3)$ structural availability precedes $\mathrm{SU}(2)$ and
+$\mathrm{U}(1)$ by one and two ticks respectively.
+\item Gen~3 fermions (heavier) are structurally available before Gen~2, which
+precedes Gen~1 (lightest) --- the opposite of the ``heavy particles froze out
+first'' story of standard cosmology, which is a post-Big-Bang thermal
+statement about occupancy at a given temperature.
+\item Gen~1 fermions ($e$, $d$, $u$), the lightest generation and the observer's
+own matter content, become structurally available last (Phase~C, at $N = 21$).
+\end{itemize}
+\end{proposition}
+
+\begin{remark}[No conflict with thermal freeze-out]
+Proposition~\ref{prop:ordering} is not a claim about particle freeze-out
+temperatures or abundance ratios. Standard cosmology's ``heavy particles
+froze out first'' ordering is a statement about post-Big-Bang thermal
+equilibrium and decoupling at specific temperatures $T \sim m$. The
+cascade-internal ordering is about \emph{structural availability} during the
+pre-Big-Bang tower-growth phase. Both orderings are compatible: the structural
+features exist in the cascade order during inflation; the observable
+occupancies then freeze out in thermal order after the Big Bang according to
+standard Boltzmann-equation dynamics with cascade-derived masses.
+\end{remark}
+
+\begin{remark}[A potential observable signature]
+If some post-Big-Bang observable retains memory of the \emph{order} in which
+cascade features became structurally available --- distinct from the order in
+which particle occupancies froze out --- this would be a cascade-native
+signature. Candidates include non-thermal relic abundances set by
+layer-addition rather than by thermal decoupling, or specific non-Gaussian
+correlations in the CMB between modes seeded at different cascade ticks. No
+concrete such signature has been identified; this is flagged as
+Section~\ref{sec:open} Open~Question~9.
+\end{remark}
 
 \section{Retroactive Clarifications to Paper~II}
+\label{sec:paper2-amendments}
 
-[TO WRITE: three clarifications without contradicting theorems: \S7.1 dual reading, \S7.3 within-moment vs between-moments propagator, \S8.6 time-dependent Gram correction $\varepsilon(t)$ saturating at $6.11\%$.]
+Part~VI's dynamical reading clarifies three points in Paper~II~\cite{paper2}
+without contradicting any of its theorems. Each clarification is a refinement
+under the tower-growth identification; the within-moment content of Paper~II
+is preserved unchanged.
+
+\subsection{Paper~II \S7.1: the time identification}
+
+Paper~II~\S7.1 states: ``The cascade does not happen in time; the cascade is
+time. The arrow of time is the direction of descent, which is irreversible.''
+
+\begin{remark}[Clarification]\label{rem:paper2-71}
+This remains correct. Part~VI refines it by identifying \emph{two} coupled
+operations both called ``time'' in Paper~II:
+\begin{itemize}[nosep]
+\item the \emph{within-moment descent} from $d = N(t)$ down to $d = 4$ through
+the currently-existing tower (Paper~II's primary reading), and
+\item the \emph{between-moments growth} of the tower, $N(t) \to N(t) + 1$,
+which Paper~II does not distinguish.
+\end{itemize}
+Paper~II's ``arrow of time = direction of descent'' captures the first.
+Physical time evolution between moments is the second. The irreversibility of
+Paper~II \S7 (slicing compresses one direction, lost information resides on
+the boundary via $\Omega_{d-1}/V_d = d$) applies to the within-moment
+projection. The between-moments layer-addition is also irreversible, on
+different grounds: once a layer is added at the top of the tower, the tower
+cannot shrink without violating cascade-content-preservation across the
+transition.
+\end{remark}
+
+\subsection{Paper~II \S7.3: the discrete propagator}
+
+Paper~II~\S7.3 Theorem~7.1 states that $K(D, d') = \prod_{j = d'}^{D-1} L(j)$
+is the cascade propagator, with $L(j) = iN(j)$ in the precessing cascade.
+
+\begin{remark}[Clarification]\label{rem:paper2-73}
+Under Part~VI, $K$ is the \emph{within-moment projection} through the
+currently-existing tower, not the physical time-evolution operator between
+moments. Physical evolution from $t$ to $t + \alpha\,t_{\mathrm{Pl,red}}$
+is the composition (Proposition~\ref{prop:time-evolution})
+\[
+K(N(t) + 1, 4) \;\circ\; A_{N(t)+1} \;\circ\; K(N(t), 4)^{-1},
+\]
+where $A_{N(t)+1}$ is the tower-growth operator adding layer $N(t)+1$ at the
+top. Paper~II's derivation of the effective Schr\"odinger equation
+(\S7.4 Corollary~7.4) is the coarse-grained description of the within-moment
+$K$ and is correct on that reading; the between-moments $A$ step has no
+continuous analogue and does not appear in the effective Schr\"odinger
+equation. This answers a latent question raised but not explicitly addressed
+by Paper~II: ``why does the cascade's discrete propagator act as a dynamical
+time evolution rather than a static projection?'' Under Part~VI, the answer is:
+it does not. The dynamics is $A \circ K$; Paper~II's $K$ is the static
+projection factor.
+\end{remark}
+
+\subsection{Paper~II \S8.6: cumulative decoherence}
+
+Paper~II~\S8.6 reports the eigenvalue deficit of the Gram correlation matrix
+over the full 213-layer path $d = 5, \ldots, 217$:
+$\varepsilon = 1 - \lambda_1/n = 0.0611$ (the cascade retains $93.9\%$
+coherence over the full descent).
+
+\begin{remark}[Clarification]\label{rem:paper2-86}
+The $\varepsilon = 6.11\%$ figure assumes the full cascade tower is always
+present. Under Part~VI's tower-growth reading, the tower at time $t$ is
+$[N_0, N(t)]$, so the Gram matrix at time $t$ is the submatrix over the
+currently-existing layers. The time-dependent eigenvalue deficit
+\[
+\varepsilon(t) \;=\; 1 - \frac{\lambda_1\bigl(C_{[N_0, N(t)]}\bigr)}{N(t) - N_0 + 1}
+\]
+grows monotonically with $N(t)$. Numerical evaluation using the Beta-function
+adjacent-overlap asymptotic (Paper~0 Supplement~\cite{paper0supp}
+Theorem~15.2, $1 - C^2_{d,d+1} \sim 1/(8d^2)$) gives:
+\end{remark}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cccc}
+\toprule
+Tick $N$ & Layers in tower & $\varepsilon(N)$ & Fraction of $\varepsilon(\infty)$ \\
+\midrule
+$7$   & 3   & $\sim 0.8\%$  & $13\%$ \\
+$19$  & 15  & $\sim 3.0\%$  & $49\%$ \\
+$50$  & 46  & $\sim 5.0\%$  & $82\%$ \\
+$100$ & 96  & $\sim 5.6\%$  & $92\%$ \\
+$217$ & 213 & $6.11\%$ (Paper~II) & $100\%$ \\
+$\infty$ & $\infty$ & $6.11\%$ (saturated) & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{corollary}[Pre-recombination Gram correction]\label{cor:pre-rec-gram}
+Any descent-dependent cascade observable set at an epoch before $N = 217$
+should use $\varepsilon(N_{\mathrm{set}})$ rather than $\varepsilon(217)$ in
+the Part~0 Supplement first-order correction formula. For observables set
+during Phase~C at $N \sim 100$--$200$, the appropriate correction is
+$\varepsilon(N) \lesssim 5.8\%$, slightly smaller than the saturated value.
+The numerical impact on Part~V~\cite{paper5} observables is negligible ---
+all Part~V observables (cosmological parameters, $H_0$, $r_d$, $t_0$) are set
+at post-Big-Bang epochs where $\varepsilon(N) = \varepsilon(217) = 6.11\%$
+to the precision required. Corollary~\ref{cor:pre-rec-gram} is a structural
+refinement that becomes numerically relevant only for future cascade
+observables set at specific pre-recombination epochs.
+\end{corollary}
+
+\begin{remark}[Does not modify Part~V]
+Paper~V's Gram-corrected predictions for $\rho_\Lambda$, $H_0$, $T_{\rm CMB}$,
+$\Omega_m$, etc., use the saturated $\varepsilon = 6.11\%$. Under Part~VI's
+refinement, this remains the correct value for all Part~V observables because
+all of them are set at post-Big-Bang epochs. No numerical adjustment to
+Part~V is required. Part~VI's clarification is a structural statement about
+\emph{when} the saturated value applies, sharpening but not changing the
+current numerics.
+\end{remark}
 
 \section{Connection to the Cover-Sheet Thought Experiment}
 
