@@ -343,12 +343,290 @@ framing did not require but can now accommodate.
 \end{remark}
 
 \section{Perturbations: The Gram Deficit}
+\label{sec:perturbations}
 
-[TO WRITE: Definition of $\delta_d = \sqrt{1 - C_{d,d+1}^2}$, spectrum $\propto 1/d$ in cascade index, conversion to $k$-space gives $1/\ln k$ not power-law, comparison to observed $n_s$, CMB-S4 falsifier.]
+\subsection{The cascade's native source of inhomogeneity}
+
+The cascade has no inflaton scalar field and no quantised metric operator, so
+the standard sources of cosmological perturbation are not available. What the
+cascade does have is the layer-to-layer overlap deficit of the slicing
+integrands. At adjacent cascade layers $d$ and $d+1$, the integrands
+$f_d(x) = (1-x^2)^{d/2}$ are not collinear in $L^2$. Their normalised overlap
+satisfies (Paper~0 Supplement~\cite{paper0supp} Theorem~15.2):
+\[
+1 - C_{d,d+1}^2 \;=\; 1 \,-\, \frac{B\!\left(\frac{1}{2},\, d + \frac{3}{2}\right)^2}
+{B\!\left(\frac{1}{2},\, d + 1\right)\,B\!\left(\frac{1}{2},\, d + 2\right)}
+\;\sim\; \frac{1}{8\,d^2}
+\quad (d \to \infty).
+\]
+This is a Beta-function identity with no free parameters. It is the cascade's
+native ``vacuum fluctuation'' structure: each tick adds a layer whose integrand
+is almost but not exactly aligned with the one below it, and the non-aligned
+fraction is the cascade-internal perturbation seeded at that tick.
+
+\begin{definition}[Cascade-native perturbation amplitude]\label{def:gram-amp}
+At layer $d$, added to the tower during inflation, the seeded perturbation
+amplitude is
+\[
+\delta_d \;=\; \sqrt{1 - C_{d,d+1}^2}
+\;\sim\; \frac{1}{2\sqrt{2}\,d} \qquad (d \to \infty).
+\]
+The cascade's natural index is the layer dimension $d$, not a comoving
+wavenumber $k$.
+\end{definition}
+
+\subsection{Spectrum in the cascade's natural index}
+
+Evaluating $\delta_d$ across the pre-Big-Bang phases:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{llc}
+\toprule
+Phase & $d$ range & $\delta_d$ range \\
+\midrule
+A & $4$--$6$ & $0.089$--$0.063$ \\
+B & $7$--$18$ & $0.054$--$0.019$ \\
+C & $19$--$216$ & $0.019$--$0.0016$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}[Cascade power spectrum in layer index]\label{prop:dspectrum}
+The cascade's perturbation power spectrum, indexed by the layer dimension $d$
+at which each mode is seeded, is
+\[
+P_\delta(d) \;=\; |\delta_d|^2 \;\sim\; \frac{1}{8\,d^2}.
+\]
+The spectrum is monotonically decreasing in $d$: modes seeded deeper in the
+tower (larger $d$) carry smaller amplitudes. No free parameters enter.
+\end{proposition}
+
+\begin{remark}
+Paper~IVb's $\alpha(d^*)/\chi^k$ family (Part~IVb~\cite{paper4b} Remark~4.6)
+uses the quantity $\alpha(d) = R(d)^2/4$ at distinguished cascade layers. The
+Gram amplitude $\delta_d \sim 1/(2\sqrt{2}\,d)$ scales the same way as
+$\sqrt{\alpha(d)}$ does asymptotically ($R(d) \sim \sqrt{2/d}$ for large $d$).
+This is not coincidence: both derive from the Beta-function asymptotics of the
+slicing recurrence. The Gram deficit and the cascade coupling are two views of
+the same per-layer residual.
+\end{remark}
+
+\subsection{Conversion to comoving wavenumber}
+
+Observational cosmology parametrises perturbations by comoving wavenumber $k$,
+not by cascade layer $d$. The conversion under tower-growth is set by the
+inflation history.
+
+During Phase~C, $H / M_{\mathrm{Pl,red}} \approx 0.317$ is approximately
+constant. With $\Delta t = t_{\mathrm{Pl,red}}$ per tick and
+$a(t) \propto \exp(H\,t)$, the scale factor at the moment layer $d$ is added
+satisfies
+\[
+\ln\!\left(\frac{a(d)}{a(19)}\right) \;=\; H \cdot (d - 19) \cdot t_{\mathrm{Pl,red}}
+\;=\; 0.317\,(d - 19).
+\]
+The comoving scale exiting the horizon at tick $d$ is $k_d = a(d)\,H$, so
+\[
+\ln k_d \;=\; \mathrm{const} \,+\, 0.317\,(d - 19),
+\]
+linear in $d$ within Phase~C. Inverting: $d \propto \ln k$.
+
+\begin{corollary}[Spectrum in $k$-space]\label{cor:kspectrum}
+Under tower-growth inflation, the cascade-native perturbation amplitude seeded
+at comoving wavenumber $k$ satisfies
+\[
+\delta(k) \;\propto\; \frac{1}{\ln k} \quad\text{within Phase~C.}
+\]
+Equivalently, the power spectrum is
+\[
+P_\delta(k) \;\propto\; \frac{1}{(\ln k)^2} \quad\text{within Phase~C.}
+\]
+\end{corollary}
+
+\subsection{Comparison to observed $n_s$}
+
+The observed CMB scalar power spectrum is near-power-law:
+\[
+P_s(k) \;\propto\; k^{n_s - 1}, \qquad n_s = 0.9649 \pm 0.0042\ \text{(Planck 2018).}
+\]
+Expanding a power law: $k^{n_s - 1} = 1 + (n_s - 1)\ln k + \tfrac{1}{2}(n_s - 1)^2(\ln k)^2 + \cdots$. Expanding the cascade's $1/(\ln k)^2$ around a reference scale
+$k_0$: $1/(\ln k)^2 = 1 - 2\,\delta\!\ln k / \ln k_0 + \cdots$ where
+$\delta\!\ln k = \ln(k/k_0)$. Within Planck's observational range
+($k \sim 10^{-4}$ to $10^{-1}\,\mathrm{Mpc}^{-1}$), both expressions admit
+near-logarithmic behaviour at leading order. At Planck precision the two forms
+are not cleanly distinguishable.
+
+\begin{proposition}[Running of $n_s$]\label{prop:running}
+The cascade's $P_\delta(k) \propto 1/(\ln k)^2$ form predicts a non-zero
+running $\alpha_s \equiv d n_s / d\!\ln k$ with a specific functional structure:
+\[
+\alpha_s^{\mathrm{cas}}(k) \;\simeq\; \frac{-2}{(\ln k)^2}
+\]
+at leading order in the expansion. A pure power law has $\alpha_s = 0$ exactly;
+the cascade predicts $\alpha_s$ is non-zero and scale-dependent.
+\end{proposition}
+
+\begin{remark}[Current bound]
+Planck 2018 gives $\alpha_s = -0.0045 \pm 0.0067$, consistent with zero at
+$1\sigma$. The cascade's structural prediction is of the same order but with
+specific $k$-dependence; CMB-S4 aims for $\sigma(\alpha_s) \sim 0.002$, which
+would begin to probe the cascade's functional form.
+\end{remark}
+
+\subsection{Falsifier}
+
+\begin{proposition}[CMB-S4 falsifier]\label{prop:CMBS4-falsifier}
+If CMB-S4 measures $\alpha_s$ consistent with zero to $\lesssim 10^{-3}$
+precision, the tower-growth perturbation spectrum of
+Corollary~\ref{cor:kspectrum} is disfavoured: a pure power-law $k^{n_s-1}$
+with $\alpha_s = 0$ exactly is incompatible with the cascade's
+$P_\delta \propto 1/(\ln k)^2$.
+\end{proposition}
+
+\begin{remark}[What this falsifier does not do]
+This falsifier tests the specific tower-growth reading of Part~VI, not the
+cascade series generally. Parts~0--V do not predict a perturbation spectrum
+and are not challenged by any $n_s$ or $\alpha_s$ measurement.
+\end{remark}
+
+\begin{remark}[Perturbation freeze-out]
+Standard inflation freezes quantum perturbations at horizon exit, converting
+them to classical density perturbations. The cascade has no horizon exit in
+the standard sense (the tower grows discretely; there is no continuous
+horizon-crossing event per mode). Whether the Gram-deficit seeds become
+classical via geometric decoherence (Paper~II~\cite{paper2} Section~8.5) acting
+over subsequent layers, or via a different mechanism, is open
+(Section~\ref{sec:open}, Open~Question~4). The spectrum of
+Proposition~\ref{prop:dspectrum} is the amplitude \emph{at seed}; its late-time
+evolution under post-Big-Bang dynamics requires the freeze-out mechanism to be
+specified.
+\end{remark}
 
 \section{Tensor Modes}
+\label{sec:tensors}
 
-[TO WRITE: no cascade analogue of $r = 16\epsilon$, metric as state property vs quantum field, classical induced response, magnitude calculation open, LiteBIRD falsifier.]
+\subsection{No cascade analogue of $r = 16\epsilon$}
+
+Standard slow-roll inflation derives the tensor-to-scalar ratio as
+$r = P_t / P_s = 16\,\epsilon$, where $P_t$ is the power spectrum of quantum
+fluctuations of the metric operator $\hat{g}_{\mu\nu}$ at horizon exit and
+$\epsilon$ is the slow-roll parameter of the inflaton potential. The cascade
+has neither ingredient:
+
+\begin{itemize}[nosep]
+\item The metric is a state property of $|\Psi\rangle \in S^{d-1}$
+(Paper~II\,=\,III~\cite{paper23} Theorem~6.1), not a quantum operator on
+a fixed background. The metric is never promoted to $\hat{g}_{\mu\nu}$;
+fluctuations of $\hat{g}$ are not part of the cascade's mathematical
+structure.
+\item There is no inflaton scalar field. The ``inflaton'' during Phase~C is
+the cascade's discrete phase-dependent cosmological constant, which takes a
+single value throughout the phase. There is no rolling potential and no
+slow-roll parameter.
+\end{itemize}
+
+Both ingredients of the $r = 16\epsilon$ derivation are therefore absent. The
+formula has no cascade analogue. Whatever tensor signal the cascade predicts
+is \emph{not} computed via this route.
+
+\subsection{What tensor modes are in the cascade}
+
+\begin{proposition}[Tensor modes as classical induced responses]\label{prop:tensor-induced}
+Under Part~VI's tower-growth reading, tensor perturbations at the observer's
+frame $d = 4$ are classical responses of the projected metric to the same
+Gram-deficit scalar source of Section~\ref{sec:perturbations}, via the
+Einstein equation of Paper~III~\cite{paper3}. They are not independent
+quantum degrees of freedom.
+\end{proposition}
+
+\begin{proof}[Sketch]
+The cascade has one quantum object: the cascade state $|\Psi\rangle$ on
+$S^{d-1}$. Its perturbations, sourced by the Gram deficit between consecutive
+cascade layers, enter the 4D effective stress-energy tensor via Lovelock's
+projection identity (Paper~III~\S8). The Einstein equation
+$G_{\mu\nu} + \Lambda g_{\mu\nu} = 8\pi G\,T_{\mu\nu}$ is the unique
+gravitational equation at $d = 4$ (Paper~III Theorem~3.1), so the metric
+response to a stress-energy perturbation is uniquely determined. In
+particular, any spin-2 component of the induced metric response is a
+\emph{classical} derivation from the scalar source, not a separately-quantised
+field. No spin-2 quantum field exists in the cascade; the induced classical
+tensor is the sole spin-2 content at $d = 4$.
+\end{proof}
+
+\begin{remark}[Relation to Paper~III \S12]
+Paper~III~\S12 already commits to ``no gravitons'' on the grounds that the
+metric is a state property rather than an operator. Proposition~\ref{prop:tensor-induced}
+applies that commitment to primordial cosmology: there is no graviton vacuum
+fluctuation to source a primordial tensor background; only the classical
+induced response of the projected metric remains.
+\end{remark}
+
+\subsection{Magnitude of the induced tensor response: open}
+
+Computing the magnitude of the cascade-native tensor-to-scalar ratio requires:
+
+\begin{enumerate}[nosep]
+\item Translating the Gram-deficit scalar source (Definition~\ref{def:gram-amp})
+into a perturbation $\delta T_{\mu\nu}$ of the effective stress-energy tensor
+at $d = 4$.
+\item Solving the linearised Einstein equation $\delta G_{\mu\nu} = 8\pi G\,\delta T_{\mu\nu}$ for the induced metric response $\delta g_{\mu\nu}$.
+\item Decomposing $\delta g_{\mu\nu}$ into scalar, vector, and tensor parts
+under $\mathrm{SO}(3)$ on the observer's spatial $S^3$, and propagating the
+tensor part through Phase~D expansion to recombination.
+\item Reading off the tensor-to-scalar amplitude ratio at CMB scales.
+\end{enumerate}
+
+None of these steps has been performed rigorously. The author's preliminary
+discussion (draft notes, \emph{not} in the published series) offered a
+hand-wave estimate $r \sim e^{-60}$ via naive $e^{-N/2}$ suppression of
+super-horizon tensor modes through Phase~D expansion. This reasoning is
+incorrect: super-horizon tensor modes freeze rather than decay, so no such
+exponential suppression operates. The preliminary estimate is retracted. The
+correct calculation has not been performed.
+
+\begin{proposition}[Provisional tensor suppression]\label{prop:tensor-provisional}
+The cascade's classical-induced-tensor mechanism produces no primordial
+gravitational-wave background of the quantum-inflaton-fluctuation kind. The
+amplitude of the classical induced tensor response is structurally suppressed
+relative to the scalar source, but the magnitude of the suppression is not
+currently computable from the cascade's own structure without further
+technical work.
+\end{proposition}
+
+\begin{remark}[Why this matters for falsification]
+Proposition~\ref{prop:tensor-provisional} is weaker than a sharp prediction of
+$r$. It commits to ``no standard primordial gravitational wave signal'' but
+does not commit to a numerical value of the residual induced-response
+amplitude. A positive detection at any $r$ detectable by near-term experiments
+forces one of two conclusions: either the cascade's ``no graviton'' commitment
+is wrong (falsifying Paper~III~\S12 and Paper~II\,=\,III Theorem~6.1), or the
+induced classical response happens to be non-negligible and the cascade's
+rigorous $r$ calculation, once performed, reproduces the detection.
+\end{remark}
+
+\subsection{Falsifier}
+
+\begin{proposition}[LiteBIRD falsifier]\label{prop:litebird}
+A detection of primordial B-mode polarisation at $r \gtrsim 10^{-3}$ with
+spectral shape characteristic of inflaton-quantum-fluctuation origin
+(tensor tilt $n_t \approx -r/8$ from slow-roll consistency) falsifies the
+cascade's ``no graviton'' commitment and therefore the tower-growth reading.
+Non-detection at LiteBIRD sensitivity is compatible with the cascade but does
+not confirm it; the cascade's induced-response mechanism may produce a signal
+at any magnitude from ``unobservable'' to ``near the LiteBIRD floor'',
+pending the rigorous calculation.
+\end{proposition}
+
+\begin{remark}
+The cleanest form of the LiteBIRD falsifier is not the amplitude alone but
+the \emph{spectral shape}. A slow-roll inflaton prediction has $n_t < 0$ set
+by the consistency relation; a cascade-induced classical response has no
+reason to satisfy that relation and would exhibit different $n_t$ behaviour.
+If a future tensor detection includes spectral information, the slow-roll
+consistency relation becomes a pointed test of the cascade's alternative
+origin.
+\end{remark}
 
 \section{Particle Structural Timeline}
 
