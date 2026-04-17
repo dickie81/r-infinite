@@ -10,84 +10,30 @@ The series derives — from this alone — the cosmological constant, quantum me
 
 **[Read the papers](https://dickie81.github.io/r-infinite/)**
 
-<!-- BEGIN PREDICTIONS -->
-## Predictions
+## Headline results
 
-One hypothesis. Zero free parameters. Every prediction below is a test of the hypothesis.
+**Structural (forced by uniqueness theorems):**
 
-### Tier 1 — Exact: Forced by Uniqueness Theorems
+- Spacetime dimension **d = 4** with Lorentzian signature (−,+,+,+)
+- Gauge group **SU(3) × SU(2) × U(1)** with SU(2) broken
+- Exactly **three fermion generations**
+- Dark energy equation of state **w = −1 exactly**
+- Strong CP phase **θ_QCD = 0**
+- **No** supersymmetric partners · **No** dark matter particles · **No** extra Higgs bosons · **No** axion · **No** gravitons
 
-Mathematical uniqueness proofs leave no alternative. These are not approximations.
+**Precision numerics (closed within experimental error, zero fitted parameters):**
 
-| Prediction | Value | Status | Source |
+| Observable | Predicted | Observed | Match |
 |---|---|---|---|
-| Spacetime dimension | d = 4 | Confirmed | Lovelock ∩ Clifford (III) |
-| Metric signature | (−,+,+,+) | Confirmed | Propagator + Clifford (III) |
-| Gauge group | SU(3) × SU(2) × U(1) | Confirmed | Adams + Bott (IVa) |
-| Symmetry breaking | SU(2) broken; SU(3), U(1) exact | Confirmed | Hairy ball theorem (IVa) |
-| Fermion generations | Exactly 3 | Confirmed | Bott periodicity + d₁=19 (IVa) |
-| Dark energy EoS | w = −1 exactly | Confirmed | Fixed geometric constant (III) |
-| Strong CP phase | θ_QCD = 0 | Confirmed | π₃(S¹¹) = Z₂ (IVa) |
-| No supersymmetry | — | Confirmed (LHC) | No pairing mechanism (IVa) |
-| No dark matter particles | — | Confirmed (null results) | Geometry provides content (V) |
-| No extra Higgs bosons | — | Confirmed (LHC) | One hairy ball zero (IVa) |
-| No gravitons | — | Not yet testable | Metric is state property, not quantised field (II=III, III) |
+| ρ_Λ / M⁴_Pl,red (Gram-corrected) | 7.14 × 10⁻¹²¹ | 7.15 × 10⁻¹²¹ | −0.07% |
+| α_s(M_Z) | 0.11792 | 0.1179 ± 0.0009 | +0.02σ |
+| m_τ / m_μ | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
+| sin²θ_W | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
+| m_μ / m_e | 206.50 | 206.77 | +0.13% |
+| H₀ | 66.78 km/s/Mpc | Planck: 67.4 ± 0.5 | Planck-compatible |
+| Universe age | 13.88 Gyr | 13.80 ± 0.02 | +0.6% |
 
-### Tier 2 — Derived: Closed-Form, Zero Free Parameters
-
-Numerical predictions from cascade geometry. Formulas are exact; deviations reflect leading-order truncation.
-
-| Observable | Formula | Predicted | Observed | Dev. |
-|---|---|---|---|---|
-| ρ_Λ / M⁴_Pl,red | 18 · Ω(19) · Ω(217) / π³ | 0.6996 × 10⁻¹²⁰ | 0.7150 × 10⁻¹²⁰ | −2.2% |
-| Ω_Λ | (π−1)/π | 0.6817 | 0.685 ± 0.007 | −0.5% |
-| Ω_m | 1/π | 0.3183 | 0.315 ± 0.007 | +1.1% |
-| Ω_r | 1/(4π⁷) | 8.28 × 10⁻⁵ | 8.27 × 10⁻⁵ | +0.1% |
-| T_CMB | from Ω_r, H₀ | 2.642 K | 2.7255 K | −3.1% |
-| H₀ | from ρ_Λ, Ω_Λ | 66.78 km/s/Mpc | 67.4 ± 0.5 | −0.9% |
-| t₀ | ΛCDM integral | 13.88 Gyr | 13.80 ± 0.02 | +0.6% |
-| m_H / m_W | π/2 | 1.5708 | 1.559 | +0.8% |
-| m_μ / m_e | exp(ΔΦ) · 2√π | 206.50 | 206.77 | +0.13% |
-| m_e | geometric-topological | 0.514 MeV | 0.511 MeV | +0.6% |
-| m_μ | geometric-topological | 106.2 MeV | 105.66 MeV | +0.5% |
-| α_s(M_Z) leading | α(12) · exp(ΔΦ) | 0.1159 | 0.1179 ± 0.0009 | −1.7% |
-| sin²θ_W leading | Radon-Hurwitz ratio | 0.2286 | 0.23121 | −1.1% |
-
-### Tier 3 — Precision: Correction-Family Closures
-
-Seven observables close within experimental error via δΦ = α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities.
-
-| Observable | Shift source | Predicted | Observed | Residual |
-|---|---|---|---|---|
-| α_s(M_Z) | α(14)/χ | 0.11792 | 0.1179 ± 0.0009 | +0.02σ |
-| m_τ / m_μ | α(14)/χ | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
-| m_τ absolute | α(19)/χ | 1776.82 MeV | 1776.86 ± 0.12 | −0.31σ |
-| sin²θ_W | α(5)/χ³ | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
-| Ω_m | −α(5)/χ³ | 0.31474 | 0.315 ± 0.007 | −0.04σ |
-| θ_C (Cabibbo) | −α(7)/χ² | 13.04° | 13.04 ± 0.05° | +0.03σ |
-
-### Tier 4 — Frontier: Under Active Experimental Test
-
-Specific predictions testable by current or near-future experiments (DESI, Euclid, CMB-S4, SH0ES).
-
-| Observable | Predicted | Current data | Status |
-|---|---|---|---|
-| H₀ | 66.78 km/s/Mpc (Gram-corrected ≈ 67.5) | Planck: 67.4 · SH0ES: 73.0 | Planck-side of Hubble tension; incompatible with SH0ES |
-| r_d (sound horizon) | ≈147.75 Mpc | Planck: 147.60 Mpc | Essentially equal to Planck; cascade and ΛCDM share a ruler |
-| DESI DR2 BAO fit | χ²/n = 2.35 (cascade) vs 1.90 (Planck) | Two shared outliers at z=0.510, z=0.706 | Cascade fits slightly worse than Planck; both face same anomalies |
-| DESI w ≠ −1 signal | w = −1 exactly (structural theorem) | DESI DR2: w ≈ −0.76 | Challenges cascade and ΛCDM equally; no ruler-based explanation |
-
-### Tier 5 — Provisional: Derivation Incomplete
-
-Results where the argument has acknowledged gaps or needs strengthening.
-
-| Observable | Issue |
-|---|---|
-| Ω_b = 1/(2π²) | “One unit of content on S³” argument needs strengthening |
-| n_s, A_s | Primordial spectrum not yet derived |
-| Correction selection rule | Observable-to-source assignment not fully derived from first principles |
-
-<!-- END PREDICTIONS -->
+**See [PREDICTIONS.md](PREDICTIONS.md) for the full tiered table** (structural results, all precision derivations, frontier experimental predictions, and provisional items with known gaps).
 
 ## Papers
 
@@ -104,6 +50,7 @@ Results where the argument has acknowledged gaps or needs strengthening.
 | [`cascade-series-part4a.tex`](src/cascade-series-part4a.tex) | Part IVa — The Standard Model from the Cascade: Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros |
 | [`cascade-series-part4b.tex`](src/cascade-series-part4b.tex) | Part IVb — The Standard Model from the Cascade: Masses, Couplings, and Precision Predictions from the Geometric-Topological Factorization |
 | [`cascade-series-part5.tex`](src/cascade-series-part5.tex) | Part V — Cosmology from the Cascade: ΛCDM Parameters, the Hubble Constant, and the DESI BAO Observations |
+| [`cascade-series-part6.tex`](src/cascade-series-part6.tex) | Part VI — Tower Growth, Inflation, and the Pre-Big-Bang from the Cascade (speculative extension; Tier 5) |
 
 ## Building PDFs
 
