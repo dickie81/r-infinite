@@ -92,7 +92,12 @@ Verified symbolically in `tools/btz_cross_check.py` (sympy). The cascade's S = A
 
 Structural implication: G_d = d/4 is a cascade prediction for how Newton's constant scales with dimension. At d=4 this gives the standard G_4 = 1 used in Theorem 7.4 (Hawking temperature at d=4). At d=3 it predicts the dimensionless ratio G_3/G_4 = 3/4.
 
-Remaining stronger result (still open): derive G_3 independently from the cascade's KK reduction or layer-by-layer structure, to verify G_3 = 3/4 without using the S = A/d identification. This would promote the BTZ cross-check from "self-consistency check" to "independent derivation".
+Remaining stronger result (still open): a *second* cascade-internal derivation of G_d = d/4 via a distinct structural identity, to corroborate Theorem thm:Gd without going through the boundary-dominance + A/(4G_d) match. This is **not** a Kaluza-Klein problem — the cascade explicitly refuses semiclassical reduction over compactified dimensions (Paper I §3.2; Paper II=III §5-6; Paper III §12: the metric is a state property, not an operator on a fixed background). Cascade-native candidates:
+  - the proposed discrete cascade action S[φ] = Σ(2α(d))⁻¹(Δφ)² (Paper IVb Remark 4.6) evaluated at layer d, producing a variational derivation of G_d
+  - an independent sphere-area identity at layer d equal to d/4
+  - a direct computation from the cascade's embedding data at dimension d
+
+Any such route would promote Theorem thm:Gd from "structural matching" to "doubly-derived", tightening the BTZ cross-check from self-consistency to independent corroboration.
 
 ### Connection to the cascade's decoherence numbers
 
