@@ -547,6 +547,52 @@ finite-dimensional linear algebra. Together with Theorem~\ref{thm:chirality-fact
 layers) and~(c) (the $v$ closure via the non-perturbative sector) remain open.
 \end{remark}
 
+\begin{remark}[Action uniqueness: conditional on gauge identification]
+\label{rem:action-uniqueness}
+The action form of Remark~\ref{rem:phase-family} is not uniquely forced by
+``equilibrium reproduces the slicing recurrence'' alone. The general local
+quadratic nearest-neighbour action
+\[
+S[\varphi] \;=\; \sum_d \frac{1}{2\beta(d)}(\Delta\varphi)^2
+\]
+has the slicing recurrence as its Euler--Lagrange equilibrium for any
+compliance function $\beta(d)$, since the equilibrium depends on $\Delta\varphi_{\rm eq}$
+alone. First-order EL fixes the action's form (quadratic, nearest-neighbour);
+it does not fix $\beta$.
+
+What pins $\beta$ is the marginal identity of Remark~\ref{rem:marginal-greens}:
+the per-layer Green's function response at source $d^*$ equals $\beta(d^*)$.
+Matching the observed $\alpha(d^*)/\chi^k$ shifts of
+Remark~\ref{rem:phase-family} therefore forces $\beta(d) = \alpha(d)$.
+
+Numerical verification in \texttt{tools/action\_uniqueness.py} confirms this:
+among seven natural candidate compliance functions ($\alpha(d)$, $R(d)$,
+$R(d)^2$, $R(d)/2$, $1/d$, $1/(d{+}1)$, $N(d)$), only $\beta = \alpha$
+reproduces the four Part~IVb source shifts to machine precision. The six
+alternatives fail by factors of $2$ to $100$.
+
+The action is therefore uniquely forced by two cascade-native requirements:
+\begin{enumerate}[nosep]
+\item \emph{First-order EL equation} --- the action is quadratic and
+nearest-neighbour in $\Delta\varphi$, matching the cascade's first-order
+slicing recurrence (Part~0 Theorem~3.1).
+\item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is Part~IVa's gauge coupling at layer $d$
+(Section~\ref{subsec:source-selection}; Part~IVa~\cite{paper4a} Section~4.1).
+The action is the cascade-native gauge-sector functional.
+\end{enumerate}
+
+Given requirement~2 (the action represents gauge physics), the compliance is
+forced. The derivation is therefore \emph{conditional} on the gauge
+identification --- the same identification that fixes the cascade's
+observed gauge couplings (Theorems~\ref{thm:alpha-s-leading},~\ref{thm:alpha-s-closure},
+etc.). What remains structurally open is whether Part~IVa's gauge-coupling
+normalisation $\alpha(d) = N(d)^2/(4\pi)$ is itself uniquely forced from
+within the cascade (independent of the QFT gauge-theoretic convention
+$\alpha = g^2/(4\pi)$), or whether it is a matching choice. Both readings
+are cascade-internally consistent; neither changes the action's form or
+the seven precision closures.
+\end{remark}
+
 \begin{theorem}[Chirality factorisation of the Green's function]\label{thm:chirality-factorisation}
 Let $G(d,d^*)$ be the scalar Green's function of the cascade action's discrete Laplacian $S[\varphi]=\sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$, and let $Q$ be an observable built from $k$ independent definite-chirality cascade propagator modes. Then
 \[
