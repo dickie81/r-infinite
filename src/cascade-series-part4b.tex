@@ -354,6 +354,50 @@ The cascade's lapse function $N(d) = \sqrt{\pi} \cdot \Gamma((d + 1)/2)/\Gamma((
 \alpha(d) := \frac{N(d)^2}{4\pi}.
 \]
 
+\begin{remark}[The $1/(4\pi)$ is cascade-native: $4\pi = \Omega_2$]
+\label{rem:alpha-geometric}
+The factor $1/(4\pi)$ is not a QFT convention imported into the cascade. It is
+the reciprocal of the observer's equatorial 2-sphere area:
+\[
+\Omega_2 = \frac{2\pi^{3/2}}{\Gamma(3/2)} = 4\pi.
+\]
+So $\alpha(d)$ can be written cascade-internally as
+\[
+\alpha(d) \;=\; \frac{N(d)^2}{\Omega_2},
+\]
+with both factors defined entirely from Part~0 / Part~I cascade-native
+quantities. The structural content:
+\begin{itemize}[nosep]
+\item \emph{Numerator $N(d)^2$.} The lapse $N(d)$ is the per-step slicing rate
+(Part~0~\cite{paperI}~\S3). Its square appears in any quadratic cascade action
+(Part~IVb Remark~\ref{rem:phase-family}), playing the role of ``field strength
+squared'' at cascade layer $d$.
+\item \emph{Denominator $\Omega_2$.} The observer's spatial slice is
+$S^3 = \partial B^4$ (Paper~I~\cite{paperI}~\S3.2). Its Morse foliation by
+2-spheres at constant latitude gives $\Omega_2 = 4\pi$ as the natural
+equatorial flux-integration surface around a point source. This is the
+classical Gauss-law codimension-2 sphere area, the same $4\pi$ that appears
+in Coulomb's law without any quantum-field-theoretic input.
+\end{itemize}
+
+Both $N(d)$ and $\Omega_2$ are Part~0 sphere-area / lapse quantities. The
+combination $\alpha(d) = N(d)^2/\Omega_2$ is therefore cascade-internal
+without needing the QFT convention $\alpha = g^2/(4\pi)$ as a normalisation
+choice. The cascade and QFT agree on this normalisation because both
+descend from the same classical Gauss-law geometry: flux through a
+codimension-2 sphere.
+
+\emph{Uniqueness}: among cascade-native candidates for the gauge coupling at
+layer $d$, the form $N^a / \Omega_b$ is fixed by three requirements.
+$(a)$ Dimensional analysis requires $a = 2$ (since $(\Delta\varphi)^2$ is
+the quadratic action and $\alpha^{-1}$ sits in front).
+$(b)$ Classical Gauss-law geometry at codimension~2 fixes the
+flux-integration surface to $S^2$, giving $b = 2$.
+$(c)$ Overall dimensionless normalisation is automatic
+($N(d)$ and $\Omega_2$ are both dimensionless).
+Given $(a)$--$(c)$, $\alpha(d) = N(d)^2/\Omega_2$ is forced.
+\end{remark}
+
 \begin{theorem}[Cascade coupling]
 The inverse cascade coupling satisfies $1/\alpha(d) = 2d + 1 + O(1/d)$, with deviation below 0.6\% for all $d \geq 4$.
 \end{theorem}
@@ -545,6 +589,52 @@ finite-dimensional linear algebra. Together with Theorem~\ref{thm:chirality-fact
 (chirality-basin filtering) this closes item~(a) of Remark~\ref{rem:phase-family}'s
 ``what remains open'' list; items~(b) (unit source strength at distinguished
 layers) and~(c) (the $v$ closure via the non-perturbative sector) remain open.
+\end{remark}
+
+\begin{remark}[Action uniqueness: conditional on gauge identification]
+\label{rem:action-uniqueness}
+The action form of Remark~\ref{rem:phase-family} is not uniquely forced by
+``equilibrium reproduces the slicing recurrence'' alone. The general local
+quadratic nearest-neighbour action
+\[
+S[\varphi] \;=\; \sum_d \frac{1}{2\beta(d)}(\Delta\varphi)^2
+\]
+has the slicing recurrence as its Euler--Lagrange equilibrium for any
+compliance function $\beta(d)$, since the equilibrium depends on $\Delta\varphi_{\rm eq}$
+alone. First-order EL fixes the action's form (quadratic, nearest-neighbour);
+it does not fix $\beta$.
+
+What pins $\beta$ is the marginal identity of Remark~\ref{rem:marginal-greens}:
+the per-layer Green's function response at source $d^*$ equals $\beta(d^*)$.
+Matching the observed $\alpha(d^*)/\chi^k$ shifts of
+Remark~\ref{rem:phase-family} therefore forces $\beta(d) = \alpha(d)$.
+
+Numerical verification in \texttt{tools/action\_uniqueness.py} confirms this:
+among seven natural candidate compliance functions ($\alpha(d)$, $R(d)$,
+$R(d)^2$, $R(d)/2$, $1/d$, $1/(d{+}1)$, $N(d)$), only $\beta = \alpha$
+reproduces the four Part~IVb source shifts to machine precision. The six
+alternatives fail by factors of $2$ to $100$.
+
+The action is therefore uniquely forced by two cascade-native requirements:
+\begin{enumerate}[nosep]
+\item \emph{First-order EL equation} --- the action is quadratic and
+nearest-neighbour in $\Delta\varphi$, matching the cascade's first-order
+slicing recurrence (Part~0 Theorem~3.1).
+\item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is Part~IVa's gauge coupling at layer $d$
+(Section~\ref{subsec:source-selection}; Part~IVa~\cite{paper4a} Section~4.1).
+The action is the cascade-native gauge-sector functional.
+\end{enumerate}
+
+Given requirement~2 (the action represents gauge physics), the compliance is
+forced. The derivation is therefore \emph{conditional} on the gauge
+identification --- the same identification that fixes the cascade's
+observed gauge couplings (Theorems~\ref{thm:alpha-s-leading},~\ref{thm:alpha-s-closure},
+etc.). What remains structurally open is whether Part~IVa's gauge-coupling
+normalisation $\alpha(d) = N(d)^2/(4\pi)$ is itself uniquely forced from
+within the cascade (independent of the QFT gauge-theoretic convention
+$\alpha = g^2/(4\pi)$), or whether it is a matching choice. Both readings
+are cascade-internally consistent; neither changes the action's form or
+the seven precision closures.
 \end{remark}
 
 \begin{theorem}[Chirality factorisation of the Green's function]\label{thm:chirality-factorisation}
