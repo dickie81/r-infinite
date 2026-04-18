@@ -346,6 +346,7 @@ The cascade predicts $b/s = (\text{lepton ratio}) \times e = 16.53 \times e = 44
 The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests that up-type quarks carry an additional factor of $N_c$ relative to down-type quarks, arising from the Weyl chirality structure at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
 
 \section{The Gauge Couplings}
+\label{sec:gauge-couplings}
 
 \subsection{The unified coupling from the lapse function}
 
@@ -369,11 +370,11 @@ with both factors defined entirely from Part~0 / Part~I cascade-native
 quantities. The structural content:
 \begin{itemize}[nosep]
 \item \emph{Numerator $N(d)^2$.} The lapse $N(d)$ is the per-step slicing rate
-(Part~0~\cite{paperI}~\S3). Its square appears in any quadratic cascade action
+(Part~0~\cite{paper1}~\S3). Its square appears in any quadratic cascade action
 (Part~IVb Remark~\ref{rem:phase-family}), playing the role of ``field strength
 squared'' at cascade layer $d$.
 \item \emph{Denominator $\Omega_2$.} The observer's spatial slice is
-$S^3 = \partial B^4$ (Paper~I~\cite{paperI}~\S3.2). Its Morse foliation by
+$S^3 = \partial B^4$ (Paper~I~\cite{paper1}~\S3.2). Its Morse foliation by
 2-spheres at constant latitude gives $\Omega_2 = 4\pi$ as the natural
 equatorial flux-integration surface around a point source. This is the
 classical Gauss-law codimension-2 sphere area, the same $4\pi$ that appears
@@ -495,14 +496,14 @@ The structural content reduces to four forced ingredients: $d_{\mathrm{SU}(2)}=1
 
 The universal shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ of Theorem~\ref{thm:alpha-s-closure} closes the gauge-sector observables $\alpha_s(M_Z)$ and the ratio $m_\tau/m_\mu$ within experimental precision, but it does not close absolute mass scales anchored at the Planck mass. Propagating $\delta\Phi_{\mathrm{U}(1)}$ through the chain $\alpha_s\to v\to m_g$ of the complete mass formula would give $m_\tau$ a double shift (once from $\alpha_s$, once from $v$ through $v = M_{\mathrm{Pl,red}}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$), overshooting the observed value by $2.2\%$. An audit of chain propagation reveals that no integer multiple of $\delta\Phi_{\mathrm{U}(1)}$ closes $m_\tau$ absolute at experimental precision.
 
-The resolution is that $m_\tau$ absolute receives a \emph{different} structural shift, of the same $\alpha(d)/\chi$ form but sourced at a different distinguished cascade layer---the phase-transition threshold $d_1=19$ of Paper~I~\cite{paperI}.
+The resolution is that $m_\tau$ absolute receives a \emph{different} structural shift, of the same $\alpha(d)/\chi$ form but sourced at a different distinguished cascade layer---the phase-transition threshold $d_1=19$ of Paper~I~\cite{paper1}.
 
 \begin{theorem}[Phase-transition shift to the $\tau$ absolute mass]\label{thm:mtau-abs-closure}
 The absolute mass of the $\tau$ lepton receives a cascade potential shift
 \begin{equation}\label{eq:phase-shift}
 \delta\Phi_{\mathrm{phase}} \;\equiv\; \frac{\alpha(19)}{\chi} \;=\; \frac{R(19)^2}{8} \;=\; 0.01281631\ldots,
 \end{equation}
-sourced at the phase-transition layer $d_1=19$ (Paper~I~\cite{paperI}) and weighted by the same Euler characteristic $\chi=\chi(S^{2n})=2$ that appears in Theorem~\ref{thm:alpha-s-closure} and Corollary~\ref{cor:2sqrtpi-primitive}. Applied exponentially to the $\tau$ absolute-mass formula,
+sourced at the phase-transition layer $d_1=19$ (Paper~I~\cite{paper1}) and weighted by the same Euler characteristic $\chi=\chi(S^{2n})=2$ that appears in Theorem~\ref{thm:alpha-s-closure} and Corollary~\ref{cor:2sqrtpi-primitive}. Applied exponentially to the $\tau$ absolute-mass formula,
 \begin{equation}\label{eq:mtau-abs}
 m_\tau \;=\; \Bigl(\frac{\alpha_s\cdot v}{\sqrt{2}}\Bigr)\,\exp\bigl(-\Phi(5) + \delta\Phi_{\mathrm{phase}}\bigr)\,(2\sqrt{\pi})^{-2},
 \end{equation}
@@ -620,8 +621,7 @@ The action is therefore uniquely forced by two cascade-native requirements:
 \item \emph{First-order EL equation} --- the action is quadratic and
 nearest-neighbour in $\Delta\varphi$, matching the cascade's first-order
 slicing recurrence (Part~0 Theorem~3.1).
-\item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is Part~IVa's gauge coupling at layer $d$
-(Section~\ref{subsec:source-selection}; Part~IVa~\cite{paper4a} Section~4.1).
+\item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is the cascade's gauge coupling at layer $d$ (Section~\ref{sec:gauge-couplings} above, definition at the opening of \S4.1; see also Remark~\ref{rem:alpha-geometric} on the cascade-internal $\Omega_2$ interpretation of the $(4\pi)^{-1}$).
 The action is the cascade-native gauge-sector functional.
 \end{enumerate}
 
@@ -829,7 +829,7 @@ This obstruction is the source of the SU(2) symmetry breaking: the
 forced zero of every tangent vector field on $S^{12}$ is the location
 where the Higgs VEV resolves the obstruction. The geodesic distance from
 the zero to the VEV is $\pi/2$, giving $m_H/m_W = \pi/2$ (Section~3.3
-of~\cite{paperIVa}). The obstruction at $d=13$ is therefore consumed by
+of~\cite{paper4a}). The obstruction at $d=13$ is therefore consumed by
 the symmetry breaking; it does not appear as a propagator factor for the
 SU(2) coupling. Hence $g_2 = N(13)$ unmodified.
 
@@ -888,7 +888,7 @@ descent-dependent deviations to sub-$0.5\%$.
 The asymmetric treatment of $g_2$ (no obstruction factor) and
 $g_1'$ (factor $1/\sqrt{\pi}$) is not chosen to fit the data. It is
 forced by two geometric facts: (i)~$d=13$ is the SU(2) layer
-\emph{by Bott periodicity} (Section~2 of~\cite{paperIVa}), so SU(2) is
+\emph{by Bott periodicity} (Section~2 of~\cite{paper4a}), so SU(2) is
 the gauge group whose own layer is the Dirac obstruction; (ii)~the
 chirality factor in Theorem~\ref{thm:obstruction} comes from the
 spinor bundle's Z\textsubscript{2} grading, which exists only for
@@ -939,7 +939,7 @@ Observed: $m_W = 80.38$~GeV. Deviation: $-0.35\%$.
 
 \subsection{The Higgs mass (improved)}
 
-Combining $m_W$ above with $m_H/m_W = \pi/2$ from~\cite{paperIVa}, Theorem 3.3:
+Combining $m_W$ above with $m_H/m_W = \pi/2$ from~\cite{paper4a}, Theorem 3.3:
 \[
 m_H = m_W \times \pi/2 = 80.10 \times 1.5708 = 125.82~\text{GeV}.
 \]
