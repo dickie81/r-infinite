@@ -46,7 +46,9 @@
     }
     img.logo {
       margin-bottom: 2rem;
-      filter: invert(1);
+    }
+    @media (prefers-color-scheme: dark) {
+      img.logo { filter: invert(1); }
     }
     h1 {
       font-size: 2rem;
@@ -292,6 +294,14 @@
       <div class="paper-subtitle">Cosmology from the Cascade: &Lambda;CDM Parameters, the Hubble Constant, and the DESI BAO Observations</div>
     </div>
     <a href="cascade-series-part5.pdf">PDF</a>
+  </div>
+
+  <div class="paper">
+    <div>
+      <div class="paper-title">Part VI</div>
+      <div class="paper-subtitle">Tower Growth, Inflation, and the Pre-Big-Bang from the Cascade <span style="color:var(--muted); font-size:0.8rem;">(speculative extension; Tier 5)</span></div>
+    </div>
+    <a href="cascade-series-part6.pdf">PDF</a>
   </div>
 
   <footer>
