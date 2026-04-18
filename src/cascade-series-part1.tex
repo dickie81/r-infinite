@@ -199,6 +199,143 @@ cascade has time locked and therefore projects over only 3. This is
 the structural origin of the $\pi/2$ mismatch at the observer's frame.
 \end{remark}
 
+\subsection{Unified descent: the three corrections are one operation}
+\label{subsec:unified-descent}
+
+Sections~3.1 and~3.2 introduced the host frame correction
+$(\Omega_5/\Omega_7)^2 = 9/\pi^2$ and the 3D projection correction
+$\Omega_2/\Omega_3 = 2/\pi$ as separate cascade-native sphere-area
+identities. CLAUDE.md flags this as the residual structural task for
+Part~I: \emph{unify the three corrections (host frame, 3D projection,
+Part~0 bilinear invariant) as a single cascade-internal descent
+calculation, traced through Part~0's slicing recurrence alone}. This
+subsection closes that task.
+
+\medskip\noindent\textbf{The slicing recurrence as the sole operation.}
+Part~0~Theorem~3.1 establishes the cascade's unique first-order
+multiplicative map between sphere areas:
+\begin{equation}\label{eq:recurrence-forward}
+\Omega_d \;=\; \Omega_{d-1}\cdot\sqrt{\pi}\cdot R(d-1),
+\qquad R(d) := \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+\end{equation}
+Inverting, the backward step is
+\begin{equation}\label{eq:recurrence-backward}
+\frac{\Omega_{d-1}}{\Omega_d} \;=\; \frac{1}{\sqrt{\pi}\,R(d-1)}.
+\end{equation}
+The claim of this subsection is that both frame corrections are
+instances of~\eqref{eq:recurrence-backward}, evaluated at different
+cascade layers; no second operation enters.
+
+\begin{lemma}[3D projection as one backward slicing step]\label{lem:projection-step}
+The 3D projection correction equals one backward step of the slicing
+recurrence, evaluated at $d=3$:
+\[
+\frac{\Omega_2}{\Omega_3}
+\;=\; \frac{1}{\sqrt{\pi}\,R(2)}
+\;=\; \frac{2}{\pi}.
+\]
+\end{lemma}
+
+\begin{proof}
+Direct evaluation using Gamma function values:
+$R(2) = \Gamma(3/2)/\Gamma(2) = (\sqrt{\pi}/2)/1 = \sqrt{\pi}/2$.
+Therefore $1/(\sqrt{\pi}\,R(2)) = 1/(\sqrt{\pi}\cdot\sqrt{\pi}/2) = 2/\pi$.
+By~\eqref{eq:recurrence-backward} at $d = 3$ this equals
+$\Omega_2/\Omega_3$. Equivalently, $\Omega_2 = 4\pi$ and
+$\Omega_3 = 2\pi^2$ give the same value directly.
+\end{proof}
+
+\begin{lemma}[Host frame as two backward slicing steps]\label{lem:host-step}
+The host frame correction per threshold sphere area equals the composition
+of two backward slicing steps, evaluated at $d = 7$ and $d = 6$:
+\[
+\frac{\Omega_5}{\Omega_7}
+\;=\; \frac{1}{\sqrt{\pi}\,R(6)}\cdot\frac{1}{\sqrt{\pi}\,R(5)}
+\;=\; \frac{1}{\pi\,R(5)\,R(6)}
+\;=\; \frac{3}{\pi}.
+\]
+\end{lemma}
+
+\begin{proof}
+By~\eqref{eq:recurrence-backward}: $\Omega_6/\Omega_7 = 1/(\sqrt{\pi} R(6))$
+and $\Omega_5/\Omega_6 = 1/(\sqrt{\pi} R(5))$. Composing:
+$\Omega_5/\Omega_7 = 1/(\pi R(5) R(6))$. Gamma function evaluation:
+$R(5) = \Gamma(3)/\Gamma(7/2) = 2/((15\sqrt{\pi})/8) = 16/(15\sqrt{\pi})$
+and $R(6) = \Gamma(7/2)/\Gamma(4) = (15\sqrt{\pi}/8)/6 = 5\sqrt{\pi}/16$.
+Their product: $R(5)\,R(6) = (16/(15\sqrt{\pi}))\cdot(5\sqrt{\pi}/16) = 5/15 = 1/3$.
+Therefore $\Omega_5/\Omega_7 = 1/(\pi/3) = 3/\pi$. Squared for the
+bilinear invariant: $(\Omega_5/\Omega_7)^2 = 9/\pi^2$, as used in
+Section~3.1.
+\end{proof}
+
+\begin{theorem}[Unified descent]\label{thm:unified}
+Every factor in Theorem~\ref{thm:cc} is either a threshold sphere area
+at a Part~0 distinguished dimension or a backward slicing step of
+\eqref{eq:recurrence-backward} at a cascade layer. Explicitly:
+\[
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
+\;=\; \underbrace{\frac{1}{\sqrt{\pi}\,R(2)}}_{\text{step at }d=3}
+\;\cdot\;\underbrace{\left(\frac{1}{\sqrt{\pi}\,R(5)\,\sqrt{\pi}\,R(6)}\right)^{\!2}}_{\text{two steps at }d=6,7,\text{ squared}}
+\;\cdot\;\underbrace{\Omega_{19}}_{d_1}
+\;\cdot\;\underbrace{\Omega_{217}}_{d_2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Substitute Lemmas~\ref{lem:projection-step} and~\ref{lem:host-step}
+into Theorem~\ref{thm:cc}. Every remaining factor is a sphere area
+$\Omega_d$ at one of Part~0's four distinguished dimensions
+(Part~0~Theorem~7.1): $d_V = 5$ (host; implicitly through the host
+frame), $d_0 = 7$ (cascade reference; implicitly through the host
+frame), $d_1 = 19$, $d_2 = 217$. The factor at $d = 3$ is the
+observer's spatial dimension, forced by locked time
+(Section~3.2). No additional operations enter.
+\end{proof}
+
+\begin{remark}[No foreign machinery]
+Theorem~\ref{thm:unified} is a cascade-internal identity, proved from
+Part~0's slicing recurrence alone. No Kaluza--Klein reduction, no
+semiclassical integration over compactified dimensions, no external
+normalisation convention. The recurrence is a theorem about the Gamma
+function (Part~0~Theorem~3.1); the distinguished dimensions are theorems
+about the Gamma function (Part~0~Theorem~7.1); the Part~I formula is
+the product of recurrence backward-steps at a specific set of these
+dimensions, times the threshold sphere areas themselves. The three
+``separate'' corrections originally introduced in Sections~3.1 and~3.2
+are now seen as one operation applied at three distinct points along
+the cascade tower.
+\end{remark}
+
+\begin{remark}[Which layers, structurally]
+The set of layers at which the backward step is evaluated,
+$\{3, 6, 7\}$ (with the $6$--$7$ pair appearing in squared form for
+the bilinear transport), is determined structurally:
+\begin{itemize}[nosep]
+\item $d = 3$: the observer's spatial receiving dimension under
+locked time (Section~3.2; equivalently, the sphere $\partial B^4$ at
+the observer's own dimension $d = 4$).
+\item $d = 6, 7$: the two slicing steps of the backward descent from
+$d_0 = 7$ (cascade reference) to $d_V = 5$ (observer's host). Both
+are interior layers of Part~0's Growth regime
+(Part~0~Section~7.1), crossed during the observer's host-frame
+rescaling.
+\end{itemize}
+The squaring in the host-frame factor is the bilinear passage of the
+two threshold sphere areas $\Omega_{19}, \Omega_{217}$ through the
+same host rescaling, as established in Part~0~Lemma~8.8.
+\end{remark}
+
+\begin{remark}[Numerical verification]
+The unified descent decomposition is verified numerically in
+\texttt{tools/cascade\_unified\_descent.py}: all backward steps agree
+with their closed-form values to machine precision, and the
+assembled product reproduces
+$\rho_\Lambda / M^4_{\mathrm{Pl,red}} = 6.996\times 10^{-121}$
+identically to Theorem~\ref{thm:cc}. The Gram-corrected value
+$7.145\times 10^{-121}$ (Part~0 Supplement) remains at $-0.07\%$
+from Planck 2018.
+\end{remark}
+
 \section{The Cosmological Constant}
 
 \begin{theorem}\label{thm:cc}
