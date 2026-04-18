@@ -3,9 +3,11 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{enumitem}
 \geometry{margin=2.5cm}
 
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
@@ -197,6 +199,192 @@ implicitly assumes time is free (4D Minkowski with unbounded time
 evolution) and therefore counts modes over 4 free dimensions; the
 cascade has time locked and therefore projects over only 3. This is
 the structural origin of the $\pi/2$ mismatch at the observer's frame.
+\end{remark}
+
+\subsection{Unified descent: the three corrections are one operation}
+\label{subsec:unified-descent}
+
+Sections~3.1 and~3.2 introduced the host frame correction
+$(\Omega_5/\Omega_7)^2 = 9/\pi^2$ and the 3D projection correction
+$\Omega_2/\Omega_3 = 2/\pi$ as separate cascade-native sphere-area
+identities. This subsection shows they are not separate: both are
+instances of Part~0's slicing recurrence evaluated at different
+cascade layers, with the Part~0 bilinear invariant
+$\Omega_{19}\Omega_{217}$ as the remaining threshold content. The
+three corrections of Theorem~\ref{thm:cc} collapse to one operation
+applied at the cascade's distinguished dimensions; no second operation
+enters.
+
+\medskip\noindent\textbf{The slicing recurrence as the sole operation.}
+Part~0~Theorem~3.1 establishes the cascade's unique first-order
+multiplicative map between sphere areas:
+\begin{equation}\label{eq:recurrence-forward}
+\Omega_d \;=\; \Omega_{d-1}\cdot\sqrt{\pi}\cdot R(d-1),
+\qquad R(d) := \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+\end{equation}
+Inverting, the backward step is
+\begin{equation}\label{eq:recurrence-backward}
+\frac{\Omega_{d-1}}{\Omega_d} \;=\; \frac{1}{\sqrt{\pi}\,R(d-1)}.
+\end{equation}
+The claim of this subsection is that both frame corrections are
+instances of~\eqref{eq:recurrence-backward}, evaluated at different
+cascade layers; no second operation enters.
+
+\begin{lemma}[3D projection as one backward slicing step]\label{lem:projection-step}
+The 3D projection correction equals one backward step of the slicing
+recurrence, evaluated at $d=3$:
+\[
+\frac{\Omega_2}{\Omega_3}
+\;=\; \frac{1}{\sqrt{\pi}\,R(2)}
+\;=\; \frac{2}{\pi}.
+\]
+\end{lemma}
+
+\begin{proof}
+Direct evaluation using Gamma function values:
+$R(2) = \Gamma(3/2)/\Gamma(2) = (\sqrt{\pi}/2)/1 = \sqrt{\pi}/2$.
+Therefore $1/(\sqrt{\pi}\,R(2)) = 1/(\sqrt{\pi}\cdot\sqrt{\pi}/2) = 2/\pi$.
+By~\eqref{eq:recurrence-backward} at $d = 3$ this equals
+$\Omega_2/\Omega_3$. Equivalently, $\Omega_2 = 4\pi$ and
+$\Omega_3 = 2\pi^2$ give the same value directly.
+\end{proof}
+
+\begin{lemma}[Host frame as two backward slicing steps]\label{lem:host-step}
+The host frame correction per threshold sphere area equals the composition
+of two backward slicing steps, evaluated at $d = 7$ and $d = 6$:
+\[
+\frac{\Omega_5}{\Omega_7}
+\;=\; \frac{1}{\sqrt{\pi}\,R(6)}\cdot\frac{1}{\sqrt{\pi}\,R(5)}
+\;=\; \frac{1}{\pi\,R(5)\,R(6)}
+\;=\; \frac{3}{\pi}.
+\]
+\end{lemma}
+
+\begin{proof}
+By~\eqref{eq:recurrence-backward}: $\Omega_6/\Omega_7 = 1/(\sqrt{\pi} R(6))$
+and $\Omega_5/\Omega_6 = 1/(\sqrt{\pi} R(5))$. Composing:
+$\Omega_5/\Omega_7 = 1/(\pi R(5) R(6))$. Gamma function evaluation:
+$R(5) = \Gamma(3)/\Gamma(7/2) = 2/((15\sqrt{\pi})/8) = 16/(15\sqrt{\pi})$
+and $R(6) = \Gamma(7/2)/\Gamma(4) = (15\sqrt{\pi}/8)/6 = 5\sqrt{\pi}/16$.
+Their product: $R(5)\,R(6) = (16/(15\sqrt{\pi}))\cdot(5\sqrt{\pi}/16) = 5/15 = 1/3$.
+Therefore $\Omega_5/\Omega_7 = 1/(\pi/3) = 3/\pi$. Squared for the
+bilinear invariant: $(\Omega_5/\Omega_7)^2 = 9/\pi^2$, as used in
+Section~3.1.
+\end{proof}
+
+The numerical values in Lemmas~\ref{lem:projection-step}
+and~\ref{lem:host-step} are not opaque Gamma-function outputs --- they
+are the index structure of the cascade's observer layers expressed
+through a telescoping identity.
+
+\begin{lemma}[Consecutive slicing steps telescope]\label{lem:telescoping}
+For any $d$ with $(d+1)/2$ a positive integer, two consecutive
+slicing coefficients satisfy
+\[
+R(d)\,R(d+1)
+\;=\; \frac{\Gamma((d+1)/2)}{\Gamma((d+3)/2)}
+\;=\; \frac{2}{d+1}.
+\]
+\end{lemma}
+
+\begin{proof}
+$R(d)\,R(d+1) = \Gamma((d+1)/2)\Gamma((d+2)/2) / [\Gamma((d+2)/2)\,\Gamma((d+3)/2)] = \Gamma((d+1)/2)/\Gamma((d+3)/2)$.
+The intermediate Gamma factor $\Gamma((d+2)/2)$ cancels. Applying
+$\Gamma(x+1) = x\,\Gamma(x)$ with $x = (d+1)/2$ gives
+$\Gamma((d+3)/2) = ((d+1)/2)\,\Gamma((d+1)/2)$, hence the ratio is
+$1/((d+1)/2) = 2/(d+1)$.
+\end{proof}
+
+\begin{remark}[The ``3'' in $3/\pi$ is the observer-host index]
+\label{rem:host-index}
+Lemma~\ref{lem:telescoping} at $d = 5$ gives $R(5)\,R(6) = 2/6 = 1/3$,
+so the two-step cascade descent from the area maximum $d_0 = 7$ to the
+observer's host $d_V = 5$ evaluates to
+\[
+\frac{\Omega_5}{\Omega_7}
+\;=\; \frac{1}{\pi\,R(5)\,R(6)}
+\;=\; \frac{d_V + 1}{2\pi}
+\;=\; \frac{6}{2\pi}
+\;=\; \frac{3}{\pi}.
+\]
+The factor~3 in the host frame correction is $(d_V + 1)/2 = 3$: the
+observer-host dimension plus one, halved. Each slicing step
+contributes one $\sqrt{\pi}$ and the telescoping removes the
+intermediate Gamma function exactly. Similarly the single-step
+3D projection factor uses
+$R(2) = \Gamma(3/2)/\Gamma(2) = \sqrt{\pi}/2$, the simplest non-trivial
+half-integer Gamma ratio --- the observer's receiving dimension
+$d = 3$ encoded in one step. No Gamma function value in
+Theorem~\ref{thm:cc} is structurally opaque; each is a telescoping
+ratio at a cascade-distinguished dimension.
+\end{remark}
+
+\begin{theorem}[Unified descent]\label{thm:unified}
+Every factor in Theorem~\ref{thm:cc} is either a threshold sphere area
+at a Part~0 distinguished dimension or a backward slicing step of
+\eqref{eq:recurrence-backward} at a cascade layer. Explicitly:
+\[
+\frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
+\;=\; \underbrace{\frac{1}{\sqrt{\pi}\,R(2)}}_{\text{step at }d=3}
+\;\cdot\;\underbrace{\left(\frac{1}{\sqrt{\pi}\,R(5)\,\sqrt{\pi}\,R(6)}\right)^{\!2}}_{\text{two steps at }d=6,7,\text{ squared}}
+\;\cdot\;\underbrace{\Omega_{19}}_{d_1}
+\;\cdot\;\underbrace{\Omega_{217}}_{d_2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Substitute Lemmas~\ref{lem:projection-step} and~\ref{lem:host-step}
+into Theorem~\ref{thm:cc}. Every remaining factor is a sphere area
+$\Omega_d$ at one of Part~0's four distinguished dimensions
+(Part~0~Theorem~7.1): $d_V = 5$ (host; implicitly through the host
+frame), $d_0 = 7$ (cascade reference; implicitly through the host
+frame), $d_1 = 19$, $d_2 = 217$. The factor at $d = 3$ is the
+observer's spatial dimension, forced by locked time
+(Section~3.2). No additional operations enter.
+\end{proof}
+
+\begin{remark}[No foreign machinery]
+Theorem~\ref{thm:unified} is a cascade-internal identity, proved from
+Part~0's slicing recurrence alone. No Kaluza--Klein reduction, no
+semiclassical integration over compactified dimensions, no external
+normalisation convention. The recurrence is a theorem about the Gamma
+function (Part~0~Theorem~3.1); the distinguished dimensions are theorems
+about the Gamma function (Part~0~Theorem~7.1); the Part~I formula is
+the product of recurrence backward-steps at a specific set of these
+dimensions, times the threshold sphere areas themselves. The three
+``separate'' corrections originally introduced in Sections~3.1 and~3.2
+are now seen as one operation applied at three distinct points along
+the cascade tower.
+\end{remark}
+
+\begin{remark}[Which layers, structurally]
+The set of layers at which the backward step is evaluated,
+$\{3, 6, 7\}$ (with the $6$--$7$ pair appearing in squared form for
+the bilinear transport), is determined structurally:
+\begin{itemize}[nosep]
+\item $d = 3$: the observer's spatial receiving dimension under
+locked time (Section~3.2; equivalently, the sphere $\partial B^4$ at
+the observer's own dimension $d = 4$).
+\item $d = 6, 7$: the two slicing steps of the backward descent from
+$d_0 = 7$ (cascade reference) to $d_V = 5$ (observer's host). Both
+are interior layers of Part~0's Growth regime
+(Part~0~Section~7.1), crossed during the observer's host-frame
+rescaling.
+\end{itemize}
+The squaring in the host-frame factor is the bilinear passage of the
+two threshold sphere areas $\Omega_{19}, \Omega_{217}$ through the
+same host rescaling, as established in Part~0~Lemma~8.8.
+\end{remark}
+
+\begin{remark}[Numerical verification]
+The unified descent decomposition is verified numerically in
+\texttt{tools/cascade\_unified\_descent.py}: all backward steps agree
+with their closed-form values to machine precision, and the
+assembled product reproduces
+$\rho_\Lambda / M^4_{\mathrm{Pl,red}} = 6.996\times 10^{-121}$
+identically to Theorem~\ref{thm:cc}. The Gram-corrected value
+$7.145\times 10^{-121}$ (Part~0 Supplement) remains at $-0.07\%$
+from Planck 2018.
 \end{remark}
 
 \section{The Cosmological Constant}
@@ -545,19 +733,16 @@ identity in Part~0's recurrence, applied at the observer's locked-time
 $S^3$ slice under the identification of time with the cascade's own
 descent direction (Part~II~\cite{paper2}, Section~7.1).
 
-What remains structurally residual in Part~I is unification: the
-three corrections of Theorem~\ref{thm:cc} (host frame $9/\pi^2$, 3D
-projection $2/\pi$, Part~0 bilinear invariant
-$\Omega_{19}\Omega_{217}$) are currently assembled as three separate
-cascade-native sphere-area identities. Tracing them as a single
-cascade-internal computation from Part~0's tower all the way down to
-the observer's frame --- using only Part~0's slicing recurrence at
-each step --- has not been written out. This is a verification task
-inside the cascade's own descent framework, and it is the appropriate
-residual structural task for Part~I. It is \emph{not} a Kaluza--Klein
-problem, and it is \emph{not} a semiclassical reduction; the cascade
-replaces both, and the verification lives entirely inside the cascade's
-own architecture.
+The three corrections of Theorem~\ref{thm:cc} (host frame $9/\pi^2$,
+3D projection $2/\pi$, Part~0 bilinear invariant
+$\Omega_{19}\Omega_{217}$) are unified in Section~\ref{subsec:unified-descent}
+(Theorem~\ref{thm:unified}): each is an instance of Part~0's slicing
+recurrence evaluated at a specific cascade layer, and the host-frame
+and projection factors telescope to simple ratios of the observer's
+cascade indices (Lemma~\ref{lem:telescoping}, Remark~\ref{rem:host-index}).
+No second operation enters; the derivation stays within Part~0's
+architecture. It is \emph{not} a Kaluza--Klein problem and \emph{not} a
+semiclassical reduction --- the cascade replaces both.
 \end{remark}
 
 \section{What This Paper Does and Does Not Do}
@@ -586,6 +771,13 @@ dimensions at the observer's frame.
 sphere-area ratio $\Omega_2/\Omega_3$, which coincides with the
 latitudinal integral $\int_0^\pi\sin^2\theta\,d\theta = \pi/2$ of the
 Morse foliation of $S^3$ by 2-spheres.
+\item Unifies Theorem~\ref{thm:cc}'s three corrections (host frame,
+3D projection, Part~0 bilinear invariant) as a single cascade-internal
+operation: Part~0's slicing recurrence evaluated at cascade-distinguished
+layers (Section~\ref{subsec:unified-descent}, Theorem~\ref{thm:unified}).
+A Gamma-function telescoping identity
+(Lemma~\ref{lem:telescoping}) reveals that the ``3'' in $3/\pi$ is
+$(d_V + 1)/2$ --- the observer-host index, not an opaque constant.
 \end{itemize}
 
 \textbf{Does not:}
@@ -595,21 +787,6 @@ Morse foliation of $S^3$ by 2-spheres.
 cosmological parameters beyond $\Lambda$.
 \item Derive the Gram first-order correction from first principles; it
 is imported from the Part~0 Supplement.
-\item Give a unified cascade-native derivation of Theorem~\ref{thm:cc}.
-The three factors (host frame $9/\pi^2$, 3D projection $2/\pi$,
-Part~0 bilinear invariant $\Omega_{19}\Omega_{217}$) are currently
-assembled as three separate cascade-internal sphere-area identities.
-Tracing them as a single computation from Part~0's tower down to
-the observer's $S^3$ frame --- using only Part~0's slicing
-recurrence --- is the outstanding structural task. This is
-\emph{not} a Kaluza--Klein problem and \emph{not} a semiclassical
-reduction: as developed in Part~II=III, the cascade replaces such
-procedures rather than performing them. The 3D projection factor
-$\Omega_2/\Omega_3 = 2/\pi$ itself is not open --- it is Part~0's
-own lowest slicing integral $V_2/V_1 = \int_{-1}^{1}(1-x^2)^{1/2}\,dx
-= \pi/2$ applied inversely at the observer's locked-time $S^3$
-slice (Remark~\ref{rem:open-pi-over-two}). What is open is the
-unified descent calculation.
 \end{itemize}
 
 \textbf{Inputs:} One axiom (orthogonality, via Part 0). One hypothesis.
