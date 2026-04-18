@@ -354,6 +354,50 @@ The cascade's lapse function $N(d) = \sqrt{\pi} \cdot \Gamma((d + 1)/2)/\Gamma((
 \alpha(d) := \frac{N(d)^2}{4\pi}.
 \]
 
+\begin{remark}[The $1/(4\pi)$ is cascade-native: $4\pi = \Omega_2$]
+\label{rem:alpha-geometric}
+The factor $1/(4\pi)$ is not a QFT convention imported into the cascade. It is
+the reciprocal of the observer's equatorial 2-sphere area:
+\[
+\Omega_2 = \frac{2\pi^{3/2}}{\Gamma(3/2)} = 4\pi.
+\]
+So $\alpha(d)$ can be written cascade-internally as
+\[
+\alpha(d) \;=\; \frac{N(d)^2}{\Omega_2},
+\]
+with both factors defined entirely from Part~0 / Part~I cascade-native
+quantities. The structural content:
+\begin{itemize}[nosep]
+\item \emph{Numerator $N(d)^2$.} The lapse $N(d)$ is the per-step slicing rate
+(Part~0~\cite{paperI}~\S3). Its square appears in any quadratic cascade action
+(Part~IVb Remark~\ref{rem:phase-family}), playing the role of ``field strength
+squared'' at cascade layer $d$.
+\item \emph{Denominator $\Omega_2$.} The observer's spatial slice is
+$S^3 = \partial B^4$ (Paper~I~\cite{paperI}~\S3.2). Its Morse foliation by
+2-spheres at constant latitude gives $\Omega_2 = 4\pi$ as the natural
+equatorial flux-integration surface around a point source. This is the
+classical Gauss-law codimension-2 sphere area, the same $4\pi$ that appears
+in Coulomb's law without any quantum-field-theoretic input.
+\end{itemize}
+
+Both $N(d)$ and $\Omega_2$ are Part~0 sphere-area / lapse quantities. The
+combination $\alpha(d) = N(d)^2/\Omega_2$ is therefore cascade-internal
+without needing the QFT convention $\alpha = g^2/(4\pi)$ as a normalisation
+choice. The cascade and QFT agree on this normalisation because both
+descend from the same classical Gauss-law geometry: flux through a
+codimension-2 sphere.
+
+\emph{Uniqueness}: among cascade-native candidates for the gauge coupling at
+layer $d$, the form $N^a / \Omega_b$ is fixed by three requirements.
+$(a)$ Dimensional analysis requires $a = 2$ (since $(\Delta\varphi)^2$ is
+the quadratic action and $\alpha^{-1}$ sits in front).
+$(b)$ Classical Gauss-law geometry at codimension~2 fixes the
+flux-integration surface to $S^2$, giving $b = 2$.
+$(c)$ Overall dimensionless normalisation is automatic
+($N(d)$ and $\Omega_2$ are both dimensionless).
+Given $(a)$--$(c)$, $\alpha(d) = N(d)^2/\Omega_2$ is forced.
+\end{remark}
+
 \begin{theorem}[Cascade coupling]
 The inverse cascade coupling satisfies $1/\alpha(d) = 2d + 1 + O(1/d)$, with deviation below 0.6\% for all $d \geq 4$.
 \end{theorem}
