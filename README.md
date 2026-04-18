@@ -6,7 +6,7 @@
 
 One hypothesis. Zero free parameters. No choices.
 
-The series derives — from this alone — the cosmological constant, quantum mechanics, general relativity at d=4 with Lorentzian signature, the Standard Model gauge group and its symmetry breaking, three fermion generations, particle masses and couplings, and the cosmological parameters including a Hubble constant between the Planck and SH0ES measurements.
+The series derives — from this alone — the cosmological constant, quantum mechanics, general relativity at d=4 with Lorentzian signature, the Standard Model gauge group and its symmetry breaking, three fermion generations, particle masses and couplings, and the cosmological parameters including a Planck-compatible Hubble constant (incompatible with SH0ES).
 
 **[Read the papers](https://dickie81.github.io/r-infinite/)**
 
