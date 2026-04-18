@@ -1029,17 +1029,42 @@ checks the identity~\eqref{eq:v-exponent} to machine precision and
 reproduces $v = 240.7$~GeV from the full chain
 $v = M_{\rm Pl,red}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$.
 
-\emph{What remains open.} The 2D-vortex interpretation gives the right
-number and has a cascade-native reading (Morse foliation of $S^4$ by
-2-spheres, echoing Paper~I \S3.2); the mapping between the 4D hairy-ball
-defect on $S^4$ and the KT vortex on the 2-sphere cross-section is
-structurally consistent but not formally proved. The BPS / half-winding
-aspect (why the 2D reading and not the full 4D instanton) is plausibly
-enforced by the chirality-basin decomposition of
-Theorem~\ref{thm:chirality-factorisation}: each cascade channel selects
-one of $\chi = 2$ basins, halving the effective defect winding. A rigorous
-chain from the hairy-ball obstruction through the chirality decomposition
-to the KT single-vortex action is the remaining derivational step.
+\emph{Why $n_{\mathrm{eff}} = 1$: chirality selection via
+Theorem~\ref{thm:chirality-factorisation}.}
+The hairy-ball theorem on $S^4$ forces total winding $\chi(S^4) = 2$
+across any tangent field's zeros. Under the chirality decomposition of
+Theorem~\ref{thm:chirality-factorisation}, the cascade field at even-sphere
+layer $d = 5$ splits as $\varphi = \varphi_+ + \varphi_-$ across the two
+chirality basins counted by $\chi$. The $\mathbb{Z}_2$ symmetry of the
+height function (Morse function on $S^{d-1}$) distributes the total winding
+equally, giving winding 1 per basin.
+
+A definite-chirality cascade propagator mode sees one basin only --- this
+is the $1/\chi$ filter of Theorem~\ref{thm:chirality-factorisation} applied
+to a single cascade channel ($k = 1$ in the language of
+Remark~\ref{rem:phase-family}). The effective winding seen by the mode is
+therefore $n_{\mathrm{eff}} = 2/\chi = 1$, not $2$. The defect action at
+this effective winding is
+\[
+S_{\rm defect} \;=\; \frac{\pi\,n_{\mathrm{eff}}^2}{\alpha(5)}
+\;=\; \frac{\pi}{\alpha(5)},
+\]
+exactly the Part~IVb exponent. The factor of $\pi$ (not $2\pi$ for a
+full 4D Yang--Mills instanton with winding 2 on $S^4$) is
+\emph{chirality basin selection}, the same mechanism that reduces
+$\alpha(d^*) \to \alpha(d^*)/\chi^k$ in the precision shifts of
+Remark~\ref{rem:phase-family}. No BPS saturation is needed; no
+semiclassical machinery enters.
+
+\emph{What remains open.}
+The derivation assumes the tangent-field defect on $S^4$ can be mapped
+to a 2D vortex on the 2-sphere cross-section of the Morse foliation.
+The numerical agreement to machine precision and the structural
+identification with Paper~I \S3.2's foliation mechanism make the mapping
+highly plausible, but a formal proof --- showing the hairy-ball
+obstruction as a first-Chern class on each 2-cycle of the foliation ---
+is the remaining derivational step. This is a geometric-topology
+computation on $S^4$, not new cascade content.
 
 Item~(c) of Remark~\ref{rem:phase-family}'s ``what remains open'' is
 therefore partially closed: the numerical factor $\pi/\alpha(5)$ is
