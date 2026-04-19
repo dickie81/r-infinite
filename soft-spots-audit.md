@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 21 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **16 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 22 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-28, SP-29, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **15 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -121,11 +121,6 @@ The theorem statement: *"The number of observable fermion generations is exactly
 
 The theorem claims self-consistency of $C = \alpha_s/(2\sqrt{\pi}) = 0.0327$ against "independently, from the $\tau$ mass: $C = 0.0324$. Agreement: 1.0%". The "independent" extraction is not spelt out; reverse-engineering the cascade's τ-mass formula would compute $C$ from the *observed* $m_\tau$ combined with the cascade's $v$, $\Phi(5)$, and $(2\sqrt{\pi})^{-2}$ — which uses the same mass-formula structure the coupling is supposed to validate. Without specification, whether this is a genuine cross-check or a consistency tautology is ambiguous.
 
-### SP-35. Theorem 5.1 Cabibbo — the factor 1/2 in $\exp(-p(13)/2)$ is selected by integer-fit, not derived — **Structural**
-`src/cascade-series-part4b.tex:1105–1128`.
-
-Remark 5.2 defends the 1/2 factor: *"The only integers consistent with the series' systematic range are tested: $\exp(-p(13)/1)$ gives 11.11° ($-14.8\%$, wrong sign for the systematic); $\exp(-p(13)/3)$ gives 14.47° ($+11.0\%$, outside the systematic range); only $\exp(-p(13)/2)$ gives 13.26° ($+1.7\%$, within range). The factor 2 is predicted by the bilinear structure of the mixing matrix."* The selection procedure — try $\{1,2,3\}$ and pick the one that fits — is a fit, whatever it is called. The rationalisation "bilinear structure of the mixing matrix" is post-hoc: no derivation is supplied showing that mixing matrices force a specific factor of 2 in this exponent. The paper's claim "not fitted" is misleading.
-
 ### SP-36. Proposition 4.8 source selection rule — the four observable *types* were defined after observing the seven source assignments; exhaustiveness is trivial on the training set — **Structural**
 `src/cascade-series-part4b.tex:695–715`, verification at `:730–760`.
 
@@ -150,7 +145,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-27 | $d=12$ self-dual crossing is 0.225% near-miss + KK-tension | Part IVa | Structural + Check-7 |
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
 | SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
-| SP-35 | Cabibbo 1/2 factor is integer-fit among $\{1,2,3\}$ | Part IVb | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
 
 ## Notes on scope
@@ -160,7 +154,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 - **Quantitatively testable items (Tier C):**
   - SP-17 — compute CHSH on the two alternative bipartitions of $\mathbb{C}^4$ and verify whether $2\sqrt{2}$ is robust.
   - SP-36 — blind-test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the predictions close within experimental precision.
-- **Conceptually tightenable items:** SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. (SP-25 now tracked as Part II=III Open Question 1, cross-linked via `rem:sp25-status`.)
+- **Conceptually tightenable items:** SP-36. (SP-25 now tracked as Part II=III Open Question 1; SP-35 now tracked as Part IVb Open Question 1, the geometric-mean mixing rule.)
 
 ## Closed items (reference)
 
@@ -188,6 +182,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
 | SP-32 | Mass-formula $n_D+1$ derived | `3472a9e` |
 | SP-33 | Obstruction-rule scope articulated; `rem:obstruction-scope` | `8e4805c` |
+| SP-35 | Cabibbo $1/2$ remark rewritten as three-step factorisation (raw angle derived, descent $\exp(-p(13))$ derived, geometric-mean off-diagonal asserted); `rem:sp35-status` honestly labels the Fritzsch-like ansatz; new Open Question (`oq:mixing-geometric-mean`) names the cascade-action derivation target; `thm:cabibbo-amplitude` and `rem:ckm-hierarchy` labels added | *(this commit)* |
 | SP-37 | $d=14$ hairy-ball attribution corrected + pairing rationalisations tightened | `4a6be53` |
 
 Plus the austerity-as-derivation framing upgrade (`b587aac`) and open-questions cleanup (`ecdb90f`).
@@ -213,7 +208,7 @@ Each of these either hardens the rule significantly or exposes a defect early. A
 
 | ID | What's needed | Why it matters |
 |---|---|---|
-| SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
+| — | The conceptually-tightenable cluster is now empty. SP-36 remains in the blind-test Tier C row. | — |
 
 Note: SP-23 and SP-31 are closed by acknowledgement. SP-23: Remark `rem:sp23-status` in Part II=III factorises Theorem 7.1's proof into three ingredients (unit-ball boundary dominance derived; content-equals-area derived; linear content-area scale invariance asserted), with empirical confirmation at $d=3$ (BTZ) and $d=4$ (Schwarzschild), and Part II=III Open Question 1 (`oq:content-area-scale-invariance`) names the cascade-action derivation target. SP-31: Remark `rem:sp31-status` in Part IVb labels the "exactly one factor of $\sqrt{\pi}$" step as asserted, and Part IVb Open Question 1 (`oq:fermion-cascade-action`) names the cascade-fermion-action derivation target. Resolving the underlying research problems — a cascade action on the lattice whose boundary-layer entropy is $A/d$ independent of total area, and a discrete Dirac operator on the cascade lattice whose Green's function on $S^{2n}$ is $R(d)/\chi$ — remains a genuine Tier D workload, now tracked in the papers' own Open Questions rather than in this audit.
 
