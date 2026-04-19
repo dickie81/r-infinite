@@ -161,7 +161,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
 | SP-32 | Mass-formula $n_D+1$ derived | `3472a9e` |
 | SP-33 | Obstruction-rule scope articulated; `rem:obstruction-scope` | `8e4805c` |
-| SP-34 | Theorem 2.9 proof extended to spell out Route 2 (inverting the $\tau$-mass formula for $C$) with explicit formula $C_\tau = 2\sqrt{2\pi}\,m_\tau\,e^{\Phi(5)}/v$; new `rem:sp34-status` documents Routes 1 and 2 share no dynamical input (only the Part-0 primitive $2\sqrt{\pi}$), with $v$ and $\Phi(5)$ both cascade-derived quantities without fermion-mass input | *(this commit)* |
+| SP-34 | Theorem 2.9 proof extended to spell out Route 2 (inverting the $\tau$-mass formula for $C$) with explicit formula $C_\tau = 2\sqrt{2\pi}\,m_\tau\,e^{\Phi(5)}/v$; new `rem:sp34-status` documents Routes 1 and 2 share no dynamical input (only the Part-0 primitive $2\sqrt{\pi}$), with $v$ and $\Phi(5)$ both cascade-derived quantities without fermion-mass input | `b7ba37b` |
 | SP-35 | Cabibbo $1/2$ remark rewritten as three-step factorisation (raw angle derived, descent $\exp(-p(13))$ derived, geometric-mean off-diagonal asserted); `rem:sp35-status` honestly labels the Fritzsch-like ansatz; new Open Question (`oq:mixing-geometric-mean`) names the cascade-action derivation target; `thm:cabibbo-amplitude` and `rem:ckm-hierarchy` labels added | `60392e2` |
 | SP-37 | $d=14$ hairy-ball attribution corrected + pairing rationalisations tightened | `4a6be53` |
 
