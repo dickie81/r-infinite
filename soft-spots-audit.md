@@ -35,7 +35,7 @@ The theorem's premise is "unit vectors representing two fully distinguishable st
 
 *"Each distinction is a single bit: a binary test 'is the state $e_i$ or not?'"* — introduced here for the first time. Uncountable distinction is excluded "by the same parameter-economy principle that excludes finite $n$", chaining two unacknowledged assumptions.
 
-### SP-4. $\mathbb{R}^*$-dilation invariance introduced as a new symmetry (§5) — **Exploratory** — ✅ **FIXED (austerity axiom declared)**
+### SP-4. $\mathbb{R}^*$-dilation invariance introduced as a new symmetry (§5) — **Exploratory** — ✅ **FIXED (austerity principle + ℝ* uniqueness argument)**
 `src/cascade-series-prelude.tex:186–203`.
 
 The absence of an external ruler does not force invariance under $\mathbb{R}^*$-dilation specifically (vs conformal group, vs discrete scale invariance, vs $\mathbb{C}^*$). The paper asserts $\mathbb{P}\mathcal{H}$ is "the unique quotient" without proving uniqueness over alternative symmetry groups.
@@ -491,6 +491,24 @@ Part III changes:
 **What this does not close.** The Prelude's Open Question 1 (uniqueness of $B^\infty$ under austerity) remains open. Austerity-as-derived is still defensibly-minimal-not-forced; promoting to "forced" still requires a uniqueness theorem.
 
 Cost: ~20 lines changed in the Prelude; ~5 lines in Part III. Zero numerical predictions changed; zero theorems invalidated; no SP-numbered audit finding reopens or closes. This is a framing upgrade that makes the "one axiom" claim honest.
+
+### Commit (SP-4 sharpening: ℝ* is the unique austerity-compatible quotient)
+
+**SP-4 refinement.** The SP-4 entry originally flagged *"absence of an external ruler does not force invariance under $\mathbb{R}^*$-dilation specifically (vs conformal group, vs discrete scale invariance, vs $\mathbb{C}^*$)."* The austerity principle closed SP-4 in the audit sense by declaring the quotient explicitly; the uniqueness-of-$\mathbb{R}^*$ sub-question remained lingering. With austerity now derived from Definition 2.1's sole-input commitment, the argument against alternatives becomes clean.
+
+Prelude §5 now includes a paragraph enumerating why each alternative candidate symmetry fails under austerity:
+
+- **Full conformal group $\mathbb{R}^* \times \mathrm{SO}(\mathcal{H})$.** $\mathrm{SO}(\mathcal{H})$ rotations relabel which directions carry the $e_0, e_1, \ldots$ distinctions — the distinction content *is* observable (it's what Definition 2.1 declares). Clause (iii) quotients only the unobservable $\mathbb{R}^*$ factor.
+- **$\mathbb{C}^*$-phase rotation.** Requires a complex structure $J$ with $J^2=-\mathrm{Id}$. No such structure is present at the Prelude stage; $\mathcal{H}$ is constructed over $\mathbb{R}$. The forced precession of Paper II induces $J$ downstream, at which point the $\mathbb{C}^*$ question becomes a separate downstream question; it is not addressed at the Prelude level.
+- **Discrete scale invariance** (quotient by fixed ratio $\lambda = r$). Selecting a specific $r$ introduces an unexplained numerical input, violating clause (i).
+
+Conclusion: $\mathbb{R}^*$-dilation is the **unique** continuous, parameter-free, fully-unobservable symmetry defined on the real Hilbert space at the Prelude stage. Clause (iii)'s application is not just "one acceptable choice" but the unique austerity-compatible quotient at this stage.
+
+**What this buys.** SP-4's lingering "uniqueness of $\mathbb{R}^*$" sub-question is now closed inside the Prelude. The `$\mathbb{P}\mathcal{H}$ is the unique quotient` claim in §5 is no longer an assertion; it is a clause-by-clause derivation against the alternative candidates. A reviewer can still attack the premise that `$e_0, e_1$ distinctions are observable` (which is a reading of Definition 2.1), but cannot simply list an alternative quotient without addressing why it fails one of the three clauses.
+
+**What this does not claim.** The downstream question — whether $\mathbb{C}^*$ should be quotiented once Paper II induces complex structure — is flagged as future work, not resolved here. If Paper II's derivation of $J$ makes $\mathbb{C}^*$-phase unobservable at the quantum amplitude level, the cascade may quotient there too (this is in fact what QM's projective Hilbert space does). But that's Paper II content, not Prelude content.
+
+Cost: ~30 lines added to Prelude §5 (enumeration of failed alternatives). Zero numerical predictions changed; zero theorems invalidated.
 
 ---
 
