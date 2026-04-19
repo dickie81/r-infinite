@@ -207,7 +207,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
-| SP-23 | Theorem 7.1 proof expanded to 3 steps (unit-ball BD derived, area-is-content derived, scale invariance asserted); `rem:sp23-status` + Open Question (content-area-scale-invariance derivation target); stale Paper~I Thm~4.4 ref corrected to Paper~0 Thm~3.1 | *(this commit)* |
+| SP-23 | Theorem 7.1 proof expanded to 3 steps (unit-ball BD derived, area-is-content derived, scale invariance asserted); `rem:sp23-status` + Open Question (content-area-scale-invariance derivation target); stale Paper~I Thm~4.4 ref corrected to Paper~0 Thm~3.1 | `36596ab` |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |
 | SP-29 | SU(3) chirality factual fix + CP-phase paragraph | `a4c42f2` |
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
