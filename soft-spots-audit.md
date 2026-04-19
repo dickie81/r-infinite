@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 23 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **14 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 24 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **13 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -77,11 +77,6 @@ Theorem 6.1 proves a *static* relation: consecutive slicing axes sit at $\pi/2$.
 
 The CHSH construction on $S^7$ partitions $\mathbb{C}^4 = \mathbb{C}^2_A\otimes\mathbb{C}^2_B$ by grouping the first two complex coordinates as $A$ and the last two as $B$. This is one of three distinct 2+2 partitions of $\mathbb{C}^4$ (choosing which two of four coordinates go to $A$). The cascade's iterated slicing doesn't single out a bipartition; it's imported by treating "Alice vs Bob" as two observers in a fixed partition. A different choice would give a different entangled state and potentially a different CHSH output. Theorem 10.3 is correct *given* the partition, but the partition isn't cascade-derived.
 
-### SP-18. Schrödinger-equation derivation absorbs the imaginary part of $(N-i)/N^2$ into "lapse normalisation" — **Minor**
-`src/cascade-series-part2.tex:647–654`.
-
-The continuum limit replaces the difference equation by $i\,d\psi/dt = \mathcal{H}\psi$ with $\mathcal{H} = (1-N)/N^2$ (real part), declaring *"the imaginary part contributes a decay/growth that is absorbed into the lapse normalisation"*. No explicit normalisation is constructed. The continuum approximation's roughness at the observer's dimension is acknowledged in the following Remark ($N(4)=1.178$ gives $\sim$12% fractional change per step), but the specific imaginary-part absorption is not.
-
 ---
 
 ## Part III
@@ -134,7 +129,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-14 | Frame-squaring inherits $n=2$ | Part I | Structural |
 | SP-16 | $J$ evolves states (static→dynamic) | Part II | Structural |
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
-| SP-18 | Schrödinger derivation absorbs imaginary part | Part II | Minor |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-24 | "No absolute scale" contradicts $M_{\rm Pl,red}$ use | Part II=III | Structural |
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
@@ -165,6 +159,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
 | SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
+| SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | *(this commit)* |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
