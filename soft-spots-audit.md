@@ -25,17 +25,17 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 
 The theorem's premise is "unit vectors representing two fully distinguishable states — states sharing no common component under any linear operation on $V$". That premise is already the geometric form of the conclusion. The theorem proves geometric no-common-component $\Rightarrow$ zero inner product rigorously; it does not prove that logical $0\ne 1$ $\Rightarrow$ geometric no-common-component. The paper denies this is an assumption ("not an additional assumption; it is a translation of the same fact into geometric language").
 
-### SP-2. Finite $\to \aleph_0$ jump is parameter-economic, not mathematical (Theorem 4.1, step 2) — **Exploratory**
+### SP-2. Finite $\to \aleph_0$ jump is parameter-economic, not mathematical (Theorem 4.1, step 2) — **Exploratory** — ✅ **FIXED (austerity axiom declared)**
 `src/cascade-series-prelude.tex:157–168`.
 
 *"Refusing it would be [an additional assumption]"* — philosophical, not proved. $\aleph_0$ is itself a specific cardinal; the step privileges it over all finite cardinals by appealing to the Prelude §1 principle that a theory of everything cannot have inputs. That principle is assumed, not derived from $0\ne 1$.
 
-### SP-3. "Countable rather than uncountable" presumes binary-test distinctions (Theorem 4.1, step 3) — **Exploratory**
+### SP-3. "Countable rather than uncountable" presumes binary-test distinctions (Theorem 4.1, step 3) — **Exploratory** — ✅ **FIXED (austerity axiom declared)**
 `src/cascade-series-prelude.tex:170–179`.
 
 *"Each distinction is a single bit: a binary test 'is the state $e_i$ or not?'"* — introduced here for the first time. Uncountable distinction is excluded "by the same parameter-economy principle that excludes finite $n$", chaining two unacknowledged assumptions.
 
-### SP-4. $\mathbb{R}^*$-dilation invariance introduced as a new symmetry (§5) — **Exploratory**
+### SP-4. $\mathbb{R}^*$-dilation invariance introduced as a new symmetry (§5) — **Exploratory** — ✅ **FIXED (austerity axiom declared)**
 `src/cascade-series-prelude.tex:186–203`.
 
 The absence of an external ruler does not force invariance under $\mathbb{R}^*$-dilation specifically (vs conformal group, vs discrete scale invariance, vs $\mathbb{C}^*$). The paper asserts $\mathbb{P}\mathcal{H}$ is "the unique quotient" without proving uniqueness over alternative symmetry groups.
@@ -246,10 +246,10 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
-| SP-1 | Logic→geometry translation | Prelude | Exploratory |
-| SP-2 | Finite→$\aleph_0$ parameter economy | Prelude | Exploratory |
-| SP-3 | Binary-test countability | Prelude | Exploratory |
-| SP-4 | $\mathbb{R}^*$-dilation as new symmetry | Prelude | Exploratory |
+| SP-1 | Logic→geometry translation | Prelude | Exploratory (open; see Prelude §10 Open Q 3) |
+| ~~SP-2~~ | ~~Finite→$\aleph_0$ parameter economy~~ | Prelude | ✅ Fixed (austerity clause (i)) |
+| ~~SP-3~~ | ~~Binary-test countability~~ | Prelude | ✅ Fixed (austerity clause (ii)) |
+| ~~SP-4~~ | ~~$\mathbb{R}^*$-dilation as new symmetry~~ | Prelude | ✅ Fixed (austerity clause (iii)) |
 | SP-5 | $c_1$ uniqueness four-class exhaustiveness | Part 0 | Structural |
 | SP-6 | Tower completeness misses self-dual radius | Part 0 | Structural |
 | SP-7 | Scale=ratio, content=product rule | Part 0 | Structural |
@@ -287,7 +287,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 ## Notes on scope
 
 - This file documents **only** soft spots the papers do not themselves acknowledge. Items already flagged in each paper's "What this paper does not do" or "Open questions" sections (e.g., the observable-dependent $k_Q$ in the Supplement, the variational max-over-min in Part 0, the Gram correction being imported into Part I, the second $G_d$ route in Part II=III, the absolute-mass dimensional inputs in Part IVb, the thermal-spectrum derivation, the Page curve, the tensor $r$ magnitude) are deliberately excluded.
-- Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are classified **Exploratory** because the Prelude is an exploration of the cascade's minimum starting point rather than the load-bearing first link; they would become Foundational only if the Prelude is promoted to load-bearing.
+- Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are classified **Exploratory** because the Prelude is an exploration of the cascade's minimum starting point rather than the load-bearing first link; they would become Foundational only if the Prelude is promoted to load-bearing. SP-2, SP-3, SP-4 are now ✅ closed via the declared austerity axiom (Prelude Definition 2.2); SP-1 remains open as an interpretive (not parsimony) issue and is reflected in the Prelude's new §10 Open Question 3.
 - **Load-bearing items by claim:**
   - SP-10 underwrites the $\rho_\Lambda$ headline closure at $-0.07\%$.
   - SP-19 underwrites the $d=4$ derivation via (C1).
@@ -328,6 +328,38 @@ The fix:
 - Retains the "propagator-odd layer" observation, which is internally cascade-consistent.
 
 Both items were Minor severity. Cost to the series: ~6 sentences replaced; zero numerical or theorem impact.
+
+### Commit (austerity axiom declared in Prelude)
+
+**SP-2, SP-3, SP-4 — Closed.** The three Prelude parsimony choices (finite-vs-$\aleph_0$ dimension; countable-vs-uncountable independence; $\mathbb{R}^*$-dilation quotient) that were previously implicit are now governed by an explicit Definition~2.2 (Austerity), added right after Definition~2.1 ($0\neq 1$). The austerity principle has three clauses:
+
+1. (i) Parameter economy — no unexplained numerical, categorical, or symmetry-group input.
+2. (ii) Minimal strength — no assumption strictly stronger than $0\neq 1$ where a weaker sufficient assumption exists, with strength measured by logical implication.
+3. (iii) Unobservable quotient — quotient out any continuous symmetry whose action is unobservable from within the structure.
+
+Each step of the Prelude chain that previously smuggled a parsimony principle now explicitly cites the clause invoked:
+
+- Theorem 4.1 (countable independence) proof: "Dimension is either 0 or $\infty$ (clause (i))" + "Countable rather than uncountable (clause (ii))".
+- §5 (scale invariance): $\mathbb{R}^*$-dilation is quotiented out "by clause (iii)".
+- §8 (chain summary table): added "Austerity" column marking steps 2 and 3 with the relevant clauses.
+
+**Status of SP-1 — still open.** Theorem 3.1's premise — that "fully distinguishable states share no common component under any linear operation on an inner-product space" — is an *interpretive* move from logical $0\neq 1$ to a geometric realisation. Austerity governs which mathematical structure is admissible *once the interpretive framework is fixed*; it does not fix the interpretive framework itself. The Prelude's new §10 (Open Questions) flags this as Open Question~3, with three sub-questions: (a) is inner-product-space the unique minimal geometric realisation of $0\neq 1$? (b) can austerity be extended with a fourth clause governing interpretive choice? (c) is inner-product interpretation itself a theorem of some more austere framework?
+
+**Phase 2 and Phase 3 added as Prelude Open Questions.** Two further hardening items — formalising the partial order of assumption strength (needed for clause (ii) across all downstream applications), and proving $B^\infty$ is *uniquely* forced by Definition 2.1 + Definition 2.2 up to isomorphism — are now Open Questions 2 and 1 respectively in the Prelude. Resolving Open Question~1 would promote the Prelude from *conditionally forced given austerity* to *unconditionally forced*.
+
+**Does this close SP-1 through SP-4 in the audit sense?**
+- SP-2, SP-3, SP-4: ✅ Yes. Each is now an explicit application of a declared clause. They are no longer *hidden* assumptions; they are *declared* meta-rules. Any remaining critique is against austerity itself (e.g., "why these three clauses?"), not against the Prelude's chain. That is an upgrade from "smuggled assumption" to "declared meta-principle" — a genuine hardening.
+- SP-1: ❌ No. The logic-to-geometry bridge is a separate category of issue (interpretive choice, not parsimony). Austerity does not address it. It now has a fully developed treatment in Prelude Open Question 3.
+
+**Problems with being explicit in the paper.** Three structural costs worth acknowledging:
+
+1. *"One axiom" framing loses one.* The cover sheet's marketing phrase "one hypothesis" is unaffected (it's the cover-sheet identification, not the Prelude chain), but the Prelude's implicit framing ("$B^\infty$ from $0\neq 1$ alone") becomes "$B^\infty$ from $0\neq 1$ plus austerity." The Status box has been updated accordingly. This is honest but costs rhetorical simplicity.
+
+2. *New attack surface.* Critics can now attack the austerity principle directly. Before: hidden assumptions, critics have to dig them out. After: declared principle, critics can question its clauses, its meta-mathematical status, or its completeness. This is arguably a *feature* (invites constructive criticism rather than gotcha attacks) but it is a real change.
+
+3. *"Austerity" stretches axiom terminology.* Austerity is a meta-mathematical preference rule, not a mathematical axiom within a single structure. The Prelude explicitly notes this: *"Austerity is a methodological principle, not a mathematical theorem. It is the second pre-mathematical input of the cascade series."* Calling it a "Definition" rather than an "Axiom" in the TeX mitigates this. Further formalisation (Open Question 2) may clarify.
+
+Net cost: ~30 lines added to Prelude (one definition, one Open Questions section, table column, a few proof annotations, Status box rewrite). Zero numerical predictions touched. SP-2/3/4 transition from *hidden assumption* to *declared meta-rule with open uniqueness question*.
 
 ---
 
