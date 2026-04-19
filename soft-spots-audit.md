@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 24 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **13 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 25 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **12 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -97,11 +97,6 @@ The theorem states *"every physical prediction of the cascade series is a dimens
 
 ## Part IVa
 
-### SP-30. Theorem 4.3 "Three generations" — proof gives "three visible + one suppressed", not "three only" — **Structural**
-`src/cascade-series-part4a.tex:541–566`, cf cover sheet paragraph on Gen~0 at $d=29$.
-
-The theorem statement: *"The number of observable fermion generations is exactly three."* The proof concludes: *"Generation 0 ($d=29$) is 9.3 steps past threshold; its amplitude relative to Generation 1 is suppressed by a factor of $\sim 289$, making it **unobservable**."* "Unobservable" $\ne$ "nonexistent". The cover sheet's own text explicitly identifies $d=29$ with a candidate neutrino-mass layer at $\sim 0.5$ eV, and Part IVb Open Question 4 treats $d=29$ as a *partially realised* Gen 0 sourcing neutrino masses. The strong-form theorem (exactly three) is weaker than the proof supports; the correct statement is "exactly three charged fermion generations, with a suppressed fourth Bott layer at $d=29$".
-
 ---
 
 ## Part IVb
@@ -131,7 +126,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-24 | "No absolute scale" contradicts $M_{\rm Pl,red}$ use | Part II=III | Structural |
-| SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
 | SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
 
@@ -169,6 +163,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-26 | Theorem 4.1 proof rewritten to use single-source argument instead of invalid reductio on in-domain uniqueness; theorem renamed "Gleason + Lovelock + single source = consistency"; `rem:sp26-status` explicitly concedes the QED/EFT-QG counterexample and identifies `thm:single` as the load-bearing input | `1001883` |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |
 | SP-29 | SU(3) chirality factual fix + CP-phase paragraph | `a4c42f2` |
+| SP-30 | Theorem 4.3 statement tightened to "exactly three observable charged-fermion generations" with explicit acknowledgment of the suppressed fourth Bott layer at $d=29$; proof reworded to "kills the fourth \emph{charged-fermion} generation" with cross-reference to Part IVb neutrino-mass derivation; `rem:sp30-status` documents the three-status factorisation (three charged gens derived, $d=29$ as cascade primitive derived, neutrino role derived in Part IVb); abstract and summary overreach phrases softened | *(this commit)* |
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
 | SP-32 | Mass-formula $n_D+1$ derived | `3472a9e` |
 | SP-33 | Obstruction-rule scope articulated; `rem:obstruction-scope` | `8e4805c` |
