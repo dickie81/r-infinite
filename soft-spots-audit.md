@@ -63,7 +63,7 @@ Two references can combine as a product (geometric mean); two independent output
 
 ## Part 0 Supplement
 
-### SP-8. Theorem 15.7 stated as equality, is first-order perturbative — **Minor**
+### SP-8. Theorem 15.7 stated as equality, is first-order perturbative — **Minor** — ✅ **FIXED**
 `src/cascade-series-part0.0.tex:153–166`; numerical residual `:168` (0.17%).
 
 The formula $\lambda_1 = n - \langle u|D|u\rangle$ is first-order around the rank-1 matrix $J$; the theorem statement uses `=`. The verification residual (0.17%) shows the formula is approximate. The first-order label is inside the proof but not the theorem statement.
@@ -253,7 +253,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 | SP-5 | $c_1$ uniqueness four-class exhaustiveness | Part 0 | Structural |
 | SP-6 | Tower completeness misses self-dual radius | Part 0 | Structural |
 | SP-7 | Scale=ratio, content=product rule | Part 0 | Structural |
-| SP-8 | First-order $\epsilon$ stated as equality | Part 0 Supp | Minor |
+| ~~SP-8~~ | ~~First-order $\epsilon$ stated as equality~~ | Part 0 Supp | ✅ Fixed |
 | SP-9 | $\Omega_m^{\rm Bott}$ path on ratio-of-sums | Part 0 Supp | Structural |
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
 | SP-11 | $\exp$ vs linear Gram form | Part I | Minor |
@@ -382,6 +382,35 @@ This distinguishes the *structural assignment* (derived, forced) from the *Green
 
 Cost: 4 bullet rewrites + 1 new summary sentence. Zero numerical predictions change; Theorem 4.4, Theorem 4.5, Theorem 4.10, Theorem 5.1 all untouched. Remark 4.8's open-questions list is referenced but unchanged.
 
+### Commit (SP-8: Theorem 15.7 relabelled as first-order, strengthened to upper bound)
+
+**SP-8 — Closed.** Theorem 15.7 of the Part 0 Supplement stated $\epsilon = (2/n^2)\sum_{i<j}(1-C_{ij})$ as an equality; the proof used "first-order perturbation theory" and numerical verification showed a 0.17% residual. The `=` was a cosmetic over-claim.
+
+Changes at `src/cascade-series-part0.0.tex:153–168`:
+
+1. Renamed theorem from "Eigenvalue deficit from perturbation theory" to "First-order eigenvalue deficit".
+2. Replaced the `=` with `= … + O(‖D‖²)` in the statement, and added an explicit observation that the second-order correction is *positive*: the first-order formula is an *upper bound* for the exact eigenvalue deficit.
+3. Extended the proof to exhibit the second-order term from standard Rayleigh–Schrödinger perturbation theory and show the positivity explicitly. Proof is now fully self-contained.
+4. Updated the verification paragraph to name the first-order value $\epsilon^{(1)}$ explicitly and note that the exact value sits below it, consistent with the upper-bound direction.
+
+Plus one phrase tightening at `src/cascade-series-part0.0.tex:305`: *"gives an exact sum"* → *"gives an explicit first-order expression as a sum of Beta function ratios, with second-order correction bounded by $\|D\|^2$"*.
+
+**Structural upgrade, not just cosmetic.** The original statement had `=` and a numerical 0.17% residual with no directional information about the error. The new statement:
+
+- is *mathematically honest* (explicit $O(\|D\|^2)$ remainder);
+- is *stronger* (the RHS is now an upper bound, not merely an approximation);
+- *predicts the sign* of the discrepancy (exact < first-order), which matches the numerical verification (0.008159 < 0.008173).
+
+The 0.17% residual went from "cosmetic mismatch" to "quantitative evidence that the second-order correction is $\lesssim$ 0.2% for a typical path" — a useful handle for future hardening.
+
+**Downstream impact:** none.
+
+- Corollary 15.18 (derived coupling $k_Q^{(1)}$): uses the exact eigenvalue deficit $\epsilon$, not Theorem 15.7's first-order formula. The corollary's content is unchanged.
+- "What this section proves" item (line 289): already said "first-order perturbation theory". Unchanged.
+- Part I's Gram correction: uses Theorem 15.11 (a different theorem, explicitly first-order in its name). Unchanged.
+
+Cost: 1 theorem statement rewrite + extended proof + 1 verification sentence + 1 downstream phrase. Zero numerical predictions change; zero tools code changed. The supplement is tighter, not just relabelled.
+
 ---
 
 ## Hardening priorities
@@ -394,7 +423,7 @@ Suggested order for the hardening phase, cheapest first.
 |---|---|---|
 | SP-29 | Remove "SU(3) couples chirally" sentence in Part IVa §2.2 or replace with the correct statement | 1 line |
 | ~~SP-37~~ | ~~Replace "d=14 … carrying a hairy-ball obstruction" with "d=14's coupling picks up the 2√π factor by crossing d=13"~~ | ✅ Done |
-| SP-8 | Label Theorem 15.7 explicitly as first-order perturbative, or tighten to an inequality | 1 line |
+| ~~SP-8~~ | ~~Label Theorem 15.7 explicitly as first-order perturbative~~ | ✅ Done |
 | SP-28 | Reframe "12 = 8+3+1" and "rank = 4" in Part IVa §2.7 as *observations* rather than *structural derivations* | 1 paragraph |
 | Prelude framing | Add a "Status: exploratory" box to the Prelude; cite the cover sheet as load-bearing hypothesis | 1 box |
 

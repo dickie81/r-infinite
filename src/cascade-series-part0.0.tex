@@ -150,22 +150,27 @@ The correction is not to the Gamma function, which is exact. It is not to the sl
 
 \subsection{The perturbation theory for $\epsilon$}\label{sec:perturbation}
 
-\begin{theorem}[Eigenvalue deficit from perturbation theory]\label{thm:pert}
+\begin{theorem}[First-order eigenvalue deficit]\label{thm:pert}
+To first order in the deficit matrix $D = J - C$,
 \[
-\epsilon = 1 - \frac{\lambda_1}{n} = \frac{2}{n^2} \sum_{i < j} \left(1 - C_{ij}\right),
+\epsilon \;=\; 1 - \frac{\lambda_1}{n} \;=\; \frac{2}{n^2} \sum_{i < j} \left(1 - C_{ij}\right) \;+\; O\!\bigl(\|D\|^2\bigr),
 \]
-where $C_{ij}$ are the entries of the correlation matrix.
+where $C_{ij}$ are the entries of the correlation matrix. The second-order correction is \emph{positive} (a sum of squared matrix elements of $D$ in the zero-eigenspace of $J$; see proof), so the right-hand side is an \emph{upper bound} for the eigenvalue deficit $\epsilon$.
 \end{theorem}
 
 \begin{proof}
-Write $C = J - D$ where $J_{ij} = 1$ for all $i,j$ and $D_{ij} = 1 - C_{ij} \geq 0$, with $D_{ii} = 0$. The matrix $J$ has eigenvalue $n$ with eigenvector $u = (1, \ldots, 1)/\sqrt{n}$ and eigenvalue $0$ with multiplicity $n - 1$. By first-order perturbation theory:
+Write $C = J - D$ where $J_{ij} = 1$ for all $i,j$ and $D_{ij} = 1 - C_{ij} \geq 0$, with $D_{ii} = 0$. The matrix $J$ has the non-degenerate eigenvalue $n$ with eigenvector $u = (1, \ldots, 1)/\sqrt{n}$, and eigenvalue $0$ with multiplicity $n - 1$ (eigenspace $u^\perp$). By standard Rayleigh--Schr\"odinger perturbation theory for the non-degenerate eigenvalue $n$:
 \[
-\lambda_1(C) = n - \langle u | D | u \rangle = n - \frac{1}{n} \sum_{i,j} D_{ij} = n - \frac{2}{n} \sum_{i < j}(1 - C_{ij}).
+\lambda_1(C) \;=\; n - \langle u | D | u \rangle \;+\; \frac{1}{n}\sum_{v \in u^\perp}|\langle v | D | u \rangle|^2 \;+\; O\!\bigl(\|D\|^3\bigr).
 \]
-Dividing by $n$ and rearranging gives the stated formula.
+The first-order term evaluates to
+\[
+\langle u | D | u \rangle \;=\; \frac{1}{n}\sum_{i,j}D_{ij} \;=\; \frac{2}{n}\sum_{i<j}(1 - C_{ij}),
+\]
+giving the stated first-order formula after dividing by $n$. The second-order term is a sum of squared matrix elements, hence non-negative; it vanishes only when $D$ has no component in the $u^\perp$ sector (the rank-1 case, when $C$ is a constant-off-diagonal matrix). In all non-trivial cases it is strictly positive, so $\lambda_1(C) > n - \langle u|D|u\rangle$ at second order, equivalently $\epsilon < (2/n^2)\sum_{i<j}(1 - C_{ij})$: the first-order formula over-estimates the deficit, and the right-hand side is an upper bound.
 \end{proof}
 
-\noindent Verification: for $d = 5, \ldots, 12$ ($n = 8$), the perturbative formula gives $\epsilon = 0.008173$; the exact eigenvalue gives $\epsilon = 0.008159$. Agreement: $0.17\%$. The formula is verified to comparable precision for all paths tested.
+\noindent Verification: for $d = 5, \ldots, 12$ ($n = 8$), the first-order formula gives $\epsilon^{(1)} = 0.008173$; the exact eigenvalue gives $\epsilon = 0.008159$. Agreement: $0.17\%$; the exact value is below the first-order formula as predicted by the upper-bound direction of the theorem. The formula is verified to comparable precision for all paths tested.
 
 \subsection{Numerical evidence for the correction}\label{sec:verification}
 
@@ -297,7 +302,7 @@ not of the cascade's geometry.
 
 \begin{enumerate}[nosep]
 \item \emph{Derive the observable-dependent response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The second-order factor is a response function $R_Q = k_Q/k_Q^{(1)}$ that depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
-\item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an exact sum; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
+\item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an explicit first-order expression as a sum of Beta function ratios, with second-order correction bounded by $\|D\|^2$; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
 \item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
 \end{enumerate}
