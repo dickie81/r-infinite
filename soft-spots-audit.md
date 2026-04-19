@@ -235,7 +235,7 @@ Remark 5.2 defends the 1/2 factor: *"The only integers consistent with the serie
 
 The three physics flags $(P,L,G)$ and the four-type decision procedure are introduced to reproduce the source assignments of the already-closed seven observables. The "verification" (`:730–748`) is not a blind prediction but a re-derivation of the known assignments. The claim *"every Standard Model precision observable is assigned to exactly one type"* is tested only against the seven observables that defined the types. Applied to new observables (e.g., $\alpha_{\rm em}(M_Z)$, $m_W$ absolute, CKM $\theta_{13}$, $\theta_{23}$ — listed in Remark 4.9 *"falsifiable prediction"*), the rule becomes predictive — but those predictions have not been tested. The paper's *"Does not … derive the three flags $(P,L,G)$ themselves from a purely formal cascade object"* acknowledges that flags are physics meta-data, but does not acknowledge the selection-on-training-set structure of the proposition's proof.
 
-### SP-37. "Why the specific pairings type↦d$^*$" rationalisations include a factually wrong statement — **Minor**
+### SP-37. "Why the specific pairings type↦d$^*$" rationalisations include a factually wrong statement — **Minor** (factual) — ✅ **FIXED**
 `src/cascade-series-part4b.tex:766–774`.
 
 The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm{U}(1)$ hypercharge layer, the highest of the window and **the only one carrying a hairy-ball obstruction** that produces the universal $2\sqrt\pi$ factor."* But $d=14$ is a Weyl layer on the *odd*-dimensional sphere $S^{13}$ — no hairy-ball obstruction. The hairy-ball obstruction lives at $d=13$ (Dirac, on $S^{12}$). What the rationalisation presumably intends is that $d=14$'s coupling picks up the $2\sqrt{\pi}$ factor *by crossing* $d=13$, not by carrying an obstruction itself. As stated, the claim misidentifies which layer carries the obstruction.
@@ -282,7 +282,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 | SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
 | SP-35 | Cabibbo 1/2 factor is integer-fit among $\{1,2,3\}$ | Part IVb | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
-| SP-37 | "$d=14$ carries hairy-ball obstruction" is factually wrong | Part IVb | Minor (factual) |
+| ~~SP-37~~ | ~~"$d=14$ carries hairy-ball obstruction" is factually wrong~~ | Part IVb | ✅ Fixed |
 
 ## Notes on scope
 
@@ -300,7 +300,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
   - SP-33 — apply the obstruction rule consistently and compute the expected $\alpha_s$ if $d=5$ gave a $1/\sqrt{\pi}$ factor; compare to the formula that works.
   - SP-36 — test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the blind predictions close within experimental precision.
 - **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-19, SP-21, SP-23, SP-26, SP-31, SP-32, SP-33, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
-- **Factual corrections (minor but should be fixed):** ~~SP-29 (SU(3) is vectorial, not chiral)~~ ✅ fixed; SP-37 ($d=14$ is Weyl, no hairy-ball obstruction on $S^{13}$) — still open.
+- **Factual corrections (minor but should be fixed):** ~~SP-29 (SU(3) is vectorial, not chiral)~~ ✅ fixed; ~~SP-37 ($d=14$ is Weyl, no hairy-ball obstruction on $S^{13}$)~~ ✅ fixed.
 
 ## Fixes Applied
 
@@ -361,6 +361,27 @@ Each step of the Prelude chain that previously smuggled a parsimony principle no
 
 Net cost: ~30 lines added to Prelude (one definition, one Open Questions section, table column, a few proof annotations, Status box rewrite). Zero numerical predictions touched. SP-2/3/4 transition from *hidden assumption* to *declared meta-rule with open uniqueness question*.
 
+### Commit (SP-37 + bonus tightening of all four source-pairing rationalisations)
+
+**SP-37 — Closed.** The factually incorrect sentence *"$d=14$ … the U(1) hypercharge layer, the highest of the window and the only one carrying a hairy-ball obstruction that produces the universal $2\sqrt{\pi}$ factor"* at `src/cascade-series-part4b.tex:771` was replaced. Corrections:
+
+- Removed the false claim that $d=14$ carries a hairy-ball obstruction. $d=14$ operates on $S^{13}$ (odd-dimensional); hairy-ball zeros live on even-dimensional spheres. The obstruction is at $d=13$ (Dirac on $S^{12}$).
+- Re-attributed the $2\sqrt{\pi}$ factor correctly: it appears at *every* Dirac layer crossed on a fermion's descent (Theorem 2.2), not specifically at $d=14$.
+- Replaced with a structural reason for the $d=14$ assignment: a gauge-mediated coupling descending into the observer's frame from above enters the gauge window at $d=14$ (its highest layer); Green's function response is maximised at this entry point.
+- The $d=13$ Dirac obstruction that contributes $1/\sqrt{\pi}$ to U(1)'s descent (Theorem 4.9) is now correctly attributed as "encountered en route" rather than "carried by $d=14$".
+
+**Bonus: all four source-pairing rationalisations tightened.** While the SP-37 fix was in the same remark, the other three pairings (Absolute→$d_1$, Observer→$d_V$, Amplitude→$d_0$) had a consistent stylistic issue: each stated *"Green's function response is maximised"* as if derived, when in fact this is a numerical computation (`tools/cascade_greens_function.py`), not a closed-form theorem. The paper's own Remark 4.8 "Does not" list already acknowledges the formal proof is open. The four pairings have been harmonised to:
+
+- State the *structural* role of the distinguished layer in the observable's descent.
+- State the *numerical* Green's function maximum.
+- Explicitly cite the "formal derivation open" caveat, pointing to Remark 4.8.
+
+Plus a concluding sentence after the bullets: *"Each rationale identifies $d^*$ by a structural role in the observable's descent; the numerical claim that the Green's function response is maximised at the assigned $d^*$ is verified layer-by-layer via the eigenstructure of the cascade action's discrete Laplacian (tools/cascade_greens_function.py), but the closed-form derivation is open."*
+
+This distinguishes the *structural assignment* (derived, forced) from the *Green's function maximum* (numerical, pending formal proof), which the original text conflated.
+
+Cost: 4 bullet rewrites + 1 new summary sentence. Zero numerical predictions change; Theorem 4.4, Theorem 4.5, Theorem 4.10, Theorem 5.1 all untouched. Remark 4.8's open-questions list is referenced but unchanged.
+
 ---
 
 ## Hardening priorities
@@ -372,7 +393,7 @@ Suggested order for the hardening phase, cheapest first.
 | ID | Action | Cost |
 |---|---|---|
 | SP-29 | Remove "SU(3) couples chirally" sentence in Part IVa §2.2 or replace with the correct statement | 1 line |
-| SP-37 | Replace "d=14 … carrying a hairy-ball obstruction" with "d=14's coupling picks up the 2√π factor by crossing d=13" in Part IVb source-pairing remark | 1 line |
+| ~~SP-37~~ | ~~Replace "d=14 … carrying a hairy-ball obstruction" with "d=14's coupling picks up the 2√π factor by crossing d=13"~~ | ✅ Done |
 | SP-8 | Label Theorem 15.7 explicitly as first-order perturbative, or tighten to an inequality | 1 line |
 | SP-28 | Reframe "12 = 8+3+1" and "rank = 4" in Part IVa §2.7 as *observations* rather than *structural derivations* | 1 paragraph |
 | Prelude framing | Add a "Status: exploratory" box to the Prelude; cite the cover sheet as load-bearing hypothesis | 1 box |
