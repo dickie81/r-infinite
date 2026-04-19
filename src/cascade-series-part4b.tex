@@ -424,7 +424,7 @@ At the SU(3) layer $d = 12$: $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.020$. Th
 \[
 \alpha_s(\text{obs}) = \alpha(d = 12) \times \exp(\Phi(12 \to 4)) = \frac{N(12)^2}{4\pi} \times \exp(\Phi) = 0.1159,
 \]
-where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed to experimental precision by the universal $\mathrm{U}(1)$ shift of Theorem~\ref{thm:alpha-s-closure} below, together with $m_\tau/m_\mu$ in the same identity).
+where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed to experimental precision by the universal $\mathrm{U}(1)$ shift of Theorem~\ref{thm:alpha-s-closure} below, together with $m_\tau/m_\mu$ in the same identity). The descent from $d=12$ to $d=4$ crosses the Dirac layer $d=5$, but no $1/\sqrt{\pi}$ obstruction factor enters $\alpha_s$: $d=5$ is a generation (Gen~3) Dirac layer, not a broken-symmetry one, and the obstruction rule scope articulated in Remark~\ref{rem:obstruction-scope} (below) applies $1/\sqrt{\pi}$ only at broken-symmetry Dirac layers.
 \end{theorem}
 
 \begin{remark}[The cascade's analogue of the $\beta$-function]
@@ -833,12 +833,16 @@ of~\cite{paper4a}). The obstruction at $d=13$ is therefore consumed by
 the symmetry breaking; it does not appear as a propagator factor for the
 SU(2) coupling. Hence $g_2 = N(13)$ unmodified.
 
-\textbf{Step 2: U(1) crosses the Dirac layer at $d=13$ during descent.}
+\textbf{Step 2: U(1) crosses the broken-symmetry Dirac layer at $d=13$ during descent.}
 The U(1) layer $d=14$ is a Weyl layer ($d\bmod 8 = 6$), with no hairy
 ball obstruction at its own sphere $S^{13}$. The cascade descent from
-$d=14$ to the observer at $d=4$ traverses the Dirac layer $d=13$ once.
-A field passing through a Dirac layer encounters the topological
-obstruction analysed in Theorem~\ref{thm:obstruction}. There the
+$d=14$ to the observer at $d=4$ traverses the broken-symmetry Dirac
+layer $d=13$ once (and also the Gen~3 Dirac layer $d=5$, which does
+not contribute a gauge-boson obstruction factor; see
+Remark~\ref{rem:obstruction-scope} below for the rule's scope).
+A gauge coupling passing through a broken-symmetry Dirac layer
+encounters the topological obstruction imposed by the resolving VEV,
+analysed in Theorem~\ref{thm:obstruction}. There the
 obstruction was shown to decompose into two independent factors:
 \[
 \frac{1}{2\sqrt{\pi}}
@@ -894,6 +898,83 @@ chirality factor in Theorem~\ref{thm:obstruction} comes from the
 spinor bundle's Z\textsubscript{2} grading, which exists only for
 spinors. Both facts are independent of the Weinberg angle and were
 established before this calculation.
+\end{remark}
+
+\begin{remark}[Scope of the gauge-boson obstruction rule]\label{rem:obstruction-scope}
+The $1/\sqrt{\pi}$ factor picked up by $g_1'$ in
+Theorem~\ref{thm:weinberg} Step~2 is specific to the descent crossing
+the $\mathrm{SU}(2)$ broken layer at $d=13$, not generic to crossing
+any Dirac layer. This remark articulates the rule explicitly so that
+its application to $\alpha_s$ (Theorem~\ref{thm:alpha-s-leading}) and
+to $g_2$ (above) is traceable from a single rule, and the apparent
+inconsistency between ``no $1/\sqrt{\pi}$ from $d=5$ for $\alpha_s$''
+and ``$1/\sqrt{\pi}$ from $d=13$ for $g_1'$'' is resolved.
+
+\medskip\noindent\textbf{The three Dirac layers of the descent range.}
+In the first two Bott windows relevant to Standard Model gauge-boson
+descent, there are exactly three Dirac layers: $d=5$ (Gen~3), $d=13$
+($\mathrm{SU}(2)$ broken), $d=21$ (Gen~1). Of these, only $d=13$
+supports a gauge VEV --- the Higgs field that resolves the
+$\mathrm{SU}(2)$ symmetry breaking (Part~IVa~\cite{paper4a}, Section~3).
+The generation layers $d=5$ and $d=21$ support fermion wavefunctions at
+their hairy-ball zeros, not gauge VEVs.
+
+\medskip\noindent\textbf{The rule.}
+A gauge coupling descending from its cascade layer to the observer at
+$d=4$ picks up a factor of $1/\sqrt{\pi}$ for each \emph{broken-gauge-
+symmetry} Dirac layer crossed on the descent path. Generation Dirac
+layers (where fermions reside but no gauge VEV is present) do not
+contribute an obstruction factor to gauge-boson propagators.
+
+\medskip\noindent\textbf{Application to the three Standard Model gauge couplings.}
+\begin{itemize}[nosep]
+\item $\alpha_s$ ($\mathrm{SU}(3)$ at $d=12$ descending to $d=4$):
+crosses $d=5$ (Gen~3, generation layer, no factor). Broken-symmetry
+Dirac crossings: zero. Therefore $\alpha_s$ does not pick up a
+$1/\sqrt{\pi}$ obstruction factor, consistent with
+Theorem~\ref{thm:alpha-s-leading}.
+\item $g_2$ ($\mathrm{SU}(2)$ at $d=13$ descending to $d=4$): sits at
+its own breaking layer; the obstruction there is consumed by the
+breaking itself (Theorem~\ref{thm:weinberg} Step~1) rather than
+appearing as a descent factor. On descent, $\mathrm{SU}(2)$ crosses
+$d=5$ (Gen~3, no factor). Broken-symmetry Dirac crossings below its
+own layer: zero. Therefore $g_2 = N(13)$ unmodified by the rule.
+\item $g_1'$ ($\mathrm{U}(1)$ at $d=14$ descending to $d=4$): crosses
+$d=13$ (broken $\mathrm{SU}(2)$, factor $1/\sqrt{\pi}$) and $d=5$
+(Gen~3, no factor). Broken-symmetry Dirac crossings: one. Therefore
+$g_1' = N(14)/\sqrt{\pi}$, consistent with
+Theorem~\ref{thm:weinberg}.
+\end{itemize}
+The three couplings are treated consistently by a single rule; their
+different outcomes reflect which Dirac layers their descent paths
+cross and of which type.
+
+\medskip\noindent\textbf{Why the rule treats generation and broken-symmetry Dirac layers differently.}
+The $1/\sqrt{\pi}$ quarter-turn factor arises from the propagator's
+geometric interaction with whatever structure occupies the hairy-ball
+zero at the crossed layer. At a broken-gauge-symmetry layer ($d=13$),
+the zero is occupied by the Higgs VEV that resolves the obstruction;
+a passing gauge-boson propagator mixes with this VEV and pays
+$1/\sqrt{\pi}$ (the angular measure of the VEV's quarter-turn on
+$S^{12}$). At a generation layer ($d=5$, $d=21$), the zero is occupied
+by fermion wavefunctions; gauge--fermion coupling is a contact
+interaction at that layer itself (a Yukawa or gauge-current coupling),
+not a propagator modification of gauge bosons passing through. Hence
+no $1/\sqrt{\pi}$ factor on the gauge propagator.
+
+\medskip\noindent\textbf{Contrast with the fermion obstruction rule.}
+The fermion obstruction factor $1/(2\sqrt{\pi})$ of
+Theorem~\ref{thm:obstruction} applies at \emph{every} Dirac layer
+crossed by a fermion's descent (generation and broken-symmetry alike),
+not just broken-symmetry ones. This is because fermion wavefunctions
+couple to the Dirac structure (via the spin connection) at every Dirac
+layer, whereas gauge-boson propagators couple to gauge VEVs, which are
+present only at broken-symmetry layers. The obstruction rules for
+fermions and gauge bosons are therefore distinct in scope but share
+the same underlying factor $1/\sqrt{\pi}$ (quarter-turn); fermions
+additionally pick up the chirality factor $1/\chi=1/2$ at every
+crossed layer, giving the combined $1/(2\sqrt{\pi})$ of
+Theorem~\ref{thm:obstruction}.
 \end{remark}
 
 \begin{theorem}[$\sin^2\theta_W$ closure via $\alpha(5)/\chi^3$]\label{thm:weinberg-closure}

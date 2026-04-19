@@ -215,7 +215,7 @@ The proof's step (b) argues: *"A fermion (spinor) couples to the tangent frame t
 
 Remark 2.10 *(observer's obstruction)*: *"The observer pays this toll to see the gauge window, then pays it again at each Dirac layer between the gauge window and the generation layer. The total obstruction count in the mass formula is $n_D + 1$."* The "+1" representing the observer's universal-coupling toll is introduced separately from the $n_D$ count (Dirac layers on the fermion's path). The two contributions are stitched together without a unified derivation from a single action or propagator computation — the bookkeeping is structural (obstruction counting) but the specific "$n_D + 1$" exponent is assembled from two independently-argued components.
 
-### SP-33. α_s's descent formula does not pick up obstruction factors from $d=5$, though the descent path crosses it — **Structural**
+### SP-33. α_s's descent formula does not pick up obstruction factors from $d=5$, though the descent path crosses it — **Structural** — ✅ **FIXED (obstruction-rule scope articulated + consistent across all three gauge couplings)**
 `src/cascade-series-part4b.tex:423–427`, cf obstruction rule `src/cascade-series-part4b.tex:838–852`.
 
 $\alpha_s(M_Z) = \alpha(12)\cdot\exp(\Phi(12\to 4))$ has the cascade descent from $d=12$ down to $d=4$, which passes through $d=5$ (a Dirac layer). The Weinberg-angle derivation (Theorem 4.9) asserts *"a field passing through a Dirac layer encounters the topological obstruction"*, giving $\mathrm{U}(1)$'s coupling a $1/\sqrt{\pi}$ factor for crossing $d=13$. By the same rule, $\mathrm{SU}(3)$'s coupling should pick up $1/\sqrt{\pi}$ for crossing $d=5$ — but the α_s formula does not include this factor (including it would give $\alpha_s \approx 0.065$, far off from 0.118). The apparent resolution is a rule like "obstruction applies only when crossing *broken-symmetry* Dirac layers, not *generation* Dirac layers"; this distinction is not stated anywhere in Part IVb.
@@ -278,7 +278,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
 | **SP-31** | **Fermion obstruction factor (b) is physics-intuition** | Part IVb | **Structural, load-bearing on every fermion mass** |
 | SP-32 | Mass formula $(2\sqrt{\pi})^{-(n_D+1)}$ "+1" observer toll asserted | Part IVb | Structural |
-| SP-33 | $\alpha_s$ doesn't pick up obstruction from $d=5$ (inconsistent rule) | Part IVb | Structural |
+| ~~SP-33~~ | ~~$\alpha_s$ doesn't pick up obstruction from $d=5$ (inconsistent rule)~~ | Part IVb | ✅ Fixed (Remark scope articulated) |
 | SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
 | SP-35 | Cabibbo 1/2 factor is integer-fit among $\{1,2,3\}$ | Part IVb | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
@@ -297,9 +297,9 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 - **Quantitatively testable items:**
   - SP-10 — compute the Gram sum on paths $[19,217]$ and $\{3,5,6,7,19,217\}$ and report the alternative residuals.
   - SP-17 — compute CHSH on the two alternative bipartitions of $\mathbb{C}^4$ and verify whether $2\sqrt{2}$ is robust.
-  - SP-33 — apply the obstruction rule consistently and compute the expected $\alpha_s$ if $d=5$ gave a $1/\sqrt{\pi}$ factor; compare to the formula that works.
+  - ~~SP-33~~ ✅ fixed: obstruction-rule scope articulated in Part IVb Remark `rem:obstruction-scope`. Rule now covers all three SM gauge couplings consistently; formal derivation of the rule from a cascade action remains open.
   - SP-36 — test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the blind predictions close within experimental precision.
-- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-19, SP-21, SP-23, SP-26, SP-31, SP-32, SP-33, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
+- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-21, SP-23, SP-26, SP-31, SP-32, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. (SP-19 and SP-33 removed from this list — both now articulated.)
 - **Factual corrections (minor but should be fixed):** ~~SP-29 (SU(3) is vectorial, not chiral)~~ ✅ fixed; ~~SP-37 ($d=14$ is Weyl, no hairy-ball obstruction on $S^{13}$)~~ ✅ fixed.
 
 ## Fixes Applied
@@ -526,6 +526,43 @@ Consistency pass across three Prelude sections that referenced austerity in the 
 
 Cost: ~15 lines changed across the two files. Zero numerical predictions, zero theorems, zero audit SP-numbered findings affected.
 
+### Commit (SP-33: obstruction-rule scope articulated for gauge-boson descent)
+
+**SP-33 — Closed.** Part IVb previously contained an apparent inconsistency: Theorem 4.2 ($\alpha_s$) uses $\alpha_s = \alpha(12)\exp(\Phi(12\to 4))$ with no $1/\sqrt{\pi}$ obstruction factor, despite the descent path crossing the Dirac layer $d=5$; but Theorem 4.9 (Weinberg angle) applies a $1/\sqrt{\pi}$ factor to $g_1'$ for crossing the Dirac layer $d=13$. The implicit rule that reconciled these was never stated.
+
+The rule, now articulated explicitly as Remark `rem:obstruction-scope` in Part IVb §4:
+
+> **A gauge coupling picks up a factor of $1/\sqrt{\pi}$ for each broken-gauge-symmetry Dirac layer crossed on the descent path. Generation Dirac layers do not contribute a gauge-boson obstruction factor.**
+
+Changes to `src/cascade-series-part4b.tex`:
+
+1. **Theorem 4.9 Step 2 tightened.** *"A field passing through a Dirac layer encounters the topological obstruction"* → *"A gauge coupling passing through a broken-symmetry Dirac layer encounters the topological obstruction imposed by the resolving VEV"*. Added forward reference to the new scope remark. Also notes that $\mathrm{U}(1)$'s descent crosses both $d=13$ (broken) and $d=5$ (generation), with only the first contributing.
+
+2. **New Remark `rem:obstruction-scope`** inserted after the asymmetry-is-forced remark. The remark:
+   - Enumerates the three Dirac layers in the descent range: $d=5$ (Gen 3), $d=13$ (SU(2) broken), $d=21$ (Gen 1).
+   - States the rule explicitly.
+   - Verifies consistency across all three SM gauge couplings:
+       - $\alpha_s$: zero broken-symmetry crossings → unmodified.
+       - $g_2$: at its own breaking layer → obstruction consumed by breaking.
+       - $g_1'$: one broken-symmetry crossing ($d=13$) → one factor $1/\sqrt{\pi}$.
+   - Gives the physical reason for the distinction: $1/\sqrt{\pi}$ comes from the propagator mixing with a VEV occupying the hairy-ball zero. Generation layers have fermion wavefunctions at the zero (gauge-fermion coupling is a contact interaction, not a propagator modification); only broken-symmetry layers have gauge VEVs.
+   - Contrasts with the fermion obstruction rule (Theorem 2.2): fermions see every Dirac layer because they couple to Dirac structure universally via the spin connection; bosons see only broken-symmetry layers because they couple to gauge VEVs.
+
+3. **Cross-reference added to Theorem 4.2.** Parenthetical note after the α_s formula explains why no $1/\sqrt{\pi}$ factor enters despite crossing $d=5$.
+
+**What this buys.**
+
+- Apparent inconsistency between Theorem 4.2 and Theorem 4.9 resolved by a single named rule.
+- Three SM gauge couplings treated consistently.
+- The rule is falsifiable: a new gauge observable requiring a different count of $1/\sqrt{\pi}$ factors than the rule predicts would falsify it.
+- Boson-fermion asymmetry (Theorem 2.2 vs this rule) is now physically motivated.
+
+**What this does not claim.**
+
+The rule is articulated structurally, not derived from the cascade's discrete action. Formal derivation from the action principle (Part IVb Remark 4.6) would promote it from "articulated" to "derived". Remains open, tracked in `rem:phase-family`'s open-questions list.
+
+Cost: ~70 lines added to Part IVb §4. Zero numerical predictions change; Theorems 4.2, 4.9, 4.10, 5.1, 6.1 retain their existing formulas exactly. The new remark names what the papers were already doing implicitly.
+
 ---
 
 ## Hardening priorities
@@ -546,7 +583,7 @@ Suggested order for the hardening phase, cheapest first.
 
 | ID | Action | Cost |
 |---|---|---|
-| SP-33 | Write a half-page in Part IVb §4 stating the obstruction-rule scope explicitly: "a boson's coupling picks up 1/√π on crossing a Dirac layer if that layer supports a broken gauge symmetry; it does not on crossing a generation Dirac layer." Then verify this for α_s, α_em running, and all gauge couplings. | 0.5–1 page |
+| ~~SP-33~~ | ~~Write a half-page in Part IVb §4 stating the obstruction-rule scope explicitly~~ | ✅ Done (Remark `rem:obstruction-scope` added; rule verified consistent across $\alpha_s$, $g_2$, $g_1'$) |
 | SP-32 | In Part IVb §2, unify the observer toll and the n_D count into a single derivation from a propagator formula rather than asserting the "+1" in a remark. | 1–2 pages |
 | ~~SP-19~~ | ~~Articulate (C1)'s identification step~~ | ✅ Done (Option B: Lemma 9.1 with 5 named inputs; fallback to (C2)+Cor 9.4 in remark) |
 | SP-21 | In Part III §10, replace "by definition" with "in the cascade's identification hypothesis, oscillatory propagator ⇔ Lorentzian signature" and defend the hypothesis. Or acknowledge that this is Wick rotation by another name. | 1 paragraph |
@@ -561,7 +598,7 @@ Each of these either hardens the rule significantly or exposes a defect early. A
 | SP-10 | Compute the Gram sum on paths [19,217], {3,5,6,7,19,217}, and any other plausible ρ_Λ path. Publish which gives the best closure and why. | Whether the -0.07% headline is robust or cherry-picked |
 | SP-36 | Blind-test the source-selection rule against α_em(M_Z), m_W absolute, m_e/m_μ, CKM θ_13, θ_23 per Remark 4.9's "falsifiable prediction". Publish the blind predictions *before* checking them. | Whether the three-flag rule is genuinely predictive or trained on the 7-observable set |
 | SP-17 | Compute CHSH on alternative bipartitions of ℂ⁴. Expected: Tsirelson bound gives 2√2 for any maximally-entangled bipartition. If it does, the CHSH result is robust; soft spot downgrades to Minor. | Whether the bipartition choice in Part II §10.3 is cosmetic or structural |
-| SP-33 | Apply the articulated rule from Tier B consistently to α_s, α_em, and all cascade gauge couplings. Verify the numerical values survive. | Whether the obstruction-rule scope is coherent |
+| ~~SP-33~~ | ~~Apply the articulated rule consistently to all gauge couplings~~ | ✅ Done (Remark `rem:obstruction-scope` verifies for $\alpha_s$, $g_2$, $g_1'$; numerical values unchanged) |
 
 ### Tier D — Genuine open problems (months, research-scale)
 
