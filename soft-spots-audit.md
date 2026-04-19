@@ -510,6 +510,22 @@ Conclusion: $\mathbb{R}^*$-dilation is the **unique** continuous, parameter-free
 
 Cost: ~30 lines added to Prelude §5 (enumeration of failed alternatives). Zero numerical predictions changed; zero theorems invalidated.
 
+### Commit (open-questions cleanup after austerity/ℝ* upgrades)
+
+Consistency pass across three Prelude sections that referenced austerity in the pre-derivation framing:
+
+1. **§9 "Does not derive physics" bullet.** Previously referenced "austerity principles made explicit in the chain (parameter economy at step 2; binary-test discreteness at step 3; ℝ*-scale invariance at step 5)" as if austerity were a separately-declared bundle of principles. Now reframes: "the single declared pre-mathematical input (Definition 2.1) and the austerity derivation (Principle 2.2) that follows from its sole-input status", with the step-wise clause citations retained. Clause names aligned with Principle 2.2 (parameter economy, minimal strength, unobservable quotient).
+
+2. **§10 Open Question 1 (uniqueness of $B^\infty$).** Previously listed "complex Hilbert space" and "quaternionic Hilbert space" as candidate alternatives "worth ruling out" — candidates that the austerity+§5 work now rules out explicitly. Rewritten to separate (a) alternatives now explicitly ruled out inside the Prelude (complex/quaternionic starting points by clause (ii); non-separable Hilbert space by clause (ii)) from (b) alternatives that remain open candidates (non-Hilbert inner-product topologies, pathological embeddings). The uniqueness-theorem target is retained.
+
+3. **§10 Open Question 3(b).** Previously read *"Can austerity be extended with a fourth clause..."*. The "extended" framing assumed austerity was a free-standing declaration to which clauses could be added. With austerity now derived, the cleaner question is whether the *sole-input commitment of Definition 2.1* (from which austerity is derived) extends to interpretive-framework choice. Rewritten to ask this directly.
+
+4. **Part III `rem:sp-19-inputs`.** Changed "austerity principle declared in the Prelude … as a meta-mathematical commitment of the series" to "austerity principle of the Prelude (Principle 2.2, derived there from Definition 2.1 as the operational content of its sole-input status — i.e. as a derivation rule of the series, not a separate axiom)."
+
+**Net effect:** the Prelude's open-questions list and Part III's Lemma 9.1 remark are now internally consistent with the derived-austerity framing. No open question is closed or opened by this cleanup; the scope of each is sharpened.
+
+Cost: ~15 lines changed across the two files. Zero numerical predictions, zero theorems, zero audit SP-numbered findings affected.
+
 ---
 
 ## Hardening priorities
