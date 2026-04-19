@@ -20,7 +20,7 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 
 ## Prelude
 
-### SP-1. Logic-to-geometry translation (Theorem 3.1) — **Exploratory**
+### SP-1. Logic-to-geometry translation (Theorem 3.1) — **Exploratory** — ✅ **FIXED (acknowledged as open in Prelude §10 OQ 3)**
 `src/cascade-series-prelude.tex:110–115`, discussion at `:102–108`.
 
 The theorem's premise is "unit vectors representing two fully distinguishable states — states sharing no common component under any linear operation on $V$". That premise is already the geometric form of the conclusion. The theorem proves geometric no-common-component $\Rightarrow$ zero inner product rigorously; it does not prove that logical $0\ne 1$ $\Rightarrow$ geometric no-common-component. The paper denies this is an assumption ("not an additional assumption; it is a translation of the same fact into geometric language").
@@ -246,7 +246,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
-| SP-1 | Logic→geometry translation | Prelude | Exploratory (open; see Prelude §10 Open Q 3) |
+| ~~SP-1~~ | ~~Logic→geometry translation~~ | Prelude | ✅ Fixed (acknowledged in Prelude §10 OQ 3) |
 | ~~SP-2~~ | ~~Finite→$\aleph_0$ parameter economy~~ | Prelude | ✅ Fixed (austerity clause (i)) |
 | ~~SP-3~~ | ~~Binary-test countability~~ | Prelude | ✅ Fixed (austerity clause (ii)) |
 | ~~SP-4~~ | ~~$\mathbb{R}^*$-dilation as new symmetry~~ | Prelude | ✅ Fixed (austerity clause (iii)) |
@@ -287,7 +287,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 ## Notes on scope
 
 - This file documents **only** soft spots the papers do not themselves acknowledge. Items already flagged in each paper's "What this paper does not do" or "Open questions" sections (e.g., the observable-dependent $k_Q$ in the Supplement, the variational max-over-min in Part 0, the Gram correction being imported into Part I, the second $G_d$ route in Part II=III, the absolute-mass dimensional inputs in Part IVb, the thermal-spectrum derivation, the Page curve, the tensor $r$ magnitude) are deliberately excluded.
-- Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are classified **Exploratory** because the Prelude is an exploration of the cascade's minimum starting point rather than the load-bearing first link; they would become Foundational only if the Prelude is promoted to load-bearing. SP-2, SP-3, SP-4 are now ✅ closed via the declared austerity axiom (Prelude Definition 2.2); SP-1 remains open as an interpretive (not parsimony) issue and is reflected in the Prelude's new §10 Open Question 3.
+- Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are classified **Exploratory** because the Prelude is an exploration of the cascade's minimum starting point rather than the load-bearing first link; they would become Foundational only if the Prelude is promoted to load-bearing. **All four Prelude soft spots are now ✅ closed in the audit sense:** SP-2, SP-3, SP-4 via the declared austerity axiom (Prelude Definition 2.2); SP-1 via explicit acknowledgement in the Prelude's Status box and §10 Open Question 3. The underlying *interpretive* issue at SP-1 (what fixes the logic-to-geometry framework?) is research-scale and remains an open question inside the Prelude itself; the audit finding (the paper denied it was an assumption) is closed.
 - **Load-bearing items by claim:**
   - SP-10 underwrites the $\rho_\Lambda$ headline closure at $-0.07\%$.
   - SP-19 underwrites the $d=4$ derivation via (C1).
@@ -343,13 +343,13 @@ Each step of the Prelude chain that previously smuggled a parsimony principle no
 - §5 (scale invariance): $\mathbb{R}^*$-dilation is quotiented out "by clause (iii)".
 - §8 (chain summary table): added "Austerity" column marking steps 2 and 3 with the relevant clauses.
 
-**Status of SP-1 — still open.** Theorem 3.1's premise — that "fully distinguishable states share no common component under any linear operation on an inner-product space" — is an *interpretive* move from logical $0\neq 1$ to a geometric realisation. Austerity governs which mathematical structure is admissible *once the interpretive framework is fixed*; it does not fix the interpretive framework itself. The Prelude's new §10 (Open Questions) flags this as Open Question~3, with three sub-questions: (a) is inner-product-space the unique minimal geometric realisation of $0\neq 1$? (b) can austerity be extended with a fourth clause governing interpretive choice? (c) is inner-product interpretation itself a theorem of some more austere framework?
+**SP-1 — Closed (audit sense).** Theorem 3.1's interpretive bridge from logical $0\neq 1$ to geometric "no shared component in an inner-product space" is a *category-different* issue from SP-2/3/4. Austerity governs which mathematical structure is admissible *once the interpretive framework is fixed*; it does not fix the interpretive framework itself. The Prelude's new §10 Open Question 3 treats this explicitly, with three sub-questions describing resolution paths: (a) is inner-product-space the unique minimal geometric realisation of $0\neq 1$? (b) can austerity be extended with a fourth clause governing interpretive choice? (c) is inner-product interpretation itself a theorem of some more austere framework? The Prelude's Status box also names the interpretive bridge explicitly as a "separate structural choice, not a consequence of austerity, also flagged as open". By the audit's own rule — "documents only soft spots the papers do not themselves acknowledge" — SP-1 moves out of the active audit the moment the Prelude acknowledges it. The conceptual issue (what fixes the interpretive framework) is unresolved; the *audit finding* (the paper denied this was an assumption) is closed.
 
 **Phase 2 and Phase 3 added as Prelude Open Questions.** Two further hardening items — formalising the partial order of assumption strength (needed for clause (ii) across all downstream applications), and proving $B^\infty$ is *uniquely* forced by Definition 2.1 + Definition 2.2 up to isomorphism — are now Open Questions 2 and 1 respectively in the Prelude. Resolving Open Question~1 would promote the Prelude from *conditionally forced given austerity* to *unconditionally forced*.
 
 **Does this close SP-1 through SP-4 in the audit sense?**
-- SP-2, SP-3, SP-4: ✅ Yes. Each is now an explicit application of a declared clause. They are no longer *hidden* assumptions; they are *declared* meta-rules. Any remaining critique is against austerity itself (e.g., "why these three clauses?"), not against the Prelude's chain. That is an upgrade from "smuggled assumption" to "declared meta-principle" — a genuine hardening.
-- SP-1: ❌ No. The logic-to-geometry bridge is a separate category of issue (interpretive choice, not parsimony). Austerity does not address it. It now has a fully developed treatment in Prelude Open Question 3.
+- SP-2, SP-3, SP-4: ✅ Yes. Each is now an explicit application of a declared clause of Definition 2.2. They are no longer *hidden* assumptions; they are *declared* meta-rules. Any remaining critique is against austerity itself (e.g., "why these three clauses?"), not against the Prelude's chain. Upgrade from "smuggled assumption" to "declared meta-principle" — genuine hardening.
+- SP-1: ✅ Yes, in the audit sense. The interpretive bridge is not closed *conceptually* (austerity is a parsimony rule, not an interpretation rule), but the Prelude now explicitly names it as a separate structural choice flagged as open in Open Question 3 with three sub-questions. By the audit's own scope rule — "soft spots the papers do not themselves acknowledge" — SP-1 moves out of the active audit once the paper acknowledges it. Resolution of the underlying question is research-scale (OQ 3), but the audit finding is closed.
 
 **Problems with being explicit in the paper.** Three structural costs worth acknowledging:
 
