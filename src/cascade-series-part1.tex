@@ -444,6 +444,38 @@ exception; it is a Tier~2 descent-dependent observable that closes to
 sub-experimental precision through the same first-order correction
 that closes the other descent-dependent members of the series.
 
+\noindent\textbf{Why the sum runs over $d=5..216$.} The range of
+adjacent-pair indices is not imported by convention; it is forced by
+the austerity principle of the Prelude
+(Principle~2.2~\cite{paper0pre}). Austerity permits inclusion of only
+those layers that are in the cascade's descent to the observer, and no
+others:
+\begin{itemize}[nosep]
+\item The cascade descends from the terminus $d_2 = 217$ down to the
+observer's host $d_V = 5$. Every layer in this range is a compactified
+cascade layer whose sphere-area content has participated in the
+descent; their adjacent-pair Gram deficits are physical.
+\item Layers below the observer's host ($d = 1, 2, 3$) are not cascade
+descent layers. The cascade does not pass through them --- they are
+below the observer's position, not reached by the descent from
+infinity. Including them would introduce unjustified inputs
+(Principle~2.2 clause~(i)).
+\item The observer's own layer $d=4$ is the \emph{endpoint} of the
+descent, not a descent step. The pair $(4,5)$ crosses the
+observer-boundary; it is not a step within the cascade.
+\item Above the terminus ($d > 217$), sphere areas collapse below
+$10^{-120}$ (Part~0's ``oblivion'' regime, Section on the regime
+partition); their adjacent-pair deficits contribute negligibly.
+\end{itemize}
+The austerity-compatible range of adjacent-pair indices is therefore
+exactly $\{(5,6), (6,7), \ldots, (216, 217)\}$, summed as
+$d = 5, 6, \ldots, 216$ --- 212 pairs, the range used in the Gram
+correction above. No other range is austerity-compatible: including
+$d < 5$ violates clause~(i) (layers below the descent); excluding
+$d \in [5, 216]$ drops descent layers without justification. The
+$0.02108$ sum value and the $-0.07\%$ residual are therefore
+consequences of a principled range, not artefacts of a tuned one.
+
 Part 0 matches $\log_{10}|\Omega_{19}\Omega_{217}|$ to within $\sim 0.3$
 without any frame correction. Both frame corrections ($9/\pi^2$ from
 the host-frame rescaling and $2/\pi$ from the 3D projection under locked
@@ -792,7 +824,9 @@ is imported from the Part~0 Supplement.
 \textbf{Inputs:} One axiom (orthogonality, via Part 0). One hypothesis.
 One empirical fact ($d = 4$). Zero free parameters.
 
-\begin{thebibliography}{2}
+\begin{thebibliography}{3}
+\bibitem{paper0pre} RTAC, \textit{The Cascade Series --- Prelude:
+Why Nothing Has Structure}, 2026.
 \bibitem{part0} RTAC, \textit{The Cascade Series --- Part 0: Scale
 Variance from Orthogonality}, 2026.
 \bibitem{paper2} RTAC, \textit{The Cascade Series --- Part II:
