@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 25 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **12 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 26 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **11 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -101,11 +101,6 @@ The theorem states *"every physical prediction of the cascade series is a dimens
 
 ## Part IVb
 
-### SP-34. Theorem 2.9's "independent $C$ from $m_\tau$" check is plausibly circular — **Minor**
-`src/cascade-series-part4b.tex:283–285`.
-
-The theorem claims self-consistency of $C = \alpha_s/(2\sqrt{\pi}) = 0.0327$ against "independently, from the $\tau$ mass: $C = 0.0324$. Agreement: 1.0%". The "independent" extraction is not spelt out; reverse-engineering the cascade's τ-mass formula would compute $C$ from the *observed* $m_\tau$ combined with the cascade's $v$, $\Phi(5)$, and $(2\sqrt{\pi})^{-2}$ — which uses the same mass-formula structure the coupling is supposed to validate. Without specification, whether this is a genuine cross-check or a consistency tautology is ambiguous.
-
 ### SP-36. Proposition 4.8 source selection rule — the four observable *types* were defined after observing the seven source assignments; exhaustiveness is trivial on the training set — **Structural**
 `src/cascade-series-part4b.tex:695–715`, verification at `:730–760`.
 
@@ -126,7 +121,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-24 | "No absolute scale" contradicts $M_{\rm Pl,red}$ use | Part II=III | Structural |
-| SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
 
 ## Notes on scope
@@ -167,6 +161,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
 | SP-32 | Mass-formula $n_D+1$ derived | `3472a9e` |
 | SP-33 | Obstruction-rule scope articulated; `rem:obstruction-scope` | `8e4805c` |
+| SP-34 | Theorem 2.9 proof extended to spell out Route 2 (inverting the $\tau$-mass formula for $C$) with explicit formula $C_\tau = 2\sqrt{2\pi}\,m_\tau\,e^{\Phi(5)}/v$; new `rem:sp34-status` documents Routes 1 and 2 share no dynamical input (only the Part-0 primitive $2\sqrt{\pi}$), with $v$ and $\Phi(5)$ both cascade-derived quantities without fermion-mass input | *(this commit)* |
 | SP-35 | Cabibbo $1/2$ remark rewritten as three-step factorisation (raw angle derived, descent $\exp(-p(13))$ derived, geometric-mean off-diagonal asserted); `rem:sp35-status` honestly labels the Fritzsch-like ansatz; new Open Question (`oq:mixing-geometric-mean`) names the cascade-action derivation target; `thm:cabibbo-amplitude` and `rem:ckm-hierarchy` labels added | `60392e2` |
 | SP-37 | $d=14$ hairy-ball attribution corrected + pairing rationalisations tightened | `4a6be53` |
 
