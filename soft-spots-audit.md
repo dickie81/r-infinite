@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 15 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-8, SP-10, SP-19, SP-21, SP-22, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **22 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 16 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-8, SP-10, SP-19, SP-21, SP-22, SP-23, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **21 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -108,11 +108,6 @@ The corollary computes $R^{(n)} = (n-1)(n-4)/a^4$ on the FRW metric with $a(t)=\
 
 ## Part II=III
 
-### SP-23. Theorem 7.1 conflates "boundary dominance of the unit ball" with "black-hole horizon entropy-area law" — **Structural**
-`src/cascade-series-part2-equals-3.tex:286–299`.
-
-The one-line proof: *"Boundary dominance: $\Omega_{d-1}/V_d = d$. Therefore $V_d = \Omega_{d-1}/d$. A horizon of area $A$ is a boundary. Its interior content is $V = A/d$."* The identity is a *unit-ball* fact. For a ball of radius $r$, $V/A = r/d$, not $1/d$ — the factor $1/d$ only recovers for $r=1$. Applying it to a physical black hole horizon (Schwarzschild: $r=2M$) silently sets $r=1$ in Planck units and equates "cascade content behind horizon" with the unit-ball interior volume. The match to Bekenstein–Hawking $S=A/4$ works *because* entropy is dimensionless in Planck-area units, but the identification "content = $V$ of unit ball at horizon dimension" is a modelling choice, not forced by boundary dominance alone.
-
 ### SP-24. Theorem 5.1 "No absolute scale" contradicts Part IVb's use of $M_{\rm Pl,red}$ as dimensional input — **Structural**
 `src/cascade-series-part2-equals-3.tex:227–232`, cf Part IVb's absolute masses `src/cascade-series-part4b.tex:973`.
 
@@ -179,7 +174,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-18 | Schrödinger derivation absorbs imaginary part | Part II | Minor |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
-| SP-23 | BH $S=A/d$ conflates unit-ball with physical horizon | Part II=III | Structural |
 | SP-24 | "No absolute scale" contradicts $M_{\rm Pl,red}$ use | Part II=III | Structural |
 | SP-25 | "Different states, different metrics" not instantiated | Part II=III | Structural |
 | SP-26 | In-domain uniqueness ≠ cross-domain consistency | Part II=III | Structural |
@@ -192,16 +186,15 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 ## Notes on scope
 
 - This file documents **only** soft spots the papers do not themselves acknowledge. Items already flagged in each paper's "What this paper does not do" or "Open questions" sections (e.g., the observable-dependent $k_Q$ in the Supplement, the variational max-over-min in Part 0, the second $G_d$ route in Part II=III, the absolute-mass dimensional inputs in Part IVb, the thermal-spectrum derivation, the Page curve, the tensor $r$ magnitude) are deliberately excluded.
-- **Load-bearing items still open:**
-  - SP-23 underwrites $S=A/4$ being equal to $V_d/d$ for *physical* horizons rather than just unit spheres.
+- **Load-bearing items still open:** none. SP-23 and SP-31 were the two load-bearing items; both now labelled and tracked as Tier-D research problems in their respective papers' own Open-Questions sections (Part~II=III OQ~1; Part~IVb OQ~1).
 - **Quantitatively testable items (Tier C):**
   - SP-17 — compute CHSH on the two alternative bipartitions of $\mathbb{C}^4$ and verify whether $2\sqrt{2}$ is robust.
   - SP-36 — blind-test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the predictions close within experimental precision.
-- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-23, SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
+- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
 
 ## Closed items (reference)
 
-15 soft spots closed in hardening commits. Commit hashes for traceability:
+16 soft spots closed in hardening commits. Commit hashes for traceability:
 
 | ID | Closure summary | Commit |
 |---|---|---|
@@ -214,6 +207,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
+| SP-23 | Theorem 7.1 proof expanded to 3 steps (unit-ball BD derived, area-is-content derived, scale invariance asserted); `rem:sp23-status` + Open Question (content-area-scale-invariance derivation target); stale Paper~I Thm~4.4 ref corrected to Paper~0 Thm~3.1 | *(this commit)* |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |
 | SP-29 | SU(3) chirality factual fix + CP-phase paragraph | `a4c42f2` |
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
@@ -244,10 +238,9 @@ Each of these either hardens the rule significantly or exposes a defect early. A
 
 | ID | What's needed | Why it matters |
 |---|---|---|
-| SP-23 | Derive S = A/d for physical horizons (not just unit balls) from cascade boundary dominance, with explicit units and scaling. | Load-bears on BH thermodynamics |
 | SP-5, SP-6, SP-15, SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
 
-Note: SP-31 is closed by acknowledgement (Remark~`rem:sp31-status` labels the "exactly one factor of $\sqrt{\pi}$" step as asserted, and Part IVb Open Question~\ref{oq:fermion-cascade-action} names the cascade-fermion-action derivation target). Resolving the underlying research problem — writing the discrete Dirac operator on the cascade lattice whose Green's function on $S^{2n}$ is $R(d)/\chi$ — remains a genuine Tier D task, now tracked in Part IVb's own Open Questions rather than in this audit.
+Note: SP-23 and SP-31 are closed by acknowledgement. SP-23: Remark `rem:sp23-status` in Part II=III factorises Theorem 7.1's proof into three ingredients (unit-ball boundary dominance derived; content-equals-area derived; linear content-area scale invariance asserted), with empirical confirmation at $d=3$ (BTZ) and $d=4$ (Schwarzschild), and Part II=III Open Question 1 (`oq:content-area-scale-invariance`) names the cascade-action derivation target. SP-31: Remark `rem:sp31-status` in Part IVb labels the "exactly one factor of $\sqrt{\pi}$" step as asserted, and Part IVb Open Question 1 (`oq:fermion-cascade-action`) names the cascade-fermion-action derivation target. Resolving the underlying research problems — a cascade action on the lattice whose boundary-layer entropy is $A/d$ independent of total area, and a discrete Dirac operator on the cascade lattice whose Green's function on $S^{2n}$ is $R(d)/\chi$ — remains a genuine Tier D workload, now tracked in the papers' own Open Questions rather than in this audit.
 
 ### What hardening does *not* require
 

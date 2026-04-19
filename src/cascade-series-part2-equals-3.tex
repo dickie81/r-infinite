@@ -293,20 +293,79 @@ At $d = 4$: $S = A/4$.
 \end{theorem}
 
 \begin{proof}
-Boundary dominance (Paper~I, Theorem~4.4): $\Omega_{d-1}/V_d = d$.
-Therefore $V_d = \Omega_{d-1}/d$. A horizon of area $A$ is a boundary.
-Its interior content is $V = A/d$. At $d = 4$: $V = A/4$.
+Three steps.
+
+\emph{Step 1 (derived, unit ball).} Boundary dominance
+(Paper~0, Theorem~3.1~\cite{paper0}, \texttt{thm:boundary}):
+$\Omega_{d-1}/V_d = d$, hence $V_d = \Omega_{d-1}/d$.
+
+\emph{Step 2 (derived, cascade-content primitive).} By Paper~0,
+Corollary~3.2 (\texttt{cor:primary}), sphere area is the unique independent
+cascade quantity: content~$\equiv$~area, and every volume is a derived
+quantity. The unit-ball identity therefore reads
+``content inside a unit sphere of area $\Omega_{d-1}$ is $\Omega_{d-1}/d$.''
+
+\emph{Step 3 (asserted, scale invariance of the content--area map).}
+For a cascade horizon of area $A$ in cascade units, we \emph{assert} the
+map from area to hidden content is linear in $A$ with slope $1/d$, so that
+$S = A/d$ for any $A$, not only $A = \Omega_{d-1}$. Taken as a
+geometric radius-Euclidean identity this step does not follow from Step~1
+alone: for a ball of physical radius $r$ at layer $d$, $V(r)/A(r) = r/d$,
+so $1/d$ is recovered only at $r=1$. Here we are instead claiming that the
+cascade counts content by area-units (each unit of cascade area contributing
+$1/d$ units of hidden content) and that this counting is additive and
+scale-free. See Remark~\ref{rem:sp23-status} for the derivation status of
+this step and §\ref{sec:open-questions-part2eq3},
+Question~\ref{oq:content-area-scale-invariance}, for the cascade-native
+derivation target. The empirical confirmation at $d=3$ (BTZ,
+Theorem~\ref{thm:btz}) and at $d=4$ (Schwarzschild, Theorem~\ref{thm:hawking})
+closes the formula on observation; the derivation gap is mechanistic, not
+numerical.
+
+At $d = 4$: $S = A/4$.
 \end{proof}
 
-One theorem. One line. No semiclassical gravity, no QFT on curved spacetime,
+One theorem. Three steps. No semiclassical gravity, no QFT on curved spacetime,
 no thermal radiation, no microstate counting.
+
+\begin{remark}[Derivation status of $S = A/d$]\label{rem:sp23-status}
+The entropy formula factorises into three ingredients with three different
+derivation statuses:
+\begin{enumerate}
+\item \emph{Derived.} The unit-ball boundary-dominance identity
+$V_d = \Omega_{d-1}/d$ (Paper~0, Theorem~3.1~\cite{paper0}). A Gamma-function
+identity; no assumption.
+\item \emph{Derived as a cascade primitive.} Content~$\equiv$~area and
+volumes are derived: Paper~0, Corollary~3.2 (\texttt{cor:primary}).
+No assumption beyond the cascade's definition of independent quantities.
+\item \emph{Asserted, pending a cascade-action derivation.} That the
+content--area map is linear in $A$ with slope $1/d$ for \emph{any} cascade
+area, not only for $A = \Omega_{d-1}$. Radius-Euclidean geometry alone gives
+$V(r)/A(r) = r/d$ for a ball of physical radius $r$, so the cascade's
+scale-free identity $S/A = 1/d$ requires an additional counting principle:
+cascade content is accumulated additively in units of $V_d/\Omega_{d-1}$ per
+unit area. This principle is the operational content of
+Corollary~3.2's ``sphere area is the unique independent cascade quantity''
+taken as a quantitative identification rather than a qualitative one.
+\end{enumerate}
+Empirical support for the asserted Step~3 is strong: the same formula
+$S = A/d$ reproduces Bekenstein--Hawking at $d=4$ (Theorem~\ref{thm:hawking})
+and BTZ thermodynamics at $d=3$ (Theorem~\ref{thm:btz}, with
+$G_3 = 3/4$ from Theorem~\ref{thm:Gd}, verified numerically in
+\texttt{tools/btz\_cross\_check.py}) without parameter fitting. The
+residual is mechanistic: the numerical relation is correct at two
+independent layers; what is missing is a cascade-action derivation that
+forces the linear content--area map without invoking the additivity
+principle as input.
+\end{remark}
 
 \subsection{Content is geometry}
 
-Corollary~3.2 of Paper~I: sphere area is the only independent cascade
-quantity. Content IS geometry. One unit of sphere area is one unit of cascade
-content. A horizon of area $A$ hides $A/4$ units of geometric content. The
-question ``how many microstates?'' is downstream---the geometry is primary.
+Corollary~3.2 of Paper~0 (\texttt{cor:primary}): sphere area is the only
+independent cascade quantity. Content IS geometry. One unit of sphere area
+is one unit of cascade content. A horizon of area $A$ hides $A/4$ units of
+geometric content. The question ``how many microstates?'' is
+downstream---the geometry is primary.
 
 \subsection{Why Hawking got $A/4$ from a different calculation}
 
@@ -598,9 +657,27 @@ boundary dominance; what is open is a \emph{corroborating} second route.
 \item Derive the Page curve.
 \end{itemize}
 
-\section{Open Questions}
+\section{Open Questions}\label{sec:open-questions-part2eq3}
 
 \begin{enumerate}
+\item\label{oq:content-area-scale-invariance} \textbf{Derive the
+scale invariance of the content--area map from a cascade action.}
+Theorem~\ref{thm:bh} derives $V_d = \Omega_{d-1}/d$ on the unit ball
+from boundary dominance, and identifies area with content via Paper~0
+Corollary~3.2. The remaining step---that $S = A/d$ holds for any cascade
+area $A$, not only the unit-sphere area $A = \Omega_{d-1}$---is asserted
+via an additivity/counting principle (Remark~\ref{rem:sp23-status},
+Step~3), with empirical support from Schwarzschild at $d=4$
+(Theorem~\ref{thm:hawking}) and BTZ at $d=3$ (Theorem~\ref{thm:btz}).
+What is needed: a derivation that forces the linear content--area map
+from a cascade-native structural principle---e.g., a cascade action on
+the lattice whose equilibrium content density per unit boundary area is
+$V_d/\Omega_{d-1} = 1/d$ independent of the total area, or a
+cascade-internal theorem that $S = A/d$ is the unique entropy
+assignment consistent with boundary dominance plus the cascade's
+content-equals-area primitive. Load-bearing on Bekenstein--Hawking,
+Hawking temperature (Theorem~\ref{thm:hawking}), and the BTZ
+cross-check (Theorem~\ref{thm:btz}).
 \item \textbf{Hawking radiation spectrum.} Theorem~\ref{thm:hawking} derives
 the temperature $T = 1/(8\pi M)$ from boundary dominance and Birkhoff's
 theorem, with no semiclassical input. The thermal \emph{spectrum}
@@ -639,6 +716,9 @@ follows from the cascade is open.
 \end{enumerate}
 
 \begin{thebibliography}{9}
+
+\bibitem{paper0} RTAC, \textit{The Cascade Series~--- Part~0: The
+Gamma-Function Structure of the Cascade}, March 2026.
 
 \bibitem{paper1} RTAC, \textit{The Cascade Series~--- Part~I: Scale Variance
 from Orthogonality}, March 2026.
