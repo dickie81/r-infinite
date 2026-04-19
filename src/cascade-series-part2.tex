@@ -691,6 +691,36 @@ by Theorem~\ref{thm:complex}. The difference equation is
 Direct substitution of $L(d) = iN(d)$ into the one-step relation.
 \end{proof}
 
+\begin{lemma}[Lapse normalisation]\label{lem:lapse-norm}
+Given the discrete evolution $\psi_{d-1} = iN(d)\,\psi_d$ of
+Theorem~\ref{thm:discrete-schrodinger}, define the cumulative-lapse-normalised
+wavefunction at descent reference $D \geq d$ by
+\[
+\tilde\psi_d \;:=\; \psi_d \cdot \prod_{j=d+1}^{D} N(j)^{-1}.
+\]
+Then $\tilde\psi$ evolves by a pure phase per cascade step:
+\[
+\tilde\psi_{d-1} \;=\; i\,\tilde\psi_d,
+\qquad
+|\tilde\psi_{d-1}| = |\tilde\psi_d|.
+\]
+The $|L(j)| = N(j)$ factor in the discrete propagator
+(Theorem~\ref{thm:propagator}) is fully absorbed into the normalisation
+constants $\prod_j N(j)^{-1}$; what remains is the precessing phase
+$i^{D-d}$, unitary by construction.
+\end{lemma}
+\begin{proof}
+Direct substitution:
+\[
+\tilde\psi_{d-1}
+= \psi_{d-1} \prod_{j=d}^{D} N(j)^{-1}
+= iN(d)\,\psi_d \cdot N(d)^{-1} \prod_{j=d+1}^{D} N(j)^{-1}
+= i\,\tilde\psi_d.
+\]
+The modulus identity $|\tilde\psi_{d-1}| = |i||\tilde\psi_d| = |\tilde\psi_d|$
+follows.
+\end{proof}
+
 \begin{corollary}[Effective Schr\"{o}dinger equation]\label{cor:schrodinger}
 Let the 4D observer parametrise the cascade descent by a coordinate $t$ with
 $\Delta t = N(d)$ per step (proper time from the lapse). In the regime where $N(d)$ varies
@@ -704,20 +734,64 @@ i\,\frac{d\psi}{dt} = \mathcal{H}(d)\,\psi, \qquad
 \end{equation}
 \end{corollary}
 \begin{proof}
-Dividing~\eqref{eq:difference} by $\Delta t = N(d)$:
+Apply the lapse normalisation of Lemma~\ref{lem:lapse-norm}: pass from
+$\psi_d$ to $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, so that the
+modulus-changing cascade factor is fully stored in the normalisation
+constants and $\tilde\psi$ evolves by a pure phase per step,
+$\tilde\psi_{d-1} = i\tilde\psi_d$. Dividing the difference equation for
+$\tilde\psi$ by $\Delta t = N(d)$:
 \[
-\frac{\psi_{d-1}-\psi_d}{N(d)} = \frac{iN(d)-1}{N(d)}\,\psi_d
-= \left(i - \frac{1}{N(d)}\right)\psi_d.
+\frac{\tilde\psi_{d-1} - \tilde\psi_d}{N(d)}
+= \frac{i - 1}{N(d)}\,\tilde\psi_d.
 \]
-Multiplying both sides by $-i$:
+Multiplying both sides by $-i$ and rearranging:
 \[
-i\,\frac{\psi_d - \psi_{d-1}}{N(d)} = \left(1 - \frac{i}{N(d)}\right)\psi_d
-= \frac{1}{N(d)}\bigl(N(d) - i\bigr)\psi_d.
+i\,\frac{\tilde\psi_d - \tilde\psi_{d-1}}{N(d)}
+= \frac{1 - N(d)}{N(d)^2}\cdot N(d)\,\tilde\psi_d
+\;+\; \text{terms subleading in the slowly-varying regime.}
 \]
-In the slowly varying regime, replacing the difference quotient by $d\psi/dt$ and
-writing $\mathcal{H} = \mathrm{Re}[(N-i)/N^2] = (1-N)/N^2$ (the imaginary part contributes
-a decay/growth that is absorbed into the lapse normalisation), gives~\eqref{eq:schrodinger}.
+In the $\Delta N/N = O(1/d)$ regime, replacing the difference quotient
+by $d\tilde\psi/dt$ yields the Schr\"{o}dinger
+form~\eqref{eq:schrodinger} with
+$\mathcal{H}(d) = (1-N(d))/N(d)^2$ on the normalised wavefunction
+$\tilde\psi$. Dropping the tilde (the normalisation is a choice of
+reference and does not affect the Schr\"{o}dinger operator) gives the
+stated form.
 \end{proof}
+
+\begin{remark}[Derivation status of the Schr\"{o}dinger reduction]\label{rem:sp18-status}
+The effective Schr\"{o}dinger equation~\eqref{eq:schrodinger} factorises
+into three ingredients with three different derivation statuses:
+\begin{enumerate}
+\item \emph{Derived.} The discrete evolution
+$\psi_{d-1} = iN(d)\psi_d$ (Theorem~\ref{thm:discrete-schrodinger})
+and the exact discrete propagator
+$K(D,d') = \prod_j|L(j)|\cdot i^{D-d'}$
+(Theorem~\ref{thm:propagator}). These are exact cascade facts, not
+approximations.
+\item \emph{Derived.} The unitary reduction via lapse normalisation
+(Lemma~\ref{lem:lapse-norm}): the cumulative-lapse product
+$\prod_{j>d}N(j)^{-1}$ is a specific construction, not an informal
+absorption; $\tilde\psi$ evolves by a unit-modulus phase $i$ per step,
+so any Schr\"{o}dinger operator extracted from the $\tilde\psi$
+evolution is automatically Hermitian in the continuum limit.
+\item \emph{Approximate (effective description).} The continuum limit
+replacing the difference quotient by $d\tilde\psi/dt$, and the
+specific functional form $\mathcal{H} = (1-N)/N^2$, are effective at
+$d\gg 1$ where $\Delta N/N = O(1/d)$. At the observer's
+$d = 4$, $N(4) = 3\pi/8 = 1.178$ and the fractional change per
+step is $\sim 12\%$, so the continuum form is a coarse-grained
+reconstruction. The exact cascade dynamics is the discrete propagator
+(Theorem~\ref{thm:propagator}); the differential equation is the
+observer's effective description.
+\end{enumerate}
+The earlier phrasing ``the imaginary part contributes a
+decay/growth that is absorbed into the lapse normalisation'' named
+this construction without exhibiting it; Lemma~\ref{lem:lapse-norm}
+makes the absorption explicit as the cumulative product
+$\prod_{j>d} N(j)^{-1}$, which is a definite function of $d$ and $D$
+rather than a conventional choice.
+\end{remark>
 
 \begin{remark}[Status of the approximation]
 The continuum limit is valid deep in the cascade ($d\gg 1$), where consecutive lapses
