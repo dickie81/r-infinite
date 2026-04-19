@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 16 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-8, SP-10, SP-19, SP-21, SP-22, SP-23, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **21 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 18 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-19, SP-21, SP-22, SP-23, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **19 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -21,16 +21,6 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 ---
 
 ## Part 0
-
-### SP-5. Theorem 6.2 — "four information classes" enumeration not shown to be exhaustive — **Structural**
-`src/cascade-series-part0.tex:240–281`.
-
-The uniqueness-of-$c_1$ proof checks four candidate classes. Other natural scalars derivable from the zero — $R(d_0)$, $\Omega_{d_0-1}/\Omega_{d_0+1}$, the Stirling parameter $2\pi e^{2\sqrt{\pi}}$ that appears in Theorem 9.1, or $2\sqrt{\pi}$ (itself a downstream primitive in Part IVb) — are not considered.
-
-### SP-6. Theorem 7.1 ("Tower completeness") asserts exhaustiveness but only rules out $d=6$ — **Structural**
-`src/cascade-series-part0.tex:417–435`.
-
-The claim "no other cascade quantity selects a dimension" is stated without enumerating candidates. Inflection points of $\Omega_d$, zeros of higher derivatives of $p$, and **the self-dual radius $R(d)=1/\sqrt{2}$ which Part IVa Theorem 2.1 identifies at $d=12$ as structurally significant** are not considered. Part IVa's downstream use of a self-dual crossing shows the Gamma-function framework already contains a candidate fifth dimension that Part 0 misses.
 
 ### SP-7. Theorem 8.4 — "scale = ratio, content = product" is rationalised, not forced — **Structural**
 `src/cascade-series-part0.tex:574–631`.
@@ -160,8 +150,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
-| SP-5 | $c_1$ uniqueness four-class exhaustiveness | Part 0 | Structural |
-| SP-6 | Tower completeness misses self-dual radius | Part 0 | Structural |
 | SP-7 | Scale=ratio, content=product rule | Part 0 | Structural |
 | SP-9 | $\Omega_m^{\rm Bott}$ path on ratio-of-sums | Part 0 Supp | Structural |
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
@@ -190,11 +178,11 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 - **Quantitatively testable items (Tier C):**
   - SP-17 — compute CHSH on the two alternative bipartitions of $\mathbb{C}^4$ and verify whether $2\sqrt{2}$ is robust.
   - SP-36 — blind-test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the predictions close within experimental precision.
-- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
+- **Conceptually tightenable items:** SP-15, SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
 
 ## Closed items (reference)
 
-16 soft spots closed in hardening commits. Commit hashes for traceability:
+18 soft spots closed in hardening commits. Commit hashes for traceability:
 
 | ID | Closure summary | Commit |
 |---|---|---|
@@ -202,6 +190,8 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-2 | Finite→$\aleph_0$: austerity Principle 2.2 clause (i) | `5843dcf`, `b587aac` |
 | SP-3 | Binary-test countability: austerity clause (ii) | `5843dcf`, `b587aac` |
 | SP-4 | $\mathbb{R}^*$-dilation: austerity clause (iii) + uniqueness argument | `5843dcf`, `b587aac`, `85476dc` |
+| SP-5 | Uniqueness-of-$c_1$ proof: exhaustiveness lemma pre-filters candidates by primitivity; `rem:c1-alternatives` shows $R(d_0)$, $\Omega_{d_0-1}/\Omega_{d_0+1}$, Stirling $2\pi e^{2\sqrt{\pi}}$, and $2\sqrt{\pi}$ are Class-4 derived functions failing primitivity | *(this commit)* |
+| SP-6 | Tower-completeness proof: explicit 4-class mechanism enumeration (extrema, monotone zeros, primitive-value crossings, higher-order invariants); `rem:tower-alternatives` rules out self-dual radius $1/\sqrt{2}$ (no integer solution + non-cascade import), $p^{(n)}$ zeros (no zeros), $\Omega_d$ inflections (derived from $d_0$) | *(this commit)* |
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
@@ -238,7 +228,7 @@ Each of these either hardens the rule significantly or exposes a defect early. A
 
 | ID | What's needed | Why it matters |
 |---|---|---|
-| SP-5, SP-6, SP-15, SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
+| SP-15, SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
 
 Note: SP-23 and SP-31 are closed by acknowledgement. SP-23: Remark `rem:sp23-status` in Part II=III factorises Theorem 7.1's proof into three ingredients (unit-ball boundary dominance derived; content-equals-area derived; linear content-area scale invariance asserted), with empirical confirmation at $d=3$ (BTZ) and $d=4$ (Schwarzschild), and Part II=III Open Question 1 (`oq:content-area-scale-invariance`) names the cascade-action derivation target. SP-31: Remark `rem:sp31-status` in Part IVb labels the "exactly one factor of $\sqrt{\pi}$" step as asserted, and Part IVb Open Question 1 (`oq:fermion-cascade-action`) names the cascade-fermion-action derivation target. Resolving the underlying research problems — a cascade action on the lattice whose boundary-layer entropy is $A/d$ independent of total area, and a discrete Dirac operator on the cascade lattice whose Green's function on $S^{2n}$ is $R(d)/\chi$ — remains a genuine Tier D workload, now tracked in the papers' own Open Questions rather than in this audit.
 
