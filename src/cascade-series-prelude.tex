@@ -9,6 +9,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{principle}[theorem]{Principle}
 \newtheorem{remark}[theorem]{Remark}
 
 \title{The Cascade Series --- Prelude\\[0.5em]
@@ -20,12 +21,14 @@
 \maketitle
 
 \begin{center}
-\fbox{\parbox{0.9\textwidth}{\textbf{Status.} Exploratory. Given
-$0\neq 1$ (Definition~\ref{def:axiom}) and the austerity principle
-(Definition~\ref{def:austerity}) as two declared pre-mathematical
-inputs, this prelude argues that the chain to $B^\infty$ is defensibly
-minimal at every step; each step explicitly cites the austerity clause
-it invokes. What remains open is whether austerity \emph{uniquely}
+\fbox{\parbox{0.9\textwidth}{\textbf{Status.} Exploratory. The cascade
+series has one pre-mathematical input, Definition~\ref{def:axiom}
+($0\neq 1$). Principle~\ref{princ:austerity} (austerity) is \emph{not}
+a second input: it is the operational content of
+Definition~\ref{def:axiom}'s status as the sole input, derived in
+Section~\ref{sec:what-nothing-means} below. Each step of the chain
+from $0\neq 1$ to $B^\infty$ is annotated with the austerity clause it
+invokes. What remains open is whether austerity \emph{uniquely}
 determines $B^\infty$, or merely renders it the most austere starting
 object among a larger compatible set (Section~\ref{sec:open-questions}).
 The interpretive bridge from logical distinction ($0\neq 1$) to
@@ -56,7 +59,7 @@ derivation of what that fact implies about the geometry of the world.
 \end{abstract}
 
 % ============================================================
-\section{The Problem with Starting Points}
+\section{The Problem with Starting Points}\label{sec:starting-points}
 % ============================================================
 
 Every theory of everything proposed to date begins with something:
@@ -81,7 +84,7 @@ starting point.
 The alternative is to begin with nothing.
 
 % ============================================================
-\section{What ``Nothing'' Means}
+\section{What ``Nothing'' Means}\label{sec:what-nothing-means}
 % ============================================================
 
 ``Nothing'' in physics is usually taken to mean empty space, or the
@@ -110,10 +113,12 @@ from $1$ cannot state any proposition, cannot derive any consequence,
 cannot describe any world. Definition~\ref{def:axiom} is the cost of
 admission for coherent thought.
 
-\begin{definition}[Austerity]\label{def:austerity}
-When Definition~\ref{def:axiom} ($0\neq 1$) is compatible with multiple
-mathematical structures, the cascade's starting object is the structure
-that satisfies:
+\begin{principle}[Austerity, derived from Definition~\ref{def:axiom}]\label{princ:austerity}
+Under the commitment that Definition~\ref{def:axiom} ($0\neq 1$) is the
+sole pre-mathematical input of the cascade series
+(Section~\ref{sec:starting-points}), any construction introducing content
+beyond what Definition~\ref{def:axiom} forces is inadmissible. This
+excludes:
 \begin{itemize}
 \item[(i)] \emph{Parameter economy.} No free parameter is introduced ---
 no unexplained numerical, categorical, or symmetry-group input.
@@ -124,16 +129,43 @@ weaker than $B$ if $B\Rightarrow A$ but not conversely.
 \item[(iii)] \emph{Unobservable quotient.} Any continuous symmetry whose
 action is unobservable from within the structure is quotiented out.
 \end{itemize}
-Austerity is a methodological principle, not a mathematical theorem. It is
-the second pre-mathematical input of the cascade series, and should be
-read as a declared meta-rule about which mathematical structures are
-admissible starting objects, not as an axiom within any one of them. Each
-step of the prelude chain that previously relied on an implicit parsimony
-choice is now annotated with the clause of Definition~\ref{def:austerity}
-it invokes. Whether austerity \emph{uniquely} determines $B^\infty$ ---
-as opposed to rendering it defensibly minimal among a larger set of
-austerity-compatible structures --- remains open (Section~\ref{sec:open-questions}).
-\end{definition}
+\end{principle}
+
+\begin{proof}[Derivation from Definition~\ref{def:axiom}]
+Each clause identifies a distinct way a construction can violate the
+sole-input commitment of Definition~\ref{def:axiom}.
+
+\emph{Clause (i).} A free parameter is a second explicit input alongside
+Definition~\ref{def:axiom}. Admitting it contradicts the sole-input
+status directly.
+
+\emph{Clause (ii).} If a construction uses assumption $A$ where the
+weaker $B$ suffices (with $A\Rightarrow B$ strictly), the residue
+$A\setminus B$ is additional content not forced by
+Definition~\ref{def:axiom}. That residue is a second input --- the same
+class of violation as clause~(i).
+
+\emph{Clause (iii).} A continuous symmetry whose action is unobservable
+from within the structure carries structural content with no derivation
+consequence. Retaining it imports content not forced by
+Definition~\ref{def:axiom} --- the same class of violation.
+
+All three clauses track a single condition: admitting content not forced
+by the sole input. Austerity is therefore the operational content of
+Definition~\ref{def:axiom}'s status as sole pre-mathematical input, not
+a separate axiom.
+\end{proof}
+
+\noindent\textbf{Status.} Principle~\ref{princ:austerity} is a
+\emph{derivation rule} for cascading from $0\neq 1$, analogous to
+modus ponens being the inference rule of propositional logic: it is
+built into what ``sole pre-mathematical input'' means, rather than a
+further axiom within the mathematical content. Each step of the prelude
+chain that previously relied on an implicit parsimony choice is now
+annotated with the clause of Principle~\ref{princ:austerity} it invokes.
+Whether austerity \emph{uniquely} determines $B^\infty$ --- as opposed to
+rendering it defensibly minimal among a larger austerity-compatible set ---
+remains open (Section~\ref{sec:open-questions}).
 
 The question is: what does $0\neq 1$ \emph{imply}?
 
@@ -202,11 +234,11 @@ has dimension greater than the number already constructed. So for any finite
 $n$, an $(n{+}1)$-th orthogonal unit vector can be constructed.
 
 \emph{Dimension is either $0$ or $\infty$ (clause~(i) of
-Definition~\ref{def:austerity}).} It remains to show that the iteration
+Principle~\ref{princ:austerity}).} It remains to show that the iteration
 must terminate at countable infinity rather than at any finite $n$.
 Suppose the iteration stops at some finite $n<\infty$. Then $n$ itself is
 a structural input of the theory --- an unexplained integer specifying
-where distinction ceases. By Definition~\ref{def:austerity} clause~(i)
+where distinction ceases. By Principle~\ref{princ:austerity} clause~(i)
 (parameter economy), any such integer is rejected as a free parameter.
 The only stopping points compatible with clause~(i) are $n=0$ (which
 contradicts Definition~\ref{def:axiom}, requiring at least two distinct
@@ -214,14 +246,14 @@ states) and $n=\infty$. The iteration therefore extends to countable
 infinity.
 
 \emph{Countable rather than uncountable (clause~(ii) of
-Definition~\ref{def:austerity}).} Each distinction is a single bit: a
+Principle~\ref{princ:austerity}).} Each distinction is a single bit: a
 binary test ``is the state $e_i$ or not?'' resolvable in finitely many
 steps. Countably many binary tests generate a countable orthonormal
 family, whose closed linear span is a separable Hilbert space.
 Uncountable dimension would require distinctions not resolvable by any
 countable sequence of binary tests --- strictly stronger than
 Definition~\ref{def:axiom} --- and is therefore excluded by
-Definition~\ref{def:austerity} clause~(ii) (minimal strength). The
+Principle~\ref{princ:austerity} clause~(ii) (minimal strength). The
 completion of the pre-Hilbert space generated by the orthonormal
 sequence $\{e_i\}_{i\in\mathbb{N}}$ is a separable infinite-dimensional
 Hilbert space $\mathcal{H}$.
@@ -236,7 +268,7 @@ measure absolute magnitude. There is no metre stick, no Planck mass, no
 energy scale. The only quantities that can be defined without an external
 reference are \emph{ratios}. Equivalently: the dilation $x\mapsto\lambda x$
 for $\lambda\in\mathbb{R}^{*}$ is unobservable from within the structure.
-By Definition~\ref{def:austerity} clause~(iii) (unobservable quotient),
+By Principle~\ref{princ:austerity} clause~(iii) (unobservable quotient),
 the starting object is taken invariant under this dilation. The cascade
 accordingly works with the projective quotient, not with representatives
 carrying a distinguished length scale.
@@ -412,15 +444,17 @@ Steps 0--4 are established in this prelude. Step~5 is proved in
 Part~0 (Theorem~3.1). Steps 6--7 are proved in Parts~0 and~III.
 Steps 8--10 are the content of the series.
 
-No step introduces a free parameter beyond the two declared
-pre-mathematical inputs: Definition~\ref{def:axiom} ($0\neq 1$) and
-Definition~\ref{def:austerity} (austerity). Steps~2 and~3 invoke
-austerity clauses as noted in the ``Austerity'' column; the remaining
-chain steps are classical theorems about the Gamma function or
-established uniqueness results in known mathematics. Step~1's
-interpretive bridge (logical distinction as geometric orthogonality in
-an inner-product space) is a separate structural choice, flagged as
-open in Section~\ref{sec:open-questions}.
+No step introduces a free parameter beyond the single declared
+pre-mathematical input Definition~\ref{def:axiom} ($0\neq 1$).
+Principle~\ref{princ:austerity} (austerity) is not a second input: it
+is the operational content of Definition~\ref{def:axiom}'s status as
+sole input, derived in Section~\ref{sec:what-nothing-means} above.
+Steps~2 and~3 invoke austerity clauses as noted in the ``Austerity''
+column; the remaining chain steps are classical theorems about the
+Gamma function or established uniqueness results in known mathematics.
+Step~1's interpretive bridge (logical distinction as geometric
+orthogonality in an inner-product space) is a separate structural
+choice, flagged as open in Section~\ref{sec:open-questions}.
 
 % ============================================================
 \section{What This Paper Does Not Do}
@@ -479,16 +513,18 @@ nothing, taken seriously, has structure. The question ``why is there
 \label{sec:open-questions}
 % ============================================================
 
-The declaration of Definition~\ref{def:austerity} converts three
-previously-implicit parsimony choices (finite-vs-$\aleph_0$ dimension;
+Principle~\ref{princ:austerity} derives three previously-implicit
+parsimony choices (finite-vs-$\aleph_0$ dimension;
 countable-vs-uncountable independence; $\mathbb{R}^*$-dilation quotient)
-into three clauses of a single meta-principle. The prelude chain now
-invokes these clauses explicitly. What remains open:
+as clauses of a single derivation rule from Definition~\ref{def:axiom}.
+The prelude chain now invokes these clauses explicitly, and austerity
+is derived from the sole-input status of $0\neq 1$ rather than declared
+as a second input. What remains open:
 
 \textbf{(1) Uniqueness of $B^\infty$ under austerity.} Is
 $B^\infty = \mathbb{P}\mathcal{H}$ (separable infinite-dimensional real)
 the \emph{unique} mathematical structure satisfying
-Definition~\ref{def:axiom} and Definition~\ref{def:austerity} simultaneously,
+Definition~\ref{def:axiom} and Principle~\ref{princ:austerity} simultaneously,
 or merely one of several austerity-compatible starting objects? Candidate
 alternatives worth ruling out: the projective quotient of a separable
 complex Hilbert space (would require motivating $\mathbb{C}^*$ quotient
@@ -496,13 +532,13 @@ at the Prelude stage, which appears to violate clause~(ii)); the
 projective quotient of a quaternionic Hilbert space; non-Hilbert
 inner-product topologies compatible with clause~(i)–(iii).
 A uniqueness theorem of the form ``the unique structure satisfying
-Def.~\ref{def:axiom} and Def.~\ref{def:austerity} up to isomorphism is
+Def.~\ref{def:axiom} and Principle~\ref{princ:austerity} up to isomorphism is
 $B^\infty$'' would close this question and promote the prelude from
 \emph{defensibly minimal} to \emph{forced}. In its absence, the prelude's
 conclusion is conditional.
 
 \textbf{(2) Formal measure of assumption strength (clause (ii)).}
-Clause~(ii) of Definition~\ref{def:austerity} uses logical implication
+Clause~(ii) of Principle~\ref{princ:austerity} uses logical implication
 to order assumptions by strength. For the specific question of
 countable-vs-uncountable distinction the ordering is clean
 (uncountable distinction $\Rightarrow$ countable distinction, but not
@@ -533,7 +569,7 @@ realisation admitting the NOT involution and its projection $P_{e_0}$
 simultaneously)?
 \end{itemize}
 Each sub-question is open. Until one is resolved, the chain rests on
-Definition~\ref{def:axiom}, Definition~\ref{def:austerity}, and the
+Definition~\ref{def:axiom}, Principle~\ref{princ:austerity}, and the
 interpretive choice of inner-product geometry.
 
 \textbf{(4) The hard problem.} The cascade derives the

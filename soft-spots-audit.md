@@ -465,6 +465,33 @@ Input (iii) — "relativistic QM covariance" — is used as a standard QM result
 
 Cost: ~80 lines added to Part III §9.1 (replacing ~15 lines of the old Lemma 9.2). Four labels added to existing items. One bibitem added. Zero numerical predictions changed; Theorem 9.3 and Corollary 9.4 are preserved exactly. The new lemma *adds* a cascade-internal derivation where previously there was a conditional.
 
+### Commit (austerity framing upgrade: Definition 2.2 → Principle 2.2, derived)
+
+**Framing upgrade (not a new audit finding).** During SP-19 work it became clear that austerity need not be declared as a second pre-mathematical input. If Definition 2.1 ($0\neq 1$) is taken as the *sole* pre-mathematical input (as the Prelude's Section 1 "The Problem with Starting Points" already argues), then the three austerity clauses are consequences of what "sole input" means: any construction introducing content not forced by $0\neq 1$ violates the sole-input commitment. Austerity is the operational content of sole-input status, not a separate axiom.
+
+Prelude changes:
+
+1. **Preamble:** added `\newtheorem{principle}[theorem]{Principle}` so Principle 2.2 shares counter numbering with Definition 2.1.
+2. **§2 body:** converted `\begin{definition}[Austerity]` to `\begin{principle}[Austerity, derived from Definition~\ref{def:axiom}]`. Added a proof block "Derivation from Definition 2.1" showing each clause (i)–(iii) is a distinct way to violate sole-input commitment. Added a Status note labelling Principle 2.2 as a *derivation rule* (analogous to modus ponens for propositional logic) rather than a further axiom.
+3. **Label renamed** `def:austerity` → `princ:austerity` throughout the Prelude (one global sed). All cross-references updated from `Definition~\ref{def:austerity}` to `Principle~\ref{princ:austerity}` (second sed).
+4. **Status box rewritten:** from *"Given $0\neq 1$ and the austerity principle as two declared pre-mathematical inputs"* to *"The cascade series has one pre-mathematical input, Definition 2.1. Principle 2.2 (austerity) is not a second input: it is the operational content of Definition 2.1's status as sole input, derived in §2."*
+5. **§8 chain summary paragraph** updated to match: *"No step introduces a free parameter beyond the single declared pre-mathematical input Definition 2.1. Principle 2.2 (austerity) is not a second input."*
+6. **§10 Open Questions intro** reframed: *"Principle 2.2 derives three previously-implicit parsimony choices as clauses of a single derivation rule from Definition 2.1"* (rather than "converts three … into three clauses of a single meta-principle").
+7. **Labels added** to §1 (`sec:starting-points`) and §2 (`sec:what-nothing-means`) so the principle's derivation can cite them.
+
+Part III changes:
+
+8. Lemma 9.1 input (v) updated: *"Austerity (Prelude, Principle 2.2, clause (i): parameter economy). Austerity is not a separate input: in the Prelude it is derived in place from Definition 2.1 as the operational content of its sole-input status."*
+9. Lemma 9.1 Remark text updated: *"the austerity principle declared in the Prelude (Principle 2.2, derived there from Definition 2.1) as a meta-mathematical commitment of the series."*
+
+**What this buys.** The "one axiom, zero free parameters" framing is restored. Previously the Prelude had "one axiom + one meta-principle"; now it's "one axiom, with austerity as its derived inference rule." The austerity clauses remain citable by downstream papers exactly as before (Lemma 9.1's input (v) still cites "Principle 2.2, clause (i)"); only the framing of austerity's status changes.
+
+**What the derivation does not claim.** The meta-step "sole-input commitment → don't introduce content not forced" is itself a commitment about how mathematical derivation works. This is the same status as modus ponens (an inference rule built into "logical derivation" rather than a separate axiom). A strict formalist could insist it be declared; the Prelude takes the standard position that it's implicit in "sole input."
+
+**What this does not close.** The Prelude's Open Question 1 (uniqueness of $B^\infty$ under austerity) remains open. Austerity-as-derived is still defensibly-minimal-not-forced; promoting to "forced" still requires a uniqueness theorem.
+
+Cost: ~20 lines changed in the Prelude; ~5 lines in Part III. Zero numerical predictions changed; zero theorems invalidated; no SP-numbered audit finding reopens or closes. This is a framing upgrade that makes the "one axiom" claim honest.
+
 ---
 
 ## Hardening priorities
