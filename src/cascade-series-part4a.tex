@@ -55,7 +55,9 @@ transition at $d_1=19$.} A fermion generation requires a complex Dirac layer ($d
 with a hairy ball zero ($d$ odd). These occur at $d=5,13,21,29,\ldots$ The first threshold
 $d_1=19$ is a phase transition in the decay rate $p(d)$: subcritical for $d<d_1$,
 supercritical for $d>d_1$. Three generation layers ($d=5,13,21$) straddle this transition;
-$d=29$ is deep in the supercritical regime and absent.
+the fourth Bott fermion layer at $d=29$ is deep in the supercritical regime and suppressed
+from the charged-fermion spectrum by $\sim 289$ (Theorem~\ref{thm:generations}), with its
+residual role as the heaviest-neutrino source derived in Part~IVb.
 
 The companion paper~\cite{paperIVb} derives the fermion mass spectrum, gauge coupling
 constants, and precision predictions from these structural results.
@@ -622,32 +624,84 @@ Gen 0 & 29 & $+0.192$ & Supercritical (absent) \\
 
 \subsection{Why three and only three}
 
-\begin{theorem}[Three generations]\label{thm:generations}
-The number of observable fermion generations is exactly three.
+\begin{theorem}[Three charged-fermion generations, with a suppressed fourth Bott layer]\label{thm:generations}
+The number of observable charged-fermion generations is exactly three
+($d=5,13,21$). The fourth Bott fermion layer at $d=29$ exists as a
+cascade primitive (Bott periodicity is 8, and $21+8=29$ is the next
+Dirac layer) but is suppressed in charged-fermion mass spectra by a
+factor of $\sim 289$ relative to Generation~1. Its residual role is
+to source neutrino masses (Part~IVb, Roadmap~item~2: $m_{29}\times
+\alpha(21)/\chi^8 = 0.0493$~eV for the heaviest neutrino, $-1\%$ on
+$\Delta m^2$).
 \end{theorem}
 \begin{proof}
-Generation 3 ($d=5$) and Generation 2 ($d=13$) are subcritical: $p(d)<c_1$ at both layers,
-so their propagator amplitudes from $d=4$ are $O(1)$ and unsuppressed.
+Generation 3 ($d=5$) and Generation 2 ($d=13$) are subcritical:
+$p(d)<c_1$ at both layers, so their propagator amplitudes from $d=4$
+are $O(1)$ and unsuppressed.
 
-Generation 1 ($d=21$) is barely supercritical: $p(21)-c_1=+0.031$, only 1.3 steps past
-the threshold in units of the transition width $1/p'(d_1)\approx 39.5$. Its propagator
-amplitude is suppressed but nonzero.
+Generation 1 ($d=21$) is barely supercritical: $p(21)-c_1=+0.031$,
+only 1.3 steps past the threshold in units of the transition width
+$1/p'(d_1)\approx 39.5$. Its propagator amplitude is suppressed but
+nonzero.
 
-Generation 0 ($d=29$) is 9.3 steps past threshold; its amplitude relative to Generation 1
-is suppressed by a factor of $\sim 289$, making it unobservable. The transition at $d_1=19$
----derived in~\cite{paperI} from the Gamma function alone---is the wall that kills the
-fourth generation.
+The fourth Bott layer at $d=29$ is 9.3 steps past threshold; its
+charged-fermion propagator amplitude relative to Generation~1 is
+suppressed by a factor of $\sim 289$, making it invisible in the
+observed charged-fermion mass spectrum. The transition at $d_1=19$
+---derived in~\cite{paperI} from the Gamma function alone---is the
+wall that kills the fourth \emph{charged-fermion} generation while
+leaving $d=29$ available as a cascade-primitive layer; Part~IVb
+(Roadmap~item~2) uses this layer as the source of the heaviest
+neutrino mass via the chirality-filter exponent $\chi^8=256$,
+recovering $\sqrt{\Delta m^2_{\mathrm{atm}}} = 0.0495$~eV to $-1\%$.
 
-The transition width deserves comment. The derivative $p'(d)=\tfrac{1}{4}\psi^{(1)}
-((d+1)/2)>0$ is the trigamma function, strictly positive everywhere. At $d_1=19$:
-$p'(19)=\tfrac{1}{4}\psi^{(1)}(10)\approx 0.0253$. The transition width
-$\Delta d\equiv 1/p'(d_1)\approx 39.5$ layers means the transition is smooth, not sharp.
-Generation 1 at $d=21$ is only $\Delta d_1=(21-19.73)/39.5=0.032$ transition widths past
-the threshold. Generation 0 at $d=29$ is 0.24 widths past---modest, but the exponential
-nature of the supercritical regime makes even this small overshoot devastating:
-$\exp(8\times(p(29)-c_1))=\exp(8\times 0.192)\approx 4.6$ additional suppression per extra
-generation.
+The transition width deserves comment. The derivative
+$p'(d)=\tfrac{1}{4}\psi^{(1)}((d+1)/2)>0$ is the trigamma function,
+strictly positive everywhere. At $d_1=19$:
+$p'(19)=\tfrac{1}{4}\psi^{(1)}(10)\approx 0.0253$. The transition
+width $\Delta d\equiv 1/p'(d_1)\approx 39.5$ layers means the
+transition is smooth, not sharp. Generation 1 at $d=21$ is only
+$\Delta d_1=(21-19.73)/39.5=0.032$ transition widths past the
+threshold. The fourth Bott layer at $d=29$ is 0.24 widths
+past---modest, but the exponential nature of the supercritical
+regime makes even this small overshoot devastating for
+charged-fermion amplitudes:
+$\exp(8\times(p(29)-c_1))=\exp(8\times 0.192)\approx 4.6$ additional
+suppression per extra generation.
 \end{proof}
+
+\begin{remark}[Derivation status of the generation count]\label{rem:sp30-status}
+Theorem~\ref{thm:generations} factorises into three statements with
+three different derivation statuses:
+\begin{enumerate}
+\item \emph{Derived.} Exactly three observable charged-fermion
+generations at $d\in\{5,13,21\}$: follows from the charged-fermion
+amplitude suppression at $d=29$ (the $\sim 289$ factor from
+$\exp(8\cdot(p(29)-c_1))$) and the phase-transition wall at
+$d_1=19$. The three-versus-four \emph{charged} count is forced.
+\item \emph{Derived.} The fourth Bott fermion layer at $d=29$ is a
+cascade primitive: Bott periodicity is 8 and the Dirac layers are
+$d\bmod 8 = 5$, so $\{5,13,21,29,\ldots\}$ is the cascade's
+Dirac-layer sequence. The first three enter charged-fermion
+channels; the fourth is suppressed there. No cascade theorem
+eliminates $d=29$ as a layer.
+\item \emph{Derived (Part~IVb).} The residual role of $d=29$ as a
+neutrino-mass source: Part~IVb derives
+$m_{29}\cdot\alpha(21)/\chi^8 = 0.0493$~eV for the heaviest
+neutrino, matching $\sqrt{\Delta m^2_{\mathrm{atm}}} = 0.0495$~eV
+to $-1\%$. The chirality-filter exponent $\chi^8 = 256$ is one full
+Bott period of chirality filtering (cascade distance $29-21=8$).
+\end{enumerate}
+The earlier theorem statement ``the number of observable fermion
+generations is exactly three'' and the earlier proof phrasing ``the
+wall that kills the fourth generation'' implied that the $d=29$
+layer is nonexistent. The three-step reading above keeps both
+claims truthful: exactly three observable \emph{charged-fermion}
+generations, and the $d=29$ layer partially realised as the
+neutrino-mass source. An earlier passage in the abstract
+(``$d=29$ is deep in the supercritical regime and absent'') is
+correspondingly softened in the next commit.
+\end{remark}
 
 \section{Propagator Phases and the Quaternionic Structure}
 
@@ -772,9 +826,12 @@ obstruction on the group action, not merely on a specific field configuration.
 \item $m_H/m_W=\pi/2$ from the geodesic distance on $S^{12}$ (0.80\%). The Higgs mass is
 the fifth appearance of the cascade's orthogonality axiom.
 
-\item There are exactly three fermion generations, from the intersection of Bott periodicity
-(which selects generation candidates at $d\bmod 8=5$) and the $d_1=19$ phase transition
-(which suppresses candidates above $d_1$).
+\item There are exactly three observable charged-fermion generations, from the intersection
+of Bott periodicity (which selects Dirac-layer candidates at $d\bmod 8=5$) and the
+$d_1=19$ phase transition (which suppresses candidates above $d_1$ by $\sim 289$). The
+fourth Bott fermion layer at $d=29$ is a cascade primitive that is suppressed in
+charged-fermion channels but sources the heaviest neutrino mass in Part~IVb
+(Theorem~\ref{thm:generations}).
 
 \item The gauge window carries the quaternionic phases $\{+1,i,-1\}$, connecting to the
 division algebra structure $\mathbb{C}\otimes\mathbb{H}$.
