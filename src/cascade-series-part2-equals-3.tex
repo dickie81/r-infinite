@@ -194,25 +194,76 @@ are describing the same mathematics.
 
 \section{Double Uniqueness}
 
-\begin{theorem}[Gleason $+$ Lovelock $=$ consistency]\label{thm:double}
-At $d = 4$:
+\begin{theorem}[Gleason $+$ Lovelock $+$ single source $=$ consistency]\label{thm:double}
+At $d = 4$, the cascade's quantum and gravitational predictions on any
+shared 4D observable agree. The argument combines three inputs:
 \begin{enumerate}
-\item Gleason's theorem~\cite{gleason}: the Born rule is the unique
-probability measure on a Hilbert space of dimension $\geq 3$.
-\item Lovelock's theorem~\cite{lovelock}: the Einstein equation is the
-unique symmetric divergence-free rank-2 tensor equation in exactly $d = 4$.
+\item Single-source structure (Theorem~\ref{thm:single}): both
+projections $\mathcal{Q}$ and $\mathcal{G}$ are deterministic
+functions of the same cascade state $|\Psi\rangle\in S^{d-1}$.
+\item Gleason's theorem~\cite{gleason}: given the cascade-derived
+Hilbert space (Paper~II), the Born rule is the unique probability
+measure on its lattice of subspaces (for Hilbert dimension $\geq 3$).
+\item Lovelock's theorem~\cite{lovelock}: given the cascade-derived
+4D Lorentzian manifold (Paper~III), the Einstein equation is the unique
+symmetric divergence-free rank-2 tensor equation in $d = 4$.
 \end{enumerate}
-Two uniquely forced theories from a single source admit no mutual
-contradiction.
 \end{theorem}
 
 \begin{proof}
-Suppose the quantum projection $\mathcal{Q}$ and the gravitational
-projection $\mathcal{G}$, applied to the same cascade state, yield
-contradictory predictions for some 4D observable. Then at least one is not
-the unique theory compatible with the cascade geometry---contradicting
-Gleason or Lovelock. No such observable exists.
+Let $\mathcal{O}$ be any observable computable from both the quantum
+projection $\mathcal{Q}$ and the gravitational projection
+$\mathcal{G}$ of a cascade state $|\Psi\rangle$. By
+Theorem~\ref{thm:single}, $\mathcal{Q}(|\Psi\rangle)$ and
+$\mathcal{G}(|\Psi\rangle)$ are both determined by $|\Psi\rangle$ with no
+additional structure.
+
+By Gleason's uniqueness, among all probability measures on the
+cascade-derived Hilbert space's subspace lattice, only the Born rule is
+admissible; therefore the quantum prediction for $\mathcal{O}$,
+$\mathcal{Q}(|\Psi\rangle)(\mathcal{O})$, is not a choice but a
+computation from $|\Psi\rangle$. By Lovelock's uniqueness, among all
+gravitational equations on the cascade-derived 4D manifold, only the
+Einstein equation is admissible; therefore the gravitational prediction
+for $\mathcal{O}$, $\mathcal{G}(|\Psi\rangle)(\mathcal{O})$, is also a
+computation from $|\Psi\rangle$.
+
+Consistency $\mathcal{Q}(|\Psi\rangle)(\mathcal{O})
+= \mathcal{G}(|\Psi\rangle)(\mathcal{O})$ on any shared observable
+follows because both sides are computations of the same cascade
+quantity---an observable of $|\Psi\rangle$---via two fixed, unique
+projections with no freedom to produce differing answers from the same
+input. The two projections compute the same thing through different
+routes; Gleason and Lovelock ensure neither route admits a variant that
+would predict a different value.
 \end{proof}
+
+\begin{remark}[What the argument does \emph{not} claim]\label{rem:sp26-status}
+The argument is \emph{not} that ``each theory is unique in its own
+domain, therefore they cannot disagree on shared observables.'' That
+inference is invalid: two theories each individually unique in
+separate domains can disagree on shared observables. Quantum
+electrodynamics is unique given gauge invariance; effective-field-theory
+quantum gravity is unique given the EFT postulates; yet their
+predictions on quantum-gravitational scattering amplitudes diverge at
+high energies because the two theories do not share a common source and
+their domains overlap only by heuristic matching.
+
+The cascade's consistency claim is stronger and rests on
+Theorem~\ref{thm:single}: the quantum and gravitational projections are
+not two independent theories that happen to be unique in their own
+domains, they are two readings of the same cascade geometry. Shared
+observables are computed from one input ($|\Psi\rangle$) via
+deterministic projections; Gleason and Lovelock rule out alternative
+projections with different outputs, and the single source
+(Theorem~\ref{thm:single}) rules out the QED/EFT-QG scenario---there
+is no ``separately derived'' alternative theory on either side of the
+cascade. Without Theorem~\ref{thm:single}, the two uniqueness theorems
+alone would not imply cross-domain consistency. This is the substantive
+content of the ``double uniqueness'' label: Gleason and Lovelock lock
+each projection in place, and the single-source architecture guarantees
+both projections read the same source.
+\end{remark}
 
 \begin{remark}[The role of $d = 4$]
 The argument depends on $d = 4$. In higher dimensions, Lovelock permits
