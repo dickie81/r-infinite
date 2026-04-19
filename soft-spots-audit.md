@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 14 of the original 37 soft spots have been closed in earlier hardening commits (SP-1, SP-2, SP-3, SP-4, SP-8, SP-10, SP-19, SP-21, SP-22, SP-28, SP-29, SP-32, SP-33, SP-37). This file now tracks the **23 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 15 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-8, SP-10, SP-19, SP-21, SP-22, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **22 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -146,11 +146,6 @@ The theorem statement: *"The number of observable fermion generations is exactly
 
 ## Part IVb
 
-### SP-31. Theorem 2.2 proof (b) — "obstruction consumes $\sqrt{\pi}$" is physics-intuition dressed as mathematical derivation — **Structural, load-bearing on every fermion mass**
-`src/cascade-series-part4b.tex:105–136`.
-
-The proof's step (b) argues: *"A fermion (spinor) couples to the tangent frame through the spin connection. The global obstruction of the tangent frame means the fermion cannot access the full angular measure of the quarter-turn. The quarter-turn constant $\sqrt{\pi}$ is consumed by the obstruction."* This is qualitative physics reasoning, not a computation that derives $N_f(d) = R(d)/\chi$ from an action or measure. The paper supplies two independent constants ($\chi=2$ from chirality, $\sqrt{\pi}$ from the slicing) and combines them via "the obstruction consumes exactly one factor of $\sqrt{\pi}$" — but the "exactly one" is asserted, not computed. The parallel derivation via Corollary 2.3 (the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$) identifies the numerical factor post-hoc but does not derive the obstruction mechanism.
-
 ### SP-34. Theorem 2.9's "independent $C$ from $m_\tau$" check is plausibly circular — **Minor**
 `src/cascade-series-part4b.tex:283–285`.
 
@@ -190,7 +185,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-26 | In-domain uniqueness ≠ cross-domain consistency | Part II=III | Structural |
 | SP-27 | $d=12$ self-dual crossing is 0.225% near-miss + KK-tension | Part IVa | Structural + Check-7 |
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
-| **SP-31** | **Fermion obstruction factor (b) is physics-intuition** | Part IVb | **Structural, load-bearing on every fermion mass** |
 | SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
 | SP-35 | Cabibbo 1/2 factor is integer-fit among $\{1,2,3\}$ | Part IVb | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
@@ -200,15 +194,14 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 - This file documents **only** soft spots the papers do not themselves acknowledge. Items already flagged in each paper's "What this paper does not do" or "Open questions" sections (e.g., the observable-dependent $k_Q$ in the Supplement, the variational max-over-min in Part 0, the second $G_d$ route in Part II=III, the absolute-mass dimensional inputs in Part IVb, the thermal-spectrum derivation, the Page curve, the tensor $r$ magnitude) are deliberately excluded.
 - **Load-bearing items still open:**
   - SP-23 underwrites $S=A/4$ being equal to $V_d/d$ for *physical* horizons rather than just unit spheres.
-  - SP-31 underwrites the $1/(2\sqrt{\pi})$ fermion obstruction factor at every Dirac layer — every charged-lepton and quark mass, $C = \alpha_s/(2\sqrt{\pi})$, and the entire geometric-topological factorisation.
 - **Quantitatively testable items (Tier C):**
   - SP-17 — compute CHSH on the two alternative bipartitions of $\mathbb{C}^4$ and verify whether $2\sqrt{2}$ is robust.
   - SP-36 — blind-test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the predictions close within experimental precision.
-- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-23, SP-26, SP-31, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
+- **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-23, SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
 
 ## Closed items (reference)
 
-14 soft spots closed in earlier hardening commits. Commit hashes for traceability:
+15 soft spots closed in hardening commits. Commit hashes for traceability:
 
 | ID | Closure summary | Commit |
 |---|---|---|
@@ -223,6 +216,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |
 | SP-29 | SU(3) chirality factual fix + CP-phase paragraph | `a4c42f2` |
+| SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question~\ref{oq:fermion-cascade-action} (cascade-fermion-action derivation target) | *(this commit)* |
 | SP-32 | Mass-formula $n_D+1$ derived | `3472a9e` |
 | SP-33 | Obstruction-rule scope articulated; `rem:obstruction-scope` | `8e4805c` |
 | SP-37 | $d=14$ hairy-ball attribution corrected + pairing rationalisations tightened | `4a6be53` |
@@ -250,9 +244,10 @@ Each of these either hardens the rule significantly or exposes a defect early. A
 
 | ID | What's needed | Why it matters |
 |---|---|---|
-| SP-31 | Derive the fermion obstruction factor (2√π)⁻¹ from a cascade action or propagator computation, rather than from the "obstruction consumes √π" intuition. Corollary 2.3's N(0)·Γ(½) identity is suggestive but not a derivation. | Load-bears on every fermion mass |
 | SP-23 | Derive S = A/d for physical horizons (not just unit balls) from cascade boundary dominance, with explicit units and scaling. | Load-bears on BH thermodynamics |
 | SP-5, SP-6, SP-15, SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
+
+Note: SP-31 is closed by acknowledgement (Remark~`rem:sp31-status` labels the "exactly one factor of $\sqrt{\pi}$" step as asserted, and Part IVb Open Question~\ref{oq:fermion-cascade-action} names the cascade-fermion-action derivation target). Resolving the underlying research problem — writing the discrete Dirac operator on the cascade lattice whose Green's function on $S^{2n}$ is $R(d)/\chi$ — remains a genuine Tier D task, now tracked in Part IVb's own Open Questions rather than in this audit.
 
 ### What hardening does *not* require
 
