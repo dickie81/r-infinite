@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 18 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-19, SP-21, SP-22, SP-23, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **19 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 19 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-19, SP-21, SP-22, SP-23, SP-28, SP-29, SP-31, SP-32, SP-33, SP-37). This file now tracks the **18 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -66,11 +66,6 @@ $(9/\pi^2)$ follows from two factors of $\Omega_5/\Omega_7$. Two factors because
 ---
 
 ## Part II
-
-### SP-15. Theorem 5.2 Born rule — "Step 4" is Gleason-lite under the banner of concentration of measure — **Structural**
-`src/cascade-series-part2.tex:400–416`, cf `:428–436`.
-
-Step 4 of the Born-rule proof ends with: *"concentration of measure forces this partition to be the unique assignment consistent with additivity across orthogonal axes. For $k$ orthogonal axes … by Parseval's identity on $S^{d-1}$. No other function of $\theta$ satisfies this constraint for all $k$ and all orientations simultaneously."* This is Gleason's own uniqueness argument (frame functions on a Hilbert space) recast in geometric language. §5.3 *"What the cascade adds to Gleason"* then treats Gleason as a downstream check — but Step 4 already used Gleason-shaped reasoning to pin $\cos^2\theta$. Pythagoras and Parseval give additivity; they do not, on their own, select $\cos^2$ over other analytic functions satisfying the same constraint for all $k$ — that selection is Gleason's content. Not flagged as such.
 
 ### SP-16. Identification "$J$ evolves states" is a modelling step — **Structural**
 `src/cascade-series-part2.tex:490–507`; downstream at `src/cascade-series-part3.tex:372–385`.
@@ -157,7 +152,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-12 | $d_V=5$ as observer's host | Part I | Structural |
 | SP-13 | "Free dimension" is physical | Part I | Structural |
 | SP-14 | Frame-squaring inherits $n=2$ | Part I | Structural |
-| SP-15 | Born rule Step 4 is Gleason-lite unlabeled | Part II | Structural |
 | SP-16 | $J$ evolves states (static→dynamic) | Part II | Structural |
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-18 | Schrödinger derivation absorbs imaginary part | Part II | Minor |
@@ -178,7 +172,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 - **Quantitatively testable items (Tier C):**
   - SP-17 — compute CHSH on the two alternative bipartitions of $\mathbb{C}^4$ and verify whether $2\sqrt{2}$ is robust.
   - SP-36 — blind-test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the predictions close within experimental precision.
-- **Conceptually tightenable items:** SP-15, SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
+- **Conceptually tightenable items:** SP-26, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
 
 ## Closed items (reference)
 
@@ -194,6 +188,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-6 | Tower-completeness proof: explicit 4-class mechanism enumeration (extrema, monotone zeros, primitive-value crossings, higher-order invariants); `rem:tower-alternatives` rules out self-dual radius $1/\sqrt{2}$ (no integer solution + non-cascade import), $p^{(n)}$ zeros (no zeros), $\Omega_d$ inflections (derived from $d_0$) | `73cc8f5` |
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
+| SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | *(this commit)* |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
@@ -228,7 +223,7 @@ Each of these either hardens the rule significantly or exposes a defect early. A
 
 | ID | What's needed | Why it matters |
 |---|---|---|
-| SP-15, SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
+| SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
 
 Note: SP-23 and SP-31 are closed by acknowledgement. SP-23: Remark `rem:sp23-status` in Part II=III factorises Theorem 7.1's proof into three ingredients (unit-ball boundary dominance derived; content-equals-area derived; linear content-area scale invariance asserted), with empirical confirmation at $d=3$ (BTZ) and $d=4$ (Schwarzschild), and Part II=III Open Question 1 (`oq:content-area-scale-invariance`) names the cascade-action derivation target. SP-31: Remark `rem:sp31-status` in Part IVb labels the "exactly one factor of $\sqrt{\pi}$" step as asserted, and Part IVb Open Question 1 (`oq:fermion-cascade-action`) names the cascade-fermion-action derivation target. Resolving the underlying research problems — a cascade action on the lattice whose boundary-layer entropy is $A/d$ independent of total area, and a discrete Dirac operator on the cascade lattice whose Green's function on $S^{2n}$ is $R(d)/\chi$ — remains a genuine Tier D workload, now tracked in the papers' own Open Questions rather than in this audit.
 

@@ -397,23 +397,51 @@ This peaks at $\theta = \pi/2$ (equator, maximum cross-section) and vanishes at 
 the \emph{squared projection} $z^2 = \cos^2\theta$---the fraction of the unit vector's
 length along the measurement axis. This quantity is determined by the angle alone.
 
-\textbf{Step 4} (uniqueness from concentration). For $d\gg 1$, the uniform distribution on
-$S^{d-1}$ concentrates on the equatorial band $|z| < O(1/\sqrt{d})$
-(Theorem~\ref{thm:gaussian}). The state $u$ at angle $\theta$ from $e$ has its
-neighbourhood on the sphere concentrated near the level set $z = \cos\theta$. The
-fraction of the total geometric content attributable to the measurement outcome $e$ is
-the squared projection $\cos^2\theta$, because the sphere's measure in the polar
-direction partitions as:
+\textbf{Step 4} (frame-function uniqueness via Cauchy additivity).
+Let $P(e\mid u)$ denote the probability of the measurement outcome
+associated with axis $e$ when the state is $u\in S^{d-1}$. By the
+cascade's $SO(d)$-invariance of the uniform measure, $P(e\mid u)$
+depends only on the inner product $u\cdot e$:
+$P(e\mid u) = f(u\cdot e)$ for some continuous $f:[-1,1]\to[0,1]$
+(continuity follows from the smoothness of the measure density
+$(1-z^2)^{(d-3)/2}$). Invariance under $u\mapsto -u$---antipodal states
+represent the same ray in the projective sphere $S^{d-1}/\mathbb{Z}_2$, and
+the Pythagorean decomposition~$1 = \cos^2\theta + \sin^2\theta
+= (u\cdot e)^2 + \|u-(u\cdot e)e\|^2$ is invariant under this
+involution---forces $f(z) = g(z^2)$ for some continuous
+$g:[0,1]\to[0,1]$.
+
+For any orthonormal frame $\{e_1,\ldots,e_d\}$, the squared projections
+$x_j = (u\cdot e_j)^2$ form a probability vector on the simplex $\Delta^{d-1}$:
 \[
-1 = \cos^2\theta + \sin^2\theta = (u\cdot e)^2 + \|u - (u\cdot e)e\|^2,
+\sum_{j=1}^{d}(u\cdot e_j)^2 \;=\; \|u\|^2 \;=\; 1
 \]
-and concentration of measure forces this partition to be the unique assignment consistent
-with additivity across orthogonal axes. For $k$ orthogonal axes $\{e_1,\ldots,e_k\}$:
+by Parseval's identity on $S^{d-1}$. Since a complete orthonormal frame
+exhausts the measurement outcomes, the probabilities sum to~$1$:
+\begin{equation}\label{eq:frame-function}
+\sum_{j=1}^{d} g(x_j) \;=\; 1, \qquad (x_1,\ldots,x_d)\in\Delta^{d-1}.
+\end{equation}
+Every $(x_1,\ldots,x_d)\in\Delta^{d-1}$ is realised by some $(u,\{e_j\})$:
+take $u = (\sqrt{x_1},\ldots,\sqrt{x_d})$ in the standard basis. Hence
+\eqref{eq:frame-function} holds for \emph{every} probability vector in
+$\Delta^{d-1}$.
+
+Assume $d\geq 3$ (satisfied by the cascade's observer dimension~$d=4$;
+Gleason's theorem fails for $d=2$, and the cascade's argument below is the
+obstacle). For arbitrary $x,y\geq 0$ with $x+y\leq 1$, apply
+\eqref{eq:frame-function} to $(x,y,1-x-y,0,\ldots,0)$ and to
+$(x+y,1-x-y,0,\ldots,0)$ and subtract:
 \[
-\sum_{j=1}^{k}(u\cdot e_j)^2 = 1,
+g(x) + g(y) = g(x+y) + g(0).
 \]
-by Parseval's identity on $S^{d-1}$. No other function of $\theta$ satisfies this
-constraint for all $k$ and all orientations simultaneously.
+Setting $y=0$ forces $g(0) = 0$, so $g$ is Cauchy-additive on $[0,1]$.
+Continuity of $g$ promotes additivity to linearity: $g(x) = \lambda x$ for
+some $\lambda\geq 0$. Normalisation $g(1) = 1$ (certainty when $u = e_j$)
+fixes $\lambda = 1$, so $g(x) = x$ uniquely.
+
+Therefore $P(e\mid u) = g((u\cdot e)^2) = (u\cdot e)^2 = \cos^2\theta$,
+with no other continuous function of $\theta$ satisfying
+\eqref{eq:frame-function} on $\Delta^{d-1}$.
 \end{proof}
 
 \begin{remark}[What the proof uses]
@@ -425,6 +453,41 @@ probability axiom, no Hilbert space structure, and no quantum postulate enters. 
 rule is a theorem about spheres, not an axiom about measurement.
 \end{remark}
 
+\begin{remark}[Step 4 is the cascade-native frame-function uniqueness]\label{rem:sp15-status}
+Step~4 derives the specific form $P(e\mid u) = \cos^2\theta$ from the
+constraint $\sum_j g(x_j) = 1$ on $\Delta^{d-1}$ via Cauchy additivity
+plus continuity plus normalisation. This is logically the
+\emph{frame-function uniqueness} content of Gleason's
+theorem~\cite{gleason}, specialised to real probability vectors on the
+classical simplex rather than quantum projectors on a Hilbert
+lattice. Three observations clarify the relationship:
+\begin{enumerate}
+\item \emph{What is derived cascade-natively.} The arena---Hilbert space
+structure (Section~2), uniform measure on $S^{d-1}$ (boundary dominance),
+concentration (Section~3), orthogonal decomposition and Parseval
+(Section~4)---is constructed from the cascade's geometry before the
+Cauchy argument runs. Gleason's antecedents are the cascade's theorems.
+\item \emph{What the Cauchy argument adds.} Given the arena, the step
+from the frame-function constraint \eqref{eq:frame-function} to
+$g(x) = x$ uniquely is elementary: triple-point additivity on
+$\Delta^{d-1}$ gives Cauchy's equation, continuity gives linearity,
+normalisation fixes the slope. It does not require Gleason's full
+machinery (measures on lattices of subspaces, complex projectors,
+sub-additivity on incompatible observables); the cascade's state space
+is $S^{d-1}/\mathbb{Z}_2$ and the Cauchy argument suffices.
+\item \emph{The $d\geq 3$ condition.} The Cauchy argument requires a
+third coordinate to apply the triple-point subtraction; $d=2$ admits
+non-$z^2$ solutions ($g(x) + g(1-x) = 1$ alone has many continuous
+solutions), which is exactly why Gleason's theorem fails at Hilbert
+dimension~$2$. The cascade's observer sits at $d=4$ (Part~I), so
+$d \geq 3$ is satisfied structurally, not assumed.
+\end{enumerate}
+The earlier phrasing ``concentration of measure forces this partition
+to be the unique assignment consistent with additivity across
+orthogonal axes'' elided the Cauchy step as intuition; the explicit
+derivation above makes the logical structure visible.
+\end{remark}
+
 \subsection{What the cascade adds to Gleason}
 
 Gleason's theorem~\cite{gleason} proves that the Born rule is the unique probability measure
@@ -433,7 +496,10 @@ Hilbert space framework. The cascade provides every antecedent: the reason we ha
 space at all (Section~2), the reason the measure is uniform on the sphere (boundary
 dominance), the reason for Gaussian concentration (Section~3), and the reason for
 orthogonal decomposition (Section~4). Gleason proves uniqueness given the arena; the
-cascade derives the arena.
+cascade derives the arena, and Step~4's Cauchy functional-equation argument
+(Remark~\ref{rem:sp15-status}) supplies the uniqueness step directly on the
+real probability simplex without invoking Gleason's full frame-function
+theorem.
 
 \section{Complexification: The Forced Precession}
 \label{sec:complex}
