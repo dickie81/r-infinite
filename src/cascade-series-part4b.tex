@@ -272,7 +272,7 @@ $m_\tau/m_e$ & 3477 (derived from the two above) & 3477 & $<0.1\%$ \\
 
 \subsection{The universal coupling and the observer's obstruction}
 
-\begin{theorem}[Universal coupling]
+\begin{theorem}[Universal coupling]\label{thm:universal-coupling}
 The effective Yukawa coupling at the observer's position is
 \[
 C = \frac{\alpha_s}{2\sqrt{\pi}},
@@ -284,19 +284,108 @@ where $\alpha_s = \alpha_{\text{GUT}} \times \exp(\Phi_{12 \to 4})$ is the stron
 The observer at $d = 4$ is a Weyl layer. The nearest Dirac layer is $d = 5$, with a hairy ball zero on $S^4$. The observer's projection to the gauge window at $d = 12$ passes through this zero. The effective coupling is $C = \alpha_s/(2\sqrt{\pi}) = N(12)^2/(4\pi) \cdot \exp(\Phi_{12 \to 4})/(2\sqrt{\pi})$. Numerically: $C = 0.1159/3.545 = 0.0327$. Independently, from the $\tau$ mass: $C = 0.0324$. Agreement: 1.0\%.
 \end{proof}
 
-\begin{remark}[The observer's obstruction]
-The factor $1/(2\sqrt{\pi})$ in the coupling is the same topological obstruction that appears in the mass formula. The observer pays this toll to see the gauge window, then pays it again at each Dirac layer between the gauge window and the generation layer. The total obstruction count in the mass formula is $n_D + 1$.
+\begin{remark}[The $n_D+1$ decomposition is not a separate observer toll]\label{rem:nd-plus-one}
+The exponent $n_D + 1$ in the mass formula below is a single count with
+two independently-derived contributions:
+\begin{itemize}[nosep]
+\item $n_D$ factors of $(2\sqrt{\pi})^{-1}$ from the $n_D$ Dirac-layer
+crossings on the fermion's descent from $d_g$ to the observer. Each
+contributes by Theorem~\ref{thm:obstruction}, applied once per
+crossing. $n_D$ counts the Dirac layers at or below $d_g$, which for
+the three generations are $\{d=5\}$, $\{d=5, 13\}$, $\{d=5, 13, 21\}$
+giving $n_D = 1, 2, 3$ respectively.
+\item $+1$ factor of $(2\sqrt{\pi})^{-1}$ from the universal Yukawa
+coupling $C = \alpha_s/(2\sqrt{\pi})$
+(Theorem~\ref{thm:universal-coupling}). This is Theorem~\ref{thm:obstruction}
+applied once to the observer's projection through $d=5$ to the gauge
+window at $d=12$, which is the source of the $\alpha_s$-scale Yukawa
+coupling itself.
+\end{itemize}
+The $n_D$ obstructions are generation-specific (count Dirac layers on
+the fermion's path); the $+1$ obstruction is generation-independent
+(it is the Yukawa baseline every generation inherits). Both arise from
+the same theorem (\ref{thm:obstruction}, single Dirac-layer attenuation
+$(2\sqrt{\pi})^{-1}$) applied to physically distinct operations. The
+``+1'' is therefore not a double-count, not a separately-added toll,
+and not an assumption: it is the universal Yukawa coupling's own
+obstruction factor, which appears once per mass prediction independent
+of which fermion is under consideration.
+
+This derivation is made explicit in the proof of
+Theorem~\ref{thm:complete-mass} below.
 \end{remark}
 
 \subsection{The complete mass formula}
 
-\begin{theorem}[Complete charged lepton mass formula]
+\begin{theorem}[Complete charged lepton mass formula]\label{thm:complete-mass}
 The mass of the charged lepton at generation layer $d_g$ is
 \[
 m_g = \frac{\alpha_s \cdot v}{\sqrt{2}}\,\exp(-\Phi(d_g))\,(2\sqrt{\pi})^{-(n_D+1)},
 \]
-where $\alpha_s = 0.1159$, $v = 240.8$~GeV, and every quantity is derived from the cascade. There are no free parameters.
+where $\alpha_s = 0.1159$, $v = 240.8$~GeV, $n_D$ is the Dirac-obstruction
+count (see Remark~\ref{rem:nd-plus-one}), and every quantity is
+derived from the cascade. There are no free parameters.
 \end{theorem}
+
+\begin{proof}
+The derivation combines the standard-model Yukawa structure with
+cascade-derived factorisation of the Yukawa coupling. The $n_D + 1$
+exponent is exhibited as a composition of two independently-established
+cascade theorems, not an asserted count.
+
+\emph{Step 1: Standard Yukawa structure.} For a charged lepton with
+Yukawa coupling $y_g$,
+\[
+m_g \;=\; \frac{y_g\,v}{\sqrt{2}}.
+\]
+
+\emph{Step 2: Cascade factorisation of the Yukawa coupling.}
+By Theorem~\ref{thm:universal-coupling} (universal coupling), the
+effective Yukawa coupling at the observer's position is
+$C = \alpha_s/(2\sqrt{\pi})$. $C$ is the universal Yukawa baseline,
+inherited by every generation; the $(2\sqrt{\pi})^{-1}$ factor in $C$
+is Theorem~\ref{thm:obstruction}'s single Dirac-layer attenuation for
+the observer's projection through $d=5$ to the gauge window at
+$d=12$ (the path that defines $\alpha_s$ at the observer's scale).
+
+For a fermion at generation layer $d_g$, the generation-specific Yukawa
+coupling is
+\[
+y_g \;=\; C \cdot \exp\bigl(-\Phi(d_g)\bigr) \cdot (2\sqrt{\pi})^{-n_D(d_g)},
+\]
+where:
+\begin{itemize}[nosep]
+\item $\exp(-\Phi(d_g))$ is the cascade potential's geometric attenuation
+along the fermion's descent from the observer's host at $d_V=5$ to the
+generation layer $d_g$. By Part~IVa~\cite{paper4a} Theorem~7.4
+(Forced Cascade Paths), this path is forced by the layer assignments
+of Parts~IVa and~0 once $d_g$ is fixed.
+\item $(2\sqrt{\pi})^{-n_D(d_g)}$ is the topological attenuation from
+the $n_D(d_g)$ Dirac-layer crossings on the fermion's path. Each
+crossing contributes one factor of $(2\sqrt{\pi})^{-1}$ by
+Theorem~\ref{thm:obstruction}; the total is $n_D$ applications of a
+single structural theorem, not $n_D$ separate assumptions.
+\end{itemize}
+
+\emph{Step 3: Substitute and simplify.}
+Substituting $C = \alpha_s/(2\sqrt{\pi})$ into $y_g$:
+\[
+y_g \;=\; \frac{\alpha_s}{2\sqrt{\pi}} \cdot \exp(-\Phi(d_g)) \cdot (2\sqrt{\pi})^{-n_D}
+\;=\; \alpha_s \cdot \exp(-\Phi(d_g)) \cdot (2\sqrt{\pi})^{-(n_D+1)}.
+\]
+The exponent $n_D + 1$ arises as a \emph{sum of two derived factors}:
+the $n_D$ Dirac crossings on the fermion's path (Step~2, applying
+Theorem~\ref{thm:obstruction} once per crossing) plus the single
+Dirac crossing in the universal Yukawa coupling $C$ (Step~2,
+Theorem~\ref{thm:universal-coupling}). No additional obstruction
+is asserted; the ``+1'' is $C$'s own obstruction factor.
+
+Substituting $y_g$ into Step~1:
+\[
+m_g \;=\; \frac{y_g\,v}{\sqrt{2}}
+\;=\; \frac{\alpha_s\,v}{\sqrt{2}}\,\exp(-\Phi(d_g))\,(2\sqrt{\pi})^{-(n_D+1)}. \qedhere
+\]
+\end{proof}
 
 \begin{center}
 \begin{tabular}{lccccr}
@@ -424,7 +513,7 @@ At the SU(3) layer $d = 12$: $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.020$. Th
 \[
 \alpha_s(\text{obs}) = \alpha(d = 12) \times \exp(\Phi(12 \to 4)) = \frac{N(12)^2}{4\pi} \times \exp(\Phi) = 0.1159,
 \]
-where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed to experimental precision by the universal $\mathrm{U}(1)$ shift of Theorem~\ref{thm:alpha-s-closure} below, together with $m_\tau/m_\mu$ in the same identity).
+where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) = 0.1179$. Deviation: 1.7\% (closed to experimental precision by the universal $\mathrm{U}(1)$ shift of Theorem~\ref{thm:alpha-s-closure} below, together with $m_\tau/m_\mu$ in the same identity). The descent from $d=12$ to $d=4$ crosses the Dirac layer $d=5$, but no $1/\sqrt{\pi}$ obstruction factor enters $\alpha_s$: $d=5$ is a generation (Gen~3) Dirac layer, not a broken-symmetry one, and the obstruction rule scope articulated in Remark~\ref{rem:obstruction-scope} (below) applies $1/\sqrt{\pi}$ only at broken-symmetry Dirac layers.
 \end{theorem}
 
 \begin{remark}[The cascade's analogue of the $\beta$-function]
@@ -766,12 +855,12 @@ The four layers in $\mathcal{S}$ are not chosen from a menu; they are the comple
 \begin{remark}[Why the specific pairings $\text{type}\mapsto d^*$]
 Within each type, the assignment is the unique distinguished layer structurally compatible with the observable's mechanism:
 \begin{itemize}
-\item \emph{Absolute $\to d_1=19$}: a Planck-anchored observable lives on the threshold ladder from observer to Planck. The threshold ladder contains two Part~0 layers, $d_1=19$ and $d_2=217$, with $d_2$ ruled out as the sink. The nearest non-sink threshold is $d_1=19$, at which the cascade's decay rate hits its first critical value $c_1=\tfrac12\ln\pi$; the Green's function response to a Planck-anchored observable is maximised there.
-\item \emph{Observer $\to d_V=5$}: an observer-local observable is supported entirely at $d=4$ and its adjacent volume maximum $d_V=5$. Among the non-sink distinguished layers, $d_V=5$ is the unique one adjacent to the observer, and the Green's function is maximised at $d^*=5$ itself.
-\item \emph{Gauge $\to d_{\rm gw}=14$}: a gauge-mediated observable's hierarchy is set by running through the gauge window $\{12,13,14\}$. The boundary layer of the window is $d=14$ (the U(1) hypercharge layer, the highest of the window and the only one carrying a hairy-ball obstruction that produces the universal $2\sqrt\pi$ factor); the Green's function response is steepest there.
-\item \emph{Amplitude $\to d_0=7$}: an observable not caught by any of the previous flags---not Planck-anchored, not observer-local, not gauge-mediated---is a geometric amplitude spanning generations. The natural reference is the area maximum $d_0=7$: it is the unique cascade equilibrium between the observer and the gauge window, and the only non-sink distinguished layer that neither anchors to Planck (like $d_1=19$) nor sits at the observer boundary (like $d_V=5$) nor lives inside the gauge window (like $d_{\rm gw}=14$).
+\item \emph{Absolute $\to d_1=19$}: a Planck-anchored observable lives on the threshold ladder from observer to Planck sink. The ladder contains two Part~0 thresholds, $d_1=19$ and $d_2=217$, with $d_2$ ruled out as the sink. The unique non-sink threshold is $d_1=19$, at which the cascade's decay rate hits its first critical value $c_1=\tfrac12\ln\pi$. Numerical Green's function computation identifies $d_1$ as the response maximum for Planck-anchored perturbations; the formal derivation of the Green's function maximum remains open (Remark~\ref{rem:action-uniqueness}).
+\item \emph{Observer $\to d_V=5$}: an observer-local observable is supported at $d=4$ and its adjacent volume maximum $d_V=5$. Among the non-sink distinguished layers $\{d_V,d_0,d_{\rm gw},d_1\}$, $d_V=5$ is the unique one structurally adjacent to the observer --- the observer inhabits the boundary $S^3 = \partial B^5$ of the volume-maximum ball (Paper~I~\cite{paper1}~\S3). Numerical Green's function response for observer-local perturbations is maximised at $d^*=d_V$; formal derivation open.
+\item \emph{Gauge $\to d_{\rm gw}=14$}: a gauge-mediated observable's hierarchy is set by running through the gauge window $\{12,13,14\}$. The highest layer of the window is $d=14$, the $\mathrm{U}(1)$ hypercharge layer; a coupling descending into the observer's frame from above enters the gauge window at $d=14$. Numerical Green's function response to perturbations sourced at this entry point is maximised at $d^*=d_{\rm gw}$. The $d=13$ Dirac obstruction contributing the $1/\sqrt{\pi}$ factor to $\mathrm{U}(1)$'s descent (Theorem~\ref{thm:weinberg}) is encountered by any Gauge-type observable on its way to the observer, consistently with the $d=14$ entry-point assignment; the $2\sqrt{\pi}$ fermion obstruction factor (Theorem~\ref{thm:obstruction}) lives at every Dirac layer crossed on a fermion's descent, not specifically at $d=14$.
+\item \emph{Amplitude $\to d_0=7$}: an observable not caught by any of the previous three flags --- not Planck-anchored, not observer-local, not gauge-mediated --- is a geometric amplitude spanning generations. Of the non-sink distinguished layers, $d_0=7$ is the unique cascade equilibrium between the observer and the gauge window; it is the only non-sink layer that neither anchors to Planck (like $d_1=19$), sits at the observer boundary (like $d_V=5$), nor lives inside the gauge window (like $d_{\rm gw}=14$). Numerical Green's function response for amplitude-type perturbations is maximised at $d^*=d_0$; formal derivation open.
 \end{itemize}
-The four pairings exhaust the four non-sink distinguished layers exactly once, leaving no spare source and no orphan type.
+The four pairings exhaust the four non-sink distinguished layers exactly once, leaving no spare source and no orphan type. Each rationale identifies $d^*$ by a \emph{structural} role in the observable's descent; the \emph{numerical} claim that the Green's function response is maximised at the assigned $d^*$ is verified layer-by-layer via the eigenstructure of the cascade action's discrete Laplacian (\texttt{tools/cascade\_greens\_function.py}), but the closed-form derivation is open (see the ``Does not'' list of the following remark).
 \end{remark}
 
 \begin{remark}[What this proposition does and does not prove]
@@ -833,12 +922,16 @@ of~\cite{paper4a}). The obstruction at $d=13$ is therefore consumed by
 the symmetry breaking; it does not appear as a propagator factor for the
 SU(2) coupling. Hence $g_2 = N(13)$ unmodified.
 
-\textbf{Step 2: U(1) crosses the Dirac layer at $d=13$ during descent.}
+\textbf{Step 2: U(1) crosses the broken-symmetry Dirac layer at $d=13$ during descent.}
 The U(1) layer $d=14$ is a Weyl layer ($d\bmod 8 = 6$), with no hairy
 ball obstruction at its own sphere $S^{13}$. The cascade descent from
-$d=14$ to the observer at $d=4$ traverses the Dirac layer $d=13$ once.
-A field passing through a Dirac layer encounters the topological
-obstruction analysed in Theorem~\ref{thm:obstruction}. There the
+$d=14$ to the observer at $d=4$ traverses the broken-symmetry Dirac
+layer $d=13$ once (and also the Gen~3 Dirac layer $d=5$, which does
+not contribute a gauge-boson obstruction factor; see
+Remark~\ref{rem:obstruction-scope} below for the rule's scope).
+A gauge coupling passing through a broken-symmetry Dirac layer
+encounters the topological obstruction imposed by the resolving VEV,
+analysed in Theorem~\ref{thm:obstruction}. There the
 obstruction was shown to decompose into two independent factors:
 \[
 \frac{1}{2\sqrt{\pi}}
@@ -894,6 +987,83 @@ chirality factor in Theorem~\ref{thm:obstruction} comes from the
 spinor bundle's Z\textsubscript{2} grading, which exists only for
 spinors. Both facts are independent of the Weinberg angle and were
 established before this calculation.
+\end{remark}
+
+\begin{remark}[Scope of the gauge-boson obstruction rule]\label{rem:obstruction-scope}
+The $1/\sqrt{\pi}$ factor picked up by $g_1'$ in
+Theorem~\ref{thm:weinberg} Step~2 is specific to the descent crossing
+the $\mathrm{SU}(2)$ broken layer at $d=13$, not generic to crossing
+any Dirac layer. This remark articulates the rule explicitly so that
+its application to $\alpha_s$ (Theorem~\ref{thm:alpha-s-leading}) and
+to $g_2$ (above) is traceable from a single rule, and the apparent
+inconsistency between ``no $1/\sqrt{\pi}$ from $d=5$ for $\alpha_s$''
+and ``$1/\sqrt{\pi}$ from $d=13$ for $g_1'$'' is resolved.
+
+\medskip\noindent\textbf{The three Dirac layers of the descent range.}
+In the first two Bott windows relevant to Standard Model gauge-boson
+descent, there are exactly three Dirac layers: $d=5$ (Gen~3), $d=13$
+($\mathrm{SU}(2)$ broken), $d=21$ (Gen~1). Of these, only $d=13$
+supports a gauge VEV --- the Higgs field that resolves the
+$\mathrm{SU}(2)$ symmetry breaking (Part~IVa~\cite{paper4a}, Section~3).
+The generation layers $d=5$ and $d=21$ support fermion wavefunctions at
+their hairy-ball zeros, not gauge VEVs.
+
+\medskip\noindent\textbf{The rule.}
+A gauge coupling descending from its cascade layer to the observer at
+$d=4$ picks up a factor of $1/\sqrt{\pi}$ for each \emph{broken-gauge-
+symmetry} Dirac layer crossed on the descent path. Generation Dirac
+layers (where fermions reside but no gauge VEV is present) do not
+contribute an obstruction factor to gauge-boson propagators.
+
+\medskip\noindent\textbf{Application to the three Standard Model gauge couplings.}
+\begin{itemize}[nosep]
+\item $\alpha_s$ ($\mathrm{SU}(3)$ at $d=12$ descending to $d=4$):
+crosses $d=5$ (Gen~3, generation layer, no factor). Broken-symmetry
+Dirac crossings: zero. Therefore $\alpha_s$ does not pick up a
+$1/\sqrt{\pi}$ obstruction factor, consistent with
+Theorem~\ref{thm:alpha-s-leading}.
+\item $g_2$ ($\mathrm{SU}(2)$ at $d=13$ descending to $d=4$): sits at
+its own breaking layer; the obstruction there is consumed by the
+breaking itself (Theorem~\ref{thm:weinberg} Step~1) rather than
+appearing as a descent factor. On descent, $\mathrm{SU}(2)$ crosses
+$d=5$ (Gen~3, no factor). Broken-symmetry Dirac crossings below its
+own layer: zero. Therefore $g_2 = N(13)$ unmodified by the rule.
+\item $g_1'$ ($\mathrm{U}(1)$ at $d=14$ descending to $d=4$): crosses
+$d=13$ (broken $\mathrm{SU}(2)$, factor $1/\sqrt{\pi}$) and $d=5$
+(Gen~3, no factor). Broken-symmetry Dirac crossings: one. Therefore
+$g_1' = N(14)/\sqrt{\pi}$, consistent with
+Theorem~\ref{thm:weinberg}.
+\end{itemize}
+The three couplings are treated consistently by a single rule; their
+different outcomes reflect which Dirac layers their descent paths
+cross and of which type.
+
+\medskip\noindent\textbf{Why the rule treats generation and broken-symmetry Dirac layers differently.}
+The $1/\sqrt{\pi}$ quarter-turn factor arises from the propagator's
+geometric interaction with whatever structure occupies the hairy-ball
+zero at the crossed layer. At a broken-gauge-symmetry layer ($d=13$),
+the zero is occupied by the Higgs VEV that resolves the obstruction;
+a passing gauge-boson propagator mixes with this VEV and pays
+$1/\sqrt{\pi}$ (the angular measure of the VEV's quarter-turn on
+$S^{12}$). At a generation layer ($d=5$, $d=21$), the zero is occupied
+by fermion wavefunctions; gauge--fermion coupling is a contact
+interaction at that layer itself (a Yukawa or gauge-current coupling),
+not a propagator modification of gauge bosons passing through. Hence
+no $1/\sqrt{\pi}$ factor on the gauge propagator.
+
+\medskip\noindent\textbf{Contrast with the fermion obstruction rule.}
+The fermion obstruction factor $1/(2\sqrt{\pi})$ of
+Theorem~\ref{thm:obstruction} applies at \emph{every} Dirac layer
+crossed by a fermion's descent (generation and broken-symmetry alike),
+not just broken-symmetry ones. This is because fermion wavefunctions
+couple to the Dirac structure (via the spin connection) at every Dirac
+layer, whereas gauge-boson propagators couple to gauge VEVs, which are
+present only at broken-symmetry layers. The obstruction rules for
+fermions and gauge bosons are therefore distinct in scope but share
+the same underlying factor $1/\sqrt{\pi}$ (quarter-turn); fermions
+additionally pick up the chirality factor $1/\chi=1/2$ at every
+crossed layer, giving the combined $1/(2\sqrt{\pi})$ of
+Theorem~\ref{thm:obstruction}.
 \end{remark}
 
 \begin{theorem}[$\sin^2\theta_W$ closure via $\alpha(5)/\chi^3$]\label{thm:weinberg-closure}

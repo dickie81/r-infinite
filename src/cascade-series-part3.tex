@@ -42,8 +42,11 @@ metric has Ricci scalar $R^{(n)} = (n-1)(n-4)/a^4$, vanishing uniquely at $n = 4
 \textbf{Lorentzian signature} (Section 10): the cascade produces both a Euclidean geometry
 and a quantum propagator $e^{-i\lambda x}$ with $\lambda > 0$ from the forced precession. Given the
 physical identification hypothesis, the propagator $e^{-iHt}$ with $H > 0$ is oscillatory
-and unitary: Lorentzian time evolution. The signature $(-,+,+,+)$ follows without
-semiclassics or analytic continuation.
+and unitary: Lorentzian time evolution. The Euclidean-to-Lorentzian
+map is Wick rotation ($x\leftrightarrow it$), motivated
+cascade-internally by the forced precession rather than imposed as a
+mathematical trick; see Theorem~\ref{thm:lorentzian} and
+Remark~\ref{rem:wick-rotation-cascade}.
 
 The cosmological constant $\Lambda = I$ is derived, not fitted. The cascade's dark
 energy equation of state is $w = -1$ exactly: $\Lambda = I$ is a fixed geometric constant
@@ -113,7 +116,7 @@ the numerical coincidence $I \approx \rho_\Lambda/M_{\text{Pl}}^4$. Paper II [2]
 structure of quantum mechanics. This paper derives the cascade's gravitational structure.
 Both Papers II and III require one physical input.
 
-\begin{definition}[Physical identification hypothesis]
+\begin{definition}[Physical identification hypothesis]\label{def:hyp}
 The infinite-dimensional unit ball,
 descended to four dimensions, is indistinguishable from our universe. Concretely: the
 cascade metric is the spacetime metric; the cascade propagator is the physical time-evolution
@@ -191,7 +194,7 @@ the irreversibility of slicing). The full $(d + 1)$-dimensional metric is:
 ds^2 = dx^2 + (1 - x^2)\,d\sigma_{d-1}^2.
 \]
 
-\subsection{The lapse function}
+\subsection{The cascade lapse function}
 
 The ratio of adjacent volumes is the cascade's lapse:
 \[
@@ -199,6 +202,18 @@ N(d) = \sqrt{\pi} \cdot R(d), \qquad R(d) = \frac{\Gamma((d + 1)/2)}{\Gamma((d +
 \]
 At $d = 4$: $N(4) = \sqrt{\pi} \cdot \Gamma(5/2)/\Gamma(3) = 3\pi/8 \approx 1.178$. As $d \to \infty$: $N \to 0$ (no temporal
 separation at the cascade's geometric origin).
+
+\noindent The word ``lapse'' is used here in its cascade-internal
+sense: $N(d)$ is a dimensionless ratio of adjacent unit-ball volumes
+indexed by the cascade dimension, characterising the compression rate
+per slicing step. It is \emph{not} the lapse function of an ADM metric
+foliation in the general-relativistic sense (which is a spacetime
+function $N(t,x)$ relating proper time to coordinate time in
+$ds^2 = -N^2\,dt^2 + g_{ij}\,dx^i\,dx^j$). These two uses of the word
+``lapse'' name distinct objects; the distinction is made explicit in
+Remark~\ref{rem:cascade-vs-metric-lapse} below, and
+Paper~V~\cite{paper5} documents an earlier derivation that conflated
+them and was subsequently retracted.
 
 \subsection{The extrinsic curvature}
 
@@ -211,9 +226,63 @@ Projecting onto a 4-dimensional subspace, the 4D observer's metric is:
 \[
 ds^2_{\text{4D}} = -dt^2 + a(t)^2\,d\sigma_3^2.
 \]
-This is the FRW metric with unit lapse. Isotropy follows from the cascade's spherical
-symmetry; homogeneity from the uniform slicing recurrence. The Lorentzian sign $g_{tt} = -1$
+This is the FRW metric with unit \emph{metric} lapse: $t$ is the
+observer's proper time, and $g_{tt} = -1$ by choice of time coordinate.
+Isotropy follows from the cascade's spherical symmetry; homogeneity
+from the uniform slicing recurrence. The Lorentzian sign $g_{tt} = -1$
 is derived in Section 10.
+
+The cascade lapse $N(4) = 3\pi/8$ (Section~4.2) does \emph{not} enter
+this metric. It is a cascade-internal volume-ratio quantity about the
+slicing recurrence, not a metric function of the observer's spacetime.
+The distinction is elaborated in Remark~\ref{rem:cascade-vs-metric-lapse}
+below.
+
+\begin{remark}[Cascade lapse vs.\ metric lapse]\label{rem:cascade-vs-metric-lapse}
+The cascade lapse $N(d) = \sqrt{\pi}\,R(d) = V_d/V_{d-1}$ defined in
+Section~4.2 and the metric lapse of an ADM foliation are distinct
+objects:
+\begin{itemize}
+\item \emph{Cascade lapse $N(d)$.} A dimensionless ratio of adjacent
+unit-ball volumes (equivalently, adjacent unit sphere areas by
+Paper~I~\cite{paper1} boundary dominance), indexed by the cascade
+dimension $d$. Characterises the rate of content compression per
+slicing step. Defined layer-by-layer, independent of any spacetime
+coordinate.
+\item \emph{Metric (ADM) lapse.} The function $N(t,x)$ appearing in
+$ds^2 = -N^2\,dt^2 + g_{ij}\,dx^i\,dx^j$, which converts between the
+coordinate time $t$ and proper time for an observer at rest in the
+foliation. A spacetime function.
+\end{itemize}
+The 4D observer's metric $ds^2 = -dt^2 + a(t)^2\,d\sigma_3^2$ in
+Section~4.4 uses $t$ as the observer's proper time, so the metric
+lapse is 1 by coordinate choice; this is the standard FRW convention.
+The cascade lapse $N(4) = 3\pi/8$ does not appear in this metric --- it
+is a different quantity with a different meaning.
+
+\medskip\noindent\textbf{Retracted conflation in an earlier Paper~V derivation.}
+An earlier version of Paper~V~\cite{paper5} attempted to identify
+$N(4)$ with the metric lapse of an ADM foliation of the cascade's
+descent (treating $d$ as an ADM time coordinate with lapse $N(d)$), and
+used $N(4)^2 = 9\pi^2/64 \approx 1.388$ as a frame-conversion factor
+in the Friedmann equation. That derivation yielded $H_0 = 71.05$~km/s/Mpc
+and is retracted in Paper~V Section~6 (``Why the observer bridge and
+not a descent lapse''): the correct conversion between the cascade's
+sphere-area content and the observer's 3-volume is the $\pi/2$
+projection factor of Paper~I~\cite{paper1} §3.2, not $N(4)^2$. Under
+the corrected Paper~I bridge, the cascade lapse $N(4)$ does not enter
+the observer's metric at any point, consistent with the distinction
+stated above.
+
+\medskip\noindent\textbf{Cascade slicing = time at the observer's scale.}
+Paper~II~\cite{paper2} Section~7.1 identifies the cascade's slicing
+direction with physical time at the observer's scale. That
+identification is preserved: the slicing parameter (the cascade
+coordinate $d$) maps to the observer's proper time $t$ under the
+locked-time infall of Paper~I. What does not map is the cascade
+lapse $N(d)$ to the metric lapse of $t$. They share a word, not a
+referent.
+\end{remark}
 
 \section{The Cosmological Constant}
 
@@ -366,25 +435,139 @@ realisable over $\mathbb{R}$).
 
 \subsection{Why (C1) is forced by the cascade}
 
-From Theorem 6.1 of [2]: the orthogonality axiom forces the precession angle $\alpha = \pi/2$,
-producing the complex structure $J: e_1 \mapsto e_2$, $e_2 \mapsto -e_1$ with $J^2 = -\text{Id}$.
+Condition (C1) is a statement about the spinor representations of
+$\mathrm{Spin}(1,d-1)$. For it to constrain $d$ cascade-internally, the
+cascade's complex Hilbert space from Paper~II must be identified with a
+representation of $\mathrm{Spin}(1,d-1)$. That identification is not
+an immediate consequence of Paper~II's construction --- Paper~II builds
+the Hilbert space from orthogonality and the slicing recurrence; it does
+not equip it with an $\mathrm{Spin}(1,d-1)$ action. The identification
+is a downstream step in Paper~III, made explicit in
+Lemma~\ref{lem:cascade-spinor-id} below.
 
-\begin{lemma}[Complex $J$ requires complex spinors]
-For the cascade's state space (carrying
-$J$ with $J^2 = -\text{Id}$) to serve as the spinor representation space of $\text{Spin}(1, d - 1)$, the minimal
-spinor representation must be irreducibly complex. Majorana-real spinors are incompatible:
-by Schur's lemma over $\mathbb{R}$, the commutant algebra of an irreducibly real representation is
-$\mathbb{R}$, admitting no $J$ with $J^2 = -\text{Id}$.
+From Theorem~6.1 of~\cite{paper2}: the orthogonality axiom forces the
+precession angle $\alpha = \pi/2$, producing the complex structure
+$J: e_1 \mapsto e_2$, $e_2 \mapsto -e_1$ with $J^2 = -\text{Id}$ on the
+cascade's Hilbert space $\mathcal{H}$.
+
+\begin{lemma}[Cascade Hilbert space carries the minimal complex Lorentz representation]\label{lem:cascade-spinor-id}
+Given the following inputs:
+\begin{itemize}
+\item[(i)] \emph{Physical identification hypothesis} (Definition~2.1):
+the cascade's 4D projection is identified with the observer's physics.
+\item[(ii)] \emph{Empirical Lorentzian spacetime}: the observer's
+spacetime is Lorentzian with Lorentz group $\mathrm{Spin}(1,d-1)$. This
+is empirical input, not derived from the cascade (see Paper~I's ``What
+This Paper Does Not Do''; $d$ itself is empirical at this stage of the
+cascade and will be cascade-internally selected to $d=4$ in
+Theorem~\ref{thm:d4} below).
+\item[(iii)] \emph{Relativistic quantum-mechanical covariance}:
+physical states must carry a representation of the spacetime Lorentz
+group (Wigner's requirement, imported as a standard result).
+\item[(iv)] \emph{Cascade complex structure} (\cite{paper2},
+Theorem~6.1): $\mathcal{H}$ carries an operator $J$ with
+$J^2 = -\mathrm{Id}$ that commutes with the cascade's slicing dynamics.
+\item[(v)] \emph{Austerity} (Prelude~\cite{paper0pre},
+Principle~2.2, clause~(i): parameter economy). Austerity is not a
+separate input: in the Prelude it is derived in place from
+Definition~2.1 ($0\neq 1$) as the operational content of its
+sole-input status.
+\end{itemize}
+Then $\mathcal{H}$ is identified with an \emph{irreducibly complex}
+representation of $\mathrm{Spin}(1,d-1)$. Specifically, the minimal
+such representation is the minimal spinor representation of
+$\mathrm{Spin}(1,d-1)$ exactly when the latter is irreducibly complex
+--- which, by the Clifford classification, occurs at
+$d\bmod 8 \in \{4,5,6\}$ in the first Bott period (and the analogous
+windows $\{12,13,14\}$, $\{20,21,22\}$, \ldots\ in subsequent periods).
 \end{lemma}
 
 \begin{proof}
-If the spinor representation is Majorana (real), the representation space is $\mathbb{R}^n$ and
-the commutant is $\mathbb{R}$ (Schur's lemma). Any $J$ commuting with all group elements satisfies
-$J = c \cdot \text{Id}$ for some $c \in \mathbb{R}$. Then $J^2 = c^2\,\text{Id}$. Since $c^2 \geq 0$, we cannot have $J^2 = -\text{Id}$.
-Contradiction.
+\emph{Step~1 (the representation exists).}
+By (i), the cascade's Hilbert space is the arena of physical quantum
+states at the observer's frame. By (ii), that frame's Lorentz group is
+$\mathrm{Spin}(1,d-1)$. By (iii), the states must transform under this
+group: each Lorentz element $\Lambda \in \mathrm{Spin}(1,d-1)$ acts on
+$\mathcal{H}$ by a well-defined unitary operator $U(\Lambda)$, and the
+collection $\{U(\Lambda)\}$ is a representation. Without such a
+representation, two observers related by a Lorentz transformation
+would ascribe incompatible quantum states to the same physical
+configuration, violating (i).
+
+\emph{Step~2 (the representation is complex-admissible).}
+By (iv), $\mathcal{H}$ carries $J$ with $J^2 = -\mathrm{Id}$. For $J$
+to be a well-defined operator compatible with the representation (so
+that the Lorentz action is complex-linear with respect to $J$), $J$
+must commute with $U(\Lambda)$ for all $\Lambda$. This places $J$ in the
+commutant of $U$. Over $\mathbb{R}$, Schur's lemma for an
+irreducibly-real representation forces the commutant to be $\mathbb{R}$,
+allowing only $J = c\cdot\mathrm{Id}$ with $c^2 \geq 0$: contradicting
+$J^2 = -\mathrm{Id}$. Hence $U$ cannot be irreducibly real on
+$\mathcal{H}$. Either $U$ is irreducibly complex (viewed over
+$\mathbb{C}$), or $U$ is a reducible direct sum of complex-admissible
+subrepresentations.
+
+\emph{Step~3 (minimality forces irreducibility).}
+By (v), austerity clause~(i) forbids unexplained multiplicity
+factors. A reducible representation $U = U^{(1)} \oplus \cdots \oplus U^{(n)}$
+with each $U^{(k)}$ irreducible introduces $n \geq 2$ as an unexplained
+integer. The minimal complex-admissible representation is therefore
+irreducible. Combined with Step~2, $U$ is \emph{irreducibly complex}.
+
+\emph{Step~4 (Clifford classification).}
+The minimal irreducible complex representation of $\mathrm{Spin}(1,d-1)$
+is the spinor representation exactly when the Clifford algebra
+$\mathrm{Cl}(1,d-1)$ has complex type --- i.e.\ is of the form
+$M_n(\mathbb{C})$, possibly tensored with a real matrix factor, so that
+its simple modules are complex vector spaces of complex dimension~$n$.
+By the Clifford classification in Lorentzian signature $(1,d-1)$
+(Lounesto~\cite{lounesto}; see the table in
+Section~\ref{sec:clifford-table} below), this occurs precisely at
+$d\bmod 8 \in \{4,5,6\}$ in the first Bott period. At other values of
+$d$ the Clifford algebra is of real (Majorana) or real-doubled type,
+and the minimal spinor representation is Majorana-real; hosting $J$ on
+such a representation requires doubling, which Step~3 excludes.
 \end{proof}
 
-\subsection{The Clifford algebra classification}
+Lemma~\ref{lem:cascade-spinor-id} is the cascade-internal derivation of
+condition (C1): it supplies explicitly the identification step
+(``$\mathcal{H}$ is a spinor representation of $\mathrm{Spin}(1,d-1)$'')
+that was previously implicit in the phrase ``for the cascade's state
+space to serve as the spinor representation space.''
+
+\begin{remark}[Inputs are named, not derived from the cascade]
+\label{rem:sp-19-inputs}
+The lemma's five inputs are of three kinds. Items (i), (ii), (iv) are
+either physical hypotheses declared by the series (Definition~2.1),
+empirical facts (the Lorentzian character of observed spacetime), or
+prior cascade theorems (Paper~II). Item (iii) is imported from standard
+relativistic quantum mechanics (Wigner's theorem on ray representations
+of spacetime symmetries); it is not cascade-internal and is used as a
+background fact. Item (v) is the austerity principle of the
+Prelude (Principle~2.2, derived there from Definition~2.1 as the
+operational content of its sole-input status --- i.e.\ as a derivation
+rule of the series, not a separate axiom).
+
+If any of (i)--(v) is disputed, condition (C1) loses its force as a
+cascade-internal constraint on $d$. In that case Theorem~\ref{thm:d4}
+below still yields $d=4$ via the two independent cascade-internal
+selections that do not depend on the spinor-representation
+identification:
+\begin{itemize}
+\item[(C2)] Lovelock uniqueness (Theorem~3.1): the Einstein equation
+is the unique divergence-free symmetric rank-2 tensor equation only at
+$d=4$.
+\item[Corollary~\ref{cor:ricci-flat}]: the Lorentzian cascade scale
+factor gives Ricci scalar $R^{(n)} = (n-1)(n-4)/a^4$, vanishing uniquely
+at $n=4$.
+\end{itemize}
+Both are cascade-internal and independent of the Lorentz-representation
+identification. The cascade's $d=4$ derivation therefore has three
+independent selections; (C1) is the one that depends on
+Lemma~\ref{lem:cascade-spinor-id}'s inputs (i)--(v).
+\end{remark}
+
+\subsection{The Clifford algebra classification}\label{sec:clifford-table}
 
 The type of the minimal spinor of $\text{Spin}(1, d - 1)$ is determined by the Clifford algebra
 $\text{Cl}(1, d - 1)$, following Bott periodicity with period 8.
@@ -410,7 +593,7 @@ $d \in \{4, 5, 6\}$ in the first Bott period, then $\{10, 11, 12\}$, etc.
 
 \subsection{The main theorem}
 
-\begin{theorem}[Unique cascade-compatible dimension]
+\begin{theorem}[Unique cascade-compatible dimension]\label{thm:d4}
 $d = 4$ is the unique dimension
 satisfying both (C1) and (C2).
 \end{theorem}
@@ -420,7 +603,7 @@ From the Clifford classification: (C1) holds for $d \in \{4, 5, 6, 10, 11, 12, \
 Theorem 3.1: (C2) holds if and only if $d = 4$. Intersection: $\{4, 5, 6, 10, \ldots\} \cap \{4\} = \{4\}$.
 \end{proof}
 
-\begin{corollary}[Third characterisation of $d = 4$]
+\begin{corollary}[Third characterisation of $d = 4$]\label{cor:ricci-flat}
 The Lorentzian cascade scale factor
 $a(t) = \sqrt{1 - t^2}$ gives $\dot{a} = -t/a$ and $\ddot{a} = -1/a^3$. The Ricci scalar of the $n$-dimensional
 FRW metric with $k = 1$ and this scale factor is:
@@ -466,7 +649,7 @@ descriptions simultaneously.
 
 \subsection{The propagator characterises the signature}
 
-\begin{lemma}[Spectral gap is positive]
+\begin{lemma}[Spectral gap is positive]\label{lem:spectral-gap}
 The cascade spectral gap satisfies $\lambda_\infty =
 \tfrac{1}{4}\psi^{(1)}(\sigma/2) > 0$ for all $\sigma > 0$, where $\psi^{(1)}$ is the trigamma function. This follows from $p'(d) =
 \tfrac{1}{4}\psi^{(1)}((d + 1)/2) > 0$ (strict monotonicity of $p$).
@@ -479,31 +662,110 @@ K(t) = |K| \cdot e^{-iHt}, \qquad H = \lambda_\infty > 0,
 \]
 where $t = x$ is the physical time identified with the slicing coordinate.
 
-\begin{theorem}[Lorentzian signature from orthogonality]
-The spacetime metric of the
-4D cascade observer has signature $(-,+,+,+)$.
+\begin{theorem}[Lorentzian signature from the cascade]\label{thm:lorentzian}
+The spacetime metric of the 4D cascade observer has signature $(-,+,+,+)$.
 \end{theorem}
 
 \begin{proof}
-\textbf{Temporal component.} Lorentzian signature means $g_{tt} < 0$. This is equivalent,
-by definition, to time evolution being generated by a self-adjoint Hamiltonian with real
-eigenvalues, giving unitary oscillatory evolution $e^{-iHt}$. The cascade propagator (from
-Theorems 6.1 and 7.1 of [2]) is $K(t) = |K| \cdot e^{-iHt}$ with $H = \lambda_\infty > 0$, which is oscillatory
-with $|K| = \text{const}$. Since the cascade propagator is oscillatory, the identification hypothesis
-(Definition 2.1) gives $g_{tt} < 0$.
+The cascade is Euclidean at the metric level (Section~4.1:
+$ds^2_E = dx^2 + (1-x^2)\,d\sigma_{d-1}^2$, positive-definite). The
+observer's spacetime is Lorentzian (Section~4.4:
+$ds^2_L = -dt^2 + a(t)^2\,d\sigma_3^2$). Under the physical
+identification hypothesis (Definition~\ref{def:hyp}), the cascade's
+slicing coordinate $x$ maps to the observer's proper time coordinate
+$t$. The map between the two metrics is the Wick rotation
+$x \leftrightarrow it$, under which $+dx^2 \leftrightarrow -dt^2$; the
+proof is the derivation of why the cascade's structure forces exactly
+this rotation rather than any other identification of $x$ with an
+observer coordinate.
 
-\textbf{Spatial components.} The cascade's state space is a complex Hilbert space $\mathcal{H}$ ([2]).
-The Hilbert space inner product is positive-definite: $\langle\psi|\psi\rangle > 0$ for all $|\psi\rangle \neq 0$. The
-inner product on equal-time surfaces requires a positive-definite spatial volume element
-$\sqrt{\det g^{(3)}} > 0$, which holds if and only if $g_{ij} > 0$. The signature is $(-,+,+,+)$.
+\textbf{Step 1: The cascade's propagator is oscillatory in real $x$.}
+From Paper~II~\cite{paper2} Theorems~6.1 and~7.1, the forced precession
+$\alpha = \pi/2$ produces the propagator
+$K(x) = |K|\,e^{-i\lambda_\infty x}$ with $\lambda_\infty > 0$
+(Lemma~\ref{lem:spectral-gap} above). This is oscillatory for $x$ real.
+
+\textbf{Step 2: Oscillatory evolution identifies the time coordinate as Lorentzian.}
+In a spacetime with Lorentzian signature $(-,+,+,+)$ and a self-adjoint
+Hamiltonian $H > 0$, quantum states evolve as
+$|\psi(t)\rangle = e^{-iHt}|\psi(0)\rangle$ --- oscillatory in real $t$.
+In a Euclidean spacetime (positive-definite metric), the analogous
+evolution is $e^{-\tau H}$ (exponential decay in imaginary time $\tau$;
+this is the thermal partition-function regime, not a unitary time
+evolution). The cascade's oscillatory $e^{-i\lambda_\infty x}$ in real
+$x$ therefore fits the Lorentzian regime, and identification of $x$
+with the observer's proper time requires the Lorentzian sign
+convention $g_{tt} < 0$.
+
+\textbf{Step 3: The identification is Wick rotation.}
+The cascade's mathematical content is encoded in the Euclidean slicing
+geometry. The map from Euclidean $x$ to Lorentzian $t$ is
+$x = it$ (equivalently $t = -ix$), under which the cascade's
+$+dx^2$ becomes $(idt)^2 = -dt^2$. This is the standard Wick rotation
+operation. What distinguishes the cascade's Wick rotation from the
+standard QFT one is its motivation (see
+Remark~\ref{rem:wick-rotation-cascade} below): in QFT, Wick rotation
+is imposed as a mathematical trick to render Lorentzian path integrals
+convergent; in the cascade, the rotation is the identification step of
+the physical identification hypothesis, cascade-motivated by the
+forced precession producing an oscillatory propagator in real $x$.
+Under this rotation, the cascade's Euclidean $+dx^2$ maps to the
+observer's Lorentzian $-dt^2$.
+
+\textbf{Temporal component.} Steps 1--3 give $g_{tt} = -1$ in the
+observer's proper-time coordinate.
+
+\textbf{Spatial components.} The cascade's state space is a complex
+Hilbert space $\mathcal{H}$ (Paper~II~\cite{paper2}). The inner product
+is positive-definite: $\langle\psi|\psi\rangle > 0$ for all
+$|\psi\rangle \neq 0$. The induced inner product on equal-time
+surfaces requires a positive-definite spatial volume element
+$\sqrt{\det g^{(3)}} > 0$, which holds iff $g_{ij} > 0$. The spatial
+signature is therefore $(+,+,+)$, and the full signature is
+$(-,+,+,+)$.
 \end{proof}
 
-\begin{remark}[Euclidean geometry, Lorentzian physics]
-The cascade's underlying geometry is Euclidean; the physical spacetime is Lorentzian. These are not contradictory. The
-connection is through the propagator's character: the cascade's Euclidean geometry produces
-an oscillatory propagator (because of the forced precession), and oscillatory propagator
-character is the physical content of Lorentzian signature. The Euclidean geometry generates
-Lorentzian physics through the dynamics, not through analytic continuation of the metric.
+\begin{remark}[Wick rotation, cascade-motivated]\label{rem:wick-rotation-cascade}
+The cascade's Euclidean-to-Lorentzian map is Wick rotation
+($x \leftrightarrow it$, $+dx^2 \leftrightarrow -dt^2$). Prior drafts of
+this series claimed the cascade avoided Wick rotation ``the Euclidean
+geometry generates Lorentzian physics through the dynamics, not
+through analytic continuation of the metric''). That framing is not
+correct: the operation performed is exactly Wick rotation (a sign flip
+on the time-direction metric component). What is correct is that
+Wick rotation in the cascade is \emph{cascade-motivated} rather than
+\emph{mathematically imposed}.
+
+\medskip\noindent\textbf{The distinction.}
+In standard quantum field theory, Wick rotation $t \to -i\tau$ is
+often introduced as a mathematical trick: Lorentzian path integrals
+$\int \mathcal{D}\phi\,e^{iS_L}$ are oscillatory and ill-defined;
+rotating to $\tau$ gives $\int\mathcal{D}\phi\,e^{-S_E}$ with exponentially
+damped weights, which converges. The Euclidean side is computationally
+well-defined; the Lorentzian side is physical; the two are related by
+analytic continuation with no physical content attached to the
+rotation itself.
+
+In the cascade, the situation is reversed. The cascade is \emph{built}
+Euclidean (positive-definite slicing metric); this is the starting
+mathematical structure, not a computational continuation of something
+Lorentzian. The Lorentzian observer metric arises via the physical
+identification hypothesis, which maps cascade structure to observer
+physics. The Wick rotation is the specific map that preserves the
+cascade's oscillatory propagator (from the forced precession) as
+oscillatory unitary time evolution on the observer's side. No other
+identification of $x$ with an observer coordinate would do this: the
+oscillatory character of $e^{-i\lambda_\infty x}$ in real $x$ requires
+a Lorentzian sign on the time-direction metric, which requires Wick
+rotation relative to the Euclidean cascade.
+
+\medskip\noindent\textbf{Consequences.}
+This clarifies three downstream readings:
+\begin{itemize}[nosep]
+\item The cascade does not \emph{avoid} Wick rotation; it \emph{motivates} it. Claims to the contrary in earlier drafts (and in this paper's abstract before revision, Paper~V Section~6's retracted framing, etc.) are retracted in favour of the honest statement.
+\item The ``Euclidean geometry'' of the cascade is not merely a computational device; it is the starting mathematical structure. The Lorentzian observer metric is derived by applying the physical identification hypothesis, which includes the Wick rotation as its time-coordinate map.
+\item Paper~III Section~14's Gauss--Codazzi analysis on the Lorentzian cascade metric uses the Wick-rotated form $g^L = -dt^2 + (1-t^2)\,d\sigma_{n-1}^2$; the identification of this with the cascade's Euclidean slicing geometry through $x = it$ is the content of Wick rotation, not a separate construction.
+\end{itemize}
 \end{remark}
 
 \begin{remark}[Three consequences of $\psi^{(1)} > 0$]
@@ -674,8 +936,11 @@ an enormous cascade (213 compactified directions), giving $\Lambda = I \approx 1
 
 \subsection{The Lorentzian Gauss--Codazzi analysis}
 
-We install the Lorentzian cascade metric directly from Theorem 10.2, without analytic
-continuation. The $n$-dimensional Lorentzian cascade metric is:
+We install the Lorentzian cascade metric directly from
+Theorem~\ref{thm:lorentzian}: under the Wick-rotation identification
+$x = it$ (Remark~\ref{rem:wick-rotation-cascade}), the cascade's
+Euclidean slicing metric $dx^2 + (1-x^2)\,d\sigma_{n-1}^2$ maps to the
+Lorentzian form below. The $n$-dimensional Lorentzian cascade metric is:
 \[
 g^L = -dt^2 + (1 - t^2)\,d\sigma_{n-1}^2, \qquad a(t) = \sqrt{1 - t^2}.
 \]
@@ -858,6 +1123,8 @@ out in Paper~V.
 \end{enumerate}
 
 \begin{thebibliography}{12}
+
+\bibitem{paper0pre} {[Author]}, \textit{The Cascade Series --- Prelude: Why Nothing Has Structure}, March 2026.
 
 \bibitem{paper1} {[Author]}, \textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}, March 2026.
 
