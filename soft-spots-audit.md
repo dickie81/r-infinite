@@ -191,10 +191,10 @@ The theorem: $N(12) = 0.70870$ vs. self-dual $1/\sqrt{2} = 0.70711$ — deviatio
 
 The layers strictly between $d_0=7$ and $d_1=19$ number $19-7-1=11$; the paper says "exactly 12" using inclusive/exclusive of different endpoints. The decomposition $12 = 8+3+1 = \dim(\mathrm{SU}(3))+\dim(\mathrm{SU}(2))+\dim(\mathrm{U}(1))$ is arithmetic, not structural: the 8+3+1 split comes from Adams' theorem applied to layers 12, 13, 14 (proved separately), not from the 12-layer count. Similarly, "total rank $=2+1+1=4=$ observer's spacetime dimension" is a numerical coincidence — the cascade's rank-theory doesn't independently derive that the gauge-window's Lie-algebra rank should equal $d=4$. Both are retrospective observations, not load-bearing derivations, but they are presented in the main argument as structural confirmations.
 
-### SP-29. "SU(3) couples chirally" is factually incorrect — **Minor** (factual)
-`src/cascade-series-part4a.tex:202–205`.
+### SP-29. "SU(3) couples chirally" is factually incorrect — **Minor** (factual) — ✅ **FIXED**
+`src/cascade-series-part4a.tex:202–205`. Fix applied in commit: see Fixes Applied section below.
 
-The paper's rationalisation of the Weyl–Dirac–Weyl assignment reads: *"$\mathrm{SU}(3)$ and $\mathrm{U}(1)$ couple chirally to fermions, while $\mathrm{SU}(2)$ couples only to left-handed fermions (vector-like pre-breaking, chiral after breaking)."* But QCD ($\mathrm{SU}(3)$ colour) is vectorial in the Standard Model — left- and right-handed quarks carry equal colour charge; $\mathrm{SU}(3)$ does not couple chirally. The assignment of Weyl-phase layers ($d=12$, $d=14$) to $\mathrm{SU}(3)$ and $\mathrm{U}(1)$ via "chiral coupling" is therefore based on a mis-statement of Standard Model physics. The numerical identification $d=12 \to \mathrm{SU}(3)$, $d=14 \to \mathrm{U}(1)$ is defensible via Adams (SP-27 aside), but the chirality-matching argument given to motivate the assignment does not hold.
+The paper's rationalisation of the Weyl–Dirac–Weyl assignment read: *"$\mathrm{SU}(3)$ and $\mathrm{U}(1)$ couple chirally to fermions, while $\mathrm{SU}(2)$ couples only to left-handed fermions (vector-like pre-breaking, chiral after breaking)."* QCD ($\mathrm{SU}(3)$ colour) is vectorial in the Standard Model — left- and right-handed quarks carry equal colour charge; $\mathrm{SU}(3)$ does not couple chirally. The assignment of Weyl-phase layers ($d=12$, $d=14$) to $\mathrm{SU}(3)$ and $\mathrm{U}(1)$ via "chiral coupling" was therefore based on a mis-statement of Standard Model physics. The numerical identification $d=12 \to \mathrm{SU}(3)$, $d=14 \to \mathrm{U}(1)$ remains defensible via Adams (SP-27 aside); the chirality-matching argument used to motivate the assignment has been replaced.
 
 ### SP-30. Theorem 4.3 "Three generations" — proof gives "three visible + one suppressed", not "three only" — **Structural**
 `src/cascade-series-part4a.tex:541–566`, cf cover sheet paragraph on Gen~0 at $d=29$.
@@ -274,7 +274,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 | SP-26 | In-domain uniqueness ≠ cross-domain consistency | Part II=III | Structural |
 | SP-27 | $d=12$ self-dual crossing is 0.225% near-miss + KK-tension | Part IVa | Structural + Check-7 |
 | SP-28 | "$12 = 8+3+1$" and "rank = 4" are numerical coincidences | Part IVa | Minor |
-| SP-29 | "SU(3) couples chirally" is factually wrong | Part IVa | Minor (factual) |
+| ~~SP-29~~ | ~~"SU(3) couples chirally" is factually wrong~~ | Part IVa | ✅ Fixed |
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
 | **SP-31** | **Fermion obstruction factor (b) is physics-intuition** | Part IVb | **Structural, load-bearing on every fermion mass** |
 | SP-32 | Mass formula $(2\sqrt{\pi})^{-(n_D+1)}$ "+1" observer toll asserted | Part IVb | Structural |
@@ -300,7 +300,36 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
   - SP-33 — apply the obstruction rule consistently and compute the expected $\alpha_s$ if $d=5$ gave a $1/\sqrt{\pi}$ factor; compare to the formula that works.
   - SP-36 — test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the blind predictions close within experimental precision.
 - **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-19, SP-21, SP-23, SP-26, SP-31, SP-32, SP-33, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
-- **Factual corrections (minor but should be fixed):** SP-29 (SU(3) is vectorial, not chiral), SP-37 ($d=14$ is Weyl, no hairy-ball obstruction on $S^{13}$).
+- **Factual corrections (minor but should be fixed):** ~~SP-29 (SU(3) is vectorial, not chiral)~~ ✅ fixed; SP-37 ($d=14$ is Weyl, no hairy-ball obstruction on $S^{13}$) — still open.
+
+## Fixes Applied
+
+Commits on this branch that close or modify entries above. Each entry records: soft-spot ID, what changed, and the resulting status.
+
+### Commit (SP-29 and adjacent CP-phase paragraph)
+
+**SP-29 — Closed.** The factually incorrect sentence *"$\mathrm{SU}(3)$ and $\mathrm{U}(1)$ couple chirally to fermions, while $\mathrm{SU}(2)$ couples only to left-handed fermions (vector-like pre-breaking, chiral after breaking)"* at `src/cascade-series-part4a.tex:201–205` was replaced with:
+
+> *"This is a Clifford-algebra classification of the spinor representation space at each layer; it is distinct from the chirality structure of each gauge boson's coupling to fermions in the Standard Model (which is vectorial for $\mathrm{SU}(3)_c$, parity-violating for $\mathrm{SU}(2)_L$, and determined separately by the symmetry breaking of Section~3 and the fermion generation structure of Section~4). The assignment of $\mathrm{SU}(3)$, $\mathrm{SU}(2)$, $\mathrm{U}(1)$ to layers $d=12,13,14$ specifically is forced by Adams' theorem (Theorem~\ref{thm:adams-unique}), not by matching Clifford type to coupling chirality."*
+
+The fix:
+- Removes the factual error on SU(3) chirality.
+- Separates Clifford-algebra spinor type (Weyl vs Dirac) from SM-coupling chirality (vectorial vs parity-violating), which are distinct concepts.
+- Explicitly re-routes the gauge assignment through Adams' theorem, which is the actual derivation.
+- Zero numerical predictions change; no theorem is touched.
+
+**Adjacent CP-phase paragraph — Closed (same commit).** The claim *"$\mathrm{SU}(2)$ … does not generate a physical CP violation in the strong sector"* at `src/cascade-series-part4a.tex:207–210` conflated CKM CP violation (SU(2)-mediated) with strong-sector CP ($\theta_{\rm QCD}$, SU(3)). The paragraph was replaced with:
+
+> *"The real phases ($+1$ at $d=12$, $-1$ at $d=14$) give parity-invariant propagator coefficients at the $\mathrm{SU}(3)$ and $\mathrm{U}(1)_{\rm em}$ layers, consistent with the observed vectorial character of both gauge interactions at the observer's frame. The imaginary phase ($i$ at $d=13$) marks the $\mathrm{SU}(2)$ layer as the unique propagator-odd layer in the gauge window; this is the layer at which the hairy ball zero forces symmetry breaking (Section~3). The strong-sector CP phase $\theta_{\rm QCD}$ is independently set to zero by the cascade's topological classification (Part~IVb Section~6), not by a leakage argument from the $d=13$ phase."*
+
+The fix:
+- Removes the mis-identified "SU(2) doesn't generate physical CP violation" claim (CKM does).
+- Re-routes θ_QCD = 0 to its actual cascade derivation (Part IVb Theorem 6.1, via $\pi_3(S^{11}) = \mathbb{Z}_2$), not to a leakage argument.
+- Retains the "propagator-odd layer" observation, which is internally cascade-consistent.
+
+Both items were Minor severity. Cost to the series: ~6 sentences replaced; zero numerical or theorem impact.
+
+---
 
 ## Hardening priorities
 
