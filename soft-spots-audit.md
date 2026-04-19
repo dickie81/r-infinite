@@ -182,7 +182,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
 | SP-23 | Theorem 7.1 proof expanded to 3 steps (unit-ball BD derived, area-is-content derived, scale invariance asserted); `rem:sp23-status` + Open Question (content-area-scale-invariance derivation target); stale Paper~I Thm~4.4 ref corrected to Paper~0 Thm~3.1 | `36596ab` |
 | SP-25 | Theorem 6.1 reformulated with three-step factorisation (metric derived, state derived, state-metric map asserted); `rem:sp25-status` + Open Question (state-metric-instantiation) identifying two cascade-native routes (state-dependent foliation, stress-energy back-reaction) | `b27dcb9` |
-| SP-26 | Theorem 4.1 proof rewritten to use single-source argument instead of invalid reductio on in-domain uniqueness; theorem renamed "Gleason + Lovelock + single source = consistency"; `rem:sp26-status` explicitly concedes the QED/EFT-QG counterexample and identifies `thm:single` as the load-bearing input | *(this commit)* |
+| SP-26 | Theorem 4.1 proof rewritten to use single-source argument instead of invalid reductio on in-domain uniqueness; theorem renamed "Gleason + Lovelock + single source = consistency"; `rem:sp26-status` explicitly concedes the QED/EFT-QG counterexample and identifies `thm:single` as the load-bearing input | `1001883` |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |
 | SP-29 | SU(3) chirality factual fix + CP-phase paragraph | `a4c42f2` |
 | SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
