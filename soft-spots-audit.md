@@ -216,7 +216,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |
 | SP-29 | SU(3) chirality factual fix + CP-phase paragraph | `a4c42f2` |
-| SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question~\ref{oq:fermion-cascade-action} (cascade-fermion-action derivation target) | *(this commit)* |
+| SP-31 | Theorem 2.2 step (b) labelled asserted; `rem:sp31-status` + Open Question (cascade-fermion-action derivation target) | `53ab7b7` |
 | SP-32 | Mass-formula $n_D+1$ derived | `3472a9e` |
 | SP-33 | Obstruction-rule scope articulated; `rem:obstruction-scope` | `8e4805c` |
 | SP-37 | $d=14$ hairy-ball attribution corrected + pairing rationalisations tightened | `4a6be53` |
