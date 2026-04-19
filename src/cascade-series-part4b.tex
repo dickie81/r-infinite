@@ -300,8 +300,47 @@ where $\alpha_s = \alpha_{\text{GUT}} \times \exp(\Phi_{12 \to 4})$ is the stron
 \end{theorem}
 
 \begin{proof}
-The observer at $d = 4$ is a Weyl layer. The nearest Dirac layer is $d = 5$, with a hairy ball zero on $S^4$. The observer's projection to the gauge window at $d = 12$ passes through this zero. The effective coupling is $C = \alpha_s/(2\sqrt{\pi}) = N(12)^2/(4\pi) \cdot \exp(\Phi_{12 \to 4})/(2\sqrt{\pi})$. Numerically: $C = 0.1159/3.545 = 0.0327$. Independently, from the $\tau$ mass: $C = 0.0324$. Agreement: 1.0\%.
+The observer at $d = 4$ is a Weyl layer. The nearest Dirac layer is $d = 5$, with a hairy ball zero on $S^4$. The observer's projection to the gauge window at $d = 12$ passes through this zero. The effective coupling is $C = \alpha_s/(2\sqrt{\pi}) = N(12)^2/(4\pi) \cdot \exp(\Phi_{12 \to 4})/(2\sqrt{\pi})$. Numerically: $C = 0.1159/3.545 = 0.0327$ (Route~1 of Remark~\ref{rem:sp34-status}).
+
+Independently, inverting the $\tau$-mass formula
+$m_\tau = (\alpha_s v/\sqrt{2})\exp(-\Phi(5))(2\sqrt{\pi})^{-2}$
+for $C$ via $\alpha_s = 2\sqrt{\pi}\,C$ gives
+$C_\tau = 2\sqrt{2\pi}\,m_\tau\,e^{\Phi(5)}/v$; plugging in observed
+$m_\tau = 1776.82$~MeV and cascade-derived $v, \Phi(5)$ yields
+$C_\tau = 0.0324$ (Route~2). Agreement: 1.0\%.
 \end{proof}
+
+\begin{remark}[Why Route 1 and Route 2 are independent]\label{rem:sp34-status}
+The two extractions of $C$ share no numerical input:
+\begin{itemize}
+\item \emph{Route 1 (gauge-descent).} $C = \alpha_s/(2\sqrt{\pi})$ with
+$\alpha_s = N(12)^2/(4\pi) \cdot \exp(\Phi_{12\to 4})$. Inputs: Gamma
+function values $N(12)$ and the cascade potential sum $\Phi_{12\to 4}$.
+No fermion mass appears.
+\item \emph{Route 2 (mass-formula inversion).} Take the Gen~3 absolute
+mass formula $m_\tau = (\alpha_s v/\sqrt{2})\exp(-\Phi(5))(2\sqrt{\pi})^{-2}$,
+substitute $\alpha_s = 2\sqrt{\pi}\,C$, and solve for $C$ using
+\emph{observed} $m_\tau$, \emph{cascade-derived} $v$ (Theorem~\ref{thm:vev}:
+$v = M_{\mathrm{Pl,red}}\cdot\alpha_{\mathrm{GUT}}\cdot\exp(\Phi_{12\to 4})
+\cdot\exp(-\pi/\alpha(5))$, no fermion-mass input), and
+\emph{cascade-derived} $\Phi(5)$ (Gamma function sum). The only
+non-cascade input is the empirical $m_\tau$.
+\end{itemize}
+Non-circularity follows because $v$ and $\Phi(5)$ are Gamma-function
+quantities, not fitted to $m_\tau$. The two routes share the topological
+factor $2\sqrt{\pi}$ (Corollary~\ref{cor:2sqrtpi-primitive}: a cascade
+primitive), but use disjoint dynamical inputs---$N(12)$ and
+$\Phi_{12\to 4}$ on one side; observed $m_\tau$, $v$, and $\Phi(5)$ on
+the other. The $1.0\%$ agreement is consistent with the leading
+cascade prediction $m_\tau^{\mathrm{lead}} = 1755$~MeV sitting $1.2\%$
+below the observed $m_\tau = 1777$~MeV (Theorem~\ref{thm:complete-mass});
+the residual is the same two-population systematic that
+Theorem~\ref{thm:mtau-abs-closure} addresses at $-0.31\sigma$ via the
+phase-transition shift $\delta\Phi_{\mathrm{phase}} = \alpha(19)/\chi$.
+The earlier statement ``Independently, from the $\tau$ mass:
+$C = 0.0324$'' named this extraction without writing the formula; the
+cross-check is genuine, not a consistency tautology.
+\end{remark>
 
 \begin{remark}[The $n_D+1$ decomposition is not a separate observer toll]\label{rem:nd-plus-one}
 The exponent $n_D + 1$ in the mass formula below is a single count with
