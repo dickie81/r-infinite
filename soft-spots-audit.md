@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 22 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-28, SP-29, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **15 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 23 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-31, SP-32, SP-33, SP-35, SP-37). This file now tracks the **14 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -102,11 +102,6 @@ The theorem states *"every physical prediction of the cascade series is a dimens
 
 ## Part IVa
 
-### SP-27. Theorem 2.1 "self-dual crossing" at $d=12$ is a 0.225% numerical near-miss, framed as structural; argument explicitly invokes Kaluza–Klein despite the cascade's refusal elsewhere — **Structural** + **Check-7 tension**
-`src/cascade-series-part4a.tex:150–180`.
-
-The theorem: $N(12) = 0.70870$ vs. self-dual $1/\sqrt{2} = 0.70711$ — deviation 0.225%. The paper treats this "crossing" as structurally significant ("the crossing therefore falls exactly at the first layer of the second complex spinor window"). But "falls exactly at" is 0.225% off — a near-miss, not an exact coincidence. More importantly, the mechanism invoked is Kaluza–Klein gauge enhancement: *"In Kaluza–Klein compactification on a circle of radius $R$, the low-energy theory contains a $\mathrm{U}(1)$ gauge field … At the self-dual radius … the $\mathrm{U}(1)$ enhances to $\mathrm{SU}(2)$."* The cascade explicitly refuses Kaluza–Klein reduction (Paper I §3.2; Paper II=III §5–6; Paper III §12). Either this is a legitimate exception (the cascade imports a specific KK identity while refusing the procedure), or it is a Check-7 violation. The paper does not flag the tension.
-
 ### SP-30. Theorem 4.3 "Three generations" — proof gives "three visible + one suppressed", not "three only" — **Structural**
 `src/cascade-series-part4a.tex:541–566`, cf cover sheet paragraph on Gen~0 at $d=29$.
 
@@ -142,7 +137,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-18 | Schrödinger derivation absorbs imaginary part | Part II | Minor |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-24 | "No absolute scale" contradicts $M_{\rm Pl,red}$ use | Part II=III | Structural |
-| SP-27 | $d=12$ self-dual crossing is 0.225% near-miss + KK-tension | Part IVa | Structural + Check-7 |
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
 | SP-34 | "Independent $C$ from $m_\tau$" check is ambiguously circular | Part IVb | Minor |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
@@ -175,6 +169,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
 | SP-23 | Theorem 7.1 proof expanded to 3 steps (unit-ball BD derived, area-is-content derived, scale invariance asserted); `rem:sp23-status` + Open Question (content-area-scale-invariance derivation target); stale Paper~I Thm~4.4 ref corrected to Paper~0 Thm~3.1 | `36596ab` |
+| SP-27 | Theorem 2.1 restated as "near-miss observation" with explicit 0.225% deviation; KK-mechanism paragraph rewritten to separate reference value ($1/\sqrt{2}$ as a name) from KK mechanism (not imported); `rem:sp27-status` with three statuses (derived Gamma value, observed near-miss, not-imported KK mechanism) and Check-7 compliance statement pointing to Adams' theorem as the actual derivation | *(this commit)* |
 | SP-25 | Theorem 6.1 reformulated with three-step factorisation (metric derived, state derived, state-metric map asserted); `rem:sp25-status` + Open Question (state-metric-instantiation) identifying two cascade-native routes (state-dependent foliation, stress-energy back-reaction) | `b27dcb9` |
 | SP-26 | Theorem 4.1 proof rewritten to use single-source argument instead of invalid reductio on in-domain uniqueness; theorem renamed "Gleason + Lovelock + single source = consistency"; `rem:sp26-status` explicitly concedes the QED/EFT-QG counterexample and identifies `thm:single` as the load-bearing input | `1001883` |
 | SP-28 | Generator-count theorem demoted to remark | `daca41b` |

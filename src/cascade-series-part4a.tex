@@ -147,16 +147,31 @@ observer.
 The cascade's lapse function $N(d)=\sqrt{\pi}\cdot\Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the
 compactification radius at dimension $d$.
 
-\begin{theorem}[Self-dual crossing]\label{thm:self-dual}
-$N(12)=10395\pi/46080=0.70870$. The self-dual radius $1/\sqrt{2}=0.70711$. The deviation
-is $0.225\%$.
+\begin{theorem}[Self-dual crossing --- near-miss observation]\label{thm:self-dual}
+The cascade lapse $N(d)$ crosses the Kaluza--Klein self-dual reference
+value $1/\sqrt{2}$ between integers $d=12$ and $d=13$:
+\[
+N(12) \;=\; \frac{10395\,\pi}{46080} \;=\; 0.70870
+\;>\; \tfrac{1}{\sqrt{2}} \;=\; 0.70711
+\;>\; 0.68198 \;=\; N(13).
+\]
+The integer $d=12$ sits $0.225\%$ above the self-dual value; the integer
+$d=13$ sits $3.6\%$ below. The continuous solution of
+$N(d^*) = 1/\sqrt{2}$ lies in the open interval $(12,13)$ and does not
+coincide with either integer.
 \end{theorem}
 
-In Kaluza--Klein compactification on a circle of radius $R$, the low-energy theory contains
-a $\mathrm{U}(1)$ gauge field from the metric component $g_{\mu 5}$. At the self-dual
-radius $R=1/\sqrt{2}$ (in cascade units), winding and momentum modes are degenerate, and
-the $\mathrm{U}(1)$ enhances to $\mathrm{SU}(2)$. This gauge enhancement mechanism arises
-in the cascade from the Gamma function, not from strings.
+The value $1/\sqrt{2}$ enters this theorem as the Kaluza--Klein
+\emph{reference} radius where winding and momentum modes are degenerate
+in KK compactification on a circle; in the literature, a U(1) gauge
+field enhances to SU(2) at that radius. The cascade refuses KK
+reduction (Paper~I~\S3.2; Paper~II\,=\,III~\S5--6; Paper~III~\S12), and
+the SU(3)/SU(2)/U(1) assignment to $d\in\{12,13,14\}$ is derived in
+Theorem~\ref{thm:adams-unique} below from Adams' theorem and Bott
+periodicity, not from the self-dual crossing. The crossing serves only
+to name the reference value $1/\sqrt{2}$ and to locate the second
+complex spinor window (which opens at $d=12$) in numerical proximity to
+it; see Remark~\ref{rem:sp27-status} for Check-7 compliance.
 
 \begin{center}
 \begin{tabular}{cccc}
@@ -165,19 +180,57 @@ $d$ & $N(d)$ & $1/\sqrt{2}$ & Status \\
 \midrule
 4   & 1.17810 & 0.70711 & Observer dimension \\
 7   & 0.91429 & 0.70711 & Volume maximum $d_0$ \\
-12  & 0.70870 & 0.70711 & Just above self-dual radius \\
-13  & 0.68198 & 0.70711 & Below self-dual \\
+12  & 0.70870 & 0.70711 & $0.225\%$ above self-dual reference \\
+13  & 0.68198 & 0.70711 & $3.6\%$ below self-dual reference \\
 19  & 0.56755 & 0.70711 & First threshold $d_1$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The crossing occurs between $d=12$ and $d=13$: $N(12)=0.70870>1/\sqrt{2}$ (just above)
-and $N(13)=0.68198<1/\sqrt{2}$ (below). The crossing therefore falls exactly at the first
-layer of the second complex spinor window, which opens at $d=12$. This coincidence is
-forced by the interplay between the Gamma function (which determines $N(d)$) and Bott
-periodicity (which determines the complex windows). No free parameter adjusts the crossing
-point.
+The crossing of $N(d) = 1/\sqrt{2}$ occurs between $d=12$ and $d=13$,
+with $d=12$ the closest integer above ($0.225\%$ deviation). The
+integer $d=12$ is the first layer of the second complex spinor window
+(by Bott periodicity), but its proximity to the self-dual value is a
+numerical coincidence of the Gamma function's values at integer
+arguments, not a structural identity: no cascade theorem forces
+$N(12) = 1/\sqrt{2}$, and no cascade derivation of the Standard Model
+gauge group depends on $d=12$ sitting exactly on the self-dual radius.
+
+\begin{remark}[Derivation status of the self-dual crossing]\label{rem:sp27-status}
+The self-dual crossing has three different derivation statuses
+depending on what claim is being made:
+\begin{enumerate}
+\item \emph{Derived (Gamma-function computation).} The numerical value
+$N(12) = 10395\pi/46080 = 0.70870$ is an exact Gamma-function
+evaluation; similarly $N(13) = 0.68198$. These are not approximations.
+\item \emph{Observed (not derived as equality).} The proximity
+$|N(12) - 1/\sqrt{2}|/(1/\sqrt{2}) = 0.225\%$ is a numerical
+near-miss, not a structural identity. No cascade theorem forces
+$N(12) = 1/\sqrt{2}$; the Gamma function happens to take a value
+close to $1/\sqrt{2}$ at the integer $d=12$.
+\item \emph{Not imported (Check-7 compliance).} The Kaluza--Klein
+gauge-enhancement mechanism at the self-dual radius (U(1)
+$\to$ SU(2) when winding and momentum modes are degenerate) is
+\emph{not} used as a cascade derivation step. The cascade's
+SU(3)/SU(2)/U(1) assignment at $d\in\{12,13,14\}$ is derived in
+Theorem~\ref{thm:adams-unique} from Adams' theorem (the unique
+dimension in $[5,d_1]$ with $\rho(d)-1 = 3$) and Bott periodicity
+(the Weyl--Dirac--Weyl pattern). The self-dual radius appears only
+as a literature reference value naming $1/\sqrt{2}$; the cascade
+never performs a KK reduction, a semiclassical compactification, or
+a winding-momentum mode analysis.
+\end{enumerate}
+An earlier phrasing of this section --- ``the crossing therefore falls
+exactly at the first layer of the second complex spinor window'' ---
+overstated item~(2): the continuous solution of $N(d^*) = 1/\sqrt{2}$
+lies strictly between $d=12$ and $d=13$, and $d=12$ sits $0.225\%$
+above rather than \emph{at} the self-dual value. An earlier phrasing
+---``this gauge enhancement mechanism arises in the cascade from the
+Gamma function'' --- could be read as invoking the KK mechanism as an
+intermediate step; the corrected framing above separates the KK
+reference value (a \emph{name} for $1/\sqrt{2}$) from the KK mechanism
+(which the cascade does not use).
+\end{remark}
 
 \subsection{Three gauge factors from three complex layers}
 
