@@ -188,7 +188,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-6 | Tower-completeness proof: explicit 4-class mechanism enumeration (extrema, monotone zeros, primitive-value crossings, higher-order invariants); `rem:tower-alternatives` rules out self-dual radius $1/\sqrt{2}$ (no integer solution + non-cascade import), $p^{(n)}$ zeros (no zeros), $\Omega_d$ inflections (derived from $d_0$) | `73cc8f5` |
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
-| SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | *(this commit)* |
+| SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
