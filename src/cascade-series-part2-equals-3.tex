@@ -251,29 +251,93 @@ Gamma function), not regulatory.
 \section{Metric Superpositions Are Cascade States}
 
 \begin{theorem}[Gravity is already quantum]\label{thm:metricstate}
-The 4D metric $g_{\mu\nu}$ is determined by the cascade state
-$|\Psi\rangle \in S^{d-1}$. Different states produce different metrics.
-Superpositions of states produce superpositions of metrics. The Born rule
-assigns probabilities to metric outcomes. Each outcome satisfies Einstein's
-equation (Lovelock).
+The 4D metric $g_{\mu\nu}$ and the cascade state
+$|\Psi\rangle \in S^{d-1}$ are both cascade-geometric quantities: the
+metric is derived from the cascade's foliation (Paper~III, \S4), and the
+state is a point on the cascade's boundary sphere (Paper~II,~\S2). The
+cascade's single source therefore predicts that metric structure and
+quantum state are coupled: different cascade states should produce
+different metrics, and superpositions of states should produce
+superpositions of metrics. Under this coupling, the Born rule (Gleason)
+assigns probabilities to metric outcomes and each outcome satisfies
+Einstein's equation (Lovelock).
 \end{theorem}
 
 \begin{proof}
-Paper~III derives $g_{\mu\nu}$ from the cascade's foliation structure, which
-is a property of the cascade state. Paper~II establishes superposition on
-$S^{d-1}$. A superposition $|\Psi\rangle = a|\Psi_1\rangle + b|\Psi_2\rangle$
-with $g^{(1)}_{\mu\nu} \neq g^{(2)}_{\mu\nu}$ is a state of superposed
-metrics. The Born rule (Gleason) gives $p(k) = |\langle\Phi_k|\Psi\rangle|^2$.
-Each outcome satisfies Einstein's equation (Lovelock).
+Three observations, each established elsewhere in the series.
+
+\emph{Step~1 (derived).} Paper~III~\S4 derives $g_{\mu\nu}$ from the
+cascade's slicing recurrence as an FRW-type metric
+$ds^2 = -dt^2 + a(t)^2\,d\sigma_3^2$ with $a(t) = \sqrt{1-t^2}$
+(Lorentzian cross-section radius, Paper~III Theorem~9.1).
+The metric is a cascade-geometric object.
+
+\emph{Step~2 (derived).} Paper~II~\S2 establishes the cascade state space
+as $S^{d-1}$ with superposition structure $|\Psi\rangle = a|\Psi_1\rangle
++ b|\Psi_2\rangle$. States are cascade-geometric objects.
+
+\emph{Step~3 (asserted, pending a concrete state-metric construction).}
+That different states produce distinct metrics---i.e., a bijection or
+more generally a well-defined map
+$|\Psi\rangle \mapsto g_{\mu\nu}^{(\Psi)}$ with
+$g^{(1)}\neq g^{(2)}$ for at least one pair
+$|\Psi_1\rangle,|\Psi_2\rangle$---is asserted on single-source grounds
+(both objects derive from the cascade; their joint theory is not two
+independent sectors) but has not been instantiated in Paper~III. The FRW
+metric of \S4 is a single background; the paper does not exhibit a pair
+of cascade states mapping to distinct metrics. The Born rule on metric
+outcomes and the Lovelock uniqueness of each outcome follow
+conditionally on Step~3's concrete construction. See
+Remark~\ref{rem:sp25-status} for derivation status and
+Open Question~\ref{oq:state-metric-instantiation} for the cascade-native
+construction target.
 \end{proof}
+
+\begin{remark}[Derivation status of metric superpositions]\label{rem:sp25-status}
+The theorem's three claims factorise with three different derivation
+statuses:
+\begin{enumerate}
+\item \emph{Derived.} The metric $g_{\mu\nu}$ is a cascade-geometric
+quantity (Paper~III~\S4, slicing foliation).
+\item \emph{Derived.} The cascade state $|\Psi\rangle$ is a
+cascade-geometric quantity (Paper~II~\S2, point on $S^{d-1}$).
+\item \emph{Asserted, pending construction.} The map
+$|\Psi\rangle \mapsto g_{\mu\nu}^{(\Psi)}$ with state-dependent
+output---the core content of ``different states produce different
+metrics''---is stated on single-source grounds but not exhibited
+concretely. Paper~III's derivation yields a single FRW background
+$-dt^2 + (1-t^2)\,d\sigma_3^2$ that is the same for all cascade states
+on $S^{d-1}$. Two plausible cascade-native routes to a concrete
+construction are: (a) state-dependent foliation---different states
+select different time directions in $B^{d+1}$'s embedding, producing
+distinct Lorentzian slicings of the same cascade geometry; and (b)
+stress-energy back-reaction---different states carry different
+cascade-content distributions, sourcing different matter terms on the
+right-hand side of Einstein's equation via the projection identity of
+Paper~III~\S8 and producing distinct metrics as solutions. Neither
+route is worked out in Paper~III. The paper's ``Does not'' list acknowledges the
+related but adjacent gap (``construct the explicit Hilbert space of
+metric superpositions or compute decoherence rates'').
+\end{enumerate}
+Under the conditional in Step~3, Gleason's Born rule gives probabilities
+to metric outcomes and Lovelock gives Einstein's equation per outcome;
+these steps are the content of Theorem~\ref{thm:double}.
+Closing Step~3 would complete the ``gravity is already quantum'' claim
+by exhibiting a concrete cascade-native map from states to metrics and
+thereby concretising the metric-superposition interpretation.
+\end{remark}
 
 \begin{remark}[No second quantisation of gravity]
 The standard approach: take $g_{\mu\nu}$, promote to $\hat{g}_{\mu\nu}$,
 impose commutation relations, struggle with non-renormalisability. The
-cascade bypasses this. The metric is never promoted to an operator. It is
-a property of the quantum state. Superpositions of metrics are
-superpositions of states. Gravity was always quantum in the cascade,
-because geometry was always quantum in the cascade.
+cascade bypasses this. Under the coupling of Theorem~\ref{thm:metricstate}
+(pending the Step~3 construction of
+Remark~\ref{rem:sp25-status}), the metric is never promoted to an
+operator: it is a property of the quantum state. Superpositions of
+metrics are superpositions of states. Gravity was always quantum in the
+cascade, because geometry was always quantum in the cascade. The
+dissolution is structural; the concrete state-metric map remains to be
+written.
 \end{remark}
 
 \section{Bekenstein--Hawking Entropy Is Hidden Geometry}
@@ -660,6 +724,28 @@ boundary dominance; what is open is a \emph{corroborating} second route.
 \section{Open Questions}\label{sec:open-questions-part2eq3}
 
 \begin{enumerate}
+\item\label{oq:state-metric-instantiation} \textbf{Instantiate the
+state-to-metric map concretely.} Theorem~\ref{thm:metricstate} asserts
+that different cascade states $|\Psi\rangle \in S^{d-1}$ produce
+distinct 4D metrics $g_{\mu\nu}^{(\Psi)}$, under which superpositions
+of states become superpositions of metrics
+(Remark~\ref{rem:sp25-status}, Step~3). Paper~III's derivation of
+$ds^2 = -dt^2 + a(t)^2\,d\sigma_3^2$ with $a(t) = \sqrt{1-t^2}$ yields
+a single FRW background that does not depend on the state. What is
+needed: a concrete pair of cascade states $|\Psi_1\rangle,
+|\Psi_2\rangle$ together with a cascade-native construction exhibiting
+distinct metrics $g^{(1)}_{\mu\nu} \neq g^{(2)}_{\mu\nu}$, via one of
+two plausible routes---(a) state-dependent time direction in the
+embedding $B^{d+1}$, producing distinct Lorentzian slicings of the
+same underlying cascade geometry, or (b) state-dependent stress-energy
+through the projection identity of Paper~III~\S8, sourcing distinct
+solutions of Einstein's equation at $d=4$. Closing this question would
+complete the ``gravity is already quantum'' claim by promoting the
+metric-superposition picture from structural aspiration to concrete
+construction. Related to the acknowledged gap on the explicit Hilbert
+space of metric superpositions but logically distinct: this asks for
+the underlying state-metric map, which is upstream of the Hilbert
+space of metric states.
 \item\label{oq:content-area-scale-invariance} \textbf{Derive the
 scale invariance of the content--area map from a cascade action.}
 Theorem~\ref{thm:bh} derives $V_d = \Omega_{d-1}/d$ on the unit ball
