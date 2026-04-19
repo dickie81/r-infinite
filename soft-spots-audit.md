@@ -133,7 +133,7 @@ The continuum limit replaces the difference equation by $i\,d\psi/dt = \mathcal{
 
 ## Part III
 
-### SP-19. Lemma 9.2 identifies the cascade's Hilbert space with "the spinor representation space of Spin(1,d−1)" without justification — **Structural** (load-bearing on the $d=4$ derivation)
+### SP-19. Lemma 9.2 identifies the cascade's Hilbert space with "the spinor representation space of Spin(1,d−1)" without justification — **Structural** (load-bearing on the $d=4$ derivation) — ✅ **FIXED (upgraded to Lemma with named inputs; Option B)**
 `src/cascade-series-part3.tex:372–385`.
 
 The lemma opens: *"For the cascade's state space (carrying $J$ with $J^2=-\mathrm{Id}$) **to serve as** the spinor representation space of $\mathrm{Spin}(1,d-1)$…"*. The "to serve as" is the whole game. Part II's Hilbert space is $S^{d-1}$ geometry from orthogonality; it does not come with a Spin-group action. Imposing one requires (a) choosing $d$, (b) identifying the Hilbert space with an irreducible spinor representation. Condition (C1) in Theorem 9.3's $d=4$ intersection then rules out $d$-values by Clifford classification. **Without this identification step, (C1) isn't even a well-posed condition on $d$.** The paper treats the identification as implicit.
@@ -264,7 +264,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 | SP-16 | $J$ evolves states (static→dynamic) | Part II | Structural |
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-18 | Schrödinger derivation absorbs imaginary part | Part II | Minor |
-| **SP-19** | **Hilbert space = spinor rep identification** | Part III | **Structural, load-bearing on $d=4$** |
+| ~~**SP-19**~~ | ~~Hilbert space = spinor rep identification~~ | Part III | ✅ Fixed (Lemma 9.1 with 5 named inputs + fallback) |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-21 | Lorentzian-sig = oscillatory-evolution "by definition" | Part III | Structural |
 | SP-22 | Unit-lapse vs cascade-lapse $N(4)$ tension | Part III | Structural |
@@ -290,7 +290,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 - Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are classified **Exploratory** because the Prelude is an exploration of the cascade's minimum starting point rather than the load-bearing first link; they would become Foundational only if the Prelude is promoted to load-bearing. **All four Prelude soft spots are now ✅ closed in the audit sense:** SP-2, SP-3, SP-4 via the declared austerity axiom (Prelude Definition 2.2); SP-1 via explicit acknowledgement in the Prelude's Status box and §10 Open Question 3. The underlying *interpretive* issue at SP-1 (what fixes the logic-to-geometry framework?) is research-scale and remains an open question inside the Prelude itself; the audit finding (the paper denied it was an assumption) is closed.
 - **Load-bearing items by claim:**
   - SP-10 underwrites the $\rho_\Lambda$ headline closure at $-0.07\%$.
-  - SP-19 underwrites the $d=4$ derivation via (C1).
+  - ~~SP-19 underwrites the $d=4$ derivation via (C1).~~ ✅ Closed: Lemma 9.1 added with 5 named inputs; remark notes the $d=4$ derivation still yields via (C2) + Cor 9.4 even if any input is disputed.
   - SP-21 underwrites Lorentzian signature.
   - SP-23 underwrites $S=A/4$ being equal to $V_d/d$ for *physical* horizons rather than just unit spheres.
   - SP-31 underwrites the $1/(2\sqrt{\pi})$ fermion obstruction factor at every Dirac layer — i.e., every charged-lepton and quark mass, $C = \alpha_s/(2\sqrt{\pi})$, and the entire geometric-topological factorisation.
@@ -433,6 +433,38 @@ Changes at `src/cascade-series-part4a.tex:221–240`:
 
 Cost: ~10 lines rewritten. Zero numerical predictions changed; zero theorems invalidated.
 
+### Commit (SP-19: Lemma 9.1 added, upgrades (C1) from assumption to theorem)
+
+**SP-19 — Closed (Option B).** The previous Part III §9.1 contained Lemma 9.2 with a conditional statement: *"For the cascade's state space (carrying $J$ with $J^2=-\mathrm{Id}$) **to serve as** the spinor representation space of $\mathrm{Spin}(1,d-1)$, the minimal spinor representation must be irreducibly complex."* The antecedent (the identification of the cascade Hilbert space with a spinor representation of the observer's Lorentz group) was never justified, making (C1) — and therefore one leg of Theorem 9.3's $d=4$ derivation — rest on an implicit assumption.
+
+**Resolution applied:** Option B from the SP-19 analysis — formalise the identification as a lemma with named inputs.
+
+Changes at `src/cascade-series-part3.tex`:
+
+1. Added an introductory paragraph to §9.1 naming the gap explicitly: Paper II's construction does not equip $\mathcal{H}$ with a $\mathrm{Spin}(1,d-1)$ action; the identification is a downstream step.
+2. Replaced the old Lemma 9.2 with a new **Lemma 9.1 "Cascade Hilbert space carries the minimal complex Lorentz representation"** (`\label{lem:cascade-spinor-id}`). The lemma lists five inputs explicitly:
+    - (i) Physical identification hypothesis (Def 2.1) — series axiom
+    - (ii) Empirical Lorentzian spacetime — empirical input, acknowledged
+    - (iii) Relativistic QM covariance (Wigner) — standard QM, imported
+    - (iv) Cascade complex structure (Paper II Thm 6.1) — cascade theorem
+    - (v) Austerity (Prelude Def 2.2, clause (i)) — now declared meta-principle
+3. The proof structures the identification as four steps: (1) the representation exists (from (i)–(iii)); (2) it is complex-admissible (from (iv) via Schur); (3) minimality forces irreducibility (from (v)); (4) Clifford classification pins the complex-admissible dimensions.
+4. Added **Remark** (`\label{rem:sp-19-inputs}`) naming which inputs are cascade-internal (iv, v) vs physical-hypothesis (i) vs empirical (ii) vs imported-QM (iii). Crucially, the remark provides a **fallback**: if any input is disputed, Theorem 9.3's conclusion ($d=4$) still yields via (C2) Lovelock uniqueness + Corollary 9.4 Ricci-flatness, which are independent of the spinor-representation identification.
+5. Added labels to the previously-label-free Theorem 9.3 (`thm:d4`), Corollary 9.4 (`cor:ricci-flat`), and §9.2 (`sec:clifford-table`) so the new lemma can reference them.
+6. Added a bibitem for the Prelude (`\cite{paper0pre}`) in Part III's bibliography.
+
+**What this buys structurally:**
+
+- (C1) was previously a *conditional* whose antecedent was hidden. It is now a *theorem* (Lemma 9.1) with explicitly named inputs. The Schur-lemma argument that was Lemma 9.2's content is preserved as Step 2 of the new lemma's proof.
+- If a reviewer disputes any of the five inputs, they are forced to identify *which one*. The previous hidden-assumption framing gave a reviewer no lever — they could simply say "this identification is unjustified" without having to commit. The new framing forces the dispute to land on a specific named input.
+- The fallback remark means that even if (C1) is successfully disputed, $d=4$ still has two cascade-internal selections via (C2) and Cor 9.4. This is the insurance: SP-19's closure doesn't depend on the Lemma 9.1 proof surviving every attack. The series' $d=4$ derivation has three independent selections, of which two are immune to SP-19.
+
+**What it does not claim:**
+
+Input (iii) — "relativistic QM covariance" — is used as a standard QM result, not derived from the cascade. The lemma explicitly says so in Remark `rem:sp-19-inputs`. A deeper hardening (Option D in the SP-19 analysis) would put Lorentz covariance into Paper II itself; that remains open work, not required by the current hardening.
+
+Cost: ~80 lines added to Part III §9.1 (replacing ~15 lines of the old Lemma 9.2). Four labels added to existing items. One bibitem added. Zero numerical predictions changed; Theorem 9.3 and Corollary 9.4 are preserved exactly. The new lemma *adds* a cascade-internal derivation where previously there was a conditional.
+
 ---
 
 ## Hardening priorities
@@ -455,7 +487,7 @@ Suggested order for the hardening phase, cheapest first.
 |---|---|---|
 | SP-33 | Write a half-page in Part IVb §4 stating the obstruction-rule scope explicitly: "a boson's coupling picks up 1/√π on crossing a Dirac layer if that layer supports a broken gauge symmetry; it does not on crossing a generation Dirac layer." Then verify this for α_s, α_em running, and all gauge couplings. | 0.5–1 page |
 | SP-32 | In Part IVb §2, unify the observer toll and the n_D count into a single derivation from a propagator formula rather than asserting the "+1" in a remark. | 1–2 pages |
-| SP-19 | In Part III §9, state explicitly that (C1) assumes the cascade Hilbert space hosts a Spin(1,d-1) representation. Either justify it as a theorem or label it as an assumption. If an assumption, check that d=4 still follows from Lovelock + Cor 9.4 alone. | 1 page |
+| ~~SP-19~~ | ~~Articulate (C1)'s identification step~~ | ✅ Done (Option B: Lemma 9.1 with 5 named inputs; fallback to (C2)+Cor 9.4 in remark) |
 | SP-21 | In Part III §10, replace "by definition" with "in the cascade's identification hypothesis, oscillatory propagator ⇔ Lorentzian signature" and defend the hypothesis. Or acknowledge that this is Wick rotation by another name. | 1 paragraph |
 | SP-22 | In Part III §4.4, reconcile unit-lapse 4D metric with cascade lapse N(4) = 3π/8 explicitly. | 1 paragraph |
 
