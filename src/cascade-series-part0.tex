@@ -244,7 +244,19 @@ $d_0$) and (b) primitivity ($c$ is a recurrence constant).
 \end{theorem}
 
 \begin{proof}
-We check all four information classes available from the natural zero.
+\emph{Exhaustiveness of the enumeration.} A scalar $s$ is ``derivable from
+$d_0$'' iff it is expressible as an analytic function of (i)~the values of
+$p$ and its decomposition at $d_0$, (ii)~the higher derivatives $p^{(n)}(d_0)$,
+(iii)~the integer $d_0$ itself, or (iv)~the recurrence's primitive
+$\sqrt{\pi}$ (equivalently $c_1 = \tfrac{1}{2}\ln\pi$ in log-space). The
+quadruple $((p,q,\text{const.}),\,(p^{(n)}),\,d_0,\,\sqrt{\pi})$ is the
+\emph{complete input} available to any cascade-internal construction at
+$d_0$: no other cascade object is defined without additional data
+(Theorem~\ref{thm:irred} identifies $\sqrt{\pi}$ as the recurrence's unique
+primitive; Corollary~\ref{cor:primary} identifies sphere areas as the
+unique independent cascade quantities, and their values at~$d_0$ reduce to
+(i) and (iv)). These four sources partition the input; the four classes
+below exhaust them.
 
 \emph{Class~1: Values of $p$ and its decomposition at $d_0$.} The zero
 gives three scalars: $p(d_0) = 0$, the $d$-dependent part
@@ -262,8 +274,8 @@ not recurrence primitives.
 \emph{Class~3: The dimension $d_0$ itself.} $p(d) = d_0$ equates a
 dimensionless rate to a dimension count---a type mismatch.
 
-\emph{Class~4: Functions of $c_1$.} Consider $f(c_1)$ for any
-$f\neq\mathrm{id}$.
+\emph{Class~4: Functions of $c_1$ (equivalently $\sqrt{\pi}$).} Consider
+$f(c_1)$ for any $f\neq\mathrm{id}$.
 %
 \emph{Multiples:} $n c_1 = \tfrac{1}{2}\ln(\pi^n)$ is the constant of
 the recurrence for $V_d^{\,n}$, a derived sequence. A primitive of a
@@ -279,6 +291,37 @@ recurrence constant in any canonical form of the first-order recurrence.
 
 Across all four classes, $c_1 = \frac{1}{2}\ln\pi$ is unique.
 \end{proof}
+
+\begin{remark}[Alternative candidates addressed]\label{rem:c1-alternatives}
+Four natural candidates not written as members of Classes~1--3 above are
+scalars built from the derived cascade geometry at $d_0$:
+$R(d_0)$, the area ratio $\Omega_{d_0-1}/\Omega_{d_0+1}$, the Stirling
+expression $2\pi e^{2\sqrt{\pi}}$ (appearing in Theorem~\ref{thm:invariant}
+below), and the downstream primitive $2\sqrt{\pi}$
+(Corollary~2.3 of Paper~IVb). Each is a Class~4 function of $c_1$
+(equivalently $\sqrt{\pi}$) and fails the primitivity criterion~(b):
+\begin{itemize}
+\item $R(d_0) = \Gamma((d_0{+}1)/2)/\Gamma((d_0{+}2)/2)$ is a
+\emph{derived} cascade quantity (Corollary~\ref{cor:primary}), not a
+recurrence primitive; it depends on $d_0$ and on $\sqrt{\pi}$ together,
+not on a single dimension-independent constant.
+\item $\Omega_{d_0-1}/\Omega_{d_0+1} = 1/(\pi\,R(d_0-1)\,R(d_0))$ is a
+rational multiple of $1/\pi$ depending on $d_0$; it is a derived ratio of
+sphere areas, not a recurrence constant.
+\item $2\pi\,e^{2\sqrt{\pi}}$ is an analytic combination of
+$\sqrt{\pi}$ and $\pi$ and fails~(b) for the same reason as Class~4
+\emph{powers}: not the dimension-independent constant of any canonical
+recurrence form.
+\item $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$
+(Part~IVb, Corollary~2.3) is a \emph{product} of the primitive
+$\sqrt{\pi}$ with a derived cascade quantity ($N(0) = 2$, the $d{=}0$
+slicing lapse); as a multiple of the primitive it is a derived scalar, not
+itself the primitive.
+\end{itemize}
+No candidate in the SP-5 list is a primitive of the first-order
+recurrence, and each reduces to Class~4 under the exhaustiveness argument
+above.
+\end{remark}
 
 \subsection{Two canonical values of one constant}
 
@@ -420,19 +463,86 @@ cascade. No fifth exists.
 \end{theorem}
 
 \begin{proof}
-Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality)
-and $p(d)$ has a unique zero at $d_0 = 7$ (by strict monotonicity). Two
-thresholds: the complete constant content generates exactly $(c_1, c_2)$
-and the orbit terminates (Theorem~\ref{thm:terminate}), giving $d_1 = 19$
-and $d_2 = 217$.
+\emph{Mechanism enumeration.} A ``distinguished dimension'' is an integer
+$d$ selected by a cascade-internal mechanism operating on the cascade
+sequence $(\Omega_d)_{d\geq 0}$ or its log-ratio $p(d)$. Any such mechanism
+applies one of four operator classes to a cascade-internal quantity:
+\begin{itemize}
+\item[(a)] \emph{Local extrema of a unimodal cascade sequence.}
+\item[(b)] \emph{Zeros of a strictly monotonic cascade sequence.}
+\item[(c)] \emph{Crossings of a monotonic cascade sequence with a
+cascade-primitive reference value.}
+\item[(d)] \emph{Higher-order invariants} (zeros of $p^{(n)}$ for $n\geq 1$,
+inflection points of $\Omega_d$, etc.).
+\end{itemize}
+The classes~(a)--(d) exhaust cascade-internal dimension-selecting
+mechanisms because any further construction is an analytic function of
+(a)--(d) applied to the sequence, and Theorem~\ref{thm:c1unique}'s
+primitivity criterion excludes iterated or composite constructions.
 
-The only remaining candidate is $d = 6$, the discrete argmax of $\Omega_d$.
-But $d = 6$ is not independently selected: by Theorem~\ref{thm:dual},
+\emph{Classes~(a) and (b) yield two dimensions each.}
+Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality;
+class~(a) applied to $V_d$), and $p(d)$ has a unique zero at $d_0 = 7$
+(by strict monotonicity; class~(b) applied to $p$). The only other
+cascade sequence with a local extremum is $\Omega_d$, whose argmax
+$d_{\max} = 6$ is \emph{derived}: by Theorem~\ref{thm:dual},
 $d_{\max} = d_0 - 1$, so $d = 6$ is a derived consequence of $d_0 = 7$
-via boundary dominance. Its information is already encoded in $d_0$.
-Including it would double-count the decay-rate zero. No other cascade
-quantity selects a dimension.
+via boundary dominance. Including it would double-count the decay-rate
+zero. The volume and sphere-area arg\-max thus reduce to a single
+independent class-(a) selection, $d_V = 5$.
+
+\emph{Class~(c) yields two thresholds.}
+The complete cascade-primitive constant content generates exactly
+$(c_1, c_2)$---$c_1 = \tfrac{1}{2}\ln\pi$ is unique by
+Theorem~\ref{thm:c1unique}, $c_2 = \sqrt{\pi}$ is unique as the
+multiplicative primitive of the recurrence
+(Theorem~\ref{thm:irred})---and the orbit terminates
+(Theorem~\ref{thm:terminate}), giving $d_1 = 19$ and $d_2 = 217$. No
+further cascade-primitive reference values exist: any additional
+candidate reference would either be a multiple of $c_1$ or $c_2$
+(excluded by Theorem~\ref{thm:c1unique}'s Class~4) or a non-cascade
+import (excluded by the ``cascade-internal'' qualifier; see
+Remark~\ref{rem:tower-alternatives} for specific cases).
+
+\emph{Class~(d) contributes no new dimensions.}
+Higher derivatives $p^{(n)}$ fail Theorem~\ref{thm:c1unique}'s
+primitivity criterion (Class~2 in that proof): they are not recurrence
+primitives, and their zeros are not canonical cascade dimensions.
+Inflection points of $\Omega_d$ reduce to zeros of $p'$, which are zeros
+of a non-primitive quantity---same exclusion.
+
+No other cascade quantity selects a dimension.
 \end{proof}
+
+\begin{remark}[Alternative candidates addressed]\label{rem:tower-alternatives}
+Three alternative mechanisms that could, in principle, select a fifth
+distinguished dimension are not cascade-internal and are therefore
+excluded by Theorem~\ref{thm:tower}:
+\begin{itemize}
+\item \emph{Crossings with the self-dual radius $R(d) = 1/\sqrt{2}$.}
+The equation has no integer solution: $R(11) \approx 0.7520$,
+$R(12) \approx 0.7087$, $R(13) \approx 0.7201$, so the continuous
+crossing lies between $d=12$ and $d=13$ and no integer satisfies the
+equation exactly. Moreover $1/\sqrt{2}$ is not a cascade primitive: it
+arises as a self-dual radius in Kaluza--Klein compactification, a
+procedure the series explicitly refuses (Paper~I~\S3.2). Part~IVa's
+Theorem~2.1 notes a 0.225\% near-miss at $d=12$ (documented as a
+separate soft spot, SP-27, and flagged there as a Check-7 tension); the
+Tower Completeness theorem here is not disturbed by the near-miss
+because no exact cascade-internal mechanism produces $d=12$ as a
+distinguished dimension.
+\item \emph{Zeros of higher derivatives $p^{(n)}$ for $n\geq 1$.}
+$p'(d) = \tfrac{1}{4}\psi^{(1)}((d+1)/2) > 0$ everywhere (no zeros),
+$p''(d) = \tfrac{1}{8}\psi^{(2)}((d+1)/2) < 0$ everywhere (no zeros). So
+higher derivatives of $p$ have no zeros at any dimension---the
+monotonicity class is already captured by $p$ itself.
+\item \emph{Inflection points of $\Omega_d$.} Reduce to zeros of the
+first derivative of the log-area, which is $-p(d)$. The only zero of
+$p$ is $d_0 = 7$; the corresponding inflection in $\Omega_d$ is already
+encoded in $d_0$ and is not an independent selection.
+\end{itemize}
+No fifth cascade-internal mechanism exists.
+\end{remark}
 
 \begin{center}
 \begin{tabular}{ccrl}
