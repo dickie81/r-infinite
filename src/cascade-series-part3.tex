@@ -191,7 +191,7 @@ the irreversibility of slicing). The full $(d + 1)$-dimensional metric is:
 ds^2 = dx^2 + (1 - x^2)\,d\sigma_{d-1}^2.
 \]
 
-\subsection{The lapse function}
+\subsection{The cascade lapse function}
 
 The ratio of adjacent volumes is the cascade's lapse:
 \[
@@ -199,6 +199,18 @@ N(d) = \sqrt{\pi} \cdot R(d), \qquad R(d) = \frac{\Gamma((d + 1)/2)}{\Gamma((d +
 \]
 At $d = 4$: $N(4) = \sqrt{\pi} \cdot \Gamma(5/2)/\Gamma(3) = 3\pi/8 \approx 1.178$. As $d \to \infty$: $N \to 0$ (no temporal
 separation at the cascade's geometric origin).
+
+\noindent The word ``lapse'' is used here in its cascade-internal
+sense: $N(d)$ is a dimensionless ratio of adjacent unit-ball volumes
+indexed by the cascade dimension, characterising the compression rate
+per slicing step. It is \emph{not} the lapse function of an ADM metric
+foliation in the general-relativistic sense (which is a spacetime
+function $N(t,x)$ relating proper time to coordinate time in
+$ds^2 = -N^2\,dt^2 + g_{ij}\,dx^i\,dx^j$). These two uses of the word
+``lapse'' name distinct objects; the distinction is made explicit in
+Remark~\ref{rem:cascade-vs-metric-lapse} below, and
+Paper~V~\cite{paper5} documents an earlier derivation that conflated
+them and was subsequently retracted.
 
 \subsection{The extrinsic curvature}
 
@@ -211,9 +223,63 @@ Projecting onto a 4-dimensional subspace, the 4D observer's metric is:
 \[
 ds^2_{\text{4D}} = -dt^2 + a(t)^2\,d\sigma_3^2.
 \]
-This is the FRW metric with unit lapse. Isotropy follows from the cascade's spherical
-symmetry; homogeneity from the uniform slicing recurrence. The Lorentzian sign $g_{tt} = -1$
+This is the FRW metric with unit \emph{metric} lapse: $t$ is the
+observer's proper time, and $g_{tt} = -1$ by choice of time coordinate.
+Isotropy follows from the cascade's spherical symmetry; homogeneity
+from the uniform slicing recurrence. The Lorentzian sign $g_{tt} = -1$
 is derived in Section 10.
+
+The cascade lapse $N(4) = 3\pi/8$ (Section~4.2) does \emph{not} enter
+this metric. It is a cascade-internal volume-ratio quantity about the
+slicing recurrence, not a metric function of the observer's spacetime.
+The distinction is elaborated in Remark~\ref{rem:cascade-vs-metric-lapse}
+below.
+
+\begin{remark}[Cascade lapse vs.\ metric lapse]\label{rem:cascade-vs-metric-lapse}
+The cascade lapse $N(d) = \sqrt{\pi}\,R(d) = V_d/V_{d-1}$ defined in
+Section~4.2 and the metric lapse of an ADM foliation are distinct
+objects:
+\begin{itemize}
+\item \emph{Cascade lapse $N(d)$.} A dimensionless ratio of adjacent
+unit-ball volumes (equivalently, adjacent unit sphere areas by
+Paper~I~\cite{paper1} boundary dominance), indexed by the cascade
+dimension $d$. Characterises the rate of content compression per
+slicing step. Defined layer-by-layer, independent of any spacetime
+coordinate.
+\item \emph{Metric (ADM) lapse.} The function $N(t,x)$ appearing in
+$ds^2 = -N^2\,dt^2 + g_{ij}\,dx^i\,dx^j$, which converts between the
+coordinate time $t$ and proper time for an observer at rest in the
+foliation. A spacetime function.
+\end{itemize}
+The 4D observer's metric $ds^2 = -dt^2 + a(t)^2\,d\sigma_3^2$ in
+Section~4.4 uses $t$ as the observer's proper time, so the metric
+lapse is 1 by coordinate choice; this is the standard FRW convention.
+The cascade lapse $N(4) = 3\pi/8$ does not appear in this metric --- it
+is a different quantity with a different meaning.
+
+\medskip\noindent\textbf{Retracted conflation in an earlier Paper~V derivation.}
+An earlier version of Paper~V~\cite{paper5} attempted to identify
+$N(4)$ with the metric lapse of an ADM foliation of the cascade's
+descent (treating $d$ as an ADM time coordinate with lapse $N(d)$), and
+used $N(4)^2 = 9\pi^2/64 \approx 1.388$ as a frame-conversion factor
+in the Friedmann equation. That derivation yielded $H_0 = 71.05$~km/s/Mpc
+and is retracted in Paper~V Section~6 (``Why the observer bridge and
+not a descent lapse''): the correct conversion between the cascade's
+sphere-area content and the observer's 3-volume is the $\pi/2$
+projection factor of Paper~I~\cite{paper1} §3.2, not $N(4)^2$. Under
+the corrected Paper~I bridge, the cascade lapse $N(4)$ does not enter
+the observer's metric at any point, consistent with the distinction
+stated above.
+
+\medskip\noindent\textbf{Cascade slicing = time at the observer's scale.}
+Paper~II~\cite{paper2} Section~7.1 identifies the cascade's slicing
+direction with physical time at the observer's scale. That
+identification is preserved: the slicing parameter (the cascade
+coordinate $d$) maps to the observer's proper time $t$ under the
+locked-time infall of Paper~I. What does not map is the cascade
+lapse $N(d)$ to the metric lapse of $t$. They share a word, not a
+referent.
+\end{remark}
 
 \section{The Cosmological Constant}
 
