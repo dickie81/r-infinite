@@ -190,8 +190,8 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-2 | Finite→$\aleph_0$: austerity Principle 2.2 clause (i) | `5843dcf`, `b587aac` |
 | SP-3 | Binary-test countability: austerity clause (ii) | `5843dcf`, `b587aac` |
 | SP-4 | $\mathbb{R}^*$-dilation: austerity clause (iii) + uniqueness argument | `5843dcf`, `b587aac`, `85476dc` |
-| SP-5 | Uniqueness-of-$c_1$ proof: exhaustiveness lemma pre-filters candidates by primitivity; `rem:c1-alternatives` shows $R(d_0)$, $\Omega_{d_0-1}/\Omega_{d_0+1}$, Stirling $2\pi e^{2\sqrt{\pi}}$, and $2\sqrt{\pi}$ are Class-4 derived functions failing primitivity | *(this commit)* |
-| SP-6 | Tower-completeness proof: explicit 4-class mechanism enumeration (extrema, monotone zeros, primitive-value crossings, higher-order invariants); `rem:tower-alternatives` rules out self-dual radius $1/\sqrt{2}$ (no integer solution + non-cascade import), $p^{(n)}$ zeros (no zeros), $\Omega_d$ inflections (derived from $d_0$) | *(this commit)* |
+| SP-5 | Uniqueness-of-$c_1$ proof: exhaustiveness lemma pre-filters candidates by primitivity; `rem:c1-alternatives` shows $R(d_0)$, $\Omega_{d_0-1}/\Omega_{d_0+1}$, Stirling $2\pi e^{2\sqrt{\pi}}$, and $2\sqrt{\pi}$ are Class-4 derived functions failing primitivity | `73cc8f5` |
+| SP-6 | Tower-completeness proof: explicit 4-class mechanism enumeration (extrema, monotone zeros, primitive-value crossings, higher-order invariants); `rem:tower-alternatives` rules out self-dual radius $1/\sqrt{2}$ (no integer solution + non-cascade import), $p^{(n)}$ zeros (no zeros), $\Omega_d$ inflections (derived from $d_0$) | `73cc8f5` |
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
