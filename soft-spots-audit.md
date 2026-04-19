@@ -186,7 +186,7 @@ The *reductio* argument: if QM and GR contradicted at $d=4$, one wouldn't be uni
 
 The theorem: $N(12) = 0.70870$ vs. self-dual $1/\sqrt{2} = 0.70711$ — deviation 0.225%. The paper treats this "crossing" as structurally significant ("the crossing therefore falls exactly at the first layer of the second complex spinor window"). But "falls exactly at" is 0.225% off — a near-miss, not an exact coincidence. More importantly, the mechanism invoked is Kaluza–Klein gauge enhancement: *"In Kaluza–Klein compactification on a circle of radius $R$, the low-energy theory contains a $\mathrm{U}(1)$ gauge field … At the self-dual radius … the $\mathrm{U}(1)$ enhances to $\mathrm{SU}(2)$."* The cascade explicitly refuses Kaluza–Klein reduction (Paper I §3.2; Paper II=III §5–6; Paper III §12). Either this is a legitimate exception (the cascade imports a specific KK identity while refusing the procedure), or it is a Check-7 violation. The paper does not flag the tension.
 
-### SP-28. Theorem 2.7 "generator count $12 = 8+3+1$" and "rank $= 4$" are numerical matches presented as structural — **Minor**
+### SP-28. Theorem 2.7 "generator count $12 = 8+3+1$" and "rank $= 4$" are numerical matches presented as structural — **Minor** — ✅ **FIXED**
 `src/cascade-series-part4a.tex:214–223`.
 
 The layers strictly between $d_0=7$ and $d_1=19$ number $19-7-1=11$; the paper says "exactly 12" using inclusive/exclusive of different endpoints. The decomposition $12 = 8+3+1 = \dim(\mathrm{SU}(3))+\dim(\mathrm{SU}(2))+\dim(\mathrm{U}(1))$ is arithmetic, not structural: the 8+3+1 split comes from Adams' theorem applied to layers 12, 13, 14 (proved separately), not from the 12-layer count. Similarly, "total rank $=2+1+1=4=$ observer's spacetime dimension" is a numerical coincidence — the cascade's rank-theory doesn't independently derive that the gauge-window's Lie-algebra rank should equal $d=4$. Both are retrospective observations, not load-bearing derivations, but they are presented in the main argument as structural confirmations.
@@ -273,7 +273,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 | SP-25 | "Different states, different metrics" not instantiated | Part II=III | Structural |
 | SP-26 | In-domain uniqueness ≠ cross-domain consistency | Part II=III | Structural |
 | SP-27 | $d=12$ self-dual crossing is 0.225% near-miss + KK-tension | Part IVa | Structural + Check-7 |
-| SP-28 | "$12 = 8+3+1$" and "rank = 4" are numerical coincidences | Part IVa | Minor |
+| ~~SP-28~~ | ~~"$12 = 8+3+1$" and "rank = 4" are numerical coincidences~~ | Part IVa | ✅ Fixed |
 | ~~SP-29~~ | ~~"SU(3) couples chirally" is factually wrong~~ | Part IVa | ✅ Fixed |
 | SP-30 | "Three generations" is "three visible + suppressed 4th" | Part IVa | Structural |
 | **SP-31** | **Fermion obstruction factor (b) is physics-intuition** | Part IVb | **Structural, load-bearing on every fermion mass** |
@@ -411,6 +411,28 @@ The 0.17% residual went from "cosmetic mismatch" to "quantitative evidence that 
 
 Cost: 1 theorem statement rewrite + extended proof + 1 verification sentence + 1 downstream phrase. Zero numerical predictions change; zero tools code changed. The supplement is tighter, not just relabelled.
 
+### Commit (SP-28: generator count demoted from theorem to remark)
+
+**SP-28 — Closed.** Part IVa §2.7 previously stated:
+
+> **Theorem [Generator count]** The number of cascade layers between $d_0=7$ and $d_1=19$ is exactly $12 = \dim(\mathrm{SU}(3))+\dim(\mathrm{SU}(2))+\dim(\mathrm{U}(1)) = 8+3+1$.
+>
+> The total rank of $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ is $2+1+1=4$, equal to the observer's spacetime dimension. This is the Bott mirror at the level of Lie algebra rank …
+
+Two issues: (1) the "theorem" observed a numerical equality $12 = 12$ without proving it structurally; the 12-layer count and the 8+3+1 gauge-dimension count come from *independent derivations* (threshold spacing in Part 0 vs Adams + Clifford–Lefschetz at layers 12, 13, 14). Their coincidence is a consistency check, not a derivation. (2) Similarly, "rank = 4 = spacetime dimension" is a numerical coincidence between separately-fixed values, not a forced identity.
+
+Changes at `src/cascade-series-part4a.tex:221–240`:
+
+- `\begin{theorem}[Generator count]` → `\begin{remark}[Generator count coincidence]`.
+- The statement is expanded into two labeled computations (a) threshold spacing and (b) gauge-algebra assembly, explicitly sourcing each to its separate derivation, and labelled as "a numerical consistency check … not a structural identity forced by either derivation alone".
+- The rank paragraph is reframed from "This is the Bott mirror at the level of Lie algebra rank" to "The cascade does not independently derive that gauge-window total rank must equal the observer's spacetime dimension … the equality is a second numerical coincidence of the same kind", noted "as a consistency check without claiming it is structurally forced".
+
+**Downstream impact:** none. The label `thm:generators` is referenced nowhere else in the sources (verified by grep); changing `theorem` to `remark` with the same label is safe.
+
+**What this buys.** Removes a "theorem-that-isn't" that a hostile reviewer would flag. Keeps the observation (two independent derivations giving the same integer *is* interesting, it's just not a theorem). Strengthens the rest of Part IVa by contrast: Adams' theorem (Theorem 2.4) and the Lefschetz obstruction (Theorem 3.2) remain as genuine structural theorems, now clearly distinguished from the consistency-check remark.
+
+Cost: ~10 lines rewritten. Zero numerical predictions changed; zero theorems invalidated.
+
 ---
 
 ## Hardening priorities
@@ -424,7 +446,7 @@ Suggested order for the hardening phase, cheapest first.
 | SP-29 | Remove "SU(3) couples chirally" sentence in Part IVa §2.2 or replace with the correct statement | 1 line |
 | ~~SP-37~~ | ~~Replace "d=14 … carrying a hairy-ball obstruction" with "d=14's coupling picks up the 2√π factor by crossing d=13"~~ | ✅ Done |
 | ~~SP-8~~ | ~~Label Theorem 15.7 explicitly as first-order perturbative~~ | ✅ Done |
-| SP-28 | Reframe "12 = 8+3+1" and "rank = 4" in Part IVa §2.7 as *observations* rather than *structural derivations* | 1 paragraph |
+| ~~SP-28~~ | ~~Reframe "12 = 8+3+1" and "rank = 4" in Part IVa §2.7 as observations~~ | ✅ Done |
 | Prelude framing | Add a "Status: exploratory" box to the Prelude; cite the cover sheet as load-bearing hypothesis | 1 box |
 
 ### Tier B — Articulate implicit rules (days)
