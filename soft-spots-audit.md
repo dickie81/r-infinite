@@ -6,8 +6,11 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
+**Important context on the Prelude.** The Prelude is an *exploration* of what the true minimum starting point of the cascade might be. It is not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain. Prelude soft spots (SP-1 through SP-4) are accordingly classified **Exploratory** rather than Foundational: they are looseness in an exploratory paper, not gaps in the cascade's load-bearing chain. They become Foundational only if the Prelude is promoted from exploration to load-bearing first link.
+
 ## Severity scale
 
+- **Exploratory** — occurs in a paper whose function is to probe a minimum starting point, not to prove one. Worth tightening if the paper is later promoted to load-bearing; not blocking downstream hardening.
 - **Foundational** — affects whether the cascade starts from "one axiom" as advertised.
 - **High** — directly affects a headline numerical claim.
 - **Structural** — affects a derivation step whose conclusion is re-used downstream.
@@ -17,22 +20,22 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 
 ## Prelude
 
-### SP-1. Logic-to-geometry translation (Theorem 3.1) — **Foundational**
+### SP-1. Logic-to-geometry translation (Theorem 3.1) — **Exploratory**
 `src/cascade-series-prelude.tex:110–115`, discussion at `:102–108`.
 
 The theorem's premise is "unit vectors representing two fully distinguishable states — states sharing no common component under any linear operation on $V$". That premise is already the geometric form of the conclusion. The theorem proves geometric no-common-component $\Rightarrow$ zero inner product rigorously; it does not prove that logical $0\ne 1$ $\Rightarrow$ geometric no-common-component. The paper denies this is an assumption ("not an additional assumption; it is a translation of the same fact into geometric language").
 
-### SP-2. Finite $\to \aleph_0$ jump is parameter-economic, not mathematical (Theorem 4.1, step 2) — **Foundational**
+### SP-2. Finite $\to \aleph_0$ jump is parameter-economic, not mathematical (Theorem 4.1, step 2) — **Exploratory**
 `src/cascade-series-prelude.tex:157–168`.
 
 *"Refusing it would be [an additional assumption]"* — philosophical, not proved. $\aleph_0$ is itself a specific cardinal; the step privileges it over all finite cardinals by appealing to the Prelude §1 principle that a theory of everything cannot have inputs. That principle is assumed, not derived from $0\ne 1$.
 
-### SP-3. "Countable rather than uncountable" presumes binary-test distinctions (Theorem 4.1, step 3) — **Foundational**
+### SP-3. "Countable rather than uncountable" presumes binary-test distinctions (Theorem 4.1, step 3) — **Exploratory**
 `src/cascade-series-prelude.tex:170–179`.
 
 *"Each distinction is a single bit: a binary test 'is the state $e_i$ or not?'"* — introduced here for the first time. Uncountable distinction is excluded "by the same parameter-economy principle that excludes finite $n$", chaining two unacknowledged assumptions.
 
-### SP-4. $\mathbb{R}^*$-dilation invariance introduced as a new symmetry (§5) — **Foundational**
+### SP-4. $\mathbb{R}^*$-dilation invariance introduced as a new symmetry (§5) — **Exploratory**
 `src/cascade-series-prelude.tex:186–203`.
 
 The absence of an external ruler does not force invariance under $\mathbb{R}^*$-dilation specifically (vs conformal group, vs discrete scale invariance, vs $\mathbb{C}^*$). The paper asserts $\mathbb{P}\mathcal{H}$ is "the unique quotient" without proving uniqueness over alternative symmetry groups.
@@ -243,10 +246,10 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
-| SP-1 | Logic→geometry translation | Prelude | Foundational |
-| SP-2 | Finite→$\aleph_0$ parameter economy | Prelude | Foundational |
-| SP-3 | Binary-test countability | Prelude | Foundational |
-| SP-4 | $\mathbb{R}^*$-dilation as new symmetry | Prelude | Foundational |
+| SP-1 | Logic→geometry translation | Prelude | Exploratory |
+| SP-2 | Finite→$\aleph_0$ parameter economy | Prelude | Exploratory |
+| SP-3 | Binary-test countability | Prelude | Exploratory |
+| SP-4 | $\mathbb{R}^*$-dilation as new symmetry | Prelude | Exploratory |
 | SP-5 | $c_1$ uniqueness four-class exhaustiveness | Part 0 | Structural |
 | SP-6 | Tower completeness misses self-dual radius | Part 0 | Structural |
 | SP-7 | Scale=ratio, content=product rule | Part 0 | Structural |
@@ -284,7 +287,7 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
 ## Notes on scope
 
 - This file documents **only** soft spots the papers do not themselves acknowledge. Items already flagged in each paper's "What this paper does not do" or "Open questions" sections (e.g., the observable-dependent $k_Q$ in the Supplement, the variational max-over-min in Part 0, the Gram correction being imported into Part I, the second $G_d$ route in Part II=III, the absolute-mass dimensional inputs in Part IVb, the thermal-spectrum derivation, the Page curve, the tensor $r$ magnitude) are deliberately excluded.
-- Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are philosophically defensible; they are foundational because they mark the gap between "one axiom" and the Prelude's actual starting ensemble (austerity principles + binary distinctions + $\mathbb{R}^*$-scale invariance).
+- Severity reflects impact on the cascade's headline claims, not the ease of fixing each soft spot. SP-1 through SP-4 are classified **Exploratory** because the Prelude is an exploration of the cascade's minimum starting point rather than the load-bearing first link; they would become Foundational only if the Prelude is promoted to load-bearing.
 - **Load-bearing items by claim:**
   - SP-10 underwrites the $\rho_\Lambda$ headline closure at $-0.07\%$.
   - SP-19 underwrites the $d=4$ derivation via (C1).
@@ -298,3 +301,61 @@ The rationalisation for Gauge→$d_{\rm gw}=14$ reads: *"$d=14$ … the $\mathrm
   - SP-36 — test the source-selection rule against $\alpha_{\rm em}(M_Z)$, $m_W$, $m_e/m_\mu$, CKM $\theta_{13}$, $\theta_{23}$ (Remark 4.9's worked candidates) and verify whether the blind predictions close within experimental precision.
 - **Conceptually tightenable items:** SP-5, SP-6, SP-15, SP-19, SP-21, SP-23, SP-26, SP-31, SP-32, SP-33, SP-35, SP-36. Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem.
 - **Factual corrections (minor but should be fixed):** SP-29 (SU(3) is vectorial, not chiral), SP-37 ($d=14$ is Weyl, no hairy-ball obstruction on $S^{13}$).
+
+## Hardening priorities
+
+Suggested order for the hardening phase, cheapest first.
+
+### Tier A — Trivial fixes (hours)
+
+| ID | Action | Cost |
+|---|---|---|
+| SP-29 | Remove "SU(3) couples chirally" sentence in Part IVa §2.2 or replace with the correct statement | 1 line |
+| SP-37 | Replace "d=14 … carrying a hairy-ball obstruction" with "d=14's coupling picks up the 2√π factor by crossing d=13" in Part IVb source-pairing remark | 1 line |
+| SP-8 | Label Theorem 15.7 explicitly as first-order perturbative, or tighten to an inequality | 1 line |
+| SP-28 | Reframe "12 = 8+3+1" and "rank = 4" in Part IVa §2.7 as *observations* rather than *structural derivations* | 1 paragraph |
+| Prelude framing | Add a "Status: exploratory" box to the Prelude; cite the cover sheet as load-bearing hypothesis | 1 box |
+
+### Tier B — Articulate implicit rules (days)
+
+| ID | Action | Cost |
+|---|---|---|
+| SP-33 | Write a half-page in Part IVb §4 stating the obstruction-rule scope explicitly: "a boson's coupling picks up 1/√π on crossing a Dirac layer if that layer supports a broken gauge symmetry; it does not on crossing a generation Dirac layer." Then verify this for α_s, α_em running, and all gauge couplings. | 0.5–1 page |
+| SP-32 | In Part IVb §2, unify the observer toll and the n_D count into a single derivation from a propagator formula rather than asserting the "+1" in a remark. | 1–2 pages |
+| SP-19 | In Part III §9, state explicitly that (C1) assumes the cascade Hilbert space hosts a Spin(1,d-1) representation. Either justify it as a theorem or label it as an assumption. If an assumption, check that d=4 still follows from Lovelock + Cor 9.4 alone. | 1 page |
+| SP-21 | In Part III §10, replace "by definition" with "in the cascade's identification hypothesis, oscillatory propagator ⇔ Lorentzian signature" and defend the hypothesis. Or acknowledge that this is Wick rotation by another name. | 1 paragraph |
+| SP-22 | In Part III §4.4, reconcile unit-lapse 4D metric with cascade lapse N(4) = 3π/8 explicitly. | 1 paragraph |
+
+### Tier C — Blind-test predictive rules (weeks, high-value)
+
+Each of these either hardens the rule significantly or exposes a defect early. All are testable by computation.
+
+| ID | Test | What it settles |
+|---|---|---|
+| SP-10 | Compute the Gram sum on paths [19,217], {3,5,6,7,19,217}, and any other plausible ρ_Λ path. Publish which gives the best closure and why. | Whether the -0.07% headline is robust or cherry-picked |
+| SP-36 | Blind-test the source-selection rule against α_em(M_Z), m_W absolute, m_e/m_μ, CKM θ_13, θ_23 per Remark 4.9's "falsifiable prediction". Publish the blind predictions *before* checking them. | Whether the three-flag rule is genuinely predictive or trained on the 7-observable set |
+| SP-17 | Compute CHSH on alternative bipartitions of ℂ⁴. Expected: Tsirelson bound gives 2√2 for any maximally-entangled bipartition. If it does, the CHSH result is robust; soft spot downgrades to Minor. | Whether the bipartition choice in Part II §10.3 is cosmetic or structural |
+| SP-33 | Apply the articulated rule from Tier B consistently to α_s, α_em, and all cascade gauge couplings. Verify the numerical values survive. | Whether the obstruction-rule scope is coherent |
+
+### Tier D — Genuine open problems (months, research-scale)
+
+| ID | What's needed | Why it matters |
+|---|---|---|
+| SP-31 | Derive the fermion obstruction factor (2√π)⁻¹ from a cascade action or propagator computation, rather than from the "obstruction consumes √π" intuition. Corollary 2.3's N(0)·Γ(½) identity is suggestive but not a derivation. | Load-bears on every fermion mass |
+| SP-23 | Derive S = A/d for physical horizons (not just unit balls) from cascade boundary dominance, with explicit units and scaling. | Load-bears on BH thermodynamics |
+| SP-5, SP-6, SP-15, SP-25, SP-26, SP-35 | Each could be upgraded from "asserted" to "proved/derived" by supplying an explicit theorem. Individually modest; collectively a review-resistant rewrite of the load-bearing proofs. | Tightens the "forced derivation" framing |
+
+### What hardening does *not* require
+
+- Addressing SP-1 through SP-4 while the Prelude remains exploratory. Promote them to priority only if the Prelude is later reframed as load-bearing.
+- Resolving the already-acknowledged gaps (k_Q, 6π in α_em, second G_d route, tensor r, source-selection flags as cascade objects). Those are in the papers' own open-questions lists.
+
+### Suggested first pass
+
+Tier A + a subset of Tier B would take about a week and would materially strengthen the papers without changing any numerical result. That subset is probably:
+
+1. All Tier A (1 day).
+2. SP-33 articulation (the obstruction rule) — this is the highest-leverage tightening because it's the one cleanest example of an implicit rule, and articulating it might expose coherence issues early.
+3. SP-19 articulation — equally high-leverage for the d=4 derivation's reading.
+
+If those land cleanly, move to Tier C blind tests. If SP-33 or SP-19 articulation reveals an incoherence, fix in place before proceeding.
