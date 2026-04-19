@@ -127,8 +127,17 @@ obstructed. A scalar (0-form) couples only to the metric, which is
 well-defined everywhere regardless of the tangent frame---it sees the full
 quarter-turn measure $\sqrt{\pi}$. A fermion (spinor) couples to the tangent
 frame through the spin connection. The global obstruction of the tangent frame
-means the fermion cannot access the full angular measure of the quarter-turn.
-The quarter-turn constant $\sqrt{\pi}$ is consumed by the obstruction.
+means the fermion cannot access the full angular measure of the quarter-turn;
+we \emph{assert} that the obstruction consumes exactly one factor of
+$\sqrt{\pi}$, so that $N_f(d) = R(d)/\chi$. This ``exactly one factor'' step is
+the single non-derived link in the proof: the chirality factor
+$1/\chi = 1/2$ is derived from Poincar\'e--Hopf, and the numerical value
+$2\sqrt{\pi}$ is identified with the cascade primitive $N(0)\cdot\Gamma(\tfrac12)$
+in Corollary~\ref{cor:2sqrtpi-primitive}, but the mechanism by which one (not
+zero, not two) factor of $\sqrt{\pi}$ is absorbed is stated, not computed.
+See Remark~\ref{rem:sp31-status} for the derivation status and
+§\ref{sec:open-questions-part4b}, Question~\ref{oq:fermion-cascade-action}, for the
+cascade-native derivation target.
 
 The geometric coupling $R(d)$, which depends on the radial structure of the
 slicing (the ratio of adjacent Gamma functions), measures the change in
@@ -190,6 +199,16 @@ Dirac index / $\hat A(S^{2n})$ & $0$ & $0$ & $0$ \\
 \end{tabular}
 \end{center}
 Among invariants that are both constant and nonzero, $\chi = 2$ is the canonical choice. The $\hat A$-genus of any sphere vanishes identically ($S^{2n}$ is null-cobordant in spin-bordism, and its Pontryagin classes vanish above degree $0$), so the Atiyah--Singer index of a Dirac operator on a spin sphere is zero. A \emph{Dirac-operator derivation} of the obstruction factor would therefore predict $0$, not $2\sqrt{\pi}$. The cascade's formula $(2\sqrt{\pi})^{n_D+1}$ is structurally incompatible with any Dirac-index interpretation and uniquely consistent with the Euler characteristic; Corollary~\ref{cor:2sqrtpi-primitive} gives the factor directly from the cascade's own primitives.
+\end{remark}
+
+\begin{remark}[Derivation status of the $1/(2\sqrt{\pi})$ factor]\label{rem:sp31-status}
+The fermion-to-scalar propagator ratio $1/(2\sqrt{\pi})$ factorises into three ingredients with three different derivation statuses:
+\begin{enumerate}
+\item \emph{Derived.} The chirality halving $1/\chi = 1/2$: from Poincar\'e--Hopf applied to the Morse function on $S^{2n}$, via Theorem~\ref{thm:chirality-factorisation}'s proof that the Green's function factorises into $\chi$ chirality sectors at even-sphere layers. No assumption.
+\item \emph{Derived as a cascade-primitive identity.} The numerical value $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ is a direct Gamma-function identity (Corollary~\ref{cor:2sqrtpi-primitive}). $N(0)$ and $\Gamma(\tfrac12)$ are both Part~0 primitives; no topological or spinor machinery enters the identity itself.
+\item \emph{Asserted, pending a cascade-action derivation.} That the fermion lapse equals $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$ at even-sphere layers---i.e., that the global tangent-frame obstruction absorbs exactly one factor of $\sqrt{\pi}$---is stated on physical grounds in step~(b) of the proof of Theorem~\ref{thm:obstruction}. It has not been derived from an action principle for a cascade fermion field. The scalar analogue \emph{is} derived: the discrete scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ (Remark~\ref{rem:action-uniqueness}) has $B(\tfrac12, d/2+1) = \sqrt{\pi}\cdot R'(d)$ as its scalar propagator on $S^{d-1}$. A parallel fermion action---a discrete Dirac operator on the cascade lattice that couples to the spin connection and whose propagator on $S^{2n}$ is $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$---would close the final link. This is the content of Open Question~\ref{oq:fermion-cascade-action}.
+\end{enumerate}
+The numerical observables (lepton mass ratios to $0.13\%$ and $1.7\%$, $m_\tau$ absolute to $-0.31\sigma$, the universality check of Remark~\ref{rem:universality}) confirm the asserted value of $1/(2\sqrt{\pi})$ to the cascade's stated precision. The residual soft spot is \emph{mechanistic}, not numerical: the formula matches observation; the action that forces the exponent is not yet written.
 \end{remark}
 
 \subsection{Why $R'(d)$ does not appear}
@@ -1426,12 +1445,13 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \item Compute QCD running corrections.
 \end{itemize}
 
-\section{Open Questions}
+\section{Open Questions}\label{sec:open-questions-part4b}
 
 \begin{enumerate}
+\item\label{oq:fermion-cascade-action} \emph{Derive the fermion obstruction factor $1/(2\sqrt{\pi})$ from a cascade action.} Theorem~\ref{thm:obstruction} proves $N_f(d)/N(d) = 1/(2\sqrt{\pi})$ from two ingredients: the chirality halving $1/\chi = 1/2$ (Poincar\'e--Hopf) and the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}). The final mechanistic step---that the global tangent-frame obstruction on $S^{2n}$ absorbs exactly one factor of $\sqrt{\pi}$, giving $N_f(d) = R(d)/\chi$---is stated, not computed (Remark~\ref{rem:sp31-status}, item~3). The scalar analogue is closed by the discrete action $S[\varphi] = \sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$ of Remark~\ref{rem:action-uniqueness}, whose propagator on $S^{d-1}$ is $B(\tfrac12, d/2+1) = \sqrt{\pi}\cdot R'(d)$. What is needed: a parallel cascade-intrinsic fermion action---a discrete Dirac operator on the cascade lattice, coupled to the spin connection and respecting chirality $\mathbb{Z}_2$---whose Green's function on an even-sphere layer evaluates to $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$, deriving the ``exactly one factor of $\sqrt{\pi}$'' absorption from the action's structure. This closes the last non-derived link in the fermion mass formula. Tier~3 (load-bearing on every charged-fermion mass).
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
 \item The Higgs quartic $\lambda = \pi^2 g^2/32$ (Section 4.5) is derived, not independent: it is $m_H/m_W = \pi/2$ expressed as a coupling. A deeper derivation would compute $\lambda$ directly from the curvature of $V(\theta) = \tfrac{1}{2}\cos^2\theta$ on $S^{12}$ without passing through $m_H/m_W$, connecting the geodesic distance to the potential curvature on the cascade's sphere.
-\item \emph{Partially resolved.} Individual electroweak couplings and $1/\alpha_{\text{em}} = 137$. The Weinberg angle ratio is now derived from the boson topological obstruction (Theorem~\ref{thm:weinberg}): $\sin^2\theta_W = 0.2286$, deviation $-1.12\%$. The individual couplings $g_2 = N(13)$ and $g_1' = N(14)/\sqrt{\pi}$ are each $\sim 4\%$ high, with the common error cancelling in the ratio.
+\item\label{oq:alpha-em-screening} \emph{Partially resolved.} Individual electroweak couplings and $1/\alpha_{\text{em}} = 137$. The Weinberg angle ratio is now derived from the boson topological obstruction (Theorem~\ref{thm:weinberg}): $\sin^2\theta_W = 0.2286$, deviation $-1.12\%$. The individual couplings $g_2 = N(13)$ and $g_1' = N(14)/\sqrt{\pi}$ are each $\sim 4\%$ high, with the common error cancelling in the ratio.
 
 \emph{Conjecture (fine structure constant).} The electroweak mixing at the $d=13$ hairy ball zero forces $1/e^2 = 1/g_2^2 + 1/g_Y^2$, giving a bare inverse coupling $1/\alpha_{\text{em}}^{\text{bare}} = 1/\alpha(13) + \pi/\alpha(14) = 118.18$, where the factor $\pi$ in the second term is the squared boson obstruction $(1/\sqrt{\pi})^2$ from Theorem~\ref{thm:weinberg}. If each of the three Dirac layers ($d=5,13,21$) contributes a topological screening of $N(0)\cdot\Gamma(\tfrac{1}{2})^2 = 2\pi$ to $1/\alpha_{\text{em}}$, then
 \[
@@ -1453,7 +1473,7 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 \begin{enumerate}
 \item \emph{Largely resolved.} Close the electroweak VEV $v$. Remark~\ref{rem:v-closure} establishes the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ and identifies $\exp(-\pi/\alpha(5))$ with the Kosterlitz--Thouless single-vortex action on the 2-sphere cross-section of $S^4$ via the Morse foliation of the $d{=}5$ hairy-ball defect, with half-winding forced by Theorem~\ref{thm:chirality-factorisation}. The identity, the 2-sphere cross-section, and the chirality-half-winding are all cascade-internal. \textbf{Residual:} a formal proof that the 4D hairy-ball tangent-field obstruction on $S^4$ is equivalent to a first-Chern class on each 2-cycle of the Morse foliation --- a pure geometric-topology step, not new cascade content.
 \item \emph{Derive the PMNS matrix and the solar neutrino splitting.} The heaviest neutrino mass is derived ($m_{29}\times\alpha(21)/\chi^8$, $-1\%$ on $\Delta m^2$). The solar splitting requires inter-generation mixing---the cascade analogue of the PMNS matrix---from the Gram overlap structure between the three generation layers and $d=29$.
-\item \emph{Derive $1/\alpha_{\mathrm{em}}=137$ from the cascade action.} The conjecture $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ (Open Question~3) matches observation to $0.006\%$ but the screening term $6\pi$ is identified by target-matching, not derived from the cascade action. The precise open problem: show that the photon self-energy at each Dirac layer, computed from the action $S[\varphi]=\sum(2\alpha)^{-1}(\Delta\varphi)^2$ coupled to a gauge field, contributes exactly $N(0)\cdot\Gamma(\tfrac{1}{2})^2 = 2\pi$ to $1/\alpha_{\mathrm{em}}$.
+\item \emph{Derive $1/\alpha_{\mathrm{em}}=137$ from the cascade action.} The conjecture $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ (Open Question~\ref{oq:alpha-em-screening}) matches observation to $0.006\%$ but the screening term $6\pi$ is identified by target-matching, not derived from the cascade action. The precise open problem: show that the photon self-energy at each Dirac layer, computed from the action $S[\varphi]=\sum(2\alpha)^{-1}(\Delta\varphi)^2$ coupled to a gauge field, contributes exactly $N(0)\cdot\Gamma(\tfrac{1}{2})^2 = 2\pi$ to $1/\alpha_{\mathrm{em}}$.
 \item \emph{Complete the quark mass spectrum.} The ratio $(t/b)/(c/s)=3.04\approx N_c$ suggests an additional colour factor from the Weyl chirality decomposition at $d=12$. Computing this from the cascade's own spinor structure at $S^{11}$ would complete the quark sector.
 \end{enumerate}
 
@@ -1488,7 +1508,7 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 
 \textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = \mathbb{Z}_2$: the homotopy group is correct, but the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ modifies the topological sector classification.
 
-\textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction} and equivalently in Corollary~\ref{cor:2sqrtpi-primitive}; falsification would require either invalidating the chirality/quarter-turn argument or invalidating the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of the screening $2\pi$ per generation in the $\alpha_{\mathrm{em}}$ conjecture (Open Question~3) from the cascade action, which would close $1/\alpha_{\mathrm{em}}$ at $0.006\%$; (vii) derivation of the colour factor $e$ from first principles; or (viii) any new precision prediction matching observation before the data is checked.
+\textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction} and equivalently in Corollary~\ref{cor:2sqrtpi-primitive}; falsification would require either invalidating the chirality/quarter-turn argument or invalidating the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of the screening $2\pi$ per generation in the $\alpha_{\mathrm{em}}$ conjecture (Open Question~\ref{oq:alpha-em-screening}) from the cascade action, which would close $1/\alpha_{\mathrm{em}}$ at $0.006\%$; (vii) derivation of the colour factor $e$ from first principles; or (viii) any new precision prediction matching observation before the data is checked.
 
 \begin{thebibliography}{13}
 
