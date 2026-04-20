@@ -1,0 +1,116 @@
+# Future Paper — The Discrete Dirac Operator on the Cascade Lattice
+
+## Purpose
+
+Close the single non-derived link in the fermion obstruction factor of Part IVb Theorem 2.2: the conjectured **Clifford absorption** of $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ on Dirac-layer spheres.
+
+A cascade-native proof would take the last remaining step of Part IVb's fermion-mass derivation from "asserted on physical grounds" to "forced by the cascade action", closing SP-31 structurally and every charged-fermion mass, `C = alpha_s/(2 sqrt(pi))`, and the entire geometric-topological factorisation that rests on it.
+
+## Current state (as of commit `847a9dd` on `claude/audit-cleanup`)
+
+Part IVb Theorem `thm:sp31-decomposition` factorises the fermion-to-scalar propagator ratio as
+
+```
+1/(2 sqrt(pi)) = (1/chi) * (1/Gamma(1/2))
+```
+
+- **Chirality half** `1/chi = 1/2`: **derived** from Theorem `thm:chirality-factorisation` (chirality-basin filtering on even-sphere Dirac layers, via the $\mathbb{Z}_2$ grading of the spinor bundle).
+- **Jacobian half** `1/sqrt(pi) = 1/Gamma(1/2)`: **conjectured** via Clifford absorption on the cascade lattice; the scalar side's $\sqrt{\pi}$ is identified as the $t^{-1/2}$ Jacobian of the $t = x^2$ substitution in the axial Beta integral.
+
+The decomposition narrows the residual problem from "why $1/(2\sqrt{\pi})$" to the single, better-posed question: **why does the cascade's fermion action not receive the scalar's axial Jacobian?**
+
+## The computational barrier (findings from the dig)
+
+Closing the conjecture rigorously is a research-scale computation. Three sub-problems:
+
+### 1. The scalar side is a 1D axial integral
+
+The cascade's scalar lapse
+
+```
+N(d) = V_d / V_{d-1} = integral_{-1}^{1} (1 - x^2)^{(d-1)/2} dx
+     = B(1/2, (d+1)/2) = sqrt(pi) * R(d)
+```
+
+is a one-dimensional integral over the axial coordinate $x \in [-1, 1]$. Under $t = x^2$, $dx = dt / (2\sqrt{t})$, producing the $t^{-1/2}$ Jacobian. This Jacobian **is** the $\sqrt{\pi}$ factor, via the first Gamma-function half-integer argument in $B(1/2, \cdot)$.
+
+### 2. The fermion side lives on the full sphere, not on an axial projection
+
+The Dirac operator acts on the spinor bundle of $S^{d-1}$, which is the full even-dimensional sphere at Dirac layers. There is no canonical "axial Beta integral" for the fermion — the natural Dirac computation is a spectral decomposition (spinor spherical harmonics / Camporesi-Higuchi expansion), not a projection onto a 1D axial coordinate.
+
+Concretely, on round $S^{2n}$ the Dirac eigenvalues are $\lambda_k = \pm(k + n)$ for $k \geq 0$, with multiplicity $D_k = 2^{n-1} \cdot (\text{Camporesi-Higuchi formula})$. The Green's function at coincident points is the regularised spectral trace
+
+```
+G_D(x, x) = sum_k D_k / lambda_k
+```
+
+which diverges and needs zeta-function regularisation (Hurwitz zeta at $s = 1$).
+
+### 3. Bridging the two
+
+A rigorous Clifford-absorption proof needs a **bridge** between these two frameworks: the cascade's 1D axial slicing for scalars, and the full-sphere Dirac operator for fermions. Specifically, the bridge would:
+
+- Construct a **discrete Dirac operator** $D_{\text{lat}}$ on the cascade lattice, with adjacent layers coupled via a spin connection lifted from the slicing map $B^d \to B^{d-1}$.
+- Show $D_{\text{lat}}$'s Green's function at Dirac layer $d$ equals $R(d)$ (not $\sqrt{\pi} R(d)$).
+- Verify via zeta regularisation on each $S^{d-1}$ that the $\sqrt{\pi}$ does not appear in the spectral trace.
+- Confirm that cumulative cascade descent reproduces the observed fermion masses.
+
+## Proposed paper outline
+
+**Title (candidate).** *The Discrete Dirac Operator on the Cascade Lattice and the Fermion Obstruction Factor*
+
+**Target length.** ~30–40 pages.
+
+**Dependencies.** Spectral zeta-function methods on round spheres (Camporesi–Higuchi 1996; Trautman 1993; Bär 1996 for Dirac spectrum on $S^{2n}$). Standard spin-structure machinery on manifolds with boundary. No new cascade axioms.
+
+**Outline.**
+
+1. **Motivation.** Part IVb's Theorem 2.2 decomposition; the Clifford-absorption conjecture; what a cascade-internal proof would achieve.
+
+2. **The scalar side.** Re-derive the $\sqrt{\pi}$ factor in $N(d) = \sqrt{\pi}\, R(d)$ as the axial-Jacobian $\Gamma(1/2)$ in $B(1/2, (d+1)/2)$. Identify the specific mechanism ($t = x^2$ substitution on the 1D axial coordinate).
+
+3. **The round-sphere Dirac operator.** Standard spectral decomposition of $\slashed{D}$ on $S^{2n}$. Zeta-regularised Green's function at coincident points. Closed-form expression in terms of Barnes $G$-functions and Hurwitz zeta values.
+
+4. **The cascade-lattice Dirac operator $D_{\text{lat}}$.** Definition as a discrete operator on layer-indexed spinor sections with a slicing-map-induced spin connection. Unitarity, self-adjointness, and locality properties.
+
+5. **Clifford absorption theorem.** The main result: $D_{\text{lat}}$'s Green's function at Dirac layer $d$ equals $R(d)$ up to chirality halving, with the $\sqrt{\pi}$ absent. The proof factorises as:
+   - (a) scalar Green's function on $D_{\text{lat}}$'s bosonic sector reproduces $\sqrt{\pi} R(d)$ (consistency with Part IVb);
+   - (b) chirality projection + zeta regularisation yield $R(d) / \chi$ for the fermionic sector.
+
+6. **Numerical verification.** Compute the regularised spectral trace explicitly at Dirac layers $d = 5, 13, 21, 29$ and check against $R(d)/2$ to at least 4 significant figures. Cross-check against observed charged-fermion mass ratios.
+
+7. **Connection to Part IVb.** Show the proof closes SP-31 in the audit sense: the decomposition of Theorem 2.2 becomes fully derived. Consequences for each charged-fermion mass and for $C = \alpha_s / (2\sqrt{\pi})$.
+
+8. **Remaining questions.** Extension to non-Dirac layers; the geometric-mean mixing rule for CKM/PMNS (SP-35 residual); the source-selection categorical derivation (SP-36 residual).
+
+## Expected difficulty and timeline
+
+- **Section 3 (round-sphere Dirac spectrum):** well-established mathematics. Mostly citation + careful setup. ~1 week.
+- **Section 4 ($D_{\text{lat}}$ construction):** novel but uses standard discrete-differential-geometry machinery. ~2–4 weeks.
+- **Section 5 (Clifford absorption theorem):** the hard core. The spectral argument is the main technical content. ~4–8 weeks.
+- **Section 6 (numerical verification):** parallel to Section 5. ~1 week to implement, iteratively improved as Section 5 refines the formulas. Can serve as a sanity check at each stage.
+- **Writing and revision:** ~4 weeks.
+
+**Total:** ~3–5 months of focused work, assuming Section 5's spectral argument goes through. If it reveals an inconsistency, the timeline extends substantially (the conjecture might need reformulation, or a different bridge between axial and full-sphere frameworks).
+
+## Alternative paths
+
+If the full theorem is intractable, two weaker results would still advance SP-31:
+
+**(A) Numerical verification only.** Compute the regularised Dirac spectral trace at Dirac layers 5, 13, 21, 29 and demonstrate numerical equality with $R(d)/2$. This would not prove the conjecture but would convert it from "plausible heuristic" to "numerically validated ansatz at every cascade-relevant Dirac layer". A single-session tool could deliver this — roughly `tools/fermion_dirac_spectral_zeta.py` — and it would strongly constrain any future rigorous proof.
+
+**(B) Partial theorem with an ansatz.** Prove that the cascade-lattice Dirac operator's Green's function equals $R(d)$ **given** a specific choice of spin connection on the slicing map. The paper then reduces the conjecture to "this specific connection is the canonical one", which is a cleaner, narrower problem than the original.
+
+Either alternative would count as genuine progress. Alternative (A) is the cheapest ~1-day sanity check; alternative (B) is a ~1-month partial result that could be publishable on its own.
+
+## Dependencies on other open questions
+
+- **Not blocking:** the cascade action principle of Part IVb Remark 4.8 already supplies the scalar sector; the fermion sector is the extension.
+- **Blocking (if path B is taken):** the choice of spin connection on the cascade's slicing map is itself a cascade-structural question; a principled (rather than arbitrary) choice might require input from a categorical framework for cascade observables (SP-36's residual).
+- **Parallel:** SP-35's geometric-mean mixing rule (for CKM/PMNS) may share machinery with the fermion-action approach; both involve off-diagonal cascade-lattice propagators between Dirac layers.
+
+## Why it matters
+
+Closing this derivation would move the cascade's charged-fermion mass spectrum from "seven precision predictions anchored to one asserted factor" to "seven precision predictions derived end-to-end from the cascade action". It would also make `C = alpha_s / (2 sqrt(pi))` a **theorem**, not a match.
+
+In epistemic terms: the charged-fermion mass sector is currently the largest remaining "asserted pending cascade-action derivation" load in Part IVb. Closing it would leave the cascade's precision predictions free of any non-derived ingredients — the last major structural item after the audit's hardening pass.
