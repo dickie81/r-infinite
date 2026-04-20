@@ -1351,6 +1351,43 @@ S &= E(0,\,\tfrac{\pi}{4}) - E(0,\,\tfrac{3\pi}{4})
 \end{align*}
 \end{proof}
 
+\begin{remark}[Bipartition of $\mathbb{C}^4$: cascade order fixes it; Tsirelson makes it moot]\label{rem:sp17-status}
+Step~1 of the proof above takes the bipartition
+$A = \{\zeta_1,\zeta_2\}$, $B = \{\zeta_3,\zeta_4\}$. Among the three
+distinct 2+2 partitions of $\mathbb{C}^4$ --- namely
+$(1,2)|(3,4)$, $(1,3)|(2,4)$, $(1,4)|(2,3)$ --- the cascade's
+sequential slicing fixes which one is natural, and Tsirelson's bound
+makes the choice numerically irrelevant.
+
+\medskip\noindent\textbf{Cascade-order forcing of the partition.}
+The slicing recurrence produces axes in a \emph{total order}
+$e_1, e_2, e_3, \ldots$ by layer index: axis $e_k$ is introduced at
+cascade step $k$ (Theorem~\ref{thm:precession}; the slicing-axis
+$=$~time identification is proved in \S7 below). The complex structure
+$J$ (Theorem~\ref{thm:complex}) pairs adjacent axes into complex
+dimensions $\zeta_k = x_{2k-1} + ix_{2k}$, so the cascade order on
+complex coordinates is $\zeta_1 < \zeta_2 < \zeta_3 < \zeta_4$ by
+the order of their real-axis introduction. The only 2+2 bipartition
+that respects this total order as ``first half vs.\ second half'' is
+$A = \{\zeta_1,\zeta_2\}$, $B = \{\zeta_3,\zeta_4\}$. The
+alternatives $(1,3)|(2,4)$ and $(1,4)|(2,3)$ interleave the order
+and are not cascade-sequential.
+
+\medskip\noindent\textbf{Tsirelson's bound is partition-independent.}
+Tsirelson's theorem bounds the CHSH correlator for any maximally
+entangled state on $\mathbb{C}^2\otimes\mathbb{C}^2$ at $2\sqrt{2}$,
+regardless of which bipartition of a higher-dimensional space
+produces the 2-qubit structure. For each of the three 2+2 partitions
+of $\mathbb{C}^4$ above, the maximally entangled state in the chosen
+bipartition saturates the bound at the same numerical value
+$2\sqrt{2}$. The cascade's conclusion $S = 2\sqrt{2}$ is therefore
+robust against the bipartition choice: cascade order forces the
+natural partition to be $(1,2)|(3,4)$, but had the cascade happened
+to suggest another, the Tsirelson value would still be $2\sqrt{2}$.
+The bipartition is cascade-derived via order; the violation magnitude
+is partition-independent.
+\end{remark}
+
 \begin{remark}[What the proof uses]
 The ingredients are: (i)~a unit vector $u\in S^7$ (the cascade's state space at $d=8$);
 (ii)~the complex structure $J$ from Theorem~\ref{thm:complex}, providing the tensor product

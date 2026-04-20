@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 34 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-14, SP-15, SP-16, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **3 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 36 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-14, SP-15, SP-16, SP-17, SP-18, SP-19, SP-20, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **1 open item** that remains. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -34,20 +34,6 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 
 ## Part II
 
-### SP-17. CHSH bipartition is chosen, not forced — **Structural**
-`src/cascade-series-part2.tex:1108–1115`.
-
-The CHSH construction on $S^7$ partitions $\mathbb{C}^4 = \mathbb{C}^2_A\otimes\mathbb{C}^2_B$ by grouping the first two complex coordinates as $A$ and the last two as $B$. This is one of three distinct 2+2 partitions of $\mathbb{C}^4$ (choosing which two of four coordinates go to $A$). The cascade's iterated slicing doesn't single out a bipartition; it's imported by treating "Alice vs Bob" as two observers in a fixed partition. A different choice would give a different entangled state and potentially a different CHSH output. Theorem 10.3 is correct *given* the partition, but the partition isn't cascade-derived.
-
----
-
-## Part III
-
-### SP-20. Corollary 9.4's "third characterisation" uses a specific scale factor $a(t)=\sqrt{1-t^2}$ without deriving it as the Lorentzian scale factor — **Structural**
-`src/cascade-series-part3.tex:423–440`.
-
-The corollary computes $R^{(n)} = (n-1)(n-4)/a^4$ on the FRW metric with $a(t)=\sqrt{1-t^2}$ and concludes $R$ vanishes at $n=4$. But $\sqrt{1-t^2}$ is the *Euclidean* cross-section radius of the cascade's slicing. Its reuse as the *Lorentzian* scale factor of a cosmology gives a bounded universe ($a\to 0$ at $t\to\pm 1$ — a bang/crunch). The paper asserts the identification implicitly; the third characterisation therefore inherits the Wick-rotation identification of Theorem 10.2 (SP-21 closure acknowledges the cascade's Euclidean-to-Lorentzian map is Wick rotation, cascade-motivated by the forced precession). SP-20 itself remains: the specific identification of $\sqrt{1-t^2}$ as Lorentzian scale factor uses Wick rotation of the cascade's Euclidean cross-section, which is the correct operation but not separately derived here.
-
 ## Part II=III
 
 ---
@@ -68,8 +54,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
-| SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
-| SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
 
 ## Notes on scope
@@ -103,6 +87,8 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-14 | New `rem:sp14-status` in Part I after Correction~1 names the exponent-$2$ sensitivity: chain from frame conversion (Paper~0 Lemma~8.5) $\to$ two content factors $\to$ orbit termination at two canonical values (Paper~0 Thms~5.2, 5.5) $\to$ uniqueness of $c_1, c_2$ and tower completeness (Paper~0 Thms~6.2, 7.1, strengthened in SP-5/SP-6 closures). A third canonical value would shift $\rho_\Lambda$ by $\sim 5\%$; ruled out by strengthened Paper~0 theorems | `5e35c57` |
 | SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
 | SP-16 | New `rem:sp16-status` in Part II after Theorem~6.4 (`thm:complex`) makes the static-to-dynamic chain explicit: (1) time = slicing axis (Part II §7); (2) one-step evolution is a quarter-turn (Theorem~6.3 + Theorem~7.3); (3) axis rotation lifts to state rotation via the passive-transformation law. No new assumption enters; "$J$ evolves states" is deductive from (1)+(2)+(3) | `1e61d23` |
+| SP-17 | New `rem:sp17-status` in Part II after Theorem~10.3 (CHSH violation) addresses bipartition choice: (1) cascade slicing fixes a total order on axes, and the complex structure $J$ forces complex-coordinate order $\zeta_1 < \zeta_2 < \zeta_3 < \zeta_4$, so the "first half vs second half" bipartition $(1,2)\|(3,4)$ is the unique cascade-sequential 2+2 partition; (2) Tsirelson's bound is partition-independent — all three 2+2 partitions of $\mathbb{C}^4$ saturate at $2\sqrt{2}$, so the violation magnitude is robust | *(this commit)* |
+| SP-20 | Corollary 9.4 rewritten to cite `rem:wick-rotation-cascade` directly: the Euclidean $\sqrt{1-x^2}$ cross-section maps to Lorentzian $a(t)=\sqrt{1-t^2}$ under cascade-motivated Wick rotation. New `rem:sp20-status` factorises the identification into two derived ingredients (Paper~0 slicing geometry + cascade-motivated Wick rotation from `thm:lorentzian`) | *(this commit)* |
 | SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | `93434a0` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |

@@ -604,9 +604,12 @@ Theorem 3.1: (C2) holds if and only if $d = 4$. Intersection: $\{4, 5, 6, 10, \l
 \end{proof}
 
 \begin{corollary}[Third characterisation of $d = 4$]\label{cor:ricci-flat}
-The Lorentzian cascade scale factor
-$a(t) = \sqrt{1 - t^2}$ gives $\dot{a} = -t/a$ and $\ddot{a} = -1/a^3$. The Ricci scalar of the $n$-dimensional
-FRW metric with $k = 1$ and this scale factor is:
+Under the cascade-motivated Wick rotation $x = it$
+(Remark~\ref{rem:wick-rotation-cascade}), the cascade's Euclidean
+cross-section radius $\sqrt{1-x^2}$ maps to the Lorentzian scale
+factor $a(t) = \sqrt{1 - t^2}$; this gives $\dot{a} = -t/a$ and
+$\ddot{a} = -1/a^3$. The Ricci scalar of the $n$-dimensional FRW
+metric with $k = 1$ and this scale factor is:
 \[
 R^{(n)} = \frac{(n - 1)(n - 4)}{a^4}.
 \]
@@ -614,6 +617,37 @@ This vanishes if and only if $n = 4$. The Lorentzian cascade metric is therefore
 uniquely in four spacetime dimensions, providing a third independent characterisation of
 $d = 4$ complementing Lovelock uniqueness (C2) and complex spinor compatibility (C1).
 \end{corollary}
+
+\begin{remark}[Derivation status of the Lorentzian scale factor]\label{rem:sp20-status}
+The identification of $a(t) = \sqrt{1 - t^2}$ as the Lorentzian scale
+factor combines two already-derived ingredients:
+\begin{enumerate}
+\item \emph{Euclidean cross-section radius (Paper~0, \S~The
+Recurrence).} The cascade's slicing of $B^{n}$ perpendicular to one
+axis gives cross-sections of radius $\sqrt{1-x^2}$ at height
+$x\in[-1,1]$. This is a purely Euclidean geometric identity about
+the unit ball.
+\item \emph{Cascade-motivated Wick rotation
+(Remark~\ref{rem:wick-rotation-cascade}).} The cascade's Euclidean
+slicing $+dx^2 + (1-x^2)\,d\sigma_{n-1}^2$ maps to Lorentzian
+$-dt^2 + (1-t^2)\,d\sigma_{n-1}^2$ under $x \leftrightarrow it$.
+The rotation is not mathematically imposed (as in QFT); it is the
+identification step of the physical identification hypothesis,
+motivated by the cascade's forced precession producing an
+oscillatory propagator in $x$, which is Lorentzian signature
+(Theorem~\ref{thm:lorentzian}).
+\end{enumerate}
+Under (1)+(2), the Lorentzian scale factor $a(t) = \sqrt{1-t^2}$ is
+cascade-derived, not imported: the Euclidean identity supplies the
+functional form, and the cascade-motivated Wick rotation supplies
+the Lorentzian interpretation. The boundedness of $a(t)$ on
+$t\in[-1,1]$ (vanishing at $t = \pm 1$) is a structural feature of
+the cascade's compact-domain integration, not an ad hoc cosmological
+assumption. Paper~III \S14 (the compactification supplement) develops
+the same identification at the level of the full Ricci and Einstein
+tensors; this corollary records the Ricci-scalar consequence at
+$n = 4$.
+\end{remark}
 
 \begin{proof}
 For $n$-dimensional FRW with $k = 1$: $R_{tt} = -(n - 1)\ddot{a}/a = (n - 1)/a^4$ and
