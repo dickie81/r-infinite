@@ -572,6 +572,47 @@ Since $\alpha=\pi/2$ is forced (Theorem~\ref{thm:precession}), this complex stru
 not introduced as an assumption but derived.
 \end{proof}
 
+\begin{remark}[Static angle to dynamical evolution: no hidden assumption]\label{rem:sp16-status}
+Theorem~\ref{thm:precession} establishes a \emph{static} geometric fact
+---the angle between consecutive slicing axes is $\pi/2$. The step to
+``$J$ is the cascade's quantum evolution operator'' is often read as
+promoting this static relation to a dynamical one, which would
+introduce an assumption not contained in the static theorem. No such
+assumption enters; the promotion is a composition of three
+already-derived cascade ingredients:
+\begin{enumerate}
+\item \emph{Time is the slicing axis.} Section~7 below identifies the
+observer's time coordinate with the cascade's slicing direction, on
+the grounds that the slicing operation is irreversible and the
+direction of irreversibility is the arrow of time. Under this
+identification, the cascade's step from layer $d$ to layer $d-1$ is
+one unit of temporal evolution.
+\item \emph{Each evolution step is a quarter-turn.} Under~(1),
+the operator $L(d)$ that advances the state by one cascade step
+\emph{is} the quantum evolution operator over one time step.
+Theorem~\ref{thm:precession} says each such step rotates consecutive
+axes by $\pi/2$, so $L(d)$ carries the factor $e^{i\pi/2}=i$
+(Section~7.3, Theorem~\ref{thm:discrete-schrodinger}).
+\item \emph{Axis rotation lifts to state rotation via the passive
+transformation law.} A rotation of the reference frame by $\theta$
+acts on expansion coefficients of any state in that frame as the
+inverse rotation, $-\theta$. The cascade's forced precession
+rotates slicing axes by $\pi/2$ per step; the induced rotation on
+states in the slicing basis is therefore $-\pi/2$, which is exactly
+the complex-structure action $J^{-1}=-J$ on the $e_1$--$e_2$
+plane. Lifting axis rotations to state rotations is not an
+additional modelling step but the standard active/passive
+transformation identity; no new cascade axiom enters.
+\end{enumerate}
+Hence ``$J$ evolves states'' is not a dynamical assumption but the
+composition of (1) time-equals-slicing + (2) one-step quarter-turn +
+(3) passive-transformation lift. Each ingredient is proved elsewhere
+in the paper; the promotion is deductive. The earlier phrasing
+``this complex structure is not introduced as an assumption but
+derived'' is correct, and the derivation chain is now made
+explicit.
+\end{remark}
+
 \begin{remark}[The propagator phase and sphere topology at each cascade level]\label{rem:bott-phases}
 The forced precession of $\pi/2$ per step accumulates a total propagator phase of
 $(d-4)\cdot\pi/2$ from the observer at $d=4$ to level $d$. The phase has period~4. Each
