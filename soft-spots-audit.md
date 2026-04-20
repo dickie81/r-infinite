@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 29 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **8 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 30 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **7 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -29,11 +29,6 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 ---
 
 ## Part I
-
-### SP-11. Exponential form $\exp(\sum(1-C^2))$ not derived in the Supplement — **Minor**
-`src/cascade-series-part1.tex:437` vs `src/cascade-series-part0.0.tex:214`.
-
-Theorem 15.11 gives $\delta Q/Q_0 = \sum(1-C^2)$ (linear). Part I promotes to $Q = Q_0\cdot\exp(\sum)$. Agreement at $O(10^{-4})$ for the numerical value $\sum=0.02108$, below Planck's $1.9\%$ uncertainty; formally an unstated first-order $\to$ exponential promotion.
 
 ### SP-12. "Observer's host at $d_V=5$" — semantic move imported from Cover Sheet — **Structural**
 `src/cascade-series-part1.tex:86–103`.
@@ -96,7 +91,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
-| SP-11 | $\exp$ vs linear Gram form | Part I | Minor |
 | SP-12 | $d_V=5$ as observer's host | Part I | Structural |
 | SP-13 | "Free dimension" is physical | Part I | Structural |
 | SP-14 | Frame-squaring inherits $n=2$ | Part I | Structural |
@@ -130,6 +124,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
 | SP-9 | New `rem:sp9-status` in Part 0 Supplement after Theorem 15.11 acknowledges that the theorem is proved for multiplicative propagators; $\Omega_m^{\rm Bott}$ is a ratio of sums, not a multiplicative propagator; the full-path correction is an upper bound (over-corrects to $+1.0\%$), rigorous per-term treatment would yield a smaller shift dominated by the peak-term contributions; new Part V Open Question~2 names the cascade-native derivation target for ratio-of-sums observables | `2307fc9` |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
+| SP-11 | New Corollary 15.12 (`cor:exp-resum`) in Part 0 Supplement derives the exponential resummation $Q = Q_0\cdot\exp(\sum(1-C^2))$ from first-order multiplicative cascade recurrence; agrees with Theorem 15.11 to first order, to $O(10^{-4})$ numerically for the longest path | *(this commit)* |
 | SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
 | SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | `93434a0` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
