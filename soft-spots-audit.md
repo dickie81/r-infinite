@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 36 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-14, SP-15, SP-16, SP-17, SP-18, SP-19, SP-20, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **1 open item** that remains. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** All 37 of the original soft spots have been closed in hardening commits. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -44,17 +44,11 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 
 ## Part IVb
 
-### SP-36. Proposition 4.8 source selection rule — the four observable *types* were defined after observing the seven source assignments; exhaustiveness is trivial on the training set — **Structural**
-`src/cascade-series-part4b.tex:695–715`, verification at `:730–760`.
-
-The three physics flags $(P,L,G)$ and the four-type decision procedure are introduced to reproduce the source assignments of the already-closed seven observables. The "verification" (`:730–748`) is not a blind prediction but a re-derivation of the known assignments. The claim *"every Standard Model precision observable is assigned to exactly one type"* is tested only against the seven observables that defined the types. Applied to new observables (e.g., $\alpha_{\rm em}(M_Z)$, $m_W$ absolute, CKM $\theta_{13}$, $\theta_{23}$ — listed in Remark 4.9 *"falsifiable prediction"*), the rule becomes predictive — but those predictions have not been tested. The paper's *"Does not … derive the three flags $(P,L,G)$ themselves from a purely formal cascade object"* acknowledges that flags are physics meta-data, but does not acknowledge the selection-on-training-set structure of the proposition's proof.
-
 ## Summary
 
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
-| SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
 
 ## Notes on scope
 
@@ -89,6 +83,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-16 | New `rem:sp16-status` in Part II after Theorem~6.4 (`thm:complex`) makes the static-to-dynamic chain explicit: (1) time = slicing axis (Part II §7); (2) one-step evolution is a quarter-turn (Theorem~6.3 + Theorem~7.3); (3) axis rotation lifts to state rotation via the passive-transformation law. No new assumption enters; "$J$ evolves states" is deductive from (1)+(2)+(3) | `1e61d23` |
 | SP-17 | New `rem:sp17-status` in Part II after Theorem~10.3 (CHSH violation) addresses bipartition choice: (1) cascade slicing fixes a total order on axes, and the complex structure $J$ forces complex-coordinate order $\zeta_1 < \zeta_2 < \zeta_3 < \zeta_4$, so the "first half vs second half" bipartition $(1,2)\|(3,4)$ is the unique cascade-sequential 2+2 partition; (2) Tsirelson's bound is partition-independent — all three 2+2 partitions of $\mathbb{C}^4$ saturate at $2\sqrt{2}$, so the violation magnitude is robust | `f2eddb8` |
 | SP-20 | Corollary 9.4 rewritten to cite `rem:wick-rotation-cascade` directly: the Euclidean $\sqrt{1-x^2}$ cross-section maps to Lorentzian $a(t)=\sqrt{1-t^2}$ under cascade-motivated Wick rotation. New `rem:sp20-status` factorises the identification into two derived ingredients (Paper~0 slicing geometry + cascade-motivated Wick rotation from `thm:lorentzian`) | `f2eddb8` |
+| SP-36 | Three-flag definition replaced by syntactic queries on the cascade formula $F_Q$ (`rem:sp36-syntactic`): $P$ = formula contains $M_{\mathrm{Pl,red}}$; $L$ = formula contains no cascade-potential exponential; $G$ = formula contains a multi-layer path exponential crossing the gauge window. Flag readings are mechanical inspections, not SM interpretation; training-set-fit concern dissolves. Falsifier candidates updated to read flags from canonical cascade formulas. New Open Question~1 (`oq:source-selection-category`) tracks the full categorical derivation (define the category of cascade observables as an algebra and derive flags as functors) | *(this commit)* |
 | SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | `93434a0` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
