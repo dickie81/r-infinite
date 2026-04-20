@@ -1,0 +1,212 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{The Cascade Series --- Part IVc}\\[6pt]
+The Discrete Dirac Operator on the Cascade Lattice\\
+and the Fermion Obstruction Factor}
+\author{RTAC}
+\date{TBD (stub)}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\textbf{STATUS: STUB.} This paper is an outline for future work.
+It records the precise statement of the Clifford-absorption conjecture
+identified in Part~IVb Theorem~2.2, the proposed path to a
+cascade-internal derivation, and a numerical-verification fallback.
+All section headings and section-level claims are placeholders for
+content to be written.
+\end{center}
+
+\begin{abstract}
+Part~IVb's derivation of the charged-fermion mass spectrum
+($m_\tau, m_\mu, m_e$ and all generation ratios) rests on a single
+non-derived link: the \emph{Clifford-absorption conjecture}, which
+states that the cascade's fermion propagator at a Dirac-layer sphere
+$S^{2n}$ does not receive the scalar's axial Jacobian
+$\Gamma(\tfrac12) = \sqrt{\pi}$. Part~IVb's
+Theorem~2.2 (\texttt{thm:sp31-decomposition}) has already reduced the
+obstruction factor $1/(2\sqrt{\pi})$ to a product
+$(1/\chi)\cdot(1/\sqrt{\pi})$, with the chirality half $1/\chi=1/2$
+derived from Theorem~4.8 (chirality-basin filtering) and the
+Jacobian half $1/\sqrt{\pi}$ conjectured via Clifford absorption on
+the cascade lattice.
+
+This paper closes the Clifford-absorption conjecture by constructing
+the \emph{discrete Dirac operator} $D_{\mathrm{lat}}$ on the cascade
+lattice, computing its Green's function at each Dirac layer via the
+zeta-regularised Dirac spectrum on round $S^{2n}$
+(Camporesi--Higuchi), and showing the result equals $R(d) = N(d)/\sqrt\pi$
+up to the chirality halving---without any factor of $\Gamma(\tfrac12)$.
+The construction uses standard spin-structure machinery and no new
+cascade axioms.
+
+As consequences: (i)~every charged-fermion mass in Part~IVb becomes
+end-to-end derivable from the cascade action; (ii)~the universal
+Yukawa coupling $C = \alpha_s/(2\sqrt{\pi})$ is promoted from
+``numerical match'' to ``theorem''; (iii)~the single load-bearing
+ansatz in Part~IVb's Tier-1 results is closed.
+
+A numerical-verification fallback computes the regularised Dirac
+spectral zeta at Dirac layers $d\in\{5,13,21,29\}$ and confirms
+equality with $R(d)/\chi$ to $\geq 4$ significant figures,
+independently constraining the conjecture.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Motivation}\label{sec:motivation}
+\emph{Stub.} Re-state Part~IVb Theorem~2.2 and its decomposition
+(\texttt{thm:sp31-decomposition}). Identify the Clifford-absorption
+conjecture as the single non-derived link in the fermion mass
+spectrum. Declare the scope of this paper.
+
+\section{The scalar axial Beta integral}\label{sec:scalar-axial}
+\emph{Stub.} Re-derive the cascade's scalar lapse
+$N(d)=\sqrt{\pi}\,R(d)$ via
+$\int_{-1}^{1}(1-x^2)^{(d-1)/2}dx = B(1/2,(d+1)/2)$. Identify the
+$\sqrt{\pi}$ factor as $\Gamma(1/2)$ from the $t=x^2$ Jacobian.
+Display the specific mechanism the fermion side must absorb.
+
+\section{The round-sphere Dirac spectrum}\label{sec:dirac-spectrum}
+\emph{Stub.} Standard Camporesi--Higuchi computation of the Dirac
+spectrum on round $S^{2n}$:
+eigenvalues $\lambda_k = \pm(k+n)$ for $k\geq 0$; multiplicities
+$D_k = 2^{n-1}\binom{2n+k-1}{k}\cdot(\text{standard factor})$.
+Present the zeta-regularised Green's function at coincident points
+in closed form (Hurwitz zeta and Barnes $G$-function expressions).
+No new cascade content; references only.
+
+\section{The cascade-lattice Dirac operator $D_{\mathrm{lat}}$}\label{sec:d-lat}
+\emph{Stub.} Construct $D_{\mathrm{lat}}$ as a discrete operator on
+layer-indexed spinor sections, with adjacent layers coupled via the
+spin connection lifted from the slicing map $B^d \to B^{d-1}$.
+Prove: self-adjointness, unitarity of the associated discrete
+propagator, locality across adjacent layers. Relate to Part~IVb's
+discrete scalar action $S[\varphi]=\sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$
+(Remark~4.8) as the bosonic sector of a unified cascade action.
+
+\section{The Clifford absorption theorem}\label{sec:clifford-absorption}
+\emph{Stub.} Main theorem: $D_{\mathrm{lat}}$'s Green's function at a
+Dirac layer $d$ evaluates to $R(d)/\chi$, with no factor of
+$\Gamma(1/2)$.
+
+\begin{conjecture}[Clifford absorption, to be proved]\label{conj:clifford-absorption}
+Let $D_{\mathrm{lat}}$ be the discrete Dirac operator on the cascade
+lattice (Section~\ref{sec:d-lat}). For a Dirac layer $d$ (i.e.\
+$d\bmod 8 = 5$ or $d\bmod 8 = 1$ in the second Bott window), the
+Green's function of $D_{\mathrm{lat}}$ at coincident points on
+$S^{d-1}$, zeta-regularised and projected to a definite chirality
+sector, evaluates to
+\[
+G_{D_{\mathrm{lat}}}(d,d) \;=\; \frac{R(d)}{\chi(S^{d-1})}
+\;=\; \frac{R(d)}{2},
+\]
+with no factor of $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$.
+\end{conjecture}
+
+Proof strategy: factorise the Dirac spectral trace into (a) chirality
+projection, giving $1/\chi$; (b) spherical spectral sum over
+$\lambda_k = k+n$ with standard multiplicities, giving $R(d)$ after
+zeta regularisation, without the axial-Jacobian $\sqrt{\pi}$.
+
+\section{Numerical verification}\label{sec:numerical-verification}
+\emph{Stub.} Companion tool
+\texttt{tools/fermion\_dirac\_spectral\_zeta.py} computes the
+regularised Dirac spectral trace on $S^{2n}$ for
+$n\in\{2,6,10,14\}$ (corresponding to Dirac layers
+$d\in\{5,13,21,29\}$) and checks equality with $R(d)/2$ to $\geq 4$
+significant figures. Numerical result stands independent of
+Section~\ref{sec:clifford-absorption}'s formal proof and serves as a
+sanity check.
+
+\section{Consequences for Part IVb}\label{sec:consequences}
+\emph{Stub.} Under Conjecture~\ref{conj:clifford-absorption}:
+\begin{itemize}
+\item Part~IVb's Theorem~2.2 becomes end-to-end derived:
+$1/(2\sqrt{\pi}) = (1/\chi)\cdot(1/\sqrt{\pi})$ is a theorem on the
+cascade lattice, not an ansatz.
+\item Every charged-fermion mass
+($m_\tau, m_\mu, m_e$, and all generation ratios) is derived from
+the cascade action with no free parameters and no asserted
+structural ingredients.
+\item The universal Yukawa coupling
+$C = \alpha_s/(2\sqrt{\pi})$ is promoted from ``numerical match at
+1.0\%'' to ``theorem at the cascade-action level''.
+\end{itemize}
+
+\section{Remaining questions}\label{sec:remaining}
+\emph{Stub.} Extensions and open questions not settled by this paper:
+\begin{itemize}
+\item \emph{Non-Dirac layers.} $D_{\mathrm{lat}}$ is defined across
+the whole tower; the Clifford-absorption theorem is specific to
+Dirac layers. Whether the same construction gives sensible Green's
+functions at non-Dirac layers (Weyl, Majorana) is open.
+\item \emph{CKM/PMNS mixing.} Part~IVb's geometric-mean mixing rule
+(Open Question~\texttt{oq:mixing-geometric-mean}) involves
+off-diagonal propagators between Dirac layers; this paper's
+$D_{\mathrm{lat}}$ should compute those off-diagonal elements
+directly. Extension tracked separately.
+\item \emph{Source-selection category.} Part~IVb's Proposition~4.8
+(source-selection rule) uses syntactic queries on cascade formulas;
+a full categorical derivation
+(Open Question~\texttt{oq:source-selection-category}) is
+orthogonal to the fermion-action question closed here but may share
+machinery in the discrete-differential-geometry sector.
+\end{itemize}
+
+\section{What This Paper Does and Does Not Do}
+\emph{Stub.}
+
+\textbf{Does:}
+\begin{itemize}
+\item Construct $D_{\mathrm{lat}}$ on the cascade lattice.
+\item Prove the Clifford absorption theorem on Dirac layers
+($\Gamma(1/2)$ absent from the regularised Dirac spectral trace).
+\item Close Part~IVb's SP-31 residual: every charged-fermion mass
+is end-to-end derived from the cascade action.
+\item Verify the theorem numerically at
+$d\in\{5,13,21,29\}$.
+\end{itemize}
+
+\textbf{Does not:}
+\begin{itemize}
+\item Derive off-diagonal mixing amplitudes (CKM/PMNS). Tracked in
+Part~IVb's mixing Open Question.
+\item Derive the source-selection flag categorisation. Tracked
+separately.
+\item Provide a second-quantised cascade action. The action here is
+classical on the cascade lattice; second quantisation is deferred.
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{paper0} RTAC, \textit{The Cascade Series --- Part~0:
+The Gamma-Function Structure of the Cascade}.
+\bibitem{paper4a} RTAC, \textit{The Cascade Series --- Part~IVa:
+The Standard Model from the Cascade}.
+\bibitem{paper4b} RTAC, \textit{The Cascade Series --- Part~IVb:
+Masses, Couplings, and Precision Predictions}.
+\bibitem{camporesi-higuchi} R.~Camporesi and A.~Higuchi,
+``On the eigenfunctions of the Dirac operator on spheres and real
+hyperbolic spaces,'' \textit{J.~Geom.~Phys.}\ \textbf{20},
+1--18 (1996).
+\bibitem{bar} C.~B\"ar, ``The Dirac operator on space forms of
+positive curvature,'' \textit{J.~Math.~Soc.~Japan} \textbf{48},
+69--83 (1996).
+\end{thebibliography}
+
+\end{document}
