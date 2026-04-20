@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 32 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **5 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 33 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-14, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **4 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -29,11 +29,6 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 ---
 
 ## Part I
-
-### SP-14. Frame-factor squaring inherits orbit-termination $n=2$ — **Structural**
-`src/cascade-series-part1.tex:118–120`, ref Part 0 Lemma 8.8 and Theorem 6.5.
-
-$(9/\pi^2)$ follows from two factors of $\Omega_5/\Omega_7$. Two factors because there are two thresholds (orbit termination, Part 0 Theorem 6.5). Orbit termination has its own soft spots (SP-5, SP-7). A third canonical value would upshift $\rho_\Lambda$ by $3/\pi\approx 0.95$ — a ~5% contingency. Part I does not name this sensitivity.
 
 ---
 
@@ -78,7 +73,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
-| SP-14 | Frame-squaring inherits $n=2$ | Part I | Structural |
 | SP-16 | $J$ evolves states (static→dynamic) | Part II | Structural |
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
@@ -112,6 +106,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-11 | New Corollary 15.12 (`cor:exp-resum`) in Part 0 Supplement derives the exponential resummation $Q = Q_0\cdot\exp(\sum(1-C^2))$ from first-order multiplicative cascade recurrence; agrees with Theorem 15.11 to first order, to $O(10^{-4})$ numerically for the longest path | `f7cb48d` |
 | SP-12 | New `rem:sp12-status` in Part I makes the forcing chain for "observer's host = $d_V = 5$" explicit: four-step argument from empirical 4D observer + slicing structure (Part~0) + dimensional matching ($d-2=3$) forcing $d=5$, with cascade confirmation via volume max. Subsequent commit (`cd125e9`) removed CLAUDE.md leak; later commit (this one) removed forward refs to Parts II/III from the remark | `dc3393c` |
 | SP-13 | Part I made self-contained: new `rem:time-slicing` proves time = slicing axis from the cascade's irreversible slicing recurrence (Paper~0); four forward `\cite{paper2}` and one `Part~II=III` references removed from body; `paper2` bibitem removed. `rem:why-3d` rewritten with two cascade-internal claims (time-locked integration + per-$S^2$ content from Paper~0 Corollary~3.2); "free dimensions" heuristic acknowledged as restatement not input; no equivocation | `57b03ec` |
+| SP-14 | New `rem:sp14-status` in Part I after Correction~1 names the exponent-$2$ sensitivity: chain from frame conversion (Paper~0 Lemma~8.5) $\to$ two content factors $\to$ orbit termination at two canonical values (Paper~0 Thms~5.2, 5.5) $\to$ uniqueness of $c_1, c_2$ and tower completeness (Paper~0 Thms~6.2, 7.1, strengthened in SP-5/SP-6 closures). A third canonical value would shift $\rho_\Lambda$ by $\sim 5\%$; ruled out by strengthened Paper~0 theorems | *(this commit)* |
 | SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
 | SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | `93434a0` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
