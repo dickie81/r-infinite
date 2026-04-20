@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 26 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **11 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 27 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **10 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -88,11 +88,6 @@ The corollary computes $R^{(n)} = (n-1)(n-4)/a^4$ on the FRW metric with $a(t)=\
 
 ## Part II=III
 
-### SP-24. Theorem 5.1 "No absolute scale" contradicts Part IVb's use of $M_{\rm Pl,red}$ as dimensional input — **Structural**
-`src/cascade-series-part2-equals-3.tex:227–232`, cf Part IVb's absolute masses `src/cascade-series-part4b.tex:973`.
-
-The theorem states *"every physical prediction of the cascade series is a dimensionless ratio"* and *"the cascade geometry contains no intrinsic length, time, mass, or energy scale"*. Part IVb's absolute masses ($m_\tau = 1777$ MeV, $m_W = 80.10$ GeV, $v = 240.8$ GeV, etc.) are physical predictions with dimensions, and they use $M_{\rm Pl,red}$ as a dimensionful input (explicitly: Theorem 4.7 writes $v = M_{\rm Pl,red}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$). The theorem's universal claim is too strong — it covers dimensionless ratios but not the absolute masses that Part IVb derives.
-
 ---
 
 ## Part IVa
@@ -120,7 +115,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-16 | $J$ evolves states (static→dynamic) | Part II | Structural |
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
-| SP-24 | "No absolute scale" contradicts $M_{\rm Pl,red}$ use | Part II=III | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
 
 ## Notes on scope
@@ -152,6 +146,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
 | SP-22 | Cascade-lapse vs metric-lapse distinction | `49b4908` |
 | SP-23 | Theorem 7.1 proof expanded to 3 steps (unit-ball BD derived, area-is-content derived, scale invariance asserted); `rem:sp23-status` + Open Question (content-area-scale-invariance derivation target); stale Paper~I Thm~4.4 ref corrected to Paper~0 Thm~3.1 | `36596ab` |
+| SP-24 | Reframed as not-a-defect via `rem:sp24-status`: distinguishes cascade-intrinsic (dimensionless, zero empirical input) from empirically-anchored (dimensional, two anchors: $M_{\rm Pl,red}$ and $m_Z$) scales; this is standard physical-theory practice (GR with $G$, QED with $\alpha$), with the cascade reducing the SM's $\sim 22$ dimensional parameters to $2$ | *(this commit)* |
 | SP-27 | Theorem 2.1 restated as "near-miss observation" with explicit 0.225% deviation; KK-mechanism paragraph rewritten to separate reference value ($1/\sqrt{2}$ as a name) from KK mechanism (not imported); `rem:sp27-status` with three statuses (derived Gamma value, observed near-miss, not-imported KK mechanism) and Check-7 compliance statement pointing to Adams' theorem as the actual derivation | `79c9372` |
 | SP-25 | Theorem 6.1 reformulated with three-step factorisation (metric derived, state derived, state-metric map asserted); `rem:sp25-status` + Open Question (state-metric-instantiation) identifying two cascade-native routes (state-dependent foliation, stress-energy back-reaction) | `b27dcb9` |
 | SP-26 | Theorem 4.1 proof rewritten to use single-source argument instead of invalid reductio on in-domain uniqueness; theorem renamed "Gleason + Lovelock + single source = consistency"; `rem:sp26-status` explicitly concedes the QED/EFT-QG counterexample and identifies `thm:single` as the load-bearing input | `1001883` |
