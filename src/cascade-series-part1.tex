@@ -31,9 +31,8 @@ measured in reduced-Planck units.
 
 The observer at $d = 4$ lives on the $S^3$ shell of a host 5D black
 hole, experiencing ``time'' as an asymptotic fall toward the hole's
-pseudo-horizon: the cascade's own descent direction (Part~II
-Section~7.1). Time is \emph{locked} as this infall, not a free fourth
-dimension. Consequently only three dimensions --- the angular
+pseudo-horizon: the cascade's own descent direction (Remark~\ref{rem:time-slicing}).
+Time is \emph{locked} as this infall, not a free fourth dimension. Consequently only three dimensions --- the angular
 dimensions of the spatial $S^3$ --- are free to receive cascade
 content, and the relevant 3-volume at the observer's frame is
 $\Omega_3 = 2\pi^2$.
@@ -83,15 +82,39 @@ in the series. It is not an identification, not a model, not an
 approximation. It is a factual claim: no measurement can distinguish the
 cascade's geometry from the observed universe.
 
-\section{The Observer's Frame}
+\section{The Observer's Frame}\label{sec:observer}
 
 The observer at $d = 4$ lives on the $S^3$ shell of a host 5D black
 hole (Cover Sheet, ``The Thought Experiment''). The 3 angular
 dimensions of $S^3$ are the observer's genuinely free spatial
 dimensions; time is the infall direction toward the hole's
-pseudo-horizon, asymptotic and never completing --- the cascade's own
-descent parameter under the identification of Part~II~\cite{paper2},
-Section~7.1.
+pseudo-horizon, asymptotic and never completing. We identify this
+infall direction with the cascade's own slicing axis; the
+identification is cascade-internal and proven next.
+
+\begin{remark}[Time identified with the cascade's slicing axis]\label{rem:time-slicing}
+Paper~0's slicing recurrence (\S~The Recurrence) expresses $B^{d+1}$
+as an integral over one perpendicular coordinate $x\in[-1,1]$,
+\[
+V_{d+1} = V_d\int_{-1}^{1}(1-x^2)^{d/2}\,dx,
+\]
+and each cross-section at height $x$ is a $d$-ball of radius
+$\sqrt{1-x^2}$. The operation that produces $V_{d+1}$ from $V_d$ via
+this integral is one-way: the integrand at a fixed layer $d$ carries
+no information about the values of the integrand at neighbouring
+layers, and no cascade-native step restores the eliminated axis once
+integrated over. This irreversibility picks a preferred sense along
+the slicing axis, which we identify with the observer's time
+coordinate: time runs in the direction in which the cascade slices.
+Under this identification, time is \emph{locked}: it is a preferred
+axis with a preferred direction, not a free dimension over which the
+observer can integrate. The observer's four dimensions are therefore
+partitioned into three genuinely free spatial dimensions (the
+angular directions of $S^3$) and one locked temporal direction (the
+slicing axis). This is the sole identification required for Correction~2's 3D
+projection (\S\ref{subsec:correction2}) and for
+Remark~\ref{rem:why-3d} below.
+\end{remark}
 
 \begin{remark}[Why the observer's host is $d_V = 5$]\label{rem:sp12-status}
 The identification ``observer's host is $d_V = 5$'' is not an ad hoc
@@ -102,11 +125,12 @@ cascade-internal theorems. The forcing chain is:
 \item \emph{Empirical input.} The observer's spacetime is
 4-dimensional. This is the only non-cascade input in what follows
 and is acknowledged as empirical throughout the series.
-\item \emph{Foliation structure (Part~III, \S4).} The cascade's
-slicing of a unit ball $B^d$ foliates it into $(d-1)$-ball
-cross-sections $B^{d-1}$ parameterised by the slicing axis; under
-the Part~II identification of the slicing direction with time, the
-observer's spatial cross-section at each instant is the boundary
+\item \emph{Slicing structure (Paper~0, \S~The Recurrence).} The
+cascade's slicing of a unit ball $B^d$ foliates it into
+$(d-1)$-ball cross-sections $B^{d-1}$ parameterised by the slicing
+axis. Under the identification of the slicing axis with time
+(Remark~\ref{rem:time-slicing}), the observer's spatial
+cross-section at each instant is the boundary
 $S^{d-2} = \partial B^{d-1}$ of the cross-section.
 \item \emph{Dimensional matching.} A 4D observer's spatial
 cross-section is 3-dimensional, so $S^{d-2}$ must be an $S^3$,
@@ -156,18 +180,19 @@ Applied once per threshold sphere area (both factors of the bilinear
 invariant pass through the host rescaling; Part~0, Lemma~8.8), this
 contributes $(\Omega_5/\Omega_7)^2 = 9/\pi^2$.
 
-\subsection{Correction 2: projection onto the observer's 3D spatial slice}
+\subsection{Correction 2: projection onto the observer's 3D spatial slice}\label{subsec:correction2}
 
 Time is not a free fourth dimension at the observer's frame. In the
 cover sheet's thought experiment, the observer sits on the $S^3$ shell of a
 host 5D black hole and experiences ``time'' as the asymptotic fall
-toward the hole's pseudo-horizon. Part~II~\cite{paper2}, Section~7.1
-makes this identification explicit at the cascade-mathematical level:
-time is the cascade's own slicing direction, the parameter along which
-the descent proceeds. The infall is asymptotic --- the observer never
-crosses --- so the total ``time'' available at any finite moment is
-bounded in the cascade's frame. Time is \emph{locked} into the cascade's
-descent parameter, not a free direction the observer can choose.
+toward the hole's pseudo-horizon. Remark~\ref{rem:time-slicing} above
+identifies this infall direction with the cascade's own slicing axis
+at the mathematical level: time is the cascade's own slicing
+direction, the parameter along which the descent proceeds. The infall
+is asymptotic --- the observer never crosses --- so the total ``time''
+available at any finite moment is bounded in the cascade's frame.
+Time is \emph{locked} into the cascade's descent parameter, not a
+free direction the observer can choose.
 
 \medskip\noindent\textbf{The structural consequence.}
 Cascade content descending from the higher-dimensional layers has only
@@ -209,33 +234,55 @@ $\Omega_2$ and $\Omega_3$ are unit-sphere areas at dimensions
 immediately adjacent to the observer; their ratio is a Gamma-function
 identity.
 
-\begin{remark}[Why 3 dimensions, not 4]\label{rem:why-3d}
-The cosmological constant is an energy density, and an energy density
-is an extensive quantity per receiving volume. The receiving volume at
-the observer's frame has dimension equal to the number of \emph{free}
-dimensions the observer actually has --- not the number of spacetime
-dimensions in the abstract. In the cascade picture, three dimensions
-are free (the angular dimensions of $S^3$) and one is locked (time, as
-the cascade's own descent / the observer's asymptotic infall). The
-projection is therefore over three dimensions, and the natural 3-volume
-$\Omega_3 = 2\pi^2$ is the integrated Morse foliation of the per-$S^2$
-content density.
+\begin{remark}[Derivation of the 3D projection factor]\label{rem:why-3d}
+Correction~2's factor $\Omega_2/\Omega_3 = 2/\pi$ rests on two
+cascade-internal claims, each proved elsewhere in this paper rather
+than assumed; the ``3 free spatial dimensions vs 1 locked temporal
+dimension'' framing of Section~\ref{sec:observer} is a heuristic
+restatement of these two claims, not an independent input.
 
-The appearance that time is free --- that the observer can ``choose'' a
-4-volume $d^4 x$ reference --- is a feature of local flat-space
-approximations on the observer's patch of $S^3$, not of the cascade's
-global structure. Over any cosmological scale where the cascade's
-asymptotic infall becomes visible (e.g., in $\rho_\Lambda$, which
-involves the full cascade tower $\Omega_{19}\Omega_{217}$), the
-locked-time character of the cascade's descent forbids projection onto
-a free fourth dimension and enforces the 3D projection factor
-$\Omega_2/\Omega_3 = 2/\pi$.
+\medskip\noindent\textbf{Claim 1: Time-locked integration.} The
+cascade's slicing axis is identified with the observer's time
+coordinate (Remark~\ref{rem:time-slicing}), and the slicing is
+irreversible, so the time direction is locked and cannot be
+integrated over as a free volume dimension. Consequently the
+receiving volume at each cascade moment is the observer's spatial
+cross-section, which is the $S^3$ shell of the host $B^5$ and has
+sphere-area measure $\Omega_3 = 2\pi^2$.
 
-Section~\ref{sec:qft-comparison} develops the QFT contrast: QFT
-implicitly assumes time is free (4D Minkowski with unbounded time
-evolution) and therefore counts modes over 4 free dimensions; the
-cascade has time locked and therefore projects over only 3. This is
-the structural origin of the $\pi/2$ mismatch at the observer's frame.
+\medskip\noindent\textbf{Claim 2: Per-$S^2$ content density.} By
+Paper~0's Corollary~3.2, the unique independent cascade quantity at
+each level is sphere area, and every other cascade object (volumes,
+radial couplings) is derived. ``Sphere area'' is a two-dimensional
+measure; the natural cascade density at the observer's frame is
+therefore per $S^2$ (per unit of two-dimensional sphere measure),
+not per $S^3$. The Morse foliation of $S^3$ by 2-sphere latitudes
+$\theta\in[0,\pi]$, each with area $\sin^2\theta\cdot\Omega_2$,
+gives
+\[
+\Omega_3 \;=\; \int_0^\pi \sin^2\theta\,\Omega_2\,d\theta
+\;=\; \frac{\pi}{2}\,\Omega_2,
+\]
+so the projection factor converting per-$S^2$ density to integrated
+$S^3$ density is $\Omega_2/\Omega_3 = 2/\pi$.
+
+\medskip\noindent\textbf{No equivocation.} The argument is not
+``3 free dimensions therefore $\Omega_3$.'' Had we counted
+dimensions differently, Claim~1 would still fix the receiving
+surface as the spatial $S^3$ cross-section of the $d{=}4$ observer
+(independent of whether time is counted as ``free''), and Claim~2
+would still fix the content density as per-$S^2$. The two claims
+together force $\Omega_2/\Omega_3 = 2/\pi$ with no reliance on
+free-dimension counting as the derivation mechanism.
+
+\medskip\noindent\textbf{QFT contrast.} QFT implicitly violates
+Claim~1 by treating time as free (4D Minkowski with unbounded time
+evolution) and therefore integrates over 4D $d^4x$; it also
+implicitly violates Claim~2 by assigning mode density per
+$d^3\!x\,d t$ rather than per $S^2$. The cascade satisfies both
+claims and therefore projects over $S^3$ at each locked instant with
+per-$S^2$ density. Section~\ref{sec:qft-comparison} develops the
+contrast quantitatively; this remark is its structural origin.
 \end{remark}
 
 \subsection{Unified descent: the three corrections are one operation}
@@ -618,7 +665,7 @@ $d$ (Part~0, Corollary~3.2). And the receiving volume at the observer's
 frame is \emph{not} 4-dimensional: time is locked as the cascade's
 descent parameter, equivalently the observer's asymptotic infall
 toward the host 5D-BH pseudo-horizon (Cover Sheet thought experiment,
-Part~II~\cite{paper2} Section~7.1). Only the three angular dimensions
+Remark~\ref{rem:time-slicing}). Only the three angular dimensions
 of the observer's spatial slice $S^3$ are free. Cascade content from
 the higher-dimensional layers projects onto those three dimensions ---
 not four.
@@ -787,10 +834,10 @@ $\pi/2$ at the observer's frame is Part~0's own lowest recurrence
 step, applied inversely at the observer's spatial $S^3$ slice.
 
 \medskip\noindent\textbf{The cascade does not do Kaluza--Klein
-reduction.} Part~II=III makes the structural commitment explicit:
-gravity is not quantised via semiclassical integration over a
-background because the metric is never an operator on a fixed
-background --- it is a state property on the cascade geometry. The
+reduction.} This is a structural commitment of the series: gravity
+is not quantised via semiclassical integration over a background,
+because the metric is never an operator on a fixed background ---
+it is a state property on the cascade geometry. The
 same commitment governs vacuum energy density. There is no
 integration of continuous zero-point modes over compactified
 dimensions, regulated by a hand-imposed cutoff, to be performed and
@@ -800,7 +847,7 @@ The $\pi/2$ projection factor is therefore not the output of a
 Kaluza--Klein calculation awaiting completion; it is a direct sphere
 identity in Part~0's recurrence, applied at the observer's locked-time
 $S^3$ slice under the identification of time with the cascade's own
-descent direction (Part~II~\cite{paper2}, Section~7.1).
+descent direction (Remark~\ref{rem:time-slicing}).
 
 The three corrections of Theorem~\ref{thm:cc} (host frame $9/\pi^2$,
 3D projection $2/\pi$, Part~0 bilinear invariant
@@ -866,8 +913,6 @@ One empirical fact ($d = 4$). Zero free parameters.
 Why Nothing Has Structure}, 2026.
 \bibitem{part0} RTAC, \textit{The Cascade Series --- Part 0: Scale
 Variance from Orthogonality}, 2026.
-\bibitem{paper2} RTAC, \textit{The Cascade Series --- Part II:
-Quantum Mechanics from the Cascade}, 2026.
 \end{thebibliography}
 
 \end{document}
