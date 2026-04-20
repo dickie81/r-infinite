@@ -103,6 +103,54 @@ If the full theorem is intractable, two weaker results would still advance SP-31
 
 Either alternative would count as genuine progress. Alternative (A) is the cheapest ~1-day sanity check; alternative (B) is a ~1-month partial result that could be publishable on its own.
 
+## Status update: alternative (A) has been run — naive formulation falsified
+
+Alternative (A)'s sanity check was implemented as `tools/fermion_dirac_spectral_zeta.py` and run on all four cascade Dirac layers. The naive formulation of the conjecture — "fermion lapse = regularised Dirac spectral zeta on boundary sphere $S^{2n}$" — **does not hold**.
+
+### What was computed
+
+The regularised Dirac spectral zeta on round $S^{2n}$, per chirality:
+
+$$\zeta_D^+(s) = \sum_{k=0}^{\infty} \frac{D_k}{(k+n)^s}, \quad D_k = 2^{n-1}\binom{2n+k-1}{k}$$
+
+evaluated at $s=1$ via Hurwitz-zeta analytic continuation (`mpmath.zeta` at 50 decimal digits, with polynomial expansion of $D_k$ in $m = k+n$ giving a closed-form linear combination of $\zeta(-2j-1, n)$ terms).
+
+### The numbers
+
+| $d$ | $n$ | $\zeta_D^+(1)$ | $\lvert\zeta_D\rvert(1)$ | $R(d)/2$ | ratio $\lvert\zeta_D\rvert(1)/(R(d)/2)$ |
+|---|---|---|---|---|---|
+| 5  | 2  | $1/6 = 0.1667$    | $1/3 = 0.3333$ | $8/(15\sqrt\pi) = 0.3009$ | **1.108** |
+| 13 | 6  | $5.77\times 10^{-3}$ | $1.15\times 10^{-2}$ | $0.1924$ | $0.060$ |
+| 21 | 10 | $2.77\times 10^{-4}$ | $5.54\times 10^{-4}$ | $0.1525$ | $0.00364$ |
+| 29 | 14 | $1.46\times 10^{-5}$ | $2.92\times 10^{-5}$ | $0.1302$ | $0.000224$ |
+
+The regularised spectral zeta decays **exponentially** in $d$ (ratios drop by ~17× per Bott period of 8 in $d$), while $R(d) \sim \sqrt{2/d}$ decays **polynomially**. The two are not proportional — even allowing for an overall multiplicative constant, no $d$-independent factor recovers the cascade's target.
+
+The $d=5$ ratio of 1.108 is close to 1 and might suggest a small-$n$ correspondence, but the rapid falloff at higher $d$ shows this is coincidental rather than structural.
+
+### What this tells us about Part IVc
+
+The tool's negative result meaningfully **constrains the future paper** before any of Section 5's work has been written:
+
+1. **Section 4 cannot inherit the round-sphere Dirac spectrum.** The $D_{\text{lat}}$ construction must give a Green's function that differs from the round-sphere Dirac operator's spectral trace. A naive "one Dirac operator per layer, compose across the cascade" construction is ruled out.
+
+2. **A slicing-map-induced spin connection with layer-wise volumetric rescaling is required.** The scaling factor must grow fast enough with $d$ to compensate for the spectral zeta's exponential decay — plausibly a factor of order $\Omega_{2n}$ (sphere volume, growing super-exponentially) or $R(d)/\zeta_D(1)$ fitted layer-by-layer, with the question being whether any such factor has a principled cascade-internal origin.
+
+3. **Alternative (A) is closed as negative.** The cheapest validation path is now known to fail. Remaining paths: alternative (B) (partial theorem conditional on a specific spin-connection choice with the layer-wise rescaling above) or a reformulation of the conjecture itself.
+
+4. **Reformulation candidates.** Three natural ones, in decreasing order of plausibility:
+   - *(i) Boundary-dominance correction.* $\zeta_D(1) \cdot \Omega_{2n}$ or $\zeta_D(1) / V_{2n+1}$ might recover $R(d)$ after a volumetric factor. Worth computing as a follow-up.
+   - *(ii) Cascade-lattice Dirac, not sphere Dirac.* The correct operator acts on layer-indexed spinor sections with discrete-difference coupling across layers — not on individual sphere sections per layer. Its spectrum lives in $\mathbb{R}$, not on any single sphere, and the "Green's function at layer $d$" involves a sum over cascade paths rather than a sphere spectral trace.
+   - *(iii) Slicing-Jacobian fermion integral.* Rather than constructing a discrete Dirac operator, apply the scalar slicing integral machinery with a spinor measure that explicitly absorbs the $t^{-1/2}$ Jacobian. The fermion analogue of $B(1/2, (d+1)/2) = \sqrt\pi R(d)$ would then be $B(1, (d+1)/2) = R(d+1)$ or similar — which also doesn't match $R(d)$ but might with a chirality halving or a shifted argument.
+
+5. **Timeline revision.** Section 6 is done in its alternative-A form (negative); Section 4 now has a well-defined open problem (construct a $D_{\text{lat}}$ whose spectrum is NOT the sphere Dirac spectrum); Section 5's spectral argument needs to be rewritten around whichever reformulation of (i)–(iii) proves tractable. Net: the $3$–$5$ month timeline is unchanged, but the work is now better-scoped — no time will be lost discovering that the round-sphere route fails.
+
+### Reproducibility
+
+The tool is deterministic (no randomness, no external data) and runs in under a second at 50 decimal digits. Rerunning on a different machine reproduces the ratios exactly. The negative result is robust to further precision increases.
+
+Dependencies: `mpmath` only. No cascade-specific inputs; all quantities derived from the integer $d$ alone.
+
 ## Dependencies on other open questions
 
 - **Not blocking:** the cascade action principle of Part IVb Remark 4.8 already supplies the scalar sector; the fermion sector is the extension.
