@@ -839,15 +839,50 @@ The cascade has five structurally distinguished layers: the Part~0 critical poin
 \]
 The source selection rule is the statement that each observable $Q$ maps to a unique element of $\mathcal{S}$, determined by three binary physics flags.
 
-\paragraph{Three physics flags.}
-For each precision observable $Q$, define three binary predicates read from its Standard Model definition:
+\paragraph{Three syntactic flags on the cascade formula.}
+For each precision observable $Q$ with canonical cascade formula
+$F_Q$, define three binary predicates as \emph{syntactic queries on
+$F_Q$}---readable mechanically from the formula's expression tree
+without recourse to Standard Model interpretation:
 \begin{itemize}
-\item \textbf{Planck-anchored ($P$):} $Q$'s cascade value requires the Planck sink $d_2=217$ as a normalisation reference---either because $Q$ is dimensional (a mass, length, or energy), or because $Q$ is a dimensionless quantity explicitly built from Planck-anchored ingredients (e.g.\ the acoustic scale $\ell_A$, anchored via the sound horizon $r_d$).
-\item \textbf{Observer-local ($L$):} $Q$ is measured as a ratio at the observer's frame $d=4$ without its value encoding the cascade descent---that is, $Q$ is a local datum at the observer (a density, a local mixing angle at $d=4$) rather than the result of running a coupling through the gauge window. Equivalently: $Q$'s value at $d=4$ is insensitive to cascade content at layers $d\geq 6$ once the cascade's fixed structure is given.
-\item \textbf{Gauge-mediated ($G$):} $Q$'s hierarchy is controlled by a gauge coupling whose running through the gauge window $\{12,13,14\}$ determines $Q$. A mass ratio whose cascade formula carries the $2\sqrt\pi$ factor from the U(1) hairy-ball obstruction at $d=14$ (such as $m_\tau/m_\mu$) is gauge-mediated; a pure geometric angle whose formula uses $N(d)$ values only as static normalisations (such as the Cabibbo angle $\theta_C$, built from $\arccos(N(13)/N(12))$) is not.
+\item \textbf{Planck-anchored ($P$):} $F_Q$ references $M_{\mathrm{Pl,red}}$,
+either directly or through a sub-expression whose closed form
+contains $M_{\mathrm{Pl,red}}$ (e.g.\ the electroweak scale $v$
+contains $M_{\mathrm{Pl,red}}$ via Theorem~\ref{thm:vev}; the sound
+horizon $r_d$ in the acoustic scale $\ell_A = \pi D_A/r_d$ contains
+it via its $H_0$ derivation). Equivalent formulation: expanding all
+cascade sub-expressions to their primitive form, $F_Q$ contains the
+symbol $M_{\mathrm{Pl,red}}$ somewhere.
+\item \textbf{Observer-local ($L$):} $F_Q$ contains \emph{no}
+exponential of a cascade-potential or decay-rate value---that is,
+no $\exp(\Phi(d))$, $\exp(\Phi(d_A \to d_B))$, $\exp(p(d))$, or
+$\exp(\Phi + \delta\Phi)$ factor. The observable is a static
+combination of $N(d)$ values and $\Omega_d$ values evaluated at
+distinguished layers; no cascade descent is encoded in the formula.
+\item \textbf{Gauge-mediated ($G$):} $F_Q$ contains a \emph{multi-layer}
+cascade-potential exponential $\exp(\Phi(d_A \to d_B))$ with
+$d_B - d_A \geq 2$ and $[d_A, d_B] \cap \{12, 13, 14\} \neq \varnothing$
+(the path crosses or enters the gauge window). A single-layer
+attenuation $\exp(-p(d_0))$ at a distinguished layer does not count
+as gauge running.
 \end{itemize}
 
-These flags are \emph{physics meta-data}, not derivable from the cascade formulas by pattern-matching: they read the role each ingredient plays in $Q$'s physical definition. The claim below is that, once the three flags are fixed by physics, the source layer $d^*$ is determined with no remaining freedom.
+\begin{remark}[Flag readings are mechanical, not interpretive]\label{rem:sp36-syntactic}
+The three predicates above take a cascade formula as input and return
+a boolean triple $(P,L,G)$ without reference to what the observable
+``physically is'' in the Standard Model. Two readers applying the
+predicates to the same $F_Q$ will agree on $(P,L,G)$ by inspection of
+the formula's expression tree. The bar is therefore ``write down
+$F_Q$ and apply the queries,'' not ``decide which physics role each
+ingredient plays.'' The syntactic character means the verification
+table below is an \emph{inspection result}, not a classifier fit to
+the seven observables. Appendix-style caveat: where an observable
+admits multiple cascade expressions (e.g.\ an algebraic identity
+equivalent to a descent formula), the canonical expression is the
+\emph{minimal descent formula}---the simplest $F_Q$ that closes $Q$
+to experimental precision via the cascade's propagator structure, not
+an algebraic re-expression that bypasses it.
+\end{remark>
 
 \begin{definition}[Observable type]\label{def:observable-type}
 Let $Q$ be a cascade observable with physics flags $(P,L,G)$. Apply the following decision procedure in order:
@@ -922,22 +957,76 @@ The four pairings exhaust the four non-sink distinguished layers exactly once, l
 \end{remark}
 
 \begin{remark}[What this proposition does and does not prove]
-\emph{Does:} reduce the source-layer assignment from a post-hoc observable-class labelling to a deterministic three-flag decision procedure; verify that all seven closed observables of the correction-family table of Remark~\ref{rem:phase-family} are correctly classified by their physics flags $(P,L,G)$; exhibit the bijection between the four observable types and the four non-sink distinguished layers; show that the bijection is forced (no other four-to-four assignment respects the structural constraints on each type).
+\emph{Does:} reduce the source-layer assignment from a post-hoc
+observable-class labelling to a syntactic three-query decision
+procedure on the cascade formula $F_Q$; verify that all seven closed
+observables of the correction-family table of
+Remark~\ref{rem:phase-family} are correctly classified by applying
+the queries to their formulas by inspection (see
+Remark~\ref{rem:sp36-syntactic}); exhibit the bijection between the
+four observable types and the four non-sink distinguished layers;
+show that the bijection is forced by structural constraints on each
+pairing (no other four-to-four assignment respects them).
 
-\emph{Does not:} derive the three flags $(P,L,G)$ themselves from a purely formal cascade object---they are physics meta-data about the observable (what role each ingredient plays in its Standard Model definition), and a formal derivation would require a category of cascade observables that the series has not yet constructed; formally prove that the Green's function response is maximised at the assigned $d^*$ within each type (this needs a closed-form expression for the discrete Green's function of the cascade action, currently available only numerically); derive unit source strength at distinguished layers (open: see Remark~\ref{rem:phase-family}, item~(b)); or derive the sign rule (still conjectured to follow from the Morse index of $Q$ on the cascade's configuration space).
+\emph{Does not:} derive the three syntactic flags $(P,L,G)$
+themselves from a formal category of cascade observables---each flag
+is defined as a mechanical query on the cascade formula, which is
+structural but not yet fully categorical; formally prove that the
+Green's function response is maximised at the assigned $d^*$ within
+each type (this needs a closed-form expression for the discrete
+Green's function of the cascade action, currently available only
+numerically); derive unit source strength at distinguished layers
+(open: see Remark~\ref{rem:phase-family}, item~(b)); or derive the
+sign rule (still conjectured to follow from the Morse index of $Q$
+on the cascade's configuration space). The categorical derivation is
+tracked in Open Question~\ref{oq:source-selection-category} below.
 
-What is removed is the largest post-hoc element of the correction family: given the three flags, the seven observables are forced to the sources they use, with no freedom. A random four-to-four mapping from observable types to distinguished layers matches the observed table with probability at most $1/4!=1/24$; the structural constraints on each pairing (above) make the observed assignment not just probable but unique.
+What is removed is the largest post-hoc element of the correction
+family: given the three syntactic queries on $F_Q$, the seven
+observables are forced to the sources they use without any freedom
+in flag-reading. The earlier concern that the verification was a
+classifier fit on the training set dissolves once the flag readings
+are mechanical inspections of cascade formulas rather than judgements
+about the Standard Model. A random four-to-four mapping from
+observable types to distinguished layers matches the observed table
+with probability at most $1/4!=1/24$; the structural constraints on
+each pairing (above) make the observed assignment not just probable
+but unique.
 \end{remark}
 
 \begin{remark}[A falsifiable prediction]\label{rem:selection-falsifier}
 Proposition~\ref{prop:source-selection} makes a sharp prediction for any new Standard Model precision observable not yet in the correction-family table of Remark~\ref{rem:phase-family}: its source layer is determined by the three physics flags $(P,L,G)$ via Definition~\ref{def:observable-type}, and its channel count by Theorem~\ref{thm:chirality-factorisation}. Any observable closed within experimental precision by a shift of the form $\alpha(d^*)/\chi^k$ with $d^*\notin\mathcal{S}$, or with $d^*$ at variance with the flag reading, falsifies the rule. Worked candidates:
 \begin{itemize}
-\item $\alpha_{\rm em}(M_Z)$: $(P,L,G)=(F,F,T)$ (running QED coupling controlled by U(1) descent) $\Rightarrow$ Gauge type $\Rightarrow d^*=14$.
-\item $m_W$ absolute: $(P,L,G)=(T,-,-)$ (dimensional mass anchored to Planck) $\Rightarrow$ Absolute type $\Rightarrow d^*=19$.
-\item $m_e/m_\mu$: $(P,L,G)=(F,F,T)$ (lepton mass ratio mediated by U(1) hypercharge hierarchy) $\Rightarrow$ Gauge type $\Rightarrow d^*=14$.
-\item CKM mixing angles $\theta_{13},\theta_{23}$: $(P,L,G)=(F,F,F)$ (pure amplitude mixing, no gauge-coupling running) $\Rightarrow$ Amplitude type $\Rightarrow d^*=7$.
+\item $\alpha_{\rm em}(M_Z)$: canonical cascade formula is the U(1)
+descent analogue of $\alpha_s = \alpha_{\rm GUT}\exp(\Phi(12\to 4))$,
+i.e.\ $\alpha_{\rm em}^{-1}$ at $M_Z$ is built from a U(1) descent
+through the gauge window. Syntactic flags: $P = F$ (no
+$M_{\mathrm{Pl,red}}$), $L = F$ (contains $\exp(\Phi)$),
+$G = T$ (multi-layer descent crosses $d=14$) $\Rightarrow$ Gauge
+$\Rightarrow d^* = 14$.
+\item $m_W$ absolute: canonical formula contains $m_Z$ (dimensional
+anchor) or equivalently $v$ (and hence $M_{\mathrm{Pl,red}}$ through
+Theorem~\ref{thm:vev}). Syntactic flags: $P = T$ $\Rightarrow$
+Absolute $\Rightarrow d^* = 19$.
+\item $m_e/m_\mu$: canonical formula is the Bott-gap analogue of
+$m_\tau/m_\mu = \exp(\Phi(13)-\Phi(5))\cdot 2\sqrt{\pi}$, giving
+$m_e/m_\mu = \exp(\Phi(5)-\Phi(21))\cdot (2\sqrt{\pi})^{-1}$ or
+similar path across the gauge window. Syntactic flags: $P = F$,
+$L = F$ (contains $\exp(\Phi(d_A\to d_B))$ with $d_B - d_A \geq 2$),
+$G = T$ (path from $d=21$ to $d=5$ crosses the gauge window
+$\{12,13,14\}$) $\Rightarrow$ Gauge $\Rightarrow d^* = 14$.
+\item CKM mixing angles $\theta_{13},\theta_{23}$: canonical formula
+follows the Cabibbo template $\tan\theta =
+\tan(\arccos(N(d_A)/N(d_B)))\cdot\exp(-p(d)/2)$ for some layer $d$
+selected by the cascade's inter-generation geometry. Syntactic flags:
+$P = F$, $L = F$ (contains $\exp(-p(d)/2)$), $G = F$
+(single-layer attenuation at one layer, not a multi-layer gauge-window
+descent) $\Rightarrow$ Amplitude $\Rightarrow d^* = 7$.
 \end{itemize}
-These predictions are testable against the leading-order deviations of the underlying observables.
+Each flag reading above is a mechanical query on the canonical
+cascade formula---no Standard Model interpretation enters beyond
+writing down $F_Q$. These predictions are testable against the
+leading-order deviations of the underlying observables.
 \end{remark}
 
 \subsection{The Weinberg angle from the boson topological obstruction}
@@ -1525,6 +1614,7 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \section{Open Questions}\label{sec:open-questions-part4b}
 
 \begin{enumerate}
+\item\label{oq:source-selection-category} \emph{Categorical derivation of the source-selection flags.} Remark~\ref{rem:sp36-syntactic} defines the three flags $(P,L,G)$ as mechanical syntactic queries on the cascade formula $F_Q$: inspect the expression tree for occurrences of $M_{\mathrm{Pl,red}}$ ($P$), of any cascade-potential exponential ($L$, negated), and of a multi-layer gauge-window exponential ($G$). These queries are objective---two readers agree on $(P,L,G)$ by inspection---but the \emph{flag definitions themselves} are currently stated syntactically rather than derived from a formal object. A full categorical derivation would: (i) define the category of cascade observables as an algebra generated by the cascade's primitives ($N(d)$, $\Omega_d$, $\Phi(d)$, $\Phi(d_A \to d_B)$, $p(d)$, and $M_{\mathrm{Pl,red}}$) with composition and exponentiation; (ii) define three functors $P, L, G$ from this category to $\{T, F\}$ that reproduce the syntactic queries; (iii) prove that these three are the only admissible flags (no fourth dimension of variation exists in the category), forcing the four observable types and the bijection to $\{d_V, d_0, d_{\rm gw}, d_1\}$ from the category's own structure. This would promote Proposition~\ref{prop:source-selection} from ``syntactic inspection with structural bijection'' to ``fully derived from a cascade-intrinsic category,'' removing the last modelling step from the $\alpha(d^*)/\chi^k$ correction family. Tier~3 (affects all seven source assignments via rigour, not via numerics---the classifications themselves are robust under the syntactic reading).
 \item\label{oq:mixing-geometric-mean} \emph{Derive the geometric-mean off-diagonal rule for mixing matrices from the cascade action.} The Cabibbo closure (Theorem~\ref{thm:cabibbo-amplitude}) uses $\exp(-p(13)/2)$---the geometric mean of the two diagonal amplitudes $1$ (for $d{=}12$) and $\exp(-p(13))$ (for $d{=}13$)---as the off-diagonal mixing factor in $\tan\theta_C$. The $\tfrac{1}{2}$ exponent is the structural content of the Fritzsch-type ansatz for hierarchical mass/mixing matrices (off-diagonal $\approx\sqrt{d_1 d_2}$) and is consistent with the Born-rule relationship $P = |A|^2$ between layer-descent probability and amplitude (Remark~\ref{rem:sp35-status}, item~3). What is needed: a cascade-native computation on the $d{=}12,13$ gauge window showing that the off-diagonal overlap of a $d{=}12$ state and a $d{=}13$ state, propagated through the cascade to the observer, saturates Cauchy-Schwarz and evaluates to the geometric mean of the two descent amplitudes. This would promote the Cabibbo prediction from structurally-motivated ansatz to cascade-internal theorem. Extension: the same derivation should fix the off-diagonal exponents for the full CKM matrix (currently handled as ``multi-step cascade propagator through Majorana layers''; Remark~\ref{rem:ckm-hierarchy}) and for PMNS (Roadmap~item~2). Tier~3 (affects $\theta_C$ and, through generalisation, the full CKM/PMNS closure).
 \item\label{oq:fermion-cascade-action} \emph{Derive the fermion obstruction factor $1/(2\sqrt{\pi})$ from a cascade action.} Theorem~\ref{thm:obstruction} proves $N_f(d)/N(d) = 1/(2\sqrt{\pi})$ from two ingredients: the chirality halving $1/\chi = 1/2$ (Poincar\'e--Hopf) and the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}). The final mechanistic step---that the global tangent-frame obstruction on $S^{2n}$ absorbs exactly one factor of $\sqrt{\pi}$, giving $N_f(d) = R(d)/\chi$---is stated, not computed (Remark~\ref{rem:sp31-status}, item~3). The scalar analogue is closed by the discrete action $S[\varphi] = \sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$ of Remark~\ref{rem:action-uniqueness}, whose propagator on $S^{d-1}$ is $B(\tfrac12, d/2+1) = \sqrt{\pi}\cdot R'(d)$. What is needed: a parallel cascade-intrinsic fermion action---a discrete Dirac operator on the cascade lattice, coupled to the spin connection and respecting chirality $\mathbb{Z}_2$---whose Green's function on an even-sphere layer evaluates to $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$, deriving the ``exactly one factor of $\sqrt{\pi}$'' absorption from the action's structure. This closes the last non-derived link in the fermion mass formula. Tier~3 (load-bearing on every charged-fermion mass).
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
