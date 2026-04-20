@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 28 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **9 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 29 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **8 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -25,11 +25,6 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 ---
 
 ## Part 0 Supplement
-
-### SP-9. $\Omega_m^{\rm Bott}$ path applied to a ratio-of-sums observable — **Structural**
-`src/cascade-series-part0.0.tex:231–239`, cf Part V Theorem 5.10.
-
-Theorem 15.11 proves the correction *"for a multiplicative propagator"* traversing a contiguous path. $\Omega_m^{\rm Bott}$ is a ratio of sums over non-trivial-phase layers, not a multiplicative propagator. The application to $\Omega_m^{\rm Bott}$ is an unstated extension.
 
 ---
 
@@ -100,7 +95,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
-| SP-9 | $\Omega_m^{\rm Bott}$ path on ratio-of-sums | Part 0 Supp | Structural |
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
 | SP-11 | $\exp$ vs linear Gram form | Part I | Minor |
 | SP-12 | $d_V=5$ as observer's host | Part I | Structural |
@@ -134,6 +128,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-6 | Tower-completeness proof: explicit 4-class mechanism enumeration (extrema, monotone zeros, primitive-value crossings, higher-order invariants); `rem:tower-alternatives` rules out self-dual radius $1/\sqrt{2}$ (no integer solution + non-cascade import), $p^{(n)}$ zeros (no zeros), $\Omega_d$ inflections (derived from $d_0$) | `73cc8f5` |
 | SP-7 | New `rem:sp7-status` after Theorem 8.4 (`thm:cs`) makes the frame-conversion forcing argument explicit: scale=ratio is the unique conversion factor from intrinsic reference $\Omega_{d_0}$ to observer reference $\Omega_{d_V}$, forced by the first-order bilinear decomposition (Lemma 8.5). Content=product forced by $d_2\to\infty$ limit (Theorem 9.1). Neither is a definitional choice | `2c62e5b` |
 | SP-8 | Theorem 15.7 relabelled first-order; strengthened to upper bound | `2003692` |
+| SP-9 | New `rem:sp9-status` in Part 0 Supplement after Theorem 15.11 acknowledges that the theorem is proved for multiplicative propagators; $\Omega_m^{\rm Bott}$ is a ratio of sums, not a multiplicative propagator; the full-path correction is an upper bound (over-corrects to $+1.0\%$), rigorous per-term treatment would yield a smaller shift dominated by the peak-term contributions; new Part V Open Question~2 names the cascade-native derivation target for ratio-of-sums observables | *(this commit)* |
 | SP-10 | $\rho_\Lambda$ Gram-path $[5,216]$ principled by austerity | `46087ae` |
 | SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
 | SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | `93434a0` |

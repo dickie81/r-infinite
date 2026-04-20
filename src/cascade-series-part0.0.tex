@@ -245,6 +245,57 @@ $\Omega_m^{\rm Bott}$ & $d\!=\!5$--$217$ & 213 & 0.02108 & 0.3115 & 0.3181 & 0.3
 
 \noindent The first-order correction reduces descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The correction for $m_\mu/m_e$ is small ($0.27\%$) because its path lies at higher $d$ where the per-step deficit scales as $1/(8d^2)$.
 
+\begin{remark}[Scope of Theorem~\ref{thm:first-order}; status of $\Omega_m^{\rm Bott}$]\label{rem:sp9-status}
+Theorem~\ref{thm:first-order} is proved for a \emph{multiplicative
+propagator} traversing a contiguous path---i.e., for an observable of
+the form $Q = \prod_{k=0}^{n-1}(\text{step factor at }d_k)$. Five of the
+six table entries ($\alpha_s$, $m_\tau/m_\mu$, $m_\mu/m_e$, $m_\tau$,
+$v$) have this structure directly. The sixth entry,
+$\Omega_m^{\rm Bott}$, is structurally different: by
+Theorem~5.10 of Paper~V (``Bott partition matter fraction''),
+\[
+\Omega_m^{\rm Bott}
+\;=\;
+\frac
+{\displaystyle\sum_{\substack{d=5\\ d\bmod 8\in\{5,6\}}}^{217}\Omega_{d-1}}
+{\displaystyle\sum_{d=5}^{217}\Omega_{d-1}},
+\]
+a \emph{ratio of sums} over cascade layers rather than a single
+multiplicative propagator. Its inclusion in the table under the
+full-path correction $\sum_{d=5}^{217}(1-C^2_{d,d+1}) = 0.02108$
+applies the theorem outside its proven scope:
+\begin{itemize}
+\item The rigorous per-term treatment would correct each
+$\Omega_{d-1}$ in the sums by its own path-length-dependent factor,
+$\Omega_{d-1}\mapsto\Omega_{d-1}\cdot
+\exp\bigl(\sum_{k=4}^{d-1}(1-C^2_{k,k+1})\bigr)$, then re-form the
+ratio. The sums are dominated by the early terms near $d\sim 5$--$7$
+(where $\Omega_d$ peaks), which have short paths and small corrections
+($\sim\exp(0.001)\approx 1.001$). The resulting correction to the
+ratio is therefore much smaller than the full-path factor
+$\exp(0.02108)$.
+\item The observed numerics support this: the leading value
+$\Omega_m^{\rm Bott,\;lead}=0.31150$ sits $-1.1\%$ below the
+observed $0.315$; the full-path ``corrected'' value $0.3181$
+overshoots by $+1.0\%$. A rigorous per-term correction would fall
+between these and is consistent with the two-population systematic
+to leading order. The table entry reports the uniform full-path
+correction for comparability with the other rows; it should be read
+as an upper bound on the Gram shift for this observable, not as its
+derived value.
+\end{itemize}
+A formal extension of Theorem~\ref{thm:first-order} to ratio-of-sums
+observables---deriving the effective correction for
+$Q=\sum_i a_i/\sum_j b_j$ where each $a_i,b_j$ is a multiplicative
+propagator---is Paper~V Open Question~1 (and remains open: the
+identification step from non-trivial-phase layers to matter is the
+other half of that question). The $\Omega_m$ closure does not
+\emph{require} the Gram correction: both the leading lapse identity
+$\Omega_m=1/\pi=0.31831$ ($+1.1\%$, geometric population) and the
+leading Bott value $0.31150$ ($-1.1\%$, descent-dependent population)
+bracket observation to the cascade's stated precision.
+\end{remark}
+
 \begin{corollary}[Derived coupling coefficient]\label{cor:kQ-derived}
 The first-order coupling coefficient is
 \begin{equation}\label{eq:kQ-first}
