@@ -6,7 +6,7 @@ Gaps that the papers *do* acknowledge (Gram-matrix second-order correction, vari
 
 Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II=III, Part IVa, Part IVb.
 
-**Status.** 33 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-14, SP-15, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **4 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
+**Status.** 34 of the original 37 soft spots have been closed in hardening commits (SP-1, SP-2, SP-3, SP-4, SP-5, SP-6, SP-7, SP-8, SP-9, SP-10, SP-11, SP-12, SP-13, SP-14, SP-15, SP-16, SP-18, SP-19, SP-21, SP-22, SP-23, SP-24, SP-25, SP-26, SP-27, SP-28, SP-29, SP-30, SP-31, SP-32, SP-33, SP-34, SP-35, SP-37). This file now tracks the **3 open items** that remain. Closures are recorded with commit hashes in the "Closed items (reference)" section at the end, for traceability.
 
 **Note on the Prelude.** All Prelude soft spots (SP-1 through SP-4) are closed. The Prelude is an *exploration* of what the true minimum starting point of the cascade might be, not the load-bearing first link in the derivation chain. The series' hypothesis — that $B^\infty$ descended to 4D is indistinguishable from our universe — is stated independently in the cover sheet and does not depend on the Prelude's $0\ne 1 \to B^\infty$ chain.
 
@@ -33,11 +33,6 @@ Coverage: Prelude, Part 0, Part 0 Supplement, Part I, Part II, Part III, Part II
 ---
 
 ## Part II
-
-### SP-16. Identification "$J$ evolves states" is a modelling step — **Structural**
-`src/cascade-series-part2.tex:490–507`; downstream at `src/cascade-series-part3.tex:372–385`.
-
-Theorem 6.1 proves a *static* relation: consecutive slicing axes sit at $\pi/2$. Theorem 6.4 constructs a specific SO(2) rotation $J: e_1\mapsto e_2,\,e_2\mapsto -e_1$ in the $e_1$–$e_2$ plane and promotes it to a *dynamical* complex structure on the Hilbert space. Orthogonal axes permit such a rotation to be defined; they do not force it to be the cascade's evolution operator. The paper denies this is an assumption: *"Since $\alpha=\pi/2$ is forced, this complex structure is not introduced as an assumption but derived."*
 
 ### SP-17. CHSH bipartition is chosen, not forced — **Structural**
 `src/cascade-series-part2.tex:1108–1115`.
@@ -73,7 +68,6 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | ID | Soft spot | Paper | Severity |
 |---|---|---|---|
 | **SP-10** | **$\rho_\Lambda$ Gram-path $[5,216]$ unjustified** | Part I | **High** |
-| SP-16 | $J$ evolves states (static→dynamic) | Part II | Structural |
 | SP-17 | CHSH bipartition chosen, not forced | Part II | Structural |
 | SP-20 | Lorentzian scale factor $\sqrt{1-t^2}$ imported | Part III | Structural |
 | SP-36 | Source-selection types defined post-hoc from 7 observables | Part IVb | Structural |
@@ -108,6 +102,7 @@ The three physics flags $(P,L,G)$ and the four-type decision procedure are intro
 | SP-13 | Part I made self-contained: new `rem:time-slicing` proves time = slicing axis from the cascade's irreversible slicing recurrence (Paper~0); four forward `\cite{paper2}` and one `Part~II=III` references removed from body; `paper2` bibitem removed. `rem:why-3d` rewritten with two cascade-internal claims (time-locked integration + per-$S^2$ content from Paper~0 Corollary~3.2); "free dimensions" heuristic acknowledged as restatement not input; no equivocation | `57b03ec` |
 | SP-14 | New `rem:sp14-status` in Part I after Correction~1 names the exponent-$2$ sensitivity: chain from frame conversion (Paper~0 Lemma~8.5) $\to$ two content factors $\to$ orbit termination at two canonical values (Paper~0 Thms~5.2, 5.5) $\to$ uniqueness of $c_1, c_2$ and tower completeness (Paper~0 Thms~6.2, 7.1, strengthened in SP-5/SP-6 closures). A third canonical value would shift $\rho_\Lambda$ by $\sim 5\%$; ruled out by strengthened Paper~0 theorems | `5e35c57` |
 | SP-15 | Born rule Step 4 rewritten with explicit Cauchy-additivity derivation on the probability simplex; `rem:sp15-status` acknowledges this as the cascade-native frame-function uniqueness (Gleason-equivalent content, $d\geq 3$ condition made structural from observer $d=4$) | `5b3ca7b` |
+| SP-16 | New `rem:sp16-status` in Part II after Theorem~6.4 (`thm:complex`) makes the static-to-dynamic chain explicit: (1) time = slicing axis (Part II §7); (2) one-step evolution is a quarter-turn (Theorem~6.3 + Theorem~7.3); (3) axis rotation lifts to state rotation via the passive-transformation law. No new assumption enters; "$J$ evolves states" is deductive from (1)+(2)+(3) | *(this commit)* |
 | SP-18 | New Lemma `lem:lapse-norm` explicitly constructs the cumulative-lapse normalisation $\tilde\psi_d = \psi_d\prod_{j>d}^D N(j)^{-1}$, showing $\tilde\psi_{d-1} = i\tilde\psi_d$ (pure unit-modulus phase, unitary); Corollary 7.5 proof rewritten to pass through $\tilde\psi$; `rem:sp18-status` factorises the derivation into three statuses (exact discrete propagator derived; unitary reduction derived via Lemma; continuum form $(1-N)/N^2$ an effective description valid for $d\gg 1$) | `93434a0` |
 | SP-19 | Lemma 9.1 added (five named inputs + fallback) | `c4b99e3` |
 | SP-21 | Wick rotation acknowledged; remark `rem:wick-rotation-cascade` | `0501f50` |
