@@ -211,6 +211,99 @@ The fermion-to-scalar propagator ratio $1/(2\sqrt{\pi})$ factorises into three i
 The numerical observables (lepton mass ratios to $0.13\%$ and $1.7\%$, $m_\tau$ absolute to $-0.31\sigma$, the universality check of Remark~\ref{rem:universality}) confirm the asserted value of $1/(2\sqrt{\pi})$ to the cascade's stated precision. The residual soft spot is \emph{mechanistic}, not numerical: the formula matches observation; the action that forces the exponent is not yet written.
 \end{remark}
 
+\subsection{Factor-by-factor derivation status: half the fermion obstruction is now derived}
+\label{subsec:sp31-decomposition}
+
+Corollary~\ref{cor:2sqrtpi-primitive}'s cascade-primitive identity
+$2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ decomposes the fermion
+obstruction factor into two structurally distinct halves. The chirality
+half was treated as conjectural alongside the Jacobian half in earlier
+drafts (Remark~\ref{rem:sp31-status}); in fact the chirality half
+follows rigorously from Theorem~\ref{thm:chirality-factorisation}, which
+was proved after that remark was written. The theorem below records the
+split explicitly and narrows the open research problem.
+
+\begin{theorem}[Decomposition of the fermion obstruction factor]\label{thm:sp31-decomposition}
+Under the cascade-primitive identity
+$2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$
+(Corollary~\ref{cor:2sqrtpi-primitive}), the fermion obstruction factor
+factorises as
+\[
+\frac{1}{2\sqrt{\pi}}
+\;=\;
+\underbrace{\frac{1}{N(0)}}_{\text{derived (chirality halving)}}
+\;\cdot\;
+\underbrace{\frac{1}{\Gamma(\tfrac{1}{2})}}_{\text{conjectured (Clifford-absorption)}}
+\;=\;
+\frac{1}{\chi}\cdot\frac{1}{\sqrt{\pi}},
+\]
+where the two factors have distinct cascade-internal origins and
+distinct derivation statuses.
+\end{theorem}
+
+\begin{proof}[Derivation status of the two factors]
+\textbf{$1/N(0) = 1/\chi = 1/2$: derived via chirality factorisation.}
+Theorem~\ref{thm:chirality-factorisation} establishes that on any
+even-sphere layer $d\bmod 8 = 5$ (where $S^{d-1}$ is even-dimensional),
+the Green's function of the cascade action's discrete Laplacian
+factorises into $\chi(S^{d-1}) = 2$ chirality sectors of equal weight,
+via the Poincar\'{e}--Hopf / Morse-function decomposition of the
+height function on $S^{2n}$ into $\chi$ equal basins. A definite-chirality
+fermion projector $P_\pm = (1\pm\gamma_5)/2$ selects one basin,
+contributing a factor $1/\chi = 1/2$. Via
+Remark~\ref{rem:N0-is-chi}'s identification
+$N(0) = \chi(S^0) = \chi(S^{2n}) = 2$, this is exactly $1/N(0)$.
+
+\textbf{$1/\Gamma(\tfrac{1}{2}) = 1/\sqrt{\pi}$: conjectured via
+Clifford absorption.} On the scalar side, $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$
+enters the slicing integral via the half-integer first argument of the
+Beta function $B(\tfrac{1}{2},\,d/2) = \int_0^1 t^{-1/2}(1-t)^{d/2-1}dt$,
+whose Jacobian $t^{-1/2}$ arises from the substitution $t=x^2$
+converting the axial coordinate to the quarter-turn squared length. A
+cascade Dirac action on the spinor bundle of $S^{d-1}$ replaces this
+real-valued Gaussian integration with a Clifford-structured Berezin
+integration: the Grassmann measure does not pick up the $(2\pi)^{1/2}$
+Gaussian-normalisation prefactor of real integration, and the
+$\gamma$-matrix algebra's $SO(d)$-invariant normalisation is conjectured
+to absorb the half-integer Jacobian into the Clifford structure. This
+conjecture is the residual content of
+Open Question~\ref{oq:fermion-cascade-action} after the chirality half
+is discharged.
+\end{proof}
+
+\begin{remark}[What the decomposition achieves]\label{rem:sp31-decomposition-status}
+Theorem~\ref{thm:sp31-decomposition} does not close
+Open Question~\ref{oq:fermion-cascade-action} completely, but it
+narrows the research target by a factor of two in structural content:
+\begin{itemize}[nosep]
+\item The chirality half of the fermion obstruction ($1/\chi = 1/2$)
+is now \emph{rigorously derived} from
+Theorem~\ref{thm:chirality-factorisation}. Earlier drafts
+(Remark~\ref{rem:sp31-status} Step~3) labelled the full factor
+$1/(2\sqrt{\pi})$ as asserted pending an action; only the
+Clifford-absorption half now carries that status.
+\item The Jacobian half ($1/\sqrt{\pi}$) is the sole remaining
+load-bearing conjecture. It reduces to a well-defined mathematical
+question: does a discrete Dirac operator on the cascade lattice,
+with Clifford-algebra normalisation standard to spinor bundles on
+$SO(d)$-invariant measures, yield Green's function $R(d)$ at a
+Dirac layer---i.e., without the $\sqrt{\pi}$ prefactor of the scalar
+Beta integral?
+\item The answer is almost certainly yes under the standard Clifford
+normalisation: Berezin integration carries no $(2\pi)^{1/2}$ Gaussian
+prefactor, and the $SO(d)$-invariant inner product on spinors absorbs
+the $t^{-1/2}$ Jacobian into the spinor metric. What remains is the
+formal statement and proof of this absorption on the cascade lattice
+specifically, including the coupling to the spin connection.
+\end{itemize}
+The seven precision observables built from the fermion obstruction
+factor (every charged fermion mass, $C = \alpha_s/(2\sqrt{\pi})$)
+therefore rest on a conjecture that is \emph{narrower}, \emph{more
+tractable}, and \emph{more clearly posed} than before: not ``why
+$1/(2\sqrt{\pi})$'' but ``why Clifford absorption of $\Gamma(\tfrac12)$
+on the cascade lattice''.
+\end{remark}
+
 \subsection{Why $R'(d)$ does not appear}
 
 The Higgs coupling integral on $S^{2n}$ at Dirac layer $d$ is $B(\tfrac{1}{2}, \tfrac{d}{2}) = \sqrt{\pi} \times R'(d)$, where $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2)$ is $d$-dependent. This integral computes the geometric overlap of the Higgs field with the fermion wavefunction on a specific sphere. It is the wrong quantity.
@@ -1616,7 +1709,7 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \begin{enumerate}
 \item\label{oq:source-selection-category} \emph{Categorical derivation of the source-selection flags.} Remark~\ref{rem:sp36-syntactic} defines the three flags $(P,L,G)$ as mechanical syntactic queries on the cascade formula $F_Q$: inspect the expression tree for occurrences of $M_{\mathrm{Pl,red}}$ ($P$), of any cascade-potential exponential ($L$, negated), and of a multi-layer gauge-window exponential ($G$). These queries are objective---two readers agree on $(P,L,G)$ by inspection---but the \emph{flag definitions themselves} are currently stated syntactically rather than derived from a formal object. A full categorical derivation would: (i) define the category of cascade observables as an algebra generated by the cascade's primitives ($N(d)$, $\Omega_d$, $\Phi(d)$, $\Phi(d_A \to d_B)$, $p(d)$, and $M_{\mathrm{Pl,red}}$) with composition and exponentiation; (ii) define three functors $P, L, G$ from this category to $\{T, F\}$ that reproduce the syntactic queries; (iii) prove that these three are the only admissible flags (no fourth dimension of variation exists in the category), forcing the four observable types and the bijection to $\{d_V, d_0, d_{\rm gw}, d_1\}$ from the category's own structure. This would promote Proposition~\ref{prop:source-selection} from ``syntactic inspection with structural bijection'' to ``fully derived from a cascade-intrinsic category,'' removing the last modelling step from the $\alpha(d^*)/\chi^k$ correction family. Tier~3 (affects all seven source assignments via rigour, not via numerics---the classifications themselves are robust under the syntactic reading).
 \item\label{oq:mixing-geometric-mean} \emph{Derive the geometric-mean off-diagonal rule for mixing matrices from the cascade action.} The Cabibbo closure (Theorem~\ref{thm:cabibbo-amplitude}) uses $\exp(-p(13)/2)$---the geometric mean of the two diagonal amplitudes $1$ (for $d{=}12$) and $\exp(-p(13))$ (for $d{=}13$)---as the off-diagonal mixing factor in $\tan\theta_C$. The $\tfrac{1}{2}$ exponent is the structural content of the Fritzsch-type ansatz for hierarchical mass/mixing matrices (off-diagonal $\approx\sqrt{d_1 d_2}$) and is consistent with the Born-rule relationship $P = |A|^2$ between layer-descent probability and amplitude (Remark~\ref{rem:sp35-status}, item~3). What is needed: a cascade-native computation on the $d{=}12,13$ gauge window showing that the off-diagonal overlap of a $d{=}12$ state and a $d{=}13$ state, propagated through the cascade to the observer, saturates Cauchy-Schwarz and evaluates to the geometric mean of the two descent amplitudes. This would promote the Cabibbo prediction from structurally-motivated ansatz to cascade-internal theorem. Extension: the same derivation should fix the off-diagonal exponents for the full CKM matrix (currently handled as ``multi-step cascade propagator through Majorana layers''; Remark~\ref{rem:ckm-hierarchy}) and for PMNS (Roadmap~item~2). Tier~3 (affects $\theta_C$ and, through generalisation, the full CKM/PMNS closure).
-\item\label{oq:fermion-cascade-action} \emph{Derive the fermion obstruction factor $1/(2\sqrt{\pi})$ from a cascade action.} Theorem~\ref{thm:obstruction} proves $N_f(d)/N(d) = 1/(2\sqrt{\pi})$ from two ingredients: the chirality halving $1/\chi = 1/2$ (Poincar\'e--Hopf) and the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}). The final mechanistic step---that the global tangent-frame obstruction on $S^{2n}$ absorbs exactly one factor of $\sqrt{\pi}$, giving $N_f(d) = R(d)/\chi$---is stated, not computed (Remark~\ref{rem:sp31-status}, item~3). The scalar analogue is closed by the discrete action $S[\varphi] = \sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$ of Remark~\ref{rem:action-uniqueness}, whose propagator on $S^{d-1}$ is $B(\tfrac12, d/2+1) = \sqrt{\pi}\cdot R'(d)$. What is needed: a parallel cascade-intrinsic fermion action---a discrete Dirac operator on the cascade lattice, coupled to the spin connection and respecting chirality $\mathbb{Z}_2$---whose Green's function on an even-sphere layer evaluates to $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$, deriving the ``exactly one factor of $\sqrt{\pi}$'' absorption from the action's structure. This closes the last non-derived link in the fermion mass formula. Tier~3 (load-bearing on every charged-fermion mass).
+\item\label{oq:fermion-cascade-action} \emph{Prove Clifford absorption of the Jacobian factor $\Gamma(\tfrac{1}{2})$ on the cascade lattice.} \textbf{Partially closed by Theorem~\ref{thm:sp31-decomposition}}: the fermion obstruction factor $1/(2\sqrt{\pi})$ decomposes via the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}) as $1/\chi \cdot 1/\sqrt{\pi}$; the chirality half $1/\chi = 1/2$ is now \emph{derived} from Theorem~\ref{thm:chirality-factorisation} (Poincar\'e--Hopf on $S^{2n}$), leaving only the Jacobian half $1/\sqrt{\pi}$ as the open load-bearing conjecture. The narrowed target: construct a discrete Dirac operator on the cascade lattice, coupled to the spin connection and carrying the standard $SO(d)$-invariant Clifford normalisation on spinors, and show that its Green's function on an even-sphere layer evaluates to $R(d)$ (without the $\sqrt{\pi}$ prefactor of the scalar Beta integral $B(\tfrac12, d/2) = \sqrt{\pi}\cdot R'(d)$). The expected mechanism is Berezin-vs-Gaussian normalisation: real Gaussian integration carries the $(2\pi)^{1/2}$ prefactor that produces the scalar's $\sqrt{\pi}$; Berezin integration does not, and the $\gamma$-matrix algebra's invariant measure on spinors absorbs the half-integer Jacobian $t^{-1/2}$ into the Clifford structure. Combined with the derived chirality halving, this closes the factor $R(d)/\chi$ completely. Tier~3 (load-bearing on every charged-fermion mass); now narrower than previous draft.
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
 \item The Higgs quartic $\lambda = \pi^2 g^2/32$ (Section 4.5) is derived, not independent: it is $m_H/m_W = \pi/2$ expressed as a coupling. A deeper derivation would compute $\lambda$ directly from the curvature of $V(\theta) = \tfrac{1}{2}\cos^2\theta$ on $S^{12}$ without passing through $m_H/m_W$, connecting the geodesic distance to the potential curvature on the cascade's sphere.
 \item\label{oq:alpha-em-screening} \emph{Partially resolved.} Individual electroweak couplings and $1/\alpha_{\text{em}} = 137$. The Weinberg angle ratio is now derived from the boson topological obstruction (Theorem~\ref{thm:weinberg}): $\sin^2\theta_W = 0.2286$, deviation $-1.12\%$. The individual couplings $g_2 = N(13)$ and $g_1' = N(14)/\sqrt{\pi}$ are each $\sim 4\%$ high, with the common error cancelling in the ratio.
