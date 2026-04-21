@@ -5,6 +5,7 @@
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -20,6 +21,7 @@ and the DESI BAO Observations}
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{abstract}
@@ -129,7 +131,7 @@ $2/\pi$ from the observer's cube--sphere bridge at the 3-dimensional
 spatial slice) are also Gamma-function identities, not fits. Every
 numerical prediction of this paper inherits this identification.
 
-\section{Dark Energy Equation of State: $w = -1$ Exactly}
+\section{Dark Energy Equation of State: \texorpdfstring{$w = -1$}{w = -1} Exactly}
 
 \begin{theorem}[Equation of state]
 The cascade predicts $w = -1$ exactly.
@@ -145,7 +147,7 @@ field. The lapse function $N(4) = 3\pi/8$ is a fixed Gamma-function value, not a
 cosmological-time-evolving quantity.
 \end{proof}
 
-\subsection{Gauss--Bonnet stability of $w = -1$}
+\subsection{Gauss--Bonnet stability of \texorpdfstring{$w = -1$}{w = -1}}
 
 The cascade geometry at $d = 5$ has $S^3$ cross-sections that are totally umbilic:
 $K_{ij} = -(x/\sqrt{1-x^2})\,h_{ij}$ exactly, so $K_{ij} = (K/3)h_{ij}$. For totally umbilic
@@ -194,7 +196,7 @@ the geometric content of the cascade at different distances from the observer. T
 are what the four-dimensional observer, constrained by Lovelock uniqueness to interpret
 all content through the Friedmann equation, calls them.
 
-\subsection{Density fractions from $\pi$}
+\subsection{Density fractions from \texorpdfstring{$\pi$}{pi}}
 
 The cascade's lapse function factorises as $N(d) = \sqrt{\pi}\,R(d)$, where
 $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$. This factorisation separates the cascade's content
@@ -424,7 +426,7 @@ arise: the cascade's 217 dimensions were in causal contact before the descent.
 \emph{No free initial conditions.} Every density fraction, the Hubble constant, and the
 CMB temperature are derived from the cascade's geometry.
 
-\subsection{Bott partition: subleading correction to $\Omega_m$}
+\subsection{Bott partition: subleading correction to \texorpdfstring{$\Omega_m$}{Omega\_m}}
 \label{sec:bott}
 
 \begin{theorem}[Bott partition matter fraction]\label{thm:omega_bott}
@@ -480,7 +482,7 @@ descent-dependent observables.
 
 \section{The Hubble Constant}
 
-\subsection{The Friedmann equation with the observer-corrected $\rho_\Lambda$}
+\subsection{The Friedmann equation with the observer-corrected \texorpdfstring{$\rho_\Lambda$}{rho\_Lambda}}
 
 The standard Friedmann equation for a flat universe is
 $H_0^2 = \rho_{\rm total}/(3\,M_{\rm Pl,red}^2)$. In the $\Lambda$-dominated
@@ -640,7 +642,7 @@ ruler.
 \subsection{BAO observables and comparison to DESI DR2}
 
 The table below is auto-generated from the cascade parameters via
-\texttt{tools/generators/generate\_bao\_table.py} and reproduced on every build.
+\texttt{tools/\allowbreak generators/\allowbreak generate\_bao\_table.py} and reproduced on every build.
 The ``Cascade'' column uses the leading-order $\Omega_m = 1/\pi$
 ($r_d^{\rm cas} \approx 147.7$~Mpc); the ``Bott'' column uses the
 subleading-corrected $\Omega_m^{\rm Bott} = 0.31150$
@@ -723,6 +725,7 @@ DESI tracer) would benefit both models equally.
 
 \begin{center}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llccc}
 \hline
 Parameter & Cascade formula & Predicted & Observed & Dev \\
@@ -745,7 +748,8 @@ $r_d$ & from $(\Omega_b,\Omega_m,H_0)$ & $\approx 147.75$~Mpc & 147.60 & $+0.1\%
 $\ell_A$ & from cascade $(H_0,\Omega_m,r_d)$ & $\approx 296.4$ & $301.6$ & $-1.7\%$ \\
 $\chi^2/n$ (DESI DR2) & from cascade parameters & $2.35$ & Planck: $1.90$ & --- \\
 \hline
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 \noindent$^*$Planck's $z_{\rm eq}$ is model-dependent; not directly comparable.
 

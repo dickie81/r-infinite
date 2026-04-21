@@ -263,6 +263,9 @@ def generate_latex(intro, tiers):
 
         ncols = len(tier['columns'])
         spec = colspecs.get(ncols, '@{}' + 'l' * ncols + '@{}')
+        wrap = ncols in (4, 5)
+        if wrap:
+            lines.append(r'\resizebox{\textwidth}{!}{%')
         lines.append(r'\begin{tabular}{%s}' % spec)
         lines.append(r'\toprule')
         lines.append(' & '.join(tier['columns']) + r' \\')
@@ -272,6 +275,8 @@ def generate_latex(intro, tiers):
             lines.append(' & '.join(cells) + r' \\')
         lines.append(r'\bottomrule')
         lines.append(r'\end{tabular}')
+        if wrap:
+            lines.append(r'}')
         lines.append('')
     return '\n'.join(lines)
 

@@ -47,6 +47,9 @@ jobs:
           working_directory: src
           root_file: "*.tex"
 
+      - name: Check for LaTeX warnings and regressions
+        run: python3 tools/check_latex_warnings.py
+
       - name: Prepare site
         run: |
           mkdir -p _site

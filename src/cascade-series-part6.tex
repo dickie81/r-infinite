@@ -5,6 +5,7 @@
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -20,6 +21,7 @@ from the Cascade}
 \date{April 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{center}
@@ -182,6 +184,7 @@ contributions at or below $N$:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.25}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{ccl}
 \toprule
 Layer & Factor & Source \\
@@ -191,7 +194,8 @@ $N \geq 7$ & $(\Omega_5/\Omega_7)^2 = 9/\pi^2$ & Host frame $d_V \to d_0$ (Paper
 $N \geq 19$ & $\Omega_{19} \approx 0.51614$ & First threshold $d_1$ (Paper~0 Thm~6.7) \\
 $N \geq 217$ & $\Omega_{217} \approx 2.335 \times 10^{-120}$ & Second threshold $d_2$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 Each factor switches on the first tick at which its associated layer enters the
@@ -203,6 +207,7 @@ forcing the phase structure below.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{clcccc}
 \toprule
 Phase & $N$ range & $\rho_\Lambda / M_{\mathrm{Pl,red}}^4$ & $H / M_{\mathrm{Pl,red}}$ & Ticks & E-folds \\
@@ -212,7 +217,8 @@ B & $7$--$18$ & $(2/\pi)(9/\pi^2) = 0.5805$ & $0.4420$ & $12$ & $5.30$ \\
 C & $19$--$216$ & Phase~B $\times\,\Omega_{19} = 0.2996$ & $0.3168$ & $198$ & $62.73$ \\
 D & $\geq 217$ & Phase~C $\times\,\Omega_{217} = 7.00 \times 10^{-121}$ & $\sim 10^{-61}$ & $\sim 10^{60}$ & $1.52$ + expansion \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 Hubble rates follow from the standard Friedmann equation
@@ -266,7 +272,7 @@ genuine structural prediction or a suggestive coincidence; Section~\ref{sec:open
 lists the tightening required to distinguish.
 \end{remark}
 
-\section{The $N = 217$ Big Bang}
+\section{The \texorpdfstring{$N = 217$}{N = 217} Big Bang}
 \label{sec:bigbang}
 
 \subsection{The discrete phase transition}
@@ -319,7 +325,7 @@ T_{\mathrm{RH}} \;=\; 0.304\,M_{\mathrm{Pl,red}} \;=\; 7.40 \times 10^{17}\,\mat
 \]
 \end{corollary}
 
-\subsection{Cascade-native $g_{\mathrm{eff}}$}\label{subsec:g_eff}
+\subsection{Cascade-native \texorpdfstring{$g_{\mathrm{eff}}$}{g\_eff}}\label{subsec:g_eff}
 
 The counting of relativistic degrees of freedom at $T_{\mathrm{RH}}$ is a
 cascade-internal calculation, not an SM import. Each distinguished layer
@@ -547,7 +553,7 @@ P_\delta(k) \;\propto\; \frac{1}{(\ln k)^2} \quad\text{within Phase~C.}
 \]
 \end{corollary}
 
-\subsection{Comparison to observed $n_s$}
+\subsection{Comparison to observed \texorpdfstring{$n_s$}{n\_s}}
 
 The observed CMB scalar power spectrum is near-power-law:
 \[
@@ -609,7 +615,7 @@ specified.
 \section{Tensor Modes}
 \label{sec:tensors}
 
-\subsection{No cascade analogue of $r = 16\epsilon$}
+\subsection{No cascade analogue of \texorpdfstring{$r = 16\epsilon$}{r = 16 epsilon}}
 
 Standard slow-roll inflation derives the tensor-to-scalar ratio as
 $r = P_t / P_s = 16\,\epsilon$, where $P_t$ is the power spectrum of quantum
@@ -745,6 +751,7 @@ feature becomes structurally available is the tick at which its layer is added.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.25}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{cccl}
 \toprule
 Added at tick & Layer & Feature & Source \\
@@ -758,7 +765,8 @@ $N = 19$  & $d = 19$  & Phase-transition threshold $d_1$ & Paper~0 Thm~6.7 \\
 $N = 21$  & $d = 21$  & Gen~1 Dirac obstruction ($e$, $d$, $u$) & Paper~IVa \S4 \\
 $N = 217$ & $d = 217$ & Second threshold $d_2$; Big Bang & Paper~0 Thm~6.7 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 The ordering is strict and cascade-internal: colour ($d = 12$) precedes weak
@@ -924,7 +932,7 @@ $217$ & 213 & $6.11\%$ & $100\%$ (Paper~II saturated value) \\
 \end{center}
 
 Values above are computed from the exact Gram matrix using
-\texttt{tools/model\_checks/cascade\_decoherence\_vs\_tower\_height.py}; no approximation
+\texttt{tools/model\_checks/\allowbreak cascade\_decoherence\_\allowbreak vs\_tower\_\allowbreak height.py}; no approximation
 enters beyond floating-point arithmetic on the Beta-function entries. The
 dependence on $N_0$ is weak: for $N_0 = 4$ the saturated value at $N = 217$
 is $\varepsilon = 6.33\%$ (one additional layer at the bottom contributes
@@ -965,6 +973,7 @@ this picture:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.25}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{ll}
 \toprule
 Cover-sheet (infall) & Tower growth (this paper) \\
@@ -976,7 +985,8 @@ Pseudo-horizon recedes as BH evaporates & Terminus at $N = 217$ permanent post-B
 Observer on $S^3$ shell of $d = 5$ BH & Observer at $d = 4$, host at $d = 5$ (\S\ref{subsec:N0}) \\
 Infinite time dilation at the horizon & Infinite layers above observer at $N \to \infty$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 Both describe the same asymptotic process in the cascade's geometry. The
@@ -1244,7 +1254,7 @@ extensions or identifications not yet theorem-level.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lcl}
+\begin{tabular}{@{}>{\raggedright}p{6.5cm} c >{\raggedright\arraybackslash}p{6cm}@{}}
 \toprule
 Result & Tier & Justification \\
 \midrule

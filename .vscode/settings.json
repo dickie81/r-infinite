@@ -22,5 +22,9 @@
     }
   ],
   "latex-workshop.latex.autoClean.run": "onBuilt",
-  "latex-workshop.latex.clean.subfolder.enabled": true
+  "latex-workshop.latex.clean.subfolder.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "pyenv": true,
+    "latexmk": true
+  }
 }

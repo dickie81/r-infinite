@@ -139,6 +139,7 @@ with open(os.path.join(out_dir, 'bao-table.tex'), 'w') as f:
             % (H0_planck, Omega_m_planck, r_d_planck))
     f.write('\\begin{center}\n')
     f.write('\\small\n')
+    f.write('\\resizebox{\\textwidth}{!}{%\n')
     f.write('\\begin{tabular}{llccccrr}\n')
     f.write('\\hline\n')
     f.write('$z_{\\rm eff}$ & Type & DESI DR2 & $\\sigma$ '
@@ -164,7 +165,8 @@ with open(os.path.join(out_dir, 'bao-table.tex'), 'w') as f:
             '& %.3f \\\\\n' % (n, chi2_cascade / n, chi2_bott / n,
                                chi2_planck / n))
     f.write('\\hline\n')
-    f.write('\\end{tabular}\n')
+    f.write('\\end{tabular}%\n')
+    f.write('}\n')
     f.write('\\end{center}\n')
     f.write('\\noindent$^\\dagger$: The $z = 0.510$, $D_H/r_d$ bin is '
             'a shared outlier; see Remark~\\ref{rem:outlier}.\n')

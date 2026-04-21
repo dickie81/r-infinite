@@ -3,6 +3,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -19,6 +20,7 @@ and the Cosmological Constant}
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{abstract}
@@ -286,7 +288,7 @@ referent.
 
 \section{The Cosmological Constant}
 
-\subsection{From cascade invariant to $\Lambda$}
+\subsection{From cascade invariant to \texorpdfstring{$\Lambda$}{Lambda}}
 
 By [1], Theorem 9.2:
 \[
@@ -296,7 +298,7 @@ The 4D observer's vacuum energy satisfies $\rho_\Lambda/M_{\text{Pl}}^4 \approx 
 is not a fit: $I$ is fixed by $\pi$ independently of any physical measurement. The agreement is
 $0.04\%$ under the reduced-Planck-mass convention.
 
-\subsection{Why $\Lambda$ is not a free parameter}
+\subsection{Why \texorpdfstring{$\Lambda$}{Lambda} is not a free parameter}
 
 In standard GR, $\Lambda$ is a free parameter: Lovelock permits any $b$ in $E^{\mu\nu} = aG^{\mu\nu} + bg^{\mu\nu}$. The
 cascade removes this freedom. The constant $b = -\Lambda$ is fixed by the cascade invariant $I$; the
@@ -422,7 +424,7 @@ with $\Lambda = I$ and $T^{\mu\nu} = T^{\mu\nu}_{\text{eff}}$ as an identity. Ev
 no gravitational postulate is added.
 \end{theorem}
 
-\section{Deriving $d = 4$}
+\section{Deriving \texorpdfstring{$d = 4$}{d = 4}}
 
 \begin{definition}[Cascade-compatible dimension]
 A spacetime dimension $d$ is cascade-compatible if it satisfies:
@@ -808,7 +810,7 @@ spectral gap $\lambda_\infty > 0$; (c) Lorentzian signature: $\lambda_\infty > 0
 requiring $g_{tt} < 0$ (Theorem 10.2).
 \end{remark}
 
-\section{Scale Factors: $G$ and $\hbar$}
+\section{Scale Factors: \texorpdfstring{$G$ and $\hbar$}{G and hbar}}
 
 The cascade produces dimensionless quantities. Physical gravity requires $G$ (Newton) and
 $\hbar$ (Planck). Both enter as unit-matching constants when geometric rates are identified
@@ -880,6 +882,7 @@ Extra dims $\Rightarrow T^{\mu\nu}$ & Gauss--Codazzi & Section 7 \\
 
 \begin{center}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lll}
 \hline
 Physical result & Cascade provides & Classical theorem \\
@@ -896,7 +899,8 @@ $\Lambda \approx 10^{-120}M_{\text{Pl}}^4$ & Sphere-area hierarchy & [1], Thm 10
 Orthogonal coupling and vacuum sectors & $N = \sqrt{\pi}\,R$ factorisation & Thm 6.4 \\
 $K_{\mu\nu} = 0$: totally geodesic embedding & Lorentzian cascade metric & Section 14 \\
 \hline
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 \section{Supplement: Asymptotic Compactification and the Cascade Metric}
@@ -949,7 +953,7 @@ At $d = 4$: $\Omega_3/V_4 = 4$, so the boundary $S^3$ carries $4/5 = 80\%$ of th
 $d = 217$: essentially all content is on the boundary. The cascade's content is its boundaries,
 increasingly so at each step.
 
-\subsection{The observer on $S^3$}
+\subsection{The observer on \texorpdfstring{$S^3$}{S\^{}3}}
 
 The 4D observer exists on the boundary $S^3$ of the $d = 5$ layer. Theorem 14.3 shows this
 boundary carries $5/6 \approx 83\%$ of the $d = 5$ content. The observer's physics is a boundary
@@ -1165,6 +1169,8 @@ out in Paper~V.
 \bibitem{paper2} {[Author]}, \textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}, March 2026.
 
 \bibitem{paper4a} {[Author]}, \textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}, March 2026.
+
+\bibitem{paper5} {[Author]}, \textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}, March 2026.
 
 \bibitem{lovelock1} D.~Lovelock, ``The Einstein tensor and its generalisations,'' \textit{Journal of Mathematical Physics} \textbf{12}, 498--501 (1971).
 
