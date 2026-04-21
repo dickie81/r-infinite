@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage[normalem]{ulem}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -21,6 +22,7 @@ from the Geometric-Topological Factorization}
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{abstract}
@@ -304,7 +306,7 @@ $1/(2\sqrt{\pi})$'' but ``why Clifford absorption of $\Gamma(\tfrac12)$
 on the cascade lattice''.
 \end{remark}
 
-\subsection{Why $R'(d)$ does not appear}
+\subsection{Why \texorpdfstring{$R'(d)$}{R'(d)} does not appear}
 
 The Higgs coupling integral on $S^{2n}$ at Dirac layer $d$ is $B(\tfrac{1}{2}, \tfrac{d}{2}) = \sqrt{\pi} \times R'(d)$, where $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2)$ is $d$-dependent. This integral computes the geometric overlap of the Higgs field with the fermion wavefunction on a specific sphere. It is the wrong quantity.
 
@@ -671,7 +673,7 @@ where $\Phi(12 \to 4) = \sum_{d=5}^{12} p(d) = 1.065$. Observed: $\alpha_s(M_Z) 
 The eight cascade steps from $d = 12$ to $d = 4$ play the role of the standard QCD $\beta$-function: they determine the coupling at the observer's scale from the coupling at the gauge window. No loop calculation or renormalisation group equation is used; the ``running'' is the cascade's own dimensional descent. The cascade gives the coupling value at one scale, not the running structure across scales---the full scale-dependent $\beta$-function is not derived.
 \end{remark}
 
-\subsection{The universal $\mathrm{U}(1)$-layer shift to the cascade potential}
+\subsection{The universal \texorpdfstring{$\mathrm{U}(1)$}{U(1)}-layer shift to the cascade potential}
 
 The leading strong-coupling formula (Theorem~\ref{thm:alpha-s-leading}) gives $\alpha_s(M_Z)=0.1159$, deviating from the observed $0.1179\pm 0.0009$ by $1.7\%$. The leading $m_\tau/m_\mu$ formula (Theorem~\ref{thm:lepton-ratios}) gives $16.53$, deviating from the observed $16.8170\pm 0.0011$ by the same $1.7\%$. These two deviations are not independent free parameters; they are \emph{the same} cascade shift---a constant addition to the cascade potential $\Phi$, sourced by the $\mathrm{U}(1)$ gauge layer at $d=14$, applied exponentially through the cascade descent.
 
@@ -687,17 +689,22 @@ where $\alpha(d)=N(d)^2/(4\pi)=R(d)^2/4$ is the cascade coupling at layer $d$, $
 \end{align}
 Both predictions match observation within experimental precision. Equivalently, by the $\Gamma$-function identity $R(d+2)/R(d)=(d+1)/(d+2)$,
 \begin{equation}\label{eq:u1-shift-equiv}
-\delta\Phi_{\mathrm{U}(1)} \;=\; \frac{R(14)^2}{8} \;=\; \alpha(12)\cdot\frac{(d_{\mathrm{SU}(2)}/d_{\mathrm{U}(1)})^2}{\chi} \;=\; \alpha(12)\cdot\frac{(13/14)^2}{2} \;=\; \frac{429^2\,\pi}{2^{25}} \;=\; 0.017231162\ldots.
+\begin{aligned}
+\delta\Phi_{\mathrm{U}(1)} &\;=\; \frac{R(14)^2}{8} \;=\; \alpha(12)\cdot\frac{(d_{\mathrm{SU}(2)}/d_{\mathrm{U}(1)})^2}{\chi} \\
+&\;=\; \alpha(12)\cdot\frac{(13/14)^2}{2} \;=\; \frac{429^2\,\pi}{2^{25}} \;=\; 0.017231162\ldots.
+\end{aligned}
 \end{equation}
 \end{theorem}
 
 \begin{proof}
 \emph{The identity.} From the $\Gamma$-function recursion $\Gamma(z+1)=z\,\Gamma(z)$,
 \[
+\begin{aligned}
 \frac{R(d+2)}{R(d)}
-\;=\; \frac{\Gamma((d+3)/2)/\Gamma((d+4)/2)}{\Gamma((d+1)/2)/\Gamma((d+2)/2)}
-\;=\; \frac{((d+1)/2)\,\Gamma((d+1)/2)\cdot\Gamma((d+2)/2)}{\Gamma((d+1)/2)\cdot((d+2)/2)\,\Gamma((d+2)/2)}
+&\;=\; \frac{\Gamma((d+3)/2)/\Gamma((d+4)/2)}{\Gamma((d+1)/2)/\Gamma((d+2)/2)} \\
+&\;=\; \frac{((d+1)/2)\,\Gamma((d+1)/2)\cdot\Gamma((d+2)/2)}{\Gamma((d+1)/2)\cdot((d+2)/2)\,\Gamma((d+2)/2)}
 \;=\; \frac{d+1}{d+2}.
+\end{aligned}
 \]
 Setting $d=12$: $R(14)/R(12)=13/14$, exactly. Hence $\alpha(14)=\alpha(12)(13/14)^2$ and $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=\alpha(12)(13/14)^2/2$. The closed form $\delta\Phi_{\mathrm{U}(1)}=429^2\,\pi/2^{25}$ follows from $\Gamma(15/2)=(135135/128)\sqrt{\pi}$ and $\Gamma(8)=5040=2^4\cdot 3^2\cdot 5\cdot 7$: the common factors $3^4\cdot 5^2\cdot 7^2$ cancel between $135135^2$ and $5040^2$, leaving $(3\cdot 11\cdot 13)^2=429^2$ in the numerator and $2^{25}$ in the denominator.
 
@@ -732,7 +739,7 @@ $\mathrm{U}(1)$ at $d=14$ is unbroken. Its cascade coupling $\alpha(14)$ would f
 The structural content reduces to four forced ingredients: $d_{\mathrm{SU}(2)}=13$ and $d_{\mathrm{U}(1)}=14$ from Part~IVa's Adams' theorem; $\mathrm{SU}(2)$ broken from Lefschetz; $\chi(S^{12})=2$ from classical topology; and $R(d+2)/R(d)=(d+1)/(d+2)$ from the $\Gamma$ recursion. No loop integrals, no renormalisation group, no fitting coefficients.
 \end{remark}
 
-\subsection{A second shift: $\alpha(19)/\chi$ closes $m_\tau$ absolute at the phase-transition layer}
+\subsection{A second shift: \texorpdfstring{$\alpha(19)/\chi$ closes $m_\tau$}{alpha(19)/chi closes m\_tau} absolute at the phase-transition layer}
 
 The universal shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ of Theorem~\ref{thm:alpha-s-closure} closes the gauge-sector observables $\alpha_s(M_Z)$ and the ratio $m_\tau/m_\mu$ within experimental precision, but it does not close absolute mass scales anchored at the Planck mass. Propagating $\delta\Phi_{\mathrm{U}(1)}$ through the chain $\alpha_s\to v\to m_g$ of the complete mass formula would give $m_\tau$ a double shift (once from $\alpha_s$, once from $v$ through $v = M_{\mathrm{Pl,red}}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$), overshooting the observed value by $2.2\%$. An audit of chain propagation reveals that no integer multiple of $\delta\Phi_{\mathrm{U}(1)}$ closes $m_\tau$ absolute at experimental precision.
 
@@ -1339,7 +1346,7 @@ with no free parameters; the only external inputs are $M_{\mathrm{Pl,red}}$
 (setting the gravitational scale) and $m_Z$ (setting the electroweak scale).
 \end{remark}
 
-\subsection{The $W$ boson mass}
+\subsection{The \texorpdfstring{$W$}{W} boson mass}
 
 Using the cascade-derived $\sin^2\theta_W = 0.2286$ from
 Theorem~\ref{thm:weinberg}:
@@ -1493,7 +1500,7 @@ The ratio $v/M_{\text{Pl}} \approx 10^{-16}$ is $\exp(-\pi/\alpha(5))$: a cascad
 The product $\alpha_{\text{GUT}} \times \exp(\Phi(12 \to 4)) = 0.1159$ is precisely $\alpha_s$ (Theorem 4.2). Therefore $v = M_{\text{Pl,red}} \times \alpha_s \times \exp(-\pi/\alpha(5))$. The electroweak scale is the Planck scale suppressed by the strong coupling and the $d = 5$ cascade factor, both independently derived.
 \end{remark}
 
-\section{The Strong CP Problem: $\theta_{\text{QCD}} = 0$ from Topology}
+\section{The Strong CP Problem: \texorpdfstring{$\theta_{\text{QCD}} = 0$}{theta\_QCD = 0} from Topology}
 
 \begin{theorem}[Strong CP resolution]
 In the cascade, $\theta_{\text{QCD}} = 0$ exactly.
@@ -1634,6 +1641,7 @@ equally.
 
 \begin{center}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llrr}
 \hline
 Physical result & Cascade mechanism & Dev & Tier \\
@@ -1671,7 +1679,8 @@ Hubble constant & $H_0 = 66.78$ km/s/Mpc (Option A, Part I bridge) & $-0.9\%$ & 
 $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.006\% & 3$^*$ \\
 \hline
 \multicolumn{4}{l}{\footnotesize $^*$Conjecture: screening $6\pi$ identified by target-matching, not derived from the action.}\\
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 \section{What This Paper Does and Does Not Do}

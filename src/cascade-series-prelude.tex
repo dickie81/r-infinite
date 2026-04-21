@@ -3,6 +3,7 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \geometry{margin=2.5cm}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -18,6 +19,7 @@
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{center}
@@ -454,6 +456,7 @@ The complete logical chain, from pre-mathematics to physics, is:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{rlll}
 \toprule
 Step & Statement & Status & Austerity \\
@@ -470,7 +473,8 @@ Step & Statement & Status & Austerity \\
 9 & Cascade invariant $\approx 10^{-120}$ & Part~0 & --- \\
 10 & Cosmological constant, QM, GR, SM, cosmology & Parts~I--V & --- \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 \bigskip

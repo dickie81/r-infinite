@@ -20,6 +20,7 @@ of the Cascade Are the Same Theorem}
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{abstract}
@@ -523,7 +524,7 @@ is one unit of cascade content. A horizon of area $A$ hides $A/4$ units of
 geometric content. The question ``how many microstates?'' is
 downstream---the geometry is primary.
 
-\subsection{Why Hawking got $A/4$ from a different calculation}
+\subsection{Why Hawking got \texorpdfstring{$A/4$}{A/4} from a different calculation}
 
 Hawking (1975)~\cite{hawking75} derived $S = A/4$ from QFT on a Schwarzschild
 background: Bogoliubov transformations, thermal density matrices, the
@@ -618,7 +619,7 @@ hierarchy (Paper~I, Theorem~9.1), seen from the other side: $\Lambda \sim
 numbers from the Gamma function; neither requires a de~Sitter solution or
 semiclassical gravity.
 
-\subsection{BTZ cross-check at $d=3$}
+\subsection{BTZ cross-check at \texorpdfstring{$d=3$}{d=3}}
 \label{subsec:btz}
 
 Theorem~\ref{thm:bh} applies at any $d$ for which boundary dominance holds,
@@ -669,8 +670,9 @@ with standard BTZ thermodynamics to all order.
 \end{theorem}
 
 \begin{proof}
-Direct computation; mechanically verified in
-\texttt{tools/closures/btz\_cross\_check.py}. The substitution
+Direct computation; mechanically verified in the script
+\texttt{tools/\allowbreak closures/\allowbreak btz\_cross\_check.py}.
+The substitution
 $G_3 = 3/4$ converts $S_{\mathrm{BH}} = A/(4G_3)$ into $A/3$ identically.
 The first-law temperature
 \[
@@ -723,7 +725,7 @@ dimension of the cascade's entropy formula.
 
 \begin{center}
 \small
-\begin{tabular}{p{3.2cm}p{3.8cm}p{4.5cm}}
+\begin{tabular}{p{3.5cm}p{3.8cm}p{4.5cm}}
 \hline
 Conflict & Source & Cascade resolution \\
 \hline
@@ -738,7 +740,7 @@ Non-renormalisability & $g_{\mu\nu} \to \hat{g}_{\mu\nu}$ & Metric is state prop
 no promotion \\
 Planck-scale physics & What happens at $l_{\mathrm{Pl}}$? & No absolute scale; cascade
 defined at all ratios \\
-Euclidean/Lorentzian & Wick rotation ambiguity & Euclidean geometry, Lorentzian
+Euclidean/\allowbreak Lorentzian & Wick rotation ambiguity & Euclidean geometry, Lorentzian
 propagator \\
 BH entropy & Statistical $\to$ geometric? & Geometry is primary: $S = A/d$ \\
 \hline

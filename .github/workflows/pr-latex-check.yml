@@ -5,7 +5,8 @@ on:
     branches: [main]
     paths:
       - 'src/*.tex'
-      - 'tools/*.py'
+      - 'src/.latexmkrc'
+      - 'tools/**/*.py'
       - 'tools/requirements.txt'
       - '.github/workflows/pr-latex-check.yml'
 
@@ -36,8 +37,8 @@ jobs:
 
       - name: Generate computed tables
         run: |
-          python3 tools/generate_predictions.py
-          python3 tools/generate_bao_table.py
+          python3 tools/generators/generate_predictions.py
+          python3 tools/generators/generate_bao_table.py
 
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
@@ -45,13 +46,16 @@ jobs:
           working_directory: src
           root_file: "*.tex"
 
+      - name: Check for LaTeX warnings and regressions
+        run: python3 tools/check_latex_warnings.py
+
       - name: Upload build logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: latex-build-logs
           path: |
-            src/*.log
-            src/*.fls
+            src/build/*.log
+            src/build/*.fls
           if-no-files-found: ignore
           retention-days: 7

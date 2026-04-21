@@ -151,6 +151,136 @@ The tool is deterministic (no randomness, no external data) and runs in under a 
 
 Dependencies: `mpmath` only. No cascade-specific inputs; all quantities derived from the integer $d$ alone.
 
+## The Wyler route: bounded symmetric domains and their Silov boundaries
+
+The alternatives (i)–(iii) above are all reformulations of a naive sphere-Dirac approach. A more principled framework — and the one Part IVc should adopt — comes from Wyler's 1969 work on symmetric-space volume ratios ("L'espace symétrique du groupe des équations de Maxwell"). Wyler showed that physical coupling constants can arise as ratios of **bounded-symmetric-domain volumes** to their **Silov-boundary volumes**, using Hua Loo-Keng's explicit volume formulae for the four classical types of bounded symmetric domains (Hua 1963).
+
+### Why this matters for the Clifford-absorption conjecture
+
+The cascade's fermion lapse target $R(d)/\chi$ is, like Wyler's $\alpha^{-1}$, a specific **Gamma-function ratio**. Wyler's formalism supplies a natural home for such ratios: bounded symmetric domains have intrinsic complex/quaternionic/octonionic structure, and their Silov boundaries carry spin structures that are built into the geometry rather than imposed. The distinction between scalar $\sqrt{\pi}\,R(d)$ and fermion $R(d)/\chi$ should correspond, in Wyler's framework, to:
+
+- **Scalar case**: the axial 1D Beta integral is the volume of a slice of the real unit ball $B^d = D_I$ (type I trivial). The $\sqrt{\pi}$ comes from the real-analytic Jacobian, exactly as in the current cascade derivation.
+- **Fermion case**: the Dirac fermion lives on the **Silov boundary** of a bounded symmetric domain of type III ($\text{SU}(n,n)/\text{S}(\text{U}(n)\times\text{U}(n))$) or type IV ($\text{SO}(n,2)/\text{SO}(n)\times\text{SO}(2)$). The Silov boundary's volume is a Gamma-function ratio *without* the axial $\sqrt{\pi}$ — because the complex/real-form structure absorbs the Jacobian into the symmetric space's measure.
+
+### Concrete research direction for Part IVc
+
+The reformulation of Section 4 should proceed as follows:
+
+1. **Identify the correct bounded symmetric domain $\mathcal{D}_d$ for each Dirac layer $d \in \{5, 13, 21, 29\}$.** The candidates are type III and type IV domains whose Silov boundaries are the Dirac-layer sphere $S^{d-1}$ equipped with its spin structure. For $d = 5$ the candidate is $\mathcal{D}_5 = \text{SO}(5,2)/\text{SO}(5)\times\text{SO}(2)$ (type IV, dimension 5); for higher Dirac layers the type III series $\mathcal{D}^{\rm III}_n = \text{SU}(n,n)/\text{S}(\text{U}(n)\times\text{U}(n))$ is a natural candidate.
+
+2. **Compute $V(\mathcal{D}_d)$ and $V(\partial_S\mathcal{D}_d)$ using Hua's formulae.** The type IV domain of dimension $n$ has Bergman volume
+   $$V(\mathcal{D}^{\rm IV}_n) = \frac{\pi^n}{n! \cdot (n-1)! \cdot 2^{n-1}}$$
+   (up to conventions; see Hua 1963 for precise forms) and Silov boundary volume
+   $$V(\partial_S\mathcal{D}^{\rm IV}_n) = \frac{2\pi^{n/2+1}}{\Gamma(n/2)}$$
+   both of which are Gamma-function ratios of the form that naturally give $R(d)$ combinations.
+
+3. **Prove that the ratio $V(\mathcal{D}_d)/V(\partial_S\mathcal{D}_d)$, or a specific power thereof, equals $R(d)/\chi$.** This is the cascade-Wyler version of the Clifford-absorption theorem: instead of trying to compute a discrete Dirac operator's Green's function from scratch, identify the cascade's fermion slicing integral with a specific volume ratio of an already-studied symmetric space. Hua's formulae make the computation tractable.
+
+4. **Show that the cascade's Dirac-layer selection $d \in \{5, 13, 21, 29\}$ corresponds to a sequence of symmetric domains with a period-8 Bott structure.** This is a structural claim that should fall out of the symmetric-space classification: the Bott periodicity in the cascade's Dirac layer assignments should correspond to the periodicity in the spin structure of the symmetric domain's Silov boundary.
+
+### What Part IVc actually needs
+
+Under the Wyler route, the paper outline reshapes:
+
+- **Old Section 3** (round-sphere Dirac spectrum via Camporesi–Higuchi): **demoted to Appendix A** (for completeness; the computed spectral zeta is not the cascade's fermion lapse, as alternative (A) established).
+- **New Section 3** (bounded symmetric domains and Hua's volume formulae): cite Wyler 1969 and Hua 1963; state the volume/Silov-boundary formulae for types III and IV; identify the cascade's Dirac layers with specific domain parameters.
+- **New Section 4** (cascade-Wyler construction): define $\mathcal{D}_d$ for each Dirac layer; state the conjectured identification $V(\mathcal{D}_d)/V(\partial_S\mathcal{D}_d) = (R(d)/\chi)^{\alpha_d}$ for some cascade-determined exponent $\alpha_d$.
+- **New Section 5** (proof of the cascade-Wyler identification): the theorem's proof reduces to Gamma-function algebra on Hua's formulae. Tractable by comparison to the round-sphere Dirac approach.
+- **New Section 6** (numerical verification): reimplement `tools/fermion_dirac_spectral_zeta.py` as `tools/cascade_wyler_volume_check.py`; verify the volume ratio identification numerically at all four Dirac layers to $\geq 8$ significant figures.
+
+### Why this is genuinely cascade-native rather than another guess
+
+Three structural matches that the round-sphere Dirac approach lacked:
+
+- **Gamma-function volumes.** Bounded symmetric domains have closed-form Gamma-function volumes (Hua). The cascade's $R(d)$ is a Gamma-function ratio. The two frameworks share the same mathematical vocabulary, making the identification tractable rather than aspirational.
+- **Intrinsic complex/spin structure.** The domains of types II, III, IV have built-in complex or quaternionic structure; their Silov boundaries carry spin bundles by construction. No need to separately impose a spin connection, as alternative (B) required.
+- **Wyler's prior precedent.** Wyler derived $\alpha^{-1} \approx 137.036$ from symmetric-space volume ratios. Part IVb Open Question `oq:alpha-em-screening` proposes a cascade derivation of $1/\alpha_{\rm em} = 137.028$; if the cascade-Wyler construction in Part IVc closes the fermion-lapse problem, the same framework plausibly closes Open Question `oq:alpha-em-screening` in parallel. The two problems share geometric machinery.
+
+### Expected difficulty
+
+Lower than the original plan. Hua's volume formulae are explicit; the only task is identifying the correct domain for each Dirac layer and evaluating the ratio. Revised timeline:
+
+- **Section 3 (symmetric-domain volumes):** ~2 weeks (literature review + setup).
+- **Section 4 (cascade-Wyler construction):** ~3–4 weeks.
+- **Section 5 (proof):** ~2–4 weeks if the identification is clean; 4–8 weeks if exponent fitting is needed.
+- **Sections 6–8 (numerical verification + consequences + remaining questions):** ~2 weeks.
+- **Writing:** ~2 weeks.
+
+**Total: ~2–3 months**, down from the original 3–5. The Wyler route is more constrained than the round-sphere route (Hua's formulae are tighter), which makes the work faster rather than harder.
+
+### References for this route
+
+- A. Wyler, *L'espace symétrique du groupe des équations de Maxwell*, C. R. Acad. Sci. Paris **269** (1969), 743–745.
+- A. Wyler, *Les groupes des potentiels de Coulomb et de Yukawa*, C. R. Acad. Sci. Paris **271** (1969), 186–188.
+- L. K. Hua, *Harmonic Analysis of Functions of Several Complex Variables in the Classical Domains* (AMS, 1963).
+- F. D. Smith Jr., *Calculation of $1/\alpha = 137.03608$*, various preprints 1986–2004 (cascade-adjacent: Smith attempts to close Wyler's framework into a complete derivation; his methods partially anticipate the cascade's Bott-periodic layer structure).
+- Part IVb, Open Question `oq:alpha-em-screening` (the parallel problem that may close in the same framework).
+
+## Compatibility assessment: how cascade-compatible is the Wyler route?
+
+The Wyler framework looks cascade-adjacent at the vocabulary level, but a closer check reveals significant mismatches. This section is an eyes-open assessment for anyone considering the Wyler route as the basis of Part IVc; it supersedes the optimistic framing of the previous section where those mismatches were implicit.
+
+### Strong matches
+
+1. **Gamma-function vocabulary.** Hua's volume formulae are explicit Gamma-function products; the cascade's $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the same kind of object. The two frameworks speak the same mathematical language at the level of primitive quantities. This is the core reason Wyler feels cascade-adjacent.
+
+2. **Spin structure built in.** Types II, III, IV domains carry intrinsic complex/quaternionic structure; their Silov boundaries have spin bundles by construction, not externally imposed. The cascade's Dirac layers need exactly this: a spin structure on each boundary sphere. Good structural fit.
+
+3. **Coupling-constant precedent.** Wyler derived $\alpha^{-1} \approx 137.036$ from a symmetric-space volume ratio; Part IVb Open Question `oq:alpha-em-screening` conjectures $1/\alpha_{\rm em} = 137.028$ from cascade geometry. Two different proposals, one problem. If the cascade-Wyler construction is genuine, both should fall out of the same machinery. Structural resonance.
+
+### Moderate matches
+
+4. **Dimensional structure.** Wyler focused on $\mathrm{SU}(2,2) = \mathrm{Spin}(4,2)$ — 4D physics. The cascade runs across the full tower $d \in \{1, \ldots, 217\}$ with Dirac layers at $d \in \{5, 13, 21, 29\}$. Bounded symmetric domains of each type form a sequence indexed by dimension, so a layer-indexed cascade-Wyler construction is possible in principle — but the indexing has to be established, not assumed.
+
+5. **Bott periodicity.** The cascade's Dirac-layer selection $d \bmod 8 \equiv 5$ is real Bott period 8. The symmetric-domain classification has four types (I, II, III, IV). 4 $\neq$ 8. A known relationship exists (real Bott periodicity is 8; complex is 2; symplectic sits in between), and the cascade's real-Bott-period-8 structure should correspond to a specific orbit in Wyler's classification — but this correspondence needs to be established, not assumed.
+
+### Mismatches
+
+6. **Topology of the base space (critical).** The cascade's fundamental object is the unit ball $B^d$ and its boundary sphere $S^{d-1}$. Wyler's fundamental objects are bounded symmetric domains in $\mathbb{C}^n$, which are **not** topologically balls — they are convex domains with different measure and different boundary structure. The Silov boundary of $\mathcal{D}^{IV}_n$ is homeomorphic to $(S^1 \times S^{n-1})/\mathbb{Z}_2$, not $S^{n-1}$.
+
+   Consequence: the cascade **cannot replace $B^d$ with $\mathcal{D}_n$**. The two live in different categories. Any cascade-Wyler construction has to **map** cascade quantities to Wyler quantities through a specific relation, not identify them directly. That is the real work; a mere vocabulary match is not a structural match.
+
+7. **The observer hypothesis.** The cascade's central empirical input is "observer at $d=4$". Wyler's framework has no built-in observer — it is pure symmetric-space geometry. Part IVc would have to identify which symmetric-domain structure the observer inhabits, which is a new cascade-specific choice. Part~I's SP-12 closure required a four-step forcing chain to place the observer at $d_V = 5$; the Wyler analogue would need an equivalent forcing argument on the Wyler side. That forcing argument does not currently exist.
+
+### Risks
+
+8. **The numerology trap.** Wyler's derivation of $\alpha^{-1} = 137.036$ was controversial in 1969 and is widely regarded today as numerology rather than derivation. The reason: he **chose** the $(1/4)$-power exponent to hit the target, without a principled reason for that specific exponent. Any cascade-Wyler construction risks the same critique unless it supplies:
+
+   - A cascade-forced identification of **which** symmetric domain goes with which Dirac layer (not "try them all and pick the one that fits").
+   - A cascade-forced **exponent** $\alpha_d$ in the volume ratio (not fit to the target).
+   - **Independent structural support** (Bott periodicity, layer tower, etc.) beyond the numerical match.
+
+   The audit pass of the cascade made it robust against training-set-fit critiques elsewhere (SP-36's syntactic flag reformulation). The Wyler route needs equivalent protection or it inherits Wyler's original reception as "suggestive numerology" rather than derivation.
+
+### Bottom-line verdict
+
+**Compatibility is moderate, not high.** The Gamma-function vocabulary match is real and encouraging; the topology mismatch (point 6) and the absent observer forcing (point 7) mean the work is not drop-in. The risk is that what looks like a structural match at the level of primitives turns out to be coincidence at the level of the specific geometries.
+
+The Wyler route is **worth pursuing**, but not as the sole path. It should be pursued **with more structural discipline than Wyler himself applied**, and with a built-in kill switch.
+
+### Recommended posture for Part IVc
+
+1. **Start with the simplest Dirac layer, $d = 5$.** Attempt the cascade-Wyler construction for this single case first. If the match is clean (correct exponent $\alpha_5$ falls out of cascade structure, correct domain $\mathcal{D}_5$ is forced by the cascade's geometry), proceed. If it requires multiple fitted choices, stop and reconsider.
+
+2. **Require a forcing argument for the exponent $\alpha_d$ at each layer.** No fitted exponents. The exponent must be derivable from the cascade's Bott structure, sphere topology, or other cascade-native input — parallel to how Part IVb forced $\chi$ in $\alpha(d^*)/\chi^k$ (not chosen to fit observation, derived from the chirality-factorisation theorem).
+
+3. **Test at $d = 13, 21, 29$ with the forced exponent.** If the single Wyler identification extends across all four Dirac layers with no new fitted choices, the framework is genuine. If extension requires new fits at each layer, it is numerology.
+
+4. **Keep the round-sphere appendix.** The failed alternative (A) is evidence that the problem is not trivial. Readers who see the Wyler route without seeing the falsified-sphere route will suspect cherry-picking; keeping both documents the honest trajectory and shows the Wyler route was chosen because the simpler route failed, not because the target value was desired.
+
+5. **Have a stop-condition.** If at any point in the Part IVc work the cascade-Wyler identification requires fitting a parameter (exponent, domain choice, dimensional offset) to match the target $R(d)/\chi$, declare Part IVc inconclusive and return to the research-problem state. Better to leave SP-31 open than close it with a Wyler-style fit masquerading as derivation.
+
+### If the Wyler route works
+
+If steps 1–3 succeed with no fitting, the consequences are larger than just SP-31:
+- The parallel Open Question `oq:alpha-em-screening` ($1/\alpha_{\rm em} = 137.028$) likely closes in the same framework.
+- The cascade's geometric-topological factorisation acquires a second independent derivation (sphere-area route and symmetric-domain route both giving the same numerical predictions).
+- The symmetric-domain perspective may extend to CKM/PMNS mixing (Part IVb OQ `oq:mixing-geometric-mean`) via off-diagonal domain morphisms.
+
+### If it does not
+
+Falling back is clean: the tool's negative result on the round-sphere route is documented, the Wyler attempt is documented as a tried-but-inconclusive structural match, and SP-31 remains an open research question in its original form. No ground is lost.
+
 ## Dependencies on other open questions
 
 - **Not blocking:** the cascade action principle of Part IVb Remark 4.8 already supplies the scalar sector; the fermion sector is the extension.

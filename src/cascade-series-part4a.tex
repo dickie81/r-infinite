@@ -5,6 +5,7 @@
 \usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{graphicx}
 \geometry{margin=2.5cm}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -22,6 +23,7 @@ from Bott Periodicity and Hairy Ball Zeros}
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{abstract}
@@ -84,6 +86,7 @@ first threshold $d_1=19$ as a phase transition (which limits the number of fermi
 generations).
 
 \begin{center}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lll}
 \toprule
 Paper & Cascade provides & Uniqueness provides \\
@@ -94,7 +97,8 @@ III~\cite{paperIII}& Metric, $\Lambda=I$, $d=4$, $(-,+,+,+)$ & Lovelock, Cliffor
 IVa (this)         & Gauge window, breaking pattern & Bott, Adams, Lefschetz \\
 IVb~\cite{paperIVb}& Mass spectrum, couplings & Phase transition, cascade potential \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 \section{The Bott Mirror: Gauge Structure from Clifford Periodicity}
@@ -144,7 +148,7 @@ Between the two complex windows lie five real (Majorana) layers $d=7,8,9,10,11$,
 carry no complex spinor structure and support no quantum matter content visible to the $d=4$
 observer.
 
-\subsection{The self-dual crossing at $d=12$}
+\subsection{The self-dual crossing at \texorpdfstring{$d=12$}{d=12}}
 
 The cascade's lapse function $N(d)=\sqrt{\pi}\cdot\Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the
 compactification radius at dimension $d$.
@@ -308,7 +312,7 @@ in Paper~III~\cite{paperIII}, Section~9), and the equality is a second
 numerical coincidence of the same kind as the generator count. We note it
 as a consistency check without claiming it is structurally forced.
 
-\subsection{$N_c=3$ from Adams' theorem}
+\subsection{\texorpdfstring{$N_c=3$}{N\_c=3} from Adams' theorem}
 
 \begin{theorem}[Adams' theorem applied to the gauge window]\label{thm:adams}
 The maximum number of linearly independent nowhere-zero tangent vector fields on $S^{n-1}$
@@ -557,6 +561,7 @@ Combining the Clifford classification, the hairy ball theorem, and the gauge win
 structure, the full layer-by-layer topology from the observer to the third Bott window is:
 
 \begin{center}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{cccccl}
 \toprule
 $d$ & $d\bmod 8$ & Type & Sphere & $\chi$ & Role \\
@@ -574,7 +579,8 @@ $d$ & $d\bmod 8$ & Type & Sphere & $\chi$ & Role \\
 21 & 5 & Dirac & $S^{20}$ & 2 & Gen 1 ($e,d,u$); zero \\
 22 & 6 & Weyl  & $S^{21}$ & 0 & --- \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 Three structural features are visible:
@@ -602,7 +608,7 @@ Since 5 is odd, all complex Dirac layers automatically satisfy (G2). The generat
 are $d=5,13,21,29,37,\ldots$, spaced by one Bott period.
 \end{definition}
 
-\subsection{The $d_1=19$ phase transition as cutoff}
+\subsection{The \texorpdfstring{$d_1=19$}{d\_1=19} phase transition as cutoff}
 
 The sphere-area decay rate $p(d)=\tfrac{1}{2}\psi((d+1)/2)-\tfrac{1}{2}\ln\pi$ crosses
 the first threshold $c_1=\tfrac{1}{2}\ln\pi$ at the continuous value $d^*_1=19.731$.

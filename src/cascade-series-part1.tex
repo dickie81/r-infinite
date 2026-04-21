@@ -3,6 +3,7 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage{enumitem}
 \geometry{margin=2.5cm}
 
@@ -18,6 +19,7 @@
 \date{March 2026}
 
 \begin{document}
+\setlength{\emergencystretch}{3em}
 \maketitle
 
 \begin{abstract}
@@ -60,9 +62,9 @@ population. After the Part~0 Supplement first-order Gram correction
 $\exp(\sum(1-C^2_{d,d+1}))=\exp(0.02108)$, the residual is $-0.07\%$,
 well inside the $1.9\%$ Planck $1\sigma$ uncertainty.
 
-Every factor is a cascade-native sphere-area ratio: six sphere areas
-($\Omega_2,\Omega_3,\Omega_5,\Omega_7,\Omega_{19},\Omega_{217}$), zero
-imported objects. The QFT comparison in Section~\ref{sec:qft-comparison}
+Every factor is a cascade-native sphere-area ratio: the six sphere
+areas $\Omega_2$, $\Omega_3$, $\Omega_5$, $\Omega_7$, $\Omega_{19}$,
+$\Omega_{217}$, with zero imported objects. The QFT comparison in Section~\ref{sec:qft-comparison}
 traces the ``$10^{120}$ cosmological constant problem'' to three
 structural disagreements: (i) the number of free dimensions at the
 observer's frame (4 for QFT, 3 for the cascade, because time is
@@ -170,7 +172,7 @@ cascade's natural reference at $d_0 = 7$ and the observer's host at
 $d_V = 5$; the second projects the cascade's per-$S^2$ content density
 onto the observer's 3D spatial slice under locked time.
 
-\subsection{Correction 1: the host frame at $d_V = 5$}
+\subsection{Correction 1: the host frame at \texorpdfstring{$d_V = 5$}{d\_V = 5}}
 
 The ratio of sphere areas at the two maxima:
 \[
@@ -521,13 +523,15 @@ from Planck 2018.
 
 \begin{theorem}\label{thm:cc}
 \[
+\begin{aligned}
 \frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
-\;=\; \underbrace{\frac{\Omega_2}{\Omega_3}}_{\substack{\text{3D projection}\\ \text{(locked time)}}}
+&= \underbrace{\frac{\Omega_2}{\Omega_3}}_{\substack{\text{3D projection}\\ \text{(locked time)}}}
 \;\cdot\;\underbrace{\left(\frac{\Omega_5}{\Omega_7}\right)^{\!2}}_{\substack{\text{host frame}\\ d_V\to d_0}}
-\;\cdot\;\Omega_{19}\;\Omega_{217}
-\;=\; \frac{2}{\pi}\cdot\frac{9}{\pi^2}\cdot\Omega_{19}\Omega_{217}
+\;\cdot\;\Omega_{19}\;\Omega_{217} \\
+&= \frac{2}{\pi}\cdot\frac{9}{\pi^2}\cdot\Omega_{19}\Omega_{217}
 \;=\; \frac{18\;\Omega_{19}\;\Omega_{217}}{\pi^3}
 \;=\; 6.996\times 10^{-121}.
+\end{aligned}
 \]
 \end{theorem}
 
@@ -545,11 +549,13 @@ per-$S^2$ content density at each latitude of the $S^3$ Morse
 foliation to the integrated $S^3$ 3-volume is
 $\Omega_2/\Omega_3 = 2/\pi$. Combining both corrections:
 \[
+\begin{aligned}
 \frac{\rho_\Lambda}{M^4_{\mathrm{Pl,red}}}
-= \frac{\Omega_2}{\Omega_3}\cdot\left(\frac{\Omega_5}{\Omega_7}\right)^{\!2}\cdot\Omega_{19}\Omega_{217}
-= \frac{2}{\pi}\cdot\frac{9}{\pi^2}\times 1.20516\times 10^{-120}
+&= \frac{\Omega_2}{\Omega_3}\cdot\left(\frac{\Omega_5}{\Omega_7}\right)^{\!2}\cdot\Omega_{19}\Omega_{217} \\
+&= \frac{2}{\pi}\cdot\frac{9}{\pi^2}\times 1.20516\times 10^{-120}
 = \frac{18}{\pi^3}\times 1.20516\times 10^{-120}
 = 6.996\times 10^{-121}.\qedhere
+\end{aligned}
 \]
 \end{proof}
 
@@ -597,10 +603,13 @@ observer-boundary; it is not a step within the cascade.
 $10^{-120}$ (Part~0's ``oblivion'' regime, Section on the regime
 partition); their adjacent-pair deficits contribute negligibly.
 \end{itemize}
-The austerity-compatible range of adjacent-pair indices is therefore
-exactly $\{(5,6), (6,7), \ldots, (216, 217)\}$, summed as
-$d = 5, 6, \ldots, 216$ --- 212 pairs, the range used in the Gram
-correction above. No other range is austerity-compatible: including
+The austerity-compatible range of adjacent-pair indices is
+therefore exactly
+\[
+\{(5,6),\; (6,7),\; \ldots,\; (216,217)\},
+\]
+summed as $d = 5, 6, \ldots, 216$ --- 212 pairs, the range used in
+the Gram correction above. No other range is austerity-compatible: including
 $d < 5$ violates clause~(i) (layers below the descent); excluding
 $d \in [5, 216]$ drops descent layers without justification. The
 $0.02108$ sum value and the $-0.07\%$ residual are therefore
@@ -787,6 +796,7 @@ term ($\Omega_{217}\approx 10^{-120}$).
 
 \begin{center}
 \renewcommand{\arraystretch}{1.35}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lll}
 \toprule
  & Quantum Field Theory & Cascade \\
@@ -808,7 +818,8 @@ Leading $\rho_\Lambda$ estimate & $\sim M_{\mathrm{Pl}}^4$
  & $\sim \Omega_{217}\,M_{\mathrm{Pl,red}}^4 \sim 10^{-120}\,M_{\mathrm{Pl,red}}^4$ \\
 Fine-tuning required & $\sim 10^{120}$ & None \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 \subsection{Reframing the cosmological constant problem}
