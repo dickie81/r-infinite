@@ -70,6 +70,12 @@ cd src
 latexmk -pdf *.tex
 ```
 
+## Computational tools
+
+Every numerical claim in the series is backed by a script in [`tools/`](tools/). The scripts are organised by role (generators, verifiers, closures, model checks) and share a single source of truth for cascade primitives in [`tools/cascade_constants.py`](tools/cascade_constants.py).
+
+See [`tools/README.md`](tools/README.md) for the full index — which script backs which LaTeX citation, how to run each one, and which results it reproduces.
+
 ## License
 
 This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

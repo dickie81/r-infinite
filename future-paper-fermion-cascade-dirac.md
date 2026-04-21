@@ -97,7 +97,7 @@ A rigorous Clifford-absorption proof needs a **bridge** between these two framew
 
 If the full theorem is intractable, two weaker results would still advance SP-31:
 
-**(A) Numerical verification only.** Compute the regularised Dirac spectral trace at Dirac layers 5, 13, 21, 29 and demonstrate numerical equality with $R(d)/2$. This would not prove the conjecture but would convert it from "plausible heuristic" to "numerically validated ansatz at every cascade-relevant Dirac layer". A single-session tool could deliver this — roughly `tools/fermion_dirac_spectral_zeta.py` — and it would strongly constrain any future rigorous proof.
+**(A) Numerical verification only.** Compute the regularised Dirac spectral trace at Dirac layers 5, 13, 21, 29 and demonstrate numerical equality with $R(d)/2$. This would not prove the conjecture but would convert it from "plausible heuristic" to "numerically validated ansatz at every cascade-relevant Dirac layer". A single-session tool could deliver this — roughly `tools/model_checks/fermion_dirac_spectral_zeta.py` — and it would strongly constrain any future rigorous proof.
 
 **(B) Partial theorem with an ansatz.** Prove that the cascade-lattice Dirac operator's Green's function equals $R(d)$ **given** a specific choice of spin connection on the slicing map. The paper then reduces the conjecture to "this specific connection is the canonical one", which is a cleaner, narrower problem than the original.
 
@@ -105,7 +105,7 @@ Either alternative would count as genuine progress. Alternative (A) is the cheap
 
 ## Status update: alternative (A) has been run — naive formulation falsified
 
-Alternative (A)'s sanity check was implemented as `tools/fermion_dirac_spectral_zeta.py` and run on all four cascade Dirac layers. The naive formulation of the conjecture — "fermion lapse = regularised Dirac spectral zeta on boundary sphere $S^{2n}$" — **does not hold**.
+Alternative (A)'s sanity check was implemented as `tools/model_checks/fermion_dirac_spectral_zeta.py` and run on all four cascade Dirac layers. The naive formulation of the conjecture — "fermion lapse = regularised Dirac spectral zeta on boundary sphere $S^{2n}$" — **does not hold**.
 
 ### What was computed
 

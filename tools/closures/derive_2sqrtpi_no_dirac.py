@@ -26,22 +26,18 @@ both nonzero and constant on all even spheres is compatible with the
 cascade formula. chi = 2 is the canonical such invariant.
 """
 
-import numpy as np
-from scipy.special import beta as Beta, gamma as Gamma, psi as digamma
+import os
+import sys
 
-pi = np.pi
+import numpy as np
+from scipy.special import gamma as Gamma
+
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import N_lapse as N, p, pi  # noqa: E402
+
 sqrt_pi = np.sqrt(pi)
 TWO_SQRT_PI = 2 * sqrt_pi
-
-
-def N(d):
-    """Cascade lapse: N(d) = integral_{-1}^{1} (1-x^2)^{d/2} dx = B(1/2, d/2+1)."""
-    return Beta(0.5, d / 2.0 + 1.0)
-
-
-def p(d):
-    """Cascade decay rate: p(d) = (1/2) psi((d+1)/2) - (1/2) ln(pi)."""
-    return 0.5 * digamma((d + 1) / 2.0) - 0.5 * np.log(pi)
 
 
 def main():

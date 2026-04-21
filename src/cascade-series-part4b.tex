@@ -820,7 +820,7 @@ chirality filtering of Theorem~\ref{thm:chirality-factorisation}, this yields
 \]
 exactly as Remark~\ref{rem:phase-family} asserts. Numerical verification at all
 distinguished-source and distinguished-layer values confirms the identity to
-machine precision: see \texttt{tools/cascade\_greens\_function.py}.
+machine precision: see \texttt{tools/verifiers/cascade\_greens\_function.py}.
 
 The verification establishes that the action-principle derivation of the
 $\alpha(d^*)/\chi^k$ family is static and cascade-native: no Kaluza--Klein
@@ -850,7 +850,7 @@ the per-layer Green's function response at source $d^*$ equals $\beta(d^*)$.
 Matching the observed $\alpha(d^*)/\chi^k$ shifts of
 Remark~\ref{rem:phase-family} therefore forces $\beta(d) = \alpha(d)$.
 
-Numerical verification in \texttt{tools/action\_uniqueness.py} confirms this:
+Numerical verification in \texttt{tools/verifiers/action\_uniqueness.py} confirms this:
 among seven natural candidate compliance functions ($\alpha(d)$, $R(d)$,
 $R(d)^2$, $R(d)/2$, $1/d$, $1/(d{+}1)$, $N(d)$), only $\beta = \alpha$
 reproduces the four Part~IVb source shifts to machine precision. The six
@@ -1032,6 +1032,7 @@ All seven assignments match. The flag readings:
 \item $\Omega_m$ is a density ratio at the observer: observer-local.
 \item $\theta_C$ is a geometric mixing angle whose cascade formula uses $N(12),N(13)$ only as static normalisations (inside an $\arccos$), not as running couplings; hence $G=F$. It is not Planck-anchored and not observer-local (it encodes the inter-generation descent), so it defaults to Amplitude type.
 \end{itemize}
+The three-flag classification and the resulting $d^*$ assignment for each of the seven observables are reproduced mechanically in \texttt{tools/verifiers/verify\_selection\_rule.py}; the script encodes Definition~\ref{def:observable-type} as a deterministic decision procedure and confirms all seven rows of the table above with no adjustable input.
 \end{proof}
 
 \begin{remark}[Why these four sources and no others]
@@ -1046,7 +1047,7 @@ Within each type, the assignment is the unique distinguished layer structurally 
 \item \emph{Gauge $\to d_{\rm gw}=14$}: a gauge-mediated observable's hierarchy is set by running through the gauge window $\{12,13,14\}$. The highest layer of the window is $d=14$, the $\mathrm{U}(1)$ hypercharge layer; a coupling descending into the observer's frame from above enters the gauge window at $d=14$. Numerical Green's function response to perturbations sourced at this entry point is maximised at $d^*=d_{\rm gw}$. The $d=13$ Dirac obstruction contributing the $1/\sqrt{\pi}$ factor to $\mathrm{U}(1)$'s descent (Theorem~\ref{thm:weinberg}) is encountered by any Gauge-type observable on its way to the observer, consistently with the $d=14$ entry-point assignment; the $2\sqrt{\pi}$ fermion obstruction factor (Theorem~\ref{thm:obstruction}) lives at every Dirac layer crossed on a fermion's descent, not specifically at $d=14$.
 \item \emph{Amplitude $\to d_0=7$}: an observable not caught by any of the previous three flags --- not Planck-anchored, not observer-local, not gauge-mediated --- is a geometric amplitude spanning generations. Of the non-sink distinguished layers, $d_0=7$ is the unique cascade equilibrium between the observer and the gauge window; it is the only non-sink layer that neither anchors to Planck (like $d_1=19$), sits at the observer boundary (like $d_V=5$), nor lives inside the gauge window (like $d_{\rm gw}=14$). Numerical Green's function response for amplitude-type perturbations is maximised at $d^*=d_0$; formal derivation open.
 \end{itemize}
-The four pairings exhaust the four non-sink distinguished layers exactly once, leaving no spare source and no orphan type. Each rationale identifies $d^*$ by a \emph{structural} role in the observable's descent; the \emph{numerical} claim that the Green's function response is maximised at the assigned $d^*$ is verified layer-by-layer via the eigenstructure of the cascade action's discrete Laplacian (\texttt{tools/cascade\_greens\_function.py}), but the closed-form derivation is open (see the ``Does not'' list of the following remark).
+The four pairings exhaust the four non-sink distinguished layers exactly once, leaving no spare source and no orphan type. Each rationale identifies $d^*$ by a \emph{structural} role in the observable's descent; the \emph{numerical} claim that the Green's function response is maximised at the assigned $d^*$ is verified layer-by-layer via the eigenstructure of the cascade action's discrete Laplacian (\texttt{tools/verifiers/cascade\_greens\_function.py}), but the closed-form derivation is open (see the ``Does not'' list of the following remark).
 \end{remark}
 
 \begin{remark}[What this proposition does and does not prove]
@@ -1434,7 +1435,7 @@ is forced by the Morse foliation: the defect's relevant cross-section
 is 2-sphere, not 4-sphere, and its action is the 2D KT vortex action,
 not the 4D instanton.
 
-\emph{Numerical verification.} \texttt{tools/cascade\_v\_closure.py}
+\emph{Numerical verification.} \texttt{tools/closures/cascade\_v\_closure.py}
 checks the identity~\eqref{eq:v-exponent} to machine precision and
 reproduces $v = 240.7$~GeV from the full chain
 $v = M_{\rm Pl,red}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$.

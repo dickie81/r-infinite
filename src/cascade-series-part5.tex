@@ -640,13 +640,13 @@ ruler.
 \subsection{BAO observables and comparison to DESI DR2}
 
 The table below is auto-generated from the cascade parameters via
-\texttt{tools/generate\_bao\_table.py} and reproduced on every build.
+\texttt{tools/generators/generate\_bao\_table.py} and reproduced on every build.
 The ``Cascade'' column uses the leading-order $\Omega_m = 1/\pi$
 ($r_d^{\rm cas} \approx 147.7$~Mpc); the ``Bott'' column uses the
 subleading-corrected $\Omega_m^{\rm Bott} = 0.31150$
 ($r_d^{\rm Bott} \approx 148.6$~Mpc). Both use $H_0 = 66.78$~km/s/Mpc.
 
-% Auto-generated table: run tools/generate_bao_table.py before LaTeX build
+% Auto-generated table: run tools/generators/generate_bao_table.py before LaTeX build
 \input{generated/bao-table}
 
 \subsection{DESI tensions are shared, not resolved by the cascade}
@@ -664,7 +664,7 @@ theorem.
 \end{theorem}
 
 \begin{proof}
-Direct computation; see \texttt{tools/generate\_bao\_table.py} and the
+Direct computation; see \texttt{tools/generators/generate\_bao\_table.py} and the
 BAO comparison table above.
 \end{proof}
 

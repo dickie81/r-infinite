@@ -26,18 +26,14 @@ All three "separate" corrections in Part I §3 are the same operation
 closes the CLAUDE.md-flagged residual structural task for Part I.
 """
 
+import os
+import sys
+
 import numpy as np
-from scipy.special import gamma as gamma_func
 
-
-def R(d):
-    """Part 0 slicing recurrence coefficient: R(d) = Gamma((d+1)/2)/Gamma((d+2)/2)."""
-    return gamma_func((d + 1) / 2) / gamma_func((d + 2) / 2)
-
-
-def Omega(d):
-    """Sphere area of S^d: Omega_d = 2 pi^((d+1)/2) / Gamma((d+1)/2)."""
-    return 2 * np.pi ** ((d + 1) / 2) / gamma_func((d + 1) / 2)
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import R, Omega  # noqa: E402
 
 
 def backward_step(d):

@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'src/*.tex'
-      - 'tools/*.py'
+      - 'tools/**/*.py'
       - 'web/**'
       - '.github/workflows/build-latex.yml'
   workflow_dispatch:
@@ -38,8 +38,8 @@ jobs:
 
       - name: Generate computed tables
         run: |
-          python3 tools/generate_predictions.py
-          python3 tools/generate_bao_table.py
+          python3 tools/generators/generate_predictions.py
+          python3 tools/generators/generate_bao_table.py
 
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4

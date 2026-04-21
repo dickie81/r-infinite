@@ -16,8 +16,15 @@ Stage 1: lay out the Dirac spectrum on S^{2n} and sanity-check
 multiplicities and spinor-bundle dimensions.
 """
 
+import os
+import sys
+
 import mpmath as mp
 from mpmath import mpf, binomial, factorial, gamma, pi as mp_pi, sqrt as mp_sqrt, zeta as mp_zeta
+
+# Shared cascade primitives (mpmath backend).
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import mp as _cascade_mp  # noqa: E402
 
 mp.mp.dps = 50
 
@@ -39,12 +46,7 @@ def dirac_eigenvalue(n, k, sign=+1):
     return mpf(sign) * (k + n)
 
 
-def R(d):
-    """
-    Cascade's radial geometric coupling:
-    R(d) = Gamma((d+1)/2) / Gamma((d+2)/2).
-    """
-    return gamma(mpf(d + 1) / 2) / gamma(mpf(d + 2) / 2)
+R = _cascade_mp.R  # Cascade's radial geometric coupling (mpmath backend).
 
 
 def sanity_check(n, kmax=6):

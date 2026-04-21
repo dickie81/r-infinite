@@ -26,17 +26,14 @@ identification of alpha(d) as the natural coupling, which is itself
 motivated by the QFT convention alpha = g^2 / (4 pi).
 """
 
+import os
+import sys
+
 import numpy as np
-from scipy.special import gamma as gamma_func
 
-
-def R(d):
-    return gamma_func((d + 1) / 2) / gamma_func((d + 2) / 2)
-
-
-def alpha_cas(d):
-    """Cascade gauge coupling at layer d (Part IVa Section 4)."""
-    return R(d) ** 2 / 4
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import R, alpha as alpha_cas  # noqa: E402
 
 
 def marginal_shift(beta_fn, d_star, k, d_min=4, d_max=217):
