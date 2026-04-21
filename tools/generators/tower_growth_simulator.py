@@ -34,13 +34,14 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-pi = np.pi
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import Omega, pi, M_PL_RED_GEV  # noqa: E402
 
-# ---------- Cascade constants ----------
-# Omega_n = 2 pi^{(n+1)/2} / Gamma((n+1)/2)  (surface area of S^n)
 
 def omega_sphere(n):
-    return 2.0 * pi ** ((n + 1) / 2.0) / math.gamma((n + 1) / 2.0)
+    return Omega(n)
+
 
 OMEGA_19 = omega_sphere(19)                             # 0.51608...
 I_0_LITERAL = 1.2051e-120                               # Part I line 23 value
@@ -56,8 +57,7 @@ FACTOR_OMEGA_217 = OMEGA_217                            # activates at N = 217
 # This is an approximation; cascade-native g_eff counting is an open question (#64).
 G_EFF = 106.75
 
-# Numerical anchors (M_Pl,red = 2.435e18 GeV).
-M_PL_RED_GEV = 2.435e18
+# Numerical anchors (M_Pl,red = 2.435e18 GeV — shared from cascade_constants).
 T_PL_RED_S = 2.703e-43
 
 
@@ -347,7 +347,8 @@ def main():
                         help='Tick length in Planck times (default 1.0)')
     parser.add_argument('--out-dir', type=str,
                         default=os.path.join(os.path.dirname(__file__), '..',
-                                             'src', 'generated', 'tower_growth'),
+                                             '..', 'src', 'generated',
+                                             'tower_growth'),
                         help='Directory for output artefacts')
     args = parser.parse_args()
 

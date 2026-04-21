@@ -28,18 +28,14 @@ No semiclassical content: this is the inverse of a discrete linear operator,
 i.e., classical finite-dimensional linear algebra.  Check 7 clean.
 """
 
+import os
+import sys
+
 import numpy as np
-from scipy.special import gamma as gamma_func
 
-
-def R(d):
-    """Slicing recurrence coefficient R(d) = Gamma((d+1)/2)/Gamma((d+2)/2)."""
-    return gamma_func((d + 1) / 2) / gamma_func((d + 2) / 2)
-
-
-def alpha_cas(d):
-    """Cascade coupling at layer d: alpha(d) = R(d)^2 / 4 (Part IVb S 4)."""
-    return R(d) ** 2 / 4
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import R, alpha as alpha_cas  # noqa: E402
 
 
 def build_operator(d_min, d_max):

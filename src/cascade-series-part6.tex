@@ -241,7 +241,7 @@ N_e^{C} &= 198 \times 0.3168 = 62.732, \\
 N_e^{D, \mathrm{early}} &= 1.523 \text{ (first 30 ticks of Phase~D before radiation dominates).}
 \end{align*}
 Total pre-radiation e-folds: $N_e = 70.94$. Verification by the numerical
-simulator of Issue~\#65 (\texttt{tools/tower\_growth\_simulator.py}) confirms
+simulator of Issue~\#65 (\texttt{tools/generators/tower\_growth\_simulator.py}) confirms
 this value to four decimal places.
 \end{proof}
 
@@ -396,7 +396,7 @@ provisionality: the SM spectrum is the cascade's own 4D projection, not
 an external import. The Tier classification for
 Corollary~\ref{cor:TRH} and its input $g_{\mathrm{eff}}$ is correspondingly
 updated (Section~\ref{sec:tiers}). The computation is reproducible via
-\texttt{tools/cascade\_g\_eff.py}.
+\texttt{tools/generators/cascade\_g\_eff.py}.
 \end{remark}
 
 \subsection{Why the Big Bang is not a singularity}
@@ -924,7 +924,7 @@ $217$ & 213 & $6.11\%$ & $100\%$ (Paper~II saturated value) \\
 \end{center}
 
 Values above are computed from the exact Gram matrix using
-\texttt{tools/cascade\_decoherence\_vs\_tower\_height.py}; no approximation
+\texttt{tools/model\_checks/cascade\_decoherence\_vs\_tower\_height.py}; no approximation
 enters beyond floating-point arithmetic on the Beta-function entries. The
 dependence on $N_0$ is weak: for $N_0 = 4$ the saturated value at $N = 217$
 is $\varepsilon = 6.33\%$ (one additional layer at the bottom contributes

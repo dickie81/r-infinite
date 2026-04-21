@@ -40,24 +40,12 @@ sourced at a different distinguished layer.
 """
 
 import math
-from scipy.special import gamma as Gamma, psi as digamma
+import os
+import sys
 
-pi = math.pi
-
-
-def R(d):
-    """Gamma function ratio R(d) = Gamma((d+1)/2)/Gamma((d+2)/2)."""
-    return Gamma((d+1)/2.0) / Gamma((d+2)/2.0)
-
-
-def alpha_cascade(d):
-    """Cascade coupling at layer d: alpha(d) = R(d)^2/4 = N(d)^2/(4 pi)."""
-    return R(d)**2 / 4
-
-
-def p(d):
-    """Cascade decay rate p(d) = (1/2) psi((d+1)/2) - (1/2) ln pi."""
-    return 0.5 * digamma((d+1)/2.0) - 0.5 * math.log(pi)
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import R, alpha as alpha_cascade, p, pi  # noqa: E402
 
 
 def Phi(d, d_low=5):

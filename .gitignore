@@ -6,5 +6,10 @@
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+build/
 
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc

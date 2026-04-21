@@ -48,24 +48,18 @@ amplitude is read from the action's stationary point directly via the
 classical Bogomol'nyi-saturated bound.
 """
 
+import os
+import sys
+
 import numpy as np
-from scipy.special import gamma as gamma_func
 
-
-def R(d):
-    return gamma_func((d + 1) / 2) / gamma_func((d + 2) / 2)
-
-
-def alpha_cas(d):
-    return R(d) ** 2 / 4
+# Shared cascade primitives.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import R, alpha as alpha_cas, Omega  # noqa: E402
 
 
 def N(d):
     return np.sqrt(np.pi) * R(d)
-
-
-def Omega(d):
-    return 2 * np.pi ** ((d + 1) / 2) / gamma_func((d + 1) / 2)
 
 
 if __name__ == "__main__":

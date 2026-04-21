@@ -9,26 +9,20 @@ where I_cont uses the continuous boundary crossings of p(d).
 Also diagnoses an apparent numerical error in Part 0 at p(20).
 """
 
+import os
+import sys
+
 import mpmath
+
+# Shared cascade primitives (mpmath backend).
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from cascade_constants import mp  # noqa: E402
 
 mpmath.mp.dps = 50
 
-
-def p(d):
-    """Decay rate p(d) = (1/2) psi((d+1)/2) - (1/2) ln(pi)."""
-    x = (mpmath.mpf(d) + 1) / 2
-    return (mpmath.digamma(x) - mpmath.log(mpmath.pi)) / 2
-
-
-def Omega(d):
-    """Sphere area: Omega_d = 2 * pi^((d+1)/2) / Gamma((d+1)/2)."""
-    x = (mpmath.mpf(d) + 1) / 2
-    return 2 * mpmath.power(mpmath.pi, x) / mpmath.gamma(x)
-
-
-def V(d):
-    """Ball volume: V_d = pi^(d/2) / Gamma(d/2 + 1)."""
-    return mpmath.power(mpmath.pi, mpmath.mpf(d) / 2) / mpmath.gamma(mpmath.mpf(d) / 2 + 1)
+p = mp.p
+Omega = mp.Omega
+V = mp.V_ball
 
 
 # Threshold constants

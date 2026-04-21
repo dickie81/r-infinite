@@ -22,7 +22,7 @@ generated HTML is injected alongside other page content.
 import os
 import re
 
-REPO_ROOT = os.path.join(os.path.dirname(__file__), '..')
+REPO_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 
 # Markers used only for HTML injection into web/index.html. The source file
 # PREDICTIONS.md does not use markers — the parser locates the section by

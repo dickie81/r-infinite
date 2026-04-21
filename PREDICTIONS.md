@@ -1,6 +1,6 @@
 # Cascade Series — Predictions
 
-Full tiered predictions table. This file is the single source of truth for the series' predictions; `tools/generate_predictions.py` parses the `## Predictions` section below to generate the LaTeX table (`src/generated/predictions-table.tex`) embedded in the cover sheet, and the HTML table on [the project website](https://dickie81.github.io/r-infinite/).
+Full tiered predictions table. This file is the single source of truth for the series' predictions; `tools/generators/generate_predictions.py` parses the `## Predictions` section below to generate the LaTeX table (`src/generated/predictions-table.tex`) embedded in the cover sheet, and the HTML table on [the project website](https://dickie81.github.io/r-infinite/).
 
 A compact headline subset is shown in the [main README](README.md).
 

@@ -64,6 +64,7 @@ scenario holds.
 
 import json
 import math
+import os
 
 
 def count_cascade_dof():
@@ -271,7 +272,10 @@ def main():
         },
     }
 
-    out_path = "src/generated/cascade_g_eff.json"
+    out_path = os.path.join(
+        os.path.dirname(__file__), '..', '..', 'src', 'generated',
+        'cascade_g_eff.json',
+    )
     with open(out_path, "w") as f:
         json.dump(result, f, indent=2)
     print(f"\n  Machine-readable output: {out_path}")
