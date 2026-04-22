@@ -1,102 +1,468 @@
-<svg viewBox="0 0 170 170" width="170" height="170" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 170 170" width="170" height="170" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="Cascade logo: an infinite tunnel of nested unit balls descending through the cascade dimensions">
+  <title>Cascade logo</title>
+  <desc>
+    Infinite tunnel of unit-ball silhouettes (circle inscribed in square)
+    descending through the cascade dimensions. 40 ring layers emerge
+    phase-staggered and pass through scale stops set by the cascade
+    ratios Omega_d / Omega_7 for d = 1..7
+    (= 0.06, 0.19, 0.38, 0.6, 0.8, 0.94, 1), then eject off-canvas.
+    With uniform time steps the ring accelerates through low d and
+    decelerates near the Gamma-function peak at d = 7. The
+    central dot represents the cascade invariant terminus.
+  </desc>
   <defs>
-    <g id="dimension">
-      <rect 
-        x="-83" y="-83" 
-        width="166" height="166" 
-        fill="none" 
-        stroke="#000" 
-        stroke-width="4"
-        opacity="0.75" />
-      <circle 
-        r="83" 
-        fill="none" 
-        stroke="#000" 
-        stroke-width="3.6"
-        opacity="0.75" />
+    <g id="unit-ball">
+      <rect x="-60" y="-60" width="120" height="120"
+            fill="none" stroke="currentColor" stroke-width="1.6" />
+      <circle r="60" fill="none" stroke="currentColor" stroke-width="1.6" />
     </g>
   </defs>
-  <g transform="translate(85 85)">
+
+  <g transform="translate(85 85) scale(1.5)" color="#000" fill="none">
+
+    <!-- Terminus glyph: cascade invariant at the far end of the tunnel. -->
+    <circle r="1.6" fill="currentColor" stroke="none" opacity="0.85" />
+
+    <!-- Layer 1 -->
     <g>
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="1; 1; 1" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.7071)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.7071; 1; 0.7071" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 2 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-0.15s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-0.15s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.5)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.5; 1; 0.5" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 3 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-0.3s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-0.3s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.3536)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.3536; 1; 0.3536" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 4 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-0.45s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-0.45s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.25)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.25; 1; 0.25" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 5 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-0.6s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-0.6s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.1768)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.1768; 1; 0.1768" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 6 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-0.75s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-0.75s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.125)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.125; 1; 0.125" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 7 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-0.9s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-0.9s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.0884)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.0884; 1; 0.0884" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 8 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.05s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.05s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
-    <g transform="scale(0.0625)">
-      <animateTransform 
-        attributeName="transform" 
-        type="scale" 
-        values="0.0625; 1; 0.0625" 
-        dur="10s" 
-        repeatCount="indefinite" />
-      <use href="#dimension" />
+
+    <!-- Layer 9 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.2s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.2s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
     </g>
+
+    <!-- Layer 10 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.35s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.35s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 11 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.5s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 12 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.65s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.65s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 13 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.8s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.8s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 14 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-1.95s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-1.95s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 15 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-2.1s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-2.1s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 16 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-2.25s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-2.25s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 17 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-2.4s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-2.4s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 18 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-2.55s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-2.55s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 19 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-2.7s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-2.7s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 20 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-2.85s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-2.85s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 21 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 22 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3.15s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3.15s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 23 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3.3s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3.3s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 24 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3.45s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3.45s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 25 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3.6s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3.6s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 26 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3.75s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3.75s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 27 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-3.9s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-3.9s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 28 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.05s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.05s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 29 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.2s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.2s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 30 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.35s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.35s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 31 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.5s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 32 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.65s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.65s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 33 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.8s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.8s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 34 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-4.95s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-4.95s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 35 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-5.1s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-5.1s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 36 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-5.25s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-5.25s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 37 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-5.4s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-5.4s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 38 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-5.55s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-5.55s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 39 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-5.7s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-5.7s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
+    <!-- Layer 40 -->
+    <g>
+      <animateTransform attributeName="transform" type="scale"
+        values="0;0.0605;0.19;0.38;0.5968;0.7958;0.9375;1;1.4;1.8"
+        dur="6s" begin="-5.85s" repeatCount="indefinite" />
+      <animate attributeName="opacity"
+        values="0.9;0;0" keyTimes="0;0.7;1"
+        dur="6s" begin="-5.85s" repeatCount="indefinite" />
+      <use href="#unit-ball" vector-effect="non-scaling-stroke" />
+    </g>
+
   </g>
 </svg>

@@ -26,5 +26,6 @@
   "chat.tools.terminal.autoApprove": {
     "pyenv": true,
     "latexmk": true
-  }
+  },
+  "workbench.browser.enableChatTools": true
 }
