@@ -232,3 +232,110 @@ cascade-natively is open.
 This is more substantive than the Legendre-duplication identity but
 less than a full derivation. Per austerity (Prelude Principle 2.2):
 the gap should be flagged, not silently glossed.
+
+## Addendum: Part~VI tower-growth reframing
+
+Part~VI~\S2.2 (lines 82–118) and \S10.2 (lines 877–895) explicitly
+reinterpret Paper~II's discrete propagator $K(D, d') = i^{D-d'}$:
+
+> "Under Part~VI, $K$ is the **within-moment projection** through
+> the currently-existing tower, **not the physical time-evolution
+> operator between moments**. Physical evolution from $t$ to
+> $t + \alpha t_{\rm Pl,red}$ is the composition
+> $K(N(t)+1, 4) \circ A_{N(t)+1} \circ K(N(t), 4)^{-1}$."
+
+**Per-tick phase under tower-growth.** Direct computation:
+
+- $K(N(t), 4)^{-1}$ contributes $(-i)^{N(t)-4}$.
+- $K(N(t)+1, 4)$ contributes $i^{N(t)-3}$.
+- Net phase per Planck tick of physical time: $i$.
+
+So one tick still rotates the observer's projected state by $J$
+(multiplication by $i$). The $\mathbb{Z}_4$ structure of dynamical
+phase per tick is preserved. **Tower-growth does not promote
+$\mathbb{Z}_4$ to $U(1)$ at the dynamical-phase level.**
+
+**Sharpening, not closure.** Part~VI's reframing does sharpen two
+things relevant to the Hopf question:
+
+1. The within-moment $\mathbb{R}P^3$ vs $\mathbb{C}P^1$ gap is now
+   unambiguously a *static-geometric* gap (the within-moment state
+   space is static under Part~VI), not a dynamical-symmetry gap.
+2. The tower-growth operator $A$ is unspecified. Whether $A$ has
+   continuous parameters that introduce $U(1)$ degrees of freedom
+   beyond the discrete propagator is open.
+
+Neither sharpening closes the gap.
+
+## Addendum: ruled-out candidate — decoherence as Hopf-coarsening
+selector
+
+A plausible-looking candidate, raised by Part~VI's quantitative
+refinement of cumulative decoherence to time-dependent
+$\varepsilon(N(t))$ saturating at $\varepsilon(217) = 6.11\%$
+(Part~VI~\S10.3, lines 897–965):
+
+> If sufficient decoherence selects a pointer basis, and that pointer
+> basis is $J$-paired (Hopf fibres), then the within-moment
+> projective state space *effectively* coarsens to $\mathbb{C}P^1$
+> at saturation.
+
+Direct reading of the cascade's decoherence rules out this
+candidate. Two reasons:
+
+### Reason 1: cascade decoherence is base/fibre, not J-pair
+
+Paper~II~\S8.5, line 1127–1131 makes the system/environment split
+explicit:
+
+| Standard decoherence | Cascade |
+|---|---|
+| System | Base state on $S^{d-1}$ |
+| Environment | Fibre coordinate $x$ |
+| Decoherence factor | $\exp(-\Delta x^2 (d+3)/4)$ |
+
+The decoherence factor depends only on **fibre-coordinate
+separation** $\Delta x$ (the radial-like direction integrated out
+at slicing step $d \to d-1$). For $\psi$ and $J\psi$ on
+$S^3 \subset S^4$ at $d=4$: both lie at the equator $x=0$, so
+$\Delta x = 0$ and the decoherence factor is $D(0) = 1$. **The
+cascade's decoherence does zero work between $J$-paired states**;
+they remain perfectly distinguishable.
+
+Sanity check: $J^T = -J$ implies $\psi \cdot J\psi = 0$, so $\psi$
+and $J\psi$ are orthogonal in $\mathbb{R}^4$. The cascade Born rule
+treats them as mutually exclusive measurement outcomes — exactly
+the opposite of identifying them as one Hopf fibre.
+
+### Reason 2: $\varepsilon(N)$ acts in layer-function space, not in
+the observer's state space
+
+Paper~0 Supplement Theorem~15.1 (line 38–46) defines the Gram
+matrix on cascade integrands $f_d(x) = (1-x^2)^{d/2}$, viewed as
+1D functions on $[-1, 1]$:
+\[
+G_{ij} = \langle f_{d_i}, f_{d_j}\rangle_{L^2[-1,1]}
+= B\!\left(\tfrac{1}{2}, \tfrac{d_i+d_j}{2}+1\right).
+\]
+The eigenvalue deficit $\varepsilon = 1 - \lambda_1/n$ measures the
+non-collinearity of the layer functions in $L^2[-1,1]$. **This is
+a classical geometric property of the cascade integrands, not a
+quantum decoherence operator acting on the observer's $S^3$.** It
+does not act on the J-pairing direction within $S^3$ at all, so it
+cannot select a pointer basis there.
+
+### Conclusion
+
+Both senses of "decoherence" in the cascade — per-step base/fibre
+tracing (Paper~II Thm `decoherence`) and cumulative layer-function
+eigenvalue deficit (Paper~0 Supp Thm `eigenvalue`) — are real
+cascade structures, but neither produces Hopf coarsening. The
+decoherence-pointer-basis candidate is ruled out, not merely open.
+
+The Hopf gap remains: cascade has dynamical $U(1)$ symmetry but
+only $\mathbb{Z}_2$ gauge equivalence, and no cascade-internal
+mechanism currently identified upgrades the gauge to $U(1)$. The
+Step~4 candidates of the original lemma attempt (frame-function
+uniqueness on the complex simplex, real-Born-rule inconsistency in
+dim$\geq 3$, compactification-radius forcing) remain open; the
+decoherence candidate is now closed-negative.
