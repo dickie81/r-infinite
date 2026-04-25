@@ -732,3 +732,72 @@ the right spinor structure (likely Clifford modules at each layer
 matching the layer's Clifford rep type) and the right boundary
 conditions at the observer.  This is a research-paper-scale project,
 not session-scale.
+
+### Route 7 — variational derivation with R-based compliance (reduces to Route 1)
+
+The third cascade-lattice approach: write a fermion action paralleling
+the scalar action's compliance form $S_s = \sum (1/(2\alpha))(\Delta\varphi)^2$.
+
+**Issue.**  Grassmann variables square to zero, so the fermion action
+cannot have a $(\Delta\psi)^2$ kinetic term — the action MUST be linear
+in each of $\bar\psi$ and $\psi$ separately:
+    S_f = sum_d bar(psi)_d M_d psi_d  +  (hopping)
+
+For per-layer (no hopping) Berezin:  Z(d) = M_d.
+
+**Test.** Tried various compliance / mass combinations:
+
+| beta(d) | m | Z = m/beta at d=5 | target R/2 | ratio |
+|---------|----|-------------------|-----------|-------|
+| R(d)    | chi=2 | 3.32 | 0.30 | 11.0 (wrong) |
+| 1       | R/2   | 0.30 | 0.30 | 1.00 (trivial) |
+| 4       | R^2   | 0.09 | 0.30 | 0.30 (wrong) |
+| R^2     | R/2   | 0.83 | 0.30 | 2.76 (wrong) |
+
+Only the trivial choice (m = R/2 directly) gives the target.
+
+**Conclusion.** Cascade-action variational derivation with R-based
+compliance REDUCES to the Phase 1.2 per-layer Berezin ansatz.  No new
+derivational content emerges from variational principles.
+
+### Phase 2 closing summary
+
+After 7 routes tried in this session arc:
+
+| Route | Approach | Result |
+|-------|----------|--------|
+| 0.3 | Jacobian sweep | NEGATIVE: forces $\alpha = 1/2$ |
+| 1.2a | Per-layer Berezin (m = R/2 ansatz) | works by construction |
+| 1.2b | Pool uniqueness | confirms R/2 unique in pool |
+| 4   | Mathai-Quillen Pfaffian | NEGATIVE: super-exp scaling |
+| 5   | Sphere projection / intersection | NEGATIVE: same scaling pathology |
+| 6   | Cascade-lattice Dirac via sqrt(L_s) | PARTIAL: 9% at d=5, drifts |
+| 7   | Variational with R-compliance | REDUCES to Route 1.2a ansatz |
+
+**Final assessment.**
+
+All seven routes either (a) reduce to the Phase 1.2 per-layer Berezin
+ansatz with $m(d) = R(d)/2 = \sqrt{\alpha(d)}$, (b) give a partial signal
+(Route 6, 9% at d=5), or (c) fail by scaling pathology (Routes 4, 5).
+
+The cascade fermion sector appears to be FUNDAMENTALLY PER-LAYER LOCAL.
+The fermion lapse $R(d)/2 = \sqrt{\alpha(d)}$ is natural at each layer
+because $\alpha(d) = R(d)^2/4$ is the scalar compliance and $\sqrt{\alpha}$
+is its natural square-root (Dirac vs Laplacian) analog.
+
+**Honest characterisation:** Clifford absorption is consistent with
+$m(d) = \sqrt{\alpha(d)}$ as a per-layer Berezin ansatz, but is NOT
+derived from a deeper cascade-action principle.  The "consistency"
+status is robust — multiple independent constructions converge on the
+same value — but "derivation" status remains open.
+
+This is the closing state of the Phase 1.2 / 2 investigation arc.
+A future Part IVc would either:
+(a) Accept the per-layer Berezin ansatz as the cascade's natural
+    fermion construction (consistent, not derived).
+(b) Find a fundamentally different framework -- perhaps not in
+    cascade-lattice geometry at all -- that derives $m = R/2$
+    from first principles.
+
+Option (a) is honest if labelled as ansatz.  Option (b) requires
+work outside the scope of session-level investigations.
