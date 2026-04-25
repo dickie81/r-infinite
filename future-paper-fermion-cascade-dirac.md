@@ -634,3 +634,101 @@ The remaining viable routes for Clifford absorption are all
 cascade-LATTICE constructions (1D in the layer index d), with
 sphere geometry entering only via Theorem 4.14's chirality halving
 (Poincare-Hopf forcing chi = 2 at every Dirac layer).
+
+### Route 6 — cascade-lattice Dirac operator (partial signal, not a derivation)
+
+The most plausible cascade-lattice route from the Route 4/5 negative
+results: discrete Dirac operator on the layer index d, square-root
+of the cascade scalar Laplacian $L_s = \sum_d (1/(2\alpha(d)))(\Delta\varphi)^2$.
+
+**Setup.**  Semi-infinite chain d = 4..D_max with Dirichlet boundary
+at observer (phi(4) = 0).  Scalar action gives a tridiagonal
+positive-definite Laplacian $L_s$ with off-diagonal entries
+$-1/\alpha(d)$.  Take matrix square root $D_f = L_s^{1/2}$ and invert
+to get fermion Green's function $G_f$.  Read $G_f$'s diagonal at
+Dirac layers and compare to $R(d)/2$.
+
+**Result.**
+
+  d   |  R(d)/2   |  G_f(d,d)  |  ratio
+  -----|-----------|------------|--------
+  5    |  0.30090  |  0.27291   |  0.907  (9% match)
+  7    |  0.25792  |  0.33071   |  1.282
+  13   |  0.19238  |  0.31751   |  1.650
+  21   |  0.15248  |  0.28020   |  1.838
+
+**Interpretation.**  At d=5 (the observer-adjacent Dirac layer), the
+cascade-lattice Dirac via sqrt(L_s) comes within 9% of R(d)/2.  This
+is the FIRST positive signal in this entire Phase 2 investigation
+that the cascade-lattice framework has any quantitative relationship
+to the cascade fermion lapse.
+
+But the match drifts away at higher d.  The ratio grows monotonically
+and approaches a value around 2 at large d.  This is not a clean
+derivation; it's an asymptotic mismatch that probably reflects either:
+- Wrong boundary conditions at d=4 (observer).
+- Missing curved-metric corrections in the discrete Laplacian.
+- The matrix sqrt is the wrong "fermion Green's function" -- the
+  proper cascade-lattice Dirac operator might require explicit spinor
+  structure beyond what the matrix sqrt gives.
+
+**What this means for Clifford absorption.**
+
+(a) The Phase 1.2 per-layer Berezin construction (mass m(d) = R(d)/2,
+    no inter-layer hopping) is the simplest cascade-lattice Dirac
+    that gives R(d)/2 cleanly.  But it's per-layer LOCAL, not really
+    a 1D lattice with coupling.
+
+(b) Adding inter-layer hopping via the cascade scalar Laplacian and
+    taking sqrt gives a partial signal (9% at d=5) but drifts at
+    higher d.  Not a clean derivation.
+
+(c) The cascade fermion sector therefore appears to be fundamentally
+    PER-LAYER LOCAL, with the layer mass m(d) = R(d)/2 set by the
+    cascade-recurrence coefficient (not by a Dirac operator's spectral
+    structure on a layer-coupled lattice).
+
+This is consistent with the Phase 1.2 result: the cascade fermion
+lapse is just the cascade scalar lapse halved by chirality, with
+the chirality halving derived from Theorem 4.14 (Poincare-Hopf on
+S^{d-1} via Morse decomposition) and the R(d) factor inherited from
+the per-step slicing recurrence.
+
+**Net Phase 2 finding.**  The most rigorous interpretation of
+'cascade Dirac operator on the lattice':
+
+  Z_f(d) = m(d) = R(d)/2 = sqrt(alpha(d))
+
+with NO inter-layer hopping.  The "Dirac operator" reduces to a
+per-layer mass term in the Berezin partition function, not a true
+operator on a layer-coupled chain.
+
+Whether this counts as a "derivation" of Clifford absorption is
+debatable: the per-layer mass m = R(d)/2 is consistent with the
+cascade scalar lapse R(d) divided by chi = 2, but the SPECIFIC FORM
+"per-layer Berezin partition function" is an ansatz that gives the
+right answer rather than being forced from a deeper principle.
+
+**Honest summary of all routes tried.**
+
+| Route | Geometry | Result |
+|-------|----------|--------|
+| 0.3 Jacobian sweep | axial measure on $[-1,1]$ | NEGATIVE: only $\alpha = 1/2$ gives constancy |
+| 1.2a Berezin partition | per-layer Grassmann | gives R(d)/2 by construction (ansatz) |
+| 1.2b Pool uniqueness | cascade-native pool | confirms R(d)/2 unique in pool |
+| 1.2c Correction-family Berezin | $\alpha = g^2/\Omega_2$ | restatement, no derivation |
+| 4 Mathai-Quillen Pfaffian | sphere bundle on S^{2n} | NEGATIVE: super-exponential vs polynomial |
+| 5 Sphere projection | observer R^4 cutting S^{d-1} | NEGATIVE: same scaling pathology |
+| 6 Cascade-lattice Dirac (sqrt) | 1D in layer d, sqrt(L_s) | PARTIAL: 9% match at d=5, drifts |
+
+**Conclusion.**  After this extensive Phase 2 investigation,
+Clifford absorption remains an open problem.  The closest derivations:
+- Per-layer Berezin (ansatz with right answer).
+- Cascade-lattice Dirac via sqrt of scalar Laplacian (partial signal,
+  9% match at observer-adjacent layer, drifts).
+
+A full derivation would need a CASCADE-LATTICE Dirac operator with
+the right spinor structure (likely Clifford modules at each layer
+matching the layer's Clifford rep type) and the right boundary
+conditions at the observer.  This is a research-paper-scale project,
+not session-scale.
