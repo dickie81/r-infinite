@@ -292,3 +292,105 @@ Falling back is clean: the tool's negative result on the round-sphere route is d
 Closing this derivation would move the cascade's charged-fermion mass spectrum from "seven precision predictions anchored to one asserted factor" to "seven precision predictions derived end-to-end from the cascade action". It would also make `C = alpha_s / (2 sqrt(pi))` a **theorem**, not a match.
 
 In epistemic terms: the charged-fermion mass sector is currently the largest remaining "asserted pending cascade-action derivation" load in Part IVb. Closing it would leave the cascade's precision predictions free of any non-derived ingredients — the last major structural item after the audit's hardening pass.
+
+## Phase 1.2 review session: what Route 3 (slicing-Jacobian) yielded
+
+A focused investigation in this session attempted to make Route 3
+(slicing-Jacobian fermion integral) into a derivation rather than a
+restatement.  The findings:
+
+### What was tried
+
+1. **Pure axial-measure modification** (Phase 0.3, commit `8dc8b7a`).
+   Sweep Beta integrals $2 B(\alpha, (d+1)/2)$ for $\alpha$ in a range and
+   look for a value that simultaneously gives (a) $d$-independence of the
+   ratio to $R(d)/2$ and (b) the target value 1.  Result: only
+   $\alpha = 1/2$ (the scalar case) preserves $d$-independence; no other
+   value matches the target.  The simplest Jacobian reformulation is
+   ruled out.
+
+2. **Berezin partition function with cascade-natural mass** (commit
+   `9560453`).  Set $m(d) = \sqrt{\alpha(d)} = R(d)/2$ from the standard
+   Yukawa structure $m \sim \sqrt{\alpha} \cdot v$ with $v \equiv 1$.
+   The Berezin integral $Z_f = m$ then gives $Z_f/Z_s = (R/2)/(\sqrt{\pi}R)
+   = 1/(2\sqrt{\pi})$ exactly.  This is **structurally consistent** but
+   **circular as a derivation**: $m = R/2$ was selected because it gives
+   the target $1/(2\sqrt{\pi})$, not because cascade structure forces it.
+
+3. **Pool-level uniqueness** (commit `9ec0f59`).  Among single-layer
+   cascade-native masses $m(d) = C \cdot R(d)^k$ with $C$ a constant
+   built from cascade primitives $\{\text{integers}, \chi, N(0), \pi,
+   \sqrt{\pi}, \Omega_2\}$, only $m = R/2$ satisfies (a) $d$-independence
+   and (b) the target.  This proves uniqueness *within the chosen pool*
+   but does not prove the answer must be in this pool.
+
+4. **Grassmann splits of $(1-x^2) = (1-x)(1+x)$.**  Test natural chirality-
+   projected integrals such as $\int_{-1}^1 (1-x)^{(d-1)/2}\,dx =
+   2^{(d+3)/2}/(d+1)$ and $\int_0^1 (1-x)^{(d-1)/2}\,dx = 2/(d+1)$.
+   None of these give $R(d)/2$ in closed form; they have the wrong
+   $d$-dependence.
+
+### What Route 3 honestly achieves
+
+The Berezin partition function reading (item 2 above) provides a
+**structural reformulation** of the Clifford-absorption conjecture from
+"why does the spin connection absorb $\sqrt{\pi}$?" to "why is the
+cascade Dirac mass $m(d) = \sqrt{\alpha(d)}$?".  The latter is more
+standard gauge-theoretic language, and it makes explicit that the
+absorption is the standard Berezin-vs-Gaussian normalisation difference
+in path integrals.
+
+But this reformulation does **not** derive $m = \sqrt{\alpha}$ from
+cascade-internal first principles.  It identifies $\sqrt{\alpha} = R/2$
+as a cascade-natural quantity (it is the gauge coupling's amplitude in
+Part IVa's normalisation $\alpha = N^2/\Omega_2$), and notes that
+choosing this for the Dirac mass produces the right $1/(2\sqrt{\pi})$
+ratio.  The question reduces to whether the cascade's Berezin action
+has $m = \sqrt{\alpha}$ *forced* (e.g., by gauge-Yukawa structure with a
+specific scalar VEV normalisation), or whether $m$ is a free choice
+fitted to observation.
+
+### What remains structurally open
+
+The status of Clifford absorption after Phase 1.2:
+
+- The chirality halving $1/\chi$ is a derived theorem (Theorem 4.14,
+  chirality factorisation via Poincaré–Hopf on $S^{2n}$).
+- The Jacobian half $1/\sqrt{\pi}$ is consistent with several cascade-
+  native readings (Berezin, gauge Yukawa, slicing-measure analysis) but
+  not derived from any of them.
+- The naive sphere-Dirac spectral zeta has been numerically falsified.
+- The Wyler bounded-symmetric-domain route has known topology mismatches.
+- The slicing-Jacobian route has been ruled out as a measure modification.
+
+Genuinely open paths that have not yet been tried:
+
+- **Cascade-action heat-kernel computation** for a Dirac field on the
+  cascade lattice: compute $\det(D_{\rm lat})/\det(\Box)$ explicitly and
+  check if the ratio reduces to $1/(2\sqrt{\pi})^{n_D}$ at Dirac layers
+  by structural identities of the lattice Laplacian.
+- **APS index theorem on $B^d$ with boundary $S^{d-1}$**: the boundary
+  $\eta$-invariant might encode the $1/\sqrt{\pi}$ as a cascade-native
+  spectral asymmetry.  For the round $S^{d-1}$ with the standard Dirac
+  operator, the $\eta$-invariant vanishes by symmetry, but a *cascade-
+  modified* Dirac operator coupled to the slicing connection might give
+  a non-zero $\eta$ that reproduces the target.
+- **Direct gauge-Yukawa derivation**: in a fully cascade-derived gauge
+  theory, the Yukawa coupling for fermion mass is forced by the
+  cascade's specific gauge-fixing.  Compute the coupling explicitly and
+  check whether $m = \sqrt{\alpha}$ falls out (rather than being a
+  manual choice).
+
+### Honest summary
+
+The Phase 1.2 review session moved one half of the Clifford absorption
+factor from "asserted" to "derived" (the chirality factor $1/\chi$, via
+Theorem 4.14).  The remaining half ($1/\sqrt{\pi}$) is now best framed
+as **"the cascade's Dirac mass is $\sqrt{\alpha(d)}$ in the cascade-
+natural normalisation"** — a more concrete and tractable open question
+than the original "why $\sqrt{\pi}$ absorption" framing, but still
+genuinely open.
+
+The seven Part IVb precision closures rest on this asserted half plus
+the asserted Yukawa-mass identification.  Closing them analytically
+remains the largest open structural item in the cascade series.
