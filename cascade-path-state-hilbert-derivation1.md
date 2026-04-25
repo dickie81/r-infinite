@@ -308,3 +308,74 @@ becomes a genuine alternative formulation of Parts II and III.
 This is the cleanest forward path the session has identified.
 Whether it fully closes the framework's gaps remains to be seen,
 but it's a real partial result rather than a speculation.
+
+## Follow-up 1 result: Born rule from $U(1)$-gauge-invariance + Cauchy
+
+The cascade-internal argument for the QM Born rule under Reading G
+runs as follows:
+
+1. **State**: $\psi \in \mathbb{C}^n$ with $\sum |c_i|^2 = 1$, where
+   $c_i = \langle e_i, \psi\rangle$ in some measurement basis
+   $\{e_i\}$.
+
+2. **Outcome locality** (assumption): probability of outcome $i$
+   depends only on $c_i$, not on other components:
+   $P(e_i\mid\psi) = f(c_i)$ for some $f:\mathbb{C}\to[0,1]$.
+
+3. **$U(1)$ gauge invariance** (cascade-internal under Reading G):
+   $\psi \sim e^{i\phi}\psi$, hence $f(e^{i\phi}c) = f(c)$. Therefore
+   $f(c) = g(|c|^2)$ for some $g:[0,1]\to[0,1]$.
+
+4. **Sum-to-1 on simplex**: $\sum_i g(|c_i|^2) = 1$ on
+   $\sum |c_i|^2 = 1$. Equivalently, $\sum_i g(x_i) = 1$ on the real
+   simplex with $x_i = |c_i|^2$.
+
+5. **Cauchy uniqueness for $n \geq 3$**: pick simplex points
+   $(x, y, 1-x-y, 0,\ldots,0)$ and $(x+y, 1-x-y, 0,\ldots,0)$. Both
+   have sum = 1, so
+   $$g(x) + g(y) - g(x+y) - g(0) = 0.$$
+   Setting $y = 0$ forces $g(0) = 0$. Then $g$ is Cauchy-additive,
+   continuity gives $g(x) = \lambda x$, normalisation $g(1) = 1$
+   gives $\lambda = 1$.
+   **Therefore $g(x) = x$ uniquely, recovering the QM Born rule
+   $P = |c_i|^2$.**
+
+6. **Failure at $n = 2$**: the constraint $g(x) + g(1-x) = 1$ alone
+   admits many continuous solutions. This is the same dim-$2$ gap
+   Gleason's theorem encounters; closure requires compositionality
+   with higher-dim systems.
+
+The numerical verifier
+`tools/verifiers/cascade_path_state_born_rule.py` confirms (5) and
+(6) by exhibiting non-Born candidates that satisfy the $n=2$
+constraint but fail at $n \geq 3$:
+
+```
+n = 2: g(x) = x  satisfies (Born)
+       g(x) = (1 - cos(pi x))/2  satisfies (NOT Born)
+       g(x) = 3x^2 - 2x^3  satisfies (NOT Born)
+
+n = 3: only g(x) = x satisfies; non-Born candidates fail by 22-73%.
+
+n = 4: only g(x) = x satisfies; non-Born candidates fail by 37-99%.
+```
+
+**Result**: the QM Born rule is forced cascade-internally for path
+states of effective Hilbert dim $\geq 3$. The dim-$2$ gap (qubits)
+is real and matches Gleason's; closure requires composition with
+the rest of the cascade tower.
+
+This is **genuine partial closure of the Hopf gap** under Option 2:
+the cascade's $J$-generated $U(1)$, treated as a gauge equivalence,
+forces the QM Born rule for any cascade observable that effectively
+involves at least 3 dimensions. Single-qubit observables remain
+under-determined by single-system Cauchy, exactly as in standard
+QM.
+
+For the cascade specifically: paths through any gauge layer
+($d=12, 13, 14$) carry representations of dim $\geq 2$. Composite
+systems traversing two or more gauge layers reach dim $\geq 3$
+trivially, where the Born rule is forced. So the cascade's matter
+content (quarks at dim 3, electroweak doublets at dim 2 ⊗ dim 2,
+etc.) lives entirely in the dim-$\geq 3$ regime where Reading G's
+Born rule is uniquely the QM one.
