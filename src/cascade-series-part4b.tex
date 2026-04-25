@@ -163,8 +163,26 @@ square-root of the cascade scalar Laplacian, and variational with $R$-based
 compliance; see Open Question~\ref{oq:fermion-cascade-action} for the failure
 analysis of the contrasting sphere-bundle constructions).  Under austerity, the
 recurrence-native reading is the preferred framing: it derives the same number
-without importing structure stronger than the cascade requires.  The remaining
-open problem (formal uniqueness of $m = \sqrt{\alpha}$ from the cascade-action
+without importing structure stronger than the cascade requires.
+
+\medskip
+\noindent\emph{Power-uniqueness of $k = 1/2$ within the cascade's per-layer scale.}
+A stronger statement holds: among monomial-in-$\alpha$ Berezin candidates
+$Z_f(d) = \alpha(d)^k$, the power $k = 1/2$ is uniquely selected by
+d-independence of $Z_f/Z_s$.  Using $Z_s(d) = N(d) = 2\sqrt{\pi}\,\sqrt{\alpha(d)}$
+(cascade scalar identity, Part~IVb Remark~4.1), the ratio is
+$Z_f/Z_s = \alpha^{k-1/2}/(2\sqrt{\pi})$.  d-independence forces $k = 1/2$
+exactly.  Verified numerically across $k\in[-1, 2]$ at four Dirac layers in
+\texttt{tools/verifiers/cascade\_native\_clifford\_absorption.py}: only $k = 1/2$
+gives coefficient of variation $0\%$; every other power produces CV $\geq 3\%$.
+Combined with austerity (clause~i: no scale beyond $\alpha(d)$), this forces
+$Z_f(d) = \sqrt{\alpha(d)} = R(d)/2$ from cascade-internal data alone, modulo
+the formal proof that ``cascade-native fermion partition function'' is
+exhausted by the monomial-in-$\alpha$ pool.  The remaining open problem
+(Open Question~\ref{oq:fermion-cascade-action}) is therefore a proof of
+\emph{pool exhaustivity}, not a derivation of the value $\sqrt{\alpha}$ itself.
+
+The remaining open problem (formal uniqueness of $m = \sqrt{\alpha}$ from the cascade-action
 alone) is now in cascade-internal language, not sphere-bundle language.
 
 The geometric coupling $R(d)$, which depends on the radial structure of the
