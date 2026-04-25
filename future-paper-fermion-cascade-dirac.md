@@ -585,3 +585,52 @@ in $d$, so any sphere-bundle construction whose characteristic scale
 decays super-exponentially CANNOT be the right object.  Future work
 should focus on cascade-lattice (1D in $d$) constructions, not sphere
 fibre constructions.
+
+### Route 5 — projection/intersection picture (negative result, reinforces structural observation)
+
+A reviewer asked: are we taking seriously the cover-sheet picture that
+all higher-d spheres sit in the cascade tower, and the observer at d=4
+experiences each via projection / intersection onto a fixed R^4?
+
+**Test.**  Computed several projection-motivated candidate measures
+that the observer's 4D slice extracts from S^{d-1}:
+
+  (1) Omega_{d-1} / (Omega_3 * Omega_{d-5}): codimension-(d-4)
+      transverse measure ratio.
+  (2) Marginal projection density at origin of R^4.
+  (3) Tube-around-S^3 fraction.
+  (4) Equatorial cross-section ratio Omega_{d-2}/Omega_{d-1}.
+  (5) Density just inside observer's S^3 boundary.
+
+Compared to R(d)/2 at d in {5, 13, 21, 29}.
+
+**Result.**  Same scaling pathology as Routes 4 and sphere-Dirac
+alternative (A): all sphere-geometry quantities decay super-exponentially
+(via Omega_{d-k} factors), while R(d)/2 decays polynomially.
+
+**Asymptotic confirmation:** R(d) approx sqrt(2/d) for large d.  This
+is the slowest possible decay for any cascade-native Gamma-function
+ratio.  It comes from R(d) = Gamma((d+1)/2)/Gamma((d+2)/2) being a
+ratio of CONSECUTIVE half-integer Gamma values that mostly cancel.
+Sphere volumes Omega_d ~ (2 pi e/d)^{d/2} cannot match.
+
+### Reinforced structural observation
+
+The cascade fermion lapse R(d)/2 is a SLICING-RECURRENCE coefficient
+(per-step compression in the cascade's 1D descent from d to d-1,
+halved by chirality), not a sphere-geometry quantity.
+
+The cover-sheet picture (each higher-d sphere sits in the tower; the
+observer slices through) is geometrically correct but does not
+provide the numerics for the fermion lapse.  The numbers come from
+the slicing recurrence, not from projection.
+
+This rules out a SECOND class of geometric routes (projection,
+intersection, codimension transverse measures) by the same scaling
+argument that ruled out Route 4 (Mathai-Quillen) and the original
+sphere-Dirac alternative (A).
+
+The remaining viable routes for Clifford absorption are all
+cascade-LATTICE constructions (1D in the layer index d), with
+sphere geometry entering only via Theorem 4.14's chirality halving
+(Poincare-Hopf forcing chi = 2 at every Dirac layer).
