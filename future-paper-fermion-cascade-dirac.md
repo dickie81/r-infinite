@@ -394,3 +394,120 @@ genuinely open.
 The seven Part IVb precision closures rest on this asserted half plus
 the asserted Yukawa-mass identification.  Closing them analytically
 remains the largest open structural item in the cascade series.
+
+## Route 4: Mathai-Quillen Pfaffian (the hairy-ball / Dirac interplay)
+
+A reviewer flagged that the Phase 1.2 Berezin investigation may have
+neglected the genuine geometric interplay between the hairy ball
+theorem and the Dirac operator.  This proposal documents the missed
+connection and proposes a concrete research direction.
+
+### What Part IVb already uses (under different names)
+
+Theorem 4.14 (chirality factorisation) derives $1/\chi = 1/2$ from the
+$\mathbb{Z}_2$ symmetry of the Morse height function on $S^{2n}$.  The
+two zeros of the height-function gradient (poles) correspond to two
+chirality basins.  Selecting one definite-chirality propagator selects
+one zero — exactly the hairy-ball-zero structure with indices summing
+to $\chi(S^{2n}) = 2$.
+
+So the chirality half $1/\chi$ IS already a hairy-ball-Dirac
+interplay; it's just not labelled with the standard differential-
+geometric vocabulary.
+
+### What Part IVb has NOT used
+
+The **Mathai-Quillen Pfaffian formula** representing the Euler class
+as a Berezin integral:
+
+$$
+e(TS^{2n}) = \frac{1}{(2\pi)^n}\,\text{Pf}(R)
+           = \int [d\bar\psi\,d\psi]\, \exp\!\Big(\!-\tfrac{1}{2}\bar\psi\, R\,\psi\Big)
+$$
+
+This is the exact geometric link between hairy balls and Berezin
+integration.  The $(2\pi)^n$ prefactor is a Gaussian normalisation
+on the rank-$2n$ tangent fibre.  Integrated against the slicing vector
+field's Thom form, the Pfaffian formula localises to neighbourhoods of
+the vector field's zeros (poles), each contributing $+1$, summing to
+$\chi = 2$.
+
+The $1/(2\pi)^n$ factor is **the structural source of $\sqrt{\pi}^?$ in
+the spinor sector**.  When the Gaussian neighbourhood around a zero
+is integrated out, the $(2\pi)^n$ cancels the prefactor.  When the
+integration domain is a CROSS-SECTION rather than the full Gaussian,
+the cancellation is partial, leaving a $\sqrt{\pi}^?$ residue.
+
+### The concrete proposal
+
+Compute, for $S^{2n}$ at Dirac layer $d = 2n+1$:
+
+$$
+\mathcal{F}(d) := \int_{\text{cross-section}} U_{MQ}(\nabla h)
+$$
+
+where:
+- $\nabla h$ is the gradient of the slicing height function $h: S^{2n}
+  \to [-1, 1]$,
+- $U_{MQ}(\nabla h)$ is the Mathai-Quillen Thom form for this vector
+  field,
+- "cross-section" is the equatorial $S^{2n-1}$ at $x = 0$ (where the
+  vector field has maximal magnitude, halfway between the two zeros).
+
+Test whether $\mathcal{F}(d) = R(d)/2$ for $d \in \{5, 13, 21, 29\}$.
+
+If yes: the cascade fermion lapse is the Mathai-Quillen Thom form
+restricted to the slicing equator.  This would close the Clifford
+absorption conjecture at the level of the FERMION SECTOR, with the
+$1/(2\sqrt{\pi})$ factor arising from:
+- $1/\chi = 1/2$ from selecting one chirality basin (Theorem 4.14);
+- $1/\sqrt{\pi}$ from the Gaussian residue when integrating the Thom
+  form over only the equatorial cross-section instead of a full
+  Gaussian neighbourhood of one pole.
+
+### Why this is genuinely new
+
+The Phase 1.2 investigation tested:
+1. Axial-measure modifications (Phase 0.3) — ruled out.
+2. Sphere-Dirac spectral zeta — ruled out.
+3. Berezin partition function with fitted $m = R/2$ — circular.
+4. Grassmann splits of $(1-x^2) = (1-x)(1+x)$ — wrong $d$-dependence.
+
+None of these invoked the Mathai-Quillen Thom form, which is THE
+canonical Berezin representation of the Euler class.  The Thom-form
+calculation has not been carried out.
+
+### Why it might fail
+
+The Mathai-Quillen Thom form is naturally ASSOCIATED with the full
+Gaussian neighbourhood of a vector-field zero, not with an equatorial
+cross-section.  The equatorial restriction is a CHOICE (perhaps
+cascade-native, perhaps not).  If the cascade's natural "evaluation
+point" for the Thom form is something else, the calculation will give
+something else.
+
+The simple Euler-class density $\chi/\Omega_{2n} = 2/\Omega_{2n}$ is
+not proportional to $R(d)/2$ (numerical check above).  A specific
+derivation requires choosing the right Thom form and the right
+restriction, both of which need to be cascade-forced rather than
+hand-picked.
+
+### Minimum work to test
+
+1. Write down $U_{MQ}(\nabla h)$ on $S^{2n}$ in explicit coordinates
+   (axial $x \in [-1, 1]$ + equatorial spherical).
+2. Restrict to the equator $x = 0$ and integrate over remaining
+   spherical coordinates.
+3. Express the result as a closed-form Gamma-function expression.
+4. Compare to $R(d)/2$ at $d = 5, 13, 21, 29$.
+
+This is a few-day calculation in standard differential geometry, not
+a research-paper project per se.  It either yields the answer or it
+doesn't.
+
+### Status
+
+This route has not been explored in the cascade series and was not
+covered by the Phase 1.2 Berezin investigation.  Reviewer flagged it
+during the Phase 1.2 critique session.  Tracked here for whoever
+takes up Part IVc next.
