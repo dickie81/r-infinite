@@ -511,3 +511,77 @@ This route has not been explored in the cascade series and was not
 covered by the Phase 1.2 Berezin investigation.  Reviewer flagged it
 during the Phase 1.2 critique session.  Tracked here for whoever
 takes up Part IVc next.
+
+### Route 4 — first numerical test (negative result, informative)
+
+A minimal numerical test of the Mathai-Quillen route on $S^4$ (d=5)
+through $S^{28}$ (d=29) was carried out at the smallest incremental
+scope: integrate eight different MQ-motivated candidate forms
+involving the $(2\pi)^n$ Pfaffian prefactor against cascade-native
+slicing measures, and compare to $R(d)/2$.
+
+**Result.** All eight candidates fail the constancy test with
+coefficient of variation $\approx 173\%$ across the four Dirac layers.
+The $(2\pi)^n$ prefactor decays super-exponentially in $n = (d-1)/2$,
+while $R(d)/2 \sim 1/\sqrt{d}$ decays polynomially.  No
+$d$-independent constant can rescue any of the candidates.
+
+**This is the SAME scaling pathology as the sphere-Dirac alternative
+(A) above.**  Both Route 4 (Mathai-Quillen) and the sphere-Dirac
+route invoke sphere-bundle structures whose natural normalisations
+involve $(2\pi)^n$ or sphere volumes that decay super-exponentially in
+$d$.  The cascade fermion lapse $R(d)/2$ does not.
+
+### Structural observation
+
+The cascade fermion sector is NOT a sphere-bundle construction.
+
+The cascade is fundamentally a 1-dimensional CASCADE LATTICE in
+dimension $d$, with per-step compression coefficient $R(d)$ that
+decays polynomially as $\sqrt{2/d}$ asymptotically.  Sphere-bundle
+constructions (Pfaffians, MQ Thom forms, Dirac spectral zetas) live
+in the sphere geometry $S^{d-1}$ and have super-exponentially decaying
+characteristic scales.  These are structurally incompatible scaling
+regimes.
+
+The fermion lapse $R(d)/2$ is the cascade's per-step compression
+coefficient $R(d)$ multiplied by the chirality-halving factor $1/\chi$
+from Theorem 4.14.  Both factors are CASCADE-LATTICE objects:
+- $R(d)$ from the slicing recurrence (Part 0 §3),
+- $1/\chi$ from chirality basin selection at each Dirac layer (Thm 4.14).
+
+The sphere structure $S^{d-1}$ enters only to FORCE $\chi(S^{2n}) = 2$
+via Poincaré-Hopf, not to provide a geometric scale.  The cascade
+fermion sector lives in the cascade's own 1D recurrence geometry,
+not in the sphere bundle.
+
+### Implication for Part IVc
+
+Routes that should NOT be pursued (all fail super-exponential vs
+polynomial scaling test):
+- Sphere-Dirac spectral zeta on $S^{2n}$.
+- Mathai-Quillen Thom form on $S^{2n}$, simple restrictions.
+- Wyler-type bounded-symmetric-domain volume ratios with a single
+  power of the Pfaffian normalisation.
+
+Routes that remain plausible (they live in the cascade lattice, not
+the sphere bundle):
+- Discrete Dirac operator on the cascade-LATTICE (1D in $d$), with
+  spin connection coupling adjacent layers.  This is fundamentally a
+  Berezin integration on the layer index, not on a sphere fibre.
+- Berezin partition function with mass $m(d) = R(d)/2$ where $R(d)$
+  is treated as a layer-local cascade quantity (Phase 1.2 step 1
+  result, commit 9560453).
+- Cascade-action variational derivation where the fermion field's
+  propagator emerges from a quadratic action whose compliance is
+  $R(d)$, paralleling the scalar action $S = \sum (2\alpha)^{-1} (\Delta\varphi)^2$
+  with $\alpha = R^2/4$ (Part IVb Remark 4.6, action principle).
+
+### Net effect of Route 4 investigation
+
+Negative result, but with a structural observation that constrains
+future Part IVc work: the cascade fermion lapse decays polynomially
+in $d$, so any sphere-bundle construction whose characteristic scale
+decays super-exponentially CANNOT be the right object.  Future work
+should focus on cascade-lattice (1D in $d$) constructions, not sphere
+fibre constructions.
