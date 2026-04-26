@@ -282,19 +282,66 @@ $d_0$) and (b) primitivity ($c$ is a recurrence constant).
 \end{theorem}
 
 \begin{proof}
-\emph{Exhaustiveness of the enumeration.} A scalar $s$ is ``derivable from
-$d_0$'' iff it is expressible as an analytic function of (i)~the values of
-$p$ and its decomposition at $d_0$, (ii)~the higher derivatives $p^{(n)}(d_0)$,
-(iii)~the integer $d_0$ itself, or (iv)~the recurrence's primitive
-$\sqrt{\pi}$ (equivalently $c_1 = \tfrac{1}{2}\ln\pi$ in log-space). The
-quadruple $((p,q,\text{const.}),\,(p^{(n)}),\,d_0,\,\sqrt{\pi})$ is the
-\emph{complete input} available to any cascade-internal construction at
-$d_0$: no other cascade object is defined without additional data
-(Theorem~\ref{thm:irred} identifies $\sqrt{\pi}$ as the recurrence's unique
-primitive; Corollary~\ref{cor:primary} identifies sphere areas as the
-unique independent cascade quantities, and their values at~$d_0$ reduce to
-(i) and (iv)). These four sources partition the input; the four classes
-below exhaust them.
+\emph{Cascade-internal scalars at $d_0$ have the form $F(\sqrt{\pi}, d_0)$.}
+By Theorem~\ref{thm:irred}, the slicing recurrence has a unique
+nontrivial constant, $\sqrt{\pi}$. By Corollary~\ref{cor:primary}, sphere
+area is the unique independent cascade quantity at each level, with
+explicit closed form $\Omega_d = 2\pi^{(d+1)/2}/\Gamma((d+1)/2)$ --- an
+analytic function of $\sqrt{\pi}$ and the integer~$d$. Every derived
+cascade quantity inherits this dependence:
+the volume $V_d = \Omega_{d-1}/d$ (Theorem~\ref{thm:boundary});
+the Beta ratio $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$;
+the decay rate $p(d) = -\tfrac{1}{2}\ln\pi + \tfrac{1}{2}\psi((d+1)/2)$
+together with its polygamma derivatives $p^{(n)}(d)$;
+the effective slicing radius $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$
+(Theorem~\ref{thm:reff}). Each is an analytic function of $\sqrt{\pi}$
+and~$d$. Sphere areas and derived quantities at integer-offset
+dimensions $d_0 + k$ ($k\in\mathbb{Z}$) are analytic functions of
+$\sqrt{\pi}$ and $d_0$ obtained by integer arithmetic on the dimension
+label. Integer arithmetic on $d_0$ is structural rather than imported:
+the slicing recurrence advances the dimension by $\pm 1$ per
+application, so the orbit of $d_0$ under iteration of the recurrence
+is exactly the integer lattice $\{d_0 + k : k\in\mathbb{Z}\}$, and any
+$\Omega_{d_0+k}$ is reachable from $\Omega_{d_0}$ by $|k|$ recurrence
+steps. Polynomial expressions in $d_0$ ($d_0+k$, $2d_0$, $d_0^2$,
+etc.) are integer labels obtained by composing this stepping with the
+data $d_0$ itself; the dimension label's arithmetic is the
+recurrence's own discrete time, not an additional admissible
+operation. The algebra of cascade-internal scalars derivable at $d_0$
+is the closure of these primitives under analytic combination, hence
+consists of analytic functions $F(\sqrt{\pi}, d_0)$.
+
+\emph{Primitivity excludes $d_0$-dependence.} Criterion~(b) (``$c$ is a
+recurrence constant'') is, by Definition~\ref{def:canonical} below,
+the requirement that $c$ appear as the dimension-independent
+multiplicative factor in a canonical form of the first-order
+recurrence. Equivalently: $c$ does not depend on the integer label
+$d$. A scalar $s = F(\sqrt{\pi}, d_0)$ for which $F$ depends nontrivially
+on $d_0$ therefore fails~(b) by definition, even if $F$ evaluates to a
+$d_0$-free numerical value at the specific dimension~$d_0$ (the same
+expression at a different dimension would give a different value, so
+the dimension is load-bearing in the construction). Primitive
+candidates are restricted to functions $F$ independent of $d_0$ ---
+i.e., to the sub-algebra of analytic functions $F(\sqrt{\pi})$ alone.
+
+\emph{The four classes are an exhaustive source enumeration.} Within
+the algebra of cascade-internal scalars at $d_0$, candidate primitives
+arise from four natural sources, distinguished by which atomic input
+the candidate is built from:
+(i)~values of $p$ and its constant--variable decomposition at $d_0$;
+(ii)~higher derivatives $p^{(n)}(d_0)$ for $n\geq 1$;
+(iii)~the dimension label $d_0$ itself;
+(iv)~functions of the primitive $\sqrt{\pi}$ alone (equivalently
+$c_1 = \tfrac{1}{2}\ln\pi$ in log-space).
+Sources~(i)--(iii) all introduce $d_0$-dependence into the candidate
+expression and are excluded by the primitivity argument above; we
+verify each below as a redundancy check, since some sources produce
+$d_0$-independent \emph{values} despite being built from $d_0$-dependent
+\emph{expressions} (e.g.\ $q(d_0) = \tfrac{1}{2}\ln\pi$ in
+Class~1) and the verification identifies which of these values
+coincide with~$c_1$. Source~(iv) is the only one intrinsically
+independent of $d_0$, and the Class~4 analysis below shows only the
+identity $f(\sqrt{\pi}) = \sqrt{\pi}$ produces a primitive.
 
 \emph{Class~1: Values of $p$ and its decomposition at $d_0$.} The zero
 gives three scalars: $p(d_0) = 0$, the $d$-dependent part
@@ -336,8 +383,11 @@ scalars built from the derived cascade geometry at $d_0$:
 $R(d_0)$, the area ratio $\Omega_{d_0-1}/\Omega_{d_0+1}$, the Stirling
 expression $2\pi e^{2\sqrt{\pi}}$ (appearing in Theorem~\ref{thm:invariant}
 below), and the downstream primitive $2\sqrt{\pi}$
-(Corollary~2.3 of Paper~IVb). Each is a Class~4 function of $c_1$
-(equivalently $\sqrt{\pi}$) and fails the primitivity criterion~(b):
+(Corollary~2.3 of Paper~IVb). Each fails the primitivity criterion~(b),
+by one of two routes: the first two depend nontrivially on $d_0$ and
+fall outside Class~4 (excluded by the dimension-independence argument
+of Theorem~\ref{thm:c1unique}); the latter two lie in Class~4 but are
+multiples of the primitive, not the primitive itself:
 \begin{itemize}
 \item $R(d_0) = \Gamma((d_0{+}1)/2)/\Gamma((d_0{+}2)/2)$ is a
 \emph{derived} cascade quantity (Corollary~\ref{cor:primary}), not a
@@ -357,8 +407,9 @@ slicing lapse); as a multiple of the primitive it is a derived scalar, not
 itself the primitive.
 \end{itemize}
 No candidate in the SP-5 list is a primitive of the first-order
-recurrence, and each reduces to Class~4 under the exhaustiveness argument
-above.
+recurrence: the first two are excluded by $d_0$-dependence; the latter
+two are Class~4 but fail to be \emph{the} dimension-independent
+multiplicative constant of the recurrence.
 \end{remark}
 
 \subsection{Two canonical values of one constant}
@@ -485,11 +536,19 @@ $p(217) = 1.77101 < c_2 = 1.77245 < p(218) = 1.77331$.
 Both continuous solutions lie strictly between the bracketing integers.
 \end{proof}
 
-\begin{theorem}[No third threshold]
+\begin{corollary}[No third threshold]\label{cor:no-third-threshold}
 The orbit terminates at $(c_1, c_2)$. Each positive canonical value
 determines exactly one threshold dimension. The cascade has exactly two
 thresholds.
-\end{theorem}
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:terminate} establishes that the orbit of $\{0\}$ under
+the threshold construction is exactly $\{0, c_1, c_2\}$, so no further
+canonical value exists. By Theorem~\ref{thm:thresholds}, each positive
+canonical value $c\in\{c_1, c_2\}$ gives a unique threshold dimension
+via strict monotonicity of $p$. Two canonical values, two thresholds.
+\end{proof}
 
 % ============================================================
 \section{Four Distinguished Dimensions}
@@ -501,22 +560,65 @@ cascade. No fifth exists.
 \end{theorem}
 
 \begin{proof}
-\emph{Mechanism enumeration.} A ``distinguished dimension'' is an integer
-$d$ selected by a cascade-internal mechanism operating on the cascade
-sequence $(\Omega_d)_{d\geq 0}$ or its log-ratio $p(d)$. Any such mechanism
-applies one of four operator classes to a cascade-internal quantity:
+\emph{Cascade-internal functions of dimension are analytic in
+$(\sqrt{\pi}, d)$.} By Theorem~\ref{thm:irred} and
+Corollary~\ref{cor:primary}, every cascade-internal function of
+dimension---$\Omega_d$, $V_d$, $R(d)$, $p(d)$, $R_{\mathrm{eff}}(d)$
+(Theorem~\ref{thm:reff}), and analytic combinations thereof---is an
+analytic function $G(d) = F(\sqrt{\pi}, d)$ of the recurrence's
+primitive $\sqrt{\pi}$ and the dimension $d$ (extended to
+$\mathbb{R}_{\geq 0}$ via the Gamma function). This is the
+function-valued analogue of Theorem~\ref{thm:c1unique}'s closure,
+established by the same chain of theorems: sphere area is the unique
+independent cascade quantity (Corollary~\ref{cor:primary}), the
+recurrence has a unique primitive $\sqrt{\pi}$
+(Theorem~\ref{thm:irred}), and every other cascade quantity is an
+analytic function of $\sqrt{\pi}$ and $d$.
+
+\emph{Integer-selecting operators on cascade-internal functions.} A
+cascade-internal procedure that selects an integer dimension consists
+of choosing such a function $G$ and applying an integer-selecting
+operator to it. The integer-selecting operators on an analytic
+real-valued function of one variable that yield a single distinguished
+integer are:
 \begin{itemize}
-\item[(a)] \emph{Local extrema of a unimodal cascade sequence.}
-\item[(b)] \emph{Zeros of a strictly monotonic cascade sequence.}
-\item[(c)] \emph{Crossings of a monotonic cascade sequence with a
-cascade-primitive reference value.}
-\item[(d)] \emph{Higher-order invariants} (zeros of $p^{(n)}$ for $n\geq 1$,
-inflection points of $\Omega_d$, etc.).
+\item[(a)] \emph{Extremization.} $d^* = \operatorname{argmax} G$ (or
+$\operatorname{argmin}$). Yields an interior integer only when $G$ is
+unimodal; for strictly monotonic $G$, the extremum is at the boundary
+and selects no interior integer.
+\item[(b)] \emph{Sign change (zero).} $d^* = G^{-1}(0)$. Defined when
+$G$ takes both signs; unique when $G$ is strictly monotonic.
+\item[(c)] \emph{Level crossing with a primitive reference.}
+$d^* = G^{-1}(c)$ for $c$ a cascade-primitive constant
+(Theorem~\ref{thm:c1unique}, Class~4). The dimension-independence of
+$c$ is essential: a $d$-dependent reference $c(d)$ reduces the equation
+$G(d) = c(d)$ to the zero of $G - c$, hence class~(b).
+\item[(d)] \emph{Higher-order critical points.} $d^* = (G^{(n)})^{-1}(0)$
+for some derivative order $n \geq 1$ (zeros of derivatives, inflection
+points, etc.).
 \end{itemize}
-The classes~(a)--(d) exhaust cascade-internal dimension-selecting
-mechanisms because any further construction is an analytic function of
-(a)--(d) applied to the sequence, and Theorem~\ref{thm:c1unique}'s
-primitivity criterion excludes iterated or composite constructions.
+
+\emph{No fifth operator class.} Any further integer-selecting
+construction reduces to one of (a)--(d):
+\begin{itemize}
+\item \emph{Composition.} $\operatorname{argmax} G^{(n)}$ is the zero
+of $G^{(n+1)}$, hence class~(d).
+\item \emph{Integer offsets} from a class-(c) selection ($d_c + k$ for
+fixed integer $k$) are reachable from $d_c$ by the recurrence's own
+stepping operation (Theorem~\ref{thm:c1unique}'s integer-arithmetic
+closure), not independent selections.
+\item \emph{Intersections} of two cascade-internal functions, $G_1(d) =
+G_2(d)$, reduce to the zero of $G_1 - G_2$, hence class~(b).
+\item \emph{Asymptotic invariants} (Lyapunov exponents, growth rates,
+limit-set indices) produce real numbers rather than specific integer
+dimensions; converting them to integer outputs (via thresholding or
+rounding) reduces to a level-crossing equation, hence class~(c) or~(b).
+\end{itemize}
+The classes~(a)--(d) therefore exhaust cascade-internal
+dimension-selecting mechanisms. Theorem~\ref{thm:c1unique}'s
+primitivity criterion provides the additional constraint on class~(c):
+no non-primitive reference value introduces a new distinguished
+dimension.
 
 \emph{Classes~(a) and (b) jointly yield two dimensions.}
 Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality;
@@ -1199,24 +1301,24 @@ the descent-dependent corrections that affect the higher orders.
 Step & Statement & Source \\
 \midrule
 1 & $V_\infty = \Omega_\infty = 0$ & Definition \\
-2 & Orthogonal $\Rightarrow\sqrt{\pi}$, irreducible & Thms 2.1, 4.1 \\
-3 & $\Omega_{d-1}$ unique independent quantity & Cor 3.2 \\
+2 & Orthogonal $\Rightarrow\sqrt{\pi}$, irreducible & Thms~\ref{thm:sqrtpi},~\ref{thm:irred} \\
+3 & $\Omega_{d-1}$ unique independent quantity & Cor~\ref{cor:primary} \\
 4 & $d_V = 5$: volume maximum & argmax $V_d$ \\
-5 & $d_0 = 7$: decay-rate zero $=$ max-boundary ball & Thm 5.2 \\
-6 & $c_1 = \tfrac{1}{2}\ln\pi$; unique across four classes & Thms 6.1, 6.2 \\
-7 & $c_2 = \sqrt{\pi}$: second canonical value & Thm 6.3 \\
-8 & Orbit terminates (first-order $\Rightarrow$ two forms) & Thm 6.5 \\
-9 & $d_1 = 19$,\; $d_2 = 217$ & Thm 6.7 \\
-10 & Four distinguished dimensions; no fifth & Thm 7.1 \\
+5 & $d_0 = 7$: decay-rate zero $=$ max-boundary ball & Thm~\ref{thm:dual} \\
+6 & $c_1 = \tfrac{1}{2}\ln\pi$; unique across four classes & Thms~\ref{thm:opA},~\ref{thm:c1unique} \\
+7 & $c_2 = \sqrt{\pi}$: second canonical value & Thm~\ref{thm:twovalues} \\
+8 & Orbit terminates (first-order $\Rightarrow$ two forms) & Thm~\ref{thm:terminate} \\
+9 & $d_1 = 19$,\; $d_2 = 217$ & Thm~\ref{thm:thresholds} \\
+10 & Four distinguished dimensions; no fifth & Thm~\ref{thm:tower} \\
 11 & Regime partition: Growth/Decay/ExpDecay/Oblivion & \S\ref{sec:regimes} \\
-12 & Equilibria structurally stable; thresholds sensitive & Thms 8.2, 8.3 \\
-13 & Content--scale separation from stability & Thm 8.4 \\
-14 & Content: product $\Omega_{19}\times\Omega_{217}$ & Thm 8.5 \\
-15 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thms 8.6, 8.7; Lem 8.8 \\
-16 & $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2$; unique bilinear form & Thm 8.8 \\
-17 & $I = \sup_{\text{labelings}}$ over boundary pairs; argmax $(7,19,217)$ & Thm \ref{thm:variational} \\
+12 & Equilibria structurally stable; thresholds sensitive & Thms~\ref{thm:stable},~\ref{thm:sensitive} \\
+13 & Content--scale separation from stability & Thm~\ref{thm:cs} \\
+14 & Content: product $\Omega_{19}\times\Omega_{217}$ & Thm~\ref{thm:content} \\
+15 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thm~\ref{thm:twoscales}; Lem~\ref{lem:bilinear} \\
+16 & $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2$; unique bilinear form & Thm~\ref{thm:invariant} \\
+17 & $I = \sup_{\text{labelings}}$ over boundary pairs; argmax $(7,19,217)$ & Thm~\ref{thm:variational} \\
 18 & $I = 1.0990\times 10^{-120}$ & Computation \\
-19 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm 9.1 \\
+19 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm~\ref{thm:hierarchy} \\
 \bottomrule
 \end{tabular}
 \end{center}
