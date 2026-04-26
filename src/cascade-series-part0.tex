@@ -298,8 +298,17 @@ the effective slicing radius $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$
 and~$d$. Sphere areas and derived quantities at integer-offset
 dimensions $d_0 + k$ ($k\in\mathbb{Z}$) are analytic functions of
 $\sqrt{\pi}$ and $d_0$ obtained by integer arithmetic on the dimension
-label. The algebra of cascade-internal scalars derivable at $d_0$ is
-the closure of these primitives under analytic combination, hence
+label. Integer arithmetic on $d_0$ is structural rather than imported:
+the slicing recurrence advances the dimension by $\pm 1$ per
+application, so the orbit of $d_0$ under iteration of the recurrence
+is exactly the integer lattice $\{d_0 + k : k\in\mathbb{Z}\}$, and any
+$\Omega_{d_0+k}$ is reachable from $\Omega_{d_0}$ by $|k|$ recurrence
+steps. Polynomial expressions in $d_0$ ($d_0+k$, $2d_0$, $d_0^2$,
+etc.) are integer labels obtained by composing this stepping with the
+data $d_0$ itself; the dimension label's arithmetic is the
+recurrence's own discrete time, not an additional admissible
+operation. The algebra of cascade-internal scalars derivable at $d_0$
+is the closure of these primitives under analytic combination, hence
 consists of analytic functions $F(\sqrt{\pi}, d_0)$.
 
 \emph{Primitivity excludes $d_0$-dependence.} Criterion~(b) (``$c$ is a
