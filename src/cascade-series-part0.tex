@@ -282,19 +282,57 @@ $d_0$) and (b) primitivity ($c$ is a recurrence constant).
 \end{theorem}
 
 \begin{proof}
-\emph{Exhaustiveness of the enumeration.} A scalar $s$ is ``derivable from
-$d_0$'' iff it is expressible as an analytic function of (i)~the values of
-$p$ and its decomposition at $d_0$, (ii)~the higher derivatives $p^{(n)}(d_0)$,
-(iii)~the integer $d_0$ itself, or (iv)~the recurrence's primitive
-$\sqrt{\pi}$ (equivalently $c_1 = \tfrac{1}{2}\ln\pi$ in log-space). The
-quadruple $((p,q,\text{const.}),\,(p^{(n)}),\,d_0,\,\sqrt{\pi})$ is the
-\emph{complete input} available to any cascade-internal construction at
-$d_0$: no other cascade object is defined without additional data
-(Theorem~\ref{thm:irred} identifies $\sqrt{\pi}$ as the recurrence's unique
-primitive; Corollary~\ref{cor:primary} identifies sphere areas as the
-unique independent cascade quantities, and their values at~$d_0$ reduce to
-(i) and (iv)). These four sources partition the input; the four classes
-below exhaust them.
+\emph{Cascade-internal scalars at $d_0$ have the form $F(\sqrt{\pi}, d_0)$.}
+By Theorem~\ref{thm:irred}, the slicing recurrence has a unique
+nontrivial constant, $\sqrt{\pi}$. By Corollary~\ref{cor:primary}, sphere
+area is the unique independent cascade quantity at each level, with
+explicit closed form $\Omega_d = 2\pi^{(d+1)/2}/\Gamma((d+1)/2)$ --- an
+analytic function of $\sqrt{\pi}$ and the integer~$d$. Every derived
+cascade quantity inherits this dependence:
+the volume $V_d = \Omega_{d-1}/d$ (Theorem~\ref{thm:boundary});
+the Beta ratio $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$;
+the decay rate $p(d) = -\tfrac{1}{2}\ln\pi + \tfrac{1}{2}\psi((d+1)/2)$
+together with its polygamma derivatives $p^{(n)}(d)$;
+the effective slicing radius $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$
+(Theorem~\ref{thm:reff}). Each is an analytic function of $\sqrt{\pi}$
+and~$d$. Sphere areas and derived quantities at integer-offset
+dimensions $d_0 + k$ ($k\in\mathbb{Z}$) are analytic functions of
+$\sqrt{\pi}$ and $d_0$ obtained by integer arithmetic on the dimension
+label. The algebra of cascade-internal scalars derivable at $d_0$ is
+the closure of these primitives under analytic combination, hence
+consists of analytic functions $F(\sqrt{\pi}, d_0)$.
+
+\emph{Primitivity excludes $d_0$-dependence.} Criterion~(b) (``$c$ is a
+recurrence constant'') is, by Definition~\ref{def:canonical} below,
+the requirement that $c$ appear as the dimension-independent
+multiplicative factor in a canonical form of the first-order
+recurrence. Equivalently: $c$ does not depend on the integer label
+$d$. A scalar $s = F(\sqrt{\pi}, d_0)$ for which $F$ depends nontrivially
+on $d_0$ therefore fails~(b) by definition, even if $F$ evaluates to a
+$d_0$-free numerical value at the specific dimension~$d_0$ (the same
+expression at a different dimension would give a different value, so
+the dimension is load-bearing in the construction). Primitive
+candidates are restricted to functions $F$ independent of $d_0$ ---
+i.e., to the sub-algebra of analytic functions $F(\sqrt{\pi})$ alone.
+
+\emph{The four classes are an exhaustive source enumeration.} Within
+the algebra of cascade-internal scalars at $d_0$, candidate primitives
+arise from four natural sources, distinguished by which atomic input
+the candidate is built from:
+(i)~values of $p$ and its constant--variable decomposition at $d_0$;
+(ii)~higher derivatives $p^{(n)}(d_0)$ for $n\geq 1$;
+(iii)~the dimension label $d_0$ itself;
+(iv)~functions of the primitive $\sqrt{\pi}$ alone (equivalently
+$c_1 = \tfrac{1}{2}\ln\pi$ in log-space).
+Sources~(i)--(iii) all introduce $d_0$-dependence into the candidate
+expression and are excluded by the primitivity argument above; we
+verify each below as a redundancy check, since some sources produce
+$d_0$-independent \emph{values} despite being built from $d_0$-dependent
+\emph{expressions} (e.g.\ $q(d_0) = \tfrac{1}{2}\ln\pi$ in
+Class~1) and the verification identifies which of these values
+coincide with~$c_1$. Source~(iv) is the only one intrinsically
+independent of $d_0$, and the Class~4 analysis below shows only the
+identity $f(\sqrt{\pi}) = \sqrt{\pi}$ produces a primitive.
 
 \emph{Class~1: Values of $p$ and its decomposition at $d_0$.} The zero
 gives three scalars: $p(d_0) = 0$, the $d$-dependent part
@@ -336,8 +374,11 @@ scalars built from the derived cascade geometry at $d_0$:
 $R(d_0)$, the area ratio $\Omega_{d_0-1}/\Omega_{d_0+1}$, the Stirling
 expression $2\pi e^{2\sqrt{\pi}}$ (appearing in Theorem~\ref{thm:invariant}
 below), and the downstream primitive $2\sqrt{\pi}$
-(Corollary~2.3 of Paper~IVb). Each is a Class~4 function of $c_1$
-(equivalently $\sqrt{\pi}$) and fails the primitivity criterion~(b):
+(Corollary~2.3 of Paper~IVb). Each fails the primitivity criterion~(b),
+by one of two routes: the first two depend nontrivially on $d_0$ and
+fall outside Class~4 (excluded by the dimension-independence argument
+of Theorem~\ref{thm:c1unique}); the latter two lie in Class~4 but are
+multiples of the primitive, not the primitive itself:
 \begin{itemize}
 \item $R(d_0) = \Gamma((d_0{+}1)/2)/\Gamma((d_0{+}2)/2)$ is a
 \emph{derived} cascade quantity (Corollary~\ref{cor:primary}), not a
@@ -357,8 +398,9 @@ slicing lapse); as a multiple of the primitive it is a derived scalar, not
 itself the primitive.
 \end{itemize}
 No candidate in the SP-5 list is a primitive of the first-order
-recurrence, and each reduces to Class~4 under the exhaustiveness argument
-above.
+recurrence: the first two are excluded by $d_0$-dependence; the latter
+two are Class~4 but fail to be \emph{the} dimension-independent
+multiplicative constant of the recurrence.
 \end{remark}
 
 \subsection{Two canonical values of one constant}
