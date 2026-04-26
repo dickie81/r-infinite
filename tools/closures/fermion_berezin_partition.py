@@ -39,8 +39,7 @@ Result.  Per-layer fermion-to-scalar partition function ratio is
 
 exactly, at every Dirac layer d in {5, 13, 21, 29}, without any
 modification of the slicing measure (ruled out in Phase 0.3; see
-tools/verifiers/chirality_jacobian_separation.py and
-tools/model_checks/fermion_dirac_spectral_zeta.py).
+tools/verifiers/chirality_jacobian_separation.py).
 
 Decomposition into the Part IVb Theorem 2.2 sp31 split.
 

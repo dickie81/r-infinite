@@ -128,8 +128,7 @@ def main():
         print()
         print("  Consequence for Open Question oq:fermion-cascade-action:")
         print("  a cascade-action derivation of the sqrt(pi) absorption cannot")
-        print("  proceed via a modified axial measure (that breaks d-independence;")
-        print("  see also tools/model_checks/fermion_dirac_spectral_zeta.py).")
+        print("  proceed via a modified axial measure (that breaks d-independence).")
         print("  It must come from spinor structure: Berezin/Clifford inner product,")
         print("  or equivalently the spin-connection coupling in the Dirac operator.")
     else:

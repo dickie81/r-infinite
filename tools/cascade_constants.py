@@ -11,9 +11,9 @@ Two numerical backends are exposed:
     - mpmath         (arbitrary precision, opt-in)
 
 Both produce identical values at double precision.  Tools that require
-arbitrary precision (verify_continuous_boundary, fermion_dirac_spectral_zeta)
-should import from the `mp` namespace below; all other tools use the
-plain numpy-backed functions.
+arbitrary precision (e.g. verify_continuous_boundary) should import from
+the `mp` namespace below; all other tools use the plain numpy-backed
+functions.
 
 Usage
 -----
