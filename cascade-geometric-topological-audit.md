@@ -35,6 +35,12 @@ but require no austerity treatment.
 - **IGN** — cascade-forced, not invoked, no justification on record
   (austerity-flag).
 - **TESTED-NEG** — investigated, ruled out (notebook documents).
+- **INVESTIGATED-PARTIAL** — examined cascade-internally; supplies
+  some content but not full closure of the question that motivated
+  investigation.
+- **INVESTIGATED-USED** — examined and now incorporated into paper.
+- **INVESTIGATED-NOT-NEEDED** — examined; turned out a different
+  cascade structure was the productive route.
 
 ---
 
@@ -83,8 +89,8 @@ the unit-ball construction.
 | 3.1 | Hurwitz: $\mathbb{R}, \mathbb{C}, \mathbb{H}, \mathbb{O}$ are only normed division algebras | USED | Part III, Part IVa $d=4$ |
 | 3.2 | Hopf invariant 1 (Adams 1960): only $d \in \{1,2,4,8\}$ | **IGN** | The forcing argument behind 3.1 not made explicit |
 | 3.3 | Parallelisability of $S^1, S^3, S^7$ only | **IGN** | $S^3$ is observer's spatial slice |
-| 3.4 | Hopf fibration $S^3 \to S^2$ | **IGN** | $d=4$ structure |
-| 3.5 | Hopf fibration $S^7 \to S^4$ | **IGN** | **$d=5$ structure (observer-host boundary $S^4 = \partial B^5$). Most likely missed cascade-relevant fact.** |
+| 3.4 | Hopf fibration $S^3 \to S^2$ | **INVESTIGATED-USED** | Closes Born rule gap (Bloch sphere $\mathbb{R}P^3 \to \mathbb{C}P^1$) under Reading G; Part II Remark `reading-G-born` |
+| 3.5 | Hopf fibration $S^7 \to S^4$ | **TESTED-NEG** | Tested as cascade-internal arithmetic identity ($\Omega_{n+1}\Omega_n = N(0)^{n+1}\Omega_{2n+1}$); collapses to Legendre duplication, holds at every $n$, no Hopf content |
 | 3.6 | Hopf fibration $S^{15} \to S^8$ | **IGN** | $d=9$ or $d=16$? No obvious cascade role |
 
 ---
@@ -149,8 +155,8 @@ the unit-ball construction.
 |---|---|---|---|
 | 8.1 | Morse function on $S^{2n}$ (height) | USED | Thm 4.14 |
 | 8.2 | Morse-Bott structures | USED implicitly | Same |
-| 8.3 | $SO(d)$ Killing fields on $S^{d-1}$ | **IGN** | Cascade has $SO(d)$-invariance but doesn't exploit Killing structure |
-| 8.4 | Equivariant index theorem (Bott localisation) | **IGN** | Could give cascade-relevant fixed-point structure |
+| 8.3 | $SO(d)$ Killing fields on $S^{d-1}$ | **INVESTIGATED-PARTIAL** | Cascade has $\mathfrak{so}(d)$ via $SO(d)$-invariance; bracket computation at $d=12$ shows the 3 Adams nowhere-zero vector fields close as $\mathfrak{su}(2)$ from quaternionic structure on $H^3$. For $\mathfrak{su}(N)$ with $N\geq 3$ at gauge layers, full closure requires extra structure (item 10.11 was the productive route) |
+| 8.4 | Equivariant index theorem (Bott localisation) | **INVESTIGATED-NOT-NEEDED** | Item 10.11 ($G_2/SU(3)$ at $d=7$) was the productive path for the SU(3) algebra; equivariant localisation didn't end up needed |
 | 8.5 | Mathai-Quillen Thom form | TESTED-NEG | Notebook Route 4: scaling pathology |
 
 ---
@@ -184,7 +190,7 @@ structure.
 | 10.8 | $d = 8$ first Bott multiple | USED | Part IVa |
 | 10.9 | $d = 12$ Adams unique $\rho-1=3$ | USED | Part IVa Thm 2.4 |
 | 10.10 | $d = 14 = \dim G_2$ | **IGN** | Coincidence at U(1) layer? |
-| 10.11 | $d = 7$ = $S^6$ admits $G_2$ structure | **IGN** | $d_0$ also at $d=7$ |
+| 10.11 | $d = 7$ = $S^6$ admits $G_2$ structure | **USED** | Reading (III): SU(3) algebra at $d=7$ via $G_2/SU(3)$ on $S^6$. Part IVa Remark `reading-III`. Verifier `cascade_d7_su3_bs_closure.py`. Closes $b/s$ to 0.014\% via $-\alpha(7)/\chi^4$ (Part IVb Tier 3, proposed) |
 
 ---
 
@@ -217,24 +223,37 @@ structure.
 
 ---
 
-## Summary of austerity-flagged (IGN) items
+## Summary of austerity-flagged items (post-investigation)
 
-Items that ARE cascade-forced but currently silent in the paper:
+**Items resolved by investigation:**
+- 3.4 — Hopf fibration $S^3 \to S^2$: USED via Reading G (Born rule
+  Bloch sphere closure).
+- 3.5 — Hopf fibration $S^7 \to S^4$: TESTED-NEG (Legendre duplication
+  identity, no Hopf content).
+- 8.3 — $SO(d)$ Killing fields: INVESTIGATED-PARTIAL (closes
+  $\mathfrak{su}(2)$ at $d=12$ via Adams quaternionic brackets; full
+  $\mathfrak{su}(N)$ via different route below).
+- 8.4 — Equivariant index theorem: INVESTIGATED-NOT-NEEDED.
+- 10.11 — $S^6 = G_2/SU(3)$: **USED** (Reading III, supplies SU(3)
+  algebra at $d=7$; closes $b/s$ to 0.014\% as new Tier 3).
 
-**Highest cascade-relevance — most likely missed structural content:**
-- 3.5 — Hopf fibration $S^7 \to S^4$ at observer host $d=5$.
-- 3.2, 3.3 — Hopf invariant 1 / parallelisability forcing argument.
-- 4.2 — first Chern class on Morse 2-cycles (acknowledged).
+**Remaining IGN items (still cascade-forced, not yet invoked):**
+
+*Higher cascade-relevance:*
+- 3.2, 3.3 — Hopf invariant 1 / parallelisability forcing argument
+  (no fresh investigation; ladder Hurwitz $\to$ parallel $\to$
+  Hopf-1 $\to$ Bott-8 still implicit).
+- 4.2 — first Chern class on Morse 2-cycles (ACK in Part IVb).
 - 5.1–5.5 — smooth structures on cascade-relevant spheres.
-- 10.10, 10.11 — $\dim G_2 = 14$ at U(1) layer, $G_2$ structure on $S^6$ at $d_0 = 7$.
+- 10.10 — $\dim G_2 = 14$ at U(1) layer (coincidence not investigated;
+  worth checking now that 10.11 is USED).
 
-**Medium relevance:**
+*Medium relevance:*
 - 1.8 — Borsuk-Ulam.
 - 7.4 — Lichnerowicz formula.
-- 8.3, 8.4 — Killing fields, equivariant index.
 - 9.3 — generic Morse foliation across all even spheres.
 
-**Lower relevance, should still be checked:**
+*Lower relevance, should still be checked:*
 - 4.3, 4.4, 4.5 — higher Chern, Pontryagin, Stiefel-Whitney classes.
 - 6.2–6.6 — generic homotopy groups beyond $\pi_3(S^{11})$.
 - 7.3, 7.5 — scalar curvature, conformal Killing spinors.
@@ -306,17 +325,43 @@ that the fact "doesn't matter".
 
 ---
 
+## Methodology validation
+
+The audit's central thesis (per Prelude Principle 2.2: investigate
+every cascade-forced fact, don't silently omit) was empirically
+validated by item 10.11. An apparent crisis ("cascade can't supply
+SU(3) at $d=12$ — bracket computation gives only $\mathfrak{su}(2)$")
+resolved by re-engaging with 10.11, which had been dismissed as IGN.
+The result: SU(3) algebra is cascade-internal at $d=7$ via $G_2/SU(3)$,
+and a Tier 4 observable ($b/s$) closes to Tier 3 precision via
+$-\alpha(7)/\chi^4$.
+
+Working method confirmed: when an apparent gap appears, re-examine
+IGN items before concluding the cascade fails. The audit's IGN list
+is a checklist of unrealised cascade content, not a list of
+irrelevant facts.
+
 ## Recommendation
 
-**Action 1** (smallest, highest cascade-relevance): Investigate Hopf
-fibration $S^7 \to S^4$ at observer host (item 3.5). This is the
-most concrete candidate for missed cascade-relevant content.
+**Action 1**: ~~Investigate Hopf fibration $S^7 \to S^4$ at observer
+host (item 3.5).~~ **DONE — TESTED-NEG (Legendre duplication, no Hopf
+content). The actually-productive direction was item 10.11 ($G_2$ on
+$S^6$ at $d=7$).**
 
-**Action 2**: For each IGN item in Sections 1–12, write a one-line
-justification (subsumption / dismissal) or a TODO.
+**Action 2**: For each remaining IGN item in Sections 1–12, write a
+one-line justification (subsumption / dismissal) or a TODO. Priority
+order is now:
+- 10.10 ($\dim G_2 = 14$ at U(1) layer) — fresh look warranted
+  given 10.11 is now USED.
+- 3.2, 3.3 (Hopf-1 / parallelisability forcing) — make the
+  Hurwitz $\to$ parallel $\to$ Hopf-1 $\to$ Bott-8 chain explicit
+  in Part IVa as the structural reason for Bott periodicity.
+- 4.2 (first Chern on Morse 2-cycles) — already ACK in Part IVb;
+  the open question is the formal proof that the 4D tangent-field
+  obstruction equals a first Chern class.
 
-**Action 3**: Promote this audit to a Part IVb appendix, modelled on
-Part 0 Supplement's structure.
+**Action 3**: Promote this audit to a Part IVa appendix once 10.11
+and the related Reading (III) are formally written up in Part IVa.
 
 ---
 

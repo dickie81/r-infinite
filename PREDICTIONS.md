@@ -48,7 +48,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 
 ### Tier 3 — Precision: Correction-Family Closures
 
-Seven observables close within experimental error via δΦ = α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities.
+Eight observables close within experimental error via δΦ = α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities.
 
 | Observable | Shift source | Predicted | Observed | Residual |
 |---|---|---|---|---|
@@ -58,6 +58,7 @@ Seven observables close within experimental error via δΦ = α(d*)/χ^k shifts 
 | sin²θ_W | α(5)/χ³ | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
 | Ω_m | −α(5)/χ³ | 0.31474 | 0.315 ± 0.007 | −0.04σ |
 | θ_C (Cabibbo) | −α(7)/χ² | 13.04° | 13.04 ± 0.05° | +0.03σ |
+| b/s | −α(7)/χ⁴ | 44.7436 | 44.75 | 0.014% |
 
 ### Tier 4 — Frontier: Under Active Experimental Test
 

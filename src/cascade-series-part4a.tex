@@ -400,6 +400,81 @@ Together, they fix $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ as th
 gauge group consistent with the cascade's topology at the gauge window.
 \end{remark}
 
+\begin{remark}[Reading~III: $\mathrm{SU}(3)$ algebra at $d_0=7$ via $G_2/\mathrm{SU}(3)$]\label{rem:reading-III}
+Theorem~\ref{thm:adams} derives the colour count $N_c=3$ from
+$\rho(12)-1=3$ nowhere-zero tangent vector fields on $S^{11}$. A
+direct bracket computation (verifier
+\texttt{tools/verifiers/cascade\_d7\_su3\_bs\_closure.py}, Step~1)
+shows these 3 fields, viewed as quaternionic right-multiplications
+on $\mathbb{R}^{12}=\mathbb{H}^3$, close as the 3-dim Lie algebra
+$\mathfrak{su}(2)\simeq\mathfrak{so}(3)$ under commutators
+($[i,j]=2k$, $[j,k]=2i$, $[k,i]=2j$). This is 3-dimensional, not
+the 8-dimensional $\mathfrak{su}(3)$ that the cascade's gauge group
+identification requires.
+
+The full $\mathfrak{su}(3)$ algebra is supplied cascade-internally
+at a different distinguished layer: $d_0=7$. The cascade's
+$S^6=\partial B^7$ is the unique higher-dimensional sphere
+admitting an almost complex structure and is the homogeneous space
+\[
+S^6 \;=\; G_2/\mathrm{SU}(3),
+\qquad \dim G_2 - \dim\mathrm{SU}(3) \;=\; 14-8 \;=\; 6 \;=\; \dim S^6.
+\]
+$G_2$ is the automorphism group of the octonions (Hurwitz at
+$d=8$) and acts transitively on $S^6$ by isometries; $\mathrm{SU}(3)$
+appears as the stabilizer of any unit imaginary octonion. Both
+ingredients are cascade-forced: $d_0=7$ is the area maximum
+(\cite{paperI}, Theorem~7.1; Paper~0 Theorem~5.2), and the
+$G_2$ structure on $S^6$ is the $d=7$ instance of audit
+item~10.11.
+
+Reading~III: the cascade's $\mathrm{SU}(3)$ is distributed across
+two distinguished layers, both forced:
+\begin{enumerate}[nosep]
+\item \emph{Algebra} (8 generators) at $d_0=7$ via the $G_2/\mathrm{SU}(3)$
+  homogeneous-space structure on $S^6$.
+\item \emph{Fundamental representation dimension} ($N_c=3$) at $d=12$
+  via Adams' theorem.
+\end{enumerate}
+Both layers are required; both are cascade-forced. The bracket
+deficit at $d=12$ alone (3 vs.\ 8 generators) is the audit-flagged
+gap that 10.11 fills.
+
+This reading does not change any prediction of Sections~2--4. It
+strengthens the cascade-internal forcing of the
+gauge-group-identification step and supplies the structural source
+layer for the $\alpha(7)/\chi^k$ correction family of Part~IVb~\S2:
+the $\mathrm{SU}(3)$ algebra layer is the natural source for
+quark-flavour observables that thread the $\mathrm{SU}(3)$ structure
+(Cabibbo angle $\theta_C$ via $-\alpha(7)/\chi^2$; $b/s$ via
+$-\alpha(7)/\chi^4$, see Part~IVb).
+\end{remark}
+
+\begin{remark}[Matter content composition via path tensor product]\label{rem:path-tensor}
+The 30 Dirac d.o.f.\ per generation used implicitly throughout this
+section ($Q_L$: 6, $u_R, d_R$: 3 each, $L_L$: 2, $e_R$: 1, summing
+to 15 Weyl $=$ 30 Dirac without right-handed neutrinos) is the
+path-tensor-product Hilbert dimension of the cascade matter content
+under the gauge-window paths.
+
+Cascade-internal forcing: the slicing recurrence $V_{d+1}=V_d
+\cdot\sqrt{\pi}\,R(d+1)$ composes content multiplicatively across
+layers, and the Adams gauge groups at $d\in\{12,13,14\}$ are
+independent structures at distinct distinguished dimensions. The
+unique cascade-native composition that respects (i) the
+multiplicative slicing recurrence and (ii) the layer-independence
+of Adams gauge groups is the tensor product:
+\[
+\mathcal{H}_{\text{matter}}\;=\;\bigotimes_{d\in\{12,13,14\}}V_{d,R(d)},
+\]
+where $V_{d,R(d)}$ is the matter content's representation at gauge
+layer $d$. Direct sum is excluded by (i), wedge/symmetric products
+by (ii). Verifier
+\texttt{tools/verifiers/cascade\_path\_tensor\_product.py} confirms
+that the SM rep content $(Q_L: \mathbf{3}\otimes\mathbf{2}\otimes Y$,
+etc.) gives 15 Weyl per generation exactly.
+\end{remark}
+
 \section{Symmetry Breaking from the Hairy Ball Theorem}
 \label{sec:breaking}
 
