@@ -718,9 +718,9 @@ the $\mathrm{SU}(3)$-algebra-layer shift
 \[
 \delta\Phi_{b/s} \;=\; -\frac{\alpha(7)}{\chi^4} \;=\; -\frac{R(7)^2}{4\cdot 16},
 \]
-sourced at the area maximum $d_0=7$ (\cite{paperI}, Theorem~7.1)
+sourced at the area maximum $d_0=7$ (\cite{paper1}, Theorem~7.1)
 where the cascade carries the $\mathrm{SU}(3)$ algebra structure
-$G_2/\mathrm{SU}(3)$ on $S^6$ (Part~IVa Remark~\ref{rem:reading-III}).
+$G_2/\mathrm{SU}(3)$ on $S^6$ (Reading~III, Part~IVa~\cite{paper4a}).
 With $R(7) = \Gamma(4)/\Gamma(9/2) = 16/(35\sqrt{\pi})$, the
 correction
 $\exp(-\alpha(7)/\chi^4) = 0.99585$ gives
@@ -971,7 +971,7 @@ Three structural rules determine every entry with zero fitted parameters:
 \item \textbf{Channel counting.} $k$ equals the number of independent cascade sectors in the observable's definition: $k=1$ for single-channel quantities (one coupling, one mass, one scale); $k=2$ for two-generation mixing ($\theta_C$: Gen~2 $\leftrightarrow$ Gen~3); $k=3$ for three-sector integration ($\sin^2\theta_W$: three gauge factors; $\Omega_m$: three fermion generations).
 \item \textbf{Sign from population.} Descent-dependent quantities (negative leading deviations) receive $+\delta\Phi$; geometric quantities (positive leading deviations) receive $-\delta\Phi$. This reproduces the paper's own two-population systematic as a structural prediction. The $+$ sign for descent observables is \emph{forced} by Cauchy--Schwarz: the Part~0 Supplement adjacent Gram deficit $\sum(1 - C^2_{d,d+1})$ is strictly positive at every layer pair (the adjacent-layer integrands $f_d(x) = (1-x^2)^{d/2}$ are not collinear in $L^2$ for $d\neq d+1$), so the correction to every multiplicative propagator enters via $\exp(+\sum(1-C^2)) > 1$ with a definite direction.
 
-The $-$ sign for geometric (ratio-of-sums) observables is \emph{forced for $\Omega_m$} by the following three ingredients, analysed in detail in \texttt{tools/verifiers/bott\_vs\_lapse\_theorem.py}:
+The $-$ sign for geometric (ratio-of-sums) observables is \emph{forced for $\Omega_m$} by the following three ingredients, analysed in detail in \texttt{tools/\allowbreak verifiers/\allowbreak bott\_vs\_\allowbreak lapse\_\allowbreak theorem.py}:
 \begin{itemize}[nosep]
 \item[(a)] The cascade sphere-area profile $\Omega_d = 2\pi^{(d+1)/2}/\Gamma((d+1)/2)$ (Part~0 theorem).
 \item[(b)] The Bott-matter partition size equals $2$ out of $8$ residue classes (Clifford classification: Dirac at $d\bmod 8 = 5$, Weyl at $d\bmod 8 = 6$; Part~IVa~\S2).
