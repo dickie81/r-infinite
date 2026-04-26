@@ -536,11 +536,19 @@ $p(217) = 1.77101 < c_2 = 1.77245 < p(218) = 1.77331$.
 Both continuous solutions lie strictly between the bracketing integers.
 \end{proof}
 
-\begin{theorem}[No third threshold]
+\begin{corollary}[No third threshold]\label{cor:no-third-threshold}
 The orbit terminates at $(c_1, c_2)$. Each positive canonical value
 determines exactly one threshold dimension. The cascade has exactly two
 thresholds.
-\end{theorem}
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:terminate} establishes that the orbit of $\{0\}$ under
+the threshold construction is exactly $\{0, c_1, c_2\}$, so no further
+canonical value exists. By Theorem~\ref{thm:thresholds}, each positive
+canonical value $c\in\{c_1, c_2\}$ gives a unique threshold dimension
+via strict monotonicity of $p$. Two canonical values, two thresholds.
+\end{proof}
 
 % ============================================================
 \section{Four Distinguished Dimensions}
@@ -1250,24 +1258,24 @@ the descent-dependent corrections that affect the higher orders.
 Step & Statement & Source \\
 \midrule
 1 & $V_\infty = \Omega_\infty = 0$ & Definition \\
-2 & Orthogonal $\Rightarrow\sqrt{\pi}$, irreducible & Thms 2.1, 4.1 \\
-3 & $\Omega_{d-1}$ unique independent quantity & Cor 3.2 \\
+2 & Orthogonal $\Rightarrow\sqrt{\pi}$, irreducible & Thms~\ref{thm:sqrtpi},~\ref{thm:irred} \\
+3 & $\Omega_{d-1}$ unique independent quantity & Cor~\ref{cor:primary} \\
 4 & $d_V = 5$: volume maximum & argmax $V_d$ \\
-5 & $d_0 = 7$: decay-rate zero $=$ max-boundary ball & Thm 5.2 \\
-6 & $c_1 = \tfrac{1}{2}\ln\pi$; unique across four classes & Thms 6.1, 6.2 \\
-7 & $c_2 = \sqrt{\pi}$: second canonical value & Thm 6.3 \\
-8 & Orbit terminates (first-order $\Rightarrow$ two forms) & Thm 6.5 \\
-9 & $d_1 = 19$,\; $d_2 = 217$ & Thm 6.7 \\
-10 & Four distinguished dimensions; no fifth & Thm 7.1 \\
+5 & $d_0 = 7$: decay-rate zero $=$ max-boundary ball & Thm~\ref{thm:dual} \\
+6 & $c_1 = \tfrac{1}{2}\ln\pi$; unique across four classes & Thms~\ref{thm:opA},~\ref{thm:c1unique} \\
+7 & $c_2 = \sqrt{\pi}$: second canonical value & Thm~\ref{thm:twovalues} \\
+8 & Orbit terminates (first-order $\Rightarrow$ two forms) & Thm~\ref{thm:terminate} \\
+9 & $d_1 = 19$,\; $d_2 = 217$ & Thm~\ref{thm:thresholds} \\
+10 & Four distinguished dimensions; no fifth & Thm~\ref{thm:tower} \\
 11 & Regime partition: Growth/Decay/ExpDecay/Oblivion & \S\ref{sec:regimes} \\
-12 & Equilibria structurally stable; thresholds sensitive & Thms 8.2, 8.3 \\
-13 & Content--scale separation from stability & Thm 8.4 \\
-14 & Content: product $\Omega_{19}\times\Omega_{217}$ & Thm 8.5 \\
-15 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thms 8.6, 8.7; Lem 8.8 \\
-16 & $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2$; unique bilinear form & Thm 8.8 \\
-17 & $I = \sup_{\text{labelings}}$ over boundary pairs; argmax $(7,19,217)$ & Thm \ref{thm:variational} \\
+12 & Equilibria structurally stable; thresholds sensitive & Thms~\ref{thm:stable},~\ref{thm:sensitive} \\
+13 & Content--scale separation from stability & Thm~\ref{thm:cs} \\
+14 & Content: product $\Omega_{19}\times\Omega_{217}$ & Thm~\ref{thm:content} \\
+15 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thm~\ref{thm:twoscales}; Lem~\ref{lem:bilinear} \\
+16 & $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2$; unique bilinear form & Thm~\ref{thm:invariant} \\
+17 & $I = \sup_{\text{labelings}}$ over boundary pairs; argmax $(7,19,217)$ & Thm~\ref{thm:variational} \\
 18 & $I = 1.0990\times 10^{-120}$ & Computation \\
-19 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm 9.1 \\
+19 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm~\ref{thm:hierarchy} \\
 \bottomrule
 \end{tabular}
 \end{center}
