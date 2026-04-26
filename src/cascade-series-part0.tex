@@ -141,7 +141,8 @@ recurrence is a first-order multiplicative map between sphere areas:
 \]
 Sphere area is the unique independent cascade quantity at each level.
 Every other cascade object---$V_d$, $R(d)$,
-$R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$---is derived from sphere areas.
+$R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$ (Theorem~\ref{thm:reff})---is
+derived from sphere areas.
 \end{corollary}
 
 % ============================================================
@@ -159,6 +160,42 @@ $\delta(d) := \ln(\Omega_{d+1}/\Omega_d) - \ln(\Omega_d/\Omega_{d-1})
 cancel exactly. $\sqrt{\pi}$ is the only nontrivial constant the
 recurrence contains.
 \end{proof}
+
+\begin{theorem}[Effective slicing radius]\label{thm:reff}
+The root-mean-square height of the slicing measure $(1-x^2)^{d/2}$ on
+$[-1,1]$ is
+\[
+R_{\mathrm{eff}}(d) := \sqrt{\langle x^2\rangle_d} = \frac{1}{\sqrt{d+3}},
+\qquad
+\langle x^2\rangle_d := \frac{\int_{-1}^{1} x^2(1-x^2)^{d/2}\,dx}
+                              {\int_{-1}^{1}(1-x^2)^{d/2}\,dx}.
+\]
+\end{theorem}
+
+\begin{proof}
+Both integrals are Beta functions:
+$\int_{-1}^{1}(1-x^2)^{d/2}\,dx = B(\tfrac{1}{2},\tfrac{d}{2}+1)$ and
+$\int_{-1}^{1}x^2(1-x^2)^{d/2}\,dx = B(\tfrac{3}{2},\tfrac{d}{2}+1)$
+(substitute $t = x^2$ in each, as in \eqref{eq:slice}). Their ratio is
+\[
+\frac{B(\tfrac{3}{2},\tfrac{d}{2}+1)}{B(\tfrac{1}{2},\tfrac{d}{2}+1)}
+= \frac{\Gamma(\tfrac{3}{2})}{\Gamma(\tfrac{1}{2})}\cdot
+  \frac{\Gamma(\tfrac{d}{2}+\tfrac{3}{2})}{\Gamma(\tfrac{d}{2}+\tfrac{5}{2})}
+= \frac{1}{2}\cdot\frac{2}{d+3}
+= \frac{1}{d+3}.
+\]
+Taking the square root gives $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$.
+\end{proof}
+
+\begin{remark}
+$R_{\mathrm{eff}}(d) > 0$ for every finite $d$: the slicing concentrates
+near the equator but never collapses to it. This is the per-step
+compactification residual---the scale at which consecutive slicing
+layers fail to be perfectly collinear in $L^2$. The Part~0 Supplement
+quantifies this overlap directly: the adjacent-layer overlap deficit
+scales as $1 - C^2_{d,d+1}\sim 1/(8d^2) = R_{\mathrm{eff}}^4/8 +
+O(1/d^3)$ (Supplement, Theorem~14.2).
+\end{remark}
 
 % ============================================================
 \section{The Natural Zero}
@@ -481,7 +518,7 @@ mechanisms because any further construction is an analytic function of
 (a)--(d) applied to the sequence, and Theorem~\ref{thm:c1unique}'s
 primitivity criterion excludes iterated or composite constructions.
 
-\emph{Classes~(a) and (b) yield two dimensions each.}
+\emph{Classes~(a) and (b) jointly yield two dimensions.}
 Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality;
 class~(a) applied to $V_d$), and $p(d)$ has a unique zero at $d_0 = 7$
 (by strict monotonicity; class~(b) applied to $p$). The only other
