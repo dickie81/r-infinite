@@ -94,7 +94,6 @@ Scripts here perform numerical checks that are not themselves proofs in the seri
 |---|---|---|
 | `cascade_decoherence.py` | Decoherence coefficient from the cascade's spectral trace | Part II §decoherence |
 | `cascade_decoherence_vs_tower_height.py` | Decoherence is insensitive to tower height — no approximation needed for the quoted value | Part VI §decoherence robustness |
-| `fermion_dirac_spectral_zeta.py` | Tests the naive "fermion lapse = regularised Dirac spectral zeta on `S^{2n}`" conjecture at Dirac layers 5, 13, 21, 29. **Naive formulation falsified** — see `future-paper-fermion-cascade-dirac.md` for status. | Part IVc §Dirac (status note) |
 
 ---
 

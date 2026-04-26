@@ -82,6 +82,7 @@ TERMS = [
     ('π⁷', '&pi;<sup>7</sup>', r'$\pi^7$'),
     ('χ²', '&chi;<sup>2</sup>', r'$\chi^2$'),
     ('χ³', '&chi;<sup>3</sup>', r'$\chi^3$'),
+    ('χ⁴', '&chi;<sup>4</sup>', r'$\chi^4$'),
     ('χ^k', '&chi;<sup>k</sup>', r'$\chi^k$'),
     # Single characters (applied after compounds)
     ('×', '&times;', r'$\times$'),

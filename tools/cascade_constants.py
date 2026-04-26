@@ -11,9 +11,9 @@ Two numerical backends are exposed:
     - mpmath         (arbitrary precision, opt-in)
 
 Both produce identical values at double precision.  Tools that require
-arbitrary precision (verify_continuous_boundary, fermion_dirac_spectral_zeta)
-should import from the `mp` namespace below; all other tools use the
-plain numpy-backed functions.
+arbitrary precision (e.g. verify_continuous_boundary) should import from
+the `mp` namespace below; all other tools use the plain numpy-backed
+functions.
 
 Usage
 -----
@@ -69,8 +69,34 @@ def V_ball(d):
 
 
 def N_lapse(d):
-    """Cascade slicing lapse N(d) = integral_{-1}^{1} (1 - x^2)^{d/2} dx
-    = B(1/2, d/2 + 1).  Part 0 §3.
+    """Cascade slicing integrand at layer d: N_lapse(d) = integral_{-1}^{1}
+    (1 - x^2)^{d/2} dx = B(1/2, d/2 + 1) = sqrt(pi) * R(d+1).
+
+    CONVENTION NOTE.  Two N-conventions appear in the papers; they are
+    related by a one-step shift.
+
+      (a) "Integrand-at-layer-d" convention (this function).
+          N_lapse(d) = int (1-x^2)^{d/2} dx = V_{d+1}/V_d.
+          Numerically N_lapse(0) = 2, N_lapse(4) = 16/15.
+          Used in Part IVb Corollary 2.3 (N(0) = 2) and in the
+          derivation derive_2sqrtpi_no_dirac.py.
+
+      (b) "V_d/V_{d-1}" convention (paper's majority usage).
+          N_paper(d) = sqrt(pi) * R(d) = int (1-x^2)^{(d-1)/2} dx.
+          Numerically N_paper(1) = 2, N_paper(4) = 3 pi / 8.
+          Used in Part 0 §3, Part I, Part II §7.2, Part IVb Theorem 2.2
+          ("the cascade lapse at layer d factorises as
+          N(d) = sqrt(pi) R(d)"), Part V.
+
+    Convention (a) is the code default.  Convention (b) can be obtained
+    as `sqrt(pi) * R(d)`.  The alpha(d) function below uses the SAME-INDEX
+    identity alpha(d) = (sqrt(pi) R(d))^2 / (4 pi) = R(d)^2 / 4, i.e.,
+    convention (b).  Therefore alpha(d) is NOT equal to
+    N_lapse(d)^2 / (4 pi) at the same index d; it equals
+    N_lapse(d-1)^2 / (4 pi) = (sqrt(pi) R(d))^2 / (4 pi).
+
+    Tools that need the paper's convention-(b) lapse should use
+    `np.sqrt(pi) * R(d)` directly.
     """
     return _beta(0.5, d / 2.0 + 1.0)
 
@@ -169,7 +195,12 @@ class _MPBackend:
         )
 
     def N_lapse(self, d):
-        """N(d) = B(1/2, d/2 + 1) via Gamma-function identity."""
+        """Integrand-at-layer-d lapse: N(d) = B(1/2, d/2 + 1) via
+        Gamma-function identity.  See top-level N_lapse docstring for
+        the two-convention note; this uses convention (a) (V_{d+1}/V_d).
+        For the paper's convention (b) (V_d/V_{d-1}), use
+        self.sqrt_pi * self.R(d).
+        """
         _mp = self._mp
         return (
             _mp.gamma(_mp.mpf(1) / 2)
