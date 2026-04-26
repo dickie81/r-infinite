@@ -16,10 +16,51 @@ strengthens the gauge-group derivation; Clifford absorption remains
 the open question recorded below. The two are independent
 structural questions that should not be conflated.
 
-Whether the Reading III geometry (octonion automorphisms at $d=7$)
-has any bearing on the cascade-lattice fermion construction
-(Phase 2 routes below) is itself an open question. Worth checking
-in any future Part IVc work.
+### Reading III + Hopf-propagation: tested, doesn't close Clifford absorption
+
+A Hopf-propagation hypothesis was tested — that
+$G_2$/octonion structure at $d=7, 8$ might propagate via the
+$S^7 \to S^4$ Hopf bundle to the host $d=5$ and yield $R(5)/2$
+cascade-internally. Numerical verifier
+`tools/verifiers/cascade_hopf_propagation_test.py` checked ~20
+candidate cascade-internal volume ratios at $d \in \{4, 5, 7, 8\}$.
+None produces $R(5)/2 = 8/(15\sqrt{\pi})$. The factor $1/\sqrt{\pi}$
+needed for Clifford absorption doesn't fall out of obvious volume
+ratios.
+
+More fundamentally, the Hopf-propagation hypothesis was solving the
+wrong problem. The Clifford absorption *number* $m(d) = R(d)/2$ is
+already derived cascade-internally by
+`tools/verifiers/cascade_native_clifford_absorption.py`: austerity
++ d-independence + cascade-native expressibility from $\alpha(d)$
+alone forces $Z_f = \alpha^{1/2} = R(d)/2$ uniquely. The open
+questions are at a different level:
+
+(i) **Per-layer vs multi-layer fermion action.** The austerity
+argument gives $R(d)/2$ *given* the per-layer Berezin form. Whether
+cascade-action principles select per-layer over multi-layer-coupling
+forms is open. *Reading III does not address this.*
+
+(ii) **Sphere-bundle / Dirac-operator competing derivation.** Phase
+2's seven routes failed because sphere quantities scale super-
+exponentially. Reading III's algebraic structure has the right
+scaling, but as the volume-ratio test shows, the specific arithmetic
+producing $R(d)/2$ doesn't fall out of cascade primitives at $d=7, 8$.
+A successful sphere-bundle/algebraic derivation would need explicit
+$G_2$-invariant 3-form integration (which the volume-ratio test does
+not perform), and even then would need to hit the specific number.
+*Reading III makes the algebraic source plausible but does not by
+itself close this question.*
+
+So the right framing is: **Reading III closes the SU(3)-source open
+question for the $\alpha(d^*)/\chi^k$ correction family at $d=7$ (b/s
+closure, Cabibbo angle source), but does not close the Clifford
+absorption Tier 3 status (the per-layer Berezin form vs alternatives
+question). These are separate open questions at different parts of
+the cascade structure.**
+
+This notebook continues to document the Clifford absorption open
+question on its own terms, separate from Reading III.
 
 ## Purpose
 
