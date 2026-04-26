@@ -560,22 +560,65 @@ cascade. No fifth exists.
 \end{theorem}
 
 \begin{proof}
-\emph{Mechanism enumeration.} A ``distinguished dimension'' is an integer
-$d$ selected by a cascade-internal mechanism operating on the cascade
-sequence $(\Omega_d)_{d\geq 0}$ or its log-ratio $p(d)$. Any such mechanism
-applies one of four operator classes to a cascade-internal quantity:
+\emph{Cascade-internal functions of dimension are analytic in
+$(\sqrt{\pi}, d)$.} By Theorem~\ref{thm:irred} and
+Corollary~\ref{cor:primary}, every cascade-internal function of
+dimension---$\Omega_d$, $V_d$, $R(d)$, $p(d)$, $R_{\mathrm{eff}}(d)$
+(Theorem~\ref{thm:reff}), and analytic combinations thereof---is an
+analytic function $G(d) = F(\sqrt{\pi}, d)$ of the recurrence's
+primitive $\sqrt{\pi}$ and the dimension $d$ (extended to
+$\mathbb{R}_{\geq 0}$ via the Gamma function). This is the
+function-valued analogue of Theorem~\ref{thm:c1unique}'s closure,
+established by the same chain of theorems: sphere area is the unique
+independent cascade quantity (Corollary~\ref{cor:primary}), the
+recurrence has a unique primitive $\sqrt{\pi}$
+(Theorem~\ref{thm:irred}), and every other cascade quantity is an
+analytic function of $\sqrt{\pi}$ and $d$.
+
+\emph{Integer-selecting operators on cascade-internal functions.} A
+cascade-internal procedure that selects an integer dimension consists
+of choosing such a function $G$ and applying an integer-selecting
+operator to it. The integer-selecting operators on an analytic
+real-valued function of one variable that yield a single distinguished
+integer are:
 \begin{itemize}
-\item[(a)] \emph{Local extrema of a unimodal cascade sequence.}
-\item[(b)] \emph{Zeros of a strictly monotonic cascade sequence.}
-\item[(c)] \emph{Crossings of a monotonic cascade sequence with a
-cascade-primitive reference value.}
-\item[(d)] \emph{Higher-order invariants} (zeros of $p^{(n)}$ for $n\geq 1$,
-inflection points of $\Omega_d$, etc.).
+\item[(a)] \emph{Extremization.} $d^* = \operatorname{argmax} G$ (or
+$\operatorname{argmin}$). Yields an interior integer only when $G$ is
+unimodal; for strictly monotonic $G$, the extremum is at the boundary
+and selects no interior integer.
+\item[(b)] \emph{Sign change (zero).} $d^* = G^{-1}(0)$. Defined when
+$G$ takes both signs; unique when $G$ is strictly monotonic.
+\item[(c)] \emph{Level crossing with a primitive reference.}
+$d^* = G^{-1}(c)$ for $c$ a cascade-primitive constant
+(Theorem~\ref{thm:c1unique}, Class~4). The dimension-independence of
+$c$ is essential: a $d$-dependent reference $c(d)$ reduces the equation
+$G(d) = c(d)$ to the zero of $G - c$, hence class~(b).
+\item[(d)] \emph{Higher-order critical points.} $d^* = (G^{(n)})^{-1}(0)$
+for some derivative order $n \geq 1$ (zeros of derivatives, inflection
+points, etc.).
 \end{itemize}
-The classes~(a)--(d) exhaust cascade-internal dimension-selecting
-mechanisms because any further construction is an analytic function of
-(a)--(d) applied to the sequence, and Theorem~\ref{thm:c1unique}'s
-primitivity criterion excludes iterated or composite constructions.
+
+\emph{No fifth operator class.} Any further integer-selecting
+construction reduces to one of (a)--(d):
+\begin{itemize}
+\item \emph{Composition.} $\operatorname{argmax} G^{(n)}$ is the zero
+of $G^{(n+1)}$, hence class~(d).
+\item \emph{Integer offsets} from a class-(c) selection ($d_c + k$ for
+fixed integer $k$) are reachable from $d_c$ by the recurrence's own
+stepping operation (Theorem~\ref{thm:c1unique}'s integer-arithmetic
+closure), not independent selections.
+\item \emph{Intersections} of two cascade-internal functions, $G_1(d) =
+G_2(d)$, reduce to the zero of $G_1 - G_2$, hence class~(b).
+\item \emph{Asymptotic invariants} (Lyapunov exponents, growth rates,
+limit-set indices) produce real numbers rather than specific integer
+dimensions; converting them to integer outputs (via thresholding or
+rounding) reduces to a level-crossing equation, hence class~(c) or~(b).
+\end{itemize}
+The classes~(a)--(d) therefore exhaust cascade-internal
+dimension-selecting mechanisms. Theorem~\ref{thm:c1unique}'s
+primitivity criterion provides the additional constraint on class~(c):
+no non-primitive reference value introduces a new distinguished
+dimension.
 
 \emph{Classes~(a) and (b) jointly yield two dimensions.}
 Two equilibria: $V_d$ has a unique maximum at $d_V = 5$ (by unimodality;
