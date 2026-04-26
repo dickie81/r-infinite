@@ -1,5 +1,26 @@
 # Future Paper — The Discrete Dirac Operator on the Cascade Lattice
 
+## Status note (post-Reading-III)
+
+This notebook documents the Clifford absorption investigation
+(Routes 4–7) cited from Part IVb's austerity-driven reframing of the
+fermion-obstruction open question. Its content is the long-form
+record of why sphere-bundle approaches fail.
+
+A separate session investigation (Reading III, Part IVa Remark
+`reading-III`) closed a different structural gap by recognising
+$G_2/SU(3)$ on $S^6$ at $d=7$ as the cascade-internal source of
+$\mathfrak{su}(3)$ algebra structure. **This does not address the
+Clifford absorption conjecture documented here** — Reading III
+strengthens the gauge-group derivation; Clifford absorption remains
+the open question recorded below. The two are independent
+structural questions that should not be conflated.
+
+Whether the Reading III geometry (octonion automorphisms at $d=7$)
+has any bearing on the cascade-lattice fermion construction
+(Phase 2 routes below) is itself an open question. Worth checking
+in any future Part IVc work.
+
 ## Purpose
 
 Close the single non-derived link in the fermion obstruction factor of Part IVb Theorem 2.2: the conjectured **Clifford absorption** of $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ on Dirac-layer spheres.
