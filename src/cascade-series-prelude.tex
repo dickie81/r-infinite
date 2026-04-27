@@ -23,27 +23,44 @@
 \maketitle
 
 \begin{center}
-\fbox{\parbox{0.9\textwidth}{\textbf{Status.} Exploratory. The cascade
+\fbox{\parbox{0.9\textwidth}{\textbf{Status.} Foundational. The cascade
 series has one pre-mathematical input, Definition~\ref{def:axiom}
 ($0\neq 1$). Principle~\ref{princ:austerity} (austerity) is \emph{not}
 a second input: it is the operational content of
 Definition~\ref{def:axiom}'s status as the sole input, derived in
 Section~\ref{sec:what-nothing-means} below. Each step of the chain
-from $0\neq 1$ to $B^\infty$ is annotated with the austerity clause it
-invokes. What remains open is whether austerity \emph{uniquely}
-determines $B^\infty$, or merely renders it the most austere starting
-object among a larger compatible set (Section~\ref{sec:open-questions}).
-The interpretive bridge from logical distinction ($0\neq 1$) to
-geometric orthogonality (Theorem~\ref{thm:orth}'s premise that
-distinguishable states share no common component in an inner-product
-space) is a separate structural choice, not a consequence of austerity;
-it is also flagged as open. The cascade series' load-bearing hypothesis
---- that $B^\infty$ descended to four dimensions is indistinguishable
-from our universe --- is stated independently in the cover sheet and
-does not depend on the arguments of this prelude. If any step of the
-prelude's chain is disputed, the cascade continues to rest on the
-cover-sheet hypothesis and the Gamma-function theorems of Part~0
-onward.}}
+from $0\neq 1$ to the dimension tower
+$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ (with asymptotic upper edge
+$B^\infty$) is annotated with the austerity clause it invokes. The
+prelude has one substantive structural commitment: the use of
+orthogonal states in an inner-product realisation as the model of
+distinguishable states (the interpretive bridge of
+Theorem~\ref{thm:orth}'s premise). Integers do not enter as a separate
+primitive: the integer $d$ is the cardinality of the orthogonal-state
+set at each level, and ``$\mathbb{R}^d$'' just names the space of $d$
+orthogonal directions under the realisation. Once the realisation
+commitment is accepted, the rest of the structure follows: the
+Euclidean geometry on $\mathbb{R}^d$ is forced by elementary linear
+algebra, the unit ball $B^d$ is the unique parameter-free
+rotation-symmetric bounded shape, the cardinality $d$ ranges over
+$\mathbb{N}$ as $\mathrm{RCA}_0$'s native unbounded notion, and the
+slicing recurrence is the unique first-order multiplicative recurrence
+on the tower.
+Whether the structural commitment to $\mathbb{R}^d$ is itself uniquely
+forced, or merely the most austere structural choice, is the single
+remaining open foundational question of the prelude
+(Section~\ref{sec:open-questions}, item~(3)(a)). The prelude
+operates on finite-dimensional Euclidean spaces only --- no
+infinite-dimensional Hilbert space is built or required, and the
+cascade's foundational footprint stays at $\mathrm{RCA}_0$ for the
+dimension tower's existence and at $\mathrm{WKL}_0$/$\mathrm{ACA}_0$
+for the classical-analysis content. The cascade series' load-bearing
+hypothesis --- that $B^\infty$ descended to four dimensions is
+indistinguishable from our universe --- is stated independently in
+the cover sheet and does not depend on the arguments of this prelude.
+If any step of the prelude's chain is disputed, the cascade continues
+to rest on the cover-sheet hypothesis and the Gamma-function theorems
+of Part~0 onward.}}
 \end{center}
 
 \begin{abstract}
@@ -126,8 +143,11 @@ excludes:
 no unexplained numerical, categorical, or symmetry-group input.
 \item[(ii)] \emph{Minimal strength.} No assumption strictly stronger than
 Definition~\ref{def:axiom} is invoked where a weaker sufficient assumption
-exists. Strength is measured by logical dependence: an assumption $A$ is
-weaker than $B$ if $B\Rightarrow A$ but not conversely.
+exists. Strength is measured in the sense of reverse mathematics over
+the base theory $\mathrm{RCA}_0$
+\cite{friedman1975, simpson2009}: an assumption $A$ is strictly
+stronger than $B$ if $\mathrm{RCA}_0 + A \vdash B$ but
+$\mathrm{RCA}_0 + B \nvdash A$.
 \item[(iii)] \emph{Unobservable quotient.} Any continuous symmetry whose
 action is unobservable from within the structure is quotiented out.
 \end{itemize}
@@ -151,6 +171,36 @@ class of violation as clause~(i).
 from within the structure carries structural content with no derivation
 consequence. Retaining it imports content not forced by
 Definition~\ref{def:axiom} --- the same class of violation.
+
+\emph{Exhaustiveness of (i)--(iii) (formal-extension trichotomy).} A
+construction $C$ violates sole-input iff $C$ is derivable in some
+formal system $\Sigma_C$ properly extending $\Sigma_0 = (\text{logic})
++ \{0\neq 1\}$. Standard proof theory characterises a formal system by
+three independent axes --- its non-logical axioms, its underlying
+logic, and its language/signature. Any extension of $\Sigma_0$ acts on
+at least one of these axes:
+\begin{itemize}
+\item Extending the axioms imports content as a fresh assumption
+(numerical, categorical, or symmetry-group input). This is clause~(i).
+\item Extending the logic imports content as inferential strength
+beyond what Definition~\ref{def:axiom} requires (e.g.\ adopting
+classical reasoning, the axiom of choice, or higher-order quantification
+where the cascade's chain demands only weaker resources); the residue
+$A\setminus B$ between the adopted logic $A$ and the strictly weaker
+sufficient $B$ encodes the imported content. This is clause~(ii).
+\item Extending the signature or background imports content as ambient
+structure with no cascade-internal observable trace --- a continuous
+symmetry whose action is invisible from within the cascade. This is
+clause~(iii).
+\end{itemize}
+These three axes exhaust the formal anatomy of an extending system:
+there is no fourth axis along which a formal system can be extended in
+standard proof theory. Any candidate fourth clause therefore either
+reduces to one of (i)--(iii) under the standard decomposition or fails
+to identify content actually present in $\Sigma_C$'s extension of
+$\Sigma_0$. Definitional extensions of $\Sigma_0$ are conservative
+(they introduce notation but no new theorems) and therefore do not
+qualify as content additions; they require no clause.
 
 All three clauses track a single condition: admitting content not forced
 by the sole input. Austerity is therefore the operational content of
@@ -189,185 +239,277 @@ $0\neq 1$ to orthogonality is not an additional assumption; it is a
 translation of the same fact into geometric language.
 
 \begin{theorem}[Distinction is orthogonality]\label{thm:orth}
-Let $V$ be an inner-product space and let $e_0, e_1\in V$ be unit
-vectors representing two fully distinguishable states---states sharing
-no common component under any linear operation on $V$. Then
-$\langle e_0, e_1\rangle = 0$.
+For any $d\geq 2$, let $e_0, e_1\in\mathbb{R}^d$ be unit vectors
+representing two fully distinguishable states --- states sharing no
+common component under any linear operation on $\mathbb{R}^d$. Then
+$\langle e_0, e_1\rangle = 0$ under the standard Euclidean inner
+product.
 \end{theorem}
 
 \begin{proof}
-In an inner-product space, $\langle e_0, e_1\rangle$ is the component of
-$e_1$ along $e_0$: the projection of $e_1$ onto the line through $e_0$ is
-$P_{e_0}(e_1) = \langle e_0, e_1\rangle\,e_0$. ``Fully distinguishable''
-states share no common component by definition, so for every projector
-this projection must vanish. Applied to $P_{e_0}$: if
-$\langle e_0,e_1\rangle\neq 0$, then a linear operation on $e_1$ (projection
-onto $e_0$) produces a nonzero multiple of $e_0$---a partial identification
-of $e_1$ with $e_0$, contradicting full distinguishability. Hence
-$\langle e_0, e_1\rangle = 0$. The argument uses only the geometric
-interpretation of the inner product: no probability measure, no Born rule,
-and no fidelity relation is invoked.
+In $\mathbb{R}^d$ with the standard inner product, $\langle e_0, e_1\rangle$
+is the component of $e_1$ along $e_0$: the projection of $e_1$ onto
+the line through $e_0$ is $P_{e_0}(e_1) = \langle e_0, e_1\rangle\,e_0$.
+``Fully distinguishable'' states share no common component by
+definition, so for every projector this projection must vanish.
+Applied to $P_{e_0}$: if $\langle e_0,e_1\rangle\neq 0$, then a linear
+operation on $e_1$ (projection onto $e_0$) produces a nonzero multiple
+of $e_0$ --- a partial identification of $e_1$ with $e_0$, contradicting
+full distinguishability. Hence $\langle e_0, e_1\rangle = 0$. The
+argument uses only the geometric interpretation of the inner product:
+no probability measure, no Born rule, and no fidelity relation is
+invoked.
 \end{proof}
 
+\begin{remark}[Status of Theorem~\ref{thm:orth}]
+Theorem~\ref{thm:orth} unpacks the Euclidean realisation of
+distinction at each $d$: given the premise that distinguishable states
+share no common component in $\mathbb{R}^d$, the projector calculation
+yields orthogonality. The substantive structural content is in the
+premise rather than in the conclusion. The bridge from logical
+$0\neq 1$ (Definition~\ref{def:axiom}) to that premise --- i.e., the
+choice of Euclidean geometry on each $\mathbb{R}^d$ as the realisation
+of logical distinction --- is a separate structural commitment, flagged
+in Section~\ref{sec:open-questions}, item~(3). The Euclidean inner
+product on $\mathbb{R}^d$ itself is forced by elementary linear
+algebra (it is the unique positive-definite symmetric bilinear form
+on $\mathbb{R}^d$ up to isomorphism, given a basis); the interpretive
+choice is the use of $\mathbb{R}^d$ as the geometric realisation of
+$d$ distinguishable states, not the geometry imposed on it.
+Theorem~\ref{thm:orth} is best read as the geometric expression of
+that interpretive choice rather than as an independent derivation of
+orthogonality.
+\end{remark}
+
 % ============================================================
-\section{Orthogonality Iterates}
+\section{The Dimension Tower}
 % ============================================================
 
-One distinction gives two orthogonal directions and a
-one-dimensional space. But the existence of one distinction does not
-preclude a second. If $e_0$ and $e_1$ span a plane, a third
-direction $e_2$ can be independent of both. There is no logical
-obstruction: the fact that $0\neq 1$ does not limit the number of
-independent things that can be distinguished.
+One distinction gives two orthogonal directions and a one-dimensional
+Euclidean space $\mathbb{R}^1$. But the existence of one distinction does
+not preclude a second. If $e_0$ and $e_1$ span a plane $\mathbb{R}^2$,
+a third direction $e_2$ can be independent of both, giving $\mathbb{R}^3$.
+There is no logical obstruction: the fact that $0\neq 1$ does not limit
+the number of independent things that can be distinguished.
 
-\begin{theorem}[Countable independence]\label{thm:iterate}
-Let $\{e_0, e_1\}$ be an orthogonal pair. For any finite $n$, there
-exists a unit vector $e_n$ orthogonal to $\{e_0,\ldots,e_{n-1}\}$.
-The iteration extends to countable infinity: the resulting structure
-is a separable infinite-dimensional inner-product space (a Hilbert
-space).
+\begin{theorem}[Countable dimension tower]\label{thm:iterate}
+The cascade's dimension parameter $d$ ranges over $\mathbb{N}$. For each
+$d\in\mathbb{N}$, the cascade structure at dimension $d$ is the
+finite-dimensional Euclidean space $\mathbb{R}^d$ with its standard inner
+product, and the unit ball $B^d = \{x\in\mathbb{R}^d : |x|\leq 1\}$.
 \end{theorem}
 
 \begin{proof}
-\emph{Existence of arbitrarily many orthogonal directions.} At each step,
-Gram--Schmidt orthogonalisation produces a unit vector in the orthogonal
-complement of the span of the previous vectors, as long as the ambient space
-has dimension greater than the number already constructed. So for any finite
-$n$, an $(n{+}1)$-th orthogonal unit vector can be constructed.
+\emph{Existence of arbitrarily many dimensions.} For any finite $d$, the
+Euclidean space $\mathbb{R}^d$ and its unit ball $B^d$ are well-defined
+classical objects, expressible in $\mathrm{RCA}_0$ \cite{simpson2009} ---
+the strength-measurement base of Principle~\ref{princ:austerity}
+clause~(ii) (Section~\ref{sec:open-questions}, item~(2)).
 
-\emph{Dimension is either $0$ or $\infty$ (clause~(i) of
-Principle~\ref{princ:austerity}).} It remains to show that the iteration
-must terminate at countable infinity rather than at any finite $n$.
-Suppose the iteration stops at some finite $n<\infty$. Then $n$ itself is
-a structural input of the theory --- an unexplained integer specifying
-where distinction ceases. By Principle~\ref{princ:austerity} clause~(i)
-(parameter economy), any such integer is rejected as a free parameter.
-The only stopping points compatible with clause~(i) are $n=0$ (which
-contradicts Definition~\ref{def:axiom}, requiring at least two distinct
-states) and $n=\infty$. The iteration therefore extends to countable
-infinity.
+\emph{The dimension tower has no upper bound (clause~(i) of
+Principle~\ref{princ:austerity}).} Suppose the tower stops at some
+finite $n<\infty$. Then $n$ itself is a structural input of the theory
+--- an unexplained integer specifying the cascade's maximum dimension.
+By Principle~\ref{princ:austerity} clause~(i) (parameter economy), any
+such integer is rejected as a free parameter. The only stopping points
+compatible with clause~(i) are $n=0$ (which contradicts
+Definition~\ref{def:axiom}, requiring at least two distinct states,
+hence dimension at least~$1$) and $n=\infty$. The dimension tower
+therefore extends without bound. (``$n=\infty$'' here is not itself a
+chosen cardinality among alternatives: within the $\mathrm{RCA}_0$
+strength-measurement base, $\aleph_0$ is the unique unbounded notion
+--- $\mathrm{RCA}_0$ has no machinery to express higher cardinals ---
+so $n=\infty$ is the unbounded countable index $\mathbb{N}$ the
+non-termination directly produces, not a selection from a menu of
+infinities.)
 
-\emph{Countable rather than uncountable (clause~(ii) of
-Principle~\ref{princ:austerity}).} Each distinction is a single bit: a
-binary test ``is the state $e_i$ or not?'' resolvable in finitely many
-steps. Countably many binary tests generate a countable orthonormal
-family, whose closed linear span is a separable Hilbert space.
-Uncountable dimension would require distinctions not resolvable by any
-countable sequence of binary tests --- strictly stronger than
-Definition~\ref{def:axiom} --- and is therefore excluded by
-Principle~\ref{princ:austerity} clause~(ii) (minimal strength). The
-completion of the pre-Hilbert space generated by the orthonormal
-sequence $\{e_i\}_{i\in\mathbb{N}}$ is a separable infinite-dimensional
-Hilbert space $\mathcal{H}$.
+\emph{Countable rather than uncountable indexing (clause~(ii) of
+Principle~\ref{princ:austerity}).} Indexing the dimension tower by an
+uncountable cardinal would require expressive machinery beyond
+second-order arithmetic, strictly stronger than
+Definition~\ref{def:axiom} in the reverse-mathematics sense of
+clause~(ii) (Section~\ref{sec:open-questions}, item~(2)).
+Principle~\ref{princ:austerity} clause~(ii) (minimal strength)
+therefore excludes the uncountable case. The dimension parameter
+ranges over $\mathbb{N}$.
 \end{proof}
 
+\noindent\textbf{No infinite-dimensional ambient space.} Theorem~\ref{thm:iterate}
+does not build a single infinite-dimensional Hilbert space as an
+ambient object. The cascade is the dimension tower itself: the sequence
+of finite-dimensional Euclidean structures $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$
+together with the relations between consecutive levels (the slicing
+recurrence of Section~\ref{sec:nothing-unstable}). The
+``infinite-dimensional unit ball $B^\infty$'' is the asymptotic upper
+edge of the tower, defined as the $d\to\infty$ limit of intrinsic
+geometric quantities (volumes, sphere areas; see
+Theorem~\ref{thm:nothing} below), not as a literal infinite-dimensional
+ambient object. This means the cascade does not require Cauchy
+completion to a single infinite-dimensional Hilbert space, does not
+require any functional-analytic refinement (rigged, nuclear,
+weak-topology), and does not require Sol\`er-style convergence theorems
+to force its starting structure: each $\mathbb{R}^d$ with its standard
+inner product is forced by elementary linear algebra (the unique
+positive-definite symmetric bilinear form on $\mathbb{R}^d$, up to
+isomorphism), and the tower itself is forced by clauses~(i) and~(ii) of
+Principle~\ref{princ:austerity} as in the proof above. The cascade's
+foundational footprint stays at $\mathrm{RCA}_0$ for the dimension
+tower's existence and at $\mathrm{WKL}_0$/$\mathrm{ACA}_0$ for the
+classical-analysis content (integration, the Gamma function) developed
+in subsequent sections.
+
 % ============================================================
-\section{Scale Invariance and the Projective Starting Object}
+\section{Scale and Rotation Invariance: Collapse at Each Dimension}
 % ============================================================
 
 Starting from nothing, there is no external reference against which to
-measure absolute magnitude. There is no metre stick, no Planck mass, no
-energy scale. The only quantities that can be defined without an external
-reference are \emph{ratios}. Equivalently: the dilation $x\mapsto\lambda x$
-for $\lambda\in\mathbb{R}^{*}$ is unobservable from within the structure.
-By Principle~\ref{princ:austerity} clause~(iii) (unobservable quotient),
-the starting object is taken invariant under this dilation. The cascade
-accordingly works with the projective quotient, not with representatives
-carrying a distinguished length scale.
+measure absolute magnitude. There is no metre stick, no Planck mass,
+no energy scale. The only quantities that can be defined without an
+external reference are \emph{ratios}. At each $d$, the dilation
+$x\mapsto\lambda x$ on $\mathbb{R}^d$ for $\lambda\in\mathbb{R}^{*}$
+is unobservable from within the structure. By
+Principle~\ref{princ:austerity} clause~(iii) (unobservable quotient),
+the cascade structure at each $d$ is invariant under dilation.
 
-\noindent\textbf{$\mathbb{R}^*$ is the unique austerity-compatible
-quotient at this stage.} Clause~(iii) of
-Principle~\ref{princ:austerity} applies to continuous symmetries
-\emph{defined on the current structure} whose action is unobservable
-from within it. At the Prelude stage, $\mathcal{H}$ is a real Hilbert
-space; the alternative candidate symmetries fail for specific reasons:
+The same applies to rotations. The orthogonal group $\mathrm{SO}(d)$
+acts on the labeling of the orthonormal frame in $\mathbb{R}^d$, not
+on the frame's existence. Cascade calculations downstream (the slicing
+recurrence of Section~\ref{sec:nothing-unstable}, the four
+distinguished dimensions of Part~0, the cascade invariant) are
+$\mathrm{SO}(d)$-invariant: they depend on intrinsic geometric
+quantities (volumes, sphere areas, Gamma function values), not on any
+specific axis. By clause~(iii), $\mathrm{SO}(d)$ is also quotiented at
+each $d$.
+
+\noindent\textbf{The collapsed substrate at each $d$.} The combined
+quotient $\mathbb{R}^d/(\mathbb{R}^*\times\mathrm{SO}(d))$ collapses to
+a single point: $\mathrm{SO}(d)$ acts transitively on rays in
+$\mathbb{R}^d$, so all rays are identified; $\mathbb{R}^*$ identifies
+points along each ray. At every finite $d$, the projective space modulo
+rotations is therefore a single point. This collapse is not a vacuous
+result --- it is the cascade's substrate at each $d$. Structured
+nothing has full rotational symmetry: no direction is privileged, no
+basis is canonical, and the only data the substrate carries at level
+$d$ is the bare fact of being a $d$-dimensional unit ball. The
+dimension parameter $d$ survives both quotients (it is counting data,
+not a direction), and at each $d$ the intrinsic geometric content of
+the unit ball $B^d$ --- its volume $V_d$, its boundary sphere area
+$\Omega_{d-1}$, the slicing-recurrence ratio $R(d)$, the decay rate
+$p(d)$, the effective slicing radius $R_{\mathrm{eff}}(d)$ --- is
+rotation-invariant and non-trivial.
+
+\noindent\textbf{The cascade is the resolution of unresolved infinity.}
+The cascade is not a static structure indexed by $d$. It is the
+\emph{process} by which the unresolved infinity at the asymptotic
+upper edge of the dimension tower is resolved into finite-dimensional
+intrinsic content, dimension by dimension. The slicing recurrence
+(Section~\ref{sec:nothing-unstable}) is the resolution mechanism:
+each step relates the intrinsic content at $d+1$ to the intrinsic
+content at $d$, extracting one dimension's worth of finite content
+from the asymptotic limit. The dimension tower
+$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ is the trace of this
+resolution; the integer $d$ is the resolution stage. The universe
+does not contain infinity --- the universe \emph{is} the result of
+resolution applied to it, observed from a particular stage. This is
+the unifying observation of the cascade series (cover sheet, ``one
+infinity, not many''): every infinity problem in physics --- the
+cosmological constant's $10^{-120}$, the black-hole horizon's
+infinite time dilation, the ultraviolet floor at $\Omega_{217}$, the
+Big Bang as upper edge --- is a local slice of the same asymptotic
+boundary, and every finite structure observed is what that one
+infinity looks like partway through resolution.
+
+\noindent\textbf{Computational representative.} Although the substrate
+at each $d$ is the collapsed quotient, calculations are performed on
+$\mathbb{R}^d$ directly, with its standard inner product and unit ball
+$B^d$. Cascade calculations on $\mathbb{R}^d$ are
+$\mathrm{SO}(d)$-equivariant by construction --- they descend to the
+collapsed substrate because their content (volumes, areas, dimension
+counts, Gamma function identities) is invariant under any choice of
+frame. Unit norm is the choice of canonical representative of each
+ray; the choice of frame within $\mathbb{R}^d$ is a further gauge
+fixing that washes out under $\mathrm{SO}(d)$ when the calculation
+completes.
+
+\noindent\textbf{Other candidate symmetries.}
 \begin{itemize}
-\item \emph{Full conformal group} $\mathbb{R}^* \times \mathrm{SO}(\mathcal{H})$.
-The orthogonal-rotation factor $\mathrm{SO}(\mathcal{H})$ is not
-unobservable: rotations relabel which directions carry the $e_0,e_1,\ldots$
-distinctions, and the distinction content is observable (it is precisely
-what Definition~\ref{def:axiom} declares). Clause~(iii) quotients only
-the unobservable dilation factor $\mathbb{R}^*$; the rotation factor
-$\mathrm{SO}(\mathcal{H})$ remains as a residual gauge of relabelling,
-not quotiented.
 \item \emph{$\mathbb{C}^*$-phase rotation}. A phase action requires a
 complex structure $J$ with $J^2=-\mathrm{Id}$. No such structure is
-present at the Prelude stage: $\mathcal{H}$ is constructed over
+present at the Prelude stage: each $\mathbb{R}^d$ is constructed over
 $\mathbb{R}$ (see Section~\ref{sec:what-not}, ``Real start, complex
-amplitudes, quaternionic spacetime''). The forced precession $\alpha=\pi/2$
-of Paper~II induces $J$ downstream, at which point whether $\mathbb{C}^*$
-is observable or unobservable becomes a separate question for Paper~II
-and beyond. At the Prelude stage there is no $\mathbb{C}^*$ action to
-quotient.
+amplitudes, quaternionic spacetime''). The forced precession
+$\alpha=\pi/2$ of Paper~II induces $J$ downstream, at which point
+whether $\mathbb{C}^*$ is observable or unobservable becomes a
+separate question for Paper~II and beyond. At the Prelude stage there
+is no $\mathbb{C}^*$ action to quotient.
 \item \emph{Discrete scale invariance} (quotient by a specific ratio
 $\lambda = r$ for some fixed $r$). Selecting a specific $r$ introduces
 an unexplained numerical input, violating clause~(i) (parameter
 economy). A continuous quotient has no such free parameter; only
 discrete reductions introduce one.
 \end{itemize}
-Among the symmetries defined on the real Hilbert space at the Prelude
-stage, $\mathbb{R}^*$-dilation is therefore the unique austerity-compatible
-quotient --- continuous, parameter-free, and fully unobservable. This
-addresses which continuous symmetry is quotiented and why no others are.
 
-The invariant of $\mathcal{H}$ under this action is the \emph{projective
-Hilbert space}
-\[
-\mathbb{P}\mathcal{H} \;=\; (\mathcal{H}\setminus\{0\})/\!\sim,\qquad
-x\sim\lambda x\ \text{for}\ \lambda\in\mathbb{R}^{*}.
-\]
-$\mathbb{P}\mathcal{H}$ is the unique quotient of $\mathcal{H}$ that forgets
-exactly what scale invariance says is unobservable and no more. Unit norm is
-not an additional axiom imposed on $\mathcal{H}$; it is the choice of a
-canonical \emph{representative} of each equivalence class in
-$\mathbb{P}\mathcal{H}$.
-
-\begin{definition}[Unit ball as canonical representative]\label{def:ball}
-The unit ball $B^d = \{x\in\mathbb{R}^d : |x|\leq 1\}$ and unit sphere
-$S^{d-1}=\partial B^d$ are canonical representatives of $\mathbb{P}\mathcal{H}$:
-each ray through the origin meets $S^{d-1}$ exactly twice (at antipodal
-points) and $B^d\setminus\{0\}$ in a half-open radial segment. Every
-subsequent theorem of the cascade is projective-invariant---it depends only
-on the ratio structure of $\mathcal{H}$, not on the chosen representative---
-so the choice is computational, not ontological.
+\begin{definition}[Sphere representative and ball completion]\label{def:ball}
+The unit sphere $S^{d-1}=\partial B^d$ is the canonical 2-fold
+representative of the projective space
+$\mathbb{R}\mathbb{P}^{d-1}=(\mathbb{R}^d\setminus\{0\})/\mathbb{R}^*$:
+each ray through the origin meets $S^{d-1}$ in exactly one antipodal
+pair. The unit ball $B^d = \{x\in\mathbb{R}^d : |x|\leq 1\}$ is the
+convex completion: each ray meets $B^d\setminus\{0\}$ in a half-open
+radial segment rather than at a single point, so the ball is not
+itself a section of $\mathbb{R}\mathbb{P}^{d-1}$ but contains
+$S^{d-1}$ as its boundary. The ball organises the slicing recurrence
+(Remark below); the sphere is where the cascade's content lives. Every
+subsequent theorem of the cascade is projective-invariant and
+rotation-invariant --- it depends only on dimension counts and intrinsic
+geometric ratios, not on the chosen representative or its completion
+or any specific frame --- so the joint choice is computational, not
+ontological.
 \end{definition}
 
 \begin{remark}[Why the ball rather than the sphere]
-We work with $B^\infty$ rather than $S^\infty$ because the ball contains the
-entire tower $\{S^{d-1}\}_{d\geq 1}$ as cross-sections of a single operation:
-slicing $B^{d+1}$ perpendicular to any axis at height $x\in[-1,1]$ yields a
-ball $B^d$ of radius $\sqrt{1-x^2}$, whose boundary is a sphere $S^{d-1}$.
-This is the slicing recurrence of Section~7, and it is the mechanism by
-which the Gamma function enters. The sphere $S^d$ does not carry an
-analogous native recurrence to lower-dimensional spheres; the ball is the
-minimal container in which the recurrence is expressible without auxiliary
-structure. Once the recurrence is in place, boundary dominance
-($\Omega_{d-1}/V_d = d$) shows that the spheres carry essentially all the
-content---so physics lives on the sphere, but the recurrence is organised
-by the ball.
+We work with the ball $B^d$ rather than the sphere $S^{d-1}$ because
+the ball is the natural site for the slicing recurrence: slicing
+$B^{d+1}$ perpendicular to any axis at height $x\in[-1,1]$ yields a
+ball $B^d$ of radius $\sqrt{1-x^2}$, whose boundary is a sphere
+$S^{d-1}$. This is the slicing recurrence of
+Section~\ref{sec:nothing-unstable}, and it is the mechanism by which
+the Gamma function enters. The sphere $S^d$ does not carry an
+analogous native recurrence to lower-dimensional spheres; the ball is
+the minimal container in which the recurrence is expressible without
+auxiliary structure. Once the recurrence is in place, boundary
+dominance ($\Omega_{d-1}/V_d = d$) shows that the spheres carry
+essentially all the content --- so physics lives on the sphere, but
+the recurrence is organised by the ball.
 \end{remark}
 
-From Section~4: the natural $\mathcal{H}$ is an infinite-dimensional
-separable real Hilbert space. From scale invariance: the starting object is
-$\mathbb{P}\mathcal{H}$. Working in the unit-ball representative:
-
-\begin{corollary}[The starting point]\label{cor:start}
-The mathematical object corresponding to ``nothing with the capacity for
-distinction'' is $\mathbb{P}\mathcal{H}$, represented for calculation by
-$B^\infty$, the infinite-dimensional unit ball.
+\begin{corollary}[The starting structure]\label{cor:start}
+The mathematical structure corresponding to ``nothing with the
+capacity for distinction'' is the dimension tower
+$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of finite-dimensional
+Euclidean spaces and their unit balls, with each level collapsed to
+a single substrate point under
+$\mathbb{R}^*\times\mathrm{SO}(d)$ but carrying non-trivial intrinsic
+geometric content (volumes, areas, recurrence ratios). The asymptotic
+upper edge --- the $d\to\infty$ limit, denoted $B^\infty$ --- is
+structured nothing (Theorem~\ref{thm:nothing} below). The cascade is
+the trajectory of intrinsic content unfolded across this tower via
+the slicing recurrence (Section~\ref{sec:nothing-unstable}).
 \end{corollary}
 
 % ============================================================
 \section{Nothing Is Empty}
 % ============================================================
 
-The infinite-dimensional unit ball is a legitimate mathematical
-object---but it is empty in every measurable sense.
+The asymptotic upper edge of the dimension tower --- denoted
+$B^\infty$, defined as the $d\to\infty$ limit of the intrinsic
+geometric quantities of $B^d$ --- is empty in every measurable sense.
 
-\begin{theorem}[Geometric nothing]\label{thm:nothing}
-$B^\infty$ has zero volume, zero surface area, and no interior
-point is farther than $\varepsilon$ from the boundary for any
-$\varepsilon > 0$ (concentration of measure).
+\begin{theorem}[Geometric nothing at the asymptotic upper edge]\label{thm:nothing}
+$B^\infty$ has zero volume, zero surface area, and concentration of
+measure: for any $\varepsilon > 0$, an arbitrarily large fraction of
+the mass of $B^d$ concentrates within $\varepsilon/\sqrt{d}$ of the
+boundary as $d\to\infty$.
 \end{theorem}
 
 \begin{proof}
@@ -379,18 +521,26 @@ $B^d$ places a fraction $1 - (1-\varepsilon^2/d)^{d/2} \to
 $\varepsilon/\sqrt{d}$ of the boundary.
 \end{proof}
 
-$B^\infty$ has no volume to fill, no boundary to inhabit, no
-interior to explore. It is the geometric expression of ``distinction
-exists but content does not.'' It is structured nothing.
+The asymptotic limit $B^\infty$ has no volume to fill, no boundary
+to inhabit, no interior to explore. It is the geometric expression of
+``distinction exists but content does not.'' It is structured nothing
+--- the upper edge of the dimension tower, where intrinsic content
+vanishes asymptotically.
 
 % ============================================================
-\section{Nothing Is Unstable}
+\section{Resolution: The Slicing Recurrence}\label{sec:nothing-unstable}
 % ============================================================
 
-$B^\infty$ is empty---but it is not inert. It has a slicing
-recurrence: cut $B^{d+1}$ perpendicular to one axis, and each
-cross-section is a $d$-ball of radius $\sqrt{1-x^2}$. The volumes
-obey:
+The asymptotic upper edge $B^\infty$ is empty, but the dimension tower
+as a whole is not inert. Each level has nontrivial intrinsic content
+(volumes, sphere areas, beta-function ratios), and consecutive levels
+are linked by the slicing recurrence. This recurrence is the
+resolution mechanism: it relates the intrinsic content at $d+1$ to
+the intrinsic content at $d$, extracting one dimension's worth of
+finite content from the asymptotic limit at each step.
+
+Cut $B^{d+1}$ perpendicular to one axis. Each cross-section at height
+$x$ is a $d$-ball of radius $\sqrt{1-x^2}$. The volumes obey:
 \[
 V_{d+1} = V_d \cdot \sqrt{\pi}\cdot R(d+1), \qquad R(d) =
 \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
@@ -400,27 +550,41 @@ The constant $\sqrt{\pi}$ is forced by orthogonality
 $\pi/2$, forcing the half-integer argument in $B(1/2,\cdot)$, giving
 $\Gamma(1/2) = \sqrt{\pi}$.
 
-As $d$ decreases from infinity, volumes \emph{grow}. The ball acquires
-content it did not have. The volume peaks at $d = 5$. Nothing, viewed
-from a lower dimension, is no longer nothing.
+Read structurally, this is the resolution unfolding: as $d$ decreases
+from infinity, volumes \emph{grow}, and the ball acquires content it
+did not have at higher $d$. The volume peaks at $d = 5$. Each step
+extracts more finite content from the asymptotic limit; the structured
+nothing of $B^\infty$ becomes structured \emph{something} at every
+finite~$d$. The recurrence has no free parameters: the resolution at
+each step is fully determined by the Gamma function.
 
-This is the instability: $B^\infty$ has zero volume, but its
-finite-dimensional cross-sections do not. The descent from $d=\infty$
-to finite $d$ is a transition from emptiness to content, governed
-entirely by the Gamma function, with no free parameters.
-
-\begin{remark}
-The word ``descent'' does not imply a process in time. It is a
-mathematical relationship: the volumes and areas of unit balls at
-successive finite dimensions are related by the slicing recurrence.
-Time will emerge later (Part~II) as the cascade's own orthogonal
-slicing direction. The descent is the static structure from which
-time is read off.
+\begin{remark}[Resolution as cosmic time]
+The cascade's resolution process admits a physical reading developed
+in Parts~II--V. Under that reading, each step of the resolution ---
+each new dimension added to the realised tower --- corresponds to
+one Planck-time tick of cosmic evolution. The universe had a start
+(when resolution began at finite stage), counts on indefinitely
+(each tick adds one more dimension), and approaches but never reaches
+$d=\infty$ (full resolution would be the asymptotic future, never
+completed). The universe does not \emph{contain} infinity --- it is
+the result of resolution-in-progress, observed from the current
+stage. Time, on this reading, is not an additional ingredient: it
+is the cascade's own resolution direction, registered as the
+dimension tower's growth. The Prelude commits only to the
+mathematical structure (the slicing recurrence as the resolution
+mechanism, the dimension tower as its trace); the physical
+identification of resolution with cosmic time, and of one Planck
+time with one tower extension, is the responsibility of Parts~II
+(time as orthogonal slicing direction) and~V (cosmology, tower
+growth, $\Omega_d$ at the cosmological-constant stage $d_2=217$).
 \end{remark}
 
 % ============================================================
-\section{The Destination Is Forced}
+\section{Where Resolution Lands: The Observer at $d=4$}
 % ============================================================
+
+The slicing recurrence resolves infinity into finite content at each
+step. Where does the resolution stably terminate?
 
 The volume maximum is at $d = 5$: the unique dimension where the unit
 ball has the largest volume. The observer sits at $d = 4$, the
@@ -432,19 +596,25 @@ that $d = 4$ is the unique spacetime dimension satisfying two
 independent constraints simultaneously:
 
 \begin{enumerate}
-\item \textbf{Lovelock uniqueness}: the gravitational equation has
-a unique form (Einstein's equation with cosmological constant) only
-at $d = 4$.
+\item \textbf{Lovelock uniqueness}: the gravitational equation has a
+unique form (Einstein's equation with cosmological constant) only at
+$d = 4$.
 \item \textbf{Complex spinors}: the Clifford algebra
-$\mathrm{Cl}(1,d-1)$ has irreducibly complex minimal spinors---the
-prerequisite for quantum mechanics---only when $d\bmod 8\in\{4,5,6\}$.
+$\mathrm{Cl}(1,d-1)$ has irreducibly complex minimal spinors --- the
+prerequisite for quantum mechanics --- only when
+$d\bmod 8\in\{4,5,6\}$.
 \end{enumerate}
 
-The intersection is $\{4\}$. No other dimension permits both
-unique physical laws and quantum information processing. The observer
-is not placed at $d = 4$ by assumption; $d = 4$ is where the
-mathematics forces the unique coincidence of stable laws, complex
-phase, and maximal content.
+The intersection is $\{4\}$. No other dimension permits both unique
+physical laws and quantum information processing. The observer is not
+placed at $d = 4$ by assumption; $d = 4$ is where the resolution
+trajectory naturally lands --- the unique stage at which stable
+physical laws and complex quantum phase coincide. The resolution
+process described in Section~\ref{sec:nothing-unstable} continues
+beyond $d=4$ in both directions (toward $d=\infty$ as the asymptotic
+upper edge, and toward $d=0$ as the trivial lower endpoint), but the
+\emph{observable physics} of the resolution lives at $d=4$, the
+boundary of the volume-maximum ball.
 
 % ============================================================
 \section{The Chain}
@@ -463,9 +633,9 @@ Step & Statement & Status & Austerity \\
 \midrule
 0 & $0 \neq 1$ & Pre-mathematical & --- \\
 1 & Distinction $\Rightarrow$ orthogonality & Theorem~\ref{thm:orth} & --- (interpretive) \\
-2 & Orthogonality iterates $\Rightarrow$ $d = \aleph_0$ & Theorem~\ref{thm:iterate} & (i), (ii) \\
-3 & Scale invariance $\Rightarrow$ $\mathbb{P}\mathcal{H}$; $B^\infty$ is a representative & Definition~\ref{def:ball} & (iii) \\
-4 & $B^\infty$: zero volume, zero area & Theorem~\ref{thm:nothing} & --- \\
+2 & Dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ & Theorem~\ref{thm:iterate} & (i), (ii) \\
+3 & Scale + rotation invariance at each $d\;\Rightarrow$ collapsed substrate; cascade as $d$-trajectory & Definition~\ref{def:ball}, Cor~\ref{cor:start} & (iii) \\
+4 & Asymptotic $B^\infty$: zero volume, zero area & Theorem~\ref{thm:nothing} & --- \\
 5 & Slicing recurrence, constant $\sqrt{\pi}$ & Forced by step 1 & --- \\
 6 & Descent: volumes grow, peak at $d = 5$ & Gamma function & --- \\
 7 & Observer at $d = 4$: boundary of the peak & Lovelock $\cap$ Clifford & --- \\
@@ -501,52 +671,63 @@ choice, flagged as open in Section~\ref{sec:open-questions}.
 % ============================================================
 
 \textbf{Does not derive physics.} This prelude contains no physical
-predictions. Its purpose is to argue that the starting point of the
-series --- the infinite-dimensional unit ball --- is \emph{defensibly
-minimal} given the single declared pre-mathematical input
-(Definition~\ref{def:axiom}, $0\neq 1$) and the austerity derivation
-(Principle~\ref{princ:austerity}) that follows from its sole-input
-status. The chain makes explicit which austerity clause is invoked at
-each step: clause~(i) at step~2 (parameter economy, forcing
-infinite dimension); clause~(ii) at step~3 (minimal strength, forcing
-countable over uncountable dimension via binary-test resolvability);
-clause~(iii) at step~5 (unobservable quotient, forcing
-$\mathbb{R}^*$-dilation invariance as the unique austerity-compatible
-quotient at the Prelude stage). Whether the combined input
-(Definition~\ref{def:axiom} plus austerity) forces $B^\infty$
-\emph{uniquely}, or merely renders it the most austere defensible
-starting object, is the exploratory question the prelude asks. The
-cascade series' load-bearing hypothesis (cover sheet) is independent
-of whichever answer is reached here: the downstream derivations take
-$B^\infty$ as given and test it by consequence.
+predictions. Its purpose is to argue that the starting structure of
+the series --- the dimension tower
+$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of finite-dimensional
+Euclidean spaces, with asymptotic upper edge $B^\infty$ --- is
+\emph{defensibly minimal} given the single declared pre-mathematical
+input (Definition~\ref{def:axiom}, $0\neq 1$) and the austerity
+derivation (Principle~\ref{princ:austerity}) that follows from its
+sole-input status. The chain makes explicit which austerity clause is
+invoked at each step: clauses~(i) and~(ii) at step~2 (parameter
+economy forcing the dimension tower to extend without bound; minimal
+strength forcing countable over uncountable indexing via the
+$\mathrm{RCA}_0$ commitment); clause~(iii) at step~3 (unobservable
+quotient, applied at each $d$ to both $\mathbb{R}^*$-dilation and
+$\mathrm{SO}(d)$, collapsing the substrate at each $d$ to a single
+point from which intrinsic content unfolds via the slicing recurrence).
+Whether the combined input (Definition~\ref{def:axiom} plus austerity)
+forces this dimension tower \emph{uniquely}, or merely renders it the
+most austere defensible starting structure, reduces to the single open
+foundational question of Section~\ref{sec:open-questions} item~(3)(a):
+the structural commitment to the inner-product realisation of
+distinguishable states. The cascade series' load-bearing hypothesis
+(cover sheet) is independent of whichever answer is reached here: the
+downstream derivations take the dimension tower (and its asymptotic
+upper edge $B^\infty$) as given and test it by consequence.
 
 \textbf{Real start, complex amplitudes, quaternionic spacetime.} The
-Prelude's starting object is over $\mathbb{R}$: no complex or quaternionic
-structure is introduced by hand. By Hurwitz's theorem, the associative
-normed division algebras over $\mathbb{R}$ are exactly $\mathbb{R}$,
-$\mathbb{C}$, and $\mathbb{H}$, and the Gamma function governs the slicing
-recurrence in all three cases. The cascade selects between them downstream:
+Prelude's starting structure is over $\mathbb{R}$ at every level of
+the dimension tower: no complex or quaternionic structure is
+introduced by hand. By Hurwitz's theorem, the associative normed
+division algebras over $\mathbb{R}$ are exactly $\mathbb{R}$,
+$\mathbb{C}$, and $\mathbb{H}$, and the Gamma function governs the
+slicing recurrence in all three cases. The cascade selects between
+them downstream:
 \begin{itemize}
-\item \emph{Real at the start.} The real Hilbert space is the most austere
-starting point and is the one used here. No complex or quaternionic
-structure is assumed.
-\item \emph{Complex at the amplitude level.} A complex structure
-$J$ with $J^2=-\mathrm{Id}$ arises as a \emph{derived} consequence of the
-forced precession $\alpha=\pi/2$ in Part~II. It is a theorem, not an axiom:
-two consecutive cascade quarter-turns compose to multiplication by $-1$,
-promoting the state space to a complex Hilbert space at the quantum layer.
-\item \emph{Quaternionic at the spacetime dimension.} Lovelock uniqueness
-intersected with Clifford periodicity forces the spacetime dimension to
-$d=4=\dim_\mathbb{R}\mathbb{H}$ in Part~III. The \emph{spacetime} dimension
-matches the quaternions while the \emph{amplitude} algebra remains
-$\mathbb{C}$.
+\item \emph{Real at the start.} Each $\mathbb{R}^d$ in the dimension
+tower is the most austere starting structure at dimension $d$ and is
+the one used here. No complex or quaternionic structure is assumed at
+any level.
+\item \emph{Complex at the amplitude level.} A complex structure $J$
+with $J^2=-\mathrm{Id}$ arises as a \emph{derived} consequence of the
+forced precession $\alpha=\pi/2$ in Part~II. It is a theorem, not an
+axiom: two consecutive cascade quarter-turns compose to multiplication
+by $-1$, promoting the state space to a complex structure at the
+quantum layer.
+\item \emph{Quaternionic at the spacetime dimension.} Lovelock
+uniqueness intersected with Clifford periodicity forces the spacetime
+dimension to $d=4=\dim_\mathbb{R}\mathbb{H}$ in Part~III. The
+\emph{spacetime} dimension matches the quaternions while the
+\emph{amplitude} algebra remains $\mathbb{C}$.
 \end{itemize}
-The real/complex/quaternionic hierarchy is thus not an open question: each
-algebra enters the cascade at the layer forced by a downstream theorem.
-What the Prelude does not do is prove that the cascade could not have been
-written over $\mathbb{C}$ or $\mathbb{H}$ from the outset---it proves only
-that the real case suffices, and that the complex and quaternionic roles
-are recovered downstream without additional input.
+The real/complex/quaternionic hierarchy is thus not an open question:
+each algebra enters the cascade at the layer forced by a downstream
+theorem. What the Prelude does not do is prove that the cascade could
+not have been written over $\mathbb{C}$ or $\mathbb{H}$ from the
+outset --- it proves only that the real case suffices, and that the
+complex and quaternionic roles are recovered downstream without
+additional input.
 
 \textbf{Does not resolve the hard problem.} The cascade derives the
 dimension where self-awareness is mathematically possible. It does
@@ -561,91 +742,184 @@ nothing, taken seriously, has structure. The question ``why is there
 % ============================================================
 
 Principle~\ref{princ:austerity} derives three previously-implicit
-parsimony choices (finite-vs-$\aleph_0$ dimension;
-countable-vs-uncountable independence; $\mathbb{R}^*$-dilation quotient)
-as clauses of a single derivation rule from Definition~\ref{def:axiom}.
-The prelude chain now invokes these clauses explicitly, and austerity
-is derived from the sole-input status of $0\neq 1$ rather than declared
-as a second input. What remains open:
+parsimony choices (finite-vs-$\aleph_0$ dimension index;
+countable-vs-uncountable indexing of the dimension tower; the
+unobservable-continuous-symmetry quotients of $\mathbb{R}^*$-dilation
+and $\mathrm{SO}(d)$ at each $d$, collapsing each level to a single
+substrate point) as clauses of a single derivation rule from
+Definition~\ref{def:axiom}. The prelude chain now invokes these
+clauses explicitly, and austerity is derived from the sole-input
+status of $0\neq 1$ rather than declared as a second input. What
+remains open:
 
-\textbf{(1) Uniqueness of $B^\infty$ under austerity.} Is
-$B^\infty = \mathbb{P}\mathcal{H}$ (separable infinite-dimensional real)
-the \emph{unique} mathematical structure derivable from
-Definition~\ref{def:axiom} under Principle~\ref{princ:austerity}, or
-merely one of several austerity-compatible starting objects?
+\textbf{(1) Uniqueness of the resolution process under austerity ---
+reduces to (3)(a).} Is the cascade's resolution process --- the
+dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of
+finite-dimensional Euclidean spaces with each level collapsed under
+$\mathbb{R}^*\times\mathrm{SO}(d)$, together with the slicing
+recurrence as resolution mechanism extracting finite content from the
+asymptotic upper edge $B^\infty$ at $d\to\infty$ --- the \emph{unique}
+mathematical process derivable from Definition~\ref{def:axiom} under
+Principle~\ref{princ:austerity}, or merely one of several
+austerity-compatible resolution processes?
 
-Two classes of alternatives are explicitly ruled out inside this
-prelude:
+The dimension tower has two components, each examinable for forcing:
 \begin{itemize}
-\item[$\bullet$] \emph{Complex or quaternionic Hilbert space as starting
-point.} Ruled out by clause~(ii) (minimal strength): starting over
-$\mathbb{C}$ or $\mathbb{H}$ is strictly stronger than starting over
-$\mathbb{R}$, and the latter suffices at this stage. Section~\ref{sec:what-not}
-establishes that the real case is the most austere starting point; $J$
-with $J^2=-\mathrm{Id}$ is recovered as a Paper~II \emph{theorem} from
-the forced precession, not imposed upstream.
-\item[$\bullet$] \emph{Non-separable (uncountable-dimensional) Hilbert
-space.} Ruled out inside Theorem~\ref{thm:iterate} by clause~(ii) via
-binary-test resolvability.
+\item[$\bullet$] \emph{The orthogonal-state structure at each
+cardinality.} The integer $d$ does not enter the cascade as a
+separate primitive: it is the cardinality of the orthogonal-state
+set --- the count of orthogonal directions in the realisation chosen
+by sub-question (3)(a). Integer indexing and the space at each level
+are the same thing: ``$\mathbb{R}^d$ at level $d$'' is ``the space of
+$d$ orthogonal states under (3)(a)'s realisation,'' and integer
+arithmetic on $d$ is just adding or removing one orthogonal direction.
+The cardinality $d$ ranges over $\mathbb{N}$ by
+Theorem~\ref{thm:iterate} (clause~(ii) via $\mathrm{RCA}_0$, item~(2)
+below: countable Gram--Schmidt is provable, uncountable orthonormal
+distinction is not; clause~(i) excludes any specific finite cutoff as
+a free parameter; $\mathbb{N}$ is $\mathrm{RCA}_0$'s native unbounded
+notion among countable index sets). Forcing the cardinality and the
+space at each cardinality therefore reduces to a single structural
+question --- the realisation of distinguishable states recorded in
+(3)(a). \emph{Open as (3)(a)}; not closed within (1).
+\item[$\bullet$] \emph{Bounded region $B^d$ within the cardinality-$d$
+realisation.} Forced given the previous component. Among compact
+convex regions in $\mathbb{R}^d$ with its standard inner product, the
+unit ball $B^d = \{x : |x|\leq 1\}$ is the unique parameter-free
+shape with full $\mathrm{SO}(d)$ symmetry: alternative shapes (cubes,
+simplices) break rotation symmetry; alternative balls (ellipsoids,
+balls of radius $r\neq 1$) introduce shape or scale parameters
+excluded by clause~(i). The unit ball is also the unique shape
+supporting the slicing recurrence with constant $\sqrt{\pi}$
+(Part~0 Theorem~4.1: the recurrence's irreducible residue is forced
+by orthogonality on the cardinality-$d$ realisation).
 \end{itemize}
-Alternatives that remain open candidates:
-\begin{itemize}
-\item[$\bullet$] Non-Hilbert inner-product topologies compatible with
-clauses~(i)--(iii): weak-topology variants, rigged Hilbert spaces,
-nuclear spaces, and similar functional-analytic refinements. The
-Prelude's chain does not rule these out explicitly.
-\item[$\bullet$] Structures that agree with $\mathbb{P}\mathcal{H}$ on
-the ``projective content'' but differ in finite-rank corrections or
-pathological embeddings not relevant to any downstream cascade
-calculation. These may be mathematically distinct but physically
-indistinguishable.
-\end{itemize}
-A uniqueness theorem of the form ``the unique structure derivable from
-Definition~\ref{def:axiom} under Principle~\ref{princ:austerity}, up to
-isomorphism, is $B^\infty$'' would close this question and promote the
-prelude from \emph{defensibly minimal} to \emph{forced}. In its absence,
-the prelude's conclusion is conditional on the §5 enumeration plus the
-clauses of Section~\ref{sec:what-not} exhausting relevant candidates.
 
-\textbf{(2) Formal measure of assumption strength (clause (ii)).}
-Clause~(ii) of Principle~\ref{princ:austerity} uses logical implication
-to order assumptions by strength. For the specific question of
-countable-vs-uncountable distinction the ordering is clean
-(uncountable distinction $\Rightarrow$ countable distinction, but not
-conversely, via binary-test resolvability). For other future
-applications of clause~(ii) in downstream papers, the partial order may
-require a more formal specification --- for instance, relative to ZFC
-or a constructive foundation. This is a foundations-of-mathematics
-question, not a cascade-specific one.
+The resolution mechanism itself is also forced given the tower: the
+slicing recurrence is the unique first-order multiplicative recurrence
+on the tower of unit balls (Part~0 Theorem~4.1).
 
-\textbf{(3) The interpretive bridge at Theorem~\ref{thm:orth}.} The
-step from logical $0\neq 1$ to geometric ``states sharing no common
-component in an inner-product space'' (the premise of
-Theorem~\ref{thm:orth}) is a structural interpretation, not a clause of
-austerity. Austerity governs \emph{which} structure is admissible once
-the interpretive framework is fixed; it does not fix the interpretive
-framework itself. Three sub-questions:
+\noindent\textbf{Reduction.} The bounded region and the resolution
+mechanism are forced once the orthogonal-state realisation of (3)(a)
+is fixed. Integer indexing is not a separate component --- it is the
+cardinality of (3)(a)'s structural commitment. Therefore (1) is
+closed up to (3)(a): \emph{given the inner-product realisation of
+$0\neq 1$ as orthogonal states, the cascade's resolution process is
+uniquely determined.} The remaining open question collapses into the
+interpretive bridge of (3)(a) --- a single substantive structural
+commitment of the prelude, comparable in status to ``use real numbers
+for analysis,'' rather than an independent open item.
+
+Three classes of alternatives at the level of the whole structure are
+explicitly ruled out inside this prelude:
 \begin{itemize}
-\item[(a)] Is the inner-product-space interpretation of $0\neq 1$ the
-unique minimal geometric realisation, or are there weaker structures
-(e.g.\ topological distinction without an inner product) that also admit
-the Prelude's subsequent chain?
-\item[(b)] Does the sole-input commitment of
-Definition~\ref{def:axiom} --- from which Principle~\ref{princ:austerity}
-is derived --- extend to the choice of interpretive framework?
-Specifically: can one show that ``inner-product space as geometric
-realisation of $0\neq 1$'' is the minimal interpretation in a sense
-analogous to clauses~(i)--(iii) of Principle~\ref{princ:austerity}, or
-does choosing an interpretive framework require a further
-meta-principle beyond sole-input status?
-\item[(c)] Alternatively, is the inner-product interpretation itself a
-theorem of some more austere framework (for instance, as the unique
-realisation admitting the NOT involution and its projection $P_{e_0}$
-simultaneously)?
+\item[$\bullet$] \emph{Complex or quaternionic Euclidean spaces as
+starting structure.} Ruled out by clause~(ii) (minimal strength):
+starting over $\mathbb{C}$ or $\mathbb{H}$ at each $d$ is strictly
+stronger than starting over $\mathbb{R}$, and the latter suffices.
+Section~\ref{sec:what-not} establishes that the real case is the most
+austere starting structure; $J$ with $J^2=-\mathrm{Id}$ is recovered
+as a Paper~II \emph{theorem} from the forced precession, not imposed
+upstream.
+\item[$\bullet$] \emph{Uncountable indexing of the dimension tower.}
+Ruled out inside Theorem~\ref{thm:iterate} by clause~(ii):
+uncountable indexing requires expressive machinery beyond second-order
+arithmetic.
+\item[$\bullet$] \emph{An infinite-dimensional ambient Hilbert space.}
+Ruled out as superfluous: the cascade's content (slicing recurrence,
+intrinsic geometric quantities, asymptotic limit) is fully expressible
+on the dimension tower of finite-dimensional Euclidean spaces, with
+$B^\infty$ as the asymptotic upper edge rather than a literal
+infinite-dimensional ambient object. No Cauchy completion, no
+Sol\`er-style convergence theorem, no functional-analytic refinement
+(rigged Hilbert space, nuclear space, weak-topology variant) is
+required to express any downstream cascade theorem.
 \end{itemize}
-Each sub-question is open. Until one is resolved, the chain rests on
-Definition~\ref{def:axiom}, Principle~\ref{princ:austerity}, and the
-interpretive choice of inner-product geometry.
+
+\textbf{(2) Formal measure of assumption strength (clause (ii)) ---
+resolved.} The partial order on assumption strength used in clause~(ii)
+of Principle~\ref{princ:austerity} is the reverse-mathematics ordering
+over the base theory $\mathrm{RCA}_0$
+\cite{friedman1975, simpson2009}: $A$ is strictly stronger than $B$ if
+$\mathrm{RCA}_0 + A \vdash B$ but $\mathrm{RCA}_0 + B \nvdash A$. This
+framework calibrates the strength of mathematical theorems against the
+``Big Five'' subsystems of second-order arithmetic
+($\mathrm{RCA}_0 \subsetneq \mathrm{WKL}_0 \subsetneq \mathrm{ACA}_0
+\subsetneq \mathrm{ATR}_0 \subsetneq \Pi^1_1\text{-}\mathrm{CA}_0$),
+giving a precise quantitative measure of any cascade derivation's
+foundational footprint. The countable-vs-uncountable comparison
+invoked in Theorem~\ref{thm:iterate} is a clean reverse-mathematics
+statement: the dimension tower indexed by $\mathbb{N}$ with $\mathbb{R}^d$
+at each level is expressible in $\mathrm{RCA}_0$; uncountable indexing
+requires expressive machinery beyond second-order arithmetic. The
+cascade's downstream content --- classical analysis on
+finite-dimensional Euclidean spaces, the Gamma function and its
+analytic properties, the slicing recurrence as a Beta-function identity
+--- calibrates at $\mathrm{WKL}_0$/$\mathrm{ACA}_0$ within the Big
+Five hierarchy. No Cauchy completion to an infinite-dimensional
+Hilbert space is required (see Theorem~\ref{thm:iterate}'s ``No
+infinite-dimensional ambient space'' note), so the prelude itself
+stays at $\mathrm{RCA}_0$. The cascade's foundational footprint is
+therefore bounded by a well-understood, modest fragment of second-order
+arithmetic. The choice of $\mathrm{RCA}_0$ as the strength-measurement
+base is a foundational commitment, not a cascade-internal axiom: it
+specifies how clause~(ii) is to be applied without altering what the
+cascade proves from $0\neq 1$.
+
+\textbf{(3) The interpretive bridge at Theorem~\ref{thm:orth} ---
+elementary closure.} The step from logical $0\neq 1$ to geometric
+``states sharing no common component in $\mathbb{R}^d$'' (the premise
+of Theorem~\ref{thm:orth}) is a structural interpretation, not a
+clause of austerity. Austerity governs \emph{which} structure is
+admissible once the interpretive framework is fixed; it does not fix
+the interpretive framework itself. The interpretive choice splits into
+two layers:
+\begin{itemize}
+\item[(a)] \emph{The choice of $\mathbb{R}^d$ as the realisation of
+$d$ distinguishable states.} This is the genuine interpretive
+commitment: ``model $d$ logical distinctions as $d$ orthogonal
+directions in a $d$-dimensional Euclidean space.'' Integers do not
+enter as a separate primitive --- the integer $d$ is the cardinality
+of the orthogonal-state set under this realisation, and integer
+arithmetic on $d$ is just adding or removing one orthogonal direction.
+This is comparable in status to ``model continuous quantities as real
+numbers'' or ``model directed quantities as vectors'' --- a
+structural-realisation choice that the cascade adopts without further
+justification. Whether some weaker structural realisation (a
+non-Euclidean inner product, a non-Hilbert metric, a topology without
+inner product, an orthomodular lattice without an underlying vector
+space) also admits the cascade's subsequent chain is open in
+principle, but the alternatives that genuinely support the slicing
+recurrence and Gamma-function machinery all reduce to or refine the
+Euclidean realisation. The cascade adopts $\mathbb{R}^d$-Euclidean as
+the most elementary structural choice admitting its content.
+\item[(b)] \emph{The geometry on $\mathbb{R}^d$ once chosen.} This is
+\emph{not} an interpretive choice but a theorem of elementary linear
+algebra: the standard Euclidean inner product on $\mathbb{R}^d$ is
+the unique positive-definite symmetric bilinear form on
+$\mathbb{R}^d$, up to isomorphism, given a choice of basis. No Hilbert
+space machinery, no Sol\`er-style convergence theorem, no choice
+principle is required to fix it.
+\end{itemize}
+Sub-question (a) is the genuine open item; sub-question (b) is closed
+elementarily. Closing (a) would require either a uniqueness theorem of
+the form ``the most austere geometric realisation of $d$ distinguishable
+states admitting the slicing recurrence is $\mathbb{R}^d$-Euclidean'' ---
+which would promote the prelude from \emph{defensibly minimal} to
+\emph{forced} on this axis --- or a meta-foundational principle
+governing the choice of structural realisation. Both are
+foundations-of-mathematics questions outside the cascade's own scope,
+parallel to the meta-question of why standard mathematics is the
+natural ambient framework.
+
+\noindent\textbf{Foundational footprint preserved.} Because the
+interpretive bridge is closed elementarily (linear algebra at each
+$d$) rather than via Sol\`er-style machinery on an infinite-dimensional
+ambient space, the cascade's foundational footprint stays at the
+modest end of the Big Five hierarchy: $\mathrm{RCA}_0$ for the
+dimension tower, $\mathrm{WKL}_0$/$\mathrm{ACA}_0$ for the classical
+analysis content of Part~0 onward. No higher-strength machinery is
+imported by the prelude.
 
 \textbf{(4) The hard problem.} The cascade derives the
 dimension where self-awareness is mathematically possible. It does not
@@ -654,5 +928,16 @@ derive self-awareness itself (already noted in Section~\ref{sec:what-not}).
 \bigskip
 
 The series begins.
+
+\begin{thebibliography}{99}
+
+\bibitem{friedman1975} H.~Friedman, ``Some systems of second-order
+arithmetic and their use,'' in \textit{Proceedings of the International
+Congress of Mathematicians, Vancouver}, vol.~1, pp.~235--242 (1975).
+
+\bibitem{simpson2009} S.~G.~Simpson, \textit{Subsystems of Second
+Order Arithmetic}, 2nd ed., Cambridge University Press, 2009.
+
+\end{thebibliography}
 
 \end{document}
