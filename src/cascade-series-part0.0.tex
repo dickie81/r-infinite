@@ -252,41 +252,102 @@ This is a sum of Beta function ratios. No free parameter enters.
 The observable propagates through $n$ layers. The independent-step approximation treats each layer as perfectly collinear with the next ($C_{d,d+1}=1$). The first-order departure from collinearity at each step is the squared overlap deficit $1-C_{d,d+1}^2$, which measures the fraction of the integrand at step $d$ that is orthogonal to step $d+1$ (Theorem~\ref{thm:overlap}). For a multiplicative propagator, the leading correction is the sum of per-step deficits.
 \end{proof}
 
-\begin{corollary}[Exponential resummation of the per-step corrections]\label{cor:exp-resum}
-For a multiplicative propagator $Q_0 = \prod_k (\text{step}_k)$ traversing
-the same path as in Theorem~\ref{thm:first-order}, the full (all-orders)
-Gram-corrected observable is
+\begin{corollary}[Exponential resummation forced by multiplicative composition]\label{cor:exp-resum}
+For a multiplicative propagator $Q_0 = \prod_k (\text{step}_k)$
+traversing the path of Theorem~\ref{thm:first-order}, the unique
+closed-form leading-order Gram-corrected observable respecting
+multiplicative composition under path splitting is
 \begin{equation}\label{eq:exp-form}
-Q \;=\; Q_0\cdot\exp\!\Bigl(\sum_{k=0}^{n-2}\bigl(1-C_{d_k,d_{k+1}}^2\bigr)\Bigr),
+Q \;=\; Q_0\cdot\exp\!\Bigl(\sum_{k=0}^{n-2}\bigl(1-C_{d_k,d_{k+1}}^2\bigr)\Bigr) \;+\; O(\delta^2),
 \end{equation}
-agreeing with Theorem~\ref{thm:first-order} to first order.
+where $\delta = \max_k (1 - C_{d_k,d_{k+1}}^2)$. The exponential
+matches Theorem~\ref{thm:first-order} at first order in $\delta$ per
+step.
 \end{corollary}
 
 \begin{proof}
-Because the cascade recurrence is first-order multiplicative
-(Corollary~3.2 of Paper~0), the Gram-corrected step at layer $d_k$
-receives a multiplicative factor $1 + (1 - C_{d_k,d_{k+1}}^2) +
-O\bigl((1-C^2)^2\bigr)$, accumulating as a product across layers:
+\emph{Setup.} Because the cascade recurrence is first-order
+multiplicative (Corollary~3.2 of Paper~0), the Gram-corrected step at
+layer $d_k$ receives a multiplicative factor
+$1 + (1 - C_{d_k,d_{k+1}}^2) + O((1-C^2)^2)$, accumulating as a product:
 \[
-Q \;=\; Q_0\prod_{k=0}^{n-2}\bigl(1 + (1 - C_{d_k,d_{k+1}}^2) + O((1-C^2)^2)\bigr).
+Q \;=\; Q_0\prod_{k=0}^{n-2}\bigl(1 + \delta_k + O(\delta_k^2)\bigr),
+\qquad \delta_k := 1 - C_{d_k,d_{k+1}}^2.
 \]
-Each per-step deficit scales as $1 - C_{d,d+1}^2 \sim 1/(8d^2)$
-(Theorem~\ref{thm:overlap}), so for every path in the Part~0 tower the
-deficits are uniformly small. Under this smallness condition,
-$\prod_k(1 + x_k) = \exp\bigl(\sum_k \ln(1 + x_k)\bigr)
-= \exp\bigl(\sum_k x_k - \tfrac{1}{2}\sum_k x_k^2 + \cdots\bigr)$,
-and the leading order in $x_k$ gives~\eqref{eq:exp-form}. Expanding the
-exponential to first order returns
-$Q/Q_0 = 1 + \sum(1-C^2) + O((1-C^2)^2)$, recovering
-Theorem~\ref{thm:first-order}. For the six paths in the verification
-table above, the first-order linear form and the exponential
-resummation agree to $O(10^{-4})$ (numerically:
-$1 + 0.02108 = 1.02108$ versus $\exp(0.02108) = 1.02130$ for the
-longest path), which is below the reported observational precisions.
-The exponential form is therefore the natural closed-form expression
-of the same correction and is the form used downstream (Paper~I,
-$\rho_\Lambda$ closure; Paper~IVb, the $v$ and $m_\tau$ absolute-mass
-shifts).
+This product is the exact corrected observable (modulo $O(\delta^2)$
+per-step residuals from Theorem~\ref{thm:first-order}'s first-order
+truncation). Define the path-functional
+$\Phi(P) := \sum_{k\in P} \delta_k$ and the correction factor
+$K(P) := Q/Q_0$ over a path $P$.
+
+\emph{Composition law.} Multiplicative composition under path
+splitting is a structural property of the cascade recurrence: for a
+path $P = P_1 \cup P_2$ formed by concatenating two consecutive
+sub-paths, the corrected observable composes as
+$Q(P) = Q_0(P_1)\cdot Q_0(P_2) \cdot K(P_1) \cdot K(P_2) = Q_0(P)\cdot K(P_1)\cdot K(P_2)$.
+Therefore $K(P) = K(P_1)\cdot K(P_2)$, and since $\Phi(P) = \Phi(P_1) + \Phi(P_2)$
+(the path-functional is additive under concatenation), $K$ as a
+function of $\Phi$ must satisfy
+\begin{equation}\label{eq:cauchy}
+K(\Phi_1 + \Phi_2) \;=\; K(\Phi_1) \cdot K(\Phi_2).
+\end{equation}
+
+\emph{Cauchy's exponential functional equation forces the form.}
+Equation~\eqref{eq:cauchy} together with continuity (a closed-form
+correction is a smooth function of its path-functional argument) and
+the boundary condition $K(0) = 1$ (no correction for an empty path)
+has, by the standard solution of Cauchy's exponential functional
+equation, the unique family of solutions $K(\Phi) = e^{c\Phi}$ for
+some constant $c$. Matching the first-order behaviour to
+Theorem~\ref{thm:first-order} ($K(\Phi) = 1 + \Phi + O(\Phi^2)$ for
+small $\Phi$, hence $K'(0) = 1$) fixes $c = 1$. Therefore
+\[
+K(\Phi) \;=\; e^\Phi \;=\; \exp\!\Bigl(\sum_k \delta_k\Bigr),
+\]
+and the corrected observable is~\eqref{eq:exp-form}.
+
+\emph{Why the linear form fails.} The linear closed-form
+$K_{\mathrm{lin}}(\Phi) = 1 + \Phi$ matches at first order but
+violates~\eqref{eq:cauchy}: $K_{\mathrm{lin}}(\Phi_1) K_{\mathrm{lin}}(\Phi_2)
+= (1 + \Phi_1)(1 + \Phi_2) = 1 + \Phi_1 + \Phi_2 + \Phi_1\Phi_2 \neq
+1 + (\Phi_1 + \Phi_2) = K_{\mathrm{lin}}(\Phi_1 + \Phi_2)$. The cross-term
+$\Phi_1\Phi_2$ breaks additivity. The exponential is the unique
+continuous closed form respecting composition; the linear form is the
+unique closed form failing it.
+
+\emph{Residual versus the exact product.} The exact corrected
+observable is the product $Q_0\prod(1 + \delta_k + O(\delta_k^2))$, not
+the exponential. The exponential and the product agree at first order
+in $\delta$ per step but differ at second order: the exact product
+expands as $1 + \sum\delta_k + \sum_{j<k}\delta_j\delta_k + O(\delta^3)$,
+while the exponential expands as $1 + \sum\delta_k + \tfrac{1}{2}(\sum\delta_k)^2 + O(\delta^3)
+= 1 + \sum\delta_k + \tfrac{1}{2}\sum\delta_k^2 + \sum_{j<k}\delta_j\delta_k + O(\delta^3)$.
+The exponential overestimates the exact product by
+$\tfrac{1}{2}\sum\delta_k^2$ at second order. The linear closed-form
+$1 + \sum\delta_k$, by contrast, underestimates the product by
+$\sum_{j<k}\delta_j\delta_k$ at second order.
+
+For cascade paths starting at $d_0\geq 5$ the per-step deficits scale
+as $\delta_k = 1 - C^2_{d_k,d_{k+1}} \sim 1/(8d^2)$
+(Theorem~\ref{thm:overlap}), so
+$\sum_{k}\delta_k^2 \lesssim \tfrac{1}{64}\sum_{d\geq 5} d^{-4} \approx
+6\times 10^{-5}$, and the exponential overshoots the exact product by
+at most $\tfrac{1}{2}(6\times 10^{-5}) \approx 3\times 10^{-5}$ in the
+multiplicative correction (i.e.\ $\sim 0.003\%$ of $Q$). The linear
+form underestimates the product by approximately
+$\tfrac{1}{2}(\sum\delta)^2 \approx 2\times 10^{-4}$ ($\sim 0.022\%$
+of $Q$) for the longest path ($d=5$ to $d=217$). The exponential is
+therefore not only the unique composition-respecting closed form but
+also the closer numerical approximation to the exact product than the
+linear form, by an order of magnitude.
+
+Both gaps are below the reported observational precisions of all
+currently-tested cascade observables ($\sim 0.1\%$ or coarser). The
+exponential is therefore the cascade's natural closed-form correction
+--- forced by composition, exact at first order in $\delta$, and within
+observational precision of the exact product for all paths considered.
+It is the form used downstream (Paper~I, $\rho_\Lambda$ closure;
+Paper~IVb, the $v$ and $m_\tau$ absolute-mass shifts).
 \end{proof}
 
 \begin{center}
