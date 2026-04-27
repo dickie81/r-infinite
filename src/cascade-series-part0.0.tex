@@ -144,8 +144,52 @@ By Theorem~\ref{thm:gram-R} and properties of the logarithm,
 Since $\alpha(d) = R(d)^2/4$, we have $\log\alpha = 2\log R - 2\log 2$, so $\Delta^2 \log\alpha = 2\,\Delta^2 \log R$ (constants drop in second differences). Substituting yields equation~\eqref{eq:gram-laplacian}.
 \end{proof}
 
+\begin{theorem}[Full correlation matrix in cascade slicing ratios]\label{thm:gram-matrix}
+The Gram correlation between any two cascade layers $d_i$ and $d_j$ is
+\begin{equation}\label{eq:gram-matrix-form}
+C_{ij} \;=\; \frac{R(d_i + d_j + 1)}{\sqrt{R(2d_i+1)\,R(2d_j+1)}}.
+\end{equation}
+Equivalently, with $k := |d_i - d_j|$ and centered argument $m := d_i + d_j + 1 = 2\min(d_i, d_j) + k + 1$,
+\begin{equation}\label{eq:gram-matrix-laplacian}
+\log C^2_{ij} \;=\; -\Delta^2_{(k)}\log R\,\big|_{m},
+\end{equation}
+where $\Delta^2_{(k)} f|_n := f(n-k) + f(n+k) - 2f(n)$ is the centered second difference with step~$k$.
+\end{theorem}
+
+\begin{proof}
+The Gram entries are $G_{ij} = B(1/2, (d_i+d_j)/2 + 1)$ (Theorem~\ref{thm:gram}). The Beta--Gamma reduction $B(1/2, n+1) = \sqrt{\pi}\,\Gamma(n+1)/\Gamma(n+3/2)$ together with $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ gives, for general $i, j$:
+\[
+G_{ij} = \sqrt{\pi}\,R(d_i + d_j + 1), \qquad G_{ii} = \sqrt{\pi}\,R(2d_i + 1).
+\]
+Substituting into $C_{ij} = G_{ij} / \sqrt{G_{ii}\,G_{jj}}$ yields equation~\eqref{eq:gram-matrix-form}. Taking the squared logarithm:
+$\log C^2_{ij} = 2\log R(d_i+d_j+1) - \log R(2d_i+1) - \log R(2d_j+1)$.
+Setting $k = |d_i - d_j|$ and $m = d_i + d_j + 1$ gives $2d_i + 1 = m - k$ and $2d_j + 1 = m + k$, so
+$\log C^2_{ij} = 2\log R(m) - \log R(m-k) - \log R(m+k) = -\Delta^2_{(k)} \log R\big|_m$.
+Theorem~\ref{thm:gram-R} is the special case $k = 1$ (adjacent layers).
+\end{proof}
+
+\begin{corollary}[Eigenvalue deficit in cascade primitives]\label{cor:eigenvalue-cascade}
+For any cascade path $\{d_0, d_0+1, \ldots, d_0+n-1\}$, the eigenvalue deficit $\epsilon(n, d_0) = 1 - \lambda_1(C)/n$ of Theorem~\ref{thm:eigenvalue} is the dominant-eigenvalue deficit of the explicit $n\times n$ matrix
+\[
+C_{ij} \;=\; \frac{R(d_i+d_j+1)}{\sqrt{R(2d_i+1)\,R(2d_j+1)}},
+\]
+where $d_i = d_0 + i$ for $i = 0, 1, \ldots, n-1$. The first-order perturbation expression of Theorem~\ref{thm:pert} is correspondingly
+\begin{equation}\label{eq:pert-cascade}
+\epsilon \;=\; \frac{2}{n^2}\sum_{i<j}\Bigl(1 - \frac{R(d_i+d_j+1)}{\sqrt{R(2d_i+1)\,R(2d_j+1)}}\Bigr) \;+\; O(\|D\|^2),
+\end{equation}
+a sum of cascade slicing ratios with no Beta function evaluations beyond what cascade primitives already supply.
+\end{corollary}
+
+\begin{proof}
+Direct substitution of equation~\eqref{eq:gram-matrix-form} into the matrix entries of $C$, then into Theorem~\ref{thm:pert}'s first-order formula. The dominant eigenvalue $\lambda_1$ and the deficit $\epsilon$ are functions of $C$'s entries, hence of the cascade slicing ratios at the doubled arguments $\{2d_i+1\}$ and the off-doubled arguments $\{d_i+d_j+1\}$.
+\end{proof}
+
+\begin{remark}[Structural sign of the Gram correction]\label{rem:gram-sign-from-convexity}
+The positivity of the per-step Gram deficit $1 - C^2_{d,d+1}$ (cited as ``Cauchy--Schwarz on integrands'' in Paper~IVb's $\alpha(d^*)/\chi^k$ sign rule) is now equivalent to the convexity of $\log\alpha$ on the cascade tower at the doubled argument. By Corollary~\ref{cor:gram-laplacian}, $1 - C^2_{d,d+1} \sim -\log C^2_{d,d+1} = \tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$, which is positive iff $\log\alpha$ is locally convex at $2d+2$. Since $\alpha(d) \sim 1/(2d)$ asymptotically (Paper~0~\S2 plus the Beta--Gamma reduction), $\log\alpha \sim -\log(2d)$ is convex, so $\Delta^2\log\alpha > 0$ throughout the cascade tower. The sign-rule positivity therefore reduces to the convexity of $\log\alpha$, a structural property of the cascade compliance function rather than a separate $L^2$ inner-product fact.
+\end{remark}
+
 \begin{remark}[Numerical verification]\label{rem:gram-verifier}
-Both Theorem~\ref{thm:gram-R} (the closed form) and Corollary~\ref{cor:gram-laplacian} (the Laplacian identity) are verified at all tested $d$ values in
+Theorem~\ref{thm:gram-R} (adjacent closed form), Corollary~\ref{cor:gram-laplacian} (the Laplacian identity), and Theorem~\ref{thm:gram-matrix} (the full-matrix closed form) are verified at all tested cascade layer pairs in
 \begin{center}
 \texttt{tools/verifiers/gram\_compliance\_laplacian.py}
 \end{center}
@@ -527,7 +571,7 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 
 \begin{enumerate}[nosep]
 \item The Gram matrix of cascade layer integrands is a matrix of Beta function values (Theorem~\ref{thm:gram}).
-\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}). The correlation has the exact closed form $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$ in cascade slicing ratios (Theorem~\ref{thm:gram-R}), equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}): the Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$ at doubled argument, unifying the supplement with Paper~IVb's action principle (Remark~\ref{rem:gram-action-unification}).
+\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}). The correlation has the exact closed form $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$ in cascade slicing ratios (Theorem~\ref{thm:gram-R}), equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}): the Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$ at doubled argument, unifying the supplement with Paper~IVb's action principle (Remark~\ref{rem:gram-action-unification}). The closed form generalises to all layer pairs (Theorem~\ref{thm:gram-matrix}): $C_{ij} = R(d_i+d_j+1)/\sqrt{R(2d_i+1)\,R(2d_j+1)}$, which makes the entire correlation matrix---and hence the eigenvalue deficit $\epsilon$ (Corollary~\ref{cor:eigenvalue-cascade})---manifestly cascade-internal.
 \item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
 \item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
 \item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
@@ -540,7 +584,7 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 
 \begin{enumerate}[nosep]
 \item \emph{Derive the observable response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$, and is distinct from the perturbation-theory second-order eigenvalue term of Theorem~\ref{thm:pert}. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
-\item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an explicit first-order expression as a sum of Beta function ratios, with second-order correction bounded by $\|D\|^2$; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
+\item \emph{Analytic formula for $\epsilon(n, d_0)$ --- partially closed.} The deficit is the dominant-eigenvalue deficit of the explicit cascade-native matrix $C_{ij} = R(d_i+d_j+1)/\sqrt{R(2d_i+1)\,R(2d_j+1)}$ (Theorem~\ref{thm:gram-matrix} and Corollary~\ref{cor:eigenvalue-cascade}), so the matrix's entries are now in cascade slicing ratios rather than opaque Beta function values. The first-order perturbation expression of Theorem~\ref{thm:pert} is correspondingly a sum over $i<j$ pairs of $1 - R(d_i+d_j+1)/\sqrt{R(2d_i+1)\,R(2d_j+1)}$ (equation~\eqref{eq:pert-cascade}). What remains: a closed-form expression for $\lambda_1$ itself in terms of $n$ and $d_0$ (eliminating the numerical eigenvalue computation entirely). The matrix is now manifestly cascade-internal, so any closed form would derive from properties of $R$ at consecutive doubled arguments rather than from Beta function asymptotics.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
 \item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
 \end{enumerate}
