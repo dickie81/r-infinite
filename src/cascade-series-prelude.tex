@@ -37,7 +37,9 @@ The interpretive bridge from logical distinction ($0\neq 1$) to
 geometric orthogonality (Theorem~\ref{thm:orth}'s premise that
 distinguishable states share no common component in an inner-product
 space) is a separate structural choice, not a consequence of austerity;
-it is also flagged as open. The cascade series' load-bearing hypothesis
+it is essentially closed by Sol\`er's convergence theorem
+(Section~\ref{sec:open-questions}, item~(3)) at a foundational cost
+calibrating above $\mathrm{ACA}_0$. The cascade series' load-bearing hypothesis
 --- that $B^\infty$ descended to four dimensions is indistinguishable
 from our universe --- is stated independently in the cover sheet and
 does not depend on the arguments of this prelude. If any step of the
@@ -763,13 +765,14 @@ foundational commitment, not a cascade-internal axiom: it specifies
 how clause~(ii) is to be applied without altering what the cascade
 proves from $0\neq 1$.
 
-\textbf{(3) The interpretive bridge at Theorem~\ref{thm:orth}.} The
-step from logical $0\neq 1$ to geometric ``states sharing no common
-component in an inner-product space'' (the premise of
-Theorem~\ref{thm:orth}) is a structural interpretation, not a clause of
-austerity. Austerity governs \emph{which} structure is admissible once
-the interpretive framework is fixed; it does not fix the interpretive
-framework itself. Three sub-questions:
+\textbf{(3) The interpretive bridge at Theorem~\ref{thm:orth} ---
+essentially closed via Sol\`er.} The step from logical $0\neq 1$ to
+geometric ``states sharing no common component in an inner-product
+space'' (the premise of Theorem~\ref{thm:orth}) is a structural
+interpretation, not a clause of austerity. Austerity governs
+\emph{which} structure is admissible once the interpretive framework
+is fixed; it does not fix the interpretive framework itself. Three
+sub-questions:
 \begin{itemize}
 \item[(a)] Is the inner-product-space interpretation of $0\neq 1$ the
 unique minimal geometric realisation, or are there weaker structures
@@ -788,9 +791,64 @@ theorem of some more austere framework (for instance, as the unique
 realisation admitting the NOT involution and its projection $P_{e_0}$
 simultaneously)?
 \end{itemize}
-Each sub-question is open. Until one is resolved, the chain rests on
-Definition~\ref{def:axiom}, Principle~\ref{princ:austerity}, and the
-interpretive choice of inner-product geometry.
+
+\noindent\textbf{Resolution of (a) and (c) via Sol\`er's convergence
+theorem.} Sub-questions (a) and (c) admit a strong positive answer
+through the convergence theorem of Sol\`er
+\cite{soler1995}: any irreducible orthomodular lattice satisfying
+\begin{itemize}
+\item[$\bullet$] the existence of an infinite orthogonal sequence,
+\item[$\bullet$] transitive action of the automorphism group on
+atoms, and
+\item[$\bullet$] a regularity condition on the modular structure (the
+existence of a sequence of orthogonal atoms whose pairwise
+``Pythagorean weights'' are equal)
+\end{itemize}
+is isomorphic to the lattice of closed subspaces of a separable
+Hilbert space over $\mathbb{R}$, $\mathbb{C}$, or $\mathbb{H}$.
+
+The cascade's chain naturally satisfies these hypotheses: the
+iteration of Theorem~\ref{thm:iterate} produces the infinite orthogonal
+sequence; the $\mathrm{SO}(\mathcal{H})$ action recognised as gauge of
+the labeling in Section~5 provides the transitive automorphism on
+atoms; and the projector apparatus underlying Theorem~\ref{thm:orth}'s
+premise (``states share no common component under any linear
+operation'') gives the orthomodular lattice structure
+($A\wedge B^\perp = 0$ in lattice language). Combined with Hurwitz's
+theorem (Section~\ref{sec:what-not}, ``Real start, complex amplitudes,
+quaternionic spacetime''), which restricts the associative normed
+division algebras over $\mathbb{R}$ to exactly $\mathbb{R}$,
+$\mathbb{C}$, $\mathbb{H}$, the geometric realisation of $0\neq 1$
+admitting the Prelude's chain is therefore pinned down to Hilbert
+space over a Hurwitz division algebra. Clause~(ii) (minimal strength)
+then selects $\mathbb{R}$.
+
+This essentially closes sub-questions (a) and (c): the inner-product
+interpretation is forced, up to choice of $\mathbb{R}$, $\mathbb{C}$,
+$\mathbb{H}$, by the cascade's own structural requirements, and is a
+theorem of orthomodular-lattice theory rather than a free choice. The
+``more austere framework'' of (c) is exactly orthomodular lattices: the
+NOT involution (orthocomplement) and the projection $P_{e_0}$ jointly
+generate the lattice structure, and Sol\`er's theorem then forces the
+inner-product realisation. Sub-question (b) --- whether sole-input
+commitment formally extends to the choice of orthomodular framework
+as the minimal interpretation --- remains open as a meta-foundational
+question parallel to the choice of standard mathematics as the
+ambient framework.
+
+\noindent\textbf{Foundational cost.} Sol\`er's theorem uses classical
+proof machinery (Zorn's lemma and full choice in the original proof)
+and calibrates above $\mathrm{ACA}_0$ in the Big Five hierarchy of
+item~(2), likely requiring ZFC-level machinery. Adopting Sol\`er to
+close (a) and (c) therefore relaxes the cascade's foundational
+footprint from ``at or below $\mathrm{ACA}_0$'' to ``$\mathrm{ACA}_0$
+for the cascade's own derivations, plus ZFC for the interpretive
+bridge's closure.'' The cascade's specific predictions remain at
+$\mathrm{ACA}_0$; only the proof that no alternative geometric
+realisation exists requires the higher strength. This is a one-way
+asymmetric cost: the cascade can be \emph{used} at $\mathrm{ACA}_0$
+strength while the meta-claim ``Hilbert space is forced'' lives at
+ZFC strength.
 
 \textbf{(4) The hard problem.} The cascade derives the
 dimension where self-awareness is mathematically possible. It does not
@@ -808,6 +866,10 @@ Congress of Mathematicians, Vancouver}, vol.~1, pp.~235--242 (1975).
 
 \bibitem{simpson2009} S.~G.~Simpson, \textit{Subsystems of Second
 Order Arithmetic}, 2nd ed., Cambridge University Press, 2009.
+
+\bibitem{soler1995} M.~P.~Sol\`er, ``Characterization of Hilbert spaces
+by orthomodular spaces,'' \textit{Communications in Algebra}
+\textbf{23}(1), 219--243 (1995).
 
 \end{thebibliography}
 
