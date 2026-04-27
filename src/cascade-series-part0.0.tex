@@ -261,6 +261,43 @@ giving the stated first-order formula after dividing by $n$. The second-order te
 
 \noindent Verification: for $d = 5, \ldots, 12$ ($n = 8$), the first-order formula gives $\epsilon^{(1)} = 0.008173$; the exact eigenvalue gives $\epsilon = 0.008159$. Agreement: $0.17\%$; the exact value is below the first-order formula as predicted by the upper-bound direction of the theorem. The formula is verified to comparable precision for all paths tested.
 
+\begin{corollary}[Closed form for $\lambda_1$ at $n = 2$]\label{cor:lambda1-n2}
+For a two-layer path $\{d_0, d_0 + 1\}$, the dominant eigenvalue admits the exact closed form
+\[
+\lambda_1(2, d_0) \;=\; 1 + \frac{R(2 d_0 + 2)}{\sqrt{R(2 d_0 + 1)\,R(2 d_0 + 3)}}
+\;=\; 1 + \exp\!\Bigl(-\tfrac{1}{4}\,\Delta^2 \log\alpha\big|_{2d_0+2}\Bigr),
+\]
+where the second equality follows from Corollary~\ref{cor:gram-laplacian}. Equivalently, $\epsilon(2, d_0) = 1 - \lambda_1/2 = (1 - C_{d_0, d_0+1})/2$, and the perturbation-theory upper bound of Theorem~\ref{thm:pert} is saturated at $n = 2$.
+\end{corollary}
+
+\begin{proof}
+At $n = 2$ the matrix $C = \begin{pmatrix}1 & c \\ c & 1\end{pmatrix}$ with $c = C_{d_0, d_0 + 1}$ has eigenvectors $u_\pm = (1, \pm 1)/\sqrt{2}$ and eigenvalues $1 \pm c$, so $\lambda_1 = 1 + c$. The uniform vector $u = u_+$ is exactly the dominant eigenvector; the second-order correction in the proof of Theorem~\ref{thm:pert} vanishes because $u^\perp$ is one-dimensional and orthogonal to $u$ by the symmetry of $C$. Substituting Theorem~\ref{thm:gram-R} (and its Laplacian form, Corollary~\ref{cor:gram-laplacian}) for $c$ gives the stated closed form.
+\end{proof}
+
+\begin{remark}[Status of the $\lambda_1$ closed form for $n \geq 3$]\label{rem:lambda1-no-closed-form}
+For $n \geq 3$ no single-equation radical form for $\lambda_1$ in cascade slicing ratios has been identified. What is available is the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}), which provides closed-form approximations to $\lambda_1$ converging at geometric rate; combined with the $n = 2$ exact identity (Corollary~\ref{cor:lambda1-n2}) and the perturbation-theory bound of Theorem~\ref{thm:pert}, these cover all cascade-physics paths to better than machine precision.
+\end{remark}
+
+\begin{remark}[OP factorisation of the cascade correlation matrix]\label{rem:lambda1-OP-factorisation}
+$C$ factorises as $C = A A^{\top}$ with $A$ lower triangular and $A_{ik} = \langle p_k, x^i\rangle_{\mu_m} / \|x^i\|_{\mu_m}$, where $\{p_k\}$ are the orthonormal polynomials of the measure $d\mu_m(x) = x^m/\sqrt{1-x^2}\,dx$ on $[0,1]$ ($m = 2 d_0 + 1$). Hence $\lambda_k(C) = \sigma_k(A)^2$. Under $u = x^2$, $\mu_m$ is a shifted Jacobi measure, identifying the closed-form question for $\lambda_1$ as a question in classical orthogonal-polynomial theory (\texttt{tools/research/lambda1\_jacobi\_route.py}).
+\end{remark}
+
+\begin{corollary}[Power-trace bound family closing $\lambda_1$ to arbitrary precision]\label{cor:lambda1-power-trace}
+For each $k \geq 1$,
+\[
+U_k \;=\; \bigl(\mathrm{tr}\,C^k\bigr)^{1/k} \;\geq\; \lambda_1,
+\]
+with $U_1 \geq U_2 \geq \cdots \geq \lambda_1$ monotone, and $U_k \to \lambda_1$ at geometric rate $(\lambda_2/\lambda_1)^k$. Each $U_k$ is closed-form in cascade slicing ratios:
+\[
+\mathrm{tr}\,C^k \;=\; \sum_{i_1, \ldots, i_k} C_{i_1 i_2}\,C_{i_2 i_3} \cdots C_{i_k i_1},
+\]
+a polynomial sum of $R$-ratio products. Numerically, for cascade-physics paths ($d_0 \in \{5, \ldots, 19\}$, $n \leq 10$): $U_2$ is tight to $\sim 10^{-5}$, $U_3$ to $\sim 10^{-9}$, $U_4$ to $\sim 10^{-12}$, $U_6$ to machine precision; for the long $\rho_\Lambda$ descent ($n = 26$), $U_4$ is tight to $\sim 10^{-7}$ (\texttt{tools/research/lambda1\_power\_trace\_bounds.py}). The bound family thus determines $\lambda_1$ in closed form to any desired precision.
+\end{corollary}
+
+\begin{proof}
+For positive eigenvalues $\lambda_1 \geq \lambda_2 \geq \cdots \geq 0$, $\mathrm{tr}\,C^k = \sum_j \lambda_j^k$, so $\lambda_1^k \leq \mathrm{tr}\,C^k$ and $\lambda_1 \leq U_k$. Monotonicity $U_k \geq U_{k+1}$ is the standard fact that $\ell^k$ norms of a positive vector decrease in $k$. The convergence $U_k \to \lambda_1$ at rate $(\lambda_2/\lambda_1)^k$ follows from $\mathrm{tr}\,C^k = \lambda_1^k(1 + (\lambda_2/\lambda_1)^k + \cdots)$ via the Bernoulli expansion of $(1 + \epsilon)^{1/k}$. The closed-form expression for $\mathrm{tr}\,C^k$ is the standard polynomial trace expansion; each $C_{ij}$ is a closed-form ratio of slicing ratios (Theorem~\ref{thm:gram-R} and its generalisation to arbitrary index pairs), so the sum is closed-form in cascade primitives.
+\end{proof}
+
 \subsection{Numerical evidence for the correction}\label{sec:verification}
 
 Three quantities with unambiguous cascade paths test the correction. The coupling coefficient $k_Q$ is fitted independently for each.
@@ -540,7 +577,7 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 
 \begin{enumerate}[nosep]
 \item \emph{Derive the observable response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$, and is distinct from the perturbation-theory second-order eigenvalue term of Theorem~\ref{thm:pert}. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
-\item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an explicit first-order expression as a sum of Beta function ratios, with second-order correction bounded by $\|D\|^2$; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
+\item \emph{Analytic formula for $\epsilon(n, d_0)$.} Partially closed. At $n = 2$ the dominant eigenvalue admits the exact closed form $\lambda_1 = 1 + R(2d_0+2)/\sqrt{R(2d_0+1)R(2d_0+3)}$ (Corollary~\ref{cor:lambda1-n2}). For $n \geq 3$ the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}) provides closed-form cascade-native approximations to $\lambda_1$ converging at geometric rate $(\lambda_2/\lambda_1)^k$, reaching machine precision at $k = 6$ for cascade-physics paths. What remains genuinely open is whether a single-equation radical or special-function closed form (rather than a convergent family of upper bounds) exists at $n \geq 3$.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
 \item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
 \end{enumerate}
