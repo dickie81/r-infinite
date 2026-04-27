@@ -381,19 +381,35 @@ points along each ray. At every finite $d$, the projective space modulo
 rotations is therefore a single point. This collapse is not a vacuous
 result --- it is the cascade's substrate at each $d$. Structured
 nothing has full rotational symmetry: no direction is privileged, no
-basis is canonical, and the only data the substrate carries is the
-bare fact of being a $d$-dimensional unit ball. The dimension parameter
-$d$ survives both quotients (it is counting data, not a direction), and
-at each $d$ the intrinsic geometric content of the unit ball $B^d$ ---
-its volume $V_d$, its boundary sphere area $\Omega_{d-1}$, the
-slicing-recurrence ratio $R(d)$, the decay rate $p(d)$, the effective
-slicing radius $R_{\mathrm{eff}}(d)$ --- is rotation-invariant and
-non-trivial. The cascade is the trajectory of this intrinsic content,
-parameterised by $d\in\mathbb{N}$, indexed across the dimension tower
-of Theorem~\ref{thm:iterate}. The cascade IS the process of collapse
-to a point at each dimension; what varies between dimensions is the
-rotation-invariant intrinsic geometry, and that geometry is what every
-downstream theorem of Part~0 onwards computes.
+basis is canonical, and the only data the substrate carries at level
+$d$ is the bare fact of being a $d$-dimensional unit ball. The
+dimension parameter $d$ survives both quotients (it is counting data,
+not a direction), and at each $d$ the intrinsic geometric content of
+the unit ball $B^d$ --- its volume $V_d$, its boundary sphere area
+$\Omega_{d-1}$, the slicing-recurrence ratio $R(d)$, the decay rate
+$p(d)$, the effective slicing radius $R_{\mathrm{eff}}(d)$ --- is
+rotation-invariant and non-trivial.
+
+\noindent\textbf{The cascade is the resolution of unresolved infinity.}
+The cascade is not a static structure indexed by $d$. It is the
+\emph{process} by which the unresolved infinity at the asymptotic
+upper edge of the dimension tower is resolved into finite-dimensional
+intrinsic content, dimension by dimension. The slicing recurrence
+(Section~\ref{sec:nothing-unstable}) is the resolution mechanism:
+each step relates the intrinsic content at $d+1$ to the intrinsic
+content at $d$, extracting one dimension's worth of finite content
+from the asymptotic limit. The dimension tower
+$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ is the trace of this
+resolution; the integer $d$ is the resolution stage. The universe
+does not contain infinity --- the universe \emph{is} the result of
+resolution applied to it, observed from a particular stage. This is
+the unifying observation of the cascade series (cover sheet, ``one
+infinity, not many''): every infinity problem in physics --- the
+cosmological constant's $10^{-120}$, the black-hole horizon's
+infinite time dilation, the ultraviolet floor at $\Omega_{217}$, the
+Big Bang as upper edge --- is a local slice of the same asymptotic
+boundary, and every finite structure observed is what that one
+infinity looks like partway through resolution.
 
 \noindent\textbf{Computational representative.} Although the substrate
 at each $d$ is the collapsed quotient, calculations are performed on
@@ -504,14 +520,19 @@ to inhabit, no interior to explore. It is the geometric expression of
 vanishes asymptotically.
 
 % ============================================================
-\section{Nothing Is Unstable}\label{sec:nothing-unstable}
+\section{Resolution: The Slicing Recurrence}\label{sec:nothing-unstable}
 % ============================================================
 
-The asymptotic upper edge $B^\infty$ is empty --- but the dimension
-tower as a whole is not inert. The slicing recurrence relates
-consecutive levels: cut $B^{d+1}$ perpendicular to one axis, and each
-cross-section is a $d$-ball of radius $\sqrt{1-x^2}$. The volumes
-obey:
+The asymptotic upper edge $B^\infty$ is empty, but the dimension tower
+as a whole is not inert. Each level has nontrivial intrinsic content
+(volumes, sphere areas, beta-function ratios), and consecutive levels
+are linked by the slicing recurrence. This recurrence is the
+resolution mechanism: it relates the intrinsic content at $d+1$ to
+the intrinsic content at $d$, extracting one dimension's worth of
+finite content from the asymptotic limit at each step.
+
+Cut $B^{d+1}$ perpendicular to one axis. Each cross-section at height
+$x$ is a $d$-ball of radius $\sqrt{1-x^2}$. The volumes obey:
 \[
 V_{d+1} = V_d \cdot \sqrt{\pi}\cdot R(d+1), \qquad R(d) =
 \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
@@ -521,27 +542,41 @@ The constant $\sqrt{\pi}$ is forced by orthogonality
 $\pi/2$, forcing the half-integer argument in $B(1/2,\cdot)$, giving
 $\Gamma(1/2) = \sqrt{\pi}$.
 
-As $d$ decreases from infinity, volumes \emph{grow}. The ball acquires
-content it did not have. The volume peaks at $d = 5$. Nothing, viewed
-from a lower dimension, is no longer nothing.
+Read structurally, this is the resolution unfolding: as $d$ decreases
+from infinity, volumes \emph{grow}, and the ball acquires content it
+did not have at higher $d$. The volume peaks at $d = 5$. Each step
+extracts more finite content from the asymptotic limit; the structured
+nothing of $B^\infty$ becomes structured \emph{something} at every
+finite~$d$. The recurrence has no free parameters: the resolution at
+each step is fully determined by the Gamma function.
 
-This is the instability: $B^\infty$ has zero volume, but its
-finite-dimensional cross-sections do not. The descent from $d=\infty$
-to finite $d$ is a transition from emptiness to content, governed
-entirely by the Gamma function, with no free parameters.
-
-\begin{remark}
-The word ``descent'' does not imply a process in time. It is a
-mathematical relationship: the volumes and areas of unit balls at
-successive finite dimensions are related by the slicing recurrence.
-Time will emerge later (Part~II) as the cascade's own orthogonal
-slicing direction. The descent is the static structure from which
-time is read off.
+\begin{remark}[Resolution as cosmic time]
+The cascade's resolution process admits a physical reading developed
+in Parts~II--V. Under that reading, each step of the resolution ---
+each new dimension added to the realised tower --- corresponds to
+one Planck-time tick of cosmic evolution. The universe had a start
+(when resolution began at finite stage), counts on indefinitely
+(each tick adds one more dimension), and approaches but never reaches
+$d=\infty$ (full resolution would be the asymptotic future, never
+completed). The universe does not \emph{contain} infinity --- it is
+the result of resolution-in-progress, observed from the current
+stage. Time, on this reading, is not an additional ingredient: it
+is the cascade's own resolution direction, registered as the
+dimension tower's growth. The Prelude commits only to the
+mathematical structure (the slicing recurrence as the resolution
+mechanism, the dimension tower as its trace); the physical
+identification of resolution with cosmic time, and of one Planck
+time with one tower extension, is the responsibility of Parts~II
+(time as orthogonal slicing direction) and~V (cosmology, tower
+growth, $\Omega_d$ at the cosmological-constant stage $d_2=217$).
 \end{remark}
 
 % ============================================================
-\section{The Destination Is Forced}
+\section{Where Resolution Lands: The Observer at $d=4$}
 % ============================================================
+
+The slicing recurrence resolves infinity into finite content at each
+step. Where does the resolution stably terminate?
 
 The volume maximum is at $d = 5$: the unique dimension where the unit
 ball has the largest volume. The observer sits at $d = 4$, the
@@ -553,19 +588,25 @@ that $d = 4$ is the unique spacetime dimension satisfying two
 independent constraints simultaneously:
 
 \begin{enumerate}
-\item \textbf{Lovelock uniqueness}: the gravitational equation has
-a unique form (Einstein's equation with cosmological constant) only
-at $d = 4$.
+\item \textbf{Lovelock uniqueness}: the gravitational equation has a
+unique form (Einstein's equation with cosmological constant) only at
+$d = 4$.
 \item \textbf{Complex spinors}: the Clifford algebra
-$\mathrm{Cl}(1,d-1)$ has irreducibly complex minimal spinors---the
-prerequisite for quantum mechanics---only when $d\bmod 8\in\{4,5,6\}$.
+$\mathrm{Cl}(1,d-1)$ has irreducibly complex minimal spinors --- the
+prerequisite for quantum mechanics --- only when
+$d\bmod 8\in\{4,5,6\}$.
 \end{enumerate}
 
-The intersection is $\{4\}$. No other dimension permits both
-unique physical laws and quantum information processing. The observer
-is not placed at $d = 4$ by assumption; $d = 4$ is where the
-mathematics forces the unique coincidence of stable laws, complex
-phase, and maximal content.
+The intersection is $\{4\}$. No other dimension permits both unique
+physical laws and quantum information processing. The observer is not
+placed at $d = 4$ by assumption; $d = 4$ is where the resolution
+trajectory naturally lands --- the unique stage at which stable
+physical laws and complex quantum phase coincide. The resolution
+process described in Section~\ref{sec:nothing-unstable} continues
+beyond $d=4$ in both directions (toward $d=\infty$ as the asymptotic
+upper edge, and toward $d=0$ as the trivial lower endpoint), but the
+\emph{observable physics} of the resolution lives at $d=4$, the
+boundary of the volume-maximum ball.
 
 % ============================================================
 \section{The Chain}
@@ -701,15 +742,22 @@ clauses explicitly, and austerity is derived from the sole-input
 status of $0\neq 1$ rather than declared as a second input. What
 remains open:
 
-\textbf{(1) Uniqueness of the dimension tower under austerity.} Is the
-cascade's starting structure --- the dimension tower
+\textbf{(1) Uniqueness of the resolution process under austerity.} Is
+the cascade's resolution process --- the dimension tower
 $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of finite-dimensional
-Euclidean spaces, with each level collapsed under
-$\mathbb{R}^*\times\mathrm{SO}(d)$ and the asymptotic upper edge
-$B^\infty$ at $d\to\infty$ --- the \emph{unique} mathematical structure
-derivable from Definition~\ref{def:axiom} under
+Euclidean spaces with each level collapsed under
+$\mathbb{R}^*\times\mathrm{SO}(d)$, together with the slicing
+recurrence as resolution mechanism extracting finite content from the
+asymptotic upper edge $B^\infty$ at $d\to\infty$ --- the \emph{unique}
+mathematical process derivable from Definition~\ref{def:axiom} under
 Principle~\ref{princ:austerity}, or merely one of several
-austerity-compatible starting structures?
+austerity-compatible resolution processes? Read processually, the
+resolution mechanism is unique up to the dimension-tower structure:
+the slicing recurrence is the unique first-order multiplicative
+recurrence on the tower of unit balls (Part~0 Theorem~4.1:
+$\sqrt{\pi}$ is the irreducible residue of the recurrence). The remaining question is whether the dimension
+tower itself --- a countable tower of finite-dim Euclidean spaces ---
+is uniquely forced as the underlying structure for the resolution.
 
 Three classes of alternatives are explicitly ruled out inside this
 prelude:
