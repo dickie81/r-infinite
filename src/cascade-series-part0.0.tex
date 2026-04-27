@@ -292,9 +292,10 @@ which is closed-form in slicing ratios but weaker than the perturbation-theory b
 
 \begin{remark}[Stieltjes recurrence: exact closed forms at $k = 0$, non-classical for $k \geq 1$]\label{rem:lambda1-stieltjes}
 The OP family for $\mu_m$ is determined by its three-term recurrence $x p_k = b_k p_{k+1} + a_k p_k + b_{k-1} p_{k-1}$, equivalent to the Jacobi (multiplication-by-$x$) matrix $J_n = \mathrm{tridiag}(b_{k-1}, a_k, b_k)$. The cascade-native closed forms at $k = 0$ are
-\[
-a_0 \;=\; \frac{R(m+1)}{R(m)}, \qquad b_0^2 \;=\; \frac{R(m+2)}{R(m)} - \left(\frac{R(m+1)}{R(m)}\right)^{\!2} \;=\; \frac{R(m)R(m+2) - R(m+1)^2}{R(m)^2},
-\]
+\begin{align*}
+a_0 &\;=\; \frac{R(m+1)}{R(m)}, \\
+b_0^2 &\;=\; \frac{R(m+2)}{R(m)} - \left(\frac{R(m+1)}{R(m)}\right)^{\!2} \;=\; \frac{R(m)R(m+2) - R(m+1)^2}{R(m)^2},
+\end{align*}
 verified to $\sim\!10^{-78}$ relative precision (\texttt{tools/research/lambda1\_recurrence\_asymptotics.py}). For $k \geq 1$ the Wallis-ratio hypothesis $a_k = R(m+2k+1)/R(m+2k)$ fails immediately, and no simple cascade-native closed form has been identified across $(d_0, k)$ samples: the Stieltjes algorithm at 80-digit precision converges through $k \approx 25$ before the moment matrix's exponential conditioning exhausts the precision, and the resulting $(a_k, b_k)$ sequences are smooth but match no classical OP family (Jacobi, Bessel, Hermite, Laguerre). This is the structural diagnostic for the cascade OP family being non-classical: classical families have rational closed-form recurrence coefficients, and the cascade measure does not. The asymptotic limits $a_k \to 1/2$, $b_k \to 1/4$ as $k \to \infty$ are the universal Geronimus--Szeg\H{o} limits for measures on $[0,1]$ with positive density on the open interval; numerical evidence further suggests the convergence is \emph{faster} than the generic $O(1/k)$ Bernstein--Szeg\H{o} rate ($(a_k - 1/2) \cdot k$ peaks and then decreases), reflecting additional regularity from the cascade weight's $\Gamma$-function structure. A formal characterisation of this faster-than-$O(1/k)$ rate is a sharp open question.
 \end{remark}
 
