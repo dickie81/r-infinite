@@ -331,21 +331,31 @@ the starting object is taken invariant under this dilation. The cascade
 accordingly works with the projective quotient, not with representatives
 carrying a distinguished length scale.
 
-\noindent\textbf{$\mathbb{R}^*$ is the unique austerity-compatible
-quotient at this stage.} Clause~(iii) of
+\noindent\textbf{The austerity-compatible quotients at this stage:
+$\mathbb{R}^*$ and $\mathrm{SO}(\mathcal{H})$.} Clause~(iii) of
 Principle~\ref{princ:austerity} applies to continuous symmetries
 \emph{defined on the current structure} whose action is unobservable
 from within it. At the Prelude stage, $\mathcal{H}$ is a real Hilbert
-space; the alternative candidate symmetries fail for specific reasons:
+space; the candidate symmetries split into those quotiented and those
+not, for specific reasons:
 \begin{itemize}
 \item \emph{Full conformal group} $\mathbb{R}^* \times \mathrm{SO}(\mathcal{H})$.
-The orthogonal-rotation factor $\mathrm{SO}(\mathcal{H})$ is not
-unobservable: rotations relabel which directions carry the $e_0,e_1,\ldots$
-distinctions, and the distinction content is observable (it is precisely
-what Definition~\ref{def:axiom} declares). Clause~(iii) quotients only
-the unobservable dilation factor $\mathbb{R}^*$; the rotation factor
-$\mathrm{SO}(\mathcal{H})$ remains as a residual gauge of relabelling,
-not quotiented.
+The orthogonal-rotation factor $\mathrm{SO}(\mathcal{H})$ acts on the
+labeling of the orthonormal frame, not on the frame's existence. The
+frame itself --- its orthonormality, its countable dimension, its
+inner-product geometry --- is observable structural content forced by
+Theorem~\ref{thm:iterate}. The labeling within the frame is gauge: every
+cascade calculation downstream (the slicing recurrence of
+Section~\ref{sec:nothing-unstable}, the four distinguished dimensions of
+Part~0, the cascade invariant) is $\mathrm{SO}(\mathcal{H})$-invariant,
+operating on the dimension parameter $d$ and on rotation-invariant
+intrinsic geometric quantities (volumes, sphere areas, Gamma function
+values). $\mathrm{SO}(\mathcal{H})$ is therefore unobservable from
+within the cascade, and clause~(iii) quotients it. Both
+$\mathbb{R}^*$-dilation and $\mathrm{SO}(\mathcal{H})$ are
+austerity-compatible quotients at this stage; together they exhaust
+the unobservable continuous symmetries of $\mathcal{H}$, and the cascade
+takes both quotients (see ``The collapsed substrate'' paragraph below).
 \item \emph{$\mathbb{C}^*$-phase rotation}. A phase action requires a
 complex structure $J$ with $J^2=-\mathrm{Id}$. No such structure is
 present at the Prelude stage: $\mathcal{H}$ is constructed over
@@ -361,22 +371,57 @@ an unexplained numerical input, violating clause~(i) (parameter
 economy). A continuous quotient has no such free parameter; only
 discrete reductions introduce one.
 \end{itemize}
-Among the symmetries defined on the real Hilbert space at the Prelude
-stage, $\mathbb{R}^*$-dilation is therefore the unique austerity-compatible
-quotient --- continuous, parameter-free, and fully unobservable. This
-addresses which continuous symmetry is quotiented and why no others are.
+Among the continuous symmetries defined on the real Hilbert space at
+the Prelude stage, two are austerity-compatible quotients ---
+$\mathbb{R}^*$-dilation (radial; identifies points along each ray) and
+$\mathrm{SO}(\mathcal{H})$ (transverse; identifies different rays).
+Both are unobservable from within the cascade, both are continuous, and
+both are parameter-free. Clause~(iii) quotients both. The remaining
+candidate symmetries ($\mathbb{C}^*$-phase, discrete scale invariance)
+fail for the reasons above and are not quotiented at this stage.
 
-The invariant of $\mathcal{H}$ under this action is the \emph{projective
-Hilbert space}
+\noindent\textbf{The collapsed substrate.} The combined quotient
+$\mathcal{H}/(\mathbb{R}^*\times\mathrm{SO}(\mathcal{H}))$ collapses to
+a single point: $\mathrm{SO}(\mathcal{H})$ acts transitively on rays in
+the separable infinite-dimensional Hilbert space, so all rays are
+identified, and at every finite $d$ the analogous quotient
+$\mathbb{R}\mathbb{P}^{d-1}/\mathrm{SO}(d) = \{*\}$. This collapse is
+not a vacuous result --- it is the cascade's starting condition.
+Structured nothing has full rotational symmetry: at $d=\infty$ no
+direction is privileged, no basis is canonical, and the only data the
+substrate carries is the bare fact of being an infinite-dimensional
+unit ball. The dimension parameter $d$ survives both quotients (it is
+counting data, not a direction), and at each $d$ the intrinsic
+geometric content of the unit ball $B^d$ --- its volume $V_d$, its
+boundary sphere area $\Omega_{d-1}$, the slicing-recurrence ratio
+$R(d)$, the decay rate $p(d)$, the effective slicing radius
+$R_{\mathrm{eff}}(d)$ --- is rotation-invariant and non-trivial. The
+cascade is the trajectory of this intrinsic content, parameterised by
+$d$, unfolded from the collapsed substrate via the slicing recurrence
+(Section~\ref{sec:nothing-unstable}). The cascade IS the process of
+collapse to a point at each dimension; what varies between dimensions
+is the rotation-invariant intrinsic geometry, and that geometry is
+what every downstream theorem of Part~0 onwards computes.
+
+\noindent\textbf{Computational representative.} Although the substrate
+is the collapsed quotient, the cascade computes in the
+$\mathbb{R}^*$-quotient
 \[
 \mathbb{P}\mathcal{H} \;=\; (\mathcal{H}\setminus\{0\})/\!\sim,\qquad
 x\sim\lambda x\ \text{for}\ \lambda\in\mathbb{R}^{*}.
 \]
-$\mathbb{P}\mathcal{H}$ is the unique quotient of $\mathcal{H}$ that forgets
-exactly what scale invariance says is unobservable and no more. Unit norm is
-not an additional axiom imposed on $\mathcal{H}$; it is the choice of a
+This is the largest quotient that retains the inner-product structure
+needed for the slicing recurrence and the Gram-Schmidt machinery.
+Cascade calculations performed on $\mathbb{P}\mathcal{H}$ are
+$\mathrm{SO}(\mathcal{H})$-equivariant by construction --- they
+descend to the collapsed quotient $\mathbb{P}\mathcal{H}/\mathrm{SO}(\mathcal{H})$
+because their content (volumes, areas, dimension counts, Gamma function
+identities) is invariant under any choice of frame. Unit norm is not
+an additional axiom imposed on $\mathcal{H}$; it is the choice of a
 canonical \emph{representative} of each equivalence class in
-$\mathbb{P}\mathcal{H}$.
+$\mathbb{P}\mathcal{H}$, and the choice of frame within $\mathbb{P}\mathcal{H}$
+is a further gauge fixing that washes out under $\mathrm{SO}(\mathcal{H})$
+when the calculation completes.
 
 \begin{definition}[Sphere representative and ball completion]\label{def:ball}
 The unit sphere $S^{d-1}=\partial B^d$ is the canonical 2-fold
@@ -448,7 +493,7 @@ interior to explore. It is the geometric expression of ``distinction
 exists but content does not.'' It is structured nothing.
 
 % ============================================================
-\section{Nothing Is Unstable}
+\section{Nothing Is Unstable}\label{sec:nothing-unstable}
 % ============================================================
 
 $B^\infty$ is empty---but it is not inert. It has a slicing
@@ -528,7 +573,7 @@ Step & Statement & Status & Austerity \\
 0 & $0 \neq 1$ & Pre-mathematical & --- \\
 1 & Distinction $\Rightarrow$ orthogonality & Theorem~\ref{thm:orth} & --- (interpretive) \\
 2 & Orthogonality iterates $\Rightarrow$ $d = \aleph_0$ & Theorem~\ref{thm:iterate} & (i), (ii) \\
-3 & Scale invariance $\Rightarrow$ $\mathbb{P}\mathcal{H}$; $S^\infty$ representative, $B^\infty$ completion & Definition~\ref{def:ball} & (iii) \\
+3 & Scale and rotation invariance $\Rightarrow$ collapsed substrate; $\mathbb{P}\mathcal{H}$ computational, $B^\infty$ at $d{=}\infty$ & Definition~\ref{def:ball} & (iii) \\
 4 & $B^\infty$: zero volume, zero area & Theorem~\ref{thm:nothing} & --- \\
 5 & Slicing recurrence, constant $\sqrt{\pi}$ & Forced by step 1 & --- \\
 6 & Descent: volumes grow, peak at $d = 5$ & Gamma function & --- \\
@@ -574,8 +619,10 @@ status. The chain makes explicit which austerity clause is invoked at
 each step: clauses~(i) and~(ii) at step~2 (parameter economy forcing
 infinite dimension; minimal strength forcing countable over uncountable
 dimension via binary-test resolvability); clause~(iii) at step~3
-(unobservable quotient, forcing $\mathbb{R}^*$-dilation invariance as
-the unique austerity-compatible quotient at the Prelude stage). Whether the combined input
+(unobservable quotient, applied to both $\mathbb{R}^*$-dilation and
+$\mathrm{SO}(\mathcal{H})$, collapsing $\mathcal{H}$ to a single
+substrate point at $d=\infty$ from which intrinsic content unfolds via
+the slicing recurrence). Whether the combined input
 (Definition~\ref{def:axiom} plus austerity) forces $B^\infty$
 \emph{uniquely}, or merely renders it the most austere defensible
 starting object, is the exploratory question the prelude asks. The
@@ -625,17 +672,24 @@ nothing, taken seriously, has structure. The question ``why is there
 
 Principle~\ref{princ:austerity} derives three previously-implicit
 parsimony choices (finite-vs-$\aleph_0$ dimension;
-countable-vs-uncountable independence; $\mathbb{R}^*$-dilation quotient)
-as clauses of a single derivation rule from Definition~\ref{def:axiom}.
-The prelude chain now invokes these clauses explicitly, and austerity
-is derived from the sole-input status of $0\neq 1$ rather than declared
-as a second input. What remains open:
+countable-vs-uncountable independence; the unobservable-continuous-symmetry
+quotients of $\mathbb{R}^*$-dilation and $\mathrm{SO}(\mathcal{H})$
+together collapsing $\mathcal{H}$ to a single substrate point at
+$d=\infty$) as clauses of a single derivation rule from
+Definition~\ref{def:axiom}. The prelude chain now invokes these
+clauses explicitly, and austerity is derived from the sole-input
+status of $0\neq 1$ rather than declared as a second input. What
+remains open:
 
-\textbf{(1) Uniqueness of $B^\infty$ under austerity.} Is
-$B^\infty = \mathbb{P}\mathcal{H}$ (separable infinite-dimensional real)
-the \emph{unique} mathematical structure derivable from
-Definition~\ref{def:axiom} under Principle~\ref{princ:austerity}, or
-merely one of several austerity-compatible starting objects?
+\textbf{(1) Uniqueness of $B^\infty$ under austerity.} Is the
+cascade's starting substrate (the collapsed quotient
+$\mathbb{P}\mathcal{H}/\mathrm{SO}(\mathcal{H})$ of a separable
+infinite-dimensional real Hilbert space, with $B^\infty$ as its
+geometric realisation at $d=\infty$ and $\mathbb{P}\mathcal{H}$ as the
+computational representative) the \emph{unique} mathematical structure
+derivable from Definition~\ref{def:axiom} under
+Principle~\ref{princ:austerity}, or merely one of several
+austerity-compatible starting substrates?
 
 Two classes of alternatives are explicitly ruled out inside this
 prelude:
