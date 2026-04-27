@@ -21,7 +21,7 @@
 \setlength{\emergencystretch}{3em}
 \maketitle
 
-\noindent This supplement extends Paper 0 by computing the second-order correction to the cascade's independent-step approximation. The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters.
+\noindent This supplement extends Paper 0 by computing the inter-layer correction to the cascade's independent-step approximation. The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters. Throughout: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}); the observable-dependent correction beyond the first-order Gram identity is named the \emph{observable response factor}.
 
 \setcounter{section}{14}
 \section{Inter-Layer Coupling}
@@ -68,7 +68,31 @@ Numerically: $1 - C_{5,6}^2 = 0.00319$, $\; 1 - C_{11,12}^2 = 0.00083$, $\; 1 - 
 \end{theorem}
 
 \begin{proof}
-Positivity: $C_{d,d+1} < 1$ by Cauchy--Schwarz (the integrands $f_d$ and $f_{d+1}$ are not proportional for $d \neq d+1$). Asymptotics: using Stirling, $B(1/2, \alpha+1) \approx \sqrt{2\pi/(2\alpha+1)}$. The ratio $C_{d,d+1}^2$ involves three Beta functions at arguments $d+3/2$, $d+1$, and $d+2$; expanding to second order in $1/d$ gives $1 - C^2 = 1/(8d^2) + O(1/d^3)$.
+\emph{Positivity.} $C_{d,d+1} < 1$ by Cauchy--Schwarz: the integrands $f_d$ and $f_{d+1}$ are not proportional in $L^2[-1,1]$ for $d \neq d+1$, so the normalised inner product is strictly less than~$1$.
+
+\emph{Asymptotic $1 - C_{d,d+1}^2 \sim 1/(8d^2)$.} Set $h(\alpha) = B(1/2,\alpha+1) = \sqrt{\pi}\,\Gamma(\alpha+1)/\Gamma(\alpha+3/2)$ and $L(\alpha) = \log h(\alpha)$. Then
+\[
+\log C_{d,d+1}^2 \;=\; 2L(d+\tfrac{1}{2}) - L(d) - L(d+1),
+\]
+the centered second difference of $L$ at $d+1/2$ with step $1/2$. Taylor expanding,
+\[
+L(d) + L(d+1) \;=\; 2L(d+\tfrac{1}{2}) + \tfrac{1}{4}L''(d+\tfrac{1}{2}) + O(L^{(4)}/192),
+\]
+so $\log C_{d,d+1}^2 = -\tfrac{1}{4}L''(d+\tfrac{1}{2}) + O(L^{(4)})$.
+
+Now $L'(\alpha) = \psi(\alpha+1) - \psi(\alpha+3/2)$, where $\psi$ is the digamma function. The asymptotic expansion $\psi(x) = \log x - 1/(2x) - 1/(12x^2) + O(1/x^4)$ gives, after expanding $\psi(\alpha+1)$ and $\psi(\alpha+3/2)$ around $\alpha$ and combining,
+\[
+L'(\alpha) \;=\; -\frac{1}{2\alpha} + \frac{3}{8\alpha^2} + O(1/\alpha^3),
+\qquad
+L''(\alpha) \;=\; \frac{1}{2\alpha^2} + O(1/\alpha^3).
+\]
+Therefore
+\[
+\log C_{d,d+1}^2 \;=\; -\frac{1}{4}\cdot\frac{1}{2d^2} + O(1/d^3) \;=\; -\frac{1}{8d^2} + O(1/d^3),
+\]
+and $1 - C_{d,d+1}^2 = -\log C_{d,d+1}^2 + O\bigl((\log C^2)^2\bigr) = 1/(8d^2) + O(1/d^3)$.
+
+The numerical values quoted in the theorem statement ($1 - C_{5,6}^2 = 0.00319$, $1 - C_{11,12}^2 = 0.00083$, $1 - C_{19,20}^2 = 0.00030$) are evaluated directly from the Beta function ratio; the asymptotic $1/(8d^2)$ supplies the leading $1/d^2$ scaling and the sign, but subleading $1/d^3$ terms matter at small $d$ (the asymptotic over-estimates by $\sim 50\%$ at $d=5$, by $\sim 25\%$ at $d=11$, and by $\sim 15\%$ at $d=19$, converging to the exact value as $d\to\infty$).
 \end{proof}
 
 \begin{remark}
@@ -362,7 +386,7 @@ $d = 14, \ldots, 21$ & 8 & 1.362 & sub-$0.2\%$ \\
 \end{tabular}
 \end{center}
 
-\begin{remark}[Status of the second-order correction]
+\begin{remark}[Status of the observable response factor]
 The fitted $k_Q$ values (2.11, 1.66, 2.67) exceed $k_Q^{(1)}$ for some observables and
 fall below it for others. The variation is observable-dependent: it reflects how each
 quantity's functional form responds to the universal geometric correction
@@ -370,8 +394,8 @@ $\delta\Phi = \sum(1-C^2)$. For direct exponentials ($\alpha_s = \alpha_{\rm GUT
 e^{\Phi}$), the response is close to~1. For integrated quantities ($\ell_A$, involving the
 comoving distance integral), the response is smoothed below~1. For quantities on higher-$d$
 paths ($m_\mu/m_e$), the first-order over-corrects and the effective
-$k_Q < k_Q^{(1)}$. The second-order factor is a property of the observable's formula,
-not of the cascade's geometry.
+$k_Q < k_Q^{(1)}$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ is a property of the observable's formula,
+not of the cascade's geometry, and is distinct from the perturbation-theory second-order term in Theorem~\ref{thm:pert}.
 \end{remark}
 
 \subsection{What this section proves}
@@ -383,21 +407,21 @@ not of the cascade's geometry.
 \item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
 \item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
 \item The first-order coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ is derived (Corollary~\ref{cor:kQ-derived}): a ratio of Beta function sums with no free parameter. It reduces all descent deviations to sub-$1\%$.
-\item The residual variation between observables (the second-order factor) is a property of each observable's functional form, not of the cascade's geometry. It is observable-dependent and open.
+\item The residual variation between observables (the observable response factor $R_Q = k_Q/k_Q^{(1)}$) is a property of each observable's functional form, not of the cascade's geometry. It is observable-dependent and open.
 \item Every quantity in this section---including $k_Q^{(1)}$---is a Gamma function identity. No physics enters.
 \end{enumerate}
 
 \subsection{Open questions}\label{sec:open}
 
 \begin{enumerate}[nosep]
-\item \emph{Derive the observable-dependent response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The second-order factor is a response function $R_Q = k_Q/k_Q^{(1)}$ that depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
+\item \emph{Derive the observable response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$, and is distinct from the perturbation-theory second-order eigenvalue term of Theorem~\ref{thm:pert}. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
 \item \emph{Analytic formula for $\epsilon(n, d_0)$.} The deficit is computable numerically from the Gram eigenvalue. The perturbation theory (Theorem~\ref{thm:pert}) gives an explicit first-order expression as a sum of Beta function ratios, with second-order correction bounded by $\|D\|^2$; an analytic closed form in terms of $n$, $d_0$, and the Beta function would extend the correction to all cascade paths without numerical eigenvalue computation.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
 \item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
 \end{enumerate}
 
 \begin{remark}[Status of the correction]
-The first-order correction (Theorem~\ref{thm:first-order}) is derived: it is a sum of Beta function ratios with no free parameters, reducing descent deviations from sub-$2\%$ to sub-$1\%$. The second-order (observable-dependent) correction is the remaining open problem at the level of the Gram-matrix framework of this supplement. With both orders derived, descent-dependent predictions would close to sub-$0.1\%$. Open Question~1 is the calculation that separates the two at the Gram-matrix level.
+The first-order correction (Theorem~\ref{thm:first-order}) is derived: it is a sum of Beta function ratios with no free parameters, reducing descent deviations from sub-$2\%$ to sub-$1\%$. The observable response factor (the subleading correction beyond the first-order Gram identity) is the remaining open problem at the level of the Gram-matrix framework of this supplement. With both the first-order Gram identity and the observable response factor derived, descent-dependent predictions would close to sub-$0.1\%$. Open Question~1 is the calculation that separates the two at the Gram-matrix level.
 \end{remark}
 
 \begin{remark}[Superseded for $\alpha_s$, $m_\tau/m_\mu$, and $m_\tau$]\label{rem:superseded-by-family}
@@ -406,7 +430,7 @@ The Gram-matrix framework above is a general structural account of how inter-lay
 \item $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ closes $\alpha_s$ and $m_\tau/m_\mu$ together (Part~IVb, Theorem~4.3);
 \item $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ closes the $\tau$ absolute mass at the phase-transition threshold $d_1=19$ (Part~IVb, Theorem~4.4).
 \end{itemize}
-These identities supersede the Gram-matrix corrections for the three observables named: the universal $k_Q\approx 2$ fit used for $\alpha_s$ and $m_\tau/m_\mu$ in Section~\ref{sec:verification} above is replaced by a parameter-free $\alpha(d^*)/\chi$ closed form that works at experimental precision rather than sub-$1\%$. The $m_\mu/m_e$ match through the Gram-matrix first-order correction remains the current best account for that observable. Open Question~1 (the observable-dependent second-order $R_Q$ factor) is accordingly narrowed: the three highlighted observables no longer require it, but the remaining descent-dependent quantities ($v$, $m_W$, $\Omega_m$, $\ell_A$, other absolute masses) may be closed either by further members of the $\alpha(d^*)/\chi$ family or by a subleading Gram-matrix response, to be determined.
+These identities supersede the Gram-matrix corrections for the three observables named: the universal $k_Q\approx 2$ fit used for $\alpha_s$ and $m_\tau/m_\mu$ in Section~\ref{sec:verification} above is replaced by a parameter-free $\alpha(d^*)/\chi$ closed form that works at experimental precision rather than sub-$1\%$. The $m_\mu/m_e$ match through the Gram-matrix first-order correction remains the current best account for that observable. Open Question~1 (the observable response factor $R_Q$) is accordingly narrowed: the three highlighted observables no longer require it, but the remaining descent-dependent quantities ($v$, $m_W$, $\Omega_m$, $\ell_A$, other absolute masses) may be closed either by further members of the $\alpha(d^*)/\chi$ family or by a subleading Gram-matrix response, to be determined.
 \end{remark}
 
 \end{document}
