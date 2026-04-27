@@ -21,7 +21,11 @@
 \setlength{\emergencystretch}{3em}
 \maketitle
 
-\noindent This supplement extends Paper 0 by computing the inter-layer correction to the cascade's independent-step approximation. The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters. Throughout: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}); the observable-dependent correction beyond the first-order Gram identity is named the \emph{observable response factor}.
+\noindent This supplement extends Paper 0 by computing the inter-layer correction to the cascade's independent-step approximation. The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters.
+
+The Gram correlation has an exact closed form in cascade-native primitives (Theorem~\ref{thm:gram-R}): $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$, equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). The Gram correction is therefore the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled cascade argument. This connects the supplement directly to the action principle of Paper~IVb Remark~4.6: the supplement's path-distributed correction and Paper~IVb's single-source $\alpha(d^*)/\chi^k$ family are complementary derivatives of the same compliance function---linear source response (Paper~IVb) and discrete log-Laplacian (this supplement).
+
+Throughout: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}); the observable-dependent correction beyond the first-order Gram identity is named the \emph{observable response factor}.
 
 \setcounter{section}{14}
 \section{Inter-Layer Coupling}
@@ -97,6 +101,66 @@ The numerical values quoted in the theorem statement ($1 - C_{5,6}^2 = 0.00319$,
 
 \begin{remark}
 The overlap deficit $1 - C_{d,d+1}^2$ is the geometric content at step $d$ that is \emph{not} shared with step $d+1$. It measures the imperfect folding: the fraction by which consecutive layer integrands fail to be collinear in $L^2$. Its positivity is a consequence of $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3} > 0$ (Theorem~4.2): the compactification at each step is asymptotic, never complete.
+\end{remark}
+
+\subsection{Closed form via cascade slicing ratios}\label{sec:gram-closed-form}
+
+The asymptotic of Theorem~\ref{thm:overlap} extends to an \emph{exact} closed form expressing $C^2_{d,d+1}$ in cascade-native primitives. The exact form reveals that the Gram correlation is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled cascade argument $2d+2$.
+
+\begin{theorem}[Gram correlation in cascade slicing ratios]\label{thm:gram-R}
+For all $d \geq 1$, the Gram correlation between adjacent cascade layers is
+\begin{equation}\label{eq:gram-R-form}
+C^2_{d,d+1} \;=\; \frac{R(2d+2)^2}{R(2d+1)\,R(2d+3)},
+\end{equation}
+where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the cascade slicing ratio of Paper~0 \S2.
+\end{theorem}
+
+\begin{proof}
+The Gram entries (Theorem~\ref{thm:gram}) are Beta functions $G_{ij} = B(1/2, (d_i+d_j)/2 + 1)$. Using the Beta--Gamma reduction $B(1/2, n+1) = \sqrt{\pi}\,\Gamma(n+1)/\Gamma(n+3/2)$ together with the cascade slicing ratio's defining identity $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$, one obtains:
+\[
+G_{d,d}     = B(\tfrac{1}{2}, d+1)   = \sqrt{\pi}\,R(2d+1), \qquad
+G_{d,d+1}   = B(\tfrac{1}{2}, d+\tfrac{3}{2}) = \sqrt{\pi}\,R(2d+2),
+\]
+\[
+G_{d+1,d+1} = B(\tfrac{1}{2}, d+2)   = \sqrt{\pi}\,R(2d+3).
+\]
+Substituting into the definition $C^2_{d,d+1} = G_{d,d+1}^2 / (G_{d,d}\,G_{d+1,d+1})$ gives
+$C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$.
+\end{proof}
+
+\begin{corollary}[Gram-Laplacian identity]\label{cor:gram-laplacian}
+The log-correlation between adjacent cascade layers is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled argument $2d+2$ with unit step:
+\begin{equation}\label{eq:gram-laplacian}
+\log C^2_{d,d+1} \;=\; -\frac{1}{2}\,\Delta^2 \log\alpha\,\Big|_{2d+2},
+\end{equation}
+where $\Delta^2 f|_n := f(n-1) + f(n+1) - 2f(n)$ is the centered discrete Laplacian.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:gram-R} and properties of the logarithm,
+\[
+\log C^2_{d,d+1} = 2\log R(2d+2) - \log R(2d+1) - \log R(2d+3) = -\Delta^2 \log R\,\big|_{2d+2}.
+\]
+Since $\alpha(d) = R(d)^2/4$, we have $\log\alpha = 2\log R - 2\log 2$, so $\Delta^2 \log\alpha = 2\,\Delta^2 \log R$ (constants drop in second differences). Substituting yields equation~\eqref{eq:gram-laplacian}.
+\end{proof}
+
+\begin{remark}[Numerical verification]\label{rem:gram-verifier}
+Both Theorem~\ref{thm:gram-R} (the closed form) and Corollary~\ref{cor:gram-laplacian} (the Laplacian identity) are verified at all tested $d$ values in
+\begin{center}
+\texttt{tools/verifiers/gram\_compliance\_laplacian.py}
+\end{center}
+to machine precision on the closed form and to $\sim 10^{-7}$ relative on the Laplacian identity (the floating-point cancellation noise floor at large $d$, where $\log C^2_{d,d+1} \sim 1/(8d^2)$ is computed as a difference of $O(1)$ log-Gamma terms).
+\end{remark}
+
+\begin{remark}[Structural unification with the cascade scalar action]\label{rem:gram-action-unification}
+Corollary~\ref{cor:gram-laplacian} establishes a direct structural connection between the supplement's Gram framework and the cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ of Paper~IVb Remark~4.6. Both correction families derive from the same compliance function $\alpha(d) = R(d)^2/4$:
+\begin{itemize}
+\item Paper~IVb's $\alpha(d^*)/\chi^k$ family: \emph{linear} source response. The cascade action's marginal Green's function at distinguished source layer $d^*$ equals $\alpha(d^*)$ exactly (Paper~IVb's marginal Green's function identity); chirality factorisation through $k$ independent channels gives the $1/\chi^k$ attenuation.
+\item This supplement's adjacent overlap deficit: \emph{discrete log-Laplacian} of the same compliance function, at the doubled cascade argument. The deficit per step is $\frac{1}{2}\Delta^2(-\log\alpha)|_{2d+2}$ (positive because $-\log\alpha$ is convex on the cascade tower, i.e.\ $\alpha$ is log-concave).
+\end{itemize}
+The two correction families are complementary in the action's dual variables: source response (zeroth-order, single-layer) versus log-compliance curvature (second-order, distributed across the path). The doubling $d\mapsto 2d+2$ is a Beta--Gamma reduction artefact: cascade integrand inner products $\langle f_d, f_{d'}\rangle$ produce $R$-values at doubled arguments via $B(1/2, n+1) = \sqrt{\pi}\,R(2n+1)$ and $B(1/2, n+3/2) = \sqrt{\pi}\,R(2n+2)$, so the Gram correlation between layers $d$ and $d+1$ depends on cascade $R$-values at doubled indices $\{2d+1, 2d+2, 2d+3\}$.
+
+This corollary closes Paper~I's open question on first-principles derivation of the Gram correction (Paper~I, ``Does not'' list, item~3): the derivation is the cascade compliance Laplacian.
 \end{remark}
 
 \subsection{The eigenvalue structure of the correlation matrix}
@@ -463,7 +527,7 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 
 \begin{enumerate}[nosep]
 \item The Gram matrix of cascade layer integrands is a matrix of Beta function values (Theorem~\ref{thm:gram}).
-\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}).
+\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}). The correlation has the exact closed form $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$ in cascade slicing ratios (Theorem~\ref{thm:gram-R}), equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}): the Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$ at doubled argument, unifying the supplement with Paper~IVb's action principle (Remark~\ref{rem:gram-action-unification}).
 \item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
 \item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
 \item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
@@ -482,7 +546,7 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 \end{enumerate}
 
 \begin{remark}[Status of the correction]
-The first-order correction (Theorem~\ref{thm:first-order}) is derived: it is a sum of Beta function ratios with no free parameters, reducing descent deviations from sub-$2\%$ to sub-$1\%$. The observable response factor (the subleading correction beyond the first-order Gram identity) is the remaining open problem at the level of the Gram-matrix framework of this supplement. With both the first-order Gram identity and the observable response factor derived, descent-dependent predictions would close to sub-$0.1\%$. Open Question~1 is the calculation that separates the two at the Gram-matrix level.
+The first-order correction (Theorem~\ref{thm:first-order}) is derived: it is a sum of Beta function ratios with no free parameters, reducing descent deviations from sub-$2\%$ to sub-$1\%$. Theorem~\ref{thm:gram-R} and Corollary~\ref{cor:gram-laplacian} sharpen this derivation: the per-step Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha$, evaluated at the doubled cascade argument. This identifies the Gram framework as a corollary of Paper~IVb's action principle---both correction families (single-source $\alpha(d^*)/\chi^k$ and path-distributed Gram) derive from the same compliance $\alpha(d)=R(d)^2/4$. The observable response factor (the subleading correction beyond the first-order Gram identity) remains the open problem at the level of how observables couple to the geometric correction; the geometric correction itself is now derived from cascade-native first principles.
 \end{remark}
 
 \begin{remark}[Superseded for $\alpha_s$, $m_\tau/m_\mu$, and $m_\tau$]\label{rem:superseded-by-family}
