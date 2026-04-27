@@ -241,3 +241,55 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# ============================================================================
+# OPTION B FOLLOW-UP: Theorem 4.8 (Part IVb chirality factorisation) reading
+# ============================================================================
+"""
+Reading Theorem 4.8 directly: G_Q(d, d^*) = G(d, d^*)/chi^k for a k-mode
+observable, with G the scalar Green's function of the cascade action's
+discrete Laplacian (compliance alpha = R^2/4).
+
+The chirality halving in Theorem 4.8 comes from EQUAL SPLITTING of a scalar
+perturbation across two chirality basins at even-sphere layers (component A
+of the proof).  This applies to a SINGLE PERTURBATION at a SOURCE LAYER d*
+and gives delta phi_+ = delta phi_- = delta phi / chi.
+
+For Theorem 4.8 to hold, the fermion Green's function at source d* equals
+the scalar response divided by chi.  Since the discrete Laplacian Green's
+function decays like the compliance, this requires:
+   alpha_f(d^*) = alpha(d^*) / chi.
+Equivalently: log alpha_f = log alpha - log chi (ADDITIVE shift in log space).
+
+For path-distributed Gram correction (Cor 14.4 + k-step generalisation):
+   G_path = sum_d (1 - C^2_{d, d+1}) ~ -(1/2) sum_d Delta^2 log alpha |_{2d+2}
+
+For G_path^fermion = G_path^scalar / chi we'd need:
+   Delta^2 log alpha_f = Delta^2 log alpha / chi
+which requires log alpha_f = (log alpha) / chi (MULTIPLICATIVE rescaling).
+
+These two conditions are MATHEMATICALLY INCOMPATIBLE:
+- Additive log-shift (Theorem 4.8) preserves Delta^2 log alpha (constants
+  drop in the second difference). So fermion path correction = scalar.
+- Multiplicative log-rescaling gives wrong single-source response: alpha_f
+  at d^* would be alpha(d^*)^{1/chi}, not alpha(d^*) / chi.
+
+Conclusion: there is NO unified cascade fermion compliance function whose
+single-source Green's function reproduces alpha(d^*)/chi (Theorem 4.8) AND
+whose path-distributed correction is G_scalar/chi.  These are structurally
+distinct phenomena.
+
+Implication for m_mu/m_e:
+The empirical match G_scalar/chi ~ residual_{m_mu/m_e} (within ~3%) is NOT
+a consequence of a unified fermion compliance.  It is one of:
+  (i) Coincidence (the 3% slop is consistent with a near-miss).
+  (ii) A boundary effect at the source layer d^*=14 not captured by either
+       Theorem 4.8 or the bulk Gram-Laplacian -- a separate mechanism.
+  (iii) A position-dependent or higher-rank cascade correction structure
+       beyond the single-compliance scalar action.
+
+The structural derivation push (option B) terminates here without closure.
+The Part 4b oq:mu-e-residual remains open, with the chirality-halved Gram
+formulation now classified as 'cannot arise from unified fermion compliance'.
+"""
