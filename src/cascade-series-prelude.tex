@@ -152,6 +152,36 @@ from within the structure carries structural content with no derivation
 consequence. Retaining it imports content not forced by
 Definition~\ref{def:axiom} --- the same class of violation.
 
+\emph{Exhaustiveness of (i)--(iii) (formal-extension trichotomy).} A
+construction $C$ violates sole-input iff $C$ is derivable in some
+formal system $\Sigma_C$ properly extending $\Sigma_0 = (\text{logic})
++ \{0\neq 1\}$. Standard proof theory characterises a formal system by
+three independent axes --- its non-logical axioms, its underlying
+logic, and its language/signature. Any extension of $\Sigma_0$ acts on
+at least one of these axes:
+\begin{itemize}
+\item Extending the axioms imports content as a fresh assumption
+(numerical, categorical, or symmetry-group input). This is clause~(i).
+\item Extending the logic imports content as inferential strength
+beyond what Definition~\ref{def:axiom} requires (e.g.\ adopting
+classical reasoning, the axiom of choice, or higher-order quantification
+where the cascade's chain demands only weaker resources); the residue
+$A\setminus B$ between the adopted logic $A$ and the strictly weaker
+sufficient $B$ encodes the imported content. This is clause~(ii).
+\item Extending the signature or background imports content as ambient
+structure with no cascade-internal observable trace --- a continuous
+symmetry whose action is invisible from within the cascade. This is
+clause~(iii).
+\end{itemize}
+These three axes exhaust the formal anatomy of an extending system:
+there is no fourth axis along which a formal system can be extended in
+standard proof theory. Any candidate fourth clause therefore either
+reduces to one of (i)--(iii) under the standard decomposition or fails
+to identify content actually present in $\Sigma_C$'s extension of
+$\Sigma_0$. Definitional extensions of $\Sigma_0$ are conservative
+(they introduce notation but no new theorems) and therefore do not
+qualify as content additions; they require no clause.
+
 All three clauses track a single condition: admitting content not forced
 by the sole input. Austerity is therefore the operational content of
 Definition~\ref{def:axiom}'s status as sole pre-mathematical input, not
