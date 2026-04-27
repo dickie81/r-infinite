@@ -112,7 +112,7 @@ For all $d \geq 1$, the Gram correlation between adjacent cascade layers is
 \begin{equation}\label{eq:gram-R-form}
 C^2_{d,d+1} \;=\; \frac{R(2d+2)^2}{R(2d+1)\,R(2d+3)},
 \end{equation}
-where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the cascade slicing ratio of Paper~0 \S2. Numerical verification at all tested $d$ values is in \texttt{tools/verifiers/gram\_compliance\_laplacian.py} (closed form to machine precision; the Laplacian identity of Corollary~\ref{cor:gram-laplacian} below to $\sim 10^{-7}$ relative error, the floating-point cancellation noise floor at large $d$).
+where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the cascade slicing ratio of Paper~0 \S2.
 \end{theorem}
 
 \begin{proof}
@@ -143,6 +143,14 @@ By Theorem~\ref{thm:gram-R} and properties of the logarithm,
 \]
 Since $\alpha(d) = R(d)^2/4$, we have $\log\alpha = 2\log R - 2\log 2$, so $\Delta^2 \log\alpha = 2\,\Delta^2 \log R$ (constants drop in second differences). Substituting yields equation~\eqref{eq:gram-laplacian}.
 \end{proof}
+
+\begin{remark}[Numerical verification]\label{rem:gram-verifier}
+Both Theorem~\ref{thm:gram-R} (the closed form) and Corollary~\ref{cor:gram-laplacian} (the Laplacian identity) are verified at all tested $d$ values in
+\begin{center}
+\texttt{tools/verifiers/gram\_compliance\_laplacian.py}
+\end{center}
+to machine precision on the closed form and to $\sim 10^{-7}$ relative on the Laplacian identity (the floating-point cancellation noise floor at large $d$, where $\log C^2_{d,d+1} \sim 1/(8d^2)$ is computed as a difference of $O(1)$ log-Gamma terms).
+\end{remark}
 
 \begin{remark}[Structural unification with the cascade scalar action]\label{rem:gram-action-unification}
 Corollary~\ref{cor:gram-laplacian} establishes a direct structural connection between the supplement's Gram framework and the cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ of Paper~IVb Remark~4.6. Both correction families derive from the same compliance function $\alpha(d) = R(d)^2/4$:
