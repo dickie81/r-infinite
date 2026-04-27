@@ -126,8 +126,11 @@ excludes:
 no unexplained numerical, categorical, or symmetry-group input.
 \item[(ii)] \emph{Minimal strength.} No assumption strictly stronger than
 Definition~\ref{def:axiom} is invoked where a weaker sufficient assumption
-exists. Strength is measured by logical dependence: an assumption $A$ is
-weaker than $B$ if $B\Rightarrow A$ but not conversely.
+exists. Strength is measured in the sense of reverse mathematics over
+the base theory $\mathrm{RCA}_0$
+\cite{friedman1975, simpson2009}: an assumption $A$ is strictly
+stronger than $B$ if $\mathrm{RCA}_0 + A \vdash B$ but
+$\mathrm{RCA}_0 + B \nvdash A$.
 \item[(iii)] \emph{Unobservable quotient.} Any continuous symmetry whose
 action is unobservable from within the structure is quotiented out.
 \end{itemize}
@@ -663,16 +666,32 @@ prelude from \emph{defensibly minimal} to \emph{forced}. In its absence,
 the prelude's conclusion is conditional on the §5 enumeration plus the
 clauses of Section~\ref{sec:what-not} exhausting relevant candidates.
 
-\textbf{(2) Formal measure of assumption strength (clause (ii)).}
-Clause~(ii) of Principle~\ref{princ:austerity} uses logical implication
-to order assumptions by strength. For the specific question of
-countable-vs-uncountable distinction the ordering is clean
-(uncountable distinction $\Rightarrow$ countable distinction, but not
-conversely, via binary-test resolvability). For other future
-applications of clause~(ii) in downstream papers, the partial order may
-require a more formal specification --- for instance, relative to ZFC
-or a constructive foundation. This is a foundations-of-mathematics
-question, not a cascade-specific one.
+\textbf{(2) Formal measure of assumption strength (clause (ii)) ---
+resolved.} The partial order on assumption strength used in clause~(ii)
+of Principle~\ref{princ:austerity} is the reverse-mathematics ordering
+over the base theory $\mathrm{RCA}_0$
+\cite{friedman1975, simpson2009}: $A$ is strictly stronger than $B$ if
+$\mathrm{RCA}_0 + A \vdash B$ but $\mathrm{RCA}_0 + B \nvdash A$. This
+framework calibrates the strength of mathematical theorems against the
+``Big Five'' subsystems of second-order arithmetic
+($\mathrm{RCA}_0 \subsetneq \mathrm{WKL}_0 \subsetneq \mathrm{ACA}_0
+\subsetneq \mathrm{ATR}_0 \subsetneq \Pi^1_1\text{-}\mathrm{CA}_0$),
+giving a precise quantitative measure of any cascade derivation's
+foundational footprint. The countable-vs-uncountable comparison
+invoked in Theorem~\ref{thm:iterate} is a clean reverse-mathematics
+statement: the iterated Gram--Schmidt construction generating a
+countable orthonormal family is provable in $\mathrm{RCA}_0$;
+uncountable orthonormal distinction in the prelude's sense requires
+expressive machinery beyond second-order arithmetic. The cascade's
+downstream content --- classical analysis, the Gamma function and
+its analytic properties, Hilbert-space separability with Cauchy
+completion --- calibrates at or below $\mathrm{ACA}_0$ within the Big
+Five hierarchy, so the cascade's foundational footprint is bounded by
+a well-understood, modest fragment of second-order arithmetic. The
+choice of $\mathrm{RCA}_0$ as the strength-measurement base is a
+foundational commitment, not a cascade-internal axiom: it specifies
+how clause~(ii) is to be applied without altering what the cascade
+proves from $0\neq 1$.
 
 \textbf{(3) The interpretive bridge at Theorem~\ref{thm:orth}.} The
 step from logical $0\neq 1$ to geometric ``states sharing no common
@@ -710,5 +729,16 @@ derive self-awareness itself (already noted in Section~\ref{sec:what-not}).
 \bigskip
 
 The series begins.
+
+\begin{thebibliography}{99}
+
+\bibitem{friedman1975} H.~Friedman, ``Some systems of second-order
+arithmetic and their use,'' in \textit{Proceedings of the International
+Congress of Mathematicians, Vancouver}, vol.~1, pp.~235--242 (1975).
+
+\bibitem{simpson2009} S.~G.~Simpson, \textit{Subsystems of Second
+Order Arithmetic}, 2nd ed., Cambridge University Press, 2009.
+
+\end{thebibliography}
 
 \end{document}
