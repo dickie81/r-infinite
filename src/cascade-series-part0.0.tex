@@ -112,7 +112,7 @@ For all $d \geq 1$, the Gram correlation between adjacent cascade layers is
 \begin{equation}\label{eq:gram-R-form}
 C^2_{d,d+1} \;=\; \frac{R(2d+2)^2}{R(2d+1)\,R(2d+3)},
 \end{equation}
-where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the cascade slicing ratio of Paper~0 \S2.
+where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the cascade slicing ratio of Paper~0 \S2. Numerical verification at all tested $d$ values is in \texttt{tools/verifiers/gram\_compliance\_laplacian.py} (closed form to machine precision; the Laplacian identity of Corollary~\ref{cor:gram-laplacian} below to $\sim 10^{-7}$ relative error, the floating-point cancellation noise floor at large $d$).
 \end{theorem}
 
 \begin{proof}
