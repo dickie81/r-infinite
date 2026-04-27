@@ -31,17 +31,20 @@ Definition~\ref{def:axiom}'s status as the sole input, derived in
 Section~\ref{sec:what-nothing-means} below. Each step of the chain
 from $0\neq 1$ to the dimension tower
 $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ (with asymptotic upper edge
-$B^\infty$) is annotated with the austerity clause it invokes. What
-remains open is whether austerity \emph{uniquely} determines this
-starting structure, or merely renders it the most austere starting
-choice (Section~\ref{sec:open-questions}). The interpretive bridge
-from logical distinction ($0\neq 1$) to geometric orthogonality
-(Theorem~\ref{thm:orth}'s premise that distinguishable states share
-no common component in $\mathbb{R}^d$) is a separate structural
-choice; the Euclidean geometry on $\mathbb{R}^d$ itself is forced by
-elementary linear algebra, but the use of $\mathbb{R}^d$ as the
-realisation of $d$ distinguishable states is the structural commitment
-flagged in Section~\ref{sec:open-questions}, item~(3). The prelude
+$B^\infty$) is annotated with the austerity clause it invokes. The
+prelude has one substantive structural commitment: the use of
+$\mathbb{R}^d$ as the realisation of $d$ distinguishable states (the
+interpretive bridge of Theorem~\ref{thm:orth}'s premise). Once this
+commitment is accepted, the rest of the structure follows: the
+Euclidean geometry on $\mathbb{R}^d$ is forced by elementary linear
+algebra, the unit ball $B^d$ is the unique parameter-free
+rotation-symmetric bounded shape, the index set $\mathbb{N}$ is
+$\mathrm{RCA}_0$'s native unbounded notion, and the slicing recurrence
+is the unique first-order multiplicative recurrence on the tower.
+Whether the structural commitment to $\mathbb{R}^d$ is itself uniquely
+forced, or merely the most austere structural choice, is the single
+remaining open foundational question of the prelude
+(Section~\ref{sec:open-questions}, item~(3)(a)). The prelude
 operates on finite-dimensional Euclidean spaces only --- no
 infinite-dimensional Hilbert space is built or required, and the
 cascade's foundational footprint stays at $\mathrm{RCA}_0$ for the
@@ -742,25 +745,62 @@ clauses explicitly, and austerity is derived from the sole-input
 status of $0\neq 1$ rather than declared as a second input. What
 remains open:
 
-\textbf{(1) Uniqueness of the resolution process under austerity.} Is
-the cascade's resolution process --- the dimension tower
-$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of finite-dimensional
-Euclidean spaces with each level collapsed under
+\textbf{(1) Uniqueness of the resolution process under austerity ---
+reduces to (3)(a).} Is the cascade's resolution process --- the
+dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of
+finite-dimensional Euclidean spaces with each level collapsed under
 $\mathbb{R}^*\times\mathrm{SO}(d)$, together with the slicing
 recurrence as resolution mechanism extracting finite content from the
 asymptotic upper edge $B^\infty$ at $d\to\infty$ --- the \emph{unique}
 mathematical process derivable from Definition~\ref{def:axiom} under
 Principle~\ref{princ:austerity}, or merely one of several
-austerity-compatible resolution processes? Read processually, the
-resolution mechanism is unique up to the dimension-tower structure:
-the slicing recurrence is the unique first-order multiplicative
-recurrence on the tower of unit balls (Part~0 Theorem~4.1:
-$\sqrt{\pi}$ is the irreducible residue of the recurrence). The remaining question is whether the dimension
-tower itself --- a countable tower of finite-dim Euclidean spaces ---
-is uniquely forced as the underlying structure for the resolution.
+austerity-compatible resolution processes?
 
-Three classes of alternatives are explicitly ruled out inside this
-prelude:
+The dimension tower has three components, each examinable for forcing:
+\begin{itemize}
+\item[$\bullet$] \emph{Index set $\mathbb{N}$ (which $d$ values are
+in the tower).} Forced. Austerity clause~(i) excludes any specific
+finite cutoff (free integer parameter). Clause~(ii) under
+$\mathrm{RCA}_0$ (item~(2) below) excludes uncountable indexing.
+Among countable index sets, $\mathbb{N}$ is $\mathrm{RCA}_0$'s native
+unbounded notion; alternatives ($\mathbb{Z}$, $\mathbb{Q}$, finite
+$\mathbb{Z}_n$) either introduce extra structure as separate
+parameters (excluded by clause~(i)) or are isomorphic to $\mathbb{N}$
+as ordered sets.
+\item[$\bullet$] \emph{Space at each level $\mathbb{R}^d$ with standard
+inner product.} This is precisely sub-question (3)(a) below: the
+structural commitment to $\mathbb{R}^d$ as the realisation of $d$
+distinguishable states. \emph{Open as (3)(a)}; not closed within (1).
+\item[$\bullet$] \emph{Bounded region $B^d$ within $\mathbb{R}^d$.}
+Forced given the previous component. Among compact convex regions in
+$\mathbb{R}^d$ with its standard inner product, the unit ball
+$B^d = \{x : |x|\leq 1\}$ is the unique parameter-free shape with
+full $\mathrm{SO}(d)$ symmetry: alternative shapes (cubes, simplices)
+break rotation symmetry; alternative balls (ellipsoids, balls of
+radius $r\neq 1$) introduce shape or scale parameters excluded by
+clause~(i). The unit ball is also the unique shape supporting the
+slicing recurrence with constant $\sqrt{\pi}$ (Part~0 Theorem~4.1:
+the recurrence's irreducible residue is forced by orthogonality on
+$\mathbb{R}^d$, hence by the inner product of the previous component).
+\end{itemize}
+
+The resolution mechanism itself is also forced given the tower: the
+slicing recurrence is the unique first-order multiplicative recurrence
+on the tower of unit balls (Part~0 Theorem~4.1).
+
+\noindent\textbf{Reduction.} Components 1 and 3, together with the
+resolution mechanism, are forced once component 2 is fixed.
+Component 2 is the structural commitment of sub-question (3)(a)
+below. Therefore (1) is closed up to (3)(a): \emph{given the
+inner-product realisation of $0\neq 1$ on $\mathbb{R}^d$, the cascade's
+resolution process is uniquely determined.} The remaining open
+question collapses into the interpretive bridge of (3)(a) --- a
+single substantive structural commitment of the prelude, comparable
+in status to ``use real numbers for analysis,'' rather than an
+independent open item.
+
+Three classes of alternatives at the level of the whole structure are
+explicitly ruled out inside this prelude:
 \begin{itemize}
 \item[$\bullet$] \emph{Complex or quaternionic Euclidean spaces as
 starting structure.} Ruled out by clause~(ii) (minimal strength):
@@ -784,13 +824,6 @@ Sol\`er-style convergence theorem, no functional-analytic refinement
 (rigged Hilbert space, nuclear space, weak-topology variant) is
 required to express any downstream cascade theorem.
 \end{itemize}
-A uniqueness theorem of the form ``the unique structure derivable from
-Definition~\ref{def:axiom} under Principle~\ref{princ:austerity}, up to
-isomorphism, is the dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$''
-would close this question and promote the prelude from
-\emph{defensibly minimal} to \emph{forced}. In its absence, the
-prelude's conclusion is conditional on the §5 enumeration plus the
-clauses of Section~\ref{sec:what-not} exhausting relevant candidates.
 
 \textbf{(2) Formal measure of assumption strength (clause (ii)) ---
 resolved.} The partial order on assumption strength used in clause~(ii)
