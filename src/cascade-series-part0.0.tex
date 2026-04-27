@@ -275,19 +275,11 @@ At $n = 2$ the matrix $C = \begin{pmatrix}1 & c \\ c & 1\end{pmatrix}$ with $c =
 \end{proof}
 
 \begin{remark}[Status of the $\lambda_1$ closed form for $n \geq 3$]\label{rem:lambda1-no-closed-form}
-For $n \geq 3$ no \emph{single-equation} radical-form closed form for $\lambda_1$ in cascade slicing ratios has been identified. Numerical exploration shows the dominant eigenvector $v_1$ has rescaled coordinates $v_1[i]/\|x^i\|$ that are not geometric, rational, or recognisably analytic (\texttt{tools/research/lambda1\_closed\_form\_search.py}). Three closed-form determinations of $\lambda_1$ do exist: (i)~the $n = 2$ exact identity (Corollary~\ref{cor:lambda1-n2}); (ii)~the perturbation-theory upper bound of Theorem~\ref{thm:pert}, exact at $n = 2$ and tight to $< 10^{-3}$ for all cascade-physics paths tested (\texttt{tools/research/lambda1\_closed\_form\_bounds.py}); (iii)~the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ of Corollary~\ref{cor:lambda1-power-trace}, which converges to $\lambda_1$ at geometric rate and gives closed-form approximations to arbitrary precision. The radical-equation question is open at $n \geq 3$, but the practical-precision question is closed by the $U_k$ family.
+For $n \geq 3$ no single-equation radical form for $\lambda_1$ in cascade slicing ratios has been identified. What is available is the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}), which provides closed-form approximations to $\lambda_1$ converging at geometric rate; combined with the $n = 2$ exact identity (Corollary~\ref{cor:lambda1-n2}) and the perturbation-theory bound of Theorem~\ref{thm:pert}, these cover all cascade-physics paths to better than machine precision.
 \end{remark}
 
 \begin{remark}[OP factorisation of the cascade correlation matrix]\label{rem:lambda1-OP-factorisation}
-The cascade correlation matrix factorises as $C = A A^{\top}$, where
-\[
-A_{ik} \;=\; \langle p_k,\, x^i\rangle_{\mu_m} / \|x^i\|_{\mu_m},
-\]
-$A$ is lower triangular, and $\{p_k\}$ are orthonormal polynomials for $d\mu_m(x) = x^m/\sqrt{1-x^2}\,dx$ on $[0,1]$ with $m = 2 d_0 + 1$. Hence $\lambda_k(C) = \sigma_k(A)^2$. The substitution $u = x^2$ identifies $\mu_m$ as a shifted Jacobi measure with $(\alpha, \beta) = ((m-1)/2, -1/2)$; the monomial basis $\{x^i\}$ mixes parities under this substitution, so the OP family for $\mu_m$ in variable $x$ is not directly Jacobi. Setting the OP-basis Rayleigh test vector to the constant polynomial $p_0$ gives the cascade-native lower bound
-\[
-\lambda_1(C) \;\geq\; \sum_{i=0}^{n-1} \frac{R(m+i)^2}{R(m)\, R(m+2i)},
-\]
-weaker than Theorem~\ref{thm:pert}'s bound. The factorisation reframes the open question: a closed-form $\lambda_1$ at $n \geq 3$ is a closed-form operator-norm question for an explicit triangular matrix with $\Gamma$-function entries.
+$C$ factorises as $C = A A^{\top}$ with $A$ lower triangular and $A_{ik} = \langle p_k, x^i\rangle_{\mu_m} / \|x^i\|_{\mu_m}$, where $\{p_k\}$ are the orthonormal polynomials of the measure $d\mu_m(x) = x^m/\sqrt{1-x^2}\,dx$ on $[0,1]$ ($m = 2 d_0 + 1$). Hence $\lambda_k(C) = \sigma_k(A)^2$. Under $u = x^2$, $\mu_m$ is a shifted Jacobi measure, identifying the closed-form question for $\lambda_1$ as a question in classical orthogonal-polynomial theory (\texttt{tools/research/lambda1\_jacobi\_route.py}).
 \end{remark}
 
 \begin{corollary}[Power-trace bound family closing $\lambda_1$ to arbitrary precision]\label{cor:lambda1-power-trace}
@@ -305,34 +297,6 @@ a polynomial sum of $R$-ratio products. Numerically, for cascade-physics paths (
 \begin{proof}
 For positive eigenvalues $\lambda_1 \geq \lambda_2 \geq \cdots \geq 0$, $\mathrm{tr}\,C^k = \sum_j \lambda_j^k$, so $\lambda_1^k \leq \mathrm{tr}\,C^k$ and $\lambda_1 \leq U_k$. Monotonicity $U_k \geq U_{k+1}$ is the standard fact that $\ell^k$ norms of a positive vector decrease in $k$. The convergence $U_k \to \lambda_1$ at rate $(\lambda_2/\lambda_1)^k$ follows from $\mathrm{tr}\,C^k = \lambda_1^k(1 + (\lambda_2/\lambda_1)^k + \cdots)$ via the Bernoulli expansion of $(1 + \epsilon)^{1/k}$. The closed-form expression for $\mathrm{tr}\,C^k$ is the standard polynomial trace expansion; each $C_{ij}$ is a closed-form ratio of slicing ratios (Theorem~\ref{thm:gram-R} and its generalisation to arbitrary index pairs), so the sum is closed-form in cascade primitives.
 \end{proof}
-
-\begin{theorem}[Algebraic closed form for $\lambda_1$ at every $n$]\label{thm:lambda1-algebraic}
-For every $n \geq 1$, $\lambda_1(C)$ is the largest root of an explicit polynomial
-\[
-P_n(\lambda) \;=\; \lambda^n + \sum_{k=0}^{n-1} c_k\, \lambda^k,
-\]
-whose coefficients $c_k$ are closed-form sums of $R$-ratio products in cascade slicing ratios. Specifically, $c_{n-k} = (-1)^k e_k(\lambda_1, \ldots, \lambda_n)$, where the elementary symmetric polynomials $e_k$ are recovered from the power sums $p_k = \mathrm{tr}\,C^k$ (Corollary~\ref{cor:lambda1-power-trace}) via Newton's identities $k\, e_k = \sum_{i=1}^{k} (-1)^{i-1} e_{k-i}\, p_i$. Each $p_k$ is the sum $\sum C_{i_1 i_2} \cdots C_{i_k i_1}$ of $n^k$ products of slicing-ratio entries.
-\end{theorem}
-
-\begin{proof}
-That $\lambda_1$ is a root of $\det(\lambda I - C)$ is the Cayley--Hamilton statement. The expression $\det(\lambda I - C) = \lambda^n - e_1 \lambda^{n-1} + e_2 \lambda^{n-2} - \cdots + (-1)^n e_n$ is the standard expansion in terms of elementary symmetric polynomials of the eigenvalues. Newton's identities recover $e_k$ from the power sums $p_k = \mathrm{tr}\,C^k$ algebraically. The closed-form expression for each $p_k$ is the cascade-native polynomial sum of Corollary~\ref{cor:lambda1-power-trace}, with each $C_{ij}$ a closed-form ratio of slicing ratios (Theorem~\ref{thm:gram-R}, generalised). Hence each $c_k$ is closed-form, and $P_n$ is an explicit polynomial whose largest root is $\lambda_1$.
-\end{proof}
-
-\begin{corollary}[Two-step closed-form algorithm for $\lambda_1$]\label{cor:lambda1-algorithm}
-$\lambda_1$ is recoverable from cascade slicing ratios by a closed-form two-step procedure: (i)~compute $U_K = (\mathrm{tr}\,C^K)^{1/K}$ for any $K \geq 2$ (closed-form upper bound, Corollary~\ref{cor:lambda1-power-trace}); (ii)~apply one Newton iteration on $P_n$ of Theorem~\ref{thm:lambda1-algebraic}: $\lambda_1 \approx U_K - P_n(U_K)/P_n'(U_K)$. For cascade-physics paths, this yields $\lambda_1$ to machine precision starting from $U_2$ already, and exactly to floating-point precision from $U_4$ (\texttt{tools/research/lambda1\_characteristic\_poly.py}).
-\end{corollary}
-
-\begin{remark}[The radical-form question]\label{rem:lambda1-radical}
-Theorem~\ref{thm:lambda1-algebraic} closes the algebraic question: $\lambda_1$ is an algebraic number of degree at most $n$ over the field of cascade slicing ratios, with explicit minimal polynomial. The remaining question is whether $\lambda_1$ admits a \emph{radical} closed form, i.e., expression by repeated root extractions from $R$-values. For $n \leq 4$ Cardano/Ferrari give a radical formula (unilluminating but explicit); for $n \geq 5$ Abel--Ruffini blocks radical solutions for unstructured polynomials, but the cascade $P_n$ has highly constrained Hankel-related structure (its coefficients are not generic) and whether its Galois group is solvable is a question for explicit Galois-theoretic analysis of the cascade slicing-ratio field, beyond the scope of this paper.
-\end{remark}
-
-\begin{remark}[Stieltjes recurrence: closed forms at $k = 0$]\label{rem:lambda1-stieltjes}
-The OP family for $\mu_m$ has three-term recurrence with Jacobi-matrix entries $(a_k, b_k)$. At $k = 0$ these admit cascade-native closed forms:
-\[
-a_0 \;=\; \frac{R(m+1)}{R(m)}, \qquad b_0^2 \;=\; \frac{R(m)\,R(m+2) - R(m+1)^2}{R(m)^2}.
-\]
-Verified to $10^{-78}$ relative precision. For $k \geq 1$ no closed form has been found, and the $(a_k, b_k)$ sequences match no classical OP family. Universal Geronimus asymptotics $(a_k, b_k) \to (1/2, 1/4)$ hold; numerical evidence suggests convergence is faster than the generic $O(1/k)$ Bernstein rate, reflecting additional regularity from the cascade weight's $\Gamma$-function structure. A formal characterisation of this rate is a sharp open question.
-\end{remark}
 
 \subsection{Numerical evidence for the correction}\label{sec:verification}
 
@@ -613,7 +577,7 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 
 \begin{enumerate}[nosep]
 \item \emph{Derive the observable response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$, and is distinct from the perturbation-theory second-order eigenvalue term of Theorem~\ref{thm:pert}. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
-\item \emph{Analytic formula for $\epsilon(n, d_0)$.} Closed at every $n$. The single-equation closed form is $P_n(\lambda_1) = 0$, where $P_n$ is the explicit characteristic polynomial of $C$ with closed-form cascade-native coefficients (Theorem~\ref{thm:lambda1-algebraic}). The two-step closed-form algorithm (Corollary~\ref{cor:lambda1-algorithm}) recovers $\lambda_1$ to machine precision from cascade slicing ratios alone. At $n = 2$ a single-equation radical form holds (Corollary~\ref{cor:lambda1-n2}); at $n \in \{3, 4\}$ Cardano/Ferrari give a radical formula with cascade-native coefficients but unilluminating nested radicals. The remaining question is whether a non-radical closed form (special-function identity for the moment problem of $\mu_m$, or radical solubility from cascade-specific Galois structure) exists at $n \geq 5$ that simplifies the polynomial root extraction: Remark~\ref{rem:lambda1-radical}.
+\item \emph{Analytic formula for $\epsilon(n, d_0)$.} Partially closed. At $n = 2$ the dominant eigenvalue admits the exact closed form $\lambda_1 = 1 + R(2d_0+2)/\sqrt{R(2d_0+1)R(2d_0+3)}$ (Corollary~\ref{cor:lambda1-n2}). For $n \geq 3$ the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}) provides closed-form cascade-native approximations to $\lambda_1$ converging at geometric rate $(\lambda_2/\lambda_1)^k$, reaching machine precision at $k = 6$ for cascade-physics paths. What remains genuinely open is whether a single-equation radical or special-function closed form (rather than a convergent family of upper bounds) exists at $n \geq 3$.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
 \item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
 \end{enumerate}
