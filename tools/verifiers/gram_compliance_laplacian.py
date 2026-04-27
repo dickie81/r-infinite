@@ -187,6 +187,95 @@ def main() -> int:
     print()
 
     # -----------------------------------------------------------------
+    # 4. Full correlation matrix: C_ij = R(d_i+d_j+1)/sqrt(R(2d_i+1) R(2d_j+1))
+    # -----------------------------------------------------------------
+    print("-" * 72)
+    print("Verification 4: full correlation matrix in cascade slicing ratios")
+    print("-" * 72)
+    print("Identity: C_{ij} = R(d_i + d_j + 1) / sqrt(R(2 d_i + 1) R(2 d_j + 1))")
+    print()
+    pairs = [
+        (5, 5),    # diagonal
+        (5, 6),    # adjacent (already tested in V1, regression check)
+        (5, 7),    # k=2
+        (5, 12),   # k=7
+        (10, 20),  # k=10
+        (14, 21),  # m_mu/m_e endpoints
+        (5, 217),  # k=212, full rho_Lambda path span
+    ]
+    print(f"{'(d_i, d_j)':>14}  {'C_ij direct':>20}  {'C_ij closed form':>20}  {'rel diff':>10}")
+    print("-" * 72)
+    for d_i, d_j in pairs:
+        # Direct: C_ij = G_ij / sqrt(G_ii G_jj)
+        G_ij = beta(0.5, (d_i + d_j) / 2.0 + 1.0)
+        G_ii = beta(0.5, d_i + 1.0)
+        G_jj = beta(0.5, d_j + 1.0)
+        C_direct = G_ij / math.sqrt(G_ii * G_jj)
+        # Closed form via R at doubled arguments (use log-form to avoid overflow)
+        log_C_closed = (
+            log_R(d_i + d_j + 1)
+            - 0.5 * log_R(2 * d_i + 1)
+            - 0.5 * log_R(2 * d_j + 1)
+        )
+        C_closed = math.exp(log_C_closed)
+        rel = abs(C_closed - C_direct) / abs(C_direct) if C_direct != 0 else float("nan")
+        flag = "" if rel < tolerance_C2 else "  <-- FAIL"
+        if rel >= tolerance_C2:
+            failures.append(f"matrix closed form at ({d_i},{d_j}): rel diff {rel:.2e}")
+        print(f"({d_i:>4},{d_j:>4})  {C_direct:>20.14e}  {C_closed:>20.14e}  {rel:>10.2e}{flag}")
+    print()
+
+    # -----------------------------------------------------------------
+    # 5. Eigenvalue deficit: epsilon from cascade-native matrix matches direct
+    # -----------------------------------------------------------------
+    try:
+        import numpy as np  # type: ignore[import-not-found]
+    except ImportError:
+        print("(numpy not available; skipping eigenvalue check)")
+        np = None  # type: ignore
+
+    if np is not None:
+        print("-" * 72)
+        print("Verification 5: eigenvalue deficit epsilon from cascade-native matrix")
+        print("-" * 72)
+        print("epsilon = 1 - lambda_1(C)/n where C is built from cascade R values.")
+        print()
+        epsilon_paths = [
+            ("d=5..12  (n=8)", 5, 8),
+            ("d=6..13  (n=8)", 6, 8),
+            ("d=14..21 (n=8)", 14, 8),
+        ]
+        print(f"{'path':>16}  {'eps direct':>16}  {'eps cascade':>16}  {'rel diff':>10}")
+        print("-" * 72)
+        for name, d0, n in epsilon_paths:
+            # Build C two ways: direct Beta-function and cascade-native R-form.
+            C_direct = np.zeros((n, n))
+            C_cascade = np.zeros((n, n))
+            for i in range(n):
+                for j in range(n):
+                    d_i, d_j = d0 + i, d0 + j
+                    G_ij = beta(0.5, (d_i + d_j) / 2.0 + 1.0)
+                    G_ii = beta(0.5, d_i + 1.0)
+                    G_jj = beta(0.5, d_j + 1.0)
+                    C_direct[i, j] = G_ij / math.sqrt(G_ii * G_jj)
+                    log_C = (
+                        log_R(d_i + d_j + 1)
+                        - 0.5 * log_R(2 * d_i + 1)
+                        - 0.5 * log_R(2 * d_j + 1)
+                    )
+                    C_cascade[i, j] = math.exp(log_C)
+            lam_d = float(np.linalg.eigvalsh(C_direct).max())
+            lam_c = float(np.linalg.eigvalsh(C_cascade).max())
+            eps_d = 1.0 - lam_d / n
+            eps_c = 1.0 - lam_c / n
+            rel = abs(eps_c - eps_d) / abs(eps_d) if eps_d != 0 else float("nan")
+            flag = "" if rel < tolerance_log else "  <-- FAIL"
+            if rel >= tolerance_log:
+                failures.append(f"epsilon agreement {name}: rel diff {rel:.2e}")
+            print(f"{name:>16}  {eps_d:>16.10e}  {eps_c:>16.10e}  {rel:>10.2e}{flag}")
+        print()
+
+    # -----------------------------------------------------------------
     # Summary
     # -----------------------------------------------------------------
     print("=" * 72)
