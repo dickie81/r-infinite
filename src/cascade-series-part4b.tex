@@ -888,6 +888,14 @@ Both predictions match observation within experimental precision. Equivalently, 
 \]
 Setting $d=12$: $R(14)/R(12)=13/14$, exactly. Hence $\alpha(14)=\alpha(12)(13/14)^2$ and $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=\alpha(12)(13/14)^2/2$. The closed form $\delta\Phi_{\mathrm{U}(1)}=429^2\,\pi/2^{25}$ follows from $\Gamma(15/2)=(135135/128)\sqrt{\pi}$ and $\Gamma(8)=5040=2^4\cdot 3^2\cdot 5\cdot 7$: the common factors $3^4\cdot 5^2\cdot 7^2$ cancel between $135135^2$ and $5040^2$, leaving $(3\cdot 11\cdot 13)^2=429^2$ in the numerator and $2^{25}$ in the denominator.
 
+\begin{remark}[Catalan-number reading of the U(1) closure]\label{rem:catalan-u1-closure}
+The residue $429 = 3 \cdot 11 \cdot 13$ is the $7$th Catalan number $\mathrm{Cat}(7) = \binom{14}{7}/8 = 3432/8 = 429$. The U(1) shift therefore admits the cascade-structural form
+\[
+\delta\Phi_{\mathrm{U}(1)} \;=\; \frac{\mathrm{Cat}(d_0)^2 \cdot \pi}{2^{4 d_0 - 3}},
+\]
+where $d_0 = 7$ is the Part 0 area maximum. The two distinguished layers entering the U(1) shift are related by $d_{\rm gw} = 2 d_0$ (gauge window upper edge equals twice the area maximum), and the cleanness of the power-of-$2$ denominator follows from $d_0 + 1 = 8 = 2^3$. Among even distinguished cascade dimensions $\{4, 12, 14, 20\}$, $d_{\rm gw} = 14$ is the unique case where $\binom{2k}{k} = (k+1)\,\mathrm{Cat}(k)$ combines with the per-layer chirality factor $1/\chi$ to give a pure power-of-$2$ denominator (see \texttt{tools/research/cascade\_catalan\_u1\_closure.py}).
+\end{remark}
+
 \emph{Numerical verification.} Using high-precision values of $\Phi(12)=1.064665\ldots$, $\Phi(13)-\Phi(5)=1.539665\ldots$, and $\alpha(12)=0.039968\ldots$:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
