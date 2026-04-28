@@ -189,7 +189,7 @@ structure.
 | 10.7 | $d = 4 = \dim_\mathbb{R}\mathbb{H}$ | USED | Part III |
 | 10.8 | $d = 8$ first Bott multiple | USED | Part IVa |
 | 10.9 | $d = 12$ Adams unique $\rho-1=3$ | USED | Part IVa Thm 2.4 |
-| 10.10 | $d = 14 = \dim G_2$ | **IGN** | Coincidence at U(1) layer? |
+| 10.10 | $d = 14 = \dim G_2$ | **IGN** (numerological) | Tested: no structural mechanism.  $G_2$ cannot act on $S^{13}$ (dim mismatch); no natural $G_2$ action on cascade $d{=}14$ objects.  Contrasts with 10.11 ($d{=}7$, $G_2/SU(3)$ on $S^6$) where the mechanism is real.  See `tools/research/audit_section10_d14_G2.py` |
 | 10.11 | $d = 7$ = $S^6$ admits $G_2$ structure | **USED** | Reading (III): SU(3) algebra at $d=7$ via $G_2/SU(3)$ on $S^6$. Part IVa Remark `reading-III`. Verifier `cascade_d7_su3_bs_closure.py`. Closes $b/s$ to 0.014\% via $-\alpha(7)/\chi^4$ (Part IVb Tier 3, proposed) |
 
 ---
