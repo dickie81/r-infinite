@@ -202,7 +202,7 @@ structure.
 | 11.2 | $\Gamma$ recursion | USED | Slicing |
 | 11.3 | Beta function identities | USED | Slicing integral |
 | 11.4 | Euler reflection $\Gamma(z)\Gamma(1-z) = \pi/\sin(\pi z)$ | **IGN** | Not invoked |
-| 11.5 | Gauss multiplication theorem | **IGN** | Not invoked |
+| 11.5 | Gauss multiplication theorem | USED ($n=2$) | Part 0 Lemma `lem:R-duplication`: $R(2d-1)R(2d) = 1/d$ |
 | 11.6 | Wallis product | **IGN** | Implicit in $R(d) \sim \sqrt{2/d}$ asymptotics |
 | 11.7 | Stirling's formula | USED | Asymptotics |
 | 11.8 | Continued fractions of $\Gamma$ ratios | **IGN** | Not invoked |
