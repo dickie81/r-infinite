@@ -30,7 +30,8 @@ The series derives — from this alone — the cosmological constant, quantum me
 | m_τ / m_μ | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
 | sin²θ_W | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
 | m_μ / m_e | 206.50 | 206.77 | +0.13% |
-| H₀ | 66.78 km/s/Mpc | Planck: 67.4 ± 0.5 | Planck-compatible |
+| H₀ (Gram-corrected) | ≈67.5 km/s/Mpc | Planck: 67.4 ± 0.5 | Planck-compatible |
+| T_CMB | 2.642 K | 2.7255 K | −3.1% (descent-dependent) |
 | Universe age | 13.88 Gyr | 13.80 ± 0.02 | +0.6% |
 
 **See [PREDICTIONS.md](PREDICTIONS.md) for the full tiered table** (structural results, all precision derivations, frontier experimental predictions, and provisional items with known gaps).
