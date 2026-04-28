@@ -2,6 +2,10 @@ $aux_dir = 'build';
 $out_dir = '.';
 $pdf_mode = 1;
 
+# Treat undefined references and citations as build failures so the warnings
+# surface as non-zero exit codes locally and in CI (xu-cheng/latex-action).
+$warnings_as_errors = 1;
+
 # pdflatex always writes <job>.synctex.gz next to the PDF (i.e. into $out_dir).
 # Move it into $aux_dir after each compile so the source folder stays clean.
 $success_cmd = 'internal move_synctex %R';
