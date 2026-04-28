@@ -37,8 +37,8 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | Ω_Λ | (π−1)/π | 0.6817 | 0.685 ± 0.007 | −0.5% |
 | Ω_m | 1/π | 0.3183 | 0.315 ± 0.007 | +1.1% |
 | Ω_r | 1/(4π⁷) | 8.28 × 10⁻⁵ | 8.27 × 10⁻⁵ | +0.1% |
-| T_CMB | from Ω_r, H₀ | 2.642 K | 2.7255 K | −3.1% |
-| H₀ | from ρ_Λ, Ω_Λ | 66.78 km/s/Mpc | 67.4 ± 0.5 | −0.9% |
+| T_CMB | from Ω_r, H₀ | 2.642 K | 2.7255 K | −3.1% (descent-dependent) |
+| H₀ | from ρ_Λ, Ω_Λ | 66.78 km/s/Mpc (Gram-corrected ≈ 67.5) | 67.4 ± 0.5 | −0.9% leading; ≈Planck after Gram |
 | t₀ | ΛCDM integral | 13.88 Gyr | 13.80 ± 0.02 | +0.6% |
 | m_H / m_W | π/2 | 1.5708 | 1.559 | +0.8% |
 | m_μ / m_e | exp(ΔΦ) · 2√π | 206.50 | 206.77 | +0.13% |
