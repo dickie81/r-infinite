@@ -142,9 +142,9 @@ the unit-ball construction.
 |---|---|---|---|
 | 7.1 | Constant sectional curvature $K=1$ | USED implicitly | Standard round metric |
 | 7.2 | Ricci tensor $\text{Ric} = (d-2)g$ | USED implicitly | Part III §14 |
-| 7.3 | Scalar curvature $R = (d-1)(d-2)$ | **IGN** | Not used in fermion sector |
-| 7.4 | Lichnerowicz formula $\slashed{D}^2 = \nabla^*\nabla + R/4$ | **IGN** | Sphere-Dirac route already tested |
-| 7.5 | Conformal Killing spinors | **IGN** | Not invoked |
+| 7.3 | Scalar curvature $R = (d-1)(d-2)$ | USED implicitly via 7.2 | $R_{\rm scal} = \mathrm{tr}(\mathrm{Ric}) = (d-1)(d-2)$ is just the trace of the Ricci tensor (entry 7.2, USED).  No new content beyond 7.2 |
+| 7.4 | Lichnerowicz formula $\slashed{D}^2 = \nabla^*\nabla + R/4$ | **IGN** (structural exclusion) | Sphere-Dirac route forbidden by 4.6 ($\hat A(S^{2n})=0$, Notebook Rem `no-dirac-route` in Part IVb) |
+| 7.5 | Conformal Killing spinors | **IGN** (structural exclusion) | Same as 7.4: requires sphere-Dirac, excluded by 4.6 |
 | 7.6 | Riemannian sectional/Ricci/scalar relations | USED | Lovelock at $d=4$ (Part III) |
 
 ---
