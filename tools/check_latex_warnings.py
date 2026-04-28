@@ -34,12 +34,33 @@ PATTERNS: dict[str, re.Pattern[str]] = {
 }
 
 
+def unwrap_tex_log(text: str, wrap_width: int = 79) -> str:
+    """Join lines that TeX hard-wrapped at max_print_line.
+
+    pdflatex wraps log output at $max_print_line (default 79) without any
+    continuation marker. A warning like
+        LaTeX Warning: Reference `rem:chirality-jacobian-separability' on page 1 undefined
+    can split the word "undefined" across two lines, hiding it from
+    line-by-line regex scans. We treat any line whose length is at least the
+    wrap width as a candidate continuation and merge it with the next line.
+    """
+    lines = text.split("\n")
+    merged: list[str] = []
+    for line in lines:
+        if merged and len(merged[-1]) >= wrap_width:
+            merged[-1] += line
+        else:
+            merged.append(line)
+    return "\n".join(merged)
+
+
 def scan_log(path: Path) -> dict[str, list[str]]:
     findings: dict[str, list[str]] = {key: [] for key in PATTERNS}
     try:
         text = path.read_text(encoding="utf-8", errors="replace")
     except FileNotFoundError:
         return findings
+    text = unwrap_tex_log(text)
     for line in text.splitlines():
         for key, pattern in PATTERNS.items():
             if pattern.search(line):
