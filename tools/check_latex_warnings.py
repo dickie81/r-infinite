@@ -7,6 +7,7 @@ Scans `src/*.log` for any of:
   * Undefined references, citations, or labels
   * Missing characters
   * Undefined control sequences
+  * hyperref "Token not allowed in a PDF string" warnings
 
 Underfull warnings are permitted (cosmetic only, used inside `\\resizebox`).
 
@@ -31,6 +32,9 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "undefined_cite": re.compile(r"LaTeX Warning: Citation `[^']+' .* undefined"),
     "missing_char": re.compile(r"Missing character:"),
     "undefined_cs": re.compile(r"Undefined control sequence"),
+    "hyperref_pdfstring": re.compile(
+        r"Package hyperref Warning: Token not allowed in a PDF string"
+    ),
 }
 
 
