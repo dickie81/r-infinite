@@ -71,8 +71,8 @@ but require no austerity treatment.
 | 2.4 | Slicing recurrence | USED | Part 0 §3 |
 | 2.5 | Concentration of measure (Lévy) | USED | Part II §3 |
 | 2.6 | Spherical cap volume | USED | Part II Thm 5.1 |
-| 2.7 | Heat kernel asymptotics | **IGN** | Sphere-Laplacian not invoked |
-| 2.8 | Laplacian eigenvalues $\ell(\ell+d-2)$ | **IGN** | Same as 2.7 |
+| 2.7 | Heat kernel asymptotics | **IGN** (structural) | Cascade scalar action lives on the integer tower, not tower $\times$ sphere; sphere-Laplacian operates on a degree of freedom the action does not include (`tools/research/audit_section2_sphere_laplacian.py`) |
+| 2.8 | Laplacian eigenvalues $\ell(\ell+d-2)$ | **IGN** (structural) | Same as 2.7: spectral gap $d{-}1$ has right scaling but no cascade match; cascade chose 1D tower fields, not spatial fields per layer |
 | 2.9 | Dirac eigenvalues $\pm(k+n)$ | TESTED-NEG | Notebook alt. (A): scaling pathology |
 | 2.10 | Spectral zeta $\zeta_D(s)$ | TESTED-NEG | Notebook alt. (A) |
 | 2.11 | Spherical harmonics | USED implicitly | Part II concentration |
