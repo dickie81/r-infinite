@@ -456,7 +456,7 @@ with no other continuous function of $\theta$ satisfying
 \begin{remark}[Real-state special case of the complex Born rule]\label{rem:born-real-special-case}
 The result $p(e\mid u) = (u\cdot e)^2$ uses the real inner product on
 $S^{d-1}$. Under the $U(1)$ gauge forced by
-Theorem~\ref{thm:U1-gauge-forced} (\S7.4), the cascade's actual Born
+Theorem~\ref{thm:U1-gauge-forced} (\S7.5), the cascade's actual Born
 rule is the complex one,
 \[
 P(e\mid u) \;=\; |\langle e, u\rangle_{\mathbb{C}}|^2
@@ -473,7 +473,7 @@ slicing axes, taken at the cascade's natural per-layer pairing,
 furnish such states. The derivation here is the cascade-internal
 proof of the cosine-squared rule on the real-state slice; the
 extension to general complex states is supplied by the gauge
-structure of \S7.4 and Remark~\ref{rem:U1-gauge-Born}.
+structure of \S7.5 and Remark~\ref{rem:U1-gauge-Born}.
 \end{remark}
 
 \begin{remark}[What the proof uses]
@@ -568,7 +568,7 @@ $|\langle u, v\rangle_{\mathbb{C}}|^2 = (u\cdot v)^2 + (Ju\cdot v)^2$
 \medskip
 \noindent\textit{Resolution.} The above presents the $U(1)$ upgrade as
 one of two cascade-mathematically-admissible gauge choices.
-Theorem~\ref{thm:U1-gauge-forced} (\S7.4) closes the question:
+Theorem~\ref{thm:U1-gauge-forced} (\S7.5) closes the question:
 $U(1)$ is forced under the cascade hypothesis, because $\mathbb{Z}_2$
 gauge would predict an observable 2-cycle Planck-period oscillation
 in Born-rule probabilities (from the cascade's scalar effective
@@ -720,7 +720,7 @@ gauge invariance becomes the QM complex Born rule
 $|\langle u, v\rangle_{\mathbb{C}}|^2$. Within Part~II's per-step
 content alone, $\mathbb{Z}_2$ and $U(1)$ are both
 cascade-mathematically admissible.
-Theorem~\ref{thm:U1-gauge-forced} (\S7.4) closes the question:
+Theorem~\ref{thm:U1-gauge-forced} (\S7.5) closes the question:
 the cascade-internal cumulative phase $i^{N(t)-4}$ in the propagator
 $K(N(t),4)$ would be observable under $\mathbb{Z}_2$ as a
 Planck-period 2-cycle ray rotation (from a scalar effective
@@ -1655,7 +1655,7 @@ S &= E(0,\,\tfrac{\pi}{4}) - E(0,\,\tfrac{3\pi}{4})
 The proof above uses the real Born rule $P(+,+) = (u\cdot v)^2$ with
 state $u = (e_1+e_7)/\sqrt{2}$ and measurement directions $v$ in
 $\mathrm{span}\{e_1, e_3, e_5, e_7\}$. Under the $U(1)$ gauge forced by
-Theorem~\ref{thm:U1-gauge-forced} (\S7.4), the cascade's Born rule is
+Theorem~\ref{thm:U1-gauge-forced} (\S7.5), the cascade's Born rule is
 the complex one $|\langle u, v\rangle_{\mathbb{C}}|^2$. For the
 particular states chosen in this proof, $Ju = (e_2+e_8)/\sqrt{2}$ has
 no overlap with $\mathrm{span}\{e_1, e_3, e_5, e_7\}$, so
@@ -1667,7 +1667,7 @@ gauge-agnostic for the chosen real states; it is the special case in
 which real and complex Born rules coincide. A general (complex)
 cascade state would obey the complex Born rule
 $|\langle u, v\rangle_{\mathbb{C}}|^2 = (u\cdot v)^2 + (Ju\cdot v)^2$
-forced by \S7.4. Verifier:
+forced by \S7.5. Verifier:
 \texttt{tools/verifiers/u1\_gauge\_closure\_verifier.py} (V3, V5).
 \end{remark}
 
@@ -1750,8 +1750,10 @@ Complex amplitudes & Forced precession $\alpha=\pi/2\Rightarrow J^2=-\mathrm{Id}
 No free geometric parameters & $\alpha=\pi/2$ forced; same axiom as $\sqrt{\pi}$ & 6.1 \\
 Phase--obstruction lockstep & Imaginary phase $\Leftrightarrow$ forced zero (parity of $d$) & 6.5 \\
 Interference & Phase accumulation from forced precession & 6.3 \\
+Time as dimensional collapse & One slicing $=$ one $d$-collapse $=$ one Planck tick & 7.1 \\
 Unitary time evolution & Cascade propagator (discrete) & 7 \\
 Schr\"{o}dinger equation & Effective description from discrete propagator & 7.4 \\
+$U(1)$ gauge on $\mathbb{C}P^{n-1}$ forced; complex Born rule & Scalar $\mathcal{H}(d)$ + cascade hypothesis & 7.5 \\
 Arrow of time & Asymptotic compactification per step & 7, 8 \\
 Scale coincidence $R_{\rm eff}/\sigma\to 1$ & Compactification + Gaussian width & 8.2 \\
 Second cascade constant $\operatorname{erf}(1/\sqrt{2})$ & Scale coincidence at $d\to\infty$ & 8.2 \\
@@ -1800,8 +1802,18 @@ and shows they are sequential applications of the same axiom, not a circular arg
 mechanism identified: the slicing integrand $(1-x^2)^{d/2}$ is itself approximately Gaussian
 (Lemma~\ref{lem:gaussian}).
 \item Provides a geometric origin for complex amplitudes via forced axis precession.
-\item Identifies time with the cascade's slicing direction, yielding the arrow of time and
-a natural lapse function.
+\item Identifies each cascade slicing operation as one elementary unit of time
+(dimensional collapse, \S\ref{subsec:time-id}): slicing \emph{is} dimensional
+collapse and dimensional collapse \emph{is} time, yielding the arrow of time
+and a natural lapse function. The geometric reading is asymptotic infall of
+the observer's $S^3$-host shell toward the cover-sheet pseudo-horizon.
+\item Closes the $U(1)$ vs $\mathbb{Z}_2$ gauge question
+(Theorem~\ref{thm:U1-gauge-forced}): under the cascade hypothesis, the gauge
+group on the projective state space is $U(1)$, the projective state space is
+$\mathbb{C}P^{n-1}$ via the Hopf bundle, and the Born rule is the complex
+$|\langle u, v\rangle_{\mathbb{C}}|^2$. Empirical commitment: the cascade is
+falsifiable by a tripartite Bell experiment yielding real-amplitude
+statistics (Renou \emph{et al.}~\cite{renou2021}).
 \item Derives the discrete evolution equation (Theorem~\ref{thm:discrete-schrodinger}) and
 shows the Schr\"{o}dinger equation arises as the effective description for a 4D observer
 (Corollary~\ref{cor:schrodinger}), with $\mathcal{H}$ expressed as a Gamma function ratio.
@@ -1867,7 +1879,7 @@ Supplement. The remaining question: whether the cascade's geometric decoherence,
 specific physical systems, reproduces the quantitative predictions of environment-induced
 decoherence~\cite{zurek}.
 \item \textbf{$U(1)$ gauge upgrade: forced or permitted?}\label{oq:U1-gauge-upgrade}
-\textsc{Resolved} by Theorem~\ref{thm:U1-gauge-forced} (\S7.4) and
+\textsc{Resolved} by Theorem~\ref{thm:U1-gauge-forced} (\S7.5) and
 Remark~\ref{rem:U1-closure-status}. The $U(1)$ upgrade is \emph{forced},
 conditional on the cascade hypothesis: $\mathbb{Z}_2$ gauge predicts an
 observable 2-cycle ray rotation per cascade step from a scalar
