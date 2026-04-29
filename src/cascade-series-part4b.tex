@@ -925,6 +925,24 @@ The cascade places the three Standard Model gauge bosons at consecutive layers $
 $\mathrm{U}(1)$ at $d=14$ is unbroken. Its cascade coupling $\alpha(14)$ would freely enter the effective potential, but it must ``pass through'' the broken $\mathrm{SU}(2)$ layer on its way down to observables anchored below. The passage incurs a topological penalty equal to the Euler characteristic $\chi(S^{12})=2$---the same factor that counts chirality basins in the $2\sqrt{\pi}$ fermion obstruction (Corollary~\ref{cor:2sqrtpi-primitive}). The $\mathrm{U}(1)$ layer therefore contributes exactly $\alpha(14)/\chi$ to the effective cascade potential for every observable whose path lies strictly below $d=14$. Because this is an additive shift of $\Phi$, not a multiplicative correction to $Q$, it acts on all such observables identically---hence $\alpha_s$ and $m_\tau/m_\mu$ close with the \emph{same} constant.
 
 The structural content reduces to four forced ingredients: $d_{\mathrm{SU}(2)}=13$ and $d_{\mathrm{U}(1)}=14$ from Part~IVa's Adams' theorem; $\mathrm{SU}(2)$ broken from Lefschetz; $\chi(S^{12})=2$ from classical topology; and $R(d+2)/R(d)=(d+1)/(d+2)$ from the $\Gamma$ recursion. No loop integrals, no renormalisation group, no fitting coefficients.
+
+\medskip\noindent\textbf{Which $\mathrm{U}(1)$.} The coupling $\alpha(14)$
+sourcing this shift is the cascade's \emph{hypercharge} $\mathrm{U}(1)$,
+the gauge group derived from Adams' theorem on $S^{13}$
+(Part~IVa~\cite{paper4a}, Theorem~2.6), distinct from Paper~II's
+\emph{projective} $\mathrm{U}(1)$ closure on the QM state space
+(Paper~II $\S 7.5$, $\mathit{thm{:}U1{\text{-}}gauge{\text{-}}forced}$).
+The two $\mathrm{U}(1)$s are abstractly isomorphic Lie groups but
+physically distinct: the hypercharge $\mathrm{U}(1)$ acts
+\emph{differentially} on charged states (becomes the photon after
+electroweak symmetry breaking), while the projective $\mathrm{U}(1)$
+acts \emph{uniformly} on the full state space and is gauge-trivial.
+The $\delta\Phi_{\mathrm{U}(1)}$ shift here is sourced by the
+hypercharge-layer cascade coupling, not by the projective gauge.
+Part~IVa's $\mathit{rem{:}u1{\text{-}}vs{\text{-}}projective}$ gives
+the structural distinction in detail; verifier
+\texttt{tools/research/projective\_u1\_vs\_hypercharge\_u1.py}
+illustrates the action-level difference numerically.
 \end{remark}
 
 \subsection{A second shift: \texorpdfstring{$\alpha(19)/\chi$ closes $m_\tau$}{alpha(19)/chi closes m\_tau} absolute at the phase-transition layer}
@@ -1119,7 +1137,7 @@ This is forced by the scalar nature of $\varphi$ (no preferred direction to brea
 
 \medskip
 \textbf{(B) Chirality coherence from unitarity.}
-The cascade propagator $K(D,d')=\prod_{j=d'}^{D-1}L(j)$ with $L(j)=iN(j)$ is unitary (Part~II, Theorem~7.1): it maps states to states bijectively. A state in a definite chirality sector at one even-sphere layer maps to a definite state at the next. The phase--obstruction lockstep (Part~II, Corollary~6.5) makes this explicit: the propagator phase at even-sphere layer $d$ relative to the observer is $e^{i(d-4)\pi/2}$, alternating deterministically between $+i$ (at $d\bmod 4=1$) and $-i$ (at $d\bmod 4=3$). A chirality selection at the first even-sphere layer determines the chirality at all subsequent layers through the periodic phase.
+The cascade propagator $K(D,d')=\prod_{j=d'}^{D-1}L(j)$ with $L(j)=iN(j)$ is unitary (Part~II, Theorem~7.1): it maps states to states bijectively. A state in a definite chirality sector at one even-sphere layer maps to a definite state at the next. The phase--obstruction lockstep (Part~II, Corollary~6.8) makes this explicit: the propagator phase at even-sphere layer $d$ relative to the observer is $e^{i(d-4)\pi/2}$, alternating deterministically between $+i$ (at $d\bmod 4=1$) and $-i$ (at $d\bmod 4=3$). A chirality selection at the first even-sphere layer determines the chirality at all subsequent layers through the periodic phase.
 
 Consequently, a single definite-chirality propagator traversing a cascade path with $n_{\rm even}$ even-sphere layers makes \emph{one} chirality selection, not $n_{\rm even}$ independent selections. The correction factor is $(1/\chi)^1$, not $(1/\chi)^{n_{\rm even}}$.
 
@@ -1136,7 +1154,7 @@ The mode count $k$ is determined by the cascade's own structure (Part~IVa): $k=1
 \end{proof}
 
 \begin{remark}[No new ingredient]
-Every component of the proof is drawn from the cascade's existing structure: $\chi(S^{2n})=2$ from classical topology (used throughout Parts~IVa--b), unitarity from the forced precession (Part~II, Theorem~7.1), the phase--obstruction lockstep from Part~II Corollary~6.5, and mode counting from the Bott/Adams layer assignments of Part~IVa. No new axiom, parameter, or mathematical structure enters.
+Every component of the proof is drawn from the cascade's existing structure: $\chi(S^{2n})=2$ from classical topology (used throughout Parts~IVa--b), unitarity from the forced precession (Part~II, Theorem~7.1), the phase--obstruction lockstep from Part~II Corollary~6.8, and mode counting from the Bott/Adams layer assignments of Part~IVa. No new axiom, parameter, or mathematical structure enters.
 \end{remark}
 
 \subsection{The Source Selection Rule}\label{subsec:source-selection}
@@ -1754,7 +1772,7 @@ At the gauge window, the geometric angle between the SU(3) layer ($d = 12$) and 
 
 The key observation: the $d = 13$ signal traverses one extra cascade layer to reach the observer compared to $d = 12$. The $d = 13 \to d = 4$ propagator passes through the $d = 12$ layer; the $d = 12 \to d = 4$ propagator does not pass through $d = 12$ itself. The relative coupling attenuation of the $d = 13$ signal is $\exp(-p(13))$, where $p(13) = \tfrac{1}{2}\psi(7) - \tfrac{1}{2}\ln\pi = 0.3640$.
 
-A mixing-matrix element measures the overlap of two states, one from each gauge layer. By the Born rule (Paper~II, Theorem~5.3), the transition probability is the squared amplitude: $P = |\langle\psi_1|\psi_2\rangle|^2$. Therefore the \emph{amplitude} of the overlap involves the geometric mean of the two propagators, and the relevant descent factor is $\exp(-p(13)/2) = 0.8336$---the square root of the full single-propagator factor $\exp(-p(13))$.
+A mixing-matrix element measures the overlap of two states, one from each gauge layer. By the Born rule (Paper~II, Theorem~5.2), the transition probability is the squared amplitude: $P = |\langle\psi_1|\psi_2\rangle|^2$. Therefore the \emph{amplitude} of the overlap involves the geometric mean of the two propagators, and the relevant descent factor is $\exp(-p(13)/2) = 0.8336$---the square root of the full single-propagator factor $\exp(-p(13))$.
 
 The tangent of the mixing angle carries this factor because only the off-diagonal component ($d = 13$) is attenuated by the extra step:
 \[
