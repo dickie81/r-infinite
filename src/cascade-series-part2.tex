@@ -1093,7 +1093,23 @@ structural'') is now superseded: $\mathbb{Z}_2$ is cascade-mathematically
 admissible at the per-step level, but its predicted observable 2-cycle
 ray rotation under scalar $\mathcal{H}(d)$ is excluded by the cascade
 hypothesis. Numerical verifier:
-\texttt{tools/research/u1\_gauge\_meta\_principle.py} (V5).
+\texttt{tools/verifiers/u1\_gauge\_closure\_verifier.py} (V5).
+
+\medskip
+\noindent\textbf{Empirical commitment: the Renou falsifier.}
+Theorem~\ref{thm:U1-gauge-forced} commits the cascade to
+complex-amplitude QM (with complex Born rule
+$|\langle u, v\rangle_\mathbb{C}|^2$) as opposed to real-amplitude QM
+(with real Born rule $\langle u, v\rangle_\mathbb{R}^2$). Renou et
+al.~\cite{renou2021} (\emph{Nature} 600, 625--629, 2021,
+``Quantum theory based on real numbers can be experimentally
+falsified'') showed that real-amplitude QM and complex-amplitude QM
+predict measurably different statistics in tripartite Bell scenarios.
+A future tripartite Bell experiment yielding real-amplitude statistics
+would therefore falsify the cascade as derived in Part~II. Conversely,
+the experimental evidence to date (Renou \emph{et al.} demonstrate
+violation of the real-QM bound in a photonic implementation) is
+consistent with the cascade's complex-amplitude commitment.
 \end{remark}
 
 \section{Compactification and the Geometry of Temporal Descent}
@@ -1795,6 +1811,24 @@ Theorem~\ref{thm:propagator}, Corollary~\ref{cor:schrodinger}, the
 hypothesis of Section~1). Earlier ``both gauges cascade-consistent''
 framing in Remarks~\ref{rem:U1-gauge-Born} and~\ref{rem:U1-gauge-J} is
 superseded.
+\item \textbf{Dim-2 Born-rule uniqueness via cascade compositionality.}\label{oq:dim2-born-uniqueness}
+Remark~\ref{rem:U1-gauge-Born} establishes that under the now-forced
+$U(1)$ gauge (Theorem~\ref{thm:U1-gauge-forced}), Cauchy additivity
+on the $U(1)$-quotient simplex uniquely fixes the Born rule
+$g(x) = x$ for $n \geq 3$. At $n = 2$ (qubit), single-system Cauchy
+is under-determined exactly as in Gleason's theorem; closure was
+deferred to ``compositionality with higher-dim cascade content
+(the matter-content path tensor product of Part~IVa Section~4
+reaches $n \geq 3$ for any composite system through gauge layers).''
+This compositionality argument has not been formalised: a cascade-
+internal proof that the tensor product of any cascade-derivable
+$n = 2$ subsystem with cascade-internal higher-dim content reaches
+the $n \geq 3$ regime, propagating Cauchy uniqueness back to $n = 2$,
+remains open. Numerical verifier
+\texttt{tools/verifiers/cascade\_path\_state\_born\_rule.py}
+confirms the $n \geq 3$ uniqueness and the $n = 2$ gap; the gap is
+narrowed by the closure of $oq$:U1-gauge-upgrade (which fixes the
+gauge whose simplex is the right one for Cauchy) but not eliminated.
 \end{enumerate}
 
 \begin{thebibliography}{9}
@@ -1817,6 +1851,9 @@ terms of information-theoretic constraints,'' \emph{Foundations of Physics} \tex
 arXiv:quant-ph/0101012, 2001.
 \bibitem{adm} R.~Arnowitt, S.~Deser, and C.~W.~Misner, ``The dynamics of general
 relativity,'' in \emph{Gravitation: An Introduction to Current Research}, Wiley, 1962.
+\bibitem{renou2021} M.-O.~Renou \emph{et al.}, ``Quantum theory based on real
+numbers can be experimentally falsified,'' \emph{Nature} \textbf{600}, 625--629
+(2021), arXiv:2101.10873.
 \end{thebibliography}
 
 \end{document}
