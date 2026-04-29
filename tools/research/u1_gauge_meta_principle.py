@@ -68,21 +68,60 @@ FOUR CANDIDATE CLOSURE PATHS, AUDIT STATUS
       v in span{e_1, e_3, e_5, e_7}.  For these states, Ju . v = 0,
       so |<u,v>_C|^2 = (u.v)^2 -- gauge-agnostic.
 
-  (D) CLOSES UNDER HYPOTHESIS.  Cor:schrodinger derives effective
-      Schrodinger with SCALAR per-layer Hamiltonian.  Standard QM:
-      scalar H -> unobservable global phase.  Under Z_2, cascade's
-      per-step phase i is observable (V3, V4) -> would predict
-      4-cycle ticking in Born-rule probabilities at each cascade
-      step, not seen in standard Schrodinger evolution.  Under U(1),
-      gauge-trivial -> matches standard.  By cascade hypothesis,
-      Z_2 incompatible with cascade's own Schrodinger result.
-      Conditional on hypothesis (which IS the cascade's definition).
+  (D) CLOSES UNDER HYPOTHESIS.  Tightened version uses Part VI tick
+      structure: each Planck tick adds one cascade layer at the top
+      (Part VI line 32).  Theorem thm:propagator: K(N(t), 4) carries
+      cumulative factor i^{N(t)-4}, advancing by i per Planck tick.
+      Under Z_2, this i factor is observable -> Born-rule probability
+      at any axis e undergoes a 2-cycle Planck-period oscillation.
+      Under U(1), i is gauge-trivial -> probabilities follow only the
+      slow real geometric trend (prod N(j)).  Empirically, no Planck
+      oscillation is seen.  Adopting Z_2 would add 2-cycle Planck
+      oscillation to EVERY Part VI cosmological observable; this is
+      not predicted by Part VI nor seen in observation.  Hence U(1)
+      is forced by consistency with the cascade's own Part VI
+      predictions matching observation -- not just by appeal to QM
+      convention.  See V5 below.
 
 Status of oq:U1-gauge-upgrade after this audit:
   - Strict-structure-only reading: open.
-  - Cascade-hypothesis reading: closed (Path D via Schrodinger
-    consistency).  Closure level matches the cascade's other Tier 1
-    results, which all rest on the hypothesis.
+  - Cascade-hypothesis reading: closed (Path D via Part VI tick
+    Born-rule consistency).  Closure level matches the cascade's
+    other Tier 1 results, which all rest on the hypothesis.
+
+DEEPER STRUCTURAL READING (under consideration)
+-----------------------------------------------
+Part VI's "one Planck tick = one cascade layer added at the top"
+suggests promoting the tick to "one d-collapse per Planck tick":
+the universe's time evolution IS the cascade's dimensional descent
+through cosmic time.  Each tick resolves one more dimension of the
+B^infty starting point.  "The universe is trying to solve infinity"
+becomes literal: the cascade is the asymptotic resolution of the
+infinite-dimensional unit ball, and what we call time is the rate
+at which that resolution proceeds.
+
+Under this reading:
+  - Time is not a coordinate but a counter of resolved dimensions.
+  - The Planck tick is the fundamental quantum of d-collapse.
+  - Part VI's cosmological phases A/B/C/D are stages of the cascade's
+    dimensional resolution (not just "phases of cosmic history").
+  - The Big Bang at d=217 is the resolution reaching its threshold
+    (Omega_217 floor).
+  - The cascade's per-tick i factor (Theorem thm:propagator) is the
+    cascade's intrinsic "quarter-turn per d-collapse" -- the
+    structural angle between consecutive layers (Theorem
+    thm:precession), now read dynamically.
+
+This is consistent with the cover sheet's framing ("Time is the
+forced direction --- the compactification that the cascade must
+undergo, not a coordinate we choose"), and tightens it: Part VI's
+tick gives the OPERATIONAL meaning of "compactification rate."
+
+Promoting this would unify Parts II (time = slicing direction),
+III (Lorentzian signature), V (Friedmann equation), and VI (tower
+growth) under a single principle: time = d-collapse rate.  This is
+not a research result of this script but a structural reading flagged
+for further development.
 """
 
 from __future__ import annotations
@@ -285,13 +324,103 @@ def main() -> int:
     print()
 
     # ----------------------------------------------------------------
+    # V5 (Path D, refined via Part VI tick): per-Planck-tick Born-rule
+    # behaviour under each gauge.  Concrete forcing argument.
+    # ----------------------------------------------------------------
+    print("-" * 78)
+    print("V5: Part VI tick structure forces U(1) via Born-rule consistency")
+    print("-" * 78)
+    print()
+    print("Part VI (line 32): each Planck tick adds one layer at the top of the")
+    print("cascade.  Truncation height N(t) = N_0 + t/(alpha t_Pl).  Theorem")
+    print("thm:propagator: K(N(t), 4) = (prod N(j)) * i^{N(t)-4}.")
+    print()
+    print("So observer state at tick t:")
+    print("    psi_4(t) = (real prod N(j)) * i^{N(t)-4} * psi_init")
+    print()
+    print("Per Planck tick, the cumulative cascade phase advances by i.")
+    print()
+    print("Simulation: hold real factor = 1 (factor out geometric trend);")
+    print("track Born-rule probability at axis e_1 across 10 ticks.")
+    print()
+
+    psi_init_v5 = rng.standard_normal(2 * n_complex)
+    psi_init_v5 /= np.linalg.norm(psi_init_v5)
+
+    # Measurement axis e_1 (real)
+    e_meas = np.zeros(2 * n_complex)
+    e_meas[0] = 1.0
+
+    # Apply J^k to psi_init for k = 0, 1, ..., 9
+    J_op = J_matrix(n_complex)
+
+    # Pre-compute baseline Born probabilities under each gauge
+    # U(1) Born rule: |<u, e>_C|^2 = <u, e>_R^2 + <Ju, e>_R^2
+    # (this is invariant under R_phi, so same for all ticks)
+    psi_C = psi_init_v5[0::2] + 1j * psi_init_v5[1::2]
+    e_C = e_meas[0::2] + 1j * e_meas[1::2]
+    u1_baseline = abs(np.vdot(e_C, psi_C)) ** 2
+
+    print(f"  {'tick':>4}  {'i^k psi_init dot e_1':>22}  {'Z_2 prob':>10}  "
+          f"{'U(1) prob':>10}")
+    print(f"  {'----':>4}  {'-' * 22:>22}  {'-' * 10:>10}  {'-' * 10:>10}")
+
+    Jk_psi = psi_init_v5.copy()
+    z2_seq = []
+    u1_seq = []
+    for tick in range(10):
+        # Z_2 Born rule: real inner product squared
+        amp_R = np.dot(Jk_psi, e_meas)
+        z2_prob = amp_R ** 2
+
+        # U(1) Born rule: |<Jk_psi, e>_C|^2 (always = u1_baseline up to scaling)
+        Jk_psi_C = Jk_psi[0::2] + 1j * Jk_psi[1::2]
+        u1_prob = abs(np.vdot(e_C, Jk_psi_C)) ** 2
+
+        z2_seq.append(z2_prob)
+        u1_seq.append(u1_prob)
+        print(f"  {tick:>4}  {amp_R:>22.6f}  {z2_prob:>10.6f}  {u1_prob:>10.6f}")
+
+        # Advance one tick: multiply by i = J
+        Jk_psi = J_op @ Jk_psi
+
+    print()
+    z2_unique = sorted(set(round(p, 8) for p in z2_seq))
+    u1_unique = sorted(set(round(p, 8) for p in u1_seq))
+    print(f"  Z_2 distinct values: {len(z2_unique)} -- "
+          f"{[f'{x:.4f}' for x in z2_unique]}")
+    print(f"  U(1) distinct values: {len(u1_unique)} -- "
+          f"{[f'{x:.4f}' for x in u1_unique]}")
+    print()
+    print("  -> Z_2: 2-cycle oscillation in Born-rule probability per Planck tick.")
+    print("  -> U(1): constant probability (gauge-trivial cumulative phase).")
+    print()
+    print("Empirical fact: Born-rule probabilities for stationary states do NOT")
+    print("oscillate at the Planck period.  Adopting Z_2 would add a Planck-period")
+    print("2-cycle to EVERY observable in Part VI's cosmology -- e-folds,")
+    print("perturbation amplitudes, Big Bang energy, etc. -- which is not seen.")
+    print()
+    print("Path D (refined via Part VI):")
+    print("  The cascade's Part VI cosmological predictions are gauge-invariant")
+    print("  in their real (geometric) factors but acquire a 2-cycle Planck")
+    print("  oscillation under Z_2.  Part VI's existing predictions implicitly")
+    print("  load-bear on U(1).  By the cascade hypothesis (matching observation),")
+    print("  U(1) is forced.")
+    print()
+    print("This is a tighter Path D than Schrodinger-consistency-with-standard-QM:")
+    print("it points to specific cascade-derived predictions (Part VI cosmology)")
+    print("rather than appealing to QM convention.  The cascade's own Tier 4/5")
+    print("results forbid Z_2.")
+    print()
+
+    # ----------------------------------------------------------------
     # Honest status: numerically verified facts vs. closure attempt
     # ----------------------------------------------------------------
     print("=" * 78)
     print("HONEST STATUS")
     print("=" * 78)
     print()
-    print("Numerically verified above (V1-V4):")
+    print("Numerically verified above (V1-V5):")
     print()
     print("  V1: Slicing condition (angle = pi/2) is U(1)-invariant.")
     print("  V2: Cascade primitives N(d), R(d), Omega(d), Phi(d), J, <,>_R,")
@@ -301,6 +430,8 @@ def main() -> int:
     print("      RP^{d-1}.")
     print("  V4: Z_2 gauge generates a 4-cycle of physically distinct rays from")
     print("      the per-step phase i; U(1) collapses them to one ray.")
+    print("  V5: Per Planck tick (Part VI), Z_2 Born-rule probability oscillates")
+    print("      in a 2-cycle; U(1) Born-rule probability is constant.")
     print()
     print("WHAT THIS DOES NOT ESTABLISH (corrigendum to earlier wording):")
     print()
