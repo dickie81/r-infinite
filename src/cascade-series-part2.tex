@@ -445,6 +445,29 @@ with no other continuous function of $\theta$ satisfying
 \eqref{eq:frame-function} on $\Delta^{d-1}$.
 \end{proof}
 
+\begin{remark}[Real-state special case of the complex Born rule]\label{rem:born-real-special-case}
+The result $p(e\mid u) = (u\cdot e)^2$ uses the real inner product on
+$S^{d-1}$. Under the $U(1)$ gauge forced by
+Theorem~\ref{thm:U1-gauge-forced} (\S7.4), the cascade's actual Born
+rule is the complex one,
+\[
+P(e\mid u) \;=\; |\langle e, u\rangle_{\mathbb{C}}|^2
+\;=\; (u\cdot e)^2 + (Ju\cdot e)^2,
+\]
+which uniquely fixes the gauge-invariant quadratic functional under
+$U(1)$. Theorem~\ref{thm:born} as stated derives the
+\emph{real-state special case}: when $u$ and $e$ both lie in a real
+subspace such that $J u$ is orthogonal to $e$ (equivalently, when
+the two-dimensional subspace $\mathrm{span}_{\mathbb{R}}\{u, e\}$ is
+$J$-invariant only trivially), the cross-term $(Ju\cdot e)^2$ vanishes
+and the complex Born rule reduces to $(u\cdot e)^2$. The cascade's
+slicing axes, taken at the cascade's natural per-layer pairing,
+furnish such states. The derivation here is the cascade-internal
+proof of the cosine-squared rule on the real-state slice; the
+extension to general complex states is supplied by the gauge
+structure of \S7.4 and Remark~\ref{rem:U1-gauge-Born}.
+\end{remark}
+
 \begin{remark}[What the proof uses]
 The derivation uses three ingredients: (i)~the uniform measure on $S^{d-1}$ (from boundary
 dominance, Section~2.3); (ii)~concentration of the slicing integrand $(1-z^2)^{(d-2)/2}$
@@ -1619,6 +1642,26 @@ S &= E(0,\,\tfrac{\pi}{4}) - E(0,\,\tfrac{3\pi}{4})
 = \tfrac{4}{\sqrt{2}} = 2\sqrt{2}.\qedhere
 \end{align*}
 \end{proof}
+
+\begin{remark}[Real-state special case under the forced gauge]\label{rem:bell-real-special-case}
+The proof above uses the real Born rule $P(+,+) = (u\cdot v)^2$ with
+state $u = (e_1+e_7)/\sqrt{2}$ and measurement directions $v$ in
+$\mathrm{span}\{e_1, e_3, e_5, e_7\}$. Under the $U(1)$ gauge forced by
+Theorem~\ref{thm:U1-gauge-forced} (\S7.4), the cascade's Born rule is
+the complex one $|\langle u, v\rangle_{\mathbb{C}}|^2$. For the
+particular states chosen in this proof, $Ju = (e_2+e_8)/\sqrt{2}$ has
+no overlap with $\mathrm{span}\{e_1, e_3, e_5, e_7\}$, so
+$Ju\cdot v = 0$ and the complex Born rule collapses to
+$(u\cdot v)^2$ identically: the result $S = 2\sqrt{2}$ is independent
+of the gauge choice for this particular state and these particular
+measurement directions. The CHSH violation derived here is therefore
+gauge-agnostic for the chosen real states; it is the special case in
+which real and complex Born rules coincide. A general (complex)
+cascade state would obey the complex Born rule
+$|\langle u, v\rangle_{\mathbb{C}}|^2 = (u\cdot v)^2 + (Ju\cdot v)^2$
+forced by \S7.4. Verifier:
+\texttt{tools/verifiers/u1\_gauge\_closure\_verifier.py} (V3, V5).
+\end{remark}
 
 \begin{remark}[Bipartition of $\mathbb{C}^4$: cascade order fixes it; Tsirelson makes it moot]\label{rem:sp17-status}
 Step~1 of the proof above takes the bipartition
