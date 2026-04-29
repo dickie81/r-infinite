@@ -95,8 +95,9 @@ Ingredient & QM projection (II) & GR projection (III) \\
 State space & Unit sphere $S^{d-1}$ & Unit sphere $S^{d-1}$ \\
 Fundamental constant & $\sqrt{\pi} = \Gamma(1/2)$ & $\sqrt{\pi} = \Gamma(1/2)$ \\
 Propagator & $K(t) = |K|\,e^{-iHt}$ & $K(t) = |K|\,e^{-iHt}$ \\
-Complex structure & $J^2 = -\mathrm{Id}$ & $J^2 = -\mathrm{Id}$ \\
-Time & Slicing direction & Slicing direction \\
+Complex structure & $J^2 = -\mathrm{Id}$; $U(1) = \langle J\rangle$
+                    forced gauge & $J^2 = -\mathrm{Id}$ \\
+Time & Slicing $=$ dimensional collapse & Slicing $=$ dimensional collapse \\
 Identification & Def.\ 2.1 of III & Def.\ 2.1 of III \\
 \hline
 \end{tabular}
@@ -113,13 +114,16 @@ not present in the cascade geometry.
 \end{theorem}
 
 \begin{proof}
-Paper~II derives the 4D Hilbert space, Born rule, and unitary evolution from
-orthogonality, concentration of measure, and the forced precession---all
-properties of $S^{d-1}$. Paper~III derives the 4D metric, Einstein equation,
-and Lorentzian signature from the foliation metric, Lovelock's theorem, and
-the same forced precession---all properties of $S^{d-1}$. No external
-structure is invoked in either derivation. Both are read from the same
-sphere.
+Paper~II derives the 4D Hilbert space, the complex Born rule
+$|\langle u, v\rangle_\mathbb{C}|^2$ on the $U(1)$-quotient projective
+state space $\mathbb{C}P^{n-1}$ (with $U(1)$ forced by Theorem~7.10 of
+Paper~II, $\mathit{thm{:}U1{\text{-}}gauge{\text{-}}forced}$), and unitary
+evolution from orthogonality, concentration of measure, and the forced
+precession---all properties of $S^{d-1}$. Paper~III derives the 4D
+metric, Einstein equation, and Lorentzian signature from the foliation
+metric, Lovelock's theorem, and the same forced precession---all
+properties of $S^{d-1}$. No external structure is invoked in either
+derivation. Both are read from the same sphere.
 \end{proof}
 
 \begin{remark}[The identification hypothesis is shared]
@@ -185,12 +189,21 @@ cascade's single axiom forces both simultaneously.
 
 \begin{remark}[The Euclidean/Lorentzian duality]
 The cascade is Euclidean ($B^d$ is a Euclidean object). The physical
-spacetime is Lorentzian. Paper~III explains: the Euclidean geometry
-produces an oscillatory propagator through the forced precession, and
-oscillatory propagator character IS Lorentzian signature. No Wick rotation,
-no analytic continuation, no choice of contour. There is a Euclidean
-geometry whose propagator is Lorentzian. Both facts coexist because they
-are describing the same mathematics.
+spacetime is Lorentzian. The map between them is Wick rotation
+$x = it$, but the operation is \emph{cascade-motivated} rather than
+\emph{mathematically imposed} (Paper~III~\cite{paper3},
+Remark~``Wick rotation, cascade-motivated''): the cascade's forced
+precession produces an oscillatory propagator $e^{-i\lambda_\infty x}$ in
+real $x$, which fits the Lorentzian regime, and the identification of
+$x$ with the observer's proper time requires a Lorentzian sign
+$g_{tt} < 0$ on the time-direction metric. In standard QFT, Wick
+rotation is a computational trick to render Lorentzian path integrals
+convergent; in the cascade, the rotation is the cascade-internal
+identification step, motivated by the structure of the propagator.
+Both Euclidean and Lorentzian readings are valid: the Euclidean one
+is the cascade's starting mathematical structure (the slicing
+geometry), the Lorentzian one is the observer's experience (oscillatory
+unitary evolution), and the Wick rotation is the bridge.
 \end{remark}
 
 \section{Double Uniqueness}
@@ -740,8 +753,8 @@ Non-renormalisability & $g_{\mu\nu} \to \hat{g}_{\mu\nu}$ & Metric is state prop
 no promotion \\
 Planck-scale physics & What happens at $l_{\mathrm{Pl}}$? & No absolute scale; cascade
 defined at all ratios \\
-Euclidean/\allowbreak Lorentzian & Wick rotation ambiguity & Euclidean geometry, Lorentzian
-propagator \\
+Euclidean/\allowbreak Lorentzian & Wick rotation ambiguity & Wick rotation cascade-motivated:
+forced precession $\Rightarrow$ oscillatory propagator $\Rightarrow$ $g_{tt} < 0$ \\
 BH entropy & Statistical $\to$ geometric? & Geometry is primary: $S = A/d$ \\
 \hline
 \end{tabular}
