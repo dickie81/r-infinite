@@ -51,35 +51,38 @@ descriptions of the cascade primitives' U(1)-structure:
 These remain useful as a structural map of the gauge question, even
 though they don't deliver an unconditional closure.
 
-WHAT WOULD ACTUALLY CLOSE THE OQ
---------------------------------
-Three candidate paths, none of which this script delivers:
+FOUR CANDIDATE CLOSURE PATHS, AUDIT STATUS
+-------------------------------------------
+  (A) POTENTIAL.  Hypothesis-matching via Renou et al. 2021:
+      real-amplitude QM falsified by tripartite Bell experiment.
+      Cascade hypothesis -> complex Born rule -> U(1).  Requires the
+      cascade to derive its tripartite Bell prediction; not yet.
 
-  (A) Hypothesis-matching: real-amplitude QM is empirically
-      distinguishable from complex (Renou et al. 2021 Nature),
-      and observation matches complex.  By the cascade hypothesis,
-      this forces the cascade's Born rule to be complex.  Requires
-      the cascade to engage the specific multipartite Bell scenario.
+  (B) DOES NOT LAND.  Cascade tensor product (Sec. 10.1) is iterated
+      REAL: V_{d+k} = V_d x fibre_1 x ... .  Real tensor product gives
+      real QM (no tomographic locality).  Complex restriction requires
+      structure not in slicing recurrence.
 
-  (B) Tomographic locality from cascade compositionality.  A
-      multipartite state is determined by local marginals -- a
-      property real QM violates and complex QM satisfies.  If the
-      cascade's tensor product (Part IVa Section 4) instantiates
-      tomographic locality from primitives, complex Born rule is
-      forced.  Requires structural derivation of tomographic
-      locality from cascade-internal compositionality.
+  (C) DOES NOT LAND.  Sec. 10 CHSH derivation explicitly uses real
+      Born rule (u.v)^2 with real states u = (e_1 + e_7)/sqrt(2),
+      v in span{e_1, e_3, e_5, e_7}.  For these states, Ju . v = 0,
+      so |<u,v>_C|^2 = (u.v)^2 -- gauge-agnostic.
 
-  (C) Audit Part II Section 10 CHSH derivation: if it implicitly
-      uses <,>_C rather than <,>_R, then complex Born rule is
-      load-bearing on a Tier 1 result, and adopting the real Born
-      rule would falsify a Tier 1 prediction -- forcing complex
-      under the cascade's own ranking system.
+  (D) CLOSES UNDER HYPOTHESIS.  Cor:schrodinger derives effective
+      Schrodinger with SCALAR per-layer Hamiltonian.  Standard QM:
+      scalar H -> unobservable global phase.  Under Z_2, cascade's
+      per-step phase i is observable (V3, V4) -> would predict
+      4-cycle ticking in Born-rule probabilities at each cascade
+      step, not seen in standard Schrodinger evolution.  Under U(1),
+      gauge-trivial -> matches standard.  By cascade hypothesis,
+      Z_2 incompatible with cascade's own Schrodinger result.
+      Conditional on hypothesis (which IS the cascade's definition).
 
-Status of oq:U1-gauge-upgrade after this script: PARTIALLY NARROWED,
-NOT CLOSED.  The structural map of cascade primitives' gauge
-behaviour is now explicit; the closure attempt is held back to a
-conditional reading (primitive-priority + cascade hypothesis), with
-unconditional closure left open along Paths A/B/C.
+Status of oq:U1-gauge-upgrade after this audit:
+  - Strict-structure-only reading: open.
+  - Cascade-hypothesis reading: closed (Path D via Schrodinger
+    consistency).  Closure level matches the cascade's other Tier 1
+    results, which all rest on the hypothesis.
 """
 
 from __future__ import annotations
@@ -330,26 +333,55 @@ def main() -> int:
     print("  Both Born rules are cascade-derivable from primitives.  OQ6's")
     print("  closure requires resolving the upstream Born rule choice.")
     print()
-    print("CANDIDATE PATHS to actual closure (none delivered by this script):")
+    print("CANDIDATE PATHS to actual closure (status after audit):")
     print()
-    print("  (A) Hypothesis-matching.  Real-amplitude QM is empirically")
-    print("      distinguishable from complex (Renou et al. 2021).  By the")
-    print("      cascade hypothesis, the cascade's Born rule must match")
-    print("      observed complex QM, hence U(1).")
+    print("  (A) Hypothesis-matching via Renou et al. 2021.  Real-amplitude QM")
+    print("      is empirically distinguishable from complex in tripartite Bell")
+    print("      scenarios; observation matches complex.  Cascade hypothesis")
+    print("      forces complex Born rule -> U(1) gauge.")
+    print("      STATUS: requires the cascade to derive its tripartite Bell")
+    print("      prediction; not currently in the series.  POTENTIAL.")
     print()
-    print("  (B) Tomographic locality from cascade compositionality.  If the")
-    print("      cascade's tensor product (Part IVa Sec. 4) instantiates")
-    print("      tomographic locality from cascade primitives, complex Born")
-    print("      rule is structurally forced.")
+    print("  (B) Tomographic locality from cascade compositionality.")
+    print("      STATUS: AUDITED, DOES NOT LAND.  Part II Sec. 10.1 tensor")
+    print("      product is iterated REAL: V_{d+k} = V_d x fibre_1 x ...")
+    print("      Naturally instantiates real QM (tomographic locality fails).")
+    print("      Restricting to J-equivariant complex tensor product requires")
+    print("      additional structure not in slicing recurrence.")
     print()
-    print("  (C) Audit Part II Sec. 10 CHSH derivation: if it implicitly uses")
-    print("      <,>_C rather than <,>_R, complex Born rule is load-bearing on")
-    print("      a Tier 1 result; adopting real Born rule would falsify a")
-    print("      Tier 1 prediction.")
+    print("  (C) Part II Sec. 10 CHSH Born-rule audit.")
+    print("      STATUS: AUDITED, DOES NOT LAND.  thm:bell uses real Born rule")
+    print("      (u . v)^2 explicitly (Step 4, line 1414), with state")
+    print("      u = (e_1 + e_7)/sqrt(2) and v in span{e_1, e_3, e_5, e_7}.")
+    print("      For these states, Ju . v = 0, so |<u,v>_C|^2 collapses to")
+    print("      (u.v)^2.  CHSH = 2 sqrt(2) is gauge-AGNOSTIC for this proof.")
     print()
-    print("STATUS of oq:U1-gauge-upgrade: PARTIALLY NARROWED, NOT CLOSED.")
-    print("V1-V4 give a structural map of the gauge question.  Unconditional")
-    print("closure remains open along Paths A/B/C.")
+    print("  (D) Schrodinger-evolution consistency.  STRONGEST CANDIDATE.")
+    print("      cor:schrodinger derives i d psi/dt = H(d) psi with H(d) =")
+    print("      (1-N(d))/N(d)^2 SCALAR.  Standard QM: scalar Hamiltonian")
+    print("      generates only unobservable global phase.  Under Z_2 gauge,")
+    print("      the per-step phase i is observable (V3, V4): cascade would")
+    print("      predict observable 4-cycle ticking in Born-rule probabilities")
+    print("      per cascade step -- which standard Schrodinger evolution")
+    print("      doesn't show.  Under U(1), per-step phase is gauge-trivial.")
+    print("      By cascade hypothesis (matching standard QM), Z_2 is")
+    print("      incompatible with cascade's own derived Schrodinger result.")
+    print()
+    print("      Path D rests on the cascade hypothesis to convert 'matches")
+    print("      standard QM' into a forcing.  This is permissible -- the")
+    print("      hypothesis IS the cascade's definition.  But it's not")
+    print("      'internal to the structure alone' in the strictest sense.")
+    print()
+    print("STATUS of oq:U1-gauge-upgrade after this audit:")
+    print("  - Paths B, C: do not land (cascade structures gauge-agnostic).")
+    print("  - Path A: requires new cascade derivation of tripartite Bell.")
+    print("  - Path D: closes OQ6 conditional on cascade hypothesis.")
+    print()
+    print("Honest reading: OQ6 is closed under the cascade hypothesis (Path D")
+    print("via Schrodinger consistency), open under stricter 'pure-structure-")
+    print("only' criterion.  Closure level matches the cascade's other Tier 1")
+    print("results, which all rest on the hypothesis that the descended cascade")
+    print("matches observation.")
     return 0
 
 
