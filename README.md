@@ -8,6 +8,8 @@ One hypothesis. Zero free parameters. No choices.
 
 The series derives — from this alone — the cosmological constant, quantum mechanics, general relativity at d=4 with Lorentzian signature, the Standard Model gauge group and its symmetry breaking, three fermion generations, particle masses and couplings, and the cosmological parameters including a Planck-compatible Hubble constant (incompatible with SH0ES).
 
+**Read another way:** the universe is the asymptotic resolution of $B^\infty$ — what an infinite-dimensional starting object looks like partway through resolving itself, dimension by dimension. Time is the rate at which that resolution proceeds. Three vocabularies describe the same rate: **mathematical** (the slicing recurrence extracts one dimension's content from $B^\infty$ per step), **physical** (each Planck tick adds one cascade layer; "slicing = dimensional collapse = time"), and **geometric** (the observer's $S^3$ shell asymptotically falls toward a 5D black-hole pseudo-horizon, never completing). See the [cover sheet](src/cascade-series-cover-sheet.tex) for the thought experiment.
+
 **[Read the papers](https://dickie81.github.io/r-infinite/)**
 
 ## Headline results
