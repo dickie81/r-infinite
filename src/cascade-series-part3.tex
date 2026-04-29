@@ -87,7 +87,11 @@ identify the unique physical theory consistent with that content.
 Paper & Cascade provides & Uniqueness provides \\
 \hline
 I [1] & $\Omega_d$ cascade, $I \approx 10^{-120}$ & --- (pure geometry) \\
-II [2] & Complex state space, propagator $e^{-iHt}$ & Sphere geometry (Born rule) \\
+II [2] & Complex state space, $\mathbb{C}P^{n-1}$ via forced $U(1)$ gauge,
+         complex Born rule $|\langle u,v\rangle_{\mathbb{C}}|^2$,
+         propagator $e^{-iHt}$, time as $d$-collapse
+       & Sphere geometry, gauge-group maximality (Born rule + projective
+         state space) \\
 III (this) & Metric, $\Lambda = I$, $d = 4$, $(-,+,+,+)$ & Lovelock, Clifford, propagator \\
 \hline
 \end{tabular}
@@ -190,8 +194,14 @@ with Lovelock uniqueness.
 
 The cascade's slicing recurrence decomposes $B^{d+1}$ into $d$-balls parametrised by the
 perpendicular coordinate $x \in [-1, 1]$. Each cross-section at height $x$ is a $d$-ball of radius
-$r(x) = \sqrt{1 - x^2}$. This is a foliation; $x$ plays the role of time (identified in [2], Section 7 via
-the irreversibility of slicing). The full $(d + 1)$-dimensional metric is:
+$r(x) = \sqrt{1 - x^2}$. This is a foliation; $x$ plays the role of time, identified
+in~\cite{paper2} Section~7.1 as one quantum of \emph{dimensional collapse}: each
+slicing operation resolves one more dimension of $B^\infty$ into a definite cascade
+structure, and the slicing direction is the cascade's resolution of $B^\infty$ rather
+than merely an irreversibility-equipped axis. The Lorentzian observer-time coordinate
+$t$ enters via the Wick rotation $x = it$ of Section~10; the foliation parameter $x$
+is the Euclidean version of the same dimensional-collapse counter. The full
+$(d + 1)$-dimensional metric is:
 \[
 ds^2 = dx^2 + (1 - x^2)\,d\sigma_{d-1}^2.
 \]
@@ -796,11 +806,12 @@ a Lorentzian sign on the time-direction metric, which requires Wick
 rotation relative to the Euclidean cascade.
 
 \medskip\noindent\textbf{Consequences.}
-This clarifies three downstream readings:
+This clarifies four downstream readings:
 \begin{itemize}[nosep]
 \item The cascade does not \emph{avoid} Wick rotation; it \emph{motivates} it. Claims to the contrary in earlier drafts (and in this paper's abstract before revision, Paper~V Section~6's retracted framing, etc.) are retracted in favour of the honest statement.
 \item The ``Euclidean geometry'' of the cascade is not merely a computational device; it is the starting mathematical structure. The Lorentzian observer metric is derived by applying the physical identification hypothesis, which includes the Wick rotation as its time-coordinate map.
 \item Paper~III Section~14's Gauss--Codazzi analysis on the Lorentzian cascade metric uses the Wick-rotated form $g^L = -dt^2 + (1-t^2)\,d\sigma_{n-1}^2$; the identification of this with the cascade's Euclidean slicing geometry through $x = it$ is the content of Wick rotation, not a separate construction.
+\item The cascade-internal motivation for the Wick rotation is sharpened by~\cite{paper2} Section~7.1 (dimensional-collapse reading): each slicing operation \emph{is} one quantum of time, the slicing direction is the rate at which the cascade resolves $B^\infty$, and the Wick rotation $x \leftrightarrow it$ bridges the structural reading (Euclidean slicing as static cascade decomposition) and the dynamic reading (Lorentzian time as observed dimensional-collapse rate). The forced precession's oscillatory propagator $e^{-i\lambda_\infty x}$ is the cascade's quarter-turn per $d$-collapse expressed in the Euclidean coordinate; Wick rotation puts it in the observer's Lorentzian time.
 \end{itemize}
 \end{remark}
 
