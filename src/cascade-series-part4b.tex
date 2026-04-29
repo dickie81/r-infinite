@@ -888,6 +888,14 @@ Both predictions match observation within experimental precision. Equivalently, 
 \]
 Setting $d=12$: $R(14)/R(12)=13/14$, exactly. Hence $\alpha(14)=\alpha(12)(13/14)^2$ and $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=\alpha(12)(13/14)^2/2$. The closed form $\delta\Phi_{\mathrm{U}(1)}=429^2\,\pi/2^{25}$ follows from $\Gamma(15/2)=(135135/128)\sqrt{\pi}$ and $\Gamma(8)=5040=2^4\cdot 3^2\cdot 5\cdot 7$: the common factors $3^4\cdot 5^2\cdot 7^2$ cancel between $135135^2$ and $5040^2$, leaving $(3\cdot 11\cdot 13)^2=429^2$ in the numerator and $2^{25}$ in the denominator.
 
+\begin{remark}[Catalan-number reading of the U(1) closure]\label{rem:catalan-u1-closure}
+The residue $429 = 3 \cdot 11 \cdot 13$ is the $7$th Catalan number $\mathrm{Cat}(7) = \binom{14}{7}/8 = 3432/8 = 429$. The U(1) shift therefore admits the cascade-structural form
+\[
+\delta\Phi_{\mathrm{U}(1)} \;=\; \frac{\mathrm{Cat}(d_0)^2 \cdot \pi}{2^{4 d_0 - 3}},
+\]
+where $d_0 = 7$ is the Part 0 area maximum. The two distinguished layers entering the U(1) shift are related by $d_{\rm gw} = 2 d_0$ (gauge window upper edge equals twice the area maximum), and the cleanness of the power-of-$2$ denominator follows from $d_0 + 1 = 8 = 2^3$. Among even distinguished cascade dimensions $\{4, 12, 14, 20\}$, $d_{\rm gw} = 14$ is the unique case where $\binom{2k}{k} = (k+1)\,\mathrm{Cat}(k)$ combines with the per-layer chirality factor $1/\chi$ to give a pure power-of-$2$ denominator (see \texttt{tools/research/cascade\_catalan\_u1\_closure.py}).
+\end{remark}
+
 \emph{Numerical verification.} Using high-precision values of $\Phi(12)=1.064665\ldots$, $\Phi(13)-\Phi(5)=1.539665\ldots$, and $\alpha(12)=0.039968\ldots$:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -1044,6 +1052,23 @@ finite-dimensional linear algebra. Together with Theorem~\ref{thm:chirality-fact
 (chirality-basin filtering) this closes item~(a) of Remark~\ref{rem:phase-family}'s
 ``what remains open'' list; items~(b) (unit source strength at distinguished
 layers) and~(c) (the $v$ closure via the non-perturbative sector) remain open.
+
+\emph{Connection to the Gram correction.} The same compliance function
+$\alpha(d) = R(d)^2/4$ that supplies the marginal Green's function
+identity above also generates the Part~0 Supplement's Gram first-order
+correction: by the Supplement's Gram-Laplacian identity, the per-step
+adjacent overlap deficit equals
+$1 - C^2_{d,d+1} \sim -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$
+(Part~0 Supplement, Theorem on Gram correlation in cascade slicing
+ratios and its Laplacian corollary). The single-source family above and
+the supplement's path-distributed Gram correction are therefore
+complementary derivatives of the same compliance function: linear
+source response (this paper) versus discrete log-Laplacian at doubled
+argument (the supplement). Both close descent-dependent observables;
+which family applies to a given observable is a structural question
+governed by Proposition~\ref{prop:source-selection} for single-source
+candidates and by Cauchy--Schwarz path-additivity for the Gram
+correction.
 \end{remark}
 
 \begin{remark}[Action uniqueness: conditional on gauge identification]
@@ -1536,6 +1561,14 @@ Observed: $\sin^2\theta_W = 0.23121\pm 0.00004$ (PDG~2024 $\overline{MS}$ at $M_
 \begin{proof}
 The closed form $\alpha(5)/\chi^3=8/(225\pi)$ follows directly from $\alpha(5)=R(5)^2/4$ with $R(5)=\Gamma(3)/\Gamma(7/2)=16/(15\sqrt{\pi})$, so $R(5)^2=256/(225\pi)$ and $\alpha(5)/8=64/(225\pi\cdot 8)=8/(225\pi)$. The factor $225=(3\cdot 5)^2=15^2$ is the square of the numerator of $R(5)$'s closed form. The high-precision cascade leading (computed without rounding to four decimal places) is $\sin^2\theta_W^{\rm lead}=R(14)^2/(\pi R(13)^2+R(14)^2)=0.228624$. Multiplying by $\exp(0.01131768)=1.011382$ gives $0.231226$, compared with the PDG observed $0.23121\pm 0.00004$. The residual of $+1.6\times 10^{-5}$ is within half an experimental standard deviation.
 \end{proof}
+
+\begin{remark}[Catalan-number reading of the observer-host closure]\label{rem:catalan-dV-closure}
+The factor $225 = 9 \cdot 25 = (3 \cdot 5)^2$ in the denominator decomposes as $k^2 \cdot \mathrm{Cat}(k)^2$ with $k = (d_V+1)/2 = 3$ and $\mathrm{Cat}(3) = 5$. The observer-host shift therefore admits the cascade-structural form
+\[
+\delta\Phi_{\mathrm{obs}} \;=\; \frac{\alpha(d_V)}{\chi^3} \;=\; \frac{2^3}{\bigl(k \cdot \mathrm{Cat}(k)\bigr)^2 \cdot \pi},
+\]
+where $k = (d_V+1)/2 = 3$. This parallels the Catalan reading of $\delta\Phi_{\mathrm{U}(1)}$ (Remark~\ref{rem:catalan-u1-closure}): both involve Catalan numbers at $k = (d^*+1)/2$ for odd $d^*$ or $k = d^*/2$ for even $d^*$, and the cleanness of the power-of-$2$ form in both cases follows from $(k+1)$ being a power of $2$ at the relevant $k$ ($k+1 = 4 = 2^2$ at $d_V$; $k+1 = 8 = 2^3$ at $d_{\rm gw}$). Of the four non-sink distinguished cascade layers, only $d_V = 5$ and $d_{\rm gw} = 14$ satisfy this power-of-$2$ condition; the other two ($d_0 = 7$ with $k+1 = 5$ and $d_1 = 19$ with $k+1 = 11$) do not, and their closures retain non-power-of-$2$ residues. Verifier: \texttt{tools/research/cascade\_catalan\_full\_scan.py}.
+\end{remark}
 
 \begin{remark}[Self-consistent W and Higgs masses]
 With the cascade-derived $\sin^2\theta_W = 0.2286$ and the observed

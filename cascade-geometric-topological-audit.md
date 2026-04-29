@@ -71,8 +71,8 @@ but require no austerity treatment.
 | 2.4 | Slicing recurrence | USED | Part 0 §3 |
 | 2.5 | Concentration of measure (Lévy) | USED | Part II §3 |
 | 2.6 | Spherical cap volume | USED | Part II Thm 5.1 |
-| 2.7 | Heat kernel asymptotics | **IGN** | Sphere-Laplacian not invoked |
-| 2.8 | Laplacian eigenvalues $\ell(\ell+d-2)$ | **IGN** | Same as 2.7 |
+| 2.7 | Heat kernel asymptotics | **IGN** (structural) | Cascade scalar action lives on the integer tower, not tower $\times$ sphere; sphere-Laplacian operates on a degree of freedom the action does not include (`tools/research/audit_section2_sphere_laplacian.py`) |
+| 2.8 | Laplacian eigenvalues $\ell(\ell+d-2)$ | **IGN** (structural) | Same as 2.7: spectral gap $d{-}1$ has right scaling but no cascade match; cascade chose 1D tower fields, not spatial fields per layer |
 | 2.9 | Dirac eigenvalues $\pm(k+n)$ | TESTED-NEG | Notebook alt. (A): scaling pathology |
 | 2.10 | Spectral zeta $\zeta_D(s)$ | TESTED-NEG | Notebook alt. (A) |
 | 2.11 | Spherical harmonics | USED implicitly | Part II concentration |
@@ -88,7 +88,7 @@ the unit-ball construction.
 |---|---|---|---|
 | 3.1 | Hurwitz: $\mathbb{R}, \mathbb{C}, \mathbb{H}, \mathbb{O}$ are only normed division algebras | USED | Part III, Part IVa $d=4$ |
 | 3.2 | Hopf invariant 1 (Adams 1960): only $d \in \{1,2,4,8\}$ | **IGN** | The forcing argument behind 3.1 not made explicit |
-| 3.3 | Parallelisability of $S^1, S^3, S^7$ only | **IGN** | $S^3$ is observer's spatial slice |
+| 3.3 | Parallelisability of $S^1, S^3, S^7$ only | USED implicitly | $S^3 = SU(2)$ Lie group at $d=13$; $S^1 = U(1)$ at $d=14$.  Parallelisability is the reason these spheres ADMIT Lie group structure, which the cascade USES throughout the gauge sector.  See `tools/research/audit_observer_relevant_trio.py` |
 | 3.4 | Hopf fibration $S^3 \to S^2$ | **INVESTIGATED-USED** | Closes Born rule gap (Bloch sphere $\mathbb{R}P^3 \to \mathbb{C}P^1$) under Reading G; Part II Remark `reading-G-born` |
 | 3.5 | Hopf fibration $S^7 \to S^4$ | **TESTED-NEG** | Tested as cascade-internal arithmetic identity ($\Omega_{n+1}\Omega_n = N(0)^{n+1}\Omega_{2n+1}$); collapses to Legendre duplication, holds at every $n$, no Hopf content |
 | 3.6 | Hopf fibration $S^{15} \to S^8$ | **IGN** | $d=9$ or $d=16$? No obvious cascade role |
@@ -117,7 +117,7 @@ the unit-ball construction.
 | 5.1 | $S^7$ has 28 smooth structures (Milnor) | **IGN** | Cascade silently uses standard |
 | 5.2 | $S^{11}$ has 992 smooth structures | **IGN** | Same |
 | 5.3 | $S^{12}, S^{20}, S^{28}$ smooth structures | **IGN** | Spinor bundles depend on smooth structure |
-| 5.4 | $S^4$ smooth Poincaré conjecture (open) | **IGN** | Observer-relevant, not flagged |
+| 5.4 | $S^4$ smooth Poincaré conjecture (open) | **IGN** (structurally independent) | Cascade uses $\mathbb{R}^d$-inherited round metric (Prelude line 8), never abstract sphere smooth structures.  Smooth-structure-agnostic by construction; SPC openness doesn't affect cascade predictions |
 | 5.5 | Smooth-structure-dependence of Dirac operator | **IGN** | Sphere-Dirac route used standard structure |
 
 ---
@@ -127,7 +127,7 @@ the unit-ball construction.
 | # | Item | Status | Where / Why |
 |---|---|---|---|
 | 6.1 | $\pi_3(S^{11}) = \mathbb{Z}_2$ | USED | Part IVb $\theta_{\rm QCD} = 0$ |
-| 6.2 | $\pi_4(S^3) = \mathbb{Z}_2$ | **IGN** | Hopf-fibration descendant |
+| 6.2 | $\pi_4(S^3) = \mathbb{Z}_2$ | **IGN** (structural) | Classifies maps $S^4 \to S^3$.  Cascade descent operations are metric (volume slicing), not homotopy classes; no natural cascade map of this signature exists.  Contrasts with $\pi_3(S^{11})$ (entry 6.1, USED) where the cascade's complex structure on $S^{11}$ does encounter homotopy sectors |
 | 6.3 | $\pi_n(S^k)$ table | **IGN** | Cascade picks $\pi_3(S^{11})$; others silent |
 | 6.4 | Stable homotopy $\pi^s_n$ | **IGN** | Generic structure not invoked |
 | 6.5 | EHP sequence | **IGN** | Not invoked |
@@ -142,9 +142,9 @@ the unit-ball construction.
 |---|---|---|---|
 | 7.1 | Constant sectional curvature $K=1$ | USED implicitly | Standard round metric |
 | 7.2 | Ricci tensor $\text{Ric} = (d-2)g$ | USED implicitly | Part III §14 |
-| 7.3 | Scalar curvature $R = (d-1)(d-2)$ | **IGN** | Not used in fermion sector |
-| 7.4 | Lichnerowicz formula $\slashed{D}^2 = \nabla^*\nabla + R/4$ | **IGN** | Sphere-Dirac route already tested |
-| 7.5 | Conformal Killing spinors | **IGN** | Not invoked |
+| 7.3 | Scalar curvature $R = (d-1)(d-2)$ | USED implicitly via 7.2 | $R_{\rm scal} = \mathrm{tr}(\mathrm{Ric}) = (d-1)(d-2)$ is just the trace of the Ricci tensor (entry 7.2, USED).  No new content beyond 7.2 |
+| 7.4 | Lichnerowicz formula $\slashed{D}^2 = \nabla^*\nabla + R/4$ | **IGN** (structural exclusion) | Sphere-Dirac route forbidden by 4.6 ($\hat A(S^{2n})=0$, Notebook Rem `no-dirac-route` in Part IVb) |
+| 7.5 | Conformal Killing spinors | **IGN** (structural exclusion) | Same as 7.4: requires sphere-Dirac, excluded by 4.6 |
 | 7.6 | Riemannian sectional/Ricci/scalar relations | USED | Lovelock at $d=4$ (Part III) |
 
 ---
@@ -189,7 +189,7 @@ structure.
 | 10.7 | $d = 4 = \dim_\mathbb{R}\mathbb{H}$ | USED | Part III |
 | 10.8 | $d = 8$ first Bott multiple | USED | Part IVa |
 | 10.9 | $d = 12$ Adams unique $\rho-1=3$ | USED | Part IVa Thm 2.4 |
-| 10.10 | $d = 14 = \dim G_2$ | **IGN** | Coincidence at U(1) layer? |
+| 10.10 | $d = 14 = \dim G_2$ | **IGN** (numerological) | Tested: no structural mechanism.  $G_2$ cannot act on $S^{13}$ (dim mismatch); no natural $G_2$ action on cascade $d{=}14$ objects.  Contrasts with 10.11 ($d{=}7$, $G_2/SU(3)$ on $S^6$) where the mechanism is real.  See `tools/research/audit_section10_d14_G2.py` |
 | 10.11 | $d = 7$ = $S^6$ admits $G_2$ structure | **USED** | Reading (III): SU(3) algebra at $d=7$ via $G_2/SU(3)$ on $S^6$. Part IVa Remark `reading-III`. Verifier `cascade_d7_su3_bs_closure.py`. Closes $b/s$ to 0.014\% via $-\alpha(7)/\chi^4$ (Part IVb Tier 3, proposed) |
 
 ---
@@ -201,12 +201,12 @@ structure.
 | 11.1 | $\Gamma(n+1/2) = (2n)!\sqrt{\pi}/(4^n n!)$ | USED implicitly | Half-integer evaluations |
 | 11.2 | $\Gamma$ recursion | USED | Slicing |
 | 11.3 | Beta function identities | USED | Slicing integral |
-| 11.4 | Euler reflection $\Gamma(z)\Gamma(1-z) = \pi/\sin(\pi z)$ | **IGN** | Not invoked |
-| 11.5 | Gauss multiplication theorem | **IGN** | Not invoked |
-| 11.6 | Wallis product | **IGN** | Implicit in $R(d) \sim \sqrt{2/d}$ asymptotics |
+| 11.4 | Euler reflection $\Gamma(z)\Gamma(1-z) = \pi/\sin(\pi z)$ | **IGN** (off-tower) | At $z = (d+1)/2$, partner $(1-d)/2$ is a negative half-integer for $d \geq 2$.  Cascade tower is positive integer $d$ only.  See `tools/research/gamma_identities_enumeration.py` |
+| 11.5 | Gauss multiplication theorem | USED ($n=2$) | Part 0 Lemma `lem:R-duplication`: $R(2d-1)R(2d) = 1/d$. The $n=3$ (triplication) and higher cases involve third-integer / $k$-th-integer Gamma arguments, not on the cascade tower (correctly IGN) |
+| 11.6 | Wallis product | USED implicitly | Wallis identity $\pi/2 = \prod (2n)^2/[(2n{-}1)(2n{+}1)]$ implicit in $R(d) \sim \sqrt{2/(d+1)}$ asymptotics (Stirling-Wallis) used in Theorem 14.2 of Part 0.0 |
 | 11.7 | Stirling's formula | USED | Asymptotics |
-| 11.8 | Continued fractions of $\Gamma$ ratios | **IGN** | Not invoked |
-| 11.9 | Zeta values at integer / half-integer | **IGN** | Not invoked |
+| 11.8 | Continued fractions of $\Gamma$ ratios | **IGN** (numerical-only) | Lentz/Stieltjes continued-fraction expansions are convergence-acceleration tools; evaluate to the same $\Gamma$ ratios already in cascade use.  No new structure |
+| 11.9 | Zeta values at integer / half-integer | partially USED | $\zeta(2) = \pi^2/6$ implicit in $\Omega_b = 1/(2\pi^2)$ and similar geometric quantities (Part V).  Higher $\zeta(2n)$ for $n \geq 2$ not invoked |
 
 ---
 

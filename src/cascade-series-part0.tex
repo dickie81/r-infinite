@@ -130,6 +130,30 @@ $\Gamma(1/2) = \sqrt{\pi}$. The chain: dimension $\to$ orthogonal $\to$
 $\pi/2$ $\to$ $B(1/2,\cdot)$ $\to$ $\sqrt{\pi}$. Every arrow forced.
 \end{proof}
 
+\begin{lemma}[Slicing-ratio duplication]\label{lem:R-duplication}
+For every integer $d \geq 1$,
+\[
+R(2d-1)\cdot R(2d) \;=\; \frac{1}{d}.
+\]
+Equivalently, the cascade-tower product of slicing ratios telescopes to a factorial:
+\[
+\prod_{d=1}^{2N} R(d) \;=\; \frac{1}{N!}.
+\]
+\end{lemma}
+
+\begin{proof}
+By the definition $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$,
+\[
+R(2d-1)\;=\;\frac{\Gamma(d)}{\Gamma(d+\tfrac{1}{2})},\qquad
+R(2d)\;=\;\frac{\Gamma(d+\tfrac{1}{2})}{\Gamma(d+1)}.
+\]
+Their product telescopes through the half-integer Gamma factor: $R(2d-1)R(2d) = \Gamma(d)/\Gamma(d+1) = 1/d$. The product over $d = 1, \ldots, N$ gives $\prod_{d=1}^{2N} R(d) = \prod_{d=1}^{N} \frac{1}{d} = \frac{1}{N!}$. (This is the Legendre duplication formula $\Gamma(2z) = (2\pi)^{-1/2}\,2^{2z-1/2}\,\Gamma(z)\Gamma(z+\tfrac{1}{2})$ specialised to integer $z = d$, expressed in cascade slicing ratios.)
+\end{proof}
+
+\begin{remark}
+The identity is structural, not approximate: cascade slicing ratios at consecutive odd-even layer pairs $(2d{-}1, 2d)$ satisfy a fixed product law $1/d$. The full-tower product $\prod_{d=1}^{2N} R(d) = 1/N!$ records this telescoping. Verified numerically in \texttt{tools/research/legendre\_duplication.py}.
+\end{remark}
+
 % ============================================================
 \section{Sphere Areas Are Primary}
 % ============================================================
