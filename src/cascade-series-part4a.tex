@@ -577,6 +577,103 @@ confirms that the SM rep content
 per generation exactly.
 \end{remark}
 
+\begin{remark}[Single-$\mathbb{H}$-factor matter forces $V_{13}\in\{\mathbf{1},\mathbf{2}\}$ at $d=13$]\label{rem:single-h-factor}
+Remark~\ref{rem:path-tensor} composes matter content as a tensor product
+$V_{12}\otimes V_{13}\otimes V_{14}$ across the gauge window, with one
+tensor factor per gauge layer per particle. Combined with the
+descent-path singularity of Section~\ref{sec:forced-paths}
+(Theorem~\ref{thm:forced-paths}: each cascade observable threads exactly
+one path), this forces a structural restriction at $d=13$: the matter
+unit's $\mathrm{SU}(2)$ representation $V_{13}$ is either trivial
+($\mathbf{1}$) or fundamental ($\mathbf{2}$), never a higher rep.
+
+\medskip\noindent\textbf{Cascade-gauged $\mathrm{SU}(2)$ at $d=13$.}
+Adams' theorem at $d=13$ gives $\rho(13)-1=0$, so no nowhere-zero
+tangent field on $S^{12}$ sources the $\mathrm{SU}(2)$ generators
+directly at $d=13$. The 3 generators of $\mathrm{SU}(2)$ at $d=13$ are
+the $d=12$ right-multiplication algebra $\{R_i,R_j,R_k\}$, extended
+trivially to the slicing axis at $d=13$:
+\begin{itemize}
+\item the $d=12$ right-mults already close as $\mathfrak{su}(2)$
+(Remark~\ref{rem:su3-d7-algebra}: $[i,j]=2k$, $[j,k]=2i$, $[k,i]=2j$),
+with $\dim\mathfrak{su}(2)=3$ matching the number of $\mathrm{SU}(2)$
+generators required;
+\item the right-mult action on $\mathbb{R}^{12}\subset\mathbb{R}^{13}$
+vanishes on the two-point intersection $S^{12}\cap(\text{slicing axis})$,
+consistent with the Lefschetz obstruction at $d=13$
+(Theorem~\ref{thm:lefschetz}).
+\end{itemize}
+
+\medskip\noindent\textbf{Single-$\mathbb{H}$-factor claim.}
+Each matter unit at $d=13$ couples to the diagonal $\mathrm{SU}(2)_R$
+via at most one $\mathbb{H}$ factor of $\mathbb{H}^3=\mathbb{R}^{12}$.
+
+\emph{Cascade grounding.} A matter unit at $d=12$ is the cascade
+content of one specific color (per the $\mathbf{3}=\mathbb{H}^3$
+fundamental, Remark~\ref{rem:su3-d7-algebra}) or is color-singlet
+(symmetric across the three $\mathbb{H}$ factors). In either case the
+matter unit enters $V_{13}$ via one specific tensor factor of
+Remark~\ref{rem:path-tensor}'s decomposition, and that factor contributes
+one Spin$(4)$-Weyl piece (either Weyl$_+$ or Weyl$_-$). Multiple Weyl$_-$
+contributions per matter unit would require multiple $\mathbb{H}$
+factors active simultaneously, contradicting the single-tensor-factor
+structure.
+
+\emph{Consequence.} Under the diagonal $\mathrm{SU}(2)_R$, each
+$\mathbb{H}$ factor's Weyl$_+$ piece is $\mathrm{SU}(2)_R$-singlet and
+each Weyl$_-$ piece is $\mathrm{SU}(2)_R$-doublet
+(verifier \texttt{tools/research/cascade\_route\_c\_d13\_dirac.py}). The
+matter unit's $V_{13}$ has at most one Weyl$_-$ tensor factor,
+restricting to:
+\begin{itemize}
+\item zero Weyl$_-$ factors $\Rightarrow$ $V_{13}=\mathbf{1}$ (singlet);
+\item one Weyl$_-$ factor $\Rightarrow$ $V_{13}=\mathbf{2}$ (fundamental).
+\end{itemize}
+Higher reps are excluded:
+the triplet $\mathbf{3}$ requires two Weyl$_-$ factors via Clebsch--Gordan
+$\tfrac{1}{2}\otimes\tfrac{1}{2}=0\oplus 1$;
+the quartet $\mathbf{4}$ requires three Weyl$_-$ factors via
+$\tfrac{1}{2}\otimes\tfrac{1}{2}\otimes\tfrac{1}{2}=\tfrac{1}{2}\oplus
+\tfrac{1}{2}\oplus\tfrac{3}{2}$. Neither configuration is consistent with
+single-$\mathbb{H}$-factor matter.
+
+\medskip\noindent\textbf{Connection to SM matter content.}
+The Spin$(12)$ Dirac (built as Spin$(4)^{\otimes 3}$ on
+$\mathbb{R}^{12}=\mathbb{H}^3$, dim $64$ complex) decomposes under
+diagonal $\mathrm{SU}(2)_R$ chirality-by-chirality:
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+& Singlets & Doublets & Triplets / Quartet \\
+\midrule
+Spin$(12)$-Weyl$_+$ (chirality $+1$): & 14 & --- & 6 triplets \\
+Spin$(12)$-Weyl$_-$ (chirality $-1$): & --- & 14 & 1 quartet \\
+\bottomrule
+\end{tabular}
+\end{center}
+The single-$\mathbb{H}$-factor restriction selects exactly the
+$\{\text{singlet},\text{doublet}\}$ subset, excluding the 6 triplets and
+1 quartet. Combined with the chirality split, this reproduces the SM
+SU$(2)_L$ parity-violation pattern: $L$-handed states are doublets
+($V_{13}=\mathbf{2}$), $R$-handed are singlets ($V_{13}=\mathbf{1}$).
+The exclusion of triplet and quartet representations from the SM matter
+spectrum is therefore cascade-internal. Numerical verifiers:
+\texttt{tools/research/cascade\_route\_c\_d13\_dirac.py} (full
+decomposition) and \texttt{tools/research/cascade\_rep\_selection\_gap1.py}
+(decomposition by number of Weyl$_-$ tensor factors and the
+single-$\mathbb{H}$-factor selection).
+
+\medskip\noindent\emph{What this closes and what remains.}
+The remark closes the rep-dimension question at $d=13$
+($V_{13}\in\{\mathbf{1},\mathbf{2}\}$, no higher reps). It does not
+address (a)~the specific multiplicities of $\mathrm{SU}(2)$ singlets
+and doublets that match SM matter content per generation (4 doublets
+$+$ 7 singlets per generation, vs.\ the cascade's 14 of each in the
+$n_S\in\{0,1\}$ subset), and (b)~the specific SM hypercharge values at
+$d=14$. Both remain open structural questions; see CLAUDE.md
+``Known Quantitative Issues'' for the broader matter-rep gap.
+\end{remark}
+
 \section{Symmetry Breaking from the Hairy Ball Theorem}
 \label{sec:breaking}
 
