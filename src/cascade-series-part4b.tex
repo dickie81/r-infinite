@@ -435,6 +435,108 @@ boundary-dominance at Dirac layers would close the open question
 completely.
 \end{remark}
 
+\begin{remark}[Proposed cascade-native gauge-coupled fermion action]\label{rem:fermion-gauge-coupling-proposal}
+Open Question~\ref{oq:fermion-gauge-action} (below) asks for the
+gauge-coupling extension of the cascade fermion action. This remark
+articulates a specific proposal, verifies the easy pieces, and
+identifies what remains structurally open.
+
+\medskip\noindent\textbf{Proposed form.} At each cascade layer $d$,
+\[
+S_f^{\rm cascade}(d) \;=\; m(d)\,\bar\psi(d)\psi(d)
+\;+\; g(d)\,\mathbb{1}_{d\in\{12,13,14\}}\,\bar\psi(d)\,T^a A^a(d)\,\psi(d)
+\;+\; \mathcal{L}(d),
+\]
+where:
+\begin{itemize}
+\item $m(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer Dirac mass
+(Remark~\ref{rem:berezin-partition-derivation}, narrowing of
+Open Question~\ref{oq:fermion-cascade-action});
+\item $g(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer gauge
+coupling in cascade-native units (the standard QFT coupling
+$g_{\rm QFT} = \sqrt{4\pi\alpha} = N(d) = 2\sqrt{\pi}\,g_{\rm cascade}(d)$);
+\item $T^a$ are the Adams gauge-group generators at the gauge-window
+layer:
+\begin{itemize}
+\item $d=12$ (SU(3)): 8 generators, algebra at $d_0=7$ via
+  $G_2/\mathrm{SU}(3)$ (Part~IVa~\cite{paper4a}).
+\item $d=13$ (SU(2)): 3 generators, right-multiplication algebra
+  $\{R_i,R_j,R_k\}$ extended trivially to the slicing axis
+  (Part~IVa~\cite{paper4a}).
+\item $d=14$ (U(1)): 1 generator, $J|_{S^{13}}$ (cascade complex
+  structure restricted to the $d=14$ sphere; Part~IVa~\cite{paper4a}).
+\end{itemize}
+\item $\mathcal{L}(d)$ is the layer-coupling term (the cascade-lattice
+analogue of a Dirac kinetic operator), open below.
+\end{itemize}
+
+\medskip\noindent\textbf{Cascade-native universality.} The Yukawa
+$m(d)$ and gauge coupling $g(d)$ are the \emph{same cascade quantity}
+$\sqrt{\alpha(d)}$ at every layer (verifier
+\texttt{tools/research/cascade\_fermion\_gauge\_action.py}, Step~2).
+This $\sqrt{\alpha}$ universality is forced by the cascade's only
+natural square-root scale at each layer ($R(d)/2 = \sqrt{\alpha(d)}$
+is the unique cascade-native non-$\sqrt{\pi}$ amplitude per
+Open Question~\ref{oq:fermion-cascade-action} pool-uniqueness analysis).
+
+\medskip\noindent\textbf{Per-layer sanity verified.} At $A=0$
+(gauge-trivial), the proposed action reduces to
+$m(d)\bar\psi\psi$, and Berezin integration gives
+$Z_f(d) = m(d) = \sqrt{\alpha(d)}$ exactly. The ratio
+$Z_f(d)/Z_s(d) = 1/(2\sqrt{\pi})$ holds to machine precision at
+$d\in\{5,13,21,29\}$
+(verifier \texttt{tools/research/cascade\_fermion\_gauge\_action.py},
+Step~1; matches Remark~\ref{rem:berezin-partition-derivation}).
+
+\medskip\noindent\textbf{Single-particle restriction unifies
+fund-or-trivial.} Under single-particle cascade descent
+(Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$:
+each cascade observable threads exactly one path), the
+gauge-coupling term $g(d)\bar\psi T^a A^a \psi$ admits a single
+$T^a$-eigenstate for $\psi$ at the gauge-window layer; this gives
+$V_d \in \{\text{trivial}, \text{fundamental}\}$ at each $d$.
+Higher representations would require Clebsch--Gordan composition of
+multiple fundamentals, contradicting the single-path descent. The
+three independent layer arguments of Part~IVa~\cite{paper4a}
+$\mathit{rem{:}fund\text{-}or\text{-}trivial}$ unify into one under
+the proposed gauge-coupled action: a single principle
+(single-particle descent + cascade-native gauge coupling) restricts
+$V_d \in \{\mathbf{1}, \text{fundamental}\}$ at all three
+gauge-window layers.
+
+\medskip\noindent\textbf{What remains open.} Three structural pieces:
+\begin{enumerate}[label=(\alph*),nosep]
+\item \emph{Layer-coupling form $\mathcal{L}(d)$.} Cascade-native
+candidates include $\mathcal{L}(d) =
+L(d)\bar\psi(d)[\psi(d+1)-\psi(d)]/\sqrt{\alpha(d)}$ with $L(d)$
+either uniform, equal to $\sqrt{\alpha(d)}$, or inverse. The
+first-order EL principle of Remark~\ref{rem:action-uniqueness}
+(applied to the fermionic compliance) should pin $L(d)$
+cascade-natively, but the calculation is not yet performed.
+\item \emph{Descent-factor consistency.} Integrating out $\psi$ at
+gauge-window layers should reproduce
+Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$ case~(ii)'s
+attenuation $\exp(\Phi(d_B))$ for gauge-anchored observables. With
+$\mathcal{L}(d)$ fixed in (a), this becomes a direct calculation.
+\item \emph{Anomaly polynomial.} Computing the anomaly polynomial
+of $S_f^{\rm cascade}$ and verifying that the four conditions
+(gravitational $\times Y$, $\mathrm{SU}(3)^2 \times Y$,
+$\mathrm{SU}(2)^2 \times Y$, $Y^3$) of
+\texttt{tools/research/cascade\_anomaly\_framework.py} vanish for
+the SM matter content. This is the eventual Y-spectrum closure
+(Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question).
+\end{enumerate}
+
+\medskip\noindent\emph{What this remark earns.} The proposal
+identifies a specific cascade-lattice action with two derived pieces
+(per-layer Berezin reduction; $\sqrt{\alpha}$ universality of $m$ and
+$g$) and one structural unification (single-particle restriction at
+all three gauge-window layers). It does not close
+Open Question~\ref{oq:fermion-gauge-action}, but it makes the
+remaining work concrete: closure of the layer-coupling form (a)
+is the next research target, with (b) and (c) following.
+\end{remark}
+
 \subsection{Why \texorpdfstring{$R'(d)$}{R'(d)} does not appear}
 
 The Higgs coupling integral on $S^{2n}$ at Dirac layer $d$ is $B(\tfrac{1}{2}, \tfrac{d}{2}) = \sqrt{\pi} \times R'(d)$, where $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2)$ is $d$-dependent. This integral computes the geometric overlap of the Higgs field with the fermion wavefunction on a specific sphere. It is the wrong quantity.
@@ -2056,22 +2158,30 @@ gauge-window layers should give the cascade-internal coupling
 $\alpha(d) = R(d)^2/4$ (consistent with the universal coupling
 $C = \alpha_s/(2\sqrt{\pi})$ of the fermion mass formulae).
 
-\textbf{Status.} Open. The Berezin per-layer partition function
+\textbf{Status.} Open, with a specific proposal articulated in
+Remark~\ref{rem:fermion-gauge-coupling-proposal}. The Berezin
+per-layer partition function
 (Remark~\ref{rem:berezin-partition-derivation}) supplies the
-kinematic ingredient. The gauge-coupling extension is not yet
-attempted in the cascade. A productive attack would: (1) write the
-gauge-coupled fermion action above on the cascade lattice;
-(2) verify that integrating out the fermion field at the gauge
-layers reproduces the cascade descent factor $\exp(\Phi(d_B))$ for
-gauge-anchored observables (consistency with the existing
-gauge-anchored mass formulae); (3) compute the anomaly polynomial
-of the action and derive the four cancellation conditions
-cascade-natively. Closing this would unlock the Y-spectrum closure
-(Part~IVa Remark on the open Y-spectrum question), the
-$1/\alpha_{\mathrm{em}}$ screening
-(Open Question~\ref{oq:alpha-em-screening}), and the
-$\mathrm{SU}(2)_L$ parity-violation derivation in a single
-structural step.
+kinematic ingredient. The proposal of
+Remark~\ref{rem:fermion-gauge-coupling-proposal} adds: (i) per-layer
+gauge coupling $g(d) = \sqrt{\alpha(d)}$, matching the Yukawa
+$m(d) = \sqrt{\alpha(d)}$ as the cascade's $\sqrt{\alpha}$
+universality; (ii) Adams gauge-group generators $T^a$ at gauge-window
+layers $d\in\{12,13,14\}$; (iii) per-layer Berezin reduction
+verified at $A=0$
+(verifier \texttt{tools/research/cascade\_fermion\_gauge\_action.py}).
+Three structural pieces remain open: the layer-coupling form
+$\mathcal{L}(d)$ (cascade-native candidates exist; first-order EL
+should pin it), descent-factor consistency under integrating-out,
+and the anomaly polynomial computation. Closing the layer-coupling
+form is the next concrete research target. Closing all three would
+unlock the Y-spectrum closure (Part~IVa Remark on the open
+Y-spectrum question), the $1/\alpha_{\mathrm{em}}$ screening
+(Open Question~\ref{oq:alpha-em-screening}), the
+$\mathrm{SU}(2)_L$ parity-violation derivation, and a unified
+proof of Part~IVa
+$\mathit{rem{:}fund\text{-}or\text{-}trivial}$ at all three
+gauge-window layers --- in a single structural step.
 
 Tier~3 (load-bearing on the Y-spectrum closure, the photon
 self-energy closure, and the $\mathrm{SU}(2)_L$ chirality structure
