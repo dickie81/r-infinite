@@ -679,23 +679,33 @@ the matter-content reading of
 Part~IVb~\cite{paperIVb}~$\mathit{thm{:}chirality\text{-}factorisation}$
 articulated in Part~IVb~\cite{paperIVb} Remark on cascade CPT-balance
 ($\mathit{rem{:}cpt\text{-}balance\text{-}basins}$), this anchor is
-\emph{the observer's hemispheric position on $S^4$ at $d=5$}.
-Specifically, $S^4$ at the observer host has exactly two basins of
-equal area (Poincar\'{e}--Hopf $\chi(S^4)=2$ + $\mathbb{Z}_2$ height-
-function symmetry); the Gram first-order correction (Part~0
-Supplement) preserves this $\mathbb{Z}_2$ basin equality strictly to
-machine precision (verifier:
-\texttt{tools/research/cascade\_s4\_antipodal\_test.py}; analytic:
-slicing integrand $(1-x^2)^{d/2}$ is even in $x$ on $[-1,1]$). The
-two basins host matter and antimatter respectively under the matter-
-content reading; the observer occupies one, with the antipodal basin
-outside causal contact. The sign anchor is therefore \emph{geometric
-content}, not a free convention.
+the \emph{basin label} (matter or antimatter) of the cascade $S^4$
+at $d=5$ --- a single binary topological invariant, not a position,
+frame, or coordinate. Specifically, $S^4$ at the observer host has
+exactly two basins of equal area (Poincar\'{e}--Hopf $\chi(S^4)=2$
+$+$ $\mathbb{Z}_2$ height-function symmetry); each basin is
+internally homogeneous (4-ball topology), with no preferred point
+within it. Each observer in the matter basin is \emph{relationally
+central} in their own frame: the basin's geometry is
+observer-frame-dependent, with each observer at the height-function
+maximum and the equator $S^3$ at maximum geodesic distance.
+Different observers within the matter basin see qualitatively
+identical physics; only the basin LABEL is observable, and that
+label corresponds to a topological invariant of the basin
+($\mathbb{Z}_2$ choice between matter and antimatter). The Gram
+first-order correction (Part~0 Supplement) preserves the
+$\mathbb{Z}_2$ basin equality strictly to machine precision
+(verifier: \texttt{tools/research/cascade\_s4\_antipodal\_test.py};
+analytic: slicing integrand $(1-x^2)^{d/2}$ is even in $x$ on
+$[-1,1]$). The sign anchor is therefore \emph{one bit of
+observational input} (basin label), at strict parity with the SM's
+$Q_e=-1$ convention.
 
 The cascade structurally predicts:
 \begin{itemize}
 \item Total cosmic baryon number $=0$ cascade-internally; observed
-matter excess is hemispheric localization, not Sakharov-violation.
+matter excess is the hemispheric reading (we are in the matter
+basin), not Sakharov-violation.
 \item No cascade-internal CKM CP phase (cascade is CPT-symmetric in
 audited primitives; CP-violation enters as external observational
 input, parity with SM).
@@ -704,7 +714,11 @@ inapplicable to a CPT-balanced cascade).
 \item No QCD axion ($\theta_{\rm QCD}=0$ forced by topology, consistent
 with strict CPT-symmetry).
 \item No large antimatter regions within our cosmological horizon
-(falsifier; currently consistent with observation).
+--- the matter/antimatter divide IS the basin equator $S^3$,
+identified structurally with the cosmological horizon. Anything
+beyond our cosmological horizon is in the antipodal basin
+(antimatter), causally disconnected. (Falsifier; currently
+consistent with observation.)
 \end{itemize}
 
 \medskip\noindent\emph{Status.}
