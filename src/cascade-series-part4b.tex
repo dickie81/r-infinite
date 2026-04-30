@@ -2000,6 +2000,86 @@ Tier~3 (load-bearing on every charged-fermion mass); now narrowed from the origi
 
 \emph{Hopf-propagation route tested partial-negative.}  A candidate closure via the $G_2/\mathrm{SU}(3)$ structure on $S^6$ at $d_0=7$ (Part~IVa~\cite{paper4a}, Remark on $\mathrm{SU}(3)$ algebra at $d_0=7$), Hopf-propagated through $S^7\to S^4$ to the host at $d=5$, was tested in \texttt{tools/\allowbreak verifiers/\allowbreak cascade\_d7\_su3\_bs\_closure.py}.  The structural framework is consistent (right scaling, no super-exponential pathology that killed the sphere-bundle routes), but the specific $1/\sqrt{\pi}$ factor does not fall out of obvious cascade-internal combinations at $d=7,8$ --- neither surface-area ratios ($\Omega_3/\Omega_7$, $\Omega_4/\Omega_7$, etc.) nor volume ratios ($V_5/V_7$, $V_5/V_8$) nor $R$/$\alpha$ products.  This is expected dimensionally: the $\sqrt{\pi}$ that needs to be absent comes from $\Gamma(\tfrac12) = \sqrt{\pi}$, which appears identically in $V_d$, $\Omega_d$, the lapse $N(d) = \sqrt{\pi}\,R(d)$, and the surface-area ratio $\Omega_{d+1}/\Omega_d = \sqrt{\pi}\,R(d)$.  Switching among these doesn't help: the Gamma-function structure is the same.  Note that the cascade does already have $R(d)/2 = \sqrt{\alpha(d)}$ as a $\sqrt{\pi}$-free cascade primitive (since $\alpha(d) = R(d)^2/4$ is sphere-area-free); the open question is therefore not how to \emph{produce} $R(d)/2$ but how to \emph{force} the fermion measure to live at $\sqrt{\alpha}$ rather than at the scalar's $\sqrt{\pi}\,\sqrt{\alpha}$.  A closure via the Hopf-propagation route would require explicit $G_2$-invariant 3-form integration on $S^6$ (the associative 3-form, a standard mathematical object preserved by $G_2$ by construction; not yet computed cascade-natively).  This narrows the Clifford-absorption open question to a specific calculational target.
 
+\item\label{oq:fermion-gauge-action} \emph{Derive the gauge-coupling structure of the cascade fermion action.}
+Open Question~\ref{oq:fermion-cascade-action} narrows to the per-layer
+Dirac mass identification $m(d) = \sqrt{\alpha(d)}$ plus the
+chirality-halving Theorem~\ref{thm:chirality-factorisation};
+together these give the per-layer fermion partition function
+$Z_f(d) = m(d)$ with $Z_f(d)/Z_s(d) = 1/(2\sqrt{\pi})$ exactly
+(Remark~\ref{rem:berezin-partition-derivation}). What remains
+structurally distinct from the mass identification is the
+\emph{coupling} of the fermion field to the gauge fields at the
+gauge-window layers $d \in \{12, 13, 14\}$. The cascade has gauge
+groups at these layers (Part~IVa~\cite{paper4a},
+$\mathit{thm{:}adams}$, $\mathit{thm{:}adams\text{-}unique}$), and
+the fermion field has a per-layer Berezin realisation
+(Remark~\ref{rem:berezin-partition-derivation}), but a
+cascade-lattice derivation of the coupling --- the analogue of
+$\bar\psi\gamma^\mu A_\mu \psi$ in continuum gauge theory --- is
+not yet stated.
+
+\textbf{What this gates.} Three currently-open structural questions
+are downstream of the gauge-coupled fermion action:
+\begin{enumerate}[label=(\alph*),nosep]
+\item \emph{Y-spectrum closure} at $d=14$ (Part~IVa~\cite{paper4a},
+Remark on the open Y-spectrum question). The four gauge
+anomaly-cancellation conditions (gravitational $\times Y$,
+$\mathrm{SU}(3)^2 \times Y$, $\mathrm{SU}(2)^2 \times Y$, $Y^3$)
+require a multi-fermion path integral coupled to gauge fields;
+without the coupling, the conditions cannot be formulated
+cascade-natively (verifier:
+\texttt{tools/research/cascade\_anomaly\_framework.py}, Step~2.5).
+\item \emph{Photon self-energy screening} $2\pi$ per generation in
+the $1/\alpha_{\mathrm{em}}$ closure
+(Open Question~\ref{oq:alpha-em-screening}). Closing this
+requires a fermion self-energy loop on the cascade lattice ---
+explicitly a one-loop computation in the gauge-coupled fermion
+action.
+\item \emph{Cascade-internal chirality of $\mathrm{SU}(2)_L$
+coupling.} Part~IVa~\cite{paper4a} Section~2.3 explicitly defers
+the parity-violating SU(2) coupling structure to ``the symmetry
+breaking of Section~3 and the fermion generation structure of
+Section~4''; the gauge-coupled fermion action would supply the
+missing chirality-coupling derivation.
+\end{enumerate}
+
+\textbf{What is needed.} A cascade-lattice fermion action with:
+(i)~per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$ (from
+Open Question~\ref{oq:fermion-cascade-action}); (ii)~gauge-field
+couplings at gauge-window layers $d\in\{12,13,14\}$, with the Adams
+gauge-group generators supplied at each layer
+(Part~IVa~\cite{paper4a}); (iii)~a cascade-internal layer-coupling
+term that reproduces the descent attenuation
+$\exp(\Phi(d_B))$ of Part~IVa $\mathit{thm{:}forced\text{-}paths}$
+case~(ii). A specific feature: the gauge couplings at the
+gauge-window layers should give the cascade-internal coupling
+$\alpha(d) = R(d)^2/4$ (consistent with the universal coupling
+$C = \alpha_s/(2\sqrt{\pi})$ of the fermion mass formulae).
+
+\textbf{Status.} Open. The Berezin per-layer partition function
+(Remark~\ref{rem:berezin-partition-derivation}) supplies the
+kinematic ingredient. The gauge-coupling extension is not yet
+attempted in the cascade. A productive attack would: (1) write the
+gauge-coupled fermion action above on the cascade lattice;
+(2) verify that integrating out the fermion field at the gauge
+layers reproduces the cascade descent factor $\exp(\Phi(d_B))$ for
+gauge-anchored observables (consistency with the existing
+gauge-anchored mass formulae); (3) compute the anomaly polynomial
+of the action and derive the four cancellation conditions
+cascade-natively. Closing this would unlock the Y-spectrum closure
+(Part~IVa Remark on the open Y-spectrum question), the
+$1/\alpha_{\mathrm{em}}$ screening
+(Open Question~\ref{oq:alpha-em-screening}), and the
+$\mathrm{SU}(2)_L$ parity-violation derivation in a single
+structural step.
+
+Tier~3 (load-bearing on the Y-spectrum closure, the photon
+self-energy closure, and the $\mathrm{SU}(2)_L$ chirality structure
+--- all currently open). Companion to
+Open Question~\ref{oq:fermion-cascade-action}: the mass
+identification (existing OQ) and the gauge-coupling extension (this
+OQ) are the two halves of the cascade fermion action.
+
 \item\label{oq:bs-k-exponent} \emph{Cascade-internal derivation of the $k=4$ exponent in the $b/s$ closure.}  Theorem~\ref{thm:bs-closure} closes $b/s$ to $0.014\%$ via $\delta\Phi_{b/s} = -\alpha(7)/\chi^4$ at the $\mathrm{SU}(3)$-algebra layer $d_0=7$.  Numerical scan over $k\in\{1,2,3,4,5\}$ shows $k=4$ uniquely picks out as best fit (neighbouring $k=3$: $0.43\%$; $k=5$: $0.19\%$; $k=4$: $0.014\%$).  The structural decomposition $k=4 = $ (lepton-ratio chirality factors) $+$ (quark-cross-generation chirality factors) is plausible but is not derived from cascade primitives in the same way as $k=2$ for $\theta_C$ (single-quark mixing) or $k=3$ for $\sin^2\theta_W$ (three-gauge-factor integration) under the channel-counting rule of Remark~\ref{rem:phase-family}.  What is needed: a cascade-native derivation that the four chirality factorisations entering a cross-generation quark ratio yield $k=4$ a priori, before the numerical fit is performed.  This would extend the channel-counting rule to compositional $k$ values and would close the b/s prediction at the same forcing level as the existing seven entries.  Subordinate to Open Question~\ref{oq:source-selection-category} (categorical derivation): closing both would promote the entire $\alpha(d^*)/\chi^k$ family to fully cascade-forced.  Tier~3 (numerically closed; structural forcing of $k=4$ open).
 \item\label{oq:mu-e-residual} \emph{Source of the $m_\mu/m_e$ leading residual.} The cascade's leading prediction $m_\mu/m_e = \exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi} = 206.50$ sits $0.13\%$ below the observed value $m_\mu/m_e = 206.7683$ (residual $(m^{\rm obs} - m^{\rm cas})/m^{\rm cas} = +0.132\%$). The $\alpha(14)/\chi$ shift of Theorem~\ref{thm:alpha-s-closure} does not apply to this observable: the descent path $d=14..21$ starts at the $\mathrm{U}(1)$ layer, not strictly below it, so the shift's structural condition is not met. No other member of the $\alpha(d^*)/\chi^k$ family assigned by Proposition~\ref{prop:source-selection} matches the residual magnitude at $d=21$: $\alpha(21)/\chi = 0.0116$, $\alpha(21)/\chi^2 = 0.0058$, $\alpha(21)/\chi^3 = 0.0029$, and the adjacent Gram deficit $(1-C^2_{21,22}) = 2.5\times 10^{-4}$ all differ from the observed $0.00132$ by factors of $2$ to $10$. The cumulative Gram sum along $d=13..21$ gives $0.00334$, which is $2.5\times$ too large. The residual is therefore a \emph{novel unresolved discrepancy} in the fermion-mass sector: either (a) a subleading member of the $\alpha(d^*)/\chi^k$ family exists at $d=21$ or $d=22$ with a combination not yet identified; (b) a ratio-of-sums Gram correction (Part~0 Supplement Remark on SP-9 status) applies to mass ratios in a form that has not been derived; or (c) the cascade's deterministic precision has a sub-percent floor in the fermion sector that the $\alpha_s/v$-anchored chain does not close. The residual is numerically small ($0.13\%$, well inside the cascade's stated $\sim 1\%$ leading-order systematic) but is not within experimental precision (PDG $m_\mu/m_e = 206.7682827\pm 4\times 10^{-7}$, so the leading cascade deviates by $\sim 10^5\sigma$ of the experimental uncertainty). Tier~3 (small magnitude; does not threaten the framework's precision claims at the $1\%$ level, but unresolved at the sub-percent level).
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.

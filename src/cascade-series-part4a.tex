@@ -600,21 +600,46 @@ multi-particle structure (path-tensor of
 Remark~\ref{rem:path-tensor} plus single-particle descent of
 Theorem~\ref{thm:forced-paths}) does not yet supply such a weighted
 sum. The structural ingredient that would supply it is a
-cascade fermion action coupling matter to the U(1)$_Y$ gauge
-field at $d=14$ --- and this is the existing open question
-\texttt{oq:fermion-cascade-action} of Part~IVb (the cascade has
-a derived scalar action $S[\varphi]=\sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$,
-Part~IVb Remark~\texttt{rem:action-uniqueness}, but no derived
-fermion analogue). The four anomaly conditions are therefore
-\emph{structurally downstream} of \texttt{oq:fermion-cascade-action}:
-they cannot be formulated cascade-natively until a fermion action
-exists.
+gauge-coupled cascade fermion action --- the analogue of
+$\bar\psi\gamma^\mu A_\mu\psi$ on the cascade lattice --- at the
+gauge-window layers $d\in\{12,13,14\}$, and in particular at
+$d=14$ for the four U(1)$_Y$ anomaly conditions.
 
-This narrows the Y-spectrum gap: it is not shallowly open but is
-\emph{downstream of a deeper open question already on Part~IVb's
-docket}. A productive attack on the Y spectrum should first close
-\texttt{oq:fermion-cascade-action}, then derive (I)--(IV) from
-that action by standard Fujikawa-style or cascade-internal
+The cascade currently has two relevant pieces of the fermion-action
+structure:
+\begin{itemize}
+\item \emph{Largely closed:} the per-layer fermion partition function.
+The Berezin construction with cascade-natural Dirac mass
+$m(d)=\sqrt{\alpha(d)}$ gives $Z_f(d)=m(d)$ and
+$Z_f(d)/Z_s(d)=1/(2\sqrt{\pi})$ exactly at every Dirac layer
+(Part~IVb~\cite{paperIVb}, Remark on the Berezin partition-function
+realisation, narrowing
+Open Question~\texttt{oq:fermion-cascade-action}).
+\item \emph{Open:} the gauge-coupling extension. The cascade has gauge
+groups at $d\in\{12,13,14\}$ (Theorem~\ref{thm:adams},
+Theorem~\ref{thm:adams-unique}) but no derived coupling of the
+fermion field to those gauge fields at the gauge-window layers ---
+no cascade-lattice analogue of $\bar\psi\gamma^\mu A_\mu\psi$. This
+extension is the new
+Open Question~\texttt{oq:fermion-gauge-action} of
+Part~IVb~\cite{paperIVb}, articulated specifically because the
+Y-spectrum closure (and the $1/\alpha_{\mathrm{em}}$ screening of
+\texttt{oq:alpha-em-screening}) require it.
+\end{itemize}
+The four anomaly conditions are therefore \emph{structurally
+downstream} of Part~IVb's
+Open Question~\texttt{oq:fermion-gauge-action} specifically (the
+gauge-coupled fermion action), not of the broader
+\texttt{oq:fermion-cascade-action} (which is now narrowed to the
+mass identification $m(d)=\sqrt{\alpha(d)}$ and is largely closed
+by the Berezin construction).
+
+This narrows the Y-spectrum gap precisely: it is downstream of a
+specific structurally-prior open question (the gauge-coupling
+extension of the Berezin partition function), not shallowly open.
+A productive attack on the Y-spectrum should first close
+\texttt{oq:fermion-gauge-action}, then derive (I)--(IV) from the
+resulting gauge-coupled action by standard cascade-internal
 reasoning.
 
 \medskip\noindent\emph{Status.} Open. Closing this question is
