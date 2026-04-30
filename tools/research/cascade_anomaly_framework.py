@@ -236,6 +236,124 @@ def report_cascade_candidates():
 
 
 # ---------------------------------------------------------------------------
+# Derivation attempt: what blocks closure of (I) from existing primitives?
+# ---------------------------------------------------------------------------
+
+def attempt_grav_y_derivation():
+    print("=" * 78)
+    print("STEP 2.5: focused derivation attempt for (I) gravitational x Y")
+    print("=" * 78)
+    print()
+    print("Goal: derive sum_i n_i Y_i = 0 cascade-natively, where i runs")
+    print("over left-handed Weyl fermions per generation and n_i =")
+    print("dim(SU(3)) * dim(SU(2)) is the rep multiplicity.")
+    print()
+    print("Five candidate routes attempted; each fails on existing primitives.")
+    print()
+
+    routes = [
+        (
+            "(a) Descent-integral well-definedness",
+            "Apply U(1)_Y by angle theta to a multi-particle cascade state; "
+            "require descent integral to converge.",
+            "FAILS: thm:forced-paths case (ii) gives the descent attenuation "
+            "as exp(Phi(14)), independent of Y. The descent integrand does "
+            "NOT see V_{14} eigenvalues. The 'leading divergence proportional "
+            "to sum n_i Y_i' assumed in the original sketch does not exist "
+            "in the cascade descent structure -- it would require a fermion "
+            "action that couples Y to the integrand. Cascade has only the "
+            "scalar action S[phi] = sum (2 alpha)^{-1} (Delta phi)^2 "
+            "(Part IVb rem:action-uniqueness); fermion action is the "
+            "open question oq:fermion-cascade-action.",
+        ),
+        (
+            "(b) Charge conservation",
+            "Require sum_i Q_i = 0 over matter content; combined with "
+            "Q = T_3 + Y and T_3 traces vanishing within doublets, this "
+            "gives sum n_i Y_i = 0.",
+            "FAILS as a derivation: 'charge conservation' in QFT is itself "
+            "a consequence of U(1) gauge invariance + anomaly cancellation. "
+            "Asserting sum Q = 0 cascade-natively is equivalent to asserting "
+            "the conclusion. Not a derivation.",
+        ),
+        (
+            "(c) J trace identity",
+            "tr(J) = 0 on R^{14} (J is antisymmetric). If the V_{14} weight "
+            "structure inherits this, sum n_i Y_i = 0.",
+            "FAILS: J's eigenvalues are uniformly +/- i with multiplicity 7 "
+            "each. Restricted to any J-invariant subspace, J still has only "
+            "+/- i eigenvalues (no fractional Y values). The J trace identity "
+            "does not pin Y values to fractions. (rem:u1-vs-projective item "
+            "(2) already established this falsification.)",
+        ),
+        (
+            "(d) Bott periodicity to spacetime (d=14 mirrors d=6)",
+            "The cascade gauge window at d in {12, 13, 14} sits one Bott "
+            "period after spacetime at d in {4, 5, 6}. If d=14 inherits a "
+            "trace identity from d=6 by Bott analogy, sum n_i Y_i = 0 "
+            "could follow.",
+            "FAILS: d=6 is not a distinguished cascade layer (not in "
+            "{d_V, d_0, d_1, d_2, d_gw} = {5, 7, 19, 217, 14}). No identity "
+            "at d=6 to mirror. The Bott analogy at d=12 (H^3 from d=4) "
+            "gave N_c=3 from spacetime's spatial 3D, but there is no "
+            "analogous structural carrier at d=6 to source a trace "
+            "identity for d=14.",
+        ),
+        (
+            "(e) Path-tensor consistency",
+            "rem:path-tensor's verifier (cascade_path_tensor_product.py) "
+            "confirms the SM rep content gives 15 Weyl per generation. If "
+            "this consistency forces specific Y values, sum n_i Y_i = 0.",
+            "FAILS: the verifier explicitly states 'specific representations "
+            "are imported from SM observation' (lines 31-35 of the verifier "
+            "docstring). The path-tensor structure is consistent with the "
+            "SM Y values but does NOT derive them.",
+        ),
+    ]
+
+    for label, summary, why_fails in routes:
+        print(f"  {label}")
+        print(f"    Sketch: {summary}")
+        print(f"    Why it fails: {why_fails}")
+        print()
+
+    print("-" * 78)
+    print("STRUCTURAL CONCLUSION")
+    print("-" * 78)
+    print()
+    print("All five routes share a common failure mode: each anomaly")
+    print("condition (I)-(IV) requires summing over multi-particle matter")
+    print("content with a specific gauge-anomaly weight function (n_i Y_i,")
+    print("n^SU(2) Y_i, n^SU(3) Y_i, n_i Y_i^3).  The cascade's existing")
+    print("multi-particle structure (path-tensor + descent paths) does NOT")
+    print("yet have a notion of 'sum over matter content with gauge-anomaly")
+    print("weight' -- such a notion would be supplied by a cascade fermion")
+    print("action coupling matter to the U(1)_Y gauge field.")
+    print()
+    print("The cascade has a SCALAR action (Part IVb rem:action-uniqueness):")
+    print("  S[phi] = sum_d (2 alpha(d))^{-1} (Delta phi)^2")
+    print("which derives the alpha(d*)/chi^k correction family.  But this")
+    print("is for SCALAR observables, not for multi-fermion gauge anomalies.")
+    print()
+    print("The FERMION cascade action is an existing open question:")
+    print("  oq:fermion-cascade-action (Part IVb)")
+    print()
+    print("STATUS OF Y-SPECTRUM CLOSURE: the four anomaly conditions")
+    print("(I)-(IV) are STRUCTURALLY DOWNSTREAM of oq:fermion-cascade-action.")
+    print("They cannot be derived from current cascade primitives, because")
+    print("the framework that would formulate gauge anomaly cancellation")
+    print("(a fermion field action coupling to U(1)_Y) is itself open.")
+    print()
+    print("THIS NARROWS THE GAP: any attempt at the Y-spectrum closure")
+    print("must FIRST address oq:fermion-cascade-action, then derive the")
+    print("anomaly conditions (I)-(IV) from that action by standard")
+    print("Fujikawa-style or cascade-internal reasoning.  The Y-spectrum")
+    print("gap is not 'shallowly open' but 'downstream of a deeper open")
+    print("question already on Part IVb's docket.'")
+    print()
+
+
+# ---------------------------------------------------------------------------
 # Algebraic test: do (I)-(IV) + electric-charge anchor pin Y values?
 # ---------------------------------------------------------------------------
 
@@ -323,6 +441,7 @@ def main() -> int:
     print()
     verify_sm_anomalies()
     report_cascade_candidates()
+    attempt_grav_y_derivation()
     test_uniqueness_under_anomaly_constraints()
     open_question_summary()
     return 0

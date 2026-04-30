@@ -586,6 +586,37 @@ the $V_{14}$ weights. The script does not close the question; it
 documents which of (I)--(IV) admit a cascade-native reading from
 existing primitives and which require new structure.
 
+\medskip\noindent\textbf{Structural prerequisite identified.}
+A focused attempt to derive (I) ($\sum_i n_i Y_i = 0$) from existing
+cascade primitives (descent-integral well-definedness, charge
+conservation, the $J$-trace identity, Bott periodicity to spacetime,
+and path-tensor consistency) was made in
+\texttt{tools/research/cascade\_anomaly\_framework.py}, Step~2.5.
+All five candidate routes fail. The shared failure mode is that
+each anomaly condition (I)--(IV) requires a sum over multi-particle
+matter content weighted by a specific gauge-anomaly weight function
+(such as $n_i Y_i$ or $n_i Y_i^3$), and the cascade's existing
+multi-particle structure (path-tensor of
+Remark~\ref{rem:path-tensor} plus single-particle descent of
+Theorem~\ref{thm:forced-paths}) does not yet supply such a weighted
+sum. The structural ingredient that would supply it is a
+cascade fermion action coupling matter to the U(1)$_Y$ gauge
+field at $d=14$ --- and this is the existing open question
+\texttt{oq:fermion-cascade-action} of Part~IVb (the cascade has
+a derived scalar action $S[\varphi]=\sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$,
+Part~IVb Remark~\texttt{rem:action-uniqueness}, but no derived
+fermion analogue). The four anomaly conditions are therefore
+\emph{structurally downstream} of \texttt{oq:fermion-cascade-action}:
+they cannot be formulated cascade-natively until a fermion action
+exists.
+
+This narrows the Y-spectrum gap: it is not shallowly open but is
+\emph{downstream of a deeper open question already on Part~IVb's
+docket}. A productive attack on the Y spectrum should first close
+\texttt{oq:fermion-cascade-action}, then derive (I)--(IV) from
+that action by standard Fujikawa-style or cascade-internal
+reasoning.
+
 \medskip\noindent\emph{Status.} Open. Closing this question is
 required to upgrade the d=14 entry of
 Remark~\ref{rem:fund-or-trivial} from ``partially closed
