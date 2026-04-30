@@ -577,6 +577,76 @@ confirms that the SM rep content
 per generation exactly.
 \end{remark}
 
+\begin{remark}[Fundamental-or-trivial at gauge-window layers]\label{rem:fund-or-trivial}
+At each gauge-window layer $d\in\{12,13,14\}$, every matter unit's
+representation $V_d$ under the gauge group at $d$ is the trivial
+($\mathbf{1}$) or the fundamental of that group. No higher tensor
+representations occur. The principle is closed layer by layer through
+three independent cascade-native arguments.
+
+\medskip\noindent\textbf{$d=12$ (SU(3)).}
+The cascade space at $d=12$ is $\mathbb{R}^{12}=\mathbb{H}^3$, the
+quaternionic Bott class inherited from $d=4$ by one Bott period~$8$.
+The 3 quaternionic factors of $\mathbb{H}^3$ are the $N_c=3$ colors of
+SU(3)'s fundamental representation, supplied by Adams' nowhere-zero
+tangent fields on $S^{11}$ as quaternionic right-mults
+(Remark~\ref{rem:su3-d7-algebra}: $\rho(12)-1=3$ generates the
+$\mathfrak{su}(2)$ bracket structure on $\mathbb{H}^3$; the full
+$\mathfrak{su}(3)$ algebra is supplied at the distinguished area
+maximum $d_0=7$ via $G_2/\mathrm{SU}(3)$). Matter at $d=12$ lives in
+this cascade space, so its SU(3) representation is one of the
+SU(3)-irreducible components of $\mathbb{H}^3$ as an SU(3)-module: the
+color-fundamental ($V_{12}=\mathbf{3}$) or the color-singlet
+($V_{12}=\mathbf{1}$, present in the SU(3)-trivial sector). Closed
+structurally; verifier
+\texttt{tools/research/cascade\_fundamental\_rep\_lemma.py}, $d=12$
+case.
+
+\medskip\noindent\textbf{$d=13$ (SU(2)).}
+Closed by Remark~\ref{rem:single-h-factor} below. Cascade-gauged
+SU(2) at $d=13$ is the $d=12$ right-mult algebra $\{R_i,R_j,R_k\}$
+extended trivially to the slicing axis (Adams' $\rho(13)-1=0$ admits
+no native source). Two cascade-native routes restrict $V_{13}\in
+\{\mathbf{1},\mathbf{2}\}$: color-charged matter
+($V_{12}=\mathbf{3}$) via the Spin$(12)$ Dirac decomposition on
+$\mathbb{H}^3$ under diagonal SU(2)$_R$; color-singlet matter
+($V_{12}=\mathbf{1}$) via path-tensor layer independence
+(Remark~\ref{rem:path-tensor}) combined with single-particle
+descent (Theorem~\ref{thm:forced-paths}). The Spin$(12)$ Dirac route
+is the explicit instance; the layer-independent route is the principle
+applied at $d=13$ alone.
+
+\medskip\noindent\textbf{$d=14$ (U(1)).}
+Partially closed. The cascade complex structure $J$ on
+$\mathbb{R}^{14}$ (with $J^2=-\mathrm{Id}$, supplied by Paper~II's
+precession-induced complex structure) gives $\mathbb{R}^{14}=
+\mathbb{C}^7$. Adams' theorem on $S^{13}$ yields $\rho(14)-1=1$, the
+unique nowhere-zero tangent field; this field is $J|_{S^{13}}$ up to
+scale. U(1) acts on each complex direction of $\mathbb{C}^7$ as
+$\exp(\theta J)$ with eigenvalues $\pm i$, generating charges $\pm 1$.
+The fundamental representation dimension $\dim_{\mathbb{C}}=1$ is
+therefore forced. \emph{Open piece:} the specific SM hypercharge
+values $Y\in\{-1,-\tfrac{1}{2},-\tfrac{1}{3},+\tfrac{1}{6},
++\tfrac{2}{3},+1\}$ are NOT forced by this argument
+($J$'s eigenvalues are $\pm 1$, not fractional). Closing the
+$Y$-spectrum cascade-internally requires a separate derivation
+(e.g.\ cascade anomaly cancellation, or embedding into a richer
+representation that picks specific $Y$ values); see CLAUDE.md
+``Known Quantitative Issues'', matter-rep / hypercharge gap.
+
+\medskip\noindent\emph{Status and outlook.}
+The three layer arguments are independent: they invoke different
+cascade structures (Bott quaternionic class at $d=12$, right-mult
+extension at $d=13$, cascade complex structure at $d=14$). A
+first-principles unification --- a single cascade theorem yielding
+fundamental-or-trivial at all three gauge-window layers --- remains
+open. The present remark aggregates the three closures under a single
+referenceable name. Verifier:
+\texttt{tools/research/cascade\_fundamental\_rep\_lemma.py}
+(per-layer status; closes $d=12$ structurally and $d=14$ partially;
+$d=13$ now closed by Remark~\ref{rem:single-h-factor}).
+\end{remark}
+
 \begin{remark}[Single-$\mathbb{H}$-factor matter forces $V_{13}\in\{\mathbf{1},\mathbf{2}\}$ at $d=13$]\label{rem:single-h-factor}
 Remark~\ref{rem:path-tensor} composes matter content as a tensor product
 $V_{12}\otimes V_{13}\otimes V_{14}$ across the gauge window, with one
@@ -604,35 +674,21 @@ consistent with the Lefschetz obstruction at $d=13$
 (Theorem~\ref{thm:lefschetz}).
 \end{itemize}
 
-\medskip\noindent\textbf{Underlying principle: fundamental-or-trivial at $d=13$.}
+\medskip\noindent\textbf{Underlying principle.}
 The rep-dimension restriction $V_{13}\in\{\mathbf{1},\mathbf{2}\}$ is
-the $d=13$ instance of a unified cascade-internal principle: matter at
-each gauge-window layer transforms in either the \emph{fundamental} or
-the \emph{trivial} representation of the gauge group at that layer.
-The verifier
-\texttt{tools/research/cascade\_fundamental\_rep\_lemma.py} reports the
-status of this principle layer by layer:
-\begin{itemize}
-\item $d=12$ (SU(3)): closed structurally. The cascade space
-  $\mathbb{R}^{12}=\mathbb{H}^3$ is the carrier of the fundamental;
-  $N_c=3$ is the dimension of the $\mathbf{3}$
-  (Remark~\ref{rem:su3-d7-algebra}, item ``fundamental representation
-  dimension $N_c=3$ at $d=12$ via Adams' theorem'').
-\item $d=14$ (U(1)): partially closed. The cascade complex structure
-  $J$ on $\mathbb{R}^{14}=\mathbb{C}^7$ is the carrier of the
-  fundamental; $\dim_{\mathbb{C}}=1$ is forced. Specific hypercharge
-  values remain open (CLAUDE.md ``Known Quantitative Issues'',
-  matter-rep / hypercharge gap).
-\item $d=13$ (SU(2)): closed by the present remark.  Fundamental of
-  SU(2) is $\mathbf{2}$, trivial is $\mathbf{1}$, hence
-  $V_{13}\in\{\mathbf{1},\mathbf{2}\}$.
-\end{itemize}
-The argument splits by SU(3) sector: color-charged matter
-($V_{12}=\mathbf{3}$) realises the principle through the Spin$(12)$
-Dirac structure on $\mathbb{H}^3$; color-singlet matter
-($V_{12}=\mathbf{1}$) realises it through path-tensor layer
-independence. The two routes give the same conclusion through
-distinct cascade structures.
+the $d=13$ instance of the principle stated in
+Remark~\ref{rem:fund-or-trivial}: matter at each gauge-window layer
+transforms in the fundamental or trivial representation of the gauge
+group at that layer. The fundamental of SU(2) is the doublet
+($\mathbf{2}$); the trivial is the singlet ($\mathbf{1}$). The
+present remark closes the $d=13$ instance through two parallel
+cascade-internal routes, which together establish the principle for
+both SU(3) sectors of matter: color-charged matter
+($V_{12}=\mathbf{3}$) via the Spin$(12)$ Dirac structure on
+$\mathbb{H}^3$ (Route (i) below); color-singlet matter
+($V_{12}=\mathbf{1}$) via path-tensor layer independence
+(Remark~\ref{rem:path-tensor}) and single-particle descent
+(Theorem~\ref{thm:forced-paths}) (Route (ii) below).
 
 \medskip\noindent\textbf{Route (i): color-charged matter ($V_{12}=\mathbf{3}$).}
 A matter unit transforming in the SU(3) fundamental occupies one
