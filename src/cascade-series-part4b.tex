@@ -543,28 +543,51 @@ form'' and (b)~``descent-factor consistency'' of the proposal are
 automatic from products of per-layer Berezin factors (matching
 $(2\sqrt{\pi})^{-n_D}$ exactly per Theorem~2.6).
 
-\medskip\noindent\textbf{What remains open.} One structural piece,
-reframed by the per-layer locality:
-\begin{itemize}
-\item \emph{Path-tensor consistency} (replaces ``anomaly polynomial'').
-The cascade has no QFT-style triangle anomalies: triangle anomalies
-arise from path-integral Jacobians of derivative-coupled Dirac
-operators, and the cascade fermion has no derivative gauge couplings
-(per-layer locality precludes them). The four anomaly-like conditions
-on $V_{14}$ weights (gravitational $\times Y$,
-$\mathrm{SU}(3)^2 \times Y$, $\mathrm{SU}(2)^2 \times Y$, $Y^3$;
-\texttt{tools/research/cascade\_anomaly\_framework.py}) must
-therefore arise from a different cascade-native mechanism. The
-candidate: \emph{path-tensor consistency} of the multi-layer gauge
-transformation
-$U(1)_Y \times \mathrm{SU}(2) \times \mathrm{SU}(3)$ acting on the
-single-particle path tensor $V_{12} \otimes V_{13} \otimes V_{14}$
-(Part~IVa~\cite{paper4a} $\mathit{rem{:}path\text{-}tensor}$).
-For the multi-layer tensor product to be a well-defined single
-matter unit, gauge transformations at the three gauge-window
-layers must close consistently in the tensor product; trace
-conditions on $V_{14}$ weights should emerge from this consistency.
-\end{itemize}
+\medskip\noindent\textbf{What remains open: substantially narrowed
+to cascade-native electric charges.}
+The cascade has no QFT-style triangle anomalies (per-layer locality
+precludes derivative-coupled Dirac operators), so the four
+anomaly-like conditions on $V_{14}$ weights cannot arise from
+path-integral Jacobians. They could arise from \emph{path-tensor
+consistency} --- the cascade-native form of the multi-layer
+gauge-invariance closure. Verifier
+\texttt{tools/research/cascade\_path\_tensor\_consistency.py} digs
+into this:
+
+After EW symmetry breaking at $d=13$
+(Part~IVa~\cite{paper4a}~$\mathit{thm{:}lefschetz}$, $\mathit{thm{:}breaking}$,
+$\mathit{thm{:}higgs}$) the unbroken U(1)$_{\rm em}$ at $d=4$ has
+generator
+\[
+Q \;=\; T_3 + Y,
+\]
+i.e.\ the linear combination annihilating the Higgs vacuum. This is
+\emph{cascade-derived} from the Higgs mechanism +
+Theorem~\ref{thm:weinberg}'s diagonalisation of the $(W^3, B)$ mass
+matrix; it is the cascade-native form of the Gell-Mann--Nishijima
+identity (a derived relation, not an assumed convention).
+
+Combined with three cascade-native pieces ---
+$N_c = 3$ at $d=12$ (Adams + $\mathbb{H}^3 = \mathbb{R}^{12}$,
+giving $Q$ denominator 3 for color-triplets); SU(2)$_L$ doublet
+structure at $d=13$ ($T_3 = \pm\tfrac{1}{2}$, giving $Q_u - Q_d = 1$
+and $Q_\nu - Q_e = 1$); $J$ eigenvalues $\pm 1$ at $d=14$
+(Remark~\ref{rem:u1-vs-projective}, giving the U(1) fundamental
+unit $1$) --- path-tensor consistency cascade-natively determines:
+the \emph{denominator structure} of $Q$ (and $Y$ in $1/(2 N_c) = 1/6$
+units), the \emph{differences} of $Q$ values within each multiplet,
+and the \emph{relation} $Q = T_3 + Y$ for each particle.
+
+What remains is the \emph{specific integer numerators} in $Q$ values
+($Q_u = +2/3$ vs $-2/3$ vs $0$, etc.). The Y-spectrum closure thus
+reduces to: derive cascade-natively the SM integer charge numerators
+(equivalently, derive $Y_H$ at $d=13$, or derive the path-tensor
+trace identities, or derive the $J\,\pm 1$ eigenvalue distribution
+over chirality-factorised matter).  Three concrete attack routes
+(Higgs $Y$ pinned cascade-natively; path-tensor trace identities;
+$J$ spectrum + chirality factorisation) are articulated in the
+verifier's Step~4. None is currently closed; each is a structurally
+specific next research target.
 
 \medskip\noindent\emph{What this remark earns.} The proposal
 articulates a specific cascade-lattice action with three derived
@@ -2201,34 +2224,40 @@ gauge-window layers should give the cascade-internal coupling
 $\alpha(d) = R(d)^2/4$ (consistent with the universal coupling
 $C = \alpha_s/(2\sqrt{\pi})$ of the fermion mass formulae).
 
-\textbf{Status.} Open in the path-tensor consistency framework, after
-substantial narrowing in
+\textbf{Status.} Open in cascade-native electric charges, after a
+chain of substantial narrowings recorded in
 Remark~\ref{rem:fermion-gauge-coupling-proposal}. The Berezin per-layer
 partition function (Remark~\ref{rem:berezin-partition-derivation})
-supplies the kinematic ingredient. The proposal of
-Remark~\ref{rem:fermion-gauge-coupling-proposal} adds: (i) per-layer
-gauge coupling $g(d) = \sqrt{\alpha(d)}$, matching the Yukawa
-$m(d) = \sqrt{\alpha(d)}$ as the cascade's $\sqrt{\alpha}$ universality;
-(ii) Adams gauge-group generators $T^a$ at gauge-window layers
-$d\in\{12,13,14\}$; (iii) per-layer Berezin reduction verified at $A=0$
-(verifier \texttt{tools/research/cascade\_fermion\_gauge\_action.py});
-(iv) per-layer locality of the fermion (no inter-layer kinetic), derived
-from the convergence of three cascade-source readings
-(Remark~\ref{rem:berezin-partition-derivation}, the austerity-compliant
-framing of the present open question, and
-Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$ case~(ii));
-this closes ``layer-coupling form'' and ``descent-factor consistency''
-of the original proposal as empty/automatic. The remaining open piece
-is reframed from QFT triangle anomalies (which do not apply: per-layer
-locality precludes derivative-coupled Dirac operators) to
-\emph{path-tensor consistency}: whether the multi-layer gauge
-transformation $U(1)_Y\times\mathrm{SU}(2)\times\mathrm{SU}(3)$ acting
-on the single-particle path tensor $V_{12}\otimes V_{13}\otimes V_{14}$
-(Part~IVa~\cite{paper4a} $\mathit{rem{:}path\text{-}tensor}$) imposes
-the four trace conditions on $V_{14}$ weights that would close the
-SM $Y$ spectrum. Closing the path-tensor consistency would unlock the
-Y-spectrum closure (Part~IVa Remark on the open Y-spectrum question),
-the $1/\alpha_{\mathrm{em}}$ screening
+supplies the kinematic ingredient. The proposal adds: (i) per-layer
+gauge coupling $g(d) = \sqrt{\alpha(d)}$ matching the Yukawa
+$m(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$ universality);
+(ii) Adams gauge-group generators $T^a$ at gauge-window layers;
+(iii) per-layer Berezin reduction verified at $A=0$;
+(iv) per-layer locality of the fermion (no inter-layer kinetic),
+derived from convergence of three cascade-source readings; closes
+``layer-coupling form'' and ``descent-factor consistency'' as
+empty/automatic;
+(v) cascade-native $Q = T_3 + Y$ from EW breaking at $d=13$ +
+Theorem~\ref{thm:weinberg} (the cascade-native Gell-Mann--Nishijima
+identity, derived not assumed); combined with $N_c=3$,
+SU(2) doublet structure, and $J$ eigenvalues $\pm 1$, this fixes the
+$Q$ denominator structure, $Q$ differences within multiplets, and
+the relation $Q = T_3 + Y$.
+
+The remaining open piece is reduced to: derive cascade-natively the
+\emph{specific integer numerators} in SM electric charges (e.g.\
+$Q_u = +2/3$ as opposed to $-2/3$ or $0$; equivalently the $Y$
+numerators in $1/6$ units). Three cascade-native attack routes are
+articulated in
+\texttt{tools/research/cascade\_path\_tensor\_consistency.py}
+(Step~4): cascade-native $Y_H$ at $d=13$; path-tensor trace identities
+on $V_{12}\otimes V_{13}\otimes V_{14}$; $J\pm 1$ eigenvalue
+distribution over Theorem~\ref{thm:chirality-factorisation}'s
+chirality-factorised matter content. None is currently closed.
+
+Closing the integer-charge derivation would unlock the Y-spectrum
+closure (Part~IVa Remark on the open Y-spectrum question), the
+$1/\alpha_{\mathrm{em}}$ screening
 (Open Question~\ref{oq:alpha-em-screening}), the
 $\mathrm{SU}(2)_L$ parity-violation derivation, and a unified
 proof of Part~IVa $\mathit{rem{:}fund\text{-}or\text{-}trivial}$ at
