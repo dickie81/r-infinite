@@ -144,6 +144,18 @@ By Theorem~\ref{thm:gram-R} and properties of the logarithm,
 Since $\alpha(d) = R(d)^2/4$, we have $\log\alpha = 2\log R - 2\log 2$, so $\Delta^2 \log\alpha = 2\,\Delta^2 \log R$ (constants drop in second differences). Substituting yields equation~\eqref{eq:gram-laplacian}.
 \end{proof}
 
+\begin{corollary}[$k$-step Gram-Laplacian: full correlation matrix as Jensen gap of log-compliance]\label{cor:gram-laplacian-k-step}
+For any cascade layer pair $(d_i, d_j)$ with $k = |d_j - d_i| \geq 1$,
+\begin{equation}\label{eq:gram-laplacian-k}
+\log C^2_{i,j} \;=\; -\frac{1}{2}\,\Delta_k^2 \log\alpha\,\Big|_{d_i + d_j + 1} \;=\; \log\alpha(d_i + d_j + 1) - \tfrac{1}{2}\bigl[\log\alpha(2d_i+1) + \log\alpha(2d_j+1)\bigr],
+\end{equation}
+where $\Delta_k^2 f|_n := f(n-k) + f(n+k) - 2f(n)$ is the $k$-step central second difference and $d_i+d_j+1$ is the midpoint of $\{2d_i+1, 2d_j+1\}$. The adjacent case $k = 1$ recovers Corollary~\ref{cor:gram-laplacian}; the general case identifies every entry of the correlation matrix as a Jensen gap of the log-compliance $\log\alpha$. Cauchy--Schwarz $C^2_{ij} \leq 1$ for $i \neq j$ is therefore equivalent to log-concavity of $\alpha$ on the cascade tower (verified: $\log\alpha(d) = -\log d + O(1/d)$ is strictly concave). Verified to mpmath precision in \texttt{tools/research/knockon\_higher\_order\_laplacian.py}.
+\end{corollary}
+
+\begin{proof}
+By the Beta-function evaluation of $C^2_{ij}$ (Theorem~\ref{thm:gram} expressed in slicing ratios), $\log C^2_{ij} = 2\log R(d_i + d_j + 1) - \log R(2d_i + 1) - \log R(2d_j + 1)$. Substituting $\log R = \tfrac{1}{2}\log\alpha + \log 2$ and simplifying yields the right-hand side of equation~\eqref{eq:gram-laplacian-k}; the equivalent $k$-step Laplacian form follows by direct expansion of $\Delta_k^2 \log\alpha|_{d_i+d_j+1}$.
+\end{proof}
+
 \begin{remark}[Numerical verification]\label{rem:gram-verifier}
 Both Theorem~\ref{thm:gram-R} (the closed form) and Corollary~\ref{cor:gram-laplacian} (the Laplacian identity) are verified at all tested $d$ values in
 \begin{center}
