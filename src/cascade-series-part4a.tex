@@ -615,32 +615,41 @@ $Z_f(d)/Z_s(d)=1/(2\sqrt{\pi})$ exactly at every Dirac layer
 (Part~IVb~\cite{paperIVb}, Remark on the Berezin partition-function
 realisation, narrowing
 Open Question~\texttt{oq:fermion-cascade-action}).
-\item \emph{Open:} the gauge-coupling extension. The cascade has gauge
-groups at $d\in\{12,13,14\}$ (Theorem~\ref{thm:adams},
-Theorem~\ref{thm:adams-unique}) but no derived coupling of the
-fermion field to those gauge fields at the gauge-window layers ---
-no cascade-lattice analogue of $\bar\psi\gamma^\mu A_\mu\psi$. This
-extension is the new
-Open Question~\texttt{oq:fermion-gauge-action} of
-Part~IVb~\cite{paperIVb}, articulated specifically because the
-Y-spectrum closure (and the $1/\alpha_{\mathrm{em}}$ screening of
-\texttt{oq:alpha-em-screening}) require it.
+\item \emph{Substantially narrowed; one piece open:} the
+gauge-coupling extension. Part~IVb~\cite{paperIVb}'s remark on the
+proposed gauge-coupled action articulates the per-layer form
+$g(d)\,\bar\psi T^a A^a \psi$ at gauge-window layers, with
+$g(d) = \sqrt{\alpha(d)}$ matching the Yukawa $m(d) = \sqrt{\alpha(d)}$
+($\sqrt{\alpha}$ universality), and \emph{derives} per-layer locality
+of the cascade fermion from convergence of three cascade-source
+readings. Per-layer Berezin reduction at $A=0$ is verified to machine
+precision; the proposed gauge extension does not perturb the closed
+mass-identification piece. The remaining open piece is reframed:
+\emph{not} QFT triangle anomalies (which do not apply: per-layer
+locality precludes derivative-coupled Dirac operators), but
+\emph{path-tensor consistency} of the multi-layer gauge transformation
+$U(1)_Y\times\mathrm{SU}(2)\times\mathrm{SU}(3)$ acting on the
+single-particle path tensor $V_{12}\otimes V_{13}\otimes V_{14}$
+(Remark~\ref{rem:path-tensor}). See
+Part~IVb~\cite{paperIVb} Open Question~\texttt{oq:fermion-gauge-action}
+and the proposal remark cited there for details.
 \end{itemize}
 The four anomaly conditions are therefore \emph{structurally
-downstream} of Part~IVb's
-Open Question~\texttt{oq:fermion-gauge-action} specifically (the
-gauge-coupled fermion action), not of the broader
-\texttt{oq:fermion-cascade-action} (which is now narrowed to the
-mass identification $m(d)=\sqrt{\alpha(d)}$ and is largely closed
-by the Berezin construction).
+downstream} of Part~IVb's path-tensor-consistency reframing of
+\texttt{oq:fermion-gauge-action} (the QFT triangle-anomaly framework
+of the previous derivation attempt does not apply to per-layer-local
+cascade fermions). The verifier
+\texttt{tools/research/cascade\_anomaly\_framework.py} Step~2.5's
+five-route audit remains valid as a NEGATIVE result on standard
+cascade primitives; the path-tensor consistency framework is the
+cascade-native replacement.
 
-This narrows the Y-spectrum gap precisely: it is downstream of a
-specific structurally-prior open question (the gauge-coupling
-extension of the Berezin partition function), not shallowly open.
-A productive attack on the Y-spectrum should first close
-\texttt{oq:fermion-gauge-action}, then derive (I)--(IV) from the
-resulting gauge-coupled action by standard cascade-internal
-reasoning.
+This narrows the Y-spectrum gap precisely: it is downstream of one
+structurally-specific open question (path-tensor consistency at the
+gauge window), not three. A productive attack on the Y-spectrum
+should identify path-tensor consistency conditions on the multi-layer
+gauge action and check whether they reproduce the four anomaly-cancellation
+equations cascade-natively.
 
 \medskip\noindent\emph{Status.} Open. Closing this question is
 required to upgrade the d=14 entry of
