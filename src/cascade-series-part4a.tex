@@ -671,12 +671,71 @@ distribution over chirality-factorised matter content). See
 Part~IVb~\cite{paperIVb} Open Question~\texttt{oq:fermion-gauge-action}
 for the three attack routes articulated cascade-natively.
 
-\medskip\noindent\emph{Status.} Open. Closing this question is
-required to upgrade the d=14 entry of
-Remark~\ref{rem:fund-or-trivial} from ``partially closed
-(dimension)'' to ``closed (dimension and weights)''. Until then,
-the cascade's claim of zero free parameters is precise about
-predictions but not about the per-particle $V_{14}$ weight assignment.
+\medskip\noindent\textbf{Sign anchor: structurally an observer-localization fact.}
+The path-tensor consistency reduction leaves one sign convention
+to anchor: the choice between $\{Y_{Q_L} = +1/6, Y_{Q_L} = -1/6\}$
+(equivalently, between two CPT-conjugate Y-spectrum branches). Under
+the matter-content reading of
+Part~IVb~\cite{paperIVb}~$\mathit{thm{:}chirality\text{-}factorisation}$
+articulated in Part~IVb~\cite{paperIVb} Remark on cascade CPT-balance
+($\mathit{rem{:}cpt\text{-}balance\text{-}basins}$), this anchor is
+\emph{the observer's hemispheric position on $S^4$ at $d=5$}.
+Specifically, $S^4$ at the observer host has exactly two basins of
+equal area (Poincar\'{e}--Hopf $\chi(S^4)=2$ + $\mathbb{Z}_2$ height-
+function symmetry); the Gram first-order correction (Part~0
+Supplement) preserves this $\mathbb{Z}_2$ basin equality strictly to
+machine precision (verifier:
+\texttt{tools/research/cascade\_s4\_antipodal\_test.py}; analytic:
+slicing integrand $(1-x^2)^{d/2}$ is even in $x$ on $[-1,1]$). The
+two basins host matter and antimatter respectively under the matter-
+content reading; the observer occupies one, with the antipodal basin
+outside causal contact. The sign anchor is therefore \emph{geometric
+content}, not a free convention.
+
+The cascade structurally predicts:
+\begin{itemize}
+\item Total cosmic baryon number $=0$ cascade-internally; observed
+matter excess is hemispheric localization, not Sakharov-violation.
+\item No cascade-internal CKM CP phase (cascade is CPT-symmetric in
+audited primitives; CP-violation enters as external observational
+input, parity with SM).
+\item No cascade-internal baryogenesis mechanism (Sakharov conditions
+inapplicable to a CPT-balanced cascade).
+\item No QCD axion ($\theta_{\rm QCD}=0$ forced by topology, consistent
+with strict CPT-symmetry).
+\item No large antimatter regions within our cosmological horizon
+(falsifier; currently consistent with observation).
+\end{itemize}
+
+\medskip\noindent\emph{Status.}
+\begin{itemize}
+\item \emph{Rep-dimension lemma}: closed
+(Remark~\ref{rem:fund-or-trivial}, with d=12 and d=13 closed and
+d=14 dimension closed).
+\item \emph{Yukawa singlet conditions}: closed (per-layer locality
+of cascade fermion + gauge invariance, Part~IVb~\cite{paperIVb}'s
+proposed gauge-coupled action remark).
+\item \emph{(R2) $Y_{L_L} = -Y_H$}: closed (gravitational anomaly
++ Yukawa singlet algebra; verifier
+\texttt{tools/research/cascade\_y\_trace\_identity.py}).
+\item \emph{Cascade fractional structure}
+($Y_{Q_L} \in (1/6)\mathbb{Z}$, $Y_{L_L} \in (1/2)\mathbb{Z}$):
+closed (from $N_c = 3$ + SU(2) doublet + $J$ eigenvalues $\pm 1$).
+\item \emph{(R1) $Y_H = N_c \cdot Y_{Q_L}$}: open. Cascade-native
+interpretation: ``$V_{12} = \mathbf{1}$ weight is the trace over
+$V_{12} = \mathbf{3}$ of the $V_{12} = \mathbf{3}$ weight'' on
+$\mathbb{H}^3 = \mathbb{R}^{12}$. Structural theorem not yet derived.
+\item \emph{Smallest-magnitude principle}
+($\lvert Y_{Q_L}\rvert = 1/6$, $\lvert Y_{L_L}\rvert = 1/2$):
+well-defined but not yet derived.
+\item \emph{Sign anchor}: reframed as observer's hemispheric position
+on $S^4$ at $d=5$ (geometric content, parity with SM's $Q_e = -1$).
+\end{itemize}
+The cascade's claim of zero free parameters is now precise about
+gauge groups, rep dimensions, and the structural form of Y values.
+The remaining cascade-internal open piece is (R1); the sign anchor
+is at parity with the SM's external observational anchor but with
+explicit geometric content.
 \end{remark}
 
 \begin{remark}[$\mathrm{SU}(3)$ algebra at $d_0=7$ via $G_2/\mathrm{SU}(3)$]\label{rem:su3-d7-algebra}

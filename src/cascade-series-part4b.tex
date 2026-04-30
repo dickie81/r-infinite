@@ -1332,6 +1332,36 @@ The mode count $k$ is determined by the cascade's own structure (Part~IVa): $k=1
 Every component of the proof is drawn from the cascade's existing structure: $\chi(S^{2n})=2$ from classical topology (used throughout Parts~IVa--b), unitarity from the forced precession (Part~II, Theorem~7.1), the phase--obstruction lockstep from Part~II Corollary~6.8, and mode counting from the Bott/Adams layer assignments of Part~IVa. No new axiom, parameter, or mathematical structure enters.
 \end{remark}
 
+\begin{remark}[Matter-content reading of the basins: cascade CPT-balance]\label{rem:cpt-balance-basins}
+Theorem~\ref{thm:chirality-factorisation} establishes that at every even-sphere cascade layer, the height function on $S^{2n}$ has exactly $\chi(S^{2n})=2$ critical points and the sphere splits into two basins of \emph{equal area} by the $\mathbb{Z}_2$ symmetry $h\mapsto -h$. The theorem's primary use is the scalar Green's function factorisation $1/\chi^k$ underlying the $\alpha(d^*)/\chi^k$ correction family. A second reading, structurally consistent with the same theorem, applies to fermion content at the observer-host layer $d=5$: the two basins of $S^4$ host matter and antimatter respectively, with equal-area $\Rightarrow$ exact CPT-balance.
+
+\medskip\noindent\textbf{Verification: Gram correction preserves $\mathbb{Z}_2$ basin equality.}
+The cascade slicing integrand $f_d(x)=(1-x^2)^{d/2}$ is even in $x$ on $[-1,1]$, and the antipodal map on $S^{d-1}$ acts as $x\mapsto -x$ on the polar coordinate. Every Gram entry
+\[
+G_{d_i,d_j} \;=\; \int_{-1}^{1}(1-x^2)^{(d_i+d_j)/2}\,dx \;=\; B\!\bigl(\tfrac{1}{2},\,\tfrac{d_i+d_j}{2}+1\bigr)
+\]
+splits as upper~$=$~lower~$=$~full$/2$ exactly. The Gram first-order correction (Part~0 Supplement) therefore preserves the $\mathbb{Z}_2$ basin equality at every cascade layer to machine precision. Numerical verification (verifier
+\texttt{tools/research/cascade\_s4\_antipodal\_test.py}) at $(d_i,d_j)\in\{(5,5),(5,6),(6,6),(5,7),(6,7),(7,7)\}$: maximum hemisphere asymmetry $0.00\mathrm{e}{+00}$.
+
+\medskip\noindent\textbf{Cascade prediction: strict CPT-balance.}
+Under the matter-content reading, the cascade predicts:
+\begin{enumerate}[label=(\alph*),nosep]
+\item Total cosmic baryon number $=0$ cascade-internally. The matter content of $S^4$ at $d=5$ is exactly equal between the two basins.
+\item No Sakharov-dynamical baryogenesis. The observed matter excess in our observable universe is \emph{hemispheric localization} of the observer (we sit in one basin of $S^4$ at $d=5$; the antipodal basin contains antimatter). No cascade-internal CP-violation mechanism is required for cosmology.
+\item No cascade-internal CKM CP phase. The cascade derives $\lvert\theta_C\rvert$ via $-\alpha(7)/\chi^2$ (Theorem~\ref{thm:cabibbo-amplitude}) but is structurally CPT-symmetric in audited primitives; CP-violation enters as external observational input, parity with SM treatment.
+\item No cascade-internal QCD axion. $\theta_{\rm QCD}=0$ is forced by topological classification (Part~IVb~$\S 6$), consistent with strict CPT-symmetry in the gauge sector.
+\item No large antimatter regions within our cosmological horizon. The cascade puts antimatter in the antipodal hemisphere of $S^4$ at $d=5$, outside causal contact.
+\end{enumerate}
+
+\medskip\noindent\textbf{Connection to the Y-spectrum sign anchor.}
+Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question identifies one external sign anchor in the SM Y spectrum derivation. Under the present matter-content reading, that anchor is structurally \emph{the observer's hemispheric position on $S^4$ at $d=5$}: the choice $\{Y_{Q_L}=+1/6,\;Y_{Q_L}=-1/6\}$ corresponds to which basin the observer occupies. This is geometric content rather than free convention --- the cascade derives the Y \emph{spectrum} and the observer's basin position pins the \emph{sign} together. The resulting status is at parity with the Standard Model's external $Q_e=-1$ anchor: both theories require one observational frame-fixing, but the cascade's anchor has explicit geometric content.
+
+\medskip\noindent\textbf{Falsifier.}
+Observation of large antimatter regions \emph{within} our cosmological horizon would challenge the hemispheric-localization reading. Currently consistent with observation: no antimatter regions are seen in the visible universe.
+
+\medskip\noindent\emph{Status.} Structural reading of an existing theorem; not a separate cascade theorem. The matter-content reading extends Theorem~\ref{thm:chirality-factorisation} from the scalar sector (Green's function factorisation) to the fermion sector (matter/antimatter basin assignment). The Gram-symmetry verification is direct calculation; the four falsifiable structural commitments above follow from the matter-content reading $+$ Gram symmetry.
+\end{remark}
+
 \subsection{The Source Selection Rule}\label{subsec:source-selection}
 
 Theorem~\ref{thm:chirality-factorisation} derives the channel count $k$ and the filtering factor $1/\chi^k$ from the cascade's own structure. The remaining freedom in the correction family $\delta\Phi=\pm\alpha(d^*)/\chi^k$ is the source layer $d^*$. Remark~\ref{rem:phase-family} assigns it by observable class, but the class assignment has been descriptive, not derived. This subsection proposes a deterministic rule, verifies it against all seven closed observables, and identifies what remains to be proved.
