@@ -2301,6 +2301,63 @@ Open Question~\ref{oq:fermion-cascade-action}: the mass
 identification (existing OQ) and the gauge-coupling extension (this
 OQ) are the two halves of the cascade fermion action.
 
+\item\label{oq:y-sector-fundamental} \emph{Prove uniqueness of the
+sector-fundamental U(1)$_Y$ rule under austerity.} The Y-spectrum
+chain (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum
+question) reduces, after closure of (R1a) $|Y_H|=1/2$ and (R1c)
+sign$(Y_H)=$sign$(Y_{Q_L})$, to one open structural extension:
+matter at the cascade gauge window occupies the fundamental U(1)$_Y$
+rep of its $(V_{12},V_{13})$ \emph{sector}, where the sector
+fundamental unit is $1/(\dim V_{12}\cdot\dim V_{13})$ in SM Y units.
+The rule explains 5 of 6 SM Y values exactly (Q$_L$, d$_R$, L$_L$,
+e$_R$, H at sector-fundamental $\pm 1$); u$_R$ is a Yukawa-singlet
+outlier at $+2$ sector-units, forced by gauge invariance of
+$\bar Q_L\tilde H u_R$ given closure of (R1a) and (R1c).
+
+\textbf{Status.} Austerity-respecting and SM-spectrum-selected,
+\emph{not} austerity-forced.
+
+\textbf{Austerity audit.} The rule is consistent with Prelude
+Principle~2.2: clause~(i) parameter economy holds (uses only
+existing primitives $\dim V_{12}$, $\dim V_{13}$, and the existing
+fund-or-trivial principle of Part~IVa~\cite{paper4a}
+$\mathit{rem{:}fund\text{-}or\text{-}trivial}$); clause~(ii) minimal
+strength holds (extends fund-or-trivial in the most natural way for
+abelian U(1)$_Y$, where ``fundamental'' depends on what the U(1) is
+acting on). However, the rule is selected from austerity-consistent
+alternatives by FITTING the SM Y spectrum --- e.g., a sector-uniform
+``smallest unit'' rule is also austerity-respecting but predicts
+$|Y|=1$ cascade unit for all matter, contradicting observation
+(e.g., $|Y_{e_R}|=6$ cascade units, not $1$). Among the
+austerity-consistent rules I have considered, only the
+sector-dependent version fits the spectrum.
+
+\textbf{What would close this question.} A uniqueness theorem
+showing that the sector-fundamental rule is THE unique cascade-native
+rule for matter U(1)$_Y$ Y values under austerity, using only the
+cascade primitives ($V_{12}$, $V_{13}$, $J$ at $d=14$, the
+fund-or-trivial principle for non-abelian gauge groups). Possible
+attack route: derive the sector-dependent normalisation
+$1/(\dim V_{12}\cdot\dim V_{13})$ from a cascade structural
+identity, e.g., from the Berezin partition function or a
+J-cascade-fractional bridge theorem connecting J's eigenvalues
+($\pm i$) at $d=14$ to the cascade fractional structure of matter
+at $d=12$ + $d=13$.
+
+\textbf{Companion verifiers}:
+\texttt{tools/research/cascade\_r1\_route\_a\_attack.py}
+(decomposition of (R1) into magnitude + sign);
+\texttt{tools/research/cascade\_r1b\_smallest\_magnitude.py}
+(three failed candidate routes for direct derivation);
+\texttt{tools/research/cascade\_r1b\_sector\_fundamental.py}
+(numerical verification: 5 of 6 SM particles at sector-fundamental;
+u$_R$ Yukawa-forced outlier).
+
+Tier~3 (load-bearing on the Y-spectrum closure modulo the
+observer-hemisphere binary anchor;
+Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question
+flags the residual as cascade-internally specific).
+
 \item\label{oq:bs-k-exponent} \emph{Cascade-internal derivation of the $k=4$ exponent in the $b/s$ closure.}  Theorem~\ref{thm:bs-closure} closes $b/s$ to $0.014\%$ via $\delta\Phi_{b/s} = -\alpha(7)/\chi^4$ at the $\mathrm{SU}(3)$-algebra layer $d_0=7$.  Numerical scan over $k\in\{1,2,3,4,5\}$ shows $k=4$ uniquely picks out as best fit (neighbouring $k=3$: $0.43\%$; $k=5$: $0.19\%$; $k=4$: $0.014\%$).  The structural decomposition $k=4 = $ (lepton-ratio chirality factors) $+$ (quark-cross-generation chirality factors) is plausible but is not derived from cascade primitives in the same way as $k=2$ for $\theta_C$ (single-quark mixing) or $k=3$ for $\sin^2\theta_W$ (three-gauge-factor integration) under the channel-counting rule of Remark~\ref{rem:phase-family}.  What is needed: a cascade-native derivation that the four chirality factorisations entering a cross-generation quark ratio yield $k=4$ a priori, before the numerical fit is performed.  This would extend the channel-counting rule to compositional $k$ values and would close the b/s prediction at the same forcing level as the existing seven entries.  Subordinate to Open Question~\ref{oq:source-selection-category} (categorical derivation): closing both would promote the entire $\alpha(d^*)/\chi^k$ family to fully cascade-forced.  Tier~3 (numerically closed; structural forcing of $k=4$ open).
 \item\label{oq:mu-e-residual} \emph{Source of the $m_\mu/m_e$ leading residual.} The cascade's leading prediction $m_\mu/m_e = \exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi} = 206.50$ sits $0.13\%$ below the observed value $m_\mu/m_e = 206.7683$ (residual $(m^{\rm obs} - m^{\rm cas})/m^{\rm cas} = +0.132\%$). The $\alpha(14)/\chi$ shift of Theorem~\ref{thm:alpha-s-closure} does not apply to this observable: the descent path $d=14..21$ starts at the $\mathrm{U}(1)$ layer, not strictly below it, so the shift's structural condition is not met. No other member of the $\alpha(d^*)/\chi^k$ family assigned by Proposition~\ref{prop:source-selection} matches the residual magnitude at $d=21$: $\alpha(21)/\chi = 0.0116$, $\alpha(21)/\chi^2 = 0.0058$, $\alpha(21)/\chi^3 = 0.0029$, and the adjacent Gram deficit $(1-C^2_{21,22}) = 2.5\times 10^{-4}$ all differ from the observed $0.00132$ by factors of $2$ to $10$. The cumulative Gram sum along $d=13..21$ gives $0.00334$, which is $2.5\times$ too large. The residual is therefore a \emph{novel unresolved discrepancy} in the fermion-mass sector: either (a) a subleading member of the $\alpha(d^*)/\chi^k$ family exists at $d=21$ or $d=22$ with a combination not yet identified; (b) a ratio-of-sums Gram correction (Part~0 Supplement Remark on SP-9 status) applies to mass ratios in a form that has not been derived; or (c) the cascade's deterministic precision has a sub-percent floor in the fermion sector that the $\alpha_s/v$-anchored chain does not close. The residual is numerically small ($0.13\%$, well inside the cascade's stated $\sim 1\%$ leading-order systematic) but is not within experimental precision (PDG $m_\mu/m_e = 206.7682827\pm 4\times 10^{-7}$, so the leading cascade deviates by $\sim 10^5\sigma$ of the experimental uncertainty). Tier~3 (small magnitude; does not threaten the framework's precision claims at the $1\%$ level, but unresolved at the sub-percent level).
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
