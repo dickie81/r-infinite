@@ -680,32 +680,34 @@ Part~IVb~\cite{paperIVb}~$\mathit{thm{:}chirality\text{-}factorisation}$
 articulated in Part~IVb~\cite{paperIVb} Remark on cascade CPT-balance
 ($\mathit{rem{:}cpt\text{-}balance\text{-}basins}$), this anchor is
 the \emph{basin label} (matter or antimatter) of the cascade $S^4$
-at $d=5$ --- a single binary topological invariant, not a position,
-frame, or coordinate. Specifically, $S^4$ at the observer host has
-exactly two basins of equal area (Poincar\'{e}--Hopf $\chi(S^4)=2$
-$+$ $\mathbb{Z}_2$ height-function symmetry); each basin is
-internally homogeneous (4-ball topology), with no preferred point
-within it. Each observer in the matter basin is \emph{relationally
-central} in their own frame: the basin's geometry is
-observer-frame-dependent, with each observer at the height-function
-maximum and the equator $S^3$ at maximum geodesic distance.
-Different observers within the matter basin see qualitatively
-identical physics; only the basin LABEL is observable, and that
-label corresponds to a topological invariant of the basin
-($\mathbb{Z}_2$ choice between matter and antimatter). The Gram
-first-order correction (Part~0 Supplement) preserves the
-$\mathbb{Z}_2$ basin equality strictly to machine precision
-(verifier: \texttt{tools/research/cascade\_s4\_antipodal\_test.py};
+at $d=5$ --- but crucially, this is \emph{a labeling convention
+internal to the observer's frame, not an observation}. The two
+basins are CPT-conjugate and physically equivalent: any observer
+in either basin sees identical local physics and labels their own
+basin ``matter.'' There is no observational test that distinguishes
+them globally --- both choices yield the same Lagrangian after
+relabeling, by CPT-symmetry. Each basin is internally homogeneous
+(4-ball topology), with no preferred point. Each observer in their
+basin is \emph{relationally central} in their own frame: the basin's
+geometry is observer-frame-dependent, with each observer at the
+height-function maximum and the equator $S^3$ at maximum geodesic
+distance. Different observers within a basin see qualitatively
+identical physics; the basin label is purely linguistic, not
+observational. The Gram first-order correction (Part~0 Supplement)
+preserves the $\mathbb{Z}_2$ basin equality strictly to machine
+precision (verifier:
+\texttt{tools/research/cascade\_s4\_antipodal\_test.py};
 analytic: slicing integrand $(1-x^2)^{d/2}$ is even in $x$ on
-$[-1,1]$). The sign anchor is therefore \emph{one bit of
-observational input} (basin label), at strict parity with the SM's
-$Q_e=-1$ convention.
+$[-1,1]$). The sign anchor is therefore \emph{a labeling convention
+with zero observational content}, at strict parity with the SM's
+$Q_e=-1$ convention (also CPT-conjugate, also linguistic, also
+zero observational input).
 
 The cascade structurally predicts:
 \begin{itemize}
 \item Total cosmic baryon number $=0$ cascade-internally; observed
-matter excess is the hemispheric reading (we are in the matter
-basin), not Sakharov-violation.
+matter excess is the hemispheric reading (we are in our basin,
+which we call ``matter''), not Sakharov-violation.
 \item No cascade-internal CKM CP phase (cascade is CPT-symmetric in
 audited primitives; CP-violation enters as external observational
 input, parity with SM).
@@ -716,9 +718,8 @@ with strict CPT-symmetry).
 \item No large antimatter regions within our cosmological horizon
 --- the matter/antimatter divide IS the basin equator $S^3$,
 identified structurally with the cosmological horizon. Anything
-beyond our cosmological horizon is in the antipodal basin
-(antimatter), causally disconnected. (Falsifier; currently
-consistent with observation.)
+beyond our cosmological horizon is in the antipodal basin, causally
+disconnected. (Falsifier; currently consistent with observation.)
 \end{itemize}
 
 \medskip\noindent\emph{Status.}
@@ -760,16 +761,21 @@ holds in both branches).
 \item \emph{Cascade fractional structure}
 ($Y_{Q_L} \in (1/6)\mathbb{Z}$, $Y_{L_L} \in (1/2)\mathbb{Z}$):
 closed (from $N_c = 3$ + SU(2) doublet + $J$ eigenvalues $\pm 1$).
-\item \emph{Sign anchor}: reframed as basin label (matter or
-antimatter) of $S^4$ at $d=5$ --- a single binary topological
-invariant, geometric content, parity with SM's $Q_e = -1$.
+\item \emph{Sign anchor}: reframed as basin label of $S^4$ at $d=5$
+--- a labeling convention internal to the observer's frame, NOT
+an observational input. The two basins are CPT-conjugate and
+physically equivalent; each observer calls their own basin
+``matter.'' Zero observational content, at strict parity with the
+SM's $Q_e=-1$ convention.
 \end{itemize}
 The cascade's claim of zero free parameters is now precise about
 gauge groups, rep dimensions, and the structural form of Y values.
 The remaining cascade-internal open piece is the (R1b)
-sector-fundamental uniqueness theorem; the sign anchor is at parity
-with the SM's external observational anchor but with explicit
-geometric content (one bit, basin label).
+sector-fundamental uniqueness theorem; the cascade has \emph{zero
+observer-frame freedom} (the observer at $d=4$ is forced by cascade
+descent; spatial structure is forced by Adams; position within
+basin is irrelevant by homogeneity; basin label is convention-
+symmetric).
 \end{remark}
 
 \begin{remark}[$\mathrm{SU}(3)$ algebra at $d_0=7$ via $G_2/\mathrm{SU}(3)$]\label{rem:su3-d7-algebra}
