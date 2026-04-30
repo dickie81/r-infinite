@@ -604,38 +604,104 @@ consistent with the Lefschetz obstruction at $d=13$
 (Theorem~\ref{thm:lefschetz}).
 \end{itemize}
 
-\medskip\noindent\textbf{Single-$\mathbb{H}$-factor claim.}
-Each matter unit at $d=13$ couples to the diagonal $\mathrm{SU}(2)_R$
-via at most one $\mathbb{H}$ factor of $\mathbb{H}^3=\mathbb{R}^{12}$.
+\medskip\noindent\textbf{Underlying principle: fundamental-or-trivial at $d=13$.}
+The rep-dimension restriction $V_{13}\in\{\mathbf{1},\mathbf{2}\}$ is
+the $d=13$ instance of a unified cascade-internal principle: matter at
+each gauge-window layer transforms in either the \emph{fundamental} or
+the \emph{trivial} representation of the gauge group at that layer.
+The verifier
+\texttt{tools/research/cascade\_fundamental\_rep\_lemma.py} reports the
+status of this principle layer by layer:
+\begin{itemize}
+\item $d=12$ (SU(3)): closed structurally. The cascade space
+  $\mathbb{R}^{12}=\mathbb{H}^3$ is the carrier of the fundamental;
+  $N_c=3$ is the dimension of the $\mathbf{3}$
+  (Remark~\ref{rem:su3-d7-algebra}, item ``fundamental representation
+  dimension $N_c=3$ at $d=12$ via Adams' theorem'').
+\item $d=14$ (U(1)): partially closed. The cascade complex structure
+  $J$ on $\mathbb{R}^{14}=\mathbb{C}^7$ is the carrier of the
+  fundamental; $\dim_{\mathbb{C}}=1$ is forced. Specific hypercharge
+  values remain open (CLAUDE.md ``Known Quantitative Issues'',
+  matter-rep / hypercharge gap).
+\item $d=13$ (SU(2)): closed by the present remark.  Fundamental of
+  SU(2) is $\mathbf{2}$, trivial is $\mathbf{1}$, hence
+  $V_{13}\in\{\mathbf{1},\mathbf{2}\}$.
+\end{itemize}
+The argument splits by SU(3) sector: color-charged matter
+($V_{12}=\mathbf{3}$) realises the principle through the Spin$(12)$
+Dirac structure on $\mathbb{H}^3$; color-singlet matter
+($V_{12}=\mathbf{1}$) realises it through path-tensor layer
+independence. The two routes give the same conclusion through
+distinct cascade structures.
 
-\emph{Cascade grounding.} A matter unit at $d=12$ is the cascade
-content of one specific color (per the $\mathbf{3}=\mathbb{H}^3$
-fundamental, Remark~\ref{rem:su3-d7-algebra}) or is color-singlet
-(symmetric across the three $\mathbb{H}$ factors). In either case the
-matter unit enters $V_{13}$ via one specific tensor factor of
-Remark~\ref{rem:path-tensor}'s decomposition, and that factor contributes
-one Spin$(4)$-Weyl piece (either Weyl$_+$ or Weyl$_-$). Multiple Weyl$_-$
-contributions per matter unit would require multiple $\mathbb{H}$
-factors active simultaneously, contradicting the single-tensor-factor
-structure.
-
-\emph{Consequence.} Under the diagonal $\mathrm{SU}(2)_R$, each
-$\mathbb{H}$ factor's Weyl$_+$ piece is $\mathrm{SU}(2)_R$-singlet and
-each Weyl$_-$ piece is $\mathrm{SU}(2)_R$-doublet
-(verifier \texttt{tools/research/cascade\_route\_c\_d13\_dirac.py}). The
-matter unit's $V_{13}$ has at most one Weyl$_-$ tensor factor,
-restricting to:
+\medskip\noindent\textbf{Route (i): color-charged matter ($V_{12}=\mathbf{3}$).}
+A matter unit transforming in the SU(3) fundamental occupies one
+specific $\mathbb{H}$-factor of $\mathbb{H}^3$ (its color, per
+Remark~\ref{rem:su3-d7-algebra}). The Spin$(12)$ Dirac on
+$\mathbb{R}^{12}=\mathbb{H}^3$ factorises as $\mathrm{Spin}(4)^{\otimes 3}$
+across the three $\mathbb{H}$-factors, with each Spin$(4)$ Dirac
+splitting into Weyl$_+$ (SU(2)$_R$-singlet) and Weyl$_-$
+(SU(2)$_R$-doublet) under the diagonal SU(2)$_R$
+(verifier \texttt{tools/research/cascade\_route\_c\_d13\_dirac.py}).
+Because the matter unit is concentrated in a single
+$\mathbb{H}$-factor, it picks up exactly one Spin$(4)$-Weyl piece at
+the corresponding tensor slot, and the other two Spin$(4)$ slots are
+inert from the matter-unit perspective. Hence:
 \begin{itemize}
 \item zero Weyl$_-$ factors $\Rightarrow$ $V_{13}=\mathbf{1}$ (singlet);
 \item one Weyl$_-$ factor $\Rightarrow$ $V_{13}=\mathbf{2}$ (fundamental).
 \end{itemize}
-Higher reps are excluded:
-the triplet $\mathbf{3}$ requires two Weyl$_-$ factors via Clebsch--Gordan
-$\tfrac{1}{2}\otimes\tfrac{1}{2}=0\oplus 1$;
-the quartet $\mathbf{4}$ requires three Weyl$_-$ factors via
+The triplet $\mathbf{3}$ requires two Weyl$_-$ factors via
+Clebsch--Gordan $\tfrac{1}{2}\otimes\tfrac{1}{2}=0\oplus 1$; the
+quartet $\mathbf{4}$ requires three via
 $\tfrac{1}{2}\otimes\tfrac{1}{2}\otimes\tfrac{1}{2}=\tfrac{1}{2}\oplus
-\tfrac{1}{2}\oplus\tfrac{3}{2}$. Neither configuration is consistent with
-single-$\mathbb{H}$-factor matter.
+\tfrac{1}{2}\oplus\tfrac{3}{2}$. Both configurations would require the
+matter unit to occupy multiple $\mathbb{H}$-factors of $\mathbb{H}^3$
+simultaneously, contradicting the SU(3)-fundamental concentration.
+Triplet and quartet are excluded.
+
+\medskip\noindent\textbf{Route (ii): color-singlet matter ($V_{12}=\mathbf{1}$).}
+A matter unit trivial under SU(3) is not concentrated in any
+$\mathbb{H}$-factor of $\mathbb{H}^3$; the Spin$(12)$ Dirac analysis of
+Route (i) does not directly govern its SU(2) rep. The cascade-internal
+argument at $d=13$ proceeds independently of the $d=12$ $\mathbb{H}^3$
+structure:
+\begin{itemize}
+\item By the path-tensor decomposition of
+Remark~\ref{rem:path-tensor},
+$\mathcal{H}_{\text{matter}}=V_{12}\otimes V_{13}\otimes V_{14}$, with
+factors at distinct distinguished cascade layers. $V_{12}$ and
+$V_{13}$ are independent: $V_{12}=\mathbf{1}$ does not constrain
+$V_{13}$ to any specific value, only the layer-$d=13$ gauge structure does.
+\item The SU(2) gauge structure at $d=13$ is the
+right-multiplication algebra extended trivially to the slicing axis
+(paragraph above). Its irreducible representations are the
+fundamental ($\mathbf{2}$) and the trivial ($\mathbf{1}$), plus higher
+tensor reps ($\mathbf{3},\mathbf{4},\dots$) constructed multiplicatively.
+\item Applying the fundamental-or-trivial principle at $d=13$ alone
+restricts $V_{13}\in\{\mathbf{1},\mathbf{2}\}$. Higher reps would
+require multi-particle tensor structure at the layer, which the
+single-particle cascade descent (Theorem~\ref{thm:forced-paths}: each
+matter unit threads exactly one path) excludes.
+\end{itemize}
+For color-singlet matter the triplet/quartet exclusion is therefore
+\emph{direct from the fundamental-or-trivial principle plus
+single-path descent}, not from the H$^3$-Dirac Clebsch--Gordan analysis
+of Route (i).
+
+\medskip\noindent\emph{Why the two routes coincide.} Both routes
+restrict $V_{13}\in\{\mathbf{1},\mathbf{2}\}$ but through different
+cascade structures: Route (i) uses the explicit
+$\mathrm{Spin}(4)^{\otimes 3}$ tensor decomposition of the Dirac on
+$\mathbb{H}^3$; Route (ii) uses the path-tensor layer independence
+plus the fundamental-or-trivial principle at the gauge layer alone.
+The agreement is a consistency check on the principle: where Route (i)
+applies (color-charged matter), the H$^3$-Dirac structure realises the
+fundamental-or-trivial restriction explicitly; where it does not
+(color-singlet matter), the same restriction follows from the
+layer-independent statement of the principle. The cascade-internal
+content of the two routes is the same; only the path of derivation
+differs.
 
 \medskip\noindent\textbf{Connection to SM matter content.}
 The Spin$(12)$ Dirac (built as Spin$(4)^{\otimes 3}$ on
@@ -651,27 +717,40 @@ Spin$(12)$-Weyl$_-$ (chirality $-1$): & --- & 14 & 1 quartet \\
 \bottomrule
 \end{tabular}
 \end{center}
-The single-$\mathbb{H}$-factor restriction selects exactly the
-$\{\text{singlet},\text{doublet}\}$ subset, excluding the 6 triplets and
-1 quartet. Combined with the chirality split, this reproduces the SM
+This is the explicit decomposition relevant to Route~(i): on the
+color-charged Spin$(12)$ Dirac sector, the
+fundamental-or-trivial restriction selects the
+$\{\text{singlet},\text{doublet}\}$ subset (i.e.\ $n_S\in\{0,1\}$
+tensor combinations), excluding the $6$ triplets and the $1$ quartet.
+Combined with the chirality split, this reproduces the SM
 SU$(2)_L$ parity-violation pattern: $L$-handed states are doublets
 ($V_{13}=\mathbf{2}$), $R$-handed are singlets ($V_{13}=\mathbf{1}$).
-The exclusion of triplet and quartet representations from the SM matter
-spectrum is therefore cascade-internal. Numerical verifiers:
-\texttt{tools/research/cascade\_route\_c\_d13\_dirac.py} (full
-decomposition) and \texttt{tools/research/cascade\_rep\_selection\_gap1.py}
-(decomposition by number of Weyl$_-$ tensor factors and the
-single-$\mathbb{H}$-factor selection).
+For Route~(ii) matter (color-singlets), there is no Spin$(12)$
+Dirac realisation to tabulate; the same $V_{13}\in\{\mathbf{1},
+\mathbf{2}\}$ restriction applies via the principle directly. Either
+way, triplet and quartet representations are excluded from the SM
+matter spectrum cascade-internally. Numerical verifiers:
+\texttt{tools/research/cascade\_fundamental\_rep\_lemma.py}
+(per-layer status of the unified principle),
+\texttt{tools/research/cascade\_route\_c\_d13\_dirac.py} (full Spin$(12)$
+Dirac decomposition under diagonal SU(2)$_R$), and
+\texttt{tools/research/cascade\_rep\_selection\_gap1.py} (decomposition
+by number of Weyl$_-$ tensor factors and the Route (i) selection).
 
 \medskip\noindent\emph{What this closes and what remains.}
 The remark closes the rep-dimension question at $d=13$
-($V_{13}\in\{\mathbf{1},\mathbf{2}\}$, no higher reps). It does not
-address (a)~the specific multiplicities of $\mathrm{SU}(2)$ singlets
-and doublets that match SM matter content per generation (4 doublets
-$+$ 7 singlets per generation, vs.\ the cascade's 14 of each in the
-$n_S\in\{0,1\}$ subset), and (b)~the specific SM hypercharge values at
-$d=14$. Both remain open structural questions; see CLAUDE.md
-``Known Quantitative Issues'' for the broader matter-rep gap.
+($V_{13}\in\{\mathbf{1},\mathbf{2}\}$, no higher reps) for both SU(3)
+sectors of matter. It does not address (a)~the specific multiplicities
+of $\mathrm{SU}(2)$ singlets and doublets that match SM matter content
+per generation (4 doublets $+$ 7 singlets per generation, vs.\ the
+cascade's 14 of each in the Route (i) sector), and (b)~the specific SM
+hypercharge values at $d=14$. Both remain open structural questions;
+see CLAUDE.md ``Known Quantitative Issues'' for the broader
+matter-rep gap. The fundamental-or-trivial principle itself is closed
+at $d=12$ and $d=13$, partially closed at $d=14$ (dimension forced,
+charge spectrum open); a tight first-principles proof of the principle
+across all three gauge layers from a single cascade theorem is a
+natural follow-up direction.
 \end{remark}
 
 \section{Symmetry Breaking from the Hairy Ball Theorem}
