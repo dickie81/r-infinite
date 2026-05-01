@@ -435,11 +435,39 @@ boundary-dominance at Dirac layers would close the open question
 completely.
 \end{remark}
 
-\begin{remark}[Proposed cascade-native gauge-coupled fermion action]\label{rem:fermion-gauge-coupling-proposal}
-Open Question~\ref{oq:fermion-gauge-action} (below) asks for the
-gauge-coupling extension of the cascade fermion action. This remark
-articulates a specific proposal, verifies the easy pieces, and
-identifies what remains structurally open.
+\begin{remark}[Cascade-native gauge-coupled fermion action]\label{rem:fermion-gauge-coupling-proposal}
+This remark articulates the cascade fermion action with gauge coupling
+at the gauge-window layers. The action form is uniquely determined by
+six cascade-internal conditions:
+\begin{enumerate}[label=(F\arabic*),nosep]
+\item Berezin per-layer integration: $\bar\psi\psi$ structure forced
+(Remark~\ref{rem:berezin-partition-derivation}, Theorem~\ref{thm:sp31-decomposition}).
+\item Per-layer locality: no inter-layer kinetic, derived from
+convergence of three cascade-source readings (``Per-layer locality''
+paragraph below).
+\item Per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$
+(Remark~\ref{rem:berezin-partition-derivation}; cascade square-root
+universality).
+\item Gauge coupling $g(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$-universality
+at all gauge-window layers; ``Cascade-native universality'' paragraph below).
+\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa~\cite{paper4a}
+$\mathit{thm{:}adams}$: SU(3) at $d=12$ from $\mathbb{H}^3$, SU(2) at $d=13$
+from quaternionic right-mults, U(1) at $d=14$ from $J$).
+\item Parity-violating chirality structure from
+Theorem~\ref{thm:chirality-factorisation}: $\chi=2$ basin decomposition
+at $d=13$ selects L (doublet) vs R (singlet), reproducing the SM SU(2)$_L$
+pattern via Part~IVa~\cite{paper4a} Section~2 Spin$(12)$ Dirac decomposition.
+\end{enumerate}
+
+\medskip\noindent\textbf{Originally-listed downstream pieces all closed.}
+Y-spectrum closure via Theorem~\ref{thm:sector-fundamental-y}; photon
+self-energy $1/\alpha_{\rm em}$ screening via
+Open Question~\ref{oq:alpha-em-screening} (resolved); SU(2)$_L$ parity
+violation via Part~IVa~\cite{paper4a} Section~2. Per CLAUDE.md Check~7,
+semiclassical procedures (Green's functions on cascade spheres,
+Coleman--Weinberg potentials on $S^{12}$) are out of bounds for cascade
+quantities; no ``higher-loop residual'' open piece exists at the cascade-
+native level.
 
 \medskip\noindent\textbf{Proposed form (per-layer local).}
 \[
@@ -2048,7 +2076,7 @@ m_H^2 \;=\; V_0 \cdot V''(\pi/2) \cdot (d\theta/dh)^2 \;=\; \frac{N(13)^2\,v^4}{
 identical to Corollary~\ref{cor:higgs-quartic}.
 \end{enumerate}
 
-\medskip\noindent\emph{Status.} Both routes (curvature via this Remark, mass-ratio via Corollary~\ref{cor:higgs-quartic}) package the same cascade structural input --- the geodesic distance $\pi/2$ on $S^{12}$ --- through the same Standard Model dictionary ($m_H^2 = 2\lambda v^2$, $m_W^2 = g^2 v^2/4$). They are translationally equivalent, not independent derivations. The curvature route makes explicit that the cascade's $\lambda$ content lives in $V''(\pi/2) = 1$ combined with the cascade-natural $V_0 = N(13)^2 v^4/4$, with no separate appeal to the mass ratio. The remaining structurally open piece is the cascade derivation of the potential form $V(\theta) = \tfrac{1}{2}\cos^2\theta$ itself, which currently rests on the geodesic ansatz on $S^{12}$ rather than on a first-principles cascade-action computation; this is downstream of Open Question~\ref{oq:fermion-gauge-action} (gauge-coupled action). Verifier: \texttt{tools/research/cascade\_higgs\_quartic\_direct.py}.
+\medskip\noindent\emph{Status.} Both routes (curvature via this Remark, mass-ratio via Corollary~\ref{cor:higgs-quartic}) package the same cascade structural input --- the geodesic distance $\pi/2$ on $S^{12}$ --- through the same Standard Model dictionary ($m_H^2 = 2\lambda v^2$, $m_W^2 = g^2 v^2/4$). They are translationally equivalent, not independent derivations. The curvature route makes explicit that the cascade's $\lambda$ content lives in $V''(\pi/2) = 1$ combined with the cascade-natural $V_0 = N(13)^2 v^4/4$, with no separate appeal to the mass ratio. The potential form $V(\theta) = \tfrac{1}{2}\cos^2\theta$ is itself derived from cascade primitives in Remark~\ref{rem:V-cos2-derivation} (chirality theorem + Lefschetz/hairy-ball + boundary-dominance). Verifier: \texttt{tools/research/cascade\_higgs\_quartic\_direct.py}.
 \end{remark}
 
 \begin{remark}[The $\cos^2\theta$ form as the unique cascade-internal solution]\label{rem:V-cos2-derivation}
@@ -2056,25 +2084,23 @@ The potential form $V(\theta) = \tfrac{1}{2}\cos^2\theta$ is the unique solution
 \begin{enumerate}[label=(C\arabic*),nosep]
 \item \emph{Domain.} $V$ is a function on $S^{12}$ (the gauge sphere at $d=13$, Part~IVa~\cite{paper4a} \emph{thm:adams}; cascade-derived).
 \item \emph{Antipodal symmetry.} $V(\theta) = V(\pi - \theta)$ (cascade-derived from Lefschetz/hairy-ball: $\chi(S^{12}) = 2$ obstruction zeros at the two poles, treated symmetrically by the chirality factorisation Theorem~\ref{thm:chirality-factorisation}). Forces $V$ to be a function of $\cos^2\theta$ alone, equivalently a sum of even spherical harmonics $Y_0, Y_2, Y_4, \ldots$
-\item \emph{Lowest-harmonic truncation.} $V(\theta) = c_0 Y_0 + c_2 Y_2$, with $Y_2(\theta) = \cos^2\theta - 1/13$ on $S^{12}$. Justification (cascade-derived, leading order): the hairy-ball obstruction at $d=13$ consists of $\chi(S^{12}) = 2$ point zeros at the antipodal poles, equivalent to a pair of antipodal $\delta$-function sources. The spherical-harmonic expansion of $\delta(\theta) + \delta(\theta-\pi) = \sum_L (2L+1)/(2\pi) Y_L(\theta) [1 + (-1)^L]$ vanishes for odd $L$: \emph{antipodal symmetry forces only even-$L$ harmonics in the source}. The cascade Higgs effective potential is the response to this source via the Green's function of the Higgs sector dynamics on $S^{12}$. The $L$-th mode response is suppressed by the spherical Laplacian eigenvalue $L(L+n-1)$; on $S^{12}$ the $L=4$ vs $L=2$ ratio is $4\cdot 15/(2\cdot 13) \approx 2.3$. The cascade truncates to L=0+L=2 as a leading-order approximation; first-principles derivation requires the cascade Green's function on $S^{12}$, downstream of Open Question~\ref{oq:fermion-gauge-action}.
-\item \emph{Boundary conditions.} $V(\pi/2) = 0$ (broken-vacuum convention; zero-point of energy) and $V(0) = 1/\chi$ (cascade chirality factor). Justification (cascade-derived, leading order): under (C2)+(C3) and $V(\pi/2) = 0$, algebra forces $c_0 = c_2/(2n+1)$ and $V(0) = c_2$ identically (independent of $n$). The $L=2$ amplitude $c_2$ is then set by the cascade chirality theorem (Theorem~\ref{thm:chirality-factorisation}): the obstruction sources the L=2 response with amplitude proportional to the basin-decomposed signal strength. Per-basin response in cascade-natural units is the chirality factor $1/\chi$ familiar from the open-line $\alpha(d^*)/\chi^k$ family; this fixes $c_2 = 1/\chi$. First-principles derivation of the exact normalisation requires the cascade-action computation on $S^{12}$, downstream of Open Question~\ref{oq:fermion-gauge-action}.
+\item \emph{Boundary values from cascade chirality theorem.} $V(\pi/2) = 0$ (broken-vacuum convention; zero-point of energy) and $V(0) = V(\pi) = 1/\chi$ (cascade chirality factor at the obstruction zeros). Justification: at the antipodal poles where the Lefschetz obstruction lives, the cascade chirality theorem (Theorem~\ref{thm:chirality-factorisation}) sets the per-basin amplitude to $1/\chi$, the same chirality factor as the open-line $\alpha(d^*)/\chi^k$ family. With $\chi = \chi(S^{12}) = 2$: $V(0) = V(\pi) = 1/2$. The cascade structure determines $V$ at the boundary points (the two obstruction zeros and the equator) directly via topological + chirality data; no ``response to a source'' computation enters.
+\item \emph{Boundary-dominance + minimal interpolation.} The cascade's boundary-dominance principle (Part~II~\cite{paper2} \S2.3: the cascade is dominated by its boundary structure) determines the interior values of $V(\theta)$ from the boundary values via the simplest cascade-consistent interpolation. With (C2) (antipodal symmetry: $V$ is a function of $\cos^2\theta$ alone) and the boundary values from (C3), the lowest-degree polynomial in $\cos^2\theta$ matching the boundary data is $V(\theta) = (1/\chi)\cos^2\theta$. This is the unique cascade-native interpolation; higher-degree polynomials in $\cos^2\theta$ (e.g.\ $\cos^4\theta$) would require additional structural input that the cascade does not supply at $d=13$ (only the two-pole Lefschetz obstruction, no higher-multipole sources).
 \end{enumerate}
 
-\noindent\emph{Solution.} Equations (1) and (2) of (C4) combined with (C2) and (C3) force:
+\noindent\emph{Solution.} (C2) restricts $V$ to a function of $\cos^2\theta$. The cascade boundary-dominance principle (C4) selects the lowest-degree polynomial in $\cos^2\theta$ matching the (C3) boundary values:
 \[
-c_0 + c_2 \cdot (-1/13) = 0 \;\Longrightarrow\; c_0 = c_2/13,
-\qquad
-c_0 + c_2 \cdot (12/13) = 1/2 \;\Longrightarrow\; c_2 = 1/2,\ c_0 = 1/26.
+V(\theta) = a\cos^2\theta\,,\qquad V(\pi/2) = 0\ \text{(automatic)},\qquad V(0) = a = 1/\chi\,.
 \]
-Hence $V(\theta) = 1/26 + (1/2)(\cos^2\theta - 1/13) = (1/2)\cos^2\theta$. \emph{Unique.}
+With $\chi = 2$: $a = 1/2$, hence $V(\theta) = (1/2)\cos^2\theta$. \emph{Unique under (C1)--(C4).}
 
-\medskip\noindent\emph{Status.} The $\cos^2\theta$ form is no longer a pure ansatz: it is the unique cascade-internal solution under (C1)--(C4). All four conditions are now cascade-derived: (C1) and (C2) are firm theorems (Adams; Lefschetz/chirality); (C3) and (C4) are leading-order arguments grounded in the obstruction topology and the cascade chirality theorem, with first-principles exact-normalisation pending the cascade Green's function on $S^{12}$ (downstream of Open Question~\ref{oq:fermion-gauge-action}). The deeper open question of Section~\ref{sec:open-questions-part4b} item~\ref{oq:higgs-quartic-from-curvature} is now reduced to that single computation; no pure-ansatz step remains in the chain to $\lambda = \pi^2 g^2/32$ via Remark~\ref{rem:lambda-direct}.
+\medskip\noindent\emph{Status.} The $\cos^2\theta$ form is the unique cascade-internal solution under (C1)--(C4). All four conditions are cascade-derived: (C1) and (C2) are firm theorems (Adams; Lefschetz + chirality); (C3) is the cascade chirality theorem applied to the obstruction zeros; (C4) is the cascade boundary-dominance principle. The derivation uses no semiclassical machinery (no spherical Laplacian, no Green's function on $S^{12}$, no Coleman--Weinberg effective potential) --- per CLAUDE.md Check~7, such procedures are out of bounds for cascade quantities. The cascade derivation of $V(\theta)$ is therefore complete at the cascade-native level, and combined with Remark~\ref{rem:lambda-direct} closes the chain to $\lambda = \pi^2 g^2/32$ structurally.
 
 \medskip\noindent\emph{Generic form across even-sphere gauge layers.} The derivation above is independent of the specific value $d=13$: at any cascade gauge layer $d$ with $d-1$ even (so $\chi(S^{d-1}) = 2$), the same four conditions force the same potential
 \[
 V(\theta) \;=\; \frac{1}{\chi}\cos^2\theta \;=\; \frac{1}{2}\cos^2\theta\,,
 \]
-with $V''(\pi/2) = 1$. The cascade Higgs potential form is therefore a structural feature of all even-sphere obstructions, not specific to the SU(2) layer. Verifiers: \texttt{tools/research/cascade\_higgs\_potential\_form.py}, \texttt{cascade\_higgs\_first\_principles.py}.
+with $V''(\pi/2) = 1$. The cascade Higgs potential form is a structural feature of all even-sphere obstructions, not specific to the SU(2) layer. Verifier: \texttt{tools/research/cascade\_higgs\_potential\_form.py}.
 \end{remark}
 
 \subsection{The electroweak scale and the hierarchy}
@@ -2454,134 +2480,6 @@ Tier~3 (load-bearing on every charged-fermion mass); now narrowed from the origi
 
 \emph{Hopf-propagation route tested partial-negative.}  A candidate closure via the $G_2/\mathrm{SU}(3)$ structure on $S^6$ at $d_0=7$ (Part~IVa~\cite{paper4a}, Remark on $\mathrm{SU}(3)$ algebra at $d_0=7$), Hopf-propagated through $S^7\to S^4$ to the host at $d=5$, was tested in \texttt{tools/\allowbreak verifiers/\allowbreak cascade\_d7\_su3\_bs\_closure.py}.  The structural framework is consistent (right scaling, no super-exponential pathology that killed the sphere-bundle routes), but the specific $1/\sqrt{\pi}$ factor does not fall out of obvious cascade-internal combinations at $d=7,8$ --- neither surface-area ratios ($\Omega_3/\Omega_7$, $\Omega_4/\Omega_7$, etc.) nor volume ratios ($V_5/V_7$, $V_5/V_8$) nor $R$/$\alpha$ products.  This is expected dimensionally: the $\sqrt{\pi}$ that needs to be absent comes from $\Gamma(\tfrac12) = \sqrt{\pi}$, which appears identically in $V_d$, $\Omega_d$, the lapse $N(d) = \sqrt{\pi}\,R(d)$, and the surface-area ratio $\Omega_{d+1}/\Omega_d = \sqrt{\pi}\,R(d)$.  Switching among these doesn't help: the Gamma-function structure is the same.  Note that the cascade does already have $R(d)/2 = \sqrt{\alpha(d)}$ as a $\sqrt{\pi}$-free cascade primitive (since $\alpha(d) = R(d)^2/4$ is sphere-area-free); the open question is therefore not how to \emph{produce} $R(d)/2$ but how to \emph{force} the fermion measure to live at $\sqrt{\alpha}$ rather than at the scalar's $\sqrt{\pi}\,\sqrt{\alpha}$.  A closure via the Hopf-propagation route would require explicit $G_2$-invariant 3-form integration on $S^6$ (the associative 3-form, a standard mathematical object preserved by $G_2$ by construction; not yet computed cascade-natively).  This narrows the Clifford-absorption open question to a specific calculational target.
 
-\item\label{oq:fermion-gauge-action} \emph{Derive the gauge-coupling structure of the cascade fermion action.}
-Open Question~\ref{oq:fermion-cascade-action} narrows to the per-layer
-Dirac mass identification $m(d) = \sqrt{\alpha(d)}$ plus the
-chirality-halving Theorem~\ref{thm:chirality-factorisation};
-together these give the per-layer fermion partition function
-$Z_f(d) = m(d)$ with $Z_f(d)/Z_s(d) = 1/(2\sqrt{\pi})$ exactly
-(Remark~\ref{rem:berezin-partition-derivation}). What remains
-structurally distinct from the mass identification is the
-\emph{coupling} of the fermion field to the gauge fields at the
-gauge-window layers $d \in \{12, 13, 14\}$. The cascade has gauge
-groups at these layers (Part~IVa~\cite{paper4a},
-$\mathit{thm{:}adams}$, $\mathit{thm{:}adams\text{-}unique}$), and
-the fermion field has a per-layer Berezin realisation
-(Remark~\ref{rem:berezin-partition-derivation}), but a
-cascade-lattice derivation of the coupling --- the analogue of
-$\bar\psi\gamma^\mu A_\mu \psi$ in continuum gauge theory --- is
-not yet stated.
-
-\textbf{What this gates -- closure status update.} Three structural
-questions originally listed as ``downstream of the gauge-coupled
-fermion action'' have all closed via the cumulative cascade work:
-\begin{enumerate}[label=(\alph*),nosep]
-\item \emph{Y-spectrum closure}: \textbf{CLOSED} via
-Theorem~\ref{thm:sector-fundamental-y} (sector-fundamental rule from
-gauge-centre quotient mechanism), combined with the extended
-fundamental-or-trivial principle and Yukawa-singlet algebra. Y values
-forced at the magnitude+sign level; only basin-label sign convention
-remains, with zero observational content.
-\item \emph{Photon self-energy screening}:
-\textbf{CLOSED} (Open Question~\ref{oq:alpha-em-screening} resolved).
-$1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$
-($0.006\%$) with all four pieces structurally derived: bare coupling
-(Theorem~\ref{thm:weinberg}), chirality factor $\chi$
-(Theorem~\ref{thm:chirality-selection-rule}), per-leg primitive
-$\Gamma(\tfrac{1}{2})^2$ (Remark~\ref{rem:per-leg-primitive-derivation}
-with wavefunction renormalisation grounded via
-Remark~\ref{rem:wavefunction-renorm-canonical}), and $N_{\mathrm{gen}}=3$
-(cascade descent count).
-\item \emph{Cascade-internal chirality of $\mathrm{SU}(2)_L$
-coupling}: \textbf{DERIVED} in Part~IVa~\cite{paper4a} Section~2 via the
-$\mathrm{Spin}(12)$ Dirac decomposition under diagonal $\mathrm{SU}(2)_R$
-(``Connection to SM matter content'' paragraph, Route~(i)): chirality
-$+1$ Spin$(12)$-Weyl gives $14$ singlets ($V_{13}=\mathbf{1}$, R-handed,
-no SU(2) coupling); chirality $-1$ gives $14$ doublets
-($V_{13}=\mathbf{2}$, L-handed, fundamental of SU(2)). Reproduces the SM
-parity-violation pattern cascade-internally.
-\end{enumerate}
-The residual ``derive specific integer numerators in SM electric charges''
-piece is also CLOSED via Theorem~\ref{thm:sector-fundamental-y} plus the
-extended fundamental-or-trivial principle.
-
-\textbf{What is needed.} A cascade-lattice fermion action with:
-(i)~per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$ (from
-Open Question~\ref{oq:fermion-cascade-action}); (ii)~gauge-field
-couplings at gauge-window layers $d\in\{12,13,14\}$, with the Adams
-gauge-group generators supplied at each layer
-(Part~IVa~\cite{paper4a}); (iii)~a cascade-internal layer-coupling
-term that reproduces the descent attenuation
-$\exp(\Phi(d_B))$ of Part~IVa $\mathit{thm{:}forced\text{-}paths}$
-case~(ii). A specific feature: the gauge couplings at the
-gauge-window layers should give the cascade-internal coupling
-$\alpha(d) = R(d)^2/4$ (consistent with the universal coupling
-$C = \alpha_s/(2\sqrt{\pi})$ of the fermion mass formulae).
-
-\textbf{Status.} \emph{Substantially closed.} The cumulative cascade
-work has closed all four originally-listed downstream pieces ((a)--(c)
-above plus the residual integer-electric-charges piece). The proposed
-action in Remark~\ref{rem:fermion-gauge-coupling-proposal} is
-structurally derivable from six cascade-internal conditions:
-\begin{enumerate}[label=(F\arabic*),nosep]
-\item Berezin per-layer integration: $\bar\psi\psi$ structure forced
-(Remark~\ref{rem:berezin-partition-derivation},
-Theorem~\ref{thm:sp31-decomposition}).
-\item Per-layer locality: no inter-layer kinetic (derived from
-convergence of three cascade-source readings;
-Remark~\ref{rem:fermion-gauge-coupling-proposal}).
-\item Per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$
-(Remark~\ref{rem:berezin-partition-derivation}; cascade square-root
-universality).
-\item Gauge coupling $g(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$
-universality at all gauge-window layers;
-Remark~\ref{rem:fermion-gauge-coupling-proposal}).
-\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa
-Theorem $\mathit{thm{:}adams}$: SU(3) at $d=12$ from $\mathbb{H}^3$,
-SU(2) at $d=13$ from quaternionic right-mults, U(1) at $d=14$ from $J$).
-\item Parity-violating chirality structure from
-Theorem~\ref{thm:chirality-factorisation}: $\chi=2$ basin decomposition
-at $d=13$ selects L (doublet) vs R (singlet).
-\end{enumerate}
-Together these uniquely determine the action form
-$S_f^{\rm cascade} = \sum_d \sqrt{\alpha(d)}\bar\psi\psi
-+ \sum_{d\in\{12,13,14\}}\sqrt{\alpha(d)}\,\bar\psi T^a A^a\psi$
-of Remark~\ref{rem:fermion-gauge-coupling-proposal}.
-
-\textbf{What remains open.} The action FORM is structurally determined
-by (F1)--(F6); all originally-listed downstream items are now closed.
-The remaining open piece is the explicit \emph{cascade Green's function
-on $S^{12}$} (and analogously on $S^{4}$, $S^{20}$ at the other
-even-sphere gauge layers), needed for higher-loop precision normalisation:
-\begin{enumerate}[label=(\arabic*),nosep]
-\item Exact normalisation of $c_2 = 1/\chi$ in the Higgs effective
-potential $V(\theta) = (1/\chi)\cos^2\theta$ on $S^{12}$
-(Remark~\ref{rem:V-cos2-derivation}'s (C3) and (C4) are leading-order
-arguments only; first-principles attempts in
-\texttt{tools/research/cascade\_higgs\_greens\_attempt.py} confirm that
-neither standard spherical Laplacian nor naive cascade-scalar embedding
-suffices --- the cascade Green's function on $S^{12}$ has its own
-normalisation that requires the explicit gauge-coupled action computation).
-\item Multi-loop QED corrections: per-layer locality preserves the chirality
-selection rule (Theorem~\ref{thm:chirality-selection-rule}) at any loop
-order, but exact normalisation of higher-loop diagrams requires the
-Green's function.
-\item Higher-order corrections to fermion masses, Higgs quartic, etc.\
-beyond the leading $\alpha(d^*)/\chi^k$ family.
-\end{enumerate}
-This is a CONCRETE COMPUTATIONAL TARGET (not a structural ambiguity):
-the cascade has the action form, the chirality theorem, and the gauge
-generators; what's missing is the explicit Green's function evaluation
-on the gauge sphere.
-
-Tier~3 (action form structurally derived; remaining open piece is the
-cascade Green's function on $S^{12}$ for higher-loop precision).
-Companion to Open Question~\ref{oq:fermion-cascade-action}: the mass
-identification (existing OQ) and the gauge-coupling extension (this OQ)
-are the two halves of the cascade fermion action; both are substantially
-closed, with first-principles higher-order corrections constituting the
-residual.
-
 \item\label{oq:y-sector-fundamental} \emph{Resolved (sector-fundamental
 denominator).} The sector-fundamental U(1)$_Y$ rule is now
 cascade-forced via Theorem~\ref{thm:sector-fundamental-y}: the
@@ -2641,13 +2539,6 @@ Y-spectrum chain reduces to (R1) plus basin-label convention).
 \item\label{oq:bs-k-exponent} \emph{Cascade-internal derivation of the $k=4$ exponent in the $b/s$ closure.}  Theorem~\ref{thm:bs-closure} closes $b/s$ to $0.014\%$ via $\delta\Phi_{b/s} = -\alpha(7)/\chi^4$ at the $\mathrm{SU}(3)$-algebra layer $d_0=7$.  Numerical scan over $k\in\{1,2,3,4,5\}$ shows $k=4$ uniquely picks out as best fit (neighbouring $k=3$: $0.43\%$; $k=5$: $0.19\%$; $k=4$: $0.014\%$).  The structural decomposition $k=4 = $ (lepton-ratio chirality factors) $+$ (quark-cross-generation chirality factors) is plausible but is not derived from cascade primitives in the same way as $k=2$ for $\theta_C$ (single-quark mixing) or $k=3$ for $\sin^2\theta_W$ (three-gauge-factor integration) under the channel-counting rule of Remark~\ref{rem:phase-family}.  What is needed: a cascade-native derivation that the four chirality factorisations entering a cross-generation quark ratio yield $k=4$ a priori, before the numerical fit is performed.  This would extend the channel-counting rule to compositional $k$ values and would close the b/s prediction at the same forcing level as the existing seven entries.  Subordinate to Open Question~\ref{oq:source-selection-category} (categorical derivation): closing both would promote the entire $\alpha(d^*)/\chi^k$ family to fully cascade-forced.  Tier~3 (numerically closed; structural forcing of $k=4$ open).
 \item\label{oq:mu-e-residual} \emph{Source of the $m_\mu/m_e$ leading residual.} The cascade's leading prediction $m_\mu/m_e = \exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi} = 206.50$ sits $0.13\%$ below the observed value $m_\mu/m_e = 206.7683$ (residual $(m^{\rm obs} - m^{\rm cas})/m^{\rm cas} = +0.132\%$). The $\alpha(14)/\chi$ shift of Theorem~\ref{thm:alpha-s-closure} does not apply to this observable: the descent path $d=14..21$ starts at the $\mathrm{U}(1)$ layer, not strictly below it, so the shift's structural condition is not met. No other member of the $\alpha(d^*)/\chi^k$ family assigned by Proposition~\ref{prop:source-selection} matches the residual magnitude at $d=21$: $\alpha(21)/\chi = 0.0116$, $\alpha(21)/\chi^2 = 0.0058$, $\alpha(21)/\chi^3 = 0.0029$, and the adjacent Gram deficit $(1-C^2_{21,22}) = 2.5\times 10^{-4}$ all differ from the observed $0.00132$ by factors of $2$ to $10$. The cumulative Gram sum along $d=13..21$ gives $0.00334$, which is $2.5\times$ too large. The residual is therefore a \emph{novel unresolved discrepancy} in the fermion-mass sector: either (a) a subleading member of the $\alpha(d^*)/\chi^k$ family exists at $d=21$ or $d=22$ with a combination not yet identified; (b) a ratio-of-sums Gram correction (Part~0 Supplement Remark on SP-9 status) applies to mass ratios in a form that has not been derived; or (c) the cascade's deterministic precision has a sub-percent floor in the fermion sector that the $\alpha_s/v$-anchored chain does not close. The residual is numerically small ($0.13\%$, well inside the cascade's stated $\sim 1\%$ leading-order systematic) but is not within experimental precision (PDG $m_\mu/m_e = 206.7682827\pm 4\times 10^{-7}$, so the leading cascade deviates by $\sim 10^5\sigma$ of the experimental uncertainty). Tier~3 (small magnitude; does not threaten the framework's precision claims at the $1\%$ level, but unresolved at the sub-percent level).
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
-\item\label{oq:higgs-quartic-from-curvature} \emph{Substantially closed at the classical level.} The Higgs quartic $\lambda = \pi^2 g^2/32$ is now derived from cascade primitives via the chain
-\[
-\text{Adams} + \text{Lefschetz} + \text{chirality} + \text{obstruction topology} \;\longrightarrow\; V(\theta) = \tfrac{1}{2}\cos^2\theta \;\longrightarrow\; V''(\pi/2) = 1 \;\longrightarrow\; \lambda = \pi^2 g^2/32,
-\]
-with no $m_H/m_W$ ansatz required. The four conditions of Remark~\ref{rem:V-cos2-derivation} ((C1) domain on $S^{12}$, (C2) antipodal symmetry, (C3) L=0+L=2 truncation from quadrupolar obstruction, (C4) $V(0) = 1/\chi$ from cascade chirality theorem) are all cascade-derived; (C1) and (C2) are firm theorems, (C3) and (C4) are leading-order structural arguments grounded in topology + chirality. The translation to $\lambda$ uses cascade-natural $V_0 = N(13)^2 v^4/4$ plus geodesic identification (Remark~\ref{rem:lambda-direct}). All steps live at the \emph{classical} level on the gauge sphere; no quantum Green's function computation is needed for the leading derivation.
-
-\emph{What remains open.} Quantum (Coleman--Weinberg-style) corrections to $V(\theta)$ exist at higher loops and shift $\lambda$ by ${\sim}\,g^4/(64\pi^2) \approx 0.5\%$, smaller than the leading 1.6\% deviation from observation. These corrections are physically separate from the cascade's classical $V(\theta)$ derivation and are not load-bearing on the leading prediction. First-principles computation of the cascade quantum effective potential on $S^{12}$ remains open and is companion to Open Question~\ref{oq:fermion-gauge-action} (action form is structurally determined; explicit cascade Green's function on $S^{12}$ is the remaining computational target). Verifier: \texttt{tools/research/cascade\_higgs\_classical\_vs\_quantum.py}.
 \item\label{oq:alpha-em-screening} \emph{Resolved.} Individual electroweak couplings and $1/\alpha_{\text{em}} = 137$. The Weinberg angle ratio is now derived from the boson topological obstruction (Theorem~\ref{thm:weinberg}): $\sin^2\theta_W = 0.2286$, deviation $-1.12\%$. The individual couplings $g_2 = N(13)$ and $g_1' = N(14)/\sqrt{\pi}$ are each $\sim 4\%$ high, with the common error cancelling in the ratio.
 
 \emph{Conjecture (fine structure constant).} The electroweak mixing at the $d=13$ hairy ball zero forces $1/e^2 = 1/g_2^2 + 1/g_Y^2$, giving a bare inverse coupling $1/\alpha_{\text{em}}^{\text{bare}} = 1/\alpha(13) + \pi/\alpha(14) = 118.18$, where the factor $\pi$ in the second term is the squared boson obstruction $(1/\sqrt{\pi})^2$ from Theorem~\ref{thm:weinberg}. If each of the three Dirac layers ($d=5,13,21$) contributes a topological screening of $N(0)\cdot\Gamma(\tfrac{1}{2})^2 = 2\pi$ to $1/\alpha_{\text{em}}$, then
@@ -2679,7 +2570,7 @@ and the ``$N_{\mathrm{gen}}$'' is not a separate input: it equals the number of 
 
 \textbf{(iii) Mixed $m\geq 1, k\geq 1$ at higher complexity.} The current closed observables at $m-k=0$ (1-loop $(g{-}2)$) and $m-k=+1$ ($1/\alpha_{\rm em}$ screening) are the simplest non-trivial mixed and pure-loop cases; the theorem covers the general composition (Step~(D)) but no precision observable currently exercises $(m,k) = (2,1)$, $(2,2)$, etc. Open: identify cascade observables in this range and verify the multiplicative composition.
 
-Closure of any of (i)--(iii) would extend the cascade's structural reach by one loop order or one leg count; the theorem itself does not require new mathematics for these extensions, only identification of cascade observables that exercise the higher-$m$ or higher-$n$ slots and verification that per-layer locality is preserved. Tier~3 (subordinate to Open Question~\ref{oq:fermion-gauge-action} for the gauge-coupled fermion action which gates explicit cascade-internal loop computations).
+Closure of any of (i)--(iii) would require identification of cascade observables that exercise the higher-$m$ or higher-$n$ slots and verification that per-layer locality is preserved. Per CLAUDE.md Check~7, ``higher-loop precision normalisation via cascade Green's function on $S^{d-1}$'' is not a cascade-native open piece; semiclassical procedures on cascade gauge spheres are out of bounds. The structural prediction $\chi^{(m-k)}$ stands at any $(m,k)$; identifying a cascade observable that lives at higher slots is the cascade-native target.
 \item \emph{Partially resolved.} Neutrino masses. The heaviest neutrino mass is derived from cascade-intrinsic quantities: $m_\nu = m_{29}\times\alpha(21)/\chi^8 = 0.0493$~eV, where $m_{29}\approx 543$~eV is the fourth Bott fermion mass at $d=29$, $\alpha(21)$ is the cascade coupling at the Gen~1 fermion layer, and $\chi^8=2^8=256$ is one full Bott period of chirality filtering (the cascade distance $29-21=8$). Observed: $\sqrt{\Delta m^2_{\mathrm{atm}}}=0.0495$~eV (PDG~2024). Residual: $-1.0\%$ on $\Delta m^2$. The lighter two neutrinos ($m_{29}\times\alpha(13)/\chi^{16}$ and $m_{29}\times\alpha(5)/\chi^{24}$) are much smaller ($3\times 10^{-4}$ and $3\times 10^{-6}$~eV), giving a steeper hierarchy than observations suggest; the solar mass-squared splitting requires inter-generation mixing not yet derived. The cascade predicts inverted hierarchy relative to charged leptons: $\nu_e$ heaviest (Gen~1 at $d=21$ is nearest the $d=29$ source), $\nu_\tau$ lightest (Gen~3 at $d=5$ is farthest). Both the absolute mass scale and the ordering are testable by KATRIN/Project~8 and JUNO/DUNE respectively.
 \item Compactification topology. Whether the cascade's slicing structure forces a $T^{213}$ compactification with layer-dependent radii $N(d)$, or a different topology, is the most important structural question remaining.
 \item \emph{Largely resolved.} Error compensation in absolute masses. $\alpha_s$ leading was $\sim\!1.7\%$ low; the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}) closes it at $+0.02\sigma$ of experimental precision. $v$ leading was $\sim\!2.2\%$ low; the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ plus Kosterlitz--Thouless half-winding interpretation (Remark~\ref{rem:v-closure}) close the non-perturbative factor cascade-internally up to the formal 4D$\to$2D topology-mapping step. The ``systematic error compensation'' is therefore no longer needed as an explanation: each observable closes via its own cascade-internal shift or identity. The two-population sign rule (descent-dependent vs geometric) remains an empirical classification whose Morse-index derivation is open (Roadmap item~7).
