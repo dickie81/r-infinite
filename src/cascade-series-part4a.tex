@@ -1091,12 +1091,17 @@ by number of Weyl$_-$ tensor factors and the Route (i) selection).
 \medskip\noindent\emph{What this closes and what remains.}
 The remark closes the rep-dimension question at $d=13$
 ($V_{13}\in\{\mathbf{1},\mathbf{2}\}$, no higher reps) for both SU(3)
-sectors of matter. It does not address (a)~the specific multiplicities
-of $\mathrm{SU}(2)$ singlets and doublets that match SM matter content
-per generation (4 doublets $+$ 7 singlets per generation, vs.\ the
-cascade's 14 of each in the Route (i) sector), and (b)~the specific SM
-hypercharge values at $d=14$. Both remain open structural questions;
-see CLAUDE.md ``Known Quantitative Issues'' for the broader
+sectors of matter. The Spin$(12)$ Dirac decomposition (8 singlets
+$+$ 12 doublets in Route~(i), $n_S\in\{0,1\}$) is a STRUCTURAL
+CONSTRAINT on $V_{13}$ for color-charged matter, not a count of
+matter content; the actual matter count per generation is
+Remark~\ref{rem:path-tensor}'s $15$ Weyl per generation
+($Q_L: 6 + u_L^c: 3 + d_L^c: 3 + L_L: 2 + e_L^c: 1$), matching
+SM exactly. The remark does not address the specific SM
+hypercharge values at $d=14$ (see
+Part~IVb~\cite{paperIVb}~$\mathit{oq{:}y\text{-}sector\text{-}fundamental}$
+for the open structural extension); see CLAUDE.md ``Known
+Quantitative Issues'' for the broader
 matter-rep gap. The fundamental-or-trivial principle itself is closed
 at $d=12$ and $d=13$, partially closed at $d=14$ (dimension forced,
 charge spectrum open); a tight first-principles proof of the principle
@@ -1635,16 +1640,20 @@ cascade looks like from any cascade-consistent observer's frame,
 modulo a labeling convention that has no observational content.
 
 \medskip\noindent\textbf{Status of the remaining freedoms.}
-The cascade is not yet complete. Three structural-alternative
+The cascade is not yet complete. Two structural-alternative
 freedoms remain (cascade-internal, not observer-side):
 \begin{enumerate}[label=(\alph*),nosep]
-\item Multiplicity matching at $d=13$ (cascade Route~(i): 14
-doublets $+$ 14 singlets vs SM's 12 + 21 across 3 generations);
 \item Sector-fundamental U(1)$_Y$ uniqueness theorem (Part~IVb's
 $\mathit{oq{:}y\text{-}sector\text{-}fundamental}$);
 \item Cosmological residuals ($H_0$, $T_{\rm CMB}$, $\Omega_b$
 weakness).
 \end{enumerate}
+(The previously-listed ``multiplicity matching at $d=13$'' was
+identified as a category error: the Spin$(12)$ Dirac decomposition
+constrains $V_{13}$ for color-charged matter, not the count of
+matter content, which is per Remark~\ref{rem:path-tensor}'s 15 Weyl
+per generation matching SM exactly.  Verifier:
+\texttt{tools/research/cascade\_d13\_multiplicity\_matching.py}.)
 These are derivation-side gaps in the cascade structure, not
 observer-side selection choices. Closing them would tighten the
 cascade further; failing to close them would identify structural
