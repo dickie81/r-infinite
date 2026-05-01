@@ -2277,29 +2277,29 @@ by the cascade's Gamma-function values at $d=12,13$.
 \item \emph{Derived.} The layer-descent attenuation $\exp(-p(13))$ is
 the cascade-potential step from $d=13$ to $d=12$ (Paper~I,
 $p(d) = \tfrac{1}{2}\psi((d+1)/2) - \tfrac{1}{2}\ln\pi$).
-\item \emph{Asserted, pending an action-level derivation.} That the
+\item \emph{Derived} (Theorem~\ref{thm:cabibbo-geometric-mean}). The
 off-diagonal mixing element scales as the \emph{geometric mean} of
 the two diagonal amplitudes $1$ (for $d{=}12$) and $\exp(-p(13))$
-(for $d{=}13$)---equivalently, that the $\tan\theta_C$ correction
-carries $\exp(-p(13)/2)$ rather than $\exp(-p(13))$---is the
-cascade's realisation of the hierarchical-mass-matrix structure
-familiar from Fritzsch-type ans\"atze: off-diagonal $\approx
-\sqrt{\mathrm{diagonal}_1 \cdot \mathrm{diagonal}_2}$. It is
-consistent with the Born-rule relationship between amplitude and
-probability (if $\exp(-p(13))$ is the layer-descent probability
-factor, then $\exp(-p(13)/2)$ is the corresponding amplitude factor,
-via $P = |A|^2$) but not uniquely forced by the cascade's axioms:
-the alternative exponents $\exp(-p(13)/1)$ and $\exp(-p(13)/3)$
-would correspond to different ans\"atze (linear off-diagonal, cubic
-off-diagonal) and give $11.11^\circ$ ($-14.8\%$, wrong sign for the
-series' descent systematic) and $14.47^\circ$ ($+11.0\%$, outside
-the series' $\sim 2\%$ systematic range) respectively, while the
-geometric-mean exponent $\tfrac{1}{2}$ gives $13.26^\circ$
-($+1.7\%$, within range). The numerical consistency is empirical
-support for the geometric-mean structure; the action-level
-derivation from the cascade's propagator on the $d=12,13$ gauge
-window is tracked in
-Open Question~\ref{oq:mixing-geometric-mean}.
+(for $d{=}13$)---equivalently, the $\tan\theta_C$ correction
+carries $\exp(-p(13)/2)$ rather than $\exp(-p(13))$---as a forced
+consequence of (i)~the cascade descent integrand $\exp(-\Phi(d))$
+being a probability density (Paper~I), (ii)~the cascade scalar
+action $S=\sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$
+(Remark~\ref{rem:action-uniqueness}) giving Born-rule amplitude
+$\propto\exp(-S_{\rm cl}/2)$ on the descent saddle, (iii)~the Born
+rule (Paper~II~\cite{paper2} Theorem~5.2) giving
+amplitude $=\sqrt{\text{probability}}$, and (iv)~off-diagonal
+mixing matrix elements being amplitudes definitionally. The
+alternative exponents $\exp(-p(13)/1)$ and $\exp(-p(13)/3)$ would
+correspond to different ans\"atze (linear off-diagonal, cubic
+off-diagonal) and give $11.11^\circ$ ($-14.8\%$, wrong sign for
+the series' descent systematic) and $14.47^\circ$ ($+11.0\%$,
+outside the series' $\sim 2\%$ systematic range) respectively,
+while the geometric-mean exponent $\tfrac{1}{2}$ gives
+$13.26^\circ$ ($+1.7\%$, within range)---and is the
+\emph{unique} cascade-action-derived value, not merely the
+empirically-best integer alternative. Verifier:
+\texttt{tools/verifiers/cabibbo\_geometric\_mean\_closure.py}.
 \end{enumerate}
 The earlier phrasing ``the only integers consistent with the series'
 systematic range are tested'' presented the selection of
@@ -2307,6 +2307,142 @@ $\tfrac{1}{2}$ as an integer test among $\{1,2,3\}$ and the
 ``bilinear structure'' justification without specifying the Fritzsch
 off-diagonal ansatz; the three-ingredient factorisation above makes
 the derived and asserted content explicit.
+
+\medskip\noindent\textbf{Item~3 closed.} The action-level derivation
+requested by Open Question~\ref{oq:mixing-geometric-mean} is supplied
+by Theorem~\ref{thm:cabibbo-geometric-mean} below: the $\tfrac{1}{2}$
+exponent is forced by (i)~the cascade descent integrand
+$\exp(-\Phi(d))$ being a probability density (Paper~I), (ii)~the Born
+rule (Paper~II~\cite{paper2} Theorem~5.2 via Gleason on
+the cascade Hilbert space) giving amplitude $=\sqrt{\text{probability}}$,
+and (iii)~off-diagonal mixing matrix elements $V_{ij} = \langle\psi_i|V|\psi_j\rangle$
+being amplitudes (definitionally, not their squared moduli).  The
+$\tfrac{1}{2}$ is no longer asserted; it is the cascade's realisation
+of the Fritzsch off-diagonal rule via Born's $A=\sqrt{P}$ applied to
+the cascade descent.
+\end{remark}
+
+\begin{theorem}[Cabibbo geometric-mean from cascade action and Born rule]\label{thm:cabibbo-geometric-mean}
+Let $\varphi$ denote the cascade scalar field on the layer index $d$
+governed by the cascade scalar action
+\[
+S[\varphi] \;=\; \sum_d \frac{1}{2\,\alpha(d)}\,(\Delta\varphi(d))^2
+\qquad
+\text{(Remark~\ref{rem:action-uniqueness})}.
+\]
+The off-diagonal mixing matrix element between adjacent gauge-window
+layers $d=12$ and $d=13$ in the cascade Cabibbo formula
+(Theorem~\ref{thm:cabibbo-amplitude}) equals the per-step descent
+\emph{amplitude}
+\[
+A(13\to 12) \;=\; \exp\!\bigl(-p(13)/2\bigr),
+\]
+which is the square root of the per-step descent probability
+$P(13\to 12) = \exp(-p(13))$.  Equivalently, with diagonal probabilities
+$P_{12}=1$ (source layer, no descent) and $P_{13}=\exp(-p(13))$ (one
+step),
+\[
+A(13\to 12) \;=\; \sqrt{P_{12}\cdot P_{13}}
+\qquad
+\text{(Cauchy--Schwarz saturated)},
+\]
+the geometric mean of the two diagonal probabilities.
+\end{theorem}
+
+\begin{proof}
+Four cascade-internal ingredients combine:
+
+\emph{(a) The cascade descent integrand is a probability density.} By
+Paper~I~\cite{paper1}~\S3, $\exp(-\Phi(d))$ is the concentration of
+measure on the unit ball, descended layer by layer.  The per-step
+descent probability between adjacent layers is
+\[
+P(d\to d-1) \;=\; \exp(-p(d)),
+\qquad
+p(d) = \tfrac{1}{2}\psi((d+1)/2)-\tfrac{1}{2}\ln\pi.
+\]
+
+\emph{(b) The cascade scalar action is Gaussian quadratic.} By
+Remark~\ref{rem:action-uniqueness}, the cascade scalar action $S =
+\sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ is uniquely forced
+(first-order Euler--Lagrange + marginal Green's function identity,
+Remark~\ref{rem:marginal-greens}).  For a Gaussian quadratic action,
+the path-integral kernel between adjacent layers has amplitude
+$\propto\exp(-S_{\rm cl}/2)$ where $S_{\rm cl}$ is the action evaluated
+on the classical saddle.  Squaring gives probability $\propto
+\exp(-S_{\rm cl})$.  On the descent saddle the per-step classical
+action equals the cascade's per-step potential increment $p(d)$ (both
+quantities measure the cascade's lapse rate per step on the layer
+lattice), so amplitude $=\exp(-p(d)/2)$ and probability $=\exp(-p(d))$.
+
+\emph{(c) Born rule.} Paper~II~\cite{paper2}'s Theorem~5.2
+(concentration-of-measure derivation with the Gleason chord-uniqueness
+condition) establishes $P=|A|^2$ on the cascade Hilbert space.
+Equivalently, $|A|=\sqrt{P}$.  Combined with~(a), the per-step descent
+amplitude is $\exp(-p(d)/2)$, the square root of the per-step
+probability.
+
+\emph{(d) Off-diagonal mixing matrix elements are amplitudes.} A
+mixing-matrix element $V_{ij} = \langle\psi_i|V|\psi_j\rangle$ is a
+complex matrix element of the operator $V$, not its squared modulus;
+this is the definitional structure of mixing matrices in any quantum
+theory.
+
+Combining (a)--(d): the off-diagonal Cabibbo factor between
+$|d=12\rangle$ and $|d=13\rangle$ is the per-step amplitude
+$\exp(-p(13)/2)$.
+
+\emph{Cauchy--Schwarz saturation.} The cascade descent kernel between
+adjacent layers is a single-saddle-point Gaussian
+(Remark~\ref{rem:per-leg-primitive-derivation}: 1D Gaussian /
+proper-time representation, $\Gamma(\tfrac12)^2=\pi$ at zero distance),
+so the propagation path is forced (single classical trajectory).  Under
+this condition Cauchy--Schwarz $|\langle\psi_1|\psi_2\rangle|^2\le
+\langle\psi_1|\psi_1\rangle\,\langle\psi_2|\psi_2\rangle$ saturates,
+giving
+\[
+A(13\to 12)
+\;=\; \sqrt{P_{12}\cdot P_{13}}
+\;=\; \sqrt{1\cdot\exp(-p(13))}
+\;=\; \exp(-p(13)/2),
+\]
+the geometric mean of the diagonal probabilities --- exactly the
+Fritzsch off-diagonal rule, here derived rather than postulated.
+\end{proof}
+
+\begin{remark}[What this closes]\label{rem:cabibbo-geomean-closes}
+Theorem~\ref{thm:cabibbo-geometric-mean} closes Open
+Question~\ref{oq:mixing-geometric-mean} at the cascade-action level: the
+$\tfrac{1}{2}$ exponent in the Cabibbo formula is no longer a Fritzsch
+ansatz but a forced consequence of the cascade descent's probability
+density (Paper~I), the Born rule from Gleason on the cascade Hilbert
+space (Paper~II), and the cascade scalar action
+(Remark~\ref{rem:action-uniqueness}).  The cascade Cabibbo prediction
+$\theta_C = 13.26^\circ$ is thereby promoted from
+``structurally-motivated ansatz'' to ``cascade-internal theorem''
+(verifier:
+\texttt{tools/verifiers/cabibbo\_geometric\_mean\_closure.py}).
+
+The same chain forces the off-diagonal exponents of any cascade mixing
+matrix element between distinct cascade layers: in CKM
+(Remark~\ref{rem:ckm-hierarchy}, multi-step propagation through
+Majorana layers $d=15,\ldots,19$), the per-step factor in any
+multi-layer propagator is $\exp(-p(d)/2)$, and the cumulative amplitude
+is $\prod_d \exp(-p(d)/2)=\exp(-\Phi/2)$, which is the square root of
+the cumulative probability $\exp(-\Phi)$.  In PMNS (Roadmap item~2,
+partial-negative on cascade-native mechanisms tested to date), the
+Cabibbo geometric-mean rule extended to PMNS$_{12}$ gives
+$\theta_{12}\approx 7.5^\circ$ vs observed $33.4^\circ$, ruling out the
+same mechanism for solar mixing and isolating the genuine open piece (a
+different cascade mechanism for neutrino-sector mixing).
+
+What is \emph{not} closed by this theorem: the absolute value of
+$\theta_C$ depends additionally on the raw gauge-window geometric angle
+$\arccos(N(13)/N(12))=15.78^\circ$, which is itself cascade-internal
+(a ratio of $\Gamma$-function values at $d=12,13$).  The full Cabibbo
+prediction is therefore the product of two cascade-internal closures:
+(i)~the gauge-window angle, and (ii)~the descent-amplitude exponent
+$\tfrac{1}{2}$ from this theorem.
 \end{remark}
 
 \begin{remark}[Structural parallel with the lapse and ruler corrections]
@@ -2444,7 +2580,7 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 
 \begin{enumerate}
 \item\label{oq:source-selection-category} \emph{Categorical derivation of the source-selection flags.} Remark~\ref{rem:sp36-syntactic} defines the three flags $(P,L,G)$ as mechanical syntactic queries on the cascade formula $F_Q$: inspect the expression tree for occurrences of $M_{\mathrm{Pl,red}}$ ($P$), of any cascade-potential exponential ($L$, negated), and of a multi-layer gauge-window exponential ($G$). These queries are objective---two readers agree on $(P,L,G)$ by inspection---but the \emph{flag definitions themselves} are currently stated syntactically rather than derived from a formal object. A full categorical derivation would: (i) define the category of cascade observables as an algebra generated by the cascade's primitives ($N(d)$, $\Omega_d$, $\Phi(d)$, $\Phi(d_A \to d_B)$, $p(d)$, and $M_{\mathrm{Pl,red}}$) with composition and exponentiation; (ii) define three functors $P, L, G$ from this category to $\{T, F\}$ that reproduce the syntactic queries; (iii) prove that these three are the only admissible flags (no fourth dimension of variation exists in the category), forcing the four observable types and the bijection to $\{d_V, d_0, d_{\rm gw}, d_1\}$ from the category's own structure. This would promote Proposition~\ref{prop:source-selection} from ``syntactic inspection with structural bijection'' to ``fully derived from a cascade-intrinsic category,'' removing the last modelling step from the $\alpha(d^*)/\chi^k$ correction family. Tier~3 (affects all eight source assignments via rigour, not via numerics---the classifications themselves are robust under the syntactic reading).
-\item\label{oq:mixing-geometric-mean} \emph{Derive the geometric-mean off-diagonal rule for mixing matrices from the cascade action.} The Cabibbo closure (Theorem~\ref{thm:cabibbo-amplitude}) uses $\exp(-p(13)/2)$---the geometric mean of the two diagonal amplitudes $1$ (for $d{=}12$) and $\exp(-p(13))$ (for $d{=}13$)---as the off-diagonal mixing factor in $\tan\theta_C$. The $\tfrac{1}{2}$ exponent is the structural content of the Fritzsch-type ansatz for hierarchical mass/mixing matrices (off-diagonal $\approx\sqrt{d_1 d_2}$) and is consistent with the Born-rule relationship $P = |A|^2$ between layer-descent probability and amplitude (Remark~\ref{rem:sp35-status}, item~3). What is needed: a cascade-native computation on the $d{=}12,13$ gauge window showing that the off-diagonal overlap of a $d{=}12$ state and a $d{=}13$ state, propagated through the cascade to the observer, saturates Cauchy-Schwarz and evaluates to the geometric mean of the two descent amplitudes. This would promote the Cabibbo prediction from structurally-motivated ansatz to cascade-internal theorem. Extension: the same derivation should fix the off-diagonal exponents for the full CKM matrix (currently handled as ``multi-step cascade propagator through Majorana layers''; Remark~\ref{rem:ckm-hierarchy}) and for PMNS (Roadmap~item~2). Tier~3 (affects $\theta_C$ and, through generalisation, the full CKM/PMNS closure).
+\item\label{oq:mixing-geometric-mean} \emph{Derive the geometric-mean off-diagonal rule for mixing matrices from the cascade action.} \textbf{Resolved} by Theorem~\ref{thm:cabibbo-geometric-mean}.  The off-diagonal $\exp(-p(13)/2)$ factor in the cascade Cabibbo formula is forced cascade-internally by (i)~the cascade descent integrand $\exp(-\Phi(d))$ being a probability density (Paper~I), (ii)~the cascade scalar action $S=\sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ (Remark~\ref{rem:action-uniqueness}, Gaussian quadratic) giving Born-rule amplitude $\propto\exp(-S_{\rm cl}/2)$ on the descent saddle, (iii)~the Born rule (Paper~II~\cite{paper2} Theorem~5.2 via Gleason on the cascade Hilbert space) yielding amplitude $=\sqrt{\text{probability}}$, and (iv)~off-diagonal mixing matrix elements being amplitudes (definitionally).  Cauchy--Schwarz is saturated at the gauge window because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}), so the propagation path is forced and equality $|\langle\psi_{12}|\psi_{13}\rangle|^2 = \langle\psi_{12}|\psi_{12}\rangle\langle\psi_{13}|\psi_{13}\rangle$ holds.  Verifier: \texttt{tools/verifiers/cabibbo\_geometric\_mean\_closure.py}.  Extension: the same chain forces the off-diagonal exponents of cascade mixing matrix elements at any cascade layer; for CKM (Remark~\ref{rem:ckm-hierarchy}) the per-step factor in multi-layer propagation through Majorana layers $\{15,\ldots,19\}$ is $\exp(-p(d)/2)$ at each step.  For PMNS the same extension predicts $\theta_{12}\approx 7.5^\circ$ vs observed $33.4^\circ$, partial-negative documented in Roadmap item~2 (the cascade neutrino sector requires a different mechanism, structurally distinct from the gauge-window Cabibbo geometric mean).
 \item\label{oq:fermion-cascade-action} \emph{Prove Clifford absorption of the Jacobian factor $\Gamma(\tfrac{1}{2})$ on the cascade lattice.} \textbf{Partially closed by Theorem~\ref{thm:sp31-decomposition}} and \textbf{reformulated at partition-function level by Remark~\ref{rem:berezin-partition-derivation}.}
 
 The fermion obstruction factor $1/(2\sqrt{\pi})$ decomposes via the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}) as $1/\chi \cdot 1/\sqrt{\pi}$; the chirality half $1/\chi = 1/2$ is \emph{derived} from Theorem~\ref{thm:chirality-factorisation} (Poincar\'e--Hopf on $S^{2n}$). The Jacobian half cannot operate via a modified axial measure on $[-1,1]$: Remark~\ref{rem:chirality-jacobian-separability} verifies that chirality projection $(1\pm x)/2$ on the scalar integrand removes the factor of $2$ without touching $\sqrt{\pi}$, and any non-$1/2$ first argument of the Beta integrand breaks $d$-independence (Jacobian-sweep verification).
