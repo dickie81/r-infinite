@@ -15,10 +15,34 @@ are derived from electroweak mixing at d=13's hairy-ball zero
 per generation is identified by target-matching, not yet derived
 from the cascade action's photon self-energy.
 
-This script articulates and verifies a candidate cascade-internal
-derivation: the per-Dirac-layer photon self-energy contribution to
-1/alpha_em is the CLOSED-LOOP DUAL of Part IVb Theorem 2.1's
-open-line fermion obstruction factor.
+NOT A ONE-LOOP INTEGRAL: PER-LAYER LOCALITY
+============================================
+The cascade fermion is per-layer local (Part IVb
+rem:fermion-gauge-coupling-proposal "Per-layer locality (derivation)";
+cascade_fermion_gauge_action.py Step 4.5).  Three pieces of cascade
+source converge: (i) multi-layer fermion contributions are products
+of per-layer Berezin factors (rem:berezin-partition-derivation);
+(ii) oq:fermion-cascade-action's austerity reframing commits "the
+cascade fermion sector lives in the cascade lattice (1D in d), with
+sphere geometry as per-layer realisation but not the source of
+dynamics"; (iii) Part IVa thm:forced-paths case (ii) gives gauge-
+anchored attenuation from the scalar Phi alone, with fermion
+contribution purely per-layer Berezin.
+
+Consequently, the photon self-energy at d=14 from a fermion at d=5
+(Gen 3) is NOT a continuous one-loop integral with the fermion
+propagating between layers.  It cannot be -- per-layer locality
+forbids inter-layer fermion propagation.
+
+The cascade's analog is DISCRETE AND TOPOLOGICAL: each Dirac layer
+contributes a discrete topological invariant to 1/alpha_em, computed
+from cascade primitives.  There is no loop integral to do; what's
+needed is the structural derivation rule that identifies this
+invariant.
+
+This script articulates that rule: the per-Dirac-layer photon
+self-energy contribution to 1/alpha_em is the CLOSED-LOOP DUAL of
+Part IVb Theorem 2.1's open-line fermion obstruction factor.
 
 THE STRUCTURAL DUALITY
 ======================
@@ -85,15 +109,36 @@ WHAT THIS SCRIPT DOES
 
 WHAT THIS SCRIPT DOES NOT DO
 ============================
-  - Derive the duality rule from a one-loop calculation on the
-    cascade lattice from first principles.  The script identifies
-    the structural form and shows it is consistent with the cascade's
-    existing primitives, but the formal one-loop derivation requires
-    the full gauge-coupled fermion action of
-    rem:fermion-gauge-coupling-proposal (open at oq:fermion-gauge-action).
-  - Close oq:alpha-em-screening unconditionally.  The duality rule
-    is structurally suggestive but is not yet a theorem on the
-    cascade lattice.
+  - Promote the closed-loop duality rule to a cascade theorem.  The
+    script articulates the structural form and shows three readings
+    (R1, R2, R3) converge on 2pi numerically and follow from cascade
+    primitives.  What remains is to STATE THE THEOREM: the closed-
+    loop analog of Part IVb thm:chirality-factorisation (open-line
+    rule G_Q = G/chi^k).  Concrete form:
+
+      Closed-loop chirality-factorisation theorem (CONJECTURE):
+      For a cascade observable Q built from a closed loop with
+      n propagator legs at a Dirac layer, the per-layer topological
+      invariant contributing to Q is
+
+        (open-line obstruction)^n / chi
+        = (2 sqrt(pi))^n / chi
+        = N(0)^{n-1} * Gamma(1/2)^n
+
+      The factor (1/chi) is one chirality basin selected on the
+      loop closure (because the loop's chirality is fixed by
+      topology, not externally); the factor (2 sqrt(pi))^n is the
+      open-line obstruction raised to the number of propagator
+      legs in the loop.
+
+      For n=2 (photon self-energy: two propagator legs): the
+      per-Dirac-layer contribution to 1/alpha_em is
+        (2 sqrt(pi))^2 / chi = 4 pi / 2 = 2 pi.
+
+  - Close oq:alpha-em-screening unconditionally.  This script
+    establishes the structural form is cascade-internal; promoting
+    it to a theorem requires stating and proving the closed-loop
+    chirality-factorisation conjecture above.
 """
 
 from __future__ import annotations
@@ -300,26 +345,51 @@ def report_status():
     print("  - The numerical match to observation at 0.006%.")
     print()
     print("WHAT IS NOT YET DERIVED:")
-    print("  - The full one-loop calculation on the cascade lattice using the")
-    print("    proposed gauge-coupled fermion action of")
-    print("    rem:fermion-gauge-coupling-proposal.  The script articulates")
-    print("    the structural form and verifies its consistency with the")
-    print("    cascade's existing primitives, but does not perform the formal")
-    print("    one-loop integration on the cascade lattice.")
-    print("  - The 'closed loop = inverted-chirality dual of open line' rule")
-    print("    is structurally suggestive but is not yet a theorem.")
+    print("  - The closed-loop chirality-factorisation theorem")
+    print("    (the closed-loop analog of Part IVb thm:chirality-factorisation):")
+    print("    for a closed loop with n propagator legs at a Dirac layer,")
+    print("    the per-layer topological invariant is")
+    print("      (open-line obstruction)^n / chi = (2 sqrt(pi))^n / chi.")
+    print("    The script articulates this rule and verifies it gives 2 pi")
+    print("    at n=2 (photon self-energy), but the rule itself is conjectured")
+    print("    by structural duality with the open-line theorem, not yet proved")
+    print("    as a cascade-internal theorem.")
+    print()
+    print("WHAT IS NOT NEEDED")
+    print("  (PER-LAYER LOCALITY DEALT WITH THIS):")
+    print("  - A one-loop integral on the cascade lattice with fermion")
+    print("    propagating from d=14 to a Dirac layer and back.  This")
+    print("    cannot exist: cascade fermion is per-layer local")
+    print("    (rem:fermion-gauge-coupling-proposal Per-layer locality).")
+    print("  - A multi-layer hopping term in S_f^cascade.  Closed empty by")
+    print("    per-layer locality (cascade_fermion_gauge_action.py Step 4.5).")
     print()
     print("WHAT WOULD CLOSE THE DERIVATION:")
-    print("  1. Compute the photon self-energy at one loop on the cascade")
-    print("     lattice using S_f^cascade from rem:fermion-gauge-coupling-proposal.")
-    print("  2. Verify the loop integral (or its cascade-discrete analog) gives")
-    print("     exactly N(0) * Gamma(1/2)^2 per Dirac-layer fermion species.")
-    print("  3. Verify the chirality factor is chi=2 (both basins traced) for")
-    print("     the closed loop, dual to the 1/chi factor for the open line.")
+    print("  1. State and prove a closed-loop chirality-factorisation theorem")
+    print("     dual to Part IVb thm:chirality-factorisation:")
     print()
-    print("This is a one-loop calculation that becomes tractable once the")
-    print("multi-layer hopping term in S_f^cascade is fixed (currently open at")
-    print("oq:fermion-gauge-action).")
+    print("       Open line (Part IVb thm:chirality-factorisation):")
+    print("         G_Q(d, d*) = G(d, d*) / chi^k")
+    print("         k = number of independent definite-chirality propagator modes")
+    print()
+    print("       Closed loop (CONJECTURED dual):")
+    print("         I_Q(d) = (2 sqrt(pi))^n / chi")
+    print("         n = number of propagator legs in the loop at layer d")
+    print("         chi = 2 (one chirality basin selected on loop closure)")
+    print()
+    print("  2. Verify the rule against more closed-loop cascade observables")
+    print("     beyond just the photon self-energy (n=2): the gauge-boson")
+    print("     self-energy at d=12 (gluon, n=2), n=4 box diagrams, etc.")
+    print()
+    print("  3. Identify whether the closure rule extends to n != 2 with the")
+    print("     same form (2 sqrt(pi))^n / chi, or whether higher-leg loops")
+    print("     have a more complex chirality structure.")
+    print()
+    print("This is a STRUCTURAL theorem statement plus structural verification,")
+    print("NOT a one-loop integral.  The cascade's per-layer locality means the")
+    print("traditional 'Feynman one-loop calculation' does not apply; what does")
+    print("apply is the discrete topological per-layer invariant, dual to the")
+    print("open-line obstruction factor of Part IVb Theorem 2.1.")
     print()
 
 
