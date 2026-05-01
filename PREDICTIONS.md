@@ -46,7 +46,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | m_μ | geometric-topological | 106.2 MeV | 105.66 MeV | +0.5% |
 | α_s(M_Z) leading | α(12) · exp(ΔΦ) | 0.1159 | 0.1179 ± 0.0009 | −1.7% |
 | sin²θ_W leading | Radon-Hurwitz ratio | 0.2286 | 0.23121 | −1.1% |
-| θ_C leading | tan⁻¹(tan(arccos(N(13)/N(12))) · exp(−p(13)/2)) | 13.26° | 13.04 ± 0.05° | +1.7% |
+| θ_C leading | arctan(tan(arccos(N(13)/N(12))) · exp(−p(13)/2)) | 13.26° | 13.04 ± 0.05° | +1.7% |
 
 ### Tier 3 — Precision: Correction-Family Closures
 
