@@ -2472,30 +2472,38 @@ cascade-lattice derivation of the coupling --- the analogue of
 $\bar\psi\gamma^\mu A_\mu \psi$ in continuum gauge theory --- is
 not yet stated.
 
-\textbf{What this gates.} Three currently-open structural questions
-are downstream of the gauge-coupled fermion action:
+\textbf{What this gates -- closure status update.} Three structural
+questions originally listed as ``downstream of the gauge-coupled
+fermion action'' have all closed via the cumulative cascade work:
 \begin{enumerate}[label=(\alph*),nosep]
-\item \emph{Y-spectrum closure} at $d=14$ (Part~IVa~\cite{paper4a},
-Remark on the open Y-spectrum question). The four gauge
-anomaly-cancellation conditions (gravitational $\times Y$,
-$\mathrm{SU}(3)^2 \times Y$, $\mathrm{SU}(2)^2 \times Y$, $Y^3$)
-require a multi-fermion path integral coupled to gauge fields;
-without the coupling, the conditions cannot be formulated
-cascade-natively (verifier:
-\texttt{tools/research/cascade\_anomaly\_framework.py}, Step~2.5).
-\item \emph{Photon self-energy screening} $2\pi$ per generation in
-the $1/\alpha_{\mathrm{em}}$ closure
-(Open Question~\ref{oq:alpha-em-screening}). Closing this
-requires a fermion self-energy loop on the cascade lattice ---
-explicitly a one-loop computation in the gauge-coupled fermion
-action.
+\item \emph{Y-spectrum closure}: \textbf{CLOSED} via
+Theorem~\ref{thm:sector-fundamental-y} (sector-fundamental rule from
+gauge-centre quotient mechanism), combined with the extended
+fundamental-or-trivial principle and Yukawa-singlet algebra. Y values
+forced at the magnitude+sign level; only basin-label sign convention
+remains, with zero observational content.
+\item \emph{Photon self-energy screening}:
+\textbf{CLOSED} (Open Question~\ref{oq:alpha-em-screening} resolved).
+$1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$
+($0.006\%$) with all four pieces structurally derived: bare coupling
+(Theorem~\ref{thm:weinberg}), chirality factor $\chi$
+(Theorem~\ref{thm:chirality-selection-rule}), per-leg primitive
+$\Gamma(\tfrac{1}{2})^2$ (Remark~\ref{rem:per-leg-primitive-derivation}
+with wavefunction renormalisation grounded via
+Remark~\ref{rem:wavefunction-renorm-canonical}), and $N_{\mathrm{gen}}=3$
+(cascade descent count).
 \item \emph{Cascade-internal chirality of $\mathrm{SU}(2)_L$
-coupling.} Part~IVa~\cite{paper4a} Section~2.3 explicitly defers
-the parity-violating SU(2) coupling structure to ``the symmetry
-breaking of Section~3 and the fermion generation structure of
-Section~4''; the gauge-coupled fermion action would supply the
-missing chirality-coupling derivation.
+coupling}: \textbf{DERIVED} in Part~IVa~\cite{paper4a} Section~2 via the
+$\mathrm{Spin}(12)$ Dirac decomposition under diagonal $\mathrm{SU}(2)_R$
+(``Connection to SM matter content'' paragraph, Route~(i)): chirality
+$+1$ Spin$(12)$-Weyl gives $14$ singlets ($V_{13}=\mathbf{1}$, R-handed,
+no SU(2) coupling); chirality $-1$ gives $14$ doublets
+($V_{13}=\mathbf{2}$, L-handed, fundamental of SU(2)). Reproduces the SM
+parity-violation pattern cascade-internally.
 \end{enumerate}
+The residual ``derive specific integer numerators in SM electric charges''
+piece is also CLOSED via Theorem~\ref{thm:sector-fundamental-y} plus the
+extended fundamental-or-trivial principle.
 
 \textbf{What is needed.} A cascade-lattice fermion action with:
 (i)~per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$ (from
@@ -2510,51 +2518,69 @@ gauge-window layers should give the cascade-internal coupling
 $\alpha(d) = R(d)^2/4$ (consistent with the universal coupling
 $C = \alpha_s/(2\sqrt{\pi})$ of the fermion mass formulae).
 
-\textbf{Status.} Open in cascade-native electric charges, after a
-chain of substantial narrowings recorded in
-Remark~\ref{rem:fermion-gauge-coupling-proposal}. The Berezin per-layer
-partition function (Remark~\ref{rem:berezin-partition-derivation})
-supplies the kinematic ingredient. The proposal adds: (i) per-layer
-gauge coupling $g(d) = \sqrt{\alpha(d)}$ matching the Yukawa
-$m(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$ universality);
-(ii) Adams gauge-group generators $T^a$ at gauge-window layers;
-(iii) per-layer Berezin reduction verified at $A=0$;
-(iv) per-layer locality of the fermion (no inter-layer kinetic),
-derived from convergence of three cascade-source readings; closes
-``layer-coupling form'' and ``descent-factor consistency'' as
-empty/automatic;
-(v) cascade-native $Q = T_3 + Y$ from EW breaking at $d=13$ +
-Theorem~\ref{thm:weinberg} (the cascade-native Gell-Mann--Nishijima
-identity, derived not assumed); combined with $N_c=3$,
-SU(2) doublet structure, and $J$ eigenvalues $\pm 1$, this fixes the
-$Q$ denominator structure, $Q$ differences within multiplets, and
-the relation $Q = T_3 + Y$.
+\textbf{Status.} \emph{Substantially closed.} The cumulative cascade
+work has closed all four originally-listed downstream pieces ((a)--(c)
+above plus the residual integer-electric-charges piece). The proposed
+action in Remark~\ref{rem:fermion-gauge-coupling-proposal} is
+structurally derivable from six cascade-internal conditions:
+\begin{enumerate}[label=(F\arabic*),nosep]
+\item Berezin per-layer integration: $\bar\psi\psi$ structure forced
+(Remark~\ref{rem:berezin-partition-derivation},
+Theorem~\ref{thm:sp31-decomposition}).
+\item Per-layer locality: no inter-layer kinetic (derived from
+convergence of three cascade-source readings;
+Remark~\ref{rem:fermion-gauge-coupling-proposal}).
+\item Per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$
+(Remark~\ref{rem:berezin-partition-derivation}; cascade square-root
+universality).
+\item Gauge coupling $g(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$
+universality at all gauge-window layers;
+Remark~\ref{rem:fermion-gauge-coupling-proposal}).
+\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa
+Theorem $\mathit{thm{:}adams}$: SU(3) at $d=12$ from $\mathbb{H}^3$,
+SU(2) at $d=13$ from quaternionic right-mults, U(1) at $d=14$ from $J$).
+\item Parity-violating chirality structure from
+Theorem~\ref{thm:chirality-factorisation}: $\chi=2$ basin decomposition
+at $d=13$ selects L (doublet) vs R (singlet).
+\end{enumerate}
+Together these uniquely determine the action form
+$S_f^{\rm cascade} = \sum_d \sqrt{\alpha(d)}\bar\psi\psi
++ \sum_{d\in\{12,13,14\}}\sqrt{\alpha(d)}\,\bar\psi T^a A^a\psi$
+of Remark~\ref{rem:fermion-gauge-coupling-proposal}.
 
-The remaining open piece is reduced to: derive cascade-natively the
-\emph{specific integer numerators} in SM electric charges (e.g.\
-$Q_u = +2/3$ as opposed to $-2/3$ or $0$; equivalently the $Y$
-numerators in $1/6$ units). Three cascade-native attack routes are
-articulated in
-\texttt{tools/research/cascade\_path\_tensor\_consistency.py}
-(Step~4): cascade-native $Y_H$ at $d=13$; path-tensor trace identities
-on $V_{12}\otimes V_{13}\otimes V_{14}$; $J\pm 1$ eigenvalue
-distribution over Theorem~\ref{thm:chirality-factorisation}'s
-chirality-factorised matter content. None is currently closed.
+\textbf{What remains open.} The action FORM is structurally determined
+by (F1)--(F6); all originally-listed downstream items are now closed.
+The remaining open piece is the explicit \emph{cascade Green's function
+on $S^{12}$} (and analogously on $S^{4}$, $S^{20}$ at the other
+even-sphere gauge layers), needed for higher-loop precision normalisation:
+\begin{enumerate}[label=(\arabic*),nosep]
+\item Exact normalisation of $c_2 = 1/\chi$ in the Higgs effective
+potential $V(\theta) = (1/\chi)\cos^2\theta$ on $S^{12}$
+(Remark~\ref{rem:V-cos2-derivation}'s (C3) and (C4) are leading-order
+arguments only; first-principles attempts in
+\texttt{tools/research/cascade\_higgs\_greens\_attempt.py} confirm that
+neither standard spherical Laplacian nor naive cascade-scalar embedding
+suffices --- the cascade Green's function on $S^{12}$ has its own
+normalisation that requires the explicit gauge-coupled action computation).
+\item Multi-loop QED corrections: per-layer locality preserves the chirality
+selection rule (Theorem~\ref{thm:chirality-selection-rule}) at any loop
+order, but exact normalisation of higher-loop diagrams requires the
+Green's function.
+\item Higher-order corrections to fermion masses, Higgs quartic, etc.\
+beyond the leading $\alpha(d^*)/\chi^k$ family.
+\end{enumerate}
+This is a CONCRETE COMPUTATIONAL TARGET (not a structural ambiguity):
+the cascade has the action form, the chirality theorem, and the gauge
+generators; what's missing is the explicit Green's function evaluation
+on the gauge sphere.
 
-Closing the integer-charge derivation would unlock the Y-spectrum
-closure (Part~IVa Remark on the open Y-spectrum question), the
-$1/\alpha_{\mathrm{em}}$ screening
-(Open Question~\ref{oq:alpha-em-screening}), the
-$\mathrm{SU}(2)_L$ parity-violation derivation, and a unified
-proof of Part~IVa $\mathit{rem{:}fund\text{-}or\text{-}trivial}$ at
-all three gauge-window layers --- in a single structural step.
-
-Tier~3 (load-bearing on the Y-spectrum closure, the photon
-self-energy closure, and the $\mathrm{SU}(2)_L$ chirality structure
---- all currently open). Companion to
-Open Question~\ref{oq:fermion-cascade-action}: the mass
-identification (existing OQ) and the gauge-coupling extension (this
-OQ) are the two halves of the cascade fermion action.
+Tier~3 (action form structurally derived; remaining open piece is the
+cascade Green's function on $S^{12}$ for higher-loop precision).
+Companion to Open Question~\ref{oq:fermion-cascade-action}: the mass
+identification (existing OQ) and the gauge-coupling extension (this OQ)
+are the two halves of the cascade fermion action; both are substantially
+closed, with first-principles higher-order corrections constituting the
+residual.
 
 \item\label{oq:y-sector-fundamental} \emph{Resolved (sector-fundamental
 denominator).} The sector-fundamental U(1)$_Y$ rule is now
