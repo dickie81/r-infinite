@@ -114,31 +114,79 @@ WHAT THIS SCRIPT DOES NOT DO
     (R1, R2, R3) converge on 2pi numerically and follow from cascade
     primitives.  What remains is to STATE THE THEOREM: the closed-
     loop analog of Part IVb thm:chirality-factorisation (open-line
-    rule G_Q = G/chi^k).  Concrete form:
+    rule G_Q = G/chi^k).  Concrete form, with proof sketch following
+    the open-line theorem's structure (Step A unchanged, Steps B-C
+    duality-inverted):
 
       Closed-loop chirality-factorisation theorem (CONJECTURE):
-      For a cascade observable Q built from a closed loop with
+      For a cascade observable I_Q built from a closed loop with
       n propagator legs at a Dirac layer, the per-layer topological
-      invariant contributing to Q is
+      invariant contributing to I_Q is
 
-        (open-line obstruction)^n / chi
-        = (2 sqrt(pi))^n / chi
-        = N(0)^{n-1} * Gamma(1/2)^n
+        I_Q(d) = chi * Gamma(1/2)^n = N(0) * Gamma(1/2)^n.
 
-      The factor (1/chi) is one chirality basin selected on the
-      loop closure (because the loop's chirality is fixed by
-      topology, not externally); the factor (2 sqrt(pi))^n is the
-      open-line obstruction raised to the number of propagator
-      legs in the loop.
+      For n=2 (photon self-energy with two propagator legs in the
+      loop): I_Q(d) = chi * pi = 2 pi per Dirac layer.
 
-      For n=2 (photon self-energy: two propagator legs): the
-      per-Dirac-layer contribution to 1/alpha_em is
-        (2 sqrt(pi))^2 / chi = 4 pi / 2 = 2 pi.
+      PROOF SKETCH (parallels Part IVb thm:chirality-factorisation):
+
+      (A) Equal splitting at even-sphere layers (UNCHANGED from
+          existing theorem): the cascade scalar field decomposes
+          across two chirality basins of equal area on S^{2n} via
+          Morse theory; a perturbation splits equally:
+              delta_phi_+ = delta_phi_- = delta_phi / chi.
+
+      (B') Closed-loop chirality structure (DUAL of open-line (B)):
+          A closed loop at a Dirac layer has no external chirality
+          state.  The loop's chirality is determined topologically
+          (by which basin the loop wraps) and traced over both
+          basins by the closed-loop integration.  Unitarity ensures
+          consistency (Part II Theorem 7.1: unitary propagator
+          maps states to states bijectively).
+
+          Where the open-line (B) gave 1/chi PER MODE
+          (chirality selection), the closed-loop (B') gives chi PER LOOP
+          (chirality multiplicity from summing both basins).  Same
+          chirality structure, dual role.
+
+      (C') Per-leg topological invariant: each propagator leg in the
+          closed loop contributes one factor of the cascade Jacobian
+          primitive Gamma(1/2) = sqrt(pi).  This is the SAME per-leg
+          factor as in the open-line obstruction
+          2 sqrt(pi) = N(0) * Gamma(1/2) of Theorem 2.1 / Cor 2.7,
+          but contributing to the closed loop's TOPOLOGICAL
+          invariant rather than the open line's PROPAGATION
+          attenuation.  The factor is layer-INDEPENDENT:
+          no R(d) or alpha(d) factors enter, reflecting that the
+          loop's contribution is intrinsically topological, not
+          geometric.
+
+          For n legs: Gamma(1/2)^n = pi^{n/2}.
+
+      Combining (A) + (B') + (C'):
+          I_Q(d) = chi * Gamma(1/2)^n = N(0) * Gamma(1/2)^n.
+
+      Duality with open-line theorem (Part IVb thm:chirality-factorisation):
+
+        Open line G_Q = G / chi^k:
+          chirality SELECTED per mode, factor 1/chi^k from k modes.
+
+        Closed loop I_Q = chi * Gamma(1/2)^n:
+          chirality SUMMED over basins, factor chi from one loop closure;
+          n propagator legs each carrying the per-leg cascade primitive.
+
+      The chirality structure is the SAME (factor of chi); the role
+      is inverted (1/chi for selection, chi for multiplicity).
 
   - Close oq:alpha-em-screening unconditionally.  This script
-    establishes the structural form is cascade-internal; promoting
-    it to a theorem requires stating and proving the closed-loop
-    chirality-factorisation conjecture above.
+    establishes the structural form is cascade-internal and gives
+    a proof sketch with the right structural ingredients; promoting
+    it to a theorem requires: (i) writing the proof in full, (ii)
+    establishing the per-leg primitive is INTRINSICALLY Gamma(1/2)
+    (not, e.g., the per-layer Berezin amplitude sqrt(alpha(d)),
+    which would give a layer-DEPENDENT screening that contradicts
+    observation), (iii) testing the rule against additional closed-
+    loop cascade observables beyond the photon self-energy.
 """
 
 from __future__ import annotations
@@ -328,6 +376,85 @@ def report_full_alpha_em():
 
 
 # ---------------------------------------------------------------------------
+# Step 4.5: layer-independent vs layer-dependent per-leg primitive
+# ---------------------------------------------------------------------------
+
+def report_layer_independence():
+    print("=" * 78)
+    print("STEP 4.5: per-leg primitive must be LAYER-INDEPENDENT (data-forced)")
+    print("=" * 78)
+    print()
+    print("The closed-loop chirality-factorisation conjecture has the per-Dirac-")
+    print("layer screening contribution as chi * (per-leg primitive)^n.  Two")
+    print("candidate per-leg primitives are cascade-natural:")
+    print()
+    print("  (X) Layer-INDEPENDENT: Gamma(1/2) = sqrt(pi).  This is the cascade")
+    print("      Jacobian primitive that appears in Theorem 2.1's open-line")
+    print("      obstruction 2*sqrt(pi) = N(0)*Gamma(1/2).  No R(d) or alpha(d)")
+    print("      enters; the per-leg factor is the same at every Dirac layer.")
+    print()
+    print("  (Y) Layer-DEPENDENT: sqrt(alpha(d)) = R(d)/2.  This is the per-layer")
+    print("      Berezin amplitude (rem:berezin-partition-derivation).  Each")
+    print("      Dirac layer carries its own per-leg amplitude.")
+    print()
+    print("The data discriminates SHARPLY between (X) and (Y):")
+    print()
+    bare = 118.18  # 1/alpha(13) + pi/alpha(14)
+    target = 137.036
+    target_screening = target - bare
+    print(f"  Target screening = 1/alpha_em(observed) - 1/alpha_em^bare")
+    print(f"                   = {target:.3f} - {bare:.2f} = {target_screening:.3f}")
+    print()
+    print("  Reading X (per-leg = Gamma(1/2)):")
+    chi = 2
+    per_layer_X = chi * Gamma_half() ** 2
+    sum_X = 3 * per_layer_X  # three charged-fermion Dirac layers
+    print(f"    per Dirac layer: chi * Gamma(1/2)^2 = {per_layer_X:.4f}")
+    print(f"    sum over 3 charged-fermion Dirac layers (d=5, 13, 21): {sum_X:.4f}")
+    print(f"    1/alpha_em = {bare:.2f} + {sum_X:.4f} = {bare + sum_X:.4f}")
+    print(f"    deviation from observed: {(bare + sum_X - target)/target * 100:+.4f}%")
+    print()
+    print("  Reading Y (per-leg = sqrt(alpha(d))):")
+    print(f"    {'d':>4s}  {'alpha(d)':>12s}  {'2 * alpha(d)':>14s}")
+    sum_Y = 0.0
+    for d in [5, 13, 21]:
+        a = alpha_cascade(d)
+        per_layer_Y = chi * a  # chi * (sqrt(alpha))^2
+        sum_Y += per_layer_Y
+        print(f"    {d:>4d}  {a:>12.6f}  {per_layer_Y:>14.6f}")
+    print(f"    sum over 3 Dirac layers: {sum_Y:.6f}")
+    print(f"    1/alpha_em = {bare:.2f} + {sum_Y:.4f} = {bare + sum_Y:.4f}")
+    deviation_Y = (bare + sum_Y - target) / target * 100
+    print(f"    deviation from observed: {deviation_Y:+.4f}%")
+    print()
+    print(f"  Reading Y FAILS by {abs(deviation_Y):.1f}% in 1/alpha_em.")
+    print(f"  Reading Y's screening is {target_screening / sum_Y:.1f}x too small.")
+    print()
+    print("CONCLUSION: the per-leg primitive must be the LAYER-INDEPENDENT")
+    print("Gamma(1/2), not the per-layer Berezin amplitude sqrt(alpha(d)).  The")
+    print("data forces this within 0.006%.")
+    print()
+    print("STRUCTURAL READING: the closed-loop topological invariant per Dirac")
+    print("layer is intrinsically TOPOLOGICAL, not geometric.  It uses cascade")
+    print("primitives that are universal across cascade layers (N(0), Gamma(1/2)),")
+    print("not layer-specific cascade quantities (R(d), alpha(d)).  This is")
+    print("consistent with the open-line obstruction 2*sqrt(pi) = N(0)*Gamma(1/2)")
+    print("of Theorem 2.1, which is also LAYER-INDEPENDENT (no R(d) factor; the")
+    print("R(d) cancels between fermion lapse N_f(d) = R(d)/chi and scalar lapse")
+    print("N(d) = sqrt(pi)*R(d)).  The closed-loop dual inherits the same")
+    print("layer-independence by construction.")
+    print()
+    print("Equivalently: the cascade's TOPOLOGICAL invariants per Dirac layer")
+    print("(open-line: 2*sqrt(pi); closed-loop n-leg: chi*Gamma(1/2)^n) are")
+    print("constructed from the cascade's two primitive layer-independent")
+    print("quantities N(0) = 2 and Gamma(1/2) = sqrt(pi).  The cascade's")
+    print("per-layer geometric quantities R(d), alpha(d) appear in OPEN-LINE")
+    print("PROPAGATION (mass formula's exp(-Phi(d_g)) etc.), not in TOPOLOGICAL")
+    print("INVARIANTS.")
+    print()
+
+
+# ---------------------------------------------------------------------------
 # Step 5: status of the derivation
 # ---------------------------------------------------------------------------
 
@@ -404,6 +531,7 @@ def main() -> int:
     report_per_layer_factor()
     report_three_generations()
     report_full_alpha_em()
+    report_layer_independence()
     report_status()
     return 0
 
