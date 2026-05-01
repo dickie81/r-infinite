@@ -1,10 +1,73 @@
 #!/usr/bin/env python3
 """
 Path-tensor consistency at the gauge window: cascade-native Q = T_3 + Y
-and the residual question (cascade-native electric charges).
+and the path-tensor angle on the Y spectrum (one of several converging
+routes; see STATUS below).
 
-CONTEXT
-=======
+STATUS (April 2026 update): SUPERSEDED at the Y-spectrum closure level
+=====================================================================
+This script's "Step 3 / Step 5" framing --- which presents the specific
+integer numerators of SM electric charges as the current Y-spectrum
+bottleneck --- is STALE.  The Y spectrum is now closed at the
+magnitude + sign level cascade-natively, via converging routes
+documented in Part IVa rem:y-spectrum-open and CLAUDE.md
+"Y spectrum --- CLOSED at the magnitude + sign level":
+
+  - (R1a) |Y_H| = 1/2: closed via sector-fundamental in (1, 2) per
+    Part IVb thm:sector-fundamental-y; independently via Higgs vacuum
+    neutrality + SU(2) doublet structure.
+  - (R1b) |Y_QL| = 1/6: closed via the gauge-centre-quotient mechanism
+    of Part IVb thm:sector-fundamental-y.  The cascade gauge centres
+    Z_3 (SU(3)) and Z_2 (SU(2)) act on path-tensor matter; the unique
+    diagonal Z_6 subgroup of SU(3) x SU(2) x U(1)_Y acting trivially
+    on every cascade matter sector forces the effective gauge group
+    to G_cw / Z_6.  U(1)_Y charges in the (V_12, V_13)-sector are
+    quantised in units of 1 / (dim V_12 . dim V_13); the smallest
+    non-trivial |Y| in each sector is the sector-fundamental.
+  - (R1c) sign(Y_H) = sign(Y_QL): closed via hemisphere-sign
+    consistency (vacuum neutrality + Yukawa structure + hemisphere
+    swap flips both signs together).
+  - (R1) Y_H = N_c . Y_QL: automatic from (R1a)+(R1b)+(R1c) as a
+    sector-dimension ratio (NOT a path-tensor color trace).
+  - Smallest-magnitude principle: k=+/- 1 for Q_L, d_R, L_L, e_R, H
+    (smallest non-trivial irrep of U(1)_Y / Z_n via extended
+    fund-or-trivial); k=+/- 2 for u_R forced by Yukawa singlet
+    Y_uR = Y_QL + Y_H.
+  - Basin-label sign anchor: STRUCTURALLY RESOLVED on the S^4 shell
+    at d_V = 5 via Part IVb thm:chirality-factorisation +
+    rem:cpt-balance-basins.  Two CPT-conjugate basins of equal area;
+    each observer relationally central in their own basin; the choice
+    between {Y_QL = +1/6, Y_QL = -1/6} is a labeling convention with
+    ZERO observational content, at parity with the SM's Q_e = -1
+    convention.
+
+This script's path-tensor-consistency angle remains a valid
+contributing argument: it derives Q = T_3 + Y from the Higgs
+mechanism + thm:weinberg cascade-natively, and isolates the
+denominator structure plus within-multiplet differences that the
+sector-fundamental theorem subsequently combines with the
+fund-or-trivial smallest-magnitude principle to fix the integer
+numerators.  But the specific integer numerators are NOT the open
+bottleneck.
+
+CURRENT OPEN DYNAMICS-RELATED ITEMS (the actual remaining work):
+  - 1/alpha_em screening: 6 pi = 3 . N(0) . Gamma(1/2)^2 per
+    generation identified by target-matching (Part IVb
+    oq:alpha-em-screening), not yet derived from the photon
+    self-energy on the cascade lattice.
+  - SU(2)_L parity-violation structure: Part IVa S2.3 explicitly
+    defers this to the gauge-coupled fermion action
+    (oq:fermion-gauge-action item c).
+  - Multi-layer hopping term in the proposed gauge-coupled fermion
+    action: per-layer pieces verified at A=0; layer-coupling that
+    reproduces thm:forced-paths' descent attenuation is open.
+  - Cascade analogue of PMNS / solar splitting: heaviest neutrino
+    mass closes; lighter two too small under single-source diagonal
+    form, suggesting an inter-generation mixing analogue of PMNS
+    is needed.
+
+ORIGINAL CONTEXT (preserved as historical record below)
+========================================================
 Commit 3dec8a5 (per-layer locality of the cascade fermion) reframed
 the Y-spectrum closure from QFT triangle anomalies to PATH-TENSOR
 CONSISTENCY: the multi-layer gauge transformation
@@ -19,30 +82,15 @@ This script digs into path-tensor consistency:
   3. Identifies N_c = 3 cascade fractional unit (Q in 1/3 units for
      color-triplets) cascade-natively.
   4. Identifies the SU(2) doublet structure pinning Q_u - Q_d = 1 etc.
-  5. ARRIVES AT THE RESIDUAL: cascade-native derivation of the
-     SPECIFIC INTEGER NUMERATORS in Q values (and hence Y values).
+  5. (At time of writing) presented the specific integer numerators
+     of SM electric charges as the residual bottleneck.  This framing
+     is now SUPERSEDED --- see STATUS section above.
 
-WHAT THIS SCRIPT DELIVERS
-=========================
-A FURTHER narrowing of the Y-spectrum gap.  The chain of reductions
-is now:
-
-  Y-spectrum closure (rem:y-spectrum-open)
-    -> reduced to oq:fermion-gauge-action (commit ab4e1ed)
-    -> reduced to path-tensor consistency (commit 3dec8a5)
-    -> reduced to cascade-native Q values (THIS COMMIT)
-
-At each step, what remains structurally specific gets sharper.
-The current bottleneck: derive cascade-natively the specific
-INTEGER NUMERATORS of SM electric charges:
-  Q_u = +2,  Q_d = -1,  Q_e = -3,  Q_nu = 0,  Q_ec = +3
-(in 1/3 units; using LH Weyl convention with conjugates).
-
-WHAT THIS SCRIPT DOES NOT DO
-=============================
-Close the Y spectrum.  But it identifies a more specific bottleneck
-than 'Y spectrum closure' or 'path-tensor consistency': the cascade
-needs to derive the integer numerators in Q values.
+The script's Steps 1-4 remain valid as one route to the cascade-native
+Q-spectrum structure; Step 5's "bottleneck" framing should be read
+as the path-tensor-consistency-only picture, before the
+sector-fundamental theorem closed the integer numerators via a
+different mechanism.
 """
 
 from __future__ import annotations
@@ -141,6 +189,12 @@ def report_residual():
     print("STEP 3: the residual after path-tensor consistency")
     print("=" * 78)
     print()
+    print("[NOTE: This step's 'residual' framing is SUPERSEDED at the")
+    print("Y-spectrum closure level by Part IVb thm:sector-fundamental-y.")
+    print("See module docstring STATUS section.  Below is the path-tensor-")
+    print("consistency-only picture, preserved as a historical record of")
+    print("one converging route.]")
+    print()
     print("Path-tensor consistency + cascade pieces (a)-(c) determine:")
     print()
     print("  - The DENOMINATOR structure of Q (and hence Y):")
@@ -238,6 +292,17 @@ def report_status():
     print("=" * 78)
     print("STEP 5: Y-spectrum gap status after this dig")
     print("=" * 78)
+    print()
+    print("[NOTE: The 'current bottleneck = integer Q numerators' framing")
+    print("below is SUPERSEDED.  The Y spectrum is closed at the magnitude")
+    print("+ sign level cascade-natively via Part IVb thm:sector-fundamental-y")
+    print("(gauge-centre-quotient mechanism on path-tensor matter)")
+    print("combined with the fund-or-trivial smallest-magnitude principle")
+    print("and the basin-label structural resolution on the S^4 shell at")
+    print("d_V = 5 (Part IVb thm:chirality-factorisation +")
+    print("rem:cpt-balance-basins).  See module docstring STATUS section.")
+    print("The chain below records the path-tensor-consistency angle as")
+    print("of the time of writing, preserved for historical reference.]")
     print()
     print("Chain of reductions:")
     print()
