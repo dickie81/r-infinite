@@ -2029,16 +2029,25 @@ In the cascade, $\theta_{\text{QCD}} = 0$ exactly.
 \end{theorem}
 
 \begin{proof}
-\textbf{Step 1.} In standard QCD on $\mathbb{R}^4$, the topological sectors are classified by $\pi_3(\text{SU}(3)) = \mathbb{Z}$, giving a continuous topological parameter $\theta \in [0, 2\pi)$. In the cascade, SU(3) is realised as 3 nowhere-zero vector fields on $S^{11}$ at $d = 12$ ([4], Theorem 2.3). The relevant homotopy group becomes $\pi_3(S^{11}) = \mathbb{Z}_2$, restricting $\theta$ to $\{0, \pi\}$.
+\textbf{Step 1 (gauge-sector topological term).} In standard QCD on $\mathbb{R}^4$, gauge configurations with finite action are classified by maps from the boundary $S^3$ at infinity into the gauge group, i.e.\ by $\pi_3(\text{SU}(3)) = \mathbb{Z}$. This integer winding number generates the topological term $\theta\,\text{tr}(F\wedge F)$, with the continuous parameter $\theta \in [0, 2\pi)$ lifting from the discrete winding modulo the integer ambiguity. In the cascade, SU(3) is realised at layer $d = 12$ via three nowhere-zero tangent vector fields on $S^{11}$ ([4], Theorem~2.3, $\rho(12)-1 = 3$); the cascade's $\theta$-vacuum classification is therefore by maps $S^3 \to S^{11}$, i.e.\ by
+\[
+\pi_3(S^{11}) \;=\; 0,
+\]
+the trivial group. The vanishing follows from the standard low-dimensional sphere homotopy result $\pi_n(S^k) = 0$ for $n < k$ ($n = 3 < k = 11$). Only the trivial sector exists, so $\theta_{\text{QCD}} = 0$ is the unique cascade-internal value of the gauge-sector topological angle, not a selection from a finite menu.
 
-\textbf{Step 2.} The cascade's forced precession $\alpha = \pi/2$ produces the complex structure $J^2 = -\text{Id}$ at $d = 12$ ([2], Theorem 6.4). A holomorphic map $S^3 \to S^{11}$ has degree 0 in $\pi_3(S^{11}) = \mathbb{Z}_2$, excluding $\theta = \pi$ and selecting $\theta_{\text{QCD}} = 0$.
+\textbf{Step 2 (mass-matrix phase).} The full strong-CP angle is $\bar\theta = \theta_{\text{QCD}} + \arg\det(M_{\text{quark}})$. The cascade's quark mass matrix is built from $\Phi(d)$ (real), $2\sqrt{\pi}$ (real), and the colour factors (real), so $M$ is real and $\arg\det(M) \in \{0, \pi\}$ (the determinant of a real matrix has zero imaginary part). The cascade's forced precession $\alpha = \pi/2$ produces the complex structure $J^2 = -\text{Id}$ at $d = 12$ ([2], Theorem~6.4), and the corresponding $U(1)$ gauge equivalence on $\mathbb{C}P^{n-1}$ ([2], Theorem~7.10) selects $\arg\det(M) = 0$ over the alternative $\arg\det(M) = \pi$ as the gauge-trivial branch (a global phase $\pi$ on $\det M$ would correspond to a non-gauge-trivial $U(1)$ holonomy on the $J$-orbit, contradicting the projective-state-space identification of [2] \S7.5).
 
-\textbf{Step 3.} The quark mass matrix is determined by $\Phi(d)$ (real), $2\sqrt{\pi}$ (real), and the colour factors (real). A real mass matrix has $\arg\det(M) \in \{0, \pi\}$. The cascade's complex structure selects $\arg\det = 0$. Therefore $\theta_{\text{eff}} = 0$.
+\textbf{Step 3.} Combining Steps~1 and~2, $\bar\theta = 0 + 0 = 0$ exactly.
 \end{proof}
 
-\begin{remark}[No axion needed]
-The cascade's solution is topological: $\theta = 0$ because $\pi_3(S^{11}) = \mathbb{Z}_2$ and the complex structure selects the trivial sector. No new symmetry, no new particle. Discovery of a QCD axion would falsify this mechanism. (The proof has gaps at Tier 4b; see Section 12.)
+\begin{remark}[Earlier draft contained a homotopy-group error]\label{rem:strong-cp-correction}
+A previous version of this section asserted $\pi_3(S^{11}) = \mathbb{Z}_2$, restricting $\theta$ to $\{0, \pi\}$ and using the complex structure $J$ to select $\theta = 0$ from the binary menu. The asserted value was wrong: $\pi_3(S^{11}) = 0$ by $\pi_n(S^k) = 0$ for $n < k$, so the trivial sector is unique without any selection step. The conclusion $\theta_{\text{QCD}} = 0$ survives unchanged; the J-based selection now operates only on the mass-matrix phase $\arg\det(M)$ in Step~2, where there genuinely is a binary $\{0, \pi\}$ ambiguity from the reality of $M$. The corresponding line in the Tier~4b acknowledgment of the Confidence Assessment section previously read ``the homotopy group is correct''; this has been corrected to identify the value of $\pi_3(S^{11})$ explicitly.
 \end{remark}
+
+\begin{remark}[No axion needed]
+The cascade's solution is topological: $\theta_{\text{QCD}} = 0$ because $\pi_3(S^{11}) = 0$ admits only the trivial sector, and the mass-matrix phase $\arg\det(M)$ is real-then-$U(1)$-fixed at zero. No new symmetry, no new particle. Discovery of a QCD axion would falsify this mechanism. The remaining open piece (Tier 4b, the Confidence Assessment section): a derivation showing that the cascade's vector-field realisation of SU(3) on $S^{11}$ does in fact replace the standard $\pi_3(\text{SU}(3))$ classification with the $\pi_3(S^{11})$ classification, rather than the two coexisting.
+\end{remark}
+
 
 \section{The Cabibbo Angle}
 
@@ -2493,7 +2502,7 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 
 \textbf{Tier 4: Observed patterns needing derivation.} (a) $m_b/m_\tau = e$: deviation 1.05\%. (b) $(t/b)/(c/s) = N_c = 3$: physical argument plausible but chirality coupling not computed. ($b/s$ has been promoted to Tier~2 via Theorem~\ref{thm:bs-closure}.)
 
-\textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = \mathbb{Z}_2$: the homotopy group is correct, but the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ modifies the topological sector classification.
+\textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = 0$: the value of the homotopy group is now correctly stated (the trivial group, by $\pi_n(S^k) = 0$ for $n < k$; an earlier draft asserted $\mathbb{Z}_2$, now corrected --- see Remark~\ref{rem:strong-cp-correction}). Under the corrected value, only the trivial sector exists in the cascade-internal classification, so the gauge-sector $\theta_{\text{QCD}} = 0$ is unique without a selection step. The remaining gap is structural: the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ replaces (rather than coexists with) the standard gauge-target classification. The mass-matrix branch $\arg\det(M) = 0$ vs.\ $\pi$ is selected by the cascade's $U(1)$ gauge equivalence (Step~2 of Theorem~7.1).
 
 \textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction} and equivalently in Corollary~\ref{cor:2sqrtpi-primitive}; falsification would require either invalidating the chirality/quarter-turn argument or invalidating the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of the screening $2\pi$ per generation in the $\alpha_{\mathrm{em}}$ conjecture (Open Question~\ref{oq:alpha-em-screening}) from the cascade action, which would close $1/\alpha_{\mathrm{em}}$ at $0.006\%$; (vii) derivation of the colour factor $e$ from first principles; or (viii) any new precision prediction matching observation before the data is checked.
 
