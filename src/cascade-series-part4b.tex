@@ -683,9 +683,7 @@ where $V_{13}$ cancels and $N_c=\rho(12)-1=3$ is the cascade Adams count (Part~I
 
 \subsection{Why \texorpdfstring{$R'(d)$}{R'(d)} does not appear}
 
-The Higgs coupling integral on $S^{2n}$ at Dirac layer $d$ is $B(\tfrac{1}{2}, \tfrac{d}{2}) = \sqrt{\pi} \times R'(d)$, where $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2)$ is $d$-dependent. This integral computes the geometric overlap of the Higgs field with the fermion wavefunction on a specific sphere. It is the wrong quantity.
-
-The mass coupling at the hairy ball zero is topological: it depends on the existence and index of the zero, not on the geometry of the sphere it lives on. The $d$-dependent factor $R'(d)$ is geometric information already encoded in $\Phi(d)$ via the digamma function.
+The Higgs coupling integral on $S^{2n}$ at Dirac layer $d$ is $B(\tfrac{1}{2}, \tfrac{d}{2}) = \sqrt{\pi}\cdot R'(d)$ with $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2)$. The cascade-internal identity $R'(d) = R(d-1)$ (Remark~\ref{rem:R-prime-identity}) shows this is the slicing recurrence at layer $d-1$, already encoded in $\Phi(d)$; including it again as a layer-$d$ factor double-counts. The fermion mass coupling at the hairy ball zero retains only the topological residue $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$:
 
 \begin{center}
 \begin{tabular}{lccc}
@@ -698,8 +696,8 @@ $\mu/e$ & 64.49 (68.8\% off) & 206.50 (0.13\% off) & 206.77 \\
 \end{tabular}
 \end{center}
 
-\begin{remark}[The identity $R'(d) = R(d-1)$]
-The Higgs coupling's $R'(d)$ at Dirac layer $d$ equals the slicing recurrence's $R(d-1)$ at the preceding layer: $R'(d) = \Gamma(d/2)/\Gamma((d+1)/2) = R(d-1)$. Under $x = \cos\theta$, the slicing weight $(1 - x^2)^{(d-1)/2}$ at layer $d - 1$ becomes $\sin^{d-1}\theta$---the Higgs coupling integrand on $S^{d-1}$. The cascade computes it once; the scalar absorbs the full $B$ function; the spinor sees only the topological residue $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$.
+\begin{remark}[The identity $R'(d) = R(d-1)$]\label{rem:R-prime-identity}
+$R'(d) = \Gamma(d/2)/\Gamma((d+1)/2) = R(d-1)$ as a $\Gamma$-function identity. Under $x = \cos\theta$, the slicing weight $(1 - x^2)^{(d-1)/2}$ at layer $d-1$ becomes $\sin^{d-1}\theta$---the Higgs coupling integrand on $S^{d-1}$. The cascade evaluates this integral once via the slicing recurrence; the $R'(d)$ form at layer $d$ is the same datum relabelled.
 \end{remark}
 
 \begin{remark}[Universality from the data]\label{rem:universality}
