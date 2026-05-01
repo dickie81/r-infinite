@@ -661,18 +661,24 @@ Theorem~\ref{thm:sector-fundamental-y} closes Open Question~\ref{oq:y-sector-fun
 
 \textbf{What Theorem~\ref{thm:sector-fundamental-y} requires.} The forcing argument of Step~3 hinges on requiring that $\Delta$ act trivially on \emph{every} cascade matter sector. This is the cascade-internal content: cascade matter is exhausted by the four $(V_{12},V_{13})$-sectors $\{(\mathbf{1},\mathbf{1}),(\mathbf{1},\mathbf{2}),(\mathbf{3},\mathbf{1}),(\mathbf{3},\mathbf{2})\}$ per Part~IVa~\cite{paper4a}~$\mathit{rem{:}fund\text{-}or\text{-}trivial}$, and the path-tensor structure (Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$) places \emph{realised} matter in all four sectors except $(\mathbf{1},\mathbf{1})$ at the level of left-handed Weyl content (Q$_L$ in $(\mathbf{3},\mathbf{2})$, L$_L$ in $(\mathbf{1},\mathbf{2})$, $u_R^c,d_R^c$ in $(\bar{\mathbf{3}},\mathbf{1})$, $e_R^c$ in $(\mathbf{1},\mathbf{1})$). The maximally non-trivial sector $(\mathbf{3},\mathbf{2})$ is realised by Q$_L$, which fixes $\eta(a,b)=-(a/3+b/2)$ uniquely.
 
+\textbf{(R1) is automatic from Theorem~\ref{thm:sector-fundamental-y}.} The relation $Y_H = N_c\cdot Y_{Q_L}$ — listed as a path-tensor color-trace open piece in earlier framings of the Y-spectrum chain (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question, item~(R1)) — is in fact a \emph{consequence} of Theorem~\ref{thm:sector-fundamental-y}, not an additional open piece. Both $H$ and $Q_L$ sit at the sector-fundamental of their respective sectors $(\mathbf{1},\mathbf{2})$ and $(\mathbf{3},\mathbf{2})$, which share the SU(2)-doublet factor $V_{13}=\mathbf{2}$. The ratio is therefore
+\[
+\frac{|Y_H|}{|Y_{Q_L}|} \;=\; \frac{\dim V_{12}(Q_L)\cdot\dim V_{13}(Q_L)}{\dim V_{12}(H)\cdot\dim V_{13}(H)} \;=\; \frac{\dim V_{12}(Q_L)}{\dim V_{12}(H)} \;=\; \frac{N_c}{1} \;=\; N_c,
+\]
+where $V_{13}$ cancels and $N_c=\rho(12)-1=3$ is the cascade Adams count (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$). Combined with (R1c) sign correlation (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question), this yields the composite relation $Y_H=N_c\cdot Y_{Q_L}$ with no separate trace-identity derivation required. The factor $N_c$ is the \emph{sector dimension ratio}, not a color trace. Verifier: \texttt{tools/research/cascade\_r1\_closure.py}.
+
 \textbf{What is not closed by Theorem~\ref{thm:sector-fundamental-y}.}
 \begin{enumerate}[label=(\alph*),nosep]
 \item The \emph{sign} of $Y_{Q_L}$ within the $(\mathbf{3},\mathbf{2})$-sector remains a basin-label convention (Remark~\ref{rem:cpt-balance-basins}); Theorem~\ref{thm:sector-fundamental-y} fixes $|Y|_{\rm sf}$, not its sign.
-\item The \emph{specific lattice point} (sector-fundamental vs.\ $k\cdot$~sector-fundamental for $k\in\mathbb{Z}$) is determined by the additional cascade input (Yukawa singlet conditions for $u_R^c,d_R^c$; the trace identity (R1) for $Y_H$). Theorem~\ref{thm:sector-fundamental-y} closes the \emph{denominator} of $Y$, not the integer numerator on each sector lattice.
-\item The cascade-internal derivation of (R1) $Y_H=N_c\cdot Y_{Q_L}$ as a path-tensor color-trace identity remains the open piece of the Y-spectrum chain (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question, item~(R1)).
+\item The \emph{specific lattice point} (sector-fundamental vs.\ $k\cdot$~sector-fundamental for $k\in\mathbb{Z}$) is determined for $u_R$ at $k=2$ by the Yukawa singlet condition $Y_{u_R}=Y_{Q_L}+Y_H=1/6+1/2=2/3$ (gauge invariance of $\bar Q_L\widetilde H u_R$); for the remaining five matter types ($Q_L$, $d_R$, $L_L$, $e_R$, $H$), $k=\pm 1$ is selected by extended fund-or-trivial (matter at smallest non-trivial irrep of $\mathrm{U}(1)_Y/\mathbb{Z}_n$).
 \end{enumerate}
 
-\textbf{Tier classification.} Tier~3 (closure of the sector-fundamental denominator; lattice-point selection still depends on (R1) closure plus Yukawa singlet algebra; sign anchor is a labeling convention with zero observational input).
+\textbf{Tier classification.} Tier~2 (cascade-forced closure of the sector-fundamental rule plus the $Y_H=N_c\cdot Y_{Q_L}$ relation; Y-spectrum chain complete at the magnitude $+$ sign level modulo basin-label sign convention).
 
 \textbf{Companion verifiers.}
 \texttt{tools/research/cascade\_r1b\_via\_rep\_theory.py} (identifies the gauge-centre-quotient mechanism among four candidate routes);
-\texttt{tools/research/cascade\_r1b\_closure\_attempt.py} (verifies sector-fundamental match for all five SM matter types $Q_L, d_R, L_L, e_R, H$ at sector-fundamental, with u$_R$ correctly excluded as Yukawa-forced $2\times$ sector-fundamental).
+\texttt{tools/research/cascade\_r1b\_closure\_attempt.py} (verifies sector-fundamental match for all five SM matter types $Q_L, d_R, L_L, e_R, H$ at sector-fundamental, with u$_R$ correctly excluded as Yukawa-forced $2\times$ sector-fundamental);
+\texttt{tools/research/cascade\_r1\_closure.py} (verifies $Y_H=N_c\cdot Y_{Q_L}$ as automatic from sector-fundamental theorem $+$ extended fund-or-trivial $+$ (R1c)).
 \end{remark}
 
 \subsection{Why \texorpdfstring{$R'(d)$}{R'(d)} does not appear}
