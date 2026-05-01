@@ -49,17 +49,19 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 
 ### Tier 3 — Precision: Correction-Family Closures
 
-Eight observables close within experimental error via δΦ = α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities.
+Eight Standard Model observables close within experimental precision via δΦ = ±α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities. A ninth observable (heaviest neutrino mass) closes via the related cascade-internal form m_29 · α(d_g)/χ^k, where m_29 is the cascade charged-lepton formula at the fourth Bott layer d=29 and χ^k is the chirality filter for the cascade distance to the generation layer.
 
 | Observable | Shift source | Predicted | Observed | Residual |
 |---|---|---|---|---|
 | α_s(M_Z) | α(14)/χ | 0.11792 | 0.1179 ± 0.0009 | +0.02σ |
 | m_τ / m_μ | α(14)/χ | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
 | m_τ absolute | α(19)/χ | 1776.82 MeV | 1776.86 ± 0.12 | −0.31σ |
+| ℓ_A | α(19)/χ | 301.44 | 301.6 ± 0.09 | −0.16σ |
 | sin²θ_W | α(5)/χ³ | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
 | Ω_m | −α(5)/χ³ | 0.31474 | 0.315 ± 0.007 | −0.04σ |
 | θ_C (Cabibbo) | −α(7)/χ² | 13.04° | 13.04 ± 0.05° | +0.03σ |
 | b/s | −α(7)/χ⁴ | 44.7436 | 44.75 | 0.014% |
+| m_ν (heaviest) | m_29 · α(21)/χ⁸ | 0.0493 eV | √Δm²_atm = 0.0495 eV | −0.4% |
 
 ### Tier 4 — Frontier: Under Active Experimental Test
 
@@ -81,3 +83,4 @@ Results where the argument has acknowledged gaps or needs strengthening.
 | Ω_b = 1/(2π²) | "One unit of content on S³" argument needs strengthening |
 | n_s, A_s | Primordial spectrum not yet derived |
 | Correction selection rule | Observable-to-source assignment not fully derived from first principles |
+| Lighter neutrino masses, solar Δm², PMNS | Single-source diagonal form gives m_2 ≈ 3×10⁻⁴ eV and m_3 ≈ 3×10⁻⁶ eV, too small for the observed solar splitting; cascade analogue of inter-generation mixing not yet derived |

@@ -737,22 +737,46 @@ proposed gauge-coupled action remark).
 \item \emph{Cascade fractional structure}
 ($Y_{Q_L} \in (1/6)\mathbb{Z}$, $Y_{L_L} \in (1/2)\mathbb{Z}$):
 closed (from $N_c = 3$ + SU(2) doublet + $J$ eigenvalues $\pm 1$).
-\item \emph{(R1) $Y_H = N_c \cdot Y_{Q_L}$}, decomposed:
+\item \emph{(R1) $Y_H = N_c \cdot Y_{Q_L}$}: closed as an
+\emph{automatic consequence} of (R1a) + (R1b) + (R1c).  Under the
+sector-fundamental theorem, $|Y_H|$ and $|Y_{Q_L}|$ are the
+sector-fundamental units in their respective sectors:
+\[
+\frac{|Y_H|}{|Y_{Q_L}|} \;=\;
+\frac{1/(\dim V_{12}(H)\cdot\dim V_{13}(H))}{1/(\dim V_{12}(Q_L)\cdot\dim V_{13}(Q_L))}
+\;=\; \frac{\dim V_{12}(Q_L)}{\dim V_{12}(H)}
+\;=\; \frac{3}{1} \;=\; N_c,
+\]
+where $V_{13}$ cancels (both $H$ and $Q_L$ are weak doublets) and the
+factor $N_c=3$ is the cascade Adams count $\rho(12)-1$ (Theorem~\ref{thm:adams}).
+Combined with (R1c) sign correlation, the composite relation
+$Y_H=N_c\cdot Y_{Q_L}$ holds with both signs aligned.  No separate
+``path-tensor color-trace identity'' is required: the factor $N_c$ is
+the \emph{sector dimension ratio}, not a color trace.  Verifier:
+\texttt{tools/research/cascade\_r1\_closure.py}.
+
+The decomposition (R1a) + (R1b) + (R1c) closures:
 \begin{itemize}
-\item \emph{(R1a) $|Y_H| = 1/2$}: closed (Higgs vacuum neutrality
-+ SU(2) doublet structure: $Q_{\rm vac} = T_3^{\rm vac} + Y_H = 0$,
-$T_3^{\rm vac}\in\{\pm 1/2\}$).
-\item \emph{(R1b) $|Y_{Q_L}| = 1/6$}: open, sharpened to a single
-cascade-native principle (\emph{sector-fundamental U(1)$_Y$ rule}):
-matter at the cascade gauge window occupies the fundamental U(1)$_Y$
-rep of its $(V_{12},V_{13})$ sector, with sector unit
-$1/(\dim V_{12}\cdot\dim V_{13})$. Verified for 5 of 6 SM Y values;
+\item \emph{(R1a) $|Y_H| = 1/2$}: closed two ways.  (i) Sector-fundamental
+in $(\mathbf{1},\mathbf{2})$ via Part~IVb~\cite{paperIVb}~$\mathit{thm{:}sector\text{-}fundamental\text{-}y}$:
+$|Y_H|=1/(1\cdot 2)=1/2$.  (ii) Higgs vacuum neutrality + SU(2) doublet
+structure: $Q_{\rm vac} = T_3^{\rm vac} + Y_H = 0$, $T_3^{\rm vac}\in\{\pm 1/2\}$.
+\item \emph{(R1b) $|Y_{Q_L}| = 1/6$}: closed via the
+\emph{sector-fundamental U(1)$_Y$ rule}, now derived as
+Part~IVb~\cite{paperIVb}~$\mathit{thm{:}sector\text{-}fundamental\text{-}y}$
+from cascade gauge centres + path-tensor matter content +
+fund-or-trivial. The diagonal subgroup $\mathbb{Z}_6\subset
+\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)_Y$ acts trivially
+on every cascade matter sector, forcing $G_{\rm cw}/\mathbb{Z}_6$ as
+the effective gauge group; U(1)$_Y$ charges in the
+$(V_{12},V_{13})$-sector are quantised in units of
+$1/(\dim V_{12}\cdot\dim V_{13})$. Five SM matter types
+($Q_L,d_R,L_L,e_R,H$) match sector-fundamental denominators exactly;
 u$_R$ is the Yukawa-singlet outlier ($+2$ sector units, forced by
-gauge invariance of $\bar Q_L\tilde H u_R$). Status:
-austerity-respecting and SM-spectrum-selected, \emph{not}
-austerity-forced; uniqueness theorem is the residual open
-question, articulated as
-Part~IVb~\cite{paperIVb}~$\mathit{oq{:}y\text{-}sector\text{-}fundamental}$.
+gauge invariance of $\bar Q_L\widetilde H u_R$ given (R1a) and (R1c)).
+Status: cascade-forced via a structural theorem on the unique discrete
+diagonal stabiliser of cascade matter content under the cascade gauge
+centres.
 \item \emph{(R1c) sign$(Y_H) =$ sign$(Y_{Q_L})$}: closed (hemisphere
 correlation: vacuum neutrality forces $Y_H = -T_3^{\rm vac}$;
 Yukawa structure forces $T_3^{\rm vac}$ opposite to matter Y sign;
@@ -769,14 +793,22 @@ physically equivalent; each observer calls their own basin
 ``matter.'' Zero observational content, at strict parity with the
 SM's $Q_e=-1$ convention.
 \end{itemize}
-The cascade's claim of zero free parameters is now precise about
-gauge groups, rep dimensions, and the structural form of Y values.
-The remaining cascade-internal open piece is the (R1b)
-sector-fundamental uniqueness theorem; the cascade has \emph{zero
-observer-frame freedom} (the observer at $d=4$ is forced by cascade
-descent; spatial structure is forced by Adams; position within
-basin is irrelevant by homogeneity; basin label is convention-
-symmetric).
+The cascade's claim of zero free parameters is now \emph{complete} for
+the gauge-sector matter content: gauge groups (Theorem~\ref{thm:adams}),
+rep dimensions (Remark~\ref{rem:fund-or-trivial}), Y-spectrum
+denominators (Part~IVb~\cite{paperIVb}~$\mathit{thm{:}sector\text{-}fundamental\text{-}y}$),
+Y-spectrum numerators on each sector lattice (extended fund-or-trivial
+$+$ Yukawa singlet algebra for u$_R$), and the
+$Y_H=N_c\,Y_{Q_L}$ relation (sector dimension ratio). No remaining
+open piece exists in the Y-spectrum chain at the magnitude $+$ sign
+level. The only ``residual'' is the basin-label sign convention
+(Part~IVb~\cite{paperIVb}~$\mathit{rem{:}cpt\text{-}balance\text{-}basins}$),
+which is a labeling convention with zero observational input, at
+strict parity with the SM's $Q_e=-1$ convention.  The cascade has
+\emph{zero observer-frame freedom} (the observer at $d=4$ is forced
+by cascade descent; spatial structure is forced by Adams; position
+within basin is irrelevant by homogeneity; basin label is
+convention-symmetric).
 \end{remark}
 
 \begin{remark}[$\mathrm{SU}(3)$ algebra at $d_0=7$ via $G_2/\mathrm{SU}(3)$]\label{rem:su3-d7-algebra}
