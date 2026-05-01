@@ -49,7 +49,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 
 ### Tier 3 — Precision: Correction-Family Closures
 
-Eight observables close within experimental error via δΦ = α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities.
+Seven Standard Model observables close within experimental precision via δΦ = ±α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions. Three shift-observable pairs reuse the same correction across independent quantities. An eighth observable (heaviest neutrino mass) closes via the related cascade-internal form m_29 · α(d_g)/χ^k, where m_29 is the cascade charged-lepton formula at the fourth Bott layer d=29 and χ^k is the chirality filter for the cascade distance to the generation layer.
 
 | Observable | Shift source | Predicted | Observed | Residual |
 |---|---|---|---|---|
