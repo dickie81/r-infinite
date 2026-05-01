@@ -31,7 +31,7 @@ the gauge window boundary 14, and the Planck sink 217 is excluded
 because the cascade ends there (it cannot act as a perturbation
 source).  Exactly four types, exactly four sources, bijective map.
 
-This script runs the classifier on all seven closed observables of
+This script runs the classifier on all eight closed observables of
 the correction-family table and confirms that each prediction matches
 the paper's assignment.  The three flags are physics meta-data about
 each observable, not derived mechanically from the cascade formulas
@@ -85,7 +85,7 @@ def predict_source(obs_type: str) -> int:
     }[obs_type]
 
 
-# The seven closed observables of Part IVb's correction-family table.
+# The eight closed observables of Part IVb's correction-family table.
 # Flags are read from the physical definition of each observable.
 OBSERVABLES = [
     Observable(
@@ -158,6 +158,16 @@ OBSERVABLES = [
         paper_k=2,
         paper_sign="-",
     ),
+    Observable(
+        name="b/s",
+        planck_anchored=False,    # mass ratio, Planck cancels
+        observer_local=False,     # encodes inter-generation descent
+        gauge_mediated=False,     # static SU(3)-algebra normalisation at d_0=7
+        rationale="cross-generation quark mass ratio at the SU(3)-algebra layer",
+        paper_d_star=7,
+        paper_k=4,
+        paper_sign="-",
+    ),
 ]
 
 
@@ -214,7 +224,7 @@ def verify() -> int:
     print()
 
     if ok_count == len(OBSERVABLES) and used_layers == NON_SINK_DISTINGUISHED:
-        print("Selection rule VERIFIED on all seven closed observables.")
+        print(f"Selection rule VERIFIED on all {len(OBSERVABLES)} closed observables.")
         return 0
     print("Selection rule FAILED verification.")
     return 1

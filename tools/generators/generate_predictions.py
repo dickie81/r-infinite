@@ -72,6 +72,7 @@ TERMS = [
     ('m_H', '<em>m</em><sub>H</sub>', r'$m_H$'),
     ('m_W', '<em>m</em><sub>W</sub>', r'$m_W$'),
     ('m_e', '<em>m</em><sub>e</sub>', r'$m_e$'),
+    ('ℓ_A', '<em>&#8467;</em><sub>A</sub>', r'$\ell_A$'),
     ('m_ν', '<em>m</em><sub>&nu;</sub>', r'$m_\nu$'),
     ('m_29', '<em>m</em><sub>29</sub>', r'$m_{29}$'),
     ('m_2', '<em>m</em><sub>2</sub>', r'$m_2$'),
