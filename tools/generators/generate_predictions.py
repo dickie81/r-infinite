@@ -76,6 +76,8 @@ TERMS = [
     ('m_29', '<em>m</em><sub>29</sub>', r'$m_{29}$'),
     ('m_2', '<em>m</em><sub>2</sub>', r'$m_2$'),
     ('m_3', '<em>m</em><sub>3</sub>', r'$m_3$'),
+    ('d_g', '<em>d</em><sub>g</sub>', r'$d_g$'),
+    ('d=29', '<em>d</em>=29', r'$d=29$'),
     ('M_Z', '<em>M</em><sub>Z</sub>', r'$M_Z$'),
     ('n_s', '<em>n</em><sub>s</sub>', r'$n_s$'),
     ('A_s', '<em>A</em><sub>s</sub>', r'$A_s$'),
