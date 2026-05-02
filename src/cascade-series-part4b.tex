@@ -2445,6 +2445,48 @@ prediction is therefore the product of two cascade-internal closures:
 $\tfrac{1}{2}$ from this theorem.
 \end{remark}
 
+\begin{remark}[Saddle-point amplitudes vs full lattice path-integral propagator]\label{rem:cascade-saddle-not-propagator}
+Theorem~\ref{thm:cabibbo-geometric-mean}'s derivation uses the
+\emph{single-saddle-point} Gaussian amplitude $\exp(-S_{\rm cl}/2)$, not
+the full lattice path-integral propagator $G_{dd'} = (K^{-1})_{dd'}$
+where $K$ is the kinetic kernel of the cascade scalar action.  These two
+quantities differ in general: the saddle-point amplitude is the
+classical-trajectory amplitude (single forced path between layers), while
+the full lattice propagator sums over all paths via matrix inversion of
+$K$ on the cascade lattice $\{d_{\min}+1,\ldots,d_{\max}-1\}$ with
+Dirichlet endpoints.
+
+Numerical test (verifier
+\texttt{tools/research/cascade\_lattice\_quantization.py}) confirms the
+two disagree even at adjacent layers: at the gauge window,
+$G(12,13)/\sqrt{G(12,12)G(13,13)} = 0.95$ while
+$\exp(-p(13)/2)=0.834$ (a $14\%$ relative difference).  The cascade's
+existing closed Cabibbo prediction $\theta_C=13.26^\circ$ at $1.7\%$
+deviation is the saddle-point value; substituting the full lattice
+propagator would give a different (and observationally worse) value.
+
+The structural implication: the cascade is \emph{not} a full quantum
+lattice field theory in the standard sense.  Its mixing-matrix
+predictions, the chirality-factorisation theorem, and the
+$\alpha(d^*)/\chi^k$ correction family all use saddle-point /
+single-path amplitudes, not full path-integral propagators.  This is
+forced by the cascade descent's single-saddle-point Gaussian structure
+(Remark~\ref{rem:per-leg-primitive-derivation}: 1D Gaussian /
+proper-time representation), which is what saturates Cauchy--Schwarz
+between adjacent layers and what gives the closed Born-rule amplitude
+$=\sqrt{\text{probability}}$.
+
+Consequence for residual open questions (PMNS solar splitting / lighter
+neutrinos, up-type Gen-2-to-Gen-1 amplification): a naive ``extend to
+full lattice quantum propagator'' move does \emph{not} close them.
+Numerical test of the seesaw $M_{ij} = m_{29}\,G(29,d_i)\,G(29,d_j)/G(29,29)$
+overshoots the observed neutrino masses by 3--4 orders of magnitude and
+produces a rank-1 mass matrix; up-type cross-generation factor ratios
+require massively inconsistent exponents ($k=-0.67$ vs $k=+18.3$).
+Whatever closes the residual open questions is structurally distinct
+from this lattice-quantization extension.
+\end{remark}
+
 \begin{remark}[Structural parallel with the lapse and ruler corrections]
 The raw cascade angle $15.78^\circ$ was computed at the gauge window without converting to the observer's frame---the same error as using $H_{\text{cascade}}$ without dividing by $N(4)$ (Paper V), or imposing Planck's $r_d$ on cascade distances (Paper V, Section 9). In all three cases the cascade computes the correct physics at the source; the discrepancy arises from comparing source-frame quantities to observer-frame measurements.
 \end{remark}
