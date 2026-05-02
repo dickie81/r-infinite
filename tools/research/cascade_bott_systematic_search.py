@@ -210,6 +210,118 @@ def main():
         print(f"  {label}: width={best[1]}, offset={best[2]:+d}, weight={best[3]}, corr={best[4]:+.3f}% (req {req:+.2f}%), rel err={best[0]*100:.1f}%, window={win_str}")
     print()
 
+    # Phase 5: TRUE FULL HYBRID search
+    # Each generation has INDEPENDENT (width, offset, weight)
+    # Joint error = sqrt(sum of per-gen rel err squared)
+    print("=" * 78)
+    print("PHASE 5: TRUE FULL HYBRID -- independent (width, offset, weight) per gen")
+    print("=" * 78)
+    print()
+    print("  Each generation independently picks its best scheme.")
+    print("  The structural cost: cascade has generation-specific averaging rules.")
+    print("  But this represents the cascade's BEST POSSIBLE residual closure")
+    print("  under the Bott-averaging hypothesis.")
+    print()
+
+    # Per-generation best (more comprehensive search)
+    per_gen_top = {}
+    for gen, label in [(3, "tau"), (2, "mu"), (1, "e")]:
+        d_g = GENERATIONS[gen]
+        req = REQUIRED[label]
+        results_pg = []
+        for width in widths:
+            for offset in [-3, -2, -1, 0, 1, 2, 3]:
+                for weight in weight_names:
+                    window = get_window(d_g, width, offset)
+                    if not window or len(window) < 2:
+                        continue
+                    weight_fn = WEIGHT_FNS[weight]
+                    corr = averaged_correction(d_g, window, weight_fn)
+                    err = abs((corr - req) / req)
+                    results_pg.append((err, width, offset, weight, corr, window))
+        results_pg.sort()
+        per_gen_top[label] = results_pg[:5]
+
+    print(f"  Top 5 per generation (independent search):")
+    print()
+    for label in ["tau", "mu", "e"]:
+        print(f"  {label} (req {REQUIRED[label]:+.2f}%):")
+        for i, (err, w, o, wt, c, win) in enumerate(per_gen_top[label][:5]):
+            win_str = f"[{win[0]}..{win[-1]}]"
+            print(f"    {i+1}. width={w}, offset={o:+d}, weight={wt:>10}, "
+                  f"corr={c:>+7.3f}%, rel err={err*100:>5.1f}%, window={win_str}")
+        print()
+
+    # Joint best: combine each gen's top picks
+    best_tau = per_gen_top["tau"][0]
+    best_mu = per_gen_top["mu"][0]
+    best_e = per_gen_top["e"][0]
+
+    print("  TRUE FULL HYBRID best:")
+    print(f"    tau: width={best_tau[1]}, offset={best_tau[2]:+d}, weight={best_tau[3]}, corr={best_tau[4]:+.3f}%  (rel err {best_tau[0]*100:.1f}%)")
+    print(f"    mu:  width={best_mu[1]}, offset={best_mu[2]:+d}, weight={best_mu[3]}, corr={best_mu[4]:+.3f}%  (rel err {best_mu[0]*100:.1f}%)")
+    print(f"    e:   width={best_e[1]}, offset={best_e[2]:+d}, weight={best_e[3]}, corr={best_e[4]:+.3f}%  (rel err {best_e[0]*100:.1f}%)")
+    joint_err_full = math.sqrt(best_tau[0]**2 + best_mu[0]**2 + best_e[0]**2)
+    print(f"    JOINT relative error: {joint_err_full:.3f}")
+    print()
+
+    # Same weight scan but with independent (w, o) per gen
+    print("=" * 78)
+    print("PHASE 6: SAME WEIGHT, independent (width, offset) per gen")
+    print("=" * 78)
+    print()
+    print("  Test if a single GLOBAL weight function with per-gen window choice")
+    print("  is enough to combat all three residuals.  Saves a 'cascade rule'.")
+    print()
+    same_weight_results = []
+    for weight in weight_names:
+        weight_fn = WEIGHT_FNS[weight]
+        # For each generation, find best (width, offset) given this weight
+        best_per_gen_this_weight = {}
+        for gen, label in [(3, "tau"), (2, "mu"), (1, "e")]:
+            d_g = GENERATIONS[gen]
+            req = REQUIRED[label]
+            results_pg = []
+            for width in widths:
+                for offset in [-3, -2, -1, 0, 1, 2]:
+                    window = get_window(d_g, width, offset)
+                    if not window or len(window) < 2:
+                        continue
+                    corr = averaged_correction(d_g, window, weight_fn)
+                    err = abs((corr - req) / req)
+                    results_pg.append((err, width, offset, corr, window))
+            results_pg.sort()
+            best_per_gen_this_weight[label] = results_pg[0] if results_pg else None
+        if all(best_per_gen_this_weight[l] is not None for l in ["tau", "mu", "e"]):
+            joint = math.sqrt(sum(best_per_gen_this_weight[l][0]**2 for l in ["tau", "mu", "e"]))
+            same_weight_results.append((joint, weight, best_per_gen_this_weight))
+    same_weight_results.sort()
+    print(f"  Top 5 single-weight schemes (with per-gen window):")
+    print(f"  {'rank':>4} {'joint err':>10} {'weight':>10} {'tau (w,o,err)':>20} {'mu (w,o,err)':>20} {'e (w,o,err)':>20}")
+    for i, (joint, weight, picks) in enumerate(same_weight_results[:5]):
+        tau_p = picks["tau"]
+        mu_p = picks["mu"]
+        e_p = picks["e"]
+        print(f"  {i+1:>4} {joint:>10.3f} {weight:>10} "
+              f"({tau_p[1]},{tau_p[2]:+d},{tau_p[0]*100:.1f}%) "
+              f"({mu_p[1]},{mu_p[2]:+d},{mu_p[0]*100:.1f}%) "
+              f"({e_p[1]},{e_p[2]:+d},{e_p[0]*100:.1f}%)")
+    print()
+
+    print("=" * 78)
+    print("CONCLUSION")
+    print("=" * 78)
+    print()
+    print(f"  TRUE FULL HYBRID joint error: {joint_err_full:.3f}")
+    print()
+    print(f"  Compared to:")
+    print(f"    Best non-hybrid (Phase 1):       1.275")
+    print(f"    Best partial-hybrid (Phase 2):   1.275 (essentially same)")
+    print(f"    True full hybrid (Phase 5):      {joint_err_full:.3f}")
+    print()
+    print(f"  Improvement from partial to full hybrid: {1.275 - joint_err_full:.3f}")
+    print()
+
 
 if __name__ == "__main__":
     main()
