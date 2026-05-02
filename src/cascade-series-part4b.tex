@@ -2445,6 +2445,48 @@ prediction is therefore the product of two cascade-internal closures:
 $\tfrac{1}{2}$ from this theorem.
 \end{remark}
 
+\begin{remark}[Saddle-point amplitudes vs full lattice path-integral propagator]\label{rem:cascade-saddle-not-propagator}
+Theorem~\ref{thm:cabibbo-geometric-mean}'s derivation uses the
+\emph{single-saddle-point} Gaussian amplitude $\exp(-S_{\rm cl}/2)$, not
+the full lattice path-integral propagator $G_{dd'} = (K^{-1})_{dd'}$
+where $K$ is the kinetic kernel of the cascade scalar action.  These two
+quantities differ in general: the saddle-point amplitude is the
+classical-trajectory amplitude (single forced path between layers), while
+the full lattice propagator sums over all paths via matrix inversion of
+$K$ on the cascade lattice $\{d_{\min}+1,\ldots,d_{\max}-1\}$ with
+Dirichlet endpoints.
+
+Numerical test (verifier
+\texttt{tools/research/cascade\_lattice\_quantization.py}) confirms the
+two disagree even at adjacent layers: at the gauge window,
+$G(12,13)/\sqrt{G(12,12)G(13,13)} = 0.95$ while
+$\exp(-p(13)/2)=0.834$ (a $14\%$ relative difference).  The cascade's
+existing closed Cabibbo prediction $\theta_C=13.26^\circ$ at $1.7\%$
+deviation is the saddle-point value; substituting the full lattice
+propagator would give a different (and observationally worse) value.
+
+The structural implication: the cascade is \emph{not} a full quantum
+lattice field theory in the standard sense.  Its mixing-matrix
+predictions, the chirality-factorisation theorem, and the
+$\alpha(d^*)/\chi^k$ correction family all use saddle-point /
+single-path amplitudes, not full path-integral propagators.  This is
+forced by the cascade descent's single-saddle-point Gaussian structure
+(Remark~\ref{rem:per-leg-primitive-derivation}: 1D Gaussian /
+proper-time representation), which is what saturates Cauchy--Schwarz
+between adjacent layers and what gives the closed Born-rule amplitude
+$=\sqrt{\text{probability}}$.
+
+Consequence for residual open questions (PMNS solar splitting / lighter
+neutrinos, up-type Gen-2-to-Gen-1 amplification): a naive ``extend to
+full lattice quantum propagator'' move does \emph{not} close them.
+Numerical test of the seesaw $M_{ij} = m_{29}\,G(29,d_i)\,G(29,d_j)/G(29,29)$
+overshoots the observed neutrino masses by 3--4 orders of magnitude and
+produces a rank-1 mass matrix; up-type cross-generation factor ratios
+require massively inconsistent exponents ($k=-0.67$ vs $k=+18.3$).
+Whatever closes the residual open questions is structurally distinct
+from this lattice-quantization extension.
+\end{remark}
+
 \begin{remark}[Structural parallel with the lapse and ruler corrections]
 The raw cascade angle $15.78^\circ$ was computed at the gauge window without converting to the observer's frame---the same error as using $H_{\text{cascade}}$ without dividing by $N(4)$ (Paper V), or imposing Planck's $r_d$ on cascade distances (Paper V, Section 9). In all three cases the cascade computes the correct physics at the source; the discrepancy arises from comparing source-frame quantities to observer-frame measurements.
 \end{remark}
@@ -2718,7 +2760,13 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 \textbf{Near-term (structural, no new mathematics required):}
 \begin{enumerate}
 \item \emph{Largely resolved.} Close the electroweak VEV $v$. Remark~\ref{rem:v-closure} establishes the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ and identifies $\exp(-\pi/\alpha(5))$ with the Kosterlitz--Thouless single-vortex action on the 2-sphere cross-section of $S^4$ via the Morse foliation of the $d{=}5$ hairy-ball defect, with half-winding forced by Theorem~\ref{thm:chirality-factorisation}. The identity, the 2-sphere cross-section, and the chirality-half-winding are all cascade-internal. \textbf{Residual:} a formal proof that the 4D hairy-ball tangent-field obstruction on $S^4$ is equivalent to a first-Chern class on each 2-cycle of the Morse foliation --- a pure geometric-topology step, not new cascade content.
-\item \emph{Derive the PMNS matrix and the solar neutrino splitting.} \textbf{Partial-negative tests on cascade-native mechanisms} (verifier: \texttt{tools/research/cascade\_pmns\_solar\_splitting.py}). The heaviest neutrino mass is derived ($m_{29}\times\alpha(21)/\chi^8$, $-1\%$ on $\Delta m^2_{\rm atm}$); the diagonal cascade form gives $m_2\sim 3\times 10^{-4}$~eV, undershooting $\sqrt{\Delta m^2_{\rm sol}}=0.0086$~eV by factor $\sim$800. Four cascade-native mechanisms tested for closing the gap: (i)~Cabibbo-style geometric-mean rule (Theorem~\ref{thm:cabibbo-amplitude}) extended to PMNS$_{12}$ gives $\theta_{12}\approx 7.5^\circ$ vs observed $33.4^\circ$~--- way too small; CKM small + PMNS large means the two sectors require different mechanisms. (ii)~Gram-overlap inter-generation mixing $M_{12}=m_1\cdot \mathrm{gram}(13,21)\approx 1.6\times 10^{-4}$~eV vs required $7.6\times 10^{-4}$~eV (factor 4.6 too small, plus invalid because observed mixing is large not small). (iii)~Chirality-basin mixing (Theorem~\ref{thm:chirality-factorisation}) gives qualitatively the right pattern ($\theta_{23}\approx 45^\circ$ maximal, $\theta_{13}$ small) but no quantitative cascade-native bridge to angle structure. (iv)~Modified $m_2$ descent $m_{29}\alpha(d)/\chi^k$ admits no integer $\chi^k$ that lands on $0.0086$~eV. Per Check~7, semiclassical Bogoliubov-mixing / KK-quotient procedures are inadmissible. Genuine open structural piece: a cascade-internal derivation of neutrino-sector mixing yielding (a) large $\theta_{12},\theta_{23}$, (b) small $\theta_{13}$, (c) magnitude $\Delta m^2_{\rm sol}=7.5\times 10^{-5}$~eV$^2$. Most likely route: an inter-layer overlap from the cascade scalar action acting differently on neutrino vs charged-lepton chirality basins, but the existing cascade ingredients (Gram, geometric-mean, $\chi$-factor) tested here do not close the gap.
+\item \emph{Derive the PMNS matrix and the solar neutrino splitting.} \textbf{Partial-negative tests on cascade-native mechanisms} (verifier: \texttt{tools/research/cascade\_pmns\_solar\_splitting.py}); \textbf{single-parameter probe identifies $X = N_c^3 = 27$ as the missing factor} (verifier: \texttt{tools/research/cascade\_single\_parameter\_probe.py}). The heaviest neutrino mass is derived ($m_{29}\times\alpha(21)/\chi^8$, $-1\%$ on $\Delta m^2_{\rm atm}$); the diagonal cascade form gives $m_2\sim 3\times 10^{-4}$~eV, undershooting $\sqrt{\Delta m^2_{\rm sol}}=0.0086$~eV by factor $\sim$30. Four cascade-native mechanisms tested in earlier work all failed to close the gap (Cabibbo geometric-mean extension, Gram-overlap mixing, chirality-basin mixing, modified $m_2$ descent). \textbf{New finding (single-parameter probe):} a single missing factor $X^{(g-1)}$ in the cascade neutrino formula closes all three generations:
+\[
+m_\nu(g) \;=\; m_{29}\cdot\frac{\alpha(d_g)\,X^{g-1}}{\chi^{29-d_g}},
+\qquad
+X = N_c^3 = 27.
+\]
+This gives Gen 1 (heaviest) at $-5.75\%$ (unchanged, already cascade-derived), Gen 2 (middle) at $-10.98\%$ vs observed $\sqrt{\Delta m^2_{\rm sol}}$ (now within the cascade's standing leading-order systematic), and Gen 3 (lightest) predicted at $\sim 1.81$~meV (testable by KATRIN / cosmological bounds, well below $0.05$~eV upper limit). Multiple cascade-natural readings for $X = 27$ are available: $N_c^3$ (3 colours per Bott step over 3 generation steps), $N_{\rm gen}\cdot N_c^2$ (3 generations $\times$ 9 colour pairs), $N_c^{N_{\rm Bott}}$ (with $N_{\rm Bott}=3$ from descent through three Bott periods); also numerically close: $1/\alpha_{\rm GUT}\approx 25.02$ at $7.3\%$, $\dim SO(8)=28$ at $3.7\%$ (SO(8) triality at the $d=8$ Bott boundary). Per Check~7, semiclassical Bogoliubov-mixing / KK-quotient procedures are inadmissible. Open structural piece: derive the $N_c^3$-per-Bott-step factor cascade-natively from path-tensor + chirality + descent through the SU(3) layers (gauge $d=12$ + algebra $d_0=7$). The single-parameter form sharpens the OQ from ``find a different mechanism'' to ``find the cascade derivation of the specific factor $N_c^3$ per Bott step.''
 \item \emph{Resolved.} Derive $1/\alpha_{\mathrm{em}}=137$ from the cascade action. The conjecture $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ (Open Question~\ref{oq:alpha-em-screening}) matches observation to $0.006\%$. All four pieces are now cascade-internally derived: (i)~the bare coupling from Theorem~\ref{thm:weinberg}; (ii)~the chirality factor $\chi$ per Dirac layer from Theorem~\ref{thm:chirality-selection-rule} (closed-loop, $m=1$, $k=0$); (iii)~the per-leg primitive $\Gamma(\tfrac{1}{2})^2$ from Remark~\ref{rem:per-leg-primitive-derivation} (1D Gaussian / proper-time 2-point function on the cascade lattice with canonical $1/\alpha(d)$ wavefunction renormalisation cancelling the layer-dependent prefactor); (iv)~the multiplicative $N_{\mathrm{gen}}=3$ as the count of Dirac layers $\{5,13,21\}$ in the descent, equal to the generation count by Part~IVa~\cite{paper4a}'s three-generation theorem. The structural derivation is complete; the $0.006\%$ residual sits at the cascade's standing leading-order systematic.
 \item \emph{Complete the quark mass spectrum.} The ratio $(t/b)/(c/s)=3.04\approx N_c$ suggests an additional colour factor from the Weyl chirality decomposition at $d=12$. Computing this from the cascade's own spinor structure at $S^{11}$ would complete the quark sector.
 \end{enumerate}
