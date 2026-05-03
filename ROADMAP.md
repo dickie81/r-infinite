@@ -93,11 +93,31 @@ The closed-form Green's function on the cascade lattice (now available — see R
 
 See Part IVb open question on PMNS and `tools/research/cascade_pmns_solar_splitting.py` for the partial-negative tests on existing cascade ingredients (Gram, geometric-mean, χ-factor).
 
-### 6. Up-type quark masses — Weyl chirality factor at SU(3) layer
+### 6. Up-type quark masses — partial closure (m_top, m_c via Roadmap hint + cascade closures)
 
-**Status:** Tier 4 in PREDICTIONS.md. The relation (t/b)/(c/s) ≈ N_c = 3 is empirically suggestive but the Weyl chirality coupling at d=12 (SU(3) algebra layer) has not been computed.
+**Status:** Two of three up-type quark masses now have cascade-internal predictions to within standing precision via the Roadmap #6 structural hint combined with existing cascade closures. The third (m_u) remains an empirical fit. The Weyl chirality factor at d=12 — the proposed structural mechanism for the (t/b)/(c/s) = N_c relation — has not been computed; closing it would promote these to Tier 2.
 
-**Most tractable path:** compute the Weyl chirality factor on S^11 explicitly. Closing this would derive 3 quark masses at once.
+**Verifier:** [`tools/research/cascade_uptype_quarks.py`](tools/research/cascade_uptype_quarks.py).
+
+**Findings (in order of cleanness):**
+
+- **m_top = v / √2** (cascade v with SM y_top = 1): cascade prediction 170.27 GeV vs observed 172.69 GeV (-1.4%). Within standing precision. Cascade contribution: v_cas (Tier 2). Empirical input: y_top ≈ 1 (well-measured SM Yukawa, not yet cascade-derived). Structural consistency check, not full cascade derivation.
+
+- **m_c = m_top / (N_c · (b/s)_cas)**: NEW structural extension combining the Roadmap #6 hint (t/b)/(c/s) = N_c with the cascade b/s closure (Tier 2 theorem-level). Algebra: from (t/b)/(c/s) = N_c, c/s = (t/b)/N_c; combined with (t/b) = m_top/m_b and c/s = m_c/m_s, m_c = m_top/(N_c · (b/s)). Using cascade m_top: 1.2685 GeV vs observed 1.27 GeV (-0.12%). Using observed m_top: 1.2865 GeV vs 1.27 GeV (+1.30%). Both within standing precision; the cascade m_top version is sub-percent.
+
+- **m_u**: empirical fit only. Best match: m_u = N_c · √2 · m_e to -0.4% with observed m_e. Alternative: (c/s)/(u/d) = 3π² to -0.7%. Neither has a clean cascade-internal structural derivation; the √2 factor and the 3π² ratio aren't structurally motivated cascade primitives. Cascade lepton template (m_g = (α_s · v / √2) · exp(-Φ(d_g)) · (2√π)^{-(n_D+1)}) gives non-integer obstruction count for m_u (n_D + 1 ≈ 2.87), so the standard fermion template doesn't fit.
+
+**What would close Roadmap #6:**
+
+1. **Cascade-internal derivation of (t/b)/(c/s) = N_c at theorem level.** Currently a Tier 4 empirical hint. The Weyl chirality factor at d=12 (the SU(3) algebra layer, with R^12 = H^3 quaternionic Bott structure) is the proposed mechanism: Spin(12) Dirac decomposes as Spin(4)^⊗3, and up-type vs down-type quarks may have different chirality factor counts. Computing this explicitly would promote m_c to Tier 2 (combined with already-Tier-2 b/s closure).
+
+2. **Cascade-internal derivation of y_top = 1.** SM Yukawa for top is essentially 1 (no suppression); cascade currently takes this as input. Candidate cascade-internal argument: "top is the unique unobstructed fermion in the Weyl chirality structure at d=12" — needs concrete derivation. Closing would promote m_top to Tier 2.
+
+3. **Cascade structural derivation of m_u.** Both empirical fits (N_c·√2·m_e and (c/s)/(u/d) = 3π²) lack cascade primitive justification. The Weyl chirality factor at d=12 is the natural candidate mechanism; if it gives the m_top/m_c relation cleanly, it should also constrain m_u.
+
+Closing (1) and (2) would promote 2 of 3 up-type quark masses to Tier 2. Closing (3) would close the up-type sector.
+
+**Most tractable path forward:** (1) is the highest-leverage item — closing it cascade-internally promotes m_c to Tier 2 and clarifies the structural mechanism for (3). The Weyl chirality factor on S^11 at d=12 needs explicit computation (per the original Roadmap #6 statement). The Spin(12) = Spin(4)^⊗3 decomposition (Part IVa rem:single-h-factor) provides the structural starting point.
 
 ### 7. CP-violation — structurally outside cascade scope
 
