@@ -4,18 +4,36 @@ Probe x = 4/5 universality across cross-sector mass ratios.
 
 CONTEXT
 =======
-cascade_native_rg_running.py identified that:
+The cascade alpha_s formula structurally encodes RG running for couplings:
 
-  m_b/m_tau = exp(Phi(12))^(4/5) = 2.344  (PDG 2.353, match -0.37%)
+  alpha_s_cascade = alpha(12) * exp(Phi(12)) ~ alpha_s(M_Z)
 
-with x = 4/5 = d_observer/d_host conjectured as the cascade mass-running
-exponent.  This script tests whether the SAME exponent universally
-applies across other cross-sector mass ratios.
+This is established cascade structure: alpha(12) ~ alpha_s(M_GUT), and
+the descent factor exp(Phi(12)) ~ 2.90 mirrors the QCD running factor
+M_GUT -> M_Z (~2.95).  The Phi descent IS the running for couplings.
+
+This led to a conjecture that the same descent generator with a different
+exponent might give mass running:
+
+  m_b / m_tau = exp(Phi(12))^x
+
+Empirically, x = 4/5 matches m_b/m_tau to -0.4%:
+
+  exp(Phi(12))^(4/5) = 2.344  (PDG m_b/m_tau = 2.353, match -0.37%)
+
+with x = 4/5 = d_observer / d_host (4 = observer dim, 5 = host dim)
+conjectured as the cascade mass-running exponent.  This script tests
+whether the SAME exponent universally applies across other cross-sector
+mass ratios.
 
 RESULT
 ======
-NOT confirmed.  Only m_b/m_tau matches.  The conjecture x=4/5 is
-essentially a one-parameter fit to one data point.
+NOT confirmed.  Only m_b/m_tau matches at standing precision.  The
+conjecture x=4/5 is essentially a one-parameter fit to one data point.
+
+The cascade's REAL RG-running encoding is for COUPLINGS via the
+alpha_s formula above (genuine structural feature).  Mass running
+does NOT extend trivially from the same mechanism.
 
 PROBE: required Phi(d) for each cross-sector ratio if x=4/5 universal
 ======================================================================
