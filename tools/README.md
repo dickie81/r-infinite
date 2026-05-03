@@ -109,7 +109,6 @@ Scripts in `archive/` are retained for traceability but are **not** cited in the
 | `desi_bao_sensitivity.py` | — | DESI sensitivity study (one-off) |
 | `cascade_weinberg.py` | `verifiers/verify_selection_rule.py` + `closures/` | Early Weinberg-angle closure route |
 | `compute_all_corrections.py` | Individual `closures/` scripts | Monolithic correction computer, split into per-observable scripts |
-| `purge_perturbation.py` | — | One-off perturbation-analysis utility |
 
 ---
 
