@@ -217,29 +217,6 @@ $d = 14, \ldots, 21$ & 8 & 0.00200 & $0.13\%$ ($m_\mu/m_e$) \\
 
 \noindent At fixed $n$, $\epsilon$ decreases with $d_0$ because the overlap deficit per step (Theorem~\ref{thm:overlap}) decreases as $1/d^2$.
 
-\subsection{The independent-step correction}
-
-The cascade's leading-order predictions treat each compactification step as independent. A quantity that depends on the cascade's geometry over a path of $n$ layers receives a correction from the inter-layer coupling. Two distinct measures of this coupling are derived from the Gram matrix:
-
-\begin{itemize}
-\item \emph{Eigenvalue deficit $\epsilon = 1 - \lambda_1/n$} (Theorem~\ref{thm:eigenvalue}): the matrix-level magnitude of inter-layer coupling, characterised by the dominant eigenmode of $C$ and aggregated over all $n^2$ pair correlations with weight $(1-C_{ij})$. Derived perturbatively in Section~\ref{sec:perturbation}.
-\item \emph{Geometric correction $\delta\Phi$} (Definition~\ref{def:delta-phi} below): the multiplicative log-decrement a propagator picks up traversing the path, summed over adjacent-layer overlap deficits with weight $(1-C^2_{d,d+1})$. Derived in Section~\ref{sec:first-order}.
-\end{itemize}
-
-The two are related but structurally distinct: $\epsilon$ characterises the Gram matrix as a whole; $\delta\Phi$ is the cumulative shift along a specific path. The corrected observable formula uses $\delta\Phi$.
-
-\begin{definition}[Geometric correction along a path]\label{def:delta-phi}
-For a cascade observable traversing the path $\{d_0, d_0+1, \ldots, d_0+n-1\}$,
-\[
-\delta\Phi \;:=\; \sum_{k=0}^{n-2}\bigl(1 - C^2_{d_k, d_{k+1}}\bigr),
-\]
-the path-cumulative adjacent overlap deficit. By Theorem~\ref{thm:overlap}, every term is strictly positive, so $\delta\Phi > 0$ for every cascade path. Theorem~\ref{thm:first-order} below shows that $\delta\Phi$ equals the first-order multiplicative correction to a cascade-descent observable, and Corollary~\ref{cor:exp-resum} shows that the unique closed-form correction respecting path-splitting composition is $Q = Q_0 \cdot \exp(\delta\Phi)$.
-\end{definition}
-
-\begin{remark}[What the correction is not]
-The correction is not to the Gamma function, which is exact. It is not to the slicing recurrence, which is exact (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by $\Gamma(a+1) = a\Gamma(a)$). It is to the \emph{independent-step approximation}: the assumption that a quantity depending on $n$ cascade layers is the product of $n$ individually exact factors. The layers are individually exact but not independent---their integrands overlap in $L^2$, and the eigenvalue deficit $\epsilon$ quantifies the overlap.
-\end{remark}
-
 \subsection{The perturbation theory for $\epsilon$}\label{sec:perturbation}
 
 \begin{theorem}[First-order eigenvalue deficit]\label{thm:pert}
@@ -301,44 +278,36 @@ a polynomial sum of $R$-ratio products. Numerically, for cascade-physics paths (
 For positive eigenvalues $\lambda_1 \geq \lambda_2 \geq \cdots \geq 0$, $\mathrm{tr}\,C^k = \sum_j \lambda_j^k$, so $\lambda_1^k \leq \mathrm{tr}\,C^k$ and $\lambda_1 \leq U_k$. Monotonicity $U_k \geq U_{k+1}$ is the standard fact that $\ell^k$ norms of a positive vector decrease in $k$. The convergence $U_k \to \lambda_1$ at rate $(\lambda_2/\lambda_1)^k$ follows from $\mathrm{tr}\,C^k = \lambda_1^k(1 + (\lambda_2/\lambda_1)^k + \cdots)$ via the Bernoulli expansion of $(1 + \epsilon)^{1/k}$. The closed-form expression for $\mathrm{tr}\,C^k$ is the standard polynomial trace expansion; each $C_{ij}$ is a closed-form ratio of slicing ratios (Theorem~\ref{thm:gram-R} and its generalisation to arbitrary index pairs), so the sum is closed-form in cascade primitives.
 \end{proof}
 
-% [Empirical k_Q fitting section removed: superseded by the derived
-% first-order exponential correction of Section~\ref{sec:first-order}
-% below, whose numerical evidence is gathered in the table after
-% Corollary~\ref{cor:exp-resum}. For three precision observables the
-% Gram-matrix framework itself is superseded by the
-% $\alpha(d^*)/\chi^k$ structural family of Paper~IVb, recorded in
-% Remark~\ref{rem:superseded-by-family}.]
+\subsection{The independent-step correction}\label{sec:first-order}
 
-\subsection{Sign structure of the correction}
+The cascade's leading-order predictions treat each compactification step as independent. A quantity that depends on the cascade's geometry over a path of $n$ layers receives a correction from the inter-layer coupling. Two distinct measures of this coupling are derived from the Gram matrix:
 
-The geometric correction $\delta\Phi$ (Definition~\ref{def:delta-phi}) is strictly positive, since each adjacent overlap satisfies $C_{d,d+1}<1$ by Cauchy--Schwarz. Applied multiplicatively as $Q = Q_0\cdot\exp(\delta\Phi)$ (Corollary~\ref{cor:exp-resum}), it always increases the predicted value. This produces the observed sign structure across all cascade predictions:
-
-\begin{itemize}[nosep]
-\item \emph{Descent-dependent quantities} (those traversing multiple cascade layers) have negative leading-order deviations, because the independent-step approximation underestimates the propagated geometric content. The correction $\exp(+\delta\Phi)$ closes the gap.
-\item \emph{Geometric quantities} (single-level ratios, topological constants) have positive leading-order deviations, because they do not traverse multiple layers and receive no inter-layer correction. Their deviations reflect the subleading structure of the Gamma function at a single level, which is a separate (and smaller) effect.
+\begin{itemize}
+\item \emph{Eigenvalue deficit $\epsilon = 1 - \lambda_1/n$} (Theorem~\ref{thm:eigenvalue}): the matrix-level magnitude of inter-layer coupling, characterised by the dominant eigenmode of $C$ and aggregated over all $n^2$ pair correlations with weight $(1-C_{ij})$. Derived perturbatively in Section~\ref{sec:perturbation}.
+\item \emph{Geometric correction $\delta\Phi$} (Definition~\ref{def:delta-phi} below): the multiplicative log-decrement a propagator picks up traversing the path, summed over adjacent-layer overlap deficits with weight $(1-C^2_{d,d+1})$. Derived in Section~\ref{sec:first-order}.
 \end{itemize}
 
-The clean sign separation---negative for descent, positive for geometric---is not an empirical observation. It is a consequence of $\delta\Phi > 0$, which is itself a consequence of $C_{ij} < 1$ for $i\neq j$ (Cauchy--Schwarz on non-collinear cascade integrands).
+The two are related but structurally distinct: $\epsilon$ characterises the Gram matrix as a whole; $\delta\Phi$ is the cumulative shift along a specific path. The corrected observable formula uses $\delta\Phi$.
 
-\subsection{The correction as compactification residual}
-
-Theorem~4.2 establishes that each compactification step retains a residual $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$. The overlap deficit (Theorem~\ref{thm:overlap}) scales as $1-C_{d,d+1}^2 \sim 1/(8d^2) \sim R_{\mathrm{eff}}^4/8$. The eigenvalue deficit $\epsilon$ is the cumulative effect of these per-step residuals over the path.
-
-The independent-step approximation corresponds to the limit $R_{\mathrm{eff}} \to 0$ (complete compactification). The geometric correction $\delta\Phi$ (Definition~\ref{def:delta-phi}) is the leading-order cost of $R_{\mathrm{eff}} > 0$---the imperfect folding of the cascade's own geometry.
-
-\subsection{The first-order correction: a Beta function identity}\label{sec:first-order}
+\begin{definition}[Geometric correction along a path]\label{def:delta-phi}
+For a cascade observable traversing the path $\{d_0, d_0+1, \ldots, d_0+n-1\}$,
+\[
+\delta\Phi \;:=\; \sum_{k=0}^{n-2}\bigl(1 - C^2_{d_k, d_{k+1}}\bigr),
+\]
+the path-cumulative adjacent overlap deficit. By Theorem~\ref{thm:overlap}, every term is strictly positive, so $\delta\Phi > 0$ for every cascade path. Theorem~\ref{thm:first-order} below shows that $\delta\Phi$ equals the first-order multiplicative correction to a cascade-descent observable, and Corollary~\ref{cor:exp-resum} shows that the unique closed-form correction respecting path-splitting composition is $Q = Q_0 \cdot \exp(\delta\Phi)$.
+\end{definition}
 
 \begin{theorem}[Adjacent overlap deficit correction]\label{thm:first-order}
 For a descent-dependent observable traversing path $\{d_0,\ldots,d_0+n-1\}$:
 \begin{equation}\label{eq:first-order}
-\frac{\delta Q}{Q_0} = \sum_{k=0}^{n-2}\bigl(1 - C_{d_k,d_{k+1}}^2\bigr),
+\frac{\delta Q}{Q_0} = \sum_{k=0}^{n-2}\bigl(1 - C_{d_k,d_{k+1}}^2\bigr) \;=\; \delta\Phi,
 \end{equation}
 where each $C_{d,d+1}$ is the adjacent-layer correlation (Theorem~\ref{thm:overlap}).
 This is a sum of Beta function ratios. No free parameter enters.
 \end{theorem}
 
 \begin{proof}
-The observable propagates through $n$ layers. The independent-step approximation treats each layer as perfectly collinear with the next ($C_{d,d+1}=1$). The first-order departure from collinearity at each step is the squared overlap deficit $1-C_{d,d+1}^2$, which measures the fraction of the integrand at step $d$ that is orthogonal to step $d+1$ (Theorem~\ref{thm:overlap}). For a multiplicative propagator, the leading correction is the sum of per-step deficits.
+The observable propagates through $n$ layers. The independent-step approximation treats each layer as perfectly collinear with the next ($C_{d,d+1}=1$). The first-order departure from collinearity at each step is the squared overlap deficit $1-C_{d,d+1}^2$, which measures the fraction of the integrand at step $d$ that is orthogonal to step $d+1$ (Theorem~\ref{thm:overlap}). For a multiplicative propagator, the leading correction is the sum of per-step deficits, which is $\delta\Phi$ by Definition~\ref{def:delta-phi}.
 \end{proof}
 
 \begin{corollary}[Exponential resummation forced by multiplicative composition]\label{cor:exp-resum}
@@ -347,7 +316,7 @@ traversing the path of Theorem~\ref{thm:first-order}, the unique
 closed-form leading-order Gram-corrected observable respecting
 multiplicative composition under path splitting is
 \begin{equation}\label{eq:exp-form}
-Q \;=\; Q_0\cdot\exp\!\Bigl(\sum_{k=0}^{n-2}\bigl(1-C_{d_k,d_{k+1}}^2\bigr)\Bigr) \;+\; O(\delta^2),
+Q \;=\; Q_0\cdot\exp(\delta\Phi) \;+\; O(\delta^2),
 \end{equation}
 where $\delta = \max_k (1 - C_{d_k,d_{k+1}}^2)$. The exponential
 matches Theorem~\ref{thm:first-order} at first order in $\delta$ per
@@ -366,7 +335,7 @@ Q \;=\; Q_0\prod_{k=0}^{n-2}\bigl(1 + \delta_k + O(\delta_k^2)\bigr),
 This product is the exact corrected observable (modulo $O(\delta^2)$
 per-step residuals from Theorem~\ref{thm:first-order}'s first-order
 truncation). Define the path-functional
-$\Phi(P) := \sum_{k\in P} \delta_k$ and the correction factor
+$\Phi(P) := \sum_{k\in P} \delta_k = \delta\Phi(P)$ and the correction factor
 $K(P) := Q/Q_0$ over a path $P$.
 
 \emph{Composition law.} Multiplicative composition under path
@@ -390,10 +359,7 @@ equation, the unique family of solutions $K(\Phi) = e^{c\Phi}$ for
 some constant $c$. Matching the first-order behaviour to
 Theorem~\ref{thm:first-order} ($K(\Phi) = 1 + \Phi + O(\Phi^2)$ for
 small $\Phi$, hence $K'(0) = 1$) fixes $c = 1$. Therefore
-\[
-K(\Phi) \;=\; e^\Phi \;=\; \exp\!\Bigl(\sum_k \delta_k\Bigr),
-\]
-and the corrected observable is~\eqref{eq:exp-form}.
+$K(\delta\Phi) = e^{\delta\Phi}$, and the corrected observable is~\eqref{eq:exp-form}.
 
 \emph{Why the linear form fails.} The linear closed-form
 $K_{\mathrm{lin}}(\Phi) = 1 + \Phi$ matches at first order but
@@ -438,6 +404,39 @@ observational precision of the exact product for all paths considered.
 It is the form used downstream (Paper~I, $\rho_\Lambda$ closure;
 Paper~IVb, the $v$ and $m_\tau$ absolute-mass shifts).
 \end{proof}
+
+\begin{remark}[What the correction is not]
+The correction is not to the Gamma function, which is exact. It is not to the slicing recurrence, which is exact (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by $\Gamma(a+1) = a\Gamma(a)$). It is to the \emph{independent-step approximation}: the assumption that a quantity depending on $n$ cascade layers is the product of $n$ individually exact factors. The layers are individually exact but not independent---their integrands overlap in $L^2$, and the eigenvalue deficit $\epsilon$ quantifies the overlap.
+\end{remark}
+
+% [Empirical k_Q fitting section removed: superseded by the derived
+% first-order exponential correction of Section~\ref{sec:first-order}
+% below, whose numerical evidence is gathered in the table after
+% Corollary~\ref{cor:exp-resum}. For three precision observables the
+% Gram-matrix framework itself is superseded by the
+% $\alpha(d^*)/\chi^k$ structural family of Paper~IVb, recorded in
+% Remark~\ref{rem:superseded-by-family}.]
+
+\subsection{Sign structure of the correction}
+
+The geometric correction $\delta\Phi$ (Definition~\ref{def:delta-phi}) is strictly positive, since each adjacent overlap satisfies $C_{d,d+1}<1$ by Cauchy--Schwarz. Applied multiplicatively as $Q = Q_0\cdot\exp(\delta\Phi)$ (Corollary~\ref{cor:exp-resum}), it always increases the predicted value. This produces the observed sign structure across all cascade predictions:
+
+\begin{itemize}[nosep]
+\item \emph{Descent-dependent quantities} (those traversing multiple cascade layers) have negative leading-order deviations, because the independent-step approximation underestimates the propagated geometric content. The correction $\exp(+\delta\Phi)$ closes the gap.
+\item \emph{Geometric quantities} (single-level ratios, topological constants) have positive leading-order deviations, because they do not traverse multiple layers and receive no inter-layer correction. Their deviations reflect the subleading structure of the Gamma function at a single level, which is a separate (and smaller) effect.
+\end{itemize}
+
+The clean sign separation---negative for descent, positive for geometric---is not an empirical observation. It is a consequence of $\delta\Phi > 0$, which is itself a consequence of $C_{ij} < 1$ for $i\neq j$ (Cauchy--Schwarz on non-collinear cascade integrands).
+
+\subsection{The correction as compactification residual}
+
+Theorem~4.2 establishes that each compactification step retains a residual $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$. The overlap deficit (Theorem~\ref{thm:overlap}) scales as $1-C_{d,d+1}^2 \sim 1/(8d^2) \sim R_{\mathrm{eff}}^4/8$. The eigenvalue deficit $\epsilon$ is the cumulative effect of these per-step residuals over the path.
+
+The independent-step approximation corresponds to the limit $R_{\mathrm{eff}} \to 0$ (complete compactification). The geometric correction $\delta\Phi$ (Definition~\ref{def:delta-phi}) is the leading-order cost of $R_{\mathrm{eff}} > 0$---the imperfect folding of the cascade's own geometry.
+
+\subsection{Numerical evidence and scope}
+
+Theorem~\ref{thm:first-order} and Corollary~\ref{cor:exp-resum} (Section~\ref{sec:first-order} above) close the inter-layer correction at first order. Six descent-dependent cascade observables, each with a structurally-fixed path, are gathered below to show how the derived $\exp(\delta\Phi)$ correction performs against observation:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
