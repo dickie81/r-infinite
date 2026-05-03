@@ -142,6 +142,29 @@ All four point to the SU(3) layer at d=12 and the observer's spatial S^3 (Ω_3) 
 
 **Most tractable path forward:** the s/d = Ω_3 finding gives a concrete structural toehold. The down-quark Gen 2 → Gen 1 step matches the observer's S^3 area to -1.3%. If this is derived cascade-internally (e.g., from descent through the observer's spatial slice between d=13 Gen 2 layer and d=21 Gen 1 layer), the rest of the structural pattern (π² growth in up-down asymmetry, etc.) likely follows by the same mechanism applied at the SU(3) layer.
 
+**Structural conjecture (NEW): s/d = vol(SU(2)) = Ω_3.** [`tools/research/cascade_sd_su2_volume.py`](tools/research/cascade_sd_su2_volume.py).
+
+**Key fact:** SU(2) ≅ S^3 (the unit quaternions) with bi-invariant metric has vol(SU(2)) = 2π² = Ω_3. The same 3-sphere area as the observer's spatial slice. This is a standard differential-geometry identity.
+
+**Conjecture:** the cascade descent from Gen 2 (d=13, SU(2)_L gauge boson home) to Gen 1 (d=21) integrates over the SU(2) gauge group manifold, picking up the bi-invariant Haar volume:
+
+- **Down quarks** (Q_L doublet, Y_d_R = -1/3): integrate over full SU(2). Factor = vol(SU(2)) = Ω_3 → s/d = Ω_3 = 2π² (-1.3%).
+- **Up quarks** (Q_L doublet, Y_u_R = +2/3 = 2·|Y_d_R|): integrate over PSU(2) = SU(2)/Z_2 = SO(3) ≅ ℝP^3 (the antipodal quotient). Factor = vol(PSU(2)) = vol(SU(2))/2 = π². The up-down asymmetry at this step picks up an extra factor of vol(SU(2))/2 = Ω_3/2 = π² → (c/s)/(u/d) = N_c · π² (-0.7%).
+
+The Z_2 quotient SU(2) → PSU(2) realises Theorem 4.8's chirality basin selection on the SU(2) gauge group manifold (S^3 doesn't natively split into chirality basins since it's odd-dim, but the Z_2 antipodal covering provides the natural binary split).
+
+**Why Gen 3 → Gen 2 doesn't pick up SU(2) volume:** the descent (d=5 → d=13) terminates AT the SU(2) home layer, not past it. The factor N_c at this step comes from SU(3) color at d=12, not SU(2) volume. SU(2) volume integration manifests only when descent crosses the post-gauge-window region (Gen 2 → 1, descent d=13..21).
+
+**Combined: c/u = N_c · vol(SU(2))² / 2 = N_c · 2π⁴ = 6π⁴** (-0.6% match). Two factors of vol(SU(2)) for the up quark — one from descent integration, one from chirality basin halving — combined with SU(3) color N_c.
+
+**What's needed to make this a theorem:**
+
+1. Explicit cascade scalar action Green's function with SU(2)-symmetric boundary conditions over descent d=13..21, showing integration measure equals vol(SU(2)) · (cascade factors).
+2. Cascade-internal proof that up-quark cascade descent picks up vol(PSU(2)) = vol(SU(2))/2 via Theorem 4.8 chirality basin selection on the SU(2) manifold.
+3. Connection to the original Weyl chirality factor at d=12: the N_c factor at Gen 3 → 2 should also derive from the same Green's function with SU(3)-symmetric boundary conditions.
+
+Closing (1)–(3) cascade-internally would promote five of six quark masses to Tier 2 via gauge group volume integration — a significant unification connecting Adams + Bott + Lefschetz framework to the observed quark mass spectrum.
+
 ### 7. CP-violation — structurally outside cascade scope
 
 **Status:** The cascade is structurally CPT-symmetric in audited primitives. CKM δ_CP and PMNS δ_CP enter as external observational input, parity with SM treatment. Same epistemic status as the SM's Q_e = −1 convention.
