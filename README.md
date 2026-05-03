@@ -45,7 +45,6 @@ The series derives — from this alone — the cosmological constant, quantum me
 | [`cascade-series-cover-sheet.tex`](src/cascade-series-cover-sheet.tex) | Cover Sheet — The Thought Experiment, Hypothesis, and Series Overview |
 | [`cascade-series-prelude.tex`](src/cascade-series-prelude.tex) | Prelude — Why Nothing Has Structure |
 | [`cascade-series-part0.tex`](src/cascade-series-part0.tex) | Part 0 — Scale Variance from Orthogonality: How the Unit Ball Generates 10^120 Orders of Magnitude |
-| [`cascade-series-part0.0.tex`](src/cascade-series-part0.0.tex) | Part 0 Supplement — Inter-Layer Coupling and the Independent-Step Correction |
 | [`cascade-series-part1.tex`](src/cascade-series-part1.tex) | Part I — The Cosmological Constant from the Observer's Frame |
 | [`cascade-series-part2.tex`](src/cascade-series-part2.tex) | Part II — Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry |
 | [`cascade-series-part3.tex`](src/cascade-series-part3.tex) | Part III — General Relativity, Four Dimensions, and Lorentzian Signature from the Cascade |
