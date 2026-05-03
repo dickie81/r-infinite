@@ -66,6 +66,8 @@ TERMS = [
     ('Ω_m', '&Omega;<sub>m</sub>', r'$\Omega_m$'),
     ('Ω_r', '&Omega;<sub>r</sub>', r'$\Omega_r$'),
     ('Ω_b', '&Omega;<sub>b</sub>', r'$\Omega_b$'),
+    ('θ_23', '&theta;<sub>23</sub>', r'$\theta_{23}$'),
+    ('θ_13', '&theta;<sub>13</sub>', r'$\theta_{13}$'),
     ('θ_C', '&theta;<sub>C</sub>', r'$\theta_C$'),
     ('m_τ', '<em>m</em><sub>&tau;</sub>', r'$m_\tau$'),
     ('m_μ', '<em>m</em><sub>&mu;</sub>', r'$m_\mu$'),
