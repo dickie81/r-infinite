@@ -1274,7 +1274,7 @@ Three structural rules determine every entry with zero fitted parameters:
 \begin{enumerate}
 \item \textbf{Source selection.} $d^*$ is the cascade's distinguished layer structurally coupled to the observable class: $d=14$ for gauge-descent quantities ($\alpha_s$, mass ratios); $d_1=19$ for Planck-anchored scales ($m_\tau$~abs, $\ell_A$); $d_V=5$ for observer-local mixing ($\sin^2\theta_W$, $\Omega_m$); $d_0=7$ for amplitude-descent angles and cross-generation mass ratios ($\theta_C$ at $k=2$, $b/s$ at $k=4$).
 \item \textbf{Channel counting.} $k$ equals the number of independent cascade sectors in the observable's definition: $k=1$ for single-channel quantities (one coupling, one mass, one scale); $k=2$ for two-generation mixing ($\theta_C$: Gen~2 $\leftrightarrow$ Gen~3); $k=3$ for three-sector integration ($\sin^2\theta_W$: three gauge factors; $\Omega_m$: three fermion generations).
-\item \textbf{Sign from population.} Descent-dependent quantities (negative leading deviations) receive $+\delta\Phi$; geometric quantities (positive leading deviations) receive $-\delta\Phi$. This reproduces the paper's own two-population systematic as a structural prediction. The $+$ sign for descent observables is \emph{forced} by Cauchy--Schwarz: the Part~0 Supplement adjacent Gram deficit $\sum(1 - C^2_{d,d+1})$ is strictly positive at every layer pair (the adjacent-layer integrands $f_d(x) = (1-x^2)^{d/2}$ are not collinear in $L^2$ for $d\neq d+1$), so the correction to every multiplicative propagator enters via $\exp(+\sum(1-C^2)) > 1$ with a definite direction.
+\item \textbf{Sign from population.} Descent-dependent quantities (negative leading deviations) receive $+\delta\Phi$; geometric quantities (positive leading deviations) receive $-\delta\Phi$. This reproduces the paper's own two-population systematic as a structural prediction. The $+$ sign for descent observables is \emph{forced} by Cauchy--Schwarz: the Part~0 adjacent Gram deficit $\sum(1 - C^2_{d,d+1})$ is strictly positive at every layer pair (the adjacent-layer integrands $f_d(x) = (1-x^2)^{d/2}$ are not collinear in $L^2$ for $d\neq d+1$), so the correction to every multiplicative propagator enters via $\exp(+\sum(1-C^2)) > 1$ with a definite direction.
 
 The $-$ sign for geometric (ratio-of-sums) observables is \emph{forced for $\Omega_m$} by the following three ingredients, analysed in detail in \texttt{tools/\allowbreak verifiers/\allowbreak bott\_vs\_\allowbreak lapse\_\allowbreak theorem.py}:
 \begin{itemize}[nosep]
@@ -1310,7 +1310,7 @@ the marginal identity
 \label{eq:marginal-greens}
 \boxed{\;G(d_{\mathrm{obs}}, d^*) - G(d_{\mathrm{obs}}, d^* + 1) \;=\; \alpha(d^*)\;}
 \end{equation}
-are derived in Part~0 Supplement~\cite{paper0supp} (Definition on the cascade
+are derived in Part~0~\cite{paper1} (Definition on the cascade
 compliance and scalar action; Proposition on the marginal Green's function).
 Combined with the chirality filtering of Theorem~\ref{thm:chirality-factorisation},
 this yields
@@ -1332,13 +1332,13 @@ finite-dimensional linear algebra. Together with Theorem~\ref{thm:chirality-fact
 layers) and~(c) (the $v$ closure via the non-perturbative sector) remain open.
 
 \emph{Connection to the Gram correction.} The single-source family above and
-the path-distributed Gram correction of Part~0 Supplement~\cite{paper0supp}
+the path-distributed Gram correction of Part~0~\cite{paper1}
 are complementary derivatives of one cascade compliance function $\alpha(d) =
 R(d)^2/4$: linear source response (this paper) versus discrete log-Laplacian
-at doubled argument (the supplement). The structural unification is
-established in the Supplement's Remark on structural unification with the
-cascade scalar action. Both close descent-dependent observables; which family
-applies to a given observable is governed by
+at doubled argument (Part~0's inter-layer-coupling section). The structural
+unification is established in Part~0's Remark on structural unification with
+the cascade scalar action. Both close descent-dependent observables; which
+family applies to a given observable is governed by
 Proposition~\ref{prop:source-selection} for single-source candidates and by
 Cauchy--Schwarz path-additivity for the Gram correction.
 \end{remark}
@@ -1346,7 +1346,7 @@ Cauchy--Schwarz path-additivity for the Gram correction.
 \begin{remark}[Action uniqueness: conditional on gauge identification]
 \label{rem:action-uniqueness}
 The cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$
-is defined in Part~0 Supplement~\cite{paper0supp} (Definition on the cascade
+is defined in Part~0~\cite{paper1} (Definition on the cascade
 compliance and scalar action). Its compliance $\alpha(d) = R(d)^2/4$ is the
 cascade-natural choice; this remark records the uniqueness argument.
 
@@ -1359,7 +1359,7 @@ compliance function $\beta(d)$, since the equilibrium depends on
 $\Delta\varphi_{\rm eq}$ alone. First-order EL fixes the action's form
 (quadratic, nearest-neighbour); it does not fix $\beta$.
 
-What pins $\beta$ is the marginal identity of Part~0 Supplement~\cite{paper0supp}
+What pins $\beta$ is the marginal identity of Part~0~\cite{paper1}
 (Proposition on the marginal Green's function): the per-layer Green's function
 response at source $d^*$ equals $\beta(d^*)$. Matching the observed
 $\alpha(d^*)/\chi^k$ shifts of Remark~\ref{rem:phase-family} therefore forces
@@ -1441,7 +1441,7 @@ The cascade slicing integrand $f_d(x)=(1-x^2)^{d/2}$ is even in $x$ on $[-1,1]$,
 \[
 G_{d_i,d_j} \;=\; \int_{-1}^{1}(1-x^2)^{(d_i+d_j)/2}\,dx \;=\; B\!\bigl(\tfrac{1}{2},\,\tfrac{d_i+d_j}{2}+1\bigr)
 \]
-splits as upper~$=$~lower~$=$~full$/2$ exactly. The Gram first-order correction (Part~0 Supplement) therefore preserves the $\mathbb{Z}_2$ basin equality at every cascade layer to machine precision. Numerical verification (verifier
+splits as upper~$=$~lower~$=$~full$/2$ exactly. The Gram first-order correction (Part~0) therefore preserves the $\mathbb{Z}_2$ basin equality at every cascade layer to machine precision. Numerical verification (verifier
 \texttt{tools/research/cascade\_s4\_antipodal\_test.py}) at $(d_i,d_j)\in\{(5,5),(5,6),(6,6),(5,7),(6,7),(7,7)\}$: maximum hemisphere asymmetry $0.00\mathrm{e}{+00}$.
 
 \medskip\noindent\textbf{Cascade prediction: strict CPT-balance.}
@@ -1884,7 +1884,7 @@ carry the same positive deviation, characteristic of the cascade's
 geometric population. Their ratio $g_1'/g_2$ has deviation $-0.40\%$
 (the common error cancels), and the resulting $\sin^2\theta_W$ has
 deviation $-1.12\%$, a descent-dependent quantity. The first-order
-eigenvalue deficit correction (Part~0 Supplement) closes
+eigenvalue deficit correction (Part~0) closes
 descent-dependent deviations to sub-$0.5\%$.
 \end{remark}
 
@@ -2671,7 +2671,7 @@ Tier~2 (cascade-internal closure of the sector-fundamental rule;
 Y-spectrum chain reduces to (R1) plus basin-label convention).
 
 \item\label{oq:bs-k-exponent} \emph{Cascade-internal derivation of the $k=4$ exponent in the $b/s$ closure.}  Theorem~\ref{thm:bs-closure} closes $b/s$ to $0.014\%$ via $\delta\Phi_{b/s} = -\alpha(7)/\chi^4$ at the $\mathrm{SU}(3)$-algebra layer $d_0=7$.  Numerical scan over $k\in\{1,2,3,4,5\}$ shows $k=4$ uniquely picks out as best fit (neighbouring $k=3$: $0.43\%$; $k=5$: $0.19\%$; $k=4$: $0.014\%$).  The structural decomposition $k=4 = $ (lepton-ratio chirality factors) $+$ (quark-cross-generation chirality factors) is plausible but is not derived from cascade primitives in the same way as $k=2$ for $\theta_C$ (single-quark mixing) or $k=3$ for $\sin^2\theta_W$ (three-gauge-factor integration) under the channel-counting rule of Remark~\ref{rem:phase-family}.  What is needed: a cascade-native derivation that the four chirality factorisations entering a cross-generation quark ratio yield $k=4$ a priori, before the numerical fit is performed.  This would extend the channel-counting rule to compositional $k$ values and would close the b/s prediction at the same forcing level as the existing seven entries.  Subordinate to Open Question~\ref{oq:source-selection-category} (categorical derivation): closing both would promote the entire $\alpha(d^*)/\chi^k$ family to fully cascade-forced.  Tier~3 (numerically closed; structural forcing of $k=4$ open).
-\item\label{oq:mu-e-residual} \emph{Source of the $m_\mu/m_e$ leading residual.} The cascade's leading prediction $m_\mu/m_e = \exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi} = 206.50$ sits $0.13\%$ below the observed value $m_\mu/m_e = 206.7683$ (residual $(m^{\rm obs} - m^{\rm cas})/m^{\rm cas} = +0.132\%$). The $\alpha(14)/\chi$ shift of Theorem~\ref{thm:alpha-s-closure} does not apply to this observable: the descent path $d=14..21$ starts at the $\mathrm{U}(1)$ layer, not strictly below it, so the shift's structural condition is not met. No other member of the $\alpha(d^*)/\chi^k$ family assigned by Proposition~\ref{prop:source-selection} matches the residual magnitude at $d=21$: $\alpha(21)/\chi = 0.0116$, $\alpha(21)/\chi^2 = 0.0058$, $\alpha(21)/\chi^3 = 0.0029$, and the adjacent Gram deficit $(1-C^2_{21,22}) = 2.5\times 10^{-4}$ all differ from the observed $0.00132$ by factors of $2$ to $10$. The cumulative Gram sum along $d=13..21$ gives $0.00334$, which is $2.5\times$ too large. The residual is therefore a \emph{novel unresolved discrepancy} in the fermion-mass sector: either (a) a subleading member of the $\alpha(d^*)/\chi^k$ family exists at $d=21$ or $d=22$ with a combination not yet identified; (b) a ratio-of-sums Gram correction (Part~0 Supplement Remark on SP-9 status) applies to mass ratios in a form that has not been derived; or (c) the cascade's deterministic precision has a sub-percent floor in the fermion sector that the $\alpha_s/v$-anchored chain does not close. The residual is numerically small ($0.13\%$, well inside the cascade's stated $\sim 1\%$ leading-order systematic) but is not within experimental precision (PDG $m_\mu/m_e = 206.7682827\pm 4\times 10^{-7}$, so the leading cascade deviates by $\sim 10^5\sigma$ of the experimental uncertainty). Tier~3 (small magnitude; does not threaten the framework's precision claims at the $1\%$ level, but unresolved at the sub-percent level).
+\item\label{oq:mu-e-residual} \emph{Source of the $m_\mu/m_e$ leading residual.} The cascade's leading prediction $m_\mu/m_e = \exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi} = 206.50$ sits $0.13\%$ below the observed value $m_\mu/m_e = 206.7683$ (residual $(m^{\rm obs} - m^{\rm cas})/m^{\rm cas} = +0.132\%$). The $\alpha(14)/\chi$ shift of Theorem~\ref{thm:alpha-s-closure} does not apply to this observable: the descent path $d=14..21$ starts at the $\mathrm{U}(1)$ layer, not strictly below it, so the shift's structural condition is not met. No other member of the $\alpha(d^*)/\chi^k$ family assigned by Proposition~\ref{prop:source-selection} matches the residual magnitude at $d=21$: $\alpha(21)/\chi = 0.0116$, $\alpha(21)/\chi^2 = 0.0058$, $\alpha(21)/\chi^3 = 0.0029$, and the adjacent Gram deficit $(1-C^2_{21,22}) = 2.5\times 10^{-4}$ all differ from the observed $0.00132$ by factors of $2$ to $10$. The cumulative Gram sum along $d=13..21$ gives $0.00334$, which is $2.5\times$ too large. The residual is therefore a \emph{novel unresolved discrepancy} in the fermion-mass sector: either (a) a subleading member of the $\alpha(d^*)/\chi^k$ family exists at $d=21$ or $d=22$ with a combination not yet identified; (b) a ratio-of-sums Gram correction (Part~0 Remark on SP-9 status) applies to mass ratios in a form that has not been derived; or (c) the cascade's deterministic precision has a sub-percent floor in the fermion sector that the $\alpha_s/v$-anchored chain does not close. The residual is numerically small ($0.13\%$, well inside the cascade's stated $\sim 1\%$ leading-order systematic) but is not within experimental precision (PDG $m_\mu/m_e = 206.7682827\pm 4\times 10^{-7}$, so the leading cascade deviates by $\sim 10^5\sigma$ of the experimental uncertainty). Tier~3 (small magnitude; does not threaten the framework's precision claims at the $1\%$ level, but unresolved at the sub-percent level).
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
 \item\label{oq:alpha-em-screening} \emph{Resolved.} Individual electroweak couplings and $1/\alpha_{\text{em}} = 137$. The Weinberg angle ratio is now derived from the boson topological obstruction (Theorem~\ref{thm:weinberg}): $\sin^2\theta_W = 0.2286$, deviation $-1.12\%$. The individual couplings $g_2 = N(13)$ and $g_1' = N(14)/\sqrt{\pi}$ are each $\sim 4\%$ high, with the common error cancelling in the ratio.
 
@@ -2740,7 +2740,7 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 
 \section{Confidence Assessment}
 
-\textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). The Part~0 Supplement derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Section~15.8.1 of the Supplement).
+\textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). Part~0's inter-layer-coupling section derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Part~0 Open Question on higher-order corrections).
 
 \textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}), and equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. (k) Observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3=8/(225\pi)$ sourced at the volume maximum $d_V=5$ with three factors of the Euler characteristic (Theorem~\ref{thm:weinberg-closure}), closing $\sin^2\theta_W=0.231226$ to $+0.40\sigma$ of experimental precision. A systematic search (Remark~\ref{rem:phase-family}) extends the family to eight SM precision observables at four distinguished source layers: (l)~$\ell_A$ reuses $\alpha(19)/\chi$ ($-0.16\sigma$); (m)~$\Omega_m(1/\pi)$ uses $-\alpha(5)/\chi^3$ ($-0.04\sigma$); (n)~$\theta_C$ uses $-\alpha(7)/\chi^2$ ($+0.03\sigma$) with source $d_0=7$ (Paper~I area maximum); (o)~$b/s$ uses $-\alpha(7)/\chi^4$ ($0.014\%$) at the same source $d_0=7$ with $k=4$ (Theorem~\ref{thm:bs-closure}). Together, (i)--(o) close eight SM precision observables using one structural form $\pm\alpha(d^*)/\chi^k$ at four distinguished cascade layers and zero fitted parameters. Three reuse pairs strengthen the evidence: $\{\alpha_s,m_\tau/m_\mu\}$, $\{m_\tau\text{ abs},\ell_A\}$, $\{\sin^2\theta_W,\Omega_m\}$. (p)~Cabibbo geometric-mean off-diagonal rule from cascade action $+$ Born rule (Theorem~\ref{thm:cabibbo-geometric-mean}): the $\exp(-p(13)/2)$ factor in Theorem~\ref{thm:cabibbo-amplitude} is forced by the cascade descent integrand's probability-density status (Paper~I), the cascade scalar action's Gaussian quadratic form (Remark~\ref{rem:action-uniqueness}), the Born rule from Gleason on the cascade Hilbert space (Paper~II~\cite{paper2}, Theorem~5.2), and the definition of off-diagonal mixing matrix elements as amplitudes; Cauchy--Schwarz saturates because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}). The leading Cabibbo prediction $\theta_C=13.26^\circ$ is now action-derivation-complete; (n) above closes the residual $1.7\%$ to $+0.03\sigma$ of experimental precision.
 
@@ -2757,8 +2757,6 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 \begin{thebibliography}{13}
 
 \bibitem{paper1} {[Author]}, \textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}, March 2026.
-
-\bibitem{paper0supp} {[Author]}, \textit{The Cascade Series --- Part~0 Supplement: Inter-Layer Coupling and the Independent-Step Correction}, March 2026.
 
 \bibitem{paper2} {[Author]}, \textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}, March 2026.
 
