@@ -165,6 +165,22 @@ The Z_2 quotient SU(2) → PSU(2) realises Theorem 4.8's chirality basin selecti
 
 Closing (1)–(3) cascade-internally would promote five of six quark masses to Tier 2 via gauge group volume integration — a significant unification connecting Adams + Bott + Lefschetz framework to the observed quark mass spectrum.
 
+**Lepton consistency check (apparent tension dissolves at standing precision).** [`tools/research/cascade_sd_lepton_resolution.py`](tools/research/cascade_sd_lepton_resolution.py).
+
+The natural sceptical question for the SU(2) volume conjecture: L_L is also an SU(2)_L doublet, so should m_μ/m_e show vol(SU(2))? The cascade lepton formula m_μ/m_e = exp(Φ(21)−Φ(13))·(2√π) shows no apparent vol(SU(2)) factor. **Resolution:** numerically, exp(Φ(21)−Φ(13)) = 58.25 and N_c · vol(SU(2)) = 3·2π² = 59.22 agree to 1.6%. The lepton template's descent factor IS approximately N_c times the SU(2) gauge group volume, so the "missing" factor is hidden inside the Φ descent. Both readings give consistent predictions:
+
+- m_μ/m_e (Φ-descent): exp(Φ(21)−Φ(13))·(2√π) = 206.50 (PDG 206.77, dev −0.13%).
+- m_μ/m_e (gauge-volume): N_c · vol(SU(2)) · (2√π) = 12π^(5/2) = 209.93 (dev +1.5%).
+
+The lepton-vs-quark Gen 2 → 1 ratio decomposes as N_c · (2√π) ≈ 10.63 (PDG 10.34, dev −2.7%), with the N_c color counter coming from Bott-period descent (color singlet leptons still see SU(3) home at d=12 indirectly) and the (2√π) from per-step Dirac amplification (lepton-only; quarks absorb into SU(3) color-triplet structure).
+
+**Bott-period specificity:** the identity exp(Φ(d+8)−Φ(d)) ≈ N_c · vol(SU(2)) holds ONLY for the d=13 → 21 span. For Gen 3 → 2 (d=5 → 13) the descent factor is 4.66; for Gen 1 → 0 (d=21 → 29) it is 267.2. The Phi descent is non-uniform across Bott periods, so only the Gen 2 → 1 step coincides with the gauge-volume reading.
+
+**Still open:**
+- Exact identity exp(Φ(21)−Φ(13)) = N_c · vol(SU(2)) + cascade-natural correction (1.6% gap unexplained).
+- Why quarks lack the (2√π) Dirac amplification leptons have (likely SU(3) color-triplet absorbs it, but no explicit derivation).
+- Whether the Bott-period-specific match is a structural identity at d=13→21 or a numerical coincidence.
+
 ### 7. CP-violation — structurally outside cascade scope
 
 **Status:** The cascade is structurally CPT-symmetric in audited primitives. CKM δ_CP and PMNS δ_CP enter as external observational input, parity with SM treatment. Same epistemic status as the SM's Q_e = −1 convention.
