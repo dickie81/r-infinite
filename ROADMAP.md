@@ -6,34 +6,49 @@ The single source of truth for predictions is [`PREDICTIONS.md`](PREDICTIONS.md)
 
 ## Open structural questions
 
-### 1. Channel-count rule for Amplitude observables — structural closure (3/3 of identification done; rigour gap on θ_23 P_2 + completeness proof remain)
+### 1. Channel-count rule for Amplitude observables — structural closure (3/3 of identification done; rigour gap (a) closed by inverting the framing; only completeness proof remains)
 
-**Status:** Empirical fit grounded in stable homotopy theory and KO-theoretic Bott periodicity. Activation mechanism derived from cascade scalar action's sector-symmetry. Term-by-term (w_1, w_2) identification supplied for all three closed Amplitude observables (θ_C, b/s, θ_23). Four of the five period-by-period selections are Dirac-anchored and rigorous; θ_23 P_2 is structurally weaker (no interior Dirac layer crossed; relies on period-parity + d_1 phase transition).
+**Status:** Empirical fit grounded in stable homotopy theory and KO-theoretic Bott periodicity. Activation mechanism derived from cascade scalar action's sector-symmetry. Term-by-term (w_1, w_2) identification supplied for all three closed Amplitude observables (θ_C, b/s, θ_23). The "θ_23 P_2 rigour gap" framing is corrected by the exploration verifier: P_2 is actually one of the two most directly anchored cases. Only residual (b) (formal completeness) remains.
 
-**Verifier:** [`tools/research/cascade_channel_count_rule.py`](tools/research/cascade_channel_count_rule.py) — reproducible empirical verification + activation argument + term-by-term identification for all three observables.
+**Verifiers:**
+- [`tools/research/cascade_channel_count_rule.py`](tools/research/cascade_channel_count_rule.py) — empirical verification + activation argument + term-by-term identification for all three observables.
+- [`tools/research/cascade_channel_count_p2_rigour.py`](tools/research/cascade_channel_count_p2_rigour.py) — exploration of the θ_23 P_2 rigour gap; finds the original framing inverted.
 
 **What's known and now derived:**
 
-- Empirical rule: `k = 2 · #{Bott periods spanned by descent path}` for Amplitude observables. Verified 3/3 on the closed observables θ_C (k=2), b/s (k=4), θ_23 (k=4) under the Part IVb `n = d-1` indexing convention. Verifier Step 1.
-- **Per-period chi² multiplicity (DERIVED).** Adams' J-homomorphism `im J: π_n(O) → π^s_n` has exactly two free Z_2 direct factors per Bott period of 8, at residues n ≡ 0, 1 (mod 8), corresponding to the Stiefel–Whitney classes w_1 ∈ KO^1 (orientation) and w_2 ∈ KO^2 (spin) of the cascade tangent bundle. Cyclic groups at residues 3, 7 (Z_24, Z_240, …) are not Z_2 factors and contribute to source strength (roadmap #3), not channel count. Verifier Step 2(i).
-- **Cascade scalar action is sector-symmetric (DERIVED).** S[φ] = Σ(2α(d))⁻¹(Δφ)² is invariant under (w_1, w_2) flips: φ(d) = ln Ω_d carries no bundle data; α(d) = R(d)²/4 is a Γ-ratio with no spin structure; the slicing measure (1-x²)^{d/2} is even in the axis x (so w_1 leaves Ω_{d-1} invariant); and SO(d) volume is identical under both spin lifts on a sphere (so w_2 leaves Ω_{d-1} invariant). Each of the χ²ᴺ patterns therefore carries equal Boltzmann weight in the path-integral measure. Verifier Step 2(ii).
-- **Term-by-term (w_1, w_2) identification for all three closed Amplitudes (DERIVED at structural level):**
-  - **θ_C in P_1:** w_1 = + by cascade-natural descent direction (reversed has no real arccos solution since N(12) > N(13)); w_2 = + by Spin(12) Dirac on R¹² = H³ + Higgs zero on S¹² + cascade left-handed Weyl_- chirality basin selection. 1-of-4 pattern → 1/χ² = 1/4. Verifier Step 3.1.
-  - **b/s in P_0 + P_1:** P_0 selectors anchored at d=5 (Spin(4) Dirac on R⁴ = H, the quaternionic Bott class) with Spin(3) × Spin(3) = SU(2) × SU(2) Dirac decomposition; b is left-handed in V_13 doublet, selecting Weyl_- at d=5 by the same convention as θ_C. P_1 selectors identical to θ_C. (+, +) × (+, +) = 1-of-16 pattern → 1/χ⁴ = 1/16. Verifier Step 3.2.
-  - **θ_23 in P_1 + P_2:** P_1 selectors identical to θ_C (the gauge-window factor `tan(arccos(N(13)/N(12)))` and the Dirac crossing at d=13 transfer verbatim). P_2 selectors anchored at the (w_2) residue layer d=18 (within the path d=17..20) plus the d_1=19 phase transition's chirality basin selection inside the path; both point to the cascade left-handed convention. (+, +) × (+, +) = 1-of-16 → 1/χ⁴ = 1/16. Verifier Step 3.3.
+- Empirical rule: `k = 2 · #{Bott periods spanned by descent path}` for Amplitude observables. Verified 3/3 on the closed observables θ_C (k=2), b/s (k=4), θ_23 (k=4) under the Part IVb `n = d-1` indexing convention.
+- **Per-period chi² multiplicity (DERIVED).** Adams' J-homomorphism `im J: π_n(O) → π^s_n` has exactly two free Z_2 direct factors per Bott period of 8, at residues n ≡ 0, 1 (mod 8), corresponding to the Stiefel–Whitney classes w_1 ∈ KO^1 (orientation) and w_2 ∈ KO^2 (spin) of the cascade tangent bundle. These generator layers sit at d = 8n + 1 (w_1) and d = 8n + 2 (w_2) — distinct from the Dirac residue d mod 8 = 5.
+- **Cascade scalar action is sector-symmetric (DERIVED).** S[φ] = Σ(2α(d))⁻¹(Δφ)² is invariant under (w_1, w_2) flips: φ(d) = ln Ω_d carries no bundle data; α(d) = R(d)²/4 is a Γ-ratio with no spin structure; the slicing measure (1-x²)^{d/2} is even in x; and SO(d) volume is identical under both spin lifts on a sphere. Each of the χ²ᴺ patterns therefore carries equal Boltzmann weight.
+- **Per-case anchoring tabulated (NEW finding from `cascade_channel_count_p2_rigour.py`).** Of the five period-by-period selections, two are DIRECT (generator layers in path) and three are INHERITED (generator layers outside path; selection extends from period's Dirac layer):
+
+    | observable | period | path | (w_1, w_2) gens | Dirac in period | anchoring |
+    |---|---|---|---|---|---|
+    | θ_C | P_1 | d=12..13 | d=9, d=10 | d=13 | INHERITED |
+    | b/s | P_0 | d=6..13 | d=1, d=2 | d=5 | INHERITED |
+    | b/s | P_1 | d=6..13 | d=9, d=10 | d=13 | **DIRECT** |
+    | θ_23 | P_1 | d=12..20 | d=9, d=10 | d=13 | INHERITED |
+    | θ_23 | P_2 | d=12..20 | d=17, d=18 | d=21 (outside path) | **DIRECT** |
+
+- **Global (w_1, w_2) = (+, +) convention (DERIVED + LABELLING).** Both DIRECT and INHERITED cases reduce to the same two cascade-internal forcings:
+  - **w_1 = + universally derived** by the slicing recurrence's preferred direction (high-d → low-d as descent from B^∞).
+  - **w_2 = + universally a labelling convention** parallel to the Standard Model's "matter is left-handed under SU(2)_L" — zero observational input per Part IVb `rem:cpt-balance-basins` (basins are CPT-conjugate, either is "matter" under suitable relabelling).
+- **Per-period anchoring is bookkeeping.** Both DIRECT and INHERITED cases evaluate the cascade observable at the global (+, +) pattern, picking up factor 1/χ² per spanned period.
+
+**Why the original framing was wrong:**
+
+The earlier ROADMAP framing called θ_23 P_2 "structurally weaker (no Dirac layer crossed)." This was based on the assumption that Dirac-anchoring is more rigorous than non-Dirac-anchoring. But the (w_1, w_2) generators are NOT at Dirac layers (residue 5 mod 8); they sit at residues 0, 1 mod 8. In θ_23 P_2's path d=17..20, both generators (d=17, d=18) are directly in the path; in θ_C P_1's path d=12..13, neither generator (d=9, d=10) is in the path. Under the corrected analysis, θ_23 P_2 is one of the two MOST directly anchored cases, alongside b/s P_1.
 
 **What remains open:**
 
-- (a) **Tightening the θ_23 P_2 identification.** Without an interior Dirac layer crossed by the path, the w_2 = + selection in P_2 leans on cascade continuity through Majorana stretches and the d_1 phase transition's chirality basin selection. A fully Dirac-anchored argument is not available since no Dirac layer is crossed (Gen 1 at d=21 sits past the descent terminus d=20). Candidate route: a direct cascade-action computation showing the d=18 spin lift is forced by the d_1 phase transition's effect on the path-integral measure.
-- (b) **Formal completeness proof.** The cascade path-integral is exhausted by the χ²ᴺ (w_1, w_2) patterns — i.e., no higher-order tangent-bundle structure (e.g., p_1 ∈ KO^4 = Z) activates additional selectors at the integer-d Bott lattice points. Conjecture: KO^4 = Z (Pontryagin) is a free abelian factor at residue n ≡ 3 (mod 8), not a Z_2 chirality filter, and contributes to source strength (roadmap #3) rather than to channel count. Verifying this requires explicit enumeration of the Z_2 generators in im J across the Bott periods touched by cascade descent paths.
+- (b) **Formal completeness proof.** That no higher-order tangent-bundle structure (e.g., p_1 ∈ KO^4 = Z) activates additional Z_2 selectors at the integer-d Bott lattice points. Conjecture: KO^4 = Z is a free abelian factor at residue n ≡ 3 (mod 8), not a Z_2 chirality filter, and contributes to source strength (roadmap #3) rather than to channel count. Closing this requires explicit enumeration of im J's Z_2 generators across the Bott periods touched by cascade descent paths and verification that no other structure activates.
 
 **Most tractable path forward:**
 
-(a) is a structural bookkeeping exercise: write out the cascade path-integral measure restricted to the d=17..20 Majorana stretch and demonstrate the d_1 phase transition's chirality basin selection at the action level. (b) is the longer-pole item; closing it requires an explicit cascade-internal calculation excluding higher KO classes from the channel count.
+(b) is the longer-pole item; closing it requires an explicit cascade-internal calculation excluding higher KO classes from the channel count.
 
-**Implications if (a)+(b) close:**
+**Implications if (b) closes:**
 
-Promotes the channel-count rule to a theorem. Tier 3 → Tier 2 for `oq:bs-k-exponent` (already resolved cascade-natively in this cycle) and θ_23. With (b) closed, the channel-count rule joins the chirality theorem χ^(m-k) (Part IVb thm:chirality-factorisation, extended in `cascade_chirality_theorem.py`) and the source-selection bijection (Part IVb prop:source-selection) as the three structural rules governing the entire α(d*)/χ^k correction family.
+Promotes the channel-count rule to a theorem, joining the chirality theorem χ^(m-k) (Part IVb thm:chirality-factorisation) and the source-selection bijection (Part IVb prop:source-selection) as the three structural rules governing the entire α(d*)/χ^k correction family.
 
 ### 2. Source-selection rule — categorical derivation pending
 
