@@ -98,7 +98,7 @@ if TOOLS_DIR not in sys.path:
     sys.path.insert(0, TOOLS_DIR)
 
 # Cascade primitives
-V_CAS = 240.8
+V_CAS = 243.7  # Part 0 first-order Gram-corrected (was 240.8 leading)
 N_C = 3
 B_OVER_S_CAS = 44.7436
 OMEGA_3 = 2 * math.pi**2  # observer's S^3 area

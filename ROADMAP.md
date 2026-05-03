@@ -112,16 +112,18 @@ Plus one anchor: m_b empirical (or m_top = v_cas/√2 via cascade v + SM y_top =
 
 **Combined: c/u = N_c · π² · Ω_3 = 6π⁴ ≈ 584.45** (-0.60% match).
 
-**All six quark masses match to standing precision (0.0% – 1.4%):**
+**All six quark masses match to standing precision (with v_cas Gram-corrected per Part 0 line 1781):**
 
 | observable | cascade | observed | dev | route |
 |---|---|---|---|---|
-| m_top | 170.27 GeV | 172.69 GeV | -1.40% | v_cas/√2 (SM y_top=1) |
-| m_c | 1.2685 GeV | 1.27 GeV | -0.12% | m_top/(N_c·b/s) |
-| m_u | 2.170 MeV | 2.16 MeV | +0.48% | m_c/(6π⁴) |
+| m_top | 172.32 GeV | 172.69 GeV | -0.21% | v_cas/√2 (SM y_top=1, v_cas Gram-corrected 243.7 GeV) |
+| m_c | 1.2838 GeV | 1.27 GeV | +1.09% | m_top/(N_c·b/s) |
+| m_u | 2.197 MeV | 2.16 MeV | +1.69% | m_c/(6π⁴) |
 | m_b | 4.18 GeV | 4.18 GeV | (input) | empirical |
 | m_s | 93.42 MeV | 93.4 MeV | +0.02% | m_b/(b/s) |
 | m_d | 4.733 MeV | 4.67 MeV | +1.34% | m_s/Ω_3 |
+
+Note on residual pattern: with leading v_cas = 240.8 GeV, the residuals were m_top -1.40%, m_c -0.12%, m_u +0.48% — favourable cancellations between v_cas's leading-order error and the cascade chain made some residuals look small. With Part 0 Gram-corrected v_cas = 243.7 GeV, m_top closes to -0.21% but the up-quark chain residuals (m_c, m_u) shift to ~+1% as previously-hidden cascade-chain structure surfaces. The down-quark side (m_d at +1.34%, the bundle/scalar gap signature) is unchanged. Cascade quark RMS residual is ~1.1% under either v_cas choice, distributed differently.
 
 **What's structurally going on:**
 
