@@ -8,6 +8,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -100,7 +101,7 @@ Gamma function and stand independently of the Prelude's foundational
 chain.
 
 % ============================================================
-\section{The Recurrence}
+\section{The Recurrence}\label{sec:recurrence}
 % ============================================================
 
 Cut $B^{d+1}$ perpendicular to one axis. Each cross-section at height $x$
@@ -225,10 +226,10 @@ Taking the square root gives $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$.
 $R_{\mathrm{eff}}(d) > 0$ for every finite $d$: the slicing concentrates
 near the equator but never collapses to it. This is the per-step
 compactification residual---the scale at which consecutive slicing
-layers fail to be perfectly collinear in $L^2$. The Part~0 Supplement
+layers fail to be perfectly collinear in $L^2$. \S\ref{sec:gram-closed-form}
 quantifies this overlap directly: the adjacent-layer overlap deficit
 scales as $1 - C^2_{d,d+1}\sim 1/(8d^2) = R_{\mathrm{eff}}^4/8 +
-O(1/d^3)$ (Supplement, Theorem~14.2).
+O(1/d^3)$ (Theorem~\ref{thm:overlap}).
 \end{remark}
 
 % ============================================================
@@ -1322,7 +1323,553 @@ of the companion papers. Whether any given order is quantitatively close
 to a physical observable is a question for the companion papers, where
 the physical identification hypothesis is introduced; Part~0 records only
 the structural distinction that the order-0 invariant does not accumulate
-the descent-dependent corrections that affect the higher orders.
+the descent-dependent corrections that affect the higher orders. The
+inter-layer coupling itself is computed in the next section, completing
+the structural account of how an observable's traversal of multiple
+cascade layers departs from the independent-step approximation.
+\end{remark}
+
+% ============================================================
+\section{Inter-Layer Coupling}
+% ============================================================
+
+The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters.
+
+The Gram correlation has an exact closed form in cascade-native primitives (Theorem~\ref{thm:gram-R}): $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$, equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). The Gram correction is therefore the discrete log-Laplacian of the cascade compliance function $\alpha(d) = R(d)^2/4$ (Definition~\ref{def:compliance-action}), evaluated at the doubled cascade argument. The same compliance function admits a second cascade-internal derivative --- the marginal Green's function $G(d^*) - G(d^*+1) = \alpha(d^*)$ (Proposition~\ref{prop:marginal-greens}) --- which is the linear source response used downstream by Part~IVb's $\alpha(d^*)/\chi^k$ precision-closure family. The path-distributed correction and that single-source family are therefore complementary derivatives of one cascade-internal object, both established within Part~0.
+
+Throughout this section: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}).
+
+\subsection{The Gram matrix of cascade layer integrands}
+
+\begin{definition}[Gram matrix]
+For a set of cascade layers $\{d_1, d_2, \ldots, d_n\}$, the Gram matrix is
+\[
+G_{ij} = \langle f_{d_i}, f_{d_j} \rangle = \int_{-1}^{1} (1 - x^2)^{(d_i + d_j)/2}\, dx.
+\]
+\end{definition}
+
+\begin{theorem}[Gram matrix as Beta function]\label{thm:gram}
+\[
+G_{ij} = B\!\left(\tfrac{1}{2},\, \tfrac{d_i + d_j}{2} + 1\right) = \sqrt{\pi}\, \frac{\Gamma\!\left(\frac{d_i + d_j}{2} + 1\right)}{\Gamma\!\left(\frac{d_i + d_j}{2} + \frac{3}{2}\right)}.
+\]
+\end{theorem}
+
+\begin{proof}
+Substituting $t = x^2$ in the integral: $\int_{-1}^{1}(1 - x^2)^\alpha\, dx = B(1/2, \alpha + 1)$ with $\alpha = (d_i + d_j)/2$. The Beta function identity $B(a,b) = \Gamma(a)\Gamma(b)/\Gamma(a+b)$ with $a = 1/2$ gives the stated form.
+\end{proof}
+
+\begin{definition}[Correlation matrix]
+The normalised Gram matrix (correlation matrix) is
+\[
+C_{ij} = \frac{G_{ij}}{\sqrt{G_{ii}\, G_{jj}}} = \frac{B\!\left(\frac{1}{2},\, \frac{d_i + d_j}{2} + 1\right)}{\sqrt{B\!\left(\frac{1}{2},\, d_i + 1\right)\, B\!\left(\frac{1}{2},\, d_j + 1\right)}}.
+\]
+$C_{ii} = 1$ for all $i$, $\mathrm{tr}\, C = n$, and $0 < C_{ij} < 1$ for $i \neq j$.
+\end{definition}
+
+\subsection{The adjacent-layer overlap deficit}
+
+\begin{theorem}[Overlap deficit]\label{thm:overlap}
+For adjacent layers $d$ and $d+1$:
+\[
+1 - C_{d,d+1}^2 = 1 - \frac{B\!\left(\frac{1}{2},\, d + \frac{3}{2}\right)^2}{B\!\left(\frac{1}{2},\, d+1\right)\, B\!\left(\frac{1}{2},\, d+2\right)}.
+\]
+This quantity is strictly positive for all $d \geq 1$ and satisfies:
+\[
+1 - C_{d,d+1}^2 \sim \frac{1}{8\, d^2} \quad (d \to \infty).
+\]
+Numerically: $1 - C_{5,6}^2 = 0.00319$, $\; 1 - C_{11,12}^2 = 0.00083$, $\; 1 - C_{19,20}^2 = 0.00030$.
+\end{theorem}
+
+\begin{proof}
+\emph{Positivity.} $C_{d,d+1} < 1$ by Cauchy--Schwarz: the integrands $f_d$ and $f_{d+1}$ are not proportional in $L^2[-1,1]$ for $d \neq d+1$, so the normalised inner product is strictly less than~$1$.
+
+\emph{Asymptotic $1 - C_{d,d+1}^2 \sim 1/(8d^2)$.} Set $h(\alpha) = B(1/2,\alpha+1) = \sqrt{\pi}\,\Gamma(\alpha+1)/\Gamma(\alpha+3/2)$ and $L(\alpha) = \log h(\alpha)$. Then
+\[
+\log C_{d,d+1}^2 \;=\; 2L(d+\tfrac{1}{2}) - L(d) - L(d+1),
+\]
+the centered second difference of $L$ at $d+1/2$ with step $1/2$. Taylor expanding,
+\[
+L(d) + L(d+1) \;=\; 2L(d+\tfrac{1}{2}) + \tfrac{1}{4}L''(d+\tfrac{1}{2}) + O(L^{(4)}/192),
+\]
+so $\log C_{d,d+1}^2 = -\tfrac{1}{4}L''(d+\tfrac{1}{2}) + O(L^{(4)})$.
+
+Now $L'(\alpha) = \psi(\alpha+1) - \psi(\alpha+3/2)$, where $\psi$ is the digamma function. The asymptotic expansion $\psi(x) = \log x - 1/(2x) - 1/(12x^2) + O(1/x^4)$ gives, after expanding $\psi(\alpha+1)$ and $\psi(\alpha+3/2)$ around $\alpha$ and combining,
+\[
+L'(\alpha) \;=\; -\frac{1}{2\alpha} + \frac{3}{8\alpha^2} + O(1/\alpha^3),
+\qquad
+L''(\alpha) \;=\; \frac{1}{2\alpha^2} + O(1/\alpha^3).
+\]
+Therefore
+\[
+\log C_{d,d+1}^2 \;=\; -\frac{1}{4}\cdot\frac{1}{2d^2} + O(1/d^3) \;=\; -\frac{1}{8d^2} + O(1/d^3),
+\]
+and $1 - C_{d,d+1}^2 = -\log C_{d,d+1}^2 + O\bigl((\log C^2)^2\bigr) = 1/(8d^2) + O(1/d^3)$.
+
+The numerical values quoted in the theorem statement ($1 - C_{5,6}^2 = 0.00319$, $1 - C_{11,12}^2 = 0.00083$, $1 - C_{19,20}^2 = 0.00030$) are evaluated directly from the Beta function ratio; the asymptotic $1/(8d^2)$ supplies the leading $1/d^2$ scaling and the sign, but subleading $1/d^3$ terms matter at small $d$ (the asymptotic over-estimates by $\sim 50\%$ at $d=5$, by $\sim 25\%$ at $d=11$, and by $\sim 15\%$ at $d=19$, converging to the exact value as $d\to\infty$).
+\end{proof}
+
+\begin{remark}
+The overlap deficit $1 - C_{d,d+1}^2$ is the geometric content at step $d$ that is \emph{not} shared with step $d+1$. It measures the imperfect folding: the fraction by which consecutive layer integrands fail to be collinear in $L^2$. Its positivity is a consequence of $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3} > 0$ (Theorem~\ref{thm:reff}): the compactification at each step is asymptotic, never complete.
+\end{remark}
+
+\subsection{Closed form via cascade slicing ratios}\label{sec:gram-closed-form}
+
+The asymptotic of Theorem~\ref{thm:overlap} extends to an \emph{exact} closed form expressing $C^2_{d,d+1}$ in cascade-native primitives. The exact form reveals that the Gram correlation is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled cascade argument $2d+2$.
+
+\begin{theorem}[Gram correlation in cascade slicing ratios]\label{thm:gram-R}
+For all $d \geq 1$, the Gram correlation between adjacent cascade layers is
+\begin{equation}\label{eq:gram-R-form}
+C^2_{d,d+1} \;=\; \frac{R(2d+2)^2}{R(2d+1)\,R(2d+3)},
+\end{equation}
+where $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the cascade slicing ratio of \S\ref{sec:recurrence}.
+\end{theorem}
+
+\begin{proof}
+The Gram entries (Theorem~\ref{thm:gram}) are Beta functions $G_{ij} = B(1/2, (d_i+d_j)/2 + 1)$. Using the Beta--Gamma reduction $B(1/2, n+1) = \sqrt{\pi}\,\Gamma(n+1)/\Gamma(n+3/2)$ together with the cascade slicing ratio's defining identity $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$, one obtains:
+\[
+G_{d,d}     = B(\tfrac{1}{2}, d+1)   = \sqrt{\pi}\,R(2d+1), \qquad
+G_{d,d+1}   = B(\tfrac{1}{2}, d+\tfrac{3}{2}) = \sqrt{\pi}\,R(2d+2),
+\]
+\[
+G_{d+1,d+1} = B(\tfrac{1}{2}, d+2)   = \sqrt{\pi}\,R(2d+3).
+\]
+Substituting into the definition $C^2_{d,d+1} = G_{d,d+1}^2 / (G_{d,d}\,G_{d+1,d+1})$ gives
+$C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$.
+\end{proof}
+
+\begin{definition}[Cascade compliance and scalar action]\label{def:compliance-action}
+The \emph{cascade compliance} at layer $d$ is
+\[
+\alpha(d) \;:=\; \frac{R(d)^2}{4},
+\]
+the square of the cascade slicing ratio of \S\ref{sec:recurrence}, normalised by 4. As a $\Gamma$-function ratio, $\alpha$ is a cascade-internal quantity with no free parameter.
+
+The \emph{cascade scalar action} on the layer index is the discrete elastic functional
+\[
+S[\varphi] \;:=\; \sum_d \frac{1}{2\alpha(d)}\bigl(\Delta\varphi(d)\bigr)^2,
+\qquad \Delta\varphi(d) := \varphi(d+1) - \varphi(d).
+\]
+By construction, $S$ is the unique quadratic nearest-neighbour functional whose Euler--Lagrange equation has the cascade slicing recurrence as equilibrium; the compliance $\alpha(d) = R(d)^2/4$ is the cascade-natural choice making the action's marginal Green's function equal $\alpha(d^*)$ at every distinguished source layer $d^*$ (Proposition~\ref{prop:marginal-greens} below).
+\end{definition}
+
+\begin{proposition}[Marginal Green's function of the cascade scalar action]\label{prop:marginal-greens}
+The cumulative compliance from a cascade source layer $d^*$ to the cascade terminus $d_2 = 217$ is
+\[
+G(d^*) \;:=\; \sum_{k = d^*}^{d_2 - 1} \alpha(k),
+\]
+and the per-layer marginal contribution at source $d^*$ is the local compliance value:
+\[
+G(d^*) - G(d^* + 1) \;=\; \alpha(d^*).
+\]
+This is the source-response identity used by Part~IVb's $\alpha(d^*)/\chi^k$ precision-closure family.
+\end{proposition}
+
+\begin{proof}
+Direct: $G(d^*)$ and $G(d^* + 1)$ differ by exactly the term at $k = d^*$, which is $\alpha(d^*)$.
+\end{proof}
+
+\begin{corollary}[Gram-Laplacian identity]\label{cor:gram-laplacian}
+The log-correlation between adjacent cascade layers is the discrete log-Laplacian of the cascade compliance $\alpha$ (Definition~\ref{def:compliance-action}), evaluated at the doubled argument $2d+2$ with unit step:
+\begin{equation}\label{eq:gram-laplacian}
+\log C^2_{d,d+1} \;=\; -\frac{1}{2}\,\Delta^2 \log\alpha\,\Big|_{2d+2},
+\end{equation}
+where $\Delta^2 f|_n := f(n-1) + f(n+1) - 2f(n)$ is the centered discrete Laplacian.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:gram-R} and properties of the logarithm,
+\[
+\log C^2_{d,d+1} = 2\log R(2d+2) - \log R(2d+1) - \log R(2d+3) = -\Delta^2 \log R\,\big|_{2d+2}.
+\]
+Since $\alpha(d) = R(d)^2/4$, we have $\log\alpha = 2\log R - 2\log 2$, so $\Delta^2 \log\alpha = 2\,\Delta^2 \log R$ (constants drop in second differences). Substituting yields equation~\eqref{eq:gram-laplacian}.
+\end{proof}
+
+\begin{remark}[Numerical verification]\label{rem:gram-verifier}
+Both Theorem~\ref{thm:gram-R} (the closed form) and Corollary~\ref{cor:gram-laplacian} (the Laplacian identity) are verified at all tested $d$ values in
+\begin{center}
+\texttt{tools/verifiers/gram\_compliance\_laplacian.py}
+\end{center}
+to machine precision on the closed form and to $\sim 10^{-7}$ relative on the Laplacian identity (the floating-point cancellation noise floor at large $d$, where $\log C^2_{d,d+1} \sim 1/(8d^2)$ is computed as a difference of $O(1)$ log-Gamma terms).
+\end{remark}
+
+\begin{remark}[Structural unification with the cascade scalar action]\label{rem:gram-action-unification}
+Corollary~\ref{cor:gram-laplacian} establishes a direct structural connection between the Gram framework above and the cascade scalar action $S[\varphi]$ of Definition~\ref{def:compliance-action}. Both corrections derivable from $S[\varphi]$ and its compliance $\alpha(d)$ have a cascade-internal expression:
+\begin{itemize}
+\item \emph{Linear source response} (single-source, used downstream by Part~IVb): the action's marginal Green's function at source layer $d^*$ equals $\alpha(d^*)$ exactly (Proposition~\ref{prop:marginal-greens}). Chirality factorisation through $k$ independent channels gives the $1/\chi^k$ attenuation that produces the cascade's $\alpha(d^*)/\chi^k$ precision-closure family.
+\item \emph{Discrete log-Laplacian of the compliance} (path-distributed, this section): the per-step Gram correction is $\frac{1}{2}\Delta^2(-\log\alpha)|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). It is positive because $-\log\alpha$ is convex on the cascade tower, i.e.\ $\alpha$ is log-concave.
+\end{itemize}
+The two correction families are complementary in the action's dual variables: zeroth-order source response (the marginal $\alpha(d^*)$ of a single layer) versus second-order log-compliance curvature (the Laplacian of $\log\alpha$ summed across a path). Both are derived within Part~0 from the same compliance function. The doubling $d\mapsto 2d+2$ is a Beta--Gamma reduction artefact: cascade integrand inner products $\langle f_d, f_{d'}\rangle$ produce $R$-values at doubled arguments via $B(1/2, n+1) = \sqrt{\pi}\,R(2n+1)$ and $B(1/2, n+3/2) = \sqrt{\pi}\,R(2n+2)$, so the Gram correlation between layers $d$ and $d+1$ depends on cascade $R$-values at doubled indices $\{2d+1, 2d+2, 2d+3\}$.
+\end{remark}
+
+\subsection{The eigenvalue structure of the correlation matrix}
+
+\begin{theorem}[Near-collinearity]\label{thm:eigenvalue}
+For a path of $n$ consecutive layers $\{d_0, d_0+1, \ldots, d_0+n-1\}$, the correlation matrix $C$ has one dominant eigenvalue $\lambda_1$ satisfying
+\[
+\frac{\lambda_1}{n} = 1 - \epsilon(n, d_0), \qquad \epsilon > 0,
+\]
+and $(n - 1)$ subdominant eigenvalues summing to $n\,\epsilon$. The deficit $\epsilon$ depends on both $n$ (the number of layers) and $d_0$ (where in the cascade the path begins).
+\end{theorem}
+
+\begin{proof}
+The entries $C_{ij}$ are smooth functions of $|d_i - d_j|$ that decrease from $C_{ii} = 1$ towards a minimum at $|d_i - d_j| = n - 1$. For the path $d = 5, \ldots, 12$ ($n = 8$): the minimum entry is $C_{5,12} = 0.9622$, far from zero. The matrix is therefore close to the rank-1 matrix $\mathbf{1}\mathbf{1}^T/n$, whose sole nonzero eigenvalue is $n$. The deficit $\epsilon$ is determined by the off-diagonal decay rate of $C_{ij}$, which is controlled by the Beta function asymptotics of Theorem~\ref{thm:overlap}.
+\end{proof}
+
+\noindent Numerical eigenvalue structure for $d = 5, \ldots, 12$ ($n = 8$):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccc}
+\toprule
+Eigenvalue & Value & Fraction of trace \\
+\midrule
+$\lambda_1$ & 7.9347263 & 99.184\% \\
+$\lambda_2$ & 0.0646528 & 0.808\% \\
+$\lambda_3$ & 0.0006152 & 0.008\% \\
+$\lambda_4$--$\lambda_8$ & $< 10^{-4}$ & $< 0.001\%$ \\
+\midrule
+$\epsilon = 1 - \lambda_1/n$ & \multicolumn{2}{c}{$0.008159 = 0.816\%$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The cascade layers are 99.2\% collinear. The remaining 0.8\% is the inter-layer coupling.
+
+\subsection{Path dependence of the eigenvalue deficit}
+
+The deficit $\epsilon(n, d_0)$ depends on where in the cascade the path lies. Lower $d$ (closer to the observer, larger $R_{\mathrm{eff}}$, less complete folding) gives larger deficits.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llcc}
+\toprule
+Path & $n$ & $\epsilon = 1 - \lambda_1/n$ & Needed correction \\
+\midrule
+$d = 5, \ldots, 12$ & 8 & 0.00816 & $1.73\%$ ($\alpha_s$) \\
+$d = 6, \ldots, 13$ & 8 & 0.00657 & $1.75\%$ ($m_\tau/m_\mu$) \\
+$d = 10, \ldots, 17$ & 8 & 0.00332 & --- \\
+$d = 14, \ldots, 21$ & 8 & 0.00200 & $0.13\%$ ($m_\mu/m_e$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent At fixed $n$, $\epsilon$ decreases with $d_0$ because the overlap deficit per step (Theorem~\ref{thm:overlap}) decreases as $1/d^2$.
+
+\subsection{The perturbation theory for $\epsilon$}\label{sec:perturbation}
+
+\begin{theorem}[First-order eigenvalue deficit]\label{thm:pert}
+To first order in the deficit matrix $D = J - C$,
+\[
+\epsilon \;=\; 1 - \frac{\lambda_1}{n} \;=\; \frac{2}{n^2} \sum_{i < j} \left(1 - C_{ij}\right) \;+\; O\!\bigl(\|D\|^2\bigr),
+\]
+where $C_{ij}$ are the entries of the correlation matrix. The second-order correction is \emph{positive} (a sum of squared matrix elements of $D$ in the zero-eigenspace of $J$; see proof), so the right-hand side is an \emph{upper bound} for the eigenvalue deficit $\epsilon$.
+\end{theorem}
+
+\begin{proof}
+Write $C = J - D$ where $J_{ij} = 1$ for all $i,j$ and $D_{ij} = 1 - C_{ij} \geq 0$, with $D_{ii} = 0$. The matrix $J$ has the non-degenerate eigenvalue $n$ with eigenvector $u = (1, \ldots, 1)/\sqrt{n}$, and eigenvalue $0$ with multiplicity $n - 1$ (eigenspace $u^\perp$). By standard Rayleigh--Schr\"odinger perturbation theory for the non-degenerate eigenvalue $n$:
+\[
+\lambda_1(C) \;=\; n - \langle u | D | u \rangle \;+\; \frac{1}{n}\sum_{v \in u^\perp}|\langle v | D | u \rangle|^2 \;+\; O\!\bigl(\|D\|^3\bigr).
+\]
+The first-order term evaluates to
+\[
+\langle u | D | u \rangle \;=\; \frac{1}{n}\sum_{i,j}D_{ij} \;=\; \frac{2}{n}\sum_{i<j}(1 - C_{ij}),
+\]
+giving the stated first-order formula after dividing by $n$. The second-order term is a sum of squared matrix elements, hence non-negative; it vanishes only when $D$ has no component in the $u^\perp$ sector (the rank-1 case, when $C$ is a constant-off-diagonal matrix). In all non-trivial cases it is strictly positive, so $\lambda_1(C) > n - \langle u|D|u\rangle$ at second order, equivalently $\epsilon < (2/n^2)\sum_{i<j}(1 - C_{ij})$: the first-order formula over-estimates the deficit, and the right-hand side is an upper bound.
+\end{proof}
+
+\noindent Verification: for $d = 5, \ldots, 12$ ($n = 8$), the first-order formula gives $\epsilon^{(1)} = 0.008173$; the exact eigenvalue gives $\epsilon = 0.008159$. Agreement: $0.17\%$; the exact value is below the first-order formula as predicted by the upper-bound direction of the theorem. The formula is verified to comparable precision for all paths tested.
+
+\begin{corollary}[Closed form for $\lambda_1$ at $n = 2$]\label{cor:lambda1-n2}
+For a two-layer path $\{d_0, d_0 + 1\}$, the dominant eigenvalue admits the exact closed form
+\[
+\lambda_1(2, d_0) \;=\; 1 + \frac{R(2 d_0 + 2)}{\sqrt{R(2 d_0 + 1)\,R(2 d_0 + 3)}}
+\;=\; 1 + \exp\!\Bigl(-\tfrac{1}{4}\,\Delta^2 \log\alpha\big|_{2d_0+2}\Bigr),
+\]
+where the second equality follows from Corollary~\ref{cor:gram-laplacian}. Equivalently, $\epsilon(2, d_0) = 1 - \lambda_1/2 = (1 - C_{d_0, d_0+1})/2$, and the perturbation-theory upper bound of Theorem~\ref{thm:pert} is saturated at $n = 2$.
+\end{corollary}
+
+\begin{proof}
+At $n = 2$ the matrix $C = \begin{pmatrix}1 & c \\ c & 1\end{pmatrix}$ with $c = C_{d_0, d_0 + 1}$ has eigenvectors $u_\pm = (1, \pm 1)/\sqrt{2}$ and eigenvalues $1 \pm c$, so $\lambda_1 = 1 + c$. The uniform vector $u = u_+$ is exactly the dominant eigenvector; the second-order correction in the proof of Theorem~\ref{thm:pert} vanishes because $u^\perp$ is one-dimensional and orthogonal to $u$ by the symmetry of $C$. Substituting Theorem~\ref{thm:gram-R} (and its Laplacian form, Corollary~\ref{cor:gram-laplacian}) for $c$ gives the stated closed form.
+\end{proof}
+
+\begin{remark}[Status of the $\lambda_1$ closed form for $n \geq 3$]\label{rem:lambda1-no-closed-form}
+For $n \geq 3$ no single-equation radical form for $\lambda_1$ in cascade slicing ratios has been identified. What is available is the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}), which provides closed-form approximations to $\lambda_1$ converging at geometric rate; combined with the $n = 2$ exact identity (Corollary~\ref{cor:lambda1-n2}) and the perturbation-theory bound of Theorem~\ref{thm:pert}, these cover all cascade-physics paths to better than machine precision.
+\end{remark}
+
+\begin{remark}[OP factorisation of the cascade correlation matrix]\label{rem:lambda1-OP-factorisation}
+$C$ factorises as $C = A A^{\top}$ with $A$ lower triangular and $A_{ik} = \langle p_k, x^i\rangle_{\mu_m} / \|x^i\|_{\mu_m}$, where $\{p_k\}$ are the orthonormal polynomials of the measure $d\mu_m(x) = x^m/\sqrt{1-x^2}\,dx$ on $[0,1]$ ($m = 2 d_0 + 1$). Hence $\lambda_k(C) = \sigma_k(A)^2$. Under $u = x^2$, $\mu_m$ is a shifted Jacobi measure, identifying the closed-form question for $\lambda_1$ as a question in classical orthogonal-polynomial theory (\texttt{tools/research/lambda1\_jacobi\_route.py}).
+\end{remark}
+
+\begin{corollary}[Power-trace bound family closing $\lambda_1$ to arbitrary precision]\label{cor:lambda1-power-trace}
+For each $k \geq 1$,
+\[
+U_k \;=\; \bigl(\mathrm{tr}\,C^k\bigr)^{1/k} \;\geq\; \lambda_1,
+\]
+with $U_1 \geq U_2 \geq \cdots \geq \lambda_1$ monotone, and $U_k \to \lambda_1$ at geometric rate $(\lambda_2/\lambda_1)^k$. Each $U_k$ is closed-form in cascade slicing ratios:
+\[
+\mathrm{tr}\,C^k \;=\; \sum_{i_1, \ldots, i_k} C_{i_1 i_2}\,C_{i_2 i_3} \cdots C_{i_k i_1},
+\]
+a polynomial sum of $R$-ratio products. Numerically, for cascade-physics paths ($d_0 \in \{5, \ldots, 19\}$, $n \leq 10$): $U_2$ is tight to $\sim 10^{-5}$, $U_3$ to $\sim 10^{-9}$, $U_4$ to $\sim 10^{-12}$, $U_6$ to machine precision; for the long $\rho_\Lambda$ descent ($n = 26$), $U_4$ is tight to $\sim 10^{-7}$ (\texttt{tools/research/lambda1\_power\_trace\_bounds.py}). The bound family thus determines $\lambda_1$ in closed form to any desired precision.
+\end{corollary}
+
+\begin{proof}
+For positive eigenvalues $\lambda_1 \geq \lambda_2 \geq \cdots \geq 0$, $\mathrm{tr}\,C^k = \sum_j \lambda_j^k$, so $\lambda_1^k \leq \mathrm{tr}\,C^k$ and $\lambda_1 \leq U_k$. Monotonicity $U_k \geq U_{k+1}$ is the standard fact that $\ell^k$ norms of a positive vector decrease in $k$. The convergence $U_k \to \lambda_1$ at rate $(\lambda_2/\lambda_1)^k$ follows from $\mathrm{tr}\,C^k = \lambda_1^k(1 + (\lambda_2/\lambda_1)^k + \cdots)$ via the Bernoulli expansion of $(1 + \epsilon)^{1/k}$. The closed-form expression for $\mathrm{tr}\,C^k$ is the standard polynomial trace expansion; each $C_{ij}$ is a closed-form ratio of slicing ratios (Theorem~\ref{thm:gram-R} and its generalisation to arbitrary index pairs), so the sum is closed-form in cascade primitives.
+\end{proof}
+
+\subsection{The independent-step correction}\label{sec:first-order}
+
+The cascade's leading-order predictions treat each compactification step as independent. A quantity that depends on the cascade's geometry over a path of $n$ layers receives a correction from the inter-layer coupling. Two distinct measures of this coupling are derived from the Gram matrix:
+
+\begin{itemize}
+\item \emph{Eigenvalue deficit $\epsilon = 1 - \lambda_1/n$} (Theorem~\ref{thm:eigenvalue}): the matrix-level magnitude of inter-layer coupling, characterised by the dominant eigenmode of $C$ and aggregated over all $n^2$ pair correlations with weight $(1-C_{ij})$. Derived perturbatively in Section~\ref{sec:perturbation}.
+\item \emph{Geometric correction $\delta\Phi$} (Definition~\ref{def:delta-phi} below): the multiplicative log-decrement a propagator picks up traversing the path, summed over adjacent-layer overlap deficits with weight $(1-C^2_{d,d+1})$. Derived in Section~\ref{sec:first-order}.
+\end{itemize}
+
+The two are related but structurally distinct: $\epsilon$ characterises the Gram matrix as a whole; $\delta\Phi$ is the cumulative shift along a specific path. The corrected observable formula uses $\delta\Phi$.
+
+\begin{definition}[Geometric correction along a path]\label{def:delta-phi}
+For a cascade observable traversing the path $\{d_0, d_0+1, \ldots, d_0+n-1\}$,
+\[
+\delta\Phi \;:=\; \sum_{k=0}^{n-2}\bigl(1 - C^2_{d_k, d_{k+1}}\bigr),
+\]
+the path-cumulative adjacent overlap deficit. By Theorem~\ref{thm:overlap}, every term is strictly positive, so $\delta\Phi > 0$ for every cascade path. Theorem~\ref{thm:first-order} below shows that $\delta\Phi$ equals the first-order multiplicative correction to a cascade-descent observable, and Corollary~\ref{cor:exp-resum} shows that the unique closed-form correction respecting path-splitting composition is $Q = Q_0 \cdot \exp(\delta\Phi)$.
+\end{definition}
+
+\begin{theorem}[Adjacent overlap deficit correction]\label{thm:first-order}
+For a descent-dependent observable traversing path $\{d_0,\ldots,d_0+n-1\}$:
+\begin{equation}\label{eq:first-order}
+\frac{\delta Q}{Q_0} = \sum_{k=0}^{n-2}\bigl(1 - C_{d_k,d_{k+1}}^2\bigr) \;=\; \delta\Phi,
+\end{equation}
+where each $C_{d,d+1}$ is the adjacent-layer correlation (Theorem~\ref{thm:overlap}).
+This is a sum of Beta function ratios. No free parameter enters.
+\end{theorem}
+
+\begin{proof}
+The observable propagates through $n$ layers. The independent-step approximation treats each layer as perfectly collinear with the next ($C_{d,d+1}=1$). The first-order departure from collinearity at each step is the squared overlap deficit $1-C_{d,d+1}^2$, which measures the fraction of the integrand at step $d$ that is orthogonal to step $d+1$ (Theorem~\ref{thm:overlap}). For a multiplicative propagator, the leading correction is the sum of per-step deficits, which is $\delta\Phi$ by Definition~\ref{def:delta-phi}.
+\end{proof}
+
+\begin{corollary}[Exponential resummation forced by multiplicative composition]\label{cor:exp-resum}
+For a multiplicative propagator $Q_0 = \prod_k (\text{step}_k)$
+traversing the path of Theorem~\ref{thm:first-order}, the unique
+closed-form leading-order Gram-corrected observable respecting
+multiplicative composition under path splitting is
+\begin{equation}\label{eq:exp-form}
+Q \;=\; Q_0\cdot\exp(\delta\Phi) \;+\; O(\delta^2),
+\end{equation}
+where $\delta = \max_k (1 - C_{d_k,d_{k+1}}^2)$. The exponential
+matches Theorem~\ref{thm:first-order} at first order in $\delta$ per
+step.
+\end{corollary}
+
+\begin{proof}
+\emph{Setup.} Because the cascade recurrence is first-order
+multiplicative (Corollary~\ref{cor:primary}), the Gram-corrected step at
+layer $d_k$ receives a multiplicative factor
+$1 + (1 - C_{d_k,d_{k+1}}^2) + O((1-C^2)^2)$, accumulating as a product:
+\[
+Q \;=\; Q_0\prod_{k=0}^{n-2}\bigl(1 + \delta_k + O(\delta_k^2)\bigr),
+\qquad \delta_k := 1 - C_{d_k,d_{k+1}}^2.
+\]
+This product is the exact corrected observable (modulo $O(\delta^2)$
+per-step residuals from Theorem~\ref{thm:first-order}'s first-order
+truncation). Define the path-functional
+$\Phi(P) := \sum_{k\in P} \delta_k = \delta\Phi(P)$ and the correction factor
+$K(P) := Q/Q_0$ over a path $P$.
+
+\emph{Composition law.} Multiplicative composition under path
+splitting is a structural property of the cascade recurrence: for a
+path $P = P_1 \cup P_2$ formed by concatenating two consecutive
+sub-paths, the corrected observable composes as
+$Q(P) = Q_0(P_1)\cdot Q_0(P_2) \cdot K(P_1) \cdot K(P_2) = Q_0(P)\cdot K(P_1)\cdot K(P_2)$.
+Therefore $K(P) = K(P_1)\cdot K(P_2)$, and since $\Phi(P) = \Phi(P_1) + \Phi(P_2)$
+(the path-functional is additive under concatenation), $K$ as a
+function of $\Phi$ must satisfy
+\begin{equation}\label{eq:cauchy}
+K(\Phi_1 + \Phi_2) \;=\; K(\Phi_1) \cdot K(\Phi_2).
+\end{equation}
+
+\emph{Cauchy's exponential functional equation forces the form.}
+Equation~\eqref{eq:cauchy} together with continuity (a closed-form
+correction is a smooth function of its path-functional argument) and
+the boundary condition $K(0) = 1$ (no correction for an empty path)
+has, by the standard solution of Cauchy's exponential functional
+equation, the unique family of solutions $K(\Phi) = e^{c\Phi}$ for
+some constant $c$. Matching the first-order behaviour to
+Theorem~\ref{thm:first-order} ($K(\Phi) = 1 + \Phi + O(\Phi^2)$ for
+small $\Phi$, hence $K'(0) = 1$) fixes $c = 1$. Therefore
+$K(\delta\Phi) = e^{\delta\Phi}$, and the corrected observable is~\eqref{eq:exp-form}.
+
+\emph{Why the linear form fails.} The linear closed-form
+$K_{\mathrm{lin}}(\Phi) = 1 + \Phi$ matches at first order but
+violates~\eqref{eq:cauchy}: $K_{\mathrm{lin}}(\Phi_1) K_{\mathrm{lin}}(\Phi_2)
+= (1 + \Phi_1)(1 + \Phi_2) = 1 + \Phi_1 + \Phi_2 + \Phi_1\Phi_2 \neq
+1 + (\Phi_1 + \Phi_2) = K_{\mathrm{lin}}(\Phi_1 + \Phi_2)$. The cross-term
+$\Phi_1\Phi_2$ breaks additivity. The exponential is the unique
+continuous closed form respecting composition; the linear form is the
+unique closed form failing it.
+
+\emph{Residual versus the exact product.} The exact corrected
+observable is the product $Q_0\prod(1 + \delta_k + O(\delta_k^2))$, not
+the exponential. The exponential and the product agree at first order
+in $\delta$ per step but differ at second order: the exact product
+expands as $1 + \sum\delta_k + \sum_{j<k}\delta_j\delta_k + O(\delta^3)$,
+while the exponential expands as $1 + \sum\delta_k + \tfrac{1}{2}(\sum\delta_k)^2 + O(\delta^3)
+= 1 + \sum\delta_k + \tfrac{1}{2}\sum\delta_k^2 + \sum_{j<k}\delta_j\delta_k + O(\delta^3)$.
+The exponential overestimates the exact product by
+$\tfrac{1}{2}\sum\delta_k^2$ at second order. The linear closed-form
+$1 + \sum\delta_k$, by contrast, underestimates the product by
+$\sum_{j<k}\delta_j\delta_k$ at second order.
+
+For cascade paths starting at $d_0\geq 5$ the per-step deficits scale
+as $\delta_k = 1 - C^2_{d_k,d_{k+1}} \sim 1/(8d^2)$
+(Theorem~\ref{thm:overlap}), so
+$\sum_{k}\delta_k^2 \lesssim \tfrac{1}{64}\sum_{d\geq 5} d^{-4} \approx
+6\times 10^{-5}$, and the exponential overshoots the exact product by
+at most $\tfrac{1}{2}(6\times 10^{-5}) \approx 3\times 10^{-5}$ in the
+multiplicative correction (i.e.\ $\sim 0.003\%$ of $Q$). The linear
+form underestimates the product by approximately
+$\tfrac{1}{2}(\sum\delta)^2 \approx 2\times 10^{-4}$ ($\sim 0.022\%$
+of $Q$) for the longest path ($d=5$ to $d=217$). The exponential is
+therefore not only the unique composition-respecting closed form but
+also the closer numerical approximation to the exact product than the
+linear form, by an order of magnitude.
+
+Both gaps are below the reported observational precisions of all
+currently-tested cascade observables ($\sim 0.1\%$ or coarser). The
+exponential is therefore the cascade's natural closed-form correction
+--- forced by composition, exact at first order in $\delta$, and within
+observational precision of the exact product for all paths considered.
+It is the form used downstream (Part~I, $\rho_\Lambda$ closure;
+Part~IVb, the $v$ and $m_\tau$ absolute-mass shifts).
+\end{proof}
+
+\begin{remark}[What the correction is not]
+The correction is not to the Gamma function, which is exact. It is not to the slicing recurrence, which is exact (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by $\Gamma(a+1) = a\Gamma(a)$). It is to the \emph{independent-step approximation}: the assumption that a quantity depending on $n$ cascade layers is the product of $n$ individually exact factors. The layers are individually exact but not independent---their integrands overlap in $L^2$, and the eigenvalue deficit $\epsilon$ quantifies the overlap.
+\end{remark}
+
+\subsection{Sign structure of the correction}
+
+The geometric correction $\delta\Phi$ (Definition~\ref{def:delta-phi}) is strictly positive, since each adjacent overlap satisfies $C_{d,d+1}<1$ by Cauchy--Schwarz. Applied multiplicatively as $Q = Q_0\cdot\exp(\delta\Phi)$ (Corollary~\ref{cor:exp-resum}), it always increases the predicted value. This produces the observed sign structure across all cascade predictions:
+
+\begin{itemize}
+\item \emph{Descent-dependent quantities} (those traversing multiple cascade layers) have negative leading-order deviations, because the independent-step approximation underestimates the propagated geometric content. The correction $\exp(+\delta\Phi)$ closes the gap.
+\item \emph{Geometric quantities} (single-level ratios, topological constants) have positive leading-order deviations, because they do not traverse multiple layers and receive no inter-layer correction. Their deviations reflect the subleading structure of the Gamma function at a single level, which is a separate (and smaller) effect.
+\end{itemize}
+
+The clean sign separation---negative for descent, positive for geometric---is not an empirical observation. It is a consequence of $\delta\Phi > 0$, which is itself a consequence of $C_{ij} < 1$ for $i\neq j$ (Cauchy--Schwarz on non-collinear cascade integrands).
+
+\subsection{The correction as compactification residual}
+
+Theorem~\ref{thm:reff} establishes that each compactification step retains a residual $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$. The overlap deficit (Theorem~\ref{thm:overlap}) scales as $1-C_{d,d+1}^2 \sim 1/(8d^2) \sim R_{\mathrm{eff}}^4/8$. The eigenvalue deficit $\epsilon$ is the cumulative effect of these per-step residuals over the path.
+
+The independent-step approximation corresponds to the limit $R_{\mathrm{eff}} \to 0$ (complete compactification). The geometric correction $\delta\Phi$ (Definition~\ref{def:delta-phi}) is the leading-order cost of $R_{\mathrm{eff}} > 0$---the imperfect folding of the cascade's own geometry.
+
+\subsection{Numerical evidence and scope}
+
+Theorem~\ref{thm:first-order} and Corollary~\ref{cor:exp-resum} (Section~\ref{sec:first-order} above) close the inter-layer correction at first order. Six descent-dependent cascade observables, each with a structurally-fixed path, are gathered below to show how the derived $\exp(\delta\Phi)$ correction performs against observation:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llcccccc}
+\toprule
+Observable & Path & $n$ & $\sum(1-C^2)$ & Leading & Corrected & Observed & Dev \\
+\midrule
+$\alpha_s$ & $d\!=\!5$--$12$ & 8 & 0.01186 & 0.1159 & 0.1173 & 0.1179 & $-0.5\%$ \\
+$m_\tau/m_\mu$ & $d\!=\!6$--$13$ & 8 & 0.00938 & 16.53 & 16.69 & 16.82 & $-0.8\%$ \\
+$m_\mu/m_e$ & $d\!=\!14$--$21$ & 8 & 0.00272 & 206.50 & 207.06 & 206.77 & $+0.1\%$ \\
+$m_\tau$~(MeV) & $d\!=\!5$--$12$ & 8 & 0.01186 & 1755 & 1776 & 1777 & $-0.1\%$ \\
+$v$~(GeV) & $d\!=\!5$--$12$ & 8 & 0.01186 & 240.8 & 243.7 & 246.2 & $-1.0\%$ \\
+$\Omega_m^{\rm Bott}$ & $d\!=\!5$--$217$ & 213 & 0.02108 & 0.3115 & 0.3181 & 0.315 & $+1.0\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The first-order correction reduces descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The correction for $m_\mu/m_e$ is small ($0.27\%$) because its path lies at higher $d$ where the per-step deficit scales as $1/(8d^2)$.
+
+\begin{remark}[Scope of Theorem~\ref{thm:first-order}; status of $\Omega_m^{\rm Bott}$]\label{rem:sp9-status}
+Theorem~\ref{thm:first-order} is proved for a \emph{multiplicative
+propagator} traversing a contiguous path---i.e., for an observable of
+the form $Q = \prod_{k=0}^{n-1}(\text{step factor at }d_k)$. Five of the
+six table entries ($\alpha_s$, $m_\tau/m_\mu$, $m_\mu/m_e$, $m_\tau$,
+$v$) have this structure directly. The sixth entry,
+$\Omega_m^{\rm Bott}$, is structurally different: by
+Part~V's ``Bott partition matter fraction'' theorem,
+\[
+\Omega_m^{\rm Bott}
+\;=\;
+\frac
+{\displaystyle\sum_{\substack{d=5\\ d\bmod 8\in\{5,6\}}}^{217}\Omega_{d-1}}
+{\displaystyle\sum_{d=5}^{217}\Omega_{d-1}},
+\]
+a \emph{ratio of sums} over cascade layers rather than a single
+multiplicative propagator. Its inclusion in the table under the
+full-path correction $\sum_{d=5}^{217}(1-C^2_{d,d+1}) = 0.02108$
+applies the theorem outside its proven scope:
+\begin{itemize}
+\item The rigorous per-term treatment would correct each
+$\Omega_{d-1}$ in the sums by its own path-length-dependent factor,
+$\Omega_{d-1}\mapsto\Omega_{d-1}\cdot
+\exp\bigl(\sum_{k=4}^{d-1}(1-C^2_{k,k+1})\bigr)$, then re-form the
+ratio. The sums are dominated by the early terms near $d\sim 5$--$7$
+(where $\Omega_d$ peaks), which have short paths and small corrections
+($\sim\exp(0.001)\approx 1.001$). The resulting correction to the
+ratio is therefore much smaller than the full-path factor
+$\exp(0.02108)$.
+\item The observed numerics support this: the leading value
+$\Omega_m^{\rm Bott,\;lead}=0.31150$ sits $-1.1\%$ below the
+observed $0.315$; the full-path ``corrected'' value $0.3181$
+overshoots by $+1.0\%$. A rigorous per-term correction would fall
+between these and is consistent with the two-population systematic
+to leading order. The table entry reports the uniform full-path
+correction for comparability with the other rows; it should be read
+as an upper bound on the Gram shift for this observable, not as its
+derived value.
+\end{itemize}
+A formal extension of Theorem~\ref{thm:first-order} to ratio-of-sums
+observables---deriving the effective correction for
+$Q=\sum_i a_i/\sum_j b_j$ where each $a_i,b_j$ is a multiplicative
+propagator---is Part~V Open Question~1 (and remains open: the
+identification step from non-trivial-phase layers to matter is the
+other half of that question). The $\Omega_m$ closure does not
+\emph{require} the Gram correction: both the leading lapse identity
+$\Omega_m=1/\pi=0.31831$ ($+1.1\%$, geometric population) and the
+leading Bott value $0.31150$ ($-1.1\%$, descent-dependent population)
+bracket observation to the cascade's stated precision.
+\end{remark}
+
+\subsection{What this section proves}
+
+\begin{enumerate}
+\item The Gram matrix of cascade layer integrands is a matrix of Beta function values (Theorem~\ref{thm:gram}).
+\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}). The correlation has the exact closed form $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$ in cascade slicing ratios (Theorem~\ref{thm:gram-R}), equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}): the Gram correction is the discrete log-Laplacian of the cascade compliance function $\alpha(d) = R(d)^2/4$ (Definition~\ref{def:compliance-action}) at doubled argument. The same compliance admits a marginal Green's function identity $G(d^*) - G(d^*+1) = \alpha(d^*)$ (Proposition~\ref{prop:marginal-greens}) which is the linear source response used by Part~IVb's $\alpha(d^*)/\chi^k$ precision closures.
+\item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
+\item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
+\item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
+\item The first-order multiplicative correction $\delta Q / Q_0 = \sum(1-C^2_{d,d+1})$ (Theorem~\ref{thm:first-order}), uniquely promoted to the exponential form $Q = Q_0 \cdot \exp(\sum(1-C^2))$ by multiplicative composition under path-splitting (Corollary~\ref{cor:exp-resum}). Both ingredients are derived; no free parameter enters.
+\item Every quantity in this section is a Gamma function identity. No physics enters.
+\end{enumerate}
+
+\subsection{Open questions}\label{sec:open}
+
+\begin{enumerate}
+\item \emph{Analytic formula for $\epsilon(n, d_0)$.} Partially closed. At $n = 2$ the dominant eigenvalue admits the exact closed form $\lambda_1 = 1 + R(2d_0+2)/\sqrt{R(2d_0+1)R(2d_0+3)}$ (Corollary~\ref{cor:lambda1-n2}). For $n \geq 3$ the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}) provides closed-form cascade-native approximations to $\lambda_1$ converging at geometric rate $(\lambda_2/\lambda_1)^k$, reaching machine precision at $k = 6$ for cascade-physics paths. What remains genuinely open is whether a single-equation radical or special-function closed form (rather than a convergent family of upper bounds) exists at $n \geq 3$.
+\item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
+\item \emph{Application to mixed quantities.} The first-order correction (Theorem~\ref{thm:first-order} and Corollary~\ref{cor:exp-resum}) applies cleanly to quantities with a single unambiguous multiplicative cascade path. Quantities expressible as ratios of sums over cascade layers ($\Omega_m^{\rm Bott}$ in Part~V) require a per-term treatment articulated in Remark~\ref{rem:sp9-status} but not formally derived. A formal extension of the first-order theorem to such ratio-of-sums observables is open.
+\end{enumerate}
+
+\begin{remark}[Status of the correction]
+The first-order correction is derived from cascade-native first principles. Theorem~\ref{thm:gram-R} and Corollary~\ref{cor:gram-laplacian} establish that the per-step Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d)=R(d)^2/4$, evaluated at the doubled cascade argument. Theorem~\ref{thm:first-order} sums this to the path-cumulative shift $\delta\Phi=\sum(1-C^2_{d,d+1})$, and Corollary~\ref{cor:exp-resum} promotes it to the unique closed form $Q = Q_0\cdot\exp(\delta\Phi)$ respecting multiplicative composition under path-splitting. Both single-source $\alpha(d^*)/\chi^k$ family of Part~IVb and the path-distributed Gram correction here therefore derive from the same compliance $\alpha(d)=R(d)^2/4$: source response and discrete log-Laplacian, respectively, of one structural object.
+\end{remark}
+
+\begin{remark}[Superseded for the eight precision observables]\label{rem:superseded-by-family}
+For eight Standard Model precision observables---$\alpha_s(M_Z)$, $m_\tau/m_\mu$, $m_\tau$ absolute, $\ell_A$, $\sin^2\theta_W$, $\Omega_m$, $\theta_C$, and $b/s$---the Gram-matrix framework above is superseded by the sharper structural identity of Part~IVb. Both deviations in these observables are closed \emph{at experimental precision} by cascade potential shifts of the form $\delta\Phi = \alpha(d^*)/\chi^k$, where $d^*$ is a distinguished dimension from this paper's four-dimension tower (Theorem~\ref{thm:tower}) and $\chi=\chi(S^{2n})=2$ is the Euler characteristic:
+\begin{itemize}
+\item $\alpha(14)/\chi$ closes $\alpha_s$ and $m_\tau/m_\mu$ together;
+\item $\alpha(19)/\chi$ closes the $\tau$ absolute mass and $\ell_A$ at the phase-transition threshold $d_1=19$;
+\item $\alpha(5)/\chi^3$ closes $\sin^2\theta_W$ and $\Omega_m$ at the volume maximum $d_V=5$;
+\item $\alpha(7)/\chi^2$ closes $\theta_C$ and $\alpha(7)/\chi^4$ closes $b/s$, both sourced at the area maximum $d_0=7$.
+\end{itemize}
+For these eight observables the cascade closes at experimental precision via a single-source mechanism that does not invoke the Gram framework at all. The first-order Gram correction here remains the appropriate cascade-native account for the remaining descent-dependent observables ($m_\mu/m_e$ to $0.13\%$, $v$ before its non-perturbative $\exp(-\pi/\alpha(5))$ closure, etc.), where it reduces deviations from $\sim 2\%$ to sub-$1\%$.
 \end{remark}
 
 % ============================================================
