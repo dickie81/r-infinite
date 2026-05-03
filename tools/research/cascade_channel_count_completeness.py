@@ -267,6 +267,70 @@ def report_numerical_check() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Soft spots: honest caveats on the proof
+# ---------------------------------------------------------------------------
+
+def report_soft_spots() -> None:
+    print("=" * 78)
+    print("SOFT SPOTS (caveats on the proof's rigour level)")
+    print("=" * 78)
+    print()
+    print("The proof above is at the cascade's standard rigour level (same as")
+    print("other Part IVb structural arguments).  Four caveats to flag")
+    print("explicitly:")
+    print()
+    print("(SS1) The cascade path-integral is not formally defined.")
+    print("      The activation criterion (Lemma 3) treats path-integral")
+    print("      multiplicities as arising from action symmetry orbits, which")
+    print("      is the standard physics heuristic but not a formal theorem")
+    print("      of measure theory on the cascade lattice.  Tightening would")
+    print("      require formal definition of int e^{-S[varphi]} D varphi as")
+    print("      a measure-theoretic object on the cascade configuration")
+    print("      space (an open problem in the cascade series; the action")
+    print("      Remark~4.6 of Part IVb is a discrete-elastic-action proposal,")
+    print("      not yet promoted to a formal path-integral theory).")
+    print()
+    print("(SS2) Lemma 1's 'Z_2 only' is exhaustive over multiplicative actions,")
+    print("      not arbitrary group actions.  Multiplicative actions phi -> ω*phi")
+    print("      are excluded for ω^2 != 1.  Layer permutations are excluded")
+    print("      because alpha(d) is monotone (no non-trivial permutation")
+    print("      preserves the action's coefficient structure).  Other exotic")
+    print("      actions (non-linear field redefinitions, twist actions) aren't")
+    print("      formally exhausted -- argued plausibly impossible because they")
+    print("      break the quadratic structure or the real-valuedness, but not")
+    print("      proved.  Tightening would require a complete classification")
+    print("      of automorphisms of the cascade scalar action, which is")
+    print("      cleaner than but still a research-level problem.")
+    print()
+    print("(SS3) The 'magnitude vs labelling' distinction.  The completeness")
+    print("      theorem forces the chirality factor MAGNITUDE to be exactly")
+    print("      chi^(2N).  It does NOT determine which specific (w_1, w_2)")
+    print("      pattern the cascade observable evaluates at -- the 'global")
+    print("      (+, +) convention' is a labelling parallel to the SM's")
+    print("      'matter is left-handed under SU(2)_L' (Part IVb")
+    print("      rem:cpt-balance-basins, zero observational input).  The")
+    print("      magnitude is forced; the labelling is convention.  Empirical")
+    print("      k = 2N tests the magnitude only.")
+    print()
+    print("(SS4) Connection to roadmap items #3, #4 is structural, not derived.")
+    print("      The completeness theorem says higher cyclic groups (Z_24,")
+    print("      Z_240) contribute to source strength and sign rather than to")
+    print("      the chirality factor.  HOW they contribute -- specifically,")
+    print("      whether Pontryagin numbers fix the source's unit normalisation")
+    print("      or the +/- sign via Morse index -- is not derived here.  These")
+    print("      remain open as roadmap items #3 (source strength) and #4 (sign).")
+    print()
+    print("RIGOUR LEVEL: same as other Part IVb structural arguments.  The")
+    print("theorem is honest at cascade-internal precision; not a fully")
+    print("formalised mathematical theorem in the measure-theoretic sense.")
+    print("Tier 2 promotion is consistent with this rigour level (matches the")
+    print("Part IVb Tier 2 entries for alpha_s, m_tau/m_mu, sin^2 theta_W,")
+    print("Omega_m, etc., all of which rely on the same-level structural")
+    print("arguments).")
+    print()
+
+
+# ---------------------------------------------------------------------------
 # What this closes
 # ---------------------------------------------------------------------------
 
@@ -332,6 +396,7 @@ def main() -> int:
     report_lemma_3()
     report_theorem_proof()
     report_numerical_check()
+    report_soft_spots()
     report_closure_status()
     print("=" * 78)
     print("STATUS: roadmap item #1 residual (b) CLOSED.  The channel-count")
