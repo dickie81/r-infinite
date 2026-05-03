@@ -23,7 +23,7 @@
 
 \noindent This supplement extends Paper 0 by computing the inter-layer correction to the cascade's independent-step approximation. The slicing recurrence treats each compactification step as independent: the propagator through $n$ steps is the product of $n$ individual lapses. This is exact for volumes (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by the Gamma function). It is not exact for quantities that depend on the overlap structure of consecutive layer integrands. The correction is determined by the eigenvalue deficit of the Gram correlation matrix of the integrands $f_d(x) = (1 - x^2)^{d/2}$---a Beta function identity with no free parameters.
 
-The Gram correlation has an exact closed form in cascade-native primitives (Theorem~\ref{thm:gram-R}): $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$, equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). The Gram correction is therefore the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled cascade argument. This connects the supplement directly to the action principle of Paper~IVb Remark~4.6: the supplement's path-distributed correction and Paper~IVb's single-source $\alpha(d^*)/\chi^k$ family are complementary derivatives of the same compliance function---linear source response (Paper~IVb) and discrete log-Laplacian (this supplement).
+The Gram correlation has an exact closed form in cascade-native primitives (Theorem~\ref{thm:gram-R}): $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$, equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). The Gram correction is therefore the discrete log-Laplacian of the cascade compliance function $\alpha(d) = R(d)^2/4$ (Definition~\ref{def:compliance-action}), evaluated at the doubled cascade argument. The same compliance function admits a second cascade-internal derivative --- the marginal Green's function $G(d^*) - G(d^*+1) = \alpha(d^*)$ (Proposition~\ref{prop:marginal-greens}) --- which is the linear source response used downstream by Paper~IVb's $\alpha(d^*)/\chi^k$ precision-closure family. The supplement's path-distributed correction and that single-source family are therefore complementary derivatives of one cascade-internal object, both established within Part~0.
 
 Throughout: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}).
 
@@ -128,13 +128,44 @@ Substituting into the definition $C^2_{d,d+1} = G_{d,d+1}^2 / (G_{d,d}\,G_{d+1,d
 $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$.
 \end{proof}
 
+\begin{definition}[Cascade compliance and scalar action]\label{def:compliance-action}
+The \emph{cascade compliance} at layer $d$ is
+\[
+\alpha(d) \;:=\; \frac{R(d)^2}{4},
+\]
+the square of the cascade slicing ratio of Paper~0 \S2, normalised by 4. As a $\Gamma$-function ratio, $\alpha$ is a cascade-internal quantity with no free parameter.
+
+The \emph{cascade scalar action} on the layer index is the discrete elastic functional
+\[
+S[\varphi] \;:=\; \sum_d \frac{1}{2\alpha(d)}\bigl(\Delta\varphi(d)\bigr)^2,
+\qquad \Delta\varphi(d) := \varphi(d+1) - \varphi(d).
+\]
+By construction, $S$ is the unique quadratic nearest-neighbour functional whose Euler--Lagrange equation has the cascade slicing recurrence as equilibrium; the compliance $\alpha(d) = R(d)^2/4$ is the cascade-natural choice making the action's marginal Green's function equal $\alpha(d^*)$ at every distinguished source layer $d^*$ (Proposition~\ref{prop:marginal-greens} below).
+\end{definition}
+
+\begin{proposition}[Marginal Green's function of the cascade scalar action]\label{prop:marginal-greens}
+The cumulative compliance from a cascade source layer $d^*$ to the cascade terminus $d_2 = 217$ is
+\[
+G(d^*) \;:=\; \sum_{k = d^*}^{d_2 - 1} \alpha(k),
+\]
+and the per-layer marginal contribution at source $d^*$ is the local compliance value:
+\[
+G(d^*) - G(d^* + 1) \;=\; \alpha(d^*).
+\]
+This is the source-response identity used by Paper~IVb's $\alpha(d^*)/\chi^k$ precision-closure family.
+\end{proposition}
+
+\begin{proof}
+Direct: $G(d^*)$ and $G(d^* + 1)$ differ by exactly the term at $k = d^*$, which is $\alpha(d^*)$.
+\end{proof}
+
 \begin{corollary}[Gram-Laplacian identity]\label{cor:gram-laplacian}
-The log-correlation between adjacent cascade layers is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled argument $2d+2$ with unit step:
+The log-correlation between adjacent cascade layers is the discrete log-Laplacian of the cascade compliance $\alpha$ (Definition~\ref{def:compliance-action}), evaluated at the doubled argument $2d+2$ with unit step:
 \begin{equation}\label{eq:gram-laplacian}
 \log C^2_{d,d+1} \;=\; -\frac{1}{2}\,\Delta^2 \log\alpha\,\Big|_{2d+2},
 \end{equation}
 where $\Delta^2 f|_n := f(n-1) + f(n+1) - 2f(n)$ is the centered discrete Laplacian.
-\end{corollary}
+\end{corollary>
 
 \begin{proof}
 By Theorem~\ref{thm:gram-R} and properties of the logarithm,
@@ -153,12 +184,12 @@ to machine precision on the closed form and to $\sim 10^{-7}$ relative on the La
 \end{remark}
 
 \begin{remark}[Structural unification with the cascade scalar action]\label{rem:gram-action-unification}
-Corollary~\ref{cor:gram-laplacian} establishes a direct structural connection between the supplement's Gram framework and the cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ of Paper~IVb Remark~4.6. Both correction families derive from the same compliance function $\alpha(d) = R(d)^2/4$:
+Corollary~\ref{cor:gram-laplacian} establishes a direct structural connection between the Gram framework above and the cascade scalar action $S[\varphi]$ of Definition~\ref{def:compliance-action}. Both corrections derivable from $S[\varphi]$ and its compliance $\alpha(d)$ have a cascade-internal expression:
 \begin{itemize}
-\item Paper~IVb's $\alpha(d^*)/\chi^k$ family: \emph{linear} source response. The cascade action's marginal Green's function at distinguished source layer $d^*$ equals $\alpha(d^*)$ exactly (Paper~IVb's marginal Green's function identity); chirality factorisation through $k$ independent channels gives the $1/\chi^k$ attenuation.
-\item This supplement's adjacent overlap deficit: \emph{discrete log-Laplacian} of the same compliance function, at the doubled cascade argument. The deficit per step is $\frac{1}{2}\Delta^2(-\log\alpha)|_{2d+2}$ (positive because $-\log\alpha$ is convex on the cascade tower, i.e.\ $\alpha$ is log-concave).
+\item \emph{Linear source response} (single-source, used downstream by Paper~IVb): the action's marginal Green's function at source layer $d^*$ equals $\alpha(d^*)$ exactly (Proposition~\ref{prop:marginal-greens}). Chirality factorisation through $k$ independent channels gives the $1/\chi^k$ attenuation that produces the cascade's $\alpha(d^*)/\chi^k$ precision-closure family.
+\item \emph{Discrete log-Laplacian of the compliance} (path-distributed, this supplement): the per-step Gram correction is $\frac{1}{2}\Delta^2(-\log\alpha)|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). It is positive because $-\log\alpha$ is convex on the cascade tower, i.e.\ $\alpha$ is log-concave.
 \end{itemize}
-The two correction families are complementary in the action's dual variables: source response (zeroth-order, single-layer) versus log-compliance curvature (second-order, distributed across the path). The doubling $d\mapsto 2d+2$ is a Beta--Gamma reduction artefact: cascade integrand inner products $\langle f_d, f_{d'}\rangle$ produce $R$-values at doubled arguments via $B(1/2, n+1) = \sqrt{\pi}\,R(2n+1)$ and $B(1/2, n+3/2) = \sqrt{\pi}\,R(2n+2)$, so the Gram correlation between layers $d$ and $d+1$ depends on cascade $R$-values at doubled indices $\{2d+1, 2d+2, 2d+3\}$.
+The two correction families are complementary in the action's dual variables: zeroth-order source response (the marginal $\alpha(d^*)$ of a single layer) versus second-order log-compliance curvature (the Laplacian of $\log\alpha$ summed across a path). Both are derived within Part~0 from the same compliance function. The doubling $d\mapsto 2d+2$ is a Beta--Gamma reduction artefact: cascade integrand inner products $\langle f_d, f_{d'}\rangle$ produce $R$-values at doubled arguments via $B(1/2, n+1) = \sqrt{\pi}\,R(2n+1)$ and $B(1/2, n+3/2) = \sqrt{\pi}\,R(2n+2)$, so the Gram correlation between layers $d$ and $d+1$ depends on cascade $R$-values at doubled indices $\{2d+1, 2d+2, 2d+3\}$.
 
 This corollary closes Paper~I's open question on first-principles derivation of the Gram correction (Paper~I, ``Does not'' list, item~3): the derivation is the cascade compliance Laplacian.
 \end{remark}
@@ -520,7 +551,7 @@ bracket observation to the cascade's stated precision.
 
 \begin{enumerate}[nosep]
 \item The Gram matrix of cascade layer integrands is a matrix of Beta function values (Theorem~\ref{thm:gram}).
-\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}). The correlation has the exact closed form $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$ in cascade slicing ratios (Theorem~\ref{thm:gram-R}), equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}): the Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$ at doubled argument, unifying the supplement with Paper~IVb's action principle (Remark~\ref{rem:gram-action-unification}).
+\item Adjacent layers have a strictly positive overlap deficit $1 - C_{d,d+1}^2 > 0$, scaling as $1/(8d^2)$ (Theorem~\ref{thm:overlap}). The correlation has the exact closed form $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$ in cascade slicing ratios (Theorem~\ref{thm:gram-R}), equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}): the Gram correction is the discrete log-Laplacian of the cascade compliance function $\alpha(d) = R(d)^2/4$ (Definition~\ref{def:compliance-action}) at doubled argument. The same compliance admits a marginal Green's function identity $G(d^*) - G(d^*+1) = \alpha(d^*)$ (Proposition~\ref{prop:marginal-greens}) which is the linear source response used by Paper~IVb's $\alpha(d^*)/\chi^k$ precision closures.
 \item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
 \item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
 \item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
