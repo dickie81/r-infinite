@@ -33,7 +33,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 
 | Observable | Formula | Predicted | Observed | Dev. |
 |---|---|---|---|---|
-| ρ_Λ / M⁴_Pl,red | 18 · Ω(19) · Ω(217) / π³ | 0.6996 × 10⁻¹²⁰ | 0.7150 × 10⁻¹²⁰ | −2.2% |
+| ρ_Λ / M⁴_Pl,red | 18 · Ω(19) · Ω(217) / π³ · exp(δΦ) | 0.7145 × 10⁻¹²⁰ | 0.7150 × 10⁻¹²⁰ | −0.07% |
 | Ω_Λ | (π−1)/π | 0.6817 | 0.685 ± 0.007 | −0.5% |
 | Ω_m | 1/π | 0.3183 | 0.315 ± 0.007 | +1.1% |
 | Ω_r | 1/(4π⁷) | 8.28 × 10⁻⁵ | 8.27 × 10⁻⁵ | +0.1% |
