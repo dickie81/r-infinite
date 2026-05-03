@@ -48,6 +48,17 @@ The completeness theorem **forces** these contributions to live outside the chir
 
 The channel-count rule is now a theorem of the cascade. Combined with the chirality theorem χ^(m-k) (Part IVb thm:chirality-factorisation, extended in `cascade_chirality_theorem.py`) and the source-selection bijection (Part IVb prop:source-selection), three structural rules govern the entire α(d*)/χ^k correction family at theorem level.
 
+**Soft spots (caveats on the proof's rigour level):**
+
+The completeness proof is at the same rigour level as other Part IVb Tier 2 structural arguments — not a fully formalised mathematical theorem in the measure-theoretic sense. Four explicit caveats:
+
+- **(SS1) Cascade path-integral not formally defined.** Lemma 3's activation criterion treats path-integral multiplicities as arising from action-symmetry orbits — the standard physics heuristic. Tightening would require formal definition of `∫ exp(-S[φ]) Dφ` as a measure-theoretic object on the cascade configuration space. The cascade scalar action (Part IVb Remark 4.6) is a discrete-elastic-action proposal, not yet a formal path-integral theory.
+- **(SS2) Lemma 1 not exhaustive over arbitrary group actions.** Multiplicative actions `φ → ωφ` and layer permutations are excluded; exotic non-multiplicative actions (twist actions, non-linear field redefinitions) are excluded by structural argument rather than full classification of the cascade scalar action's automorphism group.
+- **(SS3) Magnitude vs labelling distinction.** The theorem forces the chirality-factor MAGNITUDE to be exactly χ^{2N}. It does NOT determine which specific (w_1, w_2) pattern the observable evaluates at. The global (+, +) convention is a labelling parallel to the SM's "matter is left-handed under SU(2)_L" convention (Part IVb `rem:cpt-balance-basins`, zero observational input). Empirical k = 2N tests the magnitude only.
+- **(SS4) Connection to items #3, #4 is structural, not derived.** The completeness theorem says higher cyclic groups (Z_24, Z_240) at residues 3, 7 mod 8 contribute to source strength and sign rather than to the chirality factor. *How* they contribute — whether Pontryagin numbers fix the source's unit normalisation or the +/- sign via Morse index — remains open as roadmap items #3 and #4.
+
+These soft spots don't undermine the theorem's content; they delimit the rigour level. Tier 2 promotion is consistent with this rigour level (matches the Tier 2 entries for α_s, m_τ/m_μ, sin²θ_W, Ω_m, etc., all of which rely on the same-level structural arguments).
+
 ### 2. Source-selection rule — categorical derivation pending
 
 **Status:** Bijection 4 types ↔ 4 non-sink distinguished layers verified 9/9. The three syntactic flags (P, L, G) are mechanical queries on cascade formulas. Categorical derivation of the flags from a formal category of cascade observables is open.
