@@ -25,7 +25,7 @@
 
 The Gram correlation has an exact closed form in cascade-native primitives (Theorem~\ref{thm:gram-R}): $C^2_{d,d+1} = R(2d+2)^2 / [R(2d+1)\,R(2d+3)]$, equivalently $\log C^2_{d,d+1} = -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$ (Corollary~\ref{cor:gram-laplacian}). The Gram correction is therefore the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d) = R(d)^2/4$, evaluated at the doubled cascade argument. This connects the supplement directly to the action principle of Paper~IVb Remark~4.6: the supplement's path-distributed correction and Paper~IVb's single-source $\alpha(d^*)/\chi^k$ family are complementary derivatives of the same compliance function---linear source response (Paper~IVb) and discrete log-Laplacian (this supplement).
 
-Throughout: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}); the observable-dependent correction beyond the first-order Gram identity is named the \emph{observable response factor}.
+Throughout: ``second order'' refers exclusively to the perturbation-theory order in the eigenvalue expansion (Theorem~\ref{thm:pert}).
 
 \setcounter{section}{14}
 \section{Inter-Layer Coupling}
@@ -219,19 +219,7 @@ $d = 14, \ldots, 21$ & 8 & 0.00200 & $0.13\%$ ($m_\mu/m_e$) \\
 
 \subsection{The independent-step correction}
 
-The cascade's leading-order predictions treat each compactification step as independent. A quantity that depends on the cascade's geometry over a path of $n$ layers receives a correction from the inter-layer coupling. The eigenvalue deficit $\epsilon$ identifies the source, sign, and magnitude of this correction. The exact correction factor is observable-dependent.
-
-\begin{definition}[Independent-step correction]
-For a cascade quantity $Q$ whose leading-order value $Q_0$ depends on the cascade potential over a path $\{d_0, \ldots, d_0 + n - 1\}$, the corrected value is
-\begin{equation}\label{eq:correction}
-Q = Q_0 \times \left(1 + k_Q\, \epsilon\right), \qquad \epsilon = 1 - \frac{\lambda_1(C)}{n},
-\end{equation}
-where $\lambda_1(C)$ is the largest eigenvalue of the $n \times n$ correlation matrix and $k_Q$ is a coupling coefficient that depends on how the observable projects onto the subdominant eigenstructure of~$C$.
-\end{definition}
-
-\begin{remark}[What is derived and what is not]
-The eigenvalue deficit $\epsilon$ is derived: it follows from first-order perturbation theory applied to the deficit matrix $D = J - C$, where $J$ is the all-ones matrix (Section~\ref{sec:perturbation}). Its sign ($\epsilon > 0$), its path dependence (decreasing with $d_0$), and its scaling ($\epsilon \propto 1/d^2$ per step) are theorems about the Beta function. The coupling coefficient $k_Q$ is not derived. It depends on how the observable couples to the subdominant eigenvectors of $C$, which varies from observable to observable. Computing $k_Q$ from first principles is the most important open problem in this supplement.
-\end{remark}
+The cascade's leading-order predictions treat each compactification step as independent. A quantity that depends on the cascade's geometry over a path of $n$ layers receives a correction from the inter-layer coupling. The eigenvalue deficit $\epsilon$ (Theorem~\ref{thm:eigenvalue}) measures the magnitude of this coupling, and the adjacent overlap deficits $1-C^2_{d,d+1}$ (Theorem~\ref{thm:overlap}) measure its per-pair structure. Section~\ref{sec:first-order} derives the multiplicative correction from the same compliance function $\alpha(d) = R(d)^2/4$ that drives the slicing mechanism (Remark~\ref{rem:gram-action-unification}).
 
 \begin{remark}[What the correction is not]
 The correction is not to the Gamma function, which is exact. It is not to the slicing recurrence, which is exact (the telescoping identity $V_D/V_4 = \prod N(d)$ holds by $\Gamma(a+1) = a\Gamma(a)$). It is to the \emph{independent-step approximation}: the assumption that a quantity depending on $n$ cascade layers is the product of $n$ individually exact factors. The layers are individually exact but not independent---their integrands overlap in $L^2$, and the eigenvalue deficit $\epsilon$ quantifies the overlap.
@@ -298,45 +286,30 @@ a polynomial sum of $R$-ratio products. Numerically, for cascade-physics paths (
 For positive eigenvalues $\lambda_1 \geq \lambda_2 \geq \cdots \geq 0$, $\mathrm{tr}\,C^k = \sum_j \lambda_j^k$, so $\lambda_1^k \leq \mathrm{tr}\,C^k$ and $\lambda_1 \leq U_k$. Monotonicity $U_k \geq U_{k+1}$ is the standard fact that $\ell^k$ norms of a positive vector decrease in $k$. The convergence $U_k \to \lambda_1$ at rate $(\lambda_2/\lambda_1)^k$ follows from $\mathrm{tr}\,C^k = \lambda_1^k(1 + (\lambda_2/\lambda_1)^k + \cdots)$ via the Bernoulli expansion of $(1 + \epsilon)^{1/k}$. The closed-form expression for $\mathrm{tr}\,C^k$ is the standard polynomial trace expansion; each $C_{ij}$ is a closed-form ratio of slicing ratios (Theorem~\ref{thm:gram-R} and its generalisation to arbitrary index pairs), so the sum is closed-form in cascade primitives.
 \end{proof}
 
-\subsection{Numerical evidence for the correction}\label{sec:verification}
-
-Three quantities with unambiguous cascade paths test the correction. The coupling coefficient $k_Q$ is fitted independently for each.
-
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{llcccccc}
-\toprule
-Observable & Path & $n$ & $\epsilon$ & $k_Q$ & Leading & Corrected & Observed \\
-\midrule
-$\alpha_s$ & $d\!=\!5\text{--}12$ & 8 & 0.00816 & 2.11 & 0.1159 & 0.1179 & 0.1179 \\
-$\ell_A$ & $d\!=\!5\text{--}12$ & 8 & 0.00816 & 1.66 & 297.6 & 301.6 & 301.6 \\
-$m_\tau/m_\mu$ & $d\!=\!6\text{--}13$ & 8 & 0.00657 & 2.67 & 16.53 & 16.82 & 16.82 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\noindent All three residuals vanish when $k_Q$ is fitted individually. The coupling coefficients cluster between 1.7 and 2.7. Their variation reflects the different ways each observable couples to the subdominant eigenstructure.
-
-\begin{remark}[The approximate universality of $k_Q \approx 2$]
-Setting $k_Q = 2$ for all three quantities gives residuals of $-0.09\%$ ($\alpha_s$), $+0.27\%$ ($\ell_A$), and $-0.43\%$ ($m_\tau/m_\mu$)---sub-half-percent in every case, and a significant improvement over the uncorrected deviations of $-1.70\%$, $-1.34\%$, and $-1.72\%$. The value $k_Q = 2$ is the best integer approximation (RMS residual $0.30\%$, compared to $0.87\%$ for $k = 1$ and $0.76\%$ for $k = 3$). The optimal least-squares value across all three is $k = 2.08$.
-\end{remark}
+% [Empirical k_Q fitting section removed: superseded by the derived
+% first-order exponential correction of Section~\ref{sec:first-order}
+% below, whose numerical evidence is gathered in the table after
+% Corollary~\ref{cor:exp-resum}. For three precision observables the
+% Gram-matrix framework itself is superseded by the
+% $\alpha(d^*)/\chi^k$ structural family of Paper~IVb, recorded in
+% Remark~\ref{rem:superseded-by-family}.]
 
 \subsection{Sign structure of the correction}
 
-The correction $k_Q \epsilon$ is always positive ($\epsilon > 0$, $k_Q > 0$), so it increases the predicted value. This produces the observed sign structure across all cascade predictions:
+The geometric correction $\delta\Phi = \sum(1-C^2_{d,d+1})$ (Theorem~\ref{thm:first-order}) is strictly positive, since each adjacent overlap satisfies $C_{d,d+1}<1$ by Cauchy--Schwarz. Applied multiplicatively as $Q = Q_0\cdot\exp(\delta\Phi)$ (Corollary~\ref{cor:exp-resum}), it always increases the predicted value. This produces the observed sign structure across all cascade predictions:
 
 \begin{itemize}[nosep]
-\item \emph{Descent-dependent quantities} (those traversing multiple cascade layers) have negative leading-order deviations, because the independent-step approximation underestimates the propagated geometric content. The correction $+k_Q\epsilon$ closes the gap.
+\item \emph{Descent-dependent quantities} (those traversing multiple cascade layers) have negative leading-order deviations, because the independent-step approximation underestimates the propagated geometric content. The correction $\exp(+\delta\Phi)$ closes the gap.
 \item \emph{Geometric quantities} (single-level ratios, topological constants) have positive leading-order deviations, because they do not traverse multiple layers and receive no inter-layer correction. Their deviations reflect the subleading structure of the Gamma function at a single level, which is a separate (and smaller) effect.
 \end{itemize}
 
-The clean sign separation---negative for descent, positive for geometric---is not an empirical observation. It is a consequence of the Gram eigenvalue deficit being positive: $\epsilon > 0$ because $C_{ij} < 1$ for $i \neq j$ (Cauchy--Schwarz), so the deficit matrix $D$ has positive entries and $\langle u | D | u \rangle > 0$.
+The clean sign separation---negative for descent, positive for geometric---is not an empirical observation. It is a consequence of $\delta\Phi > 0$, which is itself a consequence of $C_{ij} < 1$ for $i\neq j$ (Cauchy--Schwarz on non-collinear cascade integrands).
 
 \subsection{The correction as compactification residual}
 
 Theorem~4.2 establishes that each compactification step retains a residual $R_{\mathrm{eff}}(d) = 1/\sqrt{d+3}$. The overlap deficit (Theorem~\ref{thm:overlap}) scales as $1-C_{d,d+1}^2 \sim 1/(8d^2) \sim R_{\mathrm{eff}}^4/8$. The eigenvalue deficit $\epsilon$ is the cumulative effect of these per-step residuals over the path.
 
-The independent-step approximation corresponds to the limit $R_{\mathrm{eff}} \to 0$ (complete compactification). The correction $k_Q\epsilon$ is the leading-order cost of $R_{\mathrm{eff}} > 0$---the imperfect folding of the cascade's own geometry.
+The independent-step approximation corresponds to the limit $R_{\mathrm{eff}} \to 0$ (complete compactification). The geometric correction $\delta\Phi = \sum(1-C^2)$ is the leading-order cost of $R_{\mathrm{eff}} > 0$---the imperfect folding of the cascade's own geometry.
 
 \subsection{The first-order correction: a Beta function identity}\label{sec:first-order}
 
@@ -520,45 +493,14 @@ leading Bott value $0.31150$ ($-1.1\%$, descent-dependent population)
 bracket observation to the cascade's stated precision.
 \end{remark}
 
-\begin{corollary}[Derived coupling coefficient]\label{cor:kQ-derived}
-The first-order coupling coefficient is
-\begin{equation}\label{eq:kQ-first}
-k_Q^{(1)} = \frac{\displaystyle\sum_{\rm adj}(1-C^2_{d,d+1})}{\epsilon},
-\end{equation}
-where the numerator is the adjacent overlap deficit sum (Theorem~\ref{thm:first-order})
-and the denominator is the eigenvalue deficit (Theorem~\ref{thm:pert}). Both are sums
-of Beta function ratios. No free parameter enters.
-\end{corollary}
-\begin{proof}
-$k_Q^{(1)}$ is defined by equating the first-order correction
-$\delta Q/Q_0 = \sum(1-C^2)$ with the parametrisation $k_Q\,\epsilon$. The ratio is
-$\sum(1-C^2)/\epsilon$, with both quantities derived.
-\end{proof}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{llcc}
-\toprule
-Path & $n$ & $k_Q^{(1)}$ & Residual after $k_Q^{(1)}$ \\
-\midrule
-$d = 5, \ldots, 12$ & 8 & 1.454 & sub-$0.6\%$ \\
-$d = 6, \ldots, 13$ & 8 & 1.429 & sub-$0.8\%$ \\
-$d = 14, \ldots, 21$ & 8 & 1.362 & sub-$0.2\%$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\begin{remark}[Status of the observable response factor]
-The fitted $k_Q$ values (2.11, 1.66, 2.67) exceed $k_Q^{(1)}$ for some observables and
-fall below it for others. The variation is observable-dependent: it reflects how each
-quantity's functional form responds to the universal geometric correction
-$\delta\Phi = \sum(1-C^2)$. For direct exponentials ($\alpha_s = \alpha_{\rm GUT}\times
-e^{\Phi}$), the response is close to~1. For integrated quantities ($\ell_A$, involving the
-comoving distance integral), the response is smoothed below~1. For quantities on higher-$d$
-paths ($m_\mu/m_e$), the first-order over-corrects and the effective
-$k_Q < k_Q^{(1)}$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ is a property of the observable's formula,
-not of the cascade's geometry, and is distinct from the perturbation-theory second-order term in Theorem~\ref{thm:pert}.
-\end{remark}
+% [Derived coupling coefficient $k_Q^{(1)}$ and its observable-response
+% remark removed: the empirical-fit linear parametrisation $Q = Q_0(1+k_Q\epsilon)$
+% is superseded by the cascade-derived exponential form
+% $Q = Q_0\cdot\exp(\sum(1-C^2))$ of Corollary~\ref{cor:exp-resum},
+% which is uniquely forced by multiplicative composition under
+% path-splitting. The auxiliary ratio $\sum(1-C^2)/\epsilon$ is no longer
+% the structural object of interest; only the geometric shift
+% $\delta\Phi=\sum(1-C^2)$ enters downstream usage.]
 
 \subsection{What this section proves}
 
@@ -568,31 +510,31 @@ not of the cascade's geometry, and is distinct from the perturbation-theory seco
 \item The correlation matrix has one dominant eigenvalue $\lambda_1 \approx n(1 - \epsilon)$ with $\epsilon > 0$ (Theorem~\ref{thm:eigenvalue}).
 \item The eigenvalue deficit is derived from first-order perturbation theory as a sum of Beta function deficits (Theorem~\ref{thm:pert}).
 \item The sign of the correction (positive) explains the clean sign separation between descent and geometric predictions.
-\item The first-order coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ is derived (Corollary~\ref{cor:kQ-derived}): a ratio of Beta function sums with no free parameter. It reduces all descent deviations to sub-$1\%$.
-\item The residual variation between observables (the observable response factor $R_Q = k_Q/k_Q^{(1)}$) is a property of each observable's functional form, not of the cascade's geometry. It is observable-dependent and open.
-\item Every quantity in this section---including $k_Q^{(1)}$---is a Gamma function identity. No physics enters.
+\item The first-order multiplicative correction $\delta Q / Q_0 = \sum(1-C^2_{d,d+1})$ (Theorem~\ref{thm:first-order}), uniquely promoted to the exponential form $Q = Q_0 \cdot \exp(\sum(1-C^2))$ by multiplicative composition under path-splitting (Corollary~\ref{cor:exp-resum}). Both ingredients are derived; no free parameter enters.
+\item Every quantity in this section is a Gamma function identity. No physics enters.
 \end{enumerate}
 
 \subsection{Open questions}\label{sec:open}
 
 \begin{enumerate}[nosep]
-\item \emph{Derive the observable response factor.} The first-order correction $\delta Q/Q_0 = \sum(1-C^2)$ (Theorem~\ref{thm:first-order}) and its coupling coefficient $k_Q^{(1)} = \sum(1-C^2)/\epsilon$ (Corollary~\ref{cor:kQ-derived}) are derived. They reduce descent deviations from $\sim\!2\%$ to sub-$1\%$ for all tested quantities. The residual variation is observable-dependent: for direct exponentials ($\alpha_s$) the first-order under-corrects by $\sim\!0.5\%$; for integrated quantities ($\ell_A$) it over-corrects slightly; for high-$d$ paths ($m_\mu/m_e$) it over-corrects by $\sim\!0.1\%$. The observable response factor $R_Q = k_Q/k_Q^{(1)}$ depends on how each observable's formula converts the geometric correction $\delta\Phi$ into a prediction shift $\delta Q/Q$, and is distinct from the perturbation-theory second-order eigenvalue term of Theorem~\ref{thm:pert}. Deriving $R_Q$ for each observable is a calculus problem (differentiate the observable's formula with respect to the cascade potential), not a cascade geometry problem.
 \item \emph{Analytic formula for $\epsilon(n, d_0)$.} Partially closed. At $n = 2$ the dominant eigenvalue admits the exact closed form $\lambda_1 = 1 + R(2d_0+2)/\sqrt{R(2d_0+1)R(2d_0+3)}$ (Corollary~\ref{cor:lambda1-n2}). For $n \geq 3$ the power-trace bound family $U_k = (\mathrm{tr}\,C^k)^{1/k}$ (Corollary~\ref{cor:lambda1-power-trace}) provides closed-form cascade-native approximations to $\lambda_1$ converging at geometric rate $(\lambda_2/\lambda_1)^k$, reaching machine precision at $k = 6$ for cascade-physics paths. What remains genuinely open is whether a single-equation radical or special-function closed form (rather than a convergent family of upper bounds) exists at $n \geq 3$.
 \item \emph{Higher-order corrections.} The subdominant eigenvalues $\lambda_3, \lambda_4, \ldots$ contribute at third order and beyond. For the $d = 5, \ldots, 12$ path, $\lambda_2/n = 0.81\%$ and $\lambda_3/n = 0.008\%$: the third-order correction is negligible. For longer paths, it may not be.
-\item \emph{Application to mixed quantities.} The correction applies cleanly to quantities with a single unambiguous cascade path ($\alpha_s$, $\ell_A$, mass ratios). Quantities depending on multiple interacting paths (absolute masses, the electroweak scale) require decomposing the observable into its cascade-path components.
+\item \emph{Application to mixed quantities.} The first-order correction (Theorem~\ref{thm:first-order} and Corollary~\ref{cor:exp-resum}) applies cleanly to quantities with a single unambiguous multiplicative cascade path. Quantities expressible as ratios of sums over cascade layers ($\Omega_m^{\rm Bott}$ in Paper~V) require a per-term treatment articulated in Remark~\ref{rem:sp9-status} but not formally derived. A formal extension of the first-order theorem to such ratio-of-sums observables is open.
 \end{enumerate}
 
 \begin{remark}[Status of the correction]
-The first-order correction (Theorem~\ref{thm:first-order}) is derived: it is a sum of Beta function ratios with no free parameters, reducing descent deviations from sub-$2\%$ to sub-$1\%$. Theorem~\ref{thm:gram-R} and Corollary~\ref{cor:gram-laplacian} sharpen this derivation: the per-step Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha$, evaluated at the doubled cascade argument. This identifies the Gram framework as a corollary of Paper~IVb's action principle---both correction families (single-source $\alpha(d^*)/\chi^k$ and path-distributed Gram) derive from the same compliance $\alpha(d)=R(d)^2/4$. The observable response factor (the subleading correction beyond the first-order Gram identity) remains the open problem at the level of how observables couple to the geometric correction; the geometric correction itself is now derived from cascade-native first principles.
+The first-order correction is derived from cascade-native first principles. Theorem~\ref{thm:gram-R} and Corollary~\ref{cor:gram-laplacian} establish that the per-step Gram correction is the discrete log-Laplacian of the cascade scalar action's compliance function $\alpha(d)=R(d)^2/4$, evaluated at the doubled cascade argument. Theorem~\ref{thm:first-order} sums this to the path-cumulative shift $\delta\Phi=\sum(1-C^2_{d,d+1})$, and Corollary~\ref{cor:exp-resum} promotes it to the unique closed form $Q = Q_0\cdot\exp(\delta\Phi)$ respecting multiplicative composition under path-splitting. Both single-source $\alpha(d^*)/\chi^k$ family of Paper~IVb and the path-distributed Gram correction here therefore derive from the same compliance $\alpha(d)=R(d)^2/4$: source response and discrete log-Laplacian, respectively, of one structural object.
 \end{remark}
 
-\begin{remark}[Superseded for $\alpha_s$, $m_\tau/m_\mu$, and $m_\tau$]\label{rem:superseded-by-family}
-The Gram-matrix framework above is a general structural account of how inter-layer coupling corrects the independent-step approximation. For three specific Standard Model precision observables---$\alpha_s(M_Z)$, $m_\tau/m_\mu$, and the $\tau$ absolute mass---a sharper structural identity has subsequently been identified in Part~IVb. Both deviations in these observables are closed \emph{at experimental precision} by cascade potential shifts of the form $\delta\Phi = \alpha(d^*)/\chi$, where $d^*$ is a distinguished dimension from this paper's four-dimension tower (Theorem~7.1) and $\chi=\chi(S^{2n})=2$ is the Euler characteristic of the $\mathrm{SU}(2)$ sphere:
+\begin{remark}[Superseded for the eight precision observables]\label{rem:superseded-by-family}
+For eight Standard Model precision observables---$\alpha_s(M_Z)$, $m_\tau/m_\mu$, $m_\tau$ absolute, $\ell_A$, $\sin^2\theta_W$, $\Omega_m$, $\theta_C$, and $b/s$---the Gram-matrix framework above is superseded by the sharper structural identity of Paper~IVb. Both deviations in these observables are closed \emph{at experimental precision} by cascade potential shifts of the form $\delta\Phi = \alpha(d^*)/\chi^k$, where $d^*$ is a distinguished dimension from this paper's four-dimension tower (Theorem~7.1) and $\chi=\chi(S^{2n})=2$ is the Euler characteristic:
 \begin{itemize}
-\item $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ closes $\alpha_s$ and $m_\tau/m_\mu$ together (Part~IVb, Theorem~4.3);
-\item $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ closes the $\tau$ absolute mass at the phase-transition threshold $d_1=19$ (Part~IVb, Theorem~4.4).
+\item $\alpha(14)/\chi$ closes $\alpha_s$ and $m_\tau/m_\mu$ together (Part~IVb, Theorem~4.3);
+\item $\alpha(19)/\chi$ closes the $\tau$ absolute mass and $\ell_A$ at the phase-transition threshold $d_1=19$ (Part~IVb, Theorem~4.4);
+\item $\alpha(5)/\chi^3$ closes $\sin^2\theta_W$ and $\Omega_m$ at the volume maximum $d_V=5$;
+\item $\alpha(7)/\chi^2$ closes $\theta_C$ and $\alpha(7)/\chi^4$ closes $b/s$, both sourced at the area maximum $d_0=7$.
 \end{itemize}
-These identities supersede the Gram-matrix corrections for the three observables named: the universal $k_Q\approx 2$ fit used for $\alpha_s$ and $m_\tau/m_\mu$ in Section~\ref{sec:verification} above is replaced by a parameter-free $\alpha(d^*)/\chi$ closed form that works at experimental precision rather than sub-$1\%$. The $m_\mu/m_e$ match through the Gram-matrix first-order correction remains the current best account for that observable. Open Question~1 (the observable response factor $R_Q$) is accordingly narrowed: the three highlighted observables no longer require it, but the remaining descent-dependent quantities ($v$, $m_W$, $\Omega_m$, $\ell_A$, other absolute masses) may be closed either by further members of the $\alpha(d^*)/\chi$ family or by a subleading Gram-matrix response, to be determined.
+For these eight observables the cascade closes at experimental precision via a single-source mechanism that does not invoke the Gram framework at all. The first-order Gram correction here remains the appropriate cascade-native account for the remaining descent-dependent observables ($m_\mu/m_e$ to $0.13\%$, $v$ before its non-perturbative $\exp(-\pi/\alpha(5))$ closure, etc.), where it reduces deviations from $\sim 2\%$ to sub-$1\%$.
 \end{remark}
 
 \end{document}
