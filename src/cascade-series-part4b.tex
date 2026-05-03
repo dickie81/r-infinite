@@ -1299,28 +1299,28 @@ Under (a)--(c), every $2$-of-$8$ residue subset has weighted fraction $< 1/\pi$,
 Remark~\ref{rem:phase-family} asserts that \emph{``the Green's function of the
 discrete Laplacian decays as $\alpha(d^*)$ from the source.''} The literal reading
 ``$G(d_{\mathrm{obs}}, d^*) = \alpha(d^*)$'' is wrong --- the full Green's function
-at the observer is a cumulative compliance sum over the trailing tower,
-\[
-G(d_{\mathrm{obs}}, d^*) \;=\; \sum_{k = d^*}^{d_2 - 1}\alpha(k),
-\]
-which overshoots $\alpha(d^*)$ by one to two orders of magnitude across the
-distinguished layers.
+at the observer is a cumulative compliance sum over the trailing tower that
+overshoots $\alpha(d^*)$ by one to two orders of magnitude.
 
 The correct reading is \emph{marginal}: the per-layer contribution of source
-$d^*$ to the Green's function equals $\alpha(d^*)$ exactly,
+$d^*$ to the Green's function equals $\alpha(d^*)$ exactly. Both the
+cumulative form $G(d_{\mathrm{obs}}, d^*) = \sum_{k=d^*}^{d_2-1}\alpha(k)$ and
+the marginal identity
 \begin{equation}
 \label{eq:marginal-greens}
-\boxed{\;G(d_{\mathrm{obs}}, d^*) - G(d_{\mathrm{obs}}, d^* + 1) \;=\; \alpha(d^*),\;}
+\boxed{\;G(d_{\mathrm{obs}}, d^*) - G(d_{\mathrm{obs}}, d^* + 1) \;=\; \alpha(d^*)\;}
 \end{equation}
-as a direct identity from the cumulative-sum form above. Combined with the
-chirality filtering of Theorem~\ref{thm:chirality-factorisation}, this yields
+are derived in Part~0 Supplement~\cite{paper0supp} (Definition on the cascade
+compliance and scalar action; Proposition on the marginal Green's function).
+Combined with the chirality filtering of Theorem~\ref{thm:chirality-factorisation},
+this yields
 \[
 \delta\Phi \;=\; \frac{\alpha(d^*)}{\chi^k}
 \quad\text{at source }d^*,\text{ filtered through }k\text{ channels,}
 \]
-exactly as Remark~\ref{rem:phase-family} asserts. Numerical verification at all
-distinguished-source and distinguished-layer values confirms the identity to
-machine precision: see \texttt{tools/verifiers/cascade\_greens\_function.py}.
+exactly as Remark~\ref{rem:phase-family} asserts. Numerical verification at
+all distinguished-source and distinguished-layer values confirms the identity
+to machine precision: see \texttt{tools/verifiers/cascade\_greens\_function.py}.
 
 The verification establishes that the action-principle derivation of the
 $\alpha(d^*)/\chi^k$ family is static and cascade-native: no Kaluza--Klein
@@ -1331,41 +1331,39 @@ finite-dimensional linear algebra. Together with Theorem~\ref{thm:chirality-fact
 ``what remains open'' list; items~(b) (unit source strength at distinguished
 layers) and~(c) (the $v$ closure via the non-perturbative sector) remain open.
 
-\emph{Connection to the Gram correction.} The same compliance function
-$\alpha(d) = R(d)^2/4$ that supplies the marginal Green's function
-identity above also generates the Part~0 Supplement's Gram first-order
-correction: by the Supplement's Gram-Laplacian identity, the per-step
-adjacent overlap deficit equals
-$1 - C^2_{d,d+1} \sim -\tfrac{1}{2}\Delta^2 \log\alpha\big|_{2d+2}$
-(Part~0 Supplement, Theorem on Gram correlation in cascade slicing
-ratios and its Laplacian corollary). The single-source family above and
-the supplement's path-distributed Gram correction are therefore
-complementary derivatives of the same compliance function: linear
-source response (this paper) versus discrete log-Laplacian at doubled
-argument (the supplement). Both close descent-dependent observables;
-which family applies to a given observable is a structural question
-governed by Proposition~\ref{prop:source-selection} for single-source
-candidates and by Cauchy--Schwarz path-additivity for the Gram
-correction.
+\emph{Connection to the Gram correction.} The single-source family above and
+the path-distributed Gram correction of Part~0 Supplement~\cite{paper0supp}
+are complementary derivatives of one cascade compliance function $\alpha(d) =
+R(d)^2/4$: linear source response (this paper) versus discrete log-Laplacian
+at doubled argument (the supplement). The structural unification is
+established in the Supplement's Remark on structural unification with the
+cascade scalar action. Both close descent-dependent observables; which family
+applies to a given observable is governed by
+Proposition~\ref{prop:source-selection} for single-source candidates and by
+Cauchy--Schwarz path-additivity for the Gram correction.
 \end{remark}
 
 \begin{remark}[Action uniqueness: conditional on gauge identification]
 \label{rem:action-uniqueness}
-The action form of Remark~\ref{rem:phase-family} is not uniquely forced by
-``equilibrium reproduces the slicing recurrence'' alone. The general local
-quadratic nearest-neighbour action
+The cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$
+is defined in Part~0 Supplement~\cite{paper0supp} (Definition on the cascade
+compliance and scalar action). Its compliance $\alpha(d) = R(d)^2/4$ is the
+cascade-natural choice; this remark records the uniqueness argument.
+
+The general local quadratic nearest-neighbour action
 \[
 S[\varphi] \;=\; \sum_d \frac{1}{2\beta(d)}(\Delta\varphi)^2
 \]
 has the slicing recurrence as its Euler--Lagrange equilibrium for any
-compliance function $\beta(d)$, since the equilibrium depends on $\Delta\varphi_{\rm eq}$
-alone. First-order EL fixes the action's form (quadratic, nearest-neighbour);
-it does not fix $\beta$.
+compliance function $\beta(d)$, since the equilibrium depends on
+$\Delta\varphi_{\rm eq}$ alone. First-order EL fixes the action's form
+(quadratic, nearest-neighbour); it does not fix $\beta$.
 
-What pins $\beta$ is the marginal identity of Remark~\ref{rem:marginal-greens}:
-the per-layer Green's function response at source $d^*$ equals $\beta(d^*)$.
-Matching the observed $\alpha(d^*)/\chi^k$ shifts of
-Remark~\ref{rem:phase-family} therefore forces $\beta(d) = \alpha(d)$.
+What pins $\beta$ is the marginal identity of Part~0 Supplement~\cite{paper0supp}
+(Proposition on the marginal Green's function): the per-layer Green's function
+response at source $d^*$ equals $\beta(d^*)$. Matching the observed
+$\alpha(d^*)/\chi^k$ shifts of Remark~\ref{rem:phase-family} therefore forces
+$\beta(d) = \alpha(d)$.
 
 Numerical verification in \texttt{tools/verifiers/action\_uniqueness.py} confirms this:
 among seven natural candidate compliance functions ($\alpha(d)$, $R(d)$,
@@ -2759,6 +2757,8 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 \begin{thebibliography}{13}
 
 \bibitem{paper1} {[Author]}, \textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}, March 2026.
+
+\bibitem{paper0supp} {[Author]}, \textit{The Cascade Series --- Part~0 Supplement: Inter-Layer Coupling and the Independent-Step Correction}, March 2026.
 
 \bibitem{paper2} {[Author]}, \textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}, March 2026.
 
