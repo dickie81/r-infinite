@@ -2,13 +2,13 @@
 """
 Derive the coupling coefficient k_Q from first principles.
 
-The supplement (Part 0.0) establishes:
+Part 0 establishes:
   - The Gram matrix G_ij = B(1/2, (d_i+d_j)/2 + 1) is derived (Theorem 15.1)
   - The correlation matrix C_ij = G_ij / sqrt(G_ii * G_jj) is derived
   - The eigenvalue deficit epsilon = 1 - lambda_1/n is derived (Theorem 15.4)
   - The coupling coefficient k_Q is fitted, not derived
 
-The key insight from the supplement's Open Question 1:
+The key insight from Part 0's Open Question 1:
   "Deriving k_Q requires computing this projection explicitly: the subdominant
    eigenvector v_2 of the correlation matrix has a specific shape (weighted
    toward the ends of the path), and the observable's sensitivity to the
@@ -294,7 +294,7 @@ print("=" * 70)
 print("DERIVING k_Q FROM FIRST PRINCIPLES")
 print("=" * 70)
 
-# The three test cases from the supplement
+# The three test cases from Part 0
 cases = [
     ("alpha_s", list(range(5, 13)), alpha_s_sensitivity, 2.11),
     ("m_tau/m_mu", list(range(6, 14)), mass_ratio_sensitivity, 2.67),

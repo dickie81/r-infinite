@@ -21,7 +21,7 @@ fundamental rule holds.
 
 THE GRAM ANGLE
 ==============
-Gram structure (Part 0 Supplement) provides cascade-native overlap
+Gram structure (Part 0) provides cascade-native overlap
 between cascade layers:
   G_{d, d'} = int_{-1}^{1} (1-x^2)^((d+d')/2) dx = B(1/2, (d+d')/2 + 1)
   C^2_{d, d+1} = R(2d+2)^2 / (R(2d+1) * R(2d+3))    (cascade-native form)
@@ -250,7 +250,7 @@ def report_structural_reading():
     print()
     print("Both are integer counts of cascade gauge structure, not Gram overlaps.")
     print()
-    print("HONEST FINDING: Gram structure (per Part 0 Supplement) is cascade-")
+    print("HONEST FINDING: Gram structure (per Part 0) is cascade-")
     print("native but provides O(1) Beta-function-related corrections, not the")
     print("integer-valued sector dimensions that the sector-fundamental rule")
     print("requires.")
@@ -303,7 +303,7 @@ def report_status():
     print()
     print("(R1b) attack via Gram structure: NEGATIVE result.")
     print()
-    print("Gram structure (Part 0 Supplement) is genuinely cascade-native and")
+    print("Gram structure (Part 0) is genuinely cascade-native and")
     print("provides cascade-internal correction to descent observables. But it")
     print("does NOT supply the integer-valued sector dimensions (1, 2, 3, 6)")
     print("that the sector-fundamental rule requires.  Gram correlations at the")

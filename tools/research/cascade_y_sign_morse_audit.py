@@ -58,7 +58,7 @@ def report_signed_structures():
     print("=" * 78)
     print()
     print("Mechanism (1): Cauchy-Schwarz Gram deficit")
-    print("  Source: Part 0 Supplement, Sum (1 - C^2_{d,d+1}) > 0 strictly")
+    print("  Source: Part 0, Sum (1 - C^2_{d,d+1}) > 0 strictly")
     print("          (adjacent-layer integrands not collinear in L^2).")
     print("  Targets: sign of delta Phi for DESCENT observables.")
     print("  Result:  +delta Phi forced.")

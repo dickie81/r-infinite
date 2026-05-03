@@ -11,7 +11,7 @@ via Poincare-Hopf chi(S^4) = 2 + Z_2 height-function symmetry).
 Under a matter-content reading, one basin = matter, the other =
 antimatter, with exact CPT balance globally.
 
-Question: does the Gram first-order correction (Part 0 Supplement,
+Question: does the Gram first-order correction (Part 0,
 sum (1 - C^2_{d,d+1})) BREAK or PRESERVE the Z_2 basin equality on
 S^4 at d=5?
 

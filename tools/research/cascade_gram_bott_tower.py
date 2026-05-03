@@ -4,7 +4,7 @@ Cascade Bott tower with Gram first-order correction applied.
 
 CONTEXT
 =======
-The Part 0 Supplement derives a Gram first-order correction:
+The Part 0 derives a Gram first-order correction:
     delta_path(d_min, d_max) = sum_{d=d_min}^{d_max-1} (1 - C^2_{d,d+1})
 where C^2_{d, d+1} = R(2d+2)^2 / [R(2d+1) R(2d+3)] is the Gram correlation
 between adjacent cascade layers.

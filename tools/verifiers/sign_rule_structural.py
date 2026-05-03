@@ -21,7 +21,7 @@ but not a Morse-index DERIVATION.  The interpretation:
   (a) DESCENT observables use multiplicative propagators (Q ~ prod of
       layer factors, equivalently Q ~ exp(Phi)).  The cascade's leading
       value uses the independent-step approximation, which omits
-      adjacent-layer Gram coupling.  Part 0 Supplement Thm 15.11 shows
+      adjacent-layer Gram coupling.  Part 0 Thm 15.11 shows
       the Gram correction is sum (1 - C^2) > 0 by Cauchy-Schwarz,
       entering Q via exp(+sum).  Hence leading Q UNDER-predicts
       observation, and the correction sign is +.
