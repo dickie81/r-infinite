@@ -36,6 +36,16 @@ The single source of truth for predictions is [`PREDICTIONS.md`](PREDICTIONS.md)
 
 Only one test: monitor PMNS θ_12 or any future Amplitude observable. If a future cascade-native closure for such an observable requires k ≠ 2N, the rule is falsified. Until then, the channel-count rule stands as a theorem.
 
+**Empirical coverage (after the 3-period investigation):**
+
+The rule is confirmed at k=2 (1 observation: θ_C) and k=4 (2 observations: b/s, θ_23). It is **untested at k=6** (3-period Amplitudes): no current SM observable maps cleanly to that slot. The investigation in [`tools/research/cascade_3period_amplitudes.py`](tools/research/cascade_3period_amplitudes.py) tested six plausible 3-period descent paths against four candidate observables (|V_ub|, |V_td|, PMNS θ_13, PMNS θ_12). Best match was |V_ub| at path d=12..28 with ratio 0.72 (cascade prediction 0.158° vs observed 0.219°) — outside the cascade's standing precision. Three structural reasons the slot is empty:
+
+- (i) CKM cross-generation observables (V_ub, V_td) close via the standard multiplicative CKM closure |V_ub| = |V_us|·|V_cb| in a CPT-symmetric setting; the deviation matches the Wolfenstein CP factor as external observational input (Part IVb `rem:theta13-cp`). No direct cascade Amplitude with 3-period descent.
+- (ii) PMNS sector tested partial-negative on existing cascade ingredients (Roadmap #5); 3-period predictions also miss observed PMNS θ_13 by factor ~7–8.
+- (iii) Cross-3-generation mass ratios (m_τ/m_e) are derived as products of 1-period ratios (k=1+1=2 single-period contributions), not as a direct 3-period Amplitude with k=6.
+
+**Most likely future tests:** PMNS sector extension (Roadmap #5), up-type quark masses (Roadmap #6), or any newly-derived cascade Amplitude with 3-period descent. The empty slot at k=6 is not evidence against the rule — it's evidence that the cascade's natural Amplitude structure (gauge-window starting angle, descent terminating at d_1+1 or at a generation layer) doesn't naturally generate 3-period descents in the SM sector.
+
 **Connection to other roadmap items:**
 
 The cyclic-of-order >2 generators (Z_24 at residue 3 mod 8, Z_240 at residue 7 mod 8) detect integer-valued Pontryagin classes p_1, p_2 of the cascade tangent bundle. These contribute to:
