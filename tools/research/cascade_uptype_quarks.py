@@ -71,7 +71,7 @@ if TOOLS_DIR not in sys.path:
 from cascade_constants import R, alpha, p  # noqa: E402
 
 # Cascade-derived primitives (Part IVb)
-V_CAS = 240.8           # cascade VEV (Part IVb thm:vev), GeV
+V_CAS = 243.7           # cascade VEV after Part 0 first-order Gram (was 240.8 leading)
 ALPHA_S_CAS = 0.1159    # leading cascade alpha_s
 B_OVER_S_CAS = 44.7436  # cascade b/s closure (Part IVb thm:bs-closure, Tier 2)
 N_C = 3

@@ -3,6 +3,22 @@
 Test whether the bundle/scalar gap (1.6% near-miss between
 exp(Phi(21)-Phi(13)) and N_c * vol(SU(2))) influences particle masses.
 
+NOTE ON v_cas (post-Part 0 Gram update): this script's narrative was
+originally written with V_CAS = 240.8 (leading), where favourable
+cancellations gave m_top -1.40% and m_d +1.34% as a clean "symmetric
++/- gap at extremes" signature.  After updating V_CAS to 243.7
+(Gram-corrected per Part 0 line 1781), m_top residual closes to
+-0.21% but the up-quark chain residuals (m_c, m_u) shift to ~+1%
+as previously-hidden b/s closure structure surfaces.  The CORE
+finding (gap influences quark masses with sector asymmetry) is
+preserved; the specific "symmetric extremes" narrative is an
+artifact of leading v_cas and no longer holds.
+
+The clean direct gap signature is now m_d at +1.34% (down-quark
+Gen 2 -> 1 step, vol(SU(2)) reading directly).  Other quark
+residuals are propagated through the cascade chain with various
+magnitudes and signs.  Lepton residuals stay at sub-0.2% (no gap).
+
 CONTEXT
 =======
 The cascade has three independent first-order correction mechanisms:
@@ -103,7 +119,7 @@ N_C = 3
 OMEGA_3 = 2 * math.pi ** 2  # = vol(SU(2)) = Omega_4
 TWO_SQRT_PI = 2 * math.sqrt(math.pi)
 B_OVER_S_CAS = 44.7436
-V_CAS = 240.8
+V_CAS = 243.7  # Part 0 first-order Gram-corrected (was 240.8 leading)
 
 PDG = {
     "m_e":   0.510998950e-3,

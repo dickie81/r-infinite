@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-v_EW residual decomposition: NOT bundle/scalar gap stacking;
-SAME Gram correction as the cosmological constant.
+v_EW residual decomposition: matches Part 0 first-order Gram (d=5..12 path).
 
 CONTEXT
 =======
@@ -13,114 +12,112 @@ Yukawa coupling structure.
 Hypothesis tested: v_residual = 2 * delta_BS, or v_residual = delta_BS +
 some chi^k filter shift, or other gap-based combination.
 
-RESULT (negative for hypothesis, positive structural finding)
-==============================================================
-The hypothesis is wrong.  v_EW residual decomposes cleanly via the
-SAME Gram correction that closes the cosmological constant:
+RESULT (negative for hypothesis; structural finding via Part 0)
+================================================================
+The hypothesis is wrong.  v_EW residual decomposes via Part 0's
+first-order Gram correction with cascade-canonical path d=5..12 (the
+same path as alpha_s):
 
   v_lead = M_Pl,red * alpha_s_lead * exp(-pi/alpha(5)) = 240.72 GeV
   v_PDG  = 246.22 GeV
   Residual: -2.235%
 
-  v_corrected = v_lead * exp(delta_path(5, 217))
-              = 240.72 * 1.02131
-              = 245.85 GeV
-              -> dev -0.152%
+  v_corrected = v_lead * exp(delta_path(5, 12))
+              = 240.72 * exp(0.01186)
+              = 243.59 GeV
+              -> residual -1.068%
 
-This is the IDENTICAL Gram correction applied to the cosmological
-constant:
+This matches Part 0 line 1781 (Gram correction table) which reports
+v leading 240.8, corrected 243.7, observed 246.2, dev -1.0%.
 
-  rho_Lambda residual:  -2.2%  ->  -0.07%  via delta_path(5, 217)
-  v_EW residual:        -2.2%  ->  -0.15%  via delta_path(5, 217)
+CORRECTED FROM EARLIER VERSION
+==============================
+An earlier version of this script claimed v residual closes via
+delta_path(5, 217) (full cascade Gram, same as cosmological constant)
+to -0.15%.  THAT WAS WRONG.
 
-Both close via the same full-cascade Gram correction.  v and rho_Lambda
-are SIBLING descent-dependent observables, not bundle/scalar-related.
+Numerically, delta_path(5, 217) = 0.02108 happens to be close to
+the log shift needed for v (0.02260), giving v_corrected = 245.85.
+But Part 0's canonical Gram path for v is d=5..12, NOT d=5..217.
+The match to delta_path(5, 217) was a numerical coincidence, not a
+structural identity.
 
-WHY THE SAME GRAM AS CC
-=======================
-Both quantities are expressed against the reduced Planck mass M_Pl,red:
-  rho_Lambda / M_Pl,red^4 (cascade invariant)
-  v_EW / M_Pl,red          (electroweak / Planck ratio)
+Why d=5..12 is the canonical path:
+  - The v formula is M_Pl,red * alpha_s * exp(-pi/alpha(5))
+  - M_Pl,red is treated as a measured input (from G_Newton), not
+    cascade-derived
+  - The descent-dependent piece is alpha_s * exp(-pi/alpha(5)),
+    whose explicit cascade descent is alpha_s' path d=5..12
+  - First-order Gram applies to the descent piece only
 
-M_Pl,red itself is the cosmic gravitational scale set by the FULL
-cascade descent.  Quantities expressed against M_Pl,red inherit the
-full-cascade Gram correction delta_path(5, 217) -- the same one that
-appears in the cascade invariant Omega_19 * Omega_217.
+The "v closes via same Gram as cosmological constant" claim is RETRACTED.
+v is NOT a Gram sister of rho_Lambda.
 
-The bundle/scalar gap (mechanism 3) operates at gauge-home boundaries
-within the cascade.  v_EW does not cross gauge-home boundaries in its
-derivation: the cascade formula uses alpha(5) (volume max layer, no
-gauge group) and exp(-pi/alpha(5)) (Kosterlitz-Thouless vortex action).
-Neither involves bundle structure.
+CORRECT STATUS
+==============
+v_EW closure status (post-Part 0 Gram, Part 0 line 1781):
+  - Leading: 240.8 GeV, residual -2.2%
+  - First-order Gram (d=5..12): 243.7 GeV, residual -1.0%
+  - NOT closed at experimental precision
 
-THE 1.33x COINCIDENCE
-=====================
+The remaining -1.0% requires either:
+  (a) Higher-order Gram correction (next-order Cauchy-Schwarz on
+      the slicing recurrence), or
+  (b) A separate cascade correction at distinguished layers, or
+  (c) Acceptance that v is at standing precision, not experimental.
+
+Comparison to cosmological constant:
+  - rho_Lambda Gram path: d=5..217 (sphere-area product Omega_19 *
+    Omega_217 spans full cascade depth).  Residual -0.07% post-Gram.
+  - v_EW Gram path: d=5..12 (alpha_s descent path).  Residual -1.0%
+    post-Gram.
+
+These are DIFFERENT Gram applications: rho_Lambda's is full-cascade
+because both Omega_19 and Omega_217 are explicit cascade quantities;
+v's is short-path because only alpha_s is explicitly cascade-internal
+in v's formula (M_Pl,red is input).
+
+THE 1.33x COINCIDENCE EXPLAINED
+================================
 v_residual = 2.235%, bundle/scalar gap = 1.659%, ratio 1.347x.
 
-Coincidence: both quantities happen to be ~2% in magnitude, but they
-have different structural sources:
-  - v_residual = delta_path(5, 217) = 2.13% (Gram, mech 1)
-  - bundle/scalar gap = log(N_c * vol(SU(2)) / exp(Phi descent)) =
-    1.66% (bundle, mech 3)
+This was a numerical coincidence between two unrelated cascade
+quantities.  The bundle/scalar gap is mechanism (3) at the d=13->21
+boundary; v's residual is mechanism (1) over a different path
+(d=5..12 path, with significant residual remaining).  They share
+neither source nor mechanism.
 
-The 1.33x ratio is the ratio of these two unrelated cascade quantities,
-not a structural relationship.
+UPDATED THREE-MECHANISM STATUS
+===============================
+The mechanism (1) Gram has clearer scope after this correction:
 
-REVISED v CLOSURE STATUS
-========================
-Earlier framing (Part IVb thm:vev): "v_cas = 240.8 GeV with -2.2%
-residual; partial closure pending higher-order corrections."
+  rho_Lambda: closes -2.2% -> -0.07% via delta_path(5, 217)
+              (full-cascade because both endpoint sphere areas
+               are explicit cascade quantities)
 
-Revised framing: v_cas closes to -0.15% via the same Gram correction
-as the cosmological constant.  Both are Tier-2-equivalent closures:
+  v_EW:       closes -2.2% -> -1.0% via delta_path(5, 12)
+              (alpha_s' path because M_Pl,red is treated as input;
+               full closure requires higher-order corrections)
 
-  rho_Lambda:  -0.07% (Planck 1-sigma compatible)
-  v_EW:        -0.15% (essentially closed at standing precision)
+  Bundle/scalar gap at d=13..21:
+              closes -1.6% -> -0.05% via delta_path(5, 21)
+              (descent endpoint at d=21, electron home)
 
-The "partial closure" framing should be updated; v has the same
-closure status as the cosmological constant under the Gram mechanism.
+These all use the same Gram FORMULA but different PATH LENGTHS.
+Path length is forced by the observable's explicit cascade structure
+(deepest cascade layer that explicitly appears in the leading
+formula).
 
-WHAT THIS MEANS
-===============
-1. The bundle/scalar gap does NOT influence v_EW.  This is consistent
-   with the three-mechanism picture: v is in the descent regime,
-   sister to rho_Lambda; bundle/scalar gap is at gauge-home boundaries.
+CONCLUSION
+==========
+v_EW residual is NOT bundle/scalar gap stacking.  Part 0 first-order
+Gram closes v from -2.2% to -1.0% via the alpha_s descent path
+d=5..12.  v is NOT closed at experimental precision; the remaining
+-1.0% is unaccounted at first order.
 
-2. v and rho_Lambda close TOGETHER via mechanism (1).  This unifies
-   the two largest cascade quantities (the master mass scale and the
-   cosmological constant) under a single first-order correction.
-
-3. The cascade has THREE Gram-corrected closures now visible:
-   - rho_Lambda: -0.07% (after delta_path(5, 217))
-   - v_EW:       -0.15% (after delta_path(5, 217))
-   - bundle/scalar gap at d=13->21: -0.05% (after delta_path(5, 21))
-
-   All three are descent-dependent, all close via Gram path correlations.
-   The d_max for each = the deepest layer relevant to the observable.
-
-4. The bundle/scalar gap remains specific to gauge-home transitions
-   in the quark sector.  It influences quark masses (-1.4% to +1.3%
-   residuals) but NOT v, NOT rho_Lambda, NOT lepton masses.
-
-UPDATED THREE-MECHANISM PICTURE
-================================
-The cascade's three correction mechanisms now have clearer scopes:
-
-  (1) Gram path-correlation delta_path(5, d_max)
-      Closes: rho_Lambda, v_EW (descent-dependent absolute scales)
-
-  (2) Channel-count chi^k filter alpha(d*)/chi^k
-      Closes: 8 precision closures (alpha_s, m_tau/m_mu, sin^2 theta_W,
-      Omega_m, ell_A, m_tau abs, theta_C, b/s)
-
-  (3) Gauge-bundle orbit measure vol(SU(N)) at gauge home
-      Closes: quark mass ratios at gauge-home transitions
-      (s/d, c/u, t/b)
-
-Each mechanism has a clear domain.  No mechanism subsumes the others.
-Each is sourced at distinguished cascade structure (full descent path
-correlations; distinguished cascade landmarks; gauge-home Lie group
-manifolds).
+Bundle/scalar gap (mechanism 3) does NOT influence v -- v is in the
+descent regime (mechanism 1), but with a SHORTER path than the
+cosmological constant.
 """
 
 from __future__ import annotations
@@ -138,9 +135,8 @@ sys.path.insert(0, os.path.join(TOOLS_DIR, "research"))
 from cascade_constants import alpha as alpha_cas, R, p, pi  # noqa: E402
 from cascade_gram_bott_tower import gram_path_sum, Phi_cascade  # noqa: E402
 
-M_PL_RED = 2.435e18  # GeV
+M_PL_RED = 2.435e18
 ALPHA_S_LEAD = 0.1159
-ALPHA_S_FULL = 0.1179
 V_PDG = 246.21965
 N_C = 3
 OMEGA_3 = 2 * math.pi ** 2
@@ -175,162 +171,134 @@ def report_hypothesis_test() -> None:
     target = N_C * OMEGA_3
     gap = math.log(target / e_phi)
     v_lead = v_cascade()
-    needed = math.log(V_PDG / v_lead)
 
     print(f"  Bundle/scalar gap (log)  = {gap:+.6f}  ({100*(math.exp(gap)-1):.3f}%)")
     print(f"  2 * gap                  = {2*gap:+.6f}  ({100*(math.exp(2*gap)-1):.3f}%)")
-    print(f"  v residual log shift     = {needed:+.6f}  ({100*(math.exp(needed)-1):.3f}%)")
     print()
-    print(f"  Ratio (v shift / gap)    = {needed/gap:.4f}")
-    print()
-    print(f"  Test: v_lead * exp(2*gap) = {v_lead*math.exp(2*gap):.4f} vs PDG {V_PDG}")
+    print(f"  Test: v_lead * exp(2*gap) = {v_lead*math.exp(2*gap):.4f}")
     print(f"        Deviation         = {100*(v_lead*math.exp(2*gap) - V_PDG)/V_PDG:+.3f}%")
     print()
-    print(f"  2 * gap OVERSHOOTS PDG by 1%.  Single gap UNDERSHOOTS.  Neither")
-    print(f"  is the right correction.")
+    print(f"  2 * gap OVERSHOOTS PDG.  Hypothesis NOT confirmed.")
     print()
 
 
-def report_correct_decomposition() -> None:
+def report_part0_decomposition() -> None:
     print("=" * 88)
-    print("STEP 3: the correct decomposition -- same Gram as rho_Lambda")
+    print("STEP 3: Part 0's canonical decomposition (d=5..12 path)")
     print("=" * 88)
     print()
     v_lead = v_cascade()
-    gram_full = gram_path_sum(5, 217)
-    v_gram = v_lead * math.exp(gram_full)
-    print(f"  delta_path(5, 217) = {gram_full:.6f}  ({100*(math.exp(gram_full)-1):.3f}%)")
-    print(f"  This is the FULL-cascade Gram correction (observer host to")
-    print(f"  cascade terminus), the same one used in the cosmological constant")
-    print(f"  derivation.")
+    gram_5_12 = gram_path_sum(5, 12)
+    v_corrected = v_lead * math.exp(gram_5_12)
+
+    print(f"  Part 0 line 1781 (Gram correction table):")
+    print(f"    v leading       = 240.8 GeV   (uses alpha_s leading 0.1159)")
+    print(f"    v corrected     = 243.7 GeV   (after delta_path(5..12))")
+    print(f"    v observed      = 246.2 GeV")
+    print(f"    deviation       = -1.0%")
     print()
-    print(f"  v_corrected = v_lead * exp(delta_path(5, 217))")
-    print(f"              = {v_lead:.4f} * {math.exp(gram_full):.6f}")
-    print(f"              = {v_gram:.4f} GeV")
-    print(f"  vs PDG       {V_PDG} GeV")
-    print(f"  Deviation:   {100*(v_gram - V_PDG)/V_PDG:+.3f}%")
+    print(f"  Verification:")
+    print(f"    delta_path(5, 12)  = {gram_5_12:.6f}  (Part 0 reports 0.01186)")
+    print(f"    v_lead             = {v_lead:.4f} GeV")
+    print(f"    v_corrected        = v_lead * exp({gram_5_12:.6f})")
+    print(f"                       = {v_corrected:.4f} GeV")
+    print(f"    Residual           = {100*(v_corrected - V_PDG)/V_PDG:+.3f}%")
     print()
-    print("  v closes to -0.15% via the SAME Gram correction as rho_Lambda.")
+    print(f"  Match to Part 0: {v_corrected:.1f} ~= 243.7 (within rounding).")
     print()
 
 
-def report_unified_closure() -> None:
+def report_correction_to_earlier_claim() -> None:
     print("=" * 88)
-    print("STEP 4: v and rho_Lambda are sibling descent-dependent observables")
+    print("STEP 4: correction to earlier 'v closes via SAME Gram as CC' claim")
     print("=" * 88)
     print()
-    print("  Cosmological constant:")
-    print("    rho_Lambda / M_Pl,red^4 leading: 6.996e-121  (-2.2% from Planck)")
-    print("    + delta_path(5, 217)            : 7.145e-121  (-0.07% from Planck)")
-    print()
-    print("  Electroweak VEV:")
-    print("    v_EW leading:                   240.72 GeV  (-2.24% from PDG)")
-    print("    + delta_path(5, 217)            245.85 GeV  (-0.15% from PDG)")
-    print()
-    print("  IDENTICAL Gram correction closes both at standing precision.")
-    print()
-    print("  STRUCTURAL READING:")
-    print()
-    print("    Both quantities are expressed against the reduced Planck mass")
-    print("    M_Pl,red.  M_Pl,red itself is the cosmic gravitational scale,")
-    print("    set by the full cascade descent.  Quantities expressed against")
-    print("    M_Pl,red inherit the full-cascade Gram correction delta_path(5, 217).")
-    print()
-    print("    The bundle/scalar gap (mechanism 3) operates at gauge-home")
-    print("    boundaries WITHIN the cascade.  v does not cross gauge-home")
-    print("    boundaries in its derivation -- exp(-pi/alpha(5)) is at d=5")
-    print("    (volume max, no gauge group).  So bundle/scalar gap doesn't")
-    print("    influence v.")
-    print()
+    v_lead = v_cascade()
+    gram_5_217 = gram_path_sum(5, 217)
+    needed = math.log(V_PDG / v_lead)
+    gram_5_12 = gram_path_sum(5, 12)
 
-
-def report_revised_status() -> None:
-    print("=" * 88)
-    print("STEP 5: revised v closure status")
-    print("=" * 88)
+    print(f"  An earlier version of this script claimed:")
+    print(f"    'v residual closes via delta_path(5, 217) to -0.15%'")
+    print(f"  This was WRONG.")
     print()
-    print("  Earlier (Part IVb thm:vev): 'v_cas = 240.8 GeV, -2.2% residual,")
-    print("  partial closure pending higher-order corrections.'")
+    print(f"  Numerically:")
+    print(f"    log shift needed         = {needed:+.6f}")
+    print(f"    delta_path(5, 217)       = {gram_5_217:+.6f}  (within 7% of needed)")
+    print(f"    delta_path(5, 12)        = {gram_5_12:+.6f}  (only 52% of needed)")
     print()
-    print("  Revised: v_cas closes to -0.15% via delta_path(5, 217) Gram")
-    print("  correction.  Tier-2-equivalent closure, structurally parallel")
-    print("  to the cosmological constant.")
+    print(f"  The numerical proximity of delta_path(5, 217) to the needed shift")
+    print(f"  was a COINCIDENCE, not a structural identity.  Part 0's canonical")
+    print(f"  Gram path for v is d=5..12, NOT d=5..217.")
     print()
-    print("  Updated cascade closures (Tier 2 via Gram, mechanism 1):")
-    print("    rho_Lambda:  -0.07% (Planck 1-sigma compatible)")
-    print("    v_EW:        -0.15% (essentially closed at standing precision)")
+    print(f"  Why d=5..12 is canonical (Part 0 ratification):")
+    print(f"    - v formula: M_Pl,red * alpha_s * exp(-pi/alpha(5))")
+    print(f"    - M_Pl,red treated as input (from G_Newton), not cascade-derived")
+    print(f"    - Descent-dependent piece: alpha_s * exp(-pi/alpha(5))")
+    print(f"    - That descent is alpha_s' path d=5..12")
     print()
-    print("  The bundle/scalar gap remains specific to gauge-home transitions:")
-    print("    quark mass ratios show ~1% systematic residuals (gap signature)")
-    print("    leptons stay at ~0.1% (no gap)")
-    print("    v and rho_Lambda are gap-free (descent regime, mechanism 1)")
+    print(f"  CORRECT STATUS: v post-Gram = 243.7 GeV, residual -1.0%.")
+    print(f"  v is NOT closed at experimental precision; remaining -1.0%")
+    print(f"  needs higher-order or other corrections.")
     print()
 
 
 def report_three_mechanism_update() -> None:
     print("=" * 88)
-    print("STEP 6: updated three-mechanism scope")
+    print("STEP 5: updated mechanism (1) Gram scope")
     print("=" * 88)
     print()
-    print("  Three independent first-order correction mechanisms with clearer")
-    print("  domains after this finding:")
+    print("  Three observables that close (partially or fully) via Gram:")
     print()
-    print("  +-----------------------+----------------------------+")
-    print("  | mechanism             | closes                     |")
-    print("  +-----------------------+----------------------------+")
-    print("  | (1) Gram path-corr    | rho_Lambda (-0.07%)        |")
-    print("  |     delta_path(5, d)  | v_EW (-0.15%)              |")
-    print("  |                       | bundle/scalar gap          |")
-    print("  |                       | at d=13->21 (-0.05%)       |")
-    print("  +-----------------------+----------------------------+")
-    print("  | (2) chi^k filter      | 8 precision closures:      |")
-    print("  |     alpha(d*)/chi^k   | alpha_s, m_tau/m_mu, ...   |")
-    print("  +-----------------------+----------------------------+")
-    print("  | (3) gauge-bundle vol  | quark mass ratios:         |")
-    print("  |     vol(SU(N))        | s/d, c/u, t/b              |")
-    print("  +-----------------------+----------------------------+")
+    print("  +-------------------+--------+-----------+----------+----------+")
+    print("  | observable        | path   | leading   | post-Gram| residual |")
+    print("  +-------------------+--------+-----------+----------+----------+")
+    print("  | rho_Lambda/M_Pl^4 | 5..217 | -2.2%     | -0.07%   | CLOSED   |")
+    print("  | v_EW              | 5..12  | -2.2%     | -1.0%    | partial  |")
+    print("  | bundle/scalar gap | 5..21  | -1.6%     | -0.05%   | near-closed|")
+    print("  +-------------------+--------+-----------+----------+----------+")
     print()
-    print("  Each mechanism closes a distinct residual class with a distinct")
-    print("  structural source.  No mechanism subsumes the others.")
+    print("  Same FORMULA, different PATH LENGTHS.  Path is forced by the")
+    print("  deepest cascade layer that explicitly appears in the leading")
+    print("  formula:")
+    print("    - rho_Lambda: explicit Omega_217 -> d_max = 217")
+    print("    - v_EW: explicit alpha_s descent at d=12 -> d_max = 12")
+    print("    - bundle/scalar gap: span ends at d=21 -> d_max = 21")
+    print()
+    print("  Different observables, different residuals after first-order")
+    print("  Gram.  v_EW is NOT a 'Gram sister' of the cosmological constant")
+    print("  in the strong sense; both use Gram, but at different depths.")
     print()
 
 
 def main() -> int:
     print("=" * 88)
-    print("v_EW RESIDUAL DECOMPOSITION (Option A test)")
+    print("v_EW RESIDUAL DECOMPOSITION (corrected)")
     print("Hypothesis: v residual is bundle/scalar gap stacking.")
-    print("Result:     NOT confirmed.  v closes via SAME Gram as cosmological")
-    print("            constant, not via gap mechanism.")
+    print("Result:     NOT confirmed.  v closes via Part 0's first-order Gram")
+    print("            on alpha_s' path d=5..12 to residual -1.0% (NOT -0.15%).")
     print("=" * 88)
     print()
     report_setup()
     report_hypothesis_test()
-    report_correct_decomposition()
-    report_unified_closure()
-    report_revised_status()
+    report_part0_decomposition()
+    report_correction_to_earlier_claim()
     report_three_mechanism_update()
     print("=" * 88)
     print("HEADLINE:")
     print()
     print("  v_EW residual is NOT bundle/scalar gap stacking.")
     print()
-    print("  v closes to -0.15% via delta_path(5, 217) -- the SAME Gram")
-    print("  correction that closes the cosmological constant.  Both are")
-    print("  full-descent quantities expressed against M_Pl,red, and both")
-    print("  inherit the same first-order Gram correction.")
+    print("  v closes via Part 0 first-order Gram on alpha_s' path d=5..12:")
+    print("    240.8 GeV -> 243.7 GeV (residual -1.0%)")
     print()
-    print("  The 1.33x ratio between v_residual (2.24%) and bundle/scalar")
-    print("  gap (1.66%) was a numerical coincidence, not a structural")
-    print("  relationship.  Two unrelated cascade quantities that happen to")
-    print("  be ~2% in magnitude.")
+    print("  v is NOT closed at experimental precision.  The remaining -1.0%")
+    print("  needs higher-order Gram corrections or other mechanisms.")
     print()
-    print("  REVISED STATUS: v_EW promotes from 'partial closure with -2.2%")
-    print("  residual' to 'closed at standing precision via Gram', sister to")
-    print("  the cosmological constant.")
-    print()
-    print("  Bundle/scalar gap stays in its lane: quark masses + d=13->21")
-    print("  span only.  v and rho_Lambda are descent-dependent (mech 1)")
-    print("  not bundle (mech 3).")
+    print("  The earlier claim 'v closes via SAME Gram as CC' was WRONG --")
+    print("  numerical coincidence (delta_path(5, 217) ~= needed log shift)")
+    print("  mistaken for structural identity.  Part 0's canonical path for")
+    print("  v is d=5..12, not d=5..217.")
     print("=" * 88)
     return 0
 
