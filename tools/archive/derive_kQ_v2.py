@@ -54,7 +54,7 @@ def epsilon(dims):
     return 1.0 - lambda_1 / n
 
 
-# === Fitted values from the supplement ===
+# === Fitted values from Part 0 ===
 cases = [
     ("alpha_s",     list(range(5, 13)),  2.11, 0.1159, 0.1179),
     ("ell_A",       list(range(5, 13)),  1.66, 297.6,  301.6),

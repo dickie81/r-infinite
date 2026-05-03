@@ -55,7 +55,7 @@ Per CLAUDE.md Check 7, semiclassical mechanisms (Green's functions on
 cascade spheres, KK mode integration) are out of bounds.  Available
 cascade-native ingredients for inter-generation mixing:
 
-  (M1) Gram correction (Part 0 Supplement): cumulative path Gram deficit
+  (M1) Gram correction (Part 0): cumulative path Gram deficit
        sum_{adj} (1 - C^2_{d, d+1}) along generation-layer descent.
   (M2) Path-tensor structure (Part IVa rem:path-tensor):
        V_12 (x) V_13 (x) V_14 matter content.
@@ -115,7 +115,7 @@ def Phi_cascade(d: int, d_min: int = 5) -> float:
 
 
 def gram_C2(d: int) -> float:
-    """C^2_{d, d+1} via Beta-function ratio (Part 0 Supplement)."""
+    """C^2_{d, d+1} via Beta-function ratio (Part 0)."""
     log_B = lambda a, b: math.lgamma(a) + math.lgamma(b) - math.lgamma(a + b)
     return math.exp(2 * log_B(0.5, d + 1.5) - log_B(0.5, d + 1) - log_B(0.5, d + 2))
 

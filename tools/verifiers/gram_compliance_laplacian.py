@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Verify the Gram-Laplacian identity of the Part 0 Supplement:
+Verify the Gram-Laplacian identity of Part 0:
 
     log C^2_{d, d+1}  =  -(1/2) Delta^2 log alpha |_{2d+2}
 
@@ -17,13 +17,13 @@ where:
   - Delta^2 f|_n = f(n-1) + f(n+1) - 2 f(n) is the centered discrete
     Laplacian.
 
-This identity establishes the supplement's Gram first-order correction as
+This identity establishes Part 0's Gram first-order correction as
 a corollary of the cascade scalar action principle of Paper IVb: the
 single-source family alpha(d*)/chi^k (Paper IVb) and the path-distributed
-Gram correction (this supplement) are complementary derivatives of the
+Gram correction (Part 0's inter-layer-coupling section) are complementary derivatives of the
 same compliance function.
 
-The proof is symbolic (Beta-Gamma reduction, see Part 0 Supplement
+The proof is symbolic (Beta-Gamma reduction, see Part 0
 Theorem on Gram correlation in cascade slicing ratios). This script
 provides numerical confirmation to machine precision.
 
@@ -98,7 +98,7 @@ def gram_logC2_via_laplacian(d: int) -> float:
 
 def main() -> int:
     print("=" * 72)
-    print("GRAM-LAPLACIAN IDENTITY (Part 0 Supplement)")
+    print("GRAM-LAPLACIAN IDENTITY (Part 0)")
     print("=" * 72)
     print()
     print("Identity:  log C^2_{d, d+1} = -(1/2) Delta^2 log alpha |_{2d+2}")
@@ -202,13 +202,13 @@ def main() -> int:
         print("    log C^2_{d, d+1} = -(1/2) Delta^2 log alpha |_{2d+2}")
         print("holds to machine precision for all tested d.")
         print()
-        print("This confirms the structural identity of the Part 0 Supplement's")
+        print("This confirms the structural identity of Part 0's")
         print("new theorem on Gram correlation in cascade slicing ratios and its")
-        print("Laplacian corollary, which derives the supplement's Gram first-order")
+        print("Laplacian corollary, which derives Part 0's Gram first-order")
         print("correction as the discrete log-Laplacian of the cascade scalar")
         print("action's compliance function alpha(d) = R(d)^2/4 at doubled argument.")
         print()
-        print("This identifies the supplement's path-distributed Gram framework")
+        print("This identifies Part 0's path-distributed Gram framework")
         print("as a corollary of the same cascade scalar action that generates")
         print("Paper IVb's single-source alpha(d*)/chi^k family.")
         return 0

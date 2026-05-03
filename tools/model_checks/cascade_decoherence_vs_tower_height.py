@@ -20,7 +20,7 @@ from scipy.special import beta as B_func
 
 def corr(d_i, d_j):
     """Normalised Gram entry: C_{ij} = G_{ij}/sqrt(G_{ii} G_{jj})
-    with G_{ij} = B(1/2, (d_i + d_j)/2 + 1) (Paper 0 Supplement Thm 15.1)."""
+    with G_{ij} = B(1/2, (d_i + d_j)/2 + 1) (Part 0 Thm 15.1)."""
     G_ii = B_func(0.5, d_i + 1.0)
     G_jj = B_func(0.5, d_j + 1.0)
     G_ij = B_func(0.5, (d_i + d_j) / 2.0 + 1.0)
