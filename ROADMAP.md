@@ -6,33 +6,32 @@ The single source of truth for predictions is [`PREDICTIONS.md`](PREDICTIONS.md)
 
 ## Open structural questions
 
-### 1. Channel-count rule for Amplitude observables — partial structural closure
+### 1. Channel-count rule for Amplitude observables — partial structural closure (1/3 of identification done)
 
-**Status:** Empirical fit grounded in stable homotopy theory and KO-theoretic Bott periodicity. Activation mechanism articulated. Formal sector-projection identification remains open.
+**Status:** Empirical fit grounded in stable homotopy theory and KO-theoretic Bott periodicity. Activation mechanism derived from cascade scalar action's sector-symmetry. Term-by-term (w_1, w_2) identification supplied for θ_C (single-period case); b/s and θ_23 remain.
 
-**What's known:**
+**Verifier:** [`tools/research/cascade_channel_count_rule.py`](tools/research/cascade_channel_count_rule.py) — reproducible empirical verification + activation argument + concrete θ_C identification.
 
-- Empirical rule: `k = 2 · #{Bott periods spanned by descent path}` for Amplitude observables. Verified 3/3 on the closed observables θ_C (k=2), b/s (k=4), θ_23 (k=4).
-- Structural source: Adams' J-homomorphism `im J: π_n(O) → π^s_n` has exactly two free Z_2 direct factors per Bott period of 8, at residues n ≡ 0, 1 (mod 8). The cyclic groups at residues 3, 7 (Z_24, Z_240, …) are not direct Z_2 factors and don't contribute clean binary chirality filters.
-- Identification: the two Z_2 generators per period correspond to the Stiefel–Whitney classes w_1 ∈ KO^1 (orientation) and w_2 ∈ KO^2 (spin) of the cascade tangent bundle. Cascade chirality basin selection (from Poincaré–Hopf χ(S^{2n}) = 2) is the orientation Z_2.
-- Activation mechanism: cascade scalar action S[φ] = Σ(2α(d))⁻¹(Δφ)² is sector-symmetric (the scalar field carries no tangent-bundle data), so each (w_1, w_2) pattern over N Bott periods carries equal weight in the path-integral measure. An Amplitude observable selecting one specific pattern picks up sector-selectivity factor 1/χ^{2N}.
+**What's known and now derived:**
 
-**What's missing:**
+- Empirical rule: `k = 2 · #{Bott periods spanned by descent path}` for Amplitude observables. Verified 3/3 on the closed observables θ_C (k=2), b/s (k=4), θ_23 (k=4) under the Part IVb `n = d-1` indexing convention. Verifier Step 1.
+- **Per-period chi² multiplicity (DERIVED).** Adams' J-homomorphism `im J: π_n(O) → π^s_n` has exactly two free Z_2 direct factors per Bott period of 8, at residues n ≡ 0, 1 (mod 8), corresponding to the Stiefel–Whitney classes w_1 ∈ KO^1 (orientation) and w_2 ∈ KO^2 (spin) of the cascade tangent bundle. Cyclic groups at residues 3, 7 (Z_24, Z_240, …) are not Z_2 factors and contribute to source strength (roadmap #3), not channel count. Verifier Step 2(i).
+- **Cascade scalar action is sector-symmetric (DERIVED).** S[φ] = Σ(2α(d))⁻¹(Δφ)² is invariant under (w_1, w_2) flips: φ(d) = ln Ω_d carries no bundle data; α(d) = R(d)²/4 is a Γ-ratio with no spin structure; (Δφ)² is even in the slicing axis x by parity of (1-x²)^{d/2} (so w_1 sign flip leaves Ω_{d-1} invariant); and the SO(d) volume is identical under both spin lifts on a sphere (so w_2 flip leaves Ω_{d-1} invariant). Each of the χ²ᴺ patterns therefore carries equal Boltzmann weight in the path-integral measure. Verifier Step 2(ii).
+- **θ_C concrete identification (DERIVED).** The Cabibbo formula `tan(arccos(N(13)/N(12)))·exp(-p(13)/2)` encodes a specific (w_1, w_2) pattern in P_1: w_1 = + (cascade-natural descent direction high-d → low-d, since the reversed orientation has no real arccos solution); w_2 = + (Spin(12) Dirac decomposition on R^12 = H^3 with the Higgs zero on S^12 selecting the unique compatible spin lift, and the cascade left-handed mixing selecting the Weyl_- basin). Selected pattern: 1 of 4. Projection weight: 1/χ² = 1/4 = empirical k=2. Verifier Step 3.
 
-The formal proof that each Amplitude cascade formula is a 1-of-χ^{2N} sector projection. Specifically:
-- (a) Cabibbo formula `tan(arccos(N(13)/N(12)))·exp(-p(13)/2)` encodes a specific (w_1, w_2) choice in P_1.
-- (b) b/s formula `(m_τ/m_μ)·e` encodes specific (w_1, w_2) choices in both P_0 and P_1.
-- (c) Extended Cabibbo descent for θ_23 encodes specific (w_1, w_2) choices in P_1 and P_2.
+**What remains open:**
 
-For each, the proof requires writing out the cascade formula's topological content explicitly: boundary conditions of the slicing kernel f_d(x) = (1-x²)^{d/2}, chirality basin selected at the gauge-window edge, spin structure inherited.
+- (a) Term-by-term (w_1, w_2) identification for **b/s** in P_0 + P_1. P_0 selectors governed by the Spin(4) Dirac on R^4 = H at d=5 (just at P_0's edge); P_1 selectors as in θ_C. Two periods, 4 selectors, 1-of-16 pattern. The structural argument is parallel to θ_C but not yet written term-by-term.
+- (b) Term-by-term (w_1, w_2) identification for **θ_23** in P_1 + P_2. P_1 as in θ_C; P_2 has no interior Dirac layer (Gen 1 at d=21 is past the descent terminus d=20), so the P_2 selectors are governed by period-boundary continuity of the slicing recurrence at d=16 → 17 plus the d_1=19 phase-transition's chirality basin selection inside the path.
+- (c) Formal proof that the cascade path-integral is exhausted by the χ²ᴺ (w_1, w_2) patterns — i.e., that no higher-order tangent-bundle structure (e.g., p_1 ∈ KO^4) activates additional selectors at the integer-d Bott lattice points. Conjecture: KO^4 = Z (Pontryagin) is a free abelian factor at residue n ≡ 3 (mod 8), not a Z_2 chirality filter, and contributes to source strength (roadmap #3) rather than to channel count.
 
 **Most tractable path forward:**
 
-Identify each cascade Amplitude formula's topological coupling term-by-term. The empirical match at χ^{2N} tells us the projection structure is real; the work is identifying which specific (w_1, w_2) pattern each formula selects. Estimated effort: weeks of focused research, not a single computation.
+Repeat the θ_C concrete-identification template for b/s (P_0 selectors via Spin(4)/H Dirac at d=5) and θ_23 (P_2 selectors via period-boundary continuity + d_1 phase transition). Each is parallel to θ_C; the work is a few pages of structural bookkeeping per case. Closing (c) — the formal completeness of the (w_1, w_2) selector set — is the longer-pole item and requires an explicit cascade path-integral computation to confirm KO^≥4 classes don't activate.
 
-**Implications if closed:**
+**Implications if (a)+(b) close:**
 
-Promotes the channel-count rule from "Tier 3 (numerical)" to a theorem, closing all three Amplitude observables (θ_C, b/s, θ_23) at the same forcing level as the four Gauge/Absolute/Observer-type closures.
+Promotes the channel-count rule from "partially derived" to "fully derived for all closed Amplitude observables." Tier 3 → Tier 2 for b/s (`oq:bs-k-exponent` resolved cascade-natively) and θ_23. The remaining (c) is then the only structural piece between Tier 2 and a full theorem.
 
 ### 2. Source-selection rule — categorical derivation pending
 
