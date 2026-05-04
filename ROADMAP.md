@@ -347,23 +347,38 @@ This roadmap item resolves an interpretive ambiguity about cascade structure wit
 | Part V leading | 2.642 | −3.06% | committed |
 | Gram(5,217) on H_0 (Part V Remark) | 2.669 | −2.07% | committed |
 | **Reading 1**: extend δ_path(5,217)→δ_path(5,∞) in CC chain | 2.670 | −2.04% | rejected (CC is calibrated at 217) |
-| **Reading 2**: T_CMB picks up δ_path(5,∞) directly | 2.700 | −0.94% | open |
+| **Reading 2**: T_CMB picks up δ_path(5,∞) directly | 2.700 | −0.94% | open (needs structural channel) |
 | **Reading 3** (power=1.5): T_leading·exp(1.5·δ_∞) | 2.729 | +0.14% | rejected (numerology absent derivation) |
 | **Reading 4**: g_eff = N_c = 3 plus δ_path(5,∞) | 2.782 | +2.08% | rejected |
-| **Reading 5**: g_eff = N_c = 3 alone (no Gram extension) | 2.723 | −0.11% | OPEN — cleanest single-mechanism candidate |
+| **Reading 5**: g_eff = N_c = 3 alone (no Gram extension) | 2.723 | −0.11% | DEMOTED — most likely numerical coincidence (see basin re-examination below) |
+| **Reading 6**: cascade no-annihilation, neutrinos full 2 d.o.f. | 2.178 | −20.09% | structural cascade reading; rules itself out |
+| **Reading 7**: cascade no-annihilation + basin halving (1 d.o.f./species) | 2.438 | −10.54% | structural cascade reading; rules itself out |
 
-**Reading 5 detail.** Replacing the SM thermodynamic g_eff = 3.383 (photons + 3 neutrino species with (4/11)^(4/3) post-decoupling entropy factor) with a cascade-intrinsic g_eff = N_c = 3 closes the residual to −0.11%, well within standing cascade precision. N_c is forced by Part IVa (Adams' theorem at d=12), so the value 3 is cascade-internal. **What is missing:** a structural derivation that *thermodynamic* radiation-degree-of-freedom counting in the cascade is g_eff = N_c rather than the SM photon+neutrino count, and an explanation of how the (4/11)^(4/3) post-neutrino-decoupling factor and photon polarisation count are subsumed into a single N_c-based counting rule.
+**Basin / no-annihilation re-examination.** The cascade has CPT-conjugate basins at $d=4$ (Part IVb `thm:chirality-factorisation`); e⁺e⁻ never annihilate in our basin (antimatter is in the antipodal basin, causally disconnected). The SM $(4/11)^{4/3}$ post-annihilation entropy factor in $g_\text{eff} = 2 + (7/8)\cdot 2\cdot N_\text{eff}\cdot (4/11)^{4/3} = 3.383$ is therefore structurally an **SM artifact**, not a cascade quantity. Under cascade-native logic photons and neutrinos stay at the same temperature throughout, giving $g_\text{eff} = 2 + (7/8)\cdot d_\nu \cdot N_\text{eff}$ with $d_\nu \in \{1, 2\}$ — i.e. $g_\text{eff} \approx 4.6$ to $7.3$ (Readings 6–7), pushing T_CMB to $2.18$–$2.44$ K (residual $-10\%$ to $-20\%$, **much worse**).
 
-**Reading 2 detail.** Direct application of δ_path(5,∞) to T_CMB closes to −0.94%. **What is missing:** a structural argument for why the Gram correction enters T_CMB linearly via exp(δ_∞) rather than through the inherited sqrt(H_0) channel, which would give exp(δ_∞/2).
+Cascade neutrino masses ($m_3 = 0.049$ eV, $m_2 \sim 10^{-4}$ eV, $m_1 \sim 10^{-6}$ eV) are all relativistic at recombination ($T_\gamma = 0.26$ eV); the non-relativistic-transition lever is unavailable. Source mass $m_{29} = 543$ eV is non-relativistic but is the cascade source, not the propagated physical mass.
 
-**Falsification.** A structural derivation of either (a) Reading 5's g_eff = N_c rule from cascade primitives or (b) Reading 2's direct-Gram channel would close T_CMB. Conversely, second-order Gram corrections to H_0 alone (without modifying g_eff or applying a separate Gram channel to T_CMB) appear unlikely to close the gap, since the leading inherited correction is already exhausted.
+**Reading 5 status: DEMOTED.** Reading 5's near-closure ($g_\text{eff} = N_c = 3$, residual $-0.11\%$) is *most likely a numerical coincidence*. The cascade-native answer for $g_\text{eff}$ under "no annihilation" is $\sim 7$, not $3$. The required $g_\text{eff}$ for exact T_CMB closure is $2.987$, very close to $N_c = 3$, but no cascade-native derivation gives $g_\text{eff} \approx 3$ — only Reading 5's *ad hoc* substitution does.
+
+**Target analysis.** For exact T_CMB closure under cascade-native (no-annihilation) counting with $N_\text{eff} = 3.044$ and $d_\nu = 2$:
+- Required $T_\nu / T_\gamma$ at recombination: $f = 0.658$ (SM gives $0.714$).
+- Required $f^4 = 0.188$.
+- Striking near-match: $N_c / 16 = 3/16 = 0.1875$, off by $0.3\%$.
+
+No structural derivation of $f^4 = N_c/16$ exists. The match is suggestive but currently numerology.
+
+**Closure mechanisms still on the table:**
+1. **A cascade-derived $T_\nu / T_\gamma$ ratio at recombination** such that $f^4 \approx 0.188$. The $N_c/16$ candidate suggests the form $N_c / 2^k$ with $k=4$ — possibly related to the cascade's Bott structure or to a basin-halving mechanism applied iteratively. Speculative; no derivation.
+2. **A cascade-native bridge formula** from $\Omega_r = 1/(4\pi^7)$ directly to $T_\text{CMB}$ that bypasses SM thermodynamic $g_\text{eff}$ entirely. Part V's $\Omega_r$ derivation explicitly avoids "photons, thermal equilibrium, or particle physics" (Part V `rem:why-4-plus-7`); only the bridge to $T$ introduces those concepts. This is the cleaner structural route and matches the cascade's no-semiclassics commitment (CLAUDE.md Check 7) better than the $g_\text{eff}$ readings.
+
+**Falsification.** A structural derivation of either (a) the $f^4 = 0.188$ ratio from cascade primitives or (b) a cascade-native $\Omega_r \to T_\text{CMB}$ bridge would close T_CMB. Reading 5 ($g_\text{eff} = N_c$) and Reading 2 (direct Gram) cannot be promoted to cascade predictions absent such a derivation, because the cascade-native "no annihilation" logic actively contradicts Reading 5's $g_\text{eff} \approx 3$ requirement.
 
 **Concrete next work:**
-1. Search for a cascade-native derivation of g_eff at recombination from Part 0 / Part IVa primitives. Candidate route: thermodynamic radiation degrees of freedom on S^3 at the four-dimensional observer slice, where N_c may emerge as the effective count after gauge-window structure is accounted for.
-2. Test whether the "(4/11)^(4/3) factor" has a cascade-internal reading (e.g. as a ratio of cascade volumes between the photon-coupled era and post-neutrino-decoupling era).
-3. Verify the falsification claim: compute the second-order Gram correction to H_0 directly and confirm it does NOT close the T_CMB residual on its own.
+1. Investigate the $N_c/16$ near-match for $f^4$. Is there a cascade structural origin? Test against $N_c / 2^k$ for other $k$ to rule out coincidence at higher precision.
+2. Search for a cascade-native bridge from $\Omega_r$ to $T_\text{CMB}$ that bypasses SM $g_\text{eff}$. Candidate: dimensional construction $T \sim (\Omega_r \cdot M_\text{Pl}^2 \cdot H_0^2)^{1/4} \cdot (\text{cascade factor})$ where the cascade factor is a Gamma function combination.
+3. Verify the cascade-native no-annihilation prediction would actually require photons to dominate radiation density. Check whether any cosmological observation (BBN, recombination, LSS) constrains $g_\text{eff}$ at the relevant epochs in a way that distinguishes cascade-native from SM-like counting.
 
-This is a structural OPEN QUESTION promoted from Part V Remark `rem:tcmb-descent-dependent`. The candidate readings document the new closure attempts unlocked by ROADMAP Item 11, but no reading is currently structurally derived. The cascade's T_CMB prediction stands at the Part V values until a structural derivation is provided.
+This is a structural OPEN QUESTION promoted from Part V Remark `rem:tcmb-descent-dependent`. The exploratory readings document the closure attempts unlocked by ROADMAP Item 11, but the basin/no-annihilation re-examination reveals that cascade-native logic actually makes T_CMB *harder* to close, not easier. The cascade's T_CMB prediction stands at the Part V values until a structural derivation lands.
 
 ## Closed in this development cycle
 
