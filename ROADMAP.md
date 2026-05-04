@@ -334,6 +334,37 @@ What does NOT change (numerical observables):
 
 This roadmap item resolves an interpretive ambiguity about cascade structure without changing any numerical predictions. Consistent with cascade block-universe ontology and higher Bott layer predictions.
 
+### 12. T_CMB closure under "cascade extends to d=∞" — exploratory, no closure yet
+
+**Status:** EXPLORATORY only. The Part V leading prediction T_CMB = 2.642 K (−3.07%) and the H_0-propagated Gram correction T_CMB ≈ 2.669 K (−2.07%) remain the cascade's stated predictions. Closing the residual remains an open problem (Part V Remark `rem:tcmb-descent-dependent` explicitly flags it as such). Verifier: [`tools/research/cascade_tcmb_calibrated_to_infinity.py`](tools/research/cascade_tcmb_calibrated_to_infinity.py).
+
+**Context.** ROADMAP Item 11 (cascade UV convergence) clarified that the cascade extends structurally to d=∞ rather than terminating at d=217. The cosmological constant is calibrated AT d=217 (so its Gram path correctly truncates there), but T_CMB is *not* calibrated at any specific landmark — it is derived thermodynamically from Ω_r, M_Pl,red, H_0, and g_eff. This raises the question of whether T_CMB should pick up its own Gram correction with δ_path(5, ∞) ≈ 0.02165 rather than the H_0-inherited δ_path(5, 217) ≈ 0.02108.
+
+**Numerical readings tested** (none structurally derived):
+
+| Reading | T_CMB (K) | Residual | Status |
+|---|---|---|---|
+| Part V leading | 2.642 | −3.06% | committed |
+| Gram(5,217) on H_0 (Part V Remark) | 2.669 | −2.07% | committed |
+| **Reading 1**: extend δ_path(5,217)→δ_path(5,∞) in CC chain | 2.670 | −2.04% | rejected (CC is calibrated at 217) |
+| **Reading 2**: T_CMB picks up δ_path(5,∞) directly | 2.700 | −0.94% | open |
+| **Reading 3** (power=1.5): T_leading·exp(1.5·δ_∞) | 2.729 | +0.14% | rejected (numerology absent derivation) |
+| **Reading 4**: g_eff = N_c = 3 plus δ_path(5,∞) | 2.782 | +2.08% | rejected |
+| **Reading 5**: g_eff = N_c = 3 alone (no Gram extension) | 2.723 | −0.11% | OPEN — cleanest single-mechanism candidate |
+
+**Reading 5 detail.** Replacing the SM thermodynamic g_eff = 3.383 (photons + 3 neutrino species with (4/11)^(4/3) post-decoupling entropy factor) with a cascade-intrinsic g_eff = N_c = 3 closes the residual to −0.11%, well within standing cascade precision. N_c is forced by Part IVa (Adams' theorem at d=12), so the value 3 is cascade-internal. **What is missing:** a structural derivation that *thermodynamic* radiation-degree-of-freedom counting in the cascade is g_eff = N_c rather than the SM photon+neutrino count, and an explanation of how the (4/11)^(4/3) post-neutrino-decoupling factor and photon polarisation count are subsumed into a single N_c-based counting rule.
+
+**Reading 2 detail.** Direct application of δ_path(5,∞) to T_CMB closes to −0.94%. **What is missing:** a structural argument for why the Gram correction enters T_CMB linearly via exp(δ_∞) rather than through the inherited sqrt(H_0) channel, which would give exp(δ_∞/2).
+
+**Falsification.** A structural derivation of either (a) Reading 5's g_eff = N_c rule from cascade primitives or (b) Reading 2's direct-Gram channel would close T_CMB. Conversely, second-order Gram corrections to H_0 alone (without modifying g_eff or applying a separate Gram channel to T_CMB) appear unlikely to close the gap, since the leading inherited correction is already exhausted.
+
+**Concrete next work:**
+1. Search for a cascade-native derivation of g_eff at recombination from Part 0 / Part IVa primitives. Candidate route: thermodynamic radiation degrees of freedom on S^3 at the four-dimensional observer slice, where N_c may emerge as the effective count after gauge-window structure is accounted for.
+2. Test whether the "(4/11)^(4/3) factor" has a cascade-internal reading (e.g. as a ratio of cascade volumes between the photon-coupled era and post-neutrino-decoupling era).
+3. Verify the falsification claim: compute the second-order Gram correction to H_0 directly and confirm it does NOT close the T_CMB residual on its own.
+
+This is a structural OPEN QUESTION promoted from Part V Remark `rem:tcmb-descent-dependent`. The candidate readings document the new closure attempts unlocked by ROADMAP Item 11, but no reading is currently structurally derived. The cascade's T_CMB prediction stands at the Part V values until a structural derivation is provided.
+
 ## Closed in this development cycle
 
 ### θ_23 (CKM mixing angle 2↔3)
