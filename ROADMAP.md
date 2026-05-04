@@ -399,7 +399,27 @@ Reading 8 = Rule B. **The cascade must commit to the unified sector rule for Rea
 1. Derive the unified sector rule from cascade path-tensor primitives.
 2. Justify "maximal extension d=21" over alternatives (e.g. why not d=29 source layer?).
 3. Derive boson transparency at gauge layers from cascade fermion-gauge coupling structure.
-4. Cross-check against BBN epoch (T ~ 1 MeV) — same unified-sector rule should give g_eff ~ 10.75 there if it's the right cascade prescription.
+4. ~~Cross-check against BBN epoch~~ **DONE** — see BBN finding below.
+
+**BBN cross-check finding ([`tools/research/cascade_bbn_cross_check.py`](tools/research/cascade_bbn_cross_check.py)) — Reading 8 needs an epoch-dependent rule.** Applying the unified sector rule UNIFORMLY at all epochs FAILS BBN dramatically:
+
+| Case | g_eff(BBN) | dev vs SM 10.75 | Status |
+|---|---|---|---|
+| **Case 1**: uniform R8 on ν, no e⁺ at BBN | 4.73 | −56% | RULED OUT |
+| **Case 2**: uniform R8 on all fermions | 3.64 | −66% | RULED OUT |
+| **Case 3**: cascade = SM at all epochs | 10.75 | 0% | ok (but fails T_CMB) |
+| **Case 4**: epoch-dependent transition at T = m_e | 10.75 | 0% | passes both, needs GAP 4 |
+
+**The structural commitment for Reading 8 to survive:** an epoch-dependent rule with transition at T ~ m_e. At T > m_e thermal pair production keeps e⁺ in our basin → cascade thermodynamics matches SM exactly → BBN passes. At T = m_e pair production drops below threshold; e⁺ cannot be replenished, and by cascade no-annihilation cannot disappear via annihilation, so they MIGRATE to the antipodal basin via cascade basin-asymmetry mechanism. Below T = m_e only e⁻ remains in our basin → cascade unified sector rule activates → Reading 8 closes T_CMB.
+
+**GAP 4 (new structural commitment):** Derive the e⁺ migration mechanism at T = m_e cascade-natively. This is mechanically distinct from SM e⁺e⁻ annihilation (which the cascade explicitly excludes via basin separation) but coincides numerically in temperature.
+
+**Updated falsifiability framework:**
+- **Reading 8 (Case 4) survives** if GAP 4 + GAPs 1-3 close. Predicts T_CMB to +0.02%.
+- **Reading 8 fails BBN** under uniform application (Cases 1, 2). Cannot be rescued by simple modifications.
+- **Cascade falls back to SM-like (Case 3)** if GAP 4 cannot be closed. T_CMB residual remains at −3.07% (Part V leading) or −2.07% (Gram-corrected). T_CMB closure remains an open problem.
+
+This is a sharper structural test than before: **Reading 8 is a viable closure ONLY if the cascade has a derivable transition mechanism at T = m_e**. The existence of this transition is now itself a falsifiable cascade prediction — distinct from SM annihilation in mechanism but coincident in temperature.
 
 **Priority next work:** Gap 3 is the root cause — derive a cascade-native bridge formula from Ω_r (geometric, derived in Part V Theorem on Ω_r) to T_CMB that propagates through the gauge window {d=12, 13, 14} with explicit multiplicity factors at each layer crossing. Part VI `prop:g_eff` already does this at T_RH (sums over distinguished layers). The cascade just needs the analogous derivation at recombination temperature, where most layers have decoupled and only photon (d=14) + neutrino (d=21, 13, 5) layers contribute. If that derivation independently yields photon × N_c and neutrino × 1/χ⁴ weightings, Reading 8 closes structurally.
 
