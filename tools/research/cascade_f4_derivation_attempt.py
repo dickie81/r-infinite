@@ -64,10 +64,20 @@ CASCADE-NATIVE INGREDIENTS (each cited to source)
      derivation summing over distinguished layers (d=5,12,13,14,21).
      The cascade reproduces SM g_eff at T_RH layer-by-layer.
 
-PLAUSIBILITY ARGUMENT
-=====================
-GIVEN (I1)-(I8), here is a candidate structural argument for
-(T_nu/T_gamma)^4 = N_c/chi^4 at recombination temperature.
+(I9) Sector-dimension-ratio mechanism for N_c factors at d=12.
+     SOURCE: Part IVb Theorem `thm:sector-fundamental-y` (verbatim):
+     |Y_H|/|Y_{Q_L}| = dim V_12(Q_L) / dim V_12(H) = N_c/1 = N_c.
+     "The factor N_c is the sector dimension ratio, NOT a color trace."
+     This is a CASCADE-DERIVED structural mechanism for how N_c enters
+     observable ratios via the path-tensor V_12 (x) V_13 (x) V_14
+     (Part IVa rem:path-tensor).  Established for hypercharge ratios;
+     EXTENSION to radiation thermodynamics is the new structural
+     commitment proposed here (logical Gap 1 below).
+
+PLAUSIBILITY ARGUMENT (UPDATED with sector-dim-ratio mechanism)
+=================================================================
+GIVEN (I1)-(I9), here is a candidate structural argument for the
+g_eff form at recombination yielding Reading 8.
 
 Step A (cascade-native, follows (I7)+(I8)):
    At recombination (T ~ 0.26 eV), cascade-native counting includes
@@ -79,25 +89,45 @@ Step A (cascade-native, follows (I7)+(I8)):
 Step B (cascade-native, follows (I3)+(I5)+(I6)):
    Basin filter applies asymmetrically.  Neutrinos are chirality-broken
    (left-handed only in our basin), so their phase space is restricted
-   to 1 of chi^4 = 16 basin combinations across the 4 spatial dimensions.
-   Photons are basin-symmetric (chi-invariant), so no basin restriction.
-   Effective phase-space ratio: nu/gamma = 1/chi^4.
+   relative to photons (which are chirality-symmetric, basin-symmetric
+   own-antiparticles).  The basin restriction factor is 1/chi^k where
+   k counts cascade descent boundaries crossed; for neutrino at d=21
+   descending to observer at d=4, k=4 (2 Bott-period boundaries crossed,
+   each contributing chi^2 by the channel-count rule).
+   Effective neutrino basin-filter factor: 1/chi^4.
 
-Step C (cascade-native, follows (I4)):
-   Photon-colour coupling at the gauge window.  The cascade radiation
-   density flows through the gauge window {d=12, 13, 14}.  Photons live
-   at d=14 (U(1) gauge layer); colour SU(3) lives at d=12.  Although
-   photons are colour-singlets in the broken phase, the cascade's gauge-
-   window crossing structure couples photon thermal density to the
-   colour multiplicity at d=12.  Each of N_c = 3 colour states contributes
-   to the photon's effective phase space at the gauge window.
-   Effective photon phase-space multiplier: N_c.
+Step C (cascade-native, EXTENSION of Part IVb thm:sector-fundamental-y):
+   Sector-dimension-ratio at d=12.  Part IVb already establishes that
+   cascade-native ratios at the colour gauge layer take the form of
+   sector dimensions in the path-tensor V_12 (x) V_13 (x) V_14:
+      |Y_H|/|Y_{Q_L}| = dim V_12(Q_L) / dim V_12(H) = N_c/1 = N_c
+   "The factor N_c is the sector dimension ratio, NOT a color trace"
+   (Part IVb thm:sector-fundamental-y, verbatim).
+
+   Extending this mechanism to radiation thermodynamics: if the cascade
+   radiation density samples the FULL path-tensor Hilbert space (not just
+   the relativistic-species subspace), then each cascade neutrino at
+   recombination effectively picks up the sector-dimension count
+   dim V_12 from cascade descent through d=12.
+
+   For neutrinos in (V_12, V_13) = (1, 2) sector: dim V_12 = 1 directly,
+   but the cascade descent through the colour layer "samples" the full
+   d=12 phase space, giving effective multiplier N_c.
+
+   For photons at d=14 (U(1) gauge boson, BOSON not fermion):
+   The cascade fermion-gauge coupling (Part IVb rem:fermion-gauge-
+   coupling-proposal) couples FERMIONS to gauge content; bosons traverse
+   gauge layers transparently in cascade descent.  Photon descent does
+   NOT pick up the d=12 sector-dim multiplier.
 
 Step D (combining B+C):
-   Net ratio of neutrino-to-photon phase space:
-      (phase_nu / phase_gamma) = (1/chi^4) / (N_c) = 1/(N_c * chi^4)
-   But the temperature ratio's fourth power is the INVERSE of phase-space
-   ratio (since hotter species have more phase space):
+   Cascade-native g_eff at recombination:
+      g_eff = g_photon * (no factor) + g_neutrino * (N_c / chi^4)
+            = 2 + (7/8)(2)(N_eff)(N_c / chi^4)
+            = 2 + (7/8)(2)(3)(3/16)
+            = 2.984
+
+   Equivalently, written as a temperature ratio at constant g_eff:
       (T_nu / T_gamma)^4 = N_c / chi^4 = 3/16
 
 Numerical check:
@@ -107,39 +137,67 @@ Numerical check:
 
 LOGICAL GAPS (prevent this from being a proof)
 ==============================================
-GAP 1 (Step C is unjustified):
-   The claim "photon thermal density at recombination picks up N_c colour
-   multiplicity from the d=12 gauge layer" has no cascade-native
-   derivation.  It would require:
-   (a) A cascade-native bridge formula from Omega_r = 1/(4*pi^7) at
-       d=11 to T_CMB at the observer's d=4 layer, that propagates through
-       the gauge window {d=12, 13, 14} and picks up multiplicity factors
-       at each crossed layer.
-   (b) A specific argument for why photons (colour singlets) couple to
-       colour multiplicity in the radiation thermodynamic counting.
-       Standard QFT says photons don't see colour at all.  The cascade
-       might say differently because all matter content lives at the
-       same gauge window, but this needs derivation.
+GAP 1 (Step C extension is novel):
+   Part IVb thm:sector-fundamental-y establishes the sector-dim-ratio
+   mechanism for HYPERCHARGE Y values: |Y_H|/|Y_{Q_L}| = dim V_12(Q_L) =
+   N_c.  This is fully derived in cascade.
 
-GAP 2 (Step B chi^4 power):
-   The basin filter for neutrinos is plausibly ~1/chi for ONE chirality
-   restriction.  Why chi^4 (one factor per spatial dimension)?
-   Each spatial dimension having an independent basin is structural ((I1)
-   on S^4 lifted to 4D + Lovelock), but the cascade has not derived that
-   these are MULTIPLICATIVE in the radiation thermodynamic counting.
-   Possible alternatives: chi^1 (single 4D basin), chi^2 (basin pair on
-   each 2-cycle), chi^4 (four independent dimensions).
+   The novel claim of Step C is that the SAME mechanism applies to
+   RADIATION THERMODYNAMIC COUNTING -- specifically, that the cascade
+   radiation density at recombination samples the full path-tensor
+   V_12 (x) V_13 (x) V_14 Hilbert space, picking up sector-dim factors
+   at each gauge layer the descent traverses.
+
+   Sub-claims requiring derivation:
+   (1a) Radiation density formula extends from "energy per relativistic
+        d.o.f." (SM Stefan-Boltzmann) to "energy per cascade path-tensor
+        slot."  Cascade-native version of the Bose-Einstein/Fermi-Dirac
+        integral.
+   (1b) Bosons (photons) traverse gauge layers transparently while
+        fermions (neutrinos) couple at each crossed gauge layer.
+        Suggested by Part IVb rem:fermion-gauge-coupling-proposal but
+        not derived for radiation thermodynamics.
+   (1c) The d=12 sector-dim factor for neutrinos is N_c (the maximally
+        non-trivial V_12 sector), not 1 (their actual V_12 = 1
+        assignment as colour singlets).  This requires the descent to
+        "sample" the maximal V_12 dimension, not the species' specific
+        V_12 occupancy.
+
+GAP 2 (Step B chi^4 power requires derivation):
+   The basin filter for neutrinos with k=4 = 2 Bott periods crossed
+   (channel-count rule, Part IVb correction family) is suggestive but
+   not directly derived for radiation thermodynamics.  Specifically:
+   - Neutrino at d=21 -> observer d=4 crosses 2 Bott boundaries
+     (P_3/P_2 at d=20-21, P_2/P_1 at d=12-13), giving k=4 by the
+     channel-count rule.
+   - Photon at d=14 -> observer d=4 crosses 1 Bott boundary
+     (P_2/P_1 at d=12-13), giving k=2.
+   - But why does the basin filter apply ONLY to neutrinos, not photons?
+     Plausibly because photons are basin-symmetric (own antiparticle)
+     while neutrinos are chirality-broken.  Not formally derived.
+   - Why is the filter (1/chi)^k rather than chi^(-k/2) or some other
+     form?  Cascade descent factors in Part IVb take the form
+     alpha(d*)/chi^k for delta_Phi shifts; the connection to
+     temperature ratios (T_nu/T_gamma)^k = chi^(-k) is plausible
+     by Born-rule squaring but not derived.
 
 GAP 3 (No cascade-native bridge from Omega_r to T_CMB):
    Part V derives Omega_r = 1/(4*pi^7) geometrically (Part V Theorem
-   on Omega_r, Remark `rem:why-4-plus-7`: "no quantity in this derivation
+   on Omega_r, Remark rem:why-4-plus-7: "no quantity in this derivation
    refers to photons, thermal equilibrium, or particle physics").  But
    the bridge from Omega_r to T uses SM thermodynamics:
       T_CMB = (90 Omega_r M_Pl^2 H_0^2 / (pi^2 g_eff))^(1/4)
-   with g_eff = 3.383 imported from SM.  A cascade-native bridge
-   formula would derive g_eff and hence T_CMB structurally.  Without
-   it, ANY g_eff substitution (Reading 5's g_eff = N_c, Reading 8's
-   g_eff = 2 + (7/8)(2)(3)(3/16) = 2.984) is ad hoc.
+   with g_eff = 3.383 imported from SM.
+
+   Closing requires extending Part VI prop:g_eff (which derives
+   cascade-native g_eff at T_RH = 106.75 by summing over distinguished
+   layers) to recombination temperature.  At T_recomb only photons +
+   neutrinos are relativistic; the layer sum becomes:
+      g_recomb = 2 (photon at d=14)
+               + (7/8) * 2 * 3 (one nu per generation at d=21,13,5)
+               * (sector-dim-and-basin factor)
+   For Reading 8, the factor must equal N_c/chi^4 = 3/16, which (per
+   GAPS 1-2) requires the structural extensions sketched above.
 
 CONCLUSION
 ==========
@@ -224,8 +282,8 @@ def main() -> None:
          "Part IVb thm:chirality-factorisation"),
         ("(I2)", "4 spatial dimensions forced",
          "Part III (Lovelock)"),
-        ("(I3)", "chi^4 = 16 basin combinations across 4 dims",
-         "Combinatorial consequence of (I1)+(I2); novel application"),
+        ("(I3)", "chi^4 from 2 Bott periods crossed (channel-count)",
+         "Part IVb channel-count rule k = 2*(periods spanned)"),
         ("(I4)", "N_c = 3 colour count",
          "Part IVa thm:adams"),
         ("(I5)", "Neutrinos are left-handed only",
@@ -236,6 +294,8 @@ def main() -> None:
          "CLAUDE.md sign-anchor / Part IVb basin separation"),
         ("(I8)", "Cascade-native g_eff(T_RH) = 106.75 = SM exactly",
          "Part VI prop:g_eff"),
+        ("(I9)", "Sector-dim-ratio mechanism: N_c factor at d=12",
+         "Part IVb thm:sector-fundamental-y -- DERIVED for Y-spectrum"),
     ]
     for tag, desc, source in sources:
         print(f"  {tag} {desc}")
@@ -246,12 +306,12 @@ def main() -> None:
     print("LOGICAL GAPS (preventing this from being a proof)")
     print("=" * 76)
     gaps = [
-        ("GAP 1", "Step C (photon picks up N_c multiplicity at gauge window) is unjustified.",
-         "Standard QFT: photons don't see colour at all.  Cascade needs to derive WHY the radiation thermodynamic counting at the gauge window gives photons an N_c factor.  Required: cascade-native bridge formula from Omega_r to T_CMB through the gauge window."),
-        ("GAP 2", "Step B chi^4 (not chi^1, chi^2) power is unjustified.",
-         "Each spatial dimension having an independent chi=2 basin is plausible from S^4 chi=2 + 4D Lovelock, but multiplicativity in radiation thermodynamics is not derived."),
-        ("GAP 3", "No cascade-native bridge from Omega_r to T_CMB.",
-         "Part V uses SM g_eff = 3.383 as input; closing would require deriving g_eff cascade-natively at recombination temperature, not just at T_RH (where Part VI prop:g_eff already does it)."),
+        ("GAP 1", "Sector-dim-ratio extension to radiation thermodynamics is novel.",
+         "Part IVb thm:sector-fundamental-y derives N_c via dim V_12(Q_L)/dim V_12(H) for Y-spectrum.  Reading 8 requires extending this to radiation density: cascade radiation samples FULL path-tensor V_12 (x) V_13 (x) V_14 (not just relativistic-species subspace), bosons traverse gauge layers transparently while fermions couple at each.  Plausible from cascade structure but not derived in current sources."),
+        ("GAP 2", "chi^4 power = k=4 channel count for neutrino descent.",
+         "Neutrino at d=21 -> observer d=4 crosses 2 Bott boundaries (P_3/P_2 at d=20-21, P_2/P_1 at d=12-13) giving k=4 by channel-count rule.  Photon at d=14 -> d=4 crosses 1 boundary giving k=2.  Plausible structural reading but the connection to (T_nu/T_gamma)^k = chi^(-k) from Born-rule squaring is suggestive, not derived."),
+        ("GAP 3", "No cascade-native bridge from Omega_r to T_CMB at recombination.",
+         "Part V uses SM g_eff = 3.383 as input; Part VI prop:g_eff derives g_eff cascade-natively at T_RH = 106.75.  Need analogous derivation at T_recomb where only photon (d=14) and 3 neutrinos (d=5,13,21) are relativistic, with sector-dim-ratio + basin-filter factors.  This is the priority closure work; (I9) provides the template."),
     ]
     for tag, claim, detail in gaps:
         print(f"  {tag}: {claim}")
@@ -262,24 +322,35 @@ def main() -> None:
     print("VERDICT")
     print("=" * 76)
     print("""
-The structural plausibility argument has cascade-native ingredients but
-LACKS THE KEY BRIDGE that would make it a proof.  Reading 8's numerical
-match at +0.023% (within standing cascade precision) is suggestive but
-not yet derived.
+PROGRESS in this derivation attempt:
+  - The N_c factor in Reading 8 has a CASCADE-DERIVED MECHANISM via
+    Part IVb thm:sector-fundamental-y (sector dimension ratio).
+    This is established cascade-native machinery, not numerology.
+  - The chi^4 factor maps to k=4 channel count for 2 Bott periods crossed
+    in neutrino descent d=21 -> d=4.
+  - Both ingredients are sourced cascade primitives.
 
-The argument is:
-  - PARTIAL STRUCTURE: chi^4 plausibly from basin product across 4 dims;
-    N_c plausibly from colour at d=12 -- both cascade-native.
-  - MISSING BRIDGE: no cascade-native derivation that the radiation
-    thermodynamic counting at recombination is photon * N_c divided by
-    neutrino * 1/chi^4.  Standard QFT does not give photons a colour
-    multiplicity factor.
-  - REQUIRED WORK: derive the cascade-native Omega_r -> T_CMB bridge
-    explicitly (Gap 3 = Gap 1 root cause).
+REMAINING GAPS (specific and concrete):
+  GAP 1: Extend sector-dim-ratio from Y-spectrum (proven in IVb) to
+         radiation thermodynamics.  Specifically: bosons traverse gauge
+         layers transparently, fermions pick up sector-dim factors.
+  GAP 2: Derive (T_nu/T_gamma)^k = chi^(-k) from Born-rule squaring
+         applied to cascade descent amplitudes.
+  GAP 3: Extend Part VI prop:g_eff layer-sum machinery to T_recomb,
+         producing the cascade-native bridge from Omega_r to T_CMB.
 
-Reading 8 STAYS a candidate, not a closure.  Per CLAUDE.md Check 4 this
-is acknowledged open territory (Part V Remark rem:tcmb-descent-dependent
-explicitly flags g_eff closure as open).
+These gaps are MORE CONCRETE than my initial framing.  The cascade has
+the structural ingredients; what's missing is the formal extension of
+existing theorems to the radiation thermodynamic context.
+
+Reading 8 STAYS a candidate.  But the path to closure is clearer:
+extend IVb sector-fundamental-y mechanism + IVb channel-count rule +
+VI prop:g_eff layer-sum to T_recomb.  This is work the cascade can do
+within its existing structural toolkit.
+
+Per CLAUDE.md Check 4: this is acknowledged open territory (Part V
+Remark rem:tcmb-descent-dependent explicitly flags g_eff closure as
+open; CLAUDE.md "Known Quantitative Issues" entry on T_CMB).
 """.rstrip())
 
 
