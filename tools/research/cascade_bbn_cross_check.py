@@ -1,5 +1,25 @@
 #!/usr/bin/env python3
 """
+*** PARTIALLY SUPERSEDED 2026-05-04 ***
+The Reading 8 derivation route this verifier was testing has been retracted
+(see ROADMAP Item 12 retraction).  Cascade Phase D follows standard
+Boltzmann thermodynamics per Part VI sec:bigbang -- e+e- annihilation
+DOES occur normally at T ~ m_e in cascade.
+
+The numerical conclusions of this verifier remain CORRECT as a falsification
+test:
+  - Uniform application of f^4 = N_c/chi^4 to all epochs FAILS BBN
+    (factor 2.5-3.5 off).
+  - Case 3 (cascade = SM Boltzmann thermodynamics throughout) is what the
+    cascade ACTUALLY DOES per Part VI -- this is the correct cascade
+    behaviour, not a fallback.
+  - Case 4 (epoch-dependent transition with e+ migration at T=m_e) was a
+    proposed rescue for Reading 8 and is also retracted.
+
+The cascade in Phase D is SM-thermodynamic with cascade-derived masses.
+T_CMB residual stays at -3.07% (Part V leading) per current cascade
+prediction.
+
 BBN cross-check for cascade Reading 8.
 
 THE TEST

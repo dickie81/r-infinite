@@ -1,5 +1,19 @@
 #!/usr/bin/env python3
 """
+*** PARTIAL RETRACTION 2026-05-04 ***
+Readings 6, 7, 8 (cascade no-annihilation variants) are RETRACTED.  They
+were built on a misreading of cascade thermodynamics.  Per Part VI
+sec:bigbang and sec:particles, cascade Phase D follows standard Boltzmann
+thermodynamics with cascade-derived masses; e+e- annihilation occurs
+normally.  The (4/11)^(4/3) factor IS correct cascade physics in Phase D.
+
+Readings 1-5 stand as before (numerical explorations of Gram path
+extensions to infinity, etc.); none was promoted to a closure.
+
+The cascade T_CMB residual stays at -3.07% (Part V leading) or -2.07%
+(Gram-corrected H_0).  Closure remains an open problem with the same
+status as Part V Remark rem:tcmb-descent-dependent.
+
 T_CMB calibrated to infinity: numerical exploration of cascade T_CMB
 closure under the refined "cascade extends to d=infty" ontology.
 

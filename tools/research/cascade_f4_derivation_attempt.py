@@ -1,5 +1,26 @@
 #!/usr/bin/env python3
 """
+*** RETRACTED 2026-05-04 ***
+This derivation attempt was built on a misreading of cascade thermodynamics.
+The premise "cascade has no e+e- annihilation in our basin" is wrong.
+
+Per Part VI Section sec:bigbang and sec:particles: post-Big-Bang (Phase D)
+cascade follows standard Boltzmann-equation thermodynamics with cascade-
+derived masses.  e+e- pairs DO annihilate at T ~ m_e in cascade Phase D,
+exactly as in SM.  The (4/11)^(4/3) factor is correct cascade physics.
+
+The basin separation (Part IVb thm:chirality-factorisation) is cosmic
+global -- the antipodal basin is "anything beyond our cosmological horizon"
+(CLAUDE.md sign-anchor) -- NOT a local thermodynamic constraint within our
+basin.
+
+This file is retained for transparency about the wrong-path exploration.
+The numerical near-match f^4 ~ N_c/chi^4 = 3/16 (off 0.27%) remains
+striking but is NOT a cascade derivation candidate via the no-annihilation
+route.  See ROADMAP Item 12 retraction.
+
+ORIGINAL CONTENT BELOW (do not use):
+
 T_CMB Reading 8 structural derivation attempt:
     f^4 = (T_nu / T_gamma)^4 = N_c / chi^4 = 3/16
 

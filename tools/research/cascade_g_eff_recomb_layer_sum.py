@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 """
+*** RETRACTED 2026-05-04 ***
+Built on the wrong premise that cascade has no e+e- annihilation in our
+basin.  Per Part VI sec:bigbang and sec:particles, cascade Phase D follows
+standard Boltzmann thermodynamics with cascade-derived masses.  See
+ROADMAP Item 12 retraction.
+
+Retained for transparency.  Original content below.
+
 Cascade-native g_eff at recombination via Part VI prop:g_eff template
 extended to T_recomb.
 
