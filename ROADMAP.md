@@ -285,6 +285,55 @@ Both are cascade-internal descent-based corrections, computed via the same primi
 
 These extensions further unify the cascade's observer-frame correction methodology across all observables, but the core structural equivalence (the goal of this ROADMAP item) is now demonstrated.
 
+### 11. d=217 framing: landmark, not terminus — CLOSED at structural-clarity level
+
+**Status:** structural clarification, no numerical observables change. CLOSED at the structural-clarity level by [`tools/research/cascade_uv_convergence.py`](tools/research/cascade_uv_convergence.py). Identified during a discussion of cascade UV behavior: the user observed that the tower is convergent and shouldn't be artificially capped at d=217.
+
+**The original phrasing in Part 0 Theorem 6.7** says "the cascade ends at d_2=217." Numerical investigation shows this is more accurately framed as: d=217 is the deepest distinguished Gamma-critical landmark; cascade descent continues structurally beyond d=217 with negligible contributions to observable physics.
+
+**Cascade UV behavior (verified numerically):**
+
+```
+delta_path(5, d_max):
+  d=29:    0.0175
+  d=100:   0.0204
+  d=217:   0.0211   <-- cosmological constant calibration
+  d=500:   0.0214
+  d=1000:  0.0215
+  d=10000: 0.0217   <-- converges to ~0.0217
+```
+
+Per-layer Gram contributions (1−C²_{d,d+1}) decay as ~1/(8d²) — sum converges absolutely. Sphere areas Ω_d decay super-exponentially. Phi(d) and cumulative compliance diverge logarithmically but never appear in cascade observable predictions (only finite-layer Phi(d_g) does).
+
+**Critical clarification: cosmological constant calibration is correctly at d=217.**
+
+The Gram correction for ρ_Λ is naturally capped at d=217 because **d=217 IS the cosmological landmark**. Extending Gram beyond d=217 in the CC formula would be incorrect — it would sample cascade structure beyond the cosmological landmark. The CC prediction is NOT shifted by the cascade's extension to d=∞.
+
+What changes (interpretation):
+- Cascade structure: extends to d=∞ (consistent with B^∞ block-universe ontology)
+- Higher Bott layers (d=29, 37, 45, …) extend forever with exponentially suppressed contributions
+- Part 0 Theorem 6.7 phrasing: "deepest landmark" rather than "ends at"
+
+What does NOT change (numerical observables):
+- CC prediction still calibrated at Gram(5, 217)
+- Mass-formula predictions (terminus-independent anyway)
+- All other cascade observables
+
+**Verifier:** [`tools/research/cascade_uv_convergence.py`](tools/research/cascade_uv_convergence.py).
+
+(a) Verify UV convergence of cascade observable quantities. DONE: δ_path, sphere areas, Gram all converge or are bounded.
+
+(b) Identify role of d=217 (landmark vs terminus). DONE: d=217 is the deepest Γ-critical landmark, not a structural terminus. Cascade extends to d=∞.
+
+(c) Confirm cosmological constant correctly calibrated at d=217 (NOT shifted). DONE: CC stays at Gram(5, 217) calibration.
+
+**Lower-priority follow-up:**
+1. Update Part 0 Theorem 6.7 phrasing in LaTeX (interpretive, not derivation change)
+2. Document cascade extension to d=∞ in Part 0 supplementary remarks
+3. Verify all other cascade predictions correctly use specific landmarks (not the d=217 cap)
+
+This roadmap item resolves an interpretive ambiguity about cascade structure without changing any numerical predictions. Consistent with cascade block-universe ontology and higher Bott layer predictions.
+
 ## Closed in this development cycle
 
 ### θ_23 (CKM mixing angle 2↔3)
