@@ -169,6 +169,36 @@ def main() -> None:
         "purely structural g_eff substitution",
     ))
 
+    # READING 6: cascade-native NO-ANNIHILATION counting.
+    # Cascade has CPT-conjugate basins at d=4 (Part IVb thm:chirality-factorisation).
+    # e+e- never annihilate in our basin (antimatter is in the antipodal basin,
+    # causally disconnected).  The SM (4/11)^(4/3) post-annihilation entropy
+    # factor is therefore an SM artifact, not a cascade quantity.
+    # Cascade-native counting: photons and neutrinos stay at same T throughout.
+    # g_eff_cascade = 2 (photons) + (7/8) * d.o.f./species * N_eff
+    N_eff_SM = 3.044
+    g_full = 2 + (7/8) * 2 * N_eff_SM  # full Dirac (2 d.o.f. per species)
+    T6 = T_leading * (g_eff_SM / g_full) ** 0.25
+    readings.append(Reading(
+        "Reading 6: cascade no-annihilation, neutrinos full 2 d.o.f.",
+        T6,
+        "drops (4/11)^(4/3) -- structurally correct but pushes T_CMB MUCH worse",
+    ))
+
+    # READING 7: cascade no-annihilation + basin halving (1 d.o.f./species).
+    g_half = 2 + (7/8) * 1 * N_eff_SM  # one helicity per species
+    T7 = T_leading * (g_eff_SM / g_half) ** 0.25
+    readings.append(Reading(
+        "Reading 7: cascade no-annihilation + basin halving (1 d.o.f.)",
+        T7,
+        "antineutrinos in antipodal basin only -- still pushes T_CMB worse",
+    ))
+
+    # Target g_eff for closure
+    target_g = g_eff_SM / (T_obs / T_leading) ** 4
+    target_f4 = (target_g - 2) / ((7/8) * 2 * N_eff_SM)
+    target_f = target_f4 ** 0.25
+
     # Print results
     print("-" * 72)
     print("CANDIDATE READINGS")
@@ -191,19 +221,39 @@ def main() -> None:
     print("SUMMARY")
     print("-" * 72)
     print()
+    # Indexing: readings = [R1, R2, R3-p0.5, R3-p1, R3-p1.5, R3-p2, R4, R5, R6, R7]
     rows = [
         ("Cascade leading (Part V Theorem)",         T_leading),
         ("Cascade Gram on H_0 (delta_path(5,217))",  T_gram_217),
         ("Reading 1: extend delta_path 217->infty",  readings[0].T_CMB),
         ("Reading 2: direct delta_path(5,infty)",    readings[1].T_CMB),
-        ("Reading 3a: power=1.5",                    readings[4].T_CMB),
-        ("Reading 5: g_eff = N_c = 3",               readings[-1].T_CMB),
-        ("Reading 4: g_eff = N_c + delta_inf",       readings[-2].T_CMB),
+        ("Reading 3c: power=1.5",                    readings[4].T_CMB),
+        ("Reading 4: g_eff = N_c + delta_inf",       readings[6].T_CMB),
+        ("Reading 5: g_eff = N_c = 3",               readings[7].T_CMB),
+        ("Reading 6: cascade no-annihilation 2dof",  readings[8].T_CMB),
+        ("Reading 7: cascade no-annihilation 1dof",  readings[9].T_CMB),
         ("Observed (PDG / COBE-FIRAS)",              T_obs),
     ]
     print(f"  {'reading':<48} {'T_CMB (K)':>10}  {'residual':>10}")
     for label, T in rows:
         print(f"  {label:<48} {T:>10.4f}  {100*(T/T_obs-1):>+9.3f}%")
+
+    print()
+    print("-" * 72)
+    print("TARGET ANALYSIS (cascade-native closure target)")
+    print("-" * 72)
+    print()
+    print(f"  Required g_eff for T_CMB = {T_obs} K exactly: {target_g:.4f}")
+    print(f"    -- close to N_c = 3 (Reading 5's coincidence)")
+    print(f"  Required T_nu/T_gamma at recomb (cascade-native): f = {target_f:.4f}")
+    print(f"    SM (4/11)^(1/3) = {(4/11)**(1/3):.4f}, (4/11)^(4/3) = {(4/11)**(4/3):.4f}")
+    print(f"  Required f^4 = {target_f4:.4f}")
+    print(f"    Cascade quantities tested:")
+    print(f"      N_c/16   = {3/16:.4f}    <-- closest match (off by 0.3%)")
+    print(f"      1/N_c^2  = {1/9:.4f}")
+    print(f"      1/(2*N_c)= {1/6:.4f}")
+    print()
+    print("  No clean cascade-native derivation of f^4 yet identified.")
 
     # Interpretation guard rails
     print()
@@ -227,22 +277,64 @@ of these readings is yet structurally derived from cascade primitives:
    Cascade-internally motivated (N_c is forced by Part IVa) but g_eff = N_c
    ignores photon polarisation and the (4/11)^(4/3) neutrino entropy factor;
    needs structural argument.  Open.
- - Reading 5 is the cleanest single-mechanism candidate: replace SM g_eff with
-   cascade N_c = 3.  Closes -3.07% to -0.11% (within standing cascade precision).
-   Still requires a structural reason to prefer N_c = 3 over the SM thermodynamic
-   counting -- which is non-trivial because the SM g_eff = 3.383 includes the
-   photon (2 polarisations) and three neutrino species with the (4/11)^(4/3)
-   post-neutrino-decoupling entropy factor.  Open.
+ - Reading 5 is the cleanest single-mechanism candidate NUMERICALLY: replace
+   SM g_eff with cascade N_c = 3.  Closes -3.07% to -0.11% (within standing
+   cascade precision).
+   STRUCTURAL CAVEAT (added after basin/no-annihilation re-examination, see
+   addendum below): the cascade-native logic of "no annihilation, basins at
+   d=4" pushes g_eff in the OPPOSITE direction (~7, not 3).  Reading 5's
+   numerical near-closure is therefore most likely a coincidence rather than
+   a structural result.
 
-Conclusion: no reading is currently committed.  The Part V leading prediction
-T_CMB = 2.642 K (-3.07%) and the H_0-propagated Gram correction T_CMB = 2.669 K
-(-2.1%) remain the cascade's stated predictions.  Closing the residual remains
-an open problem (Part V Remark explicitly flags it as such).
+ADDENDUM: BASIN / NO-ANNIHILATION RE-EXAMINATION
+==================================================
+The cascade has CPT-conjugate basins at d=4 (Part IVb thm:chirality-factorisation).
+e+e- never annihilate in our basin: e+ are in the antipodal basin, causally
+disconnected.  This means the SM (4/11)^(4/3) post-annihilation entropy factor
+in g_eff = 2 + (7/8)*2*N_eff*(4/11)^(4/3) = 3.383 is structurally an SM
+artifact, not a cascade quantity.
 
-The numerical proximity of Readings 2 and 5 to observation (within 1% and
-0.3% respectively) suggests T_CMB closure is plausible under the refined
-"cascade extends to d=infty" ontology, but a structural derivation is required
-before any reading can be promoted to a cascade prediction.
+Cascade-native counting (no annihilation, photons and neutrinos at same T):
+  g_eff_cascade = 2 + (7/8) * d.o.f._per_nu * N_eff
+where d.o.f._per_nu = 2 (full Dirac) or 1 (one helicity if antineutrinos in
+antipodal basin only).  Both give g_eff in the range 4.6 to 7.3, NOT 3.
+This pushes T_CMB to 2.18-2.44 K (residual -10% to -20%).
+
+Cascade neutrino masses (CLAUDE.md): m_3=0.0493, m_2=3e-4, m_1=3e-6 eV.
+At recombination (T_gamma = 0.26 eV), all three are relativistic
+(m/T < 0.2).  Non-relativistic-transition lever is NOT available.
+
+Source mass m_29 = 543 eV is non-relativistic at recombination but is the
+SOURCE, not the propagated physical mass.  Treating it as the radiation-
+contributing mass would give g_eff = 2 (only photons), T = 3.01 K (+10.5%).
+
+TARGET ANALYSIS
+===============
+For T_CMB = 2.7255 K exactly:
+  required g_eff = 2.987 (very close to N_c = 3)
+  required T_nu/T_gamma at recomb: f = 0.6585  (SM gives 0.7138)
+  required f^4 = 0.1880
+
+Striking near-match: N_c / 16 = 3/16 = 0.1875 (off by 0.3%).
+Suggestive but no derivation yet.  Other cascade quantities tested (1/N_c^2,
+1/(2 N_c), alpha_em^(1/2), etc.) do not match closely.
+
+CONCLUSION: cascade-native logic (no annihilation, basin separation) does
+NOT close T_CMB; it makes T_CMB worse.  Reading 5 (g_eff = N_c = 3) is most
+likely a numerical coincidence at the -0.11% level.  A genuine cascade-native
+closure would require either:
+  (a) A cascade-derived T_nu/T_gamma ratio at recomb such that f^4 ~ 0.188
+      (the N_c/16 candidate is suggestive but unjustified).
+  (b) A cascade-native bridge formula from Omega_r = 1/(4*pi^7) to T_CMB
+      that bypasses the SM thermodynamic g_eff entirely.  Part V's Omega_r
+      derivation explicitly avoids "photons, thermal equilibrium, or
+      particle physics" -- only the bridge to T introduces those concepts.
+      A cascade-native bridge would close T_CMB structurally without any
+      g_eff parameter.
+
+The original four readings stand as exploratory; the additional finding is
+that Reading 5 should be DEMOTED from "cleanest candidate" to "numerical
+coincidence pending alternative bridge formula."
 """.rstrip())
 
 
