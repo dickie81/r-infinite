@@ -208,9 +208,9 @@ Leading scalar wins. Applying Gram or gauge-vol corrections to the lepton ratio 
 
 **Status:** Tier 5 in PREDICTIONS.md. The "one unit of content on S³" argument for Ω_b = 1/(2π²) needs structural strengthening. Interpretive, not a missing derivation chain.
 
-### 10. Observer-frame correction: unify Paper 1's explicit treatment with Part IVa/IVb's implicit treatment
+### 10. Observer-frame correction: unify Paper 1's explicit treatment with Part IVa/IVb's implicit treatment — CLOSED at structural-equivalence level
 
-**Status:** structural cleanup, not new physics. Identified during a numerical test of "what happens if we include d=1..4 in the Phi descent sum?" — a test that surfaces an inconsistency in derivation style between Paper 1 and Part IVa/IVb.
+**Status:** structural cleanup, CLOSED at the equivalence level by [`tools/research/cascade_observer_frame_unification.py`](tools/research/cascade_observer_frame_unification.py). Identified during a numerical test of "what happens if we include d=1..4 in the Phi descent sum?" — a test that surfaces an inconsistency in derivation style between Paper 1 and Part IVa/IVb.
 
 **The diagnostic:** including d=1, 2, 3, 4 in the Phi sum shifts every Phi value by `Σ p(1..4) ≈ −1.997`, multiplying all absolute lepton/quark masses by `exp(1.997) ≈ 7.4`. The factor itself has closed form `4π² · exp(2γ − 17/6)` with `4π² = 2·Ω_3` (twice the observer's spatial slice area), suggesting the bottom-4 contribution IS structurally tied to observer-frame geometry.
 
@@ -254,12 +254,36 @@ This would:
 
 **What this is NOT:** new physics. The cascade's predictions don't change; the derivation style becomes uniform. Same particles, same masses, same observer-frame corrections — just spelled out symmetrically across all parts of the framework.
 
-**Verifier:** none yet. This roadmap item needs a verifier that:
-(a) Computes mass predictions with Phi-from-d=1 + explicit observer-frame correction
-(b) Demonstrates equality with current Phi-from-d=5 + (2√π) factor formulation
-(c) Identifies the explicit cascade-natural form of the observer-frame correction in mass formulas
+**Verifier:** [`tools/research/cascade_observer_frame_unification.py`](tools/research/cascade_observer_frame_unification.py).
 
-Once written, this verifier closes the roadmap item by demonstrating the structural unification.
+(a) Computes mass predictions with Phi-from-d=1 + explicit OFC: DONE.
+(b) Demonstrates equality with current Phi-from-d=5 formulation: VERIFIED to machine precision (1e-16) for charged leptons + neutrino source layer.
+(c) Identifies cascade-natural form of OFC: DONE.
+
+**Cascade-natural form of OFC found:**
+```
+OFC = exp(p(1)) · exp(p(2)) · exp(p(3)) · exp(p(4))
+    = product of cascade descent step factors at bottom 4 layers
+    = exp(-2γ + 17/6) / (4π²)
+    ≈ 0.13576
+```
+
+Each `exp(p(d))` for d=1..4 is the cascade descent step at one of the bottom 4 cascade layers (S^0, S^1, S^2, S^3 boundaries). The 4π² in the closed-form denominator is `2·Ω_3` (twice the observer's spatial-slice area, cascade-natural). The transcendental `exp(-2γ + 17/6)` is the residual from digamma values at small d.
+
+**Refinement of predicted outcome:** the original prediction was "OFC = Paper-1-style correction at d=3 + d_V applied to Phi-from-d=1." The actual result: OFC samples cascade descent at the bottom 4 layers (d=1, 2, 3, 4), not specifically at d=3 + d_V. Both Paper 1 and mass-formula corrections are cascade-internal descent factors at observer-frame layers, but they sample at different specific layers because they bridge different cascade-internal pieces (sphere-area products vs Phi descent).
+
+**Unified principle (post-closure):** observer-frame corrections sample cascade descent at layers relevant to the observer's frame.
+- Paper 1 (cosmological constant): samples at landmark layers d=3 (cube-sphere bridge) and d_V=5 (host-frame ratio).
+- Mass formulas (Part IVa/IVb): sample at the bottom 4 layers d=1, 2, 3, 4 (cascade descent steps).
+
+Both are cascade-internal descent-based corrections, computed via the same primitive p(d). The cascade has ONE consistent observer-frame correction style across cosmology and particle physics.
+
+**Concrete next work (post-closure, lower priority):**
+1. Document the unification in Part IVa/IVb LaTeX (currently implicit; making explicit clarifies the cascade's structural symmetry).
+2. Apply explicit OFC decomposition to other cascade-derived quantities (gauge couplings, mixing angles) to verify universality.
+3. Test whether the α(d*)/χ^k correction family also admits Paper-1-style observer-frame + cascade-internal decomposition.
+
+These extensions further unify the cascade's observer-frame correction methodology across all observables, but the core structural equivalence (the goal of this ROADMAP item) is now demonstrated.
 
 ## Closed in this development cycle
 
