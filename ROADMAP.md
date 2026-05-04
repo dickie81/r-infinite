@@ -208,6 +208,59 @@ Leading scalar wins. Applying Gram or gauge-vol corrections to the lepton ratio 
 
 **Status:** Tier 5 in PREDICTIONS.md. The "one unit of content on S³" argument for Ω_b = 1/(2π²) needs structural strengthening. Interpretive, not a missing derivation chain.
 
+### 10. Observer-frame correction: unify Paper 1's explicit treatment with Part IVa/IVb's implicit treatment
+
+**Status:** structural cleanup, not new physics. Identified during a numerical test of "what happens if we include d=1..4 in the Phi descent sum?" — a test that surfaces an inconsistency in derivation style between Paper 1 and Part IVa/IVb.
+
+**The diagnostic:** including d=1, 2, 3, 4 in the Phi sum shifts every Phi value by `Σ p(1..4) ≈ −1.997`, multiplying all absolute lepton/quark masses by `exp(1.997) ≈ 7.4`. The factor itself has closed form `4π² · exp(2γ − 17/6)` with `4π² = 2·Ω_3` (twice the observer's spatial slice area), suggesting the bottom-4 contribution IS structurally tied to observer-frame geometry.
+
+**Two distinct cascade derivation styles:**
+
+| | Paper 1 (cosmological constant) | Part IVa/IVb (mass formulas) |
+|---|---|---|
+| Cascade-internal piece | `Ω_19 · Ω_217` | `exp(−Phi(d_g))` |
+| Observer-frame correction | EXPLICIT: `(2/π) · (9/π²)` | IMPLICIT: Phi-from-d=5 + `(2√π)^(n_D+1)` |
+| Gram | EXPLICIT: `exp(δ_path(5,217))` | EXPLICIT: `α(d*)/χ^k` closure family |
+
+Paper 1 derives the observer-frame correction explicitly via two pieces:
+- **Cube–sphere bridge at d=3:** `Ω_2/V_3^cube = 4π/8 = π/2`, applied as `2/π`. Converts cascade sphere-area content to the cube-volume normalisation of the reduced Planck mass.
+- **Host-frame correction:** `(Ω_5/Ω_7)² = 9/π²`. Translates from cascade reference layer d_0=7 (area max) to observer's host d_V=5 (volume max).
+
+Mass formulas perform the equivalent observer-frame correction implicitly:
+- **Phi sum starts at d=5** (= d_V boundary). Skipping d=1..4 telescopes the bottom-4 contribution into the convention rather than spelling it out.
+- **`(2√π)^(n_D+1)` Dirac amplification** carries π factors from S^3 (= Ω_3 = 2π²) geometry — the observer's spatial slice area enters via Γ(1/2) = √π.
+
+**Why this matters:** the cascade currently has TWO derivation styles for the same kind of observer-frame correction. Paper 1 makes it explicit and structurally derivable; Part IVa/IVb telescopes it into a convention that gives the right answer but obscures the structure. A user asking "what happens if we include the 4 spacetime dimensions in the cascade descent?" cannot get a clean structural answer from the current literature — the answer requires reverse-engineering the implicit correction.
+
+**Concrete cleanup:**
+
+Rewrite mass formulas in Paper-1 style with the observer-frame correction explicit:
+```
+m_l = [observer-frame correction] · [cascade-internal piece] · [Dirac amp at observer]
+    = [Ω_d=3 / V^cube · host-frame factor] · [exp(−Phi_from_d_1(d_g))] · [Spin(4) factor]
+```
+
+Then prove that this restructured form equals the current formula: i.e., the explicit observer-frame correction multiplied by `exp(−Phi_from_d_1)` and Spin(4) factors equals the current `exp(−Phi_from_d_5) · (2√π)^(n_D+1)`.
+
+This would:
+- Make the role of the 4 spacetime dimensions explicit in mass derivations (currently hidden in conventions)
+- Unify cosmological-scale and particle-scale cascade derivations under one structural style
+- Enable systematic application of observer-frame corrections to other cascade quantities (mixing angles, gauge couplings)
+- Resolve the "Phi convention starts at d=5 by stipulation" ambiguity by replacing it with a derivation
+
+**Falsifiability:** if the restructured Paper-1-style mass formula doesn't equal the current Part IVa/IVb formula at the same numerical precision, the unification fails — meaning the observer-frame correction is NOT what's hidden in the Phi convention. In that case the Phi convention requires an independent structural justification.
+
+**Predicted outcome:** the unification succeeds. The implicit correction in Phi convention exactly equals Paper-1-style observer-frame correction at d=3 + d_V applied to Phi-from-d=1. This is a research-level cascade cleanup, not a new derivation, and would clarify the cascade's overall structural symmetry between cosmology and particle physics.
+
+**What this is NOT:** new physics. The cascade's predictions don't change; the derivation style becomes uniform. Same particles, same masses, same observer-frame corrections — just spelled out symmetrically across all parts of the framework.
+
+**Verifier:** none yet. This roadmap item needs a verifier that:
+(a) Computes mass predictions with Phi-from-d=1 + explicit observer-frame correction
+(b) Demonstrates equality with current Phi-from-d=5 + (2√π) factor formulation
+(c) Identifies the explicit cascade-natural form of the observer-frame correction in mass formulas
+
+Once written, this verifier closes the roadmap item by demonstrating the structural unification.
+
 ## Closed in this development cycle
 
 ### θ_23 (CKM mixing angle 2↔3)
