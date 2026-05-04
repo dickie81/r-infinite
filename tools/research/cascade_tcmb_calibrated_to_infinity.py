@@ -194,6 +194,27 @@ def main() -> None:
         "antineutrinos in antipodal basin only -- still pushes T_CMB worse",
     ))
 
+    # READING 8: cascade-native no-annihilation + structural T_nu/T_gamma ratio.
+    # The required T_nu/T_gamma = (3/16)^(1/4) = (N_c/chi^4)^(1/4) = 0.6585.
+    # If the cascade structurally suppresses neutrino temperature by this
+    # specific ratio, T_CMB closes within 0.3%.
+    # 3/16 = N_c / chi^4 is built from cascade primitives:
+    #   N_c = 3 (colour count, Adams' theorem at d=12)
+    #   chi^4 = 16 (Euler characteristic of S^4 to the fourth power)
+    # The k=4 channel-count corresponds to "2 Bott periods spanned" in the
+    # Part IVb correction-family conventions, suggestive of a multi-generation
+    # neutrino-photon coupling path traversing both d=13 (Gen 2) and d=21 (Gen 1)
+    # boundaries from the photon's d=14 layer.  No derivation yet -- this is
+    # numerology with structural hints.
+    f4_form = N_c / 16  # = 3/16, leading-order match to ~0.3%
+    g_struct = 2 + (7/8) * 2 * 3 * f4_form  # N_eff = 3 (cascade exact)
+    T8 = T_leading * (g_eff_SM / g_struct) ** 0.25
+    readings.append(Reading(
+        "Reading 8: cascade no-annihilation + f^4 = N_c/chi^4 = 3/16",
+        T8,
+        "structural form (N_c, chi from Part 0/IVa); no derivation yet",
+    ))
+
     # Target g_eff for closure
     target_g = g_eff_SM / (T_obs / T_leading) ** 4
     target_f4 = (target_g - 2) / ((7/8) * 2 * N_eff_SM)
@@ -221,7 +242,7 @@ def main() -> None:
     print("SUMMARY")
     print("-" * 72)
     print()
-    # Indexing: readings = [R1, R2, R3-p0.5, R3-p1, R3-p1.5, R3-p2, R4, R5, R6, R7]
+    # Indexing: readings = [R1, R2, R3-p0.5, R3-p1, R3-p1.5, R3-p2, R4, R5, R6, R7, R8]
     rows = [
         ("Cascade leading (Part V Theorem)",         T_leading),
         ("Cascade Gram on H_0 (delta_path(5,217))",  T_gram_217),
@@ -232,6 +253,7 @@ def main() -> None:
         ("Reading 5: g_eff = N_c = 3",               readings[7].T_CMB),
         ("Reading 6: cascade no-annihilation 2dof",  readings[8].T_CMB),
         ("Reading 7: cascade no-annihilation 1dof",  readings[9].T_CMB),
+        ("Reading 8: f^4 = N_c/chi^4 = 3/16",        readings[10].T_CMB),
         ("Observed (PDG / COBE-FIRAS)",              T_obs),
     ]
     print(f"  {'reading':<48} {'T_CMB (K)':>10}  {'residual':>10}")
@@ -253,7 +275,23 @@ def main() -> None:
     print(f"      1/N_c^2  = {1/9:.4f}")
     print(f"      1/(2*N_c)= {1/6:.4f}")
     print()
-    print("  No clean cascade-native derivation of f^4 yet identified.")
+    print()
+    print("STRUCTURAL READING: f^4 = N_c / chi^4 = 3/16")
+    print("  N_c = 3 (colour count, Adams' theorem at d=12)")
+    print("  chi = 2 (Euler characteristic of S^4)")
+    print("  k=4 in Part IVb's channel-count convention = 2 Bott periods spanned")
+    print()
+    print("  Closure precision under cascade-native no-annihilation (Reading 8):")
+    print(f"    g_eff = 2 + (7/8)(2)(N_eff=3)(3/16) = {2 + 7/8*2*3*3/16:.4f}")
+    print(f"    T_CMB = {T_leading * (g_eff_SM/(2+7/8*2*3*3/16))**0.25:.4f} K")
+    print(f"    dev   = {(T_leading*(g_eff_SM/(2+7/8*2*3*3/16))**0.25/T_obs - 1)*100:+.3f}%")
+    print()
+    print("  IMPORTANT: precision sensitivity to T_leading rounding.")
+    print("    T_leading = 2.642 K (Part V published, 4 sig figs):")
+    print("      f^4 = 3/16 matches target to -0.27% (robust)")
+    print("    Higher-precision forms like N_c*R(12)^2/chi^12 = 0.18804")
+    print("      give apparent 0.014% match but are sensitive to T_leading.")
+    print("    The robust claim is: f^4 ~ N_c/chi^4 at standing precision.")
 
     # Interpretation guard rails
     print()
