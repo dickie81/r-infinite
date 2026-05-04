@@ -372,10 +372,16 @@ where $(T_\nu / T_\gamma)^4 = N_c / \chi^4 = 3/16 = 0.1875$. Both factors are ca
 
 This gives $g_\text{eff} = 2.984$ and $T_\text{CMB} = 2.726$ K, residual **+0.023%** — within standing cascade precision and *better* than Reading 5.
 
-**What is missing for Reading 8 to close.** The structural derivation requires:
-1. A cascade-native bridge formula from $\Omega_r$ to $T_\text{CMB}$ — Part V's $\Omega_r = 1/(4\pi^7)$ derivation is geometric (no thermodynamics), but the bridge to temperature imports SM thermodynamics. A cascade-native bridge would derive $T_\nu / T_\gamma$ structurally.
-2. Identification of the "2 Bott periods spanned" structure in T_CMB. Candidate: a multi-generation neutrino-photon coupling path traversing both $d=13$ (Gen 2 fermion home) and $d=21$ (Gen 1 fermion home) boundaries from the photon's $d=14$ layer. Speculative; not derived.
-3. Cross-check against other cosmological observables (BBN, recombination acoustic structure) to verify the cascade-native $T_\nu / T_\gamma = 0.658$ ratio is consistent with all phenomenology, not just T_CMB.
+**Structural derivation attempt:** [`tools/research/cascade_f4_derivation_attempt.py`](tools/research/cascade_f4_derivation_attempt.py) lays out the plausibility argument with explicit cascade-native ingredients and identifies three logical gaps preventing it from being a proof:
+- **GAP 1**: Step C (photons pick up N_c multiplicity at the gauge window) is unjustified. Standard QFT: photons don't see colour. Cascade would need to derive why radiation thermodynamic counting at the gauge window gives photons an N_c factor.
+- **GAP 2**: Step B (basin filter is χ⁴ rather than χ¹ or χ²) is unjustified. Each spatial dimension carrying an independent χ=2 basin is plausible from S⁴ + 4D Lovelock, but multiplicativity in radiation thermodynamics is not derived.
+- **GAP 3**: No cascade-native bridge from Ω_r to T_CMB. Part V uses SM g_eff = 3.383 as input. Closing would require deriving g_eff cascade-natively at *recombination* temperature, not just at T_RH (where Part VI `prop:g_eff` already does it).
+
+**Cascade-native ingredients (all sourced):** χ(S⁴) = 2 (Part IVb `thm:chirality-factorisation`); 4 spatial dims forced (Lovelock, Part III); N_c = 3 (Part IVa `thm:adams`); left-handed neutrinos (Part IVa+IVb); no e⁺e⁻ annihilation in our basin (CLAUDE.md sign-anchor); cascade-native g_eff(T_RH) = 106.75 = SM exactly (Part VI `prop:g_eff`).
+
+**Priority next work:** Gap 3 is the root cause — derive a cascade-native bridge formula from Ω_r (geometric, derived in Part V Theorem on Ω_r) to T_CMB that propagates through the gauge window {d=12, 13, 14} with explicit multiplicity factors at each layer crossing. Part VI `prop:g_eff` already does this at T_RH (sums over distinguished layers). The cascade just needs the analogous derivation at recombination temperature, where most layers have decoupled and only photon (d=14) + neutrino (d=21, 13, 5) layers contribute. If that derivation independently yields photon × N_c and neutrino × 1/χ⁴ weightings, Reading 8 closes structurally.
+
+**Cross-check still required:** the cascade-native (T_ν/T_γ)⁴ = N_c/χ⁴ should be consistent with BBN (light-element abundances), recombination acoustic-peak positions, and N_eff measurements (which currently use SM (4/11)^(4/3) implicitly).
 
 **Precision sensitivity caveat.** The match $f^4 = 3/16$ to target $0.188$ is at $\sim 0.27\%$ — robust to T_leading rounding. Higher-precision forms like $N_c \cdot R(12)^2 / \chi^{12}$ give apparent $0.014\%$ matches but are sensitive to $T_\text{leading} = 2.642$ K rounding to 4 sig figs (verifier sensitivity check). The honest claim is: **$f^4 \approx N_c/\chi^4$ at standing precision**, not exact algebraic identity.
 
