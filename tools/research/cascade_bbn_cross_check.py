@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 """
-*** PARTIALLY SUPERSEDED 2026-05-04 ***
-The Reading 8 derivation route this verifier was testing has been retracted
-(see ROADMAP Item 12 retraction).  Cascade Phase D follows standard
-Boltzmann thermodynamics per Part VI sec:bigbang -- e+e- annihilation
-DOES occur normally at T ~ m_e in cascade.
+*** REVISED 2026-05-04 evening ***
+Earlier "supersession" was based on Part VI's Tier 5 "Phase D = SM Boltzmann"
+reading; that retraction has been walked back.  Part VI's Tier 5 status
+(line 1316-1383) means it is NOT sufficient to compel cascade predictions.
 
-The numerical conclusions of this verifier remain CORRECT as a falsification
-test:
+Numerical findings in this verifier STAND as a falsification test:
   - Uniform application of f^4 = N_c/chi^4 to all epochs FAILS BBN
     (factor 2.5-3.5 off).
-  - Case 3 (cascade = SM Boltzmann thermodynamics throughout) is what the
-    cascade ACTUALLY DOES per Part VI -- this is the correct cascade
-    behaviour, not a fallback.
-  - Case 4 (epoch-dependent transition with e+ migration at T=m_e) was a
-    proposed rescue for Reading 8 and is also retracted.
+  - Case 3 (cascade = SM Boltzmann throughout) is one Tier 5 reading
+    (Part VI's).  Case 4 (epoch-dependent with cascade transition at
+    T=m_e) is another Tier 5 reading.
+  - Reading 8 viable ONLY under epoch-dependent rule; the structural
+    mechanism for the transition is genuinely open.
 
-The cascade in Phase D is SM-thermodynamic with cascade-derived masses.
-T_CMB residual stays at -3.07% (Part V leading) per current cascade
-prediction.
+The cascade has not derived post-Big-Bang thermodynamics cascade-natively
+in any Tier 1-3 form.  Part VI's reading and Reading 8's reading are
+both speculative.  T_CMB closure remains an open problem at the same
+status as Part V Remark rem:tcmb-descent-dependent.
 
 BBN cross-check for cascade Reading 8.
 

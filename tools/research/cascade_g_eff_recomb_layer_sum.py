@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-*** RETRACTED 2026-05-04 ***
-Built on the wrong premise that cascade has no e+e- annihilation in our
-basin.  Per Part VI sec:bigbang and sec:particles, cascade Phase D follows
-standard Boltzmann thermodynamics with cascade-derived masses.  See
-ROADMAP Item 12 retraction.
+*** RETRACTION WALKED BACK 2026-05-04 evening ***
+Earlier retraction was over-confident.  Part VI's Phase D = SM Boltzmann
+reading is Tier 5 speculation (Part VI line 1316-1383); retracting Reading
+8 on Tier 5 evidence is unsound.
 
-Retained for transparency.  Original content below.
+Reading 8's structural ingredients (basin symmetry, sector-dim ratio,
+channel-count rule) are Tier 1 cascade-native.  Part VI's competing
+reading is Tier 5 speculation.  Both are exploratory.  This layer-sum
+analysis STANDS as a structural derivation attempt.
 
 Cascade-native g_eff at recombination via Part VI prop:g_eff template
 extended to T_recomb.

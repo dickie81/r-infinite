@@ -1,25 +1,27 @@
 #!/usr/bin/env python3
 """
-*** RETRACTED 2026-05-04 ***
-This derivation attempt was built on a misreading of cascade thermodynamics.
-The premise "cascade has no e+e- annihilation in our basin" is wrong.
+*** RETRACTION WALKED BACK 2026-05-04 evening ***
+The earlier retraction was based on Part VI's "Phase D = SM Boltzmann"
+reading, which Part VI itself classifies as Tier 5 (speculative; line
+1316-1383).  Per CLAUDE.md, Tier 5 results are explicitly NOT sufficient
+to compel cascade predictions, so retracting Reading 8 on Tier 5 evidence
+is unsound.
 
-Per Part VI Section sec:bigbang and sec:particles: post-Big-Bang (Phase D)
-cascade follows standard Boltzmann-equation thermodynamics with cascade-
-derived masses.  e+e- pairs DO annihilate at T ~ m_e in cascade Phase D,
-exactly as in SM.  The (4/11)^(4/3) factor is correct cascade physics.
+Reading 8's structural ingredients are Tier 1 cascade-native:
+  - Basin symmetry chi(S^4)=2 (Part IVb thm:chirality-factorisation)
+  - Sector-dim-ratio mechanism (Part IVb thm:sector-fundamental-y)
+  - Channel-count rule k = 2*(Bott periods spanned) (Part IVb)
 
-The basin separation (Part IVb thm:chirality-factorisation) is cosmic
-global -- the antipodal basin is "anything beyond our cosmological horizon"
-(CLAUDE.md sign-anchor) -- NOT a local thermodynamic constraint within our
-basin.
+Part VI's "single-tick Big Bang" + "Phase D follows SM Boltzmann" reading
+is Tier 5 speculation.  The cascade has NOT derived post-Big-Bang
+thermodynamics cascade-natively; it has imported SM Boltzmann.
 
-This file is retained for transparency about the wrong-path exploration.
-The numerical near-match f^4 ~ N_c/chi^4 = 3/16 (off 0.27%) remains
-striking but is NOT a cascade derivation candidate via the no-annihilation
-route.  See ROADMAP Item 12 retraction.
+Reading 8 is an ALTERNATIVE Tier 5 speculative reading -- but built on
+Tier 1 ingredients.  Both readings are exploratory; neither compels
+belief at the cascade's standing tier discipline.
 
-ORIGINAL CONTENT BELOW (do not use):
+This file STANDS as a structural derivation attempt (with the gaps
+identified below).  The retraction was over-confident.
 
 T_CMB Reading 8 structural derivation attempt:
     f^4 = (T_nu / T_gamma)^4 = N_c / chi^4 = 3/16
