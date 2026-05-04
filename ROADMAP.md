@@ -384,6 +384,23 @@ This gives $g_\text{eff} = 2.984$ and $T_\text{CMB} = 2.726$ K, residual **+0.02
 
 **Important update — the path to closure is now concrete.** Earlier framings of the T_CMB closure as "needs new structural mechanism" overstated the gap. The N_c factor has a *derived* cascade mechanism (sector dimension ratio); what remains is *extending* it from hypercharge ratios to radiation thermodynamic counting. This is structural extension within existing cascade machinery, not a new theorem.
 
+**Layer-sum analysis identifies the key structural commitment.** [`tools/research/cascade_g_eff_recomb_layer_sum.py`](tools/research/cascade_g_eff_recomb_layer_sum.py) extends Part VI `prop:g_eff` (which sums over distinguished layers at T_RH) to recombination temperature. Two candidate rules give substantially different predictions:
+
+| Rule | g_eff at recomb | T_CMB | dev |
+|---|---|---|---|
+| **Rule A: per-generation descent** (each ν gets own descent factor) | 5.39 | 2.35 K | **−13.72%** (ruled out) |
+| **Rule B: unified sector** (all ν get d=21 descent factor) | 2.98 | 2.73 K | **+0.023%** (Reading 8) |
+
+Reading 8 = Rule B. **The cascade must commit to the unified sector rule for Reading 8 to close.** The structural justification: the cascade path-tensor $V_{12} \otimes V_{13} \otimes V_{14}$ (Part IVa `rem:path-tensor`) couples all 3 neutrino generations within the same Hilbert-space sector; cascade radiation samples this unified sector with descent factor set by maximal extension at d=21.
+
+**Falsifiability test for Rule A vs Rule B:** Rule A predicts cosmic neutrino background dominated by ν_τ (weighted to d=5 home); Rule B predicts equal weighting across generations. CnB measurement (e.g. PTOLEMY) could distinguish. More immediately, Reading 8 (Rule B) agrees with observed T_CMB at +0.023%; Rule A disagrees at −14%. This is current evidence for Rule B.
+
+**Concrete remaining structural work:**
+1. Derive the unified sector rule from cascade path-tensor primitives.
+2. Justify "maximal extension d=21" over alternatives (e.g. why not d=29 source layer?).
+3. Derive boson transparency at gauge layers from cascade fermion-gauge coupling structure.
+4. Cross-check against BBN epoch (T ~ 1 MeV) — same unified-sector rule should give g_eff ~ 10.75 there if it's the right cascade prescription.
+
 **Priority next work:** Gap 3 is the root cause — derive a cascade-native bridge formula from Ω_r (geometric, derived in Part V Theorem on Ω_r) to T_CMB that propagates through the gauge window {d=12, 13, 14} with explicit multiplicity factors at each layer crossing. Part VI `prop:g_eff` already does this at T_RH (sums over distinguished layers). The cascade just needs the analogous derivation at recombination temperature, where most layers have decoupled and only photon (d=14) + neutrino (d=21, 13, 5) layers contribute. If that derivation independently yields photon × N_c and neutrino × 1/χ⁴ weightings, Reading 8 closes structurally.
 
 **Cross-check still required:** the cascade-native (T_ν/T_γ)⁴ = N_c/χ⁴ should be consistent with BBN (light-element abundances), recombination acoustic-peak positions, and N_eff measurements (which currently use SM (4/11)^(4/3) implicitly).
