@@ -374,6 +374,46 @@ The structural ingredients of Reading 8 are cascade-native (Tier 1 basin symmetr
 
 **The earlier "RETRACTED" framing in this section was over-confident.** I treated Part VI's Tier 5 framing as load-bearing when Part VI itself flags it as speculative. Returning to honest exploration:
 
+**Static B^∞ reading as third structural commitment.** [`tools/research/cascade_static_binfty_thermal.py`](tools/research/cascade_static_binfty_thermal.py) explores whether the cascade's deepest ontology (B^∞ static, all dimensions exist eternally) combined with basin symmetry operating throughout cosmic history yields a coherent BBN+T_CMB picture.
+
+**Under static B^∞:**
+- All cascade layers exist eternally, including d=217. No "Big Bang creation event."
+- Pre-217 matter exists in **structural occupancy** (cascade Hilbert space populated, basin symmetry operative); post-217 matter has **observable thermal occupancy** at d=4.
+- The N=217 transition is **observational accessibility change**, not creation.
+- Basin symmetry χ(S⁴)=2 (Tier 1) operates at all epochs, including BBN.
+
+**What changes at "N=217":** structural matter content becomes thermally accessible to the d=4 observer. Pre-217 matter has a "different character" (not in thermal bath); post-217 it's thermally observable. The cascade's static ontology is preserved.
+
+**BBN implications under static B^∞ + local basin filter:**
+
+| Reading | g_eff(BBN) | dev vs SM 10.75 | Status |
+|---|---|---|---|
+| **X1**: basin filter local, no Reading 8 (e⁻ + 3 ν_L only) | 6.38 | **−41%** | INCONSISTENT with BBN |
+| **X2**: basin filter local + Reading 8 (N_c/χ⁴ on all fermions) | 2.82 | **−74%** | RULED OUT |
+| **X3**: epoch-dependent activation at T ~ m_e | 10.75 | 0% | passes BBN, allows R8 at recomb (needs Tier 5 mechanism) |
+| **X4**: cascade non-Boltzmann thermal physics | undetermined | n/a | speculative, no derivation |
+
+**What this finding shows:**
+- **Static B^∞ alone does NOT determine cascade thermodynamics.** B^∞ is the ontology; thermal physics is a separate structural derivation.
+- **Uniform local basin filter fails BBN** (X1, X2 ruled out).
+- **The B^∞ ontology + Reading 8 closure requires either** epoch-dependent activation (X3, Tier 5) or non-Boltzmann cascade-native thermal physics (X4, speculative).
+- **Part VI's reading (a)** corresponds to "basin filter only operates globally, local thermal physics is SM Boltzmann" — Tier 5, gives T_CMB residual −3.07%.
+
+**The three competing Tier 5 readings of cascade thermodynamics:**
+1. **Part VI reading**: cascade Phase D = SM Boltzmann with cascade masses. T_CMB residual stays at −3.07%. Imports SM thermodynamics into cascade framework.
+2. **Reading 8 + X3 epoch-dependent**: basin filter activates at T ~ m_e, gives Reading 8 closure at recombination, matches SM at BBN. Requires Tier 5 mechanism for the activation.
+3. **Static B^∞ + X4 non-Boltzmann thermal**: cascade has its own thermal physics not yet articulated. Speculative.
+
+**Genuine open structural question:** what is cascade-native post-Big-Bang thermodynamics?
+
+The cascade has Tier 1 ingredients (B^∞ static, basin symmetry, sector-dim mechanism) but has *not* derived thermal physics rigorously beyond:
+- Part V's import of SM g_eff = 3.383 at recombination (acknowledged as the open problem)
+- Part VI's `prop:g_eff` = 106.75 at T_RH (Tier 3, cascade-native layer sum)
+
+Closing T_CMB requires deriving cascade-native thermal physics structurally — which is the genuine work, not resolvable by ontological arguments alone. The user's insight (matter pre-217 with different character; static B^∞ as base ontology) sharpens the question but does not yet answer it.
+
+**Updated Reading 8 status:** Tier 5 candidate, requires either X3 (epoch-dependent) or X4 (non-Boltzmann) cascade thermal physics. Part VI's competing Tier 5 reading also requires structural derivation it has not yet provided. The question is genuinely undetermined at current cascade tier discipline.
+
 **Context.** ROADMAP Item 11 (cascade UV convergence) clarified that the cascade extends structurally to d=∞ rather than terminating at d=217. The cosmological constant is calibrated AT d=217 (so its Gram path correctly truncates there), but T_CMB is *not* calibrated at any specific landmark — it is derived thermodynamically from Ω_r, M_Pl,red, H_0, and g_eff. This raises the question of whether T_CMB should pick up its own Gram correction with δ_path(5, ∞) ≈ 0.02165 rather than the H_0-inherited δ_path(5, 217) ≈ 0.02108.
 
 **Numerical readings tested** (none structurally derived):
