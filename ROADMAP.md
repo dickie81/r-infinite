@@ -334,9 +334,34 @@ What does NOT change (numerical observables):
 
 This roadmap item resolves an interpretive ambiguity about cascade structure without changing any numerical predictions. Consistent with cascade block-universe ontology and higher Bott layer predictions.
 
-### 12. T_CMB closure under "cascade extends to d=∞" — exploratory, no closure yet
+### 12. T_CMB closure under "cascade extends to d=∞" — exploratory, RETRACTED Readings 6–8
 
 **Status:** EXPLORATORY only. The Part V leading prediction T_CMB = 2.642 K (−3.07%) and the H_0-propagated Gram correction T_CMB ≈ 2.669 K (−2.07%) remain the cascade's stated predictions. Closing the residual remains an open problem (Part V Remark `rem:tcmb-descent-dependent` explicitly flags it as such). Verifier: [`tools/research/cascade_tcmb_calibrated_to_infinity.py`](tools/research/cascade_tcmb_calibrated_to_infinity.py).
+
+**RETRACTION (2026-05-04):** Readings 6, 7, 8 below were built on a **misreading of cascade thermodynamics** — specifically, the claim that "the cascade has no e⁺e⁻ annihilation in our basin" was wrong. Per Part VI Section `sec:bigbang` and Section `sec:particles`:
+
+> "Standard cosmology's 'heavy particles froze out first' ordering is a statement about post-Big-Bang thermal equilibrium and decoupling at specific temperatures T ~ m. ... Both orderings are **compatible**: the structural features exist in the cascade order during inflation; **the observable occupancies then freeze out in thermal order after the Big Bang according to standard Boltzmann-equation dynamics with cascade-derived masses**." (Part VI line 819-826)
+
+The cascade Big Bang is the discrete N=217 phase transition where vacuum energy thermalises in one Planck tick into the cascade's $w=1/3$ metric content (Part VI `thm:reheating`). **Post-Big-Bang (Phase D), the cascade follows standard Boltzmann-equation thermodynamics with cascade-derived masses.** This means:
+- e⁺e⁻ pairs DO exist in cascade Phase D thermal bath at high T.
+- e⁺e⁻ DO annihilate at T ~ m_e in cascade Phase D, exactly as in SM.
+- BBN proceeds normally with g_eff = 10.75.
+- The (4/11)^(4/3) post-annihilation entropy factor IS correct cascade physics in Phase D, NOT an SM artifact.
+
+The basin separation (Part IVb `thm:chirality-factorisation`) is **cosmic global** — the antipodal basin is "anything beyond our cosmological horizon" (CLAUDE.md sign-anchor). It is NOT a local thermodynamic constraint within our basin. e⁺e⁻ annihilation happens locally in our basin's thermal bath; it does not transfer particles between basins.
+
+**Consequences of the retraction:**
+- **Readings 6 and 7 are vacated** (built on wrong premise).
+- **Reading 8 is retracted as a cascade derivation candidate.** Its numerical near-miss (T_CMB to +0.02% under f⁴ = N_c/χ⁴) remains striking, but the structural derivation route I attempted (no-annihilation + sector-dim-ratio + basin filter) is NOT cascade-native — the cascade does NOT have local no-annihilation in our basin.
+- **The BBN cross-check finding stands** as a correct rule-out of any "uniform Reading 8" interpretation.
+- **GAP 4 (e⁺ migration at T=m_e) is retracted** — there is no such migration in cascade Phase D; e⁺ annihilate normally with e⁻.
+- **Cascade T_CMB residual stays at −3.07% (Part V leading) or −2.07% (Gram-corrected H_0).** Closure remains an open problem with the same status as Part V Remark `rem:tcmb-descent-dependent`: "absorbing g_eff into a cascade-intrinsic counting rule, which is an open problem."
+
+**The remaining open question is genuinely:**
+- Is the −3% T_CMB residual a second-order Gram correction (computable cascade-natively but not yet computed)?
+- Or is there a cascade-internal counting rule that gives slightly different g_eff at recombination than SM 3.383?
+
+The earlier framing (basin separation → unified sector → Reading 8) is closed as a wrong path. The 0.27% near-match between f⁴_required and 3/16 may yet be a hint of something cascade-native, but not via the route I attempted.
 
 **Context.** ROADMAP Item 11 (cascade UV convergence) clarified that the cascade extends structurally to d=∞ rather than terminating at d=217. The cosmological constant is calibrated AT d=217 (so its Gram path correctly truncates there), but T_CMB is *not* calibrated at any specific landmark — it is derived thermodynamically from Ω_r, M_Pl,red, H_0, and g_eff. This raises the question of whether T_CMB should pick up its own Gram correction with δ_path(5, ∞) ≈ 0.02165 rather than the H_0-inherited δ_path(5, 217) ≈ 0.02108.
 
