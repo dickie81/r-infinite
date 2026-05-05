@@ -79,9 +79,21 @@ See Part IVb Proposition `prop:source-selection` and the open question `oq:sourc
 
 **Status:** Each observable's leading deviation matches `±α(d*)/χ^k` with unit source strength (no fitted prefactor). Why magnitude exactly 1 — i.e., why the source coefficient is exactly α(d*) at distinguished layers — has not been derived from cascade primitives. Conjectured to follow from the Wronskian normalisation of the cascade Green's function on the layer lattice.
 
-### 4. Sign rule — descent-vs-geometric classification (CLOSED at rule level, 8/8)
+### 4. Sign rule — promoted to Theorem in Part IVb (Tier 2 with 2/3 cases structurally forced)
 
-**Status:** CLOSED at the empirical-rule level. The descent-vs-geometric classification predicts all 8 sign assignments correctly. Verifier: [`tools/research/cascade_sign_rule_attempt.py`](tools/research/cascade_sign_rule_attempt.py).
+**Status:** PROMOTED TO THEOREM at Tier 2. Surfaced in Part IVb as `thm:sign-rule` with three-case proof structure. Verifier: [`tools/research/cascade_sign_rule_attempt.py`](tools/research/cascade_sign_rule_attempt.py).
+
+**Theorem statement:** For an observable Q of population class given by Definition `def:population-class`, sign(δΦ) = +1 if Q is Descent, −1 if Q is Geometric or Amplitude.
+
+**Three-case proof (Part IVb `thm:sign-rule`):**
+
+| Case | Forcing mechanism | Status |
+|---|---|---|
+| **Descent (5 obs)** | Cauchy-Schwarz on Part 0 Gram deficit Σ(1-C²)>0 | **STRUCTURALLY FORCED** |
+| **Geometric Ω_m (1 obs)** | Bott-vs-lapse theorem Ω_m^Bott < Ω_m^lapse = 1/π | **STRUCTURALLY FORCED** |
+| **Amplitude (3 obs)** | Chirality basin subtraction (cascade leading sums both basins; observation single-basin; correction subtracts antipodal) | sketched + open: explicit Born-rule overlap calc requires closed-form Green's function |
+
+Two of three cases are theorem-level forced; the Amplitude case is sketched via chirality decomposition (`thm:chirality-factorisation`) but the explicit Born-rule overlap calculation requires the closed-form discrete Green's function on the cascade configuration space, currently available numerically only.
 
 **The rule:**
 - **Descent-population observables** (computed via cascade descent integral Φ(d) = Σ p(d'); includes exp(-Φ(d_g)), Φ(d_B)-Φ(d_A), compliance-anchored couplings) → **+ sign**
