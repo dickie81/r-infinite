@@ -27,7 +27,7 @@ _REPO = os.path.dirname(_TOOLS)
 sys.path.insert(0, _TOOLS)
 
 import matplotlib.pyplot as plt
-from mpmath import log10, mp
+from mpmath import digamma, log, log10, mp, mpf, pi as mppi
 
 from cascade_constants import mp as cmp  # arbitrary-precision backend
 
@@ -41,6 +41,21 @@ log_omega = [float(log10(v)) for v in omega]
 omega_float = [float(v) for v in omega]
 
 peak_d = max(ds, key=lambda d: omega_float[d])
+
+# Slope of log10(Omega_d) at any d (continuous derivative):
+#   d/dd log Omega_d = (1/2) log pi - (1/2) psi((d+1)/2)
+# Convert to log10 by dividing by ln 10.
+def log10_slope(d):
+    return float((mppi.ln() / 2 - digamma(mpf(d + 1) / 2) / 2) / log(10))
+
+
+# Tangent line to log10(Omega_d) at the peak — slope ~ 0 there, but use
+# the secant from peak_d to peak_d+1 for a clean visual reference of
+# "what pure-exponential decay matching the post-peak rate would look
+# like."  Past the peak Omega_d sits strictly below this line because
+# the slope keeps getting more negative — the super-exponential signature.
+ref_slope = log_omega[peak_d + 1] - log_omega[peak_d]  # log10 units / dim
+ref_line = [log_omega[peak_d] + ref_slope * (d - peak_d) for d in ds]
 
 out_dir = os.path.join(_REPO, "src", "generated", "sphere_area")
 os.makedirs(out_dir, exist_ok=True)
@@ -67,9 +82,20 @@ ax.legend()
 ax.grid(alpha=0.3)
 
 ax = axes[1]
-ax.plot(ds, log_omega, lw=1.4, color="#d62728")
-ax.axvline(peak_d, color="grey", ls="--", lw=0.8, alpha=0.7,
-           label="peak at $d = {}$".format(peak_d))
+ax.plot(ds, log_omega, lw=1.4, color="#d62728", label=r"$\log_{10}\Omega_d$")
+ax.plot(ds, ref_line, lw=1.0, ls=":", color="#888",
+        label=("exponential reference\n"
+               "(slope at $d={}$, ${:+.3f}$ / dim)").format(peak_d, ref_slope))
+ax.axvline(peak_d, color="black", ls="--", lw=1.0, alpha=0.85)
+ax.annotate(
+    ("super-exponential\n"
+     "decay starts here\n"
+     r"($d = {}$, peak)").format(peak_d),
+    xy=(peak_d, log_omega[peak_d]),
+    xytext=(35, -25),
+    fontsize=9,
+    arrowprops=dict(arrowstyle="->", color="black", lw=0.8),
+)
 for d_mark in (4, 7, 12, 24, 56, D_MAX):
     if d_mark <= D_MAX:
         ax.plot(d_mark, log_omega[d_mark], "ko", ms=4)
@@ -80,7 +106,13 @@ ax.set_xlabel("sphere dimension $d$")
 ax.set_ylabel(r"$\log_{10}\,\Omega_d$")
 ax.set_title(r"Log scale: super-exponential decay from $\Gamma(d/2)$")
 ax.set_xlim(0, D_MAX)
-ax.legend()
+# Cap the y-axis so the exponential reference line doesn't blow the scale
+# (it would go to ~-15 at d=217 if slope at d=peak is shallow; bound it
+# tightly to the actual data range with a small margin).
+y_lo = min(log_omega) - 5
+y_hi = max(log_omega) + 5
+ax.set_ylim(y_lo, y_hi)
+ax.legend(loc="upper right", fontsize=8)
 ax.grid(alpha=0.3)
 
 fig.suptitle(r"Surface area of $S^d$ for $d = 0,\ldots," + str(D_MAX) + r"$",
