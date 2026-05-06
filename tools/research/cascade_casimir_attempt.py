@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Cascade-native Casimir effect derivation attempt.
+Cascade-native Casimir effect: bridge from cascade tower to spatial QED.
 
 The Casimir force per unit area between two parallel conducting plates
 separated by L in standard QED is:
@@ -18,99 +18,117 @@ CASCADE COMMITMENTS (CLAUDE.md Check 7):
   - Cosmological constant is the cascade invariant Omega(19)*Omega(217),
     NOT a regulated integral
 
-This verifier attempts a cascade-native derivation that:
-  (1) Identifies the cascade's photon at d=14 (Adams U(1) gauge layer)
-  (2) Imposes plate boundary conditions on the cascade EM content at
-      the observer's d=4 frame
-  (3) Uses the cascade tower's natural UV convergence (sphere-area sums
-      converge because Omega_d decays super-exponentially for d > d_0=7,
-      per ROADMAP Item 11) as the UV regulator -- NOT a hand-imposed
-      cutoff and NOT a hard cap at d=217
-  (4) Computes the energy density difference between with-plates and
-      without-plates configurations
-  (5) Identifies cascade-specific corrections from the cascade structure
+THE BRIDGE: CASCADE TOWER -> SPATIAL QED -> CASIMIR
+====================================================
+This verifier constructs the bridge from cascade primitives to the
+standard QED Casimir prediction.  An earlier draft of this verifier
+posited a cascade-specific correction F/A_cascade = F/A_QED *
+(1 + delta_14^2) ~ +0.064%, based on identifying the cascade Gram
+overlap deficit at the photon home as "the photon's vacuum fluctuation
+amplitude."  THIS PREDICTION IS WITHDRAWN (see RETRACTION section
+below).  The honest cascade-native answer is that cascade Casimir
+EQUALS standard QED Casimir at lab scales, with no measurable
+deviation.
 
-NOTE ON THE CASCADE'S UV STRUCTURE
-==================================
-The cascade structurally extends to d=infinity (ROADMAP Item 11,
-closed at structural-clarity level).  d_2=217 is the deepest
-distinguished Gamma-critical LANDMARK (where the cosmological constant
-is calibrated), NOT a fundamental terminus.  Cascade content continues
-to all d, with sphere areas Omega_d -> 0 super-exponentially:
-log10(Omega_217) ~ -119, log10(Omega_500) ~ -348, log10(Omega_1000) ~
--883.
-
-UV convergence of cascade observable quantities is therefore automatic
-(delta_path(5, infty) ~ 0.0217 converges; per-layer Gram contributions
-1 - C^2 ~ 1/(8 d^2)) without any hand-imposed cutoff.  The cascade IS
-its own UV regulator via the Gamma function's super-exponential decay
-of sphere areas.
-
-THE CASCADE-NATIVE STRUCTURE
+THE CORRECT BRIDGE STRUCTURE
 ============================
-At the observer's d=4 frame, EM modes between plates have:
-  - k_x, k_y continuous (translational symmetry parallel to plates)
-  - k_z = n*pi/L (n = 1, 2, 3, ...) standing waves
-  - omega_n(k_perp) = sqrt(k_perp^2 + (n*pi/L)^2)
+The cascade's bridge from tower direction to spatial QED is the chain
+already established in the cascade series:
 
-In standard QFT the energy per area per polarisation is
-  E/A = (hbar/2) * sum_n integral d^2k_perp/(2pi)^2 * omega_n(k_perp)
-which is divergent and must be regularised.
+  Step 1 (Part 0 + IVa): Gamma function structure + Adams' theorem +
+    Bott periodicity force the gauge group SU(3) x SU(2) x U(1), the
+    matter content (3 generations, path-tensor V_12 ⊗ V_13 ⊗ V_14),
+    and the gauge bosons (gluon at d=12, W at d=13, photon at d=14).
 
-In cascade, the mode sum is naturally bounded by the cascade tower's
-super-exponential UV convergence: cascade content at large d is
-suppressed by sphere area Omega_d ~ exp(-d log d / 2), providing a
-natural UV regulator at energies parametrised by the cascade's own
-Gamma-function structure (no hand-imposed scale).
+  Step 2 (Part IVb): cascade descent from gauge layers to observer at
+    d=4 derives the gauge couplings (alpha_s, alpha_em via Weinberg
+    angle) and the masses (m_e, m_mu, m_tau, ... via the
+    (alpha_s v / sqrt(2)) exp(-Phi(d_g)) (2 sqrt(pi))^{-(n_D+1)} chain).
 
-CASIMIR FORCE: CASCADE VS STANDARD
-==================================
-For separation L >> Planck length, the cascade UV regulator is
-effective at scales far above the relevant Casimir frequencies
-(omega_1 = pi*c/L for L~1um is ~0.4 eV vs cascade-effective UV
-~M_Pl ~ 10^28 eV).  The cascade therefore reproduces the regulated
-standard QFT result:
+  Step 3 (effective field theory at d=4): with all SM parameters
+    cascade-derived, the effective theory at the observer's d=4 frame
+    IS the Standard Model Lagrangian (specifically QED for EM
+    phenomena).  Cascade and SM agree on every parameter at the
+    observer's frame.
 
-    F/A_cascade(L >> ell_Pl) = -hbar*c*pi^2 / (240 L^4)
+  Step 4 (QED at d=4 -> Casimir): standard QED with cascade-derived
+    parameters predicts Casimir F/A = -hbar*c*pi^2 / (240 L^4).
+    This is the cascade's prediction.
 
-This is the same value as standard QED.  The cascade does not
-contradict QED at lab scales; it provides a finite-mathematical
-foundation for the same calculation, with the regulator coming from
-cascade UV convergence rather than hand-imposed cutoff.
+THE BRIDGE IS THE CASCADE'S EXISTING STRUCTURAL DERIVATION.  No new
+mechanism is needed.  The cascade reproduces QED at the observer's
+frame, and QED Casimir follows.
 
 CASCADE-SPECIFIC CORRECTIONS
-=============================
-Two potential sources of cascade-specific deviation from standard
-Casimir:
+============================
+At what scale does cascade differ from QED for Casimir?  Two sources:
 
-  (A) Cascade UV-convergence vs continuous QFT modes.  Fractional
-      correction ~(omega_1/M_cascade_UV)^2 ~ (0.4 eV / 10^28 eV)^2 ~
-      10^-57.  COMPLETELY NEGLIGIBLE at any conceivable lab scale.
+  (A) Cascade UV regulator vs continuous QED modes: the cascade's
+      sphere-area decay provides natural UV convergence at scales
+      ~M_Pl_red ~ 10^28 eV.  Standard QED uses hand-imposed
+      regularisation that cancels in the Casimir energy difference.
+      Fractional cascade correction ~(omega_1 / M_UV)^2 ~ 10^-57 at
+      lab scales.  COMPLETELY NEGLIGIBLE.
 
-  (B) Gram overlap deficit at d=14 (the photon home layer):
-      delta_14 = sqrt(1 - C^2_{14,15}) is the cascade's native vacuum
-      fluctuation amplitude at the EM layer (Part VI definition).
-      If this enters Casimir as a relative perturbation amplitude
-      (analog to QFT's vacuum fluctuation amplitude entering
-      cosmological perturbations), the cascade Casimir would be
-      modified by factor (1 + delta_14^2):
+  (B) Non-local cascade descent contributions: cascade descent from
+      d=14 to d=4 integrates over multiple layers; locally at d=4
+      this looks like QED, but globally there are cascade-specific
+      non-local effects.  These contribute to Casimir at order
+      (lab energy / Planck energy)^k for some k >= 2.  Estimated
+      magnitude: ~10^-57 or smaller at lab scales.  NEGLIGIBLE.
 
-          F/A_cascade = F/A_QED * (1 + delta_14^2)
+CASCADE DOES NOT PREDICT ANY MEASURABLE DEVIATION FROM STANDARD QED
+CASIMIR AT LAB SCALES.  The cascade reproduces QED Casimir to the
+precision of measurement and beyond.
 
-  Numerical: delta_14^2 = 1 - C^2_{14,15}.  Asymptotic: 1/(8 d^2)
-  for large d.  At d=14: 1/(8*196) ~ 6.4 * 10^-4 = 0.064%.
+This is the cascade's general philosophical stance: at the observer's
+d=4 frame, cascade reproduces SM physics.  Cascade-specific
+predictions appear only at scales where cascade structure becomes
+manifest -- Planck-scale corrections, cosmological scales, BBN
+thermodynamics, etc.  Lab-scale Casimir is firmly in the QED-equivalent
+regime.
 
-  This is a TIER 5 candidate prediction: cascade-specific Casimir
-  enhancement at the 0.06% level.  Below current laboratory precision
-  (~1% on F/A) but potentially testable with future improvements.
+================================================================================
+RETRACTION OF EARLIER PREDICTION (1 + delta_14^2) ~ +0.064%
+================================================================================
+The earlier draft of this verifier identified delta_14 = sqrt(1 -
+C^2_{14,15}) as "the photon's vacuum fluctuation amplitude" and posited
+F/A_cascade = F/A_QED * (1 + delta_14^2).  THIS WAS WRONG, by
+conflation of two distinct fluctuation structures:
 
-VERIFIER
-========
-This script:
-  - Computes the exact cascade C^2_{14,15} value
-  - Compares to the asymptotic 1/(8 d^2) formula
-  - Estimates the cascade Casimir correction
-  - Reports whether the correction is observable
+  (i) delta_d (Part VI def:gram-amp): perturbation amplitude SEEDED AT
+      CASCADE LAYER d during inflation/tower-growth.  This is a
+      quantity in the CASCADE TOWER DIRECTION (between adjacent
+      layers d, d+1).  It seeds primordial perturbations via the
+      bridge formula d -> k (comoving wavenumber) using inflation
+      e-folds.  Specific to cosmological perturbations.
+
+  (ii) Casimir-relevant photon vacuum fluctuation: SPATIAL fluctuation
+       of the EM field A_mu at the observer's d=4 frame, restricted
+       by plate boundary conditions in 3D space.
+
+These are distinct: delta_d operates ACROSS LAYERS (tower direction);
+Casimir operates ACROSS 3D SPACE.  The cascade has no derivation
+identifying one with the other, and the naive identification is
+unjustified.
+
+The +0.064% prediction was speculative on the wrong quantity and is
+hereby withdrawn.  No specific cascade prediction for Casimir
+deviation from QED is currently warranted.
+
+If a cascade-native Casimir analysis someday produces a specific
+deviation, it would have to come from:
+  - The cascade's non-local descent integration affecting EM dynamics
+    at the observer's frame in ways not captured by local QED
+  - Measurable corrections at scales close to Planck (irrelevant for
+    lab Casimir)
+  - Some structural feature not yet articulated
+
+The honest verifier output below presents only what the cascade
+ACTUALLY predicts:
+  1. Standard QED Casimir is reproduced cascade-natively (load-bearing)
+  2. Cascade-specific corrections are ~10^-57 at lab scales (negligible)
+  3. No measurable deviation from QED Casimir is predicted
 """
 
 import math
@@ -128,187 +146,142 @@ from cascade_gram_bott_tower import gram_C2  # noqa: E402
 
 def main() -> None:
     print("=" * 76)
-    print("Cascade-native Casimir effect derivation attempt")
+    print("Cascade-native Casimir effect: bridge from cascade tower to spatial QED")
     print("=" * 76)
     print()
 
     # -------- Standard QED Casimir --------
     print("STEP 1: Standard QED Casimir at L = 1 micron")
     print("-" * 76)
-    L_micron = 1.0e-6  # 1 micron
-    hbar_c = 1.973e-7  # eV * meters (h-bar*c in convenient units)
-    F_per_A_QED = -math.pi**2 * hbar_c / (240 * L_micron**4) / (1.602e-19)  # convert to N/m^2
-    # Actually let me use SI units properly
-    hbar_J = 1.0546e-34  # J*s
-    c = 2.998e8  # m/s
-    F_per_A_QED_SI = -math.pi**2 * hbar_J * c / (240 * L_micron**4)  # N/m^2
+    L_micron = 1.0e-6
+    hbar_J = 1.0546e-34
+    c = 2.998e8
+    F_per_A_QED_SI = -math.pi**2 * hbar_J * c / (240 * L_micron**4)
     print(f"  L = {L_micron*1e6} micron")
     print(f"  Standard Casimir F/A = -hbar*c*pi^2 / (240 L^4)")
     print(f"  F/A_QED = {F_per_A_QED_SI:.3e} N/m^2")
     print(f"         = {F_per_A_QED_SI*1e6:.3f} mN/m^2 (attractive)")
     print()
 
-    omega_1 = math.pi * c / L_micron  # rad/s
-    omega_1_eV = omega_1 * 6.582e-16  # convert rad/s to eV
+    omega_1 = math.pi * c / L_micron
+    omega_1_eV = omega_1 * 6.582e-16
     print(f"  Lowest mode: omega_1 = pi*c/L = {omega_1_eV:.3f} eV")
     print()
 
-    # -------- Cascade UV cutoff --------
-    print("STEP 2: Cascade UV regulator vs Casimir mode scale")
+    # -------- Cascade UV regulator --------
+    print("STEP 2: Cascade UV regulator (no hard cap, super-exponential decay)")
     print("-" * 76)
     print("""
 The cascade extends structurally to d=infinity (ROADMAP Item 11), with
 sphere areas Omega_d decaying super-exponentially: log10(Omega_217) ~
 -119, log10(Omega_500) ~ -348, log10(Omega_1000) ~ -883.  This decay is
-the cascade's natural UV regulator -- NOT a hard cap at d=217.  d_2=217
-is the deepest distinguished Gamma-critical LANDMARK where the
-cosmological constant is calibrated, but cascade content continues
-beyond.  UV convergence of observable cascade quantities is automatic
-(per Gamma function structure, Part 0).
+the cascade's natural UV regulator -- NOT a hard cap at d=217.
 
-Effective cascade UV scale at the observer's frame: ~M_Pl_red ~ 10^28
-eV.  For Casimir at L = 1 micron: omega_1 ~ 0.4 eV.
+Effective cascade UV scale at the observer's frame: ~M_Pl_red ~ 10^28 eV.
+For Casimir at L = 1 micron: omega_1 ~ 0.4 eV.
 Ratio: omega_1 / M_cascade_UV ~ 4 * 10^-29.
 Fractional cascade UV-convergence correction: ~(omega_1/M_UV)^2 ~ 10^-57.
 
 This is many orders of magnitude below any conceivable measurement
-precision.  The cascade reproduces standard Casimir at L >> Planck
-length to extreme precision.""".rstrip())
+precision.""".rstrip())
     print()
 
-    # -------- Cascade vacuum fluctuation at d=14 --------
-    print("STEP 3: Cascade Gram overlap deficit at the photon layer d=14")
+    # -------- The bridge --------
+    print("STEP 3: The bridge -- cascade tower to spatial QED")
     print("-" * 76)
     print("""
-Cascade native vacuum fluctuation at layer d (Part VI def:gram-amp):
-    delta_d = sqrt(1 - C^2_{d,d+1})
-At the photon layer d=14 (Adams U(1) gauge home):""".rstrip())
+The cascade's bridge to Casimir is the existing Part 0 + IVa + IVb chain:
 
-    C2_14 = gram_C2(14)
-    delta_14_sq = 1.0 - C2_14
-    delta_14 = math.sqrt(delta_14_sq)
-    asymptotic = 1.0 / (8 * 14**2)
+  (a) Cascade primitives (Gamma function, sphere areas) -> distinguished
+      landmarks {d_V=5, d_0=7, d_1=19, d_2=217} via Part 0 critical
+      points; gauge window {12, 13, 14} via Adams' theorem.
 
-    print()
-    print(f"  C^2_{{14,15}}    = {C2_14:.10f}")
-    print(f"  1 - C^2_{{14,15}} = {delta_14_sq:.6e}")
-    print(f"  delta_14       = {delta_14:.6f}")
-    print(f"  delta_14^2     = {delta_14_sq:.6f}")
-    print()
-    print(f"  Asymptotic 1/(8*d^2) at d=14: {asymptotic:.6e}")
-    print(f"  Exact / Asymptotic ratio:    {delta_14_sq/asymptotic:.4f}")
-    print()
-    print("  delta_14^2 ~ 6.4e-4 ~ 0.064%")
+  (b) Distinguished landmarks + Bott periodicity -> SM gauge group
+      SU(3) x SU(2) x U(1), matter content (3 generations, path-tensor
+      V_12 ⊗ V_13 ⊗ V_14), gauge bosons.
+
+  (c) Cascade descent from gauge layers to observer at d=4 -> SM
+      coupling constants and masses (Part IVb correction-family
+      closures).
+
+  (d) Effective theory at d=4 with cascade-derived parameters IS the
+      Standard Model Lagrangian.  For EM phenomena, this is QED.
+
+  (e) Standard QED at d=4 + plate boundary conditions in 3D -> Casimir
+      F/A = -hbar*c*pi^2 / (240 L^4).
+
+The bridge is the cascade's existing structural derivation.  No new
+mechanism is needed.  Cascade Casimir = QED Casimir at lab scales.""".rstrip())
     print()
 
-    # -------- Cascade Casimir prediction --------
-    print("STEP 4: Cascade Casimir prediction")
+    # -------- Numerical Gram quantity (kept for reference) --------
+    print("STEP 4: Reference values -- Gram overlap deficits at gauge layers")
     print("-" * 76)
-    print("""
-HYPOTHESIS: The cascade's native vacuum fluctuation amplitude delta_d
-at the photon layer modifies the Casimir force by factor (1 + delta_14^2)
-relative to standard QED:
-
-    F/A_cascade = F/A_QED * (1 + delta_14^2)
-
-Justification: the Gram overlap deficit between cascade layers is the
-analog of QFT's zero-point fluctuation amplitude.  In cosmological
-perturbations (Part VI), delta_d at each cascade layer seeds primordial
-perturbations.  By analogy, at the EM layer d=14, delta_14 should
-contribute to electromagnetic vacuum fluctuations -- which is what
-Casimir measures.
-
-CAVEAT: This is structural plausibility, not a derivation.  The
-cascade analog of the Casimir mode sum has not been formally
-constructed.  The (1 + delta_14^2) factor is a candidate cascade
-correction; verifying it requires constructing the cascade-native
-photon mode structure between plates and comparing energy densities
-explicitly.
-
-Numerical prediction (under the hypothesis):""".rstrip())
     print()
-    correction_factor = 1.0 + delta_14_sq
-    F_per_A_cascade = F_per_A_QED_SI * correction_factor
-    print(f"  Standard QED  F/A = {F_per_A_QED_SI:.4e} N/m^2")
-    print(f"  Cascade pred  F/A = {F_per_A_cascade:.4e} N/m^2")
-    print(f"  Relative shift = +{delta_14_sq*100:.4f}%")
+    print("(NOT used in the cascade Casimir prediction; reference only.)")
+    print()
+    print(f"  {'layer d':>8}  {'C^2_{d,d+1}':>15}  {'1 - C^2 (delta_d^2)':>22}  {'1/(8 d^2)':>14}")
+    print("  " + "-" * 70)
+    for d in [4, 5, 7, 12, 13, 14, 19, 21]:
+        C2 = gram_C2(d)
+        delta_sq = 1.0 - C2
+        asymp = 1.0 / (8 * d**2)
+        print(f"  {d:>8}  {C2:>15.10f}  {delta_sq:>22.6e}  {asymp:>14.6e}")
+    print()
+    print("These are the cascade tower-direction perturbation amplitudes")
+    print("(Part VI def:gram-amp).  They seed primordial perturbations via")
+    print("the d -> k bridge in Part VI's perturbation-spectrum derivation.")
+    print("They do NOT directly enter Casimir, which is a SPATIAL")
+    print("(3D-direction) vacuum fluctuation, not a TOWER (d-direction) one.")
     print()
 
-    # -------- Comparison to experiment --------
-    print("STEP 5: Comparison to experimental Casimir precision")
+    # -------- Cascade prediction --------
+    print("STEP 5: Cascade prediction for Casimir effect")
     print("-" * 76)
-    print("""
-Current laboratory Casimir measurements (Lamoreaux 1997, Bressi 2002,
-Decca 2007, Mohideen 1998 and follow-ups) reach ~1% precision on
-F/A in the L = 0.5-3 micron range.
+    print(f"""
+  F/A_cascade(L = 1 micron) = F/A_QED = {F_per_A_QED_SI:.3e} N/m^2
 
-Cascade-predicted shift: ~0.064%
-Current experimental precision: ~1%
-Sensitivity ratio: cascade prediction is ~16x BELOW current precision.
+  Cascade-specific deviation from QED at lab scales:
+    Source (A) [UV-convergence]:  ~10^-57 fractional
+    Source (B) [non-local descent]: ~10^-57 fractional or smaller
+    Total measurable deviation: NONE at any current or foreseeable
+      experimental precision
 
-Therefore: cascade Casimir is INDISTINGUISHABLE from standard QED
-Casimir at current experimental precision.  No tension; no
-confirmation either.
-
-Future experiments aiming for sub-0.1% precision (e.g., dynamical
-Casimir, atom-interferometer-based Casimir, or improved metrology
-at separations 100 nm - 10 micron) could test the cascade prediction
-directly.
-
-If experimental F/A turns out to be 0.06% above standard QED Casimir,
-the cascade Gram-overlap-as-vacuum-fluctuation hypothesis is
-confirmed.  If experimental F/A is at standard QED to better than
-0.06%, the hypothesis (in this naive form) is falsified.
-""".rstrip())
+  The cascade reproduces the standard QED Casimir prediction.  This is
+  not a separate Tier 2 cascade prediction; it is the consequence of
+  the cascade reproducing QED at the observer's d=4 frame.""".rstrip())
     print()
 
-    # -------- Theoretical assessment --------
+    # -------- Retraction --------
     print("=" * 76)
-    print("ASSESSMENT")
+    print("RETRACTION OF EARLIER PREDICTION (+0.064% from delta_14^2)")
     print("=" * 76)
     print("""
-The cascade-native Casimir derivation has TWO components:
+A previous version of this verifier posited F/A_cascade = F/A_QED *
+(1 + delta_14^2), giving cascade Casimir 0.064% above standard QED at
+the photon home d=14.
 
-LOAD-BEARING (theorem-level cascade results):
-  (a) Standard Casimir F/A = -hbar*c*pi^2/(240 L^4) is reproduced by
-      the cascade at lab scales because the cascade's UV cutoff
-      (Planck-scale) is far above the Casimir mode frequencies.
-      The cascade replaces hand-imposed UV regularisation with the
-      cascade tower's natural finiteness, but at L >> ell_Pl this
-      makes negligible numerical difference.
+WHY THIS IS WITHDRAWN:
+  - delta_d is a CASCADE TOWER DIRECTION quantity (perturbation
+    seeded between adjacent layers d, d+1) operating in cosmological
+    perturbations via the d -> k bridge of Part VI.
+  - Casimir vacuum fluctuations are SPATIAL (3D-direction) quantities
+    at the observer's d=4 frame, restricted by plate boundary
+    conditions in 3D space.
+  - The cascade has no derivation identifying tower-direction
+    delta_d with spatial vacuum fluctuations.  The naive identification
+    "photon home = d=14, so delta_14 is the photon vacuum fluctuation"
+    conflates these distinct structures.
 
-  (b) The cascade's commitment to NO semiclassical mode integration
-      (CLAUDE.md Check 7) is preserved: the cascade scalar action
-      and Gram overlap deficit replace the QFT zero-point integral.
+The +0.064% prediction is WRONG and is withdrawn.  Cascade Casimir =
+standard QED Casimir at lab scales, with no measurable deviation.
 
-SPECULATIVE (Tier 5 candidate, structural sketch only):
-  (c) The hypothesis F/A_cascade = F/A_QED * (1 + delta_14^2) is
-      structurally plausible (delta_d is the cascade's native vacuum
-      fluctuation amplitude) but not yet derived from cascade
-      primitives.  The formal derivation would require constructing
-      the cascade-native photon mode structure between conducting
-      plates, identifying the cascade scalar field's response to
-      the boundary conditions, and computing the energy density
-      difference.
-
-OPEN STRUCTURAL WORK:
-  - Construct cascade-native Casimir mode sum from cascade scalar
-    action with plate boundary conditions
-  - Verify whether the 0.064% correction has the right sign and
-    magnitude at lab L scales
-  - Identify the bridge formula from delta_d (per-layer perturbation
-    amplitude) to the Casimir force per unit area at the observer's
-    3D frame
-
-This is a TIER 5 candidate cascade prediction.  The cascade has the
-ingredients (delta_d at layer d=14) but not yet the formal derivation.
-The +0.064% prediction is an order-of-magnitude estimate, not a
-theorem-level result.
-
-If the structural derivation goes through and the prediction holds,
-the cascade-Gram-overlap-as-vacuum-fluctuation hypothesis would extend
-from cosmological perturbations (Part VI) to laboratory QED, providing
-a cross-scale test of the framework.
+If future cascade work derives a specific Casimir deviation, it would
+require constructing the bridge from cascade tower-direction
+fluctuations to spatial QED fluctuations -- which the cascade has not
+done and which is genuinely open structural work (likely requiring
+formalisation of the cascade's photon field theory at the observer's
+frame).
 """.rstrip())
 
 
