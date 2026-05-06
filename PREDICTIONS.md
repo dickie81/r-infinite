@@ -89,5 +89,6 @@ Results where the argument has acknowledged gaps or needs strengthening.
 |---|---|
 | Ω_b = 1/(2π²) | "One unit of content on S³" argument needs strengthening |
 | n_s, A_s | Primordial spectrum not yet derived |
-| Correction selection rule | Observable-to-source assignment not fully derived from first principles |
 | Lighter neutrino masses, solar Δm², PMNS | Single-source diagonal form gives m_2 ≈ 3×10⁻⁴ eV and m_3 ≈ 3×10⁻⁶ eV, too small for the observed solar splitting; cascade analogue of inter-generation mixing not yet derived |
+
+(The "correction-family source-selection bijection" entry previously listed in Tier 5 has been removed: per Part IVb `prop:source-selection`, the 4-to-4 type-to-layer assignment is empirical 9/9 with structural uniqueness per pairing — the same rigour as the channel-count rule before its formal completeness proof. The categorical derivation of the syntactic flags from a formal cascade observable category remains open as ROADMAP Item 2, but does not affect any numerical prediction's tier classification: the bijection itself is established structurally.)
