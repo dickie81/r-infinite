@@ -283,6 +283,122 @@ done and which is genuinely open structural work (likely requiring
 formalisation of the cascade's photon field theory at the observer's
 frame).
 """.rstrip())
+    print()
+
+    # -------- Bridge analysis --------
+    print("=" * 76)
+    print("ON THE BRIDGE: WHAT'S MISSING FOR A CASCADE-SPECIFIC CASIMIR")
+    print("=" * 76)
+    print("""
+The cascade currently has THREE classes of fluctuation structure
+serving distinct physical roles:
+
+  CLASS I: Cascade tower fluctuations (delta_d at each layer d)
+    - Operate in the d-direction (between adjacent cascade layers)
+    - Quantitative: delta_d = sqrt(1 - C^2_{d,d+1}) ~ 1/(2 sqrt(2) d)
+    - Physical role: seed primordial perturbations during inflation
+      via the d -> k bridge of Part VI's inflation framework
+    - Active at: cosmological scales
+
+  CLASS II: Cosmological vacuum energy (Omega_d sphere areas)
+    - Operate in the d-direction (sphere area at each layer)
+    - Quantitative: rho_Lambda = (geometric content)/M_Pl_red^4
+    - Physical role: sets the cosmological constant
+    - Active at: cosmological scales
+
+  CLASS III: Spatial QED vacuum fluctuations (lab-scale 3D)
+    - Operate in 3D space at the observer's d=4 frame
+    - Quantitative: standard QED vacuum (regulated)
+    - Physical role: spontaneous emission, Lamb shift, Casimir, etc.
+    - Active at: lab scales (eV to Planck)
+
+The cascade has DERIVED CLASS III via the chain Part 0 -> IVa -> IVb:
+the SM Lagrangian at the observer's frame is reproduced with cascade-
+derived parameters.  Standard QED dynamics in 3+1D follow.
+
+THE OPEN BRIDGE QUESTION: does CLASS I (tower-direction fluctuations)
+contribute to CLASS III (spatial fluctuations) in any way that
+modifies QED predictions like Casimir?
+
+Two possibilities:
+
+  (P1) NO -- the cascade scalar action depends only on d (not on x),
+       so cascade-tower fluctuations do not directly contribute to
+       spatial QED at the observer's frame.  Cascade Casimir =
+       standard QED Casimir exactly.
+
+  (P2) YES -- there exists a (d, x)-extended cascade scalar field
+       theory where cascade-tower fluctuations couple to spatial
+       gauge fluctuations.  Cascade Casimir would have specific
+       deviations from QED at scales where the coupling becomes
+       relevant.
+
+The cascade has NOT constructed the (d, x)-extended scalar action
+required for (P2).  The existing cascade scalar action S[phi(d)] =
+sum_d (Delta phi)^2 / (2 alpha(d)) is purely 1D in d.  Without the
+extension, only (P1) is structurally available.
+
+WHAT WOULD CLOSE THE BRIDGE:
+  Step 1: Define cascade scalar field as phi(d, x, t) with both
+          cascade-tower and spatial-temporal dependence.
+  Step 2: Construct the action S[phi(d, x, t)] generalising
+          sum_d (Delta_d phi)^2 / (2 alpha(d)) to include spatial
+          gradient terms (Delta_x phi)^2 / (2 beta).
+  Step 3: Determine the spatial compliance beta from cascade
+          primitives (probably involves Omega(d=4) or N(d=4)).
+  Step 4: Couple the (d, x)-extended cascade scalar to U(1) gauge
+          boson at d=14 (path-tensor structure).
+  Step 5: Impose plate boundary conditions in 3D and compute the
+          energy density difference between with-plates and without-
+          plates configurations.
+
+Steps 1-5 constitute a genuinely new piece of cascade structural
+work.  None is assembleable from existing Tier 1 results in the
+manner that closed Items 3, 4, 10, 11 in the cascade series.  The
+cascade has the INGREDIENTS to attempt this extension (cascade
+scalar action, marginal Green's identity, gauge-window structure)
+but has not done the (d, x)-extension itself.
+
+CASCADE PRIMITIVES THAT WOULD ENTER A SPECIFIC PREDICTION
+=========================================================
+If the bridge were constructed, the cascade Casimir correction would
+plausibly involve cascade primitives at the photon's home layer (d=14)
+or at the observer's frame (d=4).  Reference values:""".rstrip())
+    print()
+
+    # Compute reference values
+    from cascade_constants import alpha as alpha_cas, R as R_cas  # noqa: E402
+
+    alpha_4 = alpha_cas(4)
+    alpha_14 = alpha_cas(14)
+    N_4 = R_cas(4) / 2
+    N_14 = R_cas(14) / 2
+
+    print(f"  alpha(4)  = {alpha_4:.6f}    (observer-frame compliance)")
+    print(f"  alpha(14) = {alpha_14:.6f}    (photon-home compliance)")
+    print(f"  N(4)      = {N_4:.6f}    (observer-frame lapse)")
+    print(f"  N(14)     = {N_14:.6f}    (photon-home lapse)")
+    print()
+    print(f"  alpha(14) / chi    = {alpha_14/2:.6f}  (Weinberg-shift form)")
+    print(f"  alpha(14) / chi^2  = {alpha_14/4:.6f}  (Cabibbo-channel form)")
+    print(f"  alpha(4) / alpha(14) = {alpha_4/alpha_14:.4f}  (descent ratio)")
+    print()
+    print("""
+These are the candidate cascade primitives that COULD appear in a
+cascade-specific Casimir correction IF the (d, x)-extended bridge
+were constructed.  Without the construction, no specific prediction
+is warranted.  The retracted (1 + delta_14^2) guess used the WRONG
+quantity (a tower-direction Gram, not a spatial fluctuation amplitude).
+
+HONEST CASCADE STATEMENT FOR CASIMIR (current state):
+  - Cascade reproduces standard QED Casimir at lab scales (Tier 1
+    via the existing cascade-to-SM derivation chain).
+  - Cascade does NOT predict any measurable deviation from QED Casimir
+    at current or foreseeable experimental precision.
+  - If a future cascade-extended scalar field theory is constructed,
+    a specific cascade-Casimir correction may emerge.  The shape of
+    that correction is genuinely open.
+""".rstrip())
 
 
 if __name__ == "__main__":
