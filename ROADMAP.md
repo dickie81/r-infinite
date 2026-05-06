@@ -604,7 +604,7 @@ tan θ_23 = tan(arccos(N(13)/N(12))) · exp(−Σ_{d=13}^{20} p(d)/2) · exp(−
 
 **Channel count k = 4:** descent path d=12..20 spans Bott periods {P_1, P_2}; rule `k = 2 · #periods` gives k=4.
 
-**Documented in:** Part IVb Theorem `thm:theta23-closure`, PREDICTIONS.md Tier 3, this roadmap.
+**Documented in:** Part IVb Theorem `thm:theta23-closure`, PREDICTIONS.md Tier 2, this roadmap.
 
 ## Working principles
 
