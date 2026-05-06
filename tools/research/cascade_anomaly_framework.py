@@ -427,10 +427,9 @@ def open_question_summary():
     print("native versions of (I)-(IV).  Candidates are recorded above")
     print("(STEP 2); each is a structural conjecture, not a theorem.")
     print()
-    print("Until closed, the cascade's claim of zero free parameters is")
-    print("precise about predictions but not about per-particle V_{14}")
-    print("weight assignment.  See CLAUDE.md 'Known Quantitative Issues',")
-    print("matter-rep / hypercharge gap.")
+    print("The Y spectrum is closed in Part IVb (thm:sector-fundamental-y)")
+    print("via the gauge-centre-quotient mechanism; the residual is a")
+    print("basin-label sign convention with zero observational input.")
     print()
 
 

@@ -373,7 +373,7 @@ within its existing structural toolkit.
 
 Per CLAUDE.md Check 4: this is acknowledged open territory (Part V
 Remark rem:tcmb-descent-dependent explicitly flags g_eff closure as
-open; CLAUDE.md "Known Quantitative Issues" entry on T_CMB).
+open; PREDICTIONS.md Tier 2 row on T_CMB).
 """.rstrip())
 
 
