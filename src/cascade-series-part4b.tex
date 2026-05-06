@@ -147,7 +147,7 @@ The sphere-bundle / tangent-frame language above is one reading of why the fermi
 loses one factor of $\sqrt{\pi}$ relative to the scalar.  Under Prelude
 Principle~2.2 (austerity), a more cascade-native reading is available that does
 not invoke sphere-bundle structure: the cascade scalar action at layer $d$ has
-compliance $\alpha(d) = N(d)^2/\Omega_2 = R(d)^2/4$ (Part~IVb Remark~4.1).  The
+compliance $\alpha(d) = N(d)^2/\Omega_2 = R(d)^2/4$ (Remark~\ref{rem:alpha-geometric}).  The
 natural Dirac partner of this scalar compliance is its square root,
 $m(d) = \sqrt{\alpha(d)} = R(d)/2$---the standard Dirac-vs-Laplacian relation
 applied to the cascade's per-layer compliance.  Then the fermion-to-scalar
@@ -170,7 +170,7 @@ without importing structure stronger than the cascade requires.
 A stronger statement holds: among monomial-in-$\alpha$ Berezin candidates
 $Z_f(d) = \alpha(d)^k$, the power $k = 1/2$ is uniquely selected by
 d-independence of $Z_f/Z_s$.  Using $Z_s(d) = N(d) = 2\sqrt{\pi}\,\sqrt{\alpha(d)}$
-(cascade scalar identity, Part~IVb Remark~4.1), the ratio is
+(cascade scalar identity, Remark~\ref{rem:alpha-geometric}), the ratio is
 $Z_f/Z_s = \alpha^{k-1/2}/(2\sqrt{\pi})$.  d-independence forces $k = 1/2$
 exactly.  Verified numerically across $k\in[-1, 2]$ at four Dirac layers in
 \texttt{tools/verifiers/cascade\_native\_clifford\_absorption.py}: only $k = 1/2$
@@ -378,7 +378,7 @@ measure. The two halves of the sp31 split factorise transparently:
 $1/\chi = 1/2$ lives in the factor-of-two halving
 $m(d) = R(d)/2$ (chirality), and $1/\sqrt{\pi}$ lives in the absence
 of a Gaussian prefactor on the Berezin side (Jacobian). The product of
-$n_D$ per-layer ratios reproduces Part~IVb Theorem~2.6's
+$n_D$ per-layer ratios reproduces Theorem~\ref{thm:complete-mass}'s
 $(2\sqrt{\pi})^{-n_D}$ base exactly. Verified to machine precision
 ($<3\times 10^{-16}$) at
 $d\in\{5,13,21,29\}$ in
@@ -759,7 +759,7 @@ pieces of cascade source converge on this:
 \item Remark~\ref{rem:berezin-partition-derivation} computes
 multi-layer fermion contributions as \emph{products} of per-layer
 Berezin ratios: ``the product of $n_D$ per-layer ratios reproduces
-Part~IVb Theorem~2.6's $(2\sqrt{\pi})^{-n_D}$ mass-formula base
+Theorem~\ref{thm:complete-mass}'s $(2\sqrt{\pi})^{-n_D}$ mass-formula base
 exactly.''  Multi-layer fermion physics is multiplicative-per-layer,
 not additive-from-an-inter-layer-Lagrangian.
 \item Open Question~\ref{oq:fermion-cascade-action}'s
@@ -784,7 +784,7 @@ by the scalar slicing.
 The proposal therefore has no layer-coupling open piece (per-layer
 locality is derived above), and descent consistency is automatic from
 products of per-layer Berezin factors (matching $(2\sqrt{\pi})^{-n_D}$
-exactly per Theorem~2.6).
+exactly per Theorem~\ref{thm:complete-mass}).
 
 \medskip\noindent\textbf{Y spectrum: closed via Theorem~\ref{thm:sector-fundamental-y}.}
 The cascade has no QFT-style triangle anomalies (per-layer locality
@@ -1131,7 +1131,7 @@ The action is therefore uniquely forced by two cascade-native requirements:
 \item \emph{First-order EL equation} --- the action is quadratic and
 nearest-neighbour in $\Delta\varphi$, matching the cascade's first-order
 slicing recurrence (Part~0 Theorem~3.1).
-\item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is the cascade's gauge coupling at layer $d$ (Section~\ref{sec:gauge-couplings} above, definition at the opening of \S4.1; see also Remark~\ref{rem:alpha-geometric} on the cascade-internal $\Omega_2$ interpretation of the $(4\pi)^{-1}$).
+\item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is the cascade's gauge coupling at layer $d$ (Section~\ref{sec:gauge-couplings}; see also Remark~\ref{rem:alpha-geometric} on the cascade-internal $\Omega_2$ interpretation of the $(4\pi)^{-1}$).
 The action is the cascade-native gauge-sector functional.
 \end{enumerate}
 
@@ -1848,7 +1848,7 @@ quantities. The structural content:
 \begin{itemize}[nosep]
 \item \emph{Numerator $N(d)^2$.} The lapse $N(d)$ is the per-step slicing rate
 (Part~0~\cite{paper1}~\S3). Its square appears in any quadratic cascade action
-(Part~IVb Remark~\ref{rem:phase-family}), playing the role of ``field strength
+(Remark~\ref{rem:phase-family}), playing the role of ``field strength
 squared'' at cascade layer $d$.
 \item \emph{Denominator $\Omega_2$.} The observer's spatial slice is
 $S^3 = \partial B^4$ (Paper~I~\cite{paper1}~\S3.2). Its Morse foliation by
