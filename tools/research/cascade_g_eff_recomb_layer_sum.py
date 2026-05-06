@@ -205,7 +205,7 @@ REMAINING STRUCTURAL WORK:
      (e.g. d=29 source layer would give different factor).
   3. Derive the boson transparency at gauge layers from cascade
      fermion-gauge coupling structure (Part IVb
-     rem:fermion-gauge-coupling-proposal couples fermions; bosons are
+     rem:fermion-gauge-coupling couples fermions; bosons are
      not addressed there).
   4. Cross-check against BBN epoch (T ~ 1 MeV) where the cascade should
      give g_eff ~ 10.75 if same rule applies.

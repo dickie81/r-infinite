@@ -19,7 +19,7 @@ In the SM, (R1) follows from:
   - Combine: Y_H = -Y_LL = 3 * Y_QL = N_c * Y_QL.
 
 The cascade has (R2) closed via per-layer locality + algebra
-(rem:fermion-gauge-coupling-proposal).  (R1) requires the SU(2)^2 x
+(rem:fermion-gauge-coupling).  (R1) requires the SU(2)^2 x
 U(1)_Y trace condition.
 
 ROUTE B HYPOTHESIS
@@ -284,7 +284,7 @@ def step4_pivot_to_alternative_routes():
     print("  the multi-particle constraint that closes (R1).")
     print()
     print("  Risk: contradicts the per-layer-locality derivation already in")
-    print("  rem:fermion-gauge-coupling-proposal.  Would require reopening")
+    print("  rem:fermion-gauge-coupling.  Would require reopening")
     print("  closed work.")
     print()
     print("RECOMMENDATION")

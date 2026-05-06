@@ -164,7 +164,7 @@ def report_derivation_status():
     print()
     print("  1. THE CASCADE HAS NO VERTEX-CORRECTION FRAMEWORK.")
     print("     The cascade's gauge-coupled fermion action proposal")
-    print("     (rem:fermion-gauge-coupling-proposal) has per-layer")
+    print("     (rem:fermion-gauge-coupling) has per-layer")
     print("     Berezin reduction at A=0 closed, but the photon-")
     print("     fermion-fermion vertex correction structure is open")
     print("     (oq:fermion-gauge-action).  Without the vertex")

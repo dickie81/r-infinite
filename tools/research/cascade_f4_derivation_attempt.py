@@ -178,7 +178,7 @@ GAP 1 (Step C extension is novel):
         integral.
    (1b) Bosons (photons) traverse gauge layers transparently while
         fermions (neutrinos) couple at each crossed gauge layer.
-        Suggested by Part IVb rem:fermion-gauge-coupling-proposal but
+        Suggested by Part IVb rem:fermion-gauge-coupling but
         not derived for radiation thermodynamics.
    (1c) The d=12 sector-dim factor for neutrinos is N_c (the maximally
         non-trivial V_12 sector), not 1 (their actual V_12 = 1

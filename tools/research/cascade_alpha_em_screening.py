@@ -18,7 +18,7 @@ from the cascade action's photon self-energy.
 NOT A ONE-LOOP INTEGRAL: PER-LAYER LOCALITY
 ============================================
 The cascade fermion is per-layer local (Part IVb
-rem:fermion-gauge-coupling-proposal "Per-layer locality (derivation)";
+rem:fermion-gauge-coupling "Per-layer locality (derivation)";
 cascade_fermion_gauge_action.py Step 4.5).  Three pieces of cascade
 source converge: (i) multi-layer fermion contributions are products
 of per-layer Berezin factors (rem:berezin-partition-derivation);
@@ -487,7 +487,7 @@ def report_status():
     print("  - A one-loop integral on the cascade lattice with fermion")
     print("    propagating from d=14 to a Dirac layer and back.  This")
     print("    cannot exist: cascade fermion is per-layer local")
-    print("    (rem:fermion-gauge-coupling-proposal Per-layer locality).")
+    print("    (rem:fermion-gauge-coupling Per-layer locality).")
     print("  - A multi-layer hopping term in S_f^cascade.  Closed empty by")
     print("    per-layer locality (cascade_fermion_gauge_action.py Step 4.5).")
     print()

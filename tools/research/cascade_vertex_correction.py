@@ -16,7 +16,7 @@ The cascade has:
 The cascade has NO developed framework for VERTEX CORRECTIONS:
 modifications to the bare gauge-fermion-fermion vertex from internal
 closed-loop structure.  This is the open piece in
-rem:fermion-gauge-coupling-proposal that gates the m - k = 0 slot
+rem:fermion-gauge-coupling that gates the m - k = 0 slot
 (g-2 of charged leptons) and the formal proof of the
 1/alpha_em screening at 0.006%.
 
