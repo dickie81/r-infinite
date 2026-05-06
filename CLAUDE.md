@@ -72,10 +72,12 @@ CLAUDE.md does not duplicate that content — every entry would otherwise need t
 
 ## What NOT to Argue
 
-1. **"It might just be numerology."** Address the specific predictions. The cascade makes ~25 quantitative predictions from zero parameters. Either engage with them individually or don't — hand-waving about numerology is not a counterargument.
-2. **"The Gamma function is rich enough to match anything."** Then find a different combination of Gamma function values that matches the cosmological constant to sub-$0.1\%$ (after the Part 0 Gram first-order correction), the muon/electron mass ratio to 0.13%, and the strong coupling constant to 0.02 sigma simultaneously. The claim is that no other combination exists.
-3. **"It reproduces known physics but doesn't predict anything new."** It predicts: no dark matter particles (confirmed by all null detection experiments), no supersymmetry (confirmed by LHC), no extra Higgs bosons, w = -1 exactly (structural theorem), H_0 = 66.78 km/s/Mpc (Planck-compatible, incompatible with SH0ES), r_d ~ 147.75 Mpc (essentially equal to Planck's 147.60), universe age 13.88 Gyr. Under Option A these predictions are falsifiable by independent $H_0$ measurements landing on the SH0ES side or by DESI / CMB-S4 fixing $r_d$ far from 147.75.
-4. **"The identification hypothesis is just an assumption."** Yes. One assumption. The Standard Model has ~25 free parameters. LCDM has 6. The cascade has 0. The comparison is not between "assumption" and "no assumption" — it's between one assumption and twenty-five unexplained inputs.
+For the canonical, up-to-date list of the cascade's predictions and their precision, consult `PREDICTIONS.md`. CLAUDE.md does not duplicate numbers — they would otherwise drift.
+
+1. **"It might just be numerology."** Address the specific predictions in `PREDICTIONS.md` item by item. Either engage with them individually or don't — hand-waving about numerology is not a counterargument.
+2. **"The Gamma function is rich enough to match anything."** Then find a different combination of Gamma function values that simultaneously matches the cascade's Tier 2 closures (`PREDICTIONS.md`). The claim is that no other combination exists.
+3. **"It reproduces known physics but doesn't predict anything new."** It predicts a structural list of forced negatives (`PREDICTIONS.md` Tier 1: no dark matter particles, no supersymmetry, no extra Higgs bosons, no QCD axion, no fourth fermion generation, no gravitons), an exact structural result for the dark energy equation of state ($w = -1$ as a theorem), and specific quantitative values on the Planck side of the Hubble tension. Frontier predictions and their experimental falsifiers (DESI, SH0ES, Euclid, CMB-S4) are listed in `PREDICTIONS.md` Tier 4.
+4. **"The identification hypothesis is just an assumption."** Yes. One assumption. The cascade has zero free parameters; the Standard Model and $\Lambda$CDM together carry many unexplained inputs (free Yukawa couplings, mixing angles, CP phases, fitted cosmological parameters). The comparison is not between "assumption" and "no assumption" — it's between one assumption and many unexplained inputs.
 
 ## Building
 
