@@ -22,11 +22,29 @@ This verifier attempts a cascade-native derivation that:
   (1) Identifies the cascade's photon at d=14 (Adams U(1) gauge layer)
   (2) Imposes plate boundary conditions on the cascade EM content at
       the observer's d=4 frame
-  (3) Uses the cascade tower's natural finiteness (terminus at d=217)
-      as the UV regulator -- not a hand-imposed cutoff
+  (3) Uses the cascade tower's natural UV convergence (sphere-area sums
+      converge because Omega_d decays super-exponentially for d > d_0=7,
+      per ROADMAP Item 11) as the UV regulator -- NOT a hand-imposed
+      cutoff and NOT a hard cap at d=217
   (4) Computes the energy density difference between with-plates and
       without-plates configurations
   (5) Identifies cascade-specific corrections from the cascade structure
+
+NOTE ON THE CASCADE'S UV STRUCTURE
+==================================
+The cascade structurally extends to d=infinity (ROADMAP Item 11,
+closed at structural-clarity level).  d_2=217 is the deepest
+distinguished Gamma-critical LANDMARK (where the cosmological constant
+is calibrated), NOT a fundamental terminus.  Cascade content continues
+to all d, with sphere areas Omega_d -> 0 super-exponentially:
+log10(Omega_217) ~ -119, log10(Omega_500) ~ -348, log10(Omega_1000) ~
+-883.
+
+UV convergence of cascade observable quantities is therefore automatic
+(delta_path(5, infty) ~ 0.0217 converges; per-layer Gram contributions
+1 - C^2 ~ 1/(8 d^2)) without any hand-imposed cutoff.  The cascade IS
+its own UV regulator via the Gamma function's super-exponential decay
+of sphere areas.
 
 THE CASCADE-NATIVE STRUCTURE
 ============================
@@ -39,32 +57,35 @@ In standard QFT the energy per area per polarisation is
   E/A = (hbar/2) * sum_n integral d^2k_perp/(2pi)^2 * omega_n(k_perp)
 which is divergent and must be regularised.
 
-In cascade, the mode sum is BOUNDED ABOVE by the cascade tower's UV
-structure: cascade content terminates at d_2=217 with sphere area
-Omega(217) ~ 10^-119, providing a natural UV cutoff at energies
-~M_Pl_red * sqrt(Omega(217) / Omega(5)).
+In cascade, the mode sum is naturally bounded by the cascade tower's
+super-exponential UV convergence: cascade content at large d is
+suppressed by sphere area Omega_d ~ exp(-d log d / 2), providing a
+natural UV regulator at energies parametrised by the cascade's own
+Gamma-function structure (no hand-imposed scale).
 
 CASIMIR FORCE: CASCADE VS STANDARD
 ==================================
-For separation L >> Planck length, the cascade UV cutoff is so far above
-the relevant frequencies (omega_1 = pi*c/L for L~1um is ~0.4 eV vs
-cascade cutoff ~M_Pl ~ 10^28 eV) that the cascade reproduces the
-regulated standard result:
+For separation L >> Planck length, the cascade UV regulator is
+effective at scales far above the relevant Casimir frequencies
+(omega_1 = pi*c/L for L~1um is ~0.4 eV vs cascade-effective UV
+~M_Pl ~ 10^28 eV).  The cascade therefore reproduces the regulated
+standard QFT result:
 
     F/A_cascade(L >> ell_Pl) = -hbar*c*pi^2 / (240 L^4)
 
 This is the same value as standard QED.  The cascade does not
 contradict QED at lab scales; it provides a finite-mathematical
-foundation for the same calculation.
+foundation for the same calculation, with the regulator coming from
+cascade UV convergence rather than hand-imposed cutoff.
 
 CASCADE-SPECIFIC CORRECTIONS
 =============================
 Two potential sources of cascade-specific deviation from standard
 Casimir:
 
-  (A) Tower truncation: cascade UV cutoff at d_2=217 vs continuous
-      modes in QED.  Fractional correction ~(omega_1/M_cascade_UV)^2
-      ~ (0.4 eV / 10^28 eV)^2 ~ 10^-57.  COMPLETELY NEGLIGIBLE.
+  (A) Cascade UV-convergence vs continuous QFT modes.  Fractional
+      correction ~(omega_1/M_cascade_UV)^2 ~ (0.4 eV / 10^28 eV)^2 ~
+      10^-57.  COMPLETELY NEGLIGIBLE at any conceivable lab scale.
 
   (B) Gram overlap deficit at d=14 (the photon home layer):
       delta_14 = sqrt(1 - C^2_{14,15}) is the cascade's native vacuum
@@ -133,16 +154,22 @@ def main() -> None:
     print()
 
     # -------- Cascade UV cutoff --------
-    print("STEP 2: Cascade UV cutoff vs Casimir mode scale")
+    print("STEP 2: Cascade UV regulator vs Casimir mode scale")
     print("-" * 76)
     print("""
-The cascade tower terminates at d_2=217 with sphere area Omega(217).
-The natural UV cutoff at the observer's frame is approximately
-M_cascade_UV ~ M_Pl_red ~ 10^28 eV.
+The cascade extends structurally to d=infinity (ROADMAP Item 11), with
+sphere areas Omega_d decaying super-exponentially: log10(Omega_217) ~
+-119, log10(Omega_500) ~ -348, log10(Omega_1000) ~ -883.  This decay is
+the cascade's natural UV regulator -- NOT a hard cap at d=217.  d_2=217
+is the deepest distinguished Gamma-critical LANDMARK where the
+cosmological constant is calibrated, but cascade content continues
+beyond.  UV convergence of observable cascade quantities is automatic
+(per Gamma function structure, Part 0).
 
-For Casimir at L = 1 micron: omega_1 ~ 0.4 eV.
+Effective cascade UV scale at the observer's frame: ~M_Pl_red ~ 10^28
+eV.  For Casimir at L = 1 micron: omega_1 ~ 0.4 eV.
 Ratio: omega_1 / M_cascade_UV ~ 4 * 10^-29.
-Fractional cascade truncation correction: ~(omega_1/M_UV)^2 ~ 10^-57.
+Fractional cascade UV-convergence correction: ~(omega_1/M_UV)^2 ~ 10^-57.
 
 This is many orders of magnitude below any conceivable measurement
 precision.  The cascade reproduces standard Casimir at L >> Planck
