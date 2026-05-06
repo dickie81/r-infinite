@@ -61,6 +61,7 @@ TERMS = [
     ('t₀', '<em>t</em><sub>0</sub>', r'$t_0$'),
     ('T_CMB', '<em>T</em><sub>CMB</sub>',
      r'$T_{\mathrm{CMB}}$'),
+    ('α_em', '&alpha;<sub>em</sub>', r'$\alpha_{\mathrm{em}}$'),
     ('α_s', '&alpha;<sub>s</sub>', r'$\alpha_s$'),
     ('Ω_Λ', '&Omega;<sub>&Lambda;</sub>', r'$\Omega_\Lambda$'),
     ('Ω_m', '&Omega;<sub>m</sub>', r'$\Omega_m$'),

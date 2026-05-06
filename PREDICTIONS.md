@@ -20,7 +20,7 @@ Mathematical uniqueness proofs leave no alternative. These are not approximation
 | Symmetry breaking | SU(2) broken; SU(3), U(1) exact | Confirmed | Hairy ball theorem (IVa) |
 | Fermion generations | Exactly 3 | Confirmed | Bott periodicity + d₁=19 (IVa) |
 | Dark energy EoS | w = −1 exactly | Confirmed | Fixed geometric constant (III) |
-| Strong CP phase | θ_QCD = 0 | Confirmed | π₃(S¹¹) = Z₂ (IVa) |
+| Strong CP phase | θ_QCD = 0 | Confirmed | π₃(S¹¹) = 0 (IVa) |
 | No supersymmetry | — | Confirmed (LHC) | No pairing mechanism (IVa) |
 | No dark matter particles | — | Confirmed (null results) | Geometry provides content (V) |
 | No extra Higgs bosons | — | Confirmed (LHC) | One hairy ball zero (IVa) |
@@ -56,6 +56,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | ℓ_A closed | +α(19)/χ (correction family, k=1) | 301.44 | 301.6 ± 0.09 | −0.16σ |
 | sin²θ_W closed | +α(5)/χ³ (correction family, k=3) | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
 | Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31474 | 0.315 ± 0.007 | −0.04σ |
+| 1/α_em | 1/α(13) + π/α(14) + 6π (chirality theorem, three Dirac layers) | 137.028 | 137.036 | 0.006% |
 | m_ν (heaviest) | m_29 · α(21)/χ⁸ (cascade neutrino chain) | 0.0493 eV | √Δm²_atm = 0.0495 eV (PDG 2024) | −0.4% (≈ −0.7σ vs PDG; −2.9σ vs NuFit 6.0) |
 
 The "closed" entries above use the α(d\*)/χ^k correction family with all three structural rules now at theorem level (with the source-selection rule at Tier 2 empirical 9/9 + structural uniqueness per pairing):
