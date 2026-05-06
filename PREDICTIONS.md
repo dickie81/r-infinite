@@ -33,8 +33,8 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 
 | Observable | Formula | Predicted | Observed | Dev. |
 |---|---|---|---|---|
-| ρ_Λ / M⁴_Pl,red | 18 · Ω(19) · Ω(217) / π³ · exp(δΦ) | 0.7145 × 10⁻¹²⁰ | 0.7150 × 10⁻¹²⁰ | −0.07% |
-| Ω_Λ | (π−1)/π | 0.6817 | 0.685 ± 0.007 | −0.5% |
+| ρ_Λ / M⁴_Pl,red | 18 · Ω(19) · Ω(217) / π³ · exp(δΦ) | 0.7145 × 10⁻¹²⁰ | 0.7150 × 10⁻¹²⁰ ± 0.013 | −0.07% (≈ −0.04σ) |
+| Ω_Λ | (π−1)/π | 0.6817 | 0.685 ± 0.007 | −0.5% (≈ −0.47σ) |
 | Ω_m | 1/π | 0.3183 | 0.315 ± 0.007 | +1.1% |
 | Ω_r | 1/(4π⁷) | 8.28 × 10⁻⁵ | 8.27 × 10⁻⁵ | +0.1% |
 | T_CMB | from Ω_r, H₀ | 2.642 K | 2.7255 K | −3.1% (descent-dependent) |
@@ -67,6 +67,12 @@ The "closed" entries above use the α(d\*)/χ^k correction family with all three
 Soft spots: cascade path-integral not formally defined; the χ^{2N} magnitude is forced but the (+,+) labelling is convention parallel to the SM's left-handed convention with zero observational input; categorical derivation of source-selection flags pending. See ROADMAP.md items 1–4 for explicit caveats.
 
 **On the m_ν (heaviest) σ value.** The cascade prediction 0.0493 eV is compared against √Δm²_atm = 0.0495 eV from PDG 2024 (Δm²_32 = 2.453(34) × 10⁻³ eV², giving m_3 = 0.04953 ± 0.00034 eV). The cascade-vs-PDG residual is **−0.7σ**. Using the higher central value from NuFit 6.0 (Δm²_3l = 2.507(27) × 10⁻³ eV², without SK atmospheric input), the residual is **−2.9σ**. This is a real input-dependence: cascade m_ν heaviest is sub-σ vs PDG but borderline vs NuFit. The Tier 2 classification reflects PDG (the more conservative experimental aggregation); future global fits resolving the Δm²_atm central value firmly above 2.50 × 10⁻³ eV² would push m_ν heaviest to Tier 4 (frontier under active tension) rather than Tier 2 (closed within precision).
+
+**Convention: % vs σ in Tier 2.** Tier 2 entries fall into two categories with different precision metrics:
+- **Corrected closures** (correction-family α(d\*)/χ^k entries plus m_ν heaviest): quoted in σ vs the relevant experimental measurement. These are claimed at experimental precision; σ is the appropriate metric. The exception is b/s, where the experimental ratio has scheme/scale ambiguity that makes σ ill-defined; Part IVb groups it with sub-σ closures and quotes 0.014% directly.
+- **Leading predictions** (entries without explicit "closed" label, e.g., m_e, m_μ, m_μ/m_e, m_H/m_W, T_CMB, Ω_r): quoted in %. The cascade's standing claim for these is "~1% leading-order systematic," not experimental-precision σ. For high-precision experimental observables (e.g., m_e measured to 10⁻¹⁰ relative precision), the cascade's % deviation translates to many σ — but this reflects the cascade's leading-order systematic floor, not a tension with the framework. The framework-level claim is the % deviation is within standing precision; tighter closure requires the same kind of correction-family extension that closed the σ-quoted entries.
+
+This is the cascade's tier discipline: "Tier 2" = closed within standing precision (% for leading, σ for corrected closures), not "closed at the strictest experimental σ." The distinction is structurally meaningful: corrected closures use the now-theorem-level α(d\*)/χ^k correction family; leading predictions await analogous closure via additional structural pieces (cf. Open Question on m_μ/m_e residual in Part IVb).
 
 ### Tier 3 — _Vacated_: correction-family closures all promoted to Tier 2
 
