@@ -56,7 +56,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | ℓ_A closed | +α(19)/χ (correction family, k=1) | 301.44 | 301.6 ± 0.09 | −0.16σ |
 | sin²θ_W closed | +α(5)/χ³ (correction family, k=3) | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
 | Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31474 | 0.315 ± 0.007 | −0.04σ |
-| m_ν (heaviest) | m_29 · α(21)/χ⁸ (cascade neutrino chain) | 0.0493 eV | √Δm²_atm = 0.0495 eV | −0.4% |
+| m_ν (heaviest) | m_29 · α(21)/χ⁸ (cascade neutrino chain) | 0.0493 eV | √Δm²_atm = 0.0495 eV (PDG 2024) | −0.4% (≈ −0.7σ vs PDG; −2.9σ vs NuFit 6.0) |
 
 The "closed" entries above use the α(d\*)/χ^k correction family with all three structural rules now at theorem level (with the source-selection rule at Tier 2 empirical 9/9 + structural uniqueness per pairing):
 - **Channel count k = 2N** is a cascade theorem (Part IVb `rem:theta23-channel-count`; chirality factor exponent 2N forced by combining the cascade scalar action's Z₂-only discrete symmetry with Adams' theorem on im J's Z₂ generator residues; ROADMAP Item 1).
@@ -65,6 +65,8 @@ The "closed" entries above use the α(d\*)/χ^k correction family with all three
 - **Source selection** d\*(Q) bijection is empirical 9/9 + structural uniqueness per pairing (Part IVb `prop:source-selection`; categorical derivation of the syntactic flags is open; ROADMAP Item 2).
 
 Soft spots: cascade path-integral not formally defined; the χ^{2N} magnitude is forced but the (+,+) labelling is convention parallel to the SM's left-handed convention with zero observational input; categorical derivation of source-selection flags pending. See ROADMAP.md items 1–4 for explicit caveats.
+
+**On the m_ν (heaviest) σ value.** The cascade prediction 0.0493 eV is compared against √Δm²_atm = 0.0495 eV from PDG 2024 (Δm²_32 = 2.453(34) × 10⁻³ eV², giving m_3 = 0.04953 ± 0.00034 eV). The cascade-vs-PDG residual is **−0.7σ**. Using the higher central value from NuFit 6.0 (Δm²_3l = 2.507(27) × 10⁻³ eV², without SK atmospheric input), the residual is **−2.9σ**. This is a real input-dependence: cascade m_ν heaviest is sub-σ vs PDG but borderline vs NuFit. The Tier 2 classification reflects PDG (the more conservative experimental aggregation); future global fits resolving the Δm²_atm central value firmly above 2.50 × 10⁻³ eV² would push m_ν heaviest to Tier 4 (frontier under active tension) rather than Tier 2 (closed within precision).
 
 ### Tier 3 — _Vacated_: correction-family closures all promoted to Tier 2
 
