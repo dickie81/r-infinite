@@ -317,38 +317,6 @@ Open Question~\ref{oq:fermion-cascade-action} after the chirality half
 is discharged.
 \end{proof}
 
-\begin{remark}[What the decomposition achieves]\label{rem:sp31-decomposition-status}
-Theorem~\ref{thm:sp31-decomposition} does not close
-Open Question~\ref{oq:fermion-cascade-action} completely, but it
-narrows the research target by a factor of two in structural content:
-\begin{itemize}[nosep]
-\item The chirality half of the fermion obstruction ($1/\chi = 1/2$)
-is \emph{rigorously derived} from
-Theorem~\ref{thm:chirality-factorisation}; only the
-Clifford-absorption half is conjectural pending a cascade-lattice
-fermion-action derivation (see Remark~\ref{rem:sp31-status}).
-\item The Jacobian half ($1/\sqrt{\pi}$) is the sole remaining
-load-bearing conjecture. It reduces to a well-defined mathematical
-question: does a discrete Dirac operator on the cascade lattice,
-with Clifford-algebra normalisation standard to spinor bundles on
-$SO(d)$-invariant measures, yield Green's function $R(d)$ at a
-Dirac layer---i.e., without the $\sqrt{\pi}$ prefactor of the scalar
-Beta integral?
-\item The answer is almost certainly yes under the standard Clifford
-normalisation: Berezin integration carries no $(2\pi)^{1/2}$ Gaussian
-prefactor, and the $SO(d)$-invariant inner product on spinors absorbs
-the $t^{-1/2}$ Jacobian into the spinor metric. What remains is the
-formal statement and proof of this absorption on the cascade lattice
-specifically, including the coupling to the spin connection.
-\end{itemize}
-The eight precision observables built from the fermion obstruction
-factor (every charged fermion mass, $C = \alpha_s/(2\sqrt{\pi})$)
-therefore rest on a conjecture that is \emph{narrower}, \emph{more
-tractable}, and \emph{more clearly posed} than before: not ``why
-$1/(2\sqrt{\pi})$'' but ``why Clifford absorption of $\Gamma(\tfrac12)$
-on the cascade lattice''.
-\end{remark}
-
 \begin{remark}[Chirality-Jacobian separability at the integral level]\label{rem:chirality-jacobian-separability}
 The decomposition of Theorem~\ref{thm:sp31-decomposition} admits a
 direct verification at the level of the scalar slicing integral. The
@@ -379,18 +347,16 @@ sphere-Dirac spectral-zeta check that does not match $R(d)$
 the ratio $\zeta_D(1)/(R(d)/2)$ decays exponentially in $d$ while
 $R(d)/2$ decays polynomially). The absorption must therefore come from
 spinor structure (Berezin/Clifford inner product, or spin-connection
-coupling in the Dirac operator), consistent with item (3) of
-Remark~\ref{rem:sp31-decomposition-status} above. Verified numerically
+coupling in the Dirac operator), realised concretely by
+Remark~\ref{rem:berezin-partition-derivation} below. Verified numerically
 to machine precision ($<3\times 10^{-16}$) at Dirac layers
 $d\in\{5,13,21,29\}$ in
 \texttt{tools/verifiers/chirality\_jacobian\_separation.py}.
 \end{remark}
 
 \begin{remark}[Berezin partition-function realisation of Clifford absorption]\label{rem:berezin-partition-derivation}
-The Berezin-vs-Gaussian mechanism anticipated in
-Remark~\ref{rem:sp31-decomposition-status} item~(3) can be made exact
-at the per-layer partition-function level with a cascade-natural Dirac
-mass. The cascade's bosonic per-layer partition function is the scalar
+The Berezin-vs-Gaussian mechanism is exact at the per-layer
+partition-function level with a cascade-natural Dirac mass. The cascade's bosonic per-layer partition function is the scalar
 slicing integral
 $Z_s(d) = \int_{-1}^{1}(1-x^2)^{(d-1)/2}\,dx = \sqrt{\pi}\,R(d)$
 (Part~0 Theorem~3.1). For a Grassmann-valued cascade field with
