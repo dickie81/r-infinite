@@ -50,24 +50,25 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | θ_C (Cabibbo) closed | −α(7)/χ² (channel-count rule, k=2) | 13.04° | 13.04 ± 0.05° | +0.03σ |
 | θ_23 (CKM) closed | −α(7)/χ⁴ (channel-count rule, k=4) | 2.380° | 2.38 ± 0.06° | +0.005σ |
 | b/s closed | −α(7)/χ⁴ (channel-count rule, k=4) | 44.7436 | 44.75 | 0.014% |
+| α_s(M_Z) closed | +α(14)/χ (correction family, k=1) | 0.11792 | 0.1179 ± 0.0009 | +0.02σ |
+| m_τ / m_μ closed | +α(14)/χ (correction family, k=1) | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
+| m_τ absolute closed | +α(19)/χ (correction family, k=1) | 1776.82 MeV | 1776.86 ± 0.12 | −0.31σ |
+| ℓ_A closed | +α(19)/χ (correction family, k=1) | 301.44 | 301.6 ± 0.09 | −0.16σ |
+| sin²θ_W closed | +α(5)/χ³ (correction family, k=3) | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
+| Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31474 | 0.315 ± 0.007 | −0.04σ |
+| m_ν (heaviest) | m_29 · α(21)/χ⁸ (cascade neutrino chain) | 0.0493 eV | √Δm²_atm = 0.0495 eV | −0.4% |
 
-The three "closed" Amplitude entries above use the cascade channel-count rule k = 2N (N = number of Bott periods spanned by the descent path). The rule is now a cascade theorem at structural level (Part IVb `rem:theta23-channel-count`; verifiers `tools/research/cascade_channel_count_rule.py`, `cascade_channel_count_p2_rigour.py`, `cascade_channel_count_completeness.py`). The chirality factor exponent 2N is forced by combining the cascade scalar action's Z_2-only discrete symmetry with Adams' theorem on im J's Z_2 generator residues. Soft spots: cascade path-integral not formally defined; the magnitude χ^{2N} is forced but the (+, +) labelling is convention parallel to the SM's left-handed convention with zero observational input. See ROADMAP.md item 1 for explicit caveats.
+The "closed" entries above use the α(d\*)/χ^k correction family with all three structural rules now at theorem level (with the source-selection rule at Tier 2 empirical 9/9 + structural uniqueness per pairing):
+- **Channel count k = 2N** is a cascade theorem (Part IVb `rem:theta23-channel-count`; chirality factor exponent 2N forced by combining the cascade scalar action's Z₂-only discrete symmetry with Adams' theorem on im J's Z₂ generator residues; ROADMAP Item 1).
+- **Sign rule** sign(δΦ) = +1 for descent, −1 for geometric/amplitude is a cascade theorem (Part IVb `thm:sign-rule`; three-case proof: Cauchy-Schwarz on Gram positivity for descent, Bott-vs-lapse theorem for Ω_m, Born-rule overlap chirality decomposition for amplitude observables; ROADMAP Item 4).
+- **Source strength** α(d\*) at unit coefficient is structurally forced (Part IVb `rem:marginal-greens` + `rem:action-uniqueness`; marginal Green's function identity gives source response = α(d\*) exactly at every layer; ROADMAP Item 3).
+- **Source selection** d\*(Q) bijection is empirical 9/9 + structural uniqueness per pairing (Part IVb `prop:source-selection`; categorical derivation of the syntactic flags is open; ROADMAP Item 2).
 
-### Tier 3 — Precision: Correction-Family Closures
+Soft spots: cascade path-integral not formally defined; the χ^{2N} magnitude is forced but the (+,+) labelling is convention parallel to the SM's left-handed convention with zero observational input; categorical derivation of source-selection flags pending. See ROADMAP.md items 1–4 for explicit caveats.
 
-Six Standard Model observables close within experimental precision via δΦ = ±α(d*)/χ^k shifts sourced at Part 0's distinguished dimensions, with k determined by the cascade chirality theorem (Part IVb `thm:chirality-factorisation`) — the channel count k counts independent cascade modes. Two shift-observable pairs reuse the same correction across independent quantities. A seventh observable (heaviest neutrino mass) closes via the related cascade-internal form m_29 · α(d_g)/χ^k, where m_29 is the cascade charged-lepton formula at the fourth Bott layer d=29 and χ^k is the chirality filter for the cascade distance to the generation layer.
+### Tier 3 — _Vacated_: correction-family closures all promoted to Tier 2
 
-The three Amplitude observables (θ_C, θ_23, b/s) whose k value is determined by the channel-count rule have been promoted to Tier 2 (above) following the rule's promotion to a cascade theorem.
-
-| Observable | Shift source | Predicted | Observed | Residual |
-|---|---|---|---|---|
-| α_s(M_Z) | α(14)/χ | 0.11792 | 0.1179 ± 0.0009 | +0.02σ |
-| m_τ / m_μ | α(14)/χ | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
-| m_τ absolute | α(19)/χ | 1776.82 MeV | 1776.86 ± 0.12 | −0.31σ |
-| ℓ_A | α(19)/χ | 301.44 | 301.6 ± 0.09 | −0.16σ |
-| sin²θ_W | α(5)/χ³ | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
-| Ω_m | −α(5)/χ³ | 0.31474 | 0.315 ± 0.007 | −0.04σ |
-| m_ν (heaviest) | m_29 · α(21)/χ⁸ | 0.0493 eV | √Δm²_atm = 0.0495 eV | −0.4% |
+The seven correction-family closures previously listed in Tier 3 have been promoted to Tier 2 above following the closure of ROADMAP Items 3 (source strength) and 4 (sign rule) at theorem level. The α(d\*)/χ^k correction family's three-of-four structural rules (channel count, sign, source strength) are all theorem-level cascade results; the fourth (source selection) is at the same rigour level the channel-count rule had before its formal completeness proof. No observable currently sits in Tier 3.
 
 ### Tier 4 — Frontier: Under Active Experimental Test
 
