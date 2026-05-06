@@ -169,6 +169,16 @@ These are formalizations of an already-explicit rule. The rule itself is closed 
 
 See Part IVb open question on PMNS and `tools/research/cascade_pmns_solar_splitting.py` for the partial-negative tests on existing cascade ingredients (Gram, geometric-mean, χ-factor).
 
+**Exploratory tools (tested, not yet adopted into closures):** the following research verifiers document research directions in the Item 5 sector that are not yet promoted to predictions but represent tested approaches:
+- [`tools/research/cascade_higher_bott_tower.py`](tools/research/cascade_higher_bott_tower.py) — higher Bott layers (d=29, 37, 45, ...) and their potential roles as cascade-native source masses.
+- [`tools/research/cascade_neutrino_mass_d37_proposal.py`](tools/research/cascade_neutrino_mass_d37_proposal.py) — proposes m_2 = m_37 · α(5)/χ; matches PDG +0.66% but structural derivation pending.
+- [`tools/research/cascade_neutrino_d37_structural_dig.py`](tools/research/cascade_neutrino_d37_structural_dig.py) — follow-up structural exploration of the d=37 source layer hypothesis.
+- [`tools/research/cascade_neutrino_flavor_change_compat.py`](tools/research/cascade_neutrino_flavor_change_compat.py) — compatibility check between cascade neutrino spectrum proposals and observed neutrino oscillations.
+- [`tools/research/cascade_pmns_mixing_angle_proposal.py`](tools/research/cascade_pmns_mixing_angle_proposal.py) — candidate cascade-native PMNS angles: sin²θ_12 = (1−α(5))/N_c, sin²θ_23 = 4/7, sin²θ_13 = N_c·α_em.
+- [`tools/research/cascade_pmns_structural_derivation_attempt.py`](tools/research/cascade_pmns_structural_derivation_attempt.py) — structural derivation attempts for the candidate PMNS formulas.
+
+These are exploratory tools without integration into the cascade's published derivation chain. They represent the cascade research program's current state on Item 5: candidate formulas that match observation numerically but lack the structural derivation that would promote them to closure (parallel to where the channel-count rule sat before its Tier 1 completeness proof).
+
 ### 6. Up-type quark masses — substantial progress (full quark hierarchy in 4 cascade quantities + 1 anchor)
 
 **Status:** Going deeper than the original (t/b)/(c/s) = N_c hint, the FULL six-quark mass hierarchy now follows from FOUR cascade-natural structural quantities plus one absolute anchor. Two NEW structural relations identified, both within cascade standing precision. The Weyl chirality factor at d=12 — the proposed structural mechanism — has not been computed; closing it would promote five quark masses to Tier 2.
