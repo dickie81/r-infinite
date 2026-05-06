@@ -2497,7 +2497,7 @@ The product $\alpha_{\text{GUT}} \times \exp(\Phi(12 \to 4)) = 0.1159$ is precis
 
 \section{The Strong CP Problem: \texorpdfstring{$\theta_{\text{QCD}} = 0$}{theta\_QCD = 0} from Topology}
 
-\begin{theorem}[Strong CP resolution]
+\begin{theorem}[Strong CP resolution]\label{thm:strong-cp}
 In the cascade, $\theta_{\text{QCD}} = 0$ exactly.
 \end{theorem}
 
@@ -2514,7 +2514,7 @@ the trivial group. The vanishing follows from the standard low-dimensional spher
 \end{proof}
 
 \begin{remark}[No axion needed]
-The cascade's solution is topological: $\theta_{\text{QCD}} = 0$ because $\pi_3(S^{11}) = 0$ admits only the trivial sector, and the mass-matrix phase $\arg\det(M)$ is real-then-$U(1)$-fixed at zero. No new symmetry, no new particle. Discovery of a QCD axion would falsify this mechanism. The remaining open piece (Tier 4b, the Confidence Assessment section): a derivation showing that the cascade's vector-field realisation of SU(3) on $S^{11}$ does in fact replace the standard $\pi_3(\text{SU}(3))$ classification with the $\pi_3(S^{11})$ classification, rather than the two coexisting.
+The cascade's solution is topological: $\theta_{\text{QCD}} = 0$ because $\pi_3(S^{11}) = 0$ admits only the trivial sector, and the mass-matrix phase $\arg\det(M)$ is real-then-$U(1)$-fixed at zero (Step~2 of Theorem~\ref{thm:strong-cp}). No new symmetry, no new particle. Discovery of a QCD axion would falsify this mechanism. The remaining open piece (Tier 4b, the Confidence Assessment section): a derivation showing that the cascade's vector-field realisation of SU(3) on $S^{11}$ does in fact replace the standard $\pi_3(\text{SU}(3))$ classification with the $\pi_3(S^{11})$ classification, rather than the two coexisting.
 \end{remark}
 
 
@@ -2766,51 +2766,11 @@ With $\theta_C$ and $\theta_{23}$ closed, the cascade prediction for $\theta_{13
 Observed: $\theta_{13} = 0.201^\circ \pm 0.011^\circ$. The ratio $0.201/0.541 = 0.372$ matches the Wolfenstein CP factor $\sqrt{\rho^2+\eta^2} = 0.383$ (PDG) to $3\%$. Per the cascade's structural CPT-symmetry commitment (Remark~\ref{rem:cpt-balance-basins}; CLAUDE.md ``no cascade-internal CKM CP phase''), the CP factor enters as external observational input, parity with the SM treatment. $\theta_{13}$ is therefore closed conditional on the standard SM treatment of CP-violation: the cascade derives $|V_{ub}|/(|V_{us}|\cdot|V_{cb}|) = 1$ structurally, with the observed deviation from unity attributed to CP-violation.
 \end{remark}
 
-\section{Black Holes as Cascade Junctions}
+\section{Connections to other parts of the series}
 
-The following section describes structural consequences of the cascade framework. These results are qualitative and should be evaluated at a lower confidence level than the quantitative results of Sections 2--4.
+\textbf{Black holes.} The cascade's account of black-hole horizons (asymptotic compactification, no sharp boundary), holography (observer on $S^3$ horizon of a $d=5$ host; $\Lambda$ as inverse boundary area), and the information paradox (global unitarity with apparent local irreversibility) is developed in Part~II\,=\,III; Part~III treats the embedding-geometry derivation of $S = A/d$ at general $d$ and the BTZ cross-check at $d=3$.
 
-\subsection{Horizons are asymptotic compactifications}
-
-The cascade does not create sharp horizons. Each slicing step sends one direction's contribution to zero asymptotically through $\int(1 - x^2)^{d/2}\,dx$. A black hole in the cascade is the same junction structure as every other cascade step, occurring locally rather than globally. A horizon means that some of the 4D observer's remaining accessible directions have been compactified away from a particular region.
-
-\subsection{Holography from the cascade}
-
-The observer at $d = 4$ exists on the $S^3$ horizon of a $d = 5$ black hole. The de Sitter horizon area $A = 12\pi/\Lambda \sim 10^{120}$ in Planck units is the cascade hierarchy inverted: $\Omega_7/\Omega_{217} \approx 10^{121}$. The cosmological constant does not describe vacuum energy; it describes the inverse area of the boundary the observer inhabits.
-
-\subsection{The information paradox dissolves}
-
-The cascade contains both irreversibility (slicing suppresses information about the integrated-out direction) and unitarity (the discrete propagator from [2]). These describe different levels: the full geometry is unitary; every junction looks irreversible from below. There is no paradox because there was never a sharp boundary---only asymptotic compactification.
-
-\section{The Hubble Tension and Sound Horizon}
-
-The cascade's geometric parameters give a Hubble constant $H_0 = 66.78$~km/s/Mpc
-from the Friedmann equation with Part~I's observer-corrected
-$\rho_\Lambda/M_{\rm Pl,red}^4 = (2/\pi)\,I$ (Part~V, Theorem~6.1).
-Cascade $H_0$ sits $0.9\%$ below Planck's central $67.4$ at leading order
-and closes to essentially the Planck central value after the Part~0
-Gram first-order correction; it is incompatible with the
-SH0ES local measurement of $73.0$ at the $\sim 8\%$ level. The universe
-age, computed via the proper flat-$\Lambda$CDM integral with cascade
-$(\Omega_m, \Omega_\Lambda)$, is $t_0 = 13.88$~Gyr, matching Planck's
-$13.80$ to $+0.6\%$.
-
-The matter fraction is $\Omega_m = 1/\pi$ (leading order) or
-$\Omega_m^{\rm Bott} = 0.31150$ (subleading, from the Bott partition).
-The baryon fraction $\Omega_b = 1/(2\pi^2) = 0.0507$ follows from the
-observer's boundary area $\Omega_3 = 2\pi^2$.
-
-The cascade parameters predict a sound horizon
-$r_d \approx 147.75$~Mpc (E\&H98), essentially equal to the
-Planck-inferred $r_d = 147.60$~Mpc. Under this shared ruler, the DESI
-DR2 BAO observations face the cascade and Planck $\Lambda$CDM with the
-same two anomalous bins ($z = 0.510$ $D_H/r_d$ and $z = 0.706$
-$D_M/r_d$). The cascade predicts $w = -1$ exactly as a structural
-theorem; there is no free parameter with which to relieve the DESI
-apparent-$w$ signal, and no ruler-based mechanism to produce apparent
-$w \neq -1$ from frame differences between cascade and Planck. The
-DESI tension, if it persists, challenges the cascade and $\Lambda$CDM
-equally.
+\textbf{Cosmology.} The cascade Hubble constant $H_0 = 66.78$~km/s/Mpc, sound horizon $r_d \approx 147.75$~Mpc (essentially equal to Planck's $147.60$), universe age $t_0 = 13.88$~Gyr, matter fraction $\Omega_m = 1/\pi$ (leading) or $\Omega_m^{\rm Bott} = 0.31150$ (subleading), baryon fraction $\Omega_b = 1/(2\pi^2) = 0.0507$, and the structural prediction $w = -1$ (with the consequence that the DESI apparent-$w$ signal challenges cascade and $\Lambda$CDM equally) are derived in Part~V. The summary table below repeats the headline predictions for completeness; the derivations live there.
 
 \section{Summary: The Complete Result Table}
 
@@ -2845,7 +2805,7 @@ $b/\tau \approx 3$, $s/\mu \approx 1/3$ & Georgi--Jarlskog from gauge window & -
 $b/s = 44.7436$ & $-\alpha(7)/\chi^4$ at $d_0=7$ (Thm.~\ref{thm:bs-closure}) & 0.014\% & 2 \\
 $(t/b)/(c/s) \approx 3$ & Up/down ratio $= N_c$ & 1.5\% & 4 \\
 Gauge phases $\{+1, i, -1\}$ & Forced precession $4\pi$, $9\pi/2$, $5\pi$ & --- & 1 \\
-$\theta_{\text{QCD}} = 0$ & $\pi_3(S^{11}) = \mathbb{Z}_2 + J$ & --- & 4b \\
+$\theta_{\text{QCD}} = 0$ & $\pi_3(S^{11}) = 0$ & --- & 4b \\
 Cabibbo $= 13.26^\circ$ & Amplitude descent, Eq.~(\ref{eq:cabibbo}); $\tfrac{1}{2}$ exp.\ derived (Thm.~\ref{thm:cabibbo-geometric-mean}) & 1.7\% & 1 \\
 $w = -1$ & Fixed $\Lambda = I$; GB vanishes & exact & 1 \\
 4th gen absent & Geom + topo suppression & --- & 1 \\
@@ -2876,7 +2836,7 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \item Derives the Georgi--Jarlskog pattern from gauge window position.
 \item Derives the Cabibbo angle $\theta_C = 13.26^\circ$ (1.7\%) from amplitude descent of the gauge window angle (Theorem 6.1).
 \item Derives the Higgs quartic $\lambda = \pi^2 g^2/32$ (1.6\%) from the geodesic mass ratio $m_H/m_W = \pi/2$ (Corollary~\ref{cor:higgs-quartic}).
-\item Resolves the strong CP problem: $\theta_{\text{QCD}} = 0$ exactly from $\pi_3(S^{11}) = \mathbb{Z}_2$. (Proof has gaps at Tier 4b; see Section 12.)
+\item Resolves the strong CP problem: $\theta_{\text{QCD}} = 0$ exactly from $\pi_3(S^{11}) = 0$ (Theorem~\ref{thm:strong-cp}; proof has gaps at Tier 4b; see Confidence Assessment).
 \item Provides a structural resolution of the black hole information paradox via asymptotic compactification.
 \end{itemize}
 
@@ -3064,7 +3024,7 @@ The $\alpha(d^*)/\chi^k$ correction family, the cascade action principle, and th
 \textbf{Tier 3: Derived predictions with caveats.} (a) $m_H/m_W = \pi/2$: the geodesic distance argument is natural but the mass-ratio/geodesic identification is stated rather than computed from an action. (b) $v = 240.8$~GeV and (c) the $\exp(-\pi/\alpha(5))$ factor in Theorem~4.7: the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ is verified and matches the Kosterlitz--Thouless single-vortex action on the 2-sphere cross-section of $S^4$ via the Morse foliation of the $d = 5$ hairy-ball defect (Remark~\ref{rem:v-closure}); the half-winding follows from Theorem~\ref{thm:chirality-factorisation}'s chirality basin filter with effective winding $n_{\mathrm{eff}} = \chi(S^4)/\chi = 1$. Open: formal proof that the 4D tangent-field obstruction on $S^4$ is equivalent to a first-Chern class on the 2-cycles of the Morse foliation (pure geometric topology, not cascade content). (d)~$1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ ($0.006\%$): all four pieces fully cascade-internally derived. (i)~Bare coupling $1/\alpha(13) + \pi/\alpha(14) = 118.18$ from Theorem~\ref{thm:weinberg} and the electroweak mixing. (ii)~Per-Dirac-layer chirality factor $\chi$ from Theorem~\ref{thm:chirality-selection-rule} (closed-cycle $m=1$, $k=0$, chirality factor $\chi^{m-k}=\chi$). (iii)~Per-leg primitive $\Gamma(\tfrac{1}{2})^2 = \pi$ from Remark~\ref{rem:per-leg-primitive-derivation}, with the cascade kinetic-prefactor normalisation step grounded in Remark~\ref{rem:wavefunction-renorm-canonical} via the chain action-uniqueness $\to$ marginal Green's function $\to$ $\sqrt{\alpha}$-universality. (iv)~$N_{\mathrm{gen}}=3$ as the count of Dirac layers in the descent $\{5,13,21\}$, equal to the generation count by Part~IVa~\cite{paper4a}'s three-generation theorem (Open Question~\ref{oq:alpha-em-screening}). No structural gap remains; the derivation uses cascade-lattice primitives only (no proper-time integral, no QFT loop apparatus, per CLAUDE.md Check~7), and the $0.006\%$ residual is the cascade's standing leading-order systematic.
 \textbf{Tier 4: Observed patterns needing derivation.} (a) $m_b/m_\tau = e$: deviation 1.05\%. (b) $(t/b)/(c/s) = N_c = 3$: physical argument plausible but chirality coupling not computed. ($b/s$ has been promoted to Tier~2 via Theorem~\ref{thm:bs-closure}.)
 
-\textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = 0$ (the trivial group, by $\pi_n(S^k) = 0$ for $n < k$). Only the trivial sector exists in the cascade-internal classification, so the gauge-sector $\theta_{\text{QCD}} = 0$ is unique without a selection step. The remaining gap is structural: the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ replaces (rather than coexists with) the standard gauge-target classification. The mass-matrix branch $\arg\det(M) = 0$ vs.\ $\pi$ is selected by the cascade's $U(1)$ gauge equivalence (Step~2 of Theorem~7.1).
+\textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = 0$ (the trivial group, by $\pi_n(S^k) = 0$ for $n < k$). Only the trivial sector exists in the cascade-internal classification, so the gauge-sector $\theta_{\text{QCD}} = 0$ is unique without a selection step. The remaining gap is structural: the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ replaces (rather than coexists with) the standard gauge-target classification. The mass-matrix branch $\arg\det(M) = 0$ vs.\ $\pi$ is selected by the cascade's $U(1)$ gauge equivalence (Step~2 of Theorem~\ref{thm:strong-cp}).
 
 \textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction} and equivalently in Corollary~\ref{cor:2sqrtpi-primitive}; falsification would require either invalidating the chirality/quarter-turn argument or invalidating the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of the screening $2\pi$ per generation in the $\alpha_{\mathrm{em}}$ conjecture (Open Question~\ref{oq:alpha-em-screening}) from the cascade action, which would close $1/\alpha_{\mathrm{em}}$ at $0.006\%$; (vii) derivation of the colour factor $e$ from first principles; or (viii) any new precision prediction matching observation before the data is checked.
 
