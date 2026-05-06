@@ -756,7 +756,7 @@ The effective Yukawa coupling at the observer's position is
 \[
 C = \frac{\alpha_s}{2\sqrt{\pi}},
 \]
-where $\alpha_s = \alpha_{\text{GUT}} \times \exp(\Phi_{12 \to 4})$ is the strong coupling at the observer's scale (Theorem 4.2). The relation holds to 1.0\%.
+where $\alpha_s = \alpha_{\text{GUT}} \times \exp(\Phi_{12 \to 4})$ is the strong coupling at the observer's scale (Theorem~\ref{thm:alpha-s-leading}). The relation holds to 1.0\%.
 \end{theorem}
 
 \begin{proof}
@@ -985,16 +985,15 @@ $\mathrm{SU}(3)$-algebra home (Part~IVa~\cite{paper4a}).
 \end{proof}
 
 \begin{remark}[On the $k=4$ exponent]
-The structural decomposition $k=4 =\,$(lepton-ratio chirality
-factors) $+$ (quark-cross-generation chirality factors) is plausible
-but not derived from cascade primitives in the same way as
-$k=2$ for $\theta_C$ (single-quark mixing) or $k=3$ for
-$\sin^2\theta_W$ (three-gauge-factor integration). The numerical
-evidence is non-trivial: $k=4$ uniquely picks out among small
-integers, with neighbours $k=3$ and $k=5$ both substantially
-worse. Whether $k=4$ admits a sharper structural derivation
-analogous to the channel-counting rule of
-Remark~\ref{rem:phase-family} is open.
+$k=4$ is forced cascade-natively at theorem level by
+Remark~\ref{rem:theta23-channel-count}: the channel-count rule
+$k = 2N$, where $N$ is the number of Bott periods spanned by the
+descent path, gives $k = 4$ for $b/s$ from its 2-Bott-period
+descent $P_0 \cup P_1$ (path $d=6\ldots 13$), with the
+$(w_1, w_2)$ Stiefel--Whitney selection identified term-by-term
+in each period. The numerical scan over $k\in\{1,\ldots,5\}$
+($k=3$: $0.43\%$; $k=4$: $0.014\%$; $k=5$: $0.19\%$) confirms the
+structural prediction.
 \end{remark}
 
 \subsection{Up-type quarks and the colour factor}
@@ -2259,8 +2258,7 @@ m_W = m_Z\cos\theta_W = 91.19\sqrt{0.7714} = 80.10~\text{GeV}\quad(-0.35\%),
 \[
 m_H = m_W\cdot\pi/2 = 125.82~\text{GeV}\quad(+0.45\%).
 \]
-Both improve over the values obtained using the standard-RG proxy
-(Section~4.4). The chain
+The chain
 $N(13), N(14)\to\theta_W\to m_W\to m_H$ is closed within the cascade
 with no free parameters; the only external inputs are $M_{\mathrm{Pl,red}}$
 (setting the gravitational scale) and $m_Z$ (setting the electroweak scale).
@@ -2461,7 +2459,7 @@ The ratio $v/M_{\text{Pl}} \approx 10^{-16}$ is $\exp(-\pi/\alpha(5))$: a cascad
 \end{remark}
 
 \begin{remark}
-The product $\alpha_{\text{GUT}} \times \exp(\Phi(12 \to 4)) = 0.1159$ is precisely $\alpha_s$ (Theorem 4.2). Therefore $v = M_{\text{Pl,red}} \times \alpha_s \times \exp(-\pi/\alpha(5))$. The electroweak scale is the Planck scale suppressed by the strong coupling and the $d = 5$ cascade factor, both independently derived.
+The product $\alpha_{\text{GUT}} \times \exp(\Phi(12 \to 4)) = 0.1159$ is precisely $\alpha_s$ (Theorem~\ref{thm:alpha-s-leading}). Therefore $v = M_{\text{Pl,red}} \times \alpha_s \times \exp(-\pi/\alpha(5))$. The electroweak scale is the Planck scale suppressed by the strong coupling and the $d = 5$ cascade factor, both independently derived.
 \end{remark}
 
 \section{The Strong CP Problem: \texorpdfstring{$\theta_{\text{QCD}} = 0$}{theta\_QCD = 0} from Topology}
@@ -2780,9 +2778,9 @@ $w = -1$ & Fixed $\Lambda = I$; GB vanishes & exact & 1 \\
 4th gen absent & Geom + topo suppression & --- & 1 \\
 $\Omega_m = 0.31150$ & Bott partition ([4],[1] Cor.\ 3.2) & 1.1\% & 2 \\
 Hubble constant & $H_0 = 66.78$ km/s/Mpc (Option A, Part I bridge) & $-0.9\%$ & 2 \\
-$1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.006\% & 3 \\
+$1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.006\% & 2 \\
 \hline
-\multicolumn{4}{l}{\footnotesize Tier 3 = ``derived predictions with caveats''; $\alpha_{\text{em}}$ is fully cascade-internally derived: bare coupling Theorem~\ref{thm:weinberg}, chirality factor $\chi$ Theorem~\ref{thm:chirality-selection-rule}, per-leg primitive $\Gamma(\tfrac{1}{2})$ Remark~\ref{rem:per-leg-primitive-derivation}, $N_{\text{gen}}=3$ from Part~IVa~\cite{paper4a}.}\\
+\multicolumn{4}{l}{\footnotesize $\alpha_{\text{em}}$ pieces: bare coupling Theorem~\ref{thm:weinberg}, chirality factor $\chi$ Theorem~\ref{thm:chirality-selection-rule}, per-leg primitive $\Gamma(\tfrac{1}{2})$ Remark~\ref{rem:per-leg-primitive-derivation}, $N_{\text{gen}}=3$ from Part~IVa~\cite{paper4a}.}\\
 \end{tabular}%
 }
 \end{center}
@@ -2803,7 +2801,7 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \item Derives $m_W = 80.10$~GeV (0.35\%) and the self-consistent $m_H = 125.82$~GeV (0.45\%).
 \item Derives $v = 240.8$~GeV (2.2\%) from the reduced Planck mass suppressed by three cascade factors.
 \item Derives the Georgi--Jarlskog pattern from gauge window position.
-\item Derives the Cabibbo angle $\theta_C = 13.26^\circ$ (1.7\%) from amplitude descent of the gauge window angle (Theorem 6.1).
+\item Derives the Cabibbo angle $\theta_C = 13.26^\circ$ (1.7\%) from amplitude descent of the gauge window angle (Theorem~\ref{thm:cabibbo-amplitude}).
 \item Derives the Higgs quartic $\lambda = \pi^2 g^2/32$ (1.6\%) from the geodesic mass ratio $m_H/m_W = \pi/2$ (Corollary~\ref{cor:higgs-quartic}).
 \item Resolves the strong CP problem: $\theta_{\text{QCD}} = 0$ exactly from $\pi_3(S^{11}) = 0$ (Theorem~\ref{thm:strong-cp}; proof has gaps at Tier 4b; see Confidence Assessment).
 \item Provides a structural resolution of the black hole information paradox via asymptotic compactification.
@@ -2812,8 +2810,7 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \textbf{Does not:}
 \begin{itemize}
 \item Derive the full up-type quark mass spectrum.
-\item Derive $1/\alpha_{\text{em}} = 137$ directly. The Weinberg angle is derived to 0.53\%, but individual couplings $\alpha_2$ and $\alpha_3$ at $M_Z$ are each $\sim 39\%$ off.
-\item Derive the full CKM or PMNS matrices.
+\item Derive the CKM CP phase from cascade primitives. (CKM angles $\theta_C$, $\theta_{23}$ are closed in Theorems~\ref{thm:cabibbo-amplitude}, \ref{thm:theta23-closure}, and \ref{thm:cabibbo-geometric-mean}; $\theta_{13}$ closes conditional on the standard SM treatment of CP-violation, Remark~\ref{rem:theta13-cp}; the Wolfenstein CP factor enters as external observational input per the cascade's structural CPT-symmetry commitment.)
 \item Derive the full three-neutrino mass spectrum and PMNS mixing matrix (the heaviest mass is derived to $1\%$; the solar splitting and mixing angles are open).
 \item Compute QCD running corrections.
 \end{itemize}
@@ -2860,9 +2857,10 @@ The cascade predicts inverted hierarchy relative to charged leptons: $\nu_e$ hea
 
 \textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}), and equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. (k) Observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3=8/(225\pi)$ sourced at the volume maximum $d_V=5$ with three factors of the Euler characteristic (Theorem~\ref{thm:weinberg-closure}), closing $\sin^2\theta_W=0.231226$ to $+0.40\sigma$ of experimental precision. A systematic search (Remark~\ref{rem:phase-family}) extends the family to eight SM precision observables at four distinguished source layers: (l)~$\ell_A$ reuses $\alpha(19)/\chi$ ($-0.16\sigma$); (m)~$\Omega_m(1/\pi)$ uses $-\alpha(5)/\chi^3$ ($-0.04\sigma$); (n)~$\theta_C$ uses $-\alpha(7)/\chi^2$ ($+0.03\sigma$) with source $d_0=7$ (Paper~I area maximum); (o)~$b/s$ uses $-\alpha(7)/\chi^4$ ($0.014\%$) at the same source $d_0=7$ with $k=4$ (Theorem~\ref{thm:bs-closure}). Together, (i)--(o) close eight SM precision observables using one structural form $\pm\alpha(d^*)/\chi^k$ at four distinguished cascade layers and zero fitted parameters. Three reuse pairs strengthen the evidence: $\{\alpha_s,m_\tau/m_\mu\}$, $\{m_\tau\text{ abs},\ell_A\}$, $\{\sin^2\theta_W,\Omega_m\}$. (p)~Cabibbo geometric-mean off-diagonal rule from cascade action $+$ Born rule (Theorem~\ref{thm:cabibbo-geometric-mean}): the $\exp(-p(13)/2)$ factor in Theorem~\ref{thm:cabibbo-amplitude} is forced by the cascade descent integrand's probability-density status (Paper~I), the cascade scalar action's Gaussian quadratic form (Remark~\ref{rem:action-uniqueness}), the Born rule from Gleason on the cascade Hilbert space (Paper~II~\cite{paper2}, Theorem~5.2), and the definition of off-diagonal mixing matrix elements as amplitudes; Cauchy--Schwarz saturates because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}). The leading Cabibbo prediction $\theta_C=13.26^\circ$ is now action-derivation-complete; (n) above closes the residual $1.7\%$ to $+0.03\sigma$ of experimental precision.
 
-\textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e = 206.50$ (0.13\%, no shift applies: path starts at $d=14$). (b) $\alpha_s(M_Z)=0.117917$ and $m_\tau/m_\mu=16.81731$ closed within experimental precision via the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}). (c) $m_\tau = 1776.82$~MeV absolute closed within experimental precision via the phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ (Theorem~\ref{thm:mtau-abs-closure}). (d) $\sin^2\theta_W=0.231226$ closed within experimental precision via the observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3$ (Theorem~\ref{thm:weinberg-closure}). (e) $\theta_C=13.04^\circ$ closed to $+0.03\sigma$ via $-\alpha(7)/\chi^2$ sourced at the Paper~I area maximum $d_0=7$. (f) $\ell_A=301.44$ closed to $-0.16\sigma$ via $\alpha(19)/\chi$, reusing the phase-transition shift. (g) $\Omega_m(1/\pi)=0.31473$ closed to $-0.04\sigma$ via $-\alpha(5)/\chi^3$, reusing the observer-host shift with opposite sign (geometric population). (h) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (i) Absolute masses $m_\mu$ (0.47\%) and $m_e$ (0.60\%), consistent with the chain-subtracted inherited shift $\delta\Phi_{\mathrm{phase}}-\delta\Phi_{\mathrm{U}(1)}$ to $\sim 50$--$70$~ppm. (j) $b/s = 44.7436$ closed to $0.014\%$ via $-\alpha(7)/\chi^4$ (Theorem~\ref{thm:bs-closure}), reusing the area-maximum source layer with $k=4$ for cross-generation quark structure.
+\textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e = 206.50$ (0.13\%, no shift applies: path starts at $d=14$). (b) $\alpha_s(M_Z)=0.117917$ and $m_\tau/m_\mu=16.81731$ closed within experimental precision via the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}). (c) $m_\tau = 1776.82$~MeV absolute closed within experimental precision via the phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ (Theorem~\ref{thm:mtau-abs-closure}). (d) $\sin^2\theta_W=0.231226$ closed within experimental precision via the observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3$ (Theorem~\ref{thm:weinberg-closure}). (e) $\theta_C=13.04^\circ$ closed to $+0.03\sigma$ via $-\alpha(7)/\chi^2$ sourced at the Paper~I area maximum $d_0=7$. (f) $\ell_A=301.44$ closed to $-0.16\sigma$ via $\alpha(19)/\chi$, reusing the phase-transition shift. (g) $\Omega_m(1/\pi)=0.31473$ closed to $-0.04\sigma$ via $-\alpha(5)/\chi^3$, reusing the observer-host shift with opposite sign (geometric population). (h) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (i) Absolute masses $m_\mu$ (0.47\%) and $m_e$ (0.60\%), consistent with the chain-subtracted inherited shift $\delta\Phi_{\mathrm{phase}}-\delta\Phi_{\mathrm{U}(1)}$ to $\sim 50$--$70$~ppm. (j) $b/s = 44.7436$ closed to $0.014\%$ via $-\alpha(7)/\chi^4$ (Theorem~\ref{thm:bs-closure}), reusing the area-maximum source layer with $k=4$ for cross-generation quark structure. (k) $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ ($0.006\%$): bare coupling $1/\alpha(13) + \pi/\alpha(14) = 118.18$ from Theorem~\ref{thm:weinberg} and the electroweak mixing; per-Dirac-layer chirality factor $\chi$ from Theorem~\ref{thm:chirality-selection-rule} (closed-cycle $m=1$, $k=0$); per-leg primitive $\Gamma(\tfrac{1}{2})^2 = \pi$ from Remark~\ref{rem:per-leg-primitive-derivation}, with the cascade kinetic-prefactor normalisation grounded in Remark~\ref{rem:wavefunction-renorm-canonical}; $N_{\mathrm{gen}}=3$ as the count of Dirac layers in the descent $\{5,13,21\}$ (Part~IVa~\cite{paper4a}'s three-generation theorem). All four pieces fully cascade-internally derived using cascade-lattice primitives only (no proper-time integral, no QFT loop apparatus, per CLAUDE.md Check~7); the $0.006\%$ residual is the cascade's standing leading-order systematic.
 
-\textbf{Tier 3: Derived predictions with caveats.} (a) $m_H/m_W = \pi/2$: the geodesic distance argument is natural but the mass-ratio/geodesic identification is stated rather than computed from an action. (b) $v = 240.8$~GeV and (c) the $\exp(-\pi/\alpha(5))$ factor in Theorem~4.7: the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ is verified and matches the Kosterlitz--Thouless single-vortex action on the 2-sphere cross-section of $S^4$ via the Morse foliation of the $d = 5$ hairy-ball defect (Remark~\ref{rem:v-closure}); the half-winding follows from Theorem~\ref{thm:chirality-factorisation}'s chirality basin filter with effective winding $n_{\mathrm{eff}} = \chi(S^4)/\chi = 1$. Open: formal proof that the 4D tangent-field obstruction on $S^4$ is equivalent to a first-Chern class on the 2-cycles of the Morse foliation (pure geometric topology, not cascade content). (d)~$1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ ($0.006\%$): all four pieces fully cascade-internally derived. (i)~Bare coupling $1/\alpha(13) + \pi/\alpha(14) = 118.18$ from Theorem~\ref{thm:weinberg} and the electroweak mixing. (ii)~Per-Dirac-layer chirality factor $\chi$ from Theorem~\ref{thm:chirality-selection-rule} (closed-cycle $m=1$, $k=0$, chirality factor $\chi^{m-k}=\chi$). (iii)~Per-leg primitive $\Gamma(\tfrac{1}{2})^2 = \pi$ from Remark~\ref{rem:per-leg-primitive-derivation}, with the cascade kinetic-prefactor normalisation step grounded in Remark~\ref{rem:wavefunction-renorm-canonical} via the chain action-uniqueness $\to$ marginal Green's function $\to$ $\sqrt{\alpha}$-universality. (iv)~$N_{\mathrm{gen}}=3$ as the count of Dirac layers in the descent $\{5,13,21\}$, equal to the generation count by Part~IVa~\cite{paper4a}'s three-generation theorem. No structural gap remains; the derivation uses cascade-lattice primitives only (no proper-time integral, no QFT loop apparatus, per CLAUDE.md Check~7), and the $0.006\%$ residual is the cascade's standing leading-order systematic.
+\textbf{Tier 3: Derived predictions with caveats.} (a) $m_H/m_W = \pi/2$: the geodesic distance argument is natural but the mass-ratio/geodesic identification is stated rather than computed from an action. (b) $v = 240.8$~GeV and (c) the $\exp(-\pi/\alpha(5))$ factor in Theorem~\ref{thm:vev}: the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ is verified and matches the Kosterlitz--Thouless single-vortex action on the 2-sphere cross-section of $S^4$ via the Morse foliation of the $d = 5$ hairy-ball defect (Remark~\ref{rem:v-closure}); the half-winding follows from Theorem~\ref{thm:chirality-factorisation}'s chirality basin filter with effective winding $n_{\mathrm{eff}} = \chi(S^4)/\chi = 1$. Open: formal proof that the 4D tangent-field obstruction on $S^4$ is equivalent to a first-Chern class on the 2-cycles of the Morse foliation (pure geometric topology, not cascade content).
+
 \textbf{Tier 4: Observed patterns needing derivation.} (a) $m_b/m_\tau = e$: deviation 1.05\%. (b) $(t/b)/(c/s) = N_c = 3$: physical argument plausible but chirality coupling not computed. ($b/s$ has been promoted to Tier~2 via Theorem~\ref{thm:bs-closure}.)
 
 \textbf{Tier 4b: Claimed but proof has gaps.} $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = 0$ (the trivial group, by $\pi_n(S^k) = 0$ for $n < k$). Only the trivial sector exists in the cascade-internal classification, so the gauge-sector $\theta_{\text{QCD}} = 0$ is unique without a selection step. The remaining gap is structural: the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ replaces (rather than coexists with) the standard gauge-target classification. The mass-matrix branch $\arg\det(M) = 0$ vs.\ $\pi$ is selected by the cascade's $U(1)$ gauge equivalence (Step~2 of Theorem~\ref{thm:strong-cp}).
