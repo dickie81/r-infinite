@@ -24,7 +24,7 @@ Every check in `CLAUDE.md` §"Mandatory Review Protocol" is active. You may not 
 
 5. **Follow the six checks in `CLAUDE.md` §"Mandatory Review Protocol".** Each check is mandatory. Report which checks you have run in your first response.
 
-6. **Categorize every defect you flag** as either (a) already in `CLAUDE.md` §"Known Quantitative Issues" or Tier 5 of the predictions table, or (b) novel. Only (b) is a review finding. State the category explicitly.
+6. **Categorize every defect you flag** as either (a) already acknowledged in `PREDICTIONS.md` Tier 5 or in any cascade Part's Open Questions / Confidence Assessment / Tier 4 / Tier 4b sections, or (b) novel. Only (b) is a review finding. State the category explicitly.
 
 7. **Quote, don't paraphrase.** When you make a claim about what a source says, produce the sentence. If you cannot produce the sentence, you may not make the claim.
 
