@@ -400,278 +400,6 @@ boundary-dominance at Dirac layers would close the open question
 completely.
 \end{remark}
 
-\begin{remark}[Cascade-native gauge-coupled fermion action]\label{rem:fermion-gauge-coupling-proposal}
-This remark articulates the cascade fermion action with gauge coupling
-at the gauge-window layers. The action form is uniquely determined by
-six cascade-internal conditions:
-\begin{enumerate}[label=(F\arabic*),nosep]
-\item Berezin per-layer integration: $\bar\psi\psi$ structure forced
-(Remark~\ref{rem:berezin-partition-derivation}, Theorem~\ref{thm:sp31-decomposition}).
-\item Per-layer locality: no inter-layer kinetic, derived from
-convergence of three cascade-source readings (``Per-layer locality''
-paragraph below).
-\item Per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$
-(Remark~\ref{rem:berezin-partition-derivation}; cascade square-root
-universality).
-\item Gauge coupling $g(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$-universality
-at all gauge-window layers; ``Cascade-native universality'' paragraph below).
-\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa~\cite{paper4a}
-$\mathit{thm{:}adams}$: SU(3) at $d=12$ from $\mathbb{H}^3$, SU(2) at $d=13$
-from quaternionic right-mults, U(1) at $d=14$ from $J$).
-\item Parity-violating chirality structure from
-Theorem~\ref{thm:chirality-factorisation}: $\chi=2$ basin decomposition
-at $d=13$ selects L (doublet) vs R (singlet), reproducing the SM SU(2)$_L$
-pattern via Part~IVa~\cite{paper4a} Section~2 Spin$(12)$ Dirac decomposition.
-\end{enumerate}
-
-\medskip\noindent\textbf{Downstream consequences.}
-Y-spectrum closure via Theorem~\ref{thm:sector-fundamental-y}; photon
-self-energy $1/\alpha_{\rm em}$ screening via
-Remark~\ref{rem:per-leg-primitive-derivation}; SU(2)$_L$ parity
-violation via Part~IVa~\cite{paper4a} Section~2. Per CLAUDE.md Check~7,
-semiclassical procedures (Green's functions on cascade spheres,
-Coleman--Weinberg potentials on $S^{12}$) are out of bounds for cascade
-quantities; no ``higher-loop residual'' open piece exists at the cascade-
-native level.
-
-\medskip\noindent\textbf{Proposed form (per-layer local).}
-\[
-S_f^{\rm cascade} \;=\; \sum_d m(d)\,\bar\psi(d)\psi(d)
-\;+\; \sum_{d\in\{12,13,14\}} g(d)\,\bar\psi(d)\,T^a A^a(d)\,\psi(d),
-\]
-with NO inter-layer kinetic term. The cascade fermion is per-layer
-local; multi-layer effects come from products of per-layer Berezin
-factors plus the SCALAR cascade slicing
-(Remark~\ref{rem:action-uniqueness}'s $(\Delta\varphi)^2$ kinetic
-structure on the scalar field). See ``Per-layer locality'' paragraph
-below for the derivation.
-
-The ingredients:
-\begin{itemize}
-\item $m(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer Dirac mass
-(Remark~\ref{rem:berezin-partition-derivation}, narrowing of
-Open Question~\ref{oq:fermion-cascade-action});
-\item $g(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer gauge
-coupling in cascade-native units (the standard QFT coupling
-$g_{\rm QFT} = \sqrt{4\pi\alpha} = N(d) = 2\sqrt{\pi}\,g_{\rm cascade}(d)$);
-\item $T^a$ are the Adams gauge-group generators at the gauge-window
-layer:
-\begin{itemize}
-\item $d=12$ (SU(3)): 8 generators, algebra at $d_0=7$ via
-  $G_2/\mathrm{SU}(3)$ (Part~IVa~\cite{paper4a}).
-\item $d=13$ (SU(2)): 3 generators, right-multiplication algebra
-  $\{R_i,R_j,R_k\}$ extended trivially to the slicing axis
-  (Part~IVa~\cite{paper4a}).
-\item $d=14$ (U(1)): 1 generator, $J|_{S^{13}}$ (cascade complex
-  structure restricted to the $d=14$ sphere; Part~IVa~\cite{paper4a}).
-\end{itemize}
-\end{itemize}
-
-\medskip\noindent\textbf{Cascade-native universality.} The Yukawa
-$m(d)$ and gauge coupling $g(d)$ are the \emph{same cascade quantity}
-$\sqrt{\alpha(d)}$ at every layer (verifier
-\texttt{tools/research/cascade\_fermion\_gauge\_action.py}, Step~2).
-This $\sqrt{\alpha}$ universality is forced by the cascade's only
-natural square-root scale at each layer ($R(d)/2 = \sqrt{\alpha(d)}$
-is the unique cascade-native non-$\sqrt{\pi}$ amplitude per
-Open Question~\ref{oq:fermion-cascade-action} pool-uniqueness analysis).
-
-\medskip\noindent\textbf{Per-layer sanity verified.} At $A=0$
-(gauge-trivial), the proposed action reduces to
-$m(d)\bar\psi\psi$, and Berezin integration gives
-$Z_f(d) = m(d) = \sqrt{\alpha(d)}$ exactly. The ratio
-$Z_f(d)/Z_s(d) = 1/(2\sqrt{\pi})$ holds to machine precision at
-$d\in\{5,13,21,29\}$
-(verifier \texttt{tools/research/cascade\_fermion\_gauge\_action.py},
-Step~1; matches Remark~\ref{rem:berezin-partition-derivation}).
-
-\medskip\noindent\textbf{Single-particle restriction unifies
-fund-or-trivial.} Under single-particle cascade descent
-(Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$:
-each cascade observable threads exactly one path), the
-gauge-coupling term $g(d)\bar\psi T^a A^a \psi$ admits a single
-$T^a$-eigenstate for $\psi$ at the gauge-window layer; this gives
-$V_d \in \{\text{trivial}, \text{fundamental}\}$ at each $d$.
-Higher representations would require Clebsch--Gordan composition of
-multiple fundamentals, contradicting the single-path descent. The
-three independent layer arguments of Part~IVa~\cite{paper4a}
-$\mathit{rem{:}fund\text{-}or\text{-}trivial}$ unify into one under
-the proposed gauge-coupled action: a single principle
-(single-particle descent + cascade-native gauge coupling) restricts
-$V_d \in \{\mathbf{1}, \text{fundamental}\}$ at all three
-gauge-window layers.
-
-\medskip\noindent\textbf{Per-layer locality (derivation).}
-The proposal contains no inter-layer kinetic term for $\psi$. Three
-pieces of cascade source converge on this:
-\begin{enumerate}[label=(\arabic*),nosep]
-\item Remark~\ref{rem:berezin-partition-derivation} computes
-multi-layer fermion contributions as \emph{products} of per-layer
-Berezin ratios: ``the product of $n_D$ per-layer ratios reproduces
-Part~IVb Theorem~2.6's $(2\sqrt{\pi})^{-n_D}$ mass-formula base
-exactly.''  Multi-layer fermion physics is multiplicative-per-layer,
-not additive-from-an-inter-layer-Lagrangian.
-\item Open Question~\ref{oq:fermion-cascade-action}'s
-constraint (sphere-bundle imports ruled out by scaling, per
-CLAUDE.md Check~7) commits the fermion sector to live in the
-cascade lattice (1D in the layer index $d$), with sphere geometry
-$S^{d-1}$ as the per-layer realisation but not the source of
-dynamics.
-\item Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$
-case~(ii) gives the gauge-anchored attenuation as the SCALAR
-cascade potential $\exp(\Phi(d_B))$, with the fermion contributing
-only the per-layer Berezin factor $(2\sqrt{\pi})^{-1}$ at each
-Dirac layer crossed.
-\end{enumerate}
-The cascade scalar field $\varphi(d) = \ln\Omega_d$ DOES have an
-inter-layer kinetic term $(2\alpha(d))^{-1}(\Delta\varphi)^2$
-(Remark~\ref{rem:action-uniqueness}); this kinetic structure
-carries the cascade descent. The fermion field has no such kinetic
-structure of its own; transport between layers is mediated entirely
-by the scalar slicing.
-
-The proposal therefore has no layer-coupling open piece (per-layer
-locality is derived above), and descent consistency is automatic from
-products of per-layer Berezin factors (matching $(2\sqrt{\pi})^{-n_D}$
-exactly per Theorem~2.6).
-
-\medskip\noindent\textbf{What remains open: substantially narrowed
-to cascade-native electric charges.}
-The cascade has no QFT-style triangle anomalies (per-layer locality
-precludes derivative-coupled Dirac operators), so the four
-anomaly-like conditions on $V_{14}$ weights cannot arise from
-path-integral Jacobians. They could arise from \emph{path-tensor
-consistency} --- the cascade-native form of the multi-layer
-gauge-invariance closure. Verifier
-\texttt{tools/research/cascade\_path\_tensor\_consistency.py} digs
-into this:
-
-After EW symmetry breaking at $d=13$
-(Part~IVa~\cite{paper4a}~$\mathit{thm{:}lefschetz}$, $\mathit{thm{:}breaking}$,
-$\mathit{thm{:}higgs}$) the unbroken U(1)$_{\rm em}$ at $d=4$ has
-generator
-\[
-Q \;=\; T_3 + Y,
-\]
-i.e.\ the linear combination annihilating the Higgs vacuum. This is
-\emph{cascade-derived} from the Higgs mechanism +
-Theorem~\ref{thm:weinberg}'s diagonalisation of the $(W^3, B)$ mass
-matrix; it is the cascade-native form of the Gell-Mann--Nishijima
-identity (a derived relation, not an assumed convention).
-
-Combined with three cascade-native pieces ---
-$N_c = 3$ at $d=12$ (Adams + $\mathbb{H}^3 = \mathbb{R}^{12}$,
-giving $Q$ denominator 3 for color-triplets); SU(2)$_L$ doublet
-structure at $d=13$ ($T_3 = \pm\tfrac{1}{2}$, giving $Q_u - Q_d = 1$
-and $Q_\nu - Q_e = 1$); $J$ eigenvalues $\pm 1$ at $d=14$
-(Part~IVa~\cite{paper4a}~$\mathit{rem{:}u1\text{-}vs\text{-}projective}$,
-giving the U(1) fundamental unit $1$) --- path-tensor consistency
-cascade-natively determines:
-the \emph{denominator structure} of $Q$ (and $Y$ in $1/(2 N_c) = 1/6$
-units), the \emph{differences} of $Q$ values within each multiplet,
-and the \emph{relation} $Q = T_3 + Y$ for each particle.
-
-What remains is the \emph{specific integer numerators} in $Q$ values
-($Q_u = +2/3$ vs $-2/3$ vs $0$, etc.). The Y-spectrum closure thus
-reduces to: derive cascade-natively the SM integer charge numerators
-(equivalently, derive $Y_H$ at $d=13$, or derive the path-tensor
-trace identities, or derive the $J\,\pm 1$ eigenvalue distribution
-over chirality-factorised matter).  Three concrete attack routes
-(Higgs $Y$ pinned cascade-natively; path-tensor trace identities;
-$J$ spectrum + chirality factorisation) are articulated in the
-verifier's Step~4. None is currently closed; each is a structurally
-specific next research target.
-
-\medskip\noindent\emph{What this remark earns.} The proposal
-articulates a specific cascade-lattice action with three derived
-pieces (per-layer Berezin reduction at $A=0$, $\sqrt{\alpha}$
-universality of $m$ and $g$, per-layer locality from cascade source
-convergence) and one structural unification (single-particle
-restriction at all three gauge-window layers, conditional on the
-proposal). It closes the layer-coupling and descent-consistency
-pieces structurally, and identifies the QFT triangle-anomaly framing
-as inapplicable (per-layer locality precludes derivative-coupled
-Dirac operators); the cascade-native replacement is path-tensor
-consistency. The remaining open work is one structurally-specific
-question: whether path-tensor consistency yields the SM Y spectrum.
-\end{remark}
-
-\begin{theorem}[Sector-fundamental U(1)$_Y$ rule from cascade gauge centers]\label{thm:sector-fundamental-y}
-Let $G_{\rm cw}=\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)_Y$ be the cascade gauge group at the gauge window $\{d=12,13,14\}$ (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$), let $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ be the standard centres, and let $\Psi$ denote a cascade matter state in a definite path-tensor sector
-\[
-\Psi \;\in\; V_{12}\otimes V_{13}\otimes V_{14},
-\qquad V_{12}\in\{\mathbf{1},\mathbf{3}\},\;\; V_{13}\in\{\mathbf{1},\mathbf{2}\},\;\; \dim_{\mathbb{C}}V_{14}=1
-\]
-(Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$, $\mathit{rem{:}fund\text{-}or\text{-}trivial}$). Then the requirement that the diagonal subgroup
-\[
-\Delta\;:=\;\bigl\{(\zeta_3^{\,a},\,\zeta_2^{\,b},\,e^{2\pi i\,\eta(a,b)})\,:\,a\in\mathbb{Z}/3,\,b\in\mathbb{Z}/2\bigr\}\;\subset\;G_{\rm cw}
-\]
-act trivially on every cascade matter sector forces $\Delta\cong\mathbb{Z}_6$ to be the unique discrete subgroup of $G_{\rm cw}$ acting trivially on path-tensor matter, with $\eta(a,b)=-(a/3+b/2)\bmod 1$. Consequently:
-\begin{enumerate}[label=(\alph*),nosep]
-\item The cascade gauge group acts on matter through the quotient $G_{\rm cw}/\mathbb{Z}_6$.
-\item The U(1)$_Y$ representations of $G_{\rm cw}/\mathbb{Z}_6$ realised on a $(V_{12},V_{13})$-sector matter state have $Y\in\frac{1}{\dim V_{12}\cdot\dim V_{13}}\mathbb{Z}$ in cascade-native units.
-\item The smallest non-trivial $|Y|$ on a $(V_{12},V_{13})$-sector matter state (the \emph{sector-fundamental}) is
-\[
-|Y|_{\rm sf}(V_{12},V_{13}) \;=\; \frac{1}{\dim V_{12}\cdot\dim V_{13}}.
-\]
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-\textbf{Step~1 (cascade gauge centres).} The centres $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ are standard for the cascade gauge groups derived in Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$ from $\rho(12)-1=8$, $\rho(13)-1=3$, $\rho(14)-1=1$. The U(1)$_Y$ generator at $d=14$ is the cascade complex structure $J|_{S^{13}}$ (Part~IVa~\cite{paper4a}~$\S$~on the $d=14$ layer); $J^2=-I$ gives a compact U(1) action.
-
-\textbf{Step~2 (centre action on path-tensor sectors).} On a fundamental rep, the centre acts by a primitive root of unity; on the trivial rep, it acts trivially. Thus on each $(V_{12},V_{13})$-sector:
-\begin{itemize}
-\item $V_{12}=\mathbf{3}$: $\zeta_3$ acts as $e^{2\pi i/3}$; $V_{12}=\mathbf{1}$: $\zeta_3$ acts as $1$.
-\item $V_{13}=\mathbf{2}$: $\zeta_2$ acts as $-1$; $V_{13}=\mathbf{1}$: $\zeta_2$ acts as $1$.
-\end{itemize}
-A diagonal element $(\zeta_3^a,\zeta_2^b,e^{2\pi i\eta})$ acts on a $(V_{12},V_{13})$-sector $\Psi$ with $Y$-charge $Y$ by the scalar $\exp\bigl(2\pi i(a\,c_3/3+b\,c_2/2+\eta\,Y)\bigr)$, where $c_3\in\{0,1\}$ and $c_2\in\{0,1\}$ are the indicator functions of $V_{12}=\mathbf{3}$ and $V_{13}=\mathbf{2}$ respectively.
-
-\textbf{Step~3 (forced compensation).} Triviality of $\Delta$ on $\Psi$ requires $a\,c_3/3+b\,c_2/2+\eta(a,b)\,Y\in\mathbb{Z}$ for all $(a,b)\in\mathbb{Z}/3\times\mathbb{Z}/2$. Setting $(a,b)=(1,0)$ and $(a,b)=(0,1)$ separately and using the cascade requirement that $\Delta$ act trivially on \emph{every} cascade matter sector (including the maximally non-trivial $(\mathbf{3},\mathbf{2})$ sector with $c_3=c_2=1$) forces
-\[
-\eta(a,b)\;=\;-\bigl(a/3+b/2\bigr)\bmod 1,
-\]
-unique up to the choice of generator. The image of $(a,b)\mapsto e^{2\pi i\eta(a,b)}$ in U(1)$_Y$ is the cyclic group of order $\mathrm{lcm}(3,2)=6$; hence $\Delta\cong\mathbb{Z}_6$.
-
-\textbf{Step~4 (effective gauge group).} A representation of $G_{\rm cw}$ on which $\Delta$ acts trivially is, equivalently, a representation of the quotient group $G_{\rm cw}/\Delta=G_{\rm cw}/\mathbb{Z}_6$. By construction of $\Delta$, every cascade matter state $\Psi\in V_{12}\otimes V_{13}\otimes V_{14}$ is such a representation; hence cascade matter transforms under $G_{\rm cw}/\mathbb{Z}_6$.
-
-\textbf{Step~5 (sector-fundamental quantisation).} The U(1)$_Y$ factor of $G_{\rm cw}/\mathbb{Z}_6$ is U(1)$_Y/\mathbb{Z}_n$, where $n=\mathrm{lcm}(3^{c_3},2^{c_2})\in\{1,2,3,6\}$ is the order of the image of $\Delta$ acting on the U(1)$_Y$ factor over the $(V_{12},V_{13})$-sector. By Dirac/Weyl charge quantisation on a multiply-connected compact Lie group, the unitary irreps of U(1)$_Y/\mathbb{Z}_n$ are labelled by characters $e^{2\pi i k Y}$ with $kY\in\frac{1}{n}\mathbb{Z}$; equivalently, $Y\in\frac{1}{n}\mathbb{Z}$ in cascade-native units. For each sector:
-\begin{align*}
-(V_{12},V_{13})&=(\mathbf{3},\mathbf{2}):\;n=\dim V_{12}\cdot\dim V_{13}=6,\;\;Y\in\tfrac{1}{6}\mathbb{Z};\\
-(\mathbf{3},\mathbf{1}):\;n&=3,\;\;Y\in\tfrac{1}{3}\mathbb{Z};\\
-(\mathbf{1},\mathbf{2}):\;n&=2,\;\;Y\in\tfrac{1}{2}\mathbb{Z};\\
-(\mathbf{1},\mathbf{1}):\;n&=1,\;\;Y\in\mathbb{Z}.
-\end{align*}
-The smallest non-trivial $|Y|$ in each sector is therefore $1/n=1/(\dim V_{12}\cdot\dim V_{13})$, establishing claim~(c). Claims~(a),~(b) follow from Step~4 and Step~5 directly.\qed
-\end{proof}
-
-\begin{remark}[What Theorem~\ref{thm:sector-fundamental-y} closes and what it does not]\label{rem:sector-fundamental-status}
-\textbf{Closure status of (R1b).}
-Theorem~\ref{thm:sector-fundamental-y} establishes the sector-fundamental U(1)$_Y$ rule cascade-natively: the rule is now \emph{cascade-forced}, not just austerity-respecting and SM-spectrum-selected. The five SM matter types occupying the sector-fundamental in their respective $(V_{12},V_{13})$-sectors --- $|Y_{Q_L}|=1/6$, $|Y_{u_R}|=|Y_{d_R}|=1/3$ (modulo Yukawa-singlet shift; see below), $|Y_{L_L}|=|Y_H|=1/2$, $|Y_{e_R}|=1$ --- now match the cascade sector-fundamental $|Y|_{\rm sf}=1/(\dim V_{12}\cdot\dim V_{13})$ derived in claim~(c).
-
-\textbf{The u$_R$ outlier is not a counterexample.} u$_R$ sits at $|Y_{u_R}|=2/3$ in its $(\mathbf{3},\mathbf{1})$-sector, i.e.\ at \emph{twice} the sector-fundamental $1/3$. This is forced by gauge invariance of the Yukawa singlet $\bar Q_L\widetilde H u_R$ together with the closure of (R1a) $|Y_H|=1/2$ and (R1c) sign$(Y_H)=$sign$(Y_{Q_L})$ (verifier \texttt{tools/research/cascade\_y\_trace\_identity.py} Step~2). Theorem~\ref{thm:sector-fundamental-y} predicts only that allowed Y values lie on the sector-fundamental lattice $\frac{1}{n}\mathbb{Z}$; the Yukawa singlet picks out the specific lattice point $|Y|=2\cdot|Y|_{\rm sf}$ for u$_R$.
-
-\textbf{What Theorem~\ref{thm:sector-fundamental-y} requires.} The forcing argument of Step~3 hinges on requiring that $\Delta$ act trivially on \emph{every} cascade matter sector. This is the cascade-internal content: cascade matter is exhausted by the four $(V_{12},V_{13})$-sectors $\{(\mathbf{1},\mathbf{1}),(\mathbf{1},\mathbf{2}),(\mathbf{3},\mathbf{1}),(\mathbf{3},\mathbf{2})\}$ per Part~IVa~\cite{paper4a}~$\mathit{rem{:}fund\text{-}or\text{-}trivial}$, and the path-tensor structure (Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$) places \emph{realised} matter in all four sectors except $(\mathbf{1},\mathbf{1})$ at the level of left-handed Weyl content (Q$_L$ in $(\mathbf{3},\mathbf{2})$, L$_L$ in $(\mathbf{1},\mathbf{2})$, $u_R^c,d_R^c$ in $(\bar{\mathbf{3}},\mathbf{1})$, $e_R^c$ in $(\mathbf{1},\mathbf{1})$). The maximally non-trivial sector $(\mathbf{3},\mathbf{2})$ is realised by Q$_L$, which fixes $\eta(a,b)=-(a/3+b/2)$ uniquely.
-
-\textbf{(R1) is automatic from Theorem~\ref{thm:sector-fundamental-y}.} The relation $Y_H = N_c\cdot Y_{Q_L}$ (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question, item~(R1)) is a \emph{consequence} of Theorem~\ref{thm:sector-fundamental-y}, not an additional open piece. Both $H$ and $Q_L$ sit at the sector-fundamental of their respective sectors $(\mathbf{1},\mathbf{2})$ and $(\mathbf{3},\mathbf{2})$, which share the SU(2)-doublet factor $V_{13}=\mathbf{2}$. The ratio is therefore
-\[
-\frac{|Y_H|}{|Y_{Q_L}|} \;=\; \frac{\dim V_{12}(Q_L)\cdot\dim V_{13}(Q_L)}{\dim V_{12}(H)\cdot\dim V_{13}(H)} \;=\; \frac{\dim V_{12}(Q_L)}{\dim V_{12}(H)} \;=\; \frac{N_c}{1} \;=\; N_c,
-\]
-where $V_{13}$ cancels and $N_c=\rho(12)-1=3$ is the cascade Adams count (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$). Combined with (R1c) sign correlation (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question), this yields the composite relation $Y_H=N_c\cdot Y_{Q_L}$ with no separate trace-identity derivation required. The factor $N_c$ is the \emph{sector dimension ratio}, not a color trace. Verifier: \texttt{tools/research/cascade\_r1\_closure.py}.
-
-\textbf{What is not closed by Theorem~\ref{thm:sector-fundamental-y}.}
-\begin{enumerate}[label=(\alph*),nosep]
-\item The \emph{sign} of $Y_{Q_L}$ within the $(\mathbf{3},\mathbf{2})$-sector remains a basin-label convention (Remark~\ref{rem:cpt-balance-basins}); Theorem~\ref{thm:sector-fundamental-y} fixes $|Y|_{\rm sf}$, not its sign.
-\item The \emph{specific lattice point} (sector-fundamental vs.\ $k\cdot$~sector-fundamental for $k\in\mathbb{Z}$) is determined for $u_R$ at $k=2$ by the Yukawa singlet condition $Y_{u_R}=Y_{Q_L}+Y_H=1/6+1/2=2/3$ (gauge invariance of $\bar Q_L\widetilde H u_R$); for the remaining five matter types ($Q_L$, $d_R$, $L_L$, $e_R$, $H$), $k=\pm 1$ is selected by extended fund-or-trivial (matter at smallest non-trivial irrep of $\mathrm{U}(1)_Y/\mathbb{Z}_n$).
-\end{enumerate}
-
-\textbf{Tier classification.} Tier~2 (cascade-forced closure of the sector-fundamental rule plus the $Y_H=N_c\cdot Y_{Q_L}$ relation; Y-spectrum chain complete at the magnitude $+$ sign level modulo basin-label sign convention).
-
-\textbf{Companion verifiers.}
-\texttt{tools/research/cascade\_r1b\_via\_rep\_theory.py} (identifies the gauge-centre-quotient mechanism among four candidate routes);
-\texttt{tools/research/cascade\_r1b\_closure\_attempt.py} (verifies sector-fundamental match for all five SM matter types $Q_L, d_R, L_L, e_R, H$ at sector-fundamental, with u$_R$ correctly excluded as Yukawa-forced $2\times$ sector-fundamental);
-\texttt{tools/research/cascade\_r1\_closure.py} (verifies $Y_H=N_c\cdot Y_{Q_L}$ as automatic from sector-fundamental theorem $+$ extended fund-or-trivial $+$ (R1c)).
-\end{remark}
 
 \subsection{Why \texorpdfstring{$R'(d)$}{R'(d)} does not appear}
 
@@ -922,6 +650,270 @@ Both $\alpha_s$ and $v$ are predicted $\sim 2\%$ low, in the same direction, con
 \subsection{The fourth generation}
 
 At $d = 29$ ($n_D = 4$), the cascade mass formula extrapolated to the fourth Bott layer gives $m_4 = (\alpha_s v/\sqrt{2})\exp(-\Phi(29))(2\sqrt{\pi})^{-5} \approx 543$~eV, four orders of magnitude below the charged-fermion mass scale (electron $m_e \approx 0.511$~MeV) and four orders of magnitude above the neutrino mass scale ($\sqrt{\Delta m^2_{\rm atm}} \approx 0.05$~eV). Relative to Generation~1, the fourth charged-fermion generation is suppressed by two cascade factors: the geometric wall (one further $d_1 = 19$ phase transition contributing $\exp(-\Phi(29)+\Phi(21)) \approx 3.7\times 10^{-3}$) and one additional hairy-ball obstruction $(2\sqrt{\pi})^{-1} \approx 0.282$, giving $m_4/m_e \approx 1\times 10^{-3}$. The geometric wall in absolute terms is $\exp(-\Phi(29)) = 1.54\times 10^{-5}$ and the topological wall is $(2\sqrt{\pi})^{-(n_D+1)} = (2\sqrt{\pi})^{-5} \approx 1.78\times 10^{-3}$. The same $m_4 \approx 543$~eV serves as the source mass $m_{29}$ in the cascade neutrino-mass formula $m_\nu(\text{Gen}~g) = m_{29}\cdot\alpha(d_g)/\chi^{29 - d_g}$ (Open Questions section, ``Neutrino masses''); the heaviest cascade neutrino mass $m_{29}\cdot\alpha(21)/\chi^8 = 0.0493$~eV matches $\sqrt{\Delta m^2_{\rm atm}} = 0.0495$~eV to $-0.4\%$. Verifier: \texttt{tools/research/cascade\_neutrino\_mass\_audit.py}.
+
+\section{The Cascade Fermion Action}\label{sec:fermion-action}\label{rem:fermion-gauge-coupling-proposal}
+This section articulates the cascade fermion action with gauge coupling
+at the gauge-window layers. The action form is uniquely determined by
+six cascade-internal conditions:
+\begin{enumerate}[label=(F\arabic*),nosep]
+\item Berezin per-layer integration: $\bar\psi\psi$ structure forced
+(Remark~\ref{rem:berezin-partition-derivation}, Theorem~\ref{thm:sp31-decomposition}).
+\item Per-layer locality: no inter-layer kinetic, derived from
+convergence of three cascade-source readings (``Per-layer locality''
+paragraph below).
+\item Per-layer Dirac mass $m(d) = \sqrt{\alpha(d)}$
+(Remark~\ref{rem:berezin-partition-derivation}; cascade square-root
+universality).
+\item Gauge coupling $g(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$-universality
+at all gauge-window layers; ``Cascade-native universality'' paragraph below).
+\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa~\cite{paper4a}
+$\mathit{thm{:}adams}$: SU(3) at $d=12$ from $\mathbb{H}^3$, SU(2) at $d=13$
+from quaternionic right-mults, U(1) at $d=14$ from $J$).
+\item Parity-violating chirality structure from
+Theorem~\ref{thm:chirality-factorisation}: $\chi=2$ basin decomposition
+at $d=13$ selects L (doublet) vs R (singlet), reproducing the SM SU(2)$_L$
+pattern via Part~IVa~\cite{paper4a} Section~2 Spin$(12)$ Dirac decomposition.
+\end{enumerate}
+
+\medskip\noindent\textbf{Downstream consequences.}
+Y-spectrum closure via Theorem~\ref{thm:sector-fundamental-y}; photon
+self-energy $1/\alpha_{\rm em}$ screening via
+Remark~\ref{rem:per-leg-primitive-derivation}; SU(2)$_L$ parity
+violation via Part~IVa~\cite{paper4a} Section~2. Per CLAUDE.md Check~7,
+semiclassical procedures (Green's functions on cascade spheres,
+Coleman--Weinberg potentials on $S^{12}$) are out of bounds for cascade
+quantities; no ``higher-loop residual'' open piece exists at the cascade-
+native level.
+
+\medskip\noindent\textbf{Proposed form (per-layer local).}
+\[
+S_f^{\rm cascade} \;=\; \sum_d m(d)\,\bar\psi(d)\psi(d)
+\;+\; \sum_{d\in\{12,13,14\}} g(d)\,\bar\psi(d)\,T^a A^a(d)\,\psi(d),
+\]
+with NO inter-layer kinetic term. The cascade fermion is per-layer
+local; multi-layer effects come from products of per-layer Berezin
+factors plus the SCALAR cascade slicing
+(Remark~\ref{rem:action-uniqueness}'s $(\Delta\varphi)^2$ kinetic
+structure on the scalar field). See ``Per-layer locality'' paragraph
+below for the derivation.
+
+The ingredients:
+\begin{itemize}
+\item $m(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer Dirac mass
+(Remark~\ref{rem:berezin-partition-derivation}, narrowing of
+Open Question~\ref{oq:fermion-cascade-action});
+\item $g(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer gauge
+coupling in cascade-native units (the standard QFT coupling
+$g_{\rm QFT} = \sqrt{4\pi\alpha} = N(d) = 2\sqrt{\pi}\,g_{\rm cascade}(d)$);
+\item $T^a$ are the Adams gauge-group generators at the gauge-window
+layer:
+\begin{itemize}
+\item $d=12$ (SU(3)): 8 generators, algebra at $d_0=7$ via
+  $G_2/\mathrm{SU}(3)$ (Part~IVa~\cite{paper4a}).
+\item $d=13$ (SU(2)): 3 generators, right-multiplication algebra
+  $\{R_i,R_j,R_k\}$ extended trivially to the slicing axis
+  (Part~IVa~\cite{paper4a}).
+\item $d=14$ (U(1)): 1 generator, $J|_{S^{13}}$ (cascade complex
+  structure restricted to the $d=14$ sphere; Part~IVa~\cite{paper4a}).
+\end{itemize}
+\end{itemize}
+
+\medskip\noindent\textbf{Cascade-native universality.} The Yukawa
+$m(d)$ and gauge coupling $g(d)$ are the \emph{same cascade quantity}
+$\sqrt{\alpha(d)}$ at every layer (verifier
+\texttt{tools/research/cascade\_fermion\_gauge\_action.py}, Step~2).
+This $\sqrt{\alpha}$ universality is forced by the cascade's only
+natural square-root scale at each layer ($R(d)/2 = \sqrt{\alpha(d)}$
+is the unique cascade-native non-$\sqrt{\pi}$ amplitude per
+Open Question~\ref{oq:fermion-cascade-action} pool-uniqueness analysis).
+
+\medskip\noindent\textbf{Per-layer sanity verified.} At $A=0$
+(gauge-trivial), the proposed action reduces to
+$m(d)\bar\psi\psi$, and Berezin integration gives
+$Z_f(d) = m(d) = \sqrt{\alpha(d)}$ exactly. The ratio
+$Z_f(d)/Z_s(d) = 1/(2\sqrt{\pi})$ holds to machine precision at
+$d\in\{5,13,21,29\}$
+(verifier \texttt{tools/research/cascade\_fermion\_gauge\_action.py},
+Step~1; matches Remark~\ref{rem:berezin-partition-derivation}).
+
+\medskip\noindent\textbf{Single-particle restriction unifies
+fund-or-trivial.} Under single-particle cascade descent
+(Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$:
+each cascade observable threads exactly one path), the
+gauge-coupling term $g(d)\bar\psi T^a A^a \psi$ admits a single
+$T^a$-eigenstate for $\psi$ at the gauge-window layer; this gives
+$V_d \in \{\text{trivial}, \text{fundamental}\}$ at each $d$.
+Higher representations would require Clebsch--Gordan composition of
+multiple fundamentals, contradicting the single-path descent. The
+three independent layer arguments of Part~IVa~\cite{paper4a}
+$\mathit{rem{:}fund\text{-}or\text{-}trivial}$ unify into one under
+the proposed gauge-coupled action: a single principle
+(single-particle descent + cascade-native gauge coupling) restricts
+$V_d \in \{\mathbf{1}, \text{fundamental}\}$ at all three
+gauge-window layers.
+
+\medskip\noindent\textbf{Per-layer locality (derivation).}
+The proposal contains no inter-layer kinetic term for $\psi$. Three
+pieces of cascade source converge on this:
+\begin{enumerate}[label=(\arabic*),nosep]
+\item Remark~\ref{rem:berezin-partition-derivation} computes
+multi-layer fermion contributions as \emph{products} of per-layer
+Berezin ratios: ``the product of $n_D$ per-layer ratios reproduces
+Part~IVb Theorem~2.6's $(2\sqrt{\pi})^{-n_D}$ mass-formula base
+exactly.''  Multi-layer fermion physics is multiplicative-per-layer,
+not additive-from-an-inter-layer-Lagrangian.
+\item Open Question~\ref{oq:fermion-cascade-action}'s
+constraint (sphere-bundle imports ruled out by scaling, per
+CLAUDE.md Check~7) commits the fermion sector to live in the
+cascade lattice (1D in the layer index $d$), with sphere geometry
+$S^{d-1}$ as the per-layer realisation but not the source of
+dynamics.
+\item Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$
+case~(ii) gives the gauge-anchored attenuation as the SCALAR
+cascade potential $\exp(\Phi(d_B))$, with the fermion contributing
+only the per-layer Berezin factor $(2\sqrt{\pi})^{-1}$ at each
+Dirac layer crossed.
+\end{enumerate}
+The cascade scalar field $\varphi(d) = \ln\Omega_d$ DOES have an
+inter-layer kinetic term $(2\alpha(d))^{-1}(\Delta\varphi)^2$
+(Remark~\ref{rem:action-uniqueness}); this kinetic structure
+carries the cascade descent. The fermion field has no such kinetic
+structure of its own; transport between layers is mediated entirely
+by the scalar slicing.
+
+The proposal therefore has no layer-coupling open piece (per-layer
+locality is derived above), and descent consistency is automatic from
+products of per-layer Berezin factors (matching $(2\sqrt{\pi})^{-n_D}$
+exactly per Theorem~2.6).
+
+\medskip\noindent\textbf{Y spectrum: closed via Theorem~\ref{thm:sector-fundamental-y}.}
+The cascade has no QFT-style triangle anomalies (per-layer locality
+precludes derivative-coupled Dirac operators), so the four
+anomaly-like conditions on $V_{14}$ weights cannot arise from
+path-integral Jacobians. The cascade-native replacement is
+\emph{path-tensor consistency} --- the cascade form of multi-layer
+gauge-invariance closure (verifier
+\texttt{tools/research/cascade\_path\_tensor\_consistency.py}).
+
+After EW symmetry breaking at $d=13$
+(Part~IVa~\cite{paper4a}~$\mathit{thm{:}lefschetz}$, $\mathit{thm{:}breaking}$,
+$\mathit{thm{:}higgs}$) the unbroken U(1)$_{\rm em}$ at $d=4$ has
+generator $Q = T_3 + Y$, the linear combination annihilating the
+Higgs vacuum. This is cascade-derived from the Higgs mechanism
+plus Theorem~\ref{thm:weinberg}'s diagonalisation of the $(W^3, B)$
+mass matrix; it is the cascade-native form of the
+Gell-Mann--Nishijima identity (a derived relation, not an assumed
+convention).
+
+The Y spectrum itself is closed at the magnitude $+$ sign level
+by Theorem~\ref{thm:sector-fundamental-y} (sector-fundamental rule
+from cascade gauge centres) plus
+Remark~\ref{rem:sector-fundamental-status}'s extended fund-or-trivial
+principle: the cascade gauge centres
+$\mathbb{Z}_3 \times \mathbb{Z}_2$ act on path-tensor matter via
+the diagonal $\mathbb{Z}_6$, forcing $G_{\rm cw}/\mathbb{Z}_6$ as
+the effective gauge group with $Y$ quantised at the
+sector-fundamental
+$1/(\dim V_{12} \cdot \dim V_{13})$ in each $(V_{12}, V_{13})$
+sector. Smallest non-trivial irrep selects $k = \pm 1$ for $Q_L$,
+$L_L$, $d_R$, $e_R$, $H$; Yukawa singlet
+$\bar Q_L \widetilde H u_R$ forces $k = \pm 2$ for $u_R$; the
+relation $Y_H = N_c \cdot Y_{Q_L}$ is automatic as the
+sector-dimension ratio
+(Remark~\ref{rem:sector-fundamental-status}). The only residual is
+the basin-label sign convention
+(Remark~\ref{rem:cpt-balance-basins}), a labelling internal to the
+observer's frame with zero observational input, at strict parity
+with the SM's $Q_e = -1$ convention.
+
+\medskip\noindent\emph{What this section earns.} The cascade-lattice
+action is articulated with four derived pieces (per-layer Berezin
+reduction at $A=0$, $\sqrt{\alpha}$ universality of $m$ and $g$,
+per-layer locality from cascade source convergence, single-particle
+restriction at all three gauge-window layers) and connects to the
+Y-spectrum closure via Theorem~\ref{thm:sector-fundamental-y}. The
+QFT triangle-anomaly framing is identified as inapplicable; the
+cascade-native replacement is path-tensor consistency, which the
+sector-fundamental theorem realises. No structural gap remains in
+the action's specification.
+\subsection{Y spectrum from cascade gauge centres}\label{subsec:y-spectrum-closure}
+
+\begin{theorem}[Sector-fundamental U(1)$_Y$ rule from cascade gauge centers]\label{thm:sector-fundamental-y}
+Let $G_{\rm cw}=\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)_Y$ be the cascade gauge group at the gauge window $\{d=12,13,14\}$ (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$), let $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ be the standard centres, and let $\Psi$ denote a cascade matter state in a definite path-tensor sector
+\[
+\Psi \;\in\; V_{12}\otimes V_{13}\otimes V_{14},
+\qquad V_{12}\in\{\mathbf{1},\mathbf{3}\},\;\; V_{13}\in\{\mathbf{1},\mathbf{2}\},\;\; \dim_{\mathbb{C}}V_{14}=1
+\]
+(Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$, $\mathit{rem{:}fund\text{-}or\text{-}trivial}$). Then the requirement that the diagonal subgroup
+\[
+\Delta\;:=\;\bigl\{(\zeta_3^{\,a},\,\zeta_2^{\,b},\,e^{2\pi i\,\eta(a,b)})\,:\,a\in\mathbb{Z}/3,\,b\in\mathbb{Z}/2\bigr\}\;\subset\;G_{\rm cw}
+\]
+act trivially on every cascade matter sector forces $\Delta\cong\mathbb{Z}_6$ to be the unique discrete subgroup of $G_{\rm cw}$ acting trivially on path-tensor matter, with $\eta(a,b)=-(a/3+b/2)\bmod 1$. Consequently:
+\begin{enumerate}[label=(\alph*),nosep]
+\item The cascade gauge group acts on matter through the quotient $G_{\rm cw}/\mathbb{Z}_6$.
+\item The U(1)$_Y$ representations of $G_{\rm cw}/\mathbb{Z}_6$ realised on a $(V_{12},V_{13})$-sector matter state have $Y\in\frac{1}{\dim V_{12}\cdot\dim V_{13}}\mathbb{Z}$ in cascade-native units.
+\item The smallest non-trivial $|Y|$ on a $(V_{12},V_{13})$-sector matter state (the \emph{sector-fundamental}) is
+\[
+|Y|_{\rm sf}(V_{12},V_{13}) \;=\; \frac{1}{\dim V_{12}\cdot\dim V_{13}}.
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{Step~1 (cascade gauge centres).} The centres $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ are standard for the cascade gauge groups derived in Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$ from $\rho(12)-1=8$, $\rho(13)-1=3$, $\rho(14)-1=1$. The U(1)$_Y$ generator at $d=14$ is the cascade complex structure $J|_{S^{13}}$ (Part~IVa~\cite{paper4a}~$\S$~on the $d=14$ layer); $J^2=-I$ gives a compact U(1) action.
+
+\textbf{Step~2 (centre action on path-tensor sectors).} On a fundamental rep, the centre acts by a primitive root of unity; on the trivial rep, it acts trivially. Thus on each $(V_{12},V_{13})$-sector:
+\begin{itemize}
+\item $V_{12}=\mathbf{3}$: $\zeta_3$ acts as $e^{2\pi i/3}$; $V_{12}=\mathbf{1}$: $\zeta_3$ acts as $1$.
+\item $V_{13}=\mathbf{2}$: $\zeta_2$ acts as $-1$; $V_{13}=\mathbf{1}$: $\zeta_2$ acts as $1$.
+\end{itemize}
+A diagonal element $(\zeta_3^a,\zeta_2^b,e^{2\pi i\eta})$ acts on a $(V_{12},V_{13})$-sector $\Psi$ with $Y$-charge $Y$ by the scalar $\exp\bigl(2\pi i(a\,c_3/3+b\,c_2/2+\eta\,Y)\bigr)$, where $c_3\in\{0,1\}$ and $c_2\in\{0,1\}$ are the indicator functions of $V_{12}=\mathbf{3}$ and $V_{13}=\mathbf{2}$ respectively.
+
+\textbf{Step~3 (forced compensation).} Triviality of $\Delta$ on $\Psi$ requires $a\,c_3/3+b\,c_2/2+\eta(a,b)\,Y\in\mathbb{Z}$ for all $(a,b)\in\mathbb{Z}/3\times\mathbb{Z}/2$. Setting $(a,b)=(1,0)$ and $(a,b)=(0,1)$ separately and using the cascade requirement that $\Delta$ act trivially on \emph{every} cascade matter sector (including the maximally non-trivial $(\mathbf{3},\mathbf{2})$ sector with $c_3=c_2=1$) forces
+\[
+\eta(a,b)\;=\;-\bigl(a/3+b/2\bigr)\bmod 1,
+\]
+unique up to the choice of generator. The image of $(a,b)\mapsto e^{2\pi i\eta(a,b)}$ in U(1)$_Y$ is the cyclic group of order $\mathrm{lcm}(3,2)=6$; hence $\Delta\cong\mathbb{Z}_6$.
+
+\textbf{Step~4 (effective gauge group).} A representation of $G_{\rm cw}$ on which $\Delta$ acts trivially is, equivalently, a representation of the quotient group $G_{\rm cw}/\Delta=G_{\rm cw}/\mathbb{Z}_6$. By construction of $\Delta$, every cascade matter state $\Psi\in V_{12}\otimes V_{13}\otimes V_{14}$ is such a representation; hence cascade matter transforms under $G_{\rm cw}/\mathbb{Z}_6$.
+
+\textbf{Step~5 (sector-fundamental quantisation).} The U(1)$_Y$ factor of $G_{\rm cw}/\mathbb{Z}_6$ is U(1)$_Y/\mathbb{Z}_n$, where $n=\mathrm{lcm}(3^{c_3},2^{c_2})\in\{1,2,3,6\}$ is the order of the image of $\Delta$ acting on the U(1)$_Y$ factor over the $(V_{12},V_{13})$-sector. By Dirac/Weyl charge quantisation on a multiply-connected compact Lie group, the unitary irreps of U(1)$_Y/\mathbb{Z}_n$ are labelled by characters $e^{2\pi i k Y}$ with $kY\in\frac{1}{n}\mathbb{Z}$; equivalently, $Y\in\frac{1}{n}\mathbb{Z}$ in cascade-native units. For each sector:
+\begin{align*}
+(V_{12},V_{13})&=(\mathbf{3},\mathbf{2}):\;n=\dim V_{12}\cdot\dim V_{13}=6,\;\;Y\in\tfrac{1}{6}\mathbb{Z};\\
+(\mathbf{3},\mathbf{1}):\;n&=3,\;\;Y\in\tfrac{1}{3}\mathbb{Z};\\
+(\mathbf{1},\mathbf{2}):\;n&=2,\;\;Y\in\tfrac{1}{2}\mathbb{Z};\\
+(\mathbf{1},\mathbf{1}):\;n&=1,\;\;Y\in\mathbb{Z}.
+\end{align*}
+The smallest non-trivial $|Y|$ in each sector is therefore $1/n=1/(\dim V_{12}\cdot\dim V_{13})$, establishing claim~(c). Claims~(a),~(b) follow from Step~4 and Step~5 directly.\qed
+\end{proof}
+
+\begin{remark}[What Theorem~\ref{thm:sector-fundamental-y} closes and what it does not]\label{rem:sector-fundamental-status}
+\textbf{Closure status of (R1b).}
+Theorem~\ref{thm:sector-fundamental-y} establishes the sector-fundamental U(1)$_Y$ rule cascade-natively: the rule is now \emph{cascade-forced}, not just austerity-respecting and SM-spectrum-selected. The five SM matter types occupying the sector-fundamental in their respective $(V_{12},V_{13})$-sectors --- $|Y_{Q_L}|=1/6$, $|Y_{u_R}|=|Y_{d_R}|=1/3$ (modulo Yukawa-singlet shift; see below), $|Y_{L_L}|=|Y_H|=1/2$, $|Y_{e_R}|=1$ --- now match the cascade sector-fundamental $|Y|_{\rm sf}=1/(\dim V_{12}\cdot\dim V_{13})$ derived in claim~(c).
+
+\textbf{The u$_R$ outlier is not a counterexample.} u$_R$ sits at $|Y_{u_R}|=2/3$ in its $(\mathbf{3},\mathbf{1})$-sector, i.e.\ at \emph{twice} the sector-fundamental $1/3$. This is forced by gauge invariance of the Yukawa singlet $\bar Q_L\widetilde H u_R$ together with the closure of (R1a) $|Y_H|=1/2$ and (R1c) sign$(Y_H)=$sign$(Y_{Q_L})$ (verifier \texttt{tools/research/cascade\_y\_trace\_identity.py} Step~2). Theorem~\ref{thm:sector-fundamental-y} predicts only that allowed Y values lie on the sector-fundamental lattice $\frac{1}{n}\mathbb{Z}$; the Yukawa singlet picks out the specific lattice point $|Y|=2\cdot|Y|_{\rm sf}$ for u$_R$.
+
+\textbf{What Theorem~\ref{thm:sector-fundamental-y} requires.} The forcing argument of Step~3 hinges on requiring that $\Delta$ act trivially on \emph{every} cascade matter sector. This is the cascade-internal content: cascade matter is exhausted by the four $(V_{12},V_{13})$-sectors $\{(\mathbf{1},\mathbf{1}),(\mathbf{1},\mathbf{2}),(\mathbf{3},\mathbf{1}),(\mathbf{3},\mathbf{2})\}$ per Part~IVa~\cite{paper4a}~$\mathit{rem{:}fund\text{-}or\text{-}trivial}$, and the path-tensor structure (Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$) places \emph{realised} matter in all four sectors except $(\mathbf{1},\mathbf{1})$ at the level of left-handed Weyl content (Q$_L$ in $(\mathbf{3},\mathbf{2})$, L$_L$ in $(\mathbf{1},\mathbf{2})$, $u_R^c,d_R^c$ in $(\bar{\mathbf{3}},\mathbf{1})$, $e_R^c$ in $(\mathbf{1},\mathbf{1})$). The maximally non-trivial sector $(\mathbf{3},\mathbf{2})$ is realised by Q$_L$, which fixes $\eta(a,b)=-(a/3+b/2)$ uniquely.
+
+\textbf{(R1) is automatic from Theorem~\ref{thm:sector-fundamental-y}.} The relation $Y_H = N_c\cdot Y_{Q_L}$ (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question, item~(R1)) is a \emph{consequence} of Theorem~\ref{thm:sector-fundamental-y}, not an additional open piece. Both $H$ and $Q_L$ sit at the sector-fundamental of their respective sectors $(\mathbf{1},\mathbf{2})$ and $(\mathbf{3},\mathbf{2})$, which share the SU(2)-doublet factor $V_{13}=\mathbf{2}$. The ratio is therefore
+\[
+\frac{|Y_H|}{|Y_{Q_L}|} \;=\; \frac{\dim V_{12}(Q_L)\cdot\dim V_{13}(Q_L)}{\dim V_{12}(H)\cdot\dim V_{13}(H)} \;=\; \frac{\dim V_{12}(Q_L)}{\dim V_{12}(H)} \;=\; \frac{N_c}{1} \;=\; N_c,
+\]
+where $V_{13}$ cancels and $N_c=\rho(12)-1=3$ is the cascade Adams count (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$). Combined with (R1c) sign correlation (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question), this yields the composite relation $Y_H=N_c\cdot Y_{Q_L}$ with no separate trace-identity derivation required. The factor $N_c$ is the \emph{sector dimension ratio}, not a color trace. Verifier: \texttt{tools/research/cascade\_r1\_closure.py}.
+
+\textbf{What is not closed by Theorem~\ref{thm:sector-fundamental-y}.}
+\begin{enumerate}[label=(\alph*),nosep]
+\item The \emph{sign} of $Y_{Q_L}$ within the $(\mathbf{3},\mathbf{2})$-sector remains a basin-label convention (Remark~\ref{rem:cpt-balance-basins}); Theorem~\ref{thm:sector-fundamental-y} fixes $|Y|_{\rm sf}$, not its sign.
+\item The \emph{specific lattice point} (sector-fundamental vs.\ $k\cdot$~sector-fundamental for $k\in\mathbb{Z}$) is determined for $u_R$ at $k=2$ by the Yukawa singlet condition $Y_{u_R}=Y_{Q_L}+Y_H=1/6+1/2=2/3$ (gauge invariance of $\bar Q_L\widetilde H u_R$); for the remaining five matter types ($Q_L$, $d_R$, $L_L$, $e_R$, $H$), $k=\pm 1$ is selected by extended fund-or-trivial (matter at smallest non-trivial irrep of $\mathrm{U}(1)_Y/\mathbb{Z}_n$).
+\end{enumerate}
+
+\textbf{Tier classification.} Tier~2 (cascade-forced closure of the sector-fundamental rule plus the $Y_H=N_c\cdot Y_{Q_L}$ relation; Y-spectrum chain complete at the magnitude $+$ sign level modulo basin-label sign convention).
+
+\textbf{Companion verifiers.}
+\texttt{tools/research/cascade\_r1b\_via\_rep\_theory.py} (identifies the gauge-centre-quotient mechanism among four candidate routes);
+\texttt{tools/research/cascade\_r1b\_closure\_attempt.py} (verifies sector-fundamental match for all five SM matter types $Q_L, d_R, L_L, e_R, H$ at sector-fundamental, with u$_R$ correctly excluded as Yukawa-forced $2\times$ sector-fundamental);
+\texttt{tools/research/cascade\_r1\_closure.py} (verifies $Y_H=N_c\cdot Y_{Q_L}$ as automatic from sector-fundamental theorem $+$ extended fund-or-trivial $+$ (R1c)).
+\end{remark}
 
 \section{Quark Masses and the Colour Correction}\label{sec:quark-mass}
 
@@ -1342,7 +1334,7 @@ Remark~\ref{rem:per-leg-primitive-derivation} divides the $n$-leg diagonal produ
 \begin{enumerate}[label=(\roman*),nosep]
 \item \emph{The action's kinetic prefactor is uniquely $1/(2\alpha(d))$.} Remark~\ref{rem:action-uniqueness} establishes this in two steps: first-order EL forces the quadratic nearest-neighbour form $S = \sum_d (2\beta(d))^{-1}(\Delta\varphi)^2$; the marginal Green's function identity (Remark~\ref{rem:marginal-greens}, eq.~\eqref{eq:marginal-greens}) forces the compliance $\beta(d) = \alpha(d) = R(d)^2/4$. The action is therefore the cascade-native gauge-sector functional, with $\alpha(d)$ playing the role of the gauge coupling.
 \item \emph{The lattice covariance inherits the action's prefactor.} For a Gaussian theory on the cascade lattice with action $S = \sum_d (2\beta(d))^{-1}(\Delta\varphi)^2$, the Gaussian variance identity is $\langle(\Delta\varphi(d))^2\rangle = \beta(d)$. On the cascade lattice with $\beta = \alpha(d)$, the per-layer covariance is $\langle(\Delta\varphi(d))^2\rangle = \alpha(d)$, exactly --- this is the marginal Green's function identity (Remark~\ref{rem:marginal-greens}). Combined with the per-step orthogonal residue $\Gamma(\tfrac{1}{2})$ from Part~0's slicing recurrence (Remark~\ref{rem:per-leg-primitive-derivation} item~(2)), the cascade-lattice diagonal contribution at a single Dirac layer is $G_d = \sqrt{\alpha(d)}\cdot\Gamma(\tfrac{1}{2})$.
-\item \emph{The inverse-coupling shift is the diagonal product divided by the gauge boson's kinetic prefactor.} For a gauge boson with cascade-native coupling $g(d) = \sqrt{\alpha(d)}$ (Remark~\ref{rem:fermion-gauge-coupling-proposal}, $\sqrt{\alpha}$-universality), the gauge boson's kinetic term in the cascade action is $1/(2\alpha(d))$ at its layer. The contribution to $1/\alpha_{\rm em}$ from a closed cascade cycle at layer $d$ is then
+\item \emph{The inverse-coupling shift is the diagonal product divided by the gauge boson's kinetic prefactor.} For a gauge boson with cascade-native coupling $g(d) = \sqrt{\alpha(d)}$ (Section~\ref{sec:fermion-action}, $\sqrt{\alpha}$-universality), the gauge boson's kinetic term in the cascade action is $1/(2\alpha(d))$ at its layer. The contribution to $1/\alpha_{\rm em}$ from a closed cascade cycle at layer $d$ is then
 \[
 \Delta(1/\alpha_{\rm em})_d \;=\; \frac{\Pi_d}{\alpha(d)} \;=\; \frac{(\text{$n$-leg diagonal product with chirality})}{\alpha(d)}\,,
 \]
@@ -1351,7 +1343,7 @@ where the $1/\alpha(d)$ factor is the gauge boson's kinetic prefactor in the cas
 
 \medskip\noindent\emph{Conclusion.} The $1/\alpha(d)^{n/2}$ kinetic-prefactor normalisation in Remark~\ref{rem:per-leg-primitive-derivation} is the cascade lattice's structural inheritance of the action's prefactor; given Remark~\ref{rem:action-uniqueness}'s uniqueness of the action and Remark~\ref{rem:marginal-greens}'s covariance identity, the normalisation is forced. The cancellation $\alpha(d)^{n/2}$ (diagonal product) $/\alpha(d)^{n/2}$ (kinetic prefactor) $= 1$ is therefore not a choice that happens to work: it is the only normalisation consistent with the cascade-native action and its lattice covariance. The screening contribution at every Dirac layer is exactly $\chi\cdot\Gamma(\tfrac{1}{2})^n$, layer-independent.
 
-\medskip\noindent\emph{What this closes.} The structural derivation of the per-leg primitive $\Gamma(\tfrac{1}{2})$ from the cascade scalar action is now fully grounded in cascade-internal structures: action uniqueness (Remark~\ref{rem:action-uniqueness}), marginal Green's function (Remark~\ref{rem:marginal-greens}), $\sqrt{\alpha}$-universality of the gauge coupling (Remark~\ref{rem:fermion-gauge-coupling-proposal}), and Theorem~\ref{thm:chirality-selection-rule}'s closed-cycle multiplicity. No additional cascade content or external convention is required; in particular, no proper-time integral, heat-kernel expansion, K\"all\'en--Lehmann identity, vacuum-polarisation construction, sphere-spectral procedure, or QFT loop-integral apparatus is invoked --- per CLAUDE.md Check~7, such procedures are out of bounds for cascade quantities, and the derivation above stays within cascade-lattice primitives (Sturm--Liouville on the layer index $d$, classical finite-dimensional linear algebra). The $0.006\%$ residual on $1/\alpha_{\rm em}$ is the cascade's standing leading-order systematic, on a footing with the other Tier~2 precision closures (sub-$\sigma$ for $\alpha_s$, $m_\tau$, $\sin^2\theta_W$, $\theta_C$, $\Omega_m$, $b/s$, $\ell_A$).
+\medskip\noindent\emph{What this closes.} The structural derivation of the per-leg primitive $\Gamma(\tfrac{1}{2})$ from the cascade scalar action is now fully grounded in cascade-internal structures: action uniqueness (Remark~\ref{rem:action-uniqueness}), marginal Green's function (Remark~\ref{rem:marginal-greens}), $\sqrt{\alpha}$-universality of the gauge coupling (Section~\ref{sec:fermion-action}), and Theorem~\ref{thm:chirality-selection-rule}'s closed-cycle multiplicity. No additional cascade content or external convention is required; in particular, no proper-time integral, heat-kernel expansion, K\"all\'en--Lehmann identity, vacuum-polarisation construction, sphere-spectral procedure, or QFT loop-integral apparatus is invoked --- per CLAUDE.md Check~7, such procedures are out of bounds for cascade quantities, and the derivation above stays within cascade-lattice primitives (Sturm--Liouville on the layer index $d$, classical finite-dimensional linear algebra). The $0.006\%$ residual on $1/\alpha_{\rm em}$ is the cascade's standing leading-order systematic, on a footing with the other Tier~2 precision closures (sub-$\sigma$ for $\alpha_s$, $m_\tau$, $\sin^2\theta_W$, $\theta_C$, $\Omega_m$, $b/s$, $\ell_A$).
 \end{remark}
 
 \subsection{The Source Selection Rule}\label{subsec:source-selection}
@@ -2833,7 +2825,7 @@ Sphere-bundle imports (Mathai--Quillen, sphere-Dirac, projection geometry) are r
 
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
 
-\item\label{oq:chirality-selection-extensions} \emph{Cascade observables exercising the higher slots of the chirality selection rule.} Theorem~\ref{thm:chirality-selection-rule} fixes the chirality factor $\chi^{(m-k)}$ for any cascade observable with $k$ open-line modes and $m$ closed loops at a Dirac layer; the currently-closed precision predictions span $m-k\in\{-4,-3,-2,-1,0,+1\}$ (Remark~\ref{rem:chirality-special-cases}). The structural prediction $\chi^{(m-k)}$ stands at any $(m,k)$, but no precision observable currently exercises higher slots ($n\geq 4$ legs in a closed cycle, or $m\geq 2$ closed loops, or mixed $(m,k)=(2,1),(2,2),\ldots$). Identifying a cascade observable that lives at the higher slots and verifying that per-layer locality (Remark~\ref{rem:fermion-gauge-coupling-proposal}) is preserved is the cascade-native target. Per CLAUDE.md Check~7, ``higher-loop precision normalisation via cascade Green's function on $S^{d-1}$'' is not admissible; semiclassical procedures on cascade gauge spheres are out of bounds. Not load-bearing on any existing prediction.
+\item\label{oq:chirality-selection-extensions} \emph{Cascade observables exercising the higher slots of the chirality selection rule.} Theorem~\ref{thm:chirality-selection-rule} fixes the chirality factor $\chi^{(m-k)}$ for any cascade observable with $k$ open-line modes and $m$ closed loops at a Dirac layer; the currently-closed precision predictions span $m-k\in\{-4,-3,-2,-1,0,+1\}$ (Remark~\ref{rem:chirality-special-cases}). The structural prediction $\chi^{(m-k)}$ stands at any $(m,k)$, but no precision observable currently exercises higher slots ($n\geq 4$ legs in a closed cycle, or $m\geq 2$ closed loops, or mixed $(m,k)=(2,1),(2,2),\ldots$). Identifying a cascade observable that lives at the higher slots and verifying that per-layer locality (Section~\ref{sec:fermion-action}) is preserved is the cascade-native target. Per CLAUDE.md Check~7, ``higher-loop precision normalisation via cascade Green's function on $S^{d-1}$'' is not admissible; semiclassical procedures on cascade gauge spheres are out of bounds. Not load-bearing on any existing prediction.
 
 \item \emph{Neutrino sector beyond the heaviest mass.} The heaviest neutrino mass is derived cascade-internally to $-1.0\%$ on $\Delta m^2_{\rm atm}$: $m_\nu = m_{29}\cdot\alpha(21)/\chi^8 = 0.0493$~eV (observed $0.0495$~eV, PDG~2024). Three pieces remain open in the neutrino sector:
 \begin{enumerate}[label=(\alph*),nosep]
