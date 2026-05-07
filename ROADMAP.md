@@ -6,162 +6,13 @@ The single source of truth for predictions is [`PREDICTIONS.md`](PREDICTIONS.md)
 
 ## Open structural questions
 
-### 1. Channel-count rule for Amplitude observables — formal closure (theorem-level; only PMNS test remains as falsifier)
-
-**Status:** Empirical fit grounded in stable homotopy theory and KO-theoretic Bott periodicity. Activation mechanism derived from cascade scalar action's sector-symmetry. Term-by-term (w_1, w_2) identification supplied for all three closed Amplitude observables. Per-case anchoring corrected: the original "θ_23 P_2 is structurally weaker" framing was inverted (P_2 is one of the two most directly anchored cases). **Formal completeness proof now closed:** the chirality factor exponent 2N is forced by combining the cascade scalar action's Z_2-only discrete symmetry group with Adams' theorem on im J's Z_2 generator residues. Higher cyclic groups (Z_24 at residue 3 mod 8, Z_240 at residue 7) detect integer-valued Pontryagin classes of the cascade tangent bundle and contribute to source strength/sign (roadmap #3, #4), not to the chirality factor.
-
-**Verifiers:**
-- [`tools/research/cascade_channel_count_rule.py`](tools/research/cascade_channel_count_rule.py) — empirical verification + activation argument + term-by-term identification for all three observables.
-- [`tools/research/cascade_channel_count_p2_rigour.py`](tools/research/cascade_channel_count_p2_rigour.py) — exploration of the (originally framed) θ_23 P_2 rigour gap; finds the framing inverted.
-- [`tools/research/cascade_channel_count_completeness.py`](tools/research/cascade_channel_count_completeness.py) — formal completeness proof with 3-lemma structure (action symmetry group, im J residue structure, activation criterion).
-
-**Theorem (formal completeness):** Let Q be a cascade Amplitude observable with descent path P spanning N Bott periods. Then the chirality factor in Q's cascade prediction is exactly χ^{2N} = 4^N, with no contribution from higher KO classes or higher cyclic groups in im J at residues 3, 7 mod 8.
-
-**Proof structure:**
-- **Lemma 1 (cascade scalar action symmetry group).** The action S[φ] = Σ(2α(d))⁻¹(Δφ)² with real-valued φ has automorphism group A(S) = R × Z_2 (continuous translation × discrete sign flip). No higher cyclic group of order n > 2 is a symmetry, because (Δφ)² → ω²(Δφ)² under φ → ωφ requires ω² = 1, and for real-valued φ only ω = ±1 satisfies this.
-- **Lemma 2 (im J generator structure, Adams 1966).** Per Bott period, im J has 2 binary (Z_2) generators at residues 0, 1 mod 8 (η, η²; corresponding to Stiefel–Whitney classes w_1, w_2) and 2 cyclic-of-order >2 generators at residues 3, 7 mod 8 (Z_24, Z_240; corresponding to integer-valued Pontryagin classes p_1, p_2).
-- **Lemma 3 (activation criterion).** For a generator g of order m to activate as a multiplicity-m factor in the cascade path-integral, the cascade scalar action must be invariant under g's action on φ. Without action invariance, the m orbit elements have different Boltzmann weights and no clean 1-of-m projection emerges.
-- **Combining:** Only Z_2 generators in im J satisfy Lemma 3 (by Lemmas 1, 2). Per period, this gives 2 binary selectors → χ² = 4 multiplicity. Over N periods, χ^{2N}. Higher cyclic groups don't satisfy Lemma 3 and contribute to other parts of the cascade observable (source strength, sign), not to the chirality factor.
-
-**What's known and now derived:**
-
-- Empirical rule: `k = 2 · #{Bott periods spanned by descent path}` for Amplitude observables. Verified 3/3 on the closed observables θ_C (k=2), b/s (k=4), θ_23 (k=4).
-- **Per-period chi² multiplicity (DERIVED).** Adams' im J's two Z_2 direct factors per Bott period at residues 0, 1 mod 8.
-- **Cascade scalar action is sector-symmetric (DERIVED).** S[φ] invariant under (w_1, w_2) Z_2 flips; multiplicity activation gives equal Boltzmann weight to all χ²ᴺ patterns.
-- **Term-by-term (w_1, w_2) identification for all three closed Amplitudes (DERIVED).** Each spanned period selects (+, +) by the global cascade conventions (w_1 = + derived from slicing recurrence direction; w_2 = + a labelling convention parallel to SM left-handed convention with zero observational input per `rem:cpt-balance-basins`).
-- **Per-case anchoring tabulated.** 2/5 selections are DIRECT (b/s P_1, θ_23 P_2 — both (w_1, w_2) generator layers in path); 3/5 are INHERITED (θ_C P_1, b/s P_0, θ_23 P_1 — generators outside path; selection extends from period's Dirac layer via cascade scalar action's adjacency).
-- **Formal completeness (DERIVED, this section).** Chirality factor is exactly χ^{2N}; higher cyclic groups in im J don't contribute, because they aren't symmetries of S[φ].
-
-**What remains:**
-
-Only one test: monitor PMNS θ_12 or any future Amplitude observable. If a future cascade-native closure for such an observable requires k ≠ 2N, the rule is falsified. Until then, the channel-count rule stands as a theorem.
-
-**Empirical coverage (after the 3-period investigation):**
-
-The rule is confirmed at k=2 (1 observation: θ_C) and k=4 (2 observations: b/s, θ_23). It is **untested at k=6** (3-period Amplitudes): no current SM observable maps cleanly to that slot. The investigation in [`tools/research/cascade_3period_amplitudes.py`](tools/research/cascade_3period_amplitudes.py) tested six plausible 3-period descent paths against four candidate observables (|V_ub|, |V_td|, PMNS θ_13, PMNS θ_12). Best match was |V_ub| at path d=12..28 with ratio 0.72 (cascade prediction 0.158° vs observed 0.219°) — outside the cascade's standing precision. Three structural reasons the slot is empty:
-
-- (i) CKM cross-generation observables (V_ub, V_td) close via the standard multiplicative CKM closure |V_ub| = |V_us|·|V_cb| in a CPT-symmetric setting; the deviation matches the Wolfenstein CP factor as external observational input (Part IVb `rem:theta13-cp`). No direct cascade Amplitude with 3-period descent.
-- (ii) PMNS sector tested partial-negative on existing cascade ingredients (Roadmap #5); 3-period predictions also miss observed PMNS θ_13 by factor ~7–8.
-- (iii) Cross-3-generation mass ratios (m_τ/m_e) are derived as products of 1-period ratios (k=1+1=2 single-period contributions), not as a direct 3-period Amplitude with k=6.
-
-**Most likely future tests:** PMNS sector extension (Roadmap #5), up-type quark masses (Roadmap #6), or any newly-derived cascade Amplitude with 3-period descent. The empty slot at k=6 is not evidence against the rule — it's evidence that the cascade's natural Amplitude structure (gauge-window starting angle, descent terminating at d_1+1 or at a generation layer) doesn't naturally generate 3-period descents in the SM sector.
-
-**Connection to other roadmap items:**
-
-The cyclic-of-order >2 generators (Z_24 at residue 3 mod 8, Z_240 at residue 7 mod 8) detect integer-valued Pontryagin classes p_1, p_2 of the cascade tangent bundle. These contribute to:
-- **Source strength** (roadmap #3): Pontryagin numbers at distinguished source layers d* could fix the unit-1 normalisation of α(d*).
-- **Sign rule** (roadmap #4): Pontryagin classes contribute to the Morse index of Q on the cascade configuration space, conjectured to govern the +/- sign in ±α(d*)/χ^k.
-
-The completeness theorem **forces** these contributions to live outside the chirality factor; they're separate structural ingredients in the cascade observable's full prediction.
-
-**Implications:**
-
-The channel-count rule is now a theorem of the cascade. Combined with the chirality theorem χ^(m-k) (Part IVb thm:chirality-factorisation, extended in `cascade_chirality_theorem.py`) and the source-selection bijection (Part IVb prop:source-selection), three structural rules govern the entire α(d*)/χ^k correction family at theorem level.
-
-**Soft spots (caveats on the proof's rigour level):**
-
-The completeness proof is at the same rigour level as other Part IVb Tier 2 structural arguments — not a fully formalised mathematical theorem in the measure-theoretic sense. Four explicit caveats:
-
-- **(SS1) Cascade path-integral not formally defined.** Lemma 3's activation criterion treats path-integral multiplicities as arising from action-symmetry orbits — the standard physics heuristic. Tightening would require formal definition of `∫ exp(-S[φ]) Dφ` as a measure-theoretic object on the cascade configuration space. The cascade scalar action (Part IVb Remark 4.6) is a discrete-elastic-action proposal, not yet a formal path-integral theory.
-- **(SS2) Lemma 1 not exhaustive over arbitrary group actions.** Multiplicative actions `φ → ωφ` and layer permutations are excluded; exotic non-multiplicative actions (twist actions, non-linear field redefinitions) are excluded by structural argument rather than full classification of the cascade scalar action's automorphism group.
-- **(SS3) Magnitude vs labelling distinction.** The theorem forces the chirality-factor MAGNITUDE to be exactly χ^{2N}. It does NOT determine which specific (w_1, w_2) pattern the observable evaluates at. The global (+, +) convention is a labelling parallel to the SM's "matter is left-handed under SU(2)_L" convention (Part IVb `rem:cpt-balance-basins`, zero observational input). Empirical k = 2N tests the magnitude only.
-- **(SS4) Connection to items #3, #4 is structural, not derived.** The completeness theorem says higher cyclic groups (Z_24, Z_240) at residues 3, 7 mod 8 contribute to source strength and sign rather than to the chirality factor. *How* they contribute — whether Pontryagin numbers fix the source's unit normalisation or the +/- sign via Morse index — remains open as roadmap items #3 and #4.
-
-These soft spots don't undermine the theorem's content; they delimit the rigour level. Tier 2 promotion is consistent with this rigour level (matches the Tier 2 entries for α_s, m_τ/m_μ, sin²θ_W, Ω_m, etc., all of which rely on the same-level structural arguments).
-
-### 2. Source-selection rule — categorical derivation pending
+### 1. Source-selection rule — categorical derivation pending
 
 **Status:** Bijection 4 types ↔ 4 non-sink distinguished layers verified 9/9. The three syntactic flags (P, L, G) are mechanical queries on cascade formulas. Categorical derivation of the flags from a formal category of cascade observables is open.
 
 See Part IVb Proposition `prop:source-selection` and the open question `oq:source-selection-category`.
 
-### 3. Source strength — CLOSED via assembly of existing Tier 1 results
-
-**Status:** CLOSED at theorem level by assembly. Verifier: [`tools/research/cascade_unit_source_strength.py`](tools/research/cascade_unit_source_strength.py).
-
-The "Wronskian normalisation conjecture" turned out to be exactly the marginal Green's function identity (Part IVb `rem:marginal-greens`), which is theorem-level cascade-derived from the discrete Sturm-Liouville Green's function: G(d_obs, d*) − G(d_obs, d*+1) = α(d*) at machine precision, **at every layer** (211 interior layers verified, max relative error 4.7×10⁻¹¹).
-
-**Closure by assembly:**
-1. **Action uniqueness** (Part IVb `rem:action-uniqueness`): cascade scalar action S = Σ(2α(d))⁻¹(Δφ)² with α(d) = R(d)²/4 is uniquely forced (first-order EL forces quadratic nearest-neighbour form; gauge-coupling identification at d=12, 13, 14 forces β(d) = α(d)).
-2. **Marginal Green's identity** (Part IVb `rem:marginal-greens`): response at any layer d* equals α(d*) exactly.
-3. **Action's natural prefactor 1/(2α(d))** (Hooke's-law convention applied cascade-natively): the "1/2" in front of the quadratic gives source coefficient exactly 1.
-4. **Source-selection rule** (Item 2, Proposition `prop:source-selection`): observables sourced only at distinguished layers d* ∈ {5, 7, 14, 19} via 4-to-4 type-to-layer bijection.
-
-Combined: source strength = **1·α(d*)** at the four distinguished layers (machine-precision verified for {5, 7, 14, 19}). The "1" coefficient is forced by the action's natural form; α(d*) is forced by the marginal identity; the choice of distinguished layers is forced by source-selection (Item 2).
-
-**Resolution of the original framing:** Part IVb `rem:phase-family` item (b) hypothesised that distinguished layers carry unit source strength via "Hessian critical-point structure where δ²S/δφ² changes sign." This hint was unrelated to the actual mechanism — the marginal identity holds at *every* layer, not just distinguished ones; the "distinguished" restriction is the source-selection rule, not a Hessian property.
-
-**Connection to Item 2:** Item 3's residual content reduces to Item 2's source-selection bijection (which is empirical 9/9 with structural uniqueness per pairing in Part IVb `prop:source-selection`). The two items are structurally entangled.
-
-### 4. Sign rule — Tier 1 Theorem in Part IVb (all 3/3 cases structurally forced)
-
-**Status:** PROMOTED TO TIER 1 THEOREM. Surfaced in Part IVb as `thm:sign-rule` with three-case proof, all three cases now structurally forced from cascade primitives. Verifiers: [`tools/research/cascade_sign_rule_attempt.py`](tools/research/cascade_sign_rule_attempt.py) (8/8 empirical), [`tools/research/cascade_born_rule_overlap.py`](tools/research/cascade_born_rule_overlap.py) (Case 3 closure via Born-rule overlap calculation).
-
-**Theorem statement:** For an observable Q of population class given by Definition `def:population-class`, sign(δΦ) = +1 if Q is Descent, −1 if Q is Geometric or Amplitude.
-
-**Three-case proof (Part IVb `thm:sign-rule`):**
-
-| Case | Forcing mechanism | Status |
-|---|---|---|
-| **Descent (5 obs)** | Cauchy-Schwarz on Part 0 Gram deficit Σ(1-C²)>0 | **STRUCTURALLY FORCED** |
-| **Geometric Ω_m (1 obs)** | Bott-vs-lapse theorem Ω_m^Bott < Ω_m^lapse = 1/π | **STRUCTURALLY FORCED** |
-| **Amplitude (3 obs)** | Born-rule overlap chirality decomposition + marginal Green's function identity | **STRUCTURALLY FORCED** |
-
-**Case 3 Born-rule overlap calculation (NEW, this entry):**
-
-For an Amplitude observable Q = \|⟨ψ_A\|ψ_B⟩\|², the cascade scalar action's basin symmetry (Remark `rem:action-uniqueness`) gives a chirality-diagonal kinetic operator: ⟨ψ_A^σ\|ψ_B^σ'⟩ = 0 for σ≠σ', and ⟨ψ_A^+\|ψ_B^+⟩ = ⟨ψ_A^-\|ψ_B^-⟩ =: M_+ by basin-area equality.
-
-Cascade leading reading (full sphere ratios N(d)): ⟨ψ_A\|ψ_B⟩_leading = χ·M_+
-Single-basin observation: ⟨ψ_A\|ψ_B⟩_obs = M_+
-For k cascade modes: Q_obs/Q_leading = 1/χ^k.
-
-Source perturbation at d* contributes δM_+ = α(d*)/χ^k via the marginal Green's function identity (Part IVb `rem:marginal-greens`: G(d_obs, d*) − G(d_obs, d*+1) = α(d*) exactly). The cross-basin sum is unchanged at first order; the single-basin observed amplitude reduces by exactly α(d*)/χ^k.
-
-In log form: δΦ_amplitude = −α(d*)/χ^k. Sign forced negative.
-
-**Theorem promotion summary:**
-- Magnitude α(d*)/χ^k: from cascade scalar action's marginal Green's function identity × Z_2 chirality decomposition. Both Tier 1.
-- Sign +1 for Descent: Cauchy-Schwarz on Gram positivity (Part 0 SP-9). Tier 1.
-- Sign −1 for Geometric Ω_m: Bott-vs-lapse theorem (Part IVb existing). Tier 1.
-- Sign −1 for Amplitude: Born-rule overlap chirality decomposition + basin-diagonal kinetic operator. Tier 1.
-
-All three cases now structurally forced. ROADMAP Item 4 closes at theorem level.
-
-**The rule:**
-- **Descent-population observables** (computed via cascade descent integral Φ(d) = Σ p(d'); includes exp(-Φ(d_g)), Φ(d_B)-Φ(d_A), compliance-anchored couplings) → **+ sign**
-- **Geometric-population observables** (computed directly from sphere areas, e.g. Ω_m = 1/π) → **− sign**
-- **Amplitude observables** (transition amplitudes via Born-rule overlaps, e.g. Cabibbo angle, b/s) → **− sign**
-
-**The 8/8 verification:**
-
-| Observable | Source d* | k | Sign | Classification |
-|---|---|---|---|---|
-| α_s(M_Z) | 14 | 1 | + | descent (gauge coupling via descent integral) |
-| m_τ/m_μ | 14 | 1 | + | descent (mass ratio = exp(ΔΦ)) |
-| m_τ absolute | 19 | 1 | + | descent (m = (α_s v/√2)·exp(-Φ(d_g))) |
-| ℓ_A | 19 | 1 | + | descent (acoustic length over Bott periods) |
-| sin²θ_W | 5 | 3 | + | descent (ratio of N(d) at gauge layers) |
-| Ω_m | 5 | 3 | − | geometric (Ω_m = 1/π, direct sphere area) |
-| θ_C | 7 | 2 | − | amplitude (Cabibbo Born-rule overlap) |
-| b/s | 7 | 4 | − | amplitude (cross-generation transition) |
-
-**8/8 match.** The empirical pattern was always known (CLAUDE.md noted "descent-vs-geometric population"); the contribution here is making the rule **explicit**, **structurally-grounded**, and **predictively testable** (any new closure that fits this rule is empirical evidence; one that violates it falsifies the rule).
-
-**Connection to Morse-index conjecture:**
-
-The descent-vs-geometric classification IS the Morse-index pattern in disguise. Descent observables have critical points at "stable descent" paths (Morse index 0 → +1); geometric/amplitude observables have critical points at sphere-geometric extrema with non-zero Morse index → ±1 depending on parity. The **Morse-index parity** is what's predicted by classification, not the Morse index itself. The conjecture is therefore promoted from "Morse-index-based with no derivation" to "Morse-index-parity rule with 8/8 empirical confirmation, derivable from observable classification."
-
-**What's still open at theorem level:**
-
-The classification rule is empirical (8/8). Promoting it to Tier 1 requires:
-1. **Formal definition of "descent" vs "geometric" classification on the cascade observable category.** The classification is currently structural-intuitive; categorical formalization (Item 2) would close this.
-2. **Derivation of the +/- correlation with Morse parity** from the cascade scalar action's Hessian structure. Conjectured: descent observables correspond to action-stable paths (positive-definite Hessian → even Morse index → +); geometric/amplitude observables correspond to sphere-geometric extrema (odd Morse index → −).
-
-These are formalizations of an already-explicit rule. The rule itself is closed at empirical level.
-
-**Falsifiability:** Any future cascade closure that breaks this rule (a descent-population observable with -sign, or geometric/amplitude with +sign) falsifies the rule. Until then, 8/8 stands.
-
-### 5. Lighter neutrino masses, solar Δm², PMNS — different mechanism needed
+### 2. Lighter neutrino masses, solar Δm², PMNS — different mechanism needed
 
 **Status:** Heaviest neutrino mass closes at −0.4% via the m_29 chain. Lighter masses in the diagonal cascade form give m_2 ≈ 3×10⁻⁴ eV, undershooting the observed solar splitting √Δm²_sol = 8.6×10⁻³ eV by factor ~800. Cabibbo-template extended to PMNS_12 gives 7.5° vs observed 33.4° — wrong by factor 4.5.
 
@@ -179,7 +30,7 @@ See Part IVb open question on PMNS and `tools/research/cascade_pmns_solar_splitt
 
 These are exploratory tools without integration into the cascade's published derivation chain. They represent the cascade research program's current state on Item 5: candidate formulas that match observation numerically but lack the structural derivation that would promote them to closure (parallel to where the channel-count rule sat before its Tier 1 completeness proof).
 
-### 6. Up-type quark masses — substantial progress (full quark hierarchy in 4 cascade quantities + 1 anchor)
+### 3. Up-type quark masses — substantial progress (full quark hierarchy in 4 cascade quantities + 1 anchor)
 
 **Status:** Going deeper than the original (t/b)/(c/s) = N_c hint, the FULL six-quark mass hierarchy now follows from FOUR cascade-natural structural quantities plus one absolute anchor. Two NEW structural relations identified, both within cascade standing precision. The Weyl chirality factor at d=12 — the proposed structural mechanism — has not been computed; closing it would promote five quark masses to Tier 2.
 
@@ -280,147 +131,15 @@ Leading scalar wins. Applying Gram or gauge-vol corrections to the lepton ratio 
 - Cascade-internal proof that color-singlet matter cannot pick up the gauge-bundle reading (currently a structural reading from path-tensor rep rules in Part IVa `rem:fund-or-trivial`, not an explicit theorem).
 - Whether other Bott-period spans show similar bundle/scalar gaps at gauge-home boundaries.
 
-### 7. CP-violation — structurally outside cascade scope
-
-**Status:** The cascade is structurally CPT-symmetric in audited primitives. CKM δ_CP and PMNS δ_CP enter as external observational input, parity with SM treatment. Same epistemic status as the SM's Q_e = −1 convention.
-
-θ_13 closes conditional on the standard SM treatment of CP-violation: cascade structurally derives |V_ub| = |V_us|·|V_cb|; observed deviation matches the Wolfenstein factor √(ρ²+η²) to 3% (Part IVb Remark `rem:theta13-cp`).
-
-### 8. Cosmology primordial spectrum — Tier 5
+### 4. Cosmology primordial spectrum — Tier 5
 
 **Status:** n_s, A_s not derived. The cascade has a native perturbation source (per-layer Gram deficit, Part 0 §12), but quantitative match to the observed primordial spectrum is fuzzy at current precision. r is qualitatively suppressed; magnitude open. See Part VI.
 
-### 9. Ω_b derivation — needs strengthening
+### 5. Ω_b derivation — needs strengthening
 
 **Status:** Tier 5 in PREDICTIONS.md. The "one unit of content on S³" argument for Ω_b = 1/(2π²) needs structural strengthening. Interpretive, not a missing derivation chain.
 
-### 10. Observer-frame correction: unify Paper 1's explicit treatment with Part IVa/IVb's implicit treatment — CLOSED at structural-equivalence level
-
-**Status:** structural cleanup, CLOSED at the equivalence level by [`tools/research/cascade_observer_frame_unification.py`](tools/research/cascade_observer_frame_unification.py). Identified during a numerical test of "what happens if we include d=1..4 in the Phi descent sum?" — a test that surfaces an inconsistency in derivation style between Paper 1 and Part IVa/IVb.
-
-**The diagnostic:** including d=1, 2, 3, 4 in the Phi sum shifts every Phi value by `Σ p(1..4) ≈ −1.997`, multiplying all absolute lepton/quark masses by `exp(1.997) ≈ 7.4`. The factor itself has closed form `4π² · exp(2γ − 17/6)` with `4π² = 2·Ω_3` (twice the observer's spatial slice area), suggesting the bottom-4 contribution IS structurally tied to observer-frame geometry.
-
-**Two distinct cascade derivation styles:**
-
-| | Paper 1 (cosmological constant) | Part IVa/IVb (mass formulas) |
-|---|---|---|
-| Cascade-internal piece | `Ω_19 · Ω_217` | `exp(−Phi(d_g))` |
-| Observer-frame correction | EXPLICIT: `(2/π) · (9/π²)` | IMPLICIT: Phi-from-d=5 + `(2√π)^(n_D+1)` |
-| Gram | EXPLICIT: `exp(δ_path(5,217))` | EXPLICIT: `α(d*)/χ^k` closure family |
-
-Paper 1 derives the observer-frame correction explicitly via two pieces:
-- **Cube–sphere bridge at d=3:** `Ω_2/V_3^cube = 4π/8 = π/2`, applied as `2/π`. Converts cascade sphere-area content to the cube-volume normalisation of the reduced Planck mass.
-- **Host-frame correction:** `(Ω_5/Ω_7)² = 9/π²`. Translates from cascade reference layer d_0=7 (area max) to observer's host d_V=5 (volume max).
-
-Mass formulas perform the equivalent observer-frame correction implicitly:
-- **Phi sum starts at d=5** (= d_V boundary). Skipping d=1..4 telescopes the bottom-4 contribution into the convention rather than spelling it out.
-- **`(2√π)^(n_D+1)` Dirac amplification** carries π factors from S^3 (= Ω_3 = 2π²) geometry — the observer's spatial slice area enters via Γ(1/2) = √π.
-
-**Why this matters:** the cascade currently has TWO derivation styles for the same kind of observer-frame correction. Paper 1 makes it explicit and structurally derivable; Part IVa/IVb telescopes it into a convention that gives the right answer but obscures the structure. A user asking "what happens if we include the 4 spacetime dimensions in the cascade descent?" cannot get a clean structural answer from the current literature — the answer requires reverse-engineering the implicit correction.
-
-**Concrete cleanup:**
-
-Rewrite mass formulas in Paper-1 style with the observer-frame correction explicit:
-```
-m_l = [observer-frame correction] · [cascade-internal piece] · [Dirac amp at observer]
-    = [Ω_d=3 / V^cube · host-frame factor] · [exp(−Phi_from_d_1(d_g))] · [Spin(4) factor]
-```
-
-Then prove that this restructured form equals the current formula: i.e., the explicit observer-frame correction multiplied by `exp(−Phi_from_d_1)` and Spin(4) factors equals the current `exp(−Phi_from_d_5) · (2√π)^(n_D+1)`.
-
-This would:
-- Make the role of the 4 spacetime dimensions explicit in mass derivations (currently hidden in conventions)
-- Unify cosmological-scale and particle-scale cascade derivations under one structural style
-- Enable systematic application of observer-frame corrections to other cascade quantities (mixing angles, gauge couplings)
-- Resolve the "Phi convention starts at d=5 by stipulation" ambiguity by replacing it with a derivation
-
-**Falsifiability:** if the restructured Paper-1-style mass formula doesn't equal the current Part IVa/IVb formula at the same numerical precision, the unification fails — meaning the observer-frame correction is NOT what's hidden in the Phi convention. In that case the Phi convention requires an independent structural justification.
-
-**Predicted outcome:** the unification succeeds. The implicit correction in Phi convention exactly equals Paper-1-style observer-frame correction at d=3 + d_V applied to Phi-from-d=1. This is a research-level cascade cleanup, not a new derivation, and would clarify the cascade's overall structural symmetry between cosmology and particle physics.
-
-**What this is NOT:** new physics. The cascade's predictions don't change; the derivation style becomes uniform. Same particles, same masses, same observer-frame corrections — just spelled out symmetrically across all parts of the framework.
-
-**Verifier:** [`tools/research/cascade_observer_frame_unification.py`](tools/research/cascade_observer_frame_unification.py).
-
-(a) Computes mass predictions with Phi-from-d=1 + explicit OFC: DONE.
-(b) Demonstrates equality with current Phi-from-d=5 formulation: VERIFIED to machine precision (1e-16) for charged leptons + neutrino source layer.
-(c) Identifies cascade-natural form of OFC: DONE.
-
-**Cascade-natural form of OFC found:**
-```
-OFC = exp(p(1)) · exp(p(2)) · exp(p(3)) · exp(p(4))
-    = product of cascade descent step factors at bottom 4 layers
-    = exp(-2γ + 17/6) / (4π²)
-    ≈ 0.13576
-```
-
-Each `exp(p(d))` for d=1..4 is the cascade descent step at one of the bottom 4 cascade layers (S^0, S^1, S^2, S^3 boundaries). The 4π² in the closed-form denominator is `2·Ω_3` (twice the observer's spatial-slice area, cascade-natural). The transcendental `exp(-2γ + 17/6)` is the residual from digamma values at small d.
-
-**Refinement of predicted outcome:** the original prediction was "OFC = Paper-1-style correction at d=3 + d_V applied to Phi-from-d=1." The actual result: OFC samples cascade descent at the bottom 4 layers (d=1, 2, 3, 4), not specifically at d=3 + d_V. Both Paper 1 and mass-formula corrections are cascade-internal descent factors at observer-frame layers, but they sample at different specific layers because they bridge different cascade-internal pieces (sphere-area products vs Phi descent).
-
-**Unified principle (post-closure):** observer-frame corrections sample cascade descent at layers relevant to the observer's frame.
-- Paper 1 (cosmological constant): samples at landmark layers d=3 (cube-sphere bridge) and d_V=5 (host-frame ratio).
-- Mass formulas (Part IVa/IVb): sample at the bottom 4 layers d=1, 2, 3, 4 (cascade descent steps).
-
-Both are cascade-internal descent-based corrections, computed via the same primitive p(d). The cascade has ONE consistent observer-frame correction style across cosmology and particle physics.
-
-**Concrete next work (post-closure, lower priority):**
-1. Document the unification in Part IVa/IVb LaTeX (currently implicit; making explicit clarifies the cascade's structural symmetry).
-2. Apply explicit OFC decomposition to other cascade-derived quantities (gauge couplings, mixing angles) to verify universality.
-3. Test whether the α(d*)/χ^k correction family also admits Paper-1-style observer-frame + cascade-internal decomposition.
-
-These extensions further unify the cascade's observer-frame correction methodology across all observables, but the core structural equivalence (the goal of this ROADMAP item) is now demonstrated.
-
-### 11. d=217 framing: landmark, not terminus — CLOSED at structural-clarity level
-
-**Status:** structural clarification, no numerical observables change. CLOSED at the structural-clarity level by [`tools/research/cascade_uv_convergence.py`](tools/research/cascade_uv_convergence.py). Identified during a discussion of cascade UV behavior: the user observed that the tower is convergent and shouldn't be artificially capped at d=217.
-
-**The original phrasing in Part 0 Theorem 6.7** says "the cascade ends at d_2=217." Numerical investigation shows this is more accurately framed as: d=217 is the deepest distinguished Gamma-critical landmark; cascade descent continues structurally beyond d=217 with negligible contributions to observable physics.
-
-**Cascade UV behavior (verified numerically):**
-
-```
-delta_path(5, d_max):
-  d=29:    0.0175
-  d=100:   0.0204
-  d=217:   0.0211   <-- cosmological constant calibration
-  d=500:   0.0214
-  d=1000:  0.0215
-  d=10000: 0.0217   <-- converges to ~0.0217
-```
-
-Per-layer Gram contributions (1−C²_{d,d+1}) decay as ~1/(8d²) — sum converges absolutely. Sphere areas Ω_d decay super-exponentially. Phi(d) and cumulative compliance diverge logarithmically but never appear in cascade observable predictions (only finite-layer Phi(d_g) does).
-
-**Critical clarification: cosmological constant calibration is correctly at d=217.**
-
-The Gram correction for ρ_Λ is naturally capped at d=217 because **d=217 IS the cosmological landmark**. Extending Gram beyond d=217 in the CC formula would be incorrect — it would sample cascade structure beyond the cosmological landmark. The CC prediction is NOT shifted by the cascade's extension to d=∞.
-
-What changes (interpretation):
-- Cascade structure: extends to d=∞ (consistent with B^∞ block-universe ontology)
-- Higher Bott layers (d=29, 37, 45, …) extend forever with exponentially suppressed contributions
-- Part 0 Theorem 6.7 phrasing: "deepest landmark" rather than "ends at"
-
-What does NOT change (numerical observables):
-- CC prediction still calibrated at Gram(5, 217)
-- Mass-formula predictions (terminus-independent anyway)
-- All other cascade observables
-
-**Verifier:** [`tools/research/cascade_uv_convergence.py`](tools/research/cascade_uv_convergence.py).
-
-(a) Verify UV convergence of cascade observable quantities. DONE: δ_path, sphere areas, Gram all converge or are bounded.
-
-(b) Identify role of d=217 (landmark vs terminus). DONE: d=217 is the deepest Γ-critical landmark, not a structural terminus. Cascade extends to d=∞.
-
-(c) Confirm cosmological constant correctly calibrated at d=217 (NOT shifted). DONE: CC stays at Gram(5, 217) calibration.
-
-**Lower-priority follow-up:**
-1. Update Part 0 Theorem 6.7 phrasing in LaTeX (interpretive, not derivation change)
-2. Document cascade extension to d=∞ in Part 0 supplementary remarks
-3. Verify all other cascade predictions correctly use specific landmarks (not the d=217 cap)
-
-This roadmap item resolves an interpretive ambiguity about cascade structure without changing any numerical predictions. Consistent with cascade block-universe ontology and higher Bott layer predictions.
-
-### 12. T_CMB closure under "cascade extends to d=∞" — exploratory, Reading 8 stands as candidate
+### 6. T_CMB closure under "cascade extends to d=∞" — exploratory, Reading 8 stands as candidate
 
 **Status:** EXPLORATORY only. The Part V leading prediction T_CMB = 2.642 K (−3.07%) and the H_0-propagated Gram correction T_CMB ≈ 2.669 K (−2.07%) remain the cascade's stated predictions. Closing the residual remains an open problem (Part V Remark `rem:tcmb-descent-dependent` explicitly flags it as such). Verifier: [`tools/research/cascade_tcmb_calibrated_to_infinity.py`](tools/research/cascade_tcmb_calibrated_to_infinity.py).
 
@@ -500,7 +219,7 @@ Closing T_CMB requires deriving cascade-native thermal physics structurally — 
 
 **Updated Reading 8 status:** Tier 5 candidate, requires either X3 (epoch-dependent) or X4 (non-Boltzmann) cascade thermal physics. Part VI's competing Tier 5 reading also requires structural derivation it has not yet provided. The question is genuinely undetermined at current cascade tier discipline.
 
-**Context.** ROADMAP Item 11 (cascade UV convergence) clarified that the cascade extends structurally to d=∞ rather than terminating at d=217. The cosmological constant is calibrated AT d=217 (so its Gram path correctly truncates there), but T_CMB is *not* calibrated at any specific landmark — it is derived thermodynamically from Ω_r, M_Pl,red, H_0, and g_eff. This raises the question of whether T_CMB should pick up its own Gram correction with δ_path(5, ∞) ≈ 0.02165 rather than the H_0-inherited δ_path(5, 217) ≈ 0.02108.
+**Context.** Earlier work on cascade UV convergence (now closed) clarified that the cascade extends structurally to d=∞ rather than terminating at d=217. The cosmological constant is calibrated AT d=217 (so its Gram path correctly truncates there), but T_CMB is *not* calibrated at any specific landmark — it is derived thermodynamically from Ω_r, M_Pl,red, H_0, and g_eff. This raises the question of whether T_CMB should pick up its own Gram correction with δ_path(5, ∞) ≈ 0.02165 rather than the H_0-inherited δ_path(5, 217) ≈ 0.02108.
 
 **Numerical readings tested** (none structurally derived):
 
@@ -596,25 +315,7 @@ This is a sharper structural test than before: **Reading 8 is a viable closure O
 2. **Search for a cascade-native bridge from $\Omega_r$ to $T_\text{CMB}$** that bypasses SM $g_\text{eff}$. Candidate: dimensional construction $T \sim (\Omega_r \cdot M_\text{Pl}^2 \cdot H_0^2)^{1/4} \cdot (\text{cascade Gamma-function factor})$.
 3. **Cross-check Reading 8 against BBN.** The (4/11)^{4/3} factor enters BBN via the same $g_\text{eff}$ at the relevant epoch. If the cascade replaces this with $N_c/\chi^4$, BBN should show consistent shifts in light-element abundances. Check current BBN constraints.
 
-This is a structural OPEN QUESTION promoted from Part V Remark `rem:tcmb-descent-dependent`. The exploratory readings document the closure attempts unlocked by ROADMAP Item 11, but the basin/no-annihilation re-examination reveals that cascade-native logic actually makes T_CMB *harder* to close, not easier. The cascade's T_CMB prediction stands at the Part V values until a structural derivation lands.
-
-## Closed in this development cycle
-
-### θ_23 (CKM mixing angle 2↔3)
-
-**Closure:** +0.005σ from PDG via cascade Cabibbo template extended through the gauge window and across the cascade phase-transition threshold d_1=19, with source-selection shift −α(7)/χ⁴.
-
-**Formula:**
-```
-tan θ_23 = tan(arccos(N(13)/N(12))) · exp(−Σ_{d=13}^{20} p(d)/2) · exp(−α(7)/χ⁴)
-         = 2.380°
-```
-
-**Source assignment:** Amplitude type → d_0 = 7 by Proposition `prop:source-selection` (9/9 verified).
-
-**Channel count k = 4:** descent path d=12..20 spans Bott periods {P_1, P_2}; rule `k = 2 · #periods` gives k=4.
-
-**Documented in:** Part IVb Theorem `thm:theta23-closure`, PREDICTIONS.md Tier 2, this roadmap.
+This is a structural OPEN QUESTION promoted from Part V Remark `rem:tcmb-descent-dependent`. The exploratory readings document the closure attempts unlocked by the (now-closed) cascade UV convergence work, but the basin/no-annihilation re-examination reveals that cascade-native logic actually makes T_CMB *harder* to close, not easier. The cascade's T_CMB prediction stands at the Part V values until a structural derivation lands.
 
 ## Working principles
 
