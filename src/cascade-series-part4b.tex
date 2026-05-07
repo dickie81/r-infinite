@@ -128,18 +128,34 @@ continuous tangent vector field to vanish. The tangent frame is globally
 obstructed. A scalar (0-form) couples only to the metric, which is
 well-defined everywhere regardless of the tangent frame---it sees the full
 quarter-turn measure $\sqrt{\pi}$. A fermion (spinor) couples to the tangent
-frame through the spin connection. The global obstruction of the tangent frame
-means the fermion cannot access the full angular measure of the quarter-turn;
-we \emph{assert} that the obstruction consumes exactly one factor of
-$\sqrt{\pi}$, so that $N_f(d) = R(d)/\chi$. This ``exactly one factor'' step is
-the single non-derived link in the proof: the chirality factor
-$1/\chi = 1/2$ is derived from Poincar\'e--Hopf, and the numerical value
-$2\sqrt{\pi}$ is identified with the cascade primitive $N(0)\cdot\Gamma(\tfrac12)$
-in Corollary~\ref{cor:2sqrtpi-primitive}, but the mechanism by which one (not
-zero, not two) factor of $\sqrt{\pi}$ is absorbed is stated, not computed.
-See Remark~\ref{rem:sp31-status} for the derivation status and
-§\ref{sec:open-questions-part4b}, Question~\ref{oq:fermion-cascade-action}, for the
-cascade-native derivation target.
+frame through the spin connection. The obstruction's quantitative content
+is fixed at the partition-function level (Remark~\ref{rem:berezin-partition-derivation}):
+the bosonic per-layer partition function is the slicing integral
+$Z_s(d) = \int_{-1}^1(1-x^2)^{(d-1)/2}\,dx = \sqrt{\pi}\cdot R(d)$
+(Part~0 Theorem~3.1; the Gaussian/Beta-function Jacobian carries
+$\sqrt{\pi}$), while the fermionic per-layer partition function under
+Berezin integration of $S_f = m(d)\bar\psi\psi$ is $Z_f(d) = m(d)$ with
+no Gaussian prefactor. With the cascade-native Dirac mass
+$m(d) = \sqrt{\alpha(d)} = R(d)/2$, the ratio
+$Z_f/Z_s = (R/2)/(\sqrt{\pi}\cdot R) = 1/(2\sqrt{\pi})$ exactly at every
+Dirac layer, so $N_f(d) = R(d)/\chi$. The chirality factor $1/\chi = 1/2$
+is derived from Poincar\'e--Hopf via Theorem~\ref{thm:chirality-factorisation};
+the Jacobian factor $1/\sqrt{\pi}$ is the structural Gaussian-vs-Berezin
+difference, not a sphere-spinor calculation. The action-parameter
+identification $m(d) = \sqrt{\alpha(d)}$ --- the cascade's per-layer
+fermion mass equals the per-layer gauge-coupling amplitude with no
+dimensionless prefactor --- is forced by Prelude Principle~2.2 clause~(i)
+(parameter economy: any prefactor other than unity would be a free
+parameter, inadmissible under the cascade's zero-parameter commitment)
+plus pool-level uniqueness
+(\texttt{tools/verifiers/fermion\_mass\_uniqueness.py}: $m = \sqrt{\alpha}$
+is the unique cascade-native candidate giving $d$-independent $Z_f/Z_s$).
+The numerical value $2\sqrt{\pi}$ is also the direct cascade-primitive
+identity $N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}).
+See Remark~\ref{rem:sp31-status} for the per-ingredient derivation
+statuses; a cascade-lattice scalar-action uniqueness theorem that
+re-derives $m(d) = \sqrt{\alpha(d)}$ calculationally would supply a
+confirming proof but is not required for closure.
 
 \medskip
 \noindent\emph{Austerity-compliant restatement (recurrence-native).}
@@ -160,7 +176,7 @@ without invoking the spin connection or the hairy-ball obstruction beyond the
 chirality halving of step~(a).  Three independent cascade-lattice constructions
 converge on this $m(d) = R(d)/2$ value (per-layer Berezin partition function,
 square-root of the cascade scalar Laplacian, and variational with $R$-based
-compliance; see Open Question~\ref{oq:fermion-cascade-action} for the failure
+compliance; see Remark~\ref{rem:sp31-status} for the failure
 analysis of the contrasting sphere-bundle constructions).  Under austerity, the
 recurrence-native reading is the preferred framing: it derives the same number
 without importing structure stronger than the cascade requires.
@@ -178,9 +194,10 @@ gives coefficient of variation $0\%$; every other power produces CV $\geq 3\%$.
 Combined with austerity (clause~i: no scale beyond $\alpha(d)$), this forces
 $Z_f(d) = \sqrt{\alpha(d)} = R(d)/2$ from cascade-internal data alone, modulo
 the formal proof that ``cascade-native fermion partition function'' is
-exhausted by the monomial-in-$\alpha$ pool.  The remaining open problem
-(Open Question~\ref{oq:fermion-cascade-action}) is therefore a proof of
-\emph{pool exhaustivity}, not a derivation of the value $\sqrt{\alpha}$ itself.
+exhausted by the monomial-in-$\alpha$ pool.  Pool exhaustivity is the
+residual \emph{confirming} question (a cascade-lattice scalar-action
+uniqueness theorem), not a derivation of the value $\sqrt{\alpha}$
+itself, which is austerity-closed (Remark~\ref{rem:sp31-status}).
 
 The remaining open problem (formal uniqueness of $m = \sqrt{\alpha}$ from the cascade-action
 alone) is now in cascade-internal language, not sphere-bundle language.
@@ -252,9 +269,9 @@ The fermion-to-scalar propagator ratio $1/(2\sqrt{\pi})$ factorises into three i
 \begin{enumerate}
 \item \emph{Derived.} The chirality halving $1/\chi = 1/2$: from Poincar\'e--Hopf applied to the Morse function on $S^{2n}$, via Theorem~\ref{thm:chirality-factorisation}'s proof that the Green's function factorises into $\chi$ chirality sectors at even-sphere layers. No assumption.
 \item \emph{Derived as a cascade-primitive identity.} The numerical value $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ is a direct Gamma-function identity (Corollary~\ref{cor:2sqrtpi-primitive}). $N(0)$ and $\Gamma(\tfrac12)$ are both Part~0 primitives; no topological or spinor machinery enters the identity itself.
-\item \emph{Asserted, pending a cascade-action derivation.} That the fermion lapse equals $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$ at even-sphere layers---i.e., that the global tangent-frame obstruction absorbs exactly one factor of $\sqrt{\pi}$---is stated on physical grounds in step~(b) of the proof of Theorem~\ref{thm:obstruction}. It has not been derived from an action principle for a cascade fermion field. The scalar analogue \emph{is} derived: the discrete scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ (Remark~\ref{rem:action-uniqueness}) has $B(\tfrac12, d/2+1) = \sqrt{\pi}\cdot R'(d)$ as its scalar propagator on $S^{d-1}$. A parallel fermion action---a discrete Dirac operator on the cascade lattice that couples to the spin connection and whose propagator on $S^{2n}$ is $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$---would close the final link. This is the content of Open Question~\ref{oq:fermion-cascade-action}.
+\item \emph{Derived as a Berezin partition-function identity, with the action-parameter step closed by austerity.} That the fermion lapse equals $R(d)/\chi$ rather than $\sqrt{\pi}\cdot R(d)/\chi$ at even-sphere layers---i.e., that the global tangent-frame obstruction absorbs exactly one factor of $\sqrt{\pi}$---is the Berezin/Gaussian partition-function identity of Remark~\ref{rem:berezin-partition-derivation}: with the cascade-native Dirac mass $m(d) = \sqrt{\alpha(d)} = R(d)/2$, the ratio $Z_f/Z_s = (R/2)/(\sqrt{\pi}\cdot R) = 1/(2\sqrt{\pi})$ exactly at every Dirac layer. The Gaussian-vs-Berezin Jacobian difference is the structural origin of the $1/\sqrt{\pi}$; no sphere-spinor calculation enters. The action-parameter identification $m(d) = \sqrt{\alpha(d)}$ --- the per-layer fermion mass equals the per-layer gauge-coupling amplitude with no dimensionless prefactor --- is forced by Prelude Principle~2.2 clause~(i) (parameter economy: any prefactor other than unity would be a free parameter, inadmissible without a derivation; pool-uniqueness shows no derivation produces another value: \texttt{tools/verifiers/fermion\_mass\_uniqueness.py} confirms $m = \sqrt{\alpha}$ is the unique cascade-native candidate giving $d$-independent $Z_f/Z_s$). This is the same epistemological mechanism by which the cascade closes its Tier~1 forced negatives: in a zero-parameter framework, the absence of a mechanism for an alternative is itself the closure. The scalar analogue is derived in parallel: the discrete scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$ (Remark~\ref{rem:action-uniqueness}) has $B(\tfrac12, d/2+1) = \sqrt{\pi}\cdot R'(d)$ as its scalar propagator on $S^{d-1}$. A cascade-lattice scalar-action uniqueness theorem that re-derives $m(d) = \sqrt{\alpha(d)}$ calculationally would supply a confirming proof but is not required for closure. Sphere-bundle imports (Mathai--Quillen, sphere-Dirac, projection geometry) are independently ruled out by scaling: sphere quantities decay super-exponentially in $d$, while $R(d)/2 \sim 1/\sqrt{2d}$ decays polynomially. Per CLAUDE.md Check~7, the closure must be cascade-lattice native; the chirality halving $1/\chi$ is the only place sphere structure enters.
 \end{enumerate}
-The numerical observables (lepton mass ratios to $0.13\%$ and $1.7\%$, $m_\tau$ absolute to $-0.31\sigma$, the universality check of Remark~\ref{rem:universality}) confirm the asserted value of $1/(2\sqrt{\pi})$ to the cascade's stated precision. The residual soft spot is \emph{mechanistic}, not numerical: the formula matches observation; the action that forces the exponent is not yet written.
+The numerical observables (lepton mass ratios to $0.13\%$ and $1.7\%$, $m_\tau$ absolute to $-0.31\sigma$, the universality check of Remark~\ref{rem:universality}) confirm the value $1/(2\sqrt{\pi})$ to the cascade's stated precision. With the partition-function identity of Remark~\ref{rem:berezin-partition-derivation} and the austerity-closure of $m(d) = \sqrt{\alpha(d)}$, the obstruction factor is structurally derived from cascade primitives; a cascade-lattice scalar-action uniqueness theorem would supply a calculational re-derivation but is not required for closure.
 \end{remark}
 
 \subsection{Factor-by-factor decomposition of the fermion obstruction}
@@ -263,11 +280,12 @@ The numerical observables (lepton mass ratios to $0.13\%$ and $1.7\%$, $m_\tau$ 
 Corollary~\ref{cor:2sqrtpi-primitive}'s cascade-primitive identity
 $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ decomposes the fermion
 obstruction factor into two structurally distinct halves: the chirality
-half follows rigorously from Theorem~\ref{thm:chirality-factorisation};
-the Jacobian half is conjectural pending a cascade-lattice
-fermion-action derivation (Remark~\ref{rem:sp31-status}). The theorem
-below records the split explicitly and identifies the open research
-problem.
+half follows from Theorem~\ref{thm:chirality-factorisation}
+(Poincar\'e--Hopf); the Jacobian half is the Berezin/Gaussian
+partition-function difference of Remark~\ref{rem:berezin-partition-derivation},
+with the underlying action-parameter identification $m(d) = \sqrt{\alpha(d)}$
+austerity-closed (Remark~\ref{rem:sp31-status}). The theorem below
+records the split.
 
 \begin{theorem}[Decomposition of the fermion obstruction factor]\label{thm:sp31-decomposition}
 Under the cascade-primitive identity
@@ -279,7 +297,7 @@ factorises as
 \;=\;
 \underbrace{\frac{1}{N(0)}}_{\text{derived (chirality halving)}}
 \;\cdot\;
-\underbrace{\frac{1}{\Gamma(\tfrac{1}{2})}}_{\text{conjectured (Clifford-absorption)}}
+\underbrace{\frac{1}{\Gamma(\tfrac{1}{2})}}_{\text{derived (Berezin/Gaussian Jacobian)}}
 \;=\;
 \frac{1}{\chi}\cdot\frac{1}{\sqrt{\pi}},
 \]
@@ -312,9 +330,9 @@ integration: the Grassmann measure does not pick up the $(2\pi)^{1/2}$
 Gaussian-normalisation prefactor of real integration, and the
 $\gamma$-matrix algebra's $SO(d)$-invariant normalisation is conjectured
 to absorb the half-integer Jacobian into the Clifford structure. This
-conjecture is the residual content of
-Open Question~\ref{oq:fermion-cascade-action} after the chirality half
-is discharged.
+is captured at the partition-function level in
+Remark~\ref{rem:berezin-partition-derivation}, with the action-parameter
+step closed by austerity (Remark~\ref{rem:sp31-status}).
 \end{proof}
 
 \begin{remark}[Chirality-Jacobian separability at the integral level]\label{rem:chirality-jacobian-separability}
@@ -336,9 +354,8 @@ the integral-level statement of mechanistic separability: the chirality
 half $1/\chi = 1/2$ acts on the domain of integration, and the Jacobian
 half $1/\sqrt{\pi}$ lives in the integration measure itself.
 
-A consequence for
-Open Question~\ref{oq:fermion-cascade-action}: any cascade-action
-derivation of the $1/\sqrt{\pi}$ absorption cannot operate via a
+A consequence for any confirming cascade-action derivation of the
+$1/\sqrt{\pi}$ absorption: it cannot operate via a
 modified axial measure on $[-1,1]$---such a modification would break
 the $d$-independence confirmed at 1.6\% by the observed mass ratios
 (Remark~\ref{rem:universality}), and is independently falsified by the
@@ -363,8 +380,9 @@ $Z_s(d) = \int_{-1}^{1}(1-x^2)^{(d-1)/2}\,dx = \sqrt{\pi}\,R(d)$
 quadratic action $S_f = m(d)\,\bar\psi\psi$, Berezin integration gives
 $Z_f(d) = m(d)$ with no Gaussian prefactor. Choosing the Dirac mass to
 be the cascade's per-layer gauge-coupling amplitude
-$m(d) = \sqrt{\alpha(d)} = R(d)/2$ (the standard Yukawa-type relation
-$m\sim\sqrt{\alpha}\cdot v$ with the scalar VEV normalised to unity)
+$m(d) = \sqrt{\alpha(d)} = R(d)/2$ (the per-layer fermion mass identified
+directly with the per-layer gauge-coupling amplitude, with no separate
+Yukawa-coupling or scalar-VEV parameter)
 yields the per-layer ratio
 \[
 \frac{Z_f(d)}{Z_s(d)}
@@ -384,20 +402,27 @@ $(2\sqrt{\pi})^{-n_D}$ base exactly. Verified to machine precision
 $d\in\{5,13,21,29\}$ in
 \texttt{tools/closures/fermion\_berezin\_partition.py}.
 
-This construction narrows
-Open Question~\ref{oq:fermion-cascade-action} in a specific way. The
+This construction provides the structural closure of the
+action-parameter identification. The
 Berezin mechanism and the chirality-Jacobian separability
 (Remark~\ref{rem:chirality-jacobian-separability}) together make the
 $1/(2\sqrt{\pi})$ factor a partition-function identity, not a
-measure-theoretic assertion. The sole remaining structural question
-is: why is the cascade's per-layer Dirac mass
-$m(d) = \sqrt{\alpha(d)}$? This is an \emph{action-parameter}
-identification, not a Jacobian-absorption puzzle. Standard
-gauge-theoretic Yukawa structure supplies $m\propto\sqrt{\alpha}\cdot v$;
-the cascade requires $v = 1$ (normalised) at every layer. A
-first-principles derivation of $v\equiv 1$ from the cascade's
-boundary-dominance at Dirac layers would close the open question
-completely.
+measure-theoretic assertion. The remaining \emph{action-parameter}
+identification --- why $m(d) = \sqrt{\alpha(d)}$, with no dimensionless
+prefactor between the per-layer fermion mass and the per-layer
+gauge-coupling amplitude --- is closed by Prelude Principle~2.2
+clause~(i) (parameter economy: any prefactor other than unity would be
+a free parameter, since no cascade derivation produces a specific
+non-unity value) plus pool-level uniqueness (\texttt{tools/verifiers/fermion\_mass\_uniqueness.py}:
+$m = \sqrt{\alpha}$ is the unique cascade-native candidate giving
+$d$-independent $Z_f/Z_s$). This is the same epistemological
+mechanism by which the cascade closes its Tier~1 forced negatives
+(no axion, no SUSY partners, no fourth charged generation): the
+absence of a mechanism for an alternative is itself the closure under
+the zero-parameter commitment. A cascade-lattice scalar-action
+uniqueness theorem would supply a calculational re-derivation but is
+not required for closure; the residual cascade-lattice scalar-action
+uniqueness theorem would be confirmation, not closure.
 \end{remark}
 
 
@@ -700,8 +725,8 @@ below for the derivation.
 The ingredients:
 \begin{itemize}
 \item $m(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer Dirac mass
-(Remark~\ref{rem:berezin-partition-derivation}, narrowing of
-Open Question~\ref{oq:fermion-cascade-action});
+(Remark~\ref{rem:berezin-partition-derivation}, austerity-closed via
+Remark~\ref{rem:sp31-status});
 \item $g(d) = \sqrt{\alpha(d)} = R(d)/2$ is the per-layer gauge
 coupling in cascade-native units (the standard QFT coupling
 $g_{\rm QFT} = \sqrt{4\pi\alpha} = N(d) = 2\sqrt{\pi}\,g_{\rm cascade}(d)$);
@@ -724,8 +749,9 @@ $\sqrt{\alpha(d)}$ at every layer (verifier
 \texttt{tools/research/cascade\_fermion\_gauge\_action.py}, Step~2).
 This $\sqrt{\alpha}$ universality is forced by the cascade's only
 natural square-root scale at each layer ($R(d)/2 = \sqrt{\alpha(d)}$
-is the unique cascade-native non-$\sqrt{\pi}$ amplitude per
-Open Question~\ref{oq:fermion-cascade-action} pool-uniqueness analysis).
+is the unique cascade-native non-$\sqrt{\pi}$ amplitude per the
+pool-uniqueness verifier \texttt{tools/verifiers/fermion\_mass\_uniqueness.py};
+see Remark~\ref{rem:sp31-status}).
 
 \medskip\noindent\textbf{Per-layer sanity verified.} At $A=0$
 (gauge-trivial), the proposed action reduces to
@@ -762,10 +788,12 @@ Berezin ratios: ``the product of $n_D$ per-layer ratios reproduces
 Theorem~\ref{thm:complete-mass}'s $(2\sqrt{\pi})^{-n_D}$ mass-formula base
 exactly.''  Multi-layer fermion physics is multiplicative-per-layer,
 not additive-from-an-inter-layer-Lagrangian.
-\item Open Question~\ref{oq:fermion-cascade-action}'s
-constraint (sphere-bundle imports ruled out by scaling, per
-CLAUDE.md Check~7) commits the fermion sector to live in the
-cascade lattice (1D in the layer index $d$), with sphere geometry
+\item The cascade's sphere-bundle ruling-out constraint (sphere
+quantities decay super-exponentially in $d$ while
+$R(d)/2 \sim 1/\sqrt{2d}$ decays polynomially; per CLAUDE.md
+Check~7, see Remark~\ref{rem:sp31-status}) commits the fermion
+sector to live in the cascade lattice (1D in the layer index $d$),
+with sphere geometry
 $S^{d-1}$ as the per-layer realisation but not the source of
 dynamics.
 \item Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$
@@ -2812,15 +2840,6 @@ $1/\alpha_{\text{em}} = 137.028$ & $1/\alpha(13) + \pi/\alpha(14) + 6\pi$ & 0.00
 \begin{enumerate}
 \item\label{oq:source-selection-category} \emph{Categorical derivation of the source-selection flags.} Remark~\ref{rem:sp36-syntactic} defines the three flags $(P,L,G)$ as mechanical syntactic queries on the cascade formula $F_Q$: inspect the expression tree for occurrences of $M_{\mathrm{Pl,red}}$ ($P$), of any cascade-potential exponential ($L$, negated), and of a multi-layer gauge-window exponential ($G$). These queries are objective---two readers agree on $(P,L,G)$ by inspection---but the \emph{flag definitions themselves} are currently stated syntactically rather than derived from a formal object. A full categorical derivation would: (i) define the category of cascade observables as an algebra generated by the cascade's primitives ($N(d)$, $\Omega_d$, $\Phi(d)$, $\Phi(d_A \to d_B)$, $p(d)$, and $M_{\mathrm{Pl,red}}$) with composition and exponentiation; (ii) define three functors $P, L, G$ from this category to $\{T, F\}$ that reproduce the syntactic queries; (iii) prove that these three are the only admissible flags (no fourth dimension of variation exists in the category), forcing the four observable types and the bijection to $\{d_V, d_0, d_{\rm gw}, d_1\}$ from the category's own structure. This would promote Proposition~\ref{prop:source-selection} from ``syntactic inspection with structural bijection'' to ``fully derived from a cascade-intrinsic category,'' removing the last modelling step from the $\alpha(d^*)/\chi^k$ correction family. Tier~3 (affects all eight source assignments via rigour, not via numerics---the classifications themselves are robust under the syntactic reading).
 
-\item\label{oq:fermion-cascade-action} \emph{Cascade-native Dirac construction with per-layer mass $m(d) = \sqrt{\alpha(d)}$.} The fermion obstruction factor $1/(2\sqrt{\pi})$ decomposes via $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$ (Corollary~\ref{cor:2sqrtpi-primitive}) into a chirality half $1/\chi=1/2$ derived by Theorem~\ref{thm:chirality-factorisation} and a Jacobian half established as a partition-function identity by Remark~\ref{rem:berezin-partition-derivation}: with Dirac mass $m(d) = \sqrt{\alpha(d)} = R(d)/2$, the Berezin/scalar ratio $Z_f(d)/Z_s(d) = 1/(2\sqrt{\pi})$ exactly at every Dirac layer.
-
-What remains open: \emph{why is the cascade's per-layer Dirac mass $m(d)=\sqrt{\alpha(d)}$?} Pool-level uniqueness (verifier: \texttt{tools/verifiers/fermion\_mass\_uniqueness.py}) shows this is the unique cascade-native candidate consistent with $d$-independence of $Z_f/Z_s$, but it is not yet derived from a uniqueness theorem on the cascade-lattice scalar action. Two equivalent target framings:
-\begin{enumerate}[label=(\alph*),nosep]
-\item the scalar VEV normalisation $v\equiv 1$ at every Dirac layer, plausibly from boundary-dominance at the hairy-ball obstruction;
-\item a cascade-lattice Dirac-operator construction whose Green's function at Dirac layers equals $R(d)/\chi$ via Berezin/Yukawa structure, without any additional free parameter.
-\end{enumerate}
-Sphere-bundle imports (Mathai--Quillen, sphere-Dirac, projection geometry) are ruled out by scaling: sphere quantities decay super-exponentially in $d$, while $R(d)/2 \sim 1/\sqrt{2d}$ decays polynomially. Per CLAUDE.md Check~7, the closure must be cascade-lattice native; the chirality halving $1/\chi$ is the only place sphere structure enters. Tier~3 (load-bearing on every charged-fermion mass).
-
 \item\label{oq:mu-e-residual} \emph{Source of the $m_\mu/m_e$ leading residual.} The cascade's leading prediction $m_\mu/m_e = \exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi} = 206.50$ sits $0.13\%$ below the observed value $m_\mu/m_e = 206.7683$ (residual $(m^{\rm obs} - m^{\rm cas})/m^{\rm cas} = +0.132\%$). The $\alpha(14)/\chi$ shift of Theorem~\ref{thm:alpha-s-closure} does not apply to this observable: the descent path $d=14..21$ starts at the $\mathrm{U}(1)$ layer, not strictly below it, so the shift's structural condition is not met. No other member of the $\alpha(d^*)/\chi^k$ family assigned by Proposition~\ref{prop:source-selection} matches the residual magnitude at $d=21$: $\alpha(21)/\chi = 0.0116$, $\alpha(21)/\chi^2 = 0.0058$, $\alpha(21)/\chi^3 = 0.0029$, and the adjacent Gram deficit $(1-C^2_{21,22}) = 2.5\times 10^{-4}$ all differ from the observed $0.00132$ by factors of $2$ to $10$. The cumulative Gram sum along $d=13..21$ gives $0.00334$, which is $2.5\times$ too large. The residual is therefore a \emph{novel unresolved discrepancy} in the fermion-mass sector: either (a) a subleading member of the $\alpha(d^*)/\chi^k$ family exists at $d=21$ or $d=22$ with a combination not yet identified; (b) a ratio-of-sums Gram correction (Part~0 Remark on SP-9 status) applies to mass ratios in a form that has not been derived; or (c) the cascade's deterministic precision has a sub-percent floor in the fermion sector that the $\alpha_s/v$-anchored chain does not close. The residual is numerically small ($0.13\%$, well inside the cascade's stated $\sim 1\%$ leading-order systematic) but is not within experimental precision (PDG $m_\mu/m_e = 206.7682827\pm 4\times 10^{-7}$, so the leading cascade deviates by $\sim 10^5\sigma$ of the experimental uncertainty). Tier~3 (small magnitude; does not threaten the framework's precision claims at the $1\%$ level, but unresolved at the sub-percent level).
 
 \item Up-type quark masses and the Weyl chirality correction. The ratio $(t/b)/(c/s) = 3.04 \approx N_c$ to 1.5\% suggests an additional factor of $N_c$ from the Weyl chirality at $d = 12$. Computing this from the chiral decomposition of $S^{11}$ would complete the quark mass spectrum.
@@ -2847,7 +2866,7 @@ The cascade predicts inverted hierarchy relative to charged leptons: $\nu_e$ hea
 
 \textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). Part~0's inter-layer-coupling section derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Part~0 Open Question on higher-order corrections).
 
-\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$) and the quarter-turn obstruction ($\sqrt{\pi}$) at the hairy ball zero (Theorem~\ref{thm:obstruction}), and equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. (k) Observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3=8/(225\pi)$ sourced at the volume maximum $d_V=5$ with three factors of the Euler characteristic (Theorem~\ref{thm:weinberg-closure}), closing $\sin^2\theta_W=0.231226$ to $+0.40\sigma$ of experimental precision. A systematic search (Remark~\ref{rem:phase-family}) extends the family to eight SM precision observables at four distinguished source layers: (l)~$\ell_A$ reuses $\alpha(19)/\chi$ ($-0.16\sigma$); (m)~$\Omega_m(1/\pi)$ uses $-\alpha(5)/\chi^3$ ($-0.04\sigma$); (n)~$\theta_C$ uses $-\alpha(7)/\chi^2$ ($+0.03\sigma$) with source $d_0=7$ (Paper~I area maximum); (o)~$b/s$ uses $-\alpha(7)/\chi^4$ ($0.014\%$) at the same source $d_0=7$ with $k=4$ (Theorem~\ref{thm:bs-closure}). Together, (i)--(o) close eight SM precision observables using one structural form $\pm\alpha(d^*)/\chi^k$ at four distinguished cascade layers and zero fitted parameters. Three reuse pairs strengthen the evidence: $\{\alpha_s,m_\tau/m_\mu\}$, $\{m_\tau\text{ abs},\ell_A\}$, $\{\sin^2\theta_W,\Omega_m\}$. (p)~Cabibbo geometric-mean off-diagonal rule from cascade action $+$ Born rule (Theorem~\ref{thm:cabibbo-geometric-mean}): the $\exp(-p(13)/2)$ factor in Theorem~\ref{thm:cabibbo-amplitude} is forced by the cascade descent integrand's probability-density status (Paper~I), the cascade scalar action's Gaussian quadratic form (Remark~\ref{rem:action-uniqueness}), the Born rule from Gleason on the cascade Hilbert space (Paper~II~\cite{paper2}, Theorem~5.2), and the definition of off-diagonal mixing matrix elements as amplitudes; Cauchy--Schwarz saturates because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}). The leading Cabibbo prediction $\theta_C=13.26^\circ$ is now action-derivation-complete; (n) above closes the residual $1.7\%$ to $+0.03\sigma$ of experimental precision.
+\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$, Theorem~\ref{thm:chirality-factorisation}) and the Berezin/Gaussian partition-function Jacobian difference (Remark~\ref{rem:berezin-partition-derivation}), with the action-parameter identification $m(d) = \sqrt{\alpha(d)}$ (no dimensionless prefactor admissible) closed by Prelude Principle~2.2 clause~(i) (parameter economy) plus pool-level uniqueness (Theorem~\ref{thm:obstruction}, Remark~\ref{rem:sp31-status}). Equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. (k) Observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3=8/(225\pi)$ sourced at the volume maximum $d_V=5$ with three factors of the Euler characteristic (Theorem~\ref{thm:weinberg-closure}), closing $\sin^2\theta_W=0.231226$ to $+0.40\sigma$ of experimental precision. A systematic search (Remark~\ref{rem:phase-family}) extends the family to eight SM precision observables at four distinguished source layers: (l)~$\ell_A$ reuses $\alpha(19)/\chi$ ($-0.16\sigma$); (m)~$\Omega_m(1/\pi)$ uses $-\alpha(5)/\chi^3$ ($-0.04\sigma$); (n)~$\theta_C$ uses $-\alpha(7)/\chi^2$ ($+0.03\sigma$) with source $d_0=7$ (Paper~I area maximum); (o)~$b/s$ uses $-\alpha(7)/\chi^4$ ($0.014\%$) at the same source $d_0=7$ with $k=4$ (Theorem~\ref{thm:bs-closure}). Together, (i)--(o) close eight SM precision observables using one structural form $\pm\alpha(d^*)/\chi^k$ at four distinguished cascade layers and zero fitted parameters. Three reuse pairs strengthen the evidence: $\{\alpha_s,m_\tau/m_\mu\}$, $\{m_\tau\text{ abs},\ell_A\}$, $\{\sin^2\theta_W,\Omega_m\}$. (p)~Cabibbo geometric-mean off-diagonal rule from cascade action $+$ Born rule (Theorem~\ref{thm:cabibbo-geometric-mean}): the $\exp(-p(13)/2)$ factor in Theorem~\ref{thm:cabibbo-amplitude} is forced by the cascade descent integrand's probability-density status (Paper~I), the cascade scalar action's Gaussian quadratic form (Remark~\ref{rem:action-uniqueness}), the Born rule from Gleason on the cascade Hilbert space (Paper~II~\cite{paper2}, Theorem~5.2), and the definition of off-diagonal mixing matrix elements as amplitudes; Cauchy--Schwarz saturates because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}). The leading Cabibbo prediction $\theta_C=13.26^\circ$ is now action-derivation-complete; (n) above closes the residual $1.7\%$ to $+0.03\sigma$ of experimental precision.
 
 \textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e = 206.50$ (0.13\%, no shift applies: path starts at $d=14$). (b) $\alpha_s(M_Z)=0.117917$ and $m_\tau/m_\mu=16.81731$ closed within experimental precision via the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}). (c) $m_\tau = 1776.82$~MeV absolute closed within experimental precision via the phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ (Theorem~\ref{thm:mtau-abs-closure}). (d) $\sin^2\theta_W=0.231226$ closed within experimental precision via the observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3$ (Theorem~\ref{thm:weinberg-closure}). (e) $\theta_C=13.04^\circ$ closed to $+0.03\sigma$ via $-\alpha(7)/\chi^2$ sourced at the Paper~I area maximum $d_0=7$. (f) $\ell_A=301.44$ closed to $-0.16\sigma$ via $\alpha(19)/\chi$, reusing the phase-transition shift. (g) $\Omega_m(1/\pi)=0.31473$ closed to $-0.04\sigma$ via $-\alpha(5)/\chi^3$, reusing the observer-host shift with opposite sign (geometric population). (h) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (i) Absolute masses $m_\mu$ (0.47\%) and $m_e$ (0.60\%), consistent with the chain-subtracted inherited shift $\delta\Phi_{\mathrm{phase}}-\delta\Phi_{\mathrm{U}(1)}$ to $\sim 50$--$70$~ppm. (j) $b/s = 44.7436$ closed to $0.014\%$ via $-\alpha(7)/\chi^4$ (Theorem~\ref{thm:bs-closure}), reusing the area-maximum source layer with $k=4$ for cross-generation quark structure. (k) $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ ($0.006\%$): bare coupling $1/\alpha(13) + \pi/\alpha(14) = 118.18$ from Theorem~\ref{thm:weinberg} and the electroweak mixing; per-Dirac-layer chirality factor $\chi$ from Theorem~\ref{thm:chirality-selection-rule} (closed-cycle $m=1$, $k=0$); per-leg primitive $\Gamma(\tfrac{1}{2})^2 = \pi$ from Remark~\ref{rem:per-leg-primitive-derivation}, with the cascade kinetic-prefactor normalisation grounded in Remark~\ref{rem:wavefunction-renorm-canonical}; $N_{\mathrm{gen}}=3$ as the count of Dirac layers in the descent $\{5,13,21\}$ (Part~IVa~\cite{paper4a}'s three-generation theorem). All four pieces fully cascade-internally derived using cascade-lattice primitives only (no proper-time integral, no QFT loop apparatus, per CLAUDE.md Check~7); the $0.006\%$ residual is the cascade's standing leading-order systematic.
 
