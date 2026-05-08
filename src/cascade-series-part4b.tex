@@ -2915,17 +2915,24 @@ deepest topological content the cascade reaches in QCD so far,
 matching exactly the place where the cover sheet predicts cascade
 should have non-trivial U(1)$_{\!A}$ structure.
 
-\emph{Tier~2 promotion target.} The Tier~2 derivation of $m_{\eta'}^2
-= \Lambda^2\cdot N_c\cdot d_0$ would mirror the existing
-$\theta_{\rm QCD}=0$ proof: a cascade-internal topological argument
-identifying $N_c\cdot d_0$ as the relevant winding-number / Pontryagin-
-class invariant of the gauge bundle at $d_g=12$ projected through
-$d_0=7$. In QCD, $\chi_{\rm top}$ comes from the instanton density;
-the cascade analog is a topological winding count at
-$d_0=7$ and $d_g=12$ that has not yet been formulated. The
-\emph{sub-percent numerical match} is the empirical evidence that
-such a derivation exists; finding it is the open structural piece.
-Verifier: \texttt{tools/research/cascade\_eta\_anomaly\_mass.py}.
+\emph{Topological extension (Theorem~\ref{thm:axial-anomaly-mass},
+Tier~4b).} The cascade form $m_{\eta'}^2 = \Lambda^2 \cdot N_c \cdot d_0$
+admits a \emph{double-Adams} reading: $N_c = \rho(12)-1$ (gauge layer,
+same Adams count as Theorem~\ref{thm:strong-cp} Step~1) and
+$d_0 = \rho(8)-1$ (octonion-quotient layer, $S^7$ parallelizability;
+also $d_0 = G_2/\mathrm{SU}(3)$ algebra source). Both factors are
+Adams' theorem outputs --- the U(1)$_{\!A}$ anomaly mass-squared sits
+on the same topological apparatus that anchors SU(3) selection.
+This is the topological extension of $\theta_{\rm QCD}=0$ (no instanton
+sectors at $d_g=12$) to the U(1)$_{\!A}$ anomaly mass scale (joint
+Adams product at $(d_g=12,\,d=8)$). Witten--Veneziano consistency:
+$\chi_{\rm top}^{1/4} \approx 181$~MeV vs lattice $178$~MeV ($+1.7\%$).
+Acknowledged gaps in Theorem~\ref{thm:axial-anomaly-mass}: the
+specific Adams pairing (product vs.\ other) is empirically selected,
+not yet rigorously forced; the numerical equality $d_0 = \rho(8)-1$
+is structurally suggestive but not proved. Verifiers:
+\texttt{tools/research/cascade\_eta\_anomaly\_mass.py},
+\texttt{tools/research/cascade\_eta\_topological\_extension.py}.
 
 \medskip\noindent\textbf{Cross-sector pattern.} Cascade-native QCD now
 spans (in this remark): $\beta_0$ (Tier~3, cascade-primitive 1-loop),
@@ -3428,6 +3435,49 @@ the trivial group. The vanishing follows from the standard low-dimensional spher
 
 \begin{remark}[No axion needed]
 The cascade's solution is topological: $\theta_{\text{QCD}} = 0$ because $\pi_3(S^{11}) = 0$ admits only the trivial sector, and the mass-matrix phase $\arg\det(M)$ is real-then-$U(1)$-fixed at zero (Step~2 of Theorem~\ref{thm:strong-cp}). No new symmetry, no new particle. Discovery of a QCD axion would falsify this mechanism. The remaining open piece (Tier 4b, the Confidence Assessment section): a derivation showing that the cascade's vector-field realisation of SU(3) on $S^{11}$ does in fact replace the standard $\pi_3(\text{SU}(3))$ classification with the $\pi_3(S^{11})$ classification, rather than the two coexisting.
+\end{remark}
+
+
+\begin{theorem}[U(1)$_{\!A}$ axial-anomaly mass from double Adams; Tier~4b]\label{thm:axial-anomaly-mass}
+The $\eta'$ anomaly mass-squared in the cascade is the product of two
+Adams' theorem outputs at the cascade gauge layer $d_g=12$ and the
+parallelizable octonion sphere at $d=8$:
+\begin{equation}\label{eq:axial-anomaly-mass}
+m_{\eta'}^2 \;=\; \Lambda_{\rm QCD}^2 \cdot \bigl(\rho(12)-1\bigr) \cdot \bigl(\rho(8)-1\bigr) \;=\; \Lambda_{\rm QCD}^2 \cdot N_c \cdot d_0 \;=\; 21\,\Lambda_{\rm QCD}^2,
+\end{equation}
+with both factors fixed by Adams' theorem on the cascade's parallelizable spheres.
+\end{theorem}
+
+\begin{proof}[Proof sketch (Tier~4b: structural argument with acknowledged gaps; see remark below)]
+\textbf{Step 1 (gauge-sector Adams count $\to N_c$).} Adams' theorem on $S^{11}$ at the gauge layer $d_g = 12$ gives $\rho(12) - 1 = 3$ linearly independent nowhere-zero tangent vector fields, the quaternionic units $\{i, j, k\}$ acting as right-multiplications on the Hopf fibration $S^3 \to S^7 \to S^4$. This is the same Adams count used in Theorem~\ref{thm:strong-cp} Step~1 to identify SU(3) at the cascade gauge layer. The U(1)$_{\!A}$ chiral anomaly $\partial_\mu J^\mu_5 \propto N_c \cdot \mathrm{tr}(F\wedge F)$ inherits the colour-trace factor $N_c$, identifying the first factor in equation~\eqref{eq:axial-anomaly-mass} with the gauge-sector Adams count.
+
+\textbf{Step 2 (octonion-quotient Adams count $\to d_0$).} Adams' theorem on $S^7$ at $d=8$ gives $\rho(8) - 1 = 7$ linearly independent nowhere-zero tangent vector fields, the octonion right-multiplications. $S^7$ is parallelizable, and $\rho(8) = 8$ is the Adams maximum among low-dimensional spheres ($S^1, S^3, S^7$ are the only parallelizable spheres). The automorphism group $G_2 = \mathrm{Aut}(\mathbb{O})$ of the octonions acts on $S^7$, and the quotient $G_2/\mathrm{SU}(3) = S^6$ is the cascade's $d_0 = 7$ layer, where SU(3)'s algebra is sourced via the seven-sphere octonion structure modulo the SU(3) of Step~1. Numerically, the octonion-quotient Adams count $\rho(8) - 1$ coincides with the $\Gamma$-area-maximum distinguished dimension $d_0$ of Paper~0; structurally, this is the second Adams count carried by the cascade's algebra-source layer $d_0$.
+
+\textbf{Step 3 (cascade descent $\to \Lambda_{\rm QCD}^2$).} The QCD scale is set by cascade descent from $M_Z$ through one universal cascade structural unit $2\pi$ (Remark~\ref{rem:cascade-beta0}, this paper):
+\[
+\Lambda_{\rm QCD}^{\rm cascade} \;=\; M_Z \cdot \exp(-2\pi) \;\approx\; 170~\text{MeV},
+\]
+with cascade-to-MS-bar scheme conversion $\sqrt{N_c/N(0)}$. The $\eta'$ mass scale is the descent scale $\Lambda$, modulated by the topological factors of Steps~1 and~2.
+
+\textbf{Combination.} The U(1)$_{\!A}$ anomaly couples the gauge bundle (Step~1) to the algebra-source layer (Step~2) via the chiral current's anomalous divergence. Because $S^6 = G_2/\mathrm{SU}(3)$ inherits its tangent structure from the octonion $S^7$ modulo SU(3), the cascade-topological invariant for the layer pair $(d_g=12,\,d_0=7)$ is the \emph{product} of Adams counts:
+\[
+m_{\eta'}^2 \;=\; \Lambda^2 \cdot (\rho(12)-1) \cdot (\rho(8)-1) \;=\; 21\,\Lambda^2.
+\]
+Numerically: $m_{\eta'} = \Lambda_{\rm PDG}\sqrt{21} \approx 962.3$~MeV vs PDG $957.78$~MeV, a $+0.48\%$ deviation.
+\end{proof}
+
+\begin{remark}[Tier~4b status of Theorem~\ref{thm:axial-anomaly-mass}]\label{rem:axial-anomaly-mass-tier}
+The extension achieves the same Tier~4b status as Theorem~\ref{thm:strong-cp} itself: a topological argument supported by sub-percent empirical match, with structural gaps explicitly acknowledged. The acknowledged gaps:
+\begin{enumerate}
+\item \emph{Adams product vs.\ alternative pairings.} The argument identifies the cascade-topological invariant for the U(1)$_{\!A}$ anomaly mass at $(d_g=12,\,d=8)$ as the \emph{product} $(\rho(12)-1)\cdot(\rho(8)-1)$. A rigorous derivation that the product (rather than e.g.\ a different Adams pairing or a non-Adams invariant) is forced by cascade U(1)$_{\!A}$ topology has not been completed; the empirical sub-percent match is the evidence pending that derivation.
+\item \emph{Witten--Veneziano consistency.} Cross-checking with the Witten--Veneziano relation
+\[
+m_{\eta'}^2 + m_\eta^2 - 2m_K^2 \;=\; (2 N_f / f_\pi^2)\,\chi_{\rm top}
+\]
+using cascade-primitive forms ($m_\eta = \Lambda(N_c+1)\sqrt{N_c/d_0}$, $m_K = \Lambda d_V\sqrt{N(0)}/N_c$, $f_\pi = \Lambda(N(0)/N_c)^2$) gives $\chi_{\rm top}^{1/4} \approx 181$~MeV vs lattice average $178$~MeV ($+1.7\%$). The cascade reproduces the QCD topological susceptibility within a few percent without a cascade-internal derivation of $\chi_{\rm top}$ from layer winding; that derivation is the Tier~2 promotion target.
+\item \emph{Coincidence $d_0 = \rho(8) - 1$.} The $\Gamma$-area-maximum $d_0=7$ of Paper~0 and the octonion Adams count $\rho(8)-1=7$ are derived from independent theorems ($\Gamma$ critical points and Adams' parallelizability). Their numerical equality is structurally suggestive but not currently proved as a cascade theorem; it may be a coincidence in the small-integer landscape, or it may reflect a hidden identity between $\Gamma$ critical points and Adams' parallelizability that the program has not yet surfaced.
+\end{enumerate}
+The structural payoff is that the U(1)$_{\!A}$ anomaly mass-squared sits on the same class of topological invariants (Adams parallelizability counts) that anchor SU(3) at $d_g=12$ in Theorem~\ref{thm:strong-cp}. One topological apparatus, two distinct U(1)$_{\!A}$ phenomena: $\theta_{\rm QCD}=0$ (no instanton sectors) and $m_{\eta'}^2 = 21\,\Lambda^2$ (anomaly mass from the joint Adams product). Verifier: \texttt{tools/research/cascade\_eta\_topological\_extension.py}.
 \end{remark}
 
 
