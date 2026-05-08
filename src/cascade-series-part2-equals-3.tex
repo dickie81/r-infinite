@@ -206,6 +206,139 @@ geometry), the Lorentzian one is the observer's experience (oscillatory
 unitary evolution), and the Wick rotation is the bridge.
 \end{remark}
 
+\section{The Dirac Descent}\label{sec:dirac-descent}
+
+Theorem~\ref{thm:propagator} establishes that the cascade propagator
+$K(t) = |K|\,e^{-iHt}$ is simultaneously the unitary time-evolution
+operator of QM and the source of Lorentzian signature. Applied to the
+cascade Hilbert space's spinor-representation content
+(Paper~III~\cite{paper3}, Lemma~\texttt{lem:cascade-spinor-id}), the
+same propagator structure forces a third standard physics result: the
+Dirac equation on the chirality bundle in $4$D. The argument runs
+along the same template as Theorem~\ref{thm:double}---a standard
+mathematical/physical uniqueness result (Wigner's classification of
+relativistic wave equations) applied to cascade-derived inputs forces
+the standard physics conclusion.
+
+\begin{theorem}[Cascade Dirac descent]\label{thm:cascade-dirac-descent}
+At $d=4$, the cascade structure forces the first-order Clifford
+equation
+\[
+(i\gamma^\mu D_\mu - m_f)\,\psi = 0
+\]
+on the chirality bundle $\mathcal{H} = S^+ \oplus S^-$, where
+$D_\mu = \partial_\mu - ieA_\mu$. Each ingredient is cascade-derived:
+the gamma matrices $\gamma^\mu$ from Bott classification of the
+cascade Clifford algebra $\mathrm{Cl}(1,3)$
+(Paper~III~\cite{paper3}, \S\,Clifford classification); the
+per-source mass $m_f = R(d_f)/\chi$ from the cascade Berezin
+partition with chirality halving at the fermion's Dirac source layer
+$d_f$ (Paper~IVb~\cite{paper4b}, Theorem~\texttt{thm:obstruction});
+the charge $e = \sqrt{\alpha(14)}$ from the cascade U(1) gauge
+structure at the gauge-window boundary $d_g = 14$
+(Paper~IVa~\cite{paper4a}); and the gauge field $A_\mu$ from the
+cascade U(1) descent to $4$D.
+\end{theorem}
+
+\begin{proof}
+Four cascade inputs combine via Wigner-type classification.
+
+\emph{Step~1 (cascade Hilbert space is the spinor representation).}
+By Paper~III's Lemma~\texttt{lem:cascade-spinor-id} together with
+Theorem~\texttt{thm:d4}, the cascade Hilbert space $\mathcal{H}$ at
+the $4$D observer's frame is identified with the irreducibly-complex
+minimal spinor representation of $\mathrm{Spin}(1,3)$, equivalently
+the $4$-component complex Dirac spinor representation. The chirality
+grading $\gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3$ supplies the
+algebraic decomposition $\mathcal{H} = S^+ \oplus S^-$ into two
+$2$-dimensional Weyl basins of equal weight.
+
+\emph{Step~2 (first-order time evolution from the cascade
+propagator).} By Theorem~\ref{thm:propagator}, the cascade propagator
+$K(t) = |K|\,e^{-iHt}$ generates first-order unitary time
+evolution: $i\,\partial_t\psi = H\psi$ for some Hermitian operator
+$H$ on $\mathcal{H}$.
+
+\emph{Step~3 (Lorentz covariance forces first-order spatial
+derivatives).} A first-order time-derivative equation on a
+$\mathrm{Spin}(1,3)$ representation is Lorentz-covariant only if
+spatial derivatives are also first-order. Reason: under a boost,
+$\partial_t$ mixes with $\partial_i$, so a second-order spatial
+structure would, in the boosted frame, produce a second-order time
+derivative not present in the original equation, breaking covariance.
+By the standard Wigner classification of relativistic wave equations
+on a complex spinor representation, the unique Lorentz-covariant
+first-order operator is $\gamma^\mu\partial_\mu$ with
+$\{\gamma^\mu,\gamma^\nu\} = 2\eta^{\mu\nu}$ (the Dirac matrices,
+fixed up to representation choice by Bott classification at
+$d \bmod 8 \in \{4,5,6\}$). The equation of motion has covariant
+form $(i\gamma^\mu\partial_\mu - m_f)\psi = 0$ for some mass scalar
+$m_f$.
+
+\emph{Step~4 (cascade-derived mass and gauge coupling).} By
+Paper~IVb's Theorem~\texttt{thm:obstruction} and the Berezin partition
+derivation, the cascade fermion at Dirac source layer $d_f$
+($d_f \bmod 8 = 5$) carries mass $m_f = R(d_f)/\chi$, with the mass
+operator off-diagonal on the chirality decomposition
+$\mathcal{H} = S^+\oplus S^-$ (mass couples chirality basins; this
+matches the action of $\beta = \gamma^0$ in the Hamiltonian form).
+By Paper~IVa, the cascade U(1) gauge structure at $d_g = 14$
+descends to a local U(1) symmetry
+$\psi(x)\to e^{i\alpha(x)}\psi(x)$ on $\mathcal{H}$. Local gauge
+invariance applied to the first-order operator
+$i\gamma^\mu\partial_\mu$ forces the standard minimal-coupling
+replacement $\partial_\mu \to D_\mu = \partial_\mu - ieA_\mu$ with
+$e = \sqrt{\alpha(14)}$ cascade-derived.
+
+Steps 1--4 give $(i\gamma^\mu D_\mu - m_f)\psi = 0$ at $d=4$ with
+all ingredients cascade-derived.
+\end{proof}
+
+\begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
+\label{rem:cascade-dirac-status}
+Theorem~\ref{thm:cascade-dirac-descent} sits at the same rigour
+level as Theorem~\ref{thm:double}: a standard mathematical
+uniqueness result (Wigner's classification, replacing
+Gleason$+$Lovelock) applied to cascade-derived inputs (cascade
+Hilbert space, chirality decomposition, mass, gauge structure)
+forces the standard physics result (the Dirac equation, replacing
+QM/GR consistency). The cascade contribution is to provide the
+inputs; the standard mathematical theorem is invoked, not
+re-derived---the same posture Paper~III adopts when invoking
+Schur~$+$~Clifford classification in
+Lemma~\texttt{lem:cascade-spinor-id}, and the same posture
+Theorem~\ref{thm:double} adopts when invoking Gleason and Lovelock.
+Three soft spots are documented in
+Open~Question~\ref{oq:dirac-discrete-continuous}.
+\end{remark}
+
+\begin{remark}[Triple uniqueness from a single source]
+\label{rem:triple-uniqueness}
+The series now exhibits three instances of the same template
+``cascade single source $+$ standard uniqueness theorem
+$\Rightarrow$ standard physics result'':
+\begin{itemize}[nosep]
+\item \emph{Born rule of QM}: cascade Hilbert space $+$ Gleason
+$\Rightarrow$ probability measure unique
+(Theorem~\ref{thm:double}, clause~2).
+\item \emph{Einstein equation of GR}: cascade $4$D Lorentzian
+manifold $+$ Lovelock $\Rightarrow$ gravitational equation unique
+(Theorem~\ref{thm:double}, clause~3).
+\item \emph{Dirac equation of matter dynamics}: cascade
+spinor-rep Hilbert space $+$ Wigner classification $\Rightarrow$
+relativistic spin-$\tfrac{1}{2}$ wave equation unique
+(Theorem~\ref{thm:cascade-dirac-descent}).
+\end{itemize}
+The cascade's claim that ``the infinite-dimensional unit ball,
+descended to $4$D, is indistinguishable from our universe''
+acquires an additional confirmation: the $4$D matter dynamics,
+like the QM and gravitational projections, is forced once the
+cascade single source is fixed. The double-uniqueness picture of
+Theorem~\ref{thm:double} extends to a triple-uniqueness picture
+covering QM dynamics, gravitational dynamics, and matter dynamics
+under one structural template.
+\end{remark}
+
 \section{Double Uniqueness}
 
 \begin{theorem}[Gleason $+$ Lovelock $+$ single source $=$ consistency]\label{thm:double}
@@ -831,6 +964,44 @@ boundary dominance; what is open is a \emph{corroborating} second route.
 \section{Open Questions}\label{sec:open-questions-part2eq3}
 
 \begin{enumerate}
+\item\label{oq:dirac-discrete-continuous} \textbf{Discrete-to-continuous
+bridge for the cascade Dirac descent.}
+Theorem~\ref{thm:cascade-dirac-descent} applies Wigner classification
+to cascade-derived inputs to force $(i\gamma^\mu D_\mu - m_f)\psi = 0$
+at $d=4$, parallel to how Theorem~\ref{thm:double} applies Gleason and
+Lovelock. Three soft spots remain.
+\begin{enumerate}[label=(\alph*),nosep]
+\item \emph{Step~3's covariance argument} is the standard Wigner
+classification of relativistic wave equations on a complex spinor
+representation. It is mathematically rigorous as standard physics
+but is invoked rather than re-derived in cascade-lattice terms. A
+cascade-native version would derive the first-order spatial
+operator structure from the cascade lattice's discrete adjacency,
+parallel to how Paper~III~\S4~\cite{paper3} derives the $4$D
+continuous metric from the cascade slicing recurrence.
+\item \emph{Step~4's mass identification.} The Berezin-mass
+operator of Paper~IVb~\cite{paper4b}
+(off-diagonal on $S^+\oplus S^-$) is identified with the
+Hamiltonian-form $\beta$-mass; a small lemma making this
+identification explicit in cascade-lattice terms would close a
+one-paragraph gap.
+\item \emph{The discrete-to-continuous bridge for fermion fields.}
+Paper~III~\S4 derives the FRW metric from the slicing recurrence
+as a continuous object; the cascade lattice on the layer index $d$
+is parallel to but not identical with the $4$D differential
+structure on which $\gamma^\mu\partial_\mu$ acts. The explicit
+bridge from ``discrete Laplacian on layer index'' to ``continuous
+$\gamma^\mu\partial_\mu$ on $4$D Lorentzian manifold'' is implicit
+in Paper~III but not written as a theorem. This is the substantive
+residual gap; the other two are presentation gaps.
+\end{enumerate}
+Closing (c) would promote
+Theorem~\ref{thm:cascade-dirac-descent} from
+``Wigner classification on cascade-derived inputs'' to ``cascade
+descent of fermion fields end-to-end,'' and would tighten the
+cascade-native derivation of $g=2$
+(Paper~IVb~\cite{paper4b}, Corollary~\texttt{cor:g-equals-two}).
+
 \item\label{oq:state-metric-instantiation} \textbf{Instantiate the
 state-to-metric map concretely.} Theorem~\ref{thm:metricstate} asserts
 that different cascade states $|\Psi\rangle \in S^{d-1}$ produce
@@ -985,6 +1156,10 @@ Mechanics from the Cascade}, March 2026.
 
 \bibitem{paper3} RTAC, \textit{The Cascade Series~--- Part~III: General
 Relativity from the Cascade}, March 2026.
+
+\bibitem{paper4a} RTAC, \textit{The Cascade Series~--- Part~IVa:
+Standard Model from the Cascade --- Gauge Group, Symmetry Breaking,
+and Three Generations}, March 2026.
 
 \bibitem{paper4b} RTAC, \textit{The Cascade Series~--- Part~IVb:
 Masses, Couplings, and Precision Predictions from the
