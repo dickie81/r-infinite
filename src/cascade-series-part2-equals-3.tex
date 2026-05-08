@@ -461,6 +461,111 @@ either Wigner's covariance argument or by the unique torsion-free
 metric-compatible spin connection.
 \end{remark}
 
+\begin{lemma}[Within-moment action decomposition]\label{lem:within-moment-action-decomposition}
+At fixed observer time $t$, the cascade has two structurally
+distinct within-moment geometric directions:
+\begin{enumerate}[label=(\roman*),nosep]
+\item \emph{Cross-layer (tower depth) direction}: the layer index
+$d \in \{4, 5, \ldots, N(t)\}$, indexing the within-moment tower
+of dimensions above the observer (Paper~VI~\cite{paper6},
+Definition~\texttt{def:tower-time}).
+\item \emph{Within-layer ($4$D coordinates) direction}: the
+spacetime coordinates $x^\mu$ on $M_4$, the foliated $4$D
+Lorentzian manifold at the observer's layer (Paper~III~\S4 +
+Lemma~\ref{lem:4d-fermion-projection}).
+\end{enumerate}
+The cascade's within-moment action splits accordingly:
+\begin{itemize}[nosep]
+\item \emph{Tower-action}: $S_{\text{tower}}[\varphi] =
+\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$
+(Paper~IVb~\cite{paper4b}, Remark~\texttt{rem:action-uniqueness}),
+acting on the cascade tower-scalar $\varphi(d) = \ln\Omega_d$.
+\item \emph{$4$D-projected action}: $S_{4\mathrm{D}}[\Phi] =
+\int_{M_4} |\partial_\mu\Phi|^2\,d^4x$ (standard Lorentz-covariant
+scalar action on $M_4$), acting on $4$D-projected fields
+$\Phi(x^\mu)$ derived from cascade-internal content.
+\end{itemize}
+The two actions act on \emph{different fields} ($\varphi(d)$ on
+the tower index vs.\ $\Phi(x^\mu)$ on $M_4$) and parameterize
+different cascade-geometric directions (cross-layer vs.\
+within-layer). They are therefore genuinely complementary by
+design, not two readings of a single underlying action functional.
+\end{lemma}
+
+\begin{proof}
+The cascade tower-scalar $\varphi(d) = \ln\Omega_d$ is a function
+only of the layer index $d$
+(Paper~IVb~\cite{paper4b}, Remark~\texttt{rem:action-uniqueness}).
+The tower-action sums layer-difference kinetic
+$(\Delta\varphi(d))^2$ across the within-moment tower from
+$d = 4$ to $d = N(t)$, normalized by $(2\alpha(d))^{-1}$ from
+lattice covariance (Paper~IVb~\cite{paper4b},
+Remark~\texttt{rem:marginal-greens}).
+
+The $4$D-projected action acts on fields
+$\Phi : M_4 \to \mathbb{R}$ (or higher-spin analogs;
+Lemma~\ref{lem:4d-fermion-projection} for the spinor case). The
+form $\int |\partial_\mu\Phi|^2\,d^4x$ is the unique
+Lorentz-covariant second-order kinetic action on $M_4$ (standard
+field theory on a Lorentzian manifold; same posture as
+Theorem~\ref{thm:double}'s use of Lovelock for the gravitational
+sector and Theorem~\ref{thm:cascade-dirac-descent}'s use of
+Wigner for the spinor sector).
+
+The two action functionals act on functions with disjoint
+domains: $\varphi(d)$ has domain $\mathbb{Z}_{\geq 4}$;
+$\Phi(x^\mu)$ has domain $M_4$. No single field carries both,
+and no single action functional unifies them: the two actions
+describe orthogonal cascade directions of the within-moment
+geometry.
+\end{proof}
+
+\begin{remark}[Closes Open Question~\ref{oq:tower-vs-4d-action}]
+\label{rem:tower-vs-4d-resolved}
+Open Question~\ref{oq:tower-vs-4d-action} asked whether the
+cascade tower-action and the standard $4$D continuous action are
+genuinely complementary (a), unifiable via a foliated total-space
+action (b), or unifiable via the Wick rotation reading $\Delta\varphi(d) \leftrightarrow \partial_t\Phi$ (c).
+Lemma~\ref{lem:within-moment-action-decomposition} establishes
+reading~(a) as the resolution, with structural justification.
+
+The two actions act on \emph{different fields} (tower-scalar
+$\varphi(d)$ vs.\ $4$D-projected $\Phi(x^\mu)$) and govern
+\emph{different cascade-geometric directions} (cross-layer vs.\
+within-layer). Reading~(b) is structurally incorrect: there is no
+single field on which both actions act, hence no functional that
+sums to give both as projections. Reading~(c) is structurally
+incorrect: the layer index $d$ is the cascade's tower-depth
+parameter, not a Wick-rotation of $4$D time --- $4$D time arises
+from Wick-rotating the within-layer foliation parameter
+$x \in [-1,1]$ (Paper~III~\S10, $x = it$), which is structurally
+distinct from the layer index. The cascade's two distinct
+time-like / spatial-like cascade directions
+(Paper~VI~\cite{paper6}, \S1.2 within-moment vs
+between-moments) provide the structural framework: the
+within-moment tower-action governs cross-layer kinetics
+(direction~(i) of
+Lemma~\ref{lem:within-moment-action-decomposition}); the
+within-moment $4$D action governs within-layer kinetics
+(direction~(ii)); the between-moments tower-growth operator
+$A$ (Paper~VI~\cite{paper6},
+Proposition~\texttt{prop:time-evolution}) governs the genuine
+cosmic-time dynamics by adding layers at the top of the tower.
+
+This is the cascade's complete within-moment + between-moments
+action architecture. Each piece governs a structurally distinct
+cascade direction; none unifies into a single functional, but
+each is independently derivable from cascade primitives. The
+tower-action is derived in Paper~IVb~\cite{paper4b}'s
+Remark~\texttt{rem:action-uniqueness} from lattice covariance;
+the $4$D-projected action follows from standard Lorentz
+covariance on the cascade-derived $M_4$
+(Paper~III~\S4); the between-moments tower-growth $A$ is
+defined in Paper~VI~\cite{paper6}.
+Open Question~\ref{oq:tower-vs-4d-action} is closed by
+reading~(a) with the structural justification above.
+\end{remark}
+
 \begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
 \label{rem:cascade-dirac-status}
 Theorem~\ref{thm:cascade-dirac-descent} sits at the same rigour
@@ -1184,46 +1289,26 @@ rests on stated theorems end-to-end on the spinor-bundle side. The
 remaining (a) and (b) are presentation gaps; the residual
 substantive question is (c2), tracked separately below.
 
-\item\label{oq:tower-vs-4d-action} \textbf{Tower-action vs.\ $4$D
-continuous action: complementary or unifiable?}
-The cascade has two action-like structures: the tower-action
-$\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$ on the layer index
-(Paper~IVb~\cite{paper4b},
-Remark~\texttt{rem:action-uniqueness}) and the standard $4$D
-continuous action $\int |\partial\varphi|^2 + \ldots$ on the
-foliated manifold $M_4$ (implicit in the standard physics that
-$\gamma^\mu\partial_\mu$ generates after
-Lemma~\ref{lem:4d-fermion-projection}). These describe different
-physics: the tower-action governs cross-layer descent and supplies
-the chirality factor and per-leg primitive in
-Paper~IVb~\cite{paper4b}'s precision predictions; the $4$D action
-governs within-layer dynamics on $M_4$. Three readings:
-\begin{enumerate}[label=(\alph*),nosep]
-\item \emph{Genuinely complementary}: the cascade has one action
-per ``direction'' --- a tower-action across layers and a
-continuous-manifold action within a layer --- and they should
-not unify, just as a quantum field on a manifold has both a
-phase-space symplectic structure and a path-integral measure
-that are not the same object.
-\item \emph{Unifiable via a higher-dimensional action principle}:
-both are projections of a single action on the foliated total
-space $B^{d+1}$, with the tower-action being the cross-section
-sum and the $4$D action being the within-section integral.
-\item \emph{Unifiable via the cascade Wick rotation}: the tower
-direction $d$ is Wick-related to the $4$D time direction $t$
-via the Paper~III~\S10 rotation, so the tower-action's
-$\Delta\varphi(d)$ corresponds to a time-derivative
-$\partial_t\varphi$ on $M_4$, with the cascade scalar action's
-sum becoming a kinetic term in the $4$D continuous action.
-\end{enumerate}
-Reading~(c) is the most concrete cascade-native candidate; it
-would derive the cascade tower-action's connection to standard
-$4$D physics by interpreting $\Delta\varphi(d)$ as the
-discrete-time derivative on a Wick-rotated foliation. Closing
-this question --- in any of (a), (b), (c) --- would unify the
-cascade's two action-like structures. Reading~(a) (genuinely
-complementary) is itself a defensible answer if no unification
-exists; the question is which of (a), (b), (c) holds.
+\item\label{oq:tower-vs-4d-action} \textbf{[closed] Tower-action
+vs.\ $4$D continuous action: genuinely complementary by design.}
+Resolved in Lemma~\ref{lem:within-moment-action-decomposition}
+and Remark~\ref{rem:tower-vs-4d-resolved}: reading~(a) genuinely
+complementary, with the structural justification that the two
+actions act on \emph{different fields} (cascade tower-scalar
+$\varphi(d) = \ln\Omega_d$ on the layer index vs.\ $4$D-projected
+$\Phi(x^\mu)$ on $M_4$) and govern \emph{different cascade-geometric
+directions} (cross-layer vs.\ within-layer). Readings~(b) and (c)
+were structurally incorrect: (b) requires a single field on which
+both actions act, which does not exist; (c) confused the layer
+index $d$ (cascade tower-depth) with a Wick-rotation of $4$D time
+($4$D time arises from Wick-rotating the within-layer foliation
+parameter $x \in [-1,1]$ per Paper~III~\S10, not from the layer
+index). Paper~VI~\cite{paper6}'s within-moment vs.\ between-moments
+factorization provides the structural framework: within-moment
+cross-layer kinetics (tower-action) and within-moment within-layer
+kinetics ($4$D action) are two distinct directions of the
+within-moment cascade geometry, with between-moments dynamics
+governed separately by Paper~VI's tower-growth operator $A$.
 
 \item\label{oq:state-metric-instantiation} \textbf{Instantiate the
 state-to-metric map concretely.} Theorem~\ref{thm:metricstate} asserts
@@ -1387,6 +1472,9 @@ and Three Generations}, March 2026.
 \bibitem{paper4b} RTAC, \textit{The Cascade Series~--- Part~IVb:
 Masses, Couplings, and Precision Predictions from the
 Geometric-Topological Factorization}, March 2026.
+
+\bibitem{paper6} RTAC, \textit{The Cascade Series~--- Part~VI:
+Time as Tower Growth}, March 2026.
 
 \bibitem{goroff} M.~H.~Goroff and A.~Sagnotti, ``The ultraviolet behaviour
 of Einstein gravity,'' \textit{Nuclear Physics B} \textbf{266}, 709--736
