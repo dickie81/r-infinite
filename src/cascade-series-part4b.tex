@@ -1994,11 +1994,12 @@ distinguished $d^*$.''
 remains open.}
 \begin{itemize}[nosep]
 \item \emph{Established (this remark).} Family A and Family B are
-different specializations of one cascade Green's function machinery,
+different specializations of cascade-internal correction machinery,
 applied to mutually exclusive source-coupling structures. The
-empirical evidence (Tier~2 sub-$1$-loop residuals) confirms Family A
-encompasses the $1$-loop self-energy contribution that Family B
-reads explicitly for non-source-selectable observables. Verifier:
+empirical evidence (Tier~2 sub-$1$-loop residuals) confirms that
+source-selectable observables structurally don't receive Family B's
+$1$-loop self-energy contribution that non-source-selectable
+observables receive explicitly. Verifier:
 \texttt{tools/research/cascade\_slot\_precedence\_verify.py}.
 \item \emph{Tested and ruled out (algebraic decomposition).} A direct
 algebraic decomposition $\alpha(d^*)/\chi^k = (\text{cascade tree shift}) +
@@ -2006,31 +2007,58 @@ algebraic decomposition $\alpha(d^*)/\chi^k = (\text{cascade tree shift}) +
 cascade-primitive form, does \emph{not} hold cleanly. For $m_\tau/m_\mu$
 at $d^* = 14$, $k = 1$: Family A gives $\alpha(14)/\chi \approx 1.72\%$;
 Family B's $(h)+(f) \approx 0.14\%$; residual $\approx 1.58\%$ has no
-clean cascade-primitive form (numerical search across powers of
-$\alpha(d^*)$, $\alpha(d^*)\cdot\chi^j$, $\alpha(d^*)/(2\pi)$,
-$\alpha(d^*)/\pi$, and combinations turns up no match within $1\%$).
-The closest candidate $\alpha(d^*)/\chi - \alpha_{\rm em}/(2\pi)$
-is just the residual's defining expression, not an independent form.
-Verifier:
+clean cascade-primitive form. Verifier:
 \texttt{tools/research/cascade\_algebraic\_decomposition\_test.py}.
-\emph{The exclusivity is therefore not via literal algebraic sum;
-Family A and Family B are different cascade structural quantities.}
-\item \emph{Open.} A direct cascade-internal derivation that
-$\alpha(d^*)/\chi^k$ encompasses the $1$-loop content via the
-\emph{Green's function eigenmode structure} (rather than via algebraic
-sum) requires a closed-form expression for the cascade scalar
-action's Green's function in the eigenmode basis. The numerical
-Sturm--Liouville verifier
-(\texttt{tools/verifiers/cascade\_greens\_function.py}) confirms the
-machine-precision marginal identity but doesn't supply the closed-form
-mode decomposition. Closing this would promote the structural
-exclusivity from ``empirically observed at sub-$1$-loop precision'' to
-``forced by the cascade scalar action's Green's function eigenmode
-structure'' --- specifically, by showing that the cascade scalar
-action's Green's function at distinguished $d^*$ is built from
-eigenmodes whose collective response coincides with $\alpha(d^*)/\chi^k$
-\emph{including} the chirality-selection-rule $m=1, k=1$ slot's
-contribution, without separable algebraic decomposition.
+\item \emph{Tested and ruled out (Green's function eigenmode encompassment).}
+A direct cascade-internal derivation that $\alpha(d^*)/\chi^k$
+encompasses $(h)+(f)$ via the cascade scalar action's Green's
+function eigenmode structure --- the next-most-natural candidate
+after algebraic sum --- also fails. For $m_\mu/m_e$ structure, the
+cascade scalar Green's function (per-layer $\alpha(d)$ primitives only)
+produces candidates that miss $(h)+(f)$ by $9\%$ or worse; the closest
+single-form match $\alpha(21)/\chi^4 \approx 0.145\%$ deviates by $9\%$
+from $(h)+(f) \approx 0.133\%$ (which itself matches the PDG residual
+to within $1\%$). Family B's $(h)+(f) =
+\alpha_{\rm em}/(2\pi) + \alpha_{\rm em}\cdot\alpha(d_{\rm above})$
+uses both per-layer $\alpha(d)$ \emph{and} global $\alpha_{\rm em}$
+in mixed roles --- it is therefore not a cascade scalar action's
+Green's function quantity but a cross-sector cascade-internal
+expression combining the cascade scalar action with the cascade gauge
+structure. Verifier:
+\texttt{tools/research/cascade\_eigenmode\_encompassment\_test.py}.
+\item \emph{Honest structural picture: two independent cascade
+sectors.} Family A and Family B come from \emph{structurally
+independent} cascade-internal sectors:
+\begin{itemize}[nosep]
+\item \emph{Family A sector}: cascade scalar action's source-response
+at distinguished $d^*$ (cascade Sturm--Liouville structure on the
+layer index, per-layer $\alpha(d^*)$ primitive).
+\item \emph{Family B sector}: cascade fermion-photon interaction at
+the chirality-selection-rule $m=1, k=1$ slot (cross-sector cascade
+quantity combining cascade scalar action's per-layer $\alpha(d)$ with
+the cascade-derived global $\alpha_{\rm em}$ from the
+$1/\alpha_{\rm em} = 137.028$ closure).
+\end{itemize}
+The two sectors do not share a common cascade scalar Green's function
+calculation. The exclusivity claim from
+Proposition~\ref{prop:slot-precedence} is therefore via ``different
+observables couple to different cascade sectors based on
+source-selection flags,'' not via algebraic encompassment or
+Green's function eigenmode encompassment.
+\item \emph{Open: cascade-internal derivation of the sector exclusivity.}
+The cascade-internal selection rule that determines which sector
+couples to a given observable --- expressed empirically by
+Proposition~\ref{prop:source-selection}'s flag combination --- is at
+the level of \emph{cascade interaction selection}, not just observable
+classification. Closing this requires a structural theorem stating
+that source-selectable observables structurally cannot couple to the
+cascade fermion-photon interaction at the $m=1, k=1$ slot (and
+non-source-selectable observables structurally cannot couple to the
+cascade scalar action's source-response at distinguished $d^*$). The
+empirical $1$-loop precision of Tier~2 closures confirms the
+exclusivity numerically; the formal cascade-internal derivation of
+\emph{why} the sectors are mutually exclusive at the cascade-interaction
+level remains the open structural question.
 \end{itemize}
 \end{remark}
 
