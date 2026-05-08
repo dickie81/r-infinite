@@ -13,23 +13,36 @@ except at d_0=7 (G_2/SU(3) algebra source).
 This scan asks two questions:
 
   Q1: What mass scale does the cascade Bott formula give at non-Dirac
-      hairy-ball layers d in {23, 27, 31, ...}?  Treating the formula
-      as a cascade-internal source mass (geometric channel +
-      topological obstruction count for descent path), what does
-      it produce numerically?
+      hairy-ball layers d in {23, 27, 31, ...}?  The Dirac-derived
+      formula
 
-  Q2: Do any cascade-natural alpha(d*)/chi^k filter pairings of these
-      source masses produce mass scales relevant to:
-        - active neutrino splittings (meV scale)
-        - sterile neutrino dark matter (keV scale)
-        - any other observed dark sector?
+          m(d) = (alpha_s * v / sqrt(2)) * exp(-Phi(d)) * (2*sqrt(pi))^-(n_D+1)
+
+      relies on four structural ingredients:
+        (1) per-layer locality
+        (2) Berezin integration of m * psi-bar * psi over independent
+            Grassmann fields, giving Z_f = m
+        (3) chirality halving 1/chi = 1/2 from Poincare-Hopf
+        (4) Gaussian-vs-Berezin Jacobian 1/sqrt(pi)
+
+      For Majorana fields at real-Clifford layers, ingredients (2),
+      (3), (4) may modify.  We explore five candidate formulas:
+
+        Formula A: same as Dirac (conservative extrapolation)
+        Formula B: no topological channel (pure exp(-Phi(d)))
+        Formula C: no universal Yukawa baseline (drop the +1)
+        Formula D: Pfaffian half-power ((2sqrt(pi))^-(n_D+1)/2)
+        Formula E: Majorana /2 normalization (extra factor 1/2)
+
+  Q2: Which results are robust across formula conventions, and which
+      are convention-dependent?  Robust qualitative claims survive;
+      sharp quantitative numbers do not.
 
 The scan is exploratory.  The cascade Bott formula was derived for
-Dirac fermions (per-layer locality + Berezin + chirality halving);
-extending it to non-Dirac layers is an extrapolation that needs
-structural justification.  The point of this scan is to surface
-suggestive numerical patterns that would motivate further
-investigation, not to commit to a closure.
+Dirac fermions; extending it to non-Dirac layers needs structural
+justification.  The point is to see what range of mass scales the
+cascade primitives can produce at real-Clifford layers and whether
+any specific (d, formula) combination has special significance.
 """
 
 from __future__ import annotations
@@ -64,8 +77,12 @@ XRAY_LINE = 7 * KEV       # 3.5 keV line -> 7 keV sterile (m_s = 2*E_photon)
 WDM_UPPER = 100 * KEV     # rough upper bound for keV-scale sterile DM
 
 
+# ---------------------------------------------------------------------
+# Cascade-internal book-keeping
+# ---------------------------------------------------------------------
+
 def n_D_in_descent(d: int) -> int:
-    """Count Dirac layers (d mod 8 = 5) crossed in descent from d down to d=4.
+    """Count Dirac layers (d mod 8 = 5) in descent from d down to d=4.
 
     For a Dirac source d, includes d itself.  For non-Dirac source,
     counts strictly-below Dirac layers that the descent path traverses.
@@ -73,173 +90,312 @@ def n_D_in_descent(d: int) -> int:
     return sum(1 for k in range(5, d + 1) if k % 8 == 5)
 
 
-def cascade_source_mass_eV(d: int) -> float:
-    """Cascade Bott formula at layer d, interpreted as source mass.
+def base_geom_eV(d: int) -> float:
+    """Pure geometric channel: (alpha_s * v / sqrt(2)) * exp(-Phi(d)) in eV."""
+    return 1e9 * ALPHA_S * V_CAS / math.sqrt(2) * math.exp(-Phi_cascade(d))
 
-    Geometric channel: exp(-Phi(d)).
-    Topological channel: (2 sqrt(pi))^-(n_D + 1)
-        where n_D = Dirac layers in descent (including d if Dirac).
-        +1 is the universal observer Yukawa baseline.
+
+# ---------------------------------------------------------------------
+# Five candidate mass formulas
+# ---------------------------------------------------------------------
+
+def mass_A(d: int) -> float:
+    """Formula A: conservative Dirac extrapolation.
+
+    Same as the standard cascade Bott formula.  Treats real-Clifford
+    layer as if it were Dirac for purposes of mass calculation:
+    chirality halving applies, universal Yukawa baseline applies,
+    Berezin integration is determinant-style.
     """
     n_D = n_D_in_descent(d)
-    n_topo = n_D + 1
-    return 1e9 * ALPHA_S * V_CAS / math.sqrt(2) * \
-        math.exp(-Phi_cascade(d)) * TWO_SQRT_PI ** (-n_topo)
+    return base_geom_eV(d) * TWO_SQRT_PI ** (-(n_D + 1))
+
+
+def mass_B(d: int) -> float:
+    """Formula B: no topological channel.
+
+    Drops the (2sqrt(pi))^-(n_D+1) factor entirely.  Treats the
+    layer as having no Dirac obstruction structure -- pure
+    geometric attenuation only.
+    """
+    return base_geom_eV(d)
+
+
+def mass_C(d: int) -> float:
+    """Formula C: no universal Yukawa baseline.
+
+    Drops the +1 from (n_D + 1).  Counts only Dirac layers crossed
+    in descent, not the observer's own d=5 universal Yukawa
+    obstruction.  Justification: Majorana mass terms don't go through
+    Yukawa-Higgs coupling.
+    """
+    n_D = n_D_in_descent(d)
+    return base_geom_eV(d) * TWO_SQRT_PI ** (-n_D)
+
+
+def mass_D(d: int) -> float:
+    """Formula D: Pfaffian half-power.
+
+    Berezin integration of a Majorana mass term gives a Pfaffian
+    rather than a determinant; for one mode, Pf = sqrt(det), so the
+    per-layer fermion partition function scales as sqrt(m) rather
+    than m.  This halves the topological-channel power.
+    """
+    n_D = n_D_in_descent(d)
+    return base_geom_eV(d) * TWO_SQRT_PI ** (-(n_D + 1) / 2)
+
+
+def mass_E(d: int) -> float:
+    """Formula E: Majorana /2 normalization.
+
+    Same as A but with extra factor of 1/2 from the Majorana mass
+    term's standard 1/2 prefactor: S_M = (m/2) * psi^T C psi.
+    """
+    return mass_A(d) / 2
+
+
+# ---------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------
+
+FORMULAS = [
+    ("A: Dirac extrap.",   mass_A),
+    ("B: no topological",  mass_B),
+    ("C: no univ. Yukawa", mass_C),
+    ("D: Pfaffian half",   mass_D),
+    ("E: Majorana /2",     mass_E),
+]
 
 
 def clifford_class(d: int) -> str:
     """Cascade Clifford class at layer d (Lorentzian signature)."""
     r = d % 8
     return {
-        0: "real (Majorana)", 1: "real (Majorana)",
-        2: "real (Majorana)", 3: "real (Majorana)",
-        4: "complex Weyl",    5: "complex Dirac",
-        6: "complex Weyl",    7: "real (Majorana)",
+        0: "real (Maj)", 1: "real (Maj)", 2: "real (Maj)", 3: "real (Maj)",
+        4: "complex Weyl", 5: "complex Dirac", 6: "complex Weyl",
+        7: "real (Maj)",
     }[r]
-
-
-def report_source_masses() -> None:
-    print("=" * 88)
-    print("CASCADE SOURCE MASSES at hairy-ball layers d in [5, 47]")
-    print("=" * 88)
-    print()
-    print(f"{'d':>3}  {'d mod 8':>7}  {'Clifford':>20}  {'mass (eV)':>15}  {'mass scale':>16}")
-    print("-" * 88)
-    for d in [5, 7, 11, 13, 15, 19, 21, 23, 27, 29, 31, 35, 37, 39, 43, 45, 47]:
-        if d % 2 == 0:
-            continue  # need odd d for hairy ball on S^(d-1) even-dim
-        m = cascade_source_mass_eV(d)
-        scale = scale_of(m)
-        print(f"{d:>3}  {d%8:>7}  {clifford_class(d):>20}  {m:>15.4e}  {scale:>16}")
-    print()
 
 
 def scale_of(m: float) -> str:
     """Categorise mass scale for human reading."""
+    if m == 0:
+        return "0"
+    if m > 1e9:
+        return f"{m/1e9:.1f} GeV"
     if m > 1e6:
         return f"{m/1e6:.1f} MeV"
     if m > 1e3:
         return f"{m/1e3:.1f} keV"
     if m > 1:
-        return f"{m:.1f} eV"
+        return f"{m:.2f} eV"
     if m > 1e-3:
-        return f"{m*1e3:.1f} meV"
+        return f"{m*1e3:.2f} meV"
     if m > 1e-6:
-        return f"{m*1e6:.1f} ueV"
+        return f"{m*1e6:.2f} ueV"
     return f"{m:.2e} eV"
 
 
-def scan_filters(d_source: int, target_mass: float, tol: float = 0.05) -> list:
-    """Scan alpha(d*)/chi^k pairings; report ones that match target_mass."""
-    m_s = cascade_source_mass_eV(d_source)
-    matches = []
-    d_stars = [5, 7, 12, 13, 14, 19, 21]
-    for d_star in d_stars:
-        a = alpha_cas(d_star)
-        for k in range(0, 25):
-            f = a / CHI**k
-            m_pred = m_s * f
-            if m_pred == 0:
-                continue
-            rel = abs(m_pred - target_mass) / target_mass
-            if rel < tol:
-                matches.append((d_star, k, f, m_pred, rel))
-    return matches
+def in_window(m: float, low: float, high: float) -> str:
+    if low <= m <= high:
+        return "*"
+    return " "
 
 
-def report_active_neutrino_filter_scan() -> None:
-    print("=" * 88)
-    print("Q1: alpha(d*)/chi^k filters from d=23, 27, 31 -> active-neutrino scale")
-    print("=" * 88)
+# ---------------------------------------------------------------------
+# Reports
+# ---------------------------------------------------------------------
+
+def report_layers_under_each_formula() -> None:
+    print("=" * 100)
+    print("CASCADE SOURCE MASSES at hairy-ball layers under five formula conventions")
+    print("=" * 100)
     print()
-    targets = [
-        ("solar splitting m_2", M_NU_2_PDG),
-        ("atmospheric splitting m_3", M_NU_3_PDG),
-    ]
-    for d_source in [23, 27, 31]:
-        m_s = cascade_source_mass_eV(d_source)
-        print(f"  d_source = {d_source} ({clifford_class(d_source)}), "
-              f"source mass = {scale_of(m_s)}")
-        for label, target in targets:
-            matches = scan_filters(d_source, target, tol=0.10)
-            if not matches:
-                print(f"    -> {label} ({scale_of(target)}): NO 10%-match pairing found")
-                continue
-            for d_star, k, f, m_pred, rel in sorted(matches, key=lambda x: x[4]):
-                sign_str = f"alpha({d_star})/chi^{k}" if k > 0 else f"alpha({d_star})"
-                print(f"    -> {label}: m_s * {sign_str} = "
-                      f"{scale_of(m_pred)}  (dev {rel*100:+.2f}%)")
-        print()
-
-
-def report_sterile_dm_window() -> None:
-    print("=" * 88)
-    print("Q2: are any of these source masses themselves at sterile-DM scale?")
-    print("=" * 88)
+    print("Formulas:")
+    for label, _ in FORMULAS:
+        print(f"  {label}")
     print()
-    print("  WDM lower bound (cosmological structure): ~5 keV")
-    print("  3.5 keV X-ray line proposal:              ~7 keV sterile")
-    print("  WDM upper bound:                        ~100 keV")
-    print()
-    print(f"{'d':>3}  {'cascade source mass':>22}  {'in sterile-DM window?':>30}")
-    print("-" * 88)
-    for d in [23, 27, 31, 35, 39, 43]:
+    print(f"{'d':>3} {'Clifford':>12} {'A':>12} {'B':>12} {'C':>12} {'D':>12} {'E':>12}")
+    print("-" * 100)
+    for d in [5, 7, 11, 13, 15, 19, 21, 23, 27, 29, 31, 35, 37, 39, 43, 45, 47]:
         if d % 2 == 0:
             continue
-        m = cascade_source_mass_eV(d)
-        in_window = WDM_LOWER < m < WDM_UPPER
-        marker = "*** IN WINDOW ***" if in_window else ("near window" if 1*KEV < m < 200*KEV else "")
-        print(f"{d:>3}  {scale_of(m):>22}  {marker:>30}")
+        masses = [f(d) for _, f in FORMULAS]
+        line = f"{d:>3} {clifford_class(d):>12}"
+        for m in masses:
+            line += f" {scale_of(m):>12}"
+        print(line)
     print()
 
 
-def report_filtered_sterile_candidates() -> None:
-    """Look for a candidate sterile DM mass via alpha(d*)/chi^k filter."""
-    print("=" * 88)
-    print("Q3: alpha(d*)/chi^k filtered to sterile-DM window")
-    print("=" * 88)
+def report_realclifford_summary() -> None:
+    print("=" * 100)
+    print("REAL-CLIFFORD HAIRY-BALL LAYERS: spread across formula conventions")
+    print("=" * 100)
     print()
-    print("Targets: 7 keV (X-ray line), 5-100 keV (WDM cosmological)")
-    print()
-    for d_source in [23, 27, 31, 35, 39]:
-        if d_source % 2 == 0:
+    print(f"{'d':>3} {'mod 8':>5} {'min':>12} {'max':>12} {'min/max ratio':>14}  notes")
+    print("-" * 100)
+    for d in [23, 27, 31, 35, 39, 43, 47]:
+        if d % 8 == 5:  # skip Dirac
             continue
-        m_s = cascade_source_mass_eV(d_source)
-        # Search for filters bringing into 5-100 keV window
-        matches = []
-        for d_star in [5, 7, 12, 13, 14, 19, 21]:
-            a = alpha_cas(d_star)
-            for k in range(0, 12):
-                f = a / CHI**k
-                m_pred = m_s * f
-                if WDM_LOWER < m_pred < WDM_UPPER:
-                    matches.append((d_star, k, m_pred))
-        if matches:
-            print(f"  d_source = {d_source} (source mass = {scale_of(m_s)}):")
-            for d_star, k, m_pred in matches:
-                sign_str = f"alpha({d_star})/chi^{k}" if k > 0 else f"alpha({d_star})"
-                print(f"    {sign_str:<22} -> {scale_of(m_pred)}")
+        masses = [f(d) for _, f in FORMULAS]
+        m_min, m_max = min(masses), max(masses)
+        ratio = m_max / m_min if m_min > 0 else 0
+        notes = []
+        # Check if any formula puts this in WDM window
+        wdm_count = sum(1 for m in masses if WDM_LOWER <= m <= WDM_UPPER)
+        if wdm_count > 0:
+            notes.append(f"in WDM window: {wdm_count}/5 formulas")
+        meV_count = sum(1 for m in masses
+                        if 0.001 <= m <= 0.1)
+        if meV_count > 0:
+            notes.append(f"in meV (active nu) range: {meV_count}/5")
+        notes_str = "; ".join(notes) if notes else ""
+        print(f"{d:>3} {d%8:>5} {scale_of(m_min):>12} {scale_of(m_max):>12} "
+              f"{ratio:>14.1f}x  {notes_str}")
+    print()
+
+
+def report_window_assignments() -> None:
+    print("=" * 100)
+    print("PHYSICAL-WINDOW ASSIGNMENTS by formula and layer")
+    print("=" * 100)
+    print()
+    print("Windows: meV (active neutrino, 1 meV - 100 meV)")
+    print("         keV/WDM (warm dark matter, 5 keV - 100 keV)")
+    print("         X-ray (3.5 keV photon line proposes m_s = 7 keV)")
+    print()
+    header = f"{'d':>3} {'Clifford':>12}"
+    for label, _ in FORMULAS:
+        header += f" {label[:9]:>12}"
+    print(header)
+    print("-" * 100)
+    for d in [23, 27, 31, 35, 39, 43, 47]:
+        if d % 2 == 0 or d % 8 == 5:
+            continue
+        line = f"{d:>3} {clifford_class(d):>12}"
+        for _, f in FORMULAS:
+            m = f(d)
+            mark = ""
+            if 0.001 <= m <= 0.1:
+                mark = "[meV]"
+            elif WDM_LOWER <= m <= WDM_UPPER:
+                if abs(m - XRAY_LINE) / XRAY_LINE < 0.30:
+                    mark = "[Xray]"
+                else:
+                    mark = "[WDM]"
+            elif 1e3 <= m < WDM_LOWER:
+                mark = "[~keV]"
+            elif 1 <= m < 1e3:
+                mark = "[eV]"
+            elif 0.1 <= m < 1:
+                mark = "[100meV]"
+            line += f" {scale_of(m):>5} {mark:>6}"
+        print(line)
+    print()
+
+
+def report_robustness() -> None:
+    print("=" * 100)
+    print("WHICH RESULTS ARE ROBUST ACROSS FORMULAS?")
+    print("=" * 100)
+    print()
+    print("For each layer, count how many of the 5 formulas produce a mass in")
+    print("each physical window.  Robust = same window across multiple formulas.")
+    print()
+    layers = [d for d in [23, 27, 31, 35, 39, 43, 47] if d % 8 != 5]
+    print(f"{'d':>3} {'Clifford':>12} {'WDM (5-100 keV)':>18} {'meV (active)':>14} "
+          f"{'eV-keV (sub-WDM)':>20}")
+    print("-" * 100)
+    for d in layers:
+        masses = [f(d) for _, f in FORMULAS]
+        n_wdm = sum(1 for m in masses if WDM_LOWER <= m <= WDM_UPPER)
+        n_meV = sum(1 for m in masses if 0.001 <= m <= 0.1)
+        n_eVkeV = sum(1 for m in masses if 1 <= m < WDM_LOWER)
+        print(f"{d:>3} {clifford_class(d):>12} {n_wdm:>3}/5 formulas "
+              f"     {n_meV:>3}/5 formulas  {n_eVkeV:>3}/5 formulas")
+    print()
+    print("Robust results (3+/5 formulas in same window):")
+    for d in layers:
+        masses = [f(d) for _, f in FORMULAS]
+        if sum(1 for m in masses if WDM_LOWER <= m <= WDM_UPPER) >= 3:
+            print(f"  d={d}: keV-range WDM (3+ formulas)")
+        if sum(1 for m in masses if 0.001 <= m <= 0.1) >= 3:
+            print(f"  d={d}: meV-range active neutrino (3+ formulas)")
+        if sum(1 for m in masses if 1 <= m < WDM_LOWER) >= 3:
+            print(f"  d={d}: sub-keV (eV to keV) (3+ formulas)")
+    print()
+
+
+def report_xray_match() -> None:
+    print("=" * 100)
+    print("X-RAY LINE TARGET: which (d, formula) gives 7 keV ± 30%?")
+    print("=" * 100)
+    print()
+    print("3.5-keV X-ray line implies sterile m_s = 7 keV (decay m_s/2).")
+    print("Tolerance ±30% (i.e., 4.9 - 9.1 keV).")
+    print()
+    print(f"{'d':>3} {'formula':>20} {'mass':>14}  match?")
+    print("-" * 100)
+    for d in [23, 27, 31, 35]:
+        if d % 2 == 0 or d % 8 == 5:
+            continue
+        for label, f in FORMULAS:
+            m = f(d)
+            tol = 0.30
+            if abs(m - XRAY_LINE) / XRAY_LINE < tol:
+                rel = (m - XRAY_LINE) / XRAY_LINE
+                print(f"{d:>3} {label:>20} {scale_of(m):>14}  HIT (dev {rel*100:+.1f}%)")
+    print()
+
+
+def report_alpha_chi_filters_window(target_low: float, target_high: float,
+                                     label: str) -> None:
+    """For each (formula, d_source), find filters bringing into window."""
+    print("=" * 100)
+    print(f"alpha(d*)/chi^k FILTERS landing in {label} ({scale_of(target_low)} - {scale_of(target_high)})")
+    print("=" * 100)
+    print()
+    d_stars = [5, 7, 12, 13, 14, 19, 21]
+    for d_source in [23, 27, 31, 35, 39]:
+        if d_source % 2 == 0 or d_source % 8 == 5:
+            continue
+        any_match = False
+        for label_f, f_mass in FORMULAS:
+            m_s = f_mass(d_source)
+            for d_star in d_stars:
+                a = alpha_cas(d_star)
+                for k in range(0, 25):
+                    f_filter = a / CHI**k
+                    m_pred = m_s * f_filter
+                    if target_low <= m_pred <= target_high:
+                        if not any_match:
+                            print(f"d={d_source} ({clifford_class(d_source)}):")
+                            any_match = True
+                        sign_str = f"alpha({d_star})/chi^{k}" if k > 0 else f"alpha({d_star})"
+                        print(f"  {label_f:>20} m_s({scale_of(m_s)}) * {sign_str:<22} "
+                              f"= {scale_of(m_pred)}")
+        if any_match:
             print()
 
 
-def report_summary() -> None:
-    print("=" * 88)
-    print("HEADLINE NUMBERS")
-    print("=" * 88)
-    print()
-    for d in [23, 27, 31]:
-        m = cascade_source_mass_eV(d)
-        print(f"  d={d} ({clifford_class(d)}): source mass = {scale_of(m)}")
-    print()
-
+# ---------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------
 
 if __name__ == "__main__":
-    report_source_masses()
+    report_layers_under_each_formula()
     print()
-    report_summary()
+    report_realclifford_summary()
     print()
-    report_active_neutrino_filter_scan()
+    report_window_assignments()
     print()
-    report_sterile_dm_window()
+    report_robustness()
     print()
-    report_filtered_sterile_candidates()
+    report_xray_match()
+    print()
+    report_alpha_chi_filters_window(M_NU_2_PDG * 0.9, M_NU_2_PDG * 1.1,
+                                     "active solar splitting m_2")
+    report_alpha_chi_filters_window(M_NU_3_PDG * 0.9, M_NU_3_PDG * 1.1,
+                                     "active atmospheric splitting m_3")
+    report_alpha_chi_filters_window(WDM_LOWER, WDM_UPPER, "WDM cosmological window")
