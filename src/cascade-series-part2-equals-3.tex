@@ -431,34 +431,69 @@ identification explicit: both are $\gamma^0\cdot m_f$ on the
 chirality basis. Soft spot (b) is closed.
 \end{remark}
 
-\begin{remark}[Closes soft spot (a) of Open Question~\ref{oq:dirac-discrete-continuous}]\label{rem:a-closed}
+\begin{remark}[Status of soft spot (a): partial closure with complementary routes]\label{rem:a-closed}
 Step~3 of Theorem~\ref{thm:cascade-dirac-descent} invokes Wigner's
-classification of relativistic wave equations to pin
-$\gamma^\mu\partial_\mu$ as the unique Lorentz-covariant
-first-order operator. Soft spot (a) of the original Open Question
-asked whether this could be re-derived in cascade-lattice terms.
+classification of relativistic wave equations on a complex spinor
+representation to pin $\gamma^\mu\partial_\mu$ as the unique
+Lorentz-covariant first-order operator. Soft spot (a) of the
+original Open Question asked whether this could be re-derived in
+cascade-lattice terms.
+
+Wigner's argument has two distinct contents:
+\begin{enumerate}[label=($\alpha$),nosep]
+\item \emph{First-order spatial forced by covariance.} Given
+first-order time evolution from the cascade propagator
+(Theorem~\ref{thm:propagator}, $i\partial_t\psi = H\psi$) and
+Lorentz covariance on the spinor representation
+(Lemma~\texttt{lem:cascade-spinor-id}), the spatial derivatives
+must also be first-order: under a boost, $\partial_t$ mixes with
+$\partial_i$, so a second-order spatial operator would, in the
+boosted frame, produce second-order time derivatives that the
+original first-order equation does not contain.
+\end{enumerate}
+\begin{enumerate}[label=($\beta$),nosep]
+\item \emph{Form of the first-order operator.} Given the
+first-order character, the unique Lorentz-covariant first-order
+operator on the spinor representation is $\gamma^\mu\partial_\mu$
+with $\{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu\nu}$.
+\end{enumerate}
 
 Lemma~\ref{lem:4d-fermion-projection} provides a complementary
-\emph{geometric} derivation of the same operator: the spin-connection
+\emph{geometric} derivation of part~($\beta$): the spin-connection
 lift of the Levi-Civita connection on $M_4$ gives
 $\gamma^\mu\nabla_\mu = \gamma^\mu\partial_\mu$ (in flat-frame
-coordinates) as the unique first-order Dirac operator on the
-spinor bundle $\mathcal{S}$. The geometric derivation uses only
-cascade-derived inputs: the foliated $4$D manifold $M_4$
-(Paper~III~\cite{paper3}~\S4) and the spinor representation
-identification (Lemma~\texttt{lem:cascade-spinor-id}). It does not
-invoke Wigner classification.
+coordinates) as the natural first-order operator on the spinor
+bundle $\mathcal{S}$, using only cascade-derived inputs.
 
-With Lemma~\ref{lem:4d-fermion-projection} in place, Step~3's
-Wigner appeal is no longer load-bearing for the descent: the
-geometric route reaches the same conclusion via spin-connection
-geometry on cascade-derived inputs. Soft spot (a) is closed by
-the existence of the geometric route, with Wigner's algebraic
-route now serving as complementary context. The two routes agree
-because they are two presentations of the same standard fact ---
-the Dirac operator on a Lorentzian Spin-manifold is unique, by
-either Wigner's covariance argument or by the unique torsion-free
-metric-compatible spin connection.
+The spin-connection route does \emph{not} address
+part~($\alpha$): the spin connection on a Lorentzian
+Spin-manifold is happy with $\gamma^\mu\nabla_\mu$, with the
+iterated $(\gamma^\mu\nabla_\mu)^2$, with the scalar Laplacian
+$\nabla^\mu\nabla_\mu$ on the spinor bundle, or with any other
+covariant operator; the spin-connection structure does not
+itself force the equation of motion to be first-order rather
+than second-order. Selecting first-order over second-order
+requires the cascade-propagator's first-order time form plus
+Lorentz covariance on the spinor representation --- exactly
+Wigner's content~($\alpha$).
+
+\emph{Status.} Soft spot (a) closes for ($\beta$) by the
+spin-connection geometric route in
+Lemma~\ref{lem:4d-fermion-projection}. For ($\alpha$), Wigner's
+argument remains load-bearing as a standard mathematical theorem
+applied to cascade-derived inputs (cascade propagator's
+first-order time form per Theorem~\ref{thm:propagator}; Lorentz
+covariance on the cascade Hilbert space per
+Lemma~\texttt{lem:cascade-spinor-id}). This is the same posture
+as Schur's lemma in Paper~III's
+Lemma~\texttt{lem:cascade-spinor-id}, Gleason's theorem in
+Theorem~\ref{thm:double}, and Lovelock's theorem in
+Theorem~\ref{thm:double}: standard mathematical uniqueness
+theorems applied to cascade-derived inputs. Wigner's
+content~($\alpha$) is therefore at the same rigour level as
+those applications, not a substantive defect, but Wigner is
+genuinely load-bearing for ($\alpha$) and a stronger ``Wigner
+fully superseded'' framing would overstate the closure.
 \end{remark}
 
 \begin{lemma}[Within-moment action decomposition]\label{lem:within-moment-action-decomposition}
@@ -1243,17 +1278,24 @@ to cascade-derived inputs to force $(i\gamma^\mu D_\mu - m_f)\psi = 0$
 at $d=4$, parallel to how Theorem~\ref{thm:double} applies Gleason and
 Lovelock. Three soft spots remain.
 \begin{enumerate}[label=(\alph*),nosep]
-\item \emph{[closed]} Step~3's covariance argument is the standard
-Wigner classification of relativistic wave equations on a complex
-spinor representation. The Wigner appeal is no longer load-bearing
-for the descent: Lemma~\ref{lem:4d-fermion-projection} provides a
-complementary geometric derivation of $\gamma^\mu\partial_\mu$
-from the spin-connection lift of the Levi-Civita connection on
-$M_4$, using only cascade-derived inputs. See
-Remark~\ref{rem:a-closed}. The two routes (Wigner-algebraic and
-spin-connection-geometric) agree because they present the same
-standard mathematical fact: the Dirac operator on a Lorentzian
-Spin-manifold is unique.
+\item \emph{[partial closure]} Step~3's covariance argument is
+the standard Wigner classification of relativistic wave equations
+on a complex spinor representation, with two distinct contents:
+($\alpha$) first-order spatial forced by covariance + first-order
+time, and ($\beta$) form of the first-order operator as
+$\gamma^\mu\partial_\mu$. Lemma~\ref{lem:4d-fermion-projection}
+provides a complementary geometric derivation of ($\beta$) via
+the spin-connection lift of the Levi-Civita connection on $M_4$,
+using only cascade-derived inputs. The spin-connection route does
+not handle ($\alpha$): selecting first-order over second-order
+requires the cascade propagator's first-order time form plus
+Lorentz covariance on the spinor representation, which is
+Wigner's content~($\alpha$). For ($\alpha$), Wigner remains
+load-bearing as a standard mathematical theorem applied to
+cascade-derived inputs --- same posture as Schur in
+Lemma~\texttt{lem:cascade-spinor-id}, Gleason and Lovelock in
+Theorem~\ref{thm:double}. See Remark~\ref{rem:a-closed} for the
+full status.
 \item \emph{[closed]} Step~4's mass identification. The
 Berezin-mass operator of Paper~IVb~\cite{paper4b} is identified
 with the Hamiltonian-form $\beta$-mass in
