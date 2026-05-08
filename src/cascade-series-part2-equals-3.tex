@@ -364,18 +364,18 @@ only as the layer label, with $d=4$ identifying $M_4$ as the
 observer's leaf.
 \end{proof}
 
-\begin{remark}[Closes soft spot (c1) of Open Question~\ref{oq:dirac-discrete-continuous}]
+\begin{remark}[$4$D structure derivation: closes presentation gap (c1)]
 \label{rem:c1-closed}
 Lemma~\ref{lem:4d-fermion-projection} establishes the
 spinor-bundle structure on the $4$D Lorentzian manifold parallel
-to Paper~III~\S4's metric derivation. This closes soft spot (c1)
-of the original Open Question: the continuous $4$D structure on
-which $\gamma^\mu\partial_\mu$ acts is now derived, not implicit.
-The remaining open piece is the relation between the cascade
+to Paper~III~\S4's metric derivation: the continuous $4$D
+structure on which $\gamma^\mu\partial_\mu$ acts is now derived,
+not implicit. The relation between the cascade
 \emph{tower-action} on the layer index and the $4$D continuous
-action on $M_4$ --- two complementary cascade-internal structures
-that are not the same object. See Open
-Question~\ref{oq:tower-vs-4d-action}.
+action on $M_4$ is addressed separately in
+Lemma~\ref{lem:within-moment-action-decomposition} and
+Remark~\ref{rem:tower-vs-4d-resolved} (genuinely complementary by
+design).
 \end{remark}
 
 \begin{lemma}[Berezin mass equals Hamiltonian $\beta$-mass]\label{lem:berezin-equals-beta-mass}
@@ -423,12 +423,12 @@ mass agree both in cascade value and in operator action on the
 chirality decomposition.
 \end{proof}
 
-\begin{remark}[Closes soft spot (b) of Open Question~\ref{oq:dirac-discrete-continuous}]\label{rem:b-closed}
+\begin{remark}[Berezin-mass identification: closes presentation gap (b)]\label{rem:b-closed}
 Step~4 of Theorem~\ref{thm:cascade-dirac-descent} parenthetically
 identifies the Berezin-mass operator with the Hamiltonian-form
 $\beta$-mass. Lemma~\ref{lem:berezin-equals-beta-mass} makes the
 identification explicit: both are $\gamma^0\cdot m_f$ on the
-chirality basis. Soft spot (b) is closed.
+chirality basis.
 \end{remark}
 
 \begin{remark}[Status of soft spot (a): partial closure with complementary routes]\label{rem:a-closed}
@@ -555,12 +555,14 @@ describe orthogonal cascade directions of the within-moment
 geometry.
 \end{proof}
 
-\begin{remark}[Closes Open Question~\ref{oq:tower-vs-4d-action}]
+\begin{remark}[Tower-action vs.\ $4$D action: genuinely complementary by design]
 \label{rem:tower-vs-4d-resolved}
-Open Question~\ref{oq:tower-vs-4d-action} asked whether the
-cascade tower-action and the standard $4$D continuous action are
-genuinely complementary (a), unifiable via a foliated total-space
-action (b), or unifiable via the Wick rotation reading $\Delta\varphi(d) \leftrightarrow \partial_t\Phi$ (c).
+A natural question on the cascade Dirac descent is whether the
+cascade tower-action $\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$
+and the standard $4$D continuous action
+$\int|\partial\varphi|^2$ are genuinely complementary (a), unifiable
+via a foliated total-space action (b), or unifiable via the Wick
+rotation reading $\Delta\varphi(d) \leftrightarrow \partial_t\Phi$ (c).
 Lemma~\ref{lem:within-moment-action-decomposition} establishes
 reading~(a) as the resolution, with structural justification.
 
@@ -597,8 +599,6 @@ the $4$D-projected action follows from standard Lorentz
 covariance on the cascade-derived $M_4$
 (Paper~III~\S4); the between-moments tower-growth $A$ is
 defined in Paper~VI~\cite{paper6}.
-Open Question~\ref{oq:tower-vs-4d-action} is closed by
-reading~(a) with the structural justification above.
 \end{remark}
 
 \begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
@@ -615,8 +615,11 @@ re-derived---the same posture Paper~III adopts when invoking
 Schur~$+$~Clifford classification in
 Lemma~\texttt{lem:cascade-spinor-id}, and the same posture
 Theorem~\ref{thm:double} adopts when invoking Gleason and Lovelock.
-Three soft spots are documented in
-Open~Question~\ref{oq:dirac-discrete-continuous}.
+Presentation gaps in Steps~3 and~4 are addressed by
+Lemma~\ref{lem:4d-fermion-projection},
+Lemma~\ref{lem:berezin-equals-beta-mass}, and
+Remarks~\ref{rem:c1-closed},~\ref{rem:b-closed},~\ref{rem:a-closed}
+above.
 \end{remark}
 
 \begin{remark}[Triple uniqueness from a single source]
@@ -1271,87 +1274,6 @@ boundary dominance; what is open is a \emph{corroborating} second route.
 \section{Open Questions}\label{sec:open-questions-part2eq3}
 
 \begin{enumerate}
-\item\label{oq:dirac-discrete-continuous} \textbf{Discrete-to-continuous
-bridge for the cascade Dirac descent.}
-Theorem~\ref{thm:cascade-dirac-descent} applies Wigner classification
-to cascade-derived inputs to force $(i\gamma^\mu D_\mu - m_f)\psi = 0$
-at $d=4$, parallel to how Theorem~\ref{thm:double} applies Gleason and
-Lovelock. Three soft spots remain.
-\begin{enumerate}[label=(\alph*),nosep]
-\item \emph{[partial closure]} Step~3's covariance argument is
-the standard Wigner classification of relativistic wave equations
-on a complex spinor representation, with two distinct contents:
-($\alpha$) first-order spatial forced by covariance + first-order
-time, and ($\beta$) form of the first-order operator as
-$\gamma^\mu\partial_\mu$. Lemma~\ref{lem:4d-fermion-projection}
-provides a complementary geometric derivation of ($\beta$) via
-the spin-connection lift of the Levi-Civita connection on $M_4$,
-using only cascade-derived inputs. The spin-connection route does
-not handle ($\alpha$): selecting first-order over second-order
-requires the cascade propagator's first-order time form plus
-Lorentz covariance on the spinor representation, which is
-Wigner's content~($\alpha$). For ($\alpha$), Wigner remains
-load-bearing as a standard mathematical theorem applied to
-cascade-derived inputs --- same posture as Schur in
-Lemma~\texttt{lem:cascade-spinor-id}, Gleason and Lovelock in
-Theorem~\ref{thm:double}. See Remark~\ref{rem:a-closed} for the
-full status.
-\item \emph{[closed]} Step~4's mass identification. The
-Berezin-mass operator of Paper~IVb~\cite{paper4b} is identified
-with the Hamiltonian-form $\beta$-mass in
-Lemma~\ref{lem:berezin-equals-beta-mass}: both are
-$\gamma^0\cdot m_f$ on the chirality basis. See
-Remark~\ref{rem:b-closed}.
-\item \emph{The discrete-to-continuous bridge for fermion fields,
-revised.} Lemma~\ref{lem:4d-fermion-projection} establishes the
-$4$D continuous spinor-bundle structure on which
-$\gamma^\mu\partial_\mu$ acts, parallel to Paper~III~\S4's metric
-derivation. The original soft spot (c) therefore splits into:
-\begin{itemize}[nosep]
-\item \emph{(c1) [closed]} The $4$D continuous structure on which
-$\gamma^\mu\partial_\mu$ acts is now derived
-(Lemma~\ref{lem:4d-fermion-projection}).
-\item \emph{(c2) [open, reframed]} The relation between the
-cascade tower-action
-$\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$ on the layer
-index and the $4$D continuous action $\int |\partial\varphi|^2$
-on $M_4$. These describe complementary aspects of cascade
-physics (tower-action governs cross-layer descent, used in
-chirality factor and per-leg primitive; $4$D action governs
-within-layer dynamics on $M_4$). Whether they should be
-derivable from a single underlying cascade-action principle, or
-whether they are genuinely complementary by design, is a
-separate question. See Open
-Question~\ref{oq:tower-vs-4d-action}.
-\end{itemize}
-\end{enumerate}
-With (c1) closed, the cascade-native derivation of $g=2$
-(Paper~IVb~\cite{paper4b}, Corollary~\texttt{cor:g-equals-two})
-rests on stated theorems end-to-end on the spinor-bundle side. The
-remaining (a) and (b) are presentation gaps; the residual
-substantive question is (c2), tracked separately below.
-
-\item\label{oq:tower-vs-4d-action} \textbf{[closed] Tower-action
-vs.\ $4$D continuous action: genuinely complementary by design.}
-Resolved in Lemma~\ref{lem:within-moment-action-decomposition}
-and Remark~\ref{rem:tower-vs-4d-resolved}: reading~(a) genuinely
-complementary, with the structural justification that the two
-actions act on \emph{different fields} (cascade tower-scalar
-$\varphi(d) = \ln\Omega_d$ on the layer index vs.\ $4$D-projected
-$\Phi(x^\mu)$ on $M_4$) and govern \emph{different cascade-geometric
-directions} (cross-layer vs.\ within-layer). Readings~(b) and (c)
-were structurally incorrect: (b) requires a single field on which
-both actions act, which does not exist; (c) confused the layer
-index $d$ (cascade tower-depth) with a Wick-rotation of $4$D time
-($4$D time arises from Wick-rotating the within-layer foliation
-parameter $x \in [-1,1]$ per Paper~III~\S10, not from the layer
-index). Paper~VI~\cite{paper6}'s within-moment vs.\ between-moments
-factorization provides the structural framework: within-moment
-cross-layer kinetics (tower-action) and within-moment within-layer
-kinetics ($4$D action) are two distinct directions of the
-within-moment cascade geometry, with between-moments dynamics
-governed separately by Paper~VI's tower-growth operator $A$.
-
 \item\label{oq:state-metric-instantiation} \textbf{Instantiate the
 state-to-metric map concretely.} Theorem~\ref{thm:metricstate} asserts
 that different cascade states $|\Psi\rangle \in S^{d-1}$ produce
