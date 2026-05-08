@@ -2648,11 +2648,49 @@ making the cascade-internal disambiguation a substantive QCD frontier.
 See Open Question~\ref{oq:higher-loop-qed-coefficients} for the QED
 analog. Connecting QCD higher-loop $\beta$ to the QED frontier extends
 the chirality-selection-rule machinery cascade-natively.
-\item \emph{Confinement and $\Lambda_{\rm QCD}$ scale.} Standard QCD
-relates $\beta_0$ to $\Lambda_{\rm QCD}$ via $\Lambda_{\rm QCD} =
-\mu_0\,\exp(-1/(\beta_0\,\alpha_s(\mu_0)))$. Cascade-native
-$\Lambda_{\rm QCD}$ would close the connection from cascade $\alpha_s$
-closure to the confinement scale.
+\item \emph{Confinement and $\Lambda_{\rm QCD}$ scale (Tier~4 candidate).}
+Standard QCD relates $\beta_0$ to $\Lambda_{\rm QCD}$ via
+$\Lambda_{\rm QCD} = \mu_0\,\exp(-2\pi/(\beta_0\,\alpha_s(\mu_0)))$ at
+$1$-loop. PDG $\Lambda_{\rm QCD}^{(n_f=5)}_{\rm MS\text{-}bar} \approx 210$~MeV.
+$1$-loop underestimates by factor $2$-$3$ (expected; higher-loop running
+brings it to PDG value).
+
+A cascade-primitive candidate form:
+\[
+\boxed{\;\Lambda_{\rm QCD}^{\rm cascade} \;=\; M_Z\cdot\exp(-2\pi) \;\approx\; 170~\text{MeV}\;}
+\]
+using cascade primitive $2\pi = N(0)\cdot\Gamma(\tfrac{1}{2})^2$
+(Corollary~\ref{cor:2sqrtpi-primitive}). Numerical: $91.19/e^{2\pi}
+\approx 170$~MeV. PDG ratio: $0.811$ ($20\%$ below PDG).
+
+Independently, cascade $\alpha_s(m_t)$ from $1$-loop running with
+cascade $\beta_0(n_f=5) = 23/3$ between $M_Z$ and $m_t$ gives
+$\alpha_s(m_t) \approx 0.130$; standard $1$-loop $\Lambda$ at $m_t$
+with cascade $\beta_0(n_f=6) = 7$ then yields $\Lambda \approx 172.5$~MeV
+--- nearly identical to the pure cascade-primitive form. The two
+independent cascade-internal calculations converge at $\sim 170$~MeV.
+Verifier:
+\texttt{tools/research/cascade\_lambda\_qcd\_attempt.py}.
+
+The $20\%$ deviation from PDG is consistent with cascade Tier~4
+leading-order systematic but not within standing precision. Closing
+this gap requires either: (i)~first-order cascade Gram correction
+(Part~0 inter-layer-coupling) applied to $\Lambda_{\rm QCD}$;
+(ii)~higher-loop cascade-native running (which $1$-loop misses);
+or (iii)~the cascade-native form is genuinely at $\sim 20\%$ precision.
+
+\medskip\noindent\emph{Structural reading.} The cascade-primitive
+form $M_Z\cdot\exp(-2\pi)$ uses the same cascade primitive
+$2\pi = N(0)\cdot\Gamma(\tfrac{1}{2})^2$ that appears in
+Schwinger's $1/(2\pi)$ identification (Remark~\ref{rem:two-pi-prefactor-identification})
+and in the per-Dirac-layer $1/\alpha_{\rm em}$ screening
+($6\pi$ across three layers, Tier~2 entry~(k)). The descent factor
+between the EW scale ($M_Z$) and the confinement scale
+($\Lambda_{\rm QCD}$) is naturally one cascade structural unit
+$2\pi$ in this reading. Cascade-internal derivation of WHY this
+specific descent factor is forced --- possibly via the cascade
+SU(3) algebra source at $d_0 = 7$ confining at one cascade
+structural unit below $M_Z$ --- is open.
 \end{itemize}
 
 \medskip\noindent\textbf{Tier~3 (cascade-primitive identification at
