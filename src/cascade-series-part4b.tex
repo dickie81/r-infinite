@@ -2763,22 +2763,69 @@ chiral physics. Same primitives derive QCD running and chiral
 symmetry breaking --- cross-sector consistency. Verifier:
 \texttt{tools/research/cascade\_chiral\_symmetry\_breaking.py}.
 
-Caveat: cascade $\Lambda_{\rm QCD}$ is $20\%$ below PDG. Using
+Caveat: cascade $\Lambda_{\rm QCD}$ is $\sim 19\%$ below PDG. Using
 PDG $\Lambda$ in the cascade forms gives $m_\pi \approx 171$~MeV
 ($+23\%$) and $f_\pi \approx 114$~MeV ($+24\%$). The sub-percent
 match requires \emph{cascade} $\Lambda_{\rm QCD}$, suggesting an
 $\mathcal{O}(20\%)$ scheme-like difference between cascade and
-MS-bar definitions. Open structural piece.
+MS-bar definitions.
+
+\medskip\noindent\textbf{The scheme factor (Tier~3).} The empirical
+ratio is $\Lambda_{\rm PDG}/\Lambda_{\rm cascade}\approx 210/170.3
+\approx 1.233$, inside the PDG $\pm 7\%$ systematic band. The cascade
+primitives $N_c$ and $N(0)$ generate exactly one ratio in this
+neighbourhood:
+\[
+\sqrt{N_c/N(0)} \;=\; \sqrt{3/2} \;\approx\; 1.2247,
+\]
+deviation $-0.7\%$ from the observed ratio (well inside PDG
+uncertainty). The cascade-to-MS-bar scheme conversion is therefore
+identified as
+\[
+\boxed{\;\Lambda_{{\rm QCD},\,{\rm MS\text{-}bar}}^{(n_f=5)}
+       \;=\; \Lambda_{\rm QCD}^{\rm cascade}\cdot\sqrt{N_c/N(0)}
+       \;\approx\; 208.6~\text{MeV}.\;}
+\]
+Cross-check: substituting $\Lambda_{\rm cascade} =
+\Lambda_{\rm PDG}/\sqrt{N_c/N(0)}$ into the chiral relations
+above collapses the $\sqrt{}$-irrational exponents to rational
+exponents in the same primitive ratio:
+\[
+m_\pi \;=\; \Lambda_{\rm PDG}\cdot(N(0)/N_c)
+       \;=\; \Lambda_{\rm PDG}\cdot\tfrac{2}{3}, \qquad
+f_\pi \;=\; \Lambda_{\rm PDG}\cdot(N(0)/N_c)^2
+       \;=\; \Lambda_{\rm PDG}\cdot\tfrac{4}{9}.
+\]
+Numerically $\Lambda_{\rm PDG}\cdot\tfrac{2}{3} = 140.0$~MeV
+($+0.31\%$ vs PDG $m_\pi$); $\Lambda_{\rm PDG}\cdot\tfrac{4}{9}
+= 93.3$~MeV ($+1.4\%$ vs PDG $f_\pi$). No other cascade-primitive
+candidate within the PDG band --- e.g.\ $(N_c^2+1)/(N_c^2-1)=10/8$,
+$(N_c+1)/N_c = 4/3$, $2^{1/N_c}$ --- produces such rational chiral
+ratios, so $\sqrt{N_c/N(0)}$ is selected uniquely by the
+cross-sector consistency demand. Verifier:
+\texttt{tools/research/cascade\_lambda\_qcd\_scheme.py}.
+
+This closes the scheme question at Tier~3 (cascade-primitive
+identification at empirical-match precision, with cross-sector
+consistency on chiral physics). It does \emph{not} close it at
+Tier~2: a cascade-internal derivation of why the cascade-to-MS-bar
+conversion factor is $\sqrt{N_c/N(0)}$ specifically --- presumably
+relating the cascade's color-flavor normalization to MS-bar's
+dim-reg $\overline{\rm MS}$ convention --- has not been done. The
+$f_\pi/m_\pi = N(0)/N_c$ ratio is, correctly, scheme-invariant
+under this re-normalization.
 
 \medskip\noindent\textbf{Cross-sector pattern.} Cascade-native QCD now
 spans (in this remark): $\beta_0$ (Tier~3, cascade-primitive 1-loop),
-$\beta_1$ (Tier~3, structural ambiguity), $\Lambda_{\rm QCD}$ (Tier~4,
-$M_Z\cdot\exp(-2\pi)$), and chiral physics ($m_\pi$, $f_\pi$ at $\sim 1\%$
+$\beta_1$ (Tier~3, structural ambiguity), $\Lambda_{\rm QCD}$ (Tier~3,
+$M_Z\cdot\exp(-2\pi)$ with cascade-MS-bar scheme factor
+$\sqrt{N_c/N(0)}$), and chiral physics ($m_\pi$, $f_\pi$ at $\sim 1\%$
 on ratios). The cascade primitives $\{N_c, N(0), 2\pi\}$ recur across
-\emph{all} these QCD observables, suggesting a single cascade-internal
-structural unit underlies QCD running, confinement scale, and chiral
-symmetry breaking. Unifying these into a cascade-internal QCD theorem
-is the natural Tier~2 promotion target.
+\emph{all} these QCD observables: the same primitive ratio $N(0)/N_c$
+appears in $\beta_0$'s per-fermion coefficient, in
+$f_\pi/m_\pi = N(0)/N_c$, and (under square-root) in the
+cascade-to-MS-bar scheme conversion. Unifying these into a
+cascade-internal QCD theorem is the natural Tier~2 promotion target.
 
 \medskip\noindent\textbf{Tier~3 (cascade-primitive identification at
 empirical-match precision).} Promotion to Tier~2 requires the
