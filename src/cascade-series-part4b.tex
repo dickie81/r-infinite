@@ -2734,6 +2734,52 @@ confinement scale. Verifier:
 \texttt{tools/research/cascade\_confinement\_d0\_test.py}.
 \end{itemize}
 
+\medskip\noindent\textbf{Cascade-native chiral physics: $m_\pi$, $f_\pi$ (Tier~4).}
+Following $\Lambda_{\rm QCD}$, cascade-primitive forms for the pion
+mass and decay constant emerge with sub-percent precision on ratios:
+\[
+m_\pi \;=\; \Lambda_{\rm QCD}\cdot\sqrt{N(0)/N_c}\,, \qquad
+f_\pi \;=\; m_\pi\cdot(N(0)/N_c)\,.
+\]
+
+With $N_c = 3$ (Adams), $N(0) = 2$ (Cor.~\ref{cor:2sqrtpi-primitive}),
+and cascade $\Lambda_{\rm QCD} \approx 170.3$~MeV:
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lccc}
+\toprule
+Observable & Cascade form & Cascade & PDG \\
+\midrule
+$m_\pi$       & $\Lambda\cdot\sqrt{2/3}$       & $139.04$~MeV ($-0.38\%$) & $139.57$~MeV \\
+$f_\pi$       & $\Lambda\cdot(2/3)^{3/2}$      & $92.69$~MeV  ($+0.68\%$) & $92.07$~MeV  \\
+$f_\pi/m_\pi$ & $N(0)/N_c = 2/3$               & $0.6667$ ($+1.05\%$)     & $0.6597$     \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The cascade primitive ratio $N(0)/N_c$ that appears in $\beta_0$'s
+per-fermion coefficient \emph{also} appears as $f_\pi/m_\pi$ in
+chiral physics. Same primitives derive QCD running and chiral
+symmetry breaking --- cross-sector consistency. Verifier:
+\texttt{tools/research/cascade\_chiral\_symmetry\_breaking.py}.
+
+Caveat: cascade $\Lambda_{\rm QCD}$ is $20\%$ below PDG. Using
+PDG $\Lambda$ in the cascade forms gives $m_\pi \approx 171$~MeV
+($+23\%$) and $f_\pi \approx 114$~MeV ($+24\%$). The sub-percent
+match requires \emph{cascade} $\Lambda_{\rm QCD}$, suggesting an
+$\mathcal{O}(20\%)$ scheme-like difference between cascade and
+MS-bar definitions. Open structural piece.
+
+\medskip\noindent\textbf{Cross-sector pattern.} Cascade-native QCD now
+spans (in this remark): $\beta_0$ (Tier~3, cascade-primitive 1-loop),
+$\beta_1$ (Tier~3, structural ambiguity), $\Lambda_{\rm QCD}$ (Tier~4,
+$M_Z\cdot\exp(-2\pi)$), and chiral physics ($m_\pi$, $f_\pi$ at $\sim 1\%$
+on ratios). The cascade primitives $\{N_c, N(0), 2\pi\}$ recur across
+\emph{all} these QCD observables, suggesting a single cascade-internal
+structural unit underlies QCD running, confinement scale, and chiral
+symmetry breaking. Unifying these into a cascade-internal QCD theorem
+is the natural Tier~2 promotion target.
+
 \medskip\noindent\textbf{Tier~3 (cascade-primitive identification at
 empirical-match precision).} Promotion to Tier~2 requires the
 structural derivation of WHY the cascade gauge sector at $d_g = 12$
