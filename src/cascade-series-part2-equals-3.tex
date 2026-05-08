@@ -294,6 +294,90 @@ Steps 1--4 give $(i\gamma^\mu D_\mu - m_f)\psi = 0$ at $d=4$ with
 all ingredients cascade-derived.
 \end{proof}
 
+\begin{lemma}[$4$D-projected fermion field structure]\label{lem:4d-fermion-projection}
+Under the cascade structure at $d=4$ (foliation by cross-sections at
+height $x \in [-1,1]$ per Paper~III~\cite{paper3}~\S4.1; spinor
+representation of $\mathrm{Spin}(1,3)$ on the cascade Hilbert space
+per Lemma~\texttt{lem:cascade-spinor-id}), the cascade fermion field
+is a section
+\[
+\psi : M_4 \to \mathcal{S}, \qquad
+\mathcal{S} = M_4 \times_{\mathrm{Spin}(1,3)} \mathcal{H},
+\]
+of the spinor bundle $\mathcal{S}$ over the $4$D Lorentzian manifold
+$M_4 = \{ds^2 = -dt^2 + (1-t^2)\,d\sigma_3^2\}$ derived in
+Paper~III~\S4.4. The Dirac operator $\gamma^\mu\partial_\mu$ acts
+on sections via:
+\begin{itemize}[nosep]
+\item $\gamma^0\partial_0$: differentiation along the foliation
+direction (Paper~III~\S4.1, slicing parameter $x$; Wick-rotated to
+the observer's proper time $t$ per Paper~III~\S10).
+\item $\gamma^i\partial_i$ ($i = 1,2,3$): differentiation along the
+cross-section $S^3$ via the spin-connection lift of the Levi-Civita
+connection on $S^3$.
+\end{itemize}
+The continuous structure on $M_4$ is inherited from the
+\emph{continuous} slicing parameter $x$, not from a continuum limit
+of the cascade lattice on layer index $d$. The cascade lattice
+indexes the tower of dimensions, with $d=4$ being the observer's
+layer.
+\end{lemma}
+
+\begin{proof}
+By Paper~III~\S4.1 the slicing recurrence foliates $B^{d+1}$ into
+cross-sections at continuous height $x \in [-1, 1]$, with
+$(d+1)$-dimensional metric $ds^2 = dx^2 + (1-x^2)\,d\sigma_{d-1}^2$.
+At $d=4$, Paper~III~\S4.4 projects to the FRW metric
+$ds^2_{4\mathrm{D}} = -dt^2 + (1-t^2)\,d\sigma_3^2$ via the Wick
+rotation $x = it$ of Paper~III~\S10. Call this Lorentzian manifold
+$M_4$.
+
+By Lemma~\texttt{lem:cascade-spinor-id}, the cascade Hilbert space
+at $d=4$ is the irreducibly-complex minimal spinor representation
+$\mathcal{H}$ of $\mathrm{Spin}(1,3)$. The local
+$\mathrm{Spin}(1,3)$ action on $M_4$'s tangent frame at each point
+lifts to an action on the associated bundle
+$\mathcal{S} = M_4 \times_{\mathrm{Spin}(1,3)} \mathcal{H}$. A
+cascade fermion configuration is a state in $\mathcal{H}$ varying
+smoothly across $M_4$, i.e., a section
+$\psi : M_4 \to \mathcal{S}$. Smoothness in the foliation direction
+follows from the continuity of the slicing parameter $x$;
+smoothness along the cross-section follows from the smooth $S^3$
+structure of the spatial slice.
+
+The Levi-Civita connection on $M_4$ lifts uniquely to a spin
+connection on $\mathcal{S}$ (standard differential geometry on
+$\mathrm{Spin}$-manifolds). The Dirac operator
+$\gamma^\mu\nabla_\mu$ on this connection is the unique
+Lorentz-covariant first-order differential operator on
+$\mathcal{S}$, by the Wigner classification used in Step~3 of
+Theorem~\ref{thm:cascade-dirac-descent}. In flat-frame coordinates,
+$\gamma^\mu\nabla_\mu = \gamma^\mu\partial_\mu$.
+
+The foliation direction $\gamma^0\partial_0$ is the cascade slicing
+direction Wick-rotated to proper time. The spatial directions
+$\gamma^i\partial_i$ are the standard $\mathrm{Spin}$-connection on
+$S^3$ extended by $\mathrm{Spin}(4) \to \mathrm{Spin}(1,3)$
+restriction along the foliation. The cascade lattice on layer
+index $d$ does not enter $M_4$'s differential structure; it enters
+only as the layer label, with $d=4$ identifying $M_4$ as the
+observer's leaf.
+\end{proof}
+
+\begin{remark}[Closes soft spot (c1) of Open Question~\ref{oq:dirac-discrete-continuous}]
+\label{rem:c1-closed}
+Lemma~\ref{lem:4d-fermion-projection} establishes the
+spinor-bundle structure on the $4$D Lorentzian manifold parallel
+to Paper~III~\S4's metric derivation. This closes soft spot (c1)
+of the original Open Question: the continuous $4$D structure on
+which $\gamma^\mu\partial_\mu$ acts is now derived, not implicit.
+The remaining open piece is the relation between the cascade
+\emph{tower-action} on the layer index and the $4$D continuous
+action on $M_4$ --- two complementary cascade-internal structures
+that are not the same object. See Open
+Question~\ref{oq:tower-vs-4d-action}.
+\end{remark}
+
 \begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
 \label{rem:cascade-dirac-status}
 Theorem~\ref{thm:cascade-dirac-descent} sits at the same rigour
@@ -985,22 +1069,75 @@ operator of Paper~IVb~\cite{paper4b}
 Hamiltonian-form $\beta$-mass; a small lemma making this
 identification explicit in cascade-lattice terms would close a
 one-paragraph gap.
-\item \emph{The discrete-to-continuous bridge for fermion fields.}
-Paper~III~\S4 derives the FRW metric from the slicing recurrence
-as a continuous object; the cascade lattice on the layer index $d$
-is parallel to but not identical with the $4$D differential
-structure on which $\gamma^\mu\partial_\mu$ acts. The explicit
-bridge from ``discrete Laplacian on layer index'' to ``continuous
-$\gamma^\mu\partial_\mu$ on $4$D Lorentzian manifold'' is implicit
-in Paper~III but not written as a theorem. This is the substantive
-residual gap; the other two are presentation gaps.
+\item \emph{The discrete-to-continuous bridge for fermion fields,
+revised.} Lemma~\ref{lem:4d-fermion-projection} establishes the
+$4$D continuous spinor-bundle structure on which
+$\gamma^\mu\partial_\mu$ acts, parallel to Paper~III~\S4's metric
+derivation. The original soft spot (c) therefore splits into:
+\begin{itemize}[nosep]
+\item \emph{(c1) [closed]} The $4$D continuous structure on which
+$\gamma^\mu\partial_\mu$ acts is now derived
+(Lemma~\ref{lem:4d-fermion-projection}).
+\item \emph{(c2) [open, reframed]} The relation between the
+cascade tower-action
+$\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$ on the layer
+index and the $4$D continuous action $\int |\partial\varphi|^2$
+on $M_4$. These describe complementary aspects of cascade
+physics (tower-action governs cross-layer descent, used in
+chirality factor and per-leg primitive; $4$D action governs
+within-layer dynamics on $M_4$). Whether they should be
+derivable from a single underlying cascade-action principle, or
+whether they are genuinely complementary by design, is a
+separate question. See Open
+Question~\ref{oq:tower-vs-4d-action}.
+\end{itemize}
 \end{enumerate}
-Closing (c) would promote
-Theorem~\ref{thm:cascade-dirac-descent} from
-``Wigner classification on cascade-derived inputs'' to ``cascade
-descent of fermion fields end-to-end,'' and would tighten the
-cascade-native derivation of $g=2$
-(Paper~IVb~\cite{paper4b}, Corollary~\texttt{cor:g-equals-two}).
+With (c1) closed, the cascade-native derivation of $g=2$
+(Paper~IVb~\cite{paper4b}, Corollary~\texttt{cor:g-equals-two})
+rests on stated theorems end-to-end on the spinor-bundle side. The
+remaining (a) and (b) are presentation gaps; the residual
+substantive question is (c2), tracked separately below.
+
+\item\label{oq:tower-vs-4d-action} \textbf{Tower-action vs.\ $4$D
+continuous action: complementary or unifiable?}
+The cascade has two action-like structures: the tower-action
+$\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$ on the layer index
+(Paper~IVb~\cite{paper4b},
+Remark~\texttt{rem:action-uniqueness}) and the standard $4$D
+continuous action $\int |\partial\varphi|^2 + \ldots$ on the
+foliated manifold $M_4$ (implicit in the standard physics that
+$\gamma^\mu\partial_\mu$ generates after
+Lemma~\ref{lem:4d-fermion-projection}). These describe different
+physics: the tower-action governs cross-layer descent and supplies
+the chirality factor and per-leg primitive in
+Paper~IVb~\cite{paper4b}'s precision predictions; the $4$D action
+governs within-layer dynamics on $M_4$. Three readings:
+\begin{enumerate}[label=(\alph*),nosep]
+\item \emph{Genuinely complementary}: the cascade has one action
+per ``direction'' --- a tower-action across layers and a
+continuous-manifold action within a layer --- and they should
+not unify, just as a quantum field on a manifold has both a
+phase-space symplectic structure and a path-integral measure
+that are not the same object.
+\item \emph{Unifiable via a higher-dimensional action principle}:
+both are projections of a single action on the foliated total
+space $B^{d+1}$, with the tower-action being the cross-section
+sum and the $4$D action being the within-section integral.
+\item \emph{Unifiable via the cascade Wick rotation}: the tower
+direction $d$ is Wick-related to the $4$D time direction $t$
+via the Paper~III~\S10 rotation, so the tower-action's
+$\Delta\varphi(d)$ corresponds to a time-derivative
+$\partial_t\varphi$ on $M_4$, with the cascade scalar action's
+sum becoming a kinetic term in the $4$D continuous action.
+\end{enumerate}
+Reading~(c) is the most concrete cascade-native candidate; it
+would derive the cascade tower-action's connection to standard
+$4$D physics by interpreting $\Delta\varphi(d)$ as the
+discrete-time derivative on a Wick-rotated foliation. Closing
+this question --- in any of (a), (b), (c) --- would unify the
+cascade's two action-like structures. Reading~(a) (genuinely
+complementary) is itself a defensible answer if no unification
+exists; the question is which of (a), (b), (c) holds.
 
 \item\label{oq:state-metric-instantiation} \textbf{Instantiate the
 state-to-metric map concretely.} Theorem~\ref{thm:metricstate} asserts
