@@ -2687,10 +2687,51 @@ and in the per-Dirac-layer $1/\alpha_{\rm em}$ screening
 ($6\pi$ across three layers, Tier~2 entry~(k)). The descent factor
 between the EW scale ($M_Z$) and the confinement scale
 ($\Lambda_{\rm QCD}$) is naturally one cascade structural unit
-$2\pi$ in this reading. Cascade-internal derivation of WHY this
-specific descent factor is forced --- possibly via the cascade
-SU(3) algebra source at $d_0 = 7$ confining at one cascade
-structural unit below $M_Z$ --- is open.
+$2\pi$ in this reading.
+
+\medskip\noindent\emph{Confinement mechanism vs.\ confinement scale (decoupled).}
+The cascade has SU(3) at TWO layers: $d_g = 12$ (gauge-window,
+gluon propagation) and $d_0 = 7$ (algebra source via G$_2$/SU(3)
+homogeneous space on $S^6$, Paper~IVa~\cite{paper4a}, Remark~\texttt{rem:su3-d7-algebra}).
+Direct identification of $d_0 = 7$ with the dynamical confinement
+scale $\Lambda_{\rm QCD}$ FAILS: in cascade scale ordering
+($d=4$ at observer, $d=12$ at gauge window, with physical scale
+increasing with $d$), $d_0=7$ lies BETWEEN observer and gauge
+window --- ABOVE the EW scale, not below at $\Lambda_{\rm QCD}
+\sim 170$~MeV. Cascade descent action $\Phi(d=12 \to d=7) \approx 1.14$
+is small (NOT $2\pi$), so $d_0 = 7$ is structurally not the
+confinement scale.
+
+The honest cascade reading is that mechanism and scale decouple:
+\begin{itemize}[nosep]
+\item \emph{Confinement mechanism: algebra-locking at $d_0 = 7$.}
+The G$_2$/SU(3) coset structure makes SU(3) the stabilizer of a
+global G$_2$ symmetry on $S^6$. SU(3) at $d_0 = 7$ is therefore
+not a freely-acting Lie algebra but the locked-in stabilizer
+subgroup. Free SU(3)-quanta (gluons, free quarks) cannot exist
+as global degrees of freedom because the G$_2$/SU(3) coset
+forces excitations to the homogeneous-space directions; SU(3)
+itself is the residual symmetry that physical states project to.
+Color-singlet projection follows: physical states are
+G$_2$-singlets that descend to SU(3)-singlets via the coset;
+SU(3)-fundamentals (quarks) are forbidden as free physical states
+--- they must combine into SU(3)-singlets (mesons, baryons).
+\item \emph{Confinement scale: cascade descent below observer.}
+The dynamical scale $\Lambda_{\rm QCD} \approx 170$~MeV emerges
+from cascade descent BELOW the observer's frame, with descent
+factor $2\pi = N(0)\cdot\Gamma(\tfrac{1}{2})^2$. This is a
+SEPARATE cascade-internal quantity from the algebra-locking at
+$d_0 = 7$.
+\end{itemize}
+
+The two structural ingredients --- algebra-locking (mechanism) and
+descent-scale (numerical $\Lambda_{\rm QCD}$) --- are not currently
+unified into a single cascade-internal confinement theorem. Closing
+this connection is the substantive open structural piece for cascade
+QCD: derive WHY G$_2$/SU(3) algebra-locking at $d_0 = 7$ produces
+exactly the descent scale $M_Z\cdot\exp(-2\pi)$ as the cascade
+confinement scale. Verifier:
+\texttt{tools/research/cascade\_confinement\_d0\_test.py}.
 \end{itemize}
 
 \medskip\noindent\textbf{Tier~3 (cascade-primitive identification at
