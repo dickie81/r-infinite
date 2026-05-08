@@ -2026,6 +2026,24 @@ Green's function quantity but a cross-sector cascade-internal
 expression combining the cascade scalar action with the cascade gauge
 structure. Verifier:
 \texttt{tools/research/cascade\_eigenmode\_encompassment\_test.py}.
+\item \emph{Tested and ruled out (eigenmode localization at distinguished
+layers).} A third structural candidate: cascade Sturm--Liouville
+eigenmodes localize at distinguished layers, with source-selectable
+observables coupling to localized modes (Family A) and non-source-
+selectable observables coupling to extended/distributed modes (Family B).
+Direct numerical computation of the cascade scalar action's
+$214$-dimensional discrete Laplacian eigenspectrum: only the lowest
+mode (eigenvalue $\sim -71$, mode \#0) localizes strongly --- and only
+at $d_2 = 217$ (Planck sink, peak amplitude $0.83$, effective support
+$1.4$ layers). Modes peaked at the other four distinguished layers
+($d_V=5$, $d_0=7$, $d_{\rm gw}=14$, $d_1=19$) are at high mode numbers
+($32, 42, 62, 74$) with low peak amplitudes ($\sim 0.05$) and effective
+support of $\sim 80$ layers --- they are diffuse, not localized. The
+cascade scalar action's eigenmode spectrum does \emph{not} support a
+``distinguished mode per distinguished layer'' structure that would
+mechanically produce Family A from localized eigenmode coupling.
+Verifier:
+\texttt{tools/research/cascade\_eigenmode\_localization\_test.py}.
 \item \emph{Honest structural picture: two independent cascade
 sectors.} Family A and Family B come from \emph{structurally
 independent} cascade-internal sectors:
