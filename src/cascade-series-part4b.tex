@@ -2000,19 +2000,37 @@ empirical evidence (Tier~2 sub-$1$-loop residuals) confirms Family A
 encompasses the $1$-loop self-energy contribution that Family B
 reads explicitly for non-source-selectable observables. Verifier:
 \texttt{tools/research/cascade\_slot\_precedence\_verify.py}.
-\item \emph{Still open.} A direct cascade-internal derivation that
-$\alpha(d^*)/\chi^k$ is \emph{algebraically} the sum of cascade
-tree-level + cascade $1$-loop + higher-order contributions evaluated
-at the source mode (rather than just empirically encompassing them
-within precision) requires a closed-form expression for the cascade
-scalar action's Green's function in the eigenmode basis. The
-numerical Sturm--Liouville verifier
+\item \emph{Tested and ruled out (algebraic decomposition).} A direct
+algebraic decomposition $\alpha(d^*)/\chi^k = (\text{cascade tree shift}) +
+(h)+(f)$, with the cascade tree shift identifiable as a closed
+cascade-primitive form, does \emph{not} hold cleanly. For $m_\tau/m_\mu$
+at $d^* = 14$, $k = 1$: Family A gives $\alpha(14)/\chi \approx 1.72\%$;
+Family B's $(h)+(f) \approx 0.14\%$; residual $\approx 1.58\%$ has no
+clean cascade-primitive form (numerical search across powers of
+$\alpha(d^*)$, $\alpha(d^*)\cdot\chi^j$, $\alpha(d^*)/(2\pi)$,
+$\alpha(d^*)/\pi$, and combinations turns up no match within $1\%$).
+The closest candidate $\alpha(d^*)/\chi - \alpha_{\rm em}/(2\pi)$
+is just the residual's defining expression, not an independent form.
+Verifier:
+\texttt{tools/research/cascade\_algebraic\_decomposition\_test.py}.
+\emph{The exclusivity is therefore not via literal algebraic sum;
+Family A and Family B are different cascade structural quantities.}
+\item \emph{Open.} A direct cascade-internal derivation that
+$\alpha(d^*)/\chi^k$ encompasses the $1$-loop content via the
+\emph{Green's function eigenmode structure} (rather than via algebraic
+sum) requires a closed-form expression for the cascade scalar
+action's Green's function in the eigenmode basis. The numerical
+Sturm--Liouville verifier
 (\texttt{tools/verifiers/cascade\_greens\_function.py}) confirms the
 machine-precision marginal identity but doesn't supply the closed-form
 mode decomposition. Closing this would promote the structural
 exclusivity from ``empirically observed at sub-$1$-loop precision'' to
 ``forced by the cascade scalar action's Green's function eigenmode
-structure.''
+structure'' --- specifically, by showing that the cascade scalar
+action's Green's function at distinguished $d^*$ is built from
+eigenmodes whose collective response coincides with $\alpha(d^*)/\chi^k$
+\emph{including} the chirality-selection-rule $m=1, k=1$ slot's
+contribution, without separable algebraic decomposition.
 \end{itemize}
 \end{remark}
 
