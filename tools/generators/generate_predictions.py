@@ -52,6 +52,22 @@ TERMS = [
     ('Δm²_atm', '&Delta;<em>m</em><sup>2</sup><sub>atm</sub>',
      r'$\Delta m^2_{\mathrm{atm}}$'),
     ('Δm²', '&Delta;<em>m</em><sup>2</sup>', r'$\Delta m^2$'),
+    ('√(N_c · d_0)', '&radic;(<em>N</em><sub>c</sub>&middot;<em>d</em><sub>0</sub>)',
+     r'$\sqrt{N_c \cdot d_0}$'),
+    ('√(N_c/d_0)', '&radic;(<em>N</em><sub>c</sub>/<em>d</em><sub>0</sub>)',
+     r'$\sqrt{N_c/d_0}$'),
+    ('√(N_c/N(0))', '&radic;(<em>N</em><sub>c</sub>/<em>N</em>(0))',
+     r'$\sqrt{N_c/N(0)}$'),
+    ('√(3/7)', '&radic;(3/7)', r'$\sqrt{3/7}$'),
+    ('√N(0)', '&radic;<em>N</em>(0)', r'$\sqrt{N(0)}$'),
+    ('√21', '&radic;21', r'$\sqrt{21}$'),
+    ('5√2/3', '5&radic;2/3', r'$5\sqrt{2}/3$'),
+    ('5/√2', '5/&radic;2', r'$5/\sqrt{2}$'),
+    ('n_f', '<em>n</em><sub>f</sub>', r'$n_f$'),
+    ('χ_top^(1/4)', '&chi;<sub>top</sub><sup>1/4</sup>',
+     r'$\chi_{\mathrm{top}}^{1/4}$'),
+    ('↔', '&harr;', r'$\leftrightarrow$'),
+    ('→', '&rarr;', r'$\to$'),
     ('M⁴_Pl,red', '<em>M</em><sup>4</sup><sub>Pl,red</sub>',
      r'$M^{4}_{\mathrm{Pl,red}}$'),
     ('ρ_Λ', '&rho;<sub>&Lambda;</sub>', r'$\rho_\Lambda$'),
@@ -75,6 +91,24 @@ TERMS = [
     ('m_H', '<em>m</em><sub>H</sub>', r'$m_H$'),
     ('m_W', '<em>m</em><sub>W</sub>', r'$m_W$'),
     ('m_e', '<em>m</em><sub>e</sub>', r'$m_e$'),
+    ('m_K', '<em>m</em><sub>K</sub>', r'$m_K$'),
+    ('m_π', '<em>m</em><sub>&pi;</sub>', r'$m_\pi$'),
+    ("m_η'", '<em>m</em><sub>&eta;</sub><sup>&prime;</sup>', r"$m_{\eta'}$"),
+    ('m_η', '<em>m</em><sub>&eta;</sub>', r'$m_\eta$'),
+    ('f_π', '<em>f</em><sub>&pi;</sub>', r'$f_\pi$'),
+    ('Λ_QCD', '&Lambda;<sub>QCD</sub>', r'$\Lambda_{\mathrm{QCD}}$'),
+    ('Λ_PDG', '&Lambda;<sub>PDG</sub>', r'$\Lambda_{\mathrm{PDG}}$'),
+    ('Λ', '&Lambda;', r'$\Lambda$'),
+    ('χ_top', '&chi;<sub>top</sub>', r'$\chi_{\mathrm{top}}$'),
+    ('β_0', '&beta;<sub>0</sub>', r'$\beta_0$'),
+    ('β_1', '&beta;<sub>1</sub>', r'$\beta_1$'),
+    ('N_c', '<em>N</em><sub>c</sub>', r'$N_c$'),
+    ('N(0)', '<em>N</em>(0)', r'$N(0)$'),
+    ('N_f', '<em>N</em><sub>f</sub>', r'$N_f$'),
+    ('d_V', '<em>d</em><sub>V</sub>', r'$d_V$'),
+    ('d_0', '<em>d</em><sub>0</sub>', r'$d_0$'),
+    ('ρ(12)', '&rho;(12)', r'$\rho(12)$'),
+    ('ρ(8)', '&rho;(8)', r'$\rho(8)$'),
     ('ℓ_A', '<em>&#8467;</em><sub>A</sub>', r'$\ell_A$'),
     ('m_ν', '<em>m</em><sub>&nu;</sub>', r'$m_\nu$'),
     ('m_29', '<em>m</em><sub>29</sub>', r'$m_{29}$'),
@@ -124,11 +158,26 @@ TERMS.sort(key=lambda t: -len(t[0]))
 
 
 def convert(text, fmt):
-    """Convert markdown text to html or latex."""
+    """Convert markdown text to html or latex.
+
+    Uses a two-pass placeholder strategy: each TERM matches the source
+    text and is replaced with an opaque marker first; markers are then
+    expanded to their HTML/LaTeX form. This prevents shorter TERMs from
+    matching inside the replacement text of longer TERMs (e.g. "N(0)"
+    inside "$\\sqrt{N(0)}$") which would create nested $...$ math
+    blocks in the LaTeX output.
+    """
     idx = {'html': 1, 'latex': 2}[fmt]
     result = text
-    for md, html, latex in TERMS:
-        result = result.replace(md, (html, latex)[idx - 1])
+    expansions = []
+    for i, (md, html, latex) in enumerate(TERMS):
+        target = (html, latex)[idx - 1]
+        marker = f'\x00TERM{i}\x00'
+        if md in result:
+            result = result.replace(md, marker)
+            expansions.append((marker, target))
+    for marker, target in expansions:
+        result = result.replace(marker, target)
     if fmt == 'latex':
         result = result.replace('%', r'\%')
         result = result.replace('"', "''")

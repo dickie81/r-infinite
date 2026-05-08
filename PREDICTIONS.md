@@ -59,6 +59,13 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31474 | 0.315 ± 0.007 | −0.04σ |
 | 1/α_em | 1/α(13) + π/α(14) + 6π (chirality theorem, three Dirac layers) | 137.028 | 137.036 | 0.006% |
 | m_ν (heaviest) | m_29 · α(21)/χ⁸ (cascade neutrino chain) | 0.0493 eV | √Δm²_atm = 0.0495 eV (PDG 2024) | −0.4% (≈ −0.7σ vs PDG; −2.9σ vs NuFit 6.0) |
+| m_K / m_π | d_V/√N(0) = 5/√2 (cascade pseudoscalar octet, Part IVb rem:cascade-beta0) | 3.5355 | 3.5371 | −0.05% |
+| m_K (charged) | Λ_PDG · 5√2/3 = Λ · d_V·√N(0)/N_c | 495.0 MeV | 493.68 MeV | +0.27% |
+| m_η' / m_η | d_0/(N_c+1) = 7/4 (η-η' double-Adams; Part IVb thm:axial-anomaly-mass) | 1.7500 | 1.7482 | +0.10% |
+| m_η' | Λ_PDG · √(N_c · d_0) = Λ · √21 (double-Adams: ρ(12)−1 × ρ(8)−1) | 962.3 MeV | 957.78 MeV | +0.48% |
+| m_η | Λ_PDG · (N_c+1)·√(N_c/d_0) = Λ · 4√(3/7) | 549.9 MeV | 547.86 MeV | +0.37% |
+| m_π / Λ_PDG | N(0)/N_c = 2/3 (cascade chiral physics; rem:cascade-beta0) | 0.6667 | 0.6646 | +0.31% |
+| f_π / m_π | N(0)/N_c = 2/3 (chiral, scheme-invariant) | 0.6667 | 0.6597 | +1.06% |
 
 The "closed" entries above use the α(d\*)/χ^k correction family with all three structural rules now at theorem level (with the source-selection rule at Tier 2 empirical 9/9 + structural uniqueness per pairing):
 - **Channel count k = 2N** is a cascade theorem (Part IVb `rem:theta23-channel-count`; chirality factor exponent 2N forced by combining the cascade scalar action's Z₂-only discrete symmetry with Adams' theorem on im J's Z₂ generator residues; ROADMAP Item 1).
@@ -76,13 +83,15 @@ Soft spots: cascade path-integral not formally defined; the χ^{2N} magnitude is
 
 This is the cascade's tier discipline: "Tier 2" = closed within standing precision (% for leading, σ for corrected closures), not "closed at the strictest experimental σ." The distinction is structurally meaningful: corrected closures use the now-theorem-level α(d\*)/χ^k correction family; leading predictions await analogous closure via additional structural pieces (cf. Open Question on m_μ/m_e residual in Part IVb).
 
+**On the QCD-frontier entries (m_K, m_η, m_η', m_π/Λ, f_π/m_π).** These are sub-percent / ~1% closures from the cascade-primitive grammar developed in Part IVb `rem:cascade-beta0`. Same primitive set $\{N_c, N(0), 2\pi, d_V, d_0\}$ generates QCD's β_0 1-loop coefficient, the cascade-native Λ_QCD descent scale, the chiral relations (m_π, f_π), and the η-η' anomaly sector. The η' anomaly mass receives a topological derivation in Part IVb `thm:axial-anomaly-mass` (Tier 4b status, parallel to `thm:strong-cp`): $m_{\eta'}^2 = \Lambda^2 (\rho(12)-1)(\rho(8)-1)$ identifies the U(1)_A anomaly mass as a double-Adams product, with both factors fixed by Adams' theorem on cascade parallelizable spheres ($S^{11}$ at the gauge layer, $S^7$ at the octonion layer). The same Adams apparatus that anchors SU(3) at $d_g=12$ in `thm:strong-cp` and gives θ_QCD = 0 from $\pi_3(S^{11}) = 0$ now also sets the magnitude of the U(1)_A anomaly mass scale.
+
 ### Tier 3 — _Vacated_: correction-family closures all promoted to Tier 2
 
 The seven correction-family closures previously listed in Tier 3 have been promoted to Tier 2 above following the closure of ROADMAP Items 3 (source strength) and 4 (sign rule) at theorem level. The α(d\*)/χ^k correction family's three-of-four structural rules (channel count, sign, source strength) are all theorem-level cascade results; the fourth (source selection) is at the same rigour level the channel-count rule had before its formal completeness proof. No observable currently sits in Tier 3.
 
 ### Tier 4 — Frontier: Under Active Experimental Test
 
-Specific predictions testable by current or near-future experiments (DESI, Euclid, CMB-S4, SH0ES).
+Specific predictions testable by current or near-future experiments (DESI, Euclid, CMB-S4, SH0ES, lattice QCD, PDG meson masses).
 
 | Observable | Predicted | Current data | Status |
 |---|---|---|---|
@@ -90,6 +99,11 @@ Specific predictions testable by current or near-future experiments (DESI, Eucli
 | r_d (sound horizon) | ≈147.75 Mpc | Planck: 147.60 Mpc | Essentially equal to Planck; cascade and ΛCDM share a ruler |
 | DESI DR2 BAO fit | χ²/n = 2.35 (cascade) vs 1.90 (Planck) | Two shared outliers at z=0.510, z=0.706 | Cascade fits slightly worse than Planck; both face same anomalies |
 | DESI w ≠ −1 signal | w = −1 exactly (structural theorem) | DESI DR2: w ≈ −0.76 | Challenges cascade and ΛCDM equally; no ruler-based explanation |
+| β_0 (QCD 1-loop) | (N_c²+N_c−1) − N(0)·n_f/N_c (cascade-primitive identity; rem:cascade-beta0) | β_0 = 7 at n_f=6 (QCD definition) | Exact match across n_f windows; cascade form is structural identification of QCD's 1-loop coefficient |
+| β_1 (QCD 2-loop) | exact match with two cascade-primitive forms | QCD MS-bar value at any n_f | Exact match; cascade-internal disambiguation between the two forms is the open structural piece |
+| Λ_QCD cascade-native | M_Z · exp(−2π) ≈ 170 MeV; with cascade↔MS-bar scheme factor √(N_c/N(0)) → 208.6 MeV | PDG MS-bar (n_f=5): 210 ± 14 MeV | Within PDG band (−0.7%); cascade-internal derivation of √(N_c/N(0)) scheme factor is the Tier 2 promotion target |
+| χ_top^(1/4) (QCD topological susceptibility) | Witten-Veneziano with cascade-primitive m_η, m_η', m_K, f_π | 181 MeV (cascade inputs) · 179 MeV (PDG inputs) | Lattice average ≈ 178 MeV; cascade reproduces lattice within +1.7% (cascade) / +0.7% (PDG) |
+| Vector mesons (ρ, ω, K*, φ) | Best cascade-primitive fits 1–3% from PDG; structural form ambiguous across the nonet | PDG values | Diagnostic: cascade grammar reaches PS Goldstone octet, stops at J=1; missing machinery is cascade-native hyperfine splitting (open structural direction) |
 
 ### Tier 5 — Provisional: Derivation Incomplete
 
