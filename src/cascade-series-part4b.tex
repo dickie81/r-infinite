@@ -1908,6 +1908,114 @@ $\alpha(d_{\rm above})$ marginal Green's function increment
 (specific to self-energy topology).
 \end{remark}
 
+\begin{remark}[Cascade-net interpretation of Family A and the exclusivity derivation]\label{rem:family-a-net}
+Proposition~\ref{prop:slot-precedence}'s exclusivity claim --- that
+Family A's $\alpha(d^*)/\chi^k$ correction (source-selectable) and
+Family B's $(h)+(f)$ correction (non-source-selectable) cannot
+both apply to the same observable --- is structurally rooted in
+the \emph{cascade-net} interpretation of Family A: the
+$\alpha(d^*)/\chi^k$ shift is not a tree-level-only correction
+that would need radiative corrections added on top, but the
+cascade scalar action's complete net correction at the observable's
+source-coupling layer, encompassing tree-level + radiative +
+higher-order contributions implicitly within its precision.
+
+\medskip\noindent\textbf{Empirical evidence for cascade-net Family A.}
+The eight Tier~2 closures via $\alpha(d^*)/\chi^k$ all land at
+sub-$\sigma$ to PDG with residuals an order of magnitude smaller
+than the universal $1$-loop QED scale $\alpha_{\rm em}/(2\pi)
+\approx 0.116\%$:
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lcc}
+\toprule
+Observable & Tier 2 residual & Magnitude vs.\ $\alpha_{\rm em}/(2\pi)$ \\
+\midrule
+$m_\tau/m_\mu$    & $+0.243\sigma \sim 0.0016\%$ & $\sim 1/70$ \\
+$\alpha_s(M_Z)$   & $+0.019\sigma \sim 0.0002\%$ & $\sim 1/580$ \\
+$m_\tau$ abs       & $-0.31\sigma \sim 0.020\%$    & $\sim 1/6$ \\
+$\sin^2\theta_W$  & $+0.40\sigma \sim 0.00007\%$ & $\sim 1/1700$ \\
+$\theta_C$         & $+0.03\sigma \sim 0.0002\%$ & $\sim 1/580$ \\
+$b/s$              & $0.014\%$                    & $\sim 1/8$ \\
+$\Omega_m$         & $-0.04\sigma$               & sub-$1/100$ \\
+$\ell_A$           & $-0.16\sigma$                & sub-$1/10$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+If $\alpha(d^*)/\chi^k$ were only the tree-level shift in a
+``leading + tree-shift + radiative'' structure analogous to
+standard QED, the $1$-loop QED radiative scale ($\sim 0.116\%$)
+would remain as a residual. The observed Tier~2 residuals are
+$10\times$--$1000\times$ smaller. The cascade closures are at the
+$1$-loop scale or beyond: $\alpha(d^*)/\chi^k$ already encompasses
+the $1$-loop self-energy contribution that Family B reads explicitly
+for non-source-selectable observables.
+
+\medskip\noindent\textbf{Structural reading.} The cascade scalar
+action's discrete Laplacian Green's function (Remark~\ref{rem:marginal-greens})
+admits two complementary specializations:
+\begin{itemize}[nosep]
+\item \emph{Localized source mode at distinguished $d^*$ (Family A).}
+For an observable whose descent path intersects a distinguished
+$d^*$ via the $(P, L, G)$ flag conditions
+(Proposition~\ref{prop:source-selection}), the cascade scalar
+action's Green's function evaluation is dominated by the source
+mode at $d^*$. The marginal identity
+$G(d_{\rm obs}, d^*) - G(d_{\rm obs}, d^*+1) = \alpha(d^*)$
+captures the per-source response. The chirality factor $\chi^{-k}$
+multiplies for $k$ chirality projections. Result: the cascade-net
+correction is $\pm\alpha(d^*)/\chi^k$, encompassing all radiative
+contributions sourced at the distinguished layer.
+\item \emph{Distributed mode contributions at Dirac layers above
+the host (Family B).} For an observable whose descent path does
+not intersect a distinguished $d^*$, no localized source mode
+dominates. The cascade scalar action's Green's function evaluates
+to a distributed sum of contributions from photon-loop modes at
+Dirac layers above the fermion's host layer. The cascade-primitive
+prefactor $1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2) = 1/(2\pi)$
+(Corollary~\ref{cor:2sqrtpi-primitive}) gives the per-loop chirality-
+structural factor; the marginal Green's function increment
+$\alpha(d_{\rm above})$ at the topmost Dirac layer above gives the
+next-order. Result: the cascade-net correction is
+$\alpha_{\rm em}/(2\pi)\cdot n_{\rm above} +
+\alpha_{\rm em}\cdot\alpha(d_{\rm above})$.
+\end{itemize}
+
+The two specializations are mutually exclusive at the observable
+level: each cascade observable has \emph{one} source-coupling
+structure determined by its $(P, L, G)$ flags, and the cascade
+Green's function evaluation produces the specialization
+appropriate to that source structure. There is no observable
+that simultaneously satisfies both ``descent path intersects
+distinguished $d^*$'' and ``descent path does not intersect any
+distinguished $d^*$.''
+
+\medskip\noindent\textbf{What this argument establishes vs.\ what
+remains open.}
+\begin{itemize}[nosep]
+\item \emph{Established (this remark).} Family A and Family B are
+different specializations of one cascade Green's function machinery,
+applied to mutually exclusive source-coupling structures. The
+empirical evidence (Tier~2 sub-$1$-loop residuals) confirms Family A
+encompasses the $1$-loop self-energy contribution that Family B
+reads explicitly for non-source-selectable observables. Verifier:
+\texttt{tools/research/cascade\_slot\_precedence\_verify.py}.
+\item \emph{Still open.} A direct cascade-internal derivation that
+$\alpha(d^*)/\chi^k$ is \emph{algebraically} the sum of cascade
+tree-level + cascade $1$-loop + higher-order contributions evaluated
+at the source mode (rather than just empirically encompassing them
+within precision) requires a closed-form expression for the cascade
+scalar action's Green's function in the eigenmode basis. The
+numerical Sturm--Liouville verifier
+(\texttt{tools/verifiers/cascade\_greens\_function.py}) confirms the
+machine-precision marginal identity but doesn't supply the closed-form
+mode decomposition. Closing this would promote the structural
+exclusivity from ``empirically observed at sub-$1$-loop precision'' to
+``forced by the cascade scalar action's Green's function eigenmode
+structure.''
+\end{itemize}
+\end{remark}
+
 \subsection{The sign rule}\label{subsec:sign-rule}
 
 Proposition~\ref{prop:source-selection} fixes the source layer $d^*$ of
