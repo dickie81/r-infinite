@@ -26,17 +26,25 @@ This scan asks two questions:
         (4) Gaussian-vs-Berezin Jacobian 1/sqrt(pi)
 
       For Majorana fields at real-Clifford layers, ingredients (2),
-      (3), (4) may modify.  We explore five candidate formulas:
+      (3), (4) may modify.  We explore six candidate formulas:
 
         Formula A: same as Dirac (conservative extrapolation)
         Formula B: no topological channel (pure exp(-Phi(d)))
         Formula C: no universal Yukawa baseline (drop the +1)
         Formula D: Pfaffian half-power ((2sqrt(pi))^-(n_D+1)/2)
         Formula E: Majorana /2 normalization (extra factor 1/2)
+        Formula F: cascade-native Majorana derivation
+                   (per-layer 1/sqrt(pi) from missing chirality halving)
 
   Q2: Which results are robust across formula conventions, and which
       are convention-dependent?  Robust qualitative claims survive;
       sharp quantitative numbers do not.
+
+  Q3: Formula F's structural form is fixed by cascade primitives, but
+      its dimensional anchor is not.  We sweep four anchor candidates
+      (M_Pl,red bare; M_Pl,red * exp(-pi/alpha(5)); v_EW; alpha_s*v/sqrt2)
+      and report which Majorana mass scales each produces at the
+      real-Clifford layers.  See report_F_under_anchors().
 
 The scan is exploratory.  The cascade Bott formula was derived for
 Dirac fermions; extending it to non-Dirac layers needs structural
@@ -56,13 +64,48 @@ TOOLS_DIR = os.path.dirname(THIS_DIR)
 sys.path.insert(0, TOOLS_DIR)
 sys.path.insert(0, os.path.join(TOOLS_DIR, "research"))
 
-from cascade_constants import alpha as alpha_cas, R, p, pi  # noqa: E402
+from cascade_constants import alpha as alpha_cas, R, p, pi, M_PL_RED_GEV  # noqa: E402
 from cascade_gram_bott_tower import Phi_cascade  # noqa: E402
 
 ALPHA_S = 0.1159
 V_CAS = 243.7  # GeV, Gram-corrected
 TWO_SQRT_PI = 2 * math.sqrt(pi)
 CHI = 2
+
+# ---------------------------------------------------------------------
+# Anchor candidates for Formula F
+# ---------------------------------------------------------------------
+#
+# Formula F's overall mass scale requires a dimensional anchor.  Unlike
+# the Dirac case (where alpha_s * v / sqrt(2) traces to the Yukawa-Higgs
+# coupling that gives charged-fermion masses), Majorana mass terms have
+# no Yukawa-Higgs analog, so the anchor is not uniquely fixed by cascade
+# primitives.  Four natural cascade-internal candidates are:
+#
+#   1. M_Pl,red bare.  The "raw" cascade mass scale, before any
+#      electroweak structure is invoked.  Reduced Planck mass.
+#   2. M_Pl,red * exp(-pi/alpha(5)).  Cascade-native non-perturbative
+#      suppression by the d=5 layer's gauge-instanton-style factor.
+#      Numerically ~2 TeV (verified: alpha(5) = R(5)^2/4 ~ 0.0904, so
+#      pi/alpha(5) ~ 34.7, exp(-34.7) ~ 8.2e-16, product ~ 2 TeV).
+#   3. v (electroweak VEV).  The natural mass scale at the gauge-window
+#      boundary d_gw = 14.  Cascade-native via Part IVa.
+#   4. alpha_s * v / sqrt(2).  Same anchor as the Dirac formula,
+#      including QCD prefactor.  ~20 GeV.
+#
+# Anchors 1 -> 4 differ by the cascade's electroweak/QCD descent
+# structure.  Numerical results under each anchor reveal which mass
+# scales the cascade primitives can generate at real-Clifford layers.
+
+ANCHOR_2_GEV = M_PL_RED_GEV * math.exp(-pi / alpha_cas(5))
+ANCHOR_4_GEV = ALPHA_S * V_CAS / math.sqrt(2)
+
+ANCHORS = [
+    ("1: M_Pl,red bare",          M_PL_RED_GEV),
+    ("2: M_Pl,red*exp(-pi/a(5))", ANCHOR_2_GEV),
+    ("3: v_EW",                   V_CAS),
+    ("4: alpha_s*v/sqrt(2)",      ANCHOR_4_GEV),
+]
 
 # Observational benchmarks (eV)
 M_NU_3_PDG = 0.0506   # heaviest active, atmospheric
@@ -103,8 +146,18 @@ def n_M_in_descent(d: int) -> int:
 
 
 def base_geom_eV(d: int) -> float:
-    """Pure geometric channel: (alpha_s * v / sqrt(2)) * exp(-Phi(d)) in eV."""
+    """Pure geometric channel: (alpha_s * v / sqrt(2)) * exp(-Phi(d)) in eV.
+
+    Uses anchor 4 (alpha_s * v / sqrt(2)) by default for backward
+    compatibility with formulas A-E.  For anchor variants, see
+    base_geom_anchored_eV.
+    """
     return 1e9 * ALPHA_S * V_CAS / math.sqrt(2) * math.exp(-Phi_cascade(d))
+
+
+def base_geom_anchored_eV(d: int, anchor_gev: float) -> float:
+    """Geometric channel with arbitrary anchor (in GeV), result in eV."""
+    return 1e9 * anchor_gev * math.exp(-Phi_cascade(d))
 
 
 # ---------------------------------------------------------------------
@@ -187,14 +240,27 @@ def mass_F(d: int) -> float:
 
     Anchor uncertainty: no Yukawa-Higgs analog for Majorana mass.
     Using same anchor as Dirac (alpha_s * v / sqrt(2)) for
-    numerical comparability; this is convention-dependent (see
-    structural notes in commit message).
+    numerical comparability; this is convention-dependent.  See
+    mass_F_anchored() and report_F_under_anchors() for the
+    anchor sweep.
 
     No universal Yukawa baseline: Majorana mass terms are primary,
     no observer-side Dirac obstruction propagates to them.
     """
+    return mass_F_anchored(d, ANCHOR_4_GEV)
+
+
+def mass_F_anchored(d: int, anchor_gev: float) -> float:
+    """Formula F with explicit anchor (in GeV).
+
+    m_F(d; anchor) = anchor * exp(-Phi(d)) * pi^(-n_M(d)/2)
+
+    The structural form (per-layer 1/sqrt(pi) ratio, n_M layer count,
+    Phi(d) descent action) is fixed by cascade primitives.  Only the
+    overall dimensional anchor varies among the four candidates.
+    """
     n_M = n_M_in_descent(d)
-    return base_geom_eV(d) * math.sqrt(pi) ** (-n_M)
+    return base_geom_anchored_eV(d, anchor_gev) * math.sqrt(pi) ** (-n_M)
 
 
 # ---------------------------------------------------------------------
@@ -416,6 +482,121 @@ def report_xray_match() -> None:
     print()
 
 
+def report_F_under_anchors() -> None:
+    """Sweep Formula F across the four cascade-native anchor candidates.
+
+    The structural ingredients (per-layer 1/sqrt(pi), n_M counting,
+    Phi(d) descent) are fixed by cascade primitives.  Only the overall
+    dimensional anchor varies.  Show how Majorana masses move across
+    physically-relevant windows as the anchor changes.
+    """
+    print("=" * 100)
+    print("FORMULA F under each of the four cascade-native dimensional anchors")
+    print("=" * 100)
+    print()
+    print("m_F(d; anchor) = anchor * exp(-Phi(d)) * pi^(-n_M(d)/2)")
+    print()
+    print("Anchors (GeV):")
+    for label, val in ANCHORS:
+        print(f"  Anchor {label:<26} = {val:>12.4g} GeV")
+    print()
+    layers = [d for d in [23, 27, 31, 35, 39, 43, 47] if d % 8 != 5]
+
+    # Header
+    header = f"{'d':>3} {'Cliff.':>10} {'n_M':>4}"
+    for label, _ in ANCHORS:
+        short = "A" + label.split(":")[0].strip()
+        header += f" {short:>14}"
+    print(header)
+    print("-" * (19 + 15 * len(ANCHORS)))
+
+    for d in layers:
+        line = f"{d:>3} {clifford_class(d):>10} {n_M_in_descent(d):>4}"
+        for _, anchor in ANCHORS:
+            m = mass_F_anchored(d, anchor)
+            line += f" {scale_of(m):>14}"
+        print(line)
+    print()
+
+    # Window assignment under each anchor
+    print("Window assignments per anchor:")
+    print()
+    header = f"{'d':>3} {'Cliff.':>10}"
+    for label, _ in ANCHORS:
+        short = "A" + label.split(":")[0].strip()
+        header += f" {short:>14}"
+    print(header)
+    print("-" * (14 + 15 * len(ANCHORS)))
+
+    def window_tag(m: float) -> str:
+        if 0.001 <= m <= 0.1:
+            return "[meV/active]"
+        if WDM_LOWER <= m <= WDM_UPPER:
+            if abs(m - XRAY_LINE) / XRAY_LINE < 0.30:
+                return "[Xray-3.5keV]"
+            return "[WDM]"
+        if 1 <= m < WDM_LOWER:
+            return "[eV-keV]"
+        if 0.1 <= m < 1:
+            return "[100meV]"
+        if 1e5 <= m < 1e9:
+            return "[100keV-GeV]"
+        if 1e9 <= m < 1e12:
+            return "[GeV-TeV]"
+        if m >= 1e12:
+            return "[>TeV]"
+        if m < 0.001:
+            return "[sub-meV]"
+        return ""
+
+    for d in layers:
+        line = f"{d:>3} {clifford_class(d):>10}"
+        for _, anchor in ANCHORS:
+            m = mass_F_anchored(d, anchor)
+            line += f" {window_tag(m):>14}"
+        print(line)
+    print()
+
+    # X-ray line / WDM-window matches
+    print("X-ray line (7 keV +/- 30%) hits across (d, anchor):")
+    found = False
+    for d in layers:
+        for label, anchor in ANCHORS:
+            m = mass_F_anchored(d, anchor)
+            if abs(m - XRAY_LINE) / XRAY_LINE < 0.30:
+                rel = (m - XRAY_LINE) / XRAY_LINE
+                print(f"  d={d:>3} anchor {label:<28} -> {scale_of(m):>10}  "
+                      f"(dev {rel*100:+.1f}%)")
+                found = True
+    if not found:
+        print("  (none)")
+    print()
+
+    print("WDM cosmological window (5 keV - 100 keV) hits:")
+    found = False
+    for d in layers:
+        for label, anchor in ANCHORS:
+            m = mass_F_anchored(d, anchor)
+            if WDM_LOWER <= m <= WDM_UPPER:
+                print(f"  d={d:>3} anchor {label:<28} -> {scale_of(m):>10}")
+                found = True
+    if not found:
+        print("  (none)")
+    print()
+
+    print("Active-neutrino window (1 meV - 100 meV) hits:")
+    found = False
+    for d in layers:
+        for label, anchor in ANCHORS:
+            m = mass_F_anchored(d, anchor)
+            if 0.001 <= m <= 0.1:
+                print(f"  d={d:>3} anchor {label:<28} -> {scale_of(m):>10}")
+                found = True
+    if not found:
+        print("  (none)")
+    print()
+
+
 def report_alpha_chi_filters_window(target_low: float, target_high: float,
                                      label: str) -> None:
     """For each (formula, d_source), find filters bringing into window."""
@@ -460,6 +641,8 @@ if __name__ == "__main__":
     report_robustness()
     print()
     report_xray_match()
+    print()
+    report_F_under_anchors()
     print()
     report_alpha_chi_filters_window(M_NU_2_PDG * 0.9, M_NU_2_PDG * 1.1,
                                      "active solar splitting m_2")
