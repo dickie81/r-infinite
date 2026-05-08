@@ -19,7 +19,7 @@ Mathematical uniqueness proofs leave no alternative. These are not approximation
 | Gauge group | SU(3) × SU(2) × U(1) | Confirmed | Adams + Bott (IVa) |
 | Symmetry breaking | SU(2) broken; SU(3), U(1) exact | Confirmed | Hairy ball theorem (IVa) |
 | Fermion generations | Exactly 3 | Confirmed | Bott periodicity + d₁=19 (IVa) |
-| Free Yukawa couplings | Zero — every fermion mass equals the per-layer gauge-coupling amplitude m(d) = R(d)/2; layer position from Bott + Adams (IVa) | Confirmed (charged-lepton sector <1.2%; m_τ/m_μ +0.24σ; m_τ abs −0.31σ; θ_C +0.03σ; b/s 0.014%) | Obstruction theorem + Berezin partition + austerity (IVb) |
+| Free Yukawa couplings | Zero — every fermion mass equals the per-layer gauge-coupling amplitude m(d) = R(d)/2; layer position from Bott + Adams (IVa) | Confirmed (charged-lepton sector <1.2%; m_τ/m_μ +0.24σ; m_τ abs −0.31σ; θ_C +0.03σ; b/s 0.014%) | Chirality halving + Berezin partition (IVb): m(d) = R(d)/χ from Poincaré-Hopf on even-sphere Dirac layers; no Yukawa parameter ever introduced |
 | Dark energy EoS | w = −1 exactly | Confirmed | Fixed geometric constant (III) |
 | Strong CP phase | θ_QCD = 0 | Confirmed | π₃(S¹¹) = 0 (IVa) |
 | No supersymmetry | — | Confirmed (LHC) | No pairing mechanism (IVa) |

@@ -14,8 +14,8 @@
 
 \title{\textbf{The Cascade Series --- Part II\,=\,III}\\[6pt]
 Quantum Gravity without Quantising Gravity:\\
-Why the Quantum and Gravitational Projections\\
-of the Cascade Are the Same Theorem}
+Why the Quantum, Gravitational, and Matter-Dynamics\\
+Projections of the Cascade Are the Same Theorem}
 \author{RTAC}
 \date{March 2026}
 
@@ -42,9 +42,19 @@ Lovelock's theorem forces the Einstein equation as the unique gravitational
 equation. Two uniquely forced theories from a single source admit no mutual
 contradiction: the space of possible conflicts is empty.
 
+The same architecture extends to matter dynamics. Wigner's classification of
+relativistic wave equations applied to the cascade Hilbert space (the
+irreducibly-complex spinor representation of $\mathrm{Spin}(1,3)$) plus the
+cascade-derived mass and gauge structure forces the Dirac equation
+$(i\gamma^\mu D_\mu - m)\psi = 0$ at $d=4$. Triple uniqueness from a single
+source: Gleason for QM, Lovelock for GR, Wigner for matter dynamics. The
+cascade-native gyromagnetic ratio $g = \chi(S^{d-1}) = 2$ follows as a
+corollary, with the Schwinger 1-loop coefficient $1/(2\pi) = 1/(N(0)\cdot
+\Gamma(\tfrac{1}{2})^2)$ identified as a cascade primitive ratio.
+
 The standard conflicts between quantum mechanics and general relativity---the
 UV catastrophe, the problem of time, background independence, the information
-paradox, and non-renormalisability---are artefacts of treating the two 4D
+paradox, and non-renormalisability---are artefacts of treating the 4D
 projections as independent theories. In the cascade, they share a common
 origin. There is nothing to reconcile because there was never a separation.
 
@@ -204,6 +214,449 @@ Both Euclidean and Lorentzian readings are valid: the Euclidean one
 is the cascade's starting mathematical structure (the slicing
 geometry), the Lorentzian one is the observer's experience (oscillatory
 unitary evolution), and the Wick rotation is the bridge.
+\end{remark}
+
+\section{The Dirac Descent}\label{sec:dirac-descent}
+
+Theorem~\ref{thm:propagator} establishes that the cascade propagator
+$K(t) = |K|\,e^{-iHt}$ is simultaneously the unitary time-evolution
+operator of QM and the source of Lorentzian signature. Applied to the
+cascade Hilbert space's spinor-representation content
+(Paper~III~\cite{paper3}, Lemma~\texttt{lem:cascade-spinor-id}), the
+same propagator structure forces a third standard physics result: the
+Dirac equation on the chirality bundle in $4$D. The argument runs
+along the same template as Theorem~\ref{thm:double}---a standard
+mathematical/physical uniqueness result (Wigner's classification of
+relativistic wave equations) applied to cascade-derived inputs forces
+the standard physics conclusion.
+
+\begin{theorem}[Cascade Dirac descent]\label{thm:cascade-dirac-descent}
+At $d=4$, the cascade structure forces the first-order Clifford
+equation
+\[
+(i\gamma^\mu D_\mu - m_f)\,\psi = 0
+\]
+on the chirality bundle $\mathcal{H} = S^+ \oplus S^-$, where
+$D_\mu = \partial_\mu - ieA_\mu$. Each ingredient is cascade-derived:
+the gamma matrices $\gamma^\mu$ from Bott classification of the
+cascade Clifford algebra $\mathrm{Cl}(1,3)$
+(Paper~III~\cite{paper3}, \S\,Clifford classification); the
+per-source mass $m_f = R(d_f)/\chi$ from the cascade Berezin
+partition with chirality halving at the fermion's Dirac source layer
+$d_f$ (Paper~IVb~\cite{paper4b}, Theorem~\texttt{thm:obstruction});
+the charge $e = \sqrt{\alpha(14)}$ from the cascade U(1) gauge
+structure at the gauge-window boundary $d_g = 14$
+(Paper~IVa~\cite{paper4a}); and the gauge field $A_\mu$ from the
+cascade U(1) descent to $4$D.
+\end{theorem}
+
+\begin{proof}
+Four cascade inputs combine via Wigner-type classification.
+
+\emph{Step~1 (cascade Hilbert space is the spinor representation).}
+By Paper~III's Lemma~\texttt{lem:cascade-spinor-id} together with
+Theorem~\texttt{thm:d4}, the cascade Hilbert space $\mathcal{H}$ at
+the $4$D observer's frame is identified with the irreducibly-complex
+minimal spinor representation of $\mathrm{Spin}(1,3)$, equivalently
+the $4$-component complex Dirac spinor representation. The chirality
+grading $\gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3$ supplies the
+algebraic decomposition $\mathcal{H} = S^+ \oplus S^-$ into two
+$2$-dimensional Weyl basins of equal weight.
+
+\emph{Step~2 (first-order time evolution from the cascade
+propagator).} By Theorem~\ref{thm:propagator}, the cascade propagator
+$K(t) = |K|\,e^{-iHt}$ generates first-order unitary time
+evolution: $i\,\partial_t\psi = H\psi$ for some Hermitian operator
+$H$ on $\mathcal{H}$.
+
+\emph{Step~3 (Lorentz covariance forces first-order spatial
+derivatives).} A first-order time-derivative equation on a
+$\mathrm{Spin}(1,3)$ representation is Lorentz-covariant only if
+spatial derivatives are also first-order. Reason: under a boost,
+$\partial_t$ mixes with $\partial_i$, so a second-order spatial
+structure would, in the boosted frame, produce a second-order time
+derivative not present in the original equation, breaking covariance.
+By the standard Wigner classification of relativistic wave equations
+on a complex spinor representation, the unique Lorentz-covariant
+first-order operator is $\gamma^\mu\partial_\mu$ with
+$\{\gamma^\mu,\gamma^\nu\} = 2\eta^{\mu\nu}$ (the Dirac matrices,
+fixed up to representation choice by Bott classification at
+$d \bmod 8 \in \{4,5,6\}$). The equation of motion has covariant
+form $(i\gamma^\mu\partial_\mu - m_f)\psi = 0$ for some mass scalar
+$m_f$.
+
+\emph{Step~4 (cascade-derived mass and gauge coupling).} By
+Paper~IVb's Theorem~\texttt{thm:obstruction} and the Berezin partition
+derivation, the cascade fermion at Dirac source layer $d_f$
+($d_f \bmod 8 = 5$) carries mass $m_f = R(d_f)/\chi$, with the mass
+operator off-diagonal on the chirality decomposition
+$\mathcal{H} = S^+\oplus S^-$ (mass couples chirality basins; this
+matches the action of $\beta = \gamma^0$ in the Hamiltonian form).
+By Paper~IVa, the cascade U(1) gauge structure at $d_g = 14$
+descends to a local U(1) symmetry
+$\psi(x)\to e^{i\alpha(x)}\psi(x)$ on $\mathcal{H}$. Local gauge
+invariance applied to the first-order operator
+$i\gamma^\mu\partial_\mu$ forces the standard minimal-coupling
+replacement $\partial_\mu \to D_\mu = \partial_\mu - ieA_\mu$ with
+$e = \sqrt{\alpha(14)}$ cascade-derived.
+
+Steps 1--4 give $(i\gamma^\mu D_\mu - m_f)\psi = 0$ at $d=4$ with
+all ingredients cascade-derived.
+\end{proof}
+
+\begin{lemma}[$4$D-projected fermion field structure]\label{lem:4d-fermion-projection}
+Under the cascade structure at $d=4$ (foliation by cross-sections at
+height $x \in [-1,1]$ per Paper~III~\cite{paper3}~\S4.1; spinor
+representation of $\mathrm{Spin}(1,3)$ on the cascade Hilbert space
+per Lemma~\texttt{lem:cascade-spinor-id}), the cascade fermion field
+is a section
+\[
+\psi : M_4 \to \mathcal{S}, \qquad
+\mathcal{S} = M_4 \times_{\mathrm{Spin}(1,3)} \mathcal{H},
+\]
+of the spinor bundle $\mathcal{S}$ over the $4$D Lorentzian manifold
+$M_4 = \{ds^2 = -dt^2 + (1-t^2)\,d\sigma_3^2\}$ derived in
+Paper~III~\S4.4. The Dirac operator $\gamma^\mu\partial_\mu$ acts
+on sections via:
+\begin{itemize}[nosep]
+\item $\gamma^0\partial_0$: differentiation along the foliation
+direction (Paper~III~\S4.1, slicing parameter $x$; Wick-rotated to
+the observer's proper time $t$ per Paper~III~\S10).
+\item $\gamma^i\partial_i$ ($i = 1,2,3$): differentiation along the
+cross-section $S^3$ via the spin-connection lift of the Levi-Civita
+connection on $S^3$.
+\end{itemize}
+The continuous structure on $M_4$ is inherited from the
+\emph{continuous} slicing parameter $x$, not from a continuum limit
+of the cascade lattice on layer index $d$. The cascade lattice
+indexes the tower of dimensions, with $d=4$ being the observer's
+layer.
+\end{lemma}
+
+\begin{proof}
+By Paper~III~\S4.1 the slicing recurrence foliates $B^{d+1}$ into
+cross-sections at continuous height $x \in [-1, 1]$, with
+$(d+1)$-dimensional metric $ds^2 = dx^2 + (1-x^2)\,d\sigma_{d-1}^2$.
+At $d=4$, Paper~III~\S4.4 projects to the FRW metric
+$ds^2_{4\mathrm{D}} = -dt^2 + (1-t^2)\,d\sigma_3^2$ via the Wick
+rotation $x = it$ of Paper~III~\S10. Call this Lorentzian manifold
+$M_4$.
+
+By Lemma~\texttt{lem:cascade-spinor-id}, the cascade Hilbert space
+at $d=4$ is the irreducibly-complex minimal spinor representation
+$\mathcal{H}$ of $\mathrm{Spin}(1,3)$. The local
+$\mathrm{Spin}(1,3)$ action on $M_4$'s tangent frame at each point
+lifts to an action on the associated bundle
+$\mathcal{S} = M_4 \times_{\mathrm{Spin}(1,3)} \mathcal{H}$. A
+cascade fermion configuration is a state in $\mathcal{H}$ varying
+smoothly across $M_4$, i.e., a section
+$\psi : M_4 \to \mathcal{S}$. Smoothness in the foliation direction
+follows from the continuity of the slicing parameter $x$;
+smoothness along the cross-section follows from the smooth $S^3$
+structure of the spatial slice.
+
+The Levi-Civita connection on $M_4$ lifts uniquely to a spin
+connection on $\mathcal{S}$ (standard differential geometry on
+$\mathrm{Spin}$-manifolds). The Dirac operator
+$\gamma^\mu\nabla_\mu$ on this connection is the unique
+Lorentz-covariant first-order differential operator on
+$\mathcal{S}$, by the Wigner classification used in Step~3 of
+Theorem~\ref{thm:cascade-dirac-descent}. In flat-frame coordinates,
+$\gamma^\mu\nabla_\mu = \gamma^\mu\partial_\mu$.
+
+The foliation direction $\gamma^0\partial_0$ is the cascade slicing
+direction Wick-rotated to proper time. The spatial directions
+$\gamma^i\partial_i$ are the standard $\mathrm{Spin}$-connection on
+$S^3$ extended by $\mathrm{Spin}(4) \to \mathrm{Spin}(1,3)$
+restriction along the foliation. The cascade lattice on layer
+index $d$ does not enter $M_4$'s differential structure; it enters
+only as the layer label, with $d=4$ identifying $M_4$ as the
+observer's leaf.
+\end{proof}
+
+\begin{remark}[$4$D structure derivation: closes presentation gap (c1)]
+\label{rem:c1-closed}
+Lemma~\ref{lem:4d-fermion-projection} establishes the
+spinor-bundle structure on the $4$D Lorentzian manifold parallel
+to Paper~III~\S4's metric derivation: the continuous $4$D
+structure on which $\gamma^\mu\partial_\mu$ acts is now derived,
+not implicit. The relation between the cascade
+\emph{tower-action} on the layer index and the $4$D continuous
+action on $M_4$ is addressed separately in
+Lemma~\ref{lem:within-moment-action-decomposition} and
+Remark~\ref{rem:tower-vs-4d-resolved} (genuinely complementary by
+design).
+\end{remark}
+
+\begin{lemma}[Berezin mass equals Hamiltonian $\beta$-mass]\label{lem:berezin-equals-beta-mass}
+The cascade fermion mass term derived from the Berezin partition
+(Paper~IVb~\cite{paper4b},
+Remark~\texttt{rem:berezin-partition-derivation}) equals the
+Hamiltonian-form $\beta$-mass term in the cascade Dirac equation
+of Theorem~\ref{thm:cascade-dirac-descent}. Both act as the
+off-diagonal chirality-mixing operator on
+$\mathcal{H} = S^+ \oplus S^-$ with strength
+$m_f = R(d_f)/\chi$.
+\end{lemma}
+
+\begin{proof}
+The Berezin fermion action is $S_f = m_f\,\bar\psi\psi$
+(Paper~IVb~\cite{paper4b}, Section~\texttt{sec:fermion-action}, with
+$\bar\psi = \psi^\dagger\gamma^0$). On the chirality basis
+$\psi = (\psi_+, \psi_-)^T$ in the chiral representation
+($\gamma^0$ in $2\times 2$ block form
+$\bigl(\begin{smallmatrix} 0 & I \\ I & 0 \end{smallmatrix}\bigr)$,
+where $I$ is the $2\times 2$ identity on each Weyl basin), the
+scalar pairing reads
+\[
+\bar\psi\psi \;=\; \psi^\dagger\gamma^0\psi
+\;=\; \psi_+^\dagger\psi_- + \psi_-^\dagger\psi_+.
+\]
+The Berezin mass term $m_f\bar\psi\psi$ thus couples $\psi_+$ to
+$\psi_-$ off-diagonally with strength $m_f$.
+
+In Hamiltonian form, the cascade Dirac equation
+$(i\gamma^\mu\partial_\mu - m_f)\psi = 0$ rewrites as
+$i\partial_t\psi = (\alpha^i p_i + \beta m_f)\psi$, where
+$\alpha^i = \gamma^0\gamma^i$ and $\beta = \gamma^0$. The mass
+term $\beta m_f = \gamma^0 m_f$ is the same off-diagonal block
+matrix in the chiral basis, with strength $m_f$.
+
+Hence the Berezin mass operator $m_f\bar\psi\psi\big|_{\text{op}}$
+and the Hamiltonian $\beta$-mass operator $\beta m_f$ are identical:
+both equal $\gamma^0\cdot m_f$ acting on
+$\mathcal{H} = S^+ \oplus S^-$. The chirality halving
+$m = R/\chi$ derived from Poincar\'e--Hopf
+(Paper~IVb~\cite{paper4b},
+Theorem~\texttt{thm:obstruction}) and the Hamiltonian-form Dirac
+mass agree both in cascade value and in operator action on the
+chirality decomposition.
+\end{proof}
+
+\begin{remark}[Berezin-mass identification: closes presentation gap (b)]\label{rem:b-closed}
+Step~4 of Theorem~\ref{thm:cascade-dirac-descent} parenthetically
+identifies the Berezin-mass operator with the Hamiltonian-form
+$\beta$-mass. Lemma~\ref{lem:berezin-equals-beta-mass} makes the
+identification explicit: both are $\gamma^0\cdot m_f$ on the
+chirality basis.
+\end{remark}
+
+\begin{remark}[Status of soft spot (a): partial closure with complementary routes]\label{rem:a-closed}
+Step~3 of Theorem~\ref{thm:cascade-dirac-descent} invokes Wigner's
+classification of relativistic wave equations on a complex spinor
+representation to pin $\gamma^\mu\partial_\mu$ as the unique
+Lorentz-covariant first-order operator. Soft spot (a) of the
+original Open Question asked whether this could be re-derived in
+cascade-lattice terms.
+
+Wigner's argument has two distinct contents:
+\begin{enumerate}[label=($\alpha$),nosep]
+\item \emph{First-order spatial forced by covariance.} Given
+first-order time evolution from the cascade propagator
+(Theorem~\ref{thm:propagator}, $i\partial_t\psi = H\psi$) and
+Lorentz covariance on the spinor representation
+(Lemma~\texttt{lem:cascade-spinor-id}), the spatial derivatives
+must also be first-order: under a boost, $\partial_t$ mixes with
+$\partial_i$, so a second-order spatial operator would, in the
+boosted frame, produce second-order time derivatives that the
+original first-order equation does not contain.
+\end{enumerate}
+\begin{enumerate}[label=($\beta$),nosep]
+\item \emph{Form of the first-order operator.} Given the
+first-order character, the unique Lorentz-covariant first-order
+operator on the spinor representation is $\gamma^\mu\partial_\mu$
+with $\{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu\nu}$.
+\end{enumerate}
+
+Lemma~\ref{lem:4d-fermion-projection} provides a complementary
+\emph{geometric} derivation of part~($\beta$): the spin-connection
+lift of the Levi-Civita connection on $M_4$ gives
+$\gamma^\mu\nabla_\mu = \gamma^\mu\partial_\mu$ (in flat-frame
+coordinates) as the natural first-order operator on the spinor
+bundle $\mathcal{S}$, using only cascade-derived inputs.
+
+The spin-connection route does \emph{not} address
+part~($\alpha$): the spin connection on a Lorentzian
+Spin-manifold is happy with $\gamma^\mu\nabla_\mu$, with the
+iterated $(\gamma^\mu\nabla_\mu)^2$, with the scalar Laplacian
+$\nabla^\mu\nabla_\mu$ on the spinor bundle, or with any other
+covariant operator; the spin-connection structure does not
+itself force the equation of motion to be first-order rather
+than second-order. Selecting first-order over second-order
+requires the cascade-propagator's first-order time form plus
+Lorentz covariance on the spinor representation --- exactly
+Wigner's content~($\alpha$).
+
+\emph{Status.} Soft spot (a) closes for ($\beta$) by the
+spin-connection geometric route in
+Lemma~\ref{lem:4d-fermion-projection}. For ($\alpha$), Wigner's
+argument remains load-bearing as a standard mathematical theorem
+applied to cascade-derived inputs (cascade propagator's
+first-order time form per Theorem~\ref{thm:propagator}; Lorentz
+covariance on the cascade Hilbert space per
+Lemma~\texttt{lem:cascade-spinor-id}). This is the same posture
+as Schur's lemma in Paper~III's
+Lemma~\texttt{lem:cascade-spinor-id}, Gleason's theorem in
+Theorem~\ref{thm:double}, and Lovelock's theorem in
+Theorem~\ref{thm:double}: standard mathematical uniqueness
+theorems applied to cascade-derived inputs. Wigner's
+content~($\alpha$) is therefore at the same rigour level as
+those applications, not a substantive defect, but Wigner is
+genuinely load-bearing for ($\alpha$) and a stronger ``Wigner
+fully superseded'' framing would overstate the closure.
+\end{remark}
+
+\begin{lemma}[Within-moment action decomposition]\label{lem:within-moment-action-decomposition}
+At fixed observer time $t$, the cascade has two structurally
+distinct within-moment geometric directions:
+\begin{enumerate}[label=(\roman*),nosep]
+\item \emph{Cross-layer (tower depth) direction}: the layer index
+$d \in \{4, 5, \ldots, N(t)\}$, indexing the within-moment tower
+of dimensions above the observer (Paper~VI~\cite{paper6},
+Definition~\texttt{def:tower-time}).
+\item \emph{Within-layer ($4$D coordinates) direction}: the
+spacetime coordinates $x^\mu$ on $M_4$, the foliated $4$D
+Lorentzian manifold at the observer's layer (Paper~III~\S4 +
+Lemma~\ref{lem:4d-fermion-projection}).
+\end{enumerate}
+The cascade's within-moment action splits accordingly:
+\begin{itemize}[nosep]
+\item \emph{Tower-action}: $S_{\text{tower}}[\varphi] =
+\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$
+(Paper~IVb~\cite{paper4b}, Remark~\texttt{rem:action-uniqueness}),
+acting on the cascade tower-scalar $\varphi(d) = \ln\Omega_d$.
+\item \emph{$4$D-projected action}: $S_{4\mathrm{D}}[\Phi] =
+\int_{M_4} |\partial_\mu\Phi|^2\,d^4x$ (standard Lorentz-covariant
+scalar action on $M_4$), acting on $4$D-projected fields
+$\Phi(x^\mu)$ derived from cascade-internal content.
+\end{itemize}
+The two actions act on \emph{different fields} ($\varphi(d)$ on
+the tower index vs.\ $\Phi(x^\mu)$ on $M_4$) and parameterize
+different cascade-geometric directions (cross-layer vs.\
+within-layer). They are therefore genuinely complementary by
+design, not two readings of a single underlying action functional.
+\end{lemma}
+
+\begin{proof}
+The cascade tower-scalar $\varphi(d) = \ln\Omega_d$ is a function
+only of the layer index $d$
+(Paper~IVb~\cite{paper4b}, Remark~\texttt{rem:action-uniqueness}).
+The tower-action sums layer-difference kinetic
+$(\Delta\varphi(d))^2$ across the within-moment tower from
+$d = 4$ to $d = N(t)$, normalized by $(2\alpha(d))^{-1}$ from
+lattice covariance (Paper~IVb~\cite{paper4b},
+Remark~\texttt{rem:marginal-greens}).
+
+The $4$D-projected action acts on fields
+$\Phi : M_4 \to \mathbb{R}$ (or higher-spin analogs;
+Lemma~\ref{lem:4d-fermion-projection} for the spinor case). The
+form $\int |\partial_\mu\Phi|^2\,d^4x$ is the unique
+Lorentz-covariant second-order kinetic action on $M_4$ (standard
+field theory on a Lorentzian manifold; same posture as
+Theorem~\ref{thm:double}'s use of Lovelock for the gravitational
+sector and Theorem~\ref{thm:cascade-dirac-descent}'s use of
+Wigner for the spinor sector).
+
+The two action functionals act on functions with disjoint
+domains: $\varphi(d)$ has domain $\mathbb{Z}_{\geq 4}$;
+$\Phi(x^\mu)$ has domain $M_4$. No single field carries both,
+and no single action functional unifies them: the two actions
+describe orthogonal cascade directions of the within-moment
+geometry.
+\end{proof}
+
+\begin{remark}[Tower-action vs.\ $4$D action: genuinely complementary by design]
+\label{rem:tower-vs-4d-resolved}
+A natural question on the cascade Dirac descent is whether the
+cascade tower-action $\sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$
+and the standard $4$D continuous action
+$\int|\partial\varphi|^2$ are genuinely complementary (a), unifiable
+via a foliated total-space action (b), or unifiable via the Wick
+rotation reading $\Delta\varphi(d) \leftrightarrow \partial_t\Phi$ (c).
+Lemma~\ref{lem:within-moment-action-decomposition} establishes
+reading~(a) as the resolution, with structural justification.
+
+The two actions act on \emph{different fields} (tower-scalar
+$\varphi(d)$ vs.\ $4$D-projected $\Phi(x^\mu)$) and govern
+\emph{different cascade-geometric directions} (cross-layer vs.\
+within-layer). Reading~(b) is structurally incorrect: there is no
+single field on which both actions act, hence no functional that
+sums to give both as projections. Reading~(c) is structurally
+incorrect: the layer index $d$ is the cascade's tower-depth
+parameter, not a Wick-rotation of $4$D time --- $4$D time arises
+from Wick-rotating the within-layer foliation parameter
+$x \in [-1,1]$ (Paper~III~\S10, $x = it$), which is structurally
+distinct from the layer index. The cascade's two distinct
+time-like / spatial-like cascade directions
+(Paper~VI~\cite{paper6}, \S1.2 within-moment vs
+between-moments) provide the structural framework: the
+within-moment tower-action governs cross-layer kinetics
+(direction~(i) of
+Lemma~\ref{lem:within-moment-action-decomposition}); the
+within-moment $4$D action governs within-layer kinetics
+(direction~(ii)); the between-moments tower-growth operator
+$A$ (Paper~VI~\cite{paper6},
+Proposition~\texttt{prop:time-evolution}) governs the genuine
+cosmic-time dynamics by adding layers at the top of the tower.
+
+This is the cascade's complete within-moment + between-moments
+action architecture. Each piece governs a structurally distinct
+cascade direction; none unifies into a single functional, but
+each is independently derivable from cascade primitives. The
+tower-action is derived in Paper~IVb~\cite{paper4b}'s
+Remark~\texttt{rem:action-uniqueness} from lattice covariance;
+the $4$D-projected action follows from standard Lorentz
+covariance on the cascade-derived $M_4$
+(Paper~III~\S4); the between-moments tower-growth $A$ is
+defined in Paper~VI~\cite{paper6}.
+\end{remark}
+
+\begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
+\label{rem:cascade-dirac-status}
+Theorem~\ref{thm:cascade-dirac-descent} sits at the same rigour
+level as Theorem~\ref{thm:double}: a standard mathematical
+uniqueness result (Wigner's classification, replacing
+Gleason$+$Lovelock) applied to cascade-derived inputs (cascade
+Hilbert space, chirality decomposition, mass, gauge structure)
+forces the standard physics result (the Dirac equation, replacing
+QM/GR consistency). The cascade contribution is to provide the
+inputs; the standard mathematical theorem is invoked, not
+re-derived---the same posture Paper~III adopts when invoking
+Schur~$+$~Clifford classification in
+Lemma~\texttt{lem:cascade-spinor-id}, and the same posture
+Theorem~\ref{thm:double} adopts when invoking Gleason and Lovelock.
+Presentation gaps in Steps~3 and~4 are addressed by
+Lemma~\ref{lem:4d-fermion-projection},
+Lemma~\ref{lem:berezin-equals-beta-mass}, and
+Remarks~\ref{rem:c1-closed},~\ref{rem:b-closed},~\ref{rem:a-closed}
+above.
+\end{remark}
+
+\begin{remark}[Triple uniqueness from a single source]
+\label{rem:triple-uniqueness}
+The series now exhibits three instances of the same template
+``cascade single source $+$ standard uniqueness theorem
+$\Rightarrow$ standard physics result'':
+\begin{itemize}[nosep]
+\item \emph{Born rule of QM}: cascade Hilbert space $+$ Gleason
+$\Rightarrow$ probability measure unique
+(Theorem~\ref{thm:double}, clause~2).
+\item \emph{Einstein equation of GR}: cascade $4$D Lorentzian
+manifold $+$ Lovelock $\Rightarrow$ gravitational equation unique
+(Theorem~\ref{thm:double}, clause~3).
+\item \emph{Dirac equation of matter dynamics}: cascade
+spinor-rep Hilbert space $+$ Wigner classification $\Rightarrow$
+relativistic spin-$\tfrac{1}{2}$ wave equation unique
+(Theorem~\ref{thm:cascade-dirac-descent}).
+\end{itemize}
+The cascade's claim that ``the infinite-dimensional unit ball,
+descended to $4$D, is indistinguishable from our universe''
+acquires an additional confirmation: the $4$D matter dynamics,
+like the QM and gravitational projections, is forced once the
+cascade single source is fixed. The double-uniqueness picture of
+Theorem~\ref{thm:double} extends to a triple-uniqueness picture
+covering QM dynamics, gravitational dynamics, and matter dynamics
+under one structural template.
 \end{remark}
 
 \section{Double Uniqueness}
@@ -986,9 +1439,16 @@ Mechanics from the Cascade}, March 2026.
 \bibitem{paper3} RTAC, \textit{The Cascade Series~--- Part~III: General
 Relativity from the Cascade}, March 2026.
 
+\bibitem{paper4a} RTAC, \textit{The Cascade Series~--- Part~IVa:
+Standard Model from the Cascade --- Gauge Group, Symmetry Breaking,
+and Three Generations}, March 2026.
+
 \bibitem{paper4b} RTAC, \textit{The Cascade Series~--- Part~IVb:
 Masses, Couplings, and Precision Predictions from the
 Geometric-Topological Factorization}, March 2026.
+
+\bibitem{paper6} RTAC, \textit{The Cascade Series~--- Part~VI:
+Time as Tower Growth}, March 2026.
 
 \bibitem{goroff} M.~H.~Goroff and A.~Sagnotti, ``The ultraviolet behaviour
 of Einstein gravity,'' \textit{Nuclear Physics B} \textbf{266}, 709--736

@@ -317,6 +317,31 @@ This is a sharper structural test than before: **Reading 8 is a viable closure O
 
 This is a structural OPEN QUESTION promoted from Part V Remark `rem:tcmb-descent-dependent`. The exploratory readings document the closure attempts unlocked by the (now-closed) cascade UV convergence work, but the basin/no-annihilation re-examination reveals that cascade-native logic actually makes T_CMB *harder* to close, not easier. The cascade's T_CMB prediction stands at the Part V values until a structural derivation lands.
 
+### 7. Higher-loop QED anomalous magnetic moment — frontier
+
+The cascade's coverage of the gyromagnetic ratio currently reaches 1-loop:
+
+- **Tree-level** g = 2: derived cascade-natively as g = χ(S^{d_f − 1}) = 2 (Part IVb `cor:g-equals-two`, Part II=III `thm:cascade-dirac-descent`). All factors cascade-internal, no fitted parameter.
+- **1-loop** (g − 2)/2 = α_em/(2π): all three factors cascade-identifiable (Part IVb `rem:two-pi-prefactor-identification`, Part IVb `rem:chirality-special-cases`). α_em from Tier 2 closure; chirality factor χ⁰ = 1 from `thm:chirality-selection-rule`; prefactor 1/(2π) = 1/(N(0)·Γ(1/2)²) by `cor:2sqrtpi-primitive`.
+
+**What's open:** higher-loop QED coefficients beyond Schwinger.
+
+- **2-loop** (Sommerfield–Petermann): a_e^{(2)} = −0.328478… · α²/π². The structural prefactor α²/π² extends the cascade-primitive identification (1/π² = 1/Γ(1/2)⁴, two factors of the per-leg primitive squared). The transcendental numerical coefficient −0.328478… = 197/144 + π²/12 − π²·ln 2/2 + 3·ζ(3)/4 + … is the contribution of specific Feynman diagrams not currently cascade-derived.
+- **5-loop a_e**: precision ~10⁻¹³, currently the most precisely measured anomalous magnetic moment in physics. The cascade matches the structural-prefactor form via Cor:2sqrtpi-primitive at every order, but the QED-specific numerical coefficients at each loop are not cascade-internal.
+- **a_μ frontier**: ~5σ tension between Brookhaven/Fermilab measurements (a_μ^exp ~ 2.51 × 10⁻⁹) and lattice-QCD hadronic-vacuum-polarization predictions. Hadronic contributions involve QCD beyond pure QED. The cascade currently does not predict either side of this tension.
+
+**Path to cascade-native coverage:**
+
+1. **Cascade-native expansion of the QED transcendentals.** Specifically: are 197/144, π²/12, ζ(3)/4 expressible as cascade-primitive ratios? This would be analogous to the 1/(2π) = 1/(N(0)·Γ(1/2)²) identification but for higher-loop coefficients. Worth a systematic algebraic audit.
+
+2. **Cascade-extension of the chirality-selection-rule to higher slots.** Per Part IVb `oq:chirality-selection-extensions`: cascade observables exercising m ≥ 2 closed loops or higher k. The g − 2 at 2-loop corresponds to m = 2, k = 1 → χ^(m−k) = χ¹ = 2. Whether the cascade per-loop primitive structure at m = 2 produces the Sommerfield–Petermann coefficient cascade-natively is the structural question.
+
+3. **Hadronic cascade contribution.** The a_μ frontier involves QCD effects at hadronic energies. The cascade's QCD structure (Part IVa: SU(3) at d_0 = 7 / d_g = 12) would need to combine with the 1-loop chirality-selection-rule structure to produce the hadronic anomalous moment. Whether the cascade naturally gives the correct sign/magnitude relative to the experimental discrepancy is open.
+
+**Falsification.** If a cascade-native 2-loop derivation produces a numerical coefficient inconsistent with Sommerfield–Petermann's −0.328478… (at the precision the experimental measurements probe), the cascade's higher-loop extension fails. Conversely, a cascade-native a_μ prediction landing on either side of the experimental/lattice tension at >1σ would resolve the frontier in cascade favour.
+
+**Status.** Tier 4 frontier item, tracked in Part IVb `oq:higher-loop-qed-coefficients`. The 1-loop cascade-primitive identification (this session) is the entry point; higher-loop coverage is the natural extension. Closely related to ROADMAP items closing on the chirality-selection-rule's higher slots.
+
 ## Working principles
 
 - **Tier discipline.** Every result carries its tier. Tier 5 (provisional) is explicitly not sufficient for the cascade to claim a prediction.
