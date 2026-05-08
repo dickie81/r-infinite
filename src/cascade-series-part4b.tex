@@ -2815,17 +2815,84 @@ dim-reg $\overline{\rm MS}$ convention --- has not been done. The
 $f_\pi/m_\pi = N(0)/N_c$ ratio is, correctly, scheme-invariant
 under this re-normalization.
 
+\medskip\noindent\textbf{Light meson zoo: where the grammar reaches
+and where it stops (Tier~4 with structural boundary).} Extending the
+chiral $m_\pi, f_\pi$ result to the rest of the light meson sector
+surfaces a sharp diagnostic of the cascade's current machinery. The
+candidate cascade-primitive forms tested include
+$\{N_c, N(0), 2\pi, d_V, d_0\}$ (the latter two from Paper~0's
+distinguished-dimension list).
+
+\emph{Pseudoscalar octet (chiral Goldstones)} --- the grammar reaches.
+The kaon mass lands on a clean cascade-primitive ratio
+\[
+\frac{m_K}{m_\pi} \;=\; \frac{d_V}{\sqrt{N(0)}} \;=\; \frac{5}{\sqrt{2}}
+\;=\; 3.5355\ldots,
+\]
+versus PDG $m_{K^\pm}/m_{\pi^\pm} = 3.5371$ ($-0.05\%$, sub-percent).
+Equivalently $m_K = \Lambda_{\rm PDG}\cdot d_V\sqrt{N(0)}/N_c =
+\Lambda_{\rm PDG}\cdot 5\sqrt{2}/3 \approx 495.0$~MeV, $+0.27\%$ above
+PDG $m_{K^\pm}$. The volume-max layer $d_V=5$ (observer's host) and
+the chirality slot count $N(0)$ enter together, with $N_c$ in the
+denominator --- structurally consistent with the chiral relations,
+which also have $N(0)/N_c$ as their primitive ratio.
+
+\emph{$\eta'/\eta$ ratio} --- a surprise hit.
+\[
+\frac{m_{\eta'}}{m_\eta} \;=\; \frac{d_0}{N_c+1} \;=\; \frac{7}{4}
+\;=\; 1.7500,
+\]
+versus PDG $0.95778/0.54786 = 1.7482$ ($+0.10\%$). Both states
+involve the U(1)$_{\!A}$ axial-anomaly mass contribution that lifts
+the singlet $\eta'$ above the octet $\eta$; the cleanness of $7/4$
+suggests the anomaly mass --- traditionally derived from the
+QCD instanton density --- may itself sit on cascade primitives at
+the $d_0=7$ algebra-source layer. The absolute $m_\eta$ ($-4.2\%$
+from the GMOR-octet form) and absolute $m_{\eta'}$ ($-17\%$ from
+naive cascade primitives) miss until the anomaly mechanism is
+incorporated --- but the \emph{ratio} is structural.
+
+\emph{Vector nonet ($J=1$)} --- the grammar does NOT reach.
+Best cascade-primitive fits for $\rho, \omega, K^*, \phi$ sit at
+$1$--$3\%$ deviations and the structural form is ambiguous: multiple
+combinations like $\sqrt{N_c^2+N_c+N(0)}$, $\pi\sqrt{N_c}$, and
+gauge-layer ratios give comparable fits with no single form across
+the full nonet. This is the diagnostic of a missing cascade-internal
+machinery: the spin-spin (hyperfine) splitting between
+$0^-$ and $1^-$ at fixed quark content, which in QCD is
+$\Delta_{\rm HF} \propto g_s^2\,|\psi(0)|^2 / (m_{q_1}m_{q_2})$,
+has no cascade-native formulation yet.
+
+\emph{Open structural direction.} The vector-meson miss is not a
+falsification of the framework --- the chiral primitives still recur
+where they should --- but it pinpoints the next Tier~2 promotion
+target. The cascade analog of hyperfine splitting is presumably a
+layer-coupling between the gauge sector ($d_g = 12$) and the Dirac
+descent ($d=14$), modulated by the constituent-quark layer
+assignment, that produces the observed $\sim 600$~MeV $0^-\to1^-$
+gap. Once formulated, the vector nonet should join the pseudoscalar
+octet under the same cascade-primitive grammar; until then, the
+boundary at $J=1$ is the visible edge of current cascade machinery.
+Verifier: \texttt{tools/research/cascade\_meson\_masses.py}.
+
 \medskip\noindent\textbf{Cross-sector pattern.} Cascade-native QCD now
 spans (in this remark): $\beta_0$ (Tier~3, cascade-primitive 1-loop),
 $\beta_1$ (Tier~3, structural ambiguity), $\Lambda_{\rm QCD}$ (Tier~3,
 $M_Z\cdot\exp(-2\pi)$ with cascade-MS-bar scheme factor
-$\sqrt{N_c/N(0)}$), and chiral physics ($m_\pi$, $f_\pi$ at $\sim 1\%$
-on ratios). The cascade primitives $\{N_c, N(0), 2\pi\}$ recur across
+$\sqrt{N_c/N(0)}$), chiral physics ($m_\pi$, $f_\pi$ at $\sim 1\%$
+on ratios), and the chiral pseudoscalar octet ($m_K/m_\pi = d_V/\sqrt{N(0)}$
+at $-0.05\%$; $m_{\eta'}/m_\eta = d_0/(N_c+1)$ at $+0.10\%$).
+The cascade primitives $\{N_c, N(0), 2\pi, d_V, d_0\}$ recur across
 \emph{all} these QCD observables: the same primitive ratio $N(0)/N_c$
 appears in $\beta_0$'s per-fermion coefficient, in
 $f_\pi/m_\pi = N(0)/N_c$, and (under square-root) in the
-cascade-to-MS-bar scheme conversion. Unifying these into a
-cascade-internal QCD theorem is the natural Tier~2 promotion target.
+cascade-to-MS-bar scheme conversion; the same $d_V$ that anchors
+the observer's host layer in Paper~I appears in $m_K/m_\pi$;
+the same $d_0$ that sources SU(3)'s algebra appears in
+$m_{\eta'}/m_\eta$. The vector-meson sector is the explicit edge:
+where current cascade machinery ends. Unifying all of this into a
+cascade-internal QCD theorem (including the hyperfine extension to
+vectors) is the natural Tier~2 promotion target.
 
 \medskip\noindent\textbf{Tier~3 (cascade-primitive identification at
 empirical-match precision).} Promotion to Tier~2 requires the
