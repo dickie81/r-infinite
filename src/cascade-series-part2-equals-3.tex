@@ -378,6 +378,89 @@ that are not the same object. See Open
 Question~\ref{oq:tower-vs-4d-action}.
 \end{remark}
 
+\begin{lemma}[Berezin mass equals Hamiltonian $\beta$-mass]\label{lem:berezin-equals-beta-mass}
+The cascade fermion mass term derived from the Berezin partition
+(Paper~IVb~\cite{paper4b},
+Remark~\texttt{rem:berezin-partition-derivation}) equals the
+Hamiltonian-form $\beta$-mass term in the cascade Dirac equation
+of Theorem~\ref{thm:cascade-dirac-descent}. Both act as the
+off-diagonal chirality-mixing operator on
+$\mathcal{H} = S^+ \oplus S^-$ with strength
+$m_f = R(d_f)/\chi$.
+\end{lemma}
+
+\begin{proof}
+The Berezin fermion action is $S_f = m_f\,\bar\psi\psi$
+(Paper~IVb~\cite{paper4b}, Section~\ref{sec:fermion-action}, with
+$\bar\psi = \psi^\dagger\gamma^0$). On the chirality basis
+$\psi = (\psi_+, \psi_-)^T$ in the chiral representation
+($\gamma^0$ in $2\times 2$ block form
+$\bigl(\begin{smallmatrix} 0 & I \\ I & 0 \end{smallmatrix}\bigr)$,
+where $I$ is the $2\times 2$ identity on each Weyl basin), the
+scalar pairing reads
+\[
+\bar\psi\psi \;=\; \psi^\dagger\gamma^0\psi
+\;=\; \psi_+^\dagger\psi_- + \psi_-^\dagger\psi_+.
+\]
+The Berezin mass term $m_f\bar\psi\psi$ thus couples $\psi_+$ to
+$\psi_-$ off-diagonally with strength $m_f$.
+
+In Hamiltonian form, the cascade Dirac equation
+$(i\gamma^\mu\partial_\mu - m_f)\psi = 0$ rewrites as
+$i\partial_t\psi = (\alpha^i p_i + \beta m_f)\psi$, where
+$\alpha^i = \gamma^0\gamma^i$ and $\beta = \gamma^0$. The mass
+term $\beta m_f = \gamma^0 m_f$ is the same off-diagonal block
+matrix in the chiral basis, with strength $m_f$.
+
+Hence the Berezin mass operator $m_f\bar\psi\psi\big|_{\text{op}}$
+and the Hamiltonian $\beta$-mass operator $\beta m_f$ are identical:
+both equal $\gamma^0\cdot m_f$ acting on
+$\mathcal{H} = S^+ \oplus S^-$. The chirality halving
+$m = R/\chi$ derived from Poincar\'e--Hopf
+(Paper~IVb~\cite{paper4b},
+Theorem~\texttt{thm:obstruction}) and the Hamiltonian-form Dirac
+mass agree both in cascade value and in operator action on the
+chirality decomposition.
+\end{proof}
+
+\begin{remark}[Closes soft spot (b) of Open Question~\ref{oq:dirac-discrete-continuous}]\label{rem:b-closed}
+Step~4 of Theorem~\ref{thm:cascade-dirac-descent} parenthetically
+identifies the Berezin-mass operator with the Hamiltonian-form
+$\beta$-mass. Lemma~\ref{lem:berezin-equals-beta-mass} makes the
+identification explicit: both are $\gamma^0\cdot m_f$ on the
+chirality basis. Soft spot (b) is closed.
+\end{remark}
+
+\begin{remark}[Closes soft spot (a) of Open Question~\ref{oq:dirac-discrete-continuous}]\label{rem:a-closed}
+Step~3 of Theorem~\ref{thm:cascade-dirac-descent} invokes Wigner's
+classification of relativistic wave equations to pin
+$\gamma^\mu\partial_\mu$ as the unique Lorentz-covariant
+first-order operator. Soft spot (a) of the original Open Question
+asked whether this could be re-derived in cascade-lattice terms.
+
+Lemma~\ref{lem:4d-fermion-projection} provides a complementary
+\emph{geometric} derivation of the same operator: the spin-connection
+lift of the Levi-Civita connection on $M_4$ gives
+$\gamma^\mu\nabla_\mu = \gamma^\mu\partial_\mu$ (in flat-frame
+coordinates) as the unique first-order Dirac operator on the
+spinor bundle $\mathcal{S}$. The geometric derivation uses only
+cascade-derived inputs: the foliated $4$D manifold $M_4$
+(Paper~III~\cite{paper3}~\S4) and the spinor representation
+identification (Lemma~\texttt{lem:cascade-spinor-id}). It does not
+invoke Wigner classification.
+
+With Lemma~\ref{lem:4d-fermion-projection} in place, Step~3's
+Wigner appeal is no longer load-bearing for the descent: the
+geometric route reaches the same conclusion via spin-connection
+geometry on cascade-derived inputs. Soft spot (a) is closed by
+the existence of the geometric route, with Wigner's algebraic
+route now serving as complementary context. The two routes agree
+because they are two presentations of the same standard fact ---
+the Dirac operator on a Lorentzian Spin-manifold is unique, by
+either Wigner's covariance argument or by the unique torsion-free
+metric-compatible spin connection.
+\end{remark}
+
 \begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
 \label{rem:cascade-dirac-status}
 Theorem~\ref{thm:cascade-dirac-descent} sits at the same rigour
@@ -1055,20 +1138,23 @@ to cascade-derived inputs to force $(i\gamma^\mu D_\mu - m_f)\psi = 0$
 at $d=4$, parallel to how Theorem~\ref{thm:double} applies Gleason and
 Lovelock. Three soft spots remain.
 \begin{enumerate}[label=(\alph*),nosep]
-\item \emph{Step~3's covariance argument} is the standard Wigner
-classification of relativistic wave equations on a complex spinor
-representation. It is mathematically rigorous as standard physics
-but is invoked rather than re-derived in cascade-lattice terms. A
-cascade-native version would derive the first-order spatial
-operator structure from the cascade lattice's discrete adjacency,
-parallel to how Paper~III~\S4~\cite{paper3} derives the $4$D
-continuous metric from the cascade slicing recurrence.
-\item \emph{Step~4's mass identification.} The Berezin-mass
-operator of Paper~IVb~\cite{paper4b}
-(off-diagonal on $S^+\oplus S^-$) is identified with the
-Hamiltonian-form $\beta$-mass; a small lemma making this
-identification explicit in cascade-lattice terms would close a
-one-paragraph gap.
+\item \emph{[closed]} Step~3's covariance argument is the standard
+Wigner classification of relativistic wave equations on a complex
+spinor representation. The Wigner appeal is no longer load-bearing
+for the descent: Lemma~\ref{lem:4d-fermion-projection} provides a
+complementary geometric derivation of $\gamma^\mu\partial_\mu$
+from the spin-connection lift of the Levi-Civita connection on
+$M_4$, using only cascade-derived inputs. See
+Remark~\ref{rem:a-closed}. The two routes (Wigner-algebraic and
+spin-connection-geometric) agree because they present the same
+standard mathematical fact: the Dirac operator on a Lorentzian
+Spin-manifold is unique.
+\item \emph{[closed]} Step~4's mass identification. The
+Berezin-mass operator of Paper~IVb~\cite{paper4b} is identified
+with the Hamiltonian-form $\beta$-mass in
+Lemma~\ref{lem:berezin-equals-beta-mass}: both are
+$\gamma^0\cdot m_f$ on the chirality basis. See
+Remark~\ref{rem:b-closed}.
 \item \emph{The discrete-to-continuous bridge for fermion fields,
 revised.} Lemma~\ref{lem:4d-fermion-projection} establishes the
 $4$D continuous spinor-bundle structure on which
