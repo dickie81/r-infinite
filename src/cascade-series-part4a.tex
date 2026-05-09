@@ -9,6 +9,15 @@
 \usepackage{graphicx}
 \geometry{margin=2.5cm}
 
+% xr-hyper cross-paper references (must follow hyperref).
+% Note: \bibitem{paperI} in this paper's bibliography points at Part 0
+% (cascade-series-part0), not Part I -- legacy bibliography naming.
+\usepackage{xr-hyper}
+\externaldocument[paperI:]{cascade-series-part0}
+\externaldocument[paperII:]{cascade-series-part2}
+\externaldocument[paperIII:]{cascade-series-part3}
+\externaldocument[paperIVb:]{cascade-series-part4b}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
