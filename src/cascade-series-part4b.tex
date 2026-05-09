@@ -3669,16 +3669,28 @@ All four routes give $d_{\rm observer} = 4$, mutually consistent at the cascade'
 Routes (a)--(d) are stated above; each is verified by inspection at the cascade's distinguished values, with case analysis ruling out integer shifts (analogous to Proposition~\ref{prop:landscape-uniqueness}'s case analysis for the other dimensions). Verifier: \texttt{tools/research/cascade\_dobs\_reverse\_forcing.py}.
 \end{proof}
 
-\begin{remark}[Closed structural loop and extended landscape uniqueness]\label{rem:dobs-closed-loop}
+\begin{remark}[Closed structural loop, extended landscape uniqueness, and an honest caveat]\label{rem:dobs-closed-loop}
 The reverse-direction forcing of $d_{\rm observer}$ closes a structural loop with the cover-sheet thought experiment:
 \[
 \Gamma\text{-vol-max} \to d_V = 5 \xrightarrow{\text{cover sheet (reverse)}} d_{\rm observer} = d_V - 1 = 4 \xrightarrow{\text{cover sheet (forward)}} d_V = d_{\rm observer} + 1 = 5
 \]
-Cascade $d_V$ and $d_{\rm observer}$ are mutually self-consistent at the integer level via the cover-sheet thought experiment. The cascade landscape extended to include $d_{\rm observer}$,
+Cascade $d_V$ and $d_{\rm observer}$ are mutually self-consistent at the integer level via the cover-sheet thought experiment.
+
+\medskip\noindent\textbf{Honest caveat: not all four routes are equally independent.} Of Corollary~\ref{cor:dobs-multi-route}'s four routes, only Route~(c) (Lovelock + Clifford) is a genuine \emph{ex nihilo} derivation — it uses Lovelock's mathematical uniqueness theorem applied to cascade Cl structure. The other three are largely internal consistency checks within the cover-sheet's hypothesis:
+\begin{itemize}[nosep]
+\item \emph{Route (a)} ($\Gamma$ + cover-sheet reverse): the cover sheet \emph{defines} observer on $S^{d_{\rm obs}-1}$ horizon with host at $d_V = d_{\rm obs} + 1$. So ``$d_{\rm observer} = d_V - 1$'' restates the cover-sheet hypothesis rather than deriving it.
+\item \emph{Route (b)} ($\mathbb{H}$-completion): ``cascade observer at the $\mathbb{H}$-completion'' presumes observer at the layer where Adams gives $\rho(4)-1 = 3$ — a cover-sheet placement convention.
+\item \emph{Route (d)} (Adams smallest $d$ with $\rho(d)-1 = 3$): selecting $d = 4$ over $d_g = 12$ presumes ``observer below gauge'' — cover-sheet structure.
+\end{itemize}
+This contrasts with the multi-route forcing of $d_0 = 7$ (Proposition~\ref{prop:landscape-uniqueness}), where the routes ($\Gamma$-area-max, $\rho(8)-1$, $G_2$-uniqueness, $\dim\mathbb{O}-1$) are all genuine mathematical theorems independent of cover-sheet framing.
+
+\medskip\noindent\textbf{Epistemological reading.} The cascade's hypothesis from the cover sheet is ``the infinite-dimensional unit ball, descended to \emph{four} dimensions, is indistinguishable from our universe.'' The integer ``4'' is part of the hypothesis — it is not derived from it. Lovelock + Clifford (Part~III) is the closest the cascade gets to a primitive derivation of $d=4$, and even that uses cascade-derived Cl structure (Paper~II's complex spinor forcing). The structural over-determination at $d_{\rm observer}$ is therefore weaker than at $d_0$ or $d_{\rm gw}$, and the ``multi-route forcing'' of $d_{\rm observer}$ is mostly \emph{internal consistency around the cover-sheet hypothesis}, with Lovelock as the one true mathematical derivation route. The cascade's structural achievement at $d_{\rm observer}$ is therefore making $d=4$ look \emph{cascade-internally consistent} (multi-route consistent) rather than chosen, but it does not escape the empirical input that our universe is observed to be 4D — exactly the cover sheet's epistemological standard (``indistinguishable from our universe'') applied to the cascade observer's spacetime dim.
+
+\medskip\noindent\textbf{Extended landscape uniqueness.} The cascade landscape extended to include $d_{\rm observer}$,
 \[
 \{d_{\rm observer}=4,\; d_V=5,\; d_0=7,\; d_g=12,\; d_{\rm gw}=14,\; d_1=19,\; d_2=217\},
 \]
-is fully multi-route forced via Proposition~\ref{prop:landscape-uniqueness} $+$ Corollary~\ref{cor:dobs-multi-route}. The structural consequence: Lovelock + Clifford (Part~III) is no longer the \emph{unique} cascade-internal derivation of $d_{\rm observer} = 4$ but \emph{one of multiple consistent routes}, analogous to PR \#141's $d_0 = \rho(8)-1$ having multi-route consistency. The cascade's structural over-determination extends to the cascade observer's spacetime dimension itself.
+is multi-route consistent via Proposition~\ref{prop:landscape-uniqueness} $+$ Corollary~\ref{cor:dobs-multi-route}, with the caveat that $d_{\rm observer}$'s consistency relies more on cover-sheet hypothesis structure than purely mathematical theorems. The structural consequence: Lovelock + Clifford (Part~III) is the load-bearing derivation of $d_{\rm observer} = 4$; the other routes confirm internal consistency, not independent derivation.
 \end{remark}
 
 \begin{remark}[Derivation-level unification: orthogonality as the cascade's single principle]\label{rem:orthogonality-unifier}
