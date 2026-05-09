@@ -44,6 +44,17 @@ jobs:
       - name: Check xr-hyper compliance (no cross-paper \cite)
         run: python3 tools/build/check_xr_hyper_compliance.py
 
+      # First pass: populate every paper's .aux file so xr-hyper can read
+      # cross-paper labels on the second pass. See pr-latex-check.yml for
+      # the explanation; same configuration here so push and PR builds
+      # agree.
+      - name: Compile LaTeX files (warmup pass for xr-hyper)
+        uses: xu-cheng/latex-action@v4
+        continue-on-error: true
+        with:
+          working_directory: src
+          root_file: "*.tex"
+
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
         with:

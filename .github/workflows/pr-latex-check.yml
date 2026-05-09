@@ -43,6 +43,21 @@ jobs:
       - name: Check xr-hyper compliance (no cross-paper \cite)
         run: python3 tools/build/check_xr_hyper_compliance.py
 
+      # First pass: populate every paper's .aux file so xr-hyper can read
+      # cross-paper labels on the second pass. .latexmkrc has
+      # $warnings_as_errors = 1, which trips on undefined cross-paper refs
+      # when the target's .aux doesn't yet exist (e.g. part2-equals-3.tex
+      # is alphabetically compiled before part3.tex / part4b.tex / part6.tex
+      # which it \ref's into). continue-on-error lets the workflow proceed
+      # to the strict second pass; pdflatex writes .aux even when latexmk
+      # reports the warning-as-error failure.
+      - name: Compile LaTeX files (warmup pass for xr-hyper)
+        uses: xu-cheng/latex-action@v4
+        continue-on-error: true
+        with:
+          working_directory: src
+          root_file: "*.tex"
+
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
         with:
