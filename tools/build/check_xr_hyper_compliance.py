@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Fail when cross-paper references aren't routed through xr-hyper.
 
-Two violation classes are flagged. A paper passes only when both layers are
-clean:
+Three violation classes are flagged. A paper passes only when all three
+are clean:
 
 Layer A: ``\\cite{paperK}`` to a cascade paper, but the citing paper's
     preamble has no ``\\externaldocument[paperK:]{cascade-series-X}``.
@@ -14,6 +14,12 @@ Layer B: ``\\texttt{prefix:label}`` within ~200 characters of a
     must be migrated to ``\\ref{paperK:prefix:label}`` (the ``\\cite``
     stays; xr-hyper resolves the target's theorem/section number).
 
+Layer C: ``\\bibitem{paperK}`` for a cascade paper, but the bibitem
+    body has no ``\\hyperref[paperK:paperdoc]{...}`` wrap on the
+    title. Each cascade-paper bibliography entry must be a clickable
+    cross-PDF link to the target paper's title page (anchored by
+    ``\\label{paperdoc}`` after each paper's ``\\maketitle``).
+
 The validator parses each ``src/cascade-series-*.tex`` file:
     1. Extracts the bibliography block and identifies cite keys whose
        ``\\bibitem`` body names a cascade paper (heuristic: the body
@@ -22,8 +28,8 @@ The validator parses each ``src/cascade-series-*.tex`` file:
        and reads ``\\externaldocument[KEY:]{file}`` declarations.
     3. Walks the document body (between the preamble and the
        bibliography), finding ``\\cite{}`` and ``\\nocite{}`` calls.
-    4. For each cite-key referencing a cascade paper, emits Layer A
-       and/or Layer B violations as appropriate.
+    4. For each cite-key referencing a cascade paper, emits Layer A,
+       Layer B, and/or Layer C violations as appropriate.
 
 LaTeX line comments (``%...``) are stripped per line before scanning.
 Cites inside ``\\begin{thebibliography}...\\end{thebibliography}`` are
@@ -134,19 +140,54 @@ def offset_to_line(text: str, offset: int) -> int:
     return text.count("\n", 0, offset) + 1
 
 
+def cascade_bibitems_missing_hyperref(
+    bibliography: str, cascade_keys: set[str]
+) -> list[tuple[int, str]]:
+    """Return [(bib_offset, key)] for cascade-paper bibitems lacking hyperref.
+
+    Each cascade-paper ``\\bibitem{paperK}`` should contain
+    ``\\hyperref[paperK:paperdoc]{...}`` so the bibliography entry is a
+    clickable cross-PDF link to the target paper.
+    """
+    if not bibliography:
+        return []
+    parts = BIBITEM_MARKER_RE.split(bibliography)
+    # parts = [pre, marker_1, body_1, marker_2, body_2, ...]
+    violations: list[tuple[int, str]] = []
+    cursor = len(parts[0])
+    for marker, body in zip(parts[1::2], parts[2::2]):
+        marker_start = cursor
+        cursor += len(marker) + len(body)
+        key_match = BIBITEM_KEY_RE.match(marker)
+        if key_match is None:
+            continue
+        key = key_match.group(1)
+        if key not in cascade_keys:
+            continue
+        expected = f"\\hyperref[{key}:paperdoc]"
+        if expected not in body:
+            violations.append((marker_start, key))
+    return violations
+
+
 def find_violations(
     path: Path,
-) -> tuple[list[tuple[int, str, str]], list[tuple[int, str, str, str]]]:
-    """Return (layer_a, layer_b) violations.
+) -> tuple[
+    list[tuple[int, str, str]],
+    list[tuple[int, str, str, str]],
+    list[tuple[int, str]],
+]:
+    """Return (layer_a, layer_b, layer_c) violations.
 
     Layer A: list of (line_no, missing_xr_key, line_text).
     Layer B: list of (line_no, paper_key, label, snippet).
+    Layer C: list of (line_no, paper_key) -- bibitem missing hyperref wrap.
     """
     text = path.read_text(encoding="utf-8")
     preamble, body, bibliography = split_preamble_body_bibliography(text)
     cascade_keys = cascade_cite_keys(bibliography)
     if not cascade_keys:
-        return [], []
+        return [], [], []
     declared = xr_hyper_keys(preamble)
     # body is text[preamble_end:bib_start]; offset within body maps to line
     # number in the original file by adding the preamble length up front.
@@ -222,7 +263,18 @@ def find_violations(
         for key in cascade_in_cite:
             layer_b.append((line_no, key, label, snippet))
 
-    return layer_a, layer_b
+    # Layer C: each cascade-paper bibitem must include a hyperref wrap
+    # pointing at the target paper's `paperdoc` anchor.
+    bib_match = BIB_BLOCK_RE.search(text)
+    bib_offset = bib_match.start() if bib_match else len(text)
+    layer_c: list[tuple[int, str]] = []
+    for rel_offset, key in cascade_bibitems_missing_hyperref(
+        bibliography, cascade_keys
+    ):
+        line_no = offset_to_line(text, bib_offset + rel_offset)
+        layer_c.append((line_no, key))
+
+    return layer_a, layer_b, layer_c
 
 
 def display_path(path: Path) -> str:
@@ -241,21 +293,24 @@ def main(argv: list[str]) -> int:
 
     total_a = 0
     total_b = 0
+    total_c = 0
     files_with_hits = 0
 
     for paper in papers:
-        layer_a, layer_b = find_violations(paper)
+        layer_a, layer_b, layer_c = find_violations(paper)
         rel = display_path(paper)
-        if not (layer_a or layer_b):
+        if not (layer_a or layer_b or layer_c):
             print(f"[OK]   {rel}: no inter-paper references missing xr-hyper")
             continue
         files_with_hits += 1
         total_a += len(layer_a)
         total_b += len(layer_b)
+        total_c += len(layer_c)
         print(
             f"[FAIL] {rel}: "
             f"{len(layer_a)} bare cite(s) without \\externaldocument, "
-            f"{len(layer_b)} prose label(s) without \\ref"
+            f"{len(layer_b)} prose label(s) without \\ref, "
+            f"{len(layer_c)} bibitem(s) without \\hyperref"
         )
         # Layer A: deduplicate by (line, key) for compactness.
         seen_a: set[tuple[int, str]] = set()
@@ -283,11 +338,23 @@ def main(argv: list[str]) -> int:
             )
             print(f"           \\ref{{{key}:{label}}}")
             print(f"           {snippet}")
+        # Layer C: deduplicate by (line, key).
+        seen_c: set[tuple[int, str]] = set()
+        for line_no, key in layer_c:
+            sig = (line_no, key)
+            if sig in seen_c:
+                continue
+            seen_c.add(sig)
+            print(
+                f"    L{line_no}  [C]  \\bibitem{{{key}}} -- "
+                f"missing \\hyperref[{key}:paperdoc]{{...}} wrap"
+            )
 
-    if total_a or total_b:
+    if total_a or total_b or total_c:
         print(
-            f"\nFAIL: {total_a} Layer-A bare-cite violations, "
-            f"{total_b} Layer-B prose-label violations across "
+            f"\nFAIL: {total_a} Layer-A bare-cite, "
+            f"{total_b} Layer-B prose-label, "
+            f"{total_c} Layer-C bibitem-no-hyperref violations across "
             f"{files_with_hits}/{len(papers)} file(s).",
             file=sys.stderr,
         )
@@ -306,6 +373,15 @@ def main(argv: list[str]) -> int:
         print(
             "    Theorem~\\texttt{thm:foo} of \\cite{paperK}  ->  "
             "Theorem~\\ref{paperK:thm:foo} of \\cite{paperK}",
+            file=sys.stderr,
+        )
+        print(
+            "Layer C: wrap each cascade-paper bibitem title in a hyperref:",
+            file=sys.stderr,
+        )
+        print(
+            "    \\bibitem{paperK} ..., \\hyperref[paperK:paperdoc]"
+            "{\\emph{Title of paperK}}, ...",
             file=sys.stderr,
         )
         return 1

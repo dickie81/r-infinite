@@ -12,6 +12,10 @@
 % (cascade-series-part0), not Part I -- legacy bibliography naming.
 \usepackage{xr-hyper}
 \externaldocument[paper1:]{cascade-series-part0}
+\externaldocument[paper2:]{cascade-series-part2}
+\externaldocument[paper3:]{cascade-series-part3}
+\externaldocument[paper4a:]{cascade-series-part4a}
+\externaldocument[paper4b:]{cascade-series-part4b}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -29,6 +33,8 @@ and the DESI BAO Observations}
 \begin{document}
 \setlength{\emergencystretch}{3em}
 \maketitle
+\phantomsection
+\label{paperdoc}
 
 \begin{abstract}
 The cascade series [1, 2, 3, 4, 5] tests one hypothesis: the infinite-dimensional
@@ -920,21 +926,21 @@ strengthens the case for $w \neq -1$.
 
 \begin{thebibliography}{12}
 
-\bibitem{paper1} {[Author]}, \textit{Scale Variance from Orthogonality: How the Unit Ball
-Generates $10^{120}$ Orders of Magnitude}, March 2026.
+\bibitem{paper1} {[Author]}, \hyperref[paper1:paperdoc]{\textit{Scale Variance from Orthogonality: How the Unit Ball
+Generates $10^{120}$ Orders of Magnitude}}, March 2026.
 
-\bibitem{paper2} {[Author]}, \textit{Quantum Mechanics from the Cascade: Effective Theory of
-a 4-Dimensional Observer in the Sphere-Area Geometry}, March 2026.
+\bibitem{paper2} {[Author]}, \hyperref[paper2:paperdoc]{\textit{Quantum Mechanics from the Cascade: Effective Theory of
+a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
 
-\bibitem{paper3} {[Author]}, \textit{General Relativity from the Cascade: Lovelock Uniqueness
-and the Cosmological Constant of a 4-Dimensional Observer}, March 2026.
+\bibitem{paper3} {[Author]}, \hyperref[paper3:paperdoc]{\textit{General Relativity from the Cascade: Lovelock Uniqueness
+and the Cosmological Constant of a 4-Dimensional Observer}}, March 2026.
 
-\bibitem{paper4a} {[Author]}, \textit{The Standard Model from the Cascade: Part IVa---Gauge
+\bibitem{paper4a} {[Author]}, \hyperref[paper4a:paperdoc]{\textit{The Standard Model from the Cascade: Part IVa---Gauge
 Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball
-Zeros}, March 2026.
+Zeros}}, March 2026.
 
-\bibitem{paper4b} {[Author]}, \textit{The Standard Model from the Cascade: Part IVb---Masses,
-Couplings, and Precision Predictions from the Geometric-Topological Factorization},
+\bibitem{paper4b} {[Author]}, \hyperref[paper4b:paperdoc]{\textit{The Standard Model from the Cascade: Part IVb---Masses,
+Couplings, and Precision Predictions from the Geometric-Topological Factorization}},
 March 2026.
 
 \bibitem{planck} Planck Collaboration, ``Planck 2018 results. VI. Cosmological parameters,''
