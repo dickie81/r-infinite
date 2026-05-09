@@ -3495,6 +3495,53 @@ using cascade-primitive forms ($m_\eta = \Lambda(N_c+1)\sqrt{N_c/d_0}$, $m_K = \
 The structural payoff is that the U(1)$_{\!A}$ anomaly mass-squared sits on the same class of topological invariants (Adams parallelizability counts) that anchor SU(3) at $d_g=12$ in Theorem~\ref{thm:strong-cp}. One topological apparatus, two distinct U(1)$_{\!A}$ phenomena: $\theta_{\rm QCD}=0$ (no instanton sectors) and $m_{\eta'}^2 = 21\,\Lambda^2$ (anomaly mass from the joint Adams product). Verifier: \texttt{tools/research/cascade\_eta\_topological\_extension.py}.
 \end{remark}
 
+\begin{remark}[Cascade-wide Lie-theoretic dimensional tower; Tier~4]\label{rem:lie-theoretic-tower}
+The Spin(7)/$G_2$ identification at $d_0$ extends to a broader pattern: the cascade's distinguished dimensions and primitive products carry exceptional-Lie-group dimensions across the whole landscape, not just at $d_0$. The integer matches are:
+\begin{align*}
+d_{\rm gw} &\;=\; 14 \;=\; \dim G_2
+&&\text{(gauge window upper edge $=$ octonion automorphism dim)}\\
+N(0)\cdot d_V &\;=\; 10 \;=\; \dim\mathrm{Spin}(5) \;\cong\; \dim\mathrm{Sp}(2)
+&&\text{(observer-host product $=$ $S^4$ rotation Lie algebra)}\\
+N_c\cdot d_0 &\;=\; 21 \;=\; \dim\mathrm{Spin}(7)
+&&\text{(Theorem~\ref{thm:axial-anomaly-mass}; $\eta'$ anomaly mass-squared scale)}\\
+N_c^2 - 1 &\;=\; 8 \;=\; \dim\mathrm{SU}(3)
+&&\text{(gauge generators at $d_g=12$; cover sheet)}
+\end{align*}
+And cascade-internal sums of distinguished dimensions hit other distinguished dimensions:
+\begin{align*}
+d_V + d_0 &\;=\; 5 + 7 \;=\; 12 \;=\; d_g
+&&\text{(volume max $+$ area max $=$ SU(3) gauge layer)}\\
+d_{\rm gw} + d_V &\;=\; 14 + 5 \;=\; 19 \;=\; d_1
+&&\text{(gauge window $+$ volume max $=$ phase transition)}\\
+d_{\rm gw} &\;=\; 2\,d_0 \;=\; 14
+&&\text{(gauge window upper edge $=$ twice area max; Remark~\ref{rem:catalan-u1-closure})}
+\end{align*}
+
+\medskip\noindent\textbf{Reading.} The cascade carries the exceptional Lie tower $\mathrm{Spin}(8)\supset\mathrm{Spin}(7)\supset G_2 \supset \mathrm{SU}(3)$ with quotients $S^7, S^6$ explicitly via:
+\begin{itemize}[nosep]
+\item $\mathrm{SU}(3)$ at $d_g=12$ (cascade gauge layer; Part~IVa~\cite{paper4a})
+\item $G_2$ at $d_{\rm gw}=14$ (gauge window upper edge $=$ $\dim G_2$; this Remark)
+\item $\mathrm{Spin}(7)$ via $N_c\cdot d_0 = 21 = \dim\mathrm{Spin}(7)$ (Theorem~\ref{thm:axial-anomaly-mass}; $\eta'$ anomaly)
+\item $S^6 = G_2/\mathrm{SU}(3)$ at $d_0=7$ (algebra source; cover sheet)
+\item $S^7 = \mathrm{Spin}(7)/G_2$ at $d=8$ (octonion sphere; this PR)
+\end{itemize}
+Together with the volume-max identification $\mathrm{Spin}(5)\cong\mathrm{Sp}(2)$ (dim $10 = N(0)\cdot d_V$) and the gauge-layer position $d_g = d_V + d_0$, the cascade's distinguished-dimension landscape reads as the integer signature of an exceptional Lie tower anchored at $d_0$ and extending through the gauge window.
+
+\medskip\noindent\textbf{Status of the identifications.} Rigour varies by entry:
+\begin{itemize}[nosep]
+\item \emph{Forced} (Lie-theoretic consequence of existing cascade commitments): $d_0 = \dim(\mathrm{Spin}(7)/G_2)$ and $N_c\cdot d_0 = \dim\mathrm{Spin}(7)$ via the cascade's $G_2/\mathrm{SU}(3)$ commitment at $d_0$ (Theorem~\ref{thm:axial-anomaly-mass}, Remark~\ref{rem:axial-anomaly-mass-tier}).
+\item \emph{Suggestive but not yet rigorously forced}: $d_{\rm gw} = \dim G_2$ (the cascade carries $G_2$ at $d_0$; the gauge window upper edge sitting at exactly $\dim G_2$ looks like an encoding of the parent Lie-algebra dimension, but the cascade-internal mechanism forcing $d_{\rm gw} = 14$ to coincide with $\dim G_2$ is open).
+\item \emph{Pattern-level}: $N(0)\cdot d_V = \dim\mathrm{Spin}(5)$ parallels $N_c\cdot d_0 = \dim\mathrm{Spin}(7)$; suggests a cascade-primitive-product $\to$ Lie-dim pattern. Open.
+\item \emph{Integer relations among distinguished dims}: $d_g = d_V + d_0$, $d_1 = d_{\rm gw} + d_V$, $d_{\rm gw} = 2\,d_0$. These are independent integer identities; whether they're forced by cascade structure or are small-integer coincidences is an open structural piece.
+\end{itemize}
+
+\medskip\noindent\textbf{What this changes for $d_0$'s specialness.} The original PR \#141 finding (resolving $d_0 = \rho(8)-1$ via $\mathrm{Spin}(7)/G_2$) generalizes: $d_0$ is not just one of four distinguished $\Gamma$ critical points, it is the structural pivot of the cascade's exceptional-Lie content. $d_0 = 7$ appears in: (i)~$\dim S^7 = \dim(\mathrm{Spin}(7)/G_2)$ at the next layer, (ii)~$N_c\cdot d_0 = \dim\mathrm{Spin}(7)$ in the $\eta'$ anomaly mass, (iii)~$d_g = d_V + d_0$ in the cascade gauge layer position, (iv)~$d_{\rm gw} = 2 d_0$ in the gauge window upper edge. No other distinguished dimension participates in the Lie tower with this multiplicity.
+
+\medskip\noindent\textbf{Tier classification.} Tier~4 (cascade-wide Lie-theoretic dimensional pattern with one forced identification ($d_0 = \rho(8)-1$, this PR) and several pattern-level identifications open for structural derivation). Verifier: \texttt{tools/research/cascade\_d0\_rho8\_identity.py}.
+
+\medskip\noindent\textbf{Open structural piece.} A cascade-internal proof that the integer pattern $\{d_V=5, d_0=7, d_g=12, d_{\rm gw}=14, d_1=19\}$ is jointly forced by (i)~$\Gamma$ critical points (Part~0), (ii)~Adams gauge structure at $d=12,13,14$ (Part~IVa), and (iii)~the exceptional Lie tower $G_2/\mathrm{SU}(3)$ at $d_0$. This would promote the present pattern from ``many small-integer identifications hold'' to ``the cascade's distinguished-dimension landscape encodes the exceptional Lie content of the octonion algebra cascade-natively.''
+\end{remark}
+
 
 \section{The Cabibbo Angle}\label{sec:cabibbo}
 
