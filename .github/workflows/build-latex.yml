@@ -41,6 +41,9 @@ jobs:
           python3 tools/generators/generate_predictions.py
           python3 tools/generators/generate_bao_table.py
 
+      - name: Check xr-hyper compliance (no cross-paper \cite)
+        run: python3 tools/verifiers/check_xr_hyper_compliance.py
+
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
         with:
