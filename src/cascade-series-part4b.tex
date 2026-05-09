@@ -3541,7 +3541,42 @@ where the first equality is the cascade Catalan reading (Remark~\ref{rem:catalan
 
 \medskip\noindent\textbf{What this changes for $d_0$'s specialness.} The original PR \#141 finding (resolving $d_0 = \rho(8)-1$ via $\mathrm{Spin}(7)/G_2$) generalizes: $d_0$ is not just one of four distinguished $\Gamma$ critical points, it is the structural pivot of the cascade's exceptional-Lie content. $d_0 = 7$ appears in: (i)~$\dim S^7 = \dim(\mathrm{Spin}(7)/G_2)$ at the next layer, (ii)~$N_c\cdot d_0 = \dim\mathrm{Spin}(7)$ in the $\eta'$ anomaly mass, (iii)~$d_g = d_V + d_0$ in the cascade gauge layer position, (iv)~$d_{\rm gw} = 2 d_0$ in the gauge window upper edge. No other distinguished dimension participates in the Lie tower with this multiplicity.
 
-\medskip\noindent\textbf{Tier classification.} Tier~4 (cascade-wide Lie-theoretic dimensional pattern with one forced identification ($d_0 = \rho(8)-1$, this PR) and several pattern-level identifications open for structural derivation). Verifier: \texttt{tools/research/cascade\_d0\_rho8\_identity.py}.
+\medskip\noindent\textbf{Cayley--Dickson reading of the cascade landscape.} The cascade's distinguished-dimension landscape arranges around the four-step Cayley--Dickson chain $\mathbb{R}\to\mathbb{C}\to\mathbb{H}\to\mathbb{O}$ of normed division algebras:
+\[
+\begin{array}{lcl}
+\mathbb{R}, \dim 1 & \rightarrow & \text{(slicing, } d=1\text{)} \\
+\mathbb{C}, \dim 2 & \rightarrow & \text{Paper~II (forced orthogonality $\Rightarrow$ complex structure)} \\
+\mathbb{H}, \dim 4 & \rightarrow & d=4 \text{ (observer's host, 4D spacetime)} \\
+\mathbb{O}, \dim 8 & \rightarrow & d=8 \text{ (last parallelizable; } \rho(8)=8\text{ Adams maximum)}
+\end{array}
+\]
+After $\mathbb{O}$ the chain terminates: Adams' theorem on the Hopf invariant 1 implies no further parallelizable spheres, hence no division algebra of dim $> 8$. The cascade's octonion completion at $d=8$ thus sits at the structural boundary of the Cayley--Dickson chain.
+
+The cascade's distinguished dimensions encode the chain's content:
+\[
+\begin{array}{lcl}
+d_V = 5 & \leftrightarrow & \text{observer-host dim + 1} \;\;(S^4 = \partial B^5)\\
+d_0 = 7 & \leftrightarrow & \dim S^7 = \dim\mathbb{O} - 1 \;\;(\text{one below octonion completion})\\
+d_g = 12 & \leftrightarrow & N_c\cdot\dim\mathbb{H} \;\;(\text{gauge sphere $S^{11}\subset\mathbb{H}^3 = \mathbb{R}^{12}$})\\
+d_{\rm gw} = 14 & \leftrightarrow & \dim\mathrm{Aut}(\mathbb{O}) = \dim G_2 \;\;(\text{octonion automorphism Lie algebra})\\
+N_c^2 - 1 = 8 & \leftrightarrow & \dim\mathrm{SU}(3) = \dim\mathbb{O} \;\;(\text{cascade gauge gens $=$ octonion dim})
+\end{array}
+\]
+
+The cascade's $\mathrm{SU}(3)$ at $d_g = 12$ admits two Lie-theoretic interpretations that the cover sheet identifies:
+\begin{itemize}[nosep]
+\item \emph{Adams (combinatorial):} the three quaternionic right-multiplications on $S^{11}\subset\mathbb{H}^3$ give $N_c = \rho(12)-1 = 3$ vector fields. Cascade gauge group $\mathrm{SU}(3)$ has $N_c^2-1=8$ generators by Lie theory.
+\item \emph{Octonion-stabilizer (algebraic):} $G_2 = \mathrm{Aut}(\mathbb{O})$ acts transitively on $\mathrm{Im}\,\mathbb{O} = \mathbb{R}^7$ via its 7-dimensional fundamental rep; the stabilizer of a unit imaginary octonion is $\mathrm{SU}(3)$ with $\dim\mathrm{Stab} = \dim G_2 - \dim S^6 = 14 - 6 = 8 = \dim\mathbb{O}$.
+\end{itemize}
+The cover sheet's commitment to $G_2/\mathrm{SU}(3) = S^6$ at $d_0$ IDENTIFIES these two $\mathrm{SU}(3)$'s, forcing $\dim\mathrm{SU}(3) = \dim\mathbb{O} = 8 = N_c^2 - 1$ and hence $N_c = 3$ from both routes simultaneously.
+
+\medskip\noindent\textbf{Sharpened verdict on $d_{\rm gw} = \dim G_2$ forcing.} Given the cover sheet's commitment to $G_2/\mathrm{SU}(3) = S^6$ at $d_0$ as the cascade's octonion completion, the chain
+\[
+d_{\rm gw} \;=\; 2 d_0 \;=\; 2(\dim\mathbb{O} - 1) \;=\; 2\cdot 7 \;=\; 14 \;=\; \dim G_2
+\]
+is forced (Catalan reading from cover sheet plus Lie identity $\dim G_2 = 2(\dim\mathbb{O} - 1)$ for the octonion automorphism group). The remaining structural piece is one level deeper: a cascade-internal proof that the cover sheet's choice of $G_2/\mathrm{SU}(3)$ at $d_0$ (rather than a different homogeneous space) is itself forced by the cascade's Cayley--Dickson chain at $d=8$. This open question parallels Adams' theorem on the 2-adic structure forcing $\rho(8) = 8$: just as Adams forces the parallelizability count by 2-adic combinatorics, the cascade should force the octonion-completion at $d=8$ from its layer-by-layer division-algebra structure.
+
+\medskip\noindent\textbf{Tier classification.} Tier~4 (cascade-wide Lie-theoretic dimensional pattern with two forced identifications via cover sheet's $G_2/\mathrm{SU}(3)$ commitment ($d_0 = \rho(8)-1$ from PR \#141 and $d_{\rm gw} = \dim G_2$ via this Remark) and several pattern-level identifications open for structural derivation). Verifiers: \texttt{tools/research/cascade\_d0\_rho8\_identity.py}, \texttt{tools/research/cascade\_dgw\_g2\_forcing.py}.
 
 \medskip\noindent\textbf{Open structural piece.} A cascade-internal proof that the integer pattern $\{d_V=5, d_0=7, d_g=12, d_{\rm gw}=14, d_1=19\}$ is jointly forced by (i)~$\Gamma$ critical points (Part~0), (ii)~Adams gauge structure at $d=12,13,14$ (Part~IVa), and (iii)~the exceptional Lie tower $G_2/\mathrm{SU}(3)$ at $d_0$. This would promote the present pattern from ``many small-integer identifications hold'' to ``the cascade's distinguished-dimension landscape encodes the exceptional Lie content of the octonion algebra cascade-natively.''
 \end{remark}
