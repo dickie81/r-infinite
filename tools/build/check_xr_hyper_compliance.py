@@ -70,6 +70,13 @@ EXTERNAL_DOC_RE = re.compile(
     r"(?:\[\s*([A-Za-z0-9_-]+)\s*:?\s*\])?"
     r"\s*\{([^}]+)\}"
 )
+# \xrhyperdoc{prefix}{file-stem} is the cascade-series wrapper that
+# expands to \externaldocument[prefix:]{file-stem} *and* records the
+# file stem so \xref can build cross-PDF URLs. The validator counts
+# both forms as declaring an xr-hyper prefix.
+XRHYPERDOC_RE = re.compile(
+    r"\\xrhyperdoc\s*\{([A-Za-z0-9_-]+)\}\s*\{([^}]+)\}"
+)
 # Cross-PDF link to a sibling cascade paper, written via the \extlink
 # wrapper macro defined in each paper's preamble. \extlink expands to a
 # blue-text \href with pdfborder suppressed; the validator treats it as
@@ -133,12 +140,15 @@ def cascade_cite_keys(bibliography: str) -> set[str]:
 
 
 def xr_hyper_keys(preamble: str) -> set[str]:
-    """Set of xr-hyper prefixes declared via ``\\externaldocument[KEY:]``."""
+    """Set of xr-hyper prefixes declared via ``\\externaldocument[KEY:]``
+    or its cascade-series wrapper ``\\xrhyperdoc{KEY}{file}``."""
     keys: set[str] = set()
     for m in EXTERNAL_DOC_RE.finditer(preamble):
         prefix = m.group(1)
         if prefix:
             keys.add(prefix)
+    for m in XRHYPERDOC_RE.finditer(preamble):
+        keys.add(m.group(1))
     return keys
 
 
