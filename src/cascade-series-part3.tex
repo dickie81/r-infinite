@@ -3,14 +3,14 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text, no box.
-% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborder is not accepted as a per-\href option, so wrap each call in a
-% group with a localised \hypersetup to disable the border for that one link.
-\let\OldHref\href
-\renewcommand{\href}[2]{{%
+\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
+% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
+% avoids redefining hyperref's robust \href. The grouped \hypersetup
+% disables pdfborder for this one link only; internal \ref / \cite see
+% colorlinks=false's default rectangular border.
+\newcommand{\extlink}[2]{{%
   \hypersetup{pdfborder={0 0 0}}%
-  \OldHref{#1}{\textcolor{blue}{#2}}%
+  \href{#1}{\textcolor{blue}{#2}}%
 }}
 \usepackage{enumitem}
 \usepackage{graphicx}
@@ -1196,15 +1196,15 @@ out in Paper~V.
 
 \begin{thebibliography}{12}
 
-\bibitem{paper0pre} {[Author]}, \href{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude: Why Nothing Has Structure}}, March 2026.
+\bibitem{paper0pre} {[Author]}, \extlink{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude: Why Nothing Has Structure}}, March 2026.
 
-\bibitem{paper1} {[Author]}, \href{\cascadebase/cascade-series-part0.pdf}{\textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
+\bibitem{paper1} {[Author]}, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
 
-\bibitem{paper2} {[Author]}, \href{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
+\bibitem{paper2} {[Author]}, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
 
-\bibitem{paper4a} {[Author]}, \href{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
+\bibitem{paper4a} {[Author]}, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
 
-\bibitem{paper5} {[Author]}, \href{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
+\bibitem{paper5} {[Author]}, \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
 
 \bibitem{lovelock1} D.~Lovelock, ``The Einstein tensor and its generalisations,'' \textit{Journal of Mathematical Physics} \textbf{12}, 498--501 (1971).
 

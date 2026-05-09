@@ -15,7 +15,7 @@ Layer B: ``\\texttt{prefix:label}`` within ~200 characters of a
     stays; xr-hyper resolves the target's theorem/section number).
 
 Layer C: ``\\bibitem{paperK}`` for a cascade paper, but the bibitem
-    body has no ``\\href{\\cascadebase/cascade-series-<X>.pdf}{...}``
+    body has no ``\\extlink{\\cascadebase/cascade-series-<X>.pdf}{...}``
     wrap on the title. Each cascade-paper bibliography entry must be a
     clickable cross-PDF link to the target paper. The href target must
     be an *absolute* URL (built via the ``\\cascadebase`` macro) so
@@ -70,13 +70,12 @@ EXTERNAL_DOC_RE = re.compile(
     r"(?:\[\s*([A-Za-z0-9_-]+)\s*:?\s*\])?"
     r"\s*\{([^}]+)\}"
 )
-# Cross-PDF href to a sibling cascade paper. The URL must be absolute
-# (built via the \cascadebase macro) so hyperref emits a URI action --
-# the only action type browser PDF viewers will follow. A bare relative
-# \href{cascade-series-X.pdf}{...} produces a GoToR / Launch action
-# that browsers strip, so the click does nothing.
+# Cross-PDF link to a sibling cascade paper, written via the \extlink
+# wrapper macro defined in each paper's preamble. \extlink expands to a
+# blue-text \href with pdfborder suppressed; the validator treats it as
+# the canonical bibitem link form.
 HREF_CASCADE_PDF_RE = re.compile(
-    r"\\href\{\\cascadebase/cascade-series-[A-Za-z0-9_-]+\.pdf\}"
+    r"\\extlink\{\\cascadebase/cascade-series-[A-Za-z0-9_-]+\.pdf\}"
 )
 # Cascade-style label: a typewritten string with a prefix:suffix shape and a
 # prefix that matches the conventions used across the series.
@@ -159,7 +158,7 @@ def cascade_bibitems_missing_href(
     cross-PDF href.
 
     Each cascade-paper ``\\bibitem{paperK}`` body must contain a
-    ``\\href{\\cascadebase/cascade-series-<X>.pdf}{...}`` wrap so the bibliography
+    ``\\extlink{\\cascadebase/cascade-series-<X>.pdf}{...}`` wrap so the bibliography
     entry is a clickable cross-PDF link to the target paper.
     """
     if not bibliography:
@@ -360,7 +359,7 @@ def main(argv: list[str]) -> int:
             seen_c.add(sig)
             print(
                 f"    L{line_no}  [C]  \\bibitem{{{key}}} -- "
-                f"missing \\href{{\\cascadebase/cascade-series-<X>.pdf}}{{...}} wrap"
+                f"missing \\extlink{{\\cascadebase/cascade-series-<X>.pdf}}{{...}} wrap"
             )
 
     if total_a or total_b or total_c:
@@ -389,11 +388,12 @@ def main(argv: list[str]) -> int:
             file=sys.stderr,
         )
         print(
-            "Layer C: wrap each cascade-paper bibitem title in a cross-PDF href:",
+            "Layer C: wrap each cascade-paper bibitem title in \\extlink"
+            " (defined in each paper's preamble):",
             file=sys.stderr,
         )
         print(
-            "    \\bibitem{paperK} ..., \\href{\\cascadebase/cascade-series-<X>.pdf}"
+            "    \\bibitem{paperK} ..., \\extlink{\\cascadebase/cascade-series-<X>.pdf}"
             "{\\textit{Title of paperK}}, ...",
             file=sys.stderr,
         )
