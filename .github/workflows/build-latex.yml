@@ -38,17 +38,27 @@ jobs:
 
       - name: Generate computed tables
         run: |
-          python3 tools/generators/generate_predictions.py
-          python3 tools/generators/generate_bao_table.py
+          python3 tools/build/generate_predictions.py
+          python3 tools/build/generate_bao_table.py
 
+      - name: Check xr-hyper compliance (no cross-paper \cite)
+        run: python3 tools/build/check_xr_hyper_compliance.py
+
+      # Warmup pass for xr-hyper. See pr-latex-check.yml for the explanation;
+      # same configuration here so push and PR builds agree.
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
         with:
           working_directory: src
           root_file: "*.tex"
+          pre_compile: |
+            for f in cascade-series-*.tex; do
+              latexmk -pdf -interaction=nonstopmode \
+                -e '$warnings_as_errors=0;' "$f" || true
+            done
 
       - name: Check for LaTeX warnings and regressions
-        run: python3 tools/check_latex_warnings.py
+        run: python3 tools/build/check_latex_warnings.py
 
       - name: Prepare site
         run: |

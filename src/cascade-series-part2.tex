@@ -8,6 +8,14 @@
 \usepackage{enumitem}
 \geometry{margin=2.5cm}
 
+% xr-hyper cross-paper references (must follow hyperref).
+% Note: in this paper's bibliography \bibitem{paperI} points at Part 0
+% (cascade-series-part0), not Part I -- legacy bibliography naming.
+\usepackage{xr-hyper}
+\externaldocument[paperI:]{cascade-series-part0}
+\externaldocument[paper4b:]{cascade-series-part4b}
+\externaldocument[paper6:]{cascade-series-part6}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}

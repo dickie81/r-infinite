@@ -9,6 +9,15 @@
 \usepackage{graphicx}
 \geometry{margin=2.5cm}
 
+% xr-hyper cross-paper references (must follow hyperref).
+% Note: \bibitem{paperI} in this paper's bibliography points at Part 0
+% (cascade-series-part0), not Part I -- legacy bibliography naming.
+\usepackage{xr-hyper}
+\externaldocument[paperI:]{cascade-series-part0}
+\externaldocument[paperII:]{cascade-series-part2}
+\externaldocument[paperIII:]{cascade-series-part3}
+\externaldocument[paperIVb:]{cascade-series-part4b}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -628,8 +637,7 @@ The Berezin construction with cascade-natural Dirac mass
 $m(d)=\sqrt{\alpha(d)}$ gives $Z_f(d)=m(d)$ and
 $Z_f(d)/Z_s(d)=1/(2\sqrt{\pi})$ exactly at every Dirac layer
 (Part~IVb~\cite{paperIVb}, Remark on the Berezin partition-function
-realisation, narrowing
-Open Question~\texttt{oq:fermion-cascade-action}).
+realisation).
 \item \emph{Substantially narrowed; one piece open:} the
 gauge-coupling extension. Part~IVb~\cite{paperIVb}'s remark on the
 proposed gauge-coupled action articulates the per-layer form

@@ -7,6 +7,11 @@
 \usepackage{enumitem}
 \geometry{margin=2.5cm}
 
+% xr-hyper cross-paper references (must follow hyperref).
+\usepackage{xr-hyper}
+\externaldocument[part0:]{cascade-series-part0}
+\externaldocument[paper0pre:]{cascade-series-prelude}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
