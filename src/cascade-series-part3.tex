@@ -12,6 +12,21 @@
   \hypersetup{pdfborder={0 0 0}}%
   \href{#1}{\textcolor{blue}{#2}}%
 }}
+% Cross-paper hyperlinking infrastructure.
+% \xrhyperdoc{prefix}{file-stem} replaces \externaldocument[prefix:]{file-stem}
+% AND records the file stem so \xref{prefix}{label} can build a cross-PDF
+% URL with the right anchor. \xref displays the resolved \ref* number
+% (xr-hyper), wrapped in \extlink to the target paper's destination.
+% \xrhash holds a catcode-12 '#' character so it survives hyperref's URL
+% normalisation cleanly (the robust \# can choke in some expansion contexts).
+\edef\xrhash{\string#}
+\newcommand{\xrhyperdoc}[2]{%
+  \externaldocument[#1:]{#2}%
+  \expandafter\def\csname xrfile@#1\endcsname{#2}%
+}
+\newcommand{\xref}[2]{%
+  \extlink{\cascadebase/\csname xrfile@#1\endcsname.pdf\xrhash#2}{\ref*{#1:#2}}%
+}
 \usepackage{enumitem}
 \usepackage{graphicx}
 
@@ -19,11 +34,11 @@
 % Note: \bibitem{paper1} in this paper's bibliography points at Part 0
 % (cascade-series-part0), not Part I -- legacy bibliography naming.
 \usepackage{xr-hyper}
-\externaldocument[paper0pre:]{cascade-series-prelude}
-\externaldocument[paper1:]{cascade-series-part0}
-\externaldocument[paper2:]{cascade-series-part2}
-\externaldocument[paper4a:]{cascade-series-part4a}
-\externaldocument[paper5:]{cascade-series-part5}
+\xrhyperdoc{paper0pre}{cascade-series-prelude}
+\xrhyperdoc{paper1}{cascade-series-part0}
+\xrhyperdoc{paper2}{cascade-series-part2}
+\xrhyperdoc{paper4a}{cascade-series-part4a}
+\xrhyperdoc{paper5}{cascade-series-part5}
 \newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
 
 \newtheorem{theorem}{Theorem}[section]
