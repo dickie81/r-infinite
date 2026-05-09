@@ -2,7 +2,12 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{geometry}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=blue, citecolor=blue}
+\hypersetup{colorlinks=false}
+\usepackage[normalem]{ulem}
+% External links (\href): blue text, underlined, no box.
+% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
+\let\OldHref\href
+\renewcommand{\href}[2]{\OldHref[pdfborder={0 0 0}]{#1}{\textcolor{blue}{\uline{#2}}}}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \geometry{margin=2.5cm}
