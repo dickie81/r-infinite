@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fail when cross-paper references aren't routed through xr-hyper.
 
-Three violation classes are flagged. A paper passes only when all three
+Four violation classes are flagged. A paper passes only when all four
 are clean:
 
 Layer A: ``\\cite{paperK}`` to a cascade paper, but the citing paper's
@@ -19,6 +19,13 @@ Layer C: ``\\bibitem{paperK}`` for a cascade paper, but the bibitem
     title. Each cascade-paper bibliography entry must be a clickable
     cross-PDF link to the target paper's title page (anchored by
     ``\\label{paperdoc}`` after each paper's ``\\maketitle``).
+
+Layer D: ``\\externaldocument[paperK:]{cascade-series-X}`` without the
+    optional ``[cascade-series-X.pdf]`` URL argument. Without the URL
+    argument, xr-hyper resolves theorem numbers but the click target
+    is a destination inside the local PDF that doesn't exist -- so
+    cross-paper links do nothing when clicked. The URL argument is
+    what makes the link an actual cross-PDF link to the target file.
 
 The validator parses each ``src/cascade-series-*.tex`` file:
     1. Extracts the bibliography block and identifies cite keys whose
@@ -65,6 +72,7 @@ EXTERNAL_DOC_RE = re.compile(
     r"\\externaldocument\s*"
     r"(?:\[\s*([A-Za-z0-9_-]+)\s*:?\s*\])?"
     r"\s*\{([^}]+)\}"
+    r"(?:\s*\[([^\]]+)\])?"
 )
 # Cascade-style label: a typewritten string with a prefix:suffix shape and a
 # prefix that matches the conventions used across the series.
@@ -131,6 +139,28 @@ def xr_hyper_keys(preamble: str) -> set[str]:
     return keys
 
 
+def cascade_externaldocs_missing_url(preamble: str) -> list[tuple[int, str, str]]:
+    """Return [(line_no_in_preamble, prefix, file_stem)] for cascade-paper
+    externaldocuments lacking the optional URL argument.
+
+    A cascade-paper externaldoc is one whose file argument starts with
+    ``cascade-series-``. The URL argument is required so that hyperref
+    generates an actual cross-PDF link instead of a broken local
+    destination.
+    """
+    violations: list[tuple[int, str, str]] = []
+    for m in EXTERNAL_DOC_RE.finditer(preamble):
+        prefix = m.group(1) or ""
+        file_stem = m.group(2)
+        url = m.group(3)
+        if not file_stem.startswith("cascade-series-"):
+            continue
+        if not url:
+            line_no = preamble.count("\n", 0, m.start()) + 1
+            violations.append((line_no, prefix, file_stem))
+    return violations
+
+
 def strip_line_comment(line: str) -> str:
     m = LINE_COMMENT_RE.search(line)
     return line[: m.start()] if m else line
@@ -176,18 +206,27 @@ def find_violations(
     list[tuple[int, str, str]],
     list[tuple[int, str, str, str]],
     list[tuple[int, str]],
+    list[tuple[int, str, str]],
 ]:
-    """Return (layer_a, layer_b, layer_c) violations.
+    """Return (layer_a, layer_b, layer_c, layer_d) violations.
 
     Layer A: list of (line_no, missing_xr_key, line_text).
     Layer B: list of (line_no, paper_key, label, snippet).
     Layer C: list of (line_no, paper_key) -- bibitem missing hyperref wrap.
+    Layer D: list of (line_no, prefix, file_stem) -- externaldoc without URL.
     """
     text = path.read_text(encoding="utf-8")
     preamble, body, bibliography = split_preamble_body_bibliography(text)
+
+    # Layer D applies to every paper that has cascade-paper externaldocs,
+    # regardless of whether it has a bibliography. Compute it first.
+    layer_d: list[tuple[int, str, str]] = list(
+        cascade_externaldocs_missing_url(preamble)
+    )
+
     cascade_keys = cascade_cite_keys(bibliography)
     if not cascade_keys:
-        return [], [], []
+        return [], [], [], layer_d
     declared = xr_hyper_keys(preamble)
     # body is text[preamble_end:bib_start]; offset within body maps to line
     # number in the original file by adding the preamble length up front.
@@ -274,7 +313,7 @@ def find_violations(
         line_no = offset_to_line(text, bib_offset + rel_offset)
         layer_c.append((line_no, key))
 
-    return layer_a, layer_b, layer_c
+    return layer_a, layer_b, layer_c, layer_d
 
 
 def display_path(path: Path) -> str:
@@ -294,23 +333,26 @@ def main(argv: list[str]) -> int:
     total_a = 0
     total_b = 0
     total_c = 0
+    total_d = 0
     files_with_hits = 0
 
     for paper in papers:
-        layer_a, layer_b, layer_c = find_violations(paper)
+        layer_a, layer_b, layer_c, layer_d = find_violations(paper)
         rel = display_path(paper)
-        if not (layer_a or layer_b or layer_c):
+        if not (layer_a or layer_b or layer_c or layer_d):
             print(f"[OK]   {rel}: no inter-paper references missing xr-hyper")
             continue
         files_with_hits += 1
         total_a += len(layer_a)
         total_b += len(layer_b)
         total_c += len(layer_c)
+        total_d += len(layer_d)
         print(
             f"[FAIL] {rel}: "
             f"{len(layer_a)} bare cite(s) without \\externaldocument, "
             f"{len(layer_b)} prose label(s) without \\ref, "
-            f"{len(layer_c)} bibitem(s) without \\hyperref"
+            f"{len(layer_c)} bibitem(s) without \\hyperref, "
+            f"{len(layer_d)} externaldoc(s) without URL"
         )
         # Layer A: deduplicate by (line, key) for compactness.
         seen_a: set[tuple[int, str]] = set()
@@ -349,12 +391,25 @@ def main(argv: list[str]) -> int:
                 f"    L{line_no}  [C]  \\bibitem{{{key}}} -- "
                 f"missing \\hyperref[{key}:paperdoc]{{...}} wrap"
             )
+        # Layer D: deduplicate by (line, prefix, file_stem).
+        seen_d: set[tuple[int, str, str]] = set()
+        for line_no, prefix, file_stem in layer_d:
+            sig = (line_no, prefix, file_stem)
+            if sig in seen_d:
+                continue
+            seen_d.add(sig)
+            print(
+                f"    L{line_no}  [D]  \\externaldocument[{prefix}:]"
+                f"{{{file_stem}}} -- missing URL argument:"
+            )
+            print(f"           append [{file_stem}.pdf]")
 
-    if total_a or total_b or total_c:
+    if total_a or total_b or total_c or total_d:
         print(
             f"\nFAIL: {total_a} Layer-A bare-cite, "
             f"{total_b} Layer-B prose-label, "
-            f"{total_c} Layer-C bibitem-no-hyperref violations across "
+            f"{total_c} Layer-C bibitem-no-hyperref, "
+            f"{total_d} Layer-D externaldoc-no-URL violations across "
             f"{files_with_hits}/{len(papers)} file(s).",
             file=sys.stderr,
         )
@@ -382,6 +437,16 @@ def main(argv: list[str]) -> int:
         print(
             "    \\bibitem{paperK} ..., \\hyperref[paperK:paperdoc]"
             "{\\emph{Title of paperK}}, ...",
+            file=sys.stderr,
+        )
+        print(
+            "Layer D: every cascade-paper externaldocument needs the URL "
+            "argument so the click resolves cross-PDF:",
+            file=sys.stderr,
+        )
+        print(
+            "    \\externaldocument[paperK:]{cascade-series-X}"
+            "[cascade-series-X.pdf]",
             file=sys.stderr,
         )
         return 1
