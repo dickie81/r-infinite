@@ -35,7 +35,8 @@ CI uses Python 3.12; scripts are also tested locally under pyenv 3.11.9 (`PYENV_
 tools/
 ├── cascade_constants.py    Shared primitives (above)
 ├── requirements.txt        Dependency list
-├── generators/             Emit artefacts consumed by the LaTeX build
+├── build/                  Scripts CI runs to produce the LaTeX build
+├── generators/             Other artefact emitters (committed, not CI-run)
 ├── verifiers/              Verify structural / uniqueness claims in the series
 ├── closures/               Derive specific numerical closures cited in the series
 ├── model_checks/           Numerical model checks and cross-checks
@@ -44,18 +45,32 @@ tools/
 
 ---
 
-## `generators/` — build-time artefact emitters
+## `build/` — CI build pipeline
 
-Scripts in this folder run as part of the LaTeX build (see `.github/workflows/build-latex.yml`) and write files under `src/generated/` that are `\input`-ed by the papers.
+Scripts in this folder are invoked from the LaTeX build workflows (`.github/workflows/build-latex.yml` and `pr-latex-check.yml`). They run in this order on every push and PR:
+
+| Script | Role |
+|---|---|
+| `generate_predictions.py` | Generates `src/generated/predictions-table.tex` from `PREDICTIONS.md` (and the HTML table in `web/index.html`). |
+| `generate_bao_table.py` | Generates `src/generated/bao-table.tex` and `bao-values.tex` from cascade cosmological parameters. |
+| `check_xr_hyper_compliance.py` | Fails the build if any cross-paper `\cite{paperK}` is not wrapped in xr-hyper (`\externaldocument` declaration in the citing paper's preamble; `\ref{paperK:label}` for prose result references). |
+| `check_latex_warnings.py` | Scans `src/build/*.log` after the LaTeX compile for undefined refs/cites, missing characters, overfull boxes, and other regression patterns. Fails the build on any hit. |
+
+These four are the contract: editing them changes what CI enforces. Any other script that needs to run as part of CI should be added here, with the corresponding workflow step.
+
+---
+
+## `generators/` — other artefact emitters
+
+Scripts in this folder write files under `src/generated/` (or `web/`) that are checked into the repository and `\input`-ed by the papers, but are not regenerated on every CI run. Re-run these manually when their inputs change.
 
 | Script | Output | Cited in |
 |---|---|---|
-| `generate_predictions.py` | `src/generated/predictions-table.tex` | cover sheet (parsed from `PREDICTIONS.md`) |
-| `generate_bao_table.py` | `src/generated/bao-table.tex`, `src/generated/bao-values.tex` | Part V §BAO |
 | `cascade_g_eff.py` | `src/generated/cascade_g_eff.json` | Part VI §radiation bath |
 | `tower_growth_simulator.py` | `src/generated/tower_growth/summary.txt`, `src/generated/tower_growth/trace.json` | Part VI §tower growth (Issue #65) |
+| `generate_logo_svg.py` | `web/` SVG assets | project website |
 
-These four scripts must be runnable by CI. Any change here should be validated by a byte-identical diff against the committed `src/generated/` contents (modulo any intentional numerical change).
+If one of these starts being run on every CI build, move it to `build/` and add the corresponding workflow step.
 
 ---
 
@@ -103,9 +118,9 @@ Scripts in `archive/` are retained for traceability but are **not** cited in the
 
 | Script | Superseded by | Notes |
 |---|---|---|
-| `cascade_geometric_rd.py` | `generators/generate_bao_table.py` | Early geometric `r_d` computation |
-| `cascade_geometric_rd_verify.py` | `generators/generate_bao_table.py` | Early verification pass for `r_d` |
-| `desi_bao_recompute.py` | `generators/generate_bao_table.py` | Early DESI BAO recomputation |
+| `cascade_geometric_rd.py` | `build/generate_bao_table.py` | Early geometric `r_d` computation |
+| `cascade_geometric_rd_verify.py` | `build/generate_bao_table.py` | Early verification pass for `r_d` |
+| `desi_bao_recompute.py` | `build/generate_bao_table.py` | Early DESI BAO recomputation |
 | `desi_bao_sensitivity.py` | — | DESI sensitivity study (one-off) |
 | `cascade_weinberg.py` | `verifiers/verify_selection_rule.py` + `closures/` | Early Weinberg-angle closure route |
 | `compute_all_corrections.py` | Individual `closures/` scripts | Monolithic correction computer, split into per-observable scripts |

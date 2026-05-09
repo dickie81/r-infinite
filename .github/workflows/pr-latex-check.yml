@@ -37,11 +37,11 @@ jobs:
 
       - name: Generate computed tables
         run: |
-          python3 tools/generators/generate_predictions.py
-          python3 tools/generators/generate_bao_table.py
+          python3 tools/build/generate_predictions.py
+          python3 tools/build/generate_bao_table.py
 
       - name: Check xr-hyper compliance (no cross-paper \cite)
-        run: python3 tools/verifiers/check_xr_hyper_compliance.py
+        run: python3 tools/build/check_xr_hyper_compliance.py
 
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v4
@@ -50,7 +50,7 @@ jobs:
           root_file: "*.tex"
 
       - name: Check for LaTeX warnings and regressions
-        run: python3 tools/check_latex_warnings.py
+        run: python3 tools/build/check_latex_warnings.py
 
       - name: Upload build logs on failure
         if: failure()

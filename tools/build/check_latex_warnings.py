@@ -19,7 +19,7 @@ import re
 import sys
 from pathlib import Path
 
-LOG_DIR = Path(__file__).resolve().parents[1] / "src" / "build"
+LOG_DIR = Path(__file__).resolve().parents[2] / "src" / "build"
 
 # Patterns that count as a regression.
 PATTERNS: dict[str, re.Pattern[str]] = {
