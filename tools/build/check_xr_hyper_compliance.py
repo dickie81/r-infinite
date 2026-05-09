@@ -15,12 +15,14 @@ Layer B: ``\\texttt{prefix:label}`` within ~200 characters of a
     stays; xr-hyper resolves the target's theorem/section number).
 
 Layer C: ``\\bibitem{paperK}`` for a cascade paper, but the bibitem
-    body has no ``\\href{cascade-series-<X>.pdf}{...}`` wrap on the
-    title. Each cascade-paper bibliography entry must be a clickable
-    cross-PDF link to the target paper. ``xr-hyper`` resolves theorem
-    numbers via the ``.aux`` chain, but does *not* generate a clickable
-    link to the other PDF -- only an explicit ``\\href`` to the target
-    file does that. Without it the bibliography entry is dead text.
+    body has no ``\\href{\\cascadebase/cascade-series-<X>.pdf}{...}``
+    wrap on the title. Each cascade-paper bibliography entry must be a
+    clickable cross-PDF link to the target paper. The href target must
+    be an *absolute* URL (built via the ``\\cascadebase`` macro) so
+    that hyperref emits a ``URI`` PDF action -- the only action type
+    browser PDF viewers will follow. Bare relative file targets like
+    ``cascade-series-X.pdf`` produce ``GoToR`` / ``Launch`` actions
+    that browsers strip for sandboxing, so the click does nothing.
 
 The validator parses each ``src/cascade-series-*.tex`` file:
     1. Extracts the bibliography block and identifies cite keys whose
@@ -68,11 +70,13 @@ EXTERNAL_DOC_RE = re.compile(
     r"(?:\[\s*([A-Za-z0-9_-]+)\s*:?\s*\])?"
     r"\s*\{([^}]+)\}"
 )
-# Cross-PDF href to a sibling cascade paper. xr-hyper alone resolves
-# label numbers but does not produce a clickable cross-PDF link; only an
-# explicit \href{cascade-series-X.pdf}{...} does that.
+# Cross-PDF href to a sibling cascade paper. The URL must be absolute
+# (built via the \cascadebase macro) so hyperref emits a URI action --
+# the only action type browser PDF viewers will follow. A bare relative
+# \href{cascade-series-X.pdf}{...} produces a GoToR / Launch action
+# that browsers strip, so the click does nothing.
 HREF_CASCADE_PDF_RE = re.compile(
-    r"\\href\{cascade-series-[A-Za-z0-9_-]+\.pdf\}"
+    r"\\href\{\\cascadebase/cascade-series-[A-Za-z0-9_-]+\.pdf\}"
 )
 # Cascade-style label: a typewritten string with a prefix:suffix shape and a
 # prefix that matches the conventions used across the series.
@@ -155,7 +159,7 @@ def cascade_bibitems_missing_href(
     cross-PDF href.
 
     Each cascade-paper ``\\bibitem{paperK}`` body must contain a
-    ``\\href{cascade-series-<X>.pdf}{...}`` wrap so the bibliography
+    ``\\href{\\cascadebase/cascade-series-<X>.pdf}{...}`` wrap so the bibliography
     entry is a clickable cross-PDF link to the target paper.
     """
     if not bibliography:
@@ -356,7 +360,7 @@ def main(argv: list[str]) -> int:
             seen_c.add(sig)
             print(
                 f"    L{line_no}  [C]  \\bibitem{{{key}}} -- "
-                f"missing \\href{{cascade-series-<X>.pdf}}{{...}} wrap"
+                f"missing \\href{{\\cascadebase/cascade-series-<X>.pdf}}{{...}} wrap"
             )
 
     if total_a or total_b or total_c:
@@ -389,7 +393,7 @@ def main(argv: list[str]) -> int:
             file=sys.stderr,
         )
         print(
-            "    \\bibitem{paperK} ..., \\href{cascade-series-<X>.pdf}"
+            "    \\bibitem{paperK} ..., \\href{\\cascadebase/cascade-series-<X>.pdf}"
             "{\\textit{Title of paperK}}, ...",
             file=sys.stderr,
         )
