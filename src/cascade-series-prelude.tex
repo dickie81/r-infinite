@@ -3,13 +3,10 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text with PDF-annotation underline, no box.
+% External links (\href): blue text, no box.
 % Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborderstyle={/S/U/W 1} puts the underline in the link annotation,
-% so it renders correctly in browser PDF viewers and survives line wraps
-% (unlike text-level \underline / \uline which choke on inline math).
 \let\OldHref\href
-\renewcommand{\href}[2]{\OldHref[pdfborderstyle={/S/U/W 1}, pdfborder={0 0 1}]{#1}{\textcolor{blue}{#2}}}
+\renewcommand{\href}[2]{\OldHref[pdfborder={0 0 0}]{#1}{\textcolor{blue}{#2}}}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \geometry{margin=2.5cm}
