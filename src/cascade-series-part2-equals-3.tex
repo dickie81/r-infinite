@@ -6,6 +6,16 @@
 \usepackage{booktabs}
 \usepackage{array}
 
+% xr-hyper cross-paper references (must follow hyperref).
+\usepackage{xr-hyper}
+\externaldocument[paper0:]{cascade-series-part0}
+\externaldocument[paper1:]{cascade-series-part1}
+\externaldocument[paper2:]{cascade-series-part2}
+\externaldocument[paper3:]{cascade-series-part3}
+\externaldocument[paper4a:]{cascade-series-part4a}
+\externaldocument[paper4b:]{cascade-series-part4b}
+\externaldocument[paper6:]{cascade-series-part6}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -222,7 +232,7 @@ Theorem~\ref{thm:propagator} establishes that the cascade propagator
 $K(t) = |K|\,e^{-iHt}$ is simultaneously the unitary time-evolution
 operator of QM and the source of Lorentzian signature. Applied to the
 cascade Hilbert space's spinor-representation content
-(Paper~III~\cite{paper3}, Lemma~\texttt{lem:cascade-spinor-id}), the
+(Paper~III~\cite{paper3}, Lemma~\ref{paper3:lem:cascade-spinor-id}), the
 same propagator structure forces a third standard physics result: the
 Dirac equation on the chirality bundle in $4$D. The argument runs
 along the same template as Theorem~\ref{thm:double}---a standard
@@ -243,7 +253,7 @@ cascade Clifford algebra $\mathrm{Cl}(1,3)$
 (Paper~III~\cite{paper3}, \S\,Clifford classification); the
 per-source mass $m_f = R(d_f)/\chi$ from the cascade Berezin
 partition with chirality halving at the fermion's Dirac source layer
-$d_f$ (Paper~IVb~\cite{paper4b}, Theorem~\texttt{thm:obstruction});
+$d_f$ (Paper~IVb~\cite{paper4b}, Theorem~\ref{paper4b:thm:obstruction});
 the charge $e = \sqrt{\alpha(14)}$ from the cascade U(1) gauge
 structure at the gauge-window boundary $d_g = 14$
 (Paper~IVa~\cite{paper4a}); and the gauge field $A_\mu$ from the
@@ -254,8 +264,8 @@ cascade U(1) descent to $4$D.
 Four cascade inputs combine via Wigner-type classification.
 
 \emph{Step~1 (cascade Hilbert space is the spinor representation).}
-By Paper~III's Lemma~\texttt{lem:cascade-spinor-id} together with
-Theorem~\texttt{thm:d4}, the cascade Hilbert space $\mathcal{H}$ at
+By Paper~III's Lemma~\ref{paper3:lem:cascade-spinor-id} together with
+Theorem~\ref{paper3:thm:d4}, the cascade Hilbert space $\mathcal{H}$ at
 the $4$D observer's frame is identified with the irreducibly-complex
 minimal spinor representation of $\mathrm{Spin}(1,3)$, equivalently
 the $4$-component complex Dirac spinor representation. The chirality
@@ -286,7 +296,7 @@ form $(i\gamma^\mu\partial_\mu - m_f)\psi = 0$ for some mass scalar
 $m_f$.
 
 \emph{Step~4 (cascade-derived mass and gauge coupling).} By
-Paper~IVb's Theorem~\texttt{thm:obstruction} and the Berezin partition
+Paper~IVb's Theorem~\ref{paper4b:thm:obstruction} and the Berezin partition
 derivation, the cascade fermion at Dirac source layer $d_f$
 ($d_f \bmod 8 = 5$) carries mass $m_f = R(d_f)/\chi$, with the mass
 operator off-diagonal on the chirality decomposition
@@ -308,7 +318,7 @@ all ingredients cascade-derived.
 Under the cascade structure at $d=4$ (foliation by cross-sections at
 height $x \in [-1,1]$ per Paper~III~\cite{paper3}~\S4.1; spinor
 representation of $\mathrm{Spin}(1,3)$ on the cascade Hilbert space
-per Lemma~\texttt{lem:cascade-spinor-id}), the cascade fermion field
+per Lemma~\ref{paper3:lem:cascade-spinor-id}), the cascade fermion field
 is a section
 \[
 \psi : M_4 \to \mathcal{S}, \qquad
@@ -342,7 +352,7 @@ $ds^2_{4\mathrm{D}} = -dt^2 + (1-t^2)\,d\sigma_3^2$ via the Wick
 rotation $x = it$ of Paper~III~\S10. Call this Lorentzian manifold
 $M_4$.
 
-By Lemma~\texttt{lem:cascade-spinor-id}, the cascade Hilbert space
+By Lemma~\ref{paper3:lem:cascade-spinor-id}, the cascade Hilbert space
 at $d=4$ is the irreducibly-complex minimal spinor representation
 $\mathcal{H}$ of $\mathrm{Spin}(1,3)$. The local
 $\mathrm{Spin}(1,3)$ action on $M_4$'s tangent frame at each point
@@ -391,7 +401,7 @@ design).
 \begin{lemma}[Berezin mass equals Hamiltonian $\beta$-mass]\label{lem:berezin-equals-beta-mass}
 The cascade fermion mass term derived from the Berezin partition
 (Paper~IVb~\cite{paper4b},
-Remark~\texttt{rem:berezin-partition-derivation}) equals the
+Remark~\ref{paper4b:rem:berezin-partition-derivation}) equals the
 Hamiltonian-form $\beta$-mass term in the cascade Dirac equation
 of Theorem~\ref{thm:cascade-dirac-descent}. Both act as the
 off-diagonal chirality-mixing operator on
@@ -401,7 +411,7 @@ $m_f = R(d_f)/\chi$.
 
 \begin{proof}
 The Berezin fermion action is $S_f = m_f\,\bar\psi\psi$
-(Paper~IVb~\cite{paper4b}, Section~\texttt{sec:fermion-action}, with
+(Paper~IVb~\cite{paper4b}, Section~\ref{paper4b:sec:fermion-action}, with
 $\bar\psi = \psi^\dagger\gamma^0$). On the chirality basis
 $\psi = (\psi_+, \psi_-)^T$ in the chiral representation
 ($\gamma^0$ in $2\times 2$ block form
@@ -428,7 +438,7 @@ both equal $\gamma^0\cdot m_f$ acting on
 $\mathcal{H} = S^+ \oplus S^-$. The chirality halving
 $m = R/\chi$ derived from Poincar\'e--Hopf
 (Paper~IVb~\cite{paper4b},
-Theorem~\texttt{thm:obstruction}) and the Hamiltonian-form Dirac
+Theorem~\ref{paper4b:thm:obstruction}) and the Hamiltonian-form Dirac
 mass agree both in cascade value and in operator action on the
 chirality decomposition.
 \end{proof}
@@ -455,7 +465,7 @@ Wigner's argument has two distinct contents:
 first-order time evolution from the cascade propagator
 (Theorem~\ref{thm:propagator}, $i\partial_t\psi = H\psi$) and
 Lorentz covariance on the spinor representation
-(Lemma~\texttt{lem:cascade-spinor-id}), the spatial derivatives
+(Lemma~\ref{paper3:lem:cascade-spinor-id}), the spatial derivatives
 must also be first-order: under a boost, $\partial_t$ mixes with
 $\partial_i$, so a second-order spatial operator would, in the
 boosted frame, produce second-order time derivatives that the
@@ -494,9 +504,9 @@ argument remains load-bearing as a standard mathematical theorem
 applied to cascade-derived inputs (cascade propagator's
 first-order time form per Theorem~\ref{thm:propagator}; Lorentz
 covariance on the cascade Hilbert space per
-Lemma~\texttt{lem:cascade-spinor-id}). This is the same posture
+Lemma~\ref{paper3:lem:cascade-spinor-id}). This is the same posture
 as Schur's lemma in Paper~III's
-Lemma~\texttt{lem:cascade-spinor-id}, Gleason's theorem in
+Lemma~\ref{paper3:lem:cascade-spinor-id}, Gleason's theorem in
 Theorem~\ref{thm:double}, and Lovelock's theorem in
 Theorem~\ref{thm:double}: standard mathematical uniqueness
 theorems applied to cascade-derived inputs. Wigner's
@@ -513,7 +523,7 @@ distinct within-moment geometric directions:
 \item \emph{Cross-layer (tower depth) direction}: the layer index
 $d \in \{4, 5, \ldots, N(t)\}$, indexing the within-moment tower
 of dimensions above the observer (Paper~VI~\cite{paper6},
-Definition~\texttt{def:tower-time}).
+Definition~\ref{paper6:def:tower-time}).
 \item \emph{Within-layer ($4$D coordinates) direction}: the
 spacetime coordinates $x^\mu$ on $M_4$, the foliated $4$D
 Lorentzian manifold at the observer's layer (Paper~III~\S4 +
@@ -523,7 +533,7 @@ The cascade's within-moment action splits accordingly:
 \begin{itemize}[nosep]
 \item \emph{Tower-action}: $S_{\text{tower}}[\varphi] =
 \sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$
-(Paper~IVb~\cite{paper4b}, Remark~\texttt{rem:action-uniqueness}),
+(Paper~IVb~\cite{paper4b}, Remark~\ref{paper4b:rem:action-uniqueness}),
 acting on the cascade tower-scalar $\varphi(d) = \ln\Omega_d$.
 \item \emph{$4$D-projected action}: $S_{4\mathrm{D}}[\Phi] =
 \int_{M_4} |\partial_\mu\Phi|^2\,d^4x$ (standard Lorentz-covariant
@@ -540,12 +550,12 @@ design, not two readings of a single underlying action functional.
 \begin{proof}
 The cascade tower-scalar $\varphi(d) = \ln\Omega_d$ is a function
 only of the layer index $d$
-(Paper~IVb~\cite{paper4b}, Remark~\texttt{rem:action-uniqueness}).
+(Paper~IVb~\cite{paper4b}, Remark~\ref{paper4b:rem:action-uniqueness}).
 The tower-action sums layer-difference kinetic
 $(\Delta\varphi(d))^2$ across the within-moment tower from
 $d = 4$ to $d = N(t)$, normalized by $(2\alpha(d))^{-1}$ from
 lattice covariance (Paper~IVb~\cite{paper4b},
-Remark~\texttt{rem:marginal-greens}).
+Remark~\ref{paper4b:rem:marginal-greens}).
 
 The $4$D-projected action acts on fields
 $\Phi : M_4 \to \mathbb{R}$ (or higher-spin analogs;
@@ -596,7 +606,7 @@ Lemma~\ref{lem:within-moment-action-decomposition}); the
 within-moment $4$D action governs within-layer kinetics
 (direction~(ii)); the between-moments tower-growth operator
 $A$ (Paper~VI~\cite{paper6},
-Proposition~\texttt{prop:time-evolution}) governs the genuine
+Proposition~\ref{paper6:prop:time-evolution}) governs the genuine
 cosmic-time dynamics by adding layers at the top of the tower.
 
 This is the cascade's complete within-moment + between-moments
@@ -604,7 +614,7 @@ action architecture. Each piece governs a structurally distinct
 cascade direction; none unifies into a single functional, but
 each is independently derivable from cascade primitives. The
 tower-action is derived in Paper~IVb~\cite{paper4b}'s
-Remark~\texttt{rem:action-uniqueness} from lattice covariance;
+Remark~\ref{paper4b:rem:action-uniqueness} from lattice covariance;
 the $4$D-projected action follows from standard Lorentz
 covariance on the cascade-derived $M_4$
 (Paper~III~\S4); the between-moments tower-growth $A$ is
@@ -623,7 +633,7 @@ QM/GR consistency). The cascade contribution is to provide the
 inputs; the standard mathematical theorem is invoked, not
 re-derived---the same posture Paper~III adopts when invoking
 Schur~$+$~Clifford classification in
-Lemma~\texttt{lem:cascade-spinor-id}, and the same posture
+Lemma~\ref{paper3:lem:cascade-spinor-id}, and the same posture
 Theorem~\ref{thm:double} adopts when invoking Gleason and Lovelock.
 Presentation gaps in Steps~3 and~4 are addressed by
 Lemma~\ref{lem:4d-fermion-projection},
@@ -919,11 +929,11 @@ At $d = 4$: $S = A/4$.
 Three steps.
 
 \emph{Step 1 (derived, unit ball).} Boundary dominance
-(Paper~0, Theorem~3.1~\cite{paper0}, \texttt{thm:boundary}):
+(Paper~0, Theorem~3.1~\cite{paper0}, \ref{paper0:thm:boundary}):
 $\Omega_{d-1}/V_d = d$, hence $V_d = \Omega_{d-1}/d$.
 
 \emph{Step 2 (derived, cascade-content primitive).} By Paper~0,
-Corollary~3.2 (\texttt{cor:primary}), sphere area is the unique independent
+Corollary~3.2 (\ref{paper0:cor:primary}), sphere area is the unique independent
 cascade quantity: content~$\equiv$~area, and every volume is a derived
 quantity. The unit-ball identity therefore reads
 ``content inside a unit sphere of area $\Omega_{d-1}$ is $\Omega_{d-1}/d$.''
@@ -959,7 +969,7 @@ derivation statuses:
 $V_d = \Omega_{d-1}/d$ (Paper~0, Theorem~3.1~\cite{paper0}). A Gamma-function
 identity; no assumption.
 \item \emph{Derived as a cascade primitive.} Content~$\equiv$~area and
-volumes are derived: Paper~0, Corollary~3.2 (\texttt{cor:primary}).
+volumes are derived: Paper~0, Corollary~3.2 (\ref{paper0:cor:primary}).
 No assumption beyond the cascade's definition of independent quantities.
 \item \emph{Asserted, pending a cascade-action derivation.} That the
 content--area map is linear in $A$ with slope $1/d$ for \emph{any} cascade
@@ -984,7 +994,7 @@ principle as input.
 
 \subsection{Content is geometry}
 
-Corollary~3.2 of Paper~0 (\texttt{cor:primary}): sphere area is the only
+Corollary~3.2 of Paper~0 (\ref{paper0:cor:primary}): sphere area is the only
 independent cascade quantity. Content IS geometry. One unit of sphere area
 is one unit of cascade content. A horizon of area $A$ hides $A/4$ units of
 geometric content. The question ``how many microstates?'' is
