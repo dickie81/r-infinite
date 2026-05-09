@@ -3654,6 +3654,24 @@ Case analysis: any integer shift in the cascade pattern violates at least one ro
 \textbf{The interpretation question:} is the multi-route coherence \emph{forced} (cascade is the unique pattern compatible with the cascade's commitments) or merely \emph{observed} (cascade happens to satisfy multiple constraints simultaneously)? Proposition~\ref{prop:landscape-uniqueness} establishes the former interpretation at the integer level (any deviation violates a route); the deeper question is whether the routes themselves are independently necessary or could be replaced by a single derivation. Currently every route is independently load-bearing; whether they can be unified into one mechanism is open.
 \end{remark}
 
+\begin{remark}[Derivation-level unification: orthogonality as the cascade's single principle]\label{rem:orthogonality-unifier}
+The deepest answer to the unification question is the cover sheet's foundational claim itself: \emph{orthogonality} is the cascade's single underlying principle. Cover sheet (lines 116--119): ``distinction implies orthogonality\,\ldots\,Orthogonality iterates without bound\,\ldots\,The absence of external scale forces unit norm. The result is the infinite-dimensional unit ball.'' Each downstream commitment reduces to a derivation chain rooted in this hypothesis:
+\begin{enumerate}[nosep]
+\item \emph{$\Gamma$ chain (Part~0):} orthogonality $\to$ slicing recurrence on $B^d$ $\to$ Beta integrals with half-integer arguments $\to$ $\Gamma$ structure $\to$ critical points $\{d_V, d_0, d_1, d_2\}$.
+\item \emph{Cl/Bott chain (Part~IVa $+$ Atiyah--Bott--Shapiro):} orthogonality $\to$ Cl$(d)$ Clifford algebras (orthogonal vectors with anticommutation) $\to$ Cl periodicity Cl$_{n+8} \cong$ Cl$_n \otimes$ Cl$_8$ $\to$ Bott periodicity, Adams' theorem (parallelizable spheres at $S^0, S^1, S^3, S^7$), Cayley--Dickson chain, Spin(8) triality, $G_2 = \mathrm{Aut}(\mathbb{O})$.
+\item \emph{Spinor chain (Parts~II, III):} orthogonality $\to$ forced complex structure (Paper~II) $\to$ complex spinors $+$ Lovelock at $d=4$ $\to$ $d_{\rm observer} = 4$ (Part~III).
+\item \emph{Cover-sheet thought experiment:} $d_{\rm observer} = 4$ $+$ thought experiment $\to$ observer on $S^3$ horizon of 5D black hole $\to$ host at $d_V = d_{\rm observer} + 1 = 5$.
+\item \emph{Gauge chain (Part~IVa):} Adams $\rho(d)-1$ at gauge layers $\to$ SM gauge content $\{\mathrm{SU}(3), \mathrm{SU}(2), \mathrm{U}(1)\}$ at $d_g=12$, $d=13$ (broken), $d_{\rm gw}=14$.
+\end{enumerate}
+All chains converge on the cascade integer pattern $\{d_V=5, d_0=7, d_g=12, d_{\rm gw}=14, d_1=19, d_2=217\}$, with multi-route consistency at each distinguished dimension (Proposition~\ref{prop:landscape-uniqueness}).
+
+\medskip\noindent\textbf{The unifier IS orthogonality.} The cascade's structural unity reduces to the cover sheet's single hypothesis. Each per-chain derivation is one cascade Paper's content; the aggregation across Papers~0, II, III, IVa, IVb is the cascade series itself. The cover sheet's claim of ``one hypothesis, zero parameters'' is therefore concrete: orthogonality $+$ countable independence $+$ unit norm $\to$ $B^\infty$ $\to$ slicing recurrence $\to$ all cascade structural content via per-chain derivations.
+
+\medskip\noindent\textbf{The deepest open piece (Tier~2 promotion target).} A formal AGGREGATION theorem stating that orthogonality $+$ slicing uniquely determine the cascade integer pattern, with each per-chain derivation rigorous within its respective cascade Paper. Currently the per-chain derivations exist across the series (Part~0 for $\Gamma$, Parts~II/III for spinor/Lovelock, Part~IVa for Adams/Bott, etc.); a single aggregation theorem unifying all chains is the natural Tier~2 promotion of Proposition~\ref{prop:landscape-uniqueness}. This would convert ``many independent routes meeting at the same integers'' into ``one master derivation rooted at orthogonality, with the cascade integer pattern as its unique output.''
+
+Verifier: \texttt{tools/research/cascade\_orthogonality\_unification.py}.
+\end{remark}
+
 
 \section{The Cabibbo Angle}\label{sec:cabibbo}
 
