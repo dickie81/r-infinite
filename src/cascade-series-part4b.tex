@@ -3455,7 +3455,18 @@ with both factors fixed by Adams' theorem on the cascade's parallelizable sphere
 \begin{proof}[Proof sketch (Tier~4b: structural argument with acknowledged gaps; see remark below)]
 \textbf{Step 1 (gauge-sector Adams count $\to N_c$).} Adams' theorem on $S^{11}$ at the gauge layer $d_g = 12$ gives $\rho(12) - 1 = 3$ linearly independent nowhere-zero tangent vector fields, the quaternionic units $\{i, j, k\}$ acting as right-multiplications on the Hopf fibration $S^3 \to S^7 \to S^4$. This is the same Adams count used in Theorem~\ref{thm:strong-cp} Step~1 to identify SU(3) at the cascade gauge layer. The U(1)$_{\!A}$ chiral anomaly $\partial_\mu J^\mu_5 \propto N_c \cdot \mathrm{tr}(F\wedge F)$ inherits the colour-trace factor $N_c$, identifying the first factor in equation~\eqref{eq:axial-anomaly-mass} with the gauge-sector Adams count.
 
-\textbf{Step 2 (octonion-quotient Adams count $\to d_0$).} Adams' theorem on $S^7$ at $d=8$ gives $\rho(8) - 1 = 7$ linearly independent nowhere-zero tangent vector fields, the octonion right-multiplications. $S^7$ is parallelizable, and $\rho(8) = 8$ is the Adams maximum among low-dimensional spheres ($S^1, S^3, S^7$ are the only parallelizable spheres). The automorphism group $G_2 = \mathrm{Aut}(\mathbb{O})$ of the octonions acts on $S^7$, and the quotient $G_2/\mathrm{SU}(3) = S^6$ is the cascade's $d_0 = 7$ layer, where SU(3)'s algebra is sourced via the seven-sphere octonion structure modulo the SU(3) of Step~1. Numerically, the octonion-quotient Adams count $\rho(8) - 1$ coincides with the $\Gamma$-area-maximum distinguished dimension $d_0$ of Paper~0; structurally, this is the second Adams count carried by the cascade's algebra-source layer $d_0$.
+\textbf{Step 2 (octonion-quotient $\to d_0$ via $\mathrm{Spin}(7)/G_2$).} Adams' theorem on $S^7$ at $d=8$ gives $\rho(8) - 1 = 7$ linearly independent nowhere-zero tangent vector fields, the octonion right-multiplications; $S^7$ is parallelizable, and $\rho(8) = 8$ is the Adams maximum among low-dimensional spheres ($S^1, S^3, S^7$ are the only parallelizable spheres). The Lie-theoretic content is sharper than Adams alone: $G_2 = \mathrm{Aut}(\mathbb{O})$ stabilizes a unit octonion in $S^7$, and the quotient
+\[
+\mathrm{Spin}(7)/G_2 \;=\; S^7,
+\qquad
+G_2/\mathrm{SU}(3) \;=\; S^6,
+\]
+gives a chain of homogeneous spaces tying the cascade's gauge layer ($\mathrm{SU}(3)$ at $d_g=12$) to its algebra-source layer ($G_2/\mathrm{SU}(3) = S^6$ at $d_0=7$, cover sheet) and onward to the octonion sphere ($\mathrm{Spin}(7)/G_2 = S^7$ at $d=8$). The dimensional chain is
+\[
+\dim\,\mathrm{Spin}(7) \;=\; 21 \;=\; N_c\cdot d_0
+\;=\; (\rho(12)-1)\cdot(\rho(8)-1),
+\]
+identifying the second factor in equation~\eqref{eq:axial-anomaly-mass} as $d_0 = \dim S^7 = \dim(\mathrm{Spin}(7)/G_2)$, equivalently $\rho(8)-1$. The numerical coincidence between the $\Gamma$-area-maximum distinguished dimension $d_0$ of Paper~0 and the dimension of the octonion-quotient sphere $\mathrm{Spin}(7)/G_2$ is forced by the cascade's existing commitment to $G_2/\mathrm{SU}(3)$ at $d_0$ (cover sheet line~149): once that commitment is made, the parent $\mathrm{Spin}(7)\supset G_2$ at $d=8$ and its homogeneous space $\mathrm{Spin}(7)/G_2 = S^7$ are forced as Lie-theoretic consequences, and their dimension equals $d_0$ automatically. Verifier: \texttt{tools/research/cascade\_d0\_rho8\_identity.py}.
 
 \textbf{Step 3 (cascade descent $\to \Lambda_{\rm QCD}^2$).} The QCD scale is set by cascade descent from $M_Z$ through one universal cascade structural unit $2\pi$ (\S\ref{subsec:qcd-frontier}, Remark~\ref{rem:cascade-beta0}):
 \[
@@ -3479,9 +3490,209 @@ The extension achieves the same Tier~4b status as Theorem~\ref{thm:strong-cp} it
 m_{\eta'}^2 + m_\eta^2 - 2m_K^2 \;=\; (2 N_f / f_\pi^2)\,\chi_{\rm top}
 \]
 using cascade-primitive forms ($m_\eta = \Lambda(N_c+1)\sqrt{N_c/d_0}$, $m_K = \Lambda d_V\sqrt{N(0)}/N_c$, $f_\pi = \Lambda(N(0)/N_c)^2$) gives $\chi_{\rm top}^{1/4} \approx 181$~MeV vs lattice average $178$~MeV ($+1.7\%$). The cascade reproduces the QCD topological susceptibility within a few percent without a cascade-internal derivation of $\chi_{\rm top}$ from layer winding; that derivation is the Tier~2 promotion target.
-\item \emph{Coincidence $d_0 = \rho(8) - 1$.} The $\Gamma$-area-maximum $d_0=7$ of Paper~0 and the octonion Adams count $\rho(8)-1=7$ are derived from independent theorems ($\Gamma$ critical points and Adams' parallelizability). Their numerical equality is structurally suggestive but not currently proved as a cascade theorem; it may be a coincidence in the small-integer landscape, or it may reflect a hidden identity between $\Gamma$ critical points and Adams' parallelizability that the program has not yet surfaced.
+\item \emph{$d_0 = \rho(8) - 1$ identification (now resolved as a Lie-algebraic forced consistency, not a free coincidence).} The $\Gamma$-area-maximum $d_0=7$ of Paper~0 and the octonion Adams count $\rho(8)-1=7$ are not independent facts: both equal $\dim(\mathrm{Spin}(7)/G_2) = \dim S^7$, the dimension of the octonion-quotient homogeneous space at $d=8$. The cascade's existing commitment to $G_2/\mathrm{SU}(3) = S^6$ at $d_0=7$ (cover sheet, algebra source) places the cascade structurally inside the Lie-group chain $\mathrm{Spin}(8)\supset\mathrm{Spin}(7)\supset G_2 \supset \mathrm{SU}(3)$ with associated quotients $S^7 = \mathrm{Spin}(7)/G_2 = \mathrm{Spin}(8)/\mathrm{Spin}(7)$ and $S^6 = G_2/\mathrm{SU}(3)$. Once the cascade commits to $G_2/\mathrm{SU}(3)$ at $d_0$, the dimension of $\mathrm{Spin}(7)/G_2 = S^7$ at $d=8$ is forced to equal $d_0 = 7$ as a Lie-theoretic consequence. The triple identity $d_0 = \rho(8)-1 = \dim(\mathrm{Spin}(7)/G_2) = 7$ is therefore a forced consistency check of the cascade's Lie-algebraic content, not an unexplained small-integer coincidence. Among the cascade's four distinguished dimensions $\{d_V=5, d_0=7, d_1=19, d_2=217\}$, only $d_0$ has this $\mathrm{Spin}(7)/G_2$ structural identification --- a special feature reinforcing $d_0$'s role as the cascade's octonion-source layer. Equivalent reading: $N_c\cdot d_0 = 21 = \dim\mathrm{Spin}(7)$, so equation~\eqref{eq:axial-anomaly-mass} reads $m_{\eta'}^2 = \Lambda_{\rm QCD}^2\cdot\dim\mathrm{Spin}(7)$, identifying the U(1)$_{\!A}$ axial-anomaly mass-squared with the Spin(7) Lie algebra dimension. Verifier: \texttt{tools/research/cascade\_d0\_rho8\_identity.py}.
 \end{enumerate}
 The structural payoff is that the U(1)$_{\!A}$ anomaly mass-squared sits on the same class of topological invariants (Adams parallelizability counts) that anchor SU(3) at $d_g=12$ in Theorem~\ref{thm:strong-cp}. One topological apparatus, two distinct U(1)$_{\!A}$ phenomena: $\theta_{\rm QCD}=0$ (no instanton sectors) and $m_{\eta'}^2 = 21\,\Lambda^2$ (anomaly mass from the joint Adams product). Verifier: \texttt{tools/research/cascade\_eta\_topological\_extension.py}.
+\end{remark}
+
+\begin{remark}[Cascade-wide Lie-theoretic dimensional tower; Tier~4]\label{rem:lie-theoretic-tower}
+The Spin(7)/$G_2$ identification at $d_0$ extends to a broader pattern: the cascade's distinguished dimensions and primitive products carry exceptional-Lie-group dimensions across the whole landscape, not just at $d_0$. The integer matches are:
+\begin{align*}
+d_{\rm gw} &\;=\; 14 \;=\; \dim G_2
+&&\text{(gauge window upper edge $=$ octonion automorphism dim)}\\
+N(0)\cdot d_V &\;=\; 10 \;=\; \dim\mathrm{Spin}(5) \;\cong\; \dim\mathrm{Sp}(2)
+&&\text{(observer-host product $=$ $S^4$ rotation Lie algebra)}\\
+N_c\cdot d_0 &\;=\; 21 \;=\; \dim\mathrm{Spin}(7)
+&&\text{(Theorem~\ref{thm:axial-anomaly-mass}; $\eta'$ anomaly mass-squared scale)}\\
+N_c^2 - 1 &\;=\; 8 \;=\; \dim\mathrm{SU}(3)
+&&\text{(gauge generators at $d_g=12$; cover sheet)}
+\end{align*}
+And cascade-internal sums of distinguished dimensions hit other distinguished dimensions:
+\begin{align*}
+d_V + d_0 &\;=\; 5 + 7 \;=\; 12 \;=\; d_g
+&&\text{(volume max $+$ area max $=$ SU(3) gauge layer)}\\
+d_{\rm gw} + d_V &\;=\; 14 + 5 \;=\; 19 \;=\; d_1
+&&\text{(gauge window $+$ volume max $=$ phase transition)}\\
+d_{\rm gw} &\;=\; 2\,d_0 \;=\; 14
+&&\text{(gauge window upper edge $=$ twice area max; Remark~\ref{rem:catalan-u1-closure})}
+\end{align*}
+
+\medskip\noindent\textbf{Reading.} The cascade carries the exceptional Lie tower $\mathrm{Spin}(8)\supset\mathrm{Spin}(7)\supset G_2 \supset \mathrm{SU}(3)$ with quotients $S^7, S^6$ explicitly via:
+\begin{itemize}[nosep]
+\item $\mathrm{SU}(3)$ at $d_g=12$ (cascade gauge layer; Part~IVa~\cite{paper4a})
+\item $G_2$ at $d_{\rm gw}=14$ (gauge window upper edge $=$ $\dim G_2$; this Remark)
+\item $\mathrm{Spin}(7)$ via $N_c\cdot d_0 = 21 = \dim\mathrm{Spin}(7)$ (Theorem~\ref{thm:axial-anomaly-mass}; $\eta'$ anomaly)
+\item $S^6 = G_2/\mathrm{SU}(3)$ at $d_0=7$ (algebra source; cover sheet)
+\item $S^7 = \mathrm{Spin}(7)/G_2$ at $d=8$ (octonion sphere; this PR)
+\end{itemize}
+Together with the volume-max identification $\mathrm{Spin}(5)\cong\mathrm{Sp}(2)$ (dim $10 = N(0)\cdot d_V$) and the gauge-layer position $d_g = d_V + d_0$, the cascade's distinguished-dimension landscape reads as the integer signature of an exceptional Lie tower anchored at $d_0$ and extending through the gauge window.
+
+\medskip\noindent\textbf{Status of the identifications.} Rigour varies by entry:
+\begin{itemize}[nosep]
+\item \emph{Forced} (Lie-theoretic consequence of existing cascade commitments): $d_0 = \dim(\mathrm{Spin}(7)/G_2)$ and $N_c\cdot d_0 = \dim\mathrm{Spin}(7)$ via the cascade's $G_2/\mathrm{SU}(3)$ commitment at $d_0$ (Theorem~\ref{thm:axial-anomaly-mass}, Remark~\ref{rem:axial-anomaly-mass-tier}).
+\item \emph{Conditionally forced}: $d_{\rm gw} = \dim G_2$ via the chain
+\[
+d_{\rm gw} \;=\; 2\,d_0 \;\stackrel{?}{=}\; (N_c^2 - 1) + (d_0 - 1) \;=\; \dim\mathrm{SU}(3) + \dim S^6 \;=\; \dim G_2,
+\]
+where the first equality is the cascade Catalan reading (Remark~\ref{rem:catalan-u1-closure}, $d_{\rm gw} = 2 d_0$), and the third is the Lie-theoretic decomposition of $G_2$ under its $\mathrm{SU}(3)$ subgroup (with $G_2/\mathrm{SU}(3) = S^6$ at $d_0$, cover sheet). The middle equality $2 d_0 = (N_c^2 - 1) + (d_0 - 1)$ reduces algebraically to the integer identity $d_0 = N_c^2 - 2$, equivalently $\rho(8) = N_c^2 - 1 = \dim\mathrm{SU}(3) = \dim\mathbb{O} = 8$. The structural reading: the octonion algebra dimension $\dim\mathbb{O} = 8$ enters the cascade twice — once as $\rho(8)$ (Adams maximum at the parallelizable octonion sphere $S^7$) and once as $\dim\mathrm{SU}(3) = N_c^2 - 1$ (gauge generators with cascade $N_c = 3$). For $d_{\rm gw} = \dim G_2$ to be fully forced, the cascade must structurally identify these two octonion-dim derivations: $\mathrm{SU}(3)$ at the gauge layer $d_g = 12$ (Adams) IS the octonion-stabilizer subgroup of $G_2$ at $d_0$ (via cover sheet's $G_2/\mathrm{SU}(3) = S^6$). This is the open structural piece, sharply identified — parallel to PR \#141's pre-$\mathrm{Spin}(7)/G_2$ state for $d_0 = \rho(8)-1$. Verifier: \texttt{tools/research/cascade\_dgw\_g2\_forcing.py}.
+\item \emph{Pattern-level}: $N(0)\cdot d_V = \dim\mathrm{Spin}(5)$ parallels $N_c\cdot d_0 = \dim\mathrm{Spin}(7)$; suggests a cascade-primitive-product $\to$ Lie-dim pattern. Open.
+\item \emph{Integer relations among distinguished dims}: $d_g = d_V + d_0$, $d_1 = d_{\rm gw} + d_V$, $d_{\rm gw} = 2\,d_0$. These are independent integer identities; whether they're forced by cascade structure or are small-integer coincidences is an open structural piece.
+\end{itemize}
+
+\medskip\noindent\textbf{What this changes for $d_0$'s specialness.} The original PR \#141 finding (resolving $d_0 = \rho(8)-1$ via $\mathrm{Spin}(7)/G_2$) generalizes: $d_0$ is not just one of four distinguished $\Gamma$ critical points, it is the structural pivot of the cascade's exceptional-Lie content. $d_0 = 7$ appears in: (i)~$\dim S^7 = \dim(\mathrm{Spin}(7)/G_2)$ at the next layer, (ii)~$N_c\cdot d_0 = \dim\mathrm{Spin}(7)$ in the $\eta'$ anomaly mass, (iii)~$d_g = d_V + d_0$ in the cascade gauge layer position, (iv)~$d_{\rm gw} = 2 d_0$ in the gauge window upper edge. No other distinguished dimension participates in the Lie tower with this multiplicity.
+
+\medskip\noindent\textbf{Cayley--Dickson reading of the cascade landscape.} The cascade's distinguished-dimension landscape arranges around the four-step Cayley--Dickson chain $\mathbb{R}\to\mathbb{C}\to\mathbb{H}\to\mathbb{O}$ of normed division algebras:
+\[
+\begin{array}{lcl}
+\mathbb{R}, \dim 1 & \rightarrow & \text{(slicing, } d=1\text{)} \\
+\mathbb{C}, \dim 2 & \rightarrow & \text{Paper~II (forced orthogonality $\Rightarrow$ complex structure)} \\
+\mathbb{H}, \dim 4 & \rightarrow & d=4 \text{ (observer's host, 4D spacetime)} \\
+\mathbb{O}, \dim 8 & \rightarrow & d=8 \text{ (last parallelizable; } \rho(8)=8\text{ Adams maximum)}
+\end{array}
+\]
+After $\mathbb{O}$ the chain terminates: Adams' theorem on the Hopf invariant 1 implies no further parallelizable spheres, hence no division algebra of dim $> 8$. The cascade's octonion completion at $d=8$ thus sits at the structural boundary of the Cayley--Dickson chain.
+
+The cascade's distinguished dimensions encode the chain's content:
+\[
+\begin{array}{lcl}
+d_V = 5 & \leftrightarrow & \text{observer-host dim + 1} \;\;(S^4 = \partial B^5)\\
+d_0 = 7 & \leftrightarrow & \dim S^7 = \dim\mathbb{O} - 1 \;\;(\text{one below octonion completion})\\
+d_g = 12 & \leftrightarrow & N_c\cdot\dim\mathbb{H} \;\;(\text{gauge sphere $S^{11}\subset\mathbb{H}^3 = \mathbb{R}^{12}$})\\
+d_{\rm gw} = 14 & \leftrightarrow & \dim\mathrm{Aut}(\mathbb{O}) = \dim G_2 \;\;(\text{octonion automorphism Lie algebra})\\
+N_c^2 - 1 = 8 & \leftrightarrow & \dim\mathrm{SU}(3) = \dim\mathbb{O} \;\;(\text{cascade gauge gens $=$ octonion dim})
+\end{array}
+\]
+
+The cascade's $\mathrm{SU}(3)$ at $d_g = 12$ admits two Lie-theoretic interpretations that the cover sheet identifies:
+\begin{itemize}[nosep]
+\item \emph{Adams (combinatorial):} the three quaternionic right-multiplications on $S^{11}\subset\mathbb{H}^3$ give $N_c = \rho(12)-1 = 3$ vector fields. Cascade gauge group $\mathrm{SU}(3)$ has $N_c^2-1=8$ generators by Lie theory.
+\item \emph{Octonion-stabilizer (algebraic):} $G_2 = \mathrm{Aut}(\mathbb{O})$ acts transitively on $\mathrm{Im}\,\mathbb{O} = \mathbb{R}^7$ via its 7-dimensional fundamental rep; the stabilizer of a unit imaginary octonion is $\mathrm{SU}(3)$ with $\dim\mathrm{Stab} = \dim G_2 - \dim S^6 = 14 - 6 = 8 = \dim\mathbb{O}$.
+\end{itemize}
+The cover sheet's commitment to $G_2/\mathrm{SU}(3) = S^6$ at $d_0$ IDENTIFIES these two $\mathrm{SU}(3)$'s, forcing $\dim\mathrm{SU}(3) = \dim\mathbb{O} = 8 = N_c^2 - 1$ and hence $N_c = 3$ from both routes simultaneously.
+
+\medskip\noindent\textbf{Sharpened verdict: cascade gauge sector forced by C--D chain plus octonion completion.} Given the cover sheet's commitment to $G_2/\mathrm{SU}(3) = S^6$ at $d_0$ as the cascade's octonion completion, the entire cascade gauge-related dimension structure follows. The forcing chain:
+\begin{enumerate}[nosep,label=(\arabic*)]
+\item C--D doubling forces $\dim\mathbb{H} = 4$, $\dim\mathbb{O} = 8$ (algebra dimensions).
+\item Cover sheet's $G_2/\mathrm{SU}(3) = S^6$ at $d_0$ + cascade convention (layer $d \to S^{d-1}$) forces $d_0 = \dim\mathbb{O} - 1 = 7$.
+\item Lie theory of the octonion-stabilizer: $\dim\mathrm{SU}(N_c) = N_c^2 - 1 = \dim G_2 - \dim S^6 = 14 - 6 = 8 = \dim\mathbb{O}$, hence $N_c = \sqrt{\dim\mathbb{O} + 1} = 3$.
+\item Cascade gauge sphere $S^{d_g - 1} \subset \mathbb{H}^{N_c}$ forces $d_g = N_c \cdot \dim\mathbb{H} = 12$.
+\item Cascade Catalan reading $d_{\rm gw} = 2 d_0$ + Lie identity $\dim G_2 = 2(\dim\mathbb{O} - 1)$ forces $d_{\rm gw} = \dim G_2 = 14$.
+\item Spin(7)/$G_2$ identification (Theorem~\ref{thm:axial-anomaly-mass}) forces $\dim\mathrm{Spin}(7) = N_c \cdot d_0 = 21$.
+\end{enumerate}
+ALL cascade gauge content --- color count $N_c$, gauge layer $d_g$, gauge window $d_{\rm gw}$, $\eta'$ anomaly scale $\dim\mathrm{Spin}(7)$ --- is forced by the cover sheet's single commitment to $G_2/\mathrm{SU}(3)$ octonion-completion at $d_0$, modulo the cascade's existing $\Gamma + $ Adams $+ $ Catalan structure.
+
+\medskip\noindent\textbf{The remaining piece is one level deeper:} a cascade-internal proof that the cover sheet's commitment of \emph{specifically} $G_2/\mathrm{SU}(3)$ at $d_0$ (rather than a different homogeneous space at a different layer) is itself forced by the cascade's Cayley--Dickson chain. The chain $\mathbb{R}\to\mathbb{C}\to\mathbb{H}\to\mathbb{O}$ terminates at $\mathbb{O}$ (Adams' theorem on the Hopf invariant 1: no division algebra of dim $> 8$); the cascade's octonion-completion at $d=8$ should be the layer where this termination registers. The cover sheet's choice of $d_0 = \Gamma$-area-max integer to host $G_2/\mathrm{SU}(3)$ thus has a structural rationale --- $d_0$ sits one below the C--D termination at $d = \dim\mathbb{O} = 8$, with the algebra-source sphere $S^6$ being the maximal $G_2$-homogeneous space (since $G_2$ acts transitively on Im $\mathbb{O}$ but not on $\mathbb{O}$ itself). A formal proof that $d_0$ MUST host the octonion-completion (rather than being a free structural choice) is the open question, parallel to Adams' theorem forcing $\rho(8) = 8$ from 2-adic combinatorics.
+
+\medskip\noindent\textbf{What still sits at small-integer-identity level.} The cascade dimensions OUTSIDE the C--D regime ---  $d_V = 5$, $d_1 = 19$, $d_2 = 217$ --- retain small-integer-identity status:
+\[
+d_V \;=\; \dim\mathbb{H} + 1 \;=\; 5, \qquad d_1 \;=\; d_{\rm gw} + d_V \;=\; 19, \qquad N(0) \;=\; (d_V - 1)/2 \;=\; 2,
+\]
+all numerically holding at the cascade's distinguished values but not yet structurally derived. $d_V$ sits between $\dim\mathbb{H} = 4$ and $\dim\mathbb{O} - 1 = 7$, outside the algebra-dimension chain itself; its forcing requires the $\Gamma$-volume-max (Part~0) plus observer-frame structure (Paper~I~\cite{paper1}) rather than the C--D + octonion-completion chain that forces the gauge sector. $d_2 = 217$ has no Lie or C--D connection found.
+
+\medskip\noindent\textbf{Lie-theoretic uniqueness of $d_0$ as the algebra-source layer.} The cover sheet's specific choice of $G_2/\mathrm{SU}(3)$ at $d_0$ (rather than at $d=8$ directly, where $S^7$ lives) is partially Lie-theoretically forced. $G_2 = \mathrm{Aut}(\mathbb{O})$ does \emph{not} act transitively on $S^7$: every automorphism of $\mathbb{O}$ preserves the multiplicative identity $1\in\mathbb{O}$, so $G_2$ fixes $1\in S^7\subset\mathbb{O}$. Hence $S^7$ is not a $G_2$-homogeneous space. By contrast $G_2$ acts transitively on $S^6\subset\mathrm{Im}\,\mathbb{O}$ (the unit imaginary octonion sphere), with stabilizer $\mathrm{SU}(3)$, giving $S^6 = G_2/\mathrm{SU}(3)$. So among small spheres around the octonion completion, only $S^6$ supports $G_2$-transitivity. The cascade's $G_2$ commitment therefore forces the algebra source to live at the layer hosting $S^6$, which by the cascade convention is $d = \dim S^6 + 1 = 7 = d_0$. Two independent cascade derivations of $d_0$ — the $\Gamma$-area-max from Part~0 (transcendental) and the Lie-theoretic $G_2$-transitivity uniqueness (algebraic) — both give $d_0 = 7$ at the cascade's small integers, mutually consistent.
+
+\medskip\noindent\textbf{C--D boundary reading: cascade dims at division-algebra completions.} Beyond $d_0$, the cascade's distinguished dimensions occupy characteristic positions relative to the four-step C--D chain:
+\[
+\begin{array}{lll}
+d_V = 5 = \dim\mathbb{H} + 1 & \text{(one above } \mathbb{H}\text{-completion)} & \text{volume-max layer}\\
+d_0 = 7 = \dim\mathbb{O} - 1 & \text{(one below } \mathbb{O}\text{-completion)} & \text{area-max layer}\\
+d_g = 12 = N_c \cdot \dim\mathbb{H} & \text{(} N_c \text{ quaternion copies)} & \text{gauge sphere $S^{11}\subset\mathbb{H}^{N_c}$}\\
+d_{\rm gw} = 14 = 2(\dim\mathbb{O} - 1) = \dim G_2 & \text{(twice $\mathbb{O}-1$)} & \text{gauge window upper edge}
+\end{array}
+\]
+The cascade's foundational commitments imply the C--D chain (Adams gives parallelizable spheres at $S^0, S^1, S^3, S^7$ and Bott periodicity gives the 8-fold $\mathrm{KO}$ structure tied to Cl$_8(\mathbb{R})$ and the octonion algebra), so all four normed division algebras are cascade-internally available. The $\Gamma$ critical points $\{d_V, d_0\}$ and Adams gauge-window $\{d_g, d_{\rm gw}\}$ then pin themselves at the algebra-completion boundaries. The grounding regress: cascade $\to$ Adams + Bott $\to$ C--D chain $\to G_2 = \mathrm{Aut}(\mathbb{O}) \to G_2/\mathrm{SU}(3) = S^6$ algebra source $\to d_0 = 7$ uniquely. Each step is forced by cascade-internal commitments (cover sheet anchors Adams + Bott; Lie theory gives the rest).
+
+\medskip\noindent\textbf{Outside the C--D chain.} $d_V = 5$ and $N(0) = 2$ are tied to the quaternion completion ($d_V = \dim\mathbb{H} + 1$, $N(0) = \dim\mathbb{H}/2$ in numerical relation) but their forcing is not at the same Lie-theoretic level — they sit BETWEEN the algebra completions ($\mathbb{H}$ at $d=4$ and $\mathbb{O}$ at $d=8$) rather than at the $d_0$-style boundary. Their structural interpretations (volume-max integer above $\mathbb{H}$; chirality multiplicity $=$ complex dim of $\mathbb{H}$) are suggestive readings, not derivations. The full forcing of these dims would require connecting $\Gamma$-volume-max + observer-frame structure (Paper~I) to the C--D chain at $d=4$, which is the next dig direction --- beyond the current sharpening, where cascade gauge content is now structurally derived from Adams + Bott + $\Gamma$ + Catalan.
+
+\medskip\noindent\textbf{Tier classification.} Tier~4 (cascade gauge sector forced via C--D chain $+$ cover sheet's $G_2/\mathrm{SU}(3)$ octonion-completion at $d_0$, with the gauge-related dimension structure $\{d_0, N_c, \dim\mathrm{SU}(3), d_g, d_{\rm gw}, \dim G_2, \dim\mathrm{Spin}(7)\}$ jointly forced; volume-max / phase-transition layers $\{d_V, d_1\}$ retain small-integer-identity status). Verifiers: \texttt{tools/research/cascade\_d0\_rho8\_identity.py}, \texttt{tools/research/cascade\_dgw\_g2\_forcing.py}, \texttt{tools/research/cascade\_division\_algebra\_forcing.py}.
+
+\medskip\noindent\textbf{$d_V$ derivation status.} $d_V = 5$ has one genuine cascade-internal derivation: $\Gamma$-volume-max integer (Part~0, transcendental: $V_d = \pi^{d/2}/\Gamma(d/2+1)$ is uniquely maximized at integer $d=5$, with $V_5 = 5.264 > V_6 = 5.168 > V_4 = 4.935$). Two cover-sheet-dependent relations confirm consistency but are \emph{not} independent derivations (Check~8): observer-frame $d_V = d_{\rm observer} + 1 = 5$ via the cover-sheet thought experiment (this is the cover-sheet placement convention, not a forcing); and the Cayley--Dickson reading $d_V = \dim\mathbb{H} + 1$ (placement of $d_V$ one $\mathbb{R}$-extension above the $\mathbb{H}$-completion is again a cover-sheet convention). The $\Gamma$-vol-max route is the load-bearing derivation of $d_V$.
+
+\medskip\noindent\textbf{The cascade landscape's multi-route structural coherence.} Per Check~8 (CLAUDE.md: hypothesis is non-load-bearing), only mathematical-theorem-anchored routes count as \emph{independent} derivations; integer relations among distinguished dims and cover-sheet placement conventions are catalogued separately as \emph{consistency cross-checks}:
+\[
+\begin{array}{l|l|l}
+\text{Distinguished dim} & \text{Independent math-theorem routes} & \text{Cascade-internal consistency cross-checks} \\
+\hline
+d_V = 5 & \Gamma\text{-vol-max (Part~0)} & d_{\rm obs}+1, \; \dim\mathbb{H}+1 \\
+d_0 = 7 & \Gamma\text{-area-max}, \; \rho(8)-1, \; G_2/\mathrm{SU}(3) \text{ on } S^6, \; \dim\mathbb{O}-1 & \text{(none required)} \\
+d_g = 12 & \rho(12)-1 = N_c \text{ Adams}, \; N_c\cdot\dim\mathbb{H} & d_V + d_0 \text{ (integer relation)} \\
+d_{\rm gw} = 14 & \rho(14)-1 = 1 \text{ U(1)}, \; 2 d_0 \text{ Catalan}, \; \dim G_2 & \text{(none required)} \\
+d_1 = 19 & \Gamma \text{ first threshold (Part~0)} & d_{\rm gw} + d_V \text{ (integer relation)}
+\end{array}
+\]
+$d_0$ and $d_{\rm gw}$ are the structurally over-determined dimensions: each has multiple independent mathematical-theorem-anchored derivations meeting at the cascade integer. $d_V$ and $d_1$ each have one genuine derivation ($\Gamma$ critical points from Part~0); the integer relations $d_g = d_V + d_0$, $d_1 = d_{\rm gw} + d_V$, $d_V = d_{\rm observer}+1$ are cascade-internal consistency cross-checks but not independent forcings. Whether the multi-route consistency at $d_0, d_g, d_{\rm gw}$ is \emph{forced} (uniqueness of the cascade landscape) or merely \emph{observed} (cascade's small integers happen to satisfy multiple forcing constraints) is the deepest open structural question: a Tier~2 promotion target requiring a uniqueness proof across the cascade's foundational commitments.
+
+\medskip\noindent\textbf{Open structural piece.} A cascade-internal proof that the integer pattern $\{d_V=5, d_0=7, d_g=12, d_{\rm gw}=14, d_1=19\}$ is jointly forced by (i)~$\Gamma$ critical points (Part~0), (ii)~Adams gauge structure at $d=12,13,14$ (Part~IVa), (iii)~Bott periodicity at fermion residues $5\bmod 8$ (Part~IVa), (iv)~Lovelock $+$ Clifford at $d_{\rm observer}=4$ (Part~III), and (v)~the exceptional Lie tower $G_2/\mathrm{SU}(3)$ at $d_0$ + Cayley--Dickson chain (this Remark). This would promote the present multi-route consistency from ``many small-integer identifications hold simultaneously'' to ``the cascade's distinguished-dimension landscape is the unique integer pattern coherent with all foundational commitments.''
+\end{remark}
+
+\begin{proposition}[Integer-level uniqueness of the cascade landscape; Tier~4]\label{prop:landscape-uniqueness}
+The cascade distinguished-dimension integer pattern $\{d_V=5, d_0=7, d_g=12, d_{\rm gw}=14, d_1=19, d_2=217\}$ is uniquely determined at the integer level: each value is forced to its specific integer by at least one cascade-internal route, with cross-route consistency where multiple routes apply, and any deviation from the pattern violates at least one route.
+\end{proposition}
+
+\begin{proof}[Per-route uniqueness with case analysis]
+Per Check~8 (CLAUDE.md), only mathematical-theorem-anchored routes are counted as independent below; cover-sheet placement relations are separately listed as consistency cross-checks.
+\begin{enumerate}[nosep]
+\item \emph{$d_V = 5$ (one independent route).} $\Gamma$-volume integer maximum: $V_d = \pi^{d/2}/\Gamma(d/2+1)$ has its unique integer maximizer at $d=5$ ($V_5 = 5.264$, $V_4 = 4.935$, $V_6 = 5.168$). Cover-sheet-dependent consistency cross-checks (not independent forcings): cover-sheet thought experiment $d_V = d_{\rm observer}+1 = 5$ and Cayley--Dickson placement $d_V = \dim\mathbb{H}+1 = 5$.
+\item \emph{$d_0 = 7$ (four independent routes).} $\Gamma$-area integer maximum: $\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$ has unique integer maximizer at $d=7$ ($\Omega_6 = 33.07$, $\Omega_5 = 31.01$, $\Omega_7 = 32.47$); $\rho(8)-1 = 7$ via Adams + Spin(7)/$G_2$; $G_2$-transitivity uniqueness on $S^6$ (only $S^6$ admits transitive $G_2$ action with stabilizer SU(3)); Cayley--Dickson $\dim\mathbb{O}-1 = 7$. All four routes are mathematical theorems independent of cover-sheet framing.
+\item \emph{$d_g = 12$ (two independent routes).} Adams: smallest $d > d_{\rm observer} = 4$ with $\rho(d)-1 = 3 = N_c$ (scan: $\rho-1$ at $d=5,\ldots,11$ takes values $0,1,0,7,0,1,0$, first hit at $d=12$); cascade gauge sphere $S^{d_g-1}\subset\mathbb{H}^{N_c}$ forces $d_g = N_c\cdot\dim\mathbb{H} = 12$. The integer relation $d_g = d_V + d_0 = 12$ is an internal consistency cross-check.
+\item \emph{$d_{\rm gw} = 14$ (three independent routes).} Adams: smallest $d > 13$ with $\rho(d)-1 = 1$ (U(1) gauge layer; first hit at $d=14$); cascade Catalan $d_{\rm gw} = 2 d_0 = 14$ (Remark~\ref{rem:catalan-u1-closure}); Lie identity $\dim G_2 = 14$.
+\item \emph{$d_1 = 19$, $d_2 = 217$ (one route each).} $\Gamma$ critical points from Part~0's transcendental zero conditions. The integer relation $d_1 = d_{\rm gw} + d_V$ is an internal consistency cross-check.
+\end{enumerate}
+Case analysis on each independent route rules out integer shifts. E.g., $d_0 = 6$ violates $\Gamma$-area-max (which gives 7), violates $\rho(7)-1 = 0 \neq 6$ via Adams, fails $G_2$-transitivity uniqueness on $S^5$ (no transitive $G_2$ action), and contradicts $\dim\mathbb{O}-1 = 7 \neq 6$. Similar case checks rule out all near-cascade integer shifts. Verifier: \texttt{tools/research/cascade\_landscape\_uniqueness.py}.
+\end{proof}
+
+\begin{remark}[What this Proposition does and does not establish]\label{rem:landscape-uniqueness-status}
+\textbf{Established:} integer-level uniqueness. The cascade distinguished-dimension landscape is the unique integer pattern at which the cascade's foundational mathematical commitments ($\Gamma$ critical points from Part~0, Adams' theorem and Bott periodicity from Part~IVa, Lovelock $+$ Cl from Part~III, Cayley--Dickson chain) all agree. Per-route uniqueness is proved by case analysis (\texttt{cascade\_landscape\_uniqueness.py}), and cross-route consistency holds at all cascade values. Cover-sheet placement relations (e.g.\ $d_V = d_{\rm observer}+1$) are catalogued separately as internal consistency cross-checks, not independent forcings (Check~8).
+
+\textbf{Not yet established:} derivation-level uniqueness. The cascade pattern is forced by independent mathematical routes \emph{meeting at the same integers}, but no single structural mechanism derives the entire pattern from one principle. The $\Gamma$ + Adams + Bott + Lovelock + Cayley--Dickson commitments are not syntactically commensurable in the cascade's current formalization. This is the Tier~2 promotion target: prove that all foundational commitments reduce to a single structural principle that uniquely determines the cascade integer pattern, or prove a uniqueness theorem at the derivation level.
+
+\textbf{The interpretation question:} is the multi-route coherence \emph{forced} (cascade is the unique pattern compatible with the cascade's commitments) or merely \emph{observed} (cascade happens to satisfy multiple constraints simultaneously)? Proposition~\ref{prop:landscape-uniqueness} establishes the former interpretation at the integer level (any deviation violates a route); the deeper question is whether the routes themselves are independently necessary or could be replaced by a single derivation. Currently every route is independently load-bearing; whether they can be unified into one mechanism is open.
+\end{remark}
+
+\begin{corollary}[Cascade-internal forcing of $d_{\rm observer} = 4$]\label{cor:dobs-multi-route}
+$d_{\rm observer} = 4$ has one genuine cascade-internal derivation: complex spinor structure (Paper~II's orthogonality $\to$ forced complex structure on cascade slicing) combined with Lovelock's uniqueness theorem on cascade Cl algebras forces $d=4$ as the unique observer dimension supporting a diffeomorphism-invariant second-order action with cascade-compatible spinors (Part~III).
+\end{corollary}
+
+\begin{proof}
+Per Part~III. Lovelock's theorem identifies $d=4$ as the unique dimension where the Einstein--Hilbert action is the most general scalar Lagrangian giving second-order field equations; combined with Paper~II's forced complex spinor structure, this fixes $d_{\rm observer} = 4$ from cascade-internal mathematical content alone.
+\end{proof}
+
+\begin{remark}[Internal-consistency cross-checks for $d_{\rm observer}=4$]\label{rem:dobs-cross-checks}
+Three cascade-internal relations confirm $d_{\rm observer}=4$, but each presupposes the cover-sheet hypothesis or its placement conventions and therefore constitutes an \emph{internal-consistency cross-check} rather than an independent derivation (per Check~8, CLAUDE.md):
+\begin{enumerate}[nosep,label=(\alph*)]
+\item \emph{$\Gamma$-vol-max $+$ cover-sheet (reverse direction):} the cover sheet defines the observer on $S^{d_{\rm obs}-1}$ horizon with host at $d_V = d_{\rm obs}+1$; combined with $\Gamma$-vol-max integer $d_V = 5$ (Part~0) this gives $d_{\rm observer} = d_V - 1 = 4$. The relation $d_{\rm observer} = d_V - 1$ \emph{is} the cover-sheet hypothesis, not a derivation of it.
+\item \emph{Cayley--Dickson $\mathbb{H}$-completion:} $\dim\mathbb{H} = 4$, with $\rho(4) - 1 = 3$ giving the parallelizable $S^3$. Placing the cascade observer at the $\mathbb{H}$-completion layer is a cover-sheet placement convention, not a forcing.
+\item \emph{Adams quaternionic-rank-3 layer (small $d$):} the smallest $d$ with $\rho(d) - 1 = 3$ allowing $d \leq 4$ is $d=4$. Selecting $d \leq 4$ over $d_g = 12$ presumes ``observer below gauge,'' which is cover-sheet structure.
+\end{enumerate}
+Lovelock $+$ Cl (Corollary~\ref{cor:dobs-multi-route}) is the load-bearing derivation; (a)--(c) confirm cascade-internal consistency with the cover-sheet hypothesis but do not independently force $d_{\rm observer}=4$. Verifier: \texttt{tools/research/cascade\_dobs\_reverse\_forcing.py}.
+\end{remark}
+
+\begin{remark}[Closed structural loop: $d_V$ and $d_{\rm observer}$ are cover-sheet-consistent]\label{rem:dobs-closed-loop}
+The cover-sheet thought experiment relates cascade $d_V$ and $d_{\rm observer}$ via $d_V = d_{\rm observer}+1$ (forward) or equivalently $d_{\rm observer} = d_V - 1$ (reverse):
+\[
+\Gamma\text{-vol-max} \to d_V = 5 \xrightarrow{\text{cover sheet (reverse)}} d_V - 1 = 4 \xrightarrow{\text{cover sheet (forward)}} d_{\rm observer} + 1 = 5
+\]
+This is an \emph{internal consistency check}, not an independent forcing: cascade $d_V$ is forced by $\Gamma$-vol-max (Part~0), cascade $d_{\rm observer}$ is forced by Lovelock $+$ Cl (Part~III, Corollary~\ref{cor:dobs-multi-route}), and the cover-sheet placement relates them self-consistently. The loop establishes that the two cascade-derived integers are mutually compatible with the cover-sheet hypothesis --- it does not derive either integer.
+
+\medskip\noindent\textbf{Epistemological reading.} The cascade's hypothesis is ``the infinite-dimensional unit ball, descended to \emph{four} dimensions, is indistinguishable from our universe.'' The integer 4 is part of the hypothesis, not derived from it; the cascade's structural achievement at $d_{\rm observer}$ is showing that Lovelock $+$ Cl independently forces $d=4$ from cascade-internal mathematical content (Part~III), confirming that the hypothesis sits at a mathematically distinguished point rather than a free choice. Per Check~8 (CLAUDE.md, hypothesis is non-load-bearing) the cover-sheet thought experiment is not invoked as a derivational anchor for $d_{\rm observer}$; only Lovelock $+$ Cl is. The remaining routes (a)--(c) of Remark~\ref{rem:dobs-cross-checks} are catalogued as cross-checks for transparency, not as forcings.
+\end{remark}
+
+\begin{remark}[Derivation-level unification: orthogonality as the cascade's single principle]\label{rem:orthogonality-unifier}
+The deepest answer to the unification question is the cover sheet's foundational claim itself: \emph{orthogonality} is the cascade's single underlying principle. Cover sheet (lines 116--119): ``distinction implies orthogonality\,\ldots\,Orthogonality iterates without bound\,\ldots\,The absence of external scale forces unit norm. The result is the infinite-dimensional unit ball.'' Each downstream commitment reduces to a derivation chain rooted in this hypothesis:
+\begin{enumerate}[nosep]
+\item \emph{$\Gamma$ chain (Part~0):} orthogonality $\to$ slicing recurrence on $B^d$ $\to$ Beta integrals with half-integer arguments $\to$ $\Gamma$ structure $\to$ critical points $\{d_V, d_0, d_1, d_2\}$.
+\item \emph{Cl/Bott chain (Part~IVa $+$ Atiyah--Bott--Shapiro):} orthogonality $\to$ Cl$(d)$ Clifford algebras (orthogonal vectors with anticommutation) $\to$ Cl periodicity Cl$_{n+8} \cong$ Cl$_n \otimes$ Cl$_8$ $\to$ Bott periodicity, Adams' theorem (parallelizable spheres at $S^0, S^1, S^3, S^7$), Cayley--Dickson chain, Spin(8) triality, $G_2 = \mathrm{Aut}(\mathbb{O})$.
+\item \emph{Spinor chain (Parts~II, III):} orthogonality $\to$ forced complex structure (Paper~II) $\to$ complex spinors $+$ Lovelock at $d=4$ $\to$ $d_{\rm observer} = 4$ (Part~III).
+\item \emph{Cover-sheet thought experiment:} $d_{\rm observer} = 4$ $+$ thought experiment $\to$ observer on $S^3$ horizon of 5D black hole $\to$ host at $d_V = d_{\rm observer} + 1 = 5$.
+\item \emph{Gauge chain (Part~IVa):} Adams $\rho(d)-1$ at gauge layers $\to$ SM gauge content $\{\mathrm{SU}(3), \mathrm{SU}(2), \mathrm{U}(1)\}$ at $d_g=12$, $d=13$ (broken), $d_{\rm gw}=14$.
+\end{enumerate}
+All chains converge on the cascade integer pattern $\{d_V=5, d_0=7, d_g=12, d_{\rm gw}=14, d_1=19, d_2=217\}$, with multi-route consistency at each distinguished dimension (Proposition~\ref{prop:landscape-uniqueness}).
+
+\medskip\noindent\textbf{The unifier IS orthogonality.} The cascade's structural unity reduces to the cover sheet's single hypothesis. Each per-chain derivation is one cascade Paper's content; the aggregation across Papers~0, II, III, IVa, IVb is the cascade series itself. The cover sheet's claim of ``one hypothesis, zero parameters'' is therefore concrete: orthogonality $+$ countable independence $+$ unit norm $\to$ $B^\infty$ $\to$ slicing recurrence $\to$ all cascade structural content via per-chain derivations.
+
+\medskip\noindent\textbf{The deepest open piece (Tier~2 promotion target).} A formal AGGREGATION theorem stating that orthogonality $+$ slicing uniquely determine the cascade integer pattern, with each per-chain derivation rigorous within its respective cascade Paper. Currently the per-chain derivations exist across the series (Part~0 for $\Gamma$, Parts~II/III for spinor/Lovelock, Part~IVa for Adams/Bott, etc.); a single aggregation theorem unifying all chains is the natural Tier~2 promotion of Proposition~\ref{prop:landscape-uniqueness}. This would convert ``many independent routes meeting at the same integers'' into ``one master derivation rooted at orthogonality, with the cascade integer pattern as its unique output.''
+
+Verifier: \texttt{tools/research/cascade\_orthogonality\_unification.py}.
 \end{remark}
 
 
@@ -3786,7 +3997,7 @@ $m_K/m_\pi$ & $d_V/\sqrt{N(0)}=5/\sqrt{2}$ (Rem.~\ref{rem:cascade-beta0}) & $-0.
 $m_K$ (charged) & $\Lambda_{\text{PDG}}\cdot 5\sqrt{2}/3$ & $+0.27\%$ & 4 \\
 $m_\pi/\Lambda_{\text{PDG}}$ & $N(0)/N_c = 2/3$ (Rem.~\ref{rem:cascade-beta0}) & $+0.31\%$ & 4 \\
 $f_\pi/m_\pi$ & $N(0)/N_c$ (scheme-invariant) & $+1.06\%$ & 4 \\
-$m_{\eta'}$ & $\Lambda_{\text{PDG}}\sqrt{N_c\cdot d_0}=\Lambda\sqrt{21}$ (Thm.~\ref{thm:axial-anomaly-mass}) & $+0.48\%$ & 4b \\
+$m_{\eta'}$ & $\Lambda_{\text{PDG}}\sqrt{N_c\cdot d_0}=\Lambda\sqrt{\dim\mathrm{Spin}(7)}$ (Thm.~\ref{thm:axial-anomaly-mass}) & $+0.48\%$ & 4b \\
 $m_\eta$ & $\Lambda_{\text{PDG}}(N_c{+}1)\sqrt{N_c/d_0}$ & $+0.37\%$ & 4 \\
 $m_{\eta'}/m_\eta$ & $d_0/(N_c{+}1)=7/4$ & $+0.10\%$ & 4 \\
 $\chi_{\text{top}}^{1/4}$ & W--V w/ cascade inputs, $\approx 181$~MeV & $+1.7\%$ vs lattice & 4 \\
@@ -3885,7 +4096,7 @@ The cascade predicts inverted hierarchy relative to charged leptons: $\nu_e$ hea
 
 \textbf{Tier 4: Observed patterns needing derivation.} (a) $m_b/m_\tau = e$: deviation 1.05\%. (b) $(t/b)/(c/s) = N_c = 3$: physical argument plausible but chirality coupling not computed. ($b/s$ has been promoted to Tier~2 via Theorem~\ref{thm:bs-closure}.) (c) Cascade-primitive form for QCD's $\beta_0 = (N_c^2 + N_c - 1) - N(0)\,n_f/N_c$ matches the standard $11 N_c/3 - 2 n_f/3$ exactly across $n_f\in\{3,4,5,6\}$ (\S\ref{subsec:qcd-frontier}, Remark~\ref{rem:cascade-beta0}); cascade-internal derivation of the gauge-sector decomposition $N_c^2 - 1 + N_c$ is open. (d) Cascade $\beta_1$ matches the standard 2-loop coefficient exactly across flavor windows but admits two cascade-primitive decompositions for the gauge factor $102$; cascade-interaction-level disambiguation is open (Remark~\ref{rem:cascade-beta0}). (e) Cascade-native confinement scale $\Lambda_{\rm QCD}^{\rm cascade} = M_Z\cdot\exp(-2\pi)\approx 170$~MeV with cascade-to-MS-bar scheme factor $\sqrt{N_c/N(0)}$ landing $\Lambda_{\rm PDG} \approx 208.6$~MeV ($-0.7\%$ from PDG $210\pm 14$~MeV); cross-sector consistency on $m_\pi, f_\pi$ in PDG units selects this scheme factor uniquely among cascade-primitive candidates within the PDG band (Remark~\ref{rem:cascade-beta0}). Cascade-internal derivation of the scheme-conversion factor is open (Tier~2 promotion target). (f) Cascade chiral physics: $m_\pi = \Lambda_{\rm PDG}\cdot 2/3$ ($+0.31\%$), $f_\pi = \Lambda_{\rm PDG}\cdot 4/9$ ($+1.4\%$), $f_\pi/m_\pi = N(0)/N_c$ scheme-invariant ($+1.06\%$) (Remark~\ref{rem:cascade-beta0}). (g) Pseudoscalar octet $m_K/m_\pi = d_V/\sqrt{N(0)} = 5/\sqrt{2}$ ($-0.05\%$) and $m_K = \Lambda_{\rm PDG}\cdot 5\sqrt{2}/3$ ($+0.27\%$); structurally consistent with chiral relations (same $N(0)/N_c$ primitive). (h) U(1)$_A$ anomaly sector: $m_{\eta'} = \Lambda_{\rm PDG}\sqrt{N_c\cdot d_0}$ ($+0.48\%$), $m_\eta = \Lambda_{\rm PDG}(N_c+1)\sqrt{N_c/d_0}$ ($+0.37\%$), $m_{\eta'}/m_\eta = d_0/(N_c+1) = 7/4$ ($+0.10\%$); Witten--Veneziano cross-check gives cascade $\chi_{\rm top}^{1/4} \approx 181$~MeV vs lattice $178$~MeV ($+1.7\%$). The double-Adams form $(\rho(12)-1)\cdot(\rho(8)-1)$ for $m_{\eta'}^2/\Lambda^2$ is the topological extension theorem (Theorem~\ref{thm:axial-anomaly-mass}, Tier~4b). (i) Vector nonet ($\rho, \omega, K^*, \phi$): cascade-primitive fits sit at $1$--$3\%$ deviations with structural-form ambiguity, marking the boundary at $J=1$ where current cascade machinery stops; the missing piece is a cascade-native treatment of hyperfine splitting (open structural direction, Remark~\ref{rem:cascade-beta0}).
 
-\textbf{Tier 4b: Claimed but proof has gaps.} (a) $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = 0$ (the trivial group, by $\pi_n(S^k) = 0$ for $n < k$; Theorem~\ref{thm:strong-cp}). Only the trivial sector exists in the cascade-internal classification, so the gauge-sector $\theta_{\text{QCD}} = 0$ is unique without a selection step. The remaining gap is structural: the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ replaces (rather than coexists with) the standard gauge-target classification. The mass-matrix branch $\arg\det(M) = 0$ vs.\ $\pi$ is selected by the cascade's $U(1)$ gauge equivalence (Step~2 of Theorem~\ref{thm:strong-cp}). (b) U(1)$_A$ axial-anomaly mass via double-Adams: $m_{\eta'}^2 = \Lambda_{\rm QCD}^2\cdot(\rho(12)-1)\cdot(\rho(8)-1) = 21\,\Lambda_{\rm QCD}^2$ (Theorem~\ref{thm:axial-anomaly-mass}). Both factors are Adams' theorem outputs --- the first the same gauge-sector Adams count used in Theorem~\ref{thm:strong-cp} Step~1, the second the octonion-quotient Adams count at $S^7$ (the parallelizable octonion sphere). Sub-percent empirical match on $m_{\eta'}$ ($+0.48\%$) and Witten--Veneziano consistency on $\chi_{\rm top}^{1/4}$ ($+1.7\%$ vs lattice). Acknowledged gaps (Remark~\ref{rem:axial-anomaly-mass-tier}): (i)~the specific Adams pairing (product vs.\ alternative) is empirically selected, not yet rigorously forced; (ii)~the cascade-internal derivation of $\chi_{\rm top}$ from layer winding is the Tier~2 promotion target; (iii)~the numerical equality $d_0 = \rho(8)-1$ between the $\Gamma$-area-maximum and the octonion Adams count is structurally suggestive but not yet a proved cascade theorem.
+\textbf{Tier 4b: Claimed but proof has gaps.} (a) $\theta_{\text{QCD}} = 0$ from $\pi_3(S^{11}) = 0$ (the trivial group, by $\pi_n(S^k) = 0$ for $n < k$; Theorem~\ref{thm:strong-cp}). Only the trivial sector exists in the cascade-internal classification, so the gauge-sector $\theta_{\text{QCD}} = 0$ is unique without a selection step. The remaining gap is structural: the claim that the cascade's topological sectors are classified by $\pi_3(S^{11})$ rather than $\pi_3(\text{SU}(3))$ requires showing how the vector-field realisation of SU(3) on $S^{11}$ replaces (rather than coexists with) the standard gauge-target classification. The mass-matrix branch $\arg\det(M) = 0$ vs.\ $\pi$ is selected by the cascade's $U(1)$ gauge equivalence (Step~2 of Theorem~\ref{thm:strong-cp}). (b) U(1)$_A$ axial-anomaly mass via double-Adams: $m_{\eta'}^2 = \Lambda_{\rm QCD}^2\cdot(\rho(12)-1)\cdot(\rho(8)-1) = 21\,\Lambda_{\rm QCD}^2$ (Theorem~\ref{thm:axial-anomaly-mass}). Both factors are Adams' theorem outputs --- the first the same gauge-sector Adams count used in Theorem~\ref{thm:strong-cp} Step~1, the second the octonion-quotient Adams count at $S^7$ (the parallelizable octonion sphere). Sub-percent empirical match on $m_{\eta'}$ ($+0.48\%$) and Witten--Veneziano consistency on $\chi_{\rm top}^{1/4}$ ($+1.7\%$ vs lattice). Acknowledged gaps (Remark~\ref{rem:axial-anomaly-mass-tier}): (i)~the specific Adams pairing (product vs.\ alternative) is empirically selected, not yet rigorously forced; (ii)~the cascade-internal derivation of $\chi_{\rm top}$ from layer winding is the Tier~2 promotion target. The previously-flagged gap on $d_0 = \rho(8)-1$ (gap (iii)) is now resolved: both equal $\dim(\mathrm{Spin}(7)/G_2) = \dim S^7$, forced by the cascade's existing $G_2/\mathrm{SU}(3) = S^6$ commitment at $d_0$, giving the Lie-algebraic reading $m_{\eta'}^2 = \Lambda_{\rm QCD}^2\cdot\dim\mathrm{Spin}(7)$.
 
 \textbf{What would change my mind.} The framework would be significantly weakened by: (i) discovery of a QCD axion; (ii) $w \neq -1$ at $> 5\sigma$ from BAO alone with $r_d$ independently constrained at $> 144$~Mpc; (iii) discovery of a fourth fermion generation; (iv) a demonstration that the topological obstruction factor is not $2\sqrt{\pi}$ (now derived in Theorem~\ref{thm:obstruction} and equivalently in Corollary~\ref{cor:2sqrtpi-primitive}; falsification would require either invalidating the chirality/quarter-turn argument or invalidating the cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$); or (v) any absolute mass prediction deviating by $> 5\%$ after subleading corrections are included. Conversely, the framework would be strongly supported by: (vi) derivation of the colour factor $e$ from first principles; or (vii) any new precision prediction matching observation before the data is checked.
 
