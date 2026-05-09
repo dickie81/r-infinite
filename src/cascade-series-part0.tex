@@ -5,8 +5,13 @@
 \hypersetup{colorlinks=false}
 % External links (\href): blue text, no box.
 % Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
+% pdfborder is not accepted as a per-\href option, so wrap each call in a
+% group with a localised \hypersetup to disable the border for that one link.
 \let\OldHref\href
-\renewcommand{\href}[2]{\OldHref[pdfborder={0 0 0}]{#1}{\textcolor{blue}{#2}}}
+\renewcommand{\href}[2]{{%
+  \hypersetup{pdfborder={0 0 0}}%
+  \OldHref{#1}{\textcolor{blue}{#2}}%
+}}
 \usepackage{booktabs}
 \geometry{margin=2.5cm}
 
