@@ -3,14 +3,14 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text, no box.
-% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborder is not accepted as a per-\href option, so wrap each call in a
-% group with a localised \hypersetup to disable the border for that one link.
-\let\OldHref\href
-\renewcommand{\href}[2]{{%
+\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
+% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
+% avoids redefining hyperref's robust \href. The grouped \hypersetup
+% disables pdfborder for this one link only; internal \ref / \cite see
+% colorlinks=false's default rectangular border.
+\newcommand{\extlink}[2]{{%
   \hypersetup{pdfborder={0 0 0}}%
-  \OldHref{#1}{\textcolor{blue}{#2}}%
+  \href{#1}{\textcolor{blue}{#2}}%
 }}
 \usepackage{microtype}
 \usepackage{enumitem}
@@ -1822,13 +1822,13 @@ locally observe would falsify this claim.
 \end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{paperI} [Author], \href{\cascadebase/cascade-series-part0.pdf}{\emph{Scale Variance from Orthogonality: How the Unit Ball
+\bibitem{paperI} [Author], \extlink{\cascadebase/cascade-series-part0.pdf}{\emph{Scale Variance from Orthogonality: How the Unit Ball
 Generates $10^{120}$ Orders of Magnitude}}, March 2026.
-\bibitem{paperII} [Author], \href{\cascadebase/cascade-series-part2.pdf}{\emph{Quantum Mechanics from the Cascade: Effective Theory of
+\bibitem{paperII} [Author], \extlink{\cascadebase/cascade-series-part2.pdf}{\emph{Quantum Mechanics from the Cascade: Effective Theory of
 a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
-\bibitem{paperIII} [Author], \href{\cascadebase/cascade-series-part3.pdf}{\emph{General Relativity from the Cascade: Lovelock Uniqueness
+\bibitem{paperIII} [Author], \extlink{\cascadebase/cascade-series-part3.pdf}{\emph{General Relativity from the Cascade: Lovelock Uniqueness
 and the Cosmological Constant of a 4-Dimensional Observer}}, March 2026.
-\bibitem{paperIVb} [Author], \href{\cascadebase/cascade-series-part4b.pdf}{\emph{The Standard Model from the Cascade: Part IVb---Masses,
+\bibitem{paperIVb} [Author], \extlink{\cascadebase/cascade-series-part4b.pdf}{\emph{The Standard Model from the Cascade: Part IVb---Masses,
 Couplings, and Precision Predictions from the Geometric-Topological Factorization}},
 March 2026.
 \bibitem{lounesto} P.~Lounesto, \emph{Clifford Algebras and Spinors}, 2nd ed., Cambridge

@@ -3,14 +3,14 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text, no box.
-% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborder is not accepted as a per-\href option, so wrap each call in a
-% group with a localised \hypersetup to disable the border for that one link.
-\let\OldHref\href
-\renewcommand{\href}[2]{{%
+\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
+% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
+% avoids redefining hyperref's robust \href. The grouped \hypersetup
+% disables pdfborder for this one link only; internal \ref / \cite see
+% colorlinks=false's default rectangular border.
+\newcommand{\extlink}[2]{{%
   \hypersetup{pdfborder={0 0 0}}%
-  \OldHref{#1}{\textcolor{blue}{#2}}%
+  \href{#1}{\textcolor{blue}{#2}}%
 }}
 \usepackage{enumitem}
 \usepackage{booktabs}
@@ -1408,21 +1408,21 @@ self-consistent'' with ``derivation that compels belief.''
 
 \begin{thebibliography}{9}
 
-\bibitem{paper0} [Author], \href{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series --- Part~0: Scale Variance from Orthogonality}}, March 2026.
+\bibitem{paper0} [Author], \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series --- Part~0: Scale Variance from Orthogonality}}, March 2026.
 
-\bibitem{paper1} [Author], \href{\cascadebase/cascade-series-part1.pdf}{\textit{The Cascade Series --- Part~I: The Cosmological Constant from the Observer's Frame}}, March 2026.
+\bibitem{paper1} [Author], \extlink{\cascadebase/cascade-series-part1.pdf}{\textit{The Cascade Series --- Part~I: The Cosmological Constant from the Observer's Frame}}, March 2026.
 
-\bibitem{paper2} [Author], \href{\cascadebase/cascade-series-part2.pdf}{\textit{The Cascade Series --- Part~II: Quantum Mechanics from the Cascade}}, March 2026.
+\bibitem{paper2} [Author], \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{The Cascade Series --- Part~II: Quantum Mechanics from the Cascade}}, March 2026.
 
-\bibitem{paper3} [Author], \href{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series --- Part~III: General Relativity from the Cascade}}, March 2026.
+\bibitem{paper3} [Author], \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series --- Part~III: General Relativity from the Cascade}}, March 2026.
 
-\bibitem{paper23} [Author], \href{\cascadebase/cascade-series-part2-equals-3.pdf}{\textit{The Cascade Series --- Part II\,=\,III: Quantum Gravity without Quantising Gravity}}, March 2026.
+\bibitem{paper23} [Author], \extlink{\cascadebase/cascade-series-part2-equals-3.pdf}{\textit{The Cascade Series --- Part II\,=\,III: Quantum Gravity without Quantising Gravity}}, March 2026.
 
-\bibitem{paper4a} [Author], \href{\cascadebase/cascade-series-part4a.pdf}{\textit{The Cascade Series --- Part IVa: Standard Model from the Cascade}}, March 2026.
+\bibitem{paper4a} [Author], \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Cascade Series --- Part IVa: Standard Model from the Cascade}}, March 2026.
 
-\bibitem{paper4b} [Author], \href{\cascadebase/cascade-series-part4b.pdf}{\textit{The Cascade Series --- Part IVb: Masses, Couplings, and Precision Predictions}}, March 2026.
+\bibitem{paper4b} [Author], \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Cascade Series --- Part IVb: Masses, Couplings, and Precision Predictions}}, March 2026.
 
-\bibitem{paper5} [Author], \href{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade}}, March 2026.
+\bibitem{paper5} [Author], \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade}}, March 2026.
 
 \end{thebibliography}
 

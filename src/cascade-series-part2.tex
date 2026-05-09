@@ -3,14 +3,14 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text, no box.
-% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborder is not accepted as a per-\href option, so wrap each call in a
-% group with a localised \hypersetup to disable the border for that one link.
-\let\OldHref\href
-\renewcommand{\href}[2]{{%
+\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
+% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
+% avoids redefining hyperref's robust \href. The grouped \hypersetup
+% disables pdfborder for this one link only; internal \ref / \cite see
+% colorlinks=false's default rectangular border.
+\newcommand{\extlink}[2]{{%
   \hypersetup{pdfborder={0 0 0}}%
-  \OldHref{#1}{\textcolor{blue}{#2}}%
+  \href{#1}{\textcolor{blue}{#2}}%
 }}
 \usepackage{microtype}
 \usepackage{booktabs}
@@ -2106,7 +2106,7 @@ gauge whose simplex is the right one for Cauchy) but not eliminated.
 \end{enumerate}
 
 \begin{thebibliography}{9}
-\bibitem{paperI} RTAC, \href{\cascadebase/cascade-series-part0.pdf}{\emph{The Cascade Series --- Part 0: Scale Variance from
+\bibitem{paperI} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\emph{The Cascade Series --- Part 0: Scale Variance from
 Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
 \bibitem{ledoux} M.~Ledoux, \emph{The Concentration of Measure Phenomenon}, AMS
 Mathematical Surveys and Monographs 89, 2001.
@@ -2128,10 +2128,10 @@ relativity,'' in \emph{Gravitation: An Introduction to Current Research}, Wiley,
 \bibitem{renou2021} M.-O.~Renou \emph{et al.}, ``Quantum theory based on real
 numbers can be experimentally falsified,'' \emph{Nature} \textbf{600}, 625--629
 (2021), arXiv:2101.10873.
-\bibitem{paper4b} RTAC, \href{\cascadebase/cascade-series-part4b.pdf}{\emph{The Cascade Series --- Part IVb: The Standard
+\bibitem{paper4b} RTAC, \extlink{\cascadebase/cascade-series-part4b.pdf}{\emph{The Cascade Series --- Part IVb: The Standard
 Model from the Cascade --- Masses, Couplings, and Precision Predictions from
 the Geometric-Topological Factorization}}, March 2026.
-\bibitem{paper6} RTAC, \href{\cascadebase/cascade-series-part6.pdf}{\emph{The Cascade Series --- Part VI: Tower Growth,
+\bibitem{paper6} RTAC, \extlink{\cascadebase/cascade-series-part6.pdf}{\emph{The Cascade Series --- Part VI: Tower Growth,
 Inflation, and the Pre-Big-Bang from the Cascade}}, April 2026.
 \end{thebibliography}
 

@@ -3,14 +3,14 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text, no box.
-% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborder is not accepted as a per-\href option, so wrap each call in a
-% group with a localised \hypersetup to disable the border for that one link.
-\let\OldHref\href
-\renewcommand{\href}[2]{{%
+\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
+% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
+% avoids redefining hyperref's robust \href. The grouped \hypersetup
+% disables pdfborder for this one link only; internal \ref / \cite see
+% colorlinks=false's default rectangular border.
+\newcommand{\extlink}[2]{{%
   \hypersetup{pdfborder={0 0 0}}%
-  \OldHref{#1}{\textcolor{blue}{#2}}%
+  \href{#1}{\textcolor{blue}{#2}}%
 }}
 \usepackage{enumitem}
 \usepackage{booktabs}
@@ -1450,27 +1450,27 @@ or the Gaussian corrections of Open Question~8) is unexplored.
 
 \begin{thebibliography}{9}
 
-\bibitem{paper0} RTAC, \href{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series~--- Part~0: The
+\bibitem{paper0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series~--- Part~0: The
 Gamma-Function Structure of the Cascade}}, March 2026.
 
-\bibitem{paper1} RTAC, \href{\cascadebase/cascade-series-part1.pdf}{\textit{The Cascade Series~--- Part~I: Scale Variance
+\bibitem{paper1} RTAC, \extlink{\cascadebase/cascade-series-part1.pdf}{\textit{The Cascade Series~--- Part~I: Scale Variance
 from Orthogonality}}, March 2026.
 
-\bibitem{paper2} RTAC, \href{\cascadebase/cascade-series-part2.pdf}{\textit{The Cascade Series~--- Part~II: Quantum
+\bibitem{paper2} RTAC, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{The Cascade Series~--- Part~II: Quantum
 Mechanics from the Cascade}}, March 2026.
 
-\bibitem{paper3} RTAC, \href{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series~--- Part~III: General
+\bibitem{paper3} RTAC, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series~--- Part~III: General
 Relativity from the Cascade}}, March 2026.
 
-\bibitem{paper4a} RTAC, \href{\cascadebase/cascade-series-part4a.pdf}{\textit{The Cascade Series~--- Part~IVa:
+\bibitem{paper4a} RTAC, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Cascade Series~--- Part~IVa:
 Standard Model from the Cascade --- Gauge Group, Symmetry Breaking,
 and Three Generations}}, March 2026.
 
-\bibitem{paper4b} RTAC, \href{\cascadebase/cascade-series-part4b.pdf}{\textit{The Cascade Series~--- Part~IVb:
+\bibitem{paper4b} RTAC, \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Cascade Series~--- Part~IVb:
 Masses, Couplings, and Precision Predictions from the
 Geometric-Topological Factorization}}, March 2026.
 
-\bibitem{paper6} RTAC, \href{\cascadebase/cascade-series-part6.pdf}{\textit{The Cascade Series~--- Part~VI:
+\bibitem{paper6} RTAC, \extlink{\cascadebase/cascade-series-part6.pdf}{\textit{The Cascade Series~--- Part~VI:
 Time as Tower Growth}}, March 2026.
 
 \bibitem{goroff} M.~H.~Goroff and A.~Sagnotti, ``The ultraviolet behaviour

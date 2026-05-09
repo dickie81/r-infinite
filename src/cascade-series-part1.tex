@@ -3,14 +3,14 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \hypersetup{colorlinks=false}
-% External links (\href): blue text, no box.
-% Internal links (\ref, \cite, intra-doc \hyperref) keep hyperref's default box.
-% pdfborder is not accepted as a per-\href option, so wrap each call in a
-% group with a localised \hypersetup to disable the border for that one link.
-\let\OldHref\href
-\renewcommand{\href}[2]{{%
+\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
+% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
+% avoids redefining hyperref's robust \href. The grouped \hypersetup
+% disables pdfborder for this one link only; internal \ref / \cite see
+% colorlinks=false's default rectangular border.
+\newcommand{\extlink}[2]{{%
   \hypersetup{pdfborder={0 0 0}}%
-  \OldHref{#1}{\textcolor{blue}{#2}}%
+  \href{#1}{\textcolor{blue}{#2}}%
 }}
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -1010,9 +1010,9 @@ family.
 One empirical fact ($d = 4$). Zero free parameters.
 
 \begin{thebibliography}{3}
-\bibitem{paper0pre} RTAC, \href{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude:
+\bibitem{paper0pre} RTAC, \extlink{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude:
 Why Nothing Has Structure}}, 2026.
-\bibitem{part0} RTAC, \href{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series --- Part 0: Scale
+\bibitem{part0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series --- Part 0: Scale
 Variance from Orthogonality}}, 2026.
 \end{thebibliography}
 
