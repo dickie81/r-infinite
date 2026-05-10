@@ -644,9 +644,11 @@ The slicing recurrence resolves infinity into finite content at each
 step. Where does the resolution stably terminate?
 
 The volume maximum is at $d = 5$: the unique dimension where the unit
-ball has the largest volume. The observer sits at $d = 4$, the
-boundary $S^3$ of $B^5$. By boundary dominance ($\Omega_{d-1}/V_d =
-d$), this boundary carries $4/5$ of the content.
+ball has the largest volume. The observer sits at $d = 4$, on the unit
+sphere $S^3 = \partial B^4$ --- the boundary of the equatorial $B^4$-slice
+of the volume-maximum ball $B^5$. By boundary dominance
+($\Omega_{d-1}/V_d = d$ at $d=4$), this boundary carries
+$\Omega_3/(\Omega_3+V_4)=4/5$ of the content.
 
 Why does the observer end up here? Part~III of the series proves
 that $d = 4$ is the unique spacetime dimension satisfying two
@@ -693,7 +695,7 @@ Step & Statement & Status & Austerity \\
 2 & Dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ & Theorem~\ref{thm:iterate} & (i), (ii) \\
 3 & Scale + rotation invariance at each $d\;\Rightarrow$ collapsed substrate; cascade as $d$-trajectory & Definition~\ref{def:ball}, Cor~\ref{cor:start} & (iii) \\
 4 & Asymptotic $B^\infty$: zero volume, zero area & Theorem~\ref{thm:nothing} & --- \\
-5 & Slicing recurrence, constant $\sqrt{\pi}$ & Forced by step 1 & --- \\
+5 & Slicing recurrence, constant $\sqrt{\pi}$ & Forced by steps 1--2 & --- \\
 6 & Descent: volumes grow, peak at $d = 5$ & Gamma function & --- \\
 7 & Observer at $d = 4$: boundary of the peak & Lovelock $\cap$ Clifford & --- \\
 8 & Four distinguished dimensions: $5, 7, 19, 217$ & Part~0 & --- \\
