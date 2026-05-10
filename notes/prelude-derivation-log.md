@@ -497,6 +497,56 @@ and austerity.
 
 ---
 
+## Verifications
+
+### V1 — Field choice (`$\mathbb{R}$` vs `$\mathbb{C}$` vs `$\mathbb{H}$`)
+
+**Question.** When graded extension realises distinguishability as a
+vector space, which field of scalars does the cascade commit to, and
+is that commitment forced under the new framing?
+
+**Existing Prelude treatment.** Section 10 (lines 758–789, "Real
+start, complex amplitudes, quaternionic spacetime") and Section 11
+(lines 875–882, the explicit clause-(ii) exclusion). Together they
+give:
+
+1. By Hurwitz's theorem, associative normed division algebras over
+   `$\mathbb{R}$` are exactly `$\mathbb{R}, \mathbb{C}, \mathbb{H}$`.
+2. By clause (ii) (minimal strength): `$\mathbb{R}$` is the minimum
+   — starting over `$\mathbb{C}$` or `$\mathbb{H}$` imports complex
+   structure (`$J^2 = -\mathrm{Id}$`) or quaternionic structure
+   (`$i, j, k$` with their relations) as additional axioms.
+3. `$\mathbb{R}$` is forced at the Prelude level.
+4. `$\mathbb{C}$` recovers downstream as a Part II theorem (forced
+   precession `$\alpha = \pi/2$`).
+5. `$\mathbb{H}$` recovers at the spacetime dimension via Lovelock +
+   Clifford in Part III.
+
+**Verification under the new framing.**
+
+- Step 1 (Hurwitz): classical theorem of algebra, provable within
+  ACA₀-strength foundations. Lives comfortably inside Bridge 2's
+  footprint. No additional imports.
+- Step 2 (clause-(ii) selection): same argumentative move that
+  forces Bridge 2 itself in Gap 5's closure. Self-consistent — the
+  cascade applies the same exclusion principle at every level
+  (foundational footprint, field choice, ambient space dimension).
+- Steps 3–5: unchanged by the new framing. The downstream Parts II
+  and III still recover `$\mathbb{C}$` and `$\mathbb{H}$` as theorems.
+
+**Internal consistency note.** Section 10's disclaimer (line 785–789:
+"the Prelude does not prove the cascade could not have been written
+over `$\mathbb{C}$` or `$\mathbb{H}$` from the outset --- it proves
+only that the real case suffices") and Section 11's explicit clause-(ii)
+exclusion (line 876: "Ruled out by clause (ii) (minimal strength)")
+are the same statement read two ways. Minimum-strength sufficiency *is*
+the exclusion under clause (ii). The two sections agree.
+
+**Result.** No changes required. The Prelude's existing field-choice
+treatment is forced under the new framing and stands as written.
+
+---
+
 ## Notes for next iteration
 
 - With Gap 5 closed, the Prelude's current Open Question 3(a)
