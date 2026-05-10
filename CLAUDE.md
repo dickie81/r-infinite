@@ -84,3 +84,68 @@ For the canonical, up-to-date list of the cascade's predictions and their precis
 ## Building
 
 The LaTeX sources are in `src/`. The computational tools require `numpy`, `scipy`, and `camb` (for CMB tests).
+
+## Cross-paper references
+
+Every cross-paper reference must be a `\xref` call so it stays synchronised with the target's numbering and produces a clickable cross-PDF link in the deployed bundle. Hardcoded prose like `Paper~0, Theorem~7.1` will fail CI (Layer E of `tools/build/check_xr_hyper_compliance.py`). The required form is:
+
+```latex
+Paper~0, Theorem~\xref{part0}{thm:tower}
+```
+
+`\xref{prefix}{label}` expands to a blue cross-PDF link displaying the resolved theorem/section number. Internal references (within the same paper) keep using `\ref{label}`.
+
+### Required preamble in every cascade paper
+
+```latex
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+\usepackage{xcolor}                                % \textcolor
+\newcommand{\extlink}[2]{{%                        % blue text, no box
+  \hypersetup{pdfborder={0 0 0}}%
+  \href{#1}{\textcolor{blue}{#2}}%
+}}
+% \xref machinery (verbatim across papers; see cascade-series-part1.tex
+% for the long-form commentary)
+\edef\xrhash{\string#}
+\makeatletter
+\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
+\newcommand{\xrhyperdoc}[2]{%
+  \externaldocument[#1:]{#2}%
+  \expandafter\def\csname xrfile@#1\endcsname{#2}}
+\newcommand{\xref}[2]{%
+  \begingroup
+    \def\xr@anchor@cur{}%
+    \ifcsname r@#1:#2\endcsname
+      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
+      \expandafter\xr@grab@anchor\xr@labeldata
+    \fi
+    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf%
+                 \xrhash nameddest=\xr@anchor@cur}%
+    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
+  \endgroup}
+\makeatother
+\usepackage{xr-hyper}
+\xrhyperdoc{<prefix>}{<file-stem>}                 % one per cited paper
+\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
+```
+
+`\xrhyperdoc{prefix}{stem}` replaces `\externaldocument[prefix:]{stem}` and additionally records the file stem so `\xref` can build the cross-PDF URL. The prefix convention varies by paper (e.g. `paper1` means `cascade-series-part0` in some files but `cascade-series-part1` in others — match the existing declarations in the citing paper, don't invent new ones).
+
+### Adding a new cross-paper reference
+
+1. **Verify the target label exists** in the target paper. Anchors in PDFs are derived from LaTeX counters (e.g. `theorem.2.5`, `subsection.7.1`), not from the user's `\label{}` string — but `\xref` reads the target's `.aux` file via xr-hyper to recover the right anchor name automatically. You only need to make sure the target has a `\label{}` that resolves to the right number.
+2. **If the target is a `\section{}` without a label**, add one at the section heading: `\section{...}\label{sec:short-name}`. The CI's Layer-E hint points at this when a section ref can't resolve.
+3. **If the citing paper has no `\xrhyperdoc` for the target**, add one to the preamble next to the existing `\xrhyperdoc` declarations, plus a `\bibitem` for the target paper if the citing paper has a bibliography. Pick a prefix consistent with the paper's existing convention.
+4. **Bibliography entries** for cascade papers must use `\extlink{\cascadebase/cascade-series-X.pdf}{\textit{Title}}` (Layer C of the validator enforces this). Bare `\href` to a relative path produces a `GoToR` PDF action that browser PDF viewers strip; the absolute-URL form generates a `URI` action that browsers honour.
+
+### Validator
+
+`tools/build/check_xr_hyper_compliance.py` runs in CI before pdflatex. It enforces:
+
+- **Layer A**: every `\cite{paperK}` to a cascade paper has a matching `\xrhyperdoc` (or legacy `\externaldocument`) declaration.
+- **Layer B**: prose like `Theorem~\texttt{thm:foo}` near `\cite{paperK}` is migrated to `\ref{paperK:thm:foo}` (or, preferably, `\xref{paperK}{thm:foo}`).
+- **Layer C**: cascade-paper bibitems use the absolute-URL `\extlink` form.
+- **Layer E**: no hardcoded `(Paper|Part)~X (Theorem|Lemma|Section|...)~N(.M)*` prose anywhere — must be `\xref`.
+
+If you're adding text that names a result in another cascade paper, write `\xref` from the start. Don't write the literal number first and migrate later — the literal number drifts silently when the target renumbers.
