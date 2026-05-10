@@ -249,60 +249,113 @@ The question is: what does $0\neq 1$ \emph{imply}?
 \section{Distinction Implies Orthogonality}\label{sec:distinction-implies-orthogonality}
 % ============================================================
 
-If $0$ and $1$ are distinguishable, they are maximally
-distinguishable. There is no sense in which $0$ partially overlaps
-with $1$; they share no content. In the language of geometry, they are
-\emph{orthogonal}: their inner product is zero.
+If $0$ and $1$ are distinguishable, they share no content. The
+logical NOT operation, mapping $0\mapsto 1$ and $1\mapsto 0$, is an
+involution exchanging two states with no common component. This
+section unpacks what \emph{distinguishable} means structurally and
+identifies the geometric content forced by Definition~\ref{def:axiom}.
 
-This is not a metaphor. The logical operation NOT, which maps
-$0\mapsto 1$ and $1\mapsto 0$, is an involution ($\mathrm{NOT}^2 =
-\mathrm{Id}$) that exchanges two states sharing no common component.
-In any inner-product space, the unique pair of unit vectors with no
-shared component is the orthogonal pair. The passage from
-$0\neq 1$ to orthogonality is not an additional assumption; it is a
-translation of the same fact into geometric language.
+\subsection*{Three structural properties of $\neq$}
+
+The relation $\neq$ has three structural properties that follow from
+its meaning as a binary relation in standard logic, not from any
+cascade-internal commitment:
+\begin{itemize}
+\item[(B)] \emph{Binary.} Distinguishability is all-or-nothing: two
+states either are or are not distinguishable. There is no
+``partially distinguishable'' --- $\neq$ does not admit gradations.
+\item[(S)] \emph{Symmetric.} $a \neq b$ iff $b \neq a$.
+\item[(L)] \emph{Local.} The fact that $a \neq b$ depends only on
+$a$ and $b$, not on what other distinguishable elements exist. The
+relation between $0$ and $1$ is the same whether or not $2, 3,
+\ldots$ also exist.
+\end{itemize}
+
+(B), (S), and (L) are operational content of ``$\neq$ is a binary
+relation in standard logic''; they require no commitment beyond
+Definition~\ref{def:axiom}.
+
+\subsection*{Cumulation}
+
+Each new distinguishable state extends the cumulative pool of
+pairwise distinctions: adding $s_{d+1}$ to a set of $d$
+pairwise-distinguishable states adds $d$ new pairwise distinctions
+(one with each existing state), each binary, symmetric, and local.
+Iterating, the cumulation of $d$ pairwise-distinguishable states
+forms a $d$-element discrete structure with full pairwise distinction
+--- combinatorially the vertex set of the complete graph $K_d$, with
+$\binom{d}{2}$ pairwise distinctions determined entirely by the
+cardinality $d$. At this stage no algebraic combination is imported;
+the ``combination'' of states is the bookkeeping of cumulative
+distinction itself.
+
+\subsection*{Geometric content forced by (B), (S), (L)}
+
+Once $d$ distinguishable states are realised as unit vectors in a
+Euclidean vector space (the natural continuous extension of cumulative
+distinguishability, forced downstream and discussed in Sections
+\ref{sec:the-dimension-tower}--\ref{sec:nothing-unstable}), properties
+(B), (S), (L) determine the geometry of the realisation:
 
 \begin{theorem}[Distinction is orthogonality]\label{thm:orth}
-For any $d\geq 2$, let $e_0, e_1\in\mathbb{R}^d$ be unit vectors
-representing two fully distinguishable states --- states sharing no
-common component under any linear operation on $\mathbb{R}^d$. Then
-$\langle e_0, e_1\rangle = 0$ under the standard Euclidean inner
-product.
+Let $\{s_1, \ldots, s_d\}$ be $d$ distinguishable states realised as
+unit vectors in a Euclidean vector space. Under the structural
+properties (B), (S), (L) of $\neq$, the realisation is the orthogonal
+embedding $s_i = e_i \in \mathbb{R}^d$ with
+$\langle e_i, e_j\rangle = \delta_{ij}$, and the pairwise angle
+between any two distinguishable states is $\pi/2$.
 \end{theorem}
 
 \begin{proof}
-In $\mathbb{R}^d$ with the standard inner product, $\langle e_0, e_1\rangle$
-is the component of $e_1$ along $e_0$: the projection of $e_1$ onto
-the line through $e_0$ is $P_{e_0}(e_1) = \langle e_0, e_1\rangle\,e_0$.
-``Fully distinguishable'' states share no common component by
-definition, so for every projector this projection must vanish.
-Applied to $P_{e_0}$: if $\langle e_0,e_1\rangle\neq 0$, then a linear
-operation on $e_1$ (projection onto $e_0$) produces a nonzero multiple
-of $e_0$ --- a partial identification of $e_1$ with $e_0$, contradicting
-full distinguishability. Hence $\langle e_0, e_1\rangle = 0$. The
-argument uses only the geometric interpretation of the inner product:
-no probability measure, no Born rule, and no fidelity relation is
-invoked.
+By (B), distinguishability admits no gradations; the pairwise inner
+product $\langle s_i, s_j\rangle$ for $i \neq j$ must take the
+extremal ``no overlap'' value of the inner product, $0$ ---
+corresponding to angle $\pi/2$ between unit vectors. Any nonzero
+value would represent a partial overlap between $s_i$ and $s_j$,
+contradicting the binary nature of $\neq$. By (L), this value is
+independent of $d$: the same constant $0$ holds for every
+distinguishable pair regardless of the cardinality of the state set,
+ruling out the simplex realisation (pairwise inner product
+$-1/(d{-}1)$, which depends explicitly on $d$). By (S), the inner
+product is symmetric, consistent with the realisation. By unit norm,
+$\langle s_i, s_i\rangle = 1$. The Gram matrix $G_{ij} = \delta_{ij}$
+has rank $d$, so the realisation requires at least $d$ ambient
+dimensions; clause~(ii) of austerity selects exactly $d$. Up to
+orthogonal change of basis, the realisation is
+$s_i = e_i \in \mathbb{R}^d$ with the standard basis.
 \end{proof}
 
 \begin{remark}[Status of Theorem~\ref{thm:orth}]
-Theorem~\ref{thm:orth} unpacks the Euclidean realisation of
-distinction at each $d$: given the premise that distinguishable states
-share no common component in $\mathbb{R}^d$, the projector calculation
-yields orthogonality. The substantive structural content is in the
-premise rather than in the conclusion. The bridge from logical
-$0\neq 1$ (Definition~\ref{def:axiom}) to that premise --- i.e., the
-choice of Euclidean geometry on each $\mathbb{R}^d$ as the realisation
-of logical distinction --- is a separate structural commitment, flagged
-in Section~\ref{sec:open-questions}, item~(3). The Euclidean inner
-product on $\mathbb{R}^d$ itself is forced by elementary linear
-algebra (it is the unique positive-definite symmetric bilinear form
-on $\mathbb{R}^d$ up to isomorphism, given a basis); the interpretive
-choice is the use of $\mathbb{R}^d$ as the geometric realisation of
-$d$ distinguishable states, not the geometry imposed on it.
-Theorem~\ref{thm:orth} is best read as the geometric expression of
-that interpretive choice rather than as an independent derivation of
-orthogonality.
+Theorem~\ref{thm:orth} derives orthogonality from the structural
+properties of $\neq$ as a binary relation (B, S, L) and the Euclidean
+vector-space realisation of cumulative distinguishability. The prior
+framing of this theorem flagged its premise (``states share no common
+component in $\mathbb{R}^d$'') as the substantive interpretive bridge
+of the prelude. That framing is superseded: as documented in the
+Prelude's status box and chain (Section~\ref{sec:the-chain}), both
+the vector-space-over-$\mathbb{R}$ realisation (forced by Hurwitz's
+theorem + clause~(ii)) and the angular extent $\pi$ that supports
+graded sharing (forced by the Euler product on $\mathbb{N}$ within
+minimum analytic-limits foundations) are downstream consequences of
+the cascade's existing commitments rather than separate structural
+choices. The leap from $0 \neq 1$ to orthogonality is no longer
+interpretive.
+
+\smallskip
+
+\noindent\textbf{Locality excludes the simplex.} Property (L) is
+what excludes alternative $S_d$-equivariant realisations such as the
+simplex (vertices of a regular $(d{-}1)$-simplex with pairwise inner
+product $-1/(d{-}1)$). The simplex is parameter-free and
+$S_d$-symmetric, so clauses~(i) and (ii) of austerity admit it; the
+original ``no shared component'' premise of Theorem~\ref{thm:orth}
+also does not exclude it cleanly, since the simplex's negative
+pairwise inner product is itself a fixed structural value rather than
+a free parameter. The simplex's pairwise inner product depends
+explicitly on $d$, so the relation between $s_1$ and $s_2$ would
+change every time a new state appears in the universe ---
+contradicting (L). The (L)-based exclusion makes precise an
+exclusion that was only implicit in the original framing.
 \end{remark}
 
 % ============================================================
