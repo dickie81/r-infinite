@@ -289,20 +289,65 @@ def find_dead_xrhyperdoc(text: str, preamble: str) -> list[tuple[int, str]]:
     return out
 
 
+def iter_section_commands(body: str):
+    """Yield (start, end_after_close, title) for each ``\\section{...}`` in
+    ``body``, parsing balanced braces so the closing brace of the section
+    title is correctly identified even when the title contains brace
+    groups (e.g. ``\\section{... \\texorpdfstring{$d=4$}{d=4}}``).
+
+    ``start`` is the offset of the leading backslash.
+    ``end_after_close`` is one past the closing brace of ``\\section{...}``.
+    ``title`` is the brace-group content (excluding the outermost braces).
+
+    Excludes ``\\section*{...}`` (starred form, unnumbered) by matching only
+    on the literal ``\\section{`` lexeme.
+    """
+    marker = r"\section{"
+    i = 0
+    n = len(body)
+    while True:
+        idx = body.find(marker, i)
+        if idx < 0:
+            return
+        title_start = idx + len(marker)
+        depth = 1
+        j = title_start
+        while j < n and depth > 0:
+            ch = body[j]
+            if ch == "\\" and j + 1 < n:
+                # Skip the next character; this covers \{ and \} which are
+                # literal braces, not group delimiters.
+                j += 2
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+            j += 1
+        if depth != 0:
+            # Unbalanced; bail rather than emit a confused result.
+            return
+        yield idx, j, body[title_start:j - 1]
+        i = j
+
+
 def find_unlabeled_sections(text: str, body: str, body_offset: int) -> list[tuple[int, str]]:
     """Layer G: \\section{...} not followed by \\label{...}. Returns
-    [(line_no, title)]."""
+    [(line_no, title)].
+
+    Uses balanced-brace parsing of the section title so a \\label{} embedded
+    inside the title (e.g. mis-placed within \\texorpdfstring's arguments) is
+    not mistaken for the section's label.
+    """
     out: list[tuple[int, str]] = []
-    for m in SECTION_RE.finditer(body):
-        end = m.end()
-        window = body[end:end + 80]
-        # Allow either inline \section{...}\label{...} or whitespace then \label
+    for start, end_after_close, title in iter_section_commands(body):
+        window = body[end_after_close:end_after_close + 80]
         if LABEL_AFTER_RE.match(window):
             continue
         if r"\label{" in window[:60]:
             continue
-        line_no = text.count("\n", 0, body_offset + m.start()) + 1
-        out.append((line_no, m.group(1)[:60]))
+        line_no = text.count("\n", 0, body_offset + start) + 1
+        out.append((line_no, title[:60]))
     return out
 
 
