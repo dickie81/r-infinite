@@ -2,16 +2,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{hyperref}
-\hypersetup{colorlinks=false}
-\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
-% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
-% avoids redefining hyperref's robust \href. The grouped \hypersetup
-% disables pdfborder for this one link only; internal \ref / \cite see
-% colorlinks=false's default rectangular border.
-\newcommand{\extlink}[2]{{%
-  \hypersetup{pdfborder={0 0 0}}%
-  \href{#1}{\textcolor{blue}{#2}}%
-}}
+\usepackage{cascade-xref}        % \extlink (cover sheet has no cross-paper \xref refs)
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{graphicx}

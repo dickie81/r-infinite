@@ -2,42 +2,9 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{geometry}
 \usepackage{hyperref}
-\hypersetup{colorlinks=false}
-\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
-% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
-% avoids redefining hyperref's robust \href. The grouped \hypersetup
-% disables pdfborder for this one link only; internal \ref / \cite see
-% colorlinks=false's default rectangular border.
-\newcommand{\extlink}[2]{{%
-  \hypersetup{pdfborder={0 0 0}}%
-  \href{#1}{\textcolor{blue}{#2}}%
-}}
-% Cross-paper hyperlinking infrastructure (see cascade-series-part1.tex
-% for the full commentary). Prelude has cross-paper prose refs but no
-% bibliography of its own, so it gets the \xref/\xrhyperdoc machinery
-% without bibitems for the cited papers -- the cite key isn't used.
-\edef\xrhash{\string#}
-\makeatletter
-\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
-\newcommand{\xrhyperdoc}[2]{%
-  \externaldocument[#1:]{#2}%
-  \expandafter\def\csname xrfile@#1\endcsname{#2}%
-}
-\newcommand{\xref}[2]{%
-  \begingroup
-    \def\xr@anchor@cur{}%
-    \ifcsname r@#1:#2\endcsname
-      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
-      \expandafter\xr@grab@anchor\xr@labeldata%
-    \fi
-    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf\xrhash nameddest=\xr@anchor@cur}%
-    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
-  \endgroup
-}
-\makeatother
+\usepackage{cascade-xref}        % cross-paper \xref machinery (incl. xr-hyper)
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{xr-hyper}
 \xrhyperdoc{paper0}{cascade-series-part0}
 \xrhyperdoc{paperII}{cascade-series-part2}
 \newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}

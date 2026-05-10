@@ -2,58 +2,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{geometry}
 \usepackage{hyperref}
-\hypersetup{colorlinks=false}
-\usepackage{xcolor}  % \textcolor (hyperref doesn't load color when colorlinks=false).
-% Cascade-paper bibitems use \extlink: blue text, no box. A new macro
-% avoids redefining hyperref's robust \href. The grouped \hypersetup
-% disables pdfborder for this one link only; internal \ref / \cite see
-% colorlinks=false's default rectangular border.
-\newcommand{\extlink}[2]{{%
-  \hypersetup{pdfborder={0 0 0}}%
-  \href{#1}{\textcolor{blue}{#2}}%
-}}
-% Cross-paper hyperlinking infrastructure.
-% \xrhyperdoc{prefix}{file-stem} replaces \externaldocument[prefix:]{file-stem}
-% AND records the file stem so \xref{prefix}{label} can build a cross-PDF
-% URL with the right anchor. \xref displays the resolved \ref* number
-% (xr-hyper), wrapped in \extlink to the target paper's destination.
-% \xrhash holds a catcode-12 '#' character so it survives hyperref's URL
-% normalisation cleanly (the robust \# can choke in some expansion contexts).
-% \xref builds the URL via \edef outside of \href so the hash, file stem,
-% and PDF destination name are all expanded into a literal string before
-% hyperref's URL handling runs (a conditional left lying around in the URL
-% argument hits "Extra \fi" inside hyperref's macros).
-% The destination name is the 4th group of \newlabel data the target's
-% .aux file populated into \r@<prefix:label> via xr-hyper. Hyperref names
-% PDF destinations after the LaTeX anchor (e.g. "theorem.2.5") not the
-% \label string ("thm:obstruction"), so URL fragments must use the anchor.
-% URLs use #nameddest=NAME because browser PDF viewers (notably Chrome)
-% treat a bare #NAME as an HTML anchor and ignore it.
-\edef\xrhash{\string#}
-\makeatletter
-\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
-\newcommand{\xrhyperdoc}[2]{%
-  \externaldocument[#1:]{#2}%
-  \expandafter\def\csname xrfile@#1\endcsname{#2}%
-}
-\newcommand{\xref}[2]{%
-  \begingroup
-    \def\xr@anchor@cur{}%
-    \ifcsname r@#1:#2\endcsname
-      % Unfold \r@<label> into its 5 brace groups via \protected@edef so
-      % \xr@grab@anchor can read them. A single \expandafter only expands
-      % \csname...\endcsname into the cs \r@<label> (one token); the cs
-      % itself still needs to be expanded before its brace groups are
-      % visible. \protected@edef avoids choking on robust macros that may
-      % appear inside \r@<label>'s caption field.
-      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
-      \expandafter\xr@grab@anchor\xr@labeldata%
-    \fi
-    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf\xrhash nameddest=\xr@anchor@cur}%
-    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
-  \endgroup
-}
-\makeatother
+\usepackage{cascade-xref}        % cross-paper \xref machinery (incl. xr-hyper)
 \usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{array}
@@ -63,7 +12,6 @@
 % xr-hyper cross-paper references (must follow hyperref).
 % Note: in this paper's bibliography \bibitem{paperI} points at Part 0
 % (cascade-series-part0), not Part I -- legacy bibliography naming.
-\usepackage{xr-hyper}
 \xrhyperdoc{paperI}{cascade-series-part0}
 \xrhyperdoc{paper4a}{cascade-series-part4a}
 \xrhyperdoc{paper4b}{cascade-series-part4b}

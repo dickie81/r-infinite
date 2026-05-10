@@ -99,38 +99,14 @@ Paper~0, Theorem~\xref{part0}{thm:tower}
 
 ```latex
 \usepackage{hyperref}
-\hypersetup{colorlinks=false}
-\usepackage{xcolor}                                % \textcolor
-\newcommand{\extlink}[2]{{%                        % blue text, no box
-  \hypersetup{pdfborder={0 0 0}}%
-  \href{#1}{\textcolor{blue}{#2}}%
-}}
-% \xref machinery (verbatim across papers; see cascade-series-part1.tex
-% for the long-form commentary)
-\edef\xrhash{\string#}
-\makeatletter
-\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
-\newcommand{\xrhyperdoc}[2]{%
-  \externaldocument[#1:]{#2}%
-  \expandafter\def\csname xrfile@#1\endcsname{#2}}
-\newcommand{\xref}[2]{%
-  \begingroup
-    \def\xr@anchor@cur{}%
-    \ifcsname r@#1:#2\endcsname
-      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
-      \expandafter\xr@grab@anchor\xr@labeldata
-    \fi
-    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf%
-                 \xrhash nameddest=\xr@anchor@cur}%
-    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
-  \endgroup}
-\makeatother
-\usepackage{xr-hyper}
+\usepackage{cascade-xref}                          % shared machinery
 \xrhyperdoc{<prefix>}{<file-stem>}                 % one per cited paper
 \newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
 ```
 
-`\xrhyperdoc{prefix}{stem}` replaces `\externaldocument[prefix:]{stem}` and additionally records the file stem so `\xref` can build the cross-PDF URL. The prefix convention varies by paper (e.g. `paper1` means `cascade-series-part0` in some files but `cascade-series-part1` in others — match the existing declarations in the citing paper, don't invent new ones).
+`\usepackage{cascade-xref}` (defined in `src/cascade-xref.sty`) loads `xcolor` and `xr-hyper`, sets `colorlinks=false`, and provides `\extlink`, `\xrhyperdoc`, and `\xref`. It must come **after** `\usepackage{hyperref}` and **before** any `\xrhyperdoc` calls. The package errors out if `hyperref` isn't loaded first.
+
+The prefix convention varies by paper (e.g. `paper1` means `cascade-series-part0` in some files but `cascade-series-part1` in others — match the existing declarations in the citing paper, don't invent new ones).
 
 ### Adding a new cross-paper reference
 

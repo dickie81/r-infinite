@@ -1,0 +1,102 @@
+% cascade-xref.sty -- shared cross-paper hyperlinking machinery for the
+% cascade series. Loaded via \usepackage{cascade-xref} after hyperref.
+%
+% Provides:
+%   \extlink{url}{text}      blue text, no box; the rendering used for
+%                            every cross-PDF link in the series.
+%   \xrhyperdoc{prefix}{stem} declares an xr-hyper external doc AND
+%                            records the file stem so \xref can build
+%                            the URL.
+%   \xref{prefix}{label}     blue clickable cross-PDF link to the
+%                            target PDF's anchor for `label`, displaying
+%                            the resolved \ref* number.
+%
+% Also sets:
+%   \hypersetup{colorlinks=false}  internal links keep their boxes;
+%                                  external links use \extlink instead
+%                                  of relying on hyperref's coloring.
+%
+% Per paper, the writer still supplies:
+%   \xrhyperdoc{prefix}{stem}      one per cited cascade paper
+%   \newcommand{\cascadebase}{...} the deployment base URL (the same
+%                                  for the whole series; lives in the
+%                                  paper so that switching hosts is a
+%                                  one-line edit per file).
+%
+% Loading order: \usepackage{hyperref} first, then this. xr-hyper is
+% pulled in by this package; do not \usepackage it again.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cascade-xref}[2026/05/10 Cascade-series cross-paper hyperlinks]
+
+\@ifpackageloaded{hyperref}{}{%
+  \PackageError{cascade-xref}%
+    {hyperref must be loaded before cascade-xref}%
+    {Add \string\usepackage{hyperref} to your preamble before
+     \string\usepackage{cascade-xref}.}}
+
+\hypersetup{colorlinks=false}
+\RequirePackage{xcolor}                           % \textcolor
+
+% External cross-PDF links: blue text inside a one-link group with
+% pdfborder=0 so the URL annotation has no rectangle. Internal \ref /
+% \cite outside the group keep colorlinks=false's default border.
+% \href is left untouched (redefining hyperref's robust command broke
+% CI in earlier attempts).
+\newcommand{\extlink}[2]{{%
+  \hypersetup{pdfborder={0 0 0}}%
+  \href{#1}{\textcolor{blue}{#2}}%
+}}
+
+% Cross-paper hyperlinking infrastructure.
+%
+% \xrhyperdoc{prefix}{file-stem} replaces the bare
+% \externaldocument[prefix:]{file-stem} call AND records the file stem
+% so \xref{prefix}{label} can build a cross-PDF URL with the right
+% anchor.
+%
+% \xrhash holds a catcode-12 '#' so it survives hyperref's URL
+% normalisation (the robust \# can choke in some expansion contexts).
+%
+% \xref builds the URL via \edef outside of \href so the hash, file
+% stem, and PDF destination name are all expanded into a literal
+% string before hyperref's URL handling runs (a conditional left
+% lying around in the URL argument hits "Extra \fi" inside hyperref's
+% macros).
+%
+% The destination name is the 4th group of \newlabel data the target's
+% .aux file populated into \r@<prefix:label> via xr-hyper. Hyperref
+% names PDF destinations after the LaTeX anchor (e.g. "theorem.2.5"),
+% not the \label string ("thm:obstruction"), so URL fragments must use
+% the anchor. URLs use #nameddest=NAME because browser PDF viewers
+% (notably Chrome) treat a bare #NAME as an HTML anchor and ignore it.
+\edef\xrhash{\string#}
+\makeatletter
+\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
+\newcommand{\xrhyperdoc}[2]{%
+  \externaldocument[#1:]{#2}%
+  \expandafter\def\csname xrfile@#1\endcsname{#2}%
+}
+\newcommand{\xref}[2]{%
+  \begingroup
+    \def\xr@anchor@cur{}%
+    \ifcsname r@#1:#2\endcsname
+      % Unfold \r@<label> into its 5 brace groups via \protected@edef
+      % so \xr@grab@anchor can read them. A single \expandafter only
+      % expands \csname...\endcsname into the cs \r@<label> (one
+      % token); the cs itself still needs to be expanded before its
+      % brace groups are visible. \protected@edef avoids choking on
+      % robust macros that may appear inside \r@<label>'s caption
+      % field.
+      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
+      \expandafter\xr@grab@anchor\xr@labeldata%
+    \fi
+    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf%
+                 \xrhash nameddest=\xr@anchor@cur}%
+    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
+  \endgroup
+}
+\makeatother
+
+\RequirePackage{xr-hyper}                         % must follow hyperref
+
+\endinput
