@@ -193,11 +193,31 @@ $\sqrt{\pi}$ is the irreducible residue of the recurrence.
 \end{theorem}
 
 \begin{proof}
-The second difference
-$\delta(d) := \ln(\Omega_{d+1}/\Omega_d) - \ln(\Omega_d/\Omega_{d-1})
-= \ln(d/(d+1))$. All $\pi$-dependent and $\Gamma$-dependent factors
-cancel exactly. $\sqrt{\pi}$ is the only nontrivial constant the
-recurrence contains.
+The cascade's first-order multiplicative recurrence on sphere areas
+(Corollary~\ref{cor:primary}) is
+\[
+\frac{\Omega_{d+1}}{\Omega_d} \;=\; \sqrt{\pi}\cdot R(d),
+\qquad R(d) := \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
+\]
+This factors uniquely as a dimension-independent constant
+$\sqrt{\pi}$ times a dimension-dependent Gamma ratio $R(d)$. The
+logarithmic form
+\[
+\ln(\Omega_{d+1}/\Omega_d) \;=\; \tfrac{1}{2}\ln\pi + \ln R(d)
+\]
+isolates $\tfrac{1}{2}\ln\pi$ as the unique constant additive
+component; the second log-difference
+\[
+\delta(d) \;:=\;
+\ln(\Omega_{d+1}/\Omega_d) - \ln(\Omega_d/\Omega_{d-1})
+\;=\; \ln R(d) - \ln R(d-1)
+\]
+removes the constant, leaving only Gamma-ratio content (the
+$\tfrac{1}{2}\ln\pi$ term cancels at second order; $\pi$ persists
+inside $R$ at half-integer arguments). Thus $\sqrt{\pi}$ is the
+unique dimension-independent multiplicative content of the
+recurrence; every other recurrence content lies in the
+dimension-dependent Gamma ratios.
 \end{proof}
 
 \begin{theorem}[Effective slicing radius]\label{thm:reff}
