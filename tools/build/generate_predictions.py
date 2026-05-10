@@ -277,6 +277,7 @@ def generate_html(intro, tiers):
             f'margin-bottom:0.75rem;">'
             f'{convert(tier["description"], "html")}</p>'
         )
+        parts.append('  <div class="table-wrap">')
         parts.append(
             '  <table style="width:100%; border-collapse:collapse; '
             'font-size:0.9rem; margin-bottom:1.5rem;">'
@@ -302,6 +303,7 @@ def generate_html(intro, tiers):
                 f'{tds}</tr>'
             )
         parts.append('  </table>')
+        parts.append('  </div>')
     return '\n'.join(parts)
 
 
