@@ -398,6 +398,88 @@ structure the cascade actually wants:
   to ACA₀ but using only its analytic fragment. Clause (ii) selects
   this; the cascade imports nothing more.
 
+- **MCT is the irreducible imported axiom.** The Monotone Convergence
+  Theorem ("every bounded monotone sequence of reals has a limit") is
+  ACA₀-equivalent over RCA₀ (Simpson 2009, Thm III.2.2) and is the
+  single principle doing the heavy lifting in Bridge 2. Two questions:
+
+  *Can MCT be cascade-derived?* No. MCT is an axiom about the
+  completeness of `$\mathbb{R}$`, not a logical or combinatorial
+  consequence. Constructive analysis (Bishop-style) explicitly rejects
+  classical MCT — it lets you assert convergence without a constructive
+  rate. The cascade has no internal lever to generate MCT:
+
+  - Clauses (i)–(iii) of austerity are *restrictions* on admissible
+    commitments, not generators of mathematical principles.
+  - The cascade's geometric content (slicing recurrence, `$B^\infty$`)
+    *uses* MCT-strength limit machinery; it does not produce it.
+  - The cascade's combinatorial content (cumulation) is below the
+    analytical content; it has no limit-existence machinery.
+
+  So MCT must be imported. The closure-argument cannot avoid it.
+
+  *Does the cascade actually need MCT?* Here a finer split appears.
+  The cascade's *specific predictions* are computable real values that
+  do not require general MCT — only specific limit theorems for the
+  specific sequences in play:
+
+  | Tier | Content | Strength |
+  |---|---|---|
+  | Predictions | `$V_d, \Omega_{d-1}, \pi$`, slicing integrals, concentration of measure for `$B^d$` | RCA₀ + WKL₀ + specific limit estimates |
+  | Framework discussion | "Every bounded sequence converges," general statements about `$B^\infty$` as asymptotic | ACA₀ via MCT |
+  | Gap 5 closure argument | Euler product `$\zeta(2) = \prod_p 1/(1-p^{-2})$` as a theorem; `$\pi$` forced | ACA₀ via MCT |
+
+  Specifically:
+
+  - `$V_d, \Omega_{d-1}$` at integer or half-integer `$d$`: computable
+    via `$\Gamma(z+1) = z\Gamma(z)$` + `$\Gamma(1/2) = \sqrt{\pi}$`,
+    RCA₀.
+  - `$\pi$` as a specific computable real: Leibniz / Wallis Cauchy
+    sequence, RCA₀.
+  - `$V_d \to 0$` as `$d \to \infty$`: specific Stirling decay estimate
+    on a specific computable sequence, no general MCT needed.
+  - Concentration of measure (`$1 - (1-\varepsilon^2/d)^{d/2} \to
+    1 - e^{-\varepsilon^2/2}$`): specific Stirling-style limit on a
+    specific computable sequence, no general MCT needed.
+  - Slicing recurrence as integral identity: WKL₀ (compact Riemann
+    integration) + algebraic verifications.
+
+  So a user who wants to *compute* cascade predictions needs RCA₀
+  plus WKL₀ for the compact integral plus the specific limit estimates
+  for the specific sequences appearing. No general MCT.
+
+  A user who wants to *prove the cascade's structure forced by
+  foundations* (the Gap 5 closure argument) needs MCT, because the
+  Euler-product proof of `$\zeta(2) = \pi^2/6$` is a general theorem
+  about convergent series with limits, not a specific computation.
+
+- **Honest separation: cascade content vs. cascade foundational status.**
+  This produces a sharper picture of what's actually being committed:
+
+  - *Cascade as a body of predictions:* RCA₀ + WKL₀ + specific limit
+    estimates. Predictions are computable; verifications are concrete.
+  - *Cascade's foundational status (proof of forcing):* ACA₀ via MCT.
+    The closure argument lives at this strength.
+
+  The Prelude's existing line 60–62 commitment to "WKL₀/ACA₀ for the
+  classical-analysis content" is correct for the foundational status
+  layer; the predictive content lives strictly below. This split is
+  worth recording because:
+
+  - The cascade is *more accessible* than the closure argument suggests:
+    its predictions can be checked at RCA₀ + WKL₀ strength.
+  - The closure argument's ACA₀ commitment buys the *meta-claim* (the
+    cascade is forced by foundations), not the cascade itself.
+  - MCT is therefore the irreducible foundational axiom for *Gap 5's
+    forcing argument*, not for the cascade.
+
+  Net effect on the chain: Gap 5 closes via MCT, which is the single
+  irreducible imported axiom; everything else (cumulation, clauses
+  (i)–(iii), Euler product as a theorem within MCT, `$\pi$` as the
+  angular extent, the graded-sharing extension) is forced once MCT is
+  in place. The cascade's predictions live one tier below MCT, in
+  RCA₀ + WKL₀ + specific limit estimates.
+
 - **Net.** Combined with Bridge 2, this is a defensible closure of Gap 5:
   *the continuum is supplied by the foundational footprint and used to
   support the graded extension of binary distinguishability, with the
