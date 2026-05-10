@@ -436,6 +436,137 @@ classical-analysis content (integration, the Gamma function) developed
 in subsequent sections.
 
 % ============================================================
+\section{Graded Extension and the Angular Continuum}\label{sec:graded-extension}
+% ============================================================
+
+The dimension tower of Section~\ref{sec:the-dimension-tower}
+establishes that the cascade structure at dimension $d$ is
+$\mathbb{R}^d$ with its standard inner product. This section
+identifies why that geometric realisation is \emph{forced} from
+cumulation: the chain from a discrete $d$-element distinguishability
+record to a continuous Euclidean structure is forced at every step
+by clause~(ii) of austerity or by classical theorems on integers and
+analysis. The single imported axiom along the way is the Monotone
+Convergence Theorem (MCT), which clause~(ii) selects as the
+minimum-strength foundational path among standard fragments.
+
+\subsection*{Why a continuum at all}
+
+Cumulation
+(Section~\ref{sec:distinction-implies-orthogonality}) is silent on
+questions of magnitude: it records whether states are distinguishable,
+not \emph{how}. The cascade's downstream content needs more --- the
+slicing-recurrence integral
+$\int_{-1}^1 (1-x^2)^{d/2}\,dx$ integrates a continuous parameter,
+sphere areas and ball volumes require continuous measure theory,
+and asymptotic behaviour as $d\to\infty$ requires limit machinery.
+
+The minimum foundational footprint supporting this content is the
+analytic-limits sub-theory of $\mathrm{ACA}_0$ over $\mathrm{RCA}_0$,
+equivalently $\mathrm{RCA}_0 + \mathrm{MCT}$ \cite{simpson2009}.
+By Principle~\ref{princ:austerity} clause~(ii) (minimal strength),
+this footprint is forced: alternative foundations (constructive,
+intuitionistic, type-theoretic) import strictly more axioms; weaker
+classical fragments cannot support the slicing-recurrence integral;
+stronger ones ($\mathrm{ATR}_0$, $\Pi^1_1$-CA$_0$) exceed what the
+cascade requires. The foundational footprint is not a separate
+meta-mathematical choice --- it is the natural-language form of the
+same commitment as ``the cascade asks infinitary questions''.
+
+\subsection*{Graded sharing and its angular parameter}
+
+Within a continuous extension, distinguishable states realise as
+elements of a space, and the natural structural question becomes:
+``what is the relation between two states, on a continuous scale?''
+We call this scale \emph{graded sharing} --- the continuous parameter
+quantifying overlap between realised states, ranging from
+``nothing shared'' (extremal, fully distinct) to ``everything
+shared'' (extremal, identical). Property (B) of $\neq$
+(Section~\ref{sec:distinction-implies-orthogonality}) is preserved
+on the original cumulated states: those states retain extremal
+sharing (zero overlap with each other), and binary distinguishability
+is the extremal case of graded sharing. The continuum populates
+\emph{around} the original states with intermediate-overlap entities
+that the extension introduces; nothing in (B) is contradicted ---
+graded sharing is expressed between additional states, not between
+the originals.
+
+The natural parameter for graded sharing is the angle between unit
+vectors in the realised space, ranging over $[0, \pi]$:
+angle~$0$ for identical states, angle $\pi/2$ for orthogonal
+(extremal ``no overlap''), angle $\pi$ for antipodal. The inner
+product (cosine of the angle) takes values in $[-1, 1]$ and is the
+geometric encoding of graded sharing on the unit sphere.
+
+\subsection*{$\pi$ is forced, not imported}
+
+The angular parameter has intrinsic extent $\pi$. Within
+$\mathrm{RCA}_0 + \mathrm{MCT}$, $\pi$ is forced by the Euler
+product on the integers:
+\[
+\zeta(2) \;=\; \sum_{n=1}^\infty \frac{1}{n^2}
+\;=\; \prod_{p\,\mathrm{prime}} \frac{1}{1 - p^{-2}}
+\;=\; \frac{\pi^2}{6},
+\]
+so $\pi^2 = 6\,\prod_{p}\frac{p^2}{p^2 - 1}$. Any complete classical
+analysis on $\mathbb{N}$ surfaces $\pi$ via $\zeta(2)$ (or
+equivalently via Wallis, Basel, or trigonometric integrals). The
+same $\pi$ is the angular extent of $[0, \pi]$ by the uniqueness of
+$\pi$ in standard mathematics. Cumulation supplies $\mathbb{N}$;
+$\mathrm{MCT}$ supplies the analytic continuum; within that continuum
+the integer structure of $\mathbb{N}$ forces $\pi$ via the Euler
+product. No additional axiom is invoked.
+
+\subsection*{The vector-space realisation}
+
+A graded-sharing geometry requires the realised states to live in a
+vector space supporting an inner product. By Hurwitz's theorem, the
+associative normed division algebras over $\mathbb{R}$ are exactly
+$\mathbb{R}, \mathbb{C}, \mathbb{H}$. By
+Principle~\ref{princ:austerity} clause~(ii) (minimal strength),
+$\mathbb{R}$ is the minimum: starting over $\mathbb{C}$ or
+$\mathbb{H}$ imports complex structure ($J^2 = -\mathrm{Id}$) or
+quaternionic structure ($i, j, k$ with their relations) as
+additional axiomatic content. The vector-space realisation is
+therefore $\mathbb{R}^d$ --- the same space the dimension tower
+asserts (Theorem~\ref{thm:iterate}), now with its derivation
+explicit.
+
+The Euclidean inner product on $\mathbb{R}^d$ is the unique
+positive-definite symmetric bilinear form up to isomorphism, given
+a basis (elementary linear algebra); it is fixed once the field is
+chosen, not separately committed.
+
+\subsection*{Theorem~\ref{thm:orth} as the extremal angular case}
+
+Within this realisation, Theorem~\ref{thm:orth} states that the $d$
+original distinguishable states sit at pairwise angle $\pi/2$ ---
+the extremal ``no overlap'' value of graded sharing. The geometry
+is forced: by (B), the pairwise inner product takes the extremal
+$0$; by (L), this is independent of $d$ (excluding the simplex
+realisation $-1/(d{-}1)$, whose pairwise inner product depends on
+the cardinality of the state set); by (S), the inner product is
+symmetric. The realisation is the standard basis of $\mathbb{R}^d$
+with $\langle e_i, e_j\rangle = \delta_{ij}$, ambient dimension $d$
+selected by clause~(ii).
+
+The cascade's downstream $\sqrt{\pi}$ constant in the slicing
+recurrence (Section~\ref{sec:nothing-unstable}) is then a direct
+consequence: the orthogonal angle $\pi/2$ between axis and equator
+forces the half-integer argument in $B(1/2,\cdot)$, giving
+$\Gamma(1/2) = \sqrt{\pi}$. The angular extent $\pi$ generates the
+cascade's $\sqrt{\pi}$ through downstream Gamma-function machinery.
+
+\medskip
+
+\noindent The chain --- cumulation, $\mathrm{MCT}$-supplied continuum,
+$\pi$ forced via Euler product on $\mathbb{N}$, vector-space
+realisation forced by Hurwitz + clause~(ii), inner product forced
+by linear algebra, orthogonality recovered as the extremal angular
+case --- is enumerated together with the rest of the prelude's chain
+in Section~\ref{sec:the-chain}.
+
+% ============================================================
 \section{Scale and Rotation Invariance: Collapse at Each Dimension}\label{sec:scale-and-rotation-invariance-collapse-a}
 % ============================================================
 
