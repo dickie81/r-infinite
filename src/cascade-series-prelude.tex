@@ -5,7 +5,6 @@
 \usepackage{cascade-xref}        % cross-paper \xref machinery (incl. xr-hyper)
 \usepackage{booktabs}
 \usepackage{graphicx}
-\xrhyperdoc{part0}{cascade-series-part0}
 \xrhyperdoc{part2}{cascade-series-part2}
 \geometry{margin=2.5cm}
 
@@ -239,9 +238,10 @@ built into what ``sole pre-mathematical input'' means, rather than a
 further axiom within the mathematical content. Each step of the prelude
 chain that previously relied on an implicit parsimony choice is now
 annotated with the clause of Principle~\ref{princ:austerity} it invokes.
-Whether austerity \emph{uniquely} determines $B^\infty$ --- as opposed to
-rendering it defensibly minimal among a larger austerity-compatible set ---
-remains open (Section~\ref{sec:open-questions}).
+The chain from $0\neq 1$ to the cascade's complete starting structure
+is closed at every step: each step is forced by a clause of
+Principle~\ref{princ:austerity} or by a classical theorem on integers
+and analysis (Section~\ref{sec:the-chain}).
 
 The question is: what does $0\neq 1$ \emph{imply}?
 
@@ -381,7 +381,7 @@ product, and the unit ball $B^d = \{x\in\mathbb{R}^d : |x|\leq 1\}$.
 Euclidean space $\mathbb{R}^d$ and its unit ball $B^d$ are well-defined
 classical objects, expressible in $\mathrm{RCA}_0$ \cite{simpson2009} ---
 the strength-measurement base of Principle~\ref{princ:austerity}
-clause~(ii) (Section~\ref{sec:open-questions}, item~(2)).
+clause~(ii).
 
 \emph{The dimension tower has no upper bound (clause~(i) of
 Principle~\ref{princ:austerity}).} Suppose the tower stops at some
@@ -405,7 +405,7 @@ Principle~\ref{princ:austerity}).} Indexing the dimension tower by an
 uncountable cardinal would require expressive machinery beyond
 second-order arithmetic, strictly stronger than
 Definition~\ref{def:axiom} in the reverse-mathematics sense of
-clause~(ii) (Section~\ref{sec:open-questions}, item~(2)).
+clause~(ii) \cite{friedman1975,simpson2009}.
 Principle~\ref{princ:austerity} clause~(ii) (minimal strength)
 therefore excludes the uncountable case. The dimension parameter
 ranges over $\mathbb{N}$.
@@ -1014,189 +1014,26 @@ nothing, taken seriously, has structure. The question ``why is there
 \label{sec:open-questions}
 % ============================================================
 
-Principle~\ref{princ:austerity} derives three previously-implicit
-parsimony choices (finite-vs-$\aleph_0$ dimension index;
-countable-vs-uncountable indexing of the dimension tower; the
-unobservable-continuous-symmetry quotients of $\mathbb{R}^*$-dilation
-and $\mathrm{SO}(d)$ at each $d$, collapsing each level to a single
-substrate point) as clauses of a single derivation rule from
-Definition~\ref{def:axiom}. The prelude chain now invokes these
-clauses explicitly, and austerity is derived from the sole-input
-status of $0\neq 1$ rather than declared as a second input. What
-remains open:
+The prelude's chain from Definition~\ref{def:axiom} ($0\neq 1$) to
+the cascade's complete starting structure
+$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ with asymptotic upper edge
+$B^\infty$ is closed at every step (Section~\ref{sec:the-chain}):
+each step is forced by a clause of Principle~\ref{princ:austerity}
+or by a classical theorem on integers and analysis. The chain's
+single irreducible imported axiom is the Monotone Convergence Theorem
+(MCT) over $\mathrm{RCA}_0$, selected by clause~(ii) of austerity as
+the minimum-strength foundational path among standard fragments
+(Section~\ref{sec:graded-extension}; status box at the head of this
+prelude). MCT cannot be cascade-derived; it is the unique
+foundational commitment beyond Definition~\ref{def:axiom}.
 
-\textbf{(1) Uniqueness of the resolution process under austerity ---
-reduces to (3)(a).} Is the cascade's resolution process --- the
-dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of
-finite-dimensional Euclidean spaces with each level collapsed under
-$\mathbb{R}^*\times\mathrm{SO}(d)$, together with the slicing
-recurrence as resolution mechanism extracting finite content from the
-asymptotic upper edge $B^\infty$ at $d\to\infty$ --- the \emph{unique}
-mathematical process derivable from Definition~\ref{def:axiom} under
-Principle~\ref{princ:austerity}, or merely one of several
-austerity-compatible resolution processes?
-
-The dimension tower has two components, each examinable for forcing:
-\begin{itemize}
-\item[$\bullet$] \emph{The orthogonal-state structure at each
-cardinality.} The integer $d$ does not enter the cascade as a
-separate primitive: it is the cardinality of the orthogonal-state
-set --- the count of orthogonal directions in the realisation chosen
-by sub-question (3)(a). Integer indexing and the space at each level
-are the same thing: ``$\mathbb{R}^d$ at level $d$'' is ``the space of
-$d$ orthogonal states under (3)(a)'s realisation,'' and integer
-arithmetic on $d$ is just adding or removing one orthogonal direction.
-The cardinality $d$ ranges over $\mathbb{N}$ by
-Theorem~\ref{thm:iterate} (clause~(ii) via $\mathrm{RCA}_0$, item~(2)
-below: countable Gram--Schmidt is provable, uncountable orthonormal
-distinction is not; clause~(i) excludes any specific finite cutoff as
-a free parameter; $\mathbb{N}$ is $\mathrm{RCA}_0$'s native unbounded
-notion among countable index sets). Forcing the cardinality and the
-space at each cardinality therefore reduces to a single structural
-question --- the realisation of distinguishable states recorded in
-(3)(a). \emph{Open as (3)(a)}; not closed within (1).
-\item[$\bullet$] \emph{Bounded region $B^d$ within the cardinality-$d$
-realisation.} Forced given the previous component. Among compact
-convex regions in $\mathbb{R}^d$ with its standard inner product, the
-unit ball $B^d = \{x : |x|\leq 1\}$ is the unique parameter-free
-shape with full $\mathrm{SO}(d)$ symmetry: alternative shapes (cubes,
-simplices) break rotation symmetry; alternative balls (ellipsoids,
-balls of radius $r\neq 1$) introduce shape or scale parameters
-excluded by clause~(i). The unit ball is also the unique shape
-supporting the slicing recurrence with constant $\sqrt{\pi}$
-(Part~0, Theorem~\xref{part0}{thm:irred}: the recurrence's irreducible residue is forced
-by orthogonality on the cardinality-$d$ realisation).
-\end{itemize}
-
-The resolution mechanism itself is also forced given the tower: the
-slicing recurrence is the unique first-order multiplicative recurrence
-on the tower of unit balls (Part~0, Theorem~\xref{part0}{thm:irred}).
-
-\noindent\textbf{Reduction.} The bounded region and the resolution
-mechanism are forced once the orthogonal-state realisation of (3)(a)
-is fixed. Integer indexing is not a separate component --- it is the
-cardinality of (3)(a)'s structural commitment. Therefore (1) is
-closed up to (3)(a): \emph{given the inner-product realisation of
-$0\neq 1$ as orthogonal states, the cascade's resolution process is
-uniquely determined.} The remaining open question collapses into the
-interpretive bridge of (3)(a) --- a single substantive structural
-commitment of the prelude, comparable in status to ``use real numbers
-for analysis,'' rather than an independent open item.
-
-Three classes of alternatives at the level of the whole structure are
-explicitly ruled out inside this prelude:
-\begin{itemize}
-\item[$\bullet$] \emph{Complex or quaternionic Euclidean spaces as
-starting structure.} Ruled out by clause~(ii) (minimal strength):
-starting over $\mathbb{C}$ or $\mathbb{H}$ at each $d$ is strictly
-stronger than starting over $\mathbb{R}$, and the latter suffices.
-Section~\ref{sec:what-not} establishes that the real case is the most
-austere starting structure; $J$ with $J^2=-\mathrm{Id}$ is recovered
-as a Paper~II \emph{theorem} from the forced precession, not imposed
-upstream.
-\item[$\bullet$] \emph{Uncountable indexing of the dimension tower.}
-Ruled out inside Theorem~\ref{thm:iterate} by clause~(ii):
-uncountable indexing requires expressive machinery beyond second-order
-arithmetic.
-\item[$\bullet$] \emph{An infinite-dimensional ambient Hilbert space.}
-Ruled out as superfluous: the cascade's content (slicing recurrence,
-intrinsic geometric quantities, asymptotic limit) is fully expressible
-on the dimension tower of finite-dimensional Euclidean spaces, with
-$B^\infty$ as the asymptotic upper edge rather than a literal
-infinite-dimensional ambient object. No Cauchy completion, no
-Sol\`er-style convergence theorem, no functional-analytic refinement
-(rigged Hilbert space, nuclear space, weak-topology variant) is
-required to express any downstream cascade theorem.
-\end{itemize}
-
-\textbf{(2) Formal measure of assumption strength (clause (ii)) ---
-resolved.} The partial order on assumption strength used in clause~(ii)
-of Principle~\ref{princ:austerity} is the reverse-mathematics ordering
-over the base theory $\mathrm{RCA}_0$
-\cite{friedman1975,simpson2009}: $A$ is strictly stronger than $B$ if
-$\mathrm{RCA}_0 + A \vdash B$ but $\mathrm{RCA}_0 + B \nvdash A$. This
-framework calibrates the strength of mathematical theorems against the
-``Big Five'' subsystems of second-order arithmetic
-($\mathrm{RCA}_0 \subsetneq \mathrm{WKL}_0 \subsetneq \mathrm{ACA}_0
-\subsetneq \mathrm{ATR}_0 \subsetneq \Pi^1_1\text{-}\mathrm{CA}_0$),
-giving a precise quantitative measure of any cascade derivation's
-foundational footprint. The countable-vs-uncountable comparison
-invoked in Theorem~\ref{thm:iterate} is a clean reverse-mathematics
-statement: the dimension tower indexed by $\mathbb{N}$ with $\mathbb{R}^d$
-at each level is expressible in $\mathrm{RCA}_0$; uncountable indexing
-requires expressive machinery beyond second-order arithmetic. The
-cascade's downstream content --- classical analysis on
-finite-dimensional Euclidean spaces, the Gamma function and its
-analytic properties, the slicing recurrence as a Beta-function identity
---- calibrates at $\mathrm{WKL}_0$/$\mathrm{ACA}_0$ within the Big
-Five hierarchy. No Cauchy completion to an infinite-dimensional
-Hilbert space is required (see Theorem~\ref{thm:iterate}'s ``No
-infinite-dimensional ambient space'' note), so the prelude itself
-stays at $\mathrm{RCA}_0$. The cascade's foundational footprint is
-therefore bounded by a well-understood, modest fragment of second-order
-arithmetic. The choice of $\mathrm{RCA}_0$ as the strength-measurement
-base is a foundational commitment, not a cascade-internal axiom: it
-specifies how clause~(ii) is to be applied without altering what the
-cascade proves from $0\neq 1$.
-
-\textbf{(3) The interpretive bridge at Theorem~\ref{thm:orth} ---
-elementary closure.} The step from logical $0\neq 1$ to geometric
-``states sharing no common component in $\mathbb{R}^d$'' (the premise
-of Theorem~\ref{thm:orth}) is a structural interpretation, not a
-clause of austerity. Austerity governs \emph{which} structure is
-admissible once the interpretive framework is fixed; it does not fix
-the interpretive framework itself. The interpretive choice splits into
-two layers:
-\begin{itemize}
-\item[(a)] \emph{The choice of $\mathbb{R}^d$ as the realisation of
-$d$ distinguishable states.} This is the genuine interpretive
-commitment: ``model $d$ logical distinctions as $d$ orthogonal
-directions in a $d$-dimensional Euclidean space.'' Integers do not
-enter as a separate primitive --- the integer $d$ is the cardinality
-of the orthogonal-state set under this realisation, and integer
-arithmetic on $d$ is just adding or removing one orthogonal direction.
-This is comparable in status to ``model continuous quantities as real
-numbers'' or ``model directed quantities as vectors'' --- a
-structural-realisation choice that the cascade adopts without further
-justification. Whether some weaker structural realisation (a
-non-Euclidean inner product, a non-Hilbert metric, a topology without
-inner product, an orthomodular lattice without an underlying vector
-space) also admits the cascade's subsequent chain is open in
-principle, but the alternatives that genuinely support the slicing
-recurrence and Gamma-function machinery all reduce to or refine the
-Euclidean realisation. The cascade adopts $\mathbb{R}^d$-Euclidean as
-the most elementary structural choice admitting its content.
-\item[(b)] \emph{The geometry on $\mathbb{R}^d$ once chosen.} This is
-\emph{not} an interpretive choice but a theorem of elementary linear
-algebra: the standard Euclidean inner product on $\mathbb{R}^d$ is
-the unique positive-definite symmetric bilinear form on
-$\mathbb{R}^d$, up to isomorphism, given a choice of basis. No Hilbert
-space machinery, no Sol\`er-style convergence theorem, no choice
-principle is required to fix it.
-\end{itemize}
-Sub-question (a) is the genuine open item; sub-question (b) is closed
-elementarily. Closing (a) would require either a uniqueness theorem of
-the form ``the most austere geometric realisation of $d$ distinguishable
-states admitting the slicing recurrence is $\mathbb{R}^d$-Euclidean'' ---
-which would promote the prelude from \emph{defensibly minimal} to
-\emph{forced} on this axis --- or a meta-foundational principle
-governing the choice of structural realisation. Both are
-foundations-of-mathematics questions outside the cascade's own scope,
-parallel to the meta-question of why standard mathematics is the
-natural ambient framework.
-
-\noindent\textbf{Foundational footprint preserved.} Because the
-interpretive bridge is closed elementarily (linear algebra at each
-$d$) rather than via Sol\`er-style machinery on an infinite-dimensional
-ambient space, the cascade's foundational footprint stays at the
-modest end of the Big Five hierarchy: $\mathrm{RCA}_0$ for the
-dimension tower, $\mathrm{WKL}_0$/$\mathrm{ACA}_0$ for the classical
-analysis content of Part~0 onward. No higher-strength machinery is
-imported by the prelude.
-
-\textbf{(4) The hard problem.} The cascade derives the
-dimension where self-awareness is mathematically possible. It does not
-derive self-awareness itself (already noted in Section~\ref{sec:what-not}).
+\textbf{The hard problem.} The cascade derives the dimension where
+self-awareness is mathematically possible. It does not derive
+self-awareness itself (already noted in
+Section~\ref{sec:what-not}). The question ``why is there something
+rather than nothing?''\ receives an answer: because nothing, taken
+seriously, has structure. The question ``why is there
+\emph{experience}?''\ remains open.
 
 \bigskip
 
