@@ -278,6 +278,58 @@ structure the cascade actually wants:
   Every step in this chain is forced by clause (ii) or by classical
   theorems of integers + analysis. Nothing is freely chosen.
 
+- **Final unification: the cascade and its foundations share one
+  commitment — handling infinity.** Reading the closed chain back, both
+  sides express the same structural commitment:
+
+  - *Cascade side.* The Prelude itself frames the cascade as "the
+    resolution of unresolved infinity" (lines 408–426). Every prediction
+    is a finite extract from `$B^\infty$`. The slicing recurrence is the
+    explicit mechanism. The asymptotic upper edge `$B^\infty$` is the
+    object of investigation.
+  - *Foundation side.* ACA₀'s capability above RCA₀ is exactly arithmetic
+    comprehension — being able to form sets defined by formulas whose
+    truth depends on an infinite range. Every ACA₀ theorem the cascade
+    uses (Cauchy completeness, convergent series with explicit limits,
+    improper integrals, `$\pi$`, Gamma function, ball volumes) is a
+    limit-taking theorem: extract a finite real from an infinite process.
+
+  So the foundational footprint is not an *external* machinery imposed on
+  the cascade; it is the minimum sufficient toolkit for asking the kind
+  of question the cascade is asking. You cannot ask infinitary questions
+  without infinitary tools. Cascade content and cascade foundations are
+  two expressions of the same commitment to handling infinity.
+
+  **What this tightens:** Bridge 2's "the cascade lives within standard
+  mathematical foundations" reads as a *separate* meta-commitment.
+  Reframed via this unification, it is not separate at all — it is the
+  natural-language form of "the cascade is about handling infinity," and
+  the formal-system form is the same statement. There is one commitment,
+  not two.
+
+- **Strict import: only the infinity-handling fragment of ACA₀.** The
+  cascade uses only the analytic/limit-taking consequences of ACA₀:
+
+  - Cauchy completeness of `$\mathbb{R}$`
+  - Convergence of monotone bounded sequences
+  - Convergent series with explicit limits (e.g., `$\zeta(2) = \pi^2/6$`)
+  - Convergent infinite products (e.g., the Euler product)
+  - Improper integrals (for the Gamma function)
+  - `$\pi$` as a specific real
+  - Sphere areas / ball volumes via Gamma
+
+  ACA₀'s general arithmetic comprehension also provides combinatorial,
+  order-theoretic, and proof-theoretic content (König's lemma for
+  finitely-branching trees, Ramsey theorems for pairs, ordinal analysis
+  up to `$\epsilon_0$`, truth predicates for arithmetic formulas) — none
+  of which the cascade uses. In principle, a bespoke subsystem combining
+  only the limit-handling analytic principles could substitute for ACA₀;
+  in practice ACA₀ is the well-calibrated standard fragment for classical
+  analysis and is what the Prelude commits to. The minimum-axiom-import
+  argument (clause (ii)) selects ACA₀ only because it is the standard
+  named fragment at the right strength; if a tighter named fragment
+  existed, clause (ii) would prefer it.
+
 - **Net.** Combined with Bridge 2, this is a defensible closure of Gap 5:
   *the continuum is supplied by the foundational footprint and used to
   support the graded extension of binary distinguishability, with the
