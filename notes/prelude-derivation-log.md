@@ -330,6 +330,74 @@ structure the cascade actually wants:
   named fragment at the right strength; if a tighter named fragment
   existed, clause (ii) would prefer it.
 
+- **Precise fragment characterisation.** Mapping cascade-relevant content
+  to its reverse-math strength reveals a clean bisection:
+
+  *Computable tier — predictions live here:*
+
+  | Content | Strength |
+  |---|---|
+  | Dimension tower `$\{B^d\}_{d\in\mathbb{N}}$` | RCA₀ |
+  | Computable reals (Cauchy sequences of rationals) | RCA₀ |
+  | `$\pi$` as a specific computable real (Leibniz / Wallis / etc.) | RCA₀ |
+  | `$\Gamma(z)$` at half-integers via `$\Gamma(z+1) = z\Gamma(z)$` and `$\Gamma(1/2) = \sqrt{\pi}$` | RCA₀ |
+  | `$V_d = \pi^{d/2}/\Gamma(d/2+1)$`, `$\Omega_{d-1}$` as specific reals | RCA₀ |
+  | Riemann integration of continuous functions on `$[-1, 1]$` (Heine–Borel) | WKL₀ |
+  | Slicing recurrence integral `$\int_{-1}^1 (1-x^2)^{d/2}\,dx$` as a value | WKL₀ |
+
+  *Proof tier — justifications live here:*
+
+  | Content | Strength |
+  |---|---|
+  | Cauchy completeness of `$\mathbb{R}$` as a theorem | ACA₀ |
+  | Monotone convergence theorem (MCT) | ACA₀-equivalent over RCA₀ |
+  | Convergent infinite series with explicit limits (proof of `$\zeta(2) = \pi^2/6$`) | ACA₀ |
+  | Convergent infinite products (Euler product proof) | ACA₀ (reducible to series via logs) |
+  | Improper Riemann integral `$\Gamma(z) = \int_0^\infty t^{z-1} e^{-t}\,dt$` at non-half-integer `$z$` | ACA₀ |
+  | Concentration of measure on `$S^{d-1}$` (Prelude Thm 6.1) | ACA₀ |
+
+  **Asymmetry.** Every concrete cascade *prediction* (specific values
+  for `$V_d$`, `$\Omega_{d-1}$`, `$R(d)$`, `$\pi$`, sphere areas at
+  integer or half-integer `$d$`) is a computable real and lives at
+  RCA₀ + compact Riemann integration (WKL₀). The cascade's
+  *justifications* (the Euler-product forcing of `$\pi$`, the
+  improper-integral Gamma function, concentration of measure) live at
+  ACA₀'s analytic-limits content. The predictions are a strict tier
+  below the proofs.
+
+  **The exact fragment imported.** The strict minimum is
+
+  ```
+  RCA₀ + MCT
+       (monotone convergence theorem for sequences of reals)
+       + improper Riemann integration on R
+       + basic measure theory on compact shapes
+  ```
+
+  Each of these is ACA₀-equivalent over RCA₀ (MCT alone is well-known to
+  be ACA₀-equivalent — Simpson 2009, Theorem III.2.2 and adjacent), so
+  the strict-import fragment is ACA₀-equivalent *in strength* while using
+  only ACA₀'s analytic-limits content. There is no standard named
+  fragment in the reverse-math literature that captures exactly this
+  combination of analytic-limits-but-no-combinatorics.
+
+  Closest informal names:
+  - "ACA₀'s analytic theorems" (informal)
+  - "Computable analysis with monotone limits" (informal)
+  - `$\mathrm{RCA}_0 + \mathrm{MCT}$` (formal, ACA₀-equivalent in strength)
+
+  The Prelude's status text (line 60–62) writes "WKL₀/ACA₀" because
+  that is the standard named fragment; the strict-minimum fragment is
+  the analytic-limits sub-theory of ACA₀, equivalently `$\mathrm{RCA}_0
+  + \mathrm{MCT}$` plus measure theory on compact shapes.
+
+  **Bridge 2 in its tightest form.** Reframed, Bridge 2 supplies:
+  *the minimum analytic-limits content sufficient for the cascade's
+  proofs, namely `$\mathrm{RCA}_0 + \mathrm{MCT}$` plus improper
+  integration and compact-shape measure theory* — equivalent in strength
+  to ACA₀ but using only its analytic fragment. Clause (ii) selects
+  this; the cascade imports nothing more.
+
 - **Net.** Combined with Bridge 2, this is a defensible closure of Gap 5:
   *the continuum is supplied by the foundational footprint and used to
   support the graded extension of binary distinguishability, with the
