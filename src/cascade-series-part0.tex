@@ -12,7 +12,33 @@
   \hypersetup{pdfborder={0 0 0}}%
   \href{#1}{\textcolor{blue}{#2}}%
 }}
+% Cross-paper hyperlinking infrastructure (see cascade-series-part1.tex
+% for the full commentary). Part 0 has cross-paper prose refs but no
+% bibliography of its own, so it gets the \xref/\xrhyperdoc machinery
+% without bibitems for the cited papers -- the cite key isn't used.
+\edef\xrhash{\string#}
+\makeatletter
+\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
+\newcommand{\xrhyperdoc}[2]{%
+  \externaldocument[#1:]{#2}%
+  \expandafter\def\csname xrfile@#1\endcsname{#2}%
+}
+\newcommand{\xref}[2]{%
+  \begingroup
+    \def\xr@anchor@cur{}%
+    \ifcsname r@#1:#2\endcsname
+      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
+      \expandafter\xr@grab@anchor\xr@labeldata%
+    \fi
+    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf\xrhash nameddest=\xr@anchor@cur}%
+    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
+  \endgroup
+}
+\makeatother
 \usepackage{booktabs}
+\usepackage{xr-hyper}
+\xrhyperdoc{paperIVb}{cascade-series-part4b}
+\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
 \geometry{margin=2.5cm}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -448,7 +474,7 @@ $\sqrt{\pi}$ and $\pi$ and fails~(b) for the same reason as Class~4
 \emph{powers}: not the dimension-independent constant of any canonical
 recurrence form.
 \item $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$
-(Part~IVb, Corollary~2.3) is a \emph{product} of the primitive
+(Part~IVb, Corollary~\xref{paperIVb}{cor:2sqrtpi-primitive}) is a \emph{product} of the primitive
 $\sqrt{\pi}$ with a derived cascade quantity ($N(0) = 2$, the $d{=}0$
 slicing lapse); as a multiple of the primitive it is a derived scalar, not
 itself the primitive.

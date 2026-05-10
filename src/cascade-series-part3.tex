@@ -65,6 +65,7 @@
 \xrhyperdoc{paper1}{cascade-series-part0}
 \xrhyperdoc{paper2}{cascade-series-part2}
 \xrhyperdoc{paper4a}{cascade-series-part4a}
+\xrhyperdoc{paper4b}{cascade-series-part4b}
 \xrhyperdoc{paper5}{cascade-series-part5}
 \newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
 
@@ -343,7 +344,7 @@ $N(4)$ with the metric lapse of an ADM foliation of the cascade's
 descent (treating $d$ as an ADM time coordinate with lapse $N(d)$), and
 used $N(4)^2 = 9\pi^2/64 \approx 1.388$ as a frame-conversion factor
 in the Friedmann equation. That derivation yielded $H_0 = 71.05$~km/s/Mpc
-and is retracted in Paper~V Section~6 (``Why the observer bridge and
+and is retracted in Paper~V, Section~\xref{paper5}{sec:hubble-constant} (``Why the observer bridge and
 not a descent lapse''): the correct conversion between the cascade's
 sphere-area content and the observer's 3-volume is the $\pi/2$
 projection factor of Paper~I~\cite{paper1} §3.2, not $N(4)^2$. Under
@@ -499,7 +500,7 @@ with $\Lambda = I$ and $T^{\mu\nu} = T^{\mu\nu}_{\text{eff}}$ as an identity. Ev
 no gravitational postulate is added.
 \end{theorem}
 
-\section{Deriving \texorpdfstring{$d = 4$}{d = 4}}
+\section{Deriving \texorpdfstring{$d = 4$}{d = 4}}\label{sec:d-equals-4}
 
 \begin{definition}[Cascade-compatible dimension]
 A spacetime dimension $d$ is cascade-compatible if it satisfies:
@@ -873,9 +874,9 @@ rotation relative to the Euclidean cascade.
 \medskip\noindent\textbf{Consequences.}
 This clarifies four downstream readings:
 \begin{itemize}[nosep]
-\item The cascade does not \emph{avoid} Wick rotation; it \emph{motivates} it. Claims to the contrary in earlier drafts (and in this paper's abstract before revision, Paper~V Section~6's retracted framing, etc.) are retracted in favour of the honest statement.
+\item The cascade does not \emph{avoid} Wick rotation; it \emph{motivates} it. Claims to the contrary in earlier drafts (and in this paper's abstract before revision, Paper~V, Section~\xref{paper5}{sec:hubble-constant}'s retracted framing, etc.) are retracted in favour of the honest statement.
 \item The ``Euclidean geometry'' of the cascade is not merely a computational device; it is the starting mathematical structure. The Lorentzian observer metric is derived by applying the physical identification hypothesis, which includes the Wick rotation as its time-coordinate map.
-\item Paper~III Section~14's Gauss--Codazzi analysis on the Lorentzian cascade metric uses the Wick-rotated form $g^L = -dt^2 + (1-t^2)\,d\sigma_{n-1}^2$; the identification of this with the cascade's Euclidean slicing geometry through $x = it$ is the content of Wick rotation, not a separate construction.
+\item Section~\ref{sec:supplement-asymptotic}'s Gauss--Codazzi analysis on the Lorentzian cascade metric uses the Wick-rotated form $g^L = -dt^2 + (1-t^2)\,d\sigma_{n-1}^2$; the identification of this with the cascade's Euclidean slicing geometry through $x = it$ is the content of Wick rotation, not a separate construction.
 \item The cascade-internal motivation for the Wick rotation is sharpened by~\cite{paper2} Section~7.1 (dimensional-collapse reading): each slicing operation \emph{is} one quantum of time, the slicing direction is the rate at which the cascade resolves $B^\infty$, and the Wick rotation $x \leftrightarrow it$ bridges the structural reading (Euclidean slicing as static cascade decomposition) and the dynamic reading (Lorentzian time as observed dimensional-collapse rate). The forced precession's oscillatory propagator $e^{-i\lambda_\infty x}$ is the cascade's quarter-turn per $d$-collapse expressed in the Euclidean coordinate; Wick rotation puts it in the observer's Lorentzian time.
 \end{itemize}
 \end{remark}
@@ -899,7 +900,7 @@ extra dimensions. Set by the embedding geometry of $M^4 \subset M^{217}$.
 (Section 9 of [2]). The angle $\pi/2$ is derived; $\Delta t$ is not.
 \end{itemize}
 
-\section{No Gravitons: Metric Degrees of Freedom without Second Quantisation}
+\section{No Gravitons: Metric Degrees of Freedom without Second Quantisation}\label{sec:no-gravitons}
 
 The cascade does not produce gravitons. The 4D metric $g_{\mu\nu}$ is a property
 of the cascade state $|\Psi\rangle \in S^{d-1}$ (Paper~II\,=\,III, Theorem~6.1):
@@ -979,7 +980,7 @@ $K_{\mu\nu} = 0$: totally geodesic embedding & Lorentzian cascade metric & Secti
 }
 \end{center}
 
-\section{Supplement: Asymptotic Compactification and the Cascade Metric}
+\section{Supplement: Asymptotic Compactification and the Cascade Metric}\label{sec:supplement-asymptotic}
 
 This section integrates the compactification results of [1], Section 4 into the gravitational
 framework, and presents the exact Lorentzian Gauss--Codazzi analysis.
@@ -1208,7 +1209,7 @@ Kerr/RN entropy, second route to $G_d = d/4$) are listed there.
 \item \textbf{Newton's constant.} The cascade produces dimensionless quantities;
 $G$ enters as a unit-matching constant from the embedding of the observer's
 4D slice in the 217-dimensional cascade. A cascade-native derivation of $G$
-would come from the discrete action of Paper~IVb Remark~4.6 evaluated with
+would come from the discrete cascade-correction family of Paper~IVb, Section~\xref{paper4b}{sec:correction-family} evaluated with
 gravitational couplings, or from a second structural identity giving $G_d = d/4$
 directly (Paper~II=III Open Question~4). \emph{Not a Kaluza--Klein problem}:
 the cascade explicitly refuses semiclassical reduction over compactified
@@ -1245,6 +1246,7 @@ out in Paper~V.
 \bibitem{paper2} {[Author]}, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
 
 \bibitem{paper4a} {[Author]}, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
+\bibitem{paper4b} {[Author]}, \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Standard Model from the Cascade: Part IVb---Masses, Couplings, and Precision Predictions from the Geometric-Topological Factorization}}, March 2026.
 
 \bibitem{paper5} {[Author]}, \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fail when cross-paper references aren't routed through xr-hyper.
 
-Three violation classes are flagged. A paper passes only when all three
+Four violation classes are flagged. A paper passes only when all four
 are clean:
 
 Layer A: ``\\cite{paperK}`` to a cascade paper, but the citing paper's
@@ -23,6 +23,17 @@ Layer C: ``\\bibitem{paperK}`` for a cascade paper, but the bibitem
     browser PDF viewers will follow. Bare relative file targets like
     ``cascade-series-X.pdf`` produce ``GoToR`` / ``Launch`` actions
     that browsers strip for sandboxing, so the click does nothing.
+
+Layer E: hardcoded prose like ``Paper~0, Theorem~7.1`` or
+    ``Part~IVb Remark~4.6`` that names a cascade paper and a
+    theorem/section/lemma number in plain text. Such references go
+    stale silently when the target paper renumbers, and they never
+    become clickable cross-PDF links. They must be replaced with
+    ``\\xref{prefix}{label}`` so the number is resolved by xr-hyper
+    and the link lands on the right anchor in the target PDF. Layer E
+    catches the pattern even when no \\externaldocument / \\xrhyperdoc
+    declaration exists in the citing paper, so missing-infrastructure
+    cases surface as build failures too.
 
 The validator parses each ``src/cascade-series-*.tex`` file:
     1. Extracts the bibliography block and identifies cite keys whose
@@ -92,6 +103,21 @@ LABEL_PREFIXES = (
 )
 TEXTTT_LABEL_RE = re.compile(
     r"\\texttt\{((?:" + "|".join(LABEL_PREFIXES) + r")(?::|\\text\{:\})[A-Za-z0-9_:.\\-]+)\}"
+)
+# Hardcoded prose cross-paper reference: "(Paper|Part)~X, Kind~N(.M)*"
+# where X is a paper roman/digit and Kind is a labelled environment. Used
+# by Layer E. Anchored so the citing paper's bibitem titles ("...Part 0:
+# Scale Variance...") don't match -- they have no Kind+number suffix.
+PROSE_CROSSREF_KINDS = (
+    "Theorem", "Lemma", "Proposition", "Corollary",
+    "Section", "Subsection", "Subsubsection",
+    "Definition", "Remark", "Equation",
+)
+PROSE_CROSSREF_RE = re.compile(
+    r"(?:Paper|Part)~?\s*(?:0|II=III|IVa|IVb|VI|V|IV|III|II|I)\b"
+    r"[,\s~]+"
+    r"(?:" + "|".join(PROSE_CROSSREF_KINDS) + r")"
+    r"~?\s*\d+(?:\.\d+)*"
 )
 
 # Distinctive substrings that appear in cascade-paper titles and subtitles.
@@ -197,23 +223,34 @@ def find_violations(
     list[tuple[int, str, str]],
     list[tuple[int, str, str, str]],
     list[tuple[int, str]],
+    list[tuple[int, str]],
 ]:
-    """Return (layer_a, layer_b, layer_c) violations.
+    """Return (layer_a, layer_b, layer_c, layer_e) violations.
 
     Layer A: list of (line_no, missing_xr_key, line_text).
     Layer B: list of (line_no, paper_key, label, snippet).
     Layer C: list of (line_no, paper_key) -- bibitem missing href wrap.
+    Layer E: list of (line_no, snippet) -- hardcoded prose cross-paper ref.
     """
     text = path.read_text(encoding="utf-8")
     preamble, body, bibliography = split_preamble_body_bibliography(text)
+    file_lines = text.splitlines()
+
+    # Layer E first: it applies to every paper, regardless of whether it
+    # has a bibliography or any \xrhyperdoc declarations -- the whole point
+    # is to surface missing-infrastructure cases as build failures.
+    body_offset = len(preamble)
+    layer_e: list[tuple[int, str]] = []
+    for m in PROSE_CROSSREF_RE.finditer(body):
+        line_no = offset_to_line(text, body_offset + m.start())
+        line_text = file_lines[line_no - 1].strip()
+        snippet = line_text if len(line_text) <= 200 else line_text[:197] + "..."
+        layer_e.append((line_no, snippet))
 
     cascade_keys = cascade_cite_keys(bibliography)
     if not cascade_keys:
-        return [], [], []
+        return [], [], [], layer_e
     declared = xr_hyper_keys(preamble)
-    # body is text[preamble_end:bib_start]; offset within body maps to line
-    # number in the original file by adding the preamble length up front.
-    body_offset = len(preamble)
 
     # Pre-compute a comment-stripped version of body, preserving char
     # positions (replace comment tail with spaces of equal length so offsets
@@ -235,7 +272,6 @@ def find_violations(
     layer_b: list[tuple[int, str, str, str]] = []
 
     cite_matches = list(CITE_RE.finditer(cleaned_body))
-    file_lines = text.splitlines()
 
     def line_and_snippet(offset: int) -> tuple[int, str]:
         line_no = offset_to_line(text, body_offset + offset)
@@ -296,7 +332,7 @@ def find_violations(
         line_no = offset_to_line(text, bib_offset + rel_offset)
         layer_c.append((line_no, key))
 
-    return layer_a, layer_b, layer_c
+    return layer_a, layer_b, layer_c, layer_e
 
 
 def display_path(path: Path) -> str:
@@ -316,23 +352,26 @@ def main(argv: list[str]) -> int:
     total_a = 0
     total_b = 0
     total_c = 0
+    total_e = 0
     files_with_hits = 0
 
     for paper in papers:
-        layer_a, layer_b, layer_c = find_violations(paper)
+        layer_a, layer_b, layer_c, layer_e = find_violations(paper)
         rel = display_path(paper)
-        if not (layer_a or layer_b or layer_c):
+        if not (layer_a or layer_b or layer_c or layer_e):
             print(f"[OK]   {rel}: no inter-paper references missing xr-hyper")
             continue
         files_with_hits += 1
         total_a += len(layer_a)
         total_b += len(layer_b)
         total_c += len(layer_c)
+        total_e += len(layer_e)
         print(
             f"[FAIL] {rel}: "
             f"{len(layer_a)} bare cite(s) without \\externaldocument, "
             f"{len(layer_b)} prose label(s) without \\ref, "
-            f"{len(layer_c)} bibitem(s) without cross-PDF \\href"
+            f"{len(layer_c)} bibitem(s) without cross-PDF \\href, "
+            f"{len(layer_e)} hardcoded prose cross-paper ref(s) without \\xref"
         )
         # Layer A: deduplicate by (line, key) for compactness.
         seen_a: set[tuple[int, str]] = set()
@@ -371,12 +410,24 @@ def main(argv: list[str]) -> int:
                 f"    L{line_no}  [C]  \\bibitem{{{key}}} -- "
                 f"missing \\extlink{{\\cascadebase/cascade-series-<X>.pdf}}{{...}} wrap"
             )
+        # Layer E: deduplicate by line (snippet is the line).
+        seen_e: set[int] = set()
+        for line_no, snippet in layer_e:
+            if line_no in seen_e:
+                continue
+            seen_e.add(line_no)
+            print(
+                f"    L{line_no}  [E]  hardcoded prose cross-paper ref -- "
+                f"replace with \\xref{{prefix}}{{label}}"
+            )
+            print(f"           {snippet}")
 
-    if total_a or total_b or total_c:
+    if total_a or total_b or total_c or total_e:
         print(
             f"\nFAIL: {total_a} Layer-A bare-cite, "
             f"{total_b} Layer-B prose-label, "
-            f"{total_c} Layer-C bibitem-no-href violations across "
+            f"{total_c} Layer-C bibitem-no-href, "
+            f"{total_e} Layer-E hardcoded-prose violations across "
             f"{files_with_hits}/{len(papers)} file(s).",
             file=sys.stderr,
         )
@@ -405,6 +456,20 @@ def main(argv: list[str]) -> int:
         print(
             "    \\bibitem{paperK} ..., \\extlink{\\cascadebase/cascade-series-<X>.pdf}"
             "{\\textit{Title of paperK}}, ...",
+            file=sys.stderr,
+        )
+        print(
+            "Layer E: replace hardcoded prose cross-paper refs with \\xref so the"
+            " number stays in sync and the link lands on the right anchor:",
+            file=sys.stderr,
+        )
+        print(
+            "    Paper~0, Theorem~7.1  ->  Paper~0, Theorem~\\xref{part0}{thm:tower}",
+            file=sys.stderr,
+        )
+        print(
+            "    (Add \\xrhyperdoc{part0}{cascade-series-part0} to the preamble"
+            " if not already present.)",
             file=sys.stderr,
         )
         return 1
