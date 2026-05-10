@@ -99,4 +99,9 @@
 
 \RequirePackage{xr-hyper}                         % must follow hyperref
 
+% Deployment base URL for cross-PDF links. \providecommand so a paper
+% can override locally if it ever needs a different host (e.g. for
+% a fork's preview build); the default points at the canonical site.
+\providecommand{\cascadebase}{https://dickie81.github.io/r-infinite}
+
 \endinput

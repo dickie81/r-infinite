@@ -9,17 +9,16 @@
 \usepackage[normalem]{ulem}
 
 % xr-hyper cross-paper references (must follow hyperref).
-% Note: \bibitem{paper1} in this paper's bibliography points at Part 0
+% Note: \bibitem{part0} in this paper's bibliography points at Part 0
 % (cascade-series-part0), not Part I -- legacy bibliography naming.
 % paper23 has no bibitem here but is needed for the in-body \ref to
 % Theorem thm:cascade-dirac-descent in Part II=III.
-\xrhyperdoc{paper1}{cascade-series-part0}
-\xrhyperdoc{paper2}{cascade-series-part2}
-\xrhyperdoc{paper23}{cascade-series-part2-equals-3}
-\xrhyperdoc{paper3}{cascade-series-part3}
-\xrhyperdoc{paper4a}{cascade-series-part4a}
-\xrhyperdoc{paper5}{cascade-series-part5}
-\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
+\xrhyperdoc{part0}{cascade-series-part0}
+\xrhyperdoc{part2}{cascade-series-part2}
+\xrhyperdoc{part23}{cascade-series-part2-equals-3}
+\xrhyperdoc{part3}{cascade-series-part3}
+\xrhyperdoc{part4a}{cascade-series-part4a}
+\xrhyperdoc{part5}{cascade-series-part5}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -62,7 +61,7 @@ At leading order the remaining descent-dependent quantities ($v$, $\Omega_m$, $m
 \tableofcontents
 \newpage
 
-\section{Division of Labour}
+\section{Division of Labour}\label{sec:division-of-labour}
 
 Part IVa [4] derives the Standard Model's structure: the gauge group $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$ from the Bott mirror, the symmetry breaking pattern from the hairy ball theorem, and three generations from the $d_1 = 19$ phase transition. This paper derives the Standard Model's quantities: masses, couplings, and precision predictions.
 
@@ -81,7 +80,7 @@ where $\psi = \Gamma'/\Gamma$ is the digamma function.
 The cascade potential is the cumulative decay rate, measuring the total suppression of a propagator traversing from $d = 4$ to dimension $d$. At the generation layers: $\Phi(5) = -0.111$, $\Phi(13) = 1.429$, $\Phi(21) = 5.494$, $\Phi(29) = 11.082$.
 
 \begin{remark}[Every path in this paper is forced, not chosen]\label{rem:paths-forced}
-The specific cascade descents used throughout this paper---$d=6..13$ for $m_\tau/m_\mu$, $d=14..21$ for $m_\mu/m_e$ (exclusive of the lower endpoint, as differences of cumulative $\Phi$), and $d=5..12$ for $\alpha_s$ and the electroweak VEV $v$, $d=5..13$ and $d=5..14$ for the $\mathrm{SU}(2)$ and $\mathrm{U}(1)$ couplings entering the Weinberg angle (inclusive of the $d=5$ anchor, as $\Phi$ values directly)---are not independent assumptions. They are forced by the layer assignments of Part~IVa~\cite{paper4a} (generation layers at $d\in\{5,13,21\}$; gauge boson layers at $d\in\{12,13,14\}$; observer host at $d_V=5$, the volume maximum) via the \emph{Forced Cascade Paths} theorem (Part~IVa, ``Forced Cascade Paths'' section). The asymmetry between the two conventions is structural: mass ratios are differences $\Phi(d_B)-\Phi(d_A)$ between two cascade layers, so the $d=5$ terms cancel whenever neither endpoint is at $d=5$; gauge-anchored quantities are $\Phi(d_B)$ directly, starting from the observer host at $d_V=5$. Once Part~IVa fixes the layers, Part~IVb's path is the unique cascade descent between them---every length forced by the Radon--Hurwitz and Bott-period theorems of Part~IVa, not by any additional input. Separating the two: Part~IVa derives the \emph{where}; this paper derives the \emph{how much}.
+The specific cascade descents used throughout this paper---$d=6..13$ for $m_\tau/m_\mu$, $d=14..21$ for $m_\mu/m_e$ (exclusive of the lower endpoint, as differences of cumulative $\Phi$), and $d=5..12$ for $\alpha_s$ and the electroweak VEV $v$, $d=5..13$ and $d=5..14$ for the $\mathrm{SU}(2)$ and $\mathrm{U}(1)$ couplings entering the Weinberg angle (inclusive of the $d=5$ anchor, as $\Phi$ values directly)---are not independent assumptions. They are forced by the layer assignments of Part~IVa~\cite{part4a} (generation layers at $d\in\{5,13,21\}$; gauge boson layers at $d\in\{12,13,14\}$; observer host at $d_V=5$, the volume maximum) via the \emph{Forced Cascade Paths} theorem (Part~IVa, ``Forced Cascade Paths'' section). The asymmetry between the two conventions is structural: mass ratios are differences $\Phi(d_B)-\Phi(d_A)$ between two cascade layers, so the $d=5$ terms cancel whenever neither endpoint is at $d=5$; gauge-anchored quantities are $\Phi(d_B)$ directly, starting from the observer host at $d_V=5$. Once Part~IVa fixes the layers, Part~IVb's path is the unique cascade descent between them---every length forced by the Radon--Hurwitz and Bott-period theorems of Part~IVa, not by any additional input. Separating the two: Part~IVa derives the \emph{where}; this paper derives the \emph{how much}.
 \end{remark}
 
 \subsection{The geometric-topological factorization}
@@ -102,7 +101,7 @@ The fermion-to-scalar propagator ratio at each Dirac layer is $1/(2\sqrt{\pi})$,
 
 \begin{proof}
 The cascade lapse at layer $d$ factorises as $N(d) = \sqrt{\pi}\cdot R(d)$
-(Part~0, Theorem~\xref{paper1}{thm:boundary}), where $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$ is the universal
+(Part~0, Theorem~\xref{part0}{thm:boundary}), where $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$ is the universal
 compression constant from orthogonality and
 $R(d) = \Gamma((d+1)/2)/\Gamma((d+2)/2)$ is the $d$-dependent geometric coupling.
 At a Dirac layer ($d\bmod 8 = 5$), $S^{d-1}$ is even-dimensional.
@@ -148,7 +147,7 @@ frame through the spin connection. The obstruction's quantitative content
 is fixed at the partition-function level (Remark~\ref{rem:berezin-partition-derivation}):
 the bosonic per-layer partition function is the slicing integral
 $Z_s(d) = \int_{-1}^1(1-x^2)^{(d-1)/2}\,dx = \sqrt{\pi}\cdot R(d)$
-(Part~0, Theorem~\xref{paper1}{thm:boundary}; the Gaussian/Beta-function Jacobian carries
+(Part~0, Theorem~\xref{part0}{thm:boundary}; the Gaussian/Beta-function Jacobian carries
 $\sqrt{\pi}$), while the fermionic per-layer partition function under
 Berezin integration of $S_f = m(d)\bar\psi\psi$ is $Z_f(d) = m(d)$ with
 no Gaussian prefactor. With the cascade-native Dirac mass
@@ -231,7 +230,7 @@ This factor survives for both scalars and fermions.
 The two factors $\sqrt{\pi}$ and $\chi = 2$ are the \emph{only}
 dimension-independent constants available at the hairy ball obstruction:
 $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$ is the unique constant of the cascade's
-slicing recurrence (Part~0, Theorem~\xref{paper1}{thm:irred}); $\chi(S^{2n}) = 2$ is the unique
+slicing recurrence (Part~0, Theorem~\xref{part0}{thm:irred}); $\chi(S^{2n}) = 2$ is the unique
 topological invariant of even-dimensional spheres that counts the obstruction
 strength. Any $d$-dependent factor would break the universality of the mass
 formula, contradicting the observed $d$-independence of the Bott factor to
@@ -249,7 +248,7 @@ The fermion-to-scalar ratio is:
 independent of $d$.
 \end{proof}
 
-\noindent The factor decomposes as: (a) $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$: the cascade's unique dimension-independent constant (Paper I, Theorem~\xref{paper1}{thm:boundary}), forced by orthogonality---consumed at the hairy ball zero because the tangent frame it encodes is globally obstructed. (b) $2 = \chi(S^{2n})$: the Euler characteristic of any even-dimensional sphere, equal to the number of chirality basins at the Dirac junction.
+\noindent The factor decomposes as: (a) $\sqrt{\pi} = \Gamma(\tfrac{1}{2})$: the cascade's unique dimension-independent constant (Paper I, Theorem~\xref{part0}{thm:boundary}), forced by orthogonality---consumed at the hairy ball zero because the tangent frame it encodes is globally obstructed. (b) $2 = \chi(S^{2n})$: the Euler characteristic of any even-dimensional sphere, equal to the number of chirality basins at the Dirac junction.
 
 \begin{corollary}[The obstruction factor as a cascade primitive]\label{cor:2sqrtpi-primitive}
 The topological obstruction factor equals the product of the cascade's zeroth slicing lapse and its unique irreducible constant:
@@ -288,7 +287,7 @@ The fermion-to-scalar propagator ratio $1/(2\sqrt{\pi})$ factorises into three s
 \begin{enumerate}
 \item \emph{Chirality halving $1/\chi = 1/2$.} Poincar\'e--Hopf applied to the Morse function on $S^{2n}$ at Dirac layers gives $\chi = 2$, splitting the spinor bundle into two equal-weight chirality basins (Theorem~\ref{thm:chirality-factorisation}). A definite-chirality fermion occupies one basin: factor $1/\chi$. Topological theorem; no assumption.
 \item \emph{Cascade-primitive identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac12)$} (Corollary~\ref{cor:2sqrtpi-primitive}). $N(0)$ and $\Gamma(\tfrac12)$ are both Part~0 primitives; no topological or spinor machinery enters the identity itself.
-\item \emph{Per-layer mass $m(d) = R(d)/\chi$ via chirality halving + Berezin partition.} The cascade fermion at each layer is a Grassmann scalar with mass action $m(d)\bar\psi\psi$ (per-layer locality, Section~\ref{sec:fermion-action}); Berezin integration gives $Z_f(d) = m(d)$ identically, with no Gaussian prefactor. The bosonic counterpart is $Z_s(d) = \sqrt{\pi}\cdot R(d)$ from the slicing measure (Part~0, Theorem~\xref{paper1}{thm:boundary}; the Gaussian/Beta-function Jacobian carries $\sqrt{\pi}$). The chirality halving from item~(1) gives $m(d) = R(d)/\chi = R(d)/2$ as the cascade's per-layer mass --- the bare scale $R(d)$ halved by the Euler characteristic of the even-sphere Dirac layer. The ratio is then
+\item \emph{Per-layer mass $m(d) = R(d)/\chi$ via chirality halving + Berezin partition.} The cascade fermion at each layer is a Grassmann scalar with mass action $m(d)\bar\psi\psi$ (per-layer locality, Section~\ref{sec:fermion-action}); Berezin integration gives $Z_f(d) = m(d)$ identically, with no Gaussian prefactor. The bosonic counterpart is $Z_s(d) = \sqrt{\pi}\cdot R(d)$ from the slicing measure (Part~0, Theorem~\xref{part0}{thm:boundary}; the Gaussian/Beta-function Jacobian carries $\sqrt{\pi}$). The chirality halving from item~(1) gives $m(d) = R(d)/\chi = R(d)/2$ as the cascade's per-layer mass --- the bare scale $R(d)$ halved by the Euler characteristic of the even-sphere Dirac layer. The ratio is then
 \[
 Z_f(d)/Z_s(d) \;=\; \frac{R(d)/2}{\sqrt{\pi}\,R(d)} \;=\; \frac{1}{2\sqrt{\pi}},
 \]
@@ -401,7 +400,7 @@ The Berezin-vs-Gaussian mechanism is exact at the per-layer
 partition-function level. The cascade's bosonic per-layer partition function is the scalar
 slicing integral
 $Z_s(d) = \int_{-1}^{1}(1-x^2)^{(d-1)/2}\,dx = \sqrt{\pi}\,R(d)$
-(Part~0, Theorem~\xref{paper1}{thm:boundary}). For a Grassmann-valued cascade field with
+(Part~0, Theorem~\xref{part0}{thm:boundary}). For a Grassmann-valued cascade field with
 quadratic action $S_f = m(d)\,\bar\psi\psi$, Berezin integration gives
 $Z_f(d) = m(d)$ with no Gaussian prefactor. With the cascade-derived
 per-layer mass $m(d) = R(d)/\chi = R(d)/2$ from
@@ -648,7 +647,7 @@ where:
 \begin{itemize}[nosep]
 \item $\exp(-\Phi(d_g))$ is the cascade potential's geometric attenuation
 along the fermion's descent from the observer's host at $d_V=5$ to the
-generation layer $d_g$. By Part~IVa~\cite{paper4a} Theorem~7.4
+generation layer $d_g$. By Part~IVa~\cite{part4a} Theorem~7.4
 (Forced Cascade Paths), this path is forced by the layer assignments
 of Parts~IVa and~0 once $d_g$ is fixed.
 \item $(2\sqrt{\pi})^{-n_D(d_g)}$ is the topological attenuation from
@@ -713,20 +712,20 @@ paragraph below).
 universality).
 \item Gauge coupling $g(d) = \sqrt{\alpha(d)}$ ($\sqrt{\alpha}$-universality
 at all gauge-window layers; ``Cascade-native universality'' paragraph below).
-\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa~\cite{paper4a}
+\item Adams gauge generators $T^a$ at gauge-window layers (Part~IVa~\cite{part4a}
 $\mathit{thm{:}adams}$: SU(3) at $d=12$ from $\mathbb{H}^3$, SU(2) at $d=13$
 from quaternionic right-mults, U(1) at $d=14$ from $J$).
 \item Parity-violating chirality structure from
 Theorem~\ref{thm:chirality-factorisation}: $\chi=2$ basin decomposition
 at $d=13$ selects L (doublet) vs R (singlet), reproducing the SM SU(2)$_L$
-pattern via Part~IVa~\cite{paper4a} Section~2 Spin$(12)$ Dirac decomposition.
+pattern via Part~IVa~\cite{part4a} Section~2 Spin$(12)$ Dirac decomposition.
 \end{enumerate}
 
 \medskip\noindent\textbf{Downstream consequences.}
 Y-spectrum closure via Theorem~\ref{thm:sector-fundamental-y}; photon
 self-energy $1/\alpha_{\rm em}$ screening via
 Remark~\ref{rem:per-leg-primitive-derivation}; SU(2)$_L$ parity
-violation via Part~IVa~\cite{paper4a} Section~2. Per CLAUDE.md Check~7,
+violation via Part~IVa~\cite{part4a} Section~2. Per CLAUDE.md Check~7,
 semiclassical procedures (Green's functions on cascade spheres,
 Coleman--Weinberg potentials on $S^{12}$) are out of bounds for cascade
 quantities; no ``higher-loop residual'' open piece exists at the cascade-
@@ -756,12 +755,12 @@ $g_{\rm QFT} = \sqrt{4\pi\alpha} = N(d) = 2\sqrt{\pi}\,g_{\rm cascade}(d)$);
 layer:
 \begin{itemize}
 \item $d=12$ (SU(3)): 8 generators, algebra at $d_0=7$ via
-  $G_2/\mathrm{SU}(3)$ (Part~IVa~\cite{paper4a}).
+  $G_2/\mathrm{SU}(3)$ (Part~IVa~\cite{part4a}).
 \item $d=13$ (SU(2)): 3 generators, right-multiplication algebra
   $\{R_i,R_j,R_k\}$ extended trivially to the slicing axis
-  (Part~IVa~\cite{paper4a}).
+  (Part~IVa~\cite{part4a}).
 \item $d=14$ (U(1)): 1 generator, $J|_{S^{13}}$ (cascade complex
-  structure restricted to the $d=14$ sphere; Part~IVa~\cite{paper4a}).
+  structure restricted to the $d=14$ sphere; Part~IVa~\cite{part4a}).
 \end{itemize}
 \end{itemize}
 
@@ -790,14 +789,14 @@ Step~1; matches Remark~\ref{rem:berezin-partition-derivation}).
 
 \medskip\noindent\textbf{Single-particle restriction unifies
 fund-or-trivial.} Under single-particle cascade descent
-(Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$:
+(Part~IVa~\cite{part4a} $\mathit{thm{:}forced\text{-}paths}$:
 each cascade observable threads exactly one path), the
 gauge-coupling term $g(d)\bar\psi T^a A^a \psi$ admits a single
 $T^a$-eigenstate for $\psi$ at the gauge-window layer; this gives
 $V_d \in \{\text{trivial}, \text{fundamental}\}$ at each $d$.
 Higher representations would require Clebsch--Gordan composition of
 multiple fundamentals, contradicting the single-path descent. The
-three independent layer arguments of Part~IVa~\cite{paper4a}
+three independent layer arguments of Part~IVa~\cite{part4a}
 $\mathit{rem{:}fund\text{-}or\text{-}trivial}$ unify into one under
 the proposed gauge-coupled action: a single principle
 (single-particle descent + cascade-native gauge coupling) restricts
@@ -822,7 +821,7 @@ sector to live in the cascade lattice (1D in the layer index $d$),
 with sphere geometry
 $S^{d-1}$ as the per-layer realisation but not the source of
 dynamics.
-\item Part~IVa~\cite{paper4a} $\mathit{thm{:}forced\text{-}paths}$
+\item Part~IVa~\cite{part4a} $\mathit{thm{:}forced\text{-}paths}$
 case~(ii) gives the gauge-anchored attenuation as the SCALAR
 cascade potential $\exp(\Phi(d_B))$, with the fermion contributing
 only the per-layer Berezin factor $(2\sqrt{\pi})^{-1}$ at each
@@ -850,7 +849,7 @@ gauge-invariance closure (verifier
 \texttt{tools/research/cascade\_path\_tensor\_consistency.py}).
 
 After EW symmetry breaking at $d=13$
-(Part~IVa~\cite{paper4a}~$\mathit{thm{:}lefschetz}$, $\mathit{thm{:}breaking}$,
+(Part~IVa~\cite{part4a}~$\mathit{thm{:}lefschetz}$, $\mathit{thm{:}breaking}$,
 $\mathit{thm{:}higgs}$) the unbroken U(1)$_{\rm em}$ at $d=4$ has
 generator $Q = T_3 + Y$, the linear combination annihilating the
 Higgs vacuum. This is cascade-derived from the Higgs mechanism
@@ -893,12 +892,12 @@ the action's specification.
 \subsection{Y spectrum from cascade gauge centres}\label{subsec:y-spectrum-closure}
 
 \begin{theorem}[Sector-fundamental U(1)$_Y$ rule from cascade gauge centers]\label{thm:sector-fundamental-y}
-Let $G_{\rm cw}=\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)_Y$ be the cascade gauge group at the gauge window $\{d=12,13,14\}$ (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$), let $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ be the standard centres, and let $\Psi$ denote a cascade matter state in a definite path-tensor sector
+Let $G_{\rm cw}=\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)_Y$ be the cascade gauge group at the gauge window $\{d=12,13,14\}$ (Part~IVa~\cite{part4a}~$\mathit{thm{:}adams}$), let $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ be the standard centres, and let $\Psi$ denote a cascade matter state in a definite path-tensor sector
 \[
 \Psi \;\in\; V_{12}\otimes V_{13}\otimes V_{14},
 \qquad V_{12}\in\{\mathbf{1},\mathbf{3}\},\;\; V_{13}\in\{\mathbf{1},\mathbf{2}\},\;\; \dim_{\mathbb{C}}V_{14}=1
 \]
-(Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$, $\mathit{rem{:}fund\text{-}or\text{-}trivial}$). Then the requirement that the diagonal subgroup
+(Part~IVa~\cite{part4a}~$\mathit{rem{:}path\text{-}tensor}$, $\mathit{rem{:}fund\text{-}or\text{-}trivial}$). Then the requirement that the diagonal subgroup
 \[
 \Delta\;:=\;\bigl\{(\zeta_3^{\,a},\,\zeta_2^{\,b},\,e^{2\pi i\,\eta(a,b)})\,:\,a\in\mathbb{Z}/3,\,b\in\mathbb{Z}/2\bigr\}\;\subset\;G_{\rm cw}
 \]
@@ -914,7 +913,7 @@ act trivially on every cascade matter sector forces $\Delta\cong\mathbb{Z}_6$ to
 \end{theorem}
 
 \begin{proof}
-\textbf{Step~1 (cascade gauge centres).} The centres $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ are standard for the cascade gauge groups derived in Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$ from $\rho(12)-1=8$, $\rho(13)-1=3$, $\rho(14)-1=1$. The U(1)$_Y$ generator at $d=14$ is the cascade complex structure $J|_{S^{13}}$ (Part~IVa~\cite{paper4a}~$\S$~on the $d=14$ layer); $J^2=-I$ gives a compact U(1) action.
+\textbf{Step~1 (cascade gauge centres).} The centres $Z(\mathrm{SU}(3))=\mathbb{Z}_3$ and $Z(\mathrm{SU}(2))=\mathbb{Z}_2$ are standard for the cascade gauge groups derived in Part~IVa~\cite{part4a}~$\mathit{thm{:}adams}$ from $\rho(12)-1=8$, $\rho(13)-1=3$, $\rho(14)-1=1$. The U(1)$_Y$ generator at $d=14$ is the cascade complex structure $J|_{S^{13}}$ (Part~IVa~\cite{part4a}~$\S$~on the $d=14$ layer); $J^2=-I$ gives a compact U(1) action.
 
 \textbf{Step~2 (centre action on path-tensor sectors).} On a fundamental rep, the centre acts by a primitive root of unity; on the trivial rep, it acts trivially. Thus on each $(V_{12},V_{13})$-sector:
 \begin{itemize}
@@ -947,13 +946,13 @@ Theorem~\ref{thm:sector-fundamental-y} establishes the sector-fundamental U(1)$_
 
 \textbf{The u$_R$ outlier is not a counterexample.} u$_R$ sits at $|Y_{u_R}|=2/3$ in its $(\mathbf{3},\mathbf{1})$-sector, i.e.\ at \emph{twice} the sector-fundamental $1/3$. This is forced by gauge invariance of the Yukawa singlet $\bar Q_L\widetilde H u_R$ together with the closure of (R1a) $|Y_H|=1/2$ and (R1c) sign$(Y_H)=$sign$(Y_{Q_L})$ (verifier \texttt{tools/research/cascade\_y\_trace\_identity.py} Step~2). Theorem~\ref{thm:sector-fundamental-y} predicts only that allowed Y values lie on the sector-fundamental lattice $\frac{1}{n}\mathbb{Z}$; the Yukawa singlet picks out the specific lattice point $|Y|=2\cdot|Y|_{\rm sf}$ for u$_R$.
 
-\textbf{What Theorem~\ref{thm:sector-fundamental-y} requires.} The forcing argument of Step~3 hinges on requiring that $\Delta$ act trivially on \emph{every} cascade matter sector. This is the cascade-internal content: cascade matter is exhausted by the four $(V_{12},V_{13})$-sectors $\{(\mathbf{1},\mathbf{1}),(\mathbf{1},\mathbf{2}),(\mathbf{3},\mathbf{1}),(\mathbf{3},\mathbf{2})\}$ per Part~IVa~\cite{paper4a}~$\mathit{rem{:}fund\text{-}or\text{-}trivial}$, and the path-tensor structure (Part~IVa~\cite{paper4a}~$\mathit{rem{:}path\text{-}tensor}$) places \emph{realised} matter in all four sectors except $(\mathbf{1},\mathbf{1})$ at the level of left-handed Weyl content (Q$_L$ in $(\mathbf{3},\mathbf{2})$, L$_L$ in $(\mathbf{1},\mathbf{2})$, $u_R^c,d_R^c$ in $(\bar{\mathbf{3}},\mathbf{1})$, $e_R^c$ in $(\mathbf{1},\mathbf{1})$). The maximally non-trivial sector $(\mathbf{3},\mathbf{2})$ is realised by Q$_L$, which fixes $\eta(a,b)=-(a/3+b/2)$ uniquely.
+\textbf{What Theorem~\ref{thm:sector-fundamental-y} requires.} The forcing argument of Step~3 hinges on requiring that $\Delta$ act trivially on \emph{every} cascade matter sector. This is the cascade-internal content: cascade matter is exhausted by the four $(V_{12},V_{13})$-sectors $\{(\mathbf{1},\mathbf{1}),(\mathbf{1},\mathbf{2}),(\mathbf{3},\mathbf{1}),(\mathbf{3},\mathbf{2})\}$ per Part~IVa~\cite{part4a}~$\mathit{rem{:}fund\text{-}or\text{-}trivial}$, and the path-tensor structure (Part~IVa~\cite{part4a}~$\mathit{rem{:}path\text{-}tensor}$) places \emph{realised} matter in all four sectors except $(\mathbf{1},\mathbf{1})$ at the level of left-handed Weyl content (Q$_L$ in $(\mathbf{3},\mathbf{2})$, L$_L$ in $(\mathbf{1},\mathbf{2})$, $u_R^c,d_R^c$ in $(\bar{\mathbf{3}},\mathbf{1})$, $e_R^c$ in $(\mathbf{1},\mathbf{1})$). The maximally non-trivial sector $(\mathbf{3},\mathbf{2})$ is realised by Q$_L$, which fixes $\eta(a,b)=-(a/3+b/2)$ uniquely.
 
-\textbf{(R1) is automatic from Theorem~\ref{thm:sector-fundamental-y}.} The relation $Y_H = N_c\cdot Y_{Q_L}$ (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question, item~(R1)) is a \emph{consequence} of Theorem~\ref{thm:sector-fundamental-y}, not an additional open piece. Both $H$ and $Q_L$ sit at the sector-fundamental of their respective sectors $(\mathbf{1},\mathbf{2})$ and $(\mathbf{3},\mathbf{2})$, which share the SU(2)-doublet factor $V_{13}=\mathbf{2}$. The ratio is therefore
+\textbf{(R1) is automatic from Theorem~\ref{thm:sector-fundamental-y}.} The relation $Y_H = N_c\cdot Y_{Q_L}$ (Part~IVa~\cite{part4a} Remark on the open Y-spectrum question, item~(R1)) is a \emph{consequence} of Theorem~\ref{thm:sector-fundamental-y}, not an additional open piece. Both $H$ and $Q_L$ sit at the sector-fundamental of their respective sectors $(\mathbf{1},\mathbf{2})$ and $(\mathbf{3},\mathbf{2})$, which share the SU(2)-doublet factor $V_{13}=\mathbf{2}$. The ratio is therefore
 \[
 \frac{|Y_H|}{|Y_{Q_L}|} \;=\; \frac{\dim V_{12}(Q_L)\cdot\dim V_{13}(Q_L)}{\dim V_{12}(H)\cdot\dim V_{13}(H)} \;=\; \frac{\dim V_{12}(Q_L)}{\dim V_{12}(H)} \;=\; \frac{N_c}{1} \;=\; N_c,
 \]
-where $V_{13}$ cancels and $N_c=\rho(12)-1=3$ is the cascade Adams count (Part~IVa~\cite{paper4a}~$\mathit{thm{:}adams}$). Combined with (R1c) sign correlation (Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question), this yields the composite relation $Y_H=N_c\cdot Y_{Q_L}$ with no separate trace-identity derivation required. The factor $N_c$ is the \emph{sector dimension ratio}, not a color trace. Verifier: \texttt{tools/research/cascade\_r1\_closure.py}.
+where $V_{13}$ cancels and $N_c=\rho(12)-1=3$ is the cascade Adams count (Part~IVa~\cite{part4a}~$\mathit{thm{:}adams}$). Combined with (R1c) sign correlation (Part~IVa~\cite{part4a} Remark on the open Y-spectrum question), this yields the composite relation $Y_H=N_c\cdot Y_{Q_L}$ with no separate trace-identity derivation required. The factor $N_c$ is the \emph{sector dimension ratio}, not a color trace. Verifier: \texttt{tools/research/cascade\_r1\_closure.py}.
 
 \textbf{What is not closed by Theorem~\ref{thm:sector-fundamental-y}.}
 \begin{enumerate}[label=(\alph*),nosep]
@@ -998,9 +997,9 @@ the $\mathrm{SU}(3)$-algebra-layer shift
 \[
 \delta\Phi_{b/s} \;=\; -\frac{\alpha(7)}{\chi^4} \;=\; -\frac{R(7)^2}{4\cdot 16},
 \]
-sourced at the area maximum $d_0=7$ (\cite{paper1}, Theorem~7.1)
+sourced at the area maximum $d_0=7$ (\cite{part0}, Theorem~7.1)
 where the cascade carries the $\mathrm{SU}(3)$ algebra structure
-$G_2/\mathrm{SU}(3)$ on $S^6$ (Part~IVa~\cite{paper4a},
+$G_2/\mathrm{SU}(3)$ on $S^6$ (Part~IVa~\cite{part4a},
 Remark on $\mathrm{SU}(3)$ algebra at $d_0=7$).
 With $R(7) = \Gamma(4)/\Gamma(9/2) = 16/(35\sqrt{\pi})$, the
 correction
@@ -1027,7 +1026,7 @@ quark ratio of the form $(\text{lepton ratio})\times e$; the $k=4$
 factor decomposes as 2 chirality factors from the lepton ratio
 (Gen-3 vs Gen-2 sector) and 2 from the cross-generation quark
 content. Source layer $d_0=7$ is the cascade's
-$\mathrm{SU}(3)$-algebra home (Part~IVa~\cite{paper4a}).
+$\mathrm{SU}(3)$-algebra home (Part~IVa~\cite{part4a}).
 \end{proof}
 
 \begin{remark}[On the $k=4$ exponent]
@@ -1111,7 +1110,7 @@ the marginal identity
 \label{eq:marginal-greens}
 \boxed{\;G(d_{\mathrm{obs}}, d^*) - G(d_{\mathrm{obs}}, d^* + 1) \;=\; \alpha(d^*)\;}
 \end{equation}
-are derived in Part~0~\cite{paper1} (Definition on the cascade
+are derived in Part~0~\cite{part0} (Definition on the cascade
 compliance and scalar action; Proposition on the marginal Green's function).
 Combined with the chirality filtering of Theorem~\ref{thm:chirality-factorisation},
 this yields
@@ -1141,7 +1140,7 @@ largely resolved by Remark~\ref{rem:v-closure}; residual is a formal
 cascade content).
 
 \emph{Connection to the Gram correction.} The single-source family above and
-the path-distributed Gram correction of Part~0~\cite{paper1}
+the path-distributed Gram correction of Part~0~\cite{part0}
 are complementary derivatives of one cascade compliance function $\alpha(d) =
 R(d)^2/4$: linear source response (this paper) versus discrete log-Laplacian
 at doubled argument (Part~0's inter-layer-coupling section). The structural
@@ -1155,7 +1154,7 @@ Cauchy--Schwarz path-additivity for the Gram correction.
 \begin{remark}[Action uniqueness: conditional on gauge identification]
 \label{rem:action-uniqueness}
 The cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi)^2$
-is defined in Part~0~\cite{paper1} (Definition on the cascade
+is defined in Part~0~\cite{part0} (Definition on the cascade
 compliance and scalar action). Its compliance $\alpha(d) = R(d)^2/4$ is the
 cascade-natural choice; this remark records the uniqueness argument.
 
@@ -1168,7 +1167,7 @@ compliance function $\beta(d)$, since the equilibrium depends on
 $\Delta\varphi_{\rm eq}$ alone. First-order EL fixes the action's form
 (quadratic, nearest-neighbour); it does not fix $\beta$.
 
-What pins $\beta$ is the marginal identity of Part~0~\cite{paper1}
+What pins $\beta$ is the marginal identity of Part~0~\cite{part0}
 (Proposition on the marginal Green's function): the per-layer Green's function
 response at source $d^*$ equals $\beta(d^*)$. Matching the observed
 $\alpha(d^*)/\chi^k$ shifts of Remark~\ref{rem:phase-family} therefore forces
@@ -1184,7 +1183,7 @@ The action is therefore uniquely forced by two cascade-native requirements:
 \begin{enumerate}[nosep]
 \item \emph{First-order EL equation} --- the action is quadratic and
 nearest-neighbour in $\Delta\varphi$, matching the cascade's first-order
-slicing recurrence (Part~0, Theorem~\xref{paper1}{thm:boundary}).
+slicing recurrence (Part~0, Theorem~\xref{part0}{thm:boundary}).
 \item \emph{Compliance equals the cascade gauge coupling} --- $\beta(d) = \alpha(d) = N(d)^2/(4\pi)$ is the cascade's gauge coupling at layer $d$ (Section~\ref{sec:gauge-couplings}; see also Remark~\ref{rem:alpha-geometric} on the cascade-internal $\Omega_2$ interpretation of the $(4\pi)^{-1}$).
 The action is the cascade-native gauge-sector functional.
 \end{enumerate}
@@ -1222,7 +1221,7 @@ This is forced by the scalar nature of $\varphi$ (no preferred direction to brea
 
 \medskip
 \textbf{(B) Chirality coherence from unitarity.}
-The cascade propagator $K(D,d')=\prod_{j=d'}^{D-1}L(j)$ with $L(j)=iN(j)$ is unitary (Part~II, Theorem~\xref{paper2}{thm:propagator}): it maps states to states bijectively. A state in a definite chirality sector at one even-sphere layer maps to a definite state at the next. The phase--obstruction lockstep (Part~II, Corollary~\xref{paper2}{cor:lockstep}) makes this explicit: the propagator phase at even-sphere layer $d$ relative to the observer is $e^{i(d-4)\pi/2}$, alternating deterministically between $+i$ (at $d\bmod 4=1$) and $-i$ (at $d\bmod 4=3$). A chirality selection at the first even-sphere layer determines the chirality at all subsequent layers through the periodic phase.
+The cascade propagator $K(D,d')=\prod_{j=d'}^{D-1}L(j)$ with $L(j)=iN(j)$ is unitary (Part~II, Theorem~\xref{part2}{thm:propagator}): it maps states to states bijectively. A state in a definite chirality sector at one even-sphere layer maps to a definite state at the next. The phase--obstruction lockstep (Part~II, Corollary~\xref{part2}{cor:lockstep}) makes this explicit: the propagator phase at even-sphere layer $d$ relative to the observer is $e^{i(d-4)\pi/2}$, alternating deterministically between $+i$ (at $d\bmod 4=1$) and $-i$ (at $d\bmod 4=3$). A chirality selection at the first even-sphere layer determines the chirality at all subsequent layers through the periodic phase.
 
 Consequently, a single definite-chirality propagator traversing a cascade path with $n_{\rm even}$ even-sphere layers makes \emph{one} chirality selection, not $n_{\rm even}$ independent selections. The correction factor is $(1/\chi)^1$, not $(1/\chi)^{n_{\rm even}}$.
 
@@ -1239,7 +1238,7 @@ The mode count $k$ is determined by the cascade's own structure (Part~IVa): $k=1
 \end{proof}
 
 \begin{remark}[No new ingredient]
-Every component of the proof is drawn from the cascade's existing structure: $\chi(S^{2n})=2$ from classical topology (used throughout Parts~IVa--b), unitarity from the forced precession (Part~II, Theorem~\xref{paper2}{thm:propagator}), the phase--obstruction lockstep from Part~II, Corollary~\xref{paper2}{cor:lockstep}, and mode counting from the Bott/Adams layer assignments of Part~IVa. No new axiom, parameter, or mathematical structure enters.
+Every component of the proof is drawn from the cascade's existing structure: $\chi(S^{2n})=2$ from classical topology (used throughout Parts~IVa--b), unitarity from the forced precession (Part~II, Theorem~\xref{part2}{thm:propagator}), the phase--obstruction lockstep from Part~II, Corollary~\xref{part2}{cor:lockstep}, and mode counting from the Bott/Adams layer assignments of Part~IVa. No new axiom, parameter, or mathematical structure enters.
 \end{remark}
 
 \begin{remark}[Matter-content reading of the basins: cascade CPT-balance]\label{rem:cpt-balance-basins}
@@ -1264,7 +1263,7 @@ Under the matter-content reading, the cascade predicts:
 \end{enumerate}
 
 \medskip\noindent\textbf{Connection to the Y-spectrum sign anchor.}
-Part~IVa~\cite{paper4a} Remark on the open Y-spectrum question identifies one external sign anchor in the SM Y spectrum derivation. Under the present matter-content reading, that anchor is the \emph{basin label} of the cascade $S^4$ at $d=5$ --- but crucially, this is \emph{a labeling convention internal to the observer's frame, not an observation}. The two basins are CPT-conjugate and physically equivalent: any observer in either basin sees identical local physics and labels their own basin ``matter.'' There is no observational test that distinguishes them globally --- both yield the same Lagrangian after relabeling, by CPT-symmetry. Each basin is internally homogeneous (4-ball topology); each observer within their basin is \emph{relationally central} in their own frame, with the basin's geometry observer-frame-dependent (each observer at the height-function maximum, equator $S^3$ at maximum geodesic distance). The choice $\{Y_{Q_L}=+1/6,\;Y_{Q_L}=-1/6\}$ corresponds to which convention the observer adopts for their own basin --- the same epistemic status as the SM's $Q_e=-1$ convention. Status: \emph{zero observational input} for observer-frame fixing, at strict parity with the SM (also CPT-symmetric, also convention-symmetric). The cascade derives the Y \emph{spectrum}; the basin label is a name we use, not a physical fact about which basin is ``absolute'' matter.
+Part~IVa~\cite{part4a} Remark on the open Y-spectrum question identifies one external sign anchor in the SM Y spectrum derivation. Under the present matter-content reading, that anchor is the \emph{basin label} of the cascade $S^4$ at $d=5$ --- but crucially, this is \emph{a labeling convention internal to the observer's frame, not an observation}. The two basins are CPT-conjugate and physically equivalent: any observer in either basin sees identical local physics and labels their own basin ``matter.'' There is no observational test that distinguishes them globally --- both yield the same Lagrangian after relabeling, by CPT-symmetry. Each basin is internally homogeneous (4-ball topology); each observer within their basin is \emph{relationally central} in their own frame, with the basin's geometry observer-frame-dependent (each observer at the height-function maximum, equator $S^3$ at maximum geodesic distance). The choice $\{Y_{Q_L}=+1/6,\;Y_{Q_L}=-1/6\}$ corresponds to which convention the observer adopts for their own basin --- the same epistemic status as the SM's $Q_e=-1$ convention. Status: \emph{zero observational input} for observer-frame fixing, at strict parity with the SM (also CPT-symmetric, also convention-symmetric). The cascade derives the Y \emph{spectrum}; the basin label is a name we use, not a physical fact about which basin is ``absolute'' matter.
 
 \medskip\noindent\textbf{Falsifier.}
 The matter/antimatter divide is geometrically the basin equator $S^3$, identified structurally with the cosmological horizon: anything beyond the horizon is in the antipodal basin (antimatter), causally disconnected. Observation of large antimatter regions \emph{within} our cosmological horizon would falsify the matter-content reading. Currently consistent with observation.
@@ -1300,13 +1299,13 @@ Four properties combine. Steps~(A) and~(C) are unchanged from Theorem~\ref{thm:c
 \]
 Each component contributes equally, giving the loop a chirality \emph{multiplicity} factor $\chi$. In contrast to open-line propagators (Step~(C)), where chirality is selected externally, closed loops have no external chirality constraint and trace over both basins. For $m$ independent closed loops, the multiplicity factors compose as $\chi^m$.
 
-\textbf{(C) Open-line chirality selection (unchanged).} By Theorem~\ref{thm:chirality-factorisation} steps~(B) and~(C), each definite-chirality propagator mode selects one chirality basin via cascade propagator unitarity (Part~II, Theorem~\xref{paper2}{thm:propagator}) and the phase--obstruction lockstep (Part~II, Corollary~\xref{paper2}{cor:lockstep}), contributing $1/\chi$. For $k$ independent modes, basin orthogonality gives total factor $\chi^{-k}$.
+\textbf{(C) Open-line chirality selection (unchanged).} By Theorem~\ref{thm:chirality-factorisation} steps~(B) and~(C), each definite-chirality propagator mode selects one chirality basin via cascade propagator unitarity (Part~II, Theorem~\xref{part2}{thm:propagator}) and the phase--obstruction lockstep (Part~II, Corollary~\xref{part2}{cor:lockstep}), contributing $1/\chi$. For $k$ independent modes, basin orthogonality gives total factor $\chi^{-k}$.
 
 \textbf{(D) Mixed composition (new).} For an observable with $k$ open-line modes \emph{and} $m$ closed loops, the chirality factors compose multiplicatively. Justification:
 \begin{enumerate}[label=(\roman*),nosep]
 \item Open-line modes act on definite-chirality projector subspaces $P_\pm S$. Closed loops trace over the full bundle $S = S^+\oplus S^-$. These are structurally distinct operations: open-line modes \emph{filter}; closed loops \emph{sum}.
 \item Basin orthogonality from~(A) gives $\mathrm{tr}(P_+ P_-) = 0$. Open-line and closed-loop chirality structures live on disjoint pieces of the spinor bundle: zero cross-terms.
-\item Cascade propagator unitarity (Part~II, Theorem~\xref{paper2}{thm:propagator}) preserves the chirality decomposition. Open-line selections and closed-loop traces at the same Dirac layer don't interfere.
+\item Cascade propagator unitarity (Part~II, Theorem~\xref{part2}{thm:propagator}) preserves the chirality decomposition. Open-line selections and closed-loop traces at the same Dirac layer don't interfere.
 \end{enumerate}
 The total chirality factor is the product:
 \[
@@ -1339,7 +1338,7 @@ Schwinger's QED 1-loop coefficient $1/(2\pi)$ in $F_2(0) = \alpha_{\rm em}/(2\pi
 \[
 \frac{1}{2\pi} \;=\; \frac{1}{N(0)\cdot\Gamma(\tfrac{1}{2})^2},
 \]
-by the cascade primitive identity Corollary~\ref{cor:2sqrtpi-primitive}: $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ with $N(0) = \chi = 2$ (chirality multiplicity / cascade integrand at $d=0$) and $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ (per-step orthogonal residue, Part~0, Theorem~\xref{paper1}{thm:boundary}). Squaring gives $4\pi = N(0)^2\cdot\Gamma(\tfrac{1}{2})^2$; equivalently $2\pi = N(0)\cdot\Gamma(\tfrac{1}{2})^2$. The reciprocal $1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2) = 1/(2\pi)$ identifies the QED prefactor as a ratio of cascade primitives.
+by the cascade primitive identity Corollary~\ref{cor:2sqrtpi-primitive}: $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ with $N(0) = \chi = 2$ (chirality multiplicity / cascade integrand at $d=0$) and $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ (per-step orthogonal residue, Part~0, Theorem~\xref{part0}{thm:boundary}). Squaring gives $4\pi = N(0)^2\cdot\Gamma(\tfrac{1}{2})^2$; equivalently $2\pi = N(0)\cdot\Gamma(\tfrac{1}{2})^2$. The reciprocal $1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2) = 1/(2\pi)$ identifies the QED prefactor as a ratio of cascade primitives.
 
 \medskip\noindent\textbf{What this gives.} An exact algebraic identification: $\alpha_{\rm em}/(2\pi)$ factorises as (cascade-derived $\alpha_{\rm em}$ via the Tier~2 closure)~$\times$~(cascade-primitive ratio $1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2)$). All three factors at the $m-k=0$ slot live in cascade primitive space. The Schwinger 1-loop coefficient is therefore not an external QFT-imported number but a specific combination of cascade primitives. The same structural unit $N(0)\cdot\Gamma(\tfrac{1}{2})^2 = 2\pi$ that appears in the \emph{numerator} of the per-Dirac-layer $1/\alpha_{\rm em}$ screening contribution (Remark~\ref{rem:per-leg-primitive-derivation}, $\chi\cdot\Gamma(\tfrac{1}{2})^2=2\pi$ per layer, $6\pi$ across three Dirac layers) appears in the \emph{denominator} of the $m-k=0$ multiplicative correction --- the same cascade primitive playing dual roles depending on whether the observable is structure-additive (inverse coupling) or structure-multiplicative (coupling correction).
 
@@ -1368,7 +1367,7 @@ coefficient of $\sigma\cdot F$ in the squared covariant derivative.
 
 \begin{proof}
 By the cascade Dirac descent (Paper~II$=$III, Theorem
-\xref{paper23}{thm:cascade-dirac-descent}), the cascade fermion at $d_f$
+\xref{part23}{thm:cascade-dirac-descent}), the cascade fermion at $d_f$
 satisfies $(i\gamma^\mu D_\mu - m_f)\psi = 0$ at $d=4$ with
 cascade-derived $\gamma^\mu$, $D_\mu = \partial_\mu - ieA_\mu$, and
 $m_f = R(d_f)/\chi$. Squaring the Clifford operator and using the
@@ -1423,7 +1422,7 @@ Remark~\ref{rem:chirality-special-cases}, table row $m - k = 0$).
 Corollary~\ref{cor:g-equals-two} provides the leading value $g = 2$
 that the 1-loop correction sits on top of: the leading slot is
 populated by the cascade Dirac descent (Paper~II$=$III, Theorem
-\xref{paper23}{thm:cascade-dirac-descent}), with $g/2 = 1$ at tree level
+\xref{part23}{thm:cascade-dirac-descent}), with $g/2 = 1$ at tree level
 forced by the Clifford algebraic identity. Together,
 Corollary~\ref{cor:g-equals-two} and the 1-loop entry in
 Remark~\ref{rem:chirality-special-cases} cover
@@ -1485,7 +1484,7 @@ The full cascade contribution to an observable factorises as
 \[
 I_Q^{\rm cascade} \;=\; \chi^{(m-k)} \cdot [\text{per-source primitive}]^{\,?} \cdot [\text{per-leg primitive}]^{\,(\text{legs in loops})},
 \]
-with the source/leg structure determined by the observable's topology. Theorem~\ref{thm:chirality-selection-rule} covers the $\chi$ factor; the per-source and per-leg primitives are separate cascade structures (derivations of $\alpha(d)$ in Part~IVa~\S2 and $\Gamma(\tfrac{1}{2})$ in Part~0, Theorem~\xref{paper1}{thm:boundary}).
+with the source/leg structure determined by the observable's topology. Theorem~\ref{thm:chirality-selection-rule} covers the $\chi$ factor; the per-source and per-leg primitives are separate cascade structures (derivations of $\alpha(d)$ in Part~IVa~\S2 and $\Gamma(\tfrac{1}{2})$ in Part~0, Theorem~\xref{part0}{thm:boundary}).
 
 The per-leg primitive's layer-independence is structurally consistent with Corollary~\ref{cor:2sqrtpi-primitive}: the open-line obstruction factor $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ is also layer-independent ($R(d)$ cancels between fermion lapse $N_f(d) = R(d)/\chi$ and scalar lapse $N(d) = \sqrt{\pi}\cdot R(d)$). Closed-loop primitives inherit this layer-independence; per-source primitives use the layer-dependent $\alpha(d^*)$. The two structures are distinct cascade ingredients combined by the theorem's chirality factor.
 \end{remark}
@@ -1494,7 +1493,7 @@ The per-leg primitive's layer-independence is structurally consistent with Corol
 Remark~\ref{rem:chirality-scope} states the per-leg primitive $\Gamma(\tfrac{1}{2})^n$ for an $n$-leg closed cascade cycle at a Dirac layer as a layer-independent cascade structure forced by empirical match. The cascade scalar action $S[\varphi] = \sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$ (Remark~\ref{rem:action-uniqueness}) supplies the structural derivation in cascade-native terms via two cascade-internal facts:
 \begin{enumerate}[label=(\arabic*),nosep]
 \item \emph{Lattice covariance per Dirac layer.} The Gaussian theory defined by $S[\varphi]$ on the 1D cascade lattice has variance equal to the action's compliance: by the marginal Green's function identity (Remark~\ref{rem:marginal-greens}), $\langle(\Delta\varphi(d))^2\rangle = \alpha(d)$. The per-layer amplitude scale is $\sqrt{\alpha(d)} = R(d)/2$.
-\item \emph{Per-step orthogonal residue.} Each cascade slicing step at a Dirac layer crosses the hairy-ball quarter-turn and contributes one Beta integral $B(\tfrac{1}{2},\,\cdot)$ whose half-integer first argument carries the cascade's unique recurrence constant (Part~0, Theorem~\xref{paper1}{thm:boundary}). The dimension-independent residue is $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ exactly, by the same orthogonality forcing that fixes $\sqrt{\pi}$ in the slicing recurrence. No proper-time integral, heat-kernel expansion, or sphere-spectral procedure enters.
+\item \emph{Per-step orthogonal residue.} Each cascade slicing step at a Dirac layer crosses the hairy-ball quarter-turn and contributes one Beta integral $B(\tfrac{1}{2},\,\cdot)$ whose half-integer first argument carries the cascade's unique recurrence constant (Part~0, Theorem~\xref{part0}{thm:boundary}). The dimension-independent residue is $\Gamma(\tfrac{1}{2}) = \sqrt{\pi}$ exactly, by the same orthogonality forcing that fixes $\sqrt{\pi}$ in the slicing recurrence. No proper-time integral, heat-kernel expansion, or sphere-spectral procedure enters.
 \end{enumerate}
 Combining (1) and (2), the cascade-lattice diagonal contribution at a single Dirac layer is
 \[
@@ -1521,7 +1520,7 @@ The two factors are reciprocal: $(1/\sqrt{\pi})\cdot\sqrt{\pi} = 1$. Both arise 
 \]
 (reading the chirality multiplicity per cycle as evenly distributed across legs only for accounting; the cycle's chirality factor is properly $\chi$ once per cycle, not per leg).
 
-\medskip\noindent\emph{Status.} Per-leg $\Gamma(\tfrac{1}{2})$ derived from the cascade scalar action's lattice covariance (item~(1)) plus Part~0's per-step orthogonal residue (item~(2)). The cascade kinetic-prefactor normalisation step is grounded structurally in Remark~\ref{rem:wavefunction-renorm-canonical} below. All four pieces of $1/\alpha_{\rm em} = 137.028$ (bare coupling Theorem~\ref{thm:weinberg}; chirality factor Theorem~\ref{thm:chirality-selection-rule}; per-leg primitive this Remark; $N_{\rm gen}=3$ from the count of Dirac layers in the descent $\{5,13,21\}$, equal to the generation count by Part~IVa~\cite{paper4a}'s three-generation theorem) are now cascade-internally derived. The $0.006\%$ residual is the cascade's standing leading-order systematic.
+\medskip\noindent\emph{Status.} Per-leg $\Gamma(\tfrac{1}{2})$ derived from the cascade scalar action's lattice covariance (item~(1)) plus Part~0's per-step orthogonal residue (item~(2)). The cascade kinetic-prefactor normalisation step is grounded structurally in Remark~\ref{rem:wavefunction-renorm-canonical} below. All four pieces of $1/\alpha_{\rm em} = 137.028$ (bare coupling Theorem~\ref{thm:weinberg}; chirality factor Theorem~\ref{thm:chirality-selection-rule}; per-leg primitive this Remark; $N_{\rm gen}=3$ from the count of Dirac layers in the descent $\{5,13,21\}$, equal to the generation count by Part~IVa~\cite{part4a}'s three-generation theorem) are now cascade-internally derived. The $0.006\%$ residual is the cascade's standing leading-order systematic.
 \end{remark}
 
 \begin{remark}[Cascade kinetic-prefactor normalisation on the cascade lattice]\label{rem:wavefunction-renorm-canonical}
@@ -1662,14 +1661,14 @@ The three-flag classification and the resulting $d^*$ assignment for each of the
 \end{proof}
 
 \begin{remark}[Why these four sources and no others]
-The four layers in $\mathcal{S}$ are not chosen from a menu; they are the complete set of non-sink distinguished layers in the cascade. The Part~0 critical points $\{d_V,d_0,d_1,d_2\}$ are forced by the Gamma function (Part~0, Theorem~\xref{paper1}{thm:tower}: tower completeness---no fifth distinguished dimension exists). The gauge-window boundary $d_{\rm gw}=14$ is forced by Adams' theorem and the Bott mirror (Part~IVa). Removing $d_2=217$ as the Planck sink leaves exactly four sources. Proposition~\ref{prop:source-selection} maps the four observable types to these four sources bijectively---the number of observable types is not adjustable, because each type corresponds to a structurally distinct way an observable can couple to the cascade: (i) Absolute anchoring to Planck, (ii) Gauge coupling running through the gauge window, (iii) Observer locality at the frame adjacent to $d=4$, (iv) non-local amplitude mixing without gauge-window running. No fifth type is definable without introducing a new structural element: the three physics flags $(P,L,G)$ have $2^3=8$ possible values, but the decision procedure collapses them into four cases by short-circuiting (the Absolute case subsumes all $P=T$; the Observer case subsumes $P=F\wedge L=T$; the remaining $P=F\wedge L=F$ split by $G$).
+The four layers in $\mathcal{S}$ are not chosen from a menu; they are the complete set of non-sink distinguished layers in the cascade. The Part~0 critical points $\{d_V,d_0,d_1,d_2\}$ are forced by the Gamma function (Part~0, Theorem~\xref{part0}{thm:tower}: tower completeness---no fifth distinguished dimension exists). The gauge-window boundary $d_{\rm gw}=14$ is forced by Adams' theorem and the Bott mirror (Part~IVa). Removing $d_2=217$ as the Planck sink leaves exactly four sources. Proposition~\ref{prop:source-selection} maps the four observable types to these four sources bijectively---the number of observable types is not adjustable, because each type corresponds to a structurally distinct way an observable can couple to the cascade: (i) Absolute anchoring to Planck, (ii) Gauge coupling running through the gauge window, (iii) Observer locality at the frame adjacent to $d=4$, (iv) non-local amplitude mixing without gauge-window running. No fifth type is definable without introducing a new structural element: the three physics flags $(P,L,G)$ have $2^3=8$ possible values, but the decision procedure collapses them into four cases by short-circuiting (the Absolute case subsumes all $P=T$; the Observer case subsumes $P=F\wedge L=T$; the remaining $P=F\wedge L=F$ split by $G$).
 \end{remark}
 
 \begin{remark}[Why the specific pairings $\text{type}\mapsto d^*$]
 Within each type, the assignment is the unique distinguished layer structurally compatible with the observable's mechanism:
 \begin{itemize}
 \item \emph{Absolute $\to d_1=19$}: a Planck-anchored observable lives on the threshold ladder from observer to Planck sink. The ladder contains two Part~0 thresholds, $d_1=19$ and $d_2=217$, with $d_2$ ruled out as the sink. The unique non-sink threshold is $d_1=19$, at which the cascade's decay rate hits its first critical value $c_1=\tfrac12\ln\pi$. Numerical Green's function computation identifies $d_1$ as the response maximum for Planck-anchored perturbations; the formal derivation of the Green's function maximum remains open (Remark~\ref{rem:action-uniqueness}).
-\item \emph{Observer $\to d_V=5$}: an observer-local observable is supported at $d=4$ and its adjacent volume maximum $d_V=5$. Among the non-sink distinguished layers $\{d_V,d_0,d_{\rm gw},d_1\}$, $d_V=5$ is the unique one structurally adjacent to the observer --- the observer inhabits the boundary $S^3 = \partial B^5$ of the volume-maximum ball (Paper~I~\cite{paper1}~\S3). Numerical Green's function response for observer-local perturbations is maximised at $d^*=d_V$; formal derivation open.
+\item \emph{Observer $\to d_V=5$}: an observer-local observable is supported at $d=4$ and its adjacent volume maximum $d_V=5$. Among the non-sink distinguished layers $\{d_V,d_0,d_{\rm gw},d_1\}$, $d_V=5$ is the unique one structurally adjacent to the observer --- the observer inhabits the boundary $S^3 = \partial B^5$ of the volume-maximum ball (Paper~I~\cite{part0}~\S3). Numerical Green's function response for observer-local perturbations is maximised at $d^*=d_V$; formal derivation open.
 \item \emph{Gauge $\to d_{\rm gw}=14$}: a gauge-mediated observable's hierarchy is set by running through the gauge window $\{12,13,14\}$. The highest layer of the window is $d=14$, the $\mathrm{U}(1)$ hypercharge layer; a coupling descending into the observer's frame from above enters the gauge window at $d=14$. Numerical Green's function response to perturbations sourced at this entry point is maximised at $d^*=d_{\rm gw}$. The $d=13$ Dirac obstruction contributing the $1/\sqrt{\pi}$ factor to $\mathrm{U}(1)$'s descent (Theorem~\ref{thm:weinberg}) is encountered by any Gauge-type observable on its way to the observer, consistently with the $d=14$ entry-point assignment; the $2\sqrt{\pi}$ fermion obstruction factor (Theorem~\ref{thm:obstruction}) lives at every Dirac layer crossed on a fermion's descent, not specifically at $d=14$.
 \item \emph{Amplitude $\to d_0=7$}: an observable not caught by any of the previous three flags --- not Planck-anchored, not observer-local, not gauge-mediated --- is a geometric amplitude spanning generations. Of the non-sink distinguished layers, $d_0=7$ is the unique cascade equilibrium between the observer and the gauge window; it is the only non-sink layer that neither anchors to Planck (like $d_1=19$), sits at the observer boundary (like $d_V=5$), nor lives inside the gauge window (like $d_{\rm gw}=14$). Numerical Green's function response for amplitude-type perturbations is maximised at $d^*=d_0$; formal derivation open.
 \end{itemize}
@@ -2387,11 +2386,11 @@ with both factors defined entirely from Part~0 / Part~I cascade-native
 quantities. The structural content:
 \begin{itemize}[nosep]
 \item \emph{Numerator $N(d)^2$.} The lapse $N(d)$ is the per-step slicing rate
-(Part~0~\cite{paper1}~\S3). Its square appears in any quadratic cascade action
+(Part~0~\cite{part0}~\S3). Its square appears in any quadratic cascade action
 (Remark~\ref{rem:phase-family}), playing the role of ``field strength
 squared'' at cascade layer $d$.
 \item \emph{Denominator $\Omega_2$.} The observer's spatial slice is
-$S^3 = \partial B^4$ (Paper~I~\cite{paper1}~\S3.2). Its Morse foliation by
+$S^3 = \partial B^4$ (Paper~I~\cite{part0}~\S3.2). Its Morse foliation by
 2-spheres at constant latitude gives $\Omega_2 = 4\pi$ as the natural
 equatorial flux-integration surface around a point source. This is the
 classical Gauss-law codimension-2 sphere area, the same $4\pi$ that appears
@@ -2515,7 +2514,7 @@ A first-order Taylor approximation replaces $\exp(\delta\Phi_{\mathrm{U}(1)})$ w
 \end{remark}
 
 \begin{remark}[Physical reading: the broken $\mathrm{SU}(2)$ wall]\label{rem:als-closure-structural}
-The cascade places the three Standard Model gauge bosons at consecutive layers $d=12,13,14$ (Part~IVa~\cite{paper4a}, Adams' theorem applied to the gauge window): $\mathrm{SU}(3)$ at $d=12$, $\mathrm{SU}(2)$ at $d=13$, $\mathrm{U}(1)$ at $d=14$. $\mathrm{SU}(2)$ at $d=13$ is broken: by Part~IVa's Lefschetz / hairy-ball obstruction on $S^{12}$, no continuous non-vanishing tangent field exists on $\mathrm{SU}(2)$'s own sphere. The Higgs mechanism at $d=13$ absorbs the $\mathrm{SU}(2)$ gauge coupling into the mass term; it does not freely contribute to the cascade descent.
+The cascade places the three Standard Model gauge bosons at consecutive layers $d=12,13,14$ (Part~IVa~\cite{part4a}, Adams' theorem applied to the gauge window): $\mathrm{SU}(3)$ at $d=12$, $\mathrm{SU}(2)$ at $d=13$, $\mathrm{U}(1)$ at $d=14$. $\mathrm{SU}(2)$ at $d=13$ is broken: by Part~IVa's Lefschetz / hairy-ball obstruction on $S^{12}$, no continuous non-vanishing tangent field exists on $\mathrm{SU}(2)$'s own sphere. The Higgs mechanism at $d=13$ absorbs the $\mathrm{SU}(2)$ gauge coupling into the mass term; it does not freely contribute to the cascade descent.
 
 $\mathrm{U}(1)$ at $d=14$ is unbroken. Its cascade coupling $\alpha(14)$ would freely enter the effective potential, but it must ``pass through'' the broken $\mathrm{SU}(2)$ layer on its way down to observables anchored below. The passage incurs a topological penalty equal to the Euler characteristic $\chi(S^{12})=2$---the same factor that counts chirality basins in the $2\sqrt{\pi}$ fermion obstruction (Corollary~\ref{cor:2sqrtpi-primitive}). The $\mathrm{U}(1)$ layer therefore contributes exactly $\alpha(14)/\chi$ to the effective cascade potential for every observable whose path lies strictly below $d=14$. Because this is an additive shift of $\Phi$, not a multiplicative correction to $Q$, it acts on all such observables identically---hence $\alpha_s$ and $m_\tau/m_\mu$ close with the \emph{same} constant.
 
@@ -2524,7 +2523,7 @@ The structural content reduces to four forced ingredients: $d_{\mathrm{SU}(2)}=1
 \medskip\noindent\textbf{Which $\mathrm{U}(1)$.} The coupling $\alpha(14)$
 sourcing this shift is the cascade's \emph{hypercharge} $\mathrm{U}(1)$,
 the gauge group derived from Adams' theorem on $S^{13}$
-(Part~IVa~\cite{paper4a}, Theorem~2.6), with action distinct from
+(Part~IVa~\cite{part4a}, Theorem~2.6), with action distinct from
 Paper~II's \emph{projective} $\mathrm{U}(1)$ closure on the QM state
 space (Paper~II $\S 7.5$,
 $\mathit{thm{:}U1{\text{-}}gauge{\text{-}}forced}$). The two
@@ -2643,7 +2642,7 @@ $N_c^2 - 1 + N_c$.} The cascade SU(3) at $d_g = 12$ has $N_c^2 - 1 = 8$
 gluons (adjoint). The $+N_c$ term is the cascade ``color count''
 contribution. Cascade-internal derivation of WHY both contribute
 additively to $\beta_0$ — possibly via the cascade SU(3) algebra source
-at $d_0 = 7$ (G$_2$/SU(3) homogeneous space, Paper~IVa~\cite{paper4a}, Remark~\xref{paper4a}{rem:su3-d7-algebra})
+at $d_0 = 7$ (G$_2$/SU(3) homogeneous space, Paper~IVa~\cite{part4a}, Remark~\xref{part4a}{rem:su3-d7-algebra})
 providing the second contribution — is open.
 \item \emph{Higher-loop $\beta$-function coefficients ($\beta_1$
 explored).} Standard $\beta_1 = 102 - (38/3)\,n_f$ for SU(3) admits
@@ -2712,7 +2711,7 @@ $2\pi$ in this reading.
 \medskip\noindent\emph{Confinement mechanism vs.\ confinement scale (decoupled).}
 The cascade has SU(3) at TWO layers: $d_g = 12$ (gauge-window,
 gluon propagation) and $d_0 = 7$ (algebra source via G$_2$/SU(3)
-homogeneous space on $S^6$, Paper~IVa~\cite{paper4a}, Remark~\xref{paper4a}{rem:su3-d7-algebra}).
+homogeneous space on $S^6$, Paper~IVa~\cite{part4a}, Remark~\xref{part4a}{rem:su3-d7-algebra}).
 Direct identification of $d_0 = 7$ with the dynamical confinement
 scale $\Lambda_{\rm QCD}$ FAILS: in cascade scale ordering
 ($d=4$ at observer, $d=12$ at gauge window, with physical scale
@@ -2991,14 +2990,14 @@ of $1/(2\pi) = 1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2)$ for Schwinger.
 
 The universal shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ of Theorem~\ref{thm:alpha-s-closure} closes the gauge-sector observables $\alpha_s(M_Z)$ and the ratio $m_\tau/m_\mu$ within experimental precision, but it does not close absolute mass scales anchored at the Planck mass. Propagating $\delta\Phi_{\mathrm{U}(1)}$ through the chain $\alpha_s\to v\to m_g$ of the complete mass formula would give $m_\tau$ a double shift (once from $\alpha_s$, once from $v$ through $v = M_{\mathrm{Pl,red}}\cdot\alpha_s\cdot\exp(-\pi/\alpha(5))$), overshooting the observed value by $2.2\%$. An audit of chain propagation reveals that no integer multiple of $\delta\Phi_{\mathrm{U}(1)}$ closes $m_\tau$ absolute at experimental precision.
 
-The resolution is that $m_\tau$ absolute receives a \emph{different} structural shift, of the same $\alpha(d)/\chi$ form but sourced at a different distinguished cascade layer---the phase-transition threshold $d_1=19$ of Paper~I~\cite{paper1}.
+The resolution is that $m_\tau$ absolute receives a \emph{different} structural shift, of the same $\alpha(d)/\chi$ form but sourced at a different distinguished cascade layer---the phase-transition threshold $d_1=19$ of Paper~I~\cite{part0}.
 
 \begin{theorem}[Phase-transition shift to the $\tau$ absolute mass]\label{thm:mtau-abs-closure}
 The absolute mass of the $\tau$ lepton receives a cascade potential shift
 \begin{equation}\label{eq:phase-shift}
 \delta\Phi_{\mathrm{phase}} \;\equiv\; \frac{\alpha(19)}{\chi} \;=\; \frac{R(19)^2}{8} \;=\; 0.01281631\ldots,
 \end{equation}
-sourced at the phase-transition layer $d_1=19$ (Paper~I~\cite{paper1}) and weighted by the same Euler characteristic $\chi=\chi(S^{2n})=2$ that appears in Theorem~\ref{thm:alpha-s-closure} and Corollary~\ref{cor:2sqrtpi-primitive}. Applied exponentially to the $\tau$ absolute-mass formula,
+sourced at the phase-transition layer $d_1=19$ (Paper~I~\cite{part0}) and weighted by the same Euler characteristic $\chi=\chi(S^{2n})=2$ that appears in Theorem~\ref{thm:alpha-s-closure} and Corollary~\ref{cor:2sqrtpi-primitive}. Applied exponentially to the $\tau$ absolute-mass formula,
 \begin{equation}\label{eq:mtau-abs}
 m_\tau \;=\; \Bigl(\frac{\alpha_s\cdot v}{\sqrt{2}}\Bigr)\,\exp\bigl(-\Phi(5) + \delta\Phi_{\mathrm{phase}}\bigr)\,(2\sqrt{\pi})^{-2},
 \end{equation}
@@ -3050,7 +3049,7 @@ This obstruction is the source of the SU(2) symmetry breaking: the
 forced zero of every tangent vector field on $S^{12}$ is the location
 where the Higgs VEV resolves the obstruction. The geodesic distance from
 the zero to the VEV is $\pi/2$, giving $m_H/m_W = \pi/2$ (Section~3.3
-of~\cite{paper4a}). The obstruction at $d=13$ is therefore consumed by
+of~\cite{part4a}). The obstruction at $d=13$ is therefore consumed by
 the symmetry breaking; it does not appear as a propagator factor for the
 SU(2) coupling. Hence $g_2 = N(13)$ unmodified.
 
@@ -3113,7 +3112,7 @@ descent-dependent deviations to sub-$0.5\%$.
 The asymmetric treatment of $g_2$ (no obstruction factor) and
 $g_1'$ (factor $1/\sqrt{\pi}$) is not chosen to fit the data. It is
 forced by two geometric facts: (i)~$d=13$ is the SU(2) layer
-\emph{by Bott periodicity} (Section~2 of~\cite{paper4a}), so SU(2) is
+\emph{by Bott periodicity} (Section~2 of~\cite{part4a}), so SU(2) is
 the gauge group whose own layer is the Dirac obstruction; (ii)~the
 chirality factor in Theorem~\ref{thm:obstruction} comes from the
 spinor bundle's Z\textsubscript{2} grading, which exists only for
@@ -3136,7 +3135,7 @@ In the first two Bott windows relevant to Standard Model gauge-boson
 descent, there are exactly three Dirac layers: $d=5$ (Gen~3), $d=13$
 ($\mathrm{SU}(2)$ broken), $d=21$ (Gen~1). Of these, only $d=13$
 supports a gauge VEV --- the Higgs field that resolves the
-$\mathrm{SU}(2)$ symmetry breaking (Part~IVa~\cite{paper4a}, Section~3).
+$\mathrm{SU}(2)$ symmetry breaking (Part~IVa~\cite{part4a}, Section~3).
 The generation layers $d=5$ and $d=21$ support fermion wavefunctions at
 their hairy-ball zeros, not gauge VEVs.
 
@@ -3199,7 +3198,7 @@ Theorem~\ref{thm:obstruction}.
 \end{remark}
 
 \begin{theorem}[$\sin^2\theta_W$ closure via $\alpha(5)/\chi^3$]\label{thm:weinberg-closure}
-The Weinberg angle leading prediction of Theorem~\ref{thm:weinberg} is closed to experimental precision by a cascade potential shift of the same $\alpha(d^*)/\chi^k$ form as Theorems~\ref{thm:alpha-s-closure} and~\ref{thm:mtau-abs-closure}, sourced at the observer's host $d_V=5$ (volume maximum, Paper~I, Theorem~\xref{paper1}{thm:tower}) with three factors of the Euler characteristic:
+The Weinberg angle leading prediction of Theorem~\ref{thm:weinberg} is closed to experimental precision by a cascade potential shift of the same $\alpha(d^*)/\chi^k$ form as Theorems~\ref{thm:alpha-s-closure} and~\ref{thm:mtau-abs-closure}, sourced at the observer's host $d_V=5$ (volume maximum, Paper~I, Theorem~\xref{part0}{thm:tower}) with three factors of the Euler characteristic:
 \begin{equation}\label{eq:weinberg-shift}
 \delta\Phi_{\mathrm{obs}} \;\equiv\; \frac{\alpha(5)}{\chi^3} \;=\; \frac{R(5)^2}{32} \;=\; \frac{8}{225\pi} \;=\; 0.01131768\ldots,
 \end{equation}
@@ -3248,7 +3247,7 @@ Observed: $m_W = 80.38$~GeV. Deviation: $-0.35\%$.
 
 \subsection{The Higgs mass (improved)}
 
-Combining $m_W$ above with $m_H/m_W = \pi/2$ from~\cite{paper4a}, Theorem 3.3:
+Combining $m_W$ above with $m_H/m_W = \pi/2$ from~\cite{part4a}, Theorem 3.3:
 \[
 m_H = m_W \times \pi/2 = 80.10 \times 1.5708 = 125.82~\text{GeV}.
 \]
@@ -3300,10 +3299,10 @@ identical to Corollary~\ref{cor:higgs-quartic}.
 \begin{remark}[The $\cos^2\theta$ form as the unique cascade-internal solution]\label{rem:V-cos2-derivation}
 The potential form $V(\theta) = \tfrac{1}{2}\cos^2\theta$ is the unique solution to four cascade-internal conditions on $S^{12}$:
 \begin{enumerate}[label=(C\arabic*),nosep]
-\item \emph{Domain.} $V$ is a function on $S^{12}$ (the gauge sphere at $d=13$, Part~IVa~\cite{paper4a} \emph{thm:adams}; cascade-derived).
+\item \emph{Domain.} $V$ is a function on $S^{12}$ (the gauge sphere at $d=13$, Part~IVa~\cite{part4a} \emph{thm:adams}; cascade-derived).
 \item \emph{Antipodal symmetry.} $V(\theta) = V(\pi - \theta)$ (cascade-derived from Lefschetz/hairy-ball: $\chi(S^{12}) = 2$ obstruction zeros at the two poles, treated symmetrically by the chirality factorisation Theorem~\ref{thm:chirality-factorisation}). Forces $V$ to be a function of $\cos^2\theta$ alone, equivalently a sum of even spherical harmonics $Y_0, Y_2, Y_4, \ldots$
 \item \emph{Boundary values from cascade chirality theorem.} $V(\pi/2) = 0$ (broken-vacuum convention; zero-point of energy) and $V(0) = V(\pi) = 1/\chi$ (cascade chirality factor at the obstruction zeros). Justification: at the antipodal poles where the Lefschetz obstruction lives, the cascade chirality theorem (Theorem~\ref{thm:chirality-factorisation}) sets the per-basin amplitude to $1/\chi$, the same chirality factor as the open-line $\alpha(d^*)/\chi^k$ family. With $\chi = \chi(S^{12}) = 2$: $V(0) = V(\pi) = 1/2$. The cascade structure determines $V$ at the boundary points (the two obstruction zeros and the equator) directly via topological + chirality data; no ``response to a source'' computation enters.
-\item \emph{Boundary-dominance + minimal interpolation.} The cascade's boundary-dominance principle (Part~II~\cite{paper2} \S2.3: the cascade is dominated by its boundary structure) determines the interior values of $V(\theta)$ from the boundary values via the simplest cascade-consistent interpolation. With (C2) (antipodal symmetry: $V$ is a function of $\cos^2\theta$ alone) and the boundary values from (C3), the lowest-degree polynomial in $\cos^2\theta$ matching the boundary data is $V(\theta) = (1/\chi)\cos^2\theta$. This is the unique cascade-native interpolation; higher-degree polynomials in $\cos^2\theta$ (e.g.\ $\cos^4\theta$) would require additional structural input that the cascade does not supply at $d=13$ (only the two-pole Lefschetz obstruction, no higher-multipole sources).
+\item \emph{Boundary-dominance + minimal interpolation.} The cascade's boundary-dominance principle (Part~II~\cite{part2} \S2.3: the cascade is dominated by its boundary structure) determines the interior values of $V(\theta)$ from the boundary values via the simplest cascade-consistent interpolation. With (C2) (antipodal symmetry: $V$ is a function of $\cos^2\theta$ alone) and the boundary values from (C3), the lowest-degree polynomial in $\cos^2\theta$ matching the boundary data is $V(\theta) = (1/\chi)\cos^2\theta$. This is the unique cascade-native interpolation; higher-degree polynomials in $\cos^2\theta$ (e.g.\ $\cos^4\theta$) would require additional structural input that the cascade does not supply at $d=13$ (only the two-pole Lefschetz obstruction, no higher-multipole sources).
 \end{enumerate}
 
 \noindent\emph{Solution.} (C2) restricts $V$ to a function of $\cos^2\theta$. The cascade boundary-dominance principle (C4) selects the lowest-degree polynomial in $\cos^2\theta$ matching the (C3) boundary values:
@@ -3349,7 +3348,7 @@ $\pi/\alpha(5) = 4\pi/R(5)^2 = \Omega_2/R(5)^2$.
 
 \emph{Proposed cascade-native origin.} The $d=5$ layer has sphere
 $S^4 = \partial B^5$, which is even-dimensional; the hairy-ball theorem
-(Part~IVa~\cite{paper4a} \S3) forces every tangent vector field on $S^4$
+(Part~IVa~\cite{part4a} \S3) forces every tangent vector field on $S^4$
 to have zeros summing to $\chi(S^4) = 2$. The slicing-direction field at
 this layer is such a field and therefore carries a forced topological
 defect.
@@ -3435,7 +3434,7 @@ The ratio $v/M_{\text{Pl}} \approx 10^{-16}$ is $\exp(-\pi/\alpha(5))$: a cascad
 The product $\alpha_{\text{GUT}} \times \exp(\Phi(12 \to 4)) = 0.1159$ is precisely $\alpha_s$ (Theorem~\ref{thm:alpha-s-leading}). Therefore $v = M_{\text{Pl,red}} \times \alpha_s \times \exp(-\pi/\alpha(5))$. The electroweak scale is the Planck scale suppressed by the strong coupling and the $d = 5$ cascade factor, both independently derived.
 \end{remark}
 
-\section{The Strong CP Problem: \texorpdfstring{$\theta_{\text{QCD}} = 0$}{theta\_QCD = 0} from Topology}
+\section{The Strong CP Problem: \texorpdfstring{$\theta_{\text{QCD}\label{sec:the-strong-cp-problem-qcd}} = 0$}{theta\_QCD = 0} from Topology}
 
 \begin{theorem}[Strong CP resolution]\label{thm:strong-cp}
 In the cascade, $\theta_{\text{QCD}} = 0$ exactly.
@@ -3535,7 +3534,7 @@ d_{\rm gw} &\;=\; 2\,d_0 \;=\; 14
 
 \medskip\noindent\textbf{Reading.} The cascade carries the exceptional Lie tower $\mathrm{Spin}(8)\supset\mathrm{Spin}(7)\supset G_2 \supset \mathrm{SU}(3)$ with quotients $S^7, S^6$ explicitly via:
 \begin{itemize}[nosep]
-\item $\mathrm{SU}(3)$ at $d_g=12$ (cascade gauge layer; Part~IVa~\cite{paper4a})
+\item $\mathrm{SU}(3)$ at $d_g=12$ (cascade gauge layer; Part~IVa~\cite{part4a})
 \item $G_2$ at $d_{\rm gw}=14$ (gauge window upper edge $=$ $\dim G_2$; this Remark)
 \item $\mathrm{Spin}(7)$ via $N_c\cdot d_0 = 21 = \dim\mathrm{Spin}(7)$ (Theorem~\ref{thm:axial-anomaly-mass}; $\eta'$ anomaly)
 \item $S^6 = G_2/\mathrm{SU}(3)$ at $d_0=7$ (algebra source; cover sheet)
@@ -3603,7 +3602,7 @@ ALL cascade gauge content --- color count $N_c$, gauge layer $d_g$, gauge window
 \[
 d_V \;=\; \dim\mathbb{H} + 1 \;=\; 5, \qquad d_1 \;=\; d_{\rm gw} + d_V \;=\; 19, \qquad N(0) \;=\; (d_V - 1)/2 \;=\; 2,
 \]
-all numerically holding at the cascade's distinguished values but not yet structurally derived. $d_V$ sits between $\dim\mathbb{H} = 4$ and $\dim\mathbb{O} - 1 = 7$, outside the algebra-dimension chain itself; its forcing requires the $\Gamma$-volume-max (Part~0) plus observer-frame structure (Paper~I~\cite{paper1}) rather than the C--D + octonion-completion chain that forces the gauge sector. $d_2 = 217$ has no Lie or C--D connection found.
+all numerically holding at the cascade's distinguished values but not yet structurally derived. $d_V$ sits between $\dim\mathbb{H} = 4$ and $\dim\mathbb{O} - 1 = 7$, outside the algebra-dimension chain itself; its forcing requires the $\Gamma$-volume-max (Part~0) plus observer-frame structure (Paper~I~\cite{part0}) rather than the C--D + octonion-completion chain that forces the gauge sector. $d_2 = 217$ has no Lie or C--D connection found.
 
 \medskip\noindent\textbf{Lie-theoretic uniqueness of $d_0$ as the algebra-source layer.} The cover sheet's specific choice of $G_2/\mathrm{SU}(3)$ at $d_0$ (rather than at $d=8$ directly, where $S^7$ lives) is partially Lie-theoretically forced. $G_2 = \mathrm{Aut}(\mathbb{O})$ does \emph{not} act transitively on $S^7$: every automorphism of $\mathbb{O}$ preserves the multiplicative identity $1\in\mathbb{O}$, so $G_2$ fixes $1\in S^7\subset\mathbb{O}$. Hence $S^7$ is not a $G_2$-homogeneous space. By contrast $G_2$ acts transitively on $S^6\subset\mathrm{Im}\,\mathbb{O}$ (the unit imaginary octonion sphere), with stabilizer $\mathrm{SU}(3)$, giving $S^6 = G_2/\mathrm{SU}(3)$. So among small spheres around the octonion completion, only $S^6$ supports $G_2$-transitivity. The cascade's $G_2$ commitment therefore forces the algebra source to live at the layer hosting $S^6$, which by the cascade convention is $d = \dim S^6 + 1 = 7 = d_0$. Two independent cascade derivations of $d_0$ — the $\Gamma$-area-max from Part~0 (transcendental) and the Lie-theoretic $G_2$-transitivity uniqueness (algebraic) — both give $d_0 = 7$ at the cascade's small integers, mutually consistent.
 
@@ -3726,7 +3725,7 @@ At the gauge window, the geometric angle between the SU(3) layer ($d = 12$) and 
 
 The key observation: the $d = 13$ signal traverses one extra cascade layer to reach the observer compared to $d = 12$. The $d = 13 \to d = 4$ propagator passes through the $d = 12$ layer; the $d = 12 \to d = 4$ propagator does not pass through $d = 12$ itself. The relative coupling attenuation of the $d = 13$ signal is $\exp(-p(13))$, where $p(13) = \tfrac{1}{2}\psi(7) - \tfrac{1}{2}\ln\pi = 0.3640$.
 
-A mixing-matrix element measures the overlap of two states, one from each gauge layer. By the Born rule (Paper~II, Theorem~\xref{paper2}{thm:born}), the transition probability is the squared amplitude: $P = |\langle\psi_1|\psi_2\rangle|^2$. Therefore the \emph{amplitude} of the overlap involves the geometric mean of the two propagators, and the relevant descent factor is $\exp(-p(13)/2) = 0.8336$---the square root of the full single-propagator factor $\exp(-p(13))$.
+A mixing-matrix element measures the overlap of two states, one from each gauge layer. By the Born rule (Paper~II, Theorem~\xref{part2}{thm:born}), the transition probability is the squared amplitude: $P = |\langle\psi_1|\psi_2\rangle|^2$. Therefore the \emph{amplitude} of the overlap involves the geometric mean of the two propagators, and the relevant descent factor is $\exp(-p(13)/2) = 0.8336$---the square root of the full single-propagator factor $\exp(-p(13))$.
 
 The tangent of the mixing angle carries this factor because only the off-diagonal component ($d = 13$) is attenuated by the extra step:
 \[
@@ -3755,7 +3754,7 @@ being a probability density (Paper~I), (ii)~the cascade scalar
 action $S=\sum_d(2\alpha(d))^{-1}(\Delta\varphi)^2$
 (Remark~\ref{rem:action-uniqueness}) giving Born-rule amplitude
 $\propto\exp(-S_{\rm cl}/2)$ on the descent saddle, (iii)~the Born
-rule (Paper~II~\cite{paper2} Theorem~5.2) giving
+rule (Paper~II~\cite{part2} Theorem~5.2) giving
 amplitude $=\sqrt{\text{probability}}$, and (iv)~off-diagonal
 mixing matrix elements being amplitudes definitionally. The
 alternative exponents $\exp(-p(13)/1)$ and $\exp(-p(13)/3)$ would
@@ -3775,7 +3774,7 @@ of the geometric-mean off-diagonal rule is supplied
 by Theorem~\ref{thm:cabibbo-geometric-mean} below: the $\tfrac{1}{2}$
 exponent is forced by (i)~the cascade descent integrand
 $\exp(-\Phi(d))$ being a probability density (Paper~I), (ii)~the Born
-rule (Paper~II~\cite{paper2} Theorem~5.2 via Gleason on
+rule (Paper~II~\cite{part2} Theorem~5.2 via Gleason on
 the cascade Hilbert space) giving amplitude $=\sqrt{\text{probability}}$,
 and (iii)~off-diagonal mixing matrix elements $V_{ij} = \langle\psi_i|V|\psi_j\rangle$
 being amplitudes (definitionally, not their squared moduli).  The
@@ -3815,7 +3814,7 @@ the geometric mean of the two diagonal probabilities.
 Four cascade-internal ingredients combine:
 
 \emph{(a) The cascade descent integrand is a probability density.} By
-Paper~I~\cite{paper1}~\S3, $\exp(-\Phi(d))$ is the concentration of
+Paper~I~\cite{part0}~\S3, $\exp(-\Phi(d))$ is the concentration of
 measure on the unit ball, descended layer by layer.  The per-step
 descent probability between adjacent layers is
 \[
@@ -3837,7 +3836,7 @@ action equals the cascade's per-step potential increment $p(d)$ (both
 quantities measure the cascade's lapse rate per step on the layer
 lattice), so amplitude $=\exp(-p(d)/2)$ and probability $=\exp(-p(d))$.
 
-\emph{(c) Born rule.} Paper~II~\cite{paper2}'s Theorem~5.2
+\emph{(c) Born rule.} Paper~II~\cite{part2}'s Theorem~5.2
 (concentration-of-measure derivation with the Gleason chord-uniqueness
 condition) establishes $P=|A|^2$ on the cascade Hilbert space.
 Equivalently, $|A|=\sqrt{P}$.  Combined with~(a), the per-step descent
@@ -3909,7 +3908,7 @@ $\tfrac{1}{2}$ from this theorem.
 \end{remark}
 
 \begin{remark}[Structural parallel with the lapse and ruler corrections]
-The raw cascade angle $15.78^\circ$ was computed at the gauge window without converting to the observer's frame---the same error as using $H_{\text{cascade}}$ without dividing by $N(4)$ (Paper V), or imposing Planck's $r_d$ on cascade distances (Paper~V, Section~\xref{paper5}{sec:cosmo-summary}). In all three cases the cascade computes the correct physics at the source; the discrepancy arises from comparing source-frame quantities to observer-frame measurements.
+The raw cascade angle $15.78^\circ$ was computed at the gauge window without converting to the observer's frame---the same error as using $H_{\text{cascade}}$ without dividing by $N(4)$ (Paper V), or imposing Planck's $r_d$ on cascade distances (Paper~V, Section~\xref{part5}{sec:cosmo-summary}). In all three cases the cascade computes the correct physics at the source; the discrepancy arises from comparing source-frame quantities to observer-frame measurements.
 \end{remark}
 
 \begin{remark}[The CKM hierarchy]\label{rem:ckm-hierarchy}
@@ -3960,13 +3959,13 @@ With $\theta_C$ and $\theta_{23}$ closed, the cascade prediction for $\theta_{13
 Observed: $\theta_{13} = 0.201^\circ \pm 0.011^\circ$. The ratio $0.201/0.541 = 0.372$ matches the Wolfenstein CP factor $\sqrt{\rho^2+\eta^2} = 0.383$ (PDG) to $3\%$. Per the cascade's structural CPT-symmetry commitment (Remark~\ref{rem:cpt-balance-basins}; CLAUDE.md ``no cascade-internal CKM CP phase''), the CP factor enters as external observational input, parity with the SM treatment. $\theta_{13}$ is therefore closed conditional on the standard SM treatment of CP-violation: the cascade derives $|V_{ub}|/(|V_{us}|\cdot|V_{cb}|) = 1$ structurally, with the observed deviation from unity attributed to CP-violation.
 \end{remark}
 
-\section{Connections to other parts of the series}
+\section{Connections to other parts of the series}\label{sec:connections-to-other-parts-of-the-series}
 
 \textbf{Black holes.} The cascade's account of black-hole horizons (asymptotic compactification, no sharp boundary), holography (observer on $S^3$ horizon of a $d=5$ host; $\Lambda$ as inverse boundary area), and the information paradox (global unitarity with apparent local irreversibility) is developed in Part~II\,=\,III; Part~III treats the embedding-geometry derivation of $S = A/d$ at general $d$ and the BTZ cross-check at $d=3$.
 
 \textbf{Cosmology.} The cascade Hubble constant $H_0 = 66.78$~km/s/Mpc, sound horizon $r_d \approx 147.75$~Mpc (essentially equal to Planck's $147.60$), universe age $t_0 = 13.88$~Gyr, matter fraction $\Omega_m = 1/\pi$ (leading) or $\Omega_m^{\rm Bott} = 0.31150$ (subleading), baryon fraction $\Omega_b = 1/(2\pi^2) = 0.0507$, and the structural prediction $w = -1$ (with the consequence that the DESI apparent-$w$ signal challenges cascade and $\Lambda$CDM equally) are derived in Part~V. The summary table below repeats the headline predictions for completeness; the derivations live there.
 
-\section{Summary: The Complete Result Table}
+\section{Summary: The Complete Result Table}\label{sec:summary-the-complete-result-table}
 
 \begin{center}
 \small
@@ -4019,12 +4018,12 @@ $m_{\eta'}/m_\eta$ & $d_0/(N_c{+}1)=7/4$ & $+0.10\%$ & 4 \\
 $\chi_{\text{top}}^{1/4}$ & W--V w/ cascade inputs, $\approx 181$~MeV & $+1.7\%$ vs lattice & 4 \\
 $m_\mu/m_e$ & Family B at $m{-}k=0$: $\alpha_{\text{em}}/(2\pi)+\alpha_{\text{em}}\alpha(21)$ (Prop.~\ref{prop:slot-precedence}) & $-0.0012\%$ & 2 \\
 \hline
-\multicolumn{4}{l}{\footnotesize $\alpha_{\text{em}}$ pieces: bare coupling Theorem~\ref{thm:weinberg}, chirality factor $\chi$ Theorem~\ref{thm:chirality-selection-rule}, per-leg primitive $\Gamma(\tfrac{1}{2})$ Remark~\ref{rem:per-leg-primitive-derivation}, $N_{\text{gen}}=3$ from Part~IVa~\cite{paper4a}.}\\
+\multicolumn{4}{l}{\footnotesize $\alpha_{\text{em}}$ pieces: bare coupling Theorem~\ref{thm:weinberg}, chirality factor $\chi$ Theorem~\ref{thm:chirality-selection-rule}, per-leg primitive $\Gamma(\tfrac{1}{2})$ Remark~\ref{rem:per-leg-primitive-derivation}, $N_{\text{gen}}=3$ from Part~IVa~\cite{part4a}.}\\
 \end{tabular}%
 }
 \end{center}
 
-\section{What This Paper Does and Does Not Do}
+\section{What This Paper Does and Does Not Do}\label{sec:what-this-paper-does-and-does-not-do}
 
 \textbf{Does:}
 \begin{itemize}
@@ -4100,13 +4099,13 @@ The cascade predicts inverted hierarchy relative to charged leptons: $\nu_e$ hea
 \end{enumerate}
 \end{enumerate}
 
-\section{Confidence Assessment}
+\section{Confidence Assessment}\label{sec:confidence-assessment}
 
 \textbf{Two-population systematic and its first-order correction.} At leading order, descent-dependent quantities carry uniformly negative deviations ($-0.13\%$ to $-2.20\%$, 7/7 negative), while geometric quantities carry positive deviations ($+0.56\%$ to $+2.76\%$, 4/4 positive). Part~0's inter-layer-coupling section derives a first-order correction $\delta Q/Q_0 = \sum_{\mathrm{adj}}(1-C_{d,d+1}^2)$ --- a sum of Beta function ratios with no free parameters --- that reduces descent deviations from $\sim\!2\%$ to sub-$1\%$: $\alpha_s$ ($-1.7\% \to -0.5\%$), $m_\tau$ ($-1.2\% \to -0.1\%$), $m_\tau/m_\mu$ ($-1.7\% \to -0.8\%$), $v$ ($-2.2\% \to -1.0\%$). Geometric quantities are unchanged (they carry no descent correction). A second-order observable-dependent factor remains open (Part~0 Open Question on higher-order corrections).
 
-\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$, Theorem~\ref{thm:chirality-factorisation}) and the Berezin/Gaussian partition-function Jacobian difference (Remark~\ref{rem:berezin-partition-derivation}), with the per-layer mass $m(d) = R(d)/\chi = \sqrt{\alpha(d)}$ derived from chirality halving (Theorem~\ref{thm:obstruction}, Remark~\ref{rem:sp31-status}). No free Yukawa coupling enters the construction --- the SM's $m = y\cdot v/\sqrt{2}$ parameterisation does not appear in the cascade's chain. Equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. (k) Observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3=8/(225\pi)$ sourced at the volume maximum $d_V=5$ with three factors of the Euler characteristic (Theorem~\ref{thm:weinberg-closure}), closing $\sin^2\theta_W=0.231226$ to $+0.40\sigma$ of experimental precision. A systematic search (Remark~\ref{rem:phase-family}) extends the family to eight SM precision observables at four distinguished source layers: (l)~$\ell_A$ reuses $\alpha(19)/\chi$ ($-0.16\sigma$); (m)~$\Omega_m(1/\pi)$ uses $-\alpha(5)/\chi^3$ ($-0.04\sigma$); (n)~$\theta_C$ uses $-\alpha(7)/\chi^2$ ($+0.03\sigma$) with source $d_0=7$ (Paper~I area maximum); (o)~$b/s$ uses $-\alpha(7)/\chi^4$ ($0.014\%$) at the same source $d_0=7$ with $k=4$ (Theorem~\ref{thm:bs-closure}). Together, (i)--(o) close eight SM precision observables using one structural form $\pm\alpha(d^*)/\chi^k$ at four distinguished cascade layers and zero fitted parameters. Three reuse pairs strengthen the evidence: $\{\alpha_s,m_\tau/m_\mu\}$, $\{m_\tau\text{ abs},\ell_A\}$, $\{\sin^2\theta_W,\Omega_m\}$. (p)~Cabibbo geometric-mean off-diagonal rule from cascade action $+$ Born rule (Theorem~\ref{thm:cabibbo-geometric-mean}): the $\exp(-p(13)/2)$ factor in Theorem~\ref{thm:cabibbo-amplitude} is forced by the cascade descent integrand's probability-density status (Paper~I), the cascade scalar action's Gaussian quadratic form (Remark~\ref{rem:action-uniqueness}), the Born rule from Gleason on the cascade Hilbert space (Paper~II~\cite{paper2}, Theorem~5.2), and the definition of off-diagonal mixing matrix elements as amplitudes; Cauchy--Schwarz saturates because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}). The leading Cabibbo prediction $\theta_C=13.26^\circ$ is now action-derivation-complete; (n) above closes the residual $1.7\%$ to $+0.03\sigma$ of experimental precision. (q)~Tree-level gyromagnetic ratio $g=2$ at every Dirac layer from the cascade Dirac descent (Paper~II$=$III, Theorem~\xref{paper23}{thm:cascade-dirac-descent}) applied to the Clifford algebraic identity $\gamma^\mu\gamma^\nu=\eta^{\mu\nu}+i\sigma^{\mu\nu}$ (Corollary~\ref{cor:g-equals-two}); together with the cascade-primitive identification of the 1-loop prefactor $1/(2\pi) = 1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2)$ (Remark~\ref{rem:two-pi-prefactor-identification}, via Corollary~\ref{cor:2sqrtpi-primitive}) and the Tier~2 closure of $\alpha_{\rm em}$ (entry~(k) above), this gives $g=2+\alpha_{\rm em}/\pi+\mathcal{O}(\alpha_{\rm em}^2)$ with all factors at 1-loop cascade-internally identified --- no fitted parameter and no QED-imported number at this order. Higher-loop QED coefficients ($a_e$ at 5-loop, $a_\mu$ frontier) are open (Open Question~\ref{oq:higher-loop-qed-coefficients}).
+\textbf{Tier 1: Theorem-level results.} (a) The geometric-topological factorization, with $R'(d)$ excluded at 61--69\%. (b) The topological obstruction factor $1/(2\sqrt{\pi})$ derived from the chirality decomposition ($\chi = 2$, Theorem~\ref{thm:chirality-factorisation}) and the Berezin/Gaussian partition-function Jacobian difference (Remark~\ref{rem:berezin-partition-derivation}), with the per-layer mass $m(d) = R(d)/\chi = \sqrt{\alpha(d)}$ derived from chirality halving (Theorem~\ref{thm:obstruction}, Remark~\ref{rem:sp31-status}). No free Yukawa coupling enters the construction --- the SM's $m = y\cdot v/\sqrt{2}$ parameterisation does not appear in the cascade's chain. Equivalently expressed as the pure cascade identity $2\sqrt{\pi} = N(0)\cdot\Gamma(\tfrac{1}{2})$ (Corollary~\ref{cor:2sqrtpi-primitive}), ruling out any Dirac-operator interpretation by the vanishing of $\hat A(S^{2n})$ (Remark~\ref{rem:no-dirac-route}). (c) The Weinberg angle from the boson topological obstruction: SU(2) sits at the Dirac layer $d=13$ (no propagator factor; the obstruction is the symmetry breaking), U(1) at $d=14$ crosses $d=13$ during descent and picks up the boson-only quarter-turn factor $1/\sqrt{\pi}$, giving $\tan\theta_W = (N(14)/\sqrt{\pi})/N(13)$ and $\sin^2\theta_W = 0.2286$ (Theorem~\ref{thm:weinberg}). (d) $1/\alpha_{\text{GUT}} = 4\pi/N(12)^2 = 25.02$ from the Gamma function. (e) Adams' theorem gives $N_c = 3$ and $\dim\,\text{U}(1) = 1$. (f) The hairy ball theorem gives SU(3) $\times$ U(1) unbroken, SU(2) broken. (g) Three generations from Bott periodicity + the $d_1 = 19$ phase transition. (h) $w = -1$ exactly, with GB corrections vanishing by two independent mechanisms ([3]). (i) Universal $\mathrm{U}(1)$-layer shift to the cascade potential $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi=R(14)^2/8=429^2\,\pi/2^{25}$ (Theorem~\ref{thm:alpha-s-closure}), applied exponentially: a single constant closes $\alpha_s(M_Z)=0.117917$ at $+0.019\sigma$ and $m_\tau/m_\mu=16.81731$ at $+0.243\sigma$ of experimental precision, equivalently $\alpha(12)\cdot(13/14)^2/2$ by the exact $\Gamma$ recursion $R(d+2)/R(d)=(d+1)/(d+2)$. (j) Phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi=R(19)^2/8$ sourced at the Paper~I threshold $d_1=19$ (Theorem~\ref{thm:mtau-abs-closure}), closing the $\tau$ absolute mass $m_\tau=1776.82$~MeV to $-0.31\sigma$ of experimental precision. (k) Observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3=8/(225\pi)$ sourced at the volume maximum $d_V=5$ with three factors of the Euler characteristic (Theorem~\ref{thm:weinberg-closure}), closing $\sin^2\theta_W=0.231226$ to $+0.40\sigma$ of experimental precision. A systematic search (Remark~\ref{rem:phase-family}) extends the family to eight SM precision observables at four distinguished source layers: (l)~$\ell_A$ reuses $\alpha(19)/\chi$ ($-0.16\sigma$); (m)~$\Omega_m(1/\pi)$ uses $-\alpha(5)/\chi^3$ ($-0.04\sigma$); (n)~$\theta_C$ uses $-\alpha(7)/\chi^2$ ($+0.03\sigma$) with source $d_0=7$ (Paper~I area maximum); (o)~$b/s$ uses $-\alpha(7)/\chi^4$ ($0.014\%$) at the same source $d_0=7$ with $k=4$ (Theorem~\ref{thm:bs-closure}). Together, (i)--(o) close eight SM precision observables using one structural form $\pm\alpha(d^*)/\chi^k$ at four distinguished cascade layers and zero fitted parameters. Three reuse pairs strengthen the evidence: $\{\alpha_s,m_\tau/m_\mu\}$, $\{m_\tau\text{ abs},\ell_A\}$, $\{\sin^2\theta_W,\Omega_m\}$. (p)~Cabibbo geometric-mean off-diagonal rule from cascade action $+$ Born rule (Theorem~\ref{thm:cabibbo-geometric-mean}): the $\exp(-p(13)/2)$ factor in Theorem~\ref{thm:cabibbo-amplitude} is forced by the cascade descent integrand's probability-density status (Paper~I), the cascade scalar action's Gaussian quadratic form (Remark~\ref{rem:action-uniqueness}), the Born rule from Gleason on the cascade Hilbert space (Paper~II~\cite{part2}, Theorem~5.2), and the definition of off-diagonal mixing matrix elements as amplitudes; Cauchy--Schwarz saturates because the cascade descent kernel between adjacent layers is a single-saddle-point Gaussian (Remark~\ref{rem:per-leg-primitive-derivation}). The leading Cabibbo prediction $\theta_C=13.26^\circ$ is now action-derivation-complete; (n) above closes the residual $1.7\%$ to $+0.03\sigma$ of experimental precision. (q)~Tree-level gyromagnetic ratio $g=2$ at every Dirac layer from the cascade Dirac descent (Paper~II$=$III, Theorem~\xref{part23}{thm:cascade-dirac-descent}) applied to the Clifford algebraic identity $\gamma^\mu\gamma^\nu=\eta^{\mu\nu}+i\sigma^{\mu\nu}$ (Corollary~\ref{cor:g-equals-two}); together with the cascade-primitive identification of the 1-loop prefactor $1/(2\pi) = 1/(N(0)\cdot\Gamma(\tfrac{1}{2})^2)$ (Remark~\ref{rem:two-pi-prefactor-identification}, via Corollary~\ref{cor:2sqrtpi-primitive}) and the Tier~2 closure of $\alpha_{\rm em}$ (entry~(k) above), this gives $g=2+\alpha_{\rm em}/\pi+\mathcal{O}(\alpha_{\rm em}^2)$ with all factors at 1-loop cascade-internally identified --- no fitted parameter and no QED-imported number at this order. Higher-loop QED coefficients ($a_e$ at 5-loop, $a_\mu$ frontier) are open (Open Question~\ref{oq:higher-loop-qed-coefficients}).
 
-\textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e$ closed at $-0.0012\%$ residual (machine precision on the cascade-derived $\alpha_{\rm em}$) via Family B at the $m{-}k=0$ slot of Theorem~\ref{thm:chirality-selection-rule}. The cascade leading $\exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi}=206.4958$ receives the radiative correction $\delta(m_\mu/m_e) = \alpha_{\rm em}/(2\pi) + \alpha_{\rm em}\cdot\alpha(21) = 0.1331\%$ of Proposition~\ref{prop:slot-precedence} (non-source-selectable case at the $m{-}k=0$ slot; Remark~\ref{rem:slot-precedence-mu-e}), giving $206.7710$ vs.\ PDG $206.7683$. Conditional on the strict reading of the $G$ flag in Proposition~\ref{prop:source-selection}; categorical derivation of the source-selection flags (Open Question~\ref{oq:source-selection-category}) would consolidate at full structural rigour. (b) $\alpha_s(M_Z)=0.117917$ and $m_\tau/m_\mu=16.81731$ closed within experimental precision via the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}). (c) $m_\tau = 1776.82$~MeV absolute closed within experimental precision via the phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ (Theorem~\ref{thm:mtau-abs-closure}). (d) $\sin^2\theta_W=0.231226$ closed within experimental precision via the observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3$ (Theorem~\ref{thm:weinberg-closure}). (e) $\theta_C=13.04^\circ$ closed to $+0.03\sigma$ via $-\alpha(7)/\chi^2$ sourced at the Paper~I area maximum $d_0=7$. (f) $\ell_A=301.44$ closed to $-0.16\sigma$ via $\alpha(19)/\chi$, reusing the phase-transition shift. (g) $\Omega_m(1/\pi)=0.31473$ closed to $-0.04\sigma$ via $-\alpha(5)/\chi^3$, reusing the observer-host shift with opposite sign (geometric population). (h) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (i) Absolute masses $m_\mu$ (0.47\%) and $m_e$ (0.60\%), consistent with the chain-subtracted inherited shift $\delta\Phi_{\mathrm{phase}}-\delta\Phi_{\mathrm{U}(1)}$ to $\sim 50$--$70$~ppm. (j) $b/s = 44.7436$ closed to $0.014\%$ via $-\alpha(7)/\chi^4$ (Theorem~\ref{thm:bs-closure}), reusing the area-maximum source layer with $k=4$ for cross-generation quark structure. (k) $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ ($0.006\%$): bare coupling $1/\alpha(13) + \pi/\alpha(14) = 118.18$ from Theorem~\ref{thm:weinberg} and the electroweak mixing; per-Dirac-layer chirality factor $\chi$ from Theorem~\ref{thm:chirality-selection-rule} (closed-cycle $m=1$, $k=0$); per-leg primitive $\Gamma(\tfrac{1}{2})^2 = \pi$ from Remark~\ref{rem:per-leg-primitive-derivation}, with the cascade kinetic-prefactor normalisation grounded in Remark~\ref{rem:wavefunction-renorm-canonical}; $N_{\mathrm{gen}}=3$ as the count of Dirac layers in the descent $\{5,13,21\}$ (Part~IVa~\cite{paper4a}'s three-generation theorem). All four pieces fully cascade-internally derived using cascade-lattice primitives only (no proper-time integral, no QFT loop apparatus, per CLAUDE.md Check~7); the $0.006\%$ residual is the cascade's standing leading-order systematic.
+\textbf{Tier 2: Fully derived predictions.} (a) $m_\mu/m_e$ closed at $-0.0012\%$ residual (machine precision on the cascade-derived $\alpha_{\rm em}$) via Family B at the $m{-}k=0$ slot of Theorem~\ref{thm:chirality-selection-rule}. The cascade leading $\exp(\Phi(21)-\Phi(13))\cdot 2\sqrt{\pi}=206.4958$ receives the radiative correction $\delta(m_\mu/m_e) = \alpha_{\rm em}/(2\pi) + \alpha_{\rm em}\cdot\alpha(21) = 0.1331\%$ of Proposition~\ref{prop:slot-precedence} (non-source-selectable case at the $m{-}k=0$ slot; Remark~\ref{rem:slot-precedence-mu-e}), giving $206.7710$ vs.\ PDG $206.7683$. Conditional on the strict reading of the $G$ flag in Proposition~\ref{prop:source-selection}; categorical derivation of the source-selection flags (Open Question~\ref{oq:source-selection-category}) would consolidate at full structural rigour. (b) $\alpha_s(M_Z)=0.117917$ and $m_\tau/m_\mu=16.81731$ closed within experimental precision via the universal $\mathrm{U}(1)$ shift $\delta\Phi_{\mathrm{U}(1)}=\alpha(14)/\chi$ (Theorem~\ref{thm:alpha-s-closure}). (c) $m_\tau = 1776.82$~MeV absolute closed within experimental precision via the phase-transition shift $\delta\Phi_{\mathrm{phase}}=\alpha(19)/\chi$ (Theorem~\ref{thm:mtau-abs-closure}). (d) $\sin^2\theta_W=0.231226$ closed within experimental precision via the observer-host shift $\delta\Phi_{\mathrm{obs}}=\alpha(5)/\chi^3$ (Theorem~\ref{thm:weinberg-closure}). (e) $\theta_C=13.04^\circ$ closed to $+0.03\sigma$ via $-\alpha(7)/\chi^2$ sourced at the Paper~I area maximum $d_0=7$. (f) $\ell_A=301.44$ closed to $-0.16\sigma$ via $\alpha(19)/\chi$, reusing the phase-transition shift. (g) $\Omega_m(1/\pi)=0.31473$ closed to $-0.04\sigma$ via $-\alpha(5)/\chi^3$, reusing the observer-host shift with opposite sign (geometric population). (h) $C = \alpha_s/(2\sqrt{\pi})$ (1.0\%). (i) Absolute masses $m_\mu$ (0.47\%) and $m_e$ (0.60\%), consistent with the chain-subtracted inherited shift $\delta\Phi_{\mathrm{phase}}-\delta\Phi_{\mathrm{U}(1)}$ to $\sim 50$--$70$~ppm. (j) $b/s = 44.7436$ closed to $0.014\%$ via $-\alpha(7)/\chi^4$ (Theorem~\ref{thm:bs-closure}), reusing the area-maximum source layer with $k=4$ for cross-generation quark structure. (k) $1/\alpha_{\mathrm{em}} = 1/\alpha(13) + \pi/\alpha(14) + 6\pi = 137.028$ ($0.006\%$): bare coupling $1/\alpha(13) + \pi/\alpha(14) = 118.18$ from Theorem~\ref{thm:weinberg} and the electroweak mixing; per-Dirac-layer chirality factor $\chi$ from Theorem~\ref{thm:chirality-selection-rule} (closed-cycle $m=1$, $k=0$); per-leg primitive $\Gamma(\tfrac{1}{2})^2 = \pi$ from Remark~\ref{rem:per-leg-primitive-derivation}, with the cascade kinetic-prefactor normalisation grounded in Remark~\ref{rem:wavefunction-renorm-canonical}; $N_{\mathrm{gen}}=3$ as the count of Dirac layers in the descent $\{5,13,21\}$ (Part~IVa~\cite{part4a}'s three-generation theorem). All four pieces fully cascade-internally derived using cascade-lattice primitives only (no proper-time integral, no QFT loop apparatus, per CLAUDE.md Check~7); the $0.006\%$ residual is the cascade's standing leading-order systematic.
 
 \textbf{Tier 3: Derived predictions with caveats.} (a) $m_H/m_W = \pi/2$: the geodesic distance argument is natural but the mass-ratio/geodesic identification is stated rather than computed from an action. (b) $v = 240.8$~GeV and (c) the $\exp(-\pi/\alpha(5))$ factor in Theorem~\ref{thm:vev}: the cascade-native identity $\pi/\alpha(5) = \Omega_2/R(5)^2$ is verified and matches the Kosterlitz--Thouless single-vortex action on the 2-sphere cross-section of $S^4$ via the Morse foliation of the $d = 5$ hairy-ball defect (Remark~\ref{rem:v-closure}); the half-winding follows from Theorem~\ref{thm:chirality-factorisation}'s chirality basin filter with effective winding $n_{\mathrm{eff}} = \chi(S^4)/\chi = 1$. Open: formal proof that the 4D tangent-field obstruction on $S^4$ is equivalent to a first-Chern class on the 2-cycles of the Morse foliation (pure geometric topology, not cascade content).
 
@@ -4118,15 +4117,15 @@ The cascade predicts inverted hierarchy relative to charged leptons: $\nu_e$ hea
 
 \begin{thebibliography}{13}
 
-\bibitem{paper1} {[Author]}, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
+\bibitem{part0} {[Author]}, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
 
-\bibitem{paper2} {[Author]}, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
+\bibitem{part2} {[Author]}, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
 
-\bibitem{paper3} {[Author]}, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{General Relativity from the Cascade: Lovelock Uniqueness and the Cosmological Constant of a 4-Dimensional Observer}}, March 2026.
+\bibitem{part3} {[Author]}, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{General Relativity from the Cascade: Lovelock Uniqueness and the Cosmological Constant of a 4-Dimensional Observer}}, March 2026.
 
-\bibitem{paper4a} {[Author]}, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
+\bibitem{part4a} {[Author]}, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
 
-\bibitem{paper5} {[Author]}, \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
+\bibitem{part5} {[Author]}, \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
 
 \bibitem{lounesto} P.~Lounesto, \textit{Clifford Algebras and Spinors}, 2nd ed., Cambridge University Press, 2001.
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Fail when cross-paper references aren't routed through xr-hyper.
 
-Four violation classes are flagged. A paper passes only when all four
-are clean:
+Seven violation classes are flagged. A paper passes only when all are
+clean:
 
 Layer A: ``\\cite{paperK}`` to a cascade paper, but the citing paper's
     preamble has no ``\\externaldocument[paperK:]{cascade-series-X}``.
@@ -34,6 +34,28 @@ Layer E: hardcoded prose like ``Paper~0, Theorem~7.1`` or
     catches the pattern even when no \\externaldocument / \\xrhyperdoc
     declaration exists in the citing paper, so missing-infrastructure
     cases surface as build failures too.
+
+Layer F: an ``\\xrhyperdoc{prefix}{stem}`` declaration whose prefix
+    is never used by any ``\\cite``, ``\\xref``, ``\\ref`` or
+    ``\\bibitem`` in the citing paper. Dead declarations don't break
+    anything but they accumulate -- a paper has 5 xrhyperdocs but
+    actually only references 3 cascade papers. Removing them keeps
+    the preamble honest about the citing paper's actual cross-doc
+    surface area.
+
+Layer G: a ``\\section{...}`` that's not immediately followed by
+    ``\\label{...}`` (either inline or on the next non-empty token).
+    Unlabeled sections can't be the target of a cross-paper ``\\xref``,
+    so they're a future stale-prose-ref source. We add labels
+    preemptively so any future cross-reference can resolve.
+
+Layer H: an ``\\xrhyperdoc{prefix}{stem}`` whose prefix doesn't match
+    the canonical ``partX`` form for that file stem. Cross-paper
+    prefixes used to vary across papers (the same ``paper1`` meant
+    different files in different papers) which produced cognitive
+    drift and migration mistakes; the canonical form is enforced so
+    every cascade paper writes ``\\xrhyperdoc{part4a}{cascade-series-
+    part4a}`` -- never some other alias.
 
 The validator parses each ``src/cascade-series-*.tex`` file:
     1. Extracts the bibliography block and identifies cite keys whose
@@ -88,6 +110,25 @@ EXTERNAL_DOC_RE = re.compile(
 XRHYPERDOC_RE = re.compile(
     r"\\xrhyperdoc\s*\{([A-Za-z0-9_-]+)\}\s*\{([^}]+)\}"
 )
+# Layer H: canonical prefix per cascade-series file stem. Every
+# \xrhyperdoc declaration in the series must use the prefix on the right.
+CANONICAL_PREFIX = {
+    "cascade-series-part0":          "part0",
+    "cascade-series-part1":          "part1",
+    "cascade-series-part2":          "part2",
+    "cascade-series-part2-equals-3": "part23",
+    "cascade-series-part3":          "part3",
+    "cascade-series-part4a":         "part4a",
+    "cascade-series-part4b":         "part4b",
+    "cascade-series-part5":          "part5",
+    "cascade-series-part6":          "part6",
+    "cascade-series-prelude":        "prelude",
+}
+# Layer G: a numbered \section{...} unfollowed by \label{...} within
+# ~80 chars. Starred \section*{...} is intentionally excluded -- those
+# are unnumbered (not in TOC) and not expected to be \xref targets.
+SECTION_RE = re.compile(r"\\section\{([^}]+)\}")
+LABEL_AFTER_RE = re.compile(r"\s*\\label\{")
 # Cross-PDF link to a sibling cascade paper, written via the \extlink
 # wrapper macro defined in each paper's preamble. \extlink expands to a
 # blue-text \href with pdfborder suppressed; the validator treats it as
@@ -217,6 +258,67 @@ def cascade_bibitems_missing_href(
     return violations
 
 
+def find_dead_xrhyperdoc(text: str, preamble: str) -> list[tuple[int, str]]:
+    """Layer F: \\xrhyperdoc{prefix}{stem} declarations whose prefix is
+    never used by \\cite, \\xref, \\ref, or \\bibitem in the rest of the
+    file. Returns [(line_no, prefix)]."""
+    declared: dict[str, int] = {}
+    for m in XRHYPERDOC_RE.finditer(preamble):
+        declared[m.group(1)] = m.start()
+    if not declared:
+        return []
+    # Search the whole text (incl. body and bibliography) for uses.
+    used: set[str] = set()
+    # \cite{a,b,c} etc.
+    for m in re.finditer(r"\\(?:cite|nocite)\{([^}]+)\}", text):
+        used.update(k.strip() for k in m.group(1).split(","))
+    # \xref{prefix}{label}
+    for m in re.finditer(r"\\xref\s*\{([A-Za-z0-9_-]+)\}\{[^}]*\}", text):
+        used.add(m.group(1))
+    # \ref{prefix:label} / \pageref{...} / \ref*{...}
+    for m in re.finditer(r"\\(?:ref|pageref)\*?\{([A-Za-z0-9_-]+):", text):
+        used.add(m.group(1))
+    # \bibitem{prefix}
+    for m in re.finditer(r"\\bibitem\{([A-Za-z0-9_-]+)\}", text):
+        used.add(m.group(1))
+    out: list[tuple[int, str]] = []
+    for prefix, off in declared.items():
+        if prefix not in used:
+            line_no = text.count("\n", 0, off) + 1
+            out.append((line_no, prefix))
+    return out
+
+
+def find_unlabeled_sections(text: str, body: str, body_offset: int) -> list[tuple[int, str]]:
+    """Layer G: \\section{...} not followed by \\label{...}. Returns
+    [(line_no, title)]."""
+    out: list[tuple[int, str]] = []
+    for m in SECTION_RE.finditer(body):
+        end = m.end()
+        window = body[end:end + 80]
+        # Allow either inline \section{...}\label{...} or whitespace then \label
+        if LABEL_AFTER_RE.match(window):
+            continue
+        if r"\label{" in window[:60]:
+            continue
+        line_no = text.count("\n", 0, body_offset + m.start()) + 1
+        out.append((line_no, m.group(1)[:60]))
+    return out
+
+
+def find_noncanonical_prefixes(preamble: str) -> list[tuple[int, str, str, str]]:
+    """Layer H: \\xrhyperdoc declarations whose prefix doesn't match the
+    canonical partX form. Returns [(line_no, prefix, stem, canonical)]."""
+    out: list[tuple[int, str, str, str]] = []
+    for m in XRHYPERDOC_RE.finditer(preamble):
+        prefix, stem = m.group(1), m.group(2)
+        canon = CANONICAL_PREFIX.get(stem)
+        if canon and prefix != canon:
+            line_no = preamble.count("\n", 0, m.start()) + 1
+            out.append((line_no, prefix, stem, canon))
+    return out
+
+
 def find_violations(
     path: Path,
 ) -> tuple[
@@ -224,17 +326,30 @@ def find_violations(
     list[tuple[int, str, str, str]],
     list[tuple[int, str]],
     list[tuple[int, str]],
+    list[tuple[int, str]],
+    list[tuple[int, str]],
+    list[tuple[int, str, str, str]],
 ]:
-    """Return (layer_a, layer_b, layer_c, layer_e) violations.
+    """Return (layer_a, layer_b, layer_c, layer_e, layer_f, layer_g, layer_h)
+    violations.
 
     Layer A: list of (line_no, missing_xr_key, line_text).
     Layer B: list of (line_no, paper_key, label, snippet).
     Layer C: list of (line_no, paper_key) -- bibitem missing href wrap.
     Layer E: list of (line_no, snippet) -- hardcoded prose cross-paper ref.
+    Layer F: list of (line_no, prefix) -- dead \\xrhyperdoc declaration.
+    Layer G: list of (line_no, title) -- unlabeled \\section.
+    Layer H: list of (line_no, prefix, stem, canonical) -- noncanonical prefix.
     """
     text = path.read_text(encoding="utf-8")
     preamble, body, bibliography = split_preamble_body_bibliography(text)
     file_lines = text.splitlines()
+    body_offset_chars = len(preamble)
+
+    # Layers F/G/H run on every paper, not just those with cascade cite keys.
+    layer_f = find_dead_xrhyperdoc(text, preamble)
+    layer_g = find_unlabeled_sections(text, body, body_offset_chars)
+    layer_h = find_noncanonical_prefixes(preamble)
 
     # Layer E first: it applies to every paper, regardless of whether it
     # has a bibliography or any \xrhyperdoc declarations -- the whole point
@@ -249,7 +364,7 @@ def find_violations(
 
     cascade_keys = cascade_cite_keys(bibliography)
     if not cascade_keys:
-        return [], [], [], layer_e
+        return [], [], [], layer_e, layer_f, layer_g, layer_h
     declared = xr_hyper_keys(preamble)
 
     # Pre-compute a comment-stripped version of body, preserving char
@@ -332,7 +447,7 @@ def find_violations(
         line_no = offset_to_line(text, bib_offset + rel_offset)
         layer_c.append((line_no, key))
 
-    return layer_a, layer_b, layer_c, layer_e
+    return layer_a, layer_b, layer_c, layer_e, layer_f, layer_g, layer_h
 
 
 def display_path(path: Path) -> str:
@@ -353,25 +468,34 @@ def main(argv: list[str]) -> int:
     total_b = 0
     total_c = 0
     total_e = 0
+    total_f = 0
+    total_g = 0
+    total_h = 0
     files_with_hits = 0
 
     for paper in papers:
-        layer_a, layer_b, layer_c, layer_e = find_violations(paper)
+        layer_a, layer_b, layer_c, layer_e, layer_f, layer_g, layer_h = find_violations(paper)
         rel = display_path(paper)
-        if not (layer_a or layer_b or layer_c or layer_e):
-            print(f"[OK]   {rel}: no inter-paper references missing xr-hyper")
+        if not (layer_a or layer_b or layer_c or layer_e or layer_f or layer_g or layer_h):
+            print(f"[OK]   {rel}: clean")
             continue
         files_with_hits += 1
         total_a += len(layer_a)
         total_b += len(layer_b)
         total_c += len(layer_c)
         total_e += len(layer_e)
+        total_f += len(layer_f)
+        total_g += len(layer_g)
+        total_h += len(layer_h)
         print(
             f"[FAIL] {rel}: "
-            f"{len(layer_a)} bare cite(s) without \\externaldocument, "
-            f"{len(layer_b)} prose label(s) without \\ref, "
-            f"{len(layer_c)} bibitem(s) without cross-PDF \\href, "
-            f"{len(layer_e)} hardcoded prose cross-paper ref(s) without \\xref"
+            f"{len(layer_a)}A "
+            f"{len(layer_b)}B "
+            f"{len(layer_c)}C "
+            f"{len(layer_e)}E "
+            f"{len(layer_f)}F "
+            f"{len(layer_g)}G "
+            f"{len(layer_h)}H"
         )
         # Layer A: deduplicate by (line, key) for compactness.
         seen_a: set[tuple[int, str]] = set()
@@ -421,14 +545,30 @@ def main(argv: list[str]) -> int:
                 f"replace with \\xref{{prefix}}{{label}}"
             )
             print(f"           {snippet}")
+        # Layer F: dead xrhyperdoc.
+        for line_no, prefix in layer_f:
+            print(
+                f"    L{line_no}  [F]  \\xrhyperdoc{{{prefix}}}{{...}} -- "
+                f"declared but never used; remove or add a \\cite/\\xref/\\ref"
+            )
+        # Layer G: unlabeled section.
+        for line_no, title in layer_g:
+            print(
+                f"    L{line_no}  [G]  \\section{{{title}}} -- needs \\label{{sec:...}}"
+            )
+        # Layer H: noncanonical prefix.
+        for line_no, prefix, stem, canon in layer_h:
+            print(
+                f"    L{line_no}  [H]  \\xrhyperdoc{{{prefix}}}{{{stem}}} -- "
+                f"prefix should be \"{canon}\" (canonical partX form)"
+            )
 
-    if total_a or total_b or total_c or total_e:
+    if total_a or total_b or total_c or total_e or total_f or total_g or total_h:
         print(
-            f"\nFAIL: {total_a} Layer-A bare-cite, "
-            f"{total_b} Layer-B prose-label, "
-            f"{total_c} Layer-C bibitem-no-href, "
-            f"{total_e} Layer-E hardcoded-prose violations across "
-            f"{files_with_hits}/{len(papers)} file(s).",
+            f"\nFAIL: "
+            f"{total_a}A {total_b}B {total_c}C "
+            f"{total_e}E {total_f}F {total_g}G {total_h}H "
+            f"violations across {files_with_hits}/{len(papers)} file(s).",
             file=sys.stderr,
         )
         print(
@@ -472,9 +612,24 @@ def main(argv: list[str]) -> int:
             " if not already present.)",
             file=sys.stderr,
         )
+        print(
+            "Layer F: remove dead \\xrhyperdoc declarations (or add a \\cite/\\xref"
+            " for that prefix).",
+            file=sys.stderr,
+        )
+        print(
+            "Layer G: every \\section needs a \\label{sec:slug} so a future \\xref"
+            " from another paper can resolve.",
+            file=sys.stderr,
+        )
+        print(
+            "Layer H: use the canonical partX prefix (e.g. \\xrhyperdoc{part4a}"
+            "{cascade-series-part4a}, never paperIVa or paper4a).",
+            file=sys.stderr,
+        )
         return 1
 
-    print(f"\nOK: no missing xr-hyper coverage across {len(papers)} file(s).")
+    print(f"\nOK: cross-paper hygiene clean across {len(papers)} file(s).")
     return 0
 
 

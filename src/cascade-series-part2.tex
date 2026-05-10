@@ -10,13 +10,12 @@
 \geometry{margin=2.5cm}
 
 % xr-hyper cross-paper references (must follow hyperref).
-% Note: in this paper's bibliography \bibitem{paperI} points at Part 0
+% Note: in this paper's bibliography \bibitem{part0} points at Part 0
 % (cascade-series-part0), not Part I -- legacy bibliography naming.
-\xrhyperdoc{paperI}{cascade-series-part0}
-\xrhyperdoc{paper4a}{cascade-series-part4a}
-\xrhyperdoc{paper4b}{cascade-series-part4b}
-\xrhyperdoc{paper6}{cascade-series-part6}
-\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
+\xrhyperdoc{part0}{cascade-series-part0}
+\xrhyperdoc{part4a}{cascade-series-part4a}
+\xrhyperdoc{part4b}{cascade-series-part4b}
+\xrhyperdoc{part6}{cascade-series-part6}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -40,7 +39,7 @@ in the Sphere-Area Geometry}
 
 \begin{abstract}
 The cascade series tests one hypothesis: the infinite-dimensional unit ball, descended to
-four dimensions, is indistinguishable from our universe. The companion paper~\cite{paperI}
+four dimensions, is indistinguishable from our universe. The companion paper~\cite{part0}
 derived a geometric invariant $I = 1.0990\times 10^{-120}$ from the sphere-area cascade
 using only orthogonality as input. Here we show that a 4-dimensional observer embedded in
 the cascade geometry recovers the full structural framework of quantum mechanics---including
@@ -92,9 +91,9 @@ observer's dimensionality enters the derivation.
 \tableofcontents
 \newpage
 
-\section{Introduction and Summary of the Foundation}
+\section{Introduction and Summary of the Foundation}\label{sec:introduction-and-summary-of-the-foundati}
 
-In~\cite{paperI}, the sphere-area cascade was derived from a single axiom: orthogonality.
+In~\cite{part0}, the sphere-area cascade was derived from a single axiom: orthogonality.
 Starting from the infinite-dimensional unit ball---which has zero volume, zero surface area,
 and no interior---the cascade compresses orthogonal directions one at a time, descending
 from $d=\infty$. The unique dimension-independent constant in the slicing recurrence is
@@ -103,7 +102,7 @@ This constant enters in two roles (multiplicative factor and bare decay rate), p
 distinguished dimensions $d_1=19$ and $d_2=217$, and a cascade invariant
 $I=9\,\Omega_{19}\,\Omega_{217}/\pi^2=1.0990\times 10^{-120}$.
 
-Corollary~3.2 of~\cite{paperI} establishes that sphere areas are the unique independent
+Corollary~3.2 of~\cite{part0} establishes that sphere areas are the unique independent
 cascade quantities: every other cascade object is derived from sphere areas, and any
 identification mapping cascade content to energy must do so with a universal constant.
 Section~\ref{sec:compactification} of this paper develops the full compactification
@@ -118,7 +117,7 @@ what measurement theory does that observer use? We show the answer is quantum me
 
 The logical structure is:
 \begin{itemize}
-\item \emph{Foundation~\cite{paperI}}: Orthogonality $\to$ $\sqrt{\pi}$ $\to$ slicing
+\item \emph{Foundation~\cite{part0}}: Orthogonality $\to$ $\sqrt{\pi}$ $\to$ slicing
 recurrence $\to$ cascade $\to$ tower $(d_0,d_1,d_2)$ $\to$ $I\approx 10^{-120}$. Each step
 is an asymptotic compactification with $R_{\rm eff}=1/\sqrt{d+3}$.
 \item \emph{This paper}: Cascade geometry + 4D observer $\to$ Hilbert space + Gaussian
@@ -128,10 +127,10 @@ discrete propagator + decoherence ($D=e^{-\Delta x^2/4R_{\rm eff}^2}$) + Bell vi
 \end{itemize}
 
 The derivation does not explain why we observe four dimensions. That is an empirical input,
-just as in~\cite{paperI}. What we show is that, given a 4D perspective, the cascade's
+just as in~\cite{part0}. What we show is that, given a 4D perspective, the cascade's
 internal structure reproduces the quantum formalism.
 
-\section{The Observer's Arena}
+\section{The Observer's Arena}\label{sec:the-observer-s-arena}
 
 \subsection{State space is the unit sphere}
 
@@ -154,10 +153,10 @@ boundary is $S^{d-1}$.
 
 \subsection{Boundary dominance and the primacy of the sphere}
 
-The arena is the unit sphere rather than the unit ball for a reason that~\cite{paperI},
+The arena is the unit sphere rather than the unit ball for a reason that~\cite{part0},
 Section~3 makes precise.
 
-\begin{theorem}[Boundary dominance; Theorem~3.1 of~\cite{paperI}]
+\begin{theorem}[Boundary dominance; Theorem~3.1 of~\cite{part0}]
 $\Omega_{d-1}/V_d=d$ for all $d\geq 1$.
 \end{theorem}
 
@@ -177,7 +176,7 @@ content. The cascade is a nested sequence of shells, each carrying nearly all th
 content of its level, with the observer on the innermost shell.
 \end{remark}
 
-\section{Gaussian Statistics from Projection}
+\section{Gaussian Statistics from Projection}\label{sec:gaussian-statistics-from-projection}
 
 \subsection{Concentration of the slicing integrand}
 
@@ -229,7 +228,7 @@ exactly the $\sqrt{\pi}$ from the cascade. In standard QM this constant is obtai
 requiring $\int|\psi|^2dx=1$ with the Gaussian integral $\int\exp(-x^2)dx=\sqrt{\pi}$.
 In the cascade, $\sqrt{\pi}$ is not a normalisation convention: it is the unique
 dimension-independent constant forced by orthogonal compression (Theorem~3.1
-of~\cite{paperI}). The cascade derives what QM postulates.
+of~\cite{part0}). The cascade derives what QM postulates.
 
 \subsection{Why Gaussians are universal}
 
@@ -239,7 +238,7 @@ Gaussian statistics, because projection from high to low dimensions produces Gau
 This is a geometric statement: the shape of the wavefunction is fixed by the shape of
 the arena.
 
-\section{Orthogonal Measurement Bases}
+\section{Orthogonal Measurement Bases}\label{sec:orthogonal-measurement-bases}
 
 \subsection{Slicing induces measurement}
 
@@ -347,7 +346,7 @@ the full commutation relation $[x,p] = i\hbar$ requires the complexification of
 Section~\ref{sec:complex} and the identification of $\hbar$ in Section~\ref{sec:hbar}.
 \end{remark}
 
-\section{The Born Rule from the Geometry of the Sphere}
+\section{The Born Rule from the Geometry of the Sphere}\label{sec:the-born-rule-from-the-geometry-of-the-s}
 
 \subsection{The question}
 
@@ -564,7 +563,7 @@ QM Born rule $P(e_i \mid \psi) = |\langle e_i, \psi\rangle_{\mathbb{C}}|^2$
 identically. For $n = 2$ (qubit), single-system Cauchy is
 under-determined exactly as in Gleason's theorem; closure follows
 from compositionality with higher-dim cascade content (the
-matter-content path tensor product of Part~IVa, Section~\xref{paper4a}{sec:three-generations} reaches
+matter-content path tensor product of Part~IVa, Section~\xref{part4a}{sec:three-generations} reaches
 $n \geq 3$ for any composite system through gauge layers).
 
 The earlier $\mathbb{R}P^{d-1}$ identification corresponds to the
@@ -606,7 +605,7 @@ theorem.
 \section{Complexification: The Forced Precession}
 \label{sec:complex}
 
-The cascade as described in~\cite{paperI} is real: it operates on $\mathbb{R}^d$. Quantum
+The cascade as described in~\cite{part0} is real: it operates on $\mathbb{R}^d$. Quantum
 mechanics requires complex amplitudes. This section shows how complex structure emerges from
 the cascade, and---crucially---why the precession angle is not a free parameter.
 
@@ -623,7 +622,7 @@ previously integrated directions.
 Applied to the slicing integral at step $d$: the slicing axis $e_{d+1}$ is perpendicular to
 the equatorial hyperplane, forcing the half-integer argument in
 $B(\frac{1}{2},\cdot)$, which gives $\Gamma(\frac{1}{2})=\sqrt{\pi}$ in the recurrence
-(Theorem~3.1 of~\cite{paperI}).
+(Theorem~3.1 of~\cite{part0}).
 
 Applied to consecutive axes: $e_{k+1}\perp e_k$ for all $k$ (the new axis is perpendicular
 to the direction just integrated out), giving
@@ -908,7 +907,7 @@ gauge interpretation
 content; the phase $i^{D-d'}$ is the gauge-fixed representative of
 the $U(1)$ Wilson-line phase. This re-reading does not change any
 prediction; it identifies the cascade running coupling formulae of
-Part~IVa, Section~\xref{paper4a}{sec:three-generations} as Wilson holonomies in the multiplicative
+Part~IVa, Section~\xref{part4a}{sec:three-generations} as Wilson holonomies in the multiplicative
 scaling group, with $A(d) = p(d)$ derived cascade-internally from
 the digamma function reflecting log sphere-area decay
 ($p(d) = -\tfrac{d}{dd}\log\Omega_d$). Verifier
@@ -1195,13 +1194,13 @@ vocabularies.
 This subsection records that, under this shared identification, the
 cascade's \emph{kinematic} dynamics is fully specified by the discrete
 propagator (Theorem~\ref{thm:propagator}) plus the tower-growth
-operator of Paper~VI~\cite{paper6}. The ``missing Hamiltonian''
+operator of Paper~VI~\cite{part6}. The ``missing Hamiltonian''
 objection --- that the cascade lacks a state-dependent generator of
 time evolution --- misreads where the cascade's dynamical structure
 sits. The \emph{interaction} dynamics (gauge-coupled fermion couplings
 with non-trivial state-space action) is structurally separate; its
 cascade-native action form is determined by six conditions in
-Part~IVb~\cite{paper4b}, Remark on the cascade-native gauge-coupled
+Part~IVb~\cite{part4b}, Remark on the cascade-native gauge-coupled
 fermion action
 ($\mathit{rem{:}fermion\text{-}gauge\text{-}coupling\text{-}proposal}$).
 
@@ -1246,7 +1245,7 @@ this contradiction, so the period-2 reading is structurally
 forbidden.
 \item \emph{Period~4 excluded cosmologically.} Under the period-4
 reading, Paper~VI's pre-Big-Bang e-fold count
-(Proposition~3.3 of~\cite{paper6}) divides by 4, giving
+(Proposition~3.3 of~\cite{part6}) divides by 4, giving
 $N_e = 70.94/4 \approx 17.7$, well below the observational inflation
 window $[50, 70]$ and falsified at the inflation-window level.
 \item \emph{Period~1 (one Planck tick $=$ one $d$-collapse) survives.}
@@ -1257,7 +1256,7 @@ period-1 reading is therefore not chosen but forced.
 \end{itemize}
 
 \medskip\noindent\textbf{Cosmic-time evolution from tower growth.}
-Paper~VI~\cite{paper6} promotes the truncation height $N(t)$ to a
+Paper~VI~\cite{part6} promotes the truncation height $N(t)$ to a
 physical time coordinate ($N(t + t_{\rm Pl,red}) = N(t) + 1$ under the
 forced $\alpha = 1$). The cascade state evolves between moments by
 \[
@@ -1289,7 +1288,7 @@ scattering amplitudes, decay rates, and QCD running across scales
 require a \emph{state-dependent} interaction Hamiltonian --- the
 cascade analogue of $\bar\psi\gamma^\mu A_\mu\psi$. The
 gauge-coupled fermion action
-(Part~IVb~\cite{paper4b}, \emph{rem:fermion-gauge-coupling}:
+(Part~IVb~\cite{part4b}, \emph{rem:fermion-gauge-coupling}:
 $S_f = \sum_d m(d)\bar\psi\psi + \sum_{d\in\{12,13,14\}} g(d)\bar\psi
 T^a A^a\psi$ with $m(d) = g(d) = \sqrt{\alpha(d)}$) is structurally
 determined by six cascade-internal conditions (F1)--(F6); per-layer
@@ -1297,11 +1296,11 @@ Berezin reduction at $A = 0$ closes; the originally-listed downstream
 items --- integer charge numerators in the $Y$ spectrum, photon
 self-energy screening in $1/\alpha_{\rm em}$, and $\mathrm{SU}(2)_L$
 parity-violation structure --- are now also closed via
-Part~IVb~\cite{paper4b} Theorem on sector-fundamental U(1)$_Y$
+Part~IVb~\cite{part4b} Theorem on sector-fundamental U(1)$_Y$
 ($\mathit{thm{:}sector\text{-}fundamental\text{-}y}$),
 Open Question on $1/\alpha_{\rm em}$ screening
 ($\mathit{oq{:}alpha\text{-}em\text{-}screening}$, resolved), and
-Part~IVa, Section~\xref{paper4a}{sec:bott-mirror} Spin$(12)$ Dirac decomposition
+Part~IVa, Section~\xref{part4a}{sec:bott-mirror} Spin$(12)$ Dirac decomposition
 respectively.
 
 The dynamical objection ``the cascade has no Lagrangian and therefore
@@ -1364,7 +1363,7 @@ any Calabi--Yau-style compactification, nor any periodic identification of the
 slicing axes. A torus is topologically distinct from $\mathbb{R}^N$ (the
 identification $x \sim x + 2\pi R$ is a topology change, even when $R$ is
 finite); the cascade refuses such identifications by the ``no topology change''
-clause above. Equivalently, Paper~I~\cite{paperI}~\S3.2 commits explicitly:
+clause above. Equivalently, Paper~I~\cite{part0}~\S3.2 commits explicitly:
 ``the cascade does not do Kaluza--Klein reduction.''  The cascade-native global
 topology is a 1D lattice in the layer index $d$, with per-layer $S^{d-1}$
 boundary in Part~0's slicing recurrence, and asymptotic metric attenuation along
@@ -1484,7 +1483,7 @@ $R_{\rm eff}=1/\sqrt{d+3}$. The lost information is not destroyed; it is encoded
 correlations between the compactified direction and the boundary.
 
 This is made precise by boundary dominance: $\Omega_{d-1}/V_d=d$ (Theorem~3.1
-of~\cite{paperI}). The boundary $S^{d-1}$ carries a fraction $d/(d+1)$ of the content at
+of~\cite{part0}). The boundary $S^{d-1}$ carries a fraction $d/(d+1)$ of the content at
 each layer. Information that appears lost from the interior is retained on the boundary.
 The cascade is unitary as a whole; it looks irreversible from any single layer because the
 boundary of that layer encodes information the interior observer cannot directly access.
@@ -1698,7 +1697,7 @@ $\alpha=\pi/2$: the observer's temporal resolution is too coarse to track the pr
 Phases decorrelate, and the 4D observer sees incoherent (classical) projections. This is
 geometric decoherence.
 
-\section{Tensor Products and Entanglement}
+\section{Tensor Products and Entanglement}\label{sec:tensor-products-and-entanglement}
 
 \subsection{Tensor structure from iterated slicing}
 
@@ -1896,7 +1895,7 @@ the geometry of $S^7$, which the 4D observer cannot access directly---only throu
 projections that obey the Born rule.
 \end{remark}
 
-\section{Summary: From Cascade to Quantum Mechanics}
+\section{Summary: From Cascade to Quantum Mechanics}\label{sec:summary-from-cascade-to-quantum-mechanic}
 
 \begin{center}
 \small
@@ -1938,15 +1937,15 @@ Bell violation $S=2\sqrt{2}$ & Born rule on $S^7$ + CHSH bound & 10.3 \\
 \end{tabular}
 \end{center}
 
-Every row is derived from two inputs: (1) the cascade geometry of~\cite{paperI}, and
+Every row is derived from two inputs: (1) the cascade geometry of~\cite{part0}, and
 (2) the assumption that the observer has access to 4 dimensions. The compactification
 results (Section~\ref{sec:compactification}) are proved in this paper from the Beta
-function, building on the boundary dominance identity of~\cite{paperI}, Theorem~3.1.
+function, building on the boundary dominance identity of~\cite{part0}, Theorem~3.1.
 The phase--obstruction lockstep (Corollary~\ref{cor:lockstep}) is derived from the
 forced precession and sphere parity alone; the Clifford refinement to period~8 is
 deferred to Part~III.
 
-\section{What This Paper Does and Does Not Do}
+\section{What This Paper Does and Does Not Do}\label{sec:what-this-paper-does-and-does-not-do}
 
 \textbf{Does:}
 \begin{itemize}
@@ -1998,7 +1997,7 @@ cascade's full free-particle and cosmic-scale evolution. The
 dynamical structure sits: $\mathcal{H}_{\rm eff}(d) = (1-N(d))/N(d)^2$
 is c-number by construction, not a missing operator-valued
 generator. The \emph{interaction} dynamics --- the cascade-native
-gauge-coupled fermion action of Part~IVb~\cite{paper4b}
+gauge-coupled fermion action of Part~IVb~\cite{part4b}
 ($\mathit{rem{:}fermion\text{-}gauge\text{-}coupling\text{-}proposal}$) ---
 is structurally determined by six cascade-internal conditions, with
 all originally-listed downstream items (Y-spectrum, $1/\alpha_{\rm em}$
@@ -2083,7 +2082,7 @@ on the $U(1)$-quotient simplex uniquely fixes the Born rule
 $g(x) = x$ for $n \geq 3$. At $n = 2$ (qubit), single-system Cauchy
 is under-determined exactly as in Gleason's theorem; closure was
 deferred to ``compositionality with higher-dim cascade content
-(the matter-content path tensor product of Part~IVa, Section~\xref{paper4a}{sec:three-generations}
+(the matter-content path tensor product of Part~IVa, Section~\xref{part4a}{sec:three-generations}
 reaches $n \geq 3$ for any composite system through gauge layers).''
 This compositionality argument has not been formalised: a cascade-
 internal proof that the tensor product of any cascade-derivable
@@ -2097,7 +2096,7 @@ gauge whose simplex is the right one for Cauchy) but not eliminated.
 \end{enumerate}
 
 \begin{thebibliography}{9}
-\bibitem{paperI} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\emph{The Cascade Series --- Part 0: Scale Variance from
+\bibitem{part0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\emph{The Cascade Series --- Part 0: Scale Variance from
 Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
 \bibitem{ledoux} M.~Ledoux, \emph{The Concentration of Measure Phenomenon}, AMS
 Mathematical Surveys and Monographs 89, 2001.
@@ -2119,11 +2118,11 @@ relativity,'' in \emph{Gravitation: An Introduction to Current Research}, Wiley,
 \bibitem{renou2021} M.-O.~Renou \emph{et al.}, ``Quantum theory based on real
 numbers can be experimentally falsified,'' \emph{Nature} \textbf{600}, 625--629
 (2021), arXiv:2101.10873.
-\bibitem{paper4a} RTAC, \extlink{\cascadebase/cascade-series-part4a.pdf}{\emph{The Cascade Series --- Part IVa: The Standard Model from the Cascade --- Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
-\bibitem{paper4b} RTAC, \extlink{\cascadebase/cascade-series-part4b.pdf}{\emph{The Cascade Series --- Part IVb: The Standard
+\bibitem{part4a} RTAC, \extlink{\cascadebase/cascade-series-part4a.pdf}{\emph{The Cascade Series --- Part IVa: The Standard Model from the Cascade --- Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
+\bibitem{part4b} RTAC, \extlink{\cascadebase/cascade-series-part4b.pdf}{\emph{The Cascade Series --- Part IVb: The Standard
 Model from the Cascade --- Masses, Couplings, and Precision Predictions from
 the Geometric-Topological Factorization}}, March 2026.
-\bibitem{paper6} RTAC, \extlink{\cascadebase/cascade-series-part6.pdf}{\emph{The Cascade Series --- Part VI: Tower Growth,
+\bibitem{part6} RTAC, \extlink{\cascadebase/cascade-series-part6.pdf}{\emph{The Cascade Series --- Part VI: Tower Growth,
 Inflation, and the Pre-Big-Bang from the Cascade}}, April 2026.
 \end{thebibliography}
 

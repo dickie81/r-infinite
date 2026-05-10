@@ -7,15 +7,14 @@
 \usepackage{graphicx}
 
 % xr-hyper cross-paper references (must follow hyperref).
-% Note: \bibitem{paper1} in this paper's bibliography points at Part 0
+% Note: \bibitem{part0} in this paper's bibliography points at Part 0
 % (cascade-series-part0), not Part I -- legacy bibliography naming.
-\xrhyperdoc{paper0pre}{cascade-series-prelude}
-\xrhyperdoc{paper1}{cascade-series-part0}
-\xrhyperdoc{paper2}{cascade-series-part2}
-\xrhyperdoc{paper4a}{cascade-series-part4a}
-\xrhyperdoc{paper4b}{cascade-series-part4b}
-\xrhyperdoc{paper5}{cascade-series-part5}
-\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
+\xrhyperdoc{prelude}{cascade-series-prelude}
+\xrhyperdoc{part0}{cascade-series-part0}
+\xrhyperdoc{part2}{cascade-series-part2}
+\xrhyperdoc{part4a}{cascade-series-part4a}
+\xrhyperdoc{part4b}{cascade-series-part4b}
+\xrhyperdoc{part5}{cascade-series-part5}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -82,7 +81,7 @@ cascade layers, not by the cascade metric geometry.
 \tableofcontents
 \newpage
 
-\section{Division of Labour and Summary of the Series}
+\section{Division of Labour and Summary of the Series}\label{sec:division-of-labour-and-summary-of-the-se}
 
 \subsection{The architecture}
 
@@ -128,7 +127,7 @@ spinor requirement and Lovelock uniqueness.
 cascade's forced propagator $e^{-iHt}$ with $H > 0$.
 \end{enumerate}
 
-\section{The Physical Identification Hypothesis}
+\section{The Physical Identification Hypothesis}\label{sec:the-physical-identification-hypothesis}
 
 The cascade is a mathematical object: a sequence of sphere areas $\{\Omega_d\}$ derived from
 orthogonality. Paper I [1] is pure mathematics; it makes no physical claim beyond recording
@@ -166,7 +165,7 @@ $I$ from [1]). It assumes only that the cascade corresponds to something physica
 the minimal assumption needed to connect abstract geometry to physics.
 \end{remark}
 
-\section{Lovelock's Theorem and the Privilege of Four Dimensions}
+\section{Lovelock's Theorem and the Privilege of Four Dimensions}\label{sec:lovelock-s-theorem-and-the-privilege-of}
 
 \begin{theorem}[Lovelock {\cite{lovelock1,lovelock2}}]
 Let $(M, g)$ be a smooth $d$-dimensional Lorentzian manifold
@@ -202,14 +201,14 @@ as input. Section 9 derives $d = 4$ from the consistency of the cascade's quantu
 with Lovelock uniqueness.
 \end{remark}
 
-\section{The Cascade Metric}
+\section{The Cascade Metric}\label{sec:the-cascade-metric}
 
 \subsection{Foliation from slicing}
 
 The cascade's slicing recurrence decomposes $B^{d+1}$ into $d$-balls parametrised by the
 perpendicular coordinate $x \in [-1, 1]$. Each cross-section at height $x$ is a $d$-ball of radius
 $r(x) = \sqrt{1 - x^2}$. This is a foliation; $x$ plays the role of time, identified
-in~\cite{paper2} Section~7.1 as one quantum of \emph{dimensional collapse}: each
+in~\cite{part2} Section~7.1 as one quantum of \emph{dimensional collapse}: each
 slicing operation resolves one more dimension of $B^\infty$ into a definite cascade
 structure, and the slicing direction is the cascade's resolution of $B^\infty$ rather
 than merely an irreversibility-equipped axis. The Lorentzian observer-time coordinate
@@ -238,7 +237,7 @@ function $N(t,x)$ relating proper time to coordinate time in
 $ds^2 = -N^2\,dt^2 + g_{ij}\,dx^i\,dx^j$). These two uses of the word
 ``lapse'' name distinct objects; the distinction is made explicit in
 Remark~\ref{rem:cascade-vs-metric-lapse} below, and
-Paper~V~\cite{paper5} documents an earlier derivation that conflated
+Paper~V~\cite{part5} documents an earlier derivation that conflated
 them and was subsequently retracted.
 
 \subsection{The extrinsic curvature}
@@ -271,7 +270,7 @@ objects:
 \begin{itemize}
 \item \emph{Cascade lapse $N(d)$.} A dimensionless ratio of adjacent
 unit-ball volumes (equivalently, adjacent unit sphere areas by
-Paper~I~\cite{paper1} boundary dominance), indexed by the cascade
+Paper~I~\cite{part0} boundary dominance), indexed by the cascade
 dimension $d$. Characterises the rate of content compression per
 slicing step. Defined layer-by-layer, independent of any spacetime
 coordinate.
@@ -287,21 +286,21 @@ The cascade lapse $N(4) = 3\pi/8$ does not appear in this metric --- it
 is a different quantity with a different meaning.
 
 \medskip\noindent\textbf{Retracted conflation in an earlier Paper~V derivation.}
-An earlier version of Paper~V~\cite{paper5} attempted to identify
+An earlier version of Paper~V~\cite{part5} attempted to identify
 $N(4)$ with the metric lapse of an ADM foliation of the cascade's
 descent (treating $d$ as an ADM time coordinate with lapse $N(d)$), and
 used $N(4)^2 = 9\pi^2/64 \approx 1.388$ as a frame-conversion factor
 in the Friedmann equation. That derivation yielded $H_0 = 71.05$~km/s/Mpc
-and is retracted in Paper~V, Section~\xref{paper5}{sec:hubble-constant} (``Why the observer bridge and
+and is retracted in Paper~V, Section~\xref{part5}{sec:hubble-constant} (``Why the observer bridge and
 not a descent lapse''): the correct conversion between the cascade's
 sphere-area content and the observer's 3-volume is the $\pi/2$
-projection factor of Paper~I~\cite{paper1} §3.2, not $N(4)^2$. Under
+projection factor of Paper~I~\cite{part0} §3.2, not $N(4)^2$. Under
 the corrected Paper~I bridge, the cascade lapse $N(4)$ does not enter
 the observer's metric at any point, consistent with the distinction
 stated above.
 
 \medskip\noindent\textbf{Cascade slicing = time at the observer's scale.}
-Paper~II~\cite{paper2} Section~7.1 identifies the cascade's slicing
+Paper~II~\cite{part2} Section~7.1 identifies the cascade's slicing
 direction with physical time at the observer's scale. That
 identification is preserved: the slicing parameter (the cascade
 coordinate $d$) maps to the observer's proper time $t$ under the
@@ -310,7 +309,7 @@ lapse $N(d)$ to the metric lapse of $t$. They share a word, not a
 referent.
 \end{remark}
 
-\section{The Cosmological Constant}
+\section{The Cosmological Constant}\label{sec:the-cosmological-constant}
 
 \subsection{From cascade invariant to \texorpdfstring{$\Lambda$}{Lambda}}
 
@@ -331,7 +330,7 @@ answered by the hierarchy theorem of [1]: $\log_{10}(1/\Omega_{d_2}) \approx \pi
 orders of magnitude arise from the Gamma function's superexponential growth between
 $d_1 = 19$ and $d_2 = 217$.
 
-\section{The Dark Energy Equation of State}
+\section{The Dark Energy Equation of State}\label{sec:the-dark-energy-equation-of-state}
 
 \begin{theorem}[Dark energy equation of state]
 The cascade predicts $w = -1$ exactly.
@@ -412,7 +411,7 @@ decay rate, not the threshold conditions themselves. Therefore $\Lambda$ contain
 on $R(d)$ through the threshold structure.
 \end{proof}
 
-\section{Matter from Extra Dimensions}
+\section{Matter from Extra Dimensions}\label{sec:matter-from-extra-dimensions}
 
 \subsection{The Kaluza--Klein perspective}
 
@@ -435,7 +434,7 @@ partition of cascade layers, not by the cascade metric geometry; this is a topol
 than geometric quantity.
 \end{remark}
 
-\section{Self-Consistency: Einstein Equation as Projection Identity}
+\section{Self-Consistency: Einstein Equation as Projection Identity}\label{sec:self-consistency-einstein-equation-as-pr}
 
 The 4D observer has: a metric $g_{\mu\nu}$ (Section 4); $\Lambda = I$ (Section 5); $T^{\mu\nu}_{\text{eff}}$ from the extra
 dimensions (Section 7); and Lovelock's theorem (Section 3). Lovelock then requires
@@ -471,7 +470,7 @@ not equip it with an $\mathrm{Spin}(1,d-1)$ action. The identification
 is a downstream step in Paper~III, made explicit in
 Lemma~\ref{lem:cascade-spinor-id} below.
 
-From Theorem~6.1 of~\cite{paper2}: the orthogonality axiom forces the
+From Theorem~6.1 of~\cite{part2}: the orthogonality axiom forces the
 precession angle $\alpha = \pi/2$, producing the complex structure
 $J: e_1 \mapsto e_2$, $e_2 \mapsto -e_1$ with $J^2 = -\text{Id}$ on the
 cascade's Hilbert space $\mathcal{H}$.
@@ -490,10 +489,10 @@ Theorem~\ref{thm:d4} below).
 \item[(iii)] \emph{Relativistic quantum-mechanical covariance}:
 physical states must carry a representation of the spacetime Lorentz
 group (Wigner's requirement, imported as a standard result).
-\item[(iv)] \emph{Cascade complex structure} (\cite{paper2},
+\item[(iv)] \emph{Cascade complex structure} (\cite{part2},
 Theorem~6.4): $\mathcal{H}$ carries an operator $J$ with
 $J^2 = -\mathrm{Id}$ that commutes with the cascade's slicing dynamics.
-\item[(v)] \emph{Austerity} (Prelude~\cite{paper0pre},
+\item[(v)] \emph{Austerity} (Prelude~\cite{prelude},
 Principle~2.2, clause~(i): parameter economy). Austerity is not a
 separate input: in the Prelude it is derived in place from
 Definition~2.1 ($0\neq 1$) as the operational content of its
@@ -699,7 +698,7 @@ by associativity of sequential measurements). The minimal associative algebra ov
 the next associative division algebra: $d = \dim_\mathbb{R}\,\mathbb{H} = 4$.
 \end{remark}
 
-\section{Lorentzian Signature from the Propagator}
+\section{Lorentzian Signature from the Propagator}\label{sec:lorentzian-signature-from-the-propagator}
 
 The cascade geometry is Euclidean: $ds^2_E = dx^2 + (1 - x^2)\,d\sigma_{d-1}^2$ with positive-definite
 metric. The cascade propagator is $K(x) = |K|\,e^{-i\lambda x}$ with $\lambda > 0$---already oscillatory for
@@ -740,7 +739,7 @@ this rotation rather than any other identification of $x$ with an
 observer coordinate.
 
 \textbf{Step 1: The cascade's propagator is oscillatory in real $x$.}
-From Paper~II~\cite{paper2} Theorems~6.1 and~7.1, the forced precession
+From Paper~II~\cite{part2} Theorems~6.1 and~7.1, the forced precession
 $\alpha = \pi/2$ produces the propagator
 $K(x) = |K|\,e^{-i\lambda_\infty x}$ with $\lambda_\infty > 0$
 (Lemma~\ref{lem:spectral-gap} above). This is oscillatory for $x$ real.
@@ -776,7 +775,7 @@ observer's Lorentzian $-dt^2$.
 observer's proper-time coordinate.
 
 \textbf{Spatial components.} The cascade's state space is a complex
-Hilbert space $\mathcal{H}$ (Paper~II~\cite{paper2}). The inner product
+Hilbert space $\mathcal{H}$ (Paper~II~\cite{part2}). The inner product
 is positive-definite: $\langle\psi|\psi\rangle > 0$ for all
 $|\psi\rangle \neq 0$. The induced inner product on equal-time
 surfaces requires a positive-definite spatial volume element
@@ -822,10 +821,10 @@ rotation relative to the Euclidean cascade.
 \medskip\noindent\textbf{Consequences.}
 This clarifies four downstream readings:
 \begin{itemize}[nosep]
-\item The cascade does not \emph{avoid} Wick rotation; it \emph{motivates} it. Claims to the contrary in earlier drafts (and in this paper's abstract before revision, Paper~V, Section~\xref{paper5}{sec:hubble-constant}'s retracted framing, etc.) are retracted in favour of the honest statement.
+\item The cascade does not \emph{avoid} Wick rotation; it \emph{motivates} it. Claims to the contrary in earlier drafts (and in this paper's abstract before revision, Paper~V, Section~\xref{part5}{sec:hubble-constant}'s retracted framing, etc.) are retracted in favour of the honest statement.
 \item The ``Euclidean geometry'' of the cascade is not merely a computational device; it is the starting mathematical structure. The Lorentzian observer metric is derived by applying the physical identification hypothesis, which includes the Wick rotation as its time-coordinate map.
 \item Section~\ref{sec:supplement-asymptotic}'s Gauss--Codazzi analysis on the Lorentzian cascade metric uses the Wick-rotated form $g^L = -dt^2 + (1-t^2)\,d\sigma_{n-1}^2$; the identification of this with the cascade's Euclidean slicing geometry through $x = it$ is the content of Wick rotation, not a separate construction.
-\item The cascade-internal motivation for the Wick rotation is sharpened by~\cite{paper2} Section~7.1 (dimensional-collapse reading): each slicing operation \emph{is} one quantum of time, the slicing direction is the rate at which the cascade resolves $B^\infty$, and the Wick rotation $x \leftrightarrow it$ bridges the structural reading (Euclidean slicing as static cascade decomposition) and the dynamic reading (Lorentzian time as observed dimensional-collapse rate). The forced precession's oscillatory propagator $e^{-i\lambda_\infty x}$ is the cascade's quarter-turn per $d$-collapse expressed in the Euclidean coordinate; Wick rotation puts it in the observer's Lorentzian time.
+\item The cascade-internal motivation for the Wick rotation is sharpened by~\cite{part2} Section~7.1 (dimensional-collapse reading): each slicing operation \emph{is} one quantum of time, the slicing direction is the rate at which the cascade resolves $B^\infty$, and the Wick rotation $x \leftrightarrow it$ bridges the structural reading (Euclidean slicing as static cascade decomposition) and the dynamic reading (Lorentzian time as observed dimensional-collapse rate). The forced precession's oscillatory propagator $e^{-i\lambda_\infty x}$ is the cascade's quarter-turn per $d$-collapse expressed in the Euclidean coordinate; Wick rotation puts it in the observer's Lorentzian time.
 \end{itemize}
 \end{remark}
 
@@ -835,7 +834,7 @@ spectral gap $\lambda_\infty > 0$; (c) Lorentzian signature: $\lambda_\infty > 0
 requiring $g_{tt} < 0$ (Theorem 10.2).
 \end{remark}
 
-\section{Scale Factors: \texorpdfstring{$G$ and $\hbar$}{G and hbar}}
+\section{Scale Factors: \texorpdfstring{$G$ and $\hbar$}\label{sec:scale-factors-and}{G and hbar}}
 
 The cascade produces dimensionless quantities. Physical gravity requires $G$ (Newton) and
 $\hbar$ (Planck). Both enter as unit-matching constants when geometric rates are identified
@@ -869,13 +868,13 @@ The higher-dimensional metric has $217 \times 214/2 = 23{,}219$ independent
 components. From the 4D observer's perspective, these appear as a
 Kaluza--Klein tower of massive fields on adjacent shells, with mass scale
 set by the compactification radii $R_{\text{eff}}(d) = 1/\sqrt{d+3}$
-(Paper~I, Theorem~\xref{paper1}{thm:reff}). These are geometric degrees of freedom of the
+(Paper~I, Theorem~\xref{part0}{thm:reff}). These are geometric degrees of freedom of the
 cascade---effective fields in the 4D projection---not fundamental particles.
 The cascade predicts no graviton will be detected, for the same structural
 reason it predicts no supersymmetric partners, no extra gauge bosons, and
 no dark matter particles: the topology has no mechanism to produce them.
 
-\section{The Complete Derivation}
+\section{The Complete Derivation}\label{sec:the-complete-derivation}
 
 The full chain from the orthogonality axiom to the metric of general relativity:
 
@@ -1122,7 +1121,7 @@ sides.
 There is no paradox because there was never a sharp boundary to lose information
 across---only asymptotic compactification. No firewall, no information loss, no complementarity principle needed.
 
-\section{What This Paper Does Not Do}
+\section{What This Paper Does Not Do}\label{sec:what-this-paper-does-not-do}
 
 \begin{itemize}
 \item It does not derive Newton's constant $G$ or the local solutions of GR.
@@ -1136,7 +1135,7 @@ it the series is pure mathematics.
 classical mathematical theorems (Lovelock, Clifford--Bott, Hurwitz).
 \end{itemize}
 
-\section{Open Questions}
+\section{Open Questions}\label{sec:open-questions}
 
 \begin{enumerate}
 \item \textbf{The Standard Model.} Resolved in Papers IVa--IVb: the gauge
@@ -1157,7 +1156,7 @@ Kerr/RN entropy, second route to $G_d = d/4$) are listed there.
 \item \textbf{Newton's constant.} The cascade produces dimensionless quantities;
 $G$ enters as a unit-matching constant from the embedding of the observer's
 4D slice in the 217-dimensional cascade. A cascade-native derivation of $G$
-would come from the discrete cascade-correction family of Paper~IVb, Section~\xref{paper4b}{sec:correction-family} evaluated with
+would come from the discrete cascade-correction family of Paper~IVb, Section~\xref{part4b}{sec:correction-family} evaluated with
 gravitational couplings, or from a second structural identity giving $G_d = d/4$
 directly (Paper~II=III Open Question~4). \emph{Not a Kaluza--Klein problem}:
 the cascade explicitly refuses semiclassical reduction over compactified
@@ -1187,16 +1186,16 @@ out in Paper~V.
 
 \begin{thebibliography}{12}
 
-\bibitem{paper0pre} {[Author]}, \extlink{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude: Why Nothing Has Structure}}, March 2026.
+\bibitem{prelude} {[Author]}, \extlink{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude: Why Nothing Has Structure}}, March 2026.
 
-\bibitem{paper1} {[Author]}, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
+\bibitem{part0} {[Author]}, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{Scale Variance from Orthogonality: How the Unit Ball Generates $10^{120}$ Orders of Magnitude}}, March 2026.
 
-\bibitem{paper2} {[Author]}, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
+\bibitem{part2} {[Author]}, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{Quantum Mechanics from the Cascade: Effective Theory of a 4-Dimensional Observer in the Sphere-Area Geometry}}, March 2026.
 
-\bibitem{paper4a} {[Author]}, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
-\bibitem{paper4b} {[Author]}, \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Standard Model from the Cascade: Part IVb---Masses, Couplings, and Precision Predictions from the Geometric-Topological Factorization}}, March 2026.
+\bibitem{part4a} {[Author]}, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Standard Model from the Cascade: Part IVa---Gauge Group, Symmetry Breaking, and Three Generations from Bott Periodicity and Hairy Ball Zeros}}, March 2026.
+\bibitem{part4b} {[Author]}, \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Standard Model from the Cascade: Part IVb---Masses, Couplings, and Precision Predictions from the Geometric-Topological Factorization}}, March 2026.
 
-\bibitem{paper5} {[Author]}, \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
+\bibitem{part5} {[Author]}, \extlink{\cascadebase/cascade-series-part5.pdf}{\textit{The Cascade Series --- Part V: Cosmology from the Cascade: $\Lambda$CDM Parameters, the Hubble Constant, and the DESI BAO Observations}}, March 2026.
 
 \bibitem{lovelock1} D.~Lovelock, ``The Einstein tensor and its generalisations,'' \textit{Journal of Mathematical Physics} \textbf{12}, 498--501 (1971).
 
