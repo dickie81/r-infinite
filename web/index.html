@@ -104,6 +104,12 @@
     .paper a:hover { text-decoration: underline; }
     p { margin-bottom: 1rem; }
     .abstract { margin-bottom: 2rem; }
+    .table-wrap {
+      overflow-x: auto;
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .table-wrap table { margin-bottom: 0; }
     footer {
       margin-top: 3rem;
       padding-top: 1.5rem;
@@ -154,6 +160,7 @@
 
   <h3 style="font-size:1.1rem; margin-top:1.5rem; color:var(--accent);">Tier 1 &mdash; Exact: Forced by Uniqueness Theorems</h3>
   <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.75rem;">Mathematical uniqueness proofs leave no alternative. These are not approximations.</p>
+  <div class="table-wrap">
   <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-bottom:1.5rem;">
     <tr style="border-bottom:2px solid var(--border); text-align:left;"><th style="padding:0.4rem 0.6rem;">Prediction</th><th style="padding:0.4rem 0.6rem;">Value</th><th style="padding:0.4rem 0.6rem;">Status</th><th style="padding:0.4rem 0.6rem;">Source</th></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">Spacetime dimension</td><td style="padding:0.4rem 0.6rem;">d = 4</td><td style="padding:0.4rem 0.6rem;">Confirmed</td><td style="padding:0.4rem 0.6rem;">Lovelock &cap; Clifford (III)</td></tr>
@@ -170,9 +177,11 @@
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">No axion</td><td style="padding:0.4rem 0.6rem;">&mdash;</td><td style="padding:0.4rem 0.6rem;">Confirmed (null results)</td><td style="padding:0.4rem 0.6rem;">&theta;<sub>QCD</sub> = 0 topologically (IVa)</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">No gravitons</td><td style="padding:0.4rem 0.6rem;">&mdash;</td><td style="padding:0.4rem 0.6rem;">Not yet testable</td><td style="padding:0.4rem 0.6rem;">Metric is state property, not quantised field (II=III, III)</td></tr>
   </table>
+  </div>
 
   <h3 style="font-size:1.1rem; margin-top:1.5rem; color:var(--accent);">Tier 2 &mdash; Derived: Closed-Form, Zero Free Parameters</h3>
   <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.75rem;">Numerical predictions from cascade geometry. Formulas are exact; deviations reflect leading-order truncation.</p>
+  <div class="table-wrap">
   <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-bottom:1.5rem;">
     <tr style="border-bottom:2px solid var(--border); text-align:left;"><th style="padding:0.4rem 0.6rem;">Observable</th><th style="padding:0.4rem 0.6rem;">Formula</th><th style="padding:0.4rem 0.6rem;">Predicted</th><th style="padding:0.4rem 0.6rem;">Observed</th><th style="padding:0.4rem 0.6rem;">Dev.</th></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">&rho;<sub>&Lambda;</sub> / <em>M</em><sup>4</sup><sub>Pl,red</sub></td><td style="padding:0.4rem 0.6rem;">18 &middot; &Omega;<sub>19</sub> &middot; &Omega;<sub>217</sub> / &pi;<sup>3</sup> &middot; exp(&delta;&Phi;)</td><td style="padding:0.4rem 0.6rem;">0.7145 &times; 10<sup>&minus;120</sup></td><td style="padding:0.4rem 0.6rem;">0.7150 &times; 10<sup>&minus;120</sup> &plusmn; 0.013</td><td style="padding:0.4rem 0.6rem;">&minus;0.07% (&approx; &minus;0.04&sigma;)</td></tr>
@@ -208,9 +217,11 @@
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;"><em>m</em><sub>&pi;</sub> / &Lambda;<sub>PDG</sub></td><td style="padding:0.4rem 0.6rem;"><em>N</em>(0)/<em>N</em><sub>c</sub> = 2/3 (cascade chiral physics; rem:cascade-beta0)</td><td style="padding:0.4rem 0.6rem;">0.6667</td><td style="padding:0.4rem 0.6rem;">0.6646</td><td style="padding:0.4rem 0.6rem;">+0.31%</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;"><em>f</em><sub>&pi;</sub> / <em>m</em><sub>&pi;</sub></td><td style="padding:0.4rem 0.6rem;"><em>N</em>(0)/<em>N</em><sub>c</sub> = 2/3 (chiral, scheme-invariant)</td><td style="padding:0.4rem 0.6rem;">0.6667</td><td style="padding:0.4rem 0.6rem;">0.6597</td><td style="padding:0.4rem 0.6rem;">+1.06%</td></tr>
   </table>
+  </div>
 
   <h3 style="font-size:1.1rem; margin-top:1.5rem; color:var(--accent);">Tier 4 &mdash; Frontier: Under Active Experimental Test</h3>
   <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.75rem;">Specific predictions testable by current or near-future experiments (DESI, Euclid, CMB-S4, SH0ES, lattice QCD, PDG meson masses).</p>
+  <div class="table-wrap">
   <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-bottom:1.5rem;">
     <tr style="border-bottom:2px solid var(--border); text-align:left;"><th style="padding:0.4rem 0.6rem;">Observable</th><th style="padding:0.4rem 0.6rem;">Predicted</th><th style="padding:0.4rem 0.6rem;">Current data</th><th style="padding:0.4rem 0.6rem;">Status</th></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;"><em>H</em><sub>0</sub></td><td style="padding:0.4rem 0.6rem;">66.78 km/s/Mpc (Gram-corrected &approx; 67.5)</td><td style="padding:0.4rem 0.6rem;">Planck: 67.4 &middot; SH0ES: 73.0</td><td style="padding:0.4rem 0.6rem;">Planck-side of Hubble tension; incompatible with SH0ES</td></tr>
@@ -223,15 +234,18 @@
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">&chi;<sub>top</sub><sup>1/4</sup> (QCD topological susceptibility)</td><td style="padding:0.4rem 0.6rem;">Witten-Veneziano with cascade-primitive <em>m</em><sub>&eta;</sub>, <em>m</em><sub>&eta;</sub><sup>&prime;</sup>, <em>m</em><sub>K</sub>, <em>f</em><sub>&pi;</sub></td><td style="padding:0.4rem 0.6rem;">181 MeV (cascade inputs) &middot; 179 MeV (PDG inputs)</td><td style="padding:0.4rem 0.6rem;">Lattice average &approx; 178 MeV; cascade reproduces lattice within +1.7% (cascade) / +0.7% (PDG)</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">Vector mesons (&rho;, &omega;, K*, &phi;)</td><td style="padding:0.4rem 0.6rem;">Best cascade-primitive fits 1&ndash;3% from PDG; structural form ambiguous across the nonet</td><td style="padding:0.4rem 0.6rem;">PDG values</td><td style="padding:0.4rem 0.6rem;">Diagnostic: cascade grammar reaches PS Goldstone octet, stops at J=1; missing machinery is cascade-native hyperfine splitting (open structural direction)</td></tr>
   </table>
+  </div>
 
   <h3 style="font-size:1.1rem; margin-top:1.5rem; color:var(--accent);">Tier 5 &mdash; Provisional: Derivation Incomplete</h3>
   <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.75rem;">Results where the argument has acknowledged gaps or needs strengthening.</p>
+  <div class="table-wrap">
   <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-bottom:1.5rem;">
     <tr style="border-bottom:2px solid var(--border); text-align:left;"><th style="padding:0.4rem 0.6rem;">Observable</th><th style="padding:0.4rem 0.6rem;">Issue</th></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">&Omega;<sub>b</sub> = 1/(2&pi;<sup>2</sup>)</td><td style="padding:0.4rem 0.6rem;">"One unit of content on S<sup>3</sup>" argument needs strengthening</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;"><em>n</em><sub>s</sub>, <em>A</em><sub>s</sub></td><td style="padding:0.4rem 0.6rem;">Primordial spectrum not yet derived</td></tr>
     <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.4rem 0.6rem;">Lighter neutrino masses, solar &Delta;<em>m</em><sup>2</sup>, PMNS</td><td style="padding:0.4rem 0.6rem;">Single-source diagonal form gives <em>m</em><sub>2</sub> &approx; 3&times;10<sup>&minus;4</sup> eV and <em>m</em><sub>3</sub> &approx; 3&times;10<sup>&minus;6</sup> eV, too small for the observed solar splitting; cascade analogue of inter-generation mixing not yet derived</td></tr>
   </table>
+  </div>
 <!-- END PREDICTIONS -->
 
   <h2>Papers</h2>
