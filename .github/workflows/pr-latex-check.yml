@@ -1,14 +1,15 @@
 name: PR LaTeX Build Check
 
+# Always trigger -- whether the heavy LaTeX build runs is decided by the
+# `changes` job below. This avoids the dual-workflow trick (real + skip
+# companion sharing a job name) whose path filters didn't perfectly
+# partition: PRs touching files inside *and* outside the LaTeX path set
+# triggered both, and the same concurrency group with cancel-in-progress
+# made one cancel the other -- usually the real build, leaving the skip
+# echo masquerading as success.
 on:
   pull_request:
     branches: [main]
-    paths:
-      - 'src/*.tex'
-      - 'src/.latexmkrc'
-      - 'tools/**/*.py'
-      - 'tools/requirements.txt'
-      - '.github/workflows/pr-latex-check.yml'
 
 permissions:
   contents: read
@@ -18,14 +19,40 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Detect LaTeX-affecting changes
+    runs-on: ubuntu-latest
+    outputs:
+      latex: ${{ steps.filter.outputs.latex }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            latex:
+              - 'src/*.tex'
+              - 'src/*.sty'
+              - 'src/.latexmkrc'
+              - 'tools/**/*.py'
+              - 'tools/requirements.txt'
+              - '.github/workflows/pr-latex-check.yml'
+
   latex-build-check:
     name: Verify LaTeX files build
+    needs: changes
     runs-on: ubuntu-latest
     steps:
+      - name: Skip (no LaTeX-affecting files changed)
+        if: needs.changes.outputs.latex != 'true'
+        run: echo "No src/*.tex / *.sty / tools changes -- nothing to build."
+
       - name: Checkout repository
+        if: needs.changes.outputs.latex == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: needs.changes.outputs.latex == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -33,14 +60,17 @@ jobs:
           cache-dependency-path: tools/requirements.txt
 
       - name: Install Python dependencies
+        if: needs.changes.outputs.latex == 'true'
         run: pip install -r tools/requirements.txt
 
       - name: Generate computed tables
+        if: needs.changes.outputs.latex == 'true'
         run: |
           python3 tools/build/generate_predictions.py
           python3 tools/build/generate_bao_table.py
 
       - name: Check xr-hyper compliance (no cross-paper \cite)
+        if: needs.changes.outputs.latex == 'true'
         run: python3 tools/build/check_xr_hyper_compliance.py
 
       # Warmup pass: populate every paper's .aux file so xr-hyper can read
@@ -57,6 +87,7 @@ jobs:
       # then runs strict; with all .aux files present, xr-hyper resolves
       # every \ref{paperK:label}.
       - name: Compile LaTeX files
+        if: needs.changes.outputs.latex == 'true'
         uses: xu-cheng/latex-action@v4
         with:
           working_directory: src
@@ -68,10 +99,11 @@ jobs:
             done
 
       - name: Check for LaTeX warnings and regressions
+        if: needs.changes.outputs.latex == 'true'
         run: python3 tools/build/check_latex_warnings.py
 
       - name: Upload build logs on failure
-        if: failure()
+        if: failure() && needs.changes.outputs.latex == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: latex-build-logs
