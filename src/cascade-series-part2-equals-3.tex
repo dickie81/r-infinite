@@ -8,14 +8,13 @@
 \usepackage{array}
 
 % xr-hyper cross-paper references (must follow hyperref).
-\xrhyperdoc{paper0}{cascade-series-part0}
-\xrhyperdoc{paper1}{cascade-series-part1}
-\xrhyperdoc{paper2}{cascade-series-part2}
-\xrhyperdoc{paper3}{cascade-series-part3}
-\xrhyperdoc{paper4a}{cascade-series-part4a}
-\xrhyperdoc{paper4b}{cascade-series-part4b}
-\xrhyperdoc{paper6}{cascade-series-part6}
-\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
+\xrhyperdoc{part0}{cascade-series-part0}
+\xrhyperdoc{part1}{cascade-series-part1}
+\xrhyperdoc{part2}{cascade-series-part2}
+\xrhyperdoc{part3}{cascade-series-part3}
+\xrhyperdoc{part4a}{cascade-series-part4a}
+\xrhyperdoc{part4b}{cascade-series-part4b}
+\xrhyperdoc{part6}{cascade-series-part6}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -39,8 +38,8 @@ Projections of the Cascade Are the Same Theorem}
 \begin{abstract}
 The cascade series tests one hypothesis: the infinite-dimensional unit ball,
 descended to four dimensions, is indistinguishable from our universe.
-Paper~II~\cite{paper2} derives quantum mechanics as the measurement theory of
-a 4D observer in the cascade geometry. Paper~III~\cite{paper3} derives general
+Paper~II~\cite{part2} derives quantum mechanics as the measurement theory of
+a 4D observer in the cascade geometry. Paper~III~\cite{part3} derives general
 relativity as the unique gravitational equation available to that observer.
 This paper proves they are the same theorem.
 
@@ -185,9 +184,9 @@ The cascade propagator $K(t) = |K|\,e^{-iHt}$ with $H = \lambda_\infty > 0$
 is simultaneously:
 \begin{enumerate}
 \item the quantum time-evolution operator: unitary, probability-preserving
-(Paper~II, Theorem~\xref{paper2}{thm:propagator}), and
+(Paper~II, Theorem~\xref{part2}{thm:propagator}), and
 \item the source of Lorentzian signature: oscillatory character requires
-$g_{tt} < 0$ (Paper~III, Theorem~\xref{paper3}{thm:lorentzian}).
+$g_{tt} < 0$ (Paper~III, Theorem~\xref{part3}{thm:lorentzian}).
 \end{enumerate}
 \end{theorem}
 
@@ -214,7 +213,7 @@ cascade's single axiom forces both simultaneously.
 The cascade is Euclidean ($B^d$ is a Euclidean object). The physical
 spacetime is Lorentzian. The map between them is Wick rotation
 $x = it$, but the operation is \emph{cascade-motivated} rather than
-\emph{mathematically imposed} (Paper~III~\cite{paper3},
+\emph{mathematically imposed} (Paper~III~\cite{part3},
 Remark~``Wick rotation, cascade-motivated''): the cascade's forced
 precession produces an oscillatory propagator $e^{-i\lambda_\infty x}$ in
 real $x$, which fits the Lorentzian regime, and the identification of
@@ -235,7 +234,7 @@ Theorem~\ref{thm:propagator} establishes that the cascade propagator
 $K(t) = |K|\,e^{-iHt}$ is simultaneously the unitary time-evolution
 operator of QM and the source of Lorentzian signature. Applied to the
 cascade Hilbert space's spinor-representation content
-(Paper~III~\cite{paper3}, Lemma~\xref{paper3}{lem:cascade-spinor-id}), the
+(Paper~III~\cite{part3}, Lemma~\xref{part3}{lem:cascade-spinor-id}), the
 same propagator structure forces a third standard physics result: the
 Dirac equation on the chirality bundle in $4$D. The argument runs
 along the same template as Theorem~\ref{thm:double}---a standard
@@ -253,13 +252,13 @@ on the chirality bundle $\mathcal{H} = S^+ \oplus S^-$, where
 $D_\mu = \partial_\mu - ieA_\mu$. Each ingredient is cascade-derived:
 the gamma matrices $\gamma^\mu$ from Bott classification of the
 cascade Clifford algebra $\mathrm{Cl}(1,3)$
-(Paper~III~\cite{paper3}, \S\,Clifford classification); the
+(Paper~III~\cite{part3}, \S\,Clifford classification); the
 per-source mass $m_f = R(d_f)/\chi$ from the cascade Berezin
 partition with chirality halving at the fermion's Dirac source layer
-$d_f$ (Paper~IVb~\cite{paper4b}, Theorem~\xref{paper4b}{thm:obstruction});
+$d_f$ (Paper~IVb~\cite{part4b}, Theorem~\xref{part4b}{thm:obstruction});
 the charge $e = \sqrt{\alpha(14)}$ from the cascade U(1) gauge
 structure at the gauge-window boundary $d_g = 14$
-(Paper~IVa~\cite{paper4a}); and the gauge field $A_\mu$ from the
+(Paper~IVa~\cite{part4a}); and the gauge field $A_\mu$ from the
 cascade U(1) descent to $4$D.
 \end{theorem}
 
@@ -267,8 +266,8 @@ cascade U(1) descent to $4$D.
 Four cascade inputs combine via Wigner-type classification.
 
 \emph{Step~1 (cascade Hilbert space is the spinor representation).}
-By Paper~III's Lemma~\xref{paper3}{lem:cascade-spinor-id} together with
-Theorem~\xref{paper3}{thm:d4}, the cascade Hilbert space $\mathcal{H}$ at
+By Paper~III's Lemma~\xref{part3}{lem:cascade-spinor-id} together with
+Theorem~\xref{part3}{thm:d4}, the cascade Hilbert space $\mathcal{H}$ at
 the $4$D observer's frame is identified with the irreducibly-complex
 minimal spinor representation of $\mathrm{Spin}(1,3)$, equivalently
 the $4$-component complex Dirac spinor representation. The chirality
@@ -299,7 +298,7 @@ form $(i\gamma^\mu\partial_\mu - m_f)\psi = 0$ for some mass scalar
 $m_f$.
 
 \emph{Step~4 (cascade-derived mass and gauge coupling).} By
-Paper~IVb's Theorem~\xref{paper4b}{thm:obstruction} and the Berezin partition
+Paper~IVb's Theorem~\xref{part4b}{thm:obstruction} and the Berezin partition
 derivation, the cascade fermion at Dirac source layer $d_f$
 ($d_f \bmod 8 = 5$) carries mass $m_f = R(d_f)/\chi$, with the mass
 operator off-diagonal on the chirality decomposition
@@ -319,9 +318,9 @@ all ingredients cascade-derived.
 
 \begin{lemma}[$4$D-projected fermion field structure]\label{lem:4d-fermion-projection}
 Under the cascade structure at $d=4$ (foliation by cross-sections at
-height $x \in [-1,1]$ per Paper~III~\cite{paper3}~\S4.1; spinor
+height $x \in [-1,1]$ per Paper~III~\cite{part3}~\S4.1; spinor
 representation of $\mathrm{Spin}(1,3)$ on the cascade Hilbert space
-per Lemma~\xref{paper3}{lem:cascade-spinor-id}), the cascade fermion field
+per Lemma~\xref{part3}{lem:cascade-spinor-id}), the cascade fermion field
 is a section
 \[
 \psi : M_4 \to \mathcal{S}, \qquad
@@ -355,7 +354,7 @@ $ds^2_{4\mathrm{D}} = -dt^2 + (1-t^2)\,d\sigma_3^2$ via the Wick
 rotation $x = it$ of Paper~III~\S10. Call this Lorentzian manifold
 $M_4$.
 
-By Lemma~\xref{paper3}{lem:cascade-spinor-id}, the cascade Hilbert space
+By Lemma~\xref{part3}{lem:cascade-spinor-id}, the cascade Hilbert space
 at $d=4$ is the irreducibly-complex minimal spinor representation
 $\mathcal{H}$ of $\mathrm{Spin}(1,3)$. The local
 $\mathrm{Spin}(1,3)$ action on $M_4$'s tangent frame at each point
@@ -403,8 +402,8 @@ design).
 
 \begin{lemma}[Berezin mass equals Hamiltonian $\beta$-mass]\label{lem:berezin-equals-beta-mass}
 The cascade fermion mass term derived from the Berezin partition
-(Paper~IVb~\cite{paper4b},
-Remark~\xref{paper4b}{rem:berezin-partition-derivation}) equals the
+(Paper~IVb~\cite{part4b},
+Remark~\xref{part4b}{rem:berezin-partition-derivation}) equals the
 Hamiltonian-form $\beta$-mass term in the cascade Dirac equation
 of Theorem~\ref{thm:cascade-dirac-descent}. Both act as the
 off-diagonal chirality-mixing operator on
@@ -414,7 +413,7 @@ $m_f = R(d_f)/\chi$.
 
 \begin{proof}
 The Berezin fermion action is $S_f = m_f\,\bar\psi\psi$
-(Paper~IVb~\cite{paper4b}, Section~\xref{paper4b}{sec:fermion-action}, with
+(Paper~IVb~\cite{part4b}, Section~\xref{part4b}{sec:fermion-action}, with
 $\bar\psi = \psi^\dagger\gamma^0$). On the chirality basis
 $\psi = (\psi_+, \psi_-)^T$ in the chiral representation
 ($\gamma^0$ in $2\times 2$ block form
@@ -440,8 +439,8 @@ and the Hamiltonian $\beta$-mass operator $\beta m_f$ are identical:
 both equal $\gamma^0\cdot m_f$ acting on
 $\mathcal{H} = S^+ \oplus S^-$. The chirality halving
 $m = R/\chi$ derived from Poincar\'e--Hopf
-(Paper~IVb~\cite{paper4b},
-Theorem~\xref{paper4b}{thm:obstruction}) and the Hamiltonian-form Dirac
+(Paper~IVb~\cite{part4b},
+Theorem~\xref{part4b}{thm:obstruction}) and the Hamiltonian-form Dirac
 mass agree both in cascade value and in operator action on the
 chirality decomposition.
 \end{proof}
@@ -468,7 +467,7 @@ Wigner's argument has two distinct contents:
 first-order time evolution from the cascade propagator
 (Theorem~\ref{thm:propagator}, $i\partial_t\psi = H\psi$) and
 Lorentz covariance on the spinor representation
-(Lemma~\xref{paper3}{lem:cascade-spinor-id}), the spatial derivatives
+(Lemma~\xref{part3}{lem:cascade-spinor-id}), the spatial derivatives
 must also be first-order: under a boost, $\partial_t$ mixes with
 $\partial_i$, so a second-order spatial operator would, in the
 boosted frame, produce second-order time derivatives that the
@@ -507,9 +506,9 @@ argument remains load-bearing as a standard mathematical theorem
 applied to cascade-derived inputs (cascade propagator's
 first-order time form per Theorem~\ref{thm:propagator}; Lorentz
 covariance on the cascade Hilbert space per
-Lemma~\xref{paper3}{lem:cascade-spinor-id}). This is the same posture
+Lemma~\xref{part3}{lem:cascade-spinor-id}). This is the same posture
 as Schur's lemma in Paper~III's
-Lemma~\xref{paper3}{lem:cascade-spinor-id}, Gleason's theorem in
+Lemma~\xref{part3}{lem:cascade-spinor-id}, Gleason's theorem in
 Theorem~\ref{thm:double}, and Lovelock's theorem in
 Theorem~\ref{thm:double}: standard mathematical uniqueness
 theorems applied to cascade-derived inputs. Wigner's
@@ -525,8 +524,8 @@ distinct within-moment geometric directions:
 \begin{enumerate}[label=(\roman*),nosep]
 \item \emph{Cross-layer (tower depth) direction}: the layer index
 $d \in \{4, 5, \ldots, N(t)\}$, indexing the within-moment tower
-of dimensions above the observer (Paper~VI~\cite{paper6},
-Definition~\xref{paper6}{def:tower-time}).
+of dimensions above the observer (Paper~VI~\cite{part6},
+Definition~\xref{part6}{def:tower-time}).
 \item \emph{Within-layer ($4$D coordinates) direction}: the
 spacetime coordinates $x^\mu$ on $M_4$, the foliated $4$D
 Lorentzian manifold at the observer's layer (Paper~III~\S4 +
@@ -536,7 +535,7 @@ The cascade's within-moment action splits accordingly:
 \begin{itemize}[nosep]
 \item \emph{Tower-action}: $S_{\text{tower}}[\varphi] =
 \sum_d (2\alpha(d))^{-1}(\Delta\varphi(d))^2$
-(Paper~IVb~\cite{paper4b}, Remark~\xref{paper4b}{rem:action-uniqueness}),
+(Paper~IVb~\cite{part4b}, Remark~\xref{part4b}{rem:action-uniqueness}),
 acting on the cascade tower-scalar $\varphi(d) = \ln\Omega_d$.
 \item \emph{$4$D-projected action}: $S_{4\mathrm{D}}[\Phi] =
 \int_{M_4} |\partial_\mu\Phi|^2\,d^4x$ (standard Lorentz-covariant
@@ -553,12 +552,12 @@ design, not two readings of a single underlying action functional.
 \begin{proof}
 The cascade tower-scalar $\varphi(d) = \ln\Omega_d$ is a function
 only of the layer index $d$
-(Paper~IVb~\cite{paper4b}, Remark~\xref{paper4b}{rem:action-uniqueness}).
+(Paper~IVb~\cite{part4b}, Remark~\xref{part4b}{rem:action-uniqueness}).
 The tower-action sums layer-difference kinetic
 $(\Delta\varphi(d))^2$ across the within-moment tower from
 $d = 4$ to $d = N(t)$, normalized by $(2\alpha(d))^{-1}$ from
-lattice covariance (Paper~IVb~\cite{paper4b},
-Remark~\xref{paper4b}{rem:marginal-greens}).
+lattice covariance (Paper~IVb~\cite{part4b},
+Remark~\xref{part4b}{rem:marginal-greens}).
 
 The $4$D-projected action acts on fields
 $\Phi : M_4 \to \mathbb{R}$ (or higher-spin analogs;
@@ -601,27 +600,27 @@ from Wick-rotating the within-layer foliation parameter
 $x \in [-1,1]$ (Paper~III~\S10, $x = it$), which is structurally
 distinct from the layer index. The cascade's two distinct
 time-like / spatial-like cascade directions
-(Paper~VI~\cite{paper6}, \S1.2 within-moment vs
+(Paper~VI~\cite{part6}, \S1.2 within-moment vs
 between-moments) provide the structural framework: the
 within-moment tower-action governs cross-layer kinetics
 (direction~(i) of
 Lemma~\ref{lem:within-moment-action-decomposition}); the
 within-moment $4$D action governs within-layer kinetics
 (direction~(ii)); the between-moments tower-growth operator
-$A$ (Paper~VI~\cite{paper6},
-Proposition~\xref{paper6}{prop:time-evolution}) governs the genuine
+$A$ (Paper~VI~\cite{part6},
+Proposition~\xref{part6}{prop:time-evolution}) governs the genuine
 cosmic-time dynamics by adding layers at the top of the tower.
 
 This is the cascade's complete within-moment + between-moments
 action architecture. Each piece governs a structurally distinct
 cascade direction; none unifies into a single functional, but
 each is independently derivable from cascade primitives. The
-tower-action is derived in Paper~IVb~\cite{paper4b}'s
-Remark~\xref{paper4b}{rem:action-uniqueness} from lattice covariance;
+tower-action is derived in Paper~IVb~\cite{part4b}'s
+Remark~\xref{part4b}{rem:action-uniqueness} from lattice covariance;
 the $4$D-projected action follows from standard Lorentz
 covariance on the cascade-derived $M_4$
 (Paper~III~\S4); the between-moments tower-growth $A$ is
-defined in Paper~VI~\cite{paper6}.
+defined in Paper~VI~\cite{part6}.
 \end{remark}
 
 \begin{remark}[Status: parallel to Theorem~\ref{thm:double}]
@@ -636,7 +635,7 @@ QM/GR consistency). The cascade contribution is to provide the
 inputs; the standard mathematical theorem is invoked, not
 re-derived---the same posture Paper~III adopts when invoking
 Schur~$+$~Clifford classification in
-Lemma~\xref{paper3}{lem:cascade-spinor-id}, and the same posture
+Lemma~\xref{part3}{lem:cascade-spinor-id}, and the same posture
 Theorem~\ref{thm:double} adopts when invoking Gleason and Lovelock.
 Presentation gaps in Steps~3 and~4 are addressed by
 Lemma~\ref{lem:4d-fermion-projection},
@@ -749,7 +748,7 @@ both projections read the same source.
 The argument depends on $d = 4$. In higher dimensions, Lovelock permits
 additional gravitational terms with free couplings; the gravitational
 projection would no longer be unique and consistency would fail. The
-cascade forces $d = 4$ (Paper~III, Section~\xref{paper3}{sec:d-equals-4}) precisely where both
+cascade forces $d = 4$ (Paper~III, Section~\xref{part3}{sec:d-equals-4}) precisely where both
 uniqueness theorems hold.
 \end{remark}
 
@@ -841,7 +840,7 @@ Three observations, each established elsewhere in the series.
 \emph{Step~1 (derived).} Paper~III~\S4 derives $g_{\mu\nu}$ from the
 cascade's slicing recurrence as an FRW-type metric
 $ds^2 = -dt^2 + a(t)^2\,d\sigma_3^2$ with $a(t) = \sqrt{1-t^2}$
-(Lorentzian cross-section radius, Paper~III, Theorem~\xref{paper3}{rem:sp-19-inputs}).
+(Lorentzian cross-section radius, Paper~III, Theorem~\xref{part3}{rem:sp-19-inputs}).
 The metric is a cascade-geometric object.
 
 \emph{Step~2 (derived).} Paper~II~\S2 establishes the cascade state space
@@ -932,10 +931,10 @@ At $d = 4$: $S = A/4$.
 Three steps.
 
 \emph{Step 1 (derived, unit ball).} Boundary dominance
-(Paper~0, Theorem~\xref{paper0}{thm:boundary}~\cite{paper0}, \xref{paper0}{thm:boundary}):
+(Paper~0, Theorem~\xref{part0}{thm:boundary}~\cite{part0}, \xref{part0}{thm:boundary}):
 $\Omega_{d-1}/V_d = d$, hence $V_d = \Omega_{d-1}/d$.
 
-\emph{Step 2 (derived, cascade-content primitive).} By Paper~0, Corollary~\xref{paper0}{cor:primary}, sphere area is the unique independent
+\emph{Step 2 (derived, cascade-content primitive).} By Paper~0, Corollary~\xref{part0}{cor:primary}, sphere area is the unique independent
 cascade quantity: content~$\equiv$~area, and every volume is a derived
 quantity. The unit-ball identity therefore reads
 ``content inside a unit sphere of area $\Omega_{d-1}$ is $\Omega_{d-1}/d$.''
@@ -968,10 +967,10 @@ The entropy formula factorises into three ingredients with three different
 derivation statuses:
 \begin{enumerate}
 \item \emph{Derived.} The unit-ball boundary-dominance identity
-$V_d = \Omega_{d-1}/d$ (Paper~0, Theorem~\xref{paper0}{thm:boundary}~\cite{paper0}). A Gamma-function
+$V_d = \Omega_{d-1}/d$ (Paper~0, Theorem~\xref{part0}{thm:boundary}~\cite{part0}). A Gamma-function
 identity; no assumption.
 \item \emph{Derived as a cascade primitive.} Content~$\equiv$~area and
-volumes are derived: Paper~0, Corollary~\xref{paper0}{cor:primary} (\xref{paper0}{cor:primary}).
+volumes are derived: Paper~0, Corollary~\xref{part0}{cor:primary} (\xref{part0}{cor:primary}).
 No assumption beyond the cascade's definition of independent quantities.
 \item \emph{Asserted, pending a cascade-action derivation.} That the
 content--area map is linear in $A$ with slope $1/d$ for \emph{any} cascade
@@ -996,7 +995,7 @@ principle as input.
 
 \subsection{Content is geometry}
 
-Corollary~3.2 of Paper~0 (\xref{paper0}{cor:primary}): sphere area is the only
+Corollary~3.2 of Paper~0 (\xref{part0}{cor:primary}): sphere area is the only
 independent cascade quantity. Content IS geometry. One unit of sphere area
 is one unit of cascade content. A horizon of area $A$ hides $A/4$ units of
 geometric content. The question ``how many microstates?'' is
@@ -1092,7 +1091,7 @@ of sphere areas at the two equilibria: the largest and the smallest in the
 cascade's tower. At $d = 4$, boundary dominance gives the hidden geometry
 as $1/4$ of this hierarchy---approximately $10^{120}$ in cascade units.
 This is the same $10^{120}$ that appears as the cosmological constant's
-hierarchy (Paper~I, Theorem~\xref{paper0}{thm:hierarchy}), seen from the other side: $\Lambda \sim
+hierarchy (Paper~I, Theorem~\xref{part0}{thm:hierarchy}), seen from the other side: $\Lambda \sim
 10^{-120}$ is the inverse of the hidden geometry. The cascade derives both
 numbers from the Gamma function; neither requires a de~Sitter solution or
 semiclassical gravity.
@@ -1101,7 +1100,7 @@ semiclassical gravity.
 \label{subsec:btz}
 
 Theorem~\ref{thm:bh} applies at any $d$ for which boundary dominance holds,
-which is any $d\geq 1$ (Paper~0, Theorem~\xref{paper0}{thm:boundary}). It is not restricted to the
+which is any $d\geq 1$ (Paper~0, Theorem~\xref{part0}{thm:boundary}). It is not restricted to the
 observer's dimension. Applied at $d=3$ it predicts
 $S = A/3$ for any $d=3$ horizon, and in particular for the BTZ black
 hole~\cite{btz}, the unique rotating/stationary solution of $2+1$
@@ -1181,8 +1180,8 @@ are cascade-internal quantities (boundary dominance is a Gamma-function
 theorem; the $A/(4G_d)$ form is Bekenstein--Hawking applied at dimension
 $d$, itself a consequence of the cascade's Einstein equation at that $d$
 via Lovelock). No semiclassical integration enters. The cascade's own
-structural commitments (Paper~I~\cite{paper1}~\S3.2;
-Paper~II\,=\,III~\S5--6; Paper~III~\cite{paper3}~\S12) explicitly
+structural commitments (Paper~I~\cite{part1}~\S3.2;
+Paper~II\,=\,III~\S5--6; Paper~III~\cite{part3}~\S12) explicitly
 \emph{exclude} Kaluza--Klein reduction as the route to $G_d$: the metric
 is a state property, not an operator on a fixed background, so there is
 no semiclassical reduction over compactified dimensions to perform.
@@ -1190,7 +1189,7 @@ no semiclassical reduction over compactified dimensions to perform.
 What would strengthen the cross-check is a \emph{second} cascade-internal
 route to $G_d$ that does not go through the matching
 $S = A/d \leftrightarrow A/(4G_d)$---for instance, via the proposed
-discrete cascade action (Paper~IVb~\cite{paper4b}, Remark~4.6) evaluated
+discrete cascade action (Paper~IVb~\cite{part4b}, Remark~4.6) evaluated
 at layer $d$, or via an explicit cascade-native sphere-area identity at
 dimension $d$ that independently equals $d/4$. Any such route would
 promote Theorem~\ref{thm:Gd} from ``structural matching'' to
@@ -1285,7 +1284,7 @@ compute decoherence rates.
 \item Provide a \emph{second} cascade-internal route to
 $G_d = d/4$ that does not go through the matching $S = A/d
 \leftrightarrow A/(4G_d)$. Candidates (all cascade-native, none
-Kaluza--Klein): the discrete cascade action of Paper~IVb~\cite{paper4b}
+Kaluza--Klein): the discrete cascade action of Paper~IVb~\cite{part4b}
 evaluated at layer~$d$; an independent sphere-area identity at $d$;
 a direct calculation from the cascade's embedding data at that~$d$.
 Theorem~\ref{thm:Gd} already derives $G_d$ cascade-internally from
@@ -1322,7 +1321,7 @@ space of metric states.
 scale invariance of the content--area map from a cascade action.}
 Theorem~\ref{thm:bh} derives $V_d = \Omega_{d-1}/d$ on the unit ball
 from boundary dominance, and identifies area with content via Paper~0,
-Corollary~\xref{paper0}{cor:primary}. The remaining step---that $S = A/d$ holds for any cascade
+Corollary~\xref{part0}{cor:primary}. The remaining step---that $S = A/d$ holds for any cascade
 area $A$, not only the unit-sphere area $A = \Omega_{d-1}$---is asserted
 via an additivity/counting principle (Remark~\ref{rem:sp23-status},
 Step~3), with empirical support from Schwarzschild at $d=4$
@@ -1342,8 +1341,8 @@ $T = 1/(8\pi M)$ from boundary dominance and Birkhoff's theorem, with
 no semiclassical input. A cascade-internal route to the spectral
 \emph{shape} exists but is not yet formally written up in the paper:
 (i)~the cascade's slicing integrand $(1-x^2)^{d/2}$ is Gaussian
-(Paper~II, Lemma~\xref{paper2}{lem:gaussian}); (ii)~the decoherence factor
-$D = \exp(-D x^2/4R_{\rm eff}^2)$ is Gaussian (Paper~II, Theorem~\xref{paper2}{thm:reff}); (iii)~by the Araki--Woods theorem, Gaussian
+(Paper~II, Lemma~\xref{part2}{lem:gaussian}); (ii)~the decoherence factor
+$D = \exp(-D x^2/4R_{\rm eff}^2)$ is Gaussian (Paper~II, Theorem~\xref{part2}{thm:reff}); (iii)~by the Araki--Woods theorem, Gaussian
 entanglement across a partition produces a reduced density matrix
 with geometric eigenvalues $p_n = (1-r)r^n$, which is the
 Bose--Einstein distribution. Numerically verified at $d=4$: the
@@ -1366,9 +1365,9 @@ remains open is a \emph{second} cascade-internal derivation of the same
 $G_d = d/4$ relation via a distinct structural identity. This is
 \emph{not} a Kaluza--Klein reduction (the cascade explicitly refuses
 semiclassical reduction over compactified dimensions;
-Paper~I~\S3.2~\cite{paper1}, Paper~II\,=\,III~\S5--6,
-Paper~III~\S12~\cite{paper3}). Candidate cascade-native routes: the
-proposed discrete cascade action (Paper~IVb~\cite{paper4b} Remark~4.6)
+Paper~I~\S3.2~\cite{part1}, Paper~II\,=\,III~\S5--6,
+Paper~III~\S12~\cite{part3}). Candidate cascade-native routes: the
+proposed discrete cascade action (Paper~IVb~\cite{part4b} Remark~4.6)
 evaluated at layer~$d$, producing a variational derivation of $G_d$; an
 independent sphere-area identity at layer~$d$ equal to $d/4$; or a
 direct computation from the cascade's embedding data at dimension~$d$.
@@ -1376,7 +1375,7 @@ A second derivation would promote Theorem~\ref{thm:Gd} from
 ``structural matching'' to ``doubly-derived,'' tightening the BTZ
 cross-check from self-consistency to independent corroboration.
 \item \textbf{Metric-perturbation scattering.} The cascade predicts no
-graviton particles (Paper~III, Section~\xref{paper3}{sec:no-gravitons}). Computing the effective
+graviton particles (Paper~III, Section~\xref{part3}{sec:no-gravitons}). Computing the effective
 scattering amplitude of metric perturbations from the cascade's finite
 tower and showing it is UV-finite would provide computational confirmation
 of the structural finiteness.
@@ -1438,27 +1437,27 @@ or the Gaussian corrections of Open Question~8) is unexplored.
 
 \begin{thebibliography}{9}
 
-\bibitem{paper0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series~--- Part~0: The
+\bibitem{part0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series~--- Part~0: The
 Gamma-Function Structure of the Cascade}}, March 2026.
 
-\bibitem{paper1} RTAC, \extlink{\cascadebase/cascade-series-part1.pdf}{\textit{The Cascade Series~--- Part~I: Scale Variance
+\bibitem{part1} RTAC, \extlink{\cascadebase/cascade-series-part1.pdf}{\textit{The Cascade Series~--- Part~I: Scale Variance
 from Orthogonality}}, March 2026.
 
-\bibitem{paper2} RTAC, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{The Cascade Series~--- Part~II: Quantum
+\bibitem{part2} RTAC, \extlink{\cascadebase/cascade-series-part2.pdf}{\textit{The Cascade Series~--- Part~II: Quantum
 Mechanics from the Cascade}}, March 2026.
 
-\bibitem{paper3} RTAC, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series~--- Part~III: General
+\bibitem{part3} RTAC, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series~--- Part~III: General
 Relativity from the Cascade}}, March 2026.
 
-\bibitem{paper4a} RTAC, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Cascade Series~--- Part~IVa:
+\bibitem{part4a} RTAC, \extlink{\cascadebase/cascade-series-part4a.pdf}{\textit{The Cascade Series~--- Part~IVa:
 Standard Model from the Cascade --- Gauge Group, Symmetry Breaking,
 and Three Generations}}, March 2026.
 
-\bibitem{paper4b} RTAC, \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Cascade Series~--- Part~IVb:
+\bibitem{part4b} RTAC, \extlink{\cascadebase/cascade-series-part4b.pdf}{\textit{The Cascade Series~--- Part~IVb:
 Masses, Couplings, and Precision Predictions from the
 Geometric-Topological Factorization}}, March 2026.
 
-\bibitem{paper6} RTAC, \extlink{\cascadebase/cascade-series-part6.pdf}{\textit{The Cascade Series~--- Part~VI:
+\bibitem{part6} RTAC, \extlink{\cascadebase/cascade-series-part6.pdf}{\textit{The Cascade Series~--- Part~VI:
 Time as Tower Growth}}, March 2026.
 
 \bibitem{goroff} M.~H.~Goroff and A.~Sagnotti, ``The ultraviolet behaviour
