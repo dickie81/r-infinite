@@ -104,9 +104,26 @@ Paper~0, Theorem~\xref{part0}{thm:tower}
 \newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
 ```
 
-`\usepackage{cascade-xref}` (defined in `src/cascade-xref.sty`) loads `xcolor` and `xr-hyper`, sets `colorlinks=false`, and provides `\extlink`, `\xrhyperdoc`, and `\xref`. It must come **after** `\usepackage{hyperref}` and **before** any `\xrhyperdoc` calls. The package errors out if `hyperref` isn't loaded first.
+`\usepackage{cascade-xref}` (defined in `src/cascade-xref.sty`) loads `xcolor` and `xr-hyper`, sets `colorlinks=false`, supplies `\cascadebase` (the deployment URL), and provides `\extlink`, `\xrhyperdoc`, and `\xref`. It must come **after** `\usepackage{hyperref}` and **before** any `\xrhyperdoc` calls. The package errors out if `hyperref` isn't loaded first.
 
-The prefix convention varies by paper (e.g. `paper1` means `cascade-series-part0` in some files but `cascade-series-part1` in others — match the existing declarations in the citing paper, don't invent new ones).
+### Canonical prefix convention
+
+Every `\xrhyperdoc` declaration uses the **`partX`** form, matching the file stem:
+
+| File | Prefix |
+|---|---|
+| `cascade-series-part0` | `part0` |
+| `cascade-series-part1` | `part1` |
+| `cascade-series-part2` | `part2` |
+| `cascade-series-part2-equals-3` | `part23` |
+| `cascade-series-part3` | `part3` |
+| `cascade-series-part4a` | `part4a` |
+| `cascade-series-part4b` | `part4b` |
+| `cascade-series-part5` | `part5` |
+| `cascade-series-part6` | `part6` |
+| `cascade-series-prelude` | `prelude` |
+
+Layer H of the validator enforces this. Don't invent aliases like `paperIVa`, `paper4a`, or `paperI` — the canonical prefix is the same across every citing paper.
 
 ### Adding a new cross-paper reference
 
@@ -119,9 +136,12 @@ The prefix convention varies by paper (e.g. `paper1` means `cascade-series-part0
 
 `tools/build/check_xr_hyper_compliance.py` runs in CI before pdflatex. It enforces:
 
-- **Layer A**: every `\cite{paperK}` to a cascade paper has a matching `\xrhyperdoc` (or legacy `\externaldocument`) declaration.
-- **Layer B**: prose like `Theorem~\texttt{thm:foo}` near `\cite{paperK}` is migrated to `\ref{paperK:thm:foo}` (or, preferably, `\xref{paperK}{thm:foo}`).
+- **Layer A**: every `\cite{partX}` to a cascade paper has a matching `\xrhyperdoc` (or legacy `\externaldocument`) declaration.
+- **Layer B**: prose like `Theorem~\texttt{thm:foo}` near `\cite{partX}` is migrated to `\ref{partX:thm:foo}` (or, preferably, `\xref{partX}{thm:foo}`).
 - **Layer C**: cascade-paper bibitems use the absolute-URL `\extlink` form.
 - **Layer E**: no hardcoded `(Paper|Part)~X (Theorem|Lemma|Section|...)~N(.M)*` prose anywhere — must be `\xref`.
+- **Layer F**: no dead `\xrhyperdoc` declarations (prefix declared but never used by `\cite`/`\xref`/`\ref`/`\bibitem`).
+- **Layer G**: every numbered `\section{...}` has a `\label{sec:...}` immediately after, so future cross-paper `\xref` calls have a target. Starred `\section*{}` is exempt.
+- **Layer H**: every `\xrhyperdoc{prefix}{stem}` uses the canonical partX prefix for that stem (see table above).
 
 If you're adding text that names a result in another cascade paper, write `\xref` from the start. Don't write the literal number first and migrate later — the literal number drifts silently when the target renumbers.
