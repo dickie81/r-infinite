@@ -12,8 +12,35 @@
   \hypersetup{pdfborder={0 0 0}}%
   \href{#1}{\textcolor{blue}{#2}}%
 }}
+% Cross-paper hyperlinking infrastructure (see cascade-series-part1.tex
+% for the full commentary). Prelude has cross-paper prose refs but no
+% bibliography of its own, so it gets the \xref/\xrhyperdoc machinery
+% without bibitems for the cited papers -- the cite key isn't used.
+\edef\xrhash{\string#}
+\makeatletter
+\def\xr@grab@anchor#1#2#3#4#5{\def\xr@anchor@cur{#4}}
+\newcommand{\xrhyperdoc}[2]{%
+  \externaldocument[#1:]{#2}%
+  \expandafter\def\csname xrfile@#1\endcsname{#2}%
+}
+\newcommand{\xref}[2]{%
+  \begingroup
+    \def\xr@anchor@cur{}%
+    \ifcsname r@#1:#2\endcsname
+      \protected@edef\xr@labeldata{\csname r@#1:#2\endcsname}%
+      \expandafter\xr@grab@anchor\xr@labeldata%
+    \fi
+    \edef\xr@url{\cascadebase/\csname xrfile@#1\endcsname.pdf\xrhash nameddest=\xr@anchor@cur}%
+    \expandafter\extlink\expandafter{\xr@url}{\ref*{#1:#2}}%
+  \endgroup
+}
+\makeatother
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{xr-hyper}
+\xrhyperdoc{paper0}{cascade-series-part0}
+\xrhyperdoc{paperII}{cascade-series-part2}
+\newcommand{\cascadebase}{https://dickie81.github.io/r-infinite}
 \geometry{margin=2.5cm}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -605,7 +632,7 @@ $d$ is the resolution stage. This is the structural reading: the
 cascade as the unique parameter-free $d\to d-1$ recurrence on the
 tower, indexed by Gamma-function values.
 \item \emph{Physical (Parts~II and VI).} Each step is one Planck
-tick of cosmic time. Part~II Section~7.1 makes the static-versus-
+tick of cosmic time. Part~II, Section~\xref{paperII}{subsec:time-id} makes the static-versus-
 dynamic identification explicit: each cascade slicing operation
 \emph{is} one elementary unit of time --- ``slicing $=$ dimensional
 collapse $=$ time'' --- not merely a coordinate parametrising the
@@ -855,13 +882,13 @@ simplices) break rotation symmetry; alternative balls (ellipsoids,
 balls of radius $r\neq 1$) introduce shape or scale parameters
 excluded by clause~(i). The unit ball is also the unique shape
 supporting the slicing recurrence with constant $\sqrt{\pi}$
-(Part~0 Theorem~4.1: the recurrence's irreducible residue is forced
+(Part~0, Theorem~\xref{paper0}{thm:irred}: the recurrence's irreducible residue is forced
 by orthogonality on the cardinality-$d$ realisation).
 \end{itemize}
 
 The resolution mechanism itself is also forced given the tower: the
 slicing recurrence is the unique first-order multiplicative recurrence
-on the tower of unit balls (Part~0 Theorem~4.1).
+on the tower of unit balls (Part~0, Theorem~\xref{paper0}{thm:irred}).
 
 \noindent\textbf{Reduction.} The bounded region and the resolution
 mechanism are forced once the orthogonal-state realisation of (3)(a)
