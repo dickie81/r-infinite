@@ -176,10 +176,35 @@ structure the cascade actually wants:
 - **What remains.** The continuum-valued sharing parameter is still real-
   valued, and "real-valued" presupposes the continuum. So the bridge
   *uses* the continuum; it does not derive it from `$0 \neq 1$` alone.
-  Gap 5 narrows to: the parameter space `$[0, 1]$` (or `$[-1, 1]$` for
-  signed inner products) must come from somewhere — and Bridge 2
-  (foundational footprint) supplies it neutrally within the cascade's
-  already-declared analytic base.
+  Gap 5 narrows further (next item).
+
+- **Refinement — the natural parameter is angular.** The inner product
+  value lives in `$[-1, 1]$` but is a cosine; the natural continuous
+  parameter is the **angle** between unit vectors, ranging over
+  `$[0, \pi]$`, with `$\pi/2$` as the orthogonal value. This is not a
+  relabelling — it is the parameterisation the cascade *already* uses:
+
+  - Prelude Section 7 (line 555): "*the angle between axis and equator
+    is `$\pi/2$`, forcing the half-integer argument in `$B(1/2,\cdot)$`,
+    giving `$\Gamma(1/2) = \sqrt{\pi}$`.*" The orthogonal angle `$\pi/2$`
+    is the generator of the cascade's `$\sqrt{\pi}$` constant in the
+    slicing recurrence.
+  - So the parameter space the bridge needs is not generic real numbers,
+    it is specifically the angular interval `$[0, \pi]$`. `$\pi$` enters
+    as the *extent* of this angular space, not as an imported constant.
+  - Original `$d$` states sit at pairwise angle `$\pi/2$` (the extremal
+    "fully distinct" case); identical states sit at angle `$0$`; the
+    continuum populates the rest of `$[0, \pi]$`.
+  - This makes the continuum needed by Gap 5 *purposeful* in a tighter
+    sense: it is the angular continuum, with `$\pi$` as its intrinsic
+    extent, and the cascade's downstream `$\sqrt{\pi}$` machinery is the
+    natural consequence rather than an additional import.
+
+  Gap 5 narrows from "the parameter space `$[0,1]$` or `$[-1,1]$` must
+  come from somewhere" to "the angular interval `$[0,\pi]$` must come
+  from somewhere." Bridge 2 still supplies it via the foundational
+  footprint, but the parameter is now visibly cascade-native rather
+  than generic.
 
 - **Net.** Combined with Bridge 2, this is a defensible closure of Gap 5:
   *the continuum is supplied by the foundational footprint and used to
