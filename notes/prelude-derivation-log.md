@@ -10,7 +10,8 @@ Once the chain is settled, its content will be folded into the Prelude
 
 ## Status
 
-In progress. Four gaps closed; one currently open.
+In progress. Four gaps closed; one (Gap 5) has a working bridge identified
+but not yet fully closed — see Gap 5 entry below.
 
 ---
 
@@ -133,20 +134,94 @@ already-declared foundational footprint. But it shifts the substantive
 commitment to "WKL₀/ACA₀ as analytic base," which is a meta-mathematical
 choice rather than a cascade-internal derivation.
 
+#### Working bridge — Graded extension of binary distinguishability
+
+A more cascade-native bridge, identified by working through what continuous
+structure the cascade actually wants:
+
+- **Construction.** Extend the discrete cumulation by introducing entities
+  with *graded sharing* — a continuous parameter quantifying how much one
+  state "shares" with another, ranging from "nothing shared" (extremal,
+  fully distinct) to "everything shared" (extremal, identical).
+  Geometrically this is the inner-product picture: each state is a unit
+  vector, sharing = inner product, original states are the orthogonal
+  extremal case (`$\langle s_i, s_j\rangle = 0$`), and non-original states
+  populate the continuum.
+
+- **Why this is the right shape.** The cascade's downstream content
+  (`$\mathbb{R}^d$`, inner product, slicing recurrence, sphere areas) is
+  exactly what the graded-sharing extension gives. This is the
+  "in-between" continuum the cascade wants — not the probability simplex
+  `$\Delta^{d-1}$` (which would also be a continuous extension, but a
+  different one).
+
+- **Compatibility with `$0 \neq 1$`.** The original `$d$` states retain
+  their full binary distinguishability — they sit at the *extremal*
+  end of the graded sharing scale (sharing = 0). Property (B) is
+  preserved on the original states; the continuum extends the structure
+  *around* the original binary distinguishability rather than replacing
+  or contradicting it. The cascade's sole pre-mathematical input
+  (Definition 2.1, `$0 \neq 1$`) remains intact: graded sharing is
+  expressed *between additional states* that the extension introduces,
+  not between the originals.
+
+- **What this closes.** The "interpretive bridge" framing of the original
+  Theorem 3.1 — "states share no common component" as an unstated leap —
+  becomes purposeful: graded sharing is the natural structure for asking
+  "how distinguishable, exactly?", and the binary case is its extremal
+  endpoint. The inner product is no longer imported as a primitive; it
+  is the continuous parameter required to support graded sharing across
+  all magnitudes.
+
+- **What remains.** The continuum-valued sharing parameter is still real-
+  valued, and "real-valued" presupposes the continuum. So the bridge
+  *uses* the continuum; it does not derive it from `$0 \neq 1$` alone.
+  Gap 5 narrows to: the parameter space `$[0, 1]$` (or `$[-1, 1]$` for
+  signed inner products) must come from somewhere — and Bridge 2
+  (foundational footprint) supplies it neutrally within the cascade's
+  already-declared analytic base.
+
+- **Net.** Combined with Bridge 2, this is a defensible closure of Gap 5:
+  *the continuum is supplied by the foundational footprint and used to
+  support the graded extension of binary distinguishability, with the
+  original states preserved as the extremal case.* The Prelude's residual
+  interpretive commitment narrows from "vector-space realisation" (the
+  current Open Question 3(a)) to "the cascade's analytic content lives
+  within standard mathematical foundations (WKL₀/ACA₀), and that footprint
+  supplies the continuum used to extend binary distinguishability into
+  the graded-sharing structure the cascade's downstream content rests on."
+
+**Status:** Working bridge identified. Closure depends on accepting the
+foundational-footprint route (Bridge 2) as the source of the continuum.
+
 ---
 
 ## Notes for next iteration
 
-- If Gap 5 closes via Bridge 2, the Prelude's residual interpretive
-  commitment narrows to: "the cascade operates within standard mathematical
-  foundations (WKL₀/ACA₀ for analytic content)." This is weaker than the
-  current item 3(a) framing.
+- If Gap 5 closes via the working bridge (graded extension + foundational
+  footprint), the Prelude's residual interpretive commitment narrows to:
+  "the cascade operates within standard mathematical foundations
+  (WKL₀/ACA₀ for analytic content), and uses that footprint's continuum
+  to support graded sharing as the continuous extension of binary
+  distinguishability." This is materially weaker than the current item
+  3(a) framing ("model `$d$` logical distinctions as `$d$` orthogonal
+  directions in a `$d$`-dimensional Euclidean space"), because:
 
-- Once Gap 5 is closed (or accepted), the next gap is the choice of *field*
-  among `$\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$` — handled by Hurwitz +
+  - The vector-space structure is not imposed but derived as the natural
+    home for graded sharing.
+  - The inner product is not imposed but derived as the continuous
+    sharing parameter.
+  - `$\mathbb{R}^d$` is not imposed but emerges as the minimal continuous
+    extension of cumulative `$d$`-element distinguishability under graded
+    sharing.
+  - The original `$d$` states retain full binary distinguishability as the
+    extremal (orthogonal) case — `$0 \neq 1$` is preserved untouched.
+
+- Once Gap 5 is accepted, the next gap is the choice of *field* among
+  `$\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$` — handled by Hurwitz +
   clause (ii) in the existing Prelude (lines 756–787).
 
 - After that: Section 3 rewrite (incorporating Gaps 1–4); Section 4
-  reorganisation to introduce vector space and inner product where
+  reorganisation to introduce graded sharing (the inner product) where
   structurally needed; Open Question 3 collapses to either Gap 5's residual
-  or a tighter form.
+  (foundational-footprint commitment) or a tighter form.
