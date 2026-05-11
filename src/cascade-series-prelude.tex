@@ -55,12 +55,14 @@ $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ of finite-dimensional
 Euclidean spaces with asymptotic upper edge $B^\infty$ --- from a
 single pre-mathematical input, the binary distinction $0\neq 1$. The
 chain runs through cumulative distinguishability (binary, symmetric,
-local), graded extension to an angular continuum, the Euler product on
-$\mathbb{N}$ that forces $\pi$ as the angular extent, and the
+local), the countable cardinality tower forced by parameter economy
+and minimal strength, the Euler product on $\mathbb{N}$ that forces
+$\pi$ as a specific real from the integer structure alone, and the
 vector-space realisation $\mathbb{R}^d$ forced by Hurwitz's theorem
-under a minimum-strength clause of austerity; orthogonality between
-distinguishable states is recovered as the extremal $\pi/2$ angular
-case. Every step is forced by an austerity clause or by a classical
+under a minimum-strength clause of austerity; the inner product on
+$\mathbb{R}^d$ inherits its angular constant from the same $\pi$, and
+orthogonality between distinguishable states is recovered as the
+extremal $\pi/2$ angular case forced by (B), (S), (L). Every step is forced by an austerity clause or by a classical
 theorem on integers and analysis, with the Monotone Convergence
 Theorem as the chain's single irreducible imported axiom. The starting
 structure carries a slicing recurrence with unique constant
@@ -216,14 +218,19 @@ and analysis (Section~\ref{sec:the-chain}).
 The question is: what does $0\neq 1$ \emph{imply}?
 
 % ============================================================
-\section{Distinction Implies Orthogonality}\label{sec:distinction-implies-orthogonality}
+\section{Distinction and Cumulation}\label{sec:distinction-implies-orthogonality}
 % ============================================================
 
 If $0$ and $1$ are distinguishable, they share no content. The
 logical NOT operation, mapping $0\mapsto 1$ and $1\mapsto 0$, is an
 involution exchanging two states with no common component. This
-section unpacks what \emph{distinguishable} means structurally and
-identifies the geometric content forced by Definition~\ref{def:axiom}.
+section unpacks what \emph{distinguishable} means structurally, at
+the combinatorial level. The number-theoretic content that follows
+from cumulation is the subject of
+Section~\ref{sec:the-dimension-tower}; the geometric content (vector
+spaces, inner products, orthogonality at $\pi/2$) is derived in
+Section~\ref{sec:graded-extension}, after $\pi$ has been forced from
+the integer structure.
 
 \subsection*{Three structural properties of $\neq$}
 
@@ -257,176 +264,188 @@ forms a $d$-element discrete structure with full pairwise distinction
 $\binom{d}{2}$ pairwise distinctions determined entirely by the
 cardinality $d$. At this stage no algebraic combination is imported;
 the ``combination'' of states is the bookkeeping of cumulative
-distinction itself.
+distinction itself. No vector space, no inner product, no notion of
+angle has yet been introduced.
 
-\subsection*{Geometric content forced by (B), (S), (L)}
+\subsection*{What cumulation gives us}
 
-Once $d$ distinguishable states are realised as unit vectors in a
-Euclidean vector space (the natural continuous extension of cumulative
-distinguishability, forced downstream and discussed in Sections
-\ref{sec:the-dimension-tower}--\ref{sec:nothing-unstable}), properties
-(B), (S), (L) determine the geometry of the realisation:
-
-\begin{theorem}[Distinction is orthogonality]\label{thm:orth}
-Let $\{s_1, \ldots, s_d\}$ be $d$ distinguishable states realised as
-unit vectors in a Euclidean vector space. Under the structural
-properties (B), (S), (L) of $\neq$, the realisation is the orthogonal
-embedding $s_i = e_i \in \mathbb{R}^d$ with
-$\langle e_i, e_j\rangle = \delta_{ij}$, and the pairwise angle
-between any two distinguishable states is $\pi/2$.
-\end{theorem}
-
-\begin{proof}
-By (B), distinguishability admits no gradations; the pairwise inner
-product $\langle s_i, s_j\rangle$ for $i \neq j$ must take the
-extremal ``no overlap'' value of the inner product, $0$ ---
-corresponding to angle $\pi/2$ between unit vectors. Any nonzero
-value would represent a partial overlap between $s_i$ and $s_j$,
-contradicting the binary nature of $\neq$. By (L), this value is
-independent of $d$: the same constant $0$ holds for every
-distinguishable pair regardless of the cardinality of the state set,
-ruling out the simplex realisation (pairwise inner product
-$-1/(d{-}1)$, which depends explicitly on $d$). By (S), the inner
-product is symmetric, consistent with the realisation. By unit norm,
-$\langle s_i, s_i\rangle = 1$. The Gram matrix $G_{ij} = \delta_{ij}$
-has rank $d$, so the realisation requires at least $d$ ambient
-dimensions; clause~(ii) of austerity selects exactly $d$. Up to
-orthogonal change of basis, the realisation is
-$s_i = e_i \in \mathbb{R}^d$ with the standard basis.
-\end{proof}
-
-\begin{remark}[Status of Theorem~\ref{thm:orth}]
-Theorem~\ref{thm:orth} derives orthogonality from the structural
-properties of $\neq$ as a binary relation (B, S, L) and the Euclidean
-vector-space realisation of cumulative distinguishability. The prior
-framing of this theorem flagged its premise (``states share no common
-component in $\mathbb{R}^d$'') as the substantive interpretive bridge
-of the prelude. That framing is superseded: as documented in the
-Prelude's status box and chain (Section~\ref{sec:the-chain}), both
-the vector-space-over-$\mathbb{R}$ realisation (forced by Hurwitz's
-theorem + clause~(ii)) and the angular extent $\pi$ that supports
-graded sharing (forced by the Euler product on $\mathbb{N}$ within
-minimum analytic-limits foundations) are downstream consequences of
-the cascade's existing commitments rather than separate structural
-choices. The leap from $0 \neq 1$ to orthogonality is no longer
-interpretive.
-
-\smallskip
-
-\noindent\textbf{Locality excludes the simplex.} Property (L) is
-what excludes alternative $S_d$-equivariant realisations such as the
-simplex (vertices of a regular $(d{-}1)$-simplex with pairwise inner
-product $-1/(d{-}1)$). The simplex is parameter-free and
-$S_d$-symmetric, so clauses~(i) and (ii) of austerity admit it; the
-original ``no shared component'' premise of Theorem~\ref{thm:orth}
-also does not exclude it cleanly, since the simplex's negative
-pairwise inner product is itself a fixed structural value rather than
-a free parameter. The simplex's pairwise inner product depends
-explicitly on $d$, so the relation between $s_1$ and $s_2$ would
-change every time a new state appears in the universe ---
-contradicting (L). The (L)-based exclusion makes precise an
-exclusion that was only implicit in the original framing.
-\end{remark}
+Cumulation produces an integer count: the cardinality $d$ of the
+distinguishable state set. Integers are not separately imported ---
+they are what cumulation \emph{is}, the counting data of the discrete
+structure. The cascade's downstream content (the geometric
+realisation, the slicing recurrence, the cosmological constant) all
+follow from this integer cardinality combined with the minimum
+analytic-limits foundation forced by austerity clause~(ii). Number
+theory enters in Section~\ref{sec:the-dimension-tower}; geometry in
+Section~\ref{sec:graded-extension}. Cumulation by itself is purely
+combinatorial.
 
 % ============================================================
-\section{The Dimension Tower}\label{sec:the-dimension-tower}
+\section{The Integer Structure: Cardinality and \texorpdfstring{$\pi$}{pi}}\label{sec:the-dimension-tower}
 % ============================================================
 
-One distinction gives two orthogonal directions and a two-dimensional
-Euclidean space $\mathbb{R}^2$. But the existence of one distinction does
-not preclude a second. If $e_0$ and $e_1$ span a plane $\mathbb{R}^2$,
-a third direction $e_2$ can be independent of both, giving $\mathbb{R}^3$.
-There is no logical obstruction: the fact that $0\neq 1$ does not limit
-the number of independent things that can be distinguished.
+Cumulation produces an integer count: the cardinality $d$ of
+distinguishable states. The existence of one distinction does not
+preclude a second; the cascade's distinguishable-state set grows
+without bound, indexed by a positive integer at each stage of the
+descent. This section establishes two things: (i)~the cardinal
+indexing of the cascade's tower is forced to range over $\mathbb{N}$
+by clauses (i) and (ii) of austerity; (ii)~within the minimum
+analytic-limits foundation that clause (ii) selects, the integer
+structure of $\mathbb{N}$ forces $\pi$ as a specific real via the
+Euler product on primes. Both results are number-theoretic; neither
+imports any geometric content.
+
+\subsection*{Cardinality}
 
 \begin{theorem}[Countable dimension tower]\label{thm:iterate}
-The cascade's dimension parameter $d$ ranges over $\mathbb{N}$. For each
-$d\in\mathbb{N}$, the cascade structure at dimension $d$ is the
-finite-dimensional Euclidean space $\mathbb{R}^d$ with its standard inner
-product, and the unit ball $B^d = \{x\in\mathbb{R}^d : |x|\leq 1\}$. The
-proof below establishes the cardinal indexing $d\in\mathbb{N}$; the choice
-of $\mathbb{R}^d$ as the continuous realisation medium is derived in
-Section~\ref{sec:graded-extension}.
+The cascade's dimension parameter $d$ ranges over $\mathbb{N}$. The
+choice of $\mathbb{R}^d$ as the continuous realisation medium at each
+$d$ is derived in Section~\ref{sec:graded-extension}; this theorem
+establishes the cardinal indexing $d\in\mathbb{N}$ alone.
 \end{theorem}
 
 \begin{proof}
-\emph{Existence of arbitrarily many dimensions.} For any finite $d$, the
-Euclidean space $\mathbb{R}^d$ and its unit ball $B^d$ are well-defined
-classical objects, expressible in $\mathrm{RCA}_0$ \cite{simpson2009} ---
-the strength-measurement base of Principle~\ref{princ:austerity}
+\emph{Existence of arbitrarily many cardinalities.} For any finite
+$d$, the $d$-element distinguishability record (the $K_d$-shaped
+combinatorial structure of Section~\ref{sec:distinction-implies-orthogonality})
+is expressible in $\mathrm{RCA}_0$ \cite{simpson2009} --- the
+strength-measurement base of Principle~\ref{princ:austerity}
 clause~(ii).
 
-\emph{The dimension tower has no upper bound (clause~(i) of
-Principle~\ref{princ:austerity}).} Suppose the tower stops at some
-finite $n<\infty$. Then $n$ itself is a structural input of the theory
---- an unexplained integer specifying the cascade's maximum dimension.
-By Principle~\ref{princ:austerity} clause~(i) (parameter economy), any
-such integer is rejected as a free parameter. The only stopping points
-compatible with clause~(i) are $n=0$ (which contradicts
-Definition~\ref{def:axiom}, requiring at least two distinct states,
-hence dimension at least~$1$) and $n=\infty$. The dimension tower
-therefore extends without bound. (``$n=\infty$'' here is not itself a
-chosen cardinality among alternatives: within the $\mathrm{RCA}_0$
-strength-measurement base, $\aleph_0$ is the unique unbounded notion
---- $\mathrm{RCA}_0$ has no machinery to express higher cardinals ---
-so $n=\infty$ is the unbounded countable index $\mathbb{N}$ the
-non-termination directly produces, not a selection from a menu of
-infinities.)
+\emph{The tower has no upper bound (clause~(i)).} Suppose the tower
+stops at some finite $n<\infty$. Then $n$ itself is a structural
+input of the theory --- an unexplained integer specifying the
+cascade's maximum cardinality. By Principle~\ref{princ:austerity}
+clause~(i) (parameter economy), any such integer is rejected as a
+free parameter. The only stopping points compatible with clause~(i)
+are $n=0$ (which contradicts Definition~\ref{def:axiom}, requiring at
+least two distinct states, hence cardinality at least~$1$) and
+$n=\infty$. The tower therefore extends without bound. (``$n=\infty$''
+here is not itself a chosen cardinality among alternatives: within
+the $\mathrm{RCA}_0$ strength-measurement base, $\aleph_0$ is the
+unique unbounded notion --- $\mathrm{RCA}_0$ has no machinery to
+express higher cardinals --- so $n=\infty$ is the unbounded countable
+index $\mathbb{N}$ the non-termination directly produces, not a
+selection from a menu of infinities.)
 
-\emph{Countable rather than uncountable indexing (clause~(ii) of
-Principle~\ref{princ:austerity}).} Indexing the dimension tower by an
-uncountable cardinal would require expressive machinery beyond
-second-order arithmetic, strictly stronger than
-Definition~\ref{def:axiom} in the reverse-mathematics sense of
-clause~(ii) \cite{friedman1975,simpson2009}.
+\emph{Countable rather than uncountable indexing (clause~(ii)).}
+Indexing the tower by an uncountable cardinal would require
+expressive machinery beyond second-order arithmetic, strictly
+stronger than Definition~\ref{def:axiom} in the reverse-mathematics
+sense of clause~(ii) \cite{friedman1975,simpson2009}.
 Principle~\ref{princ:austerity} clause~(ii) (minimal strength)
-therefore excludes the uncountable case. The dimension parameter
-ranges over $\mathbb{N}$.
+therefore excludes the uncountable case. The cardinality $d$ ranges
+over $\mathbb{N}$.
 \end{proof}
+
+\subsection*{Number theory on \texorpdfstring{$\mathbb{N}$}{N}: \texorpdfstring{$\pi$}{pi} via the Euler product}
+
+The cascade's downstream content --- the slicing-recurrence integral
+$\int_{-1}^1 (1-x^2)^{d/2}\,dx$, sphere areas, ball volumes,
+asymptotic limits as $d\to\infty$ --- is inherently analytic, with
+content not expressible in $\mathrm{RCA}_0$ alone. Some analytic
+foundation must be invoked. Principle~\ref{princ:austerity}
+clause~(ii) (minimal strength) selects the minimum sufficient
+foundation: the analytic-limits sub-theory of $\mathrm{ACA}_0$ over
+$\mathrm{RCA}_0$, equivalently $\mathrm{RCA}_0 + \mathrm{MCT}$
+\cite{simpson2009}, where $\mathrm{MCT}$ is the Monotone Convergence
+Theorem. Stronger fragments ($\mathrm{ATR}_0$,
+$\Pi^1_1\text{-}\mathrm{CA}_0$) exceed what the cascade requires;
+weaker ones cannot support the slicing-recurrence integral;
+alternative foundations (constructive, intuitionistic,
+type-theoretic) import strictly more axioms. $\mathrm{MCT}$ cannot
+be cascade-derived; it is the cascade's single irreducible
+foundational commitment beyond Definition~\ref{def:axiom}.
+
+\begin{theorem}[The integer structure forces $\pi$]\label{thm:pi-from-primes}
+Within the foundation $\mathrm{RCA}_0 + \mathrm{MCT}$ on the
+cumulation's integer structure $\mathbb{N}$, the Euler product over
+primes forces the existence of $\pi$ as a specific real:
+\[
+\zeta(2) \;=\; \sum_{n=1}^{\infty} \frac{1}{n^2}
+\;=\; \prod_{p\,\mathrm{prime}} \frac{1}{1 - p^{-2}}
+\;=\; \frac{\pi^2}{6},
+\qquad
+\pi^2 \;=\; 6\,\prod_{p\,\mathrm{prime}}\frac{p^2}{p^2 - 1}.
+\]
+By uniqueness of $\pi$ in standard mathematics (a single positive
+real with this property), the Euler-product $\pi$ is identified with
+every other classical occurrence of the constant. The integer
+structure of $\mathbb{N}$ alone, without any geometric input, forces
+this specific real.
+\end{theorem}
+
+\begin{proof}
+$\zeta(2) = \pi^2/6$ is Euler's 1734 solution to the Basel problem;
+the Euler-product identity is the 1737 result that the same value
+equals the product over primes (proof: expand each factor as a
+geometric series and apply the fundamental theorem of arithmetic).
+Both rest on convergence of the corresponding series and product,
+which is provable within $\mathrm{RCA}_0 + \mathrm{MCT}$. Uniqueness
+of $\pi$ as the constant with this property is elementary:
+$\zeta(2)$ is a specific computable real, and $\pi^2 = 6\zeta(2)$
+determines a unique positive square root.
+\end{proof}
+
+\begin{remark}[$\pi$ enters from number theory, not from geometry]
+Theorem~\ref{thm:pi-from-primes} forces $\pi$ as a specific real via
+the integer/prime structure of $\mathbb{N}$ within
+$\mathrm{RCA}_0 + \mathrm{MCT}$. No vector space, no inner product,
+no angle, no Euclidean structure has yet been introduced. The
+identification of this Euler-product $\pi$ with the angular constant
+($\pi/2$ for orthogonality, $2\pi$ for a full circle, $\pi$ for the
+half-circle) is a downstream consequence (Section~\ref{sec:graded-extension}):
+when geometry is derived, its $\pi$ is necessarily the same constant,
+by uniqueness. The cascade's Euclidean geometry inherits $\pi$ from
+number theory rather than supplying it.
+\end{remark}
 
 \noindent\textbf{No infinite-dimensional ambient space.} Theorem~\ref{thm:iterate}
 does not build a single infinite-dimensional Hilbert space as an
-ambient object. The cascade is the dimension tower itself: the sequence
-of finite-dimensional Euclidean structures $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$
-together with the relations between consecutive levels (the slicing
-recurrence of Section~\ref{sec:nothing-unstable}). The
+ambient object. The cascade is the dimension tower itself: the
+sequence of $K_d$-shaped discrete structures (extended to
+$\mathbb{R}^d$ in Section~\ref{sec:graded-extension}) indexed by
+$d\in\mathbb{N}$, together with the relations between consecutive
+levels (the slicing recurrence of
+Section~\ref{sec:nothing-unstable}). The
 ``infinite-dimensional unit ball $B^\infty$'' is the asymptotic upper
 edge of the tower, defined as the $d\to\infty$ limit of intrinsic
 geometric quantities (volumes, sphere areas; see
-Theorem~\ref{thm:nothing} below), not as a literal infinite-dimensional
-ambient object. This means the cascade does not require Cauchy
-completion to a single infinite-dimensional Hilbert space, does not
-require any functional-analytic refinement (rigged, nuclear,
-weak-topology), and does not require Sol\`er-style convergence theorems
-to force its starting structure: the Euclidean inner product on each
-$\mathbb{R}^d$ is forced by elementary linear algebra (the unique
-positive-definite symmetric bilinear form on $\mathbb{R}^d$, up to
-isomorphism, given a basis); the choice of $\mathbb{R}^d$ as the
-realisation medium is derived in
-Section~\ref{sec:graded-extension}; and the cardinal indexing of the
-tower is forced by clauses~(i) and~(ii) of
-Principle~\ref{princ:austerity} as in the proof above. The cascade's
-foundational footprint stays at $\mathrm{RCA}_0$ for the dimension
-tower's existence and at $\mathrm{WKL}_0$/$\mathrm{ACA}_0$ for the
-classical-analysis content (integration, the Gamma function) developed
-in subsequent sections.
+Theorem~\ref{thm:nothing} below), not as a literal
+infinite-dimensional ambient object. This means the cascade does not
+require Cauchy completion to a single infinite-dimensional Hilbert
+space, does not require any functional-analytic refinement (rigged,
+nuclear, weak-topology), and does not require Sol\`er-style
+convergence theorems to force its starting structure: the cardinal
+indexing of the tower is forced by clauses~(i) and~(ii) of
+Principle~\ref{princ:austerity} (Theorem~\ref{thm:iterate}); $\pi$
+is forced by the Euler product on $\mathbb{N}$ within
+$\mathrm{RCA}_0 + \mathrm{MCT}$ (Theorem~\ref{thm:pi-from-primes});
+the choice of $\mathbb{R}^d$ as the geometric realisation is derived
+in Section~\ref{sec:graded-extension}. The cascade's foundational
+footprint stays at $\mathrm{RCA}_0$ for the cardinal tower's
+existence and at $\mathrm{RCA}_0 + \mathrm{MCT}$ for the
+classical-analysis content (integration, the Gamma function)
+developed in subsequent sections.
 
 % ============================================================
-\section{Graded Extension and the Angular Continuum}\label{sec:graded-extension}
+\section{From Numbers to Euclidean Geometry}\label{sec:graded-extension}
 % ============================================================
 
-The dimension tower of Section~\ref{sec:the-dimension-tower}
-establishes that the cascade structure at dimension $d$ is
-$\mathbb{R}^d$ with its standard inner product. This section
-identifies why that geometric realisation is \emph{forced} from
-cumulation: the chain from a discrete $d$-element distinguishability
-record to a continuous Euclidean structure is forced at every step
-by clause~(ii) of austerity or by classical theorems on integers and
-analysis. The single imported axiom along the way is the Monotone
-Convergence Theorem (MCT), which clause~(ii) selects as the
-minimum-strength foundational path among standard fragments.
+Section~\ref{sec:the-dimension-tower} forced the cardinality
+$d\in\mathbb{N}$ from cumulation and clauses~(i)--(ii) of austerity,
+and forced $\pi$ as a specific real from the Euler product within
+$\mathrm{RCA}_0 + \mathrm{MCT}$. Both results live on the integer
+structure of $\mathbb{N}$: no vector space, no inner product, no
+angle has yet been introduced. This section closes the gap from
+that number-theoretic content to a Euclidean geometric realisation:
+the vector-space ambient $\mathbb{R}^d$, its inner product, and the
+extremal pairwise angle $\pi/2$ at which the original $d$
+distinguishable states sit. Every step is forced by clause~(ii) of
+austerity or by a classical theorem.
 
-\subsection*{Why a continuum at all}
+\subsection*{Why a continuous realisation}
 
 Cumulation
 (Section~\ref{sec:distinction-implies-orthogonality}) is silent on
@@ -436,111 +455,103 @@ slicing-recurrence integral
 $\int_{-1}^1 (1-x^2)^{d/2}\,dx$ integrates a continuous parameter,
 sphere areas and ball volumes require continuous measure theory,
 and asymptotic behaviour as $d\to\infty$ requires limit machinery.
-
-The minimum foundational footprint supporting this content is the
-analytic-limits sub-theory of $\mathrm{ACA}_0$ over $\mathrm{RCA}_0$,
-equivalently $\mathrm{RCA}_0 + \mathrm{MCT}$ \cite{simpson2009}.
-By Principle~\ref{princ:austerity} clause~(ii) (minimal strength),
-this footprint is forced: alternative foundations (constructive,
-intuitionistic, type-theoretic) import strictly more axioms; weaker
-classical fragments cannot support the slicing-recurrence integral;
-stronger ones ($\mathrm{ATR}_0$, $\Pi^1_1$-CA$_0$) exceed what the
-cascade requires. The foundational footprint is not a separate
-meta-mathematical choice --- it is the natural-language form of the
-same commitment as ``the cascade asks infinitary questions''.
-
-\subsection*{Graded sharing and its angular parameter}
-
-Within a continuous extension, distinguishable states realise as
-elements of a space, and the natural structural question becomes:
-``what is the relation between two states, on a continuous scale?''
-We call this scale \emph{graded sharing} --- the continuous parameter
-quantifying overlap between realised states, ranging from
-``nothing shared'' (extremal, fully distinct) to ``everything
-shared'' (extremal, identical). Property (B) of $\neq$
-(Section~\ref{sec:distinction-implies-orthogonality}) is preserved
-on the original cumulated states: those states retain extremal
-sharing (zero overlap with each other), and binary distinguishability
-is the extremal case of graded sharing. The continuum populates
-\emph{around} the original states with intermediate-overlap entities
-that the extension introduces; nothing in (B) is contradicted ---
-graded sharing is expressed between additional states, not between
-the originals.
-
-The natural parameter for graded sharing is the angle between unit
-vectors in the realised space, ranging over $[0, \pi]$:
-angle~$0$ for identical states, angle $\pi/2$ for orthogonal
-(extremal ``no overlap''), angle $\pi$ for antipodal. The inner
-product (cosine of the angle) takes values in $[-1, 1]$ and is the
-geometric encoding of graded sharing on the unit sphere.
-
-\subsection*{$\pi$ is forced, not imported}
-
-The angular parameter has intrinsic extent $\pi$. Within
-$\mathrm{RCA}_0 + \mathrm{MCT}$, $\pi$ is forced by the Euler
-product on the integers:
-\[
-\zeta(2) \;=\; \sum_{n=1}^\infty \frac{1}{n^2}
-\;=\; \prod_{p\,\mathrm{prime}} \frac{1}{1 - p^{-2}}
-\;=\; \frac{\pi^2}{6},
-\]
-so $\pi^2 = 6\,\prod_{p}\frac{p^2}{p^2 - 1}$. Any complete classical
-analysis on $\mathbb{N}$ surfaces $\pi$ via $\zeta(2)$ (or
-equivalently via Wallis, Basel, or trigonometric integrals). The
-same $\pi$ is the angular extent of $[0, \pi]$ by the uniqueness of
-$\pi$ in standard mathematics. Cumulation supplies $\mathbb{N}$;
-$\mathrm{MCT}$ supplies the analytic continuum; within that continuum
-the integer structure of $\mathbb{N}$ forces $\pi$ via the Euler
-product. No additional axiom is invoked.
+The analytic-limits foundation $\mathrm{RCA}_0 + \mathrm{MCT}$
+selected in Section~\ref{sec:the-dimension-tower} already supplies a
+continuum (the computable reals of $\mathrm{RCA}_0$ with the
+monotone-limit closure of $\mathrm{MCT}$); the question is what
+\emph{shape} that continuum takes when it carries the cumulated
+states.
 
 \subsection*{The vector-space realisation}
 
-A graded-sharing geometry requires the realised states to live in a
-vector space supporting an inner product. By Hurwitz's theorem, the
-associative normed division algebras over $\mathbb{R}$ are exactly
-$\mathbb{R}, \mathbb{C}, \mathbb{H}$. By
-Principle~\ref{princ:austerity} clause~(ii) (minimal strength),
-$\mathbb{R}$ is the minimum: starting over $\mathbb{C}$ or
-$\mathbb{H}$ imports complex structure ($J^2 = -\mathrm{Id}$) or
-quaternionic structure ($i, j, k$ with their relations) as
-additional axiomatic content. The vector-space realisation is
-therefore $\mathbb{R}^d$ --- the same space the dimension tower
-asserts (Theorem~\ref{thm:iterate}), now with its derivation
-explicit.
+A geometric realisation that quantifies how much two states overlap
+requires the realised states to live in a vector space supporting an
+inner product. By Hurwitz's theorem, the associative normed division
+algebras over $\mathbb{R}$ are exactly $\mathbb{R}, \mathbb{C},
+\mathbb{H}$. By Principle~\ref{princ:austerity} clause~(ii)
+(minimal strength), $\mathbb{R}$ is the minimum: starting over
+$\mathbb{C}$ or $\mathbb{H}$ imports complex structure ($J^2 =
+-\mathrm{Id}$) or quaternionic structure ($i, j, k$ with their
+relations) as additional axiomatic content beyond what
+Definition~\ref{def:axiom} and the cumulated integer structure of
+$\mathbb{N}$ force. The vector-space realisation is therefore
+$\mathbb{R}^d$ --- the cardinal $d$ supplied by
+Theorem~\ref{thm:iterate}, the field supplied by Hurwitz +
+clause~(ii).
 
 The Euclidean inner product on $\mathbb{R}^d$ is the unique
 positive-definite symmetric bilinear form up to isomorphism, given
 a basis (elementary linear algebra); it is fixed once the field is
-chosen, not separately committed.
+chosen, not separately committed. With the inner product comes its
+geometric interpretation: the cosine of an angle. The angle between
+unit vectors ranges over $[0, \pi]$, with $0$ corresponding to
+identical states, $\pi/2$ to orthogonal, $\pi$ to antipodal. The
+specific value $\pi$ is the same one forced by
+Theorem~\ref{thm:pi-from-primes} via the Euler product on
+$\mathbb{N}$: there is only one $\pi$ in standard mathematics, and
+the geometric angular extent inherits it from the number-theoretic
+constant. No new analytic content is introduced.
 
-\subsection*{Theorem~\ref{thm:orth} as the extremal angular case}
+\subsection*{The extremal angular case: pairwise orthogonality}
 
-Within this realisation, Theorem~\ref{thm:orth} states that the $d$
-original distinguishable states sit at pairwise angle $\pi/2$ ---
-the extremal ``no overlap'' value of graded sharing. The geometry
-is forced: by (B), the pairwise inner product takes the extremal
-$0$; by (L), this is independent of $d$ (excluding the simplex
-realisation $-1/(d{-}1)$, whose pairwise inner product depends on
-the cardinality of the state set); by (S), the inner product is
-symmetric. The realisation is the standard basis of $\mathbb{R}^d$
-with $\langle e_i, e_j\rangle = \delta_{ij}$, ambient dimension $d$
-selected by clause~(ii).
+Within the $\mathbb{R}^d$ realisation, the $d$ cumulated states sit
+at a forced pairwise angle.
 
-The cascade's downstream $\sqrt{\pi}$ constant in the slicing
-recurrence (Section~\ref{sec:nothing-unstable}) is then a direct
-consequence: the orthogonal angle $\pi/2$ between axis and equator
-forces the half-integer argument in $B(1/2,\cdot)$, giving
-$\Gamma(1/2) = \sqrt{\pi}$. The angular extent $\pi$ generates the
-cascade's $\sqrt{\pi}$ through downstream Gamma-function machinery.
+\begin{theorem}[Pairwise orthogonality of cumulated states]\label{thm:orth}
+Let the $d$ cumulated distinguishable states of
+Section~\ref{sec:distinction-implies-orthogonality} be realised as
+unit vectors in $\mathbb{R}^d$ (the realisation forced above). Their
+pairwise inner products are $\langle e_i, e_j\rangle = \delta_{ij}$:
+distinct cumulated states are orthogonal, and the realisation is the
+standard basis of $\mathbb{R}^d$.
+\end{theorem}
+
+\begin{proof}
+Property (B) (binary distinguishability) of $\neq$ admits no
+gradation: between two cumulated states, the geometric overlap takes
+an extremal value of graded sharing on the inner-product scale
+$[-1, 1]$, not an intermediate one. The available extrema are $+1$
+(identical), $0$ (orthogonal), and $-1$ (antipodal): $+1$ is excluded
+because the states are distinct, $-1$ is excluded because it imposes
+a privileged pairing structure (antipodal partners) that has no
+analogue in (B) --- distinguishability is a relation between two
+states, not a coupling that links one state to a unique opposite. The
+extremal value compatible with all three of (B), (S), and (L) is $0$.
+
+Property (L) (locality) requires that the pairwise relation depend
+only on the pair, not on the cardinality of the state set: this
+excludes the regular-simplex realisation in $\mathbb{R}^{d-1}$, whose
+pairwise inner product $-1/(d{-}1)$ depends explicitly on $d$.
+Property (S) (symmetry) is satisfied by any inner product. The
+realisation forced by (B), (S), and (L) is therefore the standard
+basis of $\mathbb{R}^d$ with $\langle e_i, e_j\rangle = \delta_{ij}$
+and pairwise angle $\pi/2$ --- the extremal ``no overlap'' value of
+graded sharing.
+\end{proof}
+
+\begin{remark}[$\pi/2$ inherited from $\pi$, not separately imported]
+The pairwise angle $\pi/2$ is half of the angular extent $\pi$
+forced by Theorem~\ref{thm:pi-from-primes}. No additional axiom is
+invoked: the integer structure of $\mathbb{N}$ supplied $\pi$ via
+the Euler product; Hurwitz + clause~(ii) supplied $\mathbb{R}^d$;
+linear algebra supplied the inner product; (B), (S), (L) supplied
+the extremal orthogonal value. The chain from number theory to
+Euclidean geometry closes without circling back through any
+geometric assumption.
+\end{remark}
 
 \medskip
 
-\noindent The chain --- cumulation, $\mathrm{MCT}$-supplied continuum,
-$\pi$ forced via Euler product on $\mathbb{N}$, vector-space
-realisation forced by Hurwitz + clause~(ii), inner product forced
-by linear algebra, orthogonality recovered as the extremal angular
-case --- is enumerated together with the rest of the prelude's chain
-in Section~\ref{sec:the-chain}.
+\noindent The cascade's downstream $\sqrt{\pi}$ constant in the
+slicing recurrence (Section~\ref{sec:nothing-unstable}) follows: the
+orthogonal angle $\pi/2$ between axis and equator forces the
+half-integer argument in $B(1/2,\cdot)$, giving $\Gamma(1/2) =
+\sqrt{\pi}$. The chain --- $\pi$ forced via the Euler product on
+$\mathbb{N}$ (Section~\ref{sec:the-dimension-tower}), vector-space
+realisation forced by Hurwitz + clause~(ii), inner product forced by
+linear algebra, pairwise orthogonality forced by (B), (S), (L) ---
+is enumerated together with the rest of the prelude's chain in
+Section~\ref{sec:the-chain}.
 
 % ============================================================
 \section{Scale and Rotation Invariance: Collapse at Each Dimension}\label{sec:scale-and-rotation-invariance-collapse-a}
@@ -872,11 +883,11 @@ Step & Statement & Status & Austerity \\
 0 & $0 \neq 1$ & Pre-mathematical & --- \\
 1 & (B), (S), (L) properties of $\neq$; cumulation gives $d$-element $K_d$-shaped structure & Operational content of ``$\neq$'' as binary relation & --- \\
 2 & Cardinality $d \in \mathbb{N}$ & Theorem~\ref{thm:iterate} & (i), (ii) \\
-3 & Graded extension to angular continuum $[0,\pi]$ supported by analytic-limits foundation & $\mathrm{RCA}_0 + \mathrm{MCT}$, Section~\ref{sec:graded-extension} & (ii) \\
-4 & $\pi$ forced via Euler product $\zeta(2)=\pi^2/6$ on $\mathbb{N}$ & Classical analysis on integers & --- \\
+3 & Analytic-limits foundation $\mathrm{RCA}_0 + \mathrm{MCT}$ for downstream content (sphere areas, ball volumes, $d\to\infty$ limits) & Minimum classical fragment, Section~\ref{sec:the-dimension-tower} & (ii) \\
+4 & $\pi$ forced via Euler product $\zeta(2)=\pi^2/6$ on $\mathbb{N}$ & Theorem~\ref{thm:pi-from-primes} (number theory on integers, no geometry) & --- \\
 5 & Vector-space realisation $\mathbb{R}^d$ & Hurwitz's theorem & (ii) \\
-6 & Euclidean inner product on $\mathbb{R}^d$ & Elementary linear algebra & --- \\
-7 & Original states at pairwise angle $\pi/2$ & Theorem~\ref{thm:orth} & --- \\
+6 & Euclidean inner product on $\mathbb{R}^d$; angular extent $\pi$ inherited from step~4 & Elementary linear algebra & --- \\
+7 & Original $d$ states at pairwise angle $\pi/2$ (extremal orthogonal) & Theorem~\ref{thm:orth} from (B), (S), (L) & --- \\
 8 & Scale + rotation invariance at each $d\;\Rightarrow$ collapsed substrate; cascade as $d$-trajectory & Definition~\ref{def:ball}, Cor~\ref{cor:start} & (iii) \\
 9 & Asymptotic $B^\infty$: zero volume, zero area & Theorem~\ref{thm:nothing} & --- \\
 10 & Slicing recurrence, constant $\sqrt{\pi}$ & Beta-function on $\{B^d\}$ (steps~5--6) & --- \\
@@ -906,10 +917,11 @@ column; the remaining chain steps are classical theorems on integers,
 analysis, the Gamma function, or established uniqueness results in
 known mathematics. The chain's single irreducible imported axiom is
 the Monotone Convergence Theorem (MCT), invoked at step~3 to supply
-the analytic continuum required for graded sharing
-(Section~\ref{sec:graded-extension}); clause~(ii) of austerity selects
-MCT as the minimum-strength foundational path among standard
-fragments (see status box and Section~\ref{sec:open-questions}).
+the analytic continuum required for the cascade's downstream
+$d\to\infty$ content (Section~\ref{sec:the-dimension-tower});
+clause~(ii) of austerity selects MCT as the minimum-strength
+foundational path among standard fragments (see status box and
+Section~\ref{sec:open-questions}).
 
 % ============================================================
 \section{What This Paper Does Not Do}
@@ -930,8 +942,8 @@ at each step. In particular: clauses~(i) and~(ii) at step~2
 bound; minimal strength forcing countable over uncountable indexing
 via the $\mathrm{RCA}_0$ commitment); clause~(ii) at step~3
 (selecting $\mathrm{RCA}_0 + \mathrm{MCT}$ as the minimum
-analytic-limits foundation supporting the graded-extension continuum
-of Section~\ref{sec:graded-extension}); clause~(ii) at step~5
+analytic-limits foundation for the cascade's downstream content,
+Section~\ref{sec:the-dimension-tower}); clause~(ii) at step~5
 (selecting $\mathbb{R}$ over $\mathbb{C}$ or $\mathbb{H}$ via
 Hurwitz's theorem); clause~(iii) at step~8 (unobservable quotient,
 applied at each $d$ to both $\mathbb{R}^*$-dilation and
@@ -999,8 +1011,8 @@ or by a classical theorem on integers and analysis. The chain's
 single irreducible imported axiom is the Monotone Convergence Theorem
 (MCT) over $\mathrm{RCA}_0$, selected by clause~(ii) of austerity as
 the minimum-strength foundational path among standard fragments
-(Section~\ref{sec:graded-extension}; status box at the head of this
-prelude). MCT cannot be cascade-derived; it is the unique
+(Section~\ref{sec:the-dimension-tower}; status box at the head of
+this prelude). MCT cannot be cascade-derived; it is the unique
 foundational commitment beyond Definition~\ref{def:axiom}.
 
 \textbf{The hard problem.} The cascade derives the dimension where
