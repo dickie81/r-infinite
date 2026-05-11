@@ -30,19 +30,32 @@
 \fbox{\parbox{0.9\textwidth}{\textbf{Status.} Foundational paper of the
 cascade series. The prelude operates on finite-dimensional Euclidean
 spaces only --- no infinite-dimensional Hilbert space is built or
-required. The cascade's \emph{predictions} (specific values for $V_d$,
-$\Omega_{d-1}$, $\pi$, slicing-recurrence ratios, sphere areas,
-concentration of measure on $B^d$) live one tier below the imported
-axiom MCT: at $\mathrm{RCA}_0 + \mathrm{WKL}_0$ + specific limit
-estimates for the specific computable sequences in play. MCT is needed
-for the foundational \emph{closure} argument (the proof that the
-structure is forced by foundations), not for predictive content. The
-cascade series' load-bearing hypothesis --- that $B^\infty$ descended
-to four dimensions is indistinguishable from our universe --- is
-stated independently in the cover sheet and does not depend on the
-arguments of this prelude. If any step of the prelude's chain is
-disputed, the cascade continues to rest on the cover-sheet hypothesis
-and the Gamma-function theorems of Part~0 onward.}}
+required. The cascade's foundational footprint is pure
+$\mathrm{RCA}_0$: natural numbers, computable functions on them, and
+computable reals (Cauchy sequences with computable convergence rate).
+Every analytic-looking quantity the cascade names --- $\pi$,
+$\zeta(2)$, $V_d$, $\Omega_{d-1}$, the slicing-recurrence integral,
+$\Gamma$ at half-integers, the $d\to\infty$ limits, the cascade
+invariant $10^{-120}$ --- is a \emph{computable process}: a sequence of
+rational approximations whose convergence to a target is
+$\mathrm{RCA}_0$-expressible
+($\forall\varepsilon\,\exists N$), without committing to a completed
+real at the limit. The Monotone Convergence Theorem and stronger
+analytic axioms are not imported as foundational commitments; they
+serve as \emph{bookkeeping tools} in downstream papers
+(Parts~0--VI), shorthand for the partial-computation form when
+working through Gamma-function identities, integrals, and asymptotic
+expansions. At any finite resolution depth (e.g., the universe's
+current age in Planck ticks) every cascade prediction has a specific
+rational value; ``exact identities'' are statements about shared
+convergence targets, not about completed reals. Beyond what
+counting on $\mathbb{N}$ itself requires --- the arithmetic content
+of $\mathrm{RCA}_0$ that cumulation produces --- the cascade imports
+no further axiom. The series'
+load-bearing hypothesis --- that $B^\infty$ descended to four
+dimensions is indistinguishable from our universe --- is stated
+independently in the cover sheet and does not depend on the prelude's
+chain.}}
 \end{center}
 
 \begin{abstract}
@@ -57,19 +70,26 @@ single pre-mathematical input, the binary distinction $0\neq 1$. The
 chain runs through cumulative distinguishability (binary, symmetric,
 local), the countable cardinality tower forced by parameter economy
 and minimal strength, the Euler product on $\mathbb{N}$ that forces
-$\pi$ as a specific real from the integer structure alone, and the
-vector-space realisation $\mathbb{R}^d$ forced by Hurwitz's theorem
-under a minimum-strength clause of austerity; the inner product on
-$\mathbb{R}^d$ inherits its angular constant from the same $\pi$, and
-orthogonality between distinguishable states is recovered as the
-extremal $\pi/2$ angular case forced by (B), (S), (L). Every step is forced by an austerity clause or by a classical
-theorem on integers and analysis, with the Monotone Convergence
-Theorem as the chain's single irreducible imported axiom. The starting
-structure carries a slicing recurrence with unique constant
-$\sqrt{\pi}$, four distinguished dimensions ($5, 7, 19, 217$), and a
-cascade invariant of $10^{-120}$ --- consequences of $0\neq 1$, not
-impositions on it. The series that follows develops what these
-consequences imply about the geometry of the world.
+$\pi$ as a convergence target from the integer structure alone, and
+the vector-space realisation $\mathbb{R}^d$ forced by Hurwitz's
+theorem under a minimum-strength clause of austerity; the inner
+product on $\mathbb{R}^d$ shares its angular convergence target with
+the same prime-Euler $\pi$, and orthogonality between distinguishable
+states is recovered as the extremal $\pi/2$ angular case forced by
+(B), (S), (L). Every step is forced by an austerity clause or by a
+classical theorem on integers and analysis. The cascade's foundational
+footprint is pure $\mathrm{RCA}_0$: $\pi$, the slicing-recurrence
+integral, the $d\to\infty$ limits, the cascade invariant $10^{-120}$,
+and the rest of the analytic content are computable processes whose
+convergence to a shared target is $\mathrm{RCA}_0$-expressible without
+invoking a completed limit. The Monotone Convergence Theorem appears
+only as a bookkeeping tool in downstream papers, not as a foundational
+commitment. The starting structure carries a slicing recurrence with
+unique constant $\sqrt{\pi}$, four distinguished dimensions
+($5, 7, 19, 217$), and a cascade invariant of $10^{-120}$ ---
+consequences of $0\neq 1$, not impositions on it. The series that
+follows develops what these consequences imply about the geometry of
+the world.
 \end{abstract}
 
 % ============================================================
@@ -274,9 +294,9 @@ distinguishable state set. Integers are not separately imported ---
 they are what cumulation \emph{is}, the counting data of the discrete
 structure. The cascade's downstream content (the geometric
 realisation, the slicing recurrence, the cosmological constant) all
-follow from this integer cardinality combined with the minimum
-analytic-limits foundation forced by austerity clause~(ii). Number
-theory enters in Section~\ref{sec:integer-structure}; geometry in
+follow from this integer cardinality together with the computable
+functions $\mathrm{RCA}_0$ supplies on it. Number theory enters in
+Section~\ref{sec:integer-structure}; geometry in
 Section~\ref{sec:numbers-to-geometry}. Cumulation by itself is purely
 combinatorial.
 
@@ -290,11 +310,12 @@ preclude a second; the cascade's distinguishable-state set grows
 without bound, indexed by a positive integer at each stage of the
 descent. This section establishes two things: (i)~the cardinal
 indexing of the cascade's tower is forced to range over $\mathbb{N}$
-by clauses (i) and (ii) of austerity; (ii)~within the minimum
-analytic-limits foundation that clause (ii) selects, the integer
-structure of $\mathbb{N}$ forces $\pi$ as a specific real via the
-Euler product on primes. Both results are number-theoretic; neither
-imports any geometric content.
+by clauses (i) and (ii) of austerity; (ii)~the integer structure of
+$\mathbb{N}$ forces $\pi$ as a convergence target via the Euler
+product on primes --- a computable process whose partial values are
+$\mathrm{RCA}_0$-expressible without any commitment to a completed
+real at the limit. Both results are number-theoretic; neither imports
+any geometric content.
 
 \subsection*{Cardinality}
 
@@ -343,62 +364,91 @@ over $\mathbb{N}$.
 
 The cascade's downstream content --- the slicing-recurrence integral
 $\int_{-1}^1 (1-x^2)^{d/2}\,dx$, sphere areas, ball volumes,
-asymptotic limits as $d\to\infty$ --- is inherently analytic, with
-content not expressible in $\mathrm{RCA}_0$ alone. Some analytic
-foundation must be invoked. Principle~\ref{princ:austerity}
-clause~(ii) (minimal strength) selects the minimum sufficient
-foundation: the analytic-limits sub-theory of $\mathrm{ACA}_0$ over
-$\mathrm{RCA}_0$, equivalently $\mathrm{RCA}_0 + \mathrm{MCT}$
-\cite{simpson2009}, where $\mathrm{MCT}$ is the Monotone Convergence
-Theorem. Stronger fragments ($\mathrm{ATR}_0$,
-$\Pi^1_1\text{-}\mathrm{CA}_0$) exceed what the cascade requires;
-weaker ones cannot support the slicing-recurrence integral;
-alternative foundations (constructive, intuitionistic,
-type-theoretic) import strictly more axioms. $\mathrm{MCT}$ cannot
-be cascade-derived; it is the cascade's single irreducible
-foundational commitment beyond Definition~\ref{def:axiom}.
+asymptotic behaviour as $d\to\infty$ --- has an analytic look but,
+as developed below, lives entirely on computable functions of
+$\mathbb{N}$. Each such quantity is a sequence of rational
+approximations indexed by a resolution parameter $N$: partial sums,
+partial products, Riemann sums, truncated improper integrals. The
+$\mathrm{RCA}_0$-expressible content of the sequence is its
+\emph{convergence behaviour} --- statements of the form ``for every
+rational $\varepsilon>0$ there exists a computable $N$ such that the
+$N$th approximation is within $\varepsilon$ of all subsequent
+approximations.'' We do not commit to a completed real at the limit;
+we commit only to the partial-computation form, which is
+$\mathrm{RCA}_0$-internal.
 
-\begin{theorem}[The integer structure forces $\pi$]\label{thm:pi-from-primes}
-Within the foundation $\mathrm{RCA}_0 + \mathrm{MCT}$ on the
-cumulation's integer structure $\mathbb{N}$, the Euler product over
-primes forces the existence of $\pi$ as a specific real:
+By Principle~\ref{princ:austerity} clause~(ii) (minimal strength),
+this is the austere reading: stronger axioms (the Monotone
+Convergence Theorem and its kin) would \emph{also} suffice and would
+let us name the targets as completed reals, but they import content
+the cascade does not require. The cascade's foundational footprint
+stays at pure $\mathrm{RCA}_0$; $\mathrm{MCT}$ and stronger
+principles appear only as \emph{bookkeeping tools} in downstream
+papers, shorthand for the partial-computation form when working
+through Gamma identities and asymptotic expansions.
+
+\begin{theorem}[The integer structure forces $\pi$ as a convergence target]\label{thm:pi-from-primes}
+On the cumulation's integer structure $\mathbb{N}$, the Euler product
+over primes defines a computable sequence of rational approximations
+whose convergence to a shared target is $\mathrm{RCA}_0$-expressible.
+Writing the partial sums and partial products
 \[
-\zeta(2) \;=\; \sum_{n=1}^{\infty} \frac{1}{n^2}
-\;=\; \prod_{p\,\mathrm{prime}} \frac{1}{1 - p^{-2}}
-\;=\; \frac{\pi^2}{6},
+\zeta_N(2) \;=\; \sum_{n=1}^{N} \frac{1}{n^2},
 \qquad
-\pi^2 \;=\; 6\,\prod_{p\,\mathrm{prime}}\frac{p^2}{p^2 - 1}.
+\mathcal{E}_N \;=\; \prod_{\substack{p\,\mathrm{prime}\\p\leq N}}
+\frac{1}{1 - p^{-2}},
+\qquad
+\pi_N^2 \;=\; 6\,\zeta_N(2),
 \]
-By uniqueness of $\pi$ in standard mathematics (a single positive
-real with this property), the Euler-product $\pi$ is identified with
-every other classical occurrence of the constant. The integer
-structure of $\mathbb{N}$ alone, without any geometric input, forces
-this specific real.
+the cascade's $\pi$ is the convergence target of $\sqrt{\pi_N^2}$
+under the $\mathrm{RCA}_0$-internal convergence statement
+$\forall\varepsilon\,\exists N$ such that $|\pi_M - \pi_N|<\varepsilon$
+for all $M\geq N$. The classical identities
+$\zeta(2) = \prod_p (1 - p^{-2})^{-1}$ and $\zeta(2)=\pi^2/6$ are
+shorthand for ``the three sequences $\zeta_N(2)$, $\mathcal{E}_N$,
+and $\pi_N^2/6$ converge to the same target,'' a statement provable
+in $\mathrm{RCA}_0$ from the term-by-term identity
+$\zeta_N(2) = \mathcal{E}_N + O(1/N)$ (geometric-series expansion and
+the fundamental theorem of arithmetic). The integer structure of
+$\mathbb{N}$ alone, without any geometric input, forces this
+convergence target.
 \end{theorem}
 
 \begin{proof}
-$\zeta(2) = \pi^2/6$ is Euler's 1734 solution to the Basel problem;
-the Euler-product identity is the 1737 result that the same value
-equals the product over primes (proof: expand each factor as a
-geometric series and apply the fundamental theorem of arithmetic).
-Both rest on convergence of the corresponding series and product,
-which is provable within $\mathrm{RCA}_0 + \mathrm{MCT}$. Uniqueness
-of $\pi$ as the constant with this property is elementary:
-$\zeta(2)$ is a specific computable real, and $\pi^2 = 6\zeta(2)$
-determines a unique positive square root.
+The partial sums $\zeta_N(2)$ and the partial Euler products
+$\mathcal{E}_N$ are computable functions of $N$ definable in
+$\mathrm{RCA}_0$. Their term-by-term agreement follows from the
+finite-product expansion of $\mathcal{E}_N$ as a sum over integers
+whose prime factors are all $\leq N$, which agrees with
+$\zeta_N(2)$ up to terms of order $1/N$ (a bound provable in
+$\mathrm{RCA}_0$). The Basel-Euler identity ($\zeta_N(2)$ and
+$\pi_N^2/6$ converging to the same target) reduces to the classical
+1734/1737 proofs read at finite resolution: each Wallis, Fourier,
+or sin-product proof produces partial-sum identities matching to
+$O(1/N)$ at every $N$, and the Cauchy form of convergence
+($\forall\varepsilon\,\exists N$) is then $\mathrm{RCA}_0$-internal.
+Uniqueness of the target is elementary: any two computable sequences
+sharing the same Cauchy convergence record determine the same target
+up to $\mathrm{RCA}_0$-isomorphism.
 \end{proof}
 
-\begin{remark}[$\pi$ enters from number theory, not from geometry]
-Theorem~\ref{thm:pi-from-primes} forces $\pi$ as a specific real via
-the integer/prime structure of $\mathbb{N}$ within
-$\mathrm{RCA}_0 + \mathrm{MCT}$. No vector space, no inner product,
-no angle, no Euclidean structure has yet been introduced. The
-identification of this Euler-product $\pi$ with the angular constant
+\begin{remark}[$\pi$ enters from number theory, not from geometry; as a process, not as a completed real]
+Theorem~\ref{thm:pi-from-primes} forces $\pi$ as a convergence
+target via the integer/prime structure of $\mathbb{N}$ within
+pure $\mathrm{RCA}_0$. No vector space, no inner product, no angle,
+no Euclidean structure has yet been introduced. The identification
+of this Euler-product $\pi$ with the angular convergence target
 ($\pi/2$ for orthogonality, $2\pi$ for a full circle, $\pi$ for the
-half-circle) is a downstream consequence (Section~\ref{sec:numbers-to-geometry}):
-when geometry is derived, its $\pi$ is necessarily the same constant,
-by uniqueness. The cascade's Euclidean geometry inherits $\pi$ from
-number theory rather than supplying it.
+half-circle) is a downstream consequence
+(Section~\ref{sec:numbers-to-geometry}): when geometry is derived,
+its $\pi$-sequence is the same one, term-by-term. The cascade's
+Euclidean geometry inherits $\pi$ from number theory rather than
+supplying it. Importantly, $\pi$ here is not a static completed
+real --- it is the cascade's open-ended computation, with the
+universe's current age in Planck ticks corresponding to a finite
+resolution depth $N$ at which the partial value $\pi_N$ is a
+specific rational. The completed-real reading is a downstream
+bookkeeping convenience, not a commitment of this prelude.
 \end{remark}
 
 \noindent\textbf{No infinite-dimensional ambient space.} Theorem~\ref{thm:iterate}
@@ -420,14 +470,19 @@ nuclear, weak-topology), and does not require Sol\`er-style
 convergence theorems to force its starting structure: the cardinal
 indexing of the tower is forced by clauses~(i) and~(ii) of
 Principle~\ref{princ:austerity} (Theorem~\ref{thm:iterate}); $\pi$
-is forced by the Euler product on $\mathbb{N}$ within
-$\mathrm{RCA}_0 + \mathrm{MCT}$ (Theorem~\ref{thm:pi-from-primes});
-the choice of $\mathbb{R}^d$ as the geometric realisation is derived
-in Section~\ref{sec:numbers-to-geometry}. The cascade's foundational
-footprint stays at $\mathrm{RCA}_0$ for the cardinal tower's
-existence and at $\mathrm{RCA}_0 + \mathrm{MCT}$ for the
-classical-analysis content (integration, the Gamma function)
-developed in subsequent sections.
+is forced by the Euler product on $\mathbb{N}$ within pure
+$\mathrm{RCA}_0$ as a convergence target
+(Theorem~\ref{thm:pi-from-primes}); the choice of $\mathbb{R}^d$ as
+the geometric realisation is derived in
+Section~\ref{sec:numbers-to-geometry}. The cascade's entire
+foundational footprint stays at pure $\mathrm{RCA}_0$ for both the
+cardinal tower's existence and the classical-analysis content
+(integration, the Gamma function, $d\to\infty$ limits) developed in
+subsequent sections --- each analytic identity is a convergence
+statement about computable sequences, expressible in $\mathrm{RCA}_0$
+without invoking the Monotone Convergence Theorem or any stronger
+analytic principle. $\mathrm{MCT}$ and its kin appear only as
+bookkeeping shorthand in Parts~0--VI.
 
 % ============================================================
 \section{From Numbers to Euclidean Geometry}\label{sec:numbers-to-geometry}
@@ -435,8 +490,8 @@ developed in subsequent sections.
 
 Section~\ref{sec:integer-structure} forced the cardinality
 $d\in\mathbb{N}$ from cumulation and clauses~(i)--(ii) of austerity,
-and forced $\pi$ as a specific real from the Euler product within
-$\mathrm{RCA}_0 + \mathrm{MCT}$. Both results live on the integer
+and forced $\pi$ as a convergence target from the Euler product
+within pure $\mathrm{RCA}_0$. Both results live on the integer
 structure of $\mathbb{N}$: no vector space, no inner product, no
 angle has yet been introduced. This section closes the gap from
 that number-theoretic content to a Euclidean geometric realisation:
@@ -447,15 +502,19 @@ austerity or by a classical theorem.
 
 \subsection*{Why a continuous realisation}
 
-The analytic-limits foundation $\mathrm{RCA}_0 + \mathrm{MCT}$
-selected in Section~\ref{sec:integer-structure} already supplies a
-continuum (the computable reals of $\mathrm{RCA}_0$ with the
-monotone-limit closure of $\mathrm{MCT}$). Cumulation
-(Section~\ref{sec:distinction-and-cumulation}) is silent on questions
-of magnitude --- it records whether states are distinguishable, not
-\emph{how} --- so the cumulated states need a continuous container
-before any non-binary geometric relation between them can be
-expressed. The question is what \emph{shape} that container takes.
+$\mathrm{RCA}_0$ supplies the computable reals --- a countable
+collection of computable Cauchy sequences with computable
+convergence rate, sufficient to host every metric, vector-space, and
+inner-product structure the cascade names. Cumulation
+(Section~\ref{sec:distinction-and-cumulation}) is silent on
+questions of magnitude --- it records whether states are
+distinguishable, not \emph{how} --- so the cumulated states need
+this computable-real container before any non-binary geometric
+relation between them can be expressed. The question is what
+\emph{shape} that container takes. All ``continuous'' content below
+is read in the partial-computation form of
+Section~\ref{sec:integer-structure}: each magnitude is a computable
+sequence with an $\mathrm{RCA}_0$-expressible convergence record.
 
 \subsection*{The vector-space realisation}
 
@@ -479,13 +538,15 @@ positive-definite symmetric bilinear form up to isomorphism, given
 a basis (elementary linear algebra); it is fixed once the field is
 chosen, not separately committed. With the inner product comes its
 geometric interpretation: the cosine of an angle. The angle between
-unit vectors ranges over $[0, \pi]$, with $0$ corresponding to
-identical states, $\pi/2$ to orthogonal, $\pi$ to antipodal. The
-specific value $\pi$ is the same one forced by
-Theorem~\ref{thm:pi-from-primes} via the Euler product on
-$\mathbb{N}$: there is only one $\pi$ in standard mathematics, and
-the geometric angular extent inherits it from the number-theoretic
-constant. No new analytic content is introduced.
+unit vectors ranges over the convergence-target interval $[0, \pi]$,
+with $0$ corresponding to identical states, $\pi/2$ to orthogonal,
+$\pi$ to antipodal. The angular convergence target $\pi$ here is
+the same computable sequence as the prime-Euler $\pi$ forced by
+Theorem~\ref{thm:pi-from-primes}: the geometric definition produces
+the same partial-approximation sequence (term-by-term, at every
+resolution depth $N$) as the Euler-product definition, so the
+geometric and number-theoretic $\pi$'s coincide as processes, not
+just as completed values. No new analytic content is introduced.
 
 \subsection*{The extremal angular case: pairwise orthogonality}
 
@@ -693,30 +754,40 @@ the slicing recurrence (Section~\ref{sec:nothing-unstable}).
 % ============================================================
 
 The asymptotic upper edge of the dimension tower --- denoted
-$B^\infty$, defined as the $d\to\infty$ limit of the intrinsic
-geometric quantities of $B^d$ --- is empty in every measurable sense.
+$B^\infty$, the convergence target of the intrinsic geometric
+quantities of $B^d$ as $d$ grows --- is empty in every measurable
+sense.
 
 \begin{theorem}[Geometric nothing at the asymptotic upper edge]\label{thm:nothing}
-$B^\infty$ has zero volume, zero surface area, and concentration of
-measure: for any $\varepsilon > 0$, an arbitrarily large fraction of
-the mass of $B^d$ concentrates within $\varepsilon/\sqrt{d}$ of the
-boundary as $d\to\infty$.
+The volume and sphere-area sequences $V_d$ and $\Omega_{d-1}$ are
+computable functions of $d$ and converge to zero under the
+$\mathrm{RCA}_0$-internal Cauchy condition: for any rational
+$\varepsilon>0$ there exists a computable $N$ such that $V_d <
+\varepsilon$ and $\Omega_{d-1} < \varepsilon$ for all $d\geq N$.
+Likewise, the concentration-of-measure sequence
+$1 - (1-\varepsilon^2/d)^{d/2}$ converges to $1 - e^{-\varepsilon^2/2}$
+under the same Cauchy condition: an arbitrarily large fraction of
+the uniform mass of $B^d$ sits within $\varepsilon/\sqrt{d}$ of the
+boundary as $d$ grows.
 \end{theorem}
 
 \begin{proof}
-$V_d = \pi^{d/2}/\Gamma(d/2+1)\to 0$ as $d\to\infty$.
-$\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)\to 0$ as $d\to\infty$. By
-concentration of measure on $S^{d-1}$, the uniform distribution on
-$B^d$ places a fraction $1 - (1-\varepsilon^2/d)^{d/2} \to
-1 - e^{-\varepsilon^2/2}$ of its mass within a shell of thickness
-$\varepsilon/\sqrt{d}$ of the boundary.
+$V_d = \pi^{d/2}/\Gamma(d/2+1)$ and $\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$
+are computable functions of $d$ (read $\pi$ and $\Gamma$ at the
+relevant arguments via their partial-computation form,
+Section~\ref{sec:integer-structure}). Stirling-type estimates give
+computable bounds $V_d \leq C \cdot (2\pi e/d)^{d/2}$ for explicit
+$C$, from which a computable $N(\varepsilon)$ such that
+$V_d<\varepsilon$ for $d\geq N$ follows directly --- an
+$\mathrm{RCA}_0$-internal statement. The same construction handles
+$\Omega_{d-1}$ and the concentration-of-measure sequence.
 \end{proof}
 
-The asymptotic limit $B^\infty$ has no volume to fill, no boundary
-to inhabit, no interior to explore. It is the geometric expression of
-``distinction exists but content does not.'' It is structured nothing
---- the upper edge of the dimension tower, where intrinsic content
-vanishes asymptotically.
+The convergence target $B^\infty$ has no volume to fill, no
+boundary to inhabit, no interior to explore. It is the geometric
+expression of ``distinction exists but content does not.'' It is
+structured nothing --- the upper edge of the dimension tower, where
+intrinsic content vanishes as $d$ grows.
 
 % ============================================================
 \section{Resolution: The Slicing Recurrence}\label{sec:nothing-unstable}
@@ -736,10 +807,16 @@ $x$ is a $d$-ball of radius $\sqrt{1-x^2}$. The volumes obey:
 V_{d+1} = V_d \cdot \sqrt{\pi}\cdot R(d+1), \qquad R(d) =
 \frac{\Gamma((d+1)/2)}{\Gamma((d+2)/2)}.
 \]
+This is a sequence-level identity in the partial-computation form:
+at any resolution depth $N$, the partial values $V_d^{(N)}$ obey
+$V_{d+1}^{(N)} = V_d^{(N)}\cdot\sqrt{\pi}^{(N)}\cdot R(d+1)^{(N)} +
+O(1/N)$, with the error bound $\mathrm{RCA}_0$-expressible from the
+Riemann-sum approximations to the underlying Beta-function integral
+$\int_{-1}^1 (1-x^2)^{d/2}\,dx$ and the partial half-integer Gamma.
 The constant $\sqrt{\pi}$ is forced by orthogonality
 (Theorem~\ref{thm:orth}): the angle between axis and equator is
 $\pi/2$, forcing the half-integer argument in $B(1/2,\cdot)$, giving
-$\Gamma(1/2) = \sqrt{\pi}$.
+$\Gamma(1/2) = \sqrt{\pi}$ as a convergence target.
 
 Read structurally as the cascade's static content per dimension at any
 fixed resolution stage: as $d$ ranges from $B^\infty$ down through
@@ -878,8 +955,8 @@ Step & Statement & Status & Austerity \\
 0 & $0 \neq 1$ & Pre-mathematical & --- \\
 1 & (B), (S), (L) properties of $\neq$; cumulation gives $d$-element $K_d$-shaped structure & Operational content of ``$\neq$'' as binary relation & --- \\
 2 & Cardinality $d \in \mathbb{N}$ & Theorem~\ref{thm:iterate} & (i), (ii) \\
-3 & Analytic-limits foundation $\mathrm{RCA}_0 + \mathrm{MCT}$ for downstream content (sphere areas, ball volumes, $d\to\infty$ limits) & Minimum classical fragment, Section~\ref{sec:integer-structure} & (ii) \\
-4 & $\pi$ forced via Euler product $\zeta(2)=\pi^2/6$ on $\mathbb{N}$ & Theorem~\ref{thm:pi-from-primes} (number theory on integers, no geometry) & --- \\
+3 & Foundation: pure $\mathrm{RCA}_0$. All analytic content (sphere areas, ball volumes, $d\to\infty$ behaviour) is computable processes with $\mathrm{RCA}_0$-expressible convergence records & Strictly weaker than any classical analytic fragment, Section~\ref{sec:integer-structure} & (ii) \\
+4 & $\pi$ forced as convergence target via Euler product on $\mathbb{N}$ ($\zeta_N(2),\,\mathcal{E}_N,\,\pi_N$ converge to a shared target) & Theorem~\ref{thm:pi-from-primes} (number theory on integers, no geometry, no completed real) & --- \\
 5 & Vector-space realisation $\mathbb{R}^d$ & Hurwitz's theorem & (ii) \\
 6 & Euclidean inner product on $\mathbb{R}^d$; angular extent $\pi$ inherited from step~4 & Elementary linear algebra & --- \\
 7 & Original $d$ states at pairwise angle $\pi/2$ (extremal orthogonal) & Theorem~\ref{thm:orth} from (B), (S), (L) & --- \\
@@ -903,19 +980,26 @@ Part~0 (Theorem~3.1). Steps 11--12 are proved in Parts~0 and~III.
 Steps 13--15 are the content of the series.
 
 No step introduces a free parameter beyond the single declared
-pre-mathematical input Definition~\ref{def:axiom} ($0\neq 1$).
-Principle~\ref{princ:austerity} (austerity) is not a second input: it
-is the operational content of Definition~\ref{def:axiom}'s status as
-sole input, derived in Section~\ref{sec:what-nothing-means} above.
+pre-mathematical input Definition~\ref{def:axiom} ($0\neq 1$), and no
+step imports a foundational axiom beyond $\mathrm{RCA}_0$ itself.
+Principle~\ref{princ:austerity} (austerity) is not a second input:
+it is the operational content of Definition~\ref{def:axiom}'s status
+as sole input, derived in Section~\ref{sec:what-nothing-means} above.
 Steps invoking austerity clauses are noted in the ``Austerity''
-column; the remaining chain steps are classical theorems on integers,
-analysis, the Gamma function, or established uniqueness results in
-known mathematics. The chain's single irreducible imported axiom is
-the Monotone Convergence Theorem (MCT), invoked at step~3 to supply
-the analytic continuum required for the cascade's downstream
-$d\to\infty$ content (Section~\ref{sec:integer-structure});
-clause~(ii) of austerity selects MCT as the minimum-strength
-foundational path among standard fragments (see status box and
+column; the remaining chain steps are classical theorems on
+integers, analysis, the Gamma function, or established uniqueness
+results in known mathematics --- each read in the partial-computation
+form of step~3, which is $\mathrm{RCA}_0$-internal. Beyond what
+counting on $\mathbb{N}$ itself requires --- the arithmetic content
+of $\mathrm{RCA}_0$ that cumulation produces --- the cascade therefore
+imports \emph{no} further axiom: clause~(ii) of austerity rules out
+the Monotone Convergence Theorem and stronger analytic principles,
+because each analytic identity the cascade names is already an
+$\mathrm{RCA}_0$-expressible statement about convergence of
+computable sequences. $\mathrm{MCT}$, the
+Riemann integral as a completed real, and related principles appear
+only as bookkeeping shorthand in downstream papers (Parts~0--VI);
+they are not foundational commitments (see status box and
 Section~\ref{sec:open-questions}).
 
 % ============================================================
@@ -936,21 +1020,27 @@ at each step. In particular: clauses~(i) and~(ii) at step~2
 (parameter economy forcing the dimension tower to extend without
 bound; minimal strength forcing countable over uncountable indexing
 via the $\mathrm{RCA}_0$ commitment); clause~(ii) at step~3
-(selecting $\mathrm{RCA}_0 + \mathrm{MCT}$ as the minimum
-analytic-limits foundation for the cascade's downstream content,
+(selecting pure $\mathrm{RCA}_0$ as the foundational footprint:
+every analytic identity the cascade names is an
+$\mathrm{RCA}_0$-internal convergence statement about computable
+sequences, so the Monotone Convergence Theorem and stronger
+analytic axioms are not imported as foundational commitments,
 Section~\ref{sec:integer-structure}); clause~(ii) at step~5
 (selecting $\mathbb{R}$ over $\mathbb{C}$ or $\mathbb{H}$ via
 Hurwitz's theorem); clause~(iii) at step~8 (unobservable quotient,
 applied at each $d$ to both $\mathbb{R}^*$-dilation and
 $\mathrm{SO}(d)$, collapsing the substrate at each $d$ to a single
 point from which intrinsic content unfolds via the slicing
-recurrence). The chain's single irreducible imported axiom is the
-Monotone Convergence Theorem (MCT), invoked at step~3; clause~(ii)
-selects MCT as the minimum-strength foundational path among standard
-fragments. The cascade series' load-bearing hypothesis (cover
-sheet) is independent of the prelude's chain: the downstream
-derivations take the dimension tower (and its asymptotic upper edge
-$B^\infty$) as given and test it by consequence.
+recurrence). Beyond what counting on $\mathbb{N}$ itself requires
+--- the arithmetic content of $\mathrm{RCA}_0$ that cumulation
+produces --- the cascade imports \emph{no} further axiom:
+$\mathrm{MCT}$ and stronger analytic principles appear only as
+bookkeeping shorthand in downstream papers (Parts~0--VI), not as
+foundational commitments. The cascade series'
+load-bearing hypothesis (cover sheet) is independent of the
+prelude's chain: the downstream derivations take the dimension
+tower (and its asymptotic upper edge $B^\infty$) as given and test
+it by consequence.
 
 \textbf{Real start, complex amplitudes, quaternionic spacetime.} The
 Prelude's starting structure is over $\mathbb{R}$ at every level of
@@ -1002,13 +1092,31 @@ the cascade's complete starting structure
 $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ with asymptotic upper edge
 $B^\infty$ is closed at every step (Section~\ref{sec:the-chain}):
 each step is forced by a clause of Principle~\ref{princ:austerity}
-or by a classical theorem on integers and analysis. The chain's
-single irreducible imported axiom is the Monotone Convergence Theorem
-(MCT) over $\mathrm{RCA}_0$, selected by clause~(ii) of austerity as
-the minimum-strength foundational path among standard fragments
-(Section~\ref{sec:integer-structure}; status box at the head of
-this prelude). MCT cannot be cascade-derived; it is the unique
-foundational commitment beyond Definition~\ref{def:axiom}.
+or by a classical theorem on integers and analysis. Beyond what
+counting on $\mathbb{N}$ itself requires --- the arithmetic content
+of $\mathrm{RCA}_0$ that cumulation produces --- the cascade imports
+\emph{no} further axiom: clause~(ii) selects pure $\mathrm{RCA}_0$
+as the foundational footprint, and every analytic identity the
+cascade names is an $\mathrm{RCA}_0$-expressible convergence
+statement about computable sequences --- no Monotone Convergence
+Theorem, no Riemann integral as a completed real, no stronger
+analytic principle is imported (Section~\ref{sec:integer-structure};
+status box at the head of this prelude). $\mathrm{MCT}$ and its kin appear only as bookkeeping
+shorthand in downstream papers (Parts~0--VI) when working through
+Gamma identities, integrals, and asymptotic expansions; they are not
+foundational commitments of the cascade.
+
+\textbf{The universe as open-ended computation.} The partial-computation
+reading dovetails with the cascade-is-resolution framing of
+Section~\ref{sec:nothing-unstable}: the universe is in the middle of
+resolving infinity, not at the asymptotic end. At any finite
+resolution depth $N$ (the universe's current age in Planck ticks,
+under the temporal reading) every cascade quantity --- $\pi$, $V_d$,
+$\Omega_{d-1}$, the cascade invariant $10^{-120}$ --- has a specific
+rational value $\pi_N$, $V_d^{(N)}$, etc., and the ``exact identities''
+of standard mathematics are statements about the shared
+convergence target as $N\to\infty$. The universe is not the
+completed limit; it is the partial computation at the current $N$.
 
 \textbf{The hard problem.} The cascade derives the dimension where
 self-awareness is mathematically possible. It does not derive
