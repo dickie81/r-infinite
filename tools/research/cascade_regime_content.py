@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
 """Cascade regime content sums and ratios.
 
-Computes sum of sphere areas Omega_d in each regime (growth, decay,
-exponential decay, oblivion), frame-corrected oblivion content, and
-tests candidate closed-form expressions for the ratio CC / fc_oblivion.
+Computes per-regime sphere-area sums (Omega_d) and per-regime
+Gram-corrected sums, plus various inter-regime ratios.
 
-All computations use mpmath (200 digits) to handle Omega_217 ~ 1e-120
-without precision loss.
+Regimes (cascade = descent from infinity to observer's host d_V = 5;
+layers below the observer are reported separately for context but are
+not part of the cascade descent per Part 1 lines 609-642):
 
-Regimes (cascade = descent from infinity to observer's host d_V = 5):
-    Growth:    d in {5, 6}            (p(d) < 0)
-    Decay:     d in {7, ..., 19}       (0 < p(d) < c_1)
-    Exp decay: d in {20, ..., 217}     (c_1 < p(d) < c_2)
-    Oblivion:  d in {218, ...}         (p(d) > c_2)
+    Growth below observer  : d in {0..4}            (p(d) < 0, below host)
+    Growth above observer  : d in {5, 6}             (p(d) < 0, in descent)
+    Decay                  : d in {7..19}            (0 < p(d) < c_1)
+    Exponential decay      : d in {20..217}          (c_1 < p(d) < c_2)
+    Oblivion               : d in {218..}            (p(d) > c_2)
+
+Gram correction (Part 0 Section 9, Part 1 Section 3 lines 609-642):
+    Full cascade Gram sum is over pair indices d in {5..216}.
+    Pair (d, d+1) is assigned to the regime of its LOWER endpoint d.
+    Growth-below and oblivion have no Gram contribution (outside the
+    cascade's descent range).
+
+All computations use mpmath (200 digits) so Omega_217 ~ 1e-120 is
+exact to ~200 decimals.
 
 Run from the repo root:
     python3 tools/research/cascade_regime_content.py
@@ -31,158 +40,189 @@ mpf = mpmath.mpf
 pi = mp.pi
 
 
-def regime_sum(d_lo, d_hi):
-    """Sum Omega_d for d in [d_lo, d_hi] inclusive."""
-    return sum(mp.Omega(d) for d in range(d_lo, d_hi + 1))
+def overlap_deficit(d):
+    """1 - C^2_{d,d+1} via Beta function identity (Part 0 Thm overlap).
+
+    C^2_{d,d+1} = B(1/2, d + 3/2)^2 / [B(1/2, d + 1) * B(1/2, d + 2)]
+    """
+    def B(a, b):
+        return mpmath.gamma(a) * mpmath.gamma(b) / mpmath.gamma(a + b)
+    half = mpf(1) / 2
+    num = B(half, mpf(d) + mpf(3)/2) ** 2
+    den = B(half, mpf(d) + 1) * B(half, mpf(d) + 2)
+    return 1 - num / den
 
 
-def oblivion_sum(d_start=218, d_end=2000):
-    """Sum Omega_d for d >= d_start.  Truncate at d_end (Omega decays so
-    fast that 2000 layers is far more than needed)."""
-    return sum(mp.Omega(d) for d in range(d_start, d_end + 1))
+# Regime definitions: (name, d_low, d_high, gram_pairs_range_or_None)
+# gram_pairs_range is the range of pair-indices d such that pair (d, d+1)
+# is assigned to this regime (lower endpoint convention).  None means no
+# Gram contribution from this regime.
+REGIMES = [
+    ("Growth below observer",  0,   4,    None),
+    ("Growth above observer",  5,   6,    (5,   6)),
+    ("Decay",                  7,  19,    (7,  19)),
+    ("Exponential decay",     20, 217,    (20, 216)),
+    ("Oblivion",              218, 2000,  None),
+]
 
 
-def fmt(x, digits=6):
-    """Format mpf as e-notation, controlled precision."""
+def fmt(x, digits=10):
+    """Format mpf, fixed precision."""
     return mpmath.nstr(x, digits)
 
 
 def main():
-    print("=" * 72)
-    print("Cascade regime content sums (cascade = d >= 5, observer's host)")
-    print("=" * 72)
-
-    growth = regime_sum(5, 6)
-    decay = regime_sum(7, 19)
-    exp_decay = regime_sum(20, 217)
-    oblivion = oblivion_sum(218, 2000)
-    total_active = growth + decay + exp_decay
-
-    print(f"  Growth     (d=5..6)   = {fmt(growth)}")
-    print(f"  Decay      (d=7..19)  = {fmt(decay)}")
-    print(f"  Exp decay  (d=20..217)= {fmt(exp_decay)}")
-    print(f"  Oblivion   (d>=218)   = {fmt(oblivion)}")
+    print("=" * 80)
+    print("Cascade regime content sums  (uncorrected + Gram-corrected)")
+    print("=" * 80)
     print()
-    print(f"  Active cascade (non-oblivion) = {fmt(total_active)}")
-    print(f"  Total cascade content         = {fmt(total_active + oblivion)}")
-
+    print("Convention: pair (d, d+1) assigned to regime of lower endpoint d.")
+    print("Full cascade Gram pairs: d in {5..216}, total 212 pairs.")
     print()
-    print("-" * 72)
-    print("Regime fractions of active cascade")
-    print("-" * 72)
-    print(f"  Growth    / active = {fmt(growth/total_active*100)}%")
-    print(f"  Decay     / active = {fmt(decay/total_active*100)}%")
-    print(f"  Exp decay / active = {fmt(exp_decay/total_active*100)}%")
-    print(f"  Oblivion  / active = {fmt(oblivion/total_active)}")
 
+    # Compute each regime
+    rows = []
+    total_uncorr = mpf(0)
+    total_gram_sum = mpf(0)
+    total_corr = mpf(0)
+    for name, d_lo, d_hi, gram_range in REGIMES:
+        n_layers = d_hi - d_lo + 1
+        sphere_sum = sum(mp.Omega(d) for d in range(d_lo, d_hi + 1))
+        if gram_range is not None:
+            g_lo, g_hi = gram_range
+            n_pairs = g_hi - g_lo + 1
+            gram_sum = sum(overlap_deficit(d) for d in range(g_lo, g_hi + 1))
+        else:
+            n_pairs = 0
+            gram_sum = mpf(0)
+        gram_factor = mpmath.exp(gram_sum)
+        gram_corrected = sphere_sum * gram_factor
+        rows.append((name, n_layers, n_pairs, sphere_sum, gram_sum,
+                     gram_factor, gram_corrected))
+        total_uncorr += sphere_sum
+        total_gram_sum += gram_sum
+        total_corr += gram_corrected
+
+    # Header
+    print(f"{'Regime':25s} {'Layers':>7s} {'Pairs':>6s}  "
+          f"{'Uncorrected sum':>22s}  "
+          f"{'Gram sum':>12s}  "
+          f"{'Gram factor':>12s}  "
+          f"{'Gram-corrected sum':>22s}")
+    print("-" * 120)
+    for (name, nl, np_, ssum, gsum, gfac, gcorr) in rows:
+        if name == "Oblivion":
+            ssum_str = mpmath.nstr(ssum, 10)
+            gcorr_str = mpmath.nstr(gcorr, 10)
+        else:
+            ssum_str = mpmath.nstr(ssum, 10)
+            gcorr_str = mpmath.nstr(gcorr, 10)
+        print(f"{name:25s} {nl:>7d} {np_:>6d}  "
+              f"{ssum_str:>22s}  "
+              f"{mpmath.nstr(gsum, 8):>12s}  "
+              f"{mpmath.nstr(gfac, 10):>12s}  "
+              f"{gcorr_str:>22s}")
+    print("-" * 120)
+    print(f"{'TOTAL':25s} {'':>7s} {'':>6s}  "
+          f"{mpmath.nstr(total_uncorr, 10):>22s}  "
+          f"{mpmath.nstr(total_gram_sum, 8):>12s}  "
+          f"{mpmath.nstr(mpmath.exp(total_gram_sum), 10):>12s}  "
+          f"{mpmath.nstr(total_corr, 10):>22s}")
     print()
-    print("-" * 72)
+
+    # Active cascade (excluding growth-below and oblivion)
+    active_uncorr = sum(r[3] for r in rows if r[0] not in
+                       ("Growth below observer", "Oblivion"))
+    active_corr = sum(r[6] for r in rows if r[0] not in
+                     ("Growth below observer", "Oblivion"))
+    print(f"  Active cascade (d=5..217), uncorrected:    {fmt(active_uncorr)}")
+    print(f"  Active cascade (d=5..217), Gram-corrected: {fmt(active_corr)}")
+    print()
+
+    # ------------------------------------------------------------------
+    # Frame corrections
+    # ------------------------------------------------------------------
+    print("-" * 80)
     print("Frame corrections (Part 1)")
-    print("-" * 72)
+    print("-" * 80)
     Omega_2 = mp.Omega(2)
     Omega_3 = mp.Omega(3)
     Omega_5 = mp.Omega(5)
     Omega_7 = mp.Omega(7)
-    proj_3d = Omega_2 / Omega_3   # 2/pi
-    host_2 = (Omega_5 / Omega_7) ** 2   # 9/pi^2
-    cc_factor = proj_3d * host_2   # 18/pi^3
-    print(f"  3D projection (Omega_2/Omega_3 = 2/pi):        {fmt(proj_3d, 12)}")
-    print(f"  Host frame (Omega_5/Omega_7)^2 = 9/pi^2:       {fmt(host_2, 12)}")
-    print(f"  Combined CC factor (18/pi^3):                  {fmt(cc_factor, 12)}")
-
+    proj_3d = Omega_2 / Omega_3
+    host_2 = (Omega_5 / Omega_7) ** 2
+    cc_factor = proj_3d * host_2
+    print(f"  3D projection (Omega_2/Omega_3 = 2/pi):  {fmt(proj_3d)}")
+    print(f"  Host frame (Omega_5/Omega_7)^2 = 9/pi^2: {fmt(host_2)}")
+    print(f"  Combined CC factor (18/pi^3):            {fmt(cc_factor)}")
     print()
-    print("-" * 72)
+
+    # ------------------------------------------------------------------
+    # Cosmological constant (cascade formula)
+    # ------------------------------------------------------------------
+    print("-" * 80)
     print("Cosmological constant (cascade formula)")
-    print("-" * 72)
+    print("-" * 80)
     Omega_19 = mp.Omega(19)
     Omega_217 = mp.Omega(217)
     bilinear = Omega_19 * Omega_217
     cc_leading = cc_factor * bilinear
 
-    # Gram correction: sum (1 - C^2_{d,d+1}) for d = 5..216
-    # C^2_{d,d+1} = B(1/2, d+3/2)^2 / [B(1/2, d+1) * B(1/2, d+2)]
-    # Use Beta function form.
-    def overlap_deficit(d):
-        # B(1/2, x) = sqrt(pi) Gamma(x) / Gamma(x + 1/2)
-        # so the ratio simplifies via Gamma identities.
-        def B(a, b):
-            return mpmath.gamma(a) * mpmath.gamma(b) / mpmath.gamma(a + b)
-        half = mpf(1) / 2
-        numerator = B(half, mpf(d) + mpf(3)/2) ** 2
-        denominator = B(half, mpf(d) + 1) * B(half, mpf(d) + 2)
-        return 1 - numerator / denominator
+    # Full cascade Gram sum: d = 5..216
+    gram_full = sum(overlap_deficit(d) for d in range(5, 217))
+    gram_exp_full = mpmath.exp(gram_full)
+    cc_gram = cc_leading * gram_exp_full
 
-    gram_sum = sum(overlap_deficit(d) for d in range(5, 217))
-    gram_exp = mpmath.exp(gram_sum)
-    cc_gram = cc_leading * gram_exp
-
-    print(f"  Omega_19           = {fmt(Omega_19)}")
-    print(f"  Omega_217          = {fmt(Omega_217)}")
-    print(f"  Bilinear           = {fmt(bilinear)}")
-    print(f"  CC leading         = {fmt(cc_leading)}")
-    print(f"  Gram sum           = {fmt(gram_sum, 12)}")
-    print(f"  Gram exp factor    = {fmt(gram_exp, 12)}")
-    print(f"  CC (Gram-corrected)= {fmt(cc_gram)}  [predicted]")
+    print(f"  Omega_19                         = {fmt(Omega_19)}")
+    print(f"  Omega_217                        = {fmt(Omega_217)}")
+    print(f"  Bilinear Omega_19 * Omega_217    = {fmt(bilinear)}")
+    print(f"  CC leading (18/pi^3 * bilinear)  = {fmt(cc_leading)}")
+    print(f"  Full Gram sum (d=5..216)         = {fmt(gram_full)}")
+    print(f"  Gram factor exp(...)             = {fmt(gram_exp_full)}")
+    print(f"  CC (Gram-corrected, predicted)   = {fmt(cc_gram)}")
     print(f"  CC observed (Planck): 7.150e-121 +/- 1.9%")
-
     print()
-    print("-" * 72)
-    print("Frame-corrected oblivion sum")
-    print("-" * 72)
-    fc_oblivion_full = cc_factor * oblivion        # bilinear-style (18/pi^3)
-    fc_oblivion_single = (Omega_5/Omega_7) * proj_3d * oblivion  # single-content
-    print(f"  Raw oblivion sum:                    {fmt(oblivion)}")
-    print(f"  Frame-corrected (18/pi^3 * oblivion):{fmt(fc_oblivion_full)}")
-    print(f"  Frame-corrected (6/pi^2 * oblivion): {fmt(fc_oblivion_single)}")
 
+    # ------------------------------------------------------------------
+    # Frame-corrected oblivion
+    # ------------------------------------------------------------------
+    print("-" * 80)
+    print("Frame-corrected oblivion (bilinear scaling, 18/pi^3)")
+    print("-" * 80)
+    oblivion_row = next(r for r in rows if r[0] == "Oblivion")
+    oblivion_uncorr = oblivion_row[3]
+    fc_oblivion_full = cc_factor * oblivion_uncorr
+    print(f"  Oblivion sum (uncorrected): {fmt(oblivion_uncorr)}")
+    print(f"  Frame-corrected (x 18/pi^3): {fmt(fc_oblivion_full)}")
+    print(f"  CC / fc_oblivion:            {fmt(cc_gram / fc_oblivion_full)}")
     print()
-    print("-" * 72)
-    print("The ratio CC / fc_oblivion")
-    print("-" * 72)
-    ratio_full = cc_gram / fc_oblivion_full
-    ratio_single = cc_gram / fc_oblivion_single
-    print(f"  CC / fc_oblivion (bilinear frame): {fmt(ratio_full, 12)}")
-    print(f"  CC / fc_oblivion (single frame):   {fmt(ratio_single, 12)}")
 
-    # Note the 18/pi^3 cancels in CC/fc_oblivion_full
-    ratio_intrinsic = Omega_19 * Omega_217 * gram_exp / oblivion
-    print(f"  Intrinsic ratio Omega_19*Omega_217*Gram/oblivion = "
-          f"{fmt(ratio_intrinsic, 12)}")
+    # ------------------------------------------------------------------
+    # Other ratios of interest
+    # ------------------------------------------------------------------
+    print("-" * 80)
+    print("Inter-regime ratios")
+    print("-" * 80)
+    growth_below = rows[0][3]
+    growth_above = rows[1][3]
+    decay = rows[2][3]
+    exp_decay = rows[3][3]
+    oblivion = rows[4][3]
+    print(f"  Growth_below / Active   = {fmt(growth_below/active_uncorr)}")
+    print(f"  Growth_above / Decay    = {fmt(growth_above/decay)}")
+    print(f"  Decay / Exp_decay       = {fmt(decay/exp_decay)}")
+    print(f"  Exp_decay / Oblivion    = {fmt(exp_decay/oblivion)}")
+    print(f"  Oblivion / Active       = {fmt(oblivion/active_uncorr)}")
 
+    # Test 85/33 against CC / fc_oblivion ratio
     print()
-    print("-" * 72)
-    print("Candidate closed forms for the ratio (bilinear, ~2.574)")
-    print("-" * 72)
-    target = ratio_full
-    candidates = {
-        "5 * Omega_19":          5 * Omega_19,
-        "d_V * Omega_19":        mpf(D_V) * Omega_19,
-        "sqrt(2*pi)":            mpmath.sqrt(2*pi),
-        "pi^2 / 4":              pi**2 / 4,
-        "e":                     mpmath.e,
-        "e^(0.946)":             mpmath.exp(mpf("0.946")),
-        "pi - 0.56":             pi - mpf("0.56"),
-        "45^(1/4)":              mpf(45) ** (mpf(1)/4),
-        "sqrt(109/pi) * Omega_19": mpmath.sqrt(109/pi) * Omega_19,
-        "(d_2 - d_1)^(1/12)":    (mpf(D_2 - D_1)) ** (mpf(1)/12),
-    }
-    print(f"  Target ratio: {fmt(target, 12)}")
-    print()
-    for name, val in candidates.items():
-        diff = (val - target) / target * 100
-        print(f"  {name:30s} = {fmt(val, 8):16s}  "
-              f"({fmt(diff, 4)}% off)")
-
-    print()
-    print("-" * 72)
-    print("Other ratios of interest")
-    print("-" * 72)
-    print(f"  Growth / Decay = {fmt(growth/decay, 8)}")
-    print(f"  Decay / Exp_decay = {fmt(decay/exp_decay, 8)}")
-    print(f"  Exp_decay / Oblivion = {fmt(exp_decay/oblivion, 6)}")
-    print(f"  Oblivion / Active = {fmt(oblivion/total_active, 6)}")
-    print(f"  CC * fc_oblivion (bilinear) = {fmt(cc_gram * fc_oblivion_full, 6)}")
-    print(f"  Compared to Omega_3 = 2 pi^2 = {fmt(2*pi**2, 8)}")
+    target_ratio = cc_gram / fc_oblivion_full
+    candidate = mpf(85) / 33
+    diff = target_ratio - candidate
+    print(f"  CC / fc_oblivion         = {fmt(target_ratio, 20)}")
+    print(f"  85/33                    = {fmt(candidate, 20)}")
+    print(f"  Difference               = {fmt(diff)}")
+    print(f"  Relative                 = {fmt(diff/target_ratio*100)} %")
 
 
 if __name__ == "__main__":
