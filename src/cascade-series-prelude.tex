@@ -1000,7 +1000,7 @@ computable sequences. $\mathrm{MCT}$, the
 Riemann integral as a completed real, and related principles appear
 only as bookkeeping shorthand in downstream papers (Parts~0--VI);
 they are not foundational commitments (see status box and
-Section~\ref{sec:open-questions}).
+Section~\ref{sec:foundational-commitments}).
 
 % ============================================================
 \section{What This Paper Does Not Do}
@@ -1083,48 +1083,49 @@ nothing, taken seriously, has structure. The question ``why is there
 \emph{experience}?''\ remains open.
 
 % ============================================================
-\section{Open Questions}
-\label{sec:open-questions}
+\section{Foundational Commitments}
+\label{sec:foundational-commitments}
 % ============================================================
 
 The prelude's chain from Definition~\ref{def:axiom} ($0\neq 1$) to
-the cascade's complete starting structure
-$\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ with asymptotic upper edge
-$B^\infty$ is closed at every step (Section~\ref{sec:the-chain}):
-each step is forced by a clause of Principle~\ref{princ:austerity}
-or by a classical theorem on integers and analysis. Beyond what
-counting on $\mathbb{N}$ itself requires --- the arithmetic content
-of $\mathrm{RCA}_0$ that cumulation produces --- the cascade imports
-\emph{no} further axiom: clause~(ii) selects pure $\mathrm{RCA}_0$
-as the foundational footprint, and every analytic identity the
-cascade names is an $\mathrm{RCA}_0$-expressible convergence
-statement about computable sequences --- no Monotone Convergence
-Theorem, no Riemann integral as a completed real, no stronger
-analytic principle is imported (Section~\ref{sec:integer-structure};
-status box at the head of this prelude). $\mathrm{MCT}$ and its kin appear only as bookkeeping
-shorthand in downstream papers (Parts~0--VI) when working through
-Gamma identities, integrals, and asymptotic expansions; they are not
-foundational commitments of the cascade.
+the dimension tower $\{(\mathbb{R}^d, B^d)\}_{d\in\mathbb{N}}$ with
+asymptotic upper edge $B^\infty$ rests on the following commitments,
+and on no others.
 
-\textbf{The universe as open-ended computation.} The partial-computation
-reading dovetails with the cascade-is-resolution framing of
-Section~\ref{sec:nothing-unstable}: the universe is in the middle of
-resolving infinity, not at the asymptotic end. At any finite
-resolution depth $N$ (the universe's current age in Planck ticks,
-under the temporal reading) every cascade quantity --- $\pi$, $V_d$,
-$\Omega_{d-1}$, the cascade invariant $10^{-120}$ --- has a specific
-rational value $\pi_N$, $V_d^{(N)}$, etc., and the ``exact identities''
-of standard mathematics are statements about the shared
-convergence target as $N\to\infty$. The universe is not the
-completed limit; it is the partial computation at the current $N$.
+\textbf{Sole pre-mathematical input.} Definition~\ref{def:axiom}:
+$0 \neq 1$. Austerity (Principle~\ref{princ:austerity}) is the
+operational content of this input's sole-input status, not a
+separate axiom.
 
-\textbf{The hard problem.} The cascade derives the dimension where
-self-awareness is mathematically possible. It does not derive
-self-awareness itself (already noted in
-Section~\ref{sec:what-not}). The question ``why is there something
-rather than nothing?''\ receives an answer: because nothing, taken
-seriously, has structure. The question ``why is there
-\emph{experience}?''\ remains open.
+\textbf{Foundational footprint.} Pure $\mathrm{RCA}_0$: natural
+numbers, $\Sigma^0_1$ induction, $\Delta^0_1$ comprehension,
+computable functions on $\mathbb{N}$, computable reals. This is the
+arithmetic content cumulation produces; the cascade imports nothing
+on top of it. The Monotone Convergence Theorem and stronger analytic
+principles are not foundational commitments of the cascade.
+
+\textbf{Analytic content as computable processes.} Every quantity
+the cascade names --- $\pi$, $\zeta(2)$, $V_d$, $\Omega_{d-1}$, the
+slicing-recurrence integral, $\Gamma$ at half-integers, the
+$d\to\infty$ behaviour, the cascade invariant $10^{-120}$ --- is a
+computable sequence of rational approximations indexed by a
+resolution parameter $N$. The cascade commits only to
+$\mathrm{RCA}_0$-internal convergence statements ($\forall\varepsilon
+\,\exists N$); it does not commit to a completed real at the limit.
+At any finite resolution depth $N$ (the universe's current age in
+Planck ticks, under the temporal reading of
+Section~\ref{sec:nothing-unstable}) every cascade quantity has a
+specific rational value $\pi_N, V_d^{(N)}, \ldots$ The ``exact
+identities'' of standard mathematics are statements about shared
+convergence targets as $N$ grows.
+
+\textbf{Downstream bookkeeping.} Parts~0--VI use Gamma identities,
+integrals, asymptotic expansions, and other classical analytic
+machinery in closed-form style. This is shorthand for the
+partial-computation form above, not a separate foundational
+commitment. Any line of downstream content can be expanded into a
+finite-$N$ statement on computable sequences without invoking MCT or
+any stronger axiom.
 
 \bigskip
 
