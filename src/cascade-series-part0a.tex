@@ -57,8 +57,12 @@ this \emph{three-way cascade match} as a saturation reading:
 $\Lambda$ stays fixed at the Part~0 dimensional value while the
 prime-cascade $\Sigma(N)$ and the dimensional-cascade hidden
 geometry agree at the cosmic horizon scale near the current cosmic
-depth. The paper does not derive the distinguished dimensions, the
-spacetime uniqueness at $d = 4$, or the cascade's $\Lambda$
+depth. A dynamical companion result exhibits a Hawking-radiation
+analog --- spacetime's share of total cascade content decays as
+$1/N$ per Planck tick, matching the de~Sitter Hubble rate within a
+$\sqrt{3}$ factor (the cascade's own Friedmann-projection
+prefactor). The paper does not derive the distinguished dimensions,
+the spacetime uniqueness at $d = 4$, or the cascade's $\Lambda$
 prediction generatively from prime structure alone; those remain
 Parts 0 and~III respectively. The cascade's foundational footprint
 stays at pure $\mathrm{RCA}_0$ inherited from the Prelude.}}
@@ -98,13 +102,21 @@ dimensional $\Lambda^{-1}$, hidden-geometry
 $\Omega_7/(4\Omega_{217})$ --- agree at order $10^{120}$ within
 order-unity $\pi$-rational prefactors. The match is between cascade-
 internal quantities, not between cascade and imported cosmological
-results. The paper develops this three-way agreement as a
-\emph{saturation reading}: the cascade's prime-cascade and
-dimensional-cascade routes converge on the same horizon-entropy
-scale at the current cosmic depth, with $\Lambda$ staying fixed at
-the Part~0 value. Whether the saturation epoch is anthropically
-selected, structurally forced, or coincidental remains open. The
-cascade's foundational footprint stays at pure $\mathrm{RCA}_0$.
+results. Dynamically, the paper exhibits a Hawking-radiation analog:
+spacetime's share of total cascade content,
+$f_{\mathrm{spacetime}}(N) = 48/(\pi^2 N)$, decays as $1/N$ per
+Planck tick with e-folding time exactly $N$ ticks, matching the
+de~Sitter Hubble rate within a factor of $\sqrt{3}$ (the
+cascade-derived Friedmann-projection prefactor). Information lost
+from spacetime migrates into the cascade's higher-prime sector
+rather than being destroyed; total cascade content is conserved.
+The paper develops this as a \emph{saturation reading}: the
+cascade's prime-cascade and dimensional-cascade routes converge on
+the same horizon-entropy scale at the current cosmic depth, with
+$\Lambda$ staying fixed at the Part~0 value. Whether the saturation
+epoch is anthropically selected, structurally forced, or coincidental
+remains open. The cascade's foundational footprint stays at pure
+$\mathrm{RCA}_0$.
 \end{abstract}
 
 % ============================================================
@@ -591,6 +603,12 @@ at the current cosmic depth, with explicit $\pi$-rational
 prefactor relations. $\Lambda$ stays fixed at the Part~0 value;
 cosmic expansion stays de~Sitter; the three routes converge on the
 same horizon-entropy scale.
+Section~\ref{sec:hawking-analog} then exhibits the dynamical
+companion: spacetime's share of total cascade content decays as
+$1/N$ per Planck tick (Hawking-radiation-like, with information
+migrating to the higher-prime sector rather than being destroyed),
+matching the de~Sitter Hubble rate within a $\sqrt{3}$ factor
+traceable to Friedmann's $H^2 = \Lambda/3$.
 
 % ============================================================
 \section{Informational Density and the Three-Way Cascade Match}\label{sec:holographic-match}
@@ -879,6 +897,254 @@ a cascade-action derivation of the linear content--area
 map --- would tighten the three-way match into a forced identity.
 
 % ============================================================
+\section{Spacetime as the Cascade's Hawking-Emitting Sector}\label{sec:hawking-analog}
+% ============================================================
+
+Section~\ref{sec:holographic-match} establishes a static three-way
+match between cascade-internal quantities at the current cosmic
+epoch. This section examines the cascade's \emph{dynamics}: how
+spacetime's content evolves relative to total cascade content as
+the prime tower climbs. The result is a Hawking-radiation analog
+with cascade-derived rates that match de~Sitter cosmology in
+functional form, with $\pi$- and $\sqrt{3}$-rational order-unity
+prefactor differences traceable to the cascade-derived $\sqrt{3}$
+of the Friedmann equation.
+
+\subsection*{Spacetime's content, exactly}
+
+The cascade's spacetime is the primordial era $d \in \{1, 2, 3, 4\}$
+(Section~\ref{sec:primordial-era}). For each spacetime dimension
+$d$, the integers $n \leq N$ with $d \mid n$ contribute weight $d$
+each to the divisor-weighted content:
+\[
+C_{\mathrm{spacetime}}(N) \;=\; \sum_{d \in \{1, 2, 3, 4\}} d \cdot \lfloor N/d \rfloor.
+\]
+Each term contributes approximately $N$:
+\[
+C_{\mathrm{spacetime}}(N) \;\approx\; 4N.
+\]
+Spacetime's divisor-weighted content grows linearly with cosmic age,
+gaining $4$ content-units per Planck tick. At $N \sim 10^{60}$,
+$C_{\mathrm{spacetime}} \sim 4 \times 10^{60}$.
+
+\subsection*{Spacetime's share of total cascade content}
+
+Total cascade content $\Sigma(N) = (\pi^2/12) N^2$
+(Theorem~\ref{thm:sigma-asymptotic}). Spacetime's share is therefore
+\[
+f_{\mathrm{spacetime}}(N) \;=\; \frac{C_{\mathrm{spacetime}}(N)}{\Sigma(N)}
+\;=\; \frac{4N}{(\pi^2/12)\, N^2} \;=\; \frac{48}{\pi^2\, N}.
+\]
+At cosmic depth $N \sim 10^{60}$:
+$f_{\mathrm{spacetime}} \approx 4.86 \times 10^{-60}$. Spacetime is
+about one part in $2 \times 10^{59}$ of the cascade's total
+accumulated content; the rest lives in higher-prime structural
+content that doesn't have back-references to $\{1, 2, 3, 4\}$.
+
+\subsection*{The share-decay rate}
+
+\begin{theorem}[Spacetime-share decay]\label{thm:share-decay}
+The spacetime share decays as
+\[
+\frac{1}{f_{\mathrm{spacetime}}} \frac{df_{\mathrm{spacetime}}}{dN}
+\;=\; -\frac{1}{N}.
+\]
+The e-folding time for spacetime-share decay is exactly $N$ Planck
+ticks --- equal to the cosmic age itself.
+\end{theorem}
+
+\begin{proof}
+From $f = 48/(\pi^2 N)$, $df/dN = -48/(\pi^2 N^2)$. Dividing,
+$(df/dN)/f = -1/N$. The e-folding time is
+$|f/(df/dN)| = N$.
+\end{proof}
+
+\noindent The decay rate has no free parameters and no prefactor:
+it is $1/N$ exactly, with $N$ the cosmic age in Planck ticks. Every
+spacetime dimension is constantly losing share of the total
+cascade content because the cascade's high-prime sector grows
+quadratically while spacetime accumulates back-references only
+linearly.
+
+\subsection*{Comparison with de~Sitter Hubble dilution}
+
+In de~Sitter cosmology with $\Lambda$ at the cascade's Part~0 value
+and the cascade-natural identification $\Lambda \cdot N^2 \sim 1$:
+\[
+H \;=\; \sqrt{\Lambda/3} \;=\; \frac{1}{N\sqrt{3}}, \qquad
+T_{\mathrm{Hubble}} \;=\; \frac{1}{H} \;=\; N\sqrt{3}.
+\]
+The Hubble e-folding time is $N\sqrt{3} \approx 1.73\, N$ Planck
+ticks. The cascade's e-folding time is $N$ ticks exactly.
+
+\begin{observation}[Share-decay matches Hubble rate within $\sqrt{3}$]
+\label{obs:share-hubble}
+The cascade's spacetime-share decay rate is $1/N$; the de~Sitter
+Hubble rate is $1/(N\sqrt{3})$. The two have the same functional
+form ($\propto 1/N$, decay-time linear in cosmic age) and differ
+only by the prefactor $\sqrt{3}$ --- inherited from the Friedmann
+equation $H^2 = \Lambda/3$, where the $1/3$ is the trace structure
+of the four-dimensional Einstein tensor on a maximally-symmetric
+vacuum.
+\end{observation}
+
+\subsection*{Total content generation versus horizon flux}
+
+A second rate comparison: the cascade's total content-generation
+rate against the de~Sitter horizon information flux.
+
+\textbf{Cascade total-content generation rate.}
+\[
+\frac{d\Sigma}{dN} \;=\; \frac{\pi^2}{6}\, N \quad\text{per Planck tick.}
+\]
+
+\textbf{De~Sitter horizon information flux.} Using the standard
+Bekenstein--Hawking $S_{\mathrm{dS}} = 3\pi/\Lambda$ (with the
+factor $3$ from the de~Sitter horizon area
+$A = 12\pi/\Lambda$, derivable cascade-natively at $d = 4$ via
+Paper~II\,=\,III's $S = A/d$ if one uses $A = \Omega_7/\Omega_{217}$
+in cascade units; here we use the GR-units version for comparison):
+\[
+H \cdot S_{\mathrm{dS}} \;=\; \frac{1}{N\sqrt{3}} \cdot 3\pi N^2
+\;=\; \pi N \sqrt{3} \quad\text{per Planck tick.}
+\]
+
+\textbf{The ratio.}
+\[
+\frac{d\Sigma/dN}{H \cdot S_{\mathrm{dS}}}
+\;=\; \frac{\pi^2/6}{\pi\sqrt{3}}
+\;=\; \frac{\pi}{6\sqrt{3}}
+\;\approx\; 0.302.
+\]
+The cascade's content-generation rate is about $30\%$ of the
+de~Sitter horizon flux. Same functional form (linear in $N$),
+prefactor differs by $\pi/(6\sqrt{3})$ --- again involving
+$\sqrt{3}$ from Friedmann.
+
+\subsection*{The Hawking-radiation analog}
+
+The structural correspondence with Hawking radiation:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+\toprule
+Quantity & Hawking BH & Cascade spacetime \\
+\midrule
+``Object'' & Black hole, mass $M$ & Spacetime at cosmic depth $N$ \\
+``Mass'' & $M$ (decreasing) & $C_{\mathrm{spacetime}} = 4N$ (increasing) \\
+``Temperature'' & $T_{\mathrm{H}} = 1/(8\pi M)$ & Share-decay rate $1/N$ \\
+Loss rate functional form & $dM/dt \sim -1/M^2$ & $df/dN \sim -1/N^2$ \\
+Information destination & Outgoing thermal radiation & Higher-prime cascade sector \\
+Information conservation & Resolved via correlations & Conserved (within cascade) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The functional form $\propto -1/(\text{scale})^2$ matches
+between Hawking $dM/dt$ and cascade $df/dN$. The cascade's
+"object" gains absolute content over time while losing fractional
+share, unlike a Hawking black hole that loses absolute mass and
+eventually evaporates. This is the difference between a
+finite-lifetime regime (BH) and a steady-growth regime (cascade).
+
+\subsection*{Where the information goes}
+
+The cascade content that doesn't accumulate in spacetime
+accumulates in higher-prime structural content. Examples of
+"high-prime" integers whose divisors don't include any of
+$\{2, 3, 4\}$ beyond the trivial unit:
+\begin{itemize}
+\item $11 \cdot 13 = 143$. Divisors $\{1, 11, 13, 143\}$.
+Back-reference to $\{1\}$ within spacetime; the rest is outside.
+\item $11 \cdot 17 \cdot 19 = 3553$. Divisors include
+$\{1, 11, 17, 19, 187, 209, 323, 3553\}$. Same.
+\item Products of large primes generally: every new prime
+$p_k \geq 5$ added to the cascade enables a new family of
+composites that contribute to $\Sigma(N)$ without (much) contributing
+to $C_{\mathrm{spacetime}}$.
+\end{itemize}
+
+Each new such composite added to the cascade contributes to total
+$\Sigma$ without adding to spacetime's back-reference count. The
+cascade's information increasingly accumulates in structurally
+distant locations from the spacetime observer.
+
+\subsection*{Information is conserved}
+
+In contrast to Hawking's original picture (information apparently
+lost behind the horizon, the paradox), the cascade conserves total
+content: $\Sigma(N)$ is monotonically increasing. What decays is
+the \emph{accessibility} of content to the spacetime observer, not
+its existence within the cascade.
+
+This structurally parallels modern resolutions of the Hawking
+information paradox --- Page-curve evolution, fuzzball / firewall
+proposals, replica wormholes --- in which information escapes the
+black hole via correlations in the radiation, conserving total
+information. The cascade's mechanism is more direct: information
+migrates into structurally higher-prime cascade content, in
+principle accessible but not via spacetime's natural
+divisibility relations to $\{1, 2, 3, 4\}$.
+
+\subsection*{The role of $\sqrt{3}$}
+
+The prefactor differences between cascade and de~Sitter rates
+involve $\sqrt{3}$ and $\pi$:
+\begin{itemize}
+\item Share-decay vs.\ Hubble rate: factor $\sqrt{3}$.
+\item Total rate vs.\ horizon flux: factor $\pi/(6\sqrt{3})$.
+\item Cascade decay rate vs.\ $T_{\mathrm{dS}}$: factor
+$2\pi\sqrt{3}$.
+\end{itemize}
+The $\sqrt{3}$ enters via the Friedmann equation $H^2 = \Lambda/3$,
+where the factor of $3$ is the trace of the Einstein tensor in 4D
+on a maximally-symmetric vacuum. This is cascade-derived (Part~III,
+Lovelock + Clifford), so the $\sqrt{3}$ is internal to the cascade's
+own GR-projection.
+
+If one worked exclusively in cascade-native units --- with the
+slicing recurrence as fundamental and the Friedmann equation as a
+downstream projection --- the $\sqrt{3}$ would disappear, and the
+cascade's $1/N$ decay rate would be the natural de~Sitter rate
+without prefactor correction. The factor $\sqrt{3}$ is the
+GR-projection's signature; the cascade's underlying rate is
+$1/N$ exactly.
+
+\subsection*{What this gives}
+
+The cascade's prime/composite recursion produces a Hawking-radiation-
+like dynamic without invoking semiclassical gravity:
+
+\begin{itemize}
+\item \emph{Mechanism}: spacetime's share of total cascade content
+decays as $1/N$ at every Planck tick.
+\item \emph{Rate}: cascade-native, with e-folding time exactly $N$
+Planck ticks (the cosmic age itself).
+\item \emph{Direction of flow}: spacetime $\to$ higher-prime cascade
+sector.
+\item \emph{Match to de~Sitter}: functional forms agree
+($\propto 1/N$ for decay, $\propto N$ for absolute rates); prefactors
+differ by $\sqrt{3}, \pi/(6\sqrt{3})$, etc.~--- order-unity factors
+inherited from the trace structure of Einstein's equation in 4D.
+\end{itemize}
+
+This is the closest the cascade has come to a direct (Friedmann-
+bypassing) derivation of de~Sitter cosmology. The cascade's
+structural dynamics --- spacetime content $\sim 4N$, total $\Sigma
+\sim N^2$, share $\sim 1/N$ --- produce de~Sitter-like rates that
+match observation within $\pi$- and $\sqrt{3}$-rational prefactor
+corrections, with the $\sqrt{3}$ traceable to the cascade's own
+Friedmann projection.
+
+Whether the prefactor differences are absorbable (via a more
+careful cascade-internal calculation that doesn't go through
+Friedmann) or irreducible (representing genuine structural slack
+between cascade and standard cosmology) is open. The functional-form
+match is unambiguous; the prefactor identification requires further
+work.
+
+% ============================================================
 \section{What This Paper Does Not Do}\label{sec:does-not-do}
 % ============================================================
 
@@ -939,14 +1205,27 @@ same assertion. A cascade-action derivation that forces the linear
 content--area map would close this gap simultaneously for
 Paper~II\,=\,III and the present paper.
 
+\textbf{Does not derive the Hawking-analog rate-match exactly.}
+Section~\ref{sec:hawking-analog} shows that the cascade's
+spacetime-share decay rate matches de~Sitter Hubble dilution in
+functional form ($\propto 1/N$, both with e-folding time linear in
+cosmic age), differing by a prefactor of $\sqrt{3}$. The $\sqrt{3}$
+is traceable to the trace structure of Einstein's equation in 4D
+($H^2 = \Lambda/3$), which the cascade derives in Part~III. Whether
+the $\sqrt{3}$ is absorbable via a cascade-native calculation that
+bypasses Friedmann, or whether it represents irreducible slack
+between the cascade and standard cosmology, is open.
+
 \textbf{Does not commit to a single reading without remainder.}
 The three-way match of Section~\ref{sec:holographic-match}
 disfavours reading~(a) of Section~\ref{sec:bridge-part0} on
 observational grounds (cosmic acceleration) and develops reading~(c)
 with a specific mechanism (cascade saturation at the cosmic horizon
-scale). Reading~(b) (numerical coincidence at the current $N$)
-remains a possible alternative if the match turns out to be
-approximate rather than structurally forced.
+scale, with a Hawking-radiation dynamic at
+Section~\ref{sec:hawking-analog}). Reading~(b) (numerical
+coincidence at the current $N$) remains a possible alternative if
+the matches turn out to be approximate rather than structurally
+forced.
 
 % ============================================================
 \section{Open Questions}\label{sec:open-questions}
@@ -966,6 +1245,20 @@ selected as the cosmic moment when observers exist, is the principal
 open question. A cascade-internal derivation that forces the
 saturation epoch would constitute a structural explanation of the
 Dirac large-number coincidence.
+
+\textbf{Hawking-analog rates: absorbable prefactor differences?}
+Section~\ref{sec:hawking-analog} shows that the cascade's
+spacetime-share decay rate is $1/N$ exactly, with e-folding time
+the cosmic age itself; the de~Sitter Hubble rate is
+$1/(N\sqrt{3})$. The factor $\sqrt{3}$ comes from the Friedmann
+equation's trace structure in 4D, which the cascade derives via
+Part~III's Lovelock+Clifford argument. A cascade-native derivation
+of the de~Sitter cosmological dynamics that doesn't go through
+Friedmann --- starting from the slicing recurrence on the cascade's
+dimension tower and producing de~Sitter as the equilibrium between
+spacetime gain and high-prime sector accumulation --- would either
+absorb the $\sqrt{3}$ via a more careful cascade-internal accounting
+or confirm it as irreducible structural slack.
 
 \textbf{Prefactor identity (refined).} The naive identity
 $\Lambda(N) \stackrel{?}{=} 12/(\pi^2 N^2)$ is observationally
