@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \xrhyperdoc{prelude}{cascade-series-prelude}
 \xrhyperdoc{part0}{cascade-series-part0}
+\xrhyperdoc{part23}{cascade-series-part2-equals-3}
 \xrhyperdoc{part3}{cascade-series-part3}
 \geometry{margin=2.5cm}
 
@@ -43,16 +44,20 @@ prime-cascade reading of the integer cascade --- atomic ticks
 the divisibility lattice --- and identifies a natural divisor-weighted
 quadratic invariant $\Sigma(N) = \sum_{n \leq N} \sigma(n)
 \sim (\pi^2/12) N^2$. At the current cosmic depth $N \sim 10^{60}$,
-this quantity reaches $\sim 10^{120}$ --- numerically reproducing
-the inverse cascade invariant of Part~0 within order-unity factors,
-and matching the de~Sitter horizon entropy
-$S_{\mathrm{dS}} = \pi/\Lambda$ within a $\pi$-rational factor.
-The paper develops this match as a \emph{holographic saturation}
-reading: the cascade fills the observable universe to its
-information bound at the current epoch, with $\Lambda$ fixed at the
-Part~0 dimensional value and the rate of cascade content generation
-balancing the rate of information loss across the cosmic horizon.
-The paper does not derive the distinguished dimensions, the
+$\Sigma(N) \approx 0.82 \times 10^{120}$ --- agreeing within
+order-unity $\pi$-rational factors with two other independently-
+derived cascade scales: Paper~0's inverse cosmological constant
+$\Lambda^{-1} \approx 10^{120}$ (from $\Omega_{19} \Omega_{217}$),
+and Paper~II\,=\,III's cosmological hidden geometry
+$\Omega_7/(4 \Omega_{217}) \approx 2.5 \times 10^{120}$ (the
+cascade's native horizon-entropy at the cosmic scale, with the
+$1/4$ factor derived from boundary dominance at $d = 4$, not
+imported from semiclassical Bekenstein--Hawking). The paper develops
+this \emph{three-way cascade match} as a saturation reading:
+$\Lambda$ stays fixed at the Part~0 dimensional value while the
+prime-cascade $\Sigma(N)$ and the dimensional-cascade hidden
+geometry agree at the cosmic horizon scale near the current cosmic
+depth. The paper does not derive the distinguished dimensions, the
 spacetime uniqueness at $d = 4$, or the cascade's $\Lambda$
 prediction generatively from prime structure alone; those remain
 Parts 0 and~III respectively. The cascade's foundational footprint
@@ -79,22 +84,27 @@ divisibility lattice. The natural divisor-weighted content invariant
 of the cascade at depth $N$ is $\Sigma(N) = \sum_{n \leq N} \sigma(n)
 \sim (\pi^2/12) N^2$, with the prefactor $\pi^2/12 = \zeta(2)/2$
 inheriting $\pi$ from the same Euler product the Prelude commits to.
-At the current cosmic depth $N \sim 10^{60}$, $\Sigma(N) \sim
-10^{120}$ --- numerically the inverse of the cascade invariant
-$\Lambda \sim 10^{-120}$ that Part~0 derives via the dimensional
-route through $\Omega_{19} \Omega_{217}$, and within an order-unity
-$\pi$-rational factor of the de~Sitter horizon entropy
-$S_{\mathrm{dS}} = \pi/\Lambda$. The cascade's content-generation
-rate $d\Sigma/dt$ and the de~Sitter horizon's information-flux rate
-$H \cdot S_{\mathrm{dS}}$ also match within $\pi$-rational factors,
-suggesting a \emph{saturation reading}: the cascade has run for the
-right number of ticks to fill the observable universe to its
-holographic information bound, with $\Lambda$ staying fixed at the
-Part~0 value and the expansion-driven dissipation balancing the
-cascade-driven generation. Whether the saturation epoch is
-anthropically selected, structurally forced, or coincidental remains
-open. The cascade's foundational footprint stays at pure
-$\mathrm{RCA}_0$.
+At the current cosmic depth $N \sim 10^{60}$, $\Sigma(N) \approx
+0.82 \times 10^{120}$. Paper~II\,=\,III\,\cite{part23} derives the
+cascade-native horizon entropy $S = A/d$ from boundary dominance,
+with the Bekenstein--Hawking factor $1/4$ at $d = 4$ identified as
+the cascade's boundary-to-volume ratio at the observer's dimension
+(not imported from semiclassical gravity), and applies it at the
+cosmic horizon to give a hidden geometry
+$\Omega_7/(4\Omega_{217}) \approx 2.5 \times 10^{120}$. Part~0's
+dimensional cascade invariant inverse $\Lambda^{-1} \approx 10^{120}$
+matches both. The three quantities --- prime-cascade $\Sigma(N)$,
+dimensional $\Lambda^{-1}$, hidden-geometry
+$\Omega_7/(4\Omega_{217})$ --- agree at order $10^{120}$ within
+order-unity $\pi$-rational prefactors. The match is between cascade-
+internal quantities, not between cascade and imported cosmological
+results. The paper develops this three-way agreement as a
+\emph{saturation reading}: the cascade's prime-cascade and
+dimensional-cascade routes converge on the same horizon-entropy
+scale at the current cosmic depth, with $\Lambda$ staying fixed at
+the Part~0 value. Whether the saturation epoch is anthropically
+selected, structurally forced, or coincidental remains open. The
+cascade's foundational footprint stays at pure $\mathrm{RCA}_0$.
 \end{abstract}
 
 % ============================================================
@@ -569,31 +579,38 @@ $\Lambda(N) = 1/\Sigma(N)$ literally gives a time-varying $\Lambda
 $a(t) \propto t^{2/\pi}$ (decelerating expansion), inconsistent with
 the observed late-time cosmic acceleration. Reading~(b) treats the
 match as a coincidence at the current $N$. Reading~(c) is developed
-explicitly in Section~\ref{sec:holographic-match} below as a
-\emph{holographic saturation} reading: the cascade fills the
-universe to the de~Sitter horizon information bound at the current
-epoch, with $\Lambda$ staying fixed at the Part~0 value and the
-expansion-driven information dissipation balancing the cascade's
-content generation. Under this reading the magnitude match is
-supplemented by a rate balance between cascade generation and
-horizon dissipation; together they support reading~(c) over
-readings~(a) and (b) without yet forcing a derivation of $\Lambda$
-from prime structure alone.
+explicitly in Section~\ref{sec:holographic-match} below: the
+cascade's hidden-geometry formula $S = A/d$, derived in
+Paper~II\,=\,III\,\cite{part23} from boundary dominance at the
+observer's dimension $d = 4$, provides a \emph{third} cascade-
+internal route to the $10^{120}$ scale via the cosmic-horizon
+hidden geometry $\Omega_7/(4\Omega_{217})$. Three cascade-native
+quantities (prime-cascade $\Sigma(N)$, dimensional $\Lambda^{-1}$,
+hidden-geometry $\Omega_7/(4\Omega_{217})$) agree at order $10^{120}$
+at the current cosmic depth, with explicit $\pi$-rational
+prefactor relations. $\Lambda$ stays fixed at the Part~0 value;
+cosmic expansion stays de~Sitter; the three routes converge on the
+same horizon-entropy scale.
 
 % ============================================================
-\section{Informational Density and the Holographic Match}\label{sec:holographic-match}
+\section{Informational Density and the Three-Way Cascade Match}\label{sec:holographic-match}
 % ============================================================
 
 The numerical convergence of Section~\ref{sec:bridge-part0} can be
 made sharper by reading the cascade's divisor-weighted content as
-\emph{informational density} and comparing it to the universe's
-holographic information capacity. Two natural cascade scales and
-one cosmological scale agree at the current cosmic depth, with
-$\pi$-rational prefactors between them, in a way that suggests
-reading~(c) of Section~\ref{sec:bridge-part0} with a specific
-mechanism: the cascade saturates the universe to its holographic
-information bound, and the saturation timing is the cascade's natural
-``now.''
+\emph{informational density} and comparing it to the cascade's
+native horizon-entropy formula derived in Paper~II\,=\,III. The
+result is a \emph{three-way agreement} between cascade-internal
+quantities --- Part~0's dimensional invariant $\Lambda^{-1}$,
+Paper~II\,=\,III's hidden geometry $\Omega_7/(4\Omega_{217})$, and
+this paper's prime-cascade quadratic invariant $\Sigma(N)$ --- all
+of order $10^{120}$ at the current cosmic depth, with explicit
+$\pi$-rational prefactors. The Bekenstein--Hawking factor of $1/4$
+appearing in standard black-hole thermodynamics is itself cascade-
+derived (Paper~II\,=\,III, Theorem~\xref{part23}{thm:bh}) as the
+boundary-to-volume ratio $1/d$ at the observer's dimension
+$d = 4$; nothing about the horizon entropy is imported from
+semiclassical gravity.
 
 \subsection*{Cascade content as informational density}
 
@@ -608,175 +625,258 @@ asymptotic is
 \Sigma(N) \;\sim\; \frac{\pi^2}{12}\, N^2.
 \]
 At the current cosmic depth $N \sim 10^{60}$ Planck ticks,
-$\Sigma(N) \approx 8.2 \times 10^{119}$ in cascade-natural units.
-
-\subsection*{The de~Sitter horizon entropy}
-
-In de~Sitter cosmology with cosmological constant $\Lambda$, the
-event horizon carries a Bekenstein--Hawking entropy
 \[
-S_{\mathrm{dS}} \;=\; \frac{A_{\mathrm{horizon}}}{4 G \hbar} \;=\; \frac{\pi}{\Lambda G \hbar}.
+\Sigma(10^{60}) \;\approx\; 0.822 \times 10^{120} \;\approx\; 8.2 \times 10^{119}
 \]
-In reduced Planck units ($G = \hbar = 1$), $S_{\mathrm{dS}} = \pi/\Lambda$.
-For the cascade's predicted $\Lambda \sim 10^{-120}$,
-$S_{\mathrm{dS}} \sim 3.14 \times 10^{120}$. This is the
-universe's holographic information capacity: the maximum
-information that can be contained within a Hubble volume.
+in cascade-natural units.
 
-\subsection*{The numerical match}
+\subsection*{The cascade-native horizon entropy}
 
-At the current cosmic epoch,
+Paper~II\,=\,III\,\cite{part23}, Theorem~\xref{part23}{thm:bh}
+(``Hidden geometry behind a horizon''), establishes the cascade's
+native horizon-entropy formula
 \[
-\frac{S_{\mathrm{dS}}}{\Sigma(N)} \;=\; \frac{\pi/\Lambda}{(\pi^2/12)\, N^2} \;=\; \frac{12}{\pi \cdot \Lambda \cdot N^2}.
+S \;=\; \frac{A}{d}
 \]
-The Dirac coincidence $\Lambda \cdot N^2 \sim 1$ gives the ratio
-$12/\pi \approx 3.82$. The two cascade-scale quantities differ only
-by an order-unity $\pi$-rational factor:
+for a horizon of area $A$ measured in cascade units, with the factor
+$1/d$ derived from \emph{boundary dominance}
+(Paper~0, Theorem~\xref{part0}{thm:boundary}): $\Omega_{d-1}/V_d = d$,
+hence $V_d = \Omega_{d-1}/d$. The Bekenstein--Hawking factor $1/4$ at
+$d = 4$ is the cascade's boundary-to-volume ratio at the observer's
+dimension --- not an imported semiclassical result. Paper~II\,=\,III's
+``Cosmological hidden geometry'' subsection applies this formula at
+the cosmic horizon:
 \[
-S_{\mathrm{dS}} \;\approx\; \frac{12}{\pi}\, \Sigma(N) \quad\text{at}\quad N \sim 10^{60}.
+A_{\mathrm{cosmic}} \;=\; \frac{\Omega_7}{\Omega_{217}}
+\quad\text{(cascade hierarchy)},
+\qquad
+S_{\mathrm{cosmic}} \;=\; \frac{A_{\mathrm{cosmic}}}{4} \;=\; \frac{\Omega_7}{4\,\Omega_{217}}.
 \]
+Numerically: $\Omega_7 = 2\pi^4/\Gamma(4) = \pi^4/3 \approx 32.5$,
+$\Omega_{217} \approx 10^{-118.8}$ (Stirling), so $\Omega_7/\Omega_{217}
+\approx 10^{121}$ and $S_{\mathrm{cosmic}} \approx 2.5 \times 10^{120}$.
 
-\begin{observation}[Three cascade scales agree at the cosmic epoch]\label{obs:three-scales}
-At the current cosmic depth $N \sim 10^{60}$, three independently-
-defined cascade quantities take values of order $10^{120}$ in reduced
-Planck units, differing only by $\pi$-rational prefactors:
+\subsection*{The dimensional cosmological constant}
+
+Part~0, Theorem~\xref{part0}{thm:tower} and
+\xref{part0}{sec:the-cascade-invariant}, derives
+\[
+\Lambda \;=\; \frac{18}{\pi^3}\, \Omega_{19}\, \Omega_{217}\, e^{\mathrm{Gram}} \;\approx\; 10^{-120}
+\]
+in reduced Planck units. Its inverse,
+$\Lambda^{-1} \approx 10^{120}$, is the third cascade-internal
+scale at the cosmic horizon. (Paper~II\,=\,III's ``Cosmological
+hidden geometry'' identifies $\Lambda^{-1}$ with $S_{\mathrm{cosmic}}$
+up to cascade prefactors: $\Lambda \sim 10^{-120}$ is the inverse of
+the hidden geometry, seen from the dimensional side.)
+
+\subsection*{The three-way match}
+
+\begin{observation}[Three cascade-native scales at the cosmic horizon]\label{obs:three-way}
+At the current cosmic depth $N \sim 10^{60}$, three quantities
+derived independently from the cascade's structure take values of
+order $10^{120}$, with explicit prefactors:
 \[
 \begin{aligned}
-\Sigma(N) &\;\sim\; \tfrac{\pi^2}{12}\, N^2 \quad\text{(prime cascade, this paper)} \\
-S_{\mathrm{dS}} &\;\sim\; \pi/\Lambda \quad\text{(de Sitter horizon, holographic principle)} \\
-\Lambda^{-1} &\;\sim\; \text{Part~0 dimensional invariant inverse}
+\Sigma(N) &\;=\; \tfrac{\pi^2}{12}\, N^2
+&&\approx\; 0.822 \times 10^{120}
+&&\text{(prime cascade, this paper)} \\
+S_{\mathrm{cosmic}} &\;=\; \tfrac{\Omega_7}{4\,\Omega_{217}}
+&&\approx\; 2.5 \times 10^{120}
+&&\text{(hidden geometry, \xref{part23}{thm:bh})} \\
+\Lambda^{-1} &\;=\; \left(\tfrac{18}{\pi^3} \Omega_{19} \Omega_{217} e^{\mathrm{Gram}}\right)^{-1}
+&&\approx\; 10^{120}
+&&\text{(dimensional invariant, \xref{part0}{thm:tower})}
 \end{aligned}
 \]
-The prefactors are: $\pi^2/12$ from the prime-Euler product on
-$\mathbb{N}$ (Theorem~\ref{thm:sigma-asymptotic}); $\pi$ from the
-de~Sitter horizon area; and the dimensional cascade prefactor
-$(18/\pi^3) \cdot e^{\mathrm{Gram}}$ from \xref{part0}{thm:tower}.
+All three are cascade-internal: $\Sigma(N)$ from the Euler product
+and divisor sum on $\mathbb{N}$; $S_{\mathrm{cosmic}}$ from boundary
+dominance and the sphere-area hierarchy; $\Lambda^{-1}$ from the
+distinguished-dimension product. Their order-of-magnitude agreement
+at $\sim 10^{120}$ is unambiguous; the precise prefactors differ
+within order-unity $\pi$-rational factors.
 \end{observation}
 
-\subsection*{The rate balance}
+\subsection*{Prefactor relations}
 
-The match in magnitudes is matched by a balance of rates.
+Stating the relations explicitly:
 
-\textbf{Cascade content-generation rate.} Differentiating
-$\Sigma(N) = (\pi^2/12) N^2$ gives
+\textbf{$S_{\mathrm{cosmic}}$ vs.\ $\Sigma(N)$.} The ratio is
+\[
+\frac{S_{\mathrm{cosmic}}}{\Sigma(N)}
+\;=\; \frac{\Omega_7/(4\,\Omega_{217})}{(\pi^2/12)\, N^2}
+\;=\; \frac{3\,\Omega_7}{\pi^2\,\Omega_{217}\,N^2}.
+\]
+For $\Omega_7/\Omega_{217} \approx 10^{121}$ and $N^2 \approx
+10^{120}$, this ratio is approximately $3 \cdot 10^{121}/(\pi^2 \cdot
+10^{120}) \approx 30/\pi^2 \approx 3$. So $S_{\mathrm{cosmic}}$
+exceeds $\Sigma(N)$ by an order-unity factor of about $3$ at the
+current cosmic depth. Equivalently, the prime-cascade saturation
+epoch (the $N$ at which $\Sigma(N) = S_{\mathrm{cosmic}}$) is at
+$N_{\mathrm{sat}} = \sqrt{3\,\Omega_7/(\pi^2\,\Omega_{217})}
+\approx 1.7 \times 10^{60}$, within a factor of $2$ of the
+current cosmic depth.
+
+\textbf{$\Lambda^{-1}$ vs.\ $S_{\mathrm{cosmic}}$.} Paper~II\,=\,III
+(``Cosmological hidden geometry'') identifies these directly: $\Lambda$
+is the inverse of the hidden geometry. The relation is
+\[
+\Lambda \cdot S_{\mathrm{cosmic}} \;\sim\; 1,
+\]
+with prefactor differences absorbed in the Gram correction
+$e^{\mathrm{Gram}}$ of the Part~0 formula. Both quantities are
+$\sim 10^{120}$ in inverse-Planck units; the precise identity
+involves cascade prefactors that match within order-unity
+$\pi$-rational corrections.
+
+\textbf{$\Lambda \cdot N^2$ at the saturation epoch.} Setting
+$\Sigma(N) = S_{\mathrm{cosmic}}$ defines $N_{\mathrm{sat}}$ as
+above. With $\Lambda \approx 10^{-120}$ and $N_{\mathrm{sat}}
+\approx 1.7 \times 10^{60}$,
+$\Lambda \cdot N_{\mathrm{sat}}^2 \approx 3$, a cascade-natural
+$\pi$-rational order-unity quantity. The Dirac coincidence
+$\Lambda \cdot N^2 \sim 1$ is the cascade's statement that the
+universe's age in Planck ticks lands within an order-unity factor
+of the cascade's saturation point.
+
+\subsection*{Rate considerations}
+
+The match in magnitudes can be supplemented by a comparison of
+rates. The cascade's content-generation rate, differentiating
+$\Sigma(N) = (\pi^2/12) N^2$, is
 \[
 \frac{d\Sigma}{dt} \;=\; \frac{\pi^2}{6}\, N \quad\text{per Planck tick.}
 \]
-At $N \sim 10^{60}$: $d\Sigma/dt \sim (\pi^2/6) \cdot 10^{60} \approx
-1.6 \times 10^{60}$ content-units per Planck tick.
+At $N \sim 10^{60}$ this is $\sim 1.6 \times 10^{60}$ content-units
+per tick. The corresponding cosmological rate is the Hubble-time-
+weighted horizon entropy $H \cdot S_{\mathrm{cosmic}}$, with
+$H = \sqrt{\Lambda/3} \sim 1/N$ in Planck units; this gives
+$H \cdot S_{\mathrm{cosmic}} \sim S_{\mathrm{cosmic}}/N \sim
+N$. Both rates scale as $N$ at the current epoch.
 
-\textbf{Horizon information-flux rate.} The de~Sitter horizon
-``evaporates'' information across itself at a rate set by the
-de~Sitter temperature and entropy: in standard cosmology, the
-information-flux rate across the event horizon is
-$H \cdot S_{\mathrm{dS}}$, where $H = \sqrt{\Lambda/3}$ is the Hubble
-rate. With $H \sim 1/T_{\mathrm{H}} \sim 1/N$ Planck-tick$^{-1}$ and
-$S_{\mathrm{dS}} \sim \pi N^2$ (using $\Lambda N^2 \sim 1$),
-\[
-H \cdot S_{\mathrm{dS}} \;\sim\; \frac{1}{N} \cdot \pi N^2 \;=\; \pi\, N \quad\text{per Planck tick.}
-\]
-At $N \sim 10^{60}$: $\sim \pi \cdot 10^{60}$ content-units per
-Planck tick.
-
-\textbf{The ratio.} Both rates scale as $N$ and are of the same
-order:
-\[
-\frac{d\Sigma / dt}{H \cdot S_{\mathrm{dS}}} \;\sim\; \frac{\pi^2/6}{\pi} \;=\; \frac{\pi}{6} \;\approx\; 0.52.
-\]
-The cascade's content-generation rate matches the de~Sitter horizon's
-information-loss rate within an order-unity factor at the current
-cosmic epoch.
+This rate comparison is more speculative than the magnitude match.
+The cascade's $\Sigma(N)$ rate is cascade-internal; the cosmological
+$H \cdot S_{\mathrm{cosmic}}$ rate uses the Hubble rate of standard
+cosmology (which the cascade derives via Lovelock + Friedmann
+downstream in Part~III). Whether the rate balance is forced or
+incidental is open.
 
 \subsection*{The saturation interpretation}
 
-The match of magnitudes and rates supports a specific reading:
-
+The three-way magnitude match supports a reading in which:
 \begin{itemize}
-\item The cascade \emph{generates} new structural content tick by
-tick, at rate $\sim N$ Planck-tick$^{-1}$.
-\item De~Sitter expansion \emph{removes} information by pushing it
-beyond the cosmological event horizon at rate
-$\sim H \cdot S_{\mathrm{dS}} \sim N$ Planck-tick$^{-1}$.
-\item The two rates balance at the current cosmic epoch within
-order-unity factors.
-\item Cumulative cascade content $\Sigma(N)$ matches the holographic
-bound $S_{\mathrm{dS}}$ within order-unity factors.
+\item The cascade's prime-structural content $\Sigma(N)$ matches the
+cascade's geometric hidden-geometry $S_{\mathrm{cosmic}}$ at
+$N \approx N_{\mathrm{sat}} \approx 10^{60}$.
+\item The dimensional cascade invariant $\Lambda^{-1}$ matches both
+at the same order, with prefactor differences absorbed by Gram
+corrections and cascade-natural $\pi$-rational factors.
+\item The cosmological constant $\Lambda \approx 10^{-120}$ is the
+inverse of the cascade's hidden geometry at the cosmic horizon
+(Paper~II\,=\,III).
+\item The cascade's preferred resolution depth (the universe's age
+in Planck ticks) sits at the saturation point where these three
+cascade-internal scales agree.
 \end{itemize}
 
-\noindent Under this reading, the universe's observable information
-content is the cascade's accumulated content up to the point of
-horizon saturation. Beyond saturation, the rate balance keeps
-net in-horizon information at $S_{\mathrm{dS}}$: every new piece of
-content generated by the cascade is balanced by an old piece of
-content moving beyond the horizon. The universe maintains
-informational equilibrium at its holographic capacity.
+Under this reading the saturation point is the cascade's structural
+``now'': the cosmic depth at which the cascade's accumulated content
+in the prime-cascade reading matches the cascade's hidden geometry
+in the dimensional reading. The two readings of the cascade --- prime
+cascade in this paper, dimensional cascade in Part~0 and
+Paper~II\,=\,III --- agree at this depth within order-unity factors.
 
 \subsection*{$\Lambda$ stays constant}
 
-Under the saturation reading, the cosmological constant
-$\Lambda$ stays at the Part~0 prediction $\sim 10^{-120}$:
+Crucially, the saturation reading is consistent with constant
+$\Lambda$ at the Part~0 value $\sim 10^{-120}$:
 \begin{itemize}
 \item $\Lambda$ is set by $\Omega_{19} \Omega_{217}$
 (\xref{part0}{thm:tower}); structural, dimensional, fixed.
 \item De~Sitter expansion at $H = \sqrt{\Lambda/3}$ is unchanged.
-\item $S_{\mathrm{dS}} = \pi/\Lambda$ is fixed at the holographic
-bound.
-\item Cascade content $\Sigma(N)$ grows quadratically, but the
-\emph{in-horizon} cascade content stays at $S_{\mathrm{dS}}$ due to
-information dilution via expansion.
+\item $S_{\mathrm{cosmic}} = \Omega_7/(4\Omega_{217})$ is a fixed
+cascade ratio, independent of cosmic time.
+\item Cascade content $\Sigma(N)$ grows quadratically with $N$. As
+$N$ increases beyond $N_{\mathrm{sat}}$, $\Sigma$ exceeds
+$S_{\mathrm{cosmic}}$; on a holographic-saturation reading, the
+excess is shed across the cosmic horizon via expansion.
 \end{itemize}
 
-\noindent The Dirac coincidence $\Lambda \cdot N^2 \sim 1$ becomes
-the statement \emph{the cascade has run for the right number of
-ticks to saturate its visible content against the holographic bound}.
-This is the cascade's natural ``now'': the cosmic epoch at which
-generation and dissipation balance.
+The Dirac coincidence $\Lambda \cdot N^2 \sim 1$ becomes the
+statement \emph{the universe's age in Planck ticks is at the cascade's
+saturation point, where the prime-cascade and dimensional-cascade
+invariants agree on the horizon-entropy scale}. The cascade has run
+for the right number of ticks to bring its two natural invariants
+into agreement.
 
 \subsection*{Comparison to the naive identity reading}
 
 This is reading~(c) of Section~\ref{sec:bridge-part0} made specific
-with a saturation mechanism. The naive identity reading~(a),
-$\Lambda(N) = 1/\Sigma(N)$, takes the magnitude match as a literal
-relationship and requires $\Lambda$ to vary as $1/N^2$, giving
-power-law cosmology with scale factor $a(t) \propto t^{2/\pi}$
-(decelerating). The saturation reading separates $\Lambda$
-(fixed dimensional invariant) from $\Sigma(N)$ (growing
-prime-cascade content) and uses the holographic principle to
-mediate between them. $\Lambda$ stays constant; cosmic expansion
-remains de~Sitter; the cascade saturates the universe to the
-holographic bound at the current epoch. Reading~(a) is
-observationally falsified by cosmic acceleration; the saturation
-reading is consistent with observed de~Sitter expansion.
+via Paper~II\,=\,III. The naive identity reading~(a),
+$\Lambda(N) = 1/\Sigma(N)$ literally, takes the magnitude match as
+a definitional identity and requires $\Lambda$ to vary as $1/N^2$,
+giving power-law cosmology with scale factor $a(t) \propto t^{2/\pi}$
+(decelerating). The saturation reading keeps $\Lambda$ fixed at the
+Part~0 dimensional value and uses Paper~II\,=\,III's hidden geometry
+to mediate between $\Sigma(N)$ and $\Lambda^{-1}$. Cosmic expansion
+stays de~Sitter; the three-way match is between cascade-internal
+quantities at the saturation epoch. Reading~(a) is observationally
+falsified by cosmic acceleration; the saturation reading is
+consistent with observed de~Sitter expansion.
 
 \subsection*{What this reading does and does not assert}
 
 It \emph{does} assert:
 \begin{itemize}
-\item Three independent cascade scales agree numerically at the
-current cosmic depth $N \sim 10^{60}$.
-\item The cascade's content-generation rate and the de~Sitter
-horizon's information-flux rate match within order-unity factors
-at the current epoch.
+\item Three cascade-internal quantities ($\Sigma(N)$,
+$S_{\mathrm{cosmic}}$, $\Lambda^{-1}$) agree at order $10^{120}$ at
+the current cosmic depth, with explicit $\pi$-rational prefactors
+that differ by order-unity factors.
+\item The cascade's horizon-entropy formula $S = A/d$ is derived in
+Paper~II\,=\,III from boundary dominance; the Bekenstein--Hawking
+factor $1/4$ at $d = 4$ is cascade-native, not imported from
+semiclassical gravity.
 \item The match is consistent with constant $\Lambda$, de~Sitter
-expansion, and holographic saturation of the observable universe.
+expansion, and a cascade-internal account of the Dirac large-number
+coincidence.
 \end{itemize}
 
 It \emph{does not} assert:
 \begin{itemize}
-\item That the match between $\Sigma(N)$ and $S_{\mathrm{dS}}$ is
-exact at all cosmic epochs. Under constant $\Lambda$, the rate
-balance holds approximately at $N \sim 10^{60}$ but diverges at very
-different $N$ (where one or the other rate dominates).
-\item That the cascade's saturation point ($\Sigma = S_{\mathrm{dS}}$,
-generation-rate balanced) is forced by austerity alone. Whether the
-saturation epoch is anthropically selected (observers exist when the
-cascade is at saturation), structurally forced (the cascade's
-distinguished dimensions and the cosmic depth are locked together),
-or genuinely coincidental remains open.
+\item That the prefactors in the three-way match coincide exactly.
+$\Sigma(N)$ and $S_{\mathrm{cosmic}}$ differ by a factor of about
+$3$ at the current cosmic depth; the saturation point
+$N_{\mathrm{sat}}$ differs from the current $N$ by a factor of
+about $2$. Both are within cascade-natural order-unity tolerances
+but neither is forced from austerity alone.
+\item That the rate balance $d\Sigma/dt \sim H \cdot
+S_{\mathrm{cosmic}}$ is exact at all cosmic epochs. Under constant
+$\Lambda$, the cascade's quadratic content growth is compatible with
+the rate balance only locally near $N_{\mathrm{sat}}$.
+\item That the saturation epoch is forced by austerity. Whether the
+cascade's distinguished dimensions, its quadratic invariant, and
+the cosmic depth at which all three agree are locked together by a
+cascade-internal identity, or whether the agreement is anthropically
+selected by observer existence, remains open.
 \item Any modification of standard cosmology. The de~Sitter
-expansion, $\Lambda$ value, and horizon entropy are exactly as
-predicted by Part~0 and standard GR.
+expansion, $\Lambda$ value, and horizon-entropy formula are exactly
+as derived in Part~0, Paper~II\,=\,III, and Part~III.
 \end{itemize}
+
+\subsection*{The asserted step of Paper~II\,=\,III, inherited}
+
+Paper~II\,=\,III's Theorem~\xref{part23}{thm:bh} derives
+$S = A/d$ from boundary dominance with one asserted step
+(Paper~II\,=\,III, Remark~\xref{part23}{rem:sp23-status}): that the
+content--area map is linear in $A$ with slope $1/d$ for any cascade
+area, not only for $A = \Omega_{d-1}$ at the unit sphere. The cascade
+verifies this empirically at $d = 3$ (BTZ) and $d = 4$ (Schwarzschild)
+without parameter fitting. This paper inherits Paper~II\,=\,III's
+asserted step: the three-way match relies on $S = A/d$ being valid
+at the cosmic horizon area $A_{\mathrm{cosmic}} = \Omega_7/\Omega_{217}$,
+not only at unit-sphere area. Closing the asserted step ---
+a cascade-action derivation of the linear content--area
+map --- would tighten the three-way match into a forced identity.
 
 % ============================================================
 \section{What This Paper Does Not Do}\label{sec:does-not-do}
@@ -808,68 +908,87 @@ current cosmic depth, but the paper does not establish that
 $\Sigma(N)^{-1}$ \emph{is} the cascade's $\Lambda$ as a function of
 $N$. That identification is open.
 
-\textbf{Does not derive the holographic saturation.} The
-informational-density / horizon-entropy match of
-Section~\ref{sec:holographic-match} is observational --- three
-independent cascade-relevant scales (prime-cascade $\Sigma(N)$,
-dimensional $\Lambda^{-1}$, holographic $S_{\mathrm{dS}}$) agree
-within $\pi$-rational factors at the current cosmic epoch, and the
-generation-rate / horizon-flux match at the same epoch. The paper
-does not derive that the saturation epoch is the unique cosmic
-moment at which all three scales align; whether the alignment is
-forced by the cascade's structure or anthropically selected by
-observer existence is left open.
+\textbf{Does not derive the three-way match as an identity.} The
+three cascade-internal scales of
+Section~\ref{sec:holographic-match} ($\Sigma(N)$,
+$S_{\mathrm{cosmic}} = \Omega_7/(4\Omega_{217})$, $\Lambda^{-1}$)
+agree at order $10^{120}$ with explicit $\pi$-rational prefactors,
+but the prefactors do not coincide exactly. $\Sigma$ and
+$S_{\mathrm{cosmic}}$ differ by a factor of about $3$ at the current
+$N$; the saturation epoch $N_{\mathrm{sat}}$ where they match
+exactly is at $\approx 1.7 \times 10^{60}$, within a factor of about
+$2$ of the current cosmic depth. The relation between
+$\Lambda^{-1}$ and $S_{\mathrm{cosmic}}$ is mediated by the Gram
+correction in Part~0's $\Lambda$ formula. None of these prefactor
+relations is forced from austerity alone; the paper does not derive
+an exact identity locking the three cascade routes together.
+
+\textbf{Does not derive the saturation epoch.} Whether the cascade's
+preferred resolution depth (the cosmic age in Planck ticks) sits at
+the saturation point as a cascade-internal forced consequence, or
+whether it is anthropically selected by observer existence, is open.
+The paper observes the convergence; it does not derive its timing.
+
+\textbf{Inherits the asserted step of Paper~II\,=\,III.} The
+cascade-native horizon entropy formula $S = A/d$ assumes that the
+content--area map is linear with slope $1/d$ for any cascade area,
+not only for $A = \Omega_{d-1}$ at the unit sphere
+(\xref{part23}{rem:sp23-status}). This paper uses the formula at
+$A = \Omega_7/\Omega_{217}$ (the cosmic-horizon area) inheriting the
+same assertion. A cascade-action derivation that forces the linear
+content--area map would close this gap simultaneously for
+Paper~II\,=\,III and the present paper.
 
 \textbf{Does not commit to a single reading without remainder.}
-The holographic saturation reading of
-Section~\ref{sec:holographic-match} disfavours reading~(a) of
-Section~\ref{sec:bridge-part0} on observational grounds (cosmic
-acceleration) and develops reading~(c) with a specific mechanism
-(holographic saturation balancing cascade generation against
-expansion dissipation). Reading~(b) (numerical coincidence at the
-current $N$) remains a possible alternative if the holographic match
-turns out to be approximate rather than structurally forced.
+The three-way match of Section~\ref{sec:holographic-match}
+disfavours reading~(a) of Section~\ref{sec:bridge-part0} on
+observational grounds (cosmic acceleration) and develops reading~(c)
+with a specific mechanism (cascade saturation at the cosmic horizon
+scale). Reading~(b) (numerical coincidence at the current $N$)
+remains a possible alternative if the match turns out to be
+approximate rather than structurally forced.
 
 % ============================================================
 \section{Open Questions}\label{sec:open-questions}
 % ============================================================
 
-\textbf{Holographic saturation: forced or anthropic?} The match
-between the cascade's $\Sigma(N)$, the dimensional $\Lambda^{-1}$,
-and the de~Sitter horizon entropy $S_{\mathrm{dS}} = \pi/\Lambda$
-at the current cosmic depth $N \sim 10^{60}$ is striking
-(Section~\ref{sec:holographic-match}). The generation-rate
-$d\Sigma/dt$ also matches the horizon-flux rate $H \cdot S_{\mathrm{dS}}$
-within $\pi$-rational factors. Whether the cascade's distinguished
-dimensions and the cascade's preferred resolution depth $N$ are
-locked together by an austerity-forced relation, or whether the
-saturation epoch is anthropically selected as the cosmic moment when
-observers exist, is the principal open question. A cascade-internal
-derivation of the saturation epoch would constitute a structural
-explanation of the Dirac large-number coincidence.
+\textbf{Three-way match: forced or coincident?} The agreement at
+order $10^{120}$ between the prime-cascade $\Sigma(N) \approx 0.82
+\times 10^{120}$, the cascade hidden geometry
+$S_{\mathrm{cosmic}} = \Omega_7/(4\Omega_{217}) \approx 2.5 \times
+10^{120}$, and the dimensional inverse $\Lambda^{-1} \approx
+10^{120}$ at the current cosmic depth is striking
+(Section~\ref{sec:holographic-match}). Whether the cascade's
+distinguished dimensions and the cascade's preferred resolution depth
+$N$ are locked together by an austerity-forced relation, or whether
+the saturation epoch where these three agree is anthropically
+selected as the cosmic moment when observers exist, is the principal
+open question. A cascade-internal derivation that forces the
+saturation epoch would constitute a structural explanation of the
+Dirac large-number coincidence.
 
-\textbf{Identity question (refined).} The naive identity
+\textbf{Prefactor identity (refined).} The naive identity
 $\Lambda(N) \stackrel{?}{=} 12/(\pi^2 N^2)$ is observationally
 disfavoured: it requires $\Lambda$ to vary as $1/N^2$ and produces
 power-law cosmology $a(t) \propto t^{2/\pi}$, decelerating, against
-the observation of late-time cosmic acceleration. A refined identity
-of the form
-\[
-\Sigma(N) \cdot \Lambda \;\stackrel{?}{=}\; \frac{12}{\pi}
-\]
-\emph{at the cascade's saturation epoch}, with $\Lambda$ fixed at the
-Part~0 dimensional value and $\Sigma(N)$ matching the holographic
-bound, is consistent with observation. Whether this identity is
-forced by austerity or holds only at the saturation epoch as a
-consequence of the cascade's structure is open.
+the observation of late-time cosmic acceleration. A refined
+prefactor identity at the saturation epoch, holding
+$\Sigma(N_{\mathrm{sat}}) = S_{\mathrm{cosmic}}$, would give
+$N_{\mathrm{sat}}^2 = 3\,\Omega_7/(\pi^2\, \Omega_{217})$ and force a
+specific relationship between the cascade's distinguished dimensions
+and the cascade's resolution depth at observer existence. Whether
+this identity is exact (with the order-unity factor of $\sim 2$
+between $N_{\mathrm{sat}}$ and the actual current $N$ absorbed in
+the Gram correction or in the cascade's primordial-era detailing) or
+approximate (with an irreducible factor of $\sim 2$ representing
+genuine slack) is open.
 
-\textbf{Time-variation of $\Lambda$.} Under the holographic
-saturation reading $\Lambda$ stays at the Part~0 value
-$\sim 10^{-120}$, consistent with the observed cosmological
-constant. The cascade's $\Sigma(N)$ grows quadratically but the
-visible information stays at $S_{\mathrm{dS}}$ via expansion-driven
-dissipation. The cascade does not predict observable
-time-variation of $\Lambda$ in this reading.
+\textbf{Time-variation of $\Lambda$.} Under the saturation reading
+$\Lambda$ stays at the Part~0 dimensional value $\sim 10^{-120}$,
+consistent with the observed cosmological constant. The cascade's
+$\Sigma(N)$ grows quadratically but the cascade's hidden geometry
+$S_{\mathrm{cosmic}}$ is a fixed cascade ratio. The cascade does not
+predict observable time-variation of $\Lambda$ in this reading.
 
 \textbf{Generative derivation of distinguished dimensions.} A
 prime-structural derivation of $\{5, 7, 19, 217\}$ from austerity
@@ -880,15 +999,28 @@ observation that the first three distinguished dimensions are atomic
 events and the fourth is a derived event with $19$ super primes at
 its tick is suggestive but not yet a derivation.
 
-\textbf{Connection to standard holographic principles.} The match
-$\Sigma(N) \approx (\pi/12) S_{\mathrm{dS}}$ between cascade-natural
-content and de~Sitter horizon entropy invites comparison with the
-standard holographic principle and de~Sitter/CFT correspondence. The
-cascade-internal derivation of the saturation match, if it can be
-sharpened, would offer a number-theoretic underpinning for the
-holographic information bound at cosmic scales. This is outside
-the scope of the present paper but is the natural next step in
-relating the prime cascade to standard cosmological information
+\textbf{Closing the asserted step.} Paper~II\,=\,III's
+$S = A/d$ depends on an asserted step
+(\xref{part23}{rem:sp23-status}) about scale-invariance of the
+content--area map. Closing this step --- via a cascade-action
+derivation that forces the linear content--area map for any cascade
+area --- would tighten the three-way match of
+Section~\ref{sec:holographic-match} into a forced identity rather
+than an order-of-magnitude convergence with cascade-natural
+prefactors.
+
+\textbf{Connection to standard holographic principles.} The
+cascade's horizon entropy $S = A/d$ (Paper~II\,=\,III) recovers the
+Bekenstein--Hawking $S = A/4$ at the observer's dimension $d = 4$
+via boundary dominance, without invoking semiclassical gravity. The
+three-way match of Section~\ref{sec:holographic-match} extends this
+identification to the cosmic horizon, where the cascade's hidden
+geometry $\Omega_7/(4\Omega_{217})$ equals the inverse cosmological
+constant from Part~0 within cascade-natural prefactors. Sharpening
+the match into a forced identity would offer a number-theoretic
+underpinning for the cosmological holographic principle. This is
+outside the scope of the present paper but is the natural next step
+in relating the prime cascade to standard cosmological information
 theory.
 
 % ============================================================
@@ -927,6 +1059,8 @@ Prelude's framing.
 \bibitem{prelude} RTAC, \extlink{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude: Why Nothing Has Structure}} (2026).
 
 \bibitem{part0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series --- Part 0: The Tower}} (2026).
+
+\bibitem{part23} RTAC, \extlink{\cascadebase/cascade-series-part2-equals-3.pdf}{\textit{The Cascade Series --- Part II\,=\,III: Quantum Gravity without Quantising Gravity}} (2026).
 
 \bibitem{part3} RTAC, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series --- Part III: General Relativity from Lovelock and Clifford}} (2026).
 
