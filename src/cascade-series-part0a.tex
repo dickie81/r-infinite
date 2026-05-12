@@ -1,0 +1,709 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{cascade-xref}        % cross-paper \xref machinery (incl. xr-hyper)
+\usepackage{booktabs}
+\usepackage{graphicx}
+\xrhyperdoc{prelude}{cascade-series-prelude}
+\xrhyperdoc{part0}{cascade-series-part0}
+\xrhyperdoc{part3}{cascade-series-part3}
+\geometry{margin=2.5cm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+
+\title{The Cascade Series --- Part 0a\\[0.5em]
+\large How Primes Fill Spacetime: Bridge between Prelude and Part 0}
+\author{RTAC}
+\date{May 2026}
+
+\begin{document}
+\setlength{\emergencystretch}{3em}
+\maketitle
+\phantomsection
+\label{paperdoc}
+
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{\textbf{Status.} Structural / bridging
+paper. The Prelude derives $\pi$ from primes via the Euler product
+and establishes the dimension tower $\{(\mathbb{R}^d, B^d)\}_{d \in
+\mathbb{N}}$; Part~0 derives the four distinguished dimensions
+$\{5, 7, 19, 217\}$ and the cascade invariant $\sim 10^{-120}$ from
+the Gamma-function structure on integer arguments. Between them sits
+a question this paper takes up: \emph{how does the prime structure
+express itself across dimensions before the distinguished-dimension
+machinery of Part~0 weighs in?} The paper introduces the
+prime-cascade reading of the integer cascade --- atomic ticks
+(primes) and derived ticks (composites), with back-references through
+the divisibility lattice --- and identifies a natural divisor-weighted
+quadratic invariant $\Sigma(N) = \sum_{n \leq N} \sigma(n)
+\sim (\pi^2/12) N^2$. At the current cosmic depth $N \sim 10^{60}$,
+this quantity reaches $\sim 10^{120}$ --- numerically reproducing the
+inverse cascade invariant of Part~0 within order-unity factors. The
+paper does not derive the distinguished dimensions, the spacetime
+uniqueness at $d = 4$, or the cascade's $\Lambda$ prediction
+generatively from prime structure alone; those remain Parts 0 and~III
+respectively. The cascade's foundational footprint stays at pure
+$\mathrm{RCA}_0$ inherited from the Prelude.}}
+\end{center}
+
+\begin{abstract}
+The Prelude forces $\pi$ as a convergence target from the Euler
+product on primes and establishes the cascade's dimension tower over
+$\mathbb{N}$. Part~0 uses Gamma-function structure on integer
+arguments to derive the four distinguished dimensions $\{5, 7, 19,
+217\}$ and the cascade invariant $\sim 10^{-120}$. This paper bridges
+those two derivations by reading the cascade tick-by-tick in
+prime-cascade terms: each Planck tick adds an integer that is either
+\emph{atomic} (a prime, a fresh orthogonal axis with no relationships
+to prior structure) or \emph{derived} (a composite, a lattice point
+in the divisibility graph with back-references to its divisors).
+Spacetime $(d \in \{1, 2, 3, 4\})$ is the cascade's
+\emph{primordial era} --- the first four ticks --- with $d = 4$ as
+the cascade's first derived event. After the primordial era, every
+later integer carries back-references to a subset of $\{1, 2, 3, 4\}$,
+and these back-references propagate recursively through the
+divisibility lattice. The natural divisor-weighted content invariant
+of the cascade at depth $N$ is $\Sigma(N) = \sum_{n \leq N} \sigma(n)
+\sim (\pi^2/12) N^2$, with the prefactor $\pi^2/12 = \zeta(2)/2$
+inheriting $\pi$ from the same Euler product the Prelude commits to.
+At the current cosmic depth $N \sim 10^{60}$, $\Sigma(N) \sim
+10^{120}$ --- numerically the inverse of the cascade invariant
+$\Lambda \sim 10^{-120}$ that Part~0 derives via the dimensional
+route through $\Omega_{19} \Omega_{217}$. Whether these two routes
+are the same underlying quantity, numerically coincident but
+distinct, or projections of a deeper cascade structure is the
+paper's principal open question. The cascade's foundational footprint
+stays at pure $\mathrm{RCA}_0$.
+\end{abstract}
+
+% ============================================================
+\section{The Problem This Paper Addresses}\label{sec:problem}
+% ============================================================
+
+The Prelude derives the cascade series' starting structure --- the
+dimension tower
+$\{(\mathbb{R}^d, B^d)\}_{d \in \mathbb{N}}$ of finite-dimensional
+Euclidean spaces with their unit balls --- from the single
+pre-mathematical input $0 \neq 1$. The number-theoretic content is
+forced by the Euler product on primes: $\pi$ enters the cascade as
+the convergence target of $\sqrt{6\,\zeta_N(2)}$, where $\zeta_N(2)$
+is the partial-computation form of $\sum 1/n^2$. The geometric
+content (vector spaces, inner products, orthogonality at $\pi/2$) is
+recovered from the prime-forced $\pi$ via Hurwitz's theorem and
+elementary linear algebra.
+
+Part~0 picks up from this starting structure and derives the cascade's
+\emph{distinguished dimensions} $\{5, 7, 19, 217\}$ from Gamma-function
+critical points on the integer axis, together with the cascade
+invariant $\sim 10^{-120}$ as a product $\Omega_{19} \cdot \Omega_{217}$
+of sphere areas at two of those dimensions, modified by a Gram
+correction.
+
+Between these two derivations a structural question remains open:
+\emph{how does the prime structure of the Prelude express itself
+across dimensions, before the Gamma-function machinery of Part~0
+takes over?} The Prelude gives $\pi$; Part~0 evaluates $\Omega_d$ at
+specific integer $d$. The link is mediated only through the constant
+$\pi$ entering $\Omega_d = 2\pi^{d/2}/\Gamma(d/2)$. The full
+arithmetic structure of $\mathbb{N}$ --- divisibility, the prime
+factorisations of intermediate integers, the recursive back-reference
+graph that the cascade builds tick by tick --- plays no explicit role
+in this mediation.
+
+This paper makes that arithmetic structure explicit. It reads the
+cascade's tick-by-tick activity through the lens of the prime
+cascade, identifies the structural events (atomic ticks, derived
+ticks), exhibits the back-reference accumulation that fills the
+cascade's foundational dimensions with content as cosmic time
+advances, and surfaces a natural divisor-weighted quadratic invariant
+that reproduces the order of magnitude of the cascade's invariant
+scale at the current cosmic depth. The bridge is structural, not
+generative: the distinguished dimensions and the cascade invariant
+remain Part~0 content; what changes is the reading of \emph{how} the
+prime structure is expressed by the time we reach Part~0.
+
+% ============================================================
+\section{From the Prelude}\label{sec:from-the-prelude}
+% ============================================================
+
+The relevant Prelude results, used here as background:
+
+\begin{itemize}
+\item Definition: $0 \neq 1$ as sole pre-mathematical input
+(\xref{prelude}{def:axiom}).
+\item Principle: austerity (parameter economy, minimal strength,
+unobservable quotient) as the operational content of sole-input
+status (\xref{prelude}{princ:austerity}).
+\item Theorem: the cardinal index $d$ ranges over $\mathbb{N}$
+(\xref{prelude}{thm:iterate}).
+\item Theorem: the integer structure of $\mathbb{N}$ forces $\pi$ as
+a convergence target via the Euler product on primes
+(\xref{prelude}{thm:pi-from-primes}).
+\item Theorem: the $d$ cumulated states are pairwise orthogonal in
+$\mathbb{R}^d$ with $\langle e_i, e_j \rangle = \delta_{ij}$
+(\xref{prelude}{thm:orth}).
+\end{itemize}
+
+\noindent The cascade's foundational footprint is pure
+$\mathrm{RCA}_0$: natural numbers, computable functions on them, and
+computable reals. Every analytic-looking quantity is a sequence of
+rational approximations with $\mathrm{RCA}_0$-expressible convergence
+behaviour. The Monotone Convergence Theorem and stronger analytic
+principles serve as bookkeeping shorthand in downstream papers, not
+as foundational commitments (see the Prelude status box). This paper
+inherits that footprint without modification.
+
+What the Prelude does \emph{not} establish, and what this paper
+takes up:
+
+\begin{itemize}
+\item Tick-by-tick activity of the cascade beyond the existence
+of the tower.
+\item Structural distinction between prime ticks and composite ticks.
+\item The back-reference graph that the cascade builds in the
+divisibility lattice.
+\item How spacetime dimensions $\{1, 2, 3, 4\}$ accumulate content
+from later integer ticks.
+\item A natural quadratic-in-$N$ structural invariant of the cascade
+at resolution depth $N$.
+\end{itemize}
+
+% ============================================================
+\section{The Prime Cascade}\label{sec:prime-cascade}
+% ============================================================
+
+Read tick by tick, the cascade adds one integer at each Planck tick:
+$1, 2, 3, 4, 5, \ldots$ Each tick adds a node to the cascade's
+structural record. Two kinds of node arise.
+
+\begin{definition}[Atomic and derived ticks]\label{def:atomic-derived}
+At tick $n$ the cascade adds the integer $n$ to its structure. The
+tick is \emph{atomic} if $n$ is prime and \emph{derived} if $n$ is
+composite (i.e., $n \geq 4$ with a non-trivial divisor). The unit
+$n = 1$ is the trivial root; it is neither atomic nor derived.
+\end{definition}
+
+The structural content of a tick is determined by the divisor set
+$\{d : d \mid n\}$ of the entering integer.
+
+\begin{observation}[Atomicity is intrinsic]\label{obs:atomic-intrinsic}
+Tick $n$ is atomic if and only if the only divisors of $n$ are $1$
+and $n$ itself. Equivalently: atomic ticks are exactly those for
+which the entering integer has no non-trivial relationship to any
+prior tick. Compositeness corresponds to having at least one
+non-trivial back-reference. The criterion is local to the entering
+integer and requires no comparison with the rest of the cascade.
+\end{observation}
+
+\begin{definition}[Super primes, taken primes]\label{def:super-taken}
+At resolution depth $N$, an atomic tick $p \leq N$ is \emph{super}
+(or \emph{untaken}) if $2p > N$, and \emph{taken} if $2p \leq N$.
+Equivalently: a prime $p$ is super at $N$ iff no composite multiple
+of $p$ has yet entered the cascade. It is taken iff at least one
+composite multiple ($2p$ being the smallest) has entered.
+\end{definition}
+
+\noindent The set of super primes at depth $N$ is the cascade's
+\emph{leading edge}: orthogonal axes with no relationships in either
+direction (no non-trivial divisors below; no composite multiples
+above). Bertrand's postulate guarantees the leading edge is
+non-empty at every $N \geq 2$: there is always at least one super
+prime.
+
+\begin{theorem}[Atomic-rate decay]\label{thm:atomic-rate}
+The asymptotic density of atomic ticks at depth $N$ is $1/\ln N$
+(Prime Number Theorem). The cumulative atomic fraction
+$\pi(N)/N \to 0$ as $N \to \infty$.
+\end{theorem}
+
+\begin{proof}
+This is the Prime Number Theorem in its standard form, provable in
+$\mathrm{RCA}_0 + \mathrm{MCT}$ but with the relevant
+$\mathrm{RCA}_0$-expressible content being: $\pi(N)/N$ is a
+computable sequence whose convergence to zero is Cauchy in the form
+$\forall\varepsilon\,\exists N$ such that $\pi(N)/N < \varepsilon$.
+\end{proof}
+
+\noindent The atomic-rate decay tells us the cascade was
+atomic-dominated only briefly. The crossover from
+atomic-majority to derived-majority happens at $N = 9$: at $N = 9$
+the cascade has $\pi(9) = 4$ atomic ticks (primes $2, 3, 5, 7$) and
+$9 - 4 - 1 = 4$ derived ticks (composites $4, 6, 8, 9$), and at
+$N = 10$ derived ticks permanently outnumber atomic ones. By
+$N = 100$ the cumulative atomic fraction is $25\%$; by $N = 10^6$
+it is below $8\%$; at the current cosmic depth
+$N \sim 10^{60}$ it is approximately $1/\ln(10^{60}) \approx 0.7\%$.
+
+\begin{remark}[The atomic-dominated era is unbelievably brief]
+The cascade spent its first nine Planck ticks in the atomic-dominated
+regime --- approximately $10^{-43}$ seconds after the resolution
+began. From tick~10 onward (still within $10^{-43}$ seconds) the
+cascade has been derived-dominated. The remaining $\sim 10^{60}$
+ticks of cosmic history correspond to derived-dominated lattice
+filling at a rate that has decayed to less than one atomic event per
+hundred ticks.
+\end{remark}
+
+% ============================================================
+\section{The Primordial Era (Ticks 1--4)}\label{sec:primordial-era}
+% ============================================================
+
+The cascade's foundational dimensions are laid down in the first four
+ticks. Each carries a specific structural role.
+
+\begin{itemize}
+\item \textbf{Tick 1: the unit.} $n = 1$ is the trivial root of the
+divisibility lattice. Every later integer back-references it. The
+unit is neither atomic nor derived in the sense of
+Definition~\ref{def:atomic-derived}; it is the foundational element.
+\item \textbf{Tick 2: first prime.} $n = 2$ is the first atomic
+event. It introduces the cascade's first orthogonal axis, the only
+prime that is also the additive successor of the unit.
+\item \textbf{Tick 3: second prime.} $n = 3$ is the second atomic
+event. Together with tick~2 it establishes the first non-trivial
+arrangement of orthogonal axes.
+\item \textbf{Tick 4: first derived event.} $n = 4 = 2^2$ is the
+cascade's first composite. It is the first integer with a
+non-trivial back-reference structure: it points to tick~2 with
+weight $2$ (the only prime factor) and to tick~1 trivially. The
+cascade's first lattice point.
+\end{itemize}
+
+\noindent A structural observation:
+
+\begin{observation}[$d = 4$ as the cascade's first derived event]\label{obs:d4-first-derived}
+The integer $4 = 2^2$ is the smallest composite. Its divisor lattice
+is $\{1, 2, 4\}$, and it sits as the first node of the cascade's
+divisibility graph above the atomic primes $\{2, 3\}$. Within the
+primordial era, $d = 4$ is the unique non-atomic dimension.
+\end{observation}
+
+The observation has two immediate consequences:
+
+\begin{itemize}
+\item $d = 4$ is the cascade's first ``filling event'' --- the first
+time the cascade adds a node whose role is to populate the lattice
+of existing prime axes rather than to introduce a new axis.
+\item $d = 4$ is the last dimension of the cascade's primordial era
+before the first distinguished dimension $d = 5$ of Part~0 enters.
+The dimensions $\{1, 2, 3, 4\}$ form the cascade's foundational
+era, in which no specific dimension has yet been singled out by
+Gamma-function critical-point machinery.
+\end{itemize}
+
+\begin{remark}[Spacetime as the primordial era]
+The dimensions $\{1, 2, 3, 4\}$ are the cascade's foundational era
+in the prime-cascade reading. They are also --- by the formal
+derivation of \xref{part3}{paperdoc} (Lovelock uniqueness intersected
+with Clifford periodicity) --- the dimensions of observable
+spacetime. The two characterisations agree: spacetime is the
+foundational era of the cascade. The prime-cascade observation does
+not replace the Part~III derivation; it provides a structural
+reading consistent with it. The observer lives at the boundary of the
+primordial era, in the sense made formal by the Part~III argument.
+\end{remark}
+
+% ============================================================
+\section{How Spacetime Fills with Content}\label{sec:spacetime-fills}
+% ============================================================
+
+After the primordial era ends at tick~4, every later integer
+$n \geq 5$ carries back-references to a subset of $\{1, 2, 3, 4\}$
+determined by its divisor structure. The back-references are
+recursive: each one reaches a node that itself receives further
+back-references from future ticks. The cascade does not lay down the
+foundational dimensions and then leave them; it continually deposits
+content into them via the back-reference graph.
+
+\subsection*{Direct back-references}
+
+For each $d \in \{2, 3, 4\}$, the integers $n > d$ with $d \mid n$
+form an arithmetic progression of density $1/d$:
+\begin{itemize}
+\item Density of direct back-references to $d = 2$: $1/2$
+(every even integer).
+\item Density of direct back-references to $d = 3$: $1/3$
+(every multiple of $3$).
+\item Density of direct back-references to $d = 4$: $1/4$
+(every multiple of $4$).
+\end{itemize}
+
+\noindent Per tick, the inclusion-exclusion total contribution to
+spacetime $\{1, 2, 3, 4\}$ is approximately one back-reference. The
+foundational dimensions are not uniformly loaded: $d = 2$ accumulates
+content at twice the rate of $d = 4$.
+
+\begin{theorem}[Cumulative direct back-references]\label{thm:direct-backref}
+At depth $N$, the cumulative direct back-reference count for
+spacetime dimension $d \in \{2, 3, 4\}$ is $\lfloor N/d \rfloor$,
+with $\mathrm{RCA}_0$-expressible convergence under the partial-
+computation reading.
+\end{theorem}
+
+\noindent The counts are: $\sim N/2$ for $d = 2$, $\sim N/3$ for
+$d = 3$, $\sim N/4$ for $d = 4$. The leading factor for the total
+spacetime content from direct back-references is therefore
+$N \cdot (1/2 + 1/3 + 1/4) - (\text{inclusion-exclusion}) \approx
+0.83\, N$.
+
+\subsection*{Recursive back-references}
+
+The direct back-reference count under-states the cascade's content
+deposition. Each back-reference $n \to d$ passes through intermediate
+divisors of $n$, and each of those intermediate nodes itself receives
+future references. Counting \emph{cover-edge paths} from $n$ to $d$
+in the divisibility lattice, rather than direct edges, gives the
+correct content measure.
+
+\begin{theorem}[Cover-chain count]\label{thm:chain-count}
+Let $n$ be a positive integer with $d \mid n$ and write
+$n/d = p_1^{a_1} p_2^{a_2} \cdots p_r^{a_r}$ in prime factorisation.
+The number of maximal cover-edge chains from $n$ to $d$ in the
+divisibility lattice $(\mathbb{N}, \mid)$ is the multinomial
+coefficient
+\[
+\mathrm{chains}(n, d) \;=\; \frac{(a_1 + a_2 + \cdots + a_r)!}{a_1!\, a_2! \cdots a_r!}.
+\]
+\end{theorem}
+
+\begin{proof}
+A maximal chain from $n$ down to $d$ corresponds to a sequence of
+prime-drops removing one factor of some $p_i$ at each step. The
+total number of drops is $\Omega(n/d) = a_1 + \cdots + a_r$, and at
+each step we must choose which prime to drop. The number of such
+sequences, modulo equivalent reorderings of identical prime-drops,
+is the multinomial coefficient stated.
+\end{proof}
+
+\noindent Worked examples:
+\begin{itemize}
+\item $n = 12, d = 4$: $n/d = 3$, chains $= 1!/1! = 1$. Single chain
+$12 \to 4$.
+\item $n = 24, d = 4$: $n/d = 6 = 2 \cdot 3$, chains $= 2!/1!1! = 2$.
+Chains $24 \to 12 \to 4$ and $24 \to 8 \to 4$.
+\item $n = 48, d = 4$: $n/d = 12 = 2^2 \cdot 3$, chains $= 3!/2!1!
+= 3$.
+\item $n = 30030 = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 13,\,
+d = 1$: chains $= 6! = 720$. Primorials contribute factorially many
+chains.
+\end{itemize}
+
+\subsection*{Asymptotic cumulative content}
+
+\begin{theorem}[Cumulative chain content]\label{thm:chain-cumulative}
+The cumulative chain-count content of spacetime dimension $d$ at
+depth $N$ is
+\[
+T_d(N) \;=\; \sum_{\substack{m \leq N \\ d \mid m}} \mathrm{chains}(m, d) \;=\; \sum_{k \leq N/d} \mathrm{chains}(k, 1).
+\]
+For typical $k$ near $N$, $\mathrm{chains}(k, 1)$ has average value
+asymptotically $(\ln\ln N)!\, /\, (\text{factorial corrections})$
+(Erdős--Kac). The dominant contribution to $T_d(N)$ comes from
+integers with many distinct prime factors --- in particular from
+primorial-like integers, whose chain count grows factorially in the
+number of prime factors.
+\end{theorem}
+
+\noindent The chain-count rate per tick is therefore not constant
+but grows with $N$: at any cosmic epoch, the cascade is depositing
+content into spacetime at a rate that exceeds the rate at any
+earlier epoch. The growth is sub-exponential --- bounded by
+$(\ln\ln N)!$ for typical contributions --- but unbounded as
+$N \to \infty$.
+
+\begin{remark}[Acceleration without exponentiation]
+The cascade's content deposition into spacetime is not constant in
+time; it accelerates. But the acceleration is slow: at $N = 10^6$ the
+typical chain count per tick is approximately $7$; at $N = 10^{60}$
+it is approximately $120$; at $N = 10^{1000}$ it would reach
+approximately $5000$. The cascade is genuinely producing more
+content per tick as cosmic time advances, but the growth is in the
+$(\ln \ln N)!$ regime, far slower than de~Sitter exponential
+expansion. The acceleration in content deposition is therefore a
+distinct phenomenon from cosmic acceleration; this paper does not
+identify them.
+\end{remark}
+
+% ============================================================
+\section{The Natural Quadratic Invariant}\label{sec:quadratic-invariant}
+% ============================================================
+
+The chain count of Section~\ref{sec:spacetime-fills} counts paths
+with equal weight, regardless of which divisor a back-reference
+terminates at. A finer measurement uses the divisor's \emph{value}
+as a weight: a back-reference to divisor $d$ contributes $d$ to the
+count. This gives the cascade's \emph{divisor-weighted content}.
+
+\begin{definition}[Divisor-weighted content]\label{def:divisor-weighted}
+The divisor-weighted content of the cascade at depth $N$ is
+\[
+\Sigma(N) \;=\; \sum_{n \leq N} \sigma(n) \;=\; \sum_{n \leq N} \sum_{d \mid n} d.
+\]
+\end{definition}
+
+\noindent Each back-reference $n \to d$ contributes weight $d$ to
+$\Sigma(N)$. Small divisors are referenced often but each reference
+is light-weight; large divisors are referenced rarely but each
+reference is heavyweight. The two effects combine to give a
+quadratic asymptotic.
+
+\begin{theorem}[Asymptotic of divisor-weighted content]\label{thm:sigma-asymptotic}
+For large $N$,
+\[
+\Sigma(N) \;\sim\; \frac{\pi^2}{12} N^2 \;=\; \frac{\zeta(2)}{2} N^2.
+\]
+\end{theorem}
+
+\begin{proof}
+Exchange the order of summation:
+\[
+\Sigma(N) \;=\; \sum_{d \leq N} d \cdot \lfloor N/d \rfloor.
+\]
+For each $d$, the contribution is $d \cdot (N/d - \{N/d\}) =
+N - d\{N/d\}$. Summing over $d \leq N$ gives $N^2 - O(N \log N)$ in
+naive form; the precise prefactor $\pi^2/12$ arises from the
+$\zeta(2) = \pi^2/6$ identity applied via Dirichlet's method on the
+average order of $\sigma(n)$, namely $\sigma(n)/n \to \pi^2/6$ on
+average. Standard derivation; see any analytic number theory text.
+The Cauchy form of the convergence is
+$\mathrm{RCA}_0$-expressible.
+\end{proof}
+
+\noindent The prefactor $\pi^2/12 = \zeta(2)/2$ is the Euler product
+on primes from the Prelude, divided by $2$. The cascade's quadratic
+invariant inherits $\pi$ from exactly the same prime structure that
+$\pi$ inherits from in \xref{prelude}{thm:pi-from-primes}.
+
+\begin{observation}[Quadratic content scale]\label{obs:quadratic-scale}
+At any cosmic depth $N$, the cascade's divisor-weighted content
+$\Sigma(N)$ scales as $(\pi^2/12) N^2$ --- a single natural quantity
+that depends on the cascade's resolution depth and the prime-forced
+constant $\pi^2$, with no other inputs. At $N = 10^{60}$,
+$\Sigma(N) \approx 8.2 \times 10^{119}$.
+\end{observation}
+
+% ============================================================
+\section{Bridge to Part 0: Numerical Convergence at Cosmic Epoch}\label{sec:bridge-part0}
+% ============================================================
+
+Part~0 derives the cascade invariant via the dimensional route. The
+relevant chain of results (\xref{part0}{thm:tower} and
+\xref{part0}{sec:the-cascade-invariant}):
+\begin{itemize}
+\item Four distinguished dimensions $\{5, 7, 19, 217\}$ emerge as
+Gamma-function critical points on the integer axis.
+\item Sphere areas $\Omega_{d-1} = 2\pi^{d/2}/\Gamma(d/2)$ at these
+dimensions take specific values.
+\item The cascade invariant is the product
+$(18/\pi^3) \cdot \Omega_{19} \cdot \Omega_{217} \cdot e^{\mathrm{Gram}}$,
+which evaluates to approximately $10^{-120}$ in reduced Planck units.
+\end{itemize}
+
+\noindent The numerical match between the two routes at the current
+cosmic depth:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Route & Quantity & Value at $N \sim 10^{60}$ \\
+\midrule
+Prime cascade ($\Sigma^{-1}$) & $12/(\pi^2 N^2)$ & $\sim 1.2 \times 10^{-120}$ \\
+Dimensional cascade & $(18/\pi^3) \Omega_{19} \Omega_{217} e^{\mathrm{Gram}}$ & $\sim 10^{-120}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Both routes give approximately $10^{-120}$ within
+order-unity factors. The prefactors $\pi^2/12$ in the prime-cascade
+route and $18/\pi^3$ in the dimensional route involve different
+powers of $\pi$; the match in magnitude is non-trivial.
+
+Three readings of this convergence are available:
+
+\begin{itemize}
+\item[(a)] \emph{Same underlying quantity.} $\Sigma(N)^{-1}$ and the
+dimensional cascade invariant are two expressions of the same
+cascade content, prime-structural and geometric. If true, there
+should be an identity at the cascade's preferred $N$ relating
+$12/(\pi^2 N^2)$ to $(18/\pi^3) \Omega_{19} \Omega_{217}
+e^{\mathrm{Gram}}$; the cascade's distinguished dimensions and
+the cascade's resolution depth would be locked together by this
+identity.
+\item[(b)] \emph{Numerically coincident but distinct.} $\Sigma(N)$
+depends on $N$; the dimensional cascade invariant does not. They
+agree at the current cosmic epoch but diverge at other epochs. The
+match would then be a property of the current $N$, possibly
+anthropic.
+\item[(c)] \emph{Projections of a deeper cascade structure.} Both
+quantities are valid expressions of a single underlying cascade
+invariant, the prime cascade giving the arithmetic form and the
+dimensional cascade the geometric form, with their match at the
+current cosmic epoch forced by the cascade's resolution depth being
+in its mature regime.
+\end{itemize}
+
+\noindent This paper does not commit to any of the three readings.
+Each is consistent with the cascade's existing predictions; each
+makes different predictions about what happens at very different
+$N$. Section~\ref{sec:open-questions} below states the open question
+of distinguishing them.
+
+% ============================================================
+\section{The de Sitter Relation, Cascade-Form}\label{sec:de-sitter}
+% ============================================================
+
+The standard cosmological observation, restated in cascade variables:
+at the current cosmic depth $N \sim 10^{60}$,
+\[
+\Lambda \cdot N^2 \;\sim\; 1
+\]
+in reduced Planck units, where $\Lambda \sim 10^{-120}$ is the
+cosmological constant predicted by Part~0 and $N \sim 10^{60}$ is the
+universe's age in Planck ticks (the Dirac large-number coincidence).
+The Friedmann equation $\Lambda = 3 H^2$ with $H \sim 1/T \sim 1/N$
+gives $\Lambda N^2 \sim 1$ at any de~Sitter-regime epoch.
+
+The cascade's contribution to this is twofold:
+\begin{itemize}
+\item Part~0 supplies the specific value $\Lambda \sim 10^{-120}$
+via $\Omega_{19} \Omega_{217}$.
+\item This paper supplies the natural quadratic-in-$N$ structural
+quantity $\Sigma(N) \sim (\pi^2/12) N^2$ whose inverse matches
+$\Lambda$ at the current cosmic depth within order-unity factors.
+\end{itemize}
+
+\noindent Together these support reading~(c) of
+Section~\ref{sec:bridge-part0}: the cascade's invariant scale is set
+by the cascade itself, and the universe's current cosmic depth is
+the value at which the cascade's two natural invariants (arithmetic
+$\Sigma(N)$ and dimensional $\Omega_{19}\Omega_{217}$) numerically
+agree. Whether this is an identity or a coincidence at the current
+$N$ is what the open question of
+Section~\ref{sec:open-questions} concerns.
+
+% ============================================================
+\section{What This Paper Does Not Do}\label{sec:does-not-do}
+% ============================================================
+
+\textbf{Does not derive the distinguished dimensions.} The set
+$\{5, 7, 19, 217\}$ remains derived in \xref{part0}{thm:tower} from
+Gamma-function critical points on the integer axis. This paper
+observes that the first three are atomic events (primes) and the
+fourth is a derived event (the composite $7 \cdot 31$), and that the
+super-prime count at $N = 217$ equals $19$ (the previous distinguished
+atomic event), but neither observation amounts to a prime-cascade
+derivation. The Gamma-function derivation remains load-bearing.
+
+\textbf{Does not derive spacetime stability at $d = 4$.} The formal
+derivation of $d = 4$ as the observer's spacetime is in
+\xref{part3}{paperdoc} (Lovelock uniqueness intersected with
+Clifford periodicity). This paper observes that $d = 4$ is the
+cascade's first derived event in the primordial era, and that this is
+consistent with $d = 4$ being the boundary of the cascade's
+foundational era before the first distinguished dimension. This is a
+structural consistency observation, not a derivation.
+
+\textbf{Does not derive $\Lambda$ from prime structure alone.} The
+cascade's $\Lambda \sim 10^{-120}$ prediction continues to derive
+from the dimensional route through $\Omega_{19} \Omega_{217}$ in
+Part~0. The prime-cascade $\Sigma(N)$ matches this value at the
+current cosmic depth, but the paper does not establish that
+$\Sigma(N)^{-1}$ \emph{is} the cascade's $\Lambda$ as a function of
+$N$. That identification is open.
+
+\textbf{Does not commit to a reading.} Whether
+$\Sigma(N)^{-1}$ and the dimensional cascade invariant are
+the same quantity, distinct quantities that coincide at the
+current cosmic epoch, or projections of a deeper structure, is
+left open.
+
+% ============================================================
+\section{Open Questions}\label{sec:open-questions}
+% ============================================================
+
+\textbf{Identity question.} Is $\Sigma(N)^{-1}$ literally the
+prime-cascade form of the dimensional cascade invariant? An
+affirmative answer would consist of an identity at the cascade's
+preferred resolution depth $N$:
+\[
+\frac{12}{\pi^2 N^2} \;\stackrel{?}{=}\; \frac{18}{\pi^3} \cdot \Omega_{19} \cdot \Omega_{217} \cdot e^{\mathrm{Gram}}
+\]
+with the cascade's preferred $N$ forced by this identity itself. The
+identity, if it holds, would lock together the universe's age in
+Planck ticks and the cascade's distinguished dimensions in a single
+structural relation.
+
+\textbf{Time-variation question.} Does the cascade's effective
+cosmological constant vary with $N$ through $\Sigma(N)$? Reading~(a)
+or~(c) of Section~\ref{sec:bridge-part0} permits or requires
+variation; reading~(b) does not. The variation rate under reading~(a)
+is $d\Lambda/\Lambda \sim -2 dN/N$, observationally indistinguishable
+from constant $\Lambda$ at current precision but in principle
+distinguishable at very high precision over cosmological timescales.
+
+\textbf{Atomic-event explanation.} Does the cascade contain a
+structural reason for the universe's age to be $\sim 10^{60}$
+specifically? Under reading~(a) the cosmic depth is forced by the
+identity equating $\Sigma(N)^{-1}$ and the dimensional cascade
+invariant; under reading~(c) the cosmic depth is the value at
+which the two cascade routes converge in their mature regime. Either
+reading would constitute a cascade-internal explanation of the
+Dirac large-number coincidence.
+
+\textbf{Generative derivation of distinguished dimensions.} A
+prime-structural derivation of $\{5, 7, 19, 217\}$ from austerity
+alone (without going through Gamma-function critical points) would
+turn the prime cascade from a structural / bridging reading into a
+generative cascade. Whether this is achievable is open. The
+observation that the first three distinguished dimensions are atomic
+events and the fourth is a derived event with $19$ super primes at
+its tick is suggestive but not yet a derivation.
+
+% ============================================================
+\section{Foundational Commitments}\label{sec:foundational-commitments}
+% ============================================================
+
+This paper inherits the Prelude's foundational footprint without
+modification:
+
+\textbf{Sole pre-mathematical input.} Definition~$0 \neq 1$
+(\xref{prelude}{def:axiom}).
+
+\textbf{Foundational footprint.} Pure $\mathrm{RCA}_0$: natural
+numbers, $\Sigma^0_1$ induction, $\Delta^0_1$ comprehension,
+computable functions on $\mathbb{N}$, computable reals. The Monotone
+Convergence Theorem and stronger analytic principles are not
+foundational commitments; they appear in this paper only as
+bookkeeping shorthand when stating asymptotic results.
+
+\textbf{Analytic content as computable processes.} The chain-count
+asymptotics, $\Sigma(N) \sim (\pi^2/12) N^2$, and the divisor-density
+results are all $\mathrm{RCA}_0$-expressible convergence statements
+about computable sequences; no completed real is named at the limit.
+At any finite resolution depth $N$ every quantity in this paper has
+a specific rational value.
+
+\textbf{Downstream bookkeeping.} The closed-form notation
+(asymptotic relations, integral identities) is shorthand for
+finite-$N$ statements on computable sequences, consistent with the
+Prelude's framing.
+
+\bigskip
+
+\begin{thebibliography}{99}
+
+\bibitem{prelude} RTAC, \extlink{\cascadebase/cascade-series-prelude.pdf}{\textit{The Cascade Series --- Prelude: Why Nothing Has Structure}} (2026).
+
+\bibitem{part0} RTAC, \extlink{\cascadebase/cascade-series-part0.pdf}{\textit{The Cascade Series --- Part 0: The Tower}} (2026).
+
+\bibitem{part3} RTAC, \extlink{\cascadebase/cascade-series-part3.pdf}{\textit{The Cascade Series --- Part III: General Relativity from Lovelock and Clifford}} (2026).
+
+\end{thebibliography}
+
+\end{document}
