@@ -155,6 +155,45 @@ target that well.
 3. **Disclosure of the search history.** Any record of observables tested against the correction
    grid and discarded would fix T and settle the family's evidential weight in either direction.
 
+## Addendum: the adelic compensator test
+
+**Tool:** `tools/research/cascade_adelic_compensator.py`
+
+**Motivation.** The cascade's primitives are exactly the archimedean local factor of the Riemann
+zeta function: Ω(d) = 2/Γ_ℝ(d+1) and p(d) = (log Γ_ℝ)′(d+1), with Γ_ℝ(s) = π^(−s/2)Γ(s/2)
+(verified to machine precision, Part A). In Tate's adelic picture the missing partners are the
+finite-place factors ζ_p(s) = (1−p^(−s))⁻¹ with ∏_p ζ_p(s) = ζ(s), and the Freund–Witten adelic
+product formula (A_∞ · ∏_p A_p = 1 for the Veneziano amplitude) supplies a physics precedent for
+"the archimedean quantity is completed by a zeta compensator." The testable conjecture: the
+empirical corrections to cascade leading-order quantities are δ ln X = ±ln ζ(d+1) at X's layer d.
+
+**Result: the conjecture fails as a general mechanism.**
+
+- **Strict layer-deterministic scorecard (Part C):** of seven observables with layer assignments,
+  one hit (m_τ/m_μ via ln ζ(6), 0.30σ — but only after dropping the μ-layer factor; the canonical
+  ratio ln[ζ(6)/ζ(14)] misses at 1.2σ), two loose "nears" with huge σ, and four misses including
+  two catastrophic ones: m_τ absolute at 65σ and sin²θ_W at 64σ. The ζ-ladder has only one rung
+  (ζ(6) ↔ 1.72%) in the 1–2% band where the corrections cluster; the α(d*)/χᵏ grid has several.
+- **Head-to-head grid comparison (Part D):** scored with the identical P(any)/bits machinery over
+  a common span, the ζ-grid carries **0.0 bits** total (its dense tail of tiny members makes
+  small-shift matches free) against **14.7 bits** for the papers' α-grid. The correction family is
+  *better* explained by the cascade's own structure than by the adelic one.
+- **Exact-residual test (Part E):** the 1/α_em lead-formula residual is +5.672×10⁻⁵, known to
+  ~10⁻¹⁰. The best adelic candidate, ln ζ(14) = +6.125×10⁻⁵, is off by 8% of the residual — a
+  definitive miss at the available precision. Adelic corrections to ρ_Λ are ~10⁻⁶ relative,
+  four orders below observational error: untestable, trivially consistent.
+
+**The survivor.** ln ζ(6) = ln(π⁶/945) = 0.0171943 and the papers' α(14)/2 = 0.0172312 are two
+structurally unrelated constants that *bracket* the measured m_τ/m_μ correction
+(0.0172152 ± 0.0000678) at −0.30σ and +0.24σ respectively. The current PDG m_τ error (±0.12 MeV)
+cannot discriminate between them. The two candidates differ by 3.7×10⁻⁵ (0.54σ); an m_τ
+measurement at **±0.02 MeV** (a ~5× improvement, within reach of Belle II) would separate them at
+3σ — a rare case where a numerological dispute has a scheduled experimental adjudication.
+
+**Bottom line:** the "other half of ξ" reading is aesthetically compelling and structurally exact
+at the level of identities, but as a *quantitative* completion mechanism it is refuted everywhere
+it can be tested, with one measurement-limited exception. In audit terms it contributes 0 bits.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
