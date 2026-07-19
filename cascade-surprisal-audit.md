@@ -1715,6 +1715,54 @@ identity links them (3π²/(4πe·cos30) = π√3/2e = 1.000889); at most one is
 output. **The named joint carrying the entire residual fit: the threshold-crossing process
 identification** — T6's activation mechanism or T4 uniqueness. No selection is made.
 
+## Addendum 38: the activation mechanism — assembled from the theorems, one survivor
+
+**Tool:** `tools/research/cascade_activation_mechanism.py`
+**Stopping-rule compliance:** category (a) — T6's activation joint. **Check-4 category:**
+novel (b). **Bias disclosure up front (J3):** the target value ~29.6 was known before this
+derivation was constructed. The defences: every ingredient is a pre-existing proved theorem
+(T2, T6, T8, S4-anchor), none invented here; the discriminating principle was not needed to
+fit anything; the result posts a falsifiable JUNO stake.
+
+**The mechanism (M1–M4).** At each subcritical marked twist (T6's forced set {5, 13}):
+
+- **M1 — period completion.** Between consecutive marked twists the descent completes one full
+  period of the ℤ/8 Weil grading; a full period is **four quarter-turns** (γ² = i, verified;
+  (γ²)⁴ = 1).
+- **M2 — quarter-turn unit.** Each quarter-turn carries the Gaussian unit Γ(½) (T2; papers'
+  Part-0 quarter-turn constant — inherited joint J1). One full period accumulates
+  **Γ(½)⁴ = π² exactly**.
+- **M3 — channel count.** An active crossing opens the time-coupled marked classes as
+  transmission channels: N_gen = |{5, 13, 21}| = 3, counted incoherently (inherited joint J2,
+  the same reading as A23's copy selection).
+- **M4 — supercritical crossings are inert.** Above threshold the marked class hosts no O(1)
+  state — no channel opening, no member. This completes T6's conditional: the counting is
+  "subcritical only" *because* activation requires a host.
+
+**⟹ E = N_gen·Γ(½)⁴ = 3π² = 29.6088 — the mechanism's output, not a fitted choice.**
+
+**The exclusion — nine of ten forms die on principle.** Under the *proved* atom meanings, a
+composite attaches only where its atoms' generating processes exist. At a colourless crossing:
+cos(π/6)/sec(π/6)/√3 cannot attach (T8: trace-duality pairings in the colour ring ℤ[ω], unique
+to disc −3 — and √3 = |different(ℚ(ζ₃))| is colour-ring data); e-powers cannot attach (S4
+anchor: e^(½) per *measured* mode — e needs two colour Cartan modes, e² four). The survivor
+scan of Addendum 37's ten window forms: **N_c·π² is the unique colour-free form in the entire
+window.** Both A29 twins (2πe√3, 4e²) are excluded — 2πe√3 doubly so.
+
+**Frozen consequences.** m₁ = 2.567, m₂ = 9.073, m₃ = 49.28 meV; **Σ = 60.91 meV** (the ±0.35
+form-systematic of A37 collapses); Δm²_sol = 7.5724×10⁻⁵ eV² (+0.24σ). **JUNO stake:** the
+mechanism survives only if Δm²₂₁ lands within ~0.6% of 7.572×10⁻⁵; the excluded twins sit
+0.5–1 JUNO-σ away (marginal but directional — a low-landing value re-opens them and kills the
+exclusion principle); anything below 7.5×10⁻⁵ kills the mechanism outright.
+
+**Cross-sector coherence.** The quark Gen2→Gen1 descent crosses the same threshold once; the
+mechanism yields the same E there with N_c = N_gen = 3 numerically coincident — A23's factor
+is this mechanism's output at the quark crossing ((c/u)/(s/d) = 29.62 ± 1.0, +0.01σ).
+
+**Grade.** Tier-2, with joints J1 (Γ(½) per quarter-turn, inherited), J2 (incoherent
+channels, inherited), J3 (the bias disclosure). Not a theorem — but the last fitted number in
+the framework is now a mechanism output with a scheduled executioner.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
