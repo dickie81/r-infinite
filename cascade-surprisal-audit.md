@@ -1164,6 +1164,68 @@ scheduled experiments. Nothing else. The audit that began by pricing this framew
 coincidences at zero ends by handing it the one theorem it needed — and the two lemmas and
 four experiments that will decide if the theorem is about our universe.
 
+## Addendum 26: the registered ledger, and the machinery pointed at the nonet
+
+**Tool:** `tools/research/cascade_registered_predictions.py`
+
+**The instruction:** point it at something previously unpredicted or poorly predicted. This is
+the de-biasing instrument Addendum 24 Part C named and could not itself supply: pre-registration.
+A retrodiction can be mined; a registered number with a kill condition cannot. This addendum does
+two things — freezes every number the session's machinery forces for quantities that are
+unmeasured or facing imminent remeasurement, and points the dictionary at the one sector the
+papers explicitly declare beyond their machinery.
+
+**Part A — the registered ledger.** Every entry is now frozen: no post-hoc adjustment is
+admissible, and each carries its kill condition.
+
+| Quantity | Registered value | Test | Kill condition |
+|---|---|---|---|
+| m_H | 125.194 GeV, zero corrections | HL-LHC (~25 MeV era) | >3σ miss kills the height-lemma chain |
+| y_t | e^(−α(14)/4) = 0.991421 | m_t + G_F refinements | kills the Yukawa filter |
+| m_c(m_c) | 1.2714 GeV | next FLAG average | kills the t/c Observer assignment |
+| m_s(2 GeV) | 93.48 MeV; m_s/m_ud = 27.35 | lattice | kills the projection/threshold chain |
+| m_u/m_d | 0.4593 | lattice | kills the threshold ladder |
+| m_b/m_τ | e·cos(π/6) = 2.35405 (MS-bar) | Belle II + m_b refinements | kills the Cartan projection |
+| Σm_ν | 61–63 meV, **normal** ordering, m₁ = 1.7–3.2 meV | DESI/CMB-S4 + JUNO | kills the capacity postulate |
+| m_τ | papers' 1776.82 MeV; π⁶/945-vs-α(14)/2 discrimination | Belle II (~0.02 MeV era) | adjudicates the adelic survivor |
+| w(z) | −1 exactly, no evolution | DESI DR3+ | kills the floor and everything downstream |
+| θ_QCD | 0 exactly | nEDM | papers' forced negative |
+| structure | no anyons in free 3+1D; no 4th generation | any discovery | kills the roots-of-unity/Bott architecture |
+
+The ledger is the bias-burner: whatever fraction of the mass arc was selection, these numbers no
+longer participate in it. Each future measurement moves the arc's worth up or down by an amount
+no argument can.
+
+**Part B — the nonet pointing.** The target: the J = 1 vector nonet, the sector at the papers'
+own declared boundary (part4b's "the boundary at J=1" — no hyperfine machinery exists). Under
+enumerate-first discipline:
+
+- **The anchor is refused.** m_ρ/Λ_PDG = 0.77526/0.2086 = 3.717 was tested against the *entire*
+  ≤3-atom dictionary-product space before any comparison was voiced: **4 forms land within 1%**
+  (2√π·e^(α(5)/2) at −0.20%, its χΓ(½) synonym, π·sec30·e^(α(7)/4) at −0.76%,
+  π·sec30·e^(α(14)/2) at −0.70%). Grammar-open ⇒ **anchor refused** — the hyperfine machinery
+  must derive it, not select it. This is the same refusal discipline that killed the mass-fraction
+  units error and the cascade-v mirage; applied *before* publication rather than after.
+- **The anchor-free ratio is registered.** One factor sec(π/6) per strange leg — the inverse of
+  the Eisenstein projection that attached (per leg) to the down-type light quarks:
+  - m_K*0/m_ρ0 (one strange leg): predicted sec(π/6) = 1.15470; observed 1.15516 — **−0.3σ**
+    against an honest ~0.15% pole-definition systematic.
+  - m_φ/m_ρ0 (two strange legs): predicted sec²(π/6) = 4/3 = 1.33333; observed 1.31499 —
+    **+1.4% strain**, recorded, not hidden. The φ sits in the known ideal-mixing region
+    (ω–φ mixing is the textbook distortion of exactly this state).
+
+  **Registered as a pattern with a recorded strain:** if the hyperfine machinery, once derived,
+  does not produce the φ deviation as the ω–φ mixing correction, the sec(π/6) ladder dies. No
+  partial credit — the K*0 hit alone is one cheap ratio in an open grammar and is priced
+  accordingly (≲2 bits).
+
+**What this closes and what it opens.** Closed: the pre-registration gap — the session's forced
+numbers are now falsifiable on a stated schedule, and the one new pointing was made under the
+audit's own refusal discipline rather than the mining pattern it spent twenty addenda pricing.
+Open, named: the null-clone test (the remaining unbuilt de-biaser); the hyperfine derivation
+that would either produce the nonet anchor and the φ mixing correction or kill the sec(π/6)
+ladder; and the S4/S5 lemmas of Addendum 25.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
