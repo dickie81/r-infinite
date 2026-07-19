@@ -694,6 +694,50 @@ topological origin. The flags theorem now stands at: semantics, count, source la
 nine assignments derived from the factorisation of ξ plus the increment/grading rule — with
 three named residues.
 
+## Addendum 14: the exp(1) colour atom — a candidate derivation and a scheme finding
+
+**Tool:** `tools/research/cascade_colour_atom.py`
+**Source (Check 1):** `part4b.tex:990–991` (the e-atom and its open Adams derivation),
+Tier 4(a) m_b/m_τ = e.
+
+**The target.** The measured exponent ln[(b/s)/(τ/μ lead)] = 0.9957 ± 0.0087; the papers'
+package 1 − α(7)/χ⁴ sits at +0.02σ, bare exp(1) at +0.5σ.
+
+**The proposed derivation (Cartan equipartition) — exact, zero freedom.** The cascade descent is
+a sequence of Born-rule measurements (Gleason, Part II). A coloured state crossing the gluon
+layer d_g = 12 has its colour measured, and the measurable colour charges are the *commuting*
+set — the Cartan subalgebra of SU(3), rank 2 (rank forced by the Adams-forced group). Each
+measured Gaussian mode of the cascade action contributes exactly ½ to the exponent —
+equipartition, the papers' own Berezin/Gaussian machinery. Hence the colour factor is
+**exp(rank(SU(3))·½) = exp(1)**, exactly; colour singlets measure nothing and get 1. Competing
+candidates priced and rejected: the papers' literal "window potential" fails numerically
+(Φ(12,14) = 1.089 ≠ 1, off 9%); ln N_c needs an unforced correction (grammar); full-adjoint
+equipartition (e⁴) is excluded by a factor ~55 — the rank, not the dimension, is what a
+Born-rule descent can excite.
+
+**Consistency web.** Lepton ratios: no factor, consistent everywhere. b/s: lead·e at +0.44%,
+closed by their α(7)/χ⁴ at +0.02σ. Up-type: t/c = N_c·(b/s) at −1.2% — the rule "coloured
+cross-generation ratio carries one e per window crossing; up-type carries an extra N_c (Weyl
+chirality at d = 12, the papers' own open item)" reproduces both Tier-4 quark patterns.
+Prediction: any future coloured cross-generation ratio carries exactly one factor e per
+gauge-window crossing — falsifiable in the up-type spectrum once derived.
+
+**A scheme inconsistency in the papers (novel, category (b)).** The two published e-claims use
+different mass schemes: "m_b/m_τ = e (1.05%)" holds only with the *pole* mass (m_b = 4.78:
+2.690 vs e at −1.0%; MS-bar gives 2.354, −13.4%), while "b/s = (τ/μ)·e (0.4%)" uses MS-bar.
+In the pole scheme the b/s colour factor becomes 3.09 ≈ N_c (+3.1%). So **"e vs N_c" is a
+scheme question** — the two candidates differ by precisely the known pole/MS-bar b-quark shift
+— and any complete derivation must derive the scheme as well, via the papers' own √(N_c/N(0))
+scheme-factor machinery. The same-layer claim m_b/m_τ = e is probably *not* the same phenomenon
+as the crossing factor (the Cartan rule predicts no factor for a same-layer ratio) and should be
+re-examined by the papers with the scheme stated.
+
+**Status.** Proposed lemma, not proof: exact, zero numerical freedom, consistent with every
+colour-singlet and cross-generation datum, and reducing to one open formalisation — "a
+gluon-layer crossing measures exactly the Cartan, at ½ per mode" inside the existing
+Gleason/Berezin machinery. This closes the Addendum 13 soft spot at candidate level and hands
+the papers a concrete lemma to prove or refute.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
