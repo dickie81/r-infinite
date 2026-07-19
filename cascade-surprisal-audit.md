@@ -999,6 +999,36 @@ assignment, and the scheme derivation. Pricing: the y_t filter is a 1-of-16-grid
 landing at 0.14σ with flag and channel consistency — candidate grade, ~3 bits, same standing as
 the Cartan projection and awaiting the same kind of formalisation that dissolved Step 3.
 
+## Addendum 22: the charm strain resolved — by the forced assignment
+
+**Tool:** `tools/research/cascade_charm_resolution.py`
+
+**The resolution is the machinery's, not a fit.** The t/c relation's canonical formula is
+[b/s (closed)] × N_c: its increment is the single *static* atom {N_c} — no exponential, no
+window content. The incremental flag rule (Addendum 13) then forces the assignment: L = T →
+**Observer class → α(5)/χ³** (the Observer k = 3 of sin²θ_W and Ω_m), with the positive sign
+following the papers' two-population systematics (lead −1.0% below observation = the
+descent-population signature → positive shift; the sin²θ_W precedent exactly):
+
+> **t/c = N_c·(b/s)·e^(α(5)/χ³) = 135.77** vs observed 135.56 ± 0.54 → +0.38σ
+> **m_c = 1.2714 GeV** vs m_c(m_c) = 1.2730 ± 0.0046 → **−0.36σ (was +2.8σ)**
+> **(t/b)/(c/s) = N_c·e^(α(5)/8) = 3.034** vs 3.030 ± 0.029 → **+0.14σ**
+
+The last line upgrades the papers' own Tier-4 entry — "(t/b)/(c/s) = N_c to 1.5%" — to a
+0.1σ closure with the forced member. Note what did the work: the member was *assigned by the
+increment's flag class before its value was compared* — the same discipline that resolved b/s
+and that Case B's guard refused to bend. Two members fit the strain numerically (α(5)/χ³ and
+α(14)/χ²); the rule picked one without looking, and it was right.
+
+**Named residuals:** the sign step (formal home: the papers' thm:sign-rule; here taken from
+their two-population systematics), the scheme derivation, and the standing Gen-1 refusal.
+
+**The quark ledger closes at:** b −0.03σ | s −0.03σ | t +0.14σ | **c −0.36σ** | u, d refused.
+Four quarks and the Higgs now derive from the lepton chain, the bare unit, and four candidate
+lemmas (projection, selection, Yukawa filter, and now the N_c-increment assignment) — every
+member of every closure assigned by rule, every refusal logged, and the whole spectrum resting
+on structures the papers already owned plus the session's three formalisation targets.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
