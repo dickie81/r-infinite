@@ -401,6 +401,60 @@ close is a reading, not a result. Net new evidential weight for the cascade: ~1.
 bits. Falsifiable seams left open: the Belle II m_τ discrimination (Addendum 1), the log-periodic
 DESI template, and an independent derivation of the census freeze-out tick.
 
+## Addendum 7: the matter ledge at one-sixth — a two-capacity derivation
+
+**Tool:** `tools/research/cascade_matter_ledge.py`
+
+**The observation (Addendum 6 tooling).** Expressed as exponents q of the 120.146-decade
+hierarchy (m = M_Pl,red·10^(−q·120.146)), the entire charged-fermion and hadronic mass spectrum
+occupies a thin band q ∈ [0.140 (top), 0.186 (electron)] — "all matter at one-sixth" — with the
+neutrino and the vacuum scale together near q = 1/4. The statement q = 1/6 is algebraically
+identical to Zel'dovich's 1967 relation ρ_Λ = m⁶/M_Pl² (temporal form: Weinberg's
+H ~ m_π³/M_Pl²). A cautionary result from the same session is recorded with it: computing the
+q-table with full-Planck masses against the reduced-Planck hierarchy manufactures four-decimal
+matches to 1/7 and 1/2π that evaporate under consistent units — unit conventions are part of the
+numerological grammar.
+
+**The derivation (one postulate; cascade-admissible ingredients only):**
+
+1. The Ω-floor ρ_Λ = 7.15×10⁻¹²¹ M⁴ (Part I) fixes a *static* de Sitter radius
+   R = √(3/ρ_Λ) = 2.05×10⁶⁰ ℓ_Pl — a GR identity (Part III/Lovelock). Staticness matters:
+   everything downstream is pinned to the floor, so w = −1 survives and nothing drifts.
+2. The horizon carries S = A/4 = πR² = 1.3×10¹²¹ nats — derived natively in Part II=III
+   (boundary dominance; no semiclassical machinery).
+3. **The postulate (the adelic selection rule of Addendum 6, elevated to a premise):** the two
+   factors of ξ saturate *different* capacities of that horizon. The archimedean sector
+   (vacuum/energy/geometry) is bounded by the *energy* capacity E ≤ R (Cohen–Kaplan–Nelson
+   no-collapse), saturating at Λ_E = R^(−1/2) = 1.7 meV — the quarter scale ρ^(1/4). The
+   arithmetic sector (matter = information-bearing content) is bounded by the *information*
+   capacity: its distinguishable modes cannot exceed the horizon's bits, m³·(4π/3)R³ = πR².
+4. Solving: m = (S/V)^(1/3) = **17.4 MeV, q = 0.1677 vs 1/6 = 0.1667** — inside the observed
+   band, at its centre, with no mass input. Eliminating R yields ρ_Λ ~ m⁶/M² up to O(1):
+   **Zel'dovich derived, causal arrow vacuum → matter.** The sixth is the area-to-volume scaling
+   ratio (2/3) times the vacuum's quarter — geometry's surface-to-bulk ratio, nothing else. One
+   principle thus places both distinguished fractions of the mass table: energy saturation gives
+   the quarter (vacuum/neutrino floor), information saturation gives the sixth (matter ledge).
+
+**Pricing (audit conventions).** The assembly is known physics — CKN bounds, holographic
+counting, Zel'dovich's identity — plus exactly one new ingredient: the selection rule *matter
+saturates the information bound because matter is the arithmetic sector*. Not a zero-parameter
+theorem; a one-postulate assembly. The observed band occupies 4.6% of the available exponent
+range and the derivation lands at its centre from the vacuum side alone: **~4.4 bits** against a
+free-ledge null. Predicts the ledge's location (~17 MeV, light-quark territory) and its
+staticness (tied to R_dS — consistent with atomic-clock drift bounds and w = −1 exactly);
+predicts *no* ledge structure for sectors without arithmetic content (pure geometry — none
+observed; a weak survived check). Does **not** predict the band's width, any individual mass,
+the electroweak adjacency, or which species saturates. **Falsifier:** confirmed dark-energy
+evolution (DESI w(z)) breaks the staticness the construction requires — the same kill-shot that
+governs the cascade proper.
+
+**Net position after Addenda 6–7:** the arithmetic-clock picture now carries ~1.4 contingent
+bits (leptogenesis intersection) + ~4.4 bits (ledge placement) on one interpretive postulate,
+alongside the cascade's own audited totals. The open derivational targets, in order of
+tractability: the transmutation route to q_QCD from Part IVb's coupling leads (all ingredients
+present in the papers; theorem unwritten), an independent derivation of the census freeze-out
+tick, and the Belle II m_τ discrimination already on the board.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
