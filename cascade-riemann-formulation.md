@@ -91,8 +91,8 @@ indistinguishability of the event stream from the GRH-governed one.
 
 | # | Gap | Type | Closes when |
 |---|---|---|---|
-| 1 | Increment rule (A3) underived | axiom → theorem | derived from ξ's factorization as the flags were |
-| 2 | Per-period attachment (A3) underived | axiom → theorem | same; currently a reverse-engineered fit (A29 amendment) |
+| 1 | Increment rule (A3) | **derived at Tier-2** (Addendum 32) | ξ-partition exclusivity + simplicity lemma (rigorous: trigamma positivity) + monotone descent; inherits P>L>G, gauge window, chirality-rule proof |
+| 2 | Per-period attachment (A3) underived | axiom → theorem | currently a reverse-engineered fit (A29 amendment); does NOT inherit Addendum 32 |
 | 3 | S4 lemma: measurement-at-typical-value | axiom → theorem | a variational or information-theoretic derivation |
 | 4 | S5 lemma: root-frame projection | axiom → theorem | representation-theoretic derivation |
 | 5 | Sign rule | axiom → theorem | papers' own open item |

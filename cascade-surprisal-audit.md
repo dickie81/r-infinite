@@ -1468,6 +1468,51 @@ The document's summary sentence stands as the audit's final formal position: a p
 a conditional uniqueness theorem, two partially-derived assignment axioms, and one physical
 conjecture that no mathematics can settle.
 
+## Addendum 32: the increment rule derived from the factorisation of ξ
+
+**Tool:** `tools/research/cascade_increment_rule.py`
+**Sources read directly (Check 1):** part4b.tex lines 1291–1333 (chirality selection rule
+χ^(m−k), its proof and observable table), 1840–1852 (slot-precedence exclusivity: *"Adding both
+for source-selectable observables would double-count the same underlying loop contribution"*).
+**Stopping-rule compliance:** category (a) — gap #1 of the formulation, checkable without data.
+**Check-4 category:** novel (b) — the rule was an axiom (A3) in `cascade-riemann-formulation.md`.
+
+**The rule.** A closing observable carries *at most one* member exp(±α(d\*)/χ^(k−m)), at *first
+power*, sourced at the unique analytic feature of its ξ-occupancy class; local-constant
+content carries none. Five-step derivation:
+
+- **S1 (Partition — ξ-native exclusivity).** log ξ = log(s(s−1)/2) + log Γ_ℝ + log ζ is a
+  partition of one analytic object; the flags (A12) are its occupancy functors, and an
+  observable's correction is its class's share of d log ξ. Drawing members from two summands
+  double-counts d log ξ — the ξ-form of the papers' slot-precedence argument. ⟹ at most one
+  source class per observable.
+- **S2 (Residue–increment correspondence — rigorous, A25).** The correction sourced at d\* is
+  the marginal-Green increment G(d\*)−G(d\*+1) = α(d\*), exact; the chirality grading
+  distributes it as χ^(m−k) (papers' theorem, proof read directly).
+- **S3 (Simplicity lemma — RIGOROUS, trigamma positivity).** Every feature of ξ's archimedean
+  summands has order one: ζ's pole at 1 is simple; Γ_ℝ's poles are simple; P′(s) = ψ′(s/2)/4 > 0
+  makes (log A)′ strictly decreasing, so the area feature (s₀ = 7.2569) is the *unique,
+  nondegenerate* critical point, and the exact recursion (log V)′(s) = (log A)′(s+2) transports
+  this to the volume feature (s_V = 5.2569; verified: s₀ − s_V = 2.0000000000, both second
+  derivatives −0.07925); P strictly increasing makes the d₁ = 19 (P = ln Γ(½)) and d₂ = 217
+  (P = Γ(½)) crossings transversal and unique. **Order one ⟹ first power** — a squared member
+  would require a double feature the factorisation does not possess.
+- **S4 (Monotonicity — verified).** The descent lattice is totally ordered; single-site
+  perturbation of the sink-pinned chain shifts every spanning window's marginal ratio by
+  exactly α(d\*)·ε — linear, window-length-independent, zero when not spanned. Attach once,
+  first power, only in scope.
+- **S5 (Audit).** All nine closed observables conform: eight carry exactly one member, m_μ/m_e
+  (L-class) carries none; the reuse pairs share one feature across two observables (permitted —
+  S1 excludes two features on *one* observable), never the converse. No squared member exists
+  anywhere in the family.
+
+**Status.** The increment rule moves from **axiom to derived-at-Tier-2** — the same grade as
+the flags (A12), with the same inherited joints: the P > L > G precedence (motivated, not
+forced), the gauge window's topological origin (Adams), and the papers' chirality-rule proof.
+The genuinely rigorous new piece is the simplicity lemma: *first-power attachment is a theorem
+of trigamma positivity.* Gap #1 of the formulation ledger is closed conditionally; gap #2 (the
+per-period attachment rule of A29) does **not** inherit this derivation — it remains a fit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
