@@ -73,6 +73,15 @@ Its numerical shadow exists — the null-clone test's credited column measures h
 alternatives the rules leave (2–11 per stage) — but a proof requires showing every alternative
 assignment violates an axiom. Open.
 
+**T9 (Quenched-record theorem — PROVED; Addendum 39).** For the forced Gaussian, the three
+candidate meanings of "recorded value" (r.m.s. point, mean-action point, AEP-typical point)
+coincide exactly (−ln f(x) − h = S(x) − ½ identically); a record's weight is the quenched
+(geometric-mean) average — the almost-sure multiplicative rate of compounding records
+(Kolmogorov LLN, concentration 1/√(2n)) — giving e^(±r/2) exactly at every rank r via
+⟨S_r⟩ = r/2 (T5-P4). S4's entire content reduces to two identities + one LLN theorem + the
+definitional clause **D1**: a measurement is a repeatable record whose weight compounds
+multiplicatively over independent realizations.
+
 **T8 (S5 as trace duality — PROVED; Addendum 36).** The su(3) roots are the units μ₆ of ℤ[ω]
 (point-by-point); the measurement frame is the trace-dual lattice — the inverse different
 𝔡⁻¹ = (1/√−3)ℤ[ω], which is the ring rotated exactly 30° modulo unit rotations; the su(3)
@@ -128,7 +137,7 @@ indistinguishability of the event stream from the GRH-governed one.
 |---|---|---|---|
 | 1 | Increment rule (A3) | **derived from arithmetic first principles** (T5, Addendum 33; supersedes the Tier-2 A32 version) | closed as mathematics; only its physical instantiation (occupancy, m/k counts) remains with C1 |
 | 2 | Per-period attachment (A3) | **shape derived** (T6, A34); **activation mechanism derived at Tier-2** (A38): one ℤ/8 period = 4 quarter-turns × Γ(½) each, × N_gen = 3 channels ⟹ E = 3π² selected — the unique colour-free form among A37's ten (T8/S4 atom-meaning exclusion kills the other nine) | remaining: joints J1 (Γ(½)/quarter-turn, inherited), J2 (incoherent channels), the marked-coset choice; JUNO stake: Δm²₂₁ within ~0.6% of 7.572e-5 or the mechanism dies |
-| 3 | S4 lemma: measurement-at-typical-value | anchor discharged (T5: E[πx²] = s/2 is an arithmetic identity); joint still physical | a variational or information-theoretic derivation of the joint |
+| 3 | S4 lemma: measurement-at-typical-value | **derived** (T9, Addendum 39): typicality unambiguous (three notions coincide exactly), factor = quenched rate forced by LLN, all ranks exact | residue: definitional clause D1 (records compound multiplicatively) — no tunable content |
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | **derived** (T7, Addendum 35): one convexity structure — Bohr–Mollerup log-convexity off/at the Cauchy–Schwarz equality manifold + ℤ/8 coset computation | population-class assignment remains instantiation |
 | 6 | T4 uniqueness | unproved theorem | an exhaustion proof over the A2×A3 assignment space |

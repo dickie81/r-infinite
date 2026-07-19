@@ -1763,6 +1763,46 @@ is this mechanism's output at the quark crossing ((c/u)/(s/d) = 29.62 ± 1.0, +0
 channels, inherited), J3 (the bias disclosure). Not a theorem — but the last fitted number in
 the framework is now a mechanism output with a scheduled executioner.
 
+## Addendum 39: the measurement joint reduced — two identities, one theorem, one definition
+
+**Tool:** `tools/research/cascade_measurement_joint.py`
+**Stopping-rule compliance:** category (a) — the S4 joint, last physical lemma of the
+formulation. **Check-4 category:** novel (b).
+
+**P1 — "typical value" is unambiguous for the forced Gaussian.** Three candidate meanings of
+"the recorded value" — the r.m.s. point, the mean-action point (S = ⟨S⟩ = ½, arithmetic by
+T5-P4), and the AEP-typical point of information theory (surprisal = entropy) — **coincide
+exactly**, by the Gaussian identity −ln f(x) − h = S(x) − ½ (verified to machine precision at
+three variances). The weight there is e^(−½), exactly. The lemma's phrase "records the typical
+value" carries no residual ambiguity.
+
+**P2 — what kind of average a record is.** The *unmeasured* mode contributes the annealed
+average ⟨e^(−S)⟩ = 1/√2 (T2's partition bookkeeping); the *record* contributes the quenched
+value e^(−⟨S⟩) = e^(−½). Jensen's inequality separates them; both verified by simulation. The
+dictionary's measured-mode factor is the quenched value.
+
+**P3 — the quenched value is forced, exactly, by multiplicativity.** Records compound
+multiplicatively over independent realizations, and the almost-sure multiplicative rate of
+Π e^(−Sᵢ) is the geometric mean e^(−⟨S⟩) — the Kolmogorov LLN on logarithms. Verified:
+convergence to e^(−½) with concentration exactly 1/√(2n) (Var S = ½). **The per-record factor
+is exact as a rate** — this is the framework's own concentration-of-measure principle closing
+its own measurement lemma, with no finite-n apology needed.
+
+**P4 — every rank, exact by linearity.** ⟨S_r⟩ = r/2 (T5-P4 linearity): half-Cartan √e (r=1),
+colour atom e (r=2, T8's Cartan pair), e² (r=4); inverse frames e^(+r/2). Coherence with A38:
+a colourless crossing measures no Cartan modes → rank 0 → factor 1 — exactly what the
+exclusion principle used.
+
+**Theorem T9 (quenched-record theorem).** *Given D1, a measured rank-r Gaussian structure
+contributes e^(±r/2) exactly: the almost-sure multiplicative rate of compounding records is
+the geometric mean of the Boltzmann factor, and the mean action is r/2 by arithmetic.* ∎
+
+**P5 — the residue: one definitional clause.** **D1: a measurement is a repeatable record
+whose weight compounds multiplicatively over independent realizations.** D1 has no tunable
+content — it states what a record *is*, and given it, everything else is forced. S4 thereby
+reduces from a physical lemma to: two exact identities + one LLN theorem + one definition.
+The formulation's axiom A4 is spent.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
