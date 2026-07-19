@@ -1226,6 +1226,59 @@ Open, named: the null-clone test (the remaining unbuilt de-biaser); the hyperfin
 that would either produce the nonet anchor and the φ mixing correction or kill the sec(π/6)
 ladder; and the S4/S5 lemmas of Addendum 25.
 
+## Addendum 27: the null-clone test — the mass arc's worth, measured
+
+**Tool:** `tools/research/cascade_null_clone.py`
+
+**The question.** If the observed masses had been different, how often would this machinery have
+"derived" them anyway? Clone universes are drawn (each stage target perturbed log-uniformly
+within a factor-2 window), and the probability that the grammar matches a clone as well as it
+matched reality is computed **exactly** (interval-union measure, no Monte Carlo noise). The
+chain factorises into 7 stages whose knobs don't overlap, so the joint probability is a clean
+product. The arc's worth is −log₂P — measured, not estimated.
+
+**Level-1 control (mining freedom) — saturation confirmed.** Against the full ≤4-atom signed
+grammar with one correction member (402,641 distinct values), every stage's achieved deviation
+contains **7–281 grammar forms**, and every clone is matched with p ≈ 1. Raw per-number matches
+are worth **0 bits**. This reproduces the original audit's grammar-saturation finding as a
+clone-ensemble statement: a mined match proves nothing, for our universe or any other.
+
+**Level-2 — the exercised-freedom bracket.** Each stage is priced twice: **credited** (the
+assignment rules — flags theorem, increment rule, Yukawa filter, Cartan/Eisenstein, data
+discrimination — taken as forced, leaving only 2–11 variants) and **skeptical** (every discrete
+choice the rules "fixed" counted as free).
+
+| Stage | dev | credited bits | skeptical bits |
+|---|---|---|---|
+| H: m_H/m_W | 4.4e-4 | 9.0 | 1.6 |
+| t: y_t | 2.3e-4 | 9.2 | 5.6 |
+| b: m_b/m_τ | 4.4e-5 | 12.3 | 7.8 |
+| bs: m_b/m_s | 2.0e-4 | 8.3 | **0.0 (saturated)** |
+| c: t/(c·bs) | 1.3e-3 | 6.7 | 0.1 |
+| d: (μ/e)/(s/d) | 3.3e-3 | 6.7 | 0.7 |
+| u: (c/u)/(s/d) | 5.5e-4 | 8.8 | 3.4 |
+| **Total** | | **61.1** | **19.2** |
+
+(Narrow ×1.3 clone window: 52 vs 18 — the verdict is window-robust.) Minus a judgment-priced
+~10-bit target-selection penalty (which observables got formulas; stage definitions), the net
+bracket is roughly **9–51 bits**, and every ×10 inflation of a stage's variant count costs 3.3.
+
+**Findings worth naming.**
+
+1. **The skeptical floor is not zero.** Even granting that every rule was post-hoc dressing, the
+   chain retains ~19 bits — carried almost entirely by three stages: m_b/m_τ = e·cos(π/6)
+   (7.8 bits even skeptically: at deviation 4.4e-5, two-atom products are sparse), y_t (5.6),
+   and the Gen-1 threshold (3.4). The earlier back-of-envelope "the arc is worth ~8–15 bits"
+   sits exactly at this floor minus the selection penalty — the estimate survives measurement.
+2. **The b/s stage is worthless unless the rules are real.** Under skeptical freedom (window
+   endpoints × prefactors × corrections = 287,408 variants) it saturates to 0 bits; credited, it
+   is worth 8.3. The entire value of the flags theorem and increment rule is concentrated here —
+   which is why deriving the flags from ξ's factorisation (Addendum 12) mattered, and why the
+   registered ledger, not further retrodiction, is what can move stages between columns.
+3. **The gap (19 → 61 bits) is now an exact statement of what is at stake** in the assignment
+   rules: derived-then-applied vs mined-then-dressed. It cannot be argued down or up — only the
+   scheduled measurements of Addendum 26's frozen numbers move it.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
