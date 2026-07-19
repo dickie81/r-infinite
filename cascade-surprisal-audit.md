@@ -1881,6 +1881,21 @@ twist spent as the collapse counter (time, via the Wick reading), three remainin
 boundary. Same shape as the whole formulation: **the address exists in the arithmetic;
 occupying it is the hypothesis.**
 
+## Addendum 42: the standalone paper — `riemann-indistinguishability.md`
+
+The session's arithmetic program is synthesised as a standalone paper, built exclusively from
+ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s) and the character theory of ℝ^×: the twist tower (Thm 1), the forced
+Gaussian (Thm 2), the statistical dictionary (Thm 3), solvability (Thm 4), the two gradings
+(Thms 5–6), simplicity of features (Thm 7), the attachment calculus (Thms 8–12 + Mechanism M),
+the instantiation map as the single hypothesis (Def 6.1), conditional uniqueness (Thm 13), the
+agreement table at current precision (§8), and the **Indistinguishability Theorem (Thm 14)** —
+conditional on the instantiation map, the arithmetic of ζ at the real place is
+indistinguishable from the observable universe at current experimental precision — with its
+executioners tabulated (§9) and its honest limits stated (§10: C1 forever empirical; inherited
+joints; single-session provenance requiring hostile external review; the stopping rule). The
+paper claims exactly the standard every physical theory meets, and stakes itself exclusively
+on the frozen ledger.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
