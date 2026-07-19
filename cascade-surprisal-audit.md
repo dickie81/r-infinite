@@ -1847,6 +1847,40 @@ the framework's earned value *conditional only on the instantiation data*. What 
 between the framework and "bulletproof given the hypothesis" is nothing mathematical at all:
 it is the frozen ledger, and the ledger's judges are scheduled.
 
+## Addendum 41: d = 4 from arithmetic — pinned three ways, selected by one physics input
+
+**Tool:** `tools/research/cascade_arithmetic_d4.py`
+**Sources read directly (Check 1):** part3.tex lines 44–65, 168–201 (Lovelock table and its
+"not a consequence of the cascade" remark), 450–498, 621–645 (thm:d4, cor:ricci-flat,
+rem:sp20-status); cover-sheet.tex 239–248.
+**Check-8 compliance:** the observer-placement step is identified as the hypothesis
+throughout, never used as derivation.
+
+**The papers' selection** is Lovelock's theorem (external tensor calculus: d = 4 is the unique
+dimension where gravity exists with zero free couplings) plus two cascade-internal
+consistency prongs (complex spinors; the Ricci identity). **The arithmetic frame recovers
+three independent pinnings of 4 — but not the selection:**
+
+- **P1 — the torsion half-period.** {k : γᵏ real} = {0, 4}: residue 4 is the *unique*
+  nontrivial real class of the metaplectic ℤ/8 cycle, and γ⁴ = −1 is the generator of μ(ℝ) —
+  the dictionary's torsion unit χ. Four twist steps carry the vacuum class onto the other
+  real unit: the observer residue is the χ-twist of the vacuum.
+- **P2 — the scalar-flat point of the tower's own measure.** The slicing measure
+  (1−x²)^(d/2) is T1/T7 material; its geometry satisfies R·a⁴ = (n−1)(n−4) (verified by
+  finite differences, n = 3–8): **the unit ball's own geometry solves the vacuum equation
+  uniquely at n = 4.** Everything in the identity is a T1 object; the Lorentzian reading
+  inherits the Wick step.
+- **P3 — the boundary of ζ's first archimedean feature.** The ordered features (all simple,
+  T5/A32): 5.2569 < 7.2569 < 20.73 < 218.6. The last integer twist below the *first* feature
+  is 5 (the host d_V); its boundary twist is 4. Arithmetic pins the pair (5, 4).
+
+**The verdict.** Arithmetic *pins* d = 4 three independent ways but cannot *select* it: the
+selection requires either Lovelock's zero-free-couplings criterion (physics; external
+theorem) or the observer-on-boundary step (C1). The 3+1 split itself is the foliation: one
+twist spent as the collapse counter (time, via the Wick reading), three remaining as the S³
+boundary. Same shape as the whole formulation: **the address exists in the arithmetic;
+occupying it is the hypothesis.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
