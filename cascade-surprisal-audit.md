@@ -738,6 +738,39 @@ gluon-layer crossing measures exactly the Cartan, at ½ per mode" inside the exi
 Gleason/Berezin machinery. This closes the Addendum 13 soft spot at candidate level and hands
 the papers a concrete lemma to prove or refute.
 
+## Addendum 15: Case B — the m_H/m_W residual cannot be forced closed today
+
+**Tool:** `tools/research/cascade_mhmw_case.py`
+**Sources (Check 1):** `part4b.tex:3040–3095` (the geodesic π/2 lives *on* S¹², the SU(2) window
+sphere — window-sphere content, no descent exponential), `part4b.tex:3276–3293` (the geodesic
+identification θ = (π/2)h/v is stated, not action-derived — the papers' own Tier-3 caveat).
+
+**The guard test that blocks the cheap closure.** The Gauge member −α(14)/χ² fits the needed
+shift (−0.00800 ± 0.00137) at 0.5σ, and the temptation is to widen the G flag to "any
+gauge-window occupancy" so the assignment becomes mechanical. Tested and **refuted**: sin²θ_W
+also contains window-layer statics (N(13), N(14)); under the widened G it would move Observer →
+Gauge, where its member misses at **15σ**. Window-layer static *values* must stay Observer; only
+window *descent exponentials* are Gauge. The flag system's integrity is what prevents the fit —
+the apparatus working as designed.
+
+**Underdetermination at current precision.** With σ = 0.00137 on the shift, at least three
+structurally distinct candidates sit within ~1σ: −α(14)/χ² (0.5σ), −α_em (0.5σ, a radiative-slot
+form like the m_μ/m_e closure), −α_em/(2π)·7 (0.1σ, but n = 7 unforced), with −α_s/4π at 1.0σ.
+Any closure claimed today would be selection, not forcing — precisely the failure mode this
+audit exists to prevent.
+
+**Two dated resolution paths.** (i) *Experiment:* HL-LHC-era m_H at ~25 MeV shrinks the shift
+uncertainty to 0.00021, separating the two leading candidates at ~6σ — Case B becomes
+empirically decidable. (ii) *Theory:* compute the geodesic normalisation dθ/dh from the cascade
+action rather than stating it (the papers' own caveat); an anharmonic/normalisation correction
+to π/2 of definite size would be the forced closure and would predict the residual before the
+data refines. Either path resolves it; neither is available tonight.
+
+**Status.** Case B reclassified from "flag-blocked" to "underdetermined with a guard-protected
+flag system and two dated adjudicators." The negative result carries real content: the selection
+rule survived an attempted widening that the data would have rewarded — evidence that the flag
+functor is a constraint, not a curve-fit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
