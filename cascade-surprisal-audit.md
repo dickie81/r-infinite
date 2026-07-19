@@ -194,6 +194,39 @@ measurement at **±0.02 MeV** (a ~5× improvement, within reach of Belle II) wou
 at the level of identities, but as a *quantitative* completion mechanism it is refuted everywhere
 it can be tested, with one measurement-limited exception. In audit terms it contributes 0 bits.
 
+## Addendum 2: the cascade lattice operator vs the Riemann spectrum
+
+**Tool:** `tools/research/cascade_lattice_spectrum.py`
+
+**Pre-registered question.** The cascade's one admissible native operator — the stiffness matrix
+of Part 0's elastic action S = Σ(2α(d))⁻¹(Δφ)² on the layer chain — was tested for (a) a
+Riemann-shaped counting function (θ(T)/π, the phase of the cascade's own Γ_ℝ on the critical
+line) and (b) GUE level statistics (the Montgomery–Odlyzko signature of the zeta zeros). Stated
+prior, recorded before computation: no on both — a deterministic 1-D Jacobi chain should be
+spectrally rigid.
+
+**Result: the prior held; the cascade-native route to a Hilbert–Pólya realization is closed.**
+
+- **Level statistics (decisive):** the operator's mean adjacent-gap ratio is 0.993 (d=4..217),
+  drifting to 0.999 as the chain lengthens — a rigid crystal. Calibrated same-size controls run
+  through the identical pipeline: Poisson 0.406, GOE 0.517, GUE 0.615, actual Riemann zeros
+  0.615. The operator is ~40σ of spacing-variance away from GUE; no boundary condition or chain
+  length changes this. 1-D deterministic chains are generically picket-fence; GUE requires
+  complex/chaotic structure the layer chain does not have.
+- **Staircase:** the λ-staircase prefers an E ln E fit (R² 0.996 vs 0.882 linear), but well below
+  the Riemann-zero control's 0.99996, and the extra parameter accounts for much of the
+  preference. Suggestive of nothing.
+- **Direct overlap:** the best affine map of the first 30 eigenfrequencies onto the first 30
+  zeros misses by 0.80 of a mean zero gap per level — no level-by-level correspondence. (A naive
+  bootstrap makes the overlap look "1.5% rare"; that reflects only the crudeness of the
+  comparison family and is explicitly disclaimed in the tool output.)
+
+**Interpretation.** If the finite places ever enter the cascade (the ζ(6) scenario of Addendum 1),
+the spectral object realizing them cannot be the layer-chain operator — it would have to be
+something non-1-D and complex-Hermitian that the current papers do not construct. In audit
+currency: 0 bits, door cleanly closed, with the controls demonstrating the pipeline would have
+detected a real GUE signature had one been present.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
