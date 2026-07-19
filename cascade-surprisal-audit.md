@@ -1069,6 +1069,50 @@ threshold-full-turn (π²), the half-Cartan-at-threshold (√e), the doublet ass
 rule, and the scheme. Pricing: the two new atoms are candidate-grade (~2–3 bits each, one
 data-discriminated); the u/d ratio is the freight-free result — it used no new freedom at all.
 
+## Addendum 24: the mass dictionary derived from Riemann — the epsilon-factor form
+
+**Tool:** `tools/research/cascade_epsilon_dictionary.py`
+
+**The construction.** Addendum 12 derived the *flags* as occupancy functors of ξ's factorisation;
+this addendum does the same for the mass *dictionary*: every atom used in Addenda 17–23 is
+identified as a **local constant of the adelic structure** whose archimedean factor the cascade
+is — giving the holonomy conjecture its Riemann statement, in the shape number theory already
+owns: the functional equation's constant factorises into local epsilon factors, ε = ∏ε_v, and
+**masses are epsilon-factor products along the descent**. The dictionary:
+
+| atom | number-theoretic identity |
+|---|---|
+| χ = 2 | \|μ(ℝ)\|: the torsion of the real units (the two real roots of unity — negation) |
+| Γ(½) = √π | the Γ value at the functional equation's symmetry point s = ½ |
+| 2π | χ·Γ(½)²: the period of the archimedean character e^(2πix) — Tate's self-dual measure |
+| ½ (equipartition) | the half-argument structure of Γ_ℝ(s) = π^(−s/2)Γ(s/2) — the Gaussian, Tate's self-dual test function |
+| N_c = 3 | 2^(v₂(12)) − 1: Radon–Hurwitz is a **2-adic invariant** (verified) |
+| e | exp(rank·½), rank = N_c − 1 |
+| cos(π/6) | the su(3) weight-root angle — the **Eisenstein lattice ℤ[ω]**, ring of integers of ℚ(ζ₃), home field of the cubic characters (verified from explicit root data) |
+| π² | Γ(½)⁴: the threshold full turn — four critical values |
+| 2π√e | character period × half a Cartan measurement |
+| α(d\*) members | the analytic features of Γ_ℝ (Addendum 12), assigned by the occupancy flags |
+
+**The one-rule recomputation.** The entire spectrum — H, t, b, c, s, d, u — is regenerated from
+the dictionary object in code with **zero per-case constants**: H −0.33σ, t +0.14σ, b −0.03σ,
+c −0.36σ, s −0.03σ, d −0.34σ, u −0.13σ. No number appears anywhere in the computation that is
+not a named local constant of the adelic structure.
+
+**The cyclotomic-tower observation** (recorded, priced at zero until it predicts): the
+dictionary's field content ascends the cyclotomic ladder — ζ₂ (chirality/negation), ζ₃ (the
+colour lattice), ζ₄ (the propagator phase i and the quaternionic Adams frame at S¹¹), ζ₈ (Bott
+periodicity). The gauge structure climbs the tower of roots of unity.
+
+**What this de-biases, and what it cannot.** Done: the bias surface collapses from ~20 runtime
+choices to one inspectable dictionary, every entry number-theoretically named, several exactly.
+Not done — stated with force: the dictionary was assembled *knowing the data*; the assignment
+joints (which constant attaches to which crossing) remain conjectural lemmas; and only the
+null-clone test (measure the selection capacity against fake spectra) and pre-registered novel
+outputs (PMNS, vector nonet, the next digits of m_H and m_τ) can burn off the residual bias.
+The theorem to prove has its final form: *the second-quantised cascade action generates these
+local constants as its epsilon factors.* That is one theorem, in one place, and everything in
+this ledger now either follows from it or falsifies it.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
