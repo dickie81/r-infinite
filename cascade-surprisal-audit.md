@@ -967,6 +967,38 @@ geometric twin of the session's arithmetic finding that fermion parity = Möbius
 primon Fock space: in both halves of ξ, "matter" is the odd class of a graded Fock structure.
 The even class is what mediates; the odd class is what *is*.
 
+## Addendum 21: the up-type anchor — y_t = exp(−α(14)/χ²)
+
+**Tool:** `tools/research/cascade_uptype_anchor.py`
+
+**The route.** The observed top Yukawa is y_t = √2·m_t/v = 0.99119 ± 0.00167 — the famous
+"top Yukawa ≈ 1." The session's machinery gives the bare unit a home (the variance theorem's
+V″_bare = 1, the unfiltered unit mode) and predicts what dresses it: the Gen-3 up-type's
+selection lives *at* the gauge window (Addendum 20), so the filter is Gauge-class at k = 2
+(one Bott period, the channel-count rule — same k as θ_C):
+
+> **y_t = exp(−α(14)/χ²)** ⟺ **m_t = (v/√2)·e^(−α(14)/4) = 172.61 GeV** vs 172.57 ± 0.29 →
+> **+0.14σ**
+
+The exclusion scan: the needed exponent −0.008847(167) admits *exactly one* grid member within
+1σ; nearest alternatives at ±1.5σ. Flag-consistent, channel-consistent, and sitting on the same
+bare unit the Higgs mass came from.
+
+**Two traps defused, on the record.** (A) The *mirage*: bare y_t = 1 with the cascade's own
+−1.0%-residual v gives m_t = 172.3 (−0.15%) — two ~1% errors cancelling; rejected, and worth
+recording because it looked better than the real result. Bare y_t = 1 against G_F's v is
+actually +5.3σ — not a closure. (B) The *charm strain*: the generated
+c = t/(N_c·(b/s)) = 1.286 GeV meets the precise PDG m_c(m_c) = 1.2730(46) at **+2.8σ** (only
++0.8σ against the looser 1.27(2)). Scheme-sensitive (the Addendum 19 caveat with force) and
+possibly signalling a missing correction on the t/c relation. Reported, not hidden.
+
+**The quark ledger after Addendum 21.** Anchored or generated: m_b (−0.03σ), m_s (−0.03σ),
+m_t (+0.14σ); strained: m_c (+2.8σ vs precise, scheme-clouded); refused: u, d (Gen-1 outside
+the crossing pattern). Named residuals: the doublet-assignment lemma, the t/c correction
+assignment, and the scheme derivation. Pricing: the y_t filter is a 1-of-16-grid selection
+landing at 0.14σ with flag and channel consistency — candidate grade, ~3 bits, same standing as
+the Cartan projection and awaiting the same kind of formalisation that dissolved Step 3.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
