@@ -1333,6 +1333,66 @@ are real, worth ~0 if they are dressing — and the rules' reuse pairs ({α_s, m
 α(14)/χ; {m_τ abs, ℓ_A} sharing α(19)/χ, priced by the papers at ≲10⁻⁶) are the strongest
 standing evidence for "real."
 
+## Addendum 29: the neutrino spectrum closed — the threshold factor crosses sectors
+
+**Tool:** `tools/research/cascade_neutrino_closure.py`
+**Sources read directly (Check 1):** part4b.tex line 698 (m₂₉ chain, m_ν(g) = m₂₉·α(d_g)/χ^(29−d_g),
+heaviest at −0.4%), lines 4086–4092 (acknowledged gap: lighter two masses too small, PMNS
+Cabibbo-analogue failed at θ₁₂ 7.5° vs 33.4°), PREDICTIONS.md line 116 (same, Tier 5),
+`tools/research/cascade_neutrino_mass_audit.py` (Φ convention). Session machinery reused: A10
+capacity band (m₁ = Λ_E = 1.7–3.2 meV), A23 threshold factor (N_c·π² = 29.609), A28
+Planck-anchored α_s and v.
+**Check-4 category:** the light-neutrino gap is the papers' *acknowledged* open problem
+(Tier 5); the closure below is **novel (b)**.
+
+**Part A — the papers' chain, Planck-anchored.** m₂₉ = (α_s v/√2)·e^(−Φ(29))·(χΓ(½))⁻⁵ =
+**542.6 eV** from the reduced Planck mass (no empirical input); heaviest neutrino
+m₃ = m₂₉·α(21)/χ⁸ = **49.28 meV** vs √Δm²_atm = 49.53 meV (**−0.5%**). The papers' diagonal
+form then gives m₂ = 0.31 meV and m₁ = 0.003 meV — factors ~30 and ~900 too small for the solar
+splitting. That gap is exactly where the papers stopped.
+
+**Part B — the closure, with zero new constants.** The session's rulebook contains exactly one
+O(30) constant: the Gen2→Gen1 threshold factor **E = N_c·π² = 29.609** derived at the d₁ = 19
+phase-transition crossing (Addendum 23, quark sector). Hypothesis stated before comparison: E
+attaches **once per Bott period below the phase transition** — d = 21 sits above 19 (E⁰),
+d = 13 one period below (E¹), d = 5 two periods below (E²). Then:
+
+- m₂ = m₂₉·α(13)/χ¹⁶·E = **9.07 meV**, m₁ = m₂₉·α(5)/χ²⁴·E² = **2.57 meV**
+- **Predicted Δm²_sol = 7.57×10⁻⁵ eV² vs observed 7.53(18)×10⁻⁵ → +0.24σ** — the solar
+  splitting, absent from the input set, comes out of the quark sector's threshold constant.
+- Independent check: m₁ = 2.57 meV lands inside A10's capacity band (1.7–3.2 meV) — a
+  constraint derived from an entirely different machine (the energy-bound saturation scale).
+- **Σm_ν = 60.9 meV, normal ordering** — sharp, vs A10's assembled 61–63 band; sits between
+  the oscillation floor (58.5) and DESI DR2 (~64).
+
+**Part C — discipline.** The window E must occupy given only the capacity band is ±1.8%; the
+grammar enumeration finds the familiar twin pair there (N_c·π² and 2π·e·√3, 0.1% apart — the
+same twins as the u/d case). **Form grammar-open, prediction form-robust**: either twin gives
+Δm²_sol within +0.5σ. The rule-based selection (A23 reuse + per-Bott-period attachment) is the
+named residual lemma; it is not claimed as derived.
+
+**Part D — downstream forced numbers (new ledger rows).**
+
+| Quantity | Value | Consequence |
+|---|---|---|
+| spectrum | (2.57, 9.07, 49.3) meV, NO | JUNO ordering test |
+| Σm_ν | **60.9 meV** sharp | killed by any cosmology bound < ~60 meV |
+| m_β | **9.1 meV** | KATRIN (200–450 meV): forced negative — no signal |
+| m_ββ | **0–5.5 meV** (Majorana; a fortiori Dirac) | LEGEND-1000/nEXO (~9–21 meV): forced negative — no 0νββ discovery |
+
+The audit's standing tension sharpens: ACT+DESI compressed bounds already push 52–57 meV.
+Σ = 60.9 is the framework's most exposed number — it will be adjudicated within a few years,
+and there is no correction member in the machinery that can move it.
+
+**What this is worth.** Priced honestly: the E-window contains grammar twins (form-open), the
+attachment rule is a lemma not a theorem, and Δm²_sol was known — so the retrodictive value is
+a few bits (the m₁-in-capacity-band cross-check is the strongest independent piece). The real
+content is structural and registrable: the same constant that inverts the Gen-1 quark masses
+closes the solar splitting, the full twelve-mass spectrum (9 charged fermions + 3 neutrinos,
+plus H) now descends from the reduced Planck mass, and the sector's forced negatives (KATRIN
+null, 0νββ null) plus the sharp Σ = 60.9 meV are frozen with kill conditions before the data
+arrives.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
