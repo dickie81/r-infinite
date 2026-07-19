@@ -73,6 +73,15 @@ Its numerical shadow exists — the null-clone test's credited column measures h
 alternatives the rules leave (2–11 per stage) — but a proof requires showing every alternative
 assignment violates an axiom. Open.
 
+**T6 (Per-period shape theorem — PROVED conditional on marking + activation; Addendum 34).**
+The twist tower carries a canonical ℤ/8 grading: the Weil index of the real quadratic
+character, γ = ∫e^(iπx²)dx = ζ₈, has order 8 (arithmetic Bott, no topology). Given a marked
+coset (instantiation) and source-activation of its subcritical members, the subcritical marked
+set is finite and forced — {5, 13} for C = {d ≡ 5 mod 8} — and the member exponent of a
+descent functional is the count of subcritical marked twists in its window: (0, 1, 2) at
+(21, 13, 5), first power each. The exponent pattern of the neutrino closure is forced
+counting; only the member's *value* remains unfixed.
+
 **T5 (Arithmetic increment rule — PROVED from Tate's thesis alone; Addendum 33).** With no
 cascade or physics input: the sgn character doubles the twist tower at unit shift (χ = 2 =
 |μ(ℝ)|); the Gaussian is the unique L-factor-achieving vector (A1's dynamics discharged into
@@ -103,7 +112,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | # | Gap | Type | Closes when |
 |---|---|---|---|
 | 1 | Increment rule (A3) | **derived from arithmetic first principles** (T5, Addendum 33; supersedes the Tier-2 A32 version) | closed as mathematics; only its physical instantiation (occupancy, m/k counts) remains with C1 |
-| 2 | Per-period attachment (A3) underived | axiom → theorem | currently a reverse-engineered fit (A29 amendment); does NOT inherit T5 |
+| 2 | Per-period attachment (A3) | **shape derived** (T6, Addendum 34): ℤ/8 grading = Weil-index order, forced set {5,13}, exponents (0,1,2) forced counting | remaining: the marked-coset choice + activation joint (instantiation) and the member VALUE E = N_c·π² (still a fit, twin undiscriminated) |
 | 3 | S4 lemma: measurement-at-typical-value | anchor discharged (T5: E[πx²] = s/2 is an arithmetic identity); joint still physical | a variational or information-theoretic derivation of the joint |
 | 4 | S5 lemma: root-frame projection | axiom → theorem | representation-theoretic derivation |
 | 5 | Sign rule | axiom → theorem | papers' own open item |

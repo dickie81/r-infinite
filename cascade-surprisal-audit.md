@@ -1566,6 +1566,41 @@ has produced: the machinery's grammar is now a theorem of Tate's thesis, and eve
 remains contestable is exactly the map from that grammar to observation — which the frozen
 ledger, and only the frozen ledger, can test.
 
+## Addendum 34: the per-period rule split — shape derived, value still a fit
+
+**Tool:** `tools/research/cascade_arithmetic_period.py`
+**Stopping-rule compliance:** category (a). **Check-4 category:** novel (b) — gap #2 of the
+formulation, addressed in the style of T5: arithmetic only, boundary drawn where arithmetic
+stops.
+
+**P1 — the period is the order of the Weil index.** The quadratic character of the real place
+has Weil index γ = ∫e^(iπx²)dx = e^(iπ/4) = ζ₈ (Fresnel, verified: 0.707107 + 0.707107i,
+|γ| = 1, γ⁴ = −1, order exactly 8). **The twist tower carries a canonical ℤ/8 grading from
+arithmetic alone** — the Weil/metaplectic index, no topology invoked. This replaces "Bott
+period" in the rule's statement.
+
+**P2+P3 — the exponent pattern is forced counting.** The threshold P(s) = ln Γ(½) is crossed
+once, transversally (T5: P′ = Var > 0). Given the marked coset C = {d ≡ 5 mod 8}, the
+subcritical marked set is **finite and exact**: {d ∈ C : P(d+1) < ln Γ(½)} = **{5, 13}** —
+d = 21 is supercritical (P = 0.6035 > 0.5724), as are 29, 37, 45… The member exponent of a
+descent functional is the count of subcritical marked twists in its window [d, 29]:
+**n(21) = 0, n(13) = 1, n(5) = 2.** The (E⁰, E¹, E²) pattern that the A29 amendment correctly
+called reverse-engineered is now **forced counting** — first power each by lattice multiplicity
+one and T5's attach-once. Stability: membership margins are 36.4% (d = 13 in) and 5.4%
+(d = 21 out) of the threshold value; the counting is rigid.
+
+**P5 — the honest boundary.** Arithmetic does **not** supply: (a) which ℤ/8 coset is marked —
+instantiation data, exactly parallel to T5's occupancy assignment; (b) the activation joint —
+*why* subcritical marked twists source members at all (the papers' activation profile is the
+physical statement); (c) **the value E = N_c·π²** — it imports the gauge count and an
+underived Γ(½)⁴ multiplicity, and its 0.1% grammar twin 2π·e·√3 remains undiscriminated. **The
+value is still a fit.**
+
+**Status.** Gap #2 splits: the *shape* of the per-period rule (grading, threshold, finite
+source set, exponents, first powers) is registered as **theorem T6**, conditional on the
+marking and activation; the *value* stays with C1 and the A29 amendment. The fit-charge
+against the neutrino closure now rests on exactly one number.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
