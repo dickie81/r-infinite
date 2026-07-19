@@ -1437,6 +1437,37 @@ The audit ends where it began, but with the accounts settled: one measured brack
 (19–101 bits, hinging entirely on the reality of the assignment rules), one frozen ledger, and
 a schedule of experiments that will move every contested number from argument to fact.
 
+## Addendum 31: the formulation — what can and cannot be a theorem
+
+**Documents:** `cascade-riemann-formulation.md` (the formal statement);
+`tools/research/cascade_formulation_kernel.py` (T1 verification).
+**Stopping-rule compliance:** category (a) — formal work, checkable without data.
+
+The question "can the whole thing be a bulletproof theorem of Riemann and number theory?" has
+a precise answer: **the skeleton yes, the physics never.** The formulation document separates
+the program into:
+
+- **Axioms A1–A4:** the Γ_ℝ-weighted Gaussian lattice (A1); the local-constant calculus (A2 —
+  every atom identified in adelic number theory, with Bott periodicity replaced by its
+  arithmetic avatar, the Brauer–Wall group BW(ℝ) ≅ ℤ/8); the assignment rules (A3 — the
+  load-bearing axiom, flags derived, increment and per-period rules not); measurement (A4 —
+  lemmas S4/S5).
+- **Theorems:** **T1 (proved here):** Ω(d) = 2/Γ_ℝ(d+1), N(d) = Γ_ℝ(d+1)/Γ_ℝ(d+2),
+  p(d) = (log Γ_ℝ)′(d+1), α(d) = N(d)²/4π — verified ≤6×10⁻¹⁴ over d = 1–300. The cascade
+  lattice *is* the discrete log-geometry of ζ's archimedean factor, as a theorem, not an
+  analogy. **T2 (Tier-2, A25):** Gaussian solvability and the measure-normalisation origin of
+  the constants. **T3 (A24):** grammar completeness over A2. **T4 (open):** uniqueness of the
+  observable map given the axioms — the single theorem that would make the framework
+  "unarguable given the hypothesis"; the null-clone credited column is its numerical shadow.
+- **Conjectures:** C1 — the universe realizes A1–A4 (empirical forever; the ledger decides);
+  C2 — the finite places' dynamics ⟺ GRH via the census rate.
+- **Gap ledger:** six mathematical gaps (increment rule, per-period rule, S4, S5, sign rule,
+  T4), one bridge (χ as unit torsion vs Euler characteristic), one permanent empirical item.
+
+The document's summary sentence stands as the audit's final formal position: a proved kernel,
+a conditional uniqueness theorem, two partially-derived assignment axioms, and one physical
+conjecture that no mathematics can settle.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
