@@ -295,6 +295,35 @@ systematically. One genuine discovery, one theorem, one final closure:
 priors; the residual positive finding is the u(n/2) emergence in item 1, which is a structural
 strengthening of Part II unrelated to the zeros. 0 bits toward the Riemann connection.
 
+## Addendum 5: the cascade clock as a prime-generation process
+
+**Tool:** `tools/research/cascade_prime_clock.py`
+
+**The conjecture (user-proposed, formalised).** In the cascade's time-reading, each tick resolves
+one dimension = one integer; new primes arrive at rate 1/ln d (one per ~5.4 ticks at the tower
+top), and each composite tick adds a multiplicative relation among existing primes. Arithmetic
+novelty per tick is the von Mangoldt function Λ(d), and by the explicit formula the Fourier dual
+of this event stream is the Riemann zeros. If the zeros are physically realized anywhere in the
+cascade, it is here: not as eigenvalues of the layer geometry (Addenda 2–4 closed that at every
+level), but as the **resonant frequencies of the resolution process itself**.
+
+**Result.** The truncated spectrum S_D(t) = |Σ_{d≤D} Λ(d) d^(−1/2) e^(−it ln d)| of the physical
+tower (D = 217, 47 primes, 61 prime-power events) resolves **all of the first 12 Riemann zeros**,
+each to within 0.27 of its true position (mean |error| 0.16, peak contrast at zeros vs midpoints
+3.8×). Controls: the same weights at shuffled tick positions give contrast 0.97 (no signal); a
+grid shifted by +1.5 gives the same 3.8× discrimination in favour of the true zeros. Focus
+improves with depth: at D = 30 only 7 of 12 zeros are resolved (contrast 2.0); by D = 60 all 12;
+contrast keeps rising through D = 500.
+
+**Status.** This is classical number theory (the truncated explicit formula) recast on the
+cascade clock — 0 new bits for the cascade, and no new mathematics. Its value is structural: it
+completes the session's Riemann arc consistently. The cascade's *geometry* is the archimedean
+factor (smooth, integrable, spectrally rigid — zeros provably absent); the cascade's *history*,
+read as an arithmetic event stream, carries the zeros as its frequency content. In the adelic
+language of Addendum 1: the real place is where the cascade lives, and the finite places — if
+they are anywhere in this framework — are events in its time, not features of its space. A
+217-layer universe has already "heard" the first dozen notes.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
