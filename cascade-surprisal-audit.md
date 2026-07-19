@@ -524,6 +524,55 @@ nonperturbative (lattice) census of information-bearing modes in the confined ph
 failing both, the claimable content reduces to the exponent alone: matter at R^(−1/3), the sixth,
 with the prefactor acknowledged as grammar.
 
+## Addendum 10: the sum-rule kill, the neutrino floor, and two closed routes
+
+**Tool:** `tools/research/cascade_capacity_neutrino.py`
+**Sources read directly (Check 1):** `part4b.tex:4086–4092` (neutrino open question and ordering
+prediction), `part4b.tex:4104–4112` (Confidence Assessment).
+
+**1. The all-species sum rule is dead.** If every SM species' Compton modes counted against the
+horizon bits, the bound would be oversaturated by ~10¹¹ (the top quark alone: 4×10⁻⁴⁸ vs
+2×10⁻⁵⁹). The saturation postulate is consistent *only* as a single-effective-IR-cutoff (CKN)
+statement — the reading Addenda 7–9 used. Alternative tested and killed.
+
+**2. A cascade-native normalisation, defensible but not forced.** Norm-blindness (the balance
+law sees total arithmetic size, not species — the property that gave the equivalence principle
+in Addendum 6) forbids degeneracy factors; the cascade's cell-counting style (S = A/4 in Planck
+cells, discrete states rather than momentum phase space) selects the bare count m³V = S. This
+narrows the capacity window to **m\* = 17–20 MeV**. Still strictly inside the confined interior;
+the lattice-census target of Addendum 9 stands.
+
+**3. The energy-bound side makes the sharp prediction the entropy side couldn't.** Identifying
+the archimedean saturation scale Λ_E = R^(−1/2) = 1.7–3.2 meV with the *lightest* arithmetic
+mode — the lightest neutrino — plus measured splittings gives: **normal ordering, spectrum
+(≈2, 8.8, 50.2) meV, Σm_ν = 61–63 meV** — inside the narrow surviving window between the
+oscillation floor (58.5 meV) and cosmology's ~70 meV ceiling. Inverted ordering would force
+Σ ≈ 101 meV, already disfavoured. Falsifiable within years: a cosmological Σ bound below
+~60 meV kills the identification; JUNO's ordering determination tests it independently.
+
+**4. The layer-29 leptogenesis anchor is closed.** The papers derive the heaviest neutrino mass
+m_ν = m₂₉·α(21)/χ⁸ = 0.0493 eV (−1.0%; part4b:4086) — which fixes their d=29 source mass at
+**m₂₉ ≈ 543 eV**. Sub-keV, nowhere near the 10⁹–10¹² GeV leptogenesis window: the hoped-for
+independent derivation of the census freeze-out epoch (Addendum 6's fossil-bias check) finds no
+anchor at layer 29. Route closed; the fossil-bias coincidence stays at ~1.4 contingent bits with
+no mechanism.
+
+**5. The ordering fork (review-grade observation, category (b) novel).** The papers predict
+*"ν_e heaviest … ν_τ lightest"* (part4b:4092) while admitting their two lighter masses conflict
+with the solar splitting (OQ b) and their PMNS attempt fails (θ₁₂: 7.5° vs 33.4°, acknowledged
+partial-negative). The capacity extension predicts the opposite: normal ordering with the ν_e-rich
+states light. Tension noted for the papers' side: ν_e-heaviest requires large ν_e content in the
+atmospheric-split state, against measured |U_e3|² = 0.022. JUNO adjudicates the fork. A combined
+spectrum — the cascade's derived top (49.3 meV), the solar-splitting middle (8.8 meV), the
+capacity floor (~2 meV) — would be complete at Σ ≈ 61 meV; the two frameworks patch each other's
+neutrino holes if and only if the ordering comes out normal.
+
+**Board after Addendum 10:** closed — the all-species sum rule, the layer-29 freeze-out anchor.
+Open — the lattice census of the confined-phase information scale (17–20 MeV), the Σm_ν = 61–63
+meV / normal-ordering test (near-term), the log-periodic DESI template, Belle II m_τ. The
+capacity postulate now carries one sharp, dated, kill-able prediction on each side of ξ: the
+matter window in the confined interior, and the neutrino floor at 2 meV.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
