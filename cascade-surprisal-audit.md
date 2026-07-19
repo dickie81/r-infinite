@@ -927,6 +927,46 @@ m_b (−0.03σ) and m_s (−0.03σ) on one candidate lemma; t/c closed as a rela
 honestly: the up-type anchor, Gen-1, v's second-order, the neutrino sector, and every hadronic
 sub-percent deliberately left in the saturation zone.
 
+## Addendum 20: the Weyl-chirality decomposition of S¹¹, computed
+
+**Tool:** `tools/research/cascade_weyl_s11.py`
+**The papers' request (part4b:4082):** *"Computing this from the chiral decomposition of S¹¹
+would complete the quark mass spectrum."* Here is the computation.
+
+**Setup — cascade-owned structures only.** The ambient space of S¹¹ is ℝ¹²; Part II's complex
+structure J makes it ℂ⁶; Adams' SU(3) at the gauge layer acts as 3 ⊕ 3̄. The Spin(12) spinor
+module is the Fock space Λ(ℂ⁶), and its Weyl classes are even/odd form degree — i.e., **Weyl
+chirality = colour-number parity**. The decomposition under SU(3) is then a finite character
+computation, verified numerically to 10⁻¹⁴:
+
+> **Δ⁺ (even, 32) = 4·1 ⊕ 2·(3⊕3̄) ⊕ 2·8**
+> **Δ⁻ (odd, 32) = 2·1 ⊕ 3·(3⊕3̄) ⊕ (6⊕6̄)**
+
+Read the structure: the *even* class holds the gauge-flavoured content (both octets, four
+singlets); the *odd* class holds the matter-flavoured content (sextets, and the fundamental
+with multiplicity exactly **N_c = 3**). Quarks — one unit of colour charge, odd colour number —
+live in the odd class. The "3" the papers hoped to find is a theorem: **the odd Weyl class of
+S¹¹ carries the colour fundamental with multiplicity 3.** A second rigorous identification
+falls out free: ρ(12) = 4 (Radon–Hurwitz), and S¹¹ = Sp(3)/Sp(2) identifies the three Adams
+tangent fields as the quaternionic triple I, J, K — the Adams count at the gauge sphere is the
+imaginary quaternion frame.
+
+**Candidate lemma (the up-type factor).** The T₃ = +½ doublet member (up-type) crossing the
+gauge layer must additionally select its copy among the odd-class triplets — multiplicity 3 →
+counting factor N_c per generation crossing, on top of the Cartan atom e; the T₃ = −½ member
+(down-type) crosses Cartan-diagonally and selects nothing. Reproduces t/c = N_c·(b/s) (−0.8σ)
+and the papers' (t/b)/(c/s) = N_c (1.5%). **Named residual:** the doublet-assignment step (why
++½ selects and −½ does not) — the exact analogue of Step 3 before Addendum 18 formalised it,
+and the next formalisation target.
+
+**Refusal (recorded).** The decomposition alone does not supply the up-type *absolute* anchor;
+without the assignment lemma, no grammar search is performed for it.
+
+**A structural echo, noted without pricing.** Weyl chirality = colour-number parity is the
+geometric twin of the session's arithmetic finding that fermion parity = Möbius sign in the
+primon Fock space: in both halves of ξ, "matter" is the odd class of a graded Fock structure.
+The even class is what mediates; the odd class is what *is*.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
