@@ -73,6 +73,14 @@ Its numerical shadow exists — the null-clone test's credited column measures h
 alternatives the rules leave (2–11 per stage) — but a proof requires showing every alternative
 assignment violates an axiom. Open.
 
+**T7 (Arithmetic sign rule — PROVED; Addendum 35).** The sign of a correction is the side of
+the Cauchy–Schwarz equality manifold on which the observable's leading formula sits:
+off-manifold interpolation reads gain (+) — the Gram deficit is strict midpoint log-convexity
+of Γ_ℝ, i.e. Bohr–Mollerup, verified strict for all d = 1–215; at-manifold saturated overlaps
+lose (−); proper coset restrictions of the peaked weight 2/Γ_ℝ under the ℤ/8 Weil grading lose
+(−) — all 28 two-coset shares < 1/π over the full tower. The papers' three separate sign
+mechanisms are one convexity structure. Population-class assignment remains instantiation.
+
 **T6 (Per-period shape theorem — PROVED conditional on marking + activation; Addendum 34).**
 The twist tower carries a canonical ℤ/8 grading: the Weil index of the real quadratic
 character, γ = ∫e^(iπx²)dx = ζ₈, has order 8 (arithmetic Bott, no topology). Given a marked
@@ -115,7 +123,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 2 | Per-period attachment (A3) | **shape derived** (T6, Addendum 34): ℤ/8 grading = Weil-index order, forced set {5,13}, exponents (0,1,2) forced counting | remaining: the marked-coset choice + activation joint (instantiation) and the member VALUE E = N_c·π² (still a fit, twin undiscriminated) |
 | 3 | S4 lemma: measurement-at-typical-value | anchor discharged (T5: E[πx²] = s/2 is an arithmetic identity); joint still physical | a variational or information-theoretic derivation of the joint |
 | 4 | S5 lemma: root-frame projection | axiom → theorem | representation-theoretic derivation |
-| 5 | Sign rule | axiom → theorem | papers' own open item |
+| 5 | Sign rule | **derived** (T7, Addendum 35): one convexity structure — Bohr–Mollerup log-convexity off/at the Cauchy–Schwarz equality manifold + ℤ/8 coset computation | population-class assignment remains instantiation |
 | 6 | T4 uniqueness | unproved theorem | an exhaustion proof over the A2×A3 assignment space |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |
 | 8 | C1 | empirical forever | the ledger |

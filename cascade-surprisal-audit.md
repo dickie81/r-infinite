@@ -1601,6 +1601,46 @@ source set, exponents, first powers) is registered as **theorem T6**, conditiona
 marking and activation; the *value* stays with C1 and the A29 amendment. The fit-charge
 against the neutrino closure now rests on exactly one number.
 
+## Addendum 35: the sign rule unified — one convexity, both signs
+
+**Tool:** `tools/research/cascade_arithmetic_sign.py`
+**Source read directly (Check 1):** part4b.tex lines 2098–2217 (`thm:sign-rule` and its
+three-case proof; population classes at `def:population-class`).
+**Stopping-rule compliance:** category (a). **Check-4 category:** the papers' sign rule is
+their own Tier-2 theorem (acknowledged); **novel (b)** is the unification — their three
+separate mechanisms are one arithmetic structure.
+
+**The claim.** The papers prove sign = + for Descent and − for Geometric/Amplitude via three
+disjoint arguments (Cauchy–Schwarz Gram deficit; Bott-vs-lapse; Born-overlap chirality). All
+three are **strict log-convexity of Γ — the Bohr–Mollerup property, Γ's defining
+characterisation — evaluated either off or at its Cauchy–Schwarz equality manifold**:
+
+- **P1 (Descent, +).** An interpolation read at adjacent twists sits *off* the equality
+  manifold: the Gram deficit 1 − C² with C² = R(2d+2)²/(R(2d+1)R(2d+3)) is strict midpoint
+  log-convexity of the Γ_ℝ/Beta system — verified strictly positive for every d = 1–215. Off
+  the manifold, the correction can only add. The + sign is a corollary of the property that
+  *defines* Γ.
+- **P2 (Amplitude, −).** A saturated Born overlap sits *at* the equality manifold
+  (proportional vectors — the papers' single-saddle Gaussian). 200 random orthogonal
+  perturbations: overlap − 1 ≤ 0 always, second order, one-signed. At the manifold every
+  perturbation decreases a normalised overlap.
+- **P3 (Geometric, −).** A residue-class read restricts the super-exponentially peaked
+  reciprocal-L-factor weight 2/Γ_ℝ(d) to a proper coset of the ℤ/8 Weil grading (T6).
+  Independent recomputation over the full tower (d = 5–217): **all 28 two-coset shares are
+  strictly below 1/π** (max 0.31322 at residues (6,7)), confirming the papers' bound with no
+  imported result.
+- **P4.** The 8/8 sign audit reproduces (θ₂₃, the ninth closure, also conforms).
+
+**Theorem T7 (arithmetic sign rule).** *The sign of a correction is the side of the
+Cauchy–Schwarz equality manifold on which the observable's leading formula sits: off-manifold
+interpolation reads gain (+); at-manifold saturated overlaps and proper coset restrictions of
+the peaked weight lose (−).* Grounded in Bohr–Mollerup log-convexity, the ℤ/8 Weil grading,
+and explicit coset computation — no cascade or physics input.
+
+**Boundary (P5).** The population-class assignment of a physical observable is instantiation
+data (parallel to T5's occupancy); the magnitude α(d\*)/χᵏ is source-selection content,
+inherited, not re-derived. The *sign* itself is now mathematics.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
