@@ -455,6 +455,42 @@ tractability: the transmutation route to q_QCD from Part IVb's coupling leads (a
 present in the papers; theorem unwritten), an independent derivation of the census freeze-out
 tick, and the Belle II m_τ discrimination already on the board.
 
+## Addendum 8: the transmutation route to q_QCD, and the adjacency inversion
+
+**Tool:** `tools/research/cascade_qcd_ledge.py`
+
+**The theorem that was sitting unwritten in the papers.** Every ingredient of the hadronic ledge's
+position is a cascade-claimed quantity; this addendum multiplies them out.
+
+1. **The coupling, from Γ alone:** α(12)·e^(Φ(5,12)) = 0.11590, times the audited correction
+   (1 + α(14)/2), gives α_s = 0.11790 vs PDG 0.1179(9) — zero parameters, with the standing
+   Part E caveat that the correction member was selected, not derived.
+2. **The ledge, from counting:** dimensional transmutation with the cascade-forced integers
+   b₀ = 23/3, 25/3, 9 (SU(3) + three generations) gives Λ⁽³⁾ = 142 MeV at one loop (332 MeV
+   4-loop reference; the loop gap costs 0.003 in q): **q_QCD = 0.157–0.160**, against the
+   observed hadron cluster q(p) = 0.153, q(π) = 0.160. Planck-boundary form: α_s(M_Pl) = 1/50.7
+   and q_QCD = 2π/(b_eff·ln10·α_s(M_Pl))/120.146 with b_eff = 7.19 — a percent-sized Planck
+   coupling over a group-theory integer, exponentiated. Twenty decades from counting.
+3. **Two independent routes, one ledge:** top-down (gauge integers + Γ coupling) q = 0.157–0.160;
+   bottom-up (Ω-floor + capacity saturation, Addendum 7) q = 0.168. Agreement to Δq ≈ 0.01 —
+   one decade in mass out of 120 — between mechanisms sharing no ingredients.
+4. **The adjacency inversion:** requiring transmutation from the cascade's α_s to land on the
+   capacity scale's territory forces the electroweak anchor into a ~1-decade window: 89.8 GeV
+   (if the target is m_π), 213 GeV (if Λ⁽³⁾ 4-loop), 11 GeV (if the raw 17.4 MeV capacity
+   scale). The observed EW cluster (80–173 GeV) sits inside the window. The electroweak
+   hierarchy problem, in this assembly, reduces from "why 10⁻¹⁷" (answered by exponentiated
+   counting) to "which O(1) scale within the derived window."
+
+**Pricing.** ~4–5 bits for the window landing, contingent on (i) Addendum 7's saturation
+postulate and (ii) reading the cascade's α_s value as anchor-free — a reinterpretation, since
+the papers calibrate it at M_Z; the non-circular content is that the *gap* below any EW-region
+anchor and the *ledge* position are derived independently, so the anchor cannot sit far from
+their difference. The ~1-decade identification slop within the hadronic complex (17 MeV vs m_π
+vs Λ) dominates the window width; a principled statement of *which* scale saturates the
+information bound would collapse the window to a sharp M_EW prediction — either spectacular or
+fatal. That sharpening, an independent derivation of the census freeze-out tick, and the
+Belle II m_τ discrimination are the three open targets as of this addendum.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
