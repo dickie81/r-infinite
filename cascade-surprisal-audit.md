@@ -324,6 +324,83 @@ language of Addendum 1: the real place is where the cascade lives, and the finit
 they are anywhere in this framework — are events in its time, not features of its space. A
 217-layer universe has already "heard" the first dozen notes.
 
+## Addendum 6: the arithmetic clock — spin types, census equilibration, and the adelic reading of gravity
+
+**Tool:** `tools/research/cascade_arithmetic_clock.py`
+
+**The frame (user-conjectured, developed interactively).** Sharpen Addendum 5's clock: one *prime*
+per tick. Each tick adds an orthogonal dimension to the multiplicative lattice ℚ₊^× ≅ ℤ^∞ (unique
+factorisation — the arithmetic twin of the cover sheet's "orthogonality iterates without bound").
+Composites are relations among existing dimensions (CRT: ℤ/n literally *is* the outer product of
+its prime components). The Pratt parent set of a prime — the prime factors of p−1 — is its
+complete list of "spin types": an order-ℓ character exists iff ℓ | p−1.
+
+**Structural results (all parameter-free, all verified numerically):**
+
+- **The ℤ/2 type is universal** — 2 divides every p−1 because units pair under negation
+  (x ↔ −x); every totient chain funnels through 2 before reaching 1. The universal spin is the
+  existence of the minus sign. Higher types are conditional with Dirichlet densities 1/(ℓ−1)
+  (tower census: 0.486, 0.245, 0.157 vs 1/2, 1/4, 1/6), valued in complex roots of unity —
+  arithmetic anyons, whose exchange laws (cubic/quartic/Eisenstein reciprocity) require extending
+  the number system, as physical anyons require 2D. **Quadratic reciprocity is the exchange rule
+  of the universal type**: (p|q)(q|p) = −1 iff both p ≡ 3 (mod 4) — primes 3 mod 4 anticommute.
+  Three-body statistics exist beyond pairwise (Rédei symbols, Borromean prime triples).
+- **Species:** Fermat primes (p−1 = 2^k) are the pure spin-½ particles — five ever, conjecturally
+  extinct after tick ~6543. The tower's most decorated dimension is 211 = 2·3·5·7 + 1, carrying
+  every available type. Prime powers are excitations, not species: Λ(9) = ln 3, and 9's unique
+  quadratic character is 3's, lifted.
+- **The prime-clock tower hears better:** 217 prime ticks (primes 2..1327) resolve all 12 first
+  Riemann zeros to mean error 0.066 — 2.5× sharper than the integer clock at the same tick count.
+  Late-epoch focus is clock-robust (width 12.6/ln D: 0.087 vs 0.090 today); per-tick spectral
+  nudge ~6×10⁻⁶² relative; the zeros froze, for practical purposes, during BBN.
+- **Census equilibration:** spin-type proportions converge to Dirichlet as ~1/√x (verified
+  √x·deviation = O(1) to 10⁷), giving |fraction − 1/(ℓ−1)| ~ 6×10⁻³² at today's depth. Carriers
+  are *systematically deficient* (Chebyshev bias against the quadratic-residue class), and the
+  residual oscillates as cos(γₙ ln x) — conducted by the Riemann zeros, γ₁'s instantaneous period
+  ~6 Gyr today. **The √x convergence rate is equivalent to GRH**: the census is exactly as clean
+  as the zeros are critical.
+
+**Confrontation with observation (priced):**
+
+- **Proportions: no match.** Observed fermion/boson demographics — 45/55 by number density
+  (set by (4/11)^⅓), 76/24 by early dof (g\* = 106.75), 12/13 by species — are thermal history,
+  not census. Any reading that predicts abundances from the census is dead on arrival.
+- **Type spectrum: match.** 3+1D nature realises exactly the universal ℤ/2 (the real numbers
+  contain only ±1 as roots of unity — an archimedean universe can express no other exchange
+  type); the higher types appear physically only in effectively-2D systems (FQHE anyons at
+  odd-denominator fillings 1/3, 1/5, 1/7 with falling robustness). Qualitative, unforced, real.
+- **One-element coincidences:** the unique spinless prime (2, trivial internal group) vs the
+  unique fundamental scalar (Higgs) — 0 bits, noted for charm. **Fossil-bias check:** the census
+  bias equals the observed baryon asymmetry η = 6.1×10⁻¹⁰ if frozen at tick ~2.5×10¹⁷, i.e.
+  T ~ 7×10⁹ GeV — inside the Davidson–Ibarra leptogenesis window. Priced at **~1.4 bits** (the
+  epoch was reverse-engineered; the window is 3 of ~8 plausible decades). Becomes evidence only
+  if a mechanism independently derives the freeze-out tick.
+
+**The interpretive close (0 bits, stated for the record).** With the geometry proven spectrally
+incapable of hosting the zeros (Addenda 2–4) and the event stream demonstrably carrying them
+(Addendum 5), the division of labour in ξ = Γ_ℝ·ζ reads: the archimedean factor presents as
+*law* — hierarchy, smoothness, probability; the arithmetic factor would present as *fact* — the
+last decimal places of smooth predictions (Addendum 1's live m_τ/m_μ candidate), log-periodic
+residuals at the zeros' frequencies (bounded ≲10⁻⁴ by clock-drift data; unfitted template for
+DESI residuals), sign-definite frozen asymmetries (the leptogenesis intersection), the unexplained
+integer skeleton of the Standard Model, and — the untestable limit of the reading — the
+individual quantum outcome, primes being the only known deterministic object with GUE
+fluctuation statistics. On this reading **gravity is not in the outer product; it is the other
+factor of ξ**: the archimedean measure the arithmetic content is weighed in. The adelic product
+formula |x|_∞·∏|x|_p = 1 plays the balance law — archimedean measure responds reciprocally to
+arithmetic content, with a sign fixed by positivity of norms (attraction only, no antigravity)
+and blind to prime composition (equivalence principle); locally the response is a tick-rate
+gradient, and matter waves refract toward slower resolution (the standard g_tt reading of
+Newtonian gravity); the unbalanced residue is the vacuum term — the cascade's 10⁻¹²⁰, w = −1.
+Consistent with the cascade's "no graviton" forced negative: the archimedean factor has no prime
+decomposition to quantise, and its operators (Addenda 2–4) have crystal spectra, not quanta.
+
+**Status.** Everything in the structural and quantitative sections is theorem-grade or verified
+computation; everything in the confrontation section is priced (0 to 1.4 bits); the interpretive
+close is a reading, not a result. Net new evidential weight for the cascade: ~1.4 contingent
+bits. Falsifiable seams left open: the Belle II m_τ discrimination (Addendum 1), the log-periodic
+DESI template, and an independent derivation of the census freeze-out tick.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
