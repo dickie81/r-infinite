@@ -227,6 +227,37 @@ something non-1-D and complex-Hermitian that the current papers do not construct
 currency: 0 bits, door cleanly closed, with the controls demonstrating the pipeline would have
 detected a real GUE signature had one been present.
 
+## Addendum 3: can Part II's complex structure J rescue the spectral rigidity?
+
+**Tool:** `tools/research/cascade_J_operator.py`
+
+Addendum 2 closed the layer-chain operator (crystal, not GUE). The one complex object the
+cascade owns is Part II's forced-precession complex structure J (`thm:complex`: two quarter-turns
+give J² = −Id; evolution L(d) = i·N(d), cumulative propagator phase i^(D−d)). Three tests, priors
+stated first:
+
+1. **J-twisting the layer chain is exactly gauge-trivial.** Replacing real hopping −w_d with
+   −i·w_d leaves the spectrum identical to machine precision (max eigenvalue difference 0.0) —
+   bond phases on a path graph carry no flux. J alone *cannot* alter the chain's crystal
+   spectrum; this is a theorem, checked numerically.
+2. **The pairing-offset ambiguity yields no quaternionic structure.** The two admissible axis
+   pairings ((12)(34)… vs (23)(45)…) give J₁, J₂ that neither commute nor anticommute; their
+   product J₂J₁ is a signed two-step shift along the axis chain — a translation operator, a
+   curiosity worth noting (a discrete momentum), but not an un-gaugeable flux source.
+3. **Even genuine flux fails.** The minimal object where J can act spectrally — a two-leg ladder
+   with elastic legs w_d = 1/(2α(d)) and lapse rungs N(d) carrying the propagator's cumulative
+   phase i^d, giving verified flux π/2 per plaquette — has ⟨r̃⟩ = 0.07: a near-degenerate doublet
+   crystal, *further* from GUE (0.60) than the bare chain, because the rung coupling N(d) ~
+   √(2π/d) decays while leg stiffness grows, decoupling the legs; and deterministic quasi-1-D
+   systems are regular regardless.
+
+**Conclusion.** The J route is closed. GUE statistics require genuinely chaotic dynamics —
+many coupled degrees of freedom with un-gaugeable phases at all scales — and the cascade's
+defining virtue (everything exactly solvable through the Γ function) is precisely what forbids
+this. The structural picture is consistent with Addenda 1–2: in ξ = Γ_ℝ·ζ, the archimedean half
+is smooth and integrable, the prime half is where the spectral chaos lives, and the cascade owns
+only the first. 0 bits; door closed with pre-registered priors.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
