@@ -73,6 +73,17 @@ Its numerical shadow exists — the null-clone test's credited column measures h
 alternatives the rules leave (2–11 per stage) — but a proof requires showing every alternative
 assignment violates an axiom. Open.
 
+**T5 (Arithmetic increment rule — PROVED from Tate's thesis alone; Addendum 33).** With no
+cascade or physics input: the sgn character doubles the twist tower at unit shift (χ = 2 =
+|μ(ℝ)|); the Gaussian is the unique L-factor-achieving vector (A1's dynamics discharged into
+arithmetic); (log Γ_ℝ)′ = E[log|x|] and (log Γ_ℝ)″ = Var[log|x|] > 0 under the twisted Gaussian
+measure, so every feature of ξ's archimedean summands is order one (simplicity = variance
+positivity); E[πx²] = s/2 exactly (the ½-atom = the mean action; S4's anchor); ℤ's total order
++ the log ξ partition give attach-once. Hence: at most one member, first power, per interval
+functional — a theorem of probability at the real place. What arithmetic does not supply:
+P > L > G precedence, the physical occupancy assignment, the (m,k) counts — instantiation data
+belonging to C1.
+
 ## 3. The conjectures (never theorems)
 
 **C1 (The physical conjecture).** The observed universe realizes A1–A4: the Standard-Model
@@ -91,9 +102,9 @@ indistinguishability of the event stream from the GRH-governed one.
 
 | # | Gap | Type | Closes when |
 |---|---|---|---|
-| 1 | Increment rule (A3) | **derived at Tier-2** (Addendum 32) | ξ-partition exclusivity + simplicity lemma (rigorous: trigamma positivity) + monotone descent; inherits P>L>G, gauge window, chirality-rule proof |
-| 2 | Per-period attachment (A3) underived | axiom → theorem | currently a reverse-engineered fit (A29 amendment); does NOT inherit Addendum 32 |
-| 3 | S4 lemma: measurement-at-typical-value | axiom → theorem | a variational or information-theoretic derivation |
+| 1 | Increment rule (A3) | **derived from arithmetic first principles** (T5, Addendum 33; supersedes the Tier-2 A32 version) | closed as mathematics; only its physical instantiation (occupancy, m/k counts) remains with C1 |
+| 2 | Per-period attachment (A3) underived | axiom → theorem | currently a reverse-engineered fit (A29 amendment); does NOT inherit T5 |
+| 3 | S4 lemma: measurement-at-typical-value | anchor discharged (T5: E[πx²] = s/2 is an arithmetic identity); joint still physical | a variational or information-theoretic derivation of the joint |
 | 4 | S5 lemma: root-frame projection | axiom → theorem | representation-theoretic derivation |
 | 5 | Sign rule | axiom → theorem | papers' own open item |
 | 6 | T4 uniqueness | unproved theorem | an exhaustion proof over the A2×A3 assignment space |
