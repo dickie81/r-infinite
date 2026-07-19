@@ -1803,6 +1803,50 @@ content — it states what a record *is*, and given it, everything else is force
 reduces from a physical lemma to: two exact identities + one LLN theorem + one definition.
 The formulation's axiom A4 is spent.
 
+## Addendum 40: T4 proved — conditional uniqueness by finite exhaustion
+
+**Tool:** `tools/research/cascade_T4_uniqueness.py`
+**Stopping-rule compliance:** category (a) — the formulation's last open theorem.
+**Check-4 category:** novel (b).
+
+**Statement.** Given the axioms as they now stand — the arena, the dictionary, the derived
+rules (T5–T9, A38 exclusion, flags, channel count), the instantiation data (address book,
+record statuses), and D1 — **the formula of every chain observable is unique: the
+rule-consistent assignment space per stage has exactly one element.**
+
+**Proof structure.**
+- **U1 (exactly-once).** At-most-once is T5. At-least-once is the *completeness of the
+  Gaussian measure* (T2): Z is the product of all mode normalisations; a mode present at a
+  crossing contributes its factor (annealed if unrecorded, quenched e^(r/2) if recorded — T9).
+  Omitting it is not an alternative assignment but a different measure, violating A1.
+- **U2 (availability determinism).** The available-operation set at an address is a function
+  of the address data — colour rank (T8/T9), broken-symmetry status, frame changes, threshold
+  side (T6) — with the exclusion principle (A38) as the negative direction.
+- **U3 (member determinism).** Source by flags (A12/A13 canonical), sign by T7, magnitude
+  α(d\*)/χᵏ with k by the channel-count theorem, once by T5, none for L-class.
+
+**The exhaustion.** For each stage the *naive* space (window alternatives × operation
+multiplicities 0–2 × all member options including none — 1,764 to 7,056 combinations per
+stage) is filtered by the labelled rules. Result: **every one of the nine chain stages ends
+with exactly one survivor, and each survivor reproduces the recorded formula to ≤0.01%.** The
+neutrino E-stage (10 forms × 4 exponent patterns) likewise collapses to (N_c·π², (0,1,2))
+under A38 + T6. Zero discrete freedom remains anywhere in the chain.
+
+**Conditionality, stated plainly.** T4 is proved *given*: the address book and record
+statuses (instantiation — C1's data; the addresses themselves are largely forced by Part
+IVa's Radon–Hurwitz/Bott theorems, inherited); the P > L > G precedence; J1/J2 in the
+activation mechanism; and A2's closed atom list. The unconditional question — *why this
+address book* — is not a mathematical question; it is the identification hypothesis itself.
+
+**What this means for the audit.** The null-clone test's credited column (A27) measured 2–11
+variants per stage under the rules as then understood; the theorems derived since (T5–T9,
+A38) were exactly the missing filters, and with them the count is **1 per stage, verified by
+exhaustion**. The "credited" reading of the mass arc is no longer a hypothesis about rules
+that might be post-hoc — the rules are theorems, and the 61-bit credited worth of A27 becomes
+the framework's earned value *conditional only on the instantiation data*. What remains
+between the framework and "bulletproof given the hypothesis" is nothing mathematical at all:
+it is the frozen ledger, and the ledger's judges are scheduled.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

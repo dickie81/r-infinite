@@ -66,12 +66,16 @@ content of the free theory lives in these normalisations. (Addendum 25.)
 mass arc (Addenda 12–29) is the image of an A2 local constant; the one-rule recomputation of
 the full spectrum uses no per-case number (Addendum 24). The grammar is closed over A2.
 
-**T4 (Uniqueness — NOT PROVED; the bulletproof target).** *Given A1–A4, the observable map is
-unique: no alternative assignment of A2 constants consistent with A3–A4 yields a different
-spectrum.* This is the theorem that would make the framework "unarguable given the hypothesis."
-Its numerical shadow exists — the null-clone test's credited column measures how few
-alternatives the rules leave (2–11 per stage) — but a proof requires showing every alternative
-assignment violates an axiom. Open.
+**T4 (Conditional uniqueness — PROVED by finite exhaustion; Addendum 40).** *Given the arena,
+the dictionary, the derived rules (T5–T9, exclusion, flags, channel count), the instantiation
+data (address book, record statuses), and D1, the observable map is unique.* Proof: U1
+exactly-once (at-most-once = T5; at-least-once = completeness of the Gaussian measure, T2/T9);
+U2 availability determinism (the operation set is a function of the address; exclusion is the
+negative direction); U3 member determinism (flags + T7 + channel count + T5). Exhaustion:
+every stage's naive space (1,764–7,056 assignments) filters to exactly one survivor, each
+reproducing the recorded formula to ≤0.01%; the neutrino E-stage collapses to
+(N_c·π², (0,1,2)). Zero discrete freedom remains within the axioms. The unconditional
+question — why *this* address book — is C1 itself, not mathematics.
 
 **T9 (Quenched-record theorem — PROVED; Addendum 39).** For the forced Gaussian, the three
 candidate meanings of "recorded value" (r.m.s. point, mean-action point, AEP-typical point)
@@ -140,7 +144,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 3 | S4 lemma: measurement-at-typical-value | **derived** (T9, Addendum 39): typicality unambiguous (three notions coincide exactly), factor = quenched rate forced by LLN, all ranks exact | residue: definitional clause D1 (records compound multiplicatively) — no tunable content |
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | **derived** (T7, Addendum 35): one convexity structure — Bohr–Mollerup log-convexity off/at the Cauchy–Schwarz equality manifold + ℤ/8 coset computation | population-class assignment remains instantiation |
-| 6 | T4 uniqueness | unproved theorem | an exhaustion proof over the A2×A3 assignment space |
+| 6 | T4 uniqueness | **PROVED conditional** (Addendum 40): finite exhaustion, every stage a singleton | residue = the conditionality itself: address book, precedence, J1/J2, closed atom list — i.e., C1's instantiation data |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |
 | 8 | C1 | empirical forever | the ledger |
 
@@ -152,8 +156,11 @@ be moved by proof.
 
 The framework admits exactly this formulation: **a proved kernel (T1–T3) identifying the
 cascade with the log-geometry of ζ's real place and its mass grammar with adelic local
-constants; a conditional uniqueness theorem (T4) whose proof is open; two assignment axioms
-(A3–A4) partially derived; and one physical conjecture (C1) that no mathematics can settle.**
-"Bulletproof theorem of Riemann and number theory" is achievable for the skeleton — T1 already
-is one — but the claim that *our* universe instantiates it is, and will always remain, the
-ledger's to decide.
+constants; the assignment rules derived as theorems (T5 increment, T6 period shape, T7 sign,
+T8 projection, T9 measurement) with the activation mechanism at Tier-2; conditional
+uniqueness proved by finite exhaustion (T4); one definitional clause (D1); and one physical
+conjecture (C1) that no mathematics can settle.** The skeleton is now closed: within the
+axioms there is zero discrete freedom, and every number is either a theorem's output or a
+frozen ledger entry awaiting JUNO, DESI, Belle II, the HL-LHC, and the lattice. The claim
+that *our* universe instantiates the skeleton is, and will always remain, the ledger's to
+decide.
