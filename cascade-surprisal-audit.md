@@ -607,6 +607,54 @@ within years), the Riemann template bounded and null at current precision. Remai
 the lattice census of the 17–20 MeV confined-interior scale, Belle II m_τ, and the census
 freeze-out mechanism (still anchor-less after the layer-29 closure).
 
+## Addendum 12: the source-selection flags derived from the factorisation of ξ
+
+**Tool:** `tools/research/cascade_flags_riemann.py`
+**Source read directly (Check 1):** `part4b.tex:1543–1661` (the source-selection rule, flags,
+and verification table).
+
+**The construction.** Write the completed zeta function as ξ(s) = (s−1)·[(s/2)Γ_ℝ(s)]·ζ(s) —
+pole, regularised archimedean factor, Euler product. A purely archimedean theory's formula
+alphabet has exactly three ξ-occupancy classes: the absolute anchor M_Pl (the pole — the unique
+scale-freedom breaker, as the residue of ζ at 1 is the unit of counting), static Γ_ℝ
+point-values (N, Ω, α at layers), and Γ_ℝ interval-ratios (descent exponentials exp Φ), with one
+distinguished interval (the gauge window — Adams). **The flags are the occupancy functors of
+this factorisation**: P = touches the pole class; L = touches only the point class; G =
+interval content meets the window. The no-fourth-flag question becomes meaningful for the first
+time: a fourth flag would require occupancy of ξ's fourth component — the Euler product — and
+Addendum 1 established empirically that no closing cascade formula contains finite-place
+content. *The flag count is three because the cascade uses exactly one factor of ξ plus its
+pole.*
+
+**The source layers are the factorisation's distinguished features** (all verified numerically):
+d₀ = 7 is the critical point of the bare factor 1/Γ_ℝ(s) (s = 7.2569) — equivalently the zero
+of the attenuation rate, so amplitude-class observables source where attenuation vanishes;
+d_V = 5 is the critical point of the pole-dressed factor (2/s)/Γ_ℝ(s) = V(d) (s = 5.2569) — and
+the two critical points are **exactly** 2 apart, since ψ(x+1) = ψ(x)+1/x gives
+(log V)′(s) = (log A)′(s+2) identically: *the volume maximum and area maximum are one feature of
+Γ_ℝ seen through one application of the Gamma functional equation*. d₁ = 19 and d₂ = 217 are
+where the descent rate crosses ln Γ(½) and Γ(½) — the log and linear thresholds of the
+critical-line constant — with the sink d₂ excluded as terminus, matching the papers. The gauge
+window {12,13,14} is the single non-ξ-analytic input (topological, Adams).
+
+**Verification: 7/9 — and an internal tension found (novel, category (b)).** The mechanical
+ξ-occupancy classifier reproduces the papers' flag table for α_s, m_τ/m_μ, m_τ abs, ℓ_A,
+sin²θ_W, Ω_m, θ_C. It *fails* for b/s and θ₂₃: their published leads contain the gauge-window
+exponential exp Φ(6→13) (b/s = (m_τ/m_μ)·e), so a mechanical reading gives G = T → d\* = 14,
+while the papers read G = F → d\* = 7 via the "minimal descent formula" caveat
+(part4b:1594–1599). That caveat is load-bearing residual freedom in a reading advertised as
+mechanical — the papers should state the canonical F_Q for b/s and θ₂₃ explicitly or the
+selection rule's zero-freedom claim fails for two of nine rows.
+
+**Status.** OQ3's categorical problem is hereby restated in Riemann form: the category is the
+factorisation of ξ; the flags are its occupancy functors; the bijection maps each occupancy
+class to the ξ-feature that generates it. Remaining gaps, recorded: the gauge window's
+topological origin, the decision order P > L > G (motivated, not forced), and the
+canonical-formula freedom exposed by the 2/9 tension. What is now *derived from Riemann*: the
+flag count (three), the flag semantics (pole / point / interval occupancy), the four source
+layers as analytic features of Γ_ℝ (two critical points related exactly by the Γ-recursion, two
+Γ(½)-thresholds), and the sink exclusion.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
