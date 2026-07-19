@@ -73,6 +73,13 @@ Its numerical shadow exists — the null-clone test's credited column measures h
 alternatives the rules leave (2–11 per stage) — but a proof requires showing every alternative
 assignment violates an axiom. Open.
 
+**T8 (S5 as trace duality — PROVED; Addendum 36).** The su(3) roots are the units μ₆ of ℤ[ω]
+(point-by-point); the measurement frame is the trace-dual lattice — the inverse different
+𝔡⁻¹ = (1/√−3)ℤ[ω], which is the ring rotated exactly 30° modulo unit rotations; the su(3)
+fundamental weight w₁ = e^(iπ/6)/√3 is a minimal vector of 𝔡⁻¹ (10⁻¹⁶); every minimal pairing
+projects at cos(π/6), a factor unique among imaginary quadratic rings to disc = −3. Colour
+multiplicity 3 and per-leg occupancy remain instantiation.
+
 **T7 (Arithmetic sign rule — PROVED; Addendum 35).** The sign of a correction is the side of
 the Cauchy–Schwarz equality manifold on which the observable's leading formula sits:
 off-manifold interpolation reads gain (+) — the Gram deficit is strict midpoint log-convexity
@@ -122,7 +129,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 1 | Increment rule (A3) | **derived from arithmetic first principles** (T5, Addendum 33; supersedes the Tier-2 A32 version) | closed as mathematics; only its physical instantiation (occupancy, m/k counts) remains with C1 |
 | 2 | Per-period attachment (A3) | **shape derived** (T6, Addendum 34): ℤ/8 grading = Weil-index order, forced set {5,13}, exponents (0,1,2) forced counting | remaining: the marked-coset choice + activation joint (instantiation) and the member VALUE E = N_c·π² (still a fit, twin undiscriminated) |
 | 3 | S4 lemma: measurement-at-typical-value | anchor discharged (T5: E[πx²] = s/2 is an arithmetic identity); joint still physical | a variational or information-theoretic derivation of the joint |
-| 4 | S5 lemma: root-frame projection | axiom → theorem | representation-theoretic derivation |
+| 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | **derived** (T7, Addendum 35): one convexity structure — Bohr–Mollerup log-convexity off/at the Cauchy–Schwarz equality manifold + ℤ/8 coset computation | population-class assignment remains instantiation |
 | 6 | T4 uniqueness | unproved theorem | an exhaustion proof over the A2×A3 assignment space |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |

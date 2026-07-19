@@ -1641,6 +1641,41 @@ and explicit coset computation — no cascade or physics input.
 data (parallel to T5's occupancy); the magnitude α(d\*)/χᵏ is source-selection content,
 inherited, not re-derived. The *sign* itself is now mathematics.
 
+## Addendum 36: S5 derived — the root-frame projection is trace duality in ℤ[ω]
+
+**Tool:** `tools/research/cascade_arithmetic_s5.py`
+**Stopping-rule compliance:** category (a) — gap #4 of the formulation. **Check-4 category:**
+novel (b) — S5 was a named physical lemma (A25); both of its halves are now arithmetic.
+
+**P1 — "along roots" = "along units."** The unit group of ℤ[ω] (the ring of integers of
+ℚ(ζ₃)) is μ₆, and its six elements coincide **point-by-point** with the A₂ root system of
+su(3). The measurement frame's "roots" are the units of the colour character ring.
+
+**P2 — the measurement frame is the dual lattice, and the dual is rotated exactly 30°.** That
+functionals live in the trace-dual is the definition of duality, not physics. The trace-dual
+of ℤ[ω] is the inverse different 𝔡⁻¹ = (1/√−3)·ℤ[ω] (disc = −3): modulus 1/√3, argument −90°
+≡ **+30° modulo the order-6 unit rotations**. Verified: minimal lattice-vs-dual angle exactly
+30.000000°; the su(3) fundamental weight w₁ = e^(iπ/6)/√3 **is** a minimal vector of 𝔡⁻¹ (to
+10⁻¹⁶); all duality pairings Tr(w₁ū) land in ℤ.
+
+**P3 — the value.** One pairing per crossing projects at cos(π/6) = √3/2; the inverse frame
+change carries sec(π/6) (the nonet's per-strange-leg factor, same statement read the other
+way).
+
+**P4 — uniqueness.** Among imaginary quadratic integer rings the projection is nontrivial
+*only* at disc = −3: ℤ[i] gives 0° (projection 1 — no factor), ℤ[√−2] and ℤ[(1+√−7)/2] give
+90° (projection 0 — degenerate). ℤ[ω] is the unique ring with six units, and **cos(π/6) exists
+if and only if the colour character field is ℚ(ζ₃)**.
+
+**Theorem T8 (S5, arithmetic).** *Measurement of a colour-lattice state is trace-duality
+pairing with the inverse different of ℚ(ζ₃); the different (√−3) rotates the hexagonal ring by
+exactly 30° modulo its unit rotations, so every minimal pairing carries cos(π/6) — a factor
+unique to disc = −3.* ∎
+
+**Boundary (P5).** Arithmetic does not supply the colour multiplicity 3 (2-adic/instantiation,
+as at T5) nor which physical legs carry a pairing (occupancy). The *frame* and the *value* are
+mathematics; the application map remains with C1.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
