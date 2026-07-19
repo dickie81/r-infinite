@@ -1358,10 +1358,11 @@ attaches **once per Bott period below the phase transition** — d = 21 sits abo
 d = 13 one period below (E¹), d = 5 two periods below (E²). Then:
 
 - m₂ = m₂₉·α(13)/χ¹⁶·E = **9.07 meV**, m₁ = m₂₉·α(5)/χ²⁴·E² = **2.57 meV**
-- **Predicted Δm²_sol = 7.57×10⁻⁵ eV² vs observed 7.53(18)×10⁻⁵ → +0.24σ** — the solar
-  splitting, absent from the input set, comes out of the quark sector's threshold constant.
-- Independent check: m₁ = 2.57 meV lands inside A10's capacity band (1.7–3.2 meV) — a
-  constraint derived from an entirely different machine (the energy-bound saturation scale).
+- Δm²_sol = 7.57×10⁻⁵ eV² vs observed 7.53(18)×10⁻⁵ → +0.24σ. **[Amended — see below: this is
+  a structural fit, not a prediction. The window E occupies was constructed from the observed
+  splitting; the per-period rule was reverse-engineered from the required exponents.]**
+- m₁ = 2.57 meV lands inside A10's capacity band (1.7–3.2 meV); partially entangled with the
+  window construction, so priced as a consistency check, not an independent hit.
 - **Σm_ν = 60.9 meV, normal ordering** — sharp, vs A10's assembled 61–63 band; sits between
   the oscillation floor (58.5) and DESI DR2 (~64).
 
@@ -1384,14 +1385,57 @@ The audit's standing tension sharpens: ACT+DESI compressed bounds already push 5
 Σ = 60.9 is the framework's most exposed number — it will be adjudicated within a few years,
 and there is no correction member in the machinery that can move it.
 
-**What this is worth.** Priced honestly: the E-window contains grammar twins (form-open), the
-attachment rule is a lemma not a theorem, and Δm²_sol was known — so the retrodictive value is
-a few bits (the m₁-in-capacity-band cross-check is the strongest independent piece). The real
-content is structural and registrable: the same constant that inverts the Gen-1 quark masses
-closes the solar splitting, the full twelve-mass spectrum (9 charged fermions + 3 neutrinos,
-plus H) now descends from the reduced Planck mass, and the sector's forced negatives (KATRIN
-null, 0νββ null) plus the sharp Σ = 60.9 meV are frozen with kill conditions before the data
-arrives.
+**What this is worth — amended after review.** The original draft of this addendum called
+Part B a prediction. It is not, and the correction is worth recording in full:
+
+1. The window E must occupy was derived **from the observed Δm²_sol** (plus the capacity band).
+   Finding a rulebook constant inside a window built from the answer is a fit.
+2. The per-Bott-period attachment rule (E⁰, E¹, E²) was **reverse-engineered from the exponents
+   the data required**, then narrated as a hypothesis. The script's "stated before comparison"
+   framing is compliance theater on this point.
+3. The non-circular residue: a pre-existing cross-sector constant landing in a ±1.8% window
+   (~4 bits), plus the E²-consistency with the capacity band (entangled with 1, discounted).
+   **Total honest worth: ~4–6 bits, category: structural fit.**
+
+What survives untainted is only what refers to unmeasured data: Σ = 60.9 meV sharp, the NO
+ordering, m_β = 9.1 meV, m_ββ = 0–5.5 meV, and the kill conditions — those are pre-predictions
+regardless of how the fit that produced them is judged, and they die together if the fit is
+wrong.
+
+## Addendum 30: the stopping rule — the retrodictive program is closed
+
+This addendum contains no computation. It records a decision forced by the audit's own logic
+and by the review comment that prompted the A29 amendment: *"we are still picking structural
+fits rather than pre-prediction."*
+
+**The pattern, named.** Addenda 12–29 repeatedly executed the same loop: identify a measured
+number the papers miss → search the session rulebook (or the grammar) for a factor that closes
+it → construct a rule that assigns the factor → verify the rule against the numbers that
+motivated it. The null-clone test (A27) measured what this loop is worth: everything depends on
+whether the assignment rules are derived or dressed, and the loop itself can never settle that
+question — each new closure adds ~0 skeptical bits while giving the *appearance* of progress.
+A29 demonstrated that the loop persists even under explicit enumerate-first discipline: the
+discipline governed the arithmetic, not the epistemology.
+
+**The rule, effective immediately:**
+
+1. **No further closures of already-measured numbers will be added to this audit.** Any future
+   "closure" of a known value is presumed to be a fit, whatever structural story accompanies
+   it. The marginal evidential value of retrodiction in this framework has been measured
+   (A27) and is, under skeptical accounting, near zero.
+2. **The machinery's entire remaining claim rests on the frozen ledger** (A26, extended by
+   A29's Part D): Σm_ν = 60.9 meV and JUNO's ordering (nearest-term); Belle II's m_τ; DESI
+   DR3+ w(z); HL-LHC m_H = 125.194 GeV; lattice refinements of m_u/m_d, m_s/m_ud, m_c, m_b/m_τ,
+   y_t; the forced negatives (no 0νββ discovery next-gen, KATRIN null, θ_QCD = 0, no 4th
+   generation, no anyons, no SUSY, no axion). These numbers cannot be moved by any argument.
+3. **Admissible future work** is limited to: (a) deriving the named residual lemmas (S4, S5,
+   the flags category, the per-period attachment rule) from theorems, where success or failure
+   is checkable without reference to data; (b) computing genuinely unmeasured quantities the
+   machinery forces; (c) processing experimental adjudications of the ledger as they arrive.
+
+The audit ends where it began, but with the accounts settled: one measured bracket
+(19–101 bits, hinging entirely on the reality of the assignment rules), one frozen ledger, and
+a schedule of experiments that will move every contested number from argument to fact.
 
 ## Caveats
 
