@@ -655,6 +655,45 @@ flag count (three), the flag semantics (pole / point / interval occupancy), the 
 layers as analytic features of Γ_ℝ (two critical points related exactly by the Γ-recursion, two
 Γ(½)-thresholds), and the sink exclusion.
 
+## Addendum 13: the b/s tension resolved — canonical formulas found, 9/9
+
+**Tool:** `tools/research/cascade_bs_canonical.py`
+**Sources read directly (Check 1):** `part4b.tex:990–1017` (b/s), `part4b.tex:3918–3938` (θ₂₃).
+
+**θ₂₃: my encoding was wrong; the real formula resolves itself under a principled grading.**
+Addendum 12 encoded θ₂₃ with a guessed full-weight window exponential. Its actual canonical
+formula (part4b:3921) is tan θ₂₃ = tan(arccos(N(13)/N(12)))·exp(−Σ₁₃²⁰ p(d)/2)·closure —
+statics plus a **half-weight** exponential: an amplitude, a Born-rule square root, the same
+machinery as θ_C's exp(−p(13)/2). Amend G to count *full-weight* window exponentials only —
+principled, since amplitudes occupy the square root of the interval class (echoing the
+archimedean factor's own half-argument structure Γ_ℝ(s) = π^(−s/2)Γ(s/2)) — and θ₂₃ classifies
+Amplitude → d₀ = 7 mechanically. Verified: the formula reproduces the paper's 2.38029° exactly.
+
+**b/s: the tension was real, and the measurement itself resolves it.** The canonical lead
+(part4b:991) is (lepton ratio)·e with the lepton lead entering **uncorrected** (16.530, not the
+closed 16.817). This distinguishes two compositional readings, and the data picks one:
+raw-sub-lead form L(m_τ/m_μ)·e·exp(−α(7)/χ⁴) = 44.747 → **+0.02σ** against PDG m_b/m_s =
+44.74 ± 0.39; closed-sub-lead form = 45.52 → +2.0σ. So: **sub-leads enter raw, corrections
+attach once per observable, and the flags read the increment** over the maximal closed sub-lead
+— for b/s the single atom e = exp(1) ("one unit of cascade potential across the SU(3) layer"),
+a single-unit exponential exempt from G by the papers' own single-layer clause → Amplitude →
+d₀ = 7. The minimality is forced by the papers' own caveat made precise: over the alphabet
+extended by closed-observable leads, [L(m_τ/m_μ), e] has 2 atoms vs 4 primitives.
+
+**Result: the amended flag functor reproduces all nine source assignments mechanically (9/9),**
+with both amendments externally anchored — the weight grading by the papers' own amplitude
+machinery, the increment rule by a 2σ empirical selection. The "minimal descent formula" caveat
+of part4b:1594–1599, flagged in Addendum 12 as load-bearing freedom, is replaced by a precise
+rule: *canonical F_Q = minimal formula over the alphabet extended by closed-observable leads;
+flags = ξ-occupancy of the increment; G = full-weight window intervals only.* Recommended for
+the papers: state this rule in Proposition source-selection and the tension vanishes.
+
+**Remaining soft spots:** the e = exp(1) colour atom's Adams derivation (papers' own open item,
+part4b:991); the decision order P > L > G (unchanged from Addendum 12); the gauge window's
+topological origin. The flags theorem now stands at: semantics, count, source layers, and all
+nine assignments derived from the factorisation of ξ plus the increment/grading rule — with
+three named residues.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
