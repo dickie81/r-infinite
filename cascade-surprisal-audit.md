@@ -771,6 +771,45 @@ flag system and two dated adjudicators." The negative result carries real conten
 rule survived an attempted widening that the data would have rewarded — evidence that the flag
 functor is a constraint, not a curve-fit.
 
+## Addendum 16: the geodesic normalisation computed from the action — π/2 dissolves
+
+**Tool:** `tools/research/cascade_geodesic_action.py`
+**Sources (Check 1):** `part4b.tex:3276–3320` (V = a·cos²θ, a = 1/χ "automatic", the geodesic map
+θ = (π/2)h/v *stated*; Tier-3 caveat), `part4b.tex:3042–3095` (obstruction factor
+1/(2√π) = chirality × quarter-turn; g₂ = N(13)).
+
+**The canonical computation.** On the unit S¹² the canonical scalar is arc length —
+L = ½(∂θ)² − a·cos²θ — and there is no reparameterisation freedom: masses are invariant, and the
+papers' map θ = (π/2)h/v rescales the Higgs kinetic slope without transforming the kinetic term.
+**π/2 is an artefact of a non-canonical field redefinition, not an action result.** Canonically:
+m_H² = V″(π/2) = 2a, m_W = N(13)/2 (unit equatorial orbit, g₂ = N(13) per the papers), so
+
+> m_H/m_W = 2√(2a)/N(13) — controlled by the obstruction height a, not by any geodesic length.
+
+**The height scan (obstruction-algebra atoms only).** The papers' a = 1/χ gives 2.93 — dead at
+646σ, *and unclosable*: its needed shift (−0.63) exceeds the correction family's entire span
+[0.0016, 0.0453] — so if the family is complete, the height cannot be 1/χ (an internal forcing
+argument). Of eight candidate heights built from the obstruction atoms, exactly one lands:
+**a = (1/χ)·1/(2√π)** — the unresolved zero's energy carrying its own obstruction factor,
+equivalently **m_H² = V″ = 1/(2√π): the Higgs mass² is the layer obstruction factor in cascade
+units.** Closed form:
+
+> **m_H/m_W = √2/(π^(1/4)·N(13)) = 1.55759** vs observed 1.55829 ± 0.00213 → **−0.33σ, zero
+> corrections** — 16× closer than the geodesic π/2 (+5.9σ before its underdetermined
+> correction). Predicted m_H = 125.19 GeV (observed 125.25 ± 0.17).
+
+**Pricing and status.** The height was selected from ~8 algebra atoms with the nearest
+competitors dead by tens of σ: ~3–4 bits at face value, held provisional until the lemma —
+*the zero's potential height carries the obstruction factor* — is proved from the
+obstruction/Berezin machinery (one lemma, same status as Addendum 14's Cartan candidate).
+Consequences: (i) Case B's residual dissolves — it was a *lead* deficiency, not a missing
+correction, so the Addendum 15 underdetermination among correction members becomes moot;
+(ii) the formula needs *no* family member, so HL-LHC-era m_H (~25 MeV) tests it directly at
+~10σ discrimination against every π/2-plus-correction package; (iii) the papers' Corollary
+higgs-quartic inherits the revision: λ = g²/(8√π·N(13)²)·(…) replaces π²g²/32, with the same
+−0.65% shift squared. Recommended for the papers: replace the stated geodesic identification
+with the canonical computation and promote the height lemma to an open question.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
