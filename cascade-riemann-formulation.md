@@ -127,7 +127,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | # | Gap | Type | Closes when |
 |---|---|---|---|
 | 1 | Increment rule (A3) | **derived from arithmetic first principles** (T5, Addendum 33; supersedes the Tier-2 A32 version) | closed as mathematics; only its physical instantiation (occupancy, m/k counts) remains with C1 |
-| 2 | Per-period attachment (A3) | **shape derived** (T6, Addendum 34): ℤ/8 grading = Weil-index order, forced set {5,13}, exponents (0,1,2) forced counting | remaining: the marked-coset choice + activation joint (instantiation) and the member VALUE E = N_c·π² (still a fit, twin undiscriminated) |
+| 2 | Per-period attachment (A3) | **shape derived** (T6, Addendum 34): ℤ/8 grading = Weil-index order, forced set {5,13}, exponents (0,1,2) forced counting | remaining: the marked-coset choice + activation joint, and the member VALUE — a **ten-fold rulebook degeneracy** at r≤4 (Addendum 37); JUNO's Δm²₂₁ prunes it to ≤3, a derivation must finish; registered numbers are form-robust (Σ = 60.9 ± 0.35 meV) |
 | 3 | S4 lemma: measurement-at-typical-value | anchor discharged (T5: E[πx²] = s/2 is an arithmetic identity); joint still physical | a variational or information-theoretic derivation of the joint |
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | **derived** (T7, Addendum 35): one convexity structure — Bohr–Mollerup log-convexity off/at the Cauchy–Schwarz equality manifold + ℤ/8 coset computation | population-class assignment remains instantiation |

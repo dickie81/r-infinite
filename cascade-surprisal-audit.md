@@ -1676,6 +1676,45 @@ unique to disc = −3.* ∎
 as at T5) nor which physical legs carry a pairing (occupancy). The *frame* and the *value* are
 mathematics; the application map remains with C1.
 
+## Addendum 37: the E fit dug out — a ten-fold degeneracy, and JUNO as its judge
+
+**Tool:** `tools/research/cascade_E_fit_audit.py`
+**Stopping-rule compliance:** category (a)/(c) — no new closure; a fit's degeneracy is
+characterised and its experimental adjudication registered. **Check-4 category:** novel (b),
+*against* the framework — and a correction to this audit's own record.
+
+**1. The audit undercounted its own degeneracy.** A29 Part C reported a twin pair. That
+enumeration stopped at 3 atoms. At r ≤ 4, the honest self-consistent data window
+(Δm²_sol ± 2σ ⟹ E ∈ [28.74, 30.28]) contains **ten distinct rulebook values**, from
+Γ(½)·2π·e = 30.27 down to Γ(½)·π²·√e = 28.84 — including a central near-degenerate trio:
+N_c·π² = 29.609, 2πe√3 = 29.583, and the previously unrecorded **4e² = 29.556**. The
+fit-charge against the E value strengthens accordingly, by the audit's own error.
+
+**2. But the data is already pruning, and JUNO finishes the job.** Each form makes an exact,
+frozen Δm²_sol prediction (7.217–7.884 ×10⁻⁵ eV² — a 3.7σ span at current precision). The
+outer forms are already at ±1.5–2.0σ. At JUNO-era precision (~0.3% on Δm²₂₁), all but ~1–3
+forms die: **JUNO's solar-splitting measurement is the form-discriminator**, registered here
+before it reports:
+
+- survivor in the central trio (Δm²_sol ∈ [7.55, 7.57]×10⁻⁵) → the trio remains
+  data-inseparable (0.5σ spacings even at JUNO) and only a derivation can finish;
+- survivor elsewhere in the ten → the central trio (including both A29 twins) dies;
+- **no survivor → the E-closure and the neutrino enhancement die entirely.**
+
+**3. The registered numbers are form-robust — with the spread now stated.** Across all ten
+forms: Σm_ν ∈ [60.55, 61.23] meV (ledger row amended: **Σ = 60.9 ± 0.35 meV form-systematic**),
+m₁ ∈ [2.44, 2.68] meV, m_ββ ≤ 5.7 meV. Every downstream forced negative (KATRIN null, 0νββ
+null, ordering) is unchanged by the form choice. The quark channel ((c/u)/(s/d), ±3%) keeps
+all ten alive and will not discriminate in the foreseeable future.
+
+**4. The structure, under T5–T8.** The central trio all have full-dictionary readings that
+describe *different processes*: N_c·Γ(½)⁴ (N_c parallel channels × threshold full turn);
+χ·2π·e·cos(π/6) (chirality × Tate period × colour atom × dual projection — with √3 =
+|different(ℚ(ζ₃))| by T8); (χe)² (chirality-doubled colour measurement, squared). No exact
+identity links them (3π²/(4πe·cos30) = π√3/2e = 1.000889); at most one is the activation's
+output. **The named joint carrying the entire residual fit: the threshold-crossing process
+identification** — T6's activation mechanism or T4 uniqueness. No selection is made.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
