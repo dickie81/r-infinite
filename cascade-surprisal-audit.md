@@ -1279,6 +1279,60 @@ bracket is roughly **9–51 bits**, and every ×10 inflation of a stage's varian
    rules: derived-then-applied vs mined-then-dressed. It cannot be argued down or up — only the
    scheduled measurements of Addendum 26's frozen numbers move it.
 
+## Addendum 28: the lepton sector from the existing machinery — the Planck-anchored chain
+
+**Tool:** `tools/research/cascade_leptons.py`
+**Sources read directly (Check 1):** part4b.tex lines 496–520 (`thm:lepton-ratios`), 530–618
+(universal coupling, `thm:complete-mass`), 1854–1892 (`rem:slot-precedence-mu-e`), 2995–3013
+(`thm:mtau-abs-closure`), 2443, 3325 (`thm:vev`), 4106–4108 (Tier 1/2 summary).
+**Check-4 category:** the three lepton closures are the papers' own Tier-2 results —
+*acknowledged, not novel*. Novel here: the dictionary form, the Planck-anchored composition, the
+cross-sector identity, and the pricing.
+
+**Part A — no new atoms were needed.** The papers' lepton sector is already written in the
+session's epsilon-factor dictionary, verbatim:
+
+- m_τ/m_μ = e^(Φ(6,13)+α(14)/χ)·χΓ(½) = **16.81731** vs 16.81703(114) → **+0.24σ**
+- m_μ/m_e = e^(Φ(14,21))·χΓ(½)·(1 + α_em/2π + α_em·α(21)) = **206.7707** vs 206.768283 →
+  **+0.0012%**, the cascade's own α_em systematic (α_em = 1/137.028 is itself a dictionary
+  object)
+- m_τ = (α_s v/√2)·e^(−Φ(5)+α(19)/χ)/(χΓ(½))² = **1776.82 MeV** vs 1776.86(12) → **−0.31σ**,
+  with α_s = 0.11590 and v = 240.7 GeV both computed from Γ-function data and the reduced
+  Planck mass (thm:vev) — no empirical input anywhere in the chain.
+
+**Part B — the chain absolutes.** Composing closed m_τ through the closed ratios:
+m_τ = 1776.8225 MeV (**−21 ppm**), m_μ = 105.6544 MeV (**−38 ppm**), m_e = 0.510974 MeV
+(**−49 ppm**) — the papers' 0.47%/0.60% direct-formula residuals cancel in composition, leaving
+exactly the Tier-2(i) "chain-subtracted inherited shift" band. Combined with the session's quark
+chain (anchored on m_τ), the derivation graph is now one connected tree:
+**M_Pl → v → m_τ → {μ, e, b, s, c, d, u} with t from v and H from W** — ten fermion/boson
+masses from one scale and dictionary constants.
+
+**Part C — the cross-sector identity.** The dictionary predicts, and the closed forms satisfy
+exactly: **(b/s)/(m_τ/m_μ) = e·e^(−α(7)/χ⁴−α(14)/χ)** — both sectors descend the *same* window
+Φ(6,13) with the *same* obstruction χΓ(½); the entire quark/lepton difference at Gen 2↔3 is the
+colour atom e (two measured Cartan modes) and a member swap (U(1) source → area-maximum
+source). Observed check: 2.6603 vs 2.6608 (+0.018%). This is the epsilon-factor theorem's
+signature: sectors differ only by local constants.
+
+**Part D — pricing (extends Addendum 27).** The lepton stages carry the chain's smallest
+deviations (~10⁻⁵ relative):
+
+| Stage | dev | credited bits | skeptical bits |
+|---|---|---|---|
+| τ/μ | 1.6e-5 | 13.4 | 0.0 (saturated) |
+| μ/e | 1.2e-5 | 13.8 | 0.1 |
+| τ abs | 2.1e-5 | 13.0 | 0.2 |
+| **Added** | | **+40.2** | **+0.4** |
+
+Running totals: **credited ≈ 101 bits, skeptical ≈ 20 bits**. The lepton stages now dominate
+the credited column — and contribute almost nothing skeptically, because the window × member
+space saturates deviations this small, exactly as it did for b/s. The lepton sector is thus the
+purest expression of the audit's central dichotomy: worth ~40 bits if the source-selection rules
+are real, worth ~0 if they are dressing — and the rules' reuse pairs ({α_s, m_τ/m_μ} sharing
+α(14)/χ; {m_τ abs, ℓ_A} sharing α(19)/χ, priced by the papers at ≲10⁻⁶) are the strongest
+standing evidence for "real."
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
