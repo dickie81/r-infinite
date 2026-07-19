@@ -491,6 +491,39 @@ information bound would collapse the window to a sharp M_EW prediction — eithe
 fatal. That sharpening, an independent derivation of the census freeze-out tick, and the
 Belle II m_τ discrimination are the three open targets as of this addendum.
 
+## Addendum 9: sharpening the capacity scale — and downgrading Addendum 8
+
+**Tool:** `tools/research/cascade_capacity_sharpening.py`
+
+**What is rigid.** Any local mode count of the form g·m³·V/(phase space) bounded by an area gives
+m ∝ R^(−1/3) regardless of conventions: **the 1/6 exponent is convention-proof.** In q-units the
+entire convention spread moves the ledge by only 0.005.
+
+**What is not.** The prefactor spans a factor ~4.4 across defensible conventions (bare vs (2π)³
+phase space, degeneracy g = 1–24, nats vs bits): the honest capacity window is **m\* ∈ [17, 77]
+MeV**. Scoring every canonical scale against it: none of QCD's propagating scales fall inside —
+the light current quarks sit below, and f_π, m_s, m_π, T_c, Λ, m_p all sit above. The window
+lies strictly in the *confined interior*, where QCD has no particle (the nearest canonical
+quantity inside is the pion–nucleon sigma term, ~50 MeV — noted as an observation, not a claim).
+The identification ambiguity is therefore physics, not sloppiness: the information bound points
+at a strongly-coupled region that only a nonperturbative census could name. The quarter-side
+cross-check shows the same ~decade looseness (Λ_E = 1.7–3.2 meV vs m_ν ~ 50 meV), so convention
+transfer between the two bounds does not restore sharpness.
+
+**The downgrade.** Propagating the honest window through Addendum 8's adjacency inversion gives
+an EW-anchor window of **[5, 49] GeV vs the observed 91 GeV** — a close miss by a factor 1.9–19
+(0.27–1.28 decades; ~1% of the hierarchy exponent). Addendum 8's "window contains the EW
+cluster" depended on the loose targets (m_π, Λ — prefactors 8–19, not O(1)). Revised claim:
+**order-of-magnitude adjacency, not containment**; revised pricing: **~4–5 bits → ~2–3 bits.**
+The audit applies to its own constructions.
+
+**Path to a real sharpening** (in order of decisiveness): (i) a cascade-native derivation of the
+mode-count normalisation — g and the phase-space factor from the layer structure, which would
+either land the prefactor on a physical scale or falsify the postulate outright; (ii) a
+nonperturbative (lattice) census of information-bearing modes in the confined phase; (iii)
+failing both, the claimable content reduces to the exponent alone: matter at R^(−1/3), the sixth,
+with the prefactor acknowledged as grammar.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
