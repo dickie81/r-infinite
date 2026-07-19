@@ -889,6 +889,44 @@ against HL-LHC's Higgs mass. Recommended for the papers: adopt the variance-norm
 theorem; it upgrades their own m(d)² = α(d) from derived identity to instance of a general law,
 and closes their Tier-3 geodesic caveat in the same stroke.
 
+## Addendum 19: more masses — the down-type quark absolutes
+
+**Tool:** `tools/research/cascade_more_masses.py`
+
+**The new candidate (Cartan projection).** Addendum 14's colour atom said: crossing the gluon
+layer measures the rank-2 Cartan, costing exp(2·½) = e. The su(3) weight geometry supplies its
+natural completion: the angle between weight and root directions is *exactly* 30° (the hexagonal
+lattice — not one angle among many, the unique one). If the crossing measures the Cartan along
+root directions, a down-type quark's weight projects onto the measured frame with
+cos(π/6) = √3/2. The same-layer quark/lepton offset is then the measured colour content:
+
+> **m_b = m_τ · e · cos(π/6) = 4.1828 GeV** (PDG m_b(m_b) = 4.183⁺⁰·⁰⁰⁷₋₀.₀₀₆ → **−0.03σ**)
+> **m_s = m_b / (b/s)_closed = 93.48 MeV** (PDG 93.5 ± 0.8 → **−0.03σ**)
+> **t/c = N_c·(b/s) = 134.2** (observed 135.9 ± 2.2 → −0.76σ; the Weyl multiplicity as counting)
+
+Two quark absolutes at 0.03σ from one angle that geometry forces, plus the up-type relation —
+the down-type spectrum is now generated entirely from the lepton chain (m_τ closed →
+b via e·cos30° → s via the closed ratio), with the papers' scheme-shaky m_b/m_τ = e (pole)
+claim superseded by a scheme-consistent MS-bar relation.
+
+**Pricing and caveats, with force.** Candidate-lemma grade, like Addendum 14: ~3 bits, pending
+the projection lemma (formalise "the crossing measures along roots; the weight projects at
+cos(π/6)" in the equipartition machinery). And the scheme caveat is real: these are
+PDG-convention values (m_b at m_b, m_s at 2 GeV); running m_s to the b scale moves b/s to ~52.6,
+so the closures live in the PDG convention specifically — the cascade must eventually derive its
+scheme (the √(N_c/N(0)) machinery is the opening) or the matches are convention-contingent.
+
+**Refusals (recorded).** The up-type absolute anchor (t or c alone) is one equation short — the
+missing theorem is the papers' own open item, the Weyl-chirality decomposition of S¹¹ — and the
+Gen-1 inversion (u/d < 1) is outside the crossing pattern entirely. No grammar search was
+performed on either; the audit's rules forbid manufacturing them.
+
+**The mass ledger after Addendum 19.** Derived in this session's chain, cumulative: m_μ (−39
+ppm), m_e (−52 ppm) by composition; m_H = 125.19 GeV (−0.33σ, zero axioms after Addendum 18);
+m_b (−0.03σ) and m_s (−0.03σ) on one candidate lemma; t/c closed as a relation. Remaining open,
+honestly: the up-type anchor, Gen-1, v's second-order, the neutrino sector, and every hadronic
+sub-percent deliberately left in the saturation zone.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
