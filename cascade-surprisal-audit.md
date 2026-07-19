@@ -573,6 +573,40 @@ meV / normal-ordering test (near-term), the log-periodic DESI template, Belle II
 capacity postulate now carries one sharp, dated, kill-able prediction on each side of ξ: the
 matter window in the confined interior, and the neutrino floor at 2 meV.
 
+## Addendum 11: first data contact — the neutrino squeeze and the Riemann–BAO null
+
+**Tool:** `tools/research/cascade_riemann_bao.py`
+
+**1. The Σm_ν prediction is now hostage to cosmology's own anomaly.** Against current bounds,
+Addendum 10's prediction (normal ordering, Σ = 61–63 meV) sits: *alive by a hair* under DESI DR2
++ CMB (Σ < 64 meV, 95%, ΛCDM; arXiv:2503.14738/2503.14744); *excluded* by the 2026 ACT DR6 +
+DESI DR2 adiabatic-ΛCDM analyses (Σ < 52–57 meV; arXiv:2606.17994) — which however also exclude
+the normal-ordering oscillation floor itself (58.5 meV): the "negative neutrino mass" tension.
+The prediction therefore dies and rises with standard normal ordering: if the tight bounds hold,
+both fall (and neutrino cosmology has bigger problems); if the anomaly resolves to systematics,
+the 61–63 window reopens exactly. The w₀wₐ escape (Σ < 160 meV) is unavailable to the capacity
+construction, whose staticness requires w = −1 — the postulate is squeezed from both sides and
+cannot dodge: either dark energy is constant and the Σ window decides it, or dark energy evolves
+and the staticness dies first. A cleanly cornered prediction.
+
+**2. The Riemann log-periodic template is now fit, not just proposed.** Using the DESI DR2 BAO
+data shipped in this repository (src/generated/bao-table.tex, 13 points, Planck fiducial
+χ² = 24.70), the template δH/H = A·cos(g·ln(1+z)) + B·sin(g·ln(1+z)) at the matter-era mappings
+g = (3/2)γₙ of the first Riemann zeros gives: Δχ² = 4.1 / 6.8 / 3.6 at γ₁/γ₂/γ₃ with amplitudes
+~2.2–3.0% and 95% limits ~2.5% — while the continuum scan finds its best fit at a *non-Riemann*
+frequency (g = 18.2, Δχ² = 14.2, soaking up the known z = 0.51 D_H outlier). **The Riemann
+frequencies are not preferred over the continuum: null recorded**, and the first observational
+bound at the zeros' frequencies is |δH/H| ≲ 2.5% (95%) — five orders of magnitude above the
+≤10⁻⁴ coupling ceiling already set by clock drifts (Addendum 6), so BAO cannot yet probe the
+surviving parameter space. The template, its data contact, and its null are now part of the
+record; future BAO/SN compilations can tighten the same two-parameter fit.
+
+**Board after Addendum 11:** the capacity postulate's two sharp predictions are both now in
+contact with data — the neutrino floor cornered by the Σ-bound controversy (resolution expected
+within years), the Riemann template bounded and null at current precision. Remaining open:
+the lattice census of the 17–20 MeV confined-interior scale, Belle II m_τ, and the census
+freeze-out mechanism (still anchor-less after the layer-29 closure).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
