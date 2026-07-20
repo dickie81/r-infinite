@@ -275,6 +275,30 @@ the same epistemic standard as Theorem 13's exhaustion; the Observer k = 3 and t
 grading remain inputs. The remaining formal target is **extension to the full ~100-entry
 record**.
 
+**Theorem 13c (first-principles reconstruction; `cascade_u2_first_principles.py`).** The
+rule-set of Theorem 13's v1 is *generated* by the foundation, with three of its stipulations
+dissolving into foundation objects: (i) the precedence order becomes **frame nesting** —
+Theorem 9's one-record-one-frame plus a logical-priority argument (unit anchor before frame,
+frame before mediation, bilinear innermost) gives `unit > observer > gauge > bilinear >
+none`, producing P>L>G, the Amplitude default, *and* — since no frame means no χ-attachment —
+the Family-B null, with no separate clauses; (ii) the channel table becomes **contact
+counting** — unit 1, gauge 1, bilinear 2 per touched period (two legs), and observer
+**3 = |{5,13,21}|**, the size of the Theorem 12 marked set, upgrading that soft input to a
+theorem-plus-one-identification (explicitly *not* "three spatial dimensions"); (iii) the
+gauge flag becomes a **theorem of the increment rule** — Φ(a,b) is a product over the
+half-open support (a,b], so mediation = a band twist in the support, points (empty support)
+can never mediate, and the v1 sharpening is derived rather than imposed. With obstruction as
+the **winding number of the order-8 Weil-index clock**, colour rank as **[ℚ(ζ₃):ℚ] = 2**
+fixed once per record, and projection as one trace-duality change, the reconstruction — with
+no precedence order, no null clause, and no k-table in its code — reproduces **all stored
+rows**, and **adjudicates all five of Theorem 13b's probe forks** to the canonical branch
+(in particular the surviving lo<12 gauge variant is arithmetically wrong, and nesting selects
+PLG uniquely). The forks stay registered predictions with derived values: a disagreeing
+future row would falsify the foundation account itself. *Honest status:* the nesting and the
+contact identifications are arguments (PARTIAL), not theorems; the source twist values 14
+and 7 are inherited from the address structure (19 and 5 are foundation objects); the kind
+classifications ride on D1; the content grading remains an input.
+
 ## 8. The record: agreement at current precision
 
 Every output below is forced by Theorems 1–13 under Definition 6.1; deviations are against

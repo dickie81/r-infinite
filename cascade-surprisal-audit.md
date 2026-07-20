@@ -2276,6 +2276,52 @@ finite and chosen, papers-motivated); the two soft inputs (Observer k=3, A13 gra
 inputs here too. No new numeric closure was made (stopping rule intact — the probes are
 structural, with no measured values attached).
 
+## Addendum 55: U2 from first principles — three stipulations dissolve
+
+**Tool:** `tools/research/cascade_u2_first_principles.py`
+**The demand:** don't just prove the clauses survive against alternatives (A54); derive them
+from the T1–T9 foundation so they are generated, not stipulated. The reconstruction succeeds
+at a level that changes the rule-set's shape: **three of v1's rules disappear as separate
+stipulations**, absorbed into foundation objects —
+
+- **The P>L>G precedence order → frame nesting.** T9 (one record, one frame) + a logical-
+  priority argument (a unit anchor must resolve before any frame question; the observer frame
+  before mediation, since locality is a property of the read and mediation of the path; the
+  bilinear frame innermost): resolution takes the outermost available frame, `unit > observer
+  > gauge > bilinear > none`. This yields P>L>G *and* the Amplitude default in one move, and
+  selects **PLG uniquely** among the exhaustion's three surviving orders. Status PARTIAL —
+  an argument, not a theorem, but one argument where v1 had an unexplained order.
+- **The Family-B null clause (R10) → emergent.** A member is a χ-attachment to the resolved
+  frame; no frame → no member. The radiative slot needs no rule of its own.
+- **The k-table → contact counting.** k = the resolved frame's contact count: unit 1 (one
+  absolute anchor); observer **3 = |{5,13,21}|** — the soft input upgraded to the *size of
+  the T6-marked set* (a theorem), with one identification step left (the observer's read
+  closes once per marked coset); explicitly **not** "three spatial dimensions" (barred by
+  Check 8 and unnecessary); gauge 1 (one band); bilinear 2·(periods touched) — two legs per
+  touched period.
+- **The point-vs-window gauge reading → a theorem of T5.** The increment rule makes Φ(a,b) a
+  product over the half-open support (a,b]; gauge mediation = a band twist in the support.
+  Points have empty support (a norm, not a transport) — so v1's post-run sharpening, already
+  killed-into by the exhaustion, is here *derived*; and μ/e's (14,21] misses the band while
+  α_s's (5,12] contains 12, both as consequences.
+- Also derived: obstruction = **winding number of the order-8 Weil-index clock** (|Δg|/8 full
+  γ-cycles); colour rank = **[ℚ(ζ₃):ℚ] = 2**, fixed once per record by T9 (the "any quark
+  leg" reading the exhaustion found data-forced); projection = T8's single trace-duality
+  change; class/sign = T7.
+
+**Result: 11/11 stored rows** from the reconstruction — with no precedence order, no null
+clause, and no k-table in the code. **All five A54 probe forks are adjudicated** to the
+canonical branch: P1 winding 2 (Weil clock beats the indicator), P2 gauge-mediated (support
+{14..20} meets the band — the surviving lo<12 variant is arithmetically *wrong*), P3/P4
+nesting → PLG, P5 no frame → null. The forks remain registered predictions, but with derived
+values: a future disagreeing row now falsifies the foundation account, not a clause choice.
+
+**Still inherited/open, stated plainly:** the source twist *values* 14 (band top) and 7 (the
+amplitude twist) are read from the address structure, not re-derived (19 = ln Γ(½) threshold
+and 5 = observer twist are foundation objects); the kind classifications ride on D1; the A13
+grading remains an input; the nesting and contact identifications are PARTIAL. No new numeric
+closure (stopping rule intact).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
