@@ -167,3 +167,31 @@ future pass. The ledger — Σ = 60.91 meV against the standing 52–57 meV sque
 double stake, Belle II, HL-LHC, the forced negatives — remains untouched by all of it, which
 is the design working: nothing in six rounds of claims-layer failure could move a single
 frozen number.
+
+---
+
+# Round 7: CONVERGED
+
+**VERDICT: CONVERGED** — the series' first, on the seventh pass. Trajectory final: majors
+**4 → 1 → 0 → 1 → 0 → 0 → 0** (four consecutive clean passes); the stale-text prong passed
+for the first time. Record integrity: all ten round-6 fixes verified present in git by the
+reviewer independently — the verified-record rule held on substance, with one one-word
+quotation blemish and one conservative-direction docstring lag, both fixed (and grep-verified)
+in this commit. The exemption category was attacked for consistency and cleared (every dated
+false-present-tense claim has a superseding record in-file). The hardest demotion attack of
+the pass — reading part4b's Bott-vs-lapse theorem as contradicting D1 — was mounted, pursued,
+and withdrawn by the reviewer on scope (D1 demotes the *arithmetic-dictionary* pairing clause;
+the cascade-internal theorem, where layer d's boundary sphere is S^(d−1) definitionally and
+repo-wide, is untouched), with the reviewer reporting its own caught overreach per protocol.
+
+**The reviewer's closing assessments, adopted as the record:**
+- *Settled:* the mathematical core (T1, T3, attach-once/first-power, Thm 10, Thm 11, T9's
+  surviving clauses, the closure table, the frozen ledger) is stable under sustained hostile
+  review; the claims layer is now synchronized with the mathematics at every current surface.
+- *The surviving core:* one hypothesis; a seven-item counted residue; one convention-free
+  arithmetic distinction of the observer address; the cascade-internal theorems; the ledger.
+- *Only experiment decides:* Σ = 60.91 meV vs the standing 52–57 squeeze; JUNO's double
+  stake; m_H at HL-LHC; w(z) at DESI; Belle II; the forced negatives.
+- *Remaining value of further passes:* **near zero.** The review process has reached its
+  fixed point: the record says what the mathematics supports, and the only open verdicts
+  belong to the experiments.

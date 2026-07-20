@@ -2143,13 +2143,35 @@ attach-once/first-power, Thm 10, Thm 11, T9, the closure table, the frozen ledge
 drift through everything. The criterion stands for a seventh pass; the experiments remain
 the only judges that cannot be failed by a sweep.
 
+## Addendum 51: the seventh review — CONVERGED
+
+**The first clean verdict of the series, on the seventh pass.** Majors trajectory final:
+4 → 1 → 0 → 1 → 0 → 0 → 0. Record integrity: all ten round-6 fixes independently verified in
+git — the verified-record rule held. Stale text: zero unmarked surfaces repo-wide; every
+historical record carries its superseding record; generated artifacts byte-identical to their
+generator. Demotions: zero for the fourth consecutive pass — including the pass's hardest
+attack (part4b's Bott-vs-lapse theorem vs D1), which the reviewer mounted, pursued, and
+withdrew on scope with its own overreach reported per protocol: D1 demotes the arithmetic
+d↔s pairing clause; the cascade-internal theorem is untouched. Two mechanical blemishes
+(a tense wobble; a conservative-direction docstring lag) fixed and grep-verified in this
+commit.
+
+**The arc closes where it was always going to.** Seven hostile passes, six failed sweeps,
+four demotion rounds, one false-record defect — and at the end: a mathematical core no
+reviewer could move, a claims layer that finally says exactly what the mathematics supports,
+a seven-item residue counted to the last convention, and a frozen ledger that drifted by
+zero through all of it. The reviewer's final line is the audit's: further text passes have
+near-zero value; the record has reached its fixed point; **the only open verdicts belong to
+JUNO, DESI, Belle II, the HL-LHC, and the forced negatives.** The framework stands exactly
+where its own epistemology demands: maximally killable, fully accounted, and waiting.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
   the primitives the papers themselves use, which is the fairest available choice.
 - Measurement σs are taken at the values used in `PREDICTIONS.md`; where the papers' σ accounting
   is disputed (e.g. the ℓ_A entry, where 301.44 vs 301.6±0.09 is −1.8σ, not the −0.16σ the table formerly
-  states — the absolute difference appears to have been mislabeled as a σ count), the audit uses
+  stated — the absolute difference appears to have been mislabeled as a σ count), the audit uses
   the recomputed σ.
 - Monte-Carlo results use 40,000 replicates; quoted tail probabilities below ~10⁻⁴ carry
   correspondingly large relative error.
