@@ -2190,6 +2190,46 @@ could have turned.
 Honestly noted: the check was undertaken hoping to delete an item and could not; the result
 is recorded as found. The remaining high-value open target is unchanged: U2-as-a-function.
 
+## Addendum 53: U2 as a function, v1 — the address table computed
+
+**Tool:** `tools/research/cascade_u2_function.py`
+**The demand answered is the hypothesis's own:** if the universe is ζ-driven, the
+availability/flag/source/channel table cannot be ~60 tabulated facts — it must be *computed*
+from each observable's bare identity. v1 constructs that function: **ten papers-sourced
+clauses** (Bott-gap obstruction from leg generations; colour rank 2 for any quark leg;
+projection rank for quark↔lepton mixing; flags P/G/L from dimensionality, novel-content
+gauge-window transit, and locality of kind; the data-anchored P>L>G decision order of
+Addendum 52; population class from kind with the T7 sign; channel count 1/3/2·(periods
+touched); the Family-B null for flag-free Descent) applied to per-row identity facts (legs,
+content window with A13's novel-vs-inherited grading, kind, dimensionality).
+
+**Result: 11/11 rows of the exhaustion family reproduced by the one rule-set** — including
+the μ/e radiative null, both availability-blocked rows, and the m_τ-abs row where the P>L>G
+precedence genuinely fires inside the function (novel content (5,12) per Addendum 52's
+behind-the-dash finding, P and G both true, P wins).
+
+**Run record, kept per the verified-record rule:** the *first* run failed 10/11 on θ_C — the
+gauge-flag clause as first written let the point value d=13 (the N(13) normalisation inside
+the arccos) trip G. The fix — G requires a genuine *window* (lo < hi); a point value is a
+static normalisation, not a path — is sourced from Addendum 52's flag readings (θ_C and
+sin²θ_W both read G = F on exactly this ground), but it was applied *after* seeing the
+failure: one post-run rule sharpening, disclosed.
+
+**What the collapse actually is:** per row the function computes seven stored fields (three
+availability ranks; member class, source, channel exponent, sign) from five identity fields —
+of which legs, kind, and dimensionality are *definitional* (readable off what the observable
+is), leaving essentially **one discretionary input per row** (the A13 content grading) plus
+the ten shared clauses. Discretionary content: ~7 stored choices/row → ~1 grading/row.
+
+**What v1 does not do:** (i) scope — the 11 rows are the exhaustion family; the full ~100-entry
+record (m_H, y_t, the c/u stages, the anchors, 1/α_em) is not yet covered; (ii) uniqueness —
+the rule-set was assembled knowing the table (fixed-target risk; the binary row-check is the
+defence, and it did fail once before passing); the forcing theorem is now *uniqueness of the
+rule-set*, not existence; (iii) two soft inputs remain: the Observer channel count k = 3
+(the papers' three-χ-factor statement, imported not composed) and the A13 grading itself.
+Review Finding 3 ("availability is tabulated, not computed") is **discharged at v1 strength**:
+computed, by a disclosed, once-corrected, non-unique rule-set.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

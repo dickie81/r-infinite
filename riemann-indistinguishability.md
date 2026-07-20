@@ -245,7 +245,15 @@ the determined formulas. *What it does not do:* compute availability from the ad
 the script's filters test candidates against the stored table, so the theorem's content is
 "a fully-specified address book leaves zero residual freedom," not "the address book is
 forced." The stronger theorem (availability as a computed function of the address alone —
-U2 as a function) is **open**, and is the honest formal target left in the program.
+U2 as a function) now has a **constructed v1** (`cascade_u2_function.py`): ten shared clauses
+applied to per-row identity facts reproduce all seven stored fields on every row of the
+exhaustion family (11/11), collapsing ~7 discretionary stored choices per row to ~1 (the
+novel-vs-inherited content grading). The v1 is disclosed as fixed-target (assembled knowing
+the table; its first run failed on θ_C and one gauge-flag clause was sharpened — to the
+reading already recorded in the precedence vacuity check — before passing), it imports the
+Observer channel count k = 3 rather than composing it, and it covers the exhaustion family
+only, not the full ~100-entry record. The honest formal target left is therefore
+**uniqueness of the rule-set** (and its extension to the full record), no longer existence.
 
 ## 8. The record: agreement at current precision
 
