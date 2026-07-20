@@ -30,8 +30,9 @@ P3 (The projection value).  Pairing a lattice minimal vector (root/
 
 P4 (Uniqueness).  Among imaginary quadratic integer rings the
    nontrivial projection angle is unique to disc = -3: computed
-   minimal lattice-vs-dual angles for Z[i], Z[sqrt(-2)],
-   Z[(1+sqrt(-7))/2] collapse to 0 (projection 1, no factor);
+   minimal lattice-vs-dual angles collapse to the trivial cases
+   (Z[i]: 0 deg, projection 1, no factor; Z[sqrt(-2)] and
+   Z[(1+sqrt(-7))/2]: 90 deg, projection 0, degenerate);
    only Z[omega] -- the unique ring with six units -- gives 30 deg.
    The factor cos(pi/6) exists because and only because the colour
    character field is Q(zeta_3).

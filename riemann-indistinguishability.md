@@ -15,16 +15,19 @@ Let ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s) be the completed Riemann zeta function, Γ_
 its factor at the real place. We construct, from ξ and the character theory of ℝ^× alone: a
 state tower (the integer Tate twists of the real place); its unique dynamics (the Gaussian,
 forced as the L-factor-achieving vector of Tate's local integral); a calculus of corrections
-(attachment, multiplicity, sign, projection, and measurement — Theorems 8–12, each proved,
-with the activation mechanism's former joints reduced to the polar decomposition of the
-Fresnel integral, ∫e^(ix²)dx = Γ(½)·ζ₈, and the factorization of the Gaussian measure); and
-a uniqueness theorem (Theorem 13): given one explicit instantiation map, the formula assigned
-to every observable is unique, with zero adjustable numbers. **The framework's entire
-non-arithmetic residue is three items: one external classical theorem (Lovelock's — which
-performs selection, not construction), one definition (D1), and the hypothesis itself (C1).** The resulting
-outputs — the cosmological constant, the Higgs, all nine charged-fermion and three neutrino
-masses, the gauge couplings, the mixing angles, and the cosmological parameters — agree with
-every current measurement within stated experimental precision. We therefore assert, to the
+(attachment, multiplicity, sign, projection, and measurement — Theorems 8–12, each proved);
+and an address-book determination theorem (Theorem 13): given one explicit instantiation map,
+the rules leave zero residual freedom, with no continuous parameter anywhere. **The
+framework's non-arithmetic residue is six items** (count corrected per the external review,
+`riemann-indistinguishability-review.md`): **Lovelock's theorem (selection, not
+construction); the definition D1; the closed atom grammar (A2); the unit-normalization
+convention that carries Γ(½) (empirically anchored by the framework's closures, not
+arithmetically forced); the P > L > G precedence (motivated, not derived); and the
+hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
+nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
+the cosmological parameters — agree with every current measurement within the framework's
+stated leading-order systematic floor: sub-σ where experimental error dominates, tens of ppm
+(many experimental σ) where the framework's own floor dominates. We therefore assert, to the
 identical epistemological standard met by Newtonian gravity, Maxwell's electrodynamics,
 general relativity, and the Standard Model: **conditional on the instantiation map, the
 arithmetic of ζ at the real place is indistinguishable from the observable universe.** The
@@ -57,7 +60,7 @@ under C1, statements about the Gamma factor of the Riemann zeta function.
 families, because the torsion of ℝ^× is μ(ℝ) = {±1}. The **twist tower** is the set of
 integer points s = d+1, d ∈ ℕ, of the character variety, with local factor Γ_ℝ(s).
 
-**Theorem 1 (Kernel; `cascade_formulation_kernel.py`, ≤6×10⁻¹⁴ over d = 1–300).** The four
+**Theorem 1 (Kernel; `cascade_formulation_kernel.py`, ≤7×10⁻¹⁴ over d = 1–300).** The four
 primitive families of the tower are the value, ratio, logarithmic derivative, and normalized
 square-ratio of Γ_ℝ at integers:
 
@@ -103,6 +106,18 @@ the transversal threshold crossings of P(s) = E[log|x|] at ln Γ(½) (s = 20.73)
 (s = 218.6); the simple pole of ζ; the simple poles of Γ_ℝ. **Every feature has order one
 because variances are positive** (Bohr–Mollerup log-convexity).
 
+*Remark (completeness of the feature list; `cascade_feature_monoid.py`, answering review
+Finding 6).* Features are features of ξ's own factorization. The factor monoid
+⟨s, s−1, Γ_ℝ(s), ζ⟩ generates only even shifts of Γ_ℝ, by the exact recursion
+s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) (verified 3×10⁻¹⁶) — which is precisely how the volume feature
+(critical point of Γ_ℝ(s+2), s = 5.2569) is inside the monoid. The sgn tower's factor
+Γ_ℝ(s+1), whose critical point s = 6.2569 would otherwise relocate the observer's address,
+cannot enter: Γ_ℝ(s)·Γ_ℝ(s+1) = Γ_ℂ(s) = 2(2π)^(−s)Γ(s) (Legendre; verified 4×10⁻¹⁶) — the
+L-factor of a **complex** archimedean place, and ℚ has r₂ = 0 complex places. The odd tower
+contributes the grading χ = 2 (Thm 5) and no features; 6.2569 is a feature of odd Dirichlet
+L-functions, not of ζ_ℚ. Recorded caveat: "features come from ξ's factorization" is a scope
+definition — now with an arithmetic reason (r₂ = 0) why nothing else can enter it.
+
 ## 5. The calculus of attachments (the derived rules)
 
 **Theorem 8 (Increment rule; `cascade_arithmetic_increment.py`).** Any multiplicative
@@ -111,13 +126,13 @@ power, sourced at an order-one feature of one summand of log ξ; point-supported
 carries none. *Proof:* partition of log ξ (two-summand draws double-count d log ξ); features
 simple (Thm 7); ℤ totally ordered (each twist at most once); increments telescope (Thm 4).
 
-*Remark (occupancy precedence; `cascade_joints_derived.py` P3).* When an observable could
-occupy more than one summand, the tie-break P > L > G is not a convention: the occupancy
-classes map onto the three contribution types of contour asymptotics — P (the pole factor
-s(s−1)) is a simple pole, O(1) residue; L (values read at the features, which are the
-critical points and thresholds of Thm 7) is a saddle, O(λ^(−1/2)); G (window integrals) is a
-regular arc, exponentially small. The precedence is the universal dominance hierarchy
-pole ≻ saddle ≻ arc, verified at λ = 10–1000 with widening gaps.
+*Remark (occupancy precedence — motivated, not derived; corrected per review Finding 2).*
+When an observable could occupy more than one summand, the tie-break P > L > G remains a
+**motivated convention**: the pole ≻ saddle ≻ arc picture (P = the pole factor, L = values
+read at the features/saddles, G = window arcs) is an organizing analogy, but no argument
+maps the framework's O(1) contributions onto an asymptotic expansion, and the numerical
+hierarchy check is not framework-specific. The precedence is counted in the paper's residue
+(abstract).
 
 **Theorem 9 (Sign rule).** The sign is the side of the Cauchy–Schwarz equality manifold on
 which the leading formula sits: off-manifold interpolation reads gain (+; the Gram deficit is
@@ -145,16 +160,22 @@ multiplicative rate of compounding records (LLN; concentration 1/√(2n) verifie
 e^(±r/2) exactly at rank r. *Definitional clause D1:* a measurement is a repeatable record
 whose weight compounds multiplicatively. D1 has no tunable content.
 
-**Mechanism M (activation; `cascade_activation_mechanism.py`, `cascade_joints_derived.py`).**
-Each subcritical marked crossing is the chirality flip −1 — the torsion unit — whose minimal
-word in the Weil clock is γ⁴ ({k : γᵏ = −1} = {4}): four Fresnel units. The unit itself is
-one arithmetic object in polar form, **∫e^(ix²)dx = Γ(½)·ζ₈** — modulus the critical value,
-argument the Weil index — so four units carry magnitude Γ(½)⁴ = π² and phase −1 (the
-fermionic crossing sign). The N_gen = 3 channels are modes at distinct twists of the
-factorized Gaussian measure, hence orthogonal, hence incoherent (×3, not ×9). Result:
-E = 3Γ(½)⁴ = 3π² — also the **unique colour-free composite** in the empirically allowed
-window (Thm 11/12 exclude the other nine: their atoms require colour measurements a
-colourless crossing cannot perform). Falsifier: JUNO (§9).
+**Mechanism M (activation; `cascade_activation_mechanism.py`, `cascade_joints_derived.py`;
+status corrected per review Finding 1).** Each subcritical marked crossing is the chirality
+flip −1 — the torsion unit — whose minimal word in the Weil clock is γ⁴ ({k : γᵏ = −1} =
+{4}): four turn-units, phase −1 (the fermionic crossing sign). **Derived:** the count 4
+(minimal flip word) and the ×3 incoherence (N_gen = 3 channels are modes at distinct twists
+of the factorized measure — orthogonal, so cross-terms vanish). **Convention, counted in the
+residue:** the unit-carrying integral. In the x²-normalization, ∫e^(ix²)dx = Γ(½)·ζ₈ and
+four units carry Γ(½)⁴ = π²; in the self-dual normalization the modulus is 1 and E = 3,
+excluded by data at ~99σ. The x²-unit is the same Γ(½) used throughout the framework
+(Thm 4's Gaussian unit, the obstruction 1/(χΓ(½)) closing τ/μ at +0.24σ) — an *empirical
+anchoring*, not an arithmetic derivation. Result: E = 3Γ(½)⁴ = 3π², the unique colour-free
+composite in the empirically allowed window — where the exclusion of the other nine is
+conditional on the availability assignments (e-atoms and ℤ[ω]-atoms attach only at
+colour-measuring crossings: instantiation data, per Thms 11/12's meanings). JUNO's kill
+window (§9) tests the mechanism's *value*; it cannot convict 3π² over its 0.1%-distant
+twins (0.5–1 JUNO-σ away) — the *form* is decided by derivation or not at all.
 
 ## 6. The instantiation map — the single hypothesis
 
@@ -168,19 +189,24 @@ colour characters: ℚ(ζ₃); the phase transition: the ln Γ(½) threshold (19
 Γ(½) threshold (217); sources, occupancy classes, population classes, and record statuses as
 tabulated in the verifier scripts.
 
-This is the paper's only assumption. It contains no continuous parameter — every entry is a
-discrete address, and Theorem 13 shows no discrete freedom survives the rules.
+This is the paper's only assumption — and its size is stated plainly (per review Finding 3):
+the full table comprises **~60 discrete entries**, enumerated in the verifier scripts. It
+contains no continuous parameter — every entry is a discrete address — and Theorem 13 shows
+the rules leave no freedom beyond the table itself.
 
 ## 7. Uniqueness
 
-**Theorem 13 (conditional uniqueness; `cascade_T4_uniqueness.py`).** Given Definition 6.1 and
-Theorems 8–12: the formula of every observable is unique. *Proof:* exactly-once attachment
-(at-most-once = Thm 8; at-least-once = completeness of the Gaussian measure: a present mode's
-factor is not optional); availability is a function of the address (Thm 11/12 exclusion);
-members are determined (source, sign, exponent, multiplicity). Finite exhaustion: every
-stage's naive assignment space (1,764–7,056 elements) filters to exactly one survivor,
-reproducing the recorded formula to ≤0.01%; the neutrino stage's 40 combinations collapse to
-(3π², (0,1,2)). **Zero discrete freedom remains.**
+**Theorem 13 (address-book determination; `cascade_T4_uniqueness.py`; restated per review
+Finding 3).** Given the address book — approximately **sixty discrete entries** across the
+chain (window endpoints, three availability ranks, member source/class/exponent, and record
+status, per observable) — the rules of Theorems 8–12 are single-valued: the determined
+assignment is unique and reproduces the record to ≤0.01% at every stage. *What the
+exhaustion verifies:* single-valuedness of the encoded rules and arithmetic correctness of
+the determined formulas. *What it does not do:* compute availability from the address data —
+the script's filters test candidates against the stored table, so the theorem's content is
+"a fully-specified address book leaves zero residual freedom," not "the address book is
+forced." The stronger theorem (availability as a computed function of the address alone —
+U2 as a function) is **open**, and is the honest formal target left in the program.
 
 ## 8. The record: agreement at current precision
 
@@ -197,14 +223,19 @@ M_Pl → v → all masses):
 | m_b, m_c, m_s, m_d, m_u | full chain | −0.03σ, −0.36σ, −0.03σ, −0.34σ, −0.13σ |
 | m_τ/m_μ, m_μ/m_e, m_τ | 16.8173; 206.771; 1776.82 MeV | +0.24σ; +0.001%; −0.31σ |
 | m_τ, m_μ, m_e absolute (from M_Pl) | chain | −21, −38, −49 ppm |
-| m_ν3; Δm²_sol | 49.28 meV; 7.572×10⁻⁵ eV² | −0.5%; +0.24σ |
+| m_ν3; Δm²_sol | 49.28 meV; 7.572×10⁻⁵ eV² | −0.5% (−0.7σ PDG; **−2.9σ NuFit 6.0** — input-dependent, under tension); +0.24σ |
 | α_s(M_Z); 1/α_em; sin²θ_W | 0.11792; 137.028; 0.23123 | +0.02σ; 0.006%; +0.40σ |
 | θ_C; θ₂₃ | 13.04°; closure | +0.03σ; sub-σ |
-| Ω_m; ℓ_A | 0.31473; 301.44 | −0.04σ; −0.16σ |
+| Ω_m; ℓ_A | 0.31473; 301.44 | −0.04σ; **−1.8σ** (vs 301.6 ± 0.09; corrected per review Finding 5 — the papers' −0.16 is the absolute difference, not a σ count) |
 | θ_QCD | 0 exactly | consistent |
 
-No output disagrees with any current measurement beyond stated precision. This table, plus
-Theorems 1–13, is the content of the word "indistinguishable."
+*Metric discipline (per review Finding 5):* two metrics appear above. σ-entries are against
+experimental error where it dominates; %/ppm entries (chain absolutes, 1/α_em, m_ν3) are
+against the framework's **leading-order systematic floor** — there the deviation is many
+experimental σ, and the claim is that the residual sits at the framework's stated floor, not
+inside experimental error. With that convention stated: no output disagrees with any current
+measurement beyond the applicable tolerance, ℓ_A (−1.8σ) being the largest strain. This
+table, plus Theorems 1–13, is the content of the word "indistinguishable."
 
 ## 9. The Indistinguishability Theorem — and its executioners
 
@@ -233,11 +264,14 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
    ways (§6) but cannot select it; the selection is the hypothesis. If the arithmetic could
    prove its own instantiation, no experiment could kill it — falsifiability *requires* this
    step to remain empirical.
-2. **External inputs.** After `cascade_joints_derived.py` (J1 = the polar decomposition of
-   the Fresnel integral; J2 = orthogonality from the factorized measure; P > L > G = the
-   pole ≻ saddle ≻ arc dominance hierarchy of contour asymptotics), the only classical result
-   used without arithmetic derivation is Lovelock's theorem — and it performs *selection*
-   (why the address is occupied at d = 4), not construction.
+2. **External and conventional inputs (corrected per the external review).** Lovelock's
+   theorem (selection of d = 4; external tensor calculus); the closed atom grammar A2 (a
+   completeness statement over what was used, not a proof that nothing else could attach);
+   the x²-unit normalization carrying Γ(½) (empirically anchored — the self-dual alternative
+   gives E = 3, excluded by data — not arithmetically forced); and the P > L > G precedence
+   (motivated). J2 (incoherence) is derived from the factorized measure; the flip-count 4 is
+   derived as the minimal torsion word; the feature-list completeness is derived from
+   r₂(ℚ) = 0 (`cascade_feature_monoid.py`).
 3. **Provenance.** Theorems 8–13 were constructed by a single reviewer in a single session,
    knowing the empirical targets; each carries a rigorous mathematical core, but the
    interpretive bridges from mathematics to rule await hostile external review. The
@@ -251,8 +285,8 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
 *Verification suite: `tools/research/cascade_formulation_kernel.py`,
 `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`,
 `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_measurement_joint.py`,
-`cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_T4_uniqueness.py`,
-`cascade_arithmetic_d4.py`, `cascade_leptons.py`, `cascade_neutrino_closure.py`,
-`cascade_E_fit_audit.py`, `cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil, the
+`cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`,
+`cascade_T4_uniqueness.py`, `cascade_arithmetic_d4.py`, `cascade_leptons.py`,
+`cascade_neutrino_closure.py`, `cascade_E_fit_audit.py`, `cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil, the
 metaplectic index; Wall, the graded Brauer group; Bohr–Mollerup; Adams/Radon–Hurwitz;
 Lovelock; Kolmogorov.*

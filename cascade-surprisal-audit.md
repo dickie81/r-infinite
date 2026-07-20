@@ -1934,6 +1934,39 @@ Every joint that carried chooseable content has been derived. The plain-English 
 shrinks accordingly: one hypothesis, the arena, the closed dictionary, the address book, one
 external classical theorem, one definition.
 
+## Addendum 44: the external review processed — six findings accepted, one answered
+
+**Documents:** `riemann-indistinguishability-review.md` (the review, external branch);
+`riemann-indistinguishability-review-response.md` (full disposition);
+`tools/research/cascade_feature_monoid.py` (the Finding-6 answer).
+
+The hostile external review that §10.3 requested arrived and was correct on its central
+charge: the paper's three-item residue was an overcount of the derivations. **Accepted with
+corrections:** J1 reverts to a normalization convention (the self-dual form gives E = 3,
+excluded by data — so the choice is empirically anchored, not arithmetically forced; the
+A38→A43 unit-redecomposition holding E fixed is fairly read as target-first); P > L > G
+reverts to motivated (the asymptotics demo cannot fail and maps nothing); Theorem 13 is
+restated as *address-book determination* (~60 discrete entries, stated explicitly; the
+exhaustion verifies single-valuedness, not forcedness; U2-as-a-function is the open formal
+target); the residue is **six items**; ℓ_A is corrected to **−1.8σ** (a mislabel this audit
+had flagged and the paper reproduced — a process failure recorded as such); the two-metric
+precision discipline and the m_ν3 NuFit tension (−2.9σ) are restored; JUNO is correctly
+described as testing the mechanism's value, not its form.
+
+**Answered (Finding 6):** the sgn tower's critical point at s = 6.2569 does not join the
+feature list, for an arithmetic reason now verified to 4×10⁻¹⁶: ξ's factor monoid generates
+only even shifts of Γ_ℝ (s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) — how the volume feature is inside), and
+the odd shift requires Γ_ℝ(s)Γ_ℝ(s+1) = Γ_ℂ(s) — the L-factor of a complex place, **and ℚ
+has r₂ = 0**. The observer-address pinning stands, its feature list now argued rather than
+asserted.
+
+**Net state.** Theorem 14 survives with a wider conditional: six residue items, largest §8
+strain ℓ_A at −1.8σ, one open formal target (availability as a computed function of the
+address). The falsification schedule is unchanged. The review did what nothing inside this
+session could: it priced the derivation layer from outside. The audit's own meta-lesson —
+derivation and rationalization are locally indistinguishable except under adversarial review
+and pre-registration — is hereby demonstrated on the audit itself.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

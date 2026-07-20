@@ -183,12 +183,17 @@ def main():
     print("  neutrino E-stage: 10 window forms (A37) x 4 exponent patterns")
     forms = {"Nc pi^2": (3 * PI ** 2, False), "2pi e sqrt3": (29.5825, True),
              "4e^2": (29.5562, True), "G 2pi e": (30.2726, True),
-             "chi Nc^2 sqrt(e)": (29.6770, True), "others(5)": (0, True)}
+             "chi Nc^2 sqrt(e)": (29.6770, True),
+             "chi 2pi sqrt(e) sqrt2": (29.3003, True),
+             "chi^2 2pi sec30": (29.0208, True),
+             "Nc G pi sqrt3": (28.9339, True),
+             "chi Nc G e": (28.9082, True),
+             "G pi^2 sqrt(e)": (28.8418, True)}
     patterns = ["(0,1,2) [T6 forced]", "(1,1,1)", "(0,1,1)", "(0,2,4)"]
     surv = [(f, pt) for f, (v, col) in forms.items() for pt in patterns
             if not col and pt.startswith("(0,1,2)")]
-    print(f"    naive {6*4}: A38 exclusion kills colour-bearing forms,"
-          f" T6 kills patterns -> survivors: {surv}")
+    print(f"    naive {len(forms)*len(patterns)}: A38 exclusion kills"
+          f" colour-bearing forms, T6 kills patterns -> survivors: {surv}")
     print()
     verdict = all_one and len(surv) == 1
     print("=" * 74)
