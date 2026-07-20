@@ -24,10 +24,9 @@ P2 (The Gaussian achieves the L-factor -- restated per reviews 3-4:
    the gcd condition fixes f only up to the rescaled-Gaussian family
    c e^(-pi t^2 x^2), whose ratio c t^(-s) is entire and ZERO-FREE;
    self-duality then fixes the normalization -- a convention, the
-   same freedom as Mechanism M's unit).  Verified: x^2 g gives ratio s/(2 pi) (zero at
-   s = 0), Hermite-type vectors give higher polynomials.  So the
-   Gaussian structure is not an axiom (A1's dynamics): it is the
-   unique vector computing zeta's archimedean factor.
+   same freedom as Mechanism M's unit).  Verified: x^2 g gives
+   ratio s/(2 pi); Hermite-type vectors give higher polynomials;
+   c e^(-pi t^2 x^2) gives the zero-free ratio c t^(-s).
 
 P3 (Potential = mean, curvature = variance).  Under the probability
    measure mu_s ~ g(x)|x|^s d*x:
@@ -121,7 +120,8 @@ def P1():
 def P2():
     print()
     print("=" * 74)
-    print("P2: the Gaussian is forced (L-factor-achieving vector)")
+    print("P2: the Gaussian achieves the L-factor (gcd + normalization")
+    print("    convention; restated per reviews 3-4)")
     print("=" * 74)
     g = lambda x: math.exp(-PI * x * x)
     for s in (1.5, 3.0, 8.0):
@@ -133,9 +133,9 @@ def P2():
         print(f"  s = {s:>3}: ratio[g] = {r1:.6f};  ratio[x^2 g]"
               f" = {r2:.6f} (= s/2pi = {s/(2*PI):.6f});"
               f"  ratio[H4-type] = {r3:.4f}")
-    print("  => non-Gaussian vectors multiply Gamma_R by polynomials with")
-    print("     extraneous zeros; the Gaussian's ratio is identically 1.")
-    print("     The 'Gaussian action' is the gcd condition, not an axiom.")
+    print("  => non-Gaussian (non-rescaled) vectors give ratios with extra")
+    print("     zeros; gcd fixes the rescaled family; self-duality picks")
+    print("     the normalization -- a convention (reviews 3-4).")
 
 
 def P3():

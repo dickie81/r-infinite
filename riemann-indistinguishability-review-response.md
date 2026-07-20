@@ -75,3 +75,29 @@ items; address book ~100 entries with a ~60-entry exhaustion-verified chain; obs
 distinctions: one. Whether the process is *converged* is decidable only by a further pass
 finding zero demotions and zero stale text — which is now a falsifiable statement about this
 repository, in keeping with the rest of it.
+
+---
+
+# Round 4: the convergence test — FAILED, processed
+
+The published criterion was tested and **failed on both branches**: VERDICT NOT CONVERGED.
+The author's registered prediction ("no mathematical findings") was **wrong** — recorded as
+such.
+
+| Pass-4 finding | Disposition |
+|---|---|
+| S1–S6 — six stale surfaces in the Riemann layer (paper Thm-7 remark "two pinnings"; feature-monoid prints; abstract's unqualified forcing; formulation T5; increment-script P2 docstring+prints; d4 P2 tail+prints) | **Accepted; all swept.** |
+| S7–S8 — the sweep boundary was drawn short of the repo: the generated/deployed predictions table and four instances in `src/cascade-series-part4b.tex` still taught the −0.16σ mislabel | **Accepted; fixed at the flagship/deployed layer.** The criterion names the repository; the sweep now does too. |
+| **D1 (mathematical) — Theorem 9's Geometric coset clause is convention-conditional**: "< 1/π" holds under the avatar weight 2/Γ_ℝ(d) (max 0.31322) but fails under the Definition-2.1 pairing 2/Γ_ℝ(d+1) (max 0.35001 ≥ 1/π) — independently re-verified by the author before acceptance | **Accepted; demoted** in paper and formulation. The Ω_m minus sign is convention-conditional. Residue item seven widened to every d↔s pairing choice; the systematic d/s audit is the open process target. |
+| D2 — Theorem 8's one-summand partition clause is grouping-relative, uncheckable, convention-adjudicated | **Accepted; demoted.** Attach-once + first-power stand as the arithmetic core. |
+| Cleared: Thm 10's {5,13}/(0,1,2) convention-STABLE under three conventions; Thm 11 mathematics; ledger integrity zero-drift | The most valuable clearances yet: Thm 10 is the first forcing claim to *survive* the d/s attack. |
+| Minors (response-doc F1 row; Ω_m last digit; activation P1 marker) | Fixed / recorded. |
+
+**Convergence status after four passes:** NOT converged; corrected majors trajectory
+4 → 1 → 0 → 1 (mathematical demotion in pass 4 after zero in pass 3 — the curve is not
+monotone and "stable core" was premature for Theorem 9's third clause). The criterion stands
+unchanged for a fifth pass; the sweep boundary is now the entire repository; the systematic
+d↔s pairing audit is the one live class of undiscovered defects pass 4 identified. What four
+passes have not moved: T1, T3, the attach-once/first-power core, Thm 10
+(convention-stability-tested), Thm 11's mathematics, T9's identities and LLN, the closure
+table, and the frozen ledger.

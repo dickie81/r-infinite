@@ -2036,6 +2036,31 @@ after three passes is unchanged and unbroken: the cascade lattice IS the log-geo
 record conditional on ~100 discrete addresses and seven conventions — with executioners
 scheduled. The weakest claims are now labeled as what they are, in every file.
 
+## Addendum 47: the fourth review — the convergence criterion tested and failed
+
+**Verdict: NOT CONVERGED**, on both branches, and the author's registered prediction (zero
+mathematical findings) was wrong. Pass 4 found: six stale surfaces inside the Riemann layer;
+the sweep boundary drawn short of the repository (the deployed predictions table and four
+flagship-paper instances still taught the thrice-corrected ℓ_A mislabel); and — the
+substantive event — **a mathematical demotion in a theorem two passes had certified as stable
+core**: Theorem 9's Geometric coset clause holds only under the avatar-weight pairing (max
+0.31322 < 1/π) and fails under the Definition-2.1-consistent pairing (max 0.35001 ≥ 1/π;
+independently re-verified before acceptance). The Ω_m minus sign is convention-conditional.
+Theorem 8's one-summand clause was also demoted (grouping-relative, uncheckable,
+convention-adjudicated); its attach-once/first-power core stands. Cleared, and valuable:
+Theorem 10's {5,13}/(0,1,2) is the first forcing claim to *survive* the d↔s attack (stable
+under three conventions), and the ledger shows zero drift across three rounds of heavy
+editing.
+
+**Everything accepted and swept**, with the sweep boundary now the entire repository. Residue
+item seven widens to every d↔s layer/weight pairing choice; the systematic d↔s audit is the
+open process target — pass 4 demonstrated it is the one live class of undiscovered defects.
+Corrected majors trajectory: 4 → 1 → 0 → 1; the demotion curve is not monotone; the process
+is not converged; the criterion stands for a fifth pass. What four hostile passes have not
+moved: T1, T3, the attach-once/first-power core, Theorem 10, Theorem 11's mathematics, T9's
+identities, the closure table, and the frozen ledger — whose judges remain scheduled
+regardless of how many more passes the claims layer needs.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
