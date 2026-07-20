@@ -20,10 +20,9 @@ P2 (Scalar-flatness -- DEMOTED to Wick/lapse-conditional cross-check
    sphere) metric is NEVER scalar-flat; only the unit-lapse reading
    gives
         R^(n) * a^4 = (n-1)(n-4),
-   verified numerically below by finite differences: the tower's
-   own measure is scalar-flat UNIQUELY at n = 4.  Everything in the
-   identity is a T1 object; the calculus is neutral; the Lorentzian
-   READING of it inherits the Wick step (instantiation).
+   verified numerically below.  [Review 3: the identity contains no
+   arithmetic object -- a calculus cross-check, conditional on the
+   unit-lapse/Wick reading; the induced metric is never flat.]
 
 P3 (DEMOTED per review 2 -- the feature->layer map is a convention;
    kept as historical record).  The features of
@@ -70,7 +69,7 @@ def p1():
 def p2():
     print()
     print("=" * 74)
-    print("P2: the tower's slicing measure is scalar-flat uniquely at n = 4")
+    print("P2 [DEMOTED, review 3]: lapse-conditional cross-check, no zeta")
     print("=" * 74)
     t, h = 0.3, 1e-5
 
@@ -84,9 +83,9 @@ def p2():
         Rn = 2 * (n - 1) * add / a(t) \
             + (n - 1) * (n - 2) * (ad ** 2 + 1) / a(t) ** 2
         print(f"  {n:>3} {Rn * a(t)**4:>17.6f} {(n-1)*(n-4):>12}")
-    print("  => R vanishes iff n = 4: the unit ball's own geometry solves")
-    print("     the vacuum equation only there.  (Identity in T1 objects;")
-    print("     Lorentzian reading inherits the Wick step.)")
+    print("  => R vanishes iff n = 4 UNDER the unit-lapse reading only;")
+    print("     the induced round metric is never scalar-flat.  (Calculus,")
+    print("     not arithmetic; Wick-conditional -- review 3.)")
 
 
 def p3():

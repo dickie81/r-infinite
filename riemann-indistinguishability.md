@@ -13,8 +13,8 @@ remarks.
 
 Let ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s) be the completed Riemann zeta function, Γ_ℝ(s) = π^(−s/2)Γ(s/2)
 its factor at the real place. We construct, from ξ and the character theory of ℝ^× alone: a
-state tower (the integer Tate twists of the real place); its unique dynamics (the Gaussian,
-forced as the L-factor-achieving vector of Tate's local integral); a calculus of corrections
+state tower (the integer Tate twists of the real place); its dynamics (Gaussian by Tate's
+gcd condition + one normalization convention — Theorem 2); a calculus of corrections
 (attachment, multiplicity, sign, projection, and measurement — Theorems 8–12, each proved);
 and an address-book determination theorem (Theorem 13): given one explicit instantiation map,
 the rules leave zero residual freedom, with no continuous parameter anywhere. **The
@@ -110,6 +110,14 @@ the transversal threshold crossings of P(s) = E[log|x|] at ln Γ(½) (s = 20.73)
 (s = 218.6); the simple pole of ζ; the simple poles of Γ_ℝ. **Every feature has order one
 because variances are positive** (Bohr–Mollerup log-convexity).
 
+*Amendment (fourth review, D1 — Theorem 9's coset clause is convention-conditional).* The
+sign rule's Geometric clause ("all 28 two-coset shares < 1/π") holds under the avatar-weight
+pairing (2/Γ_ℝ(d), max 0.31322) but **fails under the Definition-2.1-consistent pairing**
+(2/Γ_ℝ(d+1): max 0.35001 ≥ 1/π; independently verified). The Geometric minus sign backing
+Ω_m is convention-conditional, not proved — the same d↔s pairing disease as the demoted
+volume pinning. Residue item seven is widened to every d↔s layer/weight pairing choice; a
+systematic d/s audit is the open process target. Theorem 9's other two clauses stand.
+
 *Remark (feature-list completeness: OPEN; review Finding 6 REOPENED by the second review;
 `cascade_feature_monoid.py`).* A first attempt to derive the feature list's completeness
 (via the even-shift recursion s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) and the Legendre identity
@@ -122,16 +130,19 @@ same convention the thresholds use; (ii) the monoid also contains (s−1)Γ_ℝ(
 unlisted critical points at s ≈ 2.39 and 4.51, and the pole-free grouping ½s(s−1)Γ_ℝ has no
 critical point at all. The r₂ = 0 obstruction is real but partial. Consequently: **the
 feature→integer-layer selection is a convention, counted in the residue; the observer's
-address retains two arithmetic pinnings (the torsion half-period γ⁴ = −1; scalar-flatness
-at n = 4), not three.**
+address retains one convention-free arithmetic distinction (the torsion half-period
+γ⁴ = −1; the scalar-flatness cross-check was demoted by the third review).**
 
 ## 5. The calculus of attachments (the derived rules)
 
-**Theorem 8 (Increment rule; `cascade_arithmetic_increment.py`).** Any multiplicative
-functional on twist intervals carries at most one correction member exp(±α(d\*)/χᵏ), at first
-power, sourced at an order-one feature of one summand of log ξ; point-supported content
-carries none. *Proof:* partition of log ξ (two-summand draws double-count d log ξ); features
-simple (Thm 7); ℤ totally ordered (each twist at most once); increments telescope (Thm 4).
+**Theorem 8 (Increment rule; `cascade_arithmetic_increment.py`; partition clause demoted per
+the fourth review).** Any multiplicative functional on twist intervals carries at most one
+correction member exp(±α(d\*)/χᵏ), at first power; point-supported content carries none.
+*Arithmetic core (stands):* attach-once (ℤ totally ordered; increments telescope, Thm 4) and
+first-power (features simple, Thm 7). *Demoted (D2):* the one-source-class exclusivity — the
+"one summand of log ξ" clause is grouping-relative (the volume feature exists only under
+cross-summand regroupings), its double-counting step has no computation that could fail, and
+multi-class cases are adjudicated by the P > L > G *convention* already in the residue.
 
 *Remark (occupancy precedence — motivated, not derived; corrected per review Finding 2).*
 When an observable could occupy more than one summand, the tie-break P > L > G remains a

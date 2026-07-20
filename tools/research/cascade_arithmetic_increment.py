@@ -20,11 +20,11 @@ P1 (The tower and its doubling).  With the Gaussian g(x) = e^(-pi
    ONE.  This is the doubling the cascade calls chirality: chi = 2 =
    |mu(R)|, and the two towers are the two character families.
 
-P2 (The Gaussian is forced -- the L-factor-achieving vector).  For
-   any even Schwartz vector f, Z(f, triv, s) = Gamma_R(s) x (entire
-   correction with extra zeros); the local L-factor is the gcd of the
-   zeta integrals and the GAUSSIAN UNIQUELY ACHIEVES IT (no
-   extraneous zeros).  Verified: x^2 g gives ratio s/(2 pi) (zero at
+P2 (The Gaussian achieves the L-factor -- restated per reviews 3-4:
+   the gcd condition fixes f only up to the rescaled-Gaussian family
+   c e^(-pi t^2 x^2), whose ratio c t^(-s) is entire and ZERO-FREE;
+   self-duality then fixes the normalization -- a convention, the
+   same freedom as Mechanism M's unit).  Verified: x^2 g gives ratio s/(2 pi) (zero at
    s = 0), Hermite-type vectors give higher polynomials.  So the
    Gaussian structure is not an axiom (A1's dynamics): it is the
    unique vector computing zeta's archimedean factor.

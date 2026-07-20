@@ -36,9 +36,9 @@ WHAT FAILED (re-review Findings 1-2):
 STATUS: the r_2 = 0 identity is a genuine partial obstruction (the
 pure +1 shift is not in the monoid), but it does not answer review
 Finding 6.  The feature->integer-layer selection convention is a
-NON-ARITHMETIC RESIDUE ITEM (the seventh); the observer's address
-retains two arithmetic pinnings (gamma^4 = -1 residue; scalar-
-flatness at n = 4), not three.
+NON-ARITHMETIC RESIDUE ITEM (the seventh); after review 3 the
+observer's address retains ONE convention-free distinction
+(gamma^4 = -1); the scalar-flatness cross-check was also demoted.
 """
 
 import math
@@ -102,8 +102,9 @@ def main():
     print("=" * 74)
     print("VERDICT: Finding 6 REOPENED.  The r_2 = 0 obstruction is real")
     print("but partial; the feature->layer selection is a convention and")
-    print("joins the residue (item seven); the observer address keeps two")
-    print("pinnings (torsion half-period; scalar-flatness), not three.")
+    print("joins the residue (item seven); the observer address keeps ONE")
+    print("convention-free distinction (torsion half-period; review 3")
+    print("demoted the scalar-flatness cross-check).")
     print("=" * 74)
 
 

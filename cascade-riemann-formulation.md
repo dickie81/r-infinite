@@ -97,8 +97,9 @@ the Cauchy–Schwarz equality manifold on which the observable's leading formula
 off-manifold interpolation reads gain (+) — the Gram deficit is strict midpoint log-convexity
 of Γ_ℝ, i.e. Bohr–Mollerup, verified strict for all d = 1–215; at-manifold saturated overlaps
 lose (−); proper coset restrictions of the peaked weight 2/Γ_ℝ under the ℤ/8 Weil grading lose
-(−) — all 28 two-coset shares < 1/π over the full tower. The papers' three separate sign
-mechanisms are one convexity structure. Population-class assignment remains instantiation.
+(−) — all 28 two-coset shares < 1/π under the avatar-weight pairing; **convention-conditional
+per review 4: the Definition-2.1 pairing gives max 0.35001 ≥ 1/π** — the Geometric clause is
+demoted. The other two clauses stand. Population-class assignment remains instantiation.
 
 **T6 (Per-period shape theorem — PROVED conditional on marking + activation; Addendum 34).**
 The twist tower carries a canonical ℤ/8 grading: the Weil index of the real quadratic
@@ -111,8 +112,8 @@ counting; only the member's *value* remains unfixed.
 
 **T5 (Arithmetic increment rule — PROVED from Tate's thesis alone; Addendum 33).** With no
 cascade or physics input: the sgn character doubles the twist tower at unit shift (χ = 2 =
-|μ(ℝ)|); the Gaussian is the unique L-factor-achieving vector (A1's dynamics discharged into
-arithmetic); (log Γ_ℝ)′ = E[log|x|] and (log Γ_ℝ)″ = Var[log|x|] > 0 under the twisted Gaussian
+|μ(ℝ)|); the Gaussian achieves the L-factor (gcd fixes the rescaled family; self-duality is
+a normalization convention — restated per reviews 3–4); (log Γ_ℝ)′ = E[log|x|] and (log Γ_ℝ)″ = Var[log|x|] > 0 under the twisted Gaussian
 measure, so every feature of ξ's archimedean summands is order one (simplicity = variance
 positivity); E[πx²] = s/2 exactly (the ½-atom = the mean action; S4's anchor); ℤ's total order
 + the log ξ partition give attach-once. Hence: at most one member, first power, per interval

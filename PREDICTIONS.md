@@ -56,7 +56,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | m_τ absolute closed | +α(19)/χ (correction family, k=1) | 1776.82 MeV | 1776.86 ± 0.12 | −0.31σ |
 | ℓ_A closed | +α(19)/χ (correction family, k=1) | 301.44 | 301.6 ± 0.09 | −1.8σ (vs 301.6±0.09; earlier −0.16 was the absolute difference mislabeled as σ) |
 | sin²θ_W closed | +α(5)/χ³ (correction family, k=3) | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
-| Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31474 | 0.315 ± 0.007 | −0.04σ |
+| Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31473 | 0.315 ± 0.007 | −0.04σ |
 | 1/α_em | 1/α(13) + π/α(14) + 6π (chirality theorem, three Dirac layers) | 137.028 | 137.036 | 0.006% |
 | m_ν (heaviest) | m_29 · α(21)/χ⁸ (cascade neutrino chain) | 0.0493 eV | √Δm²_atm = 0.0495 eV (PDG 2024) | −0.4% (≈ −0.7σ vs PDG; −2.9σ vs NuFit 6.0) |
 | m_K / m_π | d_V/√N(0) = 5/√2 (cascade pseudoscalar octet, Part IVb rem:cascade-beta0) | 3.5355 | 3.5371 | −0.05% |
