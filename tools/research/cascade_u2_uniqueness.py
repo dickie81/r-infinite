@@ -11,10 +11,15 @@ ROUND-8 CORRECTIONS carried by this version (hostile review, findings
 F1-F5, F8; see Addendum 56):
   - The answer key is corrected (theta_23 k=4 per part4b
     thm:theta23-closure; T4-stored availability added, under which
-    the availability clauses FAIL on theta_C -- computed (1,2,0) vs
-    stored (0,0,0) -- so the avail block now has NO survivors: the
-    declared avail space cannot cover the corrected key.  Open
-    defect, reported below, not patched.)
+    the availability clauses FAILED on theta_C through rounds 8-12
+    -- computed (1,2,0) vs stored (0,0,0), zero avail-block
+    survivors.  RESOLVED by Addendum 61's record-legs correction:
+    the angles' legs are the gauge-layer states they read (papers'
+    Cabibbo proof: "one from each gauge layer"), not the SM-side
+    generation pairing; with record-legs the unchanged clauses
+    cover every row and the avail block has canonical +
+    extensional-duplicate survivors.  Disclosed fixed-target with
+    a registered PMNS falsifier -- see cascade_u2_function.py.)
   - The A13 grading is applied consistently (theta_C and m_tau-abs
     novel=None).  Consequences: the pre-fix "points count too" G
     variant is no longer killed (its old kill was manufactured by
@@ -419,10 +424,14 @@ def main():
           f" {[f'{s}:{len(slot_survivors[s])}' for s, _ in MEMBER_SLOTS]}")
     print(f"  slots with canonical alone surviving: {pinned}")
     print()
-    print("  AVAILABILITY: zero survivors -- no variant set in the space")
-    print("  covers the corrected key (theta_C stores (0,0,0) against")
-    print("  every legs-based clause).  The availability question is OPEN,")
-    print("  not uniquely solved.")
+    print("  AVAILABILITY (Addendum 61): under the record-legs encoding")
+    print("  the canonical clauses cover every row; survivors = canonical")
+    print("  + two extensional duplicates (R1 periods-minus-1 on the")
+    print("  coset; R3 kinds-minus-1), R2 pinned uniquely by m_b/m_tau.")
+    print("  Conditional on the record-legs rule (disclosed fixed-target;")
+    print("  PMNS falsifier registered).  The rounds-8-12 zero-survivor")
+    print("  state was the label-legs mislabel, resolved at the")
+    print("  identity-fact level.")
     print("  MEMBER FIELDS: uniqueness holds only up to (i) the G-flag")
     print("  reading (3 survivors -- the old theta_C kill of 'points")
     print("  count too' was an artifact of the inconsistent grading),")

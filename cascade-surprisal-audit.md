@@ -2685,6 +2685,55 @@ the strongest reviewer the process could field found nothing above citation hygi
 open mathematics is unchanged: the θ_C availability defect, the soft inputs (Observer
 k=3, A13 grading, ℓ_A kind), extension to the full ~100-entry record, and the experiments.
 
+## Addendum 61: the θ_C availability defect resolved — the record-legs correction
+
+**Post-convergence work on the arc's standing open defect (rounds 8–12: the legs-based
+availability clauses computed (1,2,0) for θ_C from its quark legs against the T4-stored,
+formula-borne (0,0,0); zero avail-block survivors; the row deliberately left failing).**
+
+**The resolution is at the identity-fact level, and the papers state it verbatim.** The
+Cabibbo proof (part4b:3727, read directly): *"A mixing-matrix element measures the overlap
+of two states, **one from each gauge layer**."* The angle's states — the records the
+observable *reads* — are at the gauge layers d = 12, 13 (the arccos(N(13)/N(12)) frame
+rotation); θ_23 extends *"the cascade Cabibbo template"* through the same window (its
+descent 13..20 is already the `full` field). The generation layers never enter either
+formula. The rounds-8–12 encodings — θ_C legs (13,21)-quark, θ_23 legs (5,13)-quark — were
+the **SM-side generation pairing**: what the angle is *about*, not what it reads. That
+mislabel was the defect's entire content: with record-legs (both angles: gauge layers
+12, 13), the **unchanged clauses** compute (0,0,0) on both angle rows.
+
+**The identity-level rule, uniform across all eleven rows:** record-ratios (τ/μ, μ/e, b/s,
+m_b/m_τ) read generation-layer records — availability factors attach (the 2√π Bott factor
+to gap-crossing descents between records, colour to quark records, projection to mixed
+records); frame-rotations (θ_C, θ_23) read gauge-layer states — no generation path, no
+factors. Grading named per the A59 pattern rule: the uniform expression-tree reading of
+the canonical formulas, corroborated by the papers' own proof language.
+
+**Results after the correction (all scripts rerun):** v1 **11/11 with every availability
+field now checked** (θ_23's (0,0,0) added to the key as formula-borne); the exhaustion's
+availability block goes from **0/100 to 6/100 survivors** — the canonical clauses plus the
+two known extensional duplicates (R1 periods-minus-1 on the coset; R3 kinds-minus-one),
+with the **colour-rank slot pinned uniquely by m_b/m_τ**; member fields unchanged
+(36/21600, +0 compensating); first_principles inherits the correction (no defect line).
+
+**Honest status, stated before any reviewer says it:** this is a fixed-target
+identity-fact correction — the F1-class maneuver — made knowing the target. Its defences
+are (i) the papers' *verbatim* proof language locating the angle's states at the gauge
+layers (not an inference, a quote); (ii) the T4 store and both angle formulas
+independently carrying (0,0,0); and (iii) a **registered discriminating prediction** that
+gives the rule falsifiable content: the record-legs rule requires that **no future
+angle-type closure — specifically the PMNS angles θ_12, θ_13, θ_23 — may carry a 2√π Bott
+factor or a colour factor**. A single PMNS closure with either factor kills the rule and
+reopens the defect. The rule joins the soft-input list as an identification
+(frame-rotation vs record-ratio), not a theorem; the availability question's closure is
+conditional on it.
+
+**Ledger effect:** the arc's open-defect list loses its only mathematical item; what
+remains open is the soft-input list (Observer k=3, A13 grading, ℓ_A kind, record-legs),
+extension to the full ~100-entry record, and the experiments. Next hostile pass should
+attack the record-legs rule first — the pattern rule was applied (grading named), but the
+maneuver class is exactly the one rounds 8–11 kept catching.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

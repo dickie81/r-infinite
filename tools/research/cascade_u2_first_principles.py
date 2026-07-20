@@ -66,9 +66,14 @@ WHAT SURVIVES, honestly labeled:
     (the m_b/m_tau row is what forces the ANY-quark reading; see
     the uniqueness exhaustion's R2 kills).
 
-KNOWN FAILURE (shared with v1, review F5): the availability clauses
-overpredict on theta_C -- computed (1,2,0), stored/formula (0,0,0).
-Reported below, not patched.
+THE THETA_C AVAILABILITY DEFECT (rounds 8-12) is RESOLVED by the
+Addendum-61 record-legs correction in cascade_u2_function.py (the
+angles read gauge-layer states, per the papers' Cabibbo proof; the
+generation pairing was a mislabel).  This file inherits the
+corrected CASES; the avail clauses now cover every row.  Status of
+the record-legs rule itself: IDENTIFICATION (frame-rotation vs
+record-ratio, papers-sourced verbatim), disclosed fixed-target,
+PMNS falsifier registered.
 
 FORK POSITIONS (downgraded from "adjudication" to "proposal"): on
 the exhaustion's probe forks this reconstruction takes the canonical
@@ -140,7 +145,8 @@ def u2_fp(row):
 
 def main():
     print("=" * 74)
-    print("U2 FIRST-PRINCIPLES RECONSTRUCTION (round-8: argument strength)")
+    print("U2 FIRST-PRINCIPLES RECONSTRUCTION (rounds 8-11 + A61:"
+          " argument strength)")
     print("=" * 74)
     print()
     mp = mf = 0
@@ -177,7 +183,7 @@ def main():
     print("  a theorem.")
     print()
     print("=" * 74)
-    print("STATUS LEDGER (round-8 corrected)")
+    print("STATUS LEDGER (rounds 8-11 + A61 corrected)")
     print("=" * 74)
     print("  ARGUMENT      : frame nesting (reversible); contact counts;")
     print("                  member-existence-from-frames.")
@@ -189,9 +195,10 @@ def main():
     print("                  source values 19/5/14/7 (feature->layer")
     print("                  convention); kind fields ride on D1; A13")
     print("                  grading is an input.")
-    print("  OPEN DEFECT   : availability on theta_C (and the whole")
-    print("                  avail-block no-survivor state, see the")
-    print("                  uniqueness script).")
+    print("  IDENTIFICATION: record-legs rule (Addendum 61) -- angles read")
+    print("                  gauge-layer states, resolving the rounds-8-12")
+    print("                  theta_C availability defect; fixed-target")
+    print("                  disclosed, PMNS falsifier registered.")
     print("  RETRACTED     : half-open support 'theorem'; 'T9 one-record-")
     print("                  one-frame'; 'Observer 3 = |T6 marked set|';")
     print("                  '19/5 foundation objects'; 'no precedence/")

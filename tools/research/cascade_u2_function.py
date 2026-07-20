@@ -93,15 +93,20 @@ strength only):
                     population is Descent; else the alpha(d*)/chi^k
                     member
 
-KNOWN FAILURE, RECORDED (round 8, review F5): the availability
-clauses OVERPREDICT on theta_C -- computed (1,2,0) from its quark
-legs, but the T4 store and the paper's formula carry (0,0,0) (no
-2 sqrt(pi), no colour factor in arccos(N(13)/N(12))...).  The
-availability clauses fail there; the correct domain restriction is an
-OPEN QUESTION (round-9 m4: theta_C is one confirmed counterexample,
-theta_23 is unchecked -- one counterexample does not establish a
-"mass-lead-only domain", which was a round-8 overreach, softened).
-The row is left FAILING below so the defect stays visible.  theta_23 and ell_A have no T4-stored availability
+THE THETA_C AVAILABILITY DEFECT -- HISTORY AND RESOLUTION: rounds
+8-12 carried this as an open failure (computed (1,2,0) from quark
+legs vs the T4-stored/formula (0,0,0); the row was left FAILING so
+the defect stayed visible; the round-9 "mass-lead-only domain"
+overreach was softened to an open question).  Addendum 61 resolved
+it at the IDENTITY-FACT level, not the clause level: the failing
+input was the legs encoding, which had recorded the SM-side
+generation pairing instead of the states the observable reads (the
+papers' Cabibbo proof, part4b:3727: "the overlap of two states, one
+from each gauge layer").  With record-legs, the unchanged clauses
+compute (0,0,0) on both angle rows and the availability question
+closes -- conditional on the record-legs rule, which is disclosed
+fixed-target and carries the registered PMNS falsifier (see the
+CASES comment).  theta_23 and ell_A have no T4-stored availability
 (neither is a T4 exhaustion stage -- the 11 rows are the 9 T4
 stages plus these two), so their availability is unchecked.
 
@@ -202,14 +207,32 @@ CASES = [
  ("ell_A",     [],                              None,    None,    "mass-ratio",  True),
  ("sin2thW",   [(13, "gauge"), (14, "gauge")],  None,    None,    "local-ratio", False),
  ("Omega_m",   [],                              None,    None,    "density",     False),
- ("theta_C",   [(13, "quark"), (21, "quark")],  None,    13,      "overlap",     False),
- # theta_23 mixes generations 2-3 (layers 13 and 5).  Content =
- # p-summand range 13..20 (part4b:3921, sum_{d=13}^{20} p(d)/2) --
- # the UNIFORM encoding rule, same as theta_C's point 13 and b/s's
- # (6,13); spans P_1,P_2 under the papers' periods -> k=4 (round-8
- # F1 fixed the key; round-9 M1 fixed the residual bent 'full' field,
- # which had been (12,20) to compensate for the wrong period tuples)
- ("theta_23",  [(5, "quark"), (13, "quark")],   None,    (13, 20),"overlap",     False),
+ # RECORD-LEGS CORRECTION (Addendum 61, resolving the theta_C
+ # availability defect): the mixing angles' legs are the states the
+ # observable READS, and the papers state these verbatim -- the
+ # Cabibbo proof (part4b:3727): "A mixing-matrix element measures
+ # the overlap of two states, ONE FROM EACH GAUGE LAYER"; theta_23
+ # extends "the cascade Cabibbo template" through the same window.
+ # The gauge-layer states are d=12,13; the generation layers never
+ # enter either formula.  The rounds-8-12 encodings ((13,21) and
+ # (5,13) quark) were the SM-side generation pairing -- what the
+ # angle is ABOUT, not what it reads; that mislabel was the entire
+ # source of the availability defect (computed (1,2,0) from label-
+ # legs vs the T4-stored/formula (0,0,0)).  Identity-level rule,
+ # uniform across rows: record-ratios read generation records
+ # (tau/mu, mu/e, b/s, m_b/m_tau -- avail factors attach);
+ # frame-rotations read gauge-layer states (theta_C, theta_23 --
+ # no generation path, no factors).  Grading named per the pattern
+ # rule: the uniform expression-tree reading of the canonical
+ # formulas.  FIXED-TARGET DISCLOSURE: this reclassification was
+ # made knowing the target; its defences are the papers' verbatim
+ # proof language and a REGISTERED DISCRIMINATING PREDICTION -- any
+ # future angle closure (PMNS theta_12/13/23) carrying a 2 sqrt(pi)
+ # Bott factor or a colour factor falsifies the record-legs rule.
+ ("theta_C",   [(12, "gauge"), (13, "gauge")],  None,    13,      "overlap",     False),
+ # theta_23: content = p-summand range 13..20 (part4b:3921), spans
+ # P_1,P_2 under the papers' periods -> k=4; SM-side pairing gen 2-3
+ ("theta_23",  [(12, "gauge"), (13, "gauge")],  None,    (13, 20),"overlap",     False),
 ]
 
 # the answer key: member fields from the papers' closure theorems;
@@ -226,7 +249,9 @@ EXPECT = {
  "sin2thW":   dict(avail=(0, 0, 0), member=("Descent", 5, 3, "+")),
  "Omega_m":   dict(avail=(0, 0, 0), member=("Geometric", 5, 3, "-")),
  "theta_C":   dict(avail=(0, 0, 0), member=("Amplitude", 7, 2, "-")),
- "theta_23":  dict(member=("Amplitude", 7, 4, "-")),
+ # theta_23 avail: formula-borne (thm:theta23-closure carries no
+ # 2 sqrt(pi) and no colour factor), not T4-stored
+ "theta_23":  dict(avail=(0, 0, 0), member=("Amplitude", 7, 4, "-")),
 }
 
 
@@ -254,13 +279,18 @@ def main():
     print("  MEMBER fields: one shared rule-set, no per-row exceptions,")
     print("  uniform content encoding under the papers' period convention")
     print("  (round-9 M1).")
-    print("  AVAILABILITY: domain restriction OPEN (round-9 m4); the")
-    print("  theta_C row FAILS by construction (computed (1,2,0) from its")
-    print("  quark legs vs the T4-stored/formula (0,0,0)) and is left")
-    print("  failing so the defect stays visible (review round 8, F5).")
-    print("  The earlier claims '11/11', '~60 entries -> ~30 facts', and")
-    print("  'the sharpening was data-forced' are WITHDRAWN -- see the")
-    print("  docstring's corrected run record and Addendum 56.")
+    print("  AVAILABILITY: the rounds-8-12 theta_C defect is RESOLVED at")
+    print("  the identity-fact level (Addendum 61): the angles' legs are")
+    print("  the gauge-layer states they read (papers' Cabibbo proof,")
+    print("  'one from each gauge layer'), not the SM-side generation")
+    print("  pairing mislabeled as legs in rounds 8-12.  Unchanged")
+    print("  clauses now compute (0,0,0) on both angle rows.  Disclosed")
+    print("  fixed-target; registered falsifier: any future PMNS-angle")
+    print("  closure carrying a 2 sqrt(pi) or colour factor kills the")
+    print("  record-legs rule.")
+    print("  The withdrawn round-8 claims ('11/11 on all seven fields',")
+    print("  '~60 entries -> ~30 facts', 'the sharpening was data-forced')")
+    print("  stay withdrawn -- see the run record and Addenda 56-61.")
 
 
 if __name__ == "__main__":

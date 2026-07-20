@@ -254,12 +254,18 @@ facts reproduce the **member fields** (class, source, channel exponent, sign) on
 rows — the nine T4 exhaustion stages plus θ_23 and ℓ_A — with no per-row exceptions,
 against the answer key *as corrected by the review*: the previously stored θ_23 channel
 count k=2 was **wrong** (the papers give k=4, `thm:theta23-closure`), and that row's encoded
-identity facts had been bent to match the wrong key. The **availability clauses fail on
-θ_C** — computed (1,2,0) from its quark legs against the T4-stored, formula-borne (0,0,0) —
-an open defect left failing in the script rather than patched; the correct domain
-restriction for the availability clauses is an **open question** (round 9: θ_C is one
-confirmed counterexample and θ_23 is unchecked — the round-8 "mass-lead rows only"
-characterization was itself an overreach and is softened). The earlier claims "11/11 on all seven fields" and "~7 discretionary
+identity facts had been bent to match the wrong key. The **θ_C availability defect**
+(rounds 8–12: computed (1,2,0) from quark legs against the T4-stored, formula-borne
+(0,0,0); carried as an open, visibly-failing row) is **resolved at the identity-fact level
+by the record-legs correction (Addendum 61)**: the mixing angles' legs are the states the
+observable *reads*, which the papers state verbatim — the Cabibbo proof: "the overlap of
+two states, **one from each gauge layer**" — so both angles carry gauge-layer legs (12, 13)
+and the unchanged clauses compute (0,0,0); the generation pairing encoded in rounds 8–12
+was the SM-side *about*-label, and that mislabel was the defect's entire content. The
+correction is disclosed fixed-target (made knowing the target) with two defences: the
+papers' verbatim proof language, and a **registered discriminating prediction** — any
+future angle closure (the PMNS angles) carrying a 2√π Bott factor or a colour factor
+falsifies the record-legs rule. The earlier claims "11/11 on all seven fields" and "~7 discretionary
 choices per row → ~1" are **withdrawn**: by scalar count the identity-fact table (76) is
 larger than the stored-output table (50), and the residual claim is structural only (one
 shared rule-set on member fields). Further round-8 corrections: the A13 content grading is
@@ -280,8 +286,11 @@ distinguish, killed by table fidelity alone; DATA ≥ 2σ). The previous blanket
 kill is a data-kill" is **withdrawn** — the celebrated θ_C kill of the point-counting
 gauge-flag variant was 0.19σ experimentally, and was in any case an artifact of the
 inconsistent grading (under the consistent A13 grading that variant *survives*). Corrected
-results: the **availability block has zero survivors** — no variant set in the space covers
-the corrected key (the θ_C availability defect); on **member fields**, four slots are pinned
+results: the availability block, which had **zero survivors** through rounds 8–12 (the θ_C
+defect), has **six survivors under the Addendum-61 record-legs encoding** — the canonical
+clauses plus two extensional duplicates, with the colour-rank slot pinned uniquely by
+m_b/m_τ (conditional on the record-legs rule, disclosed fixed-target with the PMNS
+falsifier); on **member fields**, four slots are pinned
 with multi-σ kills among their alternatives (flag P: up to 187σ via m_τ-abs; flag L: up to
 66σ via sin²θ_W with its second kill at 2.3σ; sign: 4σ via α_s — though the class-label
 swap kill is LABEL-only and the *distinctive* +/− structure is pinned only at RECORD 1.0σ;
