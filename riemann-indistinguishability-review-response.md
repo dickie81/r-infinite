@@ -195,3 +195,41 @@ repo-wide, is untouched), with the reviewer reporting its own caught overreach p
 - *Remaining value of further passes:* **near zero.** The review process has reached its
   fixed point: the record says what the mathematics supports, and the only open verdicts
   belong to the experiments.
+
+# Round 8: the U2 arc (post-convergence new material) — 7 majors, all accepted
+
+Round 7's convergence covered the paper as it stood. The U2 arc (Addenda 53–55, Theorems
+13/13b/13c, three new scripts, commits 2ad1da5/b456b84/980d6b8) is new post-convergence
+material and was hostile-reviewed on its own. **Majors on the new material: 7. All confirmed
+by direct source reads (Checks 1–5) and accepted.** Trajectory including this round:
+4 → 1 → 0 → 1 → 0 → 0 → 0 → **7 (new material only)**.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 — the stored θ_23 answer key was wrong (k=2 vs the papers' k=4, `thm:theta23-closure` "exp(−α(7)/χ⁴)", `rem:theta23-channel-count` "path d=12..20 … k=4"), with legs and full-content bent to match; θ_23/ℓ_A are not T4 exhaustion stages | **Accepted.** Verified at part4b directly. Key corrected (k=4; legs (5,13); full=(12,20)); "exhaustion family" language corrected to "9 T4 stages + θ_23 + ℓ_A"; every "11/11" claim requalified | v1 + both companion scripts + all three documents |
+| F2 — the "half-open support (a,b] theorem" was invented in commit 980d6b8: the μ/e summand set includes p(14) (part4b:83); part4b:503 exempts μ/e by boundary *stipulation*; `cascade_increment_rule.py` uses the opposite span convention | **Accepted; Theorem 13c's clause (iii) retracted.** The G clause is recorded as the papers' strict-boundary stipulation (Conditional per 4108(a)); the P2 "adjudication" withdrawn | 13c rewritten as withdrawal-in-place; scripts corrected |
+| F3 — "every kill is a data-kill" false: θ_C kill of the point-counting variant = 0.19σ; R8 class-swap kill numerically identical (0σ); several others sub-2σ | **Accepted.** σ-classification (LABEL/RECORD/DATA) implemented in the exhaustion; honest per-kill table now printed (real data-kills survive: 187σ/67σ/66σ/42σ on P, channel, L slots) | uniqueness script rewritten; 13b corrected |
+| F4 — the A13 grading applied in mutually contradictory ways (b/s None vs m_τ-abs (5,12) both inside closed sub-leads; θ_C half-weight counted while θ_23 half-weight exempted) | **Accepted.** Grading made consistent (θ_C, m_τ-abs → None); consequences taken: the θ_C kill and the "data-forced sharpening" narrative were artifacts (withdrawn); precedence is unpinned within U2's grading (all six orders survive; anchoring = A52's papers-criterion layer only) | CASES corrected; 13/13b/13c + row 5b rewritten |
+| F5 — "all seven stored fields on every row" false: avail stored for only 4 rows; T4 stores θ_C avail (0,0,0) vs computed (1,2,0), hidden by key omission | **Accepted.** T4-stored avail added to the key; the θ_C row now FAILS visibly (10/11); avail block has zero exhaustion survivors — recorded as an open defect, not patched | v1 + uniqueness + documents |
+| F6 — fabricated theorem attributions: "T6 marked set {5,13,21}" (T6 forces subcritical {5,13}, size 2); "T9/Theorem 9 one-record-one-frame" (nonexistent phrase; wrong theorem numbers) | **Accepted.** All attributions retracted in place; Observer k=3 reverted to soft input (instantiation count); nesting re-labeled freestanding reversible argument | 13c + scripts + row 6 |
+| F7 — "no precedence order, no null clause, no k-table in the code" literally false (ordered if/elif, else-None, inline constants) | **Accepted.** Language corrected everywhere: the reconstruction *annotates* stipulations with proposed reasons; it removes nothing | 13c + first-principles script |
+| F8 — variant count "24" wrong (actual 44); source map {19,5,14,7} never varied | **Accepted.** Count corrected; the fixed source map disclosed as a withheld axis in 13b and the script | uniqueness + 13b |
+| F9 — collapse arithmetic inverted (input scalars 76 > output scalars 50); ℓ_A "mass-ratio" kind undisclosed and load-bearing | **Accepted.** "~60→~30" and "~7→~1" withdrawn; ℓ_A kind listed as a third soft input | v1 + 13 + row 6 |
+| F10 — "nesting selects PLG uniquely" overstates a reversible argument (path-before-read argues PGL equally well) | **Accepted.** Downgraded to proposal; the reversal argument recorded alongside | 13c + scripts |
+| F11 — "19 and 5 are foundation objects" contradicts the residue accounting; observer is twist 4, not 5 | **Accepted.** All four source values recorded as convention-selected; the twist mislabel fixed | 13c + scripts |
+| F12 — remaining DERIVED labels are identifications-among-coincidences (winding; colour 2 = field degree vs Cartan rank) | **Accepted.** Relabeled IDENTIFICATION | first-principles ledger |
+| F13 — Check-8 status: no hypothesis invocation found | **Noted** (negative result adopted) | — |
+
+**What survives the round:** the corrected machinery itself — member fields computed by one
+shared rule-set (11/11 against the corrected key, θ_23 now passing for the papers' reason);
+four member slots genuinely multi-σ pinned (187σ/66σ/4σ/67σ); the probe-fork enumeration
+(verified complete by the reviewer's own 8,640-row sweep); and the reviewer's checked-and-held
+list (commit integrity clean — no recurrence of the round-6 false-record defect; scripts
+reproduce every printed number; the eight uncontested rows match part4b's closure entries).
+
+**What the round cost:** the three headline upgrades of the arc — "computed not tabulated,"
+"uniqueness proved with every kill a data-kill," "three stipulations dissolve" — are each
+reduced: computed *on member fields with an open availability defect*; unique *up to G-flag,
+precedence, and Family-B freedom, over a space with a withheld axis, with kills of mixed
+strength*; and annotated *at argument strength*, with two fabricated attributions and one
+invented convention retracted on the record.

@@ -245,59 +245,75 @@ the determined formulas. *What it does not do:* compute availability from the ad
 the script's filters test candidates against the stored table, so the theorem's content is
 "a fully-specified address book leaves zero residual freedom," not "the address book is
 forced." The stronger theorem (availability as a computed function of the address alone —
-U2 as a function) now has a **constructed v1** (`cascade_u2_function.py`): ten shared clauses
-applied to per-row identity facts reproduce all seven stored fields on every row of the
-exhaustion family (11/11), collapsing ~7 discretionary stored choices per row to ~1 (the
-novel-vs-inherited content grading). The v1 is disclosed as fixed-target (assembled knowing
-the table; its first run failed on θ_C and one gauge-flag clause was sharpened — to the
-reading already recorded in the precedence vacuity check — before passing), it imports the
-Observer channel count k = 3 rather than composing it, and it covers the exhaustion family
-only, not the full ~100-entry record.
+U2 as a function) has a **constructed v1, corrected by the round-8 hostile review**
+(`cascade_u2_function.py`; Addenda 53, 56): ten shared clauses applied to per-row identity
+facts reproduce the **member fields** (class, source, channel exponent, sign) on all eleven
+rows — the nine T4 exhaustion stages plus θ_23 and ℓ_A — with no per-row exceptions,
+against the answer key *as corrected by the review*: the previously stored θ_23 channel
+count k=2 was **wrong** (the papers give k=4, `thm:theta23-closure`), and that row's encoded
+identity facts had been bent to match the wrong key. The **availability clauses fail on
+θ_C** — computed (1,2,0) from its quark legs against the T4-stored, formula-borne (0,0,0) —
+an open defect left failing in the script rather than patched; their true domain is the
+mass-lead rows only. The earlier claims "11/11 on all seven fields" and "~7 discretionary
+choices per row → ~1" are **withdrawn**: by scalar count the identity-fact table (76) is
+larger than the stored-output table (50), and the residual claim is structural only (one
+shared rule-set on member fields). Further round-8 corrections: the A13 content grading is
+now applied consistently (θ_C and m_τ-abs carry novel=None — the earlier θ_C grading
+contradicted A13's half-weight exemption and the m_τ-abs grading conflated A52's
+full-formula flag criterion with the novel-content grading), which also revealed that v1's
+"first-run failure and data-forced sharpening" narrative was an artifact of the inconsistent
+grading and is withdrawn. Standing disclosures: fixed-target assembly; the Observer k=3
+import; the genuinely ambiguous kind assignment for ℓ_A (load-bearing for precedence
+anchoring).
 
 **Theorem 13b (rule-set uniqueness within the declared clause space;
-`cascade_u2_uniqueness.py`).** Enumerate 24 papers-motivated variants across the ten clause
-slots under a no-name rule (clauses read identity facts only, excluding the lookup table
-from the space) and run the full cartesian products (100 availability combos, 21,600 member
-combos) against all stored rows. Then: **five slots are pinned uniquely** by named data-kills
-(colour rank by m_b/m_τ; flag P by m_τ-abs and ℓ_A; flag L by Ω_m and sin²θ_W; population/
-sign by b/s and α_s — confirming Theorem 7 from the table side; channel count by b/s and
-sin²θ_W), the pre-fix point-counting gauge-flag reading is killed by θ_C (upgrading the v1
-sharpening from post-hoc fix to one of exactly two surviving readings), survivors factor
-exactly as per-slot products (no compensating combinations — clause independence verified),
-and all 72 surviving syntactic rule-sets **compute the identical function on the realized
-domain**. Residual freedom is entirely off-domain and fully enumerated by five probes; the
-four genuine forks (obstruction count at Δg=16; window-start boundary; the precedence
-L-position, exactly A52's only-P-before-G-is-pinned; the Family-B null's kind restriction)
-are registered **discriminating structural predictions** — the first future observable
-matching a probe's identity facts adjudicates its slot. *What this does not prove:*
-uniqueness over all conceivable rules — the space is finite, declared, and papers-motivated,
-the same epistemic standard as Theorem 13's exhaustion; the Observer k = 3 and the content
-grading remain inputs. The remaining formal target is **extension to the full ~100-entry
-record**.
+`cascade_u2_uniqueness.py`; round-8 corrected).** Enumerate **44** papers-motivated variants
+(the previous count "24" was wrong) across the ten clause slots under a no-name rule and run
+the full cartesian products against the corrected key, with every kill **σ-classified**
+(LABEL = record-label only, zero observational content; RECORD < 2σ — experiment cannot
+distinguish, killed by table fidelity alone; DATA ≥ 2σ). The previous blanket claim "every
+kill is a data-kill" is **withdrawn** — the celebrated θ_C kill of the point-counting
+gauge-flag variant was 0.19σ experimentally, and was in any case an artifact of the
+inconsistent grading (under the consistent A13 grading that variant *survives*). Corrected
+results: the **availability block has zero survivors** — no variant set in the space covers
+the corrected key (the θ_C availability defect); on **member fields**, four slots are pinned
+with genuine multi-σ kills among their alternatives (flag P: up to 187σ via m_τ-abs; flag L:
+up to 66σ via sin²θ_W; sign: 4σ via α_s, though the class-label swap kill is LABEL-only;
+channel count: up to 67σ via sin²θ_W), while the **G-flag reading has three survivors**, the
+**precedence order has all six** (no realized row is multi-flag under the consistent
+grading — precedence anchoring lives at the papers' full-formula flag criterion, per the
+A52 vacuity check, not in this exhaustion), and the Family-B kind restriction has two.
+36 member-survivor combinations, no compensating combos, all survivor freedom off-domain
+(probe forks). Uniqueness is relative to a space that also holds the **source map {19, 5,
+14, 7} and the population-class names fixed** — a withheld axis, disclosed. The Observer
+k = 3, the content grading, and the ℓ_A kind remain inputs.
 
-**Theorem 13c (first-principles reconstruction; `cascade_u2_first_principles.py`).** The
-rule-set of Theorem 13's v1 is *generated* by the foundation, with three of its stipulations
-dissolving into foundation objects: (i) the precedence order becomes **frame nesting** —
-Theorem 9's one-record-one-frame plus a logical-priority argument (unit anchor before frame,
-frame before mediation, bilinear innermost) gives `unit > observer > gauge > bilinear >
-none`, producing P>L>G, the Amplitude default, *and* — since no frame means no χ-attachment —
-the Family-B null, with no separate clauses; (ii) the channel table becomes **contact
-counting** — unit 1, gauge 1, bilinear 2 per touched period (two legs), and observer
-**3 = |{5,13,21}|**, the size of the Theorem 12 marked set, upgrading that soft input to a
-theorem-plus-one-identification (explicitly *not* "three spatial dimensions"); (iii) the
-gauge flag becomes a **theorem of the increment rule** — Φ(a,b) is a product over the
-half-open support (a,b], so mediation = a band twist in the support, points (empty support)
-can never mediate, and the v1 sharpening is derived rather than imposed. With obstruction as
-the **winding number of the order-8 Weil-index clock**, colour rank as **[ℚ(ζ₃):ℚ] = 2**
-fixed once per record, and projection as one trace-duality change, the reconstruction — with
-no precedence order, no null clause, and no k-table in its code — reproduces **all stored
-rows**, and **adjudicates all five of Theorem 13b's probe forks** to the canonical branch
-(in particular the surviving lo<12 gauge variant is arithmetically wrong, and nesting selects
-PLG uniquely). The forks stay registered predictions with derived values: a disagreeing
-future row would falsify the foundation account itself. *Honest status:* the nesting and the
-contact identifications are arguments (PARTIAL), not theorems; the source twist values 14
-and 7 are inherited from the address structure (19 and 5 are foundation objects); the kind
-classifications ride on D1; the content grading remains an input.
+**Theorem 13c — withdrawn as a theorem; retained as annotation
+(`cascade_u2_first_principles.py`; round-8).** The previous version claimed three
+stipulations dissolve into foundation objects. The round-8 hostile review defeated each
+claim, and the retraction is recorded here in place: (i) the "half-open support theorem"
+for the gauge flag is **retracted** — the μ/e path's summand set *includes* p(14)
+(part4b:83, "d=14..21 … exclusive of the lower endpoint"), so no faithful support reading
+exempts it; the prior computation double-shifted the summand ranges, the prior increment
+verifier uses the opposite span convention, and the clause is what it always was: the
+papers' strict-boundary stipulation (part4b:503, flagged Conditional at 4108(a)); (ii)
+"Theorem 9's one-record-one-frame" **does not exist** — the phrase was an invented gloss
+(Theorem 9 here is the Sign rule; the quenched-record theorem says nothing about frames),
+so the nesting is a freestanding and **reversible** argument (path-before-read argues
+unit > gauge > observer, i.e. PGL, equally well); (iii) "Observer 3 = |marked set|, a
+theorem" is **false as attributed** — T6 forces only the subcritical set {5,13}, size two,
+and {5,13,21} is Definition 6.1 instantiation data, so k = 3 remains a soft input read as
+an instantiation count; additionally "19 and 5 are foundation objects" is withdrawn (all
+four source values {19, 5, 14, 7} pass through the same feature→layer selection convention
+counted in this paper's residue, and the observer is twist 4, not 5), and the claim of "no
+precedence order, no null clause, no k-table in the code" was literally false — the code is
+an ordered decision chain with an else-null and inline constants; the annotations propose
+*reasons*, they do not remove stipulations. What remains at honest strength: the clause
+structure carries proposed groundings — nesting and contact-counting **arguments**, winding
+and field-degree **identifications** (the colour 2 is equally the su(3) Cartan rank; a
+choice among coincident 2s) — and the reconstruction takes the canonical branch on each of
+Theorem 13b's probe forks as a **proposal**, not an adjudication. Member fields 11/11 under
+the corrected key; the θ_C availability defect is shared with v1 and open.
 
 ## 8. The record: agreement at current precision
 

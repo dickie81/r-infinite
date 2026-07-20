@@ -70,13 +70,16 @@ the full spectrum uses no per-case number (Addendum 24). The grammar is closed o
 the dictionary, the derived rules (T5–T9, exclusion, flags, channel count), the instantiation
 data (address book, record statuses), and D1, the observable map is unique.* Proof: U1
 exactly-once (at-most-once = T5; at-least-once = completeness of the Gaussian measure, T2/T9);
-U2 availability (COMPUTED at v1 — `cascade_u2_function.py`, Addendum 53: ten shared clauses on
-per-row identity facts reproduce all 11 exhaustion-family rows; rule-set uniqueness PROVED
-T4-grade — `cascade_u2_uniqueness.py`, Addendum 54: 5/10 slots pinned uniquely by named
-data-kills, no compensating combos, all residual freedom off-domain as four registered
-probe forks; first-principles reconstruction — `cascade_u2_first_principles.py`, Addendum 55:
-precedence, null clause, and k-table dissolve into frame nesting + contact counting from
-T5/T6/T8/T9, and all five forks adjudicate to canonical); U3 member determinism (flags + T7 +
+U2 availability (round-8 corrected state, Addenda 53–56: **member fields** computed by one
+shared rule-set on all 11 rows against the *corrected* key — the previously stored θ_23
+channel count was wrong (papers: k=4) — but the **availability clauses fail on θ_C** (open
+defect; the exhaustion's avail block has zero survivors); member-field uniqueness relative
+to the declared 44-variant space with σ-classified kills — P/L/sign/channel-count slots
+pinned at up to 187σ/66σ/4σ/67σ, G-flag reading 3 survivors, precedence all 6 (anchored
+only at the papers' full-formula flag criterion, A52, not in this exhaustion), Family-B
+2 — with the source map {19,5,14,7} held fixed as a disclosed withheld axis;
+first-principles groundings at argument/identification strength only, the half-open-support
+"theorem" and the T9/T6 attributions retracted); U3 member determinism (flags + T7 +
 channel count + T5). Exhaustion:
 every stage's naive space (1,764–7,056 assignments) filters to exactly one survivor, each
 reproducing the recorded formula to ≤0.01%; the neutrino E-stage collapses to
@@ -150,8 +153,8 @@ indistinguishability of the event stream from the GRH-governed one.
 | 3 | S4 lemma: measurement-at-typical-value | **derived** (T9, Addendum 39): typicality unambiguous (three notions coincide exactly), factor = quenched rate forced by LLN, all ranks exact | residue: definitional clause D1 (records compound multiplicatively) — no tunable content |
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | two clauses derived (T7: Bohr–Mollerup off/at the equality manifold); **coset clause demoted** (review 4, D1: convention-conditional) | population-class assignment remains instantiation |
-| 5b | P > L > G precedence | **data-anchored convention + nesting argument** (vacuity check: NOT vacuous, alternatives excluded at 13–65σ; Addendum 55: the order is *generated* by frame nesting — unit > observer > gauge > bilinear from T9's one-record-one-frame + logical priority — which also selects PLG uniquely among the A54 survivors and absorbs the Family-B null) | nesting is PARTIAL (argument, not theorem); counted in the residue |
-| 6 | T4 uniqueness | **address-book determination + U2 v1 + rule-set uniqueness** (Addenda 40, 53, 54): the table is *computed* (11/11 rows from identity facts, ~7 stored choices/row → ~1) and the rule-set is **unique T4-grade** within a declared 21,700-combo clause space under a no-name rule — 5/10 slots pinned by named data-kills (incl. the pre-fix gauge-flag reading killed by θ_C), no compensating combos, all residual freedom off-domain as four probe forks = discriminating structural predictions | open: extension to the full ~100-entry record; absolute (space-free) forcing unavailable in principle; after A55 the soft-input list shrinks: Observer k=3 → \|T6 marked set\| (one identification step left), A13 grading remains; inherited source twists 14 and 7 |
+| 5b | P > L > G precedence | **data-anchored at the papers' flag criterion only** (A52 vacuity check: not vacuous *for the papers' full-formula flag table*, alternatives excluded at 13–65σ). Round 8: within U2's consistent A13 grading no realized row is multi-flag, so the corrected exhaustion leaves **all six orders surviving** — the precedence is unpinned there; the A55 nesting argument is **reversible** (path-before-read argues PGL equally well; the "T9 one-record-one-frame" anchor was an invented gloss, retracted) | counted in the residue; anchoring rests solely on A52's criterion layer |
+| 6 | T4 uniqueness | **address-book determination + U2 (round-8 corrected)** (Addenda 40, 53–56): member fields computed by one shared rule-set (11/11 against the corrected key — the stored θ_23 k was wrong, papers give k=4); availability clauses **fail on θ_C** (open defect, zero avail-block survivors); member uniqueness relative to the declared space with σ-classified kills (four slots multi-σ pinned; G-flag 3 survivors; precedence all 6; Family-B 2; source map held fixed = withheld axis); collapse claim ("~60→~30") **withdrawn** (input scalars 76 > output scalars 50); first-principles groundings argument-strength only | open: the θ_C availability defect; extension to the full ~100-entry record; absolute forcing unavailable in principle; soft inputs: Observer k=3 (instantiation count — the \|T6-set\| upgrade was retracted, T6 forces {5,13} size 2), A13 grading, ℓ_A kind; all four source twists {19,5,14,7} convention-selected |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |
 | 8 | C1 | empirical forever | the ledger |
 

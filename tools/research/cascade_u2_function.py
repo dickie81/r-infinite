@@ -1,73 +1,122 @@
 #!/usr/bin/env python3
 """
-U2 AS A FUNCTION (v1): the address table COMPUTED, not stored.
+U2 AS A FUNCTION (v1, corrected per hostile review round 8): the
+address table computed from identity facts -- with its failures
+recorded, not hidden.
 
 THE DEMAND (correct, and the hypothesis's own): if the universe is
-zeta-driven, availability/flags/sources/channel-counts cannot be ~60
+zeta-driven, availability/flags/sources/channel-counts cannot be
 tabulated facts -- they must be computed from each observable's bare
-identity.  This file constructs that function by COMPOSING the
-papers' scattered rules into one total map, and tests it binarily
-against the stored table.
+identity.  This file composes the papers' scattered rules into one
+map and tests it binarily against the stored table.
 
 INPUT per observable -- identity facts only (what the observable IS):
   legs      : the particle endpoints (generation layer, quark|lepton|gauge)
-  content   : the formula's Phi/p support (range or point), split into
-              NOVEL vs inherited (A13's canonical-formula grading)
+  content   : the formula's Phi/p support (summand range), split into
+              NOVEL vs inherited by the A13 grading rule
   kind      : coupling | mass-ratio | abs-mass | local-ratio | density
               | overlap
   dim       : carries a scale (dimensionful), or has a Planck-anchored
               constituent
 
-THE FUNCTION -- nine clauses, each papers-sourced:
-  R1 obstruction  = Bott gaps between leg generations
-                    (|g2-g1|/8; the Bott-gap factor 2 sqrt(pi),
-                    thm:lepton-ratios / Bott factor F)
-  R2 colour rank  = 2 if any quark leg (one full su(3) Cartan
-                    measurement; T8/T9), else 0
-  R3 projection   = 1 if legs mix quark and lepton (one dual-frame
-                    change; T8), else 0
-  R4 flag P       = dim (dimensionful or anchored constituent;
-                    papers' flag readings, part4b:1650-1657)
-  R5 flag G       = NOVEL content is a genuine WINDOW (lo < hi) that
-                    runs through the gauge window from below:
-                    min(novel) < 14 and max(novel) >= 12
-                    (the strict reading of prop:source-selection --
-                    a path starting AT the boundary is not mediated;
-                    a POINT value is a static normalisation, not a
-                    path, per the A52 vacuity check's flag readings:
-                    theta_C's N(13) inside arccos and sin2thW's
-                    N(14)/N(13) both give G = F)
-  R6 flag L       = kind in {local-ratio, density} (observer-local
-                    read; papers' flag readings)
-  R7 type/source  = decision order P>L>G (data-anchored, A52) ->
-                    Absolute 19 | Observer 5 | Gauge 14 | Amplitude 7
+THE A13 GRADING RULE, applied CONSISTENTLY (round-8 fix): "sub-leads
+enter raw, corrections attach once per observable, and the flags read
+the increment over the maximal closed sub-lead" + "G counts full-
+weight window exponentials only" (Addendum 13).  Consequences:
+  - b/s        novel=None (window (6,13) arrives inside closed
+               sub-lead L(tau/mu))
+  - m_tau abs  novel=None (its Phi(5,12) content arrives inside the
+               closed sub-leads alpha_s and v).  NOTE: A52's flag
+               triple (T,F,T) for m_tau-abs reads the PAPERS' full-
+               formula flag table -- a different criterion.  A prior
+               edit here conflated the two and set novel=(5,12);
+               round 8 reverted it.  A52's vacuity finding stands as
+               a statement about the papers' table, not about this
+               grading.
+  - theta_C    novel=None (its exp(-p(13)/2) is HALF-weight, exactly
+               like theta_23's exempted exponential; the prior
+               novel=13 encoding was inconsistent with A13 and
+               manufactured both v1's "first-run failure" and the
+               exhaustion's theta_C kill of the pre-fix G reading)
+  - theta_23   novel=None (half-weight window, A13's original case)
+
+THE CLAUSES (all remain stipulations sourced to the papers; the
+first-principles companion script proposes groundings at argument
+strength only):
+  R1 obstruction  = |g2-g1|/8 between leg generations
+  R2 colour rank  = 2 if any quark leg, else 0
+  R3 projection   = 1 if legs mix quark and lepton, else 0
+  R4 flag P       = dim
+  R5 flag G       = novel content is a window whose summand range
+                    begins strictly below the U(1) layer 14 and
+                    reaches the gauge band: lo < 14 and hi >= 12.
+                    This is the papers' STRICT-BOUNDARY STIPULATION
+                    (part4b:503 "The m_mu/m_e path d=14..21 begins
+                    at the U(1) layer and does not receive the
+                    shift"; flagged Conditional at part4b 4108(a)).
+                    It is NOT a support theorem: the summand set of
+                    the mu/e path INCLUDES p(14) (part4b:83), so no
+                    faithful interval-support reading exempts it --
+                    only the boundary stipulation does (round-8 fix;
+                    the earlier "half-open support (a,b]" account
+                    double-shifted the summand ranges and is
+                    retracted).
+  R6 flag L       = kind in {local-ratio, density}
+  R7 type/source  = decision order P>L>G -> Absolute 19 | Observer 5
+                    | Gauge 14 | Amplitude 7.  Within THIS grading no
+                    realized row has two true flags, so the order is
+                    unpinned here; its anchoring (A52, 13-65 sigma)
+                    lives at the papers' full-formula criterion.
   R8 population   = Geometric if density; Amplitude if overlap;
                     else Descent  -> sign by T7 (+/-/-)
   R9 channel k    = 1 if type in {Absolute, Gauge};
-                    3 if type Observer  [SOFT: the '3' is the papers'
-                    three-chi-factor statement, not composed here];
+                    3 if type Observer  [SOFT: the papers' three-
+                    factor statement, not composed here];
                     2 x (Bott periods touched by FULL content) if
-                    Amplitude (papers' channel-count theorem)
+                    Amplitude (papers' channel-count theorem,
+                    part4b rem:theta23-channel-count)
   R10 member      = None (Family B radiative) if no flag is true AND
-                    population is Descent (the mu/e slot-precedence
-                    case); else the alpha(d*)/chi^k member
+                    population is Descent; else the alpha(d*)/chi^k
+                    member
 
-RUN RECORD (kept for honesty): the FIRST run of v1 failed on
-theta_C (10/11) -- R5 as first written let the POINT d=13 trip the
-gauge flag, computing (Gauge, 14, 1) against stored (Amplitude, 7,
-2).  The fix (G requires a genuine window, lo < hi) is sourced from
-the A52 vacuity check's flag readings, but it was applied AFTER
-seeing the failure: one post-run rule sharpening, disclosed.
+KNOWN FAILURE, RECORDED (round 8, review F5): the availability
+clauses OVERPREDICT on theta_C -- computed (1,2,0) from its quark
+legs, but the T4 store and the paper's formula carry (0,0,0) (no
+2 sqrt(pi), no colour factor in arccos(N(13)/N(12))...).  The
+availability clauses' true domain is the mass-lead rows; angle rows
+falsify them.  The row is left FAILING below so the defect stays
+visible.  theta_23 and ell_A have no T4-stored availability
+(neither is a T4 exhaustion stage -- the 11 rows are the 9 T4
+stages plus these two), so their availability is unchecked.
 
-DISCLOSURES: the function was assembled knowing the table (fixed-
-target risk, as with all U2 work); its value is (i) TOTALITY and
-SINGLE-VALUEDNESS -- one rule-set covers every row with no per-case
-exception, and (ii) the COLLAPSE -- ~60 stored entries become ~30
-identity facts + 10 reusable clauses.  Two soft inputs are flagged:
-the Observer k = 3, and A13's novel-vs-inherited content grading.
-Uniqueness of the rule-set: see cascade_u2_uniqueness.py -- proved
-T4-grade (5 of 10 slots pinned uniquely by named rows; all residual
-freedom off-domain, enumerated as probe forks).
+RUN RECORD (corrected): v1's original first run failed on theta_C's
+member because theta_C was graded novel=13 against A13's half-weight
+exemption; the "window-only sharpening" of the G clause then made the
+row pass.  Round 8 showed the grading, not the clause, was at fault:
+under the consistent grading the unsharpened clause also passes every
+realized row, so the sharpening distinguishes nothing on-domain and
+the earlier "data-forced sharpening" claim is withdrawn.  A separate
+round-8 finding (F1): the stored theta_23 answer key was WRONG (k=2
+against the papers' k=4, part4b thm:theta23-closure "exp(-alpha(7)/
+chi^4)" and rem:theta23-channel-count "theta_23 path d=12..20: spans
+{P_1,P_2}. k=4"), with legs and full-content bent to match -- the
+row now carries the papers' values and passes for the right reason.
+
+WHAT THE COLLAPSE IS NOT (round 8, review F9): counting scalars, the
+identity-fact table (76) is LARGER than the stored-output table (50).
+The claim "~60 entries -> ~30 facts" is withdrawn.  The residual
+claim is structural only: the ten clauses are SHARED across rows
+(one rule-set, no per-row exceptions on member fields), and the
+discretionary content per row is the A13 grading plus the kind
+assignment (ell_A's "mass-ratio" vs "local-ratio" is genuinely
+ambiguous and load-bearing for R7's anchoring -- disclosed).
+
+DISCLOSURES: assembled knowing the table (fixed-target); two soft
+inputs (Observer k=3; the A13 grading); the kind field for ell_A.
+Uniqueness: see cascade_u2_uniqueness.py (round-8 corrected state:
+member-field uniqueness relative to the declared space; the
+availability block has NO surviving variant set over the corrected
+key -- the theta_C defect is open).
 """
 
 PERIODS = [(5, 12), (13, 20), (21, 28)]
@@ -88,7 +137,7 @@ def u2(name, legs, novel, full, kind, dim):
     proj = 1 if {"quark", "lepton"} <= {k for _, k in legs} else 0
     P = dim
     if novel is None or not isinstance(novel, tuple):
-        G = False          # no novel content, or a POINT normalisation
+        G = False          # no novel content, or a point normalisation
     else:
         lo, hi = novel
         G = lo < hi and lo < GAUGE[1] and hi >= GAUGE[0]
@@ -112,84 +161,70 @@ def u2(name, legs, novel, full, kind, dim):
 
 
 # identity facts (legs / novel content / full content / kind / dim)
+# gradings per the consistent A13 rule -- see docstring
 CASES = [
  ("alpha_s",   [(12, "gauge")],                 (5, 12), (5, 12), "coupling",    False),
  ("tau/mu",    [(5, "lepton"), (13, "lepton")], (6, 13), (6, 13), "mass-ratio",  False),
  ("mu/e",      [(13, "lepton"), (21, "lepton")],(14, 21),(14, 21),"mass-ratio",  False),
  ("b/s",       [(5, "quark"), (13, "quark")],   None,    (6, 13), "overlap",     False),
  ("m_b/m_tau", [(5, "quark"), (5, "lepton")],   None,    None,    "mass-ratio",  False),
- # m_tau abs: novel=(5,12) per A52 -- its formula carries gauge-window
- # exponentials (alpha_s, v), so flags are (P,G)=(T,T) and the P>L>G
- # precedence FIRES here inside the function (A52: not vacuous).
- ("m_tau abs", [(5, "lepton")],                 (5, 12), (5, 12), "abs-mass",    True),
+ ("m_tau abs", [(5, "lepton")],                 None,    (5, 12), "abs-mass",    True),
  ("ell_A",     [],                              None,    None,    "mass-ratio",  True),
  ("sin2thW",   [(13, "gauge"), (14, "gauge")],  None,    None,    "local-ratio", False),
  ("Omega_m",   [],                              None,    None,    "density",     False),
- ("theta_C",   [(13, "quark"), (21, "quark")],  13,      13,      "overlap",     False),
- ("theta_23",  [(13, "quark"), (21, "quark")],  None,    (13, 20),"overlap",     False),
+ ("theta_C",   [(13, "quark"), (21, "quark")],  None,    13,      "overlap",     False),
+ # theta_23 mixes generations 2-3 (layers 13 and 5); papers' path
+ # d=12..20 spans two Bott periods, k=4 (round-8 F1 correction)
+ ("theta_23",  [(5, "quark"), (13, "quark")],   None,    (12, 20),"overlap",     False),
 ]
 
-# the stored table (papers + T4 script), the answer key
+# the answer key: member fields from the papers' closure theorems;
+# availability from the T4 store (cascade_T4_uniqueness.py) where it
+# exists.  theta_23 / ell_A availability: no T4 store -> unchecked.
 EXPECT = {
- "alpha_s":   dict(member=("Descent", 14, 1, "+")),
+ "alpha_s":   dict(avail=(0, 0, 0), member=("Descent", 14, 1, "+")),
  "tau/mu":    dict(avail=(1, 0, 0), member=("Descent", 14, 1, "+")),
  "mu/e":      dict(avail=(1, 0, 0), member=None),
  "b/s":       dict(avail=(1, 2, 0), member=("Amplitude", 7, 4, "-")),
  "m_b/m_tau": dict(avail=(0, 2, 1), member=None),
- "m_tau abs": dict(member=("Descent", 19, 1, "+")),
+ "m_tau abs": dict(avail=(0, 0, 0), member=("Descent", 19, 1, "+")),
  "ell_A":     dict(member=("Descent", 19, 1, "+")),
- "sin2thW":   dict(member=("Descent", 5, 3, "+")),
- "Omega_m":   dict(member=("Geometric", 5, 3, "-")),
- "theta_C":   dict(member=("Amplitude", 7, 2, "-")),
- "theta_23":  dict(member=("Amplitude", 7, 2, "-")),
+ "sin2thW":   dict(avail=(0, 0, 0), member=("Descent", 5, 3, "+")),
+ "Omega_m":   dict(avail=(0, 0, 0), member=("Geometric", 5, 3, "-")),
+ "theta_C":   dict(avail=(0, 0, 0), member=("Amplitude", 7, 2, "-")),
+ "theta_23":  dict(member=("Amplitude", 7, 4, "-")),
 }
 
 
 def main():
     print("=" * 74)
-    print("U2 AS A FUNCTION (v1): computed vs stored, row by row")
+    print("U2 AS A FUNCTION (v1, round-8 corrected): computed vs stored")
     print("=" * 74)
     npass = nfail = 0
     for name, legs, novel, full, kind, dim in CASES:
         got = u2(name, legs, novel, full, kind, dim)
         exp = EXPECT[name]
-        ok = True
-        msgs = []
-        for key in exp:
-            g, e = got[key], exp[key]
-            if key == "member" and e is not None and g is not None:
-                # stored member has (cls, src, k); sign via T7 map
-                match = g == e
-            else:
-                match = g == e
-            if not match:
-                ok = False
-                msgs.append(f"{key}: computed {g} != stored {e}")
-        status = "PASS" if ok else "FAIL"
-        npass += ok
-        nfail += (not ok)
+        msgs = [f"{key}: computed {got[key]} != stored {exp[key]}"
+                for key in exp if got[key] != exp[key]]
+        status = "PASS" if not msgs else "FAIL"
+        npass += not msgs
+        nfail += bool(msgs)
         print(f"  {status}  {name:<11} computed avail={got['avail']}"
               f" member={got['member']}")
         for m in msgs:
             print(f"         ** {m}")
     print()
     print("=" * 74)
-    print(f"RESULT: {npass}/{npass+nfail} rows reproduced by ONE rule-set")
+    print(f"RESULT: {npass}/{npass+nfail} rows against the corrected key")
     print("=" * 74)
-    if nfail == 0:
-        print("  The stored availability/flag/source/channel table for the")
-        print("  full closed family IS COMPUTED by ten papers-sourced")
-        print("  clauses from bare identity facts.  'Availability is")
-        print("  tabulated, not computed' (review F3) is DISCHARGED at v1:")
-        print("  ~60 stored entries -> ~30 identity facts + 10 clauses.")
-        print("  Uniqueness: cascade_u2_uniqueness.py (T4-grade proof).")
-        print("  REMAINS OPEN: the two soft inputs (Observer k = 3; the")
-        print("  novel-vs-inherited content grading).  Fixed-target")
-        print("  disclosure: assembled knowing the table; the binary check")
-        print("  is the defence.")
-    else:
-        print("  The function FAILS on the rows above: the table is not")
-        print("  yet computed; the failures localise the missing rule.")
+    print("  MEMBER fields: one shared rule-set, no per-row exceptions.")
+    print("  AVAILABILITY: the clauses' domain is the mass-lead rows; the")
+    print("  theta_C row FAILS by construction (computed (1,2,0) from its")
+    print("  quark legs vs the T4-stored/formula (0,0,0)) and is left")
+    print("  failing so the defect stays visible (review round 8, F5).")
+    print("  The earlier claims '11/11', '~60 entries -> ~30 facts', and")
+    print("  'the sharpening was data-forced' are WITHDRAWN -- see the")
+    print("  docstring's corrected run record and Addendum 56.")
 
 
 if __name__ == "__main__":

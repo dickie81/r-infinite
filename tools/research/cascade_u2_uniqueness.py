@@ -1,55 +1,54 @@
 #!/usr/bin/env python3
 """
-U2 RULE-SET UNIQUENESS: the forcing theorem, by exhaustion.
+U2 RULE-SET UNIQUENESS EXHAUSTION (round-8 corrected).
 
-THE QUESTION (the open item left by cascade_u2_function.py): the v1
-rule-set reproduces the stored table, but it was assembled knowing
-the table.  Is it the ONLY rule-set that does?
+THE QUESTION: the v1 rule-set reproduces the stored member table, but
+was assembled knowing it.  Is it the only rule-set that does, within
+a declared candidate space?  (T4-grade: single-valuedness relative to
+the space, never absolute forcedness.)
 
-THE METHOD (T4-grade: exhaustion within a declared candidate space,
-proving single-valuedness, never absolute forcedness):
-  1. For each of the ten clause slots, enumerate every papers-
-     motivated variant (24 variants across 10 slots, spaces below).
-  2. NO-NAME RULE: every variant reads only identity facts (legs,
-     content, kind, dim) through bounded predicates -- no clause may
-     mention an observable's name.  This excludes the lookup table
-     itself from the candidate space.
-  3. Run the FULL CARTESIAN PRODUCT of variants (avail block 75
-     combos; member block 21,600 combos) against all 11 stored rows.
-  4. Classify survivors: extensionally equal on the realized domain
-     by construction; probe rows (identity facts of UNREALIZED
-     observables) then split the survivors into extensional classes
-     -- each split is a registered DISCRIMINATING STRUCTURAL
-     PREDICTION, not a defect.
+ROUND-8 CORRECTIONS carried by this version (hostile review, findings
+F1-F5, F8; see Addendum 56):
+  - The answer key is corrected (theta_23 k=4 per part4b
+    thm:theta23-closure; T4-stored availability added, under which
+    the availability clauses FAIL on theta_C -- computed (1,2,0) vs
+    stored (0,0,0) -- so the avail block now has NO survivors: the
+    declared avail space cannot cover the corrected key.  Open
+    defect, reported below, not patched.)
+  - The A13 grading is applied consistently (theta_C and m_tau-abs
+    novel=None).  Consequences: the pre-fix "points count too" G
+    variant is no longer killed (its old kill was manufactured by
+    the inconsistent theta_C grading), and NO realized row has two
+    true flags within this grading -- so ALL SIX precedence orders
+    survive.  The precedence is unpinned by this exhaustion; its
+    data anchoring (13-65 sigma, A52) lives at the papers'
+    full-formula flag criterion, an external layer.
+  - The variant count is 44 (not "24" as previously misstated).
+  - KILL CLASSIFICATION (F3): "every kill is a data-kill" is
+    withdrawn.  Each member-field kill is now sigma'd: the variant's
+    member value exp(+-alpha(src)/chi^k) is compared to the stored
+    one and divided by the row's experimental fractional precision
+    (or leading-match quality where the record is a leading-order
+    match).  Classes: LABEL (identical value, kill by record label
+    only), RECORD (< 2 sigma -- experiment cannot distinguish;
+    killed only by table fidelity), DATA (>= 2 sigma).  Slot
+    "pinning strength" = the strongest class among its kills.
+  - WITHHELD AXIS DISCLOSED (F8): the source map (Absolute->19,
+    Observer->5, Gauge->14, Amplitude->7) and the population-class
+    names are held FIXED throughout -- the space never varies the
+    four source values, so "pinned" claims are relative to a space
+    that pre-fixes that freedom.
 
-WHAT "UNIQUE" CAN MEAN HERE (stated before running):
-  - PINNED slot: only the canonical variant survives -> that clause
-    is data-forced within the space.
-  - DUPLICATE slot: survivors extensionally equal on the whole
-    reachable identity domain (e.g. |dg|/8 = periods-1 on the coset
-    {5,13,21}) -> same function, different syntax; uniqueness holds.
-  - FORKED slot: survivors agree on all realized rows but disagree
-    on a probe -> the data to date does not pin the clause; the
-    disagreement is a testable fork.
-The theorem sought: the rule-set is unique AS A FUNCTION ON THE
-REALIZED DOMAIN, with all residual freedom enumerated, localized,
-and pushed off-domain.
+NO-NAME RULE: every variant reads only identity facts through
+bounded predicates -- no clause may mention an observable's name.
 
-DATA ANCHORING of kills: the stored table is validated to <= 0.01%
-against the record (T4), so any member-field change (source d*,
-channel k, class, sign) moves a closed formula by factors of order
-e^(alpha/k) or chi -- far beyond 0.01%.  Order variants placing G
-before P were already sigma'd in A52: m_tau-abs -> 1784.7 MeV =
-+65 sigma.  Kills are therefore data-kills, not convention-kills.
-
-DISCLOSURES: the candidate space is finite and chosen (papers-
-motivated, not the space of all conceivable rules); uniqueness is
-relative to it -- the same epistemic standard as the T4 exhaustion.
-The two soft inputs (Observer k = 3; A13 grading) are inputs here
-too, not outputs.
+DISCLOSURES: the candidate space is finite and chosen; the two soft
+inputs (Observer k=3, A13 grading) and the ell_A kind assignment are
+inputs here too.
 """
 
 import itertools
+import math
 import os
 import sys
 
@@ -83,7 +82,7 @@ R1 = {  # obstruction rank (avail[0])
 }
 
 R2 = {  # colour rank (avail[1])
- "2 if ANY quark leg = one su(3) Cartan (CANONICAL)":
+ "2 if ANY quark leg (CANONICAL)":
     lambda legs: 2 if any(k == "quark" for _, k in legs) else 0,
  "2 only if ALL matter legs quark":
     lambda legs: 2 if gens_of(legs) and all(k == "quark" for _, k in legs if k in ("quark", "lepton")) else 0,
@@ -113,9 +112,9 @@ R4 = {  # flag P
 }
 
 R5 = {  # flag G
- "window transit lo<14, hi>=12 (CANONICAL)":
+ "window, strict boundary lo<14, hi>=12 (CANONICAL)":
     lambda novel: (lambda w: w is not None and w[0] < GAUGE[1] and w[1] >= GAUGE[0])(window(novel)),
- "points count too (the pre-fix v1 reading)":
+ "points count too":
     lambda novel: novel is not None and (lambda lo, hi: lo < GAUGE[1] and hi >= GAUGE[0])(
         *(novel if isinstance(novel, tuple) else (novel, novel))),
  "boundary start allowed (lo<=14)":
@@ -192,6 +191,7 @@ AVAIL_SLOTS = [("R1", R1), ("R2", R2), ("R3", R3)]
 MEMBER_SLOTS = [("R4", R4), ("R5", R5), ("R6", R6), ("R7", R7),
                 ("R8", R8), ("R9", R9), ("R10", R10)]
 CANON = {s: next(iter(d)) for s, d in AVAIL_SLOTS + MEMBER_SLOTS}
+N_VARIANTS = sum(len(d) for _, d in AVAIL_SLOTS + MEMBER_SLOTS)
 
 
 def u2_c(row, choice):
@@ -209,15 +209,47 @@ def u2_c(row, choice):
     return dict(avail=avail, member=member)
 
 
-def failures(choice):
+def failures(choice, fields=("avail", "member")):
     out = []
     for row in CASES:
         got = u2_c(row, choice)
         exp = EXPECT[row[0]]
         for key in exp:
-            if got[key] != exp[key]:
+            if key in fields and got[key] != exp[key]:
                 out.append((row[0], key, got[key], exp[key]))
     return out
+
+
+# ---- kill classification (round 8, F3) ------------------------------
+# fractional comparison scales: experimental sigma, or the paper-
+# stated leading-match quality where the record is a leading match
+PRECISION = {
+ "alpha_s": 0.0085, "tau/mu": 6.5e-5, "mu/e": 0.0013, "b/s": 0.0087,
+ "m_b/m_tau": 0.01, "m_tau abs": 6.8e-5, "ell_A": 3.0e-4,
+ "sin2thW": 1.7e-4, "Omega_m": 0.023, "theta_C": 0.0031,
+ "theta_23": 0.025,
+}
+
+
+def member_value(m):
+    """Closure factor exp(sign * alpha(src) / chi^k), chi = 2."""
+    if m is None:
+        return 1.0
+    _, src, k, sign = m
+    r = math.gamma((src + 1) / 2) / math.gamma((src + 2) / 2)
+    a = r * r / 4.0
+    return math.exp((1 if sign == "+" else -1) * a / 2 ** k)
+
+
+def classify_kill(fail):
+    row, key, got, exp = fail
+    if key != "member":
+        return "FORMULA", None   # availability: order-unity formula factors
+    vg, ve = member_value(got), member_value(exp)
+    if abs(vg - ve) < 1e-12:
+        return "LABEL", 0.0
+    sig = abs(vg / ve - 1) / PRECISION[row]
+    return ("DATA" if sig >= 2 else "RECORD"), sig
 
 
 # probes: identity facts of UNREALIZED observables (no stored answer)
@@ -237,23 +269,28 @@ PROBES = [
 
 def main():
     print("=" * 74)
-    print("U2 RULE-SET UNIQUENESS EXHAUSTION")
+    print("U2 RULE-SET UNIQUENESS EXHAUSTION (round-8 corrected)")
     print("=" * 74)
-
-    # ---- per-slot scan (others canonical) ----
+    print(f"  variant space: {N_VARIANTS} variants across 10 slots;"
+          f" source map {{19,5,14,7}} and class names HELD FIXED")
     print()
-    print("PER-SLOT SCAN (all other clauses canonical):")
+    print("PER-SLOT SCAN (others canonical; member slots checked on member")
+    print("fields, avail slots on the corrected avail key):")
     slot_survivors = {}
     for slot, space in AVAIL_SLOTS + MEMBER_SLOTS:
+        fields = ("avail",) if slot in ("R1", "R2", "R3") else ("member",)
         surv = []
         print(f"  {slot}:")
         for vname in space:
             choice = dict(CANON)
             choice[slot] = vname
-            fails = failures(choice)
+            fails = failures(choice, fields)
             if fails:
+                cls, sig = classify_kill(fails[0])
                 r, key, g, e = fails[0]
-                print(f"    KILLED   {vname}")
+                tag = (f"{cls}" + (f" {sig:.1f} sigma" if sig is not None
+                                   else ""))
+                print(f"    KILLED [{tag:<16}] {vname}")
                 print(f"             by {r}: {key} {g} != stored {e}")
             else:
                 surv.append(vname)
@@ -261,97 +298,84 @@ def main():
                 print(f"    {tag}  {vname}")
         slot_survivors[slot] = surv
 
-    # ---- full cartesian products (catch compensating combos) ----
     print()
     print("FULL CARTESIAN PRODUCTS:")
-    avail_total = member_total = 0
     avail_surv, member_surv = [], []
+    at = mt = 0
     for combo in itertools.product(*[space for _, space in AVAIL_SLOTS]):
-        avail_total += 1
+        at += 1
         choice = dict(CANON)
         choice.update(dict(zip([s for s, _ in AVAIL_SLOTS], combo)))
-        if not failures(choice):
+        if not failures(choice, ("avail",)):
             avail_surv.append(combo)
     for combo in itertools.product(*[space for _, space in MEMBER_SLOTS]):
-        member_total += 1
+        mt += 1
         choice = dict(CANON)
         choice.update(dict(zip([s for s, _ in MEMBER_SLOTS], combo)))
-        if not failures(choice):
+        if not failures(choice, ("member",)):
             member_surv.append(combo)
-    print(f"  avail block : {len(avail_surv)}/{avail_total} combos survive")
-    print(f"  member block: {len(member_surv)}/{member_total} combos survive")
-    prod_avail = 1
-    for s, _ in AVAIL_SLOTS:
-        prod_avail *= len(slot_survivors[s])
-    prod_member = 1
+    print(f"  avail block : {len(avail_surv)}/{at} combos survive the"
+          f" corrected key")
+    print(f"  member block: {len(member_surv)}/{mt} combos survive")
+    pm = 1
     for s, _ in MEMBER_SLOTS:
-        prod_member *= len(slot_survivors[s])
-    comp_a = len(avail_surv) - prod_avail
-    comp_m = len(member_surv) - prod_member
-    print(f"  compensating combos beyond per-slot products:"
-          f" avail {comp_a:+d}, member {comp_m:+d}"
-          f" {'(NONE -- slots independent)' if comp_a == 0 and comp_m == 0 else '(INVESTIGATE)'}")
+        pm *= len(slot_survivors[s])
+    print(f"  member compensating combos beyond per-slot product:"
+          f" {len(member_surv) - pm:+d}")
 
-    # ---- probe forks among survivors ----
     print()
-    print("PROBE FORKS (survivors on unrealized identity facts):")
-    all_survivors = []
-    for ac in avail_surv:
-        for mc in member_surv:
-            choice = dict(zip([s for s, _ in AVAIL_SLOTS], ac))
-            choice.update(dict(zip([s for s, _ in MEMBER_SLOTS], mc)))
-            all_survivors.append(choice)
-    print(f"  total surviving syntactic rule-sets: {len(all_survivors)}"
-          f" (all agree on every realized row by construction)")
-    nforks = 0
+    print("PROBE FORKS (member survivors, avail slots canonical):")
+    all_surv = []
+    for mc in member_surv:
+        choice = dict(CANON)
+        choice.update(dict(zip([s for s, _ in MEMBER_SLOTS], mc)))
+        all_surv.append(choice)
     for probe in PROBES:
         outs = {}
-        for ch in all_survivors:
+        for ch in all_surv:
             got = u2_c(probe, ch)
-            key = (got["avail"], got["member"])
-            outs.setdefault(key, []).append(ch)
+            outs.setdefault(got["member"], []).append(ch)
         print(f"  {probe[0]}:")
         if len(outs) == 1:
-            (a, m), _ = next(iter(outs.items()))
-            print(f"    NO FORK: all survivors -> avail={a} member={m}")
+            print(f"    NO FORK: all -> member={next(iter(outs))}")
         else:
-            nforks += 1
-            for (a, m), chs in sorted(outs.items(), key=lambda x: -len(x[1])):
-                # which slot choices distinguish this group
+            for m, chs in sorted(outs.items(),
+                                 key=lambda x: -len(x[1])):
                 diff = {}
-                for s, _ in AVAIL_SLOTS + MEMBER_SLOTS:
+                for s, _ in MEMBER_SLOTS:
                     vals = {c[s] for c in chs}
-                    allvals = {c[s] for c in all_survivors}
-                    if vals != allvals and len(vals) < len(allvals):
+                    allv = {c[s] for c in all_surv}
+                    if vals != allv:
                         diff[s] = sorted(vals)
-                print(f"    FORK ({len(chs)} rule-sets): avail={a} member={m}")
+                print(f"    FORK ({len(chs)}): member={m}")
                 for s, v in diff.items():
                     print(f"        <- {s} in {v}")
 
     print()
     print("=" * 74)
-    print("VERDICT")
+    print("VERDICT (round-8 honest state)")
     print("=" * 74)
-    pinned = [s for s, _ in AVAIL_SLOTS + MEMBER_SLOTS
-              if len(slot_survivors[s]) == 1]
-    degen = [s for s, _ in AVAIL_SLOTS + MEMBER_SLOTS
-             if len(slot_survivors[s]) > 1]
-    print(f"  PINNED slots (canonical variant alone survives): {pinned}")
-    print(f"  DEGENERATE slots (multiple survivors): {degen}")
+    pinned = [s for s in slot_survivors if len(slot_survivors[s]) == 1]
+    print(f"  member-field survivors: {len(member_surv)}; per-slot"
+          f" survivor counts:"
+          f" {[f'{s}:{len(slot_survivors[s])}' for s, _ in MEMBER_SLOTS]}")
+    print(f"  slots with canonical alone surviving: {pinned}")
     print()
-    print("  UNIQUENESS THEOREM (T4-grade, relative to the declared space):")
-    print("  on the REALIZED identity domain the rule-set is unique as a")
-    print("  function -- every surviving syntactic variant computes the")
-    print("  identical table, and every kill is a data-kill (the table is")
-    print("  validated to <=0.01%; source/order kills are sigma'd in A52 at")
-    print("  13-65 sigma).  Residual freedom exists ONLY off-domain, is")
-    print("  fully enumerated by the probe forks above, and each fork is a")
-    print("  registered discriminating structural prediction: a future row")
-    print("  matching a probe's identity facts adjudicates it.")
-    print()
-    print("  NOT proved: uniqueness over all conceivable rules (the space")
-    print("  is declared, papers-motivated, finite); the two soft inputs")
-    print("  (Observer k=3, A13 grading) remain inputs.")
+    print("  AVAILABILITY: zero survivors -- no variant set in the space")
+    print("  covers the corrected key (theta_C stores (0,0,0) against")
+    print("  every legs-based clause).  The availability question is OPEN,")
+    print("  not uniquely solved.")
+    print("  MEMBER FIELDS: uniqueness holds only up to (i) the G-flag")
+    print("  reading (3 survivors -- the old theta_C kill of 'points")
+    print("  count too' was an artifact of the inconsistent grading),")
+    print("  (ii) the precedence order (all 6 survive: no realized row is")
+    print("  multi-flag under the consistent A13 grading; anchoring lives")
+    print("  at the papers' full-formula criterion, A52, not here), and")
+    print("  (iii) the Family-B kind restriction (2 survivors).")
+    print("  KILL STRENGTHS: mixed -- see per-kill classes above (LABEL =")
+    print("  record-label only; RECORD < 2 sigma; DATA >= 2 sigma).  The")
+    print("  blanket claim 'every kill is a data-kill' is WITHDRAWN.")
+    print("  All survivor freedom remains off-domain (probe forks above).")
 
 
 if __name__ == "__main__":

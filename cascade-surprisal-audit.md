@@ -2322,6 +2322,89 @@ and 5 = observer twist are foundation objects); the kind classifications ride on
 grading remains an input; the nesting and contact identifications are PARTIAL. No new numeric
 closure (stopping rule intact).
 
+## Addendum 56: hostile review round 8 — the U2 arc takes 7 majors; all accepted
+
+**The whole U2 arc (A53–A55) was hostile-reviewed as new post-convergence material. Seven
+majors, five minors, all confirmed by direct source reads and accepted. This addendum is the
+correction record; A53–A55 above stand as history and are superseded where this addendum
+says so.** Full disposition table: `riemann-indistinguishability-review-response.md` Round 8.
+
+**The seven majors, and what was done:**
+
+1. **The θ_23 answer key was wrong** (F1). Stored k=2; the papers say k=4 (part4b
+   `thm:theta23-closure`: exp(−α(7)/χ⁴); `rem:theta23-channel-count`: "θ_23 path d=12..20:
+   spans {P₁,P₂}. k=4"), and the row's identity facts (legs, full-content) had been bent to
+   match the wrong key — input error and key error mutually compensating into a fake PASS.
+   Corrected (legs (5,13), full (12,20), k=4); the row now passes for the papers' reason.
+   Every "11/11" headline in A53–A55 inherited this defect. Also corrected: θ_23 and ℓ_A are
+   not T4 exhaustion stages — "exhaustion family" mislabeled the 9+2 row set.
+2. **The "half-open support theorem" was an invented convention** (F2). The μ/e summand set
+   *includes* p(14) (part4b:83); the papers exempt μ/e by explicit boundary stipulation
+   (part4b:503, Conditional per 4108(a)); the prior increment verifier uses the opposite
+   span convention. A55's centerpiece — "the v1 sharpening is derived rather than imposed" —
+   is untrue and retracted; the G clause is a stipulation, and the P2 fork "adjudication" is
+   withdrawn.
+3. **"Every kill is a data-kill" was false** (F3). The celebrated θ_C kill of the
+   point-counting G variant: **0.19σ** experimentally. The R8 class-swap kill: numerically
+   identical members, 0σ — a pure label kill. σ-classification (LABEL / RECORD < 2σ /
+   DATA ≥ 2σ) is now computed per kill in the exhaustion. The honest good news that
+   survives: the P, L, sign, and channel slots carry genuine multi-σ kills (187σ, 66σ, 4σ,
+   67σ).
+4. **The A13 grading was applied inconsistently on exactly the rows where each direction
+   was needed** (F4). b/s graded inherited (closed sub-lead) while m_τ-abs's equally-closed
+   α_s/v content was graded novel; θ_C's half-weight exponential counted while θ_23's
+   half-weight exponential was exempted. Made consistent (θ_C, m_τ-abs → novel=None).
+   Consequences taken rather than hidden: v1's "first-run failure and data-forced
+   sharpening" narrative was an artifact of the bad grading (withdrawn); the point-counting
+   G variant *survives* the corrected exhaustion; **no realized row is multi-flag within
+   U2's grading, so all six precedence orders survive** — the P>L>G anchoring rests solely
+   on A52's papers-criterion layer (which stands, as a claim about the papers' flag table).
+5. **"All seven stored fields on every row" was achieved by not checking the failing
+   fields** (F5). Availability was stored for only 4 of 11 rows; the T4 store carries θ_C
+   avail (0,0,0) against the computed (1,2,0). The stored values are now in the key and the
+   θ_C row **fails visibly (10/11)**; the exhaustion's availability block has **zero
+   survivors** over the corrected key. Open defect, recorded, not patched.
+6. **Fabricated theorem attributions** (F6). "Observer 3 = |T6 marked set|": T6 forces only
+   the subcritical {5,13} — size **two** — with the coset marking itself instantiation;
+   {5,13,21} is Definition 6.1 address data. "T9/Theorem 9 one-record-one-frame": no such
+   statement exists anywhere in the repo — an invented gloss, on wrong theorem numbers.
+   Both retracted; Observer k=3 reverts to a soft input (instantiation count).
+7. **"No precedence order, no null clause, no k-table in the code" was literally false**
+   (F7). The reconstruction is an ordered if/elif chain with an else-None and inline
+   constants — syntactically exactly those three things. A55's "three stipulations
+   dissolve" described a relabeling. Corrected everywhere to: annotation with proposed
+   reasons at argument strength.
+
+**Minors accepted:** variant count 24→**44** and the never-varied source map {19,5,14,7}
+disclosed as a withheld axis (F8); the collapse claim inverted by scalar count — inputs 76 >
+outputs 50 — "~60→~30" and "~7→~1" withdrawn, ℓ_A's ambiguous kind listed as a third soft
+input (F9); "nesting selects PLG uniquely" downgraded — the argument is reversible,
+path-before-read argues PGL equally well (F10); "19 and 5 are foundation objects" withdrawn —
+all four source values are convention-selected, and the observer is twist 4, not 5 (F11);
+the remaining DERIVED labels demoted to IDENTIFICATION — winding, and colour-2 as a choice
+among coincident 2s (F12). Check-8 status clean (F13, negative result).
+
+**Reviewer's checked-and-held (adopted):** commit integrity clean (no recurrence of the
+round-6 false-record defect); every script reproduces its printed numbers; probe-fork
+completeness verified by an independent 8,640-row sweep; the eight uncontested rows match
+part4b's closure entries; the A52 sourcing of the v1 sharpening was genuine (its defect was
+the grading, not the sourcing).
+
+**Net state of the U2 arc after round 8:** member fields computed by one shared rule-set,
+11/11 against the *corrected* key, with four slots multi-σ pinned — that part is real and
+survived hostile review. The availability computation has an open counterexample (θ_C); the
+G-flag reading, the precedence order, and the Family-B restriction are unpinned within U2's
+own grading; the first-principles groundings are arguments and identifications, not
+theorems; and three specific untrue statements (the support theorem, the marked-set
+attribution, the no-stipulations-in-code claim) were published in A55/13c and are now
+retracted on the record. Process note, owned: this round's defects — a wrong answer key
+validated by bent inputs, an invented convention presented as a theorem, and fabricated
+attributions — are exactly the failure modes the fixed-target disclosure was supposed to
+guard against, and the disclosure did not prevent them. The binary row-check defends only
+against rules that fail the stored table; it is defenseless when the table itself is wrong.
+External verification of the key against the papers (which this round performed) is the
+missing check, now added to the protocol for any future U2 work.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
