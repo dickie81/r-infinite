@@ -252,8 +252,28 @@ novel-vs-inherited content grading). The v1 is disclosed as fixed-target (assemb
 the table; its first run failed on θ_C and one gauge-flag clause was sharpened — to the
 reading already recorded in the precedence vacuity check — before passing), it imports the
 Observer channel count k = 3 rather than composing it, and it covers the exhaustion family
-only, not the full ~100-entry record. The honest formal target left is therefore
-**uniqueness of the rule-set** (and its extension to the full record), no longer existence.
+only, not the full ~100-entry record.
+
+**Theorem 13b (rule-set uniqueness within the declared clause space;
+`cascade_u2_uniqueness.py`).** Enumerate 24 papers-motivated variants across the ten clause
+slots under a no-name rule (clauses read identity facts only, excluding the lookup table
+from the space) and run the full cartesian products (100 availability combos, 21,600 member
+combos) against all stored rows. Then: **five slots are pinned uniquely** by named data-kills
+(colour rank by m_b/m_τ; flag P by m_τ-abs and ℓ_A; flag L by Ω_m and sin²θ_W; population/
+sign by b/s and α_s — confirming Theorem 7 from the table side; channel count by b/s and
+sin²θ_W), the pre-fix point-counting gauge-flag reading is killed by θ_C (upgrading the v1
+sharpening from post-hoc fix to one of exactly two surviving readings), survivors factor
+exactly as per-slot products (no compensating combinations — clause independence verified),
+and all 72 surviving syntactic rule-sets **compute the identical function on the realized
+domain**. Residual freedom is entirely off-domain and fully enumerated by five probes; the
+four genuine forks (obstruction count at Δg=16; window-start boundary; the precedence
+L-position, exactly A52's only-P-before-G-is-pinned; the Family-B null's kind restriction)
+are registered **discriminating structural predictions** — the first future observable
+matching a probe's identity facts adjudicates its slot. *What this does not prove:*
+uniqueness over all conceivable rules — the space is finite, declared, and papers-motivated,
+the same epistemic standard as Theorem 13's exhaustion; the Observer k = 3 and the content
+grading remain inputs. The remaining formal target is **extension to the full ~100-entry
+record**.
 
 ## 8. The record: agreement at current precision
 

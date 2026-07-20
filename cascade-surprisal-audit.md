@@ -2230,6 +2230,52 @@ rule-set*, not existence; (iii) two soft inputs remain: the Observer channel cou
 Review Finding 3 ("availability is tabulated, not computed") is **discharged at v1 strength**:
 computed, by a disclosed, once-corrected, non-unique rule-set.
 
+## Addendum 54: rule-set uniqueness — the forcing theorem, by exhaustion
+
+**Tool:** `tools/research/cascade_u2_uniqueness.py`
+**The question left by Addendum 53:** the v1 rule-set computes the table, but was assembled
+knowing it. Is it the only rule-set that does? Proved the only way it can be — **T4-grade
+exhaustion within a declared candidate space** (single-valuedness relative to the space,
+never absolute forcedness), under a **no-name rule**: every candidate clause reads only
+identity facts through bounded predicates, so the lookup table itself is outside the space.
+
+**The space:** 24 papers-motivated variants across the ten slots; full cartesian products run
+(availability block 100 combos, member block 21,600), all against all 11 stored rows.
+
+**Results:**
+
+- **Five slots pinned uniquely**, each by a named data-kill: colour rank R2 (the "one full
+  su(3) Cartan regardless of quark-leg count" reading is *forced by m_b/m_τ*, which needs
+  rank 2 with a single quark leg — count-of-quarks, all-quark, and N_c=3 readings all die);
+  flag P R4 (killed alternatives lose m_τ-abs and ℓ_A to source 14/7); flag L R6 (Ω_m and
+  sin²θ_W each kill one restriction); population/sign R8 (b/s and α_s kill every remap —
+  confirming T7 from the table side); channel count R9 (b/s's k=4 and sin²θ_W's k=3 kill all
+  four alternatives, including both no-doubling and novel-content readings).
+- **The pre-fix gauge-flag reading is killed in the exhaustion** — "points count too" dies on
+  θ_C, exactly the failure v1 hit live. The Addendum 53 sharpening is thereby upgraded from
+  disclosed post-hoc fix to one of exactly **two** surviving R5 readings (both windows-only).
+- **No compensating combinations:** survivors factor exactly as the per-slot products
+  (6 = 3·1·2 availability, 12 = 2·3·2 member; 72 syntactic rule-sets total). Clause
+  independence verified, not assumed.
+- **The 72 survivors are one function on the realized domain** (they agree on every stored
+  row by construction) and their entire residual freedom is **off-domain, fully enumerated**
+  by five probes: two survivors are pure syntactic duplicates (R1's periods-spanned ≡ |Δg|/8
+  on the T6 coset {5,13,21}; R3's kinds-minus-one ≡ mixed-indicator on all inputs), and four
+  are genuine forks on *unrealized* identity facts — R1 (a Δg=16 row, e.g. any direct 5↔21
+  ratio: obstruction 2 vs 1), R5 (a window starting at 12/13: gauge-mediated closure vs
+  Family-B null), R7 (the L-position: PGL forks on an L∧G row, LPG on a P∧L row — precisely
+  A52's finding that only P-before-G is data-pinned), R10 (a flag-free non-ratio Descent row:
+  null vs member). **Each fork is a registered discriminating structural prediction**: the
+  first future observable matching a probe's identity facts adjudicates its slot.
+
+**The theorem, stated honestly:** relative to the declared space, the U2 rule-set is
+**unique as a function on the realized identity domain**; every kill is a data-kill (the
+table is record-validated to ≤0.01%; the order kills are A52's 13–65σ); all remaining freedom
+is off-domain and enumerated. Not proved: uniqueness over all conceivable rules (the space is
+finite and chosen, papers-motivated); the two soft inputs (Observer k=3, A13 grading) are
+inputs here too. No new numeric closure was made (stopping rule intact — the probes are
+structural, with no measured values attached).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

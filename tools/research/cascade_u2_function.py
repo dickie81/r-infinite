@@ -65,7 +65,9 @@ SINGLE-VALUEDNESS -- one rule-set covers every row with no per-case
 exception, and (ii) the COLLAPSE -- ~60 stored entries become ~30
 identity facts + 10 reusable clauses.  Two soft inputs are flagged:
 the Observer k = 3, and A13's novel-vs-inherited content grading.
-Uniqueness of the rule-set is open (the forcing theorem).
+Uniqueness of the rule-set: see cascade_u2_uniqueness.py -- proved
+T4-grade (5 of 10 slots pinned uniquely by named rows; all residual
+freedom off-domain, enumerated as probe forks).
 """
 
 PERIODS = [(5, 12), (13, 20), (21, 28)]
@@ -180,8 +182,8 @@ def main():
         print("  clauses from bare identity facts.  'Availability is")
         print("  tabulated, not computed' (review F3) is DISCHARGED at v1:")
         print("  ~60 stored entries -> ~30 identity facts + 10 clauses.")
-        print("  REMAINS OPEN: uniqueness of the rule-set (the forcing")
-        print("  theorem); the two soft inputs (Observer k = 3; the")
+        print("  Uniqueness: cascade_u2_uniqueness.py (T4-grade proof).")
+        print("  REMAINS OPEN: the two soft inputs (Observer k = 3; the")
         print("  novel-vs-inherited content grading).  Fixed-target")
         print("  disclosure: assembled knowing the table; the binary check")
         print("  is the defence.")

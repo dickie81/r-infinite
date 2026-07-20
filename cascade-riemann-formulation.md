@@ -71,8 +71,10 @@ the dictionary, the derived rules (T5–T9, exclusion, flags, channel count), th
 data (address book, record statuses), and D1, the observable map is unique.* Proof: U1
 exactly-once (at-most-once = T5; at-least-once = completeness of the Gaussian measure, T2/T9);
 U2 availability (COMPUTED at v1 — `cascade_u2_function.py`, Addendum 53: ten shared clauses on
-per-row identity facts reproduce all 11 exhaustion-family rows; fixed-target, once-corrected,
-uniqueness of the rule-set open); U3 member determinism (flags + T7 + channel count + T5). Exhaustion:
+per-row identity facts reproduce all 11 exhaustion-family rows; rule-set uniqueness PROVED
+T4-grade — `cascade_u2_uniqueness.py`, Addendum 54: 5/10 slots pinned uniquely by named
+data-kills, no compensating combos, all residual freedom off-domain as four registered
+probe forks); U3 member determinism (flags + T7 + channel count + T5). Exhaustion:
 every stage's naive space (1,764–7,056 assignments) filters to exactly one survivor, each
 reproducing the recorded formula to ≤0.01%; the neutrino E-stage collapses to
 (N_c·π², (0,1,2)). The exhaustion verifies single-valuedness against the ~60-entry table, not forcedness. The unconditional question — why *this* address book — is C1 itself, not mathematics.
@@ -146,7 +148,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | two clauses derived (T7: Bohr–Mollerup off/at the equality manifold); **coset clause demoted** (review 4, D1: convention-conditional) | population-class assignment remains instantiation |
 | 5b | P > L > G precedence | **data-anchored convention** (vacuity check `cascade_precedence_vacuity.py`: NOT vacuous — fires at m_τ-abs whose formula carries gauge-window exponentials behind the papers' dash; all assignment-changing orderings excluded at 13–65σ) | counted in the residue; free content nil |
-| 6 | T4 uniqueness | **address-book determination + U2 v1** (Addenda 40, 53): the exhaustion verifies single-valuedness; `cascade_u2_function.py` now *computes* the stored table — ten shared clauses on identity facts reproduce 11/11 exhaustion-family rows (~7 discretionary stored choices/row → ~1, the A13 content grading); disclosed fixed-target, first run failed θ_C, one clause sharpened to the A52 reading | open formal target moves up: **uniqueness of the rule-set** + extension to the full ~100-entry record; soft inputs: Observer k=3, A13 grading |
+| 6 | T4 uniqueness | **address-book determination + U2 v1 + rule-set uniqueness** (Addenda 40, 53, 54): the table is *computed* (11/11 rows from identity facts, ~7 stored choices/row → ~1) and the rule-set is **unique T4-grade** within a declared 21,700-combo clause space under a no-name rule — 5/10 slots pinned by named data-kills (incl. the pre-fix gauge-flag reading killed by θ_C), no compensating combos, all residual freedom off-domain as four probe forks = discriminating structural predictions | open: extension to the full ~100-entry record; absolute (space-free) forcing unavailable in principle; soft inputs: Observer k=3, A13 grading |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |
 | 8 | C1 | empirical forever | the ledger |
 
