@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-THE INHERITED JOINTS DERIVED: J1, J2, AND P > L > G FROM ARITHMETIC.
-
-After this file, the framework's non-arithmetic residue is exactly:
-Lovelock's theorem (the d = 4 selection; external tensor calculus),
-the definitional clause D1, and the instantiation map C1.
+THE INHERITED JOINTS: J2 DERIVED; J1 AND P > L > G AMENDED TO
+CONVENTIONS PER EXTERNAL REVIEW (see riemann-indistinguishability-
+review-response.md).  The residue is seven items: Lovelock, D1, C1,
+the closed atom grammar, the unit-normalization convention, the
+P > L > G precedence, and the feature->layer selection convention.
 
 P1 (J1: the polar decomposition of the Fresnel integral).
    The generator of the Z/8 clock IS the carrier of the Gaussian
@@ -70,9 +70,9 @@ def p1():
           f" {flips} -> 4 units")
     print(f"  four units: magnitude Gamma(1/2)^4 = {SQRTPI**4:.6f} = pi^2;"
           f" phase (-1): the fermionic crossing sign")
-    print("  => J1 DERIVED: the clock's generator carries the Gaussian unit")
-    print("     as its modulus; the count 4 is the minimal flip word.")
-    print("     (Corrects A38's 'per period' wording; E = 3 pi^2 unchanged.)")
+    print("  => J1 (amended per review): the x^2-normalized unit is a CONVENTION,")
+    print("     empirically anchored (self-dual form gives E = 3, data-excluded);")
+    print("     count-4 is meaningful only jointly with the unit granularity.")
 
 
 def p2():
@@ -121,10 +121,10 @@ def p3():
         print(f"  {lam:>8} {pole:>12.4f} {saddle:>17.6f} {arc:>14.3e}")
     print("  => the ordering P > L > G holds at every lambda with widening")
     print("     gaps: the precedence is the universal dominance hierarchy")
-    print("     of contour asymptotics.  Mapping: P = the pole factor")
-    print("     s(s-1); L = values read AT the features (the saddles --")
-    print("     A12: features are critical points/thresholds); G = window")
-    print("     integrals (regular arcs).  DERIVED, not chosen.")
+    print("     of contour asymptotics -- an ANALOGY (review: motivated, not")
+    print("     derived; the framework has no lambda-asymptotics).  Mapping:")
+    print("     P = pole factor; L = values at features; G = window integrals.")
+    print("     Status: MOTIVATED convention, counted in the residue.")
 
 
 if __name__ == "__main__":
@@ -133,8 +133,9 @@ if __name__ == "__main__":
     p3()
     print()
     print("=" * 74)
-    print("RESIDUE AFTER THIS FILE: Lovelock (d = 4 selection; external")
-    print("tensor calculus), D1 (definition), C1 (the instantiation map).")
-    print("Every joint that carried tunable or chooseable content is now")
-    print("arithmetic.")
+    print("RESIDUE (amended per external reviews): Lovelock, D1, C1, the")
+    print("closed atom grammar, the unit-normalization convention, the")
+    print("P>L>G precedence, and the feature->layer selection convention.")
+    print("J2 (incoherence) and the flip-word arithmetic remain derived;")
+    print("their physical identification is instantiation.")
     print("=" * 74)

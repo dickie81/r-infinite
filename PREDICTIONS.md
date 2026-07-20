@@ -54,7 +54,7 @@ Numerical predictions from cascade geometry. Formulas are exact; deviations refl
 | α_s(M_Z) closed | +α(14)/χ (correction family, k=1) | 0.11792 | 0.1179 ± 0.0009 | +0.02σ |
 | m_τ / m_μ closed | +α(14)/χ (correction family, k=1) | 16.8173 | 16.8170 ± 0.0011 | +0.24σ |
 | m_τ absolute closed | +α(19)/χ (correction family, k=1) | 1776.82 MeV | 1776.86 ± 0.12 | −0.31σ |
-| ℓ_A closed | +α(19)/χ (correction family, k=1) | 301.44 | 301.6 ± 0.09 | −0.16σ |
+| ℓ_A closed | +α(19)/χ (correction family, k=1) | 301.44 | 301.6 ± 0.09 | −1.8σ (vs 301.6±0.09; earlier −0.16 was the absolute difference mislabeled as σ) |
 | sin²θ_W closed | +α(5)/χ³ (correction family, k=3) | 0.23123 | 0.23121 ± 0.00004 | +0.40σ |
 | Ω_m closed | −α(5)/χ³ (correction family, k=3) | 0.31474 | 0.315 ± 0.007 | −0.04σ |
 | 1/α_em | 1/α(13) + π/α(14) + 6π (chirality theorem, three Dirac layers) | 137.028 | 137.036 | 0.006% |

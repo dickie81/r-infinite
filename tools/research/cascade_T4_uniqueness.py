@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """
-T4 PROVED (conditional uniqueness, by finite exhaustion).
+T4: ADDRESS-BOOK DETERMINATION (restated per external review F3).
 
-STATEMENT.  Given the axioms as they now stand -- the arena (A1,
-Gaussian forced by T5-P2), the dictionary (A2), the derived rules
-(T5 attach-once, T6 counting, T7 sign, T8 projection, T9 ranks, A38
-exclusion, flags/A12-13, channel-count), the instantiation data (the
-address book: layer assignments, record statuses, population and
-occupancy classes), and D1 -- the formula of every chain observable
-is UNIQUE: the rule-consistent assignment space per stage has
-exactly one element.
+STATEMENT.  Given the ~60-entry address book (window endpoints,
+availability ranks, member source/class/exponent, record status per
+observable) and the rules (T5 attach-once, T6 counting, T7 sign, T8
+projection, T9 ranks, exclusion, flags, channel-count), the encoded
+rules are single-valued and the determined formulas reproduce the
+record to <= 0.01%.  The exhaustion verifies single-valuedness and
+arithmetic correctness -- NOT forcedness: availability is tabulated
+per observable, and computing it from address data alone (U2 as a
+function) is the open formal target.
 
 PROOF STRUCTURE.
   U1 (exactly-once).  At-most-once is T5 (Z totally ordered; simple
@@ -19,8 +20,8 @@ PROOF STRUCTURE.
      contributes its factor (annealed if unrecorded, quenched e^(r/2)
      if recorded, T9) -- omitting it is not an alternative
      assignment but a different measure, violating A1.
-  U2 (availability determinism).  The available-operation set at an
-     address is a function of the address data: colour rank (T8/T9),
+  U2 (availability -- TABULATED, not computed; per review F3 the
+     stronger claim is open).  The stored operation set cites: colour rank (T8/T9),
      broken-symmetry status (obstruction scope), frame changes
      (T8), threshold side (T6/A38).  The exclusion principle is the
      negative direction: no generating process, no factor.
@@ -197,13 +198,14 @@ def main():
     print()
     verdict = all_one and len(surv) == 1
     print("=" * 74)
-    print(f"  T4 VERDICT: {'PROVED (conditional)' if verdict else 'FAILS'} --"
-          f" every stage's rule-consistent space is a singleton")
+    print(f"  T4 VERDICT: {'ADDRESS-BOOK DETERMINATION HOLDS' if verdict else 'FAILS'}"
+          f" -- every stage single-valued vs the ~60-entry table")
     print("=" * 74)
     print("  Conditional on: the address book & record statuses (C1 instan-")
     print("  tiation; addresses largely forced by Part IVa Radon-Hurwitz/")
     print("  Bott, inherited), P>L>G precedence, J1/J2, A2's closed atom")
-    print("  list.  Within the axioms: ZERO discrete freedom remains.")
+    print("  list.  Verifies single-valuedness + arithmetic correctness;")
+    print("  availability-as-a-function (the forcing theorem) is OPEN.")
 
 
 if __name__ == "__main__":

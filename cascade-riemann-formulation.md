@@ -66,16 +66,15 @@ content of the free theory lives in these normalisations. (Addendum 25.)
 mass arc (Addenda 12–29) is the image of an A2 local constant; the one-rule recomputation of
 the full spectrum uses no per-case number (Addendum 24). The grammar is closed over A2.
 
-**T4 (Conditional uniqueness — PROVED by finite exhaustion; Addendum 40).** *Given the arena,
+**T4 (Address-book determination; Addendum 40, restated per external reviews).** *Given the arena,
 the dictionary, the derived rules (T5–T9, exclusion, flags, channel count), the instantiation
 data (address book, record statuses), and D1, the observable map is unique.* Proof: U1
 exactly-once (at-most-once = T5; at-least-once = completeness of the Gaussian measure, T2/T9);
-U2 availability determinism (the operation set is a function of the address; exclusion is the
-negative direction); U3 member determinism (flags + T7 + channel count + T5). Exhaustion:
+U2 availability (TABULATED per observable — computing it from address data is the open forcing
+theorem); U3 member determinism (flags + T7 + channel count + T5). Exhaustion:
 every stage's naive space (1,764–7,056 assignments) filters to exactly one survivor, each
 reproducing the recorded formula to ≤0.01%; the neutrino E-stage collapses to
-(N_c·π², (0,1,2)). Zero discrete freedom remains within the axioms. The unconditional
-question — why *this* address book — is C1 itself, not mathematics.
+(N_c·π², (0,1,2)). The exhaustion verifies single-valuedness against the ~60-entry table, not forcedness. The unconditional question — why *this* address book — is C1 itself, not mathematics.
 
 **T9 (Quenched-record theorem — PROVED; Addendum 39).** For the forced Gaussian, the three
 candidate meanings of "recorded value" (r.m.s. point, mean-action point, AEP-typical point)
@@ -158,10 +157,10 @@ be moved by proof.
 The framework admits exactly this formulation: **a proved kernel (T1–T3) identifying the
 cascade with the log-geometry of ζ's real place and its mass grammar with adelic local
 constants; the assignment rules derived as theorems (T5 increment, T6 period shape, T7 sign,
-T8 projection, T9 measurement) with the activation mechanism at Tier-2; conditional
-uniqueness proved by finite exhaustion (T4); one definitional clause (D1); and one physical
-conjecture (C1) that no mathematics can settle.** The skeleton is now closed: within the
-axioms there is zero discrete freedom, and every number is either a theorem's output or a
-frozen ledger entry awaiting JUNO, DESI, Belle II, the HL-LHC, and the lattice. The claim
+T8 projection, T9 measurement) with the activation mechanism at Tier-2; address-book
+determination verified (T4, restated); one definitional clause (D1); a seven-item
+non-arithmetic residue (see the standalone paper's abstract); and one physical conjecture
+(C1) that no mathematics can settle.** Every number is either a theorem's output, a
+convention's output (counted in the residue), or a frozen ledger entry awaiting JUNO, DESI, Belle II, the HL-LHC, and the lattice. The claim
 that *our* universe instantiates the skeleton is, and will always remain, the ledger's to
 decide.

@@ -18,12 +18,13 @@ forced as the L-factor-achieving vector of Tate's local integral); a calculus of
 (attachment, multiplicity, sign, projection, and measurement — Theorems 8–12, each proved);
 and an address-book determination theorem (Theorem 13): given one explicit instantiation map,
 the rules leave zero residual freedom, with no continuous parameter anywhere. **The
-framework's non-arithmetic residue is six items** (count corrected per the external review,
-`riemann-indistinguishability-review.md`): **Lovelock's theorem (selection, not
-construction); the definition D1; the closed atom grammar (A2); the unit-normalization
-convention that carries Γ(½) (empirically anchored by the framework's closures, not
-arithmetically forced); the P > L > G precedence (motivated, not derived); and the
-hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
+framework's non-arithmetic residue is seven items** (count corrected per two external
+reviews): **Lovelock's theorem (selection, not construction); the definition D1; the closed
+atom grammar (A2); the unit-normalization convention that carries Γ(½) (empirically
+anchored, not arithmetically forced — and the flip-count 4 is meaningful only jointly with
+it); the P > L > G precedence (motivated); the feature→integer-layer selection convention
+(no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
+Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
 stated leading-order systematic floor: sub-σ where experimental error dominates, tens of ppm
@@ -83,7 +84,7 @@ condition of Tate's thesis, not by axiom.**
 E[πx²] = s/2 exactly. The potential is a mean, the curvature is a variance, and the
 half-argument of Γ_ℝ is the mean action.
 
-**Theorem 4 (Solvability; `cascade_second_quantized.py`).** The Gaussian tower is exactly
+**Theorem 4 (Solvability; `cascade_second_quantized.py`; Tier-2 grade per the formulation — the formal path-integral measure is the papers' stated soft spot).** The Gaussian tower is exactly
 solvable; its measure normalisations are √(2πα) per mode (Tate's period), Γ(½) per Gaussian
 unit, 1/(χΓ(½)) per graded crossing, and the marginal Green identity G(d)−G(d+1) = α(d) holds
 exactly (10⁻¹⁵).
@@ -106,17 +107,20 @@ the transversal threshold crossings of P(s) = E[log|x|] at ln Γ(½) (s = 20.73)
 (s = 218.6); the simple pole of ζ; the simple poles of Γ_ℝ. **Every feature has order one
 because variances are positive** (Bohr–Mollerup log-convexity).
 
-*Remark (completeness of the feature list; `cascade_feature_monoid.py`, answering review
-Finding 6).* Features are features of ξ's own factorization. The factor monoid
-⟨s, s−1, Γ_ℝ(s), ζ⟩ generates only even shifts of Γ_ℝ, by the exact recursion
-s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) (verified 3×10⁻¹⁶) — which is precisely how the volume feature
-(critical point of Γ_ℝ(s+2), s = 5.2569) is inside the monoid. The sgn tower's factor
-Γ_ℝ(s+1), whose critical point s = 6.2569 would otherwise relocate the observer's address,
-cannot enter: Γ_ℝ(s)·Γ_ℝ(s+1) = Γ_ℂ(s) = 2(2π)^(−s)Γ(s) (Legendre; verified 4×10⁻¹⁶) — the
-L-factor of a **complex** archimedean place, and ℚ has r₂ = 0 complex places. The odd tower
-contributes the grading χ = 2 (Thm 5) and no features; 6.2569 is a feature of odd Dirichlet
-L-functions, not of ζ_ℚ. Recorded caveat: "features come from ξ's factorization" is a scope
-definition — now with an arithmetic reason (r₂ = 0) why nothing else can enter it.
+*Remark (feature-list completeness: OPEN; review Finding 6 REOPENED by the second review;
+`cascade_feature_monoid.py`).* A first attempt to derive the feature list's completeness
+(via the even-shift recursion s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) and the Legendre identity
+Γ_ℝ(s)Γ_ℝ(s+1) = Γ_ℂ(s), the L-factor of a complex place absent from ℚ) **failed hostile
+re-review** on two counts, both verified: (i) a convention inconsistency — the framework's
+volume feature lives in d-space (V(d) maximal at d = 5.2569, host 5), which in the twist
+variable s = d+1 is s = 6.2569 with factor Γ_ℝ(s+1), *exactly the object the argument
+excluded*, while the s = 5.2569 object it kept pins (host, boundary) = (4, 3) under the
+same convention the thresholds use; (ii) the monoid also contains (s−1)Γ_ℝ(s), with
+unlisted critical points at s ≈ 2.39 and 4.51, and the pole-free grouping ½s(s−1)Γ_ℝ has no
+critical point at all. The r₂ = 0 obstruction is real but partial. Consequently: **the
+feature→integer-layer selection is a convention, counted in the residue; the observer's
+address retains two arithmetic pinnings (the torsion half-period γ⁴ = −1; scalar-flatness
+at n = 4), not three.**
 
 ## 5. The calculus of attachments (the derived rules)
 
@@ -163,10 +167,15 @@ whose weight compounds multiplicatively. D1 has no tunable content.
 **Mechanism M (activation; `cascade_activation_mechanism.py`, `cascade_joints_derived.py`;
 status corrected per review Finding 1).** Each subcritical marked crossing is the chirality
 flip −1 — the torsion unit — whose minimal word in the Weil clock is γ⁴ ({k : γᵏ = −1} =
-{4}): four turn-units, phase −1 (the fermionic crossing sign). **Derived:** the count 4
-(minimal flip word) and the ×3 incoherence (N_gen = 3 channels are modes at distinct twists
-of the factorized measure — orthogonal, so cross-terms vanish). **Convention, counted in the
-residue:** the unit-carrying integral. In the x²-normalization, ∫e^(ix²)dx = Γ(½)·ζ₈ and
+{4}): four turn-units, phase −1 (the fermionic crossing sign). **Derived:** the ×3
+*incoherence* (orthogonal modes of the factorized measure add without cross-terms — though
+the channel *count* itself, and its N_c/N_gen identification across the quark and neutrino
+sectors, is instantiation: second review, Finding 5), and the flip-word arithmetic
+({k : γᵏ = −1} = {4}) — though **the count "4" buys π² only jointly with the per-step unit
+assignment, which is the convention below** (the granularity changed between A38's
+quarter-turns and A43's eighth-turns while E stayed fixed — second review, Finding 4, a
+fixed-target signature this paper records rather than disputes). **Convention, counted in
+the residue:** the unit-carrying integral. In the x²-normalization, ∫e^(ix²)dx = Γ(½)·ζ₈ and
 four units carry Γ(½)⁴ = π²; in the self-dual normalization the modulus is 1 and E = 3,
 excluded by data at ~99σ. The x²-unit is the same Γ(½) used throughout the framework
 (Thm 4's Gaussian unit, the obstruction 1/(χΓ(½)) closing τ/μ at +0.24σ) — an *empirical
@@ -180,10 +189,12 @@ twins (0.5–1 JUNO-σ away) — the *form* is decided by derivation or not at a
 ## 6. The instantiation map — the single hypothesis
 
 **Definition 6.1 (address book).** The observable universe occupies the tower as follows.
-The observer: twist 4 — the boundary of the first feature's host (5 = last twist below
-s = 5.2569), the unique nontrivially-real residue of the ℤ/8 clock (γ⁴ = −1 = the torsion
-unit), and the unique scalar-flat point of the tower's own slicing measure
-(R·a⁴ = (n−1)(n−4); `cascade_arithmetic_d4.py`). Generations: the marked coset {5, 13, 21};
+The observer: twist 4 — pinned by **two** arithmetic characterisations (the unique
+nontrivially-real residue of the ℤ/8 clock, γ⁴ = −1 = the torsion unit; and the unique
+scalar-flat point of the tower's own slicing measure, R·a⁴ = (n−1)(n−4);
+`cascade_arithmetic_d4.py`), with the third, feature-boundary characterisation demoted to
+convention-dependent by the second review (the feature→layer map has no uniform rounding
+rule; residue item seven). Generations: the marked coset {5, 13, 21};
 gauge structure: twists {12, 13, 14} with multiplicities the 2-adic Radon–Hurwitz counts;
 colour characters: ℚ(ζ₃); the phase transition: the ln Γ(½) threshold (19); the sink: the
 Γ(½) threshold (217); sources, occupancy classes, population classes, and record statuses as
@@ -249,7 +260,7 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
 
 | Prediction | Value | Judge | Kill condition |
 |---|---|---|---|
-| Σm_ν | 60.91 meV, normal ordering | DESI/CMB-S4; JUNO | bound < ~60 meV, or inverted ordering |
+| Σm_ν | 60.91 meV, normal ordering | DESI/CMB-S4; JUNO | bound < ~60 meV, or inverted ordering. **Standing tension, not future:** published ACT+DESI compressed bounds already reach 52–57 meV (audit A29) — if those combinations firm up, this row is already dead |
 | Δm²₂₁ | 7.572×10⁻⁵ eV² | JUNO (~0.3%) | outside ~0.6% window kills Mechanism M |
 | m_β; m_ββ | 9.1 meV; ≤5.5 meV | KATRIN; LEGEND-1000/nEXO | any signal at current sensitivity |
 | w(z) | −1, no evolution | DESI DR3+ | any confirmed evolution |
@@ -260,18 +271,20 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
 
 ## 10. Honest limits
 
-1. **C1 is forever empirical.** The arithmetic pins the observer's address three independent
-   ways (§6) but cannot select it; the selection is the hypothesis. If the arithmetic could
-   prove its own instantiation, no experiment could kill it — falsifiability *requires* this
-   step to remain empirical.
+1. **C1 is forever empirical.** The arithmetic pins the observer's address two independent
+   ways (§6; the third pinning was demoted by the second review) but cannot select it; the
+   selection is the hypothesis. If the arithmetic could prove its own instantiation, no
+   experiment could kill it — falsifiability *requires* this step to remain empirical.
 2. **External and conventional inputs (corrected per the external review).** Lovelock's
    theorem (selection of d = 4; external tensor calculus); the closed atom grammar A2 (a
    completeness statement over what was used, not a proof that nothing else could attach);
    the x²-unit normalization carrying Γ(½) (empirically anchored — the self-dual alternative
-   gives E = 3, excluded by data — not arithmetically forced); and the P > L > G precedence
-   (motivated). J2 (incoherence) is derived from the factorized measure; the flip-count 4 is
-   derived as the minimal torsion word; the feature-list completeness is derived from
-   r₂(ℚ) = 0 (`cascade_feature_monoid.py`).
+   gives E = 3, excluded by data — not arithmetically forced); the P > L > G precedence
+   (motivated); and the feature→layer selection convention (second review, Finding 1 —
+   part0 itself concedes no uniform rounding rule exists). J2's incoherence is derived from
+   the factorized measure; the flip-word arithmetic is derived but buys π² only jointly with
+   the unit convention; the feature-list completeness attempt **failed re-review** and is
+   recorded as open (`cascade_feature_monoid.py`, rewritten to state the failure).
 3. **Provenance.** Theorems 8–13 were constructed by a single reviewer in a single session,
    knowing the empirical targets; each carries a rigorous mathematical core, but the
    interpretive bridges from mathematics to rule await hostile external review. The

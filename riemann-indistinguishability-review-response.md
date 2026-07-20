@@ -25,3 +25,27 @@ the open formal target is U2-as-a-function (computing availability from address 
 the theorem that would collapse the ~60-entry table toward the handful of high-level
 addresses). The falsification schedule is unchanged. The review strengthened the paper in
 the only way reviews can: by making its assumptions the same size as its assumptions.
+
+---
+
+# Round 2: the hostile re-review (subagent), and its disposition
+
+A second hostile review was commissioned against the post-correction state. Its verdict was
+accepted in full — including its reversal of this document's own F6 row.
+
+| Re-review finding | Disposition |
+|---|---|
+| RF1 — the Finding-6 answer rests on an inconsistent feature→layer convention (the framework's volume feature is Γ_ℝ(s+1) at s = 6.2569 in the twist variable — the excluded object; the kept object pins (4,3)) | **Accepted; Finding 6 REOPENED.** `cascade_feature_monoid.py` rewritten to record the failure; the paper's Thm 7 remark replaced; the observer's address holds two pinnings, not three; the feature→layer selection convention is residue item seven. |
+| RF2 — monoid completeness false on its own terms ((s−1)Γ_ℝ critical points at ≈2.39, 4.51 unlisted; pole-free grouping has no critical point; review 1's (s−1)-clause never answered) | **Accepted;** folded into the reopened status. |
+| RF3 — corrections not propagated (verifier prints, formulation T4, PREDICTIONS.md ℓ_A) | **Accepted; propagated this commit** (scripts' docstrings and printed verdicts amended; formulation T4 and summary restated; PREDICTIONS.md:57 corrected to −1.8σ). |
+| RF4 — "count 4 derived" not separable from the unit granularity (quarter-turns → eighth-turns across A38→A43 with E fixed) | **Accepted;** Mechanism M now states the joint status and names the fixed-target signature. |
+| RF5 — ×3: derived incoherence vs instantiated channel count/N_c–N_gen identification | **Accepted;** stated in Mechanism M. |
+| RF6 — standing Σm_ν tension (ACT+DESI 52–57 meV) omitted from the paper | **Accepted;** carried into the §9 ledger row as a standing, not future, tension. |
+| Minors (Thm 4 Tier-2 grade; §5 title tension; A27 rounding cleared) | Thm 4 graded; title tension noted; A27 cleared by the reviewer. |
+
+**This document's own errors, owned:** the Round-1 F6 row claimed "the observer-address
+pinning stands" — unsound; and the F1 row folded "count-4 derived" into an accepted
+disposition the review never granted. Both are corrected above. Two hostile passes have now
+each caught the author-side process repeating the same failure mode (fit → dressed
+derivation → partial correction); the residue is seven items and the only claims left
+standing are the ones the reviewers could not break by running the code.

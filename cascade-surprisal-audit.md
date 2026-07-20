@@ -1967,6 +1967,40 @@ session could: it priced the derivation layer from outside. The audit's own meta
 derivation and rationalization are locally indistinguishable except under adversarial review
 and pre-registration — is hereby demonstrated on the audit itself.
 
+## Addendum 45: the second hostile review — Finding 6 reopened, the residue grows to seven
+
+**Documents:** the re-review report (subagent, disposition in
+`riemann-indistinguishability-review-response.md` Round 2); `cascade_feature_monoid.py`
+(rewritten to record its own failure).
+
+A second hostile pass was commissioned against the post-correction state, with an explicit
+mandate to attack what survived round one. **Its central finding is accepted: the Finding-6
+answer failed.** The framework's volume feature lives in d-space (V(d) maximal at d = 5.2569,
+host 5); in the paper's own twist variable s = d+1 that is **s = 6.2569 with factor
+Γ_ℝ(s+1) — exactly the object the monoid argument excluded** — while the object the argument
+kept (s = 5.2569) pins (host, boundary) = (4, 3) under the same convention the thresholds
+use. The monoid completeness claim was also false on its own terms ((s−1)Γ_ℝ has unlisted
+critical points at s ≈ 2.39, 4.51; the pole-free grouping has none; review 1's explicit
+(s−1)-clause was never answered). Consequences, all applied: Finding 6 is **reopened**; the
+feature→integer-layer selection is a **convention and the seventh residue item** (part0
+itself concedes no uniform rounding rule exists); the observer's address retains **two**
+arithmetic pinnings, not three; the "count 4" is meaningful only jointly with the unit
+granularity (which changed A38→A43 while E stayed fixed — the fixed-target signature, now
+recorded in the paper itself); the ×3's channel count and N_c/N_gen identification are
+instantiation, only the incoherence is derived; the standing ACT+DESI Σm_ν tension (52–57
+meV, below the kill line) is carried into the paper's ledger as present, not future; and the
+non-propagation failures (verifier prints still asserting retracted claims, the
+formulation's contradictory T4 text, PREDICTIONS.md's thrice-flagged ℓ_A mislabel) are fixed
+at the source.
+
+**The meta-record, updated.** Two independent hostile passes have now each caught the same
+author-side failure mode — fit → dressed derivation → partial correction — operating even
+*inside the correction process itself* (round one's response document contained two fresh
+overclaims, both now owned in its Round-2 section). The claims still standing are exactly
+those both reviewers could not break by running the code: T1–T3, T5's core, T7, T8, T9's
+identities and LLN, the two surviving observer pinnings, the sub-σ closures, and the frozen
+ledger. Everything else is convention, instantiation, or hypothesis — seven items, counted.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

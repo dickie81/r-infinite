@@ -1,43 +1,50 @@
 #!/usr/bin/env python3
 """
-RESPONSE TO REVIEW FINDING 6: the feature list is complete because
-Q has one archimedean place.
+FINDING 6: REOPENED.  This script's original verdict (that the
+feature list is complete because Q has one archimedean place) FAILED
+hostile re-review, and this file now records the failure honestly.
 
-The review (riemann-indistinguishability-review.md, Finding 6)
-observes that Gamma_R(s+1) -- the sgn tower's factor -- has a
-critical point at s = 6.2569, absent from Theorem 7's feature list,
-and that its admission would relocate the observer's address.
+WHAT HOLDS (verified below, ~4e-16):
+  (i)  s Gamma_R(s) = 2 pi Gamma_R(s+2)   (even-shift recursion)
+  (ii) Gamma_R(s) Gamma_R(s+1) = Gamma_C(s) = 2 (2pi)^(-s) Gamma(s)
+       (Legendre) -- the pure odd shift requires the L-factor of a
+       complex place, and Q has r_2 = 0.
 
-THE ANSWER.  Features are the analytic features of xi's OWN
-factorization.  The factor monoid <s, s-1, Gamma_R(s), zeta(s)>
-generates only EVEN shifts of Gamma_R, by the exact recursion
-    s Gamma_R(s) = 2 pi Gamma_R(s+2)
-(verified below) -- this is how the volume feature (5.2569, the
-critical point of the s-regrouped factor, equivalently of
-Gamma_R(s+2)) is already inside the monoid.  The ODD shift cannot
-enter:
-    Gamma_R(s) Gamma_R(s+1) = Gamma_C(s) = 2 (2 pi)^(-s) Gamma(s)
-(Legendre duplication; verified below) -- i.e. producing
-Gamma_R(s+1) from xi's factors requires the L-factor of a COMPLEX
-archimedean place, and Q has none (one real embedding, zero complex
-embeddings).  The sgn tower therefore contributes exactly what
-Theorem 5 says -- the grading chi = 2 -- and no features: its factor
-belongs to odd Dirichlet L-functions (e.g. L(s, chi_-4)), not to
-zeta_Q.  The feature list of Theorem 7 is the complete feature set
-of the monoid; 6.2569 is a feature of a DIFFERENT L-function.
+WHAT FAILED (re-review Findings 1-2):
+  1. CONVENTION INCONSISTENCY.  The paper's twist convention is
+     s = d + 1 (local factor Gamma_R(d+1)); threshold addresses use
+     it correctly (s* = 20.73 -> d_1 = 19).  But the framework's
+     volume feature lives in d-space: V(d) = pi^(d/2)/Gamma(d/2+1)
+     has its maximum at d = 5.2569 (host layer 5) -- and
+     V(d) = 1/(pi Gamma_R(d+2)) = 1/(pi Gamma_R(s+1)): in the twist
+     variable the volume feature sits at s = 6.2569 WITH FACTOR
+     Gamma_R(s+1), exactly the object the original verdict excluded.
+     The s = 5.2569 object this script originally kept (crit of
+     Gamma_R(s+2)) pins (host, boundary) = (4, 3) under the
+     threshold convention -- breaking the observer pinning instead
+     of saving it.  There is no single stated feature->layer rule
+     producing {5, 7, 19, 217}; part0 itself concedes 'No rounding
+     convention selects a canonical integer uniformly across the
+     three boundaries' (part0.tex:1178-1180).
+  2. COMPLETENESS FALSE ON ITS OWN TERMS.  The monoid
+     <s, s-1, Gamma_R, zeta> also contains (s-1) Gamma_R(s), whose
+     critical points (s = 2.373, 4.505 -- computed below) appear in
+     no feature list; and the pole-free grouping (1/2)s(s-1)Gamma_R
+     has NO critical point for s > 1.  The 'critical pair' requires
+     using two different regroupings simultaneously, with no rule.
 
-Consequence: the observer-address pinning (first feature 5.2569 ->
-host 5 -> boundary 4) stands, now with the completeness of the
-feature list argued from the arithmetic of Q rather than asserted.
-Remaining honest caveat: the monoid restriction itself ("features
-come from xi's factorization only") is A12's original definition --
-consistent, but a definition of scope, recorded as such.
+STATUS: the r_2 = 0 identity is a genuine partial obstruction (the
+pure +1 shift is not in the monoid), but it does not answer review
+Finding 6.  The feature->integer-layer selection convention is a
+NON-ARITHMETIC RESIDUE ITEM (the seventh); the observer's address
+retains two arithmetic pinnings (gamma^4 = -1 residue; scalar-
+flatness at n = 4), not three.
 """
 
 import math
 
-from scipy.special import digamma
 from scipy.optimize import brentq
+from scipy.special import digamma
 
 PI = math.pi
 LNPI = math.log(PI)
@@ -53,49 +60,51 @@ def P(s):
 
 def main():
     print("=" * 74)
-    print("1: the even-shift recursion (volume feature is in the monoid)")
+    print("What holds: the two identities")
     print("=" * 74)
-    worst = 0.0
-    for s in (1.5, 4.0, 6.2569, 13.0):
-        lhs = s * gamma_R(s)
-        rhs = 2 * PI * gamma_R(s + 2)
-        worst = max(worst, abs(lhs / rhs - 1))
-    print(f"  s Gamma_R(s) = 2 pi Gamma_R(s+2): max rel dev = {worst:.2e}")
-    sV = brentq(lambda s: P(s + 2), 2.1, 20.0)
-    print(f"  critical point of Gamma_R(s+2): s = {sV:.4f} = the volume")
-    print(f"  feature (5.2569): the +2 shift is a regrouping of xi's own")
-    print(f"  pole factor -- INSIDE the monoid.")
+    w1 = max(abs(s * gamma_R(s) / (2 * PI * gamma_R(s + 2)) - 1)
+             for s in (1.5, 4.0, 6.2569, 13.0))
+    w2 = max(abs(gamma_R(s) * gamma_R(s + 1)
+                 / (2 * (2 * PI) ** (-s) * math.gamma(s)) - 1)
+             for s in (1.5, 4.0, 6.2569, 13.0))
+    print(f"  s G_R(s) = 2pi G_R(s+2): {w1:.2e};   G_R(s)G_R(s+1) ="
+          f" Gamma_C(s): {w2:.2e}")
 
     print()
     print("=" * 74)
-    print("2: the odd shift requires a complex place (Legendre)")
+    print("What failed 1: the convention inconsistency")
     print("=" * 74)
-    worst = 0.0
-    for s in (1.5, 4.0, 6.2569, 13.0):
-        lhs = gamma_R(s) * gamma_R(s + 1)
-        rhs = 2 * (2 * PI) ** (-s) * math.gamma(s)
-        worst = max(worst, abs(lhs / rhs - 1))
-    print(f"  Gamma_R(s) Gamma_R(s+1) = Gamma_C(s) = 2(2pi)^-s Gamma(s):"
-          f" max rel dev = {worst:.2e}")
+    dV = brentq(lambda d: 0.5 * LNPI - 0.5 * digamma(d / 2 + 1), 2, 12)
+    print(f"  V(d) max at d = {dV:.4f} -> integer host 5 (d-space)")
+    print(f"  in twist variable s = d+1: s = {dV+1:.4f}, and V(d) ="
+          f" 1/(pi Gamma_R(s+1))")
     s_odd = brentq(lambda s: P(s + 1), 2.1, 20.0)
-    print(f"  critical point of Gamma_R(s+1): s = {s_odd:.4f} -- the")
-    print(f"  review's candidate.  Producing Gamma_R(s+1) from xi's factors")
-    print(f"  requires Gamma_C, the L-factor of a complex archimedean")
-    print(f"  place.  Q has r_1 = 1 real and r_2 = 0 complex places:")
-    print(f"  the odd shift CANNOT enter zeta_Q's factor monoid.")
+    print(f"  crit Gamma_R(s+1) = {s_odd:.4f}: the framework's own volume")
+    print(f"  feature IS the excluded object.  Threshold convention check:")
+    print(f"  s* = 20.73 -> d_1 = 19 = last d with d+1 < s*;  applying the")
+    print(f"  same rule to s* = 5.2569 gives host 4, boundary 3.")
 
     print()
     print("=" * 74)
-    print("3: verdict")
+    print("What failed 2: unlisted monoid features")
     print("=" * 74)
-    print("  The sgn tower contributes the grading chi = 2 (Thm 5) and no")
-    print("  features: Gamma_R(s+1) belongs to odd Dirichlet L-functions,")
-    print("  not to zeta_Q.  Theorem 7's list is the complete feature set")
-    print("  of xi's factor monoid; 6.2569 is a feature of a different")
-    print("  L-function.  The observer-address pinning stands.  Recorded")
-    print("  caveat: 'features come from xi's factorization' is A12's")
-    print("  scope definition -- consistent, and now with an arithmetic")
-    print("  reason (r_2 = 0) why nothing else can sneak in.")
+    f = lambda s: 1.0 / (s - 1) + P(s)
+    r1 = brentq(f, 1.01, 3.0)
+    r2 = brentq(f, 3.0, 12.0) if f(3.0) * f(12.0) < 0 else None
+    print(f"  (s-1)Gamma_R(s) critical points: s = {r1:.3f}"
+          f"{', ' + format(r2, '.3f') if r2 else ''} -- in no feature list")
+    g = lambda s: 1.0 / s + 1.0 / (s - 1) + P(s)
+    print(f"  pole-free grouping s(s-1)Gamma_R/2: min of derivative on")
+    print(f"  (1.05, 300) = {min(g(1.05+i*0.5) for i in range(598)):.4f}"
+          f" > 0: NO critical point")
+
+    print()
+    print("=" * 74)
+    print("VERDICT: Finding 6 REOPENED.  The r_2 = 0 obstruction is real")
+    print("but partial; the feature->layer selection is a convention and")
+    print("joins the residue (item seven); the observer address keeps two")
+    print("pinnings (torsion half-period; scalar-flatness), not three.")
+    print("=" * 74)
 
 
 if __name__ == "__main__":
