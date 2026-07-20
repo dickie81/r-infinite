@@ -115,8 +115,8 @@ cascade or physics input: the sgn character doubles the twist tower at unit shif
 |μ(ℝ)|); the Gaussian achieves the L-factor (gcd fixes the rescaled family; self-duality is
 a normalization convention — restated per reviews 3–4); (log Γ_ℝ)′ = E[log|x|] and (log Γ_ℝ)″ = Var[log|x|] > 0 under the twisted Gaussian
 measure, so every feature of ξ's archimedean summands is order one (simplicity = variance
-positivity); E[πx²] = s/2 exactly (the ½-atom = the mean action; S4's anchor); ℤ's total order
-+ the log ξ partition give attach-once. Hence: at most one member, first power, per interval
+positivity); E[πx²] = s/2 exactly (the ½-atom = the mean action; S4's anchor); ℤ's total order gives
+attach-once (the one-summand partition clause was demoted by review 4, D2). Hence: at most one member, first power, per interval
 functional — a theorem of probability at the real place. What arithmetic does not supply:
 P > L > G precedence, the physical occupancy assignment, the (m,k) counts — instantiation data
 belonging to C1.
@@ -143,7 +143,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 2 | Per-period attachment (A3) | **shape derived** (T6, A34); mechanism at Tier-2 (A38/A43, amended per external review): flip-count 4 derived (minimal torsion word), ×3 incoherence derived (factorization); **the unit normalization carrying Γ(½) is a convention, empirically anchored not arithmetically forced** (self-dual form gives E = 3, excluded by data) ⟹ E = 3π², unique colour-free form *conditional on availability assignments* | remaining: the marked-coset choice, the unit convention; JUNO tests the value (~0.6% window), cannot convict the form over its 0.1% twins |
 | 3 | S4 lemma: measurement-at-typical-value | **derived** (T9, Addendum 39): typicality unambiguous (three notions coincide exactly), factor = quenched rate forced by LLN, all ranks exact | residue: definitional clause D1 (records compound multiplicatively) — no tunable content |
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
-| 5 | Sign rule | **derived** (T7, Addendum 35): one convexity structure — Bohr–Mollerup log-convexity off/at the Cauchy–Schwarz equality manifold + ℤ/8 coset computation | population-class assignment remains instantiation |
+| 5 | Sign rule | two clauses derived (T7: Bohr–Mollerup off/at the equality manifold); **coset clause demoted** (review 4, D1: convention-conditional) | population-class assignment remains instantiation |
 | 5b | P > L > G precedence | **motivated, not derived** (reverted per external review: the pole ≻ saddle ≻ arc picture is an organizing analogy; no λ-asymptotics exists in the framework) | counted in the residue |
 | 6 | T4 uniqueness | **address-book determination** (Addendum 40, restated per external review): a fully-specified ~60-entry address book leaves zero residual freedom and reproduces the record to ≤0.01%; the exhaustion verifies single-valuedness, not forcedness | open formal target: U2 as a *function* (availability computed from address data alone) |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |

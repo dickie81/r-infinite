@@ -29,12 +29,14 @@ manifold:
      order, one-signed).  The - sign is Cauchy-Schwarz evaluated at
      its equality case.
 
-  P3 (Geometric, -): a residue-class read under the Z/8 grading (T6:
-     Weil-index order) restricts the super-exponentially peaked
-     reciprocal-L-factor weight Omega_(d-1) = 2/Gamma_R(d) to a
-     proper coset subset; every 2-of-8 coset share is STRICTLY below
-     the cross-class value 1/pi (verified by direct computation over
-     the full tower to the sink d = 217, all 28 pairs).
+  P3 (Geometric, -): a residue-class read restricts the peaked
+     weight to a proper coset subset.  [DEMOTED, review 4 (D1): the
+     'all 28 shares < 1/pi' bound holds only under the avatar-weight
+     pairing 2/Gamma_R(d) (max 0.31322); under the Definition-2.1
+     pairing 2/Gamma_R(d+1) it FAILS (max 0.35001 >= 1/pi).  The
+     Geometric sign is convention-conditional.  Single-coset shares
+     stay < 1/pi under BOTH pairings -- a repair candidate recorded,
+     not adopted.]
 
   P4: the 8/8 audit (papers' table reproduced).
   P5: the boundary -- the population-class assignment of a physical
@@ -42,13 +44,13 @@ manifold:
      the magnitude identification alpha(d*)/chi^k is source-
      selection content, inherited, not re-derived here.
 
-THEOREM T7 (arithmetic sign rule): the sign of a correction is the
-side of the Cauchy-Schwarz equality manifold on which the
-observable's leading formula sits: off-manifold interpolation reads
-gain (+), at-manifold saturated overlaps and proper coset
-restrictions of the peaked weight lose (-).  Grounded entirely in
-strict log-convexity of Gamma + the Z/8 Weil grading + explicit
-coset computation.
+THEOREM T7 (arithmetic sign rule; coset clause demoted, review 4):
+the sign of a correction is the side of the Cauchy-Schwarz equality
+manifold on which the observable's leading formula sits: off-manifold
+interpolation reads gain (+); at-manifold saturated overlaps lose
+(-).  These two clauses are grounded in strict log-convexity of
+Gamma.  The Geometric coset clause is convention-conditional (see P3
+note) and no longer claimed as derived.
 """
 
 import itertools
@@ -134,9 +136,9 @@ def P3():
     print(f"  all 28 two-coset shares: max = {mx:.5f} at residues {mxk}"
           f"   ({'ALL < 1/pi' if mx < 1/PI else '** VIOLATION **'})")
     print(f"  single Dirac coset (d = 5 mod 8): share = {bott/T:.5f}")
-    print("  => any proper coset restriction of the super-exponentially")
-    print("     peaked reciprocal-L-factor weight strictly undershoots the")
-    print("     cross-class value: sign -1 for residue-class reads.")
+    print("  => [DEMOTED, review 4: this bound is pairing-conditional --")
+    print("     under the Def-2.1 weight 2/Gamma_R(d+1) the max share is")
+    print("     0.35001 >= 1/pi.  The Geometric sign is convention-based.]")
 
 
 def P4():

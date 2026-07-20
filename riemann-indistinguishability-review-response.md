@@ -101,3 +101,34 @@ d↔s pairing audit is the one live class of undiscovered defects pass 4 identif
 passes have not moved: T1, T3, the attach-once/first-power core, Thm 10
 (convention-stability-tested), Thm 11's mathematics, T9's identities and LLN, the closure
 table, and the frozen ledger.
+
+---
+
+# Round 5: the retest — mathematics converged, text still catching up
+
+**VERDICT: NOT CONVERGED** — but the two prongs split decisively. **Mathematical prong:
+PASSED.** Zero demotions; majors trajectory 4 → 1 → 0 → 1 → **0**; every attack cleared,
+including two new stress-extensions: the observer's residue-4 distinction is
+pairing-INVARIANT (a step count from the vacuum layer, the same object in both variables),
+and site E's anchoring is uniform across five window closures (−21% to −43% misses under the
+alternative, no mixed convention can rescue). The d/s defect class is closed at the claims
+level. **Stale-text prong: FAILED** on five findings + two minors, all mechanical:
+
+| Pass-5 finding | Disposition |
+|---|---|
+| S1 — web/index.html still served −0.16σ because pass 4 hand-edited generated artifacts instead of rerunning the generator | **Accepted; generator rerun this commit** (web + tex regenerated from the corrected source; the remaining "0.16" strings sit inside the marked historical note, as the criterion permits). |
+| S2 — cascade_arithmetic_sign.py docstring + T7 statement + P3 print still asserted the unqualified coset bound | **Accepted; demotion propagated** to docstring, theorem statement, and print, with the reviewer's single-coset repair candidate recorded (not adopted). |
+| S3 — cascade_arithmetic_increment.py P5 still used the demoted one-summand clause as a proof step | **Accepted; restated** (attach-once + first-power as the arithmetic core; D2 marker inline). |
+| S4 — formulation T5 partition ingredient + gap row 5 lacked the D1/D2 markers | **Accepted; both amended.** |
+| S5 — paper Thm 9's live statement lacked the inline demotion its own convention requires | **Accepted; inline demotion added.** |
+| m1/m2 — audit Caveats present-tense line; ds_audit docstring miscount (2→1 definitional) | **Fixed.** |
+| Audit-the-audit: enumeration under-granular (thresholds 19/217 carrying ρ_Λ; source layers; other windows — all computed by the reviewer as ANCHORED at large margins, no flip); site B/E verified and strengthened | **Accepted as recorded**; the audit's "every pairing classified" summary is read at claims-granularity, with the reviewer's per-instance computations now part of the record. |
+
+**Status after five passes:** the mathematics has converged — two consecutive
+zero-demotion passes bracket one demotion, every forcing claim is now demoted, anchored, or
+multiply-stress-tested, and the reviewer could not break anything standing. The text has
+not: the same non-propagation failure recurred a fifth time, root-caused this round to
+hand-editing generated artifacts. Unmoved through five hostile passes: T1, T3, the
+attach-once/first-power core, Thm 10 (margin-tested), Thm 11, T9's identities and LLN, the
+observer's step-count-4 distinction (pairing-tested), the closure table, and the frozen
+ledger.

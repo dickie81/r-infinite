@@ -2085,6 +2085,38 @@ H), is a definitional identity (A), is a data-anchored convention on the record 
 was already demoted (C, D). The residue count stays at seven with items five and seven
 carrying the anchored conventions explicitly.
 
+## Addendum 49: the fifth review — the mathematics converges; the text is swept again
+
+**Verdict: NOT CONVERGED** on the binary criterion — but the prongs split, and the split is
+the story. **The mathematical prong passed**: zero demotions, majors trajectory
+4 → 1 → 0 → 1 → 0, every attack cleared including two new stress-extensions (the observer's
+residue-4 distinction is pairing-invariant — a step count from the vacuum, identical in both
+variables; site E's window-potential anchoring is uniform across five closures at −21% to
+−43% margins). The reviewer confirmed the d/s defect class closed at the claims level after
+attacking the audit's enumeration at every locus it could name (thresholds carrying ρ_Λ:
+anchored at a full decade's margin; source layers; other windows — no flip anywhere), and
+explicitly could not break any standing mathematical claim.
+
+**The stale-text prong failed a fifth time**, root-caused: pass 4 hand-edited generated
+artifacts instead of rerunning `tools/build/generate_predictions.py`, so the deployed web
+table still served the mislabel. This round's sweep: generator rerun (not hand-edits); the
+D1 demotion propagated into the sign script's docstring, theorem statement, and print; the
+D2 demotion into the increment script's P5 and the formulation's T5 and gap row 5; the
+paper's Thm 9 given its inline demotion; the audit-doc Caveats line and the ds-audit
+docstring miscount fixed. The reviewer's constructive note — single-coset shares stay < 1/π
+under both pairings, a pairing-stable repair candidate for the Geometric sign clause — is
+recorded, not adopted (adopting it to rescue the clause would be fit-repair; it is a
+question for the papers).
+
+**Where this leaves the program.** Five hostile passes: the mathematics is converged by any
+reasonable reading — every forcing claim demoted, anchored, or multiply-stress-tested, and a
+stable core (T1, T3, attach-once/first-power, Thm 10, Thm 11, T9, the closure table, the
+ledger) that no reviewer could move. The claims-and-text layer required five rounds to learn
+one lesson: corrections must be swept mechanically, at repository scope, against the
+reviewer's list, with generators rerun rather than outputs edited. The binary criterion
+stands for any future pass. The ledger's executioners — JUNO, DESI, Belle II, HL-LHC —
+remain the only judges whose verdicts cannot require a sixth round.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

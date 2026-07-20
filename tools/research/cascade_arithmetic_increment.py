@@ -61,10 +61,10 @@ P5 (The chain and 'attach once').  The compliance alpha(d) =
    twist interval [a,b] contains each twist at most once; the
    variance chain built from these compliances telescopes, so a
    single twist contributes a single increment to any spanning
-   interval (verified: window-length independent, linear).  The
-   partition log xi = log(pole) + log Gamma_R + log zeta forbids one
-   observable drawing corrections from two summands (double-counting
-   d log xi).  Together with P3: at most one member, first power.
+   interval (verified: window-length independent, linear).
+   [The one-summand partition clause formerly stated here was
+   DEMOTED by review 4 (D2): grouping-relative, uncheckable,
+   convention-adjudicated.  Attach-once + first-power stand.]
 
 P6 (What arithmetic does NOT supply).  The precedence P > L > G, the
    occupancy assignment of specific physical observables, and their
@@ -205,8 +205,8 @@ def P5():
               f"   ({'spans' if a <= dstar < b else 'misses'} d* = {dstar};"
               f" alpha(d*) = {alpha_(dstar):.6f})")
     print("  => Z totally ordered + telescoping: one twist, one increment,")
-    print("     linear.  Partition of log xi forbids two-summand draws.")
-    print("     THEOREM (arithmetic increment rule): at most one member,")
+    print("     linear.  [One-summand clause demoted, review 4 (D2).]")
+    print("     ARITHMETIC CORE: at most one member per twist crossing,")
     print("     first power, per interval functional.")
 
 

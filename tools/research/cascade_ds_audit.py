@@ -15,7 +15,7 @@ Each site is classified:
   CONDITIONAL  - the claim's verdict flips under the shift (defect
                  class; both known members already demoted).
 
-Sites A-I below.  The audit's summary: 9 sites; 2 definitional,
+Sites A-I below.  The audit's summary: 9 sites; 1 definitional,
 4 stable, 2 anchored, 2 conditional (both previously demoted: the
 feature->layer map, review 2; the coset-weight pairing, review 4).
 NO NEW CONDITIONAL SITE FOUND -- but the two anchored sites are
