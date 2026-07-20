@@ -19,7 +19,7 @@ TEST 2: Verify the EXCLUSIVITY claim by applying Family B (h)+(f) to
         source-selectable observables (Tier 2 closures via Family A).
         If the proposition is correct, adding Family B on top of Family A
         must BREAK existing Tier 2 closures (they currently land at
-        sub-σ via Family A alone). Confirms double-counting would occur
+        within precision via Family A alone; ℓ_A at -1.8σ). Confirms double-counting would occur
         if Family B applied universally.
 
 Tier 2 closures to test:

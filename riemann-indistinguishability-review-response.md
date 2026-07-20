@@ -35,7 +35,7 @@ accepted in full — including its reversal of this document's own F6 row.
 
 | Re-review finding | Disposition |
 |---|---|
-| RF1 — the Finding-6 answer rests on an inconsistent feature→layer convention (the framework's volume feature is Γ_ℝ(s+1) at s = 6.2569 in the twist variable — the excluded object; the kept object pins (4,3)) | **Accepted; Finding 6 REOPENED.** `cascade_feature_monoid.py` rewritten to record the failure; the paper's Thm 7 remark replaced; the observer's address holds two pinnings, not three; the feature→layer selection convention is residue item seven. |
+| RF1 — the Finding-6 answer rests on an inconsistent feature→layer convention (the framework's volume feature is Γ_ℝ(s+1) at s = 6.2569 in the twist variable — the excluded object; the kept object pins (4,3)) | **Accepted; Finding 6 REOPENED.** `cascade_feature_monoid.py` rewritten to record the failure; the paper's Thm 7 remark replaced; ~~the observer's address holds two pinnings, not three~~ **[superseded by Round 3: one convention-free distinction]**; the feature→layer selection convention is residue item seven. |
 | RF2 — monoid completeness false on its own terms ((s−1)Γ_ℝ critical points at ≈2.39, 4.51 unlisted; pole-free grouping has no critical point; review 1's (s−1)-clause never answered) | **Accepted;** folded into the reopened status. |
 | RF3 — corrections not propagated (verifier prints, formulation T4, PREDICTIONS.md ℓ_A) | **Accepted; propagated this commit** (scripts' docstrings and printed verdicts amended; formulation T4 and summary restated; PREDICTIONS.md:57 corrected to −1.8σ). |
 | RF4 — "count 4 derived" not separable from the unit granularity (quarter-turns → eighth-turns across A38→A43 with E fixed) | **Accepted;** Mechanism M now states the joint status and names the fixed-target signature. |
@@ -132,3 +132,38 @@ hand-editing generated artifacts. Unmoved through five hostile passes: T1, T3, t
 attach-once/first-power core, Thm 10 (margin-tested), Thm 11, T9's identities and LLN, the
 observer's step-count-4 distinction (pairing-tested), the closure table, and the frozen
 ledger.
+
+---
+
+# Round 6: the false-record finding, and the verified sweep
+
+**VERDICT: NOT CONVERGED** — mathematical demotions **0** for the third consecutive pass
+(trajectory 4 → 1 → 0 → 1 → 0 → 0; the reviewer independently recomputed D1's numbers, re-verified
+the single-coset repair candidate, stress-extended sites B and E, attacked the
+ANCHORED-vs-CONDITIONAL taxonomy and **cleared it as uniformly applied**, and confirmed
+generator/artifact sync with a zero git diff). The stale-text prong failed a sixth time — and
+pass 6 found the qualitatively worst process defect of the series: **the round-5 sweep
+recorded fixes it never made.** The Theorem 9 inline demotion and the audit-Caveats tense fix
+were claimed in this document (:123–124), in Addendum 49, and in the commit message — and
+`git show 24016ed --stat` proves the paper was never touched. Root cause: batch edits with
+suppressed miss-warnings, and a record written from intention rather than from `git diff`.
+
+| Pass-6 counterexample | Disposition |
+|---|---|
+| Group A — the false records themselves (paper Thm 9 statement unfixed; Caveats tense unfixed; three false "fixed" records + commit message) | **Owned as the series' worst process defect.** Both fixes now actually executed and **per-fix verified by grep before this record was written** (paper Thm 9 carries the inline demotion at its statement; Caveats reads "formerly stated"). The false records in this document and A49 stand as historical text, corrected by this section and Addendum 50; the pushed commit message cannot be amended and is hereby flagged as inaccurate on those two items. |
+| Group B — six unqualified "sub-σ" surfaces covering ℓ_A (part4b.tex ×3; chirality/slot-precedence/d37 scripts) | **All fixed and verified** (each now names ℓ_A at −1.8σ). |
+| Group C — Round-2 RF1 row "two pinnings" unmarked | **Struck and marked superseded.** |
+
+**Process rule, adopted from this round forward:** a sweep record may only be written from a
+post-edit `grep`/`git diff` verification of each named fix — never from the edit script's
+intention. This round's table was produced under that rule.
+
+**Six-pass summary:** the mathematics is settled — three consecutive zero-demotion passes;
+every attack mounted since round 4 has been cleared; the reviewers' own recomputations
+reproduce every standing number. The process layer failed six times in six increasingly
+subtle ways: partial sweep → wrong boundary → hand-edited artifacts → false records. Each
+failure mode now has a named countermeasure on the record. The criterion stands for any
+future pass. The ledger — Σ = 60.91 meV against the standing 52–57 meV squeeze, JUNO's
+double stake, Belle II, HL-LHC, the forced negatives — remains untouched by all of it, which
+is the design working: nothing in six rounds of claims-layer failure could move a single
+frozen number.

@@ -159,9 +159,11 @@ hierarchy check is not framework-specific. The precedence is counted in the pape
 **Theorem 9 (Sign rule).** The sign is the side of the Cauchy–Schwarz equality manifold on
 which the leading formula sits: off-manifold interpolation reads gain (+; the Gram deficit is
 strict midpoint log-convexity — Γ's defining Bohr–Mollerup property, strict for all
-d = 1–215); at-manifold saturated overlaps lose (−); proper coset restrictions of the peaked
-weight 2/Γ_ℝ under the ℤ/8 grading lose (− ; all 28 two-coset shares < 1/π over the full
-tower).
+d = 1–215); at-manifold saturated overlaps lose (−); *[the Geometric coset clause is DEMOTED
+per the fourth review, D1: the two-coset bound is pairing-conditional — 0.31322 under the
+avatar weight, 0.35001 ≥ 1/π under the Definition-2.1 weight; see the amendment under
+Theorem 7. Single-coset shares survive both pairings — repair candidate recorded, not
+adopted.]*
 
 **Theorem 10 (Period-counting).** Given a marked coset of the ℤ/8 clock, the subcritical
 marked set is finite and forced ({5, 13} for the coset d ≡ 5 mod 8), and a descent

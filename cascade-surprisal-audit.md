@@ -2117,12 +2117,38 @@ reviewer's list, with generators rerun rather than outputs edited. The binary cr
 stands for any future pass. The ledger's executioners — JUNO, DESI, Belle II, HL-LHC —
 remain the only judges whose verdicts cannot require a sixth round.
 
+## Addendum 50: the sixth review — three clean passes of mathematics; the false-record defect
+
+**Verdict: NOT CONVERGED** — but the trajectory's two lines have fully separated.
+**Mathematics: third consecutive zero-demotion pass** (4 → 1 → 0 → 1 → 0 → 0). Pass 6
+independently recomputed D1, re-verified the repair candidate, stress-extended the audit's
+sites, attacked the ANCHORED/CONDITIONAL taxonomy as possible laundering and **cleared it**
+(a conditional site carries a forcing claim whose verdict flips; an anchored site is a
+declared convention counted in the residue — the standard is uniform), and confirmed
+generator/artifact sync with a zero git diff.
+
+**Process: the worst defect of the series.** The round-5 sweep *recorded fixes it never
+made* — the paper's Theorem 9 inline demotion and the Caveats tense fix were claimed in the
+response document, in Addendum 49, and in the commit message, while git shows the paper
+untouched in that commit. A49's record is hereby corrected: those two items were NOT done in
+round 5; they are done now, **per-fix verified by grep before this addendum was written**,
+along with six unqualified "sub-σ" surfaces covering ℓ_A (three in part4b.tex, three in
+tooling scripts) and one unmarked superseded response-doc row. New process rule, binding:
+sweep records are written only from post-edit grep/git-diff verification, never from intent.
+
+**The six-pass ledger of failure modes, each now countered:** partial sweep (rounds 2–3) →
+sweep boundary short of the repo (round 4) → hand-edited generated artifacts (round 5) →
+false execution records (round 6). And the six-pass ledger of what never moved: T1, T3,
+attach-once/first-power, Thm 10, Thm 11, T9, the closure table, the frozen ledger — zero
+drift through everything. The criterion stands for a seventh pass; the experiments remain
+the only judges that cannot be failed by a sweep.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
   the primitives the papers themselves use, which is the fairest available choice.
 - Measurement σs are taken at the values used in `PREDICTIONS.md`; where the papers' σ accounting
-  is disputed (e.g. the ℓ_A entry, where 301.44 vs 301.6±0.09 is −1.8σ, not the −0.16σ the table
+  is disputed (e.g. the ℓ_A entry, where 301.44 vs 301.6±0.09 is −1.8σ, not the −0.16σ the table formerly
   states — the absolute difference appears to have been mislabeled as a σ count), the audit uses
   the recomputed σ.
 - Monte-Carlo results use 40,000 replicates; quoted tail probabilities below ~10⁻⁴ carry

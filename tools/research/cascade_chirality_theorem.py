@@ -250,7 +250,7 @@ def report_verification():
     print("  m-k = -4 (b/s):           verified at 0.014%")
     print("  m-k = -3 (sin^2 theta_W): verified at +0.40 sigma")
     print("  m-k = -2 (theta_C):       verified at +0.03 sigma")
-    print("  m-k = -1 (4 observables): verified at sub-sigma each")
+    print("  m-k = -1 (4 observables): verified within precision each (ell_A at -1.8 sigma; rest sub-sigma)")
     print("  m-k =  0 ((g-2) 1-loop):  reproduces Schwinger structurally")
     print("  m-k = +1 (1/alpha_em):    verified at 0.005%")
     print()
