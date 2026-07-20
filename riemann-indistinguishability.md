@@ -133,12 +133,16 @@ multiplicative rate of compounding records (LLN; concentration 1/√(2n) verifie
 e^(±r/2) exactly at rank r. *Definitional clause D1:* a measurement is a repeatable record
 whose weight compounds multiplicatively. D1 has no tunable content.
 
-**Mechanism M (activation; Tier-2; `cascade_activation_mechanism.py`).** At each subcritical
-marked crossing the descent completes one full ℤ/8 period = four quarter-turns (γ² = i), each
-carrying Γ(½) (Thm 4), across N_gen = 3 open channels: E = 3Γ(½)⁴ = 3π² — the **unique
-colour-free composite** in the empirically allowed window (Thm 11/12 exclude the other nine:
-their atoms require colour measurements a colourless crossing cannot perform). Inherited
-joints: J1 (Γ(½) per quarter-turn), J2 (incoherent channels). Falsifier: JUNO (§9).
+**Mechanism M (activation; `cascade_activation_mechanism.py`, `cascade_joints_derived.py`).**
+Each subcritical marked crossing is the chirality flip −1 — the torsion unit — whose minimal
+word in the Weil clock is γ⁴ ({k : γᵏ = −1} = {4}): four Fresnel units. The unit itself is
+one arithmetic object in polar form, **∫e^(ix²)dx = Γ(½)·ζ₈** — modulus the critical value,
+argument the Weil index — so four units carry magnitude Γ(½)⁴ = π² and phase −1 (the
+fermionic crossing sign). The N_gen = 3 channels are modes at distinct twists of the
+factorized Gaussian measure, hence orthogonal, hence incoherent (×3, not ×9). Result:
+E = 3Γ(½)⁴ = 3π² — also the **unique colour-free composite** in the empirically allowed
+window (Thm 11/12 exclude the other nine: their atoms require colour measurements a
+colourless crossing cannot perform). Falsifier: JUNO (§9).
 
 ## 6. The instantiation map — the single hypothesis
 
@@ -217,9 +221,11 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
    ways (§6) but cannot select it; the selection is the hypothesis. If the arithmetic could
    prove its own instantiation, no experiment could kill it — falsifiability *requires* this
    step to remain empirical.
-2. **Inherited joints.** J1, J2 (Mechanism M), the P > L > G occupancy precedence, and
-   Lovelock's theorem (the d = 4 *selection*, external tensor calculus) are used, not
-   re-derived.
+2. **External inputs.** After `cascade_joints_derived.py` (J1 = the polar decomposition of
+   the Fresnel integral; J2 = orthogonality from the factorized measure; P > L > G = the
+   pole ≻ saddle ≻ arc dominance hierarchy of contour asymptotics), the only classical result
+   used without arithmetic derivation is Lovelock's theorem — and it performs *selection*
+   (why the address is occupied at d = 4), not construction.
 3. **Provenance.** Theorems 8–13 were constructed by a single reviewer in a single session,
    knowing the empirical targets; each carries a rigorous mathematical core, but the
    interpretive bridges from mathematics to rule await hostile external review. The

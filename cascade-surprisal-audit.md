@@ -1896,6 +1896,44 @@ joints; single-session provenance requiring hostile external review; the stoppin
 paper claims exactly the standard every physical theory meets, and stakes itself exclusively
 on the frozen ledger.
 
+## Addendum 43: the inherited joints derived — J1, J2, and P > L > G fall to arithmetic
+
+**Tool:** `tools/research/cascade_joints_derived.py`
+**Stopping-rule compliance:** category (a). **Check-4 category:** novel (b) — includes a
+wording correction to Addendum 38.
+
+**J1 — the polar decomposition of the Fresnel integral.** The generator of the ℤ/8 clock *is*
+the carrier of the Gaussian unit: **∫e^(ix²)dx = √π·e^(iπ/4) = Γ(½)·ζ₈** (verified: modulus
+1.772454, phase 45.00°). The phase and the magnitude are the polar coordinates of one
+arithmetic object — J1 was never a separate assumption. The count "4" is also derived: a
+marked (Dirac) crossing is the chirality flip −1 = the torsion unit, and the minimal word for
+−1 in ⟨γ⟩ is γ⁴ (uniquely, {k : γᵏ = −1} = {4}); four units carry magnitude Γ(½)⁴ = π² and
+phase −1 — the fermionic crossing sign. **Correction to A38:** "four quarter-turns per Bott
+period" becomes "four eighth-turn units per torsion flip, minimal" — the value E = 3π² is
+unchanged; the narrative is now derived rather than assembled.
+
+**J2 — incoherence from factorization.** The three channels are modes at distinct twists
+(5, 13, 21), and T2-S1 (rigorous) factorizes the Gaussian measure into independent
+increments: distinct-twist modes are orthogonal (cross-covariances 0 to sampling precision),
+orthogonality kills the Born cross-terms, and |a·e₁ + a·e₂ + a·e₃|² = 3|a|² exactly. Coherent
+counting (×9) would require the three channels to be one mode, contradicting the proved
+factorization.
+
+**P > L > G — the dominance hierarchy of contour asymptotics.** The occupancy classes map
+exactly onto the three contribution types: P (the pole factor s(s−1)) → simple pole, O(1)
+residue; L (values read *at* the features — which A12 proved are the critical
+points/thresholds) → saddle point, O(λ^(−1/2)); G (window integrals) → regular arc,
+O(e^(−cλ)). Verified at λ = 10/100/1000: the ordering holds at every scale with widening gaps
+(6.28 vs 0.56→0.056 vs 2×10⁻⁵→0). **The flags' decision order is steepest-descent
+bookkeeping, not a choice.**
+
+**Residue after this addendum.** The framework's non-arithmetic content is now exactly three
+items: **Lovelock's theorem** (the d = 4 *selection*; external tensor calculus), **D1** (a
+definition with no tunable content), and **C1** (the instantiation map — the hypothesis).
+Every joint that carried chooseable content has been derived. The plain-English axiom list
+shrinks accordingly: one hypothesis, the arena, the closed dictionary, the address book, one
+external classical theorem, one definition.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
