@@ -65,8 +65,18 @@ strength only):
   R7 type/source  = decision order P>L>G -> Absolute 19 | Observer 5
                     | Gauge 14 | Amplitude 7.  Within THIS grading no
                     realized row has two true flags, so the order is
-                    unpinned here; its anchoring (A52, 13-65 sigma)
-                    lives at the papers' full-formula criterion.
+                    unpinned here.  ROUND-9 (M3): A52's dash-fill for
+                    m_tau-abs (G=T via expanding the closed
+                    constituents alpha_s and v) violated the papers'
+                    own expression-tree predicate (part4b
+                    rem:sp36-syntactic -- b/s's L(tau/mu) stays a
+                    closed symbol, G=F, by exactly that convention).
+                    Under the uniform mechanical reading no row is
+                    multi-flag at the papers' layer either: the
+                    precedence is VACUOUS on primary readings, and
+                    the 13-65 sigma anchoring is CONDITIONAL on
+                    constituent-expansion variant readings (A52
+                    corrected, Addendum 57).
   R8 population   = Geometric if density; Amplitude if overlap;
                     else Descent  -> sign by T7 (+/-/-)
   R9 channel k    = 1 if type in {Absolute, Gauge};
@@ -83,9 +93,11 @@ KNOWN FAILURE, RECORDED (round 8, review F5): the availability
 clauses OVERPREDICT on theta_C -- computed (1,2,0) from its quark
 legs, but the T4 store and the paper's formula carry (0,0,0) (no
 2 sqrt(pi), no colour factor in arccos(N(13)/N(12))...).  The
-availability clauses' true domain is the mass-lead rows; angle rows
-falsify them.  The row is left FAILING below so the defect stays
-visible.  theta_23 and ell_A have no T4-stored availability
+availability clauses fail there; the correct domain restriction is an
+OPEN QUESTION (round-9 m4: theta_C is one confirmed counterexample,
+theta_23 is unchecked -- one counterexample does not establish a
+"mass-lead-only domain", which was a round-8 overreach, softened).
+The row is left FAILING below so the defect stays visible.  theta_23 and ell_A have no T4-stored availability
 (neither is a T4 exhaustion stage -- the 11 rows are the 9 T4
 stages plus these two), so their availability is unchecked.
 
@@ -119,15 +131,29 @@ availability block has NO surviving variant set over the corrected
 key -- the theta_C defect is open).
 """
 
-PERIODS = [(5, 12), (13, 20), (21, 28)]
 GAUGE = (12, 14)
+
+
+def bott_period(d):
+    """Papers' Bott-period convention (part4b rem:theta23-channel-count
+    'using n=d-1'; implemented identically in the papers' own verifier
+    cascade_channel_count_rule.py): P_k = {d : 8k+1 <= d <= 8k+8},
+    i.e. (d-1)//8.  P_0 = d 1..8, P_1 = 9..16, P_2 = 17..24.
+
+    ROUND-9 FIX (M1): the prior local PERIODS=[(5,12),(13,20),(21,28)]
+    was NOT the papers' convention, and under it no uniform content
+    rule reproduced both theta_C's k=2 and theta_23's k=4 -- the rows
+    were encoded with opposite conventions (p-support vs path), each
+    the one that matched the stored k.  Under the papers' periods a
+    UNIFORM encoding (content = p-summand range) reproduces both."""
+    return (d - 1) // 8
 
 
 def periods_touched(content):
     if content is None:
         return 0
     lo, hi = content if isinstance(content, tuple) else (content, content)
-    return sum(1 for a, b in PERIODS if not (hi < a or lo > b))
+    return len({bott_period(d) for d in range(lo, hi + 1)})
 
 
 def u2(name, legs, novel, full, kind, dim):
@@ -173,9 +199,13 @@ CASES = [
  ("sin2thW",   [(13, "gauge"), (14, "gauge")],  None,    None,    "local-ratio", False),
  ("Omega_m",   [],                              None,    None,    "density",     False),
  ("theta_C",   [(13, "quark"), (21, "quark")],  None,    13,      "overlap",     False),
- # theta_23 mixes generations 2-3 (layers 13 and 5); papers' path
- # d=12..20 spans two Bott periods, k=4 (round-8 F1 correction)
- ("theta_23",  [(5, "quark"), (13, "quark")],   None,    (12, 20),"overlap",     False),
+ # theta_23 mixes generations 2-3 (layers 13 and 5).  Content =
+ # p-summand range 13..20 (part4b:3921, sum_{d=13}^{20} p(d)/2) --
+ # the UNIFORM encoding rule, same as theta_C's point 13 and b/s's
+ # (6,13); spans P_1,P_2 under the papers' periods -> k=4 (round-8
+ # F1 fixed the key; round-9 M1 fixed the residual bent 'full' field,
+ # which had been (12,20) to compensate for the wrong period tuples)
+ ("theta_23",  [(5, "quark"), (13, "quark")],   None,    (13, 20),"overlap",     False),
 ]
 
 # the answer key: member fields from the papers' closure theorems;
@@ -217,8 +247,10 @@ def main():
     print("=" * 74)
     print(f"RESULT: {npass}/{npass+nfail} rows against the corrected key")
     print("=" * 74)
-    print("  MEMBER fields: one shared rule-set, no per-row exceptions.")
-    print("  AVAILABILITY: the clauses' domain is the mass-lead rows; the")
+    print("  MEMBER fields: one shared rule-set, no per-row exceptions,")
+    print("  uniform content encoding under the papers' period convention")
+    print("  (round-9 M1).")
+    print("  AVAILABILITY: domain restriction OPEN (round-9 m4); the")
     print("  theta_C row FAILS by construction (computed (1,2,0) from its")
     print("  quark legs vs the T4-stored/formula (0,0,0)) and is left")
     print("  failing so the defect stays visible (review round 8, F5).")

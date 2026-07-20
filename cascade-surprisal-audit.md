@@ -2167,6 +2167,10 @@ where its own epistemology demands: maximally killable, fully accounted, and wai
 
 ## Addendum 52: the precedence vacuity check — deletion fails, anchoring succeeds
 
+**[Superseded in part by Addendum 57 (round 9, M3): the m_τ-abs dash-fill below expanded
+closed constituents against the papers' expression-tree predicate; on the uniform reading
+the precedence is vacuous and the anchoring is variant-conditional. Historical record.]**
+
 **Tool:** `tools/research/cascade_precedence_vacuity.py`
 **Fix-map item 2 (the safe, binary check). Outcome: the hoped-for deletion FAILED; the
 consolation is real.**
@@ -2191,6 +2195,10 @@ Honestly noted: the check was undertaken hoping to delete an item and could not;
 is recorded as found. The remaining high-value open target is unchanged: U2-as-a-function.
 
 ## Addendum 53: U2 as a function, v1 — the address table computed
+
+**[Superseded in part by Addenda 56–57 (review rounds 8–9): the "11/11", the collapse
+claim, the θ_23 row, the m_τ-abs grading, and the sharpening narrative below were
+corrected. Historical record.]**
 
 **Tool:** `tools/research/cascade_u2_function.py`
 **The demand answered is the hypothesis's own:** if the universe is ζ-driven, the
@@ -2231,6 +2239,11 @@ Review Finding 3 ("availability is tabulated, not computed") is **discharged at 
 computed, by a disclosed, once-corrected, non-unique rule-set.
 
 ## Addendum 54: rule-set uniqueness — the forcing theorem, by exhaustion
+
+**[Superseded in part by Addenda 56–57 (review rounds 8–9): "every kill is a data-kill",
+"five slots pinned", "24 variants", the θ_C kill, and the completeness claim below were
+corrected; the corrected exhaustion has avail 0 survivors and member 36. Historical
+record.]**
 
 **Tool:** `tools/research/cascade_u2_uniqueness.py`
 **The question left by Addendum 53:** the v1 rule-set computes the table, but was assembled
@@ -2277,6 +2290,11 @@ inputs here too. No new numeric closure was made (stopping rule intact — the p
 structural, with no measured values attached).
 
 ## Addendum 55: U2 from first principles — three stipulations dissolve
+
+**[Superseded in substantial part by Addendum 56 (round 8): the support "theorem", the
+T6/T9 attributions, the "no stipulations in the code" claim, and the fork "adjudications"
+below were retracted; groundings stand at argument/identification strength only.
+Historical record.]**
 
 **Tool:** `tools/research/cascade_u2_first_principles.py`
 **The demand:** don't just prove the clauses survive against alternatives (A54); derive them
@@ -2335,7 +2353,10 @@ says so.** Full disposition table: `riemann-indistinguishability-review-response
    `thm:theta23-closure`: exp(−α(7)/χ⁴); `rem:theta23-channel-count`: "θ_23 path d=12..20:
    spans {P₁,P₂}. k=4"), and the row's identity facts (legs, full-content) had been bent to
    match the wrong key — input error and key error mutually compensating into a fake PASS.
-   Corrected (legs (5,13), full (12,20), k=4); the row now passes for the papers' reason.
+   Corrected (legs (5,13), k=4; full first set to (12,20), then **corrected again by round
+   9 (M1)** to the uniform p-summand range (13,20) under the papers' period convention
+   (d−1)//8 — the (12,20) value was itself compensating for wrong period tuples); the row
+   now passes for the papers' reason.
    Every "11/11" headline in A53–A55 inherited this defect. Also corrected: θ_23 and ℓ_A are
    not T4 exhaustion stages — "exhaustion family" mislabeled the 9+2 row set.
 2. **The "half-open support theorem" was an invented convention** (F2). The μ/e summand set
@@ -2404,6 +2425,73 @@ guard against, and the disclosure did not prevent them. The binary row-check def
 against rules that fail the stored table; it is defenseless when the table itself is wrong.
 External verification of the key against the papers (which this round performed) is the
 missing check, now added to the protocol for any future U2 work.
+
+## Addendum 57: hostile review round 9 — NOT CONVERGED (3 majors); all accepted and swept
+
+**The convergence test on the round-8 corrected state. Verdict: NOT CONVERGED — 3 majors,
+4 minors — though with sweep integrity clean (every round-8 fix verified physically present
+in git; every printed number reproduces; no recurrence of the false-record defect).** Full
+disposition: `riemann-indistinguishability-review-response.md` Round 9.
+
+**M1 — a residual bent encoding, one level down (recurrence of the F1 class).** The scripts'
+`PERIODS = [(5,12),(13,20),(21,28)]` was not the papers' Bott convention — the papers use
+n = d−1, i.e. `bott_period(d) = (d−1)//8` (P₀ = d 1–8, P₁ = 9–16, P₂ = 17–24; implemented
+exactly so in the papers' own verifier `cascade_channel_count_rule.py`). Under the wrong
+tuples, no uniform content rule reproduced both θ_C's k=2 and θ_23's k=4, so the two rows
+had been encoded with opposite conventions (p-support point vs path), each the one matching
+its stored k. **Fixed:** periods now (d−1)//8; θ_23's content is the uniform p-summand range
+(13,20); both k values now follow from one encoding rule. The R9 channel-count pinning is no
+longer relative to a bent input field.
+
+**M2 — the "verified complete" probe claim was carried over from the old survivor set and
+was false for the corrected one.** The round-8 completeness sweep ran over the old
+72-survivor space; the corrected 36-survivor set contains "points count too", which the five
+registered probes provably could not separate from the canonical G reading (no probe carried
+point content). **Fixed:** probe P6 (point normalisation in the gauge band) added and run —
+it splits the R5 survivors three ways; the "verified complete" language in the round-8
+records is struck (marked at source) and completeness now refers to the P1–P6 set on the
+current survivors.
+
+**M3 — the precedence anchoring, after round 8, rested solely on A52 — and A52's dash-fill
+carried the same inconsistent-grading defect (F4) corrected everywhere else.** The papers'
+G-predicate is *mechanical over the formula's expression tree* (part4b `rem:sp36-syntactic`);
+b/s's L(τ/μ) stays a closed symbol (that is why the papers' table has b/s at G=F). A52's
+m_τ-abs dash-fill expanded the closed constituents α_s and v to find gauge-window
+exponentials — the opposite convention, chosen on the one row where it mattered. **Fixed:**
+`cascade_precedence_vacuity.py` corrected (m_τ-abs primary (T,F,F); constituent-expansion
+retained as a tested variant); corrected verdict: **the precedence is vacuous on uniform
+primary readings at both layers** — the order never fires — and the 13–65σ exclusions hold
+only under the variant gradings, making the anchoring **conditional** and the residue item
+deletable-as-vacuous on the uniform reading. The paper's abstract and Theorem-9 remark,
+formulation row 5b, and both U2 docstrings updated accordingly. (Note the direction: the
+item A52 hoped to delete and could not is now, under the consistent grading its own round-8
+correction demanded, vacuous after all.)
+
+**Minors accepted and swept:** m4 — "true domain is the mass-lead rows only" was a new
+unproven generalization (one counterexample, one unchecked row); softened to an open
+question everywhere. m5 — selective σ-disclosure in the "four slots pinned" headline; the
+paper now states that the *distinctive* content of the sign slot (+/− beyond the label) and
+of the channel doubling are pinned only at RECORD strength (1.0σ / 1.4σ), with R6's second
+kill at 2.3σ and R5's strict-top kill exactly at the 2.0σ boundary. m6 — A52–A55 now carry
+in-place supersession head-markers (the blanket A56 note was weaker than the response doc's
+strikethrough standard). m7 — noted for the record: part4b carries two channel-count
+accounts (the cardinality-based k=2 "two-generation mixing" at part4b:1092, with θ_C on
+generation layers {5,13}, vs `rem:theta23-channel-count`'s 2·N-periods rule with θ_C's path
+{12,13}); a papers-internal tension outside the U2 arc's scope, flagged to the papers.
+
+**Reviewer's checked-and-held (adopted):** all round-8 fixes physically landed; scripts
+reproduce every documented number; θ_23 key now papers-faithful (k=4, legs, kind, grading);
+PRECISION table defensible (μ/e's 0.0013 conservative); counts 44/100/21,600/36 verified;
+repo-wide stale sweep clean outside the marked history blocks; abstract/§6 consistent;
+Check-7/Check-8 clean; the eight uncontested member rows re-derived against part4b's Tier-1
+closure list.
+
+**Net state after round 9:** member fields 11/11 under a uniform, papers-faithful encoding —
+the strongest form the computed-table claim has yet held — with the availability defect
+still open, the G-flag/precedence/Family-B freedom enumerated by six probes, and the
+precedence residue item now honestly *conditional* rather than data-anchored. The remaining
+question for a tenth pass is whether any further bent input survives; the M1 fix removed
+the last one this round's reviewer could find.
 
 ## Caveats
 

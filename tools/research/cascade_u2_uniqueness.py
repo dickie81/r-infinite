@@ -20,9 +20,11 @@ F1-F5, F8; see Addendum 56):
     variant is no longer killed (its old kill was manufactured by
     the inconsistent theta_C grading), and NO realized row has two
     true flags within this grading -- so ALL SIX precedence orders
-    survive.  The precedence is unpinned by this exhaustion; its
-    data anchoring (13-65 sigma, A52) lives at the papers'
-    full-formula flag criterion, an external layer.
+    survive.  The precedence is unpinned by this exhaustion; round 9
+    (M3) further showed A52's dash-fill was inconsistent with the
+    papers' expression-tree predicate, so the precedence is vacuous
+    on uniform primary readings at BOTH layers, with the 13-65 sigma
+    anchoring conditional on constituent-expansion variants.
   - The variant count is 44 (not "24" as previously misstated).
   - KILL CLASSIFICATION (F3): "every kill is a data-kill" is
     withdrawn.  Each member-field kill is now sigma'd: the variant's
@@ -38,6 +40,23 @@ F1-F5, F8; see Addendum 56):
     names are held FIXED throughout -- the space never varies the
     four source values, so "pinned" claims are relative to a space
     that pre-fixes that freedom.
+
+ROUND-9 CORRECTIONS (see Addendum 57):
+  - M1: periods_touched now uses the papers' Bott convention
+    ((d-1)//8, via cascade_u2_function) and theta_23's content is
+    the uniform p-summand range (13,20); the R9 pinning is no
+    longer relative to a bent input field.
+  - M2: probe P6 added -- the original five probes could not
+    separate the canonical G reading from "points count too" in the
+    corrected survivor set; the round-8 completeness claim was for
+    the old 72-survivor space only.
+  - Kill-strength honesty (m5): the DISTINCTIVE content of the sign
+    slot (the +/- structure beyond the label) and of the doubling
+    (2x) in the channel rule are pinned only at RECORD strength
+    (1.0 sigma and 1.4 sigma respectively); the multi-sigma kills
+    on those slots hit other variants.  R6's second kill is 2.3
+    sigma and R5's "strict top" exactly 2.0 sigma -- on the DATA
+    boundary this classification itself defines.
 
 NO-NAME RULE: every variant reads only identity facts through
 bounded predicates -- no clause may mention an observable's name.
@@ -264,6 +283,13 @@ PROBES = [
   [], None, None, "local-ratio", True),
  ("P5 flag-free non-ratio Descent (coupling, no window)",
   [(21, "gauge")], None, (21, 28), "coupling", False),
+ # round-9 M2: the corrected survivor set contains "points count too",
+ # which the original five probes provably could not separate from the
+ # canonical G reading (no probe carried point content).  P6 fixes the
+ # enumeration; the round-8 "verified complete" claim was for the OLD
+ # 72-survivor set and is struck for the corrected one.
+ ("P6 point normalisation IN the gauge band (novel = point 13)",
+  [(13, "gauge")], 13, 13, "coupling", False),
 ]
 
 
@@ -353,7 +379,7 @@ def main():
 
     print()
     print("=" * 74)
-    print("VERDICT (round-8 honest state)")
+    print("VERDICT (round-9 corrected state)")
     print("=" * 74)
     pinned = [s for s in slot_survivors if len(slot_survivors[s]) == 1]
     print(f"  member-field survivors: {len(member_surv)}; per-slot"
@@ -369,8 +395,9 @@ def main():
     print("  reading (3 survivors -- the old theta_C kill of 'points")
     print("  count too' was an artifact of the inconsistent grading),")
     print("  (ii) the precedence order (all 6 survive: no realized row is")
-    print("  multi-flag under the consistent A13 grading; anchoring lives")
-    print("  at the papers' full-formula criterion, A52, not here), and")
+    print("  multi-flag under the consistent A13 grading; round 9: also")
+    print("  vacuous on the papers' uniform expression-tree reading --")
+    print("  anchoring only under A52's variant gradings, 13-65 sigma), and")
     print("  (iii) the Family-B kind restriction (2 survivors).")
     print("  KILL STRENGTHS: mixed -- see per-kill classes above (LABEL =")
     print("  record-label only; RECORD < 2 sigma; DATA >= 2 sigma).  The")

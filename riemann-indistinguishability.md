@@ -22,7 +22,7 @@ framework's non-arithmetic residue is seven items** (count corrected per two ext
 reviews): **Lovelock's theorem (selection, not construction); the definition D1; the closed
 atom grammar (A2); the unit-normalization convention that carries Γ(½) (empirically
 anchored, not arithmetically forced — and the flip-count 4 is meaningful only jointly with
-it); the P > L > G precedence (data-anchored per the vacuity check, `cascade_precedence_vacuity.py`: the order fires at m_τ-abs, and every alternative ordering is excluded at 13–65σ); the feature→integer-layer selection convention
+it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–65σ exclusion of alternative orderings holds only under constituent-expansion variant readings, so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
 (no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
 Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
@@ -154,11 +154,14 @@ When an observable could occupy more than one summand, the tie-break P > L > G r
 read at the features/saddles, G = window arcs) is an organizing analogy, but no argument
 maps the framework's O(1) contributions onto an asymptotic expansion, and the numerical
 hierarchy check is not framework-specific. The vacuity check
-(`cascade_precedence_vacuity.py`) later established that the order is genuinely load-bearing
-(m_τ-abs carries gauge-window exponentials behind the papers' short-circuit dash, so its full
-flags are (T, F, T)) and that every assignment-changing ordering is excluded by data at
-13–65σ: the precedence is a **data-anchored** discrete convention, counted in the paper's
-residue (abstract).
+(`cascade_precedence_vacuity.py`) initially reported the order load-bearing via m_τ-abs's
+dash-fill (T, F, T); **round 9 corrected this**: that fill expanded the closed constituents
+α_s and v, violating the papers' own expression-tree predicate (`rem:sp36-syntactic` — the
+same convention that keeps b/s at G = F with its closed sub-lead L(τ/μ)). On the uniform
+mechanical reading no observable is multi-flag and the precedence is **vacuous on primary
+readings**; the 13–65σ exclusions hold under the constituent-expansion variant readings
+only, making the anchoring **conditional**. The item stays counted in the residue with that
+corrected status (abstract).
 
 **Theorem 9 (Sign rule).** The sign is the side of the Cauchy–Schwarz equality manifold on
 which the leading formula sits: off-manifold interpolation reads gain (+; the Gram deficit is
@@ -253,8 +256,10 @@ against the answer key *as corrected by the review*: the previously stored θ_23
 count k=2 was **wrong** (the papers give k=4, `thm:theta23-closure`), and that row's encoded
 identity facts had been bent to match the wrong key. The **availability clauses fail on
 θ_C** — computed (1,2,0) from its quark legs against the T4-stored, formula-borne (0,0,0) —
-an open defect left failing in the script rather than patched; their true domain is the
-mass-lead rows only. The earlier claims "11/11 on all seven fields" and "~7 discretionary
+an open defect left failing in the script rather than patched; the correct domain
+restriction for the availability clauses is an **open question** (round 9: θ_C is one
+confirmed counterexample and θ_23 is unchecked — the round-8 "mass-lead rows only"
+characterization was itself an overreach and is softened). The earlier claims "11/11 on all seven fields" and "~7 discretionary
 choices per row → ~1" are **withdrawn**: by scalar count the identity-fact table (76) is
 larger than the stored-output table (50), and the residual claim is structural only (one
 shared rule-set on member fields). Further round-8 corrections: the A13 content grading is
@@ -277,16 +282,23 @@ gauge-flag variant was 0.19σ experimentally, and was in any case an artifact of
 inconsistent grading (under the consistent A13 grading that variant *survives*). Corrected
 results: the **availability block has zero survivors** — no variant set in the space covers
 the corrected key (the θ_C availability defect); on **member fields**, four slots are pinned
-with genuine multi-σ kills among their alternatives (flag P: up to 187σ via m_τ-abs; flag L:
-up to 66σ via sin²θ_W; sign: 4σ via α_s, though the class-label swap kill is LABEL-only;
-channel count: up to 67σ via sin²θ_W), while the **G-flag reading has three survivors**, the
-**precedence order has all six** (no realized row is multi-flag under the consistent
-grading — precedence anchoring lives at the papers' full-formula flag criterion, per the
-A52 vacuity check, not in this exhaustion), and the Family-B kind restriction has two.
-36 member-survivor combinations, no compensating combos, all survivor freedom off-domain
-(probe forks). Uniqueness is relative to a space that also holds the **source map {19, 5,
-14, 7} and the population-class names fixed** — a withheld axis, disclosed. The Observer
-k = 3, the content grading, and the ℓ_A kind remain inputs.
+with multi-σ kills among their alternatives (flag P: up to 187σ via m_τ-abs; flag L: up to
+66σ via sin²θ_W with its second kill at 2.3σ; sign: 4σ via α_s — though the class-label
+swap kill is LABEL-only and the *distinctive* +/− structure is pinned only at RECORD 1.0σ;
+channel count: up to 67σ via sin²θ_W — though the *doubling* itself is pinned only at
+RECORD 1.4σ, and round 9 (M1) replaced the bent period convention with the papers'
+(d−1)//8, under which the pinning is over a uniform content encoding), while the **G-flag
+reading has three survivors**, the **precedence order has all six** (no realized row is
+multi-flag under the consistent grading; round 9 (M3) further showed the precedence is
+vacuous on the papers' uniform expression-tree reading too — its 13–65σ anchoring is
+conditional on A52's variant gradings), and the Family-B kind restriction has two.
+36 member-survivor combinations, no compensating combos; all survivor freedom is off-domain
+and enumerated by the probe forks **after round 9 added probe P6** (the original five probes
+provably could not separate the canonical G reading from the point-counting survivor — the
+round-8 "verified complete" claim held only for the old 72-survivor space and was struck).
+Uniqueness is relative to a space that also holds the **source map {19, 5, 14, 7} and the
+population-class names fixed** — a withheld axis, disclosed. The Observer k = 3, the
+content grading, and the ℓ_A kind remain inputs.
 
 **Theorem 13c — withdrawn as a theorem; retained as annotation
 (`cascade_u2_first_principles.py`; round-8).** The previous version claimed three

@@ -20,12 +20,18 @@ FLAG EVALUATIONS (each justified from the canonical formula; the two
 reading-dependent cases are tested BOTH ways):
   alpha_s     (F,F,T)  window Phi(5,12) meets gauge window
   m_tau/m_mu  (F,F,T)  window Phi(6,13) meets gauge window
-  m_tau abs   (T,F,T)  P: dimensional/Planck (papers). G: BEHIND THE
-                       DASH -- the formula (alpha_s v/sqrt2)e^(-Phi(5)
-                       +a(19)/chi)/(2 sqrt pi)^2 contains alpha_s =
-                       a_GUT e^(Phi(5,12)) and v = M_Pl a_GUT
-                       e^(Phi(5,12)) e^(-pi/a(5)): TWO gauge-window
-                       exponentials.  G = T.  L = F.
+  m_tau abs   (T,F,F)  P: dimensional/Planck (papers).  G: ROUND-9
+                       CORRECTION (M3, Addendum 57) -- the papers'
+                       G-predicate is mechanical over the formula's
+                       EXPRESSION TREE (part4b rem:sp36-syntactic),
+                       under which alpha_s and v are closed symbols,
+                       exactly as b/s's L(tau/mu) is (that is what
+                       keeps b/s at F below).  This script's original
+                       dash-fill expanded the constituents (alpha_s =
+                       a_GUT e^(Phi(5,12)), v likewise) and got G=T --
+                       an inconsistent grading, the same defect class
+                       as review F4.  The constituent-expansion
+                       reading is retained as a tested VARIANT.
   ell_A       (T,F,?)  P: r_d Planck-anchored (papers).  G: the
                        cosmological formula is built from geometric
                        pi-forms; no gauge-window exponential found ->
@@ -75,7 +81,7 @@ def assign(flags, order):
 OBS = [
     ("alpha_s",    dict(P=0, L=0, G=1), None),
     ("m_tau/m_mu", dict(P=0, L=0, G=1), None),
-    ("m_tau abs",  dict(P=1, L=0, G=1), None),
+    ("m_tau abs",  dict(P=1, L=0, G=0), dict(P=1, L=0, G=1)),
     ("ell_A",      dict(P=1, L=0, G=0), dict(P=1, L=0, G=1)),
     ("sin2thW",    dict(P=0, L=1, G=0), dict(P=0, L=1, G=1)),
     ("Omega_m",    dict(P=0, L=1, G=0), None),
@@ -147,16 +153,19 @@ def main():
     print("=" * 74)
     print("VERDICT")
     print("=" * 74)
-    worst = None
-    print("  NOT VACUOUS: the precedence fires (m_tau abs at minimum --")
-    print("  its formula carries gauge-window exponentials behind the")
-    print("  papers' short-circuit dash).  BUT every ordering that changes")
-    print("  any assignment produces a closure excluded by data (sigmas")
-    print("  above).  STATUS CHANGE, not deletion: residue item six moves")
-    print("  from 'motivated, unanchored' to 'DATA-ANCHORED discrete")
-    print("  convention' -- the same epistemic class as the unit and the")
-    print("  window-potential pairing (items five/seven).  The residue")
-    print("  count stays at seven; its free (unanchored) content shrinks.")
+    print("  ROUND-9 CORRECTED VERDICT: on the UNIFORM primary readings")
+    print("  (the papers' expression-tree predicate, applied the same way")
+    print("  to every row) NO observable is multi-flag -- the precedence")
+    print("  is VACUOUS on primary readings and the order never fires.")
+    print("  Under the tested VARIANT readings (constituent expansion for")
+    print("  m_tau abs; window content for ell_A; coupling-running for")
+    print("  sin2thW) the order fires and every assignment-changing")
+    print("  ordering is excluded at 13-65 sigma.  So the anchoring is")
+    print("  CONDITIONAL: 'data-anchored' holds only if the variant")
+    print("  grading is adopted; on the uniform grading the residue item")
+    print("  is deletable as vacuous.  A52's original 'NOT VACUOUS'")
+    print("  verdict rested on an inconsistent dash-fill (see docstring)")
+    print("  and is superseded (Addendum 57).")
 
 
 if __name__ == "__main__":

@@ -233,3 +233,28 @@ reduced: computed *on member fields with an open availability defect*; unique *u
 precedence, and Family-B freedom, over a space with a withheld axis, with kills of mixed
 strength*; and annotated *at argument strength*, with two fabricated attributions and one
 invented convention retracted on the record.
+
+# Round 9: the convergence test — NOT CONVERGED (3 majors), all accepted and swept
+
+Sweep integrity was clean (every round-8 fix verified in git; all numbers reproduce; no
+false records). The rewrite itself contained three majors. Trajectory: 4 → 1 → 0 → 1 → 0 →
+0 → 0 → 7 → **3**.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| M1 — residual bent encoding (F1-class recurrence): the scripts' PERIODS was not the papers' convention ((d−1)//8, per `rem:theta23-channel-count` "using n=d−1" and the papers' own `cascade_channel_count_rule.py`); under it θ_C and θ_23 used opposite content conventions, each matching its stored k | **Accepted.** Verified by direct read + computation. Periods switched to (d−1)//8; θ_23 content → uniform p-summand range (13,20); both k values now follow from one rule | v1 + uniqueness + A56 inline marker + 13b |
+| M2 — "verified complete by the 8,640-row sweep" carried over from the old 72-survivor set; provably false for the corrected 36 (no probe separated canonical-G from "points count too") | **Accepted.** Probe P6 (point in the band) added and run — splits R5 three ways; "verified complete" struck at source | uniqueness + 13b + A56/A57 |
+| M3 — precedence anchoring rested solely on A52, whose m_τ-abs dash-fill expanded closed constituents against the papers' expression-tree predicate (the convention keeping b/s at F) — the F4 defect class, unaudited | **Accepted.** A52 script corrected (primary (T,F,F), expansion as variant); corrected verdict: precedence **vacuous on uniform primary readings at both layers**; 13–65σ anchoring conditional on variant gradings; item deletable-as-vacuous on the uniform reading | A52 script + abstract + Thm-9 remark + row 5b + docstrings + A57 |
+| m4 — "true domain is the mass-lead rows only": new unproven generalization | **Accepted.** Softened to open question everywhere | v1 + Thm 13 tail |
+| m5 — selective σ-disclosure ("four slots pinned" headline omitting RECORD-strength distinctive content: sign +/− at 1.0σ, doubling at 1.4σ; R6's second kill 2.3σ; strict-top at the 2.0σ boundary) | **Accepted.** Full disclosure added to 13b and the uniqueness docstring | 13b + uniqueness |
+| m6 — A52–A55 lacked in-place supersession markers (blanket A56 note weaker than this doc's strikethrough standard) | **Accepted.** Head-markers added to all four addenda | audit |
+| m7 — papers-internal tension: part4b:1092's cardinality-based k-account (θ_C at layers {5,13}) vs `rem:theta23-channel-count`'s 2N-rule (θ_C path {12,13}) | **Noted for the papers** (outside the arc; recorded in A57) | A57 |
+
+**Checked-and-held adopted:** git/sweep integrity; all script numbers; θ_23 key
+papers-faithful; PRECISION table defensible; counts verified; repo-wide stale sweep clean;
+abstract/§6 consistent; Check-7/8 clean; eight uncontested rows re-derived against part4b.
+
+**Convergence assessment:** not converged at pass 9, but the defect stream narrowed from
+"three headline claims false" (round 8) to "one bent field, one carried-over verification
+claim, one unaudited dependency" — all three now fixed with the fixes verified by rerun.
+The tenth pass tests whether the M1-class (bent inputs) is exhausted.
