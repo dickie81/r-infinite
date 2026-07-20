@@ -15,9 +15,13 @@ Let ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s) be the completed Riemann zeta function, Γ_
 its factor at the real place. We construct, from ξ and the character theory of ℝ^× alone: a
 state tower (the integer Tate twists of the real place); its unique dynamics (the Gaussian,
 forced as the L-factor-achieving vector of Tate's local integral); a calculus of corrections
-(attachment, multiplicity, sign, projection, and measurement rules — Theorems 1–9, each
-proved); and a uniqueness theorem (Theorem 10): given one explicit instantiation map, the
-formula assigned to every observable is unique, with zero adjustable numbers. The resulting
+(attachment, multiplicity, sign, projection, and measurement — Theorems 8–12, each proved,
+with the activation mechanism's former joints reduced to the polar decomposition of the
+Fresnel integral, ∫e^(ix²)dx = Γ(½)·ζ₈, and the factorization of the Gaussian measure); and
+a uniqueness theorem (Theorem 13): given one explicit instantiation map, the formula assigned
+to every observable is unique, with zero adjustable numbers. **The framework's entire
+non-arithmetic residue is three items: one external classical theorem (Lovelock's — which
+performs selection, not construction), one definition (D1), and the hypothesis itself (C1).** The resulting
 outputs — the cosmological constant, the Higgs, all nine charged-fermion and three neutrino
 masses, the gauge couplings, the mixing angles, and the cosmological parameters — agree with
 every current measurement within stated experimental precision. We therefore assert, to the
@@ -106,6 +110,14 @@ functional on twist intervals carries at most one correction member exp(±α(d\*
 power, sourced at an order-one feature of one summand of log ξ; point-supported content
 carries none. *Proof:* partition of log ξ (two-summand draws double-count d log ξ); features
 simple (Thm 7); ℤ totally ordered (each twist at most once); increments telescope (Thm 4).
+
+*Remark (occupancy precedence; `cascade_joints_derived.py` P3).* When an observable could
+occupy more than one summand, the tie-break P > L > G is not a convention: the occupancy
+classes map onto the three contribution types of contour asymptotics — P (the pole factor
+s(s−1)) is a simple pole, O(1) residue; L (values read at the features, which are the
+critical points and thresholds of Thm 7) is a saddle, O(λ^(−1/2)); G (window integrals) is a
+regular arc, exponentially small. The precedence is the universal dominance hierarchy
+pole ≻ saddle ≻ arc, verified at λ = 10–1000 with widening gaps.
 
 **Theorem 9 (Sign rule).** The sign is the side of the Cauchy–Schwarz equality manifold on
 which the leading formula sits: off-manifold interpolation reads gain (+; the Gram deficit is
@@ -239,7 +251,8 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
 *Verification suite: `tools/research/cascade_formulation_kernel.py`,
 `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`,
 `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_measurement_joint.py`,
-`cascade_activation_mechanism.py`, `cascade_T4_uniqueness.py`, `cascade_arithmetic_d4.py`,
-`cascade_leptons.py`, `cascade_neutrino_closure.py`, `cascade_E_fit_audit.py`,
-`cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil, the metaplectic index; Wall,
-the graded Brauer group; Bohr–Mollerup; Adams/Radon–Hurwitz; Lovelock; Kolmogorov.*
+`cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_T4_uniqueness.py`,
+`cascade_arithmetic_d4.py`, `cascade_leptons.py`, `cascade_neutrino_closure.py`,
+`cascade_E_fit_audit.py`, `cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil, the
+metaplectic index; Wall, the graded Brauer group; Bohr–Mollerup; Adams/Radon–Hurwitz;
+Lovelock; Kolmogorov.*
