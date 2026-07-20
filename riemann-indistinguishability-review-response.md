@@ -315,3 +315,31 @@ Check-7/8 clean.
 (strikes now execute faithfully) but produced one from-memory number and one missed
 marker; the grading-inconsistency class surfaced a third time, in the justification layer.
 Pass 12 tests the named pattern rule and whether either class has further instances.
+
+# Round 12: fourth convergence test — CONVERGED
+
+**Zero majors.** The U2 arc's first convergence; the series' second. Trajectory final:
+4 → 1 → 0 → 1 → 0 → 0 → 0 → 7 → 3 → 2(+2) → 2(+2) → **0**.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| Priority attack — round 11's v-witness claim, tested under the A59 pattern rule | **HELD.** part4b `thm:vev` (3325–3328): the window exponential is a top-level factor of the labeled theorem's display; α_GUT is a Tier-1 constant, not a closed observable; the papers' own `source_selection_inventory.py` independently grades m_W-abs (T,F,F). No fourth grading-inconsistency instance | — |
+| F-1 (minor) — witness citation misdirected to part4b:83 (window attribution) instead of thm:vev:3325–3328 (the top-level display) on two of four surfaces | **Accepted.** Citations corrected | uniqueness + A59 |
+| F-2 (cosmetic) — grammar splice from round 11's own F4 edit ("under A52's the four variant readings") | **Accepted.** Repaired | formulation T4 |
+| F-3 (cosmetic) — abstract enumerated three of the four canonical variant readings | **Accepted.** All four named | paper abstract |
+| F-4 (cosmetic) — three stale "(round-8/8–10 corrected)" header labels with synchronized bodies | **Accepted.** Updated to rounds 8–11 / Addenda 53–59 | paper 13b + formulation T4/row 6 + first_principles |
+| F-5 (observation) — the implicit marking rule (false-when-written → strike anywhere; superseded-true → mark net-state lines only) was consistent but unstated | **Adopted; stated explicitly in A60** | A60 |
+| F-6 (observation) — latent seam: the papers' α_s-wrapped v-writing (part4b:3382) would grade v (T,F,F); the witness stands on rem:sp36-syntactic's minimal-descent rule, but no surface argues canonicality | **Recorded in A60** as the pattern rule's next test case if the witness is re-touched | A60 |
+
+**Checked-and-held adopted:** all round-11 fixes in git with every marker grep-verified;
+all four scripts reproduce every number; the reviewer's independent re-implementation
+reconfirmed 36 distinct P1–P7 signatures; σ arithmetic exact (65.24/13.04/108.71/33.83);
+F4 reconciliation complete (no surviving "13–65" outside marked history); sweep-count
+attributions all correct (8,640/57,600/33,480); every part4b citation verified at the
+cited line; "structurally closed" properly caveated to this survivor set; Check-7/8 clean.
+
+**Convergence statement:** no untrue statement on any current surface; no recorded-but-
+unmade fix; no new defect class; no substantive stale surface. What remains open is
+mathematics and experiment, not review: the θ_C availability defect, the soft inputs
+(Observer k=3, A13 grading, ℓ_A kind), extension to the full ~100-entry record, and the
+ledger's falsifiers (JUNO, DESI/CMB-S4, Belle II, HL-LHC, KATRIN).

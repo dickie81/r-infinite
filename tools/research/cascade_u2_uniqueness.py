@@ -315,7 +315,9 @@ PROBES = [
  # Honest status: P7 is a well-formed hypothetical identity-fact
  # corner; the nearest uniform-reading P&G configuration is the
  # VEV v itself (its canonical formula carries e^(Phi(5,12))
- # TOP-LEVEL and it is dimensionful, part4b:83), but v is an
+ # TOP-LEVEL and it is dimensionful -- part4b thm:vev at 3325-3328,
+ # v = M_Pl,red x a_GUT x exp(Phi(12->4)) x exp(-pi/alpha(5));
+ # window attribution at part4b:83), but v is an
  # anchor with no addressed member row, so the P&G class has no
  # realized addressed instance.
  ("P7 dimensionful WITH gauge-window content (P&G both true)",

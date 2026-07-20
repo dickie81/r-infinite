@@ -2593,8 +2593,9 @@ The witness held only under the demoted constituent-expansion reading. **Fixed o
 surfaces** (struck-and-annotated on the record surfaces; corrected in place on the script
 and paper): P7 stands as a well-formed hypothetical corner; the nearest *uniform-reading*
 P∧G configuration is the VEV v itself (top-level window exponential e^(Φ(5,12)),
-dimensionful — part4b:83), but v is an anchor carrying no addressed member row, so the P∧G
-class has no realized addressed instance. The P7 *fix* survives (separation is proven
+dimensionful — part4b `thm:vev` at 3325–3328; the window attribution is at part4b:83), but
+v is an anchor carrying no addressed member row, so the P∧G class has no realized addressed
+instance. The P7 *fix* survives (separation is proven
 regardless); its round-10 *rationale* did not.
 
 **F2 (major) — a wrong number written in the record-fidelity round itself.** The Round-10
@@ -2633,6 +2634,56 @@ synchronized; the record layer carries three new marked corrections and one name
 rule. Open for a twelfth pass: whether the grading-inconsistency class has further
 instances in the justification layer, and the standing open defects (θ_C availability, the
 soft inputs).
+
+## Addendum 60: hostile review round 12 — CONVERGED
+
+**The fourth convergence test. Verdict: CONVERGED — zero majors.** The U2 arc's first
+convergence, and the series' second (after round 7's, on the pre-U2 material). Trajectory
+final: **4 → 1 → 0 → 1 → 0 → 0 → 0 → 7 → 3 → 2(+2) → 2(+2) → 0.** Full disposition:
+`riemann-indistinguishability-review-response.md` Round 12.
+
+**The priority attack failed — no fourth grading-inconsistency instance.** The reviewer
+applied the A59 pattern rule to round 11's own witness claim and verified it by direct
+read: part4b `thm:vev` (3325–3328) writes v = M_Pl,red · α_GUT · exp(Φ(12→4)) ·
+exp(−π/α(5)) — the window exponential is a **top-level factor of the labeled theorem's
+display**; α_GUT = N(12)²/4π is a Tier-1 constant, not a closed observable; and the
+papers' own `source_selection_inventory.py` independently grades m_W-absolute (T,F,F),
+corroborating the m_W-vs-v distinction as consistently applied. The "anchor with no
+addressed member row" clause verified against the flag table, the CASES table, and Tier 3.
+
+**The record-hygiene questions answered:** the round-11 sweep holds in full (every fix in
+git, every execution claim grep-verified — the tightened rule held a second consecutive
+time); no false records, no wrong numbers, no desynchronized states. The class has decayed
+false-records → wrong-numbers → citation/label fidelity.
+
+**Minors, swept in this commit:** F-1 — the witness citation pointed at part4b:83 (which
+carries only the window attribution) instead of `thm:vev` at 3325–3328 where the top-level
+display lives; both surfaces corrected. F-2 — a grammar splice from round 11's own F4 edit
+("under A52's the four variant readings") repaired. F-3 — the abstract's variant
+enumeration named three of the four canonical readings; now names all four. F-4 — three
+stale "(round-8/8–10 corrected)" header labels updated (bodies were already synchronized).
+
+**Recorded, not swept (observations):** F-5 — the arc's implicit marking rule is now
+stated explicitly: claims *false when written* are struck wherever they appear; claims
+*true when written but later superseded* are marked on net-state lines, while round-scoped
+historical cells stand (the two remaining "13–65σ" instances are of the second kind).
+F-6 — one latent seam, flagged for any future edit of the witness claim: the papers also
+carry an α_s-wrapped writing of the v chain (part4b:3382, v = M_Pl,red·α_s·exp(−π/α(5))),
+under which v would read (T,F,F); the witness stands on `rem:sp36-syntactic`'s
+minimal-descent-formula rule and the labeled theorem's explicit exponential, but no
+surface argues the canonicality — any re-touch of that claim must address it under the
+pattern rule.
+
+**What converged, plainly:** the corrected U2 result — member fields computed 11/11 by one
+shared rule-set from a uniform, papers-faithful encoding; the availability defect open and
+visible; 36 member survivors with P1–P7 signature-completeness independently
+re-implemented twice; the precedence item vacuous-on-uniform-readings with
+variant-conditional anchoring at 13–109σ; all groundings at argument/identification
+strength; the fixed-target, soft-input, and withheld-axis disclosures standing. Five
+passes of hostile review took the arc from three false headline claims to a state where
+the strongest reviewer the process could field found nothing above citation hygiene. The
+open mathematics is unchanged: the θ_C availability defect, the soft inputs (Observer
+k=3, A13 grading, ℓ_A kind), extension to the full ~100-entry record, and the experiments.
 
 ## Caveats
 

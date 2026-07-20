@@ -22,7 +22,7 @@ framework's non-arithmetic residue is seven items** (count corrected per two ext
 reviews): **Lovelock's theorem (selection, not construction); the definition D1; the closed
 atom grammar (A2); the unit-normalization convention that carries Γ(½) (empirically
 anchored, not arithmetically forced — and the flip-count 4 is meaningful only jointly with
-it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–109σ exclusions of alternative orderings hold only under the variant readings — constituent expansion, window content, and the ℓ_A kind — so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
+it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–109σ exclusions of alternative orderings hold only under the four variant readings — m_τ-abs constituent expansion, ℓ_A window content, the ℓ_A kind, and sin²θ_W coupling-running — so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
 (no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
 Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
@@ -272,7 +272,7 @@ import; the genuinely ambiguous kind assignment for ℓ_A (load-bearing for prec
 anchoring).
 
 **Theorem 13b (rule-set uniqueness within the declared clause space;
-`cascade_u2_uniqueness.py`; round-8 corrected).** Enumerate **44** papers-motivated variants
+`cascade_u2_uniqueness.py`; rounds 8–11 corrected).** Enumerate **44** papers-motivated variants
 (the previous count "24" was wrong) across the ten clause slots under a no-name rule and run
 the full cartesian products against the corrected key, with every kill **σ-classified**
 (LABEL = record-label only, zero observational content; RECORD < 2σ — experiment cannot

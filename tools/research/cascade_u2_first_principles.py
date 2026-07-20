@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-U2 FIRST-PRINCIPLES RECONSTRUCTION (round-8 corrected: proposed
+U2 FIRST-PRINCIPLES RECONSTRUCTION (rounds 8-11 corrected: proposed
 groundings at ARGUMENT strength -- the earlier theorem claims are
 retracted).
 
