@@ -288,7 +288,7 @@ import; the genuinely ambiguous kind assignment for ℓ_A (load-bearing for prec
 anchoring).
 
 **Theorem 13b (rule-set uniqueness within the declared clause space;
-`cascade_u2_uniqueness.py`; rounds 8–11 corrected).** Enumerate **44** papers-motivated variants
+`cascade_u2_uniqueness.py`; rounds 8–14 corrected).** Enumerate **44** papers-motivated variants
 (the previous count "24" was wrong) across the ten clause slots under a no-name rule and run
 the full cartesian products against the corrected key, with every kill **σ-classified**
 (LABEL = record-label only, zero observational content; RECORD < 2σ — experiment cannot

@@ -2691,7 +2691,8 @@ k=3, A13 grading, ℓ_A kind), extension to the full ~100-entry record, and the 
 availability clauses computed (1,2,0) for θ_C from its quark legs against the T4-stored,
 formula-borne (0,0,0); zero avail-block survivors; the row deliberately left failing).**
 
-**The resolution is at the identity-fact level, and the papers state it verbatim.** The
+**The resolution is at the identity-fact level, ~~and the papers state it verbatim~~**
+**[round 14 (n-F): verbatim for θ_C only — the m5 marker below governs]**. The
 Cabibbo proof (part4b:3728, read directly; citation corrected round 13, n9): *"A mixing-matrix element measures the overlap
 of two states, **one from each gauge layer**."* The angle's states — the records the
 observable *reads* — are at the gauge layers d = 12, 13 (the arccos(N(13)/N(12)) frame
@@ -2723,14 +2724,21 @@ with the **colour-rank slot pinned uniquely by m_b/m_τ**; member fields unchang
 
 **Honest status, stated before any reviewer says it:** this is a fixed-target
 identity-fact correction — the F1-class maneuver — made knowing the target. Its defences
-are (i) the papers' *verbatim* proof language locating the angle's states at the gauge
-layers (not an inference, a quote); (ii) the T4 store and both angle formulas
+are (i) the papers' *verbatim* proof language locating **θ_C's** states at the gauge
+layers (not an inference, a quote; for θ_23 it IS an inference — round-13 m5); (ii) the T4 store and both angle formulas
 ~~independently~~ carrying (0,0,0) **[round 13 (m8): the T4 store was tabulated from the
 same formula by the same author — one store entry plus two formulas, one inferential; not
 independent corroboration]**; and (iii) a **registered discriminating prediction** that
-gives the rule falsifiable content: the record-legs rule requires that **no future
+gives the rule falsifiable content: ~~the record-legs rule requires that no future
 angle-type closure — specifically the PMNS angles θ_12, θ_13, θ_23 — may carry a 2√π Bott
-factor or a colour factor**. A single PMNS closure with either factor kills the rule and
+factor or a colour factor. A single PMNS closure with either factor kills the rule~~
+**[superseded round 13 (m7), marker added round 14 (M-C): the SHARPENED registration is
+canonical — no PMNS-angle closure may carry an availability factor (2√π, e^(r/2) colour,
+or cos(π/6) projection); N_c-normalizations are not availability factors, but the repo's
+standing N_c-bearing PMNS candidates are disclosed adjacent evidence, and a promoted
+closure whose N_c proves scheme-equivalent to the colour factor (decision procedure: the
+A14 pole/MS-bar shift computation, adjudicated by the standing hostile-review process)
+kills the rule]** and
 reopens the defect. The rule joins the soft-input list as an identification
 (frame-rotation vs record-ratio), not a theorem; the availability question's closure is
 conditional on it.
@@ -2777,8 +2785,10 @@ adjacent evidence**: the standing candidates (`cascade_pmns_mixing_angle_proposa
 carry N_c in all three formulas. Sharpened: the falsifier counts *availability factors*
 (2√π, e^(r/2), cos(π/6)); N_c-normalizations are not availability factors under the U2
 grammar, but per A14's e-vs-N_c scheme note, a promoted PMNS closure whose N_c proves
-scheme-equivalent to the colour factor kills the rule; the candidates are now disclosed
-on every falsifier surface. m8 — "independently carrying (0,0,0)" was an overclaim (the
+scheme-equivalent to the colour factor kills the rule; ~~the candidates are now disclosed
+on every falsifier surface~~ **[false when written — round-14 M-C: A61's own bolded
+registration two paragraphs above carried the old two-factor form unmarked; struck and
+superseded in round 14]**. m8 — "independently carrying (0,0,0)" was an overclaim (the
 T4 store is the same author tabulating the same formula; struck-and-annotated). Minors:
 the part4b:3727→3728 citation fixed everywhere (n9); the per-row discretionary-content
 disclosure now includes the classifier (n10); ℓ_A's formula-borne (0,0,0) added to the
@@ -2799,6 +2809,44 @@ PMNS attempt is recorded as a negative; the CKM θ_13 closure is factor-free).
 **Results unchanged by the restatement (all scripts rerun):** v1 11/11 (now with ℓ_A's
 availability checked too); avail block 6/100; member 36/21600, +0 compensating; P1's avail
 fork now registered in output; first_principles 11/11.
+
+## Addendum 63: hostile review round 14 — NOT CONVERGED (1 major + 2 borderline); the missed-instance class
+
+**The convergence test on the round-13 sweep. Verdict: NOT CONVERGED — but with the
+strongest structural record of the arc: no false execution record for a fourth consecutive
+round (every fix round 13 recorded is physically in git and grep-verified), the
+mathematics/computation layer unchanged and airtight, and every finding a MISSED INSTANCE
+of an already-accepted round-13 finding surviving at a site the sweep list didn't name.**
+Full disposition: `riemann-indistinguishability-review-response.md` Round 14.
+
+**M-A (major):** the M1 falsehood survived at a second site in the same file — v1's EXPECT
+header comment still said "theta_23 / ell_A availability: no T4 store → unchecked" one
+screen below the corrected docstring. Fixed, with the tautology scope stated in place.
+**M-B (borderline):** the m5 "papers-sourced verbatim" overclaim survived unscoped in
+first_principles' docstring (not on m5's sweep list). Scoped. **M-C (borderline):** A61's
+own *bolded falsifier registration* still carried the old two-factor form (no cos(π/6), no
+N_c caveat) with no marker — and A62's "disclosed on every falsifier surface" was
+false-when-written against it, two paragraphs above. The registration is now
+struck-and-superseded by the sharpened canonical form; A62's claim struck-and-annotated.
+**m-D (moderate):** `cascade_T4_uniqueness.py` — the paper's own Theorem-13 verifier —
+still carried the six-rounds-stale "U2 as a function is the open formal target" text,
+never in any sweep's scope. Updated to the rounds-8–14 state. **Minors:** stale
+"rounds 8–11"/"round-10" header labels across five surfaces updated; A61's bolded opening
+"and the papers state it verbatim" struck (n-F); defence (i) scoped to θ_C.
+
+**Adopted observations:** n-G — within the declared variant space the three (0,0,0)
+angle/ℓ_A rows are *exactly* tautological (every legs-clause variant returns (0,0,0) on
+empty or gauge-only legs — zero discriminating power), now stated in place; the reviewer
+verified all six avail-block kills come from the four record-ratio rows, so the 6/100
+exhaustion remains informative over exactly the rows the near-tautology concession says it
+does. n-H — the falsifier's scheme-equivalence kill condition lacked a decision procedure;
+registered: the A14 pole/MS-bar shift computation, adjudicated by the standing
+hostile-review process.
+
+**Process rule adopted (the reviewer's closing recommendation):** sweep lists for any
+accepted finding must be enumerated by a **whole-repo grep for the corrected claim's
+text**, not by the surfaces the finding happened to name. The missed-instance class (M-A,
+M-B, M-C, m-D are all instances) is exactly what per-finding site lists cannot catch.
 
 ## Caveats
 

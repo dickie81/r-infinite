@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-U2 RULE-SET UNIQUENESS EXHAUSTION (rounds 8-11 corrected).
+U2 RULE-SET UNIQUENESS EXHAUSTION (rounds 8-14 corrected).
 
 THE QUESTION: the v1 rule-set reproduces the stored member table, but
 was assembled knowing it.  Is it the only rule-set that does, within
@@ -338,7 +338,7 @@ PROBES = [
 
 def main():
     print("=" * 74)
-    print("U2 RULE-SET UNIQUENESS EXHAUSTION (rounds 8-11 corrected)")
+    print("U2 RULE-SET UNIQUENESS EXHAUSTION (rounds 8-14 corrected)")
     print("=" * 74)
     print(f"  variant space: {N_VARIANTS} variants across 10 slots;"
           f" source map {{19,5,14,7}} and class names HELD FIXED")
@@ -450,7 +450,7 @@ def main():
 
     print()
     print("=" * 74)
-    print("VERDICT (round-10 corrected state)")
+    print("VERDICT (rounds 10-14 corrected state)")
     print("=" * 74)
     pinned = [s for s in slot_survivors if len(slot_survivors[s]) == 1]
     print(f"  member-field survivors: {len(member_surv)}; per-slot"

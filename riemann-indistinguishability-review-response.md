@@ -368,3 +368,29 @@ the four record-ratio rows' clause-uniformity, the θ_C verbatim quote, and the 
 falsifier. **Checked-and-held:** no clause semantics changed in c5dcc2a; all numbers
 reproduce; falsifier not tripped (no PMNS closure in the papers; the PMNS₁₂ template
 attempt is a recorded negative; CKM θ_13 factor-free); Check-7/8 clean.
+
+# Round 14: convergence test on the round-13 sweep — NOT CONVERGED (1+2), the missed-instance class
+
+Trajectory: … → 0 (r12) → WOUNDED/4 (r13) → **1(+2)**. No false execution record for a
+fourth consecutive round; mathematics/computation unchanged. Every finding is a missed
+instance of an already-accepted round-13 finding at a site the per-finding sweep list
+didn't name.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| M-A — the M1 falsehood at a second site in the same file (v1 EXPECT header: "theta_23 / ell_A availability: no T4 store → unchecked") | **Accepted.** Fixed, with the space-level tautology of the (0,0,0) rows stated in place (n-G) | v1 |
+| M-B — the m5 "papers-sourced verbatim" overclaim unscoped in first_principles (not on m5's sweep list) | **Accepted.** Scoped: verbatim θ_C only, inference θ_23; classifier + soft-input status added | first_principles |
+| M-C — A61's bolded falsifier registration still the old two-factor form, unmarked; A62's "disclosed on every falsifier surface" false-when-written against it | **Accepted.** Registration struck-and-superseded by the sharpened canonical form (three availability factors + N_c/scheme-equivalence kill condition + decision procedure); A62's claim struck-and-annotated | A61 + A62 |
+| m-D — cascade_T4_uniqueness.py (the paper's Thm-13 verifier) six rounds stale: "U2 as a function is the open formal target" | **Accepted.** Updated to the rounds-8–14 state (v1 constructed; absolute forcing unavailable in principle) | T4 script |
+| n-E — stale "rounds 8–11"/"round-10" headers across five surfaces | **Accepted.** All updated to rounds 8–14 | v1, uniqueness, first_principles, paper 13b, formulation row 6 |
+| n-F — A61's bolded opening "and the papers state it verbatim" unstruck; defence (i) ambiguous | **Accepted.** Struck; defence (i) scoped to θ_C | A61 |
+| n-G — the (0,0,0) rows are exactly tautological within the variant space (every legs-clause variant returns (0,0,0) on empty/gauge legs); all six avail kills verified to come from the record-ratio rows | **Adopted.** Stated in place; the 6/100 exhaustion remains informative over exactly the conceded rows | v1 + A63 |
+| n-H — the scheme-equivalence kill condition lacked a decision procedure | **Accepted.** Registered: the A14 pole/MS-bar shift computation, hostile-review adjudicated | v1 + A61 marker + A63 |
+
+**Process rule adopted:** sweep lists must be enumerated by whole-repo grep for the
+corrected claim's text, not by the surfaces a finding names — the missed-instance class is
+exactly what per-finding site lists cannot catch. **Checked-and-held:** all round-13
+recorded fixes physically in af524e8 and grep-verified; all scripts reproduce every number;
+M4's source claims re-verified (Tier-4a "= e", no cos(π/6) in src/*.tex); the θ_C quote
+exact at part4b:3728; 6-survivor enumeration consistent; falsifier not tripped; Check-7/8
+clean.

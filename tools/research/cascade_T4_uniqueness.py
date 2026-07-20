@@ -9,8 +9,11 @@ projection, T9 ranks, exclusion, flags, channel-count), the encoded
 rules are single-valued and the determined formulas reproduce the
 record to <= 0.01%.  The exhaustion verifies single-valuedness and
 arithmetic correctness -- NOT forcedness: availability is tabulated
-per observable, and computing it from address data alone (U2 as a
-function) is the open formal target.
+per observable HERE; computing it from identity facts now has a
+constructed, review-corrected v1 (cascade_u2_function.py, hostile-
+review rounds 8-14, Addenda 53-63) -- absolute forcing remains
+unavailable in principle (round-14 m-D replaced this file's
+six-rounds-stale "open formal target" text).
 
 PROOF STRUCTURE.
   U1 (exactly-once).  At-most-once is T5 (Z totally ordered; simple
@@ -20,8 +23,9 @@ PROOF STRUCTURE.
      contributes its factor (annealed if unrecorded, quenched e^(r/2)
      if recorded, T9) -- omitting it is not an alternative
      assignment but a different measure, violating A1.
-  U2 (availability -- TABULATED, not computed; per review F3 the
-     stronger claim is open).  The stored operation set cites: colour rank (T8/T9),
+  U2 (availability -- TABULATED here; computed by the v1 rule-set,
+     rounds-8-14 corrected state, in cascade_u2_function.py).
+     The stored operation set cites: colour rank (T8/T9),
      broken-symmetry status (obstruction scope), frame changes
      (T8), threshold side (T6/A38).  The exclusion principle is the
      negative direction: no generating process, no factor.
@@ -205,7 +209,9 @@ def main():
     print("  tiation; addresses largely forced by Part IVa Radon-Hurwitz/")
     print("  Bott, inherited), P>L>G precedence, J1/J2, A2's closed atom")
     print("  list.  Verifies single-valuedness + arithmetic correctness;")
-    print("  availability-as-a-function (the forcing theorem) is OPEN.")
+    print("  availability-as-a-function has a review-corrected v1")
+    print("  (cascade_u2_function.py, rounds 8-14); absolute forcing")
+    print("  remains unavailable in principle.")
 
 
 if __name__ == "__main__":

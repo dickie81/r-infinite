@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-U2 FIRST-PRINCIPLES RECONSTRUCTION (rounds 8-11 corrected: proposed
+U2 FIRST-PRINCIPLES RECONSTRUCTION (rounds 8-14 corrected: proposed
 groundings at ARGUMENT strength -- the earlier theorem claims are
 retracted).
 
@@ -72,8 +72,10 @@ angles read gauge-layer states, per the papers' Cabibbo proof; the
 generation pairing was a mislabel).  This file inherits the
 corrected CASES; the avail clauses now cover every row.  Status of
 the record-legs rule itself: IDENTIFICATION (frame-rotation vs
-record-ratio, papers-sourced verbatim), disclosed fixed-target,
-PMNS falsifier registered.
+record-ratio; papers-sourced VERBATIM for theta_C only, part4b:3728;
+template-extension inference for theta_23 -- round-13 m5, round-14
+M-B), a new per-row soft input, disclosed fixed-target, sharpened
+PMNS falsifier registered (see cascade_u2_function.py).
 
 FORK POSITIONS (downgraded from "adjudication" to "proposal"): on
 the exhaustion's probe forks this reconstruction takes the canonical
@@ -145,7 +147,7 @@ def u2_fp(row):
 
 def main():
     print("=" * 74)
-    print("U2 FIRST-PRINCIPLES RECONSTRUCTION (rounds 8-11 + A61:"
+    print("U2 FIRST-PRINCIPLES RECONSTRUCTION (rounds 8-14:"
           " argument strength)")
     print("=" * 74)
     print()
@@ -183,7 +185,7 @@ def main():
     print("  a theorem.")
     print()
     print("=" * 74)
-    print("STATUS LEDGER (rounds 8-11 + A61 corrected)")
+    print("STATUS LEDGER (rounds 8-14 corrected)")
     print("=" * 74)
     print("  ARGUMENT      : frame nesting (reversible); contact counts;")
     print("                  member-existence-from-frames.")

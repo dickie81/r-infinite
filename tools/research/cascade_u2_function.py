@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-U2 AS A FUNCTION (v1, corrected per hostile review rounds 8-11): the
+U2 AS A FUNCTION (v1, corrected per hostile review rounds 8-14): the
 address table computed from identity facts -- with its failures
 recorded, not hidden.
 
@@ -250,7 +250,9 @@ CASES = [
  # formulas) are disclosed as adjacent standing evidence, and A14
  # records e-vs-N_c as a scheme question: if a promoted PMNS
  # closure's N_c is shown scheme-equivalent to the colour factor
- # e^(r/2), the rule dies.
+ # e^(r/2), the rule dies.  Decision procedure (round-14 n-H): the
+ # A14 pole/MS-bar scheme-shift computation, adjudicated by the
+ # standing hostile-review process.
  ("theta_C",   [(12, "gauge"), (13, "gauge")],  None,    13,      "overlap",     False),
  # theta_23: content = p-summand range 13..20 (part4b:3921), spans
  # P_1,P_2 under the papers' periods -> k=4; SM-side pairing gen 2-3
@@ -259,7 +261,11 @@ CASES = [
 
 # the answer key: member fields from the papers' closure theorems;
 # availability from the T4 store (cascade_T4_uniqueness.py) where it
-# exists.  theta_23 / ell_A availability: no T4 store -> unchecked.
+# exists.  theta_23 / ell_A availability: formula-borne (0,0,0),
+# checked (rounds 13-14; the earlier 'unchecked' state is replaced;
+# note these rows are tautological within the variant space -- every
+# legs-clause variant returns (0,0,0) on empty/gauge legs, so they
+# kill nothing; the discriminating rows are the four record-ratios).
 EXPECT = {
  "alpha_s":   dict(avail=(0, 0, 0), member=("Descent", 14, 1, "+")),
  "tau/mu":    dict(avail=(1, 0, 0), member=("Descent", 14, 1, "+")),
@@ -291,7 +297,7 @@ EXPECT = {
 
 def main():
     print("=" * 74)
-    print("U2 AS A FUNCTION (v1, rounds 8-11 corrected): computed vs stored")
+    print("U2 AS A FUNCTION (v1, rounds 8-14 corrected): computed vs stored")
     print("=" * 74)
     npass = nfail = 0
     for name, legs, novel, full, kind, dim in CASES:
