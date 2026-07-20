@@ -16,8 +16,10 @@ circuits (dashes) after the first true flag, so the dashes must be
 filled in.  Then run all 6 possible precedence orderings and record
 every assignment change, with its closure recomputed and sigma'd.
 
-FLAG EVALUATIONS (each justified from the canonical formula; the two
-reading-dependent cases are tested BOTH ways):
+FLAG EVALUATIONS (each justified from the canonical formula; every
+reading-dependent case is tested both ways -- round 10: there are
+now FOUR variant readings, m_tau abs G, ell_A G, ell_A L (the kind
+ambiguity), and sin2thW G):
   alpha_s     (F,F,T)  window Phi(5,12) meets gauge window
   m_tau/m_mu  (F,F,T)  window Phi(6,13) meets gauge window
   m_tau abs   (T,F,F)  P: dimensional/Planck (papers).  G: ROUND-9
@@ -82,7 +84,13 @@ OBS = [
     ("alpha_s",    dict(P=0, L=0, G=1), None),
     ("m_tau/m_mu", dict(P=0, L=0, G=1), None),
     ("m_tau abs",  dict(P=1, L=0, G=0), dict(P=1, L=0, G=1)),
+    # round-10 m-E: ell_A's SECOND reading-dependent axis added -- the
+    # disclosed kind ambiguity (mass-ratio vs local-ratio) is an
+    # L-flag variant (T,T,F), not a G variant; tested as variant here
+    # via a second OBS row (the scan handles each reading separately)
     ("ell_A",      dict(P=1, L=0, G=0), dict(P=1, L=0, G=1)),
+    ("ell_A (L-variant: kind local-ratio)",
+                   dict(P=1, L=0, G=0), dict(P=1, L=1, G=0)),
     ("sin2thW",    dict(P=0, L=1, G=0), dict(P=0, L=1, G=1)),
     ("Omega_m",    dict(P=0, L=1, G=0), None),
     ("theta_C",    dict(P=0, L=0, G=0), None),
@@ -105,7 +113,7 @@ def sigma_consequences(name, dstar):
         k = {5: 8, 14: 2, 19: 2, 7: 4}[dstar]
         pred = lead * math.exp(alpha(dstar) / k)
         return pred, (pred - 0.23122) / 0.00004, "vs 0.23122(4)"
-    if name == "ell_A":
+    if name.startswith("ell_A"):
         lead = 301.44 / math.exp(alpha(19) / 2)
         pred = lead * math.exp(alpha(dstar) / 2)
         return pred, (pred - 301.6) / 0.09, "vs 301.6(9)"
@@ -159,8 +167,9 @@ def main():
     print("  is VACUOUS on primary readings and the order never fires.")
     print("  Under the tested VARIANT readings (constituent expansion for")
     print("  m_tau abs; window content for ell_A; coupling-running for")
-    print("  sin2thW) the order fires and every assignment-changing")
-    print("  ordering is excluded at 13-65 sigma.  So the anchoring is")
+    print("  sin2thW; ell_A kind, round 10) the order fires and every")
+    print("  assignment-changing ordering is excluded at 13-109 sigma.")
+    print("  So the anchoring is")
     print("  CONDITIONAL: 'data-anchored' holds only if the variant")
     print("  grading is adopted; on the uniform grading the residue item")
     print("  is deletable as vacuous.  A52's original 'NOT VACUOUS'")

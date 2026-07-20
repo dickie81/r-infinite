@@ -50,6 +50,14 @@ ROUND-9 CORRECTIONS (see Addendum 57):
     separate the canonical G reading from "points count too" in the
     corrected survivor set; the round-8 completeness claim was for
     the old 72-survivor space only.
+
+ROUND-10 CORRECTION (Major 1): P1-P6 was STILL incomplete for the
+36-survivor set -- the R7 pairs {PGL,GPL} and {LPG,LGP} were
+indistinguishable on all six probes (none carried P&G).  P7 added;
+with it every pair of member survivors is either separated by a
+probe or extensionally identical on reachable inputs (the R5
+canonical-vs-lo<12 and R10 pairs fork on P2/P5/P6).  Completeness
+claims refer to P1-P7 on the current survivors, this run.
   - Kill-strength honesty (m5): the DISTINCTIVE content of the sign
     slot (the +/- structure beyond the label) and of the doubling
     (2x) in the channel rule are pinned only at RECORD strength
@@ -275,21 +283,29 @@ def classify_kill(fail):
 PROBES = [
  ("P1 third-gap ratio (legs 5&21, dg=16)",
   [(5, "lepton"), (21, "lepton")], (6, 21), (6, 21), "mass-ratio", False),
- ("P2 pure second-period window coupling (13,20)",
+ # (round-10 m-B: label corrected -- under the papers' periods
+ # (13,20) spans P1 and P2, it is not "pure second-period")
+ ("P2 window coupling (13,20), spans P1+P2",
   [(13, "gauge")], (13, 20), (13, 20), "coupling", False),
  ("P3 observer-local ratio WITH window content (L&G both true)",
   [(13, "gauge"), (14, "gauge")], (5, 14), (5, 14), "local-ratio", False),
  ("P4 dimensionful observer-local (P&L both true)",
   [], None, None, "local-ratio", True),
- ("P5 flag-free non-ratio Descent (coupling, no window)",
+ ("P5 flag-free non-ratio Descent (coupling, no window; full spans P2+P3)",
   [(21, "gauge")], None, (21, 28), "coupling", False),
  # round-9 M2: the corrected survivor set contains "points count too",
  # which the original five probes provably could not separate from the
- # canonical G reading (no probe carried point content).  P6 fixes the
- # enumeration; the round-8 "verified complete" claim was for the OLD
- # 72-survivor set and is struck for the corrected one.
+ # canonical G reading (no probe carried point content).  P6 fixes that.
  ("P6 point normalisation IN the gauge band (novel = point 13)",
   [(13, "gauge")], 13, 13, "coupling", False),
+ # round-10 Major 1: P1-P6 still did not separate the R7 pairs
+ # {PGL,GPL} and {LPG,LGP} -- no probe carried P AND G together
+ # (P3 is L&G, P4 is P&L), yet a P&G row is reachable (the papers'
+ # own worked candidate m_W-absolute is dimensionful with gauge-
+ # window content).  P7 closes the enumeration: with P3+P4+P7 all
+ # six orderings have distinct probe signatures.
+ ("P7 dimensionful WITH gauge-window content (P&G both true)",
+  [], (5, 12), (5, 12), "coupling", True),
 ]
 
 
@@ -379,7 +395,7 @@ def main():
 
     print()
     print("=" * 74)
-    print("VERDICT (round-9 corrected state)")
+    print("VERDICT (round-10 corrected state)")
     print("=" * 74)
     pinned = [s for s in slot_survivors if len(slot_survivors[s]) == 1]
     print(f"  member-field survivors: {len(member_surv)}; per-slot"

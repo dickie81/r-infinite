@@ -26,13 +26,17 @@ weight window exponentials only" (Addendum 13).  Consequences:
   - b/s        novel=None (window (6,13) arrives inside closed
                sub-lead L(tau/mu))
   - m_tau abs  novel=None (its Phi(5,12) content arrives inside the
-               closed sub-leads alpha_s and v).  NOTE: A52's flag
-               triple (T,F,T) for m_tau-abs reads the PAPERS' full-
-               formula flag table -- a different criterion.  A prior
-               edit here conflated the two and set novel=(5,12);
-               round 8 reverted it.  A52's vacuity finding stands as
-               a statement about the papers' table, not about this
-               grading.
+               closed sub-leads alpha_s and v).  NOTE (round-10
+               Major-4 fix): a round-8 remark here claimed "A52's
+               vacuity finding stands as a statement about the
+               papers' table."  It does NOT stand -- round 9 (M3)
+               showed A52's (T,F,T) dash-fill for m_tau-abs expanded
+               closed constituents against the papers' expression-
+               tree predicate; corrected A52 grades m_tau-abs
+               primary (T,F,F), the precedence is vacuous on uniform
+               readings, and the anchoring is variant-conditional
+               (see the R7 clause below, which already said so --
+               this note lagged it).
   - theta_C    novel=None (its exp(-p(13)/2) is HALF-weight, exactly
                like theta_23's exempted exponential; the prior
                novel=13 encoding was inconsistent with A13 and

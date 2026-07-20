@@ -148,7 +148,7 @@ first-power (features simple, Thm 7). *Demoted (D2):* the one-source-class exclu
 cross-summand regroupings), its double-counting step has no computation that could fail, and
 multi-class cases are adjudicated by the P > L > G *convention* already in the residue.
 
-*Remark (occupancy precedence — data-anchored, not derived; status per review Finding 2 and the vacuity check).*
+*Remark (occupancy precedence — vacuous on uniform readings, anchoring variant-conditional; status per review Finding 2, the vacuity check, and round 9's M3 correction).*
 When an observable could occupy more than one summand, the tie-break P > L > G remains a
 **motivated convention**: the pole ≻ saddle ≻ arc picture (P = the pole factor, L = values
 read at the features/saddles, G = window arcs) is an organizing analogy, but no argument
@@ -293,9 +293,13 @@ multi-flag under the consistent grading; round 9 (M3) further showed the precede
 vacuous on the papers' uniform expression-tree reading too — its 13–65σ anchoring is
 conditional on A52's variant gradings), and the Family-B kind restriction has two.
 36 member-survivor combinations, no compensating combos; all survivor freedom is off-domain
-and enumerated by the probe forks **after round 9 added probe P6** (the original five probes
-provably could not separate the canonical G reading from the point-counting survivor — the
-round-8 "verified complete" claim held only for the old 72-survivor space and was struck).
+and enumerated by the probe forks **after round 9 added P6 and round 10 added P7** (round 9
+found the original five probes could not separate the canonical G reading from the
+point-counting survivor; round 10 found P1–P6 *still* left the precedence pairs {PGL,GPL}
+and {LPG,LGP} unseparated — no probe carried P∧G, a reachable class since the papers' own
+worked candidate m_W-absolute is dimensionful with gauge-window content — and with P7 all
+six orderings have distinct probe signatures; each round's completeness claim was
+retrospectively false and each was corrected on the record).
 Uniqueness is relative to a space that also holds the **source map {19, 5, 14, 7} and the
 population-class names fixed** — a withheld axis, disclosed. The Observer k = 3, the
 content grading, and the ℓ_A kind remain inputs.

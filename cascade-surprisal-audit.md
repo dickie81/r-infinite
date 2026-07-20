@@ -2407,7 +2407,10 @@ among coincident 2s (F12). Check-8 status clean (F13, negative result).
 
 **Reviewer's checked-and-held (adopted):** commit integrity clean (no recurrence of the
 round-6 false-record defect); every script reproduces its printed numbers; probe-fork
-completeness verified by an independent 8,640-row sweep; the eight uncontested rows match
+completeness ~~verified by an independent 8,640-row sweep~~ **[struck round 10: the sweep
+covered the old survivor set; completeness failed again at rounds 9 and 10 (P6, then P7);
+round 9 falsely recorded this line as already struck — owned in Addendum 58]**; the eight
+uncontested rows match
 part4b's closure entries; the A52 sourcing of the v1 sharpening was genuine (its defect was
 the grading, not the sourcing).
 
@@ -2448,9 +2451,12 @@ was false for the corrected one.** The round-8 completeness sweep ran over the o
 72-survivor space; the corrected 36-survivor set contains "points count too", which the five
 registered probes provably could not separate from the canonical G reading (no probe carried
 point content). **Fixed:** probe P6 (point normalisation in the gauge band) added and run —
-it splits the R5 survivors three ways; the "verified complete" language in the round-8
-records is struck (marked at source) and completeness now refers to the P1–P6 set on the
-current survivors.
+it splits the R5 survivors three ways; ~~the "verified complete" language in the round-8
+records is struck (marked at source)~~ **[FALSE RECORD, caught by round 10 (Major 2): the
+A56 and response-doc lines were NOT struck in the round-9 commit — the strikes were
+executed in round 10, and this sentence is preserved as the record of the failure]** and
+completeness ~~now refers to the P1–P6 set~~ **[round 10, Major 1: P1–P6 was still
+incomplete — P7 added; see Addendum 58]**.
 
 **M3 — the precedence anchoring, after round 8, rested solely on A52 — and A52's dash-fill
 carried the same inconsistent-grading defect (F4) corrected everywhere else.** The papers'
@@ -2492,6 +2498,74 @@ still open, the G-flag/precedence/Family-B freedom enumerated by six probes, and
 precedence residue item now honestly *conditional* rather than data-anchored. The remaining
 question for a tenth pass is whether any further bent input survives; the M1 fix removed
 the last one this round's reviewer could find.
+
+## Addendum 58: hostile review round 10 — NOT CONVERGED (2 majors + 2 borderline); all accepted
+
+**The second convergence test. Verdict: NOT CONVERGED — but the defect stream has moved
+entirely out of the answer key and into the verification apparatus and record-keeping.**
+Full disposition: `riemann-indistinguishability-review-response.md` Round 10.
+
+**Major 1 — the probe-completeness claim failed a second time.** P1–P6 left the precedence
+pairs {PGL,GPL} and {LPG,LGP} indistinguishable (12 of 24 signature classes were such
+pairs): no probe carried P∧G — P3 is L∧G, P4 is P∧L — although the P∧G class is reachable
+(the papers' own worked candidate m_W-absolute is dimensionful with gauge-window content).
+The reviewer proved separability with a 57,600-row sweep. **Fixed: P7 (dimensionful with
+gauge-window content) added and run — with P3+P4+P7 all six orderings have distinct probe
+signatures, and every surviving pair is now probe-separated or extensionally identical on
+reachable inputs.** Round 9's re-asserted completeness was retrospectively false, exactly
+as round 8's was; both corrections are on the record.
+
+**Major 2 — a false record, the round-6 class, recurred.** A57/M2 stated the round-8
+"verified complete" language "is struck (marked at source)." The round-9 commit touched
+neither named surface — the A56 checked-and-held line and the response-doc Round-8
+paragraph both still carried the claim unmarked. The strikes are now executed (round 10),
+and the false A57 sentence is itself struck-and-annotated rather than silently rewritten.
+This is the second false execution record in the series (after round 6); the verified-record
+rule (sweep records only from post-edit grep) was violated by describing edits in A57's
+prose that were made only in the paper and script. Rule tightened: a "struck at source"
+claim must name the file and be grep-verified in the same session before the record is
+committed.
+
+**Major 3 (borderline) — a stale T4 line in the formulation** still claimed the precedence
+was "anchored … at the papers' full-formula flag criterion, A52" — the round-8 position
+that round 9's M3 demolished — while row 5b of the same file said the opposite. Fixed;
+the T4 block now carries the round-9/10 status and the addenda range 53–58.
+
+**Major 4 (borderline) — a stale v1 docstring note** still asserted "A52's vacuity finding
+stands," contradicting the same docstring's R7 clause. Fixed with an explicit lag-ownership
+note.
+
+**Minors accepted:** m-A — the response doc's Round-8 rows now carry inline supersession
+markers (full=(12,20) → (13,20); the A52-anchoring line); m-B — probe labels P2/P5
+corrected for the papers' period convention ("pure second-period" was false; P5's full
+spans P2+P3); m-C — first_principles' fork-grounds text extended to P6/P7 (the round-9
+commit message's "all four scripts corrected" was inaccurate for that file — behavior
+changed only via imports); m-D — the vacuity docstring's variant count corrected; m-E —
+the ℓ_A kind ambiguity added to the vacuity scan as an L-variant (L-first orderings under
+it are excluded at +109σ computed, so the conditional-anchoring verdict is robust across
+all four variant readings); m-F — the paper's occupancy-precedence remark *header* aligned with its
+corrected body, and the formulation's addenda ranges updated.
+
+**The reviewer's answer to "is the bent-input class exhausted?", adopted:** on the answer
+key and CASES, **yes** — every content field now equals the papers' literal p-summand
+support (α_s's (5,12) verified as the papers' own summand set per part4b:2443, not a third
+convention; perturbation tests show no hidden sensitivity); the remaining discretionary
+inputs are the disclosed ones. At the derived-artifact level the class had migrated into
+the probe apparatus (Major 1) and stale labels (m-B) — both now corrected.
+
+**Checked-and-held (adopted):** all round-9 code fixes in git and reproducing; the M3
+correction verified sound row-by-row against the papers (α_s's exponential is top-level ✓,
+b/s's precedent forces non-expanding G ✓, every dash consistent ✓); all document numbers
+match script outputs; σ arithmetic recomputed correct; Check-7/8 clean; repo top-level
+docs clean.
+
+**Net state after round 10:** the computed-table claim stands at its corrected strength
+(member fields 11/11, uniform encoding, availability open); survivor freedom is enumerated
+by P1–P7 with all six orderings signature-distinct; the precedence item is
+variant-conditional at both layers with all four variant readings' firings data-excluded
+(13–109σ); and the record-keeping failure mode has now been caught twice and carries a
+tightened rule. The remaining open surfaces for an eleventh pass are record hygiene and
+the standing open defects (θ_C availability; the soft inputs), not the mathematics.
 
 ## Caveats
 

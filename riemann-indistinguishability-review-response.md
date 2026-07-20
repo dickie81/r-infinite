@@ -206,10 +206,10 @@ by direct source reads (Checks 1–5) and accepted.** Trajectory including this 
 
 | Finding | Disposition | Sweep |
 |---|---|---|
-| F1 — the stored θ_23 answer key was wrong (k=2 vs the papers' k=4, `thm:theta23-closure` "exp(−α(7)/χ⁴)", `rem:theta23-channel-count` "path d=12..20 … k=4"), with legs and full-content bent to match; θ_23/ℓ_A are not T4 exhaustion stages | **Accepted.** Verified at part4b directly. Key corrected (k=4; legs (5,13); full=(12,20)); "exhaustion family" language corrected to "9 T4 stages + θ_23 + ℓ_A"; every "11/11" claim requalified | v1 + both companion scripts + all three documents |
+| F1 — the stored θ_23 answer key was wrong (k=2 vs the papers' k=4, `thm:theta23-closure` "exp(−α(7)/χ⁴)", `rem:theta23-channel-count` "path d=12..20 … k=4"), with legs and full-content bent to match; θ_23/ℓ_A are not T4 exhaustion stages | **Accepted.** Verified at part4b directly. Key corrected (k=4; legs (5,13); ~~full=(12,20)~~ **[round 9 M1: (12,20) was itself bent — final value (13,20) under the papers' period convention]**); "exhaustion family" language corrected to "9 T4 stages + θ_23 + ℓ_A"; every "11/11" claim requalified | v1 + both companion scripts + all three documents |
 | F2 — the "half-open support (a,b] theorem" was invented in commit 980d6b8: the μ/e summand set includes p(14) (part4b:83); part4b:503 exempts μ/e by boundary *stipulation*; `cascade_increment_rule.py` uses the opposite span convention | **Accepted; Theorem 13c's clause (iii) retracted.** The G clause is recorded as the papers' strict-boundary stipulation (Conditional per 4108(a)); the P2 "adjudication" withdrawn | 13c rewritten as withdrawal-in-place; scripts corrected |
 | F3 — "every kill is a data-kill" false: θ_C kill of the point-counting variant = 0.19σ; R8 class-swap kill numerically identical (0σ); several others sub-2σ | **Accepted.** σ-classification (LABEL/RECORD/DATA) implemented in the exhaustion; honest per-kill table now printed (real data-kills survive: 187σ/67σ/66σ/42σ on P, channel, L slots) | uniqueness script rewritten; 13b corrected |
-| F4 — the A13 grading applied in mutually contradictory ways (b/s None vs m_τ-abs (5,12) both inside closed sub-leads; θ_C half-weight counted while θ_23 half-weight exempted) | **Accepted.** Grading made consistent (θ_C, m_τ-abs → None); consequences taken: the θ_C kill and the "data-forced sharpening" narrative were artifacts (withdrawn); precedence is unpinned within U2's grading (all six orders survive; anchoring = A52's papers-criterion layer only) | CASES corrected; 13/13b/13c + row 5b rewritten |
+| F4 — the A13 grading applied in mutually contradictory ways (b/s None vs m_τ-abs (5,12) both inside closed sub-leads; θ_C half-weight counted while θ_23 half-weight exempted) | **Accepted.** Grading made consistent (θ_C, m_τ-abs → None); consequences taken: the θ_C kill and the "data-forced sharpening" narrative were artifacts (withdrawn); precedence is unpinned within U2's grading (all six orders survive; ~~anchoring = A52's papers-criterion layer only~~ **[round 9 M3: A52's own dash-fill carried the F4 defect; anchoring is variant-conditional, vacuous on uniform readings]**) | CASES corrected; 13/13b/13c + row 5b rewritten |
 | F5 — "all seven stored fields on every row" false: avail stored for only 4 rows; T4 stores θ_C avail (0,0,0) vs computed (1,2,0), hidden by key omission | **Accepted.** T4-stored avail added to the key; the θ_C row now FAILS visibly (10/11); avail block has zero exhaustion survivors — recorded as an open defect, not patched | v1 + uniqueness + documents |
 | F6 — fabricated theorem attributions: "T6 marked set {5,13,21}" (T6 forces subcritical {5,13}, size 2); "T9/Theorem 9 one-record-one-frame" (nonexistent phrase; wrong theorem numbers) | **Accepted.** All attributions retracted in place; Observer k=3 reverted to soft input (instantiation count); nesting re-labeled freestanding reversible argument | 13c + scripts + row 6 |
 | F7 — "no precedence order, no null clause, no k-table in the code" literally false (ordered if/elif, else-None, inline constants) | **Accepted.** Language corrected everywhere: the reconstruction *annotates* stipulations with proposed reasons; it removes nothing | 13c + first-principles script |
@@ -223,7 +223,10 @@ by direct source reads (Checks 1–5) and accepted.** Trajectory including this 
 **What survives the round:** the corrected machinery itself — member fields computed by one
 shared rule-set (11/11 against the corrected key, θ_23 now passing for the papers' reason);
 four member slots genuinely multi-σ pinned (187σ/66σ/4σ/67σ); the probe-fork enumeration
-(verified complete by the reviewer's own 8,640-row sweep); and the reviewer's checked-and-held
+(~~verified complete by the reviewer's own 8,640-row sweep~~ **[struck in round 10: that
+sweep covered the old 72-survivor set; completeness failed again for the corrected set at
+rounds 9 AND 10 — P6 then P7 were required. Round 9's claim that this line had been "struck
+at source" was itself a false record, owned in Round 10 below]**); and the reviewer's checked-and-held
 list (commit integrity clean — no recurrence of the round-6 false-record defect; scripts
 reproduce every printed number; the eight uncontested rows match part4b's closure entries).
 
@@ -258,3 +261,29 @@ abstract/§6 consistent; Check-7/8 clean; eight uncontested rows re-derived agai
 "three headline claims false" (round 8) to "one bent field, one carried-over verification
 claim, one unaudited dependency" — all three now fixed with the fixes verified by rerun.
 The tenth pass tests whether the M1-class (bent inputs) is exhausted.
+
+# Round 10: second convergence test — NOT CONVERGED (2 majors + 2 borderline), all accepted
+
+Trajectory: 4 → 1 → 0 → 1 → 0 → 0 → 0 → 7 → 3 → **2(+2)**. The defect stream has left the
+answer key (the reviewer's verdict: bent-input class exhausted there, verified by row-by-row
+p-summand checks and perturbation tests) and moved into the verification apparatus and
+record-keeping.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| Major 1 — P1–P6 completeness false for the current 36 survivors: {PGL,GPL} and {LPG,LGP} indistinguishable on every probe (none carried P∧G, a reachable class — the papers' worked m_W-absolute candidate); separability proven by the reviewer's 57,600-row sweep | **Accepted.** P7 (P∧G row) added and run — all six orderings now have distinct probe signatures; completeness re-stated for P1–P7, this run | uniqueness + 13b + T4 line + A58 |
+| Major 2 — false record (round-6 class, second occurrence): A57 claimed the round-8 "verified complete" lines were "struck (marked at source)"; git proves neither the A56 line nor this doc's Round-8 paragraph was touched | **Accepted; owned.** Strikes executed now with annotations; the false A57 sentence itself struck-and-annotated, not rewritten; rule tightened — "struck at source" claims must name the file and be grep-verified pre-commit | this doc + A56 + A57 + A58 |
+| Major 3 (borderline) — formulation T4 line still carried the demolished round-8 anchoring claim, contradicting row 5b of the same file | **Accepted.** T4 line rewritten to round-9/10 status; addenda ranges 53–58 | formulation |
+| Major 4 (borderline) — v1 docstring note "A52's vacuity finding stands" contradicted its own R7 clause | **Accepted.** Note rewritten with lag ownership | v1 |
+| m-A/m-B/m-C/m-D/m-E/m-F — unmarked superseded rows in this doc; stale probe labels ("pure second-period"); first_principles fork-grounds lagging P6; vacuity variant count; the untested ℓ_A L-variant (now tested: ≈+112σ excluded); header/body contradiction in the paper's precedence remark + addenda ranges | **All accepted.** Swept as named | this doc + scripts + paper + formulation |
+
+**Checked-and-held adopted:** round-9 fixes all in git; M3's papers-reading verified sound
+row-by-row (α_s top-level exponential; b/s precedent forces non-expanding G; all dashes
+consistent); α_s (5,12) is the papers' literal summand set (part4b:2443) — not a bent field;
+number fidelity across all surfaces; σ arithmetic correct; Check-7/8 clean.
+
+**Convergence assessment:** not converged at pass 10. But the character of the findings
+changed: zero mathematical defects, zero answer-key defects, zero bent inputs — the majors
+are a verification-apparatus gap (fixed with P7, now with a proven-distinct signature set)
+and record hygiene (fixed, with the rule tightened after its second failure). Pass 11
+tests whether the record-hygiene class is exhausted.
