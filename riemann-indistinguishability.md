@@ -115,8 +115,12 @@ sign rule's Geometric clause ("all 28 two-coset shares < 1/π") holds under the 
 pairing (2/Γ_ℝ(d), max 0.31322) but **fails under the Definition-2.1-consistent pairing**
 (2/Γ_ℝ(d+1): max 0.35001 ≥ 1/π; independently verified). The Geometric minus sign backing
 Ω_m is convention-conditional, not proved — the same d↔s pairing disease as the demoted
-volume pinning. Residue item seven is widened to every d↔s layer/weight pairing choice; a
-systematic d/s audit is the open process target. Theorem 9's other two clauses stand.
+volume pinning. Residue item seven is widened to every d↔s layer/weight pairing choice. **The systematic
+d/s audit is complete** (`cascade_ds_audit.py`): nine sites — one definitional, four stable
+(including Thm 10's set/exponents under all three pairings and the Gram-deficit indices
+under every shift), two data-anchored conventions (the window-potential pairing, selected by
+data at −38% margin; the unit), and the two known conditional sites, both demoted. No new
+conditional site. Theorem 9's other two clauses stand.
 
 *Remark (feature-list completeness: OPEN; review Finding 6 REOPENED by the second review;
 `cascade_feature_monoid.py`).* A first attempt to derive the feature list's completeness

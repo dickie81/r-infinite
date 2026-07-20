@@ -2061,6 +2061,30 @@ moved: T1, T3, the attach-once/first-power core, Theorem 10, Theorem 11's mathem
 identities, the closure table, and the frozen ledger — whose judges remain scheduled
 regardless of how many more passes the claims layer needs.
 
+## Addendum 48: the systematic d↔s pairing audit — the defect class enumerated and closed
+
+**Tool:** `tools/research/cascade_ds_audit.py`
+**Stopping-rule compliance:** category (a) — pass-4's open process target.
+
+Every site where a layer index d meets an s-space object is enumerated (9 sites) and tested
+under alternative pairings: **A** T1 identities (definitional); **B** threshold membership +
+exponents — {5,13}/(0,1,2) under all three pairings (stable); **C** the coset-weight pairing
+(conditional — the review-4 demotion, reproduced: 0.31322 vs 0.35001); **D** the
+feature→layer map (conditional — the review-2 demotion); **E** the window-potential pairing
+p(d) := P(d+1) — **newly classified as ANCHORED**: under the alternative p(d) = P(d) the τ/μ
+closure lands at 10.46 vs observed 16.8170 (−38%), so data selects the canonical pairing —
+the same epistemic type as the unit normalization, now explicitly counted under widened
+residue item seven; **F** the marked-coset grading (stable — pure relabel); **G** the Weil
+clock order (stable); **H** the Gram-deficit indices — max C² < 1 under shifts −1/0/+1 across
+the tower, log-convexity is shift-invariant (stable); **I** the unit normalization (anchored,
+already item five).
+
+**Result: no new conditional site.** The one live defect class pass 4 identified is now
+enumerated and closed: every pairing-dependent claim either survives all pairings (B, F, G,
+H), is a definitional identity (A), is a data-anchored convention on the record (E, I), or
+was already demoted (C, D). The residue count stays at seven with items five and seven
+carrying the anchored conventions explicitly.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
