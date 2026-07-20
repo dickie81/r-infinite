@@ -22,7 +22,7 @@ framework's non-arithmetic residue is seven items** (count corrected per two ext
 reviews): **Lovelock's theorem (selection, not construction); the definition D1; the closed
 atom grammar (A2); the unit-normalization convention that carries Γ(½) (empirically
 anchored, not arithmetically forced — and the flip-count 4 is meaningful only jointly with
-it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–65σ exclusion of alternative orderings holds only under constituent-expansion variant readings, so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
+it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–109σ exclusions of alternative orderings hold only under the variant readings — constituent expansion, window content, and the ℓ_A kind — so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
 (no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
 Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
@@ -159,7 +159,7 @@ dash-fill (T, F, T); **round 9 corrected this**: that fill expanded the closed c
 α_s and v, violating the papers' own expression-tree predicate (`rem:sp36-syntactic` — the
 same convention that keeps b/s at G = F with its closed sub-lead L(τ/μ)). On the uniform
 mechanical reading no observable is multi-flag and the precedence is **vacuous on primary
-readings**; the 13–65σ exclusions hold under the constituent-expansion variant readings
+readings**; the 13–109σ exclusions (round 10 added the ℓ_A-kind variant at +109σ) hold under the variant readings
 only, making the anchoring **conditional**. The item stays counted in the residue with that
 corrected status (abstract).
 
@@ -290,16 +290,21 @@ RECORD 1.4σ, and round 9 (M1) replaced the bent period convention with the pape
 (d−1)//8, under which the pinning is over a uniform content encoding), while the **G-flag
 reading has three survivors**, the **precedence order has all six** (no realized row is
 multi-flag under the consistent grading; round 9 (M3) further showed the precedence is
-vacuous on the papers' uniform expression-tree reading too — its 13–65σ anchoring is
+vacuous on the papers' uniform expression-tree reading too — its 13–109σ anchoring is
 conditional on A52's variant gradings), and the Family-B kind restriction has two.
 36 member-survivor combinations, no compensating combos; all survivor freedom is off-domain
 and enumerated by the probe forks **after round 9 added P6 and round 10 added P7** (round 9
 found the original five probes could not separate the canonical G reading from the
 point-counting survivor; round 10 found P1–P6 *still* left the precedence pairs {PGL,GPL}
-and {LPG,LGP} unseparated — no probe carried P∧G, a reachable class since the papers' own
-worked candidate m_W-absolute is dimensionful with gauge-window content — and with P7 all
-six orderings have distinct probe signatures; each round's completeness claim was
-retrospectively false and each was corrected on the record).
+and {LPG,LGP} unseparated — no probe carried P∧G — and with P7 all six orderings have
+distinct probe signatures; each round's completeness claim was retrospectively false and
+each was corrected on the record). Round 11 corrected P7's *justification*: the round-10
+claim that the papers' m_W-absolute realizes the P∧G class was grading-inconsistent —
+under the arc's own uniform reading m_W-absolute is (T,F,F), its window content inside
+closed constituents exactly as m_τ-abs's — so P7 stands as a well-formed hypothetical
+corner (the nearest uniform-reading P∧G configuration, the VEV v with its top-level window
+exponential, is an anchor with no addressed member row), and the grading-inconsistency
+class is recorded at its third occurrence.
 Uniqueness is relative to a space that also holds the **source map {19, 5, 14, 7} and the
 population-class names fixed** — a withheld axis, disclosed. The Observer k = 3, the
 content grading, and the ℓ_A kind remain inputs.

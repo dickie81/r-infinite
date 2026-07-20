@@ -2494,8 +2494,9 @@ closure list.
 
 **Net state after round 9:** member fields 11/11 under a uniform, papers-faithful encoding —
 the strongest form the computed-table claim has yet held — with the availability defect
-still open, the G-flag/precedence/Family-B freedom enumerated by six probes, and the
-precedence residue item now honestly *conditional* rather than data-anchored. The remaining
+still open, the G-flag/precedence/Family-B freedom ~~enumerated by six probes~~ **[round 10
+Major 1: P1–P6 was incomplete; seven probes after P7 — marked here in round 11 (m1)]**, and
+the precedence residue item now honestly *conditional* rather than data-anchored. The remaining
 question for a tenth pass is whether any further bent input survives; the M1 fix removed
 the last one this round's reviewer could find.
 
@@ -2507,8 +2508,12 @@ Full disposition: `riemann-indistinguishability-review-response.md` Round 10.
 
 **Major 1 — the probe-completeness claim failed a second time.** P1–P6 left the precedence
 pairs {PGL,GPL} and {LPG,LGP} indistinguishable (12 of 24 signature classes were such
-pairs): no probe carried P∧G — P3 is L∧G, P4 is P∧L — although the P∧G class is reachable
-(the papers' own worked candidate m_W-absolute is dimensionful with gauge-window content).
+pairs): no probe carried P∧G — P3 is L∧G, P4 is P∧L — ~~although the P∧G class is reachable
+(the papers' own worked candidate m_W-absolute is dimensionful with gauge-window content)~~
+**[struck round 11 (F1): under the arc's own uniform grading m_W-absolute is (T,F,F) — its
+window content sits inside the closed constituents m_Z/v, the m_τ-abs configuration; the
+witness held only under the demoted constituent-expansion reading. Third occurrence of the
+grading-inconsistency class; see Addendum 59]**.
 The reviewer proved separability with a 57,600-row sweep. **Fixed: P7 (dimensionful with
 gauge-window content) added and run — with P3+P4+P7 all six orderings have distinct probe
 signatures, and every surviving pair is now probe-separated or extensionally identical on
@@ -2566,6 +2571,68 @@ variant-conditional at both layers with all four variant readings' firings data-
 (13–109σ); and the record-keeping failure mode has now been caught twice and carries a
 tightened rule. The remaining open surfaces for an eleventh pass are record hygiene and
 the standing open defects (θ_C availability; the soft inputs), not the mathematics.
+
+## Addendum 59: hostile review round 11 — NOT CONVERGED (2 majors + 2 borderline); all accepted
+
+**The third convergence test. Two structural positives, then the findings.** First: **no
+third false execution record** — every round-10 strike was grep-verified where A58 said it
+was; the tightened rule held. Second: the reviewer *independently re-implemented* the
+completeness check (own code, not trusting round 10's) and confirmed all 36 member
+survivors carry pairwise-distinct P1–P7 signatures with a 33,480-row sweep finding zero
+unseparated-yet-different pairs — the completeness failure mode (rounds 8, 9, 10) is
+**structurally closed** for this survivor set. Full disposition:
+`riemann-indistinguishability-review-response.md` Round 11.
+
+**F1 (major) — the grading-inconsistency class recurred a third time, now in the
+probe-justification layer.** Round 10 justified P7's reachability by citing the papers'
+m_W-absolute as "dimensionful with gauge-window content." Direct read (part4b:1728): the
+papers short-circuit m_W-absolute at P=T — its window content sits inside the closed
+constituents m_Z/v, *exactly* the m_τ-abs configuration that rounds 8–9 re-graded to
+novel=None. Under the arc's own uniform reading, m_W-absolute is (T,F,F) — not a P∧G row.
+The witness held only under the demoted constituent-expansion reading. **Fixed on all four
+surfaces** (struck-and-annotated on the record surfaces; corrected in place on the script
+and paper): P7 stands as a well-formed hypothetical corner; the nearest *uniform-reading*
+P∧G configuration is the VEV v itself (top-level window exponential e^(Φ(5,12)),
+dimensionful — part4b:83), but v is an anchor carrying no addressed member row, so the P∧G
+class has no realized addressed instance. The P7 *fix* survives (separation is proven
+regardless); its round-10 *rationale* did not.
+
+**F2 (major) — a wrong number written in the record-fidelity round itself.** The Round-10
+response table said the ℓ_A L-variant fires at "≈+112σ" — a from-memory estimate; the
+computed value is +109σ (printed by the script, recorded in A58 and the commit message).
+Corrected with a marker. **F3 (borderline) — the Round-9 M2 disposition cell still
+asserted "struck at source" unmarked** — the exact claim round 10 proved false; now
+struck-and-annotated, the cell preserved as the record of the failure. **F4 (borderline) —
+cross-surface σ-range desynchronization, partly authored by round 10:** seven surfaces
+(abstract, Theorem-8 remark, 13b, formulation T4 + 5b, both U2 script docstrings/prints)
+still said "13–65σ … constituent-expansion variants only" while the adopted four-variant
+state is 13–109σ — two current script outputs disagreed with each other. All seven
+reconciled to 13–109σ across the four variant readings.
+
+**Minors:** m1 — A57's net-state "enumerated by six probes" struck-and-annotated (seven
+after P7); m2 — the first_principles docstring's fork-grounds paragraph extended to P6/P7
+(print-only had been fixed); m3 — the round-9 kill-strength bullet relabeled after the
+round-10 insertion left it dangling under the wrong header; m4 — script headers updated to
+"rounds 8–11 corrected"; m5 — P7's kind field changed from "coupling" to "abs-mass" for
+semantic fidelity to the m_W-style row it models (computationally inert, forks unchanged —
+verified by rerun).
+
+**The reviewer's answer to "is the record-hygiene class exhausted?", adopted:** **No, but
+it has thinned and changed shape** — the strikes now execute faithfully and the
+mathematical/computational layer is airtight; what recurred is (i) one from-memory number,
+(ii) one missed restatement of an already-caught false record, (iii) a range
+desynchronization, and — most consequentially — (iv) **the grading-inconsistency class
+escaping into the justification layer** (F1). Pattern named for round 12: every appeal to
+"the papers' candidate X realizes class Y" must state which grading it is read under,
+uniform or variant, before it is written to any surface.
+
+**Net state after round 11:** mathematics and computation unchanged and airtight (member
+11/11; avail defect open and visible; 36 survivors, P1–P7 signature-complete, independently
+re-verified); the precedence item variant-conditional at 13–109σ with all surfaces
+synchronized; the record layer carries three new marked corrections and one named pattern
+rule. Open for a twelfth pass: whether the grading-inconsistency class has further
+instances in the justification layer, and the standing open defects (θ_C availability, the
+soft inputs).
 
 ## Caveats
 

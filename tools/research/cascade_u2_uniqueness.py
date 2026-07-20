@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-U2 RULE-SET UNIQUENESS EXHAUSTION (round-8 corrected).
+U2 RULE-SET UNIQUENESS EXHAUSTION (rounds 8-11 corrected).
 
 THE QUESTION: the v1 rule-set reproduces the stored member table, but
 was assembled knowing it.  Is it the only rule-set that does, within
@@ -23,8 +23,9 @@ F1-F5, F8; see Addendum 56):
     survive.  The precedence is unpinned by this exhaustion; round 9
     (M3) further showed A52's dash-fill was inconsistent with the
     papers' expression-tree predicate, so the precedence is vacuous
-    on uniform primary readings at BOTH layers, with the 13-65 sigma
-    anchoring conditional on constituent-expansion variants.
+    on uniform primary readings at BOTH layers, with the 13-109 sigma
+    anchoring conditional on the four variant readings (round 10
+    added the ell_A-kind L-variant at +109 sigma).
   - The variant count is 44 (not "24" as previously misstated).
   - KILL CLASSIFICATION (F3): "every kill is a data-kill" is
     withdrawn.  Each member-field kill is now sigma'd: the variant's
@@ -58,7 +59,8 @@ with it every pair of member survivors is either separated by a
 probe or extensionally identical on reachable inputs (the R5
 canonical-vs-lo<12 and R10 pairs fork on P2/P5/P6).  Completeness
 claims refer to P1-P7 on the current survivors, this run.
-  - Kill-strength honesty (m5): the DISTINCTIVE content of the sign
+  - Kill-strength honesty (round-9 m5; mislabeled under the round-10
+    header until round 11, m3): the DISTINCTIVE content of the sign
     slot (the +/- structure beyond the label) and of the doubling
     (2x) in the channel rule are pinned only at RECORD strength
     (1.0 sigma and 1.4 sigma respectively); the multi-sigma kills
@@ -300,18 +302,30 @@ PROBES = [
   [(13, "gauge")], 13, 13, "coupling", False),
  # round-10 Major 1: P1-P6 still did not separate the R7 pairs
  # {PGL,GPL} and {LPG,LGP} -- no probe carried P AND G together
- # (P3 is L&G, P4 is P&L), yet a P&G row is reachable (the papers'
- # own worked candidate m_W-absolute is dimensionful with gauge-
- # window content).  P7 closes the enumeration: with P3+P4+P7 all
- # six orderings have distinct probe signatures.
+ # (P3 is L&G, P4 is P&L).  P7 closes the enumeration: with
+ # P3+P4+P7 all six orderings have distinct probe signatures.
+ # ROUND-11 F1 CORRECTION: round 10 justified P7's reachability by
+ # citing the papers' m_W-absolute as "dimensionful with gauge-
+ # window content" -- but under the arc's own uniform grading
+ # m_W-absolute is (T,F,F): its window content sits inside the
+ # closed constituents m_Z/v (part4b:1728 short-circuits at P),
+ # exactly the m_tau-abs configuration.  The witness held only
+ # under the demoted constituent-expansion reading -- the grading-
+ # inconsistency class, third occurrence, owned in Addendum 59.
+ # Honest status: P7 is a well-formed hypothetical identity-fact
+ # corner; the nearest uniform-reading P&G configuration is the
+ # VEV v itself (its canonical formula carries e^(Phi(5,12))
+ # TOP-LEVEL and it is dimensionful, part4b:83), but v is an
+ # anchor with no addressed member row, so the P&G class has no
+ # realized addressed instance.
  ("P7 dimensionful WITH gauge-window content (P&G both true)",
-  [], (5, 12), (5, 12), "coupling", True),
+  [], (5, 12), (5, 12), "abs-mass", True),
 ]
 
 
 def main():
     print("=" * 74)
-    print("U2 RULE-SET UNIQUENESS EXHAUSTION (round-8 corrected)")
+    print("U2 RULE-SET UNIQUENESS EXHAUSTION (rounds 8-11 corrected)")
     print("=" * 74)
     print(f"  variant space: {N_VARIANTS} variants across 10 slots;"
           f" source map {{19,5,14,7}} and class names HELD FIXED")
@@ -413,7 +427,7 @@ def main():
     print("  (ii) the precedence order (all 6 survive: no realized row is")
     print("  multi-flag under the consistent A13 grading; round 9: also")
     print("  vacuous on the papers' uniform expression-tree reading --")
-    print("  anchoring only under A52's variant gradings, 13-65 sigma), and")
+    print("  anchoring only under A52's variant gradings, 13-109 sigma), and")
     print("  (iii) the Family-B kind restriction (2 survivors).")
     print("  KILL STRENGTHS: mixed -- see per-kill classes above (LABEL =")
     print("  record-label only; RECORD < 2 sigma; DATA >= 2 sigma).  The")

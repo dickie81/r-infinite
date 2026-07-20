@@ -72,11 +72,12 @@ Reported below, not patched.
 
 FORK POSITIONS (downgraded from "adjudication" to "proposal"): on
 the exhaustion's probe forks this reconstruction takes the canonical
-branch everywhere, but at argument strength only -- P3/P4 by the
-reversible nesting argument, P1 by the winding identification, P2 by
-the strict-boundary stipulation itself (not independent arithmetic),
-P5 by the no-frame argument.  A future row disagreeing would refute
-the PROPOSAL, not a theorem.
+branch everywhere, but at argument strength only -- P3/P4/P7 by the
+reversible nesting argument (P7, the P&G corner, added in round 10),
+P1 by the winding identification, P2 by the strict-boundary
+stipulation itself (not independent arithmetic), P5 by the no-frame
+argument, P6 by the point-vs-window reading (round 9).  A future row
+disagreeing would refute the PROPOSAL, not a theorem.
 """
 
 import os

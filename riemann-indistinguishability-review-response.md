@@ -246,7 +246,7 @@ false records). The rewrite itself contained three majors. Trajectory: 4 → 1 �
 | Finding | Disposition | Sweep |
 |---|---|---|
 | M1 — residual bent encoding (F1-class recurrence): the scripts' PERIODS was not the papers' convention ((d−1)//8, per `rem:theta23-channel-count` "using n=d−1" and the papers' own `cascade_channel_count_rule.py`); under it θ_C and θ_23 used opposite content conventions, each matching its stored k | **Accepted.** Verified by direct read + computation. Periods switched to (d−1)//8; θ_23 content → uniform p-summand range (13,20); both k values now follow from one rule | v1 + uniqueness + A56 inline marker + 13b |
-| M2 — "verified complete by the 8,640-row sweep" carried over from the old 72-survivor set; provably false for the corrected 36 (no probe separated canonical-G from "points count too") | **Accepted.** Probe P6 (point in the band) added and run — splits R5 three ways; "verified complete" struck at source | uniqueness + 13b + A56/A57 |
+| M2 — "verified complete by the 8,640-row sweep" carried over from the old 72-survivor set; provably false for the corrected 36 (no probe separated canonical-G from "points count too") | **Accepted.** Probe P6 (point in the band) added and run — splits R5 three ways; ~~"verified complete" struck at source~~ **[round 10 Major 2: this execution claim was FALSE — the strikes were not made in the round-9 commit; they were executed in round 10. Marked here in round 11 (F3); the cell is preserved as the record of the failure]** | uniqueness + 13b + A56/A57 |
 | M3 — precedence anchoring rested solely on A52, whose m_τ-abs dash-fill expanded closed constituents against the papers' expression-tree predicate (the convention keeping b/s at F) — the F4 defect class, unaudited | **Accepted.** A52 script corrected (primary (T,F,F), expansion as variant); corrected verdict: precedence **vacuous on uniform primary readings at both layers**; 13–65σ anchoring conditional on variant gradings; item deletable-as-vacuous on the uniform reading | A52 script + abstract + Thm-9 remark + row 5b + docstrings + A57 |
 | m4 — "true domain is the mass-lead rows only": new unproven generalization | **Accepted.** Softened to open question everywhere | v1 + Thm 13 tail |
 | m5 — selective σ-disclosure ("four slots pinned" headline omitting RECORD-strength distinctive content: sign +/− at 1.0σ, doubling at 1.4σ; R6's second kill 2.3σ; strict-top at the 2.0σ boundary) | **Accepted.** Full disclosure added to 13b and the uniqueness docstring | 13b + uniqueness |
@@ -271,11 +271,11 @@ record-keeping.
 
 | Finding | Disposition | Sweep |
 |---|---|---|
-| Major 1 — P1–P6 completeness false for the current 36 survivors: {PGL,GPL} and {LPG,LGP} indistinguishable on every probe (none carried P∧G, a reachable class — the papers' worked m_W-absolute candidate); separability proven by the reviewer's 57,600-row sweep | **Accepted.** P7 (P∧G row) added and run — all six orderings now have distinct probe signatures; completeness re-stated for P1–P7, this run | uniqueness + 13b + T4 line + A58 |
+| Major 1 — P1–P6 completeness false for the current 36 survivors: {PGL,GPL} and {LPG,LGP} indistinguishable on every probe (none carried P∧G, ~~a reachable class — the papers' worked m_W-absolute candidate~~ **[struck round 11 F1: grading-inconsistent witness — uniform reading gives m_W-abs (T,F,F); P7 stands as a hypothetical corner]**); separability proven by the reviewer's 57,600-row sweep | **Accepted.** P7 (P∧G row) added and run — all six orderings now have distinct probe signatures; completeness re-stated for P1–P7, this run | uniqueness + 13b + T4 line + A58 |
 | Major 2 — false record (round-6 class, second occurrence): A57 claimed the round-8 "verified complete" lines were "struck (marked at source)"; git proves neither the A56 line nor this doc's Round-8 paragraph was touched | **Accepted; owned.** Strikes executed now with annotations; the false A57 sentence itself struck-and-annotated, not rewritten; rule tightened — "struck at source" claims must name the file and be grep-verified pre-commit | this doc + A56 + A57 + A58 |
 | Major 3 (borderline) — formulation T4 line still carried the demolished round-8 anchoring claim, contradicting row 5b of the same file | **Accepted.** T4 line rewritten to round-9/10 status; addenda ranges 53–58 | formulation |
 | Major 4 (borderline) — v1 docstring note "A52's vacuity finding stands" contradicted its own R7 clause | **Accepted.** Note rewritten with lag ownership | v1 |
-| m-A/m-B/m-C/m-D/m-E/m-F — unmarked superseded rows in this doc; stale probe labels ("pure second-period"); first_principles fork-grounds lagging P6; vacuity variant count; the untested ℓ_A L-variant (now tested: ≈+112σ excluded); header/body contradiction in the paper's precedence remark + addenda ranges | **All accepted.** Swept as named | this doc + scripts + paper + formulation |
+| m-A/m-B/m-C/m-D/m-E/m-F — unmarked superseded rows in this doc; stale probe labels ("pure second-period"); first_principles fork-grounds lagging P6; vacuity variant count; the untested ℓ_A L-variant (now tested: ~~≈+112σ~~ **[round 11 F2: the computed value is +109σ; "112" was a from-memory estimate written in the record-fidelity round itself]** excluded); header/body contradiction in the paper's precedence remark + addenda ranges | **All accepted.** Swept as named | this doc + scripts + paper + formulation |
 
 **Checked-and-held adopted:** round-9 fixes all in git; M3's papers-reading verified sound
 row-by-row (α_s top-level exponential; b/s precedent forces non-expanding G; all dashes
@@ -287,3 +287,31 @@ changed: zero mathematical defects, zero answer-key defects, zero bent inputs �
 are a verification-apparatus gap (fixed with P7, now with a proven-distinct signature set)
 and record hygiene (fixed, with the rule tightened after its second failure). Pass 11
 tests whether the record-hygiene class is exhausted.
+
+# Round 11: third convergence test — NOT CONVERGED (2 majors + 2 borderline), all accepted
+
+Trajectory: 4 → 1 → 0 → 1 → 0 → 0 → 0 → 7 → 3 → 2(+2) → **2(+2)**. Structural positives
+first: no third false execution record (every round-10 strike grep-verified where recorded;
+the tightened rule held), and the completeness failure mode is structurally closed (the
+reviewer independently re-implemented the check: all 36 survivors pairwise-distinct on
+P1–P7; 33,480-row sweep, zero unseparated pairs; the six orderings' signatures verified
+pairwise distinct).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 — the P∧G reachability witness was grading-inconsistent (third occurrence of the F4/M3 class, now in the probe-justification layer): part4b:1728 short-circuits m_W-absolute at P=T with its window content inside closed constituents m_Z/v — the m_τ-abs configuration; (T,F,F) on the uniform reading | **Accepted.** Witness struck-and-annotated on record surfaces, corrected in place on script/paper; P7 restated as a well-formed hypothetical corner; nearest uniform-reading P∧G configuration identified (the VEV v, top-level window exponential, dimensionful — but an anchor with no addressed member row); pattern rule added: every "papers' candidate X realizes class Y" appeal must name its grading | uniqueness + 13b + A58 + this doc + A59 |
+| F2 — "≈+112σ" in the Round-10 minors row: from-memory number in the record-fidelity round; computed value +109σ (script, A58, commit message all agree) | **Accepted.** Corrected with marker | this doc |
+| F3 — the Round-9 M2 cell still asserted "struck at source" unmarked — the exact execution claim round 10 proved false | **Accepted.** Struck-and-annotated; cell preserved as the record of the failure | this doc |
+| F4 — seven surfaces desynchronized on the σ range (13–65σ vs the adopted four-variant 13–109σ), one written by round 10 itself; two script outputs disagreed with each other | **Accepted.** All seven reconciled to 13–109σ across the four variant readings | paper (abstract, Thm-8 remark, 13b) + formulation (T4, 5b) + both U2 scripts |
+| m1–m5 — A57 "six probes" unmarked; first_principles docstring fork-grounds lag; dangling round-attribution in the uniqueness docstring; stale "(round-8 corrected)" headers; P7's kind field semantically off ("coupling" → "abs-mass", verified inert) | **All accepted.** Swept as named | audit + scripts |
+
+**Checked-and-held adopted:** git integrity for all round-10 fixes; all four scripts
+reproduce every documented number; σ arithmetic (65.2/13.0/108.7/33.8) correct; probe
+labels correct under the papers' periods; answer key re-spot-checked against part4b
+(α_s summand set, θ_23 k=4); kill classifications rerun-stable; repo top-level docs clean;
+Check-7/8 clean.
+
+**Convergence assessment:** not converged at pass 11. The record-hygiene class thinned
+(strikes now execute faithfully) but produced one from-memory number and one missed
+marker; the grading-inconsistency class surfaced a third time, in the justification layer.
+Pass 12 tests the named pattern rule and whether either class has further instances.

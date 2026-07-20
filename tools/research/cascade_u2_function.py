@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-U2 AS A FUNCTION (v1, corrected per hostile review round 8): the
+U2 AS A FUNCTION (v1, corrected per hostile review rounds 8-11): the
 address table computed from identity facts -- with its failures
 recorded, not hidden.
 
@@ -78,7 +78,7 @@ strength only):
                     Under the uniform mechanical reading no row is
                     multi-flag at the papers' layer either: the
                     precedence is VACUOUS on primary readings, and
-                    the 13-65 sigma anchoring is CONDITIONAL on
+                    the 13-109 sigma anchoring is CONDITIONAL on
                     constituent-expansion variant readings (A52
                     corrected, Addendum 57).
   R8 population   = Geometric if density; Amplitude if overlap;
@@ -232,7 +232,7 @@ EXPECT = {
 
 def main():
     print("=" * 74)
-    print("U2 AS A FUNCTION (v1, round-8 corrected): computed vs stored")
+    print("U2 AS A FUNCTION (v1, rounds 8-11 corrected): computed vs stored")
     print("=" * 74)
     npass = nfail = 0
     for name, legs, novel, full, kind, dim in CASES:
