@@ -15,12 +15,12 @@ wrong and is now corrected.
 | F3 — Thm 13 filters against the stored answer key | **Accepted.** The exhaustion verifies single-valuedness + arithmetic correctness, not forcedness; availability is tabulated, not computed. | Thm 13 restated as *address-book determination*; the ~60-entry size of Definition 6.1 stated explicitly; "U2 as a function" registered as the open formal target. |
 | F4 — residue is six, not three | **Accepted.** Lovelock + D1 + C1 + closed grammar (A2) + unit convention + precedence. | Abstract corrected to the six-item count, attributed to the review. |
 | F5 — ℓ_A σ mislabel; precision language; m_ν3 input-dependence | **Accepted on all three.** Reproducing an already-flagged mislabel was a genuine process failure. | ℓ_A → **−1.8σ** (the largest strain, stated as such); two-metric discipline added to §8; m_ν3 NuFit −2.9σ tension added. |
-| F6 — the 6.2569 feature (sgn tower's critical point) | **Answered** (`cascade_feature_monoid.py`, both identities to ~4×10⁻¹⁶). The factor monoid ⟨s, s−1, Γ_ℝ(s), ζ⟩ generates only *even* shifts (s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) — how the volume feature is already inside). The odd shift requires Γ_ℝ(s)Γ_ℝ(s+1) = Γ_ℂ(s) (Legendre) — the L-factor of a **complex place, and ℚ has r₂ = 0**. So 6.2569 is a feature of odd Dirichlet L-functions, not ζ_ℚ; the observer-address pinning stands, with the feature list's completeness now argued from the arithmetic of ℚ rather than asserted. Caveat kept: "features come from ξ's factorization" is a scope definition. |
+| F6 — the 6.2569 feature (sgn tower's critical point) | **Answered** (`cascade_feature_monoid.py`, both identities to ~4×10⁻¹⁶). The factor monoid ⟨s, s−1, Γ_ℝ(s), ζ⟩ generates only *even* shifts (s·Γ_ℝ(s) = 2π·Γ_ℝ(s+2) — how the volume feature is already inside). The odd shift requires Γ_ℝ(s)Γ_ℝ(s+1) = Γ_ℂ(s) (Legendre) — the L-factor of a **complex place, and ℚ has r₂ = 0**. So 6.2569 is a feature of odd Dirichlet L-functions, not ζ_ℚ; ~~the observer-address pinning stands~~ **[SUPERSEDED by Round 2: this answer failed re-review — Finding 6 is REOPENED; see Round-2 RF1/RF2.]** |
 | F7 — colour-free uniqueness is conditional; JUNO tests window not form | **Accepted.** | Stated in Mechanism M itself: exclusion conditional on availability assignments; JUNO can execute the mechanism but cannot convict 3π² over its 0.1% twins — the form is decided by derivation or not at all. |
 | Minors 1–3 | **Fixed.** s5 docstring now matches its output (90°/projection 0 cases); kernel bound requoted ≤7×10⁻¹⁴; T4 script enumerates all ten forms (naive 40, matching the paper). |
 
-**Net effect on the paper's claim.** Theorem 14 survives with its conditional widened: the
-non-arithmetic residue is six items, the strongest single strain in §8 is ℓ_A at −1.8σ, and
+**Net effect on the paper's claim (Round-1 historical record — superseded where Round 2/3 say otherwise; residue is now seven).** Theorem 14 survives with its conditional widened: the
+non-arithmetic residue was then counted at six items, the strongest single strain in §8 is ℓ_A at −1.8σ, and
 the open formal target is U2-as-a-function (computing availability from address data alone —
 the theorem that would collapse the ~60-entry table toward the handful of high-level
 addresses). The falsification schedule is unchanged. The review strengthened the paper in
@@ -49,3 +49,29 @@ disposition the review never granted. Both are corrected above. Two hostile pass
 each caught the author-side process repeating the same failure mode (fit → dressed
 derivation → partial correction); the residue is seven items and the only claims left
 standing are the ones the reviewers could not break by running the code.
+
+---
+
+# Round 3: the convergence pass, and the complete sweep
+
+Verdict received: **mixed — converging on the mathematical core (zero new mathematical
+majors, severity strictly decreasing, no re-litigation), not yet converged on the claims
+layer** (each round's corrections had themselves been incomplete). All five recommended
+actions executed in this commit:
+
+| Pass-3 finding | Disposition |
+|---|---|
+| P3F1 — five surfaces still asserted retracted claims (d4 verdict "three ways"; activation "SELECTED (not fitted)" + uncaveated J1; four ℓ_A −0.16σ scripts; joints docstring line; this document's own un-edited Round-1 rows) | **Accepted; ALL swept this commit** — every named surface amended, including this document (Round-1 F6 row struck through and marked superseded; net-effect paragraph marked historical). |
+| P3F2 — scalar-flatness pinning is not arithmetic (no ζ-object in the identity; induced metric never scalar-flat; lapse-conventional) | **Accepted; demoted.** §6 now claims ONE convention-free distinction (the torsion half-period, with its observer-link labeled as a labeling) plus one conditional cross-check. |
+| P3F3 — Theorem 2 overclaimed vs Tate's gcd (needs "even"; rescaled-Gaussian family is zero-free; self-duality is a normalization choice) | **Accepted; restated** exactly as recommended. |
+| P3F4 — "~60 entries" is chain-scoped; the full §8 record rests on ~100 | **Accepted;** §6 restates both numbers and marks the exhaustion's scope. |
+| P3F5 — abstract's "sub-σ" clause vs its own −1.8σ/−2.9σ rows | **Accepted;** clause now reads "sub-σ to ~2σ" with the strains named. |
+| Cleared surfaces (T9/D1 accounting; T7 class-label freedom; J2; Thm 10; Thm 11; kernel; all round-1/2 fixes in amended files) | Recorded with thanks; no action. |
+
+**Convergence status after three passes:** stable core unchanged for two consecutive rounds
+(T1, T3, T5-core, T6, T7, T8, T9, Thm 10, the closure table, the ledger); claims layer now
+matches the reviews' accounting at every surface either reviewer has named; residue seven
+items; address book ~100 entries with a ~60-entry exhaustion-verified chain; observer
+distinctions: one. Whether the process is *converged* is decidable only by a further pass
+finding zero demotions and zero stale text — which is now a falsifiable statement about this
+repository, in keeping with the rest of it.

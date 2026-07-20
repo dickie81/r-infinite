@@ -2001,6 +2001,41 @@ those both reviewers could not break by running the code: T1–T3, T5's core, T7
 identities and LLN, the two surviving observer pinnings, the sub-σ closures, and the frozen
 ledger. Everything else is convention, instantiation, or hypothesis — seven items, counted.
 
+## Addendum 46: the third review — convergence assessed, the complete sweep executed
+
+**Documents:** the pass-3 report (disposition in `riemann-indistinguishability-review-response.md`
+Round 3).
+
+**The convergence verdict (pass 3): MIXED — converging on the mathematical core, not yet
+converged on the claims layer.** For the first time, a hostile pass found **zero new
+mathematical majors**: the stable core (T1 kernel, statistical dictionary, sgn-doubling,
+Weil-index order 8, simplicity-from-variance, attach-once, disc-−3 duality, quenched-record
+identities, the forced {5,13}/(0,1,2) counting, the closure table, the ledger) survived its
+third adversarial execution unchanged. Severity is strictly decreasing across passes
+(4 majors → 1 → 0 mathematical); each pass attacked genuinely new surface; applied
+corrections stuck wherever applied. What kept the verdict at "mixed": the propagation
+failure mode was still alive (five stale surfaces, including two scripts the paper cites at
+its corrected sentences, four ℓ_A mislabels in the tooling layer, and the response
+document's own un-edited rows), and two more forcing claims eroded on inspection — the
+scalar-flatness pinning (no arithmetic object in the identity; lapse-conventional; the
+observer now carries **one** convention-free distinction, whose observer-link is a labeling)
+and Theorem 2's "forced dynamics" (Tate's gcd fixes only the rescaled-Gaussian family;
+self-duality is a normalization choice — the same freedom as Mechanism M's unit). The
+address book's honest size is ~100 entries (~60 exhaustion-verified).
+
+**All five recommended actions executed in this commit** — including, for the first time, a
+sweep verified against the reviewer's explicit stale-surface list rather than my memory of
+it. The response document now states the falsifiable convergence criterion: the process is
+*converged* when a further pass finds zero demotions and zero stale text.
+
+**The trajectory, in one table:** residue 3 → 6 → 7 (stable); observer pinnings 3 → 2 → 1;
+address book ~60 → ~100; mathematical majors 4 → 1 → 0. Every quantity moved monotonically
+toward honesty and has now stopped moving except the last. The framework's strongest claim
+after three passes is unchanged and unbroken: the cascade lattice IS the log-geometry of
+ζ's real factor, and a zero-continuous-parameter grammar over it reproduces the precision
+record conditional on ~100 discrete addresses and seven conventions — with executioners
+scheduled. The weakest claims are now labeled as what they are, in every file.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

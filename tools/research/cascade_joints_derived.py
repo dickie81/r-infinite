@@ -9,9 +9,9 @@ P > L > G precedence, and the feature->layer selection convention.
 P1 (J1: the polar decomposition of the Fresnel integral).
    The generator of the Z/8 clock IS the carrier of the Gaussian
    unit:  int e^(i x^2) dx = sqrt(pi) e^(i pi/4) = Gamma(1/2) zeta_8.
-   Modulus = the critical value; argument = the Weil index.  J1
-   ('one Gamma(1/2) per turn-unit') is not an assumption -- phase
-   and magnitude are the polar coordinates of ONE arithmetic object.
+   Modulus = the critical value; argument = the Weil index.  [AMENDED
+   per reviews: the polar identity is true, but WHICH integral is the
+   unit-carrier (x^2 vs self-dual normalization) is a convention.]
    The count '4' is also derived: a marked (Dirac) crossing is the
    chirality flip -1 = the torsion unit, and the minimal word for
    -1 in <gamma> is gamma^4 ({k : gamma^k = -1} = {4}); four units
@@ -38,7 +38,8 @@ P3 (P > L > G: the dominance hierarchy of contour asymptotics).
    The precedence is the universal ranking pole > saddle > arc,
    verified numerically below at lambda = 10, 100, 1000: the
    ordering holds at every scale and the gaps widen.  The flags'
-   decision order is steepest-descent bookkeeping, not a choice.
+   decision order: an ANALOGY -- motivated, not derived (reviews 1-3);
+   counted in the residue.
 """
 
 import math

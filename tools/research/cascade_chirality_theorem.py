@@ -234,7 +234,7 @@ def report_verification():
         ("alpha_s(M_Z)",            1, 0, -1, "1/2 = 0.5",      "0.117917",        "+0.02 sigma"),
         ("m_tau / m_mu",            1, 0, -1, "1/2 = 0.5",      "16.81731",        "+0.24 sigma"),
         ("m_tau (absolute)",        1, 0, -1, "1/2 = 0.5",      "1776.82 MeV",     "-0.31 sigma"),
-        ("ell_A",                   1, 0, -1, "1/2 = 0.5",      "301.44",          "-0.16 sigma"),
+        ("ell_A",                   1, 0, -1, "1/2 = 0.5",      "301.44",          "-1.8 sigma (301.44 vs 301.6(9); earlier -0.16 was abs diff)"),
         ("(g-2) at 1-loop (a_e)",   1, 1,  0, "1",              "1.16e-3",         "Schwinger"),
         ("1/alpha_em (screening)",  0, 1, +1, "chi = 2",        "137.030",         "0.005% match"),
     ]

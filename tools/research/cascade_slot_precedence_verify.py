@@ -30,7 +30,7 @@ Tier 2 closures to test:
   - θ_C: Tier 2 at +0.03σ via α(7)/χ²
   - b/s: Tier 2 at 0.014% via α(7)/χ⁴
   - Ω_m: Tier 2 at -0.04σ via α(5)/χ³
-  - ℓ_A: Tier 2 at -0.16σ via α(19)/χ
+  - ℓ_A: Tier 2 at -1.8σ (corrected; -0.16 was the absolute difference) via α(19)/χ
 
 For each, the test:
   (a) Compute Family B (h)+(f) correction based on observable's host layer

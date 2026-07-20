@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
-THE ACTIVATION MECHANISM, ASSEMBLED FROM THE PROVED THEOREMS --
-with the selection it forces, its named joints, and its JUNO stake.
+THE ACTIVATION MECHANISM (A38 HISTORICAL FORM; see reviews 1-3).
+STATUS AMENDMENTS: the unit carrying Gamma(1/2) is a CONVENTION
+(data-anchored; self-dual alternative gives E = 3, excluded ~99sigma);
+the M1/M2 quarter-turn narrative below was superseded by A43's
+eighth-turn/torsion-flip accounting (granularity changed with E held
+fixed -- the fixed-target signature); the channel count and N_c/N_gen
+identification are instantiation; only the incoherence (x3 not x9)
+and the flip-word arithmetic are derived.  The docstring below is
+kept as the historical A38 record.
 
 BIAS DISCLOSURE (first, per the audit's own rules): the target value
 ~29.6 was known before this derivation was constructed.  What keeps
@@ -148,7 +155,8 @@ def P3(E):
     m2 = M29 * alpha(13) / 2 ** 16 * 1e3 * E
     m1 = M29 * alpha(5) / 2 ** 24 * 1e3 * E ** 2
     dm2 = (m2 ** 2 - m1 ** 2) * 1e-6
-    print(f"  E = 3 pi^2 SELECTED (not fitted -- mechanism output):")
+    print(f"  E = 3 pi^2 (mechanism output GIVEN the x^2-unit convention --")
+    print(f"  reviews 1-3: the unit choice is data-anchored, not derived):")
     print(f"  m_1 = {m1:.3f} meV, m_2 = {m2:.3f} meV, m_3 = {m3:.2f} meV,"
           f" Sigma = {m1+m2+m3:.2f} meV")
     print(f"  Dm2_sol = {dm2:.4e} eV^2 (obs 7.53(18)e-5:"
@@ -165,9 +173,9 @@ def P4():
     print("=" * 74)
     print("NAMED JOINTS AND CROSS-SECTOR COHERENCE")
     print("=" * 74)
-    print("  J1 (inherited): one Gamma(1/2) per quarter-turn -- papers'")
-    print("      Part-0 quarter-turn constant / T2 Gaussian unit; used, not")
-    print("      re-derived.")
+    print("  J1 (amended per reviews): the unit-carrying integral is a")
+    print("      CONVENTION (x^2-normalized; self-dual gives E = 3, excluded")
+    print("      only by data); granularity changed A38->A43 with E fixed.")
     print("  J2 (inherited): channels count incoherently (x3, not x9) --")
     print("      same reading as A23's N_c copy selection.")
     print("  J3 (disclosure): the target was known; the defence is the")

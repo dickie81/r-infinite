@@ -14,17 +14,19 @@ P1 (The half-period class).  The Weil index gamma = zeta_8 (T6-P1)
    residue is the torsion twist of the vacuum residue -- the only
    place the metaplectic phase returns to the real axis.
 
-P2 (Scalar-flatness of the tower's own measure).  The slicing
-   measure (1-x^2)^(d/2) is T1/T7 material (the Beta/Gamma_R Gram
-   system).  Its FRW geometry with scale factor a = sqrt(1-t^2)
-   (the slicing radius, Wick-read) has
+P2 (Scalar-flatness -- DEMOTED to Wick/lapse-conditional cross-check
+   per review 3: the identity contains no arithmetic object -- no
+   Gamma_R, zeta, or Weil index enters -- and the induced (round-
+   sphere) metric is NEVER scalar-flat; only the unit-lapse reading
+   gives
         R^(n) * a^4 = (n-1)(n-4),
    verified numerically below by finite differences: the tower's
    own measure is scalar-flat UNIQUELY at n = 4.  Everything in the
    identity is a T1 object; the calculus is neutral; the Lorentzian
    READING of it inherits the Wick step (instantiation).
 
-P3 (The last twist below the first feature).  The features of
+P3 (DEMOTED per review 2 -- the feature->layer map is a convention;
+   kept as historical record).  The features of
    Gamma_R (T5/A32, all simple) are ordered: volume 5.2569 < area
    7.2569 < threshold 20.73 < threshold 218.6.  The FIRST feature is
    the volume critical point; the last integer twist below it is 5
@@ -33,10 +35,10 @@ P3 (The last twist below the first feature).  The features of
    boundary); that the OBSERVER sits there is the hypothesis
    (Check 8 -- not derivable, not claimed).
 
-P4 (What is NOT arithmetic).  Lovelock's zero-free-couplings
-   criterion (the actual selector); the observer-on-boundary step;
-   the Wick reading in P2.  VERDICT: arithmetic PINS 4 three
-   independent ways but cannot SELECT it without one physics input.
+P4 VERDICT (amended, reviews 2-3): ONE convention-free arithmetic
+   distinction (P1, whose observer-link is a labeling); P2 is a
+   conditional cross-check; P3 demoted.  Selection requires Lovelock
+   or C1.
 """
 
 import cmath
@@ -102,9 +104,9 @@ def p3():
     print(f"  last integer twist below it: {math.floor(sV)} (the host d_V)")
     print(f"  its boundary twist: {math.floor(sV) - 1} = 4"
           f"   (S^3 = boundary of the 5-ball's slicing)")
-    print("  => arithmetic pins the pair (host, boundary) = (5, 4); that")
-    print("     the OBSERVER sits at the boundary is the hypothesis, not")
-    print("     a theorem (Check 8).")
+    print("  => [DEMOTED, review 2: this comparison mixes s- and d-space;")
+    print("     the threshold convention applied here gives (4, 3).  The")
+    print("     feature->layer map is a convention -- residue item seven.]")
 
 
 if __name__ == "__main__":
@@ -113,12 +115,12 @@ if __name__ == "__main__":
     p3()
     print()
     print("=" * 74)
-    print("P4 VERDICT: arithmetic PINS d = 4 three independent ways --")
-    print("the torsion half-period of the Weil cycle, the scalar-flat")
-    print("point of the tower's own measure, the boundary of zeta's first")
-    print("archimedean feature -- but SELECTION requires one physics input:")
-    print("Lovelock's zero-free-couplings criterion (external tensor")
-    print("theorem) or the observer-on-boundary step (C1).  Same shape as")
-    print("everything in the formulation: the address exists in the")
-    print("arithmetic; occupying it is the hypothesis.")
+    print("P4 VERDICT (amended per reviews 2-3): ONE convention-free")
+    print("arithmetic distinction (the torsion half-period, P1 -- though its")
+    print("observer-link is a labeling); the scalar-flatness identity (P2) is")
+    print("a Wick/lapse-conditional calculus cross-check containing no")
+    print("arithmetic; the feature-boundary pinning (P3) is DEMOTED -- the")
+    print("feature->layer map is a convention (review 2).  Selection still")
+    print("requires physics (Lovelock) or C1.  The address is distinguished")
+    print("in the arithmetic; occupying it is the hypothesis.")
     print("=" * 74)

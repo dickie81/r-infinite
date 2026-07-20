@@ -27,8 +27,9 @@ it); the P > L > G precedence (motivated); the feature→integer-layer selection
 Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
-stated leading-order systematic floor: sub-σ where experimental error dominates, tens of ppm
-(many experimental σ) where the framework's own floor dominates. We therefore assert, to the
+stated leading-order systematic floor: sub-σ to ~2σ where experimental error dominates
+(largest strain ℓ_A at −1.8σ; m_ν3 at −2.9σ on one input choice), tens of ppm (many
+experimental σ) where the framework's own floor dominates. We therefore assert, to the
 identical epistemological standard met by Newtonian gravity, Maxwell's electrodynamics,
 general relativity, and the Standard Model: **conditional on the instantiation map, the
 arithmetic of ζ at the real place is indistinguishable from the observable universe.** The
@@ -73,11 +74,13 @@ unit ball — the geometric avatar. The paper never uses the avatar; the arithme
 
 ## 3. The forced dynamics
 
-**Theorem 2 (The Gaussian is forced; `cascade_arithmetic_increment.py` P2).** Among Schwartz
-vectors, the Tate integral Z(f, s) = ∫f(x)|x|^s d*x equals Γ_ℝ(s) × (entire function with
-extraneous zeros), and the Gaussian g = e^(−πx²) uniquely achieves the local factor (ratio
-identically 1; e.g. x²g yields exactly s/2π). The tower's dynamics is Gaussian **by the gcd
-condition of Tate's thesis, not by axiom.**
+**Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
+restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no
+extraneous zeros in Z(f,s)/Γ_ℝ(s)) fixes f to the rescaled-Gaussian family c·e^(−πt²x²)
+(ratio c·t^(−s), zero-free); *self-duality* then fixes the normalization to g = e^(−πx²)
+(ratio ≡ 1). The dynamics is Gaussian by gcd + one normalization convention + the
+definitional bridge "dynamics := the achieving vector" — the convention being the same
+normalization freedom counted in the residue (Mechanism M's unit).
 
 **Theorem 3 (Statistical dictionary; `cascade_arithmetic_increment.py` P3–P4).** Under
 μ_s ∝ g(x)|x|^s d*x: (log Γ_ℝ)′(s) = E[log|x|], (log Γ_ℝ)″(s) = Var[log|x|] > 0, and
@@ -189,21 +192,25 @@ twins (0.5–1 JUNO-σ away) — the *form* is decided by derivation or not at a
 ## 6. The instantiation map — the single hypothesis
 
 **Definition 6.1 (address book).** The observable universe occupies the tower as follows.
-The observer: twist 4 — pinned by **two** arithmetic characterisations (the unique
-nontrivially-real residue of the ℤ/8 clock, γ⁴ = −1 = the torsion unit; and the unique
-scalar-flat point of the tower's own slicing measure, R·a⁴ = (n−1)(n−4);
-`cascade_arithmetic_d4.py`), with the third, feature-boundary characterisation demoted to
-convention-dependent by the second review (the feature→layer map has no uniform rounding
-rule; residue item seven). Generations: the marked coset {5, 13, 21};
+The observer: twist 4 — carrying **one** convention-free arithmetic distinction (the unique
+nontrivially-real residue of the ℤ/8 clock, γ⁴ = −1 = the torsion unit — though its link to
+the *observer* is a labeling, not a derivation), plus one Wick/lapse-conditional calculus
+cross-check (scalar-flatness R·a⁴ = (n−1)(n−4) — demoted by the third review: the identity
+contains no arithmetic object and the induced round-sphere metric is never scalar-flat), the
+feature-boundary characterisation having been demoted by the second review
+(`cascade_arithmetic_d4.py`; residue item seven). Generations: the marked coset {5, 13, 21};
 gauge structure: twists {12, 13, 14} with multiplicities the 2-adic Radon–Hurwitz counts;
 colour characters: ℚ(ζ₃); the phase transition: the ln Γ(½) threshold (19); the sink: the
 Γ(½) threshold (217); sources, occupancy classes, population classes, and record statuses as
 tabulated in the verifier scripts.
 
-This is the paper's only assumption — and its size is stated plainly (per review Finding 3):
-the full table comprises **~60 discrete entries**, enumerated in the verifier scripts. It
-contains no continuous parameter — every entry is a discrete address — and Theorem 13 shows
-the rules leave no freedom beyond the table itself.
+This is the paper's only assumption — and its size is stated plainly (corrected again by the
+third review): the chain covered by Theorem 13's exhaustion rests on **~60 discrete entries**;
+the *full* §8 record (m_H, y_t, the c/u stages, the M_Pl→v anchor, 1/α_em, the radiative
+slot, the cosmological forms) draws on further assignments tabulated in other verifier
+scripts, bringing the complete table to **~100 discrete entries**. Rows outside the
+exhaustion's scope are determined by the same rule-set but have not been exhaustion-verified.
+No entry is a continuous parameter.
 
 ## 7. Uniqueness
 
@@ -271,9 +278,9 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
 
 ## 10. Honest limits
 
-1. **C1 is forever empirical.** The arithmetic pins the observer's address two independent
-   ways (§6; the third pinning was demoted by the second review) but cannot select it; the
-   selection is the hypothesis. If the arithmetic could prove its own instantiation, no
+1. **C1 is forever empirical.** The arithmetic distinguishes the observer's address by one
+   convention-free fact (§6; two former pinnings were demoted by reviews two and three) and
+   cannot select it; the selection is the hypothesis. If the arithmetic could prove its own instantiation, no
    experiment could kill it — falsifiability *requires* this step to remain empirical.
 2. **External and conventional inputs (corrected per the external review).** Lovelock's
    theorem (selection of d = 4; external tensor calculus); the closed atom grammar A2 (a
