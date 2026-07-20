@@ -153,8 +153,12 @@ When an observable could occupy more than one summand, the tie-break P > L > G r
 **motivated convention**: the pole ≻ saddle ≻ arc picture (P = the pole factor, L = values
 read at the features/saddles, G = window arcs) is an organizing analogy, but no argument
 maps the framework's O(1) contributions onto an asymptotic expansion, and the numerical
-hierarchy check is not framework-specific. The precedence is counted in the paper's residue
-(abstract).
+hierarchy check is not framework-specific. The vacuity check
+(`cascade_precedence_vacuity.py`) later established that the order is genuinely load-bearing
+(m_τ-abs carries gauge-window exponentials behind the papers' short-circuit dash, so its full
+flags are (T, F, T)) and that every assignment-changing ordering is excluded by data at
+13–65σ: the precedence is a **data-anchored** discrete convention, counted in the paper's
+residue (abstract).
 
 **Theorem 9 (Sign rule).** The sign is the side of the Cauchy–Schwarz equality manifold on
 which the leading formula sits: off-manifold interpolation reads gain (+; the Gram deficit is
