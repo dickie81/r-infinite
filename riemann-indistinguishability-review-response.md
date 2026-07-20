@@ -343,3 +343,28 @@ unmade fix; no new defect class; no substantive stale surface. What remains open
 mathematics and experiment, not review: the θ_C availability defect, the soft inputs
 (Observer k=3, A13 grading, ℓ_A kind), extension to the full ~100-entry record, and the
 ledger's falsifiers (JUNO, DESI/CMB-S4, Belle II, HL-LHC, KATRIN).
+
+# Round 13: the commissioned attack on the record-legs rule — WOUNDED, all findings accepted
+
+The rule survives with restated status: core mechanics held (unchanged clauses, genuine
+(0,0,0), exact θ_C quote at part4b:3728, fixed-target disclosure genuine, falsifier not
+tripped), but the c5dcc2a sweep carried four majors.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| M1 — v1's DISCLOSURES still said "the θ_C defect is open" / "θ_23 and ℓ_A unchecked" against the same file's corrected state; record-legs missing from both scripts' soft-input lists | **Accepted.** Both blocks rewritten; record-legs counted everywhere | v1 + uniqueness |
+| M2 — Theorem 13c's tail still called the defect "open" | **Accepted.** Fixed | paper |
+| M3 — survivor enumeration "canonical + two duplicates" arithmetically impossible for 6=3×1×2; the cross-generation indicator (a genuine fork) suppressed; the probe section never exercised avail freedom, so P1 printed NO FORK while the Δg=16 discriminator existed | **Accepted.** A61 miscount struck-and-annotated; AVAIL PROBE FORKS section added — P1 now prints the (2,0,0)/(1,0,0) fork; enumeration corrected on all surfaces | uniqueness code + A61 + 13b + formulation |
+| M4 — row-dependent, unstated adjudication corpus: θ_C adjudicated on the papers' formula, but m_b/m_τ's proj=1 has no papers witness (Tier-4a "= e"; no cos(π/6) in src/*.tex) — its witness is A19's candidate-lemma, scheme-contingent m_b = m_τ·e·cos(π/6); under a papers-only corpus R3 fails there exactly as the old clauses failed on θ_C | **Accepted.** Corpus conditionality disclosed on every surface: the key keeps the T4/audit value; the R3 projection pinning is conditional on the audit-lemma reading | v1 EXPECT + uniqueness + 13b + formulation + A62 |
+| m5 — "papers state these verbatim" covered θ_C only; θ_23 is template-extension inference | **Accepted.** Scoped on all surfaces | v1 + paper + formulation + A61 marker |
+| m6 — "generation layers never enter either formula" false at d=13 (Gen-2 = SU(2) layer; the dual identity IS the disputed point) | **Accepted.** Struck in A61; restated everywhere | v1 + paper + A61 |
+| m7 — PMNS falsifier underspecified; the repo's standing candidates (N_c in all three formulas) undisclosed | **Accepted.** Falsifier sharpened (availability factors defined; N_c addressed via A14's scheme note; candidates disclosed) | v1 + paper + A62 |
+| m8 — "independently carrying (0,0,0)" overclaim (same author, same formula, one store entry + one inference) | **Accepted.** Struck-and-annotated | A61 |
+| n9/n10/n11 — citation 3727→3728; classifier added to per-row discretionary content; ℓ_A avail added to key | **Accepted.** Swept | v1 + A61 |
+
+**Attack-A verdict adopted:** the classifier is a new per-row soft input; the angle rows'
+availability agreement is near-tautological under record-legs; the non-trivial residue is
+the four record-ratio rows' clause-uniformity, the θ_C verbatim quote, and the sharpened
+falsifier. **Checked-and-held:** no clause semantics changed in c5dcc2a; all numbers
+reproduce; falsifier not tripped (no PMNS closure in the papers; the PMNS₁₂ template
+attempt is a recorded negative; CKM θ_13 factor-free); Check-7/8 clean.

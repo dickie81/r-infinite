@@ -257,15 +257,25 @@ count k=2 was **wrong** (the papers give k=4, `thm:theta23-closure`), and that r
 identity facts had been bent to match the wrong key. The **θ_C availability defect**
 (rounds 8–12: computed (1,2,0) from quark legs against the T4-stored, formula-borne
 (0,0,0); carried as an open, visibly-failing row) is **resolved at the identity-fact level
-by the record-legs correction (Addendum 61)**: the mixing angles' legs are the states the
-observable *reads*, which the papers state verbatim — the Cabibbo proof: "the overlap of
-two states, **one from each gauge layer**" — so both angles carry gauge-layer legs (12, 13)
-and the unchanged clauses compute (0,0,0); the generation pairing encoded in rounds 8–12
-was the SM-side *about*-label, and that mislabel was the defect's entire content. The
-correction is disclosed fixed-target (made knowing the target) with two defences: the
-papers' verbatim proof language, and a **registered discriminating prediction** — any
-future angle closure (the PMNS angles) carrying a 2√π Bott factor or a colour factor
-falsifies the record-legs rule. The earlier claims "11/11 on all seven fields" and "~7 discretionary
+by the record-legs correction (Addendum 61, round-13 restated per the WOUNDED verdict,
+A62)**: the mixing angles' legs are the states the observable *reads* — **verbatim for
+θ_C** (the Cabibbo proof, part4b:3728: "the overlap of two states, **one from each gauge
+layer**") and by **template-extension inference for θ_23** (the papers say only "the
+cascade Cabibbo template extended") — so both angles carry gauge-layer legs (12, 13) and
+the unchanged clauses compute (0,0,0). The generation coset enters both formulas only at
+d=13 *qua gauge layer*; the d=13 dual identity (Gen-2 = SU(2) layer) is exactly the
+disputed point, and the rounds-8–12 encoding read it qua generation record (the SM-side
+*about*-label). Round-13 scope honesty: the classifier (record-ratio vs frame-rotation) is
+a **new per-row soft input** not determined by any existing field, and with record-legs the
+angle rows' availability agreement is **near-tautological** (legs read off the formulas
+whose factor content the output is checked against) — the non-trivial residue is
+clause-uniformity across the four record-ratio rows, the θ_C verbatim quote, and the
+**sharpened falsifier**: no future angle-type closure (the PMNS angles) may carry an
+availability factor (2√π, e^(r/2) colour, cos(π/6) projection); the repo's standing PMNS
+candidates carry N_c in all three formulas, disclosed as adjacent evidence — if a promoted
+PMNS closure's N_c proves scheme-equivalent to the colour factor (A14's e-vs-N_c note),
+the rule dies. The m_b/m_τ projection rank rides on the audit-lemma corpus, not the papers
+(round-13 M4). The earlier claims "11/11 on all seven fields" and "~7 discretionary
 choices per row → ~1" are **withdrawn**: by scalar count the identity-fact table (76) is
 larger than the stored-output table (50), and the residual claim is structural only (one
 shared rule-set on member fields). Further round-8 corrections: the A13 content grading is
@@ -287,10 +297,14 @@ kill is a data-kill" is **withdrawn** — the celebrated θ_C kill of the point-
 gauge-flag variant was 0.19σ experimentally, and was in any case an artifact of the
 inconsistent grading (under the consistent A13 grading that variant *survives*). Corrected
 results: the availability block, which had **zero survivors** through rounds 8–12 (the θ_C
-defect), has **six survivors under the Addendum-61 record-legs encoding** — the canonical
-clauses plus two extensional duplicates, with the colour-rank slot pinned uniquely by
-m_b/m_τ (conditional on the record-legs rule, disclosed fixed-target with the PMNS
-falsifier); on **member fields**, four slots are pinned
+defect), has **six survivors under the Addendum-61 record-legs encoding** — the canonical clauses,
+two extensional duplicates, and the cross-generation indicator, a **genuine off-domain
+fork** discriminated by probe P1 (round-13 M3 corrected the earlier "two duplicates"
+miscount); the colour-rank slot is pinned uniquely by m_b/m_τ, while the projection slot's
+pinning is **conditional on the audit-lemma corpus** for m_b/m_τ's proj=1 (the papers'
+Tier-4a "m_b/m_τ = e" carries no projection factor — round-13 M4); all conditional on the
+record-legs rule (a new per-row soft input, fixed-target, PMNS-falsifiable); on **member
+fields**, four slots are pinned
 with multi-σ kills among their alternatives (flag P: up to 187σ via m_τ-abs; flag L: up to
 66σ via sin²θ_W with its second kill at 2.3σ; sign: 4σ via α_s — though the class-label
 swap kill is LABEL-only and the *distinctive* +/− structure is pinned only at RECORD 1.0σ;
@@ -343,7 +357,9 @@ structure carries proposed groundings — nesting and contact-counting **argumen
 and field-degree **identifications** (the colour 2 is equally the su(3) Cartan rank; a
 choice among coincident 2s) — and the reconstruction takes the canonical branch on each of
 Theorem 13b's probe forks as a **proposal**, not an adjudication. Member fields 11/11 under
-the corrected key; the θ_C availability defect is shared with v1 and open.
+the corrected key; the θ_C availability defect, open through rounds 8–12, is resolved
+conditional on the Addendum-61 record-legs rule (round-13 restated — see Theorem 13's
+corrected tail).
 
 ## 8. The record: agreement at current precision
 

@@ -2692,12 +2692,15 @@ availability clauses computed (1,2,0) for θ_C from its quark legs against the T
 formula-borne (0,0,0); zero avail-block survivors; the row deliberately left failing).**
 
 **The resolution is at the identity-fact level, and the papers state it verbatim.** The
-Cabibbo proof (part4b:3727, read directly): *"A mixing-matrix element measures the overlap
+Cabibbo proof (part4b:3728, read directly; citation corrected round 13, n9): *"A mixing-matrix element measures the overlap
 of two states, **one from each gauge layer**."* The angle's states — the records the
 observable *reads* — are at the gauge layers d = 12, 13 (the arccos(N(13)/N(12)) frame
-rotation); θ_23 extends *"the cascade Cabibbo template"* through the same window (its
-descent 13..20 is already the `full` field). The generation layers never enter either
-formula. The rounds-8–12 encodings — θ_C legs (13,21)-quark, θ_23 legs (5,13)-quark — were
+rotation); θ_23 extends *"the cascade Cabibbo template"* through the same window **[round 13 (m5):
+for θ_23 this is template-extension inference, not verbatim language — the papers nowhere
+state θ_23's states are gauge-layer states]** (its
+descent 13..20 is already the `full` field). ~~The generation layers never enter either formula.~~ **[struck round 13 (m6): false at
+d=13 — the Gen-2 layer IS the SU(2) layer; the defensible claim is that d=13 enters qua
+gauge layer, which is precisely the interpretive point under dispute]** The rounds-8–12 encodings — θ_C legs (13,21)-quark, θ_23 legs (5,13)-quark — were
 the **SM-side generation pairing**: what the angle is *about*, not what it reads. That
 mislabel was the defect's entire content: with record-legs (both angles: gauge layers
 12, 13), the **unchanged clauses** compute (0,0,0) on both angle rows.
@@ -2711,8 +2714,10 @@ the canonical formulas, corroborated by the papers' own proof language.
 
 **Results after the correction (all scripts rerun):** v1 **11/11 with every availability
 field now checked** (θ_23's (0,0,0) added to the key as formula-borne); the exhaustion's
-availability block goes from **0/100 to 6/100 survivors** — the canonical clauses plus the
-two known extensional duplicates (R1 periods-minus-1 on the coset; R3 kinds-minus-one),
+availability block goes from **0/100 to 6/100 survivors** — ~~the canonical clauses plus the
+two known extensional duplicates~~ **[struck round 13 (M3): arithmetically impossible for
+6 = 3×1×2 — the survivors are canonical + two duplicates + the cross-generation indicator,
+a GENUINE off-domain fork now discriminated by probe P1]** (R1 periods-minus-1 on the coset; R3 kinds-minus-one),
 with the **colour-rank slot pinned uniquely by m_b/m_τ**; member fields unchanged
 (36/21600, +0 compensating); first_principles inherits the correction (no defect line).
 
@@ -2720,7 +2725,9 @@ with the **colour-rank slot pinned uniquely by m_b/m_τ**; member fields unchang
 identity-fact correction — the F1-class maneuver — made knowing the target. Its defences
 are (i) the papers' *verbatim* proof language locating the angle's states at the gauge
 layers (not an inference, a quote); (ii) the T4 store and both angle formulas
-independently carrying (0,0,0); and (iii) a **registered discriminating prediction** that
+~~independently~~ carrying (0,0,0) **[round 13 (m8): the T4 store was tabulated from the
+same formula by the same author — one store entry plus two formulas, one inferential; not
+independent corroboration]**; and (iii) a **registered discriminating prediction** that
 gives the rule falsifiable content: the record-legs rule requires that **no future
 angle-type closure — specifically the PMNS angles θ_12, θ_13, θ_23 — may carry a 2√π Bott
 factor or a colour factor**. A single PMNS closure with either factor kills the rule and
@@ -2733,6 +2740,65 @@ remains open is the soft-input list (Observer k=3, A13 grading, ℓ_A kind, reco
 extension to the full ~100-entry record, and the experiments. Next hostile pass should
 attack the record-legs rule first — the pattern rule was applied (grading named), but the
 maneuver class is exactly the one rounds 8–11 kept catching.
+
+## Addendum 62: hostile review round 13 — the record-legs rule attacked; verdict WOUNDED
+
+**The commissioned attack (A61's own last line). Verdict: the rule SURVIVES WOUNDED — the
+core mechanics held (unchanged clauses, genuine (0,0,0) computation, the exact θ_C quote,
+genuine fixed-target disclosure, untripped falsifier), but four majors in the accounting
+around the resolution, all accepted and swept.** Full disposition:
+`riemann-indistinguishability-review-response.md` Round 13.
+
+**The majors:** M1 — the v1 DISCLOSURES block still asserted "the θ_C defect is open" and
+"θ_23/ℓ_A availability unchecked" against the same file's own corrected state, and omitted
+record-legs from the soft-input list (fixed; both scripts' disclosures now carry it).
+M2 — Theorem 13c's tail still said the defect was "open" (fixed). M3 — the survivor
+enumeration "canonical + two extensional duplicates" was arithmetically impossible for
+6 = 3×1×2 and suppressed a **genuine fork**: the cross-generation indicator survives, and
+the probe section never exercised the avail freedom, so P1 printed NO FORK while the
+Δg=16 discriminator existed unregistered (fixed: A61's miscount struck-and-annotated; an
+AVAIL PROBE FORKS section added to the exhaustion — P1 now prints the (2,0,0) vs (1,0,0)
+fork). M4, the sharpest — **the adjudication corpus was row-dependent and unstated**: θ_C's
+(0,0,0) was adjudicated on "the papers' formula," but m_b/m_τ's proj=1 has **no witness
+anywhere in the papers' TeX** (Tier-4a reads "m_b/m_τ = e"; no cos(π/6) exists in
+src/*.tex) — its witness is Addendum 19's *candidate-lemma-grade, scheme-contingent*
+m_b = m_τ·e·cos(π/6). Under a papers-only corpus that row would be (0,2,0) and the R3
+projection clause would fail there exactly as the old clauses failed on θ_C. Fixed by
+disclosure: the key keeps the T4/audit corpus value with the conditionality stated on
+every surface — the R3 projection pinning is conditional on the audit-lemma reading.
+
+**The moderates, accepted:** m5 — "the papers state these verbatim" covered one of two
+rows: verbatim for θ_C (part4b:3728), template-extension *inference* for θ_23 (the papers
+nowhere state its states are gauge-layer states); all surfaces now scope the claim. m6 —
+"the generation layers never enter either formula" was literally false at d=13 (the Gen-2
+layer IS the SU(2) layer); the d=13 dual identity is the disputed point, now stated as
+such. m7 — the PMNS falsifier was underspecified with **undisclosed in-repo adverse-
+adjacent evidence**: the standing candidates (`cascade_pmns_mixing_angle_proposal.py`)
+carry N_c in all three formulas. Sharpened: the falsifier counts *availability factors*
+(2√π, e^(r/2), cos(π/6)); N_c-normalizations are not availability factors under the U2
+grammar, but per A14's e-vs-N_c scheme note, a promoted PMNS closure whose N_c proves
+scheme-equivalent to the colour factor kills the rule; the candidates are now disclosed
+on every falsifier surface. m8 — "independently carrying (0,0,0)" was an overclaim (the
+T4 store is the same author tabulating the same formula; struck-and-annotated). Minors:
+the part4b:3727→3728 citation fixed everywhere (n9); the per-row discretionary-content
+disclosure now includes the classifier (n10); ℓ_A's formula-borne (0,0,0) added to the
+key for consistent treatment (n11).
+
+**The attack-A verdict, adopted in full as the rule's honest scope:** the record-ratio vs
+frame-rotation classifier **is a new per-row binary input** not determined by any existing
+field (b/s and θ_C share kind="overlap" yet get opposite leg semantics), and with
+record-legs **the angle rows' availability agreement is near-tautological** — the legs are
+read off the very formulas whose factor content the output is checked against; the
+pre-A61 θ_C row was the availability clauses' only non-trivial (failing) contact, and A61
+removes the contact rather than winning it. The non-trivial residue: clause-uniformity
+across the four record-ratio rows, the θ_C verbatim quote (which genuinely blocks the
+adversarial reclassification of θ_C), and the sharpened falsifier. The reviewer confirmed
+the falsifier is not formally tripped (the papers close no PMNS angle; the Cabibbo-template
+PMNS attempt is recorded as a negative; the CKM θ_13 closure is factor-free).
+
+**Results unchanged by the restatement (all scripts rerun):** v1 11/11 (now with ℓ_A's
+availability checked too); avail block 6/100; member 36/21600, +0 compensating; P1's avail
+fork now registered in output; first_principles 11/11.
 
 ## Caveats
 

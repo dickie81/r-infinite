@@ -70,13 +70,16 @@ the full spectrum uses no per-case number (Addendum 24). The grammar is closed o
 the dictionary, the derived rules (T5–T9, exclusion, flags, channel count), the instantiation
 data (address book, record statuses), and D1, the observable map is unique.* Proof: U1
 exactly-once (at-most-once = T5; at-least-once = completeness of the Gaussian measure, T2/T9);
-U2 availability (rounds 8–11 corrected state, Addenda 53–59: **member fields** computed by one
+U2 availability (rounds 8–13 corrected state, Addenda 53–62: **member fields** computed by one
 shared rule-set on all 11 rows against the *corrected* key — the previously stored θ_23
 channel count was wrong (papers: k=4) — and the rounds-8–12 **θ_C availability defect is
-resolved by the A61 record-legs correction** (angles read gauge-layer states per the
-papers' Cabibbo proof; the generation pairing was an about-label mislabeled as legs; avail
-block now 6 survivors, colour rank pinned by m_b/m_τ; disclosed fixed-target, PMNS
-falsifier registered); member-field uniqueness relative
+resolved by the A61 record-legs correction, round-13 restated (WOUNDED)** — angles read
+gauge-layer states (verbatim for θ_C, template-inference for θ_23); the generation pairing
+was an about-label mislabeled as legs; avail block 6 survivors = canonical + 2 duplicates +
+the cross-generation-indicator fork (P1); colour rank pinned by m_b/m_τ, projection pinning
+conditional on the audit-lemma corpus (M4); the classifier is a new per-row soft input;
+sharpened PMNS falsifier with the repo's N_c-bearing candidates disclosed); member-field
+uniqueness relative
 to the declared 44-variant space with σ-classified kills — P/L/sign/channel-count slots
 pinned at up to 187σ/66σ/4σ/67σ, G-flag reading 3 survivors, precedence all 6 (round 9:
 vacuous on the papers' uniform expression-tree reading too — anchoring only under the four
@@ -159,7 +162,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | two clauses derived (T7: Bohr–Mollerup off/at the equality manifold); **coset clause demoted** (review 4, D1: convention-conditional) | population-class assignment remains instantiation |
 | 5b | P > L > G precedence | **vacuous on uniform primary readings at both layers; anchoring conditional** (round 9, M3: A52's m_τ-abs dash-fill expanded closed constituents against the papers' expression-tree predicate — the same convention keeping b/s at G=F — so on the uniform mechanical reading no row is multi-flag anywhere and the order never fires; the 13–109σ exclusions hold only under the four variant readings — m_τ-abs constituent expansion, ℓ_A window, ℓ_A kind (+109σ, round 10), sin²θ_W coupling-running; A52 script corrected). Round 8 standing: all six orders survive the U2 exhaustion; the A55 nesting argument is **reversible** (retracted "T9" anchor) | counted in the residue; on the uniform reading the item is deletable-as-vacuous — papers' adjudication of the grading would settle it |
-| 6 | T4 uniqueness | **address-book determination + U2 (rounds 8–11 corrected)** (Addenda 40, 53–59): member fields computed by one shared rule-set (11/11 against the corrected key — the stored θ_23 k was wrong, papers give k=4); the rounds-8–12 θ_C availability defect **resolved by A61's record-legs correction** (angles read gauge-layer states, papers-verbatim; avail block 6 survivors, colour rank uniquely pinned; fixed-target disclosed, PMNS falsifier registered); member uniqueness relative to the declared space with σ-classified kills (four slots multi-σ pinned; G-flag 3 survivors; precedence all 6; Family-B 2; source map held fixed = withheld axis); collapse claim ("~60→~30") **withdrawn** (input scalars 76 > output scalars 50); first-principles groundings argument-strength only | open: extension to the full ~100-entry record; absolute forcing unavailable in principle; soft inputs: Observer k=3 (instantiation count — the \|T6-set\| upgrade was retracted, T6 forces {5,13} size 2), A13 grading, ℓ_A kind, and now the record-legs rule (identification, PMNS-falsifiable); all four source twists {19,5,14,7} convention-selected |
+| 6 | T4 uniqueness | **address-book determination + U2 (rounds 8–11 corrected)** (Addenda 40, 53–59): member fields computed by one shared rule-set (11/11 against the corrected key — the stored θ_23 k was wrong, papers give k=4); the rounds-8–12 θ_C availability defect **resolved by A61's record-legs correction (round-13: WOUNDED, restated)** — angles read gauge-layer states (verbatim θ_C / template-inference θ_23); avail 6 survivors incl. the indicator fork (P1); colour rank pinned, projection pinning corpus-conditional (M4); classifier = new soft input; sharpened PMNS falsifier with standing N_c candidates disclosed; member uniqueness relative to the declared space with σ-classified kills (four slots multi-σ pinned; G-flag 3 survivors; precedence all 6; Family-B 2; source map held fixed = withheld axis); collapse claim ("~60→~30") **withdrawn** (input scalars 76 > output scalars 50); first-principles groundings argument-strength only | open: extension to the full ~100-entry record; absolute forcing unavailable in principle; soft inputs: Observer k=3 (instantiation count — the \|T6-set\| upgrade was retracted, T6 forces {5,13} size 2), A13 grading, ℓ_A kind, and now the record-legs rule (identification, PMNS-falsifiable); all four source twists {19,5,14,7} convention-selected |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |
 | 8 | C1 | empirical forever | the ledger |
 

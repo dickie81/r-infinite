@@ -13,13 +13,17 @@ F1-F5, F8; see Addendum 56):
     thm:theta23-closure; T4-stored availability added, under which
     the availability clauses FAILED on theta_C through rounds 8-12
     -- computed (1,2,0) vs stored (0,0,0), zero avail-block
-    survivors.  RESOLVED by Addendum 61's record-legs correction:
-    the angles' legs are the gauge-layer states they read (papers'
-    Cabibbo proof: "one from each gauge layer"), not the SM-side
+    survivors.  RESOLVED by Addendum 61's record-legs correction
+    (round-13 restated, A62): the angles' legs are the gauge-layer
+    states they read (papers' Cabibbo proof, VERBATIM for theta_C;
+    template-extension inference for theta_23), not the SM-side
     generation pairing; with record-legs the unchanged clauses
-    cover every row and the avail block has canonical +
-    extensional-duplicate survivors.  Disclosed fixed-target with
-    a registered PMNS falsifier -- see cascade_u2_function.py.)
+    cover every row and the avail block has SIX survivors --
+    canonical + two extensional duplicates + the cross-generation
+    indicator, a GENUINE off-domain fork discriminated by P1
+    (round-13 M3 corrected the "two duplicates" miscount).
+    Disclosed fixed-target; sharpened PMNS falsifier and the M4
+    corpus conditionality -- see cascade_u2_function.py.)
   - The A13 grading is applied consistently (theta_C and m_tau-abs
     novel=None).  Consequences: the pre-fix "points count too" G
     variant is no longer killed (its old kill was manufactured by
@@ -76,9 +80,11 @@ claims refer to P1-P7 on the current survivors, this run.
 NO-NAME RULE: every variant reads only identity facts through
 bounded predicates -- no clause may mention an observable's name.
 
-DISCLOSURES: the candidate space is finite and chosen; the two soft
-inputs (Observer k=3, A13 grading) and the ell_A kind assignment are
-inputs here too.
+DISCLOSURES: the candidate space is finite and chosen; the soft
+inputs (Observer k=3, A13 grading, the ell_A kind, and the
+record-legs classification -- Addendum 61, round-13 restated) are
+inputs here too; the m_b/m_tau projection rank rides on the
+audit-lemma corpus (round-13 M4).
 """
 
 import itertools
@@ -415,6 +421,34 @@ def main():
                     print(f"        <- {s} in {v}")
 
     print()
+    print("AVAIL PROBE FORKS (avail survivors, member slots canonical;")
+    print("added round 13, M3 -- the avail freedom was previously")
+    print("unexercised by the probe section):")
+    any_avail_fork = False
+    for probe in PROBES:
+        outs = {}
+        for ac in avail_surv:
+            choice = dict(CANON)
+            choice.update(dict(zip([s for s, _ in AVAIL_SLOTS], ac)))
+            got = u2_c(probe, choice)
+            outs.setdefault(got["avail"], []).append(
+                dict(zip([s for s, _ in AVAIL_SLOTS], ac)))
+        if len(outs) > 1:
+            any_avail_fork = True
+            print(f"  {probe[0]}:")
+            allv = {s: {dict(zip([s2 for s2, _ in AVAIL_SLOTS], ac))[s]
+                        for ac in avail_surv} for s, _ in AVAIL_SLOTS}
+            for a, chs in sorted(outs.items(), key=lambda x: -len(x[1])):
+                diff = {s: sorted({c[s] for c in chs})
+                        for s, _ in AVAIL_SLOTS
+                        if {c[s] for c in chs} != allv[s]}
+                print(f"    FORK ({len(chs)}): avail={a}")
+                for s, v in diff.items():
+                    print(f"        <- {s} in {v}")
+    if not any_avail_fork:
+        print("  no avail fork on any probe")
+
+    print()
     print("=" * 74)
     print("VERDICT (round-10 corrected state)")
     print("=" * 74)
@@ -424,14 +458,18 @@ def main():
           f" {[f'{s}:{len(slot_survivors[s])}' for s, _ in MEMBER_SLOTS]}")
     print(f"  slots with canonical alone surviving: {pinned}")
     print()
-    print("  AVAILABILITY (Addendum 61): under the record-legs encoding")
-    print("  the canonical clauses cover every row; survivors = canonical")
-    print("  + two extensional duplicates (R1 periods-minus-1 on the")
-    print("  coset; R3 kinds-minus-1), R2 pinned uniquely by m_b/m_tau.")
-    print("  Conditional on the record-legs rule (disclosed fixed-target;")
-    print("  PMNS falsifier registered).  The rounds-8-12 zero-survivor")
-    print("  state was the label-legs mislabel, resolved at the")
-    print("  identity-fact level.")
+    print("  AVAILABILITY (Addendum 61, round-13 restated): under the")
+    print("  record-legs encoding the canonical clauses cover every row;")
+    print("  survivors = canonical + two extensional duplicates (R1")
+    print("  periods-minus-1; R3 kinds-minus-1) + the cross-generation")
+    print("  indicator, a GENUINE fork discriminated off-domain by P1")
+    print("  (avail forks above).  R2 pinned uniquely by m_b/m_tau; the")
+    print("  R3 projection pinning is CONDITIONAL on the audit-lemma")
+    print("  corpus for m_b/m_tau's proj=1 (round-13 M4: the papers'")
+    print("  Tier-4a 'm_b/m_tau = e' carries no projection factor).")
+    print("  Conditional on the record-legs rule (new per-row classifier,")
+    print("  soft input; fixed-target; sharpened PMNS falsifier).  The")
+    print("  rounds-8-12 zero-survivor state was the label-legs mislabel.")
     print("  MEMBER FIELDS: uniqueness holds only up to (i) the G-flag")
     print("  reading (3 survivors -- the old theta_C kill of 'points")
     print("  count too' was an artifact of the inconsistent grading),")

@@ -101,14 +101,18 @@ overreach was softened to an open question).  Addendum 61 resolved
 it at the IDENTITY-FACT level, not the clause level: the failing
 input was the legs encoding, which had recorded the SM-side
 generation pairing instead of the states the observable reads (the
-papers' Cabibbo proof, part4b:3727: "the overlap of two states, one
-from each gauge layer").  With record-legs, the unchanged clauses
-compute (0,0,0) on both angle rows and the availability question
-closes -- conditional on the record-legs rule, which is disclosed
-fixed-target and carries the registered PMNS falsifier (see the
-CASES comment).  theta_23 and ell_A have no T4-stored availability
-(neither is a T4 exhaustion stage -- the 11 rows are the 9 T4
-stages plus these two), so their availability is unchecked.
+papers' Cabibbo proof, part4b:3728, verbatim for theta_C; theta_23
+by template-extension inference -- round-13 m5).  With record-legs,
+the unchanged clauses compute (0,0,0) on both angle rows and the
+availability question closes -- conditional on the record-legs rule
+(a new per-row classifier, soft input), on the audit-lemma corpus
+reading of m_b/m_tau's projection rank (round-13 M4, see the EXPECT
+comment), and subject to the sharpened PMNS falsifier (see the
+CASES comment).  Both angle rows and ell_A are now checked as
+formula-borne (0,0,0) alongside the T4-stored rows (theta_23 and
+ell_A are not T4 exhaustion stages -- the 11 rows are the 9 T4
+stages plus these two -- so their key values are formula-borne, not
+T4-stored; round-13 M1/n11 replaced the earlier "unchecked" state).
 
 RUN RECORD (corrected): v1's original first run failed on theta_C's
 member because theta_C was graded novel=13 against A13's half-weight
@@ -128,16 +132,21 @@ identity-fact table (76) is LARGER than the stored-output table (50).
 The claim "~60 entries -> ~30 facts" is withdrawn.  The residual
 claim is structural only: the ten clauses are SHARED across rows
 (one rule-set, no per-row exceptions on member fields), and the
-discretionary content per row is the A13 grading plus the kind
+discretionary content per row is the A13 grading, the kind
 assignment (ell_A's "mass-ratio" vs "local-ratio" is genuinely
-ambiguous and load-bearing for R7's anchoring -- disclosed).
+ambiguous and load-bearing for R7's anchoring -- disclosed), and
+the record-legs classification (record-ratio vs frame-rotation;
+added round 13, n10).
 
-DISCLOSURES: assembled knowing the table (fixed-target); two soft
-inputs (Observer k=3; the A13 grading); the kind field for ell_A.
-Uniqueness: see cascade_u2_uniqueness.py (round-8 corrected state:
+DISCLOSURES: assembled knowing the table (fixed-target); soft
+inputs: Observer k=3; the A13 grading; the ell_A kind; the
+record-legs classification (Addendum 61, round-13 restated).
+Uniqueness: see cascade_u2_uniqueness.py (rounds 8-13 state:
 member-field uniqueness relative to the declared space; the
-availability block has NO surviving variant set over the corrected
-key -- the theta_C defect is open).
+availability block has 6 survivors under the record-legs encoding
+-- canonical + two extensional duplicates + the cross-generation-
+indicator fork (off-domain, probe P1) -- with the R3 projection
+pinning conditional on the audit-lemma corpus, round-13 M4).
 """
 
 GAUGE = (12, 14)
@@ -207,28 +216,41 @@ CASES = [
  ("ell_A",     [],                              None,    None,    "mass-ratio",  True),
  ("sin2thW",   [(13, "gauge"), (14, "gauge")],  None,    None,    "local-ratio", False),
  ("Omega_m",   [],                              None,    None,    "density",     False),
- # RECORD-LEGS CORRECTION (Addendum 61, resolving the theta_C
- # availability defect): the mixing angles' legs are the states the
- # observable READS, and the papers state these verbatim -- the
- # Cabibbo proof (part4b:3727): "A mixing-matrix element measures
- # the overlap of two states, ONE FROM EACH GAUGE LAYER"; theta_23
- # extends "the cascade Cabibbo template" through the same window.
- # The gauge-layer states are d=12,13; the generation layers never
- # enter either formula.  The rounds-8-12 encodings ((13,21) and
- # (5,13) quark) were the SM-side generation pairing -- what the
- # angle is ABOUT, not what it reads; that mislabel was the entire
- # source of the availability defect (computed (1,2,0) from label-
- # legs vs the T4-stored/formula (0,0,0)).  Identity-level rule,
- # uniform across rows: record-ratios read generation records
- # (tau/mu, mu/e, b/s, m_b/m_tau -- avail factors attach);
- # frame-rotations read gauge-layer states (theta_C, theta_23 --
- # no generation path, no factors).  Grading named per the pattern
- # rule: the uniform expression-tree reading of the canonical
- # formulas.  FIXED-TARGET DISCLOSURE: this reclassification was
- # made knowing the target; its defences are the papers' verbatim
- # proof language and a REGISTERED DISCRIMINATING PREDICTION -- any
- # future angle closure (PMNS theta_12/13/23) carrying a 2 sqrt(pi)
- # Bott factor or a colour factor falsifies the record-legs rule.
+ # RECORD-LEGS CORRECTION (Addendum 61, restated per round 13 --
+ # the rule survives WOUNDED, A62): the mixing angles' legs are the
+ # states the observable READS.  Papers status BY ROW (round-13 m5):
+ # for theta_C this is VERBATIM -- the Cabibbo proof (part4b:3728):
+ # "A mixing-matrix element measures the overlap of two states, ONE
+ # FROM EACH GAUGE LAYER"; for theta_23 it is TEMPLATE-EXTENSION
+ # INFERENCE (thm:theta23-closure says only "the cascade Cabibbo
+ # template extended to a multi-step descent"; the papers nowhere
+ # state theta_23's states are gauge-layer states).  The generation
+ # coset enters both formulas only at d=13 QUA GAUGE LAYER -- the
+ # d=13 dual identity (Gen-2 layer = SU(2) layer) is exactly the
+ # disputed point (round-13 m6; the rounds-8-12 encoding read d=13
+ # qua generation record).  The old encodings ((13,21)/(5,13)
+ # quark) were the SM-side pairing -- what the angle is ABOUT.
+ # THE CLASSIFIER IS A NEW PER-ROW INPUT (round-13 attack A): the
+ # record-ratio vs frame-rotation split is not determined by any
+ # existing field (b/s and theta_C share kind="overlap" yet get
+ # opposite leg semantics); it is formula-sourced (grading: uniform
+ # expression-tree reading) and counted in the soft-input list.
+ # HONEST SCOPE (round 13): with record-legs the angle rows'
+ # availability agreement is NEAR-TAUTOLOGICAL (legs read off the
+ # formulas whose factor content the output is checked against);
+ # the non-trivial content is clause-uniformity across the four
+ # record-ratio rows, the theta_C verbatim quote, and the
+ # falsifier.  FIXED-TARGET DISCLOSURE: made knowing the target.
+ # REGISTERED FALSIFIER (sharpened, round-13 m7): no future
+ # angle-type closure (PMNS theta_12/13/23) may carry an
+ # AVAILABILITY factor -- 2 sqrt(pi), e^(r/2) colour, or cos(pi/6)
+ # projection.  N_c-normalizations are not availability factors
+ # under the U2 grammar, BUT the repo's standing PMNS candidates
+ # (cascade_pmns_mixing_angle_proposal.py: N_c in all three
+ # formulas) are disclosed as adjacent standing evidence, and A14
+ # records e-vs-N_c as a scheme question: if a promoted PMNS
+ # closure's N_c is shown scheme-equivalent to the colour factor
+ # e^(r/2), the rule dies.
  ("theta_C",   [(12, "gauge"), (13, "gauge")],  None,    13,      "overlap",     False),
  # theta_23: content = p-summand range 13..20 (part4b:3921), spans
  # P_1,P_2 under the papers' periods -> k=4; SM-side pairing gen 2-3
@@ -243,9 +265,21 @@ EXPECT = {
  "tau/mu":    dict(avail=(1, 0, 0), member=("Descent", 14, 1, "+")),
  "mu/e":      dict(avail=(1, 0, 0), member=None),
  "b/s":       dict(avail=(1, 2, 0), member=("Amplitude", 7, 4, "-")),
+ # m_b/m_tau proj=1 CORPUS DISCLOSURE (round-13 M4): the papers'
+ # Tier-4a entry is "m_b/m_tau = e" with NO projection factor
+ # anywhere in the papers' TeX; the proj=1 witness is the audit's
+ # Addendum-19 CANDIDATE LEMMA m_b = m_tau * e * cos(pi/6)
+ # (candidate grade, scheme-contingent, PDG convention).  The key
+ # row keeps the T4-store/audit corpus value; under a papers-only
+ # corpus this row would be (0,2,0) and the R3 projection clause
+ # would FAIL here exactly as the old clauses failed on theta_C.
+ # The R3 pinning is therefore conditional on the audit-lemma
+ # reading; disclosed, not silently chosen.
  "m_b/m_tau": dict(avail=(0, 2, 1), member=None),
  "m_tau abs": dict(avail=(0, 0, 0), member=("Descent", 19, 1, "+")),
- "ell_A":     dict(member=("Descent", 19, 1, "+")),
+ # ell_A avail: formula-borne (the closure carries no availability
+ # factors), added round 13 (n11) for consistent treatment
+ "ell_A":     dict(avail=(0, 0, 0), member=("Descent", 19, 1, "+")),
  "sin2thW":   dict(avail=(0, 0, 0), member=("Descent", 5, 3, "+")),
  "Omega_m":   dict(avail=(0, 0, 0), member=("Geometric", 5, 3, "-")),
  "theta_C":   dict(avail=(0, 0, 0), member=("Amplitude", 7, 2, "-")),
@@ -284,10 +318,14 @@ def main():
     print("  the gauge-layer states they read (papers' Cabibbo proof,")
     print("  'one from each gauge layer'), not the SM-side generation")
     print("  pairing mislabeled as legs in rounds 8-12.  Unchanged")
-    print("  clauses now compute (0,0,0) on both angle rows.  Disclosed")
-    print("  fixed-target; registered falsifier: any future PMNS-angle")
-    print("  closure carrying a 2 sqrt(pi) or colour factor kills the")
-    print("  record-legs rule.")
+    print("  clauses now compute (0,0,0) on both angle rows.  Round-13")
+    print("  restated (WOUNDED, A62): verbatim for theta_C only; the")
+    print("  classifier is a new per-row soft input; the angle rows'")
+    print("  agreement is near-tautological; sharpened falsifier: no")
+    print("  future PMNS-angle closure may carry an AVAILABILITY factor")
+    print("  (2 sqrt(pi), e^(r/2), cos(pi/6)); the repo's N_c-bearing")
+    print("  PMNS candidates are disclosed adjacent evidence (A14")
+    print("  e-vs-N_c scheme note).")
     print("  The withdrawn round-8 claims ('11/11 on all seven fields',")
     print("  '~60 entries -> ~30 facts', 'the sharpening was data-forced')")
     print("  stay withdrawn -- see the run record and Addenda 56-61.")
