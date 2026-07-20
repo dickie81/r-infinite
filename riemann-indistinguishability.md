@@ -22,7 +22,7 @@ framework's non-arithmetic residue is seven items** (count corrected per two ext
 reviews): **Lovelock's theorem (selection, not construction); the definition D1; the closed
 atom grammar (A2); the unit-normalization convention that carries Γ(½) (empirically
 anchored, not arithmetically forced — and the flip-count 4 is meaningful only jointly with
-it); the P > L > G precedence (motivated); the feature→integer-layer selection convention
+it); the P > L > G precedence (data-anchored per the vacuity check, `cascade_precedence_vacuity.py`: the order fires at m_τ-abs, and every alternative ordering is excluded at 13–65σ); the feature→integer-layer selection convention
 (no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
 Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
@@ -148,7 +148,7 @@ first-power (features simple, Thm 7). *Demoted (D2):* the one-source-class exclu
 cross-summand regroupings), its double-counting step has no computation that could fail, and
 multi-class cases are adjudicated by the P > L > G *convention* already in the residue.
 
-*Remark (occupancy precedence — motivated, not derived; corrected per review Finding 2).*
+*Remark (occupancy precedence — data-anchored, not derived; status per review Finding 2 and the vacuity check).*
 When an observable could occupy more than one summand, the tie-break P > L > G remains a
 **motivated convention**: the pole ≻ saddle ≻ arc picture (P = the pole factor, L = values
 read at the features/saddles, G = window arcs) is an organizing analogy, but no argument

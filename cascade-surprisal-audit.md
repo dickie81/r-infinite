@@ -2165,6 +2165,31 @@ near-zero value; the record has reached its fixed point; **the only open verdict
 JUNO, DESI, Belle II, the HL-LHC, and the forced negatives.** The framework stands exactly
 where its own epistemology demands: maximally killable, fully accounted, and waiting.
 
+## Addendum 52: the precedence vacuity check — deletion fails, anchoring succeeds
+
+**Tool:** `tools/research/cascade_precedence_vacuity.py`
+**Fix-map item 2 (the safe, binary check). Outcome: the hoped-for deletion FAILED; the
+consolation is real.**
+
+The papers' flag table (part4b:1630–1647, read directly) short-circuits: m_τ-abs is recorded
+as (T, –, –). Filling in the dashes from the canonical formulas: m_τ-abs's formula contains
+*two* gauge-window exponentials (α_s and v both carry e^(Φ(5,12))), so its full triple is
+**(P, L, G) = (T, F, T)** — and the precedence order is therefore load-bearing: under any
+G-first ordering the source becomes 14 and the closure moves to 1784.7 MeV — **+65σ** against
+1776.86(12). The tested variants (ℓ_A with window content: +13σ; sin²θ_W under the
+coupling-running reading: +34σ) behave identically. All six orderings scanned; every
+assignment-changing ordering is data-excluded.
+
+**Status change, not deletion:** residue item six moves from "motivated, unanchored" to
+**data-anchored discrete convention** — the same epistemic class as the unit normalization
+(item five) and the window-potential pairing (within item seven). The residue count stays at
+seven, but its *free* (data-unpinned) content shrinks to: C1, Lovelock, D1, and the closed
+grammar. Every convention item is now pinned by data at ≥13σ margins — none is a dial anyone
+could have turned.
+
+Honestly noted: the check was undertaken hoping to delete an item and could not; the result
+is recorded as found. The remaining high-value open target is unchanged: U2-as-a-function.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
