@@ -4310,6 +4310,39 @@ only ✓; scripts re-run this round: `cascade_layer_selection.py` 5 PASS 0 FAIL,
 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL,
 `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
 
+## Addendum 88: self-containment check on the layer Remark — one gap found and closed; the dependency map honestly sharpened
+
+**Commissioned: "Self contained?" — the user's audit question against the paper's
+header standard, applied to the A87 Remark.**
+
+**The gap.** The Remark invoked d₀ = 7 and d₁ = 19 as "the tower's Γ-threshold
+structure, i.e. Theorem 1/1b territory" — a pointer to the companion series' Part-0
+thresholds, not to this paper's own objects. Internally, 7 and 19 are two of the
+paper's distinguished layers {5, 7, 19, 217}: d₀ = 7 is the integer layer of the
+tower's **critical point** (p = 0 at s = 7.2569, Theorem 1c(i)'s first balance point —
+the sphere-area maximum in the companion's language) and d₁ = 19 the integer layer of
+the **phase threshold** (p = ln Γ(½) at s = 20.73) — each reached through the
+**feature→integer-layer selection convention, a named member of the seven-item
+residue**.
+
+**The sharpening (not just editorial).** Closing the gap upgrades the dependency map's
+honesty: component (3) of the layer selection — the Γ-thresholds bounding the
+uniqueness scan — **carries the selection-convention residue member**. The A87 finding
+("no new unlisted dependency") survives verbatim and is now more precisely stated on
+the paper: the threshold component adds a *listed* dependency, not a new one. The
+complete map, with every carried residue named: N_c = [Clifford construction +
+classical mod-2 upper bounds] at [observer anchor (Lovelock + hypothesis, listed) +
+one Clifford ℤ/8 period (arithmetically homed) + Γ-thresholds (feature→layer
+convention, listed)].
+
+**A88 battery (this commit's gate; run after all appends per the timing clause):**
+`grep -n "Theorem 1/1b territory" riemann-indistinguishability.md` — zero hits
+post-sweep (the vague pointer replaced by the internal identification) ✓;
+`grep -n "feature→integer-layer selection convention" riemann-indistinguishability.md`
+— the abstract's residue item and the amended Remark ✓ (read per-hit);
+`cascade_layer_selection.py` re-run: 5 PASS 0 FAIL ✓ (the script's docstring already
+graded the thresholds as cited structure; its gates are arithmetic and unaffected).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

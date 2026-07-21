@@ -403,8 +403,13 @@ algebra Cl(1,d−1) has complex minimal spinors when d mod 8 ∈ {4,5,6}"* — w
 {12,13,14} is the Bott mirror of the spacetime window {4,5,6}. It reproduces the same
 Weyl–Dirac–Weyl pattern exactly, shifted by one Bott period"*; and the uniqueness
 confirmation — *"d = 12 is the unique dimension in [5, d₁ = 19] where ρ(d)−1 = 3, so
-the gauge window is forced, not chosen"* — whose range bound d₁ = 19 (with d₀ = 7) is
-the tower's Γ-threshold structure, i.e. Theorem 1/1b territory. Gated in-code: the
+the gauge window is forced, not chosen"* — whose range bounds are, *in this paper's own
+terms*, two of the distinguished layers {5, 7, 19, 217}: d₀ = 7 is the integer layer of
+the tower's critical point (p = 0 at s = 7.2569 — Theorem 1c(i)'s first balance point)
+and d₁ = 19 the integer layer of the phase threshold (p = ln Γ(½) at s = 20.73), each
+reached through the **feature→integer-layer selection convention** — a named member of
+this paper's seven-item residue (abstract; the class the reviews charged and the paper
+carries). Gated in-code: the
 mod-8 windows in [4,22] are {4,5,6}, {12,13,14}, {20,21,22} with the second = first + 8;
 exactly one complete window lies inside (d₀, d₁] = (7, 19] — the third sits wholly
 beyond d₁; the ρ-uniqueness scan and the mirror shift select the *same* d = 12
@@ -418,8 +423,10 @@ the layer selection introduces no new unlisted dependency.** d = 12 = (observer 
 4) + (one Clifford ℤ/8 period), over-determined by ρ-uniqueness within the
 Γ-thresholds; every component is already named — the anchor's residue (Lovelock + the
 hypothesis, items in this paper's seven-item count), the classical ℤ/8 (arithmetically
-homed by Theorems 1f–1g), the Γ-thresholds (Theorem 1/1b), and the count (the previous
-remark). **With both remarks, the colour-count dependency map is complete:** N_c =
+homed by Theorems 1f–1g), the Γ-thresholds (this paper's distinguished layers 7 and 19,
+carrying the feature→layer selection convention — a listed residue member, so the
+threshold component adds a *listed* dependency, not a new one), and the count (the
+previous remark). **With both remarks, the colour-count dependency map is complete:** N_c =
 [Clifford construction + classical mod-2 upper bounds] at [observer anchor + one
 Clifford ℤ/8 period, confirmed by ρ-uniqueness within Γ-thresholds]. This is not a
 finite-place derivation of the selection — the anchor and the thresholds are
