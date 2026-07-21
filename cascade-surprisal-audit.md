@@ -4251,6 +4251,65 @@ annotation, none quoted in this addendum ✓; scripts re-run this round:
 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0
 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
 
+## Addendum 87: the layer question — what selects d = 12; the N_c dependency map completes
+
+**Commissioned: "Take your pick" — the reviewer's choice fell on the complement of
+Door 3: the honest negative's other half, the layer-12 selection. Protocol: Checks 1,
+2, 4, 5 exercised — direct reading, verbatim quotes, the papers' own
+coincidence-grading respected as their self-report, no logical-gap claims (none
+arose).** **Tool:** `cascade_layer_selection.py` (5 gates, all PASS). Paper: a second
+Remark after Theorem 1g (self-contained, correspondence-style); formulation: the
+T1f(iii) marker extended.
+
+**The reading record (Check 1).** Read directly: `src/cascade-series-part4a.tex` lines
+44–60 (the three-component argument), 150–175 (the window table and the Bott-mirror
+statement), 250–325 (the factor assignment, `thm:generators`, and the rank remark).
+Verbatim quotes (Check 2) carried in the paper's Remark: the Clifford spinor
+classification (line 50), the mirror statement (157–158), the uniqueness confirmation
+(56–57), and the papers' own grading of the two numerical echoes (*"a numerical
+consistency check … not a structural identity"*; *"The cascade does not independently
+derive"*).
+
+**The decomposition (machine-gated).** The selection of d = 12 is the composite of
+four already-named components: **(1)** the mod-8 complex-spinor classification —
+classical Clifford bookkeeping whose **period is the same ℤ/8** as
+Radon–Hurwitz/Bott/BW(ℝ), the object Theorems 1f–1g homed arithmetically; **(2)** the
+spacetime anchor d = 4 — the Lovelock ∩ Clifford selection, already residue item 1
+plus the hypothesis in the paper's seven-item count; **(3)** Part 0's Γ-thresholds
+d₀ = 7, d₁ = 19 — pure Γ-structure, Theorem 1/1b territory; **(4)** the within-window
+factor assignment — Door 3's decomposed count. Gates: the window arithmetic (second =
+first + 8) ✓; exactly one complete window inside (d₀, d₁] with the third wholly beyond
+d₁ ✓; **over-determination** — the mirror shift and the ρ-uniqueness scan select the
+same d = 12 independently ✓; the Radon–Hurwitz period = the window period = 8 ✓; the
+coincidence arithmetic (12 = 8+3+1 = d₁−d₀; rank 4) checked while held non-load-bearing
+per the papers' own grading ✓.
+
+**The finding: the layer selection introduces no new unlisted dependency.** Every
+component is (a) in the declared seven-item residue, (b) the classical ℤ/8 the
+arithmetic chain grounded, (c) Part 0's Γ-structure, or (d) Door 3's content. **With
+both doors, the colour-count dependency map is complete:** N_c = [Clifford
+construction + classical mod-2 upper bounds] at [observer anchor + one Clifford ℤ/8
+period, confirmed by ρ-uniqueness within Γ-thresholds]. Check-4 note: the
+coincidence-grading of 12 = 12 and rank = 4 is the papers' own (acknowledged, category
+(a) in the check's sense — their self-report, quoted not discovered).
+
+**What this does not do:** derive the layer from finite places — the mirror's 8 has an
+arithmetic *home* (1f–1g), which is not a finite-place *derivation* of the selection;
+the anchor and thresholds are archimedean/geometric. No number changes; no residue
+growth; no data, no closures, no RH/GRH, no semiclassics.
+
+**A87 battery (this commit's gate; run after all appends per the timing clause):**
+`grep -rn "Bott mirror" --include='*.md' --include='*.py' .` — every hit is this
+door's material or a pre-existing papers-quoting reference in two older scripts (one
+archived; the tex sources sit outside the md/py include set — read per-hit) ✓;
+"over-determin" stems: this door's material plus one pre-existing usage in an older
+script (`cascade_dobs_reverse_forcing.py`, its own arc's sense — read per-hit; both
+exceptions caught by running the battery before recording it) ✓; "no new unlisted dependency": this door's material
+only ✓; scripts re-run this round: `cascade_layer_selection.py` 5 PASS 0 FAIL,
+`cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
+FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL,
+`cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

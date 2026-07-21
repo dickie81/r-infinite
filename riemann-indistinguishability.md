@@ -394,6 +394,37 @@ bounds plus the layer-12 selection. No number changes anywhere; the companion se
 Adams citation remains correct and sufficient (citing the strongest standard theorem);
 this remark reduces the dependency, not the correctness.
 
+**Remark (the layer question: what selects d = 12; `cascade_layer_selection.py`).** The
+complement of the previous remark: Door 3 decomposed the *count*; this decomposes the
+*layer*. The companion series selects the gauge window by three inputs, each quoted
+here in full (correspondence): the Clifford spinor classification — *"The Clifford
+algebra Cl(1,d−1) has complex minimal spinors when d mod 8 ∈ {4,5,6}"* — whose
+**period is 8**, the same Clifford/Bott ℤ/8; the mirror statement — *"The second window
+{12,13,14} is the Bott mirror of the spacetime window {4,5,6}. It reproduces the same
+Weyl–Dirac–Weyl pattern exactly, shifted by one Bott period"*; and the uniqueness
+confirmation — *"d = 12 is the unique dimension in [5, d₁ = 19] where ρ(d)−1 = 3, so
+the gauge window is forced, not chosen"* — whose range bound d₁ = 19 (with d₀ = 7) is
+the tower's Γ-threshold structure, i.e. Theorem 1/1b territory. Gated in-code: the
+mod-8 windows in [4,22] are {4,5,6}, {12,13,14}, {20,21,22} with the second = first + 8;
+exactly one complete window lies inside (d₀, d₁] = (7, 19] — the third sits wholly
+beyond d₁; the ρ-uniqueness scan and the mirror shift select the *same* d = 12
+independently (over-determination); and the Radon–Hurwitz period equals the window
+period (both the classical ℤ/8). The companion series' own grading of its two numerical
+echoes is respected and quoted: 12 = d₁ − d₀ = 8+3+1 is *"a numerical consistency check
+… not a structural identity forced by either derivation alone"*, and rank 2+1+1 = 4 =
+the observer dimension is likewise noted with *"The cascade does not independently
+derive"* the equality — neither is load-bearing in the selection chain. **The finding:
+the layer selection introduces no new unlisted dependency.** d = 12 = (observer anchor
+4) + (one Clifford ℤ/8 period), over-determined by ρ-uniqueness within the
+Γ-thresholds; every component is already named — the anchor's residue (Lovelock + the
+hypothesis, items in this paper's seven-item count), the classical ℤ/8 (arithmetically
+homed by Theorems 1f–1g), the Γ-thresholds (Theorem 1/1b), and the count (the previous
+remark). **With both remarks, the colour-count dependency map is complete:** N_c =
+[Clifford construction + classical mod-2 upper bounds] at [observer anchor + one
+Clifford ℤ/8 period, confirmed by ρ-uniqueness within Γ-thresholds]. This is not a
+finite-place derivation of the selection — the anchor and the thresholds are
+archimedean/geometric — and no number or residue count changes anywhere.
+
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no
 extraneous zeros in Z(f,s)/Γ_ℝ(s)) fixes f to the rescaled-Gaussian family c·e^(−πt²x²)
