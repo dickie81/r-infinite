@@ -55,6 +55,24 @@ Before answering any question about the cascade's derivations, predictions, uniq
 
 At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 0–8 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
 
+## Mandatory hostile-subagent review on paper changes
+
+**Trigger.** Every commit that makes a substantive change to a paper surface — `riemann-indistinguishability.md`, `cascade-riemann-formulation.md`, any `src/cascade-series-*.tex` file, or a `tools/research/` verifier cited by a paper — must be followed by a hostile review round before the changed work is declared stable. The reviewer is a **fresh-context subagent running the session's own model** — never a smaller or faster model; the reviewer must match the lead's full capability. This is the process introduced by review round 30 (Addendum 89, the "hostile subagent" round), which found two majors in material that eleven adjacent self-review rounds had passed. Purely editorial commits (typo fixes, net-state markers) may be batched into the next substantive round, but no new claim ships unreviewed.
+
+**The subagent's brief must include:**
+- The exact commits and files under review, with instructions to run every cited script and re-run every recorded battery command itself.
+- The review standards: every quantifier checked against what was actually computed or read ("every", "unique", "independent", "complete", "no new", "exactly"); every "forced" must name its true forcer (A66); verbatim-quote verification against the cited sources — paraphrase drift is a finding; battery and gate records checked as runnable commands with full hit censuses; every "verified" claim must point at committed code whose gates actually gate the claim — a gate that cannot fail is a finding; the paper's self-containment header enforced (external content as premise rather than quoted correspondence is a finding).
+- Any specific attack vectors the lead can name, plus explicit license to attack anything else it finds.
+- The output format: numbered findings, each with proposed severity (MAJOR / minor / cosmetic), file:line, verbatim quote of the offending text, the precise charge, and empirical evidence (commands run + output); followed by a checked-and-held list with evidence, unpadded.
+
+**The lead's obligations on receiving findings (Check 3 applies in full):**
+- Every subagent finding is a *suggestion* until the lead verifies it directly — recompute the mathematics, re-read the cited sources, re-run the commands. No logical-gap verdict is accepted unverified, and no verified finding is diluted in the accepted record.
+- Accepted findings are swept per the marking rule: false-when-written → strike-and-annotate at source, on **every** surface carrying the claim, with retractions stated explicitly; superseded-true → net-state markers. The sweep's target list includes the files being edited for sibling findings.
+- The round is recorded as a numbered addendum in `cascade-surprisal-audit.md` (findings, dispositions, the lead's own verification commands, checked-and-held) and a round table appended to `riemann-indistinguishability-review-response.md`.
+- Batteries obey the accumulated instrument rules, whose canonical statements live in Addenda 71–89: a record states the full command including every filter and its true scope; granularity adverbs ("per-hit", "each", "explicitly") only where the per-item work occurred; every "verified" names a committed verifier — session runs are drafting until they land in code; the gate runs against the commit-final surface set (tables appended before the gate, or the gate re-run after every append).
+- Each round's Check-1 record must include that round's operative theorem, re-read in that round — reliance on an earlier round's recorded read is not a substitute.
+- A round returning majors or minors is followed by a convergence-test round on its own sweep. A work product is **stable** only after a converged round: zero majors, zero minors (cosmetics permitted, per the precedent of rounds 17, 21, 24, 27, 29).
+
 ## The Framework
 
 - **Assumptions:** One. The hypothesis above. Zero free parameters.
