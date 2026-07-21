@@ -587,3 +587,19 @@ classification and its pre-commit PASS-count correction, Checks 7/8, the stoppin
 
 **Round 23 (convergence test on this sweep) is owed before the Witt step is declared
 stable. The honest negative for N_c stands unweakened.**
+
+# Round 23: convergence test on the round-22 sweep — NOT CONVERGED (0+1), the false-record class's filter variant
+
+Zero majors, zero cosmetics, zero mathematical falsehoods (fifteenth consecutive
+round). Witt-step trajectory: 0+3(+1c) → 0+1. The Witt step's mathematics has survived
+two adversarial rounds untouched; the single defect is again an instrument record.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 — A76's "canonical" battery line omitted the content filter the command actually carried (`quotient\|witt\|clock`) and asserted "the sole other hit" — false by two orders of magnitude against the unfiltered census (152 hits, 39 files, ordinary repo vocabulary). No target was defective: the round-23 unfiltered per-hit sweep confirms zero live ungraded Witt-quotient claims; 1e's "canonical achieving vector" and T6's twist-tower "canonical ℤ/8" are different, earlier senses | **Accepted.** Struck at source with the true census; filter clause added to the round-20 battery-scope rule (full command incl. every filter; "sole/only/zero-other" quantifiers require the unfiltered census on file) | A76 |
+
+**Everything else checked and held:** all round-22 edits in the diff and consistent;
+the ≤ 2.3×10⁻¹⁵ quotes vs actual worst 2.2×10⁻¹⁵; A76's other battery lines ran
+unfiltered and hold; PASS counts verified (27/6/10); Checks 7/8, stopping rule clean.
+
+**Round 24 tests the filter clause.**

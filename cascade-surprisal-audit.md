@@ -3656,9 +3656,22 @@ pre-commit in A75; Checks 7/8 and the stopping rule clean; no new "forced" witho
 forcer.
 
 **A76 battery (this commit's gate; scope: `grep -rn` over `*.md` and `*.py` under the
-repo root, `.git` excluded; per-hit classification):** "canonical": every live Witt-arc
+repo root, `.git` excluded; per-hit classification):** ~~"canonical": every live Witt-arc
 hit now carries or points to the F2 grading (the sole other hit, the U2 arc's "canonical
-branch" at the A-probes, is a pre-existing different sense in a different arc) ✓; "10⁻¹⁵–10⁻¹⁶": strike and disposition
+branch" at the A-probes, is a pre-existing different sense in a different arc) ✓~~
+**[FALSE RECORD, caught by round 23 (F1): the command actually run carried a content
+filter (`quotient|witt|clock`) that the record omitted — the unfiltered repo-wide grep
+yields 152 hits across 39 files, "canonical" being ordinary vocabulary repo-wide
+(CLAUDE.md's canonical-prefix convention, the CI validator, ~30 research scripts'
+ordinary usages, review-response disposition rows). "The sole other hit" was false by
+two orders of magnitude. The TRUE statement, verified by round 23 against the full
+unfiltered census: no hit anywhere — filtered or not — is a live claim about the
+*Witt-step quotient* lacking the F2 grading; the nearest neighbours (Theorem 1e's
+"canonical achieving vector" = Tate's standard adelic vector; T6's pre-existing
+"canonical ℤ/8 grading" of the twist tower at the real place) are different, earlier
+senses, and everything else is ordinary repo vocabulary or disposition rows. The
+round-20 battery-scope rule gains its filter clause: a battery record states the full
+command *including every filter*]**; "10⁻¹⁵–10⁻¹⁶": strike and disposition
 records only ✓; "ten classes"/"ten grid points": strikes, disposition records, and the
 D3.3 historical strike only ✓; scripts re-run this round: `cascade_witt_weil.py` 27
 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS
@@ -3673,6 +3686,56 @@ content.
 *(Net-state marker for A74's closing line: the commissioned attempt was made — A75/
 Theorem 1f; the mod-8 connection is a quotient theorem, the N_c count honestly
 negatived.)*
+
+## Addendum 77: hostile review round 23 — convergence test on the round-22 sweep; NOT CONVERGED (0+1), the false-record class's filter variant
+
+**Commissioned: "The word" — the convergence test on commit 96df296.** Scope: every
+round-22 fix verified in the diff; every A76 claim re-tested at the quantifier level,
+batteries first (the arc's history says the instrument records are where the last
+defects live).
+
+**Verdict: NOT CONVERGED — zero majors, one minor, zero cosmetics; zero mathematical
+falsehoods (fifteenth consecutive round). Witt-step trajectory: 0+3(+1c) → 0+1.**
+
+**F1 (the finding) — A76's "canonical" battery line was false as recorded, filter
+variant.** The command actually run in round 22 carried a content filter
+(`quotient|witt|clock`) that the record omitted; the record then asserted "the sole
+other hit" — false by two orders of magnitude against the unfiltered census (152 hits,
+39 files: CLAUDE.md's canonical-prefix convention, the CI validator, ~30 research
+scripts' ordinary usages, disposition rows). **No live defect among the targets**: the
+round-23 unfiltered per-hit sweep confirms no claim about the Witt-step quotient
+anywhere lacks the F2 grading — the nearest neighbours (1e's "canonical achieving
+vector" = Tate's standard vector; T6's pre-existing twist-tower "canonical ℤ/8
+grading") are different, earlier senses. This is the round-20 disease's filter form:
+round 20 caught a scope omission ("repo-wide" that wasn't), round 23 catches a filter
+omission (per-hit classification claimed for a command whose filter went unrecorded).
+Struck at source in A76.
+
+**Everything else checked and held:** all round-22 edits present in the diff and
+consistent (fifteen-class list, silence gates, k-stability gates, primitivity gate, the
+F2 grading on paper/formulation/A75, the ≤ 2.3×10⁻¹⁵ quotes vs the actual worst
+2.2×10⁻¹⁵); A76's other two battery lines were run unfiltered and their classifications
+hold; "fourteenth consecutive round" and the PASS counts (27/6/10) verified against the
+commands as run; the Round-22 table matches A76; Checks 7/8 and the stopping rule
+clean.
+
+**Process rule (the filter clause, added to the round-20 rule):** a battery record
+states the *full command including every filter*; "per-hit classification" may be
+claimed only for the hit set of the recorded command; and any "sole"/"only"/"zero
+other" quantifier in a battery record requires the unfiltered census to have been run
+and kept.
+
+**A77 battery (this commit's gate; full commands, no unrecorded filters):**
+`grep -rn "canonical" --include='*.md' --include='*.py' .` unfiltered: 152 hits, 39
+files, classified per-hit as above — zero live ungraded Witt-quotient claims ✓;
+`grep -rn "sole other hit"`: the strike and this addendum only ✓; scripts re-run this
+round: `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0
+FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
+
+**Standing state:** the single defect is again meta (an instrument record), the third
+purely-meta round in the sequence (20, 21-cosmetic, 23). No surface carries a false
+mathematical or physical claim. Round 24 tests the filter clause; the Witt step's
+mathematics has now survived two adversarial rounds untouched.
 
 ## Caveats
 
