@@ -31,8 +31,22 @@ full order-8 image -- the clock group -- occurs EXACTLY at v = 2
 and v = infinity, and the unit form <1> has nontrivial index
 EXACTLY at those two places.  The program's clock (T6 archimedean;
 1d/1e/1f dyadic) lives at precisely the places where the Witt-Weil
-family can carry it.  Forcers: level(Q_p) <= 2 for odd p and the
-classical Gauss-sum evaluations; nothing cascade-chosen.
+family can carry it.  THE FORCER CHAIN, spelled (round-25 F1: the
+unit form is silent at odd p, so level does not act through <1>;
+the chain is): the image of gamma_p is a homomorphic image of
+W(Q_p), whose exponent is 2 x level(Q_p) (classical; = 2 for
+p = 1 mod 4, 4 for p = 3 mod 4), so the image lies in
+mu_{2 level} <= mu_4 for EVERY odd p -- the five sampled primes
+verify the classical inputs, they do not carry the quantifier;
+the L1 gate checks image order = 2 x level exactly.  Equivalently
+the Gauss evaluations G(a,p) = eps_p sqrt(p) (a/p) cap the class
+values directly.  Nothing cascade-chosen.  UNIFIED CRITERION
+(round-25 c1): the cocycle and closed form hold at v = inf too
+(verified in the round-25 record), so across ALL places the clock
+places are exactly those where gamma_v(<1>) is PRIMITIVE -- the
+1f-F2 primitivity phenomenon is itself clock-place-exclusive, and
+"sig mod 8" is the infinity-evaluation of the same universal
+closed form gamma(1)^dim beta(disc) hasse.
 
 L2 (DOOR 2a -- THE COCYCLE; classical (Weil; Rao), verified
 exhaustively).  gamma(a) gamma(b) = gamma(1) gamma(ab) (a,b)_v
@@ -216,7 +230,8 @@ def main():
         ok &= units_silent and size == want
         ok_ex &= ok
         print(f"   p = {p:>2} ({p % 4} mod 4): units silent ="
-              f" {units_silent}, image order {size} (want {want})"
+              f" {units_silent}, image order {size} (want {want}"
+              f" = 2 x level = exp W(Q_p): the forcer chain)"
               f"   {'PASS' if ok else 'FAIL'}")
     print(f"   EXCLUSIVITY: order-8 image and nontrivial <1> occur only"
           f" at v = 2, inf   {'PASS' if ok_ex else 'FAIL'}")

@@ -296,8 +296,17 @@ p = 3, 5, 7, 11, 13 with k-stability and class-invariance gates; with |W(ℚ_p)|
 (classical: Lam) the kernels have order 8 and 4. **The exclusivity theorem: in the
 Witt–Weil family {γ_v : W(ℚ_v) → μ₈} over all places of ℚ, the full order-8 image — the
 clock group — occurs exactly at v = 2 and v = ∞, and the unit form ⟨1⟩ has nontrivial
-index exactly at those two places.** Forcers (A66): level(ℚ_p) ≤ 2 for odd p and the
-classical Gauss-sum evaluations — nothing cascade-chosen. This strengthens 1d(ii)'s
+index exactly at those two places.** Forcers (A66), with the chain spelled (round-25 F1
+— the unit form is silent at odd p, so level does not act through ⟨1⟩): the image of γ_p
+is a homomorphic image of W(ℚ_p), whose exponent is 2·level(ℚ_p) (classical: 2 for
+p ≡ 1 mod 4, 4 for p ≡ 3 mod 4), so the image lies in μ_{2·level} ⊆ μ₄ for **every** odd
+p — the five sampled primes verify the classical inputs, not the quantifier, and the L1
+gate checks image order = 2·level exactly; equivalently the Gauss evaluations
+G(a,p) = ε_p√p·(a/p) cap the class values directly. Nothing cascade-chosen. *Unified
+criterion (round-25 c1):* the cocycle and closed form hold at v = ∞ too (verified), so
+across all places **the clock places are exactly those where γ_v(⟨1⟩) is primitive** —
+1f's F2 primitivity phenomenon is itself clock-place-exclusive, and "signature mod 8" is
+the ∞-evaluation of the same universal closed form. This strengthens 1d(ii)'s
 "dyadic-exclusive among Gauss phases" to family-level exclusivity including the
 archimedean place: the program's clock lives at precisely the places where the family
 can carry it. *(ii) The cocycle and the closed form.* The Weil-index cocycle

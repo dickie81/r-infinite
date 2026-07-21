@@ -142,7 +142,10 @@ RH/GRH, no semiclassics.
 `cascade_local_family.py`).** (i) Odd places: units silent, image μ₂ (p ≡ 1 mod 4) or
 μ₄ (p ≡ 3 mod 4), verified p = 3–13; **exclusivity theorem: the order-8 clock image and
 the nontrivial unit form occur exactly at v = 2 and v = ∞** — family-level, upgrading
-T1d(ii)'s Gauss-phase exclusivity. Forcers: level(ℚ_p) ≤ 2 + classical Gauss sums.
+T1d(ii)'s Gauss-phase exclusivity. Forcer chain (round-25 F1): image = homomorphic image
+of W(ℚ_p), exp W(ℚ_p) = 2·level ≤ 4 for odd p — an every-odd-p theorem, samples verify
+the inputs not the quantifier; unified criterion (c1): the clock places are exactly
+those where γ_v(⟨1⟩) is primitive.
 (ii) Cocycle γ(a)γ(b) = γ(1)γ(ab)(a,b)_v verified exhaustively (64 pairs at 2, 16 at
 p = 3, 5) ⇒ closed form **γ_v(q) = γ_v(1)^dim·β_v(disc)·hasse_v(q)** (verified 72
 exhaustive + battery): dim mod 8 at v = 2, sig mod 8 at ∞, **no dimension term at odd

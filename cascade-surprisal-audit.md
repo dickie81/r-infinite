@@ -3874,6 +3874,62 @@ scripts re-run this round: `cascade_local_family.py` 21 PASS 0 FAIL,
 `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL,
 `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
 
+## Addendum 80: hostile review round 25 — Theorem 1g attacked; 0 majors, 1 minor, 1 cosmetic; the quantifier made theorem-grade
+
+**Commissioned: "Hostile review pls" — first adversarial pass on commit ff195ef
+(Theorem 1g, T1g, A79, `cascade_local_family.py`).** Declared attack surfaces: the
+exclusivity theorem's quantifier (five primes sampled, all odd p claimed) and its
+forcer attribution; the closed form's consistency at ∞; the kernel self-negatives; the
+record layer. Every charge tested empirically before acceptance.
+
+**Verdict: zero majors, one minor, one cosmetic; zero mathematical falsehoods
+(seventeenth consecutive round).**
+
+- **F1 (minor — forcer chain unspelled; the quantifier at stake):** the forcer line
+  "level(ℚ_p) ≤ 2 + classical Gauss sums" was *true but unreconstructable*: the unit
+  form is **silent** at odd p, so level cannot act through ⟨1⟩, and no surface spelled
+  how level caps the image. Testing the charge produced the chain: **the image of γ_p
+  is a homomorphic image of W(ℚ_p), whose exponent is 2·level(ℚ_p)** (classical: 2 for
+  p ≡ 1, 4 for p ≡ 3 mod 4), **so the image lies in μ_{2·level} ⊆ μ₄ for every odd p**
+  — verified numerically that image order = 2·level = exp W(ℚ_p) at all five sampled
+  primes. The consequence is an upgrade: the exclusivity is an **every-odd-p theorem**
+  (the samples verify the classical inputs, not the quantifier), where before the
+  general-p status rode implicitly on an unspelled argument. Chain now spelled on all
+  surfaces; the L1 print labels the gate "= 2·level = exp W(ℚ_p)".
+- **c1 (cosmetic — the unified criterion):** "dimension-sensitive at 2 vs
+  signature-sensitive at ∞" is presentational: the round verified the cocycle and the
+  closed form **hold at v = ∞ too** (γ_∞(a)γ_∞(b) = γ_∞(1)γ_∞(ab)(a,b)_∞; the sig-mod-8
+  formula equals γ_∞(1)^dim·β_∞(disc)·hasse_∞ on test forms), so the uniform statement
+  across all places is: **the clock places are exactly those where γ_v(⟨1⟩) is
+  primitive** — 1f's F2 primitivity phenomenon is itself clock-place-exclusive, and
+  "signature mod 8" is the ∞-evaluation of the universal closed form. Added to all
+  surfaces.
+
+**Checked and held (the round's independent verifications):** the kernel
+self-negative checks recomputed independently ((1,3), (2,3), (1,14): h(−a,−b) = h in
+all three — a mid-review scare at (−1,−14)₂ resolved as the reviewer's own arithmetic
+slip, ω(7) = 0 not 1, recorded per the honest-record culture); the (disc ∼ −1, h = −1)
+unrealizability; the quaternionic form's γ = −1; the Witt census totals; the A79 PASS
+breakdown (6/3/3/3/6 = 21); the ≤ 4×10⁻¹⁵ quote vs actual worst 3.9×10⁻¹⁵; the run
+record's accuracy (timeout, trim, pre-run artifact removal); the battery exception
+line's honesty; Checks 7/8 and the stopping rule clean.
+
+**A80 battery (this commit's gate; full commands, per-hit granularity as stated):**
+`grep -rn "forcer chain\|2·level\|2 x level" --include='*.md' --include='*.py' .` —
+every hit is in this addendum, Theorem 1g, T1g, or the script's round-25 text, plus six
+pre-existing "2 x level" usages in `cascade_witt_weil.py` and `cascade_local_tate.py`
+(the 1e/1f statements of the same classical formula in its original ⟨1⟩-order context —
+read per-hit, accurate; exception caught by running the battery before recording it) ✓; "primitive" in the round-25 additions: each instance is the F2/c1 sense
+with the grading intact ✓; scripts re-run post-sweep: `cascade_local_family.py` 21
+PASS 0 FAIL (print-label change only), `cascade_witt_weil.py` 27 PASS 0 FAIL,
+`cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
+(counts from the commands as run).
+
+**Standing state:** 1g first review: 0+1(+1c) — the same shape as the Witt step's
+first review, and again the substantive finding *strengthened* the theorem (round 22:
+character-freeness; round 25: the every-odd-p quantifier). A round-26 convergence test
+on this sweep is owed by the arc's standard before 1g is declared stable.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

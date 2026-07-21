@@ -627,3 +627,18 @@ once (round-22 F2). The finite-place arc (Theorems 1d–1f) stands converged. Wh
 remains open is not review-able by another round: the Adams count and layer selection
 (archimedean, papers-side), the dictionary's soft inputs, F6's original claim, the
 full-record extension, and the frozen experimental ledger.
+
+# Round 25: first adversarial pass on Theorem 1g — 0 majors, 1 minor, 1 cosmetic; the quantifier made theorem-grade
+
+Zero mathematical falsehoods (seventeenth consecutive round). The same shape as the
+Witt step's first review: the substantive finding strengthened the theorem.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — the exclusivity theorem's forcer line ("level(ℚ_p) ≤ 2") was true but unreconstructable: the unit form is silent at odd p, so level cannot act through ⟨1⟩, and no surface spelled how level caps the image; the all-odd-p quantifier rode on the unspelled argument | **Accepted, and upgraded.** The chain spelled and verified: image = homomorphic image of W(ℚ_p), exp W(ℚ_p) = 2·level(ℚ_p) ≤ 4, so image ⊆ μ_{2·level} for every odd p; the L1 gate now labels image order = 2·level = exp W. The exclusivity is an every-odd-p theorem — samples verify the classical inputs, not the quantifier | script + paper + T1g + A80 |
+| c1 (cosmetic) — "dim-sensitive at 2 vs sig-sensitive at ∞" is presentational: the cocycle and closed form hold at ∞ too (verified this round) | **Accepted.** Unified criterion on all surfaces: the clock places are exactly those where γ_v(⟨1⟩) is primitive — 1f's F2 primitivity is itself clock-place-exclusive | script + paper + T1g |
+
+**Checked and held:** kernel self-negatives recomputed independently (a mid-review
+scare at (−1,−14)₂ resolved as the reviewer's own slip, ω(7) = 0); the census totals;
+residual and PASS-count quotes; the run record; the battery exception line. Round 26
+(convergence test) gates 1g's stability.
