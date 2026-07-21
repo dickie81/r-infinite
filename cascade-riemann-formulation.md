@@ -60,9 +60,11 @@ sentence is a theorem, not an analogy.
 For every d ≥ 1, with s = d+1, z = d+½: p(d) = Σ_{γ>0} 2z/(z²+γ²) − 1/s − 1/(s−1) +
 Σ Λ(n)n^(−s) — the cascade potential is exactly (Riemann zeros) − (poles) + (primes), the
 Hadamard partial-fraction form of the explicit-formula identity on the tower; every window
-inherits the split. Verified three-tier (rearrangement 10⁻³¹; Euler side within tail
-bounds; Hadamard side with 50 computed zeros, residuals decreasing). Classical content
-Euler + Hadamard; program-new content: the tower evaluation only. Grounds the *scaffold*
+inherits the split. Verified three-tier (rearrangement 10⁻³¹; Euler side within strict tail bounds at dps 50 —
+round-15 M2; Hadamard side with 50 computed zeros, residuals decreasing). Round-15 M1: the
+RH-free theorem is the *paired* Hadamard form; the Lorentzian display is its on-line
+evaluation. Classical content Euler + Hadamard; program-new content: the tower evaluation
+only. Grounds the *scaffold*
 one level deeper (the tower sits on one side of the explicit formula); grounds the
 *dictionary* not at all; claims no direction of explanation.
 
@@ -74,12 +76,14 @@ recovers the critical point to 6×10⁻³ and the threshold to 5×10⁻² with d
 (sink tail-model-limited ~1%, reported as such). Honest negative registered: no recorded
 quantity reads the zero side independently of the digamma packaging. (ii) Legendre gives
 p_ℂ = p_triv + p_sgn *exactly* — T5's doubled tower synthesizes the complex-place factor,
-relocating F6's r₂ = 0 obstruction; the sgn tower's L-partner is the **forced-minimal odd
-character χ₋₃** (unique primitive of conductor ≤ 3, odd) = the T8 colour field's
-character, with the odd bridge p_sgn = zeros(L(χ₋₃)) − ½ln3 + χ-weighted primes (no pole;
-a conductor instead), verified with 24 sign-scan-computed zeros; the odd feature 6.2569 =
-the colour-conductor balance point. F6 stays reopened on its original claim; no address
-derived.
+relocating F6's r₂ = 0 obstruction; the odd bridge p_sgn = zeros(L(χ)) − ½ln q + χ-weighted primes (no pole; a conductor
+instead) holds for **every** odd real primitive χ — the balance point is
+character-independent (round-15 M3) — with χ₋₃ the minimal-conductor primitive odd
+character (theorem) = the T8 colour field's character, and pairing-by-minimality a
+**convention** charged to the selection-convention class; verified with 24
+sign-scan-computed zeros of L(χ₋₃); the odd feature 6.2569 = the conductor balance point.
+No direction of explanation is claimed (the identity is ζ's/L's own bookkeeping — m6). F6
+stays reopened on its original claim; no address derived.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

@@ -394,3 +394,32 @@ recorded fixes physically in af524e8 and grep-verified; all scripts reproduce ev
 M4's source claims re-verified (Tier-4a "= e", no cos(π/6) in src/*.tex); the θ_C quote
 exact at part4b:3728; 6-survivor enumeration consistent; falsifier not tripped; Check-7/8
 clean.
+
+# Round 15: the bridge arc — WOUNDED (3 majors), all accepted; the mathematics held every independent check
+
+The reviewer re-derived the identities by hand, recomputed the root number and L(1)
+independently, re-scanned the zeros at 12× finer step, and confirmed every quoted number.
+"The bridge arc's mathematics is steel; its claim-layer has three dents of the arc's
+chronic type."
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| M1 — the Lorentzian zero-sum form silently assumes on-line zeros; "RH/GRH is not used" false of the formula as displayed (off-line discrepancy computed: ~3×10⁻⁵ at a=0.1, γ=10); the paired Hadamard form is the unconditional theorem | **Accepted.** Restated on every surface: paired form = the RH-free theorem; Lorentzian = its on-line evaluation with the verified zeros (off-line contribution < 10⁻²³ here) | both theorems + T1b/T1c + A64 markers + three docstrings |
+| M2 — the d=12 prime-side PASS was an epsilon artifact (residual 4.81e-35 > bound 1.56e-40 at the dps-30 floor); reviewer's dps-60 recomputation: true residual 2.05e-41, genuinely within bound | **Accepted.** V2 now runs dps 50, strict bound, no epsilon — honest PASS earned; false-when-written claims struck (A64) or corrected (paper, formulation) | bridge script + Thm 1b + T1b + A64 |
+| M3 — "forced minimality": the selection-convention disease, fourth appearance. The odd bridge holds for EVERY odd real primitive χ; the balance point is character-independent (zero selectivity); only the minimality convention names χ₋₃ the partner | **Accepted.** "Forced partner" language struck/restated everywhere; the pairing charged as a motivated convention of the residue's selection-convention class; the family form of the bridge stated | colour script + Thm 1c + T1c + F6 update + A65 markers + A66 |
+| m1 — Door-1 docstring retained the "decreasing" overclaim A65 claimed was fixed (fix had reached READING only) | **Accepted.** Corrected; A65 sentence annotated | zero_side + A65 |
+| m2 — "only primitive character of conductor ≤ 3" false (trivial character mod 1 is conventionally primitive, but even) | **Accepted.** Restated as minimal-conductor primitive ODD character everywhere | all surfaces |
+| m3 — "real on the line to 10⁻²⁵" overstated 3× (actual 3.0×10⁻²⁵) | **Accepted.** Corrected | Thm 1c + A65 |
+| m4 — both pole terms attributed to ζ's pole; 1/s is the completed function's mirror pole at s=0 | **Accepted.** Corrected on all surfaces incl. both READING prints | scripts + Thm 1b + A64 |
+| m5 — tail-integral half-neighborhood seam at the N-th zero | **Noted** (inside the disclosed oscillatory error) | — |
+| m6 — formulation T1c lacked the explicit no-direction disclaimer | **Accepted.** Added | T1c |
+
+**Checked-and-held adopted:** rearrangement, no-constant claim (paired form), Legendre,
+odd completed normalization, trivial zeros, root number τ(χ₋₃)=i√3 ⇒ ε=+1, L(1) vs
+class-number formula, density tails' main terms, zero-scan completeness vs N(T), first
+ordinate 8.03974, all doc numbers verbatim, D-consistency of 5.2569/6.2569/7.2569,
+stopping rule (zero data contact), Check-7/8 clean, no stale surfaces repo-wide.
+
+**Convergence note:** all three majors are restatement-repairs; no result was lost. The
+chronic lesson at its fourth instance is now a named rule: every "forced" must name what
+forces it — a selection principle is never free.

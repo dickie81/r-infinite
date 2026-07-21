@@ -16,9 +16,24 @@ two classical, genuinely non-trivial product theorems of zeta:
   PRIME SIDE (Euler product / von Mangoldt):
       -zeta'/zeta(s) = sum_{n>=2} Lambda(n) n^(-s)     (absolutely
       convergent),
-  ZERO SIDE (Hadamard product, zeros paired rho <-> 1-rho):
-      xi'/xi(s) = sum_{gamma>0} 2(s-1/2)/((s-1/2)^2 + gamma^2),
-      gamma the ordinates of the nontrivial zeros of zeta.
+  ZERO SIDE (Hadamard product, zeros paired rho <-> 1-rho).  Two
+      forms, distinguished per round-15 M1:
+      - PAIRED FORM (unconditional, RH-free): xi(1/2+z) is even and
+        entire of order 1, hence genus-0 in z^2 with no exponential
+        factor, giving xi'/xi(s) = sum over paired zeros of
+        2z/(z^2 - (rho-1/2)^2) -- valid WHEREVER the zeros are.
+      - LORENTZIAN FORM (the on-line evaluation): with rho = 1/2 +
+        i*gamma the paired term becomes 2z/(z^2 + gamma^2).  This
+        specialization is exact iff the zeros used lie on the line;
+        it is how the sum is EVALUATED below, with the verified
+        on-line zeros.  A hypothetical off-line zero would alter the
+        term shape (computed discrepancy at the round-15 review:
+        ~3e-5 for a = 0.1 at gamma = 10) but any such zero lies
+        beyond the verified height 3e12 and contributes < 1e-23 at
+        these s.  The earlier blanket sentence "the identity holds
+        wherever the zeros are" was TRUE of the paired form and
+        FALSE of the Lorentzian form as printed -- corrected here
+        and on every doc surface (round 15).
 
 BRIDGE THEOREM (exact; verified below).  For every layer d >= 1,
 with s = d+1 and z = d + 1/2:
@@ -48,8 +63,13 @@ VERIFICATION (three tiers, run below):
       assembled xi.  Machine precision expected; this checks our
       algebra only.
   V2 (prime side, non-trivial): the Lambda-sum truncated at n <= N
-      converges to -zeta'/zeta(s) (mpmath, 30 digits) within the
-      stated integral tail bound.
+      converges to -zeta'/zeta(s) within the stated integral tail
+      bound, computed at working precision HIGH ENOUGH for the bound
+      to be meaningful (round-15 M2: the original dps-30 run put the
+      d=12 residual at the precision floor 4.8e-35, ABOVE its 1.6e-40
+      bound, and the PASS was an epsilon artifact; recomputation at
+      dps 50 gives residual ~2.1e-41, genuinely within bound -- the
+      check now runs at dps 50 with the strict bound, no epsilon).
   V3 (zero side, non-trivial): the Hadamard Lorentzian sum over the
       FIRST N TRUE ZEROS (mpmath.zetazero -- computed, not
       hardcoded) plus a Riemann-von Mangoldt average-density tail
@@ -161,17 +181,20 @@ def main():
     print(f"  max |residual| over sampled layers: {worst:.3e}"
           f"   {'PASS' if worst < 1e-18 else 'CHECK'}")
 
-    # ---- V2: prime side (non-trivial)
+    # ---- V2: prime side (non-trivial; dps 50, strict bound -- M2)
     print()
-    print("V2 prime side  sum Lambda(n) n^-s  vs  -zeta'/zeta(s):")
-    for d, N in ((1, 200000), (4, 20000), (12, 2000)):
-        s = mpf(d + 1)
-        truth = -diff(lambda t: log(zeta(t)), s)
-        ls, tail = lambda_sum(s, N)
-        r = abs(float(ls - truth))
-        ok = r <= tail * 1.5 + 1e-25
-        print(f"  d={d:>2} (s={d+1}): N={N:>6}  |Lambda-sum - truth| ="
-              f" {r:.2e}  tail-bound {tail:.2e}  {'PASS' if ok else 'FAIL'}")
+    print("V2 prime side  sum Lambda(n) n^-s  vs  -zeta'/zeta(s)"
+          " [dps 50, strict]:")
+    with mp.workdps(50):
+        for d, N in ((1, 200000), (4, 20000), (12, 2000)):
+            s = mpf(d + 1)
+            truth = -diff(lambda t: log(zeta(t)), s)
+            ls, tail = lambda_sum(s, N)
+            r = abs(ls - truth)
+            ok = r <= mpf(tail) * mpf("1.5")
+            print(f"  d={d:>2} (s={d+1}): N={N:>6}  |Lambda-sum - truth|"
+                  f" = {float(r):.2e}  tail-bound {tail:.2e}"
+                  f"  {'PASS' if ok else 'FAIL'}")
 
     # ---- V3: zero side (non-trivial, convergence trend)
     print()
@@ -233,8 +256,10 @@ def main():
     print("    split printed above; the prime part is exponentially")
     print("    dominated by n = 2, 3 and is small at the record's layers;")
     print("    the low layers (where the record lives) are POLE-dominated")
-    print("    -- the pole of zeta at s = 1 shapes the observer-side")
-    print("    potential; the zeros supply the growing positive part.")
+    print("    -- zeta's pole at s = 1 (the 1/(s-1) term) together with")
+    print("    its functional-equation mirror at s = 0 (the 1/s term,")
+    print("    round-15 m4) shape the observer-side potential; the zeros")
+    print("    supply the growing positive part.")
     print("  - Classical content: Euler product + Hadamard product.  New")
     print("    for the program: only the tower evaluation and the window")
     print("    splits.  No closure, no data contact, no RH use, and no")

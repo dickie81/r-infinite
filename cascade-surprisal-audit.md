@@ -2868,7 +2868,10 @@ the session's assessment phrase "verbatim the archimedean term of Weil's formula
 test-function formula is the smeared version of the same identity).
 
 **Verification (three tiers, all run):** V1 rearrangement exact to **10⁻³¹**; V2 the prime
-side against −ζ′/ζ within stated integral tail bounds (three layers); V3 the zero side
+side against −ζ′/ζ ~~within stated integral tail bounds (three layers)~~ **[round-15 M2:
+false of the d=12 row as originally run — the dps-30 residual sat at the precision floor
+above its bound, PASS via epsilon; recomputed at dps 50 the true residual 2.05×10⁻⁴¹ is
+genuinely within the 1.56×10⁻⁴⁰ bound, and the check now runs strict at dps 50]**; V3 the zero side
 with the first **50 computed zeros** (`mpmath.zetazero` — computed, not hand-tabulated)
 plus a Riemann–von Mangoldt average-density tail, residuals **decreasing** in N at every
 tested layer (the convergence trend is the check; the tail model's oscillatory error is
@@ -2880,7 +2883,8 @@ disclosed).
 Φ(5→12) [α_s, v] = 1.064665 = zeros 2.957125 − poles 1.916678 + primes 0.024218;
 Φ(13→20) [θ_23] = 3.825284 = zeros 4.784953 − poles 0.959754 + primes 0.000085.
 Structure: the low layers — where the record lives — are **pole-dominated** (ζ's pole at
-s = 1 shapes the observer-side potential); the primes enter exponentially small (n = 2, 3
+s = 1 *and the completed function's mirror pole at s = 0 — round-15 m4* shape the
+observer-side potential); the primes enter exponentially small (n = 2, 3
 dominate); the zeros supply the growing positive part.
 
 **Honest scope, stated before any reviewer says it:** the two expansions are classical
@@ -2889,7 +2893,9 @@ splits. This grounds the **scaffold** one level deeper: the tower is no longer m
 "built from ζ's Gamma factor" — it *is* one side of the Riemann explicit formula, with the
 primes and the zeros jointly exact on the other side, which is the strongest form of "the
 link" that exists canonically. It grounds the **dictionary** not at all: the address book,
-source twists, k=3, the gradings, and record-legs are untouched. RH is not used. And no
+source twists, k=3, the gradings, and record-legs are untouched. ~~RH is not used.~~
+**[round-15 M1: true of the paired Hadamard form; the Lorentzian form as printed assumes
+on-line zeros — restated on every surface]** And no
 direction of explanation is claimed — the identity is ζ's own bookkeeping; whether the
 zeros "cause" the potential or merely co-vary with it is a modeling choice the identity
 does not supply.
@@ -2919,7 +2925,9 @@ recovers the critical point to **6×10⁻³** and the threshold to **5×10⁻²*
 decreasing in N. Honesty item caught in-run: the sink at s≈218 is **tail-model-limited**
 (the Lorentzian there is dominated by the average-density tail; ~1% accuracy,
 N-insensitive) — the script's first reading text overclaimed "decreasing" for all three
-rows and was corrected before commit. **The door-1 answer, registered as a negative:** no
+rows and was corrected before commit **[round-15 m1: the correction reached the READING
+block only; the DEMONSTRATION docstring paragraph retained the blanket claim until round
+15]**. **The door-1 answer, registered as a negative:** no
 recorded quantity reads the zero side independently of the digamma packaging; the features
 are identity-mediated, and any future stronger claim is stopping-rule-gated new physics.
 
@@ -2928,13 +2936,17 @@ are identity-mediated, and any future stronger claim is stopping-rule-gated new 
   p_sgn — **the program's two interleaved towers (T5) jointly carry the complex-place
   factor.** F6's "the odd shift needs Γ_ℂ and ℚ has r₂ = 0" is relocated: no complex
   embedding of ℚ was ever needed; the doubled tower synthesizes it.
-- **C2 (forced minimality):** the sgn tower's factor Γ_ℝ(s+1) is the archimedean factor of
-  *odd* Dirichlet L-functions; the minimal primitive odd character is **χ₋₃, conductor 3
-  — the only primitive character of conductor ≤ 3, and it is odd** — which is the
-  quadratic character of the T8 colour field ℚ(ζ₃). Two independent pointers (minimality;
-  the colour field) converge; this is an enumeration, not a scan.
+- **C2 ~~(forced minimality)~~ [round-15 M3: minimality is a theorem, the PAIRING is a
+  convention]:** the sgn tower's factor Γ_ℝ(s+1) is the archimedean factor of **every**
+  odd Dirichlet L-function and the C3 bridge holds for each (the balance point is
+  character-independent — zero selectivity); the minimal-conductor primitive odd character
+  is **χ₋₃, conductor 3** (~~the only primitive character of conductor ≤ 3~~ **[m2: the
+  trivial character mod 1 is conventionally primitive but even]**), the quadratic
+  character of the T8 colour field ℚ(ζ₃). Two pointers (minimality; the colour field)
+  make the pairing a *motivated convention*, charged to the selection-convention class
+  (A66).
 - **C3 (the odd bridge, verified three-tier):** Λ(s,χ₋₃) is entire (L(1)=π/(3√3), exact),
-  root number +1 (real on the critical line to 10⁻²⁵), giving
+  root number +1 (real on the critical line to 3×10⁻²⁵ — m3), giving
   **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a conductor
   where the even tower had ζ's poles*. Verified: rearrangement 6×10⁻²⁷; χ-weighted prime
   side within tail bounds; zero side with the **first 24 zeros of L(s,χ₋₃) computed by
@@ -2953,6 +2965,72 @@ its conductor; the two towers together are the complex place.
 derived, the feature→layer selection convention stays in the residue, the dictionary is
 untouched. No data contact, no closure, no RH/GRH use. One in-run overclaim (the sink
 "decreasing") caught and fixed pre-commit, on the record.
+
+## Addendum 66: hostile review round 15 — the bridge arc WOUNDED (3 majors); the mathematics survives every independent check
+
+**The bridge arc (Theorems 1b/1c, A64–65, three scripts) was hostile-reviewed. Verdict:
+WOUNDED — 3 majors, 6 minors, all claim-precision, all accepted and swept; the reviewer
+independently re-derived the identities by hand (Legendre, the rearrangement, the
+completed odd L-function's normalization and trivial zeros), independently computed the
+root number τ(χ₋₃) = i√3 ⇒ ε = +1, checked L(1) against the class-number formula, re-ran
+the zero-scan at 12× finer step (no missed zeros; count matches N(T)), and confirmed every
+quoted number on every surface. "The bridge arc's mathematics is steel; its claim-layer
+has three dents of the arc's chronic type."** Full disposition:
+`riemann-indistinguishability-review-response.md` Round 15.
+
+**M1 — the Lorentzian form silently assumed on-line zeros; "RH is not used" was false of
+the formula as displayed.** The unconditional, RH-free theorem is the *paired* Hadamard
+form Σ 2z/(z²−(ρ−½)²) (ξ(½+z) even, entire, order 1, genus-0 in z², no constant — the
+reviewer verified the no-constant claim independently); the Lorentzian-in-ordinates form
+2z/(z²+γ²) is its on-line specialization, exact iff β = ½ (the reviewer computed the
+off-line discrepancy explicitly: ~3×10⁻⁵ for a displacement a = 0.1 at γ = 10). The
+blanket "the identity holds wherever the zeros are" was true of the paired form and false
+of the printed form. **Fixed by restatement on every surface** (both theorems, T1b/T1c,
+A64 strike-markers, all three docstrings): paired form = the theorem; Lorentzian form =
+the on-line evaluation, with the verified zeros (any off-line zero lies beyond height
+3×10¹² and contributes < 10⁻²³ here). Same restatement for GRH and the odd bridge.
+
+**M2 — a PASS that was an epsilon artifact.** The d=12 prime-side row printed residual
+4.81×10⁻³⁵ against a stated bound of 1.56×10⁻⁴⁰ — the residual *exceeded its bound by
+five orders* (the dps-30 precision floor) and passed only via a +10⁻²⁵ slack; three
+surfaces then claimed "within stated tail bounds." The reviewer recomputed at dps 60: the
+true residual is 2.05×10⁻⁴¹, genuinely within bound. **Fixed:** V2 now runs at dps 50
+with the strict bound and no epsilon; the run shows the honest PASS; the false-when-written
+claims are struck-and-annotated (A64) or corrected in place (paper, formulation).
+
+**M3 — the selection-convention disease, fourth appearance, dressed as "forced
+minimality."** What is a theorem: χ₋₃ is the minimal-conductor primitive *odd* character
+(q=2 has none; q=3 exactly one, odd), and it is the T8 colour field's character. What was
+overclaimed: Γ_ℝ(s+1) is the archimedean factor of **every** odd Dirichlet L-function; the
+C3 bridge holds verbatim for every odd real primitive χ (all ε = +1), so **the balance
+point s = 6.2569 is character-independent — zero selective power**; only the
+minimality-*convention* names χ₋₃ the partner. "Forced-minimal partner" language struck or
+restated on every surface; the pairing is now charged as a **motivated convention of the
+selection-convention class the residue already counts** — the same disease as the
+feature→layer map, caught this time by the review before an external one found it.
+
+**Minors swept:** m1 — the Door-1 docstring retained the blanket "error decreasing"
+overclaim that A65 said was fixed (the fix had reached the READING block only; corrected,
+and the A65 sentence annotated); m2 — "only primitive character of conductor ≤ 3" was
+false under the standard convention (the trivial character mod 1 is primitive, but even);
+m3 — "10⁻²⁵" → 3×10⁻²⁵; m4 — the pole terms are ζ's pole at s=1 *and the completed
+function's mirror pole at s=0* (both had been attributed to ζ's pole); m5 — the
+tail-integral half-neighborhood seam noted (inside the disclosed oscillatory error); m6 —
+the formulation's T1c now carries the no-direction-of-explanation disclaimer explicitly.
+
+**Checked-and-held (adopted):** every identity re-derived independently; every quoted
+number verbatim-verified; zero-scan completeness confirmed against N(T); the D-consistency
+of 5.2569/6.2569/7.2569 across Thm 7, the F6 remark, 1c, and A65 verified; stopping rule
+holds (zero data contact in all three scripts); Check-7/8 clean; no stale surfaces
+repo-wide; the superseded "verbatim Weil" phrase survives only inside its superseding
+statements.
+
+**Net state:** the bridge arc's results all stand at their corrected strengths — the
+paired-form bridge theorem (unconditional), its on-line Lorentzian evaluation (verified),
+the window splits, the balance-point restatements, the Legendre synthesis, the odd-family
+bridge, and the minimality theorem — with the pairing convention now honestly priced. The
+chronic lesson, fourth instance: every "forced" in this program must name what forces it,
+and a selection principle is never free.
 
 ## Caveats
 

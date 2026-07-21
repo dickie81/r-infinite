@@ -20,16 +20,28 @@ objection "the odd shift needs Gamma_C, and Q has r_2 = 0" is
 thereby relocated: the program never needed a complex embedding of
 Q — its own two interleaved towers synthesize Gamma_C by Legendre.
 
-C2 (the minimal odd character IS the colour character — a forced
-minimality, not a choice).  The sgn tower's factor Gamma_R(s+1) is
-the archimedean factor of ODD Dirichlet L-functions.  Enumerating
-conductors: q = 1 has only the trivial (even) character; q = 2 has
-no primitive character; q = 3 has exactly one primitive character,
-chi_{-3} (chi(1)=+1, chi(2)=-1), and it is ODD.  So chi_{-3} is THE
-minimal-conductor primitive odd Dirichlet character — and it is the
-quadratic character of Q(sqrt(-3)) = Q(zeta_3), the COLOUR FIELD of
-T8.  Two independent pointers (minimality; the T8 field) converge on
-the same object.
+C2 (minimality is a theorem; the PAIRING is a convention -- restated
+per round-15 M3).  The sgn tower's factor Gamma_R(s+1) is the
+archimedean factor of EVERY odd Dirichlet L-function, and the C3
+bridge below holds verbatim for every odd real primitive chi mod q
+(all have epsilon = +1): p_sgn = zeros(L(chi)) - (1/2)ln q +
+chi-weighted primes.  The balance-point statement therefore has
+ZERO selective power among odd characters -- s = 6.2569 is
+simultaneously the conductor balance point of chi_{-4} (the Q(i)
+character), chi_{-7}, ... -- because the left side p_sgn is the
+same function for all of them.  What IS a theorem: enumerating
+conductors, q = 2 has no primitive character and q = 3 has exactly
+one, chi_{-3}, which is ODD -- so chi_{-3} is the minimal-conductor
+primitive odd character (the trivial character mod 1 is
+conventionally primitive but even -- round-15 m2 corrected the
+earlier "only primitive character of conductor <= 3" phrasing) --
+and it is the quadratic character of Q(zeta_3), the T8 colour
+field.  What is a CONVENTION: adopting conductor-minimality as the
+principle that names chi_{-3} "the" partner.  This is the same
+selection-convention class the program's residue already counts for
+the feature->layer map, and it is charged as such (Addendum 66);
+the two pointers (minimality; the T8 field) make it a motivated
+convention, not a forcing.
 
 C3 (the odd/colour bridge — no poles, a conductor instead).  With
 Lambda(s,chi) = (3/pi)^((s+1)/2) Gamma((s+1)/2) L(s,chi_{-3}),
@@ -62,12 +74,17 @@ exact); (ii) the odd feature's arithmetic home is identified inside
 the program's colour sector via a FORCED minimality (C2 — the
 unique minimal odd primitive character; not a scan over characters);
 (iii) the odd tower has its own explicit-formula bridge with the
-same three-part shape as Theorem 1b (C3, verified).  The zeros of
+same three-part shape as Theorem 1b (C3, verified) -- FOR THE WHOLE
+ODD FAMILY, with chi_{-3} the minimal instance.  The zeros of
 L(s,chi_{-3}) used in C3 are COMPUTED below by sign-scanning the
 verified-real completed function on the critical line — not
-tabulated from memory.  Category (a): no data contact, no closure,
-no RH/GRH use (the identity holds wherever the zeros are; numerics
-use the on-line zeros found).
+tabulated from memory.  Category (a): no data contact, no closure.
+GRH status (round-15 M1 restatement): the PAIRED Hadamard form is
+GRH-free (Lambda(1/2+z) even, entire, order 1, genus-0 in z^2,
+anchored by Lambda(1/2) != 0); the LORENTZIAN form evaluated below
+is its on-line specialization, exact for the zeros found (which a
+sign-scan can only find on the line; completeness is supported by
+the N(T) count and the decreasing residuals, both checked).
 """
 
 import math
@@ -125,12 +142,15 @@ def main():
 
     # ---- C2: forced minimality
     print()
-    print("C2 minimal odd character:")
-    print("  q=1: trivial character only (even).  q=2: no primitive")
-    print("  character.  q=3: exactly one primitive character, chi_-3,")
-    print("  and it is odd (chi(-1) = chi(2) = -1).  FORCED minimal --")
-    print("  and it is the quadratic character of the T8 colour field")
-    print("  Q(zeta_3) = Q(sqrt(-3)).")
+    print("C2 minimality theorem + pairing convention (round-15 M3):")
+    print("  q=1: trivial character (conventionally primitive, EVEN).")
+    print("  q=2: no primitive character.  q=3: exactly one primitive")
+    print("  character, chi_-3, and it is odd -- the minimal-conductor")
+    print("  primitive ODD character, and the quadratic character of the")
+    print("  T8 colour field Q(zeta_3).  The minimality is a theorem;")
+    print("  adopting it as the pairing principle is a CONVENTION (the")
+    print("  C3 bridge holds for every odd real primitive chi; the")
+    print("  balance point is character-independent).")
 
     # ---- entirety + root number checks
     print()
@@ -248,7 +268,9 @@ def main():
     print("  zeros plus the colour-weighted primes balance the conductor")
     print(f"  (1/2)ln3 = {LN3_HALF:.4f}.  Its arithmetic home is the odd")
     print("  Dirichlet family (as F6 found); the minimal member of that")
-    print("  family is the colour field's character (C2, forced).")
+    print("  family is the colour field's character (C2: minimality is")
+    print("  a theorem, the pairing a convention; the balance-point form")
+    print("  is the same for every odd character -- zero selectivity).")
 
     print()
     print("=" * 74)

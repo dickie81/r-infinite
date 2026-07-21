@@ -77,23 +77,34 @@ layer d ≥ 1, with s = d+1 and z = d+½:
 
 p(d) = Σ_{γ>0} 2z/(z²+γ²) − 1/s − 1/(s−1) + Σ_{n≥2} Λ(n)·n^(−s),
 
-where γ runs over the ordinates of the nontrivial zeros of ζ (Hadamard product, zeros paired
-ρ ↔ 1−ρ) and Λ is the von Mangoldt function (Euler product): **the tower potential at every
+where γ runs over the ordinates of the nontrivial zeros of ζ and Λ is the von Mangoldt
+function (Euler product). *Form distinction (round 15, M1):* the unconditional, RH-free
+theorem is the **paired** Hadamard form Σ 2z/(z² − (ρ−½)²) — ξ(½+z) is even, entire of
+order 1, genus-0 in z², no constant term, valid wherever the zeros are; the **Lorentzian**
+form displayed is its on-line specialization, exact for zeros with β = ½, and is how the
+sum is evaluated (with the verified on-line zeros; a hypothetical off-line zero would alter
+the term shape but lies beyond the verified height 3×10¹² and contributes < 10⁻²³ here): **the tower potential at every
 layer is exactly a sum over the Riemann zeros, minus the pole terms, plus a sum over the
 primes** — the partial-fraction (Hadamard) form of the explicit-formula identity evaluated
 at the tower points. Every window Φ(a→b) = Σ p(d) inherits the split additively; e.g.
 Φ(5→13) = 1.539665 = zeros 3.226401 − poles 1.698363 + primes 0.011627, and
 Φ(13→21) = 4.064768 = zeros 4.969202 − poles 0.904476 + primes 0.000042. *Verified:* the
-rearrangement to 10⁻³¹; the prime side against −ζ′/ζ within stated integral tail bounds;
+rearrangement to 10⁻³¹; the prime side against −ζ′/ζ within stated integral tail bounds at
+dps 50 with the strict bound (round-15 M2: the original dps-30 run put the d=12 residual at
+the precision floor, above its bound, with the PASS an epsilon artifact — recomputed, the
+true residual 2.05×10⁻⁴¹ is genuinely within the 1.56×10⁻⁴⁰ bound);
 the zero side with the first 50 zeros (computed via `zetazero`, not tabulated by hand) plus
 a Riemann–von Mangoldt density tail, residuals decreasing in N. *Structure:* the low layers
-— where the record lives — are **pole-dominated** (the pole of ζ at s=1 shapes the
-observer-side potential); the primes enter exponentially small (dominated by n = 2, 3); the
-zeros supply the growing positive part. *Honest scope, stated in full:* the two expansions
+— where the record lives — are **pole-dominated** (ζ's pole at s=1, the 1/(s−1) term,
+together with the completed function's functional-equation mirror pole at s=0, the 1/s term
+— round-15 m4 — shape the observer-side potential); the primes enter exponentially small
+(dominated by n = 2, 3); the zeros supply the growing positive part. *Honest scope, stated in full:* the two expansions
 are classical (Euler; Hadamard) — new for this paper is only the tower evaluation and the
 window splits. No physical closure is derived, no data is touched (stopping-rule category
-(a)), RH is not used (the identity holds wherever the zeros are; the paired form is
-evaluated with the verified on-line zeros), and **no direction of explanation is claimed**:
+(a)), RH is not used *by the paired form* — the Lorentzian evaluation assumes the zeros
+used are on the line, which for the verified zeros they are (round-15 M1 corrected the
+earlier blanket "holds wherever the zeros are", true of the paired form only) — and **no
+direction of explanation is claimed**:
 the identity is ζ's own bookkeeping. What it changes is the construction's standing: the
 tower is not merely built from ζ's Gamma factor — it **is one side of the Riemann explicit
 formula, with the primes and the zeros jointly exact on the other side**. The dictionary
@@ -114,17 +125,25 @@ quantity reads the zero side independently of the digamma packaging; any future 
 that kind is stopping-rule-gated new physics. *(ii) The odd tower has its own bridge, and
 it is the colour character's.* By Legendre, Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1), so p_ℂ = p_triv +
 p_sgn exactly — the doubled tower of Theorem 5 jointly carries the complex-place factor.
-The sgn tower's factor Γ_ℝ(s+1) is the archimedean factor of odd Dirichlet L-functions,
-whose minimal primitive member is **forced**: χ₋₃, conductor 3, the quadratic character of
-the Theorem-11 colour field ℚ(ζ₃). Its completed L is entire with root number +1
-(verified real on the critical line to 10⁻²⁵; L(1) = π/(3√3) exactly), giving the odd
+The sgn tower's factor Γ_ℝ(s+1) is the archimedean factor of **every** odd Dirichlet
+L-function, and the odd bridge below holds verbatim for every odd real primitive χ mod q
+(all have ε = +1), so the balance-point statement has **zero selective power** among odd
+characters (round-15 M3). What is a theorem: χ₋₃ (conductor 3) is the minimal-conductor
+primitive *odd* character (q=2 has no primitive character; q=3 has exactly one, odd; the
+trivial character mod 1 is conventionally primitive but even — round-15 m2), and it is the
+quadratic character of the Theorem-11 colour field ℚ(ζ₃). What is a **convention**:
+adopting conductor-minimality as the pairing principle — the same selection-convention
+class the residue counts for the feature→layer map, charged as such (Addendum 66). Its completed L is entire with root number +1
+(verified real on the critical line to 3×10⁻²⁵; L(1) = π/(3√3) exactly), giving the odd
 bridge **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln 3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a
 conductor where the even tower had ζ's poles* — verified three-tier with the first 24
 zeros of L(s,χ₋₃) computed by sign-scanning (first ordinate 8.0397), residuals decreasing.
 The odd feature at s = 6.2569 (Finding 6's excluded object) is p_sgn = 0: the point where
 the colour-character zeros plus the colour-weighted primes balance the conductor ½ln 3.
 *Scope:* structural only — Finding 6 stays reopened, no address is derived, no data is
-touched, GRH is not used.
+touched; GRH is not used by the paired form (the Lorentzian evaluation uses the on-line
+zeros the sign-scan finds, with completeness supported by the N(T) count and the
+decreasing residuals); the minimality-pairing is a convention, not a forcing.
 
 ## 3. The forced dynamics
 
@@ -194,10 +213,11 @@ update (Addendum 65, Theorem 1c — Finding 6 stays REOPENED on its original cla
 r₂ = 0 obstruction is now relocated rather than removed — Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1) is
 synthesized exactly by the program's own two interleaved towers (Theorem 5's doubling, via
 Legendre), so no complex embedding of ℚ was ever needed; and the excluded odd object at
-s = 6.2569 is the sgn tower's zero-crossing, whose completed L-partner is the **minimal
-primitive odd Dirichlet character χ₋₃ — forced minimality (the only primitive character of
-conductor ≤ 3, and it is odd) — which is the quadratic character of the Theorem-11 colour
-field ℚ(ζ₃)**. The odd feature's arithmetic home is the program's own colour sector; no
+s = 6.2569 is the sgn tower's zero-crossing, whose L-family is the odd Dirichlet characters — the bridge holds for every odd real
+primitive χ, and the **minimal-conductor primitive odd character is χ₋₃** (a theorem: q=2
+has no primitive character, q=3 exactly one, odd), which is the quadratic character of the
+Theorem-11 colour field ℚ(ζ₃); **the pairing-by-minimality is a convention** (round-15
+M3), of the same class as the feature→layer selection. The odd feature's arithmetic home is the program's own colour sector; no
 address is derived, and the selection convention stays in the residue.
 
 ## 5. The calculus of attachments (the derived rules)

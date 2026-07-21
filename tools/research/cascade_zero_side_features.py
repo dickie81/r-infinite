@@ -29,17 +29,22 @@ Through Theorem 1b each becomes an exact balance statement:
 
 so each distinguished layer is the point where the Riemann zeros'
 Lorentzian sum plus the (tiny) prime sum balances the pole terms at
-the stated level.  In particular the pole terms 1/s + 1/(s-1) --
-zeta's pole at s = 1, the divergence of the harmonic series -- are
-what the zeros must overcome: the observer-side geography of the
-tower is a zeros-vs-pole tug-of-war with the primes as an
-exponentially small spectator.
+the stated level.  The pole terms are 1/(s-1) -- zeta's pole at
+s = 1, the divergence of the harmonic series -- and 1/s, the
+completed function's pole at s = 0, its functional-equation mirror
+(round-15 m4 corrected the earlier attribution of both to zeta's
+pole): the observer-side geography of the tower is a zeros-vs-poles
+tug-of-war with the primes as an exponentially small spectator.
 
 DEMONSTRATION (run below): solving the balance equation FROM THE
 ZERO SIDE (first N computed zeros + Riemann-von Mangoldt density
-tail; no digamma anywhere in the solve) recovers the feature
-locations, with error decreasing in N.  The zeros, plus the density
-model, know where the cascade's landmarks are.
+tail; no digamma anywhere in the solve) recovers the TWO NEAR
+features with error decreasing in N (critical point ~6e-3,
+threshold ~5e-2 at N=50); the SINK at s ~ 218 is TAIL-MODEL-LIMITED
+(~1%, N-insensitive) -- round-15 m1: the original blanket "error
+decreasing in N" here was false for the sink row and is corrected;
+the Lorentzian evaluation is the on-line form per the round-15 M1
+restatement in cascade_explicit_formula_bridge.py.
 
 THE HONEST NEGATIVE (door 1's answer, registered): within the
 current record NO quantity reads the zero side independently of the
@@ -122,8 +127,9 @@ def main():
     print("=" * 74)
     print("  - Each distinguished layer is the exact balance point")
     print("    ZEROS + PRIMES = POLES + level: the observer-side geography")
-    print("    is a zeros-vs-pole tug-of-war (zeta's pole at s=1 vs the")
-    print("    nontrivial zeros), primes an exponentially small spectator.")
+    print("    is a zeros-vs-poles tug-of-war (zeta's pole at s=1 and the")
+    print("    completed function's mirror pole at s=0 vs the nontrivial")
+    print("    zeros), primes an exponentially small spectator.")
     print("  - Solving the balance FROM THE ZERO SIDE recovers the two")
     print("    near features with error DECREASING in N (critical point")
     print("    to ~6e-3, threshold to ~5e-2 at N=50).  The sink at")
