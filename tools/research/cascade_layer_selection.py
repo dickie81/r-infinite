@@ -108,7 +108,6 @@ def main():
 
     d0, d1 = 7, 19          # Part 0 thresholds (cited); d0 used in G2 only
     dV = 5                  # tower start / first distinguished layer
-    obs_window = [4, 5, 6]  # spacetime window (anchor d = 4)
 
     # G1: the mod-8 complex-window arithmetic
     win = [d for d in range(4, 23) if d % 8 in (4, 5, 6)]

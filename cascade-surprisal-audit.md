@@ -4553,8 +4553,9 @@ the strike only ✓~~ **[round 32 (F1): double-false census — the struck phras
 line-wrapped in the file so the line-based grep cannot hit it, and the command's sole
 commit-final hit is this battery line itself; "the strike only" corresponded to no
 state of the repository. The A89-F2 class, committed in the battery block of the round
-that struck it. True statement, verified by wrap-aware search: the phrase appears once,
-inside the A88 strike, zero live]**; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0
+that struck it. True statement, verified by wrap-aware search: the phrase appears once
+outside this struck battery line itself — inside the A88 strike — zero live (round-33
+F2 added the self-referential qualifier)]**; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0
 FAIL (G1 now computed-gated), `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
 `cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL,
 `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
@@ -4585,7 +4586,9 @@ level up — the correction committing the corrected defect's own class.**
   command's sole commit-final hit was the battery line itself — a census corresponding
   to no state of the repository, inside the battery block of the round that struck
   A89's false census. Struck-and-annotated with the wrap-aware true statement (the
-  phrase appears once, inside the A88 strike, zero live). **Rule (the wrap clause):**
+  phrase appears once outside the struck battery line itself, inside the A88 strike,
+  zero live — round-33 F2 added the self-referential qualifier). **Rule (the wrap
+  clause):**
   retraction batteries use wrap-proof fragments or wrap-aware search, and every census
   is stated from the post-append run's actual hit list.
 - **F2 (minor):** the round-31 annotation correcting A89's census itself misstated the
@@ -4640,6 +4643,78 @@ breaking G1 *and* G2 ✓, `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
 majors exhausted, the remaining defects instrument-layer, three of four the recursive
 mode. Round 33 (subagent per protocol) gates stability; the registered papers-side
 item (A90 F6) still awaits a papers-side round.
+
+## Addendum 92: hostile review round 33 — convergence test on the round-32 sweep; NOT CONVERGED (0 majors, 1 minor, 2 cosmetics + 1 papers-side registration); the corrections held for the first time
+
+**Commissioned: "Round 33 pls" — subagent per protocol on commit 8e77647; every
+finding verified directly by the lead (Check 3: the round-19 record and trajectory
+lines re-read; the wrap-aware full-pattern census re-run — count 2; the dead variable
+grepped; the d₀-row arithmetic checked: ρ(8) = 8 = dimO via v₂(8) = 3, the
+Hurwitz–Radon fields on S⁷ being the octonion multiplications).**
+
+**Verdict: NOT CONVERGED — zero majors, one minor, two cosmetics, one papers-side
+registration addition. The inversion the sequence has been driving toward: for the
+first time, every correction made by the round under test survived adversarial
+re-execution (F1's strike, census, and wrap story; F2's three-layer census; F4's
+computed gates under wrong-filter probes both directions; c5's quote; c6's cite —
+the reviewer's twelve-item held list, all with the work shown).**
+
+- **F1 (minor — the CLAUDE.md sentence, third version, still uncheckable) and the
+  grading adjudication it demanded.** The corrected sentence claimed "eleven prior
+  rounds … no majors — minors and cosmetics," but round 19's sole substantive finding
+  was **ungraded** on every contemporaneous surface ("one substantive finding"), while
+  the standing trajectory lines (A72: "WOUNDED 2(+6) → NOT CONVERGED 1(+4)"; A73:
+  "2+6 → 1+4 → 0+1") place its "1" in the same slot as round 18's two majors and
+  round 20's explicit zero. **Adjudication (the lead's, recorded here):** round-19
+  F1's class — a disposition record ("corrected to two *everywhere*") falsified by
+  live instances in the very file it covered — is the same shape round 31 graded
+  MAJOR; by that precedent it is **retroactively graded major-equivalent**. The
+  trajectory lines thereby become consistent as written; and any "no majors" census
+  over the intermediate rounds becomes unsupportable — which is why the CLAUDE.md
+  sentence's **fourth version carries no census at all**, states only what Addendum 89
+  establishes, and points readers at the round tables. The recursion (three
+  consecutive versions each misdescribing the record — rounds 31 F5, 32 F3, 33 F1) is
+  ended by removing its substrate, not by a fourth attempt at the same sentence.
+- **F2 (cosmetic):** the round-32 F1 annotation's "wrap-aware true census" said the
+  phrase "appears once, inside the A88 strike" — the wrap-aware count is 2, the
+  second being the struck battery line itself (named earlier in the same paragraph
+  but omitted from the census sentence). The self-referential qualifier added at both
+  instances, per the round-29 convention.
+- **F3 (cosmetic):** the dead `obs_window` literal — a hardcoded copy of what G1 now
+  computes — removed from the script; still 4 PASS 0 FAIL.
+- **F4 (papers-side, verified and registered):** the part4b landscape table's d₀ = 7
+  row lists ρ(8)−1 and dimO−1 among its "Independent math-theorem routes" — the
+  A90-F6 class again (ρ(8) = 8 = dimO by the same Clifford/octonion structure; the
+  Hurwitz–Radon fields on S⁷ are the octonion multiplications). Registered alongside
+  A90-F6 for the pending papers-side round; note d₀ retains two genuinely distinct
+  routes (Γ-area-max; G₂/SU(3) on S⁶), so its "structurally over-determined" status
+  survives the merge, and no round-32 surface claim is falsified.
+
+**Checked and held (the reviewer's twelve items, lead-spot-verified):** the round-32
+strikes verbatim; A91's battery census reproduced exactly (3 occurrences incl. the
+self-referential hit); F2's three-layer census with exact line numbers; F4 verified in
+both directions (the pre-image's G2 wrong-filter-proof, the current G2 failing under
+two wrong filters); c5's quote verbatim with the script's ellipsis a genuine marked
+omission; c6 and the F6 registration clean; A90's batteries 1–2 exact at commit-final;
+the residual sweeps (wrap-aware, tex included) with zero live retracted content; the
+Round-32 table item-for-item; all six scripts' counts; the equivalence to [1, 10⁵];
+the round-31 strikes verbatim; A91's recursive self-test clean.
+
+**A92 battery (this commit's gate; run after all appends; wrap-aware):** the
+CLAUDE.md sentence: census-free by construction — `grep -n "eleven" CLAUDE.md` zero
+hits ✓; "appears once" instances: both now carry the self-referential qualifier ✓;
+`grep -n "obs_window" tools/research/cascade_layer_selection.py` — zero hits ✓;
+scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0 FAIL,
+`cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
+FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0
+FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
+
+**Standing state:** layer-question trajectory: 2+4(+1c) → 1+5(+3c) → 0+4(+2c) →
+0+1(+2c). The substantive story has inverted — the round-32 corrections all held; the
+residue was one sentence about the review's own history (now census-free), a
+qualifier, dead code, and a papers-side registration. Round 34 gates stability. The
+papers-side round now carries two registered items (A90-F6: the d_g row; A92-F4: the
+d₀ row).
 
 ## Caveats
 

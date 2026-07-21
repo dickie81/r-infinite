@@ -771,3 +771,18 @@ class.
 | c6 — A90's F6 cite pointed at the \hline, not the d_g row (3633) | **Accepted.** Corrected in place | A90 |
 
 **Trajectory: 2+4 → 1+5 → 0+4(+2c) — majors exhausted. Round 33 gates stability.**
+
+# Round 33: convergence test on the round-32 sweep (subagent, per protocol) — NOT CONVERGED (0+1+2c); the corrections held for the first time
+
+Zero majors. The inversion: every round-32 correction survived adversarial
+re-execution (strikes verbatim, censuses exact, wrong-filter probes both directions,
+quotes verbatim). The residue is the review's own history-sentence and hygiene.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — the CLAUDE.md sentence's third version claimed "no majors" over eleven rounds while round 19's sole finding was ungraded and the trajectory notation places it in the majors slot | **Accepted, with the demanded adjudication:** r19-F1 retroactively graded major-equivalent (its class — a disposition record falsified by live instances — is what round 31 graded MAJOR); the trajectory lines thereby consistent; the sentence's fourth version carries **no census** and points at the round tables — the recursion ended by removing its substrate | CLAUDE.md + A92 adjudication |
+| F2 (cosmetic) — the round-32 wrap-aware census said "appears once" omitting the self-referential hit (true count 2) | **Accepted.** Qualifier added at both instances | A90/A91 annotations |
+| F3 (cosmetic) — dead `obs_window` literal, a hardcoded copy of what G1 computes | **Accepted.** Removed; 4 PASS 0 FAIL | script |
+| F4 (papers-side) — the part4b d₀ row's ρ(8)−1 and dimO−1 share their arithmetic (octonion structure) — the A90-F6 class | **Accepted; registered** alongside A90-F6 for the papers-side round (d₀ keeps two distinct routes; nothing round-32 claimed is falsified) | A92 register |
+
+**Trajectory: 2+4 → 1+5 → 0+4(+2c) → 0+1(+2c). Round 34 gates stability.**
