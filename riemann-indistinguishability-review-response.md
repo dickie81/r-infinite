@@ -698,3 +698,19 @@ recorded citation-confidence caveat is verified apt and stands; the robustness a
 (every needed case at v₂ ≤ 2) carries the conclusion.
 
 **Round 29 (convergence test) gates Door 3's stability.**
+
+# Round 29: convergence test on the round-28 sweep — CONVERGED (0+0, one cosmetic); Door 3 stable
+
+Zero majors, zero minors, zero mathematical falsehoods (twenty-first consecutive
+round). The series' seventh convergence (rounds 7, 12, 17, 21, 24, 27, 29). Door-3
+trajectory: 0+1(+1c) → 0+0(+1c).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| c1 (cosmetic) — A85's census of the struck d = 13 phrase (3 hits) was true when run, stale at commit: the Round-28 table row was appended after the battery ran, and the finding text spans two lines — commit-state census 4, all self-referential | **Accepted.** Annotated at source; battery-timing clause added: the gate runs against the commit-final surface set (tables appended before the gate, or the gate re-run after every append) | A85 |
+
+**Convergence statement:** no untrue statement on any current surface; no
+recorded-but-not-made fix; no unstruck false record; no "verified" claim without a
+committed verifier. **Door 3 is stable.** The session's full structure stands
+converged — Theorems 1b–1g, the Witt–Weil family, the dependency decomposition — with
+the honest negatives and open items exactly as recorded.

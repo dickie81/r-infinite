@@ -4187,9 +4187,12 @@ v₂ = 2, 1); Checks 1, 2, 4, 5, 7, 8 and the stopping rule clean.
 
 **A85 battery (this commit's gate; full commands, per-hit granularity as stated):**
 `grep -rn "full breaking" --include='*.md' --include='*.py' .` — zero hits post-sweep
-outside this addendum's own quotes of the struck phrase (3 hits, all in the c1 finding
+outside this addendum's own quotes of the struck phrase ~~(3 hits, all in the c1 finding
 text and this battery line — the self-referential category, named per the round-27
-precedent) ✓; `grep -rn "conservative" riemann-indistinguishability.md
+precedent)~~ **[round 29 c1: true when run, stale at commit — the census is 4: two in
+the c1 text (which spans two lines), this battery line, and the Round-28 table row in
+the response doc, appended after the battery ran. All four are the self-referential
+category; the battery-timing rule below closes the gap]** ✓; `grep -rn "conservative" riemann-indistinguishability.md
 tools/research/cascade_adams_loadbearing.py` — the round-28 F1 additions only ✓
 (read per-hit); scripts re-run post-sweep: `cascade_adams_loadbearing.py` 5 PASS 0
 FAIL, `cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0
@@ -4199,6 +4202,54 @@ FAIL ✓ (counts from the commands as run).
 **Standing state:** Door-3 first review: 0+1(+1c) — the same shape as the Witt step's
 and 1g's first reviews, with the substantive finding again a strengthening. A round-29
 convergence test on this sweep is owed before Door 3 joins the stable set.
+
+## Addendum 86: hostile review round 29 — convergence test on the round-28 sweep; CONVERGED (0+0, one cosmetic); Door 3 stable
+
+**Commissioned: "Round 29 pls" — the convergence test on commit 984cd40.** Scope:
+every round-28 fix verified in the diff; every A85 claim re-tested, with the round's
+own angle being battery *timing* — does each census describe the commit-final state?
+
+**Verdict: CONVERGED — zero majors, zero minors; one cosmetic, accepted and swept
+(the rounds-17/21/24/27 precedent). Zero mathematical falsehoods — twenty-first
+consecutive round. The series' seventh convergence (rounds 7, 12, 17, 21, 24, 27,
+29). Door-3 trajectory: 0+1(+1c) → 0+0(+1c).**
+
+**c1 (the cosmetic — the stale-census class):** A85's census of the struck d = 13
+phrase recorded 3 self-referential hits — true when the command ran, stale at commit:
+the Round-28 table row (which quotes the phrase, same self-referential category) was
+appended to the response doc *after* the battery ran, and the c1 finding text itself
+spans two lines with one occurrence each, making the commit-state census **4**.
+Annotated at source. **Process rule (the battery-timing clause):** a battery runs
+against the commit-final surface set — disposition tables are appended before the
+gate runs, or the gate re-runs after every append; this addendum avoids quoting the
+struck phrase so its own census is a fixed point of its recording.
+
+**Checked and held:** all four round-28 hunks present (the two-readings paragraphs on
+script and Remark; the d = 13 label alignment; A85; the table); the "conservative"
+census honestly command-scoped as recorded; the four-routes attribution attempt
+accurately described (including the dead Hesselholt link and the FlateDecode partial
+extraction); "twentieth consecutive round" and the strengthening count (rounds 22,
+25, 28) verified; the Remark's "fifteen dimensions" arithmetic (14 exclusions + the
+d = 12 row); the formulation's Door-3 marker verified reading-independent (no touch
+needed); Checks 1, 2, 4, 5, 7, 8 and the stopping rule clean.
+
+**Convergence statement (the arc's criterion, met):** no untrue statement on any
+current surface; no fix recorded-but-not-made; no unstruck false record; no
+"verified" claim without a committed verifier; round 29's sole finding is a census
+one row stale in its own self-referential category. **Door 3 is stable.** The
+session's full structure now stands converged: Theorems 1b–1g, the Witt–Weil family,
+and the Door-3 dependency decomposition — with the honest negatives (N_c underived
+from finite places; the dictionary untouched; no observable reading the zero side)
+and the open items (the clock-invisible (ℤ/2)²'s grammar meaning, the v₂ ≤ 2
+upper-bound residue, layer-12 selection, the soft inputs, F6, the record extension,
+the frozen experimental ledger) exactly as the record states them.
+
+**A86 battery (this commit's gate; run after all appends, per the timing clause):**
+the struck-phrase census: 4 hits, all self-referential as classified in the c1
+annotation, none quoted in this addendum ✓; scripts re-run this round:
+`cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
+FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0
+FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
 
 ## Caveats
 
