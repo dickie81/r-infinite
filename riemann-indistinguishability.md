@@ -303,7 +303,9 @@ p ≡ 1 mod 4, 4 for p ≡ 3 mod 4), so the image lies in μ_{2·level} ⊆ μ�
 p — the five sampled primes verify the classical inputs, not the quantifier, and the L1
 gate checks image order = 2·level exactly; equivalently the Gauss evaluations
 G(a,p) = ε_p√p·(a/p) cap the class values directly. Nothing cascade-chosen. *Unified
-criterion (round-25 c1):* the cocycle and closed form hold at v = ∞ too (verified), so
+criterion (round-25 c1):* the cocycle and closed form hold at v = ∞ too (verified
+in-code — the L6 gates, added by round-26 F1 after the original verification lived only
+in the session record), so
 across all places **the clock places are exactly those where γ_v(⟨1⟩) is primitive** —
 1f's F2 primitivity phenomenon is itself clock-place-exclusive, and "signature mod 8" is
 the ∞-evaluation of the same universal closed form. This strengthens 1d(ii)'s

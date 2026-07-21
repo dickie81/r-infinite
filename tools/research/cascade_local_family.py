@@ -42,7 +42,8 @@ the L1 gate checks image order = 2 x level exactly.  Equivalently
 the Gauss evaluations G(a,p) = eps_p sqrt(p) (a/p) cap the class
 values directly.  Nothing cascade-chosen.  UNIFIED CRITERION
 (round-25 c1): the cocycle and closed form hold at v = inf too
-(verified in the round-25 record), so across ALL places the clock
+(verified in-code below, L6 -- round-26 F1 moved this from the
+session record into the script), so across ALL places the clock
 places are exactly those where gamma_v(<1>) is PRIMITIVE -- the
 1f-F2 primitivity phenomenon is itself clock-place-exclusive, and
 "sig mod 8" is the infinity-evaluation of the same universal
@@ -348,6 +349,41 @@ def main():
               f"{'PASS' if r < 1e-8 else 'FAIL'}")
     print("   (the dim-8 definite form: both clock places wrap to 1 --")
     print("    the mod-8 period seen globally)")
+
+    # ---- L6 (round-26 F1): the infinity cocycle + closed form, in-code
+    print()
+    print("L6 v = inf: cocycle and closed form in-code (round-26 F1: the")
+    print("   round-25 verification lived only in the session record):")
+    z8 = cmath.exp(1j * cmath.pi / 4)
+
+    def gi(a):
+        return z8 if a > 0 else 1 / z8
+
+    def hil_inf(a, b):
+        return -1 if (a < 0 and b < 0) else 1
+
+    ok6 = True
+    for a in (1, -1):
+        for b in (1, -1):
+            ok6 &= abs(gi(a) * gi(b)
+                       - gi(1) * gi(a * b) * hil_inf(a, b)) < 1e-12
+    print(f"   cocycle gamma(a)gamma(b) = gamma(1)gamma(ab)(a,b)_inf,"
+          f" all sign pairs   {'PASS' if ok6 else 'FAIL'}")
+    ok7 = True
+    for f in ([-1, -1], [1, -1, -1, -1], [-1] * 5, [1, 1, -1], [1] * 8):
+        sig = sum(1 if x > 0 else -1 for x in f)
+        d = 1
+        h = 1
+        for i in range(len(f)):
+            d *= f[i]
+            for j in range(i + 1, len(f)):
+                h *= hil_inf(f[i], f[j])
+        ok7 &= abs(z8 ** sig - gi(1) ** len(f) * (gi(d) / gi(1)) * h) < 1e-12
+    print(f"   sig-mod-8 = the universal closed form"
+          f" gamma(1)^dim beta(disc) hasse at inf   "
+          f"{'PASS' if ok7 else 'FAIL'}")
+    print("   => the unified criterion is now fully in-code: the clock")
+    print("      places are exactly those where gamma_v(<1>) is primitive.")
 
     print()
     print("=" * 74)

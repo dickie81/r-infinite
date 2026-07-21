@@ -642,3 +642,20 @@ Witt step's first review: the substantive finding strengthened the theorem.
 scare at (−1,−14)₂ resolved as the reviewer's own slip, ω(7) = 0); the census totals;
 residual and PASS-count quotes; the run record; the battery exception line. Round 26
 (convergence test) gates 1g's stability.
+
+# Round 26: convergence test on the round-25 sweep — NOT CONVERGED (0+1+1c), the off-repo-verifier class
+
+Zero majors, zero mathematical falsehoods (eighteenth consecutive round). The round
+added a question to the discipline: does every "verified" claim have a committed
+verifier?
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — round-25 c1's ∞-place cocycle and closed-form checks ran only in the review session's ephemeral python; "verified" was true but not reproducible from the repo | **Accepted.** The checks are now the script's gated L6 section (cocycle over all sign pairs; sig-mod-8 = the universal closed form on five test forms); `cascade_local_family.py` 23 PASS 0 FAIL; surfaces point at L6; net-state marker in A80 | script + paper + A80 |
+| c1 (cosmetic) — A80's "verified numerically that image order = 2·level = exp W(ℚ_p)" bundled the classical citation into the numeric claim | **Accepted.** Split: numeric = image order = 2·level; exp W = 2·level cited (Lam). Annotated | A80 |
+
+**Process rule (the committed-verifier clause):** a "verified" claim on any surface
+names a committed verifier — session runs are drafting, not verification, until they
+land in code.
+
+**Round 27 tests the clause and gates 1g's stability.**

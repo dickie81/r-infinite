@@ -3891,15 +3891,18 @@ record layer. Every charge tested empirically before acceptance.
   how level caps the image. Testing the charge produced the chain: **the image of γ_p
   is a homomorphic image of W(ℚ_p), whose exponent is 2·level(ℚ_p)** (classical: 2 for
   p ≡ 1, 4 for p ≡ 3 mod 4), **so the image lies in μ_{2·level} ⊆ μ₄ for every odd p**
-  — verified numerically that image order = 2·level = exp W(ℚ_p) at all five sampled
-  primes. The consequence is an upgrade: the exclusivity is an **every-odd-p theorem**
+  — verified numerically that image order = 2·level at all five sampled primes *(round-26
+  c1: the further identity 2·level = exp W(ℚ_p) is the classical citation, not part of
+  the numeric check — this sentence originally bundled them)*. The consequence is an upgrade: the exclusivity is an **every-odd-p theorem**
   (the samples verify the classical inputs, not the quantifier), where before the
   general-p status rode implicitly on an unspelled argument. Chain now spelled on all
   surfaces; the L1 print labels the gate "= 2·level = exp W(ℚ_p)".
 - **c1 (cosmetic — the unified criterion):** "dimension-sensitive at 2 vs
   signature-sensitive at ∞" is presentational: the round verified the cocycle and the
   closed form **hold at v = ∞ too** (γ_∞(a)γ_∞(b) = γ_∞(1)γ_∞(ab)(a,b)_∞; the sig-mod-8
-  formula equals γ_∞(1)^dim·β_∞(disc)·hasse_∞ on test forms), so the uniform statement
+  formula equals γ_∞(1)^dim·β_∞(disc)·hasse_∞ on test forms) *(net-state, round-26 F1:
+  that verification lived only in this session record; it is now the script's L6 gates —
+  2 PASS — so the claim is repo-reproducible)*, so the uniform statement
   across all places is: **the clock places are exactly those where γ_v(⟨1⟩) is
   primitive** — 1f's F2 primitivity phenomenon is itself clock-place-exclusive, and
   "signature mod 8" is the ∞-evaluation of the universal closed form. Added to all
@@ -3929,6 +3932,54 @@ PASS 0 FAIL (print-label change only), `cascade_witt_weil.py` 27 PASS 0 FAIL,
 first review, and again the substantive finding *strengthened* the theorem (round 22:
 character-freeness; round 25: the every-odd-p quantifier). A round-26 convergence test
 on this sweep is owed by the arc's standard before 1g is declared stable.
+
+## Addendum 81: hostile review round 26 — convergence test on the round-25 sweep; NOT CONVERGED (0+1+1c), the off-repo-verifier class
+
+**Commissioned: "26 go" — the convergence test on commit fb15791.** Scope: every
+round-25 fix verified; every A80 claim re-tested at the reproducibility level — the
+question this round added to the discipline: *does every "verified" claim have a
+committed verifier?*
+
+**Verdict: NOT CONVERGED — zero majors, one minor, one cosmetic; zero mathematical
+falsehoods (eighteenth consecutive round). 1g trajectory: 0+1(+1c) → 0+1(+1c).**
+
+**F1 (the minor — a "verified" claim whose verifier was not in the repo).** Round 25's
+c1 rested on the ∞-place cocycle and closed-form checks, which ran only in the review
+session's ephemeral python and were recorded in prose ("verified this round"). The
+statements were true and the runs happened — no false record — but the verification was
+not reproducible from the repository, which is the program's spine. **Swept:** the
+checks are now the script's L6 section (cocycle over all sign pairs; sig-mod-8 = the
+universal closed form on five test forms including the dim-8 definite one), gated —
+`cascade_local_family.py` now runs **23 PASS 0 FAIL**; the paper's and docstring's
+"(verified)" now point at L6; net-state marker in A80.
+
+**c1 (the cosmetic):** A80's "verified numerically that image order = 2·level =
+exp W(ℚ_p)" bundled the classical citation (exp W = 2·level, Lam) into the numeric
+claim; the numeric check establishes image order = 2·level, and the exp-W identification
+is cited. Annotated at source.
+
+**Checked and held:** all round-25 edits present in the diff; the A80 battery's
+six-pre-existing-hits census verified per-hit (4 in `cascade_witt_weil.py`, 2 in
+`cascade_local_tate.py`, all the 1e/1f "2 x level" formula in its original context);
+"seventeenth consecutive round" and the Round-25 table verified; the paper's forcer-
+chain text matches the script's; Checks 7/8 and the stopping rule clean.
+
+**Process rule (the committed-verifier clause):** a "verified" claim on any surface
+must name a committed verifier (script section or gate) — session-run verifications are
+drafting, not verification, until they land in code. This closes the last gap between
+the battery rules (scope, filter, granularity) and the verification claims themselves.
+
+**A81 battery (this commit's gate; full commands, per-hit granularity as stated):**
+`grep -rn "verified in the round-25 record\|verified this round" --include='*.md'
+--include='*.py' .` — every hit is a strike/marker/disposition text or points at
+committed gates ✓ (read per-hit); scripts re-run post-sweep: `cascade_local_family.py`
+23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6
+PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as
+run).
+
+**Standing state:** the single substantive defect is again process-layer (where the
+verifier lives), not mathematics. Round 27 tests the committed-verifier clause and
+gates 1g's stability.
 
 ## Caveats
 
