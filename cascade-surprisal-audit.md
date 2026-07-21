@@ -4111,6 +4111,40 @@ scripts re-run this round: `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
 `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
 (counts from the commands as run).
 
+## Addendum 84: editorial self-containment pass on the Door-3 Remark
+
+**Commissioned: "I'd prefer the new paper self contained" — holding the paper to its
+own header standard** (*"This document is self-contained: no result of the Cascade
+Series is assumed; where the two frameworks coincide, the correspondence is noted in
+remarks"*). **No content changes; no numbers touched.**
+
+**What changed.** The Door-3 Remark (added by A83) cited Part IVa content as premise —
+tex line numbers, "a Check-1 direct reading of Part IVa's N_c chain," the uniqueness
+scan referenced but not carried. Rewritten to the paper's correspondence standard: the
+classical vector-fields theorem is now **stated in full inside the Remark** (ρ formula
++ both halves with their attributions); the four claims using it are stated as this
+paper's inherited identifications with the companion series' theorems noted as
+*correspondence* (the operative sentence still quoted verbatim); and the load-bearing
+classification is now an **inline table** (five class-rows compressing the verifier's
+fifteen d-rows). A reader with only the paper gets the complete argument.
+
+**Fidelity check (the committed-verifier discipline applied to an editorial change):**
+the inline table was checked row-by-row against `cascade_adams_loadbearing.py`'s gated
+output — odd d ∈ {5,…,19}: ρ−1 = 0, upper-only, Poincaré–Hopf ✓; d ≡ 2 mod 4: ρ−1 = 1,
+upper-only at v₂ = 1 ✓; d = 8, 16: lower-only (7, 8 > 3) ✓; d = 12: both, upper at
+v₂ = 2 ✓ — a faithful compression, no row disagrees. The remaining paper references to
+companion documents were audited: part4b quotes at three record-section sites carry
+their quoted sentences inline (correspondence style, compliant); Addendum references
+are provenance citations, not premises; literature citations (Lam, Wall, Weil, Rao,
+Adams, Steenrod–Whitehead) are ordinary scholarship, permitted by any self-containment
+standard.
+
+**A84 battery (this commit's gate):** `grep -n "part4a.tex" riemann-
+indistinguishability.md` — zero hits (the Remark no longer cites tex line numbers as
+premise) ✓; the Remark's table vs the script output: row-by-row check recorded above ✓;
+`cascade_adams_loadbearing.py` re-run: 5 PASS 0 FAIL ✓ (counts from the command as
+run).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

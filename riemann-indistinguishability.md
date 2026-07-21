@@ -342,27 +342,50 @@ removed pre-run — kept on the record per the verified-record rule. *Scope:* ca
 the ψ-covariance grading of 1f applies verbatim; no grammar entry derived; no data, no
 closures, no RH/GRH, no semiclassics.
 
-**Remark (Door 3: the Adams dependency, decomposed; `cascade_adams_loadbearing.py`).**
-A Check-1 direct reading of Part IVa's N_c chain (`thm:adams`, part4a.tex:328 — *"The
-maximum number of linearly independent nowhere-zero tangent vector fields on S^(n−1) is
-ρ(n)−1"* — and `thm:adams-unique`, part4a.tex:359, the uniqueness scan over d ∈ [5,19])
-shows what the chain load-bears on, gated in-code: **(i)** the lower bounds everywhere
-are the Hurwitz–Radon–Eckmann **Clifford construction** — the same Cl/Bott/BW(ℝ) ≅ ℤ/8
-object whose arithmetic home Theorems 1f–1g established; **(ii)** the upper bound at
-every odd d and at d = 13 is **Poincaré–Hopf** (even spheres; already papers-native at
-part4a.tex:1276); **(iii)** the remaining load-bearing upper bounds sit exclusively at
-v₂(d) ∈ {1, 2} (d ≡ 2 mod 4, and d = 12 itself), the classical pre-Adams range
-(Steenrod–Whitehead 1951 class, mod-2 cohomology operations; citation-confidence caveat
-in the script's D3.3 — the 1951 original was paywalled in-session, the scope quoted from
-the standard history); and **(iv)** the window's only 16 | d dimension, d = 16, needs
-**no upper bound at all** (the construction gives 8 > 3). **K-theory proper is
-load-bearing nowhere in the cascade window.** Consequence for the honest negative: it
-stands verbatim, but its "archimedean K-theory" attribution refines to "Clifford
-construction + classical mod-2 topology" — the count's *constructive* half is the same
-Clifford algebra the arithmetic chain touches, and the genuinely archimedean residue for
-N_c narrows to the v₂ ∈ {1,2} upper bounds plus the layer-12 selection. No number
-changes; Part IVa's Adams citation remains correct and sufficient (citing the strongest
-standard theorem); this remark reduces the dependency, not the correctness.
+**Remark (Door 3: what the vector-field count load-bears on;
+`cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
+number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
+ρ(d) − 1, with ρ the Radon–Hurwitz function of Theorem 1g(iii): ρ(2^(4a+b)·m) = 8a + 2^b
+(m odd, 0 ≤ b ≤ 3). The theorem has two halves of very different depth: the **lower
+bound** (ρ(d)−1 fields exist) is the Hurwitz–Radon–Eckmann *Clifford construction* —
+elementary algebra, and the same Cl/Bott/BW(ℝ) ≅ ℤ/8 object whose arithmetic home
+Theorems 1f–1g established; the **upper bound** (no more exist) is hard in general and
+is Adams' theorem (1962, K-theory). *The claims that use it.* Three window values and
+one uniqueness scan carry the physical identifications this paper's §8 record inherits:
+max = 3 at d = 12 (the colour count), max = 0 at d = 13 (full breaking), max = 1 at
+d = 14 (the U(1)), and "ρ(d)−1 = 3 exactly at d = 12 among d ∈ [5, 19]"
+(correspondence: the companion series proves these as Part IVa's `thm:adams` and
+`thm:adams-unique`, whose operative sentence — *"The maximum number of linearly
+independent nowhere-zero tangent vector fields on S^(n−1) is ρ(n)−1"* — is the theorem
+restated above; nothing beyond the classical theorem is imported). *The decomposition,
+gated in-code.* For each claim, which half is load-bearing, and the weakest classical
+theorem sufficing for the upper bounds:
+
+| d | ρ(d)−1 | claim | lower needed | upper needed | upper bound via |
+|---|---|---|---|---|---|
+| 5, 7, 9, 11, 13, 15, 17, 19 | 0 | ≠ 3 (= 0) | — | yes | Poincaré–Hopf (S^(d−1) even; χ = 2 ≠ 0) |
+| 6, 10, 14, 18 | 1 | ≠ 3 (< 3) | — | yes | classical, v₂(d) = 1 |
+| 8 | 7 | ≠ 3 (> 3) | yes | — | — (construction gives 7 > 3) |
+| **12** | **3** | **= 3 (N_c)** | yes | yes | classical, v₂(d) = 2 |
+| 16 | 8 | ≠ 3 (> 3) | yes | — | — (construction gives 8 > 3) |
+
+Two structural facts, gated: **no load-bearing upper bound occurs at 16 | d** (d = 16 —
+the only dimension in the window where Adams' hard K-theory cases live — needs no upper
+bound at all), and **every load-bearing upper bound sits at v₂(d) ∈ {0, 1, 2}** — v₂ = 0
+needing only Poincaré–Hopf (1885/1926), v₂ ∈ {1, 2} lying in the classical pre-K-theory
+range settled by Steenrod–Whitehead (1951, Steenrod squares on stunted projective
+spaces; refinements James 1957, Toda) a decade before Adams. *Citation-confidence
+caveat:* the exact scope of the 1951 theorem is quoted from the standard history (the
+original was paywalled when this remark was written); the conclusion is robust across
+readings, since every needed case sits at v₂ ≤ 2, the lightest cases of that method.
+**Consequence: K-theory proper is load-bearing nowhere in the window.** The honest
+negative of Theorem 1f(iii) stands verbatim, but its "archimedean K-theory" attribution
+refines to "Clifford construction + classical mod-2 topology": the count's
+*constructive* half is the same Clifford algebra the arithmetic chain touches, and the
+genuinely archimedean residue for the colour count narrows to the v₂ ∈ {1, 2} upper
+bounds plus the layer-12 selection. No number changes anywhere; the companion series'
+Adams citation remains correct and sufficient (citing the strongest standard theorem);
+this remark reduces the dependency, not the correctness.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no
