@@ -453,3 +453,26 @@ verified untouched; stopping rule and Checks 7/8 clean.
 whole-repo-grep battery for every corrected phrase has been RUN and its results RECORDED
 in the round's addendum (A67 records this round's battery). Round 17 tests whether a
 battery-gated sweep finally converges.
+
+# Round 17: convergence test on the battery-gated sweep — CONVERGED
+
+**Zero majors. The bridge arc's first clean convergence; the series' third (rounds 7, 12,
+17). Bridge-arc trajectory: 3 → 2(+1) → 0.** The reviewer independently reran the A67
+battery (all round-15/16 phrase classes + six rounds-8–14 spot-checks): **zero live
+survivors — A67's execution record is TRUE**; no third false record. All round-16 fixes
+verified in git; all script outputs match every surface digit-for-digit; the F5 arithmetic
+verified exactly (including deriving the ~7×10⁻²³ upper end from the solve bracket);
+the abstract's "review 4" attribution verified through the Thm-7 amendment; Checks 7/8 and
+the stopping rule clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| c1 (cosmetic) — "both scripts' READING prints": the colour script's qualified print lives under HONEST SCOPE | **Accepted.** Block name corrected in the records | A67 record + this doc |
+| c2 (cosmetic) — loose plural "ζ's poles" on three surfaces (not the m4-charged singular, but loose against the program's own convention) | **Accepted.** Both poles' owners named | paper + audit + colour script |
+| c3 (cosmetic) — A67's recorded battery omitted round 16's own native phrases (independent greps confirm zero live survivors of those too) | **Accepted.** Rule amended: each round's battery must include that round's native phrases; A68 records this round's | A68 |
+| c4 (cosmetic) — two historical disposition cells retain the unscoped "< 10⁻²³" (true in context; no annotation owed) | **Noted** | — |
+
+**Convergence statement:** no untrue statement on any current surface; no fix
+recorded-but-not-made; no false battery record; no new defect. What remains open is
+mathematics and experiment: the dictionary's soft inputs, the full-record extension, F6's
+original claim, and the ledger's falsifiers.

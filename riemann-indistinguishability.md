@@ -142,7 +142,8 @@ adopting conductor-minimality as the pairing principle — the same selection-co
 class the residue counts for the feature→layer map, charged as such (Addendum 66). Its completed L is entire with root number +1
 (verified real on the critical line to 3×10⁻²⁵; L(1) = π/(3√3) exactly), giving the odd
 bridge **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln 3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a
-conductor where the even tower had ζ's poles* — verified three-tier with the first 24
+conductor where the even tower had its pole terms (ζ's at s=1; the mirror at s=0)* —
+verified three-tier with the first 24
 zeros of L(s,χ₋₃) computed by sign-scanning (first ordinate 8.0397), residuals decreasing.
 The odd feature at s = 6.2569 (Finding 6's excluded object) is p_sgn = 0: the point where
 the colour-character zeros plus the colour-weighted primes balance the conductor ½ln 3.

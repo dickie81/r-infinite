@@ -55,7 +55,8 @@ critical line:
 
 The odd tower's bridge has NO pole term — L(s,chi_{-3}) is entire —
 and carries the conductor (1/2) ln 3 where the trivial tower carried
-zeta's pole terms.  The primes enter weighted by their splitting in
+its pole terms (zeta's s=1 pole and the completed function's s=0
+mirror; phrasing tightened round 17, c2).  The primes enter weighted by their splitting in
 the colour field (split +, inert -, ramified 3 silent).
 
 THE FEATURE.  p_sgn(s) = 0 at s = 6.2569... — this is exactly the

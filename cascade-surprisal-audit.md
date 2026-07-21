@@ -2948,7 +2948,8 @@ are identity-mediated, and any future stronger claim is stopping-rule-gated new 
 - **C3 (the odd bridge, verified three-tier):** Λ(s,χ₋₃) is entire (L(1)=π/(3√3), exact),
   root number +1 (real on the critical line to 3×10⁻²⁵ — m3), giving
   **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a conductor
-  where the even tower had ζ's poles*. Verified: rearrangement 6×10⁻²⁷; χ-weighted prime
+  where the even tower had its pole terms (ζ's at s=1; the mirror at s=0 — round-17
+  c2)*. Verified: rearrangement 6×10⁻²⁷; χ-weighted prime
   side within tail bounds; zero side with the **first 24 zeros of L(s,χ₋₃) computed by
   sign-scanning the completed function** (first ordinate 8.0397 — computed, not recalled),
   residuals decreasing at both test points.
@@ -3054,14 +3055,16 @@ the same file's restated C2 (fixed; the file no longer contradicts itself). F2 �
 blanket sentence M1 declared false ("the identity holds wherever the zeros are") survived
 unqualified in the bridge script's DOES-NOT block, 60 lines below the docstring's own
 claim that it had been "corrected here"; plus the hybrid term "paired Lorentzian form"
-re-conflating the two forms M1 distinguished (fixed; the READING prints of both scripts
-now carry the qualified form). F3 — the A65 closing sentence carried both an unqualified
+re-conflating the two forms M1 distinguished (fixed; the bridge's READING and the colour
+script's HONEST SCOPE prints now carry the qualified form -- block name corrected round
+17, c1). F3 — the A65 closing sentence carried both an unqualified
 "no RH/GRH use" and a second unannotated instance of the false-when-written "caught and
 fixed pre-commit" claim (both struck-and-annotated). F4 — the m4 pole-attribution fix
 missed Theorem 1c(i) and two A65 sentences (all fixed: both poles named). F5 — the
 "< 10⁻²³" off-line-zero bound was true at the bridge's layers (s ≤ 29) but crosses at
 z ≈ 45 and reaches ~5–7×10⁻²³ at the Door-1 sink solve (scoped on all three surfaces;
-still ~20 orders below the sink's tail-model error). F6 — the colour script's V2 still
+still ~20 orders below the sink's tail-model error; round 17 verified the range's upper
+end derives from the solve bracket's top, s = 320 → 7.1×10⁻²³). F6 — the colour script's V2 still
 used the epsilon-slack pattern M2 charged (currently inert — residuals sit 2–4 orders
 inside their bounds — but the epsilon is now removed and the strict bound passes). F7 —
 dead `prev = err` removed. F8 — the residue accounting verified consistent as a WIDENING
@@ -3080,6 +3083,55 @@ are`: only inside the paired-form statements and correction records ✓; unquali
 RH use`/`no GRH use`: none live ✓; `fixed pre-commit`: both instances annotated ✓;
 single-pole attributions: none live ✓; `conductor ≤ 3` misphrase: none live ✓;
 unqualified `10⁻²⁵`: none live ✓; blanket `error decreasing in N`: none live ✓.
+
+## Addendum 68: hostile review round 17 — CONVERGED; the battery-gated sweep held
+
+**The convergence test on the round-16 sweep. Verdict: CONVERGED — zero majors, four
+cosmetic findings. The bridge arc's first clean convergence, and the series' third
+(round 7: the pre-U2 paper; round 12: the U2 arc; round 17: the bridge arc). Trajectory
+of the bridge arc: 3 → 2(+1) → 0.** Full disposition:
+`riemann-indistinguishability-review-response.md` Round 17.
+
+**The load-bearing result: A67's battery record is TRUE.** The reviewer was instructed not
+to trust the recorded battery and reran it independently — every phrase class from rounds
+15–16 plus six spot-check phrases from rounds 8–14 — classifying every hit: **zero live
+survivors**; every remaining occurrence sits inside a strike context, a correction record,
+or a properly-scoped paired-form statement. No third false execution record. The
+battery-gating rule, at its first test, held.
+
+**Also independently verified:** every round-16 fix in git and on disk (file:line); all
+three scripts' outputs matching every doc surface digit-for-digit (window splits; the
+strict dps-50 V2 with d=12 at 2.05×10⁻⁴¹ within 1.56×10⁻⁴⁰; 3.0×10⁻²⁵; first ordinate
+8.0397; the non-monotone sink honestly reported); the F5 scoping arithmetic exact
+(6.33×10⁻²⁴ at z=28.5; the crossing at exactly z=45; 4.85×10⁻²³ at the sink root — and
+the reviewer *derived the "~5–7×10⁻²³" range's upper end from the solve bracket's top*,
+s=320 → 7.1×10⁻²³, grounding a figure the sweep had not itself documented; the "~20
+orders" claim exact in p-units); the abstract's "review 4" attribution verified through
+the Thm-7 amendment and A47/A48; Checks 7/8 and the stopping rule clean.
+
+**The four cosmetics, swept in this commit:** c1 — the F2 disposition said "both scripts'
+READING prints" where the colour script's qualified print lives under HONEST SCOPE (block
+name corrected in the records); c2 — the loose plural "ζ's poles" tightened to name both
+poles' owners on the three surfaces carrying it; c3 — A67's recorded battery listed the
+round-15 phrase classes but not round 16's own corrected phrases (the reviewer's
+independent greps confirmed zero live survivors of those too; the rule is amended: each
+round's battery must explicitly include that round's native phrases — this round's does);
+c4 — two historical disposition records retain the unscoped "< 10⁻²³" (true in their
+context; no annotation owed; noted).
+
+**Round-17 battery (this commit's gate, including round-16-native phrases):** "paired
+Lorentzian form": correction records only ✓; unscoped "< 10⁻²³": only scoped instances
+and historical disposition cells ✓; "ζ's poles" loose plural: none live after c2 ✓;
+"forced minimality"/blanket "wherever the zeros are"/unqualified "no RH/GRH use": none
+live (carried forward from A67, re-verified) ✓.
+
+**State of the bridge arc at convergence:** Theorem 1b (paired form unconditional;
+Lorentzian = on-line evaluation; window splits exact), Theorem 1c (balance-point
+geography with the honest negative; Legendre synthesis; the odd-family bridge with the
+minimality-pairing charged as a convention), all groundings at their stated strengths,
+every verifier strict, every disclosure in place. Open mathematics unchanged: the
+dictionary's soft inputs, extension to the full record, F6's original claim, and the
+ledger's experiments.
 
 ## Caveats
 
