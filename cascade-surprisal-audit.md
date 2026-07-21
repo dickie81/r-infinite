@@ -3703,8 +3703,10 @@ variant.** The command actually run in round 22 carried a content filter
 other hit" — false by two orders of magnitude against the unfiltered census (152 hits,
 39 files: CLAUDE.md's canonical-prefix convention, the CI validator, ~30 research
 scripts' ordinary usages, disposition rows). **No live defect among the targets**: the
-round-23 unfiltered per-hit sweep confirms no claim about the Witt-step quotient
-anywhere lacks the F2 grading — the nearest neighbours (1e's "canonical achieving
+round-23 ~~unfiltered per-hit sweep~~ **[round 24 c1 applies here too: round 23's
+method was the census plus a per-hit read of the arc-complement only; the genuine
+all-152 per-hit read is round 24's]** sweep confirms no claim about the Witt-step
+quotient anywhere lacks the F2 grading — the nearest neighbours (1e's "canonical achieving
 vector" = Tate's standard vector; T6's pre-existing twist-tower "canonical ℤ/8
 grading") are different, earlier senses. This is the round-20 disease's filter form:
 round 20 caught a scope omission ("repo-wide" that wasn't), round 23 catches a filter
@@ -3727,7 +3729,11 @@ and kept.
 
 **A77 battery (this commit's gate; full commands, no unrecorded filters):**
 `grep -rn "canonical" --include='*.md' --include='*.py' .` unfiltered: 152 hits, 39
-files, classified per-hit as above — zero live ungraded Witt-quotient claims ✓;
+files, ~~classified per-hit as above~~ **[round 24 c1: the round-23 method was
+categorical — file-level census plus a per-hit read of the 14 arc-complement lines;
+"per-hit" overstated it. Round 24 performed the genuine per-hit read of all 152 lines
+and the conclusion is confirmed unchanged]** — zero live ungraded Witt-quotient
+claims ✓;
 `grep -rn "sole other hit"`: the strike and this addendum only ✓; scripts re-run this
 round: `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0
 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
@@ -3736,6 +3742,64 @@ FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as ru
 purely-meta round in the sequence (20, 21-cosmetic, 23). No surface carries a false
 mathematical or physical claim. Round 24 tests the filter clause; the Witt step's
 mathematics has now survived two adversarial rounds untouched.
+
+## Addendum 78: hostile review round 24 — convergence test on the round-23 sweep; CONVERGED (0+0, one cosmetic); the Witt step is stable
+
+**Commissioned: "Round 24 pls" — the convergence test on commit 254f4b9.** Scope: every
+round-23 claim re-tested, the battery records first, with the granularity of every
+verification adverb checked against what round 23 actually did.
+
+**Verdict: CONVERGED — zero majors, zero minors; one cosmetic, accepted and swept (the
+rounds-17/21 precedent). Zero mathematical falsehoods — sixteenth consecutive round.
+The series' fifth convergence (rounds 7, 12, 17, 21, 24). Witt-step trajectory:
+0+3(+1c) → 0+1 → 0+0(+1c).**
+
+**c1 (the cosmetic):** A77's battery line said the 152-hit census was "classified
+per-hit as above." Round 23's actual method was categorical — the file-level census
+plus a per-hit read of the 14 arc-complement lines; ~138 hits (including the audit's 41
+and several arc-adjacent research scripts) were not individually read. Every recorded
+*fact* was true (152 hits, 39 files, the categories, the neighbour classification); the
+adverb overstated the method. **Round 24 performed the genuine per-hit read of all 152
+lines: the conclusion is confirmed unchanged — zero live ungraded Witt-quotient claims;
+every hit is CLAUDE.md convention, CI-validator vocabulary, ordinary research-script
+usage, audit disposition text, T6's pre-existing twist-tower sense, Tate's achieving
+vector, or a Witt-arc hit carrying the F2 grading.** Annotated at source.
+
+**Checked and held:** the A76 strike quotes its target verbatim; A77's other battery
+lines (the "sole other hit" self-check, the 27/6/10 script counts) ran as recorded; the
+Round-23 table matches A77; "fifteenth consecutive round" and the meta-round sequence
+(20, 21-cosmetic, 23) verified; Checks 7/8 and the stopping rule clean.
+
+**Process rule (the granularity clause — the battery rule's last open flank):**
+granularity adverbs in a record ("per-hit," "each," "explicitly," "individually") may
+be written only when the per-item examination actually occurred; otherwise the record
+states the categorical method used. With the scope clause (round 20), the filter clause
+(round 23), and this, the battery record is now constrained to be a faithful run
+record in scope, command, and granularity.
+
+**Convergence statement (the arc's criterion, met):** no untrue statement on any
+current surface; no fix recorded-but-not-made; no unstruck false record; round 24's
+sole finding is a method-adverb, repaired by doing the work the adverb claimed. **The
+Witt step (Theorem 1f, T1f, A75–A78) is stable**; its mathematics survived three
+adversarial rounds untouched and was *strengthened* once (round-22 F2: character-free
+surjection-with-generator). The finite-place arc as a whole — Theorems 1d, 1e, 1f —
+now stands at convergence.
+
+**A78 battery (this commit's gate; full commands, granularity as stated):**
+`grep -rn "canonical" --include='*.md' --include='*.py' .`: 152 pre-sweep hits read
+per-hit this round (genuinely), census and classification above ✓; `grep -rn "per-hit"`
+over the audit: every instance either describes work actually done per-hit or sits in
+a strike/annotation ✓; scripts re-run this round: `cascade_witt_weil.py` 27 PASS 0
+FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0
+FAIL ✓ (counts from the commands as run).
+
+**Standing state after round 24 — where the program actually is:** the Riemann arc's
+mathematics is converged and stable through Theorem 1f. What remains open is not
+review-able by another round: the Adams count and layer selection (archimedean,
+papers-side), the dictionary's soft inputs, F6's original claim, the full-record
+extension, and the frozen experimental ledger (JUNO, DESI, Belle II, HL-LHC, KATRIN).
+The next defect, if it exists, will be found by mathematics or by experiment, not by
+another pass over the records.
 
 ## Caveats
 

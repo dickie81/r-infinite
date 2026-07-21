@@ -603,3 +603,27 @@ the ≤ 2.3×10⁻¹⁵ quotes vs actual worst 2.2×10⁻¹⁵; A76's other batt
 unfiltered and hold; PASS counts verified (27/6/10); Checks 7/8, stopping rule clean.
 
 **Round 24 tests the filter clause.**
+
+# Round 24: convergence test on the round-23 sweep — CONVERGED (0+0, one cosmetic); the Witt step is stable
+
+Zero majors, zero minors, zero mathematical falsehoods (sixteenth consecutive round).
+The series' fifth convergence (rounds 7, 12, 17, 21, 24). Witt-step trajectory:
+0+3(+1c) → 0+1 → 0+0(+1c).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| c1 (cosmetic) — A77 said the 152-hit census was "classified per-hit"; round 23's method was categorical (file-level census + a per-hit read of the 14 arc-complement lines; ~138 hits unread individually). Every recorded fact was true; the adverb overstated the method | **Accepted.** Round 24 performed the genuine per-hit read of all 152 lines — conclusion confirmed unchanged (zero live ungraded Witt-quotient claims). Both instances annotated (A77's battery line and its F1 narrative — the second caught by A78's own battery pre-commit) | A77 |
+
+**Process rule (the granularity clause):** granularity adverbs ("per-hit," "each,"
+"explicitly," "individually") only when the per-item examination occurred; otherwise
+record the categorical method. With the scope clause (r20) and filter clause (r23), the
+battery record is now constrained to be a faithful run record in scope, command, and
+granularity.
+
+**Convergence statement:** no untrue statement on any current surface; no
+recorded-but-not-made fix; no unstruck false record. **The Witt step (Theorem 1f) is
+stable** — its mathematics survived three adversarial rounds untouched, strengthened
+once (round-22 F2). The finite-place arc (Theorems 1d–1f) stands converged. What
+remains open is not review-able by another round: the Adams count and layer selection
+(archimedean, papers-side), the dictionary's soft inputs, F6's original claim, the
+full-record extension, and the frozen experimental ledger.
