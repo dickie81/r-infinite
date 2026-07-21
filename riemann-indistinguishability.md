@@ -174,8 +174,9 @@ where p = 2 gives 87.1% and p = 3 gives 12.0%; ~100% by s = 13; round-18 M2 — 
 grammar's discrete entries (the v₂ counts; conductor-3 colour); that coincidence is
 *noted, not claimed as derivation*. *(ii) The clock is dyadic (classical; verified by direct summation).* The
 normalized quadratic Gauss sums have phase in {1, i} at every odd modulus (Gauss's theorem,
-verified at primes *and* composites to q = 499) and phase exactly ζ₈ at every 4-divisible
-modulus (verified at powers of 2 *and* other 4-divisible moduli to q = 180; round-18 M1 —
+verified at primes to q = 499 and composites to q = 495) and phase exactly ζ₈ at every
+4-divisible modulus (verified at powers of 2 to 64 and other 4-divisible moduli to
+q = 180; round-18 M1 —
 the original verification lists were primes-only and powers-of-2-only while the claims
 quantified over all moduli):
 the order-8 clock element of Theorem 6 is **dyadic-exclusive** among finite-place Gauss
@@ -225,7 +226,9 @@ theory, so ℚ₂'s graded Brauer group is infinite; the clock's dyadic home is 
 square-class/Gauss-phase structure, and *one* route to a finite-place derivation of the
 Radon–Hurwitz grammar entry is closed. A second route remains **open and named** (round-18
 m3): the Witt ring W(ℚ₂) has order 32 ≅ ℤ/8 ⊕ ℤ/2 ⊕ ℤ/2 with level(ℚ₂) = 4 (−1 is a sum
-of four but not three squares in ℚ₂ — verified in-code mod 2⁶), so the class of ⟨1⟩
+of four but not three squares in ℚ₂ — the three-square impossibility is the mod-8
+obstruction, checked in-code mod 2⁶ and conclusive; the four-square witness mod 2⁶ has a
+unit coordinate and lifts to ℤ₂ by Hensel — round-19 f4), so the class of ⟨1⟩
 generates a cyclic subgroup of order 8 — a clock-corroborating finite-place structure not
 yet connected to the grammar. *Honest scope:* no A2 grammar entry is derived (N_c's v₂
 form remains a labeling; its finite-place derivation stays open and un-attempted); no

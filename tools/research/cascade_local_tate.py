@@ -42,8 +42,11 @@ anchor; classical, verified by enumeration + Hensel lifting).
   GRADING: exact classical theorems, plus the IDENTIFICATION that
   this mod-8 -- the dyadic squareness modulus -- is the finite-place
   home of the program's mod-8 clock; corroborated independently by
-  D3.2 (dyadic-exclusive zeta_8 Gauss phases) and D3.3/T-loc3 (the
-  compensation).  Identification, not derivation.
+  D3.2 (dyadic-exclusive zeta_8 Gauss phases) -- ONE independent
+  corroboration alongside this criterion, since D3.3/T-loc3's
+  compensation is the SAME theorem as D3.2 (sum = conj G(4q)/2;
+  round-18 m2, applied to this file by round 19 -- the round-18
+  sweep missed this block).  Identification, not derivation.
 
 T-loc3 (THE COMPENSATION IS DYADIC-EXCLUSIVE).  The p = 1 case of
 Landsberg-Schaar gives exactly
@@ -81,7 +84,10 @@ BUT this closes only ONE route: the classical WITT RING W(Q_2) is
 FINITE of order 32 (= Z/8 + Z/2 + Z/2), built from exactly the
 T-loc2 square-class structure, and the additive order of <1> in
 W(K) is 2 x level(K): level(Q_2) = 4 (verified below: -1 is not a
-sum of 3 squares in Z_2, is a sum of 4), giving <1> of order 8 AT
+sum of 3 squares in Z_2 -- the mod-8 obstruction, checked mod 64,
+is conclusive; and -1 IS a sum of 4 -- mod-64 witness with a unit
+coordinate, e.g. 63 = 7^2+3^2+2^2+1^2, lifting to Z_2 by Hensel,
+round-19 f4 named the lift), giving <1> of order 8 AT
 THE DYADIC PLACE ONLY (odd p: level <= 2, order <= 4; W(R) = Z,
 torsion-free).  A finite, dyadic-exclusive mod-8 quadratic-form
 structure -- an open, clock-CORROBORATING route, not a closed one.
@@ -91,7 +97,8 @@ the finite-place quadratic-form direction off.)
 WHAT THIS DOES AND DOES NOT DO (honest scope, stated first):
   DOES: give every place its achieving vector (per-place T2); anchor
     the clock's modulus at the dyadic squareness criterion (graded
-    identification, three corroborations); verify the compensation
+    identification, TWO independent corroborations -- round-18 m2,
+    applied to this file by round 19); verify the compensation
     and the odd global identity; fix the colour primes' local roles;
     record the BW(Q_2) negative.
   DOES NOT: derive N_c = 3 or any other A2 grammar entry from the
@@ -195,7 +202,8 @@ def main():
           f" (units mod sq = 4 via mod-8);  |Q_p^x/sq| = 4 (p odd,"
           f" QR count verified)   {'PASS' if okp and odd_classes == {1, 9} else 'FAIL'}")
     print("  => the clock's modulus 8 IS the dyadic squareness modulus")
-    print("     (graded identification; corroborations: D3.2, T-loc3).")
+    print("     (graded identification; independent corroboration: D3.2")
+    print("     -- T-loc3 is the same theorem as D3.2, round-18 m2).")
 
     # ---- T-loc3: the compensation
     print()
@@ -266,10 +274,12 @@ def main():
     print("READING (exact + graded; honest scope in docstring)")
     print("=" * 74)
     print("  Every place has its achieving vector; the clock's modulus")
-    print("  is the dyadic squareness modulus (identification, three")
-    print("  corroborations); the compensation is dyadic-exclusive; the")
-    print("  colour primes' roles are fixed (2 inert + clock; 3 ramified")
-    print("  = different); the odd tower has its global identity.  NO")
+    print("  is the dyadic squareness modulus (identification, two")
+    print("  independent corroborations -- round-18 m2, applied here by")
+    print("  round 19); the compensation is dyadic-exclusive; the colour")
+    print("  primes' roles: exact (2 inert; 3 ramified = different),")
+    print("  identification ('2 carries the clock' -- round-18 m4); the")
+    print("  odd tower has its global identity.  NO")
     print("  grammar entry is derived; N_c's v_2 form stays a labeling.")
 
 

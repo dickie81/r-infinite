@@ -92,7 +92,7 @@ of an adelic family, and p = 2, 3 jointly carry ~94–100% of the finite total a
 record's layers (94.2% at s = 4, 99.0% at s = 6, ~100% by s = 13 — round-18 M2 scoped the
 earlier s=6-only "~99%") (noted, not claimed as derivation). (ii) The order-8 clock
 element is dyadic-exclusive among finite-place Gauss phases (Gauss's theorem verified at
-primes and composites to q = 499; ζ₈ at 4-divisible moduli including non-powers-of-2 to
+primes to q = 499 and composites to q = 495; ζ₈ at 4-divisible moduli including non-powers-of-2 to
 q = 180 — round-18 M1 extended the primes-only/powers-only lists) — exact theorem + one
 graded identification. (iii) Landsberg–Schaar verified (18-pair grid incl. even p —
 round-18 m6; the review's independent 1000-pair sweep: zero failures): the

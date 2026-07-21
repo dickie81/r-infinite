@@ -483,7 +483,7 @@ First adversarial pass on the two newest commits (c781ec9, 345f861); the rounds-
 material held its convergence. All eight findings are claims-layer — quantifier scope,
 verification coverage, counting, grading — the tenth consecutive round in which the
 mathematics itself produced no defect. The reviewer's independent checks all held: the
-global identity re-run, Landsberg–Schaar brute-forced at **1000 random pairs (zero
+global identity re-run, Landsberg–Schaar brute-forced at **1000 pairs (zero
 failures)**, Gauss phases confirmed at composite and non-power moduli, Br(ℚ₂) = ℚ/ℤ,
 level(ℚ₂) = 4, the odd global identity at 10⁻²⁰.
 
@@ -492,7 +492,7 @@ level(ℚ₂) = 4, the odd global identity at 10⁻²⁰.
 | M1 — Gauss-phase verification narrower than claimed: "every odd modulus (to q = 499)" ran primes-only; "every 4-divisible modulus (q = 4–64)" ran powers-of-2-only | **Accepted.** Verifier extended: 16 composite odd moduli to 495, 11 non-power 4-divisible to 180, all PASS; extension disclosed on all surfaces | script + paper + T1d + A69 struck |
 | M2 — "~99% at the record's layers" was s = 6-only; at s = 4 the joint p = 2, 3 share is 94.15% | **Accepted.** Shares now computed/printed at s = 4, 5, 6, 13, 21 (94.15/97.62/99.04/100/100%); all surfaces say "~94–100% across the record's layers" | script + paper + T1d + A69 struck |
 | m1 — "10⁻³¹" understated the worst residual 1.97×10⁻³¹ | **Accepted.** "2×10⁻³¹" on all five surfaces (incl. A64/A69 strikes) | paper + formulation + audit |
-| m2 — "three independent corroborations" counted one theorem twice (T-loc3's sum = conj G(4q)/2 = D3.2's phase statement) | **Accepted.** Count corrected to two everywhere | paper + T1e + A70 struck |
+| m2 — "three independent corroborations" counted one theorem twice (T-loc3's sum = conj G(4q)/2 = D3.2's phase statement) | **Accepted.** Count corrected to two ~~everywhere~~ **[FALSE RECORD, caught by round 19 (F1): four variant instances — "three corroborations", "corroborated independently by D3.2 … and T-loc3", "corroborations: D3.2, T-loc3" — were live in `cascade_local_tate.py` itself; the sweep column never included the script]** | paper + T1e + A70 struck + script (round 19) |
 | m3 — the Witt ring W(ℚ₂) left unnamed while "the most obvious route" was declared closed | **Accepted — the reviewer's gift.** W(ℚ₂) order 32 ≅ ℤ/8⊕ℤ/2⊕ℤ/2, level = 4 verified in-code, ⟨1⟩ of order 8: named on all surfaces as the OPEN clock-corroborating route | script T-loc5 + paper + T1e + A70 |
 | m4 — "the two structure primes' roles are now exact" blanket-graded a mixed list | **Accepted.** Split: exact (3 ramifies/silences; 2 inert) vs identification ("2 carries the clock") | script + paper + T1e + A70 struck |
 | m5 — comb-DFT self-duality at fixed depth is near-tautological | **Accepted.** Honesty note in T-loc1: the content is the Tate-integral achievement + depth consistency | script |
@@ -505,3 +505,26 @@ not the claims as quantified). Battery rule extended: every "verified to X"/"at 
 record's layers"/"every modulus" claim must have its *quantifier* checked against the
 verifier's actual input list. A71 records this round's battery: zero live survivors of
 the round-18-native phrases; scripts re-run clean post-sweep.
+
+# Round 19: convergence test on the round-18 sweep — NOT CONVERGED (1+4), the missed-instance disease's fourth appearance
+
+Zero mathematical falsehoods (eleventh consecutive round). The failure is the exact
+class round 16 named and round 18 repeated: the sweep corrected every surface *except
+the file it was editing*, and the battery certified the exact string while the claim
+class survived.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 — m2's fix absent from `cascade_local_tate.py` itself: four live variants ("three corroborations", "corroborated independently by D3.2 … and T-loc3", "corroborations: D3.2, T-loc3", READING "three corroborations") + an m4 variant ("roles are fixed (2 inert + clock)" ungraded); the Round-18 m2 cell ("everywhere") and A71's "all surfaces corrected" were false records | **Accepted.** All five instances fixed; both false records struck at source; script re-run clean | script + Round-18 table + A71 |
+| f2 (cosmetic) — "primes and composites to q = 499" endpoint-ambiguous (composites reach 495; powers of 2 reach 64 vs "to 180") | **Accepted.** Per-class endpoints on all three surfaces | paper + T1d + A69 |
+| f3 (cosmetic) — "1000 *random* pairs" embellished the round-18 record (no randomness was recorded) | **Accepted.** "random" dropped on both surfaces | A71 + Round-18 table |
+| f4 (cosmetic) — level(ℚ₂) = 4 positive direction is a mod-2⁶ witness needing the Hensel lift named (63 = 7²+3²+2²+1², unit coordinates); negative direction conclusive as run | **Accepted.** Split named in script + paper | script + paper |
+| f5 (cosmetic) — A71's "the A66 rule's own statement" singular; both scripts carry one | **Accepted.** Pluralized | A71 |
+
+**Process rule tightened (fourth appearance: rounds 13, 15/16, 18→19):** sweep target
+lists must include the files being edited for sibling findings; batteries must grep
+claim-class stems, not exact strings — an exact-string battery can be literally TRUE
+while the claim survives, which is worse than a false record because it certifies
+convergence. A72 records this round's stem-based battery: clean.
+
+**Round 20 is owed before the arc is declared stable; Witt queues behind it.**

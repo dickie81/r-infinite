@@ -3161,8 +3161,8 @@ no closures; every identification graded; nothing claimed forced (A66 rule).**
 - **D3.2, the clock is dyadic (classical + one graded identification):** normalized
   quadratic Gauss sums have phase ∈ {1, i} at every odd modulus (Gauss's theorem, ~~verified
   to q = 499 by direct summation~~ **[round 18 (Major 1): the list was primes-only while
-  the claim quantified over all odd moduli; now verified at primes and composites to
-  q = 499]**) and phase exactly **ζ₈ at every 4-divisible modulus** (~~verified q = 4–64~~
+  the claim quantified over all odd moduli; now verified at primes to q = 499 and
+  composites to q = 495]**) and phase exactly **ζ₈ at every 4-divisible modulus** (~~verified q = 4–64~~
   **[round 18 (Major 1): powers of 2 only; now verified including non-powers-of-2 to
   q = 180]**): the order-8 clock element of T6 is **dyadic-exclusive** among
   finite-place Gauss phases. The identification (dyadic phase = the finite-place avatar of
@@ -3294,8 +3294,12 @@ grading — not identities.
 1.97×10⁻³¹ on three doc surfaces plus A64/A69 (now "2×10⁻³¹" everywhere, struck at
 source). **m2** — "three independent corroborations" for the dyadic squareness modulus
 counted the same theorem twice: T-loc3's compensation sum equals conj G(4q)/2, i.e. D3.2's
-4-divisible phase statement; the honest count is **two** (struck in A70; all surfaces
-corrected). **m3 — the reviewer's gift:** T-loc5 closed "the most obvious route" (graded
+4-divisible phase statement; the honest count is **two** (struck in A70; ~~all surfaces
+corrected~~ **[FALSE RECORD, caught by round 19 (F1): four variant instances lived on in
+`cascade_local_tate.py`'s own GRADING/DOES/print blocks — "three corroborations",
+"corroborations: D3.2, T-loc3" — because the m2 sweep never included the script and the
+A71 battery greped the exact string "three independent corroborations" only; fixed in the
+script by round 19]**). **m3 — the reviewer's gift:** T-loc5 closed "the most obvious route" (graded
 Brauer) while leaving the **Witt ring W(ℚ₂)** unnamed: order 32 ≅ ℤ/8 ⊕ ℤ/2 ⊕ ℤ/2, and
 since level(ℚ₂) = 4 (−1 a sum of four but not three squares — now verified in-code mod
 2⁶, PASS), the class of ⟨1⟩ has additive order **8**: a genuine order-8 cyclic
@@ -3312,7 +3316,7 @@ now an 18-pair grid including even p and both parities of pq, and the review's i
 
 **Checked and held (the reviewer's independent verifications):** the global potential
 identity (re-run, residuals 10⁻³¹–10⁻³²); Gauss phases at 16 composite odd and 11
-non-power 4-divisible moduli; Landsberg–Schaar at 1000 random pairs; Br(ℚ₂) = ℚ/ℤ and the
+non-power 4-divisible moduli; Landsberg–Schaar at 1000 pairs; Br(ℚ₂) = ℚ/ℤ and the
 BW(ℚ₂) ≇ ℤ/8 negative; level(ℚ₂) = 4 and the Witt-ring structure; the odd global identity
 at 10⁻²⁰; the dyadic squareness criterion u ≡ 1 mod 8. **Nothing in the mathematics of
 A69/A70 was falsified.**
@@ -3330,7 +3334,8 @@ for "~99% at the record's layers", "verified to q = 499", "q = 4–64", "ten gri
 "three independent corroborations", "(most) obvious route", "roles are now exact", live
 "10⁻³¹": **zero live instances** — every hit sits inside a strike-marker, corrective
 annotation, or run-record explanation ✓; "forced" in the round-18 material: none (A66
-rule holds; the only occurrences are the A66 rule's own statement and "brute-forced") ✓;
+rule holds; the only occurrences are the two scripts' A66-rule statements and
+"brute-forced" — round-19 f5 pluralized this record) ✓;
 "derives N_c"/"grammar entry derived": zero live instances (all surfaces say *not
 derived / labeling / open*) ✓; scripts re-run clean after the sweep (D3.1–D3.3 PASS;
 T-loc1–5 PASS including the new level(ℚ₂) check) ✓.
@@ -3341,6 +3346,62 @@ the old material; every round-18 finding attaches to the two newest commits. The
 open item gains substance: the finite-place derivation of the mod-8/N_c grammar now has a
 concrete candidate structure (W(ℚ₂), ⟨1⟩ of order 8) rather than a bare "Tate theory
 next".
+
+## Addendum 72: hostile review round 19 — convergence test on the round-18 sweep; NOT CONVERGED (1+4), the missed-instance disease's fourth appearance
+
+**Commissioned: "Round 19 before Witt" — the convergence test on commit a13b0bd, run
+before opening the Witt-ring route.** Scope: the round-18 sweep itself — every fix
+verified made, every new claim checked at the quantifier level (round 18's own lesson
+applied to round 18's fixes), the A71 battery re-run independently with variants.
+
+**Verdict: NOT CONVERGED — one substantive finding, four cosmetics; zero mathematical
+falsehoods (eleventh consecutive round).**
+
+**F1 (the finding) — the m2 fix was never applied to `cascade_local_tate.py` itself.**
+Four variant instances were live in the very file the round-18 sweep edited for m3, m4,
+m5: the T-loc2 GRADING block ("corroborated independently by D3.2 … and D3.3/T-loc3"),
+the DOES block ("three corroborations"), the T-loc2 print ("corroborations: D3.2,
+T-loc3"), and the READING print ("three corroborations") — plus a fifth m4-variant in the
+READING print ("roles are fixed (2 inert + clock; …)" ungraded). Two records were thereby
+false and are struck at source: the Round-18 table's m2 cell ("corrected to two
+**everywhere**") and A71's m2 bullet ("all surfaces corrected"). **Why the battery
+passed:** A71's gate greped the exact string "three independent corroborations" — zero
+live instances, TRUE as literally recorded — while the variants (sans "independent")
+survived. The record was true and the sweep incomplete simultaneously: exact-string
+batteries certify phrases, not claims. All five instances fixed; script re-run clean.
+
+**The cosmetics:** **f2** — "verified at primes and composites to q = 499" was
+endpoint-ambiguous (composites reach 495, primes 499; likewise powers of 2 reach 64,
+other 4-divisible moduli 180); all three surfaces now state per-class endpoints. **f3** —
+"1000 *random* pairs" (A71, Round-18 table) embellished the record: the round-18 record
+says 1000 pairs at dps 40, with no randomness claim; "random" dropped on both surfaces.
+**f4** — the level(ℚ₂) = 4 in-code check's positive direction (−1 a sum of four squares)
+is a mod-2⁶ witness whose ℤ₂ lift needs Hensel named (the witness 63 = 7²+3²+2²+1² has
+unit coordinates); the negative direction (not three squares) is the mod-8 obstruction
+and conclusive as run; script and paper now name the split. **f5** — A71's "the A66
+rule's own statement" (singular) undercounted: both scripts carry rule statements;
+pluralized.
+
+**Process rule, tightened at the disease's fourth appearance (rounds 13, 15/16, 18→19):**
+(i) a sweep's target list for any finding must include *the files being edited for
+sibling findings* — the file in hand is the first place to grep, and it is exactly where
+round 18's sweep did not look; (ii) the battery must grep **claim-class stems**
+("corroborat", "roles are"), not exact strings — an exact-string battery can be TRUE
+while the claim class survives, which is a worse failure mode than a false record because
+it certifies convergence.
+
+**A72 battery (this commit's gate; stems, not strings):** "corroborat" repo-wide: every
+live hit is the corrected two-count, the graded ONE-independent phrasing, or the accurate
+"clock-corroborating" ✓; "three corroborations"/"three independent corroborations":
+strikes and disposition records only ✓; "roles are fixed"/"roles are now exact": zero
+live ✓; "random pairs": zero ✓; per-class endpoints (499/495/64/180) match the verifier
+lists exactly (10 primes to 499, 16 composites to 495, 5 powers to 64, 11 non-powers to
+180) ✓; `cascade_local_tate.py` re-run: all parts PASS including level(ℚ₂) = 4 ✓;
+`cascade_finite_places.py` untouched this round, prior run stands ✓.
+
+**Standing state:** trajectory on the finite-place arc: WOUNDED 2(+6) → NOT CONVERGED
+1(+4). By the series' standard (rounds 10–12, 15–17), a round-20 convergence test is owed
+before the arc is declared stable; the Witt-ring work item queues behind it.
 
 ## Caveats
 
