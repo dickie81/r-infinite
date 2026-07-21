@@ -404,33 +404,55 @@ algebra Cl(1,d−1) has complex minimal spinors when d mod 8 ∈ {4,5,6}"* — w
 Weyl–Dirac–Weyl pattern exactly, shifted by one Bott period"*; and the uniqueness
 confirmation — *"d = 12 is the unique dimension in [5, d₁ = 19] where ρ(d)−1 = 3, so
 the gauge window is forced, not chosen"* — whose range bounds are, *in this paper's own
-terms*, two of the distinguished layers {5, 7, 19, 217}: d₀ = 7 is the integer layer of
-the tower's critical point (p = 0 at s = 7.2569 — Theorem 1c(i)'s first balance point)
-and d₁ = 19 the integer layer of the phase threshold (p = ln Γ(½) at s = 20.73), each
+terms*, two of the distinguished layers {5, 7, 19, 217}: ~~d₀ = 7 is the integer layer
+of the tower's critical point … and d₁ = 19 the integer layer of the phase threshold~~
+**[struck round 30 (M2, subagent review): the quoted scan's bounds are 5 and 19 — the
+sentence quoted "[5, d₁ = 19]" and then identified the lower bound as 7 in the same
+breath. Corrected: the lower bound is 5 = d_V, the tower start and *first* of the
+distinguished layers; the upper is d₁ = 19, the integer layer of the phase threshold
+(p = ln Γ(½) at s = 20.73). d₀ = 7 — the critical-point layer (p = 0 at s = 7.2569,
+Theorem 1c(i)'s first balance point) — bounds only the separate window-completeness
+fact below, not the scan]** — each identification
 reached through the **feature→integer-layer selection convention** — a named member of
 this paper's seven-item residue (abstract; the class the reviews charged and the paper
-carries). Gated in-code: the
+carries). *And the lower bound is load-bearing (round-30 M2/M1):* **ρ(4) − 1 = 3** —
+the anchor dimension is the ρ-condition's twin, as the companion series itself states
+(*"at d = 4, S³ has ρ(4)−1 = 3 independent vector fields, matching the 3 spatial
+dimensions… The same topological invariant governs both the spacetime structure and the
+gauge structure, applied at the two Bott mirrors"*); over [4, 19] the condition picks
+{4, 12}, and uniqueness holds only because the anchor assigns d = 4 to spacetime and
+the tower starts at d_V = 5. Gated in-code: the
 mod-8 windows in [4,22] are {4,5,6}, {12,13,14}, {20,21,22} with the second = first + 8;
-exactly one complete window lies inside (d₀, d₁] = (7, 19] — the third sits wholly
-beyond d₁; the ρ-uniqueness scan and the mirror shift select the *same* d = 12
-independently (over-determination); and the Radon–Hurwitz period equals the window
-period (both the classical ℤ/8). The companion series' own grading of its two numerical
+exactly one complete window lies inside the inter-threshold band (d₀, d₁] = (7, 19] —
+the third sits wholly beyond d₁; ~~the ρ-uniqueness scan and the mirror shift select the
+*same* d = 12 independently (over-determination)~~ **[struck round 30 (M1, subagent
+review): {d : ρ(d)−1 = 3} = {d ≡ 4 mod 8} — verified as an equivalence over [1, 10⁴],
+now gated — i.e. the ρ-condition IS the window-start condition. There is ONE selector
+(the Clifford/Bott ℤ/8 window structure), not two; the "agreement" carried no
+confirmatory content beyond Bott periodicity itself, as the script's own neighbouring
+gate ("the three 8s are one 8") already said on the same page]**; the ρ v₂-recurrence
+ρ(16n) = ρ(n) + 8 is gated separately from the d → d+8 window shift, with the
+identification of the two 8s as one classical ℤ/8 *cited* (Clifford/Bott), not gated
+(round-30 relabel). The companion series' own grading of its two numerical
 echoes is respected and quoted: 12 = d₁ − d₀ = 8+3+1 is *"a numerical consistency check
 … not a structural identity forced by either derivation alone"*, and rank 2+1+1 = 4 =
 the observer dimension is likewise noted with *"The cascade does not independently
-derive"* the equality — neither is load-bearing in the selection chain. **The finding:
-the layer selection introduces no new unlisted dependency.** d = 12 = (observer anchor
-4) + (one Clifford ℤ/8 period), over-determined by ρ-uniqueness within the
-Γ-thresholds; every component is already named — the anchor's residue (Lovelock + the
-hypothesis, items in this paper's seven-item count), the classical ℤ/8 (arithmetically
-homed by Theorems 1f–1g), the Γ-thresholds (this paper's distinguished layers 7 and 19,
-carrying the feature→layer selection convention — a listed residue member, so the
-threshold component adds a *listed* dependency, not a new one), and the count (the
-previous remark). **With both remarks, the colour-count dependency map is complete:** N_c =
-[Clifford construction + classical mod-2 upper bounds] at [observer anchor + one
-Clifford ℤ/8 period, confirmed by ρ-uniqueness within Γ-thresholds]. This is not a
-finite-place derivation of the selection — the anchor and the thresholds are
-archimedean/geometric — and no number or residue count changes anywhere.
+derive"* the equality — neither is load-bearing in the selection chain. **The finding
+(round-30 corrected form — weaker than first stated, and honest): the layer selection
+introduces no new *unlisted* dependency.** There is **one selector** — the Clifford ℤ/8
+window structure, whose start-set is exactly the ρ-condition (the gated equivalence
+above) — plus the **anchor** (Lovelock + the hypothesis, listed residue items) doing
+double duty: it assigns {4,5,6} to spacetime *and thereby excludes the ρ-twin d = 4*;
+plus the **scan range** whose ends are the listed distinguished layers d_V = 5 and
+d₁ = 19 (each identification carrying the feature→layer selection convention, a listed
+residue member); plus the count (the previous remark). **With both remarks, the
+colour-count dependency map is complete in this corrected form:** N_c = [Clifford
+construction + classical mod-2 upper bounds] at [one Clifford ℤ/8 window step from the
+anchor, with the anchor excluding its own ρ-twin and the range ends at listed
+distinguished layers]. What the first version claimed beyond this — over-determination
+by independent selectors — is **retracted** (round-30 M1). This is not a finite-place
+derivation of the selection — the anchor and the range are archimedean/geometric — and
+no number or residue count changes anywhere.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no

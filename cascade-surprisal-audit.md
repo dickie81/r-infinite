@@ -4279,10 +4279,17 @@ plus the hypothesis in the paper's seven-item count; **(3)** Part 0's Γ-thresho
 d₀ = 7, d₁ = 19 — pure Γ-structure, Theorem 1/1b territory; **(4)** the within-window
 factor assignment — Door 3's decomposed count. Gates: the window arithmetic (second =
 first + 8) ✓; exactly one complete window inside (d₀, d₁] with the third wholly beyond
-d₁ ✓; **over-determination** — the mirror shift and the ρ-uniqueness scan select the
-same d = 12 independently ✓; the Radon–Hurwitz period = the window period = 8 ✓; the
+d₁ ✓; ~~**over-determination** — the mirror shift and the ρ-uniqueness scan select the
+same d = 12 independently ✓~~ **[struck round 30 (M1, Fable-5 subagent review, verified
+directly): {ρ(d)−1 = 3} = {d ≡ 4 mod 8} — the ρ-condition IS the window-start
+condition; one selector, not two; ρ(4)−1 = 3 is the anchor's twin, undisclosed in the
+A87 material, excluded only by the scan's lower bound 5 — see M2]**; ~~the Radon–Hurwitz
+period = the window period = 8 ✓~~ **[round 30 (m4): two different structures — ρ's
+v₂-recurrence and the d → d+8 translation — each gated separately; the "=" between them
+is the cited Clifford/Bott identification, not a gated identity]**; the
 coincidence arithmetic (12 = 8+3+1 = d₁−d₀; rank 4) checked while held non-load-bearing
-per the papers' own grading ✓.
+per the papers' own grading ✓ **[round 30 (m3): constant arithmetic — display, not a
+gate; the "5 gates PASS" count included it]**.
 
 **The finding: the layer selection introduces no new unlisted dependency.** Every
 component is (a) in the declared seven-item residue, (b) the classical ℤ/8 the
@@ -4326,8 +4333,14 @@ the **phase threshold** (p = ln Γ(½) at s = 20.73) — each reached through th
 residue**.
 
 **The sharpening (not just editorial).** Closing the gap upgrades the dependency map's
-honesty: component (3) of the layer selection — the Γ-thresholds bounding the
-uniqueness scan — **carries the selection-convention residue member**. The A87 finding
+honesty: component (3) of the layer selection — ~~the Γ-thresholds bounding the
+uniqueness scan~~ **[struck round 30 (M2): the scan's bounds are 5 and 19
+(part4a.tex:359: "Among all dimensions 5 ≤ d ≤ d₁ = 19"), not d₀ = 7 and d₁ — this
+addendum, the self-containment pass on exactly this component, cemented the
+misattribution instead of catching it; the lower bound 5 is load-bearing (over [4, 19]
+the ρ-condition picks {4, 12}) and is d_V, the tower start — itself a listed
+distinguished layer]** — **carries the selection-convention residue member** (which
+survives the correction: both true bounds, 5 and 19, carry the same convention). The A87 finding
 ("no new unlisted dependency") survives verbatim and is now more precisely stated on
 the paper: the threshold component adds a *listed* dependency, not a new one. The
 complete map, with every carried residue named: N_c = [Clifford construction +
@@ -4340,8 +4353,102 @@ convention, listed)].
 post-sweep (the vague pointer replaced by the internal identification) ✓;
 `grep -n "feature→integer-layer selection convention" riemann-indistinguishability.md`
 — the abstract's residue item and the amended Remark ✓ (read per-hit);
-`cascade_layer_selection.py` re-run: 5 PASS 0 FAIL ✓ (the script's docstring already
-graded the thresholds as cited structure; its gates are arithmetic and unaffected).
+`cascade_layer_selection.py` re-run: 5 PASS 0 FAIL ✓ ~~(the script's docstring already
+graded the thresholds as cited structure; its gates are arithmetic and unaffected)~~
+**[struck round 30 (m5): the script's docstring and READING print still carried the
+vague "Theorem 1/1b territory" pointer this addendum charged as a gap in the paper, and
+the commit message claimed "zero remaining hits" without the one-file scope; the
+round-30 rewrite carries the corrected map and the internal identifications]**.
+
+## Addendum 89: hostile review round 30 — the layer question WOUNDED by a Fable-5 subagent (2 majors); the over-determination claim retracted
+
+**Commissioned: "Hostile review fable 5 subagent pls" — the first subagent-driven round
+since the arc's early history, on commits 0ab5780 (A87) and 83aa59f (A88). Check-3
+protocol observed in full: every subagent finding was treated as a suggestion and
+verified directly by the lead before acceptance — ρ(4)−1 = 3 recomputed; the
+equivalence {ρ−1 = 3} = {d ≡ 4 mod 8} re-verified over [1, 10⁴]; the scan over [4, 19]
+re-run ({4, 12}); part4a.tex:353–360 re-read directly; the script's stale lines
+grepped. All seven findings verified and accepted.**
+
+**Verdict: WOUNDED — 2 majors, 4 minors, 1 cosmetic. The gated arithmetic all holds
+(the reviewer confirms it entry-by-entry against part4a's table); the majors are false
+structural claims about what the arithmetic shows — the most substantive claims-layer
+defect since round 18.**
+
+- **M1 (the over-determination claim, retracted):** A87 claimed d = 12 was
+  "over-determined: the mirror shift and the ρ-uniqueness scan select the same layer
+  *independently*." False: **{d : ρ(d)−1 = 3} = {d ≡ 4 mod 8}** — the ρ-condition IS
+  the window-start condition (one mod-8 fact, now a gate over [1, 10⁴]); the "two
+  selectors" were one selector counted twice, the agreement carrying no content beyond
+  Bott periodicity — which the script's own neighbouring gate ("the three 8s are one
+  8") stated on the same output page, an internal contradiction that should itself have
+  been the flag. The companion paper pre-empts the framing four lines above its
+  uniqueness theorem (*"The same topological invariant governs both the spacetime
+  structure and the gauge structure, applied at the two Bott mirrors"*), and
+  **ρ(4)−1 = 3** — the anchor's twin — was disclosed nowhere in the A87 material.
+  Retracted on every surface; the twin disclosed and gated.
+- **M2 (the scan bounds misattributed):** every A87/A88 surface attributed the
+  uniqueness scan's bounds to the Γ-thresholds d₀ = 7, d₁ = 19 — while the paper's own
+  Remark *quoted* "[5, d₁ = 19]" in the same sentence. The true bounds are **5 and
+  19**; the lower bound is **load-bearing** (over [4, 19] uniqueness fails at the
+  twin), and its provenance — d_V = 5, the tower start and first distinguished layer,
+  with the anchor assigning d = 4 to spacetime — was outside the "complete" map. A88,
+  the self-containment pass on exactly this component, cemented the misattribution
+  (identifying d₀ = 7 as a scan bound) instead of catching it. Corrected: the map's
+  range component now names 5 and 19, both listed distinguished layers carrying the
+  feature→layer convention; d₀ = 7 retains only the window-completeness role.
+- **m3:** the "5 gates PASS" count included a constant-arithmetic display that cannot
+  fail (12 = 8+3+1; 2+1+1 = 4) — demoted to explicit non-gate display; honest count now
+  **4 gates** (and G3's trivial second conjunct removed in the rework).
+- **m4:** "Radon–Hurwitz period = window period = 8 ✓" presented a *cited*
+  identification as gated — the code checks ρ's v₂-recurrence and the window
+  translation separately; the "=" is Clifford/Bott by citation. Relabeled everywhere.
+- **m5:** A88 charged the paper's vague "Theorem 1/1b territory" pointer while the
+  committed script's docstring and READING print still carried the same pointer and
+  the pre-A88 map; its commit message claimed "zero remaining hits" without the
+  one-file scope. Script rewritten; A88 annotated.
+- **m6 (Check-1 record gap, with the verified nuance):** A87's recorded read ranges
+  (44–60, 150–175, 250–325) excluded the uniqueness theorem's body (358–397) and the
+  ρ(4) caveat (353–356). Nuance, verified against A83: the caveat WAS inside Door 3's
+  recorded range (326–420) — read three rounds earlier, connection unmade, and no
+  re-read recorded for the round whose subject it decided. Rule: a round's Check-1
+  record must include the operative theorem of that round's question, re-read in that
+  round.
+- **c7:** quote-span cites off by a line; "Furthermore," silently dropped under a
+  "quoted here in full" claim; "at/below d₀" where all members are strictly below.
+  Fixed in the rewrite.
+
+**What survives (the reviewer's held list, spot-verified):** all five companion quotes
+verbatim; the ρ implementation and every arithmetic gate; the window census; the
+inter-threshold band fact (12 integers, matching the papers' "12 layers"); the A87/A88
+battery censuses as recorded; the layer identifications' convention-flagging. **The
+corrected finding stands in its weaker, honest form: the layer selection introduces no
+new *unlisted* dependency — one ℤ/8 selector, the anchor (double duty: spacetime
+assignment + twin exclusion), range ends at listed layers, Door 3's count.**
+
+**Process notes:** (i) the subagent protocol worked as designed — the reviewer found
+what eleven self-review rounds on adjacent material had not, and Check 3's
+verify-before-accept step confirmed every charge without dilution; (ii) the
+G3/G4 same-page contradiction is now a named battery target ("a gate asserting
+independence adjacent to a gate asserting identity"); (iii) the streak accounting is
+updated honestly: the *computed identities* remain defect-free (twenty-one rounds),
+but round 30 breaks the "claims-layer only minor" run — M1 was a false structural
+claim published on four surfaces for two commits.
+
+**A89 battery (this commit's gate; run after all appends per the timing clause):**
+`grep -rn "over-determin" --include='*.md' --include='*.py' .` — every live arc hit is
+now a strike, a retraction record, or this addendum; the one pre-existing older-script
+hit unchanged ✓ (read per-hit); `grep -rn "independently" tools/research/
+cascade_layer_selection.py` — retraction context only ✓; `grep -rn "rho(4)\|ρ(4)"` over
+the arc surfaces — the disclosure now present on paper, script, formulation, and this
+addendum ✓; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0 FAIL,
+`cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
+FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL,
+`cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
+
+**Standing state:** layer-question trajectory: 0 (unreviewed) → WOUNDED 2+4(+1c). A
+round-31 convergence test on this sweep is owed before the corrected layer result
+joins the stable set.
 
 ## Caveats
 

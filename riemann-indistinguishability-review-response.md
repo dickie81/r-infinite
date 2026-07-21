@@ -714,3 +714,25 @@ recorded-but-not-made fix; no unstruck false record; no "verified" claim without
 committed verifier. **Door 3 is stable.** The session's full structure stands
 converged — Theorems 1b–1g, the Witt–Weil family, the dependency decomposition — with
 the honest negatives and open items exactly as recorded.
+
+# Round 30: the layer question WOUNDED by a Fable-5 subagent review — 2 majors; the over-determination claim retracted
+
+The first subagent-driven round since the arc's early history. Check-3 protocol in
+full: every finding verified directly by the lead before acceptance (ρ(4)−1 = 3
+recomputed; the equivalence {ρ−1 = 3} = {d ≡ 4 mod 8} re-verified over [1, 10⁴];
+part4a.tex:353–360 re-read). The gated arithmetic all holds; the majors are false
+structural claims about what it shows.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| M1 — "over-determined: the mirror shift and the ρ-uniqueness scan select the same d = 12 *independently*": false — {ρ−1 = 3} = {d ≡ 4 mod 8}, one selector counted twice; ρ(4)−1 = 3 (the anchor's twin) undisclosed; the companion pre-empts the framing; the script's own neighbouring gate contradicted it on the same page | **Accepted; RETRACTED on every surface.** The equivalence is now a gate over [1, 10⁴]; the twin disclosed and gated ([4,19] → {4,12}); the corrected finding stated in its weaker form | script rewrite + paper strikes + T1f marker + A87 struck |
+| M2 — the scan bounds attributed to d₀ = 7, d₁ = 19 while quoting "[5, d₁ = 19]" in the same sentence; the load-bearing lower bound 5 (= d_V) outside the "complete" map; A88 cemented the error | **Accepted.** Bounds corrected to 5 and 19 (both listed distinguished layers, convention-carrying); the anchor's double duty (spacetime assignment + twin exclusion) named; d₀ = 7 retains only the window-completeness role | paper strikes + script + A88 struck |
+| m3 — "5 gates PASS" counted a constant-arithmetic display that cannot fail | **Accepted.** Demoted to explicit non-gate display; honest count 4 gates | script + surfaces |
+| m4 — "RH period = window period ✓" presented a cited identification as gated | **Accepted.** Two structures gated separately; the "=" cited (Clifford/Bott) | script + paper + A87 |
+| m5 — A88 charged the paper's vague pointer while the script still carried it; unscoped "zero remaining hits" in the commit message | **Accepted.** Script rewritten with the corrected map; A88 annotated | script + A88 |
+| m6 — A87's Check-1 record excluded the operative theorem's body and the ρ(4) caveat (nuance: the caveat was inside Door 3's recorded range — read, connection unmade, no re-read recorded) | **Accepted.** Rule: a round's Check-1 record includes that round's operative theorem, re-read in that round | A89 rule |
+| c7 — quote-span cites; "Furthermore," dropped under "quoted in full"; "at/below" | **Accepted.** Fixed in the rewrite | script |
+
+**Process:** the subagent protocol worked — it found what eleven self-review rounds on
+adjacent material had not; Check 3 confirmed every charge without dilution. Round 31
+(convergence test) gates the corrected layer result.

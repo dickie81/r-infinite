@@ -136,10 +136,13 @@ derived** — ρ is a function of v₂ alone (verified) but the count is Adams (
 and the layer is papers-side; the open item narrows to those two. *(Door 3 refinement,
 A83: at every load-bearing dimension the count needs only the Clifford construction +
 Poincaré–Hopf + pre-Adams v₂ ≤ 2 upper bounds; K-theory load-bears nowhere in the
-window — `cascade_adams_loadbearing.py`, 5 gates PASS. Layer question, A87: the
-selection of d = 12 introduces no new unlisted dependency — observer anchor + one
-Clifford ℤ/8 period, over-determined by ρ-uniqueness within the Γ-thresholds; the N_c
-dependency map is complete — `cascade_layer_selection.py`, 5 gates PASS.)* Run record: first-run
+window — `cascade_adams_loadbearing.py`, 5 gates PASS. Layer question, A87, corrected by round 30 (A89): the
+selection of d = 12 introduces no new *unlisted* dependency — ONE selector (the
+Clifford ℤ/8 window structure; {ρ−1 = 3} = {d ≡ 4 mod 8}, gated), the anchor excluding
+its own ρ-twin d = 4 (ρ(4)−1 = 3, disclosed), scan-range ends at the listed layers
+d_V = 5 and d₁ = 19; the "over-determined by independent selectors" claim is retracted;
+the N_c dependency map is complete in this corrected form —
+`cascade_layer_selection.py`, 4 gates PASS.)* Run record: first-run
 Fresnel failure (grid + tail sign) and a tautologous surjectivity check both fixed and
 recorded. Round-18 m3's route worked at achievable scope. No data, no closures, no
 RH/GRH, no semiclassics.

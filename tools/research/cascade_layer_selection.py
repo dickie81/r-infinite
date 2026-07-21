@@ -1,79 +1,93 @@
 #!/usr/bin/env python3
 """
-THE LAYER QUESTION (Addendum 87): what selects d = 12 -- the
-complement of Door 3.  Category (a): a source-reading result
-(Check 1, quotes below) plus machine-gated arithmetic; no data, no
-closures, no number changes; every attribution graded.
+THE LAYER QUESTION (Addendum 87; corrected by round 30, Addendum
+89): what selects d = 12 -- the complement of Door 3.  Category
+(a): a source-reading result plus machine-gated arithmetic; no
+data, no closures, no number changes; every attribution graded.
 
-THE QUESTION.  Door 3 (A83/A85) decomposed what the COUNT
-rho(12)-1 = 3 load-bears on.  The honest negative's other half is
-the LAYER: what selects d = 12?  If the selection introduced a new
-unlisted assumption, the N_c dependency map would grow; if it
-decomposes into already-named components, the map completes.
+ROUND-30 CORRECTION, STATED FIRST (M1 + M2 of the subagent review,
+verified directly by the lead).  The first version of this file
+claimed d = 12 was "over-determined: the mirror and the
+rho-uniqueness scan select the same layer INDEPENDENTLY", and
+attributed the scan's bounds to the thresholds d_0 = 7, d_1 = 19.
+Both claims were false:
+  (M1) rho(d)-1 = 3  <=>  v_2(d) = 2  <=>  d = 4 mod 8 -- i.e.
+       {rho-1 = 3} IS the set of window-START dimensions.  The
+       "two selectors" are ONE mod-8 condition; the agreement
+       carries no confirmatory content beyond Bott periodicity
+       itself.  The companion paper says so four lines above its
+       uniqueness theorem (part4a.tex:353-356: "at d = 4, S^3 has
+       rho(4)-1 = 3 independent vector fields ... The same
+       topological invariant governs both the spacetime structure
+       and the gauge structure, applied at the two Bott mirrors").
+       rho(4)-1 = 3: the anchor has a rho-twin, now disclosed and
+       gated below.
+  (M2) the uniqueness scan's range is [5, d_1 = 19]
+       (part4a.tex:359: "Among all dimensions 5 <= d <= d_1=19")
+       -- LOWER BOUND 5, not d_0 = 7.  The bound is load-bearing:
+       over [4, 19] the rho-condition picks {4, 12} and uniqueness
+       fails; d = 4 is excluded because the ANCHOR assigns it to
+       spacetime, and the tower's layers begin at the first
+       distinguished layer d_V = 5.  d_0 = 7 bounds a DIFFERENT
+       statement (window-completeness in the inter-threshold band,
+       G2 below), which the first version conflated with the scan.
 
-THE SOURCES, READ DIRECTLY (Check 1; quotes verbatim, Check 2).
-Part IVa:
-  - line 50:  "The Clifford algebra Cl(1,d-1) has complex minimal
-    spinors when d mod 8 in {4,5,6}."  (The papers' Clifford
-    input; classical spinor-type bookkeeping.  Its PERIOD is 8 --
-    the Clifford/Bott Z/8.)
+THE SOURCES, READ DIRECTLY (Check 1; quotes verbatim, Check 2;
+ranges re-read and re-recorded for this round, including the
+uniqueness theorem's body at part4a.tex:358-397 and the rho(4)
+caveat at 353-356 -- the round-30 F6 gap).  Part IVa:
+  - lines 50-51:  "The Clifford algebra Cl(1,d-1) has complex
+    minimal spinors when d mod 8 in {4,5,6}."  (Classical
+    spinor-type bookkeeping, cited not verified here; its PERIOD
+    is 8 -- the Clifford/Bott Z/8.)
   - lines 157-158:  "The second window {12,13,14} is the Bott
     mirror of the spacetime window {4,5,6}.  It reproduces the
     same Weyl-Dirac-Weyl pattern exactly, shifted by one Bott
     period."
-  - lines 56-57:  "d = 12 is the unique dimension in [5, d_1 = 19]
+  - lines 56-58 (abstract form; theorem body at 358-360):
+    "Furthermore, d = 12 is the unique dimension in [5, d_1 = 19]
     where rho(d)-1 = 3, so the gauge window is forced, not
-    chosen."  (The range bound d_1 = 19 is Part 0's threshold --
-    pure Gamma structure -- with d_0 = 7; Part 0 Thm 6.7 via the
-    generator-count remark.)
-  - thm:generators:  the equality 12 = d_1 - d_0 = 8 + 3 + 1 is,
-    in the papers' OWN grading, "a numerical consistency check ...
-    not a structural identity forced by either derivation alone";
-    likewise rank 4 = observer d: "The cascade does not
-    independently derive that the gauge window's total Lie-algebra
-    rank must equal the observer's spacetime dimension."
+    chosen."
+  - thm:generators (~309-312) and the rank remark (~318): the
+    papers' OWN grading of 12 = d_1 - d_0 = 8+3+1 ("a numerical
+    consistency check ... not a structural identity forced by
+    either derivation alone") and rank 4 = observer d ("The
+    cascade does not independently derive" it).
 
-THE DECOMPOSITION (gated below).  The selection of d = 12 is the
-composite of FOUR already-named components:
-  (1) the mod-8 complex-spinor classification (classical Clifford;
-      period = the SAME Z/8 as Radon-Hurwitz/Bott/BW(R), whose
-      two-place Witt-Weil arithmetic home is Theorems 1f-1g);
-  (2) the spacetime anchor d = 4 (the observer window {4,5,6}) --
-      the papers' Lovelock-cap-Clifford selection, ALREADY residue
-      item 1 + the hypothesis C1 in this paper's seven-item count;
-  (3) Part 0's Gamma thresholds d_0 = 7, d_1 = 19 -- pure Gamma
-      structure, i.e. the territory this paper's Theorem 1/1b
-      grounds (the tower as the log-geometry of xi's real factor);
-  (4) the within-window factor assignment by the vector-field
-      count -- Door 3's decomposed content (Clifford construction
-      + classical mod-2 upper bounds).
-STRUCTURE: the gauge window is 12 = 4 + 8 -- the observer anchor
-plus one Clifford period -- with the window's position
-OVER-DETERMINED: the mirror (+8 from spacetime) and the
-rho-uniqueness scan (the only rho-1 = 3 in [5, d_1]) select the
-same d = 12 independently, and the threshold d_1 = 19 excludes the
-third window ({20,21,22} lies wholly beyond it).
+THE CORRECTED DECOMPOSITION (gated below).  The selection of
+d = 12 is the composite of:
+  (1) ONE mod-8 condition: complex-window starts = {d = 4 mod 8}
+      = {rho(d)-1 = 3} (the equivalence is gated, G3) -- the
+      classical Clifford/Bott Z/8, whose two-place Witt-Weil
+      arithmetic home is Theorems 1f-1g;
+  (2) the spacetime ANCHOR d = 4 -- Lovelock-cap-Clifford + the
+      hypothesis, residue items in the paper's seven-item count --
+      doing DOUBLE duty: it assigns the window {4,5,6} to
+      spacetime AND thereby excludes the rho-twin d = 4 from
+      gauge candidacy;
+  (3) the scan range [5, 19]: 5 = d_V, the tower start and first
+      distinguished layer; 19 = d_1, the phase-threshold layer --
+      both members of the paper's distinguished set {5,7,19,217},
+      each identification carrying the feature->integer-layer
+      selection convention (a LISTED residue member);
+  (4) the within-window factor assignment -- Door 3's decomposed
+      count (Clifford construction + classical mod-2 bounds).
+d_0 = 7 enters only the separate window-completeness fact (G2).
 
-THE FINDING (the map completes).  The layer selection introduces
-NO new unlisted dependency: every component is either (a) in the
-paper's declared seven-item residue (Lovelock, the hypothesis),
-(b) the classical Z/8 the arithmetic chain grounded (1f-1g), (c)
-Part 0's Gamma structure (Theorem 1/1b territory), or (d) Door 3's
-decomposed count.  After both doors, the full N_c dependency reads:
-  N_c = [Clifford construction + classical mod-2 upper bounds]
-        at [observer anchor + one Clifford Z/8 period, confirmed
-        by rho-uniqueness within Gamma-thresholds].
-The papers' own coincidence-grading (12 = 12; rank 4 = d) is
-respected and machine-checked as arithmetic while confirmed
-NON-load-bearing in the chain above (the papers themselves say
-so; Check 4: their self-report, not a novel finding).
+THE FINDING (corrected form -- weaker than the first version, and
+honest).  The layer selection introduces no new UNLISTED
+dependency: every component above is a listed residue member, the
+classical Z/8 (arithmetically homed), or Door 3's content.  What
+the first version added beyond this -- "over-determination by
+independent selectors" -- is RETRACTED: there is one selector
+(the Z/8 window structure), one anchor, and one range whose ends
+are listed layers.  The papers' own coincidence-grading (12 = 12;
+rank 4 = d) is respected and checked as arithmetic display
+(constants -- explicitly NOT counted as gates).
 
-WHAT THIS DOES NOT DO: derive the layer from finite places (the
-mirror's 8 has an arithmetic HOME (1f-1g), which is not a
-finite-place DERIVATION of the selection -- the anchor d = 4 and
-the thresholds are archimedean/geometric inputs); change any
-number; alter the residue count.  No data, no closures, no RH/GRH,
-no semiclassics.
+WHAT THIS DOES NOT DO: derive the layer from finite places;
+change any number; alter the residue count.  No data, no
+closures, no RH/GRH, no semiclassics.
 """
 
 
@@ -88,11 +102,12 @@ def rho(n):
 
 def main():
     print("=" * 74)
-    print("THE LAYER QUESTION: what selects d = 12")
+    print("THE LAYER QUESTION (round-30 corrected): what selects d = 12")
     print("=" * 74)
 
-    d0, d1 = 7, 19          # Part 0's thresholds (Gamma structure; cited)
-    obs_window = [4, 5, 6]  # the papers' spacetime window (anchor d = 4)
+    d0, d1 = 7, 19          # Part 0 thresholds (cited); d0 used in G2 only
+    dV = 5                  # tower start / first distinguished layer
+    obs_window = [4, 5, 6]  # spacetime window (anchor d = 4)
 
     # G1: the mod-8 complex-window arithmetic
     win = [d for d in range(4, 23) if d % 8 in (4, 5, 6)]
@@ -102,56 +117,66 @@ def main():
     print()
     print(f"G1 complex windows in [4,22] = {win}")
     print(f"   second = first + 8; third = first + 16   "
-          f"{'PASS' if g1 else 'FAIL'}   (the mirror IS the mod-8"
-          " period: one Clifford/Bott Z/8 shift)")
+          f"{'PASS' if g1 else 'FAIL'}")
 
-    # G2: threshold exclusion -- exactly one complete window in (d0, d1]
+    # G2: window-completeness in the inter-threshold band (d0, d1]
     windows = [[4, 5, 6], [12, 13, 14], [20, 21, 22]]
     inside = [w for w in windows if all(d0 < d <= d1 for d in w)]
     g2 = inside == [[12, 13, 14]]
-    print(f"G2 complete windows inside (d_0, d_1] = ({d0}, {d1}]:"
-          f" {inside}   {'PASS' if g2 else 'FAIL'}")
-    print("   ({20,21,22} lies wholly beyond d_1 = 19; the spacetime")
-    print("   window sits at/below d_0 = 7)")
+    print(f"G2 complete windows inside the inter-threshold band"
+          f" ({d0}, {d1}]: {inside}   {'PASS' if g2 else 'FAIL'}")
+    print("   (d_0's ONLY role here -- it does NOT bound the")
+    print("   uniqueness scan; round-30 M2)")
 
-    # G3: over-determination -- the rho-uniqueness scan agrees
-    rho3 = [d for d in range(5, d1 + 1) if rho(d) - 1 == 3]
-    g3 = rho3 == [12] and 12 in windows[1]
-    print(f"G3 {{d in [5,{d1}] : rho(d)-1 = 3}} = {rho3}; 12 in the"
-          f" mirror window   {'PASS' if g3 else 'FAIL'}")
-    print("   => two independent selectors (mirror shift; rho-unique-")
-    print("      ness) pick the SAME layer: d = 12 is over-determined")
+    # G3 (round-30 reworked): ONE condition, and the anchor's twin
+    g3a = all((rho(d) - 1 == 3) == (d % 8 == 4)
+              for d in range(1, 10001))
+    s54 = [d for d in range(dV, d1 + 1) if rho(d) - 1 == 3]
+    s44 = [d for d in range(4, d1 + 1) if rho(d) - 1 == 3]
+    g3 = g3a and s54 == [12] and s44 == [4, 12]
+    print(f"G3 {{rho(d)-1 = 3}} == {{d = 4 mod 8}} on [1, 10000]:"
+          f" {g3a}")
+    print(f"   scan [{dV},{d1}] -> {s54};  scan [4,{d1}] -> {s44}   "
+          f"{'PASS' if g3 else 'FAIL'}")
+    print("   => ONE mod-8 condition (the window-start condition");
+    print("      itself); rho(4)-1 = 3 is the anchor's twin, excluded")
+    print("      by the anchor assignment + the tower start d_V = 5")
+    print("      -- NOT by an independent selector (round-30 M1)")
 
-    # G4: the three 8s are one 8 (arithmetic side)
+    # G4 (relabeled): two facts, identification cited
     g4 = all(rho(2 ** (v + 4) * m) - rho(2 ** v * m) == 8
              for v in range(4) for m in (1, 3, 5))
-    print(f"G4 Radon-Hurwitz period = 8 = the window period   "
-          f"{'PASS' if g4 else 'FAIL'}   (both are the Clifford/Bott")
-    print("   Z/8 = BW(R), cited classical -- the object whose two-place")
-    print("   Witt-Weil home is Theorems 1f-1g)")
+    print(f"G4 rho's v_2-recurrence: rho(16n) = rho(n) + 8   "
+          f"{'PASS' if g4 else 'FAIL'}")
+    print("   (a DIFFERENT structure from the d -> d+8 window shift")
+    print("   of G1; the identification of the two 8s as one classical")
+    print("   Clifford/Bott Z/8 = BW(R) is CITED, not gated --")
+    print("   round-30 m-grade relabel)")
 
-    # G5: the papers' self-graded coincidences, checked as arithmetic
-    g5 = (d1 - d0 == 8 + 3 + 1) and (2 + 1 + 1 == 4)
-    print(f"G5 coincidence arithmetic: d_1 - d_0 = {d1-d0} = 8+3+1;"
-          f" rank 2+1+1 = 4   {'PASS' if g5 else 'FAIL'}")
-    print("   (held apart per the papers' OWN grading: 'a numerical")
-    print("   consistency check ... not a structural identity'; neither")
-    print("   is load-bearing in the selection chain above)")
+    # arithmetic display (NOT a gate -- constants, cannot fail)
+    print(f"AD coincidence arithmetic (display only, not a gate:")
+    print(f"   constants -- round-30 m-grade): d_1 - d_0 = {d1 - d0}"
+          f" = 8+3+1; rank 2+1+1 = 4")
+    print("   (held apart per the papers' own grading: 'a numerical")
+    print("   consistency check ... not a structural identity')")
 
     print()
     print("=" * 74)
-    print("READING (source-reading result + gated arithmetic)")
+    print("READING (source-reading result + gated arithmetic;")
+    print("round-30 corrected)")
     print("=" * 74)
-    print("  The layer selection introduces NO new unlisted dependency:")
-    print("  d = 12 = (observer anchor 4) + (one Clifford Z/8 period),")
-    print("  over-determined by rho-uniqueness within Part 0's Gamma")
-    print("  thresholds.  Every component is already named: the anchor's")
-    print("  residue (Lovelock + hypothesis, items in the seven-item")
-    print("  count), the classical Z/8 (arithmetically homed, 1f-1g),")
-    print("  the Gamma thresholds (Theorem 1/1b territory), and Door 3's")
-    print("  decomposed count.  The N_c dependency map is COMPLETE.")
-    print("  Not a finite-place derivation of the selection; no number")
-    print("  changes; no data, no closures.")
+    print("  ONE selector: the Clifford/Bott Z/8 window structure")
+    print("  ({rho-1 = 3} IS the window-start set -- gated).  The")
+    print("  anchor (Lovelock + hypothesis, listed residue) assigns")
+    print("  d = 4 to spacetime and thereby excludes the rho-twin;")
+    print("  the scan range's ends are the listed distinguished")
+    print("  layers d_V = 5 and d_1 = 19 (feature->layer convention,")
+    print("  a listed residue member).  The layer selection still")
+    print("  introduces no new UNLISTED dependency -- but the")
+    print("  'over-determined by independent selectors' claim of the")
+    print("  first version is RETRACTED (round-30 M1).  Not a")
+    print("  finite-place derivation; no number changes; no data,")
+    print("  no closures.")
 
 
 if __name__ == "__main__":
