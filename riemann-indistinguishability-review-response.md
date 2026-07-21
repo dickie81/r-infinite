@@ -525,7 +525,9 @@ class survived.
 lists must include the files being edited for sibling findings; batteries must grep
 claim-class stems, not exact strings — an exact-string battery can be literally TRUE
 while the claim survives, which is worse than a false record because it certifies
-convergence. A72 records this round's stem-based battery: clean.
+convergence. A72 records this round's stem-based battery: clean. **[Net-state marker,
+round 21 c3: A72's battery record — accurately cited here as what A72 records — was
+itself struck in round 20 (F1) as overstating its coverage; see the Round 20 table.]**
 
 **Round 20 is owed before the arc is declared stable; Witt queues behind it.**
 
@@ -548,3 +550,21 @@ command produced the classified hit list being recorded. The verified-record rul
 covers the batteries themselves.
 
 **Round 21 tests whether the battery-scope rule closes the class; Witt stays queued.**
+
+# Round 21: convergence test on the round-20 sweep — CONVERGED (0+0, three cosmetics)
+
+Zero majors, zero minors, zero mathematical falsehoods (thirteenth consecutive round).
+The arc's fourth convergence (rounds 7, 12, 17, 21). Round 20's lens was turned on its
+own records: A73's run-claims, its classification method, and strike-propagation.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| c1 (cosmetic) — A73's "lifting condition … checked explicitly": the round-20 display hardcoded the inequality as a literal `True` (witness sum and mod-64 computed; v₂(f′) asserted in prose) | **Accepted.** Every component recomputed genuinely (v₂(64) = 6, v₂(14) = 1, comparison computed — assertion correct, record loose); annotated at source | A73 |
+| c2 (cosmetic) — round 20's "corroborat" classification used exclusion filters rather than per-hit inspection | **Accepted.** Unfiltered census run: 44 md/py hits classified per-hit, zero live defective usages, sums verified; 2 benign `.tex` hits (outside the stated scope) inspected too | A74 |
+| c3 (cosmetic) — the Round-19 table's "A72 records this round's stem-based battery: clean" cited a record round 20 then struck (superseded-true, marker owed) | **Accepted.** Net-state marker added | Round-19 table |
+
+**Convergence statement:** no untrue statement on any current surface; no fix
+recorded-but-not-made; no unstruck false record; the battery-scope rule held on its
+first test. The finite-place arc (Theorems 1d–1e, Addenda 69–74) is stable.
+
+**The Witt-ring work item is unblocked.**

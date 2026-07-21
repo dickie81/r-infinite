@@ -3415,7 +3415,12 @@ before the arc is declared stable; the Witt-ring work item queues behind it.
 item.** Scope: the round-19 sweep (commit f0fa313) — every fix verified in the diff
 hunks directly; every round-19 numerical claim re-derived (list counts 10/16/5/11 with
 endpoints 499/495/64/180 recounted; the Hensel witness 63 = 7²+3²+2²+1² re-verified with
-the lifting condition v₂(f) = 6 > 2·v₂(f′) = 2 checked explicitly; the 18-pair LS grid's
+the lifting condition v₂(f) = 6 > 2·v₂(f′) = 2 ~~checked explicitly~~ **[round 21 c1: the
+round-20 run computed the witness sum and the mod-64 residue but displayed the inequality
+as a hardcoded literal `True`, with v₂(f′) = 1 asserted in prose — "checked explicitly"
+overstated that display. Round 21 recomputed every component genuinely: v₂(64) = 6,
+v₂(14) = 1, condition True by computed comparison; the round-20 assertion was correct,
+its check-record loose]**; the 18-pair LS grid's
 even-p and both-pq-parity claims re-verified; "fourth appearance" checked against round
 16's own "third failure" convention and held; "eleventh consecutive round" = rounds 9–19
 ✓); the A72 battery re-run genuinely repo-wide.
@@ -3468,6 +3473,62 @@ mathematical or physical claim, and the severity sequence is strictly decreasing
 by the arc's own criterion ("no untrue statement on any current surface") convergence is
 not yet declared. Round 21 tests whether the battery-scope rule closes the class; the
 Witt-ring work item stays queued behind it.
+
+## Addendum 74: hostile review round 21 — convergence test on the round-20 sweep; CONVERGED (0+0, three cosmetics)
+
+**Commissioned: "21 ahoy" — the convergence test gating the Witt-ring work item.**
+Scope: the round-20 sweep (commit b89e037), reviewed with round 20's own lens turned on
+itself: A73's claims about what round 20 actually ran, the classification *method*
+behind its battery, and strike-propagation to every surface citing the struck record.
+
+**Verdict: CONVERGED — zero majors, zero minors; three cosmetics, accepted and swept
+(the round-17 precedent: convergence with cosmetics). Zero mathematical falsehoods —
+thirteenth consecutive round. Arc trajectory: 2+6 → 1+4 → 0+1 → 0+0(+3c).**
+
+**The cosmetics:** **c1** — A73's "lifting condition … checked explicitly": the
+round-20 verification computed the witness sum and mod-64 residue but displayed the
+inequality as a hardcoded literal `True` with v₂(f′) asserted in prose — the record's
+"explicitly" overstated the display. Round 21 recomputed every component genuinely
+(v₂(64) = 6, v₂(14) = 1, comparison computed): the assertion was correct, its
+check-record loose. Annotated at source. **c2** — round 20's "corroborat" classification
+relied on exclusion filters for the known-good categories rather than per-hit
+inspection (each filtered line had in fact been read directly in rounds 18–19). Round 21
+ran the unfiltered census: **44 md/py hits, classified per-hit** — corrected counts 8
+(paper 2, formulation 1, script 5), accurate "clock-corroborating" 2, strikes/
+disposition/battery records 32, benign pre-existing usages 2 (the two named in A73's F1
+strike) — **zero live defective usages**; sums check (5+2 = 7 script, 28+2 = 30 audit,
+total 44). A `.tex` sweep (outside A73's honestly-stated md/py scope) found 2 hits, both
+Part II=III's own unrelated prose, benign. **c3** — the Round-19 table's closing
+sentence "A72 records this round's stem-based battery: clean" cited a record that round
+20 then struck; the citation was accurate reporting (superseded-true, not
+false-when-written) and owed a net-state marker, now added.
+
+**Checked and held:** A73's battery-scope line is honest as written (the commands were
+genuinely repo-wide over md/py, scope stated); the A72 strike quotes its two extra hits
+verbatim; A71's "repo-wide" claims verified genuinely repo-wide as run in round 18;
+"twelfth consecutive round" and the severity sequence verified; the Round-20 table and
+commit-message "16 PASS 0 FAIL" verified (6+10); both false records struck in rounds
+19–20 remain struck with verbatim quotes; no other battery record in A69–A73 claims
+scope it lacked.
+
+**Convergence statement (the arc's criterion, met):** no untrue statement stands on any
+current surface; no fix is recorded-but-not-made; no false battery record survives
+unstruck; round 21's findings are wording-and-marker cosmetics about *records of
+records*, with zero defects in mathematics, claims, or instruments. The finite-place
+arc (Theorems 1d–1e, Addenda 69–74) is **stable at the fourth convergence of the series
+(rounds 7, 12, 17, 21)**. The battery-scope rule held on its first test.
+
+**A74 battery (this commit's gate; scope: `grep -rn` over `*.md` and `*.py` under the
+repo root, `.git` excluded, plus the one-off `*.tex` sweep above; every command's output
+classified per-hit):** "corroborat" census as in c2 ✓; "checked explicitly": the A73
+instance annotated, no other instance ✓; "stem-based battery: clean": marker added ✓;
+scripts re-run this round: `cascade_finite_places.py` 6 PASS 0 FAIL,
+`cascade_local_tate.py` 10 PASS 0 FAIL ✓.
+
+**Standing state: the Witt-ring work item is unblocked.** Next: the finite-place
+derivation attempt for the mod-8/N_c grammar entry via W(ℚ₂) (order 32, ⟨1⟩ of order
+8), under the standing rules — category (a) until it touches a grammar entry, every
+identification graded, nothing claimed forced without its forcer, no semiclassics.
 
 ## Caveats
 
