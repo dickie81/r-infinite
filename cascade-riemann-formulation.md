@@ -113,7 +113,26 @@ slot; "2 carries the clock" is itself a graded identification, not exact (round-
 (v) Checked negative: BW(ℚ₂) ≇ ℤ/8 (Br(ℚ₂) = ℚ/ℤ) — *one* route to deriving the
 Radon–Hurwitz entry is closed; the Witt-ring route is open and named (W(ℚ₂) of order 32
 ≅ ℤ/8⊕ℤ/2⊕ℤ/2, level(ℚ₂) = 4 verified in-code, ⟨1⟩ of order 8 — round-18 m3); the
-derivation stays open. No grammar entry derived.
+derivation stays open. No grammar entry derived. *(Net-state: T1f has since worked the
+Witt route at its achievable scope — mod-8 connection made, count still archimedean.)*
+
+**T1f (The Witt step — PROVED at stated strengths; Addendum 75;
+`cascade_witt_weil.py`).** (i) The dyadic Weil index descends to a surjective
+homomorphism **γ₂ : W(ℚ₂) ↠ μ₈** (well-defined on the 8 square classes, k-stable,
+hyperbolic-trivial at 10⁻¹⁶, values exactly in μ₈) with ⟨1⟩ ↦ ζ₈⁻¹ of exact order 8
+(= its additive order, 2·level); kernel order 4 (|W(ℚ₂)| = 32, Lam, cited). **The clock
+group is a canonical quotient of the dyadic Witt group.** Forcers: Weil index theory +
+level(ℚ₂) = 4 (classical). (ii) Mirror: γ_∞ = ζ₈^sig is the same quotient of W(ℝ) = ℤ
+(Fresnel-verified 3×10⁻⁸); Weil's product formula locks the two projections inverse
+**per square class** (Π_v γ_v(u) = 1 at 10⁻¹⁵ for ten classes incl. multi-prime u;
+T1e's compensation = the u = 1 row). ψ-covariance graded: invariant content =
+surjectivity, order 8, the lock. The ℤ/8 = Wall/ABS's BW(ℝ) = the Clifford/Bott (hence
+Radon–Hurwitz) period (cited). (iii) Honest negative registered: **N_c = 3 NOT
+derived** — ρ is a function of v₂ alone (verified) but the count is Adams (archimedean)
+and the layer is papers-side; the open item narrows to those two. Run record: first-run
+Fresnel failure (grid + tail sign) and a tautologous surjectivity check both fixed and
+recorded. Round-18 m3's route worked at achievable scope. No data, no closures, no
+RH/GRH, no semiclassics.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

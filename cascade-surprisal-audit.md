@@ -3253,7 +3253,10 @@ named (round 18 m3):** the Witt ring W(ℚ₂) has order 32 ≅ ℤ/8 ⊕ ℤ/2 
 level(ℚ₂) = 4 (−1 is a sum of four but not three squares in ℚ₂ — verified in-code mod
 2⁶), so the class of the form ⟨1⟩ has additive order 8: an order-8 cyclic finite-place
 structure at p = 2, clock-corroborating, not yet connected to the grammar. That derivation
-stays **open and un-attempted**; N_c's v₂ form remains a labeling.
+stays **open and un-attempted**; N_c's v₂ form remains a labeling. *(Net-state marker,
+A75: the route has since been worked — the mod-8 connection is now a quotient theorem
+(γ₂ : W(ℚ₂) ↠ μ₈, Theorem 1f), ending the "un-attempted" status; the N_c count itself
+remains underived, the honest negative registered in 1f(iii).)*
 
 **A70 battery (this commit's gate; native phrases):** "derives N_c"/"grammar entry
 derived": zero live instances (every surface says *not derived / labeling / open*) ✓;
@@ -3529,6 +3532,78 @@ scripts re-run this round: `cascade_finite_places.py` 6 PASS 0 FAIL,
 derivation attempt for the mod-8/N_c grammar entry via W(ℚ₂) (order 32, ⟨1⟩ of order
 8), under the standing rules — category (a) until it touches a grammar entry, every
 identification graded, nothing claimed forced without its forcer, no semiclassics.
+
+## Addendum 75: the Witt step — the clock group is the Weil-index quotient of the dyadic Witt group; N_c honestly negatived
+
+**Commissioned: "When" (the round-18 m3 route, unblocked by round 21's convergence).
+Category (a): exact identities + classical theorems, machine-verified; no data, no
+closures; every identification graded; every "forced" names its forcer; no
+semiclassics.** **Tool:** `cascade_witt_weil.py` (19 PASS-gated checks, all PASS —
+W1: 3, W2: 4, W3: 10, W4: 1, W5: 1, counted from the run). Paper: Theorem
+1f; formulation: T1f; net-state markers added to Theorem 1e(v), T1e(v), and A70's m3
+annotation.
+
+**W1–W2 — the quotient theorem (the route's yield).** With the standard adelic character
+(the T-loc3 convention, stated in-code with its covariance graded), the dyadic Weil
+index γ₂ — the stabilized phase of the level-k Gauss oscillator — is verified
+well-defined on the 8 square classes of ℚ₂^× (×9, ×25 invariance; k-stability), valued
+exactly in μ₈, and hyperbolic-trivial (10⁻¹⁶), hence descends to a **surjective
+homomorphism γ₂ : W(ℚ₂) ↠ μ₈ with γ₂(⟨1⟩) = ζ₈⁻¹ of exact order 8** (= its additive
+order 2·level); with |W(ℚ₂)| = 32 (Lam, cited) the kernel has order 4. The eight
+one-dimensional classes land on the odd exponents {1,3,5,7} — all generators (generated
+subgroup computed from the numeric exponents = μ₈). **What was a corroboration (A70: an
+order-8 subgroup exists) is now structure: the clock group is a canonical quotient of
+the dyadic Witt group, ⟨1⟩ a generator of the quotient.** Forcers named: Weil index
+theory + level(ℚ₂) = 4, both classical — nothing cascade-chosen.
+
+**W3–W4 — the two-place lock.** γ_∞ = ζ₈^sig (signature mod 8) is the corresponding
+quotient of W(ℝ) = ℤ, Fresnel-verified to 3×10⁻⁸; **both completions project their Witt
+groups onto the same μ₈** (⟨1⟩ ↦ ζ₈ at ∞, ζ₈⁻¹ at 2), and Weil's product formula locks
+the projections inverse **per square class** — Π_v γ_v(u) = 1 verified at 10⁻¹⁵–10⁻¹⁶
+for u ∈ {±1, ±2, ±3, ±5, 6, 15} including multi-prime and negative classes. T-loc3's
+compensation is revealed as the u = 1 row of a class-by-class theorem. The ℤ/8 is
+classical: Wall/ABS, BW(ℝ) ≅ ℤ/8 via [Cl(p,q)] ↔ p−q mod 8 = signature mod 8 — the
+Clifford/Bott period-8, hence Radon–Hurwitz's, is this same object (cited, not
+re-proved).
+
+**W5 — the honest negative for N_c, registered.** ρ(2^(4a+b)m) = 8a + 2^b is a function
+of v₂ alone (verified structurally: period-8 across v₂ = 0..7, odd part irrelevant over
+a 30-case grid); ρ(12) − 1 = 3 is the A2 label. **N_c = 3 is NOT derived from the finite
+places.** The count is Adams' vector-field theorem (archimedean K-theory); the layer-12
+selection is papers-side. The open item **narrows**: from "find the finite-place home of
+the mod-8/N_c entry" (A70) to "the mod-8 home is found and classical — two Witt
+quotients, one μ₈, product-formula-locked; the count and the layer remain archimedean."
+Any future claim that the finite places produce the 3 is stopping-rule-gated new
+physics.
+
+**Run record (per the verified-record rule, defects kept on the record):** the first run
+FAILED W4 at 1.5×10⁻⁵ — the Fresnel midpoint grid was too coarse and the analytic IBP
+tail carried a sign error (fixed: 2×10⁶-point grid at T = 10 + corrected two-term tail;
+now 3×10⁻⁸ PASS). The first W2 surjectivity check tested a subgroup generated
+*abstractly* from ζ₈⁻¹ — a tautology of exactly the class round 21's c1 charged —
+caught in-session before commit and replaced by the numeric-exponent computation.
+
+**What this step changes and does not change.** Changes: the grammar's mod-8 backbone
+now has a *derived-classical two-place home* — the round-18 gift is spent, the m3 route
+worked to completion at its achievable scope. Does not change: N_c = 3 remains labeled,
+not derived; no A2 entry moved; no data touched; the dictionary untouched. The honest
+narrowing is itself the result: the finite places deliver the *period*, the archimedean
+place delivers the *count* — and the program now knows which is which, with forcers
+named on both sides.
+
+**A75 battery (this commit's gate; scope: `grep -rn` over `*.md` and `*.py` under the
+repo root, `.git` excluded; per-hit classification):** "derives N_c"/"N_c … derived"
+stems: every live hit is a negation, an honest-negative registration, a disposition
+record, a pre-existing papers-side citation (ROADMAP plus one older script referencing
+Part IVb's *archimedean* sector-dim derivation of N_c — a different route in a different
+arc, consistent with 1f's finite-place-scoped negative), or pre-existing
+proposal-language in one other older script — **zero live finite-place derivation
+claims** ✓; "forced"/"Forcer" in the new material: each
+instance names its forcer (Weil index theory, level(ℚ₂) = 4, Adams, Wall/ABS) per A66 ✓;
+"closed" in the new material: the route is described as "worked," not closed, and the
+count as "open"/"narrowed" ✓; the three prior arc scripts re-run this round:
+`cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL,
+`cascade_witt_weil.py` 19 PASS 0 FAIL ✓ (counts from the commands as run).
 
 ## Caveats
 

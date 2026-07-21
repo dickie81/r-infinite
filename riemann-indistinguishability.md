@@ -230,9 +230,53 @@ of four but not three squares in ℚ₂ — the three-square impossibility is th
 obstruction, checked in-code mod 2⁶ and conclusive; the four-square witness mod 2⁶ has a
 unit coordinate and lifts to ℤ₂ by Hensel — round-19 f4), so the class of ⟨1⟩
 generates a cyclic subgroup of order 8 — a clock-corroborating finite-place structure not
-yet connected to the grammar. *Honest scope:* no A2 grammar entry is derived (N_c's v₂
-form remains a labeling; its finite-place derivation stays open and un-attempted); no
+yet connected to the grammar *(net-state: the mod-8 connection is now made — Theorem 1f
+upgrades this corroboration to a canonical-quotient theorem; the N_c count remains
+unconnected)*. *Honest scope:* no A2 grammar entry is derived (N_c's v₂
+form remains a labeling; its finite-place derivation stays open — attempted and
+honestly-negatived at the count level by Theorem 1f); no
 data, no closures, no RH/GRH.
+
+**Theorem 1f (the Witt step: the clock group as the Weil-index quotient;
+`cascade_witt_weil.py`).** *(i) The quotient theorem.* With the standard adelic character
+(the same convention Theorem 1e's compensation fixed), the dyadic Weil index γ₂ —
+computed as the stabilized phase of the level-k dyadic Gauss oscillator — is well-defined
+on the 8 square classes of ℚ₂^× (u, 9u, 25u agree; k-stable), valued exactly in μ₈, and
+kills the hyperbolic plane (|γ(1)γ(−1) − 1| ~ 10⁻¹⁶), so it descends to a **surjective
+homomorphism γ₂ : W(ℚ₂) ↠ μ₈** with **γ₂(⟨1⟩) = ζ₈⁻¹ of exact order 8** — matching ⟨1⟩'s
+additive order 8 = 2·level(ℚ₂) — and (|W(ℚ₂)| = 32, classical: Lam) kernel of order 4.
+The eight one-dimensional class values land on the odd exponents {1,3,5,7} (all
+generators; generated subgroup = μ₈, computed from the numeric exponents). **The clock
+group is a canonical quotient of the dyadic Witt group with ⟨1⟩ a generator of the
+quotient** — round-18 m3's open route worked: what was a corroboration (an order-8
+subgroup exists) is now structure (the clock group is *the* Weil-index quotient). Forcers
+named (A66): Weil's index theory + level(ℚ₂) = 4, both classical. *(ii) The archimedean
+mirror and the lock.* γ_∞ = ζ₈^sig — **signature mod 8** — is the corresponding quotient
+W(ℝ) = ℤ ↠ μ₈ (Fresnel-verified to 3×10⁻⁸ with an analytic two-term IBP tail;
+sign-conjugation and positive-rescaling invariance exact), so **both completions project
+their Witt groups onto the same μ₈** (⟨1⟩ ↦ ζ₈ at ∞, ζ₈⁻¹ at 2), and Weil's product
+formula locks the projections inverse **per square class**: Π_v γ_v(u) = 1 verified at
+10⁻¹⁵–10⁻¹⁶ for u ∈ {±1, ±2, ±3, ±5, 6, 15} over places {∞, 2, odd ramified p} —
+Theorem 1e's compensation is the u = 1 row of a theorem holding class-by-class.
+Character-covariance graded honestly: the ψ-independent content is the surjectivity,
+⟨1⟩'s order 8, and the product-formula lock; the specific value ζ₈⁻¹ is convention-tied.
+The ℤ/8 itself is classical — Wall/Atiyah–Bott–Shapiro: BW(ℝ) ≅ ℤ/8 via [Cl(p,q)] ↔
+p−q mod 8 = signature mod 8 — so the Clifford/Bott period-8, hence Radon–Hurwitz's, is
+this same object (cited, not re-proved). *(iii) The honest negative for N_c, registered.*
+ρ(2^(4a+b)m) = 8a + 2^b depends on v₂ alone (verified structurally: period-8 in v₂ = the
+ℤ/8 above; odd part irrelevant); ρ(12) − 1 = 3 is the A2 label. **N_c = 3 is not derived
+from the finite places:** the count is Adams' vector-field theorem (archimedean
+K-theory), and the layer-12 selection is papers-side. The open item *narrows*: the mod-8
+home of the grammar's backbone is found and classical (two Witt quotients, one μ₈,
+product-formula-locked); what remains archimedean is the count and the layer. Any future
+claim that the finite places produce the 3 is stopping-rule-gated new physics. *Run
+record:* the first run's Fresnel check failed at 1.5×10⁻⁵ (midpoint grid too coarse and
+an IBP-tail sign error — fixed: finer grid, corrected two-term tail) and the surjectivity
+check originally tested an abstractly-generated subgroup (a tautology — replaced
+pre-commit by the numeric-exponent computation); both kept on the record per the
+verified-record rule. *Scope:* category (a) — no data, no closures, no RH/GRH, no
+semiclassics; reading this μ₈ as *the grammar's* clock is the same graded identification
+Theorems 6 and 1d made, upgraded from corroboration to canonical-quotient status.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no
