@@ -182,7 +182,8 @@ quantified over all moduli):
 the order-8 clock element of Theorem 6 is **dyadic-exclusive** among finite-place Gauss
 phases — graded as an exact theorem plus one identification (reading the dyadic phase as
 the finite-place avatar of the archimedean clock), motivated by (iii), where they provably
-meet. *(iii) Product-formula avatar (Landsberg–Schaar; verified exactly on an 18-pair grid
+meet *(strengthened to family-level exclusivity over all places, including ∞, by
+Theorem 1g)*. *(iii) Product-formula avatar (Landsberg–Schaar; verified exactly on an 18-pair grid
 including even p and both parities of pq — round-18 m6: the original 10-pair grid was
 odd-p-only and could not have detected a parity restriction; the round-18 review
 independently brute-forced 1000 pairs with zero failures).* The Landsberg–Schaar relation
@@ -286,6 +287,47 @@ pre-commit by the numeric-exponent computation); both kept on the record per the
 verified-record rule. *Scope:* category (a) — no data, no closures, no RH/GRH, no
 semiclassics; reading this μ₈ as *the grammar's* clock is the same graded identification
 Theorems 6 and 1d made, upgraded from corroboration to canonical-quotient status.
+
+**Theorem 1g (the local family completed: odd-place exclusivity and the kernel's
+anatomy; `cascade_local_family.py`).** *(i) The odd places are small and
+dimension-blind.* For odd p the local Weil index has **silent units** (γ_p(⟨1⟩) =
+γ_p(⟨u⟩) = 1) and image **μ₂** (p ≡ 1 mod 4) or **μ₄** (p ≡ 3 mod 4) — verified for
+p = 3, 5, 7, 11, 13 with k-stability and class-invariance gates; with |W(ℚ_p)| = 16
+(classical: Lam) the kernels have order 8 and 4. **The exclusivity theorem: in the
+Witt–Weil family {γ_v : W(ℚ_v) → μ₈} over all places of ℚ, the full order-8 image — the
+clock group — occurs exactly at v = 2 and v = ∞, and the unit form ⟨1⟩ has nontrivial
+index exactly at those two places.** Forcers (A66): level(ℚ_p) ≤ 2 for odd p and the
+classical Gauss-sum evaluations — nothing cascade-chosen. This strengthens 1d(ii)'s
+"dyadic-exclusive among Gauss phases" to family-level exclusivity including the
+archimedean place: the program's clock lives at precisely the places where the family
+can carry it. *(ii) The cocycle and the closed form.* The Weil-index cocycle
+**γ(a)γ(b) = γ(1)γ(ab)·(a,b)_v** (Hilbert symbol; classical: Weil, Rao) is verified over
+all 64 ordered square-class pairs at v = 2 and all 16 at p = 3 and 5; by induction, with
+β(a) := γ(a)/γ(1), **γ_v(q) = γ_v(1)^(dim q) · β_v(disc q) · hasse_v(q)** — verified
+exhaustively at v = 2 over dims 1–2 (72 forms), on a deterministic dims-3–6 battery, and
+at p = 3, 5. Structurally: **the dyadic clock reads dimension mod 8** (γ₂(1) = ζ₈⁻¹)
+twisted by disc and Hasse; the archimedean clock reads **signature mod 8** (Theorem 1f);
+at odd p, γ_p(1) = 1 and **the dimension term vanishes** — the clock places are exactly
+the dimension-/signature-sensitive places of ℚ. *(iii) The kernel's anatomy.* The Witt
+classes of ℚ₂ are re-derived in-code from the (disc, Hasse) classification of binary
+forms — 15 realized pairs = 14 anisotropic + the hyperbolic (disc ∼ −1, h = +1), with
+(disc ∼ −1, h = −1) unrealizable in dimension 2, totalling 1+8+14+8+1 = 32, matching
+Lam's order. Dimension parity confines the kernel to even dimension; the dim-4
+quaternionic class ⟨1,1,1,1⟩ has γ = −1; the census finds **exactly three dim-2
+anisotropic classes with γ = 1 — (disc, Hasse) = (3, +1), (6, −1), (14, +1) — each its
+own negative (order 2, by the dim-2 isometry criterion), so ker γ₂ ≅ (ℤ/2)²**:
+W(ℚ₂) ≅ ℤ/8 ⊕ (ℤ/2)² with the ℤ/8 the ⟨1⟩-span (1f) and the (ℤ/2)² **exactly the
+clock-invisible classes**. *Grammar honesty:* whether the two clock-invisible ℤ/2's
+(disc-type and Hasse-type data) carry any grammar meaning is **open — none claimed**;
+this door was opened to expose that question precisely. *(iv) The global re-lock.*
+Π_v γ_v(q) = 1 verified to ≤ 4×10⁻¹⁵ on six multi-dimensional rational forms — beyond
+1f's per-square-class rows — including the 8-dimensional definite form, where both clock
+places wrap to 1: the mod-8 period seen globally. *Run record:* the first run timed out
+at p = 17 (a 17⁷-term sum); the prime list was trimmed to 3–13 (both residue classes
+covered) with stability gates at k ∈ {3, 5}, and two leftover code artifacts were
+removed pre-run — kept on the record per the verified-record rule. *Scope:* category (a);
+the ψ-covariance grading of 1f applies verbatim; no grammar entry derived; no data, no
+closures, no RH/GRH, no semiclassics.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no

@@ -3801,6 +3801,79 @@ extension, and the frozen experimental ledger (JUNO, DESI, Belle II, HL-LHC, KAT
 The next defect, if it exists, will be found by mathematics or by experiment, not by
 another pass over the records.
 
+## Addendum 79: the local family completed — odd-place exclusivity, the symbolic clock, and the kernel's anatomy
+
+**Commissioned: "Doors 1 & 2 pls" (the two doors ranked first in the post-convergence
+survey). Category (a): exact identities + classical theorems, machine-verified; no
+data, no closures; every identification graded; every "forced" names its forcer; no
+semiclassics.** **Tool:** `cascade_local_family.py` (21 PASS-gated checks, all PASS —
+L1: 6, L2: 3, L3: 3, L4: 3, L5: 6, counted from the run). Paper: Theorem 1g;
+formulation: T1g; strengthening pointer added to Theorem 1d(ii).
+
+**L1 — Door 1, the exclusivity theorem.** For odd p (verified p = 3, 5, 7, 11, 13,
+covering both residue classes, with k-stability and class-invariance gates): the units
+are **silent** (γ_p(⟨1⟩) = γ_p(⟨u⟩) = 1) and the image is **μ₂** (p ≡ 1 mod 4) or
+**μ₄** (p ≡ 3 mod 4); with |W(ℚ_p)| = 16 (Lam, cited) the kernels have order 8 / 4.
+**In the Witt–Weil family over all places of ℚ, the order-8 clock image — and a
+nontrivial unit form — occur exactly at v = 2 and v = ∞.** D3.2's "dyadic-exclusive
+among Gauss phases" is thereby strengthened to family-level exclusivity including the
+archimedean place: the program's clock lives at precisely the two places where the
+family can carry it. Forcers: level(ℚ_p) ≤ 2, classical Gauss-sum evaluations.
+
+**L2–L3 — Door 2, the symbolic clock.** The Weil-index cocycle γ(a)γ(b) =
+γ(1)γ(ab)·(a,b)_v (classical: Weil, Rao) verified exhaustively — all 64 ordered
+square-class pairs at v = 2, all 16 at p = 3 and 5, Hilbert symbols from the classical
+closed formulas. By induction: **γ_v(q) = γ_v(1)^(dim q)·β_v(disc q)·hasse_v(q)** —
+verified exhaustively over dims 1–2 at v = 2 (72 forms), a deterministic dims-3–6
+battery, and odd-p samples. The structural headline: **the dyadic clock reads dimension
+mod 8** (γ₂(1) = ζ₈⁻¹), the archimedean clock reads **signature mod 8** (1f), and at
+odd p the dimension term **vanishes** (γ_p(1) = 1) — the two clock places are exactly
+the dimension-/signature-sensitive places of ℚ.
+
+**L4 — Door 2, the kernel.** The Witt census of ℚ₂ re-derived in-code from the (disc,
+Hasse) classification of binary forms: 15 realized pairs = 14 anisotropic + hyperbolic
+(disc ∼ −1, h = +1), with (disc ∼ −1, h = −1) unrealizable — totals 1+8+14+8+1 = 32 ✓
+matching Lam. Dimension parity confines the kernel to even dimensions; ⟨1,1,1,1⟩ (the
+quaternionic norm form) has γ = −1; the census finds **exactly three dim-2 anisotropic
+classes with γ = 1: (disc, Hasse) = (3, +1), (6, −1), (14, +1)**, each its own negative
+(order 2, dim-2 isometry criterion), so **ker γ₂ ≅ (ℤ/2)²** and W(ℚ₂) ≅ ℤ/8 ⊕ (ℤ/2)²
+splits as ⟨1⟩-span ⊕ clock-invisible classes. **The open question this door was
+commissioned to expose, now precise: do the two clock-invisible ℤ/2's (disc-type and
+Hasse-type data at the dyadic place) carry any grammar meaning? None is claimed.**
+
+**L5 — the global re-lock.** Π_v γ_v(q) = 1 verified to ≤ 4×10⁻¹⁵ on six
+multi-dimensional rational forms (beyond 1f's per-class rows), including the
+8-dimensional definite form — sig = dim = 8, both clock places wrapping to 1: the mod-8
+period seen globally.
+
+**Run record (per the verified-record rule):** the first run was killed at the 120 s
+timeout — the p = 17 stability gate demanded a 17⁷-term sum; the prime list was trimmed
+to 3–13 (both residue classes still covered) and the stability comparison moved to
+k ∈ {3, 5}. Two leftover code artifacts (a broken interim image computation in L1; a
+vestigial always-true conjunct in L4) were caught by re-read and removed before the
+first delivered run.
+
+**What this changes and does not change.** Changes: the two 1f doors are closed — the
+family statement is complete (every place's quotient known: 8/8 at the clock places,
+4/2 at odd places, kernel anatomy explicit), and the clock's "why these two places"
+question now has a classical answer (they are the dimension-sensitive places). Does
+not change: no A2 grammar entry moved; N_c's honest negative (1f(iii)) stands; the
+dictionary untouched. New open item registered: the grammar meaning (if any) of the
+clock-invisible (ℤ/2)².
+
+**A79 battery (this commit's gate; full commands, per-hit granularity as stated):**
+`grep -rn "dimension-blind\|clock-invisible\|exclusivity" --include='*.md'
+--include='*.py' .` — every hit is in this addendum, Theorem 1g, T1g, or the new
+script, **except** 25 pre-existing "sector/mutual/slot-precedence exclusivity" hits in
+four older scripts (eigenmode ×2, increment-rule, slot-precedence — the papers-arc
+sense, unrelated to place-exclusivity, read per-hit and accurate in context; this
+exception was caught by running the battery before recording it, not after) ✓; "derives"/"derived" stems in the new material:
+negations and honest-scope statements only ✓; "forced"/"Forcers" in the new material:
+each names its forcer (level(ℚ_p) ≤ 2, classical Gauss sums, Weil/Rao cocycle) ✓;
+scripts re-run this round: `cascade_local_family.py` 21 PASS 0 FAIL,
+`cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL,
+`cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -138,6 +138,22 @@ Fresnel failure (grid + tail sign) and a tautologous surjectivity check both fix
 recorded. Round-18 m3's route worked at achievable scope. No data, no closures, no
 RH/GRH, no semiclassics.
 
+**T1g (The local family completed — PROVED at stated strengths; Addendum 79;
+`cascade_local_family.py`).** (i) Odd places: units silent, image μ₂ (p ≡ 1 mod 4) or
+μ₄ (p ≡ 3 mod 4), verified p = 3–13; **exclusivity theorem: the order-8 clock image and
+the nontrivial unit form occur exactly at v = 2 and v = ∞** — family-level, upgrading
+T1d(ii)'s Gauss-phase exclusivity. Forcers: level(ℚ_p) ≤ 2 + classical Gauss sums.
+(ii) Cocycle γ(a)γ(b) = γ(1)γ(ab)(a,b)_v verified exhaustively (64 pairs at 2, 16 at
+p = 3, 5) ⇒ closed form **γ_v(q) = γ_v(1)^dim·β_v(disc)·hasse_v(q)** (verified 72
+exhaustive + battery): dim mod 8 at v = 2, sig mod 8 at ∞, **no dimension term at odd
+p** — the clock places are exactly the dimension-sensitive places. (iii) Kernel
+anatomy: Witt census re-derived (1+8+14+8+1 = 32); **ker γ₂ = (ℤ/2)² = the three dim-2
+anisotropic classes (disc, Hasse) = (3,+1), (6,−1), (14,+1), each order 2, plus 0** —
+the clock-invisible classes; their grammar meaning OPEN, none claimed. (iv) Global
+re-lock on six multi-dim forms ≤ 4×10⁻¹⁵ incl. the dim-8 definite form (both clock
+places wrap to 1). Run record: p = 17 timeout → primes trimmed, two pre-run code
+artifacts removed. 21 PASS 0 FAIL. No grammar entry derived; no data, no closures.
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the
