@@ -476,3 +476,32 @@ the stopping rule clean.
 recorded-but-not-made; no false battery record; no new defect. What remains open is
 mathematics and experiment: the dictionary's soft inputs, the full-record extension, F6's
 original claim, and the ledger's falsifiers.
+
+# Round 18: hostile pass on the finite-place arc (Doors 3&4 + local Tate) — WOUNDED (2+6), zero mathematical falsehoods
+
+First adversarial pass on the two newest commits (c781ec9, 345f861); the rounds-15–17
+material held its convergence. All eight findings are claims-layer — quantifier scope,
+verification coverage, counting, grading — the tenth consecutive round in which the
+mathematics itself produced no defect. The reviewer's independent checks all held: the
+global identity re-run, Landsberg–Schaar brute-forced at **1000 random pairs (zero
+failures)**, Gauss phases confirmed at composite and non-power moduli, Br(ℚ₂) = ℚ/ℤ,
+level(ℚ₂) = 4, the odd global identity at 10⁻²⁰.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| M1 — Gauss-phase verification narrower than claimed: "every odd modulus (to q = 499)" ran primes-only; "every 4-divisible modulus (q = 4–64)" ran powers-of-2-only | **Accepted.** Verifier extended: 16 composite odd moduli to 495, 11 non-power 4-divisible to 180, all PASS; extension disclosed on all surfaces | script + paper + T1d + A69 struck |
+| M2 — "~99% at the record's layers" was s = 6-only; at s = 4 the joint p = 2, 3 share is 94.15% | **Accepted.** Shares now computed/printed at s = 4, 5, 6, 13, 21 (94.15/97.62/99.04/100/100%); all surfaces say "~94–100% across the record's layers" | script + paper + T1d + A69 struck |
+| m1 — "10⁻³¹" understated the worst residual 1.97×10⁻³¹ | **Accepted.** "2×10⁻³¹" on all five surfaces (incl. A64/A69 strikes) | paper + formulation + audit |
+| m2 — "three independent corroborations" counted one theorem twice (T-loc3's sum = conj G(4q)/2 = D3.2's phase statement) | **Accepted.** Count corrected to two everywhere | paper + T1e + A70 struck |
+| m3 — the Witt ring W(ℚ₂) left unnamed while "the most obvious route" was declared closed | **Accepted — the reviewer's gift.** W(ℚ₂) order 32 ≅ ℤ/8⊕ℤ/2⊕ℤ/2, level = 4 verified in-code, ⟨1⟩ of order 8: named on all surfaces as the OPEN clock-corroborating route | script T-loc5 + paper + T1e + A70 |
+| m4 — "the two structure primes' roles are now exact" blanket-graded a mixed list | **Accepted.** Split: exact (3 ramifies/silences; 2 inert) vs identification ("2 carries the clock") | script + paper + T1e + A70 struck |
+| m5 — comb-DFT self-duality at fixed depth is near-tautological | **Accepted.** Honesty note in T-loc1: the content is the Tate-integral achievement + depth consistency | script |
+| m6 — LS grid odd-p-only, structurally blind to a parity restriction | **Accepted.** 18-pair grid incl. even p + both parities; review's 1000-pair sweep recorded | script + paper + T1d + A69 |
+
+**Process finding:** both majors and m1 share one failure mode — a battery that checked
+values but not quantifier scope. A69's gate line "all quoted percentages/residuals match
+script output ✓" is struck as a FALSE RECORD (the phrases matched the runs that existed,
+not the claims as quantified). Battery rule extended: every "verified to X"/"at the
+record's layers"/"every modulus" claim must have its *quantifier* checked against the
+verifier's actual input list. A71 records this round's battery: zero live survivors of
+the round-18-native phrases; scripts re-run clean post-sweep.

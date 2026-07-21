@@ -94,7 +94,7 @@ primes** — the partial-fraction (Hadamard) form of the explicit-formula identi
 at the tower points. Every window Φ(a→b) = Σ p(d) inherits the split additively; e.g.
 Φ(5→13) = 1.539665 = zeros 3.226401 − poles 1.698363 + primes 0.011627, and
 Φ(13→21) = 4.064768 = zeros 4.969202 − poles 0.904476 + primes 0.000042. *Verified:* the
-rearrangement to 10⁻³¹; the prime side against −ζ′/ζ within stated integral tail bounds at
+rearrangement to 2×10⁻³¹ (worst residual 1.97×10⁻³¹; round-18 m1 — the earlier "10⁻³¹" understated it); the prime side against −ζ′/ζ within stated integral tail bounds at
 dps 50 with the strict bound (round-15 M2: the original dps-30 run put the d=12 residual at
 the precision floor, above its bound, with the PASS an epsilon artifact — recomputed, the
 true residual 2.05×10⁻⁴¹ is genuinely within the 1.56×10⁻⁴⁰ bound);
@@ -162,22 +162,30 @@ decreasing residuals); the minimality-pairing is a convention, not a forcing.
 ## 3. The forced dynamics
 
 **Theorem 1d (the finite places; `cascade_finite_places.py`).** *(i) Global potential
-identity (exact, 10⁻³¹).* Give every place v of ℚ its local potential p_v := (log E_v)′,
+identity (exact, 2×10⁻³¹).* Give every place v of ℚ its local potential p_v := (log E_v)′,
 with E_∞ = Γ_ℝ (so p_∞ is the tower potential) and E_p = (1−p^(−s))^(−1); then
 **Σ_v p_v(s) = ξ′/ξ(s) − 1/s − 1/(s−1)** — the sum of all places' potentials is the zeros
 side, and Theorem 1b's "+primes" term is −Σ_p p_p: the tower is *one member of an adelic
 family of towers, one per place*, and the archimedean potential equals the zeros side minus
-every other place's potential. At the record's layers the finite total is carried ~99% by
-p = 2 and p = 3 (87.1% + 12.0% at s = 6) — the same primes carrying the grammar's discrete
-entries (the v₂ counts; conductor-3 colour); that coincidence is *noted, not claimed as
-derivation*. *(ii) The clock is dyadic (classical; verified by direct summation).* The
+every other place's potential. Across the record's layers the finite total is carried
+~94–100% jointly by p = 2 and p = 3 (94.2% at the observer twist s = 4; 99.0% at s = 6,
+where p = 2 gives 87.1% and p = 3 gives 12.0%; ~100% by s = 13; round-18 M2 — the earlier
+"~99% at the record's layers" was computed at s = 6 only) — the same primes carrying the
+grammar's discrete entries (the v₂ counts; conductor-3 colour); that coincidence is
+*noted, not claimed as derivation*. *(ii) The clock is dyadic (classical; verified by direct summation).* The
 normalized quadratic Gauss sums have phase in {1, i} at every odd modulus (Gauss's theorem,
-verified to q = 499) and phase exactly ζ₈ at every 4-divisible modulus (verified q = 4–64):
+verified at primes *and* composites to q = 499) and phase exactly ζ₈ at every 4-divisible
+modulus (verified at powers of 2 *and* other 4-divisible moduli to q = 180; round-18 M1 —
+the original verification lists were primes-only and powers-of-2-only while the claims
+quantified over all moduli):
 the order-8 clock element of Theorem 6 is **dyadic-exclusive** among finite-place Gauss
 phases — graded as an exact theorem plus one identification (reading the dyadic phase as
 the finite-place avatar of the archimedean clock), motivated by (iii), where they provably
-meet. *(iii) Product-formula avatar (Landsberg–Schaar; verified exactly at all ten grid
-points tested).* The Landsberg–Schaar relation exchanges place-p data for place-2q data
+meet. *(iii) Product-formula avatar (Landsberg–Schaar; verified exactly on an 18-pair grid
+including even p and both parities of pq — round-18 m6: the original 10-pair grid was
+odd-p-only and could not have detected a parity restriction; the round-18 review
+independently brute-forced 1000 pairs with zero failures).* The Landsberg–Schaar relation
+exchanges place-p data for place-2q data
 with mediating constant **e^(iπ/4) = γ_∞ = the clock**: the archimedean Weil index is the
 exchange rate between finite places — the machine-checkable shadow of Weil's product
 formula Π_v γ_v = 1. *Honest scope:* no A2 grammar entry is derived from the finite places
@@ -197,24 +205,31 @@ carries a canonical achieving vector at every member. *(ii) The dyadic squarenes
 A 2-adic unit is a square **iff u ≡ 1 mod 8** (squares of odds mod 8 = {1}; Hensel lifting
 verified to 2²⁰; the mod-16 obstruction verified for u ≡ 3, 5, 7); square-class counts:
 |ℝ^×/sq| = **2 = χ**, |ℚ₂^×/sq| = **8**, |ℚ_p^×/sq| = 4 (p odd). The clock's modulus is
-the dyadic squareness modulus — a **graded identification** with three corroborations
-(this; the dyadic-exclusive ζ₈ Gauss phases of 1d(ii); the compensation of (iii)), not a
-derivation. *(iii) The compensation is dyadic-exclusive.* Σ_{n mod 2q} e^(−πin²/(2q)) =
+the dyadic squareness modulus — a **graded identification** with *two* independent
+corroborations (this and the dyadic-exclusive ζ₈ Gauss phases of 1d(ii); the compensation
+of (iii) is the *same* theorem as 1d(ii) — the sum equals conj G(4q)/2 — round-18 m2
+corrected the earlier count of three), not a derivation. *(iii) The compensation is dyadic-exclusive.* Σ_{n mod 2q} e^(−πin²/(2q)) =
 √(2q)·ζ₈^(−1) exactly (q = 1–8): the conjugate dyadic sum carries the *inverse* clock —
 γ_∞ compensated at 2 — while odd places are silent for the unit form (G(p²) = p exactly).
 *(iv) The colour field's local geography + the odd global identity.* p = 3 **ramifies** in
 ℚ(ζ₃) (χ₋₃(3) = 0: the conductor — the different of Theorem 1c's C4 — silences its own
 3-factor); p = 2 is **inert** (χ₋₃(2) = −1); and the odd tower carries its own global
 potential identity, p_sgn + Σ_p p_p^χ = Λ′/Λ − ½ln 3 (verified 10⁻²⁰), with the conductor
-standing where the even tower had its poles. The two structure primes' roles are now
-exact: **2 carries the clock and is inert in colour; 3 carries the colour ramification and
-is silent in its own L-factor.** *(v) A checked negative, recorded:* the naive transplant
-"BW(ℚ₂) ≅ ℤ/8" is **false** — Br(ℚ₂) = ℚ/ℤ by local class field theory, so ℚ₂'s graded
-Brauer group is infinite; the clock's dyadic home is the square-class/Gauss-phase
-structure, and the most obvious route to a finite-place derivation of the Radon–Hurwitz
-grammar entry is closed. *Honest scope:* no A2 grammar entry is derived (N_c's v₂ form
-remains a labeling; its finite-place derivation stays open and un-attempted); no data, no
-closures, no RH/GRH.
+standing where the even tower had its poles. The two structure primes' roles, graded
+(round-18 m4 split the earlier blanket "now exact"): **exact** — 3 ramifies in colour and
+is silent in its own L-factor; 2 is inert in colour; **graded identification** — "2
+carries the clock" names the dyadic square-class/Gauss-phase structure of (ii)–(iii), not
+a derived grammar entry. *(v) A checked negative, recorded — and the open route named:*
+the naive transplant "BW(ℚ₂) ≅ ℤ/8" is **false** — Br(ℚ₂) = ℚ/ℤ by local class field
+theory, so ℚ₂'s graded Brauer group is infinite; the clock's dyadic home is the
+square-class/Gauss-phase structure, and *one* route to a finite-place derivation of the
+Radon–Hurwitz grammar entry is closed. A second route remains **open and named** (round-18
+m3): the Witt ring W(ℚ₂) has order 32 ≅ ℤ/8 ⊕ ℤ/2 ⊕ ℤ/2 with level(ℚ₂) = 4 (−1 is a sum
+of four but not three squares in ℚ₂ — verified in-code mod 2⁶), so the class of ⟨1⟩
+generates a cyclic subgroup of order 8 — a clock-corroborating finite-place structure not
+yet connected to the grammar. *Honest scope:* no A2 grammar entry is derived (N_c's v₂
+form remains a labeling; its finite-place derivation stays open and un-attempted); no
+data, no closures, no RH/GRH.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no

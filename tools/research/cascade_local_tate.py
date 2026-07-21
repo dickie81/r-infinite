@@ -19,7 +19,11 @@ self-dual vector achieves the local factor.
   Verified below: the geometric identity numerically; self-duality
   by exact finite Fourier (the indicator of Z_p sampled on the
   lattice p^(-k)Z/p^k Z is a comb whose DFT is itself -- checked by
-  FFT for p = 2, 3 at two depths).  COROLLARY (assembly): the
+  FFT for p = 2, 3 at two depths).  HONESTY NOTE (round-18 m5): any
+  comb of spacing sqrt(N) is DFT-self-dual, so the finite check
+  verifies the MODEL's consistency, not a p-distinguishing fact;
+  the p-adic content is the classical theorem plus the model
+  identification (lattice sampling), graded as such.  COROLLARY (assembly): the
   program's Gaussian is the archimedean component of THE standard
   adelic self-dual vector Phi = e^(-pi x^2) x prod_p 1_{Z_p}, whose
   global Tate integral is Gamma_R(s) zeta(s).  A1's "dynamics = the
@@ -62,17 +66,27 @@ potential identity).
         (1/2) ln 3,
     with p_p^chi = (log E_p^chi)' and the conductor term standing
     where the even tower had its poles.  Verified numerically.
-  The two structure primes' roles, now exact: p = 2 carries the
-  clock and is inert in colour; p = 3 carries the colour
-  ramification (the different) and is silent in its own L-factor.
+  The two structure primes' roles: EXACT -- 2 inert in colour, 3
+  ramified/silent in its own L-factor; GRADED IDENTIFICATION -- "2
+  carries the clock" (T-loc2/D3.2's identification, not folded
+  under the exact banner; round-18 m4).
 
-T-loc5 (A CHECKED NEGATIVE, recorded).  The naive transplant of the
-clock's real-place home to p = 2 -- "BW(Q_2) = Z/8" -- is FALSE:
-Br(Q_2) = Q/Z by local class field theory, so the graded Brauer
-group of Q_2 is infinite.  The dyadic home of the mod-8 clock is
-the square-class / Gauss-phase structure (T-loc2/3), NOT the graded
-Brauer group.  (Classical; recorded as a negative so no future pass
-re-attempts the transplant.)
+T-loc5 (A CHECKED NEGATIVE, recorded -- with the OPEN route named,
+round-18 m3).  The naive transplant of the clock's real-place home
+to p = 2 -- "BW(Q_2) = Z/8" -- is FALSE: Br(Q_2) = Q/Z by local
+class field theory, so the graded Brauer group of Q_2 is infinite.
+The dyadic home of the mod-8 clock is the square-class /
+Gauss-phase structure (T-loc2/3), NOT the graded Brauer group.
+BUT this closes only ONE route: the classical WITT RING W(Q_2) is
+FINITE of order 32 (= Z/8 + Z/2 + Z/2), built from exactly the
+T-loc2 square-class structure, and the additive order of <1> in
+W(K) is 2 x level(K): level(Q_2) = 4 (verified below: -1 is not a
+sum of 3 squares in Z_2, is a sum of 4), giving <1> of order 8 AT
+THE DYADIC PLACE ONLY (odd p: level <= 2, order <= 4; W(R) = Z,
+torsion-free).  A finite, dyadic-exclusive mod-8 quadratic-form
+structure -- an open, clock-CORROBORATING route, not a closed one.
+(Named by the round-18 review; recorded so no future pass writes
+the finite-place quadratic-form direction off.)
 
 WHAT THIS DOES AND DOES NOT DO (honest scope, stated first):
   DOES: give every place its achieving vector (per-place T2); anchor
@@ -83,7 +97,9 @@ WHAT THIS DOES AND DOES NOT DO (honest scope, stated first):
   DOES NOT: derive N_c = 3 or any other A2 grammar entry from the
     finite places (the Radon-Hurwitz v_2 form remains a labeling;
     deriving it from Q_2 Clifford/Tate structure is the remaining
-    open step and the BW negative closes its most obvious route);
+    open step; the BW negative closes one route and the finite
+    Witt ring W(Q_2) -- order 32, <1> of order 8 -- is the named
+    open one, round-18 m3);
     touch data; close anything; use RH/GRH.
 """
 
@@ -219,16 +235,31 @@ def main():
     print("  => both towers now carry global potential identities; the")
     print("     odd tower's 'pole slot' is the conductor = the different.")
 
-    # ---- T-loc5: the checked negative
+    # ---- T-loc5: the checked negative + the open Witt route
     print()
-    print("T-loc5 checked negative (recorded, classical):")
+    print("T-loc5 checked negative + the open Witt route (round-18 m3):")
+    # level(Q_2) = 4: -1 not a sum of 3 squares mod 64; is a sum of 4
+    three = any((a*a + b*b + c*c) % 64 == 63
+                for a in range(8) for b in range(8) for c in range(8))
+    four = any((a*a + b*b + c*c + d*d) % 64 == 63
+               for a in range(8) for b in range(8) for c in range(8)
+               for d in range(8))
+    print(f"  level(Q_2) = 4: -1 sum of 3 squares mod 64? {three}"
+          f" (want False); of 4? {four} (want True)"
+          f"   {'PASS' if (not three) and four else 'FAIL'}")
+    print("  => <1> has additive order 2 x level = 8 in W(Q_2) (order 32,")
+    print("     finite); odd p: level <= 2, order <= 4; W(R) = Z.  A")
+    print("     finite dyadic-exclusive mod-8 structure: OPEN and clock-")
+    print("     corroborating, not closed.")
     print("  BW(Q_2) is NOT Z/8: Br(Q_2) = Q/Z (local class field")
     print("  theory), so the graded Brauer group of Q_2 is infinite.")
     print("  The dyadic home of the mod-8 clock is the square-class /")
     print("  Gauss-phase structure, not the graded Brauer group.  This")
-    print("  closes the most obvious route to a finite-place derivation")
-    print("  of the Radon-Hurwitz grammar entry; that derivation stays")
-    print("  OPEN and un-attempted here.")
+    print("  closes ONE route to a finite-place derivation of the")
+    print("  Radon-Hurwitz grammar entry (round-18 m3 corrected the")
+    print("  earlier 'most obvious route' framing); the Witt-ring route")
+    print("  above is open and clock-corroborating; the derivation")
+    print("  itself stays OPEN and un-attempted here.")
 
     print()
     print("=" * 74)

@@ -2867,7 +2867,8 @@ explicit-formula identity, evaluated at the tower points — this precise naming
 the session's assessment phrase "verbatim the archimedean term of Weil's formula" (Weil's
 test-function formula is the smeared version of the same identity).
 
-**Verification (three tiers, all run):** V1 rearrangement exact to **10⁻³¹**; V2 the prime
+**Verification (three tiers, all run):** V1 rearrangement exact to ~~**10⁻³¹**~~
+**[round 18 m1: worst residual 1.97×10⁻³¹ — "2×10⁻³¹" is the honest quote]**; V2 the prime
 side against −ζ′/ζ ~~within stated integral tail bounds (three layers)~~ **[round-15 M2:
 false of the d=12 row as originally run — the dps-30 residual sat at the precision floor
 above its bound, PASS via epsilon; recomputed at dps 50 the true residual 2.05×10⁻⁴¹ is
@@ -3141,24 +3142,35 @@ no closures; every identification graded; nothing claimed forced (A66 rule).**
 (Door 4). Paper: Theorems 1d and the C4 addition to 1c; formulation T1d.
 
 **Door 3 — the finite places (Theorem 1d), three results:**
-- **D3.1, the global potential identity (exact, 10⁻³¹):** giving every place of ℚ its
+- **D3.1, the global potential identity (exact, ~~10⁻³¹~~ **[round 18 m1: worst residual
+  1.97×10⁻³¹ — "2×10⁻³¹" is the honest quote]**):** giving every place of ℚ its
   local potential p_v = (log E_v)′ — archimedean E_∞ = Γ_ℝ, finite E_p = (1−p^(−s))^(−1) —
   the identity **Σ_v p_v = ξ′/ξ − poles** holds exactly: *the sum of all places'
   potentials is the zeros side*, and Theorem 1b's "+primes" term is −Σ_p p_p. The tower is
-  one member of an adelic family of towers, one per place. At the record's layers the
-  finite total is carried **87.1% by p = 2 and 12.0% by p = 3** (99.04% jointly at s = 6)
+  one member of an adelic family of towers, one per place. ~~At the record's layers the
+  finite total is carried **87.1% by p = 2 and 12.0% by p = 3** (99.04% jointly at s = 6)~~
+  **[struck round 18 (Major 2): the share was computed at s = 6 only while claimed for
+  "the record's layers"; at s = 4 the joint share is 94.15%. Corrected statement: p = 2, 3
+  jointly carry ~94–100% across the record's layers — 94.15% at s = 4, 97.62% at s = 5,
+  99.04% at s = 6, ~100% by s = 13 — now computed and printed per-layer in the script]**
   — the same two primes carrying the grammar's discrete entries (v₂ counts; conductor-3
   colour). That coincidence is *noted, not claimed as derivation*. **Run record:** the
   first run stated the identity with the finite potentials' sign flipped and D3.1 failed
   3/3; the corrected convention (finite potentials negative — each finite place *drains*)
   is on the record in the script per the verified-record rule.
 - **D3.2, the clock is dyadic (classical + one graded identification):** normalized
-  quadratic Gauss sums have phase ∈ {1, i} at every odd modulus (Gauss's theorem, verified
-  to q = 499 by direct summation) and phase exactly **ζ₈ at every 4-divisible modulus**
-  (verified q = 4–64): the order-8 clock element of T6 is **dyadic-exclusive** among
+  quadratic Gauss sums have phase ∈ {1, i} at every odd modulus (Gauss's theorem, ~~verified
+  to q = 499 by direct summation~~ **[round 18 (Major 1): the list was primes-only while
+  the claim quantified over all odd moduli; now verified at primes and composites to
+  q = 499]**) and phase exactly **ζ₈ at every 4-divisible modulus** (~~verified q = 4–64~~
+  **[round 18 (Major 1): powers of 2 only; now verified including non-powers-of-2 to
+  q = 180]**): the order-8 clock element of T6 is **dyadic-exclusive** among
   finite-place Gauss phases. The identification (dyadic phase = the finite-place avatar of
   the archimedean clock) is graded as such and motivated by D3.3.
-- **D3.3, the product-formula avatar (verified exactly, ten grid points):** the
+- **D3.3, the product-formula avatar (verified exactly, ~~ten grid points~~ **[round 18
+  m6: the ten pairs were odd-p-only and could not have detected a parity restriction; now
+  an 18-pair grid including even p and both parities of pq, plus the review's independent
+  1000-pair brute force at dps 40 with zero failures]**):** the
   Landsberg–Schaar relation — the classical avatar of Weil's Π_v γ_v = 1 — exchanges
   place-p data for place-2q data with mediating constant **e^(iπ/4) = γ_∞ = the clock**:
   the archimedean Weil index is the exchange rate between finite places.
@@ -3183,8 +3195,13 @@ conductor and its colour measurement frame are one object.
 **A69 battery (this commit's gate; native phrases):** "derives the grammar"/"derived from
 the finite places": no live instance (the scripts and docs say *noted, not claimed* /
 *named, not opened*) ✓; "forced" in the new material: none ✓; the D3.1 sign convention
-stated consistently on all surfaces ✓; all quoted percentages/residuals match script
-output ✓.
+stated consistently on all surfaces ✓; ~~all quoted percentages/residuals match script
+output ✓~~ **[FALSE RECORD, caught by round 18 (Majors 1–2, minor 1): the "~99% at the
+record's layers" figure was an s=6-only computation presented for all layers (94.15% at
+s = 4); "verified to q = 499"/"q = 4–64" described primes-only/powers-only lists; the
+"10⁻³¹" residual understated 1.97×10⁻³¹. The battery pass was recorded without checking
+the quantifier scope of the claims against what the script actually ran — the same
+claims-layer failure mode as the round-9 false execution records, at lower severity]**.
 
 ## Addendum 70: the local Tate step — every place gets its achiever; the clock's modulus is dyadic
 
@@ -3203,8 +3220,12 @@ towers now carries a canonical achieving vector at every member.
 **T-loc2 — the dyadic squareness modulus.** A 2-adic unit is a square **iff u ≡ 1 mod 8**
 (enumeration + Hensel to 2²⁰ + the mod-16 obstruction); square-class counts **2 / 8 / 4**
 at ∞ / 2 / odd p — the real place's count being χ itself. The clock's modulus 8 is the
-dyadic squareness modulus: a graded identification with three independent corroborations
-(this; D3.2's dyadic-exclusive ζ₈ Gauss phases; T-loc3's compensation). Not a derivation.
+dyadic squareness modulus: a graded identification with ~~three independent corroborations
+(this; D3.2's dyadic-exclusive ζ₈ Gauss phases; T-loc3's compensation)~~ **[struck round
+18 (minor 2): the count is TWO — T-loc3's compensation sum equals conj G(4q)/2, the same
+theorem as D3.2's 4-divisible Gauss phase, so those two are one corroboration, not two.
+Corrected: two independent corroborations — the squareness modulus itself, and the
+dyadic-exclusive ζ₈ Gauss phase family]**. Not a derivation.
 
 **T-loc3 — the compensation is dyadic-exclusive.** Σ_{n mod 2q} e^(−πin²/(2q)) =
 √(2q)·ζ₈^(−1) *exactly* (q = 1–8): the conjugate dyadic sum carries the inverse clock —
@@ -3215,21 +3236,111 @@ T6's γ_∞ is compensated at p = 2 — while odd places are silent for the unit
 in ℚ(ζ₃): the conductor — C4's different — *silences its own 3-factor* (E₃ = 1); p = 2 is
 inert (χ₋₃(2) = −1). The odd tower's global potential identity verified to 10⁻²⁰:
 p_sgn + Σ_p p_p^χ = Λ′/Λ − ½ln 3, the conductor standing where the even tower had its
-poles. The two structure primes' roles are now exact: **2 carries the clock and is inert
-in colour; 3 carries the colour ramification and is silent in its own L-factor.**
+poles. ~~The two structure primes' roles are now exact: **2 carries the clock and is inert
+in colour; 3 carries the colour ramification and is silent in its own L-factor.**~~
+**[round 18 (minor 4): the blanket "exact" mixed grades. Exact: 3 ramifies and silences
+its own factor; 2 is inert. Graded identification: "2 carries the clock" names the dyadic
+square-class/Gauss-phase structure, not a derived grammar entry]**
 
 **T-loc5 — a checked negative, recorded so no future pass re-attempts it.** "BW(ℚ₂) ≅
 ℤ/8" is false: Br(ℚ₂) = ℚ/ℤ by local class field theory, so ℚ₂'s graded Brauer group is
 infinite. The clock's dyadic home is the square-class/Gauss-phase structure, not the
-graded Brauer group — and the most obvious route to a finite-place derivation of the
-Radon–Hurwitz grammar entry (N_c = 2^(v₂(12))−1) is thereby closed. That derivation stays
-**open and un-attempted**; N_c's v₂ form remains a labeling.
+graded Brauer group — and ~~the most obvious route~~ **[round 18 (minor 3): *one* route —
+the addendum named no alternative, leaving the impression the search was exhausted; the
+Witt-ring route was sitting unnamed]** to a finite-place derivation of the
+Radon–Hurwitz grammar entry (N_c = 2^(v₂(12))−1) is thereby closed. **The open route, now
+named (round 18 m3):** the Witt ring W(ℚ₂) has order 32 ≅ ℤ/8 ⊕ ℤ/2 ⊕ ℤ/2 with
+level(ℚ₂) = 4 (−1 is a sum of four but not three squares in ℚ₂ — verified in-code mod
+2⁶), so the class of the form ⟨1⟩ has additive order 8: an order-8 cyclic finite-place
+structure at p = 2, clock-corroborating, not yet connected to the grammar. That derivation
+stays **open and un-attempted**; N_c's v₂ form remains a labeling.
 
 **A70 battery (this commit's gate; native phrases):** "derives N_c"/"grammar entry
 derived": zero live instances (every surface says *not derived / labeling / open*) ✓;
 "forced": none in the new material ✓; the identification grading ("identification, not
 derivation") present on all three surfaces ✓; all quoted counts (2/8/4, mod-8, 10⁻²⁰)
-match script output ✓.
+match script output ✓. **[round 18 note: this battery, as run, checked the *values* but
+not the *logical independence* of the corroboration count ("three independent" — struck
+above, minor 2) or the exhaustiveness of the negative's framing ("the most obvious route"
+— minor 3); the battery phrase list is extended accordingly in A71]**
+
+## Addendum 71: hostile review round 18 — the Tate arc; verdict WOUNDED, zero mathematical falsehoods
+
+**Commissioned: "Hostile review time" on the Doors-3&4 and local-Tate commits (c781ec9,
+345f861) — the eighteenth adversarial pass, the first on the finite-place arc.** Scope:
+A69/A70, Theorems 1d/1e, T1d/T1e, `cascade_finite_places.py`, `cascade_local_tate.py`.
+
+**Verdict: WOUNDED — 2 majors, 6 minors, all accepted and swept; zero mathematical
+falsehoods.** For the tenth consecutive round the mathematics survived intact and every
+finding lives in the claims layer: quantifier scope, verification coverage, counting, and
+grading — not identities.
+
+**The majors (both verification-scope overstatements):**
+- **M1 — Gauss-phase verification narrower than the claim.** "Phase ∈ {1, i} at every odd
+  modulus (verified to q = 499)" ran over *primes only*; "ζ₈ at every 4-divisible modulus
+  (verified q = 4–64)" ran over *powers of 2 only*. The theorems are classical and true,
+  but the record claimed verification breadth it didn't have — exactly the gap a composite
+  or non-power counterexample would have hidden in. **Swept:** the verifier now runs 16
+  composite odd moduli to 495 and 11 non-power 4-divisible moduli to 180 (all PASS); the
+  review independently confirmed the extended sets before the fix. A69 struck-annotated;
+  paper and formulation disclose the extension.
+- **M2 — "~99% at the record's layers" was an s = 6-only computation.** At s = 4 (the
+  observer twist — a record layer by any reading) the joint p = 2, 3 share is **94.15%**,
+  not ~99%. **Swept:** the script now computes and prints the shares at s = 4, 5, 6, 13,
+  21 (94.15 / 97.62 / 99.04 / 100.00 / 100.00%); every surface now says "~94–100% across
+  the record's layers". A69's per-layer claim struck with the corrected range.
+
+**The minors:** **m1** — "10⁻³¹" understated the worst rearrangement/identity residual
+1.97×10⁻³¹ on three doc surfaces plus A64/A69 (now "2×10⁻³¹" everywhere, struck at
+source). **m2** — "three independent corroborations" for the dyadic squareness modulus
+counted the same theorem twice: T-loc3's compensation sum equals conj G(4q)/2, i.e. D3.2's
+4-divisible phase statement; the honest count is **two** (struck in A70; all surfaces
+corrected). **m3 — the reviewer's gift:** T-loc5 closed "the most obvious route" (graded
+Brauer) while leaving the **Witt ring W(ℚ₂)** unnamed: order 32 ≅ ℤ/8 ⊕ ℤ/2 ⊕ ℤ/2, and
+since level(ℚ₂) = 4 (−1 a sum of four but not three squares — now verified in-code mod
+2⁶, PASS), the class of ⟨1⟩ has additive order **8**: a genuine order-8 cyclic
+finite-place structure at p = 2, clock-corroborating, OPEN, now named on all surfaces as
+the standing route to a finite-place account of the mod-8 grammar. **m4** — "the two
+structure primes' roles are now exact" blanket-graded a mixed list; split: exact (3
+ramifies/silences, 2 inert) vs graded identification ("2 carries the clock"). **m5** —
+the comb-DFT self-duality of 1_{ℤ_p} at fixed depth is near-tautological (a uniform vector
+is its own DFT); the non-trivial content is the *Tate-integral* achievement and the
+depth-consistency, and the script's honesty note now says so. **m6** — the original
+Landsberg–Schaar grid was odd-p-only, structurally unable to detect a parity restriction;
+now an 18-pair grid including even p and both parities of pq, and the review's independent
+**1000-pair brute force at dps 40 returned zero failures** — the unrestricted form stands.
+
+**Checked and held (the reviewer's independent verifications):** the global potential
+identity (re-run, residuals 10⁻³¹–10⁻³²); Gauss phases at 16 composite odd and 11
+non-power 4-divisible moduli; Landsberg–Schaar at 1000 random pairs; Br(ℚ₂) = ℚ/ℤ and the
+BW(ℚ₂) ≇ ℤ/8 negative; level(ℚ₂) = 4 and the Witt-ring structure; the odd global identity
+at 10⁻²⁰; the dyadic squareness criterion u ≡ 1 mod 8. **Nothing in the mathematics of
+A69/A70 was falsified.**
+
+**Process finding (the round's lesson, feeding the battery):** both majors and m1 share
+one failure mode — **a battery that checked values but not quantifier scope**. A69's gate
+recorded "all quoted percentages/residuals match script output ✓" (struck as FALSE RECORD
+above) because the phrases matched *the runs that existed*, not *the claims as
+quantified*. The battery rule is extended: for every "verified to X" / "at the record's
+layers" / "every modulus" claim, the gate must check the *quantifier* against the
+verifier's actual input list, not just the printed numbers.
+
+**A71 battery (this commit's gate; round-18-native phrases included):** repo-wide grep
+for "~99% at the record's layers", "verified to q = 499", "q = 4–64", "ten grid points",
+"three independent corroborations", "(most) obvious route", "roles are now exact", live
+"10⁻³¹": **zero live instances** — every hit sits inside a strike-marker, corrective
+annotation, or run-record explanation ✓; "forced" in the round-18 material: none (A66
+rule holds; the only occurrences are the A66 rule's own statement and "brute-forced") ✓;
+"derives N_c"/"grammar entry derived": zero live instances (all surfaces say *not
+derived / labeling / open*) ✓; scripts re-run clean after the sweep (D3.1–D3.3 PASS;
+T-loc1–5 PASS including the new level(ℚ₂) check) ✓.
+
+**Standing state after round 18:** the review trajectory on the Riemann arc is rounds
+15–18: 3 → 2(+1) → 0 (converged) → WOUNDED 2(+6) on *new* material — convergence held on
+the old material; every round-18 finding attaches to the two newest commits. The named
+open item gains substance: the finite-place derivation of the mod-8/N_c grammar now has a
+concrete candidate structure (W(ℚ₂), ⟨1⟩ of order 8) rather than a bare "Tate theory
+next".
 
 ## Caveats
 

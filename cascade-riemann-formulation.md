@@ -60,7 +60,7 @@ sentence is a theorem, not an analogy.
 For every d ≥ 1, with s = d+1, z = d+½: p(d) = Σ_{γ>0} 2z/(z²+γ²) − 1/s − 1/(s−1) +
 Σ Λ(n)n^(−s) — the cascade potential is exactly (Riemann zeros) − (poles) + (primes), the
 Hadamard partial-fraction form of the explicit-formula identity on the tower; every window
-inherits the split. Verified three-tier (rearrangement 10⁻³¹; Euler side within strict tail bounds at dps 50 —
+inherits the split. Verified three-tier (rearrangement 2×10⁻³¹ — round-18 m1; Euler side within strict tail bounds at dps 50 —
 round-15 M2; Hadamard side with 50 computed zeros, residuals decreasing). Round-15 M1: the
 RH-free theorem is the *paired* Hadamard form; the Lorentzian display is its on-line
 evaluation. Classical content Euler + Hadamard; program-new content: the tower evaluation
@@ -88,10 +88,14 @@ stays reopened on its original claim; no address derived.
 **T1d (The finite places — PROVED at stated strengths; Addendum 69;
 `cascade_finite_places.py`).** (i) Global potential identity (exact): Σ_v p_v = ξ′/ξ −
 poles with p_v = (log E_v)′ per place; T1b's "+primes" = −Σ_p p_p — the tower is one member
-of an adelic family, and p = 2, 3 carry ~99% of the finite total at the record's layers
-(noted, not claimed as derivation). (ii) The order-8 clock element is dyadic-exclusive
-among finite-place Gauss phases (Gauss's theorem verified to q = 499; ζ₈ at 4-divisible
-moduli) — exact theorem + one graded identification. (iii) Landsberg–Schaar verified: the
+of an adelic family, and p = 2, 3 jointly carry ~94–100% of the finite total across the
+record's layers (94.2% at s = 4, 99.0% at s = 6, ~100% by s = 13 — round-18 M2 scoped the
+earlier s=6-only "~99%") (noted, not claimed as derivation). (ii) The order-8 clock
+element is dyadic-exclusive among finite-place Gauss phases (Gauss's theorem verified at
+primes and composites to q = 499; ζ₈ at 4-divisible moduli including non-powers-of-2 to
+q = 180 — round-18 M1 extended the primes-only/powers-only lists) — exact theorem + one
+graded identification. (iii) Landsberg–Schaar verified (18-pair grid incl. even p —
+round-18 m6; the review's independent 1000-pair sweep: zero failures): the
 archimedean Weil index ζ₈ is the exchange constant between finite places — the product
 formula's machine-checkable avatar. Scope: no grammar entry derived; 2/3-adic Tate theory
 named, not opened; sign-convention failure on the first run kept on the record.
@@ -100,12 +104,16 @@ named, not opened; sign-convention failure on the first run kept on the record.
 `cascade_local_tate.py`).** (i) Per-place T2: 1_{ℤ_p} is self-dual and achieves E_p; the
 Gaussian is the archimedean component of the standard adelic self-dual vector. (ii) The
 clock's modulus = the dyadic squareness modulus (u square in ℤ₂ iff u ≡ 1 mod 8; classes
-2/8/4 at ∞/2/odd p) — graded identification, three corroborations. (iii) The compensation
-is dyadic-exclusive (conjugate dyadic sum = √(2q)ζ₈^(−1) exactly; odd places silent).
-(iv) Colour geography: 3 ramified (conductor = different silences its own factor), 2
-inert; the odd tower's global identity verified with the conductor in the pole slot.
-(v) Checked negative: BW(ℚ₂) ≇ ℤ/8 (Br(ℚ₂) = ℚ/ℤ) — the obvious route to deriving the
-Radon–Hurwitz entry is closed; the derivation stays open. No grammar entry derived.
+2/8/4 at ∞/2/odd p) — graded identification, *two* independent corroborations (the
+compensation of (iii) is the same theorem as T1d(ii) — round-18 m2). (iii) The
+compensation is dyadic-exclusive (conjugate dyadic sum = √(2q)ζ₈^(−1) exactly; odd places
+silent). (iv) Colour geography: 3 ramified (conductor = different silences its own
+factor), 2 inert; the odd tower's global identity verified with the conductor in the pole
+slot; "2 carries the clock" is itself a graded identification, not exact (round-18 m4).
+(v) Checked negative: BW(ℚ₂) ≇ ℤ/8 (Br(ℚ₂) = ℚ/ℤ) — *one* route to deriving the
+Radon–Hurwitz entry is closed; the Witt-ring route is open and named (W(ℚ₂) of order 32
+≅ ℤ/8⊕ℤ/2⊕ℤ/2, level(ℚ₂) = 4 verified in-code, ⟨1⟩ of order 8 — round-18 m3); the
+derivation stays open. No grammar entry derived.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
