@@ -4145,6 +4145,61 @@ premise) ✓; the Remark's table vs the script output: row-by-row check recorded
 `cascade_adams_loadbearing.py` re-run: 5 PASS 0 FAIL ✓ (counts from the command as
 run).
 
+## Addendum 85: hostile review round 28 — Door 3 and the self-containment pass attacked; 0 majors, 1 minor, 1 cosmetic
+
+**Commissioned: "Hostile review time" — first adversarial pass on commits b6a1627
+(Door 3, A83) and f432957 (self-containment, A84).** Declared attack surfaces: the
+classification's reading of the uniqueness scan; the d = 13 paraphrase; the
+Steenrod–Whitehead citation-confidence caveat (attempted upgrade to primary source);
+all A83/A84 record claims.
+
+**Verdict: zero majors, one minor, one cosmetic; zero mathematical falsehoods
+(twentieth consecutive round).**
+
+- **F1 (minor — the unstated reading):** the classification table silently used the
+  **strong** reading of the uniqueness scan — "max ≠ 3" required topologically at all
+  fifteen dimensions — without stating it. The companion theorem as literally stated is
+  a ρ-formula computation (no topology); under that reading, load-bearing topology
+  reduces further, to **the three gauge rows alone** (d = 13: Poincaré–Hopf; d = 12,
+  14: v₂ ∈ {1, 2}) — a *sharpening*, the third time a hostile charge strengthened the
+  result (rounds 22, 25, 28). The physical claim "no other layer could carry three
+  colours" does need the strong reading, which is why the table classifies it; both
+  readings now stated on script and Remark, with the headline (K-theory nowhere)
+  holding under either. **Swept.**
+- **c1 (cosmetic):** the Remark's "(full breaking)" at d = 13 drifted from the
+  companion table's label *"No nonvanishing field (broken)"* — "full breaking"
+  overstates (the electroweak story is the papers'). Aligned to "(the broken layer)".
+- **The caveat, stress-tested (checked and held):** the round attempted to upgrade the
+  Steenrod–Whitehead attribution to a primary quote via four routes — Adams' Annals
+  scan (UiO), the S–W PNAS scan (PMC), Shah's lecture notes (raw FlateDecode
+  extraction of the fetched PDF — text streams recovered but the history passage not
+  among them), and Hesselholt's notes (dead link) — all image-based, mangled, or
+  inaccessible in-session. The caveat's wording ("quoted from the standard history;
+  original paywalled in-session") is verified apt and stands unchanged; the
+  robustness argument (every needed case at v₂ ≤ 2) is what carries the conclusion.
+
+**Checked and held:** A84's zero-hits battery and table-fidelity check re-verified;
+the five-class compression recounted (8+4+1+1+1 = 15); A83's battery exception
+censuses accurate (six older "load-bear" scripts; one older "K-theory" script + the
+geometric-topological audit); the "four claims" count; the paper-header quote in A84
+verbatim; the gauge-row classifications (d = 13 even-sphere P–H; d = 12, 14 at
+v₂ = 2, 1); Checks 1, 2, 4, 5, 7, 8 and the stopping rule clean.
+
+**A85 battery (this commit's gate; full commands, per-hit granularity as stated):**
+`grep -rn "full breaking" --include='*.md' --include='*.py' .` — zero hits post-sweep
+outside this addendum's own quotes of the struck phrase (3 hits, all in the c1 finding
+text and this battery line — the self-referential category, named per the round-27
+precedent) ✓; `grep -rn "conservative" riemann-indistinguishability.md
+tools/research/cascade_adams_loadbearing.py` — the round-28 F1 additions only ✓
+(read per-hit); scripts re-run post-sweep: `cascade_adams_loadbearing.py` 5 PASS 0
+FAIL, `cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0
+FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0
+FAIL ✓ (counts from the commands as run).
+
+**Standing state:** Door-3 first review: 0+1(+1c) — the same shape as the Witt step's
+and 1g's first reviews, with the substantive finding again a strengthening. A round-29
+convergence test on this sweep is owed before Door 3 joins the stable set.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

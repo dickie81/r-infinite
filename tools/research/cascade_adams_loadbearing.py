@@ -49,6 +49,15 @@ theorem sufficing:
           (even sphere), elementary;
       d = 2 mod 4 (rho-1 = 1):  UPPER bound "max <= 2" needed
           (to exclude 3); sits at v_2(d) = 1.
+WHICH READING THE CLASSIFICATION USES (round-28 F1): the scan's
+exclusion role is read CONSERVATIVELY -- "max != 3" required at
+every d != 12, the strong reading under which the physical claim
+"no other layer could carry three colours" is topological at all
+fifteen dimensions.  Under the LITERAL reading of the companion
+theorem (a rho-formula computation, no topology), load-bearing
+topology reduces further, to the three gauge rows alone (d = 13:
+Poincare-Hopf; d = 12, 14: v_2 in {1, 2}).  The table is the
+conservative bound; the headline holds under either reading.
 THE KEY STRUCTURAL FACTS, GATED IN-CODE:
   (i)  no load-bearing UPPER bound occurs at d = 0 mod 16;
   (ii) every load-bearing upper bound sits at v_2(d) in {0, 1, 2}

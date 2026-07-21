@@ -352,7 +352,7 @@ elementary algebra, and the same Cl/Bott/BW(ℝ) ≅ ℤ/8 object whose arithmet
 Theorems 1f–1g established; the **upper bound** (no more exist) is hard in general and
 is Adams' theorem (1962, K-theory). *The claims that use it.* Three window values and
 one uniqueness scan carry the physical identifications this paper's §8 record inherits:
-max = 3 at d = 12 (the colour count), max = 0 at d = 13 (full breaking), max = 1 at
+max = 3 at d = 12 (the colour count), max = 0 at d = 13 (the broken layer), max = 1 at
 d = 14 (the U(1)), and "ρ(d)−1 = 3 exactly at d = 12 among d ∈ [5, 19]"
 (correspondence: the companion series proves these as Part IVa's `thm:adams` and
 `thm:adams-unique`, whose operative sentence — *"The maximum number of linearly
@@ -369,6 +369,13 @@ theorem sufficing for the upper bounds:
 | **12** | **3** | **= 3 (N_c)** | yes | yes | classical, v₂(d) = 2 |
 | 16 | 8 | ≠ 3 (> 3) | yes | — | — (construction gives 8 > 3) |
 
+*Which reading the table classifies (round-28 F1):* the scan's exclusion role is read
+**conservatively** — "max ≠ 3" required at every d ≠ 12, the strong reading under which
+the physical claim "no other layer could carry three colours" is topological at all
+fifteen dimensions. Under the *literal* reading of the companion theorem (a ρ-formula
+computation, no topology), load-bearing topology reduces further, to **the three gauge
+rows alone** — d = 13 (Poincaré–Hopf) and d = 12, 14 (v₂ ∈ {1, 2}). The table is the
+conservative bound; the headline below holds under either reading.
 Two structural facts, gated: **no load-bearing upper bound occurs at 16 | d** (d = 16 —
 the only dimension in the window where Adams' hard K-theory cases live — needs no upper
 bound at all), and **every load-bearing upper bound sits at v₂(d) ∈ {0, 1, 2}** — v₂ = 0

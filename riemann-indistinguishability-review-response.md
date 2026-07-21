@@ -680,3 +680,21 @@ family. Nineteen consecutive rounds with zero mathematical falsehoods. What rema
 open: Door 3 (the Adams load-bearing question — Check-1 source reading), the
 clock-invisible (ℤ/2)²'s grammar meaning, the dictionary's soft inputs, F6's original
 claim, the full-record extension, and the frozen experimental ledger.
+
+# Round 28: first adversarial pass on Door 3 + the self-containment pass — 0 majors, 1 minor, 1 cosmetic; the third charge-turned-strengthening
+
+Zero mathematical falsehoods (twentieth consecutive round). The same first-review shape
+as the Witt step and 1g: the substantive finding sharpened the result.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — the classification table silently used the strong reading of the uniqueness scan ("max ≠ 3" topological at all fifteen d) without stating it; the companion theorem as literally stated is ρ-formula arithmetic, under which load-bearing topology reduces to the three gauge rows alone (d = 13: Poincaré–Hopf; d = 12, 14: v₂ ∈ {1, 2}) | **Accepted, and sharpened.** Both readings now stated on script and Remark; the table is the conservative bound; the headline (K-theory nowhere) holds under either reading | script + paper Remark |
+| c1 (cosmetic) — "(full breaking)" at d = 13 drifted from the companion label "No nonvanishing field (broken)" | **Accepted.** Aligned to "(the broken layer)" | paper Remark |
+
+**The caveat, stress-tested:** four routes to a primary Steenrod–Whitehead quote
+attempted (Adams' Annals scan, the PNAS scan via PMC, Shah's notes via raw stream
+extraction, Hesselholt's notes) — all image-based, mangled, or dead in-session; the
+recorded citation-confidence caveat is verified apt and stands; the robustness argument
+(every needed case at v₂ ≤ 2) carries the conclusion.
+
+**Round 29 (convergence test) gates Door 3's stability.**
