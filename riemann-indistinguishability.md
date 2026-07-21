@@ -419,7 +419,7 @@ this paper's seven-item residue (abstract; the class the reviews charged and the
 carries). *And the lower bound is load-bearing (round-30 M2/M1):* **ρ(4) − 1 = 3** —
 the anchor dimension is the ρ-condition's twin, as the companion series itself states
 (*"at d = 4, S³ has ρ(4)−1 = 3 independent vector fields, matching the 3 spatial
-dimensions… The same topological invariant governs both the spacetime structure and the
+dimensions. The same topological invariant governs both the spacetime structure and the
 gauge structure, applied at the two Bott mirrors"*); over [4, 19] the condition picks
 {4, 12}, and uniqueness holds only because the anchor assigns d = 4 to spacetime and
 the tower starts at d_V = 5. Gated in-code: the

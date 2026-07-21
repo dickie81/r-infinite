@@ -121,7 +121,7 @@ def main():
           f"{'PASS' if g1 else 'FAIL'}")
 
     # G2: window-completeness in the inter-threshold band (d0, d1]
-    windows = [[4, 5, 6], [12, 13, 14], [20, 21, 22]]
+    windows = [win[0:3], win[3:6], win[6:9]]   # computed (round-32 F4)
     inside = [w for w in windows if all(d0 < d <= d1 for d in w)]
     g2 = inside == [[12, 13, 14]]
     print(f"G2 complete windows inside the inter-threshold band"

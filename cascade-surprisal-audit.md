@@ -4458,8 +4458,11 @@ now a strike, a retraction record, or this addendum; the one pre-existing older-
 hit unchanged ✓ (read per-hit); ~~`grep -rn "independently" tools/research/
 cascade_layer_selection.py` — retraction context only ✓~~ **[round 31 (F2): false as
 recorded — the case-sensitive command's sole hit is a verbatim companion quote (the
-rank remark's "does not independently derive"), not retraction context; the
-case-insensitive census is retraction context plus two companion quotes]**; `grep -rn "rho(4)\|ρ(4)"` over
+rank remark's "does not independently derive"), not retraction context; ~~the
+case-insensitive census is retraction context plus two companion quotes~~ **(round 32
+F2: itself false for the annotated pattern — case-insensitive "independently" is
+retraction context plus ONE companion quote; the "two companion quotes" census belongs
+to the stem pattern "independen", a different command never stated)**]**; `grep -rn "rho(4)\|ρ(4)"` over
 the arc surfaces — the disclosure now present on paper, script, formulation, and this
 addendum ✓; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0 FAIL,
 `cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
@@ -4507,7 +4510,7 @@ quantifiers.**
   previously unreviewed and the eleven rounds ran on adjacent material. Corrected:
   paraphrase drift inside the protocol document that polices paraphrase drift.
 - **F6 (minor, papers-side — verified directly, registered, edit deferred):**
-  part4b.tex:3630's landscape table lists for d_g = 12 two "Independent math-theorem
+  part4b.tex:3633's landscape table row lists for d_g = 12 two "Independent math-theorem
   routes": ρ(12)−1 (Adams) and N_c·dimℍ. Verified: the two share their arithmetic —
   ρ(12) = 4 is computed from v₂(12) = 2, and the Hurwitz–Radon fields on S¹¹ arise
   from the ℍ³ module structure, i.e. from the same factorization 12 = dimℍ·N_c the
@@ -4545,8 +4548,13 @@ included per the new rule):** `grep -rn "confirmed by ρ-uniqueness" --include='
 this addendum's F1 text and this battery line, and the Round-31 table's F1 row: all
 strike or disposition context, zero live ✓;
 `grep -rn "Theorem 1/1b territory"` same scope — strikes, disposition records, and
-this addendum only ✓; `grep -rn "Γ-thresholds (feature→layer convention, listed)"` —
-the strike only ✓; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0
+this addendum only ✓; ~~`grep -rn "Γ-thresholds (feature→layer convention, listed)"` —
+the strike only ✓~~ **[round 32 (F1): double-false census — the struck phrase is
+line-wrapped in the file so the line-based grep cannot hit it, and the command's sole
+commit-final hit is this battery line itself; "the strike only" corresponded to no
+state of the repository. The A89-F2 class, committed in the battery block of the round
+that struck it. True statement, verified by wrap-aware search: the phrase appears once,
+inside the A88 strike, zero live]**; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0
 FAIL (G1 now computed-gated), `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
 `cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL,
 `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
@@ -4557,6 +4565,81 @@ FAIL (G1 now computed-gated), `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
 corrected claims themselves confirmed true and well-gated by the reviewer. Round 32
 (convergence test on this sweep, subagent per protocol) gates stability. The
 registered papers-side item (F6) awaits a papers-side round.
+
+## Addendum 91: hostile review round 32 — convergence test on the round-31 sweep; NOT CONVERGED (0 majors, 4 minors, 2 cosmetics); the recursive mode one level up
+
+**Commissioned: "Round 32 pls" — subagent per protocol on commit b702115; every
+finding verified directly by the lead before acceptance (Check 3: the wrapped-phrase
+grep re-run and the wrap inspected at source; the case-insensitive census re-run; the
+G2 literals read in code and the wrong-filter probe run; the CLAUDE.md sentence
+compared against rounds 22/25/28's recorded findings; the quote compared against
+part4a.tex:354; the part4b row located at 3633).**
+
+**Verdict: NOT CONVERGED — zero majors, four minors, two cosmetics. The mathematics,
+the F1/F3 repairs, all strike-verbatim checks, and eleven of the reviewer's fourteen
+held items stand; three of the four minors are the named recursive mode operating one
+level up — the correction committing the corrected defect's own class.**
+
+- **F1 (minor):** A90's third battery census ("the strike only") was double-false: the
+  struck phrase is line-wrapped, so the line-based grep could never hit it, and the
+  command's sole commit-final hit was the battery line itself — a census corresponding
+  to no state of the repository, inside the battery block of the round that struck
+  A89's false census. Struck-and-annotated with the wrap-aware true statement (the
+  phrase appears once, inside the A88 strike, zero live). **Rule (the wrap clause):**
+  retraction batteries use wrap-proof fragments or wrap-aware search, and every census
+  is stated from the post-append run's actual hit list.
+- **F2 (minor):** the round-31 annotation correcting A89's census itself misstated the
+  corrected census — "retraction context plus two companion quotes" is the census of
+  an unstated stem pattern; the annotated pattern's true case-insensitive census is
+  retraction context plus one companion quote. Struck-and-corrected inside the
+  annotation.
+- **F3 (minor):** the round-31 CLAUDE.md fix removed one paraphrase drift and
+  installed another — "only instrument-layer findings" is false by the record's own
+  taxonomy (rounds 22, 25, 28 surfaced claims-layer findings; A89's streak note
+  presupposes them). Corrected to the accurate contrast: no majors — claims- and
+  instrument-layer minors and cosmetics.
+- **F4 (minor):** G2 survived as a constant-list conjunct of exactly the class F4
+  charged in G1 — its `windows` were hardcoded, not derived from the computed `win`,
+  so a wrong window computation could not break it (the reviewer demonstrated this
+  with a wrong-filter probe). Fixed: `windows = [win[0:3], win[3:6], win[6:9]]`; the
+  lead re-ran the wrong-filter probe against the new form — G2 now fails under a wrong
+  filter ✓; script still 4 PASS 0 FAIL.
+- **c5:** the paper's ρ(4) companion quote used an ellipsis where the source has a
+  period and nothing is omitted ("dimensions… The" → "dimensions. The"); the script's
+  ellipsis is a legitimate marked omission and stands. **c6:** A90's F6 cite pointed
+  at the table's `\hline` (3630) rather than the d_g row (3633); corrected in place
+  (the c-C class, this round's own instance).
+
+**Checked and held (the reviewer's fourteen-item list, lead-spot-verified):** all four
+round-31 strikes verbatim against the pre-image; A90's battery censuses 1–2 exact at
+commit-final including the post-append table row; the six scripts' counts; the
+mathematics to [1, 10⁵]; the F3 quote restoration verbatim (all three inputs under
+"quoted here in full" now verbatim against the tex); G1's computed conjuncts falsifiable
+(with the noted redundancy of conjuncts 2–3 relative to conjunct 1 — redundancy, not
+the cannot-fail class); c-A/c-B/c-C annotations factually correct; the F1 annotations'
+factual content (bounds, d_V provenance, "ten lines" count); the Round-31 table
+item-for-item; the recursive test on A90's own prose (no live restatement); the
+residual sweeps with tex included (zero live retracted content anywhere); the F6
+registration clean (part4b untouched, no surface claims the edit); CLAUDE.md's other
+clauses and the converged-round precedent list verified against the round headers.
+
+**A91 battery (this commit's gate; run after all appends; wrap-aware per the new
+clause):** the fragment "feature→layer convention, listed", counted by *wrap-aware*
+whitespace-normalized search (the fragment itself wraps inside the A88 strike — caught
+while writing this line, the wrap clause's first live application): exactly 3
+occurrences, all in this file — the A88 strike, the struck A90 battery line, and this
+line — zero live ✓; case-insensitive "independently" in the layer
+script: retraction context (line 11) plus one companion quote (line 56) ✓; script
+re-runs: `cascade_layer_selection.py` 4 PASS 0 FAIL with the wrong-filter probe
+breaking G1 *and* G2 ✓, `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
+`cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL,
+`cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
+(counts from the commands as run).
+
+**Standing state:** layer-question trajectory: 2+4(+1c) → 1+5(+3c) → 0+4(+2c) —
+majors exhausted, the remaining defects instrument-layer, three of four the recursive
+mode. Round 33 (subagent per protocol) gates stability; the registered papers-side
+item (A90 F6) still awaits a papers-side round.
 
 ## Caveats
 

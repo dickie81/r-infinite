@@ -754,3 +754,20 @@ records — the missed-instance disease at its shortest range.
 | c-A/c-B/c-C — header count marker; "output page" vs source comment; a line cite | **Accepted.** All annotated/fixed | A87 + A89 + paper + script |
 
 **Round 32 (subagent, per protocol) gates stability.**
+
+# Round 32: convergence test on the round-31 sweep (subagent, per protocol) — NOT CONVERGED (0+4+2c); the recursive mode one level up
+
+Zero majors. The mathematics, the F1/F3 repairs, and all strike-verbatim checks stand;
+three of the four minors are the correction committing the corrected defect's own
+class.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — A90's third battery census ("the strike only") was double-false: the struck phrase line-wraps (line-based grep cannot hit it) and the command's sole commit-final hit was the battery line itself | **Accepted.** Struck with the wrap-aware true census; wrap clause added to the battery rules | A90 |
+| F2 (minor) — the annotation correcting A89's census misstated the corrected census ("two companion quotes" belongs to an unstated stem pattern; the true census is one) | **Accepted.** Struck-and-corrected inside the annotation | A89 annotation |
+| F3 (minor) — the CLAUDE.md fix installed fresh drift ("only instrument-layer findings" — rounds 22/25/28 were claims-layer) | **Accepted.** Corrected to "no majors — claims- and instrument-layer minors and cosmetics" | CLAUDE.md |
+| F4 (minor) — G2 survived as a constant-list conjunct (the G1 class): hardcoded windows, wrong-filter-proof | **Accepted.** Windows now derived from the computed win; wrong-filter probe breaks G1 and G2; 4 PASS 0 FAIL | script |
+| c5 — false ellipsis in the paper's ρ(4) quote (source has a period, nothing omitted) | **Accepted.** Period restored; the script's marked omission stands | paper |
+| c6 — A90's F6 cite pointed at the \hline, not the d_g row (3633) | **Accepted.** Corrected in place | A90 |
+
+**Trajectory: 2+4 → 1+5 → 0+4(+2c) — majors exhausted. Round 33 gates stability.**
