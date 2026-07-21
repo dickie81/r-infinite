@@ -2848,6 +2848,61 @@ accepted finding must be enumerated by a **whole-repo grep for the corrected cla
 text**, not by the surfaces the finding happened to name. The missed-instance class (M-A,
 M-B, M-C, m-D are all instances) is exactly what per-finding site lists cannot catch.
 
+## Addendum 64: the explicit-formula bridge — the tower is one side of the Riemann explicit formula
+
+**Tool:** `tools/research/cascade_explicit_formula_bridge.py`
+**Commissioned:** "We have to ground the coincidences in mathematics, there needs to be a
+link. … Bridge it." Stopping-rule category (a): pure identity, no data contact, no closure.
+
+**The theorem (T1b / paper Theorem 1b).** ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s) gives, on taking
+logarithmic derivatives and expanding both non-elementary pieces by their classical product
+theorems: for every layer d ≥ 1, with s = d+1 and z = d+½,
+
+> **p(d) = Σ_{γ>0} 2z/(z²+γ²) − 1/s − 1/(s−1) + Σ_{n≥2} Λ(n)·n^(−s)**
+
+— the cascade potential at every layer is *exactly* a sum over the nontrivial zeros of ζ
+(Hadamard product, zeros paired ρ ↔ 1−ρ), minus the pole terms, plus the von Mangoldt sum
+over the primes (Euler product). The partial-fraction (Hadamard) form of the
+explicit-formula identity, evaluated at the tower points — this precise naming supersedes
+the session's assessment phrase "verbatim the archimedean term of Weil's formula" (Weil's
+test-function formula is the smeared version of the same identity).
+
+**Verification (three tiers, all run):** V1 rearrangement exact to **10⁻³¹**; V2 the prime
+side against −ζ′/ζ within stated integral tail bounds (three layers); V3 the zero side
+with the first **50 computed zeros** (`mpmath.zetazero` — computed, not hand-tabulated)
+plus a Riemann–von Mangoldt average-density tail, residuals **decreasing** in N at every
+tested layer (the convergence trend is the check; the tail model's oscillatory error is
+disclosed).
+
+**The record's windows, split exactly:**
+Φ(5→13) [τ/μ] = 1.539665 = zeros 3.226401 − poles 1.698363 + primes 0.011627;
+Φ(13→21) [μ/e] = 4.064768 = zeros 4.969202 − poles 0.904476 + primes 0.000042;
+Φ(5→12) [α_s, v] = 1.064665 = zeros 2.957125 − poles 1.916678 + primes 0.024218;
+Φ(13→20) [θ_23] = 3.825284 = zeros 4.784953 − poles 0.959754 + primes 0.000085.
+Structure: the low layers — where the record lives — are **pole-dominated** (ζ's pole at
+s = 1 shapes the observer-side potential); the primes enter exponentially small (n = 2, 3
+dominate); the zeros supply the growing positive part.
+
+**Honest scope, stated before any reviewer says it:** the two expansions are classical
+(Euler; Hadamard) — the program-new content is *only* the tower evaluation and the window
+splits. This grounds the **scaffold** one level deeper: the tower is no longer merely
+"built from ζ's Gamma factor" — it *is* one side of the Riemann explicit formula, with the
+primes and the zeros jointly exact on the other side, which is the strongest form of "the
+link" that exists canonically. It grounds the **dictionary** not at all: the address book,
+source twists, k=3, the gradings, and record-legs are untouched. RH is not used. And no
+direction of explanation is claimed — the identity is ζ's own bookkeeping; whether the
+zeros "cause" the potential or merely co-vary with it is a modeling choice the identity
+does not supply.
+
+**Two open directions this enables (named, not commissioned, both flagged dangerous):**
+(i) whether any *recorded* quantity reads the zero side independently of the digamma
+packaging — that would be new physics content, and it is exactly the fitting-prone move
+the stopping rule exists to gate; (ii) the reopened F6 complex-place tension (the odd
+shift needs Γ_ℂ; ℚ has r₂ = 0) now sits next to an explicit-formula identity that
+generalizes verbatim to any number field's completed L-function — the ℚ(ζ₃) variant (the
+colour field, r₂ = 1) has a bridge identity of the same form whose formulation would be
+category-(a) work.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

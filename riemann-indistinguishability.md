@@ -72,6 +72,33 @@ square-ratio of Γ_ℝ at integers:
 *Remark.* Ω(d) is the surface measure of S^d and the tower is the dimensional cascade of the
 unit ball — the geometric avatar. The paper never uses the avatar; the arithmetic is primary.
 
+**Theorem 1b (Explicit-formula bridge; `cascade_explicit_formula_bridge.py`).** For every
+layer d ≥ 1, with s = d+1 and z = d+½:
+
+p(d) = Σ_{γ>0} 2z/(z²+γ²) − 1/s − 1/(s−1) + Σ_{n≥2} Λ(n)·n^(−s),
+
+where γ runs over the ordinates of the nontrivial zeros of ζ (Hadamard product, zeros paired
+ρ ↔ 1−ρ) and Λ is the von Mangoldt function (Euler product): **the tower potential at every
+layer is exactly a sum over the Riemann zeros, minus the pole terms, plus a sum over the
+primes** — the partial-fraction (Hadamard) form of the explicit-formula identity evaluated
+at the tower points. Every window Φ(a→b) = Σ p(d) inherits the split additively; e.g.
+Φ(5→13) = 1.539665 = zeros 3.226401 − poles 1.698363 + primes 0.011627, and
+Φ(13→21) = 4.064768 = zeros 4.969202 − poles 0.904476 + primes 0.000042. *Verified:* the
+rearrangement to 10⁻³¹; the prime side against −ζ′/ζ within stated integral tail bounds;
+the zero side with the first 50 zeros (computed via `zetazero`, not tabulated by hand) plus
+a Riemann–von Mangoldt density tail, residuals decreasing in N. *Structure:* the low layers
+— where the record lives — are **pole-dominated** (the pole of ζ at s=1 shapes the
+observer-side potential); the primes enter exponentially small (dominated by n = 2, 3); the
+zeros supply the growing positive part. *Honest scope, stated in full:* the two expansions
+are classical (Euler; Hadamard) — new for this paper is only the tower evaluation and the
+window splits. No physical closure is derived, no data is touched (stopping-rule category
+(a)), RH is not used (the identity holds wherever the zeros are; the paired form is
+evaluated with the verified on-line zeros), and **no direction of explanation is claimed**:
+the identity is ζ's own bookkeeping. What it changes is the construction's standing: the
+tower is not merely built from ζ's Gamma factor — it **is one side of the Riemann explicit
+formula, with the primes and the zeros jointly exact on the other side**. The dictionary
+(Definition 6.1 and the soft inputs) is untouched by this theorem.
+
 ## 3. The forced dynamics
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;

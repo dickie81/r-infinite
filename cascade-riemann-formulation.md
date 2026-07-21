@@ -56,6 +56,16 @@ Each is an elementary Gamma identity; machine-verified to ≤6×10⁻¹⁴ acros
 cascade lattice **is** the discrete log-geometry of ζ's factor at the real place — this
 sentence is a theorem, not an analogy.
 
+**T1b (Explicit-formula bridge — PROVED; Addendum 64; `cascade_explicit_formula_bridge.py`).**
+For every d ≥ 1, with s = d+1, z = d+½: p(d) = Σ_{γ>0} 2z/(z²+γ²) − 1/s − 1/(s−1) +
+Σ Λ(n)n^(−s) — the cascade potential is exactly (Riemann zeros) − (poles) + (primes), the
+Hadamard partial-fraction form of the explicit-formula identity on the tower; every window
+inherits the split. Verified three-tier (rearrangement 10⁻³¹; Euler side within tail
+bounds; Hadamard side with 50 computed zeros, residuals decreasing). Classical content
+Euler + Hadamard; program-new content: the tower evaluation only. Grounds the *scaffold*
+one level deeper (the tower sits on one side of the explicit formula); grounds the
+*dictionary* not at all; claims no direction of explanation.
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the
