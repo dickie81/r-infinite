@@ -96,6 +96,17 @@ archimedean Weil index ζ₈ is the exchange constant between finite places — 
 formula's machine-checkable avatar. Scope: no grammar entry derived; 2/3-adic Tate theory
 named, not opened; sign-convention failure on the first run kept on the record.
 
+**T1e (The local Tate step — PROVED at stated strengths; Addendum 70;
+`cascade_local_tate.py`).** (i) Per-place T2: 1_{ℤ_p} is self-dual and achieves E_p; the
+Gaussian is the archimedean component of the standard adelic self-dual vector. (ii) The
+clock's modulus = the dyadic squareness modulus (u square in ℤ₂ iff u ≡ 1 mod 8; classes
+2/8/4 at ∞/2/odd p) — graded identification, three corroborations. (iii) The compensation
+is dyadic-exclusive (conjugate dyadic sum = √(2q)ζ₈^(−1) exactly; odd places silent).
+(iv) Colour geography: 3 ramified (conductor = different silences its own factor), 2
+inert; the odd tower's global identity verified with the conductor in the pole slot.
+(v) Checked negative: BW(ℚ₂) ≇ ℤ/8 (Br(ℚ₂) = ℚ/ℤ) — the obvious route to deriving the
+Radon–Hurwitz entry is closed; the derivation stays open. No grammar entry derived.
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the

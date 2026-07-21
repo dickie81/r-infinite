@@ -187,6 +187,35 @@ record:* the first run stated (i) with the finite potentials' sign flipped and f
 the corrected convention (finite potentials negative — each finite place *drains*) is on
 the record in the script.
 
+**Theorem 1e (the local Tate step; `cascade_local_tate.py`).** *(i) Self-dual achievers at
+every place (per-place Theorem 2).* At each finite p the unit-ball indicator 1_{ℤ_p} is
+self-dual (comb DFT = itself, verified for p = 2, 3 at two depths) and achieves the Euler
+factor: Z_p(1_{ℤ_p}, s) = (1−p^(−s))^(−1); the program's Gaussian is the archimedean
+component of *the* standard adelic self-dual vector Φ = e^(−πx²)·Π 1_{ℤ_p}, so A1's
+"dynamics = the achieving vector" is a per-place statement and the Theorem-1d adelic family
+carries a canonical achieving vector at every member. *(ii) The dyadic squareness modulus.*
+A 2-adic unit is a square **iff u ≡ 1 mod 8** (squares of odds mod 8 = {1}; Hensel lifting
+verified to 2²⁰; the mod-16 obstruction verified for u ≡ 3, 5, 7); square-class counts:
+|ℝ^×/sq| = **2 = χ**, |ℚ₂^×/sq| = **8**, |ℚ_p^×/sq| = 4 (p odd). The clock's modulus is
+the dyadic squareness modulus — a **graded identification** with three corroborations
+(this; the dyadic-exclusive ζ₈ Gauss phases of 1d(ii); the compensation of (iii)), not a
+derivation. *(iii) The compensation is dyadic-exclusive.* Σ_{n mod 2q} e^(−πin²/(2q)) =
+√(2q)·ζ₈^(−1) exactly (q = 1–8): the conjugate dyadic sum carries the *inverse* clock —
+γ_∞ compensated at 2 — while odd places are silent for the unit form (G(p²) = p exactly).
+*(iv) The colour field's local geography + the odd global identity.* p = 3 **ramifies** in
+ℚ(ζ₃) (χ₋₃(3) = 0: the conductor — the different of Theorem 1c's C4 — silences its own
+3-factor); p = 2 is **inert** (χ₋₃(2) = −1); and the odd tower carries its own global
+potential identity, p_sgn + Σ_p p_p^χ = Λ′/Λ − ½ln 3 (verified 10⁻²⁰), with the conductor
+standing where the even tower had its poles. The two structure primes' roles are now
+exact: **2 carries the clock and is inert in colour; 3 carries the colour ramification and
+is silent in its own L-factor.** *(v) A checked negative, recorded:* the naive transplant
+"BW(ℚ₂) ≅ ℤ/8" is **false** — Br(ℚ₂) = ℚ/ℤ by local class field theory, so ℚ₂'s graded
+Brauer group is infinite; the clock's dyadic home is the square-class/Gauss-phase
+structure, and the most obvious route to a finite-place derivation of the Radon–Hurwitz
+grammar entry is closed. *Honest scope:* no A2 grammar entry is derived (N_c's v₂ form
+remains a labeling; its finite-place derivation stays open and un-attempted); no data, no
+closures, no RH/GRH.
+
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no
 extraneous zeros in Z(f,s)/Γ_ℝ(s)) fixes f to the rescaled-Gaussian family c·e^(−πt²x²)

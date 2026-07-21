@@ -3186,6 +3186,51 @@ the finite places": no live instance (the scripts and docs say *noted, not claim
 stated consistently on all surfaces ✓; all quoted percentages/residuals match script
 output ✓.
 
+## Addendum 70: the local Tate step — every place gets its achiever; the clock's modulus is dyadic
+
+**Commissioned: "Proceed with Tate theory step" (the A69-named next step). Category (a):
+exact identities + classical theorems, machine-verified; no data, no closures; every
+identification graded; nothing claimed forced.** **Tool:** `cascade_local_tate.py`.
+Paper: Theorem 1e; formulation T1e. All five parts PASS on the first run.
+
+**T-loc1 — self-dual achievers at every place (the per-place T2).** At each finite p the
+unit-ball indicator 1_{ℤ_p} is self-dual (comb DFT = itself, verified p = 2, 3 at two
+depths) and its Tate integral achieves the Euler factor (1−p^(−s))^(−1). The program's
+Gaussian is the archimedean component of *the* standard adelic self-dual vector — A1's
+"dynamics = the achieving vector" is a per-place statement, and the A69 adelic family of
+towers now carries a canonical achieving vector at every member.
+
+**T-loc2 — the dyadic squareness modulus.** A 2-adic unit is a square **iff u ≡ 1 mod 8**
+(enumeration + Hensel to 2²⁰ + the mod-16 obstruction); square-class counts **2 / 8 / 4**
+at ∞ / 2 / odd p — the real place's count being χ itself. The clock's modulus 8 is the
+dyadic squareness modulus: a graded identification with three independent corroborations
+(this; D3.2's dyadic-exclusive ζ₈ Gauss phases; T-loc3's compensation). Not a derivation.
+
+**T-loc3 — the compensation is dyadic-exclusive.** Σ_{n mod 2q} e^(−πin²/(2q)) =
+√(2q)·ζ₈^(−1) *exactly* (q = 1–8): the conjugate dyadic sum carries the inverse clock —
+T6's γ_∞ is compensated at p = 2 — while odd places are silent for the unit form
+(G(p²) = p exactly, phase 1).
+
+**T-loc4 — the colour field's local geography + the odd global identity.** p = 3 ramifies
+in ℚ(ζ₃): the conductor — C4's different — *silences its own 3-factor* (E₃ = 1); p = 2 is
+inert (χ₋₃(2) = −1). The odd tower's global potential identity verified to 10⁻²⁰:
+p_sgn + Σ_p p_p^χ = Λ′/Λ − ½ln 3, the conductor standing where the even tower had its
+poles. The two structure primes' roles are now exact: **2 carries the clock and is inert
+in colour; 3 carries the colour ramification and is silent in its own L-factor.**
+
+**T-loc5 — a checked negative, recorded so no future pass re-attempts it.** "BW(ℚ₂) ≅
+ℤ/8" is false: Br(ℚ₂) = ℚ/ℤ by local class field theory, so ℚ₂'s graded Brauer group is
+infinite. The clock's dyadic home is the square-class/Gauss-phase structure, not the
+graded Brauer group — and the most obvious route to a finite-place derivation of the
+Radon–Hurwitz grammar entry (N_c = 2^(v₂(12))−1) is thereby closed. That derivation stays
+**open and un-attempted**; N_c's v₂ form remains a labeling.
+
+**A70 battery (this commit's gate; native phrases):** "derives N_c"/"grammar entry
+derived": zero live instances (every surface says *not derived / labeling / open*) ✓;
+"forced": none in the new material ✓; the identification grading ("identification, not
+derivation") present on all three surfaces ✓; all quoted counts (2/8/4, mod-8, 10⁻²⁰)
+match script output ✓.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
