@@ -568,3 +568,22 @@ recorded-but-not-made; no unstruck false record; the battery-scope rule held on 
 first test. The finite-place arc (Theorems 1d–1e, Addenda 69–74) is stable.
 
 **The Witt-ring work item is unblocked.**
+
+# Round 22: first adversarial pass on the Witt step — 0 majors, 3 minors, 1 cosmetic; the attack found a strengthening
+
+Zero mathematical falsehoods (fourteenth consecutive round). Every charge was tested
+empirically before acceptance — and testing F2's charge turned it into a theorem.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — W3's ten-class list was odd-valuation-only at the odd places: the silence claims ("γ_p = 1 at even valuation / unramified"), on which the product loop's place-selection silently relied, were never exercised in-code | **Accepted.** Tested first: all silences true at 10⁻¹⁶. List extended to fifteen classes (±9, 45, −18, 25); silence gates + odd-p k-stability gates added; 27 PASS 0 FAIL | script + paper + T1f + A75 struck |
+| F2 (minor→strengthening) — "canonical quotient" outran the recorded ψ-covariance (the kernel moves in its scaling orbit under ψ → ψ_a) | **Accepted, and upgraded.** The repair is a theorem: all eight class values are primitive (in-code gate), so γ_ψₐ(⟨1⟩) is primitive for every character — "surjection with ⟨1⟩ a generator" is character-free. "Canonical" now defined as exactly the ψ-independent structure on every surface | script + paper + T1f + A75 |
+| F3 (minor, m1 class) — "verified at 10⁻¹⁵–10⁻¹⁶" mislabeled both ends of the run (best 8.7×10⁻¹⁷, worst 2.1×10⁻¹⁵); formulation's "at 10⁻¹⁵" understated | **Accepted.** All surfaces now "≤ 2.3×10⁻¹⁵" over the extended run; A75 range struck | paper + T1f + A75 |
+| c1 (cosmetic) — A74's "Next: the finite-place derivation attempt…" reads as pending | **Accepted.** Net-state marker added | A74 (via A76) |
+
+**Checked and held:** the quotient theorem's logic (descent, kernel order 4), the
+k-parity handling, the Fresnel tail algebra, the W5 grid, A75's per-hit battery
+classification and its pre-commit PASS-count correction, Checks 7/8, the stopping rule.
+
+**Round 23 (convergence test on this sweep) is owed before the Witt step is declared
+stable. The honest negative for N_c stands unweakened.**

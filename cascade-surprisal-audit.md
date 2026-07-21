@@ -3553,14 +3553,22 @@ order 2·level); with |W(ℚ₂)| = 32 (Lam, cited) the kernel has order 4. The 
 one-dimensional classes land on the odd exponents {1,3,5,7} — all generators (generated
 subgroup computed from the numeric exponents = μ₈). **What was a corroboration (A70: an
 order-8 subgroup exists) is now structure: the clock group is a canonical quotient of
-the dyadic Witt group, ⟨1⟩ a generator of the quotient.** Forcers named: Weil index
-theory + level(ℚ₂) = 4, both classical — nothing cascade-chosen.
+the dyadic Witt group, ⟨1⟩ a generator of the quotient.** *(Round-22 F2 grading of
+"canonical": the ψ-independent structure exactly — all eight class values are primitive,
+gated in-code, so surjection-with-⟨1⟩-generator holds for every character; the kernel
+moves within its scaling orbit; the value ζ₈⁻¹ is convention-tied.)* Forcers named: Weil
+index theory + level(ℚ₂) = 4, both classical — nothing cascade-chosen.
 
 **W3–W4 — the two-place lock.** γ_∞ = ζ₈^sig (signature mod 8) is the corresponding
 quotient of W(ℝ) = ℤ, Fresnel-verified to 3×10⁻⁸; **both completions project their Witt
 groups onto the same μ₈** (⟨1⟩ ↦ ζ₈ at ∞, ζ₈⁻¹ at 2), and Weil's product formula locks
-the projections inverse **per square class** — Π_v γ_v(u) = 1 verified at 10⁻¹⁵–10⁻¹⁶
-for u ∈ {±1, ±2, ±3, ±5, 6, 15} including multi-prime and negative classes. T-loc3's
+the projections inverse **per square class** — Π_v γ_v(u) = 1 verified ~~at 10⁻¹⁵–10⁻¹⁶
+for u ∈ {±1, ±2, ±3, ±5, 6, 15}~~ **[round 22 (F1/F3): the ten-class list was
+odd-valuation-only at the odd places, never exercising the claimed silences, and the
+range mislabeled both ends of the run's residuals (best 8.7×10⁻¹⁷, worst 2.1×10⁻¹⁵).
+Now: fifteen classes incl. ±9, 45, −18, 25, verified to ≤ 2.3×10⁻¹⁵, with in-code
+silence gates (γ₃(9) = γ₃(45) = γ₅(25) = γ₅(3-unramified) = 1) and odd-p k-stability
+gates]** including multi-prime and negative classes. T-loc3's
 compensation is revealed as the u = 1 row of a class-by-class theorem. The ℤ/8 is
 classical: Wall/ABS, BW(ℝ) ≅ ℤ/8 via [Cl(p,q)] ↔ p−q mod 8 = signature mod 8 — the
 Clifford/Bott period-8, hence Radon–Hurwitz's, is this same object (cited, not
@@ -3604,6 +3612,67 @@ instance names its forcer (Weil index theory, level(ℚ₂) = 4, Adams, Wall/ABS
 count as "open"/"narrowed" ✓; the three prior arc scripts re-run this round:
 `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL,
 `cascade_witt_weil.py` 19 PASS 0 FAIL ✓ (counts from the commands as run).
+
+## Addendum 76: hostile review round 22 — the Witt step attacked; WOUNDED-light (0 majors, 3 minors + 1 cosmetic), and the attack found a strengthening
+
+**Commissioned: "Round 22 go" — first adversarial pass on commit 77ab8c7 (Theorem 1f,
+T1f, A75, `cascade_witt_weil.py`).** Named attack surfaces, declared before sweeping:
+the ψ-covariance vs "canonical," W3's place coverage, the residual-range quotes, odd-p
+stability gating. Every charge tested empirically before acceptance.
+
+**Verdict: zero majors, three minors, one cosmetic; zero mathematical falsehoods
+(fourteenth consecutive round) — and F2's attack yielded a *verified strengthening* of
+the theorem.**
+
+- **F1 (minor, coverage — the round-18 M1 class):** W3's ten-class list was
+  odd-valuation-only at the odd places: no u ever exercised the claims "γ_p = 1 at even
+  valuation" or "γ_p = 1 unramified," on which the place-selection in the product loop
+  silently relied. Tested before charging: γ₃(9), γ₃(45), γ₅(25), γ₅(3) all = 1 at
+  10⁻¹⁶ — the claims are true; the coverage was absent. **Swept:** list extended to
+  fifteen classes (±9, 45, −18, 25), silence gates and odd-p k-stability gates added
+  in-code; all PASS (27 PASS 0 FAIL total, counted from the run).
+- **F2 (minor, wording — and the strengthening):** "canonical quotient" was stronger
+  than the recorded ψ-covariance justified: under ψ → ψ_a the kernel moves within its
+  scaling orbit, so "the" quotient map is convention-tied. Testing the charge found the
+  repair is a *theorem*: **all eight one-dimensional class values are primitive 8th
+  roots** (exponents odd — now an in-code gate), hence γ_ψₐ(⟨1⟩) = γ(a) is primitive
+  for *every* character and "surjection onto μ₈ with ⟨1⟩ a generator" is
+  **character-free**. "Canonical" is now defined on every surface as exactly this
+  ψ-independent structure (with the kernel-orbit and convention-tied ζ₈⁻¹ stated).
+- **F3 (minor, the m1 residual class):** the quote "verified at 10⁻¹⁵–10⁻¹⁶" mislabeled
+  both ends of the actual run (best 8.7×10⁻¹⁷, worst 2.1×10⁻¹⁵); the formulation's "at
+  10⁻¹⁵" understated the worst row. **Swept:** all surfaces now quote "≤ 2.3×10⁻¹⁵"
+  over the fifteen-class extended run; A75's original range struck-annotated.
+- **c1 (cosmetic):** A74's commissioning line "Next: the finite-place derivation
+  attempt…" reads as still-pending. Marker added below.
+
+**Checked and held (the round's independent verifications):** the quotient theorem's
+logic (well-definedness on classes + hyperbolic-triviality + diagonalizability ⇒
+descent to W; kernel order 4 from |W| = 32 + surjectivity); the k-parity handling in
+`gamma_p`; the Fresnel tail algebra and its 3×10⁻⁸ result; the W5 grid arithmetic
+(30 cases; period-8 across v₂ = 0..7); the A75 battery's per-hit classification
+including the papers-side Part IVb citations; the PASS-count correction (19) made
+pre-commit in A75; Checks 7/8 and the stopping rule clean; no new "forced" without a
+forcer.
+
+**A76 battery (this commit's gate; scope: `grep -rn` over `*.md` and `*.py` under the
+repo root, `.git` excluded; per-hit classification):** "canonical": every live Witt-arc
+hit now carries or points to the F2 grading (the sole other hit, the U2 arc's "canonical
+branch" at the A-probes, is a pre-existing different sense in a different arc) ✓; "10⁻¹⁵–10⁻¹⁶": strike and disposition
+records only ✓; "ten classes"/"ten grid points": strikes, disposition records, and the
+D3.3 historical strike only ✓; scripts re-run this round: `cascade_witt_weil.py` 27
+PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS
+0 FAIL ✓ (counts from the commands as run).
+
+**Standing state:** Witt-step trajectory: 0+3(+1c) on first review. A round-23
+convergence test on this sweep is owed by the arc's standard before the step is
+declared stable. The honest negative for N_c stands unweakened; the strengthening (F2)
+is the round's net gift: the quotient theorem is now *character-free* in its structural
+content.
+
+*(Net-state marker for A74's closing line: the commissioned attempt was made — A75/
+Theorem 1f; the mod-8 connection is a quotient theorem, the N_c count honestly
+negatived.)*
 
 ## Caveats
 

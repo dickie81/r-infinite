@@ -255,11 +255,20 @@ mirror and the lock.* γ_∞ = ζ₈^sig — **signature mod 8** — is the corr
 W(ℝ) = ℤ ↠ μ₈ (Fresnel-verified to 3×10⁻⁸ with an analytic two-term IBP tail;
 sign-conjugation and positive-rescaling invariance exact), so **both completions project
 their Witt groups onto the same μ₈** (⟨1⟩ ↦ ζ₈ at ∞, ζ₈⁻¹ at 2), and Weil's product
-formula locks the projections inverse **per square class**: Π_v γ_v(u) = 1 verified at
-10⁻¹⁵–10⁻¹⁶ for u ∈ {±1, ±2, ±3, ±5, 6, 15} over places {∞, 2, odd ramified p} —
+formula locks the projections inverse **per square class**: Π_v γ_v(u) = 1 verified to
+≤ 2.3×10⁻¹⁵ across fifteen classes u ∈ {±1, ±2, ±3, ±5, 6, 15, ±9, 45, −18, 25} over
+places {∞, 2, odd ramified p}, with the silence claims gated in-code — γ_p = 1 at odd p
+of even valuation (3|9, 3|45, 5|25) and at unramified odd p (5∤3), and the odd-p factors
+k-stability-gated (round-22 F1: the original ten-class list was odd-valuation-only at
+the odd places and never exercised the silences; round-22 F3: the original "10⁻¹⁵–10⁻¹⁶"
+range mislabeled both ends of the actual residuals) —
 Theorem 1e's compensation is the u = 1 row of a theorem holding class-by-class.
-Character-covariance graded honestly: the ψ-independent content is the surjectivity,
-⟨1⟩'s order 8, and the product-formula lock; the specific value ζ₈⁻¹ is convention-tied.
+Character-covariance graded honestly (round-22 F2 strengthened this): **all eight
+one-dimensional class values are primitive** 8th roots (exponents odd — in-code gate),
+so γ_ψₐ(⟨1⟩) = γ(a) is primitive for *every* character choice and "surjection with ⟨1⟩ a
+generator" is character-free; what is *not* ψ-independent is the specific value ζ₈⁻¹
+(convention-tied) and the kernel as a subgroup, which moves within its scaling orbit —
+"canonical" means exactly the ψ-independent structure, nothing more.
 The ℤ/8 itself is classical — Wall/Atiyah–Bott–Shapiro: BW(ℝ) ≅ ℤ/8 via [Cl(p,q)] ↔
 p−q mod 8 = signature mod 8 — so the Clifford/Bott period-8, hence Radon–Hurwitz's, is
 this same object (cited, not re-proved). *(iii) The honest negative for N_c, registered.*

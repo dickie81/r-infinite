@@ -124,9 +124,13 @@ hyperbolic-trivial at 10⁻¹⁶, values exactly in μ₈) with ⟨1⟩ ↦ ζ�
 group is a canonical quotient of the dyadic Witt group.** Forcers: Weil index theory +
 level(ℚ₂) = 4 (classical). (ii) Mirror: γ_∞ = ζ₈^sig is the same quotient of W(ℝ) = ℤ
 (Fresnel-verified 3×10⁻⁸); Weil's product formula locks the two projections inverse
-**per square class** (Π_v γ_v(u) = 1 at 10⁻¹⁵ for ten classes incl. multi-prime u;
-T1e's compensation = the u = 1 row). ψ-covariance graded: invariant content =
-surjectivity, order 8, the lock. The ℤ/8 = Wall/ABS's BW(ℝ) = the Clifford/Bott (hence
+**per square class** (Π_v γ_v(u) = 1 to ≤ 2.3×10⁻¹⁵ for fifteen classes incl.
+even-valuation and unramified odd places with in-code silence gates — round-22 F1/F3
+extended the ten-class odd-valuation-only list and corrected the residual range;
+T1e's compensation = the u = 1 row). ψ-covariance graded (round-22 F2 strengthened):
+all eight class values primitive (gated), so surjection-with-⟨1⟩-generator is
+character-free; the kernel moves in its scaling orbit — "canonical" = the ψ-independent
+structure only. The ℤ/8 = Wall/ABS's BW(ℝ) = the Clifford/Bott (hence
 Radon–Hurwitz) period (cited). (iii) Honest negative registered: **N_c = 3 NOT
 derived** — ρ is a function of v₂ alone (verified) but the count is Adams (archimedean)
 and the layer is papers-side; the open item narrows to those two. Run record: first-run

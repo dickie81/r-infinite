@@ -30,11 +30,18 @@ normalized) local Gauss oscillator of the form u x^2:
 Character-covariance, graded honestly: replacing psi by psi_a
 permutes the class values (gamma_{psi_a}(u) = gamma_psi(au)); the
 psi-INDEPENDENT content is (i) the surjectivity of gamma_2 onto
-mu_8, (ii) the order 8 of <1> in W(Q_2) (a Witt-group fact,
-2 x level, no character anywhere), and (iii) the product-formula
-lock Prod_v gamma_v(u) = 1.  The specific value gamma_2(<1>) =
-zeta_8^(-1) is stated in the standard convention above -- the same
-one T-loc3's compensation fixed.
+mu_8 WITH <1> A GENERATOR -- strengthened by round-22 F2: ALL
+EIGHT class values are primitive 8th roots (exponents odd,
+verified below), so gamma_{psi_a}(<1>) = gamma(a) is primitive
+for EVERY character choice -- (ii) the order 8 of <1> in W(Q_2)
+(a Witt-group fact, 2 x level, no character anywhere), and (iii)
+the product-formula lock Prod_v gamma_v(u) = 1.  What is NOT
+psi-independent: the specific value gamma_2(<1>) = zeta_8^(-1)
+(stated in the standard convention above -- the same one T-loc3's
+compensation fixed) and the KERNEL as a subgroup, which moves
+within its scaling orbit under psi -> psi_a.  "Canonical" below
+means exactly the psi-independent structure, nothing more
+(round-22 F2 grading).
 
 W1 (THE DYADIC WEIL INDEX ON SQUARE CLASSES -- verified).  Q_2^x
 has 8 square classes, represented by {1,3,5,7} (units) and
@@ -61,11 +68,18 @@ quotient's existence and size: Weil's index theory + level(Q_2)=4
 
 W3 (THE PRODUCT-FORMULA LOCK, PER SQUARE CLASS -- verified).
 Weil's product formula Prod_v gamma_v(u x^2) = 1, instantiated
-numerically for u in {1,-1,2,-2,3,-3,5,-5,6,15}: the archimedean
-clock factor times the dyadic factor times the odd ramified
-factors multiplies to 1 every time.  In particular u = 1 gives
-gamma_2(<1>) = gamma_inf(<1>)^(-1) = zeta_8^(-1): T-loc3's
-compensation is the u = 1 row of a theorem that holds per class.
+numerically for u in {1,-1,2,-2,3,-3,5,-5,6,15, 9,-9,45,-18,25}
+(round-22 F1 extended the original ten-class list, which was
+odd-valuation-only at the odd places and so never exercised the
+silence claims): the archimedean clock factor times the dyadic
+factor times the odd RAMIFIED (odd-valuation) factors multiplies
+to 1 every time.  The silence claims are now gated in-code:
+gamma_p(u) = 1 for odd p at EVEN valuation (gamma_3(9),
+gamma_3(45), gamma_5(25)) and for unramified odd p (gamma_5(3)),
+and the odd-p factors are k-stability-gated like the dyadic ones.
+In particular u = 1 gives gamma_2(<1>) = gamma_inf(<1>)^(-1) =
+zeta_8^(-1): T-loc3's compensation is the u = 1 row of a theorem
+that holds per class.
 
 W4 (THE ARCHIMEDEAN MIRROR -- classical + verified at sig = +-1).
 gamma_inf(m<1>) = zeta_8^m: the archimedean Weil index is
@@ -224,6 +238,13 @@ def main():
           f"{'PASS' if surj else 'FAIL'}"
           f"   (numeric class exponents {sorted(image)}; generated"
           f" subgroup order {8 // g})")
+    prim = all(vals[u][0] % 2 == 1 for u in reps)
+    print(f"   ALL class exponents odd (primitive roots)   "
+          f"{'PASS' if prim else 'FAIL'}   (round-22 F2)")
+    print("   => psi-independence: gamma_{psi_a}(<1>) = gamma(a) is")
+    print("      primitive for EVERY character, so 'surjection with <1>")
+    print("      a generator' is character-free; the kernel moves in")
+    print("      its scaling orbit -- 'canonical' = exactly this.")
     print("   |W(Q_2)| = 32 (classical, Lam Ch. VI; cited)  =>  kernel"
           " order 4")
 
@@ -232,7 +253,7 @@ def main():
     print("W3 Weil product formula per class:  Prod_v gamma_v(u) = 1")
     print("   (places: inf, 2, and odd p with v_p(u) odd):")
     ok3 = True
-    for u in [1, -1, 2, -2, 3, -3, 5, -5, 6, 15]:
+    for u in [1, -1, 2, -2, 3, -3, 5, -5, 6, 15, 9, -9, 45, -18, 25]:
         prod = gamma_inf(u) * gamma_p(u, 2, kbig=10)
         m = abs(u)
         for p in (3, 5, 7, 11, 13):
@@ -251,6 +272,15 @@ def main():
     print("   => T-loc3's compensation (u = 1 row) holds PER CLASS:"
           if ok3 else "   => FAILURE above",
           "gamma_2 and gamma_inf are locked inverse on rational forms.")
+    sil = all(abs(gamma_p(*uv, kbig=4) - 1) < 1e-9
+              for uv in [(9, 3), (45, 3), (25, 5), (3, 5)])
+    print(f"   silence gates (round-22 F1): odd p at even valuation and"
+          f" unramified\n   odd p give gamma_p = 1 exactly"
+          f" (3|9, 3|45, 5|25, 5!|3)   {'PASS' if sil else 'FAIL'}")
+    stab = all(abs(gamma_p(u, p, kbig=4) - gamma_p(u, p, kbig=6)) < 1e-9
+               for u, p in [(3, 3), (5, 5), (15, 3), (15, 5)])
+    print(f"   odd-p factors k-stable (k, k+2)   "
+          f"{'PASS' if stab else 'FAIL'}")
 
     # ---- W4: the archimedean mirror
     print()
