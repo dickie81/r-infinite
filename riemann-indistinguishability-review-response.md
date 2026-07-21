@@ -528,3 +528,23 @@ while the claim survives, which is worse than a false record because it certifie
 convergence. A72 records this round's stem-based battery: clean.
 
 **Round 20 is owed before the arc is declared stable; Witt queues behind it.**
+
+# Round 20: convergence test on the round-19 sweep — NOT CONVERGED (0+1), the false-record class goes meta
+
+Zero majors, zero cosmetics, zero mathematical falsehoods (twelfth consecutive round).
+Severity strictly decreasing across the arc: 2+6 → 1+4 → 0+1. Every round-19 fix
+verified in the diff hunks; every round-19 numerical claim re-derived (list counts and
+endpoints 10/16/5/11 at 499/495/64/180; the Hensel witness with its lifting condition
+v₂(f) = 6 > 2·v₂(f′) = 2; the 18-pair grid's parity claims; the "fourth appearance"
+count against round 16's own convention; "eleventh consecutive round").
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 — A72's battery record false as quantified: "'corroborat' repo-wide" was a four-file grep, and a genuine repo-wide run surfaces two live hits outside the stated trichotomy (both benign pre-existing audit usages). No battery target was defective — the record overstated the battery's own coverage | **Accepted.** Struck at source in A72 with the two extra hits named; A73's battery states its actual command scope | A72 |
+
+**Process rule (the class's terminal form):** a battery record states the command's
+actual scope — record what ran; "repo-wide" may be written only after a repo-wide
+command produced the classified hit list being recorded. The verified-record rule now
+covers the batteries themselves.
+
+**Round 21 tests whether the battery-scope rule closes the class; Witt stays queued.**

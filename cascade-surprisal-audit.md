@@ -3390,9 +3390,15 @@ round 18's sweep did not look; (ii) the battery must grep **claim-class stems**
 while the claim class survives, which is a worse failure mode than a false record because
 it certifies convergence.
 
-**A72 battery (this commit's gate; stems, not strings):** "corroborat" repo-wide: every
+**A72 battery (this commit's gate; stems, not strings):** ~~"corroborat" repo-wide: every
 live hit is the corrected two-count, the graded ONE-independent phrasing, or the accurate
-"clock-corroborating" ✓; "three corroborations"/"three independent corroborations":
+"clock-corroborating" ✓~~ **[FALSE RECORD, caught by round 20 (F1): the grep as actually
+run covered four files (paper, formulation, two scripts), not the repo; and run genuinely
+repo-wide it surfaces two additional live hits outside the stated trichotomy — audit
+lines "corroborating the m_W-vs-v distinction" and "corroborated by the papers' own proof
+language," both benign pre-existing usages from earlier addenda. Every battery *target*
+was in fact clean; the record overstated the battery's coverage — the first purely meta
+instance of the false-record class]**; "three corroborations"/"three independent corroborations":
 strikes and disposition records only ✓; "roles are fixed"/"roles are now exact": zero
 live ✓; "random pairs": zero ✓; per-class endpoints (499/495/64/180) match the verifier
 lists exactly (10 primes to 499, 16 composites to 495, 5 powers to 64, 11 non-powers to
@@ -3402,6 +3408,66 @@ lists exactly (10 primes to 499, 16 composites to 495, 5 powers to 64, 11 non-po
 **Standing state:** trajectory on the finite-place arc: WOUNDED 2(+6) → NOT CONVERGED
 1(+4). By the series' standard (rounds 10–12, 15–17), a round-20 convergence test is owed
 before the arc is declared stable; the Witt-ring work item queues behind it.
+
+## Addendum 73: hostile review round 20 — convergence test on the round-19 sweep; NOT CONVERGED (0+1), the false-record class goes meta
+
+**Commissioned: "The word" — the round-20 convergence test, gating the Witt-ring work
+item.** Scope: the round-19 sweep (commit f0fa313) — every fix verified in the diff
+hunks directly; every round-19 numerical claim re-derived (list counts 10/16/5/11 with
+endpoints 499/495/64/180 recounted; the Hensel witness 63 = 7²+3²+2²+1² re-verified with
+the lifting condition v₂(f) = 6 > 2·v₂(f′) = 2 checked explicitly; the 18-pair LS grid's
+even-p and both-pq-parity claims re-verified; "fourth appearance" checked against round
+16's own "third failure" convention and held; "eleventh consecutive round" = rounds 9–19
+✓); the A72 battery re-run genuinely repo-wide.
+
+**Verdict: NOT CONVERGED — zero majors, one minor, zero cosmetics; zero mathematical
+falsehoods (twelfth consecutive round). Severity strictly decreasing: 2+6 → 1+4 → 0+1.**
+
+**F1 (the finding) — A72's battery record is false as quantified, on both axes.** The
+record said *"'corroborat' repo-wide: every live hit is [one of three categories]"*. As
+actually run, the grep covered four files, not the repo; and run genuinely repo-wide it
+surfaces two live hits outside the stated trichotomy — the audit's own pre-existing
+"corroborating the m_W-vs-v distinction" and "corroborated by the papers' own proof
+language" (both benign, both accurate in context, both from earlier addenda). **No
+battery target was defective — the only false statement was the record's description of
+the battery's own coverage.** This is the false-record class (A69's gate, A71's "all
+surfaces corrected", now A72's coverage claim) in its purest form: previous instances
+hid live defects; this one hid nothing, and is a defect only because the program's
+verified-record rule applies to its own instruments. Struck at source in A72.
+
+**Everything else checked and held:** all five round-19 script fixes present in the diff
+and consistent with each other (the GRADING block's "ONE independent corroboration
+alongside this criterion" composes with the DOES block's "TWO independent
+corroborations"); the per-class endpoints on all three surfaces match the verifier lists
+exactly; "roles are" and "random pairs" stems are clean repo-wide (every hit a strike,
+disposition record, or battery listing); the two false records struck in round 19 are
+struck correctly with verbatim quotes; `cascade_finite_places.py` confirmed untouched by
+f0fa313; both scripts re-run all-PASS this round.
+
+**Process rule (the class's terminal form):** a battery record must state the command's
+*actual scope* — record what ran, not what was intended to run; and "repo-wide" may be
+written only after a repo-wide command has produced the classified hit list being
+recorded. The verified-record rule now explicitly covers the batteries themselves: the
+gate is an experiment, and its record is a run record.
+
+**A73 battery (this commit's gate; scope: all `*.md` and `*.py` under the repo root,
+`.git` excluded — the command's actual scope, stated per the new rule):** "corroborat":
+every live hit is the corrected two-count, the graded ONE-independent phrasing, accurate
+"clock-corroborating" usage, a strike/disposition/battery record, or one of the two
+benign pre-existing audit usages named in F1 ✓; "roles are": strikes, disposition
+records, and battery listings only ✓; "random pairs": battery listings only ✓; "three
+corroborations"/"three independent corroborations": strikes and disposition records only
+(ROADMAP's "three independent first-order correction mechanisms" is a different phrase in
+a different arc, accurate there) ✓; endpoints 499/495/64/180 recounted against the
+lists ✓; scripts re-run: `cascade_finite_places.py` D3.1–D3.3 all PASS,
+`cascade_local_tate.py` T-loc1–5 all PASS including level(ℚ₂) = 4 ✓.
+
+**Standing state:** finite-place-arc trajectory: WOUNDED 2(+6) → 1(+4) → 0(+1). The
+single round-20 defect is meta (a record about a record), no surface carries a false
+mathematical or physical claim, and the severity sequence is strictly decreasing — but
+by the arc's own criterion ("no untrue statement on any current surface") convergence is
+not yet declared. Round 21 tests whether the battery-scope rule closes the class; the
+Witt-ring work item stays queued behind it.
 
 ## Caveats
 
