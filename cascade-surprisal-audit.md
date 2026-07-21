@@ -2903,6 +2903,57 @@ generalizes verbatim to any number field's completed L-function — the ℚ(ζ�
 colour field, r₂ = 1) has a bridge identity of the same form whose formulation would be
 category-(a) work.
 
+## Addendum 65: behind the two doors — the features from the zero side, and the colour-character bridge
+
+**Commissioned: "Explore behind the doors." Both explored under category (a): no data, no
+closures, both scripts' ground rules and honest scope stated in their docstrings first.**
+**Tools:** `cascade_zero_side_features.py` (Door 1), `cascade_colour_field_bridge.py`
+(Door 2).
+
+**Door 1 — the distinguished layers are zeros-vs-pole balance points, and the zeros locate
+them.** All three distinguished features are level-crossings of p (critical point p=0 at
+s=7.2569; threshold p=lnΓ(½) at 20.73; sink p=Γ(½) at 218.6), so by T1b each is exactly
+the point where ZEROS + PRIMES = POLES + level. Solving that balance *from the zero side*
+— first 50 computed zeros plus the density tail, no digamma anywhere in the solve —
+recovers the critical point to **6×10⁻³** and the threshold to **5×10⁻²**, errors
+decreasing in N. Honesty item caught in-run: the sink at s≈218 is **tail-model-limited**
+(the Lorentzian there is dominated by the average-density tail; ~1% accuracy,
+N-insensitive) — the script's first reading text overclaimed "decreasing" for all three
+rows and was corrected before commit. **The door-1 answer, registered as a negative:** no
+recorded quantity reads the zero side independently of the digamma packaging; the features
+are identity-mediated, and any future stronger claim is stopping-rule-gated new physics.
+
+**Door 2 — the colour-character bridge, three exact statements (paper Theorem 1c):**
+- **C1 (Legendre synthesis, exact to 0.0):** Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1), so p_ℂ = p_triv +
+  p_sgn — **the program's two interleaved towers (T5) jointly carry the complex-place
+  factor.** F6's "the odd shift needs Γ_ℂ and ℚ has r₂ = 0" is relocated: no complex
+  embedding of ℚ was ever needed; the doubled tower synthesizes it.
+- **C2 (forced minimality):** the sgn tower's factor Γ_ℝ(s+1) is the archimedean factor of
+  *odd* Dirichlet L-functions; the minimal primitive odd character is **χ₋₃, conductor 3
+  — the only primitive character of conductor ≤ 3, and it is odd** — which is the
+  quadratic character of the T8 colour field ℚ(ζ₃). Two independent pointers (minimality;
+  the colour field) converge; this is an enumeration, not a scan.
+- **C3 (the odd bridge, verified three-tier):** Λ(s,χ₋₃) is entire (L(1)=π/(3√3), exact),
+  root number +1 (real on the critical line to 10⁻²⁵), giving
+  **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a conductor
+  where the even tower had ζ's poles*. Verified: rearrangement 6×10⁻²⁷; χ-weighted prime
+  side within tail bounds; zero side with the **first 24 zeros of L(s,χ₋₃) computed by
+  sign-scanning the completed function** (first ordinate 8.0397 — computed, not recalled),
+  residuals decreasing at both test points.
+
+**The odd feature lands:** p_sgn = 0 at s = **6.2569** — Finding 6's "excluded object" —
+is the point where the colour-character zeros plus the colour-weighted primes balance the
+conductor ½ln3 = 0.5493. Its arithmetic home is the odd Dirichlet family, exactly as F6
+found; the minimal member of that family is the colour field's own character. The
+structural picture after both doors: the even tower's landmarks are set by ζ's zeros
+against ζ's pole; the odd tower's landmark is set by the colour character's zeros against
+its conductor; the two towers together are the complex place.
+
+**Honest scope (both doors):** F6 stays REOPENED on its original claim — no address is
+derived, the feature→layer selection convention stays in the residue, the dictionary is
+untouched. No data contact, no closure, no RH/GRH use. One in-run overclaim (the sink
+"decreasing") caught and fixed pre-commit, on the record.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

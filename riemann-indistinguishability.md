@@ -99,6 +99,33 @@ tower is not merely built from ζ's Gamma factor — it **is one side of the Rie
 formula, with the primes and the zeros jointly exact on the other side**. The dictionary
 (Definition 6.1 and the soft inputs) is untouched by this theorem.
 
+**Theorem 1c (the two doors: features from the zero side, and the colour-character
+bridge; `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`).** *(i) The
+distinguished layers are zeros-vs-pole balance points.* Every distinguished feature of the
+tower is a level-crossing of p — the critical point (p = 0, s = 7.2569), the phase
+threshold (p = ln Γ(½), s = 20.73), the sink (p = Γ(½), s = 218.6) — and via Theorem 1b
+each is exactly the point where ZEROS + PRIMES = POLES + level: the observer-side
+geography is a tug-of-war between ζ's pole at s = 1 and the nontrivial zeros, with the
+primes an exponentially small spectator. Solving the balance *from the zero side* (first
+50 computed zeros + density tail, no digamma in the solve) recovers the critical point to
+6×10⁻³ and the threshold to 5×10⁻², errors decreasing in N; the sink is tail-model-limited
+(~1%, N-insensitive, reported as such). *The honest negative, registered:* no recorded
+quantity reads the zero side independently of the digamma packaging; any future claim of
+that kind is stopping-rule-gated new physics. *(ii) The odd tower has its own bridge, and
+it is the colour character's.* By Legendre, Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1), so p_ℂ = p_triv +
+p_sgn exactly — the doubled tower of Theorem 5 jointly carries the complex-place factor.
+The sgn tower's factor Γ_ℝ(s+1) is the archimedean factor of odd Dirichlet L-functions,
+whose minimal primitive member is **forced**: χ₋₃, conductor 3, the quadratic character of
+the Theorem-11 colour field ℚ(ζ₃). Its completed L is entire with root number +1
+(verified real on the critical line to 10⁻²⁵; L(1) = π/(3√3) exactly), giving the odd
+bridge **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln 3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a
+conductor where the even tower had ζ's poles* — verified three-tier with the first 24
+zeros of L(s,χ₋₃) computed by sign-scanning (first ordinate 8.0397), residuals decreasing.
+The odd feature at s = 6.2569 (Finding 6's excluded object) is p_sgn = 0: the point where
+the colour-character zeros plus the colour-weighted primes balance the conductor ½ln 3.
+*Scope:* structural only — Finding 6 stays reopened, no address is derived, no data is
+touched, GRH is not used.
+
 ## 3. The forced dynamics
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
@@ -162,7 +189,16 @@ unlisted critical points at s ≈ 2.39 and 4.51, and the pole-free grouping ½s(
 critical point at all. The r₂ = 0 obstruction is real but partial. Consequently: **the
 feature→integer-layer selection is a convention, counted in the residue; the observer's
 address retains one convention-free arithmetic distinction (the torsion half-period
-γ⁴ = −1; the scalar-flatness cross-check was demoted by the third review).**
+γ⁴ = −1; the scalar-flatness cross-check was demoted by the third review).** *Structural
+update (Addendum 65, Theorem 1c — Finding 6 stays REOPENED on its original claim):* the
+r₂ = 0 obstruction is now relocated rather than removed — Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1) is
+synthesized exactly by the program's own two interleaved towers (Theorem 5's doubling, via
+Legendre), so no complex embedding of ℚ was ever needed; and the excluded odd object at
+s = 6.2569 is the sgn tower's zero-crossing, whose completed L-partner is the **minimal
+primitive odd Dirichlet character χ₋₃ — forced minimality (the only primitive character of
+conductor ≤ 3, and it is odd) — which is the quadratic character of the Theorem-11 colour
+field ℚ(ζ₃)**. The odd feature's arithmetic home is the program's own colour sector; no
+address is derived, and the selection convention stays in the residue.
 
 ## 5. The calculus of attachments (the derived rules)
 

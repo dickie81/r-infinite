@@ -66,6 +66,21 @@ Euler + Hadamard; program-new content: the tower evaluation only. Grounds the *s
 one level deeper (the tower sits on one side of the explicit formula); grounds the
 *dictionary* not at all; claims no direction of explanation.
 
+**T1c (The two doors — PROVED at their stated strengths; Addendum 65;
+`cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`).** (i) Every
+distinguished feature is a level-crossing of p, hence by T1b an exact ZEROS + PRIMES =
+POLES + level balance point; solving from the zero side (50 computed zeros + density tail)
+recovers the critical point to 6×10⁻³ and the threshold to 5×10⁻² with decreasing error
+(sink tail-model-limited ~1%, reported as such). Honest negative registered: no recorded
+quantity reads the zero side independently of the digamma packaging. (ii) Legendre gives
+p_ℂ = p_triv + p_sgn *exactly* — T5's doubled tower synthesizes the complex-place factor,
+relocating F6's r₂ = 0 obstruction; the sgn tower's L-partner is the **forced-minimal odd
+character χ₋₃** (unique primitive of conductor ≤ 3, odd) = the T8 colour field's
+character, with the odd bridge p_sgn = zeros(L(χ₋₃)) − ½ln3 + χ-weighted primes (no pole;
+a conductor instead), verified with 24 sign-scan-computed zeros; the odd feature 6.2569 =
+the colour-conductor balance point. F6 stays reopened on its original claim; no address
+derived.
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the
