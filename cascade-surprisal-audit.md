@@ -4044,6 +4044,73 @@ construction — a Check-1 source-reading question), the clock-invisible (ℤ/2)
 grammar meaning (registered by 1g), the dictionary's soft inputs, F6's original
 claim, the full-record extension, and the frozen experimental ledger.
 
+## Addendum 83: Door 3 — the Adams dependency decomposed; K-theory load-bears nowhere in the cascade window
+
+**Commissioned: "Let's check out door 3" (the post-convergence survey's third door — a
+Check-1 source-reading question). Protocol: Checks 1, 2, 4, 5 exercised as required —
+direct reading, verbatim quotes, novelty classification, no "text does not derive"
+claims made (none arose; the finding is an attribution refinement, not a defect).**
+**Tool:** `cascade_adams_loadbearing.py` (5 gates, all PASS). Paper: Remark after
+Theorem 1g + refinement markers on 1f(iii); formulation: T1f(iii) marker.
+
+**The reading record (Check 1).** Read directly: `src/cascade-series-part4a.tex` lines
+326–420 (the section *"N_c = 3 from Adams' theorem"*: `thm:adams` at line 328,
+`thm:adams-unique` at line 359 with its ρ-table over [5,19], and the two following
+remarks), lines 180–240 (`rem:sp27-status`, confirming the assignment is "derived in
+Theorem `thm:adams-unique` from Adams' theorem and Bott periodicity"), plus grep sweeps
+for Adams/Radon/hairy/Steenrod across `src/*.tex`. Verbatim (Check 2): `thm:adams`
+states *"The maximum number of linearly independent nowhere-zero tangent vector fields
+on $S^{n-1}$ is $\\rho(n)-1$"* — the word **maximum** is the load-bearing hinge, since
+the maximum = the elementary construction (lower) + the hard bound (upper). "Steenrod"
+appears nowhere in the papers; Poincaré–Hopf is papers-native (part4a.tex:1276).
+
+**The decomposition (machine-gated).** For every claim in the N_c chain — the three
+gauge rows (d = 12: max 3; d = 13: max 0; d = 14: max 1) and the uniqueness scan
+("ρ(d)−1 ≠ 3 for d ≠ 12 in [5,19]") — the load-bearing direction was classified and
+gated: **(i)** lower bounds everywhere = the Hurwitz–Radon–Eckmann **Clifford
+construction** (elementary algebra — and the same Cl/Bott/BW(ℝ) ≅ ℤ/8 object of
+Theorems 1f–1g); **(ii)** the upper bound at every odd d and at d = 13 =
+**Poincaré–Hopf** on even spheres (elementary, papers-native); **(iii)** the remaining
+load-bearing upper bounds sit exclusively at **v₂(d) ∈ {1, 2}** (d ≡ 2 mod 4; d = 12);
+**(iv)** the window's only 16 | d dimension, **d = 16, needs no upper bound at all**
+(construction gives 8 > 3). Gates: no load-bearing upper bound at 16 | d ✓; all upper
+bounds at v₂ ≤ 2 ✓; the three gauge rows classified ✓ (5 PASS 0 FAIL).
+
+**The attribution, with its confidence stated.** The v₂ ∈ {1,2} upper bounds were
+settled a decade before Adams — the Steenrod–Whitehead 1951 class (Steenrod squares on
+stunted projective spaces; refinements James 1957, Toda), with Adams' 1962 K-theory
+needed for the general theorem, in particular the 16 | n cases the cascade never
+touches. *Citation-confidence caveat, stated honestly:* the exact scope of the 1951
+theorem is quoted from the standard history (Adams' introduction; survey literature) —
+the PNAS original was paywalled in-session. The conclusion is robust across readings:
+every cascade-needed upper bound sits at v₂ ≤ 2, the lightest cases of the classical
+method.
+
+**Check 4 classification: novel, category (b) — and a refinement, not a defect.** Part
+IVa's Adams citation is *correct and sufficient*; citing the strongest standard theorem
+is normal practice. What is new: the papers nowhere decompose the dependency, and the
+decomposition matters to this arc because it re-weights the honest negative. 1f(iii)
+stands verbatim — N_c is still not derived from the finite places — but "the count is
+Adams (archimedean K-theory)" refines to: **the count's constructive half is Clifford
+algebra (arithmetic-adjacent via the 1f–1g chain), and its upper-bound half is
+classical mod-2 topology; K-theory proper load-bears nowhere in the cascade window.**
+The genuinely archimedean residue for N_c narrows to the v₂ ∈ {1,2} upper bounds plus
+the layer-12 selection. Optional papers-side follow-up (not commissioned): a part-IVa
+remark carrying the decomposition.
+
+**A83 battery (this commit's gate; full commands, per-hit granularity as stated):**
+`grep -rn "load-bear" --include='*.md' --include='*.py' .` — every hit is in this
+door's material or round-record prose, **except** pre-existing other-sense usages
+(CLAUDE.md's Check-8 "the hypothesis is non-load-bearing" rule; one ROADMAP line; six
+older scripts' own-arc usages; read per-hit) ✓; "K-theory" repo-wide: every hit is this
+door's material, 1f's original attribution (now carrying a decomposition pointer), or
+pre-existing usages in the geometric-topological audit and one older script (read
+per-hit; both exceptions caught by running the battery before recording it) ✓;
+scripts re-run this round: `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
+`cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL,
+`cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
+(counts from the commands as run).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

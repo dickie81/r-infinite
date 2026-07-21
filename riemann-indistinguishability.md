@@ -276,7 +276,9 @@ this same object (cited, not re-proved). *(iii) The honest negative for N_c, reg
 ρ(2^(4a+b)m) = 8a + 2^b depends on v₂ alone (verified structurally: period-8 in v₂ = the
 ℤ/8 above; odd part irrelevant); ρ(12) − 1 = 3 is the A2 label. **N_c = 3 is not derived
 from the finite places:** the count is Adams' vector-field theorem (archimedean
-K-theory), and the layer-12 selection is papers-side. The open item *narrows*: the mod-8
+K-theory) *(refined by Door 3 — the Remark after Theorem 1g: at every load-bearing
+dimension the count needs only the Clifford construction plus classical pre-K-theory
+topology)*, and the layer-12 selection is papers-side. The open item *narrows*: the mod-8
 home of the grammar's backbone is found and classical (two Witt quotients, one μ₈,
 product-formula-locked); what remains archimedean is the count and the layer. Any future
 claim that the finite places produce the 3 is stopping-rule-gated new physics. *Run
@@ -339,6 +341,28 @@ covered) with stability gates at k ∈ {3, 5}, and two leftover code artifacts w
 removed pre-run — kept on the record per the verified-record rule. *Scope:* category (a);
 the ψ-covariance grading of 1f applies verbatim; no grammar entry derived; no data, no
 closures, no RH/GRH, no semiclassics.
+
+**Remark (Door 3: the Adams dependency, decomposed; `cascade_adams_loadbearing.py`).**
+A Check-1 direct reading of Part IVa's N_c chain (`thm:adams`, part4a.tex:328 — *"The
+maximum number of linearly independent nowhere-zero tangent vector fields on S^(n−1) is
+ρ(n)−1"* — and `thm:adams-unique`, part4a.tex:359, the uniqueness scan over d ∈ [5,19])
+shows what the chain load-bears on, gated in-code: **(i)** the lower bounds everywhere
+are the Hurwitz–Radon–Eckmann **Clifford construction** — the same Cl/Bott/BW(ℝ) ≅ ℤ/8
+object whose arithmetic home Theorems 1f–1g established; **(ii)** the upper bound at
+every odd d and at d = 13 is **Poincaré–Hopf** (even spheres; already papers-native at
+part4a.tex:1276); **(iii)** the remaining load-bearing upper bounds sit exclusively at
+v₂(d) ∈ {1, 2} (d ≡ 2 mod 4, and d = 12 itself), the classical pre-Adams range
+(Steenrod–Whitehead 1951 class, mod-2 cohomology operations; citation-confidence caveat
+in the script's D3.3 — the 1951 original was paywalled in-session, the scope quoted from
+the standard history); and **(iv)** the window's only 16 | d dimension, d = 16, needs
+**no upper bound at all** (the construction gives 8 > 3). **K-theory proper is
+load-bearing nowhere in the cascade window.** Consequence for the honest negative: it
+stands verbatim, but its "archimedean K-theory" attribution refines to "Clifford
+construction + classical mod-2 topology" — the count's *constructive* half is the same
+Clifford algebra the arithmetic chain touches, and the genuinely archimedean residue for
+N_c narrows to the v₂ ∈ {1,2} upper bounds plus the layer-12 selection. No number
+changes; Part IVa's Adams citation remains correct and sufficient (citing the strongest
+standard theorem); this remark reduces the dependency, not the correctness.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no

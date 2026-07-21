@@ -109,7 +109,10 @@ The A2 grammar labels N_c = rho(12) - 1 = 2^(v_2(12)) - 1 = 3.
     (corroboration) to "canonical quotient homomorphism with the
     clock as generator image" (structure theorem).
   DOES NOT: derive N_c = 3.  The count rho(12) - 1 = 3 is Adams'
-    vector-field theorem (archimedean K-theory/topology), and the
+    vector-field theorem (archimedean K-theory/topology; dependency
+    decomposed in cascade_adams_loadbearing.py -- at the window's
+    load-bearing dimensions only the Clifford construction +
+    classical pre-K-theory bounds are needed), and the
     selection of layer 12 is the papers' gauge-layer structure.
     HONEST NEGATIVE, REGISTERED: no finite-place derivation of
     N_c is claimed; the open item NARROWS from "find the
