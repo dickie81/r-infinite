@@ -2916,7 +2916,7 @@ closures, both scripts' ground rules and honest scope stated in their docstrings
 **Tools:** `cascade_zero_side_features.py` (Door 1), `cascade_colour_field_bridge.py`
 (Door 2).
 
-**Door 1 — the distinguished layers are zeros-vs-pole balance points, and the zeros locate
+**Door 1 — the distinguished layers are zeros-vs-poles balance points, and the zeros locate
 them.** All three distinguished features are level-crossings of p (critical point p=0 at
 s=7.2569; threshold p=lnΓ(½) at 20.73; sink p=Γ(½) at 218.6), so by T1b each is exactly
 the point where ZEROS + PRIMES = POLES + level. Solving that balance *from the zero side*
@@ -2958,13 +2958,17 @@ is the point where the colour-character zeros plus the colour-weighted primes ba
 conductor ½ln3 = 0.5493. Its arithmetic home is the odd Dirichlet family, exactly as F6
 found; the minimal member of that family is the colour field's own character. The
 structural picture after both doors: the even tower's landmarks are set by ζ's zeros
-against ζ's pole; the odd tower's landmark is set by the colour character's zeros against
-its conductor; the two towers together are the complex place.
+against ζ's pole and the completed function's mirror pole at s=0 (round-16 F4); the odd
+tower's landmark is set by the colour character's zeros against its conductor; the two
+towers together are the complex place.
 
 **Honest scope (both doors):** F6 stays REOPENED on its original claim — no address is
 derived, the feature→layer selection convention stays in the residue, the dictionary is
-untouched. No data contact, no closure, no RH/GRH use. One in-run overclaim (the sink
-"decreasing") caught and fixed pre-commit, on the record.
+untouched. No data contact, no closure; ~~no RH/GRH use~~ **[round-16 F3: qualified per
+M1 — GRH-free in the paired form, Lorentzian = on-line evaluation]**. One in-run overclaim
+(the sink "decreasing") ~~caught and fixed pre-commit~~ **[round-16 F3: this second
+instance of the false-when-written claim escaped the round-15 annotation — the fix had
+reached the READING block only (m1); marked here]**, on the record.
 
 ## Addendum 66: hostile review round 15 — the bridge arc WOUNDED (3 majors); the mathematics survives every independent check
 
@@ -3031,6 +3035,51 @@ the window splits, the balance-point restatements, the Legendre synthesis, the o
 bridge, and the minimality theorem — with the pairing convention now honestly priced. The
 chronic lesson, fourth instance: every "forced" in this program must name what forces it,
 and a selection principle is never free.
+
+## Addendum 67: hostile review round 16 — NOT CONVERGED (2+1 majors); the missed-instance class again, and the battery finally run
+
+**The convergence test on the round-15 sweep. Verdict: NOT CONVERGED — 2 majors (F1, F2),
+1 borderline (F3), minors F4–F8. The reviewer's summary is exact and is adopted verbatim:
+"round 15's sweep repeated the round-13 sweep's failure mode one round after the
+countermeasure for it was named" — fixes were recorded as "restated everywhere" while the
+A63 whole-repo-grep rule was demonstrably not run on round 15's own corrected phrases.**
+Zero mathematical defects, zero false quoted numbers; every strike that was made quotes
+its target verbatim; the reviewer independently reproduced even the old dps-30 residual
+(4.81e-35) confirming A66 carries no from-memory numbers. Full disposition:
+`riemann-indistinguishability-review-response.md` Round 16.
+
+**The findings, all accepted and swept:** F1 — "FORCED minimality" survived in the colour
+script's own HONEST SCOPE docstring block and its printed output, directly contradicting
+the same file's restated C2 (fixed; the file no longer contradicts itself). F2 — the exact
+blanket sentence M1 declared false ("the identity holds wherever the zeros are") survived
+unqualified in the bridge script's DOES-NOT block, 60 lines below the docstring's own
+claim that it had been "corrected here"; plus the hybrid term "paired Lorentzian form"
+re-conflating the two forms M1 distinguished (fixed; the READING prints of both scripts
+now carry the qualified form). F3 — the A65 closing sentence carried both an unqualified
+"no RH/GRH use" and a second unannotated instance of the false-when-written "caught and
+fixed pre-commit" claim (both struck-and-annotated). F4 — the m4 pole-attribution fix
+missed Theorem 1c(i) and two A65 sentences (all fixed: both poles named). F5 — the
+"< 10⁻²³" off-line-zero bound was true at the bridge's layers (s ≤ 29) but crosses at
+z ≈ 45 and reaches ~5–7×10⁻²³ at the Door-1 sink solve (scoped on all three surfaces;
+still ~20 orders below the sink's tail-model error). F6 — the colour script's V2 still
+used the epsilon-slack pattern M2 charged (currently inert — residuals sit 2–4 orders
+inside their bounds — but the epsilon is now removed and the strict bound passes). F7 —
+dead `prev = err` removed. F8 — the residue accounting verified consistent as a WIDENING
+(not an eighth item) on all six surfaces; the abstract's parenthetical now names the
+class's three members (feature→layer; the d↔s pairings; the χ₋₃ minimality-pairing).
+
+**Process, owned at the third instance:** the missed-instance class has now survived two
+consecutive sweeps after its countermeasure was named. The A63 rule is only a rule when it
+is executed. This round's sweep was gated on actually running the battery — the grep
+results are recorded below and the commit was made only after the battery returned zero
+live survivors:
+
+**A63 battery (run post-sweep, pre-commit):** `forced minimality` / `FORCED` partner
+language: survivors only inside strike/history contexts ✓; blanket `wherever the zeros
+are`: only inside the paired-form statements and correction records ✓; unqualified `no
+RH use`/`no GRH use`: none live ✓; `fixed pre-commit`: both instances annotated ✓;
+single-pole attributions: none live ✓; `conductor ≤ 3` misphrase: none live ✓;
+unqualified `10⁻²⁵`: none live ✓; blanket `error decreasing in N`: none live ✓.
 
 ## Caveats
 

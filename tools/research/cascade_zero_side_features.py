@@ -44,7 +44,11 @@ threshold ~5e-2 at N=50); the SINK at s ~ 218 is TAIL-MODEL-LIMITED
 (~1%, N-insensitive) -- round-15 m1: the original blanket "error
 decreasing in N" here was false for the sink row and is corrected;
 the Lorentzian evaluation is the on-line form per the round-15 M1
-restatement in cascade_explicit_formula_bridge.py.
+restatement in cascade_explicit_formula_bridge.py (round-16 F5: at
+this file's sink solve, s ~ 218, a hypothetical off-line zero beyond
+the verified height would contribute ~5-7e-23 -- above the bridge
+file's < 1e-23 figure for its own layers, and ~20 orders below the
+sink's ~1% tail-model error).
 
 THE HONEST NEGATIVE (door 1's answer, registered): within the
 current record NO quantity reads the zero side independently of the
@@ -119,7 +123,6 @@ def main():
                          - level, a, b, iters=40)
             err = abs(est - truth)
             line += f"  N={n}: {est:9.4f} (err {err:.1e})"
-            prev = err
         print(line)
     print()
     print("=" * 74)

@@ -30,7 +30,10 @@ two classical, genuinely non-trivial product theorems of zeta:
         term shape (computed discrepancy at the round-15 review:
         ~3e-5 for a = 0.1 at gamma = 10) but any such zero lies
         beyond the verified height 3e12 and contributes < 1e-23 at
-        these s.  The earlier blanket sentence "the identity holds
+        the layers used in this file (s <= 29; the bound scales as
+        2z/gamma^2 -- at the Door-1 sink solve, s ~ 218, the figure
+        is ~5-7e-23, still ~20 orders below that solve's ~1%
+        tail-model error; round-16 F5 scoped this bound).  The earlier blanket sentence "the identity holds
         wherever the zeros are" was TRUE of the paired form and
         FALSE of the Lorentzian form as printed -- corrected here
         and on every doc surface (round 15).
@@ -94,10 +97,12 @@ WHAT THIS DOES AND DOES NOT DO (honest scope, stated first):
   DOES NOT: ground the dictionary (address book, source twists,
     Observer k=3, gradings, record-legs -- all untouched); derive
     any new physical closure (none is attempted); use or imply RH
-    (the identity holds wherever the zeros are; the paired
-    Lorentzian form is evaluated with the verified on-line zeros,
-    and the numerics are insensitive to any hypothetical off-line
-    zero far beyond the verified range); establish a DIRECTION of
+    beyond the form distinction above (round-16 F2 removed this
+    block's surviving blanket sentence: the PAIRED form holds
+    wherever the zeros are; the LORENTZIAN form is its on-line
+    evaluation with the verified zeros, and the numerics are
+    insensitive to any hypothetical off-line zero far beyond the
+    verified range); establish a DIRECTION of
     explanation -- the identity is zeta's own bookkeeping, and
     reading the zeros/primes as "causes" of the potential (or vice
     versa) is a modeling choice the identity does not supply.
@@ -262,8 +267,9 @@ def main():
     print("    supply the growing positive part.")
     print("  - Classical content: Euler product + Hadamard product.  New")
     print("    for the program: only the tower evaluation and the window")
-    print("    splits.  No closure, no data contact, no RH use, and no")
-    print("    direction of explanation is claimed (see docstring).")
+    print("    splits.  No closure, no data contact; RH-free in the")
+    print("    paired form (Lorentzian = on-line evaluation, see")
+    print("    docstring); no direction of explanation is claimed.")
 
 
 if __name__ == "__main__":

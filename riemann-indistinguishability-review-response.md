@@ -423,3 +423,33 @@ stopping rule (zero data contact), Check-7/8 clean, no stale surfaces repo-wide.
 **Convergence note:** all three majors are restatement-repairs; no result was lost. The
 chronic lesson at its fourth instance is now a named rule: every "forced" must name what
 forces it — a selection principle is never free.
+
+# Round 16: convergence test on the round-15 sweep — NOT CONVERGED (2+1), the missed-instance class again
+
+Zero mathematical defects, zero false numbers; the failure is process, named exactly:
+"round 15's sweep repeated the round-13 sweep's failure mode one round after the
+countermeasure for it was named."
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 — "FORCED minimality" survived in the colour script's HONEST SCOPE docstring + printed output, contradicting the same file's restated C2 (M3's sweep column named this file) | **Accepted.** Both fixed; comment header too | colour script |
+| F2 — M1's own condemned sentence ("the identity holds wherever the zeros are") survived unqualified in the bridge DOES-NOT block below the docstring claiming it "corrected here"; hybrid "paired Lorentzian form" re-conflated the forms | **Accepted.** Restated; both scripts' READING prints now qualified | bridge + colour scripts |
+| F3 — A65's closing sentence: unqualified "no RH/GRH use" + a second unannotated "caught and fixed pre-commit" | **Accepted.** Both struck-and-annotated | A65 |
+| F4 — m4 pole-attribution missed Thm 1c(i) and two A65 sentences | **Accepted.** Both poles named everywhere | paper + A65 |
+| F5 — the "< 10⁻²³" bound true at s ≤ 29, crosses at z ≈ 45, ~5–7×10⁻²³ at the sink solve | **Accepted.** Scoped on all three surfaces (still ~20 orders below the sink's tail-model error) | bridge + zero_side + Thm 1b |
+| F6 — colour V2 kept the epsilon-slack pattern M2 charged (inert: residuals 2–4 orders inside bounds) | **Accepted.** Epsilon removed; strict bound passes | colour script |
+| F7 — dead `prev = err` | **Accepted.** Removed | zero_side |
+| F8 — residue accounting: consistent as a widening on all six surfaces; abstract under-described the class | **Accepted (cosmetic).** Abstract parenthetical now names the class's three members | paper abstract |
+
+**Checked-and-held adopted:** all round-15 hunks in git; strike-markers quote their
+targets verbatim; M2's fix earned (dps-50 strict, d=12 residual 2.05e-41 within 1.56e-40;
+the reviewer independently reproduced the OLD dps-30 residual 4.81e-35 — A66 carries no
+from-memory numbers); the restatements' mathematics independently verified (genus-0,
+Legendre, odd rearrangement, ε=+1 for every odd real primitive χ, character enumeration,
+pole attribution, D-consistency); every quoted number matches output; untouched scripts
+verified untouched; stopping rule and Checks 7/8 clean.
+
+**Process rule, tightened at its third failure:** a sweep is complete only when the A63
+whole-repo-grep battery for every corrected phrase has been RUN and its results RECORDED
+in the round's addendum (A67 records this round's battery). Round 17 tests whether a
+battery-gated sweep finally converges.

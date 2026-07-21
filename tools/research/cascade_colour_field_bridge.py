@@ -71,8 +71,11 @@ claim (the observer-address pinning): nothing here derives an
 address.  What changes is structural: (i) the "missing complex
 place" is synthesized by the program's own doubled tower (C1,
 exact); (ii) the odd feature's arithmetic home is identified inside
-the program's colour sector via a FORCED minimality (C2 — the
-unique minimal odd primitive character; not a scan over characters);
+the program's colour sector via the minimality CONVENTION (C2:
+chi_{-3} being the unique minimal odd primitive character is a
+theorem; adopting minimality as the pairing principle is a
+convention -- round-16 F1 removed this block's surviving "FORCED
+minimality");
 (iii) the odd tower has its own explicit-formula bridge with the
 same three-part shape as Theorem 1b (C3, verified) -- FOR THE WHOLE
 ODD FAMILY, with chi_{-3} the minimal instance.  The zeros of
@@ -140,7 +143,7 @@ def main():
           f"   {'PASS' if worst < 1e-20 else 'FAIL'}"
           "   (the doubled tower carries Gamma_C)")
 
-    # ---- C2: forced minimality
+    # ---- C2: minimality theorem + pairing convention
     print()
     print("C2 minimality theorem + pairing convention (round-15 M3):")
     print("  q=1: trivial character (conventionally primitive, EVEN).")
@@ -229,7 +232,7 @@ def main():
         r = abs(float(tot - truth))
         print(f"  V2 prime side s={s}: |chi-Lambda-sum - (-L'/L)| ="
               f" {r:.2e}  tail-bound {tail:.2e}"
-              f"  {'PASS' if r <= 1.5 * tail + 1e-22 else 'FAIL'}")
+              f"  {'PASS' if r <= 1.5 * tail else 'FAIL'}")
     # V3 zero side with computed zeros + density tail
     print("  V3 zero side (computed zeros + density tail), residual vs")
     print("     Lambda'/Lambda -- must decrease with N:")
@@ -280,10 +283,13 @@ def main():
     print("  derived here).  Structural changes only: the 'missing")
     print("  complex place' is synthesized by the doubled tower (C1,")
     print("  exact Legendre); the odd feature's home is the colour")
-    print("  sector via forced minimality (C2); the odd tower has its")
+    print("  sector via the minimality CONVENTION (C2: minimality is a")
+    print("  theorem, the pairing a convention); the odd tower has its")
     print("  own three-part explicit-formula bridge with a conductor")
     print("  where the even tower had poles (C3, verified).  No data,")
-    print("  no closure, no GRH use; zeros computed, not recalled.")
+    print("  no closure; GRH-free in the paired form, with the")
+    print("  Lorentzian evaluation using the on-line zeros found (see")
+    print("  docstring); zeros computed, not recalled.")
 
 
 if __name__ == "__main__":

@@ -24,7 +24,9 @@ atom grammar (A2); the unit-normalization convention that carries Γ(½) (empiri
 anchored, not arithmetically forced — and the flip-count 4 is meaningful only jointly with
 it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–109σ exclusions of alternative orderings hold only under the four variant readings — m_τ-abs constituent expansion, ℓ_A window content, the ℓ_A kind, and sin²θ_W coupling-running — so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
 (no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
-Finding 1); and the hypothesis itself (C1).** The resulting outputs — the cosmological constant, the Higgs, all
+Finding 1; the class was widened by review 4 to every d↔s pairing choice and by round 15
+to the χ₋₃ minimality-pairing — one class, three members); and the hypothesis itself
+(C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
 stated leading-order systematic floor: sub-σ to ~2σ where experimental error dominates
@@ -83,7 +85,10 @@ theorem is the **paired** Hadamard form Σ 2z/(z² − (ρ−½)²) — ξ(½+z)
 order 1, genus-0 in z², no constant term, valid wherever the zeros are; the **Lorentzian**
 form displayed is its on-line specialization, exact for zeros with β = ½, and is how the
 sum is evaluated (with the verified on-line zeros; a hypothetical off-line zero would alter
-the term shape but lies beyond the verified height 3×10¹² and contributes < 10⁻²³ here): **the tower potential at every
+the term shape but lies beyond the verified height 3×10¹² and contributes < 10⁻²³ at the
+layers d ≤ 28 evaluated here — the bound scales as 2z/γ², reaching ~5×10⁻²³ at the
+Theorem-1c sink solve, twenty orders below that solve's tail-model error; round-16 F5
+scoped this figure): **the tower potential at every
 layer is exactly a sum over the Riemann zeros, minus the pole terms, plus a sum over the
 primes** — the partial-fraction (Hadamard) form of the explicit-formula identity evaluated
 at the tower points. Every window Φ(a→b) = Σ p(d) inherits the split additively; e.g.
@@ -112,11 +117,12 @@ formula, with the primes and the zeros jointly exact on the other side**. The di
 
 **Theorem 1c (the two doors: features from the zero side, and the colour-character
 bridge; `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`).** *(i) The
-distinguished layers are zeros-vs-pole balance points.* Every distinguished feature of the
+distinguished layers are zeros-vs-poles balance points.* Every distinguished feature of the
 tower is a level-crossing of p — the critical point (p = 0, s = 7.2569), the phase
 threshold (p = ln Γ(½), s = 20.73), the sink (p = Γ(½), s = 218.6) — and via Theorem 1b
 each is exactly the point where ZEROS + PRIMES = POLES + level: the observer-side
-geography is a tug-of-war between ζ's pole at s = 1 and the nontrivial zeros, with the
+geography is a tug-of-war between the poles — ζ's at s = 1 and the completed function's
+mirror at s = 0 (round-16 F4) — and the nontrivial zeros, with the
 primes an exponentially small spectator. Solving the balance *from the zero side* (first
 50 computed zeros + density tail, no digamma in the solve) recovers the critical point to
 6×10⁻³ and the threshold to 5×10⁻², errors decreasing in N; the sink is tail-model-limited
