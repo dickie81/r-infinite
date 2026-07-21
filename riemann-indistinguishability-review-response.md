@@ -636,7 +636,7 @@ Witt step's first review: the substantive finding strengthened the theorem.
 | Finding | Disposition | Sweep |
 |---|---|---|
 | F1 (minor) — the exclusivity theorem's forcer line ("level(ℚ_p) ≤ 2") was true but unreconstructable: the unit form is silent at odd p, so level cannot act through ⟨1⟩, and no surface spelled how level caps the image; the all-odd-p quantifier rode on the unspelled argument | **Accepted, and upgraded.** The chain spelled and verified: image = homomorphic image of W(ℚ_p), exp W(ℚ_p) = 2·level(ℚ_p) ≤ 4, so image ⊆ μ_{2·level} for every odd p; the L1 gate now labels image order = 2·level = exp W. The exclusivity is an every-odd-p theorem — samples verify the classical inputs, not the quantifier | script + paper + T1g + A80 |
-| c1 (cosmetic) — "dim-sensitive at 2 vs sig-sensitive at ∞" is presentational: the cocycle and closed form hold at ∞ too (verified this round) | **Accepted.** Unified criterion on all surfaces: the clock places are exactly those where γ_v(⟨1⟩) is primitive — 1f's F2 primitivity is itself clock-place-exclusive | script + paper + T1g |
+| c1 (cosmetic) — "dim-sensitive at 2 vs sig-sensitive at ∞" is presentational: the cocycle and closed form hold at ∞ too (verified this round) **[net-state, round 27: that session verification became the committed L6 gates in round 26]** | **Accepted.** Unified criterion on all surfaces: the clock places are exactly those where γ_v(⟨1⟩) is primitive — 1f's F2 primitivity is itself clock-place-exclusive | script + paper + T1g |
 
 **Checked and held:** kernel self-negatives recomputed independently (a mid-review
 scare at (−1,−14)₂ resolved as the reviewer's own slip, ω(7) = 0); the census totals;
@@ -659,3 +659,24 @@ names a committed verifier — session runs are drafting, not verification, unti
 land in code.
 
 **Round 27 tests the clause and gates 1g's stability.**
+
+# Round 27: convergence test on the round-26 sweep — CONVERGED (0+0, two cosmetics); Theorem 1g stable, the arc closed
+
+Zero majors, zero minors, zero mathematical falsehoods (nineteenth consecutive round).
+The series' sixth convergence (rounds 7, 12, 17, 21, 24, 27). The retroactive
+committed-verifier sweep across all theorem surfaces: clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| c1 (cosmetic) — A81's committed-verifier clause read "on any surface," retroactively indicting reviewer cross-checks (legitimately session runs recorded as review records) | **Accepted.** Scope clarified at source: the clause governs theorem-supporting claims; reviewer cross-checks corroborate committed gates, they do not substitute for them | A81 |
+| c2 (cosmetic) — the Round-25 table's c1 row read "(verified this round)" without the L6 pointer | **Accepted.** Net-state marker added (superseded-true convention) | Round-25 table |
+
+**Convergence statement:** no untrue statement on any current surface; no
+recorded-but-not-made fix; no unstruck false record; no "verified" claim without a
+committed verifier. **Theorem 1g is stable, and with it the full chain 1b–1g stands
+converged** — the tower on the explicit formula, the two doors, the adelic family, the
+per-place achievers, the character-free Weil-index quotient, and the completed local
+family. Nineteen consecutive rounds with zero mathematical falsehoods. What remains
+open: Door 3 (the Adams load-bearing question — Check-1 source reading), the
+clock-invisible (ℤ/2)²'s grammar meaning, the dictionary's soft inputs, F6's original
+claim, the full-record extension, and the frozen experimental ledger.

@@ -3966,7 +3966,12 @@ chain text matches the script's; Checks 7/8 and the stopping rule clean.
 
 **Process rule (the committed-verifier clause):** a "verified" claim on any surface
 must name a committed verifier (script section or gate) — session-run verifications are
-drafting, not verification, until they land in code. This closes the last gap between
+drafting, not verification, until they land in code. *(Scope, clarified by round-27 c1:
+the clause governs theorem-supporting claims — paper, formulation, script docstrings.
+Reviewer cross-checks recorded in round addenda ("recomputed independently", "checked
+and held") are run records of the review itself, reproducible from their recorded
+commands where given; they corroborate committed gates, they do not substitute for
+them.)* This closes the last gap between
 the battery rules (scope, filter, granularity) and the verification claims themselves.
 
 **A81 battery (this commit's gate; full commands, per-hit granularity as stated):**
@@ -3980,6 +3985,64 @@ run).
 **Standing state:** the single substantive defect is again process-layer (where the
 verifier lives), not mathematics. Round 27 tests the committed-verifier clause and
 gates 1g's stability.
+
+## Addendum 82: hostile review round 27 — convergence test on the round-26 sweep; CONVERGED (0+0, two cosmetics); Theorem 1g stable, the arc closed
+
+**Commissioned: "The word" — the convergence test on commit 3ad1ee8.** Scope: the
+round-26 diff verified hunk by hunk; A81's battery and script counts re-run; and the
+round's own angle — the new committed-verifier clause applied *retroactively* across
+the arc's surfaces.
+
+**Verdict: CONVERGED — zero majors, zero minors; two cosmetics, accepted and swept
+(the rounds-17/21/24 precedent). Zero mathematical falsehoods — nineteenth consecutive
+round. The series' sixth convergence (rounds 7, 12, 17, 21, 24, 27). 1g trajectory:
+0+1(+1c) → 0+1(+1c) → 0+0(+2c).**
+
+**The cosmetics:** **c1** — A81's committed-verifier clause read "on any surface,"
+sweeping enough to retroactively indict reviewer cross-checks, which are legitimately
+session runs recorded as review records. Scope clarified at source: the clause governs
+theorem-supporting claims (paper, formulation, script docstrings); reviewer
+cross-checks corroborate committed gates, they do not substitute for them. **c2** —
+the Round-25 table's c1 row still read "(verified this round)" without the L6 pointer;
+net-state marker added (superseded-true convention). **The retroactive sweep itself:
+clean** — no other "verified" claim on a theorem surface lacks a committed verifier
+(the "session record" mentions repo-wide are all markers and disclosures; read
+per-hit, 5 hits).
+
+**Checked and held:** every round-26 hunk present and consistent (L6's five test forms
+including the dim-8 definite one; the 2-gate count; the A80 markers; the paper's L6
+pointer); A81's battery hits re-classified per-hit (3 hits, all disposition text or
+battery lines); "eighteenth consecutive round" and the 23/27/6/10 counts verified
+against fresh runs; Checks 7/8 and the stopping rule clean.
+
+**Convergence statement (the arc's criterion, met):** no untrue statement on any
+current surface; no fix recorded-but-not-made; no unstruck false record; no "verified"
+claim without a committed verifier; round 27's findings are scope-clarification and a
+marker. **Theorem 1g is stable, and with it the full finite-place chain — Theorems
+1b through 1g — stands converged**: the tower on the explicit formula (1b), the
+feature balance points and the colour bridge (1c), the adelic potential family (1d),
+the per-place achievers (1e), the clock as the character-free Weil-index quotient
+(1f), and the completed local family with exclusivity, the symbolic closed form, and
+kernel anatomy (1g).
+
+**A82 battery (this commit's gate; full commands, per-hit granularity as stated):**
+`grep -rn "session record\|session-run\|verified in-session" --include='*.md'
+--include='*.py' .` — 5 pre-sweep hits, all markers/disclosures, read per-hit ✓;
+`grep -rn "verified this round"` — the Round-25 table row (now marked), A81's
+quote/battery text, and this battery line itself ✓; scripts re-run this round: `cascade_local_family.py` 23
+PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS
+0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as run).
+
+**Standing state — the session's arc, closed.** Rounds 15–27 on the Riemann/
+finite-place material: six work steps (bridge, doors, finite places, Tate, Witt,
+local family) and thirteen review rounds, converging at 17, 21, 24, and 27; nineteen
+consecutive rounds with zero mathematical falsehoods; every instrument rule the
+reviews forced (battery scope/filter/granularity, committed verifiers, marker
+conventions) now standing. What remains open is what A78 said remains open: Door 3
+(does Part IVb's N_c derivation load-bear on Adams' upper bound or only the Clifford
+construction — a Check-1 source-reading question), the clock-invisible (ℤ/2)²'s
+grammar meaning (registered by 1g), the dictionary's soft inputs, F6's original
+claim, the full-record extension, and the frozen experimental ledger.
 
 ## Caveats
 
