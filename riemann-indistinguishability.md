@@ -402,7 +402,8 @@ algebra Cl(1,d−1) has complex minimal spinors when d mod 8 ∈ {4,5,6}"* — w
 **period is 8**, the same Clifford/Bott ℤ/8; the mirror statement — *"The second window
 {12,13,14} is the Bott mirror of the spacetime window {4,5,6}. It reproduces the same
 Weyl–Dirac–Weyl pattern exactly, shifted by one Bott period"*; and the uniqueness
-confirmation — *"d = 12 is the unique dimension in [5, d₁ = 19] where ρ(d)−1 = 3, so
+confirmation — *"Furthermore, d = 12 is the unique dimension in [5, d₁ = 19] where
+ρ(d)−1 = 3, so
 the gauge window is forced, not chosen"* — whose range bounds are, *in this paper's own
 terms*, two of the distinguished layers {5, 7, 19, 217}: ~~d₀ = 7 is the integer layer
 of the tower's critical point … and d₁ = 19 the integer layer of the phase threshold~~
@@ -430,7 +431,8 @@ review): {d : ρ(d)−1 = 3} = {d ≡ 4 mod 8} — verified as an equivalence ov
 now gated — i.e. the ρ-condition IS the window-start condition. There is ONE selector
 (the Clifford/Bott ℤ/8 window structure), not two; the "agreement" carried no
 confirmatory content beyond Bott periodicity itself, as the script's own neighbouring
-gate ("the three 8s are one 8") already said on the same page]**; the ρ v₂-recurrence
+gate ("the three 8s are one 8" — a source comment; the printed line carried equivalent
+content, round-31 c-B precision) already said in the same script]**; the ρ v₂-recurrence
 ρ(16n) = ρ(n) + 8 is gated separately from the d → d+8 window shift, with the
 identification of the two 8s as one classical ℤ/8 *cited* (Clifford/Bott), not gated
 (round-30 relabel). The companion series' own grading of its two numerical

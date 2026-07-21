@@ -48,7 +48,8 @@ caveat at 353-356 -- the round-30 F6 gap).  Part IVa:
     "Furthermore, d = 12 is the unique dimension in [5, d_1 = 19]
     where rho(d)-1 = 3, so the gauge window is forced, not
     chosen."
-  - thm:generators (~309-312) and the rank remark (~318): the
+  - thm:generators (grading sentence at 307-310; remark begins
+    293) and the rank remark (~318): the
     papers' OWN grading of 12 = d_1 - d_0 = 8+3+1 ("a numerical
     consistency check ... not a structural identity forced by
     either derivation alone") and rank 4 = observer d ("The
@@ -112,8 +113,8 @@ def main():
     # G1: the mod-8 complex-window arithmetic
     win = [d for d in range(4, 23) if d % 8 in (4, 5, 6)]
     g1 = (win == [4, 5, 6, 12, 13, 14, 20, 21, 22]
-          and [d + 8 for d in obs_window] == [12, 13, 14]
-          and [d + 16 for d in obs_window] == [20, 21, 22])
+          and win[3:6] == [d + 8 for d in win[:3]]        # computed, can fail
+          and win[6:9] == [d + 16 for d in win[:3]])      # (round-31 F4)
     print()
     print(f"G1 complex windows in [4,22] = {win}")
     print(f"   second = first + 8; third = first + 16   "

@@ -736,3 +736,21 @@ structural claims about what it shows.
 **Process:** the subagent protocol worked — it found what eleven self-review rounds on
 adjacent material had not; Check 3 confirmed every charge without dilution. Round 31
 (convergence test) gates the corrected layer result.
+
+# Round 31: convergence test on the round-30 sweep (subagent, per protocol) — NOT CONVERGED (1+5+3c); the sweep's own incompleteness
+
+The corrected mathematics holds (reviewer-recomputed to [1, 10⁵]); the major is the
+round-30 sweep leaving the retracted claims alive inside the audit's own A87/A88
+records — the missed-instance disease at its shortest range.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (MAJOR) — three A87/A88 locations still carried the retracted content as live text (the bounds attribution + vague pointer in the component list; "complete … confirmed by ρ-uniqueness within Γ-thresholds"; A88's closing map naming Γ-thresholds ten lines below its own M2 strike), contradicting "RETRACTED on every surface" | **Accepted.** All three struck-and-annotated; new rule: retraction sweeps grep the round's own addendum pre-commit | A87 ×2 + A88 |
+| F2 (minor) — A89's "independently … retraction context only" census false (sole hit = a companion quote) | **Accepted.** Struck-and-corrected | A89 |
+| F3 (minor) — c7's "Fixed in the rewrite" true of the script only; the paper's "quoted here in full" quote still lacked "Furthermore," | **Accepted.** Quote restored in full on the paper | paper |
+| F4 (minor) — G1 retained two constant conjuncts that cannot fail (m3's own class) | **Accepted.** G1 now gates the computed window halves | script |
+| F5 (minor) — CLAUDE.md misdescribed its own citation ("material … eleven adjacent rounds had passed" — the material was unreviewed) | **Accepted.** Corrected | CLAUDE.md |
+| F6 (minor, papers-side) — part4b's landscape table lists ρ(12)−1 and N_c·dimℍ as "Independent math-theorem routes" for d_g = 12; verified: they share the factorization 12 = dimℍ·N_c through the ℍ³ module structure — the retracted-M1 class on a tex surface outside the round-30 grep scope | **Accepted; registered.** Papers-side edit deferred to a papers-side round; retraction batteries now include *.tex | A90 register |
+| c-A/c-B/c-C — header count marker; "output page" vs source comment; a line cite | **Accepted.** All annotated/fixed | A87 + A89 + paper + script |
+
+**Round 32 (subagent, per protocol) gates stability.**

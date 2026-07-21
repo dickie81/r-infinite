@@ -4257,7 +4257,9 @@ FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓ (counts from the commands as ru
 Door 3: the honest negative's other half, the layer-12 selection. Protocol: Checks 1,
 2, 4, 5 exercised — direct reading, verbatim quotes, the papers' own
 coincidence-grading respected as their self-report, no logical-gap claims (none
-arose).** **Tool:** `cascade_layer_selection.py` (5 gates, all PASS). Paper: a second
+arose).** **Tool:** `cascade_layer_selection.py` (5 gates, all PASS *(net-state, round 31 c-A:
+round 30 demoted one to a display — honest count 4; see the m3 annotation below)*).
+Paper: a second
 Remark after Theorem 1g (self-contained, correspondence-style); formulation: the
 T1f(iii) marker extended.
 
@@ -4275,8 +4277,12 @@ four already-named components: **(1)** the mod-8 complex-spinor classification �
 classical Clifford bookkeeping whose **period is the same ℤ/8** as
 Radon–Hurwitz/Bott/BW(ℝ), the object Theorems 1f–1g homed arithmetically; **(2)** the
 spacetime anchor d = 4 — the Lovelock ∩ Clifford selection, already residue item 1
-plus the hypothesis in the paper's seven-item count; **(3)** Part 0's Γ-thresholds
-d₀ = 7, d₁ = 19 — pure Γ-structure, Theorem 1/1b territory; **(4)** the within-window
+plus the hypothesis in the paper's seven-item count; **(3)** ~~Part 0's Γ-thresholds
+d₀ = 7, d₁ = 19 — pure Γ-structure, Theorem 1/1b territory~~ **[struck round 31 (F1):
+the M2-retracted bounds attribution plus the vague pointer, left alive by the round-30
+sweep in this very component list. Corrected component (3): the scan range's ends are
+d_V = 5 and d₁ = 19 (both listed distinguished layers, feature→layer convention); d₀ =
+7 has only the window-completeness role]**; **(4)** the within-window
 factor assignment — Door 3's decomposed count. Gates: the window arithmetic (second =
 first + 8) ✓; exactly one complete window inside (d₀, d₁] with the third wholly beyond
 d₁ ✓; ~~**over-determination** — the mirror shift and the ρ-uniqueness scan select the
@@ -4293,10 +4299,16 @@ gate; the "5 gates PASS" count included it]**.
 
 **The finding: the layer selection introduces no new unlisted dependency.** Every
 component is (a) in the declared seven-item residue, (b) the classical ℤ/8 the
-arithmetic chain grounded, (c) Part 0's Γ-structure, or (d) Door 3's content. **With
+arithmetic chain grounded, (c) Part 0's Γ-structure, or (d) Door 3's content. ~~**With
 both doors, the colour-count dependency map is complete:** N_c = [Clifford
 construction + classical mod-2 upper bounds] at [observer anchor + one Clifford ℤ/8
-period, confirmed by ρ-uniqueness within Γ-thresholds]. Check-4 note: the
+period, confirmed by ρ-uniqueness within Γ-thresholds]~~ **[struck round 31 (F1): the
+M1-retracted "confirmed by ρ-uniqueness" framing, the M2 bounds error, and the
+unqualified "complete" — all left alive by the round-30 sweep in this very paragraph.
+The corrected map (paper, round-30 form): N_c = [Clifford construction + classical
+mod-2 upper bounds] at [one Clifford ℤ/8 window step from the anchor, with the anchor
+excluding its own ρ-twin and the range ends at the listed layers d_V = 5 and d₁ =
+19]]**. Check-4 note: the
 coincidence-grading of 12 = 12 and rank = 4 is the papers' own (acknowledged, category
 (a) in the check's sense — their self-report, quoted not discovered).
 
@@ -4342,11 +4354,14 @@ the ρ-condition picks {4, 12}) and is d_V, the tower start — itself a listed
 distinguished layer]** — **carries the selection-convention residue member** (which
 survives the correction: both true bounds, 5 and 19, carry the same convention). The A87 finding
 ("no new unlisted dependency") survives verbatim and is now more precisely stated on
-the paper: the threshold component adds a *listed* dependency, not a new one. The
+the paper: the threshold component adds a *listed* dependency, not a new one. ~~The
 complete map, with every carried residue named: N_c = [Clifford construction +
 classical mod-2 upper bounds] at [observer anchor (Lovelock + hypothesis, listed) +
 one Clifford ℤ/8 period (arithmetically homed) + Γ-thresholds (feature→layer
-convention, listed)].
+convention, listed)]~~ **[struck round 31 (F1): this closing map still named
+"Γ-thresholds" as the range component ten lines after this addendum's own M2 strike —
+post-correction the range ends are d_V = 5 and d₁ = 19 (5 is not a Γ-threshold), both
+carrying the listed convention; see the round-30 corrected map on the paper]**.
 
 **A88 battery (this commit's gate; run after all appends per the timing clause):**
 `grep -n "Theorem 1/1b territory" riemann-indistinguishability.md` — zero hits
@@ -4381,7 +4396,9 @@ defect since round 18.**
   the window-start condition (one mod-8 fact, now a gate over [1, 10⁴]); the "two
   selectors" were one selector counted twice, the agreement carrying no content beyond
   Bott periodicity — which the script's own neighbouring gate ("the three 8s are one
-  8") stated on the same output page, an internal contradiction that should itself have
+  8") stated on the same output page *(round 31 c-B: imprecise — that phrase was a
+  source comment, not printed output; the printed G4 line carried equivalent content)*,
+  an internal contradiction that should itself have
   been the flag. The companion paper pre-empts the framing four lines above its
   uniqueness theorem (*"The same topological invariant governs both the spacetime
   structure and the gauge structure, applied at the two Bott mirrors"*), and
@@ -4438,8 +4455,11 @@ claim published on four surfaces for two commits.
 **A89 battery (this commit's gate; run after all appends per the timing clause):**
 `grep -rn "over-determin" --include='*.md' --include='*.py' .` — every live arc hit is
 now a strike, a retraction record, or this addendum; the one pre-existing older-script
-hit unchanged ✓ (read per-hit); `grep -rn "independently" tools/research/
-cascade_layer_selection.py` — retraction context only ✓; `grep -rn "rho(4)\|ρ(4)"` over
+hit unchanged ✓ (read per-hit); ~~`grep -rn "independently" tools/research/
+cascade_layer_selection.py` — retraction context only ✓~~ **[round 31 (F2): false as
+recorded — the case-sensitive command's sole hit is a verbatim companion quote (the
+rank remark's "does not independently derive"), not retraction context; the
+case-insensitive census is retraction context plus two companion quotes]**; `grep -rn "rho(4)\|ρ(4)"` over
 the arc surfaces — the disclosure now present on paper, script, formulation, and this
 addendum ✓; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0 FAIL,
 `cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
@@ -4449,6 +4469,94 @@ FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL, `cascade_finite_places.py` 6 PASS 0
 **Standing state:** layer-question trajectory: 0 (unreviewed) → WOUNDED 2+4(+1c). A
 round-31 convergence test on this sweep is owed before the corrected layer result
 joins the stable set.
+
+## Addendum 90: hostile review round 31 — convergence test on the round-30 sweep; NOT CONVERGED (1 major, 5 minors, 3 cosmetics); the sweep's own incompleteness
+
+**Commissioned: "Round 31" — the first scheduled act of the codified CLAUDE.md
+protocol: a fresh-context same-model subagent reviewed commits cd04e23 and 7e1bd5b;
+every finding verified directly by the lead before acceptance (Check 3: the three F1
+locations grepped and read; the F2 census re-run; the F3 diff hunk checked; F4's
+conjuncts read in code; F5's text compared against A89; F6's part4b table read
+directly at src/cascade-series-part4b.tex:3626–3640).**
+
+**Verdict: NOT CONVERGED — 1 major, 5 minors, 3 cosmetics. The corrected mathematics
+holds (the reviewer recomputed everything independently, including the equivalence
+over [1, 10⁵]); the defects are the round-30 sweep's completeness and three record
+quantifiers.**
+
+- **F1 (MAJOR — the retracted content survived inside the audit's own records):** three
+  locations in A87/A88 still carried the retracted claims as live text — the A87
+  component list's "Γ-thresholds d₀ = 7, d₁ = 19 … Theorem 1/1b territory", the A87
+  finding paragraph's "complete … confirmed by ρ-uniqueness within Γ-thresholds", and
+  A88's closing map naming "Γ-thresholds" ten lines below its own M2 strike — directly
+  contradicting the Round-30 disposition "RETRACTED on every surface." The round-30
+  sweep struck sibling sentences in the same paragraphs and missed these. All three now
+  struck-and-annotated. The missed-instance disease's sharpest instance: the un-swept
+  surfaces were the review record itself.
+- **F2 (minor):** A89's battery line characterized the script's "independently" census
+  as "retraction context only" — false; the sole case-sensitive hit is a verbatim
+  companion quote. Struck-and-corrected.
+- **F3 (minor):** c7's disposition "Fixed in the rewrite" was true of the script only —
+  the paper's quote under "quoted here in full" still lacked "Furthermore,". The
+  recorded-but-not-made-fix class. The paper's quote now restored in full.
+- **F4 (minor):** G1 retained two constant-list conjuncts that cannot fail — round-30
+  m3's own class, incompletely applied. G1 now gates the computed window halves
+  (win[3:6] and win[6:9] against shifted win[:3]).
+- **F5 (minor):** the new CLAUDE.md section misdescribed its own citation — "material
+  that eleven adjacent self-review rounds had passed" — when the material was
+  previously unreviewed and the eleven rounds ran on adjacent material. Corrected:
+  paraphrase drift inside the protocol document that polices paraphrase drift.
+- **F6 (minor, papers-side — verified directly, registered, edit deferred):**
+  part4b.tex:3630's landscape table lists for d_g = 12 two "Independent math-theorem
+  routes": ρ(12)−1 (Adams) and N_c·dimℍ. Verified: the two share their arithmetic —
+  ρ(12) = 4 is computed from v₂(12) = 2, and the Hurwitz–Radon fields on S¹¹ arise
+  from the ℍ³ module structure, i.e. from the same factorization 12 = dimℍ·N_c the
+  second "route" restates — the retracted-M1 independence class, on a tex surface the
+  round-30 retraction grep (md/py includes) never covered. Partially hedged by
+  part4b's own "forced vs observed … deepest open structural question," which does not
+  cover the table header's "Independent." **Disposition: registered here; the
+  papers-side edit (moving N_c·dimℍ to the consistency-cross-check column for d_g) is
+  deferred to a papers-side round under the new protocol; the retraction-class
+  batteries now include tex surfaces.**
+- **c-A:** A87's header "5 gates, all PASS" now carries the net-state marker. **c-B:**
+  A89's and the paper's "stated on the same output page" — the phrase was a source
+  comment, not printed; both annotated. **c-C:** the script's thm:generators line cite
+  corrected (grading sentence 307–310).
+
+**Checked and held (the reviewer's twelve-item held list, spot-verified by the lead):**
+the corrected mathematics (equivalence, scans, ρ-table against part4a's proof table);
+the honest gate count on all surfaces; the strike-verbatim rule on all six round-30
+strikes; the five companion quotes; every named component's provenance (anchor
+residue-listed; d_V = 5 as tower start per part4a:1551; the distinguished set; the
+convention's listed status); the A89 batteries reproduced; the Round-30 table's
+consistency; the new CLAUDE.md section's consistency with Checks 0–8 and the
+verified reality of every instrument clause it cites (A73/A76–77/A78/A80–81/A85); the
+converged-round precedent list; retraction propagation outside the F1 locations.
+
+**Process rule (the F1 lesson):** the sweep target list for a retraction includes
+**the review records being written in the same round** — an addendum that strikes a
+claim in one paragraph and restates it in another is the disease at its shortest
+range. Retraction batteries grep the round's own addendum before commit, and (F6's
+lesson) include `*.tex` in their scope.
+
+**A90 battery (this commit's gate; run after all appends per the timing clause; tex
+included per the new rule):** `grep -rn "confirmed by ρ-uniqueness" --include='*.md'
+--include='*.py' --include='*.tex' .` — the A87 strike (struck text + annotation),
+this addendum's F1 text and this battery line, and the Round-31 table's F1 row: all
+strike or disposition context, zero live ✓;
+`grep -rn "Theorem 1/1b territory"` same scope — strikes, disposition records, and
+this addendum only ✓; `grep -rn "Γ-thresholds (feature→layer convention, listed)"` —
+the strike only ✓; scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0
+FAIL (G1 now computed-gated), `cascade_adams_loadbearing.py` 5 PASS 0 FAIL,
+`cascade_local_family.py` 23 PASS 0 FAIL, `cascade_witt_weil.py` 27 PASS 0 FAIL,
+`cascade_finite_places.py` 6 PASS 0 FAIL, `cascade_local_tate.py` 10 PASS 0 FAIL ✓
+(counts from the commands as run).
+
+**Standing state:** layer-question trajectory: WOUNDED 2+4(+1c) → NOT CONVERGED
+1+5(+3c) — severity decreasing, the major purely a sweep-completeness defect with the
+corrected claims themselves confirmed true and well-gated by the reviewer. Round 32
+(convergence test on this sweep, subagent per protocol) gates stability. The
+registered papers-side item (F6) awaits a papers-side round.
 
 ## Caveats
 
