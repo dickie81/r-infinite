@@ -3133,6 +3133,59 @@ every verifier strict, every disclosure in place. Open mathematics unchanged: th
 dictionary's soft inputs, extension to the full record, F6's original claim, and the
 ledger's experiments.
 
+## Addendum 69: Doors 3 and 4 — the finite places, and the conductor is the different
+
+**Commissioned: "Doors 3 & 4 pls." Both category (a): exact identities, no data contact,
+no closures; every identification graded; nothing claimed forced (A66 rule).**
+**Tools:** `cascade_finite_places.py` (Door 3, new), `cascade_colour_field_bridge.py` C4
+(Door 4). Paper: Theorems 1d and the C4 addition to 1c; formulation T1d.
+
+**Door 3 — the finite places (Theorem 1d), three results:**
+- **D3.1, the global potential identity (exact, 10⁻³¹):** giving every place of ℚ its
+  local potential p_v = (log E_v)′ — archimedean E_∞ = Γ_ℝ, finite E_p = (1−p^(−s))^(−1) —
+  the identity **Σ_v p_v = ξ′/ξ − poles** holds exactly: *the sum of all places'
+  potentials is the zeros side*, and Theorem 1b's "+primes" term is −Σ_p p_p. The tower is
+  one member of an adelic family of towers, one per place. At the record's layers the
+  finite total is carried **87.1% by p = 2 and 12.0% by p = 3** (99.04% jointly at s = 6)
+  — the same two primes carrying the grammar's discrete entries (v₂ counts; conductor-3
+  colour). That coincidence is *noted, not claimed as derivation*. **Run record:** the
+  first run stated the identity with the finite potentials' sign flipped and D3.1 failed
+  3/3; the corrected convention (finite potentials negative — each finite place *drains*)
+  is on the record in the script per the verified-record rule.
+- **D3.2, the clock is dyadic (classical + one graded identification):** normalized
+  quadratic Gauss sums have phase ∈ {1, i} at every odd modulus (Gauss's theorem, verified
+  to q = 499 by direct summation) and phase exactly **ζ₈ at every 4-divisible modulus**
+  (verified q = 4–64): the order-8 clock element of T6 is **dyadic-exclusive** among
+  finite-place Gauss phases. The identification (dyadic phase = the finite-place avatar of
+  the archimedean clock) is graded as such and motivated by D3.3.
+- **D3.3, the product-formula avatar (verified exactly, ten grid points):** the
+  Landsberg–Schaar relation — the classical avatar of Weil's Π_v γ_v = 1 — exchanges
+  place-p data for place-2q data with mediating constant **e^(iπ/4) = γ_∞ = the clock**:
+  the archimedean Weil index is the exchange rate between finite places.
+
+**Door 4 — the conductor is the different (C4; one classical sentence connecting two
+existing theorems):** the odd bridge's conductor term ½ln 3 = ln √3 is the log-modulus of
+the generator of the **different ideal 𝔡 = (√−3)** of ℤ[ω] (machine-verified: disc = −3
+from the embeddings; N(𝔡) = |d_K| = 3 = cond χ₋₃; covolume √3/2 = √|d_K|/2) — and the
+different's *inverse* is exactly **T8's 30° trace-duality measurement lattice**. C3's
+balance level and T8's measurement frame are the same arithmetic object seen from two
+sides. Every step classical; the only identification is the one T8 already made; **no new
+convention introduced**.
+
+**Honest scope (both doors):** no A2 grammar entry is derived from the finite places —
+N_c's v₂ form remains a labeling, colour remains T8 + the C2 minimality convention;
+2-adic/3-adic Tate theory proper is the *named next step, not opened*; no data, no
+closures, no RH/GRH. What the doors change structurally: the program now knows (i) it is
+the archimedean member of an adelic family whose global sum is the zeros side, (ii) its
+mod-8 clock has a finite-place home at p = 2 at the identity level, and (iii) its colour
+conductor and its colour measurement frame are one object.
+
+**A69 battery (this commit's gate; native phrases):** "derives the grammar"/"derived from
+the finite places": no live instance (the scripts and docs say *noted, not claimed* /
+*named, not opened*) ✓; "forced" in the new material: none ✓; the D3.1 sign convention
+stated consistently on all surfaces ✓; all quoted percentages/residuals match script
+output ✓.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

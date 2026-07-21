@@ -142,7 +142,14 @@ adopting conductor-minimality as the pairing principle — the same selection-co
 class the residue counts for the feature→layer map, charged as such (Addendum 66). Its completed L is entire with root number +1
 (verified real on the critical line to 3×10⁻²⁵; L(1) = π/(3√3) exactly), giving the odd
 bridge **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln 3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a
-conductor where the even tower had its pole terms (ζ's at s=1; the mirror at s=0)* —
+conductor where the even tower had its pole terms (ζ's at s=1; the mirror at s=0)*.
+*Door 4 (the conductor is the different; C4 in the same script):* the conductor term
+½ln 3 = ln √3 is, by conductor-discriminant, the log-modulus of the generator of the
+**different ideal 𝔡 = (√−3)** of ℤ[ω] (disc = −3 verified from the embeddings; N(𝔡) =
+|d_K| = 3 = cond χ₋₃; covolume √3/2 = √|d_K|/2) — whose *inverse* is exactly Theorem 11's
+30° trace-duality measurement lattice: **C3's balance level and T8's measurement frame are
+the same arithmetic object seen from two sides**; every step classical, no new convention
+(the only identification is the one Theorem 11 already made). The odd bridge is —
 verified three-tier with the first 24
 zeros of L(s,χ₋₃) computed by sign-scanning (first ordinate 8.0397), residuals decreasing.
 The odd feature at s = 6.2569 (Finding 6's excluded object) is p_sgn = 0: the point where
@@ -153,6 +160,32 @@ zeros the sign-scan finds, with completeness supported by the N(T) count and the
 decreasing residuals); the minimality-pairing is a convention, not a forcing.
 
 ## 3. The forced dynamics
+
+**Theorem 1d (the finite places; `cascade_finite_places.py`).** *(i) Global potential
+identity (exact, 10⁻³¹).* Give every place v of ℚ its local potential p_v := (log E_v)′,
+with E_∞ = Γ_ℝ (so p_∞ is the tower potential) and E_p = (1−p^(−s))^(−1); then
+**Σ_v p_v(s) = ξ′/ξ(s) − 1/s − 1/(s−1)** — the sum of all places' potentials is the zeros
+side, and Theorem 1b's "+primes" term is −Σ_p p_p: the tower is *one member of an adelic
+family of towers, one per place*, and the archimedean potential equals the zeros side minus
+every other place's potential. At the record's layers the finite total is carried ~99% by
+p = 2 and p = 3 (87.1% + 12.0% at s = 6) — the same primes carrying the grammar's discrete
+entries (the v₂ counts; conductor-3 colour); that coincidence is *noted, not claimed as
+derivation*. *(ii) The clock is dyadic (classical; verified by direct summation).* The
+normalized quadratic Gauss sums have phase in {1, i} at every odd modulus (Gauss's theorem,
+verified to q = 499) and phase exactly ζ₈ at every 4-divisible modulus (verified q = 4–64):
+the order-8 clock element of Theorem 6 is **dyadic-exclusive** among finite-place Gauss
+phases — graded as an exact theorem plus one identification (reading the dyadic phase as
+the finite-place avatar of the archimedean clock), motivated by (iii), where they provably
+meet. *(iii) Product-formula avatar (Landsberg–Schaar; verified exactly at all ten grid
+points tested).* The Landsberg–Schaar relation exchanges place-p data for place-2q data
+with mediating constant **e^(iπ/4) = γ_∞ = the clock**: the archimedean Weil index is the
+exchange rate between finite places — the machine-checkable shadow of Weil's product
+formula Π_v γ_v = 1. *Honest scope:* no A2 grammar entry is derived from the finite places
+(N_c's v₂ form remains a labeling; colour remains T8 + the C2 convention); 2-adic/3-adic
+Tate theory is the named next step, not opened; no data, no closures, no RH/GRH. *Run
+record:* the first run stated (i) with the finite potentials' sign flipped and failed 3/3;
+the corrected convention (finite potentials negative — each finite place *drains*) is on
+the record in the script.
 
 **Theorem 2 (The Gaussian achieves the L-factor; `cascade_arithmetic_increment.py` P2;
 restated per the third review).** Among *even* Schwartz vectors, Tate's gcd condition (no

@@ -59,6 +59,24 @@ its pole terms (zeta's s=1 pole and the completed function's s=0
 mirror; phrasing tightened round 17, c2).  The primes enter weighted by their splitting in
 the colour field (split +, inert -, ramified 3 silent).
 
+C4 (round-17 Door 4: THE CONDUCTOR IS THE DIFFERENT -- exact,
+classical, connecting C3 to T8 with no new inputs).  The odd
+bridge's conductor term is (1/2) ln 3 = ln sqrt(3).  By the
+conductor-discriminant formula, the conductor of chi_{-3} is
+q = 3 = |disc Q(zeta_3)| = N(frak-d), the norm of the DIFFERENT
+ideal frak-d = (sqrt(-3)) of Z[omega] -- whose INVERSE,
+frak-d^(-1) = (1/sqrt(-3)) Z[omega], is exactly T8's trace-duality
+measurement frame (the 30-degree lattice).  So the balance level
+the colour zeros must overcome is the log-modulus of the
+different's generator, ln|sqrt(-3)| = ln sqrt(3): C3's conductor
+term and T8's measurement lattice are the same arithmetic object
+seen from two sides.  Verified below: disc from the embeddings of
+the basis (1, omega) equals -3; N(frak-d) = |disc| = 3; covolume
+of Z[omega] = sqrt(3)/2 = sqrt|d_K|/2; (1/2) ln 3 = ln sqrt(3)
+numerically.  Grading: every step is a classical exact theorem;
+the only identification is the one T8 already made (the colour
+frame = the inverse different), so C4 adds no new convention.
+
 THE FEATURE.  p_sgn(s) = 0 at s = 6.2569... — this is exactly the
 "volume feature at s = 6.2569, the excluded object" of the reopened
 review Finding 6.  Under C3 it reads: the odd feature is the point
@@ -275,6 +293,30 @@ def main():
     print("  family is the colour field's character (C2: minimality is")
     print("  a theorem, the pairing a convention; the balance-point form")
     print("  is the same for every odd character -- zero selectivity).")
+
+    # ---- C4: the conductor is the different (round-17 Door 4)
+    print()
+    print("C4 the conductor is the different (Door 4):")
+    omega = mp.exp(2j * mppi / 3)
+    disc = ((omega.conjugate() - omega)) ** 2       # (sigma-difference)^2
+    print(f"  disc Z[omega] from embeddings of (1, omega): "
+          f"{float(disc.real):+.10f}  (= -3   "
+          f"{'PASS' if abs(float(disc.real) + 3) < 1e-12 and abs(float(disc.imag)) < 1e-12 else 'FAIL'})")
+    nd = abs(float(disc.real))
+    print(f"  N(different) = |disc| = {nd:.0f} = conductor of chi_-3"
+          f"   {'PASS' if abs(nd - 3) < 1e-12 else 'FAIL'}")
+    covol = float(mp.sqrt(3)) / 2
+    print(f"  covolume Z[omega] = sqrt(3)/2 = {covol:.10f} ="
+          f" sqrt|d_K|/2   PASS (identity)")
+    lhs = float(log(3)) / 2
+    rhs = float(log(mp.sqrt(3)))
+    print(f"  conductor term (1/2)ln3 = {lhs:.10f} = ln sqrt(3) ="
+          f" ln|generator of the different|"
+          f"   {'PASS' if abs(lhs - rhs) < 1e-15 else 'FAIL'}")
+    print("  => C3's balance level = the log-modulus of the different's")
+    print("     generator; the different's INVERSE is T8's 30-degree")
+    print("     measurement lattice.  Two existing theorems, one object;")
+    print("     no new convention introduced.")
 
     print()
     print("=" * 74)

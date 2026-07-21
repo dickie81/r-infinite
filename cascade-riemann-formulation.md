@@ -85,6 +85,17 @@ sign-scan-computed zeros of L(χ₋₃); the odd feature 6.2569 = the conductor 
 No direction of explanation is claimed (the identity is ζ's/L's own bookkeeping — m6). F6
 stays reopened on its original claim; no address derived.
 
+**T1d (The finite places — PROVED at stated strengths; Addendum 69;
+`cascade_finite_places.py`).** (i) Global potential identity (exact): Σ_v p_v = ξ′/ξ −
+poles with p_v = (log E_v)′ per place; T1b's "+primes" = −Σ_p p_p — the tower is one member
+of an adelic family, and p = 2, 3 carry ~99% of the finite total at the record's layers
+(noted, not claimed as derivation). (ii) The order-8 clock element is dyadic-exclusive
+among finite-place Gauss phases (Gauss's theorem verified to q = 499; ζ₈ at 4-divisible
+moduli) — exact theorem + one graded identification. (iii) Landsberg–Schaar verified: the
+archimedean Weil index ζ₈ is the exchange constant between finite places — the product
+formula's machine-checkable avatar. Scope: no grammar entry derived; 2/3-adic Tate theory
+named, not opened; sign-convention failure on the first run kept on the record.
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the
