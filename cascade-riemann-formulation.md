@@ -195,6 +195,17 @@ non-norm discs are forced to ±i — excluded by impossibility, not enumeration)
 ker γ₂ is its graph over H; h_β(1) = +1 = the Hilbert axiom (a,−a)₂ = 1 — the
 round-48 edge case's two mechanisms are one formula.
 
+**T1i (the ramified Tate step — pure phase + the root-number identity;
+`cascade_tate_epsilon.py`, seven gates).** Ramified characters have L-factor 1 —
+the ramified towers are pure phase, all content in ε (shell-vanishing gated);
+**β(a) = ε(η_a) on all eight classes** (orientation fixed by gating the ε product
+formula on four known global root numbers, incl. 1c's χ₋₃), so
+γ₂(q) = γ₂(1)^dim·ε(η_disc)·hasse — the clock's twist is the quadratic
+root-number map; the colour character's global +1 decomposes as
+ε₃(χ₋₃)·ε_∞(sgn) = (+i)(−i) (two-place cancellation), and the odd bridge's
+−½ln 3 is the ε-conductor factor's log-derivative. No entry derived;
+category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the

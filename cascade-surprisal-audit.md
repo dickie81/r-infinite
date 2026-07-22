@@ -5988,6 +5988,33 @@ outright; d_gw conditionally. An honest weakening of the landscape's
 over-determination story, delivered by the program's own machinery. Next hostile
 round on the next substantive paper change.
 
+## Addendum 116: Theorem 1i landed — the ramified Tate step opened; the root-number identity
+
+**Commissioned: "Tap Tate step" — the 1d-named next step, opened. Lead-derived
+and machine-verified in the scratchpad before landing (the β/ε residual ±1
+pattern traced to the classical unramified-twist formula plus orientation; the
+orientation then pinned by gating the ε product formula on four independently
+known global root numbers rather than chosen by fiat). Category (a) throughout;
+Checks 7/8 clean.**
+
+**The theorem:** the ramified side of Tate's local theory is pure phase
+(L-factor 1; shell-vanishing gated), and its phases are the program's:
+**β(a) = ε(η_a) on all eight dyadic square classes** — the clock's disc-twist
+is Tate's quadratic root-number map, so γ₂(q) = γ₂(1)^dim·ε(η_disc)·hasse and
+the local functional equation supplies the clock's twist structure; the colour
+character's analytically-verified global root number +1 decomposes locally as
+ε₃(χ₋₃)·ε_∞(sgn) = (+i)(−i) — a two-place cancellation in the 1f/1g family
+shape; and the odd bridge's −½ln 3 is the ε-conductor factor's log-derivative
+(Door 4's ε-side home). The general Weil-index/ε relation is classical in
+substance; the eight-class identity in the program's stated conventions is
+what the seven gates certify.
+
+**Surfaces:** Theorem 1i in the paper (after the forced-Hasse Remark; net-state
+at 1d's "named next step" scope line); T1i in the formulation; the new verifier
+cascade_tate_epsilon.py (7 gates, 0 FAIL); the footer census extended 27 → 28.
+**Object gates at this commit:** 4/5/35/27/6/10 + tate_epsilon 7/0. Round 54
+(hostile subagent, per protocol) follows this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

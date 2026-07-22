@@ -192,7 +192,8 @@ with mediating constant **e^(iπ/4) = γ_∞ = the clock**: the archimedean Weil
 exchange rate between finite places — the machine-checkable shadow of Weil's product
 formula Π_v γ_v = 1. *Honest scope:* no A2 grammar entry is derived from the finite places
 (N_c's v₂ form remains a labeling; colour remains T8 + the C2 convention); 2-adic/3-adic
-Tate theory is the named next step, not opened; no data, no closures, no RH/GRH. *Run
+Tate theory is the named next step, not opened *(net-state: the unramified half
+was opened by 1e, the ramified half by Theorem 1i — the root-number identity)*; no data, no closures, no RH/GRH. *Run
 record:* the first run stated (i) with the finite potentials' sign flipped and failed 3/3;
 the corrected convention (finite potentials negative — each finite place *drains*) is on
 the record in the script.
@@ -459,6 +460,45 @@ fail together under exactly the χ(−1) = −1 cocycle twists) plus the axiom
 conjunct; **no
 grammar entry derived, no number changes, no closure** (category (a); no data, no
 RH/GRH, no semiclassics).
+
+**Theorem 1i (the ramified Tate step: pure-phase towers and the root-number
+identity; `cascade_tate_epsilon.py`).** *(i) Pure phase.* A ramified character of
+ℚ_p^× has local L-factor 1 — no pole, no Euler factor (classical: Tate); its
+entire functional-equation content is the ε-factor, a normalized Gauss sum. The
+ramified towers are **pure phase**; the unramified tower (1e(i)) is the only
+pole-carrying member of the local family — exhibited in-code by the
+shell-by-shell vanishing of the ramified unit-character sums (dyadic and
+triadic, gate E7). *(ii) The root-number identity — the file's core.* For each
+dyadic square class a, let η_a = (·, a)₂. Then, gated on all eight classes:
+**β(a) = ε(η_a)** — the clock's disc-twist (1f/1g) *is* Tate's quadratic
+root-number map — where ε is the local ε-factor (unit-conductor Gauss sum times
+the classical unramified-twist correction η_a(2)^{a(χ)}, the twist formula
+itself gated on the three η₅-twisted pairs), in the orientation **fixed by the
+ε product formula, not chosen silently**: the finite Gauss orientation pairing
+with the classical ε_∞(odd) = −i is pinned by gating Π_v ε_v = +1 on four
+independently known global root numbers (χ₋₄, χ₈, χ₋₈, and the paper's own
+χ₋₃ from 1c). Equivalently, in the program's standard ψ₂:
+β(a) = η_a(−1)·ε(η_a, ψ₂). Combined with 1g(ii)'s closed form:
+**γ₂(q) = γ₂(1)^dim · ε(η_disc) · hasse(q)** — Tate's local functional equation
+supplies the clock's twist structure (gated: 8 + 64 + battery forms). The
+general Weil-index/ε relation is classical in substance (Weil's metaplectic
+index); the eight-class identity in the program's stated conventions is what
+the gates certify. The round-22 covariance grading applies verbatim: the
+structural statements are convention-free, the specific values
+convention-tied. *(iii) The colour decomposition.* The global root number +1
+of L(s, χ₋₃) — verified analytically at 1c — decomposes locally as
+**ε₃(χ₋₃)·ε_∞(sgn) = (+i)(−i) = +1** (gated): the colour character's sign is a
+two-place cancellation, ramified conductor 3 against the archimedean sgn
+tower — the 1f/1g two-place family shape again, now at the ε level. And the
+odd bridge's conductor term −½ln 3 (1c) is the log-derivative of the
+functional equation's conductor factor 3^{s/2} (gated as the identity it is):
+Door 4's "conductor is the different" has its ε-side home. *Honest scope:*
+**no A2 grammar entry is derived, no number changes, no closure is claimed**
+(category (a); no data, no RH/GRH, no semiclassics — Gauss sums and Tate local
+theory throughout; Check 8: the hypothesis is nowhere an input). The
+identity relocates the clock's twist into one more classical home; it does
+not make the finite places produce a grammar entry, and 1f(iii)'s honest
+negative for N_c stands verbatim.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -959,4 +999,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census: the **27 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorem 1i: the **28 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
