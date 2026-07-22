@@ -6447,6 +6447,46 @@ clean. **Object gates:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0. **Trajectory: 1k
 landed → 60 1M+4+3c (forcer census corrected) → 61 0M+2+3c (recital
 workmanship). Round 62 (convergence test) gates stability.**
 
+## Addendum 127: hostile review round 62 (convergence test, subagent, per protocol) on commit dca9344 — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); a false magnitude descriptor with its root in part0, corrected at source
+
+**The round-61 sweep itself was confirmed clean on all five fixes (the strike
+span verbatim-verified programmatically against c075eaa; the equation correct
+at all three occurrences; every part0 recital re-verified verbatim; the
+two-given conditionality uniform; all seven K-gates real, independently
+reproduced at 40 dps). The one minor is a defect neither prior round caught,
+with its root outside the reviewed commits: a false order-of-magnitude
+descriptor imported from part0's own text.**
+
+- **F62-1 (minor):** "the inf labeling gives 1.02×10⁻¹²¹, **two orders** below
+  observation" — false: 1.10×10⁻¹²⁰ / 1.0217×10⁻¹²¹ = 10.77, **one** order
+  (log₁₀ = 1.03). Root cause: part0.tex:1237's own sentence (*"two orders of
+  magnitude below observation"*) — false in the source; the paper repeated it
+  unquoted in its own voice with "(gated, K7)" attached though K7 gates only
+  the value, and the script propagated it. Lead-verified by direct computation
+  (Check 3) and **swept on all three carrying surfaces per the marking rule**:
+  part0.tex corrected at source with an explicit retraction parenthetical
+  ("An earlier version of this sentence said 'two orders of magnitude'; the
+  ratio … is one order — corrected, external review round 62"); the paper and
+  the K7 print now say "an order of magnitude (≈10.8×)" with the source-side
+  slip disclosed. The conclusion is unchanged (a 10.8× miss is decisively
+  excluded at 0.1% observational precision — the sup's data-corroboration
+  status is unaffected). Cross-paper validator re-run: clean on all 12 tex
+  files.
+- **F62-2 (cosmetic):** the strike annotation's descriptor undercounted the
+  ellipsis (it elides the sentence boundary *plus* the second sentence's head
+  clause, which survives as live text below). **Corrected** in the annotation.
+
+**Held:** dca9344's diff exactly the five round-61 fixes, nothing else moved;
+the B₀/B₃ definitions verified against part0's Growth/Oblivion regimes
+(strict/non-strict immaterial on the lattice, covered by the gated
+convention-free claim); "Evaluation" confirmed as a real part0 theorem name;
+the last-digit disclosure accurate (exact bilinear 1.0989453895×10⁻¹²⁰);
+sup/inf/bands/margins/crossings all independently recomputed; no live
+one-given phrasing anywhere; Checks 7/8 clean. **Object gates:**
+4/5/35/27/6/10 + 7/0 + 6/0 + 7/0; validator clean. **Trajectory: 1k landed →
+60 1M+4+3c → 61 0M+2+3c → 62 0M+1+2c (a part0-rooted magnitude slip). Round
+63 (convergence test) gates stability.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -244,8 +244,9 @@ def main():
     ok7 &= (max(B0), min(B2), min(B3)) == (6, 20, 218)  # inf side lattice-exact
     print(f"   sup = {sup} -> {vals[sup]:.4e} (part0's Evaluation states"
           f" 1.0990e-120; last-digit rounding);")
-    print(f"   inf = {inf} -> {vals[inf]:.4e} (part0: 1.02e-121, two")
-    print(f"   orders below observation); inf sides = (max B0, min B2,")
+    print(f"   inf = {inf} -> {vals[inf]:.4e} (part0: 1.02e-121; an order")
+    print(f"   of magnitude, ~10.8x, below observation -- part0's 'two")
+    print(f"   orders' slip corrected round 62); inf sides = (max B0, min B2,")
     print(f"   min B3) -- equally lattice-exact under the same pairing   "
           f"{'PASS' if ok7 else 'FAIL'}")
     print("   (the sup is part0's definition: data-corroborated -- 'the")

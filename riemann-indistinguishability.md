@@ -611,8 +611,10 @@ boundary the two principles are distinct and agree numerically (Ω₇ < Ω₆, m
 gated). **The sup itself is a second given** (round-60 F1): Part 0 grades it as
 data-corroborated — *"The supremum (7,19,217) is the only labelling that reproduces the
 observed"* ρ_Λ — with its derivation open — *"A principled derivation of max from the
-cascade's own axioms… remains open"* — and the inf labeling gives 1.02×10⁻¹²¹, two
-orders below observation (gated, K7). *(iii) The member re-read — the
+cascade's own axioms… remains open"* — and the inf labeling gives 1.02×10⁻¹²¹ — an
+order of magnitude (≈10.8×) below observation (the value gated, K7; Part 0's original
+*"two orders of magnitude"* descriptor was a source-side slip, corrected there —
+round-62 F1). *(iii) The member re-read — the
 round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
 rounding frame and empty in the lattice frame: **given the site-E pairing** — the
 anchored convention, which **persists in the residue** (under the alternative pairing
@@ -622,7 +624,8 @@ sides**, the feature→layer assignment is entailed. ~~lattice-entailed with zer
 freedom […] its content is absorbed into the pairing member — the assignment was never
 an independent choice; it is the pairing choice, seen once~~ **[struck round 60 (F1,
 MAJOR; span rendered verbatim from the first writing per round-61 F1, the bracketed
-ellipsis marking the elided sentence boundary): under the same pairing the inf
+ellipsis marking the elided sentence boundary and the second sentence's head clause,
+which survives as live text below): under the same pairing the inf
 labeling (6, 20, 218) is equally lattice-exact — the boundary-side selection is the 2³
 freedom Part 0's variational (sup) characterisation adjudicates, a second given,
 data-corroborated with its derivation open by Part 0's own grading]**. The class's

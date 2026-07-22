@@ -1289,3 +1289,18 @@ are workmanship: the strike span itself and one docstring equation.
 | F61-3/4/5 (cosmetics) — B₀/B₃ undefined on paper; formulation's three-labels-to-four-set compression; sup-value juxtaposition vs part0's stated last digit | **Accepted.** All fixed; part0's own 1.0990-vs-1.0989454 misround recorded as an out-of-scope observation | paper + formulation + script |
 
 **Trajectory: 1k landed → 60 1M+4+3c → 61 0M+2+3c. Round 62 gates stability of Theorem 1k.**
+
+# Round 62: convergence test on the round-61 sweep (subagent, per protocol) — NOT CONVERGED (0+1+2c); a part0-rooted magnitude slip corrected at source
+
+The round-61 sweep confirmed clean on all five fixes (strike span verbatim
+against c075eaa, programmatically; equation correct; recitals verbatim;
+two-given conditionality uniform; all gates independently reproduced). The
+minor: "two orders below observation" for the inf labeling — the ratio is
+10.8×, one order — imported unquoted from part0's own false sentence.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F62-1 (minor) — "two orders below observation" false (ratio 10.8× = one order); root in part0.tex:1237 | **Accepted.** Corrected on all three carrying surfaces per the marking rule: part0 at source with explicit retraction; paper and K7 print now "an order of magnitude (≈10.8×)" with the source slip disclosed. Conclusion unchanged; validator clean | part0 + paper + script |
+| F62-2 (cosmetic) — strike annotation's ellipsis descriptor undercounted the elision | **Accepted.** Descriptor corrected | paper |
+
+**Trajectory: 1k landed → 60 1M+4+3c → 61 0M+2+3c → 62 0M+1+2c. Round 63 gates stability of Theorem 1k.**
