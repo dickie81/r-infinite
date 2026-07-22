@@ -96,14 +96,27 @@ verified it per square class; here per form), including an
 return 1 -- the mod-8 wrap seen globally).
 
 L7 (ROUND 44 -- THE EXHAUSTIVE QUOTIENT + WHERE THE OPEN QUESTION
-LIVES; verified).  (a) Directness: gamma_2(m<1>) = zeta_8^(-m) != 1
-for m = 1..7, so <<1>> cap ker = 0; with |W(Q_2)| = 32 = 8 x 4
-(Lam, cited) this forces W(Q_2) = <<1>> (+) ker gamma_2 as a DIRECT
-sum.  (b) The full 32-class character table: on explicit diagonal
-representatives m<1> + e1 k1 + e2 k2 (gamma multiplicative on
-orthogonal sums), gamma_2 = zeta_8^(-m) on the <1>-coordinate,
-kernel-blind in every mu_8-coset -- the quotient theorem made
-exhaustive rather than generated.  (c) I^2-TRANSVERSALITY:
+LIVES; verified; round-45 corrections applied).  NOTATION (round-45
+F2: the first writing used <<1>> for the cyclic span, colliding with
+the Pfister bracket): the span is written Z<1>; the Pfister bracket
+is <<a,b>> := <1,-a> x <1,-b>, so <<-1,-1>> = <1,1,1,1>.  (a)
+Directness -- the full forcer chain (round-45 F1: ord(<1>) = 8 was
+leaned on without being named; without it the stated premises admit
+a Z/16 (+) Z/2 counter-model passing every gate): ord(<1>) = 8
+(1f; now ALSO gated: 8<1> = 4H by (dim, disc, Hasse)), so the span
+Z<1> has exactly 8 elements; gamma_2(m<1>) = zeta_8^(-m) != 1 for
+m = 1..7 puts none of the 7 nonzero span elements in the kernel,
+so Z<1> cap ker = 0; with |W(Q_2)| = 32 = 8 x 4 (Lam, cited) this
+forces W(Q_2) = Z<1> (+) ker gamma_2 as a DIRECT sum.  (b) The
+full 32-class character table: on explicit diagonal representatives
+m<1> + e1 k1 + e2 k2 (gamma multiplicative on orthogonal sums),
+gamma_2 = zeta_8^(-m) on the <1>-coordinate, kernel-blind in every
+mu_8-coset -- the quotient theorem made exhaustive rather than
+generated.  SCOPE (round-45 F5): L7b gates the gamma-VALUES; the
+32 representatives' pairwise distinctness as Witt classes follows
+from the (a) chain plus L4/L7d, not from a separate gate, and L7b
+cannot fail while L4 passes -- it is a consistency exhibit of the
+table, not an independent failure mode.  (c) I^2-TRANSVERSALITY:
 <1,1,1,1> = <<-1,-1>> generates I^2 (I^3 = 0 and |I^2| =
 |Br_2(Q_2)| = 2, classical, cited) and gamma_2 of it is -1 != 1,
 so gamma_2 does NOT factor through W/I^2 and ker gamma_2 cap I^2
@@ -413,9 +426,20 @@ def main():
     print()
     print("L7 the 32-class character table + the I^2 transversal (round 44):")
     z8i = gamma_v(1, 2)                       # zeta_8^{-1}
-    oka = all(abs(z8i ** m - 1) > 0.5 for m in range(1, 8)) and 8 * 4 == 32
-    print(f"   L7a directness: gamma(m<1>) != 1 for m = 1..7, and"
-          f" 8 x 4 = 32 = |W| (Lam) => W = <<1>> (+) ker   "
+    # ord(<1>) = 8 gated in-code (round-45 F1: the first writing leaned
+    # on this premise without naming or gating it -- without ord-8 the
+    # chain admits a Z/16 (+) Z/2 counter-model passing every gate):
+    # 8<1> = 4H in W(Q_2) by the (dim, disc, Hasse) classification of
+    # forms over local fields (dim >= 3: classical, cited at L4) --
+    # equal dims (8), equal disc classes, equal Hasse invariants.
+    f8, h4 = [1] * 8, [1, -1] * 4
+    ok8 = (next(c for c in d2 if same_class(disc(f8), c))
+           == next(c for c in d2 if same_class(disc(h4), c)))
+    ok8 &= hasse(f8, 2) == hasse(h4, 2)
+    oka = ok8 and all(abs(z8i ** m - 1) > 0.5 for m in range(1, 8))
+    print(f"   L7a ord(<1>) = 8 in-code (8<1> = 4H by (dim, disc,"
+          f" Hasse)) + gamma(m<1>) != 1, m = 1..7 => span cap ker = 0;"
+          f" with |W| = 32 (Lam): W = Z<1> (+) ker   "
           f"{'PASS' if oka else 'FAIL'}")
     ks = [(a, b) for _, _, a, b in kernel]    # the 3 census kernel reps
     okb7 = True
@@ -477,8 +501,15 @@ def split_abs(x):
     while x % 2 == 0:
         x //= 2
         e += 1
-    return e, x % 8   # (round-43: collapsed a dead two-branch form; only
-                      # positive inputs occur at the call sites)
+    return e, x % 8   # (round-43: collapsed a dead two-branch form.
+                      # round-45 F4: since round 44, dpm_class feeds
+                      # NEGATIVE d values here; Python's floored %
+                      # returns the correct non-negative odd-part
+                      # residue for negatives (-3 % 8 = 5), so the
+                      # collapsed form remains correct -- the
+                      # round-43 "only positive inputs" premise is
+                      # superseded, recorded, and the correctness now
+                      # rests on floored-mod semantics, stated here)
 
 
 if __name__ == "__main__":

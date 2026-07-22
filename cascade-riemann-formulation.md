@@ -164,7 +164,9 @@ p** — the clock places are exactly the dimension-sensitive places. (iii) Kerne
 anatomy: Witt census re-derived (1+8+14+8+1 = 32); **ker γ₂ = (ℤ/2)² = the three dim-2
 anisotropic classes (disc, Hasse) = (3,+1), (6,−1), (14,+1), each order 2, plus 0** —
 the clock-invisible classes; their grammar meaning OPEN, none claimed *(narrowed
-round 44, gates L7a–d: the quotient made exhaustive — W(ℚ₂) = ⟨⟨1⟩⟩ ⊕ ker γ₂ direct,
+round 44, gates L7a–d; round-45: ord(⟨1⟩) = 8 named in the chain and gated, span
+notation ℤ⟨1⟩ replacing the Pfister-colliding ⟨⟨1⟩⟩: the quotient made exhaustive —
+W(ℚ₂) = ℤ⟨1⟩ ⊕ ker γ₂ direct,
 full 32-class character table — and the invisible (ℤ/2)² shown transverse to the
 fundamental-ideal filtration (γ(⟨⟨−1,−1⟩⟩) = −1 on the I² generator) and
 signed-disc-faithful (d± injects the kernel into I/I²): disc-level data, question

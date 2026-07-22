@@ -342,12 +342,23 @@ W(ℚ₂) ≅ ℤ/8 ⊕ (ℤ/2)² with the ℤ/8 the ⟨1⟩-span (1f) and the (
 clock-invisible classes**. *Grammar honesty:* whether the two clock-invisible ℤ/2's
 (disc-type and Hasse-type data) carry any grammar meaning is **open — none claimed**;
 this door was opened to expose that question precisely. *Narrowed (round 44; gates
-L7a–d):* the question's home is now located. **The quotient is exhaustive** —
-γ₂(m⟨1⟩) = ζ₈⁻ᵐ ≠ 1 for m = 1..7 gives ⟨⟨1⟩⟩ ∩ ker = 0, and 8·4 = 32 = |W(ℚ₂)|
-(Lam) forces the direct sum W(ℚ₂) = ⟨⟨1⟩⟩ ⊕ ker γ₂, with the full 32-class character
-table γ₂ = ζ₈⁻ᵐ on the ⟨1⟩-coordinate verified on explicit diagonal representatives,
-kernel-blind in every μ₈-coset. **And the invisible (ℤ/2)² is transverse to the
-fundamental-ideal filtration and discriminant-faithful**: ⟨1,1,1,1⟩ = ⟨⟨−1,−1⟩⟩
+L7a–d; round-45 corrections in place):* the question's home is now located. **The
+quotient is exhaustive** — with **ord(⟨1⟩) = 8** (1f's "additive order 8 =
+2·level(ℚ₂)", now also gated in-code: 8⟨1⟩ = 4H by the (dim, disc, Hasse)
+classification) the span ℤ⟨1⟩ has exactly eight elements; γ₂(m⟨1⟩) = ζ₈⁻ᵐ ≠ 1 for
+m = 1..7 puts none of the seven nonzero span elements in the kernel, so
+ℤ⟨1⟩ ∩ ker = 0, and 8·4 = 32 = |W(ℚ₂)| (Lam) forces the direct sum
+W(ℚ₂) = ℤ⟨1⟩ ⊕ ker γ₂ *(round-45 F1: the first writing omitted the ord-8 premise
+from the forcer chain — without it the stated premises admit a ℤ/16 ⊕ ℤ/2
+counter-model passing every gate as written; the premise was already established at
+1f and is now named and gated. F2: the first writing's span notation ⟨⟨1⟩⟩ collided
+with the Pfister bracket ⟨⟨a,b⟩⟩ := ⟨1,−a⟩ ⊗ ⟨1,−b⟩ used two sentences later;
+replaced by ℤ⟨1⟩)*, with the full 32-class character table γ₂ = ζ₈⁻ᵐ on the
+⟨1⟩-coordinate verified on explicit diagonal representatives — the γ-values gated;
+the representatives' pairwise distinctness follows from the span–kernel chain, not
+a separate gate (round-45 F5 scope note) — kernel-blind in every μ₈-coset. **And
+the invisible (ℤ/2)² is transverse to the fundamental-ideal filtration and
+discriminant-faithful**: ⟨1,1,1,1⟩ = ⟨⟨−1,−1⟩⟩ (the Pfister convention above)
 generates I² (I³ = 0 and |I²| = |Br₂(ℚ₂)| = 2, classical), and its γ is −1 ≠ 1 — so
 γ₂ does not factor through W/I² and ker γ₂ ∩ I² = 0; by the signed discriminant
 d± = (−1)^(n(n−1)/2)·det (the Witt-invariant disc) the four kernel classes carry
@@ -863,4 +874,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (complete census of the scripts cited in place — 31 scripts, refreshed round 44; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`, `cascade_neutrino_closure.py`, `cascade_E_fit_audit.py`, `cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census: the **27 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

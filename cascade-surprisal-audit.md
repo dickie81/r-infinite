@@ -5574,6 +5574,53 @@ local_family **27/0** (L7 added), witt_weil 27/0, finite_places 6/0, local_tate 
 (PASS/FAIL); formulation_kernel worst residual 6.44×10⁻¹⁴ within the quoted bound.
 The formulation's count synced (23 → 27, marker carried).
 
+## Addendum 104: hostile review round 45 (subagent, per protocol) on commit 5752552 — the round-44 change; NOT CONVERGED (0 majors, 4 minors, 1 cosmetic); all swept
+
+**Commissioned per the amended protocol (substantive paper change). Every finding
+verified directly by the lead (Check 3: the ℤ/16 ⊕ ℤ/2 counter-model machine-checked
+— kernel (ℤ/2)², all stated premises hold, directness fails; the body census
+re-grepped at 27 with the four record verifiers at zero body citations; the notation
+collision, the stale comment, and the vacuous conjunct read in the lead's own text
+and code).**
+
+**The mathematics held under independent attack** — the reviewer reproduced, with
+separate code and hand derivations: I³(ℚ₂) = 0 and |I²| = |Br₂| = 2; the anisotropy
+and I²-generation of ⟨1,1,1,1⟩; the Weil index's ⊥-multiplicativity as theorem;
+d±'s Witt-invariance (the sign increment 2n+1 odd for every n); the kernel census
+and d± classes; k₁+k₂ = k₃ by two routes; the dichotomy leg by leg; the Adams 1962
+quote verbatim from the Annals PDF with b = v₂ confirmed as the right gloss; the
+residue-ordinal recount (sixth/seventh exactly as reworded); the §8/§9 rewordings
+against their facts; the count sync; Checks 7/8 on all new material.
+
+**Findings, all accepted and swept this round:**
+
+- **F45-1 (minor):** the L7a forcer chain omitted ord(⟨1⟩) = 8 — without it the
+  stated premises admit a ℤ/16 ⊕ ℤ/2 counter-model passing every gate as written
+  (machine-verified by the lead). The conclusion was true (the premise stands at 1f);
+  the chain was incomplete. Fixed on all three surfaces, and the premise is now
+  **gated**: 8⟨1⟩ = 4H by the (dim, disc, Hasse) classification, in L7a.
+- **F45-2 (minor):** ⟨⟨1⟩⟩ used as cyclic span two sentences from ⟨⟨−1,−1⟩⟩ as
+  Pfister bracket — under the Pfister reading the displayed direct sum is false.
+  Span renamed ℤ⟨1⟩ throughout; the Pfister convention ⟨⟨a,b⟩⟩ := ⟨1,−a⟩ ⊗ ⟨1,−b⟩
+  declared inline (convention-dependence noted: some references use ⟨1,+a⟩ factors).
+- **F45-3 (minor):** the round-44 footer census was self-referential — "31 scripts
+  cited in place" counted the prior footer's own four record-verifier names; the
+  body cites 27. Footer reworded: 27 cited in place + the four §8-record verifiers
+  marked °. The 5752552 commit message's "all 31 cited scripts" inherits the error —
+  immutable; recorded here per the A89-m5 precedent.
+- **F45-4 (minor):** the round-43 split_abs comment ("only positive inputs occur")
+  false since round 44 — dpm_class feeds negative signed discriminants; correctness
+  rests on Python's floored-mod semantics. Comment corrected to state exactly that.
+- **F45-5 (cosmetic):** L7a's hardcoded 8·4 = 32 conjunct (dropped from the boolean)
+  and L7b's no-independent-failure-mode status (it cannot fail while L4 passes) —
+  scope note added to the docstring and the paper: L7b gates the γ-values;
+  distinctness rides on the (a) chain plus L4/L7d.
+
+**Object gates at this commit:** layer_selection 4/0, adams_loadbearing 5/0,
+local_family 27/0 (L7a strengthened, count unchanged), witt_weil 27/0,
+finite_places 6/0, local_tate 10/0. Round 46 (convergence test on this sweep)
+gates stability of the round-44/45 surfaces.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

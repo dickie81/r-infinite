@@ -1015,3 +1015,22 @@ era; future tables record substantive rounds only.
 | O-E — auditable footer census | **Implemented** (= D1 fix) |
 
 **Round 45 (hostile subagent, per the amended protocol) reviews this commit; stability of the changed surfaces gates on it.**
+
+# Round 45: hostile review of the round-44 change (subagent, per protocol) — NOT CONVERGED (0+4+1c); the L7 mathematics held, the write-up's chain did not
+
+The mathematics survived independent attack in full — every classical input, every
+computation, the Adams quote, the dichotomy, the rewordings. The defects: the
+direct-sum forcer chain leaned on ord(⟨1⟩) = 8 without naming it (a ℤ/16 ⊕ ℤ/2
+counter-model passes every stated premise and gate), a span/Pfister notation
+collision, a self-referential footer census (27 body-cited, not 31), a stale code
+comment, and one vacuous gate conjunct.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F45-1 (minor) — ord(⟨1⟩) = 8 uncited in the L7a chain; counter-model passes all gates | **Accepted.** Premise named on all three surfaces AND gated (8⟨1⟩ = 4H by (dim, disc, Hasse)) | paper + formulation + script |
+| F45-2 (minor) — ⟨⟨1⟩⟩ span vs Pfister bracket collision | **Accepted.** Span → ℤ⟨1⟩; Pfister convention declared | paper + formulation + script |
+| F45-3 (minor) — footer census self-referential (27 cited in place, not 31); 5752552 message inherits (immutable, recorded) | **Accepted.** Footer reworded, four record verifiers marked ° | paper footer + A104 record |
+| F45-4 (minor) — split_abs comment's "only positive inputs" false since round 44 | **Accepted.** Comment states the floored-mod dependence | script |
+| F45-5 (cosmetic) — hardcoded conjunct; L7b cannot fail while L4 passes; distinctness ungated | **Accepted.** Conjunct dropped, scope notes added | script + paper |
+
+**Trajectory: round 44 (lead-direct) → round 45 0+4+1c. Round 46 gates stability of the round-44/45 surfaces.**
