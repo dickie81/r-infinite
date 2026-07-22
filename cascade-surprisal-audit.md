@@ -4929,9 +4929,10 @@ scripts at their recorded counts; the working tree clean at the reviewed commit.
 **A95 battery (this commit's gate; the count-battery clause applied — greps the
 counts themselves, run after all appends):** `grep -rn "5 cosmetics|five cosmetics"
 -E` over both record files *(round-37 F2: this gate did not implement its own clause —
-it dropped the "+5c" form the clause names nine lines above and is line-based against
+it dropped the "+5c" form the clause names ~~nine~~ **[round-38 F3: 24]** lines above and is line-based against
 the wrap clause; the clause-conformant re-run (+5c included, wrap-aware) adds the
-annotated Round-34 header hit and one wrapped history quote, both properly marked —
+annotated Round-34 header hit and one wrapped history quote, ~~both properly marked~~
+**[round-38 F5: one marked; the wrap is accurate history needing none]** —
 no false record stood behind the gap, an instrument defect only)* — every hit is a
 strike, an annotation, a history quote, or this addendum ✓ (the corrected A93 header
 now reads 6 with its marker);
@@ -4967,9 +4968,11 @@ The fifth consecutive round of held corrections.**
   installed the count-battery clause committed a false hit-census in the same
   battery block. Struck.
 - **F2 (minor):** the count-battery clause's first application did not implement the
-  clause: the gate dropped the "+5c" form named in its own text nine lines above and
+  clause: the gate dropped the "+5c" form named in its own text ~~nine~~ **[round-38
+  F3: 24 — the "nine" was imported from round-36 F1's correct figure]** lines above and
   ran line-based against the wrap clause. No false record stood behind the gap (the
-  two missed instances are properly marked), an instrument defect only. Annotated;
+  two missed instances: ~~properly marked~~ **[round-38 F5: one marked, one accurate
+  history needing no marker]**), an instrument defect only. Annotated;
   the clause-conformant re-run recorded.
 - **F3 (cosmetic):** two round-36 surfaces dropped "count-carrying" mid-quote with no
   omission marker — the class round 36 itself charged as F4. Both marked.
@@ -4988,24 +4991,99 @@ pasted, then re-checked after append):**
 
 *T1 — `grep -rn "five companion" --include='*.md' .` (pre-A96 state), 4 hits:*
 response:835 [table row]; audit:4440 [strike]; audit:4909 [A95 F2 bullet —
-disposition]; audit:4938 [the round-37 F1 strike]. Post-append: plus this addendum's
-own occurrences [self-referential]. Zero live.
+disposition]; audit:4938 [the round-37 F1 strike]. ~~Post-append: plus this addendum's
+own occurrences [self-referential]. Zero live.~~ **[struck round 38 (F2): the prose
+delta omitted the Round-37 table's F1 row — the very category round-37 F1 named, one
+round later. Superseded by A97's fully post-append transcript]**
 
 *T2 — `grep -rnE "5 cosmetics|five cosmetics|\+5c"` over both record files
 (clause-conformant: +5c included), 9 line-hits + 1 wrap-hit:* audit:4836 [A94 F3
 history]; audit:4841, 4900, 4906 [A95 F1/clause text]; audit:4930, 4932, 4933 [the
 F2-annotated gate]; response:792 [Round-34 header — carries its round-35 marker];
 response:820 [Round-35 F3 row — history]; response:829–830 [wrapped history quote,
-wrap-aware search only]. Zero live. Post-append: plus this transcript
-[self-referential]. Zero live.
+wrap-aware search only]. Zero live. ~~Post-append: plus this transcript
+[self-referential]. Zero live.~~ **[struck round 38 (F1): the prose delta covered two
+of four post-append hits — it omitted A96's own F2 bullet and the Round-37 table's
+F2 row. Superseded by A97's fully post-append transcript]**
 
 *T3 — scripts:* layer_selection 4/0, adams_loadbearing 5/0, local_family 23/0,
 witt_weil 27/0, finite_places 6/0, local_tate 10/0 (PASS/FAIL).
 
 **Standing state:** trajectory … → 1+2(+1c) → 1+1(+2c) → 0+2(+2c). Zero majors for
-the first time since round 33; the defect mass confined to instrument-block
+the first time since round ~~33~~ **[round-38 F4: 34 — rounds 32–34 were all
+zero-major per their own headers]**; the defect mass confined to instrument-block
 self-description; the transcript clause removes the paraphrase layer it lived in.
 Round 38 gates stability.
+
+## Addendum 97: hostile review round 38 — convergence test on the round-37 sweep; NOT CONVERGED (0 majors, 4 minors, 2 cosmetics); the postscript was still prose
+
+**Commissioned: "proceed" (round 38) — subagent per protocol on commit 9b99e55; every
+finding verified directly by the lead (Check 3: both transcripts' commands re-run at
+HEAD and the deltas enumerated; the line-distances recomputed at both commits; the
+round-32–34 headers re-read for the zero-major census; the wrap hit re-inspected).**
+
+**Verdict: NOT CONVERGED — zero majors, four minors, two cosmetics. The mechanical
+sweep was again clean (sixth consecutive round of held corrections: strike verbatim,
+pre-append transcript pastes exact to the line number, markers correctly placed,
+both-scope censuses holding, scripts matching). The findings are the residue of the
+one prose sentence each transcript still carried:**
+
+- **F1/F2 (minors — the postscripts):** both transcripts' "post-append" deltas were
+  prose, and both drifted — T2's covered two of four actual post-append hits
+  (omitting A96's own F2 bullet and the Round-37 table's F2 row), T1's omitted the
+  Round-37 table's F1 row — the very table-row category round-37 F1 had named, one
+  round later. Both struck; **the transcript clause is completed: the transcript is
+  captured after ALL appends including the response table, with no prose delta —
+  what the command prints is what the record shows.** A97's battery below is the
+  first fully post-append transcript.
+- **F3 (minor):** "nine lines above" on two surfaces — the true distance is 24; the
+  figure was imported from round-36 F1's correct "nine." Both struck.
+- **F4 (minor):** "zero majors for the first time since round 33" — rounds 32–34
+  were all zero-major; the most recent prior is 34. Struck.
+- **F5 (cosmetic):** "both properly marked" — one was marked; the other is accurate
+  history needing none. Reworded at three surfaces.
+- **F6 (cosmetic):** A96 carried no Checked-and-held block (the only addendum since
+  A90 without one; its held content lived in the verdict paragraph). Format gap
+  noted here; this addendum restores the block.
+
+**Checked and held (census-free; lead-spot-verified against the reviewer's shown
+work):** the round-37 strike verbatim against the pre-image; the F2 annotation's
+original battery words preserved exactly around the insertion; both "count-carrying"
+omission markers at the exact drop points with the two full-quote surfaces owing
+none; the F4 both-scope censuses exact (audit-scope holding; both-files adding
+exactly the Round-35 F2 disposition row); the pre-append T1/T2 pastes exact at every
+line number with correct classifications and no wrap-only hit beyond the known one;
+the verdict-census machine-check consistent A89–A96 with the sole historical
+mismatch struck; the Round-37 table item-for-item with A96; the residual sweeps
+clean (zero live retracted content, tex and py included); the adjudication chain
+and papers-side registrations intact and unedited; the trajectory and
+held-corrections streak lines true.
+
+**A97 battery (fully post-append transcripts — commands run after every append of
+this round, outputs pasted verbatim, one-word classifications):**
+
+*T1 — `grep -rn "five companion" --include='*.md' .` — 7 hits + this command line:*
+response:835 [Round-36 table F2 row]; response:850 [Round-37 table F1 row];
+audit:4440 [A89 strike]; audit:4909 [A95 F2 bullet]; audit:4939 [round-37 F1
+strike]; audit:4966 [A96 F1 bullet]; audit:4992 [A96 T1 transcript]; plus this
+transcript's own command line [self-referential, by construction the only occurrence
+in A97]. Zero live.
+
+*T2 — `grep -rnE "5 cosmetics|five cosmetics|\+5c"` over both record files — 13
+line-hits + 1 wrap-hit + this command line:* audit:4836 [A94 F3 history]; 4841,
+4900 [A95 F1 narrative]; 4906 [the clause]; 4930 [the gate]; 4932, 4933 [round-37/38
+annotations]; 4971 [A96 F2 bullet]; 4999, 5000 [A96 T2 transcript + strike];
+response:792 [Round-34 header, marked]; 820 [Round-35 F3 row]; 851 [Round-37 F2
+row]; response:829–830 [wrapped history, wrap-aware search only]; plus this
+transcript's own command line [self-referential]. Zero live.
+
+*T3 — scripts:* layer_selection 4/0, adams_loadbearing 5/0, local_family 23/0,
+witt_weil 27/0, finite_places 6/0, local_tate 10/0 (PASS/FAIL).
+
+**Standing state:** trajectory … → 1+1(+2c) → 0+2(+2c) → 0+4(+2c). Six consecutive
+rounds of held corrections; zero majors for three consecutive rounds; every defect
+this round arose from prose describing a transcript's future, now abolished. Round
+39 gates stability.
 
 ## Caveats
 

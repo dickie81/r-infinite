@@ -848,7 +848,7 @@ corrections.
 | Finding | Disposition | Sweep |
 |---|---|---|
 | F1 (minor) — A95's "five companion" census omitted the Round-36 table row from its hit list (a false hit-census inside the round that installed the count-battery clause) | **Accepted.** Struck | A95 |
-| F2 (minor) — the count-battery gate did not implement its own clause (+5c dropped; line-based against the wrap clause); no false record behind it — both missed instances properly marked | **Accepted.** Annotated; clause-conformant re-run recorded | A95 |
+| F2 (minor) — the count-battery gate did not implement its own clause (+5c dropped; line-based against the wrap clause); no false record behind it — ~~both missed instances properly marked~~ **[round-38 F5: one marked, one history]** | **Accepted.** Annotated; clause-conformant re-run recorded | A95 |
 | F3 (cosmetic) — two surfaces dropped "count-carrying" mid-quote without markers | **Accepted.** Both marked | A93 header note + Round-36 row |
 | F4 (cosmetic) — A94's fourteen-battery command named no file scope | **Accepted.** Annotated with both scopes' censuses | A94 |
 
@@ -856,3 +856,20 @@ corrections.
 hit list + per-hit classification; prose may introduce a transcript, not replace one.
 
 **Trajectory: … → 1+1(+2c) → 0+2(+2c). Round 38 gates stability.**
+
+# Round 38: convergence test on the round-37 sweep (subagent, per protocol) — NOT CONVERGED (0+4+2c); the postscript was still prose
+
+The mechanical sweep was clean for the sixth consecutive round (pre-append transcript
+pastes exact to the line number). The findings are the residue of the one prose
+sentence each transcript still carried — its "post-append" delta — plus two imported
+figures.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1/F2 (minors) — both transcripts' post-append postscripts were prose and drifted: T2 covered two of four actual deltas, T1 omitted the Round-37 table's F1 row (the category round-37 F1 had just named) | **Accepted.** Both struck; the transcript clause completed — transcripts are captured after ALL appends, no prose delta | A96 ×2 |
+| F3 (minor) — "nine lines above" on two surfaces; the true distance is 24 (the figure imported from round-36 F1's correct "nine") | **Accepted.** Both struck | A95 + A96 |
+| F4 (minor) — "zero majors for the first time since round 33"; rounds 32–34 were all zero-major | **Accepted.** Struck (34) | A96 |
+| F5 (cosmetic) — "both properly marked": one marked, one accurate history needing none | **Accepted.** Reworded at three surfaces | A95 + A96 + Round-37 row |
+| F6 (cosmetic) — A96 carried no Checked-and-held block | **Accepted.** Noted; A97 restores the block | A97 |
+
+**Trajectory: … → 0+2(+2c) → 0+4(+2c). Round 39 gates stability.**
