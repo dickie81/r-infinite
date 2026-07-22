@@ -5888,6 +5888,55 @@ and fixed in passing), now conformant, asserts unchanged and passing. CI
 validator clean across all 12 tex files. Round 51 (hostile subagent, per
 protocol — a substantive change to a trigger surface) follows this commit.
 
+## Addendum 113: hostile review round 51 (subagent, per protocol) on commit be22833 — the registrations round; NOT CONVERGED (1 MAJOR, 4 minors, 3 cosmetics); all swept
+
+**The first major since round 30, and it is against the lead's own adjudication.
+Every finding verified directly (Check 3: part4b:3508 read in full — headed "now
+resolved as a Lie-algebraic forced consistency"; 3607's pre-existing "Two
+independent cascade derivations" read; the G₂ arithmetic re-derived — G₂ = Aut(𝕆)
+fixes 1, acts on Im 𝕆, d₀ = dim S⁶ + 1 = dim Im 𝕆 = dim𝕆 − 1, literally the
+merged route's other half; cascade_d0_rho8_identity.py run clean; F2/F4/F5
+verbatim).**
+
+- **F51-1 (MAJOR):** the corrected d₀ census ("three independent routes") failed
+  the commit's own shared-arithmetic criterion — the G₂-transitivity route
+  outputs dim𝕆 − 1 from the same octonion structure as the just-merged pair, and
+  its linkage is *resolved* on the same surface (stronger merge grounds than the
+  open cross-row that earned d_gw only a caveat). The lead had over-read
+  A92-F4's "retains two genuinely distinct routes (Γ-area-max; G₂/SU(3))" as
+  two-besides-the-merge; its natural reading — and part4b:3607's pre-existing
+  count — is two total. **Swept: d₀ = two independent routes (transcendental
+  Γ-area-max; one algebraic octonion route with resolved internal linkages);
+  over-determined status survives.** All surfaces: table row, † note (with the
+  first application's miscount recorded), Proposition item, over-determined
+  sentence, verifier.
+- **F51-2 (minor):** the un-swept sibling at 3706 ("multi-route consistency at
+  each distinguished dimension") — corrected to d₀ (+ conditionally d_gw).
+- **F51-3 (minor):** 3508's misattribution — it named the Γ-area-max as the
+  non-independent partner when the mechanism links the G₂ commitment to ρ(8)−1;
+  "both equal dim S⁷" was numerically circular for the transcendental route.
+  Reworded with the correction noted.
+- **F51-4 (minor):** the verifier's STEP 5 header still printed the
+  pre-correction "forced by Adams + Catalan" against its own later cross-check
+  lines. Fixed.
+- **F51-5 (minor):** the census counted dim G₂ as a full route while the same
+  remark's Status list grades d_gw = dim G₂ *conditionally forced*. The count
+  now carries the conditionality: d_gw = one unconditional route plus one
+  conditional; "conditionally over-determined".
+- **F51-6/7/8 (cosmetics):** three stale source comments (fixed); the "Cayley--
+  Dickson remark above" pointer named a nonexistent remark title (corrected to
+  the Status list); the †(ii) reason's "same factorization" compression
+  sharpened (v₂-selection vs shared field realization vs the coincidence of two
+  distinct 3's).
+
+**Held:** the d₀ pair-merge and d_g reclassification mathematically exact; the
+2d₀ demotion correct; the cross-row caveat's factual claim verbatim-verified
+with its verifier run; asserts unchanged and gating; CI clean; Checks 7/8 clean;
+collateral surfaces (part4a, both md papers, PREDICTIONS.md) carry no old
+census. **Object gates:** 4/5/35/27/6/10, 0 FAIL; landscape-uniqueness asserts
+pass; zero stale census phrases remain (machine-grepped). Round 52 (convergence
+test on this sweep) gates stability of the registrations round.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

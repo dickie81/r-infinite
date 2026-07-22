@@ -1104,3 +1104,23 @@ word-identical; the mathematics survived independent re-derivation again.
 | F50-3 (cosmetic) — two over-length docstring lines | **Accepted.** Rewrapped | script |
 
 **Trajectory: Remark landed → 49 0+1+2c → 50 CONVERGED 0+0+3c. The grammar-question arc closed at theorem grade: Theorem 1h + the forced-Hasse Remark both stable. Next hostile round on the next substantive paper change.**
+
+# Round 51: hostile review of the registrations round (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 4 minors, 3 cosmetics); the correction standard applied to completion
+
+The first major since round 30, against the lead's own adjudication: the corrected
+d₀ census failed the commit's own merge criterion — the G₂-transitivity route is
+the merged octonion route's other half (d₀ = dim Im 𝕆), with the linkage resolved
+on the same surface. Swept: d₀ = two independent routes (transcendental +
+algebraic), over-determined status intact; d_gw's count now carries its
+conditionality; the sibling and misattributed sentences corrected.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F51-1 (MAJOR) — d₀ "three independent routes" fails the round's own criterion (G₂ route = dim𝕆−1, same structure, linkage resolved); A92-F4 over-read | **Accepted.** d₀ = two routes on every surface; miscount recorded in the † note | table + † + Proposition + verifier |
+| F51-2 (minor) — 3706's "at each distinguished dimension" un-swept | **Accepted.** Corrected | part4b |
+| F51-3 (minor) — 3508 misattributed the linkage to the Γ route | **Accepted.** Reworded, correction noted | part4b |
+| F51-4 (minor) — verifier STEP 5 header pre-correction census | **Accepted.** Fixed | verifier |
+| F51-5 (minor) — dim G₂ counted unconditionally against the Status list's "conditionally forced" | **Accepted.** Count carries conditionality; "conditionally over-determined" | table + † + Proposition + verifier |
+| F51-6/7/8 (cosmetics) — stale comments; wrong remark-title pointer; compressed †(ii) reason | **Accepted.** All fixed | verifier + part4b |
+
+**Trajectory: registrations landed → 51 1+4+3c. Round 52 gates stability.**
