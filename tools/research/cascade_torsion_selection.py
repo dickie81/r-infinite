@@ -52,7 +52,13 @@ gate literally computes a maximum -- because routing colour
 through torsion imports the PAIRING-ACT: that the odd feature
 is paired with an imaginary quadratic unit structure at all,
 which Theorem 11 / Def 6.1 do not entail (chi_-4, the mu_4
-partner, is the live alternative).  The adjudicated state:
+partner, is the live alternative).  Gloss note (round 59): the
+paper folds T11's colour identification into the act itself
+("pairing with the colour field's character"), under which
+chi_-4 is excluded by the act; this file states the weaker act
+and lets the T11-anchored maximum exclude chi_-4 -- the total
+conditional content is identical (colour = mu_6 is C1-charged
+in GRADING on either cut).  The adjudicated state:
 GIVEN the pairing-act, torsion-maximality -- |mu| = 6, the
 extremal structural property Theorem 11 ALREADY load-bears (the
 su(3) roots ARE the units mu_6 of Z[omega]; the cos(pi/6)

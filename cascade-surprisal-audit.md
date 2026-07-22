@@ -6237,6 +6237,53 @@ tate_epsilon 7/0 + torsion_selection 6/0; formulation kernel residual
 2.78×10⁻¹⁷. Round 59 (convergence test on this sweep) gates stability of
 Theorem 1j in its adjudicated form.
 
+## Addendum 123: hostile review round 59 (convergence test, subagent, per protocol) on commit b3f463b — **CONVERGED** (0 majors, 0 minors, 2 cosmetics); Theorem 1j certified stable in its adjudicated form; the layer-4 arc closes
+
+**The reviewer read the verifier end to end, re-derived the mathematics
+independently (its own fundamental-disc filter returning exactly 3043; its own
+torsion census with ±60 windows confirming |μ| = 6 uniquely at −3 and |μ| = 4
+uniquely at −4; Hilbert symbols recomputed from Serre's 2-adic formula,
+including the round-58 class-level caveat (·,−3)₂ = (·,−11)₂ on all eight
+classes; the Gauss sum ε₃(χ₋₃) = +i to 4×10⁻¹⁶), verified every recital
+verbatim against commit 901c328 (no paraphrase drift in any struck-text
+quotation), confirmed the overclaim census returns only strike recitals on all
+three object surfaces (paper 524/554/556; script 49/210; formulation zero),
+checked conditionality present at every claim site and all four paper
+net-state markers in the adjudicated form, confirmed all exhibit declarations
+accurate after the rewrite, and ran the full battery at expected counts with
+the kernel residual reproduced.**
+
+- **F59-1 (cosmetic):** the pairing-act glossed differently on the two
+  surfaces — the paper folds T11's colour identification into the act
+  ("pairing with the colour field's character", χ₋₄ excluded by the act);
+  the script states the weaker act (pair with some imaginary-quadratic unit
+  structure) and lets the T11-anchored maximum exclude χ₋₄. Each surface
+  internally coherent and true; total conditional content identical (colour
+  = μ₆ is C1-charged in GRADING on either cut). **Lead verified by direct
+  read of both passages; fixed in this commit** by a gloss-factoring note in
+  the script's pairing section (editorial batching rule).
+- **F59-2 (cosmetic):** the round-58 heading strike sits inside an enclosing
+  bold span — the paper's first in-heading strike. The reviewer verified the
+  CommonMark/GFM delimiter parse by hand (renders fully bold with the
+  strikethrough visible) and captured a non-CommonMark fallback losing only
+  the bold on the annotation, no text. GFM is the operative renderer.
+  **Held; no action.**
+
+**Held (reviewer, spot-verified by the lead):** sweep containment exact
+(b3f463b touched no paper line outside 523–525; no gate, number, or
+quantifier changed); Checks 7/8 clean (unit enumeration, Hilbert symbols,
+Gauss sums — all category (a); the C1 entry point explicitly isolated); the
+battery-wide no-sys.exit convention noted as predating the sweep, with the
+PASS/FAIL census the recorded instrument. **Verdict: CONVERGED under the
+round-17/21/24/27/29 precedent. Theorem 1j is stable:** the third
+selection-class member stands re-motivated (order principle → C1-anchored
+matching, minimality entailed within the pairing-act, which persists as the
+conventional content); three members, seven-item residue count unchanged.
+**Trajectory: 1j landed → 57 1M+3+4c (MODIFY) → 58 1M+2+0c → 59 CONVERGED
+0+0+2c. Object gates:** 4/5/35/27/6/10 + tate_epsilon 7/0 +
+torsion_selection 6/0. Next hostile round on the next substantive paper
+change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

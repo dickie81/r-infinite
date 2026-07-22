@@ -1236,3 +1236,19 @@ verifier is a carrying surface; its prose is part of the claim record.
 | F58-3 (minor) — the docstring's anatomy paragraph still field-determining (F57-2's fix missed the script) | **Accepted.** Retitled "AT CLASS LEVEL"; (·,−3)₂ = (·,−11)₂ and the census+T11 privilege stated in place | script |
 
 **Trajectory: 1j landed → 57 1M+3+4c (MODIFY) → 58 1M+2+0c (record repair on the verifier surface; mathematics unchanged). Round 59 gates stability.**
+
+# Round 59: convergence test on the round-58 sweep (subagent, per protocol) — **CONVERGED** (0+0+2c); Theorem 1j certified stable in its adjudicated form; the layer-4 arc closes
+
+The reviewer re-derived the mathematics independently (own disc filter: exactly
+3043; own torsion census: |μ| = 6 uniquely at −3, |μ| = 4 uniquely at −4;
+Hilbert symbols from Serre's formula including (·,−3)₂ = (·,−11)₂ on all eight
+classes; ε₃(χ₋₃) = +i), verified every strike recital verbatim against 901c328,
+and confirmed zero live overclaims on all three object surfaces — the round-58
+sweep complete and correct, with the adjudicated state carried consistently.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F59-1 (cosmetic) — pairing-act glossed differently paper vs script (colour identification folded in vs weaker act + T11-anchored maximum) | **Accepted; equivalence verified.** Gloss-factoring note added to the script (editorial batching) | script |
+| F59-2 (cosmetic) — in-heading strike inside a bold span (first such) | **Held; no action.** GFM parse verified sane by hand; operative renderer honours it | none |
+
+**Trajectory: 1j landed → 57 1M+3+4c (MODIFY) → 58 1M+2+0c → 59 CONVERGED 0+0+2c. Theorem 1j stable: the third selection-class member re-motivated (C1-anchored matching, minimality entailed within the pairing-act, which persists); three members, seven-item count unchanged. Next hostile round on the next substantive paper change.**
