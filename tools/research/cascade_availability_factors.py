@@ -36,13 +36,19 @@ THE THREE IDENTIFICATIONS (the new registrations):
     part4b:99/155).
   projection factor cos(pi/6) = sqrt(3)/2 = covol(Z[omega]) --
     the colour ring's covolume, ALREADY identified at Door 4
-    (the paper: 'covolume sqrt(3)/2 = sqrt(|d_K|)/2 -- whose
-    inverse is exactly Theorem 11's 30-degree trace-duality
-    measurement lattice'); NEW here: the census minimality --
-    covol = sqrt(|d|)/2 is minimal over ALL 3043 fundamental
-    imaginary quadratic discs at d = -3 (the 1j census reused),
-    so the projection factor is the covolume of the densest
-    imaginary-quadratic maximal order.
+    (the paper: 'covolume sqrt(3)/2 = sqrt(|d_K|)/2'; in the
+    source the adjacent 'whose inverse' clause attaches to the
+    DIFFERENT ideal frak-d, whose inverse is the trace-dual
+    30-degree lattice of Theorem 11 -- round-67 F5 corrected an
+    excerpt that shifted that antecedent to the covolume); NEW
+    here: the census minimality -- covol = sqrt(|d|)/2 is minimal
+    over ALL 3043 fundamental imaginary quadratic discs at
+    d = -3 (the 1j census reused), so the projection factor is
+    the minimal covolume among such maximal orders --
+    equivalently the densest, since every imaginary-quadratic
+    maximal order has shortest vector exactly 1, making packing
+    density proportional to 1/covol (premise stated per
+    round-67 F6).
   colour factor e^(r/2), r = 2 -- GRADING UNCHANGED: the 2 is a
     choice among coincident 2s ([Q(zeta_3):Q] = 2 = su(3) Cartan
     rank; 13c), with the 1j-census anchor that the mu_6 field is
@@ -65,7 +71,7 @@ identification, not on realizing the off-domain probe; the
 surviving variants are then extensionally equal to the canonical
 clauses on every reachable input (per the 13b record's own
 census, reproduced in the docstring above).  The
-first-principles P1 position upgrades from 'asserted,
+first-principles P1 position upgrades from 'asserted, and the
 data cannot distinguish' to 'entailed given the factor
 identification' -- the 1j/1k/1l grammar, applied to layer 3.
 
@@ -114,8 +120,10 @@ def main():
     unit = CHI * math.gamma(0.5)
     ok1 = abs(unit - 2 * math.sqrt(PI)) < 1e-15
     # part4b's propagator ratio (R/2)/(sqrt(pi) R) = 1/(2 sqrt(pi)) is
-    # algebraically d-independent -- an exhibit; the failable content is
-    # the numeric identity via the Gamma route at several d:
+    # algebraically d-independent: R cancels identically, so the conjunct
+    # below is an EXHIBIT re-testing the unit identity (round-67 F3 --
+    # the earlier comment's "failable via the Gamma route" was wrong;
+    # V1's failable content is the chi*Gamma(1/2) = 2 sqrt(pi) identity):
     R = lambda d: math.exp(math.lgamma((d + 1) / 2) - math.lgamma((d + 2) / 2))
     ok1 &= all(abs((R(d) / 2) / (math.sqrt(PI) * R(d)) - 1 / unit) < 1e-15
                for d in (5, 13, 21, 100))
@@ -170,7 +178,9 @@ def main():
     print(f"   {len(fund)} discs; min covol = {covols[-3]:.6f} uniquely at")
     print(f"   d = {dmin} (classical closure: |d| >= 3 for every imaginary")
     print(f"   quadratic fundamental disc, so the scan bound is total) --")
-    print(f"   the projection factor is the densest such ring's covolume   "
+    print(f"   the projection factor is the minimal covolume among such")
+    print(f"   rings (= the densest: shortest vector exactly 1, density")
+    print(f"   proportional to 1/covol -- premise per round-67 F6)   "
           f"{'PASS' if ok4 else 'FAIL'}")
 
     # ---- V5: the colour slot (grading unchanged; exhibits declared)

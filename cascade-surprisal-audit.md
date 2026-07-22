@@ -6755,6 +6755,54 @@ markers in `cascade_u2_function.py`, `cascade_u2_uniqueness.py`,
 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 + 5/0 + availability_factors 5/0 +
 u2_function 11/0. Round 67 (hostile subagent, per protocol) follows.
 
+## Addendum 134: hostile review round 67 (subagent, per protocol) on commit 7a1e5bd — Theorem 1m; NOT CONVERGED (0 majors, 3 minors, 3 cosmetics); pointer/prose/comment defects swept
+
+**The theorem's substance survived every named attack: the identities exact
+and independently reproduced (χΓ(½) = 2√π to 10⁻¹⁶; the 3043-disc census with
+unique covolume minimum at −3, next values 1.0 at −4, 1.3229 at −7; the
+Dirac-layer counts); the fork kill's conditionality confirmed on every
+surface with no unconditional statement anywhere; the convention question
+closed — n_D(21) − n_D(5) = 2 under both boundary conventions, and the only
+reading giving 1 is killed by the gated realized pairs; the 13b six-survivor
+census reproduced by the reviewer's own run; every part4b/Tier-4a/first-
+principles quote verbatim except the two flagged; and a bonus corroboration
+found: `cascade_second_quantized.py` already attaches T2's unit at
+chirality-graded (Dirac) layers — same value, same χ-as-chirality reading,
+same attachment site as part4b's toll — independently supporting the
+"one object on two committed sides" locution. All findings lead-verified
+(Check 3) and swept.**
+
+- **F67-1 (minor):** "Theorem 2's measure grammar" — a wrong in-file pointer
+  (the paper's own Theorem 2 is the Gaussian/L-factor theorem; the grammar
+  lives in its Theorem 4 and the formulation's T2). **Swept:** "Theorem 4's
+  measure grammar (…; the formulation's T2)".
+- **F67-2 (minor):** the footer's "the intermediate rounds' body-only counts
+  30, 31" — inexhaustive with a definite article (the history is 27 → 28 →
+  29 → 30 → 31, each verified per the audit record). **Swept:** "the
+  intermediate body-only counts 27–31 were each verified the same way, per
+  the audit record".
+- **F67-3 (minor):** V1's comment claimed the propagator-ratio conjunct's
+  "failable content is the numeric identity via the Gamma route" — false: R
+  cancels identically, so the conjunct is an exhibit re-testing the unit
+  identity. **Swept:** comment rewritten to declare the exhibit and name
+  V1's true failable content.
+- **F67-4/5/6 (cosmetics):** the first-principles quote's punctuation drift
+  (now verbatim with the full clause on both surfaces); the docstring's
+  Door-4 excerpt had shifted the "whose inverse" antecedent from the
+  different ideal to the covolume (excerpt corrected with the antecedent
+  stated); "densest such ring's covolume" carried an unstated normalization
+  premise (now stated on all three sites: shortest vector exactly 1 ⇒
+  density ∝ 1/covol, so minimal covolume = densest).
+
+**Held:** the `fundamental_discs` reuse sound (negative-modulo semantics
+checked); V5's irreducibility logic valid for a quadratic; the sign
+robustness of the fork kill (magnitude 2 vs 1, direction-independent); the
+extensional-equivalence claim verified including R3's kinds-minus-1 by hand;
+the footer's 32 + 4° programmatic; Checks 7/8 clean. **Object gates at the
+swept tree:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 + 5/0 + 5/0 + 11/0.
+**Trajectory: 1m landed → 67 0M+3+3c. Round 68 (convergence test) gates
+stability of Theorem 1m.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

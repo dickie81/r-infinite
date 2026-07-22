@@ -1375,3 +1375,23 @@ The layer-4 arc completes (Theorems 1j–1l, rounds 57–66): all three
 selection-convention members re-motivated onto named, listed anchors; three
 members and the seven-item count unchanged throughout. Next hostile round on
 the next substantive paper change.**
+
+# Round 67: hostile review of Theorem 1m (subagent, per protocol) — NOT CONVERGED (0 majors, 3 minors, 3 cosmetics); pointer/prose/comment defects swept
+
+The substance survived every named attack: identities exact and independently
+reproduced; the fork kill's conditionality uniform with no unconditional
+statement; the convention question closed (the exponent difference is 2 under
+both boundary conventions; the only reading giving 1 is killed by the gated
+realized pairs); the 13b six-survivor census reproduced by the reviewer's own
+run; and a bonus corroboration — cascade_second_quantized.py already attaches
+T2's unit at chirality-graded Dirac layers, independently supporting the
+one-object-two-sides registration.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F67-1 (minor) — "Theorem 2's measure grammar", a wrong in-file pointer | **Accepted.** "Theorem 4's measure grammar (…; the formulation's T2)" | paper |
+| F67-2 (minor) — footer's inexhaustive "counts 30, 31" apposition | **Accepted.** "27–31, each verified the same way, per the audit record" | paper |
+| F67-3 (minor) — V1 comment misdescribing the propagator conjunct's failable content | **Accepted.** Exhibit declared; V1's true failable content named | script |
+| F67-4/5/6 (cosmetics) — quote punctuation drift; Door-4 excerpt antecedent shift; unstated min-covol⇒densest premise | **Accepted.** All fixed; the premise now stated on all three sites | paper + script |
+
+**Trajectory: 1m landed → 67 0M+3+3c. Round 68 gates stability of Theorem 1m.**

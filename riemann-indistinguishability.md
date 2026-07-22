@@ -691,8 +691,8 @@ as instrument); the member's re-motivation is conditional on the dictionary, exa
 **Theorem 1m (the availability factors' arithmetic homes: mass layer 3 attacked at the
 factor level; `cascade_availability_factors.py`).** *(i) None of the three availability
 factors is a new constant.* The **obstruction unit** 2√π = χ·Γ(½) (χ = 2 = |μ(ℝ)|) is
-one object seen from two committed sides: Theorem 2's measure grammar (*"1/(χΓ(½)) per
-graded crossing"*) and the companion series' topological channel (part4b: *"The
+one object seen from two committed sides: Theorem 4's measure grammar (*"1/(χΓ(½)) per
+graded crossing"*; the formulation's T2) and the companion series' topological channel (part4b: *"The
 topological obstruction factor is 2√π = 2Γ(½) per Dirac layer: 2 from chirality
 (χ(S^{2n}) = 2)"* and √π from the quarter-turn constant; per-layer attachment — *"Each
 obstruction attenuates the projection by 2√π, giving (2√π)^{−n_D}"* — with the
@@ -700,8 +700,10 @@ d-independent propagator ratio Z_f/Z_s = 1/(2√π)). The **projection factor** 
 √3/2 = covol(ℤ[ω]) is Door 4's object (the 30° trace-duality lattice; C3's balance level
 = T8's frame) — with the new census fact that covol = √|d|/2 is **minimal over all 3043
 fundamental imaginary-quadratic discs at d = −3** (Theorem 1j's census reused; classical
-closure |d| ≥ 3, so the bound is total): the projection factor is the densest such
-ring's covolume. The **colour factor** e^{r/2} keeps 13c's grading — the rank 2 a choice
+closure |d| ≥ 3, so the bound is total): the projection factor is the minimal covolume
+among all such rings — equivalently the densest (every imaginary-quadratic maximal order
+has shortest vector exactly 1, so packing density is ∝ 1/covol; round-67 F6 stated the
+premise). The **colour factor** e^{r/2} keeps 13c's grading — the rank 2 a choice
 among coincident 2s, with the 1j-census anchor (the μ₆ field is degree-2 *qua* imaginary
 quadratic) and e^{2/2} = e the papers' own Tier-4a record. *(ii) The fork consequence.*
 R1's rank |Δg|/8 equals the number of Dirac layers (d ≡ 5 mod 8) in the half-open
@@ -713,7 +715,8 @@ identification, the per-layer attachment forces the count** — a two-layer cros
 reproduce. The 13b availability block's **one genuine fork is thereby discriminated
 arithmetically** — conditional on the identification, not on realizing the off-domain
 probe — and the block becomes **canonical up to extensional equivalence**. The
-first-principles P1 position upgrades from "asserted; the data cannot distinguish" to
+first-principles P1 position upgrades from *"asserted, and the data cannot
+distinguish"* to
 *entailed given the factor identification* — the 1j/1k/1l grammar applied to layer 3.
 *(iii) Honest scope.* The clause **triggers** — legs, the record-legs classifier, the
 A13 grading, the ℓ_A kind, Observer k=3 — are soft inputs, **untouched**; the angle rows
@@ -1254,4 +1257,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1m: the **32 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate rounds' body-only counts 30, 31 were each verified the same way) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1m: the **32 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
