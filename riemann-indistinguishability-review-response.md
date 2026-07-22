@@ -1321,3 +1321,23 @@ for a future part0-focused round.
 | F63-1 (observation, out of sweep scope) — part0's rem:variational unit label | **Lead-verified; held** for a future part0 round (registered in Addendum 128) | none |
 
 **Trajectory: 1k landed → 60 1M+4+3c → 61 0M+2+3c → 62 0M+1+2c → 63 CONVERGED 0+0(+1 obs). Theorem 1k stable: the four distinguished layers lattice-read with zero rounding, entailed given two named, listed anchors (site-E pairing + variational-sup labeling); member one re-motivated; three members, seven-item count unchanged. Layer-4 state: members one and three re-motivated (1k, 1j); the live conventional core is member two, the d↔s pairing itself. Next hostile round on the next substantive paper change.**
+
+# Round 64: hostile review of Theorem 1l (subagent, per protocol) — NOT CONVERGED (0 majors, 4 minors, 3 cosmetics); prose and marking swept
+
+The mathematics fully verified independently (closures 16.8173/10.4584/10.4718;
+coset maxima 0.31322/0.35001; the single-coset candidate surviving both weights;
+the boundary term's T1-chaining; census 31+4°; battery). The central re-grading
+survived every named attack vector, including the global-renaming forcer
+question (held contentless — addresses attach to tower points) and the
+boundary-sphere defense of the avatar (held to be the avatar reading itself).
+All four minors are prose/marking defects.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F64-1 (minor) — formulation T7's demoted-clause record missing the 1l marker | **Accepted.** Marker added | formulation |
+| F64-2 (minor) — "Definition 2.1"/"T1's Remark" dangling in the formulation | **Accepted.** Attributed to the standalone paper | formulation |
+| F64-3 (minor) — "D was absorbed by 1k" dropping 1k's second given, struck verb reused | **Accepted.** "Closed by 1k — given the site-E pairing plus the variational-sup labeling" on both surfaces | paper + formulation |
+| F64-4 (minor) — T1 Remark's "never uses the avatar" unreconciled with 1l's "used the avatar" | **Accepted.** Net-state marker at the Remark naming the one historical breach (Thm 9's weight, demoted, sharpened) | paper |
+| F64-c1/c2/c3 (cosmetics) — call-chain self-comparison subgate; comment conflation; footer "31" collision | **Accepted.** All fixed | script + paper |
+
+**Trajectory: 1l landed → 64 0M+4+3c. Round 65 gates stability of Theorem 1l.**

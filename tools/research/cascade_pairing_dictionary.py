@@ -120,7 +120,10 @@ def main():
     print("   definitional -- declared exhibits; the failable content:")
     ok1 = max(abs(2 * math.exp(-lg_R(d)) - Om(d - 1)) / Om(d - 1)
               for d in range(2, 100)) < 1e-12
-    ok1 &= max(abs(P(d) - p(d - 1)) for d in range(2, 300)) == 0.0
+    # (P(d) = p(d-1) is a call-chain identity -- p is DEFINED as P(d+1);
+    #  comparing it with itself cannot fail, so it is not gated: round-64
+    #  c1.  The measure identity above IS gated: its two sides are
+    #  computed by independent routes and a transcription error fails it.)
     shift_resid = abs(sum(P(d) for d in range(6, 14))
                       - sum(p(d) for d in range(5, 13)))
     ok1 &= shift_resid == 0.0
@@ -139,7 +142,9 @@ def main():
                        + R(14) ** 2 / 8) * 2 * math.sqrt(PI)
     tau_coh = math.exp(sum(p(d) for d in range(5, 13))
                        + R(13) ** 2 / 8) * 2 * math.sqrt(PI)
-    ok2 = abs(tau_can - 16.8173) < 5e-4          # canonical = the anchor
+    ok2 = abs(tau_can - 16.8173) < 5e-4   # canonical reproduces the audit's
+    #                              recorded value (the anchor is the observed
+    #                              16.8170, a distinct number -- round-64 c2)
     ok2 &= abs(tau_mix - 10.4584) < 5e-4         # the audit's alternative
     ok2 &= abs(tau_coh - 10.4718) < 5e-4         # the coherent shift
     ok2 &= abs(tau_mix / 16.817 - 1 + 0.3781) < 5e-4   # the -38% margin

@@ -242,8 +242,9 @@ re-motivated the third. Three members and the seven-item count stand. No
 closure; category (a).
 
 **T1l (the pairing dictionary; `cascade_pairing_dictionary.py`, five gates).**
-Member two attacked directly: given the tower's dictionary (Definition 2.1's
-s = d+1 with factor Γ_ℝ(s); T1's kernel primitives at that point), the audit's
+Member two attacked directly: given the tower's dictionary (the standalone
+paper's Definition 2.1 — s = d+1 with factor Γ_ℝ(s) — whose kernel theorem is
+this document's T1, primitives at that point), the audit's
 "alternative pairing" objects are the *previous layer's* potential and measure
 (P(d) = p(d−1); 2/Γ_ℝ(d) = Ω(d−1) — identities). Site E's flip is identically a
 window shift (Σ residual exactly 0) and the audit's alternative a mixed frame
@@ -252,10 +253,12 @@ catastrophically off the canonical 16.8173) — the −38% anchor re-grades from
 selection to **cross-check of the dictionary**, with E's residual content the
 window endpoint data (Definition-6.1 instantiation + the strict-boundary
 stipulation, already listed). Site C sharpens: the avatar weight is Ω(d−1),
-forsworn by T1's own Remark ("The paper never uses the avatar"), so the
+forsworn by the standalone paper's Theorem-1 Remark ("The paper never uses the
+avatar"), so the
 Geometric two-coset clause fails under the tower's measure (0.35001 ≥ 1/π;
 single-coset repair candidate stays live; no number changes). B/H re-gated
-flip-invariant; D absorbed by T1k. The review-4 per-site family is closed;
+flip-invariant; D closed by T1k (given the site-E pairing plus the
+variational-sup labeling). The review-4 per-site family is closed;
 member two re-motivated, not deleted — its live content is the dictionary plus
 already-listed endpoint items. Three members and the seven-item count stand. No
 closure; category (a).
@@ -320,7 +323,9 @@ of Γ_ℝ, i.e. Bohr–Mollerup, verified strict for all d = 1–215; at-manifol
 lose (−); proper coset restrictions of the peaked weight 2/Γ_ℝ under the ℤ/8 Weil grading lose
 (−) — all 28 two-coset shares < 1/π under the avatar-weight pairing; **convention-conditional
 per review 4: the Definition-2.1 pairing gives max 0.35001 ≥ 1/π** — the Geometric clause is
-demoted. The other two clauses stand. Population-class assignment remains instantiation.
+demoted *(net-state, T1l: the demotion sharpens — the avatar weight is Ω(d−1), the previous
+layer's measure, and the clause does not hold in the tower's dictionary; the single-coset
+repair candidate stays live)*. The other two clauses stand. Population-class assignment remains instantiation.
 
 **T6 (Per-period shape theorem — PROVED conditional on marking + activation; Addendum 34).**
 The twist tower carries a canonical ℤ/8 grading: the Weil index of the real quadratic

@@ -6575,6 +6575,58 @@ net-state markers in `cascade_ds_audit.py` (docstring + sites C and E).
 **Object gates at this commit:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 +
 pairing_dictionary 5/0. Round 64 (hostile subagent, per protocol) follows.
 
+## Addendum 130: hostile review round 64 (subagent, per protocol) on commit 9a83d93 — Theorem 1l; NOT CONVERGED (0 majors, 4 minors, 3 cosmetics); prose and marking swept
+
+**The theorem's mathematics fully verified by the reviewer's independent
+mpmath recomputation (all closure values, both coset maxima, the single-coset
+repair candidate's survival under both weights, the boundary term's
+T1-chaining R(14)²/8 = α(14)/χ, the census, the battery), and the central
+re-grading survived every named attack vector in substance — including the
+lead's own hardest: the global renaming was held genuinely contentless
+(addresses attach to tower points, label-independent), and the boundary-sphere
+defense of the avatar was held to be exactly the avatar reading the paper
+disowns. All four minors are prose/marking defects; each was lead-verified
+against the sources and swept.**
+
+- **F64-1 (minor):** the formulation's T7 record of the demoted Geometric
+  clause carried no 1l net-state marker — a marking-rule sweep gap on a
+  sibling surface in the same file that received the T1l block. **Swept:**
+  marker added (sharpened demotion; single-coset repair candidate live).
+- **F64-2 (minor):** the formulation's T1l block cited "Definition 2.1" and
+  "T1's own Remark" — dangling in that document (its T1 has no Remark; its
+  structure has no Definition 2.1). **Swept:** both attributions now name the
+  standalone paper.
+- **F64-3 (minor):** "D was absorbed by Theorem 1k" — under a two-given
+  banner, dropping 1k's second given and reusing the round-60-struck verb;
+  the round-60 lesson recurring one theorem later in the litigated clause.
+  **Swept** on both prose surfaces: "D was closed by Theorem 1k — given the
+  site-E pairing plus the variational-sup labeling, its two givens
+  (round-60 F1)."
+- **F64-4 (minor):** T1's Remark ("The paper never uses the avatar") and
+  1l(iii) ("used the avatar") stood unreconciled — the Remark's universal was
+  false-when-written by the paper's now-asserted reading (the original Thm 9
+  clause used the avatar weight live). **Swept:** net-state marker at the
+  Remark naming the one historical breach (Thm 9's Geometric weight, demoted
+  review 4, sharpened 1l) — with the clause demoted, the sentence stands as
+  the discipline it names. The sharpened verdict itself was held unaffected.
+- **F64-c1/c2/c3 (cosmetics):** M1's call-chain self-comparison subgate
+  (P(d) = p(d−1) compares p's definition with itself) removed from the gate
+  and documented — the measure identity stays gated (independent routes);
+  the "canonical = the anchor" comment conflation fixed; the footer's live
+  "31" disambiguated from the condemned round-44 "31" (body-only count,
+  census-verified).
+
+**Held (reviewer, spot-verified by the lead):** every Check-2 verbatim quote
+exact (Definition 2.1, the kernel display, the Remark, the review-4 numbers,
+"the observer is twist 4"); the mixed-frame charge held (the audit's site-E
+code flips only the potential sum; the boundary term is T1-chained); E's
+"already-listed" residue reading held with a noted caveat (the accounting
+read broadly — both referents named inline); member-count discipline held on
+every surface; M2's data discipline held (no new data); Checks 7/8 clean.
+**Object gates at the swept tree:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 + 5/0.
+**Trajectory: 1l landed → 64 0M+4+3c. Round 65 (convergence test) gates
+stability of Theorem 1l.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
