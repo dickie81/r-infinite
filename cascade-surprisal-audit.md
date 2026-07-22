@@ -5769,6 +5769,44 @@ formulation (32 → 35); the three L8f gates + docstring section in
 cascade_local_family.py. **Object gates at this commit:** 4/5/35/27/6/10, 0 FAIL.
 Round 49 (hostile subagent, per protocol) follows this commit.
 
+## Addendum 110: hostile review round 49 (subagent, per protocol) on commit 978fd3b — the forced-Hasse Remark; NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); all swept
+
+**Every finding verified directly by the lead (Check 3: the ordinal's
+reading-dependence checked against the intended count — the two priors are facets
+of one statement; the docstring misfiling read at my own splice point; the
+h_β(d)² = (d,−1)₂ derivation re-done by hand — cocycle at (x,x) gives
+β(x)² = (x,x)₂ = (x,−1)₂, then (−1,−1)₂ = −1 closes it). The mathematics survived
+total independent re-derivation — the reviewer's own Gauss sums, brute-force
+Hilbert symbols, and census reproduced every value; its bonus result, the squared
+identity making the reality locus algebraic rather than numerical, is adopted and
+now gated.**
+
+- **F49-1 (cosmetic):** L8f1 and L8f2's census conjunct cannot fail while
+  L2/L8a/L3/L4 pass — the L7b consistency-exhibit class. Scope notes added to the
+  docstring and the paper; L8f3 strengthened with the squared identity
+  h_β(d)² = (d,−1)₂ (the reviewer's derivation, verified by the lead), so the
+  independent-instrument set is now explicit: the β(−1) pin + squared identity,
+  the trivial slot, and the axiom conjunct.
+- **F49-2 (cosmetic):** the docstring paragraph was misfiled inside the L7
+  section as item "(f)" (skipping (e), orphaning the L8f gates). Refiled as a
+  proper L8f paragraph after L8, with the misfiling noted.
+- **F49-3 (minor):** "the ζ₄ dichotomy's third appearance at this door" — an
+  unverifiable, reading-dependent ordinal (the priors are facets of one
+  statement; the reading that yields "third" crosses doors). Struck on the paper,
+  dropped in the docstring; the 978fd3b commit message carries the same ordinal —
+  immutable, recorded here per the A89-m5 precedent.
+
+**Held:** the h_β derivation and uniqueness; the cocycle identity with every sign
+checked; the reality locus (now algebraic); the graph tie to the live L4 census
+("not restated" verified exact — no graph constants in the gate); the
+two-mechanisms-coincide claim adjudicated a theorem, not a re-description, with
+the trivial-slot extension licensed by L3's isotropic coverage and the axiom
+conjunct as representative-independence; "no edge case" fair as scoped (4 + 4,
+both counts verified); the lineage 21 → 23 → 27 → 32 → 35 with the first-commit
+version re-run; Checks 7/8 clean. **Object gates:** 4/5/35/27/6/10, 0 FAIL
+(count unchanged by the sweep — the squared identity joined an existing PASS
+line). Round 50 (convergence test on this sweep) gates stability of the Remark.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

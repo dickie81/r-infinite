@@ -127,22 +127,7 @@ filtration.  (d) DISC-FAITHFULNESS: by the SIGNED discriminant
 d+- = (-1)^(n(n-1)/2) det (the Witt-invariant disc), the four
 kernel classes carry distinct square classes, so d+- : ker
 gamma_2 -> I/I^2 = Q_2^x/sq is INJECTIVE, and d+- confirms
-k1 + k2 = k3.  (f) THE FORCED-HASSE FUNCTION (the Remark; the
-round-48 edge case dissolved): h_beta(d) := zeta_8^2/beta(-d) --
-by the closed form, the unique Hasse value a binary class of
-signed disc d must carry to be clock-invisible; by the cocycle,
-equivalently h_beta(d) = (d,-1)_2/beta(d) (beta(-1) = zeta_8^2).
-Gated: the REALITY LOCUS of h_beta is exactly the norm group H
-(non-norm discs are forced to +-i, an impossible Hasse value --
-EXCLUSION BY IMPOSSIBILITY, not enumeration; the census iff
-compresses to one formula); ker gamma_2 is the GRAPH of h_beta
-over H, tied in-code to the L4 census; and at the trivial slot
-h_beta(1) = +1 = the Hilbert axiom (a,-a)_2 = 1, so the two
-forcing mechanisms round 48 verified separately provably
-coincide -- there is no edge case.  Third appearance of the
-zeta_4 motif: invisible <=> forced Hasse real (mu_2), excluded
-<=> a quarter-turn (mu_4 \ mu_2).  Pure consequence of the
-cocycle + closed form; no new convention.  Reading: whatever
+k1 + k2 = k3.  Reading: whatever
 grammar meaning the invisible (Z/2)^2 carries, it is
 DISCRIMINANT-LEVEL data, not deep-filtration data -- the open
 question stays open; L7 narrows where its answer can live.
@@ -183,6 +168,33 @@ F1 rescoped to the licensed form -- the first writing quantified
 over all future colour-at-2 derivations, an unproved universal):
 any future derivation routing colour through the CLOCK-INVISIBLE
 part of W(Q_2) must land in exactly this subgroup, Hasse forced.
+
+L8f (THE FORCED-HASSE FUNCTION -- the Remark; the round-48 edge
+case dissolved; round-49 F2: this paragraph was misfiled at first
+writing inside the L7 section as item "(f)" -- refiled here): h_beta(d) := zeta_8^2/beta(-d) --
+by the closed form, the unique Hasse value a binary class of
+signed disc d must carry to be clock-invisible; by the cocycle,
+equivalently h_beta(d) = (d,-1)_2/beta(d) (beta(-1) = zeta_8^2).
+Gated: the REALITY LOCUS of h_beta is exactly the norm group H
+(non-norm discs are forced to +-i, an impossible Hasse value --
+EXCLUSION BY IMPOSSIBILITY, not enumeration; the census iff
+compresses to one formula); ker gamma_2 is the GRAPH of h_beta
+over H, tied in-code to the L4 census; and at the trivial slot
+h_beta(1) = +1 = the Hilbert axiom (a,-a)_2 = 1, so the two
+forcing mechanisms round 48 verified separately provably
+coincide -- there is no edge case.  The zeta_4 motif
+again (round-49 F3: the "third appearance" ordinal was an
+unverifiable, reading-dependent census -- dropped): invisible <=> forced Hasse real (mu_2), excluded
+<=> a quarter-turn (mu_4 \ mu_2).  Pure consequence of the
+cocycle + closed form; no new convention.  SCOPE
+(round-49 F1, the L7b precedent): L8f1 and L8f2's census conjunct
+gate the computed values but cannot fail while L2/L8a/L3/L4 pass
+-- consistency exhibits, since h_beta(d)^2 = (d,-1)_2 follows
+from the cocycle at (x,x) plus (-1,-1)_2 = -1, making the reality
+locus a corollary of gated facts; the independent instruments are
+L8f3 (the only gate pinning beta(-1) = zeta_8^2, now also gating
+the squared identity) and L8f2's trivial-slot and axiom conjuncts
+(this script's only (a,-a) exercise of the Hilbert symbol).
 
 WHAT THIS DOES NOT DO: derive any A2 grammar entry (N_c's count
 remains Adams-archimedean per 1f(iii); the layer selection remains
@@ -608,8 +620,11 @@ def main():
           f" the Hilbert axiom (a,-a)_2 = 1   {'PASS' if okf2 else 'FAIL'}")
     okf3 = all(abs(h_forced(d) - hilbert(d, -1, 2) / beta2(d)) < 1e-9
                for d in d2)
-    print(f"   L8f3 cocycle identity h_beta(d) = (d,-1)_2/beta(d) on all"
-          f" 8 classes (beta(-1) = zeta_8^2)   {'PASS' if okf3 else 'FAIL'}")
+    okf3 &= all(abs(h_forced(d) ** 2 - hilbert(d, -1, 2)) < 1e-9
+                for d in d2)   # squared identity: reality locus algebraic
+    print(f"   L8f3 cocycle identities h_beta(d) = (d,-1)_2/beta(d) AND"
+          f" h_beta(d)^2 = (d,-1)_2 on all 8 classes (beta(-1) ="
+          f" zeta_8^2)   {'PASS' if okf3 else 'FAIL'}")
     print("   => one closed-form function forces the Hasse coordinate on")
     print("      all four kernel slots AND excludes the four non-norm")
     print("      discs; the norm criterion IS the reality condition; the")

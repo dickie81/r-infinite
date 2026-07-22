@@ -1074,3 +1074,18 @@ genuine; all verifiers at recorded counts; Checks 7/8 clean; zero collateral.
 | F48-1 (cosmetic) — the round-47 F3 annotation's "two constituent facts" misparse (the old gate checked congruence + Hilbert only) | **Accepted.** Wording corrected in the convergence commit | paper |
 
 **Trajectory: 1h landed → 47 0+2+1c → 48 CONVERGED 0+0+1c. Theorem 1h stable; next hostile round on the next substantive paper change.**
+
+# Round 49: hostile review of the forced-Hasse Remark (subagent, per protocol) — NOT CONVERGED (0+1+2c); the mathematics held in full, one ordinal did not
+
+The reviewer re-derived everything from scratch — its own Gauss sums, brute-force
+Hilbert symbols, and census — and contributed the squared identity
+h_β(d)² = (d,−1)₂, which makes the reality locus an algebraic corollary and is
+now adopted and gated. The minor is textual: an unverifiable ordinal.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F49-1 (cosmetic) — L8f1 + census conjunct cannot fail while L2/L8a/L3/L4 pass (the L7b class) | **Accepted.** Scope notes on both surfaces; L8f3 strengthened with the squared identity | script + paper |
+| F49-2 (cosmetic) — docstring paragraph misfiled in the L7 section as "(f)" | **Accepted.** Refiled as the L8f paragraph, misfiling noted | script |
+| F49-3 (minor) — "third appearance at this door": unverifiable reading-dependent ordinal; the 978fd3b message carries it (immutable, recorded) | **Accepted.** Struck on the paper, dropped in the docstring | paper + script + A110 record |
+
+**Trajectory: Remark landed → 49 0+1+2c. Round 50 gates stability of the Remark.**

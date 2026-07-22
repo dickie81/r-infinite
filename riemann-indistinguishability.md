@@ -430,7 +430,9 @@ norm-group criterion are **one closed-form function**. Define
 **h_β(d) := ζ₈²/β(−d)** — by 1g(ii)'s closed form, the unique Hasse value a
 binary class of signed discriminant d must carry to be clock-invisible; by the
 cocycle, equivalently **h_β(d) = (d,−1)₂/β(d)** (β(−1) = ζ₈²; the identity gated
-on all eight classes). Then, gated: *(i)* the **reality locus** of h_β is exactly
+on all eight classes, together with the squared identity **h_β(d)² = (d,−1)₂** —
+the cocycle at (x,x) plus (−1,−1)₂ = −1 — which makes the reality locus below an
+algebraic corollary, not a numerical observation). Then, gated: *(i)* the **reality locus** of h_β is exactly
 the norm group H — for d ∈ H, h_β(d) ∈ {±1}; for the four non-norm discriminants,
 h_β(d) ∈ {±i}, an impossible value for a Hasse invariant, so **non-norm
 discriminants are excluded by impossibility, not enumeration** — 1h(i)'s census
@@ -440,11 +442,18 @@ restated; *(iii)* at the trivial slot the two forcing mechanisms that round 48
 verified separately **provably coincide**: h_β(1) = +1 is the Hilbert axiom
 (a,−a)₂ = 1 (gated for all eight a) — the closed form, evaluated at the trivial
 discriminant, reproduces the axiom's value, so there is no edge case: one formula
-covers all four kernel slots and all four exclusions. *Motif, noted:* this is the
-ζ₄ dichotomy's third appearance at this door — invisible ⟺ forced Hasse real
+covers all four kernel slots and all four exclusions. *Motif, noted:* ~~this is the
+ζ₄ dichotomy's third appearance at this door~~ **[struck round 49 (F3): an
+unverifiable, reading-dependent ordinal — the prior appearances (the norm-group
+identity and its slogan) are facets of one statement]** the ζ₄ dichotomy again
+at this door — invisible ⟺ forced Hasse real
 (μ₂); excluded ⟺ forced Hasse a quarter-turn (μ₄ ∖ μ₂) — the same μ₂/μ₄ split
 that defines N(ℚ₂(i)). *Grading:* a pure consequence of 1g(ii)'s cocycle and
-closed form — theorem-grade, no new convention, nothing cascade-chosen; **no
+closed form — theorem-grade, no new convention, nothing cascade-chosen; *gate
+scope (round-49 F1, the L7b precedent):* L8f1 and the census conjunct are
+consistency exhibits — corollaries of the gated cocycle and census — while the
+independent instruments are the β(−1) = ζ₈² pin with the squared identity (L8f3)
+and the trivial-slot and axiom conjuncts (L8f2); **no
 grammar entry derived, no number changes, no closure** (category (a); no data, no
 RH/GRH, no semiclassics).
 
