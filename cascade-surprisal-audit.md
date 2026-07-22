@@ -5718,6 +5718,34 @@ the lineage, the net-state markers, the census, Checks 7/8. **Object gates:**
 4/5/32/27/6/10, 0 FAIL. Round 48 (convergence test on this sweep) gates stability
 of Theorem 1h.
 
+## Addendum 108: hostile review round 48 — convergence test on the round-47 sweep; CONVERGED (0 majors, 0 minors, 1 cosmetic); Theorem 1h is stable
+
+**Verdict: CONVERGED — Theorem 1h certified stable (precedent: rounds 17, 21, 24,
+27, 29, 46). The one cosmetic verified directly by the lead and fixed in this
+editorial commit: the round-47 F3 annotation's "checked the two constituent facts
+separately" misdescribed the pre-sweep gate under its natural parse — the old L8d
+checked the mod-8 congruence and the Hilbert constituent only, with the χ side
+ungated in that script; the annotation now says exactly that. (Record note: the
+reviewer's evidence line "zero hits for chi" in the old blob was imprecise — six
+prose mentions, zero computations; the operative evidence, the old ok8d line, is
+exact and was re-verified by the lead.)**
+
+**Held under attack:** the rescoped falsifier is exactly what L7d/L8a/L8c gate,
+including the trivial-class edge case (Hasse forced for d± ∼ 1 by L4's gated
+unrealizability); the strike-annotation's unevaluability claim survived a probed
+rescue reading; the ζ₄ reading is mathematically sufficient (both roots of x²+1
+generate the same subfield) and present on all three surfaces with the
+non-canonicity claim exact; the new L8d comparison is a genuine two-route gate;
+all six verifiers at 4/5/32/27/6/10 with 0 FAIL and the kernel bound within
+quote; zero collateral damage; Checks 7/8 clean.
+
+**Standing state: Theorem 1h — the kernel's identity (the ζ₄-norm structure,
+coordinates the colour discriminant and the clock prime, ∞-torsion-free mirror) —
+is stable at round 48, on the licensed falsifier and the stated reading. The open
+question stands in its transformed form: whether the grammar reads the two
+coordinates. The next hostile round triggers on the next substantive paper
+change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

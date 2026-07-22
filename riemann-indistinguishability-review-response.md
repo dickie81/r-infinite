@@ -1062,3 +1062,15 @@ the new claim's presentation.
 | F47-3 (cosmetic) — "gated as a same-fact check" overdescribed L8d (constituent facts gated, comparison absent) | **Accepted.** L8d now computes χ₋₃(2) and compares in-code; annotation records the upgrade | script + paper |
 
 **Trajectory: 1h landed → 47 0+2+1c. Round 48 gates stability of Theorem 1h.**
+
+# Round 48: convergence test on the round-47 sweep (subagent, per protocol) — **CONVERGED** (0+0+1c); Theorem 1h certified stable
+
+The rescoped falsifier verified as exactly licensed (including the trivial-class
+edge case); the ζ₄ reading sufficient and on all surfaces; the L8d comparison
+genuine; all verifiers at recorded counts; Checks 7/8 clean; zero collateral.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F48-1 (cosmetic) — the round-47 F3 annotation's "two constituent facts" misparse (the old gate checked congruence + Hilbert only) | **Accepted.** Wording corrected in the convergence commit | paper |
+
+**Trajectory: 1h landed → 47 0+2+1c → 48 CONVERGED 0+0+1c. Theorem 1h stable; next hostile round on the next substantive paper change.**

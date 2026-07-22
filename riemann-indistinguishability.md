@@ -393,8 +393,10 @@ gated on all 14. *(ii) The generators.* d± : ker γ₂ ≅ ⟨−3, 2⟩ — th
 discriminant** and the **clock prime**. The unit generator's quadratic extension
 ℚ₂(√−3) = ℚ₂(ζ₃) is *the* unramified quadratic extension of ℚ₂ (−3 ≡ 5 mod 8),
 and (2, −3)₂ = −1 is the same arithmetic fact as 1e(iv)'s "2 is inert in colour"
-(χ₋₃(2) = −1) — gated as a same-fact check *(round-47 F3: at first writing the gate checked the
-two constituent facts separately; it now computes χ₋₃(2) in-code and compares)*,
+(χ₋₃(2) = −1) — gated as a same-fact check *(round-47 F3, wording corrected round 48: at first
+writing the gate checked the mod-8 congruence and the Hilbert constituent only —
+the χ side was ungated in this script; it now computes χ₋₃(2) in-code and
+compares)*,
 an identification the paper already
 carries, here relocated, not newly forced. *(iii) The archimedean mirror is free.*
 ker(γ_∞ : W(ℝ) = ℤ ↠ μ₈) = 8ℤ (ζ₈^sig = 1 ⟺ sig ≡ 0 mod 8, gated; W(ℝ) ≅ ℤ
