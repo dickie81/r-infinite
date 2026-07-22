@@ -263,6 +263,26 @@ member two re-motivated, not deleted — its live content is the dictionary plus
 already-listed endpoint items. Three members and the seven-item count stand. No
 closure; category (a).
 
+**T1m (the availability factors' arithmetic homes; `cascade_availability_factors.py`,
+five gates).** Mass layer 3 attacked at the factor level: none of the three U2
+availability factors is a new constant. The obstruction unit 2√π = χ·Γ(½) is one
+object on two committed sides — T2's graded-crossing normalisation and part4b's
+per-Dirac-layer topological toll (with the d-independent propagator ratio
+1/(2√π)); the projection factor cos(π/6) = √3/2 = covol(ℤ[ω]) is Door 4's
+object, and (new) minimal over all 3043 fundamental imaginary-quadratic discs at
+d = −3 (the T1j census reused; classical closure |d| ≥ 3); the colour factor's
+rank 2 stays a coincident-2s identification (13c) with the T1j-census degree
+anchor, e^{2/2} = e the papers' Tier-4a record. Fork consequence: R1's rank
+counts Dirac layers in the half-open leg interval (gated on every coset pair;
+periods-minus-1 an extensional duplicate); at probe P1's cell (legs 5 & 21) the
+count is 2 vs the indicator's 1, and given the obstruction identification the
+per-layer attachment forces the count — the 13b availability block's one genuine
+fork discriminated arithmetically, the block canonical up to extensional
+equivalence, conditional on the identification. The clause triggers (legs,
+record-legs classifier, A13 grading, ℓ_A kind, Observer k=3) stay soft inputs,
+untouched; the angle rows stay near-tautological. No number changes; no closure;
+category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the

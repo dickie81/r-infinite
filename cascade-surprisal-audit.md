@@ -6694,6 +6694,67 @@ pairing-act; the site-E window data). Registered open routes out: part0's
 F63-1 unit-label observation (held for a part0-focused round). Next hostile
 round on the next substantive paper change.
 
+## Addendum 133: Theorem 1m — the availability factors' arithmetic homes; mass layer 3 attacked at the factor level
+
+**The commission ("tackle the availability-function theorem at mass layer 3")
+and the strategy.** Layer 3's gap — availability as a computed function — has
+three parts: the clause TRIGGERS (leg data + the record-legs classifier + soft
+inputs), the clause SHAPES (R1–R3, stipulations with argument-strength
+groundings), and the FACTORS (2√π, e^{r/2}, cos(π/6)). The factor level is
+where committed arithmetic already reaches; 1m attacks there.
+
+**The Check-4 boundary, established by direct reads before anything was
+claimed.** Already acknowledged: T2's *"1/(χΓ(½)) per graded crossing"*;
+part4b's topological channel (*"The topological obstruction factor is 2√π =
+2Γ(½) per Dirac layer: 2 from chirality (χ(S^{2n}) = 2)…"*, per-layer
+attachment *"(2√π)^{−n_D}"*, the d-independent propagator ratio at
+part4b:99/155); Door 4's covolume (*"covolume √3/2 = √|d_K|/2 — whose inverse
+is exactly Theorem 11's 30° trace-duality measurement lattice"*); 13c's
+coincident-2s grading; and the 13b availability block's six-survivor census
+(reproduced by running the exhaustion: R1 canonical + periods-minus-1 +
+indicator, R2 canonical, R3 canonical + kinds-minus-1 = 3·1·2), with the
+indicator "a genuine off-domain fork discriminated by probe P1" and the
+first-principles P1 position graded *"asserted, and the data cannot
+distinguish."*
+
+**The novel content (category (b)), gated (`cascade_availability_factors.py`,
+V1–V5, 5/0).** (1) The registration: each U2 availability factor IS an
+already-derived object — the obstruction unit is T2's graded-crossing unit and
+part4b's per-Dirac-layer toll (one object, χΓ(½) = 2√π); the projection factor
+is Door 4's covolume; no availability factor is a new constant. (2) The fork
+consequence: R1's rank equals the Dirac-layer count in the half-open leg
+interval (gated on all three coset pairs; periods-minus-1 gated as an
+extensional duplicate on the coset); at P1's cell (legs 5 & 21) count = 2 vs
+indicator = 1, and GIVEN the obstruction identification, part4b's per-layer
+attachment forces the count — the 13b block's one genuine fork is discriminated
+arithmetically rather than by realizing the off-domain probe, so the
+availability block becomes canonical up to extensional equivalence,
+conditional on the identification. The first-principles P1 position upgrades
+to "entailed given the factor identification" — the 1j/1k/1l grammar applied
+to layer 3. (3) The census tie: covol = √|d|/2 is minimal over all 3043
+fundamental imaginary-quadratic discs at d = −3 (the 1j census's
+`fundamental_discs` imported and reused; classical closure |d| ≥ 3) — the
+projection factor is the densest such ring's covolume.
+
+**Honest scope (the adjudication grammar applied in advance).** The clause
+triggers and all soft inputs untouched; the angle rows stay near-tautological;
+R2's identification stays at 13c's strength (the census degree-anchor noted,
+nothing upgraded); the identifications are C1-conditional exactly where their
+sources are. No number changes; no closure; no new data (the papers' Tier-4a
+"m_b/m_τ = e" and the committed instrument records cited as record). Layer 3's
+residual gap after 1m: the trigger data, and the identifications'
+conditionality.
+
+**Surfaces.** Paper: Theorem 1m after 1l; net-state markers at Theorem 13's
+stronger-theorem sentence and 13b's six-survivors sentence; footer census
+31 → 32 (the round-64 c3 "coincidentally equals" clause thereby became false
+and was rewritten — caught in the same edit pass). Formulation: T1m block.
+Verifiers: `cascade_availability_factors.py` NEW (V1–V5, 5/0); net-state
+markers in `cascade_u2_function.py`, `cascade_u2_uniqueness.py`,
+`cascade_u2_first_principles.py`. **Object gates at this commit:**
+4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 + 5/0 + availability_factors 5/0 +
+u2_function 11/0. Round 67 (hostile subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

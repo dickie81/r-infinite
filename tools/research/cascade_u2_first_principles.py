@@ -59,7 +59,15 @@ WHAT SURVIVES, honestly labeled:
   IDENTIFICATION - obstruction |dg|/8 read as winding of the
     order-8 Weil-index clock (the order is T6's; "each cycle = one
     rank unit" is asserted, and the data cannot distinguish this
-    from periods-spanned-minus-1 on any coset row).
+    from periods-spanned-minus-1 on any coset row).  (Net-state,
+    Theorem 1m / cascade_availability_factors.py, round 67: the
+    "each cycle = one rank unit" reading is ENTAILED given the
+    obstruction-factor identification -- 2 sqrt(pi) is T2's
+    graded-crossing unit and part4b's per-Dirac-layer toll, whose
+    per-layer attachment forces the count at P1's cell;
+    periods-minus-1 stays an extensional duplicate on the coset.
+    The P1 fork position below upgrades accordingly, conditional
+    on the identification.)
   IDENTIFICATION - colour rank 2 read as [Q(zeta_3):Q]; equally
     readable as the su(3) Cartan rank (Addendum 14) -- a choice
     among coincident 2s.  "Fixed once per record" is an assumption

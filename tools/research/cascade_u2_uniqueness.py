@@ -22,6 +22,13 @@ F1-F5, F8; see Addendum 56):
     canonical + two extensional duplicates + the cross-generation
     indicator, a GENUINE off-domain fork discriminated by P1
     (round-13 M3 corrected the "two duplicates" miscount).
+    (Net-state, Theorem 1m / cascade_availability_factors.py,
+    round 67: the indicator fork is discriminated ARITHMETICALLY
+    given the obstruction-factor identification -- part4b's
+    per-Dirac-layer attachment forces the count at P1's cell --
+    so the block is canonical up to extensional equivalence,
+    conditional on the identification; this exhaustion's own
+    off-domain probe structure is unchanged.)
     Disclosed fixed-target; sharpened PMNS falsifier and the M4
     corpus conditionality -- see cascade_u2_function.py.)
   - The A13 grading is applied consistently (theta_C and m_tau-abs

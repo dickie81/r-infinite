@@ -688,6 +688,42 @@ seven-item count stand.** *Honest scope:* no number changes, no closure, no new 
 as instrument); the member's re-motivation is conditional on the dictionary, exactly as
 1k's was on the pairing-plus-sup and 1j's on the pairing-act.
 
+**Theorem 1m (the availability factors' arithmetic homes: mass layer 3 attacked at the
+factor level; `cascade_availability_factors.py`).** *(i) None of the three availability
+factors is a new constant.* The **obstruction unit** 2√π = χ·Γ(½) (χ = 2 = |μ(ℝ)|) is
+one object seen from two committed sides: Theorem 2's measure grammar (*"1/(χΓ(½)) per
+graded crossing"*) and the companion series' topological channel (part4b: *"The
+topological obstruction factor is 2√π = 2Γ(½) per Dirac layer: 2 from chirality
+(χ(S^{2n}) = 2)"* and √π from the quarter-turn constant; per-layer attachment — *"Each
+obstruction attenuates the projection by 2√π, giving (2√π)^{−n_D}"* — with the
+d-independent propagator ratio Z_f/Z_s = 1/(2√π)). The **projection factor** cos(π/6) =
+√3/2 = covol(ℤ[ω]) is Door 4's object (the 30° trace-duality lattice; C3's balance level
+= T8's frame) — with the new census fact that covol = √|d|/2 is **minimal over all 3043
+fundamental imaginary-quadratic discs at d = −3** (Theorem 1j's census reused; classical
+closure |d| ≥ 3, so the bound is total): the projection factor is the densest such
+ring's covolume. The **colour factor** e^{r/2} keeps 13c's grading — the rank 2 a choice
+among coincident 2s, with the 1j-census anchor (the μ₆ field is degree-2 *qua* imaginary
+quadratic) and e^{2/2} = e the papers' own Tier-4a record. *(ii) The fork consequence.*
+R1's rank |Δg|/8 equals the number of Dirac layers (d ≡ 5 mod 8) in the half-open
+interval between the legs — gated on every generation-coset pair, with periods-minus-1
+an extensional duplicate on the coset (gated). On probe P1's cell (legs 5 & 21) the
+count is 2 and the cross-generation indicator is 1: **given the obstruction
+identification, the per-layer attachment forces the count** — a two-layer crossing costs
+(2√π)² by the papers' own attenuation rule, which the indicator variant cannot
+reproduce. The 13b availability block's **one genuine fork is thereby discriminated
+arithmetically** — conditional on the identification, not on realizing the off-domain
+probe — and the block becomes **canonical up to extensional equivalence**. The
+first-principles P1 position upgrades from "asserted; the data cannot distinguish" to
+*entailed given the factor identification* — the 1j/1k/1l grammar applied to layer 3.
+*(iii) Honest scope.* The clause **triggers** — legs, the record-legs classifier, the
+A13 grading, the ℓ_A kind, Observer k=3 — are soft inputs, **untouched**; the angle rows
+stay near-tautological (round 13); R2's identification stays at 13c's strength; the
+identifications are C1-conditional exactly where their sources are (T2, part4b's
+topological channel, T11's colour field). No number changes, no closure, no new data
+(the papers' Tier-4a value and the committed instrument records are cited as record).
+Layer 3's residual gap after 1m: the trigger data, and the identifications'
+conditionality.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -1008,7 +1044,11 @@ the determined formulas. *What it does not do:* compute availability from the ad
 the script's filters test candidates against the stored table, so the theorem's content is
 "a fully-specified address book leaves zero residual freedom," not "the address book is
 forced." The stronger theorem (availability as a computed function of the address alone —
-U2 as a function) has a **constructed v1, corrected by the round-8 hostile review**
+U2 as a function) *(net-state, Theorem 1m round 67: the three availability factors are
+registered as already-derived objects — T2's graded-crossing unit, Door 4's covolume,
+the coincident-2s rank — and the 13b block's genuine fork is discriminated given the
+obstruction identification; the clause triggers stay soft inputs)* has a **constructed
+v1, corrected by the round-8 hostile review**
 (`cascade_u2_function.py`; Addenda 53, 56): ten shared clauses applied to per-row identity
 facts reproduce the **member fields** (class, source, channel exponent, sign) on all eleven
 rows — the nine T4 exhaustion stages plus θ_23 and ℓ_A — with no per-row exceptions,
@@ -1060,7 +1100,10 @@ results: the availability block, which had **zero survivors** through rounds 8�
 defect), has **six survivors under the Addendum-61 record-legs encoding** — the canonical clauses,
 two extensional duplicates, and the cross-generation indicator, a **genuine off-domain
 fork** discriminated by probe P1 (round-13 M3 corrected the earlier "two duplicates"
-miscount); the colour-rank slot is pinned uniquely by m_b/m_τ, while the projection slot's
+miscount) *(net-state, Theorem 1m: the fork is discriminated arithmetically given the
+obstruction-factor identification — part4b's per-layer attachment forces the count at
+P1's cell — so the block is canonical up to extensional equivalence, conditional on the
+identification)*; the colour-rank slot is pinned uniquely by m_b/m_τ, while the projection slot's
 pinning is **conditional on the audit-lemma corpus** for m_b/m_τ's proj=1 (the papers'
 Tier-4a "m_b/m_τ = e" carries no projection factor — round-13 M4); all conditional on the
 record-legs rule (a new per-row soft input, fixed-target, PMNS-falsifiable); on **member
@@ -1211,4 +1254,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1l: the **31 scripts cited in place** above, a body-only count that now coincidentally equals the condemned round-44 figure — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the present 31 is census-verified against the body text alone — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1m: the **32 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate rounds' body-only counts 30, 31 were each verified the same way) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

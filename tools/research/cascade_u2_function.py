@@ -147,6 +147,21 @@ availability block has 6 survivors under the record-legs encoding
 -- canonical + two extensional duplicates + the cross-generation-
 indicator fork (off-domain, probe P1) -- with the R3 projection
 pinning conditional on the audit-lemma corpus, round-13 M4).
+
+NET-STATE (Theorem 1m, cascade_availability_factors.py, round
+67): the three availability FACTORS are registered as
+already-derived objects -- the obstruction unit 2 sqrt(pi) =
+chi*Gamma(1/2) is T2's graded-crossing normalisation and
+part4b's per-Dirac-layer toll (one object); the projection
+factor cos(pi/6) is the colour ring's covolume (Door 4), minimal
+over all 3043 fundamental imaginary-quadratic discs; the colour
+rank stays a coincident-2s identification (13c).  Given the
+obstruction identification, the per-layer attachment forces the
+count reading at P1's cell, discriminating the indicator fork
+arithmetically: the availability block becomes canonical up to
+extensional equivalence, conditional on the identification.  The
+clause TRIGGERS (legs, record-legs classifier, A13 grading,
+ell_A kind, Observer k=3) stay soft inputs, untouched.
 """
 
 GAUGE = (12, 14)
