@@ -33,7 +33,10 @@ round 60, as corrected by F1: the first member likewise re-motivated — the
 assignment is entailed given the site-E pairing plus Part 0's variational-sup
 labeling of the boundary sides, both persisting as the member's content; no
 rounding rule was ever needed; three members and the seven-item
-count stand)*); and the hypothesis itself
+count stand)* *(net-state, Theorem 1l round 64: the second member likewise
+re-motivated — the per-site pairing family is closed given the tower's dictionary
+(Definition 2.1 + Theorem 1); the E-anchor re-grades as a cross-check; three
+members and the seven-item count stand)*); and the hypothesis itself
 (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
@@ -643,6 +646,43 @@ counted site-E anchor, no RH/GRH, no semiclassics; Finding 6 (feature-list compl
 stays REOPENED — the lattice frame reads the *listed* features, it does not prove the
 list complete.
 
+**Theorem 1l (the pairing dictionary: member two attacked directly;
+`cascade_pairing_dictionary.py`).** *(i) The dictionary pins the arguments.* Definition
+2.1 fixes the tower as the integer points s = d+1 with local factor Γ_ℝ(s); Theorem 1's
+kernel defines the four primitives at that point (gated ≤7×10⁻¹⁴). Under this dictionary
+the audit's "alternative pairing" objects are not pairings of the same objects:
+**P(d) = p(d−1)** (the previous layer's potential) and **2/Γ_ℝ(d) = Ω(d−1)** (the
+previous layer's measure) — identities, declared as such. *(ii) Site E re-graded: the
+anchor is a cross-check.* The audit's E-flip is **identically a window shift**
+(Σ P(d), d = 6..13 = Σ p(d), d = 5..12; residual exactly 0, gated) — and a *mixed* one:
+it flipped the potential sum while keeping the boundary term R(14)²/8 fixed. The
+coherent shift (boundary term R(13)) gives 10.4718 against the audit's mixed 10.4584 —
+both catastrophically off the canonical 16.8173 (observed 16.8170) — so **the
+"alternative" was never one convention**. The −38% anchor thereby **re-grades from
+selection to cross-check**: the data confirms the dictionary; what remains conventional
+at E is the closure windows' **endpoint data** — Definition-6.1 instantiation plus the
+strict-boundary stipulation (part4b) — items already listed in the residue accounting.
+*(iii) Site C sharpened.* The Geometric two-coset clause's passing computation used
+Ω(d−1) at layer d — the avatar, which Theorem 1's own Remark forswears (*"The paper
+never uses the avatar; the arithmetic is primary"*). Under the tower's own measure Ω(d)
+the clause **fails** (0.35001 ≥ 1/π; the avatar's 0.31322 passes; both gated): the
+review-4 demotion sharpens from convention-conditional to *does not hold in the tower's
+dictionary*; the recorded single-coset repair candidate (surviving both weights) remains
+the live route; no number changes (the Ω_m backing was already withdrawn from "proved").
+*(iv) The member re-read — the 1j/1k grammar.* **Given Definition 2.1 and Theorem 1** —
+the tower's dictionary, definitional and gated, whose only alternative is a contentless
+global renaming (s′ = s−1 renames every symbol and changes no computed number; declared,
+not gated — a tautology cannot fail) — **there is no per-site d↔s freedom**: E's residue
+is the endpoint data (listed); C's avatar is a frame error inside a demoted clause; B
+and H are flip-invariant (re-gated); D was absorbed by Theorem 1k. The review-4 widening
+("every d↔s layer/weight pairing choice") named a per-site family; **the family is
+closed**. Member two is **re-motivated, not deleted**: its live content is the
+dictionary itself plus the already-listed endpoint items. **Three members and the
+seven-item count stand.** *Honest scope:* no number changes, no closure, no new data
+(the observed 16.8170 appears only as the committed audit's recorded anchor, reproduced
+as instrument); the member's re-motivation is conditional on the dictionary, exactly as
+1k's was on the pairing-plus-sup and 1j's on the pairing-act.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -805,11 +845,15 @@ pairing (2/Γ_ℝ(d), max 0.31322) but **fails under the Definition-2.1-consiste
 Ω_m is convention-conditional, not proved — the same d↔s pairing disease as the demoted
 volume pinning. The selection-convention residue class (the abstract's sixth listed item; "item
 seven" in the external reviews' historical numbering — ordinal reconciled round 44)
-is widened to every d↔s layer/weight pairing choice. **The systematic
+is widened to every d↔s layer/weight pairing choice *(net-state, Theorem 1l: the
+per-site family is closed given the tower's dictionary — the member is re-motivated, the
+count unchanged)*. **The systematic
 d/s audit is complete** (`cascade_ds_audit.py`): nine sites — one definitional, four stable
 (including Thm 10's set/exponents under all three pairings and the Gram-deficit indices
 under every shift), two data-anchored conventions (the window-potential pairing, selected by
-data at −38% margin; the unit), and the two known conditional sites, both demoted. No new
+data at −38% margin *(net-state, Theorem 1l: the flip is a window shift and the audit's
+alternative a mixed frame — the anchor re-grades as a cross-check of the dictionary)*; the
+unit), and the two known conditional sites, both demoted. No new
 conditional site. Theorem 9's other two clauses stand.
 
 *Remark (feature-list completeness: OPEN; review Finding 6 REOPENED by the second review;
@@ -877,7 +921,10 @@ d = 1–215); at-manifold saturated overlaps lose (−); *[the Geometric coset c
 per the fourth review, D1: the two-coset bound is pairing-conditional — 0.31322 under the
 avatar weight, 0.35001 ≥ 1/π under the Definition-2.1 weight; see the amendment under
 Theorem 7. Single-coset shares survive both pairings — repair candidate recorded, not
-adopted.]*
+adopted. (Net-state, Theorem 1l: the demotion sharpens — the avatar weight is Ω(d−1),
+the previous layer's measure, forsworn by Theorem 1's own Remark, so the two-coset
+clause does not hold in the tower's dictionary; the single-coset repair candidate stays
+live.)]*
 
 **Theorem 10 (Period-counting).** Given a marked coset of the ℤ/8 clock, the subcritical
 marked set is finite and forced ({5, 13} for the coset d ≡ 5 mod 8), and a descent
@@ -1159,4 +1206,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1k: the **30 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1l: the **31 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

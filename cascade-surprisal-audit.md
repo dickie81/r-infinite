@@ -6527,6 +6527,54 @@ and three both re-motivated (Theorems 1k, 1j); the class's live conventional
 core is member two — the d↔s pairing itself, data-anchored at site E. Next
 hostile round on the next substantive paper change.**
 
+## Addendum 129: Theorem 1l — the pairing dictionary; layer 4 attacked at member two (the class's core)
+
+**The commission ("attack member 2 directly") and the finding.** Member two —
+"every d↔s layer/weight pairing choice" (the review-4 widening; site E anchored
+at −38%, site C demoted conditional) — was attacked at its frame. The paper's
+own Definition 2.1 (*"The twist tower is the set of integer points s = d+1 …
+with local factor Γ_ℝ(s)"*) and Theorem 1's kernel (Ω(d) = 2/Γ_ℝ(d+1), N, p(d)
+= (log Γ_ℝ)′(d+1), α — gated ≤7×10⁻¹⁴) already pin every primitive's argument.
+Under the dictionary the audit's "alternative pairing" objects are the
+*previous layer's* potential and measure: P(d) = p(d−1) and 2/Γ_ℝ(d) = Ω(d−1) —
+identities.
+
+**Three consequences, all gated (`cascade_pairing_dictionary.py`, M1–M5,
+5/0).** (1) Site E's flip is identically a window shift (Σ P(d), 6..13 =
+Σ p(d), 5..12; residual exactly 0), and the audit's alternative is a **mixed
+frame** — potential flipped, boundary term R(14)²/8 kept; the coherent shift
+(R(13)) gives 10.4718 vs the mixed 10.4584, both catastrophically off the
+canonical 16.8173 (observed 16.8170, cited as the committed audit's recorded
+anchor). The −38% anchor **re-grades from selection to cross-check**; E's
+residual conventional content is the window endpoint data (Definition-6.1
+instantiation + the part4b strict-boundary stipulation — already-listed items).
+(2) Site C sharpens: the Geometric two-coset clause's passing computation used
+the avatar Ω(d−1), which T1's own Remark forswears (*"The paper never uses the
+avatar; the arithmetic is primary"*); under the tower's measure Ω(d) the clause
+fails (0.35001 ≥ 1/π vs avatar 0.31322, both reproduced) — the review-4
+demotion sharpens from convention-conditional to does-not-hold-in-the-
+dictionary; the single-coset repair candidate stays live; no number changes.
+(3) Sites B/H re-gated flip-invariant; D was absorbed by 1k; the observer
+coordinate consistency gated (twist 4 ↔ layer 3, Ω(3) = 2π² = |S³|).
+
+**The adjudication grammar (1j/1k), applied in advance.** GIVEN the dictionary
+— definitional, gated, whose only alternative is a contentless global renaming
+(declared, not gated — a tautology cannot fail) — there is no per-site d↔s
+freedom; the review-4 per-site family is **closed**. Member two is
+**re-motivated, not deleted**: its live content is the dictionary itself plus
+already-listed endpoint items. Three members and the seven-item count stand.
+Category (a): no new data, no closures, Checks 7/8 clean.
+
+**Surfaces.** Paper: Theorem 1l after 1k; markers at the abstract (third
+member-parenthetical marker), the D1 amendment (widening sentence + the
+−38% anchor sentence), Thm 9's demotion bracket; footer census 30 → 31
+(verified case-correctly: 31 body + 4 °-marked = 35). Formulation: T1l block.
+Verifiers: `cascade_pairing_dictionary.py` NEW (M1–M5, 5/0; the M3 content
+line uses lowercase "fails" to keep the uppercase FAIL gate-grep clean);
+net-state markers in `cascade_ds_audit.py` (docstring + sites C and E).
+**Object gates at this commit:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 +
+pairing_dictionary 5/0. Round 64 (hostile subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

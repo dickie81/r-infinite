@@ -30,6 +30,18 @@ the distinguished layers are discrete band extrema and the V
 argmax, with the sides adjudicated variationally).  The member
 is re-motivated, not deleted; the site count and the residue
 count are unchanged.
+
+NET-STATE (Theorem 1l, cascade_pairing_dictionary.py, round 64):
+the per-site pairing family this audit enumerates is closed
+given the tower's dictionary (Definition 2.1 + Theorem 1): site
+E's flip is identically a window shift (and this audit's
+alternative a MIXED frame -- potential flipped, boundary term
+R(14) kept), so the -38% anchor re-grades as a cross-check of
+the dictionary; site C's avatar weight is Omega(d-1), the
+previous layer's measure, forsworn by T1's own Remark -- the
+two-coset clause does not hold in the tower's dictionary (the
+single-coset repair candidate stays live).  Member two is
+re-motivated, not deleted; classifications and counts unchanged.
 """
 
 import itertools
@@ -80,6 +92,9 @@ def site_C():
         print(f"   {lab:<22} max 2-coset share = {mx:.5f}"
               f"  ({'passes' if mx < 1/PI else 'FAILS'} < 1/pi)")
     print("   CONDITIONAL (demoted, review 4): verdict flips with pairing.")
+    print("   (net-state, Theorem 1l: the avatar weight is Omega(d-1) --")
+    print("   forsworn by T1's Remark; the clause does not hold in the")
+    print("   tower's dictionary; single-coset repair candidate stays live)")
 
 
 def site_D():
@@ -103,6 +118,9 @@ def site_E():
               f"   (obs 16.8170: {'match' if abs(tau_mu/16.817-1)<0.01 else 'off by ' + format(tau_mu/16.817-1,'+.0%')})")
     print("   ANCHORED: data selects the canonical pairing (same epistemic")
     print("   type as the unit normalization; counted under item seven).")
+    print("   (net-state, Theorem 1l: the flip is identically a window")
+    print("   shift, and this site's alternative is a MIXED frame -- the")
+    print("   anchor re-grades as a cross-check of the tower's dictionary)")
 
 
 def site_F():

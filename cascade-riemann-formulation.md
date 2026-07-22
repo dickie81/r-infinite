@@ -241,6 +241,25 @@ the class's first member is re-motivated, not deleted, exactly as T1j
 re-motivated the third. Three members and the seven-item count stand. No
 closure; category (a).
 
+**T1l (the pairing dictionary; `cascade_pairing_dictionary.py`, five gates).**
+Member two attacked directly: given the tower's dictionary (Definition 2.1's
+s = d+1 with factor Γ_ℝ(s); T1's kernel primitives at that point), the audit's
+"alternative pairing" objects are the *previous layer's* potential and measure
+(P(d) = p(d−1); 2/Γ_ℝ(d) = Ω(d−1) — identities). Site E's flip is identically a
+window shift (Σ residual exactly 0) and the audit's alternative a mixed frame
+(potential flipped, boundary term kept: 10.4584 vs the coherent 10.4718, both
+catastrophically off the canonical 16.8173) — the −38% anchor re-grades from
+selection to **cross-check of the dictionary**, with E's residual content the
+window endpoint data (Definition-6.1 instantiation + the strict-boundary
+stipulation, already listed). Site C sharpens: the avatar weight is Ω(d−1),
+forsworn by T1's own Remark ("The paper never uses the avatar"), so the
+Geometric two-coset clause fails under the tower's measure (0.35001 ≥ 1/π;
+single-coset repair candidate stays live; no number changes). B/H re-gated
+flip-invariant; D absorbed by T1k. The review-4 per-site family is closed;
+member two re-motivated, not deleted — its live content is the dictionary plus
+already-listed endpoint items. Three members and the seven-item count stand. No
+closure; category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the
