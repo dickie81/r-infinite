@@ -5937,6 +5937,35 @@ census. **Object gates:** 4/5/35/27/6/10, 0 FAIL; landscape-uniqueness asserts
 pass; zero stale census phrases remain (machine-grepped). Round 52 (convergence
 test on this sweep) gates stability of the registrations round.
 
+## Addendum 114: hostile review round 52 — convergence test on the round-51 sweep; NOT CONVERGED (0 majors, 1 minor, 3 cosmetics); all swept; round 53 gates
+
+**Finding 1 verified directly by the lead (the verifier's own output reproduced
+the stale lines before the fix; zero matches after). The round's substantive
+verdicts all held: the remaining Γ-vs-octonion pair attacked and CONFIRMED
+independent (the Γ route's integer depends on the transcendental value of π; the
+octonion route is rigid division-algebra combinatorics — disjoint arithmetic,
+not a bare label); the † history verified accurate at both prior commits; the
+1+1-conditional census consistent on every tex surface; all instruments and
+Checks 7/8 clean.**
+
+- **F52-1 (minor, fixed):** the verifier's STEP 5 body still said "Route 2 …
+  Two routes + the cross-check" against its own swept header — the round-51
+  defect class surviving one screen below its fix, and contradicting the
+  commit's "zero stale census phrases" claim (that claim's grep covered the
+  paper patterns, not this phrasing). Body now carries the conditional grading.
+- **F52-2 (cosmetic, fixed):** †(i)'s "Status list below" — the list is above.
+- **F52-3 (cosmetic, fixed):** the reworded 3508 chain lacked its "d₀ =" head
+  (every equality in the tail is an unconditional theorem; the commitment
+  forces the head identification). Head added.
+- **F52-4 (cosmetic, fixed):** the verifier's "merged round 51" collective
+  attribution split (B/D papers-side, the G₂ facet round 51); "𝕆−1 half" →
+  "facet".
+
+**Object gates:** landscape-uniqueness asserts pass with zero stale phrases
+(machine-grepped); d0_rho8_identity and dgw_g2_forcing clean; CI validator clean
+on 12 tex files; the six standing verifiers at 4/5/35/27/6/10, 0 FAIL. Round 53
+(convergence test on this sweep) gates stability of the registrations arc.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

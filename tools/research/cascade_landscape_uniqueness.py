@@ -28,8 +28,9 @@ registered route-independence corrections):
   2. d_V = 5: ONE independent route (Γ-vol-max) + two cross-checks
      (observer+1, dim ℍ+1)
   3. d_0 = 7: TWO independent routes (Γ-area-max, transcendental;
-     the octonion route — ρ(8)−1 ≡ dim 𝕆−1 ≡ G_2-uniqueness on S^6,
-     merged round 51: the HR fields on S^7 are the octonion
+     the octonion route — ρ(8)−1 ≡ dim 𝕆−1 ≡ G_2-uniqueness on S^6
+     (B/D merged papers-side, the G_2 facet round 51): the HR
+     fields on S^7 are the octonion
      multiplications and the G_2 route's integer is dim Im 𝕆 = 7,
      linkage resolved per cascade_d0_rho8_identity.py)
   4. d_g = 12: ONE route — Adams (smallest d > d_observer with
@@ -125,7 +126,8 @@ def main() -> None:
     # Step 3: d_0 = 7 — two independent routes (octonion cluster merged)
     # ============================================================
     print("STEP 3 — d_0 = 7 forced by TWO routes (B/C/D one octonion")
-    print("route, merged round 51):")
+    print("route; B/D merged by the papers-side application, the G_2")
+    print("facet by round 51):")
     print()
     print("  Route A (Γ-area-max integer):")
     candidates_a = [(d, gamma_area(d)) for d in range(4, 12)]
@@ -166,7 +168,7 @@ def main() -> None:
             else:
                 violations.append('B (would match!)')
             violations.append('C (G_2-uniqueness, only S^6 fits)')
-            violations.append('B-merged (𝕆−1 half of the octonion route)')
+            violations.append('B-merged (𝕆−1 facet of the octonion route)')
         print(f"    d_0 = {d_alt}: violates {violations} → ruled out.")
     print()
 
@@ -220,10 +222,11 @@ def main() -> None:
     print()
     print("  Cross-check (integer relation; Catalan reading): d_gw =")
     print("  2·d_0 = 14 — presupposes d_0, reclassified papers-side.")
-    print("  Route 2 — Lie identity: dim G_2 = 14 (cross-row caveat:")
-    print("  the G_2/SU(3) chain is shared with d_0's route).")
-    print(f"  Two routes + the cross-check give d_gw = 14 →")
-    print(f"  integer-level uniqueness.")
+    print("  Conditional route — Lie identity: dim G_2 = 14 (graded")
+    print("  conditionally forced; cross-row caveat: the G_2/SU(3)")
+    print("  chain is shared with d_0's route).")
+    print(f"  One route + the conditional + the cross-check give")
+    print(f"  d_gw = 14 → integer-level uniqueness.")
     print()
 
     # ============================================================

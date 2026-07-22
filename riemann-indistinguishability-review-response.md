@@ -1124,3 +1124,20 @@ conditionality; the sibling and misattributed sentences corrected.
 | F51-6/7/8 (cosmetics) — stale comments; wrong remark-title pointer; compressed †(ii) reason | **Accepted.** All fixed | verifier + part4b |
 
 **Trajectory: registrations landed → 51 1+4+3c. Round 52 gates stability.**
+
+# Round 52: convergence test on the round-51 sweep (subagent, per protocol) — NOT CONVERGED (0+1+3c); one stale phrase in the instrument's body; the census itself held
+
+The remaining Γ-vs-octonion pair was attacked and held independent (transcendental
+π-dependence vs rigid division-algebra combinatorics — disjoint arithmetic); the
+† history verified at both prior commits; the 1+1-conditional census consistent on
+every tex surface. The sole minor: the verifier's STEP 5 body contradicted its own
+swept header.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F52-1 (minor) — "Route 2 … Two routes + the cross-check" surviving in the STEP 5 body | **Accepted.** Conditional grading in the body; zero stale phrases confirmed by machine | verifier |
+| F52-2 (cosmetic) — "Status list below" (it is above) | **Accepted.** Fixed | part4b |
+| F52-3 (cosmetic) — the 3508 chain missing its "d₀ =" head | **Accepted.** Head added | part4b |
+| F52-4 (cosmetic) — "merged round 51" collective attribution; "half" | **Accepted.** Split and relabeled | verifier |
+
+**Trajectory: registrations → 51 1M+4+3c → 52 0+1+3c. Round 53 gates stability.**
