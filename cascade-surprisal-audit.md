@@ -4528,7 +4528,7 @@ quantifiers.**
   comment, not printed; both annotated. **c-C:** the script's thm:generators line cite
   corrected (grading sentence 307–310).
 
-**Checked and held (the reviewer's twelve-item held list, spot-verified by the lead):**
+**Checked and held (the reviewer's ~~twelve-item~~ **[struck round 35 (F2): a numeric census of the reviewer's in-session report, uncheckable from the repo — the committed enumeration here has 10 entries; census-free per the lesson]** held list, spot-verified by the lead):**
 the corrected mathematics (equivalence, scans, ρ-table against part4a's proof table);
 the honest gate count on all surfaces; the strike-verbatim rule on all six round-30
 strikes; the five companion quotes; every named component's provenance (anchor
@@ -4579,7 +4579,7 @@ compared against rounds 22/25/28's recorded findings; the quote compared against
 part4a.tex:354; the part4b row located at 3633).**
 
 **Verdict: NOT CONVERGED — zero majors, four minors, two cosmetics. The mathematics,
-the F1/F3 repairs, all strike-verbatim checks, and eleven of the reviewer's fourteen
+the F1/F3 repairs, all strike-verbatim checks, and ~~eleven of the reviewer's fourteen~~ **[struck round 35 (F2): uncheckable in-session census]** the remainder of the reviewer's
 held items stand; three of the four minors are the named recursive mode operating one
 level up — the correction committing the corrected defect's own class.**
 
@@ -4620,7 +4620,7 @@ level up — the correction committing the corrected defect's own class.**
   at the table's `\hline` (3630) rather than the d_g row (3633); corrected in place
   (the c-C class, this round's own instance).
 
-**Checked and held (the reviewer's fourteen-item list, lead-spot-verified):** all four
+**Checked and held (the reviewer's ~~fourteen-item~~ **[struck round 35 (F2): uncheckable in-session census; the committed enumeration has 13 entries; census-free]** list, lead-spot-verified):** all four
 round-31 strikes verbatim against the pre-image; A90's battery censuses 1–2 exact at
 commit-final including the post-append table row; the six scripts' counts; the
 mathematics to [1, 10⁵]; the F3 quote restoration verbatim (all three inputs under
@@ -4664,7 +4664,7 @@ registration addition. The inversion the sequence has been driving toward: for t
 first time, every correction made by the round under test survived adversarial
 re-execution (F1's strike, census, and wrap story; F2's three-layer census; F4's
 computed gates under wrong-filter probes both directions; c5's quote; c6's cite —
-the reviewer's twelve-item held list, all with the work shown).**
+the reviewer's ~~twelve-item~~ **[struck round 35 (F1, MAJOR): the hyphenated sibling of the round-34 F4 charge, alive 36 lines above the one instance F4 fixed, in the addendum the sweep was editing — the r19/r31 shape exactly, certified by an exact-string battery; census-free per the lesson]** held list, all with the work shown).**
 
 - **F1 (minor — the CLAUDE.md sentence, third version, still uncheckable) and the
   grading adjudication it demanded.** The corrected sentence claimed "eleven prior
@@ -4739,7 +4739,7 @@ the lead (Check 3: A91's F3 bullet read at source; the held-list entries recount
 the script's d0 usage checked at both lines; the A92 quote compared against the
 committed third version; the part4b d_gw row read).**
 
-**Verdict: NOT CONVERGED — zero majors, one minor, five cosmetics, plus one
+**Verdict: NOT CONVERGED — zero majors, one minor, ~~five~~ **[round 35 (F3): SIX — the enumeration below lists six cosmetic-graded findings; the count excluded F7's "(cosmetic, pre-existing)" under a convention stated nowhere]** cosmetics, plus one
 papers-side candidate registered. The round-33 corrections all held under
 re-execution (second consecutive round of held corrections); the residue is the
 adjudication's own ripple, which the reviewer hunted across every standing streak,
@@ -4780,7 +4780,7 @@ declarations assert — the r19 false records were struck by rounds 19–20); al
 "consecutive round" streaks are mathematical-falsehood-scoped and untouched; the
 "majors exhausted" claims are layer-arc-scoped and untouched; the A72/A73 trajectory
 lines are consistent under the adjudication exactly as A92 claimed; CLAUDE.md v4's
-every remaining claim verified (the three version-labels, the A88 attribution, zero
+every remaining claim verified (the three version-labels, the ~~A88~~ **[round 35 (F4): A89 — CLAUDE.md carries no A88 reference]** attribution, zero
 "eleven"); the two self-referential qualifiers exact by wrap-aware search; A90's
 batteries exact at commit-final; zero live retracted content repo-wide (tex
 included); all six scripts at their recorded counts.
@@ -4793,11 +4793,79 @@ line — the self-referential category) ✓; the Round-19 header and A72 verdict
 pointer ✓; `cascade_layer_selection.py` re-run 4 PASS 0 FAIL; the other five scripts
 5/23/27/6/10 PASS 0 FAIL ✓ (counts from the commands as run).
 
-**Standing state:** trajectory 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+5c) — the two
+**Standing state:** trajectory 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+6c) *(round-35 F3 corrected the cosmetic count)* — the two
 consecutive rounds of held corrections mean the object under review has stopped
 generating defects; what remains is monotone-shrinking ripple bookkeeping. Round 35
 gates stability after this one-file-centred sweep; the papers-side round now carries
 three registered items.
+
+## Addendum 94: hostile review round 35 — convergence test on the round-34 sweep; NOT CONVERGED (1 major, 2 minors, 1 cosmetic); the hyphen that survived the exact-string battery
+
+**Commissioned: "Round 35 pls" — subagent per protocol on commit 5edfc30; every
+finding verified directly by the lead (Check 3: the "twelve-item"/"twelve items"
+census re-run in both forms; the A90/A91/A92 held-list enumerations machine-counted;
+A93's cosmetic bullets counted; CLAUDE.md's addendum references grepped).**
+
+**Verdict: NOT CONVERGED — one major, two minors, one cosmetic. The round-34
+corrections themselves all held (third consecutive round of held corrections: the
+strike verbatim, every marker accurate, the quote fixes exact, the adjudication chain
+complete end-to-end); the round's defects are all census-layer, and the major is the
+record's oldest codified disease at its shortest range yet.**
+
+- **F1 (MAJOR — the hyphen):** round-34 F4's disposition ("Number dropped") was
+  falsified by the hyphenated sibling "twelve-item" alive 36 lines above the fixed
+  instance, in A92's own verdict paragraph — in the addendum the sweep was editing —
+  with the A93 battery (`grep "twelve items"`, exact string) literally true and
+  class-blind: the hyphen sat outside the pattern. This is the round-19 shape
+  (disposition falsified by live sibling instances + exact-string battery certifying),
+  which A92 adjudicated major-equivalent — consistency grades this MAJOR. Struck,
+  census-free.
+- **F2 (minor):** the held-list numeric censuses were systemic, not local: A90's
+  "twelve-item held list" fronts a 10-entry committed enumeration, A91's
+  "fourteen-item" fronts 13, and A91's "eleven of the reviewer's fourteen" compounds
+  it — each a census of the reviewer's *in-session* report, uncheckable from the
+  repo. All struck, census-free, with the committed-enumeration counts stated in the
+  annotations. **Rule (the held-list clause):** held-list references carry no numeric
+  census unless the number is machine-counted from the committed enumeration in the
+  same commit.
+- **F3 (minor):** A93's verdict said "five cosmetics" over a six-bullet cosmetic
+  enumeration (F7's "pre-existing" qualifier excluded it under a convention stated
+  nowhere, and the Round-34 table dropped the qualifier while keeping the count —
+  irreconcilable on one surface). Corrected to six on all four count-carrying
+  surfaces. **Rule:** verdict censuses are machine-counted from the graded findings
+  as committed; "pre-existing" is a provenance note, not a counting category.
+- **F4 (cosmetic):** A93's verification record cited "the A88 attribution" on a
+  surface (CLAUDE.md) that carries no A88 reference — the object is the Addendum 89
+  attribution. Corrected in place.
+
+**Checked and held (the reviewer's held list — census-free per the new clause —
+lead-spot-verified):** the A91 strike verbatim against the pre-image with accurate
+annotation; the Round-19 header, A72, and Round-32 cell markers each accurate against
+A92; the adjudication chain complete at every link (CLAUDE.md → tables → A92 →
+Round-19 surfaces); A92's F5 fuller quote verbatim against the committed third
+version with every omission marked; the F6 scope line's census exact (wrap-aware);
+the script comment accurate and all six scripts at their recorded counts; the
+"accurate contrast" and "no majors" sweeps clean (zero live census anywhere); the
+rounds-30/31 retracted phrases at zero live, tex included; part4b untouched with the
+three registrations consistent (d_g, d₀, d_gw candidate) and the d_gw row's
+arithmetic verified (dim G₂ = 14 = 2d₀); the ripple-scoped streak and convergence
+statements all surviving.
+
+**A94 battery (this commit's gate; stem-based per the round-19 rule, run after all
+appends):** `grep -nE "twelve.item|twelve items" cascade-surprisal-audit.md` — every
+hit is a round-35 strike, annotation, F4-history quote, or this addendum's own text;
+zero live numeric held-list census ✓; `grep -nE "fourteen.item|fourteen held"` —
+strikes and this addendum only ✓; cosmetic-count check: A93 lists six cosmetic
+bullets and every count-carrying surface now says six ✓; `grep -n "A88" CLAUDE.md` —
+zero ✓; scripts re-run post-sweep: 4/5/23/27/6/10 PASS 0 FAIL ✓ (counts from the
+commands as run).
+
+**Standing state:** trajectory 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+6c) → 1+2(+1c). The
+major is a one-word census defect — the narrowest major the record has graded, graded
+so only because consistency with the r19 adjudication demands it. The corrections
+under test held for the third consecutive round; every defect for two rounds has been
+a census of the record's own instruments. Round 36 gates stability with the held-list
+and machine-count clauses in force.
 
 ## Caveats
 

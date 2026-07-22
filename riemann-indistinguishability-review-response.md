@@ -789,7 +789,7 @@ quotes verbatim). The residue is the review's own history-sentence and hygiene.
 
 **Trajectory: 2+4 → 1+5 → 0+4(+2c) → 0+1(+2c). Round 34 gates stability.**
 
-# Round 34: convergence test on the round-33 sweep (subagent, per protocol; relaunched after an orphaned first spawn) — NOT CONVERGED (0+1+5c); the adjudication's blast radius
+# Round 34: convergence test on the round-33 sweep (subagent, per protocol; relaunched after an orphaned first spawn) — NOT CONVERGED (0+1+5c) **[round 35 F3: 6c — the table below lists six cosmetic rows; the header excluded F7 under an unstated convention]**; the adjudication's blast radius
 
 The round-33 corrections all held (second consecutive round). The ripple hunt cleared
 every standing streak, trajectory, and convergence declaration — all survive scoped —
@@ -806,4 +806,18 @@ except the one surface the round-33 sweep itself edited.
 | F7 (cosmetic) — script comment "d0 used in G2 only" vs the AD display | **Accepted.** Reworded | script |
 | Registered — the part4b d_gw row's "2d₀ Catalan" and "dim G₂" routes share the G₂/SU(3)-on-S⁶ chain (candidate third instance of the shared-arithmetic class) | **Registered, unadjudicated** for the papers-side round (d_g, d₀, d_gw) | A93 register |
 
-**Trajectory: 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+5c). Round 35 gates stability.**
+**Trajectory: 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+6c) *(round-35 F3 corrected)*. Round 35 gates stability.**
+
+# Round 35: convergence test on the round-34 sweep (subagent, per protocol) — NOT CONVERGED (1+2+1c); the hyphen that survived the exact-string battery
+
+The round-34 corrections all held (third consecutive round). The major is the record's
+oldest codified disease at its shortest range yet: a one-word census defect.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (MAJOR) — round-34 F4's "Number dropped" was falsified by the hyphenated sibling "twelve-item" alive 36 lines above the fixed instance, in the edited addendum, with the exact-string battery literally true and class-blind (the r19 shape, which A92 adjudicated major-equivalent — consistency grades this MAJOR) | **Accepted.** Struck, census-free | A92 |
+| F2 (minor) — the held-list numeric censuses were systemic: A90's "twelve-item" fronts 10 committed entries, A91's "fourteen-item" fronts 13, "eleven of fourteen" compounds — censuses of in-session reports, uncheckable from the repo | **Accepted.** All struck, census-free; held-list clause: no numeric census unless machine-counted from the committed enumeration in the same commit | A90 + A91 ×2 |
+| F3 (minor) — A93's "five cosmetics" over a six-bullet enumeration (F7 excluded under an unstated convention; the table dropped the qualifier while keeping the count) | **Accepted.** Six on all four surfaces; verdict censuses machine-counted; "pre-existing" is provenance, not a counting category | A93 + Round-34 header/trajectory |
+| F4 (cosmetic) — A93 cited "the A88 attribution" on a surface carrying no A88 reference | **Accepted.** A89, corrected in place | A93 |
+
+**Trajectory: … → 0+1(+6c) → 1+2(+1c) — the narrowest major on record, graded so by precedent-consistency. Round 36 gates stability with the machine-count clauses in force.**
