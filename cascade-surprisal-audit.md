@@ -6015,6 +6015,49 @@ cascade_tate_epsilon.py (7 gates, 0 FAIL); the footer census extended 27 → 28.
 **Object gates at this commit:** 4/5/35/27/6/10 + tate_epsilon 7/0. Round 54
 (hostile subagent, per protocol) follows this commit.
 
+## Addendum 117: hostile review round 54 (subagent, per protocol) on commit 4681643 — Theorem 1i; NOT CONVERGED (0 majors, 4 minors, 4 cosmetics); all swept
+
+**Every finding verified directly by the lead (Check 3: η₅'s L-factor
+(1+2^{−s})^{−1} and its complex poles checked; the +½ln 3 log-derivative
+recomputed; E3's bit-exact unit-base cancellation read in my own code; the
+formulation's T1d line grepped). The mathematics held in full under the
+reviewer's total independent re-derivation — its own brute-force Hilbert
+symbols, Weil oscillator, Gauss sums, and a from-scratch derivation of
+ε_∞ = −i from Tate's local functional equation; E1's orientation-pinning
+adjudicated sound and non-circular, with the σ = −1 alternative failing three
+of four conjuncts and the joint-conjugate residual covered by the round-22
+covariance grading exactly as the text claims.**
+
+- **F54-1 (minor):** "the unramified tower is the only pole-carrying member" —
+  a false universal: η₅ is unramified too, its L-factor carries complex poles.
+  Corrected on paper + docstring: the two unramified members are the only
+  pole-carriers, the trivial tower alone with a real-s pole.
+- **F54-2 (minor):** the paper said the bridge constant "is the log-derivative
+  of 3^{s/2}" — dropped the minus (the factor crosses to the p_sgn side).
+  Restored on paper + formulation.
+- **F54-3 (minor):** E3's ε-side ratio cancels its shared unit base bit-exactly
+  — an exhibit charged as a gate. **Strengthened, not just redescribed**: E3 now
+  gates the twist formula through the independent β-side ratios (genuine Weil-
+  oscillator failure mode), with the (3,7) even-exponent invisibility noted.
+- **F54-4 (minor):** the formulation's T1d "named, not opened" sibling missed
+  the net-state marker the paper's 1d received. Marked.
+- **F54-5/6/7 (cosmetics):** E4's shared-computation exhibit status declared;
+  E6 declared a corollary of E2 + 1g's gated cocycle/closed form (L7b
+  precedent), paper's "(gated" → "(exhibited"; E5's tautological conjuncts
+  replaced by the sign-bookkeeping exhibit pointing at its genuine gate
+  (local_tate T-loc4).
+- **F54-8 (cosmetic):** docstring "FOUR independent" → "four independently
+  KNOWN" (χ₋₈ = χ₈χ₋₄ multiplicatively dependent).
+
+**Held:** the eight-class identity in both forms under independent
+re-implementation; the unit-restriction table by brute Hilbert; the four global
+root numbers classically recomputed; ε_∞ = −i derived from the local FE;
+the twist formula's application with n(ψ₂) = 0; the colour decomposition as the
+full two-place product; the footer census exact at 28; Checks 7/8 clean; zero
+collateral. **Object gates:** 4/5/35/27/6/10 + tate_epsilon 7/0 (E3 now
+genuine). Round 55 (convergence test on this sweep) gates stability of
+Theorem 1i.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

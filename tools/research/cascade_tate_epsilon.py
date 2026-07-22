@@ -11,8 +11,11 @@ achievers, Euler factors).  This file opens the RAMIFIED half.
 Classical structure (Tate): a ramified character of Q_p^x has
 LOCAL L-FACTOR 1 -- no pole, no Euler factor -- and its entire
 functional-equation content is the EPSILON FACTOR, a normalized
-Gauss sum.  The ramified towers are PURE PHASE; the unramified
-tower (1e) is the only pole-carrying one.
+Gauss sum.  The ramified towers are PURE PHASE; the family's two
+unramified members are its only pole-carriers -- the trivial
+tower (1e), alone with a real-s pole, and eta_5's (1 + 2^-s)^-1
+with complex poles (round-54 F1 corrected "the only pole-carrying
+one").
 
 THE IDENTITY (E2, the file's core).  For each dyadic square class
 a, let eta_a = (., a)_2 be the quadratic character of Q_2^x.  With
@@ -38,7 +41,8 @@ The convention is pinned the only honest way: the finite-place
 Gauss orientation sigma = +1 pairs with the classical archimedean
 odd root number eps_inf = -i so that the PRODUCT FORMULA
 Prod_v eps_v = global W holds at the known values -- gated on
-FOUR independent global root numbers (chi_-4, chi_8, chi_-8,
+four independently KNOWN global root numbers (multiplicatively
+dependent as characters -- chi_-8 = chi_8 chi_-4; round-54 F8) (chi_-4, chi_8, chi_-8,
 chi_-3, all W = +1; chi_-3's is the paper's analytically-verified
 root number, 1c).  The round-22 covariance grading applies:
 structural statements are convention-free, specific values are
@@ -154,16 +158,27 @@ def main():
     print()
     print("E3 unramified-twist formula eps(chi mu) = mu(2)^a(chi) eps(chi)")
     print("   on the three eta_5-twisted pairs:")
+    # round-54 F3: the eps-side ratio cancels the shared unit base
+    # bit-exactly (a consistency exhibit); the twist formula's GENUINE
+    # instrument is the beta-side ratio, computed from the independent
+    # Weil-oscillator machinery -- gated here.  Note the (3,7) pair has
+    # even exponent a(chi) = 2, so its correction is invisible in
+    # principle; the odd-exponent pairs carry the content.
+    g1_ = gamma_v(1, 2)
     ok3 = True
     for x, y in ((3, 7), (2, 10), (6, 14)):
-        r = eps_eta(x, +1) / eps_eta(y, +1)
+        r_beta = (gamma_v(x, 2) / g1_) / (gamma_v(y, 2) / g1_)
         want = (hilbert(2, x, 2) / hilbert(2, y, 2)) ** UNIT[x][1]
-        ok3 &= abs(r - want) < 1e-9
-    print(f"   pairs (3,7), (2,10), (6,14)   {'PASS' if ok3 else 'FAIL'}")
+        ok3 &= abs(r_beta - want) < 1e-8
+    print(f"   beta-side ratios on pairs (3,7), (2,10), (6,14)   "
+          f"{'PASS' if ok3 else 'FAIL'}")
 
     # ---- E4: the colour decomposition
     print()
     print("E4 the colour character's global root number decomposes:")
+    # round-54 F5: the product conjunct shares E1's computation on the
+    # same variable -- E4 is the DECOMPOSITION READING of E1's anchor,
+    # a consistency exhibit, declared as such
     ok4 = abs(e_3 - 1j) < 1e-9 and abs(e_3 * W_inf_odd - 1) < 1e-9
     print(f"   eps_3(chi_-3) = +i, eps_inf(sgn) = -i, product = +1 = the")
     print(f"   analytically-verified global W (1c)   "
@@ -175,14 +190,23 @@ def main():
     print()
     print("E5 the odd bridge's conductor term is the epsilon-side")
     print("   conductor factor's log-derivative:")
-    ok5 = abs(-0.5 * math.log(3) - (-math.log(3) / 2)) < 1e-15
-    # structural content: d/ds[-(s/2) ln 3] = -ln(3)/2, the exact constant
-    # in p_sgn = Sum_zeros - (1/2)ln 3 + primes (1c / local_tate T-loc4)
-    ok5 &= abs(math.log(3) / 2 - 0.5493061443340549) < 1e-12
-    print(f"   d/ds[-(s/2) ln 3] = -ln(3)/2 == 1c's bridge constant   "
+    # round-54 F7: the first version's conjuncts were tautologies (the
+    # same expression twice; a math-library check).  The identity's
+    # GENUINE gate is cascade_local_tate.py's T-loc4 bridge check
+    # (p_sgn + sum_p p_p^chi = Lambda'/Lambda - (1/2)ln 3, verified to
+    # 1e-20); E5 exhibits the sign bookkeeping: the completed L's
+    # conductor factor 3^{(s+1)/2} has log-derivative +ln(3)/2, entering
+    # the bridge with a MINUS as it crosses to the p_sgn side.
+    ok5 = abs((math.log(3) / 2) + (-math.log(3) / 2)) < 1e-15
+    print(f"   conductor factor's log-derivative +ln(3)/2 crosses sides:"
+          f" bridge term = -ln(3)/2 (genuine gate: local_tate T-loc4)   "
           f"{'PASS' if ok5 else 'FAIL'}")
 
     # ---- E6: the closed form recombined through epsilon
+    # round-54 F6: E6 is a corollary of E2 + local_family's gated
+    # cocycle/closed form (L2/L3) -- a consistency exhibit of the
+    # recombination, not an independent failure mode; declared per the
+    # L7b precedent
     print()
     print("E6 gamma_2(q) = gamma_2(1)^dim * eps(eta_disc) * hasse(q) --")
     print("   the clock's twist IS the root-number map (dims 1-2")

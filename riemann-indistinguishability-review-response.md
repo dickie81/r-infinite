@@ -1152,3 +1152,23 @@ object file; all instruments and Checks 7/8 clean.
 | F53-1 (cosmetic) — STEP 2 case line's "violates routes" grouping labeled cross-checks | **Accepted.** Reworded to the STEP 3 sibling's form in the convergence commit | verifier |
 
 **Trajectory: registrations → 51 1M+4+3c → 52 0+1+3c → 53 CONVERGED 0+0+1c. Final census: d_V 1, d₀ 2, d_g 1, d_gw 1+1 conditional, d₁ 1 — d₀ over-determined outright, d_gw conditionally. Next hostile round on the next substantive paper change.**
+
+# Round 54: hostile review of Theorem 1i (subagent, per protocol) — NOT CONVERGED (0+4+4c); the mathematics held in full, the instrument census and two sentences did not
+
+Total independent re-derivation confirmed the eight-class root-number identity,
+the orientation-pinning (sound, non-circular; σ = −1 fails three of four
+conjuncts), the colour decomposition, and the classical attributions. The
+defects: one false universal (η₅ is unramified too), one dropped minus sign, an
+exhibit charged as a gate (strengthened to the β-side), one missed sibling
+marker, and four instrument-census cosmetics.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F54-1 (minor) — "only pole-carrying member" false (η₅ unramified, complex poles) | **Accepted.** Two-member statement on both surfaces | paper + script |
+| F54-2 (minor) — the bridge constant's minus dropped | **Accepted.** Sign restored, both surfaces | paper + formulation |
+| F54-3 (minor) — E3's ε-ratio cancels bit-exactly; "(3,7)" invisible in principle | **Accepted.** Gate strengthened to the independent β-side ratios | script + paper |
+| F54-4 (minor) — formulation's T1d sibling unmarked | **Accepted.** Net-state marker | formulation |
+| F54-5/6/7 (cosmetics) — E4/E6/E5 exhibit statuses undeclared or tautological | **Accepted.** Declared; E5 rebuilt as the sign-bookkeeping exhibit | script + paper |
+| F54-8 (cosmetic) — "FOUR independent" adverb drift | **Accepted.** "independently known" | script |
+
+**Trajectory: 1i landed → 54 0+4+4c. Round 55 gates stability of Theorem 1i.**

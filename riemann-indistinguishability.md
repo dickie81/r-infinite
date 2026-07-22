@@ -465,22 +465,31 @@ RH/GRH, no semiclassics).
 identity; `cascade_tate_epsilon.py`).** *(i) Pure phase.* A ramified character of
 ℚ_p^× has local L-factor 1 — no pole, no Euler factor (classical: Tate); its
 entire functional-equation content is the ε-factor, a normalized Gauss sum. The
-ramified towers are **pure phase**; the unramified tower (1e(i)) is the only
-pole-carrying member of the local family — exhibited in-code by the
+ramified towers are **pure phase**; the family's two unramified members are its
+only pole-carriers — the trivial tower (1e(i)), alone in carrying a pole at real
+s, and the unramified quadratic η₅'s tower (1 + 2^{−s})^{−1}, whose poles are
+complex *(round-54 F1: the first writing's "the only pole-carrying member" was a
+false universal — η₅ is unramified too)* — exhibited in-code by the
 shell-by-shell vanishing of the ramified unit-character sums (dyadic and
 triadic, gate E7). *(ii) The root-number identity — the file's core.* For each
 dyadic square class a, let η_a = (·, a)₂. Then, gated on all eight classes:
 **β(a) = ε(η_a)** — the clock's disc-twist (1f/1g) *is* Tate's quadratic
 root-number map — where ε is the local ε-factor (unit-conductor Gauss sum times
-the classical unramified-twist correction η_a(2)^{a(χ)}, the twist formula
-itself gated on the three η₅-twisted pairs), in the orientation **fixed by the
+the classical unramified-twist correction η_a(2)^{a(χ)}, the twist formula's
+content gated through the independent β-side ratios on the three η₅-twisted
+pairs — the ε-side ratio cancels its shared unit base bit-exactly, and the
+(3,7) pair's even exponent makes its correction invisible in principle: the
+odd-exponent pairs carry the content *(round-54 F3 strengthened the gate)*), in the orientation **fixed by the
 ε product formula, not chosen silently**: the finite Gauss orientation pairing
 with the classical ε_∞(odd) = −i is pinned by gating Π_v ε_v = +1 on four
 independently known global root numbers (χ₋₄, χ₈, χ₋₈, and the paper's own
 χ₋₃ from 1c). Equivalently, in the program's standard ψ₂:
 β(a) = η_a(−1)·ε(η_a, ψ₂). Combined with 1g(ii)'s closed form:
 **γ₂(q) = γ₂(1)^dim · ε(η_disc) · hasse(q)** — Tate's local functional equation
-supplies the clock's twist structure (gated: 8 + 64 + battery forms). The
+supplies the clock's twist structure (exhibited on 8 + 64 + battery forms; a
+corollary of the eight-class identity plus 1g's gated cocycle and closed form —
+round-54 F6 declared the exhibit status, per the L7b precedent; E4's
+decomposition line likewise shares E1's anchor computation, round-54 F5). The
 general Weil-index/ε relation is classical in substance (Weil's metaplectic
 index); the eight-class identity in the program's stated conventions is what
 the gates certify. The round-22 covariance grading applies verbatim: the
@@ -490,8 +499,11 @@ of L(s, χ₋₃) — verified analytically at 1c — decomposes locally as
 **ε₃(χ₋₃)·ε_∞(sgn) = (+i)(−i) = +1** (gated): the colour character's sign is a
 two-place cancellation, ramified conductor 3 against the archimedean sgn
 tower — the 1f/1g two-place family shape again, now at the ε level. And the
-odd bridge's conductor term −½ln 3 (1c) is the log-derivative of the
-functional equation's conductor factor 3^{s/2} (gated as the identity it is):
+odd bridge's conductor term −½ln 3 (1c) is **minus** the log-derivative of the
+functional equation's conductor factor 3^{s/2} — the factor crosses to the
+p_sgn side *(round-54 F2: the first writing dropped the minus)* — with the
+identity's genuine gate being `cascade_local_tate.py`'s T-loc4 bridge check
+(10⁻²⁰); E5 is the arithmetic exhibit *(round-54 F7)*:
 Door 4's "conductor is the different" has its ε-side home. *Honest scope:*
 **no A2 grammar entry is derived, no number changes, no closure is claimed**
 (category (a); no data, no RH/GRH, no semiclassics — Gauss sums and Tate local

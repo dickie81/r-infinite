@@ -100,7 +100,8 @@ graded identification. (iii) Landsberg–Schaar verified (18-pair grid incl. eve
 round-18 m6; the review's independent 1000-pair sweep: zero failures): the
 archimedean Weil index ζ₈ is the exchange constant between finite places — the product
 formula's machine-checkable avatar. Scope: no grammar entry derived; 2/3-adic Tate theory
-named, not opened; sign-convention failure on the first run kept on the record.
+named, not opened *(net-state: unramified half opened by T1e, ramified half by
+T1i)*; sign-convention failure on the first run kept on the record.
 
 **T1e (The local Tate step — PROVED at stated strengths; Addendum 70;
 `cascade_local_tate.py`).** (i) Per-place T2: 1_{ℤ_p} is self-dual and achieves E_p; the
@@ -203,7 +204,8 @@ formula on four known global root numbers, incl. 1c's χ₋₃), so
 γ₂(q) = γ₂(1)^dim·ε(η_disc)·hasse — the clock's twist is the quadratic
 root-number map; the colour character's global +1 decomposes as
 ε₃(χ₋₃)·ε_∞(sgn) = (+i)(−i) (two-place cancellation), and the odd bridge's
-−½ln 3 is the ε-conductor factor's log-derivative. No entry derived;
+−½ln 3 is minus the ε-conductor factor's log-derivative (round-54 F2 restored
+the sign; the genuine gate is local_tate's T-loc4). No entry derived;
 category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
