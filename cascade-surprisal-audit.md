@@ -5156,9 +5156,13 @@ round):**
 *T1 — `grep -rn "three consecutive"` over both record files — 3 hits + this command
 line:* audit:5114 [A98 F1 bullet — disposition]; response:161 [pre-existing round-6-era
 "three consecutive zero-demotion passes" summary — different arc, accurate history];
-response:886 [Round-39 table F1 row — disposition]; plus this transcript's command
-line [self-referential]. The struck A97 instance no longer matches (the strike
-annotation interposes). Zero live.
+response:886 [Round-39 table F1 row — disposition]; plus TWO self-referential
+occurrences in this transcript — the command line AND the phrase quoted inside the
+response:161 classification tag *(self-caught minutes after the round-39 push: the
+committed version declared only the command line; corrected here with this note per
+the honest-record rule — the first test of the standing-state era caught the
+transcript quoting its own pattern in a tag)*. The struck A97 instance no longer
+matches (the strike annotation interposes). Zero live.
 
 *T2 — `grep -rnE "properly.marked"` over both record files — 8 hits + this command
 line:* audit:4867 [round-39 F3 strike]; 4935, 4975 [round-38 F5 strikes]; 5045 [A97
