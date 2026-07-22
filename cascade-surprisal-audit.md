@@ -5848,6 +5848,46 @@ coordinates the colour discriminant and the clock prime, its ∞-mirror free. Op
 whether the grammar reads the two coordinates — with the licensed falsifier
 standing. Next hostile round on the next substantive paper change.**
 
+## Addendum 112: the papers-side registrations applied — the part4b landscape route census corrected (A90-F6, A92-F4, and the A93 candidate adjudicated)
+
+**Commissioned: "The papers-side registrations pls" — the three deferred items from
+rounds 31–34, applied to src/cascade-series-part4b.tex and its cited verifier.
+Lead-adjudicated per the registered dispositions; the A93 candidate adjudicated
+this round.**
+
+**The three corrections, now on the paper surface (the † note in the multi-route
+table):**
+
+- **d₀ = 7 (A92-F4, applied as registered):** ρ(8)−1 and dimO−1 merged as one
+  Clifford/octonion route (ρ(8) = 8 = dimO; the Hurwitz–Radon fields on S⁷ are
+  the octonion multiplications). Census 4 → 3 independent routes; over-determined
+  status survives, as A92-F4 predicted.
+- **d_g = 12 (A90-F6, applied as registered):** N_c·dimℍ moved to the
+  consistency-cross-check column (shares the ρ(12) arithmetic: v₂(12) = 2 and the
+  ℍ³ module structure are the same factorization 12 = dimℍ·N_c). Census 2 → 1;
+  d_g leaves the over-determined set, and the "multi-route consistency at d₀,
+  d_g, d_gw" sentence is corrected to d₀ and d_gw.
+- **d_gw = 14 (the A93 candidate, adjudicated this round):** split verdict. 2d₀
+  ACCEPTED as a cross-check — it presupposes d₀, the same class as d_g = d_V+d₀;
+  the Catalan content (rem:catalan-u1-closure) is unaffected. dim G₂ RETAINED as
+  an independent route within the row (a theorem-level constant, independent of
+  the row's Adams route) but annotated with the cross-row caveat: the
+  G₂/SU(3) = S⁶ chain is shared with d₀'s route, and the structural
+  identification needed for full forcing is exactly the open piece part4b:3552
+  already names (verifier cascade_dgw_g2_forcing.py). Census 3 → 2;
+  over-determined status survives.
+
+**Propagation:** the Proposition's three per-item censuses updated with
+pre-correction counts noted; the proof's case analysis annotated (merged routes
+still constrain — the corrections affect the independence census, not the
+exclusions); the status remark's "every route is independently load-bearing"
+rescoped to the retained columns; cascade_landscape_uniqueness.py synced — its
+docstring and prints carried a pre-Check-8 census (d_V "THREE routes" against the
+paper's own one-route table, a pre-existing verifier/paper inconsistency found
+and fixed in passing), now conformant, asserts unchanged and passing. CI
+validator clean across all 12 tex files. Round 51 (hostile subagent, per
+protocol — a substantive change to a trigger surface) follows this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
