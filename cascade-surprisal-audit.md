@@ -6284,6 +6284,68 @@ conventional content); three members, seven-item residue count unchanged.
 torsion_selection 6/0. Next hostile round on the next substantive paper
 change.
 
+## Addendum 124: Theorem 1k — the lattice selection; layer 4 attacked at the feature→layer member (the class's first)
+
+**The commission ("keep digging at layer 4") and the finding.** The
+selection-convention class's first member — the feature→integer-layer map, charged
+by review 2 as "no uniform rounding rule produces {5, 7, 19, 217} from the feature
+set" — was attacked at its frame. The charge is true in the rounding frame and
+empty in the lattice frame: under the site-E canonical pairing p(d) = P(d+1), the
+threshold bands are exact integer intervals B₁ = {7..19} and B₂ = {20..217},
+**boundary-convention-free** (no lattice point lies within 8.57×10⁻⁴ of a
+threshold, so all four half-open conventions produce identical sets), V(d) has the
+strict discrete argmax 5, and {argmax_ℤ V, min B₁, max B₁, max B₂} = {5, 7, 19,
+217} with **zero rounding anywhere** — min B₂ = max B₁ + 1 (tiling), so the band
+structure carries exactly four independent integers.
+
+**The source discovery (Checks 1–2, direct reads).** Part 0 already occupies the
+lattice frame, and has since 2026-05-06 (commit 9b321cd) — predating this paper
+(2026-07-19): its regime partition table gives the integer bands verbatim; d_V = 5
+is already the *discrete* argmax ("class (a)"); the regime-boundary bullet states
+the labels are *"fixed by the variational characterisation of the cascade
+invariant (Theorem thm:variational below), not by an ad hoc rounding convention"*;
+and the variational theorem proves the sup over the eight boundary labelings
+unique at (7,19,217). Yet this paper's §10, its abstract item, and
+`cascade_feature_monoid.py` quoted only the concession sentence (*"No rounding
+convention selects a canonical integer uniformly across the three boundaries"* —
+verbatim-true) without the resolution that immediately follows it in the source.
+An incomplete citation, corrected with net-state markers (not strikes — the quoted
+sentence exists verbatim).
+
+**The concordance (gated).** The paper's Theorem-7 s-space feature set is the same
+object list: the critical pair 5.2569/7.2569 is ONE equation (ψ(x/2) = ln π) read
+at two argument offsets — the V-argmax (d = 5.2569, factor Γ_ℝ(d+2)) and the
+p-zero (d = 6.2569, s = 7.2569) — gated as the same root, which dissolves the
+feature-monoid FAILED-1 double-reading; the s-thresholds are the d-crossings + 1.
+Part 0's variational labels agree gate-by-gate: identically at the two upper
+boundaries (d log Ω_d/dd = −p(d), part0's own identity — *"the first derivative of
+the log-area, which is −p(d)"* — so Ω decreases exactly where p > 0 and the
+variational extremum IS the band-sign fact), numerically at the first (Ω₇ < Ω₆,
+margin ≈1.9%, a genuine comparison — disclosed as the one boundary where the two
+principles are distinct).
+
+**The adjudication grammar, applied in advance (the 1j lesson).** GIVEN the site-E
+pairing — anchored, persisting in the residue; the alternative pairing shifts the
+set coherently to {5, 8, 20, 218} (gated) — the assignment is lattice-entailed
+with zero further freedom. Member one is **re-motivated, not deleted**: the
+assignment is the pairing choice, seen once. Three members and the seven-item
+count stand. Finding 6 (feature-list completeness) stays REOPENED. No number
+changes; no closure.
+
+**Surfaces.** Paper: Theorem 1k inserted after 1j; net-state markers at the
+abstract item, §4 (two), the feature-monoid remark, Theorem 13c's source values,
+§10 item 2; footer census 29 → 30 (verified case-correctly: 30 body-cited + 4
+°-marked = 34, no strays — the first count repeated the round-44 lowercase-grep
+error and was caught before recording). Formulation: T1k block + one marker.
+Verifiers: `cascade_lattice_selection.py` NEW (six gates K1–K6, 6/0);
+net-state markers in `cascade_ds_audit.py` (site D + docstring),
+`cascade_feature_monoid.py` (docstring + verdict print),
+`cascade_layer_selection.py` (item 3 + reading). **Category (a)** throughout:
+classical Γ-function facts, machine-gated; Checks 7/8 clean (the anchored pairing
+is the sole non-arithmetic input, already counted). **Object gates at this
+commit:** 4/5/35/27/6/10 + 7/0 + 6/0 + lattice_selection 6/0. Round 60 (hostile
+subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

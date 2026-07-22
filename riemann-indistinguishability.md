@@ -28,7 +28,11 @@ Finding 1; the class was widened by review 4 to every d↔s pairing choice and b
 to the χ₋₃ minimality-pairing — one class, three members *(net-state, Theorem 1j
 as adjudicated round 57: the third member re-motivated — C1-anchored matching
 replaces the order principle, minimality entailed within the pairing-act, which
-persists; three members and the seven-item count stand)*); and the hypothesis itself
+persists; three members and the seven-item count stand)* *(net-state, Theorem 1k
+round 60: the first member likewise re-motivated — the assignment is
+lattice-entailed given the site-E pairing, which persists as the class's live
+content; no rounding rule was ever needed; three members and the seven-item
+count stand)*); and the hypothesis itself
 (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
@@ -568,6 +572,50 @@ closure, no data, no RH/GRH, no semiclassics; the grammar-reading question
 stays open — narrowed again (the colour entry's dyadic shadow IS the invisible
 unit coordinate: the 1e(iv) identification relocated, not a new forcing).
 
+**Theorem 1k (the lattice selection: the feature→layer map re-read;
+`cascade_lattice_selection.py`).** *(i) The lattice facts.* Under the canonical
+window-potential pairing p(d) := P(d+1) (the d↔s audit's site E, the data-anchored
+convention), the integer content of Part 0's regime partition is exact and
+boundary-convention-free: p is strictly increasing on the lattice; the threshold bands
+are B₁ = {d : 0 < p(d) < ln Γ(½)} = **{7,…,19}** and B₂ = {d : ln Γ(½) < p(d) < Γ(½)} =
+**{20,…,217}**; no lattice point lies within 8.5×10⁻⁴ of a threshold, so **all four
+half-open interval conventions produce the same integer sets**; and V(d) has the strict
+discrete argmax **5** (V(4) < V(5) > V(6); ratio strictly decreasing, so unimodal with a
+gated tail). Hence {argmax_ℤ V, min B₁, max B₁, max B₂} = **{5, 7, 19, 217}**, with
+min B₂ = max B₁ + 1 (tiling: the band structure carries exactly four independent
+integers) — and **no continuum crossing is rounded anywhere**; the transcendental
+positions (6.2569, 19.7308, 217.6267 in d) merely locate the band boundaries. *(ii)
+Concordance.* This paper's Theorem-7 feature set is the same object list in the s frame:
+the critical pair 5.2569/7.2569 is **one equation** — the balance ψ(x/2) = ln π — read
+at two argument offsets — the V-argmax equation (d = 5.2569, factor Γ_ℝ(d+2)) and the p-zero
+(d = 6.2569, s = 7.2569) — gated as the same root; the s-thresholds 20.73 and 218.63 are
+the d-crossings + 1. The mixed-rounding appearance that founded the review-2 charge
+(floor-in-s for the pair, floor-in-d for the thresholds) is **one lattice rule seen
+across the s = d+1 frame line**. And Part 0's variational labels (the sup of the
+invariant's bilinear form over the eight boundary labelings, attained uniquely at
+(7,19,217) — in the source since 2026-05, immediately following the concession sentence
+this paper's §10 cites) agree gate-by-gate: at the two upper boundaries **identically**,
+because d log Ω_d/dd = −p(d) — Part 0's own identity, *"the first derivative of the
+log-area, which is −p(d)"* — makes Ω decreasing exactly where p > 0, so the variational
+extremum *is* the band-sign fact; at the first boundary the two principles are distinct
+and agree numerically (Ω₇ < Ω₆, margin ≈1.9%; gated). *(iii) The member re-read — the
+round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
+rounding frame and empty in the lattice frame: **given the site-E pairing** — the
+anchored convention, which **persists in the residue** (under the alternative pairing
+p(d) = P(d) the whole structure shifts coherently to {5, 8, 20, 218}, gated) — the
+feature→layer assignment is **lattice-entailed with zero further freedom**. The class's
+first member is thereby **re-motivated, not deleted**: its content is absorbed into the
+pairing member — the assignment was never an independent choice; it is the pairing
+choice, seen once — exactly as the third member was re-motivated by Theorem 1j. **Three
+members and the seven-item count stand.** Registration: this paper's §10 and the
+feature-monoid verifier cited Part 0's concession sentence without the variational
+theorem and regime partition that immediately follow it in the source — corrected with
+net-state markers, not strikes (the quoted sentence is verbatim-true; the citation was
+incomplete). *Honest scope:* no number changes, no closure, no data beyond the already-
+counted site-E anchor, no RH/GRH, no semiclassics; Finding 6 (feature-list completeness)
+stays REOPENED — the lattice frame reads the *listed* features, it does not prove the
+list complete.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -644,7 +692,8 @@ Theorem 1c(i)'s first balance point) — bounds only the separate window-complet
 fact below, not the scan]** — each identification
 reached through the **feature→integer-layer selection convention** — a named member of
 this paper's seven-item residue (abstract; the class the reviews charged and the paper
-carries). *And the lower bound is load-bearing (round-30 M2/M1):* **ρ(4) − 1 = 3** —
+carries) *(net-state, Theorem 1k: lattice-entailed given the site-E pairing; the member
+is re-motivated, the count unchanged)*. *And the lower bound is load-bearing (round-30 M2/M1):* **ρ(4) − 1 = 3** —
 the anchor dimension is the ρ-condition's twin, as the companion series itself states
 (*"at d = 4, S³ has ρ(4)−1 = 3 independent vector fields, matching the 3 spatial
 dimensions. The same topological invariant governs both the spacetime structure and the
@@ -675,7 +724,7 @@ above) — plus the **anchor** (Lovelock + the hypothesis, listed residue items)
 double duty: it assigns {4,5,6} to spacetime *and thereby excludes the ρ-twin d = 4*;
 plus the **scan range** whose ends are the listed distinguished layers d_V = 5 and
 d₁ = 19 (each identification carrying the feature→layer selection convention, a listed
-residue member); plus the count (the previous remark). **With both remarks, the
+residue member *(net-state, Theorem 1k: lattice-entailed given the site-E pairing)*); plus the count (the previous remark). **With both remarks, the
 colour-count dependency map is complete in this corrected form:** N_c = [Clifford
 construction + classical mod-2 upper bounds] at [one Clifford ℤ/8 window step from the
 anchor, with the anchor excluding its own ρ-twin and the range ends at listed
@@ -747,7 +796,11 @@ unlisted critical points at s ≈ 2.39 and 4.51, and the pole-free grouping ½s(
 critical point at all. The r₂ = 0 obstruction is real but partial. Consequently: **the
 feature→integer-layer selection is a convention, counted in the residue; the observer's
 address retains one convention-free arithmetic distinction (the torsion half-period
-γ⁴ = −1; the scalar-flatness cross-check was demoted by the third review).** *Structural
+γ⁴ = −1; the scalar-flatness cross-check was demoted by the third review).** *(Net-state,
+Theorem 1k: the selection is lattice-entailed given the site-E pairing — the rounding-frame
+non-uniformity this remark records is one lattice rule seen across the s = d+1 frame line;
+the member is re-motivated, the residue count unchanged, and Finding 6's completeness
+question stays open.)* *Structural
 update (Addendum 65, Theorem 1c — Finding 6 stays REOPENED on its original claim):* the
 r₂ = 0 obstruction is now relocated rather than removed — Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1) is
 synthesized exactly by the program's own two interleaved towers (Theorem 5's doubling, via
@@ -974,7 +1027,9 @@ theorem" is **false as attributed** — T6 forces only the subcritical set {5,13
 and {5,13,21} is Definition 6.1 instantiation data, so k = 3 remains a soft input read as
 an instantiation count; additionally "19 and 5 are foundation objects" is withdrawn (all
 four source values {19, 5, 14, 7} pass through the same feature→layer selection convention
-counted in this paper's residue, and the observer is twist 4, not 5), and the claim of "no
+counted in this paper's residue *(net-state, Theorem 1k: the distinguished-layer
+identifications among these are lattice-entailed given the site-E pairing; member
+re-motivated, count unchanged)*, and the observer is twist 4, not 5), and the claim of "no
 precedence order, no null clause, no k-table in the code" was literally false — the code is
 an ordered decision chain with an else-null and inline constants; the annotations propose
 *reasons*, they do not remove stipulations. What remains at honest strength: the clause
@@ -1055,7 +1110,10 @@ bounds already press the value:
    the x²-unit normalization carrying Γ(½) (empirically anchored — the self-dual alternative
    gives E = 3, excluded by data — not arithmetically forced); the P > L > G precedence
    (motivated); and the feature→layer selection convention (second review, Finding 1 —
-   part0 itself concedes no uniform rounding rule exists). J2's incoherence is derived from
+   part0 itself concedes no uniform rounding rule exists *(net-state, Theorem 1k: the
+   concession's next sentence in the source defines the variational selection, and part0's
+   regime partition is the lattice-band statement; given the site-E pairing the assignment
+   is lattice-entailed — the member is re-motivated, the count unchanged)*). J2's incoherence is derived from
    the factorized measure; the flip-word arithmetic is derived but buys π² only jointly with
    the unit convention; the feature-list completeness attempt **failed re-review** and is
    recorded as open (`cascade_feature_monoid.py`, rewritten to state the failure).
@@ -1069,4 +1127,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1j: the **29 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1k: the **30 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
