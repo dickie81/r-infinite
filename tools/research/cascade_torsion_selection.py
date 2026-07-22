@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+"""THE TORSION-EXCEPTIONAL SELECTION (Theorem 1j): re-founding the
+chi_-3 pairing on torsion-maximality; the kernel's two fields.
+Category (a): classical unit-group theory + the committed 1h/1i
+machinery; no data, no closures, no RH/GRH, no semiclassics
+(Check 7); the hypothesis is nowhere an input to the arithmetic
+(Check 8 -- see GRADING below for exactly where C1 enters).
+
+CONTEXT.  Round-15 M3: the odd bridge (1c) holds verbatim for
+every odd real primitive chi, so pairing the odd feature with
+chi_-3 by CONDUCTOR-MINIMALITY was graded a convention -- the
+third member of the selection-convention residue class.  This
+file attacks that member.
+
+THE CLASSICAL CENSUS (J1).  Among imaginary quadratic fields the
+unit-group torsion is |mu| in {2, 4, 6}: |mu| = 6 uniquely at
+disc -3 (Q(zeta_3), the ring Z[omega] with its six units) and
+|mu| = 4 uniquely at disc -4 (Q(zeta_4) = Q(i)); every other
+field has |mu| = 2.  Gated by direct unit count over all
+fundamental discriminants |d| <= 10^4.
+
+THE KERNEL'S TWO FIELDS (J2, J3 -- the 1h anatomy re-read).  The
+clock-invisibility criterion of Theorem 1h is ker(., -1)_2 =
+ker(., -4)_2 -- i.e. THE DISC CHARACTER OF THE mu_4 FIELD,
+localized at the clock prime (gated on all eight classes); and
+the invisible UNIT direction is {1, cls(-3)} -- THE mu_6 FIELD'S
+DISCRIMINANT CLASS, whose local extension Q_2(sqrt(-3)) =
+Q_2(zeta_3) is the unramified quadratic (gated).  The mu_4 field
+itself is 2-ramified (cls(-4) = 7, clock-VISIBLE).  So the
+kernel's anatomy is built from exactly the two
+torsion-exceptional fields: invisibility = the mu_4 disc
+character's kernel; the invisible unit direction = the mu_6
+disc.  Colour's field and the quarter-turn field are the only
+two imaginary quadratics with extra roots of unity, and 1h's
+structure is their joint localization.
+
+THE RE-FOUNDED PAIRING (J4, J5, J6).  Torsion-maximality --
+|mu| = 6, the extremal structural property Theorem 11 ALREADY
+load-bears (the su(3) roots ARE the units mu_6 of Z[omega]; the
+cos(pi/6) projection exists among imaginary quadratic rings iff
+disc = -3) -- selects Q(zeta_3) uniquely among all imaginary
+quadratic fields (J6), hence chi_-3 uniquely among all odd real
+primitive characters.  Conductor-minimality then becomes a
+CONSEQUENCE (|disc| = 3 is a fortiori the minimal conductor,
+J4), not a principle.  The mu_6 field's 2-localization is forced
+to the invisible unit direction (J3), and its epsilon support is
+the two-place pair {3, inf} with the quarter-turn values (J5,
+citing 1i's gated decomposition).
+
+GRADING (honest, per Check 8).  The arithmetic is theorem-grade
+throughout: the torsion census, the two-field anatomy, the
+uniqueness of the mu_6 maximum, minimality-as-consequence.  What
+remains C1-conditional is exactly what was already C1-conditional
+before this file: that COLOUR is the mu_6 structure (Theorem 11's
+identification -- the dictionary's entry, not re-derived here).
+The re-founding therefore does not create a new assumption; it
+shows the pairing needs NO assumption beyond the one Theorem 11
+already carries: the residue's third selection-class member is
+PROPOSED reduced from an independent convention to a consequence
+of the existing T11 anchor -- an adjudication for the hostile
+round, recorded as proposal until it survives.  The seven-item
+residue COUNT is unchanged either way (the class is one item;
+only its internal member census changes).  No number changes; no
+closure; the grammar-reading question stays open (this narrows
+it again: the colour entry's dyadic shadow IS the invisible unit
+coordinate -- the 1e(iv) identification relocated, not a new
+forcing).
+"""
+
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cascade_local_family import hilbert, same_class
+
+D2 = [1, 3, 5, 7, 2, 6, 10, 14]
+H = [1, 5, 2, 10]
+
+
+def cls(x):
+    return next(c for c in D2 if same_class(x, c))
+
+
+def squarefree(n):
+    i = 2
+    while i * i <= n:
+        if n % (i * i) == 0:
+            return False
+        i += 1
+    return True
+
+
+def fundamental_discs(bound):
+    """Fundamental discriminants d < 0 with |d| <= bound."""
+    out = []
+    for d in range(-3, -bound - 1, -1):
+        if d % 4 == 1 and squarefree(-d):
+            out.append(d)
+        elif d % 4 == 0:
+            m = d // 4
+            if squarefree(-m) and (-m) % 4 in (1, 2):
+                out.append(d)
+    return out
+
+
+def torsion(d):
+    """|mu| of the imaginary quadratic field of fundamental disc d,
+    by direct unit enumeration (norm-1 elements of the maximal
+    order; the enumeration windows cover every root of unity)."""
+    count = 0
+    if d % 4 == 1:                       # (a + b sqrt(d))/2, a = b mod 2
+        for a in range(-4, 5):
+            for b in range(-4, 5):
+                if (a - b) % 2 == 0 and a * a - d * b * b == 4:
+                    count += 1
+    else:                                # x + y sqrt(d/4)... wait: d = 4m
+        m = -d // 4
+        for x in range(-2, 3):
+            for y in range(-2, 3):
+                if x * x + m * y * y == 1:
+                    count += 1
+    return count
+
+
+def main():
+    print("=" * 74)
+    print("THE TORSION-EXCEPTIONAL SELECTION (Theorem 1j)")
+    print("=" * 74)
+
+    fund = fundamental_discs(10000)
+
+    # ---- J1: the torsion census
+    print()
+    print("J1 torsion census over all fundamental discs |d| <= 10^4:")
+    w6 = [d for d in fund if torsion(d) == 6]
+    w4 = [d for d in fund if torsion(d) == 4]
+    bad = [d for d in fund if torsion(d) not in (2, 4, 6)]
+    ok1 = w6 == [-3] and w4 == [-4] and not bad
+    print(f"   {len(fund)} discs: |mu| = 6 exactly at {w6}, |mu| = 4"
+          f" exactly at {w4}, all others |mu| = 2   "
+          f"{'PASS' if ok1 else 'FAIL'}")
+
+    # ---- J2: invisibility = the mu_4 field's disc character, localized
+    print()
+    print("J2 the 1h invisibility criterion is the mu_4 field's disc")
+    print("   character at the clock prime:")
+    ok2 = all(hilbert(c, -4, 2) == hilbert(c, -1, 2) for c in D2)
+    ok2 &= sorted(H) == sorted(c for c in D2 if hilbert(c, -4, 2) == 1)
+    print(f"   (., -4)_2 == (., -1)_2 on all 8 classes, and"
+          f" ker(., -4)_2 = H   {'PASS' if ok2 else 'FAIL'}")
+
+    # ---- J3: the invisible unit direction is the mu_6 field's disc
+    print()
+    print("J3 the invisible unit direction is the mu_6 field's disc:")
+    Hu = sorted(u for u in (1, 3, 5, 7) if hilbert(u, -1, 2) == 1)
+    ok3 = Hu == sorted({1, cls(-3)})
+    ok3 &= (-3) % 8 == 5                      # unramified type: Q_2(zeta_3)
+    ok3 &= cls(-4) not in H                   # the mu_4 field is 2-ramified
+    print(f"   H cap units = {Hu} = {{1, cls(-3)}}; -3 = 5 mod 8"
+          f" (Q_2(zeta_3), unramified); cls(-4) = {cls(-4)} not in H   "
+          f"{'PASS' if ok3 else 'FAIL'}")
+
+    # ---- J4: conductor-minimality as a consequence
+    print()
+    print("J4 minimality becomes a consequence, not a principle:")
+    ok4 = abs(w6[0]) == min(abs(d) for d in fund) if len(w6) == 1 else False
+    print(f"   |disc(mu_6 field)| = {abs(w6[0])} = the minimal conductor"
+          f" over all scanned odd real primitive chi_d   "
+          f"{'PASS' if ok4 else 'FAIL'}")
+
+    # ---- J5: the epsilon tie (1i's decomposition, re-exhibited)
+    print()
+    print("J5 the mu_6 character's two-place epsilon support (1i):")
+    import cmath, math
+    e3 = sum((1 if u % 3 == 1 else -1) * cmath.exp(2j * cmath.pi * u / 3)
+             for u in (1, 2)) / math.sqrt(3)
+    ok5 = abs(e3 - 1j) < 1e-9 and abs(e3 * (-1j) - 1) < 1e-9
+    print(f"   eps_3(chi_-3) = +i, eps_inf(sgn) = -i, product +1 --"
+          f" support {{3, inf}}, quarter-turn values   "
+          f"{'PASS' if ok5 else 'FAIL'}")
+
+    # ---- J6: the selection is well-defined and unique
+    print()
+    print("J6 torsion-maximality is a well-defined unique selection:")
+    mx = max(torsion(d) for d in fund)
+    argmax = [d for d in fund if torsion(d) == mx]
+    ok6 = mx == 6 and argmax == [-3]
+    print(f"   max |mu| = {mx}, attained uniquely at d = {argmax}"
+          f" => chi_-3 selected with no order principle   "
+          f"{'PASS' if ok6 else 'FAIL'}")
+
+    print()
+    print("=" * 74)
+    print("READING (classical + gated; grading in docstring)")
+    print("=" * 74)
+    print("  The kernel's anatomy is the joint localization of the only")
+    print("  two torsion-exceptional imaginary quadratics: invisibility")
+    print("  is the mu_4 field's disc character, the invisible unit")
+    print("  direction is the mu_6 field's disc.  Torsion-maximality --")
+    print("  the property Theorem 11 already load-bears -- selects the")
+    print("  mu_6 field uniquely, so the chi_-3 pairing inherits T11's")
+    print("  anchor and conductor-minimality demotes to a consequence.")
+    print("  PROPOSED: the selection class's third member reduces to a")
+    print("  consequence of the existing anchor (hostile adjudication")
+    print("  pending).  Residue count unchanged; no closure; the")
+    print("  grammar-reading question stays open.")
+
+
+if __name__ == "__main__":
+    main()

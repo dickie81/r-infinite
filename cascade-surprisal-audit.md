@@ -6112,6 +6112,36 @@ grammar-reading question (with its licensed falsifier), the soft inputs, and
 the frozen experimental ledger. Next hostile round on the next substantive
 paper change.**
 
+## Addendum 120: Theorem 1j landed — the torsion-exceptional selection; layer 4 attacked at its third member
+
+**Commissioned: "Attack layer 4" — the selection-convention residue class, via
+the arithmetic flank. Lead-derived and machine-verified in the scratchpad before
+landing (one self-caught census bug in the scratch code — the d ≡ 0 mod 4 unit
+count — fixed before the verifier was written). Category (a) throughout.**
+
+**The result:** (i) torsion census — |μ| = 6 uniquely at disc −3, |μ| = 4
+uniquely at disc −4, over all 3043 fundamental discs to 10⁴; (ii) the 1h
+kernel's anatomy is the joint localization of exactly these two
+torsion-exceptional fields — the invisibility criterion IS the μ₄ field's disc
+character ((·,−4)₂ = (·,−1)₂ on all eight classes, gated), the invisible unit
+direction IS the μ₆ field's disc (H ∩ units = {1, cls(−3)}, the unramified
+ℚ₂(ζ₃) direction, with the μ₄ field itself 2-ramified/clock-visible); (iii) the
+χ₋₃ pairing re-founded: torsion-maximality — the property Theorem 11 already
+load-bears via the su(3)-roots-are-μ₆ identification — selects χ₋₃ uniquely
+with no order principle, demoting round-15 M3's conductor-minimality from
+principle to consequence.
+
+**The residue proposal (for round 57 to adjudicate):** the selection class's
+third member reduces from an independent convention to a consequence of the
+existing T11 anchor. The seven-item residue count is unchanged either way; the
+C1-conditionality of "colour = the μ₆ structure" is exactly T11's existing
+conditionality — no new assumption enters. Net-state markers on all five
+minimality surfaces (abstract member-census, 1c ×2, the feature-monoid remark,
+the formulation); footer census 28 → 29.
+
+**Object gates at this commit:** 4/5/35/27/6/10 + tate_epsilon 7/0 +
+torsion_selection 6/0. Round 57 (hostile subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
