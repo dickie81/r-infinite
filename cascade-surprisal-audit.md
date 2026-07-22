@@ -2120,7 +2120,7 @@ remain the only judges whose verdicts cannot require a sixth round.
 ## Addendum 50: the sixth review — three clean passes of mathematics; the false-record defect
 
 **Verdict: NOT CONVERGED** — but the trajectory's two lines have fully separated.
-**Mathematics: third consecutive zero-demotion pass** (4 → 1 → 0 → 1 → 0 → 0). Pass 6
+**Mathematics: ~~third consecutive~~ [struck round 40 (F2): third cumulative; run of two] zero-demotion pass** (4 → 1 → 0 → 1 → 0 → 0). Pass 6
 independently recomputed D1, re-verified the repair candidate, stress-extended the audit's
 sites, attacked the ANCHORED/CONDITIONAL taxonomy as possible laundering and **cleared it**
 (a conditional site carries a forcing claim whose verdict flips; an anchored site is a
@@ -2149,7 +2149,7 @@ the only judges that cannot be failed by a sweep.
 4 → 1 → 0 → 1 → 0 → 0 → 0. Record integrity: all ten round-6 fixes independently verified in
 git — the verified-record rule held. Stale text: zero unmarked surfaces repo-wide; every
 historical record carries its superseding record; generated artifacts byte-identical to their
-generator. Demotions: zero for the fourth consecutive pass — including the pass's hardest
+generator. Demotions: zero for the ~~fourth consecutive~~ **[struck round 40 (F2): fourth cumulative; run of three]** pass — including the pass's hardest
 attack (part4b's Bott-vs-lapse theorem vs D1), which the reviewer mounted, pursued, and
 withdrew on scope with its own overreach reported per protocol: D1 demotes the arithmetic
 d↔s pairing clause; the cascade-internal theorem is untouched. Two mechanical blemishes
@@ -4984,7 +4984,7 @@ The fifth consecutive round of held corrections.**
 instance since round 31 has lived in the *prose paraphrase* of a battery's hit list —
 a summary that can drift from the output it summarizes. Henceforth a battery record
 is a **transcript**: the command as run and its actual hit list pasted, each hit
-carrying a one-word classification, with this addendum's own future occurrences a
+carrying a ~~one-word~~ **[round-40 F1: short-tag — the round-39 F4 disposition recorded this clause amended but no edit reached this surface; adjudicated minor per the r31-F3 precedent (fix made on one of two recorded surfaces, no certifying battery)]** classification, with this addendum's own future occurrences a
 named category. Prose may introduce a transcript; it may not replace one.
 
 **A96 battery (transcript form; commands run before this text was written, outputs
@@ -5133,7 +5133,9 @@ verdict prose carries **no count that is not machine-copied from the committed
 headers in the same commit** — counts are quoted from the header lines or omitted;
 interpretive sentences carry no numerals. This extends the census-free principle
 from CLAUDE.md's sentence (round 33) through held lists (round 35) and verdict lines
-(round 36) to the last count-bearing prose layer.
+(~~round 36~~ **[round-40 F8: round 35 — A94 F3's rule; round 36 added the
+count-battery clause and headers-as-surfaces]**) to the last count-bearing prose
+layer.
 
 **Checked and held (census-free; lead-spot-verified against the reviewer's shown
 work):** both transcripts exact at commit-final to the line number with every
@@ -5153,16 +5155,13 @@ at their recorded counts.
 **A98 battery (post-append transcripts; commands run after every append of this
 round):**
 
-*T1 — `grep -rn "three consecutive"` over both record files — 3 hits + this command
-line:* audit:5114 [A98 F1 bullet — disposition]; response:161 [pre-existing round-6-era
-"three consecutive zero-demotion passes" summary — different arc, accurate history];
-response:886 [Round-39 table F1 row — disposition]; plus TWO self-referential
-occurrences in this transcript — the command line AND the phrase quoted inside the
-response:161 classification tag *(self-caught minutes after the round-39 push: the
-committed version declared only the command line; corrected here with this note per
-the honest-record rule — the first test of the standing-state era caught the
-transcript quoting its own pattern in a tag)*. The struck A97 instance no longer
-matches (the strike annotation interposes). Zero live.
+~~[A98's T1 entry, struck round 40 in full — findings F2 (its tag certified a
+pre-existing false record as "accurate history"; that record and four siblings are
+now struck at their sources), F3 (its header still read "3 hits + this command
+line" after the correction made the body five), and F4 (it ran line-based against
+the wrap clause, missing one wrapped in-scope occurrence). The struck entry's text
+is preserved in the git history at 9c7cc77; A99 carries the fresh post-append
+T1′.]~~
 
 *T2 — `grep -rnE "properly.marked"` over both record files — 8 hits + this command
 line:* audit:4867 [round-39 F3 strike]; 4935, 4975 [round-38 F5 strikes]; 5045 [A97
@@ -5178,6 +5177,88 @@ A96 0+2+2c → A97 0+4+2c → A98 0+2+3c. The held-corrections streak reads, fro
 addenda's own statements: seventh consecutive. Interpretation, numeral-free per the
 new clause: the defect mass sits in the summary layer alone, and that layer is now
 under the same machine-copy discipline as everything beneath it. Round 40 gates
+stability.
+
+## Addendum 99: hostile review round 40 — convergence test on the round-39 sweep + self-catch; NOT CONVERGED (0 majors, 6 minors, 2 cosmetics); the deep-history layer opens
+
+**Commissioned: "Round 40 pls" — subagent per protocol on commits f4196b7 and
+9c7cc77; every finding verified directly by the lead (Check 3: the five historical
+sites read with their own in-sentence trajectories; the clause line read unmarked;
+the T1 header/body inconsistency and the wrapped occurrence re-run; the commit-message
+census recomputed; the preamble's commit-final state checked at f4196b7).**
+
+**Verdict: NOT CONVERGED — zero majors, six minors, two cosmetics (F1 adjudicated
+minor per the r31-F3 precedent: a fix recorded for two surfaces and made on one, with
+no battery certifying the missed surface — distinguishing it from the
+battery-certified r35/r36 majors). The reviewer's held list confirms the eighth
+consecutive round of held corrections; the round's genuinely new result is F2's
+opening of the deep-history layer:**
+
+- **F1 (minor):** the transcript clause's canonical statement still carried
+  "one-word" unmarked while the round-39 F4 disposition recorded the clause amended.
+  Marker now at the clause with the adjudication inline.
+- **F2 (minor — the deep-history layer):** A98's T1 tag certified as "accurate
+  history" a round-6-era record that is false as written — "three consecutive
+  zero-demotion passes" where the run was two and the count cumulative, contradicted
+  by the trajectory in its own sentence — and **four sibling instances** carried the
+  same cumulative-mislabeled-as-consecutive defect, unstruck across thirty-three
+  rounds (the streak-audits only ever checked the "mathematical falsehoods" family).
+  All five struck at source with the cumulative/consecutive split stated; the tag's
+  certification died with A98's T1 (struck wholesale).
+- **F3 (minor):** the self-caught correction fixed T1's body but left its header at
+  "3 hits + this command line" against a five-line reality — the transcript was
+  internally inconsistent at commit-final. Cured by the wholesale strike + A99's T1′.
+- **F4 (minor):** T1 ran line-based against the wrap clause, missing one wrapped
+  in-scope occurrence (the CLAUDE.md-versions history sentence). Declared in T1′.
+- **F5 (minor):** the 9c7cc77 commit message's post-correction census claimed six
+  hits against an actual five (the "correction note's own quotation" does not exist —
+  the note deliberately paraphrases). Immutable; recorded here per the A89-m5
+  precedent: the file surfaces are the actionable record.
+- **F6 (minor):** the Round-39 preamble's "nothing false in any battery" was false at
+  its own commit-final for the 32 seconds before the self-catch; noted at the
+  sentence (the audit sibling's "survives" scoping already true).
+- **F7 (cosmetic):** the self-catch replaced rather than struck the false transcript
+  line (substance preserved, form deviated from the marking rule; the invoked
+  "honest-record rule" is the record's "honest-record culture"). Recorded here; the
+  wholesale strike of T1 restores the letter.
+- **F8 (cosmetic):** the census-free lineage misattributed verdict-line discipline
+  to round 36 (it is round 35's A94-F3 rule). Corrected at source.
+
+**Clause amendment (from the reviewer's note, accepted):** the standing-state
+clause's source set widens to *"machine-copied from the committed headers or from the
+addenda's own linked statements, with the link stated"* — legitimizing the
+held-corrections streak count, which was verified link by link (A92 through A98) and
+is re-verified this round as the eighth.
+
+**Checked and held (census-free; lead-spot-verified against the reviewer's shown
+work):** T2 exact at commit-final line-for-line with wrap-aware totals equal; T1's
+body census exact (the defects were header, wrap scope, and tag); A97's transcripts
+re-verified exact at their own commit; every round-39 strike verbatim; every
+round-39 annotation's factual content accurate (the two-consecutive count, the four
+class attributions, the marker statuses, the disambiguation); the verdict-census
+machine-check A89–A98 consistent with the sole historical mismatch struck; the
+Round-39 table item-for-item; the self-catch's factual claims true as far as they
+went; the residual sweeps clean (zero live retracted content, tex and py included;
+part4a's "three consecutive points in the mod-8 orbit" a different sense, live and
+legitimate); the adjudication chain and the three papers-side registrations intact
+and unedited; all six scripts at their recorded counts; the distance figures true at
+every relevant commit.
+
+**A99 battery (post-append transcripts, wrap-aware, run after every append of this
+round):**
+
+*T1′ — `grep -n "three consecutive" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — in-scope: 3 audit + 2 response line-based; wrap-aware (per this round's F4 amendment) 4 audit + 2 response:* audit:5114 [A99 F1 bullet — quotes the struck round-39 claim; history]; 5201 [A99 F2 bullet — quotes the round-6-era record; history]; 5242 [checked-and-held: part4a's mod-8-orbit sense, live and legitimate]; audit:4688–4689 [the wrapped occurrence, line-invisible — the A96 CLAUDE.md-versions history sentence ("… three | consecutive versions …"), accurate history; the instance the F4 amendment exists to catch]; response:161 [struck site (F2)]; 888 [Round-39 table F1 row — history]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 4 line-based / 5 wrap-aware, response 2/2 — equal to the in-scope censuses plus this block's one declared occurrence. Zero live-false.
+
+*T2′ — `grep -nE "consecutive pass|consecutive clean|zero-demotion" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — in-scope: 2 audit + 3 response line-based; wrap-aware equal (no wrapped occurrences of these alternates):* audit:2123 [struck this round (F2)]; 5202 [A99 F2 bullet — history]; response:128 [accurate history as written — the pass-6 sentence's census brackets the pass-4 demotion explicitly ("… passes bracket one demotion …"), so it is cumulative-stated with its exception carried in-sentence; NOT a sixth F2 instance]; 140 [struck (F2)]; 161 [struck (F2)]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 3 matching lines / 5 pattern occurrences on joined text (the command line is one line carrying all three alternates — three occurrences, zero wraps), response 3 / 3 — equal to the in-scope censuses plus this block's declared command line. Zero live-false.
+
+*T3 — scripts (committed verifiers, re-run at commit-final):* layer_selection 4/0, adams_loadbearing 5/0, local_family 23/0, witt_weil 27/0, finite_places 6/0, local_tate 10/0 (PASS/FAIL).
+
+**Standing state (headers, machine-copied):** A94 1+2+1c → A95 1+1+2c → A96 0+2+2c →
+A97 0+4+2c → A98 0+2+3c → A99 0+6+2c. Held-corrections streak (addenda-linked, A92
+through this round): eighth. Interpretation, numeral-free: the recursion's remaining
+mass sits in the instrument's self-description and — newly opened — the deep-history
+layer, which the streak-audits never covered; the historical stratum is now subject
+to the same strike discipline as everything after round 30. Round 41 gates
 stability.
 
 ## Caveats

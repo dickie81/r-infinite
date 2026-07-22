@@ -137,7 +137,7 @@ ledger.
 
 # Round 6: the false-record finding, and the verified sweep
 
-**VERDICT: NOT CONVERGED** — mathematical demotions **0** for the third consecutive pass
+**VERDICT: NOT CONVERGED** — mathematical demotions **0** for the ~~third consecutive~~ **[struck round 40 (F2): third CUMULATIVE zero-demotion pass — the run is two (passes 5–6); pass 4 carried a demotion per the trajectory in this very sentence]** pass
 (trajectory 4 → 1 → 0 → 1 → 0 → 0; the reviewer independently recomputed D1's numbers, re-verified
 the single-coset repair candidate, stress-extended sites B and E, attacked the
 ANCHORED-vs-CONDITIONAL taxonomy and **cleared it as uniformly applied**, and confirmed
@@ -158,7 +158,7 @@ suppressed miss-warnings, and a record written from intention rather than from `
 post-edit `grep`/`git diff` verification of each named fix — never from the edit script's
 intention. This round's table was produced under that rule.
 
-**Six-pass summary:** the mathematics is settled — three consecutive zero-demotion passes;
+**Six-pass summary:** the mathematics is settled — ~~three consecutive~~ **[struck round 40 (F2): three cumulative; the consecutive run at pass six is two]** zero-demotion passes;
 every attack mounted since round 4 has been cleared; the reviewers' own recomputations
 reproduce every standing number. The process layer failed six times in six increasingly
 subtle ways: partial sweep → wrong boundary → hand-edited artifacts → false records. Each
@@ -173,7 +173,7 @@ frozen number.
 # Round 7: CONVERGED
 
 **VERDICT: CONVERGED** — the series' first, on the seventh pass. Trajectory final: majors
-**4 → 1 → 0 → 1 → 0 → 0 → 0** (four consecutive clean passes); the stale-text prong passed
+**4 → 1 → 0 → 1 → 0 → 0 → 0** (~~four consecutive~~ **[struck round 40 (F2): four cumulative; the consecutive run is three, passes 5–7, per this very trajectory]** clean passes); the stale-text prong passed
 for the first time. Record integrity: all ten round-6 fixes verified present in git by the
 reviewer independently — the verified-record rule held on substance, with one one-word
 quotation blemish and one conservative-direction docstring lag, both fixed (and grep-verified)
@@ -877,7 +877,9 @@ figures.
 # Round 39: convergence test on the round-38 sweep (subagent, per protocol) — NOT CONVERGED (0+2+3c); the summary layer
 
 The transcripts verified exact at commit-final; nothing false in any battery, strike,
-annotation, marker, table, chain, or registration; seventh consecutive round of held
+annotation, marker, table, chain, or registration *(round-40 F6: false at this
+sentence's own commit-final for the 32 seconds before 9c7cc77 — A98's T1 then declared
+4 against an actual 5; repaired by the self-catch, noted here)*; seventh consecutive round of held
 corrections. Both minors sit in A97's standing state — the round's prose summary of
 itself.
 
@@ -894,3 +896,27 @@ and verdict prose carries no count not machine-copied from the committed headers
 the same commit; interpretive sentences carry no numerals.
 
 **Trajectory (headers, machine-copied): … → 0+2+2c → 0+4+2c → 0+2+3c. Round 40 gates stability.**
+
+# Round 40: convergence test on the round-39 sweep + self-catch (subagent, per protocol) — NOT CONVERGED (0+6+2c); the deep-history layer opens
+
+Eighth consecutive round of held corrections. The genuinely new result: the reviewer
+opened the deep-history layer — five round-6/7-era "consecutive" streak records that
+were cumulative counts, contradicted by trajectories in their own sentences, unstruck
+across thirty-three rounds (the streak-audits only ever checked the
+mathematical-falsehoods family).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor, adjudicated per r31-F3) — the transcript clause's canonical "one-word" unmarked while the r39-F4 disposition recorded the clause amended | **Accepted.** Marker at the clause with the adjudication inline | A96 clause |
+| F2 (minor) — A98's T1 tag certified a false round-6-era record as "accurate history"; four siblings unstruck (cumulative mislabeled consecutive) | **Accepted.** All five struck at source; the tag died with T1's wholesale strike | R6/R7-era ×5 + A98 T1 |
+| F3 (minor) — the self-catch fixed T1's body, left its header ("3 hits + command line" vs five lines) | **Accepted.** T1 struck wholesale; A99 carries T1′ | A98 |
+| F4 (minor) — T1 line-based against the wrap clause (one wrapped in-scope occurrence undeclared) | **Accepted.** Declared in T1′ | A99 T1′ |
+| F5 (minor) — the 9c7cc77 commit message's census claimed six against an actual five | **Accepted; immutable.** Recorded per the A89-m5 precedent | A99 record |
+| F6 (minor) — the Round-39 preamble false at its own commit-final for 32 seconds | **Accepted.** Noted at the sentence | R39 preamble |
+| F7 (cosmetic) — the self-catch replaced rather than struck; "honest-record rule" vs culture | **Accepted.** Recorded; the wholesale strike restores the letter | A99 record |
+| F8 (cosmetic) — census-free lineage misattributed verdict lines to round 36 (round 35) | **Accepted.** Corrected | A98 |
+
+**Clause amendment:** the standing-state source set widens to headers OR
+addenda-linked statements with the link stated.
+
+**Trajectory (headers, machine-copied): … → 0+4+2c → 0+2+3c → 0+6+2c. Round 41 gates stability.**
