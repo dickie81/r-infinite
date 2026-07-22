@@ -63,7 +63,7 @@ ENDPOINT data (Definition-6.1 instantiation plus the
 strict-boundary stipulation, part4b:503 -- items already listed
 elsewhere in the residue accounting); site C's avatar is a frame
 error inside an already-demoted clause; sites B and H are
-flip-invariant (re-gated, M4); site D was absorbed by Theorem 1k
+flip-invariant (re-gated, M4); site D was closed by Theorem 1k
 (given E plus the variational-sup labeling).  Member two of the
 selection-convention class is RE-MOTIVATED, not deleted: its
 live content is the dictionary itself plus the already-listed

@@ -1341,3 +1341,18 @@ All four minors are prose/marking defects.
 | F64-c1/c2/c3 (cosmetics) — call-chain self-comparison subgate; comment conflation; footer "31" collision | **Accepted.** All fixed | script + paper |
 
 **Trajectory: 1l landed → 64 0M+4+3c. Round 65 gates stability of Theorem 1l.**
+
+# Round 65: convergence test on the round-64 sweep (subagent, per protocol) — NOT CONVERGED (0+1+0c); the struck verb's third carrying surface swept
+
+Six of seven round-64 fixes confirmed clean with verbatim verification
+throughout (the "one historical breach" census attacked with two hostile
+candidates and held; the boundary term tied out to part4b's δΦ_U(1)). The one
+residual: the round-60-struck verb "absorbed" surviving in the verifier
+docstring's site-D clause — both givens present there, so the verb alone was
+the residue.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F65-1 (minor) — "site D was absorbed by Theorem 1k" in the verifier docstring (third carrying surface; both givens present) | **Accepted.** "was closed by"; post-sweep census: the verb survives only inside the round-60 verbatim strike span | script |
+
+**Trajectory: 1l landed → 64 0M+4+3c → 65 0M+1+0c. Round 66 gates stability of Theorem 1l.**

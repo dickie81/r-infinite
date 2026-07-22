@@ -6627,6 +6627,34 @@ every surface; M2's data discipline held (no new data); Checks 7/8 clean.
 **Trajectory: 1l landed → 64 0M+4+3c. Round 65 (convergence test) gates
 stability of Theorem 1l.**
 
+## Addendum 131: hostile review round 65 (convergence test, subagent, per protocol) on commit fcb5502 — NOT CONVERGED (0 majors, 1 minor, 0 cosmetics); the struck verb's third carrying surface swept
+
+**The round-64 sweep confirmed clean on six of its seven fixes, with every
+attribution verbatim-verified (the formulation's corrected references against
+the standalone paper's actual text; the F64-4 marker's "one historical breach"
+census attacked with two hostile candidates — scalar-flatness and Door 3's
+sphere statements — and held; the footer's 31 re-counted case-sensitively; all
+mathematics re-verified at 40 dps including the bonus tie-out R(14)²/8 =
+α(14)/χ identifying the verifier's boundary term with part4b's δΦ_U(1)).**
+
+- **F65-1 (minor):** the round-64 F3 sweep replaced the round-60-struck verb
+  "absorbed" on the two markdown surfaces but left it on the third carrying
+  surface — the verifier docstring's site-D clause, in the very file the same
+  commit was editing 60 lines below. The marking rule's every-carrying-surface
+  requirement, missed one surface deep; mitigations noted by the reviewer (the
+  docstring version carried both givens, so only the verb — not the dropped
+  given — was the residue). **Lead-verified by grep; swept:** "was absorbed
+  by" → "was closed by" at the one site; the post-sweep census shows the verb
+  surviving only inside the paper's round-60 verbatim strike span (exempt).
+
+**Held:** the F64-1/2/4 fixes and both cosmetic script fixes verified accurate
+in detail; the window-shift residual exactly 0; all closure and coset numbers
+reproduced; the per-site claims consistent with the audit; conditionality
+stated at every load-bearing site; Checks 7/8 clean. **Object gates:**
+4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 + 5/0. **Trajectory: 1l landed → 64 0M+4+3c
+→ 65 0M+1+0c (one verb, one surface). Round 66 (convergence test) gates
+stability.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
