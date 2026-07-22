@@ -508,6 +508,8 @@ the round-18-native phrases; scripts re-run clean post-sweep.
 
 # Round 19: convergence test on the round-18 sweep — NOT CONVERGED (1+4), the missed-instance disease's fourth appearance
 
+**[Net-state marker, round 34: F1 below was ungraded as written; Addendum 92 (round 33) retroactively grades it major-equivalent by the round-31 precedent — the "1" in this header's (1+4) reads accordingly.]**
+
 Zero mathematical falsehoods (eleventh consecutive round). The failure is the exact
 class round 16 named and round 18 repeated: the sweep corrected every surface *except
 the file it was editing*, and the battery certified the exact string while the claim
@@ -765,7 +767,7 @@ class.
 |---|---|---|
 | F1 (minor) — A90's third battery census ("the strike only") was double-false: the struck phrase line-wraps (line-based grep cannot hit it) and the command's sole commit-final hit was the battery line itself | **Accepted.** Struck with the wrap-aware true census; wrap clause added to the battery rules | A90 |
 | F2 (minor) — the annotation correcting A89's census misstated the corrected census ("two companion quotes" belongs to an unstated stem pattern; the true census is one) | **Accepted.** Struck-and-corrected inside the annotation | A89 annotation |
-| F3 (minor) — the CLAUDE.md fix installed fresh drift ("only instrument-layer findings" — rounds 22/25/28 were claims-layer) | **Accepted.** Corrected to "no majors — claims- and instrument-layer minors and cosmetics" | CLAUDE.md |
+| F3 (minor) — the CLAUDE.md fix installed fresh drift ("only instrument-layer findings" — rounds 22/25/28 were claims-layer) | **Accepted.** Corrected to "no majors — claims- and instrument-layer minors and cosmetics" **[net-state, round 34: that corrected sentence was itself found uncheckable by round 33 (F1) and replaced by the census-free fourth version; A92 adjudicates]** | CLAUDE.md |
 | F4 (minor) — G2 survived as a constant-list conjunct (the G1 class): hardcoded windows, wrong-filter-proof | **Accepted.** Windows now derived from the computed win; wrong-filter probe breaks G1 and G2; 4 PASS 0 FAIL | script |
 | c5 — false ellipsis in the paper's ρ(4) quote (source has a period, nothing omitted) | **Accepted.** Period restored; the script's marked omission stands | paper |
 | c6 — A90's F6 cite pointed at the \hline, not the d_g row (3633) | **Accepted.** Corrected in place | A90 |
@@ -786,3 +788,22 @@ quotes verbatim). The residue is the review's own history-sentence and hygiene.
 | F4 (papers-side) — the part4b d₀ row's ρ(8)−1 and dimO−1 share their arithmetic (octonion structure) — the A90-F6 class | **Accepted; registered** alongside A90-F6 for the papers-side round (d₀ keeps two distinct routes; nothing round-32 claimed is falsified) | A92 register |
 
 **Trajectory: 2+4 → 1+5 → 0+4(+2c) → 0+1(+2c). Round 34 gates stability.**
+
+# Round 34: convergence test on the round-33 sweep (subagent, per protocol; relaunched after an orphaned first spawn) — NOT CONVERGED (0+1+5c); the adjudication's blast radius
+
+The round-33 corrections all held (second consecutive round). The ripple hunt cleared
+every standing streak, trajectory, and convergence declaration — all survive scoped —
+except the one surface the round-33 sweep itself edited.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — A91's F3 bullet still endorsed the "no majors" census as "the accurate contrast," left standing by round 33 in the addendum it was editing, while A92 makes any such census unsupportable | **Accepted.** Struck-and-annotated | A91 |
+| F2 (cosmetic) — the Round-32 F3 cell quoted the corrected sentence without a marker to its round-33 replacement | **Accepted.** Net-state marker added | Round-32 table |
+| F3 (cosmetic) — the Round-19 surfaces carried no pointer to the adjudication (the reader CLAUDE.md v4 sends to the tables found F1 still ungraded) | **Accepted.** Markers at the Round-19 header and A72's verdict line | Round-19 header + A72 |
+| F4 (cosmetic) — A92's "twelve items" miscounted a 13-entry held list | **Accepted.** Number dropped (the census-free lesson, applied to held lists) | A92 |
+| F5 (cosmetic) — A92's quote of the third version dropped two phrases without ellipses | **Accepted.** Omissions marked | A92 |
+| F6 (cosmetic) — A92's "appears once" battery item stated neither command nor scope | **Accepted.** Scope line added | A92 |
+| F7 (cosmetic) — script comment "d0 used in G2 only" vs the AD display | **Accepted.** Reworded | script |
+| Registered — the part4b d_gw row's "2d₀ Catalan" and "dim G₂" routes share the G₂/SU(3)-on-S⁶ chain (candidate third instance of the shared-arithmetic class) | **Registered, unadjudicated** for the papers-side round (d_g, d₀, d_gw) | A93 register |
+
+**Trajectory: 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+5c). Round 35 gates stability.**

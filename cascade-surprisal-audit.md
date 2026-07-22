@@ -3357,7 +3357,9 @@ before opening the Witt-ring route.** Scope: the round-18 sweep itself — every
 verified made, every new claim checked at the quantifier level (round 18's own lesson
 applied to round 18's fixes), the A71 battery re-run independently with variants.
 
-**Verdict: NOT CONVERGED — one substantive finding, four cosmetics; zero mathematical
+**Verdict: NOT CONVERGED — one substantive finding *(net-state, round 34: retroactively
+graded major-equivalent by A92's adjudication; ungraded as originally written)*, four
+cosmetics; zero mathematical
 falsehoods (eleventh consecutive round).**
 
 **F1 (the finding) — the m2 fix was never applied to `cascade_local_tate.py` itself.**
@@ -4599,8 +4601,13 @@ level up — the correction committing the corrected defect's own class.**
 - **F3 (minor):** the round-31 CLAUDE.md fix removed one paraphrase drift and
   installed another — "only instrument-layer findings" is false by the record's own
   taxonomy (rounds 22, 25, 28 surfaced claims-layer findings; A89's streak note
-  presupposes them). Corrected to the accurate contrast: no majors — claims- and
-  instrument-layer minors and cosmetics.
+  presupposes them). ~~Corrected to the accurate contrast: no majors — claims- and
+  instrument-layer minors and cosmetics~~ **[struck round 34 (F1): this endorsement of
+  the "no majors" census as "the accurate contrast" was left standing by the round-33
+  sweep in the very addendum it edited for a sibling finding — while A92's adjudication
+  establishes that any such census over the intermediate rounds is unsupportable
+  (r19-F1 retroactively major-equivalent). The sentence this bullet endorsed became
+  round-33 F1 and was replaced by the census-free fourth version]**.
 - **F4 (minor):** G2 survived as a constant-list conjunct of exactly the class F4
   charged in G1 — its `windows` were hardcoded, not derived from the computed `win`,
   so a wrong window computation could not break it (the reviewer demonstrated this
@@ -4662,7 +4669,10 @@ the reviewer's twelve-item held list, all with the work shown).**
 - **F1 (minor — the CLAUDE.md sentence, third version, still uncheckable) and the
   grading adjudication it demanded.** The corrected sentence claimed "eleven prior
   rounds … no majors — minors and cosmetics," but round 19's sole substantive finding
-  was **ungraded** on every contemporaneous surface ("one substantive finding"), while
+  was **ungraded** on every contemporaneous surface ("one substantive finding" — the
+  round-34 F5 note: this addendum's fuller quote of the third version reads, with
+  omissions marked, "eleven prior […] rounds […] had surfaced no majors — […] minors
+  and cosmetics"), while
   the standing trajectory lines (A72: "WOUNDED 2(+6) → NOT CONVERGED 1(+4)"; A73:
   "2+6 → 1+4 → 0+1") place its "1" in the same slot as round 18's two majors and
   round 20's explicit zero. **Adjudication (the lead's, recorded here):** round-19
@@ -4690,7 +4700,8 @@ the reviewer's twelve-item held list, all with the work shown).**
   routes (Γ-area-max; G₂/SU(3) on S⁶), so its "structurally over-determined" status
   survives the merge, and no round-32 surface claim is falsified.
 
-**Checked and held (the reviewer's twelve items, lead-spot-verified):** the round-32
+**Checked and held (the reviewer's held list, lead-spot-verified — round-34 F4 dropped
+the item-count after finding it miscounted; the entries speak for themselves):** the round-32
 strikes verbatim; A91's battery census reproduced exactly (3 occurrences incl. the
 self-referential hit); F2's three-layer census with exact line numbers; F4 verified in
 both directions (the pre-image's G2 wrong-filter-proof, the current G2 failing under
@@ -4702,7 +4713,10 @@ the round-31 strikes verbatim; A91's recursive self-test clean.
 
 **A92 battery (this commit's gate; run after all appends; wrap-aware):** the
 CLAUDE.md sentence: census-free by construction — `grep -n "eleven" CLAUDE.md` zero
-hits ✓; "appears once" instances: both now carry the self-referential qualifier ✓;
+hits ✓; "appears once" instances — scope: the two round-33-F2-charged instances at the A90
+strike and the A91 F1 bullet (round-34 F6 added this scope line; repo-wide the phrase
+also occurs in disposition quotes and one unrelated part4b sense): both now carry the
+self-referential qualifier ✓;
 `grep -n "obs_window" tools/research/cascade_layer_selection.py` — zero hits ✓;
 scripts re-run post-sweep: `cascade_layer_selection.py` 4 PASS 0 FAIL,
 `cascade_adams_loadbearing.py` 5 PASS 0 FAIL, `cascade_local_family.py` 23 PASS 0
@@ -4715,6 +4729,75 @@ residue was one sentence about the review's own history (now census-free), a
 qualifier, dead code, and a papers-side registration. Round 34 gates stability. The
 papers-side round now carries two registered items (A90-F6: the d_g row; A92-F4: the
 d₀ row).
+
+## Addendum 93: hostile review round 34 — convergence test on the round-33 sweep; NOT CONVERGED (0 majors, 1 minor, 5 cosmetics); the adjudication's blast radius
+
+**Commissioned: "Run round 34" (relaunched after the first spawn was orphaned by an
+overnight container recycle — the task registry lost it; recorded here as the run
+record). Subagent per protocol on commit 9082089; every finding verified directly by
+the lead (Check 3: A91's F3 bullet read at source; the held-list entries recounted;
+the script's d0 usage checked at both lines; the A92 quote compared against the
+committed third version; the part4b d_gw row read).**
+
+**Verdict: NOT CONVERGED — zero majors, one minor, five cosmetics, plus one
+papers-side candidate registered. The round-33 corrections all held under
+re-execution (second consecutive round of held corrections); the residue is the
+adjudication's own ripple, which the reviewer hunted across every standing streak,
+trajectory, and convergence declaration — all of which survived scoped, except:**
+
+- **F1 (minor):** A91's F3 bullet still endorsed the "no majors" census as "the
+  accurate contrast" — left standing by the round-33 sweep in the very addendum it
+  edited for a sibling finding, while A92 establishes any such census unsupportable.
+  The twice-codified target-list rule breach, again. Struck-and-annotated.
+- **F2 (cosmetic):** the Round-32 table's F3 cell quoted the corrected sentence
+  without a marker to its round-33 replacement (superseded-true). Marker added.
+- **F3 (cosmetic):** the adjudicated object's own surfaces carried no pointer — a
+  reader following CLAUDE.md v4's "consult the round tables directly" found the
+  Round-19 F1 row still ungraded. Net-state markers added at the Round-19 header and
+  A72's verdict line.
+- **F4 (cosmetic):** A92's "twelve items" held-list census miscounted a 13-entry
+  list — an uncheckable census committed by the round whose F1 was the
+  uncheckable-census class. Fixed by dropping the number (the census-free lesson
+  applied to held lists).
+- **F5 (cosmetic):** A92-F1's quote of the third version dropped two phrases without
+  ellipses; the omissions are now marked in a fuller quote note.
+- **F6 (cosmetic):** A92's battery item for "appears once" stated neither command nor
+  scope (true F2-scoped, false repo-wide); the scope line added.
+- **F7 (cosmetic, pre-existing):** the script comment "d0 used in G2 only" vs its
+  appearance in the AD display; reworded to "d0's only GATE role is G2".
+- **Registered (candidate, unadjudicated — the papers-side round's third item):** the
+  part4b d_gw = 14 row lists "2d₀ Catalan" and "dim G₂" among its independent routes;
+  dim G₂ = dim SU(3) + dim S⁶ runs through the same G₂/SU(3)-on-S⁶ exceptional chain
+  that supplies d₀'s route, and 2d₀ presupposes d₀ — a candidate instance of the
+  A90-F6/A92-F4 shared-arithmetic class, registered for adjudication in the pending
+  papers-side round (now carrying: d_g row, d₀ row, d_gw candidate).
+
+**The ripple hunt's survivors (the round's core work, lead-spot-verified):** A89's
+claims-layer-scoped streak sentences hold (the adjudicated class is instrument-layer
+by the record's own taxonomy); the convergence declarations at rounds 21/24/27/29
+hold (the adjudication changes a verdict label retroactively, not any fact those
+declarations assert — the r19 false records were struck by rounds 19–20); all
+"consecutive round" streaks are mathematical-falsehood-scoped and untouched; the
+"majors exhausted" claims are layer-arc-scoped and untouched; the A72/A73 trajectory
+lines are consistent under the adjudication exactly as A92 claimed; CLAUDE.md v4's
+every remaining claim verified (the three version-labels, the A88 attribution, zero
+"eleven"); the two self-referential qualifiers exact by wrap-aware search; A90's
+batteries exact at commit-final; zero live retracted content repo-wide (tex
+included); all six scripts at their recorded counts.
+
+**A93 battery (this commit's gate; run after all appends; scopes stated):**
+`grep -n "accurate contrast" cascade-surprisal-audit.md` — the round-34 strike and
+this addendum only ✓; `grep -n "twelve items" cascade-surprisal-audit.md` — zero
+hits post-sweep outside this addendum's own quotes (the F4 bullet and this battery
+line — the self-referential category) ✓; the Round-19 header and A72 verdict line each carry the A92
+pointer ✓; `cascade_layer_selection.py` re-run 4 PASS 0 FAIL; the other five scripts
+5/23/27/6/10 PASS 0 FAIL ✓ (counts from the commands as run).
+
+**Standing state:** trajectory 2+4 → 1+5 → 0+4 → 0+1 → 0+1(+5c) — the two
+consecutive rounds of held corrections mean the object under review has stopped
+generating defects; what remains is monotone-shrinking ripple bookkeeping. Round 35
+gates stability after this one-file-centred sweep; the papers-side round now carries
+three registered items.
 
 ## Caveats
 

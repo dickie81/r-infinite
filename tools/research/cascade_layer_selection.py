@@ -106,7 +106,8 @@ def main():
     print("THE LAYER QUESTION (round-30 corrected): what selects d = 12")
     print("=" * 74)
 
-    d0, d1 = 7, 19          # Part 0 thresholds (cited); d0 used in G2 only
+    d0, d1 = 7, 19          # Part 0 thresholds (cited); d0's only GATE
+                            # role is G2 (also shown in the AD display)
     dV = 5                  # tower start / first distinguished layer
 
     # G1: the mod-8 complex-window arithmetic
