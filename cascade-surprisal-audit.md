@@ -6408,6 +6408,45 @@ the 13c/row-6 hedge accurate; Checks 7/8 clean. **Object gates at the swept
 tree:** 4/5/35/27/6/10 + 7/0 + 6/0 + lattice_selection **7/0**. Round 61
 (convergence test) gates stability of Theorem 1k as corrected.
 
+## Addendum 126: hostile review round 61 (convergence test, subagent, per protocol) on commit b7493d2 — NOT CONVERGED (0 majors, 2 minors, 3 cosmetics); recital-accuracy defects swept
+
+**The F1 substance held on every surface (the reviewer enumerated the eight
+labelings independently at 50 dps: sup (7,19,217) = 1.0989454×10⁻¹²⁰ unique,
+inf (6,20,218) = 1.021732×10⁻¹²¹, both sides lattice-exact; every part0 quote
+verbatim; no single-given claim outside strike marks; all markers corrected).
+The two minors are statement-accuracy defects in the sweep's own workmanship,
+both lead-verified against git before fixing (Check 3).**
+
+- **F61-1 (minor):** the paper's F1 strike span was a spliced reconstruction —
+  it inserted "given the pairing alone" (words never written in c075eaa) and
+  elided a sentence boundary without ellipsis, against the repo's
+  verbatim-in-place strike convention (the round-57 strike is
+  character-for-character the pre-57 text). **Accepted; re-rendered verbatim**
+  from c075eaa with a bracketed ellipsis marking the elision, and the
+  annotation now discloses the round-61 re-rendering.
+- **F61-2 (minor):** the script docstring's concordance paragraph wrote
+  "psi(x) = ln pi" for the balance equation — the correct form is
+  ψ(x/2) = ln π (as the paper, the formulation, and the script's own K5 print
+  all state; ψ(7.2569) = 1.911 ≠ ln π). Pre-existing from c075eaa, missed by
+  round 60's read. **Accepted; fixed** (three correct occurrences now).
+- **F61-3/4/5 (cosmetics):** B₀/B₃ used undefined on the paper surface — now
+  defined in place (Growth and Oblivion regimes); the formulation's "shifts
+  the three band labels to {5, 8, 20, 218}" — now "to 8, 20, 218, the argmax
+  member 5 unchanged"; the K7 print's juxtaposition of the computed
+  1.0989×10⁻¹²⁰ with part0's stated 1.0990×10⁻¹²⁰ — now disclosed as
+  last-digit rounding (part0's Evaluation states 1.0990; the true value is
+  1.0989454, a part0-side last-digit misround recorded as an observation, out
+  of this round's surface scope).
+
+**Held:** all seven K-gates real and green (K7's conjuncts genuinely failable);
+the script's own F1 recital verbatim-accurate (exact substrings, proper
+ellipsis); part0's regime-partition deferral to the variational
+characterisation confirmed as the two-given framing's source; the sup→band-sign
+reduction logic at the upper boundaries checked; siblings run clean; Checks 7/8
+clean. **Object gates:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0. **Trajectory: 1k
+landed → 60 1M+4+3c (forcer census corrected) → 61 0M+2+3c (recital
+workmanship). Round 62 (convergence test) gates stability.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

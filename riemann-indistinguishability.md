@@ -591,7 +591,8 @@ the three boundaries"*) — and **no continuum crossing is rounded anywhere**; t
 non-integer crossing positions (6.2569, 19.7308, 217.6267 in d; non-integrality gated
 with margin ≥ 8.5×10⁻⁴) merely locate the band boundaries. What the lattice does *not*
 fix is the **side** of each crossing: the inf labeling (6, 20, 218) = (max B₀, min B₂,
-min B₃) is equally lattice-exact under the same pairing — the 2³ labeling freedom is
+min B₃) (B₀ = {d : p(d) < 0} and B₃ = {d : p(d) > Γ(½)} — Part 0's Growth and Oblivion
+regimes) is equally lattice-exact under the same pairing — the 2³ labeling freedom is
 adjudicated by the variational theorem, not by the lattice (round-60 F1; gated, K7). *(ii)
 Concordance.* This paper's Theorem-7 feature set is the same object list in the s frame:
 the critical pair 5.2569/7.2569 is **one equation** — the balance ψ(x/2) = ln π — read
@@ -617,10 +618,11 @@ rounding frame and empty in the lattice frame: **given the site-E pairing** — 
 anchored convention, which **persists in the residue** (under the alternative pairing
 p(d) = P(d) the three band labels shift coherently, the argmax member unchanged:
 {5, 8, 20, 218}, gated) — **and given Part 0's variational-sup labeling of the boundary
-sides**, the feature→layer assignment is entailed. ~~The assignment is lattice-entailed
-with zero further freedom given the pairing alone; its content is absorbed into the
-pairing member — the assignment was never an independent choice; it is the pairing
-choice, seen once~~ **[struck round 60 (F1, MAJOR): under the same pairing the inf
+sides**, the feature→layer assignment is entailed. ~~lattice-entailed with zero further
+freedom […] its content is absorbed into the pairing member — the assignment was never
+an independent choice; it is the pairing choice, seen once~~ **[struck round 60 (F1,
+MAJOR; span rendered verbatim from the first writing per round-61 F1, the bracketed
+ellipsis marking the elided sentence boundary): under the same pairing the inf
 labeling (6, 20, 218) is equally lattice-exact — the boundary-side selection is the 2³
 freedom Part 0's variational (sup) characterisation adjudicates, a second given,
 data-corroborated with its derivation open by Part 0's own grading]**. The class's

@@ -45,7 +45,7 @@ SIDE of each crossing -- see K7 and GRADING (round-60 F1).
 
 THE CONCORDANCE (K5-K7).  The paper's Theorem-7 s-space features
 are the same objects: the critical pair 5.2569/7.2569 is ONE
-equation psi(x) = ln pi read at two argument offsets (the
+equation psi(x/2) = ln pi read at two argument offsets (the
 V-argmax at d = 5.2569, factor Gamma_R(d+2); the p-zero at
 d = 6.2569, s = 7.2569) -- gated as the same root; the
 s-thresholds 20.73, 218.63 are the d-crossings + 1.  Part0's
@@ -242,7 +242,8 @@ def main():
     ok7 &= abs(vals[sup] / 1.0990e-120 - 1) < 1e-3     # part0 Evaluation
     ok7 &= abs(vals[inf] / 1.0217e-121 - 1) < 1e-3     # part0 rem. (1.02e-121)
     ok7 &= (max(B0), min(B2), min(B3)) == (6, 20, 218)  # inf side lattice-exact
-    print(f"   sup = {sup} -> {vals[sup]:.4e} (part0's Evaluation);")
+    print(f"   sup = {sup} -> {vals[sup]:.4e} (part0's Evaluation states"
+          f" 1.0990e-120; last-digit rounding);")
     print(f"   inf = {inf} -> {vals[inf]:.4e} (part0: 1.02e-121, two")
     print(f"   orders below observation); inf sides = (max B0, min B2,")
     print(f"   min B3) -- equally lattice-exact under the same pairing   "

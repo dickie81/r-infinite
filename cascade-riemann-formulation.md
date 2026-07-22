@@ -235,7 +235,8 @@ variational labels agree gate-by-gate given the sup (the sup pick reduces to the
 band-sign facts at the two upper boundaries via d log Ω/dd = −p(d), part0's own
 identity; numerically at the first, Ω₇ < Ω₆, ≈1.9%). Given the pairing plus the
 sup labeling — both persisting as the member's content (the alternative pairing
-shifts the three band labels to {5, 8, 20, 218}) — the assignment is entailed:
+shifts the three band labels to 8, 20, 218 — the argmax member 5 unchanged:
+{5, 8, 20, 218}) — the assignment is entailed:
 the class's first member is re-motivated, not deleted, exactly as T1j
 re-motivated the third. Three members and the seven-item count stand. No
 closure; category (a).

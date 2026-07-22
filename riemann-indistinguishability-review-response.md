@@ -1273,3 +1273,19 @@ re-motivation stands on the corrected census: two named, listed anchors.
 | F60-5/7/8 (cosmetics) — "whole structure shifts"; commit-message margin (immutable, noted); docstring locator | **Accepted.** Fixed; K1 threshold aligned to 8.5e-4 | paper + script |
 
 **Trajectory: 1k landed → 60 1M+4+3c. Round 61 gates stability of Theorem 1k as corrected.**
+
+# Round 61: convergence test on the round-60 sweep (subagent, per protocol) — NOT CONVERGED (0+2+3c); recital-accuracy defects in the sweep's workmanship, swept
+
+The F1 substance held everywhere: the eight labelings independently enumerated
+at 50 dps (sup unique at (7,19,217); inf (6,20,218) equally lattice-exact);
+every part0 quote verbatim; the two-given conditionality uniform across all
+surfaces and markers; no single-given claim outside strike marks. The findings
+are workmanship: the strike span itself and one docstring equation.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F61-1 (minor) — the F1 strike span spliced, with inserted words, against the verbatim-in-place strike convention | **Accepted.** Re-rendered verbatim from c075eaa with bracketed ellipsis; re-rendering disclosed in the annotation | paper |
+| F61-2 (minor) — docstring "psi(x) = ln pi" for ψ(x/2) = ln π | **Accepted.** Fixed (pre-existing from c075eaa, missed by round 60) | script |
+| F61-3/4/5 (cosmetics) — B₀/B₃ undefined on paper; formulation's three-labels-to-four-set compression; sup-value juxtaposition vs part0's stated last digit | **Accepted.** All fixed; part0's own 1.0990-vs-1.0989454 misround recorded as an out-of-scope observation | paper + formulation + script |
+
+**Trajectory: 1k landed → 60 1M+4+3c → 61 0M+2+3c. Round 62 gates stability of Theorem 1k.**
