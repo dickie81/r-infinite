@@ -450,10 +450,13 @@ at this door — invisible ⟺ forced Hasse real
 (μ₂); excluded ⟺ forced Hasse a quarter-turn (μ₄ ∖ μ₂) — the same μ₂/μ₄ split
 that defines N(ℚ₂(i)). *Grading:* a pure consequence of 1g(ii)'s cocycle and
 closed form — theorem-grade, no new convention, nothing cascade-chosen; *gate
-scope (round-49 F1, the L7b precedent):* L8f1 and the census conjunct are
-consistency exhibits — corollaries of the gated cocycle and census — while the
-independent instruments are the β(−1) = ζ₈² pin with the squared identity (L8f3)
-and the trivial-slot and axiom conjuncts (L8f2); **no
+scope (round-49 F1, the L7b precedent; the instrument census corrected by the
+round-50 twist probe):* L8f1, the census conjunct, and the squared-identity
+conjunct are consistency exhibits — the first a corollary of the gated cocycle
+and L8a, the last twist-invariant outright — while the independent content is
+the β(−1) = ζ₈² pin (carried jointly by L8f3 and L8f2's trivial slot, which
+fail together under exactly the χ(−1) = −1 cocycle twists) plus the axiom
+conjunct; **no
 grammar entry derived, no number changes, no closure** (category (a); no data, no
 RH/GRH, no semiclassics).
 

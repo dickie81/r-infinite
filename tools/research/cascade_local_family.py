@@ -171,7 +171,8 @@ part of W(Q_2) must land in exactly this subgroup, Hasse forced.
 
 L8f (THE FORCED-HASSE FUNCTION -- the Remark; the round-48 edge
 case dissolved; round-49 F2: this paragraph was misfiled at first
-writing inside the L7 section as item "(f)" -- refiled here): h_beta(d) := zeta_8^2/beta(-d) --
+writing inside the L7 section as item "(f)" -- refiled here):
+h_beta(d) := zeta_8^2/beta(-d) --
 by the closed form, the unique Hasse value a binary class of
 signed disc d must carry to be clock-invisible; by the cocycle,
 equivalently h_beta(d) = (d,-1)_2/beta(d) (beta(-1) = zeta_8^2).
@@ -184,17 +185,22 @@ h_beta(1) = +1 = the Hilbert axiom (a,-a)_2 = 1, so the two
 forcing mechanisms round 48 verified separately provably
 coincide -- there is no edge case.  The zeta_4 motif
 again (round-49 F3: the "third appearance" ordinal was an
-unverifiable, reading-dependent census -- dropped): invisible <=> forced Hasse real (mu_2), excluded
+unverifiable, reading-dependent census -- dropped): invisible
+<=> forced Hasse real (mu_2), excluded
 <=> a quarter-turn (mu_4 \ mu_2).  Pure consequence of the
 cocycle + closed form; no new convention.  SCOPE
 (round-49 F1, the L7b precedent): L8f1 and L8f2's census conjunct
 gate the computed values but cannot fail while L2/L8a/L3/L4 pass
 -- consistency exhibits, since h_beta(d)^2 = (d,-1)_2 follows
 from the cocycle at (x,x) plus (-1,-1)_2 = -1, making the reality
-locus a corollary of gated facts; the independent instruments are
-L8f3 (the only gate pinning beta(-1) = zeta_8^2, now also gating
-the squared identity) and L8f2's trivial-slot and axiom conjuncts
-(this script's only (a,-a) exercise of the Hilbert symbol).
+locus a corollary of gated facts; the independent content is the
+beta(-1) = zeta_8^2 pin -- carried JOINTLY by L8f3's identity
+conjunct and L8f2's trivial-slot conjunct, which fail together
+under exactly the chi(-1) = -1 cocycle twists (round-50 twist
+probe; the round-49 "only gate pinning" wording was false at its
+own grain, F50-1) -- plus L8f2's axiom conjunct (this script's
+only (a,-a) exercise of the Hilbert symbol); the squared-identity
+conjunct is itself twist-invariant, an exhibit (F50-2).
 
 WHAT THIS DOES NOT DO: derive any A2 grammar entry (N_c's count
 remains Adams-archimedean per 1f(iii); the layer selection remains

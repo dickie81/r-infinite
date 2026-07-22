@@ -1089,3 +1089,18 @@ now adopted and gated. The minor is textual: an unverifiable ordinal.
 | F49-3 (minor) — "third appearance at this door": unverifiable reading-dependent ordinal; the 978fd3b message carries it (immutable, recorded) | **Accepted.** Struck on the paper, dropped in the docstring | paper + script + A110 record |
 
 **Trajectory: Remark landed → 49 0+1+2c. Round 50 gates stability of the Remark.**
+
+# Round 50: convergence test on the round-49 sweep (subagent, per protocol) — **CONVERGED** (0+0+3c); the forced-Hasse Remark certified stable
+
+The round's contribution: an exhaustive cocycle-twist probe mapping every L8f
+conjunct's failure mode, confirming the exhibit classification and refining the
+instrument census. Sweep verified complete on every surface; the L7 tail restored
+word-identical; the mathematics survived independent re-derivation again.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F50-1 (cosmetic) — "only gate pinning β(−1)" false at its own grain (L8f2's trivial slot pins the same value; they fail together) | **Accepted.** Census now says jointly | script |
+| F50-2 (cosmetic) — the squared identity misplaced among independent instruments (twist-invariant — an exhibit) | **Accepted.** Recategorized, both surfaces | script + paper |
+| F50-3 (cosmetic) — two over-length docstring lines | **Accepted.** Rewrapped | script |
+
+**Trajectory: Remark landed → 49 0+1+2c → 50 CONVERGED 0+0+3c. The grammar-question arc closed at theorem grade: Theorem 1h + the forced-Hasse Remark both stable. Next hostile round on the next substantive paper change.**

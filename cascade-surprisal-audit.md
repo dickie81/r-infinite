@@ -5759,7 +5759,7 @@ census iff compresses to exclusion-by-impossibility. ker γ₂ is the graph of h
 over H, tied in-code to the L4 census. At the trivial slot h_β(1) = +1 coincides
 with the Hilbert axiom (a,−a)₂ = 1 (gated on all eight classes): the two forcing
 mechanisms round 48 verified separately are provably one formula — the edge case
-does not exist. Third appearance of the ζ₄ motif: invisible ⟺ forced Hasse real;
+does not exist. The ζ₄ motif again (ordinal dropped round 49): invisible ⟺ forced Hasse real;
 excluded ⟺ a quarter-turn.
 
 **Grading:** pure consequence of 1g(ii)'s cocycle and closed form; no new
@@ -5806,6 +5806,47 @@ both counts verified); the lineage 21 → 23 → 27 → 32 → 35 with the first
 version re-run; Checks 7/8 clean. **Object gates:** 4/5/35/27/6/10, 0 FAIL
 (count unchanged by the sweep — the squared identity joined an existing PASS
 line). Round 50 (convergence test on this sweep) gates stability of the Remark.
+
+## Addendum 111: hostile review round 50 — convergence test on the round-49 sweep; CONVERGED (0 majors, 0 minors, 3 cosmetics); the forced-Hasse Remark is stable
+
+**Verdict: CONVERGED — the Remark certified stable (precedent: rounds 17, 21, 24,
+27, 29, 46, 48). The round's methodological contribution, adopted into the record:
+an exhaustive twist-space probe — the battery run under all eight
+cocycle-preserving corruptions γ′ = γ·(·,t)₂ — which empirically maps every L8f
+conjunct's failure mode and confirmed the sweep's exhibit classification exactly.
+All three cosmetics verified directly by the lead (Check 3: the trivial-slot/pin
+identity checked by hand — h_β(1) = ζ₈²/β(−1) = 1 IS the β(−1) pin; the squared
+identity's twist-invariance derived — h′_β = h_β/χ(−d), squaring kills every
+character) and fixed in this editorial commit:**
+
+- **F50-1 (cosmetic, fixed):** the scope note's "the only gate pinning
+  β(−1) = ζ₈²" was false at its own grain — L8f2's trivial-slot conjunct pins the
+  identical value; they fail together under exactly the χ(−1) = −1 twists. The
+  instrument census now says jointly.
+- **F50-2 (cosmetic, fixed):** the paper placed the squared identity among the
+  independent instruments; it is twist-invariant outright — an exhibit by the
+  note's own standard. Recategorized on both surfaces; "corollary of the gated
+  cocycle and census" tightened to "cocycle and L8a".
+- **F50-3 (cosmetic, fixed):** two over-length docstring lines from the refile
+  rewrapped.
+
+Also fixed per the freeze's fix-when-noticed clause: A109's prose carried the
+struck ordinal (the reviewer's out-of-scope observation).
+
+**Held:** the sweep complete and correct on every carrying surface — the L7 tail
+restored word-identical to the pre-Remark state; the refiled paragraph intact;
+the ordinal surviving only inside strike markup; the squared identity re-derived
+and its L8f3 line a genuine gate (fails under the χ(−1) = −1 twists while all
+prior gates pass); every Remark quantifier exact; the formulation clean; batteries
+4/5/35/27/6/10 with 0 FAIL and the kernel bound within quote; Checks 7/8 clean.
+
+**Standing state: the grammar-question arc is closed at theorem grade. Theorem 1h
+(stable, round 48) + the forced-Hasse Remark (stable, this round): the
+clock-invisible (ℤ/2)² is the ζ₄-norm structure, its Hasse coordinate and its
+norm criterion one closed-form function with an algebraic reality locus, its
+coordinates the colour discriminant and the clock prime, its ∞-mirror free. Open:
+whether the grammar reads the two coordinates — with the licensed falsifier
+standing. Next hostile round on the next substantive paper change.**
 
 ## Caveats
 
