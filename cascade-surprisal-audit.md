@@ -5103,10 +5103,16 @@ A95 each one major, A96/A97 zero, so two consecutive; A97's F3–F6 bullets re-r
 against the failed universal; the referent row re-inspected for the marker claim; the
 tags re-read; the 4999/5000 block re-read).**
 
-**Verdict: NOT CONVERGED — zero majors, two minors, three cosmetics. The transcripts
+**Verdict: NOT CONVERGED — zero majors, two minors, three cosmetics. ~~The transcripts
 were verified exact at commit-final with the by-construction claim holding — the
 transcript clause did what it was built to do, and nothing false survives in any
-battery, strike, annotation, marker, table, chain, or registration. Seventh
+battery, strike, annotation, marker, table, chain, or registration.~~ **[struck
+round 41 (F41-2): all three legs false at this addendum's own commit-final
+(f4196b7) — T1 declared 4 against an actual 5, the undeclared tag-quote was
+precisely the construction failing, and T1 itself stood false in a battery — and
+the third leg remained false through 22eba6e via the header defect (round-40 F3).
+The round-40 F6 sweep missed this surface and A99 certified it; that certification
+is struck at its source.]** Seventh
 consecutive round of held corrections. The two minors are both in A97's standing
 state — the round's prose summary of itself, the one layer transcripts cannot
 reach:**
@@ -5130,7 +5136,10 @@ reach:**
 
 **Rule (the standing-state clause — the terminal census rule):** standing-state and
 verdict prose carries **no count that is not machine-copied from the committed
-headers in the same commit** — counts are quoted from the header lines or omitted;
+headers in the same commit** **[amended round 40 (A99): source set widened to the
+committed headers or the addenda's own linked statements with the link stated;
+marker placed round 41 (F41-1) — round 40 recorded the amendment at a distance
+only, repeating its own F1 class]** — counts are quoted from the header lines or omitted;
 interpretive sentences carry no numerals. This extends the census-free principle
 from CLAUDE.md's sentence (round 33) through held lists (round 35) and verdict lines
 (~~round 36~~ **[round-40 F8: round 35 — A94 F3's rule; round 36 added the
@@ -5215,8 +5224,13 @@ opening of the deep-history layer:**
   the note deliberately paraphrases). Immutable; recorded here per the A89-m5
   precedent: the file surfaces are the actionable record.
 - **F6 (minor):** the Round-39 preamble's "nothing false in any battery" was false at
-  its own commit-final for the 32 seconds before the self-catch; noted at the
-  sentence (the audit sibling's "survives" scoping already true).
+  its own commit-final ~~for the 32 seconds before the self-catch~~ **[struck
+  round 41 (F41-3): the 32-second window covers only the body-census defect; by this
+  round's own F3 the header defect kept the sentence false until the wholesale
+  strike at 22eba6e — 41 min 54 s]**; noted at the
+  sentence ~~(the audit sibling's "survives" scoping already true)~~ **[struck
+  round 41 (F41-2): false certification — the sibling's first two legs sit outside the
+  "survives" scoping and were false at f4196b7; now struck at source]**.
 - **F7 (cosmetic):** the self-catch replaced rather than struck the false transcript
   line (substance preserved, form deviated from the marking rule; the invoked
   "honest-record rule" is the record's "honest-record culture"). Recorded here; the
@@ -5247,9 +5261,9 @@ every relevant commit.
 **A99 battery (post-append transcripts, wrap-aware, run after every append of this
 round):**
 
-*T1′ — `grep -n "three consecutive" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — in-scope: 3 audit + 2 response line-based; wrap-aware (per this round's F4 amendment) 4 audit + 2 response:* audit:5114 [A99 F1 bullet — quotes the struck round-39 claim; history]; 5201 [A99 F2 bullet — quotes the round-6-era record; history]; 5242 [checked-and-held: part4a's mod-8-orbit sense, live and legitimate]; audit:4688–4689 [the wrapped occurrence, line-invisible — the A96 CLAUDE.md-versions history sentence ("… three | consecutive versions …"), accurate history; the instance the F4 amendment exists to catch]; response:161 [struck site (F2)]; 888 [Round-39 table F1 row — history]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 4 line-based / 5 wrap-aware, response 2/2 — equal to the in-scope censuses plus this block's one declared occurrence. Zero live-false.
+*T1′ — `grep -n "three consecutive" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — in-scope: 3 audit + 2 response line-based; wrap-aware (~~per this round's F4 amendment~~ **[struck round 41 (F41-6): per the round-32 wrap clause (audit:4595) — F4 was enforcement of the standing clause, not an amendment; no wrap amendment exists in A99]**) 4 audit + 2 response:* audit:5114 [~~A99~~ **[struck round 41 (F41-4): A98's]** F1 bullet — quotes the struck round-39 claim; history]; 5201 [A99 F2 bullet — quotes the round-6-era record; history]; 5242 [checked-and-held: part4a's mod-8-orbit sense, live and legitimate]; audit:4688–4689 [the wrapped occurrence, line-invisible — the A96 CLAUDE.md-versions history sentence ("… three | consecutive versions …"), accurate history; the instance the ~~F4 amendment~~ **[round 41 (F41-6): wrap clause]** exists to catch]; response:161 [struck site (F2)]; 888 [Round-39 table F1 row — history]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 4 line-based / 5 wrap-aware, response 2/2 — equal to the in-scope censuses plus this block's one declared occurrence. Zero live-false.
 
-*T2′ — `grep -nE "consecutive pass|consecutive clean|zero-demotion" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — in-scope: 2 audit + 3 response line-based; wrap-aware equal (no wrapped occurrences of these alternates):* audit:2123 [struck this round (F2)]; 5202 [A99 F2 bullet — history]; response:128 [accurate history as written — the pass-6 sentence's census brackets the pass-4 demotion explicitly ("… passes bracket one demotion …"), so it is cumulative-stated with its exception carried in-sentence; NOT a sixth F2 instance]; 140 [struck (F2)]; 161 [struck (F2)]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 3 matching lines / 5 pattern occurrences on joined text (the command line is one line carrying all three alternates — three occurrences, zero wraps), response 3 / 3 — equal to the in-scope censuses plus this block's declared command line. Zero live-false.
+*T2′ — `grep -nE "consecutive pass|consecutive clean|zero-demotion" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — in-scope: 2 audit + 3 response line-based; wrap-aware equal (no wrapped occurrences of these alternates):* audit:2123 [struck this round (F2)]; 5202 [A99 F2 bullet — history]; response:128 [accurate history as written — ~~the pass-6 sentence's~~ **[struck round 41 (F41-5): the pass-5 sentence's — "Status after five passes"]** census brackets the pass-4 demotion explicitly ("… passes bracket one demotion …"), so it is cumulative-stated with its exception carried in-sentence; NOT a sixth F2 instance]; 140 [struck (F2)]; 161 [struck (F2)]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 3 matching lines / 5 pattern occurrences on joined text (the command line is one line carrying all three alternates — three occurrences, zero wraps), response 3 / 3 — equal to the in-scope censuses plus this block's declared command line. Zero live-false.
 
 *T3 — scripts (committed verifiers, re-run at commit-final):* layer_selection 4/0, adams_loadbearing 5/0, local_family 23/0, witt_weil 27/0, finite_places 6/0, local_tate 10/0 (PASS/FAIL).
 
@@ -5260,6 +5274,92 @@ mass sits in the instrument's self-description and — newly opened — the deep
 layer, which the streak-audits never covered; the historical stratum is now subject
 to the same strike discipline as everything after round 30. Round 41 gates
 stability.
+
+## Addendum 100: hostile review round 41 — convergence test on the round-40 sweep; NOT CONVERGED (0 majors, 3 minors, 3 cosmetics); the clause layer recurses
+
+**Commissioned: "Round 41 pls" — subagent per protocol on commit 22eba6e; every
+finding verified directly by the lead (Check 3: both canonical clause statements
+read unmarked; A98's verdict sentence read leg by leg against the f4196b7 and
+9c7cc77 states; the commit timestamps pulled and the 41 min 54 s window recomputed;
+line 5114's addendum membership checked against the A98/A99 boundaries;
+response:127's "Status after five passes" read at source; the round-32 wrap clause
+found at audit:4595 and read in full, resolving which side of the F41-6 conflict is
+true).**
+
+**Verdict: NOT CONVERGED — zero majors, three minors, three cosmetics. The
+mechanical instrument held everywhere the reviewer probed it: both transcripts'
+totals and per-hit lists, all five deep-history strike arithmetics, the broader-net
+deep-history sweep (nothing new under materially wider patterns), the trajectory
+machine-copies, the streak links, and every commit-message census verified exact.
+The round's mass sits in the sweep's own reach: round 40 recommitted its F1 class
+on the very clause it amended, and its F6 adjudication is contradicted by its own
+F3:**
+
+- **F41-1 (minor — the round-40 F1 class, recommitted):** the standing-state
+  clause's canonical statements (audit and response) stood unmarked while A99
+  amended the clause at a distance — the defect class round 40 had just adjudicated
+  at the transcript clause. Aggravator verified: A99's own streak count is
+  legitimate only under the amendment, so the clause as written indicted the
+  addendum that amended it. Net-state markers placed on both surfaces
+  (superseded-true: the statements were exact when adopted).
+- **F41-2 (minor):** A98's verdict sentence — "The transcripts were verified exact
+  at commit-final with the by-construction claim holding — … and nothing false
+  survives in any battery …" — was false in all three legs at f4196b7's
+  commit-final and remained false in its third leg through 22eba6e; a carrying
+  surface of the F6 defect missed by the round-40 sweep, compounded by A99's
+  checked-and-held certifying it "already true". Both struck.
+- **F41-3 (minor):** the two F6 notes stated a 32-second falsehood window; by round
+  40's own F3 the header defect kept the annotated sentence false from f4196b7 to
+  22eba6e — 41 min 54 s. The notes told the reader the window closed roughly
+  78 times earlier than the same round's findings establish. Both struck with the
+  true window.
+- **F41-4 (cosmetic — adjudicated per the r39-F5 and r40-F8 precedents,
+  misattribution with substance intact; the reviewer proposed minor and itself
+  named the precedent tension):** T1′'s tag attributed audit line 5114 to A99; it
+  is A98's F1 bullet — a label the struck predecessor transcript had right. Struck
+  in place.
+- **F41-5 (cosmetic — same adjudication):** T2′'s tag called response:128 the
+  pass-6 sentence; it is the pass-5 sentence ("Status after five passes"). The
+  substantive classification — the exception carried in-sentence, not a sixth F2
+  instance — held under the reviewer's independent re-derivation. Struck in place.
+- **F41-6 (cosmetic):** T1′ twice framed wrap-awareness as "this round's F4
+  amendment"; the wrap clause dates to round 32 (audit:4595) and F4 was enforcement
+  of the standing clause, not an amendment — the F4 bullet's framing was the
+  correct one. Both phrases struck.
+
+**Checked and held (census-free; lead-spot-verified against the reviewer's shown
+work):** T1′ arithmetically closed at 22eba6e (in-scope plus declared equals
+post-paste, both countings, no multi-occurrence lines — its "wrap-aware" label
+numerically exact in its case) and T2′ exact with the three-alternates command line
+machine-confirmed; all six scripts at their recorded counts; all five deep-history
+strike annotations exact against their own in-sentence trajectories, including the
+run endpoints; the broader-net deep-history sweep clean ("straight", "in a row",
+"unbroken", ordinals, and sibling phrasings — the genuine runs check out and
+part4a's mod-8-orbit sense re-confirmed live and legitimate); "unstruck across
+thirty-three rounds" exact; the standing-state trajectory machine-copied from all
+six headers; the held-corrections streak verified link by link; every 22eba6e
+commit-message census exact, including the six-versus-five adjudication and the
+correctly-excluded sixth strike marker; the F5/F7/F8 factual bases verified at
+source; every round-39 strike verbatim against the 5ed3377 pre-image; A98's T2
+exact at its own commit-final with the post-hoc line drift benign under the
+pinned-to-own-commit convention; the diff confined to the two record files with
+papers, tex, and py untouched.
+
+**A100 battery (post-append transcripts, wrap-aware, run after every append of this
+round):**
+
+*T1″ — `grep -n "round 41 (F41-" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — the sweep's marker census — audit 6 matching lines / 8 occurrences (the T1′ line carries three markers), response 3 / 3, zero wrapped (line-derived sums equal joined-text counts; the three annotations whose token wrapped at first writing were re-flowed wrap-proof before this run):* audit:5110 [F41-2 strike at the A98 verdict]; 5141 [F41-1 marker at the audit clause]; 5228, 5232 [F41-3 and F41-2 strikes in A99's F6 bullet]; 5264 [T1′ — the F41-6 pair and the F41-4 tag, three markers on one line]; 5266 [T2′ — the F41-5 tag]; response:882, 884 [F41-3 strikes in the R39-preamble note]; 900 [F41-1 marker at the response clause]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 7 lines / 9 occurrences, response 3 / 3.
+
+*T2″ — the round-40 patterns re-run at round-41-final (the pinned 22eba6e totals stand in A99; this is the fresh-state census). `grep -n "three consecutive" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md`: audit 4 lines / 5 joined-text occurrences — 5120 [A98 F1 bullet, shifted by the F41-2 strike above it]; 5210 [A99 F2 bullet]; 5256 [A99 held-list part4a item]; 5264 [T1′ command line]; plus the wrapped 4688–4689 instance [accurate history, declared in T1′] — and response 2 / 2: 161 [struck site]; 891 [Round-39 table row, shifted by the F41-3 note]. `grep -nE "consecutive pass|consecutive clean|zero-demotion" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md`: audit 3 lines / 5 occurrences — 2123 [struck site]; 5211 [A99 F2 bullet]; 5266 [T2′ command line, three alternates] — and response 3 / 3: 128 [accurate history, the pass-5 sentence]; 140, 161 [struck sites]. The round-41 sweep added zero occurrences of either pattern; every delta from the A99-recorded numbers is a line shift from insertions above. Post-paste machine totals with this block's two command lines: first pattern audit 5 lines / 6 occurrences, second pattern audit 4 lines / 8 occurrences; response unchanged 2/2 and 3/3.
+
+*T3″ — scripts (committed verifiers, re-run at commit-final):* layer_selection 4/0, adams_loadbearing 5/0, local_family 23/0, witt_weil 27/0, finite_places 6/0, local_tate 10/0 (PASS/FAIL).
+
+**Standing state (headers, machine-copied):** A94 1+2+1c → A95 1+1+2c → A96 0+2+2c →
+A97 0+4+2c → A98 0+2+3c → A99 0+6+2c → A100 0+3+3c. Held-corrections streak
+(addenda-linked, A92 through this round): ninth. Interpretation, numeral-free: the
+defect mass has left the transcripts' arithmetic — every census this round verified
+exact by machine — and sits now in the sweep's own reach: surfaces missed, windows
+understated, and the clause layer joining the recursion. Round 42 gates stability.
 
 ## Caveats
 

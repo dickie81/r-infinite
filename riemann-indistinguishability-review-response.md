@@ -878,8 +878,11 @@ figures.
 
 The transcripts verified exact at commit-final; nothing false in any battery, strike,
 annotation, marker, table, chain, or registration *(round-40 F6: false at this
-sentence's own commit-final for the 32 seconds before 9c7cc77 — A98's T1 then declared
-4 against an actual 5; repaired by the self-catch, noted here)*; seventh consecutive round of held
+sentence's own commit-final ~~for the 32 seconds before 9c7cc77~~ **[struck
+round 41 (F41-3): the window is 41 min 54 s, f4196b7 to 22eba6e — the round-40 F3 header
+defect kept the sentence false past the self-catch]** — A98's T1 then declared
+4 against an actual 5; ~~repaired by the self-catch~~ **[struck round 41 (F41-3):
+the named body-census defect was; the sentence's falsehood was not]**, noted here)*; seventh consecutive round of held
 corrections. Both minors sit in A97's standing state — the round's prose summary of
 itself.
 
@@ -893,7 +896,8 @@ itself.
 
 **Rule adopted (the standing-state clause, the terminal census rule):** standing-state
 and verdict prose carries no count not machine-copied from the committed headers in
-the same commit; interpretive sentences carry no numerals.
+the same commit **[amended round 40 (A99): headers or addenda-linked statements
+with the link stated; marker placed round 41 (F41-1)]**; interpretive sentences carry no numerals.
 
 **Trajectory (headers, machine-copied): … → 0+2+2c → 0+4+2c → 0+2+3c. Round 40 gates stability.**
 
@@ -920,3 +924,23 @@ mathematical-falsehoods family).
 addenda-linked statements with the link stated.
 
 **Trajectory (headers, machine-copied): … → 0+4+2c → 0+2+3c → 0+6+2c. Round 41 gates stability.**
+
+# Round 41: convergence test on the round-40 sweep (subagent, per protocol) — NOT CONVERGED (0+3+3c); the clause layer recurses
+
+Ninth consecutive round of held corrections. The mechanical instrument held —
+every transcript total, strike arithmetic, script count, and commit-message figure
+verified exact by machine, and a materially broader deep-history net returned
+nothing new. The round's mass sits in the sweep's reach: round 40 recommitted its
+own F1 class on the clause it amended, and its F6 adjudication is contradicted by
+its own F3.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F41-1 (minor) — the standing-state clause's canonical statements unmarked while A99 amended at a distance (the round-40 F1 class, recommitted); the clause as written indicted the addendum that amended it | **Accepted.** Net-state markers on both surfaces | A98 clause + R39 table |
+| F41-2 (minor) — A98's verdict sentence false in all three legs at its own commit-final; missed by the F6 sweep; certified "already true" by A99's held list | **Accepted.** Both struck | A98 verdict + A99 F6 |
+| F41-3 (minor) — the F6 notes' 32-second window understates by ~78×: the round's own F3 kept the sentence false to 22eba6e (41 min 54 s) | **Accepted.** Both notes struck with the true window | R39 preamble + A99 F6 |
+| F41-4 (cosmetic, adjudicated per r39-F5/r40-F8) — T1′'s tag attributed audit:5114 to A99 (it is A98's F1 bullet) | **Accepted.** Struck in place | A99 T1′ |
+| F41-5 (cosmetic, same adjudication) — T2′'s tag called response:128 the pass-6 sentence (it is pass-5); the substantive not-a-sixth-instance classification held | **Accepted.** Struck in place | A99 T2′ |
+| F41-6 (cosmetic) — T1′ framed wrap-awareness twice as "this round's F4 amendment"; the wrap clause dates to round 32 and F4 was enforcement | **Accepted.** Both phrases struck | A99 T1′ ×2 |
+
+**Trajectory (headers, machine-copied): … → 0+2+3c → 0+6+2c → 0+3+3c. Round 42 gates stability.**
