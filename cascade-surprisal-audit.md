@@ -6487,6 +6487,46 @@ one-given phrasing anywhere; Checks 7/8 clean. **Object gates:**
 60 1M+4+3c → 61 0M+2+3c → 62 0M+1+2c (a part0-rooted magnitude slip). Round
 63 (convergence test) gates stability.**
 
+## Addendum 128: hostile review round 63 (convergence test, subagent, per protocol) on commit 53c0917 — **CONVERGED** (0 majors, 0 minors in sweep scope, 1 out-of-sweep observation); Theorem 1k certified stable; the feature→layer arc closes
+
+**The round-62 sweep confirmed clean on all four sites: the part0 retraction
+parenthetical verbatim-accurate with correct arithmetic (10.766–10.784 on
+every numerator choice — one order); the paper's corrected sentence accurate
+("the value gated, K7" verified against the in-code conjunct); the F62-2
+descriptor exact against the c075eaa original; the strike span's elided head
+clause confirmed surviving as live text. Independent 40-dps recompute of
+sup/inf/roots/margins/signs all matching; battery at expected counts
+(4/5/35/27/6/10 + 7/0 + 6/0 + 7/0); validator clean on 12 tex files; the
+two-given conditionality uniform with no live one-given phrasing; Checks 7/8
+clean.**
+
+- **F63-1 (out-of-sweep observation, lead-verified):** part0's rem:variational
+  labels "(1.10±0.02)×10⁻¹²⁰" as *the observed* ρ_Λ/M⁴_Pl,red, while the
+  series' sibling surfaces (part1:73, part5:754, cover sheet) state the
+  observation as (7.150±0.13)×10⁻¹²¹ — the 1.10 figure is the observation
+  pulled back to invariant units through Part I's Gram-corrected closure
+  ((π/2)·e^(−0.02108)·7.150×10⁻¹²¹ = 1.0997×10⁻¹²⁰, ±0.13 → ±0.020;
+  **lead-recomputed, exact**). Substance right, unit label missing; the
+  round-62 fix is unaffected (the conversion cancels in the 10.8× ratio).
+  Untouched by the arc's commits and predating the paper — **held as a
+  registered observation for a future part0-focused round**, not swept here
+  (a part0 edit is a substantive paper change requiring its own hostile
+  round; the owner decides whether to spend it).
+
+**Verdict: CONVERGED under the round-17/21/24/27/29 precedent. Theorem 1k is
+stable in its round-60-corrected form:** the four distinguished layers are
+lattice-read with zero rounding — exact integer bands (boundary-convention-free
+at 8.569×10⁻⁴ margin), strict discrete argmax, the one-equation-two-offsets
+dissolution of the FAILED-1 double-reading — with the assignment entailed given
+**two named, listed anchors**: the site-E pairing and part0's variational-sup
+labeling of the crossing sides (data-corroborated, derivation open, per part0's
+own grading). The class's first member stands re-motivated; three members and
+the seven-item residue count unchanged. **Trajectory: 1k landed → 60 1M+4+3c →
+61 0M+2+3c → 62 0M+1+2c → 63 CONVERGED 0+0(+1 obs). Layer-4 state: members one
+and three both re-motivated (Theorems 1k, 1j); the class's live conventional
+core is member two — the d↔s pairing itself, data-anchored at site E. Next
+hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

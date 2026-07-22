@@ -1304,3 +1304,20 @@ minor: "two orders below observation" for the inf labeling — the ratio is
 | F62-2 (cosmetic) — strike annotation's ellipsis descriptor undercounted the elision | **Accepted.** Descriptor corrected | paper |
 
 **Trajectory: 1k landed → 60 1M+4+3c → 61 0M+2+3c → 62 0M+1+2c. Round 63 gates stability of Theorem 1k.**
+
+# Round 63: convergence test on the round-62 sweep (subagent, per protocol) — **CONVERGED** (0+0, 1 out-of-sweep observation); Theorem 1k certified stable; the feature→layer arc closes
+
+The round-62 sweep clean on all four sites (part0 retraction verbatim-accurate,
+arithmetic 10.77–10.78 on every numerator; the paper sentence and K7 print
+verified; the F62-2 descriptor exact). Independent 40-dps recompute matching
+throughout; validator clean; two-given conditionality uniform. One out-of-sweep
+observation: part0's rem:variational labels the invariant-units pullback of the
+observation (1.10×10⁻¹²⁰ = (π/2)e^(−0.02108)·7.150×10⁻¹²¹, lead-verified exact)
+as the observed ρ_Λ directly — a unit-label defect with correct substance, held
+for a future part0-focused round.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F63-1 (observation, out of sweep scope) — part0's rem:variational unit label | **Lead-verified; held** for a future part0 round (registered in Addendum 128) | none |
+
+**Trajectory: 1k landed → 60 1M+4+3c → 61 0M+2+3c → 62 0M+1+2c → 63 CONVERGED 0+0(+1 obs). Theorem 1k stable: the four distinguished layers lattice-read with zero rounding, entailed given two named, listed anchors (site-E pairing + variational-sup labeling); member one re-motivated; three members, seven-item count unchanged. Layer-4 state: members one and three re-motivated (1k, 1j); the live conventional core is member two, the d↔s pairing itself. Next hostile round on the next substantive paper change.**
