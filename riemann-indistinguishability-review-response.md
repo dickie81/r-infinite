@@ -1356,3 +1356,22 @@ the residue.
 | F65-1 (minor) — "site D was absorbed by Theorem 1k" in the verifier docstring (third carrying surface; both givens present) | **Accepted.** "was closed by"; post-sweep census: the verb survives only inside the round-60 verbatim strike span | script |
 
 **Trajectory: 1l landed → 64 0M+4+3c → 65 0M+1+0c. Round 66 gates stability of Theorem 1l.**
+
+# Round 66: convergence test on the round-65 sweep (subagent, per protocol) — **CONVERGED** (0+0+0); Theorem 1l certified stable; the layer-4 selection-convention sweep completes
+
+A fully clean round: the one-line diff exact; all three carrying surfaces
+uniform; the struck verb surviving only in the exempt strike span; every quote
+verbatim-verified; all mathematics independently reverified at 40 dps; all
+gates held failable; battery green at expected counts.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — none — | | |
+
+**Trajectory: 1l landed → 64 0M+4+3c → 65 0M+1+0c → 66 CONVERGED 0+0+0.
+Theorem 1l stable: the per-site d↔s family closed given the tower's dictionary;
+the E-anchor a cross-check; the C-demotion sharpened; member two re-motivated.
+The layer-4 arc completes (Theorems 1j–1l, rounds 57–66): all three
+selection-convention members re-motivated onto named, listed anchors; three
+members and the seven-item count unchanged throughout. Next hostile round on
+the next substantive paper change.**

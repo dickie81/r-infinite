@@ -6655,6 +6655,45 @@ stated at every load-bearing site; Checks 7/8 clean. **Object gates:**
 → 65 0M+1+0c (one verb, one surface). Round 66 (convergence test) gates
 stability.**
 
+## Addendum 132: hostile review round 66 (convergence test, subagent, per protocol) on commit 0d84707 — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1l certified stable; the layer-4 selection-convention sweep completes
+
+**A fully clean round: the one-line diff confirmed exact; all three carrying
+surfaces uniform on "closed … given the two givens"; the struck verb surviving
+only inside the exempt round-60 strike span; every docstring quote
+verbatim-verified (the Definition-2.1 ellipsis, the T1-Remark sentence, the
+part4b:503 citation carrying both the window-endpoint content and the observed
+16.8170 ± 0.0011); all mathematics reverified independently at 40 dps (the
+window-shift residual exactly zero, the closure triple, both coset maxima with
+their argmax cosets, the marked set under all three shifts); all five M-gates
+held failable with the one call-chain tautology correctly annotated ungated;
+the full battery green at expected counts.**
+
+**Verdict: CONVERGED under the round-17/21/24/27/29 precedent. Theorem 1l is
+stable:** given the tower's dictionary (Definition 2.1 + Theorem 1), the
+per-site d↔s family is closed — site E's anchor a cross-check (the flip a
+window shift; the audit's alternative a mixed frame), site C's demotion
+sharpened to does-not-hold-in-the-dictionary (single-coset repair candidate
+live), sites B/H flip-invariant, site D closed by 1k. Member two stands
+re-motivated; three members and the seven-item count unchanged.
+
+**The layer-4 arc, complete (rounds 57–66, Theorems 1j–1l):** all three
+members of the selection-convention residue class are now re-motivated onto
+named, listed anchors — the χ₋₃ pairing given the pairing-act (1j, stable
+round 59); the feature→layer map given the site-E pairing plus Part 0's
+variational-sup labeling (1k, stable round 63); the pairing family itself
+closed given the tower's dictionary (1l, stable round 66). The class keeps
+three members and the framework's non-arithmetic residue stays at seven items
+throughout; what changed is the members' epistemic anatomy — from three
+free-standing conventions to three conditional entailments whose residual
+conventional content is, in every case, either a listed foundation
+(Definition 2.1 + Theorem 1), an already-listed residue item (Definition-6.1
+endpoint data; the strict-boundary stipulation), or a data-corroborated
+anchor with its derivation honestly open (the variational sup; the
+pairing-act; the site-E window data). Registered open routes out: part0's
+"principled derivation of max" (would discharge 1k's second given) and the
+F63-1 unit-label observation (held for a part0-focused round). Next hostile
+round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
