@@ -1395,3 +1395,24 @@ one-object-two-sides registration.
 | F67-4/5/6 (cosmetics) — quote punctuation drift; Door-4 excerpt antecedent shift; unstated min-covol⇒densest premise | **Accepted.** All fixed; the premise now stated on all three sites | paper + script |
 
 **Trajectory: 1m landed → 67 0M+3+3c. Round 68 gates stability of Theorem 1m.**
+
+# Round 68: convergence test on the round-67 sweep (subagent, per protocol) — **CONVERGED** (0+0+0); Theorem 1m certified stable; the layer-3 factor arc closes
+
+A fully clean round: every round-67 fix verified in detail (the Theorem-4
+pointer's both halves; the shortest-vector premise brute-force verified at ten
+sample discs; the different-ideal antecedent; the footer history by git
+pickaxe across all six census values 27–32); the reviewer's own census
+reproduced 3043 discs with the unique minimum at −3; battery green at all
+twelve expected counts; every attack vector held.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — none — | | |
+
+**Trajectory: 1m landed → 67 0M+3+3c → 68 CONVERGED 0+0+0. Theorem 1m stable:
+the availability factors are registered, already-derived objects; the 13b
+block's genuine fork discriminated given the obstruction identification; the
+block canonical up to extensional equivalence. Mass layer 3's residual gap
+after 1m: the trigger data and soft inputs (instantiation-level), plus the
+identifications' conditionality. Next hostile round on the next substantive
+paper change.**

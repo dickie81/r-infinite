@@ -6803,6 +6803,43 @@ swept tree:** 4/5/35/27/6/10 + 7/0 + 6/0 + 7/0 + 5/0 + 5/0 + 11/0.
 **Trajectory: 1m landed → 67 0M+3+3c. Round 68 (convergence test) gates
 stability of Theorem 1m.**
 
+## Addendum 135: hostile review round 68 (convergence test, subagent, per protocol) on commit 3e68c65 — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1m certified stable; the layer-3 factor arc closes
+
+**A fully clean round. Every round-67 fix verified in detail: the Theorem-4
+pointer's both halves verbatim-checked (paper Theorem 4 and the formulation's
+T2 each contain the grammar sentence); the F6 premise proven sound and
+brute-force verified (shortest vector exactly 1 at ten sample discs including
+−163, −323, −9995 — so minimal covolume ⟺ densest); the F5 antecedent
+confirmed grammatically and mathematically (𝔡⁻¹ is the trace-dual lattice);
+the F2 footer history verified by git pickaxe across all six census values
+27–32 with the audit's per-count verification lines cited; the F3 comment now
+matching the code. The reviewer's own census: 3043 discs, unique minimum at
+−3, second-best covol 1.0 at −4; χΓ(½) − 2√π = 0.0 exactly; the (5,21) cell 2
+vs 1. Every scope-7 attack vector held, including the self-containment
+question (the footer's audit-record reference restricted-scope-compliant) and
+the marker-timing convention. Battery green at all twelve expected counts.**
+
+**Verdict: CONVERGED under the round-17/21/24/27/29 precedent. Theorem 1m is
+stable:** the three availability factors are registered, already-derived
+objects — the obstruction unit one object on two committed sides (Theorem 4's
+measure grammar / part4b's per-Dirac-layer toll, with second_quantized's
+independent Dirac-layer attachment as corroboration), the projection factor
+Door 4's covolume (minimal, equivalently densest, over all 3043 fundamental
+discs), the colour rank at 13c's unchanged strength — and the 13b
+availability block's one genuine fork is discriminated arithmetically given
+the obstruction identification, making the block canonical up to extensional
+equivalence. **Trajectory: 1m landed → 67 0M+3+3c → 68 CONVERGED 0+0+0.**
+
+**Mass layer 3, net state after 1m:** the factor level is closed (no
+availability factor is a new constant; the clause-uniqueness block is
+canonical up to extension, conditional on the identifications). The residual
+gap is exactly: the trigger data (legs + the record-legs classifier) and the
+soft inputs (Observer k=3, A13 grading, ℓ_A kind) — instantiation-level
+content the arithmetic cannot supply — plus the identifications'
+C1-conditionality. Registered open routes standing: part0's principled
+derivation of max (1k's second given); the pairing-act (1j); the F63-1
+part0 unit label. Next hostile round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
