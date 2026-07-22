@@ -1034,3 +1034,16 @@ comment, and one vacuous gate conjunct.
 | F45-5 (cosmetic) — hardcoded conjunct; L7b cannot fail while L4 passes; distinctness ungated | **Accepted.** Conjunct dropped, scope notes added | script + paper |
 
 **Trajectory: round 44 (lead-direct) → round 45 0+4+1c. Round 46 gates stability of the round-44/45 surfaces.**
+
+# Round 46: convergence test on the round-45 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 2 cosmetics); the round-44/45 surfaces certified stable
+
+The first converged round since round 29. The corrected direct-sum chain could not
+be broken; the ord-8 gate is genuine; the sweep was complete on every surface; the
+census exact; all verifiers at recorded counts; Checks 7/8 clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F46-1 (cosmetic) — "two sentences later" off by one in the F2 annotation | **Accepted.** Corrected in place | paper |
+| F46-2 (cosmetic) — Pfister convention undeclared on the formulation surface | **Accepted.** Convention named there | formulation |
+
+**Trajectory: round 44 (lead-direct) → 45 0+4+1c → 46 CONVERGED 0+0+2c. Stability certified; next hostile round on the next substantive paper change.**

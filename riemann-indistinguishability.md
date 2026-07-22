@@ -352,7 +352,8 @@ W(ℚ₂) = ℤ⟨1⟩ ⊕ ker γ₂ *(round-45 F1: the first writing omitted th
 from the forcer chain — without it the stated premises admit a ℤ/16 ⊕ ℤ/2
 counter-model passing every gate as written; the premise was already established at
 1f and is now named and gated. F2: the first writing's span notation ⟨⟨1⟩⟩ collided
-with the Pfister bracket ⟨⟨a,b⟩⟩ := ⟨1,−a⟩ ⊗ ⟨1,−b⟩ used two sentences later;
+with the Pfister bracket ⟨⟨a,b⟩⟩ := ⟨1,−a⟩ ⊗ ⟨1,−b⟩ used in the next sentence
+(round-46 F1 corrected the sentence count);
 replaced by ℤ⟨1⟩)*, with the full 32-class character table γ₂ = ζ₈⁻ᵐ on the
 ⟨1⟩-coordinate verified on explicit diagonal representatives — the γ-values gated;
 the representatives' pairwise distinctness follows from the span–kernel chain, not

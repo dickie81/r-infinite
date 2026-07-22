@@ -5621,6 +5621,37 @@ local_family 27/0 (L7a strengthened, count unchanged), witt_weil 27/0,
 finite_places 6/0, local_tate 10/0. Round 46 (convergence test on this sweep)
 gates stability of the round-44/45 surfaces.
 
+## Addendum 105: hostile review round 46 — convergence test on the round-45 sweep; CONVERGED (0 majors, 0 minors, 2 cosmetics); the round-44/45 surfaces are stable
+
+**Commissioned per the standing rule on commit 4f4610d. Verdict: CONVERGED — the
+first converged round since round 29, certifying stability of the round-44/45
+surfaces under the object-level standard (precedent: rounds 17, 21, 24, 27, 29).
+Both findings verified directly by the lead and fixed in this editorial commit
+(batched per the protocol's editorial clause; no new claim ships):**
+
+- **F46-1 (cosmetic, fixed):** the round-45 F2 annotation said the Pfister bracket
+  was used "two sentences later"; the round-44 pre-image shows it in the immediately
+  following sentence. Count corrected in place.
+- **F46-2 (cosmetic, fixed):** the formulation's narrowing note used ⟨⟨−1,−1⟩⟩
+  without declaring the sign convention on that surface (under ⟨1,+a⟩ factors the
+  symbol would denote 2H = 0). The paper's ⟨1,−a⟩-factor convention is now named
+  there too.
+
+**Held under attack (the reviewer's list, spot-verified):** the corrected F45-1
+chain could not be broken (ord-8 ⟹ span size 8; m = 1..7 non-triviality ⟹ trivial
+intersection; 8·4 = 32 = |W| ⟹ direct sum); the new ord-8 gate is genuine (live
+Hilbert-symbol computation, would fail if 8⟨1⟩ ≠ 4H); the counter-model claim
+re-derived; the 1f quote exact; the F45-2 sweep complete with the convention
+expansion checked by hand; the census exact (27 in place + 4 marked °, all 31 on
+disk); the F45-4/5 comments and scope notes accurate; all six verifiers at
+4/5/27/27/6/10 with 0 FAIL and the kernel bound within quote; Checks 7/8 clean;
+zero collateral damage.
+
+**Standing state: the paper, the formulation, and the seven verifiers are stable at
+round 46. Open mathematics unchanged: the (ℤ/2)² grammar question (now narrowed to
+discriminant-level data), the papers-side registrations, the frozen experimental
+ledger. The next hostile round triggers on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

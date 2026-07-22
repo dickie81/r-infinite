@@ -168,7 +168,8 @@ round 44, gates L7a–d; round-45: ord(⟨1⟩) = 8 named in the chain and gated
 notation ℤ⟨1⟩ replacing the Pfister-colliding ⟨⟨1⟩⟩: the quotient made exhaustive —
 W(ℚ₂) = ℤ⟨1⟩ ⊕ ker γ₂ direct,
 full 32-class character table — and the invisible (ℤ/2)² shown transverse to the
-fundamental-ideal filtration (γ(⟨⟨−1,−1⟩⟩) = −1 on the I² generator) and
+fundamental-ideal filtration (γ(⟨⟨−1,−1⟩⟩) = −1 on the I² generator; Pfister
+bracket in the paper's ⟨1,−a⟩-factor convention — round-46 F2) and
 signed-disc-faithful (d± injects the kernel into I/I²): disc-level data, question
 open)*. (iv) Global
 re-lock on six multi-dim forms ≤ 4×10⁻¹⁵ incl. the dim-8 definite form (both clock
