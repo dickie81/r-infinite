@@ -181,12 +181,14 @@ derived; no data, no closures.
 
 **T1h (the kernel's identity — the ζ₄-norm structure; L8, five gates).**
 d±(ker γ₂) = N(ℚ₂(i)^×)/sq = ⟨−3, 2⟩: in-kernel ⟺ signed disc a nontrivial norm
-class of ℚ₂(i) = ℚ₂(γ²), Hasse forced (one per norm class, zero per non-norm, all
+class of ℚ₂(i) (= ℚ₂(ζ₄); γ² read as an abstract primitive 4th root — round-47
+F2), Hasse forced (one per norm class, zero per non-norm, all
 14 gated); generators = the colour discriminant (unramified — ℚ₂(√−3) = ℚ₂(ζ₃);
 (2,−3)₂ = −1 is 1e(iv)'s inert fact, relocated) and the clock prime; the ∞-mirror
 kernel is free (8ℤ — invisible torsion dyadic-exclusive). Identity settled; whether
-the grammar reads the two coordinates stays open; sharpened falsifier: any
-finite-place colour-at-2 derivation must factor through this subgroup. No entry
+the grammar reads the two coordinates stays open; sharpened falsifier (round-47 F1
+rescoped): any derivation routing colour through the clock-invisible part of
+W(ℚ₂) must land in this subgroup, Hasse forced. No entry
 derived; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence

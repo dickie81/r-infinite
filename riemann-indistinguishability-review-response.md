@@ -1047,3 +1047,18 @@ census exact; all verifiers at recorded counts; Checks 7/8 clean.
 | F46-2 (cosmetic) — Pfister convention undeclared on the formulation surface | **Accepted.** Convention named there | formulation |
 
 **Trajectory: round 44 (lead-direct) → 45 0+4+1c → 46 CONVERGED 0+0+2c. Stability certified; next hostile round on the next substantive paper change.**
+
+# Round 47: hostile review of Theorem 1h (subagent, per protocol) — NOT CONVERGED (0+2+1c); the mathematics held in full, the presentation's scope did not
+
+The reviewer confirmed every mathematical claim with independent implementations —
+including finding and resolving a bug in its own first Weil-index code against the
+script's, pinned by the product formula. Both minors are scope/label defects on
+the new claim's presentation.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F47-1 (minor) — the sharpened falsifier an unproved universal over future derivations; 1e(iv)'s own colour-at-2 fact unevaluable by the stated criterion | **Accepted.** Struck and rescoped to the licensed clock-invisible-route form, all three surfaces | paper + formulation + script |
+| F47-2 (minor) — the slogan's bare "exact" leaned on an unstated abstract-ζ₄ reading; formulation stated the equation as bare fact | **Accepted.** Reading stated on all three surfaces; "exact under the stated reading" | paper + formulation + script |
+| F47-3 (cosmetic) — "gated as a same-fact check" overdescribed L8d (constituent facts gated, comparison absent) | **Accepted.** L8d now computes χ₋₃(2) and compares in-code; annotation records the upgrade | script + paper |
+
+**Trajectory: 1h landed → 47 0+2+1c. Round 48 gates stability of Theorem 1h.**

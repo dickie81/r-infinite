@@ -5683,6 +5683,41 @@ pointer). **Object gates at this commit:** layer_selection 4/0, adams_loadbearin
 5/0, local_family **32/0**, witt_weil 27/0, finite_places 6/0, local_tate 10/0.
 Round 47 (hostile subagent, per protocol) follows this commit.
 
+## Addendum 107: hostile review round 47 (subagent, per protocol) on commit 370d219 — Theorem 1h; NOT CONVERGED (0 majors, 2 minors, 1 cosmetic); all swept
+
+**Every finding verified directly by the lead (Check 3: the falsifier and slogan
+texts re-read on all three surfaces against what L8 actually licenses; the L8d code
+re-read — no χ comparison at first writing). The reviewer's independent
+verification of the mathematics was total: its own conic-solvability Hilbert
+symbol, exact-integer norm census, fresh Gauss-sum Weil indices, the h-forcing
+formula re-derived from the closed form, the lineage 21 → 23 → 27 → 32 confirmed
+by executing all four historical script versions. Notably, the reviewer's first
+Weil-index implementation produced a false 6-element kernel — its own bug, found
+and resolved against its code with the script's construction pinned by the product
+formula; the disagreement and resolution are on its record.**
+
+- **F47-1 (minor):** the sharpened falsifier quantified over all future colour-at-2
+  derivations — an unproved universal; the theorem licenses only confinement of the
+  clock-invisible route, and 1e(iv)'s own χ₋₃(2) = −1 is a colour-at-2 fact the
+  stated criterion could not even evaluate. Struck and rescoped to the licensed
+  form on all three surfaces.
+- **F47-2 (minor):** the slogan's bare "exact" for ℚ₂(i) = ℚ₂(γ²) leaned on an
+  unstated abstract-ζ₄ reading (no canonical embedding of μ₈(ℂ) into ℚ̄₂); the
+  formulation stated the equation inline as bare fact and the script graded it
+  "clock language" — cross-surface tension. The reading is now stated on all three
+  surfaces; "exact under the stated reading".
+- **F47-3 (cosmetic):** "gated as a same-fact check" overdescribed L8d, which
+  checked the two constituent facts without comparing them. L8d now computes
+  χ₋₃(2) in-code and gates (2,−3)₂ = χ₋₃(2) = −1; the paper annotation records the
+  upgrade.
+
+**Held:** the norm-group identity, the iff with Hasse forcing, the generators, the
+unramifiedness, the same-fact identity as mathematics ((p,d)_p = χ_d(p)), the
+∞-mirror freeness and the Sylvester attribution, all five gates' failure modes,
+the lineage, the net-state markers, the census, Checks 7/8. **Object gates:**
+4/5/32/27/6/10, 0 FAIL. Round 48 (convergence test on this sweep) gates stability
+of Theorem 1h.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
