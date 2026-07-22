@@ -174,10 +174,20 @@ signed-disc-faithful (d± injects the kernel into I/I²): disc-level data, quest
 open)*. (iv) Global
 re-lock on six multi-dim forms ≤ 4×10⁻¹⁵ incl. the dim-8 definite form (both clock
 places wrap to 1). Run record: p = 17 timeout → primes trimmed, two pre-run code
-artifacts removed. 27 PASS 0 FAIL *(round-44: the four L7 gates — directness, the
-32-class character table, I²-transversality, signed-disc faithfulness — added; the
-round-43 sync had corrected the count to 23 after the L6 gates)*. No grammar entry
+artifacts removed. 32 PASS 0 FAIL *(Theorem 1h's five L8 gates added to the
+round-44 L7 four; the lineage: 21 at first commit, 23 after round-26's L6, 27 after
+round-44's L7, 32 now)*. No grammar entry
 derived; no data, no closures.
+
+**T1h (the kernel's identity — the ζ₄-norm structure; L8, five gates).**
+d±(ker γ₂) = N(ℚ₂(i)^×)/sq = ⟨−3, 2⟩: in-kernel ⟺ signed disc a nontrivial norm
+class of ℚ₂(i) = ℚ₂(γ²), Hasse forced (one per norm class, zero per non-norm, all
+14 gated); generators = the colour discriminant (unramified — ℚ₂(√−3) = ℚ₂(ζ₃);
+(2,−3)₂ = −1 is 1e(iv)'s inert fact, relocated) and the clock prime; the ∞-mirror
+kernel is free (8ℤ — invisible torsion dyadic-exclusive). Identity settled; whether
+the grammar reads the two coordinates stays open; sharpened falsifier: any
+finite-place colour-at-2 derivation must factor through this subgroup. No entry
+derived; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
