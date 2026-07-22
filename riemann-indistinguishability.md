@@ -228,7 +228,9 @@ square-class/Gauss-phase structure, and *one* route to a finite-place derivation
 Radon–Hurwitz grammar entry is closed. A second route remains **open and named** (round-18
 m3): the Witt ring W(ℚ₂) has order 32 ≅ ℤ/8 ⊕ ℤ/2 ⊕ ℤ/2 with level(ℚ₂) = 4 (−1 is a sum
 of four but not three squares in ℚ₂ — the three-square impossibility is the mod-8
-obstruction, checked in-code mod 2⁶ and conclusive; the four-square witness mod 2⁶ has a
+obstruction, checked in-code mod 8 — complete over the residue range *(round-43: re-based
+from an incomplete mod-2⁶ search whose witness range missed the square residues
+17, 33, 41, 57 — the squares of 9, 15, 13, 11 mod 64; the claim was and is true)* — and conclusive; the four-square witness mod 2⁶ has a
 unit coordinate and lifts to ℤ₂ by Hensel — round-19 f4), so the class of ⟨1⟩
 generates a cyclic subgroup of order 8 — a clock-corroborating finite-place structure not
 yet connected to the grammar *(net-state: the mod-8 connection is now made — Theorem 1f
@@ -257,7 +259,7 @@ W(ℝ) = ℤ ↠ μ₈ (Fresnel-verified to 3×10⁻⁸ with an analytic two-ter
 sign-conjugation and positive-rescaling invariance exact), so **both completions project
 their Witt groups onto the same μ₈** (⟨1⟩ ↦ ζ₈ at ∞, ζ₈⁻¹ at 2), and Weil's product
 formula locks the projections inverse **per square class**: Π_v γ_v(u) = 1 verified to
-≤ 2.3×10⁻¹⁵ across fifteen classes u ∈ {±1, ±2, ±3, ±5, 6, 15, ±9, 45, −18, 25} over
+≤ 2.3×10⁻¹⁵ across fifteen representatives spanning ten square classes, u ∈ {±1, ±2, ±3, ±5, 6, 15, ±9, 45, −18, 25} over
 places {∞, 2, odd ramified p}, with the silence claims gated in-code — γ_p = 1 at odd p
 of even valuation (3|9, 3|45, 5|25) and at unramified odd p (5∤3), and the odd-p factors
 k-stability-gated (round-22 F1: the original ten-class list was odd-valuation-only at

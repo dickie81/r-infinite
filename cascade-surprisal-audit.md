@@ -1,3 +1,12 @@
+> **PROCESS HISTORY (declared round 43, by the owner's decision).** This file is the
+> review program's process record. Each addendum speaks as of its own commit and is
+> superseded by later addenda and by the git history, which is the authoritative
+> record; only the most recent addendum's standing state is a live claim. Historical
+> prose in this file — strikes, annotations, battery transcripts, censuses — is not a
+> review surface: defects noticed in it are corrected without per-surface strike
+> obligations and without convergence rounds on the correction. Stability of the work
+> product gates on the object level only: the papers and the committed verifiers.
+
 # Cascade Surprisal Audit — an adversarial null model for the numerical closures
 
 **Tool:** `tools/research/cascade_null_model_surprisal.py`
@@ -5437,6 +5446,83 @@ streak (addenda-linked, A92 through this round): tenth. Interpretation,
 numeral-free: the instrument layer has been exact for consecutive rounds now; the
 recursion's remaining mass is confined to the sweep's reach — carriers missed and
 universals overstated in the round's own summary prose. Round 43 gates stability.
+
+## Addendum 102: round 43 — object-level stability review; the freeze
+
+**Commissioned: the owner's decision to break the correction-of-corrections loop —
+one final hostile round scoped to the object level only (papers, Remarks, verifier
+scripts, mathematics; record-file forensics inadmissible), then the freeze.
+Subagent per protocol on ed2375e; every finding verified directly by the lead
+(Check 3: counts grepped and scripts re-run; the mod-64 witness-range gap
+recomputed — squares mod 64 need witnesses to 31, the script's range(8) missed
+residues 17, 33, 41, 57, while mod 8 the same range is complete; the fifteen
+values reduced to square classes by machine — ten; both code sites read).**
+
+**Verdict — the certification this round exists for: the object level is clean at
+theorem grade.** No majors; no mathematical falsehood found anywhere. The reviewer
+recomputed, independently and from scratch: the dyadic Weil-index exponents (by
+direct summation AND by Gauss-evaluation cross-check), the kernel census
+(disc, Hasse) = (3,+1), (6,−1), (14,+1) with W(ℚ₂) ≅ ℤ/8 ⊕ (ℤ/2)², the closed
+form by induction from the cocycle, the odd-place exclusivity forcer chain beyond
+the script's samples (p = 17, 19, 23, 29, 41), the ρ equivalence to 2×10⁵ and
+ρ(16n) = ρ(n)+8 to n = 3000, the Door-3 row logic under mutation, the layer
+selection, the balance points, the window splits, and both papers' compliance
+with Checks 7/8. The flagged Steenrod–Whitehead citation is now confirmed from
+Adams' 1962 Annals paper directly ("For b ≤ 3, the result is due to Steenrod and
+Whitehead"), upgrading the paper's citation-confidence caveat: K-theory proper
+load-bears nowhere in the cascade window, on Adams' own attribution.
+
+**Findings (0 majors, 3 minors, 2 cosmetics; all record-fidelity or instrument
+completeness; none touches a number, theorem, or residue count; all swept this
+round with every verifier re-run):**
+
+- **F43-1 (minor):** formulation carried "21 PASS 0 FAIL" for the local-family
+  verifier; actual 23 since round 26's L6 gates. Synced with marker.
+- **F43-2 (minor):** formulation carried "≤6×10⁻¹⁴" for the kernel identities
+  against an actual worst residual of 6.44×10⁻¹⁴; the standalone paper was
+  requoted to ≤7×10⁻¹⁴ by the early review, the formulation's copy missed.
+  Requoted with marker.
+- **F43-3 (minor, instrument):** the local-Tate three-square negative searched
+  sums ≡ 63 mod 64 over range(8) — an incomplete mod-64 witness set (missing
+  square residues 17, 33, 41, 57). The claim itself is true and classical; the
+  complete one-line form is the mod-8 obstruction over range(8). Script re-based
+  to % 8 == 7; paper sentence re-based from "mod 2⁶ and conclusive"; still
+  10 PASS 0 FAIL. Supersedes the round-19 f4 adjudication ("conclusive as run"),
+  which was materially imprecise.
+- **F43-4 (cosmetic):** "fifteen classes" on two surfaces — the fifteen values
+  span ten square classes (9 ∼ 25 ∼ 1, −9 ∼ −1, 45 ∼ 5, −18 ∼ −2); the extras
+  are same-class representatives added by round 22 to exercise code paths.
+  Reworded on both surfaces.
+- **F43-5 (cosmetic, instrument):** the own-negative gate's disc conjunct tested
+  disc(ab) against itself (an identity, not a gate — the Hasse conjunct is the
+  operative check), and split_abs carried a dead two-branch expression. Both
+  cleaned; still 23 PASS 0 FAIL.
+
+**Object gates at this commit:** layer_selection 4/0, adams_loadbearing 5/0,
+local_family 23/0, witt_weil 27/0, finite_places 6/0, local_tate 10/0
+(PASS/FAIL); formulation_kernel worst residual 6.44×10⁻¹⁴ ≤ the requoted bound.
+
+**The freeze.** By the owner's decision, and per the banner now at the head of
+this file and the amended CLAUDE.md protocol: stability gates on the object level
+only; this file and the round-table file are declared history; record-prose
+defects are corrected when noticed, without convergence recursion; the
+pattern-census battery ritual is retired; the object gates above are the standing
+verification. Under the old standard, round 43's three minors would trigger a
+round 44 on this sweep; under the freeze, the sweep stands on the lead's direct
+re-verification recorded here, and the next hostile round triggers on the next
+substantive paper change — which will re-review these fixes as a matter of
+course. The recursion diagnosis, stated once for the record: rounds 31–42
+returned zero object-level findings after round 32 while generating ten
+consecutive rounds of held corrections about their own prose; the loop was
+structural — every sweep's language became the next round's surface — and it is
+closed by scoping, not by a final perfect sentence.
+
+**Standing state (final under the old regime):** A94 1+2+1c → A95 1+1+2c →
+A96 0+2+2c → A97 0+4+2c → A98 0+2+3c → A99 0+6+2c → A100 0+3+3c → A101 0+3+2c →
+A102 0+3+2c (object level). The work product — the two papers and seven committed
+verifiers — is certified clean at theorem grade by this round's independent
+recomputation, with three record-fidelity minors found and swept. Future addenda
+record substantive rounds only.
 
 ## Caveats
 

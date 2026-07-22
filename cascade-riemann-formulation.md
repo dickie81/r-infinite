@@ -52,7 +52,9 @@ log-geometry of Γ_ℝ at integer arguments:
 - p(d) = (log Γ_ℝ)′(d+1)  (potential = logarithmic derivative)
 - α(d) = N(d)²/4π  (compliance)
 
-Each is an elementary Gamma identity; machine-verified to ≤6×10⁻¹⁴ across d = 1–300. The
+Each is an elementary Gamma identity; machine-verified to ≤7×10⁻¹⁴ across d = 1–300
+*(round-43: requoted from a false ≤6×10⁻¹⁴ — the N(d) residual is 6.44×10⁻¹⁴; the
+standalone paper's copy was requoted by the early review, this one missed)*. The
 cascade lattice **is** the discrete log-geometry of ζ's factor at the real place — this
 sentence is a theorem, not an analogy.
 
@@ -124,7 +126,7 @@ hyperbolic-trivial at 10⁻¹⁶, values exactly in μ₈) with ⟨1⟩ ↦ ζ�
 group is a canonical quotient of the dyadic Witt group.** Forcers: Weil index theory +
 level(ℚ₂) = 4 (classical). (ii) Mirror: γ_∞ = ζ₈^sig is the same quotient of W(ℝ) = ℤ
 (Fresnel-verified 3×10⁻⁸); Weil's product formula locks the two projections inverse
-**per square class** (Π_v γ_v(u) = 1 to ≤ 2.3×10⁻¹⁵ for fifteen classes incl.
+**per square class** (Π_v γ_v(u) = 1 to ≤ 2.3×10⁻¹⁵ for fifteen representatives — ten square classes — incl.
 even-valuation and unramified odd places with in-code silence gates — round-22 F1/F3
 extended the ten-class odd-valuation-only list and corrected the residual range;
 T1e's compensation = the u = 1 row). ψ-covariance graded (round-22 F2 strengthened):
@@ -164,7 +166,8 @@ anisotropic classes (disc, Hasse) = (3,+1), (6,−1), (14,+1), each order 2, plu
 the clock-invisible classes; their grammar meaning OPEN, none claimed. (iv) Global
 re-lock on six multi-dim forms ≤ 4×10⁻¹⁵ incl. the dim-8 definite form (both clock
 places wrap to 1). Run record: p = 17 timeout → primes trimmed, two pre-run code
-artifacts removed. 21 PASS 0 FAIL. No grammar entry derived; no data, no closures.
+artifacts removed. 23 PASS 0 FAIL *(round-43 sync: the two L6 gates added in round 26
+had not been propagated to this count)*. No grammar entry derived; no data, no closures.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

@@ -1,3 +1,11 @@
+> **PROCESS HISTORY (declared round 43, by the owner's decision).** This file is the
+> review program's round-table record. Each round's table speaks as of its own commit
+> and is superseded by later rounds and by the git history, which is the authoritative
+> record. Historical prose here is not a review surface: defects noticed in it are
+> corrected without per-surface strike obligations and without convergence rounds on
+> the correction. Stability of the work product gates on the object level only: the
+> papers and the committed verifiers.
+
 # Response to the External Review of `riemann-indistinguishability.md`
 
 **Review:** `riemann-indistinguishability-review.md` (branch
@@ -966,3 +974,27 @@ of the four carriers of the understated window, its sweep reached two.
 | F42-5 (cosmetic) — the Round-39 preamble sentence unstruck while its audit sibling was struck in the same round | **Accepted.** Struck; symmetry restored | R39 preamble |
 
 **Trajectory (headers, machine-copied): … → 0+6+2c → 0+3+3c → 0+3+2c. Round 43 gates stability.**
+
+# Round 43: object-level stability review (subagent, per protocol; record forensics out of scope) — object level clean at theorem grade; the freeze (0+3+2c, all record-fidelity/instrument)
+
+The certification round. Every core mathematical claim recomputed independently
+from scratch held exactly: the clock quotient and its kernel anatomy, the closed
+form, odd-place exclusivity beyond the script samples, the ρ arithmetic to
+2×10⁵, the Door-3 decomposition under mutation, the layer selection, the balance
+points and window splits, Checks 7/8 compliance. The Steenrod–Whitehead
+attribution is now primary-source-confirmed from Adams 1962. No mathematical
+falsehood anywhere.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F43-1 (minor) — formulation's local-family count stale ("21 PASS", actual 23 since round 26) | **Accepted.** Synced with marker | formulation |
+| F43-2 (minor) — formulation's kernel bound "≤6×10⁻¹⁴" false (residual 6.44×10⁻¹⁴); the paper's early-review requote never propagated | **Accepted.** Requoted with marker | formulation |
+| F43-3 (minor) — local-Tate three-square negative an incomplete mod-64 search (witness range missed square residues 17/33/41/57); claim true; complete form is mod 8 | **Accepted.** Script and paper re-based; 10/0 unchanged; supersedes round-19 f4's "conclusive as run" | script + paper |
+| F43-4 (cosmetic) — "fifteen classes" = fifteen representatives, ten square classes | **Accepted.** Reworded, both surfaces | paper + formulation |
+| F43-5 (cosmetic) — tautological disc conjunct; dead expression | **Accepted.** Cleaned; 23/0 unchanged | script |
+
+**The freeze (owner's decision):** stability now gates on object-level surfaces
+only; both record files are declared history under standing banners; the
+pattern-census ritual is retired; the object gates (seven committed verifiers)
+are the standing verification. This table is the last of the convergence-loop
+era; future tables record substantive rounds only.

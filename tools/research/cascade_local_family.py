@@ -319,8 +319,10 @@ def main():
     ok_ord = True
     for dcls, h, a, b in kernel:
         h_neg = hilbert(-a, -b, 2)
-        dneg_cls = next(c for c in d2 if same_class(a * b, c))  # (-a)(-b)=ab
-        ok_ord &= (dneg_cls == dcls and h_neg == h)   # k = -k  =>  2k = 0
+        # disc((-a)(-b)) = disc(ab) is an identity, not a gate (round-43
+        # cleanup: the first version tested it against itself); the
+        # operative own-negative check is the Hasse invariant
+        ok_ord &= (h_neg == h)   # k = -k  =>  2k = 0
     print(f"   each kernel class = its own negative (k = -k, dim-2"
           f" isometry by (disc, hasse)) => order 2   "
           f"{'PASS' if ok_ord else 'FAIL'}   (kernel = (Z/2)^2)")
@@ -414,7 +416,8 @@ def split_abs(x):
     while x % 2 == 0:
         x //= 2
         e += 1
-    return e, x % 8 if x > 0 else (x % 8)
+    return e, x % 8   # (round-43: collapsed a dead two-branch form; only
+                      # positive inputs occur at the call sites)
 
 
 if __name__ == "__main__":

@@ -246,13 +246,16 @@ def main():
     # ---- T-loc5: the checked negative + the open Witt route
     print()
     print("T-loc5 checked negative + the open Witt route (round-18 m3):")
-    # level(Q_2) = 4: -1 not a sum of 3 squares mod 64; is a sum of 4
-    three = any((a*a + b*b + c*c) % 64 == 63
+    # level(Q_2) = 4: -1 not a sum of 3 squares (mod-8 obstruction,
+    # complete: squares mod 8 need only witnesses in range(8) -- the
+    # round-43 fix; the first version searched % 64 over range(8),
+    # an incomplete mod-64 witness set); is a sum of 4 (mod-64 witness)
+    three = any((a*a + b*b + c*c) % 8 == 7
                 for a in range(8) for b in range(8) for c in range(8))
     four = any((a*a + b*b + c*c + d*d) % 64 == 63
                for a in range(8) for b in range(8) for c in range(8)
                for d in range(8))
-    print(f"  level(Q_2) = 4: -1 sum of 3 squares mod 64? {three}"
+    print(f"  level(Q_2) = 4: -1 sum of 3 squares mod 8? {three}"
           f" (want False); of 4? {four} (want True)"
           f"   {'PASS' if (not three) and four else 'FAIL'}")
     print("  => <1> has additive order 2 x level = 8 in W(Q_2) (order 32,")
