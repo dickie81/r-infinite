@@ -876,8 +876,10 @@ figures.
 
 # Round 39: convergence test on the round-38 sweep (subagent, per protocol) — NOT CONVERGED (0+2+3c); the summary layer
 
-The transcripts verified exact at commit-final; nothing false in any battery, strike,
-annotation, marker, table, chain, or registration *(round-40 F6: false at this
+~~The transcripts verified exact at commit-final; nothing false in any battery, strike,
+annotation, marker, table, chain, or registration~~ **[struck round 42 (F42-5):
+false-when-written per the trailing round-40/41 notes; struck to match the audit
+sibling's round-41 F41-2 treatment — the notes stand]** *(round-40 F6: false at this
 sentence's own commit-final ~~for the 32 seconds before 9c7cc77~~ **[struck
 round 41 (F41-3): the window is 41 min 54 s, f4196b7 to 22eba6e — the round-40 F3 header
 defect kept the sentence false past the self-catch]** — A98's T1 then declared
@@ -916,7 +918,7 @@ mathematical-falsehoods family).
 | F3 (minor) — the self-catch fixed T1's body, left its header ("3 hits + command line" vs five lines) | **Accepted.** T1 struck wholesale; A99 carries T1′ | A98 |
 | F4 (minor) — T1 line-based against the wrap clause (one wrapped in-scope occurrence undeclared) | **Accepted.** Declared in T1′ | A99 T1′ |
 | F5 (minor) — the 9c7cc77 commit message's census claimed six against an actual five | **Accepted; immutable.** Recorded per the A89-m5 precedent | A99 record |
-| F6 (minor) — the Round-39 preamble false at its own commit-final for 32 seconds | **Accepted.** Noted at the sentence | R39 preamble |
+| F6 (minor) — the Round-39 preamble false at its own commit-final ~~for 32 seconds~~ **[struck round 42 (F42-1): for 41 min 54 s — per F41-3, the round-40 F3 header defect kept it false to 22eba6e; the third carrier, missed by that sweep]** | **Accepted.** Noted at the sentence | R39 preamble |
 | F7 (cosmetic) — the self-catch replaced rather than struck; "honest-record rule" vs culture | **Accepted.** Recorded; the wholesale strike restores the letter | A99 record |
 | F8 (cosmetic) — census-free lineage misattributed verdict lines to round 36 (round 35) | **Accepted.** Corrected | A98 |
 
@@ -928,7 +930,10 @@ addenda-linked statements with the link stated.
 # Round 41: convergence test on the round-40 sweep (subagent, per protocol) — NOT CONVERGED (0+3+3c); the clause layer recurses
 
 Ninth consecutive round of held corrections. The mechanical instrument held —
-every transcript total, strike arithmetic, script count, and commit-message figure
+every transcript total, strike arithmetic, script count, and ~~commit-message figure~~
+**[struck round 42 (F42-3): probed commit-message census — the 22eba6e message's own
+window figure was the very thing F41-3 adjudicated false, so the figure-universal
+was false when written; the audit sibling carries the hedged scope]**
 verified exact by machine, and a materially broader deep-history net returned
 nothing new. The round's mass sits in the sweep's reach: round 40 recommitted its
 own F1 class on the clause it amended, and its F6 adjudication is contradicted by
@@ -937,10 +942,27 @@ its own F3.
 | Finding | Disposition | Sweep |
 |---|---|---|
 | F41-1 (minor) — the standing-state clause's canonical statements unmarked while A99 amended at a distance (the round-40 F1 class, recommitted); the clause as written indicted the addendum that amended it | **Accepted.** Net-state markers on both surfaces | A98 clause + R39 table |
-| F41-2 (minor) — A98's verdict sentence false in all three legs at its own commit-final; missed by the F6 sweep; certified "already true" by A99's held list | **Accepted.** Both struck | A98 verdict + A99 F6 |
+| F41-2 (minor) — A98's verdict sentence false in all three legs at its own commit-final; missed by the F6 sweep; certified "already true" by ~~A99's held list~~ **[round 42 (F42-4): A99's F6 bullet]** | **Accepted.** Both struck | A98 verdict + A99 F6 |
 | F41-3 (minor) — the F6 notes' 32-second window understates by ~78×: the round's own F3 kept the sentence false to 22eba6e (41 min 54 s) | **Accepted.** Both notes struck with the true window | R39 preamble + A99 F6 |
 | F41-4 (cosmetic, adjudicated per r39-F5/r40-F8) — T1′'s tag attributed audit:5114 to A99 (it is A98's F1 bullet) | **Accepted.** Struck in place | A99 T1′ |
 | F41-5 (cosmetic, same adjudication) — T2′'s tag called response:128 the pass-6 sentence (it is pass-5); the substantive not-a-sixth-instance classification held | **Accepted.** Struck in place | A99 T2′ |
 | F41-6 (cosmetic) — T1′ framed wrap-awareness twice as "this round's F4 amendment"; the wrap clause dates to round 32 and F4 was enforcement | **Accepted.** Both phrases struck | A99 T1′ ×2 |
 
 **Trajectory (headers, machine-copied): … → 0+2+3c → 0+6+2c → 0+3+3c. Round 42 gates stability.**
+
+# Round 42: convergence test on the round-41 sweep (subagent, per protocol) — NOT CONVERGED (0+3+2c); the sweep layer again
+
+Tenth consecutive round of held corrections. Round 41's mechanical work held
+everywhere machine-checked — batteries in both countings, strike arithmetics,
+timestamps, scripts, the wrap-proof re-flow. The round recursed its own F41-3:
+of the four carriers of the understated window, its sweep reached two.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F42-1 (minor) — the Round-40 table's F6 row a live third carrier of the understated window; round tables are swept surfaces; consequence: the e9c0d15 message's "every surface" claim false at commit-final (immutable, recorded) | **Accepted.** Row struck with the true window; message defect recorded in A101 | R40 table + A101 record |
+| F42-2 (minor) — the 22eba6e message an immutable fourth carrier, unrecorded by A100 against the round-40 F5 practice | **Accepted.** Recorded in A101; all four carriers now censused | A101 record |
+| F42-3 (minor) — the Round-41 preamble's figure-universal false when written (the window figure was the round's own F41-3 subject); audit sibling hedged, response sibling not | **Accepted.** Struck | R41 preamble |
+| F42-4 (cosmetic) — both F41-2 record surfaces misattributed the certification to A99's held list (it sat in the F6 bullet) | **Accepted.** Marked on both surfaces | A100 bullet + R41 row |
+| F42-5 (cosmetic) — the Round-39 preamble sentence unstruck while its audit sibling was struck in the same round | **Accepted.** Struck; symmetry restored | R39 preamble |
+
+**Trajectory (headers, machine-copied): … → 0+6+2c → 0+3+3c → 0+3+2c. Round 43 gates stability.**

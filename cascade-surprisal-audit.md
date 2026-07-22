@@ -5307,7 +5307,8 @@ F3:**
   survives in any battery …" — was false in all three legs at f4196b7's
   commit-final and remained false in its third leg through 22eba6e; a carrying
   surface of the F6 defect missed by the round-40 sweep, compounded by A99's
-  checked-and-held certifying it "already true". Both struck.
+  ~~checked-and-held~~ **[round 42 (F42-4): F6 bullet — the certification sat in
+  A99's F6 bullet, not its held list]** certifying it "already true". Both struck.
 - **F41-3 (minor):** the two F6 notes stated a 32-second falsehood window; by round
   40's own F3 the header defect kept the annotated sentence false from f4196b7 to
   22eba6e — 41 min 54 s. The notes told the reader the window closed roughly
@@ -5360,6 +5361,82 @@ A97 0+4+2c → A98 0+2+3c → A99 0+6+2c → A100 0+3+3c. Held-corrections strea
 defect mass has left the transcripts' arithmetic — every census this round verified
 exact by machine — and sits now in the sweep's own reach: surfaces missed, windows
 understated, and the clause layer joining the recursion. Round 42 gates stability.
+
+## Addendum 101: hostile review round 42 — convergence test on the round-41 sweep; NOT CONVERGED (0 majors, 3 minors, 2 cosmetics); the sweep layer again
+
+**Commissioned: "round 42 pls" — subagent per protocol on commit e9c0d15; every
+finding verified directly by the lead (Check 3: the carrier census re-run and the
+live row read at source; both immutable messages grepped; the Round-41 preamble
+read against its audit sibling's hedged scope; the "already true" census re-run
+and A99's F6 bullet re-read; the unstruck preamble sentence read against the
+struck audit sibling).**
+
+**Verdict: NOT CONVERGED — zero majors, three minors, two cosmetics. Round 41's
+mechanical work held everywhere the reviewer machine-checked it — every battery
+total in both countings, every strike arithmetic, every timestamp claim, all six
+scripts, and the wrap-proof re-flow confirmed by construction. The round recursed
+its own F41-3: it adjudicated the understated window false and swept only two of
+the four carriers:**
+
+- **F42-1 (minor):** the Round-40 table's F6 row — a third mutable carrier of the
+  understated window — stood live and unstruck at e9c0d15; round tables are swept
+  surfaces throughout the record (round 40's own F1 sweep reached the R39 table).
+  Struck with the true window. Consequence recorded per the A89-m5 precedent: the
+  e9c0d15 message's "Markers and strikes placed on every surface" was false at
+  commit-final (immutable; the file surfaces are the actionable record).
+- **F42-2 (minor):** the 22eba6e commit message carries the understated window —
+  an immutable fourth carrier that A100 never recorded, against the round-40 F5
+  practice of recording immutable-message defects. Recorded here; the file record
+  now censuses all four carriers.
+- **F42-3 (minor):** the Round-41 table preamble's universal — "every transcript
+  total, strike arithmetic, script count, and commit-message figure verified exact
+  by machine" — was false when written: the 22eba6e message's window figure was
+  the very thing F41-3 adjudicated false. The audit sibling survives on its hedged
+  scope ("everywhere the reviewer probed it"; census, not figure). The F41-2
+  class, recommitted by the round that adjudicated it. Struck.
+- **F42-4 (cosmetic — the F41-4/5 class, committed by the round that adjudicated
+  two instances of it):** both surfaces of the F41-2 record misattributed A99's
+  false certification to its checked-and-held list; it sat in A99's F6 bullet.
+  Marked on both surfaces.
+- **F42-5 (cosmetic):** the Round-39 preamble's false sentence stood unstruck —
+  disclosed only by the trailing notes — while F41-2 struck the materially
+  identical audit sibling in the same round. Struck, restoring the marking-rule
+  letter and the cross-file symmetry.
+
+**Checked and held (census-free; lead-spot-verified against the reviewer's shown
+work):** the timestamp arithmetic and the ratio exact; F41-2's three legs
+re-verified independently at both pre-images, including header-false-not-stale at
+the self-catch commit; the F41-6 resolution held with the reviewer's nuance
+recorded — T1 qualifies as a retraction battery on the natural reading, and the
+clause's application beyond retraction batteries was already record practice via
+the count-gate charge, so the enforcement framing stands before A99 on either
+road; the F41-4/F41-5 downgrades held as precedent-matched, not dilution, with
+the substance-wrong contrast case correctly distinguished; F41-1's minor grade
+held (no live surface asserted a falsehood as a result; the aggravator verified);
+T1″ and T2″ exact in both countings with every per-hit classification and every
+line-shift arithmetically confirmed against the diff hunks; T1′ and T2′ exact at
+their own commit; A98's T2 exact at its own commit-final; all five deep-history
+strike arithmetics exact including endpoints; the broader-net spot-checks clean
+with the genuine runs verified link-consistent; every round-39 strike verbatim at
+the pre-image; the standing-state trajectory matching all seven headers; the
+remaining e9c0d15 message censuses exact — the exception being the "every
+surface" line recorded under F42-1.
+
+**A101 battery (post-append transcripts, wrap-aware, run after every append of
+this round):**
+
+*T1‴ — `grep -n "round 42 (F42-" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — the sweep's marker census — audit 1 line / 1 occurrence, response 4 / 4, zero wrapped:* audit:5310 [F42-4 mark in A100's F41-2 bullet]; response:880 [F42-5 strike at the R39 preamble]; 921 [F42-1 strike in the R40 table row]; 934 [F42-3 strike in the R41 preamble]; 945 [F42-4 mark in the R41 table row]; plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 2 / 2, response 4 / 4.
+
+*T2‴ — `grep -nE "32.second" cascade-surprisal-audit.md riemann-indistinguishability-review-response.md` — the carrier census (the F42-1/F42-2 gate) — audit 3 lines, response 3, occurrences equal, zero wrapped:* audit:5227 [struck site (F41-3)]; 5228 [the F41-3 annotation, accurate]; 5312 [A100's F41-3 bullet — history]; response:883 [struck site (F41-3)]; 921 [the row struck this round (F42-1)]; 946 [R41 table F41-3 row — history]. Zero live-false; the two immutable message carriers (22eba6e, e9c0d15) are recorded in this addendum's F42-1/F42-2 and cannot carry markers. Plus this transcript's own command line [self-referential, by construction]. Post-paste machine totals: audit 4 / 4, response 3 / 3. The three previously tracked patterns re-run at round-42-final, stated without re-quoting them: the round-41 marker token audit 7 lines / 9 occurrences and response 3 / 3; the first round-40 pattern audit 5 / 6 and response 2 / 2; the second round-40 pattern audit 4 / 8 and response 3 / 3 — every count equal to its pinned record, line shifts only, zero occurrences added by this round's sweep.
+
+*T3‴ — scripts (committed verifiers, re-run at commit-final):* layer_selection 4/0, adams_loadbearing 5/0, local_family 23/0, witt_weil 27/0, finite_places 6/0, local_tate 10/0 (PASS/FAIL).
+
+**Standing state (headers, machine-copied):** A94 1+2+1c → A95 1+1+2c → A96 0+2+2c →
+A97 0+4+2c → A98 0+2+3c → A99 0+6+2c → A100 0+3+3c → A101 0+3+2c. Held-corrections
+streak (addenda-linked, A92 through this round): tenth. Interpretation,
+numeral-free: the instrument layer has been exact for consecutive rounds now; the
+recursion's remaining mass is confined to the sweep's reach — carriers missed and
+universals overstated in the round's own summary prose. Round 43 gates stability.
 
 ## Caveats
 
