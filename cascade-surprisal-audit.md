@@ -4437,7 +4437,10 @@ defect since round 18.**
   "quoted here in full" claim; "at/below d₀" where all members are strictly below.
   Fixed in the rewrite.
 
-**What survives (the reviewer's held list, spot-verified):** all five companion quotes
+**What survives (the reviewer's held list, spot-verified):** ~~all five companion quotes~~
+**[struck round 36 (F2): six — machine extraction of the remark's italic quote
+fragments gives six at every relevant commit; the "five" was an in-session count]**
+all companion quotes
 verbatim; the ρ implementation and every arithmetic gate; the window census; the
 inter-threshold band fact (12 integers, matching the papers' "12 layers"); the A87/A88
 battery censuses as recorded; the layer identifications' convention-flagging. **The
@@ -4531,7 +4534,7 @@ quantifiers.**
 **Checked and held (the reviewer's ~~twelve-item~~ **[struck round 35 (F2): a numeric census of the reviewer's in-session report, uncheckable from the repo — the committed enumeration here has 10 entries; census-free per the lesson]** held list, spot-verified by the lead):**
 the corrected mathematics (equivalence, scans, ρ-table against part4a's proof table);
 the honest gate count on all surfaces; the strike-verbatim rule on all six round-30
-strikes; the five companion quotes; every named component's provenance (anchor
+strikes; ~~the five~~ **[round 36 (F2): six by machine extraction]** the companion quotes; every named component's provenance (anchor
 residue-listed; d_V = 5 as tower start per part4a:1551; the distinguished set; the
 convention's listed status); the A89 batteries reproduced; the Round-30 table's
 consistency; the new CLAUDE.md section's consistency with Checks 0–8 and the
@@ -4730,7 +4733,7 @@ qualifier, dead code, and a papers-side registration. Round 34 gates stability. 
 papers-side round now carries two registered items (A90-F6: the d_g row; A92-F4: the
 d₀ row).
 
-## Addendum 93: hostile review round 34 — convergence test on the round-33 sweep; NOT CONVERGED (0 majors, 1 minor, 5 cosmetics); the adjudication's blast radius
+## Addendum 93: hostile review round 34 — convergence test on the round-33 sweep; NOT CONVERGED (0 majors, 1 minor, ~~5~~ 6 *(round-36 F1: the header was the FIFTH count-carrying surface, 9 lines above the round-35 strike, missed by the sweep that certified "every surface now says six")* cosmetics); the adjudication's blast radius
 
 **Commissioned: "Run round 34" (relaunched after the first spawn was orphaned by an
 overnight container recycle — the task registry lost it; recorded here as the run
@@ -4815,7 +4818,8 @@ record's oldest codified disease at its shortest range yet.**
 - **F1 (MAJOR — the hyphen):** round-34 F4's disposition ("Number dropped") was
   falsified by the hyphenated sibling "twelve-item" alive 36 lines above the fixed
   instance, in A92's own verdict paragraph — in the addendum the sweep was editing —
-  with the A93 battery (`grep "twelve items"`, exact string) literally true and
+  with the A93 battery (`grep […] "twelve items" […]`, exact string — command
+abbreviated with omissions now marked, round-36 F4) literally true and
   class-blind: the hyphen sat outside the pattern. This is the round-19 shape
   (disposition falsified by live sibling instances + exact-string battery certifying),
   which A92 adjudicated major-equivalent — consistency grades this MAJOR. Struck,
@@ -4831,8 +4835,10 @@ record's oldest codified disease at its shortest range yet.**
 - **F3 (minor):** A93's verdict said "five cosmetics" over a six-bullet cosmetic
   enumeration (F7's "pre-existing" qualifier excluded it under a convention stated
   nowhere, and the Round-34 table dropped the qualifier while keeping the count —
-  irreconcilable on one surface). Corrected to six on all four count-carrying
-  surfaces. **Rule:** verdict censuses are machine-counted from the graded findings
+  irreconcilable on one surface). ~~Corrected to six on all four count-carrying
+  surfaces~~ **[struck round 36 (F1, MAJOR): FIVE count-carrying surfaces existed —
+  the A93 header, 9 lines above the verdict strike, stayed live at "5 cosmetics" —
+  so this disposition was false as recorded and the battery below certified it]**. **Rule:** verdict censuses are machine-counted from the graded findings
   as committed; "pre-existing" is a provenance note, not a counting category.
 - **F4 (cosmetic):** A93's verification record cited "the A88 attribution" on a
   surface (CLAUDE.md) that carries no A88 reference — the object is the Addendum 89
@@ -4853,10 +4859,14 @@ statements all surviving.
 
 **A94 battery (this commit's gate; stem-based per the round-19 rule, run after all
 appends):** `grep -nE "twelve.item|twelve items" cascade-surprisal-audit.md` — every
-hit is a round-35 strike, annotation, F4-history quote, or this addendum's own text;
+hit is a round-35 strike, annotation, F4-history quote, A93's own battery-record line
+*(round-36 F3 added this omitted category)*, or this addendum's own text;
 zero live numeric held-list census ✓; `grep -nE "fourteen.item|fourteen held"` —
-strikes and this addendum only ✓; cosmetic-count check: A93 lists six cosmetic
-bullets and every count-carrying surface now says six ✓; `grep -n "A88" CLAUDE.md` —
+strikes and this addendum only ✓; ~~cosmetic-count check: A93 lists six cosmetic
+bullets and every count-carrying surface now says six ✓~~ **[struck round 36 (F1):
+literally false at commit-final — the A93 header still said five; this battery item
+named no command, and the natural command (grepping the count itself) finds the miss
+instantly]**; `grep -n "A88" CLAUDE.md` —
 zero ✓; scripts re-run post-sweep: 4/5/23/27/6/10 PASS 0 FAIL ✓ (counts from the
 commands as run).
 
@@ -4866,6 +4876,66 @@ so only because consistency with the r19 adjudication demands it. The correction
 under test held for the third consecutive round; every defect for two rounds has been
 a census of the record's own instruments. Round 36 gates stability with the held-list
 and machine-count clauses in force.
+
+## Addendum 95: hostile review round 36 — convergence test on the round-35 sweep; NOT CONVERGED (1 major, 1 minor, 2 cosmetics); the fifth surface
+
+**Commissioned: "Round 36 pls" — subagent per protocol on commit dd64f17; every
+finding verified directly by the lead (Check 3: the A93 header read at source; the
+count-carrying surfaces enumerated; the remark's italic quote fragments
+machine-extracted — six; the battery hits re-classified; the command quote compared
+against its committed form).**
+
+**Verdict: NOT CONVERGED — one major, one minor, two cosmetics. The round-35
+corrections all held (fourth consecutive round: every strike verbatim, every
+annotation count machine-verified — the reviewer confirmed A90's 10 and A91's 13 and
+the "36 lines"). The major is the count-census disease at nine lines' range, one
+notch worse than round 35:**
+
+- **F1 (MAJOR — the fifth surface):** the round-35 F3 fix corrected the cosmetic
+  count "on all four count-carrying surfaces" — but **five** existed: the A93
+  *header*, nine lines above the verdict strike in the addendum being edited, stayed
+  live at "5 cosmetics." That falsified the F3 disposition, the response-table cell,
+  and A94's battery item — which this time was **literally false at commit-final**
+  ("every count-carrying surface now says six ✓"), a notch worse than round 35's
+  literally-true-but-class-blind battery, and it named no command. Header corrected;
+  disposition and battery item struck; the response cell annotated. **Rule (the
+  count-battery clause):** a census-correcting sweep's battery greps *the count
+  itself* (e.g. "5 cosmetics|five cosmetics|+5c") across both record files, and
+  headers are count-carrying surfaces — by the record's own practice (A87's header
+  was marked by A91 c-A; the Round-34 header was annotated by round 35).
+- **F2 (minor):** "the five companion quotes" survived inside A90's held list —
+  one of the very 10 entries the round-35 F2 annotation machine-counted — and its
+  sibling in A89. Machine extraction of the layer remark's italic quote fragments
+  gives **six** at every relevant commit; "five" was an in-session count. Both
+  struck.
+- **F3 (cosmetic):** A94's twelve-battery hit census omitted a category (A93's own
+  battery-record line is neither strike, annotation, F4-history quote, nor A94
+  text). Category added.
+- **F4 (cosmetic):** A94's quote of the A93 battery command dropped `-n` and the
+  file scope without omission markers. Marked.
+
+**Checked and held (census-free; lead-spot-verified):** every round-35 strike
+verbatim against the pre-image; the annotation counts (A90's committed enumeration,
+A91's, the line-distance claim) machine-verified by the reviewer and re-verified by
+the lead; the verdict censuses of A89–A92 and A94 all matching their committed
+bullets (A93's mismatch was F1); the Round-35 table item-for-item; the adjudication
+chain intact end-to-end; the residual retracted-phrase sweeps clean, wrap-aware, tex
+included; the three papers-side registrations consistent and unedited; all six
+scripts at their recorded counts; the working tree clean at the reviewed commit.
+
+**A95 battery (this commit's gate; the count-battery clause applied — greps the
+counts themselves, run after all appends):** `grep -rn "5 cosmetics|five cosmetics"
+-E` over both record files — every hit is a strike, an annotation, a history quote,
+or this addendum ✓ (the corrected A93 header now reads 6 with its marker);
+`grep -rn "five companion"` — strikes and this addendum only ✓; the A93 cosmetic
+bullet count re-verified at six ✓; scripts re-run post-sweep: 4/5/23/27/6/10 PASS 0
+FAIL ✓ (counts from the commands as run).
+
+**Standing state:** trajectory … → 0+1(+6c) → 1+2(+1c) → 1+1(+2c). Four consecutive
+rounds of held corrections; two consecutive one-word-class majors, each graded MAJOR
+only by precedent-consistency; every remaining defect a census of the record's own
+instruments, now with the count-battery clause closing the last named gap. Round 37
+gates stability.
 
 ## Caveats
 

@@ -817,7 +817,23 @@ oldest codified disease at its shortest range yet: a one-word census defect.
 |---|---|---|
 | F1 (MAJOR) — round-34 F4's "Number dropped" was falsified by the hyphenated sibling "twelve-item" alive 36 lines above the fixed instance, in the edited addendum, with the exact-string battery literally true and class-blind (the r19 shape, which A92 adjudicated major-equivalent — consistency grades this MAJOR) | **Accepted.** Struck, census-free | A92 |
 | F2 (minor) — the held-list numeric censuses were systemic: A90's "twelve-item" fronts 10 committed entries, A91's "fourteen-item" fronts 13, "eleven of fourteen" compounds — censuses of in-session reports, uncheckable from the repo | **Accepted.** All struck, census-free; held-list clause: no numeric census unless machine-counted from the committed enumeration in the same commit | A90 + A91 ×2 |
-| F3 (minor) — A93's "five cosmetics" over a six-bullet enumeration (F7 excluded under an unstated convention; the table dropped the qualifier while keeping the count) | **Accepted.** Six on all four surfaces; verdict censuses machine-counted; "pre-existing" is provenance, not a counting category | A93 + Round-34 header/trajectory |
+| F3 (minor) — A93's "five cosmetics" over a six-bullet enumeration (F7 excluded under an unstated convention; the table dropped the qualifier while keeping the count) | **Accepted.** Six on ~~all four~~ **[round 36 F1: five — the A93 header was missed; see Round 36]** surfaces; verdict censuses machine-counted; "pre-existing" is provenance, not a counting category | A93 + Round-34 header/trajectory |
 | F4 (cosmetic) — A93 cited "the A88 attribution" on a surface carrying no A88 reference | **Accepted.** A89, corrected in place | A93 |
 
 **Trajectory: … → 0+1(+6c) → 1+2(+1c) — the narrowest major on record, graded so by precedent-consistency. Round 36 gates stability with the machine-count clauses in force.**
+
+# Round 36: convergence test on the round-35 sweep (subagent, per protocol) — NOT CONVERGED (1+1+2c); the fifth surface
+
+The round-35 corrections all held (fourth consecutive round; every annotation count
+machine-verified). The major: the census fix said "all four count-carrying surfaces"
+while a fifth — the A93 header, nine lines above the strike — stayed live at "5
+cosmetics," making A94's battery literally false at commit-final.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (MAJOR) — the fifth count-carrying surface (the A93 header) missed by the round-35 F3 fix; the disposition ("all four"), the table cell, and A94's command-less battery item ("every surface now says six ✓") all falsified — literally false, a notch worse than round 35 | **Accepted.** Header corrected; disposition and battery item struck; cell annotated; count-battery clause: census sweeps grep the count itself, and headers are count-carrying surfaces | A93 header + A94 ×2 + Round-35 cell |
+| F2 (minor) — "the five companion quotes" live in A90's held list (inside the round-35-F2-counted enumeration) and its A89 sibling; machine extraction gives six fragments at every relevant commit | **Accepted.** Both struck | A89 + A90 |
+| F3 (cosmetic) — A94's twelve-battery census omitted the A93-battery-line category | **Accepted.** Category added | A94 |
+| F4 (cosmetic) — A94's quote of the A93 command dropped -n and file scope without markers | **Accepted.** Omissions marked | A94 |
+
+**Trajectory: … → 1+2(+1c) → 1+1(+2c). Four consecutive rounds of held corrections; two consecutive one-word-class majors graded by precedent-consistency. Round 37 gates stability.**
