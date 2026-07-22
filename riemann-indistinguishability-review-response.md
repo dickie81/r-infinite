@@ -1199,3 +1199,23 @@ Checks 7/8 clean.
 | — none — | | |
 
 **Trajectory: 1i landed → 54 0+4+4c → 55 0+1+2c → 56 CONVERGED 0+0+0. The local family is fully built out (1e unramified, 1f–1h the clock quotient and anatomy, 1i the ramified phases); 1d's named next step discharged. Next hostile round on the next substantive paper change.**
+
+# Round 57: hostile review of Theorem 1j (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 3 minors, 4 cosmetics); the adjudication MODIFIED: re-motivated, not reduced
+
+The mathematics held in full (census independently confirmed with provably
+sufficient windows; the dyadic anatomy hand-recomputed). The central verdict:
+the proposed residue reduction is overclaimed — maximality is itself an order
+principle, the matching route imports the unstated pairing premise, and χ₋₄ is
+a live alternative partner. The member is re-motivated (order principle →
+C1-anchored matching, minimality entailed within the pairing-act), and
+persists; three members and the seven-item count stand.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F57-1 (MAJOR) — "reduces to a consequence / no new assumption / no order principle" overclaimed ×3 | **Accepted; MODIFY applied.** Struck-and-annotated; part (iii) rewritten; all five markers adjudicated | paper + formulation + script |
+| F57-2 (minor) — class-level facts in field-determining form | **Accepted.** Rewritten with the census+T11 privilege stated | paper |
+| F57-3 (minor) — three unhedged markers | **Accepted.** All five now adjudicated wording | paper + formulation |
+| F57-4 (minor) — J2/J4/J6 undeclared exhibits | **Accepted.** Declared; J6 print corrected | script |
+| F57-5/6/7/8 (cosmetics) — drafting artifact; duplicate conjunct; article split; census closure + footer inputs | **Accepted.** All fixed | script + formulation + paper |
+
+**Trajectory: 1j landed → 57 1M+3+4c (MODIFY). Round 58 gates stability.**

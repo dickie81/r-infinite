@@ -82,8 +82,9 @@ relocating F6's r₂ = 0 obstruction; the odd bridge p_sgn = zeros(L(χ)) − ½
 instead) holds for **every** odd real primitive χ — the balance point is
 character-independent (round-15 M3) — with χ₋₃ the minimal-conductor primitive odd
 character (theorem) = the T8 colour field's character, and pairing-by-minimality a
-*(net-state: re-founded by T1j on the T11 torsion anchor; minimality a consequence)*
-**convention** charged to the selection-convention class; verified with 24
+**convention** charged to the selection-convention class *(net-state, round-57
+adjudication: re-motivated by T1j — minimality entailed given the pairing-act,
+which persists)*; verified with 24
 sign-scan-computed zeros of L(χ₋₃); the odd feature 6.2569 = the conductor balance point.
 No direction of explanation is claimed (the identity is ζ's/L's own bookkeeping — m6). F6
 stays reopened on its original claim; no address derived.
@@ -210,14 +211,14 @@ the sign; the genuine gate is local_tate's T-loc4). No entry derived;
 category (a).
 
 **T1j (the torsion-exceptional selection; `cascade_torsion_selection.py`, six
-gates).** |μ| = 6 uniquely at disc −3 and |μ| = 4 uniquely at disc −4 (census,
-|d| ≤ 10⁴); the 1h kernel is the joint localization of exactly these two fields —
-invisibility = the μ₄ disc character ((·,−4)₂ = (·,−1)₂, ker = H), invisible unit
-direction = the μ₆ disc (H ∩ units = {1, cls(−3)}, unramified ℚ₂(ζ₃)); the χ₋₃
-pairing re-founded on torsion-maximality (the T11 anchor — no new input), with
-conductor-minimality a consequence; ε-support {3, ∞} (T1i). Proposed: the
-selection class's third member reduces to a consequence; seven-item residue count
-unchanged. No closure; category (a).
+gates; round-57 adjudication MODIFY applied).** |μ| = 6 uniquely at disc −3 and
+|μ| = 4 uniquely at disc −4 (census, |d| ≤ 10⁴); the 1h kernel's class-level
+anatomy read back through the census — invisibility = the μ₄ disc character
+((·,−4)₂ = (·,−1)₂, ker = H), invisible unit direction = the μ₆ disc class
+(H ∩ units = {1, cls(−3)}, unramified ℚ₂(ζ₃)); given the pairing-act (not
+entailed by T11), the μ₆ requirement determines χ₋₃ with minimality entailed;
+ε-support {3, ∞} (T1i). Adjudicated: the member is re-motivated, not reduced —
+three members and the seven-item count stand. No closure; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

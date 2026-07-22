@@ -17,7 +17,11 @@ unit-group torsion is |mu| in {2, 4, 6}: |mu| = 6 uniquely at
 disc -3 (Q(zeta_3), the ring Z[omega] with its six units) and
 |mu| = 4 uniquely at disc -4 (Q(zeta_4) = Q(i)); every other
 field has |mu| = 2.  Gated by direct unit count over all
-fundamental discriminants |d| <= 10^4.
+fundamental discriminants |d| <= 10^4; the universal closes
+classically (round-57 F8): a root of unity solves a^2 - d b^2 = 4
+(or x^2 + |d/4| y^2 = 1), and b != 0 (y != 0) forces |d| <= 4, so
+no disc beyond the scan can carry extra torsion (Dirichlet; units
+of imaginary quadratic fields).
 
 THE KERNEL'S TWO FIELDS (J2, J3 -- the 1h anatomy re-read).  The
 clock-invisibility criterion of Theorem 1h is ker(., -1)_2 =
@@ -113,7 +117,7 @@ def torsion(d):
             for b in range(-4, 5):
                 if (a - b) % 2 == 0 and a * a - d * b * b == 4:
                     count += 1
-    else:                                # x + y sqrt(d/4)... wait: d = 4m
+    else:                                # d = 4m: elements x + y*sqrt(m)
         m = -d // 4
         for x in range(-2, 3):
             for y in range(-2, 3):
@@ -142,8 +146,12 @@ def main():
 
     # ---- J2: invisibility = the mu_4 field's disc character, localized
     print()
+    # round-57 F4: the identity conjunct cannot fail (-4 and -1 share a
+    # square class; the closed formula reads the valuation mod 2), and
+    # the ker conjunct re-gates 1h L8a -- a consistency exhibit of the
+    # identification, declared per the L7b standard
     print("J2 the 1h invisibility criterion is the mu_4 field's disc")
-    print("   character at the clock prime:")
+    print("   character at the clock prime (exhibit; see comment):")
     ok2 = all(hilbert(c, -4, 2) == hilbert(c, -1, 2) for c in D2)
     ok2 &= sorted(H) == sorted(c for c in D2 if hilbert(c, -4, 2) == 1)
     print(f"   (., -4)_2 == (., -1)_2 on all 8 classes, and"
@@ -162,7 +170,10 @@ def main():
 
     # ---- J4: conductor-minimality as a consequence
     print()
-    print("J4 minimality becomes a consequence, not a principle:")
+    # round-57 F4: entailed by J1 (if the census holds, min |d| = 3
+    # follows) -- a consistency exhibit, declared; round-57 F1/F3: the
+    # consequence is CONDITIONAL on the pairing-act
+    print("J4 minimality entailed within the pairing (exhibit, from J1):")
     ok4 = abs(w6[0]) == min(abs(d) for d in fund) if len(w6) == 1 else False
     print(f"   |disc(mu_6 field)| = {abs(w6[0])} = the minimal conductor"
           f" over all scanned odd real primitive chi_d   "
@@ -174,20 +185,26 @@ def main():
     import cmath, math
     e3 = sum((1 if u % 3 == 1 else -1) * cmath.exp(2j * cmath.pi * u / 3)
              for u in (1, 2)) / math.sqrt(3)
-    ok5 = abs(e3 - 1j) < 1e-9 and abs(e3 * (-1j) - 1) < 1e-9
-    print(f"   eps_3(chi_-3) = +i, eps_inf(sgn) = -i, product +1 --"
-          f" support {{3, inf}}, quarter-turn values   "
+    ok5 = abs(e3 - 1j) < 1e-9        # (round-57 F6: the former second
+    #  conjunct was algebraically identical; eps_inf = -i is the classical
+    #  constant, not computed here -- this line is 1i's re-exhibit)
+    print(f"   eps_3(chi_-3) = +i; with the classical eps_inf(sgn) = -i"
+          f" the product is +1 -- support {{3, inf}} (1i re-exhibit)   "
           f"{'PASS' if ok5 else 'FAIL'}")
 
-    # ---- J6: the selection is well-defined and unique
+    # ---- J6: the matching is unique GIVEN the pairing-act (round-57
+    # F1: the first version printed "no order principle" while literally
+    # computing a maximum -- struck; the selection is conditional on the
+    # pairing-act, which T11 does not entail.  Round-57 F4: this gate is
+    # entailed by J1 (a consistency exhibit, the L7b class), declared)
     print()
-    print("J6 torsion-maximality is a well-defined unique selection:")
+    print("J6 the T11 mu_6 requirement matches a unique field (exhibit,")
+    print("   entailed by J1; selection conditional on the pairing-act):")
     mx = max(torsion(d) for d in fund)
     argmax = [d for d in fund if torsion(d) == mx]
     ok6 = mx == 6 and argmax == [-3]
-    print(f"   max |mu| = {mx}, attained uniquely at d = {argmax}"
-          f" => chi_-3 selected with no order principle   "
-          f"{'PASS' if ok6 else 'FAIL'}")
+    print(f"   max |mu| = {mx} uniquely at d = {argmax} => given the"
+          f" pairing-act, chi_-3 follows   {'PASS' if ok6 else 'FAIL'}")
 
     print()
     print("=" * 74)

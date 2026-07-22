@@ -25,9 +25,10 @@ anchored, not arithmetically forced — and the flip-count 4 is meaningful only 
 it); the P > L > G precedence (round-9 corrected status: **vacuous on the papers' uniform expression-tree flag readings** — A52's original m_τ-abs dash-fill expanded closed constituents, an inconsistent grading; the 13–109σ exclusions of alternative orderings hold only under the four variant readings — m_τ-abs constituent expansion, ℓ_A window content, the ℓ_A kind, and sin²θ_W coupling-running — so the anchoring is conditional and the item is deletable on the uniform reading); the feature→integer-layer selection convention
 (no uniform rounding rule produces {5, 7, 19, 217} from the feature set — second review,
 Finding 1; the class was widened by review 4 to every d↔s pairing choice and by round 15
-to the χ₋₃ minimality-pairing — one class, three members *(net-state, Theorem 1j:
-the third member proposed reduced to a consequence of the Theorem-11 torsion
-anchor; the seven-item count is unchanged either way)*); and the hypothesis itself
+to the χ₋₃ minimality-pairing — one class, three members *(net-state, Theorem 1j
+as adjudicated round 57: the third member re-motivated — C1-anchored matching
+replaces the order principle, minimality entailed within the pairing-act, which
+persists; three members and the seven-item count stand)*); and the hypothesis itself
 (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
@@ -140,9 +141,10 @@ characters (round-15 M3). What is a theorem: χ₋₃ (conductor 3) is the minim
 primitive *odd* character (q=2 has no primitive character; q=3 has exactly one, odd; the
 trivial character mod 1 is conventionally primitive but even — round-15 m2), and it is the
 quadratic character of the Theorem-11 colour field ℚ(ζ₃). What is a **convention**:
-adopting conductor-minimality as the pairing principle *(net-state: re-founded by
-Theorem 1j — torsion-maximality, the property Theorem 11 already load-bears,
-selects χ₋₃ uniquely with minimality as a consequence)* — the same selection-convention
+adopting conductor-minimality as the pairing principle *(net-state, Theorem 1j as
+adjudicated round 57: the member is re-motivated — given the pairing-act, the T11
+μ₆ requirement determines χ₋₃ with minimality entailed; the pairing-act itself
+persists as the charged member)* — the same selection-convention
 class the residue counts for the feature→layer map, charged as such (Addendum 66). Its completed L is entire with root number +1
 (verified real on the critical line to 3×10⁻²⁵; L(1) = π/(3√3) exactly), giving the odd
 bridge **p_sgn(s) = Σ_γ 2z/(z²+γ²) − ½ln 3 + Σ Λ(n)χ₋₃(n)n^(−s)** — *no pole term; a
@@ -162,8 +164,8 @@ the colour-character zeros plus the colour-weighted primes balance the conductor
 touched; GRH is not used by the paired form (the Lorentzian evaluation uses the on-line
 zeros the sign-scan finds, with completeness supported by the N(T) count and the
 decreasing residuals); the minimality-pairing is a convention, not a forcing
-*(net-state: Theorem 1j re-founds it on the T11 torsion anchor — proposed
-reduction of the class's third member to a consequence)*.
+*(net-state, round-57 adjudication: re-motivated by Theorem 1j — the field is
+determined given the pairing-act, which persists as the charged member)*.
 
 ## 3. The forced dynamics
 
@@ -523,8 +525,11 @@ negative for N_c stands verbatim.
 census.* Among imaginary quadratic fields the unit-group torsion is |μ| ∈
 {2, 4, 6}, with **|μ| = 6 uniquely at disc −3** (ℚ(ζ₃), the six units of ℤ[ω])
 and **|μ| = 4 uniquely at disc −4** (ℚ(ζ₄) = ℚ(i)) — gated by direct unit count
-over all 3043 fundamental discriminants |d| ≤ 10⁴. *(ii) The kernel's anatomy is
-the joint localization of exactly these two fields.* The 1h invisibility
+over all 3043 fundamental discriminants |d| ≤ 10⁴. *(ii) The kernel's class-level anatomy, read back through the census.* The
+dyadic facts are class-level — (·, −3)₂ = (·, −11)₂ identically, so the local
+data alone determines square classes, not fields; the field-level readback below
+is privileged by the torsion census plus the T11 overlay (round-57 F2 corrected
+the first writing's "exactly these two fields" determination claim). The 1h invisibility
 criterion is **the μ₄ field's discriminant character at the clock prime** —
 (·, −4)₂ = (·, −1)₂ on all eight classes, ker = H (gated) — and the invisible
 unit direction is **the μ₆ field's discriminant**: H ∩ units = {1, cls(−3)},
@@ -532,27 +537,32 @@ with ℚ₂(√−3) = ℚ₂(ζ₃) the unramified quadratic and the μ₄ fiel
 2-ramified (cls(−4) = 7, clock-visible; gated). The only two imaginary
 quadratics with extra roots of unity — colour's field and the quarter-turn
 field — divide the clock-invisible structure between them. *(iii) The pairing
-re-founded.* Round-15 M3 graded the χ₋₃ pairing a convention because the odd
-bridge selects nothing and conductor-minimality was adopted as the principle.
-**Torsion-maximality replaces it**: |μ| = 6 is attained uniquely (gated over the
-scan), so χ₋₃ is selected among all odd real primitive characters with no order
-principle — and torsion-maximality is not a new input: it is exactly the
-structural property Theorem 11 already load-bears (the su(3) roots *are* μ₆;
-the cos(π/6) projection exists among imaginary quadratic rings iff disc = −3).
-Conductor-minimality demotes to a **consequence** (|disc| = 3 is a fortiori
-minimal; gated), and the selected field's dyadic shadow is forced to the
-invisible unit direction (ii), its ε-support the two-place quarter-turn pair
-{3, ∞} (1i; re-exhibited in-code). *Grading (Check 8, stated in full):* the
-census, the two-field anatomy, the uniqueness of the maximum, and
-minimality-as-consequence are theorems; what remains C1-conditional is exactly
-what already was — that *colour* is the μ₆ structure (Theorem 11's dictionary
-identification, not re-derived here). The re-founding creates no new
-assumption; it shows the pairing needs none beyond the T11 anchor.
-**Proposed residue adjudication (subject to the hostile round):** the
-selection-convention class's third member (the minimality-pairing) reduces from
-an independent convention to a consequence of the existing T11 anchor. The
-**seven-item residue count is unchanged either way** — the class is one item;
-only its internal member census changes. *Honest scope:* no number changes, no
+re-motivated — the round-57 adjudication (MODIFY) applied.* Round-15 M3 graded
+the χ₋₃ pairing a convention because the odd bridge selects nothing and
+conductor-minimality was adopted as the principle. What 1j establishes, exactly:
+**given the pairing-act** — pairing the odd feature with the colour field's
+character, an act Theorem 11 does not entail and Definition 6.1 does not address
+(the odd feature carries no derived address) — **the field is then determined
+with no further choice**: T11's μ₆ requirement (the su(3) roots *are* μ₆; the
+cos(π/6) projection exists among imaginary quadratic rings iff disc = −3)
+matches the census's unique |μ| = 6 field, so χ₋₃ follows and
+conductor-minimality is **entailed within the pairing** (|disc| = 3 a fortiori
+minimal; gated) — a consequence, not a principle, *conditional on the pairing*.
+The selected field's dyadic shadow is the invisible unit direction (ii), its
+ε-support the two-place quarter-turn pair {3, ∞} (1i; re-exhibited in-code).
+~~The re-founding creates no new assumption; it shows the pairing needs none
+beyond the T11 anchor~~ **[struck round 57 (F1, MAJOR): the first writing
+claimed the member reduces to a consequence and that the selection ran "with no
+order principle" — overclaimed on three counts: maximality is itself an
+extremal choice of the same epistemic type as minimality (the gate literally
+computes a maximum); the order-free matching route imports the unstated pairing
+premise; and χ₋₄ — itself an odd real primitive character, elevated by (ii) —
+is a live alternative partner that only the order or the pairing-act excludes]**.
+**The adjudicated outcome:** the selection class **keeps three members**; the
+third's content is *re-motivated* — from an order principle (minimality) to
+C1-anchored matching against the existing T11 requirement, with minimality
+entailed inside that motivation — a real improvement in motivation, not a
+reduction. The **seven-item residue count stands**, as guaranteed either way. *Honest scope:* no number changes, no
 closure, no data, no RH/GRH, no semiclassics; the grammar-reading question
 stays open — narrowed again (the colour entry's dyadic shadow IS the invisible
 unit coordinate: the 1e(iv) identification relocated, not a new forcing).
@@ -744,8 +754,9 @@ Legendre), so no complex embedding of ℚ was ever needed; and the excluded odd 
 s = 6.2569 is the sgn tower's zero-crossing, whose L-family is the odd Dirichlet characters — the bridge holds for every odd real
 primitive χ, and the **minimal-conductor primitive odd character is χ₋₃** (a theorem: q=2
 has no primitive character, q=3 exactly one, odd), which is the quadratic character of the
-Theorem-11 colour field ℚ(ζ₃); **the pairing-by-minimality is a convention** *(net-state: re-founded by Theorem
-1j on torsion-maximality — the T11 anchor; minimality now a consequence)* (round-15
+Theorem-11 colour field ℚ(ζ₃); **the pairing-by-minimality is a convention** *(net-state, round-57 adjudication:
+re-motivated by Theorem 1j — minimality entailed given the pairing-act, which
+persists)* (round-15
 M3), of the same class as the feature→layer selection. The odd feature's arithmetic home is the program's own colour sector; no
 address is derived, and the selection convention stays in the residue.
 
@@ -1057,4 +1068,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1j: the **29 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1j: the **29 scripts cited in place** above — the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

@@ -6142,6 +6142,53 @@ the formulation); footer census 28 → 29.
 **Object gates at this commit:** 4/5/35/27/6/10 + tate_epsilon 7/0 +
 torsion_selection 6/0. Round 57 (hostile subagent, per protocol) follows.
 
+## Addendum 121: hostile review round 57 (subagent, per protocol) on commit 901c328 — Theorem 1j; NOT CONVERGED (1 MAJOR, 3 minors, 4 cosmetics); the adjudication MODIFIED and swept
+
+**The session's second major, and like the first (round 51) it is against the
+lead's adjudication language while the mathematics held in full. The central
+verdict — MODIFY — verified directly by the lead and accepted on every count
+(Check 3: the J6 gate literally computes a maximum — an extremal choice of the
+same epistemic type the text claimed to eliminate; the order-free matching
+route imports the unstated pairing premise, which T11's verbatim text does not
+entail and Definition 6.1 does not address; χ₋₄ — itself an odd real primitive
+character, elevated by 1j(ii) — is a live alternative partner excluded only by
+the order or the pairing-act; the class-level identity (·,−3)₂ = (·,−11)₂
+confirms F2's determination charge).**
+
+- **F57-1 (MAJOR):** "reduces to a consequence... no new assumption... no order
+  principle" — overclaimed on three counts. Struck-and-annotated; part (iii)
+  rewritten to the adjudicated content: **given the pairing-act** (the charged
+  member, which persists) the T11 μ₆ requirement determines χ₋₃ with minimality
+  entailed — the member is **re-motivated** (order principle → C1-anchored
+  matching), not reduced. Three members and the seven-item count stand, as the
+  guarantee said either way.
+- **F57-2 (minor):** "the joint localization of exactly these two fields" —
+  class-level facts in field-determining form. Rewritten: the anatomy is
+  class-level; the field readback is census+T11-privileged.
+- **F57-3 (minor):** three unhedged "re-founded/now a consequence" markers
+  against the correctly-hedged surfaces. All five markers now carry the
+  adjudicated wording.
+- **F57-4 (minor):** undeclared instrument statuses — J2's identity conjunct
+  cannot fail (−4 ≡ −1 as square classes; the formula reads the valuation mod
+  2), J4/J6 entailed by J1. All declared per the L7b standard; J6's print no
+  longer claims "no order principle".
+- **F57-5/6/7/8 (cosmetics):** the committed "wait:" drafting artifact removed;
+  J5's duplicate conjunct dropped and its hardcoded ε_∞ disclosed as the 1i
+  re-exhibit; the formulation marker's article-noun split repaired; the census
+  universal's classical closure argued in the docstring (b ≠ 0 forces |d| ≤ 4)
+  and the footer's classical inputs extended (Dirichlet, units of imaginary
+  quadratic fields).
+
+**Held:** the census independently confirmed (windows provably sufficient); the
+J2/J3 arithmetic hand-recomputed; J4's comparison set exactly matching its
+quantifier, with the stronger all-odd-primitive claim independently closed
+(q = 1, 2 have no odd primitive character); the footer census 29 exact; T11's
+verbatim clauses correctly quoted (the misattribution concerned maximality,
+not the clauses); Checks 7/8 clean; all eleven scripts 0 FAIL. **What layer 4
+actually gained:** the third member's motivation upgraded and its selection
+content proven conditional-unique; the member itself stands. **Object gates:**
+4/5/35/27/6/10 + 7/0 + 6/0. Round 58 (convergence test) gates stability.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
