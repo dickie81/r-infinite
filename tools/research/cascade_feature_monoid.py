@@ -40,13 +40,15 @@ NON-ARITHMETIC RESIDUE ITEM (the seventh); after review 3 the
 observer's address retains ONE convention-free distinction
 (gamma^4 = -1); the scalar-flatness cross-check was also demoted.
 
-NET-STATE (Theorem 1k, cascade_lattice_selection.py, round 60):
-the part0 concession quoted in FAILED-1 is verbatim-true, but its
-next sentence in the source defines the variational selection
-(thm:variational: sup over the eight labelings, unique at
-(7,19,217), in part0 since 2026-05), and part0's regime partition
-is the lattice-band statement.  Given the site-E anchored pairing
-the feature->layer assignment is lattice-entailed -- the 5.2569
+NET-STATE (Theorem 1k, cascade_lattice_selection.py, round 60,
+as corrected by F1): the part0 concession quoted in FAILED-1 is
+verbatim-true, but its next sentence in the source defines the
+variational selection (thm:variational: sup over the eight
+labelings, unique at (7,19,217), in part0 since 2026-05), and
+part0's regime partition -- an earlier section -- is the
+lattice-band statement.  Given the site-E anchored pairing PLUS
+part0's variational-sup labeling of the crossing sides, the
+feature->layer assignment is entailed -- the 5.2569
 double-reading in FAILED-1 is one equation psi(x/2) = ln pi read
 at two argument offsets, not two conflicting conventions.  The
 residue member is re-motivated, not deleted; Finding 6's
@@ -118,9 +120,10 @@ def main():
     print("joins the residue (item seven); the observer address keeps ONE")
     print("convention-free distinction (torsion half-period; review 3")
     print("demoted the scalar-flatness cross-check).")
-    print("(net-state, Theorem 1k: given the site-E pairing the selection")
-    print("is lattice-entailed -- member re-motivated, count unchanged;")
-    print("Finding 6's completeness question stays open)")
+    print("(net-state, Theorem 1k as corrected round 60: given the site-E")
+    print("pairing plus part0's variational-sup labeling the selection is")
+    print("entailed -- member re-motivated, count unchanged; Finding 6's")
+    print("completeness question stays open)")
     print("=" * 74)
 
 

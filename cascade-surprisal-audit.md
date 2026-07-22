@@ -6346,6 +6346,68 @@ is the sole non-arithmetic input, already counted). **Object gates at this
 commit:** 4/5/35/27/6/10 + 7/0 + 6/0 + lattice_selection 6/0. Round 60 (hostile
 subagent, per protocol) follows.
 
+## Addendum 125: hostile review round 60 (subagent, per protocol) on commit c075eaa — Theorem 1k; NOT CONVERGED (1 MAJOR, 4 minors, 3 cosmetics); the forcer census corrected and swept
+
+**The session's third major, and the same genus as rounds 51 and 57: the
+mathematics held in full while the lead's grading language overclaimed the
+forcer. The central verdict verified directly by the lead (Check 3: part0.tex
+585–587 read — *"The canonical integer labels d₁ = 19 and d₂ = 217 are fixed in
+Theorem thm:variational below by the variational (argmax) characterisation"*;
+the max-over-min remark at 1235–1246 read — the inf labeling (6,20,218) gives
+1.02×10⁻¹²¹ and *"A principled derivation of max from the cascade's own
+axioms… remains open"*; rem:variational at 1218–1233 read — the sup is *"the
+only labelling that reproduces the observed"* ρ_Λ, i.e. data-corroborated) and
+accepted on every count.**
+
+- **F60-1 (MAJOR):** "lattice-entailed with zero further freedom [given the
+  pairing]… the pairing choice, seen once" — false: under the same pairing the
+  inf labeling (6, 20, 218) = (max B₀, min B₂, min B₃) is equally lattice-exact
+  with zero rounding; the boundary-SIDE selection is the 2³ freedom part0's
+  variational (sup) characterisation adjudicates — a second given,
+  data-corroborated with its derivation open by part0's own grading.
+  **Accepted; struck-and-annotated** on the paper; the grading rewritten on all
+  surfaces and all nine markers to "entailed given the site-E pairing **plus**
+  part0's variational-sup labeling — two named, listed anchors, both persisting
+  as the member's content"; new gate **K7** exhibits the eight labelings (sup =
+  (7,19,217) → 1.0989×10⁻¹²⁰, inf = (6,20,218) → 1.0217×10⁻¹²¹, both sides
+  lattice-exact). Member re-motivated stands; three members; seven-item count
+  unchanged. What genuinely survives convention-free: the exact integer bands,
+  the no-tie margin, argmax V = 5 (no side choice exists), and the
+  one-equation-two-offsets dissolution of the FAILED-1 double-reading.
+- **F60-2 (minor):** "the band structure carries exactly four independent
+  integers" — three (one per crossing, after tiling); the fourth is the
+  interior landmark argmax V (part0: *"one interior landmark plus the three
+  boundaries"*). **Accepted; corrected** on paper and script.
+- **F60-3 (minor):** the Registration sentence placed the regime partition as
+  "immediately following" the concession — it *precedes* it by ~420 lines in an
+  earlier section; only the variational theorem follows. **Accepted;
+  corrected** (paper + the two markers that carried a location claim).
+- **F60-4 (minor):** K5's two same-root conjuncts are unfailable (brentq roots
+  of the same shifted monotone function) — undeclared exhibits by the L7b
+  standard. **Accepted; declared in-code**, with the failable content (the four
+  ±5×10⁻⁴ feature-value matches) named.
+- **F60-6 (minor):** "the transcendental positions" — transcendence of the
+  ψ-roots is not established; what is gated is non-integrality with margin.
+  **Accepted;** "non-integer crossing positions… non-integrality gated".
+- **F60-5/7/8 (cosmetics):** "the whole structure shifts" → "the three band
+  labels shift, the argmax member unchanged"; the commit message's "8.6e-4"
+  (immutable; the true margin 8.569×10⁻⁴ is *within* 8.6e-4 — both object
+  surfaces correctly say 8.5×10⁻⁴, noted here for the record); the docstring
+  locator "the sentence before its variational theorem" → "in the paragraph
+  that introduces its variational theorem" (one sentence intervenes). All
+  fixed. K1's pass threshold also tightened 5×10⁻⁴ → 8.5×10⁻⁴ per the
+  reviewer's held-12 alignment note.
+
+**Held (reviewer, spot-verified by the lead):** all gated quantities reproduced
+independently at 50 dps (bands, margins — minimum 8.5690×10⁻⁴ at (218, Γ(½)) —
+argmax, roots to 5×10⁻⁵¹, Ω comparisons, the alternative-pairing shift with no
+lurking convention dependence); every verbatim part0 quote exact; provenance
+true (9b321cd 2026-05-06 vs d283df7 2026-07-19); footer census exactly 30 + 4
+°-marked, case-correct; pairing-conditionality present at all 11 claim sites;
+the 13c/row-6 hedge accurate; Checks 7/8 clean. **Object gates at the swept
+tree:** 4/5/35/27/6/10 + 7/0 + 6/0 + lattice_selection **7/0**. Round 61
+(convergence test) gates stability of Theorem 1k as corrected.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -220,19 +220,25 @@ entailed by T11), the μ₆ requirement determines χ₋₃ with minimality enta
 ε-support {3, ∞} (T1i). Adjudicated: the member is re-motivated, not reduced —
 three members and the seven-item count stand. No closure; category (a).
 
-**T1k (the lattice selection; `cascade_lattice_selection.py`, six gates).** Under
-the site-E canonical pairing p(d) = P(d+1), the threshold bands are exact integer
-intervals B₁ = {7..19} and B₂ = {20..217}, boundary-convention-free (no lattice
-point within 8.5×10⁻⁴ of a threshold, so all four interval conventions agree),
-and V(d) has strict discrete argmax 5 — hence {argmax V, min B₁, max B₁, max B₂}
-= {5, 7, 19, 217} with **zero rounding anywhere**; the s-space critical pair is
-one equation (ψ(x/2) = ln π) read at two argument offsets; part0's variational
-labels agree gate-by-gate (identically at the two upper boundaries via
-d log Ω/dd = −p(d), part0's own identity; numerically at the first, Ω₇ < Ω₆,
-≈1.9%). Given the pairing — which persists, anchored (the alternative shifts the
-set to {5, 8, 20, 218}) — the assignment is lattice-entailed: the class's first
-member is re-motivated, not deleted, exactly as T1j re-motivated the third.
-Three members and the seven-item count stand. No closure; category (a).
+**T1k (the lattice selection; `cascade_lattice_selection.py`, seven gates;
+round-60 F1 correction applied).** Under the site-E canonical pairing
+p(d) = P(d+1), the threshold bands are exact integer intervals B₁ = {7..19} and
+B₂ = {20..217}, boundary-convention-free (no lattice point within 8.5×10⁻⁴ of a
+threshold, so all four interval conventions agree), and V(d) has strict discrete
+argmax 5 — hence, **with the crossing sides fixed by part0's variational-sup
+labeling** (round-60 F1: the inf labeling (6, 20, 218) is equally lattice-exact
+under the same pairing — the sup is a second given, data-corroborated, its
+derivation open by part0's own grading; gated K7), {argmax V, min B₁, max B₁,
+max B₂} = {5, 7, 19, 217} with **zero rounding anywhere**; the s-space critical
+pair is one equation (ψ(x/2) = ln π) read at two argument offsets; part0's
+variational labels agree gate-by-gate given the sup (the sup pick reduces to the
+band-sign facts at the two upper boundaries via d log Ω/dd = −p(d), part0's own
+identity; numerically at the first, Ω₇ < Ω₆, ≈1.9%). Given the pairing plus the
+sup labeling — both persisting as the member's content (the alternative pairing
+shifts the three band labels to {5, 8, 20, 218}) — the assignment is entailed:
+the class's first member is re-motivated, not deleted, exactly as T1j
+re-motivated the third. Three members and the seven-item count stand. No
+closure; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
@@ -340,7 +346,7 @@ indistinguishability of the event stream from the GRH-governed one.
 | 4 | S5 lemma: root-frame projection | **derived** (T8, Addendum 36): frame = trace-dual lattice (inverse different of ℚ(ζ₃)); value = 30° rotation of ℤ[ω], unique to disc −3 | colour count 3 and per-leg occupancy remain instantiation |
 | 5 | Sign rule | two clauses derived (T7: Bohr–Mollerup off/at the equality manifold); **coset clause demoted** (review 4, D1: convention-conditional) | population-class assignment remains instantiation |
 | 5b | P > L > G precedence | **vacuous on uniform primary readings at both layers; anchoring conditional** (round 9, M3: A52's m_τ-abs dash-fill expanded closed constituents against the papers' expression-tree predicate — the same convention keeping b/s at G=F — so on the uniform mechanical reading no row is multi-flag anywhere and the order never fires; the 13–109σ exclusions hold only under the four variant readings — m_τ-abs constituent expansion, ℓ_A window, ℓ_A kind (+109σ, round 10), sin²θ_W coupling-running; A52 script corrected). Round 8 standing: all six orders survive the U2 exhaustion; the A55 nesting argument is **reversible** (retracted "T9" anchor) | counted in the residue; on the uniform reading the item is deletable-as-vacuous — papers' adjudication of the grading would settle it |
-| 6 | T4 uniqueness | **address-book determination + U2 (rounds 8–14 corrected)** (Addenda 40, 53–63): member fields computed by one shared rule-set (11/11 against the corrected key — the stored θ_23 k was wrong, papers give k=4); the rounds-8–12 θ_C availability defect **resolved by A61's record-legs correction (round-13: WOUNDED, restated)** — angles read gauge-layer states (verbatim θ_C / template-inference θ_23); avail 6 survivors incl. the indicator fork (P1); colour rank pinned, projection pinning corpus-conditional (M4); classifier = new soft input; sharpened PMNS falsifier with standing N_c candidates disclosed; member uniqueness relative to the declared space with σ-classified kills (four slots multi-σ pinned; G-flag 3 survivors; precedence all 6; Family-B 2; source map held fixed = withheld axis); collapse claim ("~60→~30") **withdrawn** (input scalars 76 > output scalars 50); first-principles groundings argument-strength only | open: extension to the full ~100-entry record; absolute forcing unavailable in principle; soft inputs: Observer k=3 (instantiation count — the \|T6-set\| upgrade was retracted, T6 forces {5,13} size 2), A13 grading, ℓ_A kind, and now the record-legs rule (identification, PMNS-falsifiable); all four source twists {19,5,14,7} convention-selected *(net-state, T1k: the distinguished-layer identifications among these are lattice-entailed given the site-E pairing; member re-motivated, count unchanged)* |
+| 6 | T4 uniqueness | **address-book determination + U2 (rounds 8–14 corrected)** (Addenda 40, 53–63): member fields computed by one shared rule-set (11/11 against the corrected key — the stored θ_23 k was wrong, papers give k=4); the rounds-8–12 θ_C availability defect **resolved by A61's record-legs correction (round-13: WOUNDED, restated)** — angles read gauge-layer states (verbatim θ_C / template-inference θ_23); avail 6 survivors incl. the indicator fork (P1); colour rank pinned, projection pinning corpus-conditional (M4); classifier = new soft input; sharpened PMNS falsifier with standing N_c candidates disclosed; member uniqueness relative to the declared space with σ-classified kills (four slots multi-σ pinned; G-flag 3 survivors; precedence all 6; Family-B 2; source map held fixed = withheld axis); collapse claim ("~60→~30") **withdrawn** (input scalars 76 > output scalars 50); first-principles groundings argument-strength only | open: extension to the full ~100-entry record; absolute forcing unavailable in principle; soft inputs: Observer k=3 (instantiation count — the \|T6-set\| upgrade was retracted, T6 forces {5,13} size 2), A13 grading, ℓ_A kind, and now the record-legs rule (identification, PMNS-falsifiable); all four source twists {19,5,14,7} convention-selected *(net-state, T1k as corrected round 60: the distinguished-layer identifications among these are entailed given the site-E pairing plus the variational-sup labeling; member re-motivated, count unchanged)* |
 | 7 | χ = 2 ↔ \|μ(ℝ)\| vs χ(S^even) | bridge unformalized | show the Euler characteristic's role factors through the unit-torsion identity, or keep topology as justification |
 | 8 | C1 | empirical forever | the ledger |
 

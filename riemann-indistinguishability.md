@@ -29,9 +29,10 @@ to the χ₋₃ minimality-pairing — one class, three members *(net-state, The
 as adjudicated round 57: the third member re-motivated — C1-anchored matching
 replaces the order principle, minimality entailed within the pairing-act, which
 persists; three members and the seven-item count stand)* *(net-state, Theorem 1k
-round 60: the first member likewise re-motivated — the assignment is
-lattice-entailed given the site-E pairing, which persists as the class's live
-content; no rounding rule was ever needed; three members and the seven-item
+round 60, as corrected by F1: the first member likewise re-motivated — the
+assignment is entailed given the site-E pairing plus Part 0's variational-sup
+labeling of the boundary sides, both persisting as the member's content; no
+rounding rule was ever needed; three members and the seven-item
 count stand)*); and the hypothesis itself
 (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
@@ -581,10 +582,17 @@ are B₁ = {d : 0 < p(d) < ln Γ(½)} = **{7,…,19}** and B₂ = {d : ln Γ(½)
 **{20,…,217}**; no lattice point lies within 8.5×10⁻⁴ of a threshold, so **all four
 half-open interval conventions produce the same integer sets**; and V(d) has the strict
 discrete argmax **5** (V(4) < V(5) > V(6); ratio strictly decreasing, so unimodal with a
-gated tail). Hence {argmax_ℤ V, min B₁, max B₁, max B₂} = **{5, 7, 19, 217}**, with
-min B₂ = max B₁ + 1 (tiling: the band structure carries exactly four independent
-integers) — and **no continuum crossing is rounded anywhere**; the transcendental
-positions (6.2569, 19.7308, 217.6267 in d) merely locate the band boundaries. *(ii)
+gated tail). Hence, **with the boundary sides fixed by Part 0's variational
+characterisation** (the sup labeling — see (ii)), {argmax_ℤ V, min B₁, max B₁, max B₂} =
+**{5, 7, 19, 217}**, with min B₂ = max B₁ + 1 (tiling: the band structure carries
+exactly three independent integers, one per crossing; the fourth distinguished layer is
+the interior landmark argmax V — Part 0's own compression: *"one interior landmark plus
+the three boundaries"*) — and **no continuum crossing is rounded anywhere**; the
+non-integer crossing positions (6.2569, 19.7308, 217.6267 in d; non-integrality gated
+with margin ≥ 8.5×10⁻⁴) merely locate the band boundaries. What the lattice does *not*
+fix is the **side** of each crossing: the inf labeling (6, 20, 218) = (max B₀, min B₂,
+min B₃) is equally lattice-exact under the same pairing — the 2³ labeling freedom is
+adjudicated by the variational theorem, not by the lattice (round-60 F1; gated, K7). *(ii)
 Concordance.* This paper's Theorem-7 feature set is the same object list in the s frame:
 the critical pair 5.2569/7.2569 is **one equation** — the balance ψ(x/2) = ln π — read
 at two argument offsets — the V-argmax equation (d = 5.2569, factor Γ_ℝ(d+2)) and the p-zero
@@ -593,23 +601,37 @@ the d-crossings + 1. The mixed-rounding appearance that founded the review-2 cha
 (floor-in-s for the pair, floor-in-d for the thresholds) is **one lattice rule seen
 across the s = d+1 frame line**. And Part 0's variational labels (the sup of the
 invariant's bilinear form over the eight boundary labelings, attained uniquely at
-(7,19,217) — in the source since 2026-05, immediately following the concession sentence
-this paper's §10 cites) agree gate-by-gate: at the two upper boundaries **identically**,
+(7,19,217) — in the source since 2026-05: the sup definition is the sentence after the
+concession this paper's §10 cites, the theorem follows it) agree gate-by-gate **given
+the sup**: at the two upper boundaries the sup pick reduces to the band-sign facts,
 because d log Ω_d/dd = −p(d) — Part 0's own identity, *"the first derivative of the
-log-area, which is −p(d)"* — makes Ω decreasing exactly where p > 0, so the variational
-extremum *is* the band-sign fact; at the first boundary the two principles are distinct
-and agree numerically (Ω₇ < Ω₆, margin ≈1.9%; gated). *(iii) The member re-read — the
+log-area, which is −p(d)"* — makes Ω decreasing exactly where p > 0; at the first
+boundary the two principles are distinct and agree numerically (Ω₇ < Ω₆, margin ≈1.9%;
+gated). **The sup itself is a second given** (round-60 F1): Part 0 grades it as
+data-corroborated — *"The supremum (7,19,217) is the only labelling that reproduces the
+observed"* ρ_Λ — with its derivation open — *"A principled derivation of max from the
+cascade's own axioms… remains open"* — and the inf labeling gives 1.02×10⁻¹²¹, two
+orders below observation (gated, K7). *(iii) The member re-read — the
 round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
 rounding frame and empty in the lattice frame: **given the site-E pairing** — the
 anchored convention, which **persists in the residue** (under the alternative pairing
-p(d) = P(d) the whole structure shifts coherently to {5, 8, 20, 218}, gated) — the
-feature→layer assignment is **lattice-entailed with zero further freedom**. The class's
-first member is thereby **re-motivated, not deleted**: its content is absorbed into the
+p(d) = P(d) the three band labels shift coherently, the argmax member unchanged:
+{5, 8, 20, 218}, gated) — **and given Part 0's variational-sup labeling of the boundary
+sides**, the feature→layer assignment is entailed. ~~The assignment is lattice-entailed
+with zero further freedom given the pairing alone; its content is absorbed into the
 pairing member — the assignment was never an independent choice; it is the pairing
-choice, seen once — exactly as the third member was re-motivated by Theorem 1j. **Three
+choice, seen once~~ **[struck round 60 (F1, MAJOR): under the same pairing the inf
+labeling (6, 20, 218) is equally lattice-exact — the boundary-side selection is the 2³
+freedom Part 0's variational (sup) characterisation adjudicates, a second given,
+data-corroborated with its derivation open by Part 0's own grading]**. The class's
+first member is thereby **re-motivated, not deleted**: from an ad hoc mixed-rounding
+appearance to **two named, listed anchors** — the site-E pairing plus the
+variational-sup labeling, both persisting as the member's conventional content —
+exactly as the third member was re-motivated by Theorem 1j. **Three
 members and the seven-item count stand.** Registration: this paper's §10 and the
 feature-monoid verifier cited Part 0's concession sentence without the variational
-theorem and regime partition that immediately follow it in the source — corrected with
+theorem that follows it in the source (or the regime partition, which *precedes* the
+concession in an earlier section — location corrected, round-60 F3) — corrected with
 net-state markers, not strikes (the quoted sentence is verbatim-true; the citation was
 incomplete). *Honest scope:* no number changes, no closure, no data beyond the already-
 counted site-E anchor, no RH/GRH, no semiclassics; Finding 6 (feature-list completeness)
@@ -692,7 +714,8 @@ Theorem 1c(i)'s first balance point) — bounds only the separate window-complet
 fact below, not the scan]** — each identification
 reached through the **feature→integer-layer selection convention** — a named member of
 this paper's seven-item residue (abstract; the class the reviews charged and the paper
-carries) *(net-state, Theorem 1k: lattice-entailed given the site-E pairing; the member
+carries) *(net-state, Theorem 1k as corrected round 60: entailed given the site-E
+pairing plus the variational-sup labeling; the member
 is re-motivated, the count unchanged)*. *And the lower bound is load-bearing (round-30 M2/M1):* **ρ(4) − 1 = 3** —
 the anchor dimension is the ρ-condition's twin, as the companion series itself states
 (*"at d = 4, S³ has ρ(4)−1 = 3 independent vector fields, matching the 3 spatial
@@ -724,7 +747,8 @@ above) — plus the **anchor** (Lovelock + the hypothesis, listed residue items)
 double duty: it assigns {4,5,6} to spacetime *and thereby excludes the ρ-twin d = 4*;
 plus the **scan range** whose ends are the listed distinguished layers d_V = 5 and
 d₁ = 19 (each identification carrying the feature→layer selection convention, a listed
-residue member *(net-state, Theorem 1k: lattice-entailed given the site-E pairing)*); plus the count (the previous remark). **With both remarks, the
+residue member *(net-state, Theorem 1k as corrected round 60: entailed given the site-E
+pairing plus the variational-sup labeling)*); plus the count (the previous remark). **With both remarks, the
 colour-count dependency map is complete in this corrected form:** N_c = [Clifford
 construction + classical mod-2 upper bounds] at [one Clifford ℤ/8 window step from the
 anchor, with the anchor excluding its own ρ-twin and the range ends at listed
@@ -797,10 +821,11 @@ critical point at all. The r₂ = 0 obstruction is real but partial. Consequentl
 feature→integer-layer selection is a convention, counted in the residue; the observer's
 address retains one convention-free arithmetic distinction (the torsion half-period
 γ⁴ = −1; the scalar-flatness cross-check was demoted by the third review).** *(Net-state,
-Theorem 1k: the selection is lattice-entailed given the site-E pairing — the rounding-frame
-non-uniformity this remark records is one lattice rule seen across the s = d+1 frame line;
-the member is re-motivated, the residue count unchanged, and Finding 6's completeness
-question stays open.)* *Structural
+Theorem 1k as corrected round 60: the selection is entailed given the site-E pairing plus
+Part 0's variational-sup labeling — the rounding-frame non-uniformity this remark records
+is the lattice bands seen across the s = d+1 frame line with the crossing sides fixed
+variationally; the member is re-motivated, the residue count unchanged, and Finding 6's
+completeness question stays open.)* *Structural
 update (Addendum 65, Theorem 1c — Finding 6 stays REOPENED on its original claim):* the
 r₂ = 0 obstruction is now relocated rather than removed — Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1) is
 synthesized exactly by the program's own two interleaved towers (Theorem 5's doubling, via
@@ -1027,8 +1052,9 @@ theorem" is **false as attributed** — T6 forces only the subcritical set {5,13
 and {5,13,21} is Definition 6.1 instantiation data, so k = 3 remains a soft input read as
 an instantiation count; additionally "19 and 5 are foundation objects" is withdrawn (all
 four source values {19, 5, 14, 7} pass through the same feature→layer selection convention
-counted in this paper's residue *(net-state, Theorem 1k: the distinguished-layer
-identifications among these are lattice-entailed given the site-E pairing; member
+counted in this paper's residue *(net-state, Theorem 1k as corrected round 60: the distinguished-layer
+identifications among these are entailed given the site-E pairing plus the
+variational-sup labeling; member
 re-motivated, count unchanged)*, and the observer is twist 4, not 5), and the claim of "no
 precedence order, no null clause, no k-table in the code" was literally false — the code is
 an ordered decision chain with an else-null and inline constants; the annotations propose
@@ -1110,10 +1136,11 @@ bounds already press the value:
    the x²-unit normalization carrying Γ(½) (empirically anchored — the self-dual alternative
    gives E = 3, excluded by data — not arithmetically forced); the P > L > G precedence
    (motivated); and the feature→layer selection convention (second review, Finding 1 —
-   part0 itself concedes no uniform rounding rule exists *(net-state, Theorem 1k: the
+   part0 itself concedes no uniform rounding rule exists *(net-state, Theorem 1k as corrected round 60: the
    concession's next sentence in the source defines the variational selection, and part0's
-   regime partition is the lattice-band statement; given the site-E pairing the assignment
-   is lattice-entailed — the member is re-motivated, the count unchanged)*). J2's incoherence is derived from
+   regime partition — an earlier section — is the lattice-band statement; given the site-E
+   pairing plus the variational-sup labeling the assignment
+   is entailed — the member is re-motivated, the count unchanged)*). J2's incoherence is derived from
    the factorized measure; the flip-word arithmetic is derived but buys π² only jointly with
    the unit convention; the feature-list completeness attempt **failed re-review** and is
    recorded as open (`cascade_feature_monoid.py`, rewritten to state the failure).

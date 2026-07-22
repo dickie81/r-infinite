@@ -71,9 +71,9 @@ d = 12 is the composite of:
       both members of the paper's distinguished set {5,7,19,217},
       each identification carrying the feature->integer-layer
       selection convention (a LISTED residue member) (net-state,
-      Theorem 1k / cascade_lattice_selection.py: lattice-entailed
-      given the site-E pairing; member re-motivated, count
-      unchanged);
+      Theorem 1k as corrected round 60: entailed given the site-E
+      pairing plus part0's variational-sup labeling; member
+      re-motivated, count unchanged);
   (4) the within-window factor assignment -- Door 3's decomposed
       count (Clifford construction + classical mod-2 bounds).
 d_0 = 7 enters only the separate window-completeness fact (G2).
@@ -175,8 +175,9 @@ def main():
     print("  d = 4 to spacetime and thereby excludes the rho-twin;")
     print("  the scan range's ends are the listed distinguished")
     print("  layers d_V = 5 and d_1 = 19 (feature->layer convention,")
-    print("  a listed residue member; net-state, Theorem 1k:")
-    print("  lattice-entailed given the site-E pairing).  The layer")
+    print("  a listed residue member; net-state, Theorem 1k as")
+    print("  corrected round 60: entailed given the site-E pairing")
+    print("  plus part0's variational-sup labeling).  The layer")
     print("  selection still")
     print("  introduces no new UNLISTED dependency -- but the")
     print("  'over-determined by independent selectors' claim of the")

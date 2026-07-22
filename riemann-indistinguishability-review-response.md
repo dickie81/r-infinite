@@ -1252,3 +1252,24 @@ sweep complete and correct, with the adjudicated state carried consistently.
 | F59-2 (cosmetic) — in-heading strike inside a bold span (first such) | **Held; no action.** GFM parse verified sane by hand; operative renderer honours it | none |
 
 **Trajectory: 1j landed → 57 1M+3+4c (MODIFY) → 58 1M+2+0c → 59 CONVERGED 0+0+2c. Theorem 1j stable: the third selection-class member re-motivated (C1-anchored matching, minimality entailed within the pairing-act, which persists); three members, seven-item count unchanged. Next hostile round on the next substantive paper change.**
+
+# Round 60: hostile review of Theorem 1k (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 4 minors, 3 cosmetics); the forcer census corrected: pairing PLUS variational-sup labeling
+
+The lattice facts all held (independently reproduced at 50 dps: bands, the
+8.569×10⁻⁴ no-tie margin, argmax, roots, Ω comparisons). The central verdict:
+the grading named the lattice as sole forcer of the boundary-side labels when
+the inf labeling (6, 20, 218) is equally lattice-exact under the same pairing —
+the sides are fixed by part0's variational-sup characterisation, a second given,
+data-corroborated with its derivation open by part0's own text. The member's
+re-motivation stands on the corrected census: two named, listed anchors.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F60-1 (MAJOR) — "zero further freedom given the pairing / the pairing choice, seen once" overclaimed the forcer | **Accepted.** Struck-and-annotated; grading rewritten on all surfaces + nine markers; new gate K7 exhibits the eight labelings (sup 1.0989e-120, inf 1.0217e-121) | paper + formulation + script + 3 sibling verifiers |
+| F60-2 (minor) — "four independent integers" in the band structure | **Accepted.** Three per-crossing + the interior landmark, per part0's own compression | paper + script |
+| F60-3 (minor) — regime partition mislocated as following the concession | **Accepted.** It precedes, in an earlier section; corrected | paper + 2 markers |
+| F60-4 (minor) — K5's same-root conjuncts undeclared exhibits | **Accepted.** Declared; failable content named | script |
+| F60-6 (minor) — "transcendental positions" unestablished | **Accepted.** "Non-integer crossing positions", margin gated | paper |
+| F60-5/7/8 (cosmetics) — "whole structure shifts"; commit-message margin (immutable, noted); docstring locator | **Accepted.** Fixed; K1 threshold aligned to 8.5e-4 | paper + script |
+
+**Trajectory: 1k landed → 60 1M+4+3c. Round 61 gates stability of Theorem 1k as corrected.**

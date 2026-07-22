@@ -21,13 +21,15 @@ feature->layer map, review 2; the coset-weight pairing, review 4).
 NO NEW CONDITIONAL SITE FOUND -- but the two anchored sites are
 hereby explicitly counted under the widened residue item seven.
 
-NET-STATE (Theorem 1k, cascade_lattice_selection.py, round 60):
-site D's demotion stands as history, and its net state is
-upgraded -- given site E's anchored pairing, the feature->layer
-assignment is lattice-entailed (no rounding rule needed: the
-distinguished layers are discrete band extrema and the V argmax).
-The member is re-motivated, not deleted; the site count and the
-residue count are unchanged.
+NET-STATE (Theorem 1k, cascade_lattice_selection.py, round 60,
+as corrected by F1): site D's demotion stands as history, and
+its net state is upgraded -- given site E's anchored pairing
+PLUS part0's variational-sup labeling of the crossing sides, the
+feature->layer assignment is entailed (no rounding rule needed:
+the distinguished layers are discrete band extrema and the V
+argmax, with the sides adjudicated variationally).  The member
+is re-motivated, not deleted; the site count and the residue
+count are unchanged.
 """
 
 import itertools
@@ -85,10 +87,11 @@ def site_D():
     print("   volume feature 5.2569: floor-in-d gives host 5/boundary 4;")
     print("   threshold rule (last d with d+1 < s*) gives host 4/boundary 3.")
     print("   CONDITIONAL (demoted, review 2): no uniform rounding rule.")
-    print("   (net-state, Theorem 1k / cascade_lattice_selection.py: no")
-    print("   rounding rule is NEEDED -- given site E's anchored pairing")
-    print("   the assignment is lattice-entailed; member re-motivated,")
-    print("   this site's classification and the residue count unchanged)")
+    print("   (net-state, Theorem 1k as corrected round 60: no rounding")
+    print("   rule is NEEDED -- given site E's anchored pairing PLUS")
+    print("   part0's variational-sup labeling of the crossing sides,")
+    print("   the assignment is entailed; member re-motivated, this")
+    print("   site's classification and the residue count unchanged)")
 
 
 def site_E():
