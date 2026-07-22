@@ -520,8 +520,9 @@ identity relocates the clock's twist into one more classical home; it does
 not make the finite places produce a grammar entry, and 1f(iii)'s honest
 negative for N_c stands verbatim.
 
-**Theorem 1j (the torsion-exceptional selection: the kernel's two fields, and the
-χ₋₃ pairing re-founded; `cascade_torsion_selection.py`).** *(i) The classical
+**Theorem 1j (the torsion-exceptional selection: the kernel's two-field class
+anatomy, and the χ₋₃ pairing ~~re-founded~~ **[round-58 F2: re-motivated — per
+the round-57 adjudication]**; `cascade_torsion_selection.py`).** *(i) The classical
 census.* Among imaginary quadratic fields the unit-group torsion is |μ| ∈
 {2, 4, 6}, with **|μ| = 6 uniquely at disc −3** (ℚ(ζ₃), the six units of ℤ[ω])
 and **|μ| = 4 uniquely at disc −4** (ℚ(ζ₄) = ℚ(i)) — gated by direct unit count

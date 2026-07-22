@@ -6189,6 +6189,54 @@ actually gained:** the third member's motivation upgraded and its selection
 content proven conditional-unique; the member itself stands. **Object gates:**
 4/5/35/27/6/10 + 7/0 + 6/0. Round 58 (convergence test) gates stability.
 
+## Addendum 122: hostile review round 58 (convergence test, subagent, per protocol) on commit 6642c7b — NOT CONVERGED (1 MAJOR, 2 minors, 0 cosmetics); the round-57 sweep's own gap found and swept
+
+**The finding class is the marking rule's oldest failure mode — an
+every-carrying-surface miss. The round-57 MODIFY adjudication was applied to
+the two paper surfaces and to `cascade_torsion_selection.py`'s gates (J6
+comment and print corrected, exhibits declared), but the verifier's own
+docstring and READING print block were left at the pre-adjudication state:
+still asserting the retracted reduction ("the re-founding therefore does not
+create a new assumption... needs NO assumption beyond the one Theorem 11
+already carries") and still printing "PROPOSED: ... (hostile adjudication
+pending)" — after the adjudication had been rendered and recorded. A committed
+verifier is a carrying surface; its prose is part of the claim record.**
+
+- **F58-1 (MAJOR):** the script's docstring title, "RE-FOUNDED PAIRING"
+  section, GRADING paragraph, and READING print block all pre-adjudication.
+  **Accepted; swept.** Title → "RE-MOTIVATED given the pairing-act"; the
+  pairing section now opens with the round-57 F1 strike recital (what was
+  struck and why: the maximum computed by J6, the pairing-act unentailed by
+  T11/Def 6.1, χ₋₄ the live alternative) before the adjudicated conditional
+  statement; GRADING → "round-57 adjudication RESOLVED... RE-MOTIVATED, not
+  reduced — the pairing-act persists as the member's conventional content";
+  READING now prints the adjudicated verdict, with "PROPOSED / adjudication
+  pending" removed.
+- **F58-2 (minor):** the paper's Theorem 1j heading still carried live
+  "re-founded" while the body was adjudicated. **Accepted; swept** by
+  strike-and-annotate in the heading per the paper's marker pattern:
+  "~~re-founded~~ [round-58 F2: re-motivated — per the round-57
+  adjudication]", with "two fields" → "two-field class anatomy".
+- **F58-3 (minor):** the docstring's anatomy paragraph still in
+  field-determining form (the F57-2 fix reached the paper but not the
+  script). **Accepted; swept:** the section retitled "AT CLASS LEVEL" with
+  the round-58 precision stated in place — (·,−3)₂ = (·,−11)₂ identically,
+  the dyadic kernel does not pin the μ₆ field, the census (J1) plus the T11
+  pairing-act privilege disc −3 among class representatives.
+
+**Lead verification (Check 3):** every finding confirmed by direct grep before
+the sweep (3 pre-adjudication hits in the script, 1 live "re-founded" in the
+paper, 0 in the formulation surface); after the sweep the overclaim census
+returns only strike recitals (the docstring's round-57 F1 recital and the J6
+comment's, both quoting struck text as struck; the paper's ~~re-founded~~
+inside its own annotation). **Held:** all six J-gates unchanged and green; the
+adjudicated mathematics untouched (no gate, no number, no quantifier changed —
+this round was entirely prose-record repair on the verifier surface); Checks
+7/8 clean. **Object gates at the swept tree:** 4/5/35/27/6/10 +
+tate_epsilon 7/0 + torsion_selection 6/0; formulation kernel residual
+2.78×10⁻¹⁷. Round 59 (convergence test on this sweep) gates stability of
+Theorem 1j in its adjudicated form.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

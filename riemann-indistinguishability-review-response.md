@@ -1219,3 +1219,20 @@ persists; three members and the seven-item count stand.
 | F57-5/6/7/8 (cosmetics) — drafting artifact; duplicate conjunct; article split; census closure + footer inputs | **Accepted.** All fixed | script + formulation + paper |
 
 **Trajectory: 1j landed → 57 1M+3+4c (MODIFY). Round 58 gates stability.**
+
+# Round 58: convergence test on the round-57 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 2 minors, 0 cosmetics); the sweep's every-carrying-surface miss found and swept
+
+The adjudicated mathematics held untouched; the finding class is the marking
+rule's oldest failure mode. The round-57 MODIFY adjudication reached the two
+paper surfaces and the script's gates, but the verifier's own docstring and
+READING block were left asserting the retracted reduction and printing
+"adjudication pending" after the adjudication had been rendered. A committed
+verifier is a carrying surface; its prose is part of the claim record.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F58-1 (MAJOR) — the script's docstring title, pairing section, GRADING, and READING all pre-adjudication ("PROPOSED... pending", "needs NO assumption beyond") | **Accepted.** All four blocks rewritten to the adjudicated state, with the round-57 F1 strike recital in place | script |
+| F58-2 (minor) — the paper heading's live "re-founded" | **Accepted.** Strike-and-annotated per the paper's marker pattern; "two fields" → "two-field class anatomy" | paper |
+| F58-3 (minor) — the docstring's anatomy paragraph still field-determining (F57-2's fix missed the script) | **Accepted.** Retitled "AT CLASS LEVEL"; (·,−3)₂ = (·,−11)₂ and the census+T11 privilege stated in place | script |
+
+**Trajectory: 1j landed → 57 1M+3+4c (MODIFY) → 58 1M+2+0c (record repair on the verifier surface; mathematics unchanged). Round 59 gates stability.**

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""THE TORSION-EXCEPTIONAL SELECTION (Theorem 1j): re-founding the
-chi_-3 pairing on torsion-maximality; the kernel's two fields.
+"""THE TORSION-EXCEPTIONAL SELECTION (Theorem 1j, round-57
+adjudication MODIFY applied): the kernel's two-field CLASS anatomy,
+and the chi_-3 pairing RE-MOTIVATED given the pairing-act.
 Category (a): classical unit-group theory + the committed 1h/1i
 machinery; no data, no closures, no RH/GRH, no semiclassics
 (Check 7); the hypothesis is nowhere an input to the arithmetic
@@ -23,52 +24,65 @@ classically (round-57 F8): a root of unity solves a^2 - d b^2 = 4
 no disc beyond the scan can carry extra torsion (Dirichlet; units
 of imaginary quadratic fields).
 
-THE KERNEL'S TWO FIELDS (J2, J3 -- the 1h anatomy re-read).  The
-clock-invisibility criterion of Theorem 1h is ker(., -1)_2 =
-ker(., -4)_2 -- i.e. THE DISC CHARACTER OF THE mu_4 FIELD,
-localized at the clock prime (gated on all eight classes); and
-the invisible UNIT direction is {1, cls(-3)} -- THE mu_6 FIELD'S
-DISCRIMINANT CLASS, whose local extension Q_2(sqrt(-3)) =
-Q_2(zeta_3) is the unramified quadratic (gated).  The mu_4 field
-itself is 2-ramified (cls(-4) = 7, clock-VISIBLE).  So the
-kernel's anatomy is built from exactly the two
-torsion-exceptional fields: invisibility = the mu_4 disc
-character's kernel; the invisible unit direction = the mu_6
-disc.  Colour's field and the quarter-turn field are the only
-two imaginary quadratics with extra roots of unity, and 1h's
-structure is their joint localization.
+THE KERNEL'S TWO FIELDS -- AT CLASS LEVEL (J2, J3 -- the 1h
+anatomy re-read).  The clock-invisibility criterion of Theorem
+1h is ker(., -1)_2 = ker(., -4)_2 -- i.e. THE DISC CHARACTER OF
+THE mu_4 FIELD, localized at the clock prime (gated on all
+eight classes); and the invisible UNIT direction is {1,
+cls(-3)} -- THE mu_6 FIELD'S DISCRIMINANT CLASS, whose local
+extension Q_2(sqrt(-3)) = Q_2(zeta_3) is the unramified
+quadratic (gated).  The mu_4 field itself is 2-ramified
+(cls(-4) = 7, clock-VISIBLE).  Round-58 precision: the anatomy
+is CLASS-level, not field-determining -- (., -3)_2 = (., -11)_2
+identically (every d = 5 mod 8 gives the same local character),
+so the dyadic kernel alone does not pin the mu_6 field; what
+privileges disc -3 among its class representatives is the
+torsion census (J1) together with the T11 pairing-act.  With
+that stated: the kernel's anatomy is built from the two
+torsion-exceptional fields' DISC CLASSES -- invisibility = the
+mu_4 disc character's kernel; the invisible unit direction =
+the mu_6 disc class -- and 1h's structure is their joint
+localization at class level.
 
-THE RE-FOUNDED PAIRING (J4, J5, J6).  Torsion-maximality --
-|mu| = 6, the extremal structural property Theorem 11 ALREADY
-load-bears (the su(3) roots ARE the units mu_6 of Z[omega]; the
-cos(pi/6) projection exists among imaginary quadratic rings iff
-disc = -3) -- selects Q(zeta_3) uniquely among all imaginary
-quadratic fields (J6), hence chi_-3 uniquely among all odd real
-primitive characters.  Conductor-minimality then becomes a
-CONSEQUENCE (|disc| = 3 is a fortiori the minimal conductor,
-J4), not a principle.  The mu_6 field's 2-localization is forced
-to the invisible unit direction (J3), and its epsilon support is
-the two-place pair {3, inf} with the quarter-turn values (J5,
-citing 1i's gated decomposition).
+THE PAIRING RE-MOTIVATED, GIVEN THE PAIRING-ACT (J4, J5, J6).
+Round-57 F1 (MAJOR, verdict MODIFY) struck this file's first
+framing -- "re-founded", "reduces to a consequence", the J6
+print's denial that any order principle was in play while the
+gate literally computes a maximum -- because routing colour
+through torsion imports the PAIRING-ACT: that the odd feature
+is paired with an imaginary quadratic unit structure at all,
+which Theorem 11 / Def 6.1 do not entail (chi_-4, the mu_4
+partner, is the live alternative).  The adjudicated state:
+GIVEN the pairing-act, torsion-maximality -- |mu| = 6, the
+extremal structural property Theorem 11 ALREADY load-bears (the
+su(3) roots ARE the units mu_6 of Z[omega]; the cos(pi/6)
+projection exists among imaginary quadratic rings iff disc =
+-3) -- selects Q(zeta_3) uniquely among all imaginary quadratic
+fields (J6), hence chi_-3 uniquely among all odd real primitive
+characters, and conductor-minimality is then ENTAILED (|disc| =
+3 is a fortiori the minimal conductor, J4), not an independent
+principle.  The mu_6 field's 2-localization lands on the
+invisible unit direction at class level (J3), and its epsilon
+support is the two-place pair {3, inf} with the quarter-turn
+values (J5, citing 1i's gated decomposition).
 
-GRADING (honest, per Check 8).  The arithmetic is theorem-grade
-throughout: the torsion census, the two-field anatomy, the
-uniqueness of the mu_6 maximum, minimality-as-consequence.  What
-remains C1-conditional is exactly what was already C1-conditional
-before this file: that COLOUR is the mu_6 structure (Theorem 11's
-identification -- the dictionary's entry, not re-derived here).
-The re-founding therefore does not create a new assumption; it
-shows the pairing needs NO assumption beyond the one Theorem 11
-already carries: the residue's third selection-class member is
-PROPOSED reduced from an independent convention to a consequence
-of the existing T11 anchor -- an adjudication for the hostile
-round, recorded as proposal until it survives.  The seven-item
-residue COUNT is unchanged either way (the class is one item;
-only its internal member census changes).  No number changes; no
-closure; the grammar-reading question stays open (this narrows
-it again: the colour entry's dyadic shadow IS the invisible unit
-coordinate -- the 1e(iv) identification relocated, not a new
-forcing).
+GRADING (honest, per Check 8; round-57 adjudication RESOLVED).
+The arithmetic is theorem-grade throughout: the torsion census
+with its classical closure, the two-field class anatomy, the
+uniqueness of the mu_6 maximum, minimality-entailed-given-the-
+pairing-act.  What remains C1-conditional is what was already
+C1-conditional before this file: that COLOUR is the mu_6
+structure (Theorem 11's identification -- the dictionary's
+entry, not re-derived here).  Adjudicated verdict (round 57,
+MODIFY): the chi_-3 member of the selection-convention class is
+RE-MOTIVATED, not reduced -- the pairing-act persists as the
+member's conventional content, and given it, minimality is
+entailed.  The class keeps three members; the seven-item
+residue COUNT is unchanged.  No number changes; no closure; the
+grammar-reading question stays open (this narrows it again: the
+colour entry's dyadic shadow IS the invisible unit coordinate
+at class level -- the 1e(iv) identification relocated, not a
+new forcing).
 """
 
 import sys
@@ -210,17 +224,17 @@ def main():
     print("=" * 74)
     print("READING (classical + gated; grading in docstring)")
     print("=" * 74)
-    print("  The kernel's anatomy is the joint localization of the only")
-    print("  two torsion-exceptional imaginary quadratics: invisibility")
-    print("  is the mu_4 field's disc character, the invisible unit")
-    print("  direction is the mu_6 field's disc.  Torsion-maximality --")
-    print("  the property Theorem 11 already load-bears -- selects the")
-    print("  mu_6 field uniquely, so the chi_-3 pairing inherits T11's")
-    print("  anchor and conductor-minimality demotes to a consequence.")
-    print("  PROPOSED: the selection class's third member reduces to a")
-    print("  consequence of the existing anchor (hostile adjudication")
-    print("  pending).  Residue count unchanged; no closure; the")
-    print("  grammar-reading question stays open.")
+    print("  The kernel's anatomy is the joint localization, at class")
+    print("  level, of the only two torsion-exceptional imaginary")
+    print("  quadratics: invisibility is the mu_4 field's disc character,")
+    print("  the invisible unit direction is the mu_6 field's disc class.")
+    print("  Given the pairing-act, torsion-maximality -- the property")
+    print("  Theorem 11 already load-bears -- selects the mu_6 field")
+    print("  uniquely, and conductor-minimality is entailed, not an")
+    print("  independent principle.  Adjudicated (round 57, MODIFY): the")
+    print("  chi_-3 member is re-motivated, not reduced -- the pairing-")
+    print("  act persists as the conventional content.  Residue count")
+    print("  unchanged; no closure; grammar-reading question stays open.")
 
 
 if __name__ == "__main__":
