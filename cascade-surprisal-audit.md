@@ -5966,6 +5966,28 @@ Checks 7/8 clean.**
 on 12 tex files; the six standing verifiers at 4/5/35/27/6/10, 0 FAIL. Round 53
 (convergence test on this sweep) gates stability of the registrations arc.
 
+## Addendum 115: hostile review round 53 — convergence test on the round-52 sweep; CONVERGED (0 majors, 0 minors, 1 cosmetic); the landscape-registrations arc is stable
+
+**Verdict: CONVERGED (precedent: rounds 17, 21, 24, 27, 29, 46, 48, 50). Every
+round-52 fix verified as committed; no census-contradicting or internally
+inconsistent line survives in either object file (machine-grepped, sole "TWO
+routes" hit being the correct d₀ census); all instruments clean; Checks 7/8
+clean. The one cosmetic — the verifier's STEP 2 case line grouping its labeled
+cross-checks under the word "routes" — verified by the lead and fixed in this
+editorial commit (the STEP 3 sibling's form).**
+
+**The registrations arc, closed (A112–A115):** the three findings deferred since
+rounds 31–34 are applied and stable, with round 51's major having forced the
+correction standard to completion. The final census: d_V one route; **d₀ two —
+the transcendental Γ-area-max and one algebraic octonion route** (ρ(8)−1 ≡
+dim𝕆−1 ≡ G₂/SU(3)-transitivity, internal linkages resolved), attacked and held
+independent (π-dependence vs division-algebra rigidity); d_g one (Adams;
+N_c·dimℍ a cross-check); **d_gw one unconditional plus one conditional** (dim G₂
+per the Status list's grade; 2d₀ a cross-check); d₁ one. d₀ over-determined
+outright; d_gw conditionally. An honest weakening of the landscape's
+over-determination story, delivered by the program's own machinery. Next hostile
+round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1141,3 +1141,14 @@ swept header.
 | F52-4 (cosmetic) — "merged round 51" collective attribution; "half" | **Accepted.** Split and relabeled | verifier |
 
 **Trajectory: registrations → 51 1M+4+3c → 52 0+1+3c. Round 53 gates stability.**
+
+# Round 53: convergence test on the round-52 sweep (subagent, per protocol) — **CONVERGED** (0+0+1c); the landscape-registrations arc certified stable
+
+Every fix verified as committed; zero census contradictions survive in either
+object file; all instruments and Checks 7/8 clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F53-1 (cosmetic) — STEP 2 case line's "violates routes" grouping labeled cross-checks | **Accepted.** Reworded to the STEP 3 sibling's form in the convergence commit | verifier |
+
+**Trajectory: registrations → 51 1M+4+3c → 52 0+1+3c → 53 CONVERGED 0+0+1c. Final census: d_V 1, d₀ 2, d_g 1, d_gw 1+1 conditional, d₁ 1 — d₀ over-determined outright, d_gw conditionally. Next hostile round on the next substantive paper change.**

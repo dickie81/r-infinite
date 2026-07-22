@@ -119,7 +119,7 @@ def main() -> None:
         if d_alt != 5: violations.append('A (Γ-vol-max)')
         if d_alt != 5: violations.append('cross-check B (d_obs+1)')
         if d_alt != 5: violations.append('cross-check C (ℍ+1)')
-        print(f"    d_V = {d_alt}: violates routes {violations} → ruled out.")
+        print(f"    d_V = {d_alt}: violates {violations} → ruled out.")
     print()
 
     # ============================================================
