@@ -54,9 +54,13 @@ as eps_3(chi_-3) * eps_inf(sgn) = (+i)(-i) = +1: the colour
 character's evenness of sign is a two-place cancellation, ramified
 conductor-3 against the archimedean sgn tower, ANOTHER two-place
 lock of the 1f/1g family shape.  And the odd bridge's conductor
-term -1/2 ln 3 (1c) is the log-derivative of the functional
-equation's conductor factor 3^{s/2} -- Door 4's "conductor is the
-different" has its epsilon-side home (E5).
+term -1/2 ln 3 (1c) is MINUS the log-derivative of the completed
+L's conductor factor 3^{(s+1)/2} -- the paper names 3^{s/2}; the
+two differ by the constant sqrt(3), same log-derivative (round-55
+F3) -- the factor crossing to the p_sgn side (round-55 F1: the
+round-54 sign sweep reached paper and formulation but missed this
+surface).  Door 4's "conductor is the different" has its
+epsilon-side home (E5).
 
 WHAT THIS DOES NOT DO: derive any A2 grammar entry; produce new
 numbers; claim any closure.  The ramified towers' pure-phase
@@ -186,10 +190,10 @@ def main():
     print("   (a two-place cancellation: ramified conductor 3 against the")
     print("    archimedean sgn tower -- the 1f/1g family shape again)")
 
-    # ---- E5: the conductor log-derivative = the odd bridge's constant
+    # ---- E5: minus the conductor log-derivative = the bridge constant
     print()
-    print("E5 the odd bridge's conductor term is the epsilon-side")
-    print("   conductor factor's log-derivative:")
+    print("E5 the odd bridge's conductor term is MINUS the epsilon-")
+    print("   side conductor factor's log-derivative:")
     # round-54 F7: the first version's conjuncts were tautologies (the
     # same expression twice; a math-library check).  The identity's
     # GENUINE gate is cascade_local_tate.py's T-loc4 bridge check
@@ -261,7 +265,8 @@ def main():
     print("  its phases are the program's: the clock's disc-twist beta is")
     print("  the dyadic quadratic root-number map, the colour character's")
     print("  +1 is a two-place epsilon cancellation, and the odd bridge's")
-    print("  conductor term is the epsilon conductor's log-derivative.")
+    print("  conductor term is minus the epsilon conductor's log-")
+    print("  derivative.")
     print("  Orientation fixed by the product-formula gate, stated, not")
     print("  chosen silently.  No grammar entry derived; category (a).")
 

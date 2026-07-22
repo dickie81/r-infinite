@@ -1172,3 +1172,17 @@ marker, and four instrument-census cosmetics.
 | F54-8 (cosmetic) — "FOUR independent" adverb drift | **Accepted.** "independently known" | script |
 
 **Trajectory: 1i landed → 54 0+4+4c. Round 55 gates stability of Theorem 1i.**
+
+# Round 55: convergence test on the round-54 sweep (subagent, per protocol) — NOT CONVERGED (0+1+2c); the sign sweep's third surface
+
+The mathematics held again in full (two-member pole statement exact; the sign
+re-derived from Λ_χ; the new β-side E3 probed genuine). The sole minor: F54-2's
+strike reached paper and formulation but missed the verifier's docstring.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F55-1 (minor) — the sign-dropped statement surviving in the script docstring + echoes | **Accepted.** All corrected; zero minus-less instances machine-confirmed | script |
+| F55-2 (cosmetic) — E5's conjunct unfailable | **Adjudicated acceptable as declared** (L8f precedent; genuine gate named in the PASS line) | none |
+| F55-3 (cosmetic) — conductor-factor naming drift | **Accepted.** Harmonized with the equivalence stated | script |
+
+**Trajectory: 1i landed → 54 0+4+4c → 55 0+1+2c. Round 56 gates stability of Theorem 1i.**

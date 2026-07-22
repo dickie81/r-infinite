@@ -6058,6 +6058,34 @@ collateral. **Object gates:** 4/5/35/27/6/10 + tate_epsilon 7/0 (E3 now
 genuine). Round 55 (convergence test on this sweep) gates stability of
 Theorem 1i.
 
+## Addendum 118: hostile review round 55 — convergence test on the round-54 sweep; NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); all swept; round 56 gates
+
+**Finding 1 verified directly by the lead (grep: the script docstring carried the
+verbatim sign-dropped statement F54-2 had struck on paper and formulation — a
+third carrying surface missed, with echoes in the READING print and E5's header).
+The round's substantive verdicts all held: the corrected two-member pole
+statement exactly right (η₅'s poles purely imaginary; a ∈ {1,5} the only
+unramified members); the corrected sign re-derived from local_tate's committed
+Λ_χ; the new β-side E3 empirically probed as a genuine gate (wrong exponent
+fails all three pairs, absent correction fails exactly the odd-exponent pairs as
+disclosed, conjugated Weil index fails all three).**
+
+- **F55-1 (minor, fixed):** the F54-2 sign sweep missed the verifier's
+  docstring and its echoes (READING, E5 header/comment). All corrected; zero
+  minus-less instances now on any surface (machine-grepped).
+- **F55-2 (cosmetic, adjudicated acceptable as declared):** E5's rebuilt
+  conjunct remains unfailable — but the exhibit status is declared prominently,
+  the genuine gate (local_tate T-loc4, re-run by the reviewer at 1e-20) is
+  named in the PASS line, and the "N gates" heading coexisting with declared
+  exhibits is the settled L8f precedent (rounds 49–50 converged so). No edit.
+- **F55-3 (cosmetic, fixed):** conductor-factor naming drift (3^{s/2} vs
+  3^{(s+1)/2}) — harmonized in the docstring with the constant-ratio
+  equivalence stated.
+
+**Object gates:** tate_epsilon 7/0; the six standing verifiers 4/5/35/27/6/10,
+0 FAIL; kernel residual within quote. Round 56 (convergence test on this sweep)
+gates stability of Theorem 1i.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
