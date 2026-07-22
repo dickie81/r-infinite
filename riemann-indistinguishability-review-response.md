@@ -831,9 +831,28 @@ cosmetics," making A94's battery literally false at commit-final.
 
 | Finding | Disposition | Sweep |
 |---|---|---|
-| F1 (MAJOR) — the fifth count-carrying surface (the A93 header) missed by the round-35 F3 fix; the disposition ("all four"), the table cell, and A94's command-less battery item ("every surface now says six ✓") all falsified — literally false, a notch worse than round 35 | **Accepted.** Header corrected; disposition and battery item struck; cell annotated; count-battery clause: census sweeps grep the count itself, and headers are count-carrying surfaces | A93 header + A94 ×2 + Round-35 cell |
+| F1 (MAJOR) — the fifth count-carrying surface (the A93 header) missed by the round-35 F3 fix; the disposition ("all four"), the table cell, and A94's command-less battery item ("every […] surface now says six ✓" — omission marked round-37 F3) all falsified — literally false, a notch worse than round 35 | **Accepted.** Header corrected; disposition and battery item struck; cell annotated; count-battery clause: census sweeps grep the count itself, and headers are count-carrying surfaces | A93 header + A94 ×2 + Round-35 cell |
 | F2 (minor) — "the five companion quotes" live in A90's held list (inside the round-35-F2-counted enumeration) and its A89 sibling; machine extraction gives six fragments at every relevant commit | **Accepted.** Both struck | A89 + A90 |
 | F3 (cosmetic) — A94's twelve-battery census omitted the A93-battery-line category | **Accepted.** Category added | A94 |
 | F4 (cosmetic) — A94's quote of the A93 command dropped -n and file scope without markers | **Accepted.** Omissions marked | A94 |
 
 **Trajectory: … → 1+2(+1c) → 1+1(+2c). Four consecutive rounds of held corrections; two consecutive one-word-class majors graded by precedent-consistency. Round 37 gates stability.**
+
+# Round 37: convergence test on the round-36 sweep (subagent, per protocol) — NOT CONVERGED by one statement (0+2+2c); the transcript clause
+
+Zero majors. The reviewer's headline: every round-36 fix made as recorded, every
+strike verbatim, no unstruck false record anywhere — the sole untrue statement on any
+surface was a battery line's own hit classification. Fifth consecutive round of held
+corrections.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — A95's "five companion" census omitted the Round-36 table row from its hit list (a false hit-census inside the round that installed the count-battery clause) | **Accepted.** Struck | A95 |
+| F2 (minor) — the count-battery gate did not implement its own clause (+5c dropped; line-based against the wrap clause); no false record behind it — both missed instances properly marked | **Accepted.** Annotated; clause-conformant re-run recorded | A95 |
+| F3 (cosmetic) — two surfaces dropped "count-carrying" mid-quote without markers | **Accepted.** Both marked | A93 header note + Round-36 row |
+| F4 (cosmetic) — A94's fourteen-battery command named no file scope | **Accepted.** Annotated with both scopes' censuses | A94 |
+
+**The transcript clause, adopted:** battery records are transcripts — command + pasted
+hit list + per-hit classification; prose may introduce a transcript, not replace one.
+
+**Trajectory: … → 1+1(+2c) → 0+2(+2c). Round 38 gates stability.**
