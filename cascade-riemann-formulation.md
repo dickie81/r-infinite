@@ -174,9 +174,9 @@ signed-disc-faithful (d± injects the kernel into I/I²): disc-level data, quest
 open)*. (iv) Global
 re-lock on six multi-dim forms ≤ 4×10⁻¹⁵ incl. the dim-8 definite form (both clock
 places wrap to 1). Run record: p = 17 timeout → primes trimmed, two pre-run code
-artifacts removed. 32 PASS 0 FAIL *(Theorem 1h's five L8 gates added to the
-round-44 L7 four; the lineage: 21 at first commit, 23 after round-26's L6, 27 after
-round-44's L7, 32 now)*. No grammar entry
+artifacts removed. 35 PASS 0 FAIL *(the forced-Hasse Remark's three L8f gates
+added to Theorem 1h's five L8; the lineage: 21 at first commit, 23 after
+round-26's L6, 27 after round-44's L7, 32 at Theorem 1h, 35 now)*. No grammar entry
 derived; no data, no closures.
 
 **T1h (the kernel's identity — the ζ₄-norm structure; L8, five gates).**
@@ -189,7 +189,11 @@ kernel is free (8ℤ — invisible torsion dyadic-exclusive). Identity settled; 
 the grammar reads the two coordinates stays open; sharpened falsifier (round-47 F1
 rescoped): any derivation routing colour through the clock-invisible part of
 W(ℚ₂) must land in this subgroup, Hasse forced. No entry
-derived; category (a).
+derived; category (a). The forced-Hasse function (L8f, three gates):
+h_β(d) = ζ₈²/β(−d) = (d,−1)₂/β(d); its reality locus is exactly H (the four
+non-norm discs are forced to ±i — excluded by impossibility, not enumeration);
+ker γ₂ is its graph over H; h_β(1) = +1 = the Hilbert axiom (a,−a)₂ = 1 — the
+round-48 edge case's two mechanisms are one formula.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

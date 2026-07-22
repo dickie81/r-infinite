@@ -127,10 +127,25 @@ filtration.  (d) DISC-FAITHFULNESS: by the SIGNED discriminant
 d+- = (-1)^(n(n-1)/2) det (the Witt-invariant disc), the four
 kernel classes carry distinct square classes, so d+- : ker
 gamma_2 -> I/I^2 = Q_2^x/sq is INJECTIVE, and d+- confirms
-k1 + k2 = k3.  Reading: whatever grammar meaning the invisible
-(Z/2)^2 carries, it is DISCRIMINANT-LEVEL data, not
-deep-filtration data -- the open question stays open; L7 narrows
-where its answer can live.
+k1 + k2 = k3.  (f) THE FORCED-HASSE FUNCTION (the Remark; the
+round-48 edge case dissolved): h_beta(d) := zeta_8^2/beta(-d) --
+by the closed form, the unique Hasse value a binary class of
+signed disc d must carry to be clock-invisible; by the cocycle,
+equivalently h_beta(d) = (d,-1)_2/beta(d) (beta(-1) = zeta_8^2).
+Gated: the REALITY LOCUS of h_beta is exactly the norm group H
+(non-norm discs are forced to +-i, an impossible Hasse value --
+EXCLUSION BY IMPOSSIBILITY, not enumeration; the census iff
+compresses to one formula); ker gamma_2 is the GRAPH of h_beta
+over H, tied in-code to the L4 census; and at the trivial slot
+h_beta(1) = +1 = the Hilbert axiom (a,-a)_2 = 1, so the two
+forcing mechanisms round 48 verified separately provably
+coincide -- there is no edge case.  Third appearance of the
+zeta_4 motif: invisible <=> forced Hasse real (mu_2), excluded
+<=> a quarter-turn (mu_4 \ mu_2).  Pure consequence of the
+cocycle + closed form; no new convention.  Reading: whatever
+grammar meaning the invisible (Z/2)^2 carries, it is
+DISCRIMINANT-LEVEL data, not deep-filtration data -- the open
+question stays open; L7 narrows where its answer can live.
 
 L8 (THEOREM 1h -- THE KERNEL'S IDENTITY; verified).  (a) The
 signed-disc image of ker gamma_2, the subgroup H = {1,5,2,10} of
@@ -563,6 +578,43 @@ def main():
     print(f"   L8e the infinity mirror is free: zeta_8^sig = 1 <=> sig ="
           f" 0 mod 8; W(R) = Z torsion-free (Sylvester, cited) => ker ="
           f" 8Z   {'PASS' if ok8e else 'FAIL'}")
+    # ---- L8f (the Remark: the forced-Hasse function -- the round-48
+    # edge case dissolved)
+    print()
+    print("L8f the forced-Hasse function h_beta(d) = zeta_8^2/beta(-d):")
+
+    def beta2(x):
+        return gamma_v(next(c for c in d2 if same_class(x, c)), 2) / z8i
+
+    def h_forced(d):
+        return (z8i ** -2) / beta2(-d)
+
+    def snap(z):
+        return min((1, -1, 1j, -1j), key=lambda w: abs(z - w))
+
+    vals = {d: snap(h_forced(d)) for d in d2}
+    okf1 = all(abs(h_forced(d) - vals[d]) < 1e-9 for d in d2)
+    okf1 &= all((vals[d] in (1, -1)) == (d in H) for d in d2)
+    okf1 &= all(vals[d] in (1j, -1j) for d in d2 if d not in H)
+    print(f"   L8f1 reality locus of h_beta == the norm group H; the"
+          f" four non-norm discs forced to quarter-turns (+-i):"
+          f" exclusion by impossibility   {'PASS' if okf1 else 'FAIL'}")
+    okf2 = all(vals[next(c for c in d2 if same_class(-a * b, c))] == h
+               for dcl, h, a, b in kernel)
+    okf2 &= vals[1] == 1
+    okf2 &= all(hilbert(a, -a, 2) == 1 for a in d2)
+    print(f"   L8f2 ker gamma_2 == the graph of h_beta over H (tied to"
+          f" the L4 census), incl. the trivial slot h_beta(1) = +1 ="
+          f" the Hilbert axiom (a,-a)_2 = 1   {'PASS' if okf2 else 'FAIL'}")
+    okf3 = all(abs(h_forced(d) - hilbert(d, -1, 2) / beta2(d)) < 1e-9
+               for d in d2)
+    print(f"   L8f3 cocycle identity h_beta(d) = (d,-1)_2/beta(d) on all"
+          f" 8 classes (beta(-1) = zeta_8^2)   {'PASS' if okf3 else 'FAIL'}")
+    print("   => one closed-form function forces the Hasse coordinate on")
+    print("      all four kernel slots AND excludes the four non-norm")
+    print("      discs; the norm criterion IS the reality condition; the")
+    print("      round-48 edge case's two mechanisms are one formula.")
+
     print("   => THEOREM 1h: what the order-8 clock cannot see is what")
     print("      the quarter-turn field Q_2(i) = Q_2(gamma^2) norms away,")
     print("      coordinates = the colour discriminant + the clock prime.")

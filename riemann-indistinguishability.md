@@ -424,6 +424,30 @@ future derivation routing colour through the **clock-invisible part of W(ℚ₂)
 must land in exactly this subgroup, Hasse forced — a checkable constraint on that
 route, stopping-rule-gated as ever.
 
+**Remark (the forced-Hasse function: the round-48 edge case dissolved;
+`cascade_local_family.py` L8f).** Theorem 1h's "Hasse forced" clause and its
+norm-group criterion are **one closed-form function**. Define
+**h_β(d) := ζ₈²/β(−d)** — by 1g(ii)'s closed form, the unique Hasse value a
+binary class of signed discriminant d must carry to be clock-invisible; by the
+cocycle, equivalently **h_β(d) = (d,−1)₂/β(d)** (β(−1) = ζ₈²; the identity gated
+on all eight classes). Then, gated: *(i)* the **reality locus** of h_β is exactly
+the norm group H — for d ∈ H, h_β(d) ∈ {±1}; for the four non-norm discriminants,
+h_β(d) ∈ {±i}, an impossible value for a Hasse invariant, so **non-norm
+discriminants are excluded by impossibility, not enumeration** — 1h(i)'s census
+iff compresses to this one formula; *(ii)* **ker γ₂ is the graph of h_β over H**
+— {(1,+1), (5,+1), (2,+1), (10,−1)} — tied in-code to the 1g(iii) census, not
+restated; *(iii)* at the trivial slot the two forcing mechanisms that round 48
+verified separately **provably coincide**: h_β(1) = +1 is the Hilbert axiom
+(a,−a)₂ = 1 (gated for all eight a) — the closed form, evaluated at the trivial
+discriminant, reproduces the axiom's value, so there is no edge case: one formula
+covers all four kernel slots and all four exclusions. *Motif, noted:* this is the
+ζ₄ dichotomy's third appearance at this door — invisible ⟺ forced Hasse real
+(μ₂); excluded ⟺ forced Hasse a quarter-turn (μ₄ ∖ μ₂) — the same μ₂/μ₄ split
+that defines N(ℚ₂(i)). *Grading:* a pure consequence of 1g(ii)'s cocycle and
+closed form — theorem-grade, no new convention, nothing cascade-chosen; **no
+grammar entry derived, no number changes, no closure** (category (a); no data, no
+RH/GRH, no semiclassics).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is

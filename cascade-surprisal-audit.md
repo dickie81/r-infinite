@@ -5746,6 +5746,29 @@ question stands in its transformed form: whether the grammar reads the two
 coordinates. The next hostile round triggers on the next substantive paper
 change.**
 
+## Addendum 109: the forced-Hasse Remark landed — the round-48 edge case dissolved; the L8f gates
+
+**Commissioned: "Explore the edge case" → "Land it". Lead-derived and
+machine-verified in the scratchpad before landing; category (a) throughout.**
+
+**The result:** Theorem 1h's Hasse forcing and its norm-group criterion are one
+closed-form function h_β(d) := ζ₈²/β(−d) = (d,−1)₂/β(d) (cocycle identity, gated).
+Its reality locus is exactly the norm group H — the four non-norm discriminants
+are forced to quarter-turn values ±i, impossible for a Hasse invariant, so the
+census iff compresses to exclusion-by-impossibility. ker γ₂ is the graph of h_β
+over H, tied in-code to the L4 census. At the trivial slot h_β(1) = +1 coincides
+with the Hilbert axiom (a,−a)₂ = 1 (gated on all eight classes): the two forcing
+mechanisms round 48 verified separately are provably one formula — the edge case
+does not exist. Third appearance of the ζ₄ motif: invisible ⟺ forced Hasse real;
+excluded ⟺ a quarter-turn.
+
+**Grading:** pure consequence of 1g(ii)'s cocycle and closed form; no new
+convention; no grammar entry, no number changes, no closure. **Surfaces:** the
+Remark after Theorem 1h in the paper; the T1h extension + count lineage in the
+formulation (32 → 35); the three L8f gates + docstring section in
+cascade_local_family.py. **Object gates at this commit:** 4/5/35/27/6/10, 0 FAIL.
+Round 49 (hostile subagent, per protocol) follows this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
