@@ -5524,6 +5524,56 @@ verifiers — is certified clean at theorem grade by this round's independent
 recomputation, with three record-fidelity minors found and swept. Future addenda
 record substantive rounds only.
 
+## Addendum 103: round 44 — lead-direct re-review of the paper; five defects fixed, five opportunities implemented; the L7 gates
+
+**Commissioned: "re-review the entire (new) paper and look for defects or missed
+opportunities," then "do it all!" — a lead-direct round (Check 1: the paper read end
+to end by the lead, lines 1–841, no sampling; machine verification of every greppable
+claim). Round 45 (hostile subagent, per protocol) follows this commit as the
+mandatory review of a substantive paper change.**
+
+**Review verdict: no majors, no mathematical falsehood; one minor and four cosmetics,
+plus five opportunities — all implemented this round:**
+
+- **D1 (minor, fixed):** the verification-suite footer listed 15 of the 31 scripts
+  cited in place, omitting the entire Theorems-1b–1g arc, both Remark verifiers, and
+  the uniqueness apparatus; the classical-inputs line similarly omitted Lam, Rao,
+  Gauss/Landsberg–Schaar, Legendre, Hensel, Hilbert, Poincaré–Hopf, and
+  Steenrod–Whitehead. Rewritten as a census-complete list built programmatically from
+  the cited set. *Instrument note, recorded:* the lead's own review grep was
+  case-sensitive and reported 29/13; the true census is 31/15 (the two uppercase
+  names). The missing-16 list was exact.
+- **D2 (cosmetic, fixed):** "residue item seven" (two sites) — an external review's
+  historical ordinal with no referent in the self-contained paper, whose abstract
+  lists the named class sixth. Reworded with the history disclosed.
+- **D3 (cosmetic, fixed):** m_ν3 classified into both metric classes across surfaces;
+  §8's "largest strain" sentence now scoped to σ-graded entries with the floor-metric
+  grading and the ledger pointer explicit.
+- **D4 (cosmetic, fixed):** §9's "frozen before the data exists" contradicted by its
+  own first row's standing-tension disclosure; reworded to carry the exception.
+- **D5 (cosmetic, fixed):** §8's "Every output below is forced" now carries the §6
+  exhaustion-verification pointer (~60 of ~100 machine-exhausted).
+- **O-A (implemented):** the Steenrod–Whitehead citation-confidence caveat discharged
+  — the round-43 primary-source confirmation from Adams 1962 ("For b ≤ 3, the result
+  is due to Steenrod and Whitehead") propagated to the Door-3 Remark.
+- **O-B/O-C (implemented — the L7 gates, `cascade_local_family.py` 23 → 27 PASS):**
+  L7a directness (γ(m⟨1⟩) ≠ 1 for m = 1..7; 8·4 = 32 forces W(ℚ₂) = ⟨⟨1⟩⟩ ⊕ ker);
+  L7b the full 32-class character table on explicit representatives, kernel-blind in
+  every μ₈-coset; L7c I²-transversality (γ(⟨⟨−1,−1⟩⟩) = −1 on the I² generator;
+  I³ = 0, |I²| = |Br₂| = 2 cited classical) — γ₂ does not factor through W/I²; L7d
+  signed-disc faithfulness (kernel d± classes {5, 10, 2} distinct; d± injects the
+  kernel into I/I²; k₁+k₂ = k₃ confirmed). The open (ℤ/2)² grammar question is
+  narrowed, not closed: the invisible data is discriminant-level, not
+  deep-filtration. Paper 1g(iii) and the formulation carry the narrowing.
+- **O-D (implemented):** the place dichotomy boxed in 1g (v ∈ {2, ∞} ⟺ γ_v(⟨1⟩)
+  primitive ⟺ dimension/signature sensitivity ⟺ im = μ₈).
+- **O-E (implemented):** the footer refresh doubles as the auditable census (D1).
+
+**Object gates at this commit:** layer_selection 4/0, adams_loadbearing 5/0,
+local_family **27/0** (L7 added), witt_weil 27/0, finite_places 6/0, local_tate 10/0
+(PASS/FAIL); formulation_kernel worst residual 6.44×10⁻¹⁴ within the quoted bound.
+The formulation's count synced (23 → 27, marker carried).
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -95,6 +95,28 @@ verified it per square class; here per form), including an
 8-dimensional definite form (sig = dim = 8: both clock places
 return 1 -- the mod-8 wrap seen globally).
 
+L7 (ROUND 44 -- THE EXHAUSTIVE QUOTIENT + WHERE THE OPEN QUESTION
+LIVES; verified).  (a) Directness: gamma_2(m<1>) = zeta_8^(-m) != 1
+for m = 1..7, so <<1>> cap ker = 0; with |W(Q_2)| = 32 = 8 x 4
+(Lam, cited) this forces W(Q_2) = <<1>> (+) ker gamma_2 as a DIRECT
+sum.  (b) The full 32-class character table: on explicit diagonal
+representatives m<1> + e1 k1 + e2 k2 (gamma multiplicative on
+orthogonal sums), gamma_2 = zeta_8^(-m) on the <1>-coordinate,
+kernel-blind in every mu_8-coset -- the quotient theorem made
+exhaustive rather than generated.  (c) I^2-TRANSVERSALITY:
+<1,1,1,1> = <<-1,-1>> generates I^2 (I^3 = 0 and |I^2| =
+|Br_2(Q_2)| = 2, classical, cited) and gamma_2 of it is -1 != 1,
+so gamma_2 does NOT factor through W/I^2 and ker gamma_2 cap I^2
+= 0: the clock character is transverse to the fundamental-ideal
+filtration.  (d) DISC-FAITHFULNESS: by the SIGNED discriminant
+d+- = (-1)^(n(n-1)/2) det (the Witt-invariant disc), the four
+kernel classes carry distinct square classes, so d+- : ker
+gamma_2 -> I/I^2 = Q_2^x/sq is INJECTIVE, and d+- confirms
+k1 + k2 = k3.  Reading: whatever grammar meaning the invisible
+(Z/2)^2 carries, it is DISCRIMINANT-LEVEL data, not
+deep-filtration data -- the open question stays open; L7 narrows
+where its answer can live.
+
 WHAT THIS DOES NOT DO: derive any A2 grammar entry (N_c's count
 remains Adams-archimedean per 1f(iii); the layer selection remains
 papers-side); touch data; use RH/GRH.  The reading of this mu_8
@@ -386,6 +408,45 @@ def main():
           f"{'PASS' if ok7 else 'FAIL'}")
     print("   => the unified criterion is now fully in-code: the clock")
     print("      places are exactly those where gamma_v(<1>) is primitive.")
+
+    # ---- L7 (round-44): exhaustive quotient + filtration transversality
+    print()
+    print("L7 the 32-class character table + the I^2 transversal (round 44):")
+    z8i = gamma_v(1, 2)                       # zeta_8^{-1}
+    oka = all(abs(z8i ** m - 1) > 0.5 for m in range(1, 8)) and 8 * 4 == 32
+    print(f"   L7a directness: gamma(m<1>) != 1 for m = 1..7, and"
+          f" 8 x 4 = 32 = |W| (Lam) => W = <<1>> (+) ker   "
+          f"{'PASS' if oka else 'FAIL'}")
+    ks = [(a, b) for _, _, a, b in kernel]    # the 3 census kernel reps
+    okb7 = True
+    for m in range(8):
+        for e1 in (0, 1):
+            for e2 in (0, 1):
+                f = [1] * m + list(ks[0]) * e1 + list(ks[1]) * e2
+                g = gamma_form(f, 2) if f else 1
+                okb7 &= abs(g - z8i ** m) < 1e-8
+    print(f"   L7b character table: all 32 classes on explicit reps,"
+          f" gamma = zeta_8^-m, kernel-blind   {'PASS' if okb7 else 'FAIL'}")
+    okc = abs(gamma_form([1, 1, 1, 1], 2) + 1) < 1e-8
+    print(f"   L7c I^2 transversal: gamma(<<-1,-1>>) = -1 on the"
+          f" generator of I^2 (I^3 = 0, |I^2| = 2: cited)   "
+          f"{'PASS' if okc else 'FAIL'}")
+
+    def dpm_class(f):
+        n = len(f)
+        d = (-1) ** (n * (n - 1) // 2) * disc(f)
+        return next(c for c in d2 if same_class(d, c))
+
+    kcls = [dpm_class(list(k)) for k in ks]
+    okd = len(set(kcls)) == 3 and 1 not in kcls
+    okd &= dpm_class(list(ks[0]) + list(ks[1])) == kcls[2]
+    print(f"   L7d signed-disc faithful: kernel d+- classes {kcls}"
+          f" distinct (0 -> 1), k1+k2 = k3   {'PASS' if okd else 'FAIL'}")
+    print("   => the clock-invisible (Z/2)^2 is TRANSVERSE to the")
+    print("      fundamental-ideal filtration and faithfully labeled by")
+    print("      the signed discriminant: disc-level data, not deep-")
+    print("      filtration data.  The grammar question stays OPEN;")
+    print("      L7 narrows where its answer can live.")
 
     print()
     print("=" * 74)

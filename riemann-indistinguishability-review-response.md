@@ -998,3 +998,20 @@ only; both record files are declared history under standing banners; the
 pattern-census ritual is retired; the object gates (seven committed verifiers)
 are the standing verification. This table is the last of the convergence-loop
 era; future tables record substantive rounds only.
+
+# Round 44: lead-direct paper re-review — five defects (1 minor, 4 cosmetic), five opportunities, all fixed/implemented; round 45 (subagent) gates the change
+
+| Item | Disposition |
+|---|---|
+| D1 (minor) — footer suite census 15 of 31 cited scripts; classical inputs missing eight load-bearing citations | **Fixed.** Census-complete footer built from the cited set; lead's own 29/13 grep miscount recorded (case-sensitivity) |
+| D2 (cosmetic) — "residue item seven" dangling ordinal ×2 vs the abstract's sixth-listed class | **Fixed.** Reworded, history disclosed |
+| D3 (cosmetic) — m_ν3 in both metric classes; "largest strain" unscoped | **Fixed.** Scoped to σ-graded entries |
+| D4 (cosmetic) — "frozen before the data exists" vs its own row's standing tension | **Fixed.** Exception carried in the sentence |
+| D5 (cosmetic) — §8 "forced" without the §6 exhaustion pointer | **Fixed.** Pointer added |
+| O-A — Steenrod–Whitehead caveat discharged (Adams 1962 primary source, round 43) | **Implemented** at the Door-3 Remark |
+| O-B — I²-transversality + signed-disc faithfulness of the invisible (ℤ/2)² | **Implemented** — gates L7c/L7d; question narrowed to disc-level, stays open |
+| O-C — full 32-class character table; W(ℚ₂) = ⟨⟨1⟩⟩ ⊕ ker direct | **Implemented** — gates L7a/L7b; local_family 23 → 27 PASS |
+| O-D — the place dichotomy boxed | **Implemented** in 1g |
+| O-E — auditable footer census | **Implemented** (= D1 fix) |
+
+**Round 45 (hostile subagent, per the amended protocol) reviews this commit; stability of the changed surfaces gates on it.**

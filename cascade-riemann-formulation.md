@@ -163,11 +163,18 @@ exhaustive + battery): dim mod 8 at v = 2, sig mod 8 at ∞, **no dimension term
 p** — the clock places are exactly the dimension-sensitive places. (iii) Kernel
 anatomy: Witt census re-derived (1+8+14+8+1 = 32); **ker γ₂ = (ℤ/2)² = the three dim-2
 anisotropic classes (disc, Hasse) = (3,+1), (6,−1), (14,+1), each order 2, plus 0** —
-the clock-invisible classes; their grammar meaning OPEN, none claimed. (iv) Global
+the clock-invisible classes; their grammar meaning OPEN, none claimed *(narrowed
+round 44, gates L7a–d: the quotient made exhaustive — W(ℚ₂) = ⟨⟨1⟩⟩ ⊕ ker γ₂ direct,
+full 32-class character table — and the invisible (ℤ/2)² shown transverse to the
+fundamental-ideal filtration (γ(⟨⟨−1,−1⟩⟩) = −1 on the I² generator) and
+signed-disc-faithful (d± injects the kernel into I/I²): disc-level data, question
+open)*. (iv) Global
 re-lock on six multi-dim forms ≤ 4×10⁻¹⁵ incl. the dim-8 definite form (both clock
 places wrap to 1). Run record: p = 17 timeout → primes trimmed, two pre-run code
-artifacts removed. 23 PASS 0 FAIL *(round-43 sync: the two L6 gates added in round 26
-had not been propagated to this count)*. No grammar entry derived; no data, no closures.
+artifacts removed. 27 PASS 0 FAIL *(round-44: the four L7 gates — directness, the
+32-class character table, I²-transversality, signed-disc faithfulness — added; the
+round-43 sync had corrected the count to 23 after the L6 gates)*. No grammar entry
+derived; no data, no closures.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

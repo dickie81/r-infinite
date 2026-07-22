@@ -323,7 +323,14 @@ exhaustively at v = 2 over dims 1–2 (72 forms), on a deterministic dims-3–6 
 at p = 3, 5. Structurally: **the dyadic clock reads dimension mod 8** (γ₂(1) = ζ₈⁻¹)
 twisted by disc and Hasse; the archimedean clock reads **signature mod 8** (Theorem 1f);
 at odd p, γ_p(1) = 1 and **the dimension term vanishes** — the clock places are exactly
-the dimension-/signature-sensitive places of ℚ. *(iii) The kernel's anatomy.* The Witt
+the dimension-/signature-sensitive places of ℚ.
+
+> **The dichotomy (1g(i)–(ii) gathered; round 44, editorial):** for every place v of ℚ:
+> **v ∈ {2, ∞} ⟺ γ_v(⟨1⟩) is a primitive 8th root ⟺ γ_v reads dimension/signature
+> mod 8 ⟺ im γ_v = μ₈ (the clock group).** Otherwise γ_v(⟨1⟩) = 1, the dimension term
+> vanishes, and im γ_v ⊆ μ₄ with silent units.
+
+*(iii) The kernel's anatomy.* The Witt
 classes of ℚ₂ are re-derived in-code from the (disc, Hasse) classification of binary
 forms — 15 realized pairs = 14 anisotropic + the hyperbolic (disc ∼ −1, h = +1), with
 (disc ∼ −1, h = −1) unrealizable in dimension 2, totalling 1+8+14+8+1 = 32, matching
@@ -334,7 +341,20 @@ own negative (order 2, by the dim-2 isometry criterion), so ker γ₂ ≅ (ℤ/2
 W(ℚ₂) ≅ ℤ/8 ⊕ (ℤ/2)² with the ℤ/8 the ⟨1⟩-span (1f) and the (ℤ/2)² **exactly the
 clock-invisible classes**. *Grammar honesty:* whether the two clock-invisible ℤ/2's
 (disc-type and Hasse-type data) carry any grammar meaning is **open — none claimed**;
-this door was opened to expose that question precisely. *(iv) The global re-lock.*
+this door was opened to expose that question precisely. *Narrowed (round 44; gates
+L7a–d):* the question's home is now located. **The quotient is exhaustive** —
+γ₂(m⟨1⟩) = ζ₈⁻ᵐ ≠ 1 for m = 1..7 gives ⟨⟨1⟩⟩ ∩ ker = 0, and 8·4 = 32 = |W(ℚ₂)|
+(Lam) forces the direct sum W(ℚ₂) = ⟨⟨1⟩⟩ ⊕ ker γ₂, with the full 32-class character
+table γ₂ = ζ₈⁻ᵐ on the ⟨1⟩-coordinate verified on explicit diagonal representatives,
+kernel-blind in every μ₈-coset. **And the invisible (ℤ/2)² is transverse to the
+fundamental-ideal filtration and discriminant-faithful**: ⟨1,1,1,1⟩ = ⟨⟨−1,−1⟩⟩
+generates I² (I³ = 0 and |I²| = |Br₂(ℚ₂)| = 2, classical), and its γ is −1 ≠ 1 — so
+γ₂ does not factor through W/I² and ker γ₂ ∩ I² = 0; by the signed discriminant
+d± = (−1)^(n(n−1)/2)·det (the Witt-invariant disc) the four kernel classes carry
+distinct square classes ({1, 5, 10, 2} — gated, with k₁+k₂ = k₃ confirmed via d±),
+so **d± : ker γ₂ ↪ I/I² ≅ ℚ₂^×/sq is injective**. Whatever grammar meaning the
+invisible classes carry, it is discriminant-level data, not deep-filtration data;
+the question stays open — this narrows where its answer can live. *(iv) The global re-lock.*
 Π_v γ_v(q) = 1 verified to ≤ 4×10⁻¹⁵ on six multi-dimensional rational forms — beyond
 1f's per-square-class rows — including the 8-dimensional definite form, where both clock
 places wrap to 1: the mod-8 period seen globally. *Run record:* the first run timed out
@@ -384,9 +404,11 @@ bound at all), and **every load-bearing upper bound sits at v₂(d) ∈ {0, 1, 2
 needing only Poincaré–Hopf (1885/1926), v₂ ∈ {1, 2} lying in the classical pre-K-theory
 range settled by Steenrod–Whitehead (1951, Steenrod squares on stunted projective
 spaces; refinements James 1957, Toda) a decade before Adams. *Citation-confidence
-caveat:* the exact scope of the 1951 theorem is quoted from the standard history (the
-original was paywalled when this remark was written); the conclusion is robust across
-readings, since every needed case sits at v₂ ≤ 2, the lightest cases of that method.
+caveat, discharged (round 43, A102):* the attribution is now confirmed from Adams'
+1962 Annals paper directly — *"For b ≤ 3, the result is due to Steenrod and
+Whitehead"* (b = v₂ of the relevant dimension) — and every needed case sits at
+v₂ ≤ 2 < 3: the conclusion rests on Adams' own attribution, no longer on the
+standard history.
 **Consequence: K-theory proper is load-bearing nowhere in the window.** The honest
 negative of Theorem 1f(iii) stands verbatim, but its "archimedean K-theory" attribution
 refines to "Clifford construction + classical mod-2 topology": the count's
@@ -499,7 +521,9 @@ sign rule's Geometric clause ("all 28 two-coset shares < 1/π") holds under the 
 pairing (2/Γ_ℝ(d), max 0.31322) but **fails under the Definition-2.1-consistent pairing**
 (2/Γ_ℝ(d+1): max 0.35001 ≥ 1/π; independently verified). The Geometric minus sign backing
 Ω_m is convention-conditional, not proved — the same d↔s pairing disease as the demoted
-volume pinning. Residue item seven is widened to every d↔s layer/weight pairing choice. **The systematic
+volume pinning. The selection-convention residue class (the abstract's sixth listed item; "item
+seven" in the external reviews' historical numbering — ordinal reconciled round 44)
+is widened to every d↔s layer/weight pairing choice. **The systematic
 d/s audit is complete** (`cascade_ds_audit.py`): nine sites — one definitional, four stable
 (including Thm 10's set/exponents under all three pairings and the Gram-deficit indices
 under every shift), two data-anchored conventions (the window-potential pairing, selected by
@@ -616,7 +640,8 @@ the *observer* is a labeling, not a derivation), plus one Wick/lapse-conditional
 cross-check (scalar-flatness R·a⁴ = (n−1)(n−4) — demoted by the third review: the identity
 contains no arithmetic object and the induced round-sphere metric is never scalar-flat), the
 feature-boundary characterisation having been demoted by the second review
-(`cascade_arithmetic_d4.py`; residue item seven). Generations: the marked coset {5, 13, 21};
+(`cascade_arithmetic_d4.py`; the selection-convention residue class — the abstract's
+sixth item, "item seven" in the external reviews' numbering). Generations: the marked coset {5, 13, 21};
 gauge structure: twists {12, 13, 14} with multiplicities the 2-adic Radon–Hurwitz counts;
 colour characters: ℚ(ζ₃); the phase transition: the ln Γ(½) threshold (19); the sink: the
 Γ(½) threshold (217); sources, occupancy classes, population classes, and record statuses as
@@ -757,7 +782,9 @@ corrected tail).
 
 ## 8. The record: agreement at current precision
 
-Every output below is forced by Theorems 1–13 under Definition 6.1; deviations are against
+Every output below is forced by Theorems 1–13 under Definition 6.1 (determination; the
+exhaustion-verification status of the ~100 address entries is per §6 — ~60
+machine-exhausted); deviations are against
 current world data (verifiers in `tools/research/`; the Planck-anchored chain runs
 M_Pl → v → all masses):
 
@@ -781,7 +808,10 @@ experimental error where it dominates; %/ppm entries (chain absolutes, 1/α_em, 
 against the framework's **leading-order systematic floor** — there the deviation is many
 experimental σ, and the claim is that the residual sits at the framework's stated floor, not
 inside experimental error. With that convention stated: no output disagrees with any current
-measurement beyond the applicable tolerance, ℓ_A (−1.8σ) being the largest strain. This
+measurement beyond the applicable tolerance; ℓ_A (−1.8σ) is the largest strain
+**among the σ-graded entries**, and m_ν3's −2.9σ (NuFit input) — quoted in its row
+for information — is graded by the floor metric (−0.5%), its input-dependent tension
+registered there and in the §9 ledger (round 44 reconciled the double appearance). This
 table, plus Theorems 1–13, is the content of the word "indistinguishable."
 
 ## 9. The Indistinguishability Theorem — and its executioners
@@ -792,7 +822,9 @@ the observable universe at current experimental precision.* *Proof:* Theorems 1�
 (mathematics) + the table of §8 (the record). ∎
 
 The conditional cannot be discharged by mathematics — no theory's can. It is discharged, or
-destroyed, by the pre-registered ledger, frozen before the data exists:
+destroyed, by the pre-registered ledger, frozen before its judges report — with the
+one standing exception disclosed in its own first row, where published compressed
+bounds already press the value:
 
 | Prediction | Value | Judge | Kill condition |
 |---|---|---|---|
@@ -831,11 +863,4 @@ destroyed, by the pre-registered ledger, frozen before the data exists:
 
 ---
 
-*Verification suite: `tools/research/cascade_formulation_kernel.py`,
-`cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`,
-`cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_measurement_joint.py`,
-`cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`,
-`cascade_T4_uniqueness.py`, `cascade_arithmetic_d4.py`, `cascade_leptons.py`,
-`cascade_neutrino_closure.py`, `cascade_E_fit_audit.py`, `cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil, the
-metaplectic index; Wall, the graded Brauer group; Bohr–Mollerup; Adams/Radon–Hurwitz;
-Lovelock; Kolmogorov.*
+*Verification suite (complete census of the scripts cited in place — 31 scripts, refreshed round 44; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`, `cascade_neutrino_closure.py`, `cascade_E_fit_audit.py`, `cascade_null_clone.py`. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
