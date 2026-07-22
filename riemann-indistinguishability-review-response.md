@@ -873,3 +873,24 @@ figures.
 | F6 (cosmetic) — A96 carried no Checked-and-held block | **Accepted.** Noted; A97 restores the block | A97 |
 
 **Trajectory: … → 0+2(+2c) → 0+4(+2c). Round 39 gates stability.**
+
+# Round 39: convergence test on the round-38 sweep (subagent, per protocol) — NOT CONVERGED (0+2+3c); the summary layer
+
+The transcripts verified exact at commit-final; nothing false in any battery, strike,
+annotation, marker, table, chain, or registration; seventh consecutive round of held
+corrections. Both minors sit in A97's standing state — the round's prose summary of
+itself.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 (minor) — "zero majors for three consecutive rounds": the true count is two (37, 38), contradicted by the trajectory in the same sentence — the round-38-F4 class, committed by the correction | **Accepted.** Struck | A97 |
+| F2 (minor) — "every defect this round arose from prose describing a transcript's future": a failed universal (F1/F2 only; F3–F6 other classes) | **Accepted.** Struck on both surfaces | A97 ×2 |
+| F3 (cosmetic) — "properly-marked disposition hit" on an unmarked accurate row (the round-38 F5 class, fourth surface) | **Accepted.** Reworded | A94 annotation |
+| F4 (cosmetic) — "one-word classifications": the tags are multi-word | **Accepted.** Format term corrected | A97 battery header + clause |
+| F5 (cosmetic) — "[A96 T2 transcript + strike]" distributive mislabel | **Accepted.** Disambiguated | A97 T2 |
+
+**Rule adopted (the standing-state clause, the terminal census rule):** standing-state
+and verdict prose carries no count not machine-copied from the committed headers in
+the same commit; interpretive sentences carry no numerals.
+
+**Trajectory (headers, machine-copied): … → 0+2+2c → 0+4+2c → 0+2+3c. Round 40 gates stability.**
