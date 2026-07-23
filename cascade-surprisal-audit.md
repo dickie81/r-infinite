@@ -8404,6 +8404,42 @@ the runtime print ("all 81 paper-cited scripts" on every run).
 (swept this commit) → round 93 (convergence test) spawned per
 protocol.**
 
+## Addendum 170: convergence round 93 on commit ffc1fcc — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, swept); Theorem 1t certified stable; the grammar-need arc closes
+
+Round 93 ran the full end-state verification: the citation census
+independently re-extracted (80 tex + 1 ledger-only = 81 resolving, the
+54/17/4/2/2/2 distribution exact); the token census independently re-run
+over the 91-file set + 12 papers + ledger (exactly the one allowlisted
+Kronecker-product docstring; all else zero); the part4b retraction
+intact and valid; every round-92 fix verified in place with the sole
+surviving "paper-cited" token being the correct split statement; strike
+and bracket structure balanced; the footer census set-identical both
+directions; batteries and validator green; both theorem blocks read end
+to end with no residual at any severity beyond one rewrap artifact (an
+orphan "entire" line in the verifier docstring — swept in this record
+commit per the rounds-78/80/85 precedent; verifier re-run 5/0).
+
+**Verdict: CONVERGED. Theorem 1t is stable, and the commissioned arc
+("the odd extrinsic principle / grammar-need question") closes:** 1s's
+disjunction resolves on its auditable branch — for the committed record,
+now censused over every paper- or ledger-cited computational surface
+(81 resolving scripts, 91 files, count and resolution gated), **the
+grammar does not need the odd reading**. The pairing-act is Door-4
+bookkeeping: an identification between two independently committed
+objects, consumed by nothing in the derivation chain. The member
+persists as charged (three members, seven items unchanged through the
+entire 1j→1t arc), with the licensed stopping-rule-gated falsifier:
+any future grammar entry routed through the odd bridge's L-side
+re-opens its derivational weight. By-product of the arc: part4b's dead
+citation to a never-committed, Check-7-listed instrument found and
+retracted at source.
+
+**Trajectory: 1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c →
+92 0M+1m+2c → 93 CONVERGED 0+0+1c (swept). Standing open routes: the
+regularity/coherence given (1p/1q, either face, from A1–A4); the
+layer-2 soft inputs. Next hostile round on the next substantive paper
+change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

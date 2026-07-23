@@ -57,8 +57,7 @@ content is the audit's subject, not a consumer.
      instruments, all 81 paper- or ledger-cited scripts, and
      model_checks + generators wholesale (round-92 F1 completed
      the round-91 attribution fix): the ONLY token hit in the
-     entire
-     computational record is one "Kronecker product" docstring
+     entire computational record is one "Kronecker product" docstring
      (linear algebra, cascade_route_c_d13_dirac.py) -- gated by
      the allowlist (every "kronecker" hit must be the phrase
      "kronecker product"); all other tokens zero.
