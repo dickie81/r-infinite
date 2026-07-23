@@ -219,8 +219,10 @@ anatomy read back through the census — invisibility = the μ₄ disc character
 entailed by T11), the μ₆ requirement determines χ₋₃ with minimality entailed;
 ε-support {3, ∞} (T1i). Adjudicated: the member is re-motivated, not reduced —
 three members and the seven-item count stand. No closure; category (a).
-*(Net-state, T1r: χ₋₄ fails three committed anchors under act-forms strictly
-weaker than the colour gloss; the act persists.)*
+*(Net-state, T1r as corrected round 81: χ₋₄ fails three distinct committed
+anchors — W₁ strictly weaker extensionally; the carrying-conductor and census
+routes equivalent to the gloss's output, weaker only in what they name; the
+act persists.)*
 
 **T1k (the lattice selection; `cascade_lattice_selection.py`, seven gates;
 round-60 F1 correction applied).** Under the site-E canonical pairing
@@ -387,8 +389,10 @@ A1–A4. No number changes; no closure; category (a).
 act decomposed, the live alternative excluded thrice on committed anchors.
 The partner family (every odd real primitive χ) is classically the Kronecker
 characters of negative fundamental discs — the census's own space (parity
-gated on all 3043; the symbol routine cross-checked against a library
-Jacobi). Act-form W₁ (1j's committed "dyadic shadow = the invisible unit
+gated on all 3043; the symbol routine cross-checked in-code against a library
+Jacobi on 500 seeded cases ~~cross-checked against a library Jacobi~~
+**[reworded round 81 (F1, MAJOR): a session run until landed; now a committed
+P1 conjunct]**). Act-form W₁ (1j's committed "dyadic shadow = the invisible unit
 direction", promoted; no field, no μ₆, no T11 named): the slice is cls(−3)'s
 class, 1014 of 3043 (iff χ_d(2) = −1, 1e(iv)'s inert clock prime; −11 in the
 slice, no field pinned — round-57 F2 kept), and **χ₋₄ is excluded by 1h's
@@ -403,7 +407,11 @@ ker(·,−1)₂ = H — the candidate partner's character is the committed filte
 *instrument*, cls(−3) the invisible *datum*. **The act persists** — no
 act-form is entailed, pairing-at-all (the odd feature's missing address) is
 untouched, no universal over act-forms claimed; the round-57 "only the order
-or the pairing-act excludes" is superseded by the triple exclusion. Three
+or the pairing-act excludes" is superseded by the triple exclusion — the three
+anchors distinct, not "independent," and only W₁ strictly weaker extensionally
+than the colour gloss (the act's standing form: pair with the colour field's
+character), the other two equivalent in output and weaker only in what they
+name (round-81 F2/F3). Three
 members and the seven-item count stand. No closure; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence

@@ -1653,3 +1653,25 @@ symmetry, census honestly classified, adjudication and limit-caveat gated,
 the equivalence gated from the never-∞ premise. The open question is
 unchanged in extension: derive the given, either face, from A1–A4. Next
 hostile round on the next substantive paper change.**
+
+# Round 81: hostile review of Theorem 1r (subagent, per protocol) — NOT CONVERGED (2 MAJOR, 2 minor, 3 cosmetic); full sweep applied; convergence round 82 follows
+
+Every number independently recomputed and confirmed (census 3043; slice
+1014; the kernel; class numbers; both L(1) constants; the Kronecker routine
+re-cross-checked on 7000 cases with zero mismatches). The findings concern
+surfaces vs committed gates and default word-readings, not the mathematics.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F81-1 (MAJOR) — the "library Jacobi cross-check" claim pointed at no committed code (session run cited as verification) | **Accepted; the cross-check landed as a seeded P1 conjunct**; both surfaces struck/reworded | verifier + paper + formulation |
+| F81-2 (MAJOR) — "act-forms strictly weaker than the colour gloss" false for W₂ and the census route (pass sets exactly {−3}, equivalent to the gloss's output; only W₁ strictly weaker, 1014 ⊋ {−3}) | **Accepted; struck-and-annotated**; the ordering stated on every surface (W₁ weaker in pass set; the others weaker only in what they name) | paper header/(v) + 1j markers + formulation + verifier docstring/prints |
+| F81-3 (minor) — "three independent anchors" unqualified; W₂'s exclusion generic | **Accepted**; "distinct" + the generic-W₂ disclosure (kernel route verified non-trivial: −28, −24 kernel-admitted) | all surfaces |
+| F81-4 (minor) — first-draft-bug narrative unverifiable on the paper surface | **Accepted; moved to the audit record** | paper + formulation |
+| F81-5/6/7 (cosmetic) — "colour gloss" undefined; docstring quote reordered; two literal conjuncts that cannot fail (+ footer classical inputs) | **Accepted; swept** (defined at first use; verbatim quote restored; computed gates; Dirichlet formula + Leibniz added) | paper + verifier + footer |
+
+**Trajectory: 1r landed → 81 NOT CONVERGED 2M+2m+3c (swept) → round 82
+(convergence test) next. Net state: the pairing-act persists; χ₋₄ fails
+three distinct committed anchors (W₁ strictly weaker extensionally; W₂ and
+the census equivalent in output, weaker in what they name); the bridge's
+committed constant carries w = 6 by Dirichlet; no universal over act-forms
+claimed.**

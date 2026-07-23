@@ -13,8 +13,9 @@ address) with the colour field's character -- and recorded chi_-4
 as "a live alternative partner that only the order or the
 pairing-act excludes."  Theorem 1j is stable (round 59) in that
 adjudicated form.  This file attacks the act directly: decompose
-it, and test the live alternative against committed structure
-under act-forms STRICTLY WEAKER than the colour gloss.
+it, and test the live alternative against committed-anchored
+act-forms (the ordering between them and the colour gloss is
+stated in GRADING -- round-81 F2).
 
   P1 THE TARGET SPACE IS THE CENSUS SPACE.  The odd bridge's
      partner family -- every odd real primitive chi (1c) -- is
@@ -64,28 +65,40 @@ under act-forms STRICTLY WEAKER than the colour gloss.
      class-level -- -4 = -1 times a square -- an exhibit, not an
      independent gate; the kernel computation is the gate.)
 
-GRADING (honest; the round-57 typing applied in advance).  THE
-ACT PERSISTS.  None of W1, W2, or the colour gloss is entailed by
-the axioms; each is a matching principle of the round-57 type
-(why the invisible direction; why a carrying conductor; why
-mu_6), and pairing-at-all -- the odd feature's missing address
-(Definition 6.1) -- is untouched.  What changes is the live
-alternative's status: chi_-4 now fails THREE independent
-committed anchors under act-forms strictly weaker than the
-colour gloss, so the round-57 phrase "excluded only by the order
-or the pairing-act" is superseded -- the three committed-anchored
-weakenings found here all exclude it, and their outputs are
-consistent (W1 the class containing -3; W2 and the census pin
--3).  No universal over act-forms is claimed.  Three members and
-the seven-item residue count stand; no number changes; no
-closure.
+GRADING (honest; the round-57 typing applied in advance; the
+round-81 F2/F3 corrections applied).  THE ACT PERSISTS.  None of
+W1, W2, or the colour gloss (the act's standing form: pair with
+the colour field's character, 1j) is entailed by the axioms;
+each is a matching principle of the round-57 type (why the
+invisible direction; why a carrying conductor; why mu_6), and
+pairing-at-all -- the odd feature's missing address (Definition
+6.1) -- is untouched.  THE ORDERING, STATED (round-81 F2: the
+first draft said "act-forms strictly weaker than the colour
+gloss", false for two of the three under predicate implication):
+W1 is strictly weaker EXTENSIONALLY (pass set 1014 discs,
+properly containing the gloss's {-3}); W2 and the census route
+are extensionally EQUIVALENT to the gloss's output (each pins
+{-3}) and weaker only in WHAT THEY NAME -- no field, no mu_6, no
+T11 presupposed.  What changes is the live alternative's status:
+chi_-4 fails three DISTINCT committed anchors (round-81 F3:
+"independent" unqualified was wrong -- W2's exclusion is generic,
+excluding every alternative partner whatsoever; the kernel and
+census exclusions are the chi_-4-specific evidence, and the
+kernel route is not mere 2-ramification: -28 (cls 1) and -24
+(cls 10) are 2-ramified discs the kernel admits), so the
+round-57 recital's "only the order or the pairing-act excludes"
+is superseded in exactly this sense.  No universal over
+act-forms is claimed.  Three members and the seven-item residue
+count stand; no number changes; no closure.
 """
 
 import math
 import os
+import random
 import sys
 
 import sympy as sp
+from sympy.functions.combinatorial.numbers import jacobi_symbol
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cascade_torsion_selection import H, cls, fundamental_discs, torsion
@@ -177,11 +190,20 @@ def main():
     chars3 = [kronecker(-3, n) if math.gcd(n, 3) == 1 else 0
               for n in range(3)]
     ok1 &= chars3 == [0, 1, -1] and kronecker(-3, 2) == -1
+    # the library cross-check, landed as a committed conjunct (round-81
+    # F1: a session run is drafting until it lands in code); seeded:
+    rng = random.Random(57)
+    ok1 &= all(kronecker(a, n) == int(jacobi_symbol(a, n))
+               for a, n in (((rng.randint(-500, 500) or 1),
+                             rng.randrange(1, 400, 2))
+                            for _ in range(500)))
     print("   every odd real primitive chi is a Kronecker chi_d, d < 0")
     print("   fundamental (classical, cited); census side gated: all")
     print(f"   {len(discs)} discs to 10^4 give chi_d(-1) = -1.  Re-gated:")
     print("   q = 2 has no primitive character (its unique character is")
     print("   principal); q = 3 has exactly one, odd (chi_-3(2) = -1).")
+    print("   Symbol routine cross-checked in-code against the library")
+    print("   Jacobi on 500 seeded cases (round-81 F1: landed as a gate).")
     print("   The act selects in the space the torsion census reads   "
           + ("PASS" if ok1 else "FAIL"))
 
@@ -210,7 +232,7 @@ def main():
     print("P3 act-form W2 (conductor among the carrying primes {2, 3}):")
     carrying = [d for d in discs if abs(d) in (2, 3)]
     ok3 = carrying == [-3]
-    ok3 &= 4 not in (2, 3)
+    ok3 &= -4 not in carrying    # computed, not a literal (round-81 F7)
     print("   {d in census : |d| in {2, 3}} = [-3] (gated; no fundamental")
     print("   disc has |d| = 2, matching q = 2's empty primitive family):")
     print("   W2 pins chi_-3 outright in the whole family; chi_-4 excluded")
@@ -244,7 +266,7 @@ def main():
     print()
     print("P5 the live alternative fails all three routes; the roles:")
     ok5 = (cls(-4) not in H            # W1
-           and abs(-4) not in (2, 3)   # W2
+           and -4 not in carrying      # W2 (computed; generic exclusion)
            and torsion(-4) == 4)       # the mu_6 route: 4 != 6
     kernel = [a for a in (1, 3, 5, 7, 2, 6, 10, 14) if hilbert2(a, -1) == 1]
     ok5 &= sorted(kernel) == sorted(H)
@@ -252,8 +274,9 @@ def main():
                for a in (1, 3, 5, 7, 2, 6, 10, 14))   # exhibit: -4 = -1*sq
     print("   chi_-4: cls not in H (W1); conductor 4 not carrying (W2);")
     print("   |mu| = 4 != 6 (census) -- the round-57 'only the order or the")
-    print("   pairing-act excludes' is superseded (three committed anchors,")
-    print("   each under a weaker act-form).  Roles re-gated: ker(., -1)_2 =")
+    print("   pairing-act excludes' is superseded (three DISTINCT anchors;")
+    print("   W2's exclusion generic -- the ordering in the docstring, F2/F3).")
+    print("   Roles re-gated: ker(., -1)_2 =")
     print("   H exactly (the candidate partner's character is the committed")
     print("   filter's *instrument*; cls(-3) the invisible *datum* -- the")
     print("   (., -4)_2 = (., -1)_2 identity declared an exhibit, -4 being")
@@ -264,11 +287,12 @@ def main():
     print("READING (classical + gated; grading in docstring)")
     print("=" * 74)
     print("  The pairing-act selects in exactly the census's space.  Under")
-    print("  three act-forms strictly weaker than the colour gloss -- the")
-    print("  dyadic shadow (W1), the carrying conductor (W2), the torsion")
-    print("  census -- the live alternative chi_-4 is excluded each time,")
-    print("  and the routes consistently point at chi_-3 (W1 its class; W2")
-    print("  and the census the field).  The bridge's own committed")
+    print("  three committed-anchored act-forms -- W1 strictly weaker")
+    print("  extensionally; W2 and the census equivalent to the gloss's")
+    print("  output, weaker only in what they name (round-81 F2) -- the")
+    print("  live alternative chi_-4 is excluded each time, and the routes")
+    print("  consistently point at chi_-3 (W1 its class; W2 and the census")
+    print("  the field).  The bridge's own committed")
     print("  constant pi/(3 sqrt 3) carries w = 6 by Dirichlet: the mu_6")
     print("  datum sits on both sides of the pairing.  THE ACT PERSISTS --")
     print("  no act-form is entailed, pairing-at-all is untouched, and no")

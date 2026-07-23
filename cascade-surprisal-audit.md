@@ -7689,6 +7689,69 @@ caught bug's disclosure); the class-number counter; the carrying-prime
 selector's typing; whether P4's Dirichlet reading is novel (Check 4); the
 census counts 1014/3043.**
 
+## Addendum 155: hostile review round 81 on commit 44f604d — NOT CONVERGED (2 MAJOR, 2 minor, 3 cosmetic); all findings lead-verified and swept
+
+The reviewer independently recomputed every number (its own census, its own
+Kronecker via library Jacobi, Serre's Hilbert formula cross-checked by the
+product formula, Dirichlet finite-sum class numbers, direct L-series
+summation — every value confirmed: 3043; 1014; the kernel; h and w values;
+both L(1) constants) and ran the full 42-script battery at expected counts.
+The mathematics held everywhere; the findings are about surfaces vs gates
+and the words' default readings:
+
+- **F1 (MAJOR, instrument-rule violation).** Both paper surfaces claimed the
+  Kronecker routine "cross-checked against a library Jacobi on 500 random
+  odd-modulus cases" — a session run, pointing at no committed code (the
+  standing rule verbatim: session runs are drafting until they land in
+  code). The claim was true; the defect was gating. **Swept:** the
+  cross-check landed as a committed, seeded P1 conjunct (500 cases,
+  `random.Random(57)`, against sympy's `jacobi_symbol`); both surfaces
+  reworded with the strike/annotation; the first-draft-bug narrative (F4)
+  moved off the paper surface to this record, where it belongs.
+- **F2 (MAJOR, comparator overclaim).** "act-forms strictly weaker than the
+  colour gloss" — false for two of the three under predicate implication:
+  W₂'s pass set and the census route's are exactly {−3}, extensionally
+  *equivalent* to the gloss's output (lead-verified); only W₁ is strictly
+  weaker extensionally (1014 ⊋ {−3}). **Swept:** struck on the paper header
+  and (v), the ordering now stated on every surface — W₁ weaker in pass
+  set; W₂ and the census weaker only in what they *name* (no field, no μ₆,
+  no T11); the supersession headline survives on W₁ alone, which excludes
+  χ₋₄ outright (cls 7 ∉ H).
+- **F3 (minor).** "three *independent* committed anchors" — sense unnamed,
+  and W₂'s exclusion is generic (it excludes every alternative partner
+  whatsoever); the reviewer verified the strong form of the attack fails
+  (the kernel route is not mere 2-ramification: −28 cls 1 and −24 cls 10
+  are 2-ramified, kernel-admitted — lead re-verified both). **Swept:**
+  "distinct," with the generic-W₂ disclosure on every surface.
+- **F4 (minor).** The first-draft-bug story was unverifiable testimony on
+  the paper surface (the routine's first commit is the fixed version).
+  **Swept** with F1: the history lives here — for the record: the P1
+  parity gate FAILED on the first in-session draft (1014 discs
+  misclassified) because the Jacobi loop reduced before applying
+  reciprocity; fixed, then cross-checked.
+- **F5/F6/F7 (cosmetic).** "The colour gloss" now defined at first use (the
+  act's standing form: pair with the colour field's character, 1j); the
+  verifier docstring's reordered quote fixed to the verbatim recital; the
+  two literal conjuncts that could not fail replaced with computed gates
+  (`-4 not in carrying`); the footer's classical inputs extended
+  (Dirichlet's class-number formula; Leibniz's series).
+
+**Checked-and-held (reviewer, unpadded):** all verbatim quotes and
+attributions exact (1j:564, 1j:573, 1c:153, 1c:161, 1d:190, 1e(iv), 1h's
+kernel); attack A ("nontrivially" smuggles the answer) FAILS — the clause
+is committed-anchored (1h's "nontrivial norm class") and χ₋₄'s exclusion
+never invokes it; attack B (promotion circularity) substantially defended —
+the fixed-target structure is disclosed in the paper's own words and the
+no-universal concession addresses the rival promotion; attack D (Dirichlet
+reading) holds — the μ₄ cross-check itself exhibits w = 4, so the text does
+not conceal that w appears in every such constant; the net-state markers
+accurate; footer census exact; Checks 7/8 clean; Check 4 novel.
+
+**Battery after sweep: pairing_act 5/0 (P1 now carries the committed
+cross-check conjunct); validator clean on 12 files; census 38 + 4° exact.
+Trajectory: 1r landed → 81 NOT CONVERGED 2M+2m+3c → sweep this commit →
+round 82 (convergence test on the sweep) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
