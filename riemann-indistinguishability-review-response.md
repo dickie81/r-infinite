@@ -1506,3 +1506,21 @@ repo creation, and the subsection rows drifted in both counters.
 | F73-3 (cosmetic, pre-existing) — part5:532's under-precise displayed inputs (result correct) | **Registered** for the next editorial batch | none |
 
 **Trajectory: batch landed → 73 0M+1+1c. Round 74 gates stability.**
+
+# Round 74: convergence test on the round-73 sweep (subagent, per protocol) — **CONVERGED** (0+0); the editorial batch arc closes stable
+
+A clean round: the reworded note verified exact against the batch diff (seven
+rows +1 section digit, exactly two subsection rows additionally +1 sub-index);
+the withdrawal recital accurate; the pre-naming convention held by git
+archaeology; all pointers content-verified against a fresh heading census;
+residual census recitals-only; verifiers and validator green.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — none — | | |
+
+**Trajectory: batch landed → 73 0M+1m → 74 CONVERGED 0+0. The invariant reads
+its exact 1.0989×10⁻¹²⁰ at all 15 sites; part1's 1.20513; the part2=3 table on
+content-match with the causal claim withdrawn; CLAUDE.md at §8. Registered
+residue: part5:532 (future batch). Next hostile round on the next substantive
+paper change.**

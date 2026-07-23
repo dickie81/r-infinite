@@ -7172,6 +7172,31 @@ part3's ≈1.1×10⁻¹²⁰).**
 validator clean on 12 files. **Trajectory: batch landed → 73 0M+1(+1
 record)+1c. Round 74 (convergence test) gates stability of the batch.**
 
+## Addendum 144: hostile review round 74 (convergence test, subagent, per protocol) on commit 70dc83b — **CONVERGED** (0 majors, 0 minors); the editorial batch arc closes stable
+
+**A clean round: the reworded note's factual drift statement verified exact
+against the 5ce6919 diff (seven rows +1 section digit; exactly the two
+subsection rows additionally +1 sub-index; the three pre-drift rows
+correctly outside the claim's scope); the withdrawal recital accurate
+against the prior text; the "rounds 73–74" pre-naming held against the
+established convention (1m/1n precedent confirmed by git archaeology);
+all table pointers content-verified against the reviewer's own heading
+census (no starred sections; 8.5 = Hawking temperature, 8.6 = Cosmological
+hidden geometry); the residual census exactly two recitals; both verifiers
+green; validator clean on 12 files.**
+
+**The editorial batch arc, complete (registered rounds 70–71 → executed
+A142 → 73 0M+1m → 74 CONVERGED):** the invariant now reads its exact
+five-significant-figure value 1.0989×10⁻¹²⁰ at all 15 carrying sites
+across five papers with the compounding anatomy stated at source; part1's
+product corrected to 1.20513; part2=3's summary table re-synchronised on
+content-match with the unsupportable causal claim withdrawn; CLAUDE.md's
+Check-7 pointer at §8. Registered residue for a future batch: part5:532's
+under-precise displayed inputs (result correct). **Standing open routes
+unchanged: the forcing of any 1n equivalent; the 1j pairing-act; the
+layer-2 soft inputs. Next hostile round on the next substantive paper
+change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
