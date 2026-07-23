@@ -7505,6 +7505,75 @@ genuinely one level up from 1p or a re-dressing; the sign adjudication;
 whether the z²-blindness legitimately transports non-degeneracy across
 branches; the Q1 exhibit declarations; Ĩ_sup's exact value.**
 
+## Addendum 152: hostile review round 79 on commit c753fe0 — NOT CONVERGED (3 MAJOR, 3 minor, 2 cosmetic); all findings lead-verified and accepted; full sweep applied
+
+The named attack vectors landed. Round 79 (fresh-context subagent, session's
+own model) returned the campaign's heaviest finding set since round 60, and
+every major survived the lead's direct verification (Check 3 in full):
+
+- **F1 (MAJOR, quote-reattachment).** 1q(i) quoted T1b's *"even, entire of
+  order 1, genus-0 in z²"* verbatim but swapped the subject: in T1b's
+  sentence (line 99–100, lead re-read) the adjectives are predicated of
+  **ξ(½+z)**, while "the paired Hadamard form" names the sum
+  Σ 2z/(z² − (ρ−½)²) — which carries an explicit factor z and is **odd** in
+  z (lead-verified: term(−z) + term(z) = 0; the pole terms −1/s − 1/(s−1) =
+  −8z/(4z²−1) also odd). "The framework's unconditional potential identity
+  is a function of z²" was false-when-written. Struck on every carrying
+  surface; the motivation rebuilt on what is true and now *gated*: ξ assigns
+  the same value to layer and mirror (ξ(8) = ξ(−7) = 4π⁴/225 and
+  ξ(20) = ξ(−19), exact sympy instances added to Q1).
+- **F2 (MAJOR, false census).** "Ĩ = ∞ at all four l₀ = 6 labelings" was
+  false at three: there a content weight vanishes too, making Ĩ an
+  indeterminate 0·∞ form with no exact value — the old verifier's
+  denominator-first short-circuit imposed the "∞" adjudication silently.
+  Lead-verified census: ∞ at (6,19,217) only; indeterminate at (6,19,218),
+  (6,20,217), (6,20,218). And the uniqueness is convention-dependent:
+  under uniform d → d+ε the zero orders at (6,20,218) cancel and the limit
+  is finite-nonzero (lead-recomputed: ≈ −1.413×10¹²³; the other two
+  diverge). Swept: the census restated in four gated classes, the
+  adjudication stated (coherence = the formula *evaluates* to a finite
+  nonzero value), and the ε-limit disclosure *gated* in the new Q2.
+- **F3 (MAJOR, equivalence dressed as progress).** Γ_ℝ never vanishes, so
+  Ω̃ is never ∞ and Ĩ's exact finite-nonzero-ness is immediately the
+  conjunction of the labels' mirror-weight non-vanishings: **mirror
+  coherence ⟺ 1p's per-label regularity**, an exact biconditional
+  (lead-verified; now gated in Q3 with the never-∞ premise). "Moves the
+  given up one level," "each strictly smaller than the last," "the open
+  question narrows," and 1n's "necessity under coherence" were all
+  false-when-written. Swept: 1q retitled and regraded to *an equivalent
+  reformulation with independent motivation*; the 1p and 1n net-state
+  markers struck-and-annotated; part0's parenthetical corrected with the
+  retraction stated; the open question restated as **unchanged in
+  extension — derive the given, in either face, from A1–A4**.
+- **F4/F5/F6 (minor).** The inconsistent "2³ applications, one per member"
+  count (8 vs 6; 1p's gate did 3 pair-checks) — struck. Q1's anchor
+  substring lacked the ² and was satisfiable by 1q's own quote — replaced
+  by the T1b-unique "genus-0 in z², no constant term" with count == 1
+  gated. The π¹¹⁷-rationality and magnitude claims were print-only — the
+  rationality gate added (lead had verified the fact at landing; now the
+  verifier gates it).
+- **F7/F8 (cosmetic).** The d_V "falsifiable test" deflated to what it is —
+  d_V-parity, 1n's recorded fact, since Ω̃ vanishes at every even d (now
+  gated d = 0..30); verifier style swept in the rewrite.
+
+**What survives, on the reviewer's own audit:** the weights and all exact
+values (Ω̃(5) = −15/(4π³); Ĩ_sup·π¹¹⁷ an exact negative rational,
+≈ −1.109×10¹²²); the sign disclosure; the 1p tie as an identity; the
+"branch-swapped" (never "continued") language, so attack vector C did not
+land; part0's open status; the footer census (37 + 4°); Checks 7/8. The
+corrected theorem stands as: *the sup is the unique labeling at which the
+branch-swapped invariant evaluates, exactly, to a finite nonzero value —
+an equivalent second face of the regularity given, with the adjudication
+and the regularized-limit caveat stated and gated.*
+
+**Battery after sweep: mirror_coherence 5/0 (rebuilt: ξ-instance gates, the
+four-class census, the ε-limit gates, the never-∞ premise, the rationality
+gate); validator clean on 12 files. Trajectory: 79 NOT CONVERGED 3M+3m+2c →
+sweep this commit → round 80 (convergence test on the sweep) spawned per
+protocol. Standing open routes unchanged: derive the regularity/coherence
+given from A1–A4; the 1j pairing-act; the layer-2 soft inputs; part5:532
+(editorial).**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

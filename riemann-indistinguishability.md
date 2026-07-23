@@ -770,10 +770,15 @@ the equivalences and keeps "remains open". No number changes; no closure;
 category (a). *(Net-state, Theorem 1o as corrected round 75: the dichotomy has an exact form on ζ's
 special-value structure — the sup's twist points are ζ's Euler-rational points and the
 inf's twists mirror exactly onto the trivial zeros; the χ reading is the avatar-side
-shadow, the parity form already arithmetic.)* *(Net-state, Theorem 1q: the (ii)
+shadow, the parity form already arithmetic.)* *(Net-state, Theorem 1q ~~: the (ii)
 observation that all four distinguished layers are odd is a necessity under mirror
 coherence, not a coincidence — the fixed landmark d_V = 5 passes a coherence test it
-could have failed.)*
+could have failed~~ **[struck round 79 (F3/F7): mirror coherence is extensionally
+equivalent to all-labels-odd, so "necessity under coherence" is vacuous; the d_V
+clause is this parity fact re-expressed on the mirror weights, whose vanishing at
+every even d is exactly parity]**, as corrected: 1q restates the all-odd fact as
+non-degeneracy of the branch-swapped invariant — an equivalent reformulation, not an
+explanation.)*
 
 **Theorem 1o (the arithmetic-primary form: ζ-rational twist points and trivial-zero
 avoidance; `cascade_zeta_rational.py`).** 1n's obstruction equivalent is avatar-side
@@ -853,50 +858,92 @@ order one because variances are positive"*; 1k's no-tie margins) — replacing "
 max" and entailing every prior equivalent. **The open question narrows to: derive the
 regularity principle from the cascade's axioms.** It is not claimed derived; Part 0's
 remark keeps its open status. No number changes; no closure; category (a). *(Net-state,
-Theorem 1q: the regularity principle is derived given mirror coherence — a single
+Theorem 1q ~~: the regularity principle is derived given mirror coherence — a single
 global requirement one level up; the per-label form survives as 1q's corollary, and
-the remaining given is now mirror coherence alone.)*
+the remaining given is now mirror coherence alone~~ **[struck round 79 (F3, MAJOR):
+mirror coherence is extensionally equivalent to the regularity principle — Γ_ℝ never
+vanishes, so the mirrored invariant is finite-nonzero iff every label's mirror weight
+is nonzero, which is per-label regularity verbatim; "one level up" was false]**, as
+corrected: 1q restates this given as non-degeneracy of the invariant under the ground
+object's defining symmetry — an equivalent reformulation with independent motivation;
+the given's extension is unchanged.)*
 
-**Theorem 1q (mirror coherence: the regularity principle derived from one global
-requirement; `cascade_mirror_coherence.py`).** 1p left the regularity principle as a
-new given applied per label — 2³ applications, one per member of each straddling pair.
-This theorem moves the given up one level and makes it single and global. *(i) The z²
-identification.* T1b's RH-free paired Hadamard form is *"even, entire of order 1,
-genus-0 in z²"* (round-15 M1's adjudicated wording): the framework's **unconditional**
-potential identity is a function of z² = (s − ½)² and therefore **cannot distinguish
-layer d (z = d + ½) from its mirror layer −(d+1)** (z′ = −(d + ½); same z² — gated
-exactly, d = 0..30). *(ii) The mirror invariant's total census.* Branch-swap every
-weight: Ω̃(d) = 2/Γ_ℝ(−d), the mirror layer's weight (= Ω(d)/γ_∞(d+1) — the 1p tie,
-gated at d = 7), and Ĩ(l₀, l₁, l₂) = (Ω̃(5)/Ω̃(l₀))² Ω̃(l₁) Ω̃(l₂). Over the eight
-labelings the failure census is **total**: Ĩ = ∞ at all four l₀ = 6 labelings (the
-denominator mirror weight vanishes); Ĩ = 0 at the three l₀ = 7 labelings carrying an
-even content label; **finite-nonzero uniquely at (7, 19, 217) — the sup** (gated).
-*(iii) Mirror coherence, and the derivation.* The invariant is finite-nonzero on the
-physical branch — an invariant equal to 0 or ∞ is no invariant, and Part 0's
-uniqueness theorem presupposes its non-degeneracy. Require that non-degeneracy to
-extend through ξ(s) = ξ(1−s) — the symmetry its ground object *defines*, and the one
-the unconditional paired form is blind to. This single global requirement — **mirror
-coherence** — entails: coherent labelings = all-labels-odd = 1p's regular labelings =
-{(7, 19, 217)} (gated chain). **The regularity principle is thereby derived**,
-conditional now on mirror coherence alone: one global statement replacing 2³ per-label
-applications. *(iv) The d_V test (falsifiable; passed).* d_V = 5 is **not a labeling
-choice** — the interior landmark is fixed by V's discrete argmax — yet coherence
-requires Ω̃(5) ≠ 0. It holds: Ω̃(5) = −15/(4π³) exactly, while the neighboring even
-candidates carry Ω̃(4) = Ω̃(6) = 0 (gated counterfactual exhibit: an even landmark
-would make coherence unsatisfiable for *every* labeling). The framework passes a test
-it could have failed, and 1n's observation "all four distinguished layers are odd"
-upgrades from coincidence to **necessity under coherence**. *(v) Honest grading, and
-the sign disclosure.* Mirror coherence is **the remaining given** — motivated by
-committed structure (the ξ-symmetry as the ground object's defining property; T1b's
-evenness; the standing physical-branch non-degeneracy) and close to what "invariant of
-a symmetric object" means, but **not claimed an axiom-consequence**. The chain of
-givens, each strictly smaller than the last: "take the max" (Part 0's definition) →
-four equivalents (1n/1o) → per-label regularity (1p, 2³ applications) → mirror
-coherence (one global statement). **The open question narrows to: derive mirror
-coherence from A1–A4.** Sign disclosure: Ĩ_sup < 0 — an exact rational over π¹¹⁷
-(≈ −1.109×10¹²²; the mirror weights carry Γ-reflection signs); coherence is
-non-degeneracy (≠ 0, ∞), **not** positivity. No number changes; no closure;
-category (a).
+**Theorem 1q (mirror coherence: an equivalent reformulation of the regularity
+principle; `cascade_mirror_coherence.py`; as corrected round 79).** ~~1p left the
+regularity principle as a new given applied per label — 2³ applications, one per
+member of each straddling pair. This theorem moves the given up one level and makes it
+single and global.~~ **[struck round 79 (F3, MAJOR + F4): the two conditions are
+extensionally equivalent (see (iii)), so neither is "up one level"; and the count was
+internally inconsistent — 2³ = 8 counts labelings while "one per member" counts 6, and
+1p's own gate performed 3 pair-checks]** 1p's regularity principle, restated on the
+invariant as a whole and motivated by the ground object's defining symmetry. *(i) The
+mirror pairing.* ~~T1b's RH-free paired Hadamard form is "even, entire of order 1,
+genus-0 in z²" (round-15 M1's adjudicated wording): the framework's unconditional
+potential identity is a function of z² = (s − ½)² and therefore cannot distinguish
+layer d (z = d + ½) from its mirror layer −(d+1)~~ **[struck round 79 (F1, MAJOR):
+quote-reattachment — in T1b's sentence those adjectives are predicated of ξ(½+z), not
+of the paired sum Σ 2z/(z² − (ρ−½)²), which carries an explicit factor z and is *odd*
+in z; the full unconditional identity (pole terms, Dirichlet side) is not z²-blind at
+all]** What is true and now gated: **the ground object ξ assigns the same value to
+layer d and its mirror −(d+1)** — ξ(½+z) is even (T1b's subject), z(d)² = z(−(d+1))²
+exactly (gated d = 0..30), and exact instances ξ(8) = ξ(−7) = 4π⁴/225,
+ξ(20) = ξ(−19) are gated. ξ itself cannot distinguish a layer from its mirror; the
+tower's weights *can* — that is precisely what coherence probes. *(ii) The census, the
+adjudication, and the disclosure.* Branch-swap every weight: Ω̃(d) = 2/Γ_ℝ(−d), the
+mirror layer's weight (= Ω(d)/γ_∞(d+1) — the 1p tie, gated at d = 7), and
+Ĩ(l₀, l₁, l₂) = (Ω̃(5)/Ω̃(l₀))² Ω̃(l₁) Ω̃(l₂). ~~Over the eight labelings the failure
+census is total: Ĩ = ∞ at all four l₀ = 6 labelings (the denominator mirror weight
+vanishes)~~ **[struck round 79 (F2, MAJOR): false at three of the four — there a
+content weight vanishes *too*, making Ĩ a 0·∞ indeterminate form with no exact value;
+"Ĩ = ∞" is a fact only at (6, 19, 217); the old gate's denominator-first short-circuit
+imposed the adjudication silently]** The corrected census (each class gated):
+**finite-nonzero uniquely at (7, 19, 217) — the sup**; exactly 0 at the three l₀ = 7
+labelings carrying an even content label; ∞ at (6, 19, 217) only; **indeterminate**
+(0·∞, no exact value) at the other three l₀ = 6 labelings. Adjudication, stated:
+coherence means the defining formula *evaluates*, exactly and unconditionally, to a
+finite nonzero value — zero, infinite, and indeterminate all fail. Disclosed and
+gated: under a uniform regularization d → d+ε the zero orders at (6, 20, 218) cancel
+and the *limit* is finite-nonzero (≈ −1.413×10¹²³) while the other two indeterminates
+diverge — so the sup's uniqueness holds for exact values of the defining formula, not
+for regularized limits. *(iii) Mirror coherence, and the equivalence.* The invariant
+is finite-nonzero on the physical branch — an invariant equal to 0 or ∞ is no
+invariant, and Part 0's uniqueness theorem presupposes its non-degeneracy. Require
+that non-degeneracy to hold for the branch-swapped weights — **mirror coherence**.
+Then coherent labelings = all-labels-odd = 1p's regular labelings = {(7, 19, 217)}
+(gated chain). ~~The regularity principle is thereby derived, conditional now on
+mirror coherence alone: one global statement replacing 2³ per-label applications.~~
+**[struck round 79 (F3, MAJOR): Γ_ℝ never vanishes (gated), so Ω̃ is never ∞ and
+Ĩ's exact finite-nonzero-ness is *immediately* the conjunction of the labels' mirror-
+weight non-vanishings — mirror coherence and per-label regularity are extensionally
+equivalent, "derived" holds in both directions, and 1p's principle was already stated
+as one sentence]** The honest statement: mirror coherence is an **exact equivalent**
+of 1p's regularity principle — a reformulation whose contribution is motivational
+(the given recast as non-degeneracy under the symmetry ξ defines), not logical.
+*(iv) The d_V clause.* d_V = 5 is **not a labeling choice** — the interior landmark is
+fixed by V's discrete argmax — and coherence requires Ω̃(5) ≠ 0, which holds:
+Ω̃(5) = −15/(4π³) exactly, with Ω̃(4) = Ω̃(6) = 0. Deflation (round-79 F7): Ω̃
+vanishes at *every* even d (gated d = 0..30), so this clause is exactly "d_V is odd" —
+1n's recorded parity fact re-expressed on the mirror weights, not a new local
+discrimination ~~and 1n's observation "all four distinguished layers are odd" upgrades
+from coincidence to necessity under coherence~~ **[struck round 79 (F3): under the
+equivalence, "necessity under coherence" is "all-odd is necessary given a postulate
+extensionally identical to all-odd" — vacuous]**. Under coherence-as-postulate it is a
+consistency requirement the fixed landmark meets. *(v) Honest grading, and the sign
+disclosure.* Mirror coherence is **the same given as 1p's, in a second face** —
+motivated by committed structure (the ξ-symmetry as the ground object's defining
+property; the standing physical-branch non-degeneracy) but **not claimed an
+axiom-consequence**. ~~The chain of givens, each strictly smaller than the last: "take
+the max" (Part 0's definition) → four equivalents (1n/1o) → per-label regularity (1p,
+2³ applications) → mirror coherence (one global statement). The open question narrows
+to: derive mirror coherence from A1–A4.~~ **[struck round 79 (F3, MAJOR): the 1p→1q
+link is an equivalence, not a strict narrowing; the open question is unchanged in
+extension]** The chain as it stands: "take the max" (Part 0's definition) → four
+equivalents (1n/1o) → per-label regularity (1p) ⟺ mirror coherence (1q). **The open
+question is unchanged: derive the given — either face — from A1–A4.** Sign disclosure:
+Ĩ_sup < 0 — an exact rational over π¹¹⁷ (rationality now gated, round-79 F6;
+≈ −1.109×10¹²²; the mirror weights carry Γ-reflection signs); coherence is
+non-degeneracy (≠ 0, ∞, indeterminate), **not** positivity. No number changes; no
+closure; category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

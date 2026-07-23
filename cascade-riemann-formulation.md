@@ -338,31 +338,48 @@ as corollaries (five selectors coincide, gated; round-78 c1). Precision bonus: a
 exceptional point (ζ(0) = −½, ζ's pole opposite). The principle is a **new
 given, not derived** — the open question narrows to deriving it from the
 axioms; 1k's second given at its sharpest form. No number changes; no
-closure; category (a). *(Net-state, T1q: the per-label principle is derived
-given mirror coherence — one global requirement.)*
+closure; category (a). *(Net-state, T1q ~~: the per-label principle is derived
+given mirror coherence — one global requirement~~ **[struck round 79 (F3,
+MAJOR): the two are extensionally equivalent]**, as corrected: an equivalent
+reformulation with independent motivation; the given's extension unchanged.)*
 
-**T1q (mirror coherence: the regularity principle derived;
-`cascade_mirror_coherence.py`, five gates).** 1p's given moved up one level,
-single and global. T1b's paired Hadamard form is *"even, entire of order 1,
-genus-0 in z²"* — a function of z² = (s − ½)², blind to the difference between
-layer d (z = d + ½) and its mirror −(d+1) (same z²; gated d = 0..30).
-Branch-swap every weight (Ω̃(d) = 2/Γ_ℝ(−d) = Ω(d)/γ_∞(d+1), the 1p tie gated)
-and the mirrored invariant Ĩ classifies all eight labelings **totally**: ∞ at
-the four l₀ = 6 labelings, 0 at the three l₀ = 7 labelings with an even
-content label, finite-nonzero **uniquely at the sup** (gated census).
-Requiring the invariant's standing physical-branch non-degeneracy to extend
-through ξ(s) = ξ(1−s) — **mirror coherence**, one global statement — entails
-coherent = all-odd = 1p-regular = {(7, 19, 217)}: **the regularity principle
-is derived**, 2³ per-label applications replaced by one requirement. The
-falsifiable bonus: d_V = 5 is fixed by V's argmax, not a labeling choice, yet
-Ω̃(5) = −15/(4π³) ≠ 0 while Ω̃(4) = Ω̃(6) = 0 (gated counterfactual — an even
-landmark would kill coherence for every labeling); 1n's all-four-odd upgrades
-to necessity. Sign disclosed: Ĩ_sup < 0 (exact rational over π¹¹⁷ ≈
+**T1q (mirror coherence: an equivalent reformulation of the regularity
+principle; `cascade_mirror_coherence.py`, five gates; as corrected round
+79).** ~~1p's given moved up one level, single and global. T1b's paired
+Hadamard form is "even, entire of order 1, genus-0 in z²" — a function of
+z² = (s − ½)², blind to the difference between layer d (z = d + ½) and its
+mirror −(d+1)~~ **[struck round 79 (F1/F3, MAJOR): T1b predicates those
+adjectives of ξ(½+z), not of the paired sum, which is odd in z; and the two
+conditions are extensionally equivalent, so neither is "up one level"]** The
+ground object ξ assigns the same value to layer d and its mirror −(d+1) —
+ξ(½+z) even, same z²; gated d = 0..30 plus exact instances ξ(8) = ξ(−7) =
+4π⁴/225, ξ(20) = ξ(−19). Branch-swap every weight (Ω̃(d) = 2/Γ_ℝ(−d) =
+Ω(d)/γ_∞(d+1), the 1p tie gated); the corrected census (round-79 F2, each
+class gated): Ĩ finite-nonzero **uniquely at the sup**; 0 at the three l₀ = 7
+labelings with an even content label; ∞ at (6, 19, 217) *only*;
+**indeterminate** (0·∞, no exact value) at the other three l₀ = 6 labelings —
+adjudication stated (coherence = the formula *evaluates* to a finite nonzero
+value), and the convention-dependence disclosed and gated (under d → d+ε the
+(6, 20, 218) *limit* is finite-nonzero ≈ −1.413×10¹²³; uniqueness holds for
+exact values, not regularized limits). Requiring the invariant's standing
+non-degeneracy for the branch-swapped weights — **mirror coherence** —
+entails coherent = all-odd = 1p-regular = {(7, 19, 217)}; but Γ_ℝ never
+vanishes (gated), so this is an **exact biconditional with 1p's per-label
+regularity**: an equivalent reformulation whose contribution is motivational,
+~~the regularity principle is derived, 2³ per-label applications replaced by
+one requirement… 1n's all-four-odd upgrades to necessity… the open question
+narrows~~ **[struck round 79 (F3/F4, MAJOR): "derived" holds in both
+directions; the 2³-vs-6 count was inconsistent; "necessity" under an
+extensionally identical postulate is vacuous; the open question is unchanged
+in extension]**. The d_V clause deflated (F7): Ω̃(5) = −15/(4π³) ≠ 0 with
+Ω̃(4) = Ω̃(6) = 0, but Ω̃ vanishes at *every* even d — the content is exactly
+"d_V is odd," 1n's parity fact on the mirror weights. Sign disclosed:
+Ĩ_sup < 0 (exact rational over π¹¹⁷, rationality gated per F6, ≈
 −1.109×10¹²²); coherence is non-degeneracy, not positivity. Mirror coherence
-is **the remaining given** — motivated (the ground object's defining symmetry;
-T1b's evenness; what "invariant" means) but **not an axiom-consequence** — and
-the open question narrows to deriving it from A1–A4. No number changes; no
-closure; category (a).
+is **the same given in a second face** — motivated (the ground object's
+defining symmetry; what "invariant" means) but **not an axiom-consequence** —
+and the open question is unchanged: derive the given, either face, from
+A1–A4. No number changes; no closure; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

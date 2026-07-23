@@ -1597,3 +1597,36 @@ typed with the framework's non-degeneracy conditions), entailing the
 variational output and all four 1n/1o equivalents; the open question narrows
 to deriving regularity from the axioms. Next hostile round on the next
 substantive paper change.**
+
+# Round 79: hostile review of Theorem 1q (subagent, per protocol) — NOT CONVERGED (3 MAJOR, 3 minor, 2 cosmetic); full sweep applied; convergence round 80 follows
+
+All three majors verified directly by the lead before acceptance (sympy
+recomputation of the census indeterminates and the ε-limit; direct read of
+T1b's sentence; the never-∞ biconditional).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F79-1 (MAJOR) — quote-reattachment: T1b's "even, entire of order 1, genus-0 in z²" is predicated of ξ(½+z), not of the paired Hadamard sum (odd in z); "the unconditional identity is a function of z²" false | **Accepted; struck-and-annotated**; motivation rebuilt on ξ's evenness with exact gated instances ξ(8) = ξ(−7) = 4π⁴/225, ξ(20) = ξ(−19) | paper 1q(i) + formulation + verifier docstring/Q1 |
+| F79-2 (MAJOR) — "Ĩ = ∞ at all four l₀ = 6 labelings" false at three (0·∞ indeterminate forms, adjudicated by a denominator-first short-circuit); "uniquely finite-nonzero" convention-dependent (the (6,20,218) ε-limit is finite-nonzero ≈ −1.413×10¹²³, lead-verified) | **Accepted; struck-and-annotated**; census restated with four gated classes, the adjudication stated (exact values, not limits), the regularized-limit counterexample disclosed and gated | paper 1q(ii) + formulation + part0 + verifier Q2 |
+| F79-3 (MAJOR) — mirror coherence is extensionally equivalent to 1p's regularity (Γ_ℝ never vanishes ⇒ Ω̃ never ∞ ⇒ exact biconditional); "moves the given up one level / strictly smaller / the open question narrows / necessity under coherence" all false | **Accepted; struck-and-annotated**; 1q regraded to *an equivalent reformulation with independent motivation*; theorem retitled; the open question restated as unchanged in extension | paper 1q title/(iii)/(v) + 1p and 1n net-state markers + formulation + part0 |
+| F79-4 (minor) — "2³ applications, one per member of each straddling pair": 8 vs 6, internally inconsistent; 1p gated 3 pair-checks | **Accepted; struck** with the count corrected in the annotations | paper + formulation + verifier docstring |
+| F79-5 (minor) — Q1's anchor "genus-0 in z" (no ²) satisfiable by 1q's own quote; evenness only "declared" | **Accepted**; anchor replaced by the T1b-unique substring "genus-0 in z², no constant term" with count == 1 gated; the mathematical claim now gated via ξ instances instead of declared | verifier Q1 |
+| F79-6 (minor) — "exact rational over π¹¹⁷" and ≈ −1.109×10¹²² ungated (true — lead-verified — but print-only) | **Accepted**; rationality gate added (`(Ĩ·π¹¹⁷).is_rational`) | verifier Q5 |
+| F79-7 (cosmetic) — the d_V "falsifiable test" is d_V-parity, recorded at 1n | **Accepted; deflated** on all surfaces (Ω̃ vanishes at every even d, gated) | paper 1q(iv) + formulation + part0 |
+| F79-8 (cosmetic) — verifier style (mid-function import, placeholder-less f-strings, ZERO-set membership by count only) | **Accepted; swept** in the rewrite (membership now gated as sorted set equality) | verifier |
+
+**Checked-and-held (reviewer, evidence unpadded):** all runs green; the quote
+verbatim as words (the defect was the subject); Ω̃(5) = −15/(4π³) and the
+even-d vanishings exact; Ĩ_sup's value/sign/magnitude confirmed independently;
+the 1p tie an identity; sign disclosure present on all surfaces;
+"branch-swapped" (not "analytically continued") throughout, so attack vector C
+did not land; part0's open status kept verbatim; footer census exact (37 + 4°);
+Checks 7/8 clean.
+
+**Trajectory: 1q landed → 79 NOT CONVERGED 3M+3m+2c → full sweep this commit →
+round 80 (convergence test on the sweep) next. Net state: Theorem 1q is an
+equivalent reformulation of 1p's regularity principle — the given recast as
+non-degeneracy of the branch-swapped invariant under ξ's defining symmetry,
+with the census honestly classified (finite-nonzero uniquely at the sup among
+exact values; adjudication and limit-caveat gated) — and the open question is
+unchanged: derive the given, in either face, from A1–A4.**
