@@ -8625,6 +8625,43 @@ reported:
 landed → 94 0M+3m+2c → 95 0M+3m+2c → 96 0M+1m+1c (swept this commit) →
 round 97 (convergence test) spawned per protocol.**
 
+## Addendum 175: convergence round 97 on commit 6402a62 — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1u certified stable; the regularity/coherence arc closes
+
+Round 97 returned zero findings at any severity: the single surviving
+strike in the 1u block verified genuine against its pre-state; the
+provenance claims of the round-96 fix verified across four commits (the
+false phrase lived only in the verifier comment — 0 hits on the paper at
+every pre-state); the location gates re-verified sabotage-detectable;
+the α-anchor print accurate against the gates; balance, validator,
+footer census (41 + disclosed module + 4°), and batteries all clean;
+the end-state read of all four surfaces returned nothing.
+
+**Verdict: CONVERGED. Theorem 1u is stable, and the commissioned arc
+("regularity/coherence pls") closes at its honest maximum:** the
+derive-from-A1–A4 question is adjudicated for the committed record —
+**the given is irreducible relative to A1–A4 as committed.** The axioms
+carry zero labeling content (censused down to per-token, per-clause
+locations, with the block's own selection vocabulary adjudicated:
+sources, constants, and dynamics, not labels); the given's condition
+lives at Γ_ℝ's negative arguments, where no axiom asserts anything (all
+four T1 definitions anchored; the argument-image dichotomy exhibited);
+the labeling enters the chain at exactly one self-graded "adopted"
+definition; and all five committed faces are extra-axiomatic. Not an
+in-principle impossibility proof — a committed-record classification
+with a licensed falsifier. **The open question transforms: from "derive
+the given" to the foundational choice — is the weight function's global
+identity (Γ_ℝ's continuation and functional equation) axiom content?
+If A1 were re-founded on Γ_ℝ entire, mirror coherence would be the
+extended kernel's natural non-degeneracy clause. That choice is stated,
+not made.** The given persists; nothing closes but the question's old
+form.
+
+**Trajectory: 1u landed → 94 0M+3m+2c → 95 0M+3m+2c → 96 0M+1m+1c → 97
+CONVERGED 0+0+0. Standing open routes: the foundational
+axiom-content choice (1u's transformed question — an owner-level
+decision, not a derivation task); the layer-2 soft inputs. Next hostile
+round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

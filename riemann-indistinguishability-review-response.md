@@ -1947,3 +1947,19 @@ pre-confirmed independently by the lead from git history.
 
 **Trajectory: 1u landed → 94 0M+3m+2c → 95 0M+3m+2c → 96 0M+1m+1c (swept)
 → round 97 (convergence test) next.**
+
+# Round 97: convergence test on the round-96 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1u certified stable; the regularity/coherence arc closes
+
+Zero findings at any severity: the surviving strike genuine; the
+round-96 provenance claims verified across four commits; the location
+gates sabotage-detectable; balance, validator, census, batteries clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — (none, at any severity) | — | — |
+
+**Trajectory: 1u landed → 94 0M+3m+2c → 95 0M+3m+2c → 96 0M+1m+1c → 97
+CONVERGED 0+0+0. Theorem 1u stable: the regularity/coherence given is
+irreducible relative to A1–A4 as committed; the open question transforms
+to the foundational axiom-content choice — stated, not made. Next
+hostile round on the next substantive paper change.**
