@@ -1769,3 +1769,18 @@ findings were against the instrument and the note's own precision.
 
 **Trajectory: residue executed → 86 NOT CONVERGED 1M+2m+3c (swept) →
 round 87 (convergence test) next.**
+
+# Round 87: convergence test on the round-86 sweep (subagent, per protocol) — 0 majors, 1 minor, 2 cosmetics; the minor swept; round 88 follows
+
+The round-86 sweep held in full under an exhaustive discrimination audit
+(every gate now fails its one-ULP perturbations; margins
+precision-independent at dps 30/50/100; every new number verified; the
+marking-rule adjudication held). One new minor in the sweep's own text:
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F87-1 (minor) — "to twelve digits, gated in cascade_h0_chain.py": the finest transitive gate resolved ~7 digits (an 8th-digit corruption of I passed the battery) | **Accepted; the strong fix landed** — a C1 conjunct gating I against its definition (9/π²)Ω₁₉Ω₂₁₇ at 5×10⁻¹³² (true value passes at 2.15×10⁻¹³²; the 8th-digit corruption now fails) | verifier |
+| F87-2 (cosmetic) — hardcoded "Section~5.4" with no label on the target | **Accepted; \label + \ref** | part5 |
+
+**Trajectory: residue executed → 86 1M+2m+3c (swept) → 87 0M+1m+2c
+(swept) → round 88 (convergence test) next.**

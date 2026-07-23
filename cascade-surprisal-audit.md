@@ -8075,6 +8075,42 @@ defect-fails conjunct; validator clean on 12 files. Trajectory: residue
 executed → 86 NOT CONVERGED 1M+2m+3c → sweep this commit → round 87
 (convergence test) spawned per protocol.**
 
+## Addendum 163: convergence round 87 on commit 5052d15 — 0 majors, 1 minor, 2 cosmetics; the minor lead-verified, accepted, and swept; round 88 follows
+
+Round 87's discrimination audit was exhaustive and everything from the
+round-86 sweep held: all nine half-ULP tolerances present, every gate
+discriminating its last digit (one-ULP perturbations all fail, including
+the defect value 1.4242 at 3.65× the window), the tight margins real but
+precision-independent (bit-identical at dps 30/50/100), every new number
+on both surfaces verified (the 0.009 anchor spread; the T_CMB exponent
+½ and the 7×10⁻⁵ shift with 2.642 K reproduced at both anchors; Part 0's
+finest display confirmed by full grep), and the Check-5 marking-rule
+adjudication held (the 66.775→66.7752 fix within the .tex fix-in-place
+precedent; no strike owed).
+
+- **F87-1 (minor, lead-verified and accepted):** the round-86 F6 fix
+  wrote "1.09894538952×10⁻¹²⁰ to twelve digits, gated in
+  cascade_h0_chain.py" — but I_EXACT was an input constant there, and
+  the finest transitive gate (C1's H₀ window) resolves ~7 digits: the
+  reviewer showed an 8th-digit corruption of I passes the entire
+  battery. The twelve digits were correct (reviewer recomputed at dps
+  30/50/100: 1.09894538952215×10⁻¹²⁰) but the "gated" warrant attached
+  to digits no gate resolved — the instrument rule again. **Swept with
+  the strong fix:** a new C1 conjunct gates I_EXACT against the
+  invariant's definition ((Ω₅/Ω₇)²Ω₁₉Ω₂₁₇ = (9/π²)Ω₁₉Ω₂₁₇, Ω(d) =
+  2/Γ_ℝ(d+1)) at half-ULP of the 12th digit (5×10⁻¹³²; lead-verified:
+  the true value passes at 2.15×10⁻¹³², an 8th-digit corruption fails).
+  The part5 wording now states exactly what the committed code does.
+- **F87-2 (cosmetic, swept):** the sweep's "Section~5.4" was a
+  hardcoded internal number with no label on the target — the CLAUDE.md
+  hazard. The subsection now carries \label{subsec:cmb-temp} and the
+  note uses \ref. Validator clean.
+
+**Battery: h0_chain 4/0 with the twelve-digit definitional gate;
+validator clean on 12 files. Trajectory: residue executed → 86 1M+2m+3c
+(swept) → 87 0M+1m+2c (swept this commit) → round 88 (convergence test)
+spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

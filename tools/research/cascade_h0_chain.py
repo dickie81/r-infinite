@@ -79,6 +79,18 @@ def main():
     print("C1 exact-input chain:")
     ok1 = abs(MPl - mp.mpf("1.22089e19")) < 5e13
     ok1 &= abs(Mred - mp.mpf("2.435323e18")) < 5e11
+    # round-87 F1: the twelve-digit input constant is now gated against
+    # the invariant's DEFINITION (I = (Om5/Om7)^2 Om19 Om217 =
+    # (9/pi^2) Om19 Om217, Om(d) = 2/Gamma_R(d+1)) at half-ULP of the
+    # 12th digit -- before this conjunct the finest transitive gate
+    # resolved ~7 digits (an 8th-digit corruption passed the battery):
+
+    def om(d):
+        return 2 * mp.pi ** ((d + 1) / mp.mpf(2)) \
+            / mp.gamma((d + 1) / mp.mpf(2))
+
+    I_def = (om(5) / om(7)) ** 2 * om(19) * om(217)
+    ok1 &= abs(I_def - I_EXACT) < mp.mpf("5e-132")
     H0 = h0_of(Mred, I_EXACT)
     ok1 &= abs(H0 - mp.mpf("66.77523")) < 5e-6   # half-ULP (round-86 F1)
     # (a redundant 2-d.p. round-check conjunct removed round 86, F5:
