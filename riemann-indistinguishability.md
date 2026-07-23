@@ -770,7 +770,10 @@ the equivalences and keeps "remains open". No number changes; no closure;
 category (a). *(Net-state, Theorem 1o as corrected round 75: the dichotomy has an exact form on ζ's
 special-value structure — the sup's twist points are ζ's Euler-rational points and the
 inf's twists mirror exactly onto the trivial zeros; the χ reading is the avatar-side
-shadow, the parity form already arithmetic.)*
+shadow, the parity form already arithmetic.)* *(Net-state, Theorem 1q: the (ii)
+observation that all four distinguished layers are odd is a necessity under mirror
+coherence, not a coincidence — the fixed landmark d_V = 5 passes a coherence test it
+could have failed.)*
 
 **Theorem 1o (the arithmetic-primary form: ζ-rational twist points and trivial-zero
 avoidance; `cascade_zeta_rational.py`).** 1n's obstruction equivalent is avatar-side
@@ -849,7 +852,51 @@ condition, *"no extraneous zeros in Z(f,s)/Γ_ℝ(s)"*; Theorem 7's *"every feat
 order one because variances are positive"*; 1k's no-tie margins) — replacing "take the
 max" and entailing every prior equivalent. **The open question narrows to: derive the
 regularity principle from the cascade's axioms.** It is not claimed derived; Part 0's
-remark keeps its open status. No number changes; no closure; category (a).
+remark keeps its open status. No number changes; no closure; category (a). *(Net-state,
+Theorem 1q: the regularity principle is derived given mirror coherence — a single
+global requirement one level up; the per-label form survives as 1q's corollary, and
+the remaining given is now mirror coherence alone.)*
+
+**Theorem 1q (mirror coherence: the regularity principle derived from one global
+requirement; `cascade_mirror_coherence.py`).** 1p left the regularity principle as a
+new given applied per label — 2³ applications, one per member of each straddling pair.
+This theorem moves the given up one level and makes it single and global. *(i) The z²
+identification.* T1b's RH-free paired Hadamard form is *"even, entire of order 1,
+genus-0 in z²"* (round-15 M1's adjudicated wording): the framework's **unconditional**
+potential identity is a function of z² = (s − ½)² and therefore **cannot distinguish
+layer d (z = d + ½) from its mirror layer −(d+1)** (z′ = −(d + ½); same z² — gated
+exactly, d = 0..30). *(ii) The mirror invariant's total census.* Branch-swap every
+weight: Ω̃(d) = 2/Γ_ℝ(−d), the mirror layer's weight (= Ω(d)/γ_∞(d+1) — the 1p tie,
+gated at d = 7), and Ĩ(l₀, l₁, l₂) = (Ω̃(5)/Ω̃(l₀))² Ω̃(l₁) Ω̃(l₂). Over the eight
+labelings the failure census is **total**: Ĩ = ∞ at all four l₀ = 6 labelings (the
+denominator mirror weight vanishes); Ĩ = 0 at the three l₀ = 7 labelings carrying an
+even content label; **finite-nonzero uniquely at (7, 19, 217) — the sup** (gated).
+*(iii) Mirror coherence, and the derivation.* The invariant is finite-nonzero on the
+physical branch — an invariant equal to 0 or ∞ is no invariant, and Part 0's
+uniqueness theorem presupposes its non-degeneracy. Require that non-degeneracy to
+extend through ξ(s) = ξ(1−s) — the symmetry its ground object *defines*, and the one
+the unconditional paired form is blind to. This single global requirement — **mirror
+coherence** — entails: coherent labelings = all-labels-odd = 1p's regular labelings =
+{(7, 19, 217)} (gated chain). **The regularity principle is thereby derived**,
+conditional now on mirror coherence alone: one global statement replacing 2³ per-label
+applications. *(iv) The d_V test (falsifiable; passed).* d_V = 5 is **not a labeling
+choice** — the interior landmark is fixed by V's discrete argmax — yet coherence
+requires Ω̃(5) ≠ 0. It holds: Ω̃(5) = −15/(4π³) exactly, while the neighboring even
+candidates carry Ω̃(4) = Ω̃(6) = 0 (gated counterfactual exhibit: an even landmark
+would make coherence unsatisfiable for *every* labeling). The framework passes a test
+it could have failed, and 1n's observation "all four distinguished layers are odd"
+upgrades from coincidence to **necessity under coherence**. *(v) Honest grading, and
+the sign disclosure.* Mirror coherence is **the remaining given** — motivated by
+committed structure (the ξ-symmetry as the ground object's defining property; T1b's
+evenness; the standing physical-branch non-degeneracy) and close to what "invariant of
+a symmetric object" means, but **not claimed an axiom-consequence**. The chain of
+givens, each strictly smaller than the last: "take the max" (Part 0's definition) →
+four equivalents (1n/1o) → per-label regularity (1p, 2³ applications) → mirror
+coherence (one global statement). **The open question narrows to: derive mirror
+coherence from A1–A4.** Sign disclosure: Ĩ_sup < 0 — an exact rational over π¹¹⁷
+(≈ −1.109×10¹²²; the mirror weights carry Γ-reflection signs); coherence is
+non-degeneracy (≠ 0, ∞), **not** positivity. No number changes; no closure;
+category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1381,4 +1428,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1p: the **36 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1q: the **37 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

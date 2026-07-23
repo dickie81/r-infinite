@@ -7436,6 +7436,75 @@ routes: deriving the regularity principle; the 1j pairing-act; the
 layer-2 soft inputs; part5:532 (editorial). Next hostile round on the
 next substantive paper change.**
 
+## Addendum 151: Theorem 1q — mirror coherence: the regularity principle derived from one global requirement (`cascade_mirror_coherence.py`, 5/0)
+
+**Commission.** "the regularity principle pls" — attack 1p's remaining given
+directly. 1p's regularity principle is per-label: applied 2³ times, once per
+member of each straddling pair. This round moves the given up one level and
+makes it single and global, with the per-label principle a *derived*
+consequence.
+
+**The structure (all gates exact-symbolic; category (a); Checks 7/8 clean).**
+
+- **Q1 — the z² identification.** Layer d's Hadamard coordinate is
+  z = d + ½; its functional-equation mirror −(d+1) has z′ = −(d + ½) — the
+  *same z²*, gated exactly for d = 0..30. T1b's RH-free paired form is
+  *"even, entire of order 1, genus-0 in z²"* (round-15 M1's adjudicated
+  wording, anchored verbatim in the paper by the gate): the framework's
+  unconditional potential identity **cannot distinguish a layer from its
+  mirror**. That blindness is what makes the mirror branch a legitimate
+  domain for the invariant's non-degeneracy, rather than foreign territory.
+- **Q2 — the total census.** Branch-swap every weight
+  (Ω̃(d) = 2/Γ_ℝ(−d)); Ĩ(l₀,l₁,l₂) = (Ω̃(5)/Ω̃(l₀))²Ω̃(l₁)Ω̃(l₂). Over the
+  eight labelings: Ĩ = ∞ at all four l₀ = 6 labelings (denominator weight
+  0), Ĩ = 0 at the three l₀ = 7 labelings with an even content label,
+  finite-nonzero **uniquely at (7, 19, 217)** — a total classifier with the
+  sup the unique survivor.
+- **Q3 — the entailment.** Coherent = all-labels-odd = 1p-regular =
+  {(7, 19, 217)}, gated as set equalities. **The regularity principle is
+  derived given mirror coherence** — one global statement replacing 2³
+  per-label applications.
+- **Q4 — the d_V test (the falsifiable bonus).** d_V = 5 is fixed by V's
+  discrete argmax — *not* a labeling choice — yet coherence needs
+  Ω̃(5) ≠ 0. It holds: −15/(4π³) exact; the even neighbours carry
+  Ω̃(4) = Ω̃(6) = 0 (gated counterfactual: an even landmark would make
+  coherence unsatisfiable for **every** labeling). The framework passes a
+  test it could have failed; 1n's "all four distinguished layers odd"
+  upgrades from observation to necessity under coherence.
+- **Q5 — value, sign, 1p tie.** Ĩ_sup is an exact rational over π¹¹⁷,
+  **negative** (≈ −1.109×10¹²²; lead-verified: Ĩ_sup·π¹¹⁷ ∈ ℚ exactly, sympy) —
+  disclosed, with coherence stated as non-degeneracy (≠ 0, ∞), not
+  positivity. The 1p bridge gated: Ω̃(d) = Ω(d)/γ_∞(d+1) at d = 7.
+
+**Grading (the campaign grammar).** The chain of givens, each strictly
+smaller than the last: "take the max" (part0's definition) → four
+equivalents (1n/1o) → per-label regularity (1p, 2³ applications) → **mirror
+coherence (one global statement)**. The coherence step — physical-branch
+non-degeneracy transports to the mirror branch because the unconditional z²
+form cannot distinguish branches — is *motivated* by committed structure
+(the ξ-symmetry as the ground object's defining property; T1b's evenness;
+what "invariant" means) but **not claimed an axiom-consequence: it is the
+remaining given**. The open question narrows to: derive mirror coherence
+from A1–A4. No number changes; no closure.
+
+**Surfaces.** Paper: Theorem 1q inserted after 1p; net-state markers at
+1p's tail and 1n's tail (the all-four-odd upgrade); footer census 36→37
+(`cascade_mirror_coherence.py` listed; set-exactness re-verified body-vs-
+footer with the case-correct grep — 37 body-cited + 4 °-marked).
+Formulation: T1q block + T1p net-state marker. part0: the max-over-min
+remark's parenthetical extended — the per-label principle derivable from
+mirror coherence, the d_V pass stated, and the open status preserved
+verbatim in structure ("Mirror coherence is adopted, not derived: the open
+question is now exactly whether that single global requirement follows from
+the cascade's axioms"). Verifier battery 16/16 green (new:
+mirror_coherence 5/0); xr-hyper validator clean on 12 files.
+
+**Trajectory: 1q landed → round 79 (hostile, fresh-context, same-model)
+spawned on this commit per protocol. Named attack vectors: is coherence
+genuinely one level up from 1p or a re-dressing; the sign adjudication;
+whether the z²-blindness legitimately transports non-degeneracy across
+branches; the Q1 exhibit declarations; Ĩ_sup's exact value.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

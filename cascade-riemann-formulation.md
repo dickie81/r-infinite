@@ -338,6 +338,30 @@ as corollaries (five selectors coincide, gated; round-78 c1). Precision bonus: a
 exceptional point (ζ(0) = −½, ζ's pole opposite). The principle is a **new
 given, not derived** — the open question narrows to deriving it from the
 axioms; 1k's second given at its sharpest form. No number changes; no
+closure; category (a). *(Net-state, T1q: the per-label principle is derived
+given mirror coherence — one global requirement.)*
+
+**T1q (mirror coherence: the regularity principle derived;
+`cascade_mirror_coherence.py`, five gates).** 1p's given moved up one level,
+single and global. T1b's paired Hadamard form is *"even, entire of order 1,
+genus-0 in z²"* — a function of z² = (s − ½)², blind to the difference between
+layer d (z = d + ½) and its mirror −(d+1) (same z²; gated d = 0..30).
+Branch-swap every weight (Ω̃(d) = 2/Γ_ℝ(−d) = Ω(d)/γ_∞(d+1), the 1p tie gated)
+and the mirrored invariant Ĩ classifies all eight labelings **totally**: ∞ at
+the four l₀ = 6 labelings, 0 at the three l₀ = 7 labelings with an even
+content label, finite-nonzero **uniquely at the sup** (gated census).
+Requiring the invariant's standing physical-branch non-degeneracy to extend
+through ξ(s) = ξ(1−s) — **mirror coherence**, one global statement — entails
+coherent = all-odd = 1p-regular = {(7, 19, 217)}: **the regularity principle
+is derived**, 2³ per-label applications replaced by one requirement. The
+falsifiable bonus: d_V = 5 is fixed by V's argmax, not a labeling choice, yet
+Ω̃(5) = −15/(4π³) ≠ 0 while Ω̃(4) = Ω̃(6) = 0 (gated counterfactual — an even
+landmark would kill coherence for every labeling); 1n's all-four-odd upgrades
+to necessity. Sign disclosed: Ĩ_sup < 0 (exact rational over π¹¹⁷ ≈
+−1.109×10¹²²); coherence is non-degeneracy, not positivity. Mirror coherence
+is **the remaining given** — motivated (the ground object's defining symmetry;
+T1b's evenness; what "invariant" means) but **not an axiom-consequence** — and
+the open question narrows to deriving it from A1–A4. No number changes; no
 closure; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
