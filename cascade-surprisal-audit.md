@@ -8440,6 +8440,75 @@ regularity/coherence given (1p/1q, either face, from A1–A4); the
 layer-2 soft inputs. Next hostile round on the next substantive paper
 change.**
 
+## Addendum 171: Theorem 1u — the given's irreducibility classification (`cascade_given_irreducibility.py`, 5/0); the derive-from-A1–A4 question adjudicated and transformed
+
+**Commission.** "regularity/coherence pls" — the standing question from the
+1p/1q arc: derive the given, either face, from A1–A4. Rather than a sixth
+equivalent face, this round adjudicates the derivation question itself
+against the axioms' committed content.
+
+**The structure (category (a); Checks 7/8 clean; lead-derived and
+machine-verified before landing).**
+
+- **U1 — the axioms carry zero labeling content.** Token census over the
+  formulation's canonical A1–A4 block: sup/max/min, labeling, boundary
+  side, parity, odd, mirror, regular, coheren-, label numerals — zero
+  hits (the block's lone "19" is the year in "Wall 1964", gated). Two
+  adjudications disclosed in the open rather than buried: A2's home
+  column names "the functional equation's symmetry point" (provenance at
+  the fixed point s = ½, not a mirror condition); A3's "at the analytic
+  features" and "below the phase transition" are positions and regions,
+  not boundary-side choices (1k's committed side-vs-position distinction
+  anchored).
+- **U2 — the given's subject matter is off-lattice.** A1's state space
+  ("the descent lattice ℕ") anchored verbatim; the kernel's argument
+  image {d+1, d+2} strictly positive (gated d = 0..299); both faces of
+  the given evaluate Γ_ℝ at negative arguments at the labels (gated).
+  No axiom asserts any condition there — and the honest scoping is
+  stated: expressibility is not the issue (classical analysis continues
+  the weight function); what is missing is any axiom-asserted condition.
+- **U3 — the labeling's single entry point.** Part 0's variational
+  definition, its own "remains open" grading anchored verbatim; 1k's
+  "second given"; part5's output-consumption formula — anchor-based,
+  scope declared, with 1t covering the consumption census.
+- **U4 — the five committed faces coincide and are each
+  extra-axiomatic.** argmax I = argmin S = odd rule = the unique
+  ζ-mirror survivor = the unique coherent labeling = (7, 19, 217)
+  (re-gated); types declared: extremal conventions (max, min-S), an
+  axiom-unbacked lattice-native rule (odd-member), off-lattice
+  conditions (ζ-mirror, regularity/coherence).
+- **U5 — the classification.** **For the committed record, the given is
+  irreducible relative to A1–A4 as committed.** Not an in-principle
+  impossibility proof (A1–A4 are informal — declared). The open question
+  transforms: from "derive the given" to the foundational question —
+  **is the weight function's global identity (Γ_ℝ's continuation and
+  functional equation) axiom content?** If A1's kernel were re-founded
+  on Γ_ℝ entire, mirror coherence would become the extended kernel's
+  natural non-degeneracy clause — but that is a new axiom-level choice,
+  stated, not made. Licensed falsifier: any future committed derivation
+  routing the labeling through an axiom's asserted content re-opens the
+  classification.
+
+**Surfaces.** Paper: Theorem 1u after 1t; net-state markers at 1p and 1q
+tails; formulation T1u + T1p/T1q-area marker; part0's remark extended
+with the adjudication and the transformed question (openness kept at the
+foundational level: "That choice is stated, not made"); footer census
+40→41 (set-exactness re-verified: 41 counted + the disclosed module +
+4 °-marked). Battery: given_irreducibility 5/0, grammar_need 5/0 (re-run
+after the part0 edit — census-clean), mirror_coherence 5/0,
+gamma_regularity 5/0; validator clean on 12 files.
+
+**Trajectory: 1u landed → round 94 (hostile, fresh-context, same-model)
+spawned per protocol. Named attack vectors: does U1's census scope (the
+formulation's block) cover every committed statement of the axioms; is
+the "no axiom asserts a condition at negative arguments" claim robust
+against A2's functional-equation home column (the disclosed
+adjudication's strength); is "irreducible for the committed record" an
+overclaim given the informality of A1–A4 (the declared scoping's
+adequacy); whether the "transforms" framing quietly closes a question
+the papers grade open; U4's type table (is "axiom-unbacked" for the
+parity rule right); the anchors' fallibility.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -384,7 +384,10 @@ in extension]**. The d_V clause deflated (F7): Ω̃(5) = −15/(4π³) ≠ 0 wit
 is **the same given in a second face** — motivated (the ground object's
 defining symmetry; what "invariant" means) but **not an axiom-consequence** —
 and the open question is unchanged: derive the given, either face, from
-A1–A4. No number changes; no closure; category (a).
+A1–A4. No number changes; no closure; category (a). *(Net-state, T1u: the
+question adjudicated for the committed record — irreducible relative to
+A1–A4 as committed; it transforms to whether the continued weight function
+is axiom content.)*
 
 **T1r (the pairing-act's anatomy; `cascade_pairing_act.py`, five gates).** The
 act decomposed, the live alternative excluded thrice on committed anchors.
@@ -476,6 +479,29 @@ derivational weight audited to zero.** Scoped, not universal; licensed
 falsifier: any future grammar entry routed through the odd bridge's L-side
 re-opens the member's weight. The member persists; three members and the
 seven-item count stand. No closure of the member; category (a).
+
+**T1u (the given's irreducibility classification;
+`cascade_given_irreducibility.py`, five gates).** The 1p/1q question —
+derive the given, either face, from A1–A4 — adjudicated for the committed
+record. The canonical axiom block carries **zero** labeling/selection
+content (token census gated; the lone "19" is "Wall 1964"; A2's
+"functional equation's symmetry point" and A3's "at the analytic features"
+adjudicated in the open — provenance and positions, not conditions or
+sides). A1's state space is the lattice; the kernel's argument image is
+strictly positive (gated d = 0..299), while **both faces of the given
+evaluate Γ_ℝ at negative arguments** (gated at the labels) — no axiom
+asserts any condition there. The labeling enters the committed chain once,
+at Part 0's variational definition (its own "remains open" grading
+anchored; downstream consumers take the output — part5's 18Ω₁₉Ω₂₁₇/π³
+anchored). The five committed faces coincide at (7, 19, 217) (re-gated)
+and are each extra-axiomatic (extremal conventions; an unbacked parity
+rule; off-lattice conditions). **Irreducible relative to A1–A4 as
+committed** — a committed-record classification, not an impossibility
+proof (declared). The question transforms: is the continued weight
+function axiom content? Stated, not resolved; falsifier licensed (any
+future committed derivation routing the labeling through an axiom
+re-opens the classification). The given persists; no closure;
+category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

@@ -867,6 +867,8 @@ order one because variances are positive"*; 1k's no-tie margins) — replacing "
 max" and entailing every prior equivalent. **The open question narrows to: derive the
 regularity principle from the cascade's axioms.** It is not claimed derived; Part 0's
 remark keeps its open status. No number changes; no closure; category (a). *(Net-state,
+Theorem 1u: the regularity principle's derive-from-A1–A4 question is adjudicated —
+irreducible for the committed record; the question transforms, per 1u(v).)* *(Net-state,
 Theorem 1q ~~: the regularity principle is derived given mirror coherence — a single
 global requirement one level up; the per-label form survives as 1q's corollary, and
 the remaining given is now mirror coherence alone~~ **[struck round 79 (F3, MAJOR):
@@ -952,7 +954,11 @@ question is unchanged: derive the given — either face — from A1–A4.** Sign
 Ĩ_sup < 0 — an exact rational over π¹¹⁷ (rationality now gated, round-79 F6;
 ≈ −1.109×10¹²²; the mirror weights carry Γ-reflection signs); coherence is
 non-degeneracy (≠ 0, ∞, indeterminate), **not** positivity. No number changes; no
-closure; category (a).
+closure; category (a). *(Net-state, Theorem 1u: the derive-from-A1–A4 question
+is adjudicated for the committed record — the given is irreducible relative to
+the axioms as committed (their asserted content is lattice-only; the given's
+condition lives at Γ_ℝ's negative arguments), and the question transforms to
+the foundational one: is the continued weight function axiom content?)*
 
 **Theorem 1r (the pairing-act's anatomy: three committed-anchor routes, the live
 alternative excluded thrice; `cascade_pairing_act.py`).** The round-57 adjudication
@@ -1152,6 +1158,60 @@ derivational weight.** The member itself persists as charged — the act, when
 taken, remains the recorded convention — so **three members and the seven-item
 count stand**; what closes is 1s's open question, on its auditable branch. No
 number changes; no closure of the member; category (a).
+
+**Theorem 1u (the given's irreducibility classification: regularity/coherence
+adjudicated against the axioms' committed content; `cascade_given_irreducibility.py`).**
+The 1p/1q arc left one given in two equivalent faces with the open question
+"derive the given, either face, from A1–A4." This theorem adjudicates that
+question for the committed record. *(i) The axioms carry zero labeling
+content.* Token census over the formulation's canonical axiom block (A1–A4):
+sup/max/min, labeling, boundary side, parity, odd, mirror, regular, coheren-,
+and the label numerals — **zero hits** (the block's lone "19" is the year in
+"Wall 1964", gated as such). Two adjudications disclosed rather than buried:
+A2's home column names *"the functional equation's symmetry point"* as
+Γ(½)'s arithmetic home — provenance of a constant at the *fixed point* s = ½,
+not an asserted condition at mirror points (anchored); and A3 places source
+layers *"at the analytic features of Γ_ℝ"* and attaches *"below the phase
+transition"* — feature positions and regions, not boundary-side integer
+choices (1k's committed distinction, *"What the lattice does not fix is the
+side"*, anchored). *(ii) The given's subject matter is off-lattice.* A1's
+committed state space is *"the descent lattice ℕ (layer index d), weighted by
+Γ_ℝ"* (anchored verbatim). The kernel's four primitives evaluate Γ_ℝ on the
+lattice's argument image {d+1, d+2} — strictly positive (gated, d = 0..299) —
+while **both faces of the given evaluate Γ_ℝ at negative arguments** at the
+labels (γ_∞ needs 1−s = −d; the mirror weight needs −d; gated). The axioms'
+asserted content quantifies over lattice points and their weights; **no axiom
+asserts any condition at negative arguments.** Expressibility is not the
+issue — classical analysis continues the weight function; what is missing is
+any axiom-asserted *condition* there. *(iii) The labeling's single entry
+point.* The committed chain routes the labeling through exactly one point:
+Part 0's variational definition, whose own remark grades the derivation open
+(anchored verbatim), with 1k's "The sup itself is a second given" and part5's
+output-consumption formula 18Ω₁₉Ω₂₁₇/π³ anchored — downstream consumers take
+the selected labels' output, not a selection principle (anchor-based, scope
+declared; 1t covers the consumption census). *(iv) The five committed faces
+coincide and are each extra-axiomatic.* Re-gated on the eight labelings:
+argmax I = argmin S_dS = the odd-member rule = the unique ζ-mirror-nonzero
+labeling = the unique coherent labeling = (7, 19, 217). Their types, declared
+and backed by (i): max and min-S are extremal conventions (no axiom asserts a
+ranking over labelings); the odd-member rule is lattice-native but
+axiom-unbacked; ζ-rationality and regularity/coherence route through
+off-lattice values (the even and odd mirror sides). *(v) The classification,
+the transformed question, and the falsifier.* **For the committed record, the
+given is irreducible relative to A1–A4 as committed**: no committed route
+derives it, the axioms assert nothing where its condition lives, and every
+committed face is extra-axiomatic. This is a committed-record classification,
+**not an in-principle impossibility proof** (A1–A4 are informal; declared).
+The open question does not persist in its old form — it **transforms**: the
+live question is foundational — *whether the weight function's global
+identity (the continuation and functional equation of Γ_ℝ) is axiom content*,
+i.e. whether A1's kernel is Γ_ℝ-on-the-lattice or Γ_ℝ entire. If the latter
+were adopted, mirror coherence would become the natural non-degeneracy clause
+of the extended kernel — but that adoption is a new axiom-level choice,
+stated, not resolved. Licensed falsifier, stopping-rule-gated: any future
+committed derivation routing the labeling through an axiom's asserted content
+re-opens the classification. The given persists; no closure; no number
+changes; category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1683,4 +1743,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1t: the **40 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1u: the **41 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
