@@ -159,9 +159,18 @@ print(f"  (F) Continuous crossings          : {mpmath.nstr(I_cont,  15)}")
 print(f"  (G) Geometric mean of each pair   : {mpmath.nstr(I_geom,  15)}")
 print(f"  (H) Arithmetic mean of each pair  : {mpmath.nstr(I_arith, 15)}")
 
-obs = mpmath.mpf("1.10e-120")
-obs_err = mpmath.mpf("0.02e-120")
-print(f"\n  Observed rho_Lambda/M_Pl,red^4   : (1.10 ± 0.02) × 10^-120")
+# Observation in INVARIANT UNITS (unit label corrected, round 69):
+# Planck 2018 observes rho_Lambda/M_Pl,red^4 = (7.150 +/- 0.13)e-121
+# (Part I); Part I's closure is rho_Lambda/M^4 = (2/pi) e^{0.02108} I,
+# so the observation pulled back to invariant units is
+# I_obs = (pi/2) e^{-0.02108} * 7.150e-121 = 1.0997e-120.
+obs = (mpmath.pi / 2) * mpmath.e ** mpmath.mpf("-0.02108") \
+    * mpmath.mpf("7.150e-121")
+obs_err = (mpmath.pi / 2) * mpmath.e ** mpmath.mpf("-0.02108") \
+    * mpmath.mpf("0.13e-121")
+print(f"\n  Observed rho_L/M^4 (Planck 2018) : (7.150 ± 0.13) × 10^-121")
+print(f"  ... in invariant units (I_obs)   : ({mpmath.nstr(obs*10**120, 5)}"
+      f" ± {mpmath.nstr(obs_err*10**120, 2)}) × 10^-120")
 
 # ============================================================================
 # SECTION 5: Deviations from observation

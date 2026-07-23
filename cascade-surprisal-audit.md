@@ -6840,6 +6840,40 @@ C1-conditionality. Registered open routes standing: part0's principled
 derivation of max (1k's second given); the pairing-act (1j); the F63-1
 part0 unit label. Next hostile round on the next substantive paper change.
 
+## Addendum 136: the F63-1 sweep — part0's rem:variational unit label corrected at source (round-69 trigger)
+
+**The held observation (Addendum 128, lead-verified round 63) is discharged.**
+part0's rem:variational labelled $(1.10\pm0.02)\times10^{-120}$ directly as
+*"the observed ρ_Λ/M⁴_Pl,red"* while the series' sibling surfaces (part1:73,
+part5:754, the cover sheet) state the observation as
+$(7.150\pm0.13)\times10^{-121}$ — the 1.10 figure is the observation pulled
+back to invariant units through Part I's closure ρ_Λ/M⁴ = (2/π)e^{0.02108}·I,
+i.e. I_obs = (π/2)e^{−0.02108}·(7.150±0.13)×10⁻¹²¹ = (1.10±0.02)×10⁻¹²⁰
+(verified exact: factor 1.53803, product 1.0997×10⁻¹²⁰, error 0.0200×10⁻¹²⁰).
+
+**Swept on both carrying surfaces per the marking rule:**
+- `src/cascade-series-part0.tex` rem:variational — rewritten to state the
+  Planck observation in ρ-units first, the closure, and the pullback, with an
+  explicit correction recital ("An earlier version of this sentence labelled
+  … directly as 'the observed ρ_Λ/M⁴' … unit label corrected, external
+  review round 69"); the closing sentence now says "expressed in the
+  invariant's own units". The round-62 ratio parenthetical (10.8×) is
+  unaffected — the conversion cancels in the ratio (round-63 held).
+- `tools/verifiers/verify_continuous_boundary.py` — the hardcoded
+  `obs = 1.10e-120` labelled "Observed rho_Lambda/M_Pl,red^4" replaced by the
+  computed pullback (obs = (π/2)e^{−0.02108}·7.150×10⁻¹²¹, err scaled the
+  same way), with both the ρ-units observation and I_obs printed. The sup's
+  deviation is now −0.068% against the exact pullback (formerly −0.096%
+  against the rounded 1.10) — still within the remark's stated 0.1%, and the
+  alternative-labelings table's kills are unchanged in substance (floor
+  −3.68%, ceiling/nearest ~−90%, continuous −79%).
+
+**Census:** no other surface carries the mislabel (grep: the three remaining
+1.10×10⁻¹²⁰ instances are the corrected statement, its recital, and the
+unit-invariant round-62 ratio). Cross-paper validator clean on 12 files.
+Round 69 (hostile subagent, per protocol — a substantive part0 change)
+follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
