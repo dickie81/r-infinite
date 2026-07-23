@@ -283,6 +283,24 @@ record-legs classifier, A13 grading, ℓ_A kind, Observer k=3) stay soft inputs,
 untouched; the angle rows stay near-tautological. No number changes; no closure;
 category (a).
 
+**T1n (the sup's exact equivalents; `cascade_sup_selection.py`, five gates).**
+Part0's open max-over-min question (T1k's second given) narrowed by three gated
+reformulations: the sup labels (7, 19, 217) are exactly the **odd members** of
+the three straddling pairs (the inf the even members; odd-selection is total
+and uniform); in the tower's dictionary the sup labels' spheres are Euler-null
+(χ(S^d) = 0; the inf's carry χ = 2 — the obstruction toll's chirality factor,
+T1m) and all four distinguished layers {5, 7, 19, 217} are odd; and
+S_dS = 24π²M⁴/ρ_Λ is strictly decreasing in the invariant (Part I's closure),
+so **sup I = min horizon entropy = min boundary area** (S_sup = 3.315×10¹²²
+nats; the inf's budget 10.76× larger) — the exact connection part0's open
+clause requested, with the direction stated. The characterizations are
+distinct principles (synthetic-crossing exhibit gated) agreeing at the actual
+crossings (three parity facts + Ω₇ < Ω₆, each gated); farther-integer and
+window-proximal re-descriptions also verified. Nothing forces the sup: the
+forcing stays open, part0's remark registered with the equivalences and
+keeping "remains open"; the 1k given persists, re-motivated. No number
+changes; no closure; category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the

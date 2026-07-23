@@ -6956,6 +6956,51 @@ surface. Standing open routes unchanged: part0's principled derivation of
 max; the 1j pairing-act; the 1.0990 editorial batch. Next hostile round on
 the next substantive paper change.
 
+## Addendum 139: Theorem 1n — the sup's exact equivalents; part0's max-over-min question attacked (the 1k second given re-motivated)
+
+**The commission ("part0's principled derivation of the variational max")
+and the honest outcome.** A forcing derivation was not achieved — and the
+theorem says so on every surface. What was achieved: part0's open clause
+(*"connecting the supremum to a distinguished quantity such as an entropy, a
+boundary area, or a characteristic of the observer's layer"*) is
+**discharged as an exact equivalence**, with the direction stated, and two
+further exact reformulations tie the selection to the tower's load-bearing
+structure. All gated (`cascade_sup_selection.py`, W1–W5, 5/0).
+
+- **Parity (novel; Check-4 grep clean):** the sup labels (7, 19, 217) are
+  exactly the **odd members** of the three straddling pairs; the inf labels
+  (6, 20, 218) exactly the even members. Odd-selection is a total, uniform
+  rule (every consecutive pair has exactly one odd member) reproducing the
+  sup.
+- **Obstruction:** in the 1l dictionary (layer d ↔ S^d), the sup labels'
+  spheres are Euler-null (χ = 0, odd-dimensional) and the inf's carry
+  χ = 2 — the same χ(S^{2n}) = 2 that is the obstruction toll's chirality
+  factor (1m; part0's shift family). All four distinguished layers
+  {5, 7, 19, 217} are odd: the invariant lives on Euler-null spheres.
+- **The horizon budget:** S_dS = 24π²M⁴/ρ_Λ (S = A/4 cascade-native, Part
+  II=III §7; de Sitter algebra Part I's; Check 7 clean) is strictly
+  decreasing in the invariant through Part I's closure, so **sup I = min
+  horizon entropy = min boundary area** over the eight labelings — S_sup =
+  3.315×10¹²² nats = 4.783×10¹²² bits, the inf's budget 10.756× larger (the
+  round-62 ratio as entropy stakes). Monotone bijection gated.
+- **Anatomy + honesty:** the agreement decomposes as three parity facts +
+  Ω₇ < Ω₆ (each gated separately); farther-integer and window-proximal
+  re-descriptions verified; the characterizations are distinct principles
+  (synthetic-crossing divergence exhibit, clearly labeled); fixed-target
+  disclosed. **Nothing forces the sup**: the forcing stays open; 1k's
+  second given persists, re-motivated from a bare max convention to named
+  structural equivalents.
+
+**Surfaces.** Paper: Theorem 1n after 1m; net-state marker at T1l… at
+T1k(ii)'s "second given" sentence; footer 32 → 33 (census-verified).
+Formulation: T1n block. part0: the max-over-min remark registered with the
+two equivalences in a self-contained parenthetical, **keeping "remains
+open"** (*"A principled derivation of any one of these equivalents would
+settle the question; none is yet derived"*). Validator clean on 12 files.
+**Object gates at this commit:** the full battery green (13 verifiers
+checked incl. sup_selection 5/0, u2_function 11/0). Round 71 (hostile
+subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

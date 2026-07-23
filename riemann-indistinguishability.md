@@ -621,7 +621,9 @@ observed"* ρ_Λ — with its derivation open — *"A principled derivation of m
 cascade's own axioms… remains open"* — and the inf labeling gives 1.02×10⁻¹²¹ — an
 order of magnitude (≈10.8×) below observation (the value gated, K7; Part 0's original
 *"two orders of magnitude"* descriptor was a source-side slip, corrected there —
-round-62 F1). *(iii) The member re-read — the
+round-62 F1) *(net-state, Theorem 1n round 71: the given is re-motivated — the sup is
+exactly the odd/Euler-null-sphere member of every pair and the minimal-horizon-budget
+labeling, gated equivalents; the forcing stays open and the given persists)*. *(iii) The member re-read — the
 round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
 rounding frame and empty in the lattice frame: **given the site-E pairing** — the
 anchored convention, which **persists in the residue** (under the alternative pairing
@@ -726,6 +728,42 @@ topological channel, T11's colour field). No number changes, no closure, no new 
 (the papers' Tier-4a value and the committed instrument records are cited as record).
 Layer 3's residual gap after 1m: the trigger data, and the identifications'
 conditionality.
+
+**Theorem 1n (the sup's exact equivalents: parity, obstruction, and the horizon budget;
+`cascade_sup_selection.py`).** Part 0's max-over-min remark grades its own selection
+honestly: *"A principled derivation of max from the cascade's own axioms — connecting
+the supremum to a distinguished quantity such as an entropy, a boundary area, or a
+characteristic of the observer's layer — remains open."* This is Theorem 1k's second
+given. Three exact reformulations, each gated: *(i) Parity.* The sup labels
+(7, 19, 217) are exactly the **odd members** of the three straddling pairs, the inf
+labels (6, 20, 218) exactly the even members — and every consecutive pair has exactly
+one odd member, so odd-selection is a total, uniform rule that reproduces the sup.
+*(ii) Obstruction.* In the tower's dictionary (layer d ↔ S^d, Theorem 1l),
+χ(S^d) = 1 + (−1)^d: the sup labels' spheres are **Euler-null** (χ = 0,
+odd-dimensional — nowhere-zero fields exist), the inf labels' spheres carry χ = 2 —
+the same χ(S^{2n}) = 2 that is the obstruction toll's chirality factor (Theorem 1m;
+Part 0's shift family). And **all four distinguished layers {5, 7, 19, 217} are odd**:
+the entire invariant is evaluated on Euler-null spheres. *(iii) The horizon budget.*
+S_dS = 24π²M⁴/ρ_Λ (S = A/4 the cascade's own — Part II=III §7, no Bogoliubov
+transformations; the de Sitter algebra Part I's) is strictly decreasing in the
+invariant through Part I's closure ρ = (2/π)e^{0.02108}I, so over the eight labelings
+**sup I = min horizon entropy = min boundary area**: the sup is the labeling with the
+smallest asymptotic information budget (3.315×10¹²² nats = 4.783×10¹²² bits; the inf
+labeling's budget is 10.76× larger — the round-62 ratio as entropy stakes). This is
+the exact connection Part 0's open clause requested, with the direction stated: the
+sup **minimizes** the horizon budget. *(iv) Anatomy, distinctness, and honest
+grading.* The agreement decomposes as three parity facts plus one inequality (content
+crossings have odd integer parts; the scale crossing has even integer part and
+Ω₇ < Ω₆ — each gated); the farther-integer and window-proximal re-descriptions also
+reproduce the sup (gated); the characterizations are **distinct principles** (a
+synthetic crossing at 20.5 would separate content-floor from odd-member — gated as a
+labeled synthetic exhibit), found by inspection knowing the sup (fixed-target
+disclosed). **Nothing here forces the sup**: why odd / why minimal-budget is the
+residual selection content, so the forcing question stays open and 1k's second given
+**persists — re-motivated** from a bare max convention to named structural
+equivalents tied to the load-bearing χ machinery. Part 0's remark is registered with
+the equivalences and keeps "remains open". No number changes; no closure;
+category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1257,4 +1295,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1m: the **32 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1n: the **33 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
