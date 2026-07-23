@@ -1862,3 +1862,20 @@ every number right. The minors were the sweep's own prose attributions.
 
 **Trajectory: 1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c (swept)
 → round 92 (convergence test) next.**
+
+# Round 92: convergence test on the round-91 sweep (subagent, per protocol) — 0 majors, 1 minor, 2 cosmetics; the last residuals swept; round 93 follows
+
+The round-91 substance held everywhere (split attribution recomputed;
+the 7 already-scanned listed; the distribution summing; the strike
+structure balanced; part4b's referent verified against the actual
+refusal passages; footer census exact). One minor: three instances of
+the attribution defect survived in the verifier itself (docstring, code
+comment, runtime print).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F92-1 (minor) — three surviving "paper-cited" attributions in the verifier (incl. the runtime print) | **Accepted; all three now "paper- or ledger-cited"**; re-run 5/0 | verifier |
+| F92-2/3 (cosmetic) — stale "rounds 89–90" in the 1s marker; unbracketed strike elision | **Accepted; swept** | paper |
+
+**Trajectory: 1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c → 92
+0M+1m+2c (swept) → round 93 (convergence test) next.**

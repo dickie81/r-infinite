@@ -1074,7 +1074,7 @@ extrinsic *if taken at all*, (ii)–(iii)] + [the partner — 1r's three anchors
 open core narrows to: derive an extrinsic odd selection principle from A1–A4, or
 establish that the grammar never needs the odd reading** (the act as Door-4
 bookkeeping only). No number changes; no closure; category (a). *(Net-state,
-Theorem 1t as corrected rounds 89–90: the disjunction resolves on its second
+Theorem 1t as corrected rounds 89–91: the disjunction resolves on its second
 branch for the committed record — the grammar-need census (scope per 1t(i),
 extended in rounds 89–91 to every paper- or ledger-cited computational
 surface, 81 resolving scripts, 91 files scanned) returns zero consumption of the odd
@@ -1094,7 +1094,8 @@ L-side content is the audit's subject, not a consumer~~ **[struck round 89
 (F1, MAJOR + F2): the count misattributed 30 to the constants/verifiers/
 closures group (26; the 30 included the four instruments), and — the major —
 the disclosure mischaracterized the exclusion: the papers ~~themselves
-cite 59~~ **[corrected round 90 (F1/F2) and round 91 (F1/F3): the round-89
+cite 59 […]~~ **[corrected round 90 (F1/F2) and round 91 (F1/F3); the
+elision bracketed round 92: the round-89
 extractor was itself blind to non-cascade-prefixed and \allowbreak-wrapped
 citations — the true census is 82 distinct cited scripts, 81 resolving (80
 paper-cited; generate_predictions.py ledger-only) plus one dead citation (a

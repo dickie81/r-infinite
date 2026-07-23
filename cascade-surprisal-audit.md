@@ -8372,6 +8372,38 @@ lead-verified and swept:
 1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c (swept this
 commit) → round 92 (convergence test) spawned per protocol.**
 
+## Addendum 169: convergence round 92 on commit cbc56e3 — 0 majors, 1 minor, 2 cosmetics; the last attribution residuals swept; round 93 follows
+
+Round 92 verified the round-91 sweep in depth — the split attribution's
+numbers independently recomputed (80 tex-cited + generate_predictions.py
+ledger-only = 81; the 7 already-scanned scripts listed and confirmed;
+the 54/17/4/2/2/2 distribution summing to 81; the re-scoped omission
+claim adjudicated accurate: 60 of the 81 sat in unglobbed directories);
+the strike and bracket structure balanced and verbatim; part4b's F5
+referent verified against the actual refusal passages (part1:919
+Kaluza–Klein; part2=3:80 no-QFT-on-curved-spacetime); the footer census
+exact; every number in the sweep text audited clean. One minor: the
+round-91 F1 charge was universal, and the sweep had corrected the two
+docstring sites the finding named while missing **three instances of
+the identical defect in the same verifier** — the N2 docstring line,
+the code comment above the very loop that reads PREDICTIONS.md, and
+the runtime print ("all 81 paper-cited scripts" on every run).
+
+- **F92-1 (minor, swept):** all three now read "paper- or
+  ledger-cited" (the runtime print included); the only surviving
+  "paper-cited" token is the correct split statement itself ("of the
+  81, 80 are paper-cited and one (generate_predictions.py) is
+  ledger-only"). Verifier re-run 5/0 with the corrected print.
+- **F92-2/3 (cosmetic, swept):** the 1s marker's stale "as corrected
+  rounds 89–90" → "rounds 89–91"; the restructured strike's
+  mid-sentence truncation now carries the bracketed elision "[…]" per
+  the house convention.
+
+**Battery: grammar_need 5/0; validator clean on 12 files. Trajectory:
+1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c → 92 0M+1m+2c
+(swept this commit) → round 93 (convergence test) spawned per
+protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -54,8 +54,10 @@ content is the audit's subject, not a consumer.
   N2 THE COMPUTATIONAL RECORD CONSUMES NO ODD-BRIDGE L-SIDE
      OBJECT.  The census (all TEX prose tokens included -- round-89
      F4) over the 26 observable scripts, the four record
-     instruments, all 81 paper-cited scripts, and model_checks +
-     generators wholesale: the ONLY token hit in the entire
+     instruments, all 81 paper- or ledger-cited scripts, and
+     model_checks + generators wholesale (round-92 F1 completed
+     the round-91 attribution fix): the ONLY token hit in the
+     entire
      computational record is one "Kronecker product" docstring
      (linear algebra, cascade_route_c_d13_dirac.py) -- gated by
      the allowlist (every "kronecker" hit must be the phrase
@@ -175,7 +177,9 @@ def main():
           + [os.path.join(ROOT, "tools", "research", f)
              for f in RECORD_INSTRUMENTS])
     # round-89 F1 + round-90 F1: every computational script the papers
-    # themselves cite.  The round-89 extractor was blind to
+    # and the ledger cite (round-91/92 F1: one script,
+    # generate_predictions.py, is ledger-only).  The round-89
+    # extractor was blind to
     # non-cascade-prefixed names and to \allowbreak-wrapped filenames
     # (and reported 59); the corrected extractor strips
     # \allowbreak-plus-trailing-space and takes ALL .py citations:
@@ -214,7 +218,8 @@ def main():
                      TEX_TOKENS + ["Jacobi"])
     ok2 &= led == {}
     print(f"   {len(wider)} scripts scanned: the 26 observable scripts, the")
-    print(f"   four record instruments, all {len(cited)} paper-cited scripts")
+    print(f"   four record instruments, all {len(cited)} paper- or "
+          "ledger-cited scripts")
     print("   (gated == 81 after the round-90 extractor fix and the dead-")
     print("   citation retraction; every citation resolving), and")
     print("   model_checks + generators wholesale; plus the frozen ledger.")
