@@ -239,7 +239,9 @@ def main():
     v = Itilde(7, 19, 217)
     ok5 = v != 0 and v != sp.oo and v.is_negative
     ok5 &= sp.simplify(v * sp.pi ** 117).is_rational is True  # round-79 F6
-    ok5 &= sp.simplify(Omt(7) * GR(-7) - 2) == 0     # definition sanity
+    # (a former "definition sanity" conjunct Omt(7)*GR(-7) == 2 was removed
+    # round 80 (c1): tautological by Omt's definition -- a gate that cannot
+    # fail; Q5's three printed claims are each gated by the real checks.)
     gamma8 = sp.simplify(GR(-7) / GR(8))              # 1p's gamma at s=8
     ok5 &= sp.simplify(Omt(7) - Om(7) / gamma8) == 0  # Om~ = Om/gamma tie
     print("   I~_sup * pi^117 is an exact rational, GATED (~"

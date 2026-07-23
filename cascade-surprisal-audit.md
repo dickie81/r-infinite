@@ -7574,6 +7574,48 @@ protocol. Standing open routes unchanged: derive the regularity/coherence
 given from A1–A4; the 1j pairing-act; the layer-2 soft inputs; part5:532
 (editorial).**
 
+## Addendum 153: convergence round 80 on commit 381fb3b — **CONVERGED** (0 majors, 0 minors, 2 cosmetics, swept); Theorem 1q stable as an equivalent reformulation
+
+Round 80 (fresh-context subagent, session's own model) audited the round-79
+sweep and returned zero majors, zero minors. Its empirical record, all
+independently recomputed: the full 8-labeling census matches class-for-class
+(finite-nonzero uniquely at the sup; ZERO ×3; ∞ at (6,19,217) only;
+INDETERMINATE ×3); both divergent ε-limits and the finite one
+(−1.4132×10¹²³) confirmed; ξ(8) = ξ(−7) = 4π⁴/225 and ξ(20) = ξ(−19)
+confirmed; Ĩ_sup·π¹¹⁷ rational and negative confirmed; all 19 paper strike
+spans and 3 formulation strike spans programmatically verified **verbatim**
+against c753fe0, zero drift; the F5 anchor gate real (count == 1, T1b only);
+residual-claim greps clean — no object surface carries "up one level /
+total-∞ census / z²-blind / necessity / narrows" outside strike markers;
+footer census exact (37 + 4°); validator clean.
+
+The two cosmetics, lead-verified and swept in this record commit (round-78
+precedent):
+
+- **c1:** Q5's "definition sanity" conjunct `Omt(7)·Γ_ℝ(−7) == 2` was
+  tautological by Omt's definition — a gate that cannot fail (labeled
+  sanity, no printed claim rested on it). Removed, with the removal noted
+  in place; Q5's three printed claims (rationality, negativity, the 1p tie)
+  each keep their real gates. Verifier re-run: 5/0.
+- **c2:** the formulation's three-fragment strike recital used unbracketed
+  ellipses; now "[…]" per house practice (round 80 verified all three
+  fragments verbatim and the omitted middles true-when-written, so nothing
+  escaped striking — formatting only).
+
+**Verdict: CONVERGED under the round-43 standard. Theorem 1q is stable in
+its corrected form:** mirror coherence is an *equivalent reformulation* of
+1p's regularity principle — the given recast as non-degeneracy of the
+branch-swapped invariant under ξ's defining symmetry, with the census
+honestly classified (finite-nonzero uniquely at the sup among exact values;
+∞ once; zero three times; indeterminate three times), the adjudication
+stated, the regularized-limit caveat gated, and the equivalence itself gated
+from the never-∞ premise. **The open question is unchanged in extension:
+derive the given — per-label regularity or mirror coherence, either face —
+from A1–A4. Trajectory: 1q landed → 79 3M+3m+2c (swept) → 80 CONVERGED
+0+0+2c (swept). Standing open routes: the given's derivation from the
+axioms; the 1j pairing-act; the layer-2 soft inputs; part5:532 (editorial).
+Next hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

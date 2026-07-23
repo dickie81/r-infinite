@@ -367,8 +367,8 @@ entails coherent = all-odd = 1p-regular = {(7, 19, 217)}; but Γ_ℝ never
 vanishes (gated), so this is an **exact biconditional with 1p's per-label
 regularity**: an equivalent reformulation whose contribution is motivational,
 ~~the regularity principle is derived, 2³ per-label applications replaced by
-one requirement… 1n's all-four-odd upgrades to necessity… the open question
-narrows~~ **[struck round 79 (F3/F4, MAJOR): "derived" holds in both
+one requirement […] 1n's all-four-odd upgrades to necessity […] the open
+question narrows~~ **[struck round 79 (F3/F4, MAJOR): "derived" holds in both
 directions; the 2³-vs-6 count was inconsistent; "necessity" under an
 extensionally identical postulate is vacuous; the open question is unchanged
 in extension]**. The d_V clause deflated (F7): Ω̃(5) = −15/(4π³) ≠ 0 with

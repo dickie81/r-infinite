@@ -1630,3 +1630,26 @@ non-degeneracy of the branch-swapped invariant under ξ's defining symmetry,
 with the census honestly classified (finite-nonzero uniquely at the sup among
 exact values; adjudication and limit-caveat gated) — and the open question is
 unchanged: derive the given, in either face, from A1–A4.**
+
+# Round 80: convergence test on the round-79 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 2 cosmetics, swept); Theorem 1q certified stable as an equivalent reformulation
+
+Every strike recital programmatically verified verbatim against c753fe0
+(19 paper spans + 3 formulation spans, zero drift); every new quantitative
+claim independently recomputed (the four-class census; both divergent
+ε-limits and the finite −1.4132×10¹²³; ξ(8) = ξ(−7) = 4π⁴/225;
+Ĩ_sup·π¹¹⁷ rational, negative); every gate in the rebuilt verifier audited
+as a real gate; residual-claim greps clean repo-wide.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F80-c1 (cosmetic) — Q5's "definition sanity" conjunct tautological by Omt's definition (a gate that cannot fail; labeled sanity, no claim rested on it) | **Accepted; removed** with the removal noted in place; verifier re-run 5/0 | verifier |
+| F80-c2 (cosmetic) — unbracketed ellipses in the formulation's three-fragment strike recital | **Accepted; bracketed** per house practice (all three fragments verified verbatim; omitted middles true-when-written) | formulation |
+
+**Trajectory: 1q landed → 79 NOT CONVERGED 3M+3m+2c (swept) → 80 CONVERGED
+0+0+2c (swept in the record commit). Theorem 1q stable: mirror coherence is
+an equivalent reformulation of 1p's regularity principle — the given recast
+as non-degeneracy of the branch-swapped invariant under ξ's defining
+symmetry, census honestly classified, adjudication and limit-caveat gated,
+the equivalence gated from the never-∞ premise. The open question is
+unchanged in extension: derive the given, either face, from A1–A4. Next
+hostile round on the next substantive paper change.**
