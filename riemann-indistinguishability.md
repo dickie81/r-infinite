@@ -1167,19 +1167,29 @@ question for the committed record. *(i) The axioms carry zero labeling
 content.* Token census over the formulation's canonical axiom block (A1–A4):
 sup/max/min, labeling, boundary side, parity, odd, mirror, regular, coheren-,
 and the label numerals — **zero hits** (the block's lone "19" is the year in
-"Wall 1964", gated as such). Two adjudications disclosed rather than buried:
+"Wall 1964", gated as such; and the block's own selection vocabulary — A3's
+*"source-selection flags"* — is gated with per-token adjudication rather than
+omitted, round-94 F1: "selection" exactly once, in that clause — the flags
+select *sources and constants*, not labels; "unique" thrice, all in the
+action-uniqueness clause). Adjudications disclosed rather than buried:
 A2's home column names *"the functional equation's symmetry point"* as
 Γ(½)'s arithmetic home — provenance of a constant at the *fixed point* s = ½,
 not an asserted condition at mirror points (anchored); and A3 places source
 layers *"at the analytic features of Γ_ℝ"* and attaches *"below the phase
 transition"* — feature positions and regions, not boundary-side integer
 choices (1k's committed distinction, *"What the lattice does not fix is the
-side"*, anchored). *(ii) The given's subject matter is off-lattice.* A1's
+side"*, anchored); and §0's Notation commits ξ's functional equation —
+notation, not axiom, classical and label-independent (round-94 F4, anchored).
+*(ii) The given's subject matter is off-lattice.* A1's
 committed state space is *"the descent lattice ℕ (layer index d), weighted by
 Γ_ℝ"* (anchored verbatim). The kernel's four primitives evaluate Γ_ℝ on the
-lattice's argument image {d+1, d+2} — strictly positive (gated, d = 0..299) —
-while **both faces of the given evaluate Γ_ℝ at negative arguments** at the
-labels (γ_∞ needs 1−s = −d; the mirror weight needs −d; gated). The axioms'
+lattice's argument image {d+1, d+2} — strictly positive ~~(gated, d =
+0..299)~~ **[reworded round 94 (F3): the first draft's positivity conjuncts
+were constructed from the claim and could not fail; the T1 definitions are
+now anchored verbatim — failable — with the positivity an exhibit of the
+anchored offsets]** — while **both faces of the given evaluate Γ_ℝ at
+negative arguments** at the labels (γ_∞ needs 1−s = −d; the mirror weight
+needs −d; the d = 7 mirror weight gated). The axioms'
 asserted content quantifies over lattice points and their weights; **no axiom
 asserts any condition at negative arguments.** Expressibility is not the
 issue — classical analysis continues the weight function; what is missing is

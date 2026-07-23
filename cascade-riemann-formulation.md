@@ -483,14 +483,19 @@ seven-item count stand. No closure of the member; category (a).
 **T1u (the given's irreducibility classification;
 `cascade_given_irreducibility.py`, five gates).** The 1p/1q question —
 derive the given, either face, from A1–A4 — adjudicated for the committed
-record. The canonical axiom block carries **zero** labeling/selection
-content (token census gated; the lone "19" is "Wall 1964"; A2's
+record. The canonical axiom block carries **zero** labeling content on
+the fifteen censused tokens ~~zero labeling/selection content~~ **[reworded
+round 94 (F1): the block does contain selection vocabulary — A3's
+"source-selection flags" — now gated with per-token adjudication: sources
+and constants, not labels]** (the lone "19" is "Wall 1964"; A2's
 "functional equation's symmetry point" and A3's "at the analytic features"
 adjudicated in the open — provenance and positions, not conditions or
-sides). A1's state space is the lattice; the kernel's argument image is
-strictly positive (gated d = 0..299), while **both faces of the given
-evaluate Γ_ℝ at negative arguments** (gated at the labels) — no axiom
-asserts any condition there. The labeling enters the committed chain once,
+sides; §0's ξ-functional-equation notation disclosed, round-94 F4). A1's
+state space is the lattice; the kernel's T1 definitions are anchored
+verbatim with their positive argument image an exhibit of the anchored
+offsets (round-94 F3 replaced conjuncts that could not fail), while **both
+faces of the given evaluate Γ_ℝ at negative arguments** (the d = 7 mirror
+weight gated) — no axiom asserts any condition there. The labeling enters the committed chain once,
 at Part 0's variational definition (its own "remains open" grading
 anchored; downstream consumers take the output — part5's 18Ω₁₉Ω₂₁₇/π³
 anchored). The five committed faces coincide at (7, 19, 217) (re-gated)

@@ -17,7 +17,10 @@ question for the committed record.
      canonical statement): sup/max/min, labeling, boundary side,
      parity, odd, mirror, regular, coheren-, and the label
      numerals -- ZERO hits (the block's lone "19" is the year in
-     "Wall 1964", gated as such).  Disclosed adjudications: A2's
+     "Wall 1964", gated as such; the block's own selection
+     vocabulary -- the A3 flags clause -- gated with per-token
+     adjudication, round-94 F1: source/constant selection, not
+     label selection).  Disclosed adjudications: A2's
      home column names "the functional equation's symmetry point"
      as Gamma(1/2)'s arithmetic home -- provenance of a constant
      at the FIXED POINT s = 1/2, not an asserted condition at
@@ -30,8 +33,10 @@ question for the committed record.
      state space is "the descent lattice N (layer index d),
      weighted by Gamma_R" (anchored verbatim).  T1's four kernel
      primitives evaluate Gamma_R on the lattice's argument image
-     {d+1, d+2} -- strictly positive integers (gated on the
-     definitions).  Both faces of the given evaluate Gamma_R at
+     {d+1, d+2} -- strictly positive integers (the T1 definitions
+     anchored verbatim, round-94 F3; the positivity is an exhibit
+     of the anchored offsets).  Both faces of the given evaluate
+     Gamma_R at
      NEGATIVE arguments: gamma_oo(s) = Gamma_R(1-s)/Gamma_R(s)
      needs 1-s = -d <= 0, and the mirror weight 2/Gamma_R(-d)
      needs -d <= 0 (gated at the labels).  The axioms' asserted
@@ -130,40 +135,69 @@ def main():
     hits = {tok: block.lower().count(tok) for tok in toks
             if block.lower().count(tok)}
     ok1 &= hits == {}
+    # round-94 F1: the block DOES contain selection vocabulary -- the A3
+    # flags clause -- so the census now gates it with per-token
+    # adjudication instead of omitting it: "selection" appears exactly
+    # once, inside "source-selection flags" (constant/source selection,
+    # not label selection); "flag" twice, both in that clause's
+    # sentence; "unique" three times, all in the action-uniqueness
+    # clause (dynamics, not labeling):
+    bl = block.lower()
+    ok1 &= bl.count("selection") == 1 and "source-selection flags" in block
+    ok1 &= bl.count("flag") == 2
+    ok1 &= bl.count("unique") == 3 and "action-uniqueness" in block
     # the block's lone label-like numeral is the Wall year:
     ok1 &= block.count("19") == 1 and "Wall 1964" in block
     # disclosed adjudications, anchored:
     ok1 &= "the functional equation's symmetry point" in block   # A2 home
     ok1 &= "at the analytic features of" in block                # A3
+    # round-94 F4: the Notation section's xi functional equation is the
+    # committed apparatus's nearest occurrence of the identity the
+    # transformed question asks about -- notation, not axiom; anchored:
+    form_head = form[:i0]
+    ok1 &= "with ξ(s) = ξ(1−s)" in form_head                     # section 0
     ok1 &= "What the lattice does *not*\nfix is the **side**" \
         in open(os.path.join(ROOT, "riemann-indistinguishability.md"),
                 encoding="utf-8").read() \
         or "What the lattice does *not* fix is the **side**" in paper
-    print(f"   the A1-A4 block ({len(block)} chars) scanned: selection/")
-    print(f"   labeling tokens ZERO {hits}; the lone '19' is 'Wall 1964'")
-    print("   (gated).  Disclosed: A2's home column names the functional")
-    print("   equation's SYMMETRY POINT (provenance at the fixed point,")
-    print("   not a mirror condition); A3 places layers at FEATURES and")
-    print("   regions (1k's committed side-vs-position distinction")
+    print(f"   the A1-A4 block ({len(block)} chars) scanned: the 15 listed")
+    print(f"   labeling tokens ZERO {hits}; the block's own selection")
+    print("   vocabulary gated with adjudication (round-94 F1: 'selection'")
+    print("   exactly once, in 'source-selection flags' -- constants and")
+    print("   sources, not labels; 'unique' thrice, all action-uniqueness);")
+    print("   the lone '19' is 'Wall 1964' (gated).  Disclosed: A2's home")
+    print("   column names the functional equation's SYMMETRY POINT")
+    print("   (provenance at the fixed point, not a mirror condition); A3")
+    print("   places layers at FEATURES and regions (1k's side-vs-position")
+    print("   distinction anchored); section 0's notation commits the xi")
+    print("   functional equation -- notation, not axiom (round-94 F4,")
     print("   anchored)   " + ("PASS" if ok1 else "FAIL"))
 
     # ---- U2: the off-lattice dichotomy
     print()
     print("U2 the given's subject matter is off the axioms' lattice:")
     ok2 = "The state space is the descent lattice" in form
-    kernel_args = [d + k for d in range(0, 300) for k in (1, 2)]
-    ok2 &= all(a >= 1 for a in kernel_args)          # kernel: positive args
+    # round-94 F3: the kernel's argument image is now pinned by
+    # ANCHORING the committed T1 definitions (failable), with the
+    # positivity arithmetic an exhibit of the anchored offsets (the
+    # first draft's constructed lists were gates that could not fail):
+    ok2 &= "Ω(d) = 2/Γ_ℝ(d+1)" in form               # T1 definitions
+    ok2 &= "N(d) = Γ_ℝ(d+1)/Γ_ℝ(d+2)" in form
+    ok2 &= "p(d) = (log Γ_ℝ)′(d+1)" in form
+    # exhibit: for d in N, d+1 >= 1 and d+2 >= 2 (arithmetic of the
+    # anchored offsets); the faces' arguments at the labels:
     face_args = [1 - (d + 1) for d in (7, 19, 217)]  # gamma_oo at the labels
-    ok2 &= all(a <= 0 for a in face_args)            # faces: non-positive
-    ok2 &= all(-d < 0 for d in (7, 19, 217))         # mirror weights
+    ok2 &= all(a <= 0 for a in face_args)            # exhibit (declared)
     w7 = sp.simplify(2 / GR(-7))
     ok2 &= w7 == sp.Rational(105, 8) / sp.pi ** 4    # the machinery is real
     print("   A1's state space anchored verbatim ('the descent lattice N');")
-    print("   the kernel's argument image {d+1, d+2} is strictly positive")
-    print("   (gated d = 0..299); both faces evaluate Gamma_R at negative")
-    print(f"   arguments at the labels (1-s = {face_args}; the d = 7 mirror")
-    print("   weight 105/(8 pi^4) gated) -- no axiom asserts any condition")
-    print("   there   " + ("PASS" if ok2 else "FAIL"))
+    print("   the kernel's T1 definitions anchored (round-94 F3 -- their")
+    print("   argument image {d+1, d+2} is strictly positive, an exhibit")
+    print("   of the anchored offsets); both faces evaluate Gamma_R at")
+    print(f"   negative arguments at the labels (1-s = {face_args},")
+    print("   exhibit; the d = 7 mirror weight 105/(8 pi^4) gated) -- no")
+    print("   axiom asserts any condition there   "
+          + ("PASS" if ok2 else "FAIL"))
 
     # ---- U3: the single entry point (anchor-based, scope declared)
     print()
@@ -206,6 +240,8 @@ def main():
     ok5 = "or establish that the grammar never needs the odd reading" \
         in paper                                     # the 1s/1t chain stands
     ok5 &= "Mirror coherence is adopted, not derived" in part0
+    ok5 &= "That choice is stated, not made" in part0  # openness kept
+    #                                       (round-94 F5's sharper anchor)
     print("   IRREDUCIBLE RELATIVE TO A1-A4 AS COMMITTED: no committed")
     print("   route, zero axiom labeling content (U1), the subject matter")
     print("   off-lattice (U2), every face extra-axiomatic (U4).  A")

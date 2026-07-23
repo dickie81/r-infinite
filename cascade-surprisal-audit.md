@@ -8509,6 +8509,59 @@ adequacy); whether the "transforms" framing quietly closes a question
 the papers grade open; U4's type table (is "axiom-unbacked" for the
 parity rule right); the anchors' fallibility.**
 
+## Addendum 172: hostile review round 94 on commit ad88220 — NOT CONVERGED (0 majors, 3 minors, 2 cosmetics); all findings lead-verified and swept
+
+The theorem's substance held under every named attack: the census scope
+is genuinely canonical (exactly one statement of A1–A4 in the repo,
+verified by grep, with the formulation's Status line claiming exactly
+the canonicity leaned on); the A2 functional-equation adjudication
+survived (provenance at the fixed point, no asserted mirror condition);
+"irreducible" is scoping-flagged on every surface; the "transforms"
+move closes nothing ("the given persists" everywhere; part0 ends "That
+choice is stated, not made"); and the mod-8 attack on the parity rule
+FAILED decisively — the labels occupy three different odd residues
+mod 8 (7, 3, 1), so no single-coset rule could select them. The
+minors, all lead-verified and swept:
+
+- **F94-1 (minor):** the axiom block literally contains "selection" —
+  A3's "source-selection flags" — so the formulation's "zero
+  labeling/selection content" and the verifier's printed
+  "selection/labeling tokens ZERO" overstated the census (the paper's
+  "zero labeling content" headline was fine). **Swept with the strong
+  fix:** the census now gates the block's own selection vocabulary
+  with per-token adjudication ("selection" exactly once, inside
+  "source-selection flags" — sources and constants, not labels;
+  "flag" twice; "unique" thrice, all action-uniqueness), and the
+  formulation reworded with the strike.
+- **F94-2 (minor):** the part0 edit had consumed the outer
+  parenthetical's closing paren (balance +1). **Swept:** the closer
+  restored ("axioms.) (Adjudicated…"); balance re-verified 0.
+- **F94-3 (minor):** U2's positivity conjuncts were constructed from
+  the claim — gates that could not fail, labeled "gated." **Swept:**
+  the T1 definitions are now anchored verbatim (failable), with the
+  positivity arithmetic relabeled an exhibit of the anchored offsets;
+  all three surfaces reworded (the paper with the strike).
+- **F94-4/5 (cosmetic, swept):** §0's ξ-functional-equation notation
+  added to the disclosed adjudications (notation, not axiom —
+  anchored); U5 gains the sharper openness anchor ("That choice is
+  stated, not made", failable).
+
+**Held (reviewer, unpadded):** determinism; the U1 census recomputed
+independently; no anchor self-satisfaction (the round-81 F5 check —
+the gates read the block, not the paper; the paper's markup-stripped
+quote cannot satisfy the anchored string); all verbatim anchors at
+source; U4 recomputed (argmin S is Gram-independent, so the hardcoded
+0.02108 is not load-bearing); the five-faces count consistent across
+surfaces; footer census exact (42 = 41 + disclosed module; 4°); the
+full research battery green with the eight recorded-negative probes
+adjudicated as pre-existing prose.
+
+**Battery after sweep: given_irreducibility 5/0 (the extended census
+gates; the anchored T1 definitions; the openness anchor); grammar_need
+5/0; validator clean on 12 files. Trajectory: 1u landed → 94 NOT
+CONVERGED 0M+3m+2c → sweep this commit → round 95 (convergence test)
+spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

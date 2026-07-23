@@ -1898,3 +1898,21 @@ committed record — censused over every paper- or ledger-cited
 computational surface — the grammar does not need the odd reading; the
 pairing-act is Door-4 bookkeeping; the member persists with the licensed
 falsifier. Next hostile round on the next substantive paper change.**
+
+# Round 94: hostile review of Theorem 1u (subagent, per protocol) — NOT CONVERGED (0 majors, 3 minors, 2 cosmetics); full sweep applied; convergence round 95 follows
+
+The substance held under every named attack (the census scope canonical —
+exactly one A1–A4 statement in the repo; the A2 adjudication survived; the
+mod-8 attack on the parity rule failed decisively — the labels occupy
+three different odd residues; "transforms" closes nothing). The minors
+were instrument-and-prose residuals.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F94-1 (minor) — the block contains "selection" (A3's source-selection flags); "zero labeling/selection content" overstated | **Accepted; per-token adjudication gates added** ("selection" once, in the flags clause — sources/constants, not labels); formulation struck/reworded | verifier + formulation |
+| F94-2 (minor) — the part0 edit unbalanced the remark's parentheses (+1) | **Accepted; the outer closer restored**; balance re-verified 0 | part0 |
+| F94-3 (minor) — U2's positivity conjuncts could not fail yet were labeled "gated" | **Accepted; the T1 definitions anchored verbatim (failable)**, positivity relabeled an exhibit; all surfaces reworded | verifier + paper + formulation |
+| F94-4/5 (cosmetic) — §0's ξ notation undisclosed; U5's anchors thin | **Accepted; swept** (§0 disclosed and anchored; the "That choice is stated, not made" openness anchor added) | verifier + paper + formulation |
+
+**Trajectory: 1u landed → 94 NOT CONVERGED 0M+3m+2c (swept) → round 95
+(convergence test) next.**
