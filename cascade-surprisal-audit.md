@@ -8143,6 +8143,68 @@ principle / grammar-need question (1s); the regularity/coherence given
 (1p/1q); the layer-2 soft inputs. Next hostile round on the next
 substantive paper change.**
 
+## Addendum 165: Theorem 1t — the grammar-need census (`cascade_grammar_need.py`, 5/0); 1s's disjunction resolves on branch B for the committed record
+
+**Commission.** "the odd extrinsic principle / grammar-need question pls" —
+1s's open core is a disjunction (derive an extrinsic odd principle from
+A1–A4, OR establish the grammar never needs the odd reading). The second
+branch is auditable, and the audit came back total.
+
+**The census (lead-run before any design; every count then gated).**
+
+- **N1 — the series.** All 12 cascade papers (src/*.tex): **zero hits**
+  for χ₋₃, L(s,χ)/L(1,χ), the χ zeros (8.0397), Kronecker, "conductor",
+  "quadratic character", or even √3 in the LaTeX sources. The lone
+  "Dirichlet" is part0a's classical method name (gated as exactly one hit
+  containing "Dirichlet's method"). Colour enters the papers exclusively
+  as ring/Lie structure (su(3), Adams, Radon–Hurwitz, ℤ[ω] via T8/T11) —
+  the initial grep's apparent χ hits in part4b were χ_top, the QCD
+  susceptibility.
+- **N2 — the observables.** cascade_constants.py, all of tools/verifiers/
+  and tools/closures/ (30 scripts), the four °-marked record
+  instruments, and PREDICTIONS.md: **zero hits** (the two raw "jacobi"
+  grep hits were "jacobian" substrings — excluded by tokenization,
+  disclosed).
+- **N3 — the crossing.** The band machinery is Γ-side complete: p's zero
+  at 6.2569 and both band inequalities gated from digamma alone.
+- **N4 — Door 4.** The two sides are independently committed: ½ln 3 =
+  ln √3 (bridge side, exact) and covol(ℤ[ω]) = |Im ω| = √3/2 = cos(π/6)
+  from the lattice basis (ring side, gated), with 1m's committed
+  identification anchored — the mass arc consumes the ring side.
+  Removing the identification changes no committed number.
+- **N5 — the scoped conclusion.** For the committed record, **the grammar
+  does not need the odd reading**: the pairing-act is Door-4 bookkeeping,
+  its derivational weight audited to zero. Scope stated (the derivation
+  record; the pairing-study surfaces excluded by design and disclosed);
+  NOT a universal over future derivations (the round-47 lesson applied in
+  advance); licensed falsifier, stopping-rule-gated: any future grammar
+  entry routed through the odd bridge's L-side re-opens the member's
+  derivational weight. **The member persists** (three members, seven
+  items unchanged); what closes is 1s's open question, on its auditable
+  branch.
+
+**Census-discipline note (caught at landing):** naming
+cascade_constants.py in 1t's scope text made it body-cited under the
+case-correct grep while it is a constants module, not a tools/research
+verifier — the footer census now discloses it explicitly
+(40 counted verifiers + 1 disclosed module + 4 °-marked; set-exactness
+re-verified).
+
+**Surfaces.** Paper: Theorem 1t after 1s + net-state at 1s's tail;
+formulation T1t + marker; footer census 39→40 with the module
+disclosure. Verifier cascade_grammar_need.py 5/0; validator clean on 12
+files.
+
+**Trajectory: 1t landed → round 89 (hostile, fresh-context, same-model)
+spawned per protocol. Named attack vectors: the census scope's
+exclusions (is excluding the pairing-study surfaces circular or
+correctly disclosed); the token lists' completeness (could the L-side
+enter under another name — e.g. "root number", "epsilon factor",
+"Gauss sum" in src?); the N1 √3-zero-hits claim's robustness; whether
+"derivational weight audited to zero" overclaims relative to what a
+text census can show (semantic vs lexical consumption); the falsifier's
+form; the footer-census module disclosure.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

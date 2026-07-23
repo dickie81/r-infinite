@@ -441,7 +441,27 @@ feature (Finding 6's exclusion anchored); nothing obligates the odd
 reading. Pairing-at-all = [object: identity] + [reading: extrinsic if
 taken] + [partner: T1r]. Open core: derive an extrinsic odd principle from
 A1–A4, or establish the grammar never needs the odd reading. No closure;
-category (a).
+category (a). *(Net-state, T1t: the disjunction resolves on branch B for the
+committed record.)*
+
+**T1t (the grammar-need census; `cascade_grammar_need.py`, five gates).**
+1s's second branch established for the committed record. Scope stated: the
+derivation record — 12 cascade papers, the frozen ledger, 30
+observable-computing scripts (constants, verifiers, closures), the four
+°-marked record instruments; excluded by design and disclosed: this program's
+own pairing-study surfaces. The token census (χ₋₃, L(s/1,χ), the χ zeros,
+Kronecker, conductor, quadratic character, √3-in-LaTeX) returns **zero hits
+across the entire record** (gated per token; the lone "Dirichlet" gated as
+part0a's classical method name). The crossing is Γ-side complete (p's zero
+6.2569 and the band inequalities from digamma alone, gated); Door 4's two
+sides are independently committed (½ln 3 = ln √3 exact; covol from the
+lattice basis = √3/2 = cos(π/6) gated; the mass arc consumes the ring side,
+1m's identification anchored). **For the committed record the grammar does
+not need the odd reading — the pairing-act is Door-4 bookkeeping, its
+derivational weight audited to zero.** Scoped, not universal; licensed
+falsifier: any future grammar entry routed through the odd bridge's L-side
+re-opens the member's weight. The member persists; three members and the
+seven-item count stand. No closure of the member; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

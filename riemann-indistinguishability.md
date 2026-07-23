@@ -1073,7 +1073,49 @@ decomposes as [the object — an identity, (i)] + [the reading — obligatorily
 extrinsic *if taken at all*, (ii)–(iii)] + [the partner — 1r's three anchors]. **The
 open core narrows to: derive an extrinsic odd selection principle from A1–A4, or
 establish that the grammar never needs the odd reading** (the act as Door-4
-bookkeeping only). No number changes; no closure; category (a).
+bookkeeping only). No number changes; no closure; category (a). *(Net-state,
+Theorem 1t: the disjunction resolves on its second branch for the committed
+record — the grammar-need census returns zero consumption of the odd bridge's
+arithmetic side across the derivation chain; the act is Door-4 bookkeeping,
+with the falsifier licensed.)*
+
+**Theorem 1t (the grammar-need census: 1s's second branch established for the
+committed record; `cascade_grammar_need.py`).** 1s's open core is a disjunction;
+this theorem audits its second branch as a consumption census. *(i) The scope,
+stated.* The derivation record: every cascade paper (src/*.tex, 12 files), the
+frozen ledger (PREDICTIONS.md), the observable-computing tools
+(cascade_constants.py, tools/verifiers/, tools/closures/ — 30 scripts), and the
+four °-marked record instruments. **Excluded by design, disclosed:** this paper
+and its research instruments — they are the *study* of the pairing (1c, 1i, 1r
+and their verifiers), so their L-side content is the audit's subject, not a
+consumer. *(ii) The census returns zero.* Token census (χ₋₃, L(s,χ)/L(1,χ), the
+χ zeros 8.0397, Kronecker, "conductor", "quadratic character", √3 in the LaTeX
+sources): **zero hits across the entire derivation record** — gated per token,
+per surface, with the lone "Dirichlet" in the series gated as part0a's
+classical method name ("Dirichlet's method", the ζ(2) evaluation). Colour
+enters the papers exclusively as ring/Lie structure — su(3), Adams,
+Radon–Hurwitz, ℤ[ω] via T8/T11. *(iii) The crossing is Γ-side complete.* The
+band boundary derives from digamma alone (p's zero at 6.2569 gated at 4 d.p.;
+the band inequalities p(6) < 0 < p(7) and p(19) < ln Γ(½) < p(20) gated): the
+feature machinery consumes digamma, never an L-function. *(iv) Door 4's two
+sides are independently committed.* The bridge side: ½ln 3 = ln √3 (exact).
+The ring side: covol(ℤ[ω]) computed from the lattice basis (1, ω) is
+|Im ω| = √3/2 = cos(π/6) (gated), and the mass arc consumes *the ring side*
+(1m's committed identification anchored verbatim). Removing the Door-4
+identification changes no committed number: the identification links two
+objects that each exist independently. *(v) The scoped conclusion, the honest
+grading, and the falsifier.* **For the committed record, the grammar does not
+need the odd reading: 1s's disjunction resolves on its second branch, and the
+pairing-act's derivational weight is audited to zero** — the act is Door-4
+bookkeeping, an identification consumed by nothing in the chain. This is a
+census over the record, **not a universal over future derivations** (the
+round-47 lesson applied in advance); the licensed falsifier,
+stopping-rule-gated per the 1h(iv) pattern: **any future derivation that
+routes a grammar entry through the odd bridge's L-side re-opens the member's
+derivational weight.** The member itself persists as charged — the act, when
+taken, remains the recorded convention — so **three members and the seven-item
+count stand**; what closes is 1s's open question, on its auditable branch. No
+number changes; no closure of the member; category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1605,4 +1647,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1s: the **39 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1t: the **40 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
