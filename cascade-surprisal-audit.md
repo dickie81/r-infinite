@@ -6917,6 +6917,45 @@ recitals as the only 0.6013 occurrences; validator clean on 12 files.
 **Trajectory: F63-1 swept → 69 0M+2+1c (same-file residuals). Round 70
 (convergence test) gates stability.**
 
+## Addendum 138: hostile review round 70 (convergence test, subagent, per protocol) on commit eb44a19 — **CONVERGED** (0 majors, 0 minors, 5 cosmetics); the F63-1 arc closes stable
+
+**The round-69 sweep verified exact and complete: part0's stated p-values
+(0.55351, 0.57914, 1.77101, 1.77331) all match the reviewer's independent
+computation at both part0 sites; the false diagnostic gone with 0.6013
+surviving only in retirement recitals; both closing statements qualified;
+the F69-3 apposition verified against Part I's 1.9% (confirmed as the honest
+propagated Planck error, 1.93%); every printed number in the verifier's nine
+sections matched independently; the incidental structural claims attacked
+and held (the farther-integer ≡ argmax equivalence; d₀* as the continuous
+Ω-maximum). Verdict CONVERGED under the standing precedent.**
+
+**The five cosmetics, dispositioned:** (1–3, in-arc, verifier) the p(218)
+line's residual "claims" styling, the docstring recital's quote-splice, and
+the stale "Part 0 mixed" labels plus the first-person "as I earlier
+claimed" — **all swept in this commit** per the editorial-batching rule
+(labels now "Part 0 labeling"; the [7] conclusion notes the round-70
+update; the recital's quote form fixed). (5) the verifier has no
+assert/exit-code discipline — registered as a hardening note; no object
+surface claims it as a machine gate (part0 cites it for the enumeration,
+which it performs). (4, out-of-arc, pre-existing) **the 1.0990×10⁻¹²⁰
+last-digit misround** — the exact sup is 1.09894538952×10⁻¹²⁰, which rounds
+to 1.0989 at 5 significant figures — carried at ~10 sites across part0 and
+part2 (incl. part0's verification appendix checkmarking 0.91189 × 1.2051 =
+1.0990 where the product is 1.09892); already partially acknowledged in
+`cascade_lattice_selection.py`'s K7 disclosure. No downstream claim depends
+on the fifth digit (the −0.068% deviation and the (1.10±0.02) pullback are
+computed from exact values). **Held as a registered item for its own
+batched editorial commit** (per the reviewer's recommendation, not a
+reopening of this arc).
+
+**The F63-1 arc, complete:** registered round 63 → corrected at source
+round 69-trigger (27e3259) → residuals swept (eb44a19) → 70 CONVERGED
+0+0+5c. Part0's rem:variational now states the observation in ρ-units, the
+closure, and the invariant-units pullback honestly on every carrying
+surface. Standing open routes unchanged: part0's principled derivation of
+max; the 1j pairing-act; the 1.0990 editorial batch. Next hostile round on
+the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1435,3 +1435,20 @@ sites.
 | F69-3 (cosmetic) — "(0.1%)" apposition misread as the observational precision | **Accepted.** "to 0.1% — well inside the 1.9% Planck 1σ (Part I)" | part0 |
 
 **Trajectory: F63-1 swept → 69 0M+2+1c. Round 70 gates stability.**
+
+# Round 70: convergence test on the round-69 sweep (subagent, per protocol) — **CONVERGED** (0+0+5c); the F63-1 unit-label arc closes stable
+
+The sweep verified exact and complete: all four part0 p-values matched
+independently at both sites; the false diagnostic gone; both closing
+statements qualified; the 1.9% figure confirmed as the honest propagated
+Planck error; every printed number in all nine verifier sections matched;
+the incidental structural claims (farther-integer ≡ argmax; d₀* as the
+continuous Ω-maximum) attacked and held.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F70-1/2/3 (cosmetics, in-arc) — p(218) "claims" styling; docstring quote-splice; stale "mixed" labels + first-person | **Accepted; swept in the record commit** (editorial batching) | verifier |
+| F70-4 (cosmetic, pre-existing, series-wide) — 1.0990×10⁻¹²⁰ last-digit misround (~10 sites, part0+part2; exact sup 1.09894538952×10⁻¹²⁰ → 1.0989) | **Lead-verified; held** for its own batched editorial commit (already partially acknowledged in lattice_selection K7) | none |
+| F70-5 (cosmetic) — the verifier has no assert/exit-code gate | **Held as a hardening note**; no surface claims it as a machine gate | none |
+
+**Trajectory: F63-1 registered (round 63) → corrected (27e3259) → residuals swept (eb44a19) → 70 CONVERGED 0+0+5c. The arc closes; next hostile round on the next substantive paper change.**
