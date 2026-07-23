@@ -1524,3 +1524,21 @@ its exact 1.0989×10⁻¹²⁰ at all 15 sites; part1's 1.20513; the part2=3 tab
 content-match with the causal claim withdrawn; CLAUDE.md at §8. Registered
 residue: part5:532 (future batch). Next hostile round on the next substantive
 paper change.**
+
+# Round 75: hostile review of Theorem 1o (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 3 minors); the false novelty claim struck, the register claim downgraded
+
+The mathematics of (i)/(ii) fully verified (every ζ value from Bernoulli
+formulas; the sympy-exactness hazard checked and cleared; the uniqueness count
+enumerated by hand). The major: the Check-4 novelty claim was false-when-written
+— cascade_adelic_compensator.py is the fork's founding instrument (ln ζ(6) at
+s = d+1, d = 5 vs α(14)/2, "the adelic survivor") and lists π⁶/945 as ζ(6);
+the lead's novelty grep had missed tools/.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F75-1 (MAJOR) — "no repo surface previously identified π⁶/945 as ζ(6)" false | **Accepted.** Struck-and-annotated on all three surfaces; (iii) re-graded from registration to cross-link with the new content isolated (the tie to the Euler-rational twist set) | paper + formulation + script |
+| F75-2 (minor) — parity misclassified as avatar-side; "canonical register" overreach | **Accepted.** Struck-and-annotated; the placement statement replaces the register ranking everywhere | paper + formulation + script |
+| F75-3 (minor) — "ζ there has no closed form" as fact | **Accepted.** "no closed form is known" | paper + script |
+| F75-4 (minor) — Z5 a byte-duplicate of Z2's conjunct; cross-link print-only | **Accepted.** Z5 rebuilt: the frozen ledger row gated verbatim + the re-exhibit declared | script |
+
+**Trajectory: 1o landed → 75 1M+3m. Round 76 gates stability of Theorem 1o.**

@@ -7235,6 +7235,53 @@ self-contained; "remains open" kept). Validator clean on 12 files;
 zeta_rational 5/0, sup_selection 5/0, lattice_selection 7/0. Round 75
 (hostile subagent, per protocol) follows.
 
+## Addendum 146: hostile review round 75 (subagent, per protocol) on commit 60105e1 — Theorem 1o; NOT CONVERGED (1 MAJOR, 3 minors); the false novelty claim struck, the register claim downgraded, the duplicate gate rebuilt
+
+**The mathematics of 1o(i)/(ii) was fully verified (every ζ value re-derived
+from Bernoulli formulas; the sympy-exactness hazard checked and cleared —
+every argument is an evaluated integer case; the uniqueness count enumerated
+by hand across all eight labelings). The defects were mine, and the major is
+a textbook Check-4 failure: my novelty grep covered src/ and the md surfaces
+but missed tools/.**
+
+- **F75-1 (MAJOR):** "no repo surface previously identified π⁶/945 as ζ(6)"
+  — false-when-written: `cascade_adelic_compensator.py` (committed five days
+  before 1o) lists π⁶/945 as ζ(6) in its compensator menu AND tests ln ζ(6)
+  at s = d+1, d = 5 against the papers' α(14)/2 — it is the fork's
+  **founding instrument** (the ledger's own row annotation reads
+  "adjudicates the adelic survivor"); `gamma_identities_enumeration.py` also
+  lists the value. **Swept per the marking rule:** struck-and-annotated on
+  the paper; the formulation and script docstring rewritten with the recital
+  (the Check-4 grep had missed tools/); 1o(iii) re-graded from "novel
+  registration" to a **cross-link** — the genuinely new content isolated:
+  the fork constant sits at d_V's twist point, a member of the sup's
+  Euler-rational twist set {6, 8, 20, 218}.
+- **F75-2 (minor):** "1n's parity and obstruction equivalents are
+  avatar-side" — false: parity of an integer index is already arithmetic;
+  only the χ form is avatar-side. The "canonical register per T1's Remark"
+  claim rested on this misclassification plus a stretch (the Remark
+  deprecates the avatar in derivations; it does not rank characterization
+  registers). **Swept:** struck-and-annotated on the paper; the register
+  claim replaced everywhere by the honest placement statement (the parity
+  form already arithmetic, the ζ-form its classical decoration through the
+  Def-2.1 biconditional; the χ reading demoted to shadow status).
+- **F75-3 (minor):** "ζ there has no closed form" asserted an open problem
+  as fact. **Swept:** "no closed form is known" (paper + the Z2 print).
+- **F75-4 (minor):** Z5's sole conjunct was a byte-duplicate of Z2's ζ(6)
+  conjunct (`5 + 1` evaluates before sympy sees it) with the ledger
+  cross-link print-only. **Swept:** Z5 rebuilt — the frozen ledger row
+  gated verbatim from the paper plus the Z2 conjunct declared a re-exhibit.
+
+**Held (reviewer):** all ζ values exact; the argmax/argmin; the uniqueness
+count; the ledger row verbatim and untouched (frozen); no
+equivalence→forcing slide on any surface; the mirror dichotomy honestly
+presented as a re-expression; part0's (iii) mathematically correct and
+self-contained with "remains open" kept; footer census 34 + 4° exact;
+validator clean. **Object gates at the swept tree:** zeta_rational 5/0
+(with the rebuilt Z5 passing on the verbatim ledger row); validator clean.
+**Trajectory: 1o landed → 75 1M+3m. Round 76 (convergence test) gates
+stability of Theorem 1o.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

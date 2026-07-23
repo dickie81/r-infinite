@@ -767,38 +767,52 @@ residual selection content, so the forcing question stays open and 1k's second g
 **persists — re-motivated** from a bare max convention to named structural
 equivalents tied to the load-bearing χ machinery. Part 0's remark is registered with
 the equivalences and keeps "remains open". No number changes; no closure;
-category (a). *(Net-state, Theorem 1o round 75: the parity/χ equivalents have an
-arithmetic-primary form — the sup's twist points are ζ's Euler-rational points and the
-inf's twists mirror exactly onto the trivial zeros; per T1's Remark the arithmetic
-form is canonical.)*
+category (a). *(Net-state, Theorem 1o as corrected round 75: the dichotomy has an exact form on ζ's
+special-value structure — the sup's twist points are ζ's Euler-rational points and the
+inf's twists mirror exactly onto the trivial zeros; the χ reading is the avatar-side
+shadow, the parity form already arithmetic.)*
 
 **Theorem 1o (the arithmetic-primary form: ζ-rational twist points and trivial-zero
-avoidance; `cascade_zeta_rational.py`).** 1n's parity and obstruction equivalents are
-avatar-side (Euler characteristics of spheres) — and Theorem 1's own Remark rules *"The
-paper never uses the avatar; the arithmetic is primary."* The dichotomy has an exact
-arithmetic form on the paper's primary object. *(i) The sup's twist points are ζ's
+avoidance; `cascade_zeta_rational.py`).** 1n's obstruction equivalent is avatar-side
+(Euler characteristics of spheres) — deprecated as a register by Theorem 1's own Remark,
+*"The paper never uses the avatar; the arithmetic is primary"* — while its parity
+equivalent is already arithmetic (integer parity of tower labels) but stated on the
+layer index ~~1n's parity and obstruction equivalents are avatar-side~~ **[struck round
+75 (F2): parity of an integer index is already arithmetic; only the χ form is
+avatar-side]**. This theorem expresses the dichotomy on ζ's special-value structure —
+the paper's primary object. *(i) The sup's twist points are ζ's
 Euler-rational points.* Under Definition 2.1 (s = d+1) the sup labels' twists are
 s = 8, 20, 218, and the four distinguished layers' twists are **{6, 8, 20, 218} — all
 even**, where Euler's theorem gives ζ(s) = rational·π^s (ζ(6) = π⁶/945, ζ(8) =
 π⁸/9450; rationality gated exactly at all four via Bernoulli numbers). The inf labels'
-twists 7, 21, 219 are odd — ζ there has no closed form. *(ii) The mirror dichotomy.*
+twists 7, 21, 219 are odd — no closed form is known there. *(ii) The mirror dichotomy.*
 Under the functional equation s ↦ 1−s the sup twists mirror to **nonzero rationals** —
 ζ(−7) = 1/240, ζ(−19) = 174611/6600, ζ(−217) ≠ 0 (exact; and d_V's ζ(−5) = −1/252) —
 while the inf twists mirror **exactly onto the trivial zeros**: ζ(−6) = ζ(−20) =
 ζ(−218) = 0. Among the eight labelings **the sup is the unique one avoiding the
 trivial-zero mirror set** (gated: every other labeling carries at least one; the inf
-carries three). *(iii) The ledger cross-link (registration).* ζ(6) = π⁶/945 **is the
+carries three). *(iii) The ledger cross-link.* ζ(6) = π⁶/945 **is the
 frozen ledger's m_τ fork constant**: the adjudication row "π⁶/945-vs-α(14)/2" reads,
 in the tower's own dictionary, *ζ at the volume-max layer's twist point vs the
-compliance at the U(1) layer* — an identification registered here (Check-4 note: no
-repo surface previously identified π⁶/945 as ζ(6)); no closure, no data, and Belle II
-adjudicates the fork exactly as before. *(iv) Honest grading.* Still an equivalence:
+compliance at the U(1) layer* — ~~an identification registered here (Check-4 note: no
+repo surface previously identified π⁶/945 as ζ(6))~~ **[struck round 75 (F1, MAJOR):
+the identification is the fork's founding fact — `cascade_adelic_compensator.py` tests
+ln ζ(6) at s = d+1, d = 5 against the papers' α(14)/2 (the "adelic survivor"), and its
+compensator menu lists π⁶/945 as ζ(6) explicitly; the novelty claim was
+false-when-written, a Check-4 grep that missed tools/]**. What is new here is only the
+tie to the twist-parity structure: the fork constant is ζ at d_V's twist point, a
+member of the sup's Euler-rational twist set {6, 8, 20, 218}. No closure, no data, and
+Belle II adjudicates the fork exactly as before. *(iv) Honest grading.* Still an equivalence:
 why the labels avoid the trivial-zero mirrors is the residual selection content, so
 the forcing stays open and 1k's second given persists. What changes is the
-characterization's **register**: the 1n parity/χ equivalents are the avatar-side
-shadow of this ζ-arithmetic dichotomy (odd d ⟺ even s — the Definition-2.1
-biconditional, declared), and per T1's Remark the arithmetic form is the canonical
-one. No number changes; no closure; category (a).
+characterization's placement: the dichotomy now lives on ζ's special-value structure
+(odd d ⟺ even s — the Definition-2.1 biconditional, declared; the parity form was
+already arithmetic, and the ζ-form is its classical decoration through that
+biconditional), with the avatar-side χ reading demoted to shadow status per T1's
+Remark ~~per T1's Remark the arithmetic form is the canonical one~~ **[struck round 75
+(F2): T1's Remark deprecates the avatar in derivations; it does not rank
+characterization registers — the "canonical" claim was asserted, not argued]**. No
+number changes; no closure; category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

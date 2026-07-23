@@ -2,19 +2,26 @@
 """THE ARITHMETIC-PRIMARY FORM (Theorem 1o): 1n's parity
 equivalent re-expressed on zeta itself -- the sup's twist points
 are the Euler-rational points, and the inf's twist points mirror
-exactly onto the trivial zeros.  Category (a): exact symbolic
+exactly onto the trivial zeros.  ROUND-75 CORRECTIONS APPLIED (F1
+MAJOR, F2): see the CONTEXT and (iii) blocks below.  Category
+(a): exact symbolic
 arithmetic (sympy Bernoulli/zeta) plus the Gamma-side argmax
 recomputation; no data, no closures, no RH/GRH, no semiclassics
 (Check 7); the hypothesis is nowhere an input (Check 8).
 
 CONTEXT.  Theorem 1n characterized the variational sup three
 ways (parity, Euler-null spheres, minimal horizon budget), each
-an equivalence with the forcing open.  The parity/chi equivalents
-are AVATAR-side (Euler characteristics of spheres) -- and the
-paper's own Theorem-1 Remark rules 'The paper never uses the
-avatar; the arithmetic is primary.'  This file establishes the
-parity dichotomy's exact arithmetic form on the paper's primary
-object, zeta:
+an equivalence with the forcing open.  1n's obstruction
+equivalent is avatar-side (chi of spheres) -- deprecated as a
+register by the paper's Theorem-1 Remark, 'The paper never uses
+the avatar; the arithmetic is primary' -- while its parity
+equivalent is already arithmetic (integer parity of tower
+labels), stated on the layer index.  (Round-75 F2 struck this
+file's first claim that BOTH 1n equivalents were avatar-side,
+and the 'canonical register' assertion: the Remark deprecates
+the avatar in derivations, it does not rank characterization
+registers.)  This file expresses the dichotomy on zeta's
+special-value structure -- the paper's primary object:
 
   (i)  Under Definition 2.1 (twist s = d+1), the sup labels'
        twist points are s = 8, 20, 218, and the four
@@ -32,24 +39,33 @@ object, zeta:
        zeta(-6) = zeta(-20) = zeta(-218) = 0.  Among the eight
        labelings the sup is the UNIQUE one all of whose twist
        points avoid the trivial-zero mirror set.
-  (iii) THE LEDGER CROSS-LINK (registration): zeta(6) = pi^6/945
-       IS the frozen ledger's m_tau fork constant -- the row
+  (iii) THE LEDGER CROSS-LINK: zeta(6) = pi^6/945 IS the frozen
+       ledger's m_tau fork constant -- the row
        'pi^6/945-vs-alpha(14)/2' reads, in the tower's own
        dictionary, 'zeta at the volume-max layer's twist point
-       vs the compliance at the U(1) layer'.  An identification
-       registered here; no closure, no data; Belle II
-       adjudicates the fork exactly as before.  (Check-4 note:
-       no repo surface previously identified pi^6/945 as
-       zeta(6); novel registration.)
+       vs the compliance at the U(1) layer'.  Round-75 F1
+       (MAJOR) struck this file's first 'novel registration'
+       claim ('no repo surface previously identified pi^6/945
+       as zeta(6)'): the identification is the fork's FOUNDING
+       FACT -- cascade_adelic_compensator.py tests ln zeta(6)
+       at s = d+1, d = 5, against the papers' alpha(14)/2 (the
+       'adelic survivor') and lists pi^6/945 as zeta(6) in its
+       compensator menu; the Check-4 grep had missed tools/.
+       What is new here is only the tie to the twist-parity
+       structure: the fork constant is zeta at d_V's twist
+       point, a member of the sup's Euler-rational twist set
+       {6, 8, 20, 218}.  No closure, no data; Belle II
+       adjudicates the fork exactly as before.
 
 GRADING (honest, per Check 8; the campaign grammar).  Still an
 equivalence: WHY the labels avoid the trivial-zero mirror set is
 the residual selection content, so the forcing stays OPEN and
 Theorem 1k's second given persists.  What changes is the
-characterization's REGISTER: the 1n parity/chi equivalents are
-the avatar-side shadow of this zeta-arithmetic dichotomy (odd d
-<-> even s, a Definition-2.1 biconditional -- declared), and per
-T1's Remark the arithmetic form is the canonical one.  No number
+characterization's placement: the dichotomy now lives on zeta's
+special-value structure (odd d <-> even s, a Definition-2.1
+biconditional -- declared; the parity form was already
+arithmetic, the zeta-form its classical decoration), with the
+avatar-side chi reading demoted to shadow status.  No number
 changes; no closure.
 """
 
@@ -107,7 +123,7 @@ def main():
     print(f"   zeta(6) = pi^6/945, zeta(8) = pi^8/9450; zeta(20), zeta(218)")
     print(f"   rational x pi^s (Bernoulli, exact) -- the sup's twist points")
     print(f"   are zeta's Euler-closed-form points; the inf's (7, 21, 219)")
-    print(f"   are odd: no closed form   {'PASS' if ok2 else 'FAIL'}")
+    print(f"   are odd: no closed form is known   {'PASS' if ok2 else 'FAIL'}")
 
     # ---- Z3: the mirror dichotomy (exact trivial-zero avoidance)
     print()
@@ -137,16 +153,29 @@ def main():
     print(f"   carries 3 trivial-zero mirrors; every non-sup labeling")
     print(f"   carries at least one   {'PASS' if ok4 else 'FAIL'}")
 
-    # ---- Z5: the ledger cross-link (registration)
+    # ---- Z5: the ledger cross-link (round-75 F1/F4 rebuilt: the
+    # identification pre-exists -- the fork's founding fact, see the
+    # docstring; the old sole conjunct was a byte-duplicate of Z2's
+    # zeta(6) conjunct (5 + 1 evaluates before sympy sees it).  The
+    # genuine gate now: the frozen ledger row present verbatim in the
+    # paper, plus the Z2 re-exhibit, declared as such)
     print()
-    print("Z5 the ledger cross-link: the m_tau fork constant is zeta at")
-    print("   the volume-max layer's twist point (registration):")
-    ok5 = sp.simplify(sp.zeta(5 + 1) - sp.pi ** 6 / 945) == 0
-    print(f"   zeta(d_V + 1) = zeta(6) = pi^6/945 -- the frozen ledger's")
-    print(f"   m_tau row 'pi^6/945-vs-alpha(14)/2' reads: zeta at d_V's")
-    print(f"   twist vs the compliance at the U(1) layer.  No closure, no")
-    print(f"   data; Belle II adjudicates exactly as before   "
-          f"{'PASS' if ok5 else 'FAIL'}")
+    print("Z5 the ledger cross-link (identification pre-existing, round-75")
+    print("   F1; new content: the tie to the twist-parity structure):")
+    import os
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        "..", "..")
+    paper = open(os.path.join(root, "riemann-indistinguishability.md"),
+                 encoding="utf-8").read()
+    ok5 = "\u03c0\u2076/945-vs-\u03b1(14)/2 fork" in paper
+    ok5 &= sp.simplify(sp.zeta(6) - sp.pi ** 6 / 945) == 0  # Z2 re-exhibit
+    print(f"   the frozen ledger row 'pi^6/945-vs-alpha(14)/2 fork' present")
+    print(f"   verbatim in the paper; zeta(d_V + 1) = pi^6/945 (Z2")
+    print(f"   re-exhibit, declared).  The fork constant -- identified as")
+    print(f"   zeta(6) by the adelic compensator (its 'survivor') -- sits")
+    print(f"   at d_V's twist point in the sup's Euler-rational twist set")
+    print(f"   {{6, 8, 20, 218}}.  No closure; Belle II adjudicates as")
+    print(f"   before   {'PASS' if ok5 else 'FAIL'}")
 
     print()
     print("=" * 74)
@@ -157,14 +186,15 @@ def main():
     print("  Euler-rational points, whose functional-equation mirrors are")
     print("  nonzero rationals; the inf's twist points mirror exactly")
     print("  onto the trivial zeros, and the sup is the unique labeling")
-    print("  avoiding that degenerate mirror set.  Per T1's Remark ('the")
-    print("  arithmetic is primary') this is the canonical register of")
-    print("  the 1n equivalents.  Still an equivalence -- why the labels")
+    print("  avoiding that degenerate mirror set.  The dichotomy now")
+    print("  lives on zeta's special-value structure, the chi reading its")
+    print("  avatar-side shadow (round-75 F2: no register ranking claimed).")
+    print("  Still an equivalence -- why the labels")
     print("  avoid the trivial-zero mirrors is the residual content; the")
-    print("  forcing stays open; 1k's second given persists.  Bonus")
-    print("  registration: the m_tau ledger constant pi^6/945 is zeta(6),")
-    print("  zeta at the volume-max layer's twist point.  No number")
-    print("  changes; no closure.")
+    print("  forcing stays open; 1k's second given persists.  The m_tau")
+    print("  ledger constant pi^6/945 is zeta(6) -- the fork's founding")
+    print("  fact (adelic compensator), here tied to d_V's twist point in")
+    print("  the Euler-rational twist set.  No number changes; no closure.")
 
 
 if __name__ == "__main__":
