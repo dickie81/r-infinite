@@ -7884,6 +7884,55 @@ band-scale comparison's honesty; whether (i) adds content beyond 1k's
 gated same-root; the anchored-substring gates' fallibility (the F5
 lesson); quantifiers.**
 
+## Addendum 159: hostile review round 84 on commit f435109 — NOT CONVERGED (0 majors, 2 minors, 2 cosmetics); all findings lead-verified and swept
+
+**The central attack HELD.** The reviewer mounted the circularity charge
+against "pinned, not chosen" — that T1b displayed ζ's identity because
+T1b was about ζ — and adjudicated it down: T1b's displayed identity
+(untwisted primes, no conductor constant, pole terms) is a shape held by
+exactly one member of the even family, and the would-be symmetric counter
+("1c's ½ln 3 is equally χ₋₃-specific") fails on the kind/parameter
+distinction — the pole is a dichotomy needing no ordering, conductor 3 a
+parameter value selectable only by ordering or matching, which is
+precisely the committed round-57 typing. The Hadamard structure of the
+even-family claim, the "exactly one pole-carrier" quantification, S2's
+gate discrimination (harmonic tail between N and 2N is ln 2 ≫ the 10⁻⁴
+threshold), the novelty labeling of (i), the S4 domain scoping, and the
+Door-4 "bookkeeping" register were all verified and held.
+
+The findings, all lead-verified directly and accepted:
+
+- **F84-1 (minor):** "the unique root of ψ(x/2) = ln π" — false without
+  a domain restriction: ψ's branches between its poles supply a root in
+  every negative interval (lead-verified: x ≈ −0.7633, −2.9065, −4.9913,
+  residuals < 10⁻²⁵), and the stated mechanism (trigamma > 0) proves too
+  much, holding on each branch. The S1 grid was positive-only, so the
+  gate could not catch it. **Swept:** "the unique root on x > 0" with
+  the strike/annotation on the paper, the domain stated on all three
+  surfaces, and the monotonicity clause scoped to the positive grid.
+- **F84-2 (minor):** "p_sgn(x*−1) = 0 gated independently" — the
+  conjunct was the root check recomputed ((x−1)+1 = x; lead-verified
+  byte-identical evaluation), a gate that cannot fail. **Swept:** the
+  conjunct replaced by the honest gate — p_sgn evaluated from its own
+  formula −ln π/2 + ψ((s+1)/2)/2 at the committed 6.2569, < 10⁻⁴
+  (lead-verified: −3.7×10⁻⁶) — and the paper's adverb struck.
+- **F84-3/4 (cosmetic):** "they total 0.2976" → "their magnitude at the
+  central root is 0.2976" (the antecedent −1/s − 1/(s−1) totals −0.2976);
+  the "(re-gated)" parenthetical scoped to q = 2 only (q = 1 is excluded
+  by the anchored evenness clause, not a re-gate — the granularity-adverb
+  rule).
+
+**Also held:** anchor forensics clean (all five anchored substrings occur
+exactly once, pre-existing committed occurrences; 1s's own "Finding 6's /
+excluded object" is split across a line break so no self-satisfaction —
+noted as a latent reflow fragility, existence-only gate); footer census
+39 + 4° exact; batteries green; Checks 7/8 clean.
+
+**Battery after sweep: bridge_asymmetry 5/0 (the F2 replacement gate
+committed); validator clean. Trajectory: 1s landed → 84 NOT CONVERGED
+0M+2m+2c → sweep this commit → round 85 (convergence test) spawned per
+protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -417,9 +417,11 @@ members and the seven-item count stand. No closure; category (a).
 
 **T1s (pairing-at-all located; `cascade_bridge_asymmetry.py`, five gates).**
 The act's open core after T1r, located. (i) The odd feature is the unique
-root of ψ(x/2) = ln π (trigamma > 0 gated; offsets x*−2 = 5.2569 the
-V-argmax, x*−1 = 6.2569 the p-zero — both gated at 4 d.p.; p_sgn(x*−1) = 0
-gated): the paired object is the central continuum root in the sgn frame —
+root **on x > 0** of ψ(x/2) = ln π (round-84 F1: negative-branch roots
+exist, the domain now stated; trigamma gated on a positive grid; offsets
+x*−2 = 5.2569 the V-argmax, x*−1 = 6.2569 the p-zero — both gated at
+4 d.p.; p_sgn gated from its own formula at the committed 6.2569 — round-84
+F2 replaced a conjunct that could not fail): the paired object is the central continuum root in the sgn frame —
 an identity, not an act. (ii) The even tower's bridge family (every even
 real primitive χ — same Hadamard derivation as the odd bridge, classical)
 has exactly one pole-carrier, ζ (harmonic sum grows as ln N, gated; sample
@@ -427,10 +429,12 @@ even and odd character sums Cauchy-converge, gated; Dirichlet cited): T1b's
 ζ reading is **pinned by the pole, not chosen**. (iii) The pin is
 **parity-blocked** — the unique pole-carrier is even (definitional); the
 even selection is overdetermined (pole = conductor-1 = minimal, q = 1
-even), the odd side has no pole, no q ≤ 2 member (re-gated), minimum 3:
+even), the odd side has no pole, no q ≤ 2 member (q = 2 re-gated; q = 1 by the
+anchored evenness clause), minimum 3:
 any odd arithmetic reading requires an **extrinsic** principle — the act
 is located there. (iv) T1b's display carries the pole terms −1/s − 1/(s−1)
-(anchored; 0.2976 at the central root, more than half ln Γ(½), gated) — no
+(anchored; magnitude 0.2976 at the central root, more than half ln Γ(½),
+gated) — no
 pole-free partner supplies it; a latent "uncharged even pairing" charge is
 preempted. (v) **The act persists**: the grammar does not read the odd
 feature (Finding 6's exclusion anchored); nothing obligates the odd

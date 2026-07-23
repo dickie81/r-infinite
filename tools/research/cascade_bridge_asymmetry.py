@@ -15,15 +15,21 @@ question against committed structure:
 
   S1 THE PAIRED OBJECT IS NO ORPHAN.  The odd feature
      (p_sgn = 0 at s = 6.2569; Finding 6's excluded object; no
-     Definition-6.1 address) is the UNIQUE root of the balance
-     psi(x/2) = ln pi -- the same equation whose offset readings
-     are the V-argmax (d = x*-2 = 5.2569, the interior landmark
+     Definition-6.1 address) is the unique root ON x > 0 of the
+     balance psi(x/2) = ln pi (round-84 F1: the first draft said
+     "unique" without the domain -- false: psi's branches
+     between its poles supply a root in every negative interval,
+     e.g. x = -0.7633, -2.9065; and trigamma > 0 alone proves
+     too much, holding on each branch.  On x > 0, psi(x/2) is
+     strictly increasing -- trigamma gated on a positive grid,
+     classical -- so the positive root is unique, and the tower
+     lives on x > 0).  The same equation's offset readings are
+     the V-argmax (d = x*-2 = 5.2569, the interior landmark
      d_V's continuum equation) and the first crossing (1k's
      committed "same root", here extended to the odd feature
-     explicitly).  Uniqueness: trigamma > 0 (psi strictly
-     increasing; gated on a grid, classical).  The object being
-     paired is the framework's central continuum root seen in
-     the sgn frame -- an identity, not an act.
+     explicitly).  The object being paired is the framework's
+     central continuum root seen in the sgn frame -- an
+     identity, not an act.
   S2 THE EVEN SIDE HAS AN INTRINSIC PIN: THE POLE.  The even
      tower's bridge family (every even real primitive chi -- the
      same Hadamard derivation as 1c's odd bridge; classical,
@@ -118,15 +124,21 @@ def main():
     ok1 = abs(x - 2 - mp.mpf("5.2569")) < 5e-5      # V-argmax (1k)
     ok1 &= abs(x - 1 - mp.mpf("6.2569")) < 5e-5     # p-zero = odd feature
     ok1 &= abs(p_tower(x)) < 1e-25                  # root check
-    ok1 &= abs(p_tower((x - 1) + 1)) < 1e-25        # p_sgn(x*-1) = 0
+    # round-84 F2: the first draft's "independent" conjunct was the root
+    # check recomputed ((x-1)+1 == x) -- a gate that cannot fail.  The
+    # honest gate: p_sgn from its OWN formula at the committed value:
+    ok1 &= abs(-mp.log(mp.pi) / 2
+               + mp.digamma((mp.mpf("6.2569") + 1) / 2) / 2) < 1e-4
     ok1 &= all(mp.polygamma(1, y) > 0
-               for y in (0.1, 0.5, 1, 2, 5, 10, 50, 200))  # uniqueness
-    print(f"   x* = {float(x):.6f}: unique root of psi(x/2) = ln pi")
-    print("   (trigamma > 0 gated on a grid; psi strictly increasing --")
-    print("   classical); offsets x*-2 = 5.2569 (V-argmax, 1k) and")
-    print("   x*-1 = 6.2569 (the odd feature: p_sgn = 0, gated) match the")
-    print("   committed values at 4 d.p. -- the paired object is the")
-    print("   framework's central continuum root in the sgn frame   "
+               for y in (0.1, 0.5, 1, 2, 5, 10, 50, 200))  # x > 0 grid
+    print(f"   x* = {float(x):.6f}: the unique root ON x > 0 of")
+    print("   psi(x/2) = ln pi (round-84 F1: negative-branch roots exist;")
+    print("   trigamma gated on a positive grid, classical monotonicity);")
+    print("   offsets x*-2 = 5.2569 (V-argmax, 1k) and x*-1 = 6.2569 (the")
+    print("   odd feature) match the committed values at 4 d.p.; p_sgn")
+    print("   evaluated from its own formula at the committed 6.2569 is")
+    print("   < 1e-4 (round-84 F2's honest gate) -- the paired object is")
+    print("   the framework's central continuum root in the sgn frame   "
           + ("PASS" if ok1 else "FAIL"))
 
     # ---- S2: the even side's intrinsic pin (the pole), checkable core
@@ -180,7 +192,8 @@ def main():
     # ln Gamma(1/2) = 0.5724 (the committed B1 upper bound)
     ok4 &= pole_terms > mp.log(mp.gamma(mp.mpf("0.5"))) / 2
     print("   the pole terms -1/s - 1/(s-1) are in T1b's display (anchored")
-    print(f"   verbatim); at the central root they total {float(pole_terms):.4f} --")
+    print(f"   verbatim); their magnitude at the central root is "
+          f"{float(pole_terms):.4f} --")
     print("   more than half the first threshold ln Gamma(1/2) = 0.5724")
     print("   (gated): first-order on the band scale, not a correction:")
     print("   no pole-free partner supplies the displayed identity,")

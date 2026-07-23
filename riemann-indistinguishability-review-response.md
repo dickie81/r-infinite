@@ -1710,3 +1710,24 @@ entailed; pairing-at-all untouched — the open core), but χ₋₄'s
 live-alternative status is gone: three distinct committed anchors exclude
 it, and the bridge's own constant carries w = 6 by Dirichlet. Next hostile
 round on the next substantive paper change.**
+
+# Round 84: hostile review of Theorem 1s (subagent, per protocol) — NOT CONVERGED (0 majors, 2 minors, 2 cosmetics); full sweep applied; convergence round 85 follows
+
+The central attack — circularity in "pinned, not chosen" — was mounted and
+HELD: T1b's displayed identity (pole terms, untwisted primes, no conductor
+constant) is a shape held by exactly one even-family member, and the pole
+is a dichotomy needing no ordering while conductor 3 is a parameter value
+— the committed round-57 typing. Every number independently recomputed.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F84-1 (minor) — "unique root" false without domain (negative-branch roots exist; trigamma > 0 proves too much) | **Accepted; "unique root on x > 0"** with strike/annotation; monotonicity scoped to the positive grid | paper + formulation + verifier |
+| F84-2 (minor) — "gated independently" named a conjunct that was the root check recomputed (cannot fail) | **Accepted; replaced** by p_sgn from its own formula at the committed 6.2569 (< 10⁻⁴, gated); adverb struck | paper + formulation + verifier |
+| F84-3 (cosmetic) — sign gloss ("they total 0.2976" for a negative antecedent) | **Accepted; "their magnitude"** | paper + formulation + verifier print |
+| F84-4 (cosmetic) — "(re-gated)" covered q = 1, which is anchored, not re-gated | **Accepted; scoped** (q = 2 re-gated; q = 1 by the evenness clause) | paper + formulation |
+
+**Trajectory: 1s landed → 84 NOT CONVERGED 0M+2m+2c (swept) → round 85
+(convergence test) next. Net state: the parity-blocked pole pin stands —
+the even reading pinned, the odd reading obligatorily extrinsic, the act
+located and persisting; the open core: derive an extrinsic odd principle
+from A1–A4, or establish the grammar never needs the odd reading.**

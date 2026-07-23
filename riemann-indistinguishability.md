@@ -1029,12 +1029,20 @@ stand; no number changes; no closure; category (a).
 is **pairing-at-all** — why read the odd feature through an arithmetic partner in the
 first place. This theorem locates that question against committed structure. *(i) The
 paired object is no orphan.* The odd feature (p_sgn = 0 at s = 6.2569; Finding 6's
-excluded object; no Definition-6.1 address) is the **unique** root of the balance
-ψ(x/2) = ln π — trigamma > 0 gated on a grid, ψ strictly increasing (classical) — the
+excluded object; no Definition-6.1 address) is the **unique root on x > 0** of the
+balance ψ(x/2) = ln π ~~the unique root of the balance ψ(x/2) = ln π — trigamma > 0
+gated on a grid, ψ strictly increasing (classical)~~ **[struck round 84 (F1): false
+without the domain — ψ's branches between its poles supply a root in every negative
+interval (e.g. x = −0.7633, −2.9065), and trigamma > 0 alone proves too much, holding
+on each branch; on x > 0, where the tower lives, ψ(x/2) is strictly increasing
+(trigamma gated on a positive grid, classical) and the root is unique]** — the
 same equation whose offset readings are the V-argmax (x* − 2 = 5.2569, the interior
 landmark d_V's continuum equation) and the p-zero (x* − 1 = 6.2569), 1k's committed
 "same root" here extended to the odd feature explicitly (both offsets gated at 4 d.p.
-against the committed values; p_sgn(x* − 1) = 0 gated independently). The object being
+against the committed values; ~~p_sgn(x* − 1) = 0 gated independently~~ **[struck
+round 84 (F2): the conjunct was the root check recomputed — (x−1)+1 = x — a gate that
+cannot fail; the honest gate now committed evaluates p_sgn from its own formula at
+the committed 6.2569, < 10⁻⁴]**). The object being
 paired is the framework's central continuum root seen in the sgn frame — an identity,
 not an act. *(ii) The even side has an intrinsic pin: the pole.* The even tower's
 bridge family — every even real primitive χ, by the same Hadamard derivation as 1c's
@@ -1048,12 +1056,13 @@ the odd is not.* The unique pole-carrier is the trivial character — **even**
 (definitional). On the even side, pole-carrier = conductor-1 = minimal conductor
 (q = 1 exists and is even — 1c's committed clause, anchored). On the odd side: no
 pole (all odd completed L entire — classical; 1c commits it for χ₋₃), no q = 1 or 2
-member (re-gated), minimal conductor 3. **Any arithmetic reading of the odd tower
+member (q = 2 re-gated; q = 1 excluded by the anchored evenness clause — round-84
+F4's scope), minimal conductor 3. **Any arithmetic reading of the odd tower
 therefore requires an extrinsic selection principle: the act exists exactly because
 the intrinsic pin is parity-blocked.** *(iv) T1b's ζ-choice discharged.* T1b's
-displayed bridge carries the pole terms −1/s − 1/(s−1) (anchored verbatim); at the
-central root they total 0.2976 — more than half the first threshold ln Γ(½) = 0.5724
-(gated): first-order on the band scale, not a correction. No pole-free partner
+displayed bridge carries the pole terms −1/s − 1/(s−1) (anchored verbatim); their
+magnitude at the central root is 0.2976 — more than half the first threshold
+ln Γ(½) = 0.5724 (gated): first-order on the band scale, not a correction. No pole-free partner
 supplies the displayed identity, so the even-side "choice" of ζ is the pole pin in
 action — a latent "uncharged even pairing" review charge is preempted. *(v) Honest
 grading.* **The act persists.** The grammar still does not read the odd feature
