@@ -8021,6 +8021,60 @@ right honest form (vs restating to 66.77 or 3 s.f.); the C2 literal-step
 gates' genuineness; whether any other surface displays the four-figure
 chain and was missed.**
 
+## Addendum 162: hostile review round 86 on commit 4f48329 — NOT CONVERGED (1 MAJOR, 2 minors, 3 cosmetics); all findings lead-verified and swept
+
+The reviewer independently recomputed the entire chain (own CODATA
+constants: H₀ = 66.7752346, every displayed 5-s.f. intermediate the
+correct round, every literal step landing on the next figure, the G-band
+and anchor values exact) — **every paper number held**. The findings were
+against the instrument and the note's own precision:
+
+- **F86-1 (MAJOR, instrument):** eight tolerance conjuncts used 5-ULP
+  windows where half-ULP was needed — the product gate passed **the
+  defect value 1.4242 itself**, the final-step gate passed 66.77 (the
+  exact alternative the note adjudicates), and the old-defect conjunct
+  could not distinguish 1.4242 from 1.4244. The "verified/gated"
+  citations pointed at gates that did not gate the last-digit claims.
+  **Swept:** all eight tolerances tightened to half-ULP (lead-verified
+  each true value passes and the counterexamples fail); a new explicit
+  conjunct gates that 1.4242 now FAILS the product window; the
+  correction noted in the code.
+- **F86-2 (minor):** the note printed "the full-precision value is
+  66.775" — the round at exactly the adjudicating boundary, withholding
+  the digit (66.7752…) that decides its own central claim. **Swept:**
+  66.7752.
+- **F86-3 (minor):** "66.78 ± 0.01" had unstated provenance (G's band is
+  14× smaller; the anchor chain's 66.766 lies outside the literal band).
+  **Swept:** the width's meaning stated on both surfaces — the
+  anchor-sensitivity spread at display precision (the four-figure chain
+  sits 0.009 below the exact chain; G's band alone ±0.0007).
+- **F86-4 (cosmetic):** the note's four-figure-anchor census omitted the
+  same paper's T_CMB input (line 346). **Swept:** the census extended,
+  with the consequence stated (T_CMB ∝ M^{1/2} shifts 7×10⁻⁵; 2.642 K
+  unchanged).
+- **F86-5 (cosmetic):** C1's 2-d.p. round-check conjunct was implied by
+  the half-ULP window (redundant, not fake). **Swept:** removed with the
+  reason noted; the exit-code note is the standing sibling convention.
+- **F86-6 (cosmetic):** "(exact value 1.09894538952×10⁻¹²⁰, Part~0)"
+  attributed twelve digits Part 0 never prints (its finest display is
+  1.098945×10⁻¹²⁰) — the reviewer independently recomputed the invariant
+  from Part 0's definition at 50 d.p. and confirmed the twelve digits
+  correct. **Swept:** the attribution now says exactly that (Part~0's
+  invariant; twelve digits gated here; Part~0's own finest display
+  quoted).
+
+**Held:** the chain, all displayed rounds, the anatomy statement's
+sufficiency (the part0 Evaluation precedent), the correction recital
+(arithmetic fact, not quote — no drift), the downstream census (no other
+surface displays intermediates or a conflicting precision), validator
+clean, the md paper untouched (no footer-census trigger), batteries
+green.
+
+**Battery after sweep: h0_chain 4/0 with half-ULP gates and the
+defect-fails conjunct; validator clean on 12 files. Trajectory: residue
+executed → 86 NOT CONVERGED 1M+2m+3c → sweep this commit → round 87
+(convergence test) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

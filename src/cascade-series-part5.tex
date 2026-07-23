@@ -524,8 +524,10 @@ H_0 \;=\; M_{\rm Pl,red}\,\sqrt{\frac{2\,I}{3\,(\pi-1)}}
 \end{theorem}
 
 \begin{proof}
-$I = 1.0989 \times 10^{-120}$ (exact value $1.09894538952 \times 10^{-120}$,
-Part~0), $\Omega_\Lambda = (\pi-1)/\pi = 0.68169$,
+$I = 1.0989 \times 10^{-120}$ (Part~0's invariant;
+$1.09894538952 \times 10^{-120}$ to twelve digits, gated in
+\texttt{cascade\_h0\_chain.py} --- Part~0's own finest display is
+$1.098945 \times 10^{-120}$), $\Omega_\Lambda = (\pi-1)/\pi = 0.68169$,
 $M_{\rm Pl,red} = 2.4353 \times 10^{18}$~GeV (CODATA,
 $M_{\rm Pl}/\sqrt{8\pi}$). Intermediates are computed from the exact
 inputs and displayed at five significant figures, so each displayed step
@@ -541,16 +543,21 @@ H_0 &= 1.4244 \times 10^{-42}~\text{GeV}\times \frac{\text{Mpc}\cdot\text{km/s}}
 \end{align*}
 \end{proof}
 
-\noindent\emph{Precision note.} The full-precision value is $66.775$, and
-the second decimal is at the edge of what the inputs support: $G$'s
+\noindent\emph{Precision note.} The full-precision value is $66.7752$,
+and the second decimal is at the edge of what the inputs support: $G$'s
 relative uncertainty ($2.2\times10^{-5}$) maps to $\pm 0.0007$ on $H_0$
 (a band straddling the rounding boundary $66.775$), and the four-figure
-Planck-mass anchor $2.435\times10^{18}$~GeV used in the repository's
-tools gives $66.766 \to 66.77$. The recorded $66.78$ is the correct
-round of the exact-input chain; the operative statement is
-$H_0 = 66.78 \pm 0.01$ against Planck's $67.4 \pm 0.5$, so the $-0.9\%$
-leading deviation --- and everything downstream of it --- is untouched
-at this precision (gated in \texttt{cascade\_h0\_chain.py}).
+Planck-mass anchor $2.435\times10^{18}$~GeV --- used in the repository's
+tools and in this paper's own $T_{\rm CMB}$ input (Section~5.4, where
+$T_{\rm CMB} \propto M_{\rm Pl,red}^{1/2}$ shifts by $7\times10^{-5}$
+relative, leaving $2.642$~K unchanged) --- gives $66.766 \to 66.77$.
+The recorded $66.78$ is the correct round of the exact-input chain; the
+operative statement is $H_0 = 66.78 \pm 0.01$, where the width is the
+anchor-sensitivity spread at display precision (the four-figure-anchor
+chain sits $0.009$ below the exact chain; $G$'s band alone is
+$\pm0.0007$), against Planck's $67.4 \pm 0.5$: the $-0.9\%$ leading
+deviation --- and everything downstream of it --- is untouched at this
+precision (gated in \texttt{cascade\_h0\_chain.py}).
 
 \begin{remark}[Why the observer bridge and not a descent lapse]
 Earlier drafts of this paper derived $H_0$ via a ``lapse-corrected Friedmann

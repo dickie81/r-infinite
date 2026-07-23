@@ -1752,3 +1752,20 @@ pole; the pin parity-blocked; the act located and persisting. Open core:
 derive an extrinsic odd principle from A1–A4, or establish the grammar
 never needs the odd reading. Next hostile round on the next substantive
 paper change.**
+
+# Round 86: hostile review of the part5:532 execution (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 2 minors, 3 cosmetics); full sweep applied; convergence round 87 follows
+
+Every paper number independently recomputed and held (H₀ = 66.7752346;
+every 5-s.f. intermediate; the G-band; the anchor chain; the invariant's
+twelve digits recomputed from Part 0's definition at 50 d.p.). The
+findings were against the instrument and the note's own precision.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F86-1 (MAJOR) — eight 5-ULP tolerance windows; the product gate passed the defect value 1.4242 itself; the final-step gate passed 66.77 | **Accepted; all tightened to half-ULP** + a new conjunct gating that 1.4242 now FAILS | verifier |
+| F86-2 (minor) — "full-precision value 66.775" withheld the adjudicating digit | **Accepted; 66.7752** | part5 |
+| F86-3 (minor) — "± 0.01" provenance unstated | **Accepted; stated** (anchor-sensitivity spread at display precision; G's band ±0.0007) | part5 + verifier |
+| F86-4/5/6 (cosmetic) — the same paper's T_CMB four-figure site uncensused; a redundant round-check conjunct; twelve digits attributed to Part 0's display | **Accepted; swept** (census extended with the 2.642 K consequence; conjunct removed with reason; attribution corrected) | part5 + verifier |
+
+**Trajectory: residue executed → 86 NOT CONVERGED 1M+2m+3c (swept) →
+round 87 (convergence test) next.**

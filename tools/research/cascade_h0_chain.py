@@ -31,8 +31,12 @@ converted to km/s/Mpc via hbar and the megaparsec.
      66.775.  And the repository's stored 4-figure anchor
      M_PL_RED_GEV = 2.435e18 gives 66.766 -> 66.77.  So the
      display's second decimal is anchor-sensitive: honest
-     statement is 66.78 +- 0.01, against Planck's 67.4 +- 0.5 --
-     the -0.9% leading deviation is untouched at this precision.
+     statement is 66.78 +- 0.01 (the width = the anchor-
+     sensitivity spread at display precision -- the 4-figure
+     chain sits 0.009 below the exact chain; G's band alone is
+     +-0.0007 -- round-86 F3 stated the provenance), against
+     Planck's 67.4 +- 0.5 -- the -0.9% leading deviation is
+     untouched at this precision.
   C4 NO DOWNSTREAM DRIFT.  (2/pi) I = 6.996e-121 (the remark's
      value) and the -0.9% deviation vs Planck 67.4 are re-gated
      from the same inputs.
@@ -76,8 +80,9 @@ def main():
     ok1 = abs(MPl - mp.mpf("1.22089e19")) < 5e13
     ok1 &= abs(Mred - mp.mpf("2.435323e18")) < 5e11
     H0 = h0_of(Mred, I_EXACT)
-    ok1 &= abs(H0 - mp.mpf("66.77523")) < 5e-5
-    ok1 &= mp.nstr(mp.mpf(round(float(H0) * 100) / 100), 4) == "66.78"
+    ok1 &= abs(H0 - mp.mpf("66.77523")) < 5e-6   # half-ULP (round-86 F1)
+    # (a redundant 2-d.p. round-check conjunct removed round 86, F5:
+    # implied by the half-ULP window, which lies entirely above 66.775)
     print(f"   M_Pl = {mp.nstr(MPl, 6)} GeV, M_Pl,red = {mp.nstr(Mred, 7)};")
     print(f"   H0 = {mp.nstr(H0, 7)} km/s/Mpc -> 66.78 at 2 d.p. (the")
     print("   recorded value is the exact-input round)   "
@@ -88,14 +93,19 @@ def main():
     print("C2 the corrected display's literal compounding (5 s.f.):")
     a = 2 * I_EXACT / (3 * (mp.pi - 1))
     ok2 = mp.nstr(a, 5) == "3.421e-121"        # displays as 3.4210e-121
+    # all literal-step tolerances at HALF-ULP of the last displayed
+    # digit (round-86 F1: the first draft used 5-ULP windows -- the
+    # product gate passed the defect value 1.4242 itself):
     b_lit = mp.sqrt(mp.mpf("3.4210e-121"))
-    ok2 &= abs(b_lit - mp.mpf("5.8489e-61")) < 5e-65   # sqrt step literal
+    ok2 &= abs(b_lit - mp.mpf("5.8489e-61")) < 5e-66   # sqrt step literal
     prod_lit = mp.mpf("2.4353e18") * mp.mpf("5.8489e-61")
-    ok2 &= abs(prod_lit - mp.mpf("1.4244e-42")) < 5e-46  # product literal
+    ok2 &= abs(prod_lit - mp.mpf("1.4244e-42")) < 5e-47  # product literal
+    ok2 &= not abs(mp.mpf("1.4242e-42")
+                   - mp.mpf("1.4244e-42")) < 5e-47  # the defect now FAILS
     H0_lit = mp.mpf("1.4244e-42") / HBAR_GEV_S * MPC_KM
-    ok2 &= abs(H0_lit - mp.mpf("66.78")) < 5e-2          # final literal
+    ok2 &= abs(H0_lit - mp.mpf("66.78")) < 5e-3          # final literal
     old_prod = mp.mpf("2.435e18") * mp.mpf("5.849e-61")
-    ok2 &= abs(old_prod - mp.mpf("1.4242e-42")) < 5e-46  # the F73-3 defect
+    ok2 &= abs(old_prod - mp.mpf("1.4242e-42")) < 5e-47  # the F73-3 defect
     print("   3.4210e-121 -> sqrt = 5.8489e-61 -> x 2.4353e18 = 1.4244e-42")
     print(f"   -> {mp.nstr(H0_lit, 6)} -> 66.78: every literal step lands on")
     print("   the next displayed figure (the old 4-figure display's literal")
@@ -107,24 +117,25 @@ def main():
     print("C3 the second decimal's honest precision:")
     dH = H0 * G_UR / 2                      # H0 ~ G^(-1/2)
     lo, hi = H0 - dH, H0 + dH
-    ok3 = abs(dH - mp.mpf("0.00073")) < 5e-5
+    ok3 = abs(dH - mp.mpf("0.00073")) < 5e-6   # half-ULP (round-86 F1)
     ok3 &= lo < mp.mpf("66.775") < hi       # the band straddles the boundary
     H0_anchor = h0_of(mp.mpf("2.435e18"), I_EXACT)
-    ok3 &= abs(H0_anchor - mp.mpf("66.766")) < 5e-3
+    ok3 &= abs(H0_anchor - mp.mpf("66.766")) < 5e-4   # half-ULP
     print(f"   G's u_r = 2.2e-5 -> +-{mp.nstr(dH, 2)} on H0; the band")
     print(f"   [{mp.nstr(lo, 7)}, {mp.nstr(hi, 7)}] straddles 66.775 (gated);")
     print(f"   the stored 4-figure anchor 2.435e18 gives {mp.nstr(H0_anchor, 5)}")
     print("   -> 66.77: the second decimal is anchor-sensitive -- honest")
-    print("   statement 66.78 +- 0.01 vs Planck 67.4 +- 0.5   "
-          + ("PASS" if ok3 else "FAIL"))
+    print("   statement 66.78 +- 0.01 (width = the anchor spread at display")
+    print("   precision, 0.009; G's band alone +-0.0007) vs Planck")
+    print("   67.4 +- 0.5   " + ("PASS" if ok3 else "FAIL"))
 
     # ---- C4: no downstream drift
     print()
     print("C4 downstream values unchanged:")
     two_over_pi_I = 2 / mp.pi * I_EXACT
-    ok4 = abs(two_over_pi_I - mp.mpf("6.996e-121")) < 5e-124
+    ok4 = abs(two_over_pi_I - mp.mpf("6.996e-121")) < 5e-125  # half-ULP
     dev = (H0 - mp.mpf("67.4")) / mp.mpf("67.4")
-    ok4 &= abs(dev + mp.mpf("0.0093")) < 5e-4
+    ok4 &= abs(dev + mp.mpf("0.0093")) < 5e-5   # half-ULP (round-86 F1)
     print(f"   (2/pi) I = {mp.nstr(two_over_pi_I, 4)} (the remark's 6.996e-121,")
     print(f"   gated); deviation vs Planck 67.4 = {mp.nstr(dev * 100, 3)}% (the")
     print("   recorded -0.9% leading deviation, untouched)   "
