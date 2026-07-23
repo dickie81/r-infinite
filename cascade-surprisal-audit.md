@@ -8327,6 +8327,51 @@ resolution gated; validator clean on 12 files. Trajectory: 1t landed →
 89 1M+3m+1c (swept) → 90 1M+3m+2c (swept this commit) → round 91
 (convergence test) spawned per protocol.**
 
+## Addendum 168: convergence round 91 on commit f63af71 — 0 majors, 3 minors, 2 cosmetics; the sweep's prose residuals corrected; round 92 follows
+
+Round 91 verified the round-90 sweep's substance in full — the extractor
+genuinely complete (independently reimplemented: 81 distinct, 0
+unresolved, symmetric difference with the committed extraction empty;
+all seven \allowbreak-wrapped citations extract; sabotage in both
+directions fails the gates; the case-varied prose-token sabotage fails
+N1), the part4b retraction accurate (git history empty over all 292
+commits on all branches; the recital verbatim; the Check-7 quote exact;
+"not owed" adjudicated defensible via the closure clause), the footer
+census balanced, every headline number arithmetically right. The three
+minors were attribution residuals in the sweep's own prose,
+lead-verified and swept:
+
+- **F91-1 (minor):** "the papers cite 82/81" — one script
+  (generate_predictions.py, which generates the ledger) is cited only
+  in PREDICTIONS.md; the papers cite 80 of the 81 resolving.
+  Lead-verified by split extraction (tex-only 80; ledger-only
+  additions = [generate_predictions.py]); at 20e001e the conflation
+  was vacuous (both counts 59), so the error was sweep-introduced.
+  **Swept:** "the papers and the ledger cite" with the 80/1 split
+  stated, on all three carrying surfaces and the 1s marker.
+- **F91-2 (minor):** the formulation's "of which 52 — not 59 — were
+  truly omitted" attached 52 to the 82-population (where the right
+  numbers are 61 against the v1 scan or 7 against v2); 52 is the
+  truly-omitted count of the round-89 fifty-nine. **Swept:** the clause
+  reattached ("of the fifty-nine the round-89 extractor counted, 7
+  were already scanned — 52 truly omitted").
+- **F91-3 (minor):** the paper's re-authored frame glossed the
+  corrected census as "most under tools/research/, plus model_checks,
+  generators, and tools/build" — omitting verifiers and closures where
+  21 of the 81 resolve — with a dangling universal "omitted."
+  **Swept:** the full directory distribution stated (54/17/4/2/2/2)
+  and the omission claim scoped to the uncited-directory portion.
+- **F91-4/5 (cosmetic, swept):** the "as corrected round 89" headers
+  now read rounds 89–91; the part4b retraction's inadmissible-list
+  ground now names its referent class in-paper (the review
+  governance's list, of a class with the semiclassical refusals
+  recorded in Paper I and Part II=III) — no numbered cross-refs, Layer
+  E safe.
+
+**Battery: grammar_need 5/0; validator clean on 12 files. Trajectory:
+1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c (swept this
+commit) → round 92 (convergence test) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -445,17 +445,19 @@ category (a). *(Net-state, T1t: the disjunction resolves on branch B for the
 committed record.)*
 
 **T1t (the grammar-need census; `cascade_grammar_need.py`, five gates; as
-corrected round 89).** 1s's second branch established for the committed
+corrected rounds 89–91).** 1s's second branch established for the committed
 record. Scope stated ~~30 observable-computing scripts […] excluded by design and
 disclosed: this program's own pairing-study surfaces~~ **[struck round 89 (F1
 MAJOR + F2; the recital's dropped "and disclosed" restored round 90, F3): the
 count was 26 + 4, and the blanket research-directory exclusion omitted
 paper-cited computational scripts under a pairing-study mischaracterization —
-round 90 (F1/F2) then corrected the round-89 numbers themselves: the papers
-cite 82 distinct scripts (81 resolving; one dead citation retracted at
-source), of which 52 — not 59 — were truly omitted]**: the derivation record
+round 90 (F1/F2) then corrected the round-89 numbers themselves — and
+round 91 (F1/F2) the attributions: the papers and the ledger cite 82
+distinct scripts (81 resolving, 80 of them paper-cited; one dead citation
+retracted at source), and of the fifty-nine the round-89 extractor
+counted, 7 were already scanned — 52 truly omitted]**: the derivation record
 — 12 cascade papers, the frozen ledger, 26 observable scripts + the four
-°-marked record instruments, all 81 paper-cited resolving scripts (extraction
+°-marked record instruments, all 81 paper- or ledger-cited resolving scripts (extraction
 and resolution gated; the corrected extractor strips \allowbreak and takes
 all .py citations), and model_checks + generators wholesale — 91 files;
 excluded, correctly characterized: the pairing-study surfaces not

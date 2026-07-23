@@ -1845,3 +1845,20 @@ so the conclusion survives a third time.
 
 **Trajectory: 1t landed → 89 1M+3m+1c (swept) → 90 1M+3m+2c (swept) →
 round 91 (convergence test) next.**
+
+# Round 91: convergence test on the round-90 sweep (subagent, per protocol) — 0 majors, 3 minors, 2 cosmetics; prose-attribution residuals swept; round 92 follows
+
+The substance held everywhere: the extractor independently reimplemented
+(81/0, symmetric difference empty; sabotage fails both gates; the
+prose-token gate case-robust), the part4b retraction accurate and verbatim,
+every number right. The minors were the sweep's own prose attributions.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F91-1 (minor) — "the papers cite 82/81": one script is ledger-cited only (80 paper-cited) | **Accepted; "the papers and the ledger cite"** with the 80/1 split, all surfaces | verifier + paper + formulation |
+| F91-2 (minor) — the formulation's "of which 52" attached to the wrong population | **Accepted; reattached** to the round-89 fifty-nine | formulation |
+| F91-3 (minor) — the paper frame's directory gloss omitted verifiers/closures (21 of 81); dangling "omitted" | **Accepted; full distribution stated** (54/17/4/2/2/2), the omission claim scoped | paper |
+| F91-4/5 (cosmetic) — stale "round 89" headers; the part4b list-referent | **Accepted; swept** | paper + formulation + part4b |
+
+**Trajectory: 1t landed → 89 1M+3m+1c → 90 1M+3m+2c → 91 0M+3m+2c (swept)
+→ round 92 (convergence test) next.**

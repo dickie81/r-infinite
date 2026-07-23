@@ -15,17 +15,21 @@ the second branch as a consumption census.
 CENSUS SCOPE (stated, not silent; round-89 F1 extended it and
 round-90 F1 completed the extension -- the round-89 extractor was
 itself blind to non-cascade-prefixed and \allowbreak-wrapped
-citations, reporting 59 where the papers cite 82 distinct scripts,
-81 resolving plus one dead citation retracted at source).  The
+citations, reporting 59 where the papers AND the ledger cite 82
+distinct scripts -- 81 resolving plus one dead citation retracted
+at source; of the 81, 80 are paper-cited and one
+(generate_predictions.py) is ledger-only -- round-91 F1 fixed the
+attribution).  The
 derivation record: the cascade series (src/*.tex -- every paper),
 the frozen ledger (PREDICTIONS.md), the observable-computing tools
 (cascade_constants.py + 19 verifiers + 6 closures = 26 scripts),
 the four degree-marked record instruments (cascade_leptons,
 cascade_neutrino_closure, cascade_E_fit_audit, cascade_null_clone),
-EVERY computational script the papers themselves cite (81 distinct
-resolving scripts across tools/research, verifiers, closures,
-model_checks, generators, and tools/build -- the corrected
-extractor strips \allowbreak and takes all .py citations), and
+EVERY computational script the papers and the ledger cite (81
+distinct resolving scripts across tools/research (54), verifiers
+(17), closures (4), model_checks (2), generators (2), and
+tools/build (2) -- the corrected extractor strips \allowbreak and
+takes all .py citations), and
 tools/model_checks/ + tools/generators/ wholesale.  EXCLUDED,
 correctly characterized: the riemann-review paper and the research
 instruments NOT cited by the series -- the pairing-study surfaces

@@ -1076,15 +1076,15 @@ establish that the grammar never needs the odd reading** (the act as Door-4
 bookkeeping only). No number changes; no closure; category (a). *(Net-state,
 Theorem 1t as corrected rounds 89–90: the disjunction resolves on its second
 branch for the committed record — the grammar-need census (scope per 1t(i),
-extended in rounds 89–90 to every paper-cited computational surface, 81
-resolving scripts, 91 files scanned) returns zero consumption of the odd
+extended in rounds 89–91 to every paper- or ledger-cited computational
+surface, 81 resolving scripts, 91 files scanned) returns zero consumption of the odd
 bridge's arithmetic side; the act is Door-4 bookkeeping, with the falsifier
 licensed.)*
 
 **Theorem 1t (the grammar-need census: 1s's second branch established for the
 committed record; `cascade_grammar_need.py`).** 1s's open core is a disjunction;
 this theorem audits its second branch as a consumption census. *(i) The scope,
-stated — as corrected round 89.* The derivation record: every cascade paper
+stated — as corrected rounds 89–90 (and the attribution round 91).* The derivation record: every cascade paper
 (src/*.tex, 12 files), the frozen ledger (PREDICTIONS.md), the
 observable-computing tools ~~(cascade_constants.py, tools/verifiers/,
 tools/closures/ — 30 scripts), and the four °-marked record instruments.
@@ -1093,22 +1093,26 @@ they are the *study* of the pairing (1c, 1i, 1r and their verifiers), so their
 L-side content is the audit's subject, not a consumer~~ **[struck round 89
 (F1, MAJOR + F2): the count misattributed 30 to the constants/verifiers/
 closures group (26; the 30 included the four instruments), and — the major —
-the disclosure mischaracterized the exclusion: the papers themselves cite
-~~59~~ **[corrected round 90 (F1/F2): the round-89 extractor was itself blind
-to non-cascade-prefixed and \allowbreak-wrapped citations — the true census
-is 82 distinct cited scripts, 81 resolving plus one dead citation (a
+the disclosure mischaracterized the exclusion: the papers ~~themselves
+cite 59~~ **[corrected round 90 (F1/F2) and round 91 (F1/F3): the round-89
+extractor was itself blind to non-cascade-prefixed and \allowbreak-wrapped
+citations — the true census is 82 distinct cited scripts, 81 resolving (80
+paper-cited; generate_predictions.py ledger-only) plus one dead citation (a
 never-committed sphere-Dirac spectral-zeta script, part4b) retracted at
-source in the round-90 sweep; and of the 59 then counted, 7 were already
-scanned, so "all silently omitted" was a false universal — 52 were]**
-distinct computational scripts (most under tools/research/, plus
-model_checks, generators, and tools/build — e.g. the route-C Dirac
-computation cited mid-derivation in part4a), none of which are pairing-study,
-omitted while the quantifier said "entire derivation record"]** (cascade_constants.py + 19 verifiers + 6 closures = 26
+source in the round-90 sweep; of the 59 then counted, 7 were already
+scanned, so "all silently omitted" was a false universal — 52 were truly
+omitted; and the resolving 81 sit across tools/research (54), verifiers
+(17), closures (4), model_checks (2), generators (2), and tools/build (2) —
+e.g. the route-C Dirac computation cited mid-derivation in part4a — none of
+them pairing-study]** and the blanket exclusion left the uncited-directory
+portion of them unscanned while the quantifier said "entire derivation
+record"]** (cascade_constants.py + 19 verifiers + 6 closures = 26
 scripts), the four °-marked record instruments, **every computational script
-the papers themselves cite** (~~59 distinct~~ **[corrected round 90 (F1): 81
-distinct resolving scripts — the corrected extractor strips \allowbreak and
-takes all .py citations, not only cascade-prefixed ones; count and
-resolution both gated; the one dead citation retracted at source]**), and
+the papers and the ledger cite** (~~59 distinct~~ **[corrected round 90 (F1)
+and round 91 (F1): 81 distinct resolving scripts, 80 paper-cited and one
+ledger-only — the corrected extractor strips \allowbreak and takes all .py
+citations, not only cascade-prefixed ones; count and resolution both gated;
+the one dead citation retracted at source]**), and
 tools/model_checks/ + tools/generators/ wholesale — 91 computational files
 in all. Excluded,
 correctly characterized: this paper and the research instruments *not cited
