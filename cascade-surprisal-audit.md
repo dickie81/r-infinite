@@ -8662,6 +8662,88 @@ axiom-content choice (1u's transformed question — an owner-level
 decision, not a derivation task); the layer-2 soft inputs. Next hostile
 round on the next substantive paper change.**
 
+## Addendum 176: THE ADOPTION — the owner's decision ("we follow riemann — Γ_ℝ entire"); A1 re-founded on the Riemann kernel; Theorem 1v (`cascade_riemann_kernel.py`, 5/0)
+
+**The decision.** 1u transformed the labeling-selection question into a
+foundational choice — is the weight function's global identity axiom
+content? — and stated it without making it, marking it an owner-level
+decision. **The owner has made it, in these words: "we follow riemann —
+Γ_ℝ entire."** This addendum records the adoption and its execution.
+
+**The amendment (the formulation's canonical A1).** A1 now carries, in
+its own text: (i) the re-founding note (owner's decision, round 98, this
+addendum); (ii) the kernel object — Γ_ℝ as the full global meromorphic
+function with its pole set and its defining role in ξ(s) = ξ(1−s), not
+merely its lattice restriction; (iii) **mirror coherence as the kernel's
+non-degeneracy clause** (the branch-swapped invariant must evaluate,
+exactly and unconditionally, to a finite nonzero value); (iv) the cost
+ledger, stated in the open. A2–A4 are untouched — gated byte-identical
+against the embedded pre-adoption text in the new verifier.
+
+**What it buys (Theorem 1v, all gated).** The boundary labeling
+(7, 19, 217) is **derived** from the amended axiom (1q's exact-value
+census re-gated: finite-nonzero uniquely at the sup); the five prior
+faces — argmax I, min horizon budget, odd-member, ζ-mirror avoidance,
+per-label regularity — follow as corollaries; **1k's second given
+resolves into A1.**
+
+**What it costs (stated everywhere).** Nothing is derived from nothing:
+the given moved *into the axiom*. The assumption enlarges from a
+lattice-value table (the Euler-side reading) to the global function
+plus one clause (the Riemann-side reading) — the historical
+Euler → Riemann step executed as an axiom choice. The adoption adds
+**no empirical content**: the invariant's twelve digits and (2/π)I
+re-gated unchanged; no prediction moves; the *physical* hypothesis is
+untouched (Check 8).
+
+**What does not resolve.** The site-E pairing (1k's first given); the
+pairing-act (Door-4 bookkeeping per 1t, falsifier unchanged); A3's
+underived rules (anchored in the amended block itself). Only the
+boundary-labeling given resolves.
+
+**Status propagation (the marking rule).** The prior open-status
+gradings ("the forcing stays open," "the remaining given," "irreducible
+relative to A1–A4 as committed," "stated, not made") were true of the
+pre-adoption axioms — superseded-true → net-state markers, applied at
+the 1k, 1n, 1o, 1p, 1q, and 1u tails on the paper, the T1p/T1u tails on
+the formulation, and as ROUND-98 NET-STATE docstring notes on the six
+affected instruments (lattice_selection, sup_selection, zeta_rational,
+gamma_regularity, mirror_coherence, pairing_dictionary — the round-58
+lesson: docstrings are carrying surfaces). part0's remark records the
+adoption at the same locus that carried "stated, not made."
+`cascade_given_irreducibility.py` is re-scoped to its now-historical
+object: the classified pre-adoption block is embedded byte-exact
+(commit 6402a62) and the census gates run on it, with the live block's
+adoption anchored as the net-state; 1u stands as the recorded *reason*
+the adoption was the only route to a forced labeling.
+
+**The honest falsifier.** The adoption adds no empirical content, so it
+is tested exactly where the framework is — by the record's predictions.
+Any future committed derivation of the clause from a weaker kernel
+makes the adoption redundant, to be recorded as such.
+
+**Surfaces.** Formulation: A1 amended + T1v block + T1u/T1p markers.
+Paper: Theorem 1v after 1u + six net-state markers + footer census
+41→42 (`cascade_riemann_kernel.py`; set-exactness re-verified — 42
+counted + the disclosed module + 4 °-marked). part0: the remark's
+adoption sentence. Verifiers: cascade_riemann_kernel.py NEW (V1–V5,
+5/0, with the A2–A4 byte-identity gate); cascade_given_irreducibility
+re-scoped (5/0); the six docstring notes; full affected battery green
+(nine scripts); validator clean on 12 files.
+
+**Trajectory: the adoption landed → round 98 (hostile, fresh-context,
+same-model) spawned per protocol. Named attack vectors: is the amended
+A1's wording sound (does "must evaluate finite nonzero" quantify over
+the right object — the cascade invariant — without smuggling the
+labeling into the quantifier); the A2–A4 byte-identity gate; whether
+any surface still claims the labeling is an open given outside
+markers; whether the cost ledger is complete (is anything else bought
+silently); whether "no empirical content" is exactly true; the 1u
+verifier's re-scoping honesty; the Euler→Riemann framing's accuracy;
+the census-token interaction (the amended A1 now legitimately contains
+the tokens 1u's census excludes — verify the historical/live split is
+clean).**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -85,6 +85,17 @@ question for the committed record.
      routing the labeling through an axiom's asserted content
      re-opens the classification.  The given persists; no
      closure; no number changes.
+
+ROUND-98 NET-STATE.  The transformed question was answered by the
+owner: A1 is re-founded on Gamma_R entire with mirror coherence as
+its non-degeneracy clause (Theorem 1v; Addendum 176), and the
+labeling is now forced BY THE AMENDED AXIOM.  This file's
+classification is therefore HISTORICAL -- it describes A1-A4 as
+committed through round 97 (the classified block is embedded below
+verbatim, and the census gates run on it, not on the live
+formulation, whose amended A1 now carries the clause by design);
+1u remains the recorded reason the adoption was the only route to
+a forced labeling.
 """
 
 import itertools
@@ -99,6 +110,11 @@ PI = math.pi
 PAIRS = [(6, 7), (19, 20), (217, 218)]
 LABS = list(itertools.product(*PAIRS))
 GAMMA_GRAM = 0.02108
+
+# the classified object: A1-A4 as committed through round 97 (commit
+# 6402a62), byte-exact -- the census below runs on THIS block; the live
+# formulation's A1 carries the round-98 adoption by design:
+HISTORICAL_BLOCK = "## 1. The axiom system\n\n**A1 (Arithmetic kernel).** The state space is the descent lattice ℕ (layer index d), weighted\nby Γ_ℝ; the dynamics is the unique Gaussian elastic action with bond compliance α(d)\n(uniqueness: papers' `rem:action-uniqueness`).\n\n**A2 (Local-constant calculus).** Every multiplicative factor attached to a descent is drawn\nfrom the local constants of the adelic structure:\n\n| Constant | Identity | Arithmetic home |\n|---|---|---|\n| χ = 2 | \\|μ(ℝ)\\| | torsion of the real units |\n| Γ(½) = √π | Γ_ℝ critical value | the functional equation's symmetry point |\n| 2π | χ·Γ(½)² | Tate's self-dual period at the real place |\n| ½ | half-argument of Γ_ℝ | the Gaussian, Tate's self-dual test function |\n| mod-8 grading | Brauer–Wall group BW(ℝ) ≅ ℤ/8 | graded Brauer group of the real place (Wall 1964) — the arithmetic avatar of Bott/Clifford periodicity |\n| N_c = 3 = 2^(v₂(12))−1 | Radon–Hurwitz count | a 2-adic invariant (value depends only on v₂) |\n| cos(π/6) | weight–root angle of ℤ[ω] | ring of integers of ℚ(ζ₃) |\n| phases i, ζ₈ | quaternionic frame, Bott | the cyclotomic tower ζ₂, ζ₃, ζ₄, ζ₈ |\n\n**A3 (Assignment rules).** Which constant attaches where: the source-selection flags (P, L, G)\nas ξ-occupancy functors; the increment rule (corrections attach once, at sub-lead); source\nlayers at the analytic features of Γ_ℝ; the per-Bott-period attachment below the phase\ntransition. *This is the load-bearing axiom.* Partial derivation exists (Addendum 12: the\nflags recovered 9/9 from ξ's factorization); the increment and per-period rules are underived.\n\n**A4 (Measurement).** Measurement records the typical value of a Gaussian mode (weight\ne^(±½) per measured mode — lemma S4, anchored by equipartition); projection is along root\nframes (lemma S5).\n\n"
 
 
 def Om(d):
@@ -125,11 +141,17 @@ def main():
 
     # ---- U1: the axiom block's labeling-content census
     print()
-    print("U1 the axiom block carries zero labeling content:")
+    print("U1 the axiom block (as committed through round 97) carries")
+    print("   zero labeling content -- historical census, round-98 note:")
     i0 = form.find("## 1. The axiom system")
     i1 = form.find("## 2. The theorems")
     ok1 = 0 < i0 < i1
-    block = form[i0:i1]
+    live_block = form[i0:i1]
+    # round 98: the classification's object is the HISTORICAL block; the
+    # live A1 carries the adoption (anchored as the net-state):
+    block = HISTORICAL_BLOCK
+    ok1 &= "re-founded on the Riemann kernel" in live_block
+    ok1 &= "re-founded on the Riemann kernel" not in block
     toks = ["sup", "max", "min", "labeling", "labelling", "boundary side",
             "parity", "odd", "mirror", "regular", "coheren", "(7",
             "7, 19", "217", "5, 7"]
@@ -252,8 +274,9 @@ def main():
     ok5 = "or establish that the grammar never needs the odd reading" \
         in paper                                     # the 1s/1t chain stands
     ok5 &= "Mirror coherence is adopted, not derived" in part0
-    ok5 &= "That choice is stated, not made" in part0  # openness kept
-    #                                       (round-94 F5's sharper anchor)
+    ok5 &= "That choice has now been made" in part0  # the round-98
+    #      adoption recorded at the same locus the openness anchor
+    #      occupied (the round-94 F5 anchor superseded by the decision)
     print("   IRREDUCIBLE RELATIVE TO A1-A4 AS COMMITTED: no committed")
     print("   route, zero axiom labeling content (U1), the subject matter")
     print("   off-lattice (U2), every face extra-axiomatic (U4).  A")

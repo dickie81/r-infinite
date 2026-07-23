@@ -70,6 +70,13 @@ live content is the dictionary itself plus the already-listed
 endpoint items, and the per-site family the review-4 widening
 named is closed.  Three members and the seven-item residue count
 stand.  No number changes; no closure.
+ROUND-98 NET-STATE.  The labeling given this file grades as open/
+persisting was resolved by the owner's decision (Theorem 1v,
+Addendum 176): A1 is re-founded on Gamma_R entire with mirror
+coherence as its non-degeneracy clause, and the labeling (7, 19,
+217) is now forced by the amended axiom.  This file's grading
+describes the pre-adoption state and is kept as record; its gates
+are unchanged and remain green.
 """
 
 import itertools

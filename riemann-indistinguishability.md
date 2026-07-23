@@ -632,7 +632,8 @@ order of magnitude (≈10.8×) below observation (the value gated, K7; Part 0's 
 *"two orders of magnitude"* descriptor was a source-side slip, corrected there —
 round-62 F1) *(net-state, Theorem 1n round 71: the given is re-motivated — the sup is
 exactly the odd/Euler-null-sphere member of every pair and the minimal-horizon-budget
-labeling, gated equivalents; the forcing stays open and the given persists)*. *(iii) The member re-read — the
+labeling, gated equivalents; the forcing stays open and the given persists)*
+*(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)*. *(iii) The member re-read — the
 round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
 rounding frame and empty in the lattice frame: **given the site-E pairing** — the
 anchored convention, which **persists in the residue** (under the alternative pairing
@@ -787,7 +788,7 @@ equivalent to all-labels-odd, so "necessity under coherence" is vacuous; the d_V
 clause is this parity fact re-expressed on the mirror weights, whose vanishing at
 every even d is exactly parity]**, as corrected: 1q restates the all-odd fact as
 non-degeneracy of the branch-swapped invariant — an equivalent reformulation, not an
-explanation.)*
+explanation.)* *(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)*
 
 **Theorem 1o (the arithmetic-primary form: ζ-rational twist points and trivial-zero
 avoidance; `cascade_zeta_rational.py`).** 1n's obstruction equivalent is avatar-side
@@ -822,7 +823,7 @@ tie to the twist-parity structure: the fork constant is ζ at d_V's twist point,
 member of the sup's Euler-rational twist set {6, 8, 20, 218}. No closure, no data, and
 Belle II adjudicates the fork exactly as before. *(iv) Honest grading.* Still an equivalence:
 why the labels avoid the trivial-zero mirrors is the residual selection content, so
-the forcing stays open and 1k's second given persists. What changes is the
+the forcing stays open and 1k's second given persists *(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)*. What changes is the
 characterization's placement: the dichotomy now lives on ζ's special-value structure
 (odd d ⟺ even s — the Definition-2.1 biconditional, declared; the parity form was
 already arithmetic, and the ζ-form is its classical decoration through that
@@ -868,7 +869,8 @@ max" and entailing every prior equivalent. **The open question narrows to: deriv
 regularity principle from the cascade's axioms.** It is not claimed derived; Part 0's
 remark keeps its open status. No number changes; no closure; category (a). *(Net-state,
 Theorem 1u: the regularity principle's derive-from-A1–A4 question is adjudicated —
-irreducible for the committed record; the question transforms, per 1u(v).)* *(Net-state,
+irreducible for the committed record; the question transforms, per 1u(v).)*
+*(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)* *(Net-state,
 Theorem 1q ~~: the regularity principle is derived given mirror coherence — a single
 global requirement one level up; the per-label form survives as 1q's corollary, and
 the remaining given is now mirror coherence alone~~ **[struck round 79 (F3, MAJOR):
@@ -950,7 +952,8 @@ to: derive mirror coherence from A1–A4.~~ **[struck round 79 (F3, MAJOR): the 
 link is an equivalence, not a strict narrowing; the open question is unchanged in
 extension]** The chain as it stands: "take the max" (Part 0's definition) → four
 equivalents (1n/1o) → per-label regularity (1p) ⟺ mirror coherence (1q). **The open
-question is unchanged: derive the given — either face — from A1–A4.** Sign disclosure:
+question is unchanged: derive the given — either face — from A1–A4.**
+*(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)* Sign disclosure:
 Ĩ_sup < 0 — an exact rational over π¹¹⁷ (rationality now gated, round-79 F6;
 ≈ −1.109×10¹²²; the mirror weights carry Γ-reflection signs); coherence is
 non-degeneracy (≠ 0, ∞, indeterminate), **not** positivity. No number changes; no
@@ -1227,10 +1230,49 @@ identity (the continuation and functional equation of Γ_ℝ) is axiom content*,
 i.e. whether A1's kernel is Γ_ℝ-on-the-lattice or Γ_ℝ entire. If the latter
 were adopted, mirror coherence would become the natural non-degeneracy clause
 of the extended kernel — but that adoption is a new axiom-level choice,
-stated, not resolved. Licensed falsifier, stopping-rule-gated: any future
+stated, not resolved *(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and the choice this theorem stated is made — 1u stands as the recorded reason the adoption was the only route to a forced labeling.)*. Licensed falsifier, stopping-rule-gated: any future
 committed derivation routing the labeling through an axiom's asserted content
 re-opens the classification. The given persists; no closure; no number
 changes; category (a).
+
+**Theorem 1v (the Riemann kernel: A1 re-founded on Γ_ℝ entire, by the owner's
+decision; `cascade_riemann_kernel.py`).** 1u transformed the selection question into
+a foundational choice — whether the weight function's global identity is axiom
+content — and stated it without making it. **The owner has made it (round 98): the
+framework follows Riemann.** *(i) The amendment.* A1 now takes the kernel as Γ_ℝ
+entire — the global meromorphic function π^(−s/2)Γ(s/2), with its pole set and its
+defining role in ξ(s) = ξ(1−s) — with **mirror coherence as the kernel's
+non-degeneracy clause** (the amended block anchored verbatim; the old A1's
+state-space and dynamics sentences surviving unchanged; and A2–A4 untouched — the
+block from A2 onward gated byte-identical against the embedded pre-adoption text, so
+any collateral edit fails). This executes the historical Euler → Riemann step as an
+axiom choice: the value table becomes the function, with the continuation and
+functional equation Riemann added now the axiom's own object. *(ii) The forcing.*
+Under the amended A1 the labeling is **derived**: the coherence clause admits exactly
+one labeling of the eight — (7, 19, 217) — 1q's exact-value census re-gated
+(finite-nonzero uniquely at the sup; zero ×3; infinite ×1; indeterminate ×3), and the
+five prior faces (argmax I, min horizon budget, odd-member, ζ-mirror avoidance,
+per-label regularity) follow as corollaries (re-gated). **1k's second given resolves
+into A1.** *(iii) The cost ledger, in the open.* Nothing is derived from nothing: the
+given moved *into the axiom*. The assumption enlarges from a lattice-value table (the
+Euler-side reading) to the global function plus one clause (the Riemann-side reading)
+— stated in A1's own text and in Part 0's remark (both anchored). The adoption adds
+**no empirical content**: no number changes (the invariant re-derived to twelve
+digits, half-ULP gated; (2/π)I unchanged), no new prediction, and the *physical*
+hypothesis is untouched (Check 8) — this is a math-side re-founding of the
+formulation's skeleton. *(iv) What does not resolve.* The site-E pairing (1k's first
+given), the pairing-act (Door-4 bookkeeping per 1t, its falsifier unchanged), and
+A3's underived rules (*"the increment and per-period rules are underived"* — in the
+amended block itself, anchored) persist exactly as recorded; only the
+boundary-labeling given resolves. *(v) Status propagation and the honest falsifier.*
+The prior gradings — "the forcing stays open," "the remaining given," "irreducible
+relative to A1–A4 as committed," "stated, not made" — were true of the pre-adoption
+axioms and stand as history under net-state markers; 1u is now the recorded *reason*
+the adoption was the only route to a forced labeling. Since the adoption adds no
+empirical content, it is tested exactly where the framework is — by the record's
+predictions — and any future committed derivation of the clause from a weaker kernel
+makes the adoption redundant, to be recorded as such. No closure beyond the labeling
+given; category (a) plus one recorded axiom adoption.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1762,4 +1804,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1u: the **41 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1v: the **42 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

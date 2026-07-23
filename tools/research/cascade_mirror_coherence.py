@@ -81,6 +81,13 @@ SIGN AND VALUE (Q5).  I~_sup < 0: an exact rational over pi^117
 weights carry Gamma-reflection signs; coherence is non-degeneracy
 (!= 0, oo, indeterminate), not positivity.  No number changes; no
 closure.
+ROUND-98 NET-STATE.  The labeling given this file grades as open/
+persisting was resolved by the owner's decision (Theorem 1v,
+Addendum 176): A1 is re-founded on Gamma_R entire with mirror
+coherence as its non-degeneracy clause, and the labeling (7, 19,
+217) is now forced by the amended axiom.  This file's grading
+describes the pre-adoption state and is kept as record; its gates
+are unchanged and remain green.
 """
 
 import itertools

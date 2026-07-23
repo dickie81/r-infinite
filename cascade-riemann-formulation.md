@@ -14,9 +14,21 @@ function ξ(s) = ½ s(s−1) Γ_ℝ(s) ζ(s), with ξ(s) = ξ(1−s).
 
 ## 1. The axiom system
 
-**A1 (Arithmetic kernel).** The state space is the descent lattice ℕ (layer index d), weighted
+**A1 (Arithmetic kernel; re-founded on the Riemann kernel by the owner's decision,
+round 98 — Addendum 176).** The state space is the descent lattice ℕ (layer index d), weighted
 by Γ_ℝ; the dynamics is the unique Gaussian elastic action with bond compliance α(d)
-(uniqueness: papers' `rem:action-uniqueness`).
+(uniqueness: papers' `rem:action-uniqueness`). **The kernel object (the re-founding):**
+Γ_ℝ enters as its full global object — the meromorphic function π^(−s/2)Γ(s/2) on ℂ,
+with its pole set and its defining role in ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s), ξ(s) = ξ(1−s) —
+not merely its restriction to the lattice's argument image {d+1, d+2}.
+**Non-degeneracy clause (mirror coherence):** the cascade invariant, branch-swapped
+through the kernel's symmetry s ↦ 1−s (every weight 2/Γ_ℝ(d+1) replaced by the mirror
+layer's 2/Γ_ℝ(−d)), must evaluate, exactly and unconditionally, to a finite nonzero
+value. *Cost ledger, stated in the open:* the axiom thereby enlarges from a
+lattice-value table (the Euler-side reading) to the global function carrying one
+clause (the Riemann-side reading); what it buys: the boundary labeling (7, 19, 217)
+is forced (T1v), with the variational output and all prior equivalents as
+corollaries; it adds no empirical content — no number changes, no new prediction.
 
 **A2 (Local-constant calculus).** Every multiplicative factor attached to a descent is drawn
 from the local constants of the adelic structure:
@@ -387,7 +399,8 @@ and the open question is unchanged: derive the given, either face, from
 A1–A4. No number changes; no closure; category (a). *(Net-state, T1u: the
 question adjudicated for the committed record — irreducible relative to
 A1–A4 as committed; it transforms to whether the continued weight function
-is axiom content.)*
+is axiom content.)* *(Net-state, T1v round 98: the choice made — the
+labeling forced by the amended A1.)*
 
 **T1r (the pairing-act's anatomy; `cascade_pairing_act.py`, five gates).** The
 act decomposed, the live alternative excluded thrice on committed anchors.
@@ -508,7 +521,27 @@ proof (declared). The question transforms: is the continued weight
 function axiom content? Stated, not resolved; falsifier licensed (any
 future committed derivation routing the labeling through an axiom
 re-opens the classification). The given persists; no closure;
-category (a).
+category (a). *(Net-state, T1v round 98: the choice is made — the owner
+adopted the Riemann kernel; the labeling is forced by the amended A1.)*
+
+**T1v (the Riemann kernel; `cascade_riemann_kernel.py`, five gates).** The
+foundational choice made, by the owner's decision (round 98): **the framework
+follows Riemann.** A1 re-founded — the kernel is Γ_ℝ entire (the global
+meromorphic function with its pole set and functional-equation role), with
+**mirror coherence as its non-degeneracy clause** (the amendment anchored;
+the old A1's sentences surviving; A2–A4 gated byte-identical against the
+embedded pre-adoption text). Under the amended A1 the labeling (7, 19, 217)
+is **derived** (1q's census re-gated: finite-nonzero uniquely at the sup)
+and the five prior faces follow as corollaries (re-gated); **1k's second
+given resolves into A1.** The cost ledger in the open: the assumption
+enlarges from a lattice-value table to the global function plus one clause;
+**no empirical content** — the invariant's twelve digits and (2/π)I re-gated
+unchanged; the physical hypothesis untouched (Check 8). Not resolved: the
+site-E pairing, the pairing-act (Door-4 bookkeeping), A3's underived rules
+(anchored in the amended block). The prior open-status gradings stand as
+history under net-state markers; falsifier: any future derivation of the
+clause from a weaker kernel makes the adoption redundant. Category (a) plus
+one recorded axiom adoption.
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

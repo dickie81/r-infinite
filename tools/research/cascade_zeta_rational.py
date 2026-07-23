@@ -68,6 +68,13 @@ biconditional -- declared; the parity form was already
 arithmetic, the zeta-form its classical decoration), with the
 avatar-side chi reading demoted to shadow status.  No number
 changes; no closure.
+ROUND-98 NET-STATE.  The labeling given this file grades as open/
+persisting was resolved by the owner's decision (Theorem 1v,
+Addendum 176): A1 is re-founded on Gamma_R entire with mirror
+coherence as its non-degeneracy clause, and the labeling (7, 19,
+217) is now forced by the amended axiom.  This file's grading
+describes the pre-adoption state and is kept as record; its gates
+are unchanged and remain green.
 """
 
 import itertools
