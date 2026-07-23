@@ -301,6 +301,21 @@ forcing stays open, part0's remark registered with the equivalences and
 keeping "remains open"; the 1k given persists, re-motivated. No number
 changes; no closure; category (a).
 
+**T1o (the arithmetic-primary form; `cascade_zeta_rational.py`, five gates).**
+1n's parity dichotomy re-expressed on ζ itself: the sup labels' twist points
+s = 8, 20, 218 (and all four distinguished layers' twists {6, 8, 20, 218}) are
+even — ζ's Euler-rational points (ζ(6) = π⁶/945, ζ(8) = π⁸/9450; rationality
+gated exactly via Bernoulli numbers) — whose functional-equation mirrors are
+nonzero rationals (ζ(−7) = 1/240, ζ(−19) = 174611/6600, ζ(−217) ≠ 0); the inf
+twists 7, 21, 219 mirror exactly onto the trivial zeros (ζ(−6) = ζ(−20) =
+ζ(−218) = 0), and the sup is the unique labeling among the eight avoiding the
+trivial-zero mirror set. Registration: ζ(6) = π⁶/945 is the frozen ledger's
+m_τ fork constant — ζ at the volume-max layer's twist point vs the compliance
+at the U(1) layer (novel identification; no closure; Belle II adjudicates as
+before). Per T1's Remark ("the arithmetic is primary") this is the canonical
+register of the 1n equivalents; still an equivalence, the forcing open, 1k's
+second given persisting. No number changes; no closure; category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the

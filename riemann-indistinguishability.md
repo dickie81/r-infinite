@@ -767,7 +767,38 @@ residual selection content, so the forcing question stays open and 1k's second g
 **persists — re-motivated** from a bare max convention to named structural
 equivalents tied to the load-bearing χ machinery. Part 0's remark is registered with
 the equivalences and keeps "remains open". No number changes; no closure;
-category (a).
+category (a). *(Net-state, Theorem 1o round 75: the parity/χ equivalents have an
+arithmetic-primary form — the sup's twist points are ζ's Euler-rational points and the
+inf's twists mirror exactly onto the trivial zeros; per T1's Remark the arithmetic
+form is canonical.)*
+
+**Theorem 1o (the arithmetic-primary form: ζ-rational twist points and trivial-zero
+avoidance; `cascade_zeta_rational.py`).** 1n's parity and obstruction equivalents are
+avatar-side (Euler characteristics of spheres) — and Theorem 1's own Remark rules *"The
+paper never uses the avatar; the arithmetic is primary."* The dichotomy has an exact
+arithmetic form on the paper's primary object. *(i) The sup's twist points are ζ's
+Euler-rational points.* Under Definition 2.1 (s = d+1) the sup labels' twists are
+s = 8, 20, 218, and the four distinguished layers' twists are **{6, 8, 20, 218} — all
+even**, where Euler's theorem gives ζ(s) = rational·π^s (ζ(6) = π⁶/945, ζ(8) =
+π⁸/9450; rationality gated exactly at all four via Bernoulli numbers). The inf labels'
+twists 7, 21, 219 are odd — ζ there has no closed form. *(ii) The mirror dichotomy.*
+Under the functional equation s ↦ 1−s the sup twists mirror to **nonzero rationals** —
+ζ(−7) = 1/240, ζ(−19) = 174611/6600, ζ(−217) ≠ 0 (exact; and d_V's ζ(−5) = −1/252) —
+while the inf twists mirror **exactly onto the trivial zeros**: ζ(−6) = ζ(−20) =
+ζ(−218) = 0. Among the eight labelings **the sup is the unique one avoiding the
+trivial-zero mirror set** (gated: every other labeling carries at least one; the inf
+carries three). *(iii) The ledger cross-link (registration).* ζ(6) = π⁶/945 **is the
+frozen ledger's m_τ fork constant**: the adjudication row "π⁶/945-vs-α(14)/2" reads,
+in the tower's own dictionary, *ζ at the volume-max layer's twist point vs the
+compliance at the U(1) layer* — an identification registered here (Check-4 note: no
+repo surface previously identified π⁶/945 as ζ(6)); no closure, no data, and Belle II
+adjudicates the fork exactly as before. *(iv) Honest grading.* Still an equivalence:
+why the labels avoid the trivial-zero mirrors is the residual selection content, so
+the forcing stays open and 1k's second given persists. What changes is the
+characterization's **register**: the 1n parity/χ equivalents are the avatar-side
+shadow of this ζ-arithmetic dichotomy (odd d ⟺ even s — the Definition-2.1
+biconditional, declared), and per T1's Remark the arithmetic form is the canonical
+one. No number changes; no closure; category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1299,4 +1330,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1n: the **33 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1o: the **34 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

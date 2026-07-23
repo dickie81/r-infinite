@@ -7197,6 +7197,44 @@ unchanged: the forcing of any 1n equivalent; the 1j pairing-act; the
 layer-2 soft inputs. Next hostile round on the next substantive paper
 change.**
 
+## Addendum 145: Theorem 1o — the arithmetic-primary form; 1n's parity equivalent re-expressed on ζ itself (round-75 trigger)
+
+**The commission ("1n's three equivalents") and the finding.** The forcing
+was not achieved — the theorem says so — but the equivalents family gains
+its **canonical member**: 1n's parity/χ characterizations are avatar-side
+(Euler characteristics of spheres), and the paper's own T1 Remark rules the
+arithmetic primary. The dichotomy's exact arithmetic form
+(`cascade_zeta_rational.py`, Z1–Z5, 5/0, all symbolic-exact via sympy):
+
+- **Euler rationality:** the sup labels' twist points s = 8, 20, 218 — and
+  all four distinguished layers' twists {6, 8, 20, 218} — are even, ζ's
+  Euler-closed-form points (ζ(6) = π⁶/945, ζ(8) = π⁸/9450; ζ(s)/π^s ∈ ℚ
+  gated exactly at all four). The inf twists 7, 21, 219 are odd — no
+  closed form.
+- **The mirror dichotomy:** under s ↦ 1−s the sup twists mirror to nonzero
+  rationals (ζ(−7) = 1/240, ζ(−19) = 174611/6600, ζ(−217) ≠ 0; d_V's
+  ζ(−5) = −1/252) while the inf twists mirror **exactly onto the trivial
+  zeros** (ζ(−6) = ζ(−20) = ζ(−218) = 0); the sup is the unique labeling
+  among the eight avoiding the trivial-zero mirror set (gated: the inf
+  carries three; every non-sup labeling ≥ 1).
+- **The ledger cross-link (novel registration; Check-4 grep clean):**
+  ζ(6) = π⁶/945 is the frozen ledger's m_τ fork constant — ζ at the
+  volume-max layer's twist point vs the compliance at the U(1) layer. No
+  closure, no data; Belle II adjudicates exactly as before.
+
+**Honest grading:** still an equivalence (why avoid the trivial-zero
+mirrors — open); the forcing stays open, 1k's second given persists; the
+register changes: per T1's Remark the ζ-arithmetic form is canonical and
+the 1n parity/χ equivalents are its avatar-side shadow (odd d ⟺ even s,
+declared as the Definition-2.1 biconditional).
+
+**Surfaces.** Paper: Theorem 1o after 1n; net-state marker at 1n's tail;
+footer 33 → 34 (census-verified). Formulation: T1o block. part0: the
+remark's parenthetical extended to three reformulations (the ζ-form added,
+self-contained; "remains open" kept). Validator clean on 12 files;
+zeta_rational 5/0, sup_selection 5/0, lattice_selection 7/0. Round 75
+(hostile subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
