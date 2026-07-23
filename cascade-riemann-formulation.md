@@ -321,6 +321,25 @@ the avatar in derivations, it does not rank registers); still an equivalence,
 the forcing open, 1k's second given persisting. No number changes; no
 closure; category (a).
 
+**T1p (the regularity forcing, conditional on one principle;
+`cascade_gamma_regularity.py`, five gates).** 1o's trivial-zero avoidance in
+local form: Tate's archimedean γ-factor γ_∞(s) = Γ_ℝ(1−s)/Γ_ℝ(s) has poles
+exactly at the odd twists (finite nonzero closed forms at the even: γ(2) =
+−2π², γ(8) = 8π⁸/315, gated exactly); equivalently the functional-equation
+mirror weight 2/Γ_ℝ(−d) is zero iff d even (d = 7's live 105/(8π⁴) gated).
+The inf labels sit at γ-poles/measure-zero mirrors, the sup at regular
+points/live mirrors. GIVEN one principle — **labels at regular points of the
+tower's local functional equation** (the same non-degeneracy type as T2's
+gcd condition and Theorem 7's order-one requirement) — each pair has exactly
+one qualifying member and the labeling is **forced to (7, 19, 217)**, the
+variational definition and all four 1n/1o equivalents following as
+corollaries (five selectors coincide, gated). Precision bonus: at s = 1
+(d = 0) the local form is uniform where the global trivial-zero form has its
+exceptional point (ζ(0) = −½, ζ's pole opposite). The principle is a **new
+given, not derived** — the open question narrows to deriving it from the
+axioms; 1k's second given at its sharpest form. No number changes; no
+closure; category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the

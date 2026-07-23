@@ -815,6 +815,40 @@ Remark ~~per T1's Remark the arithmetic form is the canonical one~~ **[struck ro
 characterization registers — the "canonical" claim was asserted, not argued]**. No
 number changes; no closure; category (a).
 
+**Theorem 1p (the regularity forcing, conditional on one principle;
+`cascade_gamma_regularity.py`).** The trivial-zero-avoidance equivalent (1o(ii)) in the
+tower's own **local** language, and the sharpest available result on the sup. *(i) The
+γ-factor dichotomy (exact).* Tate's archimedean γ-factor — the local functional
+equation's transfer coefficient, γ_∞(s) = Γ_ℝ(1−s)/Γ_ℝ(s) for the trivial character
+(ε_∞ = 1; T2's own Tate structure) — has, on the tower, **poles exactly at the odd
+twists** and finite nonzero closed forms at the even twists (γ(2) = −2π², γ(8) =
+8π⁸/315; gated exactly). Equivalently: the tower's weight continued through the
+functional equation (s ↦ 1−s maps layer d to layer −(d+1)) is 2/Γ_ℝ(−d) — **zero iff d
+is even** (d = 7's live mirror weight 105/(8π⁴) gated). The inf labels sit at γ-poles
+with measure-zero mirrors; the sup labels at regular points with live mirrors. *(ii)
+The conditional forcing.* Adopt **one principle — the regularity principle: the
+invariant's integer labels are regular points of the tower's local functional
+equation** (equivalently: γ_∞ finite there; equivalently: the mirror weight nonzero).
+Then each straddling pair has exactly one qualifying member (gated: [1, 1, 1]), and
+the labeling is **forced to (7, 19, 217) with zero residual freedom** — with the
+variational definition and all four 1n/1o equivalents following as corollaries (the
+five selectors coincide on the eight labelings, gated). The agreement with the
+variational sup is the gated content: it could have failed at any crossing. *(iii) The
+precision bonus.* The local form is strictly cleaner than the global trivial-zero
+form: at s = 1 (layer d = 0) the γ-factor has a pole and the mirror weight vanishes,
+yet ζ(0) = −½ ≠ 0 (ζ's *pole* sits opposite, not a trivial zero) — 1o's global form
+has an exceptional point while the local form is uniform on all d ≥ 0; on the label
+range d ≥ 1 the two coincide (gated biconditional). *(iv) Honest grading — the
+round-57/60 lessons applied in advance.* **The forcing is conditional: the regularity
+principle is a new given, not derived from A1–A4/T1–T2.** What makes it the sharpest
+form yet of 1k's second given: a single, named, arithmetic non-degeneracy condition on
+committed machinery — the same selection *type* the framework already uses (T2's gcd
+condition, *"no extraneous zeros in Z(f,s)/Γ_ℝ(s)"*; Theorem 7's *"every feature has
+order one because variances are positive"*; 1k's no-tie margins) — replacing "take the
+max" and entailing every prior equivalent. **The open question narrows to: derive the
+regularity principle from the cascade's axioms.** It is not claimed derived; Part 0's
+remark keeps its open status. No number changes; no closure; category (a).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -1345,4 +1379,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1o: the **34 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1p: the **36 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

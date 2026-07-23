@@ -7340,6 +7340,58 @@ twice over. **Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c → 77 CONVERGED
 the 1j pairing-act; the layer-2 soft inputs; part5:532 (editorial).
 Next hostile round on the next substantive paper change.**
 
+## Addendum 149: Theorem 1p — the regularity forcing, conditional on one principle; the trivial-zero-avoidance equivalent attacked in local form (round-78 trigger)
+
+**The commission ("force the trivial-zero-avoidance equivalent") and the
+honest outcome: a conditional forcing — the first single-principle forcing
+of the sup — with the condition named, typed, and explicitly NOT derived.**
+The equivalent is translated into the tower's own local (Tate) language
+(`cascade_gamma_regularity.py`, R1–R5, 5/0, symbolic-exact):
+
+- **The γ-factor dichotomy (exact):** Tate's archimedean γ-factor γ_∞(s) =
+  Γ_ℝ(1−s)/Γ_ℝ(s) (trivial character, ε_∞ = 1 — T2's committed Tate
+  structure) has poles exactly at the odd twists and finite nonzero closed
+  forms at the even (γ(2) = −2π², γ(8) = 8π⁸/315, gated exactly).
+  Equivalently the functional-equation mirror weight 2/Γ_ℝ(−d) is zero iff
+  d even (d = 7's live 105/(8π⁴) gated). The inf labels sit at
+  γ-poles/measure-zero mirrors; the sup labels at regular points/live
+  mirrors.
+- **The conditional forcing:** GIVEN the regularity principle — the
+  invariant's integer labels are regular points of the tower's local
+  functional equation — each straddling pair has exactly one qualifying
+  member ([1,1,1] gated) and the labeling is FORCED to (7, 19, 217) with
+  zero residual freedom; the variational definition and all four 1n/1o
+  equivalents follow as corollaries (five selectors coincide on the eight,
+  gated). The agreement with the variational sup is the gated content.
+- **The precision bonus:** at s = 1 (layer d = 0) the γ-factor has a pole
+  and the mirror weight vanishes yet ζ(0) = −½ ≠ 0 (ζ's pole opposite) —
+  the global trivial-zero form's exceptional point; the local form is
+  uniform on all d ≥ 0, coinciding with the global form on the label range
+  d ≥ 1 (gated biconditional).
+
+**Honest grading (the round-57/60 lessons applied in advance):** the
+regularity principle is a NEW given, not derived from A1–A4/T1–T2 — but it
+is a single, named, arithmetic non-degeneracy condition on committed
+machinery, of the same selection type as T2's gcd condition, Theorem 7's
+order-one requirement, and 1k's no-tie margins. It replaces "take the max"
+and entails every prior equivalent; the open question narrows to deriving
+it from the axioms. Part0's remark extended accordingly (the local form +
+the narrowed question; openness kept). Check 4: no repo surface previously
+discussed the local γ-factor or regular-point selection (grep clean).
+
+**A latent census defect found and fixed by the lead in this commit
+(disclosed for round 78):** the round-75 strike annotation made
+`cascade_adelic_compensator.py` body-cited, and the a867f21 sweep did not
+update the footer census (rounds 76–77's scoped briefs missed it). The
+footer now reads **36 cited in place** (34 + gamma_regularity +
+adelic_compensator) with the compensator listed; census verified exactly
+(36 body = footer-unmarked; footer-only = the 4 °-marked).
+
+**Surfaces.** Paper: Theorem 1p after 1o; footer 34 → 36 (both changes).
+Formulation: T1p block. part0: the remark's parenthetical extended with the
+local form and the narrowed question. Validator clean on 12 files;
+gamma_regularity 5/0. Round 78 (hostile subagent, per protocol) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
