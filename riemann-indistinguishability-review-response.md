@@ -1691,3 +1691,22 @@ verbatim; the seeded conjunct deterministic (md5-identical across runs).
 
 **Trajectory: 1r landed → 81 2M+2m+3c (swept) → 82 0M+1m+2c (swept) →
 round 83 (convergence test) next.**
+
+# Round 83: convergence test on the round-82 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1r certified stable; the pairing-act arc closes
+
+Independent recomputation throughout (own disc sieve, own Hilbert symbols,
+byte-level strike verification): the corrected exhibit holds and its P5
+gate bites both ways under sabotage; the nested strike is byte-exact; the
+glosses resolve the definition-order issue; the verifier is deterministic;
+census and validator exact.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — (none) | — | — |
+
+**Trajectory: 1r landed → 81 2M+2m+3c (swept) → 82 0M+1m+2c (swept) → 83
+CONVERGED 0+0+0. Theorem 1r stable: the pairing-act persists (no act-form
+entailed; pairing-at-all untouched — the open core), but χ₋₄'s
+live-alternative status is gone: three distinct committed anchors exclude
+it, and the bridge's own constant carries w = 6 by Dirichlet. Next hostile
+round on the next substantive paper change.**

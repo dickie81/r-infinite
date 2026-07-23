@@ -7787,6 +7787,42 @@ output; footer census exact). One new finding in the sweep's own text:
 Trajectory: 1r landed → 81 2M+2m+3c (swept) → 82 0M+1m+2c (swept this
 commit) → round 83 (convergence test) spawned per protocol.**
 
+## Addendum 157: convergence round 83 on commit f4a0798 — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1r certified stable; the pairing-act arc closes
+
+Round 83 verified the round-82 sweep in full, with independent
+recomputation throughout (its own fundamental-disc sieve, its own Hilbert
+symbols, byte-level strike verification via cat -A): the corrected exhibit
+holds (−56 fundamental, cls 2; −24 fundamental, cls 10; together exactly
+the kernel's ramified classes {2, 10}); the charge against −28 confirmed;
+the new P5 conjunct bites both ways under sabotage (reverting to −28 →
+FAIL; mutating the cls target → FAIL); the nested strike byte-exact against
+b49fbb6; the 1j glosses resolve the used-before-defined issue; the type
+slip fixed; the verifier deterministic (byte-identical double runs);
+validator clean; census 38 + 4° exact; the full 1r block re-read end to end
+with nothing new to flag.
+
+**Verdict: CONVERGED. Theorem 1r is stable in its corrected form, and the
+commissioned arc ("the 1j pairing-act pls") closes at its honest maximum:**
+the pairing-act's target space is exactly the torsion census's space; the
+live alternative χ₋₄ — round 57's "a live alternative partner that only
+the order or the pairing-act excludes" — now fails **three distinct
+committed anchors** (the clock kernel under act-form W₁, strictly weaker
+extensionally than the colour gloss; the carrying conductors and the
+torsion census, extensionally equivalent to the gloss's output and weaker
+only in what they name), with the kernel route's non-triviality gated
+(−56, −24) and W₂'s generic character disclosed; and the odd bridge's own
+committed constant π/(3√3) carries w = 6 by Dirichlet's class-number
+formula — the μ₆ datum on both sides of the pairing. **The act itself
+persists: no act-form is entailed by the axioms, and pairing-at-all (the
+odd feature's missing address) is untouched — that is the arc's remaining
+open core.**
+
+**Trajectory: 1r landed → 81 2M+2m+3c (swept) → 82 0M+1m+2c (swept) → 83
+CONVERGED 0+0+0. Standing open routes: pairing-at-all and the act-forms'
+derivation from A1–A4; the regularity/coherence given (1p/1q); the layer-2
+soft inputs; part5:532 (editorial). Next hostile round on the next
+substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
