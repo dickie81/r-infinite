@@ -7976,6 +7976,51 @@ question (1s); the regularity/coherence given (1p/1q); the layer-2 soft
 inputs; part5:532 (editorial). Next hostile round on the next substantive
 paper change.**
 
+## Addendum 161: the part5:532 editorial residue executed (`cascade_h0_chain.py`, 4/0) — the H₀ display made consistent, the last digit's precision stated
+
+**Commission.** "part5:532 editorial residue pls" — the F73-3 registration
+(rounds 73–74): the H₀ proof displayed four-figure intermediates whose
+literal product (2.435 × 5.849 = 1.4242) disagreed with the shown
+exact-input 1.4244; the final 66.78 unaffected.
+
+**What the full adjudication found (lead-recomputed at 30 d.p. before any
+edit).** The shown 1.4244 requires the CODATA-precise reduced Planck mass
+2.435323×10¹⁸ GeV — the repository's stored anchor is the four-figure
+2.435×10¹⁸, which gives 66.766 → 66.77. The exact-input chain gives
+**H₀ = 66.77523**, so the recorded 66.78 is the correct 2-d.p. round —
+but marginally: G's relative uncertainty (2.2×10⁻⁵) maps to ±0.00073 on
+H₀, a band [66.7745, 66.7760] that **straddles the rounding boundary**.
+The second decimal is anchor-sensitive; the honest statement is
+66.78 ± 0.01 against Planck's 67.4 ± 0.5 — the −0.9% leading deviation
+and everything downstream untouched at this precision.
+
+**The fix.** (i) The proof's inputs now display M_Pl,red = 2.4353×10¹⁸
+(CODATA) with the exact invariant parenthetically stated; intermediates
+displayed at 5 s.f. with the compounding anatomy stated (each literal
+step lands on the next displayed figure — gated); the old four-figure
+defect quoted in the correction recital. (ii) A Precision note added
+after the proof stating the full-precision 66.775, the G-band, the
+four-figure-anchor value 66.766 → 66.77, and the operative
+66.78 ± 0.01 comparison. (iii) All of it gated in the new committed
+verifier `cascade_h0_chain.py` (C1 exact-input chain and the 66.78
+round; C2 literal 5-s.f. compounding + the removed defect; C3 the
+G-band straddle and the anchor sensitivity; C4 no downstream drift —
+(2/π)I = 6.996×10⁻¹²¹ and the −0.9% deviation re-gated). Per the
+instrument rule, no paper number rests on a session run.
+
+**No recorded value changes anywhere:** H₀ = 66.78 stands on every
+surface (PREDICTIONS.md, README, cascade_constants.py, part5's 25
+occurrences) as the exact-input round; the change is display consistency
+plus honest precision. Validator clean on 12 files.
+
+**Trajectory: residue executed → round 86 (hostile, fresh-context,
+same-model) spawned per protocol — the precision note is a new claim and
+ships reviewed. Named attack vectors: the CODATA constants' values; the
+G-sensitivity arithmetic (H₀ ∝ G^(−1/2)); whether 66.78 ± 0.01 is the
+right honest form (vs restating to 66.77 or 3 s.f.); the C2 literal-step
+gates' genuineness; whether any other surface displays the four-figure
+chain and was missed.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
