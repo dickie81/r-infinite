@@ -8111,6 +8111,38 @@ validator clean on 12 files. Trajectory: residue executed → 86 1M+2m+3c
 (swept) → 87 0M+1m+2c (swept this commit) → round 88 (convergence test)
 spawned per protocol.**
 
+## Addendum 164: convergence round 88 on commit 98c65f9 — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); the part5:532 arc closes stable
+
+Round 88 returned zero findings at any severity. Its verification of the
+round-87 sweep: the new definitional gate discriminates exactly the 12th
+digit (the true value passes at 2.15×10⁻¹³²; the 8th-digit corruption
+that passed the pre-sweep battery now fails — re-verified empirically
+against the 5052d15 tree; **both 12th-digit neighbors fail**, so the
+gate accepts only the correct 12-digit round); the gate is
+dps-insensitive (identical margins at dps 30/40/50/100); om(d) matches
+part0's committed Ω_d and the sibling verifiers' implementations; the
+~7-digit pre-sweep resolution claim verified including the δI/I = 2δH/H
+factor; the label+ref fix clean under the validator; spot-checks green;
+the diff scope exactly as claimed.
+
+**Verdict: CONVERGED. The part5:532 editorial residue (F73-3,
+registered rounds 73–74) is executed and stable:** the H₀ proof's
+display now compounds literally at 5 s.f. from exact inputs with the
+old four-figure defect quoted in the correction recital; the Precision
+note states the full-precision 66.7752, the G-band straddle
+(±0.0007), the four-figure-anchor sensitivity (66.766 → 66.77, the
+±0.01 width's stated provenance), and the same paper's T_CMB
+four-figure site (2.642 K unchanged); and every claim — including the
+twelve-digit invariant — is pinned by committed half-ULP gates that
+provably discriminate (`cascade_h0_chain.py`, 4/0). **No recorded value
+changed anywhere: H₀ = 66.78 stands as the correct exact-input round.**
+
+**Trajectory: residue executed → 86 1M+2m+3c (swept) → 87 0M+1m+2c
+(swept) → 88 CONVERGED 0+0+0. Standing open routes: the odd extrinsic
+principle / grammar-need question (1s); the regularity/coherence given
+(1p/1q); the layer-2 soft inputs. Next hostile round on the next
+substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

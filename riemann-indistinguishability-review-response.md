@@ -1784,3 +1784,22 @@ marking-rule adjudication held). One new minor in the sweep's own text:
 
 **Trajectory: residue executed → 86 1M+2m+3c (swept) → 87 0M+1m+2c
 (swept) → round 88 (convergence test) next.**
+
+# Round 88: convergence test on the round-87 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); the part5:532 arc closes stable
+
+The new definitional gate discriminates exactly the 12th digit (both
+neighbors fail; the pre-sweep 8th-digit corruption re-verified passing at
+5052d15 and failing now); dps-insensitive; om(d) provenance verified
+against part0 and the sibling verifiers; the label+ref fix clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — (none, at any severity) | — | — |
+
+**Trajectory: residue executed → 86 1M+2m+3c (swept) → 87 0M+1m+2c
+(swept) → 88 CONVERGED 0+0+0. The F73-3 registration is executed and
+stable: the H₀ display compounds literally, the Precision note states
+the last digit's honest reach, and the chain — including the
+twelve-digit invariant — is pinned by committed half-ULP gates. H₀ =
+66.78 unchanged everywhere. Next hostile round on the next substantive
+paper change.**
