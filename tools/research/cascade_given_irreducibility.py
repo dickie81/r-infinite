@@ -202,9 +202,10 @@ def main():
     w7 = sp.simplify(2 / GR(-7))
     ok2 &= w7 == sp.Rational(105, 8) / sp.pi ** 4    # the machinery is real
     print("   A1's state space anchored verbatim ('the descent lattice N');")
-    print("   the kernel's T1 definitions anchored (round-94 F3 -- their")
-    print("   argument image {d+1, d+2} is strictly positive, an exhibit")
-    print("   of the anchored offsets); both faces evaluate Gamma_R at")
+    print("   all four kernel T1 definitions anchored (round-94 F3; the")
+    print("   alpha anchor round-95 F3 -- their argument image {d+1, d+2}")
+    print("   is strictly positive, an exhibit of the anchored offsets);")
+    print("   both faces evaluate Gamma_R at")
     print(f"   negative arguments at the labels (1-s = {face_args},")
     print("   exhibit; the d = 7 mirror weight 105/(8 pi^4) gated) -- no")
     print("   axiom asserts any condition there   "

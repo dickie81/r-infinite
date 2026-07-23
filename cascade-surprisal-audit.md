@@ -8595,6 +8595,36 @@ fourth anchor; validator clean. Trajectory: 1u landed → 94 0M+3m+2c
 (swept) → 95 0M+3m+2c (swept this commit) → round 96 (convergence test)
 spawned per protocol.**
 
+## Addendum 174: convergence round 96 on commit 6e9e0f7 — 0 majors, 1 minor, 1 cosmetic; the struck-at-birth strike removed; round 97 follows
+
+Round 96 verified the round-95 sweep's substance completely: both
+location gates real and sabotage-detectable in both directions (a flag
+moved A3→A4 with the block total preserved fails the gate — which the
+old block-count-only form could not catch; a unique moved out of A1
+likewise); the α anchor codepoint-verbatim and failable; the corrected
+locational claims true by direct reading (A1's body is one sentence, so
+the clause gate pins the sentence claim); the bold and rewrap faithful.
+One minor in the sweep's own strike apparatus — which the lead had
+independently pre-confirmed from the git history before the round
+reported:
+
+- **F96-1 (minor, swept):** the round-95 paper sweep struck "both in
+  that clause's sentence" — a phrase the paper never carried (it lived
+  only in the verifier's round-94 comment; the paper's own round-94
+  text made no per-item flag-location statement). A struck-at-birth
+  strike manufactures a retraction event in the surface's history — a
+  marking-rule defect. **Fixed:** the strike removed; plain annotated
+  prose now states the correct facts with the provenance attributed
+  where the false claim actually lived (the verifier comment), and the
+  round-96 removal itself noted in place.
+- **F96-2 (cosmetic, swept):** the U2 print credited the anchoring to
+  round-94 F3 alone; it now names the round-95 α anchor ("all four
+  kernel T1 definitions anchored").
+
+**Battery: given_irreducibility 5/0; validator clean. Trajectory: 1u
+landed → 94 0M+3m+2c → 95 0M+3m+2c → 96 0M+1m+1c (swept this commit) →
+round 97 (convergence test) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

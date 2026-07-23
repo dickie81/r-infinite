@@ -1171,10 +1171,13 @@ and the label numerals — **zero hits** (the block's lone "19" is the year in
 *"source-selection flags"* — is gated with per-token adjudication rather than
 omitted, round-94 F1, with the per-item statements location-gated round 95
 (F1/F2): "selection" exactly once, in that clause — the flags select *sources
-and constants*, not labels; "flag" twice, ~~both in that clause's sentence~~
-**[corrected round 95 (F1): the two hits sit in two different A3 sentences —
-the flags clause and the partial-derivation sentence; both within A3,
-location-gated]**; "unique" thrice, all within A1's dynamics sentence
+and constants*, not labels; "flag" twice, both within A3,
+location-gated (the round-94 apparatus's *verifier comment* had claimed both
+hits in the flags clause's sentence — false, corrected round 95 (F1): the two
+hits sit in two different A3 sentences, the flags clause and the
+partial-derivation sentence; this surface never carried the false claim — the
+round-95 sweep's strike here was struck-at-birth text, a marking-rule defect
+removed round 96 (F1)); "unique" thrice, all within A1's dynamics sentence
 (location-gated — round-95 F2 replaced a true-but-ungated claim)).
 Adjudications disclosed rather than buried:
 A2's home column names *"the functional equation's symmetry point"* as

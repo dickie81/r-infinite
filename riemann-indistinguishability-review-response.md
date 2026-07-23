@@ -1932,3 +1932,18 @@ minors were in the round-94 apparatus's own per-item statements.
 
 **Trajectory: 1u landed → 94 0M+3m+2c (swept) → 95 0M+3m+2c (swept) →
 round 96 (convergence test) next.**
+
+# Round 96: convergence test on the round-95 sweep (subagent, per protocol) — 0 majors, 1 minor, 1 cosmetic; the struck-at-birth strike removed; round 97 follows
+
+The round-95 substance held completely (location gates sabotage-detectable
+both directions; the α anchor codepoint-verbatim; the corrected claims true
+by direct reading). One minor in the sweep's own strike apparatus,
+pre-confirmed independently by the lead from git history.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F96-1 (minor) — the paper struck a phrase it never carried (the false flag-location claim lived only in the verifier's comment): a struck-at-birth strike | **Accepted; strike removed**, plain annotated prose with the provenance attributed to the verifier comment and the removal noted | paper |
+| F96-2 (cosmetic) — the U2 print's anchor provenance omitted the round-95 α anchor | **Accepted; print completed** ("all four … the alpha anchor round-95 F3") | verifier |
+
+**Trajectory: 1u landed → 94 0M+3m+2c → 95 0M+3m+2c → 96 0M+1m+1c (swept)
+→ round 97 (convergence test) next.**
