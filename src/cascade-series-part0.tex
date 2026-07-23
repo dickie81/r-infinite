@@ -56,7 +56,7 @@ The cascade invariant
 \[
 I = \max_{(d_0,d_1,d_2)}\;\frac{\Omega_5^2}{\Omega_{d_0}^2}\;\Omega_{d_1}\;\Omega_{d_2}
 = \frac{9}{\pi^2}\;\Omega_{19}\;\Omega_{217}
-= 1.0990\times 10^{-120},
+= 1.0989\times 10^{-120},
 \]
 where the supremum runs over integer labelings of the three boundary pairs
 $(d_0,d_1,d_2) \in \{6,7\}\times\{19,20\}\times\{217,218\}$ and the unique
@@ -1150,7 +1150,7 @@ proved.
 \end{remark}
 
 \begin{theorem}[Evaluation]
-$I = 1.0990\times 10^{-120}$.
+$I = 1.0989\times 10^{-120}$.
 \end{theorem}
 
 \begin{proof}
@@ -1160,7 +1160,13 @@ $\Omega_{19} = 0.51614$.\;
 $\Omega_{217} = 2.33490\times 10^{-120}$.\;
 $(\Omega_5/\Omega_7)^2 = 9/\pi^2 = 0.91189$.\;
 Product: $0.91189\times 0.51614\times 2.33490\times 10^{-120}
-= 1.0990\times 10^{-120}$.
+= 1.09895\times 10^{-120}$; unrounded factors give the exact
+$I = 1.098945\times 10^{-120} = 1.0989\times 10^{-120}$ to five
+significant figures. (An earlier version displayed
+$I = 1.0990\times 10^{-120}$ throughout: the rounded intermediates
+above compound to $1.09895$, which rounds up, while the exact value
+rounds to $1.0989$ --- last digit corrected at every occurrence,
+external review round 73.)
 \end{proof}
 
 \subsection{Variational characterisation}\label{sec:variational}
@@ -1194,7 +1200,7 @@ d_2\in\{217,218\}.
 \]
 The supremum is attained uniquely at $(d_0,d_1,d_2) = (7,19,217)$,
 giving $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2
-= 1.0990\times 10^{-120}$.
+= 1.0989\times 10^{-120}$.
 \end{theorem}
 
 \begin{proof}
@@ -1212,7 +1218,7 @@ $\Omega_{d_1}$ and $\Omega_{d_2}$:
 These three extremal choices give $(d_0,d_1,d_2) = (7,19,217)$. Full
 enumeration of all eight labelings is given in
 \texttt{tools/verifiers/verify\_continuous\_boundary.py}; the argmax is unique
-and its value is $1.0990\times 10^{-120}$.
+and its value is $1.0989\times 10^{-120}$.
 \end{proof}
 
 \begin{remark}[The variational form replaces integer labelling conventions]
@@ -1299,7 +1305,7 @@ Product: $\approx 277$ nats $\approx 120$ decades.
 \section{Robustness}\label{sec:robustness}
 % ============================================================
 
-The cascade invariant $I = 1.0990\times 10^{-120}$ is a pure number from
+The cascade invariant $I = 1.0989\times 10^{-120}$ is a pure number from
 the Gamma function. It was not constructed to match any physical quantity.
 The identification of $I$ with the dimensionless cosmological constant,
 and the observer-frame conversion that makes the numerical comparison
@@ -1947,7 +1953,7 @@ Step & Statement & Source \\
 15 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thm~\ref{thm:twoscales}; Lem~\ref{lem:bilinear} \\
 16 & $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2$; unique bilinear form & Thm~\ref{thm:invariant} \\
 17 & $I = \sup_{\text{labelings}}$ over boundary pairs; argmax $(7,19,217)$ & Thm~\ref{thm:variational} \\
-18 & $I = 1.0990\times 10^{-120}$ & Computation \\
+18 & $I = 1.0989\times 10^{-120}$ & Computation \\
 19 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm~\ref{thm:hierarchy} \\
 \bottomrule
 \end{tabular}
@@ -2002,7 +2008,7 @@ $I_0 = 0.51614\times 2.33490\times 10^{-120}
 $9/\pi^2 = 0.91189$\;$\checkmark$
 
 $I = 0.91189\times 1.2051\times 10^{-120}
-= 1.0990\times 10^{-120}$\;$\checkmark$
+= 1.0989\times 10^{-120}$\;$\checkmark$
 
 $\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10 = 120.27$\;$\checkmark$
 

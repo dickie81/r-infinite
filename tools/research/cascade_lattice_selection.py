@@ -239,11 +239,13 @@ def main():
     B0 = [d for d in range(1, 400) if p(d) < 0]
     B3 = [d for d in range(1, 400) if p(d) > C2]
     ok7 = sup == (7, 19, 217) and inf == (6, 20, 218)
-    ok7 &= abs(vals[sup] / 1.0990e-120 - 1) < 1e-3     # part0 Evaluation
+    ok7 &= abs(vals[sup] / 1.0989e-120 - 1) < 1e-3     # part0 Evaluation
+    #                                        (last digit corrected round 73)
     ok7 &= abs(vals[inf] / 1.0217e-121 - 1) < 1e-3     # part0 rem. (1.02e-121)
     ok7 &= (max(B0), min(B2), min(B3)) == (6, 20, 218)  # inf side lattice-exact
     print(f"   sup = {sup} -> {vals[sup]:.4e} (part0's Evaluation states"
-          f" 1.0990e-120; last-digit rounding);")
+          f" 1.0989e-120 -- corrected round 73;")
+    print(f"   formerly 1.0990, a last-digit misround);")
     print(f"   inf = {inf} -> {vals[inf]:.4e} (part0: 1.02e-121; an order")
     print(f"   of magnitude, ~10.8x, below observation -- part0's 'two")
     print(f"   orders' slip corrected round 62); inf sides = (max B0, min B2,")

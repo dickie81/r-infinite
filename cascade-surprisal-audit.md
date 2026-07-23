@@ -7087,6 +7087,49 @@ pairing-act; the layer-2 soft inputs; the editorial batch (1.0990 sites;
 part2=3 summary table + CLAUDE.md §7→§8). Next hostile round on the next
 substantive paper change.**
 
+## Addendum 142: the editorial batch — the 1.0990 last-digit misround corrected series-wide; part2=3's summary table re-synchronised; CLAUDE.md's §7 pointer fixed (round-73 trigger)
+
+**The registered batch (rounds 70 F4 and 71 F2), executed with a fresh
+lead census that found MORE carriers than registered.** The full
+repo census (record files excluded as declared history): **14 tex sites
+across five papers** — part0 ×8 (lines 59, 1153, 1163, 1197, 1215, 1302,
+1950, 2005), part2 ×2 (43, 103), part3 ×2 (40, 318 — spaced variant),
+part4a ×1 (86), part5 ×2 (149, 527) — plus the lattice_selection K7 gate
+constant and print. All corrected 1.0990 → 1.0989 (exact sup
+1.098945×10⁻¹²⁰, five significant figures). **The misround's anatomy,
+stated in the correction note:** the Evaluation proof's rounded
+intermediates (0.91189 × 0.51614 × 2.33490) genuinely compound to
+1.09895, which rounds *up* to 1.0990, while the exact value rounds to
+1.0989 — the proof now displays both, with the retraction parenthetical
+("last digit corrected at every occurrence, external review round 73").
+The appendix checkmark line (0.91189 × 1.2051 = 1.098919) is now true as
+displayed.
+
+**A sibling slip found by the census and included (novel):** part1:581–582
+stated Ω₁₉×Ω₂₁₇ = **1.20516**×10⁻¹²⁰ where the exact 1.2051285 rounds to
+**1.20513** at six significant figures — corrected at both sites;
+the downstream 6.996×10⁻¹²¹ is unaffected (0.580522 × 1.205128 =
+0.699604). The 5-sig-fig 1.2051 sites (part0 appendix, cover sheet,
+part1:35, tower_growth_simulator) are correct and untouched.
+
+**part2=3's summary table re-synchronised** (rounds 71/72's held item):
+every row from "Mutual consistency" onward was offset by one after the
+Dirac Descent section's insertion — corrected by content-mapping against
+the lead's own section/subsection census (Mutual consistency 4→5; No
+absolute scale 5→6; UV dissolution 5→6, verified in-§6 at line 813;
+Gravity already quantum 6→7; S = A/4 7→8; T = 1/(8πM) 7.4→**8.5** — the
+"Hawking temperature from the cascade" subsection; Hidden geometry
+7.5→**8.6** — "Cosmological hidden geometry"), with a correction note
+after the table. The first three rows (2, 2.2, 3) were verified correct
+and untouched. **CLAUDE.md:52's** "Part~II=III~§7" → §8.
+
+**Verifier:** lattice_selection's K7 gate re-anchored to 1.0989e-120
+(passes: exact/stated = 1.0000413, within 1e-3) with the print carrying
+the correction recital; 7/0. **Validator clean on 12 files; residual
+census: 1.0990 survives only in the two correction recitals (part0's
+parenthetical; the verifier print); 1.20516 zero.** Round 73 (hostile
+subagent, per protocol — substantive paper surfaces touched) follows.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
