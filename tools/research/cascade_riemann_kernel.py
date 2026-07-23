@@ -14,9 +14,14 @@ content lattice-only; the given's condition at Gamma_R's negative
 arguments) and transformed the open question into a foundational
 choice: is the weight function's global identity axiom content?
 The owner has decided: THE FRAMEWORK FOLLOWS RIEMANN.  The kernel
-is the global meromorphic function -- the continuation and
-functional equation Riemann added to Euler's value table -- with
-mirror coherence as its non-degeneracy clause.
+is Gamma_R as its full global object ("Gamma_R entire", the
+owner's phrase -- "entire" in the sense of IN ITS ENTIRETY; the
+function itself is meromorphic, its poles load-bearing) -- the
+continuation and functional equation Riemann added to Euler's
+value table -- with mirror coherence as its non-degeneracy clause,
+worded as the SELECTOR (round-98 F1: the first wording constrained
+the variationally-defined invariant and was entailed; the clause
+now states the labeling selection explicitly).
 
   V1 THE AMENDMENT, ANCHORED AND CONTAINED.  The amended A1
      carries the re-founding note, the kernel-object sentence
@@ -118,7 +123,13 @@ def main():
     print()
     print("V1 the amendment anchored; A2-A4 byte-identical:")
     ok1 = "re-founded on the Riemann kernel by the owner's decision" in block
-    ok1 &= "Non-degeneracy clause (mirror coherence):" in block
+    ok1 &= "Non-degeneracy clause (mirror coherence) — the boundary-labeling selector:" \
+        in block
+    ok1 &= "the labeling\nis the one at which the branch-swapped invariant" \
+        in block or "the labeling is the one at which" in block.replace("\n", " ")
+    #      round-98 F1: the SELECTOR sentence anchored -- the clause
+    #      states the selection, not an entailed property of the
+    #      variationally-defined invariant
     ok1 &= "ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s), ξ(s) = ξ(1−s)" in block
     ok1 &= "The state space is the descent lattice" in block
     ok1 &= "the unique Gaussian elastic action with bond compliance" in block

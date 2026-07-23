@@ -21,10 +21,18 @@ by Γ_ℝ; the dynamics is the unique Gaussian elastic action with bond complian
 Γ_ℝ enters as its full global object — the meromorphic function π^(−s/2)Γ(s/2) on ℂ,
 with its pole set and its defining role in ξ(s) = ½s(s−1)Γ_ℝ(s)ζ(s), ξ(s) = ξ(1−s) —
 not merely its restriction to the lattice's argument image {d+1, d+2}.
-**Non-degeneracy clause (mirror coherence):** the cascade invariant, branch-swapped
-through the kernel's symmetry s ↦ 1−s (every weight 2/Γ_ℝ(d+1) replaced by the mirror
-layer's 2/Γ_ℝ(−d)), must evaluate, exactly and unconditionally, to a finite nonzero
-value. *Cost ledger, stated in the open:* the axiom thereby enlarges from a
+**Non-degeneracy clause (mirror coherence) — the boundary-labeling selector:** the
+invariant's boundary labeling is fixed by the kernel, not by an order principle:
+among the eight candidate boundary labelings (the 2³ crossing sides), **the labeling
+is the one at which the branch-swapped invariant** — every weight 2/Γ_ℝ(d+1)
+replaced by the mirror layer's 2/Γ_ℝ(−d), through the kernel's symmetry s ↦ 1−s —
+**evaluates, exactly and unconditionally, to a finite nonzero value** (unique among
+the eight; T1v gates the census). *(Round-98 F1 made the selector role explicit: the
+first wording constrained "the cascade invariant," whose committed variational
+definition already fixes the labeling by the max — an entailed assertion that
+selected nothing; the clause is the selector, and Part 0's variational
+characterisation remains exact as a characterisation, its argmax provably coinciding
+with the clause-selected labeling.)* *Cost ledger, stated in the open:* the axiom thereby enlarges from a
 lattice-value table (the Euler-side reading) to the global function carrying one
 clause (the Riemann-side reading); what it buys: the boundary labeling (7, 19, 217)
 is forced (T1v), with the variational output and all prior equivalents as
@@ -244,7 +252,7 @@ B₂ = {20..217}, boundary-convention-free (no lattice point within 8.5×10⁻�
 threshold, so all four interval conventions agree), and V(d) has strict discrete
 argmax 5 — hence, **with the crossing sides fixed by part0's variational-sup
 labeling** (round-60 F1: the inf labeling (6, 20, 218) is equally lattice-exact
-under the same pairing — the sup is a second given, data-corroborated, its
+under the same pairing — the sup is a second given, data-corroborated *(Net-state, T1v round 98: resolved into the amended A1 — the labeling is forced by the kernel's selector clause.)*, its
 derivation open by part0's own grading; gated K7), {argmax V, min B₁, max B₁,
 max B₂} = {5, 7, 19, 217} with **zero rounding anywhere**; the s-space critical
 pair is one equation (ψ(x/2) = ln π) read at two argument offsets; part0's
@@ -315,7 +323,7 @@ distinct principles (synthetic-crossing exhibit gated) agreeing at the actual
 crossings (three parity facts + Ω₇ < Ω₆, each gated); farther-integer and
 window-proximal re-descriptions also verified. Nothing forces the sup: the
 forcing stays open, part0's remark registered with the equivalences and
-keeping "remains open"; the 1k given persists, re-motivated. No number
+keeping "remains open"; the 1k given persists, re-motivated. *(Net-state, T1v round 98: resolved into the amended A1 — the labeling is forced by the kernel's selector clause.)* No number
 changes; no closure; category (a).
 
 **T1o (the arithmetic-primary form; `cascade_zeta_rational.py`, five gates).**
@@ -335,7 +343,7 @@ Belle II adjudicates as before)*. The dichotomy now lives on ζ's
 special-value structure, the χ reading its avatar-side shadow (round-75 F2
 struck the canonical-register-per-T1's-Remark claim (label, not verbatim; round-76 F2) — the Remark deprecates
 the avatar in derivations, it does not rank registers); still an equivalence,
-the forcing open, 1k's second given persisting. No number changes; no
+the forcing open, 1k's second given persisting *(Net-state, T1v round 98: resolved into the amended A1 — the labeling is forced by the kernel's selector clause.)*. No number changes; no
 closure; category (a).
 
 **T1p (the regularity forcing, conditional on one principle;
@@ -354,7 +362,7 @@ as corollaries (five selectors coincide, gated; round-78 c1). Precision bonus: a
 (d = 0) the local form is uniform where the global trivial-zero form has its
 exceptional point (ζ(0) = −½, ζ's pole opposite). The principle is a **new
 given, not derived** — the open question narrows to deriving it from the
-axioms; 1k's second given at its sharpest form. No number changes; no
+axioms; 1k's second given at its sharpest form *(Net-state, T1v round 98: resolved into the amended A1 — the labeling is forced by the kernel's selector clause.)*. No number changes; no
 closure; category (a). *(Net-state, T1q ~~: the per-label principle is derived
 given mirror coherence — one global requirement~~ **[struck round 79 (F3,
 MAJOR): the two are extensionally equivalent]**, as corrected: an equivalent
@@ -526,8 +534,10 @@ adopted the Riemann kernel; the labeling is forced by the amended A1.)*
 
 **T1v (the Riemann kernel; `cascade_riemann_kernel.py`, five gates).** The
 foundational choice made, by the owner's decision (round 98): **the framework
-follows Riemann.** A1 re-founded — the kernel is Γ_ℝ entire (the global
-meromorphic function with its pole set and functional-equation role), with
+follows Riemann.** A1 re-founded — the kernel is Γ_ℝ *entire* (the owner's
+phrase; "entire" in the sense of *in its entirety* — the function itself is
+meromorphic, its poles load-bearing: the global function with its pole set
+and functional-equation role), with
 **mirror coherence as its non-degeneracy clause** (the amendment anchored;
 the old A1's sentences surviving; A2–A4 gated byte-identical against the
 embedded pre-adoption text). Under the amended A1 the labeling (7, 19, 217)

@@ -1230,7 +1230,15 @@ identity (the continuation and functional equation of Γ_ℝ) is axiom content*,
 i.e. whether A1's kernel is Γ_ℝ-on-the-lattice or Γ_ℝ entire. If the latter
 were adopted, mirror coherence would become the natural non-degeneracy clause
 of the extended kernel — but that adoption is a new axiom-level choice,
-stated, not resolved *(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and the choice this theorem stated is made — 1u stands as the recorded reason the adoption was the only route to a forced labeling.)*. Licensed falsifier, stopping-rule-gated: any future
+stated, not resolved *(Net-state, Theorem 1v round 98: the owner adopted the Riemann
+kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its selector clause;
+the labeling is now forced by the amended axiom and the choice this theorem stated is
+made — 1u stands as the recorded reason a forced labeling required axiom-level
+content ~~the only route~~ [round-98 F4: 1u showed no derivation route exists from
+the old axioms, not that this adoption is the unique axiom-level route]. The
+falsifier below fired by ADOPTION, not derivation — the classification is re-scoped
+to its historical object, per its verifier — and the "persists" tail reads as of the
+pre-adoption record.)*. Licensed falsifier, stopping-rule-gated: any future
 committed derivation routing the labeling through an axiom's asserted content
 re-opens the classification. The given persists; no closure; no number
 changes; category (a).
@@ -1240,7 +1248,9 @@ decision; `cascade_riemann_kernel.py`).** 1u transformed the selection question 
 a foundational choice — whether the weight function's global identity is axiom
 content — and stated it without making it. **The owner has made it (round 98): the
 framework follows Riemann.** *(i) The amendment.* A1 now takes the kernel as Γ_ℝ
-entire — the global meromorphic function π^(−s/2)Γ(s/2), with its pole set and its
+*entire* (the owner's phrase; "entire" in the sense of *in its entirety* — the
+function itself is meromorphic, its poles load-bearing) — the global function
+π^(−s/2)Γ(s/2), with its pole set and its
 defining role in ξ(s) = ξ(1−s) — with **mirror coherence as the kernel's
 non-degeneracy clause** (the amended block anchored verbatim; the old A1's
 state-space and dynamics sentences surviving unchanged; and A2–A4 untouched — the
@@ -1248,7 +1258,11 @@ block from A2 onward gated byte-identical against the embedded pre-adoption text
 any collateral edit fails). This executes the historical Euler → Riemann step as an
 axiom choice: the value table becomes the function, with the continuation and
 functional equation Riemann added now the axiom's own object. *(ii) The forcing.*
-Under the amended A1 the labeling is **derived**: the coherence clause admits exactly
+Under the amended A1 the labeling is **derived**: the clause is worded as the
+**boundary-labeling selector** (round-98 F1 — the first wording constrained the
+variationally-defined invariant and was entailed, selecting nothing; the axiom now
+states the selection: the labeling is the one at which the branch-swapped invariant
+evaluates finite-nonzero), and it admits exactly
 one labeling of the eight — (7, 19, 217) — 1q's exact-value census re-gated
 (finite-nonzero uniquely at the sup; zero ×3; infinite ×1; indeterminate ×3), and the
 five prior faces (argmax I, min horizon budget, odd-member, ζ-mirror avoidance,
@@ -1265,9 +1279,11 @@ given), the pairing-act (Door-4 bookkeeping per 1t, its falsifier unchanged), an
 A3's underived rules (*"the increment and per-period rules are underived"* — in the
 amended block itself, anchored) persist exactly as recorded; only the
 boundary-labeling given resolves. *(v) Status propagation and the honest falsifier.*
-The prior gradings — "the forcing stays open," "the remaining given," "irreducible
-relative to A1–A4 as committed," "stated, not made" — were true of the pre-adoption
-axioms and stand as history under net-state markers; 1u is now the recorded *reason*
+The prior gradings — "the forcing stays open," "the same given in a second face,"
+"irreducible relative to A1–A4 as committed," "stated, not made" — were true of the
+pre-adoption axioms *(round-98 F3: the first
+draft's list included "the remaining given," a phrase living only inside a
+round-79-struck span — replaced by 1q's corrected grading)* and stand as history under net-state markers; 1u is now the recorded *reason*
 the adoption was the only route to a forced labeling. Since the adoption adds no
 empirical content, it is tested exactly where the framework is — by the record's
 predictions — and any future committed derivation of the clause from a weaker kernel

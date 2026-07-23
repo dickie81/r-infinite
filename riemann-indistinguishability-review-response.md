@@ -1963,3 +1963,28 @@ CONVERGED 0+0+0. Theorem 1u stable: the regularity/coherence given is
 irreducible relative to A1–A4 as committed; the open question transforms
 to the foundational axiom-content choice — stated, not made. Next
 hostile round on the next substantive paper change.**
+
+# Round 98: hostile review of THE ADOPTION (commit 3b662ff — A1 re-founded on the Riemann kernel, Theorem 1v) — NOT CONVERGED (1 MAJOR, 5 minors, 1 cosmetic); the selector clause made explicit; round 99 follows
+
+The execution held completely (the A2–A4 byte-identity gate real against
+two commits; V2's mirror census exact against 1q's committed
+adjudication; V4's 12-digit definitional gate biting; the anchors not
+self-satisfied; the footer census exact; no number moved). The MAJOR
+landed at the clause's wording: as committed, A1's non-degeneracy clause
+constrained "the cascade invariant" — whose only committed definition
+already fixes the labeling by the max — so the clause was entailed and
+selected nothing, while the verifier implemented the selector reading
+the axiom never stated.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F98-1 (MAJOR) — the non-degeneracy clause as worded was entailed by the committed definition of the invariant (the argmax's branch-swap being finite-nonzero is 1q's theorem); two selectors on record with no primacy statement | **Accepted; the explicit selector wording adopted** — A1 now states the selection over the eight free labelings ("the labeling is the one at which the branch-swapped invariant evaluates … finite nonzero"), correction recorded in the axiom's own parenthetical; part0 demotes the variational characterisation to an exact characterisation whose argmax provably coincides; 1v(ii) carries the same; V1 anchors the selector sentence | formulation + part0 + paper + verifier |
+| F98-2 (minor) — T1k/T1n/T1o/T1p in the formulation carried the superseded open-status unmarked, falsifying T1v's propagation sentence on that surface | **Accepted; four net-state markers placed**; the propagation sentence now true | formulation |
+| F98-3 (minor) — 1v(v)'s graded list cited "the remaining given," a phrase living only inside a round-79-struck span | **Accepted; replaced with 1q's corrected grading** ("the same given in a second face"), fix noted in place | paper |
+| F98-4 (minor) — "the only route to a forced labeling" overclaimed 1u (no derivation route ≠ unique axiom-level route) | **Accepted; scoped** ("a forced labeling required axiom-level content") on the paper marker and the verifier docstring | paper + verifier |
+| F98-5 (minor) — "Γ_ℝ entire" contradicts the term of art (the function is meromorphic) | **Accepted; glossed at first use on every paper-grade surface** as the owner's phrase — "entire" in the sense of *in its entirety*, the poles load-bearing; seven docstrings reworded to "Gamma_R as its full global object" | formulation + part0 + paper + verifiers |
+| F98-6 (minor) — given_irreducibility's stanza prints spoke in the live voice, now false of the amended record | **Accepted; historicized in-stanza**, the U2 mixed frame disclosed (its T1 anchors legitimately run live, T1 unchanged), the READING tail resolved | verifier |
+| F98-7 (cosmetic) — the 1u marker's coverage | **Accepted; extended** to the "persists" tail, with the falsifier's antecedent recorded as fired by adoption, not derivation | paper |
+
+**Trajectory: the adoption landed (1v) → 98 NOT CONVERGED 1M+5m+1c
+(swept) → round 99 (convergence test) next.**

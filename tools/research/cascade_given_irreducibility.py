@@ -87,15 +87,19 @@ question for the committed record.
      closure; no number changes.
 
 ROUND-98 NET-STATE.  The transformed question was answered by the
-owner: A1 is re-founded on Gamma_R entire with mirror coherence as
-its non-degeneracy clause (Theorem 1v; Addendum 176), and the
+owner: A1 is re-founded on Gamma_R as its full global object
+("Gamma_R entire", the owner's phrase -- the function is
+meromorphic) with mirror coherence as its selector clause
+(Theorem 1v; Addendum 176), and the
 labeling is now forced BY THE AMENDED AXIOM.  This file's
 classification is therefore HISTORICAL -- it describes A1-A4 as
 committed through round 97 (the classified block is embedded below
 verbatim, and the census gates run on it, not on the live
 formulation, whose amended A1 now carries the clause by design);
-1u remains the recorded reason the adoption was the only route to
-a forced labeling.
+1u remains the recorded reason a forced labeling required
+axiom-level content (round-98 F4 scoped the earlier "only route"
+phrasing: 1u showed no derivation route exists from the old
+axioms, not that this adoption is the unique axiom-level route).
 """
 
 import itertools
@@ -230,7 +234,10 @@ def main():
     print("   both faces evaluate Gamma_R at")
     print(f"   negative arguments at the labels (1-s = {face_args},")
     print("   exhibit; the d = 7 mirror weight 105/(8 pi^4) gated) -- no")
-    print("   axiom asserts any condition there   "
+    print("   axiom asserted any condition there (pre-adoption axioms --")
+    print("   the amended A1 now asserts the selector clause exactly")
+    print("   there, round-98 F6; the T1-definition anchors run on the")
+    print("   live formulation, T1 being unchanged by the adoption)   "
           + ("PASS" if ok2 else "FAIL"))
 
     # ---- U3: the single entry point (anchor-based, scope declared)
@@ -282,10 +289,10 @@ def main():
     print("   off-lattice (U2), every face extra-axiomatic (U4).  A")
     print("   committed-record classification, not an impossibility proof")
     print("   (declared).  The question TRANSFORMS: is the weight")
-    print("   function's global identity axiom content?  Stated, not")
-    print("   resolved; the falsifier licensed (any future committed")
-    print("   derivation routing the labeling through an axiom re-opens")
-    print("   the classification)   " + ("PASS" if ok5 else "FAIL"))
+    print("   function's global identity axiom content?  Stated there,")
+    print("   RESOLVED round 98 by the owner's adoption (docstring")
+    print("   net-state; the falsifier's antecedent fired by adoption,")
+    print("   not derivation)   " + ("PASS" if ok5 else "FAIL"))
 
     print()
     print("=" * 74)
@@ -299,8 +306,9 @@ def main():
     print("  every committed face of the given is extra-axiomatic (U4).")
     print("  For the committed record the given is irreducible relative")
     print("  to A1-A4; the open question becomes foundational -- whether")
-    print("  the continued weight function is axiom content.  The given")
-    print("  persists; no closure; no number changes.")
+    print("  the continued weight function is axiom content -- RESOLVED")
+    print("  round 98 by the owner's adoption (this file is historical;")
+    print("  docstring net-state).  No closure; no number changes.")
 
 
 if __name__ == "__main__":

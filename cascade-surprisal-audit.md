@@ -8744,6 +8744,72 @@ the census-token interaction (the amended A1 now legitimately contains
 the tokens 1u's census excludes — verify the historical/live split is
 clean).**
 
+## Addendum 177: hostile review round 98 on commit 3b662ff — NOT CONVERGED (1 MAJOR, 5 minors, 1 cosmetic); the selector clause made explicit; all findings lead-verified and swept
+
+Round 98 found the execution "empirically immaculate" (its words — every
+gate real, the byte-identities verified against two commits, the census
+exact, no number moved, the sabotage detected) and landed the MAJOR at
+the exact point the brief predicted:
+
+- **F98-1 (MAJOR, the clause's wording):** A1's non-degeneracy clause
+  constrained "the cascade invariant" — whose only committed definition
+  (part0's variational theorem) already fixes the labeling by the max —
+  so the clause was ENTAILED (the argmax's branch-swap being
+  finite-nonzero is 1q's theorem) and selected nothing; the verifier's
+  V2 implemented the selector reading the axiom never stated, and the
+  record carried two selectors with no statement of primacy. **Swept
+  with the explicit selector wording:** A1's clause now states the
+  selection ("among the eight candidate boundary labelings, the
+  labeling is the one at which the branch-swapped invariant evaluates
+  … finite nonzero"), with the round-98 F1 correction recorded in the
+  axiom's own parenthetical; part0 states that the variational
+  characterisation becomes an exact characterisation rather than the
+  primitive selector, its argmax provably coinciding; the paper's
+  1v(ii) carries the same; V1 anchors the selector sentence.
+- **F98-2 (minor):** the formulation's own T1k/T1n/T1o/T1p blocks still
+  carried the superseded open-status unmarked (making T1v's "stand as
+  history under net-state markers" false on that surface). **Swept:**
+  four markers placed; the propagation sentence now true.
+- **F98-3 (minor):** 1v(v)'s graded list included "the remaining
+  given" — a phrase living only inside a round-79-struck span, not a
+  true pre-adoption grading. **Swept:** replaced by 1q's corrected
+  grading ("the same given in a second face"), with the fix noted.
+- **F98-4 (minor):** "the only route to a forced labeling" overclaimed
+  1u (which showed no derivation route exists from the old axioms, not
+  that this adoption is the unique axiom-level route — axiomatizing
+  regularity directly would equally serve). **Swept** on the paper
+  marker and the verifier docstring, with the scoping stated.
+- **F98-5 (minor):** "Γ_ℝ entire" contradicts the term of art (the
+  function is meromorphic). **Swept:** glossed at first use on every
+  paper-grade surface as the owner's phrase — "entire" in the sense of
+  *in its entirety*, the poles load-bearing — and the seven docstrings
+  reworded to "Gamma_R as its full global object."
+- **F98-6 (minor):** given_irreducibility's stanza prints still spoke
+  in the live voice ("no axiom asserts any condition there" — now
+  false of the amended record; "Stated, not resolved"; "The given
+  persists"). **Swept:** historical qualifiers added in-stanza, the
+  U2 mixed frame disclosed (its T1 anchors legitimately run on the
+  live formulation, T1 being unchanged), the READING tail resolved.
+- **F98-7 (cosmetic, swept):** the 1u marker now covers the "persists"
+  tail and records that the falsifier's antecedent fired by ADOPTION,
+  not derivation.
+
+**Held (reviewer, unpadded):** the A2–A4 byte-identity gate real
+(sabotage detected, embedded text verified against ade0c66 AND
+6402a62); V2's census matching 1q's committed adjudication exactly
+(independent 60-dps recomputation); V4 catching an 8th-digit
+corruption; V5's anchors not self-satisfied (identical occurrence
+counts pre/post commit); "no empirical content" exactly true; the cost
+ledger complete; Check 8 clean; the provenance consistent; the six
+docstring notes verified by running all six; the footer census exact;
+the Euler→Riemann framing held as fair history.
+
+**Battery after sweep: riemann_kernel 5/0 (the selector sentence
+anchored); given_irreducibility 5/0; the six noted instruments green;
+grammar_need 5/0; validator clean on 12 files. Trajectory: the
+adoption landed → 98 NOT CONVERGED 1M+5m+1c → sweep this commit →
+round 99 (convergence test) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
