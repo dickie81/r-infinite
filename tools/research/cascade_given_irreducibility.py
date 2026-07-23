@@ -19,8 +19,9 @@ question for the committed record.
      numerals -- ZERO hits (the block's lone "19" is the year in
      "Wall 1964", gated as such; the block's own selection
      vocabulary -- the A3 flags clause -- gated with per-token
-     adjudication, round-94 F1: source/constant selection, not
-     label selection).  Disclosed adjudications: A2's
+     adjudication, round-94 F1, and LOCATION-gated round 95
+     (F1/F2): source/constant/dynamics vocabulary, not label
+     selection).  Disclosed adjudications: A2's
      home column names "the functional equation's symmetry point"
      as Gamma(1/2)'s arithmetic home -- provenance of a constant
      at the FIXED POINT s = 1/2, not an asserted condition at
@@ -136,16 +137,22 @@ def main():
             if block.lower().count(tok)}
     ok1 &= hits == {}
     # round-94 F1: the block DOES contain selection vocabulary -- the A3
-    # flags clause -- so the census now gates it with per-token
-    # adjudication instead of omitting it: "selection" appears exactly
-    # once, inside "source-selection flags" (constant/source selection,
-    # not label selection); "flag" twice, both in that clause's
-    # sentence; "unique" three times, all in the action-uniqueness
-    # clause (dynamics, not labeling):
+    # flags clause -- so the census gates it with per-token adjudication
+    # instead of omitting it; round-95 F1/F2 corrected and LOCATION-GATED
+    # the per-item statements ("both in that clause's sentence" was false
+    # -- the two flag hits sit in two different A3 sentences; and the
+    # 'unique' location claim was true but ungated):
     bl = block.lower()
+    a1_cl = block[block.find("**A1"):block.find("**A2")]
+    a3_cl = block[block.find("**A3"):block.find("**A4")]
     ok1 &= bl.count("selection") == 1 and "source-selection flags" in block
-    ok1 &= bl.count("flag") == 2
-    ok1 &= bl.count("unique") == 3 and "action-uniqueness" in block
+    ok1 &= a3_cl.lower().count("flag") == 2 == bl.count("flag")
+    #      both flag hits within A3 (its flags clause and its
+    #      partial-derivation sentence), location-gated
+    ok1 &= a1_cl.lower().count("unique") == 3 == bl.count("unique")
+    ok1 &= "action-uniqueness" in a1_cl
+    #      all three unique hits within A1's dynamics sentence,
+    #      location-gated (dynamics, not labeling)
     # the block's lone label-like numeral is the Wall year:
     ok1 &= block.count("19") == 1 and "Wall 1964" in block
     # disclosed adjudications, anchored:
@@ -162,9 +169,11 @@ def main():
         or "What the lattice does *not* fix is the **side**" in paper
     print(f"   the A1-A4 block ({len(block)} chars) scanned: the 15 listed")
     print(f"   labeling tokens ZERO {hits}; the block's own selection")
-    print("   vocabulary gated with adjudication (round-94 F1: 'selection'")
-    print("   exactly once, in 'source-selection flags' -- constants and")
-    print("   sources, not labels; 'unique' thrice, all action-uniqueness);")
+    print("   vocabulary gated with adjudication (round-94 F1, location-")
+    print("   gated round 95: 'selection' once, in 'source-selection")
+    print("   flags'; 'flag' twice, both within A3; 'unique' thrice, all")
+    print("   within A1's dynamics sentence -- constants, sources, and")
+    print("   dynamics, not labels);")
     print("   the lone '19' is 'Wall 1964' (gated).  Disclosed: A2's home")
     print("   column names the functional equation's SYMMETRY POINT")
     print("   (provenance at the fixed point, not a mirror condition); A3")
@@ -184,6 +193,8 @@ def main():
     ok2 &= "Ω(d) = 2/Γ_ℝ(d+1)" in form               # T1 definitions
     ok2 &= "N(d) = Γ_ℝ(d+1)/Γ_ℝ(d+2)" in form
     ok2 &= "p(d) = (log Γ_ℝ)′(d+1)" in form
+    ok2 &= "α(d) = N(d)²/4π" in form   # round-95 F3: all FOUR anchored
+    #      (alpha adds no new Gamma_R argument -- it is N^2/4pi)
     # exhibit: for d in N, d+1 >= 1 and d+2 >= 2 (arithmetic of the
     # anchored offsets); the faces' arguments at the labels:
     face_args = [1 - (d + 1) for d in (7, 19, 217)]  # gamma_oo at the labels

@@ -8562,6 +8562,39 @@ gates; the anchored T1 definitions; the openness anchor); grammar_need
 CONVERGED 0M+3m+2c → sweep this commit → round 95 (convergence test)
 spawned per protocol.**
 
+## Addendum 173: convergence round 95 on commit 88fbf09 — 0 majors, 3 minors, 2 cosmetics; the adjudication apparatus location-gated; round 96 follows
+
+Round 95 verified the round-94 sweep's substance in full (both sabotages
+detected — a "selection" insertion fails U1, a corrupted T1 anchor fails
+U2; the paren balance 0 over the full 3562-char region; every anchor
+verbatim at source with codepoint-level checks on the prime and minus;
+the five-face table consistent across all four surfaces) and found three
+minors in the round-94 apparatus's own per-item statements:
+
+- **F95-1 (minor):** "'flag' twice, both in that clause's sentence" was
+  **false** — the two hits sit in two different A3 sentences (the flags
+  clause and the partial-derivation sentence). Lead-verified by clause
+  extraction. **Swept:** the claim corrected on all surfaces (with the
+  strike on the paper) and **location-gated**: A3's clause count == 2 ==
+  the block count.
+- **F95-2 (minor):** "'unique' thrice, all in the action-uniqueness
+  clause" was true (the reviewer located all three hits in A1's dynamics
+  sentence) but **ungated** — the committed gate counted and anchored
+  without locating; the attenuated round-94-F3 class. **Swept:** A1's
+  clause extracted and location-gated (clause count == 3 == block
+  count; the anchor now checked within A1).
+- **F95-3 (minor):** "the T1 definitions anchored verbatim" — three of
+  the **four** anchored (α missing, though α = N²/4π adds no new Γ_ℝ
+  argument). **Swept:** the α anchor added; all surfaces now say "all
+  four," with α's no-new-argument fact noted.
+- **F95-4/5 (cosmetic, swept):** the strike's dropped bold on "zero"
+  restored; the unwrapped line rewrapped.
+
+**Battery: given_irreducibility 5/0 with the location gates and the
+fourth anchor; validator clean. Trajectory: 1u landed → 94 0M+3m+2c
+(swept) → 95 0M+3m+2c (swept this commit) → round 96 (convergence test)
+spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

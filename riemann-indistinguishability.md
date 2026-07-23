@@ -1169,9 +1169,14 @@ sup/max/min, labeling, boundary side, parity, odd, mirror, regular, coheren-,
 and the label numerals — **zero hits** (the block's lone "19" is the year in
 "Wall 1964", gated as such; and the block's own selection vocabulary — A3's
 *"source-selection flags"* — is gated with per-token adjudication rather than
-omitted, round-94 F1: "selection" exactly once, in that clause — the flags
-select *sources and constants*, not labels; "unique" thrice, all in the
-action-uniqueness clause). Adjudications disclosed rather than buried:
+omitted, round-94 F1, with the per-item statements location-gated round 95
+(F1/F2): "selection" exactly once, in that clause — the flags select *sources
+and constants*, not labels; "flag" twice, ~~both in that clause's sentence~~
+**[corrected round 95 (F1): the two hits sit in two different A3 sentences —
+the flags clause and the partial-derivation sentence; both within A3,
+location-gated]**; "unique" thrice, all within A1's dynamics sentence
+(location-gated — round-95 F2 replaced a true-but-ungated claim)).
+Adjudications disclosed rather than buried:
 A2's home column names *"the functional equation's symmetry point"* as
 Γ(½)'s arithmetic home — provenance of a constant at the *fixed point* s = ½,
 not an asserted condition at mirror points (anchored); and A3 places source
@@ -1185,8 +1190,9 @@ committed state space is *"the descent lattice ℕ (layer index d), weighted by
 Γ_ℝ"* (anchored verbatim). The kernel's four primitives evaluate Γ_ℝ on the
 lattice's argument image {d+1, d+2} — strictly positive ~~(gated, d =
 0..299)~~ **[reworded round 94 (F3): the first draft's positivity conjuncts
-were constructed from the claim and could not fail; the T1 definitions are
-now anchored verbatim — failable — with the positivity an exhibit of the
+were constructed from the claim and could not fail; all four T1 definitions
+are now anchored verbatim — failable; the α anchor added round 95 (F3), α
+adding no new Γ_ℝ argument — with the positivity an exhibit of the
 anchored offsets]** — while **both faces of the given evaluate Γ_ℝ at
 negative arguments** at the labels (γ_∞ needs 1−s = −d; the mirror weight
 needs −d; the d = 7 mirror weight gated). The axioms'

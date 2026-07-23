@@ -1916,3 +1916,19 @@ were instrument-and-prose residuals.
 
 **Trajectory: 1u landed → 94 NOT CONVERGED 0M+3m+2c (swept) → round 95
 (convergence test) next.**
+
+# Round 95: convergence test on the round-94 sweep (subagent, per protocol) — 0 majors, 3 minors, 2 cosmetics; the adjudication apparatus location-gated; round 96 follows
+
+The round-94 substance held (sabotages detected both ways; paren balance
+0; anchors codepoint-verbatim; the five-face table consistent). The
+minors were in the round-94 apparatus's own per-item statements.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F95-1 (minor) — "both in that clause's sentence" false (the two flag hits sit in two different A3 sentences) | **Accepted; corrected + location-gated** (A3 clause count == 2 == block) | verifier + paper + formulation |
+| F95-2 (minor) — the 'unique' location claim true but ungated | **Accepted; location-gated** (A1 clause count == 3 == block) | verifier + paper |
+| F95-3 (minor) — three of the four T1 definitions anchored ("the definitions" unqualified) | **Accepted; the α anchor added** — all four, with α's no-new-argument fact noted | verifier + paper + formulation |
+| F95-4/5 (cosmetic) — dropped bold in a strike; an unwrapped line | **Accepted; swept** | formulation |
+
+**Trajectory: 1u landed → 94 0M+3m+2c (swept) → 95 0M+3m+2c (swept) →
+round 96 (convergence test) next.**
