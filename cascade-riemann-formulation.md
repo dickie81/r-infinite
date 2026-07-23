@@ -332,8 +332,8 @@ points/live mirrors. GIVEN one principle — **labels at regular points of the
 tower's local functional equation** (the same non-degeneracy type as T2's
 gcd condition and Theorem 7's order-one requirement) — each pair has exactly
 one qualifying member and the labeling is **forced to (7, 19, 217)**, the
-variational definition and all four 1n/1o equivalents following as
-corollaries (five selectors coincide, gated). Precision bonus: at s = 1
+variational characterization's output and all four 1n/1o equivalents following
+as corollaries (five selectors coincide, gated; round-78 c1). Precision bonus: at s = 1
 (d = 0) the local form is uniform where the global trivial-zero form has its
 exceptional point (ζ(0) = −½, ζ's pole opposite). The principle is a **new
 given, not derived** — the open question narrows to deriving it from the

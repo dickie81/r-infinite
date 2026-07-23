@@ -37,7 +37,8 @@ Tate's gcd condition) and states the sharpest available result:
        mirror weight nonzero).  Then at each straddling pair
        exactly one member qualifies, and the labeling is FORCED
        to (7, 19, 217) = the variational sup, with zero residual
-       freedom; the variational definition, the parity rule,
+       freedom; the variational characterization's output, the
+       parity rule,
        minimal horizon budget, zeta-rationality, and
        trivial-zero avoidance all follow as corollaries.  This
        is the first single-principle forcing of the sup.
@@ -114,8 +115,9 @@ def main():
               for s in list(range(2, 31)) + [217, 218, 219])
     ok1 &= sp.simplify(gamma_factor(2) + 2 * sp.pi ** 2) == 0
     ok1 &= sp.simplify(gamma_factor(8) - 8 * sp.pi ** 8 / 315) == 0
-    print(f"   poles exactly at odd s, finite nonzero at even s (gated on")
-    print(f"   s = 2..30 and 217..219; closed forms gamma(2) = -2 pi^2,")
+    print(f"   poles exactly at odd s, finite at even s (range gate: pole-")
+    print(f"   parity on s = 2..30, 217..219; nonzero-ness gated at the")
+    print(f"   closed forms -- round-78 c2; gamma(2) = -2 pi^2,")
     print(f"   gamma(8) = 8 pi^8/315 gated exactly) -- the local functional")
     print(f"   equation is singular at the inf twists (7, 21, 219), regular")
     print(f"   at the sup twists (8, 20, 218)   {'PASS' if ok1 else 'FAIL'}")
@@ -160,7 +162,8 @@ def main():
     ok4 &= tz_avoiders == [sup]
     print(f"   regular = odd-member = argmax I = argmin S = the unique")
     print(f"   trivial-zero avoider = {sup}: under the regularity")
-    print(f"   principle, the variational definition and all four 1n/1o")
+    print(f"   principle, the variational characterization's output and")
+    print(f"   the four 1n/1o")
     print(f"   equivalents follow as corollaries   {'PASS' if ok4 else 'FAIL'}")
 
     # ---- R5: the precision bonus (the s = 1 exceptional point)
@@ -187,7 +190,8 @@ def main():
     print("  regular points of the local functional equation, the same")
     print("  non-degeneracy type as T2's gcd condition and Theorem 7's")
     print("  order-one requirement -- forces the labeling to (7, 19, 217)")
-    print("  outright, with the variational definition and all four 1n/1o")
+    print("  outright, with the variational characterization's output and")
+    print("  the four 1n/1o")
     print("  equivalents as corollaries.  The principle is a NEW given,")
     print("  not derived from the axioms: the open question narrows to")
     print("  deriving it.  1k's second given now has its sharpest form.")

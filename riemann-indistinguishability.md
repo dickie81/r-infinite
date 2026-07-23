@@ -831,7 +831,9 @@ invariant's integer labels are regular points of the tower's local functional
 equation** (equivalently: γ_∞ finite there; equivalently: the mirror weight nonzero).
 Then each straddling pair has exactly one qualifying member (gated: [1, 1, 1]), and
 the labeling is **forced to (7, 19, 217) with zero residual freedom** — with the
-variational definition and all four 1n/1o equivalents following as corollaries (the
+variational characterization's output and all four 1n/1o equivalents following as
+corollaries (round-78 c1: a definition cannot be a corollary; what follows is the
+labeling, whose agreement with the variational characterization is the gated fact) (the
 five selectors coincide on the eight labelings, gated). The agreement with the
 variational sup is the gated content: it could have failed at any crossing. *(iii) The
 precision bonus.* The local form is strictly cleaner than the global trivial-zero

@@ -7392,6 +7392,50 @@ Formulation: T1p block. part0: the remark's parenthetical extended with the
 local form and the narrowed question. Validator clean on 12 files;
 gamma_regularity 5/0. Round 78 (hostile subagent, per protocol) follows.
 
+## Addendum 150: hostile review round 78 (subagent, per protocol) on commit 7fca3b6 — **CONVERGED on the first pass** (0 majors, 0 minors, 3 cosmetics); Theorem 1p certified stable; the regularity-forcing arc closes
+
+**The campaign's first first-pass convergence. The reviewer verified the
+crux completely: every closed form recomputed BY HAND from
+Γ_ℝ(1−s)/Γ_ℝ(s) (γ(2) = −2π² via Γ(−½) = −2√π; γ(8) = 8π⁸/315 via
+Γ(−7/2) = (16/105)√π; the ungated docstring value γ(6) = −4π⁶/15 checked
+too; d = 7's mirror weight 105/(8π⁴)); the pole locus proved analytically
+beyond the sampled range (Γ never vanishes, Γ_ℝ pole-free on the tower —
+no cancellation, no zeros of γ); the sympy pole-test soundness probed (no
+unevaluated gamma can escape at exact rational arguments); the Tate
+convention checked against the repo's own committed 1i ε-record with no
+conflicting prior surface, and the direction-convention risk closed (the
+convention-free mirror-weight form is stated alongside on every surface);
+the conditional grading verified with no slide on any of five surfaces;
+the census fix's provenance confirmed exact (a867f21 did add the
+compensator to the body; the footer was stale until 7fca3b6; now 36 + 4°
+set-exact); the precision-bonus wording adjudicated correct (the trivial-
+zero mechanism fails at mirror point 0 because the completed function's
+pole — inherited from ζ's pole at s = 1 — sits there).**
+
+**The three cosmetics, swept in this commit per the batching rule:**
+(c1) "the variational definition … following as corollaries" — a
+definition cannot be a corollary; now "the variational characterization's
+output" on all five carrying surfaces (paper, formulation, part0,
+docstring, and the R4/READING prints — the last two caught by the lead's
+own every-surface check before round 79 could); (c2) the R1 print's
+"finite nonzero at even s" scoped the range gate too broadly — the range
+gate checks pole-parity, nonzero-ness is gated at the closed forms; print
+now says so; (c3) part0's "are the poles" → "are poles" (membership, not
+identity — the pole set is all odd s).
+
+**Verdict: CONVERGED under the standing precedent. Theorem 1p is stable,
+and the commissioned arc closes at its honest maximum:** the sup now has a
+single-principle conditional forcing — the regularity principle (labels at
+regular points of the tower's own local functional equation), typed with
+the framework's existing non-degeneracy conditions, entailing the
+variational output and all four 1n/1o equivalents as corollaries — with
+the principle explicitly a new given and **the open question narrowed to
+one sentence: does regularity follow from the cascade's axioms?**
+**Trajectory: 1p landed → 78 CONVERGED 0+0+3c(swept). Standing open
+routes: deriving the regularity principle; the 1j pairing-act; the
+layer-2 soft inputs; part5:532 (editorial). Next hostile round on the
+next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1577,3 +1577,23 @@ odd/Euler-null member; ζ-Euler-rational twists; trivial-zero-mirror avoidance),
 the ζ-form on the paper's primary object, the forcing open everywhere; 1k's
 second given persists, re-motivated. Next hostile round on the next substantive
 paper change.**
+
+# Round 78: hostile review of Theorem 1p (subagent, per protocol) — **CONVERGED on the first pass** (0+0+3c); Theorem 1p certified stable; the regularity-forcing arc closes
+
+The campaign's first first-pass convergence: every closed form recomputed by
+hand; the pole locus proved analytically beyond the sampled range; the Tate
+convention checked against the repo's own ε-record with the direction risk
+closed by the convention-free mirror-weight form; no conditional-to-
+unconditional slide on any surface; the census fix's provenance confirmed
+exact.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F78-c1/c2/c3 (cosmetics) — "variational definition" as corollary; the R1 print's nonzero scope; "the poles" vs "poles" | **Accepted; swept in the record commit** (c1 on all five carrying surfaces incl. two prints the lead's own check caught) | paper + formulation + part0 + script |
+
+**Trajectory: 1p landed → 78 CONVERGED 0+0+3c. Theorem 1p stable: the sup has
+a single-principle conditional forcing (the regularity principle, a new given,
+typed with the framework's non-degeneracy conditions), entailing the
+variational output and all four 1n/1o equivalents; the open question narrows
+to deriving regularity from the axioms. Next hostile round on the next
+substantive paper change.**
