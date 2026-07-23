@@ -444,15 +444,21 @@ A1–A4, or establish the grammar never needs the odd reading. No closure;
 category (a). *(Net-state, T1t: the disjunction resolves on branch B for the
 committed record.)*
 
-**T1t (the grammar-need census; `cascade_grammar_need.py`, five gates).**
-1s's second branch established for the committed record. Scope stated: the
-derivation record — 12 cascade papers, the frozen ledger, 30
-observable-computing scripts (constants, verifiers, closures), the four
-°-marked record instruments; excluded by design and disclosed: this program's
-own pairing-study surfaces. The token census (χ₋₃, L(s/1,χ), the χ zeros,
-Kronecker, conductor, quadratic character, √3-in-LaTeX) returns **zero hits
-across the entire record** (gated per token; the lone "Dirichlet" gated as
-part0a's classical method name). The crossing is Γ-side complete (p's zero
+**T1t (the grammar-need census; `cascade_grammar_need.py`, five gates; as
+corrected round 89).** 1s's second branch established for the committed
+record. Scope stated ~~30 observable-computing scripts … excluded by design:
+this program's own pairing-study surfaces~~ **[struck round 89 (F1 MAJOR +
+F2): the count was 26 + 4, and the blanket research-directory exclusion
+silently omitted 59 paper-cited computational scripts under a pairing-study
+mischaracterization]**: the derivation record — 12 cascade papers, the frozen
+ledger, 26 observable scripts + the four °-marked record instruments, all 59
+paper-cited scripts (extraction gated), and model_checks + generators
+wholesale; excluded, correctly characterized: the pairing-study surfaces not
+cited by the series. The token census (χ₋₃, L(s/1,χ), the χ zeros, Kronecker,
+conductor, quadratic character, root number, gauss sum, √3-in-LaTeX) returns
+**one benign hit** (a linear-algebra "Kronecker product" docstring,
+allowlist-gated) and otherwise zero across the censused record (gated per
+token; the lone "Dirichlet" gated as part0a's classical method name). The crossing is Γ-side complete (p's zero
 6.2569 and the band inequalities from digamma alone, gated); Door 4's two
 sides are independently committed (½ln 3 = ln √3 exact; covol from the
 lattice basis = √3/2 = cos(π/6) gated; the mass arc consumes the ring side,

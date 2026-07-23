@@ -12,18 +12,30 @@ from A1-A4, OR establish that the grammar never needs the odd
 reading (the act as Door-4 bookkeeping only).  This file audits
 the second branch as a consumption census.
 
-CENSUS SCOPE (stated, not silent).  The derivation record: the
-cascade series (src/*.tex -- every paper), the frozen ledger
-(PREDICTIONS.md), the observable-computing tools
-(cascade_constants.py, tools/verifiers/, tools/closures/), and the
-four degree-marked record instruments (cascade_leptons,
-cascade_neutrino_closure, cascade_E_fit_audit, cascade_null_clone).
-EXCLUDED BY DESIGN, disclosed: the riemann-review paper and its
-research instruments -- they are the STUDY of the pairing (1c, 1i,
-1r and their category-(a) verifiers), so their L-side content is
-the subject of the audit, not a consumer.
+CENSUS SCOPE (stated, not silent; round-89 F1 extended it -- the
+first version's scope omitted ~57 paper-cited computational
+surfaces under a disclosure that mischaracterized them as
+pairing-study).  The derivation record: the cascade series
+(src/*.tex -- every paper), the frozen ledger (PREDICTIONS.md),
+the observable-computing tools (cascade_constants.py + 19
+verifiers + 6 closures = 26 scripts), the four degree-marked
+record instruments (cascade_leptons, cascade_neutrino_closure,
+cascade_E_fit_audit, cascade_null_clone), EVERY computational
+script the papers themselves cite (extracted programmatically
+from src/*.tex + PREDICTIONS.md with LaTeX escaped-underscore
+handling -- 59 distinct scripts across tools/research, verifiers,
+closures, model_checks, generators), and tools/model_checks/ +
+tools/generators/ wholesale.  EXCLUDED, correctly characterized:
+the riemann-review paper and the research instruments NOT cited
+by the series -- the pairing-study surfaces (1c, 1i, 1r and their
+category-(a) verifiers), whose L-side content is the audit's
+subject, not a consumer.
 
-  N1 THE SERIES CONSUMES NO L-SIDE OBJECT.  Token census over
+  N1 THE SERIES CONSUMES NO ODD-BRIDGE L-SIDE OBJECT.  (Scoped to
+     the ODD bridge, round-89 F3: part0's max-over-min remark
+     consumes EVEN-side zeta objects -- Euler-rational values,
+     trivial zeros, gamma_oo -- by this program's own 1n-1q arc;
+     the audit's subject is chi_-3's side.)  Token census over
      src/*.tex: chi_{-3}, L(s,chi)/L(1,chi), the chi zeros
      (8.0397), Kronecker, "conductor", "quadratic character",
      sqrt{3} -- ALL ZERO HITS across every cascade paper.  (The
@@ -31,11 +43,16 @@ the subject of the audit, not a consumer.
      method" for zeta(2) -- a classical method name, gated as the
      only hit.)  Colour enters the papers exclusively as ring/Lie
      structure: su(3), Adams, Radon-Hurwitz, Z[omega] via T8/T11.
-  N2 THE OBSERVABLE TOOLS CONSUME NO L-SIDE OBJECT.  The same
-     census over cascade_constants.py, tools/verifiers/*.py,
-     tools/closures/*.py, and the four record instruments: zero
-     hits (the earlier grep's two "jacobi" hits were "jacobian" --
-     substrings excluded by tokenization).  PREDICTIONS.md: zero.
+  N2 THE COMPUTATIONAL RECORD CONSUMES NO ODD-BRIDGE L-SIDE
+     OBJECT.  The census (all TEX prose tokens included -- round-89
+     F4) over the 26 observable scripts, the four record
+     instruments, all 59 paper-cited scripts, and model_checks +
+     generators wholesale: the ONLY token hit in the entire
+     computational record is one "Kronecker product" docstring
+     (linear algebra, cascade_route_c_d13_dirac.py) -- gated by
+     the allowlist (every "kronecker" hit must be the phrase
+     "kronecker product"); all other tokens zero.
+     PREDICTIONS.md: zero.
   N3 THE CROSSING IS GAMMA-SIDE COMPLETE.  The band boundary at
      6.2569 derives from digamma alone: p(d) = -ln(pi)/2 +
      psi((d+1)/2)/2 has its zero in (6, 7) at 6.2569 (gated,
@@ -70,6 +87,7 @@ the subject of the audit, not a consumer.
 import glob
 import math
 import os
+import re
 
 import mpmath as mp
 
@@ -81,7 +99,9 @@ TEX_TOKENS = ["chi_{-3}", "L(s,\\chi", "L(1,\\chi", "8.0397",
               "Kronecker", "conductor", "quadratic character",
               "\\sqrt{3}"]
 PY_TOKENS = ["chi_m3", "chi_{-3}", "kronecker", "jacobi_symbol",
-             "jacobi(", "8.0397", "3*sqrt(3)", "3 * sqrt(3)"]
+             "jacobi(", "8.0397", "3*sqrt(3)", "3 * sqrt(3)",
+             "conductor", "quadratic character", "root number",
+             "gauss sum", "dirichlet character"]
 RECORD_INSTRUMENTS = ["cascade_leptons.py", "cascade_neutrino_closure.py",
                       "cascade_E_fit_audit.py", "cascade_null_clone.py"]
 
@@ -113,7 +133,7 @@ def main():
 
     # ---- N1: the series census
     print()
-    print("N1 the cascade series consumes no L-side object:")
+    print("N1 the series consumes no ODD-BRIDGE L-side object:")
     hits = count_hits(tex, TEX_TOKENS)
     ok1 = hits == {}
     dirichlet = count_hits(tex, ["Dirichlet"])
@@ -130,9 +150,9 @@ def main():
     print("   is 'Dirichlet's method').  Colour enters the papers as")
     print("   ring/Lie structure only   " + ("PASS" if ok1 else "FAIL"))
 
-    # ---- N2: the observable tools + ledger census
+    # ---- N2: the full computational record census (round-89 F1/F4)
     print()
-    print("N2 the observable tools and the ledger consume no L-side object:")
+    print("N2 the computational record consumes no ODD-BRIDGE L-side object:")
     py = ([os.path.join(ROOT, "tools", "cascade_constants.py")]
           + sorted(glob.glob(os.path.join(ROOT, "tools", "verifiers",
                                           "*.py")))
@@ -140,16 +160,47 @@ def main():
                                           "*.py")))
           + [os.path.join(ROOT, "tools", "research", f)
              for f in RECORD_INSTRUMENTS])
-    hits2 = count_hits(py, PY_TOKENS, lower=True)
-    ok2 = hits2 == {}
+    # round-89 F1: every computational script the papers themselves cite
+    # (LaTeX escapes underscores as \_ -- handled), plus model_checks
+    # and generators wholesale:
+    pat = re.compile(r"cascade(?:\\_|[A-Za-z0-9_])*\.py")
+    cited = set()
+    for path in tex + [os.path.join(ROOT, "PREDICTIONS.md")]:
+        for m in pat.findall(open(path, encoding="utf-8").read()):
+            cited.add(m.replace("\\_", "_"))
+    cited_files = set()
+    for name in sorted(cited):
+        cited_files |= set(glob.glob(os.path.join(ROOT, "tools", "**",
+                                                  name), recursive=True))
+    ok2 = len(cited) == 59 and all(
+        glob.glob(os.path.join(ROOT, "tools", "**", n), recursive=True)
+        for n in cited)                          # every citation resolves
+    wider = sorted(set(py) | cited_files
+                   | set(glob.glob(os.path.join(ROOT, "tools",
+                                                "model_checks", "*.py")))
+                   | set(glob.glob(os.path.join(ROOT, "tools",
+                                                "generators", "*.py"))))
+    hits2 = count_hits(wider, PY_TOKENS, lower=True)
+    # the allowlist: every 'kronecker' hit must be 'kronecker product'
+    # (linear algebra; the one docstring in cascade_route_c_d13_dirac.py)
+    kron_ok = True
+    for path in wider:
+        tl = open(path, encoding="utf-8", errors="replace").read().lower()
+        if tl.count("kronecker") != tl.count("kronecker product"):
+            kron_ok = False
+    allowed = {"kronecker": [("cascade_route_c_d13_dirac.py", 1)]}
+    ok2 &= kron_ok and hits2 == allowed
     led = count_hits([os.path.join(ROOT, "PREDICTIONS.md")],
                      TEX_TOKENS + ["Jacobi"])
     ok2 &= led == {}
-    print(f"   {len(py)} scripts scanned (constants, verifiers, closures,")
-    print("   the four degree-marked record instruments) plus the frozen")
-    print(f"   ledger: ZERO hits {dict(hits2)} {dict(led)} (tokenized --")
-    print("   'jacobian' substring hits excluded by construction)   "
-          + ("PASS" if ok2 else "FAIL"))
+    print(f"   {len(wider)} scripts scanned: the 26 observable scripts, the")
+    print(f"   four record instruments, all {len(cited)} paper-cited scripts")
+    print("   (gated == 59, every citation resolving to a file), and")
+    print("   model_checks + generators wholesale; plus the frozen ledger.")
+    print(f"   The ONLY hit: {dict(hits2)} -- one linear-algebra")
+    print("   'Kronecker product' docstring, allowlist-gated (every")
+    print("   kronecker hit must be that phrase); all other tokens zero;")
+    print(f"   ledger zero {dict(led)}   " + ("PASS" if ok2 else "FAIL"))
 
     # ---- N3: the crossing is Gamma-side complete
     print()

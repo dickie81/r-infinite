@@ -1803,3 +1803,26 @@ the last digit's honest reach, and the chain — including the
 twelve-digit invariant — is pinned by committed half-ULP gates. H₀ =
 66.78 unchanged everywhere. Next hostile round on the next substantive
 paper change.**
+
+# Round 89: hostile review of Theorem 1t (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 3 minors, 1 cosmetic); full sweep applied; convergence round 90 follows
+
+The scope attack landed: the papers cite 59 distinct computational scripts
+(50 under tools/research/) that the census excluded under a pairing-study
+mischaracterization while claiming "the entire derivation record." The
+reviewer ran the wider census itself — zero odd-bridge L-side hits (one
+benign linear-algebra "Kronecker product" docstring) — so the conclusion
+survived; the sweep is scope repair.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F89-1 (MAJOR) — census scope omitted ~57 paper-cited surfaces; disclosure mischaracterized; quantifier exceeded the censused domain | **Accepted; strong fix** — N2 programmatically extracts all 59 paper-cited scripts (count + resolution gated) + model_checks/generators wholesale, with the benign hit allowlist-gated; paper scope struck-and-restated | verifier + paper + formulation |
+| F89-2 (minor) — "30 scripts" count misattribution (26 + 4) | **Accepted; struck** with the correction | paper + formulation |
+| F89-3 (minor) — verifier headline "no L-side object" contradicted by part0's even-side ζ consumption (this program's own 1n–1q arc) | **Accepted; scoped to the odd bridge** with the disclosure | verifier |
+| F89-4 (minor) — "gated per token, per surface" exceeded the committed Python tokens | **Accepted; PY_TOKENS extended** (all prose tokens; zero hits verified) | verifier + paper |
+| F89-5 (cosmetic) — ℤ[ω] attributed to the papers' text | **Accepted; rescoped** (Lie-theoretic in the papers; the lattice in the formulation + instruments) | paper |
+
+**Trajectory: 1t landed → 89 NOT CONVERGED 1M+3m+1c (swept) → round 90
+(convergence test) next. Net state: for the committed record — now
+including every paper-cited computational surface — the grammar does not
+need the odd reading; the pairing-act is Door-4 bookkeeping; the member
+persists with the falsifier licensed.**

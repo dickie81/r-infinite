@@ -8205,6 +8205,65 @@ enter under another name — e.g. "root number", "epsilon factor",
 text census can show (semantic vs lexical consumption); the falsifier's
 form; the footer-census module disclosure.**
 
+## Addendum 166: hostile review round 89 on commit 1ea9e05 — NOT CONVERGED (1 MAJOR, 3 minors, 1 cosmetic); all findings lead-verified and swept
+
+The named attack (scope) landed as the major; the reviewer then ran the
+wider census itself and the **conclusion survived in full** — the sweep
+is scope repair, not retraction:
+
+- **F89-1 (MAJOR, scope/quantifier):** the census scope omitted ~57
+  paper-cited computational surfaces — the papers cite 59 distinct
+  scripts (50 under tools/research/, e.g. the route-C Dirac computation
+  cited mid-derivation in part4a; plus tools/model_checks/ and
+  tools/generators/, two directories absent from scope and disclosure) —
+  while the disclosure mischaracterized the excluded set as
+  "pairing-study" and the quantifier said "entire derivation record."
+  Lead-verified: the citation extraction requires LaTeX
+  escaped-underscore handling (the first regex found zero); 59 distinct,
+  every one resolving to a file. **Swept with the strong fix:** N2 now
+  programmatically extracts every paper-cited script (count gated ==
+  59, resolution gated), scans all of them plus model_checks +
+  generators wholesale (62 files), with the one benign hit — a
+  linear-algebra "Kronecker product" docstring — allowlist-gated (every
+  kronecker hit must be that phrase); the paper's scope statement
+  struck-and-annotated and restated; the exclusion now correctly
+  characterized (the pairing-study surfaces *not cited by the series*).
+- **F89-2 (minor):** "30 scripts" misattributed the count to the
+  constants/verifiers/closures group (26; the 30 included the four
+  instruments). Struck with the correction inline.
+- **F89-3 (minor):** the verifier's "THE SERIES CONSUMES NO L-SIDE
+  OBJECT" headline was contradicted by part0's own max-over-min remark,
+  which consumes EVEN-side ζ objects (Euler-rational values, trivial
+  zeros, γ_∞) — placed there by this program's own 1n–1q arc. The
+  paper's text was correctly scoped to the odd bridge; the verifier
+  headline now says so too, with the part0 even-side consumption
+  disclosed in the docstring.
+- **F89-4 (minor):** "gated per token, per surface" overstated — the
+  Python token list omitted the prose tokens. PY_TOKENS extended
+  (conductor, quadratic character, root number, gauss sum, dirichlet
+  character); the reviewer had verified zero hits for all, so the
+  extended gates pass.
+- **F89-5 (cosmetic):** "ℤ[ω] via T8/T11" attributed the lattice to the
+  papers — ℤ[ω] appears in no cascade paper; the sentence now says the
+  papers carry Lie-theoretic structure with the lattice living in the
+  formulation and the record instruments.
+
+**Held (reviewer, spot-verified):** all five gates genuinely gate;
+anchors not self-satisfied (the round-81 F5 check, including the
+line-break subtlety); the √3 zero-hit claim survives substring semantics
+(part4b's √(3/2) and √(3/7) don't match the braced token); no decimal
+smuggling (π/(3√3), 8.0397, ½ln3, √3/2 as decimals: zero hits across
+the widened record); the supplementary name sweep clean (root number,
+Gauss sum, different ideal, covolume, class number — zero; "Eisenstein"
+= the cosmologist and a ring-side comment; "inert" = Weyl-slot senses);
+N3/N4 arithmetic correct; the pairing-study exclusion itself not
+circular; the footer module disclosure exact; scoping discipline held.
+
+**Battery after sweep: grammar_need 5/0 over 62 computational files +
+12 papers + the ledger; validator clean. Trajectory: 1t landed → 89 NOT
+CONVERGED 1M+3m+1c → sweep this commit → round 90 (convergence test)
+spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

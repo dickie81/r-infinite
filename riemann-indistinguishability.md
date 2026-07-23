@@ -1074,27 +1074,49 @@ extrinsic *if taken at all*, (ii)–(iii)] + [the partner — 1r's three anchors
 open core narrows to: derive an extrinsic odd selection principle from A1–A4, or
 establish that the grammar never needs the odd reading** (the act as Door-4
 bookkeeping only). No number changes; no closure; category (a). *(Net-state,
-Theorem 1t: the disjunction resolves on its second branch for the committed
-record — the grammar-need census returns zero consumption of the odd bridge's
-arithmetic side across the derivation chain; the act is Door-4 bookkeeping,
-with the falsifier licensed.)*
+Theorem 1t as corrected round 89: the disjunction resolves on its second
+branch for the committed record — the grammar-need census (scope per 1t(i),
+round-89-extended to every paper-cited computational surface) returns zero
+consumption of the odd bridge's arithmetic side; the act is Door-4
+bookkeeping, with the falsifier licensed.)*
 
 **Theorem 1t (the grammar-need census: 1s's second branch established for the
 committed record; `cascade_grammar_need.py`).** 1s's open core is a disjunction;
 this theorem audits its second branch as a consumption census. *(i) The scope,
-stated.* The derivation record: every cascade paper (src/*.tex, 12 files), the
-frozen ledger (PREDICTIONS.md), the observable-computing tools
-(cascade_constants.py, tools/verifiers/, tools/closures/ — 30 scripts), and the
-four °-marked record instruments. **Excluded by design, disclosed:** this paper
-and its research instruments — they are the *study* of the pairing (1c, 1i, 1r
-and their verifiers), so their L-side content is the audit's subject, not a
-consumer. *(ii) The census returns zero.* Token census (χ₋₃, L(s,χ)/L(1,χ), the
-χ zeros 8.0397, Kronecker, "conductor", "quadratic character", √3 in the LaTeX
-sources): **zero hits across the entire derivation record** — gated per token,
-per surface, with the lone "Dirichlet" in the series gated as part0a's
-classical method name ("Dirichlet's method", the ζ(2) evaluation). Colour
-enters the papers exclusively as ring/Lie structure — su(3), Adams,
-Radon–Hurwitz, ℤ[ω] via T8/T11. *(iii) The crossing is Γ-side complete.* The
+stated — as corrected round 89.* The derivation record: every cascade paper
+(src/*.tex, 12 files), the frozen ledger (PREDICTIONS.md), the
+observable-computing tools ~~(cascade_constants.py, tools/verifiers/,
+tools/closures/ — 30 scripts), and the four °-marked record instruments.
+**Excluded by design, disclosed:** this paper and its research instruments —
+they are the *study* of the pairing (1c, 1i, 1r and their verifiers), so their
+L-side content is the audit's subject, not a consumer~~ **[struck round 89
+(F1, MAJOR + F2): the count misattributed 30 to the constants/verifiers/
+closures group (26; the 30 included the four instruments), and — the major —
+the disclosure mischaracterized the exclusion: the papers themselves cite 59
+distinct computational scripts (50 of them under tools/research/, plus
+model_checks and generators — e.g. the route-C Dirac computation cited
+mid-derivation in part4a), none of which are pairing-study, all of which the
+blanket exclusion silently omitted while the quantifier said "entire
+derivation record"]** (cascade_constants.py + 19 verifiers + 6 closures = 26
+scripts), the four °-marked record instruments, **every computational script
+the papers themselves cite** (59 distinct, extracted programmatically with
+LaTeX escaped-underscore handling, every citation gated as resolving to a
+file), and tools/model_checks/ + tools/generators/ wholesale. Excluded,
+correctly characterized: this paper and the research instruments *not cited
+by the series* — the pairing-study surfaces (1c, 1i, 1r and their verifiers),
+whose L-side content is the audit's subject, not a consumer. *(ii) The census
+returns zero — one benign hit disclosed.* Token census (χ₋₃, L(s,χ)/L(1,χ),
+the χ zeros 8.0397, Kronecker, "conductor", "quadratic character", "root
+number", "gauss sum", "dirichlet character", √3 in the LaTeX sources): across
+the censused record the **only** hit is one linear-algebra "Kronecker
+product" docstring (allowlist-gated: every kronecker hit must be that
+phrase); all other tokens zero, gated per token across the enumerated
+surfaces, with the lone "Dirichlet" in the series gated as part0a's classical
+method name ("Dirichlet's method", the ζ(2) evaluation). Colour enters the
+papers as Lie-theoretic structure — su(3), Adams, Radon–Hurwitz — with the
+ℤ[ω] lattice carried not by the papers' text but by the formulation's T8/T11
+and the record instruments (round-89 F5 scoped the sentence to what the
+papers actually carry). *(iii) The crossing is Γ-side complete.* The
 band boundary derives from digamma alone (p's zero at 6.2569 gated at 4 d.p.;
 the band inequalities p(6) < 0 < p(7) and p(19) < ln Γ(½) < p(20) gated): the
 feature machinery consumes digamma, never an L-function. *(iv) Door 4's two
