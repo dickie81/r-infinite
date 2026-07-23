@@ -7001,6 +7001,57 @@ settle the question; none is yet derived"*). Validator clean on 12 files.
 checked incl. sup_selection 5/0, u2_function 11/0). Round 71 (hostile
 subagent, per protocol) follows.
 
+## Addendum 140: hostile review round 71 (subagent, per protocol) on commit f334159 — Theorem 1n; NOT CONVERGED (1 MAJOR, 2 minors, 2 cosmetics); the provenance corrected and swept
+
+**The mathematics survived every attack in full: every number, crossing,
+parity fact, the entropy algebra chain (checked by hand two ways, incl.
+Part III's A = 12π/Λ route), the monotone bijection, the window-proximal
+lambda (verified by hand on all three pairs, tie structure included), the
+Check-7 cleanliness of S = A/4 (part2=3's own abstract verbatim: "no
+semiclassical gravity, no QFT on curved spacetime, no Bogoliubov
+transformations"), the Check-8 survival (S = c/I as pure algebra), and the
+parity fact's status as genuine coincidence content (the reviewer probed
+for a hidden band-structure entailment and found none — the anatomy's
+three-parity-facts-plus-one-inequality decomposition held as exactly
+sufficient). The defects are provenance and pointer errors, all mine; each
+lead-verified (Check 3) and swept.**
+
+- **F71-1 (MAJOR):** the de Sitter algebra was attributed to Part I —
+  which contains zero occurrences of "Sitter", "Friedmann", or the w = −1
+  theorem (lead-verified by grep). The true in-corpus sources: **Part
+  III** (the de Sitter horizon area A = 12π/Λ, part3:988–989) and **Part
+  V** (eq:friedmann at 427; the w = −1 section); only the closure
+  ρ = (2/π)e^{0.02108}I is Part I's. **Swept:** struck-and-annotated on
+  the paper; the script docstring rewritten with the F1 recital; the
+  formulation was already clean ("Part I's closure" only).
+- **F71-2 (minor):** "Part II=III §7" — the S = A/4 section is the
+  **8th** \section in the current source ("Bekenstein–Hawking Entropy Is
+  Hidden Geometry", line 914). **Swept** on both f334159 surfaces (§8 /
+  Sec. 8). The defect is pre-existing elsewhere: part2=3's own summary
+  table (lines 1246–1248, systematically shifted by one) and CLAUDE.md's
+  Check-7 text both say §7 — **registered as held editorial items** for
+  the standing batch (with the 1.0990 item), not swept here (a part2=3
+  edit is a substantive paper change needing its own round).
+- **F71-3 (minor):** part0's new parenthetical said the shift family is
+  weighted "above" — it appears ~650 lines **below** (first α(d\*)/χ^k at
+  1386, the family sentence at 1913). **Swept:** "below
+  (Section \ref{sec:the-hierarchy} onward)"; label verified resolving.
+- **F71-4/5 (cosmetics):** the docstring's "narrowed, not discharged" vs
+  "DISCHARGED AS AN EQUIVALENCE" tension harmonized ("answered as an
+  equivalence — the requested connection exhibited, the anchor narrowed,
+  not discharged") on docstring and READING; the two unfailable conjuncts
+  (W2's hardcoded distinguished-layer parity; W4's order check entailed by
+  S := c/I) labeled as exhibits with the failable content named.
+
+**Held:** all independent recomputations matching (I_sup = 9Ω₁₉Ω₂₁₇/π²
+exact; S_sup = 3.31512×10¹²² nats; ratios 10.755711 both sides); the
+verbatim quotes exact; the footer census 33 + 4° scripted; the
+pre-naming convention held per precedent; no equivalence→forcing slide
+anywhere; part0's "remains open" kept. **Object gates at the swept tree:**
+sup_selection 5/0; validator clean on 12 files. **Trajectory: 1n landed →
+71 1M+2+2c (provenance). Round 72 (convergence test) gates stability of
+Theorem 1n.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

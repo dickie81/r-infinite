@@ -1452,3 +1452,21 @@ continuous Ω-maximum) attacked and held.
 | F70-5 (cosmetic) — the verifier has no assert/exit-code gate | **Held as a hardening note**; no surface claims it as a machine gate | none |
 
 **Trajectory: F63-1 registered (round 63) → corrected (27e3259) → residuals swept (eb44a19) → 70 CONVERGED 0+0+5c. The arc closes; next hostile round on the next substantive paper change.**
+
+# Round 71: hostile review of Theorem 1n (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 2 minors, 2 cosmetics); provenance corrected and swept
+
+The mathematics survived every attack (entropy algebra checked two ways;
+window-proximal lambda by hand; Check-7/8 held; the parity fact probed for a
+hidden entailment and confirmed genuine coincidence content). The major was
+provenance: the de Sitter algebra attributed to Part I, which contains zero
+de Sitter/Friedmann/w=−1 content — the true sources are Part III (A = 12π/Λ)
+and Part V (Friedmann, w = −1), with only the closure Part I's.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F71-1 (MAJOR) — de Sitter algebra falsely attributed to Part I | **Accepted.** Struck-and-annotated on the paper; docstring rewritten with the recital; formulation already clean | paper + script |
+| F71-2 (minor) — stale "§7" for the S = A/4 section (now the 8th) | **Accepted.** §8 on both surfaces; the pre-existing part2=3 summary-table and CLAUDE.md instances registered for the standing editorial batch | paper + script |
+| F71-3 (minor) — part0's "above" for a family ~650 lines below | **Accepted.** "below (Section sec:the-hierarchy onward)"; label resolves | part0 |
+| F71-4/5 (cosmetics) — discharged/narrowed tension; two unfailable conjuncts unlabeled | **Accepted.** Harmonized; exhibits labeled with failable content named | script |
+
+**Trajectory: 1n landed → 71 1M+2+2c. Round 72 gates stability of Theorem 1n.**

@@ -744,8 +744,12 @@ odd-dimensional — nowhere-zero fields exist), the inf labels' spheres carry χ
 the same χ(S^{2n}) = 2 that is the obstruction toll's chirality factor (Theorem 1m;
 Part 0's shift family). And **all four distinguished layers {5, 7, 19, 217} are odd**:
 the entire invariant is evaluated on Euler-null spheres. *(iii) The horizon budget.*
-S_dS = 24π²M⁴/ρ_Λ (S = A/4 the cascade's own — Part II=III §7, no Bogoliubov
-transformations; the de Sitter algebra Part I's) is strictly decreasing in the
+S_dS = 24π²M⁴/ρ_Λ (S = A/4 the cascade's own — Part II=III §8, *"no semiclassical
+gravity, no QFT on curved spacetime, no Bogoliubov transformations"*; the de Sitter
+horizon area A = 12π/Λ Part III's; the Friedmann relation and the w = −1 theorem
+Part V's ~~— the de Sitter algebra Part I's~~ **[struck round 71 (F1, MAJOR): Part I
+contains no de Sitter or Friedmann content — only the closure below is Part I's]**) is
+strictly decreasing in the
 invariant through Part I's closure ρ = (2/π)e^{0.02108}I, so over the eight labelings
 **sup I = min horizon entropy = min boundary area**: the sup is the labeling with the
 smallest asymptotic information budget (3.315×10¹²² nats = 4.783×10¹²² bits; the inf

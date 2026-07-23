@@ -3,11 +3,15 @@
 max-over-min question attacked -- the anchor narrowed, not
 discharged.  Category (a): Gamma-function arithmetic plus algebra
 on cascade-derived relations (S = A/4 is the cascade's own,
-Part II=III Sec. 7, derived without QFT on curved spacetime or
-Bogoliubov transformations; the de Sitter algebra S = 24 pi^2
-M^4/rho_Lambda uses Part I's Friedmann/de-Sitter relations and
-the w = -1 theorem); no data, no closures, no RH/GRH, no
-semiclassics (Check 7); the hypothesis is nowhere an input
+Part II=III Sec. 8 -- 'no semiclassical gravity, no QFT on curved
+spacetime, no Bogoliubov transformations'; the de Sitter algebra
+S = 24 pi^2 M^4/rho_Lambda uses Part III's horizon area
+A = 12 pi/Lambda and Part V's Friedmann relation and w = -1
+theorem; the closure rho = (2/pi) e^{0.02108} I is Part I's.
+Round-71 F1 (MAJOR) struck this docstring's first attribution of
+the de Sitter algebra to Part I, which contains none of it, and
+F2 corrected Sec. 7 -> Sec. 8); no data, no closures, no RH/GRH,
+no semiclassics (Check 7); the hypothesis is nowhere an input
 (Check 8 -- the equivalences are statements about the eight
 labelings' arithmetic, not about the observer).
 
@@ -66,8 +70,10 @@ here forces the sup: each reformulation is an exact equivalence
 converting 'max over min' into a named structural statement, and
 WHY odd/Euler-null/minimal-budget remains the residual selection
 content.  What changes: part0's open clause 'connecting the
-supremum to ... an entropy, a boundary area' is DISCHARGED AS AN
-EQUIVALENCE (with direction: minimal), and the 1k second given
+supremum to ... an entropy, a boundary area' is ANSWERED AS AN
+EQUIVALENCE (with direction: minimal) -- the requested connection
+exhibited, the anchor narrowed, not discharged (round-71 F4
+harmonized the wording) -- and the 1k second given
 is RE-MOTIVATED -- from a bare max convention to the
 odd-sphere/minimal-horizon-budget selection, tied to the
 load-bearing chi machinery.  The forcing question stays OPEN and
@@ -140,6 +146,9 @@ def main():
     print()
     print("W2 obstruction: chi(S^d) on the labels (dictionary d <-> S^d):")
     ok2 = all(chi(d) == 0 for d in sup) and all(chi(d) == 2 for d in inf)
+    # the next conjunct checks hardcoded literals (the four distinguished
+    # layers) -- an exhibit, cannot fail (round-71 F5); the failable
+    # content of W2 is the chi census on the COMPUTED sup/inf above
     ok2 &= all(d % 2 == 1 for d in (5, 7, 19, 217))    # all four distinguished
     print(f"   sup labels chi = {[chi(d) for d in sup]} (Euler-null,")
     print(f"   odd-dimensional -- nowhere-zero fields exist); inf labels")
@@ -176,6 +185,9 @@ def main():
     smin = min(S, key=S.get)
     order_I = sorted(LABS, key=vals.get)
     order_S = sorted(LABS, key=S.get, reverse=True)
+    # the order check is entailed by S := c/I with c > 0 -- a
+    # demonstration, not a failable gate (round-71 F5); W4's failable
+    # content is argmin S = sup and the three numeric values below
     ok4 = smin == sup and order_I == order_S        # monotone bijection
     ok4 &= abs(S[sup] / 3.3151e122 - 1) < 1e-3
     ok4 &= abs(S[sup] / math.log(2) / 4.7827e122 - 1) < 1e-3
@@ -208,7 +220,7 @@ def main():
     print("READING (classical + gated; grading in docstring)")
     print("=" * 74)
     print("  part0's open clause -- 'connecting the supremum to ... an")
-    print("  entropy, a boundary area' -- is discharged AS AN EQUIVALENCE,")
+    print("  entropy, a boundary area' -- is answered as an equivalence,")
     print("  with the direction stated: the sup is the MINIMAL-horizon-")
     print("  budget labeling, exactly; and it is the odd (Euler-null)")
     print("  member of every straddling pair, tying the selection to the")
