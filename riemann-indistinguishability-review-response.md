@@ -1488,3 +1488,21 @@ stable: part0's open clause answered as an exact equivalence (sup = minimal
 horizon budget = the odd/Euler-null labeling; all four distinguished layers
 odd); the forcing honestly open; 1k's second given re-motivated. Next hostile
 round on the next substantive paper change.**
+
+# Round 73: hostile review of the editorial batch (subagent, per protocol) — NOT CONVERGED (0M + 1 gating minor + 1 record minor + 1 pre-existing cosmetic); the causal claim withdrawn
+
+The batch's numbers verified correct in full (every corrected and every
+untouched value re-derived at 60 dps; all ten table rows content-verified;
+every downstream chain swept — 6.996×10⁻¹²¹, the hierarchy, the full H₀
+chain, PREDICTIONS.md — all unaffected). The gating minor: the part2=3
+correction note's causal attribution (Dirac Descent insertion) is
+unsupportable from git — both the section and the 8.4 subsection existed at
+repo creation, and the subsection rows drifted in both counters.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F73-1 (minor) — the correction note's drift anatomy/causal claim | **Accepted.** Note rewritten: factual drift statement, content-match basis, causal claim explicitly withdrawn | part2=3 |
+| F73-2 (minor, record-scope) — "14 tex sites" vs the true 15 (breakdown summed right) | **Accepted.** Corrected-when-noticed note in A142; commit message immutable | record |
+| F73-3 (cosmetic, pre-existing) — part5:532's under-precise displayed inputs (result correct) | **Registered** for the next editorial batch | none |
+
+**Trajectory: batch landed → 73 0M+1+1c. Round 74 gates stability.**

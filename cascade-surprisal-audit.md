@@ -7130,6 +7130,48 @@ census: 1.0990 survives only in the two correction recitals (part0's
 parenthetical; the verifier print); 1.20516 zero.** Round 73 (hostile
 subagent, per protocol — substantive paper surfaces touched) follows.
 
+**Census correction (noticed round 73, F2):** this addendum's "14 tex
+sites" total was wrong — the breakdown (part0 ×8, part2 ×2, part3 ×2,
+part4a ×1, part5 ×2) sums to **15**, which is the true pre-commit count,
+and all 15 were corrected. The breakdown was accurate; only the total
+misadded. The commit message carries the same "14" (immutable; corrected
+here per the record-file fix-on-notice rule).
+
+## Addendum 143: hostile review round 73 (subagent, per protocol) on commit 5ce6919 — the editorial batch; NOT CONVERGED (0 majors, 1 gating minor + 1 record-scope minor, 1 pre-existing cosmetic); the note's causal claim withdrawn
+
+**The batch's numerical substance verified correct in full: every corrected
+value re-derived at 60 dps (I = 1.09894539×10⁻¹²⁰ → 1.0989; the
+compounding anatomy verbatim-true — 0.91189×0.51614×2.33490 = 1.0989508 →
+1.09895, which rounds up; the appendix checkmark now true; Ω₁₉Ω₂₁₇ =
+1.20512847×10⁻¹²⁰ → 1.20513); every untouched 1.2051 site verified right
+to leave; the part2=3 corrections verified by content on all ten rows;
+CLAUDE.md's §8 correct; both tools green; every downstream chain swept
+and unaffected (part1's 6.996×10⁻¹²¹; the hierarchy's 119.96 ≈ 120;
+part5's full H₀ = 66.78 chain; PREDICTIONS.md's 0.7145×10⁻¹²⁰;
+part3's ≈1.1×10⁻¹²⁰).**
+
+- **F73-1 (minor, gating):** the part2=3 correction note attributed the
+  drift to "the Dirac Descent section's insertion" — but the subsection
+  rows drifted in *both* counters (7.4→8.5 is +1 section and +1
+  sub-index), and git shows both the Dirac Descent section and the 8.4
+  subsection present at the repository's creation commit, so the causal
+  claim is unsupportable from the recorded history. **Swept:** the note
+  now states the drift factually (section digit +1 on every row from
+  "Mutual consistency" onward; the two subsection pointers additionally
+  +1 sub-index), stands the re-synchronisation on the content-match
+  alone, and withdraws the causal attribution explicitly. Validator
+  re-run clean.
+- **F73-2 (minor, record-scope, non-gating):** the "14 vs 15" census
+  total — corrected in the A142 note above per the fix-on-notice rule.
+- **F73-3 (cosmetic, pre-existing):** part5:532's H₀ step displays
+  under-precise inputs (2.435 × 5.849 = 1.4242, shown as 1.4244 — the
+  exact-input value; the final 66.78 is unaffected). **Registered for
+  the next editorial batch.**
+
+**Object gates:** lattice_selection 7/0 on the re-anchored constant;
+validator clean on 12 files. **Trajectory: batch landed → 73 0M+1(+1
+record)+1c. Round 74 (convergence test) gates stability of the batch.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
