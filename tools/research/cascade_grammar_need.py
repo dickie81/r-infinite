@@ -12,24 +12,25 @@ from A1-A4, OR establish that the grammar never needs the odd
 reading (the act as Door-4 bookkeeping only).  This file audits
 the second branch as a consumption census.
 
-CENSUS SCOPE (stated, not silent; round-89 F1 extended it -- the
-first version's scope omitted ~57 paper-cited computational
-surfaces under a disclosure that mischaracterized them as
-pairing-study).  The derivation record: the cascade series
-(src/*.tex -- every paper), the frozen ledger (PREDICTIONS.md),
-the observable-computing tools (cascade_constants.py + 19
-verifiers + 6 closures = 26 scripts), the four degree-marked
-record instruments (cascade_leptons, cascade_neutrino_closure,
-cascade_E_fit_audit, cascade_null_clone), EVERY computational
-script the papers themselves cite (extracted programmatically
-from src/*.tex + PREDICTIONS.md with LaTeX escaped-underscore
-handling -- 59 distinct scripts across tools/research, verifiers,
-closures, model_checks, generators), and tools/model_checks/ +
-tools/generators/ wholesale.  EXCLUDED, correctly characterized:
-the riemann-review paper and the research instruments NOT cited
-by the series -- the pairing-study surfaces (1c, 1i, 1r and their
-category-(a) verifiers), whose L-side content is the audit's
-subject, not a consumer.
+CENSUS SCOPE (stated, not silent; round-89 F1 extended it and
+round-90 F1 completed the extension -- the round-89 extractor was
+itself blind to non-cascade-prefixed and \allowbreak-wrapped
+citations, reporting 59 where the papers cite 82 distinct scripts,
+81 resolving plus one dead citation retracted at source).  The
+derivation record: the cascade series (src/*.tex -- every paper),
+the frozen ledger (PREDICTIONS.md), the observable-computing tools
+(cascade_constants.py + 19 verifiers + 6 closures = 26 scripts),
+the four degree-marked record instruments (cascade_leptons,
+cascade_neutrino_closure, cascade_E_fit_audit, cascade_null_clone),
+EVERY computational script the papers themselves cite (81 distinct
+resolving scripts across tools/research, verifiers, closures,
+model_checks, generators, and tools/build -- the corrected
+extractor strips \allowbreak and takes all .py citations), and
+tools/model_checks/ + tools/generators/ wholesale.  EXCLUDED,
+correctly characterized: the riemann-review paper and the research
+instruments NOT cited by the series -- the pairing-study surfaces
+(1c, 1i, 1r and their category-(a) verifiers), whose L-side
+content is the audit's subject, not a consumer.
 
   N1 THE SERIES CONSUMES NO ODD-BRIDGE L-SIDE OBJECT.  (Scoped to
      the ODD bridge, round-89 F3: part0's max-over-min remark
@@ -41,12 +42,15 @@ subject, not a consumer.
      sqrt{3} -- ALL ZERO HITS across every cascade paper.  (The
      lone "Dirichlet" in the series is part0a's "Dirichlet's
      method" for zeta(2) -- a classical method name, gated as the
-     only hit.)  Colour enters the papers exclusively as ring/Lie
-     structure: su(3), Adams, Radon-Hurwitz, Z[omega] via T8/T11.
+     only hit.)  Colour enters the papers as Lie-theoretic
+     structure -- su(3), Adams, Radon-Hurwitz -- with the Z[omega]
+     lattice carried not by the papers' text but by the
+     formulation's T8/T11 and the record instruments (round-90 F6
+     matched this sentence to the paper's round-89 F5 fix).
   N2 THE COMPUTATIONAL RECORD CONSUMES NO ODD-BRIDGE L-SIDE
      OBJECT.  The census (all TEX prose tokens included -- round-89
      F4) over the 26 observable scripts, the four record
-     instruments, all 59 paper-cited scripts, and model_checks +
+     instruments, all 81 paper-cited scripts, and model_checks +
      generators wholesale: the ONLY token hit in the entire
      computational record is one "Kronecker product" docstring
      (linear algebra, cascade_route_c_d13_dirac.py) -- gated by
@@ -136,6 +140,10 @@ def main():
     print("N1 the series consumes no ODD-BRIDGE L-side object:")
     hits = count_hits(tex, TEX_TOKENS)
     ok1 = hits == {}
+    # round-90 F4: the prose tokens gated over the papers as well
+    # (lowered scan for case-robustness):
+    ok1 &= count_hits(tex, ["root number", "gauss sum",
+                            "dirichlet character"], lower=True) == {}
     dirichlet = count_hits(tex, ["Dirichlet"])
     ok1 &= (list(dirichlet.keys()) == ["Dirichlet"]
             and len(dirichlet["Dirichlet"]) == 1
@@ -147,8 +155,10 @@ def main():
     print("   chi zeros, Kronecker, conductor, quadratic character,")
     print(f"   sqrt{{3}}): ZERO hits {dict(hits)}; the lone 'Dirichlet' is")
     print("   part0a's classical method name (gated: exactly one, and it")
-    print("   is 'Dirichlet's method').  Colour enters the papers as")
-    print("   ring/Lie structure only   " + ("PASS" if ok1 else "FAIL"))
+    print("   is 'Dirichlet's method'; prose tokens also gated over the")
+    print("   papers, round-90 F4).  Colour enters the papers as")
+    print("   Lie-theoretic structure (the lattice lives in the")
+    print("   formulation + instruments)   " + ("PASS" if ok1 else "FAIL"))
 
     # ---- N2: the full computational record census (round-89 F1/F4)
     print()
@@ -160,21 +170,27 @@ def main():
                                           "*.py")))
           + [os.path.join(ROOT, "tools", "research", f)
              for f in RECORD_INSTRUMENTS])
-    # round-89 F1: every computational script the papers themselves cite
-    # (LaTeX escapes underscores as \_ -- handled), plus model_checks
-    # and generators wholesale:
-    pat = re.compile(r"cascade(?:\\_|[A-Za-z0-9_])*\.py")
+    # round-89 F1 + round-90 F1: every computational script the papers
+    # themselves cite.  The round-89 extractor was blind to
+    # non-cascade-prefixed names and to \allowbreak-wrapped filenames
+    # (and reported 59); the corrected extractor strips
+    # \allowbreak-plus-trailing-space and takes ALL .py citations:
     cited = set()
     for path in tex + [os.path.join(ROOT, "PREDICTIONS.md")]:
-        for m in pat.findall(open(path, encoding="utf-8").read()):
-            cited.add(m.replace("\\_", "_"))
+        text = open(path, encoding="utf-8").read()
+        text = re.sub(r"\\allowbreak\s*", "", text)
+        for m in re.findall(r"[A-Za-z0-9_\\]+\.py", text):
+            cited.add(m.replace("\\_", "_").split("/")[-1].lstrip("_"))
     cited_files = set()
     for name in sorted(cited):
         cited_files |= set(glob.glob(os.path.join(ROOT, "tools", "**",
                                                   name), recursive=True))
-    ok2 = len(cited) == 59 and all(
+    ok2 = len(cited) == 81 and all(
         glob.glob(os.path.join(ROOT, "tools", "**", n), recursive=True)
-        for n in cited)                          # every citation resolves
+        for n in cited)   # 81 distinct, EVERY citation resolves (the
+    # 82nd, a dead part4b citation to a never-committed sphere-Dirac
+    # spectral-zeta script, was retracted at source in the round-90
+    # sweep -- the gate would fail on any remaining dead citation)
     wider = sorted(set(py) | cited_files
                    | set(glob.glob(os.path.join(ROOT, "tools",
                                                 "model_checks", "*.py")))
@@ -195,7 +211,8 @@ def main():
     ok2 &= led == {}
     print(f"   {len(wider)} scripts scanned: the 26 observable scripts, the")
     print(f"   four record instruments, all {len(cited)} paper-cited scripts")
-    print("   (gated == 59, every citation resolving to a file), and")
+    print("   (gated == 81 after the round-90 extractor fix and the dead-")
+    print("   citation retraction; every citation resolving), and")
     print("   model_checks + generators wholesale; plus the frozen ledger.")
     print(f"   The ONLY hit: {dict(hits2)} -- one linear-algebra")
     print("   'Kronecker product' docstring, allowlist-gated (every")

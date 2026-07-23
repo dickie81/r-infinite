@@ -8264,6 +8264,69 @@ circular; the footer module disclosure exact; scoping discipline held.
 CONVERGED 1M+3m+1c → sweep this commit → round 90 (convergence test)
 spawned per protocol.**
 
+*(Record correction, fix-on-notice per round 43: the battery line above
+said "62 computational files" — a transcription error; the committed
+verifier at that commit printed "85 scripts scanned." The 62 was a union
+arithmetic slip (it forgot the 23 uncited base scripts). Noted round 90.)*
+
+## Addendum 167: convergence round 90 on commit 20e001e — NOT CONVERGED (1 MAJOR, 3 minors, 2 cosmetics); the round-89 fix's own extractor corrected; a dead paper citation retracted
+
+Round 90 found the round-89 defect class recurring inside its own
+correction — and, once more, ran the wider census itself and confirmed
+the conclusion survives (zero odd-bridge L-side hits over the six files
+the committed scan had missed).
+
+- **F90-1 (MAJOR, lead-verified in full):** the round-89 extractor was
+  blind to non-cascade-prefixed citations (20 real scripts:
+  fermion_berezin_partition.py, cabibbo_geometric_mean_closure.py, the
+  lambda1 routes, the tools/build generators — including
+  generate_predictions.py, which generates the frozen ledger itself)
+  and to \allowbreak-wrapped filenames (2 cascade scripts), so "59
+  distinct, every citation gated" was false: the papers cite **82
+  distinct scripts, 81 resolving** — and **one dead citation**:
+  part4b:387 cited tools/model_checks/fermion_dirac_spectral_zeta.py,
+  which has an empty git history (never committed), for a quantitative
+  exponential-vs-polynomial claim — with the named machinery
+  (sphere-Dirac spectral zeta) on the program's own Check-7
+  inadmissible list. **Swept:** (a) the extractor rebuilt (strips
+  \allowbreak-plus-space, takes all .py citations; count gated == 81,
+  resolution gated — lead-verified: my own first re-extraction had the
+  same whitespace bug the reviewer's stripping order avoids); (b) the
+  scan set now 91 files; (c) **the part4b clause retracted at source**
+  with the retraction parenthetical stating all three grounds (never
+  existed; no committed instrument; Check-7-listed machinery — the
+  d-independence argument stands alone); (d) all three surfaces'
+  numbers corrected with nested annotations.
+- **F90-2 (minor):** the round-89 annotation's "59 … all of which
+  silently omitted" was a false universal (7 of the 59 were already
+  scanned; truly omitted 52) and internally inconsistent with the
+  verifier's "~57". Corrected inside the nested annotations.
+- **F90-3 (minor):** the formulation's compressed strike dropped "and
+  disclosed" without an ellipsis — paraphrase drift inside a strike.
+  Restored, with the restoration noted.
+- **F90-4 (minor):** "gated per token across the enumerated surfaces"
+  exceeded the committed gates (root number / gauss sum / dirichlet
+  character were Python-side only). The prose tokens are now gated over
+  the papers too (lowered scan; zero hits, lead-verified).
+- **F90-5/6 (cosmetic):** the formulation's token list completed
+  (dirichlet character); the verifier's colour sentence matched to the
+  paper's round-89 F5 rescoping.
+
+**Held (reviewer, unpadded):** the ==-count gate form adjudicated right
+(a citation add/remove must be loud — sabotage verified both
+directions); the allowlist's exact-dict strictness right (a "Kronecker
+symbol" insertion fails, a second benign product fails until
+allowlisted); the paper strike verbatim; the round-89 F3/F5 fixes
+accurate; the footer census balanced (41 = 40 + disclosed module; 4
+°-marked); no decimal smuggling anywhere in the widened record;
+spot-checks green.
+
+**Battery after this sweep: grammar_need 5/0 — 91 computational files +
+12 papers + the ledger; 81 paper-citations resolving, count and
+resolution gated; validator clean on 12 files. Trajectory: 1t landed →
+89 1M+3m+1c (swept) → 90 1M+3m+2c (swept this commit) → round 91
+(convergence test) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1074,11 +1074,12 @@ extrinsic *if taken at all*, (ii)–(iii)] + [the partner — 1r's three anchors
 open core narrows to: derive an extrinsic odd selection principle from A1–A4, or
 establish that the grammar never needs the odd reading** (the act as Door-4
 bookkeeping only). No number changes; no closure; category (a). *(Net-state,
-Theorem 1t as corrected round 89: the disjunction resolves on its second
+Theorem 1t as corrected rounds 89–90: the disjunction resolves on its second
 branch for the committed record — the grammar-need census (scope per 1t(i),
-round-89-extended to every paper-cited computational surface) returns zero
-consumption of the odd bridge's arithmetic side; the act is Door-4
-bookkeeping, with the falsifier licensed.)*
+extended in rounds 89–90 to every paper-cited computational surface, 81
+resolving scripts, 91 files scanned) returns zero consumption of the odd
+bridge's arithmetic side; the act is Door-4 bookkeeping, with the falsifier
+licensed.)*
 
 **Theorem 1t (the grammar-need census: 1s's second branch established for the
 committed record; `cascade_grammar_need.py`).** 1s's open core is a disjunction;
@@ -1092,16 +1093,24 @@ they are the *study* of the pairing (1c, 1i, 1r and their verifiers), so their
 L-side content is the audit's subject, not a consumer~~ **[struck round 89
 (F1, MAJOR + F2): the count misattributed 30 to the constants/verifiers/
 closures group (26; the 30 included the four instruments), and — the major —
-the disclosure mischaracterized the exclusion: the papers themselves cite 59
-distinct computational scripts (50 of them under tools/research/, plus
-model_checks and generators — e.g. the route-C Dirac computation cited
-mid-derivation in part4a), none of which are pairing-study, all of which the
-blanket exclusion silently omitted while the quantifier said "entire
-derivation record"]** (cascade_constants.py + 19 verifiers + 6 closures = 26
+the disclosure mischaracterized the exclusion: the papers themselves cite
+~~59~~ **[corrected round 90 (F1/F2): the round-89 extractor was itself blind
+to non-cascade-prefixed and \allowbreak-wrapped citations — the true census
+is 82 distinct cited scripts, 81 resolving plus one dead citation (a
+never-committed sphere-Dirac spectral-zeta script, part4b) retracted at
+source in the round-90 sweep; and of the 59 then counted, 7 were already
+scanned, so "all silently omitted" was a false universal — 52 were]**
+distinct computational scripts (most under tools/research/, plus
+model_checks, generators, and tools/build — e.g. the route-C Dirac
+computation cited mid-derivation in part4a), none of which are pairing-study,
+omitted while the quantifier said "entire derivation record"]** (cascade_constants.py + 19 verifiers + 6 closures = 26
 scripts), the four °-marked record instruments, **every computational script
-the papers themselves cite** (59 distinct, extracted programmatically with
-LaTeX escaped-underscore handling, every citation gated as resolving to a
-file), and tools/model_checks/ + tools/generators/ wholesale. Excluded,
+the papers themselves cite** (~~59 distinct~~ **[corrected round 90 (F1): 81
+distinct resolving scripts — the corrected extractor strips \allowbreak and
+takes all .py citations, not only cascade-prefixed ones; count and
+resolution both gated; the one dead citation retracted at source]**), and
+tools/model_checks/ + tools/generators/ wholesale — 91 computational files
+in all. Excluded,
 correctly characterized: this paper and the research instruments *not cited
 by the series* — the pairing-study surfaces (1c, 1i, 1r and their verifiers),
 whose L-side content is the audit's subject, not a consumer. *(ii) The census

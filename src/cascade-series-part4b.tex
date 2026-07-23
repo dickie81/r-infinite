@@ -382,11 +382,16 @@ A consequence for any confirming cascade-action derivation of the
 $1/\sqrt{\pi}$ absorption: it cannot operate via a
 modified axial measure on $[-1,1]$---such a modification would break
 the $d$-independence confirmed at 1.6\% by the observed mass ratios
-(Remark~\ref{rem:universality}), and is independently falsified by the
-sphere-Dirac spectral-zeta check that does not match $R(d)$
-(\texttt{tools/model\_checks/fermion\_dirac\_spectral\_zeta.py};
-the ratio $\zeta_D(1)/(R(d)/2)$ decays exponentially in $d$ while
-$R(d)/2$ decays polynomially). The absorption must therefore come from
+(Remark~\ref{rem:universality}). (An earlier version of this sentence
+added ``and is independently falsified by the sphere-Dirac
+spectral-zeta check that does not match $R(d)$,'' citing a
+model-checks script with a claimed exponential-vs-polynomial decay
+ratio; that clause is retracted: the cited script never existed in
+the repository (its git history is empty), so the quantitative claim
+rested on no committed instrument --- and the named machinery,
+sphere-Dirac spectral zeta, is on the program's own inadmissible
+list, so the check is not owed. The $d$-independence argument above
+stands alone.) The absorption must therefore come from
 spinor structure (Berezin/Clifford inner product, or spin-connection
 coupling in the Dirac operator), realised concretely by
 Remark~\ref{rem:berezin-partition-derivation} below. Verified numerically

@@ -446,16 +446,22 @@ committed record.)*
 
 **T1t (the grammar-need census; `cascade_grammar_need.py`, five gates; as
 corrected round 89).** 1s's second branch established for the committed
-record. Scope stated ~~30 observable-computing scripts … excluded by design:
-this program's own pairing-study surfaces~~ **[struck round 89 (F1 MAJOR +
-F2): the count was 26 + 4, and the blanket research-directory exclusion
-silently omitted 59 paper-cited computational scripts under a pairing-study
-mischaracterization]**: the derivation record — 12 cascade papers, the frozen
-ledger, 26 observable scripts + the four °-marked record instruments, all 59
-paper-cited scripts (extraction gated), and model_checks + generators
-wholesale; excluded, correctly characterized: the pairing-study surfaces not
+record. Scope stated ~~30 observable-computing scripts […] excluded by design and
+disclosed: this program's own pairing-study surfaces~~ **[struck round 89 (F1
+MAJOR + F2; the recital's dropped "and disclosed" restored round 90, F3): the
+count was 26 + 4, and the blanket research-directory exclusion omitted
+paper-cited computational scripts under a pairing-study mischaracterization —
+round 90 (F1/F2) then corrected the round-89 numbers themselves: the papers
+cite 82 distinct scripts (81 resolving; one dead citation retracted at
+source), of which 52 — not 59 — were truly omitted]**: the derivation record
+— 12 cascade papers, the frozen ledger, 26 observable scripts + the four
+°-marked record instruments, all 81 paper-cited resolving scripts (extraction
+and resolution gated; the corrected extractor strips \allowbreak and takes
+all .py citations), and model_checks + generators wholesale — 91 files;
+excluded, correctly characterized: the pairing-study surfaces not
 cited by the series. The token census (χ₋₃, L(s/1,χ), the χ zeros, Kronecker,
-conductor, quadratic character, root number, gauss sum, √3-in-LaTeX) returns
+conductor, quadratic character, root number, gauss sum, dirichlet character,
+√3-in-LaTeX) returns
 **one benign hit** (a linear-algebra "Kronecker product" docstring,
 allowlist-gated) and otherwise zero across the censused record (gated per
 token; the lone "Dirichlet" gated as part0a's classical method name). The crossing is Γ-side complete (p's zero

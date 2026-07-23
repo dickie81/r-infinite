@@ -1826,3 +1826,22 @@ survived; the sweep is scope repair.
 including every paper-cited computational surface — the grammar does not
 need the odd reading; the pairing-act is Door-4 bookkeeping; the member
 persists with the falsifier licensed.**
+
+# Round 90: convergence test on the round-89 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 3 minors, 2 cosmetics); the extractor corrected, a dead paper citation retracted; round 91 follows
+
+The round-89 defect class recurred inside its own correction: the fixed
+extractor was blind to non-cascade-prefixed and \allowbreak-wrapped
+citations (true census: 82 cited scripts, 81 resolving, 1 dead). The
+reviewer ran the wider census itself — the six missed files are clean —
+so the conclusion survives a third time.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F90-1 (MAJOR) — "59 distinct, every citation gated" false (82/81; six cited files unscanned; one DEAD citation in part4b to a never-committed sphere-Dirac spectral-zeta script — Check-7-listed machinery) | **Accepted; extractor rebuilt** (all .py citations, \allowbreak stripped; count == 81 and resolution gated; 91 files scanned); **the part4b clause retracted at source** with the three grounds stated | verifier + paper + formulation + part4b |
+| F90-2 (minor) — "all of which silently omitted" false universal (7 already scanned; truly 52); counts inconsistent | **Accepted; corrected** in nested annotations | paper + formulation + verifier |
+| F90-3 (minor) — strike recital dropped "and disclosed" unmarked | **Accepted; restored** with note | formulation |
+| F90-4 (minor) — prose tokens not gated over the papers | **Accepted; lowered tex scan added** (zero hits) | verifier + paper |
+| F90-5/6 (cosmetic) — token list incomplete; colour sentence unmatched | **Accepted; swept** | formulation + verifier |
+
+**Trajectory: 1t landed → 89 1M+3m+1c (swept) → 90 1M+3m+2c (swept) →
+round 91 (convergence test) next.**
