@@ -1988,3 +1988,19 @@ the axiom never stated.
 
 **Trajectory: the adoption landed (1v) → 98 NOT CONVERGED 1M+5m+1c
 (swept) → round 99 (convergence test) next.**
+
+# Round 99: convergence test on the round-98 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 2 minors); both incomplete executions of accepted dispositions on the paper; round 100 follows
+
+The round-98 substance held completely (the selector clause
+non-circular, its anchors sabotage-detected three ways; the four
+markers accurate under full-file enumeration; recitals verbatim;
+battery, validator, census, balance, model-ID sweep all clean). Both
+minors are marking-rule incompleteness on the paper surface.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F99-1 (minor) — the F98-4 overclaim ("the only route to a forced labeling") survived live in 1v(v): the F98-3 hunk ended mid-sentence, leaving the phrase as unchanged context; the paper carried the scoping and the unscoped claim fifty lines apart | **Accepted; strike-and-annotate at 1v(v)**, the scoped wording in place ("a forced labeling required axiom-level content, which the adoption supplies") | paper |
+| F99-2 (minor) — "glossed at first use" not executed on the paper: the gloss sat at Theorem 1v (ninth occurrence); first use is the 1k net-state marker at line 636 | **Accepted; the gloss placed at the paper's first use**, pointing to the full gloss at 1v; formulation and part0 were already correct | paper |
+
+**Trajectory: the adoption landed (1v) → 98 1M+5m+1c (swept) → 99
+NOT CONVERGED 0M+2m (swept) → round 100 (convergence test) next.**

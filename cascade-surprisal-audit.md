@@ -8810,6 +8810,48 @@ grammar_need 5/0; validator clean on 12 files. Trajectory: the
 adoption landed → 98 NOT CONVERGED 1M+5m+1c → sweep this commit →
 round 99 (convergence test) spawned per protocol.**
 
+## Addendum 178: convergence-test round 99 on the round-98 sweep — NOT CONVERGED (0 majors, 2 minors); both are incomplete executions of accepted round-98 dispositions on the paper surface; swept this commit
+
+Round 99 verified the round-98 sweep's substance completely: the
+selector clause's non-circularity held (the clause selects over the
+eight free labelings; the axiom's parenthetical accurate; part0's
+"provably coinciding" backed by thm:variational + 1q's gated census);
+V1's anchors bit under three sabotages (run on scratchpad copies, the
+working tree untouched); the A2-A4 byte-identity passed; the four
+formulation markers accurate with a full-file enumeration finding no
+unmarked open-status block; F98-3's replacement verified live and
+verbatim in T1q; the given_irreducibility historicization real and
+gated; all recitals verbatim against 3b662ff; battery at expected
+counts (12 instruments); validator clean; census exact; paren balance
+30/30; model-ID sweep zero. The two minors are marking-rule
+incompleteness in the sweep itself:
+
+- **F99-1 (minor):** the F98-4 overclaim ("the adoption was the only
+  route to a forced labeling") survived LIVE in 1v(v) at paper:1287 —
+  the sweep's own F98-3 hunk ended mid-sentence and left the phrase as
+  unchanged context, so the paper simultaneously carried the scoping
+  (1u marker, line 1237) and the unscoped claim fifty lines later.
+  Lead-verified by direct read and grep (the only live hit). **Swept:**
+  strike-and-annotate at 1v(v), the scoped wording ("a forced labeling
+  required axiom-level content, which the adoption supplies") in place.
+- **F99-2 (minor):** F98-5's disposition read "glossed at first use on
+  every paper-grade surface," but on the paper the gloss sat at
+  Theorem 1v (line 1251) while the first use is the 1k net-state
+  marker (line 636) — eight unglossed occurrences preceded it. The
+  formulation and part0 were executed correctly. Lead-verified by
+  grep. **Swept:** the gloss placed at the paper's first use (the 1k
+  marker), pointing to the full gloss at 1v.
+
+**Held (reviewer, unpadded):** every other round-98 disposition
+executed correctly; the amended clause genuinely non-circular; no
+semiclassics, no Check-8 violations, no quantifier defects in the new
+prose; part4b/part5 need no sweep action.
+
+**Battery after sweep: riemann_kernel 5/0; grammar_need 5/0; footer
+census exact. Trajectory: the adoption landed → 98 1M+5m+1c (swept) →
+99 NOT CONVERGED 0M+2m (swept this commit) → round 100 (convergence
+test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

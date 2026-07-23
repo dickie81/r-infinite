@@ -633,7 +633,7 @@ order of magnitude (≈10.8×) below observation (the value gated, K7; Part 0's 
 round-62 F1) *(net-state, Theorem 1n round 71: the given is re-motivated — the sup is
 exactly the odd/Euler-null-sphere member of every pair and the minimal-horizon-budget
 labeling, gated equivalents; the forcing stays open and the given persists)*
-*(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)*. *(iii) The member re-read — the
+*(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire (the owner's phrase; "entire" in the sense of *in its entirety* — the function itself is meromorphic, its poles load-bearing; glossed in full at Theorem 1v, placed here at first use per round-99 F2) with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)*. *(iii) The member re-read — the
 round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
 rounding frame and empty in the lattice frame: **given the site-E pairing** — the
 anchored convention, which **persists in the residue** (under the alternative pairing
@@ -1284,7 +1284,10 @@ The prior gradings — "the forcing stays open," "the same given in a second fac
 pre-adoption axioms *(round-98 F3: the first
 draft's list included "the remaining given," a phrase living only inside a
 round-79-struck span — replaced by 1q's corrected grading)* and stand as history under net-state markers; 1u is now the recorded *reason*
-the adoption was the only route to a forced labeling. Since the adoption adds no
+~~the adoption was the only route to a forced labeling~~ [round-99 F1: the
+F98-4 overclaim survived here unswept — 1u showed no derivation route exists
+from the old axioms, not that this adoption is the unique axiom-level route]
+a forced labeling required axiom-level content, which the adoption supplies. Since the adoption adds no
 empirical content, it is tested exactly where the framework is — by the record's
 predictions — and any future committed derivation of the clause from a weaker kernel
 makes the adoption redundant, to be recorded as such. No closure beyond the labeling
