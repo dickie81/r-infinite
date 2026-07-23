@@ -1470,3 +1470,21 @@ and Part V (Friedmann, w = −1), with only the closure Part I's.
 | F71-4/5 (cosmetics) — discharged/narrowed tension; two unfailable conjuncts unlabeled | **Accepted.** Harmonized; exhibits labeled with failable content named | script |
 
 **Trajectory: 1n landed → 71 1M+2+2c. Round 72 gates stability of Theorem 1n.**
+
+# Round 72: convergence test on the round-71 sweep (subagent, per protocol) — **CONVERGED** (0+0+3c); Theorem 1n certified stable; the max-over-min arc closes
+
+The sweep verified faithful and complete: every attribution re-verified at
+source (§8 recounted; A = 12π/Λ verbatim; part5's Friedmann and w = −1; Part
+I's zero de-Sitter content); the abstract quote word-for-word; no propagation
+to the formulation; all recomputations matching at 60 dps; residual greps
+clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F72-1/2/3 (cosmetics) — strike-marker punctuation vs the original; part0 pointer overshoot; W4 print's "gated" vs the F5 comment | **Accepted; swept in the record commit** (verbatim re-render; pointer tightened to sec:inter-layer-coupling; print harmonized) | paper + part0 + script |
+
+**Trajectory: 1n landed → 71 1M+2+2c → 72 CONVERGED 0+0+3c. Theorem 1n
+stable: part0's open clause answered as an exact equivalence (sup = minimal
+horizon budget = the odd/Euler-null labeling; all four distinguished layers
+odd); the forcing honestly open; 1k's second given re-motivated. Next hostile
+round on the next substantive paper change.**

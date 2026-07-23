@@ -7052,6 +7052,41 @@ sup_selection 5/0; validator clean on 12 files. **Trajectory: 1n landed →
 71 1M+2+2c (provenance). Round 72 (convergence test) gates stability of
 Theorem 1n.**
 
+## Addendum 141: hostile review round 72 (convergence test, subagent, per protocol) on commit 0c141ea — **CONVERGED** (0 majors, 0 minors, 3 cosmetics); Theorem 1n certified stable; the max-over-min arc closes
+
+**The round-71 sweep verified faithful and complete: every new attribution
+re-verified at source (the §8 count by the reviewer's own \section recount;
+A = 12π/Λ verbatim at part3:988–990; part5's eq:friedmann and w = −1
+section; Part I's zero de-Sitter content re-confirmed); the part2=3
+abstract quote word-for-word on both surfaces; the docstring recital
+accurate; no false claim propagated to the formulation (verified — the
+fourth surface never carried it); every independent recomputation matching
+at 60 dps; residual greps clean with recitals-only survivors.** Three
+cosmetics, dispositioned per the editorial-batching rule: (1) the strike
+marker's leading em-dash vs the original's semicolon — **re-rendered
+verbatim** ("~~; the de Sitter algebra Part I's~~"); (2) part0's pointer
+overshot (The Hierarchy section carries no shift-family content; the first
+occurrence is in Inter-Layer Coupling) — **tightened** to
+Section~\ref{sec:inter-layer-coupling}; (3) the W4 print still said
+"gated" against the F5 comment's "demonstration" — **harmonized**
+("a demonstration, S := c/I, exhibit per round-71 F5"). Post-sweep:
+sup_selection 5/0; validator clean on 12 files.
+
+**Verdict: CONVERGED under the round-17/21/24/27/29 precedent. Theorem 1n
+is stable, and the commissioned arc closes:** part0's open max-over-min
+clause is answered as an exact equivalence — the sup is the
+minimal-horizon-budget labeling (S = 24π²M⁴/ρ_Λ strictly decreasing in the
+invariant; S_sup = 3.315×10¹²² nats, the inf's budget 10.756× larger) and
+the odd/Euler-null member of every straddling pair, with all four
+distinguished layers odd — while the forcing question honestly stays open
+("A principled derivation of any one of these equivalents would settle the
+question; none is yet derived") and 1k's second given persists,
+re-motivated. **Trajectory: 1n landed → 71 1M+2+2c → 72 CONVERGED 0+0+3c.
+Standing open routes: the forcing of any 1n equivalent; the 1j
+pairing-act; the layer-2 soft inputs; the editorial batch (1.0990 sites;
+part2=3 summary table + CLAUDE.md §7→§8). Next hostile round on the next
+substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

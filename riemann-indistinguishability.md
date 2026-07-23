@@ -747,7 +747,7 @@ the entire invariant is evaluated on Euler-null spheres. *(iii) The horizon budg
 S_dS = 24π²M⁴/ρ_Λ (S = A/4 the cascade's own — Part II=III §8, *"no semiclassical
 gravity, no QFT on curved spacetime, no Bogoliubov transformations"*; the de Sitter
 horizon area A = 12π/Λ Part III's; the Friedmann relation and the w = −1 theorem
-Part V's ~~— the de Sitter algebra Part I's~~ **[struck round 71 (F1, MAJOR): Part I
+Part V's ~~; the de Sitter algebra Part I's~~ **[struck round 71 (F1, MAJOR): Part I
 contains no de Sitter or Friedmann content — only the closure below is Part I's]**) is
 strictly decreasing in the
 invariant through Part I's closure ρ = (2/π)e^{0.02108}I, so over the eight labelings

@@ -193,7 +193,8 @@ def main():
     ok4 &= abs(S[sup] / math.log(2) / 4.7827e122 - 1) < 1e-3
     ok4 &= abs(S[inf] / S[sup] - vals[sup] / vals[inf]) < 1e-9
     print(f"   argmin S = {smin} = the sup labeling; S strictly decreasing")
-    print(f"   in I over all eight (monotone bijection gated); S_sup =")
+    print(f"   in I over all eight (monotone bijection -- a demonstration,")
+    print(f"   S := c/I, exhibit per round-71 F5); S_sup =")
     print(f"   {S[sup]:.4e} nats = {S[sup]/math.log(2):.4e} bits; the inf")
     print(f"   labeling's budget is {S[inf]/S[sup]:.3f}x larger (= I_sup/"
           f"I_inf,")
