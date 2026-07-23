@@ -1416,3 +1416,22 @@ block canonical up to extensional equivalence. Mass layer 3's residual gap
 after 1m: the trigger data and soft inputs (instantiation-level), plus the
 identifications' conditionality. Next hostile round on the next substantive
 paper change.**
+
+# Round 69: hostile review of the F63-1 sweep (subagent, per protocol) — NOT CONVERGED (0+2+1c); same-file residuals in the verifier swept
+
+The two intended fixes verified exact (the closure algebraically exact against
+both sources read verbatim; the pullback reproduced at 30 dps; the recital
+verbatim; the ratio unit-invariant; no circularity). Two minors found in the
+verifier itself: its closing printout retained the unqualified coincides-with-
+the-observed conflation (the Addendum-136 census had keyed on the numeral, not
+the label), and it printed a false stale diagnostic ("Part 0 claims p(20) =
+0.6013 … DISCREPANCY") against a part0 that states the correct 0.57914 at both
+sites.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F69-1 (minor) — the verifier's [8]/[9] statements retained the unit conflation | **Accepted.** Both now "…expressed in the invariant's own units (I_obs)" | verifier |
+| F69-2 (minor) — false stale diagnostic asserting a nonexistent part0 error at p(20) | **Accepted.** Section now gates part0's actual stated values (all match); diagnostic retired with recitals in docstring and summary | verifier |
+| F69-3 (cosmetic) — "(0.1%)" apposition misread as the observational precision | **Accepted.** "to 0.1% — well inside the 1.9% Planck 1σ (Part I)" | part0 |
+
+**Trajectory: F63-1 swept → 69 0M+2+1c. Round 70 gates stability.**

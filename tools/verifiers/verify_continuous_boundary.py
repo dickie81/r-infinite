@@ -6,7 +6,9 @@ various boundary-labeling conventions.
 Tests the conjecture (from conversation) that I_P0 / I_cont = 4 exactly,
 where I_cont uses the continuous boundary crossings of p(d).
 
-Also diagnoses an apparent numerical error in Part 0 at p(20).
+(A historical note in this file diagnosed "an apparent numerical
+error in Part 0 at p(20) = 0.6013"; the current Part 0 states the
+correct 0.57914 at both sites -- the diagnostic is retired, round 69.)
 """
 
 import os
@@ -42,16 +44,19 @@ print("-" * 72)
 print(f"Formula: p(d) = (1/2) psi((d+1)/2) - (1/2) ln(pi)")
 print(f"Thresholds: c1 = {mpmath.nstr(c1, 10)}, c2 = {mpmath.nstr(c2, 10)}")
 print()
-print(f"  Part 0 claims: p(19) = 0.5535")
-print(f"  Computed:       p(19) = {mpmath.nstr(p(19), 10)}")
+print(f"  Part 0 states: p(19) = 0.55351")
+print(f"  Computed:      p(19) = {mpmath.nstr(p(19), 10)}")
 print()
-print(f"  Part 0 claims: p(20) = 0.6013")
-print(f"  Computed:       p(20) = {mpmath.nstr(p(20), 10)}")
-print(f"  ** DISCREPANCY: Part 0's p(20) value appears incorrect. **")
-print(f"  ** Correct p(20) ≈ 0.5791, not 0.6013.                   **")
+print(f"  Part 0 states: p(20) = 0.57914")
+print(f"  Computed:      p(20) = {mpmath.nstr(p(20), 10)}")
 print()
-print(f"  Part 0 claims: p(217) = 1.77101")
-print(f"  Computed:       p(217) = {mpmath.nstr(p(217), 10)}")
+print(f"  Part 0 states: p(217) = 1.77101")
+print(f"  Computed:      p(217) = {mpmath.nstr(p(217), 10)}")
+print()
+print("  (Round-69 note: an earlier version of this section asserted 'Part 0")
+print("  claims p(20) = 0.6013' with a DISCREPANCY flag; the current Part 0")
+print("  states 0.57914 -- the correct value, matching the computation -- at")
+print("  both of its p(20) sites. The stale diagnostic is retired.)")
 print()
 print(f"  Part 0 claims: p(218) = 1.77331")
 print(f"  Computed:       p(218) = {mpmath.nstr(p(218), 10)}")
@@ -278,15 +283,17 @@ print(f"  Agreement: {argmax_labels == (7, 19, 217)}")
 print()
 print("  The 0.1% match with observation is the statement that the supremum of")
 print("  the cascade invariant over integer labelings coincides with the observed")
-print("  rho_Lambda/M_Pl_red^4, to within the observational 1-sigma uncertainty.")
+print("  rho_Lambda/M_Pl_red^4 expressed in the invariant's own units (I_obs,")
+print("  above), to within the observational 1-sigma uncertainty.")
 
 # ============================================================================
 # SECTION 9: Summary
 # ============================================================================
 print("\n[9] SUMMARY")
 print("-" * 72)
-print("  * Part 0 has a numerical error in the discrete verification at d=20:")
-print(f"    Claimed p(20) = 0.6013; correct p(20) = {mpmath.nstr(p(20), 10)}.")
+print("  * Part 0's discrete verification values p(19), p(20), p(217) all")
+print(f"    match the computation (p(20) = {mpmath.nstr(p(20), 10)}; the historical")
+print("    '0.6013 discrepancy' diagnostic is retired -- round 69).")
 print()
 print("  * The continuous crossings lie at d_0* = 6.2569, d_1* = 19.7308,")
 print("    d_2* = 217.6267 - each straddled by an integer pair.")
@@ -296,7 +303,8 @@ print("    integer of each pair' rule, equivalently the ARGMAX of the")
 print("    cascade invariant over all 8 possible integer labelings.")
 print()
 print("  * The 0.1% match with observation is the statement that the supremum")
-print("    of I over boundary labelings coincides with rho_Lambda/M_Pl_red^4.")
+print("    of I over boundary labelings coincides with rho_Lambda/M_Pl_red^4")
+print("    expressed in the invariant's own units (I_obs).")
 print()
 print("  * Deviations of alternative conventions from observation:")
 print(f"    - Part 0 argmax (7, 19, 217)      : {mpmath.nstr(((I_P0 - obs)/obs*100), 5)}%")

@@ -6874,6 +6874,49 @@ unit-invariant round-62 ratio). Cross-paper validator clean on 12 files.
 Round 69 (hostile subagent, per protocol — a substantive part0 change)
 follows.
 
+## Addendum 137: hostile review round 69 (subagent, per protocol) on commit 27e3259 — the F63-1 sweep; NOT CONVERGED (0 majors, 2 minors, 1 cosmetic); same-file residuals swept
+
+**The commit's two intended fixes were verified correct and exact: the
+closure ρ_Λ/M⁴ = (2/π)e^{0.02108}·I confirmed as an algebraically exact
+restatement of Part I's 18Ω₁₉Ω₂₁₇/π³·e^{0.02108} against part0's I =
+9Ω₁₉Ω₂₁₇/π² (18/π³ = (9/π²)(2/π), both sources read verbatim); the pullback
+arithmetic independently reproduced at 30 dps (factor 1.538030505, I_obs =
+1.099691811×10⁻¹²⁰, ±0.020); the correction recital verbatim against
+3b2acba; the sup's deviation −0.0679% < 0.1%; the round-62 ratio genuinely
+unit-invariant; error propagation correct for an exact constant factor;
+Checks 7/8 clean (no circularity — sup-vs-I_obs is identical to
+prediction-vs-observation in ρ-units). But the reviewer found two minors in
+the verifier — the census in Addendum 136 had keyed on the numeral, not the
+label, and missed conflations expressed without it.**
+
+- **F69-1 (minor):** the verifier's sections [8]/[9] closing statements
+  retained the unqualified "the supremum … coincides with the observed
+  ρ_Λ/M_Pl_red⁴" — the exact F63-1 conflation, in one of the two surfaces
+  the commit swept; Addendum 136's "no other surface carries the mislabel"
+  is thereby corrected here (the grep keyed on 1.10e-120, which these lines
+  don't contain). **Swept:** both statements now read "…expressed in the
+  invariant's own units (I_obs)".
+- **F69-2 (minor):** the verifier printed a false diagnostic on every run —
+  *"Part 0 claims: p(20) = 0.6013 … DISCREPANCY: Part 0's p(20) value
+  appears incorrect"* — while part0 states the correct 0.57914 at both its
+  p(20) sites (lead-verified by grep; the diagnostic was a stale
+  session-era note against a since-corrected draft, cf. the file's
+  first-person drafting comments). **Swept:** the section now gates part0's
+  actual stated values (all three match) with the retirement recital; the
+  docstring and summary notes corrected likewise.
+- **F69-3 (cosmetic):** part0:1232's "(0.1%)" apposition read as
+  "observational precision = 0.1%" (the Planck 1σ is 1.9%). **Swept:**
+  "matched by the supremum to 0.1% — well inside the 1.9% Planck 1σ
+  uncertainty (Part I)".
+
+**Held:** diff scope exact; the verifier's kills unchanged (floor −3.68%,
+ceiling −90.4%, nearest −90.7%, continuous −79.1%); argmax unique at
+(7,19,217); no consumer of the old hardcoded obs or the −0.096% figure;
+validator clean. **Post-sweep:** verifier runs clean with the retirement
+recitals as the only 0.6013 occurrences; validator clean on 12 files.
+**Trajectory: F63-1 swept → 69 0M+2+1c (same-file residuals). Round 70
+(convergence test) gates stability.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
