@@ -581,7 +581,8 @@ stays open — narrowed again (the colour entry's dyadic shadow IS the invisible
 unit coordinate: the 1e(iv) identification relocated, not a new forcing).
 *(Net-state, Theorem 1r as corrected round 81: the act's anatomy — the live
 alternative χ₋₄ fails three distinct committed anchors (the clock kernel, under
-act-form W₁, strictly weaker extensionally than the colour gloss; the carrying
+act-form W₁, strictly weaker extensionally than the colour gloss — the act's
+standing form, pair with the colour field's character, defined at 1r; the carrying
 conductors and the torsion census, extensionally equivalent to the gloss's
 output and weaker only in what they name), and the bridge's own committed
 constant π/(3√3) carries w = 6 by Dirichlet's formula; the F1 recital's "only
@@ -962,7 +963,8 @@ against committed-anchored act-forms ~~under act-forms **strictly weaker** than 
 colour gloss~~ **[struck round 81 (F2, MAJOR): false for two of the three under
 predicate implication — W₂'s pass set and the census route's are exactly {−3},
 extensionally *equivalent* to the colour gloss's output; only W₁ is strictly weaker
-extensionally (1014 ⊋ {−3}); the ordering is now stated: W₁ weaker in pass set, W₂
+extensionally (a pass set of 1014 discs ⊋ {−3} — the type slip "1014 ⊋ {−3}" fixed
+round 82, F3); the ordering is now stated: W₁ weaker in pass set, W₂
 and the census weaker only in what they *name* — no field, no μ₆, no T11
 presupposed]** — the colour gloss being the act's standing form: pair with the colour
 field's character (1j; the term defined here, round-81 F5). *(i) The target space is
@@ -1009,8 +1011,11 @@ gloss~~ **[struck round 81 (F3 + F2): "independent" unqualified was wrong — W�
 exclusion is *generic* (its pass set is {−3}, so it excludes every alternative
 partner whatsoever, carrying no χ₋₄-specific information; the kernel and census
 exclusions are the χ₋₄-specific evidence, and the kernel route is not mere
-2-ramification — −28 (cls 1) and −24 (cls 10) are 2-ramified discs the kernel
-admits); the strictly-weaker clause per the header strike]** (the clock kernel; the
+2-ramification — ~~−28 (cls 1) and~~ **[corrected round 82 (F1): −28 is not a
+fundamental disc (−28/4 = −7 ≡ 1 mod 4) and cls 1 is the trivial class, not
+ramification — the exhibit is −56 (cls 2) and]** −24 (cls 10) are 2-ramified
+discs the kernel admits, together covering both ramified kernel classes
+{2, 10} (gated in P5); the strictly-weaker clause per the header strike]** (the clock kernel; the
 carrying conductors; the torsion census — the triple gated jointly, with the role
 asymmetry re-gated: ker(·,−1)₂ = H exactly, so the candidate partner's character is
 the committed filter's *instrument* while cls(−3) is the invisible *datum* inside

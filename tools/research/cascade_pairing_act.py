@@ -84,8 +84,12 @@ chi_-4 fails three DISTINCT committed anchors (round-81 F3:
 "independent" unqualified was wrong -- W2's exclusion is generic,
 excluding every alternative partner whatsoever; the kernel and
 census exclusions are the chi_-4-specific evidence, and the
-kernel route is not mere 2-ramification: -28 (cls 1) and -24
-(cls 10) are 2-ramified discs the kernel admits), so the
+kernel route is not mere 2-ramification: -56 (cls 2) and -24
+(cls 10) are 2-ramified discs the kernel admits, together
+covering both ramified kernel classes -- gated in P5; the sweep's
+first exhibit "-28 (cls 1)" was false, round-82 F1: -28 is not a
+fundamental disc and cls 1 is the trivial class, not
+ramification), so the
 round-57 recital's "only the order or the pairing-act excludes"
 is superseded in exactly this sense.  No universal over
 act-forms is claimed.  Three members and the seven-item residue
@@ -268,6 +272,11 @@ def main():
     ok5 = (cls(-4) not in H            # W1
            and -4 not in carrying      # W2 (computed; generic exclusion)
            and torsion(-4) == 4)       # the mu_6 route: 4 != 6
+    # round-82 F1 exhibit, gated: the kernel route is not mere
+    # 2-ramification -- two 2-ramified (even) census discs it admits,
+    # covering both ramified kernel classes {2, 10}:
+    ok5 &= (-56 in discs and cls(-56) == 2
+            and -24 in discs and cls(-24) == 10)
     kernel = [a for a in (1, 3, 5, 7, 2, 6, 10, 14) if hilbert2(a, -1) == 1]
     ok5 &= sorted(kernel) == sorted(H)
     ok5 &= all(hilbert2(a, -4) == hilbert2(a, -1)

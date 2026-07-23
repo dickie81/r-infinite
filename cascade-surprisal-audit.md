@@ -7752,6 +7752,41 @@ cross-check conjunct); validator clean on 12 files; census 38 + 4° exact.
 Trajectory: 1r landed → 81 NOT CONVERGED 2M+2m+3c → sweep this commit →
 round 82 (convergence test on the sweep) spawned per protocol.**
 
+## Addendum 156: convergence round 82 on commit b49fbb6 — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the sweep's own exhibit corrected; round 83 follows
+
+Round 82 verified the round-81 sweep in depth — including the mandated
+sabotage test: with the reciprocity fix reverted in a scratch copy, the
+committed P1 cross-check conjunct FAILS at 109/500 mismatches and the
+parity gate at 1014 discs (independently corroborating this record's
+figure), so the landed gate genuinely catches the bug class it claims to.
+All round-81 dispositions held (F1, F2, F4–F7 fully; strike recitals
+verbatim; the seeded conjunct deterministic across runs, md5-identical
+output; footer census exact). One new finding in the sweep's own text:
+
+- **F82-1 (minor, lead-verified and accepted):** the F3 disposition's
+  exhibit "−28 (cls 1) and −24 (cls 10) are 2-ramified discs the kernel
+  admits" was **false for −28 on two counts** — −28 is not a fundamental
+  discriminant (−28/4 = −7 ≡ 1 mod 4; χ₋₂₈ is imprimitive, outside the
+  partner family), and cls(−28) = 1 is the *trivial* ℚ₂-square class, not
+  ramification. A lead lapse: round 81's reviewer text supplied the
+  exhibit and the lead re-verified only the cls values, not fundamentality
+  or the ramification semantics — Check 3 requires verifying the whole
+  claim. **Swept:** the exhibit is now −56 (cls 2) and −24 (cls 10) — both
+  fundamental, both even/2-ramified, kernel-admitted, and together
+  covering *both* ramified kernel classes {2, 10} (strictly stronger than
+  the original claim); corrected with a nested strike/annotation on the
+  paper surface and in the verifier docstring, and **gated as a new P5
+  conjunct** (lead-verified: −56 ∈ census, cls(−56) = 2; −24 ∈ census,
+  cls(−24) = 10).
+- **F82-2/3 (cosmetic, swept):** "the colour gloss" was used in the 1j
+  markers before its 1r definition in document order — both markers now
+  carry the inline gloss; the type slip "1014 ⊋ {−3}" (cardinal on the
+  left of ⊋) fixed to "a pass set of 1014 discs ⊋ {−3}".
+
+**Battery: pairing_act 5/0 with the new exhibit gate; validator clean.
+Trajectory: 1r landed → 81 2M+2m+3c (swept) → 82 0M+1m+2c (swept this
+commit) → round 83 (convergence test) spawned per protocol.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

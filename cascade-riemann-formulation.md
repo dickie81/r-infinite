@@ -220,9 +220,10 @@ entailed by T11), the μ₆ requirement determines χ₋₃ with minimality enta
 ε-support {3, ∞} (T1i). Adjudicated: the member is re-motivated, not reduced —
 three members and the seven-item count stand. No closure; category (a).
 *(Net-state, T1r as corrected round 81: χ₋₄ fails three distinct committed
-anchors — W₁ strictly weaker extensionally; the carrying-conductor and census
-routes equivalent to the gloss's output, weaker only in what they name; the
-act persists.)*
+anchors — W₁ strictly weaker extensionally than the colour gloss (the act's
+standing form: pair with the colour field's character; defined at T1r); the
+carrying-conductor and census routes equivalent to the gloss's output, weaker
+only in what they name; the act persists.)*
 
 **T1k (the lattice selection; `cascade_lattice_selection.py`, seven gates;
 round-60 F1 correction applied).** Under the site-E canonical pairing

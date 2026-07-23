@@ -1675,3 +1675,19 @@ three distinct committed anchors (W₁ strictly weaker extensionally; W₂ and
 the census equivalent in output, weaker in what they name); the bridge's
 committed constant carries w = 6 by Dirichlet; no universal over act-forms
 claimed.**
+
+# Round 82: convergence test on the round-81 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the sweep's own exhibit corrected; round 83 follows
+
+The sabotage test passed: with the reciprocity fix reverted in a scratch
+copy, the committed cross-check conjunct fails at 109/500 mismatches — the
+landed gate genuinely bites. All round-81 dispositions held; strike recitals
+verbatim; the seeded conjunct deterministic (md5-identical across runs).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F82-1 (minor) — the F3 exhibit's −28 half false (not a fundamental disc; cls 1 is the trivial class, not ramification) | **Accepted; exhibit corrected to −56 (cls 2) + −24 (cls 10)** — both fundamental, 2-ramified, kernel-admitted, covering both ramified kernel classes {2, 10}; nested strike on the paper; **gated as a new P5 conjunct** | paper + verifier |
+| F82-2 (cosmetic) — "colour gloss" used before defined in document order (1j markers) | **Accepted; inline gloss added to both markers** | paper + formulation |
+| F82-3 (cosmetic) — type slip "1014 ⊋ {−3}" | **Accepted; fixed** ("a pass set of 1014 discs ⊋ {−3}") | paper |
+
+**Trajectory: 1r landed → 81 2M+2m+3c (swept) → 82 0M+1m+2c (swept) →
+round 83 (convergence test) next.**
