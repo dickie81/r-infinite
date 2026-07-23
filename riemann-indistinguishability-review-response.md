@@ -1557,3 +1557,23 @@ The minor: the F3 fix had missed the script docstring's (i) block.
 | F76-2 (cosmetic) — a compressed label in quotation marks presented as verbatim | **Accepted.** Re-rendered as a label with the compression disclosed | formulation |
 
 **Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c. Round 77 gates stability of Theorem 1o.**
+
+# Round 77: convergence test on the round-76 sweep (subagent, per protocol) — **CONVERGED** (0+0+1c); Theorem 1o certified stable; the 1n-equivalents arc closes
+
+A clean round: both round-76 fixes exact; the irrationality hedge explicitly
+adjudicated and held at individual-value granularity (Apéry; Ball–Rivoal and
+Zudilin identify no individual value); every ζ value re-derived independently;
+the Z5 gate mutation-tested; recitals-only residual greps. One cosmetic — the
+"adelic survivor" gloss's attachment — swept in the record commit (the gloss
+now names the discrimination on all three surfaces).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F77-c1 (cosmetic) — the survivor-gloss attachment inconsistent across surfaces | **Accepted; swept in the record commit** (attaches to the discrimination) | paper + formulation + script |
+
+**Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c → 77 CONVERGED 0+0+1c. Theorem
+1o stable: the sup has four gated equivalents (minimal horizon budget;
+odd/Euler-null member; ζ-Euler-rational twists; trivial-zero-mirror avoidance),
+the ζ-form on the paper's primary object, the forcing open everywhere; 1k's
+second given persists, re-motivated. Next hostile round on the next substantive
+paper change.**

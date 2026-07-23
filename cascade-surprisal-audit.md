@@ -7311,6 +7311,35 @@ own Bernoulli-recurrence code, no sympy. The two findings:**
 **Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c. Round 77 (convergence
 test) gates stability of Theorem 1o.**
 
+## Addendum 148: hostile review round 77 (convergence test, subagent, per protocol) on commit ec86f43 — **CONVERGED** (0 majors, 0 minors, 1 cosmetic); Theorem 1o certified stable; the 1n-equivalents arc closes
+
+**A clean round: the two round-76 fixes verified exact; the "even
+irrationality is open beyond ζ(3)" hedge explicitly adjudicated and held
+(the sentence operates at individual-value granularity — Apéry proves ζ(3);
+every individual odd s ≥ 5 is open; Ball–Rivoal/Zudilin are class results
+identifying no individual value, so they do not contradict the phrasing);
+every ζ value re-derived with the reviewer's own Bernoulli code; the Z5
+ledger-row gate mutation-tested (945→946 fails); the residual greps clean
+with recitals-only survivors; all strike annotations' factual claims
+re-verified against the compensator's source and live output. One cosmetic
+(the "adelic survivor" gloss's grammatical attachment inconsistent across
+the three surfaces — the committed vocabulary names the discrimination as a
+whole, not a side) — swept in this commit: the gloss now attaches to the
+discrimination on all three surfaces.**
+
+**Verdict: CONVERGED under the standing precedent. Theorem 1o is stable,
+and the 1n-equivalents commission closes:** the sup's characterization now
+has four gated equivalents — minimal horizon budget (1n), odd/Euler-null
+member (1n), ζ-Euler-rational twist points, and trivial-zero-mirror
+avoidance (1o) — with the ζ-form living on the paper's primary object, the
+fork constant ζ(6) cross-linked to d_V's twist point (the adelic
+compensator's founding identification honestly credited), and the forcing
+question open on every surface. 1k's second given persists, re-motivated
+twice over. **Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c → 77 CONVERGED
+0+0+1c(swept). Standing open routes: the forcing of any 1n/1o equivalent;
+the 1j pairing-act; the layer-2 soft inputs; part5:532 (editorial).
+Next hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

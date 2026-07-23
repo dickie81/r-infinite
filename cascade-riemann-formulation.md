@@ -312,7 +312,7 @@ twists 7, 21, 219 mirror exactly onto the trivial zeros (ζ(−6) = ζ(−20) =
 trivial-zero mirror set. Cross-link: ζ(6) = π⁶/945 is the frozen ledger's
 m_τ fork constant — ζ at the volume-max layer's twist point vs the compliance
 at the U(1) layer *(round-75 F1: the identification is the fork's founding
-fact — `cascade_adelic_compensator.py`, the "adelic survivor" — not novel
+fact — `cascade_adelic_compensator.py`, the "adelic survivor" discrimination — not novel
 here; new is only the tie to the sup's Euler-rational twist set; no closure;
 Belle II adjudicates as before)*. The dichotomy now lives on ζ's
 special-value structure, the χ reading its avatar-side shadow (round-75 F2

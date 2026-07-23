@@ -797,7 +797,8 @@ in the tower's own dictionary, *ζ at the volume-max layer's twist point vs the
 compliance at the U(1) layer* — ~~an identification registered here (Check-4 note: no
 repo surface previously identified π⁶/945 as ζ(6))~~ **[struck round 75 (F1, MAJOR):
 the identification is the fork's founding fact — `cascade_adelic_compensator.py` tests
-ln ζ(6) at s = d+1, d = 5 against the papers' α(14)/2 (the "adelic survivor"), and its
+ln ζ(6) at s = d+1, d = 5 against the papers' α(14)/2 — the "adelic survivor"
+discrimination (round-77 c1: the gloss names the fork, not a side) — and its
 compensator menu lists π⁶/945 as ζ(6) explicitly; the novelty claim was
 false-when-written, a Check-4 grep that missed tools/]**. What is new here is only the
 tie to the twist-parity structure: the fork constant is ζ at d_V's twist point, a
