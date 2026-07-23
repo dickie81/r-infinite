@@ -29,8 +29,9 @@ special-value structure -- the paper's primary object:
        EVEN, where Euler's theorem gives zeta(s) = rational *
        pi^s (zeta(6) = pi^6/945, zeta(8) = pi^8/9450; gated
        exactly at all four via Bernoulli numbers).  The inf
-       labels' twists 7, 21, 219 are odd: no closed form
-       (zeta at odd integers is arithmetically opaque).
+       labels' twists 7, 21, 219 are odd: no closed form is
+       known (zeta at odd integers -- even irrationality is open
+       beyond zeta(3); round-76 F1 completed the F3 sweep here).
   (ii) THE MIRROR DICHOTOMY: under the functional equation
        s -> 1-s, the sup twists mirror to NONZERO RATIONALS --
        zeta(-5) = -1/252, zeta(-7) = 1/240, zeta(-19) =

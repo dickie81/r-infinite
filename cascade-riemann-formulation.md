@@ -316,7 +316,7 @@ fact — `cascade_adelic_compensator.py`, the "adelic survivor" — not novel
 here; new is only the tie to the sup's Euler-rational twist set; no closure;
 Belle II adjudicates as before)*. The dichotomy now lives on ζ's
 special-value structure, the χ reading its avatar-side shadow (round-75 F2
-struck the "canonical register per T1's Remark" claim — the Remark deprecates
+struck the canonical-register-per-T1's-Remark claim (label, not verbatim; round-76 F2) — the Remark deprecates
 the avatar in derivations, it does not rank registers); still an equivalence,
 the forcing open, 1k's second given persisting. No number changes; no
 closure; category (a).

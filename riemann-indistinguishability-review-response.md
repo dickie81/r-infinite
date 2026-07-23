@@ -1542,3 +1542,18 @@ the lead's novelty grep had missed tools/.
 | F75-4 (minor) — Z5 a byte-duplicate of Z2's conjunct; cross-link print-only | **Accepted.** Z5 rebuilt: the frozen ledger row gated verbatim + the re-exhibit declared | script |
 
 **Trajectory: 1o landed → 75 1M+3m. Round 76 gates stability of Theorem 1o.**
+
+# Round 76: convergence test on the round-75 sweep (subagent, per protocol) — NOT CONVERGED (0+1+1c); the F3 sweep completed on its third surface
+
+The sweep held on every substantive point (all twelve paper strikes
+byte-verified; the compensator description verified against source and live
+output; the new-content isolation surviving the grep test; the rebuilt Z5
+genuinely failable; every ζ value re-derived with Bernoulli-recurrence code).
+The minor: the F3 fix had missed the script docstring's (i) block.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F76-1 (minor) — "no closed form … arithmetically opaque" unqualified in the docstring (third carrying surface) | **Accepted.** "no closed form is known (… even irrationality open beyond ζ(3))" | script |
+| F76-2 (cosmetic) — a compressed label in quotation marks presented as verbatim | **Accepted.** Re-rendered as a label with the compression disclosed | formulation |
+
+**Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c. Round 77 gates stability of Theorem 1o.**

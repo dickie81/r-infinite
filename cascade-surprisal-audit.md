@@ -7282,6 +7282,35 @@ validator clean. **Object gates at the swept tree:** zeta_rational 5/0
 **Trajectory: 1o landed → 75 1M+3m. Round 76 (convergence test) gates
 stability of Theorem 1o.**
 
+## Addendum 147: hostile review round 76 (convergence test, subagent, per protocol) on commit a867f21 — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); the F3 sweep completed on its third surface
+
+**The round-75 sweep held on every substantive point: both strike spans
+byte-verified against 60105e1 (all twelve strikes in the paper re-verified
+the same way); the F1 annotation's description of the adelic compensator
+verified against the script's source AND its live output (ln ζ(6) = 0.017194
+at 0.30σ vs α(14)/2 = 0.017231 at 0.24σ on the needed shift — the fork, both
+surviving); "adelic survivor" confirmed as committed object-surface
+vocabulary (cascade_registered_predictions.py); the new-content isolation
+survived the grep test (zero pre-1o hits for the Euler-rational-set tie); the
+rebuilt Z5 confirmed genuinely failable (the unicode gate decodes to the
+exact ledger row, present once); every ζ value re-derived with the reviewer's
+own Bernoulli-recurrence code, no sympy. The two findings:**
+
+- **F76-1 (minor):** the round-75 F3 fix reached the paper and the Z2 print
+  but not the script docstring's (i) block — "no closed form (zeta at odd
+  integers is arithmetically opaque)" survived unqualified, the
+  every-carrying-surface pattern one docstring block deep. **Swept:** "no
+  closed form is known (… even irrationality is open beyond zeta(3);
+  round-76 F1 completed the F3 sweep here)."
+- **F76-2 (cosmetic):** the formulation's recital quoted "canonical register
+  per T1's Remark" in quotation marks as if verbatim — it is a compressed
+  label of the struck claim. **Swept:** re-rendered as a label with the
+  compression disclosed.
+
+**Object gates:** zeta_rational 5/0; validator clean on 12 files.
+**Trajectory: 1o landed → 75 1M+3m → 76 0M+1+1c. Round 77 (convergence
+test) gates stability of Theorem 1o.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
