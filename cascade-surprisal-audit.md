@@ -7823,6 +7823,67 @@ derivation from A1–A4; the regularity/coherence given (1p/1q); the layer-2
 soft inputs; part5:532 (editorial). Next hostile round on the next
 substantive paper change.**
 
+## Addendum 158: Theorem 1s — pairing-at-all located: the parity-blocked pole pin (`cascade_bridge_asymmetry.py`, 5/0)
+
+**Commission.** "keep digging" — continue at the pairing-act's open core
+after the 1r closure: pairing-at-all. Lead-derived and machine-verified
+before landing; Check 4 greps confirmed the pole-pin asymmetry, the
+even-family fact, and the T1b discharge are all novel (the only committed
+"pole-carrier" text is 1i's, about the dyadic tower family).
+
+**The structure (category (a); Checks 7/8 clean).**
+
+- **S1 — the paired object is no orphan.** The odd feature is the unique
+  root of ψ(x/2) = ln π (x* = 7.256946; trigamma > 0 gated; offsets
+  x*−2 = 5.2569 the V-argmax and x*−1 = 6.2569 the p-zero, both gated at
+  4 d.p. against the committed values; p_sgn(x*−1) = 0 gated
+  independently): 1k's "same root" extended to the odd feature explicitly
+  — the paired object is the central continuum root in the sgn frame.
+- **S2 — the even side's intrinsic pin.** The even bridge family (every
+  even real primitive χ; same Hadamard derivation as 1c's odd bridge,
+  classical, declared) has exactly one pole-carrier — ζ. Gated at the
+  checkable core: harmonic growth ~ ln N; five sample nontrivial
+  characters (χ₈, χ₅, χ₁₂, χ₋₃, χ₋₄) Cauchy-converge; Dirichlet cited.
+  T1b's ζ reading is pinned, not chosen.
+- **S3 — the pin is parity-blocked.** The unique pole-carrier is even
+  (definitional); the even selection is overdetermined (pole =
+  conductor-1 = minimal; q = 1 even — 1c's clause anchored); the odd side
+  has no pole, no q ≤ 2 member (re-gated), minimum 3: any odd arithmetic
+  reading requires an extrinsic principle. **The act is located** — it is
+  the price of arithmetic reading on the parity with no intrinsic pin.
+- **S4 — T1b's ζ-choice discharged.** The displayed bridge carries the
+  pole terms −1/s − 1/(s−1) (anchored verbatim); 0.2976 at the central
+  root — more than half ln Γ(½) (gated; the first-draft gate compared
+  against p(20) ≈ 0.55 and failed — caught in the landing run and
+  replaced with the honest band-scale comparison before commit): no
+  pole-free partner supplies the identity; a latent "uncharged even
+  pairing" review charge is preempted.
+- **S5 — honest grading.** The act persists (Finding 6's exclusion and
+  the no-derived-address clause anchored); nothing obligates the odd
+  reading. Pairing-at-all decomposes: [object — identity] + [reading —
+  extrinsic if taken] + [partner — 1r]. **Open core: derive an extrinsic
+  odd principle from A1–A4, or establish the grammar never needs the odd
+  reading (the act as Door-4 bookkeeping only).**
+
+**Also caught in drafting:** an S3 placeholder initializer (trivially-true
+conjunct) removed before landing — the round-81 F7 class, self-applied.
+
+**Surfaces.** Paper: Theorem 1s after 1r; formulation T1s; footer census
+38→39 (`cascade_bridge_asymmetry.py`; set-exactness re-verified — 39
+body-cited + 4 °-marked). No marker edits: 1s supersedes no committed
+claim (the 1j/1c clauses remain true; the T1b discharge is a cross-link,
+not a correction). Verifier 5/0; validator clean on 12 files.
+
+**Trajectory: 1s landed → round 84 (hostile, fresh-context, same-model)
+spawned per protocol. Named attack vectors: is the "even-family" claim
+(bridge for every even real primitive χ) properly declared vs gated; the
+"pinned, not chosen" claim's strength (is the pole a selection principle
+of the same epistemic type as minimality — i.e., is (ii) an intrinsic pin
+or just another matching rule?); the S2 sample's sufficiency; the S4
+band-scale comparison's honesty; whether (i) adds content beyond 1k's
+gated same-root; the anchored-substring gates' fallibility (the F5
+lesson); quantifiers.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1024,6 +1024,47 @@ and the census the field). The round-57 phrase is superseded in exactly this sen
 **no universal over act-forms is claimed**. Three members and the seven-item count
 stand; no number changes; no closure; category (a).
 
+**Theorem 1s (pairing-at-all located: the parity-blocked pole pin;
+`cascade_bridge_asymmetry.py`).** 1r cornered the act's *partner*; the act's open core
+is **pairing-at-all** — why read the odd feature through an arithmetic partner in the
+first place. This theorem locates that question against committed structure. *(i) The
+paired object is no orphan.* The odd feature (p_sgn = 0 at s = 6.2569; Finding 6's
+excluded object; no Definition-6.1 address) is the **unique** root of the balance
+ψ(x/2) = ln π — trigamma > 0 gated on a grid, ψ strictly increasing (classical) — the
+same equation whose offset readings are the V-argmax (x* − 2 = 5.2569, the interior
+landmark d_V's continuum equation) and the p-zero (x* − 1 = 6.2569), 1k's committed
+"same root" here extended to the odd feature explicitly (both offsets gated at 4 d.p.
+against the committed values; p_sgn(x* − 1) = 0 gated independently). The object being
+paired is the framework's central continuum root seen in the sgn frame — an identity,
+not an act. *(ii) The even side has an intrinsic pin: the pole.* The even tower's
+bridge family — every even real primitive χ, by the same Hadamard derivation as 1c's
+odd bridge (classical, declared) — contains exactly one pole-carrier: ζ, the trivial
+character. Gated at the checkable core: the harmonic partial sum grows as ln N (the
+pole), while sample nontrivial characters even and odd (χ₈, χ₅, χ₁₂; χ₋₃, χ₋₄)
+Cauchy-converge (tails < 10⁻⁴; classical closure cited — Dirichlet, L(1, χ) finite
+for every nontrivial χ). The pin selects conductor 1: **T1b's ζ reading is pinned,
+not chosen.** *(iii) The pin is parity-blocked; the even selection is overdetermined,
+the odd is not.* The unique pole-carrier is the trivial character — **even**
+(definitional). On the even side, pole-carrier = conductor-1 = minimal conductor
+(q = 1 exists and is even — 1c's committed clause, anchored). On the odd side: no
+pole (all odd completed L entire — classical; 1c commits it for χ₋₃), no q = 1 or 2
+member (re-gated), minimal conductor 3. **Any arithmetic reading of the odd tower
+therefore requires an extrinsic selection principle: the act exists exactly because
+the intrinsic pin is parity-blocked.** *(iv) T1b's ζ-choice discharged.* T1b's
+displayed bridge carries the pole terms −1/s − 1/(s−1) (anchored verbatim); at the
+central root they total 0.2976 — more than half the first threshold ln Γ(½) = 0.5724
+(gated): first-order on the band scale, not a correction. No pole-free partner
+supplies the displayed identity, so the even-side "choice" of ζ is the pole pin in
+action — a latent "uncharged even pairing" review charge is preempted. *(v) Honest
+grading.* **The act persists.** The grammar still does not read the odd feature
+(Finding 6's exclusion and the no-derived-address clause both anchored); nothing
+obligates an arithmetic reading of the odd tower. What 1s changes: pairing-at-all
+decomposes as [the object — an identity, (i)] + [the reading — obligatorily
+extrinsic *if taken at all*, (ii)–(iii)] + [the partner — 1r's three anchors]. **The
+open core narrows to: derive an extrinsic odd selection principle from A1–A4, or
+establish that the grammar never needs the odd reading** (the act as Door-4
+bookkeeping only). No number changes; no closure; category (a).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -1554,4 +1595,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1r: the **38 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1s: the **39 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*

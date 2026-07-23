@@ -415,6 +415,30 @@ character), the other two equivalent in output and weaker only in what they
 name (round-81 F2/F3). Three
 members and the seven-item count stand. No closure; category (a).
 
+**T1s (pairing-at-all located; `cascade_bridge_asymmetry.py`, five gates).**
+The act's open core after T1r, located. (i) The odd feature is the unique
+root of ψ(x/2) = ln π (trigamma > 0 gated; offsets x*−2 = 5.2569 the
+V-argmax, x*−1 = 6.2569 the p-zero — both gated at 4 d.p.; p_sgn(x*−1) = 0
+gated): the paired object is the central continuum root in the sgn frame —
+an identity, not an act. (ii) The even tower's bridge family (every even
+real primitive χ — same Hadamard derivation as the odd bridge, classical)
+has exactly one pole-carrier, ζ (harmonic sum grows as ln N, gated; sample
+even and odd character sums Cauchy-converge, gated; Dirichlet cited): T1b's
+ζ reading is **pinned by the pole, not chosen**. (iii) The pin is
+**parity-blocked** — the unique pole-carrier is even (definitional); the
+even selection is overdetermined (pole = conductor-1 = minimal, q = 1
+even), the odd side has no pole, no q ≤ 2 member (re-gated), minimum 3:
+any odd arithmetic reading requires an **extrinsic** principle — the act
+is located there. (iv) T1b's display carries the pole terms −1/s − 1/(s−1)
+(anchored; 0.2976 at the central root, more than half ln Γ(½), gated) — no
+pole-free partner supplies it; a latent "uncharged even pairing" charge is
+preempted. (v) **The act persists**: the grammar does not read the odd
+feature (Finding 6's exclusion anchored); nothing obligates the odd
+reading. Pairing-at-all = [object: identity] + [reading: extrinsic if
+taken] + [partner: T1r]. Open core: derive an extrinsic odd principle from
+A1–A4, or establish the grammar never needs the odd reading. No closure;
+category (a).
+
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's
 period), Γ(½) per Gaussian unit, 1 per Berezin unit, 1/(χΓ(½)) per graded crossing; and the
