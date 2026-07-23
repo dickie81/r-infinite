@@ -1731,3 +1731,24 @@ is a dichotomy needing no ordering while conductor 3 is a parameter value
 the even reading pinned, the odd reading obligatorily extrinsic, the act
 located and persisting; the open core: derive an extrinsic odd principle
 from A1–A4, or establish the grammar never needs the odd reading.**
+
+# Round 85: convergence test on the round-84 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 2 cosmetics, swept); Theorem 1s certified stable; the pairing-at-all arc closes
+
+Independent recomputation throughout: the negative-branch roots exact at
+4 d.p.; trigamma positive on each branch (the proves-too-much clause
+verified pointwise); the replacement p_sgn gate both honest and
+discriminating (passes at 6.2569, fails at 6.26); strike recitals checked
+character-wise; residual greps clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F85-c1 (cosmetic) — the F84-4 adverb fix missed the verifier docstring/print | **Accepted; swept in the record commit** (verifier re-run 5/0) | verifier |
+| F85-c2 (cosmetic) — the F84-1 strike recital dropped the bold on "unique" | **Accepted; restored** with the restoration noted | paper |
+
+**Trajectory: 1s landed → 84 0M+2m+2c (swept) → 85 CONVERGED 0+0+2c
+(swept). Theorem 1s stable: the paired object identified (the central
+root, unique on x > 0, in the sgn frame); the even reading pinned by the
+pole; the pin parity-blocked; the act located and persisting. Open core:
+derive an extrinsic odd principle from A1–A4, or establish the grammar
+never needs the odd reading. Next hostile round on the next substantive
+paper change.**

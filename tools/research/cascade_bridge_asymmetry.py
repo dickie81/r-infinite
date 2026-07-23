@@ -49,8 +49,9 @@ question against committed structure:
      conductor-1 = minimal conductor (q = 1 exists and is even
      -- 1c's committed clause).  On the odd side: no pole (all
      odd completed L entire -- classical; 1c commits it for
-     chi_-3), no conductor-1 or conductor-2 member (re-gated),
-     minimal conductor 3.  ANY arithmetic reading of the odd
+     chi_-3), no conductor-1 or conductor-2 member (q = 2 re-gated;
+     q = 1 by the anchored evenness clause -- round-85 c1 scoped
+     the adverb), minimal conductor 3.  ANY arithmetic reading of the odd
      tower therefore requires an EXTRINSIC selection principle:
      the act exists exactly because the intrinsic pin is
      parity-blocked.  This LOCATES the act.
@@ -177,7 +178,8 @@ def main():
     print("   the unique pole-carrier is the trivial character -- EVEN")
     print("   (definitional); even side: pole = conductor-1 = minimal")
     print("   conductor (q = 1, even -- 1c's clause anchored); odd side:")
-    print("   no pole, no q = 1 or 2 member (re-gated), minimum 3.  Any")
+    print("   no pole, no q = 1 or 2 member (q = 2 re-gated; q = 1 by the")
+    print("   anchored evenness clause), minimum 3.  Any")
     print("   odd reading requires an extrinsic principle: the act is")
     print("   LOCATED at the parity-blocked pin   "
           + ("PASS" if ok3 else "FAIL"))

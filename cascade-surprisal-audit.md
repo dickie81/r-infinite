@@ -7933,6 +7933,49 @@ committed); validator clean. Trajectory: 1s landed → 84 NOT CONVERGED
 0M+2m+2c → sweep this commit → round 85 (convergence test) spawned per
 protocol.**
 
+## Addendum 160: convergence round 85 on commit 034f0cd — **CONVERGED** (0 majors, 0 minors, 2 cosmetics, swept); Theorem 1s certified stable; the pairing-at-all arc closes
+
+Round 85 verified the round-84 sweep in full with independent
+recomputation: the negative roots (−0.76328976, −2.90649812, −4.99128410
+— the annotation's 4-d.p. values exact); trigamma positive on each
+negative branch (the proves-too-much clause verified pointwise); the new
+p_sgn gate honest AND discriminating (p_sgn(6.2569) = −3.7×10⁻⁶ passes,
+p_sgn(6.26) = +2.4×10⁻⁴ fails — the brief's criterion met); "the tower
+lives on x > 0" fair against the committed kernel range d = 1–300; both
+strike recitals checked character-wise (one dropped bold found — c2);
+residual greps clean; footer census 39 + 4° exact; validator clean;
+determinism byte-identical.
+
+The two cosmetics, lead-verified and swept in this record commit
+(rounds 78/80 precedent):
+
+- **c1:** the F84-4 adverb-scope fix had reached the two paper surfaces
+  but not the verifier's docstring and S3 print (the sweep-propagation
+  rule reaches files being edited for sibling findings). Both now read
+  "q = 2 re-gated; q = 1 by the anchored evenness clause." Verifier
+  re-run: 5/0.
+- **c2:** the F84-1 strike recital dropped the bold markers around
+  "unique" — word-exact but not character-exact, against the document's
+  precedent of preserving emphasis inside strikes. Restored, with the
+  restoration noted in the annotation.
+
+**Verdict: CONVERGED. Theorem 1s is stable, and the "keep digging"
+commission closes at its honest maximum:** the paired object is the
+framework's central continuum root (unique on x > 0) seen in the sgn
+frame; the even tower's reading is pinned by the pole — an intrinsic
+dichotomy, not an ordering — and T1b's ζ-choice is discharged by the
+displayed pole terms; the pin is parity-blocked, so any odd arithmetic
+reading is obligatorily extrinsic: **the act is located**. The act
+persists; the partner is 1r's; and the open core is now exactly: derive
+an extrinsic odd selection principle from A1–A4, or establish that the
+grammar never needs the odd reading.
+
+**Trajectory: 1s landed → 84 0M+2m+2c (swept) → 85 CONVERGED 0+0+2c
+(swept). Standing open routes: the odd extrinsic principle / grammar-need
+question (1s); the regularity/coherence given (1p/1q); the layer-2 soft
+inputs; part5:532 (editorial). Next hostile round on the next substantive
+paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

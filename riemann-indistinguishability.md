@@ -1030,8 +1030,9 @@ is **pairing-at-all** — why read the odd feature through an arithmetic partner
 first place. This theorem locates that question against committed structure. *(i) The
 paired object is no orphan.* The odd feature (p_sgn = 0 at s = 6.2569; Finding 6's
 excluded object; no Definition-6.1 address) is the **unique root on x > 0** of the
-balance ψ(x/2) = ln π ~~the unique root of the balance ψ(x/2) = ln π — trigamma > 0
-gated on a grid, ψ strictly increasing (classical)~~ **[struck round 84 (F1): false
+balance ψ(x/2) = ln π ~~the **unique** root of the balance ψ(x/2) = ln π — trigamma > 0
+gated on a grid, ψ strictly increasing (classical)~~ **[struck round 84 (F1; the
+recital's dropped bold restored round 85, c2): false
 without the domain — ψ's branches between its poles supply a root in every negative
 interval (e.g. x = −0.7633, −2.9065), and trigamma > 0 alone proves too much, holding
 on each branch; on x > 0, where the tower lives, ψ(x/2) is strictly increasing
