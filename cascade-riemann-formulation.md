@@ -219,6 +219,8 @@ anatomy read back through the census — invisibility = the μ₄ disc character
 entailed by T11), the μ₆ requirement determines χ₋₃ with minimality entailed;
 ε-support {3, ∞} (T1i). Adjudicated: the member is re-motivated, not reduced —
 three members and the seven-item count stand. No closure; category (a).
+*(Net-state, T1r: χ₋₄ fails three committed anchors under act-forms strictly
+weaker than the colour gloss; the act persists.)*
 
 **T1k (the lattice selection; `cascade_lattice_selection.py`, seven gates;
 round-60 F1 correction applied).** Under the site-E canonical pairing
@@ -380,6 +382,29 @@ is **the same given in a second face** — motivated (the ground object's
 defining symmetry; what "invariant" means) but **not an axiom-consequence** —
 and the open question is unchanged: derive the given, either face, from
 A1–A4. No number changes; no closure; category (a).
+
+**T1r (the pairing-act's anatomy; `cascade_pairing_act.py`, five gates).** The
+act decomposed, the live alternative excluded thrice on committed anchors.
+The partner family (every odd real primitive χ) is classically the Kronecker
+characters of negative fundamental discs — the census's own space (parity
+gated on all 3043; the symbol routine cross-checked against a library
+Jacobi). Act-form W₁ (1j's committed "dyadic shadow = the invisible unit
+direction", promoted; no field, no μ₆, no T11 named): the slice is cls(−3)'s
+class, 1014 of 3043 (iff χ_d(2) = −1, 1e(iv)'s inert clock prime; −11 in the
+slice, no field pinned — round-57 F2 kept), and **χ₋₄ is excluded by 1h's
+kernel alone** (cls(−4) = 7 ∉ H). Act-form W₂ (conductor among 1d's carrying
+primes {2, 3}): q = 2 has no primitive character, q = 3 exactly one, odd —
+**W₂ pins χ₋₃ outright** ({d : |d| ∈ {2,3}} = {−3}, gated); χ₋₄ excluded
+again. And the committed 1c constant L(1, χ₋₃) = π/(3√3) **is Dirichlet's
+2πh/(w√|d|) at (1, 6, 3)** — h(−3) = 1 by reduced-form count, w = 6 the
+census's unit count, numerics re-gated (μ₄ cross-check π/4, Leibniz): the μ₆
+datum sits on both sides of the pairing. Role asymmetry re-gated:
+ker(·,−1)₂ = H — the candidate partner's character is the committed filter's
+*instrument*, cls(−3) the invisible *datum*. **The act persists** — no
+act-form is entailed, pairing-at-all (the odd feature's missing address) is
+untouched, no universal over act-forms claimed; the round-57 "only the order
+or the pairing-act excludes" is superseded by the triple exclusion. Three
+members and the seven-item count stand. No closure; category (a).
 
 **T2 (Solvability — PROVED at the papers' Tier-2 grade).** The A1 action is Gaussian, hence
 second-quantizable in closed form; its measure normalisations are √(2πα) per mode (Tate's

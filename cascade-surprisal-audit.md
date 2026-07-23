@@ -7616,6 +7616,79 @@ from A1–A4. Trajectory: 1q landed → 79 3M+3m+2c (swept) → 80 CONVERGED
 axioms; the 1j pairing-act; the layer-2 soft inputs; part5:532 (editorial).
 Next hostile round on the next substantive paper change.**
 
+## Addendum 154: Theorem 1r — the pairing-act's anatomy (`cascade_pairing_act.py`, 5/0); the live alternative excluded thrice; the act persists
+
+**Commission.** "the 1j pairing-act pls" — attack the standing given
+directly. The round-57 adjudication (Addendum 121) left the third member
+conditional on the act — pairing the odd feature (no derived address) with
+the colour field's character — with **χ₋₄ "a live alternative partner that
+only the order or the pairing-act excludes."** This round decomposes the act
+and tests the alternative against committed structure under act-forms
+strictly weaker than the colour gloss. Lead-derived and machine-verified
+before landing (Check 4 greps covered the full repo including tools/ —
+the round-75 lesson; the disc-slice machinery, the carrying-prime selector,
+and the Dirichlet reading of π/(3√3) are all novel).
+
+**The structure (category (a); Checks 7/8 clean).**
+
+- **P1 — the target space is the census space.** Every odd real primitive χ
+  is a Kronecker χ_d, d < 0 fundamental (classical, cited); census side
+  gated: all 3043 discs to 10⁴ give χ_d(−1) = −1. The 1c small-conductor
+  clauses re-gated (q = 2: no primitive character; q = 3: exactly one, odd).
+  **Instrument note:** the parity gate caught a real reciprocity-order bug
+  in the Kronecker routine's first draft (the Jacobi loop reduced before
+  applying the reciprocity sign — 1014 discs misclassified); fixed, then
+  cross-checked against a library Jacobi on 500 random odd-modulus cases.
+- **P2 — the dyadic route (act-form W₁).** 1j's committed sentence "the
+  selected field's dyadic shadow is the invisible unit direction" promoted
+  to an act-form naming no field, no μ₆, no T11: the slice is cls(−3)'s
+  class — 1014 of 3043 (d ≡ 5 mod 8 ⟺ χ_d(2) = −1, 1e(iv)'s inert clock
+  prime, gated as the slice's iff on all odd discs); −11 in the slice and
+  |slice| > 1 gated (class-level, no field pinned — round-57 F2 honored);
+  **χ₋₄ excluded by 1h's kernel alone** (cls(−4) = 7 ∉ H; χ₋₈ cls 14 ∉ H).
+- **P3 — the conductor route (act-form W₂).** The partner's conductor among
+  1d's committed carrying primes {2, 3}: {d : |d| ∈ {2,3}} = {−3} gated —
+  with P1's facts, **W₂ pins χ₋₃ outright in the whole family**; χ₋₄
+  excluded again.
+- **P4 — the bridge's constant already carries μ₆.** The committed 1c
+  constant L(1, χ₋₃) = π/(3√3) is Dirichlet's 2πh/(w√|d|) at (1, 6, 3):
+  h(−3) = 1 by reduced-form count (h(−23) = 3 sanity), w = 6 the census's
+  unit count, identity symbolic, L(1) re-gated numerically by period-3
+  block summation < 10⁻⁷ (μ₄ cross-check: L(1, χ₋₄) = π/4, Leibniz, gated).
+  **The torsion count T11's μ₆ requirement matches is the denominator of
+  the odd bridge's own committed constant** — the μ₆ datum sits on both
+  sides of the pairing.
+- **P5 — the triple exclusion and the roles.** χ₋₄ fails all three routes
+  jointly (gated); the role asymmetry re-gated (ker(·,−1)₂ = H exactly —
+  the candidate partner's character is the committed filter's *instrument*,
+  cls(−3) the invisible *datum*; the (·,−4)₂ = (·,−1)₂ identity declared an
+  exhibit, −4 being −1 times a square).
+
+**Grading (honest; the round-57 typing applied in advance).** **The act
+persists.** None of W₁, W₂, or the colour gloss is entailed by the axioms;
+each is a matching principle of the round-57 type; pairing-at-all is
+untouched. What changes: the live alternative fails three independent
+committed anchors under strictly weaker act-forms, and the routes'
+outputs are consistent (W₁ the class containing −3; W₂ and the census the
+field) — the round-57 "only the order or the pairing-act excludes" is
+superseded in exactly that sense, with **no universal over act-forms
+claimed**. Three members and the seven-item residue count stand; no number
+changes; no closure.
+
+**Surfaces.** Paper: Theorem 1r after 1q; net-state markers at 1j's tail
+(paper and formulation); formulation T1r block; footer census 37→38
+(`cascade_pairing_act.py` listed; set-exactness re-verified — 38 body-cited
++ 4 °-marked). Verifiers: torsion_selection 6/0, pairing_act 5/0,
+mirror_coherence 5/0, gamma_regularity 5/0; validator clean on 12 files.
+
+**Trajectory: 1r landed → round 81 (hostile, fresh-context, same-model)
+spawned per protocol. Named attack vectors: is W₁'s promotion from
+description to act-form honestly graded; the "strictly weaker" claim (does
+W₁/W₂ smuggle the colour gloss); the Kronecker routine's correctness (the
+caught bug's disclosure); the class-number counter; the carrying-prime
+selector's typing; whether P4's Dirichlet reading is novel (Check 4); the
+census counts 1014/3043.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

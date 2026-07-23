@@ -579,6 +579,12 @@ reduction. The **seven-item residue count stands**, as guaranteed either way. *H
 closure, no data, no RH/GRH, no semiclassics; the grammar-reading question
 stays open — narrowed again (the colour entry's dyadic shadow IS the invisible
 unit coordinate: the 1e(iv) identification relocated, not a new forcing).
+*(Net-state, Theorem 1r: the act's anatomy — the live alternative χ₋₄ fails
+three committed anchors under act-forms strictly weaker than the colour gloss
+(the clock kernel; the carrying conductors; the torsion census), and the
+bridge's own committed constant π/(3√3) carries w = 6 by Dirichlet's formula;
+the F1 recital's "only the order or the pairing-act excludes" is superseded in
+that sense. The act itself persists; pairing-at-all is untouched.)*
 
 **Theorem 1k (the lattice selection: the feature→layer map re-read;
 `cascade_lattice_selection.py`).** *(i) The lattice facts.* Under the canonical
@@ -944,6 +950,55 @@ question is unchanged: derive the given — either face — from A1–A4.** Sign
 ≈ −1.109×10¹²²; the mirror weights carry Γ-reflection signs); coherence is
 non-degeneracy (≠ 0, ∞, indeterminate), **not** positivity. No number changes; no
 closure; category (a).
+
+**Theorem 1r (the pairing-act's anatomy: three committed-anchor routes, the live
+alternative excluded thrice; `cascade_pairing_act.py`).** The round-57 adjudication
+left the class's third member conditional on the pairing-act, with χ₋₄ *"a live
+alternative partner that only the order or the pairing-act excludes"* (the F1
+annotation's recital, 1j). This theorem decomposes the act and tests the alternative
+against committed structure under act-forms **strictly weaker** than the colour gloss.
+*(i) The target space is the census space.* The odd bridge's partner family — every
+odd real primitive χ (1c) — is classically the Kronecker characters χ_d of negative
+fundamental discriminants (real primitive ⟺ fundamental-disc Kronecker; parity = the
+disc's sign; cited), gated on the census side: all 3043 discs to 10⁴ give
+χ_d(−1) = −1 (the symbol routine independently cross-checked against a library Jacobi
+on 500 random odd-modulus cases — and the parity gate caught a real reciprocity-order
+bug in the routine's first draft before landing). The act therefore selects in exactly
+the space the torsion census (1j) reads. *(ii) The dyadic route.* 1j's committed
+description of the outcome — *"the selected field's dyadic shadow is the invisible
+unit direction"* — promoted to an act-form **W₁**: the partner's disc class lies
+nontrivially in H ∩ units = {1, cls(−3)}. W₁ names no field, no μ₆, no T11. Under W₁
+the candidate slice is cls(−3)'s class — **1014 of 3043 discs** (d ≡ 5 mod 8;
+equivalently χ_d(2) = −1, the clock prime inert — 1e(iv)'s colour-at-2 fact, gated as
+the slice's iff on all odd discs), the class-level caveat honored (−11 in the slice;
+**no field pinned**, gated |slice| > 1 — round-57 F2's point, kept) — and **χ₋₄ is
+excluded by 1h's kernel alone** (cls(−4) = 7 ∉ H; χ₋₈ too, cls = 14). *(iii) The
+conductor route.* 1d's committed adelic fact — the finite potential carried ~94–100%
+jointly by p = 2 and p = 3 — gives act-form **W₂**: the partner's conductor is a
+carrying prime. Conductor 2 admits no primitive character and conductor 3 exactly
+one, odd (1c's committed clauses, re-gated by enumeration): **W₂ pins χ₋₃ outright in
+the whole family** ({d : |d| ∈ {2, 3}} = {−3}, gated), and χ₋₄ is excluded again
+(conductor 4 not a carrying prime). *(iv) The bridge's constant already carries μ₆.*
+The committed 1c constant L(1, χ₋₃) = π/(3√3) **is Dirichlet's class-number formula**
+2πh/(w√|d|) at (h, w, |d|) = (1, 6, 3): h(−3) = 1 gated by reduced-form count
+(h(−23) = 3 the counter's sanity case), w = 6 the census's unit count, the identity
+symbolic, the numeric L(1) re-gated by period-3 block summation to < 10⁻⁷ (μ₄
+cross-check: L(1, χ₋₄) = 2π/(4·2) = π/4, Leibniz, gated): **the torsion count 6 that
+T11's μ₆ requirement matches is already the denominator of the odd bridge's own
+committed constant** — the μ₆ datum sits on both sides of the pairing. *(v) Honest
+grading.* **The act persists.** None of W₁, W₂, or the colour gloss is entailed by
+the axioms; each is a matching principle of the round-57 type (why the invisible
+direction; why a carrying conductor; why μ₆), and pairing-at-all — the odd feature's
+missing address (Definition 6.1) — is untouched. What changes is the live
+alternative's status: χ₋₄ fails **three independent committed anchors** under
+act-forms strictly weaker than the colour gloss (the clock kernel; the carrying
+conductors; the torsion census — the triple gated jointly, with the role asymmetry
+re-gated: ker(·,−1)₂ = H exactly, so the candidate partner's character is the
+committed filter's *instrument* while cls(−3) is the invisible *datum* inside it),
+and the three routes' outputs are consistent (W₁ the class containing −3; W₂ and the
+census the field). The round-57 phrase is superseded in exactly this sense — **no
+universal over act-forms is claimed**. Three members and the seven-item count stand;
+no number changes; no closure; category (a).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1475,4 +1530,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1q: the **37 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1r: the **38 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
