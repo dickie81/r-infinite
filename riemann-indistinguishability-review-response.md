@@ -2081,3 +2081,19 @@ T8's root–unit identity (μ₆ = A₂, N(N−1) = 6 ⟹ N = 3); the
 registered finite-places negative stands verbatim; the archimedean
 residue narrows from {count, layer} to {layer}. Next hostile round on
 the next substantive paper change.**
+
+# Round 104: hostile review of Theorem 1x (the Door-4 status probe, commit c39d73c) — NOT CONVERGED (2 MAJORs, 1 minor, 1 cosmetic); the substance held on all four claims; round 105 follows
+
+The falsifier's unfired verdict, the zero-for-numbers refinement, the
+axiom-block geography, and the member's unchanged status all survived
+attack. The defects were instrumentation-vs-prose fidelity.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F104-1 (MAJOR) — "seven pre-1x sites" false under the temporal reading (nine predate 1x; the gate truncated positionally, missing two sites later in the file) | **Accepted; strike-and-annotate with nine**; the gate now censuses outside-1x's-span == 9; classification attributed to direct read | paper + verifier |
+| F104-2 (MAJOR) — D1 case-sensitive/phrase-bound while the docstring claimed full operationalization of the sharpened falsifier; a capitalized injection evaded it | **Accepted; D1 case-insensitive** (the capital-G injection now exits 1); docstring scoped to the phrase family; 1x(ii)(a)'s equivalence reworded | verifier + paper |
+| F104-3 (minor) — "zero L-side tokens" scoped narrower than 1t's committed census list; two attributional χ₋₃ tokens in the chain undisclosed | **Accepted; disclosure added + gated** (16 gates) | paper + verifier |
+| F104-4 (cosmetic) — A2-row recital truncated | **Accepted; quote completed** | paper |
+
+**Trajectory: 1x landed → 104 NOT CONVERGED 2M+1m+1c (swept) → round
+105 (convergence test) next.**

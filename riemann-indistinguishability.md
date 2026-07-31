@@ -1380,11 +1380,18 @@ entry through the odd bridge's L-side re-opens the member's derivational weight.
 Since that census, the record gained a theorem that consumes the act — 1w produces
 N_c = 3 given it. The probe adjudicates the status against the post-1w record.
 *(ii) The falsifier, checked against 1w: unfired on both conjuncts.* **(a) No grammar
-entry is rerouted.** The cascade papers consume the act nowhere — *"given the act"* /
-*"given the pairing-act"* has **zero occurrences across all twelve tex sources**
-(gated); N_c's grammar carrier remains the papers-side Radon–Hurwitz entry, which the
+entry is rerouted.** The cascade papers consume the act nowhere — gated at the
+censused phrase family: *"given the act"* / *"given the pairing-act"*,
+case-insensitive, has **zero occurrences across all twelve tex sources**; the
+phrase-zero is the gate's operationalization, and the claim beyond the phrase family
+is verified by direct reading (round-104 F2: the first gate was case-sensitive and
+its docstring sold it as fully operationalizing the sharpened falsifier — a
+capitalized injection evaded it; the gate is now case-insensitive and the docstring
+scoped to the phrase family); N_c's grammar carrier remains the papers-side
+Radon–Hurwitz entry, which the
 axiom block itself lists as a local constant — A2's row *"N_c = 3 = 2^(v₂(12))−1 |
-Radon–Hurwitz count | a 2-adic invariant"* (anchored) — and 1w's entailment is
+Radon–Hurwitz count | a 2-adic invariant (value depends only on v₂)"* (anchored;
+quote completed round 104) — and 1w's entailment is
 redundant for the number ("no data consumed, no number changes anywhere," 1w's own
 gated tail). **(b) The route is not L-side.** 1w's forcing chain ((ii)–(iii)) consumes
 the act, the field, the ring, and μ₆ — ring-side objects, the side 1t(iv) classified
@@ -1392,14 +1399,24 @@ as independently committed and already consumed by the mass arc (1m precedent); 
 chain's text carries **zero L-side tokens** (no L-values, no zeros, no prime sum, no
 bridge conductor term — gated over the span), and "conductor" appears in 1w exactly
 twice, both outside the chain: (i)'s scoping note naming the **not**-consumed W₂
-alternative, and (v)'s disclosed exhibit (location-gated). *(iii) The zero-weight
+alternative, and (v)'s disclosed exhibit (location-gated). *Disclosure (round-104
+F3):* 1t's own committed census list is headed by χ₋₃, and the chain span carries
+two χ₋₃ tokens (gated) — both **attributional**, naming how the act fixes the field,
+not L-data consumption; the operative adjudication is (iii)'s strike-test, and the
+token-level headline above is scoped to the four named L-data classes. *(iii) The zero-weight
 grading, refined — superseded-true.* 1t(v)'s *"an identification consumed by nothing
 in the chain"* was a census over the record through 1t and remains true of that scope
 (its own sentence: *"a census over the record, **not a universal over future
 derivations**"*); as standing state it refines: the act is now consumed by **three
 review-side chains** — 1c(ii)/1j's minimality entailment, 1r's partner determination,
-1w's count entailment (censused case-insensitively: seven pre-1x consumption sites in
-this paper, five in the formulation, counted and classified, gated) — while its weight **for numbers**
+1w's count entailment (censused case-insensitively: ~~seven pre-1x consumption sites
+in this paper~~ [round-104 F1: the first draft's gate truncated the census at this
+theorem's file position, missing two temporally prior sites that sit later in the
+file — the Door-3 remark's 1w marker and the Finding-6 structural update — so the
+committed count was false under the census's natural, temporal reading] **nine**
+consumption sites in this paper outside this theorem's own span, five in the
+formulation — counts gated; the three-chain classification is by direct read, and
+all nine sites classify to the three chains, none carrying a number) — while its weight **for numbers**
 remains zero: strike every consumption of the act and every committed number stands
 (N_c via Adams and A2's 2-adic row; χ₋₃'s minimal-conductor-odd-primitive status via
 1c(ii)'s unconditional theorem; the bridge identities are cross-checks). Net-state

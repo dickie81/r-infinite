@@ -9089,8 +9089,10 @@ derivational weight." The adjudication:
   census statement remains true of its scope ("not a universal over
   future derivations," its own sentence); the standing state: the
   act is consumed by three review-side chains (1c(ii)/1j minimality,
-  1r partner, 1w count — censused case-insensitively: 7 pre-1x
-  sites in the paper, 5 in the formulation, gated) while its weight
+  1r partner, 1w count — censused case-insensitively: 9 sites in
+  the paper outside 1x's span, 5 in the formulation, gated
+  [corrected on notice, round 104 F1: originally written 7, from a
+  positionally truncated gate]) while its weight
   FOR NUMBERS remains zero: strike every consumption and every
   committed number stands (N_c via Adams/A2; χ₋₃'s minimality via
   1c(ii)'s unconditional theorem). Markers at 1t(v), the 1s tail,
@@ -9125,6 +9127,52 @@ cascade_door4_status.py, D1–D5, 15 gates, 15/0; two sabotages exit 1
 counted (census 45 body = 44 + constants). No data consumed; no
 number changes anywhere. Trajectory: 1x landed → round 104 (hostile
 review, per protocol) spawned on this commit.
+
+## Addendum 185: hostile review round 104 on commit c39d73c (Theorem 1x) — NOT CONVERGED (2 MAJORs, 1 minor, 1 cosmetic); the probe's substance held on all four claims; the defects were instrumentation-vs-prose fidelity; all findings lead-verified and swept
+
+Round 104 held the probe's substance in full: the falsifier genuinely
+unfired (conjunct (b) robust under every reading of "grammar entry");
+the zero-for-numbers refinement correct; the axiom-block geography
+exactly as stated (its universal "all χ tokens are the torsion
+constant" independently verified); the member's status correctly
+unchanged; the three markers accurate with no missed zero-consumption
+surface; Checks 7/8 clean. The findings:
+
+- **F1 (MAJOR):** "seven pre-1x consumption sites" was false under
+  the census's natural, temporal reading: nine sites predate 1x (the
+  gate truncated positionally at 1x's file offset, missing the
+  Door-3 remark's 1w marker and the Finding-6 update, which sit
+  later in the file). Lead-verified: 9 occurrences at the parent
+  commit; 9 outside 1x's span live. **Swept:** strike-and-annotate
+  in 1x(iii) with the corrected count nine; the gate now censuses
+  whole-file-outside-1x's-span == 9 (and 5 formulation); the
+  classification honestly attributed to direct read.
+- **F2 (MAJOR):** D1 was case-sensitive and phrase-bound while its
+  docstring claimed "if a cascade paper ever consumes the act, this
+  instrument fails" — a capitalized injection evaded it (exit 0,
+  reproduced by the reviewer and the lead). **Swept:** D1 now
+  case-insensitive (the capital-G injection exits 1, re-run); the
+  docstring scoped to the censused phrase family with the
+  wider-than-any-phrase-gate status of the sharpened falsifier
+  stated; 1x(ii)(a)'s em-dash equivalence reworded (the phrase-zero
+  is the gate's operationalization; the claim beyond it verified by
+  direct reading).
+- **F3 (minor):** the "zero L-side tokens" headline was scoped
+  narrower than 1t's committed census list (headed by χ₋₃), and the
+  chain span carries two attributional χ₋₃ tokens undisclosed.
+  **Swept:** the disclosure added (attributional, not L-data
+  consumption; the strike-test is the operative adjudication; the
+  headline scoped to the four named L-data classes); a D2 gate added
+  (chain χ₋₃ == 2 + the disclosure anchored) — 15 → 16 gates.
+- **F4 (cosmetic):** the A2-row recital truncated without ellipsis.
+  **Swept:** quote completed ("(value depends only on v₂)").
+
+**Battery after sweep:** door4_status 16/0 (the capital-G sabotage
+now exits 1); the other 13 instruments green; validator clean on 12
+files; footer census unchanged (45 body = 44 counted + constants).
+A184's count corrected on notice. Trajectory: 1x landed → 104 NOT
+CONVERGED 2M+1m+1c (swept this commit) → round 105 (convergence
+test) next.
 
 ## Caveats
 

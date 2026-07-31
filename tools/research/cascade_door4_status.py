@@ -26,10 +26,11 @@ Gates:
         bridge conductor term); "conductor" appears in 1w exactly
         twice, located outside the chain ((i) scoping note, (v)
         exhibit).
-  D3 -- consumers census: the pre-1x "given the (pairing-)act" sites
-        counted exactly, case-insensitively (7 paper, 5 formulation
-        at commit) and all review-side (D1 gates the tex zero); the
-        exhibit |mu(R)| = 2 recomputed.
+  D3 -- consumers census: the "given the (pairing-)act" sites
+        outside 1x's own span counted exactly, case-insensitively
+        (9 paper, 5 formulation; round-104 F1 corrected the first
+        draft's positionally truncated 7) and all review-side (D1
+        gates the tex zero); the exhibit |mu(R)| = 2 recomputed.
   D4 -- the axiom block's odd-reading census, per-token adjudicated:
         chi_{-3}, "character" (word), " odd", "conductor", "pairing",
         "Dirichlet", "L(s" all zero; A1's character-substrings are
@@ -41,12 +42,18 @@ Gates:
         1x's key sentences (unfired-on-both-conjuncts, ring-side-
         native/L-side-extrinsic, the sharpened falsifier).
 
-No data consumed; no number changes anywhere. Sabotage record (two
-runs, scratchpad copies, at commit time): (a) a one-token
-perturbation of the 1t(v) marker anchor flips D5, exit 1; (b) an
-act-consumption phrase injected into a tex copy flips D1, exit 1 --
-the second operationalizes the sharpened papers-side falsifier: if
-a cascade paper ever consumes the act, this instrument fails.
+No data consumed; no number changes anywhere. Sabotage record: at
+commit time, two runs on scratchpad copies -- (a) a one-token
+perturbation of the 1t(v) marker anchor flips D5, exit 1; (b) a
+lowercase act-consumption phrase injected into a tex copy flips D1,
+exit 1. Round-104 F2 found the first D1 case-sensitive (a
+capitalized injection evaded it, exit 0, reproduced by the
+reviewer) and its self-description overclaimed: D1 is now
+case-insensitive, and its scope is the censused phrase family
+("given the (pairing-)act", any case) -- the sharpened papers-side
+falsifier of 1x(v) is wider than any phrase gate, and consumption
+worded outside the family is hostile-round territory, not this
+instrument's.
 """
 import glob
 import os
@@ -95,7 +102,7 @@ print("D1 -- falsifier conjunct (a): no grammar entry rerouted")
 tex_hits = {}
 for f in sorted(glob.glob(os.path.join(ROOT, "src", "cascade-series-*.tex"))):
     t = open(f, encoding="utf-8").read()
-    n = t.count("given the act") + t.count("given the pairing-act")
+    n = len(re.findall(r"(?i)given the (?:pairing-)?act", t))
     if n:
         tex_hits[os.path.basename(f)] = n
 n_tex = len(glob.glob(os.path.join(ROOT, "src", "cascade-series-*.tex")))
@@ -120,12 +127,17 @@ gate("'conductor' in 1w exactly twice, both outside the chain ((i) + (v))",
      and norm(span_v).count("conductor") == 1 and chain.count("conductor") == 0,
      f"total {n_cond}; (i): {norm(span_i).count('conductor')}, "
      f"(v): {norm(span_v).count('conductor')}, chain: {chain.count('conductor')}")
+t1x = paper[i_1x:i_d3]
+gate("chain's two chi_-3 tokens disclosed as attributional (round-104 F3)",
+     chain.count("χ₋₃") == 2 and "both **attributional**" in norm(t1x),
+     f"chain chi_-3 count {chain.count('χ₋₃')}")
 
 print("D3 -- consumers census (review-side only)")
-n_p = len(re.findall(r"(?i)given the (?:pairing-)?act", pre_1x))
+outside_1x = paper[:i_1x] + paper[i_d3:]
+n_p = len(re.findall(r"(?i)given the (?:pairing-)?act", outside_1x))
 n_f = len(re.findall(r"(?i)given the (?:pairing-)?act", form))
-gate("pre-1x consumption sites (case-insensitive): 7 paper, 5 formulation",
-     n_p == 7 and n_f == 5, f"paper {n_p}, formulation {n_f}")
+gate("consumption sites outside 1x's span (round-104 F1): 9 paper, 5 formulation",
+     n_p == 9 and n_f == 5, f"paper {n_p}, formulation {n_f}")
 mu_R = sum(1 for u in (1, -1) if u * u == 1)  # torsion units of R
 gate("|mu(R)| = 2 (the even-side torsion exhibit)", mu_R == 2)
 
@@ -166,7 +178,7 @@ ok7 &= "confirmed and sharpened" in npaper.replace("**", "")
 gate("1x's key sentences anchored (conjuncts; geography; sharpened falsifier)", ok7)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (15 gates)")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (16 gates)")
 print("READING: Door-4 bookkeeping CONFIRMED post-1w. The falsifier is")
 print("unfired (ring-side route; the tex papers consume the act nowhere);")
 print("the zero-weight grading refines to zero-for-numbers (three")
