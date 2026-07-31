@@ -596,7 +596,7 @@ itself persists; pairing-at-all is untouched.)*
 **Theorem 1k (the lattice selection: the feature→layer map re-read;
 `cascade_lattice_selection.py`).** *(i) The lattice facts.* Under the canonical
 window-potential pairing p(d) := P(d+1) (the d↔s audit's site E, the data-anchored
-convention), the integer content of Part 0's regime partition is exact and
+convention *(net-state, Theorem 1y round 107: entailed — Γ-argument arithmetic; the anchor re-grades to cross-check)*), the integer content of Part 0's regime partition is exact and
 boundary-convention-free: p is strictly increasing on the lattice; the threshold bands
 are B₁ = {d : 0 < p(d) < ln Γ(½)} = **{7,…,19}** and B₂ = {d : ln Γ(½) < p(d) < Γ(½)} =
 **{20,…,217}**; no lattice point lies within 8.5×10⁻⁴ of a threshold, so **all four
@@ -1472,21 +1472,34 @@ and the amended A1 carries, whose mirror the adoption transports by s ↦ 1−s
 (d+1 ↦ −d). **(c) Hence the pairing.** p(d) = ∂_d ln Γ_ℝ(d+1); with the s-frame
 potential P(s) whose committed crossings Theorem 7 reads (ln Γ(½) at s = 20.73, Γ(½)
 at s = 218.6 — the d-crossings + 1, gated in 1k as the same roots), **p(d) = P(d+1)
-is Γ-argument arithmetic** — the "+1" was never a frame choice; it is the argument
-already inside Ω_d, Definition 2.1, and A1. **(d) The alternative is the forsworn
+is Γ-argument arithmetic** — the "+1" was never a frame choice in the mathematics;
+it is the argument already inside Ω_d, Definition 2.1, and A1. *Availability
+disclosure (round-107 F2):* every link of this chain predates the grading it
+supersedes — Part 0's intrinsic sentence entered the source 2026-05-06, and the
+formulation's T1 line "p(d) = (log Γ_ℝ)′(d+1)" is as old as the formulation itself
+(2026-07-19), while 1k's "data-anchored convention" grading is round 60
+(2026-07-22). This closure is therefore a **delayed observation of committed
+content, not new mathematics** — the entailment stood available and unobserved for
+47 rounds. The marking classification, adjudicated explicitly: the round-60 grading
+was a **status report of the record's adjudication state** — true when written (no
+committed surface had performed the derivation) — so it stands as history under
+net-state markers per the 1v precedent, not strikes; what was false throughout was
+only the implicit availability assumption, which no surface asserted. **(d) The alternative is the forsworn
 avatar.** p(d) := P(d) reads ∂_d ln Γ_ℝ(d) — the log-derivative of 2/Γ_ℝ(d) =
 Ω_(d−1) (gated), the **previous** layer's area: exactly the avatar weight Theorem 1's
 own Remark forswears (*"The paper never uses the avatar; the arithmetic is
 primary"*) and the site-C adjudication already rejected inside a committed clause
-(1m(iii): the Geometric clause's avatar pass was a frame error). The label shift
+(1l(iii) *(round-107 F1: the first draft cited "1m" here and at three points below —
+the pairing-dictionary content is Theorem 1l's; 1m is the availability factors;
+corrected at all four)*: the Geometric clause's avatar pass was a frame error). The label shift
 {5, 8, 20, 218} under P(d) (1k's gated exhibit, reproduced) is thereby excluded **by
 the committed dictionary, not by data**. *(iii) The re-grade and the member
 accounting.* The site-E anchor re-grades from data-anchored selection to
-**cross-check** — completing for the pairing itself the move 1m made for the
+**cross-check** — completing for the pairing itself the move 1l made for the
 −38% anchor. Member one's conventional content is exhausted: the sup anchor is
 resolved into A1's ledger (an adoption — its cost stays on that ledger), and the
 pairing anchor is entailed given the tower's dictionary (Definition 2.1 + Theorem 1,
-whose only alternative 1m grades a contentless global renaming) plus Part 0's
+whose only alternative 1l grades a contentless global renaming) plus Part 0's
 intrinsic definition. **Member one closes. The class keeps two members** — the
 audit-family member (live content: the site-E endpoint data, Definition-6.1
 instantiation plus the strict-boundary stipulation) and the pairing-act member
@@ -1497,12 +1510,12 @@ falsifier.* Consumed: Part 0's definition and identity (committed), Definition 2
 Theorem 1 (committed), Γ-argument arithmetic (exact); no data beyond the
 already-counted anchors, now cross-checks; no number changes anywhere; no RH/GRH, no
 semiclassics. The feature→layer assignment {5, 7, 19, 217} is now **entailed
-end-to-end given the amended axioms**: the pairing by this theorem, the boundary
+end-to-end given the amended axioms and the committed dictionary**: the pairing by this theorem, the boundary
 sides by A1's selector clause (1v), the bands by the lattice facts (1k(i)). The
 falsifier, stopping-rule-gated per the 1h(iv) pattern: **any committed surface found
 reading a layer's potential at the avatar argument** (Γ_ℝ(d) at layer d) as
 load-bearing content re-opens the member; the known avatar appearances are the
-forsworn Remark's subject and 1m's rejected clause, both already adjudicated.
+forsworn Remark's subject and 1l's rejected clause, both already adjudicated.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1673,7 +1686,9 @@ per-site family is closed given the tower's dictionary — the member is re-moti
 count unchanged)*. **The systematic
 d/s audit is complete** (`cascade_ds_audit.py`): nine sites — one definitional, four stable
 (including Thm 10's set/exponents under all three pairings and the Gram-deficit indices
-under every shift), two data-anchored conventions (the window-potential pairing, selected by
+under every shift), two data-anchored conventions *(net-state, Theorem 1y round 107:
+one — the window-potential pairing is entailed, Γ-argument arithmetic; the unit
+convention remains)* (the window-potential pairing, selected by
 data at −38% margin *(net-state, Theorem 1l: the flip is a window shift and the audit's
 alternative a mixed frame — the anchor re-grades as a cross-check of the dictionary)*; the
 unit), and the two known conditional sites, both demoted. No new

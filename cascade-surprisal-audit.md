@@ -9276,7 +9276,7 @@ A1's ledger. The finding: the pairing was never a frame choice.
   data — 1k's {5, 8, 20, 218} exhibit reproduced and its exclusion
   re-attributed.
 - **The re-grade and the accounting:** the site-E anchor re-grades
-  from data-anchored selection to cross-check (completing 1m's move
+  from data-anchored selection to cross-check (completing 1l's move [corrected on notice, round 107 F1: originally written 1m]
   for the pairing itself). Member one's conventional content is
   exhausted: the sup resolved into A1's ledger (1v), the pairing
   entailed (this theorem). **Member one closes; the class keeps two
@@ -9306,6 +9306,61 @@ gates, 15/0 (the RESULT line's first draft said 13 — corrected to
 census 46 body = 45 counted + constants. No data consumed; no
 number changes anywhere. Trajectory: 1y landed → round 107 (hostile
 review, per protocol) spawned on this commit.
+
+## Addendum 189: hostile review round 107 on commit 541c354 (Theorem 1y) — NOT CONVERGED (2 MAJORs, 4 minors, 1 cosmetic); the closure's mathematics held at every link; the defects were citations, history accounting, sweep completeness, and instrument honesty; all findings lead-verified and swept
+
+Round 107 verified the closure's mathematics end-to-end ("the closure
+is real"): Part 0's p intrinsic; Ω_d = 2/Γ_ℝ(d+1) to 3×10⁻⁵¹; the
+avatar identity; no conflation of the renaming- and pairing-freedoms;
+"the previous layer's area" precise (layer d ↔ S^d committed; the
+gauge spheres a different object); the P-identification committed on
+both surfaces ((log Γ_ℝ)′(s) = E[log|x|]); Checks 7/8 clean. The
+findings:
+
+- **F1 (MAJOR):** systematic 1l→1m misattribution at four
+  load-bearing sites in 1y — the site-C adjudication, the −38%
+  re-grade, the contentless-renaming grading, and the falsifier
+  census are all Theorem 1l's content (the pairing dictionary), not
+  1m's (the availability factors). Lead-verified by direct read of
+  both theorems. **Swept:** all four corrected, annotated at the
+  first; A188 corrected on notice.
+- **F2 (MAJOR):** the availability history was undisclosed while the
+  theorem asserted "never a frame choice": every chain link predates
+  the round-60 grading (Part 0's sentence 2026-05-06; T1's line
+  2026-07-19, the formulation's creation; the grading 2026-07-22) —
+  the entailment stood available and unobserved for 47 rounds, and
+  the marking classification was made silently. **Swept:** the
+  availability disclosure added to 1y(ii)(c) with the dates; the
+  closure named a delayed observation of committed content, not new
+  mathematics; the marking classification adjudicated explicitly
+  (the round-60 grading a status report of the adjudication state,
+  true when written — net-state per the 1v precedent, not strikes);
+  "never" scoped to "in the mathematics."
+- **F3 (minor):** three unmarked superseded carriers — 1k(i)'s "the
+  data-anchored convention" (paper:598), "two data-anchored
+  conventions" (paper:1676), the formulation's ledger row 6
+  conditional. **Swept:** markers at all three.
+- **F4 (minor):** E1's p(d) = P(d+1) gate was the same expression
+  evaluated twice — a gate that could not fail. **Swept:** demoted
+  to a DECLARED identity per the record's own 1l(iv) discipline,
+  with the in-code disclosure.
+- **F5 (minor):** "gated symbolically and numerically" had no
+  symbolic instrument. **Swept:** a sympy symbolic gate added
+  (simplify(−∂_d log Ω_d − p) == 0), keeping the gate count at 15.
+- **F6 (minor):** E4's "per occurrence" label gated a global count.
+  **Swept:** genuine per-occurrence adjacency check implemented
+  (each formula match must carry a 1y marker within 400 normalized
+  chars); the totals gate updated to the post-sweep counts (13
+  paper, 7 formulation), which the gate itself caught live.
+- **F7 (cosmetic):** the end-to-end condition set compressed.
+  **Swept:** "given the amended axioms and the committed
+  dictionary."
+
+**Battery after sweep:** site_e_pairing 15/0 (the symbolic gate
+real; the tautology declared); the other 14 instruments green;
+validator clean on 12 files. Trajectory: 1y landed → 107 NOT
+CONVERGED 2M+4m+1c (swept this commit) → round 108 (convergence
+test) next.
 
 ## Caveats
 

@@ -2131,3 +2131,23 @@ to zero-for-numbers, the geography ring-side-native/L-side-extrinsic,
 the member persisting charged with the sharpened falsifier
 operationalized. Next hostile round on the next substantive paper
 change.**
+
+# Round 107: hostile review of Theorem 1y (the site-E pairing entailed, commit 541c354) — NOT CONVERGED (2 MAJORs, 4 minors, 1 cosmetic); the closure's mathematics held at every link; round 108 follows
+
+"The closure is real" — the chain verified end-to-end, no conflation,
+the avatar-exclusion precise, the P-identification committed. The
+defects: citations, history accounting, sweep completeness,
+instrument honesty.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F107-1 (MAJOR) — systematic 1l→1m misattribution at four load-bearing sites (site-C adjudication, −38% re-grade, renaming grading, falsifier census — all 1l's content) | **Accepted; all four corrected**, annotated at the first; A188 corrected on notice | paper + record |
+| F107-2 (MAJOR) — availability history undisclosed ("never a frame choice" while every chain link predates the round-60 grading); marking classification silent | **Accepted; availability disclosure added with dates** (2026-05-06 / 2026-07-19 vs round 60, 2026-07-22); the closure named a delayed observation; the classification adjudicated explicitly (status report, true when written — net-state per the 1v precedent); "never" scoped | paper |
+| F107-3 (minor) — three unmarked superseded carriers (1k(i); "two data-anchored conventions"; ledger row 6) | **Accepted; markers at all three** | paper + formulation |
+| F107-4 (minor) — the p(d) = P(d+1) gate could not fail (same expression twice) | **Accepted; demoted to a DECLARED identity** (1l(iv) discipline), in-code disclosure | verifier |
+| F107-5 (minor) — "gated symbolically" had no symbolic instrument | **Accepted; sympy symbolic gate added** (residual = 0) | verifier |
+| F107-6 (minor) — "per occurrence" gated a global count | **Accepted; genuine adjacency check implemented**; totals updated to 13/7 (the gate caught the sweep's own new markers live) | verifier |
+| F107-7 (cosmetic) — condition set compressed | **Accepted; "and the committed dictionary"** | paper |
+
+**Trajectory: 1y landed → 107 NOT CONVERGED 2M+4m+1c (swept) → round
+108 (convergence test) next.**

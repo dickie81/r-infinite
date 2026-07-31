@@ -19,9 +19,12 @@ closes; the class keeps two members; the seven-item count stands.
 
 Gates:
   E1 -- the identity chain: Omega_d = 2/Gamma_R(d+1) over d = 1..300
-        (dps 50); p(d) = -d/dd log Omega_d (numeric derivative vs
-        closed form); p(d) = P(d+1) as functions; Part 0's table
-        rows Omega_5 = pi^3, Omega_7 = pi^4/3 exact.
+        (dps 50); p(d) = -d/dd log Omega_d numerically (mpmath diff)
+        AND symbolically (sympy simplify, round-107 F5); p(d) =
+        P(d+1) is DECLARED an identity, not gated -- the same
+        expression twice, a tautology cannot fail (round-107 F4,
+        the 1l(iv) discipline); Part 0's table rows Omega_5 = pi^3,
+        Omega_7 = pi^4/3 exact.
   E2 -- the labels: bands B1 = {7..19}, B2 = {20..217} and integer
         argmax V = 5 under the entailed pairing (labels {5,7,19,217});
         the alternative P(d) reproduces 1k's gated exhibit
@@ -35,10 +38,13 @@ Gates:
   E4 -- the member-accounting sweep: the "three members and the
         seven-item count stand(s)" formula censused (7 paper, 5
         formulation, whitespace-normalized) with a 1y net-state
-        marker at every occurrence (7 + 5 gated), plus the four
-        targeted paper markers and one formulation open-routes
-        marker (total "Theorem 1y round 107" = 11 paper; "T1y of
-        the review paper, round 107" = 6 formulation).
+        marker at every occurrence (7 + 5, per-occurrence
+        adjacency-checked -- round-107 F6), plus the four
+        targeted paper markers, two round-107 F3 markers (1k(i);
+        the "two data-anchored conventions" count), the formulation
+        open-routes marker, and the ledger-row-6 marker (total
+        "Theorem 1y round 107" = 13 paper; "T1y of the review
+        paper, round 107" = 7 formulation).
   E5 -- 1y's key sentences (the entailment, the closure, the
         end-to-end assignment sentence) and the avatar falsifier
         anchored.
@@ -93,9 +99,22 @@ err2 = max(abs(-diff(lambda x: log(Om(x)), mpf(d)) - p(d))
            for d in (1, 5, 7, 19, 100, 217))
 gate("p(d) = -d/dd log Omega_d (numeric vs closed form)", err2 < mpf("1e-35"),
      f"max abs err {float(err2):.1e}")
-err3 = max(abs(p(d) - P(d + 1)) for d in (1, 5, 7, 19, 217, 300))
-gate("p(d) = P(d+1) as functions (Gamma-argument arithmetic)", err3 == 0
-     or err3 < mpf("1e-49"), f"max abs err {float(err3):.1e}")
+# p(d) = P(d+1): the SAME expression evaluated twice -- a tautology, so per
+# the record's 1l(iv) discipline it is DECLARED, not gated (round-107 F4:
+# the first commit counted it as a gate, which could not fail).
+print("  IDENTITY (declared, not gated): p(d) - P(d+1) is the same expression"
+      " -- a tautology cannot fail (1l(iv) discipline; round-107 F4)")
+try:
+    import sympy as sp
+    dd = sp.symbols("d", positive=True)
+    Om_sym = 2 * sp.pi ** ((dd + 1) / 2) / sp.gamma((dd + 1) / 2)
+    p_sym = -sp.Rational(1, 2) * sp.log(sp.pi) + sp.polygamma(0, (dd + 1) / 2) / 2
+    residual = sp.simplify(-sp.diff(sp.log(Om_sym), dd) - p_sym)
+    gate("p(d) = -d/dd log Omega_d SYMBOLICALLY (sympy, round-107 F5)",
+         residual == 0, f"simplified residual = {residual}")
+except ImportError:
+    gate("p(d) = -d/dd log Omega_d SYMBOLICALLY (sympy, round-107 F5)", False,
+         "sympy unavailable -- the symbolic claim requires it")
 gate("Part 0's table rows: Omega_5 = pi^3, Omega_7 = pi^4/3 exact",
      abs(Om(5) - pi ** 3) < mpf("1e-45") and abs(Om(7) - pi ** 4 / 3) < mpf("1e-45"))
 
@@ -152,14 +171,29 @@ mp_marker = norm("Net-state, Theorem 1y round 107: member one closes — the "
                  "site-E pairing entailed given the tower's dictionary")
 mf_marker = norm("Net-state, T1y of the review paper, round 107: member one "
                  "closes — the pairing entailed given the dictionary")
+def adjacent(text, marker_head):
+    # per-occurrence check (round-107 F6): each formula match must have a 1y
+    # marker within the following 400 normalized chars
+    nt = norm(text)
+    ok, cnt = True, 0
+    for m in re.finditer(FORMULA, nt):
+        cnt += 1
+        ok &= marker_head in nt[m.end():m.end() + 400]
+    return ok, cnt
+
+
+ok_p, cnt_p = adjacent(paper, "Net-state, Theorem 1y round 107")
+ok_f, cnt_f = adjacent(form, "Net-state, T1y of the review paper, round 107")
 n_mp = norm(paper).count(mp_marker)
 n_mf = norm(form).count(mf_marker)
-gate("one 1y formula-marker per occurrence: 7 paper, 5 formulation",
-     n_mp == 7 and n_mf == 5, f"paper {n_mp}, formulation {n_mf}")
+gate("one 1y formula-marker per occurrence (adjacency-checked): 7 paper, 5 form",
+     ok_p and ok_f and cnt_p == 7 and cnt_f == 5 and n_mp == 7 and n_mf == 5,
+     f"paper {cnt_p} all-adjacent={ok_p}; formulation {cnt_f} all-adjacent={ok_f}")
 n_all_p = norm(paper).count("Theorem 1y round 107")
 n_all_f = norm(form).count("T1y of the review paper, round 107")
-gate("total 1y markers: 11 paper (7 formula + 4 targeted), 6 formulation",
-     n_all_p == 11 and n_all_f == 6, f"paper {n_all_p}, formulation {n_all_f}")
+gate("total 1y markers: 13 paper (7 formula + 4 targeted + 2 round-107 F3), "
+     "7 formulation (5 formula + open-routes + ledger row 6, round-107 F3)",
+     n_all_p == 13 and n_all_f == 7, f"paper {n_all_p}, formulation {n_all_f}")
 
 print("E5 -- 1y's key sentences + the falsifier")
 np_ = norm(paper)
