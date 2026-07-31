@@ -9253,6 +9253,60 @@ injection flips D1). The pairing-act's standing after the probe:
 Door-4 bookkeeping, confirmed at three strata of census fidelity.
 Next hostile round on the next substantive paper change.**
 
+## Addendum 188: Theorem 1y — the site-E pairing entailed (owner-commissioned); member one closes; the class keeps two members, the seven-item count stands
+
+The owner commissioned "the site-E pairing" — member one's last
+conventional content after the adoption resolved the sup anchor into
+A1's ledger. The finding: the pairing was never a frame choice.
+
+- **The chain (every step committed or exact arithmetic):** (a) Part
+  0 defines p intrinsically in the d frame — "The sphere-area decay
+  rate decomposes as: p(d) = −½ln π + ½ψ((d+1)/2)" — with p(d) =
+  −∂_d log Ω_d exactly (Part 0's own log-area identity; gated
+  symbolically and numerically at dps 50); (b) Ω_d = 2/Γ_ℝ(d+1)
+  EXACTLY (gated to 3×10⁻⁵¹ over d = 1..300): Part 0's sphere area
+  IS the Definition-2.1 weight — the same 2/Γ_ℝ(d+1) the
+  formulation's T1 already commits as "p(d) = (log Γ_ℝ)′(d+1)
+  (potential = logarithmic derivative)" and the amended A1 carries;
+  (c) hence p(d) = P(d+1) is Γ-argument arithmetic — the "+1" is
+  the argument inside Ω_d itself; (d) the alternative p(d) := P(d)
+  is the log-derivative of the forsworn avatar 2/Γ_ℝ(d) = Ω_(d−1)
+  (the PREVIOUS layer's area; gated), excluded by the committed
+  dictionary (Theorem 1's Remark; the site-C adjudication), not by
+  data — 1k's {5, 8, 20, 218} exhibit reproduced and its exclusion
+  re-attributed.
+- **The re-grade and the accounting:** the site-E anchor re-grades
+  from data-anchored selection to cross-check (completing 1m's move
+  for the pairing itself). Member one's conventional content is
+  exhausted: the sup resolved into A1's ledger (1v), the pairing
+  entailed (this theorem). **Member one closes; the class keeps two
+  members** (the audit-family member with the endpoint data; the
+  pairing-act member); **the seven-item count stands** (the class is
+  item six, an item with live members either way). The feature→layer
+  assignment {5, 7, 19, 217} is now entailed end-to-end given the
+  amended axioms: the pairing (1y) + the boundary sides (A1's
+  selector, 1v) + the lattice facts (1k(i)).
+- **The falsifier,** stopping-rule-gated: any committed surface
+  found reading a layer's potential at the avatar argument
+  (Γ_ℝ(d) at layer d) as load-bearing re-opens the member; the known
+  avatar appearances (the forsworn Remark's subject; 1m's rejected
+  clause) are already adjudicated.
+
+**Surfaces:** Theorem 1y in the paper (after 1x); net-state markers
+at every "three members and the seven-item count stand(s)" formula
+occurrence (7 paper + 5 formulation, censused and gated) plus four
+targeted paper markers (1j's "keeps three members", 1k(iii)'s
+"persists in the residue", 1v(iv)'s does-not-resolve list, 1x(v)'s
+count recital) and the formulation's open-routes list; footer 44 →
+45 counted. **Verifier:** cascade_site_e_pairing.py, E1–E5, 15
+gates, 15/0 (the RESULT line's first draft said 13 — corrected to
+15 before commit, per the verified-record rule); two sabotages exit
+1 (the T1-anchor corruption; a formula-marker deletion).
+**Battery:** all 15 instruments green; validator clean on 12 files;
+census 46 body = 45 counted + constants. No data consumed; no
+number changes anywhere. Trajectory: 1y landed → round 107 (hostile
+review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

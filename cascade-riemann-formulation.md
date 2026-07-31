@@ -243,7 +243,7 @@ anatomy read back through the census — invisibility = the μ₄ disc character
 (H ∩ units = {1, cls(−3)}, unramified ℚ₂(ζ₃)); given the pairing-act (not
 entailed by T11), the μ₆ requirement determines χ₋₃ with minimality entailed;
 ε-support {3, ∞} (T1i). Adjudicated: the member is re-motivated, not reduced —
-three members and the seven-item count stand. No closure; category (a).
+three members and the seven-item count stand. *(Net-state, T1y of the review paper, round 107: member one closes — the pairing entailed given the dictionary, the sup resolved into A1; the class keeps two members; the seven-item count stands.)* No closure; category (a).
 *(Net-state, T1r as corrected round 81: χ₋₄ fails three distinct committed
 anchors — W₁ strictly weaker extensionally than the colour gloss (the act's
 standing form: pair with the colour field's character; defined at T1r); the
@@ -268,7 +268,7 @@ sup labeling — both persisting as the member's content (the alternative pairin
 shifts the three band labels to 8, 20, 218 — the argmax member 5 unchanged:
 {5, 8, 20, 218}) — the assignment is entailed:
 the class's first member is re-motivated, not deleted, exactly as T1j
-re-motivated the third. Three members and the seven-item count stand. No
+re-motivated the third. Three members and the seven-item count stand. *(Net-state, T1y of the review paper, round 107: member one closes — the pairing entailed given the dictionary, the sup resolved into A1; the class keeps two members; the seven-item count stands.)* No
 closure; category (a).
 
 **T1l (the pairing dictionary; `cascade_pairing_dictionary.py`, five gates).**
@@ -290,7 +290,7 @@ single-coset repair candidate stays live; no number changes). B/H re-gated
 flip-invariant; D closed by T1k (given the site-E pairing plus the
 variational-sup labeling). The review-4 per-site family is closed;
 member two re-motivated, not deleted — its live content is the dictionary plus
-already-listed endpoint items. Three members and the seven-item count stand. No
+already-listed endpoint items. Three members and the seven-item count stand. *(Net-state, T1y of the review paper, round 107: member one closes — the pairing entailed given the dictionary, the sup resolved into A1; the class keeps two members; the seven-item count stands.)* No
 closure; category (a).
 
 **T1m (the availability factors' arithmetic homes; `cascade_availability_factors.py`,
@@ -442,7 +442,7 @@ anchors distinct, not "independent," and only W₁ strictly weaker extensionally
 than the colour gloss (the act's standing form: pair with the colour field's
 character), the other two equivalent in output and weaker only in what they
 name (round-81 F2/F3). Three
-members and the seven-item count stand. No closure; category (a).
+members and the seven-item count stand. *(Net-state, T1y of the review paper, round 107: member one closes — the pairing entailed given the dictionary, the sup resolved into A1; the class keeps two members; the seven-item count stands.)* No closure; category (a).
 
 **T1s (pairing-at-all located; `cascade_bridge_asymmetry.py`, five gates).**
 The act's open core after T1r, located. (i) The odd feature is the unique
@@ -504,7 +504,7 @@ not need the odd reading — the pairing-act is Door-4 bookkeeping, its
 derivational weight audited to zero.** Scoped, not universal; licensed
 falsifier: any future grammar entry routed through the odd bridge's L-side
 re-opens the member's weight. The member persists; three members and the
-seven-item count stand. No closure of the member; category (a). *(Net-state, T1x
+seven-item count stand. *(Net-state, T1y of the review paper, round 107: member one closes — the pairing entailed given the dictionary, the sup resolved into A1; the class keeps two members; the seven-item count stands.)* No closure of the member; category (a). *(Net-state, T1x
 of the review paper: the falsifier checked against the review side's own 1w —
 unfired (ring-side route; no grammar entry rerouted; the tex papers consume the
 act nowhere, gated); the zero-weight grading refines to zero-for-numbers; the
@@ -556,7 +556,7 @@ given resolves into A1.** The cost ledger in the open: the assumption
 enlarges from a lattice-value table to the global function plus one clause;
 **no empirical content** — the invariant's twelve digits and (2/π)I re-gated
 unchanged; the physical hypothesis untouched (Check 8). Not resolved: the
-site-E pairing, the pairing-act (Door-4 bookkeeping), A3's underived rules
+site-E pairing *(net-state, T1y of the review paper, round 107: resolved — entailed given the dictionary)*, the pairing-act (Door-4 bookkeeping), A3's underived rules
 (anchored in the amended block). The prior open-status gradings stand as
 history under net-state markers; falsifier: any future derivation of the
 clause from a weaker kernel makes the adoption redundant. Category (a) plus

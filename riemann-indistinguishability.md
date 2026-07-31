@@ -28,15 +28,15 @@ Finding 1; the class was widened by review 4 to every d↔s pairing choice and b
 to the χ₋₃ minimality-pairing — one class, three members *(net-state, Theorem 1j
 as adjudicated round 57: the third member re-motivated — C1-anchored matching
 replaces the order principle, minimality entailed within the pairing-act, which
-persists; three members and the seven-item count stand)* *(net-state, Theorem 1k
+persists; three members and the seven-item count stand)* *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)* *(net-state, Theorem 1k
 round 60, as corrected by F1: the first member likewise re-motivated — the
 assignment is entailed given the site-E pairing plus Part 0's variational-sup
 labeling of the boundary sides, both persisting as the member's content; no
 rounding rule was ever needed; three members and the seven-item
-count stand)* *(net-state, Theorem 1l round 64: the second member likewise
+count stand)* *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)* *(net-state, Theorem 1l round 64: the second member likewise
 re-motivated — the per-site pairing family is closed given the tower's dictionary
 (Definition 2.1 + Theorem 1); the E-anchor re-grades as a cross-check; three
-members and the seven-item count stand)*); and the hypothesis itself
+members and the seven-item count stand)* *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)*); and the hypothesis itself
 (C1).** The resulting outputs — the cosmological constant, the Higgs, all
 nine charged-fermion and three neutrino masses, the gauge couplings, the mixing angles, and
 the cosmological parameters — agree with every current measurement within the framework's
@@ -575,7 +575,7 @@ extremal choice of the same epistemic type as minimality (the gate literally
 computes a maximum); the order-free matching route imports the unstated pairing
 premise; and χ₋₄ — itself an odd real primitive character, elevated by (ii) —
 is a live alternative partner that only the order or the pairing-act excludes]**.
-**The adjudicated outcome:** the selection class **keeps three members**; the
+**The adjudicated outcome:** the selection class **keeps three members** *(net-state, Theorem 1y round 107: now two — member one closes)*; the
 third's content is *re-motivated* — from an order principle (minimality) to
 C1-anchored matching against the existing T11 requirement, with minimality
 entailed inside that motivation — a real improvement in motivation, not a
@@ -640,7 +640,7 @@ labeling, gated equivalents; the forcing stays open and the given persists)*
 *(Net-state, Theorem 1v round 98: the owner adopted the Riemann kernel — A1 re-founded on Γ_ℝ entire (the owner's phrase; "entire" in the sense of *in its entirety* — the function itself is meromorphic, its poles load-bearing; glossed in full at Theorem 1v, placed here at first use per round-99 F2) with mirror coherence as its non-degeneracy clause; the labeling is now forced by the amended axiom and this open-status is resolved into A1's ledger.)*. *(iii) The member re-read — the
 round-57 adjudication grammar applied in advance.* The review-2 charge is true in the
 rounding frame and empty in the lattice frame: **given the site-E pairing** — the
-anchored convention, which **persists in the residue** (under the alternative pairing
+anchored convention, which **persists in the residue** *(net-state, Theorem 1y round 107: entailed — member one closes; the anchor re-grades to cross-check)* (under the alternative pairing
 p(d) = P(d) the three band labels shift coherently, the argmax member unchanged:
 {5, 8, 20, 218}, gated) — **and given Part 0's variational-sup labeling of the boundary
 sides**, the feature→layer assignment is entailed. ~~lattice-entailed with zero further
@@ -656,7 +656,7 @@ first member is thereby **re-motivated, not deleted**: from an ad hoc mixed-roun
 appearance to **two named, listed anchors** — the site-E pairing plus the
 variational-sup labeling, both persisting as the member's conventional content —
 exactly as the third member was re-motivated by Theorem 1j. **Three
-members and the seven-item count stand.** Registration: this paper's §10 and the
+members and the seven-item count stand.** *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)* Registration: this paper's §10 and the
 feature-monoid verifier cited Part 0's concession sentence without the variational
 theorem that follows it in the source (or the regime partition, which *precedes* the
 concession in an earlier section — location corrected, round-60 F3) — corrected with
@@ -699,7 +699,7 @@ plus the variational-sup labeling, its two givens (round-60 F1). The review-4 wi
 ("every d↔s layer/weight pairing choice") named a per-site family; **the family is
 closed**. Member two is **re-motivated, not deleted**: its live content is the
 dictionary itself plus the already-listed endpoint items. **Three members and the
-seven-item count stand.** *Honest scope:* no number changes, no closure, no new data
+seven-item count stand.** *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)* *Honest scope:* no number changes, no closure, no new data
 (the observed 16.8170 appears only as the committed audit's recorded anchor, reproduced
 as instrument); the member's re-motivation is conditional on the dictionary, exactly as
 1k's was on the pairing-plus-sup and 1j's on the pairing-act.
@@ -1035,7 +1035,7 @@ the committed filter's *instrument* while cls(−3) is the invisible *datum* ins
 it), and the three routes' outputs are consistent (W₁ the class containing −3; W₂
 and the census the field). The round-57 phrase is superseded in exactly this sense —
 **no universal over act-forms is claimed**. Three members and the seven-item count
-stand; no number changes; no closure; category (a).
+stand *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)*; no number changes; no closure; category (a).
 
 **Theorem 1s (pairing-at-all located: the parity-blocked pole pin;
 `cascade_bridge_asymmetry.py`).** 1r cornered the act's *partner*; the act's open core
@@ -1166,7 +1166,7 @@ stopping-rule-gated per the 1h(iv) pattern: **any future derivation that
 routes a grammar entry through the odd bridge's L-side re-opens the member's
 derivational weight.** The member itself persists as charged — the act, when
 taken, remains the recorded convention — so **three members and the seven-item
-count stand**; what closes is 1s's open question, on its auditable branch. No
+count stand** *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)*; what closes is 1s's open question, on its auditable branch. No
 number changes; no closure of the member; category (a). *(Net-state, Theorem 1x:
 the falsifier checked against 1w — unfired on both conjuncts (ring-side route; no
 grammar entry rerouted); the zero-weight grading refines to zero-for-numbers — the
@@ -1285,7 +1285,7 @@ Euler-side reading) to the global function plus one clause (the Riemann-side rea
 **no empirical content**: no number changes (the invariant re-derived to twelve
 digits, half-ULP gated; (2/π)I unchanged), no new prediction, and the *physical*
 hypothesis is untouched (Check 8) — this is a math-side re-founding of the
-formulation's skeleton. *(iv) What does not resolve.* The site-E pairing (1k's first
+formulation's skeleton. *(iv) What does not resolve.* The site-E pairing (1k's first *(net-state, Theorem 1y round 107: now resolved — entailed given the dictionary; member one closes)*
 given), the pairing-act (Door-4 bookkeeping per 1t, its falsifier unchanged), and
 A3's underived rules (*"the increment and per-period rules are underived"* — in the
 amended block itself, anchored) persist exactly as recorded; only the
@@ -1442,12 +1442,67 @@ even-side; w = 6 = N_c(N_c − 1) at ℚ(ζ₃) — an exhibit, disclosed, not a
 Door 4's asymmetry is mirrored inside the axiom block itself: **ring side native,
 L-side extrinsic.** The adoption did not change the act's extra-axiomatic status.
 *(v) Status conclusion.* Door-4 bookkeeping **confirmed and sharpened**: the member
-persists charged (three members and the seven-item count unchanged); the committed
+persists charged (three members and the seven-item count unchanged *(net-state, Theorem 1y round 107: two members; the count stands)*); the committed
 falsifier stands unfired and unchanged; and one falsifier is sharpened alongside it,
 stopping-rule-gated per the 1h(iv) pattern like its sibling: **should any cascade
 paper ever carry a number via the act** — replacing that number's papers-side carrier
 — the act's weight-for-numbers becomes nonzero and the bookkeeping grading fails. No
 closure; no number changes; category (a) refinement.
+
+**Theorem 1y (the site-E pairing entailed: member one closes; the class keeps two
+members, the seven-item count stands; `cascade_site_e_pairing.py`).** *(i) The
+commission and the committed status.* The owner commissioned the site-E pairing —
+member one's last remaining conventional content: 1k re-motivated the first member to
+*"two named, listed anchors — the site-E pairing plus the variational-sup labeling"*,
+and the adoption resolved the sup anchor into A1's ledger (1k(ii)'s round-98 marker),
+leaving the pairing as *"the anchored convention, which persists in the residue."*
+*(ii) The pairing is an identity, not a convention — the chain, every step committed
+or exact arithmetic.* **(a) Part 0 defines p intrinsically in the d frame.** Verbatim
+(part0, The Natural Zero): *"The sphere-area decay rate decomposes as: p(d) =
+−½ln π + ½ψ((d+1)/2)"* — no s frame, no pairing, no read-off from P; the (d+1)/2 is
+the Γ-argument of the layer's own area Ω_d = 2π^((d+1)/2)/Γ((d+1)/2) (part0's closed
+form; layer d's area per its own table — Ω₅ = π³ at the argmax row), and p(d) =
+−∂_d log Ω_d **exactly** (part0's own identity — *"the first derivative of the
+log-area, which is −p(d)"* — gated symbolically and numerically). **(b) Part 0's area
+is the Definition-2.1 weight.** Γ_ℝ(s) = π^(−s/2)Γ(s/2) gives **Ω_d = 2/Γ_ℝ(d+1)
+exactly** (gated over the tower to machine precision): the sphere area whose decay
+rate p measures IS the weight the committed dictionary attaches to layer d — the
+same 2/Γ_ℝ(d+1) the fourth review names *"the Definition-2.1-consistent pairing"*
+and the amended A1 carries, whose mirror the adoption transports by s ↦ 1−s
+(d+1 ↦ −d). **(c) Hence the pairing.** p(d) = ∂_d ln Γ_ℝ(d+1); with the s-frame
+potential P(s) whose committed crossings Theorem 7 reads (ln Γ(½) at s = 20.73, Γ(½)
+at s = 218.6 — the d-crossings + 1, gated in 1k as the same roots), **p(d) = P(d+1)
+is Γ-argument arithmetic** — the "+1" was never a frame choice; it is the argument
+already inside Ω_d, Definition 2.1, and A1. **(d) The alternative is the forsworn
+avatar.** p(d) := P(d) reads ∂_d ln Γ_ℝ(d) — the log-derivative of 2/Γ_ℝ(d) =
+Ω_(d−1) (gated), the **previous** layer's area: exactly the avatar weight Theorem 1's
+own Remark forswears (*"The paper never uses the avatar; the arithmetic is
+primary"*) and the site-C adjudication already rejected inside a committed clause
+(1m(iii): the Geometric clause's avatar pass was a frame error). The label shift
+{5, 8, 20, 218} under P(d) (1k's gated exhibit, reproduced) is thereby excluded **by
+the committed dictionary, not by data**. *(iii) The re-grade and the member
+accounting.* The site-E anchor re-grades from data-anchored selection to
+**cross-check** — completing for the pairing itself the move 1m made for the
+−38% anchor. Member one's conventional content is exhausted: the sup anchor is
+resolved into A1's ledger (an adoption — its cost stays on that ledger), and the
+pairing anchor is entailed given the tower's dictionary (Definition 2.1 + Theorem 1,
+whose only alternative 1m grades a contentless global renaming) plus Part 0's
+intrinsic definition. **Member one closes. The class keeps two members** — the
+audit-family member (live content: the site-E endpoint data, Definition-6.1
+instantiation plus the strict-boundary stipulation) and the pairing-act member
+(Door-4 bookkeeping per 1x) — **and the seven-item count stands**: the class is the
+residue's sixth item, an item with live members either way. Net-state markers at
+every "three members" surface (censused and gated). *(iv) Honest scope and the
+falsifier.* Consumed: Part 0's definition and identity (committed), Definition 2.1 +
+Theorem 1 (committed), Γ-argument arithmetic (exact); no data beyond the
+already-counted anchors, now cross-checks; no number changes anywhere; no RH/GRH, no
+semiclassics. The feature→layer assignment {5, 7, 19, 217} is now **entailed
+end-to-end given the amended axioms**: the pairing by this theorem, the boundary
+sides by A1's selector clause (1v), the bands by the lattice facts (1k(i)). The
+falsifier, stopping-rule-gated per the 1h(iv) pattern: **any committed surface found
+reading a layer's potential at the avatar argument** (Γ_ℝ(d) at layer d) as
+load-bearing content re-opens the member; the known avatar appearances are the
+forsworn Remark's subject and 1m's rejected clause, both already adjudicated.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1981,4 +2036,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1x: the **44 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1y: the **45 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
