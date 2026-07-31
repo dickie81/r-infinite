@@ -11,7 +11,8 @@ exactly); (b) Omega_d = 2/Gamma_R(d+1) exactly -- Part 0's area IS
 the Definition-2.1 weight (and the formulation's T1 already commits
 p(d) = (log Gamma_R)'(d+1) as a proved elementary identity); (c)
 hence p(d) = P(d+1) with the "+1" the argument already inside
-Omega_d, Definition 2.1, and A1 -- never a frame choice; (d) the
+Omega_d, Definition 2.1, and A1 -- never a frame choice in the
+mathematics (round-108 F1 propagated the paper's scoping); (d) the
 alternative p(d) := P(d) is the log-derivative of the forsworn
 avatar 2/Gamma_R(d) = Omega_{d-1} (the PREVIOUS layer's area),
 excluded by the committed dictionary, not by data. Member one

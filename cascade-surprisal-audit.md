@@ -9362,6 +9362,48 @@ validator clean on 12 files. Trajectory: 1y landed → 107 NOT
 CONVERGED 2M+4m+1c (swept this commit) → round 108 (convergence
 test) next.
 
+## Addendum 190: convergence-test round 108 on the round-107 sweep — CONVERGED (0 majors, 0 minors, 1 cosmetic, swept in this record commit); Theorem 1y certified stable; member one's closure certified; the site-E arc closes
+
+Round 108 returned zero majors and zero minors. Its held list,
+lead-spot-checked: the four 1l corrections verified against the
+pre-sweep text (exactly four 1m-citations, all of 1l's content,
+confirmed by direct read of both theorems); the availability
+archaeology reproduced (9b321cd 2026-05-06; 0e72f16 2026-07-19 with
+--diff-filter=A confirming the formulation's creation; c075eaa
+2026-07-22; 47-round arithmetic exact) with the "every link" audit
+extended to every chain constituent; the no-surface-asserted-
+unavailability grep clean (the "irreducible relative to A1–A4" hits
+all concern the pairing-act, a different object); the three F3
+markers accurate with zero missed carriers; the tautology demotion
+real (the IDENTITY line not appended to results; the ImportError
+branch fails honestly); the symbolic gate genuine (sabotage: a
+Rational perturbation fails with residual −log(π)/6); the adjacency
+check proven genuinely per-occurrence (sabotage C: a marker moved
+>400 chars passes the totals gate while failing adjacency — exit 1);
+battery at expected counts (15 instruments); validator clean; footer
+census exact. The one cosmetic (the verifier docstring's unscoped
+"never a frame choice" — the paper's "in the mathematics" scoping
+not propagated) is swept in this record commit; site_e_pairing
+re-run 15/0.
+
+**Trajectory: 1y landed (541c354) → 107 NOT CONVERGED 2M+4m+1c
+(swept, 0f781a0) → 108 CONVERGED 0+0+1c (swept here). Theorem 1y is
+stable and member one's closure is certified: the site-E pairing
+p(d) = P(d+1) is entailed — Part 0's intrinsic definition, the exact
+identity Ω_d = 2/Γ_ℝ(d+1), and Γ-argument arithmetic, with the
+alternative pairing the forsworn avatar's log-derivative, excluded
+by the committed dictionary, not by data; the closure disclosed as a
+delayed observation of content committed before the round-60
+grading. The selection class stands at two members (the audit-family
+member with the endpoint data; the pairing-act member); the
+seven-item count stands; the feature→layer assignment {5, 7, 19,
+217} is entailed end-to-end given the amended axioms and the
+committed dictionary. Standing open routes after this arc: the
+site-E endpoint data (member two's live content), the pairing-act
+(Door-4 bookkeeping, member three), A3's underived rules, the
+layer-2 soft inputs. Next hostile round on the next substantive
+paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -2151,3 +2151,24 @@ instrument honesty.
 
 **Trajectory: 1y landed → 107 NOT CONVERGED 2M+4m+1c (swept) → round
 108 (convergence test) next.**
+
+# Round 108: convergence test on the round-107 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic — swept in the record commit); Theorem 1y certified stable; member one's closure certified; the site-E arc closes
+
+The four 1l corrections verified against the pre-sweep text; the
+availability archaeology reproduced with the "every link" audit
+extended; the no-unavailability-assertion grep clean; zero missed
+carriers; the tautology demotion real; the symbolic gate genuine
+(sabotaged); the adjacency check proven per-occurrence (sabotage C:
+totals pass, adjacency fails); battery, validator, census clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F108-1 (cosmetic) — the verifier docstring's "never a frame choice" unscoped (the paper's "in the mathematics" not propagated) | **Accepted; scoping propagated** with the round-108 note; site_e_pairing re-run 15/0 | verifier |
+
+**Trajectory: 1y landed → 107 2M+4m+1c (swept) → 108 CONVERGED
+0+0+1c (swept here). Member one's closure certified: the site-E
+pairing entailed by committed content, disclosed as a delayed
+observation; the class at two members; the seven-item count stands;
+{5, 7, 19, 217} entailed end-to-end given the amended axioms and the
+committed dictionary. Next hostile round on the next substantive
+paper change.**
