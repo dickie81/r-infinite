@@ -9029,6 +9029,39 @@ census, hygiene all clean.
 **Trajectory: 1w landed → 101 2M+5m (swept) → 102 NOT CONVERGED
 0M+1m (swept this commit) → round 103 (convergence test) next.**
 
+## Addendum 183: convergence-test round 103 on the round-102 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1w certified stable; the kernel-native colour-count arc closes
+
+Round 103 (fresh-context, commit-scoped to 38766f4) returned zero
+findings at all severities. Its held list, lead-spot-checked: the
+F102-1 fix verbatim with the address verified by direct read (the
+registered negative inside Theorem 1f at paper:298; 1g(iii) the
+kernel's anatomy at paper:358); the "1g(iii)" census clean across
+all object surfaces (8 hits: 3 correct referents, 5 inside
+correction annotations, zero live wrong addresses); the "one
+instance" quantifier verified against e904c85; the sweep diff
+exactly the docstring hunk plus the two record files; four sabotage
+classes reproduced failable (the 3,553 excision census, the
+adjudication anchor, the expectation flip, the T1f(iii) marker —
+all exit 1 on scratchpad copies); the 3,043 census independently
+reproduced with a structurally different algorithm; battery at
+expected counts (13 instruments); validator clean on 12 files;
+footer census exact; model-ID sweep zero.
+
+**Trajectory: 1w landed (7d9ccea) → 101 NOT CONVERGED 2M+5m (swept,
+e904c85) → 102 NOT CONVERGED 0M+1m (swept, 38766f4) → 103 CONVERGED
+0+0+0. Theorem 1w is stable: N_c = 3 is entailed given the
+pairing-act (charged) plus T8's root–unit identity (committed), via
+the unit-torsion route — ℚ(ζ₃)'s μ₆ is the unique six-unit torsion
+among all imaginary quadratic fields and the unique plane-spanning
+simple root system (A₂), with N(N−1) = 6 forcing N = 3
+form-independently. The registered finite-places negative of 1f(iii)
+stands verbatim; the archimedean residue narrows from {count, layer}
+to {layer}; the μ₆ both-sides bound is on the record (the new
+content is the classification step and the censi, not the 6). The
+colour residue after 1w: per-leg occupancy (instantiation) and the
+layer-12 selection (the feature→layer member). Next hostile round on
+the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
