@@ -9003,6 +9003,32 @@ notice in A180 (battery phrasing; the F5 address). Trajectory: 1w
 landed → 101 NOT CONVERGED 2M+5m (swept this commit) → round 102
 (convergence test) next.
 
+## Addendum 182: convergence-test round 102 on the round-101 sweep — NOT CONVERGED (0 majors, 1 minor); one F101-5 residual in the verifier docstring; swept this commit
+
+Round 102 verified the round-101 sweep in depth and it held everywhere
+but one line: the F101-1 markers accurate with no missed carrying
+surface (the paper's 1e(v) Witt-tail adjudicated correctly-scoped);
+the F101-2 excision sabotage re-run independently (census 3,553
+observed, exit 1); the Kronecker implementation verified four ways
+(closed forms for χ₋₃/χ₋₄, the supplementary rule, complete
+multiplicativity, 2,000-case sympy cross-check, zero mismatches) with
+the conductor computation genuine and its divisor-only iteration
+sound by the classical conductor-divides-modulus theorem; the F101-5
+census "three in the paper" verified against 7d9ccea; the F101-6
+qualified uniqueness claim verified true; the F101-7 recital verbatim
+and the scoping adjudicated true as worded; battery, validator,
+census, hygiene all clean.
+
+- **F102-1 (minor):** the verifier docstring's claim-under-test
+  paragraph (line 10) still read "the registered finite-places
+  negative of 1g(iii)" — the one F101-5 instance the sweep missed
+  (the disposition "verifier comment corrected" covered only the W5
+  anchor comment). Lead-verified by grep. **Swept:** corrected to
+  1f(iii) with the round-102 F1 note; colour_count re-run 15/0.
+
+**Trajectory: 1w landed → 101 2M+5m (swept) → 102 NOT CONVERGED
+0M+1m (swept this commit) → round 103 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

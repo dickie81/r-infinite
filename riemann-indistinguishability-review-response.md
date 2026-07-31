@@ -2047,3 +2047,17 @@ self-description, and citation/quantifier precision.
 
 **Trajectory: 1w landed → 101 NOT CONVERGED 2M+5m (swept) → round 102
 (convergence test) next.**
+
+# Round 102: convergence test on the round-101 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor); one F101-5 residual in the verifier docstring; round 103 follows
+
+The sweep held everywhere but one line (the markers accurate, the
+excision sabotage reproduced at 3,553/exit 1, the Kronecker
+implementation verified four ways with zero mismatches, the recitals
+verbatim, battery/validator/census clean).
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F102-1 (minor) — the verifier docstring's claim-under-test paragraph still cited "1g(iii)": the one F101-5 instance the sweep missed | **Accepted; corrected to 1f(iii)** with the round-102 F1 note | verifier |
+
+**Trajectory: 1w landed → 101 2M+5m (swept) → 102 NOT CONVERGED 0M+1m
+(swept) → round 103 (convergence test) next.**

@@ -7,7 +7,9 @@ roots are the units mu_6 of Z[omega] (point-by-point)", PROVED,
 Addendum 36), the colour multiplicity N_c = 3 is ENTAILED: the paired
 field's unit torsion is the A_2 root system by the rank-2
 classification, and N(N-1) = 6 forces N = 3 uniquely. The registered
-finite-places negative of 1g(iii) stands verbatim -- this route reads
+finite-places negative of 1f(iii) (round-102 F1: the docstring header
+was the one F101-5 instance the round-101 sweep missed) stands
+verbatim -- this route reads
 the unit torsion at the infinite embedding (global, archimedean), no
 finite-place datum. Kernel-3 = cascade-3 (rho(12)-1, Adams) is
 reported as a Check-8 cross-check, not forcing: the layer-12
