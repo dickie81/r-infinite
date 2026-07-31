@@ -504,7 +504,11 @@ not need the odd reading — the pairing-act is Door-4 bookkeeping, its
 derivational weight audited to zero.** Scoped, not universal; licensed
 falsifier: any future grammar entry routed through the odd bridge's L-side
 re-opens the member's weight. The member persists; three members and the
-seven-item count stand. No closure of the member; category (a).
+seven-item count stand. No closure of the member; category (a). *(Net-state, T1x
+of the review paper: the falsifier checked against the review side's own 1w —
+unfired (ring-side route; no grammar entry rerouted; the tex papers consume the
+act nowhere, gated); the zero-weight grading refines to zero-for-numbers; the
+member persists.)*
 
 **T1u (the given's irreducibility classification;
 `cascade_given_irreducibility.py`, five gates).** The 1p/1q question —

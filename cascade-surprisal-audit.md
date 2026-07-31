@@ -9062,6 +9062,70 @@ colour residue after 1w: per-leg occupancy (instantiation) and the
 layer-12 selection (the feature→layer member). Next hostile round on
 the next substantive paper change.**
 
+## Addendum 184: Theorem 1x — the Door-4 status probe (owner-commissioned); 1t's falsifier checked against 1w — unfired on both conjuncts; the zero-weight grading refined to zero-for-numbers; the act's axiomatic geography mapped post-adoption
+
+The owner commissioned "Probe door 4 status." The probe's occasion:
+Theorem 1w consumes the pairing-act, while 1t(v) had graded the act
+"an identification consumed by nothing in the chain" (weight zero)
+under the licensed falsifier "any future derivation that routes a
+grammar entry through the odd bridge's L-side re-opens the member's
+derivational weight." The adjudication:
+
+- **The falsifier is UNFIRED, on both conjuncts (gated).** (a) No
+  grammar entry is rerouted: "given the (pairing-)act" has zero
+  occurrences across all 12 cascade tex sources (gated file-by-file;
+  sabotage: an injected act-consumption phrase in a tex copy flips
+  D1, exit 1 — the gate operationalizes the sharpened falsifier);
+  N_c's papers-side carrier is the Radon–Hurwitz entry the axiom
+  block itself lists (A2's row "N_c = 3 = 2^(v₂(12))−1 |
+  Radon–Hurwitz count | a 2-adic invariant", anchored); 1w is
+  redundant for the number. (b) The route is ring-side: 1w's forcing
+  chain carries zero L-side tokens (gated over the span);
+  "conductor" appears in 1w exactly twice, both outside the chain
+  ((i)'s not-consumed W₂ note; (v)'s disclosed exhibit) —
+  location-gated; the mass arc's ring-side consumption (1t(iv), 1m)
+  is the committed precedent for the side.
+- **The zero-weight grading refines, superseded-true.** 1t(v)'s
+  census statement remains true of its scope ("not a universal over
+  future derivations," its own sentence); the standing state: the
+  act is consumed by three review-side chains (1c(ii)/1j minimality,
+  1r partner, 1w count — censused case-insensitively: 7 pre-1x
+  sites in the paper, 5 in the formulation, gated) while its weight
+  FOR NUMBERS remains zero: strike every consumption and every
+  committed number stands (N_c via Adams/A2; χ₋₃'s minimality via
+  1c(ii)'s unconditional theorem). Markers at 1t(v), the 1s tail,
+  and the formulation's T1t block.
+- **The act's axiomatic geography post-adoption.** The amended block
+  carries zero odd-reading content — no χ₋₃, no "character" as a
+  word (the two "characterisation" tokens are A1's round-98 role
+  note, per-token adjudicated; the χ tokens are A2's torsion
+  constant χ = 2 = |μ(ℝ)|), no "odd"/"conductor"/"pairing"/
+  "Dirichlet"/L-object (all gated) — while carrying the RING side
+  natively (A2's cos(π/6) row names ℤ[ω] and ℚ(ζ₃)). Door 4's
+  asymmetry is mirrored inside the axioms: ring side native, L-side
+  extrinsic. The adoption did not change the act's extra-axiomatic
+  status. Exhibit, disclosed: |μ(ℝ)| = 2 even-side vs w = 6 =
+  N_c(N_c−1) at the paired field — the same invariant class.
+- **Status conclusion:** Door-4 bookkeeping CONFIRMED and sharpened;
+  the member persists charged (three members, seven-item count
+  unchanged); the committed falsifier stands; the sharpened
+  papers-side falsifier licensed: should any cascade paper ever
+  carry a number via the act, the bookkeeping grading fails
+  (stopping-rule-gated per the 1h(iv) pattern).
+
+**Drafting corrections during the session (recorded per the
+verified-record rule):** the first gate drafts guessed 8 paper sites
+(case-sensitive) and one "characterisation" token; direct recounts
+gave 7 (case-insensitive; the capital-G site at 1w(ii)) and 2 (the
+role note's doubled token); prose and gates corrected to the
+verified counts before commit. **Verifier:**
+cascade_door4_status.py, D1–D5, 15 gates, 15/0; two sabotages exit 1
+(the 1t(v) marker anchor; the tex act-injection). **Battery:** all
+14 instruments green; validator clean on 12 files; footer 43 → 44
+counted (census 45 body = 44 + constants). No data consumed; no
+number changes anywhere. Trajectory: 1x landed → round 104 (hostile
+review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

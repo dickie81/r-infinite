@@ -1092,7 +1092,10 @@ branch for the committed record — the grammar-need census (scope per 1t(i),
 extended in rounds 89–91 to every paper- or ledger-cited computational
 surface, 81 resolving scripts, 91 files scanned) returns zero consumption of the odd
 bridge's arithmetic side; the act is Door-4 bookkeeping, with the falsifier
-licensed.)*
+licensed.)* *(Net-state, Theorem 1x: the status probed post-1w — bookkeeping
+confirmed; the act is consumed review-side (1c(ii)/1j, 1r, 1w) with
+weight-for-numbers zero; the "bookkeeping only" reading persists for the papers'
+grammar, which consumes the act nowhere.)*
 
 **Theorem 1t (the grammar-need census: 1s's second branch established for the
 committed record; `cascade_grammar_need.py`).** 1s's open core is a disjunction;
@@ -1164,7 +1167,11 @@ routes a grammar entry through the odd bridge's L-side re-opens the member's
 derivational weight.** The member itself persists as charged — the act, when
 taken, remains the recorded convention — so **three members and the seven-item
 count stand**; what closes is 1s's open question, on its auditable branch. No
-number changes; no closure of the member; category (a).
+number changes; no closure of the member; category (a). *(Net-state, Theorem 1x:
+the falsifier checked against 1w — unfired on both conjuncts (ring-side route; no
+grammar entry rerouted); the zero-weight grading refines to zero-for-numbers — the
+act is now consumed by three review-side chains (1c(ii)/1j, 1r, 1w), none carrying
+a number.)*
 
 **Theorem 1u (the given's irreducibility classification: regularity/coherence
 adjudicated against the axioms' committed content; `cascade_given_irreducibility.py`).**
@@ -1360,6 +1367,61 @@ fields (gated: at d = −4 the list reads 4, 4, 2, 1). Coincidences corroborate;
 forcing chain is (ii)–(iii) alone. Category: closure-narrowing on an acknowledged
 residue (ledger row 4; T8's tail; 1f(iii)); no data consumed, no number changes
 anywhere.
+
+**Theorem 1x (the Door-4 status probe: 1t's falsifier checked against 1w — unfired
+on both conjuncts; the zero-weight grading refined to zero-for-numbers; the act's
+axiomatic geography post-adoption; `cascade_door4_status.py`).** *(i) The commission
+and the committed status.* The owner commissioned a probe of the pairing-act's Door-4
+status. The committed state: Door 4 is the conductor-is-the-different identification
+(1c(ii)'s C4), its two sides independently committed (1t(iv)); the act is graded
+Door-4 bookkeeping with *"the pairing-act's derivational weight is audited to zero"*
+(1t(v)), under the licensed falsifier *"any future derivation that routes a grammar
+entry through the odd bridge's L-side re-opens the member's derivational weight."*
+Since that census, the record gained a theorem that consumes the act — 1w produces
+N_c = 3 given it. The probe adjudicates the status against the post-1w record.
+*(ii) The falsifier, checked against 1w: unfired on both conjuncts.* **(a) No grammar
+entry is rerouted.** The cascade papers consume the act nowhere — *"given the act"* /
+*"given the pairing-act"* has **zero occurrences across all twelve tex sources**
+(gated); N_c's grammar carrier remains the papers-side Radon–Hurwitz entry, which the
+axiom block itself lists as a local constant — A2's row *"N_c = 3 = 2^(v₂(12))−1 |
+Radon–Hurwitz count | a 2-adic invariant"* (anchored) — and 1w's entailment is
+redundant for the number ("no data consumed, no number changes anywhere," 1w's own
+gated tail). **(b) The route is not L-side.** 1w's forcing chain ((ii)–(iii)) consumes
+the act, the field, the ring, and μ₆ — ring-side objects, the side 1t(iv) classified
+as independently committed and already consumed by the mass arc (1m precedent); the
+chain's text carries **zero L-side tokens** (no L-values, no zeros, no prime sum, no
+bridge conductor term — gated over the span), and "conductor" appears in 1w exactly
+twice, both outside the chain: (i)'s scoping note naming the **not**-consumed W₂
+alternative, and (v)'s disclosed exhibit (location-gated). *(iii) The zero-weight
+grading, refined — superseded-true.* 1t(v)'s *"an identification consumed by nothing
+in the chain"* was a census over the record through 1t and remains true of that scope
+(its own sentence: *"a census over the record, **not a universal over future
+derivations**"*); as standing state it refines: the act is now consumed by **three
+review-side chains** — 1c(ii)/1j's minimality entailment, 1r's partner determination,
+1w's count entailment (censused case-insensitively: seven pre-1x consumption sites in
+this paper, five in the formulation, counted and classified, gated) — while its weight **for numbers**
+remains zero: strike every consumption of the act and every committed number stands
+(N_c via Adams and A2's 2-adic row; χ₋₃'s minimal-conductor-odd-primitive status via
+1c(ii)'s unconditional theorem; the bridge identities are cross-checks). Net-state
+markers at 1t(v), the 1s tail, and the formulation's T1t block. *(iv) The act's
+axiomatic geography post-adoption.* The amended A1 names ζ(s) — the even tower's
+completed object — yet the axiom block still carries **zero odd-reading content**: no
+χ₋₃, no "character" as a word (the block's χ tokens are A2's torsion constant χ = 2 =
+|μ(ℝ)|, and A1's character-substrings are the two tokens of "characterisation" in
+the round-98 role note — per-token adjudicated, the round-94 discipline), no "odd", no "conductor", no "pairing", no
+L-object (gated per token). What the block **does** carry natively is the ring side:
+A2's cos(π/6) row names ℤ[ω] and ℚ(ζ₃); its χ = 2 row is torsion-of-units at the
+real place — the same invariant class 1w reads at the paired field (|μ(ℝ)| = 2
+even-side; w = 6 = N_c(N_c − 1) at ℚ(ζ₃) — an exhibit, disclosed, not a forcer). So
+Door 4's asymmetry is mirrored inside the axiom block itself: **ring side native,
+L-side extrinsic.** The adoption did not change the act's extra-axiomatic status.
+*(v) Status conclusion.* Door-4 bookkeeping **confirmed and sharpened**: the member
+persists charged (three members and the seven-item count unchanged); the committed
+falsifier stands unfired and unchanged; and one falsifier is sharpened alongside it,
+stopping-rule-gated per the 1h(iv) pattern like its sibling: **should any cascade
+paper ever carry a number via the act** — replacing that number's papers-side carrier
+— the act's weight-for-numbers becomes nonzero and the bookkeeping grading fails. No
+closure; no number changes; category (a) refinement.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -1893,4 +1955,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1w: the **43 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1x: the **44 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
