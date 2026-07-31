@@ -8852,6 +8852,40 @@ census exact. Trajectory: the adoption landed → 98 1M+5m+1c (swept) →
 99 NOT CONVERGED 0M+2m (swept this commit) → round 100 (convergence
 test) next.**
 
+## Addendum 179: convergence-test round 100 on the round-99 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1v's arc certified stable; the adoption arc closes
+
+Round 100 (fresh-context, same-model, commit-scoped to b15be93)
+returned zero findings at all severities. Its held list, lead-spot-
+checked: the F99-1 strike recital machine-compared character-identical
+against 982eeba; the annotation an accurate compression of 1u(ii)+(v)
+and verbatim-identical to the accepted round-98 F4 annotation at the
+1u marker; whole-repo grep leaves zero live "only route" overclaims
+(two strikes + the scoped docstring; variant greps empty); line 636
+verified the paper's genuine first "Γ_ℝ entire" use (the three
+earlier "entire" hits are unrelated term-of-art uses); the new gloss's
+CommonMark emphasis pairing verified sane (5 asterisks, 3/3 parens,
+the nested *in its entirety* span left-/right-flanking valid); the
+formulation and part0 glosses intact (`git diff 982eeba HEAD -- src/
+tools/ cascade-riemann-formulation.md` empty); the sweep diff exactly
+3 files with the two paper hunks precisely the F99-1/F99-2 fixes;
+battery at expected counts (12 instruments, run by the reviewer from
+repo root); a scratchpad sabotage flipping V1 to FAIL (the gate
+bites); validator clean on 12 files; footer census exact; quantifier
+audit clean; model-ID sweep zero.
+
+**Trajectory: the adoption landed (1v, 3b662ff) → 98 NOT CONVERGED
+1M+5m+1c (swept, 982eeba) → 99 NOT CONVERGED 0M+2m (swept, b15be93) →
+100 CONVERGED 0+0+0. Theorem 1v is stable: A1 stands re-founded on
+the Riemann kernel by the owner's decision, mirror coherence its
+explicit boundary-labeling selector, the labeling forced, the five
+prior faces corollaries, the cost on the ledger, no number changed.
+Standing open routes after the adoption: the site-E pairing (1k's
+first given), the pairing-act's Door-4 status, A3's underived rules,
+the layer-2 soft inputs; the honest falsifier — a future committed
+derivation of the clause from a weaker kernel makes the adoption
+redundant — stands. Next hostile round on the next substantive paper
+change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
