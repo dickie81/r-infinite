@@ -140,6 +140,9 @@ Radon–Hurwitz entry is closed; the Witt-ring route is open and named (W(ℚ₂
 ≅ ℤ/8⊕ℤ/2⊕ℤ/2, level(ℚ₂) = 4 verified in-code, ⟨1⟩ of order 8 — round-18 m3); the
 derivation stays open. No grammar entry derived. *(Net-state: T1f has since worked the
 Witt route at its achievable scope — mod-8 connection made, count still archimedean.)*
+*(Net-state, T1w of the review paper, round 101: the count is now entailed given the
+pairing-act plus T8's root–unit identity — archimedean/global throughout, no finite
+place read; the layer remains the open residue.)*
 
 **T1f (The Witt step — PROVED at stated strengths; Addendum 75;
 `cascade_witt_weil.py`).** (i) The dyadic Weil index descends to a surjective
@@ -158,7 +161,9 @@ character-free; the kernel moves in its scaling orbit — "canonical" = the ψ-i
 structure only. The ℤ/8 = Wall/ABS's BW(ℝ) = the Clifford/Bott (hence
 Radon–Hurwitz) period (cited). (iii) Honest negative registered: **N_c = 3 NOT
 derived** — ρ is a function of v₂ alone (verified) but the count is Adams (archimedean)
-and the layer is papers-side; the open item narrows to those two. *(Door 3 refinement,
+and the layer is papers-side; the open item narrows to those two. *(Net-state, T1w of
+the review paper, round 101: the count is entailed given the pairing-act plus T8's
+root–unit identity — the open item narrows to the layer alone.)* *(Door 3 refinement,
 A83: at every load-bearing dimension the count needs only the Clifford construction +
 Poincaré–Hopf + pre-Adams v₂ ≤ 2 upper bounds; K-theory load-bears nowhere in the
 window — `cascade_adams_loadbearing.py`, 5 gates PASS. Layer question, A87, corrected by round 30 (A89): the

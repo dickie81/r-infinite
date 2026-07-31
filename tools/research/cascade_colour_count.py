@@ -32,14 +32,29 @@ Gates:
         rho(d) - 1 = 3. Plus the disclosed exhibit: the four-way
         coincidence at d = -3 (conductor, |disc|, ramified prime,
         odd-torsion order all = 3) vs its failure at d = -4
-        (4, 4, 2, 1).
+        (4, 4, 2, 1) -- all four invariants COMPUTED from d
+        (round-101 F3: the first commit hardcoded the tuples, a gate
+        that could not fail; the conductor is now the computed
+        minimal defining modulus of the Kronecker symbol, the
+        ramified primes come from factorisation, the odd-torsion
+        order from the computed unit count).
   W5 -- surface anchors, verbatim and failable: the theorem's key
-        sentences in the paper; T8's identity sentence and the two
-        net-state markers in the formulation; the registered
-        negative plus its marker in the paper.
+        sentences in the paper; T8's identity sentence and the four
+        net-state markers in the formulation (T8 tail, ledger row 4,
+        and -- round-101 F1 -- T1e(v) and T1f(iii)); the registered
+        negative (Theorem 1f(iii); round-101 F5 corrected the first
+        draft's "1g(iii)" address) plus its marker in the paper; the
+        round-101 F6/F7 sweep sentences.
 
-No data consumed; no number changes anywhere. Sabotage-tested: each
-gate flips on a one-token perturbation of its target.
+No data consumed; no number changes anywhere. Sabotage record
+(round-101 F2 corrected the original docstring, which claimed
+per-gate sabotage coverage that had not been run -- one sabotage
+existed at commit time): the W5 adjudication-anchor perturbation
+flips W5 (Addendum 180); the round-101 sweep added the W1
+exact-cardinality gate (total == 3043), under which the previously
+undetected is_fundamental excision (which inflated the census to
+3,553) now fails, and made W4's exhibit computed rather than
+recited.
 """
 import cmath
 import math
@@ -106,8 +121,9 @@ for d in range(-1, -10001, -1):
             w6.append(("BAD", d, w))
 gate("w = 6 exactly at {-3}", w6 == [-3], f"w6 set = {w6}")
 gate("w = 4 exactly at {-4}", w4 == [-4], f"w4 set = {w4}")
-gate("all others w = 2, census complete", w2 == total - 2 and total > 3000,
-     f"{w2} of {total} fundamental discriminants")
+gate("all others w = 2; census cardinality exact (round-101 F4)",
+     w2 == total - 2 and total == 3043,
+     f"{w2} of {total} fundamental discriminants (gate: total == 3043)")
 
 print("W2 -- mu_6 is a root system; classification forces A_2 and N = 3")
 roots6 = [cmath.exp(1j * math.pi * k / 3) for k in range(6)]
@@ -172,11 +188,82 @@ gate("rho(12) - 1 = 3", rho(12) - 1 == 3)
 census = [d for d in range(5, 20) if rho(d) - 1 == 3]
 gate("d = 12 unique in [5, 19] with rho(d) - 1 = 3", census == [12],
      f"census = {census}")
-# four-way coincidence at -3: conductor, |disc|, ramified prime, |mu_odd|
-inv_m3 = (3, 3, 3, 6 // 2)
-inv_m4 = (4, 4, 2, 1)  # conductor 4, |disc| 4, ramified prime 2, mu_odd trivial
-gate("four-way coincidence at d = -3 (all = 3); fails at d = -4 (4,4,2,1)",
-     len(set(inv_m3)) == 1 and inv_m3[0] == 3 and len(set(inv_m4)) > 1,
+# four-way coincidence at -3, COMPUTED from d (round-101 F3)
+
+
+def kronecker(a, n):
+    if n == 0:
+        return 1 if abs(a) == 1 else 0
+    k = 1
+    if n < 0:
+        n = -n
+        if a < 0:
+            k = -k
+    while n % 2 == 0:
+        n //= 2
+        if a % 2 == 0:
+            return 0
+        if a % 8 in (3, 5):
+            k = -k
+    a %= n
+    while a != 0:
+        while a % 2 == 0:
+            a //= 2
+            if n % 8 in (3, 5):
+                k = -k
+        a, n = n, a
+        if a % 4 == 3 and n % 4 == 3:
+            k = -k
+        a %= n
+    return k if n == 1 else 0
+
+
+def conductor(d):
+    # minimal q such that chi_d(n) depends only on n mod q (n coprime to 2d)
+    for q in range(1, abs(d) + 1):
+        if abs(d) % q:
+            continue
+        classes = {}
+        ok = True
+        for n in range(1, 12 * abs(d)):
+            if math.gcd(n, 2 * abs(d)) != 1:
+                continue
+            r, v = n % q, kronecker(d, n)
+            if classes.setdefault(r, v) != v:
+                ok = False
+                break
+        if ok:
+            return q
+    return abs(d)
+
+
+def ram_primes(d):
+    m, ps, p = abs(d), [], 2
+    while m > 1:
+        if m % p == 0:
+            ps.append(p)
+            while m % p == 0:
+                m //= p
+        p += 1
+    return ps
+
+
+def odd_torsion(w):
+    while w % 2 == 0:
+        w //= 2
+    return w
+
+
+def invariants(d):
+    ps = ram_primes(d)
+    return (conductor(d), abs(d), ps[0] if len(ps) == 1 else ps,
+            odd_torsion(unit_count(d)))
+
+
+inv_m3 = invariants(-3)
+inv_m4 = invariants(-4)
+gate("four-way coincidence at d = -3 (all = 3, computed); fails at d = -4",
+     inv_m3 == (3, 3, 3, 3) and inv_m4 == (4, 4, 2, 1),
      f"d=-3: {inv_m3}, d=-4: {inv_m4}")
 
 print("W5 -- surface anchors (verbatim, failable)")
@@ -187,12 +274,17 @@ ok5 &= "the unique positive-integer solution" in paper
 ok5 &= "The kernel does not produce 3 unaided: it produces 3 **given the\nact**." in paper
 ok5 &= "internal consistency, not forcing" in paper
 ok5 &= paper.count("N_c = 3 is not derived\nfrom the finite places") >= 1
-ok5 &= "what remains\narchimedean is the layer alone" in paper  # 1g(iii) marker
+ok5 &= "what remains\narchimedean is the layer alone" in paper  # 1f(iii) marker
+ok5 &= "the registered negative lives in Theorem 1f(iii)" in paper  # round-101 F5
+ok5 &= "plane-spanning" in paper  # round-101 F6 qualifier
+ok5 &= "not the 6 itself" in paper  # round-101 F7 disclosure
 gate("paper: theorem + adjudication + registered-negative marker anchored", ok5)
 ok6 = "The su(3) roots are the units μ₆ of ℤ[ω]" in form
 ok6 &= "the instantiation residue narrows to per-leg occupancy only" in form  # T8 marker
 ok6 &= "residue narrows to per-leg occupancy)*" in form  # ledger row 4 marker
-gate("formulation: T8 identity + both net-state markers anchored", ok6)
+ok6 &= "the open item narrows to the layer alone" in form  # round-101 F1, T1f(iii)
+ok6 &= "the layer remains the open residue" in form  # round-101 F1, T1e(v)
+gate("formulation: T8 identity + all four net-state markers anchored", ok6)
 ok7 = "count side narrows further" in paper  # Door-3 remark marker
 gate("paper: Door-3 remark net-state marker anchored", ok7)
 

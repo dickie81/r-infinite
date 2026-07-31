@@ -1301,12 +1301,18 @@ given; category (a) plus one recorded axiom adoption.
 pairing-act and T8's root–unit identity; the registered finite-places negative stands
 verbatim; `cascade_colour_count.py`).** *(i) The commission and the gate.* The owner
 commissioned the kernel-native colour count (this arc). The registered negative of
-1g(iii) stands verbatim — *"N_c = 3 is not derived from the finite places"* — and this
+1f(iii) *(round-101 F5: the first draft cited "1g(iii)" here and at two points below —
+the registered negative lives in Theorem 1f(iii), and 1g(iii) names a different
+committed referent, the kernel's anatomy; corrected at all three)* stands verbatim — *"N_c = 3 is not derived from the finite places"* — and this
 theorem does not touch it: no finite-place datum is read anywhere below; the route reads
 the **unit torsion of the paired field at its infinite embedding**, which is global and
 archimedean. The stopping-rule sentence there ("Any future claim that the finite places
 produce the 3 is stopping-rule-gated new physics") gates finite-place claims; this is
-not one, and the hunt is owner-commissioned, recorded as such. *(ii) The unit-torsion
+not one, and the hunt is owner-commissioned, recorded as such. *Scoping (round-101
+F7):* "below" begins after the act — the act's own committed fixing of χ₋₃ (1j(iii)'s
+T11 route) consumes the torsion datum w = 6, itself archimedean/global; the alternative
+committed fixing (1r's W₂, the carrying conductors) is finite-place-flavoured and is
+**not** consumed here. *(ii) The unit-torsion
 route.* Given the pairing-act (the standing charged member; 1r fixes χ₋₃ given the act),
 the paired field is ℚ(ζ₃), maximal order ℤ[ω], unit group the torsion μ₆ (w = 6). The
 census is gated: over all 3,043 fundamental discriminants d < 0 with |d| ≤ 10⁴, w = 6
@@ -1315,22 +1321,32 @@ the unique imaginary quadratic field with six torsion units. The six units at th
 infinite embedding satisfy the root-system axioms (reduced; crystallographic — every
 Cartan pairing ⟨α,β⟩ ∈ {±1, ±2}; closed under its own reflections; spanning — all gated
 numerically), and by the rank-2 classification (A₁×A₁: 4 roots, A₂: 6, B₂: 8, G₂: 12)
-**the configuration is A₂**, the root system of su(N) with N(N−1) = 6, whence **N = 3,
-the unique positive-integer solution** (gated). Uniqueness among fields: d = −4's μ₄ is
+**the configuration is A₂** — the type-A family's root arithmetic N(N−1) = 6 then gives
+**N = 3, the unique positive-integer solution** (gated; N is real-form-independent).
+Uniqueness among fields: d = −4's μ₄ is
 a root system but **decomposable** (⟨1, i⟩ orthogonal — A₁×A₁, non-simple; gated), and
-every other imaginary quadratic field has torsion {±1}, rank 1, non-spanning — so
-ℚ(ζ₃) is the **unique** imaginary quadratic field whose unit torsion forms the root
-system of a simple Lie algebra, and that algebra is su(3). *(iii) What is consumed —
+every other imaginary quadratic field has torsion {±1}, rank 1, non-spanning in the
+plane of the infinite embedding — so ℚ(ζ₃) is the **unique** imaginary quadratic field
+whose unit torsion forms a **plane-spanning** root system of a simple Lie algebra
+*(round-101 F6: the qualifier is load-bearing — {±1} is the A₁ system of the simple
+su(2) in its own one-dimensional span, so the unqualified sentence was false; and the
+first draft's "that algebra is su(3)" named the compact real form here in (ii), ahead
+of the T8 identification in (iii) that actually supplies it — su(2,1) and sl(3,ℝ)
+share the A₂ complexification, while N = 3 itself is form-independent)*. *(iii) What is consumed —
 the adjudication.* The chain is: the pairing-act (charged; Door-4 bookkeeping per 1v)
 selects the field; the field's torsion is A₂ (classical — Killing–Cartan rank-2
 classification, new to the record here, no free choice at any step); and T8's committed
 identity — *"The su(3) roots are the units μ₆ of ℤ[ω] (point-by-point)"* (PROVED,
 Addendum 36) — identifies **this** A₂ with the colour algebra in the committed
 measurement frame. The kernel does not produce 3 unaided: it produces 3 **given the
-act**. The residue moves accordingly: T8's tail "Colour multiplicity 3 and per-leg
+act**. And the act is not innocent of the 6: per 1r(iv), *"the μ₆ datum sits on both
+sides of the pairing"* — the committed fixing of χ₋₃ consumes the same torsion datum
+this theorem classifies, so the genuinely new content here is the classification step
+(μ₆ → A₂ → N = 3) and the uniqueness censi, **not the 6 itself** (round-101 F7). The
+residue moves accordingly: T8's tail "Colour multiplicity 3 and per-leg
 occupancy remain instantiation" narrows to **per-leg occupancy only** — the
 multiplicity is entailed given the act plus T8, and is no longer an independent
-instantiation (net-state markers at T8, ledger row 4, and 1g(iii)'s registered
+instantiation (net-state markers at T8, ledger row 4, and 1f(iii)'s registered
 negative). *(iv) The Check-8 cross-check.* The cascade side's count is ρ(12) − 1 = 3
 (Adams / Radon–Hurwitz; ρ recomputed and gated, with the [5, 19] census: d = 12 is the
 unique dimension there with ρ(d) − 1 = 3). Kernel-3 = cascade-3 is reported as
@@ -1342,13 +1358,13 @@ coincide at the value 3 — the conductor, |disc|, the unique ramified prime, an
 odd-torsion order |μ₃| = w/2 — a four-way coincidence unique among imaginary quadratic
 fields (gated: at d = −4 the list reads 4, 4, 2, 1). Coincidences corroborate; the
 forcing chain is (ii)–(iii) alone. Category: closure-narrowing on an acknowledged
-residue (ledger row 4; T8's tail; 1g(iii)); no data consumed, no number changes
+residue (ledger row 4; T8's tail; 1f(iii)); no data consumed, no number changes
 anywhere.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
-ρ(d) − 1, with ρ the Radon–Hurwitz function of Theorem 1g(iii): ρ(2^(4a+b)·m) = 8a + 2^b
+ρ(d) − 1, with ρ the Radon–Hurwitz function of Theorem ~~1g(iii)~~ **1f(iii)** *(round-101 F5: pre-existing address error of the same class, noticed in the same round — ρ's v₂-only form is 1f(iii)'s)*: ρ(2^(4a+b)·m) = 8a + 2^b
 (m odd, 0 ≤ b ≤ 3). The theorem has two halves of very different depth: the **lower
 bound** (ρ(d)−1 fields exist) is the Hurwitz–Radon–Eckmann *Clifford construction* —
 elementary algebra, and the same Cl/Bott/BW(ℝ) ≅ ℤ/8 object whose arithmetic home

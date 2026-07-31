@@ -8909,7 +8909,7 @@ found is the unit-torsion route, and every step is classical:
 - **The adjudication:** the kernel does not produce 3 unaided; it
   produces 3 given the act. The residue moves: T8's "colour
   multiplicity 3 and per-leg occupancy remain instantiation" narrows
-  to per-leg occupancy only. The registered negative of 1g(iii)
+  to per-leg occupancy only. The registered negative of 1f(iii) [corrected on notice, round 101 F5: originally written 1g(iii)]
   ("N_c = 3 is not derived from the finite places"; finite-place
   claims stopping-rule-gated) stands verbatim — the route reads unit
   torsion at the infinite embedding, global and archimedean, no
@@ -8933,11 +8933,75 @@ cascade_colour_count.py, W1–W5, 15 gates, 15/0; sabotage-tested (a
 one-token perturbation of the adjudication anchor flips W5 to FAIL,
 run on a scratchpad copy). **Battery:** all 13 instruments green
 (riemann_kernel 5/0, given_irreducibility 5/0, grammar_need 5/0,
-lattice 7/0, h0_chain 4/0, the rest 5/0 each); validator clean on 12
+lattice 7/0, h0_chain 4/0, colour_count 15/0, the rest 5/0 each [corrected on notice, round 101: the original read swept colour_count into the 5/0 group]); validator clean on 12
 files; census 44 body = 43 counted + constants disclosed, 4 °-marked
 footer-only. No data consumed; no number changes anywhere.
 Trajectory: 1w landed → round 101 (hostile review, per protocol)
 spawned on this commit.
+
+## Addendum 181: hostile review round 101 on commit 7d9ccea (Theorem 1w) — NOT CONVERGED (2 MAJORs, 5 minors); the core mathematics held under independent reproduction; the defects were sweep-completeness, verifier self-description, and citation/quantifier precision; all findings lead-verified and swept
+
+Round 101 independently reproduced the entire mathematical chain (the
+3,043-discriminant census with a structurally different
+implementation; the root-system axioms bitten by pentagon/μ₈/deleted-
+root counterexamples; the ρ census; the unit-count box bound proved)
+and held the three named MAJOR-candidates: the registered negative
+"stands verbatim" (the committed χ₋₃ fixing runs through the
+archimedean torsion census with conductor-minimality entailed, not
+consumed); no vicious T8 circularity (T8 is invoked exactly as the
+identification member); Check 7/8 compliant. The findings:
+
+- **F1 (MAJOR):** the sweep missed two carrying surfaces in the
+  formulation — T1e(v)'s "count still archimedean" and T1f(iii)'s
+  "the open item narrows to those two" stood unmarked while the
+  sibling surfaces got markers. **Swept:** both net-state markers
+  placed; W5 anchors both.
+- **F2 (MAJOR):** the verifier docstring claimed "Sabotage-tested:
+  each gate flips on a one-token perturbation of its target" — false
+  (one sabotage had been run); demonstrated blind spots: the
+  is_fundamental excision passed all 15 gates (census inflated to
+  3,553 undetected), the paper's "3,043" was read by no gate.
+  **Swept:** the docstring now records the true sabotage history;
+  the W1 cardinality gate is exact (total == 3043) — the excision
+  sabotage now exits 1 (re-run, verified).
+- **F3 (minor):** W4's exhibit compared hardcoded literal tuples — a
+  gate that could not fail. **Swept:** all four invariants computed
+  from d (Kronecker-symbol minimal defining modulus for the
+  conductor; factorisation for the ramified primes; the computed
+  unit count for the odd-torsion order); expectation-flip sabotage
+  exits 1.
+- **F4 (minor):** the paper's "gated" recital of 3,043 was
+  under-gated (total > 3000). **Swept** by F2's exact gate.
+- **F5 (minor):** 1w cited the registered negative as "1g(iii)"
+  three times — the negative lives in 1f(iii), and 1g(iii) names a
+  different committed referent (the kernel's anatomy). **Swept:**
+  all three corrected with an in-place annotation; the pre-existing
+  sibling at the Door-3 remark ("Radon–Hurwitz function of Theorem
+  1g(iii)") struck-and-annotated as the same class, noticed same
+  round; the verifier comment and A180 corrected.
+- **F6 (minor):** the uniqueness headline was false unqualified
+  ({±1} is the A₁ system of the simple su(2) in its own span) and
+  "that algebra is su(3)" named the compact form in (ii) ahead of
+  T8's identification in (iii) (su(2,1)/sl(3,ℝ) share the A₂
+  complexification; N = 3 is form-independent). **Swept:** the
+  plane-spanning qualifier made load-bearing and annotated; the
+  compact-form naming moved to T8's step; W5 anchors the qualifier.
+- **F7 (minor):** the adjudication omitted 1r(iv)'s "the μ₆ datum
+  sits on both sides of the pairing" — the committed χ₋₃ fixing
+  consumes the same torsion datum the theorem classifies. **Swept:**
+  the both-sides recital added to (iii) with the added-value bound
+  (the new content is the classification step and the censi, not
+  the 6); the (i) scoping note added ("below" begins after the act;
+  the W₂ alternative fixing is finite-place-flavoured and not
+  consumed); W5 anchors both.
+
+**Battery after sweep:** colour_count 15/0 (three sabotages exit 1:
+excision, expectation-flip, F6-anchor); the other 12 instruments
+green; validator clean on 12 files; footer census unchanged (44 body
+= 43 counted + constants; 4 °-marked footer-only). Record fixes on
+notice in A180 (battery phrasing; the F5 address). Trajectory: 1w
+landed → 101 NOT CONVERGED 2M+5m (swept this commit) → round 102
+(convergence test) next.
 
 ## Caveats
 

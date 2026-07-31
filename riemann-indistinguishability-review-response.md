@@ -2025,3 +2025,25 @@ Riemann kernel by the owner's decision — mirror coherence its
 explicit boundary-labeling selector, the labeling forced, the five
 prior faces corollaries, the cost on the ledger, no number changed.
 Next hostile round on the next substantive paper change.**
+
+# Round 101: hostile review of Theorem 1w (the kernel-native colour count, commit 7d9ccea) — NOT CONVERGED (2 MAJORs, 5 minors); the mathematics held under independent reproduction; round 102 follows
+
+The chain (torsion census → root-system axioms → rank-2
+classification → N(N−1) = 6 → T8 identification) was independently
+reproduced and held, as did the three named MAJOR-candidates: the
+registered negative's verbatim standing, non-circularity with T8, and
+Check 7/8 compliance. The defects: sweep completeness, the verifier's
+self-description, and citation/quantifier precision.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F101-1 (MAJOR) — two carrying surfaces unmarked in the formulation (T1e(v) "count still archimedean"; T1f(iii) "narrows to those two") | **Accepted; both markers placed**, W5-anchored | formulation + verifier |
+| F101-2 (MAJOR) — docstring claimed per-gate sabotage coverage never run; demonstrated blind spots (is_fundamental excision passed all gates; "3,043" read by no gate) | **Accepted; docstring records the true history; W1 cardinality gate exact** — the excision sabotage now exits 1 | verifier |
+| F101-3 (minor) — W4's exhibit hardcoded (a gate that could not fail) | **Accepted; all four invariants computed from d** (Kronecker minimal modulus, factorisation, computed unit count) | verifier |
+| F101-4 (minor) — "gated" recital of 3,043 under-gated | **Accepted; swept by the exact gate** | verifier |
+| F101-5 (minor) — the registered negative cited as "1g(iii)" ×3 (lives in 1f(iii); 1g(iii) is the kernel's anatomy); pre-existing sibling at the Door-3 remark | **Accepted; all three corrected with annotation; the pre-existing sibling struck-and-annotated** (same class, noticed same round); verifier comment + A180 corrected | paper + verifier + record |
+| F101-6 (minor) — uniqueness headline false unqualified ({±1} is su(2)'s A₁ in its own span); compact form named ahead of T8's step | **Accepted; plane-spanning qualifier made load-bearing** (annotated); su(3) naming moved to (iii)'s T8 identification | paper + verifier |
+| F101-7 (minor) — 1r(iv)'s "the μ₆ datum sits on both sides of the pairing" unrecited; the act's fixing consumes the datum the theorem classifies | **Accepted; both-sides recital + added-value bound in (iii); scoping note in (i)** | paper + verifier |
+
+**Trajectory: 1w landed → 101 NOT CONVERGED 2M+5m (swept) → round 102
+(convergence test) next.**
