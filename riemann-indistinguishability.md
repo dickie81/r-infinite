@@ -1382,7 +1382,9 @@ N_c = 3 given it. The probe adjudicates the status against the post-1w record.
 *(ii) The falsifier, checked against 1w: unfired on both conjuncts.* **(a) No grammar
 entry is rerouted.** The cascade papers consume the act nowhere — gated at the
 censused phrase family: *"given the act"* / *"given the pairing-act"*,
-case-insensitive, has **zero occurrences across all twelve tex sources**; the
+case-insensitive and whitespace-normalized (round-105 F2: the round-104 gate
+matched raw bytes, so a line-wrapped instance of the exact family evaded it —
+closed), has **zero occurrences across all twelve tex sources**; the
 phrase-zero is the gate's operationalization, and the claim beyond the phrase family
 is verified by direct reading (round-104 F2: the first gate was case-sensitive and
 its docstring sold it as fully operationalizing the sharpened falsifier — a
@@ -1413,10 +1415,16 @@ review-side chains** — 1c(ii)/1j's minimality entailment, 1r's partner determi
 in this paper~~ [round-104 F1: the first draft's gate truncated the census at this
 theorem's file position, missing two temporally prior sites that sit later in the
 file — the Door-3 remark's 1w marker and the Finding-6 structural update — so the
-committed count was false under the census's natural, temporal reading] **nine**
+committed count was false under the census's natural, temporal reading] ~~nine
 consumption sites in this paper outside this theorem's own span, five in the
-formulation — counts gated; the three-chain classification is by direct read, and
-all nine sites classify to the three chains, none carrying a number) — while its weight **for numbers**
+formulation~~ [round-105 F1: the round-104 correction was itself a layout artifact
+— the gate matched raw bytes, and three instances of the exact phrase family
+straddling hard line-wraps were invisible to it (two in 1w's own text, one in the
+formulation's T1w marker); the census is now whitespace-normalized] **eleven**
+consumption sites in this paper outside this theorem's own span, **six** in the
+formulation — counts gated, whitespace-normalized; the three-chain classification
+is by direct read, and all eleven sites classify to the three chains, none
+carrying a number) — while its weight **for numbers**
 remains zero: strike every consumption of the act and every committed number stands
 (N_c via Adams and A2's 2-adic row; χ₋₃'s minimal-conductor-odd-primitive status via
 1c(ii)'s unconditional theorem; the bridge identities are cross-checks). Net-state

@@ -27,10 +27,12 @@ Gates:
         twice, located outside the chain ((i) scoping note, (v)
         exhibit).
   D3 -- consumers census: the "given the (pairing-)act" sites
-        outside 1x's own span counted exactly, case-insensitively
-        (9 paper, 5 formulation; round-104 F1 corrected the first
-        draft's positionally truncated 7) and all review-side (D1
-        gates the tex zero); the exhibit |mu(R)| = 2 recomputed.
+        outside 1x's own span counted exactly, case-insensitive and
+        whitespace-normalized (11 paper, 6 formulation; round-104 F1
+        corrected the first draft's positionally truncated 7;
+        round-105 F1 corrected 104's raw-byte 9/5, which missed
+        three line-wrapped instances) and all review-side (D1 gates
+        the tex zero); the exhibit |mu(R)| = 2 recomputed.
   D4 -- the axiom block's odd-reading census, per-token adjudicated:
         chi_{-3}, "character" (word), " odd", "conductor", "pairing",
         "Dirichlet", "L(s" all zero; A1's character-substrings are
@@ -48,12 +50,16 @@ perturbation of the 1t(v) marker anchor flips D5, exit 1; (b) a
 lowercase act-consumption phrase injected into a tex copy flips D1,
 exit 1. Round-104 F2 found the first D1 case-sensitive (a
 capitalized injection evaded it, exit 0, reproduced by the
-reviewer) and its self-description overclaimed: D1 is now
-case-insensitive, and its scope is the censused phrase family
-("given the (pairing-)act", any case) -- the sharpened papers-side
-falsifier of 1x(v) is wider than any phrase gate, and consumption
-worded outside the family is hostile-round territory, not this
-instrument's.
+reviewer); round-105 F2 found the case-insensitive fix still
+raw-byte-bound (a LINE-WRAPPED instance of the exact family evaded
+it, exit 0, reproduced by the reviewer -- the same fault line that
+made D3's 9/5 a layout artifact, F1). Both gates now match the
+family case-insensitively AND across whitespace (\\s+ between
+words); the wrapped injection exits 1 (re-run at the round-105
+sweep). Scope, honestly bounded: the censused phrase family, any
+case, any line-wrapping -- the sharpened papers-side falsifier of
+1x(v) is wider than any phrase gate, and consumption worded outside
+the family is hostile-round territory, not this instrument's.
 """
 import glob
 import os
@@ -102,7 +108,7 @@ print("D1 -- falsifier conjunct (a): no grammar entry rerouted")
 tex_hits = {}
 for f in sorted(glob.glob(os.path.join(ROOT, "src", "cascade-series-*.tex"))):
     t = open(f, encoding="utf-8").read()
-    n = len(re.findall(r"(?i)given the (?:pairing-)?act", t))
+    n = len(re.findall(r"(?i)given[\s]+the[\s]+(?:pairing-)?act", t))
     if n:
         tex_hits[os.path.basename(f)] = n
 n_tex = len(glob.glob(os.path.join(ROOT, "src", "cascade-series-*.tex")))
@@ -134,10 +140,12 @@ gate("chain's two chi_-3 tokens disclosed as attributional (round-104 F3)",
 
 print("D3 -- consumers census (review-side only)")
 outside_1x = paper[:i_1x] + paper[i_d3:]
-n_p = len(re.findall(r"(?i)given the (?:pairing-)?act", outside_1x))
-n_f = len(re.findall(r"(?i)given the (?:pairing-)?act", form))
-gate("consumption sites outside 1x's span (round-104 F1): 9 paper, 5 formulation",
-     n_p == 9 and n_f == 5, f"paper {n_p}, formulation {n_f}")
+FLEX = r"(?i)given[\s]+the[\s]+(?:pairing-)?act"
+n_p = len(re.findall(FLEX, outside_1x))
+n_f = len(re.findall(FLEX, form))
+gate("consumption sites outside 1x's span (round-105 F1, whitespace-normalized): "
+     "11 paper, 6 formulation",
+     n_p == 11 and n_f == 6, f"paper {n_p}, formulation {n_f}")
 mu_R = sum(1 for u in (1, -1) if u * u == 1)  # torsion units of R
 gate("|mu(R)| = 2 (the even-side torsion exhibit)", mu_R == 2)
 

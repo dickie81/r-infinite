@@ -2097,3 +2097,19 @@ attack. The defects were instrumentation-vs-prose fidelity.
 
 **Trajectory: 1x landed → 104 NOT CONVERGED 2M+1m+1c (swept) → round
 105 (convergence test) next.**
+
+# Round 105: convergence test on the round-104 sweep (subagent, per protocol) — NOT CONVERGED (2 MAJORs, 0 minors); the corrected census a layout artifact; one root cause; round 106 follows
+
+All four round-104 dispositions were faithfully implemented on their
+own terms and 1x's substance held everywhere — but the corrected
+census was false by the standard its own correction was accepted
+under, and D1 admitted an evasion inside its claimed scope. One root
+cause: raw-byte matching in a file that owns a norm() helper.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F105-1 (MAJOR) — "nine … five" a layout artifact: three line-wrapped instances of the exact phrase family invisible to the raw-byte gate; true counts 11/6 | **Accepted; strike-and-annotate (second stratum)**; D3 whitespace-normalized, gated 11/6; all three missed sites verified 1w-chain, no number carried | paper + verifier |
+| F105-2 (MAJOR) — D1 evadeable within its claimed scope by a line-wrapped injection | **Accepted; D1 whitespace-flexible** (the genuine wrapped injection now exits 1); docstring scope "any case, any line-wrapping", both strata recorded | verifier + paper |
+
+**Trajectory: 1x landed → 104 2M+1m+1c (swept) → 105 NOT CONVERGED
+2M+0m (swept) → round 106 (convergence test) next.**

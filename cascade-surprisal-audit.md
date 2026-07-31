@@ -9174,6 +9174,44 @@ A184's count corrected on notice. Trajectory: 1x landed → 104 NOT
 CONVERGED 2M+1m+1c (swept this commit) → round 105 (convergence
 test) next.
 
+## Addendum 186: convergence-test round 105 on the round-104 sweep — NOT CONVERGED (2 MAJORs, 0 minors); the corrected census was itself a layout artifact; one root cause (raw-byte matching), one fix; swept this commit
+
+Round 105 verified all four round-104 dispositions as faithfully
+implemented on their own terms and held 1x's substance everywhere —
+then found the sweep's corrected census false by the very standard
+F104-1 was accepted under:
+
+- **F1 (MAJOR):** "nine … five" was a layout artifact — the gate
+  matched raw bytes, and three instances of the exact phrase family
+  straddling hard line-wraps were invisible (1w's headline "given
+  the ⏎ pairing-act"; 1w(iii)'s "given the ⏎ act"; the
+  formulation's T1w marker). True counts, whitespace-normalized:
+  **11 paper outside 1x's span, 6 formulation** (lead-verified;
+  temporally stable at the parent commit). All three missed sites
+  are 1w-chain consumption statements, none a number's carrier — the
+  substance extends, the count was false-when-written. **Swept:**
+  strike-and-annotate at 1x(iii) (the second stratum of the same
+  census correction); D3 whitespace-normalized, gated 11/6.
+- **F2 (MAJOR):** D1 remained evadeable within its post-sweep
+  claimed scope — a line-wrapped instance of the exact family passed
+  (exit 0, reproduced by the reviewer and the lead; the lead's first
+  reproduction attempt used a %-prefixed continuation line, which is
+  not pure whitespace and correctly does not match — the genuine
+  hard-wrap injection reproduced the evasion). **Swept:** D1 and D3
+  share the whitespace-flexible pattern; the genuine wrapped
+  injection now flips D1 (exit 1, re-run); the docstring's scope
+  sentence now reads "any case, any line-wrapping" and records both
+  correction strata; 1x(ii)(a) notes the round-105 closure. The tex
+  zero itself survives the flexible scan (0 hits — the claim stood
+  on substance throughout).
+
+Root cause recorded: the instrument owned a norm() helper used by
+D2/D5 and did not apply it to the census gates. **Battery after
+sweep:** door4_status 16/0; 13 other instruments green; validator
+clean on 12 files. Trajectory: 1x landed → 104 2M+1m+1c (swept) →
+105 NOT CONVERGED 2M (swept this commit) → round 106 (convergence
+test) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
