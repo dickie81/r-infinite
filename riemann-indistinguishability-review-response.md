@@ -2113,3 +2113,21 @@ cause: raw-byte matching in a file that owns a norm() helper.
 
 **Trajectory: 1x landed → 104 2M+1m+1c (swept) → 105 NOT CONVERGED
 2M+0m (swept) → round 106 (convergence test) next.**
+
+# Round 106: convergence test on the round-105 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic — swept in the record commit); Theorem 1x certified stable; the Door-4 probe arc closes
+
+The 11/6 census independently recomputed and classified per-site; the
+three-injection battery all exit 1; the near-miss census exhaustive;
+the hyphen-wrap residual probe recorded for future rounds; battery,
+validator, footer, hygiene all clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F106-1 (cosmetic) — "a line-wrapped instance … evaded it" omitted that the evader was an injection, not a live occurrence | **Accepted; "injected" inserted** with the round-106 note; door4_status re-run 16/0 | paper |
+
+**Trajectory: 1x landed → 104 2M+1m+1c → 105 2M+0m → 106 CONVERGED
+0+0+1c. Theorem 1x stable: the falsifier unfired, the grading refined
+to zero-for-numbers, the geography ring-side-native/L-side-extrinsic,
+the member persisting charged with the sharpened falsifier
+operationalized. Next hostile round on the next substantive paper
+change.**

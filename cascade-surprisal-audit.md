@@ -9212,6 +9212,47 @@ clean on 12 files. Trajectory: 1x landed → 104 2M+1m+1c (swept) →
 105 NOT CONVERGED 2M (swept this commit) → round 106 (convergence
 test) next.
 
+## Addendum 187: convergence-test round 106 on the round-105 sweep — CONVERGED (0 majors, 0 minors, 1 cosmetic, swept in this record commit); Theorem 1x certified stable; the Door-4 probe arc closes
+
+Round 106 returned zero majors and zero minors. Its held list,
+lead-spot-checked: the 11/6 census independently recomputed with
+every site dumped and classified (all eleven + six to the three
+chains, none carrying a number); the three wrapped-only sites located
+exactly as annotated; the three-injection battery all exit 1
+(lowercase, capitalized, genuine hard-wrap) with the %-prefixed
+continuation correctly non-matching (a commented LaTeX line is
+stripped at compile) and space-indented continuation caught; the
+near-miss census exhaustive (emphasis variants zero; NBSP zero; the
+two out-of-family consumption wordings in 1r/1w both
+already-classified and explicitly delegated to direct reading by
+1x(ii)(a)'s scoping); one residual probe recorded for future rounds'
+inheritance — a hyphen-point wrap ("pairing-⏎act") normalizes
+outside the family and is adjudicated hostile-round territory per
+the docstring's delegation, with zero live instances anywhere;
+battery at expected counts (14 instruments); validator clean; footer
+census exact with symmetric-difference verification; hygiene clean.
+The one cosmetic (F106-1: "instance" → "injected instance" in the
+1x(ii)(a) note, disambiguating the evasion as a test injection, not
+a live occurrence) is swept in this record commit; door4_status
+re-run 16/0.
+
+**Trajectory: 1x landed (c39d73c) → 104 NOT CONVERGED 2M+1m+1c
+(swept, e350fe0) → 105 NOT CONVERGED 2M (swept, 308c054) → 106
+CONVERGED 0+0+1c (swept here). Theorem 1x is stable: 1t's licensed
+falsifier is UNFIRED by 1w (no grammar entry rerouted — the twelve
+tex papers consume the act nowhere, gated whitespace-normalized;
+the route ring-side with the χ₋₃ tokens attributional and
+disclosed); the zero-weight grading refines to zero-for-numbers
+(eleven + six review-side consumption sites, three chains, no
+number carried); the axiom block's geography is ring-side-native /
+L-side-extrinsic, the adoption changing nothing about the act's
+extra-axiomatic status; the member persists charged (three members,
+seven-item count unchanged); the sharpened papers-side falsifier is
+licensed and operationalized at the phrase family (a wrapped
+injection flips D1). The pairing-act's standing after the probe:
+Door-4 bookkeeping, confirmed at three strata of census fidelity.
+Next hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

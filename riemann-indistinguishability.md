@@ -1383,8 +1383,9 @@ N_c = 3 given it. The probe adjudicates the status against the post-1w record.
 entry is rerouted.** The cascade papers consume the act nowhere — gated at the
 censused phrase family: *"given the act"* / *"given the pairing-act"*,
 case-insensitive and whitespace-normalized (round-105 F2: the round-104 gate
-matched raw bytes, so a line-wrapped instance of the exact family evaded it —
-closed), has **zero occurrences across all twelve tex sources**; the
+matched raw bytes, so a line-wrapped injected instance of the exact family evaded
+it — closed; round-106 F1 added "injected": the tex zero stood on substance
+throughout), has **zero occurrences across all twelve tex sources**; the
 phrase-zero is the gate's operationalization, and the claim beyond the phrase family
 is verified by direct reading (round-104 F2: the first gate was case-sensitive and
 its docstring sold it as fully operationalizing the sharpened falsifier — a
