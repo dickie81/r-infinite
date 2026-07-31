@@ -8886,6 +8886,59 @@ derivation of the clause from a weaker kernel makes the adoption
 redundant — stands. Next hostile round on the next substantive paper
 change.**
 
+## Addendum 180: Theorem 1w — the kernel-native colour count (owner-commissioned); multiplicity 3 entailed given the pairing-act plus T8's root–unit identity; the registered finite-places negative stands verbatim
+
+The owner commissioned "the kernel-native colour count." The route
+found is the unit-torsion route, and every step is classical:
+
+- **The chain:** the pairing-act (standing charged member; 1r fixes
+  χ₋₃ given the act) selects ℚ(ζ₃) → its unit torsion is μ₆ (w = 6;
+  census gated: over all 3,043 fundamental discriminants d < 0 with
+  |d| ≤ 10⁴, w = 6 ONLY at d = −3) → the six units at the infinite
+  embedding satisfy the root-system axioms (reduced,
+  crystallographic, reflection-closed, spanning — gated numerically)
+  → rank-2 classification (A₁×A₁: 4, A₂: 6, B₂: 8, G₂: 12) forces
+  A₂ → N(N−1) = 6 has the unique positive solution N = 3 (gated) →
+  T8's committed identity ("The su(3) roots are the units μ₆ of ℤ[ω]
+  (point-by-point)", PROVED, Addendum 36) identifies this A₂ with
+  the colour algebra in the committed measurement frame. Uniqueness
+  among fields: d = −4's μ₄ is a root system but decomposable
+  (A₁×A₁, non-simple — gated); all other torsion is {±1}, rank 1 —
+  ℚ(ζ₃) is the unique imaginary quadratic field whose unit torsion
+  is the root system of a simple Lie algebra.
+- **The adjudication:** the kernel does not produce 3 unaided; it
+  produces 3 given the act. The residue moves: T8's "colour
+  multiplicity 3 and per-leg occupancy remain instantiation" narrows
+  to per-leg occupancy only. The registered negative of 1g(iii)
+  ("N_c = 3 is not derived from the finite places"; finite-place
+  claims stopping-rule-gated) stands verbatim — the route reads unit
+  torsion at the infinite embedding, global and archimedean, no
+  finite place; the hunt is owner-commissioned and recorded as such.
+  What remains archimedean after 1w is the layer alone.
+- **Check-8 cross-check:** kernel-3 = cascade-3 (ρ(12) − 1 = 3,
+  Adams; recomputed and gated with the [5, 19] uniqueness census)
+  reported as internal consistency, not forcing — the layer-12
+  selection remains the papers-side feature→layer member.
+- **Disclosed exhibit (not a forcer):** at d = −3 four kernel
+  invariants coincide at 3 — conductor, |disc|, the ramified prime,
+  the odd-torsion order — uniquely among imaginary quadratic fields
+  (at d = −4 the list reads 4, 4, 2, 1).
+
+**Surfaces:** Theorem 1w in the paper (after 1v); net-state markers
+at the paper's 1g(iii) registered negative and Door-3 remark tail,
+the formulation's T8 tail and ledger row 4; footer census 42 → 43
+counted (cascade_colour_count.py cited in place; Killing–Cartan
+added to the classical-inputs list). **Verifier:**
+cascade_colour_count.py, W1–W5, 15 gates, 15/0; sabotage-tested (a
+one-token perturbation of the adjudication anchor flips W5 to FAIL,
+run on a scratchpad copy). **Battery:** all 13 instruments green
+(riemann_kernel 5/0, given_irreducibility 5/0, grammar_need 5/0,
+lattice 7/0, h0_chain 4/0, the rest 5/0 each); validator clean on 12
+files; census 44 body = 43 counted + constants disclosed, 4 °-marked
+footer-only. No data consumed; no number changes anywhere.
+Trajectory: 1w landed → round 101 (hostile review, per protocol)
+spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

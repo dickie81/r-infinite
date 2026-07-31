@@ -304,7 +304,11 @@ dimension the count needs only the Clifford construction plus classical pre-K-th
 topology)*, and the layer-12 selection is papers-side. The open item *narrows*: the mod-8
 home of the grammar's backbone is found and classical (two Witt quotients, one μ₈,
 product-formula-locked); what remains archimedean is the count and the layer. Any future
-claim that the finite places produce the 3 is stopping-rule-gated new physics. *Run
+claim that the finite places produce the 3 is stopping-rule-gated new physics.
+*(Net-state, Theorem 1w: the count is now entailed given the pairing-act plus T8's
+root–unit identity, via the unit-torsion/rank-2-classification route — global and
+archimedean, reading no finite place, so this negative stands verbatim; what remains
+archimedean is the layer alone.)* *Run
 record:* the first run's Fresnel check failed at 1.5×10⁻⁵ (midpoint grid too coarse and
 an IBP-tail sign error — fixed: finer grid, corrected two-term tail) and the surjectivity
 check originally tested an abstractly-generated subgroup (a tautology — replaced
@@ -1293,6 +1297,54 @@ predictions — and any future committed derivation of the clause from a weaker 
 makes the adoption redundant, to be recorded as such. No closure beyond the labeling
 given; category (a) plus one recorded axiom adoption.
 
+**Theorem 1w (the kernel-native colour count: multiplicity 3 entailed given the
+pairing-act and T8's root–unit identity; the registered finite-places negative stands
+verbatim; `cascade_colour_count.py`).** *(i) The commission and the gate.* The owner
+commissioned the kernel-native colour count (this arc). The registered negative of
+1g(iii) stands verbatim — *"N_c = 3 is not derived from the finite places"* — and this
+theorem does not touch it: no finite-place datum is read anywhere below; the route reads
+the **unit torsion of the paired field at its infinite embedding**, which is global and
+archimedean. The stopping-rule sentence there ("Any future claim that the finite places
+produce the 3 is stopping-rule-gated new physics") gates finite-place claims; this is
+not one, and the hunt is owner-commissioned, recorded as such. *(ii) The unit-torsion
+route.* Given the pairing-act (the standing charged member; 1r fixes χ₋₃ given the act),
+the paired field is ℚ(ζ₃), maximal order ℤ[ω], unit group the torsion μ₆ (w = 6). The
+census is gated: over all 3,043 fundamental discriminants d < 0 with |d| ≤ 10⁴, w = 6
+**only** at d = −3 (w = 4 only at d = −4, w = 2 everywhere else) — the paired field is
+the unique imaginary quadratic field with six torsion units. The six units at the
+infinite embedding satisfy the root-system axioms (reduced; crystallographic — every
+Cartan pairing ⟨α,β⟩ ∈ {±1, ±2}; closed under its own reflections; spanning — all gated
+numerically), and by the rank-2 classification (A₁×A₁: 4 roots, A₂: 6, B₂: 8, G₂: 12)
+**the configuration is A₂**, the root system of su(N) with N(N−1) = 6, whence **N = 3,
+the unique positive-integer solution** (gated). Uniqueness among fields: d = −4's μ₄ is
+a root system but **decomposable** (⟨1, i⟩ orthogonal — A₁×A₁, non-simple; gated), and
+every other imaginary quadratic field has torsion {±1}, rank 1, non-spanning — so
+ℚ(ζ₃) is the **unique** imaginary quadratic field whose unit torsion forms the root
+system of a simple Lie algebra, and that algebra is su(3). *(iii) What is consumed —
+the adjudication.* The chain is: the pairing-act (charged; Door-4 bookkeeping per 1v)
+selects the field; the field's torsion is A₂ (classical — Killing–Cartan rank-2
+classification, new to the record here, no free choice at any step); and T8's committed
+identity — *"The su(3) roots are the units μ₆ of ℤ[ω] (point-by-point)"* (PROVED,
+Addendum 36) — identifies **this** A₂ with the colour algebra in the committed
+measurement frame. The kernel does not produce 3 unaided: it produces 3 **given the
+act**. The residue moves accordingly: T8's tail "Colour multiplicity 3 and per-leg
+occupancy remain instantiation" narrows to **per-leg occupancy only** — the
+multiplicity is entailed given the act plus T8, and is no longer an independent
+instantiation (net-state markers at T8, ledger row 4, and 1g(iii)'s registered
+negative). *(iv) The Check-8 cross-check.* The cascade side's count is ρ(12) − 1 = 3
+(Adams / Radon–Hurwitz; ρ recomputed and gated, with the [5, 19] census: d = 12 is the
+unique dimension there with ρ(d) − 1 = 3). Kernel-3 = cascade-3 is reported as
+**internal consistency, not forcing**: the layer-12 selection remains papers-side (the
+feature→layer member of the residue), exactly as the registered negative states — what
+remains archimedean after this theorem is **the layer alone**, no longer the count.
+*(v) Exhibit, disclosed as such (not a forcer).* At d = −3 four kernel invariants
+coincide at the value 3 — the conductor, |disc|, the unique ramified prime, and the
+odd-torsion order |μ₃| = w/2 — a four-way coincidence unique among imaginary quadratic
+fields (gated: at d = −4 the list reads 4, 4, 2, 1). Coincidences corroborate; the
+forcing chain is (ii)–(iii) alone. Category: closure-narrowing on an acknowledged
+residue (ledger row 4; T8's tail; 1g(iii)); no data consumed, no number changes
+anywhere.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -1345,7 +1397,9 @@ refines to "Clifford construction + classical mod-2 topology": the count's
 genuinely archimedean residue for the colour count narrows to the v₂ ∈ {1, 2} upper
 bounds plus the layer-12 selection. No number changes anywhere; the companion series'
 Adams citation remains correct and sufficient (citing the strongest standard theorem);
-this remark reduces the dependency, not the correctness.
+this remark reduces the dependency, not the correctness. *(Net-state, Theorem 1w: the
+count side narrows further — multiplicity 3 is entailed given the pairing-act plus
+T8's root–unit identity; the layer-12 selection remains the papers-side residue.)*
 
 **Remark (the layer question: what selects d = 12; `cascade_layer_selection.py`).** The
 complement of the previous remark: Door 3 decomposed the *count*; this decomposes the
@@ -1823,4 +1877,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1v: the **42 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1w: the **43 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
