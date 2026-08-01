@@ -9404,6 +9404,59 @@ site-E endpoint data (member two's live content), the pairing-act
 layer-2 soft inputs. Next hostile round on the next substantive
 paper change.**
 
+## Addendum 191: Theorem 1z — the endpoint data attacked (owner-commissioned); menu-bounded with zero free numbers; every in-menu alternative data-excluded; the stipulation priced; member two persists, sharpened
+
+The owner commissioned an attack on member two's live content — the
+site-E closure windows' endpoint data. The findings:
+
+- **The inventory (zero free numbers):** the three site-E windows —
+  τ/μ = exp(Φ(6,13)+α(14)/χ)·χΓ(½) (path 5→13), μ/e =
+  exp(Φ(14,21))·χΓ(½)·(radiative) (path 13→21), α_s =
+  (N(12)²/Ω₂)·exp(Φ(5,12)+α(14)/χ) — have every endpoint in the
+  forced menus ({5,13,21} Bott generations; {12,13,14} Adams gauge;
+  the Part-0 critical set), part4b's own "not chosen from a menu"
+  sentence anchored. The endpoint data's entire content: three
+  menu-pair selections + one attachment rule + the step-sum
+  convention (disclosed).
+- **The exclusion census (new, gated):** over the non-sink
+  distinguished menu M = {5,7,12,13,14,19,21}, all 21 ordered pairs
+  per window (63 computations): the committed selections are unique
+  within observation — τ/μ (5,13) at +0.28σ vs runner-up (7,13) at
+  524σ; μ/e (13,21) at +0.0012% vs 33%; α_s (5,12) at +0.09σ vs
+  (12,14) at 3.15σ — the census's weakest exclusion, reported and
+  gated exactly, all other α_s alternatives ≥ 18σ.
+- **The stipulation priced:** part4b's strict-boundary rule ("begins
+  at the U(1) layer and does not receive the shift") makes exactly
+  two binary decisions at site E; both alternatives data-excluded —
+  τ/μ unshifted at −261σ; μ/e shifted at +1.74%, ~1,400× the
+  committed residual (both gated). Candidate entailment from A3's
+  increment rule noted as an OPEN route, not claimed
+  (stopping-rule-gated; a committed derivation would relocate the
+  stipulation to A3's ledger).
+- **Check-8 discipline:** the menu-pair selections are C1
+  instantiation (the address book is the hypothesis's content);
+  uniqueness-within-menu is corroboration — cross-check, not
+  forcing. **No closure claimed; member two persists, sharpened**
+  (from "a list" to "menu-bounded selections, zero free numbers,
+  every in-menu alternative data-excluded, plus one attachment rule
+  with both alternatives excluded"). Two members; the seven-item
+  count stands. Data consumed (disclosed): 16.8170±0.0011, 206.7683,
+  0.1180±0.0009 — for the census only, the cross-check class 1l(ii)
+  licenses.
+- **Falsifiers:** any committed endpoint outside the forced menus
+  fails the menu-bounded claim (gated); the A3-entailment route, if
+  committed, relocates the stipulation.
+
+**Surfaces:** Theorem 1z in the paper (after 1y); net-state markers
+at 1l(ii)'s endpoint sentence and 1y(iii)'s member-two line; footer
+45 → 46. **Verifier:** cascade_endpoint_data.py, Z1–Z5, 13 gates,
+13/0 (the RESULT line's first draft said 12 — corrected pre-commit);
+two sabotages exit 1 (the window flip trips Z1 — Z3's census
+recomputes independently, disclosed; the marker deletion trips Z5).
+**Battery:** all 16 instruments green; validator clean on 12 files;
+census 47 body = 46 counted + constants. Trajectory: 1z landed →
+round 109 (hostile review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -682,6 +682,9 @@ both catastrophically off the canonical 16.8173 (observed 16.8170) — so **the
 selection to cross-check**: the data confirms the dictionary; what remains conventional
 at E is the closure windows' **endpoint data** — Definition-6.1 instantiation plus the
 strict-boundary stipulation (part4b) — items already listed in the residue accounting.
+*(Net-state, Theorem 1z round 109: the endpoint data is menu-bounded with zero free
+numbers; every in-menu alternative data-excluded; the stipulation priced at two binary
+decisions, both alternatives excluded; member two persists, sharpened.)*
 *(iii) Site C sharpened.* The Geometric two-coset clause's passing computation used
 Ω(d−1) at layer d — the avatar, which Theorem 1's own Remark forswears (*"The paper
 never uses the avatar; the arithmetic is primary"*). Under the tower's own measure Ω(d)
@@ -1502,7 +1505,9 @@ pairing anchor is entailed given the tower's dictionary (Definition 2.1 + Theore
 whose only alternative 1l grades a contentless global renaming) plus Part 0's
 intrinsic definition. **Member one closes. The class keeps two members** — the
 audit-family member (live content: the site-E endpoint data, Definition-6.1
-instantiation plus the strict-boundary stipulation) and the pairing-act member
+instantiation plus the strict-boundary stipulation *(net-state, Theorem 1z round
+109: sharpened — menu-bounded, zero free numbers, alternatives data-excluded)*) and
+the pairing-act member
 (Door-4 bookkeeping per 1x) — **and the seven-item count stands**: the class is the
 residue's sixth item, an item with live members either way. Net-state markers at
 every "three members" surface (censused and gated). *(iv) Honest scope and the
@@ -1516,6 +1521,56 @@ falsifier, stopping-rule-gated per the 1h(iv) pattern: **any committed surface f
 reading a layer's potential at the avatar argument** (Γ_ℝ(d) at layer d) as
 load-bearing content re-opens the member; the known avatar appearances are the
 forsworn Remark's subject and 1l's rejected clause, both already adjudicated.
+
+**Theorem 1z (the endpoint data attacked: menu-bounded, zero free numbers, every
+in-menu alternative data-excluded; the stipulation priced; member two persists,
+sharpened; `cascade_endpoint_data.py`).** *(i) The commission and the inventory.*
+The owner commissioned an attack on member two's live content — 1l(ii)'s *"the
+closure windows' **endpoint data** — Definition-6.1 instantiation plus the
+strict-boundary stipulation (part4b)."* The committed inventory, read directly: the
+three site-E closure windows are τ/μ = exp(Φ(6,13) + α(14)/χ)·χΓ(½) (the path
+5→13), μ/e = exp(Φ(14,21))·χΓ(½)·(radiative slot) (the path 13→21), and α_s =
+(N(12)²/Ω₂)·exp(Φ(5,12) + α(14)/χ) — and **every endpoint is a forced-menu layer**:
+{5, 13, 21} is the Bott generation set, {12, 13, 14} the Adams gauge set, both
+part4a theorems, and part4b's own sentences are the anchor — *"The cascade has five
+structurally distinguished layers"*; *"The four layers in $\mathcal{S}$ are not
+chosen from a menu; they are the complete set of non-sink distinguished layers in
+the cascade."* The endpoint data therefore carries **zero free numbers**: its
+entire content is three menu-pair selections (Definition-6.1 instantiation), one
+attachment rule (the strict-boundary stipulation), and the step-sum convention
+(Φ(a,b) sums d = a..b — the path-start-exclusive reading, disclosed). *(ii) The
+exclusion census (new, gated).* Over the non-sink distinguished menu M = {5, 7,
+12, 13, 14, 19, 21} — all 21 ordered pairs per window, 63 computations — the
+committed selections are **unique within observation**: τ/μ at (5,13) sits at
++0.28σ and the nearest alternative, (7,13), at **524σ**; μ/e at (13,21) sits at
++0.0012% and the nearest alternative at 33%; α_s at (5,12) sits at +0.09σ and the
+nearest alternative, (12,14), at **3.15σ** — the census's weakest exclusion,
+reported exactly (every other α_s alternative is ≥ 18σ). *(iii) The stipulation
+isolated and priced.* The strict-boundary stipulation — part4b's *"begins at the
+$\mathrm{U}(1)$ layer and does not receive the shift"* — makes exactly **two
+binary decisions** at site E: the τ/μ window (which excludes 14) receives
+δΦ_U(1); the μ/e window (which begins at 14) does not. Both alternatives are
+data-excluded: τ/μ without the shift lands at 16.530, **−261σ**; μ/e with it
+lands at 210.36, +1.74% — some 1,400× the committed residual (both gated). The
+rule is consistent across both instances; a candidate entailment from A3's
+increment rule (*"corrections attach once, at sub-lead"*) is noted as an **open
+route, not claimed** — a future committed derivation would relocate the
+stipulation from member two to A3's ledger (stopping-rule-gated, the 1h(iv)
+pattern). *(iv) The re-grade and the accounting — Check 8 disciplined.* The
+menu-pair selections are **C1 instantiation** — the address book is the
+hypothesis's own content, and uniqueness-within-menu is **corroboration, not
+forcing** (the cross-check reading, exactly as the registered discipline
+requires); **no closure is claimed**. Member two persists with sharpened content:
+from "endpoint data (a list)" to **menu-bounded selections carrying zero free
+numbers, each in-menu alternative data-excluded, plus one attachment rule with
+both alternatives excluded**. The class stays at two members; the seven-item
+count stands. *Honest scope:* observational values are consumed here — 16.8170 ±
+0.0011, 206.7683, 0.1180 ± 0.0009 — for the exclusion census only (the
+cross-check class 1l's re-grade licenses); no number changes; no new prediction;
+no RH/GRH; no semiclassics. *Falsifiers:* any committed window endpoint found
+outside the forced menus fails the menu-bounded claim (gated); the A3-entailment
+route, if ever committed, relocates the stipulation and is to be recorded as
+such.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -2051,4 +2106,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1y: the **45 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1z: the **46 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
