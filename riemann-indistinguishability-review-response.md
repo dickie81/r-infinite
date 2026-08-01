@@ -2268,3 +2268,23 @@ repairs themselves.
 
 **Trajectory: 1aa landed → 112 4M+4m → 113 2M+3m+2c → 114 NOT
 CONVERGED 0M+1m+1c (swept) → round 115 (convergence test) next.**
+
+# Round 115: convergence test on the round-114 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1aa certified stable; the forcing-ledger arc closes
+
+The F114-1 scoped claim verified by exhaustive layer-token
+classification; the annotation recitals verbatim against both
+pre-states; no residual third-window universal; all five
+index/residue sites corrected; the propagation spot-check held; the
+sabotage reproduced; battery, validator, census, hygiene all clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — (none, at any severity) | — | — |
+
+**Trajectory: 1aa landed → 112 4M+4m → 113 2M+3m+2c → 114 0M+1m+1c →
+115 CONVERGED 0+0+0. The forcing-ledger answer certified: the window
+arithmetic forced; the charged ladder's termination empirically
+anchored (Stratum D); the projection entailed given the seat plus the
+convention ledger; the seat C1-primitive with the γ⁴ = −1 exhibit on
+the record. Next hostile round on the next substantive paper
+change.**

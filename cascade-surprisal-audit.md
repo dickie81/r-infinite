@@ -9771,6 +9771,45 @@ the other 15 instruments green. Trajectory: 1aa landed → 112 4M+4m
 (swept) → 113 2M+3m+2c (swept) → 114 NOT CONVERGED 0M+1m+1c (swept
 this commit) → round 115 (convergence test) next.
 
+## Addendum 199: convergence-test round 115 on the round-114 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1aa certified stable; the forcing-ledger arc closes
+
+Round 115 returned zero findings at all severities. Its held list,
+lead-spot-checked: the F114-1 scoped claim verified true by
+exhaustive layer-token classification (every part4b layer-20 token
+potential-side or structural; layer 22 clean beyond numeric
+coincidences; part4a's own "---" role entries corroborating); the
+two-stratum annotation's recitals verbatim against both pre-states;
+no residual false universal about the third window anywhere in 1aa;
+all five index/residue sites in the verifier using the corrected
+form; the round-113 propagation spot-check held (the sole surviving
+"forced menus" token the annotation's recital); the locational-gate
+sabotage reproduced; battery at expected counts (17 instruments);
+validator clean; footer census exact with both set-differences
+empty; hygiene clean.
+
+**Trajectory: 1aa landed (18665d5) → 112 NOT CONVERGED 4M+4m (swept,
+f0fb323) → 113 NOT CONVERGED 2M+3m+2c (swept, 0cac67a) → 114 NOT
+CONVERGED 0M+1m+1c (swept, 6d01f41) → 115 CONVERGED 0+0+0. Theorem
+1aa is stable and the forcing-ledger answer to the owner's
+commission is certified: the window arithmetic is forced (Clifford,
+Adams, Γ); the charged Bott ladder's termination at three
+generations is empirically anchored (Stratum D, Tier 4, part4a's own
+grading — the ladder itself is infinite, with committed
+neutrino-sector content at d = 29); the projection is entailed given
+the seat plus the convention ledger; the seat is C1-primitive — the
+exact residue three items: occupancy, the observer↔twist-4 labeling,
+and Definition 6.1's discrete entries — with the labeling carrying
+one convention-free arithmetic distinction, {k : γᵏ = −1} = {4},
+the index of the clock's unique nontrivially-real residue −1, on
+the record as an exhibit, not a derivation. The d = 5 presentation
+is a four-way conjunction, three conjuncts structure-forced, one
+consuming the seat. Standing routes after the arc: deriving the
+observer↔4 link from the clock distinction (would move the labeling
+to stratum F; stopping-rule-gated); the third window's non-seat
+disposition; the charged-termination mechanism (part4a's candidate
+route); the pairing-act; A3's underived rules. Next hostile round on
+the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
