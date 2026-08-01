@@ -74,7 +74,10 @@ R4 (the wall, located): (a) {h* < 0} is confined to |gamma| < 1/2
   2(w_2^2-w_1^2)/w_2 > 0.  Band-interior instances by domination
   (round 143 F3): h_r = h* + (w_1/w_2 - r) K_{s_1} with K_{s_1}
   > 0 on the whole strip, so {h_r < 0} is a subset of {h* < 0} --
-  the confinement covers every discriminating instance.  (b) By the bridge's
+  the confinement covers every PAIRWISE-SLICE discriminating
+  instance (scope regraded, self-caught: the earlier "every
+  discriminating instance" was false for the whole family -- see
+  the REGRADE paragraph below the honest-scope block).  (b) By the bridge's
   paired-form identity (RH-free) the zeros side is computable with
   no zeros consumed: W(h*) = Z(6) - (9/11) Z(5) = 0.0780686 > 0,
   Z(s) = p(d) + 1/(d+1) + 1/d - sum Lambda(n) n^{-s}; the direct
@@ -89,9 +92,36 @@ R4 (the wall, located): (a) {h* < 0} is confined to |gamma| < 1/2
   cut by the transform, not the action.  Extending forced
   positivity to the dense class IS RH (Weil's criterion, classical
   input) -- unclaimable by the program's rule.  The route is
-  traveled to the wall; the wall is located at exact coordinates.
+  traveled to the wall; the wall is located at exact coordinates
+  ("reached instance" throughout (c) = the pairwise instances this
+  theorem constructs; the REGRADE below widens the family's
+  reach).
 
-Gates (twenty, as swept round 143):
+REGRADE (the wall widened -- self-caught post-certification,
+triggered by the owner's asymptotics question; gates g19-g20):
+the 1/2 has a mechanism -- the strip-boundary read is the line
+read analytically continued by +/- i/2 and averaged (exact; g20).
+A pair's admissible tangency is pinned to gamma = 0 (the two-term
+numerator is degree 1 in gamma^2; a degree-1 polynomial
+nonnegative on [0, inf) cannot vanish at an interior point -- the
+failed 2-term aim gated in g19), so the pairwise ceiling = pinned
+tangency + continuation distance 1/2.  With THREE committed
+kernels the tangency relocates to any height: the aimed instance
+on (4, 5, 6) with tangency at gamma_1 = 14.134725 is admissible
+(L proportional to (u - gamma_1^2)^2 over positive denominators)
+and its boundary window [gamma_1 - 0.59, gamma_1 + 0.44] CONTAINS
+the first zero (g19).  Every height is reachable through a window
+of half-width ~ 1/2 about a relocatable tangency; "classically
+vacant" dies for relocated windows -- their positivity is
+enforced by the verified on-line zeros (the grazed zero
+contributing ~ 0), so the sign statement stays RH-content-free
+while the instance becomes a per-zero sensitivity probe.  The
+wall stands: nothing cascade-side forces positivity on any
+discriminating instance; the dense-class extension is RH, claimed
+in neither direction.
+
+Gates (twenty-two: twenty as swept round 143, plus the regrade's
+g19-g20):
   V1 (R1) -- g1 transform identity (quad vs K, 1e-8, six points);
        g2 the bridge's half-shift sentence anchored at source.
   V2 (R2) -- g3 L closed form (1e-12) + grid nonneg, zero only at
@@ -129,6 +159,12 @@ Gates (twenty, as swept round 143):
        positive, total < W; g15 the classical wall: gamma_1 =
        14.134725 (recomputed) > 1/2; zeta < 0 on real (0, 1)
        (grid).
+  V4b (REGRADE) -- g19 the aimed three-term instance: tangency at
+       gamma_1 on committed (4, 5, 6), L >= 0 with the interior
+       double zero, the boundary window contains the RECOMPUTED
+       first zero, and the 2-term aim fails (the pinning);
+       g20 the mechanism identity: boundary = line continued by
+       +/- i/2, averaged, machine-exact.
   V5 -- g16 the two 1ai net-state markers anchored in the paper;
        g17 1aj's key sentences anchored (incl. R2''s monotonicity
        and the vacant height-1/2 BAND -- F9's disc/band fix);
@@ -168,9 +204,14 @@ Nbound's a = s(s-1) -> s*s in the copy -> g6b FAIL (tie
 v^2+3u -> g6b FAIL (tie 2.7e-03), 19/1, exit 1 -- both had
 passed 20/0 before the tie existed.  Round 145 F1 added s = 217
 to the tie grid, closing the s-conditional decoupling escape.
-Clean baselines (18/0 at landing, 20/0 thereafter) exit 0
-before and after each.  Twenty gates (count checked against the
-gate() census; the count defect's history noted).
+At the regrade (the relocatable-windows repair): (i) GAMMA_AIM
+shifted to 10.134725 in the copy -> g19 FAILS (the window no
+longer contains the RECOMPUTED first zero), 21/1, exit 1; (j)
+the paper's per-zero-probe sentence perturbed mid-anchor -> g17
+trips, 21/1, exit 1.  Clean baselines (18/0 at landing, 20/0
+after round 144, 22/0 at the regrade) exit 0 before and after
+each.  Twenty-two gates (count checked against the gate()
+census; the count defect's history noted).
 """
 import os
 import sys
@@ -426,9 +467,54 @@ gate("g14 the direct zeros-side partial sum (first 100 true zeros): "
 g1 = float(zetazero(1).imag)
 sigma_ok = all(float(zeta(mpf(s))) < 0 for s in np.linspace(0.05, 0.95, 19))
 gate("g15 the classical wall: gamma_1 = 14.134725 (recomputed) > 1/2; "
-     "zeta < 0 on real (0, 1) -- no zeros in the sensitive region",
+     "zeta < 0 on real (0, 1) -- no zeros in the PAIRWISE sensitive "
+     "region (scope regraded: see g19)",
      abs(g1 - 14.134725) < 1e-5 and g1 > 0.5 and sigma_ok,
      f"gamma_1 = {g1:.6f}")
+
+print("V4b -- the regrade: relocatable windows (self-caught)")
+GAMMA_AIM = 14.134725
+WS3 = np.array([4.5, 5.5, 6.5])          # committed d = 4, 5, 6
+u0 = GAMMA_AIM ** 2
+M3 = np.zeros((3, 3))
+for i in range(3):
+    oth = [WS3[j] ** 2 for j in range(3) if j != i]
+    M3[0, i] = 2 * WS3[i]
+    M3[1, i] = 2 * WS3[i] * (oth[0] + oth[1])
+    M3[2, i] = 2 * WS3[i] * oth[0] * oth[1]
+c3 = np.linalg.solve(M3, np.array([1.0, -2 * u0, u0 * u0]))
+L3 = lambda g: sum(c3[i] * 2 * WS3[i] / (WS3[i] ** 2 + g * g)  # noqa: E731
+                   for i in range(3))
+F3 = lambda g: sum(c3[i] * K(WS3[i] + .5, 0, g) for i in range(3))  # noqa: E731
+gg = np.linspace(0.0, 300.0, 300001)
+L3v = np.array([L3(g) for g in gg])
+F3v = np.array([F3(g) for g in gg])
+neg = gg[F3v < 0]
+# the failed 2-term aim: a degree-1 numerator forced through an
+# interior root goes negative at u = 0 (the pinning, by construction)
+M2 = np.array([[2 * 4.5, 2 * 5.5],
+               [2 * 4.5 * 5.5 ** 2, 2 * 5.5 * 4.5 ** 2]])
+c2 = np.linalg.solve(M2, np.array([1.0, -u0]))
+L2_at_0 = c2[0] * 2 * 4.5 / 4.5 ** 2 + c2[1] * 2 * 5.5 / 5.5 ** 2
+gate("g19 the aimed three-term instance (regrade): tangency relocated "
+     "to gamma_1 = 14.134725 on committed (4, 5, 6) -- L >= 0 with the "
+     "interior double zero; the boundary window contains the RECOMPUTED "
+     "first zero; the 2-term aim FAILS (L(0) < 0, the pinning)",
+     L3v.min() > -1e-9 and abs(L3(GAMMA_AIM)) < 1e-9
+     and len(neg) > 0 and neg.min() < g1 < neg.max()
+     and (neg.min() > GAMMA_AIM - 0.7) and (neg.max() < GAMMA_AIM + 0.5)
+     and L2_at_0 < 0,
+     f"window [{neg.min():.3f}, {neg.max():.3f}] contains {g1:.4f}; "
+     f"2-term L(0) = {L2_at_0:.2e}")
+ok = True
+for (s, g) in ((6, 1.0), (5, 0.3), (7, 14.0), (218, 2.0), (6, 0.0)):
+    w = s - 0.5
+    cont = 0.5 * (2 * w / (w * w + (g + 0.5j) ** 2)
+                  + 2 * w / (w * w + (g - 0.5j) ** 2))
+    ok &= abs(cont.imag) < 1e-15 and abs(cont.real - K(s, 0, g)) < 1e-14
+gate("g20 the mechanism identity (regrade): the strip-boundary read = "
+     "the line read continued by +/- i/2 and averaged, exact at "
+     "machine precision", ok)
 
 print("V5 -- the anchors and the footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
@@ -440,14 +526,21 @@ gate("g16 the two 1ai net-state markers anchored (W3's supersession; "
      "gap (vi)'s closure)", ok)
 ok = "the edge of admissibility IS discriminating" in paper
 ok &= "the RH wall itself, now located at exact coordinates" in paper
-ok &= ("every committed-family discriminating instance interrogates only "
-       "the classically vacant height-½ band" in paper)
+# regrade anchor swap: the old universal ("every committed-family
+# discriminating instance interrogates only...") is STRUCK in the
+# paper -- the anchors below are the regraded live sentences.
+ok &= ("every pairwise discriminating instance interrogates only the "
+       "classically vacant height-½ band" in paper)
+ok &= ("relocatable to any height — including the heights of actual "
+       "zeros" in paper)
+ok &= "a genuine per-zero sensitivity probe" in paper
+ok &= "the wall stands where it stood" in paper
 ok &= "action-positivity plays no role in the sign" in paper
 ok &= ("r*(u) = K_{s₂}/K_{s₁}(0, γ) is STRICTLY INCREASING in u" in paper)
 ok &= "the other edge is blind, by theorem" in paper
-gate("g17 1aj's key sentences anchored (the edge theorem; the wall; the "
-     "vacant band -- F9; R2''s monotonicity and the other-edge "
-     "blindness -- F2/F8; the no-role-of-the-action)", ok)
+gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
+     "the wall with the PAIRWISE scope; the relocatable windows; the "
+     "per-zero probe; R2'; the no-role-of-the-action)", ok)
 ok = "`cascade_weil_route_traveled.py`" in paper
 ok &= "60 scripts cited in place" in paper
 ok &= "Theorems 1i–1aj" in paper
@@ -455,7 +548,7 @@ gate("g18 the footer census: the new script backticked; 60 cited in "
      "place; the theorem range 1i–1aj", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (20 gates)")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (22 gates)")
 print("READING: the route is traveled.  R1: the profile morphism exists")
 print("in committed form -- configurations to test functions via the")
 print("bridge's half-shift z = d+1/2, transforming exactly onto the")

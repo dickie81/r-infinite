@@ -11939,6 +11939,75 @@ remark-to-theorem upgrade; the tower-script 2√π repair; the
 observer↔4 and charged-termination questions. Next hostile round
 on the next substantive paper change.**
 
+## Addendum 240: Theorem 1aj REGRADED post-certification — the wall widened (self-caught, triggered by the owner's asymptotics question); the pairwise scope struck onto the confinement; the relocatable-windows discovery; round 146 next
+
+The owner asked whether the ½-asymptote ("the asymptotic
+stability") points to anything. Chasing its mechanism exposed a
+false universal in certified 1aj — self-caught, lead-verified,
+and swept per the marking rule before answering.
+
+**The mechanism (now gated, g20):** the strip-boundary read is
+the line read analytically continued by ±i/2 and averaged —
+K_s(0, γ) = ½[K̂_s(γ+i/2) + K̂_s(γ−i/2)], exact at machine
+precision. The ½ is the analytic-continuation distance from the
+critical line to the strip edge — the functional equation's
+half-width, the same ½ as the lattice's z = d+½.
+
+**The defect (false-when-written, struck):** 1aj's wall sentence
+— "every committed-family discriminating instance interrogates
+only the classically vacant height-½ band" — and the F143-3
+domination sentence's "every discriminating instance" were false
+under the whole-family reading. The confinement is a PAIRWISE
+theorem: a pair's admissible tangency is pinned to γ = 0 (the
+two-term numerator is degree 1 in γ² — a degree-1 polynomial
+nonnegative on [0, ∞) cannot vanish at an interior point), and
+pinned tangency + continuation distance ½ = the pairwise
+ceiling. With THREE committed kernels the numerator has degree 2
+and the tangency relocates to ANY height: the aimed instance on
+(d₁, d₂, d₃) = (4, 5, 6) with tangency at γ₁ = 14.134725 is
+admissible (L ∝ (u − γ₁²)² over positive denominators) and its
+boundary window [13.552, 14.566] CONTAINS the first zeta zero —
+lead-verified numerically, now gate g19 (which also gates the
+failed 2-term aim: forcing a degree-1 numerator through an
+interior root gives L(0) = −0.326 < 0, the pinning made
+concrete). Both false universals struck-and-annotated at source
+(paper ×2, docstring); the headline's "every reached instance"
+tightened with its pairwise scope stated.
+
+**What the regrade means (the honest net):** (1) the committed
+family's discriminating reach is NOT confined below height ½ —
+every height is reachable through a window of half-width ≈ ½
+about a relocatable line-tangency; (2) "classically vacant" dies
+for relocated windows: their Weil positivity is enforced by the
+verified on-line zeros themselves (the grazed zero contributing
+≈ 0), keeping the sign statement RH-content-free in exactly the
+earlier sense while making each aimed instance a genuine
+per-zero sensitivity probe with a bridge-computable value; (3)
+the wall stands — nothing cascade-side forces positivity on any
+discriminating instance, and the dense-class extension is RH,
+claimed in neither direction. The wall's coordinates regrade
+from "the vacant height-½ band" to per-instance windows about
+relocatable tangencies.
+
+**Surfaces:** the two strikes + the headline tightening + the
+Regrade block in the paper's 1aj span; the docstring's matching
+scope regrade + REGRADE paragraph; gates g19–g20 added (20 →
+22); g15's gate name scoped PAIRWISE; g17's anchors swapped to
+the regraded live sentences (the struck universal remains only
+inside its strike frame). **Verification:** verifier 22/0 exit 0
+(gate census 22 = 22 call sites; the 23rd column-0 "gate(" grep
+hit is a docstring prose line, checked); new sabotages on a
+full-tree copy: (i) GAMMA_AIM shifted → g19 FAIL, 21/1, exit 1;
+(j) the per-zero-probe sentence mid-anchor → g17, 21/1, exit 1;
+clean baselines 22/0. The 1ai verifier 10/0; validator clean on
+12 files; hygiene zero. Checks 7/8 clean (the continuation
+identity is classical Fourier bookkeeping; the aimed coefficients
+solve a 3×3 system over committed w's).
+
+**Trajectory: 1aj certified (round 145) → REGRADE self-caught
+(this addendum) → round 146 (hostile review on the regrade, per
+protocol) spawned on this commit.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

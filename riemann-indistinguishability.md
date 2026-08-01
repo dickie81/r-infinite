@@ -2572,7 +2572,10 @@ headline compressed the two); the admissible-discriminating cone is
 reachable from the
 committed family — by every lattice pair, at the admissible cone's
 forced edge; every reached instance's Weil positivity is settled by
-the classical zero count below height ½, not by cascade structure; and
+the classical zero count below height ½ ("reached" = the pairwise
+instances this theorem constructs; multi-term instances relocate the
+window, with positivity then enforced by the verified on-line zeros —
+the regrade below), not by cascade structure; and
 the residual is exactly RH, unclaimable by the program's own rule. All
 statements unconditional; no RH/GRH in either direction. *(ii) Theorem
 R1 (the profile morphism, committed form).* A lattice configuration
@@ -2650,8 +2653,13 @@ positive (grid-gated per pair), and the tail coefficient
 Band-interior instances are covered by domination (round 143 F3): for
 r < w₁/w₂, h_r = h* + (w₁/w₂ − r)K_{s₁} and K_{s₁} > 0 on the whole
 strip (the blind-cone positivity), so {h_r < 0} ⊆ {h* < 0} — the
-confinement below height ½ holds for every discriminating instance,
-not the edge alone. (b) The
+confinement below height ½ holds ~~for every discriminating instance,
+not the edge alone~~ [struck in the post-certification regrade below,
+self-caught, false-when-written: the domination covers the PAIRWISE
+slice — edge and band interior — and says nothing about three-or-more
+-term combinations, which relocate the sensitivity window to
+arbitrary heights] for every pairwise-slice discriminating instance.
+(b) The
 value: by the bridge's paired-form identity (RH-free), the zeros side
 is computable with no zeros consumed: W(h*) = Z(6) − (9/11)Z(5) =
 0.0780686 > 0, where Z(s) = p(d) + 1/(d+1) + 1/d − Σ Λ(n)n^(−s) with
@@ -2674,10 +2682,20 @@ sought. What 1ai named as the gap — "no committed map" — closes in
 its map component (the forcing clause is the wall itself; round 143
 F7); what
 remains is not a gap in the cascade but the RH wall itself, now
-located at exact coordinates: every committed-family discriminating
+located at exact coordinates: ~~every committed-family discriminating
+instance interrogates only the classically vacant height-½ band at
+the strip edges~~ [struck in the regrade below, self-caught,
+false-when-written under the whole-family reading: the confinement is
+a PAIRWISE theorem — a pair's admissible tangency is pinned to γ = 0
+because a degree-1 numerator nonnegative on [0, ∞) cannot vanish at
+an interior point; three-term instances relocate the tangency, and
+with it the window, to ANY height] every pairwise discriminating
 instance interrogates only the classically vacant height-½ band at
 the strip edges (the region |γ| < ½; "band", not "disc" — round 143
-F9). *Honest scope:* R1–R3 exact (algebra gated at
+F9); the general committed-family instance carries a sensitivity
+window of half-width ≈ ½ centred on its line-tangency, relocatable to
+any height — including the heights of actual zeros (the regrade
+below). *Honest scope:* R1–R3 exact (algebra gated at
 machine precision; the t-integral identities are classical Fourier
 bookkeeping; the band's converse direction by R2′'s positivity
 certificate, supplied round 143 F2); R4(a) exhaustive over the committed lattice (finite
@@ -2689,6 +2707,49 @@ Category (a) — no data, no closures, no RH/GRH in either direction.
 Check 7 clean (Fourier bookkeeping, the explicit formula, potential
 theory — classical; no semiclassics); Check 8 clean (every number
 traces to the lattice w = d+½; no hypothesis content).
+
+**Regrade (the wall widened — self-caught post-certification,
+triggered by the owner's asymptotics question; the strikes above;
+gates g19–g20).** The height-½ confinement is a PAIRWISE theorem,
+and the ½ has a mechanism, now identified and gated: **the
+strip-boundary read is the line read analytically continued by ±i/2
+and averaged** — K_s(0, γ) = ½[K̂_s(γ+i/2) + K̂_s(γ−i/2)], K̂_s the
+on-line kernel's continuation (exact; machine precision). A
+discriminating instance's boundary negativity therefore lives within
+≈ ½ of its line-tangency; a PAIR's tangency is pinned to γ = 0 (the
+two-term numerator is degree 1 in γ², and a degree-1 polynomial
+nonnegative on [0, ∞) cannot vanish at an interior point — gated by
+the failed 2-term aim); pinned tangency + continuation distance ½ =
+the pairwise ceiling. The pinning is a two-term artifact: with THREE
+committed kernels the numerator has degree 2, and the admissible
+tangency relocates to any chosen height. The aimed instance on
+(d₁, d₂, d₃) = (4, 5, 6) with tangency at γ₁ = 14.134725 — the first
+zero's height — is admissible (L ∝ (u − γ₁²)² over positive
+denominators, ≥ 0 with the interior double zero) and its boundary
+function is negative exactly on a window [γ₁ − 0.59, γ₁ + 0.44]
+CONTAINING the first zero (gated). Consequences, honestly stated:
+(1) the committed family's discriminating reach is NOT confined
+below height ½ — every height is reachable, each through a window of
+half-width ≈ ½ centred on a relocatable line-tangency; (2)
+"classically vacant" dies for relocated windows: the aimed
+instance's Weil positivity is enforced not by vacancy but by the
+verified on-line zeros themselves (each contributes L(γᵢ) ≥ 0, the
+grazed zero contributing ≈ 0) — the sign statement remains
+RH-content-free in exactly the earlier sense (positivity by verified
+classical facts, not cascade structure), while the instance becomes
+a genuine per-zero sensitivity probe: a hypothetical off-line zero
+inside the window would contribute a negative term, and the
+instance's value is computable unconditionally through the bridge
+identity; (3) the wall stands where it stood — nothing cascade-side
+forces positivity on ANY discriminating instance, pairwise or aimed;
+the forcing is classical zero-location data, and the dense-class
+extension is RH, claimed in neither direction. The wall's
+coordinates regrade from "the vacant height-½ band" to: per-instance
+windows of half-width ≈ ½ about a relocatable tangency, positivity
+within each window resting on the zeros verified there. Check 7
+clean (the continuation identity is classical Fourier bookkeeping);
+Check 8 clean (the aimed instance's coefficients solve a 3×3 linear
+system over the committed w's; no hypothesis input).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
