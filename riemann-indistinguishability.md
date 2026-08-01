@@ -1297,7 +1297,9 @@ hypothesis is untouched (Check 8) — this is a math-side re-founding of the
 formulation's skeleton. *(iv) What does not resolve.* The site-E pairing (1k's first *(net-state, Theorem 1y round 107: now resolved — entailed given the dictionary; member one closes)*
 given), the pairing-act (Door-4 bookkeeping per 1t, its falsifier unchanged), and
 A3's underived rules (*"the increment and per-period rules are underived"* — in the
-amended block itself, anchored) persist exactly as recorded; only the
+amended block itself, anchored) *(net-state, Theorem 1ac round 120: superseded-true —
+the increment rule closed as mathematics (T5, A33), the per-period rule decomposed
+at ledger row 2; the residue instantiation and convention)* persist exactly as recorded; only the
 boundary-labeling given resolves. *(v) Status propagation and the honest falsifier.*
 The prior gradings — "the forcing stays open," "the same given in a second face,"
 "irreducible relative to A1–A4 as committed," "stated, not made" — were true of the
@@ -1828,16 +1830,32 @@ side (part4b):** the marginal Green's-function identity G(d_obs, d*) −
 G(d_obs, d*+1) = α(d*) *"holds at every layer at machine precision"*, and
 *"the source coefficient is exactly 1 (no fitted prefactor) by assembly via
 Sturm–Liouville structure"* — the committed verifier
-(`cascade_unit_source_strength.py`) is run and its exit gated here. **(c) The
+(`cascade_unit_source_strength.py`) is run and ~~its exit gated here~~ [struck
+round 120 F3: at the landing commit d4f3c63 the script exited 0 unconditionally
+— it printed its conclusions even when the identity was falsified, so the
+subprocess gate certified runnability only; the sweep added real verdict gating
+(marginal identity at every interior layer; unit coefficient at the four
+sources), after which the exit is gated and the probe that falsifies the
+identity trips it]. **(c) The
 1/χ^k filtering:** part4b's own *"derivation of the filtering rule"* with
 *"The channel count k is not fitted."* **(d) Sub-lead placement:**
-prop:slot-precedence — proposition-grade, *"Conditional on the strict reading
-of the G flag"* by its own disclosure. What arithmetic does not supply is T5's
+prop:slot-precedence — proposition-grade; conditional, ~~by its own
+disclosure~~ [corrected round 120 F6: the disclosure lives not in the
+proposition's statement but in part4b's Tier-2 summary — *"Conditional on the
+strict reading of the G flag in Proposition prop:source-selection"* — and its
+closure note, which adjudicates the strict reading over the relaxed one
+**empirically**: the relaxed reading *"empirically does not match the
+residual"* and *"The strict reading is therefore the structurally correct
+one."* The reading choice is accordingly counted in the residue set below].
+What arithmetic does not supply is T5's
 own list, verbatim: *"P > L > G precedence, the physical occupancy assignment,
 the (m,k) counts — instantiation data belonging to C1."* *(iii) The per-period
-rule, decomposed — the ledger's own row 2.* Shape **derived** (T6, A34);
-flip-count 4 **derived** (minimal torsion word); ×3 incoherence **derived**
-(factorization); the residue: *"the unit normalization carrying Γ(½) is a
+rule, decomposed — the ledger's own row 2.* Shape **derived** (T6, A34); the
+mechanism at Tier-2 (A38/A43, the row's own header — restored round 120 F5,
+the landing text had flattened it): flip-count 4 **derived** (minimal torsion
+word), ×3 incoherence **derived** (factorization), the form *"unique
+colour-free form conditional on availability assignments"*; the residue: *"the
+unit normalization carrying Γ(½) is a
 convention, empirically anchored not arithmetically forced"* plus the
 marked-coset choice — JUNO tests the value and *"cannot convict the form over
 its 0.1% twins."* *(iv) The adjudication and the marker mechanics.* A3's tail
@@ -1845,12 +1863,24 @@ is **superseded-true**: each rule decomposes into committed-derived form plus
 instantiation residue, and the ledger's own words for the increment half are
 "closed as mathematics." The axiom block is byte-identity-gated (the adoption's
 discipline, riemann_kernel V1), so the block is **not edited**; the net-state
-marker is placed **adjacent**, immediately after the block, with these
-mechanics disclosed — and the block's untouchedness is itself gated here (the
-kernel verifier re-run, exit 0). **A3's honest net residue: {the occupancy
+marker is placed **adjacent**, ~~immediately after the block~~ [struck round
+120 F1/F2: at the landing commit d4f3c63 the marker sat between A4 and the
+section-2 heading — INSIDE V1's compared span, `form[i0:i1]` ending at "## 2.
+The theorems" — and V1 was printing FAIL on the committed tree, masked because
+the kernel script then exited 0 unconditionally, which also made this
+sentence's gating claim vacuous; the sweep relocated the marker immediately
+below the section-2 heading (outside the span) and added real exit gating to
+riemann_kernel, after which V1 passes and an axiom-block edit probe trips the
+gate] — and the block's untouchedness is gated here (the kernel verifier
+re-run, now exit-gated, exit 0). **A3's honest net residue: {the occupancy
 assignment; the (m,k) counts; P > L > G (residue item five, deletable on the
-uniform reading); the per-period unit normalization; the marked coset} — all
-instantiation or convention class. Zero underived rules-in-form remain.**
+uniform reading); the per-period unit normalization; the marked coset; the
+strict G-flag reading (added round 120 F6 — empirically adjudicated over the
+relaxed reading by part4b's closure note, the same "empirically anchored"
+class as the unit normalization)} — instantiation, convention, or empirically
+anchored reading. Zero underived rules-in-form remain — with row 2's mechanism
+carried at Tier-2 (A38/A43) and its form conditional on availability
+assignments, per its own ledger row.**
 *(v) The 1z route, narrowed.* The strict-boundary stipulation's committed home
 is thm:alpha-s-closure's own scope condition — *"any observable whose cascade
 path lies strictly below … d=14"* — and the candidate derivation is the

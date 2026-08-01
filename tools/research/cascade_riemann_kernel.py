@@ -62,6 +62,7 @@ now states the labeling selection explicitly).
 import itertools
 import math
 import os
+import sys
 
 import mpmath as mp
 import sympy as sp
@@ -219,6 +220,16 @@ def main():
     print("  labeling is thereby forced, the five prior faces becoming")
     print("  corollaries; the cost (one enlarged axiom) is on the ledger;")
     print("  no number changes; the physical hypothesis is untouched.")
+
+    # round-120 F1/F2: exit gating added -- the script previously
+    # exited 0 unconditionally, so a V1 FAIL (the 1ac marker's first
+    # placement inside the compared span) was masked and the
+    # subprocess gate in cascade_a3_rules.py was vacuous.  The exit
+    # code now carries the verdicts.
+    n_fail = sum(0 if ok else 1 for ok in (ok1, ok2, ok3, ok4, ok5))
+    print()
+    print(f"RESULT: {5 - n_fail} pass / {n_fail} fail (5 verdicts V1-V5)")
+    sys.exit(0 if n_fail == 0 else 1)
 
 
 if __name__ == "__main__":

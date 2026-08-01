@@ -2346,3 +2346,32 @@ all clean.
 N_ν = 6.6×10⁸⁷, N_e ≈ 4.3×10⁷⁸ in the r_H volume against the
 3.315×10¹²²-nat budget. Next hostile round on the next substantive
 paper change.**
+
+# Round 120: hostile review on commit d4f3c63 (Theorem 1ac) — NOT CONVERGED (3 MAJORs, 3 minors); the marker/verifier mechanics broken exactly where 1ac claimed discipline; the adjudication, quotes, census, and battery counts all held; round 121 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F120-1 (MAJOR) — the "adjacent" marker sat INSIDE riemann_kernel V1's compared span (`form[i0:i1]` ends at "## 2. The theorems"); V1 printing FAIL on the committed tree, masked by the kernel script's unconditional exit 0; 1ac(iv), the marker's rationale, A205, and the commit message all misdescribed the state | **Accepted; lead-verified (V1 FAIL reproduced; zero `sys.exit` confirmed).** Marker relocated immediately below the section-2 heading (outside the span); V1 green again; 1ac(iv) struck-and-annotated; A205's three object-fact claims struck on notice; the commit message's "19 green" noted uncorrectable-in-place in A206 | formulation + paper + record |
+| F120-2 (MAJOR) — a3_rules R5's "riemann_kernel exit 0" gate vacuous: the kernel never exit-gated, so the gate passed 12/0 with the axiom block itself edited | **Accepted; lead-verified (reviewer's probe reproduced).** Exit gating added to riemann_kernel (5 verdicts, RESULT line); the axiom-block edit probe now trips R5 (12/1 of 13, exit 1) | kernel verifier |
+| F120-3 (MAJOR) — cascade_unit_source_strength.py print-only: exits 0 and prints "holds … EVERYWHERE"/"coefficient = 1.000... (exact)" under a falsified identity; 1ac presented its exit as gated | **Accepted; lead-verified (×2-scaling probe reproduced).** Verdict gating added (marginal identity everywhere; unit coefficient at the four sources; STATUS block guarded); the falsification probe now trips R2; 1ac(ii)(b) struck-and-annotated | instrument + paper |
+| F120-4 (minor) — sweep omission: both 1v carrying surfaces still asserted the tail unmarked ("persist exactly as recorded" / "Not resolved") while the sibling 1y item got inline markers | **Accepted; inline net-state markers added on both surfaces** (paper 1v(iv); formulation §5), gated by a new a3_rules conjunct pair | paper + formulation |
+| F120-5 (minor) — grade flattening: the marker and 1ac(iii) reported flip-count/×3 "derived" dropping row 2's own "mechanism at Tier-2 (A38/A43)" header and the "conditional on availability assignments" clause, feeding the unqualified "Zero underived rules-in-form remain" | **Accepted; the Tier-2 header and availability conditional restored in both** (marker + 1ac(iii)); the bold claim now carries its qualifiers; R4 gates the restored text | formulation + paper + verifier |
+| F120-6 (minor) — the strict-G-flag conditional attributed to prop:slot-precedence "by its own disclosure" (it lives in part4b's Tier-2 summary + closure note, adjudicated empirically), and the reading choice absent from the residue set licensing the bold claim | **Accepted; re-attributed with the empirical-adjudication quotes; the residue set extended to six items** (the strict G-flag reading counted, same "empirically anchored" class as the unit normalization); R5's part4b gate extended to pin the adjudication sentences | paper + verifier |
+
+Checked and held (reviewer, lead-confirmed): the superseded-true
+adjudication CORRECT by git archaeology (tail written 0e72f16/A31,
+2026-07-19, when the ledger itself graded rows 1–2 underived; T5
+landed d3e3daf/A33 later the same day; the adoption 3b662ff carried
+the block forward) — net-state, not strike, is the right instrument;
+every verbatim quote checks against raw sources; the footer census
+exact both directions with unit_source_strength's zero prior body
+citations confirmed at 94a1636; both sabotages reproduced exactly as
+the docstring records them; Checks 7/8 clean; self-containment holds;
+the 1z-route narrowing sound against thm:alpha-s-closure's committed
+statement. Standing note for future rounds (out of this round's
+scope): battery instruments 1–12 predate exit gating entirely — the
+battery filter now also censuses FAIL lines in output, and a
+hardening pass is a candidate commission.
+
+**Trajectory: 1ac landed (d4f3c63) → 120 NOT CONVERGED 3M+3m
+(swept) → round 121 (convergence test) next.**

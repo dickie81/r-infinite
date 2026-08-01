@@ -62,17 +62,22 @@ flags recovered 9/9 from ξ's factorization); the increment and per-period rules
 e^(±½) per measured mode — lemma S4, anchored by equipartition); projection is along root
 frames (lemma S5).
 
-*(Net-state on A3's tail, Theorem 1ac of the review paper, round 120 — placed
-adjacent because the axiom block above is byte-identity-gated (riemann_kernel V1)
-and speaks as of the adoption: the tail's "the increment and per-period rules are
-underived" is superseded-true. The increment rule is ledger row 1's "derived from
-arithmetic first principles … closed as mathematics" (T5, Addendum 33), with unit
-source strength and the filtering rule committed papers-side; the per-period rule
-is row 2's decomposition — shape, flip-count, and ×3 derived; the unit
-normalization and the marked coset the residue. A3's net residue is instantiation
-and convention, not law.)*
-
 ## 2. The theorems
+
+*(Net-state on A3's tail, Theorem 1ac of the review paper, round 120 — placed
+adjacent because the axiom block above is byte-identity-gated (riemann_kernel V1),
+below the section heading and outside V1's compared span: the marker's first
+placement, between A4 and the heading, sat INSIDE the span and broke the gate —
+masked by the kernel script's then-unconditional exit 0; both found and repaired
+in the round-120 sweep (F1/F2). The marker speaks as of the adoption: the tail's
+"the increment and per-period rules are underived" is superseded-true. The
+increment rule is ledger row 1's "derived from arithmetic first principles …
+closed as mathematics" (T5, Addendum 33), with unit source strength and the
+filtering rule committed papers-side; the per-period rule is row 2's
+decomposition — shape derived, flip-count and ×3 derived with the mechanism at
+Tier-2 (A38/A43), conditional on availability assignments; the unit
+normalization and the marked coset the residue. A3's net residue is
+instantiation and convention, not law.)*
 
 **T1 (Kernel — PROVED, elementary).** The cascade's four primitive families are exactly the
 log-geometry of Γ_ℝ at integer arguments:
@@ -567,7 +572,8 @@ enlarges from a lattice-value table to the global function plus one clause;
 **no empirical content** — the invariant's twelve digits and (2/π)I re-gated
 unchanged; the physical hypothesis untouched (Check 8). Not resolved: the
 site-E pairing *(net-state, T1y of the review paper, round 107: resolved — entailed given the dictionary)*, the pairing-act (Door-4 bookkeeping), A3's underived rules
-(anchored in the amended block). The prior open-status gradings stand as
+(anchored in the amended block) *(net-state, T1ac of the review paper, round 120:
+superseded-true — the residue is instantiation and convention)*. The prior open-status gradings stand as
 history under net-state markers; falsifier: any future derivation of the
 clause from a weaker kernel makes the adoption redundant. Category (a) plus
 one recorded axiom adoption.

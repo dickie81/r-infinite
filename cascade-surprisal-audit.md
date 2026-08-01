@@ -10030,10 +10030,18 @@ increment rule — PROVED from Tate's thesis alone; Addendum 33."
   adopted; T5/A33 closed the increment rule's form afterwards; the
   block speaks as of the adoption and is byte-identity-gated
   (riemann_kernel V1), so it cannot carry an inline strike. The
-  net-state marker therefore sits **adjacent** — after A4's
+  net-state marker therefore sits **adjacent** — ~~after A4's
   "(lemma S5)." and before "## 2. The theorems," outside the gated
-  span — and the block's untouchedness is itself gated in the new
-  verifier by re-running riemann_kernel as a subprocess.
+  span~~ [struck on notice, round 120 F1: that placement was INSIDE
+  V1's compared span (`form[i0:i1]` ends at "## 2. The theorems"),
+  and V1 was FAILING on d4f3c63, masked by the kernel script's
+  then-unconditional exit 0; the sweep relocated the marker
+  immediately below the section-2 heading, genuinely outside the
+  span] — and the block's untouchedness is ~~itself gated in the new
+  verifier by re-running riemann_kernel as a subprocess~~ [struck
+  on notice, round 120 F2: at d4f3c63 that subprocess gate was
+  vacuous — riemann_kernel had no exit gating; real gating added in
+  the sweep, after which an axiom-block edit probe trips it].
 - **The increment rule, decomposed:** attach-once is proved twice
   over — arithmetically (ℤ's total order, T5) and physically (unit
   source strength: the marginal Green's-function source coefficient
@@ -10063,7 +10071,11 @@ increment rule — PROVED from Tate's thesis alone; Addendum 33."
 
 **Surfaces:** Theorem 1ac in the paper (after 1ab; additive); the
 adjacent net-state marker in the formulation (the axiom block
-itself untouched — byte gate green); footer 48 → 50 ("1i–1ab" →
+itself untouched — ~~byte gate green~~ [struck on notice, round 120
+F1: the block's BYTES were untouched, but the byte gate was in fact
+printing FAIL at d4f3c63 — the marker sat inside its compared span
+— masked by the unconditional exit 0; "green" misdescribed the
+committed state]); footer 48 → 50 ("1i–1ab" →
 "1i–1ac"; cascade_a3_rules.py new, cascade_unit_source_strength.py
 newly body-cited — it was committed but had zero body citations
 before 1ac). **Verifier:** cascade_a3_rules.py, R1–R5, 12 gates,
@@ -10075,13 +10087,94 @@ exit 1 on scratchpad copies (ledger row 1's "closed as mathematics"
 — a first attempt appended "(SABOTAGE)" *after* the anchored
 substring, leaving the anchor intact, 12/0 no trip: a
 sabotage-design error, not a gate defect; redone inside the anchor
-span and disclosed in the docstring). **Battery:** all 19
-instruments green at their committed counts (the 18 of A204 +
+span and disclosed in the docstring). **Battery:** ~~all 19
+instruments green at their committed counts~~ [struck on notice,
+round 120 F1: riemann_kernel was printing "V1 … FAIL" at d4f3c63 —
+the landing battery read exit codes and RESULT lines only, and the
+kernel then had neither exit gating nor a RESULT line, so the FAIL
+was invisible to the battery's filter; 18 of 19 were green, the
+19th failing-but-masked] (the 18 of A204 +
 a3_rules); validator clean on 12 files; footer census exact both
 directions (50 counted body scripts + cascade_constants.py = 51
 distinct, zero record-verifier names in body); hygiene clean.
 Trajectory: 1ac landed → round 120 (hostile review, per protocol)
 spawned on this commit.
+
+## Addendum 206: hostile review round 120 on commit d4f3c63 (Theorem 1ac) — NOT CONVERGED (3 MAJORs, 3 minors); the discipline 1ac claimed was exactly what was broken; all findings lead-verified and swept
+
+Round 120 held the theorem's substance completely — the
+superseded-true adjudication confirmed by git archaeology (the tail
+written at 0e72f16/A31 while the ledger itself graded rows 1–2
+underived; T5 landed at d3e3daf/A33 afterwards; net-state, not
+strike, is the right instrument), every verbatim quote checked, the
+census and sabotage records exact — and broke the mechanics:
+
+- **F1 (MAJOR):** the "adjacent" marker sat INSIDE riemann_kernel
+  V1's compared span (`form[i0:i1]` ends at "## 2. The theorems" —
+  the placement guidance "before the section-2 heading" was wrong
+  against the kernel's own code). V1 was printing FAIL on the
+  committed tree, masked because cascade_riemann_kernel.py
+  contained zero `sys.exit` calls. Lead-verified: FAIL reproduced,
+  `grep -c sys.exit` = 0. Swept: marker relocated immediately
+  below the heading (genuinely outside the span; V1 green);
+  1ac(iv) struck-and-annotated; A205's three object-fact
+  misdescriptions ("outside the gated span," "byte gate green,"
+  "all 19 instruments green") struck on notice. The d4f3c63 commit
+  message's "battery 19 instruments green" cannot be edited; this
+  addendum is its correction: 18 of 19 were green, the kernel
+  failing-but-masked. The landing battery's filter (exit codes +
+  RESULT lines) could not see an output-FAIL from a script with
+  neither; the battery filter now also censuses FAIL lines.
+- **F2 (MAJOR):** a3_rules R5's kernel-subprocess gate was vacuous
+  (exit 0 unconditional). Swept: exit gating added to
+  riemann_kernel (5 verdicts, RESULT line, disclosed in-code); the
+  reviewer's probe — a byte edit inside the gated A2 span — now
+  trips R5: kernel exit 1 → a3_rules 12/1 of 13, exit 1.
+  Lead-reproduced both before and after.
+- **F3 (MAJOR):** cascade_unit_source_strength.py was print-only —
+  under a ×2-scaled Green's function (identity 100% false at all
+  211 layers) it still printed "holds at machine precision
+  EVERYWHERE" and "coefficient = 1.000... (exact)," exit 0.
+  Lead-reproduced. Swept: verdict gating added (marginal identity
+  everywhere; unit coefficient at the four sources; the STATUS
+  block guarded), RESULT line added; the falsification probe now
+  trips it (exit 1) and R2 follows (12/1, exit 1); 1ac(ii)(b)'s
+  "its exit gated here" struck-and-annotated.
+- **F4 (minor):** the 1v carrying surfaces (paper 1v(iv);
+  formulation §5) still carried the tail's claim unmarked while
+  the sibling 1y item had inline markers on the same lines. Swept:
+  inline net-state markers added on both, gated by a new a3_rules
+  gate (13 gates now; the RESULT line updated with the count).
+- **F5 (minor):** grade flattening — the marker and 1ac(iii)
+  dropped row 2's "mechanism at Tier-2 (A38/A43)" header and the
+  "conditional on availability assignments" clause. Swept:
+  restored in both, with the bold "Zero underived rules-in-form
+  remain" now carrying the qualifiers; R4 extended to gate the
+  restored text.
+- **F6 (minor):** the strict-G-flag conditional was attributed to
+  prop:slot-precedence "by its own disclosure" — it lives in
+  part4b's Tier-2 summary and closure note, and the strict reading
+  is adjudicated *empirically* there ("empirically does not match
+  the residual"; "The strict reading is therefore the structurally
+  correct one"). Swept: re-attributed with the quotes; the residue
+  set extended to six items (the strict G-flag reading counted, the
+  same "empirically anchored" class as the unit normalization);
+  R5's part4b gate extended to pin the adjudication sentences.
+
+**Post-sweep state:** a3_rules 13/0; both original sabotages re-run
+on the 13-gate tree (12/1 exit 1 each; clean baselines 13/0 before
+and after); both reviewer probes trip their gates; riemann_kernel
+5/0 with real exit gating; unit_source_strength 2/0 with real exit
+gating; battery all 19 instruments exit 0 with zero FAIL lines in
+any output (the hardened filter); validator clean on 12 files;
+footer census exact (50 counted + constants = 51 distinct, zero
+record names in body); hygiene clean. Standing note (out of this
+round's scope, candidate commission): battery instruments 1–12
+predate exit gating entirely — the hardened FAIL-line census covers
+them for now.
+
+**Trajectory: 1ac landed (d4f3c63) → 120 NOT CONVERGED 3M+3m
+(swept here) → round 121 (convergence test) next.**
 
 ## Caveats
 

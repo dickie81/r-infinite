@@ -21,7 +21,24 @@ counts, P>L>G, the per-period unit normalization, the marked coset}
 -- instantiation or convention class; zero underived rules-in-form.
 The 1z route narrowed: the strict-boundary stipulation's committed
 home is thm:alpha-s-closure's scope condition; the marginal-Green's
-reading is the named open derivation route. Twelve gates.
+reading is the named open derivation route. Thirteen gates.
+
+ROUND-120 SWEEP (three majors, three minors, all lead-verified):
+the landing's two subprocess gates were vacuous -- riemann_kernel
+and unit_source_strength both exited 0 unconditionally, and the
+marker's first placement (between A4 and the section-2 heading) sat
+INSIDE riemann_kernel V1's compared span, so V1 was FAILING on the
+landing commit d4f3c63, masked (F1/F2); unit_source_strength
+printed its conclusions even under a falsified identity (F3). The
+sweep relocated the marker below the heading (outside the span),
+added real exit gating to both instruments, and both falsification
+probes now trip: an axiom-block byte edit -> kernel exit 1 -> R5
+11/1 exit 1 (13-gate tree: 12/1); greens_function scaled x2 ->
+unit_source_strength exit 1 -> R2 trip. Minors: the 1v carrying
+surfaces' missing net-state markers added (F4, gated here); row
+2's Tier-2 header restored in the marker and 1ac(iii) (F5); the
+strict-G-flag conditional re-attributed to part4b's Tier-2
+summary/closure note and counted in the residue set (F6).
 
 Gates:
   R1 -- A3's tail + components anchored in the (unedited) block;
@@ -56,7 +73,9 @@ byte-identity-SABOTAGED" tripped R5's marker gate, 11/1, exit 1.
 substring, leaving the anchor intact -- 12/0, no trip: a sabotage-
 design error, not a gate defect; redone inside the anchor span and
 disclosed here per the instrument rules.) Clean scratchpad baseline
-12/0 exit 0 confirmed before and after each perturbation.
+12/0 exit 0 confirmed before and after each perturbation. Both
+sabotages re-run on the post-sweep 13-gate tree: 12/1 exit 1 each,
+clean baseline 13/0 exit 0 before and after.
 """
 import os
 import subprocess
@@ -119,6 +138,8 @@ gate("the flags' 9/9 + the categorical-route OQ anchored", ok6)
 
 print("R4 -- the per-period rule (ledger row 2)")
 ok7 = "**shape derived** (T6, A34)" in nf
+ok7 &= "mechanism at Tier-2 (A38/A43" in nf
+ok7 &= "unique colour-free form *conditional on availability assignments*" in nf
 ok7 &= "flip-count 4 derived (minimal torsion word)" in nf
 ok7 &= "×3 incoherence derived (factorization)" in nf
 ok7 &= ("**the unit normalization carrying Γ(½) is a convention, empirically "
@@ -138,15 +159,24 @@ ok8 &= "placed adjacent because the axiom block above is byte-identity-gated" in
 gate("the adjacent marker anchored (outside the gated span)", ok8)
 npp = np_.replace("**", "")
 ok9 = "the residue is instantiation, not law" in npp
-ok9 &= "Zero underived rules-in-form remain." in npp
+ok9 &= ("Zero underived rules-in-form remain — with row 2's mechanism carried "
+        "at Tier-2 (A38/A43)" in npp)
 ok9 &= "the delayed-observation class of 1y, disclosed as such" in npp
 ok9 &= "any observable whose cascade path lies strictly below" in npp
-gate("1ac's key sentences anchored", ok9)
+gate("1ac's key sentences anchored (round-120 F5/F6 wording)", ok9)
 ok10 = "Conditional on the strict reading of the $G$ flag" in n4b
-gate("prop:slot-precedence's conditional disclosure anchored in part4b", ok10)
+ok10 &= "empirically does not match the residual" in n4b
+ok10 &= "The strict reading is therefore the structurally correct one" in n4b
+gate("the strict-G-flag conditional + its empirical adjudication anchored in "
+     "part4b (round-120 F6: Tier-2 summary + closure note, not the "
+     "proposition's own statement)", ok10)
+ok11 = "net-state, Theorem 1ac round 120: superseded-true" in npp
+ok11 &= "net-state, T1ac of the review paper, round 120" in nf
+gate("the 1v carrying-surface markers present on both surfaces "
+     "(round-120 F4)", ok11)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates)")
 print("READING: A3's tail is superseded-true -- the increment rule is the")
 print("ledger's own 'derived from arithmetic first principles ... closed as")
 print("mathematics' (attach-once proved twice over: Z's total order; unit")
