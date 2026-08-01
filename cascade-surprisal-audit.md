@@ -10785,6 +10785,75 @@ the tower-script 2√π repair; the charged-termination and
 observer↔4 questions unchanged. Next hostile round on the next
 substantive paper change.**
 
+## Addendum 219: Theorem 1af — the deeper grounding (owner-commissioned: "Look for the deeper grounding … no first principles derivation or proof"); three theorems from the committed dynamics; the scalar route closed, the spinor candidate named
+
+(Process note, disclosed: the 1af landing commit c3ce4c0 shipped
+WITHOUT this addendum — the record-writing script's anchor
+assertion failed on a wording mismatch while the commit command,
+joined by newline rather than &&, ran anyway. This addendum lands
+in the immediate follow-up record commit; the object surfaces were
+complete at c3ce4c0.)
+
+The owner demanded first principles. The response interrogates the
+committed action directly (the grounded elastic chain: S = Σ
+1/(2α(d))(Δφ)², Neumann at the observer, Dirichlet at the Planck
+sink — the committed instrument cascade_greens_function.py, whose
+observer-row closed form and flux argument are quoted, not claimed
+as new):
+
+- **Theorem (two-point structure, new):** G(d, d*) =
+  Σ_{k=max(d,d*)}^{216} α(k) — the two-point function depends only
+  on max(d, d*); the instrument's own flux argument extended to
+  arbitrary pairs; gated at worst relative error 1.79×10⁻¹³ over a
+  100-pair census of the committed operator's inverse.
+- **Corollary (scalar δ-blindness — the load-bearing negative):**
+  every seat couples to every source identically — G(21, s) =
+  tail(21) = 1.167571 for ALL four sources (spread < 10⁻¹³),
+  G(29, s) = tail(29) = 1.006240; the scalar 21-vs-29 ratio is
+  1.1603, no dichotomy, unrelated to 256 or 289 (stated to preempt
+  numerology). **No first-principles derivation of the
+  participation dichotomy can live in the scalar sector** — 1ae's
+  (v-a) is forced into the chirality/spinor sector by theorem; the
+  search space is halved.
+- **Theorem (the sink cannot source, new):** the sink is a
+  constraint node (φ(217) = 0 imposed, no EL variation); forcing
+  it yields the rigid shift φ ≡ const — zero bond stretch, zero
+  action, dynamically null (gated: response-column spread
+  1.9×10⁻¹³, stretches 5×10⁻¹⁵). The sink-exclusion step of
+  1ae(iii)'s exhaustiveness chain upgrades from remark-level
+  accounting to forced-by-the-dynamics (net-state marker placed;
+  the type-counting step for "no fifth source TYPE" is untouched
+  and stays the chain's weakest link, stated).
+- **The spinor-sector candidate, identified honestly:** χ = 2 per
+  layer coincides exactly with per-layer Clifford-algebra doubling
+  (χ⁸ = 256 = dim Cl(29)/dim Cl(21), declared identity). Candidate
+  mechanism for (v-a), named not derived: layer transport projects
+  the Clifford structure at weight 1/2 per generator — the
+  spinor-chain analogue of the scalar chain. The identification's
+  arithmetic is trivially exact; its content is the reading; the
+  paper says so.
+- **What the full proof now requires, exactly:** the spinor
+  transport theorem (v-a — one sector, one named candidate) and
+  the A4/S4 measurement biconditional (v-b).
+
+**Surfaces:** Theorem 1af in the paper (after 1ae); two net-state
+markers in 1ae (the sink step; the (v-a) narrowing); footer 55 →
+56 ("1i–1ae" → "1i–1af"; cascade_deeper_grounding.py new;
+cascade_greens_function.py added to the audited-not-counted
+parenthetical alongside cascade_constants.py). **Verifier:**
+cascade_deeper_grounding.py, E1–E5, 11 gates + 1 declared identity
+block, 11/0 (the RESULT line's first draft said 10 and the
+docstring said 14 — the count defect's fifth instance, both
+corrected pre-commit); three sabotages exit 1 at 10/1 on a
+full-tree scratchpad copy (the instrument's flux sentence; the
+max→min expectation flip; the paper's δ-blindness sentence), clean
+baselines 11/0. **Battery:** all 23 instruments (the 22 +
+deeper_grounding) exit 0, zero FAIL lines; validator clean on 12
+files; census 56 counted + 2 audited-uncounted (constants,
+greens_function) = 58 distinct body names, zero record names in
+body; hygiene clean. Trajectory: 1af landed (c3ce4c0) → round 130
+(hostile review, per protocol) spawned on the record commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
