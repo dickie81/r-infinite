@@ -9589,6 +9589,63 @@ entailment; the pairing-act (member three, Door-4 bookkeeping);
 A3's underived rules; the layer-2 soft inputs. Next hostile round on
 the next substantive paper change.**
 
+## Addendum 195: Theorem 1aa — the forcing ledger (owner-commissioned); the projection question stratified; the d = 5 presentation chain; the C1-primitive residue made exact
+
+The owner commissioned the forcing question: what forces the
+selection — why these properties project into the observer's
+spacetime, why they present as particles at d = 5. The answer,
+stratified with the Check-8 boundary stated first (the outermost
+question is C1 itself — the formulation's "what can never be a
+theorem"; Theorem 13's "not 'the address book is forced'"):
+
+- **Stratum F (structure-forced, observer-free):** the menus are
+  theorems consuming no hypothesis — Cl(1,d−1) complex iff d mod 8 ∈
+  {4,5,6} (windows {4,5,6}/{12,13,14}/{20,21,22}, gated); the
+  Majorana deserts 7–11 and 15–19 carry nothing visible (part4a
+  verbatim, gated); Bott seats {5,13,21} (gated); Adams gauge triple
+  with N_c kernel-entailed (1w); the distinguished layers with the
+  feature→layer map entailed (1y).
+- **Stratum E (entailed given the seat):** given C1's minimal
+  content — the observer at twist 4 — the visible spectrum is
+  exactly first-window fermions + mirror-window gauge + the Bott
+  ladder, deserts empty, rules single-valued (Theorem 13),
+  alternatives data-excluded (1z).
+- **Stratum C (the exact C1-primitive residue, three items and no
+  more):** occupancy; the observer↔twist-4 LABELING; the discrete
+  Definition-6.1 entries. On the labeling, the record's sharpest
+  committed fact is an exhibit, not a derivation — twist 4 carries
+  one convention-free arithmetic distinction, {k : γᵏ = −1} = {4}
+  (the ℤ/8 clock's unique nontrivially-real residue; the flip-word
+  arithmetic derived, Mechanism M; ζ₈⁴ = −1 gated) — with
+  Definition 6.1's own grading anchored verbatim ("a labeling, not
+  a derivation").
+- **The d = 5 presentation chain:** a four-way conjunction — argmax
+  V (Γ-forced, recomputed), first-window Dirac layer (Cl(1,4) =
+  M₄(ℂ)), first Bott seat, observer-adjacent frame — three conjuncts
+  structure-forced, "(d) alone consumes the seat." The presentation
+  AS particles is the committed machinery (Grassmann per-layer
+  locality, χ(S^(2n)) = 2 chirality basins at S⁴, m(d) = R(d)/χ,
+  root-frame measurement); the spectrum's SPARSENESS is Clifford
+  arithmetic, not selection.
+- **The standing route, stopping-rule-gated:** a committed
+  derivation of the observer↔4 link from the clock distinction would
+  move the labeling from stratum C to stratum F.
+
+One-sentence answer, on the record: the properties are forced (the
+menus), the projection is entailed (given the seat), and the seat is
+the hypothesis — carrying exactly one convention-free arithmetic
+distinction, on the record as an exhibit. **Surfaces:** Theorem 1aa
+in the paper (after 1z; additive — no markers owed); footer 46 → 47.
+**Verifier:** cascade_forcing_ledger.py, L1–L5, 18 gates, 18/0 (the
+RESULT line's first draft said 15 — corrected pre-commit; two weak
+disjunct-chain anchors tightened to exact normalized strings
+pre-commit); two sabotages exit 1 (the grading-anchor perturbation;
+the argmax expectation flip). **Battery:** all 17 instruments green;
+validator clean on 12 files; census 48 body = 47 counted +
+constants. No data consumed; no number changes; category (a).
+Trajectory: 1aa landed → round 112 (hostile review, per protocol)
+spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1612,6 +1612,68 @@ outside the forced menus fails the menu-bounded claim (gated); the A3-entailment
 route, if ever committed, relocates the stipulation and is to be recorded as
 such.
 
+**Theorem 1aa (the forcing ledger: what selects the selection; the projection
+question stratified; the d = 5 presentation chain; `cascade_forcing_ledger.py`).**
+*(i) The commission and the boundary, stated first.* The owner commissioned the
+forcing question: what forces the selection — why these properties project into
+the observer's spacetime, and why they present as particles at the d = 5 layer.
+The record's boundary is committed and this theorem does not move it: the
+outermost question — why the observable universe realizes **this** structure — is
+C1 itself, the paper's one assumption (the formulation's header: *"what can never
+be a theorem"*; Theorem 13's own scope honesty: the exhaustion's content is *"'a
+fully-specified address book leaves zero residual freedom,' not 'the address book
+is forced'"*). What this theorem does: stratify the question into its forcible
+parts and audit each, so the C1-primitive residue is exact rather than diffuse.
+*(ii) The three strata.* **Stratum F (structure-forced, observer-free — the
+menus).** Which layers *can* carry visible quantum matter is a theorem chain
+consuming no hypothesis: Cl(1, d−1) has complex minimal spinors iff d mod 8 ∈
+{4, 5, 6} (Bott/Lounesto, part4a), giving the windows {4,5,6}, {12,13,14},
+{20,21,22} and the **Majorana deserts** between them (d = 7–11, 15–19: *"carry no
+complex spinor structure and support no quantum matter content visible to the
+d=4 observer"* — part4a, verbatim); the generation seats are the Dirac layers
+d ≡ 5 (mod 8): {5, 13, 21} (Bott); the gauge triple {12, 13, 14} with
+SU(3)×SU(2)×U(1) is Adams-forced, N_c = 3 kernel-entailed given the act (1w);
+the distinguished layers {5, 7, 19, 217} are Γ-theorems with the feature→layer
+assignment entailed end-to-end (1y). **Stratum E (entailed given the seat).**
+Given C1's minimal content — the observer occupies twist 4 — everything the
+owner's question calls "these properties" follows by committed determination:
+the visible spectrum is exactly [first-window fermions] + [mirror-window gauge]
++ [the Bott ladder], the deserts contribute nothing, and the address book's rules
+are single-valued (Theorem 13; the windows' alternatives data-excluded, 1z).
+**Stratum C (C1-primitive — the exact residue).** Three items and no more: that
+the tower is *occupied* at all; the observer↔twist-4 **labeling**; and the
+occupancy entries of Definition 6.1 outside strata F/E (~60–100 discrete
+entries, no continuous parameter). On the labeling, the record's sharpest
+committed fact is an **exhibit, not a derivation**, and Definition 6.1 grades it
+itself: twist 4 carries *"**one** convention-free arithmetic distinction"* — the
+torsion half-period, {k : γᵏ = −1} = **{4}** (the unique nontrivially-real
+residue of the ℤ/8 clock; the flip-word arithmetic is derived, Mechanism M) —
+*"though its link to the **observer** is a labeling, not a derivation"*
+(Definition 6.1, verbatim; anchored and gated). *(iii) The d = 5 presentation
+chain.* Why matter presents as particles at the 5-layer, assembled from
+committed content: d = 5 is the unique layer satisfying a **four-way
+conjunction** — (a) the discrete argmax of V (Γ-forced; entailed 1k/1y); (b) the
+Dirac layer of the **first** complex window (Cl(1,4) = M₄(ℂ); 5 mod 8 = 5); (c)
+the first Bott generation seat; (d) the observer-adjacent frame d_obs + 1 —
+where (a)–(c) are structure-forced and **(d) alone consumes the seat**. The
+presentation *as particles* is the committed machinery, cited: per-layer
+Grassmann locality (part4b's fermion action), the chirality basins χ(S^(2n)) = 2
+at the even boundary sphere S⁴, per-layer mass m(d) = R(d)/χ, measurement along
+root frames (A4/S5). And the deserts answer the question's negative half: the
+observer sees the Standard Model's *shape* because between the windows
+**nothing is visible** — the spectrum's sparseness is Clifford arithmetic, not
+selection. *(iv) Honest scope and falsifiers.* Check 8 is load-bearing
+throughout: no step above derives the seat; stratum E is conditional on C1 and
+says so; the γ⁴ exhibit corroborates the labeling and does not force it (a
+committed derivation of the observer↔4 link from the clock distinction would
+move the labeling from stratum C to stratum F and is the standing route this
+theorem names — stopping-rule-gated per the 1h(iv) pattern). No closure; no
+number changes; no data consumed beyond the already-committed record; category
+(a). The answer to the commission, in one sentence: **the properties are forced
+(the menus), the projection is entailed (given the seat), and the seat is the
+hypothesis — carrying exactly one convention-free arithmetic distinction, on the
+record as an exhibit.**
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -2146,4 +2208,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1z: the **46 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1aa: the **47 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
