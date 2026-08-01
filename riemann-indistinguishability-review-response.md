@@ -2691,3 +2691,17 @@ battery; validator; footer; hygiene; Checks 7/8; no under-claiming.
 
 **Trajectory: 1ah landed → 137 2M+1m+1c → 138 NOT CONVERGED
 0M+1m+1c (swept) → round 139 (convergence test) next.**
+
+# Round 139: convergence test on the round-138 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1ah certified stable; the C1 arc closes
+
+Zero findings. The verifier transcript consistent end to end; the
+retracted-string greps clean; the sabotage reproduced with a
+byte-identical restore; the 198+19-script battery green; validator,
+footer, hygiene, Checks 7/8 all clean.
+
+**Trajectory: 1ah landed → 137 2M+1m+1c → 138 0M+1m+1c → 139
+CONVERGED 0+0+0. Certified: C1 OPEN — reconciled in classification
+(Theorem B exact), selected only by value; closure routes named (an
+odd-Δ committed instance, or the formula's derivation). The
+unproved set: (v-b), C1, C2, C3. Next hostile round on the next
+substantive paper change.**

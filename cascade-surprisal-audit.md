@@ -11322,6 +11322,40 @@ zero in the verifier.
 CONVERGED 0M+1m+1c (swept here) → round 139 (convergence test)
 next.**
 
+## Addendum 231: convergence-test round 139 on the round-138 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1ah certified stable at the regraded state; the C1 arc closes
+
+Round 139 returned zero findings. Its held list, lead-spot-checked:
+the whole verifier transcript consistent end to end with the
+regrade (the renamed K1 gate and tagged READING header verbatim as
+swept); the retracted-string greps clean ("inequivalent" zero in
+tools, once in the paper inside the strike; "fork dissolves" only
+in strike/recital frames, with Theorem B's
+reconciliation-in-classification sentence correctly held as
+distinct); the sabotage reproduced (9/1 exit 1, byte-identical
+restore); the full 198+19-script battery green; validator clean;
+footer census exact (64 = 58 + 4° + 2 audited); hygiene clean;
+both markers matching the verifier's anchors exactly; Checks 7/8
+clean.
+
+**Trajectory: 1ah landed (974964e) → 137 NOT CONVERGED 2M+1m+1c
+(swept, 634d0b9) → 138 NOT CONVERGED 0M+1m+1c (swept, c26678c) →
+139 CONVERGED 0+0+0. Theorem 1ah is stable at its honest state:
+C1 OPEN — reconciled in classification (Theorem B, exact at every
+layer: the algebra IS the spinor bilinear space, so the two
+committed structures address different object classes under the
+disclosed R-bilinear reading; the round-133 tension was a false
+dichotomy in classification) but selected only by the value of the
+underived committed formula. The arc's permanent yield: the named
+falsifiable closure routes — an odd-Δ committed transport instance
+would discriminate the fibers by form alone (none exists; deriving
+or committing one settles C1), or the neutrino formula's own
+derivation. The unproved set for the full first-principles chain:
+(v-b), C1, C2, C3, each named with its closure route. Standing
+open routes across the campaign: those four; the type-counting
+remark-to-theorem upgrade; the tower-script 2√π repair; the
+observer↔4 and charged-termination questions. Next hostile round
+on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
