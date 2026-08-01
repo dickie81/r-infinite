@@ -11518,6 +11518,71 @@ zero nonzero exits. Validator clean on 12 files; hygiene clean.
 **Trajectory: 1ai landed (8ccc169) → 140 NOT CONVERGED 1M+4m+1c
 (swept) → round 141 (convergence test) next.**
 
+## Addendum 234: round 141 (convergence test on the round-140 sweep) — NOT CONVERGED, 0 MAJORs + 1 minor + 2 cosmetics; the metaplectic-index universal; swept; round 142 next
+
+Round 141 (fresh-context subagent, session model) attacked the
+round-140 sweep (16f1a6c). All six round-140 fixes held under
+attack: the rescoped W1 floor survived an exhaustive hunt across
+ALL of tools/ for committed zero-side evaluation points (the
+colour bridge's L(1+1e-15) read is an entirety check and its
+Λ(½+it) sign-scans compute the zeros themselves — neither is a
+kernel-against-zeros read at an argument s; nothing committed
+evaluates in [1, 2), at complex points, or in the strip); the W0
+proof verified valid for both sign halves; the F4 regrade's
+|ĝ|² ≥ 0 obstruction re-derived; γ* = 1.913916 recomputed in
+closed form; V2's code matches its docstring clause by clause;
+the 84-script exit-gated superset ran 84/84 green; sabotages
+reproduced on a full-tree copy. Three findings, all lead-verified
+and swept:
+
+**F141-1 (minor, accepted):** the span's census clause "the
+record's 'Weil' is the metaplectic index (1e/1f)" was a false
+universal, false-when-written at the 8ccc169 landing and
+surviving the round-140 sweep: the explicit-formula bridge's
+naming note (`cascade_explicit_formula_bridge.py:52–57`, a
+pre-1ai committed instrument surface) names "Weil's test-function
+formula" in the explicit-formula sense — the exact object of the
+1ai route — solely to distinguish it from the pointwise Hadamard
+form the bridge uses. Lead-verified at source. The load-bearing
+commission claim is unharmed (the route's three terms have zero
+pre-1ai occurrences repo-wide — naming Weil's formula is not
+pursuing Weil positivity), but the supporting clause was false:
+struck-and-annotated in the paper per the marking rule, with the
+rescoped residue ("outside that naming note the record's 'Weil'
+is the metaplectic index").
+
+**F141-2 (cosmetic, accepted):** V2's docstring labelled the six
+solver bracket endpoints "non-integer/out-of-range" — false for
+18.0, 24.0, 140.0 (integer-valued, in-range; harmless
+over-coverage). Label corrected to name them as the solver's
+bracket endpoints with the accurate sublabels.
+
+**F141-3 (cosmetic, accepted):** V1's detail string printed
+"over 253 files" while the loop skipped SELF, scanning 252. SELF
+is now excluded from the list itself; the printed count (252)
+equals the count scanned.
+
+**Held (reviewer, all with evidence):** every round-140 fix
+landed correct and complete; strikes verbatim-accurate against
+8ccc169; no live retracted phrasing anywhere in the span or
+verifier; anchors verbatim at source; quantifiers audited;
+gate-count census 10 = 10; verdict gating live; battery 84/84
+superset (26/26 subset), zero gate-FAIL lines; validator clean on
+12 files; hygiene zero; Checks 7/8 clean; A233 matches the swept
+surfaces clause by clause.
+
+**Post-sweep record:** verifier 10/0 exit 0 (census now
+"repo-wide 0 over 252 files"); sabotage b'' redone on a fresh
+full-tree copy against the changed V1 code (route term planted in
+a `src/*.tex` copy → V1 trips, 9/1, exit 1; clean baselines 10/0
+before and after; V5's code untouched this round, its a'
+reproduction standing from the round-140 sweep). Battery 26/26
+green, zero FAIL lines; validator clean; hygiene zero.
+
+**Trajectory: 1ai landed (8ccc169) → 140 NOT CONVERGED 1M+4m+1c
+(swept, 16f1a6c) → 141 NOT CONVERGED 0M+1m+2c (swept) → round 142
+(convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

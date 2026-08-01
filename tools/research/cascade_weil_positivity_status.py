@@ -66,10 +66,13 @@ Gates:
         (beta in [0.01, 0.99] x 25, gamma in [0, 120] x 121) at
         s in {2, 5, 218} (the corpus floor, the lattice floor,
         the lattice ceiling), and (c) the full grid at the
-        committed non-integer/out-of-range read points
-        (6.5, 8.5, 18.0, 24.0, 140.0, 320.0 -- the feature
-        solver's bracket endpoints; the colour bridge's 2.0 and
-        6.0 are integer-valued and covered by (a)/(b)).
+        feature solver's bracket endpoints
+        (6.5, 8.5, 18.0, 24.0, 140.0, 320.0 -- label corrected
+        round 141 F2: 6.5/8.5 are non-integer and 320 is
+        out-of-range; 18, 24, 140 are integer-valued in-range,
+        full-grid coverage on top of (a)'s subsample; the colour
+        bridge's 2.0 and 6.0 are integer-valued and covered by
+        (a)/(b)).
   V3 -- W2: the committed argument floor 5 > 1 (min(d) + 1 == 5
         computed from the lattice).
   V4 -- W3 window: K5/K6 at beta = 1/2 equals 11/9 at gamma = 0
@@ -151,12 +154,14 @@ terms = ["Weil positivity", "Weil's criterion", "positivity criterion"]
 outside = sum(paper_raw[:i0].count(x) + paper_raw[i1:].count(x) for x in terms)
 form_raw = open(FORM, encoding="utf-8").read()
 wide = 0
-wide_files = (glob.glob(os.path.join(ROOT, "src", "*.tex"))
-              + glob.glob(os.path.join(ROOT, "tools", "**", "*.py"),
-                          recursive=True))
+# round 141 F3: SELF is excluded from the list itself, so the printed
+# file count equals the count actually scanned.
+wide_files = [p for p in
+              (glob.glob(os.path.join(ROOT, "src", "*.tex"))
+               + glob.glob(os.path.join(ROOT, "tools", "**", "*.py"),
+                           recursive=True))
+              if os.path.abspath(p) != SELF]
 for path in wide_files:
-    if os.path.abspath(path) == SELF:
-        continue
     txt = open(path, encoding="utf-8", errors="replace").read()
     wide += sum(txt.count(x) for x in terms)
 gate("the route's terms occur only within 1ai's span (zero in the paper "

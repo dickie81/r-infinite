@@ -2449,7 +2449,13 @@ committed object-level surface before this theorem (census gated
 repo-wide as of round 140 F6: the paper's pre-1ai span, the
 formulation, every `src/*.tex`, and the tools tree minus this theorem's
 own instrument; the two record files excluded as declared history); the record's
-"Weil" is the metaplectic index (1e/1f), and mirror coherence was
+"Weil" ~~is the metaplectic index (1e/1f)~~ [struck round 141 F1,
+false-when-written: the explicit-formula bridge's naming note — a
+pre-1ai committed instrument surface — names "Weil's test-function
+formula" in the explicit-formula sense, solely to distinguish it from
+the pointwise Hadamard form the bridge uses, with no positivity
+content; outside that naming note the record's "Weil" is the
+metaplectic index (1e/1f)], and mirror coherence was
 deliberately worded *"non-degeneracy (≠ 0, ∞, indeterminate), **not**
 positivity."* *(ii) The classical frame (cited as classical, no RH
 assumed).* Weil's criterion: RH is equivalent to positivity of the

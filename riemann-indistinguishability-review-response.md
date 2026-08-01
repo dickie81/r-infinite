@@ -2740,3 +2740,28 @@ FAIL lines; validator clean on 12 files; hygiene zero.
 
 **Trajectory: 1ai landed (8ccc169) → 140 NOT CONVERGED 1M+4m+1c
 (swept) → round 141 (convergence test) next.**
+
+# Round 141: convergence test on the round-140 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the metaplectic-index universal; round 142 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F141-1 (minor) — "the record's 'Weil' is the metaplectic index (1e/1f)" a false universal, false-when-written at the landing: the explicit-formula bridge's naming note (a pre-1ai committed instrument surface) names "Weil's test-function formula" in the explicit-formula sense; the load-bearing commission claim (zero pre-1ai occurrences of the route's three terms, repo-wide) is unharmed | **Accepted; struck-and-annotated in the paper with the rescoped residue ("outside that naming note … metaplectic index")** | paper |
+| F141-2 (cosmetic) — V2's "non-integer/out-of-range" label false for three of the six bracket endpoints (18, 24, 140 integer-valued, in-range) | **Accepted; label corrected (solver bracket endpoints, accurate sublabels)** | verifier |
+| F141-3 (cosmetic) — V1's detail printed "over 253 files" while scanning 252 (SELF skipped in the loop but counted in the list) | **Accepted; SELF excluded from the list; printed count = scanned count** | verifier |
+
+Held: all six round-140 fixes correct and complete (the rescoped
+W1 floor exhaustively re-hunted across ALL of tools/; the W0 proof
+valid both halves; the F4 |ĝ|² ≥ 0 obstruction re-derived;
+γ* = 1.913916 closed-form); strikes verbatim against 8ccc169; no
+live retracted phrasing; anchors at source; quantifiers; gate
+census 10 = 10; sabotages reproduced; battery 84/84 superset;
+validator; hygiene; Checks 7/8; A233 consistent with the surfaces.
+
+Post-sweep: verifier 10/0 ("repo-wide 0 over 252 files");
+sabotage b'' redone against the changed V1 code (9/1 exit 1, clean
+baselines); battery 26/26 zero FAIL lines; validator clean on 12
+files; hygiene zero.
+
+**Trajectory: 1ai landed (8ccc169) → 140 1M+4m+1c (swept,
+16f1a6c) → 141 NOT CONVERGED 0M+1m+2c (swept) → round 142
+(convergence test) next.**
