@@ -11364,27 +11364,44 @@ occurrences of "Weil positivity"/"Weil's criterion"/"positivity
 criterion" on any committed surface before 1ai; the record's
 "Weil" is the metaplectic index). The results, all unconditional:
 
-- **Theorem W0 (blind-cone criterion, elementary, proof stated):**
-  a test function whose paired kernel has one sign on the whole
-  critical strip yields explicit-formula positivity that holds
-  whether or not RH — zero information about zero locations.
+- **Theorem W0 (blind-cone criterion, elementary, ~~proof
+  stated~~ [struck round 140 F2, false-when-written: no proof was
+  stated at landing; supplied in the paper by the round-140
+  sweep]):** a test function whose paired kernel has one sign on
+  the whole critical strip yields ~~explicit-formula positivity
+  that holds~~ [struck round 140 F3, false-when-written: the
+  one-signed-negative half yields unconditional NON-positivity —
+  what is fixed is the SIGN] an explicit-formula zero-sum whose
+  sign is fixed whether or not RH — zero information about zero
+  locations.
 - **Theorem W1 (blindness):** every committed cascade zero-side
-  read (real s = d+1 ∈ [5, 218]) lies in the blind cone — each
+  read ~~(real s = d+1 ∈ [5, 218])~~ [struck round 140 F1,
+  false-when-written: the bridge also reads s = 2, 3, 4, the
+  colour bridge s ∈ {2, 5, 6, 7, 13, 20}, the solver continuous
+  points up to ≈320; the true floor is real s ≥ 2 > 1, the
+  lattice packaging specifically at s = d+1 ∈ [5, 218]] lies in
+  the blind cone — each
   kernel term (s−β)/|s−ρ|² is strictly positive for 0 < β < 1 <
-  5 ≤ s (exact; grid-gated). Corollary: the committed packaging's
+  2 ≤ s (exact; grid-gated over the full corpus as of the sweep).
+  Corollary: the committed packaging's
   positivity carries ZERO RH content — the registered
   "identity-mediated" negative upgraded to precise geometry.
 - **Theorem W2 (strip avoidance):** min(d)+1 = 5 > 1 — the
   lattice never enters the strip; the descent is confined to the
   blind side by its own observer floor.
-- **Exhibit W3 (reachability, graded as exhibit):** the
-  blind/discriminating boundary passes through the cascade's
+- **Exhibit W3 (~~reachability~~ [struck round 140 F4,
+  false-when-written: the exhibit's sign change is ON the line
+  (β = ½), where every admissible Weil self-convolution is
+  ĥ = |ĝ|² ≥ 0 — it LEAVES the blind cone but cannot reach the
+  discriminating cone; discrimination needs off-line sign change]
+  boundary crossing, graded as exhibit):** the
+  blind cone's boundary passes through the cascade's
   native signed-combination space — for the (5, 6) pair the
   sign-change window is exactly (9/11, 11/9), and the committed
   1af ratio tail(21)/tail(29) = 1.1603 lands inside it; the
   exhibit kernel crosses at γ* ≈ 1.914. The coefficient is
-  committed; the combination is constructed; no committed
-  observable is discriminating.
+  committed; the combination is constructed; no committed — or
+  here-constructed — combination is admissible-discriminating.
 - **The gap, named:** configuration-space positivity (the action;
   α(d) > 0; trigamma) and test-function positivity are connected
   by NO committed map — the bridge connects values only ("no
@@ -11412,6 +11429,94 @@ the 1ad precedent, disclosed). **Battery:** all 26 instruments
 green (the 25 + weil_positivity_status); validator clean on 12
 files; hygiene clean. Trajectory: 1ai landed → round 140 (hostile
 review, per protocol) spawned on this commit.
+
+## Addendum 233: round 140 (hostile review on 8ccc169, Theorem 1ai) — NOT CONVERGED, 1 MAJOR + 4 minors + 1 cosmetic; the W1 domain false-when-written, conclusion unharmed; swept; round 141 next
+
+Round 140 (fresh-context subagent, session model, per protocol)
+attacked Theorem 1ai. Verdict: NOT CONVERGED — the theorem's
+central claims survive but the landing text overstated on four
+axes.
+
+**F140-1 (MAJOR, accepted):** W1's quantified domain — "the
+committed family evaluates at real s = d+1 ∈ [5, 218]" — was
+false against the theorem's own anchored instruments: the
+explicit-formula bridge runs d = 1..28 (`for d in range(1,
+D_MAX + 1)`, D_MAX = 28), putting committed reads at s = 2, 3, 4
+below the claimed floor; the colour-field bridge reads at
+s ∈ {2, 5, 6, 7, 13, 20}; the feature solver evaluates at
+continuous bracket points up to ≈320. Lead-verified at source.
+The blindness CONCLUSION is unharmed — every committed read has
+real s ≥ 2 > 1, where each kernel term is strictly positive — but
+the sentence was false-when-written. Swept per the marking rule:
+struck-and-annotated on the paper, the verifier docstring, and
+A232; W1 rescoped ("every committed zero-side evaluation is at
+real s ≥ 2 > 1 — the lattice packaging specifically at s = d+1 ∈
+[5, 218]"); V2's grid extended to the true corpus (5×11 subsample
+at all 217 integer s in [2, 218]; the full 25×121 grid at
+s ∈ {2, 5, 218}; the full grid at the solver bracket points
+6.5, 8.5, 18, 24, 140, 320).
+
+**F140-2 (minor, accepted):** "W0's proof is three lines and
+stated" — no proof was stated. The three-line proof is now
+supplied in the paper (zeros lie in the open strip, classical and
+RH-free; a one-signed kernel makes every zero-sum summand carry
+that sign wherever the zeros sit; hence the sum's sign is fixed
+independent of zero locations). A232's "proof stated" struck.
+
+**F140-3 (minor, accepted):** W0 claimed one-signedness "yields an
+explicit-formula positivity that holds UNCONDITIONALLY" — false
+for the one-signed-NEGATIVE half (unconditional NON-positivity).
+Struck-and-annotated: one-signedness fixes the SIGN; positivity
+is the positive-kernel case (real s > 1 — the case every
+committed read occupies).
+
+**F140-4 (minor, accepted):** W3's "cascade-native signed
+combinations reach the discriminating cone" overstated. The
+exhibit's sign change occurs ON the line (β = ½), where every
+admissible Weil self-convolution satisfies ĥ(½+iγ) = |ĝ(γ)|² ≥ 0
+— a combination whose on-line values change sign can never be an
+admissible test function. Struck-and-annotated to "leave the
+blind cone"; the honest grading now states the admissibility
+requirement (sign change OFF the line, nonnegative on it) and gap
+(vi) names it as part of what the needed morphism must deliver;
+"the boundary between blind and discriminating" tightened to "the
+blind cone's boundary".
+
+**F140-5 (minor, accepted):** V2's docstring claimed the full
+25×121 grid at "all 214 committed s values" while the code
+subsampled (`bs[::6], gs[::12]`) for all s with the full grid
+only at {5, 218}. The grid scope is now stated honestly, and the
+gate itself was extended under F140-1.
+
+**F140-6 (cosmetic, accepted):** the census gate covered the
+paper + formulation while the sentence said "any committed
+surface" (the reviewer verified repo-wide zero hits). V1 is now
+repo-wide (every `src/*.tex` + the tools tree minus the
+instrument itself; record files excluded as declared history —
+this addendum itself carries the terms) and the paper sentence
+rescoped to "committed object-level surface".
+
+**Held (reviewer, confirmed):** the kernel mathematics
+(independently recomputed); all three landing sabotages
+reproduced including both directions of the locational-gate fix;
+the coefficient chain (c = 1.160330; γ* = 1.91392); the footer
+census (65 = 59 + 4° + 2 audited); battery 26/26; validator;
+hygiene; Checks 7/8; sub-attack 1(a) — every "zero RH content"
+sentence properly scoped to the positivity, not the reads'
+values.
+
+**Post-sweep record:** verifier 10/0 exit 0; sabotages redone at
+the swept state on a full-tree scratchpad copy — (a') the
+rescoped W1 floor sentence perturbed mid-anchor → V5 trips, 9/1,
+exit 1; (b') a route term planted in a `src/*.tex` copy → the
+repo-wide V1 trips, 9/1, exit 1; (c') the coefficient shifted to
+1.5 → assertion abort, zero RESULT lines, exit 1 (the abort IS
+the trip, disclosed); clean baselines 10/0 exit 0 before and
+after each. Battery: all 26 instruments green, zero FAIL lines,
+zero nonzero exits. Validator clean on 12 files; hygiene clean.
+
+**Trajectory: 1ai landed (8ccc169) → 140 NOT CONVERGED 1M+4m+1c
+(swept) → round 141 (convergence test) next.**
 
 ## Caveats
 

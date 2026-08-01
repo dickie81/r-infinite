@@ -2705,3 +2705,38 @@ CONVERGED 0+0+0. Certified: C1 OPEN — reconciled in classification
 odd-Δ committed instance, or the formula's derivation). The
 unproved set: (v-b), C1, C2, C3. Next hostile round on the next
 substantive paper change.**
+
+# Round 140: hostile review on commit 8ccc169 (Theorem 1ai) — NOT CONVERGED (1 MAJOR, 4 minors, 1 cosmetic); the W1 domain false-when-written; conclusion unharmed; round 141 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F140-1 (MAJOR) — W1's quantified domain "real s = d+1 ∈ [5, 218]" false against 1ai's own anchored instruments (the bridge reads d = 1..28, so s = 2, 3, 4; the colour bridge s ∈ {2, 5, 6, 7, 13, 20}; the solver continuous points up to ≈320); conclusion unharmed (all reads at real s ≥ 2 > 1, kernels positive) | **Accepted; struck-and-annotated as false-when-written on all three carrying surfaces; W1 rescoped to real s ≥ 2 > 1 with the lattice packaging at s = d+1 ∈ [5, 218]; V2 extended to the true corpus (217 integer s in [2, 218]; full grid at {2, 5, 218}; solver bracket points to 320)** | paper + verifier + A232 |
+| F140-2 (minor) — "W0's proof is three lines and stated": no proof stated at landing | **Accepted; the three-line proof supplied in the paper; the honest-scope line annotated; A232 struck** | paper + verifier + A232 |
+| F140-3 (minor) — W0's "explicit-formula positivity that holds UNCONDITIONALLY" false for the one-signed-negative half | **Accepted; struck-and-annotated: one-signedness fixes the SIGN; positivity is the positive-kernel case (real s > 1, the case every committed read occupies)** | paper + verifier + A232 |
+| F140-4 (minor) — W3's "reach the discriminating cone" overstates: the sign change is ON the line (β = ½), where admissible self-convolutions satisfy ĥ = \|ĝ\|² ≥ 0, so the exhibit can never be admissible | **Accepted; struck-and-annotated to "leave the blind cone"; the admissible-discrimination requirement (off-line sign change, nonnegative on-line) written into the grading and gap (vi)** | paper + verifier + A232 |
+| F140-5 (minor) — V2's docstring claimed the full 25×121 grid at all 214 s values while the code subsampled (5×11) with full grid only at {5, 218} | **Accepted; the grid scope stated honestly and the gate extended (see F140-1)** | verifier |
+| F140-6 (cosmetic) — the census gate (paper + formulation) narrower than the "any committed surface" sentence; reviewer verified repo-wide zero hits | **Accepted; V1 extended repo-wide (src/*.tex + tools tree minus the instrument; record files excluded as declared history) and the sentence rescoped to "committed object-level surface"** | paper + verifier |
+
+Held: the kernel mathematics independently recomputed; all three
+sabotages reproduced including both directions of the
+locational-gate fix; the coefficient chain (c = 1.160330,
+γ* = 1.91392 analytic); footer census exact (65 = 59 + 4° + 2
+audited); battery 26/26; validator; hygiene; Checks 7/8; and
+sub-attack 1(a) held — every "zero RH content" sentence properly
+scoped to the positivity, not the reads' values.
+
+Sweep verification (lead, Check 3): F140-1 confirmed at source
+(`cascade_explicit_formula_bridge.py:231` with D_MAX = 28;
+`cascade_colour_field_bridge.py` s-loops; `zero_side_features`
+brackets (6.5, 8.5), (18, 24), (140, 320)); F140-3's negative-half
+arithmetic and F140-4's on-line |ĝ|² ≥ 0 obstruction re-derived;
+F140-5 confirmed against the code. Post-sweep: verifier 10/0;
+sabotages redone at the swept state on a full-tree copy (a' the
+rescoped floor sentence mid-anchor → V5 9/1 exit 1; b' a route
+term planted in a src/*.tex copy → V1 9/1 exit 1; c' the
+coefficient → assertion abort, zero RESULT lines, exit 1; clean
+baselines 10/0 before and after each); battery 26/26 with zero
+FAIL lines; validator clean on 12 files; hygiene zero.
+
+**Trajectory: 1ai landed (8ccc169) → 140 NOT CONVERGED 1M+4m+1c
+(swept) → round 141 (convergence test) next.**

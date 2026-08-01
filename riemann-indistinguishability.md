@@ -2439,12 +2439,16 @@ representation arithmetic — cascade-native); Check 8 (no hypothesis
 input).
 
 **Theorem 1ai (the Weil-positivity route, entered and mapped: the
-blindness theorem, strip avoidance, and the reachability exhibit;
+blindness theorem, strip avoidance, and the boundary-crossing exhibit
+(retitled from "reachability" in the round-140 sweep, F4);
 `cascade_weil_positivity_status.py`).** *(i) The commission — virgin
 territory, gated.* The owner commissioned the Weil-positivity route. It
 has never been pursued in this arc: "Weil positivity" / "Weil's
 criterion" / "positivity criterion" have zero occurrences on any
-committed surface before this theorem (census gated); the record's
+committed object-level surface before this theorem (census gated
+repo-wide as of round 140 F6: the paper's pre-1ai span, the
+formulation, every `src/*.tex`, and the tools tree minus this theorem's
+own instrument; the two record files excluded as declared history); the record's
 "Weil" is the metaplectic index (1e/1f), and mirror coherence was
 deliberately worded *"non-degeneracy (≠ 0, ∞, indeterminate), **not**
 positivity."* *(ii) The classical frame (cited as classical, no RH
@@ -2453,15 +2457,35 @@ explicit-formula functional on self-convolutions over a dense
 test-function class. **Theorem W0 (the blind-cone criterion —
 elementary, with proof):** any test function whose paired kernel
 K_s(ρ) = Re[1/(s−ρ) + 1/(s−(1−ρ))] is of one sign for ALL ρ in the
-critical strip yields an explicit-formula positivity that holds
+critical strip yields an explicit-formula zero-sum whose SIGN is fixed
 UNCONDITIONALLY — whether or not RH — and therefore carries zero
-information about zero locations. Discriminating power requires kernels
-that change sign in the strip. *(iii) Theorem W1 (the blindness
-theorem).* Every committed cascade zero-side read lies in the blind
-cone: the committed family evaluates at real s = d+1 ∈ [5, 218], where
-each kernel term (s−β)/|s−ρ|² and (s−1+β)/|s−1+ρ|² is strictly positive
-for every ρ = β+iγ in the strip (0 < β < 1 < 5 ≤ s — an exact
-inequality, grid-gated as a check). **Corollary: every positivity the
+information about zero locations. (~~yields an explicit-formula
+positivity that holds UNCONDITIONALLY~~ struck round 140 F3,
+false-when-written: the one-signed-NEGATIVE half yields unconditional
+NON-positivity; one-signedness fixes the sign, and positivity is the
+positive-kernel case — real s > 1, the case every committed read
+occupies.) *Proof (three lines; supplied in the round-140 sweep, F2):*
+(1) every non-trivial zero ρ = β+iγ lies in the open strip 0 < β < 1
+(classical, RH-free); (2) a one-signed kernel makes every summand
+K_s(ρ) of the explicit formula's zero-sum carry that same sign wherever
+in the strip the zeros sit; (3) hence the zero-sum's sign is fixed by
+the kernel alone, independent of zero locations — no rearrangement of
+zeros inside the strip can change it. ∎ Discriminating power requires
+kernels that change sign in the strip. *(iii) Theorem W1 (the blindness
+theorem; domain rescoped round 140 F1).* Every committed cascade
+zero-side read lies in the blind cone: every committed zero-side
+evaluation is at real s ≥ 2 > 1 — the lattice packaging specifically at
+s = d+1 ∈ [5, 218] — where each kernel term (s−β)/|s−ρ|² and
+(s−1+β)/|s−1+ρ|² is strictly positive for every ρ = β+iγ in the strip
+(0 < β < 1 < 2 ≤ s — an exact inequality, grid-gated over the full
+corpus as a check). ~~the committed family evaluates at real s = d+1 ∈
+[5, 218]~~ [struck round 140 F1, false-when-written: the committed
+zero-side corpus is wider than the lattice packaging — the
+explicit-formula bridge reads at s = d+1 for d = 1..28 (s = 2, 3, 4
+included), the colour-field bridge at s ∈ {2, 5, 6, 7, 13, 20}, and
+the feature solver at continuous bracket points up to ≈ 320; every one
+of these has real s ≥ 2 > 1, so the blindness conclusion is unharmed —
+only the quantified domain was false.] **Corollary: every positivity the
 cascade's committed packaging exhibits is unconditional — zero RH
 content.** This upgrades the record's registered honest negative ("the
 features are identity-mediated") to precise geometry: the committed
@@ -2470,9 +2494,14 @@ avoidance).* The cascade lattice's arguments never enter the critical
 strip: min(d)+1 = 5 > 1. The packaging cannot be moved into the strip
 without leaving the committed lattice — the descent is structurally
 confined to the blind side by its own floor at the observer. *(v)
-Exhibit W3 (reachability — graded as an exhibit, not a committed
-observable).* Cascade-native SIGNED combinations reach the
-discriminating cone. For the pair (s₁, s₂) = (5, 6), the on-line kernel
+Exhibit W3 (boundary crossing — graded as an exhibit, not a committed
+observable; regraded round 140 F4).* Cascade-native SIGNED combinations
+leave the blind cone. ~~reach the discriminating cone~~ [struck round
+140 F4, false-when-written: the exhibit's sign change occurs ON the
+line (β = ½), where every admissible Weil self-convolution satisfies
+ĥ(½+iγ) = |ĝ(γ)|² ≥ 0 — a combination whose on-line values change sign
+can never be an admissible test function, so leaving the blind cone is
+not reaching the discriminating one.] For the pair (s₁, s₂) = (5, 6), the on-line kernel
 ratio K₅/K₆ at β = ½ runs exactly from 11/9 (γ = 0) down to 9/11
 (γ → ∞), so any coefficient c ∈ (9/11, 11/9) makes h₅ − c·h₆
 sign-changing. **The committed 1af scalar ratio tail(21)/tail(29) =
@@ -2480,10 +2509,13 @@ sign-changing. **The committed 1af scalar ratio tail(21)/tail(29) =
 K₅ − 1.1603·K₆ changes sign at γ* ≈ 1.914 (bisection-gated: positive at
 γ = 0, negative at γ = 10). Honest grading: the coefficient is
 committed, the combination is constructed here — this exhibits that the
-boundary between blind and discriminating passes THROUGH the cascade's
+blind cone's boundary passes THROUGH the cascade's
 own signed-combination space (the signed correction family ±α(d*)/χ^k
-shows signed combinations are native), but no committed observable
-instantiates a discriminating combination. *(vi) The gap, named
+shows signed combinations are native), but no committed — or
+here-constructed — combination is discriminating in the admissible
+sense: entering the discriminating cone requires a kernel that changes
+sign OFF the line while remaining nonnegative on it, which W3's
+on-line sign change specifically is not. *(vi) The gap, named
 precisely — what the route needs.* The cascade's committed positivity
 structures live in CONFIGURATION space (the action's positive
 definiteness; the compliances α(d) > 0; trigamma positivity, gated in
@@ -2494,10 +2526,15 @@ cones: **no committed map carries the physical positivity cone into the
 test-function positivity cone.** What would open the route: a committed
 morphism from field configurations to self-convolution test functions
 under which action-positivity forces explicit-formula positivity on a
-family with sign-changing kernels. Nothing committed supplies it; the
+family whose kernels change sign OFF the line while staying nonnegative
+on it (the admissibility W3's exhibit lacks, per F4). Nothing committed
+supplies it; the
 route is now mapped, not traveled. *Honest scope:* W0–W2 are theorems
 (elementary inequalities over the committed arguments; W0's proof is
-three lines and stated); W3 is an exhibit; (vi) is the named gap;
+three lines and stated — supplied in the round-140 sweep, F2, the
+landing text having claimed "stated" without stating it); W3 is an
+exhibit (leaves the blind cone; not admissible-discriminating, F4);
+(vi) is the named gap;
 category (a) — no data, no closures, and by construction **no RH/GRH**:
 every statement here is unconditional, and the theorem's central
 content is precisely that the cascade's committed positivity is
