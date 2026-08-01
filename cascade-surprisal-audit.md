@@ -10254,6 +10254,66 @@ battery filter (FAIL-line census). Standing candidate commission:
 exit-gating the remaining pre-1ac battery instruments. Next
 hostile round on the next substantive paper change.**
 
+## Addendum 209: the battery hardening pass (owner-commissioned) — exit gating added to the 11 pre-1ac instruments; every gate certified to bite; no verdict logic changed
+
+The owner commissioned the standing candidate from A206/A208:
+battery instruments 2–12 predated exit gating entirely (zero
+`sys.exit` calls — a printed FAIL could never fail a caller; the
+round-120 F1 mask was this class's live demonstration on
+riemann_kernel). The pass:
+
+- **Scope, exactly 11 scripts:** given_irreducibility (5 verdicts),
+  mirror_coherence (5), gamma_regularity (5), sup_selection (5),
+  zeta_rational (5), lattice_selection (7), pairing_dictionary (5),
+  grammar_need (5), pairing_act (5), bridge_asymmetry (5), h0_chain
+  (4). Each received the same tail riemann_kernel got in round 120:
+  a disclosed in-code comment, `n_fail` summed over the script's
+  okN verdicts (inventories verified against the PASS/FAIL prints
+  before editing; the batch edit asserted each inventory and
+  aborted before writing on any mismatch), a RESULT line with the
+  verdict count, and `sys.exit(0 if n_fail == 0 else 1)`. **No
+  verdict logic changed** — the diffs are import + tail only.
+- **Battery after the pass:** all 19 instruments exit 0, zero FAIL
+  lines, and — new — every instrument now prints a RESULT line at
+  its expected count (the four pre-existing no-RESULT entries in
+  battery transcripts are retired; future batteries can gate on
+  exit codes, FAIL-line census, and RESULT lines uniformly).
+- **Sabotage record (full-tree scratchpad copy; the first sparse
+  copy failed grammar_need's baseline because that instrument
+  censuses the tools tree itself — environment artifact, disclosed;
+  runs moved to a full working-tree copy where all 11 baselines are
+  exit 0):**
+  - *Five surface sabotages* (mid-anchor perturbations of a string
+    the script anchors): given_irreducibility (the formulation's
+    "re-founded on the Riemann kernel"), mirror_coherence (the
+    paper's "genus-0 in z², no constant term", a count==1 gate),
+    zeta_rational ("π⁶/945-vs-α(14)/2 fork"), grammar_need
+    ("√3/2 = covol(ℤ[ω])"), bridge_asymmetry ("Finding 6's
+    excluded object") — each tripped one verdict: 4/1 (6/1 for
+    none; all five are 5-verdict scripts), exit 1; restored
+    baselines exit 0. **Disclosed recurrence of the round-120
+    sabotage-design error:** the harness's first attempt appended
+    "SAB" *after* three anchors, leaving each anchor intact as a
+    substring prefix — 5/0, no trip, caught by a count debug and
+    redone mid-anchor. The append-after-anchor trap is now twice
+    on the record; future sabotages perturb inside the anchored
+    span by construction.
+  - *Six plumbing flips* (the computational instruments —
+    gamma_regularity, sup_selection, lattice_selection,
+    pairing_dictionary, pairing_act, h0_chain — anchor no surface
+    text; their gate sensitivity was certified at their landing
+    rounds, and this pass's claim is only "the exit code carries
+    the verdicts," so the test forces `ok1 = False` in the
+    SCRATCHPAD COPY of the script, labeled as a plumbing flip):
+    each exits 1 at its expected count (4/1, 4/1, 6/1 of 7, 4/1,
+    4/1, 3/1 of 4); restored baselines exit 0.
+- **Validator** clean on 12 files; **hygiene** zero; the paper
+  untouched (census unchanged: 50 counted + constants).
+
+This commit touches 11 footer-counted verifiers — a hostile round
+follows per the trigger. Trajectory: hardening landed → round 123
+(hostile review) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

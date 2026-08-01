@@ -47,6 +47,8 @@ compound consistently with the anatomy and the precision note
 stated.  No closure.
 """
 
+import sys
+
 import mpmath as mp
 
 mp.mp.dps = 30
@@ -163,6 +165,15 @@ def main():
     print("  G's experimental reach and flips under the repository's own")
     print("  4-figure anchor -- stated, not hidden.  No number changes on")
     print("  any recorded surface; no closure.")
+    # round-123 hardening (the A206/A208 standing commission): exit
+    # gating added -- this instrument previously exited 0
+    # unconditionally, so a printed FAIL could not fail a caller;
+    # the exit code now carries the verdicts.  No verdict logic
+    # changed.
+    n_fail = sum(0 if ok else 1 for ok in (ok1, ok2, ok3, ok4))
+    print()
+    print(f"RESULT: {4 - n_fail} pass / {n_fail} fail (4 verdicts)")
+    sys.exit(0 if n_fail == 0 else 1)
 
 
 if __name__ == "__main__":

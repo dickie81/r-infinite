@@ -94,6 +94,7 @@ describes the pre-adoption state and is kept as record; its gates
 are unchanged and remain green.
 """
 
+import sys
 import math
 
 from scipy.optimize import brentq
@@ -280,6 +281,15 @@ def main():
     print("  two named, listed anchors replace the ad hoc mixed-rounding")
     print("  appearance.  Three members; seven-item residue count")
     print("  unchanged; Finding 6 stays open.")
+    # round-123 hardening (the A206/A208 standing commission): exit
+    # gating added -- this instrument previously exited 0
+    # unconditionally, so a printed FAIL could not fail a caller;
+    # the exit code now carries the verdicts.  No verdict logic
+    # changed.
+    n_fail = sum(0 if ok else 1 for ok in (ok1, ok2, ok3, ok4, ok5, ok6, ok7))
+    print()
+    print(f"RESULT: {7 - n_fail} pass / {n_fail} fail (7 verdicts)")
+    sys.exit(0 if n_fail == 0 else 1)
 
 
 if __name__ == "__main__":
