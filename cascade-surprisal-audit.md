@@ -11017,14 +11017,15 @@ derivation, from committed structure only:
   "no explicit derivation appears" for the χ-factor (m₂₉ and
   α(d_g) remain open there). The mode-count χ-contexts (χ^(m−k))
   are argued, not closed — stated.
-- **Consequence:** (v-a) is DERIVED, conditional on two committed
+- ~~**Consequence:** (v-a) is DERIVED, conditional on two committed~~ [struck on notice, round 133: the census broke — see A224]
   readings — (R1) the Clifford-ladder assignment of fermionic
   content (part4a); (R2) equipartition as the amplitude selector
   (A4's anchor). Net-state markers placed in 1ae ((v-a) derived;
   the unproved pair reduces to (v-b) alone) and 1af (the candidate
   upgrades from named to derived-given-readings). 1ae(iv)'s
-  coupling contrast χ⁸ = 256 upgrades with it. **What remains for
-  the full first-principles proof: (v-b) alone** — the binary
+  coupling contrast χ⁸ = 256 upgrades with it. ~~**What remains for
+  the full first-principles proof: (v-b) alone**~~ [struck on notice,
+  round 133: (v-b) plus C1–C3 — see A224] — the binary
   record-rate cutoff. The spinor-sector action's explicit
   intra-fiber construction remains unwritten (named).
 
@@ -11042,6 +11043,63 @@ sentence), clean baselines 13/0. **Battery:** all 24 instruments
 (the 23 + spinor_transport) exit 0, zero FAIL lines; validator
 clean on 12 files; hygiene clean. Trajectory: 1ag landed → round
 133 (hostile review, per protocol) spawned on this commit.
+
+## Addendum 224: hostile review round 133 on commit 6523024 (Theorem 1ag) — NOT CONVERGED (3 MAJORs, 2 minors, 1 cosmetic); the mathematics held, the epistemic census broke three ways; the theorem regraded to the MODEL; all findings lead-verified and swept
+
+Round 133 verified the implementation beyond the record (an
+independent Clifford reimplementation agreeing on all 65,536 pairs
+in Cl(8); every quote verbatim; every recorded number reproduced)
+and demolished the headline:
+
+- **F1 (MAJOR):** R1 mischaracterized part4a's committed
+  assignment — the committed object is MINIMAL spinors ("complex
+  minimal spinors"; part4b's bundle S = S⁺ ⊕ S⁻), whose fiber
+  doubles every TWO layers: √2 per layer, and 16 = χ⁴ across
+  Δ = 8, not 256. The full-algebra fiber is a fork the landing did
+  not disclose — selected by consistency with the committed
+  neutrino exponent (itself part4b's underived OQ item). Swept:
+  the fork disclosed and GATED (the 16-vs-256 computation); the
+  census rewritten (C1).
+- **F2 (MAJOR):** coupling-as-trace-pairing was a third premise
+  outside the census while the text admitted the intra-fiber
+  action is unwritten; "(v-b) alone" overclaimed. Swept: C2 named;
+  the unproved set restated as (v-b) + C1–C3 on every carrying
+  surface (1ag(vii), both markers, the verifier).
+- **F3 (MAJOR):** R2 transferred A4's equipartition from the
+  measurement ½-atom ("E[πx²] = s/2 exactly (the ½-atom = the mean
+  action; S4's anchor)") to an uncommitted intra-fiber prior while
+  asserting "not a new input." Swept: C3 named as a domain
+  transfer; the "rejects committed text" sentence struck.
+- **F4 (minor):** the gloss "committed per-layer constants" rewrote
+  the source ("…available at the hairy ball obstruction"), and the
+  per-Dirac-layer vs per-layer site-density disanalogy was
+  undisclosed. Swept: gloss corrected, disanalogy disclosed.
+- **F5 (minor):** three gates could not fail against the algebra —
+  the reviewer's probe showed the ENTIRE landing suite passing
+  13/0 with the Clifford sign structure deleted (the commutative
+  tower). Lead-reproduced exactly. Swept: an anticommutation gate
+  added (e₁e₂ = −e₂e₁, (e₁e₂)² = −1 computed from clifford_mul —
+  the sign-deletion probe now trips it 14/1 exit 1); the
+  fiber-fork gate added; the sign-insensitive gates relabeled with
+  disclosure.
+- **F6 (cosmetic):** a pointer placed at 1ae(iv)'s conditional
+  half.
+
+**The honest net state:** Theorem 1ag is the spinor transport
+MODEL — 1af's candidate made precise: exact mathematics (T1–T2
+algebra, T3 expectation), the layer-index metric forced within the
+model, and the unique fiber choice consistent with the committed
+neutrino exponent's shape (selection by consistency, not forcing).
+The unproved set for the full first-principles proof: (v-b) plus
+C1 (the fiber assignment), C2 (the coupling model), C3 (the
+equipartition transfer). **Post-sweep state:** spinor_transport 15
+gates + 1 declared identity, 15/0 (the landing had 13); the three
+sabotages re-run at 14/1 each; the sign-deletion probe trips;
+A223's false claims struck on notice; battery green; validator
+clean; hygiene clean.
+
+**Trajectory: 1ag landed (6523024) → 133 NOT CONVERGED 3M+2m+1c
+(swept here) → round 134 (convergence test) next.**
 
 ## Caveats
 

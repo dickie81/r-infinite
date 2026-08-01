@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """Theorem 1ag verifier: the spinor transport theorem.
 
-Claim under test (the commission: derive 1ae's lemma (v-a)): the
-coupling cost chi^|d - d*| on the seat<->source channel is a
-THEOREM, conditional on two committed readings -- (R1) fermionic
-content lives on the Clifford ladder (part4a's committed
-assignment); (R2) equipartition selects the amplitude (A4's own
-anchor, S4's LLN bridging expectation to record).  Three exact
+Claim under test (REGRADED round 133 -- the landing claimed
+"lemma (v-a) derived, conditional on two committed readings"; the
+round-133 review broke that census three ways, all lead-verified):
+1ag is 1af's candidate made PRECISE -- a dimension-transport model
+whose mathematics is exact and which is the unique fiber choice
+consistent with the committed neutrino exponent's shape, carrying
+THREE named conditions (C1 the fiber assignment: part4a's
+committed reading is MINIMAL spinors, giving sqrt(2) per layer and
+16 not 256 across Delta = 8 -- the fork gated here; C2 the
+coupling-as-trace-pairing premise, uncommitted; C3 the
+equipartition domain transfer -- A4 anchors the measurement
+half-atom, not an intra-fiber prior).  The unproved set for the
+full first-principles proof is (v-b) plus C1-C3.  Three exact
 components, each computed here from an IMPLEMENTED Clifford
 algebra (monomial basis, signature e_i^2 = +1 disclosed as a model
 choice; the dimension/orthogonality claims are signature-
@@ -73,8 +80,16 @@ copy tripped S4, 12/1, exit 1; (b) the S3 Monte-Carlo expectation
 flipped (256 -> 128) in the SCRATCHPAD COPY tripped S3, 12/1,
 exit 1; (c) the paper's pairing-localization sentence -> mid-
 anchor SAB tripped S5, 12/1, exit 1.  Clean baselines 13/0 exit 0
-before and after each.  Thirteen gates (correct at first draft --
-the recurring count defect did not recur).
+before and after each.  All three re-run on the post-sweep 15-gate
+tree: 14/1 exit 1 each, clean baselines 15/0; the round-133 F5
+sign-deletion probe now trips the anticommutation gate (14/1 exit
+1) where the landing suite passed 13/0.  Fifteen gates post the
+round-133 sweep (the landing had 13; two teeth added -- the
+anticommutation gate, which FAILS when the sign structure is
+deleted, closing the round-133 F5 demonstration that the landing
+suite passed 13/0 on the commutative tower; and the fiber-fork
+gate).  The S2 support-structure checks and the Gram gate are
+relabeled sign-insensitive, disclosed.
 """
 import itertools
 import os
@@ -130,6 +145,8 @@ def left_mult_matrix(A, dim_bits):
     return M
 
 
+paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+
 print("S1 -- the implemented algebra")
 rng = np.random.default_rng(20260801)
 ok = True
@@ -149,7 +166,9 @@ for i in range(n6):
     for j in range(n6):
         gram[i, j] = np.trace(mats[i].T @ mats[j]) / n6
 gate("monomial orthonormality COMPUTED from the regular representation "
-     "(64x64 Gram == identity, machine precision)",
+     "(64x64 Gram == identity; sign-insensitive by the xor-permutation "
+     "structure, disclosed round 133 F5 -- the sign structure is gated "
+     "by the anticommutation gate below)",
      float(np.max(np.abs(gram - np.eye(n6)))) < 1e-12,
      f"max dev {np.max(np.abs(gram - np.eye(n6))):.1e}")
 
@@ -163,7 +182,8 @@ y[:n7] = rng.standard_normal(n7)
 full = float(x @ y)
 loc = float(x[:n5] @ y[:n5])
 gate("the trace pairing factors through Cl(min): full == Cl(5)-component "
-     "pairing (machine precision)", abs(full - loc) < 1e-12,
+     "pairing (a support-structure check, insensitive to the algebra's "
+     "signs -- disclosed round 133 F5)", abs(full - loc) < 1e-12,
      f"|diff| {abs(full - loc):.1e}")
 x2 = np.zeros(n9)
 x2[n5:n7] = rng.standard_normal(n7 - n5)   # supported above Cl(5) only
@@ -172,6 +192,14 @@ gate("an element with zero Cl(min)-component pairs to zero against any "
      "Cl(min) element", abs(float(x2 @ y5)) < 1e-15,
      f"|pairing| {abs(float(x2 @ y5)):.1e}")
 
+sgn_ab, set_ab = clifford_mul(0b01, 0b10)
+sgn_ba, set_ba = clifford_mul(0b10, 0b01)
+sgn_sq, set_sq = clifford_mul(0b11, 0b11)
+gate("the algebra IS Clifford, not the commutative tower (round-133 F5): "
+     "e1e2 = -e2e1 and (e1e2)^2 = -1, computed from clifford_mul",
+     set_ab == set_ba == 0b11 and sgn_ab == -sgn_ba
+     and set_sq == 0 and sgn_sq == -1,
+     f"signs {sgn_ab},{sgn_ba},{sgn_sq}")
 print("S3 -- the transport cost")
 d_lo, d_hi = 3, 11
 frac_exact = (1 << d_lo) / (1 << d_hi)
@@ -185,6 +213,12 @@ gate("Monte Carlo on the implemented model: mean retained fraction "
      "Cl(11) -> Cl(3) within 2% of 1/256 (n = 20000, fixed seed; "
      "statistical tolerance disclosed)",
      abs(mean_ret * 256.0 - 1) < 0.02, f"mean*256 = {mean_ret * 256:.4f}")
+gate("the fiber fork (round-133 F1, disclosed in the paper): the "
+     "committed minimal-spinor reading gives 2^floor(29/2)/2^floor(21/2) "
+     "= 16 = chi^4, NOT 256 -- the fork is real and the paper says so",
+     2 ** (29 // 2) // 2 ** (21 // 2) == 16
+     and "the 29→21 filter would be 2^4 = 16, not χ⁸ = 256" in paper,
+     "16 vs 256")
 print("  IDENTITY (declared, not gated): 2^8 = 256; 29 - 21 = 8 -- literal "
       "arithmetic")
 
@@ -207,22 +241,24 @@ gate("the neutrino formula + its OQ sentence + part4a's Dirac-layer "
      "fermion sentence anchored", ok)
 
 print("S5 -- the paper and the siblings")
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 ok = ("the expected coupling weight between content at layers d and d* is "
       "χ^−|d−d*| with χ = 2" in paper)
 ok &= "the pairing factors identically through the common subalgebra" in paper
 ok &= "it is the ladder-depth difference" in paper
 gate("the derived cost + the metric answer anchored", ok)
-ok = "conditional on two committed readings" in paper
-ok &= "What remains is (v-b) alone" in paper
-ok &= ("The full identification of the transport 2 with every committed "
-       "χ-context (the mode-count exponents χ^(m−k)) is argued, not "
-       "closed — stated." in paper)
-gate("the R1/R2 conditionality + the (v-b)-alone conclusion + the "
-     "mode-count non-closure anchored", ok)
-ok = "(v-a) is now DERIVED" in paper
-ok &= "the candidate upgrades from named to\nderived-given-readings".replace("\n", " ") in paper
-gate("the 1ae and 1af net-state markers anchored", ok)
+ok = "(C1) the fiber assignment." in paper
+ok &= "(C2) the coupling model." in paper
+ok &= "(C3) the\nequipartition transfer.".replace("\n", " ") in paper
+ok &= "(v-b) plus\nC1–C3.".replace("\n", " ") in paper
+ok &= "model-selection-by-consistency-with-the-target, disclosed, not\nforcing".replace("\n", " ") in paper
+gate("the C1–C3 census + the (v-b)-plus-three conclusion + the "
+     "selection-by-consistency disclosure anchored (round-133 "
+     "regrade)", ok)
+ok = "(v-a) is made PRECISE as a dimension-transport model" in paper
+ok &= "the candidate is made PRECISE" in paper
+ok &= "The unproved set is (v-b) plus those three." in paper
+gate("the 1ae and 1af net-state markers anchored (round-133 regraded "
+     "wording)", ok)
 ok = True
 for sib, expect in (("cascade_participation_dichotomy", "RESULT: 18 pass / 0 fail"),
                     ("cascade_deeper_grounding", "RESULT: 11 pass / 0 fail")):
@@ -234,17 +270,21 @@ gate("the siblings exit 0 at expected RESULT counts (dichotomy 18/0; "
      "deeper_grounding 11/0)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates; 1 identity line declared, not counted)")
-print("READING: the spinor transport theorem -- lemma (v-a) derived.  The")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (15 gates; 1 identity line declared, not counted)")
+print("READING (regraded round 133): the spinor transport MODEL -- 1af's")
+print("candidate made precise, not (v-a) derived.  The")
 print("Clifford ladder splits into two trace-orthogonal equal halves per")
 print("layer (computed from the implemented algebra, not declared); the")
 print("trace pairing factors through the common subalgebra, forcing the")
 print("layer-index metric; committed equipartition (A4's own anchor) makes")
 print("the expected cross-layer weight exactly chi^-|d - d*| with chi = 2,")
 print("Monte-Carlo-confirmed at the Delta = 8 case (1/256, the committed")
-print("neutrino exponent).  Conditional on two committed readings (the")
-print("Clifford-ladder assignment; equipartition as selector), 1ae's cost")
-print("model is a theorem and the coupling contrast chi^8 = 256 upgrades")
-print("with it.  What remains: (v-b), the measurement biconditional.  The")
-print("mode-count chi-contexts are argued, not closed -- stated.")
+print("neutrino exponent).  Three named conditions (round 133): the fiber")
+print("assignment (the committed minimal-spinor reading gives 16, not 256")
+print("-- the fork gated); the coupling-as-trace-pairing premise; the")
+print("equipartition domain transfer.  The model is the unique fiber")
+print("choice consistent with the committed exponent's shape --")
+print("selection by consistency, not forcing.  The unproved set: (v-b)")
+print("plus C1-C3.  The mode-count chi-contexts and the per-Dirac-layer")
+print("site-density disanalogy are stated, not closed.")
 sys.exit(0 if n_fail == 0 else 1)

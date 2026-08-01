@@ -2105,7 +2105,9 @@ same nearest source (d₁ = 19, the last), so their δ-values differ by
 exactly the seat spacing. **The conditional half:** *if* coupling cost
 scales as χ per layer of separation from the nearest source — an
 extrapolation of the neutrino formula's structural shape, stated here as a
-model, proposition-grade per 1ad's own confinement — *then* the
+model, proposition-grade per 1ad's own confinement *(pointer, round 133
+F6: Theorem 1ag makes this model precise with three named conditions;
+the conditional status stands)* — *then* the
 worst-participant/best-non-participant coupling contrast is χ^8 = 256.
 Consonance, reported and not identified: part4a's independent amplitude
 route suppresses the fourth charged generation *"by a factor of $\sim
@@ -2125,13 +2127,16 @@ source-discriminating scalar objects exist on the same operator]: the
 committed chain's static two-point function depends only on
 max(seat, source), closing the static scalar-propagator route for (v-a);
 the Clifford-dimension candidate is the named survivor in the spinor
-sector, preferred not forced.)* *(Net-state, Theorem 1ag round 133:
-(v-a) is now DERIVED — the ladder split (exact algebra), the pairing
-localization at the common subalgebra (forcing the layer-index metric),
-and committed equipartition (A4's own anchor) give the coupling cost
-χ^|d−d*| as a theorem, conditional on two committed readings (the
-Clifford-ladder assignment; equipartition as selector). The unproved
-pair reduces to (v-b) alone.)* **(v-b) The measurement biconditional:** that a
+sector, preferred not forced.)* *(Net-state, Theorem 1ag round 133,
+regraded within the same round: ~~(v-a) is now DERIVED … the unproved
+pair reduces to (v-b) alone~~ [the round-133 review broke the two-reading
+census]: (v-a) is made PRECISE as a dimension-transport model — exact
+mathematics, the layer-index metric forced within it, uniquely consistent
+with the committed neutrino exponent's shape — carrying three named
+conditions (the fiber assignment, where the committed minimal-spinor
+reading gives √2 per layer; the coupling-as-trace-pairing premise; the
+equipartition domain transfer). The unproved set is (v-b) plus those
+three.)* **(v-b) The measurement biconditional:** that a
 mode whose source coupling is filtered by ≥ χ^10 fails A4/S4's measurement
 condition (the LLN-quenched record rate) while modes at δ ≤ 2 pass it. The
 gap theorem keeps both threshold-free: any separation point inside the
@@ -2222,11 +2227,12 @@ layer-to-layer transport projects the Clifford structure, surviving weight
 1/2 per generator — a spinor-chain analogue of (ii)'s scalar chain. The
 arithmetic of the identification is trivially exact; its content is the
 reading; the derivation of the spinor chain is the remaining work.
-*(Net-state, Theorem 1ag round 133: the remaining work is done — the
-transport cost χ^|d−d*| is derived from the ladder split + pairing
-localization + committed equipartition, conditional on the two committed
-readings named there; the candidate upgrades from named to
-derived-given-readings.)* *(vii)
+*(Net-state, Theorem 1ag round 133, regraded within the same round:
+~~the remaining work is done … derived-given-readings~~ [the two-reading
+census broke under review]: the candidate is made PRECISE — a
+dimension-transport model with exact mathematics and three named
+conditions (1ag(vii)'s census); the spinor-chain derivation remains
+open, now with a precise object in place of a slogan.)* *(vii)
 What a full first-principles proof now requires, exactly:* (1) a
 transport theorem delivering (v-a) — the static scalar-propagator route
 closed here, the spinor candidate named (requantified round 130 F2: the
@@ -2237,13 +2243,19 @@ biconditional (v-b) — untouched. *Honest scope:* (iii)–(v) are theorems
 operator, numerically gated); (vi) is an identification with a named gap;
 no convention, no new number, no data consumed.
 
-**Theorem 1ag (the spinor transport theorem: lemma (v-a) derived from the
+**Theorem 1ag (the spinor transport ~~theorem: lemma (v-a) derived from the
 Clifford ladder plus committed equipartition; the metric and the per-layer
-factor both forced; `cascade_spinor_transport.py`).** *(i) The commission
+factor both forced~~ MODEL — regraded round 133: 1af's candidate made
+precise, with three named conditions and the fiber fork disclosed;
+`cascade_spinor_transport.py`).** *(i) The commission
 and the target.* The owner commissioned the spinor transport theorem —
 1ae's lemma (v-a), the cost model "χ per layer of separation on the
 seat↔source channel," which 1af narrowed to the spinor sector and named a
-candidate for. This theorem derives it. *(ii) The setup — committed
+candidate for. ~~This theorem derives it~~ [regraded round 133 F1–F3:
+this theorem makes the candidate PRECISE — a dimension-transport model
+whose mathematics is exact and whose consistency with the committed
+neutrino exponent is real, but whose attachment to committed structure
+requires three conditions, censused in (vii)]. *(ii) The setup — committed
 structure only.* The Clifford ladder over the layer lattice: Cl(d) on
 generators e₁…e_d, monomial basis {e_A : A ⊆ {1…d}}, dimension 2^d, with
 the ladder inclusions Cl(d) ⊂ Cl(d+1) (Cl(d) algebras are the cascade's
@@ -2274,18 +2286,25 @@ by equipartition"*, with S4's LLN quenching (*"quenched rate forced by
 LLN"*) turning expectation into record — content at layer D carries
 expected weight **exactly 2^−(D−d)** in Cl(d): the equipartitioned
 Gaussian's expected retained fraction equals the dimension fraction,
-which T1 makes exactly 2^−(D−d). Combining with T2: **the expected
+which T1 makes exactly 2^−(D−d). Combining with T2: **within the model, the expected
 coupling weight between content at layers d and d* is χ^−|d−d*| with
 χ = 2** — the per-layer factor and the symmetric layer-index metric both
-derived. Gated two ways: exact dimension counting, and a Monte-Carlo
+follow ~~derived~~ [regraded round 133: derived WITHIN the model; the
+model's own conditions are (vii)'s census]. Gated two ways: exact dimension counting, and a Monte-Carlo
 equipartition test on the implemented algebra (Gaussian content in the
 Cl(11) model retains mean fraction 1/256 in Cl(3) — the Δ = 8 case,
 matching χ⁸). *(vi) The identification with the committed χ — argued from
 part4b's own words.* Part4b's χ = 2 is *"splitting the spinor bundle into
 two equal-weight chirality basins"* (Poincaré–Hopf, *"Topological
 theorem; no assumption"*), and *"The two factors $\sqrt{\pi}$ and
-$\chi = 2$ are the \emph{only}"* committed per-layer constants of this
-kind; the ladder step Cl(d) ⊂ Cl(d+1) is likewise an equal-weight
+$\chi = 2$ are the \emph{only}"* ~~committed per-layer constants of this
+kind~~ [gloss corrected round 133 F4: the source continues "…
+dimension-independent constants available at the hairy ball obstruction"
+— an obstruction-site statement, not a per-layer one; and part4b's χ
+attaches per DIRAC-layer crossing (Poincaré–Hopf "at Dirac layers") or
+per mode, while the ladder step doubles per layer — the site densities
+differ, disclosed; the only committed per-unit-layer χ-exponent is the
+neutrino formula, itself part4b's underived OQ item]; the ladder step Cl(d) ⊂ Cl(d+1) is likewise an equal-weight
 two-way trace-orthogonal split. Same number, same split shape — and the
 committed neutrino filter χ^(29−d_g) instantiates T3's derived form
 exactly (base 2, exponent = layer distance): **the filter factor's form
@@ -2294,24 +2313,37 @@ part4b's own open item — *"no explicit derivation appears"* — for the
 χ-factor; the m₂₉ and α(d_g) factors remain open there). The full
 identification of the transport 2 with every committed χ-context (the
 mode-count exponents χ^(m−k)) is argued, not closed — stated. *(vii)
-Consequence: (v-a) is derived, conditional on two committed readings.*
-(R1) fermionic content lives on the Clifford ladder — part4a's committed
-assignment; (R2) equipartition selects the amplitude — A4's own anchor,
-not a new input. Given R1 and R2, 1ae's cost model is a **theorem**
-(net-state markers placed in 1ae and 1af), and 1ae(iv)'s conditional
-half upgrades with it: the participant/non-participant coupling contrast
-χ⁸ = 256 is now derived-given-readings, no longer merely conditional on
-an unproved model. **What remains is (v-b) alone** — the measurement
-biconditional: expectation-level coupling is graded, and the binary
-record-rate cutoff (why χ^−10-coupled modes yield no recorded particle
-while χ^−2-coupled modes do) still needs the A4/S4 argument. *Honest
-scope:* T1–T2 are exact algebra (computed, not declared); T3 is exact in
-expectation given R2, with S4's committed LLN bridging expectation to
-record; the R1/R2 conditionality is the honest boundary — both readings
-are committed structures, and a reviewer who rejects either rejects
-committed text, not this theorem; the spinor-sector action's explicit
-intra-fiber construction remains unwritten (named); no convention, no
-new number, no data consumed.
+Consequence — regraded round 133 (F1, F2, F3): the candidate is made
+precise; the conditions are three, and none is a free ride on committed
+text.* ~~(v-a) is derived, conditional on two committed readings … a
+reviewer who rejects either rejects committed text … What remains is
+(v-b) alone~~ [struck: the round-133 reviewer broke all three legs —
+each lead-verified]. The model's census: **(C1) the fiber assignment.**
+The derivation runs on the FULL Clifford algebra (dim 2^d); part4a's
+committed assignment is to *minimal spinors* (*"complex minimal
+spinors"*) and part4b's bundle is the spinor bundle S = S⁺ ⊕ S⁻ — under
+that committed reading the fiber doubles every TWO layers, the per-layer
+factor is √2, and the 29→21 filter would be 2^4 = 16, not χ⁸ = 256 (the
+fork computed and gated). The committed neutrino exponent (base 2 per
+layer) selects the full-algebra fiber against the minimal-spinor
+alternative — but that formula is itself part4b's underived OQ item, so
+this is model-selection-by-consistency-with-the-target, disclosed, not
+forcing. **(C2) the coupling model.** That the physical seat↔source
+coupling is the fiber trace pairing is a premise no committed text
+supplies (part4b's own χ-mechanism is per-mode chirality filtering, not
+a fiber pairing); the intra-fiber action remains unwritten. **(C3) the
+equipartition transfer.** A4's committed equipartition anchors the
+½-atom of the measurement weight (*"E[πx²] = s/2 exactly (the ½-atom =
+the mean action; S4's anchor)"*); T3 needs an intra-fiber isotropic
+prior — the principle is committed, the application domain is new.
+*What remains for the full first-principles proof:* (v-b) **plus
+C1–C3.** What this theorem contributes, exactly: the model's
+mathematics is exact (T1–T2 algebra, T3 expectation); the layer-index
+metric is forced WITHIN the model (T2's localization); the model is the
+unique fiber choice consistent with the committed neutrino exponent's
+shape; and the search for (v-a) now has a precise object to derive or
+refute instead of a slogan. No convention, no new number, no data
+consumed.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

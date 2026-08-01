@@ -2593,3 +2593,22 @@ dynamics; the Clifford identification the named survivor for (v-a).
 Standing: the spinor transport theorem (v-a); the measurement
 biconditional (v-b); the type-counting upgrade. Next hostile round
 on the next substantive paper change.**
+
+# Round 133: hostile review on commit 6523024 (Theorem 1ag) — NOT CONVERGED (3 MAJORs, 2 minors, 1 cosmetic); the mathematics held, the census broke; the theorem regraded to the MODEL; round 134 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F133-1 (MAJOR) — R1 mischaracterized: part4a commits MINIMAL spinors (√2 per layer; 16 = χ⁴ across Δ=8, not 256); the full-algebra fiber an undisclosed fork selected by the (underived) target formula | **Accepted; the fork disclosed and gated; census rewritten as C1** | paper + verifier + markers |
+| F133-2 (MAJOR) — coupling-as-trace-pairing a third uncounted premise; "(v-b) alone" overclaimed | **Accepted; C2 named; the unproved set = (v-b) + C1–C3 everywhere** | paper + markers + verifier |
+| F133-3 (MAJOR) — R2 a domain transfer of A4's ½-atom equipartition to an uncommitted intra-fiber prior, asserted "not a new input" | **Accepted; C3 named; "rejects committed text" struck** | paper |
+| F133-4 (minor) — the "per-layer constants" gloss rewrote the source; the Dirac-layer site-density disanalogy undisclosed | **Accepted; gloss corrected, disanalogy disclosed** | paper |
+| F133-5 (minor) — the landing suite passed 13/0 with the Clifford signs DELETED (three gates could not fail) | **Accepted; anticommutation gate added (the probe now trips 14/1); fiber-fork gate added; sign-insensitive gates relabeled** | verifier |
+| F133-6 (cosmetic) — pointer at 1ae(iv) | **Accepted; placed** | paper |
+
+Held: the implementation genuinely Clifford (65,536-pair independent
+check); T1–T3 correct as mathematics; all sabotages and numbers
+reproduced; quotes verbatim; battery (181-script superset) green;
+validator; footer; hygiene; Checks 7/8.
+
+**Trajectory: 1ag landed → 133 NOT CONVERGED 3M+2m+1c (swept) →
+round 134 (convergence test) next.**
