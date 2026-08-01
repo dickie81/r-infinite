@@ -161,10 +161,16 @@ bound shifted in the copy -> the F1 counter gate g12 FAILS at
 "22578 pairs", 19/1, exit 1 -- the counter catches exactly the
 F1 defect class; NEW (e) f_one's coefficients swapped in the
 copy -> g8 AND the rebuilt g9 both FAIL, 18/2, exit 1 -- the F4
-rebuild's bite demonstrated.  Clean baselines (18/0 at landing,
-20/0 at the sweep) exit 0 before and after each.  Twenty gates
-(count checked against the gate() census; the count defect's
-history noted).
+rebuild's bite demonstrated.  At the round-144 sweep (the
+factorization-tie repair; entries appended round 145 F2): (f)
+Nbound's a = s(s-1) -> s*s in the copy -> g6b FAIL (tie
+9.0e-02), 19/1, exit 1; (g) Nbound's denominator v^2+u ->
+v^2+3u -> g6b FAIL (tie 2.7e-03), 19/1, exit 1 -- both had
+passed 20/0 before the tie existed.  Round 145 F1 added s = 217
+to the tie grid, closing the s-conditional decoupling escape.
+Clean baselines (18/0 at landing, 20/0 thereafter) exit 0
+before and after each.  Twenty gates (count checked against the
+gate() census; the count defect's history noted).
 """
 import os
 import sys
@@ -266,7 +272,10 @@ ok = True
 # on a decoupled function (two silent-pass sabotages demonstrated the
 # hole before this gate existed).
 tie = max(abs(Nbound(s, u) - K(s, 0, np.sqrt(u)))
-          for s in (5, 6, 100, 218) for u in (0.0, 0.04, 1.0, 47.0, 1e4))
+          for s in (5, 6, 100, 217, 218)   # 217 added round 145 F1:
+          # every s consumed downstream is now sampled, closing the
+          # s-conditional decoupling escape the reviewer exhibited
+          for u in (0.0, 0.04, 1.0, 47.0, 1e4))
 ok &= tie < 1e-14
 for (s1, s2) in ((5, 6), (5, 218), (100, 101), (216, 218)):
     w1r, w2r = Fraction(2 * s1 - 1, 2), Fraction(2 * s2 - 1, 2)

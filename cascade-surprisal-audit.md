@@ -11876,6 +11876,69 @@ hygiene zero.
 (swept, 530fd58) → 144 NOT CONVERGED 0M+1m+1c (swept) → round
 145 (convergence test) next.**
 
+## Addendum 239: round 145 (convergence test on the round-144 sweep) — **CONVERGED** at the stability standard, 0 MAJORs + 0 minors + 2 cosmetics; Theorem 1aj certified stable; the route-traveled arc closes
+
+Round 145 (fresh-context subagent, session model) attacked the
+round-144 sweep (d28186e) and returned zero majors, zero minors,
+two cosmetics — convergence under the standing rule (cosmetics
+permitted, per rounds 17/21/24/27/29). The reviewer's own
+verification: the factorization confirmed exactly in sympy; both
+round-144 decoupling sabotages reproduced tripping 19/1 (tie
+residuals 9.0e-02 and 2.7e-03 against the 1e-14 bound); the tie
+tolerance analyzed as sound (observed 5.6e-17 = one ulp of the
+largest sampled magnitude; IEEE-deterministic ops only, no
+cross-hardware risk); the paper byte-identical to 530fd58; the
+1ai verifier 10/0; battery samples green; validator clean;
+hygiene zero; footer 66 = 60 + 4° + 2 (with the reviewer noting a
+lowercase-only regex undercounts by two); Checks 7/8 clean; A238
+accurate.
+
+**The two cosmetics, applied with this record per the
+editorial-batch precedent (subject to the next substantive
+round's review):**
+
+- **F145-1:** the tie's s-grid omitted 217, the one downstream-
+  consumed s-value it did not sample; the reviewer exhibited an
+  s == 217-conditional decoupling passing g6b silently (while
+  proving the natural formula-level perturbation class was
+  already pinned: any degree-≤2 perturbation of a(s) agreeing at
+  the sampled points is identically s(s−1)). s = 217 added to
+  the grid; the s-conditional escape now trips 19/1
+  (demonstrated on a full-tree copy).
+- **F145-2:** the docstring's sabotage-record section stopped at
+  the round-143 sweep; the two round-144 decoupling sabotages
+  lived only in the g6b gate name. Entries (f)/(g) appended with
+  per-sabotage detail.
+
+**Trajectory: 1aj landed (07c3b53) → 143 NOT CONVERGED 2M+6m+1c
+(swept, 530fd58) → 144 NOT CONVERGED 0M+1m+1c (swept, d28186e) →
+145 CONVERGED 0M+0m+2c (cosmetics applied). Certified stable:
+Theorem 1aj — the route traveled. R1: the profile morphism in
+committed form (the bridge's half-shift z = d+½, transforming
+exactly onto the committed kernel family). R2 + R2′: the
+pairwise admissible cone's edge forced by the lattice
+(−(2d₁+1)/(2d₂+1)); the edge discriminating for every pair; the
+discriminating band exact in both directions by the
+boundary-ratio monotonicity theorem (positivity certificate
+guaranteed by the lattice floor); the other edge blind by the
+same theorem; observer pair: edge −9/11 (1ai's window endpoint
+transposed), raw width 1/297, band-to-edge fraction 1/243. R3:
+the edge instance a genuine self-convolution of an explicit
+L¹∩L² function. R4: every discriminating instance's negative set
+confined below height ½ (minimum principle + domination +
+exhaustive counter-gated 22,791-pair scan; sup γ_b = 0.49999 —
+the half-shift approached); W = 0.0780686 > 0 by the bridge
+identity; the sign forced by the classical zero count, not
+cascade structure. The wall: extending forced positivity to the
+dense class IS RH (classical, Weil); unclaimable by the
+program's rule. 1ai's gap (vi) closes in its map component; the
+forcing clause IS the wall, at exact coordinates. Standing open
+routes across the campaign: (v-b), C1 (odd-Δ committed instance
+or the neutrino formula's derivation), C2, C3; the type-counting
+remark-to-theorem upgrade; the tower-script 2√π repair; the
+observer↔4 and charged-termination questions. Next hostile round
+on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

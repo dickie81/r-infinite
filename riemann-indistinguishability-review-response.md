@@ -2847,3 +2847,30 @@ hygiene zero.
 **Trajectory: 1aj landed (07c3b53) → 143 2M+6m+1c (swept,
 530fd58) → 144 NOT CONVERGED 0M+1m+1c (swept) → round 145
 (convergence test) next.**
+
+# Round 145: convergence test on the round-144 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 2 cosmetics, applied); Theorem 1aj certified stable; the route-traveled arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F145-1 (cosmetic) — the factorization tie's s-grid omitted 217 (the one downstream-consumed s-value unsampled); an s == 217-conditional decoupling passed g6b silently, though the natural formula-level perturbation class was proven pinned by the existing grid | **Accepted; s = 217 added to the tie grid (applied with the convergence record per the editorial-batch precedent); the s-conditional escape now trips 19/1, demonstrated** | verifier |
+| F145-2 (cosmetic) — the docstring's sabotage record stopped at the round-143 sweep, omitting the two round-144 decoupling sabotages | **Accepted; entries (f)/(g) appended with per-sabotage detail** | verifier |
+
+Held: the factorization exact in sympy; both round-144 decoupling
+sabotages reproduced (19/1; residuals 9.0e-02, 2.7e-03 vs the
+1e-14 bound); the tie tolerance sound (observed 5.6e-17 = one ulp
+of the largest magnitude; IEEE-deterministic ops, no
+cross-hardware risk); the paper byte-identical to 530fd58 with
+both markers verbatim; the 1ai verifier 10/0 at 252 files;
+battery samples; validator; hygiene; footer 66 = 60 + 4° + 2;
+Checks 7/8; A238 accurate against the surfaces.
+
+**Trajectory: 1aj landed → 143 2M+6m+1c → 144 0M+1m+1c → 145
+CONVERGED 0M+0m+2c. Certified: the route traveled — the profile
+morphism in committed form; the admissible cone's edge forced and
+discriminating for every pair with the band exact both directions
+(R2′, certificate-proved); the edge instance a genuine
+self-convolution; every discriminating instance's sensitivity
+confined below height ½ (counter-gated 22,791-pair scan); the
+sign forced by the classical zero count; the RH wall located at
+exact coordinates and claimed in neither direction. Next hostile
+round on the next substantive paper change.**
