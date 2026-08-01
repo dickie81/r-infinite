@@ -2821,3 +2821,29 @@ zero.
 
 **Trajectory: 1aj landed (07c3b53) → 143 NOT CONVERGED 2M+6m+1c
 (swept) → round 144 (convergence test) next.**
+
+# Round 144: convergence test on the round-143 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); the ungated factorization tie; round 145 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F144-1 (minor) — R2′'s factorization identity ungated: `Nbound` never tied to the live kernel `K`; two decoupling sabotages (a = s²; a denominator tweak) passed 20/0 | **Accepted; g6b now opens with the factorization tie (1e-14 over an (s,u) grid, observed 5.6e-17); both decoupling sabotages now trip 19/1** | verifier |
+| F144-2 (cosmetic) — g13's s-indexed gate text over d-indexed code, no call-site comment | **Accepted; the indexing comment added (Z is d-indexed, s = d+1)** | verifier |
+
+Held: all of Theorem R2′'s mathematics re-derived independently
+(factorization, ψ′'s numerator, the certificate chain with its
+exact worst-case margin and the smaller-member-only floor
+dependence, endpoint, limit, both logical directions); both
+round-143 MAJORs genuinely repaired (census struck + counter
+biting; the converse a real proof); the rebuilt g9 and g6c live
+under sabotage; four of five sabotages reproduced; the span clean
+of retracted phrasings; the 1ai span undisturbed (10/0); the
+64-script footer superset green; validator; hygiene; footer
+66 = 60 + 4° + 2; Checks 7/8; A237 accurate.
+
+Post-sweep: verifier 20/0 (tie 5.6e-17); both decoupling
+sabotages trip 19/1 with clean 20/0 baselines; validator clean;
+hygiene zero.
+
+**Trajectory: 1aj landed (07c3b53) → 143 2M+6m+1c (swept,
+530fd58) → 144 NOT CONVERGED 0M+1m+1c (swept) → round 145
+(convergence test) next.**

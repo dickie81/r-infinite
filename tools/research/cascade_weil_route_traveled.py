@@ -100,6 +100,9 @@ Gates (twenty, as swept round 143):
        form < 0, matches direct (two pairs); g6 the band widths
        exact with the normalizer disclosed (raw 1/297,
        band-to-edge 1/243, consistency); g6b Theorem R2': the
+       factorization TIED to the live kernel (round 144 F1 -- two
+       decoupling sabotages passed 20/0 before the tie existed,
+       both now tripping 19/1; 1e-14 over an (s, u) grid) + the
        endpoint identity exact (four pairs, rationals) + r*
        strictly increasing and strictly below the limit w_2/w_1
        on the grid (three pairs incl. extremes); g6c the R2'
@@ -258,6 +261,13 @@ def Nbound(s, u):
 
 
 ok = True
+# round 144 F1: the factorization TIE -- Nbound must equal the live
+# boundary kernel K(s, 0, gamma), else every downstream R2' gate runs
+# on a decoupled function (two silent-pass sabotages demonstrated the
+# hole before this gate existed).
+tie = max(abs(Nbound(s, u) - K(s, 0, np.sqrt(u)))
+          for s in (5, 6, 100, 218) for u in (0.0, 0.04, 1.0, 47.0, 1e4))
+ok &= tie < 1e-14
 for (s1, s2) in ((5, 6), (5, 218), (100, 101), (216, 218)):
     w1r, w2r = Fraction(2 * s1 - 1, 2), Fraction(2 * s2 - 1, 2)
     r0 = Fraction((2 * s2 - 1) * s1 * (s1 - 1), (2 * s1 - 1) * s2 * (s2 - 1))
@@ -268,10 +278,12 @@ for (s1, s2) in ((5, 6), (5, 218), (217, 218)):
     rvals = Nbound(s2, us_m) / Nbound(s1, us_m)
     ok &= (np.diff(rvals) > 0).all()
     ok &= (rvals < (2 * s2 - 1) / (2 * s1 - 1)).all()
-gate("g6b Theorem R2' (round 143 F2): boundary ratio r*(u) strictly "
-     "increasing from the band endpoint (exact rational identity, four "
-     "pairs) to w2/w1 (strict below the limit on the grid) -- the band's "
-     "converse and the other edge's blindness", ok)
+gate("g6b Theorem R2' (round 143 F2): the factorization TIED to the "
+     "live kernel (round 144 F1, 1e-14 over an (s, u) grid); boundary "
+     "ratio r*(u) strictly increasing from the band endpoint (exact "
+     "rational identity, four pairs) to w2/w1 (strict below the limit "
+     "on the grid) -- the band's converse and the other edge's "
+     "blindness", ok, f"tie {tie:.1e}")
 us_c = np.linspace(0, 1e7, 100001)
 cert = (us_c + 20) ** 4 + 2 * (us_c + 20) ** 3 - 4 * us_c * (us_c + 20) ** 2 - us_c ** 2
 lower = (us_c + 20) ** 2 * ((us_c + 20) ** 2 - 2 * (us_c + 20) + 79)
@@ -385,6 +397,8 @@ def Z(d):
     return p_d + poles - primes
 
 
+# Z is d-indexed (s = d+1 inside): Z(5) is the zeros side at s = 6,
+# Z(4) at s = 5 -- the gate text below is s-indexed (round 144 F2).
 Wval = Z(5) - mpf(9) / 11 * Z(4)
 gate("g13 the value by the bridge identity (no zeros consumed): "
      "W(h*) = Z(6) - (9/11) Z(5) = 0.0780686 > 0",

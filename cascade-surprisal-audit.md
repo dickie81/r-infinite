@@ -11817,6 +11817,65 @@ on 12 files; hygiene zero.
 **Trajectory: 1aj landed (07c3b53) → 143 NOT CONVERGED 2M+6m+1c
 (swept) → round 144 (convergence test) next.**
 
+## Addendum 238: round 144 (convergence test on the round-143 sweep) — NOT CONVERGED, 0 MAJORs + 1 minor + 1 cosmetic; the ungated factorization tie; swept; round 145 next
+
+Round 144 (fresh-context subagent, session model) attacked the
+round-143 sweep (530fd58). The centerpiece — Theorem R2′ — was
+re-derived independently in every part: the factorization, ψ and
+ψ′'s numerator, the certificate chain (including the exact
+worst-case margin 40v−400 at v ≥ 20 and the edge-case analysis
+that only the SMALLER pair member's floor is needed, with the
+margin growing in v), the endpoint identity, the limit, and the
+logical chain in both directions. Both round-143 MAJORs were
+confirmed genuinely repaired. Two findings, both lead-verified
+and swept:
+
+**F144-1 (minor, accepted):** Theorem R2′'s factorization
+identity — K_s(0,γ) = (2s−1)(u+a)/((u+a)²+u), the equation that
+makes R2′ about THE boundary kernel — was gated nowhere: the
+verifier's `Nbound` was never tied to the live kernel `K`, and
+the reviewer exhibited two decoupling sabotages (a = s² and a
+denominator tweak) that passed 20/0. Lead-verified by
+reproducing the denominator decoupling (20/0, exit 0). Swept:
+g6b now opens with the factorization tie
+(|Nbound(s,u) − K(s,0,√u)| < 1e-14 over an (s,u) grid; observed
+5.6e-17); both decoupling sabotages redone on a fresh full-tree
+copy now trip 19/1 exit 1, clean baselines 20/0 around each.
+The same instrument-rule class as F143-4 (a gate that cannot
+fail), one round later and one level deeper — the lesson
+recorded: a theorem gate must tie its internal representation to
+the object it names, not merely exercise the representation.
+
+**F144-2 (cosmetic, accepted):** g13's gate text is s-indexed
+("Z(6) − (9/11)Z(5)") directly below d-indexed code
+(`Z(5) − (9/11)·Z(4)`), reconcilable only by reading inside Z. A
+call-site comment now states the indexing (Z is d-indexed,
+s = d+1). Value re-verified by the reviewer at dps 40.
+
+**Held (reviewer, with evidence):** all of R2′'s mathematics
+(sympy + hand algebra, the certificate margin sweep clean); the
+F143-1 strike verbatim with zero live "22578" outside strike
+frames; the counter sabotage catching exactly the F1 class; the
+rebuilt g9 live (sabotage e, 18/2); g6c live (certificate
+constant sabotage, 19/1); four of five recorded sabotages
+reproduced; the span re-read with all retracted phrasings dead;
+the F143-7 rescope in both places; the normalizer arithmetic
+(1/297, 1/243) hand-verified; the domination line algebraically
+correct; W = 0.0780685798 at dps 40; the 1ai span undisturbed
+(markers intact, 10/0 at 252 files); the 64-script footer
+superset green; validator; hygiene; footer 66 = 60 + 4° + 2 by
+script count; Checks 7/8 clean; A237 accurate against the
+surfaces.
+
+**Post-sweep record:** verifier 20/0 exit 0 (tie detail 5.6e-17);
+both decoupling sabotages trip 19/1 exit 1 on the swept copy;
+clean baselines 20/0; 1ai verifier 10/0; validator clean;
+hygiene zero.
+
+**Trajectory: 1aj landed (07c3b53) → 143 NOT CONVERGED 2M+6m+1c
+(swept, 530fd58) → 144 NOT CONVERGED 0M+1m+1c (swept) → round
+145 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
