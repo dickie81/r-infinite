@@ -2453,3 +2453,20 @@ self-containment, hygiene.
 
 **Trajectory: 1ad landed (7d8e797) → 124 NOT CONVERGED 3M+4m
 (swept) → round 125 (convergence test) next.**
+
+# Round 125: convergence test on the round-124 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 2 minors, 2 cosmetics); the READING-block class again; round 126 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F125-1 (minor) — the round-124 sweep missed its own edited file's READING block (pre-F4 "Gamma-forced"/"Gamma-distinguished"; pre-F3 "sharpens … 27.73") — the F121-1 class, second instance | **Accepted; READING aligned with an in-place round-125 tag**; participation_rule re-run 19/0 | verifier |
+| F125-2 (minor) — "part4b's mixing prediction": the sterile-mixing falsifier is part4a OQ-T3's commitment (part4b: zero U_e4 hits) — re-asserted by the sweep's own rewrite | **Accepted; struck-and-annotated to part4a** | paper |
+| F125-3/4 (cosmetics) — tautological conjunct in the cut-anchors gate; P5 docstring bullet incomplete | **Accepted; declared identity + bullet completed** | verifier |
+
+All round-124 sweep substance held under independent reproduction
+(sabotage counts incl. 17/2; the neutrino probe 2/2 with subprocess
+follow; the 8-offset census exact; battery 21; quotes verbatim).
+
+**Trajectory: 1ad landed → 124 3M+4m (swept) → 125 NOT CONVERGED
+0M+2m+2c (swept) → the sweep lands together with Theorem 1ae (the
+de-conventioned dichotomy, the owner's proof-standard commission) →
+round 126 (combined) next.**

@@ -10512,6 +10512,89 @@ hygiene clean.
 **Trajectory: 1ad landed (7d8e797) → 124 NOT CONVERGED 3M+4m
 (swept here) → round 125 (convergence test) next.**
 
+## Addendum 213: convergence-test round 125 on the round-124 sweep — NOT CONVERGED (0 majors, 2 minors, 2 cosmetics); the READING-block class a second time; swept
+
+Round 125 reproduced the round-124 sweep's substance completely
+(every sabotage count including the 17/2, the neutrino probe with
+its subprocess follow-through, the 8-offset census, the battery,
+every quote) and found: **F125-1 (minor)** — the sweep again did
+not reach the edited file's own READING block
+(cascade_participation_rule.py printed the pre-F4 "Gamma-
+distinguished"/"Gamma-forced" labels and the pre-F3 "sharpens …
+27.73" claim on every run — the F121-1 class, second instance,
+falsifying the file's own "labels corrected on all surfaces");
+**F125-2 (minor)** — "part4b's mixing prediction" misattributed
+the sterile-mixing falsifier (|U_e4|² = α(21)/χ⁸ ≈ 9×10⁻⁵ is
+part4a OQ-T3's commitment; part4b has zero U_e4/sterile hits) —
+inherited from the landing but re-asserted by the sweep's own
+rewrite of that sentence; **F125-3 (cosmetic)** — one tautological
+conjunct (d*₁+1.3 < d*₁+8) inside the cut-anchors gate; **F125-4
+(cosmetic)** — the docstring's P5 bullet omitted the new
+sweep-anchors gate. All lead-verified and swept in this commit:
+the READING block aligned (with an in-place round-125 tag); the
+attribution struck-and-annotated to part4a; the tautological
+conjunct converted to a declared identity; the P5 bullet
+completed. participation_rule re-run 19/0.
+
+## Addendum 214: Theorem 1ae — the participation dichotomy, de-conventioned (owner-commissioned: "a proof, not a worthless pattern match"); the convention eliminated, the gap proved, the contrast forced; one lemma remains
+
+The owner rejected 1ad's epistemic status. The response, landed as
+Theorem 1ae:
+
+- **The convention eliminated.** The trailing-cell partition is
+  replaced by the symmetric distance δ(d) = min_{d*∈S} |d − d*| —
+  no partition, no offset, no orientation. Census: δ = {5:0, 13:1,
+  21:2}; every deeper seat has nearest source 19 (the largest
+  element of S, below every deep seat), δ = 8k − 22 ≥ 10.
+  Participants {5, 13, 21} and nothing else, ever. Equivalence
+  with 1ad's cell census gated; 1ad's orientation disclosure
+  net-state-marked as superseded (history of the cell formulation
+  only).
+- **The gap theorem (proved).** Realized δ-values: {0,1,2} ∪
+  {10,18,26,…} — no seat at δ ∈ [3,9]. Every threshold 3..9 yields
+  the identical census (enumerated and gated): the dichotomy has a
+  seven-integer margin and the threshold's exact value is not
+  load-bearing. Exhaustiveness is theorem-grade: Part 0 tower
+  completeness ("The Gamma function produces exactly four
+  distinguished dimensions in the cascade. No fifth exists."),
+  Adams/Bott for 14, part4b's sink accounting ("Removing d₂=217 as
+  the Planck sink leaves exactly four sources") — the source set
+  can never grow. Sensitivity disclosed and gated: sink-as-source
+  would admit exactly one extra participant (seat 213, δ=4); the
+  exclusion is part4b's committed accounting, not a choice.
+- **The forced-contrast theorem (proved).** Under the committed
+  per-layer filter, the worst participant costs χ²=4, the best
+  non-participant χ¹⁰=1024 — contrast χ⁸ = 256, exactly one Bott
+  period, forced because 21 and 29 share the last source as
+  nearest (their δs differ by the seat spacing). Consonance with
+  part4a's independent ~289 amplitude suppression reported at
+  12.9% — consonance, not identity, so labeled and gated.
+- **The remaining lemma, named exactly:** a mode filtered by
+  ≥ χ¹⁰ fails A4/S4's measurement condition while δ ≤ 2 modes
+  pass. The gap theorem makes the lemma threshold-free — any
+  separation point in the gap gives the same three generations.
+  (D1)/(D2) reduces to this one lemma with a one-period margin.
+- **Grading:** (ii)–(iv) theorems (finite arithmetic over a
+  theorem-closed source set); (v) the named lemma; nothing is a
+  convention. Check 8 clean (S is Γ+Adams-forced, observer-free).
+
+**Surfaces:** Theorem 1ae in the paper (after 1ad); the net-state
+marker on 1ad(ii); footer 54 → 55 ("1i–1ad" → "1i–1ae";
+cascade_participation_dichotomy.py new). **Verifier:**
+cascade_participation_dichotomy.py, D1–D5, 16 gates + 1 declared
+identity, 16/0 (the RESULT line's first draft said 14 — the count
+defect's fourth instance, corrected pre-commit); three sabotages
+exit 1 on a full-tree scratchpad copy (part0's tower statement →
+D4 15/1; S minus 14 → five census gates cascade, 11/5; the paper's
+gap sentence mid-anchor → D5 15/1 — a first attempt asserted out
+on a line wrap before any run, disclosed), clean baselines 16/0.
+**Battery:** all 22 instruments green (the 21 +
+participation_dichotomy), zero FAIL lines; validator clean on 12
+files; census 55 counted + constants = 56 distinct, zero record
+names in body; hygiene clean. Trajectory: F125 sweep + 1ae landed
+→ round 126 (combined convergence + hostile review, per protocol)
+spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

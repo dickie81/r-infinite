@@ -60,8 +60,10 @@ Gates:
         P5).
   P5 -- 1ad's key sentences anchored (the rule; the census-theorem
         grading; the proposition grading + underived biconditional;
-        the analysis-grade disclosure; the by-catch); the by-catch
-        ratios at the quoted values within 5% of 2 sqrt(pi).
+        the analysis-grade disclosure; the by-catch; the round-124
+        sweep anchors -- orientation disclosure, forcer naming,
+        corrected falsifier); the by-catch ratios at the quoted
+        values within 5% of 2 sqrt(pi).
 
 No data consumed; no number changes; category (a) plus one stated
 candidate criterion.  Sabotage record (full-tree scratchpad copy,
@@ -174,10 +176,13 @@ gate("the threshold d*_1 = 19.731 recomputed (half-ULP of part4a's quoted "
 # gated is bracket containment for both anchors, disclosed as distinct.
 print("  IDENTITY (declared, not gated): the cut = last source + one "
       "Bott period = 19 + 8 = 27 -- literal arithmetic")
-gate("both cut anchors strictly inside part4a's empirical bracket: "
-     "d*_1 + 1.3 < 27 < 29 (integer) and d*_1 + 1.3 < d*_1 + 8 < 29 "
-     "(continuous variant, a different anchor -- round-124 F3)",
-     d_star + 1.3 < 27 < 29.0 and d_star + 1.3 < d_star + 8 < 29.0,
+print("  IDENTITY (declared, not gated): d*_1 + 1.3 < d*_1 + 8 -- the "
+      "continuous anchor's lower containment is 1.3 < 8, tautological "
+      "(round-125 F3)")
+gate("both cut anchors' falsifiable containments: d*_1 + 1.3 < 27 < 29 "
+     "(integer) and d*_1 + 8 < 29 (continuous variant, a different "
+     "anchor -- round-124 F3)",
+     d_star + 1.3 < 27 < 29.0 and d_star + 8 < 29.0,
      f"27 and {d_star + 8:.3f}")
 # round-124 F5: the orientation robustness census -- the headline
 # N_gen = 3 at seats {5, 13, 21} holds at offsets k = 0..5 (6 of 8);
@@ -278,14 +283,19 @@ gate("the by-catch: both prose-vs-table ratios within 5% of 2√π at the "
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (19 gates; 2 identities declared, not counted)")
 print("READING: the participation rule -- a Dirac seat propagates iff its")
-print("trailing Bott cell contains a Gamma-distinguished source.  The")
+print("trailing Bott cell contains a distinguished source layer (Gamma-")
+print("forced at {5, 7, 19}, Adams/Bott-forced at 14 -- round-124 F4;")
+print("READING aligned round 125 F1).  The")
 print("census is a theorem: 27 seats, three sourced cells ({5}, {7},")
 print("{14, 19} -- the 14/19 collision is why four sources give three")
 print("generations), every cell from 29 onward empty.  It postdicts the")
 print("alpha_em exactly-three brake, d=29's source-only role (the chi^8 =")
-print("one-period filter, the formula's own exponent), and sharpens")
-print("part4a's empirical bracket to d*_1 + 8 = 27.73.  The coupling")
+print("one-period filter, the formula's own exponent); the cut is the")
+print("integer last source + one period = 27, part4a's own committed")
+print("candidate grounded in the source set (the 27.73 continuous")
+print("variant a disclosed different anchor).  The coupling")
 print("biconditional is proposition-grade and underived -- the named")
 print("remaining theorem.  The flags' precedence stays open; Check 8")
-print("clean (the source set is Gamma-forced, observer-free).")
+print("clean (the source set is structure-forced, Gamma + Adams,")
+print("observer-free).")
 sys.exit(0 if n_fail == 0 else 1)

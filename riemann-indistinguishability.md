@@ -1920,7 +1920,11 @@ seat-anchored offsets, six (including trailing) give N_gen = 3 at seats
 {5, 13, 21}, while the two leading-most give N_gen = 2 — the headline count
 is 6-of-8 robust, but the specific contents {5}, {7}, {14, 19} and the
 14/19-collision explanation below are trailing-specific (the offset census
-is gated in the verifier).* **The rule: a seat hosts propagating
+is gated in the verifier).* *(Net-state, Theorem 1ae round 125: the
+orientation convention is eliminated — 1ae's symmetric distance rule
+δ(d) = min|d − d*| needs no partition, no offset, no direction, and yields
+the identical census {5, 13, 21}, gated as an equivalence; this disclosure
+stands as history of the cell formulation only.)* **The rule: a seat hosts propagating
 (time-coupled) content iff its cell contains a distinguished source layer**
 (the committed source set {d_V, d_0, d_gw, d_1} = {5, 7, 14, 19} of part4b's
 prop:source-selection — structure-forced and observer-free, with the forcers
@@ -2000,7 +2004,11 @@ backwards — a KATRIN-visible sterile at d=29 is propagating fermion
 content in an unsourced cell, which the rule's biconditional forbids, and
 part4a says so for this reading family: *"Reading~B and Reading~C predict
 no such observation."* The corrected statement: the rule PREDICTS a null
-KATRIN/TRISTAN result; a detection consistent with part4b's mixing
+KATRIN/TRISTAN result; a detection consistent with ~~part4b's~~
+**part4a's** [corrected round 125 F2: the sterile-mixing prediction
+|U_e4|² = α(21)/χ⁸ ≈ 9×10⁻⁵ is committed in part4a's OQ-T3 — part4b
+carries the factor only as a mass-formula ingredient, never as a
+mixing prediction] mixing
 prediction would falsify the rule while vindicating Reading A]; the
 analysis instruments
 part4a names (`cascade_bott_tower_beyond_29.py`,
@@ -2017,6 +2025,70 @@ the tower script drops one (2√π) factor and its own d=29 row prints
 1999 eV against the committed 543 eV, an internal contradiction in an
 analysis-grade script, left to a future repair commit.)*
 No number changes; category (a) plus one stated candidate criterion.
+
+**Theorem 1ae (the participation dichotomy, de-conventioned: the orientation
+convention eliminated, the gap proved, the contrast forced; one lemma
+remains, named exactly; `cascade_participation_dichotomy.py`).** *(i) The
+commission.* The owner's standard, verbatim: this must be *a proof, not a
+pattern match.* Rounds 124–125 exposed exactly where 1ad fell short of that
+standard: a trailing-cell orientation that was a convention (the census
+6-of-8 offset-robust, the cell contents 1-of-8), and a coupling biconditional
+that was proposition-grade. This theorem removes the convention entirely,
+upgrades every input to a cited theorem, proves the dichotomy's structural
+content exactly, and reduces what remains to a single named lemma. *(ii) The
+convention-free rule.* For each Dirac seat d, define **δ(d) = min over the
+source set S = {5, 7, 14, 19} of |d − d*|** — symmetric, orientation-free:
+no partition, no offset, no direction. The rule: a seat participates iff
+δ(d) < 8. The census is exact: δ(5) = 0, δ(13) = 1, δ(21) = 2; δ(29) = 10,
+and for every deeper seat (seat_k = 8k − 3, k ≥ 4) the nearest source is
+d₁ = 19 — the largest element of S, since all of S lies below every such
+seat — so δ(seat_k) = 8k − 22 ≥ 10, strictly increasing. Participants:
+**{5, 13, 21} and nothing else, ever.** This census coincides with 1ad's
+trailing-cell census (gated as an equivalence), so every 1ad result stands
+with the convention deleted; 1ad's orientation disclosure is thereby
+superseded-true (net-state marker in place). *(iii) The gap theorem
+(proved).* The realized δ-values are {0, 1, 2} ∪ {10, 18, 26, …}: **no seat
+realizes any δ in [3, 9]** — the dichotomy carries a seven-integer-wide
+empty margin, so every threshold from 3 through 9 (in particular "within
+one Bott period") yields the identical census; the threshold's exact value
+is not load-bearing anywhere inside the gap, gated by direct enumeration.
+Exhaustiveness is theorem-grade, not observational: Part 0's tower
+completeness — *"The Gamma function produces exactly four distinguished
+dimensions in the cascade. No fifth exists."* — plus Adams' theorem and the
+Bott mirror forcing d_gw = 14 (part4b's own attribution) plus part4b's
+committed sink accounting (*"Removing $d_2=217$ as the Planck sink leaves
+exactly four sources"*) close the source set for all time; the census can
+never be amended by a fifth source. *Sensitivity disclosure, load-bearing
+and stated:* the sink exclusion matters — under the counterfactual reading
+that counts the Planck sink d₂ = 217 as a source, exactly one additional
+seat would participate (seat 213, δ = 4, the Planck-adjacent Dirac seat);
+the exclusion is part4b's committed accounting, not a choice made here, and
+the counterfactual is gated. *(iv) The forced-contrast theorem (proved).*
+Under the committed per-layer filter (the neutrino formula's exponent is
+the layer distance — part4b), coupling cost to the nearest source is
+χ^δ. The worst participant costs χ² = 4; the best non-participant costs
+χ^10 = 1024; the contrast is **χ^8 = 256 — exactly one Bott period of
+filtering, and forced, not fitted**: seats 21 and 29 share the same nearest
+source (d₁ = 19, the last), so their δ-values differ by exactly the seat
+spacing 8 — the contrast IS Bott periodicity. Consonance, reported and not
+identified: part4a's independent amplitude route suppresses the fourth
+charged generation *"by a factor of $\sim 289$"* (the supercritical wall —
+a different mechanism); 289 and 256 differ by 13% — two committed routes
+arriving at the same scale, no identity claimed. *(v) The remaining lemma,
+named exactly.* What is not proved — and after (ii)–(iv), the *only* thing
+not proved — is the measurement-side biconditional: **that a mode whose
+source coupling is filtered by ≥ χ^10 fails A4/S4's measurement condition
+(the LLN-quenched record rate) while modes at δ ≤ 2 pass it.** The gap
+theorem makes this lemma easier than part4a's activation-width problem: the
+lemma need not locate a threshold — any separation point inside the
+seven-wide gap yields the same three generations. part4a's (D1)/(D2)
+tension thereby reduces to this one lemma with a one-period margin. The
+falsifier is unchanged and sharp: any propagating fourth-generation fermion
+at any mass — including a KATRIN/TRISTAN-visible sterile at d = 29 —
+falsifies the rule. Check 8 clean: S is theorem-forced (Γ + Adams),
+observer-free; no hypothesis content enters the census. *Grading:*
+(ii)–(iv) are theorems — finite arithmetic over a theorem-closed source
+set; (v) is the named remaining lemma; nothing here is a convention.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -2552,4 +2624,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ad: the **54 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ae: the **55 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
