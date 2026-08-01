@@ -122,8 +122,11 @@ multi-aim gated (0.5, 3, 100 -- round 146 F3; the window contains
 its aim ABOVE the continuation threshold aim* ~ 1/4 -- the
 mechanism's 1/16 - aim^2 sign flip, observed 0.2436; below it the
 window persists but DETACHES from the tangency, e.g. aim 0.1 ->
-window [0.211, 1.123]; the below-threshold opposite sign gated --
-round 147 F1 -- and the window is not exactly centred on its
+window [0.2108, 1.1229] (inward-rounded round 148 F2); the
+below-threshold opposite sign gated -- round 147 F1 -- the reach
+envelope pinned (upper reach ~ 0.91 at the threshold decaying to
+~ 1/2 with height, asymmetric -- round 148 F1), and the window is
+not exactly centred on its
 aim); "classically
 vacant" dies for relocated windows -- their positivity is
 enforced by the verified on-line zeros (the grazed zero
@@ -172,18 +175,24 @@ g19-g20):
        positive, total < W; g15 the classical wall: gamma_1 =
        14.134725 (recomputed) > 1/2; zeta < 0 on real (0, 1)
        (grid).
-  V4b (REGRADE) -- g19 the aimed three-term instance: tangency at
-       gamma_1 on committed (4, 5, 6), L >= 0 with the interior
-       double zero, the boundary window contains the RECOMPUTED
-       first zero, and the 2-term aim fails (the pinning);
+  V4b (REGRADE) -- g19 the aimed three-term instances (entry
+       updated round 148 F4): tangency at gamma_1 on committed
+       (4, 5, 6), L >= 0 with the interior double zero, the
+       boundary window contains the RECOMPUTED first zero, the
+       2-term aim fails (the pinning), the multi-aim loop (0.5,
+       3, 100 -- round 146 F3), the below-threshold opposite
+       sign at aim 0.1 with aim/probe coupled (rounds 147
+       F1/148 F3), and the reach envelope (round 148 F1);
        g20 the mechanism identity: boundary = line continued by
        +/- i/2, averaged, machine-exact.
   V5 -- g16 the two 1ai net-state markers anchored in the paper;
        g17 1aj's key sentences anchored AS REGRADED (entry updated
        round 146 F5): the edge theorem; the wall with the PAIRWISE
        scope; the relocatable windows ("including the heights of
-       actual zeros"); the per-zero probe; the wall-stands
-       sentence; R2''s monotonicity; the no-role-of-the-action;
+       actual zeros"); the continuation-threshold sentence (added
+       round 147, listed round 148 F4); the per-zero probe; the
+       wall-stands sentence; R2''s monotonicity; the
+       no-role-of-the-action;
        g18 the footer census (the new script backticked; "60
        scripts cited in place"; "Theorems 1i--1aj").
 
@@ -226,8 +235,18 @@ F6): (i) GAMMA_AIM
 shifted to 10.134725 in the copy -> g19 FAILS (the window no
 longer contains the RECOMPUTED first zero), 21/1, exit 1; (j)
 the paper's per-zero-probe sentence perturbed mid-anchor -> g17
-trips, 21/1, exit 1.  Clean baselines (18/0 at landing, 20/0
-after round 144, 22/0 at the regrade) exit 0 before and after
+trips, 21/1, exit 1.  At the round-146 sweep: (i') GAMMA_AIM
+shift re-run against the extended gate -> g19, 21/1, exit 1;
+(k) the multi-aim solve target decoupled from the aim
+(ua = aim^2 + 5) -> g19, 21/1, exit 1.  At the round-147 sweep:
+(l) the below-threshold probe moved above the threshold -> g19,
+21/1, exit 1; (m) the threshold anchor perturbed mid-anchor
+(above -> below) -> g17, 21/1, exit 1.  At the round-148 sweep:
+(n) the coupled below-threshold aim shifted to 0.5 (above the
+threshold, where the sign flips) -> g19, 21/1, exit 1 -- the
+F148-3 coupling's bite (the record section brought current,
+round 148 F5).  Clean baselines (18/0 at landing, 20/0
+after round 144, 22/0 thereafter) exit 0 before and after
 each.  Twenty-two gates (count checked against the gate()
 census; the count defect's history noted).
 """
@@ -534,18 +553,45 @@ for aim in (0.5, 3.0, 100.0):
     multi_ok &= Fa(aim) < 0
 # round 147 F1: below the threshold the sign at the aim FLIPS -- the
 # window detaches from the tangency.  Gate the opposite sign at
-# aim = 0.1 to pin the claim's boundary.
-ub = 0.01
+# aim = 0.1 to pin the claim's boundary.  Round 148 F3: the instance
+# aim and the probe point are now COUPLED through one variable (the
+# first draft's independent literals admitted a silent decoupling
+# pass, demonstrated by the reviewer).
+aimb = 0.1
+ub = aimb * aimb
 cb = np.linalg.solve(M3, np.array([1.0, -2 * ub, ub * ub]))
 Fb = lambda g: sum(cb[i] * K(WS3[i] + .5, 0, g) for i in range(3))  # noqa: E731
-multi_ok &= Fb(0.1) > 0
+multi_ok &= Fb(aimb) > 0
+# round 148 F1: the reach ENVELOPE gated -- the upper reach from the
+# tangency decays toward 1/2 only with height (asymmetric near the
+# threshold); the quoted envelope numbers pinned.
+from scipy.optimize import brentq as _brentq  # noqa: E402
+
+
+def _reach_hi(aim):
+    ua_ = aim * aim
+    ca_ = np.linalg.solve(M3, np.array([1.0, -2 * ua_, ua_ * ua_]))
+    Fa_ = lambda g: sum(ca_[i] * K(WS3[i] + .5, 0, g)  # noqa: E731
+                        for i in range(3))
+    return _brentq(Fa_, max(aim + 0.05, 0.3), aim + 2.0) - aim
+
+
+env_ok = 0.90 < _reach_hi(0.244) < 0.92
+env_ok &= 0.76 < _reach_hi(0.5) < 0.78
+env_ok &= 0.54 < _reach_hi(1.5) < 0.56
+env_ok &= 0.42 < _reach_hi(GAMMA_AIM) < 0.44
+env_ok &= 0.57 < GAMMA_AIM - neg.min() < 0.59
+multi_ok &= env_ok
 gate("g19 the aimed three-term instances (regrade): tangency relocated "
      "to gamma_1 = 14.134725 on committed (4, 5, 6) -- L >= 0 with the "
      "interior double zero; the boundary window contains the RECOMPUTED "
      "first zero; the 2-term aim FAILS (L(0) < 0, the pinning); AND the "
      "relocation universal multi-aim gated (aims 0.5, 3, 100: "
      "admissible, boundary negative at the aim -- round 146 F3; the "
-     "below-threshold OPPOSITE sign at aim 0.1 gated -- round 147 F1)",
+     "below-threshold OPPOSITE sign at aim 0.1 gated, aim/probe "
+     "coupled -- rounds 147 F1/148 F3; the reach ENVELOPE pinned: "
+     "0.91 at the threshold, 0.77 at 0.5, 0.55 at 1.5, "
+     "-0.583/+0.432 at gamma_1 -- round 148 F1)",
      L3v.min() > -1e-9 and abs(L3(GAMMA_AIM)) < 1e-9
      and len(neg) > 0 and neg.min() < g1 < neg.max()
      and (neg.min() > GAMMA_AIM - 0.7) and (neg.max() < GAMMA_AIM + 0.5)

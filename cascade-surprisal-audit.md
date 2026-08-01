@@ -12149,6 +12149,76 @@ zero.
 126f2ba) → 147 NOT CONVERGED 1M+1m (swept) → round 148
 (convergence test) next.**
 
+## Addendum 243: round 148 (convergence test on the round-147 sweep) — NOT CONVERGED, 1 MAJOR + 2 minors + 2 cosmetics; the distance claim wrongly scoped at the containment threshold; the reach envelope gated; swept; round 149 next
+
+Round 148 (fresh-context subagent, session model) attacked the
+round-147 sweep. Five findings, all lead-verified and swept:
+
+**F148-1 (MAJOR, accepted):** the round-147 sweep scoped the
+mechanism paragraph's DISTANCE claim ("lives within ≈ ½ of its
+line-tangency") at the CONTAINMENT threshold — but the reach from
+the tangency is asymmetric and decays toward ½ only with height:
+lead-verified upper reaches 0.9124 at aim 0.244 (inside the
+sweep's stated scope, 1.8× the claimed bound), 0.7724 at aim 0.5
+(one of g19's own gated aims), 0.5479 at 1.5, and
+−0.5834/+0.4322 at γ₁. By the campaign's own recorded standard
+(A242 justified F147-1 with "double the claimed ≈ ½"), the
+sentence was false inside its post-sweep scope. Swept: the
+sentence rewritten — negativity is TETHERED above the threshold,
+with an asymmetric reach decaying toward ½ only with height, the
+observed envelope stated in place and GATED (g19 now pins
+0.90–0.92 at 0.244, 0.76–0.78 at 0.5, 0.54–0.56 at 1.5,
+0.42–0.44 upper and 0.57–0.59 lower at γ₁); the ≈ ½ geometry
+assigned to the asymptotic/physically-relevant regime, matching
+the wall-coordinates sentence (which round 148 held as correctly
+scoped). The width claim (half-width ≈ ½: observed 0.456–0.508)
+was held true as stated.
+
+**F148-2 (minor, accepted):** the half-ulp-outward class,
+reintroduced by the round-147 sweep itself on the sibling window:
+the aim-0.1 window's quoted upper endpoint 1.123 lies OUTSIDE the
+negative set (F(1.123) = +5.9e-10; true roots 0.2107702,
+1.1229948). Corrected to inward-rounded [0.2108, 1.1229] on both
+surfaces with the recurrence disclosed. Third instance of the
+class (rounds 146 F2, 147 F2, now 148 F2 — each on a different
+number, each introduced by the previous fix's sweep).
+
+**F148-3 (minor, accepted):** the below-threshold gate's instance
+aim (ub = 0.01) and probe point (Fb(0.1)) were independent
+literals — the reviewer demonstrated a silent decoupling pass
+(ub = 0.25 with the probe at 0.1: 22/0 exit 0), lead-verified.
+The decoupling class's third appearance (rounds 144 F1, 146 (k),
+now here). Fixed: one variable (aimb = 0.1; ub = aimb²;
+Fb(aimb)); the new sabotage (n) (aimb → 0.5, above the threshold
+where the sign flips) trips g19, 21/1, exit 1.
+
+**F148-4/5 (cosmetics, accepted):** the docstring's g19 and g17
+gate-list entries brought current (the multi-aim, below-threshold,
+and envelope subgates; the threshold anchor); the sabotage record
+appended with (i'), (k), (l), (m), (n).
+
+**Held (reviewer, with evidence):** the threshold mathematics
+recomputed independently (aim* = 0.24357424; the mechanism's
+1/16 − aim² honest as leading-order with no exactly-¼ overclaim);
+containment verified at 100+ aims above threshold (a float64
+artifact at aim 5000 chased into 50-dps mpmath and resolved in
+the surfaces' favor); below-threshold persistence/detachment
+verified down to aim 0.001; the F147-2 endpoint fix exact; the
+residual-universal hunt clean; the other three carrier sentences
+held as scoped; sabotages (l), (m), (i) reproduced; gate census
+22 = 22; battery; validator; hygiene; footer 66 = 60 + 4° + 2;
+"physically inert" held without overclaim; the ungated "observed
+0.2436" weighed and held (bracketed by committed gates);
+Checks 7/8; A242 accurate.
+
+**Post-sweep record:** verifier 22/0 exit 0; sabotage (n) trips
+21/1 with clean 22/0 baselines; the 1ai verifier 10/0; validator
+clean on 12 files; hygiene zero.
+
+**Trajectory: regrade landed (777959a) → 146 1M+3m+2c (swept,
+126f2ba) → 147 1M+1m (swept, 33b91a8) → 148 NOT CONVERGED
+1M+2m+2c (swept) → round 149 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

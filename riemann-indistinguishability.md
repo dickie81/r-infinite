@@ -2720,11 +2720,18 @@ and the ½ has a mechanism, now identified and gated: **the
 strip-boundary read is the line read analytically continued by ±i/2
 and averaged** — K_s(0, γ) = ½[K̂_s(γ+i/2) + K̂_s(γ−i/2)], K̂_s the
 on-line kernel's continuation (exact; machine precision). A
-discriminating instance's boundary negativity therefore lives within
-≈ ½ of its line-tangency for tangencies above the continuation
-threshold ≈ ¼ (round 147 F1: below it the window detaches — the
-mechanism's 1/16 − γ₀² sign flip — while the pairwise case, tangency
-pinned AT zero, keeps its independently proved ceiling); a PAIR's
+discriminating instance's boundary negativity is tethered to its
+line-tangency for tangencies above the continuation threshold ≈ ¼
+(round 147 F1: below it the window detaches — the mechanism's
+1/16 − γ₀² sign flip — while the pairwise case, tangency pinned AT
+zero, keeps its independently proved ceiling), with an ASYMMETRIC
+reach that decays toward ½ only with height (round 148 F1 — the
+round-147 sweep wrongly attached the "≈ ½" distance claim to the
+containment threshold: the observed upper reach is ≈ 0.91 at the
+threshold, 0.77 at aim ½, 0.55 at 1.5, and −0.583/+0.432 at γ₁ —
+gated as an envelope; the ≈ ½ geometry belongs to the
+asymptotic/physically-relevant regime, as the wall-coordinates
+sentence states); a PAIR's
 tangency is pinned to γ = 0 (the
 two-term numerator is degree 1 in γ², and a degree-1 polynomial
 nonnegative on [0, ∞) cannot vanish at an interior point — gated by
@@ -2755,7 +2762,9 @@ aim* ≈ ¼ — the mechanism's own scale: at γ = aim the ±i/2-continued
 numerator is (−¼ ± i·aim)², with real part 1/16 − aim² changing sign
 at ¼ (observed threshold 0.2436; below it the window persists but
 detaches from the tangency — the aim-0.1 instance's window is
-[0.211, 1.123], excluding its tangency; the below-threshold sign is
+[0.2108, 1.1229] (inward-rounded; round 148 F2 — the round-147
+sweep reintroduced the half-ulp-outward class on this sibling
+window), excluding its tangency; the below-threshold sign is
 gated — round 147 F1) — and is not exactly centred on it); (2)
 "classically vacant" dies for relocated windows: the aimed
 instance's Weil positivity is enforced not by vacancy but by the

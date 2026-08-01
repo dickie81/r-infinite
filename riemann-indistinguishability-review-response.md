@@ -2920,3 +2920,28 @@ baselines 22/0; 1ai verifier 10/0; validator clean; hygiene zero.
 **Trajectory: regrade landed (777959a) → 146 1M+3m+2c (swept,
 126f2ba) → 147 NOT CONVERGED 1M+1m (swept) → round 148
 (convergence test) next.**
+
+# Round 148: convergence test on the round-147 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 2 minors, 2 cosmetics); the distance claim wrongly scoped; the reach envelope gated; round 149 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F148-1 (MAJOR) — the distance universal ("within ≈ ½ of its line-tangency") scoped at the CONTAINMENT threshold, but the reach is asymmetric and decays toward ½ only with height (0.91 at aim 0.244 inside the stated scope; 0.77 at the gated aim 0.5) | **Accepted; rewritten as tethering + an asymmetric reach envelope, stated in place and gated in g19 (five envelope brackets); the ≈ ½ geometry assigned to the asymptotic/physically-relevant regime** | paper + verifier |
+| F148-2 (minor) — the half-ulp-outward class reintroduced on the aim-0.1 window (F(1.123) > 0); third instance of the class | **Accepted; inward-rounded [0.2108, 1.1229] on both surfaces, recurrence disclosed** | paper + verifier |
+| F148-3 (minor) — the below-threshold gate's aim and probe were independent literals; silent decoupling pass demonstrated (ub = 0.25, probe 0.1: 22/0) | **Accepted; coupled through one variable; sabotage (n) demonstrates the bite (21/1)** | verifier |
+| F148-4 (cosmetic) — docstring g19/g17 gate-list entries stale | **Accepted; brought current** | verifier |
+| F148-5 (cosmetic) — the sabotage record three rounds stale | **Accepted; (i'), (k), (l), (m), (n) appended** | verifier |
+
+Held: the threshold mathematics independently recomputed (aim* =
+0.24357424; no exactly-¼ overclaim); containment verified at 100+
+aims (the aim-5000 float artifact resolved in the surfaces'
+favor at 50 dps); the endpoint fix exact; the residual-universal
+hunt clean; three of four carrier sentences held as scoped;
+sabotages reproduced; census 22 = 22; battery; validator;
+hygiene; footer; Checks 7/8; A242 accurate.
+
+Post-sweep: verifier 22/0; sabotage (n) 21/1 with clean 22/0
+baselines; 1ai verifier 10/0; validator clean; hygiene zero.
+
+**Trajectory: regrade (777959a) → 146 1M+3m+2c → 147 1M+1m →
+148 NOT CONVERGED 1M+2m+2c (swept) → round 149 (convergence
+test) next.**
