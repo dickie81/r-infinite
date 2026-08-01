@@ -2546,7 +2546,10 @@ exists — the profile map (committed form, z = d+½) carries lattice
 configurations to genuine self-convolutions reaching the
 admissible-discriminating cone; the unforced link is exactly the
 positivity, which 1aj locates at the RH wall: on every reached instance
-the sign is settled by the classical zero count below height ½, and for
+the sign is settled by the classical zero count below height ½
+("reached" = 1aj's pairwise instances; the post-certification regrade
+widens the family — relocated windows rest on the verified on-line
+zeros; scoping added round 146 F4), and for
 the dense class it is RH itself. The route is traveled to the wall;
 these sentences were true when written.* *Honest scope:* W0–W2 are theorems
 (elementary inequalities over the committed arguments; W0's proof is
@@ -2726,11 +2729,18 @@ tangency relocates to any chosen height. The aimed instance on
 (d₁, d₂, d₃) = (4, 5, 6) with tangency at γ₁ = 14.134725 — the first
 zero's height — is admissible (L ∝ (u − γ₁²)² over positive
 denominators, ≥ 0 with the interior double zero) and its boundary
-function is negative exactly on a window [γ₁ − 0.59, γ₁ + 0.44]
-CONTAINING the first zero (gated). Consequences, honestly stated:
-(1) the committed family's discriminating reach is NOT confined
-below height ½ — every height is reachable, each through a window of
-half-width ≈ ½ centred on a relocatable line-tangency; (2)
+function is negative on the window [γ₁ − 0.583, γ₁ + 0.432] =
+[13.5513, 14.5670] CONTAINING the first zero (gated; endpoints
+corrected round 146 F2 — the regrade's first draft quoted
+outward-rounded endpoints under an "exactly", and the boundary
+function is positive at those quoted points). Consequences, honestly
+stated: (1) the committed family's discriminating reach is NOT
+confined below height ½ — the tangency relocates to any chosen
+height (exact linear algebra: the 3×3 solve yields P(u) = (u − u₀)²
+identically in the aim), and window-nonemptiness-with-aim-containment
+is gated at γ₁ AND at a spread of other aims (0.5, 3, 100 — the
+universal scoped and multi-aim gated, round 146 F3; the window
+CONTAINS its aim but is not exactly centred on it); (2)
 "classically vacant" dies for relocated windows: the aimed
 instance's Weil positivity is enforced not by vacancy but by the
 verified on-line zeros themselves (each contributes L(γᵢ) ≥ 0, the

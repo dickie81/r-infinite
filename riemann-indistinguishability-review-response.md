@@ -2874,3 +2874,28 @@ confined below height ½ (counter-gated 22,791-pair scan); the
 sign forced by the classical zero count; the RH wall located at
 exact coordinates and claimed in neither direction. Next hostile
 round on the next substantive paper change.**
+
+# Round 146: hostile review on commit 777959a (the 1aj regrade) — NOT CONVERGED (1 MAJOR, 3 minors, 2 cosmetics); the regrade's own sweep hygiene; round 147 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F146-1 (MAJOR) — the struck universal still LIVE in the verifier's READING block ("every discriminating instance's negative set is confined below height 1/2"), contradicting A240's only-inside-strike-frame claim; the un-swept-print class recurring | **Accepted; the READING block rewritten to the regraded story with the resweep disclosed in-block; the lesson re-recorded** | verifier |
+| F146-2 (minor) — window endpoints outward-rounded under an "exactly"; boundary positive at both quoted endpoints | **Accepted; corrected to [γ₁ − 0.583, γ₁ + 0.432] = [13.5513, 14.5670] on both surfaces, defect disclosed** | paper + verifier |
+| F146-3 (minor) — "every height is reachable" gated at one height | **Accepted; sentence rescoped (exact-linear-algebra relocation; window claim gated at γ₁ + aims 0.5/3/100; contains-not-centred noted) and g19 multi-aim extended; bite shown by the new sabotage (k)** | paper + verifier |
+| F146-4 (minor) — the 1ai marker's "every reached instance … classical zero count below height ½" unswept | **Accepted; the scoping parenthetical added in the marker** | paper |
+| F146-5 (cosmetic) — docstring g17 entry stale vs the anchor swap | **Accepted; updated** | verifier |
+| F146-6 (cosmetic) — sabotage-record letter (h) skipped | **Accepted; noted** | verifier |
+
+Held: the regrade's mathematics in full (mechanism symbolically
+verified; pinning airtight; relocation rebuilt from scratch; the
+certified pairwise numbers reproduced by the mechanism); strike
+accuracy; the 1ai distinction maintained; no-RH scoping
+unweakened; sabotages reproduced; gate census 22 = 22; battery;
+validator; hygiene; footer; Checks 7/8.
+
+Post-sweep: verifier 22/0; sabotages (i') and (k) trip 21/1 with
+clean 22/0 baselines; the residual-universal hunt clean; the 1ai
+verifier 10/0; validator clean; hygiene zero.
+
+**Trajectory: regrade landed (777959a) → 146 NOT CONVERGED
+1M+3m+2c (swept) → round 147 (convergence test) next.**

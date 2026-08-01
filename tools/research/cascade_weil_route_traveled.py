@@ -109,9 +109,14 @@ tangency + continuation distance 1/2.  With THREE committed
 kernels the tangency relocates to any height: the aimed instance
 on (4, 5, 6) with tangency at gamma_1 = 14.134725 is admissible
 (L proportional to (u - gamma_1^2)^2 over positive denominators)
-and its boundary window [gamma_1 - 0.59, gamma_1 + 0.44] CONTAINS
-the first zero (g19).  Every height is reachable through a window
-of half-width ~ 1/2 about a relocatable tangency; "classically
+and its boundary window [gamma_1 - 0.583, gamma_1 + 0.432] =
+[13.5513, 14.5670] CONTAINS the first zero (g19; endpoints
+corrected round 146 F2 -- the first draft quoted outward-rounded
+endpoints under an "exactly").  The tangency relocates to any
+chosen height (exact linear algebra, identical in the aim), with
+window-nonemptiness-and-aim-containment multi-aim gated (0.5, 3,
+100 -- round 146 F3; the window contains its aim but is not
+exactly centred on it); "classically
 vacant" dies for relocated windows -- their positivity is
 enforced by the verified on-line zeros (the grazed zero
 contributing ~ 0), so the sign statement stays RH-content-free
@@ -166,8 +171,11 @@ g19-g20):
        g20 the mechanism identity: boundary = line continued by
        +/- i/2, averaged, machine-exact.
   V5 -- g16 the two 1ai net-state markers anchored in the paper;
-       g17 1aj's key sentences anchored (incl. R2''s monotonicity
-       and the vacant height-1/2 BAND -- F9's disc/band fix);
+       g17 1aj's key sentences anchored AS REGRADED (entry updated
+       round 146 F5): the edge theorem; the wall with the PAIRWISE
+       scope; the relocatable windows ("including the heights of
+       actual zeros"); the per-zero probe; the wall-stands
+       sentence; R2''s monotonicity; the no-role-of-the-action;
        g18 the footer census (the new script backticked; "60
        scripts cited in place"; "Theorems 1i--1aj").
 
@@ -204,7 +212,9 @@ Nbound's a = s(s-1) -> s*s in the copy -> g6b FAIL (tie
 v^2+3u -> g6b FAIL (tie 2.7e-03), 19/1, exit 1 -- both had
 passed 20/0 before the tie existed.  Round 145 F1 added s = 217
 to the tie grid, closing the s-conditional decoupling escape.
-At the regrade (the relocatable-windows repair): (i) GAMMA_AIM
+At the regrade (the relocatable-windows repair; the letter (h)
+was skipped when these were added -- sequence gap noted round 146
+F6): (i) GAMMA_AIM
 shifted to 10.134725 in the copy -> g19 FAILS (the window no
 longer contains the RECOMPUTED first zero), 21/1, exit 1; (j)
 the paper's per-zero-probe sentence perturbed mid-anchor -> g17
@@ -496,16 +506,33 @@ M2 = np.array([[2 * 4.5, 2 * 5.5],
                [2 * 4.5 * 5.5 ** 2, 2 * 5.5 * 4.5 ** 2]])
 c2 = np.linalg.solve(M2, np.array([1.0, -u0]))
 L2_at_0 = c2[0] * 2 * 4.5 / 4.5 ** 2 + c2[1] * 2 * 5.5 / 5.5 ** 2
-gate("g19 the aimed three-term instance (regrade): tangency relocated "
+# round 146 F3: the relocation universal is multi-aim gated -- for a
+# spread of aims the solved instance must be admissible (relative L
+# floor) with the boundary negative AT the aim itself.
+multi_ok = True
+for aim in (0.5, 3.0, 100.0):
+    ua = aim * aim
+    ca = np.linalg.solve(M3, np.array([1.0, -2 * ua, ua * ua]))
+    La = lambda g: sum(ca[i] * 2 * WS3[i] / (WS3[i] ** 2 + g * g)  # noqa: E731,B023
+                       for i in range(3))
+    Fa = lambda g: sum(ca[i] * K(WS3[i] + .5, 0, g)  # noqa: E731,B023
+                       for i in range(3))
+    ga = np.linspace(0.0, aim + 60.0, 200001)
+    Lav = np.array([La(g) for g in ga])
+    multi_ok &= Lav.min() > -1e-12 * max(1.0, Lav.max())
+    multi_ok &= Fa(aim) < 0
+gate("g19 the aimed three-term instances (regrade): tangency relocated "
      "to gamma_1 = 14.134725 on committed (4, 5, 6) -- L >= 0 with the "
      "interior double zero; the boundary window contains the RECOMPUTED "
-     "first zero; the 2-term aim FAILS (L(0) < 0, the pinning)",
+     "first zero; the 2-term aim FAILS (L(0) < 0, the pinning); AND the "
+     "relocation universal multi-aim gated (aims 0.5, 3, 100: "
+     "admissible, boundary negative at the aim -- round 146 F3)",
      L3v.min() > -1e-9 and abs(L3(GAMMA_AIM)) < 1e-9
      and len(neg) > 0 and neg.min() < g1 < neg.max()
      and (neg.min() > GAMMA_AIM - 0.7) and (neg.max() < GAMMA_AIM + 0.5)
-     and L2_at_0 < 0,
+     and L2_at_0 < 0 and multi_ok,
      f"window [{neg.min():.3f}, {neg.max():.3f}] contains {g1:.4f}; "
-     f"2-term L(0) = {L2_at_0:.2e}")
+     f"2-term L(0) = {L2_at_0:.2e}; multi-aim {multi_ok}")
 ok = True
 for (s, g) in ((6, 1.0), (5, 0.3), (7, 14.0), (218, 2.0), (6, 0.0)):
     w = s - 0.5
@@ -562,16 +589,22 @@ print("observer band-to-edge fraction 1/243, raw width 1/297), and the")
 print("cone's other edge is blind by the same theorem.  R3: the edge")
 print("instance is a genuine self-convolution of an explicit L1/L2")
 print("function (dense-class membership not claimed, round 143 F6).")
-print("R4: every discriminating instance's negative set is confined")
-print("below height 1/2 (edge by the minimum principle, band interior")
-print("by domination, round 143 F3; exhaustive counter-gated scan over")
-print("22791 pairs; sup gamma_b = 0.49999 at (216,")
-print("217) -- the half-shift approached); the value W = 0.0780686 > 0")
-print("by the bridge identity; the sign is forced by the classical")
-print("zero count below 1/2 (first zero 14.13; no real zeros), NOT by")
-print("cascade structure -- action-positivity plays no role.  The wall:")
+print("R4 (REGRADED -- the READING resweep, round 146 F1: the first")
+print("regrade left the struck universal live in this block): the")
+print("PAIRWISE instances' negative sets are confined below height 1/2")
+print("(minimum principle + domination on the pairwise slice;")
+print("exhaustive counter-gated scan over 22791 pairs; sup gamma_b =")
+print("0.49999 -- the half-shift, which is the +/- i/2 continuation")
+print("distance, g20).  The pinning is a two-term artifact: three")
+print("committed kernels relocate the tangency to any aim (gated at")
+print("gamma_1 = 14.134725 and a spread of other aims, g19); the aimed")
+print("window CONTAINS the first zero, so 'classically vacant' holds")
+print("only pairwise, and relocated windows rest on the verified")
+print("on-line zeros.  W = 0.0780686 > 0 by the bridge identity; the")
+print("sign is forced by classical zero-location data, NOT by cascade")
+print("structure -- action-positivity plays no role.  The wall:")
 print("extending forced positivity to the dense class IS RH (Weil's")
 print("criterion, classical); unclaimable by the program's rule.  The")
-print("route terminates at the wall, at exact coordinates; no RH")
-print("content is claimed in either direction.")
+print("route terminates at the wall -- widened, surveyed, and claimed")
+print("in neither direction.")
 sys.exit(0 if n_fail == 0 else 1)

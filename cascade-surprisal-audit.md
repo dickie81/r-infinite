@@ -12008,6 +12008,86 @@ solve a 3×3 system over committed w's).
 (this addendum) → round 146 (hostile review on the regrade, per
 protocol) spawned on this commit.**
 
+## Addendum 241: round 146 (hostile review on 777959a, the 1aj regrade) — NOT CONVERGED, 1 MAJOR + 3 minors + 2 cosmetics; the regrade's own sweep hygiene; swept; round 147 next
+
+Round 146 (fresh-context subagent, session model) attacked the
+post-certification regrade. The regrade's MATHEMATICS held in
+full: the mechanism identity verified symbolically and by hand
+(both sides equal 2wA/(A²+γ²), A = w²+γ²−¼); the pinning argument
+airtight including the degenerate case; the relocation
+construction rebuilt from scratch to the identical window with
+the mechanism reproducing the certified pairwise numbers exactly
+(γ_b = 0.4806, sup 0.499989); the reviewer's own multi-aim probes
+(0.3 through 10⁴, large aims in exact arithmetic) all confirmed
+the relocation universal. The defects were all sweep hygiene of
+the regrade itself; all lead-verified and swept:
+
+**F146-1 (MAJOR, accepted):** the struck universal still shipped
+LIVE in the verifier's READING block — "R4: every discriminating
+instance's negative set is confined below height 1/2" printed
+unscoped on every run, contradicting A240's "the struck universal
+remains only inside its strike frame". The un-swept-print class
+again (the recorded lesson — a regrade's sweep must check the
+edited file's own printed output — violated once more; now
+re-recorded with this instance). The READING block rewritten to
+the regraded story (pairwise confinement; relocatable windows;
+the wall widened), with the resweep disclosed in the block
+itself.
+
+**F146-2 (minor, accepted):** the window endpoints were
+outward-rounded under an "exactly" — the paper said "negative
+exactly on [γ₁ − 0.59, γ₁ + 0.44]" while the true window is
+[γ₁ − 0.583, γ₁ + 0.432] = [13.5513, 14.5670] and the boundary
+function is POSITIVE at both quoted endpoints (+5.1e-07,
++4.5e-07; lead-verified by root-finding). Corrected on both
+surfaces with the defect disclosed.
+
+**F146-3 (minor, accepted):** "every height is reachable" was a
+universal gated at exactly one height. Swept both ways: the
+sentence rescoped (the tangency relocates by exact linear
+algebra, identical in the aim; the window claim gated at γ₁ AND a
+spread of aims; the window contains its aim but is not exactly
+centred on it — the reviewer's annulus observation at aim 0.5),
+and g19 extended with a multi-aim loop (aims 0.5, 3, 100:
+admissibility at a relative floor + boundary negative AT the
+aim). The multi-aim bite demonstrated by the new sabotage (k):
+decoupling the solve target from the aim (ua = aim² + 5) trips
+g19, 21/1, exit 1.
+
+**F146-4 (minor, accepted):** the 1ai net-state marker's "on
+every reached instance the sign is settled by the classical zero
+count below height ½" carried the same whole-family-readable form
+unswept. The scoping parenthetical added in the marker ("reached"
+= 1aj's pairwise instances; relocated windows rest on the
+verified on-line zeros).
+
+**F146-5/6 (cosmetics, accepted):** the docstring's g17 entry
+updated for the anchor swap; the sabotage record's skipped letter
+(h) noted.
+
+**Held (reviewer, with evidence):** the mechanism, pinning, and
+relocation mathematics in full; strike accuracy verbatim against
+9e3d2d7 with each struck universal exactly once inside its frame;
+no gate anchoring struck text; the 1ai blindness/strip-avoidance
+distinction maintained (committed reads vs constructed
+combinations); the no-RH scoping unweakened; sabotages (i), (j),
+(d) reproduced; gate census 22 = 22 (the AST count, with the grep
+surplus identified as def + docstring prose); battery samples
+green; validator; hygiene; footer 66 = 60 + 4° + 2 with no edit
+needed; Checks 7/8 including γ₁ as properly-classical falsifiable
+input (g19 checks containment against the RECOMPUTED zero).
+
+**Post-sweep record:** verifier 22/0 exit 0 (g19 detail now
+carries the multi-aim census); sabotages on a full-tree copy at
+the swept state: (i') GAMMA_AIM shift → 21/1 exit 1; (k) NEW
+multi-aim decoupling → 21/1 exit 1; clean baselines 22/0 around
+each; the residual-universal hunt clean (zero live occurrences
+outside strike/disclosure frames); the 1ai verifier 10/0;
+validator clean on 12 files; hygiene zero.
+
+**Trajectory: regrade landed (777959a) → 146 NOT CONVERGED
+1M+3m+2c (swept) → round 147 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
