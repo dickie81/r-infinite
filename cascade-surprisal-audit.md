@@ -12219,6 +12219,62 @@ clean on 12 files; hygiene zero.
 126f2ba) → 147 1M+1m (swept, 33b91a8) → 148 NOT CONVERGED
 1M+2m+2c (swept) → round 149 (convergence test) next.**
 
+## Addendum 244: round 149 (convergence test on the round-148 sweep) — NOT CONVERGED, 0 MAJORs + 1 minor + 1 cosmetic; the reach's true shape (crossing, minimum, from-below approach); swept; round 150 next
+
+Round 149 (fresh-context subagent, session model) attacked the
+round-148 sweep. Every quantitative claim held (all five envelope
+brackets recomputed at 50 dps; both windows verified strictly
+inward at the tightest 4-dp values; the coupling verified in
+source; all sabotages reproduced). Two findings, lead-verified
+and swept:
+
+**F149-1 (minor, accepted):** the round-148 replacement sentence's
+trend verb — "decays toward ½ only with height" — is backwards on
+the physically relevant half of its domain. The upper reach runs
+0.912 at the threshold, crosses ½ at aim ≈ 2.04 (lead-verified
+2.0387), bottoms at ≈ 0.412 near aim ≈ 6.74 (lead-verified
+0.411842 at 6.7441), then approaches ½ FROM BELOW — RISING with
+height throughout the zero-height regime (0.4189 at 10, 0.4322 at
+γ₁, 0.4762 at 50, 0.4878 at 100). A quantity cannot "decay toward
+½" and land beneath it. Swept on all three carriers (paper
+sentence, docstring, code comment): the shape now stated —
+crossing, minimum, from-below rising approach — and PINNED in g19
+(three new subgates: reach crosses ½ in (2.0, 2.1); the minimum
+0.405–0.415 at 6.744; the from-below ordering
+reach(γ₁) < reach(50) < ½ with reach(50) ∈ (0.47, 0.49)). The
+F148-1-class lesson, second instance: a trend adverb is a
+quantitative claim and must be gated like one.
+
+**F149-2 (cosmetic, accepted):** the envelope list's subject-noun
+("the observed upper reach") was wrong for its final item (−0.583
+is the lower reach); corrected within the F1 rewrite.
+
+**Held (reviewer, with evidence):** all five envelope brackets
+exact at 50 dps with no outward rounding anywhere; the aim-0.1
+window's quotes the TIGHTEST inward 4-dp values; the threshold
+consistent; tethering and detachment verified across the domain;
+the half-WIDTH sentences held as a distinct true quantity
+(0.456–0.508); the coupling and all three sabotage reproductions
+(n, envelope-bracket shift, GAMMA_AIM); the envelope gate tied to
+the live kernel (a broken kernel shifts the reaches — demonstrated
+by sabotage); the residual hunt clean; census 22 = 22; battery;
+validator; hygiene; footer; three tellings one story; A243
+accurate; Checks 7/8 clean.
+
+**Post-sweep record:** verifier 22/0 exit 0; new sabotages on
+full-tree copies: (o) the from-below bracket's aim shifted
+50 → 5 → g19, 21/1, exit 1; (p) the shape sentence mid-anchor
+(BELOW → ABOVE) — DISCLOSED PRE-COMMIT CATCH: the first attempt
+did not trip because the new shape sentence was not yet
+g17-anchored (my own sweep gap, caught in the sabotage pass); the
+anchor added, the redone sabotage trips g17, 21/1, exit 1. Clean
+baselines 22/0 around each. The 1ai verifier 10/0; validator
+clean on 12 files; hygiene zero.
+
+**Trajectory: regrade landed (777959a) → 146 1M+3m+2c (swept) →
+147 1M+1m (swept) → 148 1M+2m+2c (swept) → 149 NOT CONVERGED
+0M+1m+1c (swept) → round 150 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

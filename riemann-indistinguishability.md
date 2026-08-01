@@ -2725,13 +2725,20 @@ line-tangency for tangencies above the continuation threshold ≈ ¼
 (round 147 F1: below it the window detaches — the mechanism's
 1/16 − γ₀² sign flip — while the pairwise case, tangency pinned AT
 zero, keeps its independently proved ceiling), with an ASYMMETRIC
-reach that decays toward ½ only with height (round 148 F1 — the
-round-147 sweep wrongly attached the "≈ ½" distance claim to the
-containment threshold: the observed upper reach is ≈ 0.91 at the
-threshold, 0.77 at aim ½, 0.55 at 1.5, and −0.583/+0.432 at γ₁ —
-gated as an envelope; the ≈ ½ geometry belongs to the
-asymptotic/physically-relevant regime, as the wall-coordinates
-sentence states); a PAIR's
+reach whose upper branch runs from ≈ 0.91 at the threshold down
+through ½ (crossing at aim ≈ 2.04), bottoms at ≈ 0.412 near aim
+≈ 6.74, and approaches ½ FROM BELOW — rising with height
+throughout the zero-height regime (round 149 F1: the round-148
+rewrite said "decays toward ½ only with height", backwards on the
+physically relevant half — the shape is now stated, and the
+crossing, the minimum, and the from-below ordering are gated.
+Round 148 F1's record stands: the round-147 sweep had wrongly
+attached the "≈ ½" distance claim to the containment threshold;
+the observed reaches — upper ≈ 0.91 at the threshold, 0.77 at
+aim ½, 0.55 at 1.5, and at γ₁ upper +0.432 with lower −0.583,
+the list's subject-noun corrected round 149 F2 — are gated as an
+envelope; the ≈ ½ geometry belongs to the asymptotic regime, as
+the wall-coordinates sentence states); a PAIR's
 tangency is pinned to γ = 0 (the
 two-term numerator is degree 1 in γ², and a degree-1 polynomial
 nonnegative on [0, ∞) cannot vanish at an interior point — gated by

@@ -124,8 +124,12 @@ mechanism's 1/16 - aim^2 sign flip, observed 0.2436; below it the
 window persists but DETACHES from the tangency, e.g. aim 0.1 ->
 window [0.2108, 1.1229] (inward-rounded round 148 F2); the
 below-threshold opposite sign gated -- round 147 F1 -- the reach
-envelope pinned (upper reach ~ 0.91 at the threshold decaying to
-~ 1/2 with height, asymmetric -- round 148 F1), and the window is
+envelope pinned (upper reach ~ 0.91 at the threshold, down
+through 1/2 at aim ~ 2.04, minimum ~ 0.412 near aim ~ 6.74, then
+approaching 1/2 FROM BELOW, rising through the zero-height
+regime -- shape corrected round 149 F1, the round-148 "decaying
+to ~ 1/2" having been backwards there; asymmetric -- round 148
+F1), and the window is
 not exactly centred on its
 aim); "classically
 vacant" dies for relocated windows -- their positivity is
@@ -182,7 +186,9 @@ g19-g20):
        2-term aim fails (the pinning), the multi-aim loop (0.5,
        3, 100 -- round 146 F3), the below-threshold opposite
        sign at aim 0.1 with aim/probe coupled (rounds 147
-       F1/148 F3), and the reach envelope (round 148 F1);
+       F1/148 F3), the reach envelope (round 148 F1), and the
+       reach SHAPE -- crossing, minimum, from-below ordering
+       (round 149 F1);
        g20 the mechanism identity: boundary = line continued by
        +/- i/2, averaged, machine-exact.
   V5 -- g16 the two 1ai net-state markers anchored in the paper;
@@ -245,7 +251,14 @@ shift re-run against the extended gate -> g19, 21/1, exit 1;
 (n) the coupled below-threshold aim shifted to 0.5 (above the
 threshold, where the sign flips) -> g19, 21/1, exit 1 -- the
 F148-3 coupling's bite (the record section brought current,
-round 148 F5).  Clean baselines (18/0 at landing, 20/0
+round 148 F5).  At the round-149 sweep (the reach-shape repair):
+(o) the from-below bracket's aim shifted 50 -> 5 (reach ~0.42
+leaves (0.47, 0.49)) -> g19, 21/1, exit 1; (p) the paper's shape
+sentence perturbed mid-anchor (BELOW -> ABOVE) -- DISCLOSED
+PRE-COMMIT CATCH: the first attempt did NOT trip (22/0) because
+the shape sentence was not yet g17-anchored; the anchor was
+added and the redone sabotage trips g17, 21/1, exit 1.  Clean
+baselines (18/0 at landing, 20/0
 after round 144, 22/0 thereafter) exit 0 before and after
 each.  Twenty-two gates (count checked against the gate()
 census; the count defect's history noted).
@@ -562,9 +575,13 @@ ub = aimb * aimb
 cb = np.linalg.solve(M3, np.array([1.0, -2 * ub, ub * ub]))
 Fb = lambda g: sum(cb[i] * K(WS3[i] + .5, 0, g) for i in range(3))  # noqa: E731
 multi_ok &= Fb(aimb) > 0
-# round 148 F1: the reach ENVELOPE gated -- the upper reach from the
-# tangency decays toward 1/2 only with height (asymmetric near the
-# threshold); the quoted envelope numbers pinned.
+# rounds 148 F1 / 149 F1: the reach ENVELOPE gated -- the upper
+# reach runs from ~0.91 at the threshold down THROUGH 1/2 (crossing
+# at aim ~2.04), bottoms ~0.412 near aim ~6.74, then approaches 1/2
+# FROM BELOW (rising through the zero-height regime; the round-148
+# comment said "decays toward 1/2", backwards there).  The envelope
+# numbers, the crossing, the minimum, and the from-below ordering
+# are pinned.
 from scipy.optimize import brentq as _brentq  # noqa: E402
 
 
@@ -579,8 +596,15 @@ def _reach_hi(aim):
 env_ok = 0.90 < _reach_hi(0.244) < 0.92
 env_ok &= 0.76 < _reach_hi(0.5) < 0.78
 env_ok &= 0.54 < _reach_hi(1.5) < 0.56
-env_ok &= 0.42 < _reach_hi(GAMMA_AIM) < 0.44
+r_g1 = _reach_hi(GAMMA_AIM)
+env_ok &= 0.42 < r_g1 < 0.44
 env_ok &= 0.57 < GAMMA_AIM - neg.min() < 0.59
+# round 149 F1: the SHAPE pinned -- the crossing through 1/2, the
+# minimum, and the from-below rising approach.
+env_ok &= _reach_hi(2.0) > 0.5 > _reach_hi(2.1)
+env_ok &= 0.405 < _reach_hi(6.744) < 0.415
+r_50 = _reach_hi(50.0)
+env_ok &= r_g1 < r_50 < 0.5 and 0.47 < r_50 < 0.49
 multi_ok &= env_ok
 gate("g19 the aimed three-term instances (regrade): tangency relocated "
      "to gamma_1 = 14.134725 on committed (4, 5, 6) -- L >= 0 with the "
@@ -591,7 +615,9 @@ gate("g19 the aimed three-term instances (regrade): tangency relocated "
      "below-threshold OPPOSITE sign at aim 0.1 gated, aim/probe "
      "coupled -- rounds 147 F1/148 F3; the reach ENVELOPE pinned: "
      "0.91 at the threshold, 0.77 at 0.5, 0.55 at 1.5, "
-     "-0.583/+0.432 at gamma_1 -- round 148 F1)",
+     "-0.583/+0.432 at gamma_1 -- round 148 F1; the SHAPE pinned: "
+     "crossing 1/2 in (2.0, 2.1), minimum ~0.412 at 6.744, rising "
+     "from below at height (r_g1 < r_50 < 1/2) -- round 149 F1)",
      L3v.min() > -1e-9 and abs(L3(GAMMA_AIM)) < 1e-9
      and len(neg) > 0 and neg.min() < g1 < neg.max()
      and (neg.min() > GAMMA_AIM - 0.7) and (neg.max() < GAMMA_AIM + 0.5)
@@ -627,6 +653,8 @@ ok &= ("relocatable to any height — including the heights of actual "
        "zeros" in paper)
 ok &= ("containing it for tangencies above the continuation threshold "
        "≈ ¼" in paper)
+ok &= ("approaches ½ FROM BELOW — rising with height throughout the "
+       "zero-height regime" in paper)
 ok &= "a genuine per-zero sensitivity probe" in paper
 ok &= "the wall stands where it stood" in paper
 ok &= "action-positivity plays no role in the sign" in paper

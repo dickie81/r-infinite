@@ -2945,3 +2945,26 @@ baselines; 1ai verifier 10/0; validator clean; hygiene zero.
 **Trajectory: regrade (777959a) → 146 1M+3m+2c → 147 1M+1m →
 148 NOT CONVERGED 1M+2m+2c (swept) → round 149 (convergence
 test) next.**
+
+# Round 149: convergence test on the round-148 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); the reach's true shape; round 150 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F149-1 (minor) — the round-148 replacement's trend verb ("decays toward ½ only with height") backwards on the physically relevant half: the reach crosses ½ at aim ≈ 2.04, bottoms at ≈ 0.412 near ≈ 6.74, then RISES toward ½ from below throughout the zero-height regime | **Accepted; the shape stated on all three carriers and pinned in g19 (crossing in (2.0, 2.1); minimum 0.405–0.415 at 6.744; from-below ordering reach(γ₁) < reach(50) < ½); the shape sentence g17-anchored (after a disclosed pre-commit catch — the first sabotage attempt showed it unanchored)** | paper + verifier |
+| F149-2 (cosmetic) — the envelope list's subject-noun wrong for its lower-reach item | **Accepted; corrected within the rewrite** | paper |
+
+Held: every quantitative claim of the round-148 sweep (all five
+envelope brackets at 50 dps; both windows tightest-inward; the
+coupling; all sabotage reproductions; the envelope gate tied to
+the live kernel); the half-width sentences as a distinct true
+quantity; the residual hunt clean; census 22 = 22; battery;
+validator; hygiene; footer; three tellings one story; A243
+accurate; Checks 7/8.
+
+Post-sweep: verifier 22/0; sabotages (o) 21/1 and (p) 21/1 (after
+the disclosed anchor addition), clean baselines 22/0; 1ai
+verifier 10/0; validator clean; hygiene zero.
+
+**Trajectory: regrade (777959a) → 146 1M+3m+2c → 147 1M+1m →
+148 1M+2m+2c → 149 NOT CONVERGED 0M+1m+1c (swept) → round 150
+(convergence test) next.**
