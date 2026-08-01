@@ -1754,7 +1754,7 @@ committed-vs-observed object). ~~and it is new to the record here~~ **[struck
 round 116 (F2, MAJOR): part5 already forms the composite at 4 s.f. — ω_b^cas =
 (1/2π²)×0.6678² = 0.02259 — and ratios it to Planck's 0.02237 inside the
 sound-horizon proof, with the prose "the cascade's (ω_b, ω_m) land essentially on
-top of Planck's 2018 values." What is new here is the seven-digit value and the
+top of Planck's 2018 values["], the source continuing] What is new here is the seven-digit value and the
 σ-grading as a headline comparison, not the object.]** *(iii) The
 census, with the two imports.* n_γ = (2ζ(3)/π²)(kT/ħc)³ = **410.73 cm⁻³**; n_b
 = Ω_b ρ_crit/m_p = 0.2537 m⁻³; the baryon-to-photon ratio **η = 6.176×10⁻¹⁰**.
@@ -1764,10 +1764,19 @@ mean-mass-per-baryon conversion gives 6.127×10⁻¹⁰) the +0.98% is **exactly
 Ω_b h² deviation carried through — the same comparison re-expressed, an identity
 declared, not gated** (the first draft's "gated" label sat on a tautology gate,
 removed); the one **independent** head-count-level comparison is BBN deuterium,
-η₁₀ = 6.10 ± 0.20, against which the cascade sits at **+0.38σ** (gated, the
-dataset named). Within the record's own
-budget geometry — the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc, exactly
-the S_dS budget sphere's radius — the head-counts: **N_b = 4.9×10⁷⁸ baryons,
+η₁₀ = 6.10 ± 0.20 — a conservative recital of the PDG-class BBN concordance
+band, the ±0.20 covering the nuclear-rate systematic spread — against which the
+cascade sits at **+0.38σ** (gated; round-117 F3: the first sweep wrote "the
+dataset named" while naming only the channel — the band is an uncommitted-obs
+recital, disclosed as such). Within the record's own
+budget geometry — the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc
+~~, exactly the S_dS budget sphere's radius~~ **[struck round 117 (F1, MAJOR):
+false at 1.12% — the sphere carrying exactly the gated budget S_dS has radius
+5381 Mpc (0.56% below r_H), because the budget uses the closure's ρ_Λ =
+(2/π)e^(0.02108)I while r_H uses the Friedmann side with the committed
+subleading Ω_m = 0.31150; the entropy ratio S(r_H)/S_dS = 1.0112 equals the two
+ρ_Λ's ratio identically (gated), and the 1/π-vs-0.31150 spread is part5's own
+acknowledged leading-vs-subleading gap]** — the head-counts: **N_b = 4.9×10⁷⁸ baryons,
 N_γ = 8.0×10⁸⁷ photons, N_ν = 6.6×10⁸⁷ relic neutrinos** (the 9/11 relic
 factor — standard thermal history, the 4/11 entropy transfer with the N_eff = 3
 idealization, +1.5% under N_eff = 3.044, within display — round-116 F7; all

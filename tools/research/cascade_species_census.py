@@ -7,11 +7,15 @@ T_CMB): the fully-committed composite Omega_b h^2 = h^2/(2 pi^2) =
 0.0225892 sits at +1.46 sigma (+0.98%) of Planck 2018
 (TT,TE,EE+lowE+lensing) 0.02237 +-
 0.00015 (zero imports -- both factors the record's own); the
-baryon-to-photon ratio eta = 6.176e-10 vs the observed 6.116e-10
-(+0.98%, exactly the Omega_b h^2 deviation carried through, eta
-proportional to Omega_b h^2 at fixed T); within the record's own
-de Sitter horizon (r_H = (c/H0)/sqrt(Omega_L) = 5411 Mpc): N_b =
-4.9e78, N_gamma = 8.0e87, N_nu = 6.6e87 (the 9/11 factor); the
+baryon-to-photon ratio eta = 6.176e-10 vs the m_p-converted Planck
+reference 6.116e-10 (round-117 F2: the first docstring mislabeled
+this construction "observed"; +0.98% is the Omega_b h^2 deviation
+carried through, an identity DECLARED, not gated) and vs the
+INDEPENDENT BBN-deuterium band eta10 = 6.10 +- 0.20 at +0.38 sigma
+(gated); within the record's own de Sitter horizon (r_H =
+(c/H0)/sqrt(Omega_L) = 5411 Mpc -- NOT exactly the budget sphere,
+whose radius is 5381 Mpc; the 1.0112 entropy ratio gated, round-117
+F1): N_b = 4.9e78, N_gamma = 8.0e87, N_nu = 6.6e87 (9/11); the
 budget hierarchy N_b << N_gamma + N_nu << S_dS = 3.315e122 nats (the
 budget recomputed from the committed closure rho = (2/pi)
 e^(0.02108) I). Under the cascade-leading T_CMB = 2.642 K, eta =
@@ -29,13 +33,18 @@ Gates:
   C2 -- the fully-committed composite: Omega_b h^2 = 0.0225892
         (half-ULP), +1.46 sigma / +0.98% vs 0.02237 +- 0.00015.
   C3 -- the census with the two imports: n_gamma = 410.73 /cm^3;
-        eta = 6.176e-10; eta/eta_obs - 1 = the Omega_b h^2 relative
-        deviation exactly (the proportionality gate); the
-        cascade-leading-T variant 6.78e-10.
+        eta = 6.176e-10; the m_p-converted Planck comparison is a
+        DECLARED identity (round-116 F3 removed the tautology
+        gate); the INDEPENDENT BBN gate (+0.38 sigma); the
+        cascade-leading-T variant with the cube/compound
+        decomposition gated.
   C4 -- the head-counts in the de Sitter horizon: r_H = 5411 Mpc;
         N_b = 4.945e78; N_gamma = 8.007e87; N_nu = (9/11) N_gamma =
-        6.551e87; the hierarchy N_b < N_gamma + N_nu < S_dS.
-  C5 -- surface anchors: part5's baryon-fraction proof sentence and
+        6.551e87; the hierarchy N_b < N_gamma + N_nu < S_dS; the
+        present-event-horizon variant by quadrature (5152 Mpc); the
+        budget-sphere radius gate (5381 Mpc; entropy ratio 1.0112 =
+        the closure-vs-Friedmann rho_Lambda ratio, round-117 F1).
+  C5 -- surface anchors: part5's baryon-fraction proof sentences and
         the T_CMB leading-order line; the 1n(iii) budget passage;
         1ab's key sentences (the composite; the carried-through
         deviation; the disclosed imports; the m_p-uncommitted
@@ -171,9 +180,23 @@ r_eh = C_SI / H0_SI * mp.quad(
     lambda a: 1 / (a ** 2 * sqrt(Om_m / a ** 3 + Om_L)), [1, mp.inf])
 gate("epoch disclosure: present event horizon = 5152 Mpc; N_b there = 4.3e78 "
      "(-14%)",
-     abs(r_eh / mpf("3.0856775814913673e22") - mpf("5152")) < 1
-     and abs(n_b * 4 * pi / 3 * r_eh ** 3 / mpf("4.27e78") - 1) < mpf("5e-3"),
+     abs(r_eh / mpf("3.0856775814913673e22") - mpf("5152")) < mpf("0.5")
+     and abs(n_b * 4 * pi / 3 * r_eh ** 3 / mpf("4.27e78") - 1) < mpf("1.2e-3"),
      f"{mp.nstr(r_eh / mpf('3.0856775814913673e22'), 5)} Mpc")
+# round-117 F1: r_H is NOT the budget sphere -- the entropy ratio and the
+# exact-budget radius, gated; the ratio equals the closure-vs-Friedmann
+# rho_Lambda ratio identically (both computed independently here)
+S_rH = pi * r_H ** 2 * C_SI ** 3 / (G_SI * HBAR)
+r_exact = sqrt(S_dS * G_SI * HBAR / (pi * C_SI ** 3))
+I_inv = (Om(5) / Om(7)) ** 2 * Om(19) * Om(217)
+rho_ratio = ((2 / pi) * mp.e ** mpf("0.02108")) / (2 * Om_L / (pi - 1))
+gate("round-117 F1: S(r_H)/S_dS = 1.0112 = the closure-vs-Friedmann ratio; "
+     "the exact-budget radius = 5381 Mpc (0.56% below r_H)",
+     abs(S_rH / S_dS - mpf("1.0112")) < mpf("5e-5")
+     and abs(S_rH / S_dS - rho_ratio) < mpf("1e-8")
+     and abs(r_exact / mpf("3.0856775814913673e22") - mpf("5381")) < mpf("0.5"),
+     f"ratio {mp.nstr(S_rH/S_dS, 8)}; r_exact "
+     f"{mp.nstr(r_exact/mpf('3.0856775814913673e22'), 6)} Mpc")
 
 print("C5 -- surface anchors")
 paper = open(PAPER, encoding="utf-8").read()
@@ -192,6 +215,8 @@ ok3 &= "exactly the Ω_b h² deviation carried through — the same comparison r
 ok3 &= "grep-verified uncommitted on all twelve tex surfaces" in npp
 ok3 &= "present densities filling the asymptotic budget volume" in npp
 ok3 &= "spliced these into one quotation-marked string that exists nowhere in the source" in npp
+ok3 &= "the sphere carrying exactly the gated budget S_dS has radius 5381 Mpc" in npp
+ok3 &= "the band is an uncommitted-obs recital, disclosed as such" in npp
 gate("1ab's round-116 key sentences anchored (verbatim, case-correct)", ok3)
 import glob
 all_tex = "".join(open(f, encoding="utf-8").read()
@@ -204,7 +229,7 @@ gate("m_p uncommitted: zero 'proton' tokens across all 12 tex surfaces "
      f"hits = {n_proton} across {n_tex_files} files")
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (18 gates; 1 identity declared, not counted -- round-116 F3)")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (19 gates; 1 identity declared, not counted -- round-116 F3)")
 print("READING: the census assembles from committed content plus two")
 print("disclosed imports. Omega_b h^2 = 0.0225892 is fully committed and")
 print("sits at +1.46 sigma; eta = 6.176e-10 (+0.98%, the composite's")

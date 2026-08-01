@@ -2305,3 +2305,15 @@ change.**
 
 **Trajectory: 1ab landed → 116 NOT CONVERGED 3M+5m+2c (swept) →
 round 117 (convergence test) next.**
+
+# Round 117: convergence test on the round-116 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 2 minors, 2 cosmetics); the sweep's added identity claim false at 1.12%; round 118 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F117-1 (MAJOR) — "exactly the S_dS budget sphere's radius" false at 1.12% (the closure-vs-Friedmann ρ_Λ gap; the exact-budget radius 5381 Mpc), ungated | **Accepted; struck-and-annotated with the mechanism**; the entropy ratio and exact radius gated (the ratio = the ρ_Λ ratio identically) | paper + verifier |
+| F117-2 (minor) — the verifier docstring stale against its own code ("observed"; the deleted gate; a 17-gate inventory) | **Accepted; rewritten to the live file** | verifier |
+| F117-3 (minor) — "the dataset named" uncashed on the BBN band | **Accepted; the band recited honestly** (PDG-class concordance; uncommitted-obs disclosed) | paper |
+| F117-4/5 (cosmetics) — a quote-final period; epoch-gate tolerances | **Accepted; swept** | paper + verifier |
+
+**Trajectory: 1ab landed → 116 3M+5m+2c (swept) → 117 NOT CONVERGED
+1M+2m+2c (swept) → round 118 (convergence test) next.**

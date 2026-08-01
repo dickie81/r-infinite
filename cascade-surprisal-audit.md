@@ -9898,8 +9898,9 @@ committed chain"), then broke the write-up:
 - **F8 (minor):** electrons omitted from a "per-species" census.
   **Swept:** N_e = N_p ≈ (1 − Y_p/2)·N_b ≈ 4.3×10⁷⁸ by charge
   neutrality, Y_p disclosed as an import.
-- **F9/F10 (cosmetics):** tolerances tightened to half-ULP (all
-  recitals pass with margin); the dead disjunct replaced by
+- **F9/F10 (cosmetics):** tolerances tightened to half-ULP of the
+  displayed digits (the σ/% gates at their display's ULP class)
+  [scoped on notice, round 117]; the dead disjunct replaced by
   verbatim case-correct anchors; the docstring hierarchy completed
   (+ N_ν); the dataset named (Planck 2018 TT,TE,EE+lowE+lensing).
 
@@ -9908,6 +9909,43 @@ identity); the other 17 instruments green; validator clean on 12
 files. A200 corrected on notice. Trajectory: 1ab landed → 116 NOT
 CONVERGED 3M+5m+2c (swept this commit) → round 117 (convergence
 test) next.
+
+## Addendum 202: convergence-test round 117 on the round-116 sweep — NOT CONVERGED (1 MAJOR, 2 minors, 2 cosmetics); the sweep's own added phrase false at 1.12%; swept this commit
+
+Round 117 held every round-116 disposition (both quotes verbatim
+in part5's proof with the transliteration consistent; the strike
+recitals exact; the BBN sabotage 17/1 exit 1; the quadrature
+reproduced; the battery at expected counts) and found:
+
+- **F1 (MAJOR):** the sweep's added phrase "exactly the S_dS budget
+  sphere's radius" was false at 1.12% and ungated — the gated
+  budget uses the closure's ρ_Λ = (2/π)e^(0.02108)I while r_H uses
+  the Friedmann side with the committed subleading Ω_m = 0.31150;
+  the sphere carrying exactly S_dS has radius 5381 Mpc (0.56% below
+  r_H), and S(r_H)/S_dS = 1.0112 equals the two ρ_Λ's ratio
+  identically. Lead-verified to eight digits. **Swept:**
+  struck-and-annotated with the mechanism stated (part5's own
+  leading-vs-subleading Ω_m gap); a new gate computes both the
+  entropy ratio (= the closure-vs-Friedmann ratio, conjunct at
+  1e-8 — the first draft's 1e-10 failed on dps-30 conversion slop,
+  disclosed) and the exact-budget radius.
+- **F2 (minor):** the verifier docstring still carried F116-3's
+  "observed" mislabel, the deleted proportionality gate, and a
+  17-gate-era Gates inventory. **Swept:** the claim paragraph and
+  C3/C4/C5 inventories rewritten to the live file.
+- **F3 (minor):** "the dataset named" was uncashed on the BBN band
+  (the channel, not a dataset, was named). **Swept:** the band
+  recited honestly as the PDG-class concordance with the ±0.20's
+  coverage stated and the uncommitted-obs status disclosed.
+- **F4/F5 (cosmetics):** the F2 annotation's quote-final period
+  marked as elision; the epoch gate's tolerances brought to
+  half-ULP.
+
+**Battery after sweep:** species_census 19/0 (19 gates + 1 declared
+identity); the other 17 instruments green; validator clean on 12
+files. A201's half-ULP blanket scoped on notice. Trajectory: 1ab
+landed → 116 3M+5m+2c (swept) → 117 NOT CONVERGED 1M+2m+2c (swept
+this commit) → round 118 (convergence test) next.
 
 ## Caveats
 
