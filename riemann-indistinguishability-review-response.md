@@ -2255,3 +2255,16 @@ pointed and nowhere else.
 
 **Trajectory: 1aa landed → 112 4M+4m (swept) → 113 NOT CONVERGED
 2M+3m+2c (swept) → round 114 (convergence test) next.**
+
+# Round 114: convergence test on the round-113 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); two repair residuals; round 115 follows
+
+Every round-113 disposition held; the findings are residuals of the
+repairs themselves.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F114-1 (minor) — the F113-4 repair's "no content for" was again a false universal (part4b names layer 20 potential-side: the θ₂₃ descent terminus d₁+1 = 20) | **Accepted; "no window-role (visible-content) disposition"**, the second-stratum correction annotated; the gap stands | paper |
+| F114-2 (cosmetic) — the Gates summary's index/residue apposition survived | **Accepted; swept** | verifier |
+
+**Trajectory: 1aa landed → 112 4M+4m → 113 2M+3m+2c → 114 NOT
+CONVERGED 0M+1m+1c (swept) → round 115 (convergence test) next.**

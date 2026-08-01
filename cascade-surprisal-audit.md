@@ -9747,6 +9747,30 @@ the other 15 instruments green; validator clean on 12 files.
 Trajectory: 1aa landed → 112 4M+4m (swept) → 113 NOT CONVERGED
 2M+3m+2c (swept this commit) → round 114 (convergence test) next.
 
+## Addendum 198: convergence-test round 114 on the round-113 sweep — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); two residuals of the round-113 repairs; swept this commit
+
+Round 114 held every round-113 disposition (all five rewordings
+verified against the pre-sweep state with the sole surviving "forced
+menus" token the annotation's recital; the READING block corrected;
+the sabotages reproduced; battery/validator/census clean) and found
+two residuals of the repairs themselves:
+
+- **F1 (minor):** the F113-4 replacement clause "part4b carries no
+  content for the window's non-seat layers 20 and 22" was again a
+  false universal — part4b names layer 20 potential-side (the θ₂₃
+  descent's terminus d₁+1 = 20; the path d = 12..20; the
+  even-distinguished list {4, 12, 14, 20}). Lead-verified by direct
+  read. **Swept:** "no window-role (visible-content) disposition,"
+  with the second-stratum correction annotated in place; the
+  role-disposition gap stands (layer 22 clean).
+- **F2 (cosmetic):** the forcing-ledger docstring's Gates summary
+  still carried the index/residue apposition. **Swept.**
+
+**Battery after sweep:** forcing_ledger 17/0; endpoint_data 16/0;
+the other 15 instruments green. Trajectory: 1aa landed → 112 4M+4m
+(swept) → 113 2M+3m+2c (swept) → 114 NOT CONVERGED 0M+1m+1c (swept
+this commit) → round 115 (convergence test) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

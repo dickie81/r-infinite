@@ -1659,10 +1659,12 @@ the record itself acknowledges (category (a)), restated here because the first
 draft's strata absorbed them into "forced": the Bott ladder's cut at three
 **charged** generations is Tier-4 empirical input; and the third window's
 non-seat layers (20, 22) have **no committed disposition** — part4a's table row
-defers the window's Role column to part4b, and part4b carries no content for the
-window's **non-seat** layers 20 and 22 *(round-113 F4: the first sweep wrote "no
-third-window content" — false, d = 21 is a third-window layer and pervasively
-committed; the gap is the non-seat layers)*; the
+defers the window's Role column to part4b, and part4b carries no **window-role
+(visible-content) disposition** for the window's **non-seat** layers 20 and 22
+*(round-113 F4: the first sweep wrote "no third-window content" — false, d = 21
+is a third-window layer and pervasively committed; round-114 F1: the repair's "no
+content for" failed the same literal check — part4b names layer 20 potential-side,
+the θ₂₃ descent's terminus d₁+1 = 20; the role-disposition gap stands)*; the
 exclusion route is part4a's *candidate* derivation, uncommitted by its own
 wording. **Stratum E (entailed given the seat plus the convention ledger —
 round-112 F4).** Given C1's minimal content — the observer occupies twist 4 —

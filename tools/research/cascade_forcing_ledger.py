@@ -29,7 +29,9 @@ Gates:
         Bott seats {5,13,21} = Dirac layers d = 5 mod 8 in the span.
   L2 -- the Z/8 clock exhibit: zeta_8^4 = -1 exactly; the real
         residues of <zeta_8> are {1, -1}; {k in 0..7 : gamma^k = -1}
-        = {4} (unique, nontrivially real); the committed flip-word
+        = {4}, the index of the unique nontrivially-real residue,
+        -1 (round-114 F2 swept the Gates summary's last
+        conflation); the committed flip-word
         anchor ("{k : gamma^k = -1} = {4}") present in the paper.
   L3 -- the d = 5 conjunction: argmax_Z V = 5 (recomputed); 5 mod 8
         = 5 (first-window Dirac + first Bott seat); d = 5 is the
