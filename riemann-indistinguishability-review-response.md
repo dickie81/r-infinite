@@ -2575,3 +2575,21 @@ validator; hygiene; Checks 7/8.
 
 **Trajectory: 1af landed → 130 2M+1m+1c → 131 NOT CONVERGED
 0M+1m+2c (swept) → round 132 (convergence test) next.**
+
+# Round 132: convergence test on the round-131 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1af certified stable; the deeper-grounding arc closes
+
+Zero findings. The transcript checked sentence by sentence; the
+nine-phrase residual hunt clean; the sabotage reproduced with a
+byte-identical restore; a 35-instrument battery superset green;
+validator, footer (both directions), hygiene clean; the elision fix
+verified fragment-by-fragment; the held numbers reproduced
+(45,369-pair worst 7.756e-13; L⁻² 7.812%); Checks 7/8 clean.
+
+**Trajectory: 1af landed → 130 2M+1m+1c → 131 0M+1m+2c → 132
+CONVERGED 0+0+0. Certified: the grounded-chain reading; the
+two-point theorem; the static scalar-propagator route closed by
+theorem (the sector not closed); the sink exclusion forced by the
+dynamics; the Clifford identification the named survivor for (v-a).
+Standing: the spinor transport theorem (v-a); the measurement
+biconditional (v-b); the type-counting upgrade. Next hostile round
+on the next substantive paper change.**

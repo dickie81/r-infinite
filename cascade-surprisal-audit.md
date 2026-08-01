@@ -10942,6 +10942,40 @@ sector" grep now returns only the paper's retraction recital.
 CONVERGED 0M+1m+2c (swept here) → round 132 (convergence test)
 next.**
 
+## Addendum 222: convergence-test round 132 on the round-131 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1af certified stable; the deeper-grounding arc closes
+
+Round 132 returned zero findings. Its held list, lead-spot-checked:
+the verifier's transcript checked sentence by sentence against the
+requantified 1af (no contradiction anywhere, the READING tail
+exactly as swept); the exhaustive nine-phrase residual hunt clean
+(every hit inside a strike, retraction recital, or dated sabotage
+record; zero hits in the participation verifiers; both label sites
+aligned); the sabotage reproduced with the copy byte-identical to
+HEAD after restore; a 35-instrument battery superset all green at
+expected counts; validator clean; footer both directions (62
+backticked = 56 + 4° + 2 audited; body 58 distinct); hygiene
+clean; the elision fix verified fragment-by-fragment against the
+landing text; the held-item numbers reproduced (45,369-pair worst
+7.756e-13; L⁻² spread 7.812%); Checks 7/8 clean.
+
+**Trajectory: 1af landed (c3ce4c0 + 0d4f754) → 130 NOT CONVERGED
+2M+1m+1c (swept, 4148f07) → 131 NOT CONVERGED 0M+1m+2c (swept,
+6e944e0) → 132 CONVERGED 0+0+0. Theorem 1af is stable and the
+deeper-grounding arc is certified at its honest grading: the
+committed dynamics is a grounded elastic chain; the two-point
+theorem (response depends only on max(d, d*)) verified across the
+full domain; the static scalar-propagator route for the cost model
+CLOSED by theorem (the sector not closed — the requantified
+negative); the sink's exclusion forced by the dynamics (the
+constraint node's forcing is a rigid shift — one exhaustiveness
+step upgraded, the type-counting step still the weakest link); the
+Clifford identification (χ per layer = algebra doubling per layer)
+the named surviving candidate for (v-a), preferred not forced.
+Standing open routes: the spinor transport theorem (v-a); the
+A4/S4 measurement biconditional (v-b); the remark-to-theorem
+upgrade of the type-counting close; the tower-script 2√π repair.
+Next hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
