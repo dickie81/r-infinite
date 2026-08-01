@@ -10580,7 +10580,8 @@ Theorem 1ae:
   filtering fails the LLN-quenched record rate; δ ≤ 2 passes).
   The gap theorem keeps both threshold-free — any separation
   point in the gap gives the same three generations.
-  (D1)/(D2) reduces to this one lemma with a one-period margin.
+  (D1)/(D2) reduces to ~~this one lemma~~ the unproved pair
+  [aligned on notice, round 127] with a one-period margin.
 - **Grading:** ~~(ii)–(iv) theorems … (v) the named lemma~~
   [struck on notice, round 126 F1/F2: the coupling contrast rested
   on an uncommitted chi-per-layer cost model (part4b's exponents
@@ -10630,8 +10631,9 @@ the two claims that exceeded the record:
   (v-a: the cost model; v-b: the A4/S4 measurement biconditional);
   "upgrades every input to a cited theorem" and "two committed
   routes" struck-and-annotated; the verifier's docstring and
-  READING aligned in the same commit; two new anchor gates added
-  (the 29-anchored formula + its OQ grading).
+  READING aligned in the same commit; ~~two new anchor gates added~~ [corrected on notice, round 127:
+  F1 added one gate (the 29-anchored formula + its OQ grading);
+  F2 added the other; net 16 → 18 correct].
 - **F126-2 (minor):** the exhaustiveness modality ("theorem-grade
   … for all time … never … ever") overclaimed its citations.
   Lead-verified: thm:tower's proof closes cascade-internal
@@ -10671,6 +10673,41 @@ which.
 
 **Trajectory: 1ae + F125 sweep landed (6bcd99b) → 126 NOT
 CONVERGED 1M+1m+1c (swept here) → round 127 (convergence test)
+next.**
+
+## Addendum 216: convergence-test round 127 on the round-126 sweep — NOT CONVERGED (0 majors, 2 minors); both sweep-completeness residues of adjudicated classes; swept
+
+Round 127 held the round-126 sweep's substance completely — every
+strike-annotation's factual claims verified at source (the
+exponent census confirming no committed seat↔source coupling; the
+Adams scan's [5,19] scope with ρ−1 = 3 recomputed by hand at
+20/28/36; part4b:1671 confirmed genuinely remark-level, inside
+"Why these four sources and no others"); no under-claim (the
+census, gap, equivalence, counterfactual, and δ-contrast correctly
+retained as theorems); the third-unproved-input probe NEGATIVE
+(χ = 2 is committed theorem-grade — Poincaré–Hopf,
+thm:chirality-factorisation — so the two-item list is complete,
+with the noted dependency that (v-b)'s χ-denominated wording
+restates in δ-terms if (v-a) dies); verifier 18/0 with exactly 18
+gates; all three sabotages reproduced (17/1, 13/5, 17/1); battery
+22/22; validator; census; hygiene.
+
+The two findings, both lead-verified and swept in this commit:
+**F127-1 (minor)** — the theorem's own TITLE still asserted "the
+contrast forced; one lemma remains, named exactly" after the body
+was regraded (the marking rule's every-surface clause; the most
+prominent surface missed) — title struck-and-annotated. **F127-2
+(minor)** — the verifier's D4 print header ("theorem-grade
+inputs") and READING opener ("theorem-closed source set") carried
+the pre-F126-2 grading — the F121-1/F125-1 class, third instance —
+both aligned ("graded per step"; "committed source set").
+Reviewer's two on-notice record notes also corrected (A215's
+two-gates attribution; A214's residual "one lemma" phrases).
+participation_dichotomy re-run 18/0; sabotage (a) spot-re-run 17/1
+exit 1.
+
+**Trajectory: 1ae landed → 126 1M+1m+1c (swept) → 127 NOT
+CONVERGED 0M+2m (swept here) → round 128 (convergence test)
 next.**
 
 ## Caveats

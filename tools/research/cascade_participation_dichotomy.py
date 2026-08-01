@@ -185,7 +185,8 @@ gate("part4a's independent ~289 suppression anchored -- CONSONANCE, "
      "not identity (the arithmetic declared above)",
      "by a factor of $\\sim 289$" in part4a)
 
-print("D4 -- the theorem-grade inputs")
+print("D4 -- the inputs, graded per step (round 126 F2; header aligned "
+      "round 127 F2)")
 part0 = norm(open(PART0, encoding="utf-8").read())
 part4b = norm(open(PART4B, encoding="utf-8").read())
 ok = ("The Gamma function produces exactly four distinguished dimensions "
@@ -254,7 +255,7 @@ n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (18 gates; 2 identities declared, not counted)")
 print("READING: the participation dichotomy is de-conventioned -- the")
 print("symmetric distance rule delta(d) = min |d - d*| over the")
-print("theorem-closed source set (Part 0 tower completeness + Adams for")
+print("committed source set (Part 0 tower completeness + Adams for")
 print("14 + the committed sink accounting) yields {5, 13, 21} with no")
 print("orientation, no partition, no offset; the census is invariant")
 print("against 1ad's cell rule.  The gap theorem: no seat sits at delta")

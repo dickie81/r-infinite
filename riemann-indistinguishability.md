@@ -2027,8 +2027,11 @@ analysis-grade script, left to a future repair commit.)*
 No number changes; category (a) plus one stated candidate criterion.
 
 **Theorem 1ae (the participation dichotomy, de-conventioned: the orientation
-convention eliminated, the gap proved, the contrast forced; one lemma
-remains, named exactly; `cascade_participation_dichotomy.py`).** *(i) The
+convention eliminated, the gap proved, ~~the contrast forced; one lemma
+remains, named exactly~~ [title swept round 127 F1 — the round-126 sweep
+regraded the body but missed its own display name: the δ-contrast is the
+theorem, the coupling contrast is conditional, and TWO unproved items
+remain, named in (v)]; `cascade_participation_dichotomy.py`).** *(i) The
 commission.* The owner's standard, verbatim: this must be *a proof, not a
 pattern match.* Rounds 124–125 exposed exactly where 1ad fell short of that
 standard: a trailing-cell orientation that was a convention (the census

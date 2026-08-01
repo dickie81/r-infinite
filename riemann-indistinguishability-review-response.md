@@ -2486,3 +2486,20 @@ Checks 7/8, self-containment.
 
 **Trajectory: 1ae landed (6bcd99b) → 126 NOT CONVERGED 1M+1m+1c
 (swept) → round 127 (convergence test) next.**
+
+# Round 127: convergence test on the round-126 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 2 minors); both sweep-completeness residues; round 128 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F127-1 (minor) — the theorem's TITLE still asserted "the contrast forced; one lemma remains" after the body's regrade (every-surface clause; the display name missed) | **Accepted; title struck-and-annotated** | paper |
+| F127-2 (minor) — the verifier's D4 print header ("theorem-grade inputs") and READING opener ("theorem-closed source set") pre-regrade — the F121-1/F125-1 class, third instance | **Accepted; both aligned** ("graded per step"; "committed source set") | verifier |
+
+Held in full: every round-126 strike-annotation verified at source
+(exponent census; Adams scope + ρ−1=3 at 20/28/36 by hand;
+part4b:1671 genuinely remark-level); no under-claim; the
+third-unproved-input probe negative (χ=2 committed theorem-grade);
+verifier 18/0; sabotages 17/1, 13/5, 17/1; battery 22/22;
+validator; census; hygiene; Checks 7/8.
+
+**Trajectory: 1ae landed → 126 1M+1m+1c (swept) → 127 NOT CONVERGED
+0M+2m (swept) → round 128 (convergence test) next.**
