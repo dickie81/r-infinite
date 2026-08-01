@@ -12275,6 +12275,59 @@ clean on 12 files; hygiene zero.
 147 1M+1m (swept) → 148 1M+2m+2c (swept) → 149 NOT CONVERGED
 0M+1m+1c (swept) → round 150 (convergence test) next.**
 
+## Addendum 245: round 150 (convergence test on the round-149 sweep) — **CONVERGED**, zero findings; Theorem 1aj re-certified stable at the regraded state; the relocatable-windows arc closes
+
+Round 150 (fresh-context subagent, session model) attacked the
+round-149 sweep (f76c0a2) and returned zero findings — zero
+majors, zero minors, zero cosmetics. The reviewer's own
+verification: the shape numbers independently root-found at 40
+dps (crossing 2.038659, minimum 0.4118422 at 6.7441063, reaches
+at 10/γ₁/50/100) with an outward-rounding audit finding every
+quoted digit a correct nearest rounding; "rising with height"
+verified as a universal by a dense 180-point high-precision scan
+6.75 → 1000 (a float64 apparent violation above aim ≈ 375 chased
+into mpmath and resolved in the surfaces' favor); the three
+carriers telling one story with the round-148 error visible as
+disclosed history; all three sabotages reproduced plus a NEW
+K-break coupling probe (a perturbed kernel produces 5 FAILs then
+the disclosed abort class — the shape subgates cannot pass on a
+broken kernel); the literal-coupling audit of all three new
+subgates clean; the residual hunt clean; the wall-stated
+half-width sentence raised hostile and killed by the reviewer's
+own computation (half-width 0.456–0.511 across the domain — a
+distinct true quantity from the reach); battery, validator,
+hygiene, footer census, Checks 7/8, A244 all clean.
+
+**Trajectory: 1aj landed (07c3b53) → rounds 143–145 certified →
+REGRADE self-caught (777959a, triggered by the owner's
+asymptotics question) → 146 1M+3m+2c (swept) → 147 1M+1m — the
+continuation threshold aim* ≈ ¼ discovered — (swept) → 148
+1M+2m+2c — the reach envelope — (swept) → 149 0M+1m+1c — the
+reach's true shape — (swept) → 150 CONVERGED 0+0+0. Certified
+stable, regraded state: the route traveled, the wall widened and
+surveyed. The profile morphism in committed form; the pairwise
+admissible cone's edge forced and discriminating with the band
+exact both directions (R2′); the edge instance a genuine
+self-convolution; PAIRWISE confinement below height ½ (the
+half-shift = the ±i/2 continuation distance, mechanism-gated);
+three-term instances relocate the tangency to any height —
+containment above the continuation threshold ≈ ¼, windows of
+half-width ≈ ½, upper reach running 0.91 → through ½ at ≈ 2.04 →
+minimum 0.412 at ≈ 6.74 → ½ from below; the aimed instance's
+window contains the first zeta zero; relocated windows rest on
+the verified on-line zeros; W = 0.0780686 > 0 by the bridge
+identity; nothing cascade-side forces positivity on any
+discriminating instance; the dense-class extension is RH (Weil,
+classical), claimed in neither direction. The arc's permanent
+yield beyond 1aj itself: the continuation-threshold and
+reach-shape geometry of the committed family's per-zero probes —
+none of which existed before the owner's question. Standing open
+routes across the campaign: (v-b), C1 (odd-Δ committed instance
+or the neutrino formula's derivation), C2, C3; the type-counting
+remark-to-theorem upgrade; the tower-script 2√π repair; the
+observer↔4 and charged-termination questions. Next hostile round
+on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

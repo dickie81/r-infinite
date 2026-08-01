@@ -2968,3 +2968,30 @@ verifier 10/0; validator clean; hygiene zero.
 **Trajectory: regrade (777959a) → 146 1M+3m+2c → 147 1M+1m →
 148 1M+2m+2c → 149 NOT CONVERGED 0M+1m+1c (swept) → round 150
 (convergence test) next.**
+
+# Round 150: convergence test on the round-149 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1aj re-certified stable at the regraded state; the relocatable-windows arc closes
+
+Zero findings. The reviewer independently root-found every shape
+number at 40 dps with an outward-rounding audit (all quoted
+digits correct nearest roundings); verified "rising with height"
+as a universal by dense high-precision scan (a float64 artifact
+above aim ≈ 375 resolved in the surfaces' favor); confirmed the
+three carriers tell one story with the round-148 error preserved
+as disclosed history; reproduced all three sabotages plus a new
+K-break probe (the shape subgates cannot pass on a broken
+kernel); audited the literal coupling of all three new subgates;
+raised the half-width sentence hostile and killed it by
+computation (a distinct true quantity, 0.456–0.511); ran the
+battery, validator, hygiene, and footer census clean; Checks 7/8
+clean; A244 accurate.
+
+**Trajectory: regrade (777959a) → 146 1M+3m+2c → 147 1M+1m (the
+continuation threshold) → 148 1M+2m+2c (the reach envelope) →
+149 0M+1m+1c (the reach's shape) → 150 CONVERGED 0+0+0.
+Certified at the regraded state: pairwise confinement below ½
+with the ±i/2 mechanism; relocatable windows (containment above
+the ≈ ¼ threshold; reach 0.91 → ½-crossing ≈ 2.04 → minimum
+0.412 ≈ 6.74 → ½ from below); the aimed window containing the
+first zero; positivity resting on verified on-line zeros; no RH
+content in either direction. Next hostile round on the next
+substantive paper change.**
