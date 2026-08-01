@@ -683,7 +683,7 @@ selection to cross-check**: the data confirms the dictionary; what remains conve
 at E is the closure windows' **endpoint data** — Definition-6.1 instantiation plus the
 strict-boundary stipulation (part4b) — items already listed in the residue accounting.
 *(Net-state, Theorem 1z round 109: the endpoint data is menu-bounded with zero free
-numbers — five termini in forced menus, the sixth the observer dimension, C1-anchored;
+numbers — five termini in committed menus (round-113 F1), the sixth the observer dimension, C1-anchored;
 every in-menu alternative data-excluded; the stipulation priced at three attachment
 instances, all alternatives excluded, the weakest at −2.22σ; member two persists,
 sharpened. Round-110 F1: this marker was placed before the round-109 sweep corrected
@@ -1542,16 +1542,20 @@ three site-E closure windows are τ/μ = exp(Φ(6,13) + α(14)/χ)·χΓ(½) (th
 under a single step-sum convention; the α_s window's committed addressing differs,
 and the claim was convention-dependent without disclosure)*: the two lepton windows
 are host-pair paths under the path-start-exclusive reading — pair (5,13) → Φ(6,13),
-pair (13,21) → Φ(14,21) — with all four endpoints in the forced menus ({5, 13, 21}
-the Bott generation set, {12, 13, 14} the Adams gauge set, both part4a theorems;
+pair (13,21) → Φ(14,21) — with all four endpoints in the **committed menus**
+*(round-113 F1, propagating round-112 F1: the Bott set's residue class is forced
+but its charged termination is Tier-4 empirical, so "forced menus" overclaimed;
+the honest term is committed menus, the zero-free-numbers content unchanged)*
+({5, 13, 21} the Bott generation set — committed, its termination empirically
+anchored; {12, 13, 14} the Adams gauge set — Adams-forced;
 part4b's anchors: *"The cascade has five structurally distinguished layers"*; *"The
 four layers in $\mathcal{S}$ are not chosen from a menu; they are the complete set
 of non-sink distinguished layers in the cascade"*); the α_s window is the committed
 **descent Φ(12→4) = Σ_(d=5..12) p(d)** (part4b's own display), whose upper terminus
 12 is menu-anchored (Adams) and whose lower terminus is **the observer dimension
 d = 4 — C1-anchored, the hypothesis's own fixed point, not a menu layer** (Check 8:
-it may not be laundered into a forced menu). The endpoint data still carries **zero
-free numbers** — five termini in forced menus, the sixth the hypothesis's fixed
+it may not be laundered into a committed menu). The endpoint data still carries **zero
+free numbers** — five termini in committed menus, the sixth the hypothesis's fixed
 point, none free — and its entire content is three window selections
 (Definition-6.1 instantiation), one attachment rule (the strict-boundary
 stipulation), and the **per-window pair-to-sum addressing** — the disclosure round
@@ -1608,7 +1612,7 @@ F2: the disclosure had continued to recite the uncommitted 0.1180 after the cens
 moved to the committed value)* (the
 cross-check class 1l's re-grade licenses); no number changes; no new prediction;
 no RH/GRH; no semiclassics. *Falsifiers:* any committed window endpoint found
-outside the forced menus fails the menu-bounded claim (gated); the A3-entailment
+outside the committed menus fails the menu-bounded claim (gated); the A3-entailment
 route, if ever committed, relocates the stipulation and is to be recorded as
 such.
 
@@ -1655,7 +1659,10 @@ the record itself acknowledges (category (a)), restated here because the first
 draft's strata absorbed them into "forced": the Bott ladder's cut at three
 **charged** generations is Tier-4 empirical input; and the third window's
 non-seat layers (20, 22) have **no committed disposition** — part4a's table row
-defers *"(see part4b)"* and part4b carries no third-window content; the
+defers the window's Role column to part4b, and part4b carries no content for the
+window's **non-seat** layers 20 and 22 *(round-113 F4: the first sweep wrote "no
+third-window content" — false, d = 21 is a third-window layer and pervasively
+committed; the gap is the non-seat layers)*; the
 exclusion route is part4a's *candidate* derivation, uncommitted by its own
 wording. **Stratum E (entailed given the seat plus the convention ledger —
 round-112 F4).** Given C1's minimal content — the observer occupies twist 4 —
@@ -1695,7 +1702,9 @@ Grassmann locality (part4b's fermion action), the chirality basins χ(S^(2n)) = 
 at the even boundary sphere S⁴, per-layer mass m(d) = R(d)/χ, measurement along
 root frames (A4/S5). And the deserts answer the question's negative half: the
 observer sees the Standard Model's *shape* because between the windows **no
-visible matter content presents** (round-112 F8: the desert layers' imprint on
+committed visible matter content presents** — the first desert by part4a's
+sentence, the second by the spinor iff with the content half uncommitted, (ii)'s
+own disclosure (round-113 F5) — (round-112 F8: the desert layers' imprint on
 observables is real — d₀ and d₁ are source layers of committed closures —
 potential-side, not matter content) — the spectrum's sparseness within the
 committed span is Clifford arithmetic, not selection. *(iv) Honest scope and falsifiers.* Check 8 is load-bearing

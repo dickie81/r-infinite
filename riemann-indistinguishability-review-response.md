@@ -2238,3 +2238,20 @@ Next hostile round on the next substantive paper change.**
 
 **Trajectory: 1aa landed → 112 NOT CONVERGED 4M+4m (swept) → round
 113 (convergence test) next.**
+
+# Round 113: convergence test on the round-112 sweep (subagent, per protocol) — NOT CONVERGED (2 MAJORs, 3 minors, 2 cosmetics); the adjudication propagated to sibling surfaces; round 114 follows
+
+All eight round-112 dispositions held on their own terms; the sweep's
+defect was confinement — F112-1/4/5 were fixed where round 112
+pointed and nowhere else.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F113-1 (MAJOR) — five "forced menus" sites in 1z and the endpoint_data docstring carried the promotion F112-1 struck | **Accepted; all five re-worded "committed menus"** with the propagating annotation; 1z's substance intact | paper + verifier |
+| F113-2 (MAJOR) — the forcing-ledger READING block still printed the struck answer | **Accepted; rewritten to the corrected answer** (Stratum D; the convention-ledger condition) | verifier |
+| F113-3 (minor) — the docstring's index/residue conflation survived | **Accepted; swept** (+ the gate name, cosmetic-2) | verifier |
+| F113-4 (minor) — "no third-window content" false (d = 21 pervasively committed) | **Accepted; scoped to the non-seat layers 20/22**, annotated | paper |
+| F113-5 (minor) — (iii)'s causal clause asserted the both-deserts claim | **Accepted; "no committed visible matter content"**, (ii)'s disclosure cited | paper |
+
+**Trajectory: 1aa landed → 112 4M+4m (swept) → 113 NOT CONVERGED
+2M+3m+2c (swept) → round 114 (convergence test) next.**

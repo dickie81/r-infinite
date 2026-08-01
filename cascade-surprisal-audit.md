@@ -9707,6 +9707,46 @@ arithmetic distinction as an exhibit. Trajectory: 1aa landed → 112
 NOT CONVERGED 4M+4m (swept this commit) → round 113 (convergence
 test) next.
 
+## Addendum 197: convergence-test round 113 on the round-112 sweep — NOT CONVERGED (2 MAJORs, 3 minors, 2 cosmetics); the round-112 adjudication propagated to its sibling surfaces; swept this commit
+
+Round 113 verified all eight round-112 dispositions on their own
+terms (the part4a recitals verbatim; the strikes accurate; the
+locational gate's evasion reproduced and closed; the 17-gate count
+exact) and then found the sweep confined to where round 112 pointed:
+
+- **F1 (MAJOR):** Theorem 1z and the endpoint_data docstring still
+  styled {5, 13, 21} a "forced menu" at five sites — the exact
+  promotion F112-1 graded MAJOR, contradicting 1aa one page later.
+  **Swept:** all five re-worded to "committed menus" with the
+  propagating annotation (the Bott residue class forced, the charged
+  termination Tier-4 empirical; the zero-free-numbers content
+  unchanged); 1z's round-111 certificate stands for its substance
+  with the wording re-graded by this propagation.
+- **F2 (MAJOR):** the forcing-ledger verifier's READING block still
+  printed the pre-sweep answer ("the menus are theorems (Clifford,
+  Bott, Adams, Gamma); the projection is entailed given the seat").
+  **Swept:** the READING rewritten to the corrected answer (window
+  arithmetic forced; Stratum D; the convention-ledger condition; the
+  index/residue wording).
+- **F3 (minor):** the docstring's index/residue conflation survived.
+  **Swept** with the round-113 note; the L2 gate name disambiguated
+  (cosmetic-2).
+- **F4 (minor):** "part4b carries no third-window content" was false
+  as written — d = 21 is a third-window layer, pervasively
+  committed. **Swept:** scoped to the non-seat layers 20 and 22,
+  with the correction annotated.
+- **F5 (minor):** section (iii)'s causal clause still asserted the
+  both-deserts visibility claim in its own voice. **Swept:** "no
+  committed visible matter content presents," with (ii)'s
+  second-desert disclosure cited in place.
+- **Cosmetic-1** (the '(see part4b)' rendering) resolved by F4's
+  rewording; **cosmetic-2** swept with F3.
+
+**Battery after sweep:** forcing_ledger 17/0; endpoint_data 16/0;
+the other 15 instruments green; validator clean on 12 files.
+Trajectory: 1aa landed → 112 4M+4m (swept) → 113 NOT CONVERGED
+2M+3m+2c (swept this commit) → round 114 (convergence test) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

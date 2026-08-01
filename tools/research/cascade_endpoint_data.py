@@ -4,7 +4,9 @@
 Claim under test: member two's live content -- the site-E closure
 windows' endpoint data -- carries ZERO free numbers: the two lepton
 windows are host-pair paths (path-start-exclusive) with all four
-endpoints in forced menus (Bott {5,13,21}; Adams {12,13,14}); the
+endpoints in COMMITTED menus (Bott {5,13,21}; Adams {12,13,14};
+round-113 F1: the Bott set's charged termination is Tier-4
+empirical per round-112 F1, so "forced" was overclaimed); the
 alpha_s window is the committed descent Phi(12->4) = sum_{d=5..12}
 p(d), upper terminus 12 menu-anchored, lower terminus the OBSERVER
 DIMENSION d = 4 -- C1-anchored, not a menu layer (round-109 F1

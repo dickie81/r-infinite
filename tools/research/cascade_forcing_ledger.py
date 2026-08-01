@@ -13,9 +13,11 @@ the third window's non-seat layers without committed disposition);
 Stratum E (entailed given the seat PLUS the convention ledger);
 Stratum C (C1-primitive residue, exactly three items: occupancy, the
 observer<->twist-4 labeling, the discrete Definition-6.1 entries).
-The labeling's committed exhibit: {k : gamma^k = -1} = {4}, the
-unique nontrivially-real residue of the Z/8 clock -- "a labeling,
-not a derivation" (Definition 6.1's own grading, anchored). The
+The labeling's committed exhibit: {k : gamma^k = -1} = {4} -- the
+index at which the clock reaches its unique nontrivially-real
+residue, -1 (round-113 F3 corrected the docstring's conflation of
+index and residue) -- "a labeling, not a derivation" (Definition
+6.1's own grading, anchored). The
 d = 5 presentation chain is a four-way conjunction with three
 structure-forced conjuncts and one seat-consuming conjunct. Check 8
 load-bearing: no step derives the seat.
@@ -97,7 +99,8 @@ reals = sorted(round((z8 ** k).real, 12) for k in range(8)
 gate("the real residues of <zeta_8> are {1, -1}", reals == [-1.0, 1.0],
      f"{reals}")
 flip = [k for k in range(8) if abs(z8 ** k - (-1)) < 1e-12]
-gate("{k : gamma^k = -1} = {4} -- unique, nontrivially real", flip == [4],
+gate("{k : gamma^k = -1} = {4} -- the index of the unique nontrivially-real "
+     "residue, -1", flip == [4],
      f"{flip}")
 paper = open(PAPER, encoding="utf-8").read()
 
@@ -174,11 +177,14 @@ gate("the stopping-rule-gated labeling route anchored", ok6)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (17 gates; 3 identities declared, not counted -- round-112 F6)")
-print("READING: the forcing question stratifies exactly -- the menus are")
-print("theorems (Clifford, Bott, Adams, Gamma), the projection is entailed")
-print("given the seat, and the seat is C1, carrying one convention-free")
-print("arithmetic distinction ({k : gamma^k = -1} = {4}) whose link to the")
-print("observer is a labeling, not a derivation. The d = 5 presentation is")
-print("a four-way conjunction, three conjuncts forced, one consuming the")
-print("seat. Check 8 load-bearing; no closure; no number changes.")
+print("READING (round-113 F2 corrected the pre-sweep summary): the window")
+print("arithmetic is forced (Clifford, Adams, Gamma); the charged ladder's")
+print("termination is empirically anchored (Stratum D, Tier 4, part4a's")
+print("own grading); the projection is entailed given the seat PLUS the")
+print("convention ledger; the seat is C1, carrying one convention-free")
+print("arithmetic distinction -- {k : gamma^k = -1} = {4}, the index of")
+print("the clock's unique nontrivially-real residue, -1 -- whose link to")
+print("the observer is a labeling, not a derivation. The d = 5")
+print("presentation is a four-way conjunction, three conjuncts forced,")
+print("one consuming the seat. Check 8 load-bearing; no closure.")
 sys.exit(0 if n_fail == 0 else 1)
