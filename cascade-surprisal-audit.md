@@ -11356,6 +11356,63 @@ remark-to-theorem upgrade; the tower-script 2√π repair; the
 observer↔4 and charged-termination questions. Next hostile round
 on the next substantive paper change.**
 
+## Addendum 232: Theorem 1ai — the Weil-positivity route, entered and mapped (owner-commissioned); three unconditional results and the named gap; virgin territory gated
+
+The owner commissioned the route ("Go explore it"). First entry in
+the arc — the prior-pursuit census is itself a gate (zero
+occurrences of "Weil positivity"/"Weil's criterion"/"positivity
+criterion" on any committed surface before 1ai; the record's
+"Weil" is the metaplectic index). The results, all unconditional:
+
+- **Theorem W0 (blind-cone criterion, elementary, proof stated):**
+  a test function whose paired kernel has one sign on the whole
+  critical strip yields explicit-formula positivity that holds
+  whether or not RH — zero information about zero locations.
+- **Theorem W1 (blindness):** every committed cascade zero-side
+  read (real s = d+1 ∈ [5, 218]) lies in the blind cone — each
+  kernel term (s−β)/|s−ρ|² is strictly positive for 0 < β < 1 <
+  5 ≤ s (exact; grid-gated). Corollary: the committed packaging's
+  positivity carries ZERO RH content — the registered
+  "identity-mediated" negative upgraded to precise geometry.
+- **Theorem W2 (strip avoidance):** min(d)+1 = 5 > 1 — the
+  lattice never enters the strip; the descent is confined to the
+  blind side by its own observer floor.
+- **Exhibit W3 (reachability, graded as exhibit):** the
+  blind/discriminating boundary passes through the cascade's
+  native signed-combination space — for the (5, 6) pair the
+  sign-change window is exactly (9/11, 11/9), and the committed
+  1af ratio tail(21)/tail(29) = 1.1603 lands inside it; the
+  exhibit kernel crosses at γ* ≈ 1.914. The coefficient is
+  committed; the combination is constructed; no committed
+  observable is discriminating.
+- **The gap, named:** configuration-space positivity (the action;
+  α(d) > 0; trigamma) and test-function positivity are connected
+  by NO committed map — the bridge connects values only ("no
+  direction of explanation is claimed", the instrument's words).
+  What would open the route: a committed morphism from field
+  configurations to self-convolution test functions under which
+  action-positivity forces explicit-formula positivity on a
+  sign-changing family. Mapped, not traveled.
+
+**Surfaces:** Theorem 1ai in the paper (after 1ah); footer 58 → 59
+("1i–1ah" → "1i–1ai"; cascade_weil_positivity_status.py new),
+verified against the FOOTER TEXT (65 backticked = 59 + 4° + 2
+audited). **Verifier:** cascade_weil_positivity_status.py, V1–V5,
+10 gates, 10/0 (the RESULT line's first draft said 11 — the count
+defect's sixth instance, an overcount, corrected pre-commit);
+three sabotages exit 1 with one DISCLOSED PRE-COMMIT CATCH: the
+first mirror-coherence anchor was anywhere-in-paper and 1ai's own
+quote satisfied it under sabotage (the self-satisfying-gate
+class) — made locational (pre-1ai span) before landing, after
+which the redone sabotage trips 9/1; the coefficient sabotage
+aborts at the sign-bracket assertion (the abort IS the trip,
+disclosed); the corollary sabotage 9/1. Clean baselines 10/0. The
+two zero-side instruments run as ANALYSIS-GRADE (runnability only,
+the 1ad precedent, disclosed). **Battery:** all 26 instruments
+green (the 25 + weil_positivity_status); validator clean on 12
+files; hygiene clean. Trajectory: 1ai landed → round 140 (hostile
+review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

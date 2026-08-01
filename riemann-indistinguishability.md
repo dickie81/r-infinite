@@ -2438,6 +2438,72 @@ No convention, no new number, no data consumed; Check 7 (Clifford
 representation arithmetic — cascade-native); Check 8 (no hypothesis
 input).
 
+**Theorem 1ai (the Weil-positivity route, entered and mapped: the
+blindness theorem, strip avoidance, and the reachability exhibit;
+`cascade_weil_positivity_status.py`).** *(i) The commission — virgin
+territory, gated.* The owner commissioned the Weil-positivity route. It
+has never been pursued in this arc: "Weil positivity" / "Weil's
+criterion" / "positivity criterion" have zero occurrences on any
+committed surface before this theorem (census gated); the record's
+"Weil" is the metaplectic index (1e/1f), and mirror coherence was
+deliberately worded *"non-degeneracy (≠ 0, ∞, indeterminate), **not**
+positivity."* *(ii) The classical frame (cited as classical, no RH
+assumed).* Weil's criterion: RH is equivalent to positivity of the
+explicit-formula functional on self-convolutions over a dense
+test-function class. **Theorem W0 (the blind-cone criterion —
+elementary, with proof):** any test function whose paired kernel
+K_s(ρ) = Re[1/(s−ρ) + 1/(s−(1−ρ))] is of one sign for ALL ρ in the
+critical strip yields an explicit-formula positivity that holds
+UNCONDITIONALLY — whether or not RH — and therefore carries zero
+information about zero locations. Discriminating power requires kernels
+that change sign in the strip. *(iii) Theorem W1 (the blindness
+theorem).* Every committed cascade zero-side read lies in the blind
+cone: the committed family evaluates at real s = d+1 ∈ [5, 218], where
+each kernel term (s−β)/|s−ρ|² and (s−1+β)/|s−1+ρ|² is strictly positive
+for every ρ = β+iγ in the strip (0 < β < 1 < 5 ≤ s — an exact
+inequality, grid-gated as a check). **Corollary: every positivity the
+cascade's committed packaging exhibits is unconditional — zero RH
+content.** This upgrades the record's registered honest negative ("the
+features are identity-mediated") to precise geometry: the committed
+family sits strictly inside the RH-blind cone. *(iv) Theorem W2 (strip
+avoidance).* The cascade lattice's arguments never enter the critical
+strip: min(d)+1 = 5 > 1. The packaging cannot be moved into the strip
+without leaving the committed lattice — the descent is structurally
+confined to the blind side by its own floor at the observer. *(v)
+Exhibit W3 (reachability — graded as an exhibit, not a committed
+observable).* Cascade-native SIGNED combinations reach the
+discriminating cone. For the pair (s₁, s₂) = (5, 6), the on-line kernel
+ratio K₅/K₆ at β = ½ runs exactly from 11/9 (γ = 0) down to 9/11
+(γ → ∞), so any coefficient c ∈ (9/11, 11/9) makes h₅ − c·h₆
+sign-changing. **The committed 1af scalar ratio tail(21)/tail(29) =
+1.1603 lands inside that window**, and the exhibit kernel
+K₅ − 1.1603·K₆ changes sign at γ* ≈ 1.914 (bisection-gated: positive at
+γ = 0, negative at γ = 10). Honest grading: the coefficient is
+committed, the combination is constructed here — this exhibits that the
+boundary between blind and discriminating passes THROUGH the cascade's
+own signed-combination space (the signed correction family ±α(d*)/χ^k
+shows signed combinations are native), but no committed observable
+instantiates a discriminating combination. *(vi) The gap, named
+precisely — what the route needs.* The cascade's committed positivity
+structures live in CONFIGURATION space (the action's positive
+definiteness; the compliances α(d) > 0; trigamma positivity, gated in
+the formulation's ledger); Weil positivity lives in TEST-FUNCTION
+space. The explicit-formula bridge connects VALUES ("no direction of
+explanation is claimed" — the instrument's own words), not positivity
+cones: **no committed map carries the physical positivity cone into the
+test-function positivity cone.** What would open the route: a committed
+morphism from field configurations to self-convolution test functions
+under which action-positivity forces explicit-formula positivity on a
+family with sign-changing kernels. Nothing committed supplies it; the
+route is now mapped, not traveled. *Honest scope:* W0–W2 are theorems
+(elementary inequalities over the committed arguments; W0's proof is
+three lines and stated); W3 is an exhibit; (vi) is the named gap;
+category (a) — no data, no closures, and by construction **no RH/GRH**:
+every statement here is unconditional, and the theorem's central
+content is precisely that the cascade's committed positivity is
+RH-free. Check 7 clean (kernel arithmetic; the classical criterion
+cited as classical input); Check 8 clean (no hypothesis content).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -2972,4 +3038,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ah: the **58 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ai: the **59 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
