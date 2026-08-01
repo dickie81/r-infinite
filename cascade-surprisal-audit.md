@@ -11198,7 +11198,7 @@ type-counting remark-to-theorem upgrade; the tower-script 2√π
 repair; (v-b). Next hostile round on the next substantive paper
 change.**
 
-## Addendum 228: Theorem 1ah — C1 attacked from first principles (owner-commissioned); the fork dissolves via uniformity, canonicity, and the bilinear reconciliation; the unproved set reduces to (v-b) + C2 + C3
+## Addendum 228: Theorem 1ah — C1 attacked from first principles (owner-commissioned); ~~the fork dissolves … the unproved set reduces~~ [struck on notice, round 137: both selection legs fell — see A229; C1 stays open, reconciled in classification only]
 
 The owner commissioned the C1 attack. Three graded legs, each
 verified before landing:
@@ -11250,6 +11250,57 @@ spinor_transport re-run 15/0. **Battery:** all 25 instruments (the
 24 + c1_closure) green; validator clean on 12 files; hygiene
 clean. Trajectory: 1ah landed → round 137 (hostile review, per
 protocol) spawned on this commit.
+
+## Addendum 229: hostile review round 137 on commit 974964e (Theorem 1ah) — NOT CONVERGED (2 MAJORs, 1 minor, 1 cosmetic); both selection legs fell; C1 stays OPEN, reconciled in classification only; all findings lead-verified and swept
+
+Round 137 held every piece of arithmetic, every gate, every
+sabotage, every quote — and broke both selection legs:
+
+- **F137-1 (MAJOR):** U's form/value division is empty on the
+  committed record. Every committed instance has Δ ∈ {8, 16, 24}
+  — whole Bott periods — and over ANY even step both fibers grow
+  exactly uniformly (the spinor two-step ratio is exactly 2,
+  lead-verified), so a spinor-rate law χ^(Δ/2) has the identical
+  form property on the formula's entire domain and is excluded
+  only by its values: the round-133 circularity again. The gated
+  28→21 exhibit discriminates only on odd-Δ channels the record
+  never exercises. Swept: U struck-and-annotated to its honest
+  residue (per-single-layer non-uniformity, exact; odd-Δ
+  form-discrimination available, none committed; selection by
+  value, with 1ag(vii)'s selection-by-consistency grading
+  standing).
+- **F137-2 (MAJOR):** K's 2^107 count is a SINGLE GAUGE ORBIT —
+  flag-preserving reflections e_j ↦ −e_j are automorphisms of the
+  whole ladder flipping the odd-layer factor choices (both factor
+  choices satisfy the Clifford relations, volume elements ±i
+  swapped — lead-verified computationally in Cl_ℂ(3)); no
+  transport quantity depends on the choice; a zero-parameter
+  constitution forbids parameters, not gauge, and part4b's
+  equal-weight-basins move is the choice-free symmetrization the
+  spinor side equally supports. Swept: K struck-and-annotated; the
+  census stands as arithmetic only.
+- **F137-3 (minor):** B's amplitude-side √2 rate has ZERO
+  committed instances (every committed transport is
+  coupling/mass-class) — disclosed in place as classification
+  without instance.
+- **F137-4 (cosmetic):** A228's "noted in both docstrings" — the
+  sibling's disclosure is an inline comment; corrected by this
+  record.
+
+**The honest net state:** C1 stays OPEN. 1ah's surviving content:
+Theorem B's reconciliation (the algebra IS the spinor bilinear
+space, exact at every layer; the two committed structures address
+different object classes under R-bilinear — the round-133 tension
+was a false dichotomy in classification) and U's honest residue
+(an odd-Δ committed instance would discriminate by form — a named,
+falsifiable closure route). The fiber selection remains by the
+value of the underived formula. The unproved set: (v-b), C1, C2,
+C3. Markers regraded in place; A228's headline struck on notice.
+**Post-sweep:** c1_closure 10/0 with regraded anchors; battery
+green; validator clean; hygiene clean.
+
+**Trajectory: 1ah landed (974964e) → 137 NOT CONVERGED 2M+1m+1c
+(swept here) → round 138 (convergence test) next.**
 
 ## Caveats
 

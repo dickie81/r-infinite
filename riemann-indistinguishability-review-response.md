@@ -2659,3 +2659,21 @@ vs 2-per-layer — an internal tension between two committed
 structures, surfaced by this arc), the neutrino-formula form
 reproduced within the selected model. Unproved set: (v-b) plus
 C1–C3. Next hostile round on the next substantive paper change.**
+
+# Round 137: hostile review on commit 974964e (Theorem 1ah) — NOT CONVERGED (2 MAJORs, 1 minor, 1 cosmetic); both selection legs fell; C1 stays open; round 138 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F137-1 (MAJOR) — U's form/value division empty on the committed record (all committed Δ whole-period; both fibers uniform there; a spinor law χ^(Δ/2) fits the form; selection by value = the round-133 circularity; the exhibit exercises only uncommitted odd-Δ channels) | **Accepted; U struck to its honest residue** (per-single-layer non-uniformity exact; odd-Δ would discriminate — a named closure route; selection-by-consistency stands) | paper + verifier + record |
+| F137-2 (MAJOR) — K's 2^107 a single gauge orbit under flag-preserving reflections (lead-verified in Cl_ℂ(3)); the constitution forbids parameters, not gauge | **Accepted; K struck; the census stands as arithmetic only** | paper + verifier |
+| F137-3 (minor) — B's amplitude-side √2 rate has zero committed instances | **Accepted; disclosed as classification without instance** | paper + verifier |
+| F137-4 (cosmetic) — "noted in both docstrings" vs the inline comment | **Accepted; corrected in the record** | record |
+
+Held: all arithmetic, gates, sabotages (9/1 ×3), quotes, footer
+(64 = 58 + 4° + 2 audited), battery (198-script superset), validator,
+hygiene, Checks 7/8. C1's honest state: reconciled in classification
+(Theorem B, exact), selected only by value; closure routes named
+(an odd-Δ committed instance, or the formula's derivation).
+
+**Trajectory: 1ah landed → 137 NOT CONVERGED 2M+1m+1c (swept) →
+round 138 (convergence test) next.**

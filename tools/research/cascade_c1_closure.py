@@ -26,7 +26,18 @@ fiber) DISSOLVES via three graded legs:
     formula transports "the source mass m_29" (part4b's words): a
     bilinear-class object.  Disclosed reading R-bilinear.
 
-Net: C1 closes; the unproved set reduces to (v-b) + C2 + C3.
+Net (REGRADED round 137, within the round): both selection legs
+fell -- U's form/value division is empty on the committed record
+(every committed Delta is a whole Bott period, where both fibers
+are exactly uniform; the selection remains by value, the round-133
+circularity); K's 2^107 count is a single gauge orbit under
+flag-preserving reflections (lead-verified in Cl_C(3)).  C1 stays
+OPEN: reconciled in classification (B, under R-bilinear, with the
+amplitude side disclosed as classification without committed
+instance -- F137-3) but selected only by the value of the
+underived formula.  The unproved set remains (v-b) + C1 + C2 + C3.
+What would close C1: an odd-Delta committed instance, or the
+formula's derivation.
 
 Gates:
   U1 -- complex spinor per-layer ratios alternate (1,2) and are
@@ -125,15 +136,18 @@ ok = "complex minimal spinors" in part4a
 ok &= "splitting the spinor bundle into two equal-weight chirality basins" in part4b
 gate("the two committed structures the fork opposed, anchored", ok)
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
-ok = "this theorem selects by\nthe formula's FORM".replace("\n", " ") in paper
+ok = ("What U honestly proves: per-SINGLE-layer non-uniformity of every "
+      "spinor fiber" in paper)
 ok &= "the fork was a false dichotomy" in paper
 ok &= "Disclosed reading (R-bilinear):" in paper
-ok &= "reduces to (v-b),\nC2, and C3".replace("\n", " ") in paper
-gate("1ah's key sentences anchored (form-not-value; false dichotomy; "
-     "R-bilinear; the reduced set)", ok)
-ok = "net-state, Theorem 1ah round 137: CLOSED — the fork dissolves" in paper
-ok &= "Net-state, Theorem 1ah round 137: C1 closed — uniformity" in paper
-gate("the two net-state markers anchored", ok)
+ok &= "K selects nothing; the census stands as arithmetic only." in paper
+ok &= "The unproved set remains (v-b), C1, C2, C3" in paper
+ok &= "classification without instance" in paper
+gate("1ah's REGRADED sentences anchored (round 137: U's honest residue; "
+     "K selects nothing; the F3 disclosure; C1 stays open)", ok)
+ok = "regraded within the round: ~~CLOSED~~ — the selection legs fell" in paper
+ok &= "C1 stays open, reconciled in\nclassification only".replace("\n", " ") in paper
+gate("the two REGRADED net-state markers anchored (round 137)", ok)
 r = subprocess.run([sys.executable,
                     os.path.join(ROOT, "tools", "research",
                                  "cascade_spinor_transport.py")],
@@ -153,8 +167,11 @@ print("algebra ladder is choice-free; a spinor ladder needs 107 unforced")
 print("binary choices.  Reconciliation: the algebra IS the spinor")
 print("bilinear space (2^d = spinor^2 x factors, exact); amplitudes")
 print("travel at the spinor rate, masses and couplings (the committed")
-print("formula transports a MASS) at its square.  C1 closes; the")
-print("unproved set reduces to (v-b) + C2 + C3.  Gradings: U conditional")
-print("on the committed formula's form; K's selection constitutional")
-print("(meta, cited); B carrying the disclosed R-bilinear reading.")
+print("formula transports a MASS) at its square.  REGRADED round 137:")
+print("both selection legs fell -- the committed instances are all")
+print("whole-period (both fibers uniform there; selection by value only)")
+print("and the 2^107 count is a gauge orbit.  C1 stays OPEN, reconciled")
+print("in classification, selected by value; the unproved set remains")
+print("(v-b) + C1 + C2 + C3.  What would close it: an odd-Delta")
+print("committed instance, or the formula's derivation.")
 sys.exit(0 if n_fail == 0 else 1)

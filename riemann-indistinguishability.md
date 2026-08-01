@@ -2136,9 +2136,11 @@ with the committed neutrino exponent's shape — carrying three named
 conditions (the fiber assignment, where the committed minimal-spinor
 reading gives √2 per layer; the coupling-as-trace-pairing premise; the
 equipartition domain transfer). The unproved set is (v-b) plus those
-three.)* *(Net-state, Theorem 1ah round 137: C1 closed — uniformity,
-canonicity, and the bilinear reconciliation; the set reduces to (v-b)
-plus C2 and C3.)* **(v-b) The measurement biconditional:** that a
+three.)* *(Net-state, Theorem 1ah round 137, regraded within the round:
+~~C1 closed … the set reduces~~ — both selection legs fell (the
+committed record's whole-period instances cannot discriminate by form;
+the 2^107 count was a gauge orbit); C1 stays open, reconciled in
+classification only; the set remains (v-b) plus C1–C3.)* **(v-b) The measurement biconditional:** that a
 mode whose source coupling is filtered by ≥ χ^10 fails A4/S4's measurement
 condition (the LLN-quenched record rate) while modes at δ ≤ 2 pass it. The
 gap theorem keeps both threshold-free: any separation point inside the
@@ -2324,7 +2326,10 @@ precise; the conditions are three, and none is a free ride on committed
 text.* ~~(v-a) is derived, conditional on two committed readings … a
 reviewer who rejects either rejects committed text … What remains is
 (v-b) alone~~ [struck: the round-133 reviewer broke all three legs —
-each lead-verified]. The model's census: **(C1) the fiber assignment** *(net-state, Theorem 1ah round 137: CLOSED — the fork dissolves; see 1ah's three legs and grading)*​**.**
+each lead-verified]. The model's census: **(C1) the fiber assignment** *(net-state, Theorem 1ah round 137,
+regraded within the round: ~~CLOSED~~ — the selection legs fell; C1
+stays open, RECONCILED in classification by 1ah's Theorem B but
+selected only by value; see 1ah(v))*​**.**
 The derivation runs on the FULL Clifford algebra (dim 2^d); part4a's
 committed assignment is to *minimal spinors* (*"complex minimal
 spinors"*) and part4b's bundle is the spinor bundle S = S⁺ ⊕ S⁻ — under
@@ -2351,8 +2356,10 @@ shape; and the search for (v-a) now has a precise object to derive or
 refute instead of a slogan. No convention, no new number, no data
 consumed.
 
-**Theorem 1ah (C1 attacked from first principles: the fork dissolves — the
-uniformity theorem, the canonicity theorem, and the bilinear
+**Theorem 1ah (C1 attacked from first principles: ~~the fork dissolves~~
+[regraded round 137: both selection legs fell — C1 stays OPEN,
+reconciled in classification but selected only by value]; the
+uniformity analysis, the canonicity analysis, and the bilinear
 reconciliation; `cascade_c1_closure.py`).** *(i) The commission.* The owner
 commissioned an attack on C1 — which fiber the cascade transports: the
 committed minimal-spinor module (√2 per layer on average) or the full
@@ -2366,31 +2373,49 @@ m_ν(Gen g) = m₂₉·α(d_g)/χ^(29−d_g) has a **uniform integer per-layer
 exponent across all three generations** — a FORM property, not the tuned
 base. Exhibit, gated: the spinor fiber cannot distinguish a 28→21 from a
 29→21 transport (both ratio 16, since ⌊28/2⌋ = ⌊29/2⌋); the algebra
-distinguishes (128 vs 256). **No minimal-spinor fiber, real or complex,
-can underlie a uniform per-layer filter; the algebra fiber can.** Round
-133's circularity charge is thereby answered: the landing selected the
-fiber by the formula's VALUE (base 2 — circular); this theorem selects by
-the formula's FORM (uniformity — a structural property any per-layer
-filter law must have), with the value then confirming. Conditionality
-disclosed: if the committed formula falls entirely, U's selection
-reopens. *(iii) Theorem K (canonicity).* The algebra ladder
+distinguishes (128 vs 256). ~~No minimal-spinor fiber, real or complex,
+can underlie a uniform per-layer filter; the algebra fiber can … this
+theorem selects by the formula's FORM … the value then confirming~~
+[struck round 137 F1: the form/value division fails on the committed
+record — every committed instance has Δ ∈ {8, 16, 24}, a whole Bott
+period, and over ANY even step both fibers grow exactly uniformly (the
+spinor two-step ratio is exactly 2), so a spinor-rate law χ^(Δ/2) has
+the identical form property on the formula's entire domain and is
+excluded only by its VALUES — the round-133 circularity again; the
+gated 28→21 exhibit discriminates only on odd-Δ channels the committed
+record never exercises]. What U honestly proves: per-SINGLE-layer
+non-uniformity of every spinor fiber (exact, gated), and that an odd-Δ
+committed instance WOULD discriminate by form — none exists. On the
+committed record the selection remains by value, and 1ag(vii)'s
+"model-selection-by-consistency-with-the-target, disclosed, not
+forcing" stands as the honest grading. *(iii) Theorem K (canonicity).* The algebra ladder
 Cl(d) ⊂ Cl(d+1) is the unique inclusion-canonical transport structure
 (the generated unital inclusion, no choices). A minimal-spinor ladder is
 not canonical: at every odd layer the complex Clifford algebra splits
 into two simple factors and the even-layer spinor extends to either — an
-unforced binary choice per odd layer, and the descent [4, 217] contains
-**107 odd layers: 2^107 inequivalent spinor ladders against one algebra
-ladder** (census gated). Under the program's own zero-free-parameter
-constitution (cited as the meta-principle it is, not as mathematics), a
-convention-free transport can only be the algebra ladder. *(iv) Theorem
+apparent binary choice per odd layer — the descent contains 107 odd
+layers (census gated) — ~~2^107 inequivalent spinor ladders against one
+algebra ladder … a convention-free transport can only be the algebra
+ladder~~ [struck round 137 F2: the 2^107 choice-vectors form a SINGLE
+GAUGE ORBIT under flag-preserving reflections e_j ↦ −e_j of the
+cascade's own substrate — each reflection is an automorphism of the
+whole ladder flipping the odd-layer factor choices, both factor choices
+satisfy the Clifford relations with volume elements ±i swapped by the
+reflection (lead-verified computationally), and no transport quantity
+depends on the choice; a zero-parameter constitution forbids
+parameters, not gauge, and part4b's own equal-weight-basins move is
+exactly the choice-free symmetrization the spinor side equally
+supports]. K selects nothing; the census stands as arithmetic only. *(iv) Theorem
 B (the bilinear reconciliation — the fork was a false dichotomy).* Exact
 at every layer 1..217, gated: **2^d = (2^⌊d/2⌋)² × (2 if d odd)** — the
 algebra IS the bilinear space S ⊗ S* of the spinor module (complex
 setting; the seats' own class per part4a's *"complex minimal spinors"*).
 Hence both committed structures are right about different objects:
 part4a's minimal spinors carry **state amplitudes** (the √2-average
-rate); the algebra carries **bilinears — and a mass is a bilinear-class
-object** (the committed formula transports *"the source mass m₂₉"*,
+rate — disclosed round 137 F3: NO committed quantity transports at this
+rate; every committed transport in the record is coupling/mass-class,
+so the amplitude side is classification without instance); the algebra
+carries **bilinears — and a mass is a bilinear-class object** (the committed formula transports *"the source mass m₂₉"*,
 part4b's own words), at exactly the square of the amplitude rate:
 2 = (√2)². The C1 tension between two committed structures dissolves:
 amplitudes at the spinor rate, masses and couplings at the algebra rate;
@@ -2398,14 +2423,17 @@ the committed per-layer 2 is the coupling rate, and 1ae's coupling
 contrast χ⁸ = 256 concerns couplings. Disclosed reading (R-bilinear):
 classifying masses/couplings as bilinear-class transports is an
 interpretive step — standard, but graded as a reading, the leg's honest
-boundary. *(v) Net effect on the ledger.* **C1 closes** at [Theorem U,
-conditional on the committed formula's form + Theorem K, with the
-constitutional selection cited as meta + Theorem B, with R-bilinear
-disclosed]. 1ag's fiber choice is no longer selection-by-target — it is
-forced by uniformity and canonicity for coupling-class transport, and
-reconciled with the minimal-spinor reading rather than opposed to it.
-The unproved set for the full first-principles proof reduces to **(v-b),
-C2, and C3** (net-state markers placed in 1ag(vii) and the 1ae marker).
+boundary. *(v) Net effect on the ledger — regraded round 137.* ~~C1
+closes … reduces to (v-b), C2, and C3~~ [struck: both selection legs
+fell]. **C1 stays OPEN**, with its state sharpened: RECONCILED in
+classification (Theorem B — the algebra is the spinor bilinear space,
+exact; the two committed structures address different object classes
+under the disclosed R-bilinear reading) but SELECTED only by the value
+of the underived committed formula (1ag(vii)'s selection-by-consistency
+grading stands). What would close it: an odd-Δ committed instance
+(form-discrimination, per U's honest residue) or the formula's own
+derivation. The unproved set remains **(v-b), C1, C2, C3** (the
+markers regraded in place).
 No convention, no new number, no data consumed; Check 7 (Clifford
 representation arithmetic — cascade-native); Check 8 (no hypothesis
 input).
