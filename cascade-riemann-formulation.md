@@ -62,6 +62,16 @@ flags recovered 9/9 from ξ's factorization); the increment and per-period rules
 e^(±½) per measured mode — lemma S4, anchored by equipartition); projection is along root
 frames (lemma S5).
 
+*(Net-state on A3's tail, Theorem 1ac of the review paper, round 120 — placed
+adjacent because the axiom block above is byte-identity-gated (riemann_kernel V1)
+and speaks as of the adoption: the tail's "the increment and per-period rules are
+underived" is superseded-true. The increment rule is ledger row 1's "derived from
+arithmetic first principles … closed as mathematics" (T5, Addendum 33), with unit
+source strength and the filtering rule committed papers-side; the per-period rule
+is row 2's decomposition — shape, flip-count, and ×3 derived; the unit
+normalization and the marked coset the residue. A3's net residue is instantiation
+and convention, not law.)*
+
 ## 2. The theorems
 
 **T1 (Kernel — PROVED, elementary).** The cascade's four primitive families are exactly the

@@ -10014,6 +10014,75 @@ hybrid disclosed. Upgrade routes standing: a committed m_p; the
 T_CMB leading-order deviation's closure. Next hostile round on the
 next substantive paper change.**
 
+## Addendum 205: Theorem 1ac — A3's underived rules audited (owner-commissioned); the tail superseded-true against its own surface's ledger; the residue is instantiation and convention, zero underived rules-in-form
+
+The owner commissioned an audit of A3's tail sentence ("the
+increment and per-period rules are underived"). The finding: the
+tail is contradicted **on its own surface** — the formulation's
+gap-ledger row 1 grades the increment rule "**derived from
+arithmetic first principles** (T5, Addendum 33) … closed as
+mathematics; only its physical instantiation (occupancy, m/k
+counts) remains with C1," and T5's header reads "Arithmetic
+increment rule — PROVED from Tate's thesis alone; Addendum 33."
+
+- **Adjudication: superseded-true**, the delayed-observation class
+  of 1y, disclosed as such. The tail was true when the block was
+  adopted; T5/A33 closed the increment rule's form afterwards; the
+  block speaks as of the adoption and is byte-identity-gated
+  (riemann_kernel V1), so it cannot carry an inline strike. The
+  net-state marker therefore sits **adjacent** — after A4's
+  "(lemma S5)." and before "## 2. The theorems," outside the gated
+  span — and the block's untouchedness is itself gated in the new
+  verifier by re-running riemann_kernel as a subprocess.
+- **The increment rule, decomposed:** attach-once is proved twice
+  over — arithmetically (ℤ's total order, T5) and physically (unit
+  source strength: the marginal Green's-function source coefficient
+  exactly 1 by Sturm–Liouville assembly, at every layer at machine
+  precision — the committed instrument cascade_unit_source_strength.py,
+  run as a subprocess gate). The 1/χ^k filtering rule is derived
+  (part4b), with the channel count k structural, not fitted. The
+  sub-lead placement is proposition-grade: prop:slot-precedence,
+  conditional on the strict reading of the G flag — its own
+  disclosure, gated verbatim.
+- **The per-period rule, decomposed (ledger row 2):** shape derived
+  (T6, A34); flip-count 4 derived (minimal torsion word); ×3
+  incoherence derived (factorization); the residue is the unit
+  normalization carrying Γ(½) — "a convention, empirically anchored
+  not arithmetically forced" — and the marked coset; JUNO "cannot
+  convict the form over its 0.1% twins," gated.
+- **A3's honest net residue:** {the occupancy assignment; the
+  (m,k) counts; P > L > G precedence; the per-period unit
+  normalization; the marked coset} — instantiation or convention,
+  every item already in the C1/convention ledgers. **Zero underived
+  rules-in-form remain.**
+- **The 1z route narrowed:** the strict-boundary stipulation's
+  committed home is thm:alpha-s-closure's scope condition ("any
+  observable whose cascade path lies strictly below … d = 14");
+  the marginal-Green's reading is the named open derivation route
+  (cascade-lattice, Check-7-admissible).
+
+**Surfaces:** Theorem 1ac in the paper (after 1ab; additive); the
+adjacent net-state marker in the formulation (the axiom block
+itself untouched — byte gate green); footer 48 → 50 ("1i–1ab" →
+"1i–1ac"; cascade_a3_rules.py new, cascade_unit_source_strength.py
+newly body-cited — it was committed but had zero body citations
+before 1ac). **Verifier:** cascade_a3_rules.py, R1–R5, 12 gates,
+12/0, two subprocess gates (unit_source_strength exit 0;
+riemann_kernel exit 0; the RESULT line's first draft said 10 —
+corrected pre-commit, the recurring count defect); two sabotages
+exit 1 on scratchpad copies (ledger row 1's "closed as mathematics"
+→ R1 trip 11/1; the marker's "byte-identity-gated" → R5 trip 11/1
+— a first attempt appended "(SABOTAGE)" *after* the anchored
+substring, leaving the anchor intact, 12/0 no trip: a
+sabotage-design error, not a gate defect; redone inside the anchor
+span and disclosed in the docstring). **Battery:** all 19
+instruments green at their committed counts (the 18 of A204 +
+a3_rules); validator clean on 12 files; footer census exact both
+directions (50 counted body scripts + cascade_constants.py = 51
+distinct, zero record-verifier names in body); hygiene clean.
+Trajectory: 1ac landed → round 120 (hostile review, per protocol)
+spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

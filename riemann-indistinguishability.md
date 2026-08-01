@@ -1807,6 +1807,61 @@ occupancy is C1. **What would upgrade it:** a committed m_p (closing the QCD
 composite) or the T_CMB deviation's closure would make η fully committed —
 the standing routes, named; no member, count, or number changes anywhere.
 
+**Theorem 1ac (A3's underived rules audited: the tail decomposed against the
+committed record; the residue is instantiation, not law; `cascade_a3_rules.py`).**
+*(i) The commission and the tension.* The owner commissioned A3's underived
+rules. A3 — *"This is the load-bearing axiom"* — carries four components (the
+source-selection flags; the increment rule; source layers at the analytic
+features; the per-Bott-period attachment) and the tail sentence *"the increment
+and per-period rules are underived."* The committed record contradicts the
+tail's first half **on the same surface**: the formulation's gap-ledger row 1
+reads *"**derived from arithmetic first principles** (T5, Addendum 33;
+supersedes the Tier-2 A32 version)"* with the residue column *"closed as
+mathematics; only its physical instantiation (occupancy, m/k counts) remains
+with C1"* — and T5's own header is *"Arithmetic increment rule — PROVED from
+Tate's thesis alone."* The tail predates Addendum 33: the delayed-observation
+class of 1y, disclosed as such. *(ii) The increment rule, decomposed — every
+piece committed.* **(a) Attach-once, arithmetic side (T5):** *"ℤ's total order
+gives attach-once"*; *"at most one member, first power, per interval functional
+— a theorem of probability at the real place."* **(b) Attach-once, physical
+side (part4b):** the marginal Green's-function identity G(d_obs, d*) −
+G(d_obs, d*+1) = α(d*) *"holds at every layer at machine precision"*, and
+*"the source coefficient is exactly 1 (no fitted prefactor) by assembly via
+Sturm–Liouville structure"* — the committed verifier
+(`cascade_unit_source_strength.py`) is run and its exit gated here. **(c) The
+1/χ^k filtering:** part4b's own *"derivation of the filtering rule"* with
+*"The channel count k is not fitted."* **(d) Sub-lead placement:**
+prop:slot-precedence — proposition-grade, *"Conditional on the strict reading
+of the G flag"* by its own disclosure. What arithmetic does not supply is T5's
+own list, verbatim: *"P > L > G precedence, the physical occupancy assignment,
+the (m,k) counts — instantiation data belonging to C1."* *(iii) The per-period
+rule, decomposed — the ledger's own row 2.* Shape **derived** (T6, A34);
+flip-count 4 **derived** (minimal torsion word); ×3 incoherence **derived**
+(factorization); the residue: *"the unit normalization carrying Γ(½) is a
+convention, empirically anchored not arithmetically forced"* plus the
+marked-coset choice — JUNO tests the value and *"cannot convict the form over
+its 0.1% twins."* *(iv) The adjudication and the marker mechanics.* A3's tail
+is **superseded-true**: each rule decomposes into committed-derived form plus
+instantiation residue, and the ledger's own words for the increment half are
+"closed as mathematics." The axiom block is byte-identity-gated (the adoption's
+discipline, riemann_kernel V1), so the block is **not edited**; the net-state
+marker is placed **adjacent**, immediately after the block, with these
+mechanics disclosed — and the block's untouchedness is itself gated here (the
+kernel verifier re-run, exit 0). **A3's honest net residue: {the occupancy
+assignment; the (m,k) counts; P > L > G (residue item five, deletable on the
+uniform reading); the per-period unit normalization; the marked coset} — all
+instantiation or convention class. Zero underived rules-in-form remain.**
+*(v) The 1z route, narrowed.* The strict-boundary stipulation's committed home
+is thm:alpha-s-closure's own scope condition — *"any observable whose cascade
+path lies strictly below … d=14"* — and the candidate derivation is the
+marginal Green's-function reading (a source attaches to the paths that cross
+it): open, named, stopping-rule-gated per the 1h(iv) pattern; a committed
+closure would relocate the stipulation from member two's live content to
+derived scope. *Honest scope:* no closure is claimed beyond assembling the
+record's own gradings in one place; no number changes; category (a); the
+flags' categorical derivation (part4b's Open Question, Tier 3) remains the
+standing upgrade route.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -2341,4 +2396,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ab: the **48 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ac: the **50 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
