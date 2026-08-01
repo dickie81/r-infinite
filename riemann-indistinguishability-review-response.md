@@ -2203,3 +2203,22 @@ The defects were confined to the marker/disclosure periphery.
 
 **Trajectory: 1z landed → 109 2M+8m+2c (swept) → 110 NOT CONVERGED
 1M+2m+3c (swept) → round 111 (convergence test) next.**
+
+# Round 111: convergence test on the round-110 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1z certified stable; the endpoint-data arc closes
+
+The 1l(ii) marker's content verified against 1z on every count with
+the history git-verified; the Z5 content gate binds both ways; zero
+live stale carriers repo-wide; part4b's note arithmetic verified at
+40 dps; battery, validator, census, hygiene all clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — (none, at any severity) | — | — |
+
+**Trajectory: 1z landed → 109 2M+8m+2c → 110 1M+2m+3c → 111
+CONVERGED 0+0+0. The endpoint-data attack certified: menu-bounded,
+zero free numbers (five menu termini + the observer dimension, C1's
+fixed point); every in-menu alternative data-excluded; the
+stipulation priced at three attachment instances, weakest exclusion
+−2.22σ; member two persists, sharpened; two members, seven items.
+Next hostile round on the next substantive paper change.**

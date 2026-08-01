@@ -9490,9 +9490,9 @@ and a genuine sharpening — then broke both headline quantifiers:
   committed value; the census re-gated (runner-up 3.26σ); the
   substitution disclosed.
 - **F5 (minor, scoped):** part4b's "206.7710" is an arithmetic slip
-  against its own factors (206.4958 × 1.001331 = 206.7707 via the unrounded factors
-  [tightened on notice, round 110 F4: the 4-dp rounded factors alone
-  give 206.7706], the value its own cited verifier prints) — **corrected at both part4b sites
+  against its own factors (206.77071 via the unrounded factors [phrasing corrected on
+  notice, round 111: the rounded display 206.4958 × 1.001331 gives
+  206.7706 at 4 dp; the correction rests on the unrounded chain], the value its own cited verifier prints) — **corrected at both part4b sites
   with in-place annotations**; the reviewer's companion charge
   against the −0.0012% sign is adjudicated NOT a defect (part4b
   defines the residual obs-vs-pred at its own display; 1z's +0.0012%
@@ -9551,6 +9551,43 @@ the revert sabotage exit 1); the other 15 instruments green;
 validator clean on 12 files. Trajectory: 1z landed → 109 2M+8m+2c
 (swept) → 110 NOT CONVERGED 1M+2m+3c (swept this commit) → round 111
 (convergence test) next.
+
+## Addendum 194: convergence-test round 111 on the round-110 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1z certified stable; the endpoint-data arc closes
+
+Round 111 returned zero findings at all severities. Its held list,
+lead-spot-checked: the 1l(ii) marker's content now matches 1z's
+corrected text on every count, with the history claim git-verified
+(the marker predated the round-109 sweep, which never touched it);
+the Z5 content gate binds both ways (the revert sabotage 15/1, exit
+1; a partial revert also fails); zero live "two binary decisions" /
+0.1180-consumed / 206.7710 carriers repo-wide (every remaining
+occurrence an annotation recital, classified); part4b's note
+arithmetic verified at 40 dps on both claims (rounded 206.7706;
+unrounded 206.77071, matching the cited verifier's run output); the
+bracketed ellipsis verbatim; battery at expected counts (16
+instruments); validator clean including the re-edited part4b; footer
+census exact both ways; hygiene clean. One record-file phrasing
+awkwardness in A192 noted by the reviewer and corrected on notice in
+this commit.
+
+**Trajectory: 1z landed (45cfb0c) → 109 NOT CONVERGED 2M+8m+2c
+(swept, 848c248) → 110 NOT CONVERGED 1M+2m+3c (swept, 8c1659f) → 111
+CONVERGED 0+0+0. Theorem 1z is stable and the endpoint-data attack
+on member two is certified: the site-E closure windows' endpoint
+data is menu-bounded with zero free numbers — five termini in forced
+menus, the sixth the observer dimension d = 4, C1's own fixed point;
+every in-menu alternative is data-excluded (weakest endpoint
+exclusion 3.26σ); the strict-boundary stipulation is priced at three
+attachment instances with all alternatives excluded, the weakest —
+α_s unshifted — at −2.22σ; the selections are C1 instantiation,
+uniqueness corroboration not forcing; member two persists,
+sharpened; two members, the seven-item count stands. By-products of
+the arc: part4b's 206.7710 arithmetic slip corrected at both sites
+plus two tool carriers; the A3-increment-rule entailment of the
+stipulation licensed as an open route. Standing open routes: that
+entailment; the pairing-act (member three, Door-4 bookkeeping);
+A3's underived rules; the layer-2 soft inputs. Next hostile round on
+the next substantive paper change.**
 
 ## Caveats
 
