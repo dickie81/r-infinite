@@ -10546,7 +10546,8 @@ Theorem 1ae:
   no partition, no offset, no orientation. Census: δ = {5:0, 13:1,
   21:2}; every deeper seat has nearest source 19 (the largest
   element of S, below every deep seat), δ = 8k − 22 ≥ 10.
-  Participants {5, 13, 21} and nothing else, ever. Equivalence
+  Participants {5, 13, 21} and nothing else~~, ever~~ [modality
+  corrected on notice, round 126 F2]. Equivalence
   with 1ad's cell census gated; 1ad's orientation disclosure
   net-state-marked as superseded (history of the cell formulation
   only).
@@ -10554,29 +10555,39 @@ Theorem 1ae:
   {10,18,26,…} — no seat at δ ∈ [3,9]. Every threshold 3..9 yields
   the identical census (enumerated and gated): the dichotomy has a
   seven-integer margin and the threshold's exact value is not
-  load-bearing. Exhaustiveness is theorem-grade: Part 0 tower
-  completeness ("The Gamma function produces exactly four
-  distinguished dimensions in the cascade. No fifth exists."),
-  Adams/Bott for 14, part4b's sink accounting ("Removing d₂=217 as
-  the Planck sink leaves exactly four sources") — the source set
-  can never grow. Sensitivity disclosed and gated: sink-as-source
+  load-bearing. ~~Exhaustiveness is theorem-grade … the source set
+  can never grow~~ [struck on notice, round 126 F2: thm:tower
+  closes cascade-internal Γ-mechanisms only; the Adams scan is
+  committed on [5, 19] and ρ−1 = 3 recurs at 20, 28, 36; the
+  closing step is part4b's remark-level type-counting
+  completeness — the census is closed relative to the committed
+  source set]. Sensitivity disclosed and gated: sink-as-source
   would admit exactly one extra participant (seat 213, δ=4); the
   exclusion is part4b's committed accounting, not a choice.
-- **The forced-contrast theorem (proved).** Under the committed
-  per-layer filter, the worst participant costs χ²=4, the best
-  non-participant χ¹⁰=1024 — contrast χ⁸ = 256, exactly one Bott
-  period, forced because 21 and 29 share the last source as
-  nearest (their δs differ by the seat spacing). Consonance with
+- ~~**The forced-contrast theorem (proved).** Under the committed
+  per-layer filter~~ [struck on notice, round 126 F1: the cost
+  model was uncommitted — part4b's exponents anchor at layer 29,
+  and the formula's derivation is an OQ item; regraded in the
+  sweep: the δ-contrast of 8 = one period is the theorem (shared
+  nearest source), the coupling contrast χ⁸ = 256 is conditional
+  on the chi-per-layer model, now item (v-a) of the unproved
+  pair]. Consonance with
   part4a's independent ~289 amplitude suppression reported at
   12.9% — consonance, not identity, so labeled and gated.
-- **The remaining lemma, named exactly:** a mode filtered by
-  ≥ χ¹⁰ fails A4/S4's measurement condition while δ ≤ 2 modes
-  pass. The gap theorem makes the lemma threshold-free — any
-  separation point in the gap gives the same three generations.
+- **The remaining unproved items** ~~lemma, named exactly~~
+  [corrected on notice, round 126 F1: a pair, not one] — (v-a) the
+  cost model; (v-b) the A4/S4 measurement biconditional (≥ χ¹⁰
+  filtering fails the LLN-quenched record rate; δ ≤ 2 passes).
+  The gap theorem keeps both threshold-free — any separation
+  point in the gap gives the same three generations.
   (D1)/(D2) reduces to this one lemma with a one-period margin.
-- **Grading:** (ii)–(iv) theorems (finite arithmetic over a
-  theorem-closed source set); (v) the named lemma; nothing is a
-  convention. Check 8 clean (S is Γ+Adams-forced, observer-free).
+- **Grading:** ~~(ii)–(iv) theorems … (v) the named lemma~~
+  [struck on notice, round 126 F1/F2: the coupling contrast rested
+  on an uncommitted chi-per-layer cost model (part4b's exponents
+  anchor at layer 29; the formula's derivation is an OQ item) and
+  the exhaustiveness closes at a remark-level step — regraded in
+  the round-126 sweep: census/gap theorems; contrast split;
+  unproved PAIR]. Check 8 clean (S observer-free).
 
 **Surfaces:** Theorem 1ae in the paper (after 1ad); the net-state
 marker on 1ad(ii); footer 54 → 55 ("1i–1ad" → "1i–1ae";
@@ -10594,6 +10605,73 @@ files; census 55 counted + constants = 56 distinct, zero record
 names in body; hygiene clean. Trajectory: F125 sweep + 1ae landed
 → round 126 (combined convergence + hostile review, per protocol)
 spawned on this commit.
+
+## Addendum 215: combined round 126 on commit 6bcd99b — Part A (round-125 sweep) CONVERGED on its items; Part B (Theorem 1ae) NOT CONVERGED (1 MAJOR, 1 minor, 1 cosmetic); the census and gap held as theorems, the cost model and the exhaustiveness modality regraded; all findings lead-verified and swept
+
+Round 126 held 1ae's core completely — the census, the gap, the
+equivalence, the threshold enumeration, the counterfactual, every
+sabotage, and the de-conventioning itself ("real at census level…
+no committed alternative metric changes the census") — and broke
+the two claims that exceeded the record:
+
+- **F126-1 (MAJOR):** (iv)'s "committed per-layer filter …
+  coupling cost to the nearest source is χ^δ" was an uncommitted
+  cost model presented as committed. Lead-verified: part4b's
+  neutrino formula anchors every committed exponent at layer 29
+  (the receiving-seat distance — seat 21's only committed filter
+  is χ⁸ to 29, not χ² to 19); no committed instance couples a seat
+  to an S-source; the formula's own derivation is a part4b Open
+  Questions item ("no explicit derivation appears"). The F124-6
+  class re-expanded one theorem after confinement. Swept: (iv)
+  split into its theorem half (the δ-contrast of 8 = one period,
+  forced by the shared nearest source — this survives as proved)
+  and its conditional half (the coupling contrast χ⁸ = 256, now
+  conditional on the model); (v) renamed to the unproved PAIR
+  (v-a: the cost model; v-b: the A4/S4 measurement biconditional);
+  "upgrades every input to a cited theorem" and "two committed
+  routes" struck-and-annotated; the verifier's docstring and
+  READING aligned in the same commit; two new anchor gates added
+  (the 29-anchored formula + its OQ grading).
+- **F126-2 (minor):** the exhaustiveness modality ("theorem-grade
+  … for all time … never … ever") overclaimed its citations.
+  Lead-verified: thm:tower's proof closes cascade-internal
+  Γ-mechanisms; 14 itself entered by an external route; the
+  committed Adams scan is scoped to [5, 19] ("the unique dimension
+  in [5,d₁=19] where ρ(d)−1=3") while Radon–Hurwitz gives
+  ρ(d)−1 = 3 again at d = 20, 28, 36 (recomputed and now gated);
+  the closing step is part4b's remark-level type-counting
+  completeness ("No fifth type is definable without introducing a
+  new structural element"). Swept: the paper's exhaustiveness
+  regraded per step (theorem / scoped theorem / remark-level
+  close; "closed relative to the committed source set"); "ever"
+  modality-corrected; a new anchor gate added.
+- **F126-3 (cosmetic):** the literal consonance conjunct
+  (|289/256 − 1| < 0.15) — the F125-3 class landed in the very
+  commit that swept F125-3 — converted to a declared identity.
+
+**Part A held in full:** the round-125 sweep's four items verified
+converged (READING aligned; the mixing attribution to part4a
+accurate with |U_e4|² = α(21)/χ⁸ ≈ 9×10⁻⁵ verbatim in part4a
+OQ-T3 and zero U_e4 hits in part4b; the declared identity; the
+completed bullet).
+
+**Post-sweep state:** participation_dichotomy 18 gates + 2
+declared identities, 18/0 (the landing had 16); all three
+sabotages re-run on the 18-gate tree — (a) 17/1, (b) 13/5 (five
+census gates cascade), (c) 17/1, each exit 1, clean baselines
+18/0; A214's four overgraded bullets struck on notice; battery all
+22 instruments green, zero FAIL lines; validator clean on 12
+files; footer census unchanged (55 counted + constants = 56);
+hygiene clean. What 1ae now claims, exactly: census and gap are
+theorems over the committed source set; exhaustiveness closes at a
+remark-level committed step; the δ-contrast is a theorem; the
+coupling contrast is conditional on (v-a); two named unproved
+items remain. Nothing is a convention; the grading says which is
+which.
+
+**Trajectory: 1ae + F125 sweep landed (6bcd99b) → 126 NOT
+CONVERGED 1M+1m+1c (swept here) → round 127 (convergence test)
+next.**
 
 ## Caveats
 

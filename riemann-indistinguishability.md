@@ -2034,8 +2034,13 @@ pattern match.* Rounds 124–125 exposed exactly where 1ad fell short of that
 standard: a trailing-cell orientation that was a convention (the census
 6-of-8 offset-robust, the cell contents 1-of-8), and a coupling biconditional
 that was proposition-grade. This theorem removes the convention entirely,
-upgrades every input to a cited theorem, proves the dichotomy's structural
-content exactly, and reduces what remains to a single named lemma. *(ii) The
+~~upgrades every input to a cited theorem~~ [struck round 126 F1: false for
+the coupling-cost input — the χ-per-layer model is an extrapolation of the
+neutrino formula's structure, and that formula's derivation is itself a
+part4b Open Questions item ("no explicit derivation appears"); the census
+inputs are cited theorems, the cost model is not], proves the dichotomy's
+census and gap exactly, and reduces what remains to two named unproved
+items. *(ii) The
 convention-free rule.* For each Dirac seat d, define **δ(d) = min over the
 source set S = {5, 7, 14, 19} of |d − d*|** — symmetric, orientation-free:
 no partition, no offset, no direction. The rule: a seat participates iff
@@ -2043,7 +2048,9 @@ no partition, no offset, no direction. The rule: a seat participates iff
 and for every deeper seat (seat_k = 8k − 3, k ≥ 4) the nearest source is
 d₁ = 19 — the largest element of S, since all of S lies below every such
 seat — so δ(seat_k) = 8k − 22 ≥ 10, strictly increasing. Participants:
-**{5, 13, 21} and nothing else, ever.** This census coincides with 1ad's
+**{5, 13, 21} and nothing else** ~~, ever~~ [modality corrected round 126
+F2: "ever" holds relative to the committed source set — see (iii)'s
+regraded exhaustiveness]. This census coincides with 1ad's
 trailing-cell census (gated as an equivalence), so every 1ad result stands
 with the convention deleted; 1ad's orientation disclosure is thereby
 superseded-true (net-state marker in place). *(iii) The gap theorem
@@ -2052,43 +2059,73 @@ realizes any δ in [3, 9]** — the dichotomy carries a seven-integer-wide
 empty margin, so every threshold from 3 through 9 (in particular "within
 one Bott period") yields the identical census; the threshold's exact value
 is not load-bearing anywhere inside the gap, gated by direct enumeration.
-Exhaustiveness is theorem-grade, not observational: Part 0's tower
+Exhaustiveness, regraded honestly (round 126 F2): ~~theorem-grade …
+close the source set for all time; the census can never be amended by a
+fifth source~~ [the composition is graded per step]. Part 0's tower
 completeness — *"The Gamma function produces exactly four distinguished
-dimensions in the cascade. No fifth exists."* — plus Adams' theorem and the
-Bott mirror forcing d_gw = 14 (part4b's own attribution) plus part4b's
-committed sink accounting (*"Removing $d_2=217$ as the Planck sink leaves
-exactly four sources"*) close the source set for all time; the census can
-never be amended by a fifth source. *Sensitivity disclosure, load-bearing
+dimensions in the cascade. No fifth exists."* — is a **theorem**, but its
+proof closes *cascade-internal Γ-mechanisms*; d_gw = 14 itself entered the
+source set by an external route (Adams' theorem and the Bott mirror,
+part4b's own attribution), and the committed Adams uniqueness scan is
+scoped — *"the unique dimension in $[5,d_1=19]$ where $\rho(d)-1=3$"* —
+while Radon–Hurwitz arithmetic gives ρ(d)−1 = 3 again at d = 20, 28, 36, …
+above the scanned range, so no cited *theorem* excludes an Adams-type
+distinguished layer above 19. The closing step is part4b's **remark-level
+type-counting completeness** — *"they are the complete set of non-sink
+distinguished layers"*; *"No fifth type is definable without introducing a
+new structural element"* — committed, but a remark, not a theorem. Net:
+the census is closed **relative to the committed source set** (sink
+accounting: *"Removing $d_2=217$ as the Planck sink leaves exactly four
+sources"*); a new structural source mechanism would reopen it, and the
+record's own barrier against that is remark-grade. *Sensitivity disclosure, load-bearing
 and stated:* the sink exclusion matters — under the counterfactual reading
 that counts the Planck sink d₂ = 217 as a source, exactly one additional
 seat would participate (seat 213, δ = 4, the Planck-adjacent Dirac seat);
 the exclusion is part4b's committed accounting, not a choice made here, and
-the counterfactual is gated. *(iv) The forced-contrast theorem (proved).*
-Under the committed per-layer filter (the neutrino formula's exponent is
-the layer distance — part4b), coupling cost to the nearest source is
-χ^δ. The worst participant costs χ² = 4; the best non-participant costs
-χ^10 = 1024; the contrast is **χ^8 = 256 — exactly one Bott period of
-filtering, and forced, not fitted**: seats 21 and 29 share the same nearest
-source (d₁ = 19, the last), so their δ-values differ by exactly the seat
-spacing 8 — the contrast IS Bott periodicity. Consonance, reported and not
-identified: part4a's independent amplitude route suppresses the fourth
-charged generation *"by a factor of $\sim 289$"* (the supercritical wall —
-a different mechanism); 289 and 256 differ by 13% — two committed routes
-arriving at the same scale, no identity claimed. *(v) The remaining lemma,
-named exactly.* What is not proved — and after (ii)–(iv), the *only* thing
-not proved — is the measurement-side biconditional: **that a mode whose
-source coupling is filtered by ≥ χ^10 fails A4/S4's measurement condition
-(the LLN-quenched record rate) while modes at δ ≤ 2 pass it.** The gap
-theorem makes this lemma easier than part4a's activation-width problem: the
-lemma need not locate a threshold — any separation point inside the
+the counterfactual is gated. *(iv) The contrast, split into its theorem and its conditional (regraded
+round 126 F1 — the landing's "forced-contrast theorem (proved)" rested on
+~~the committed per-layer filter … coupling cost to the nearest source is
+χ^δ~~, an uncommitted cost model: part4b's neutrino formula
+m_ν = m₂₉·α(d_g)/χ^(29−d_g) anchors every committed exponent at **layer
+29**, the distance to the *receiving seat* — no committed instance couples
+any seat to an S-source at cost χ^δ, seat 21's only committed filter is χ⁸
+to 29 not χ² to 19, and the formula's own derivation is a part4b Open
+Questions item ("no explicit derivation appears"); the F124-6 class,
+re-expanded one theorem after it was confined].* **The theorem half
+(δ-arithmetic, proved):** min excluded δ (10) minus max included δ (2) is
+exactly 8 — one Bott period — forced because seats 21 and 29 share the
+same nearest source (d₁ = 19, the last), so their δ-values differ by
+exactly the seat spacing. **The conditional half:** *if* coupling cost
+scales as χ per layer of separation from the nearest source — an
+extrapolation of the neutrino formula's structural shape, stated here as a
+model, proposition-grade per 1ad's own confinement — *then* the
+worst-participant/best-non-participant coupling contrast is χ^8 = 256.
+Consonance, reported and not identified: part4a's independent amplitude
+route suppresses the fourth charged generation *"by a factor of $\sim
+289$"* (the supercritical wall — a different mechanism); 289 and 256
+differ by 13% — one committed route and one conditional route arriving at
+the same scale, no identity claimed. *(v) The remaining unproved items,
+named exactly (two, not one — corrected round 126 F1: the landing's "the
+*only* thing not proved" was false while (iv) carried an unmarked model).*
+**(v-a) The cost model:** that coupling cost scales as χ per layer of
+separation on the seat↔source channel — (iv)'s conditional input, an
+extrapolation whose committed antecedent (the neutrino formula) is itself
+an open-derivation item. **(v-b) The measurement biconditional:** that a
+mode whose source coupling is filtered by ≥ χ^10 fails A4/S4's measurement
+condition (the LLN-quenched record rate) while modes at δ ≤ 2 pass it. The
+gap theorem keeps both threshold-free: any separation point inside the
 seven-wide gap yields the same three generations. part4a's (D1)/(D2)
-tension thereby reduces to this one lemma with a one-period margin. The
+tension thereby reduces to this lemma pair with a one-period margin. The
 falsifier is unchanged and sharp: any propagating fourth-generation fermion
 at any mass — including a KATRIN/TRISTAN-visible sterile at d = 29 —
 falsifies the rule. Check 8 clean: S is theorem-forced (Γ + Adams),
-observer-free; no hypothesis content enters the census. *Grading:*
-(ii)–(iv) are theorems — finite arithmetic over a theorem-closed source
-set; (v) is the named remaining lemma; nothing here is a convention.
+observer-free; no hypothesis content enters the census. *Grading (regraded round 126 F1/F2):*
+(ii) and (iii)'s census, gap, and threshold-robustness are **theorems** —
+finite arithmetic over the committed source set; (iii)'s exhaustiveness is
+a graded composition closing at a remark-level step; (iv) splits — the
+δ-contrast a theorem, the coupling contrast conditional on (v-a); (v) is
+the named unproved pair. Nothing here is a convention; not everything here
+is a theorem, and the grading now says which is which.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

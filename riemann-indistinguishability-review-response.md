@@ -2470,3 +2470,19 @@ follow; the 8-offset census exact; battery 21; quotes verbatim).
 0M+2m+2c (swept) → the sweep lands together with Theorem 1ae (the
 de-conventioned dichotomy, the owner's proof-standard commission) →
 round 126 (combined) next.**
+
+# Round 126: combined round on commit 6bcd99b — Part A (round-125 sweep) converged; Part B (Theorem 1ae) NOT CONVERGED (1 MAJOR, 1 minor, 1 cosmetic); round 127 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F126-1 (MAJOR) — (iv)'s χ^δ cost model presented as "the committed per-layer filter": part4b's exponents all anchor at layer 29 (receiving-seat distances), no committed seat↔source instance exists, and the formula's derivation is itself an OQ item; (v)'s "only thing not proved" thereby false | **Accepted; (iv) split** — δ-contrast (= one period, shared-nearest-source) stays a theorem; the coupling contrast regraded conditional; (v) renamed the unproved PAIR (cost model + measurement biconditional); "every input a cited theorem" struck; verifier prose aligned concurrently; two anchor gates added | paper + verifier + record |
+| F126-2 (minor) — exhaustiveness "for all time / never / ever" overclaimed: thm:tower closes cascade-internal mechanisms; the Adams scan is committed on [5,19] and ρ−1=3 recurs at 20, 28, 36; the true closer is part4b's remark-level type-counting completeness | **Accepted; regraded per step with the type-counting close cited and gated; ρ recomputed at 12/20/28/36 in a new gate; modality corrected** | paper + verifier + record |
+| F126-3 (cosmetic) — literal consonance conjunct (the F125-3 class, landed in the commit that swept F125-3) | **Accepted; declared identity** | verifier |
+
+Held: the census, gap, equivalence, threshold enumeration,
+counterfactual, all sabotages, the de-conventioning itself, the
+round-125 sweep (Part A), battery, validator, census, hygiene,
+Checks 7/8, self-containment.
+
+**Trajectory: 1ae landed (6bcd99b) → 126 NOT CONVERGED 1M+1m+1c
+(swept) → round 127 (convergence test) next.**
