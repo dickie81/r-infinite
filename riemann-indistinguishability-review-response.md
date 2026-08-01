@@ -2222,3 +2222,19 @@ fixed point); every in-menu alternative data-excluded; the
 stipulation priced at three attachment instances, weakest exclusion
 −2.22σ; member two persists, sharpened; two members, seven items.
 Next hostile round on the next substantive paper change.**
+
+# Round 112: hostile review of Theorem 1aa (the forcing ledger, commit 18665d5) — NOT CONVERGED (4 MAJORs, 4 minors); the terminations re-graded empirically anchored; round 113 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F112-1 (MAJOR) — "{5,13,21} (Bott)" promoted an infinite ladder's Tier-4 charged cut to structure-forced (part4a: "no cascade-internal termination"; d = 29 carries neutrino content) | **Accepted; struck-and-annotated with part4a recited**; the residue class stays F, the termination moves to the new Stratum D | paper + verifier |
+| F112-2 (MAJOR) — "the visible spectrum is exactly …" required an uncommitted third-window exclusion (part4b carries zero third-window content) | **Accepted; struck**; Stratum D carries the gap as acknowledged | paper |
+| F112-3 (MAJOR) — the desert sentence covers 7–11 only; both deserts stamped "verbatim" | **Accepted; scoped**, the second desert's content half disclosed uncommitted | paper + verifier |
+| F112-4 (MAJOR) — the convention residue omitted; stratum E's determination runs through charged conventions | **Accepted; "given the seat plus the convention ledger"**; N_c's act-condition disclosed; the answer corrected | paper |
+| F112-5 (minor) — index/residue conflation at the exhibit | **Accepted; corrected** ({4} the index; −1 the residue) | paper + verifier |
+| F112-6 (minor) — three tautology gates counted | **Accepted; declared, not counted** (17 gates + 3 declarations; two F1 anchors added) | verifier |
+| F112-7 (minor) — the grading anchor matched anywhere (source-only perturbation passed) | **Accepted; locational gate** (within Definition 6.1's span); the source-only sabotage exits 1 | verifier |
+| F112-8 (minor) — "the deserts contribute nothing" contradicted the desert source layers | **Accepted; "no visible matter content"**, the potential-side imprint stated | paper |
+
+**Trajectory: 1aa landed → 112 NOT CONVERGED 4M+4m (swept) → round
+113 (convergence test) next.**

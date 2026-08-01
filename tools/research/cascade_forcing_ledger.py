@@ -4,10 +4,13 @@
 Claim under test: the owner's forcing question ("what forces the
 selection; why do these properties project into the observer's
 spacetime; why do they present as particles at d = 5") stratifies
-exactly: Stratum F (structure-forced menus -- Clifford windows,
-Majorana deserts, Bott generation seats, Adams gauge triple, the
-Gamma-forced distinguished layers); Stratum E (entailed given C1's
-seat -- the visible spectrum and the single-valued address rules);
+(as corrected round 112): Stratum F (structure-forced -- the window
+ARITHMETIC: Clifford residues, the first desert's committed sentence,
+Adams gauge triple with N_c act-conditional and disclosed, the
+Gamma-forced distinguished layers); Stratum D (empirically anchored
+terminations, added round 112: the charged Bott ladder's Tier-4 cut;
+the third window's non-seat layers without committed disposition);
+Stratum E (entailed given the seat PLUS the convention ledger);
 Stratum C (C1-primitive residue, exactly three items: occupancy, the
 observer<->twist-4 labeling, the discrete Definition-6.1 entries).
 The labeling's committed exhibit: {k : gamma^k = -1} = {4}, the
@@ -86,7 +89,9 @@ gate("the Bott generation seats in the span: {5, 13, 21}",
 
 print("L2 -- the Z/8 clock exhibit")
 z8 = cmath.exp(2j * math.pi / 8)
-gate("zeta_8^4 = -1 exactly", abs(z8 ** 4 - (-1)) < 1e-15)
+# round-112 F6: zeta_8^4 = -1 is a literal identity -- DECLARED, not gated
+# (the 1l(iv) discipline: a tautology cannot fail)
+print("  IDENTITY (declared, not gated): zeta_8^4 = -1 -- literal arithmetic")
 reals = sorted(round((z8 ** k).real, 12) for k in range(8)
                if abs((z8 ** k).imag) < 1e-12)
 gate("the real residues of <zeta_8> are {1, -1}", reals == [-1.0, 1.0],
@@ -114,14 +119,20 @@ def V(d):
 
 argmax = max(range(1, 30), key=V)
 gate("argmax_Z V = 5 (recomputed)", argmax == 5, f"{argmax}")
-gate("5 mod 8 = 5: first-window Dirac layer and first Bott seat",
-     5 % 8 == 5 and complex_window(5))
+# round-112 F6: 5 mod 8 = 5 is constant arithmetic -- DECLARED, not gated
+print("  IDENTITY (declared, not gated): 5 mod 8 = 5, in the complex class")
 first_window_dirac = [d for d in (4, 5, 6) if d % 8 == 5]
 gate("d = 5 is the unique first-window layer that is a Dirac/Bott seat "
      "and the argmax", first_window_dirac == [5] and argmax == 5)
-gate("desert residues: 7..11 have d mod 8 in {7,0,1,2,3}, none complex",
-     [d % 8 for d in range(7, 12)] == [7, 0, 1, 2, 3]
-     and not any(complex_window(d) for d in range(7, 12)))
+# round-112 F6: the desert-residue list is constant arithmetic -- DECLARED
+print("  IDENTITY (declared, not gated): 7..11 mod 8 = {7,0,1,2,3}, none complex")
+part4a_txt = open(PART4A, encoding="utf-8").read()
+gate("part4a's infinite-ladder sentence anchored (round-112 F1)",
+     "with no cascade-internal termination of the replication"
+     in norm(part4a_txt))
+gate("part4a's Tier-4 empirical-anchor sentence anchored (round-112 F1)",
+     "relies on empirical non-observation at LEP, atomic, fixed-target, and "
+     "cosmological observations" in norm(part4a_txt))
 
 print("L4 -- the boundary anchors (verbatim)")
 form = open(FORM, encoding="utf-8").read()
@@ -130,11 +141,18 @@ gate("formulation: 'what can never be a theorem' header",
      "what can never be a theorem" in norm(form))
 gate("Theorem 13's scope sentence anchored (exact, normalized)",
      'not "the address book is forced."' in np_)
-ok4 = ("though its link to the" in np_
-       and "is a labeling, not a derivation" in np_)
-gate("Definition 6.1's labeling grading anchored", ok4)
-gate("part4a's desert sentence anchored",
-     "support no quantum matter content visible to the $d=4$" in norm(part4a))
+i_d61 = paper.find("**Definition 6.1 (address book).**")
+i_end = paper.find("## 7. Uniqueness", i_d61)
+d61_span = norm(paper[i_d61:i_end])
+gate("Definition 6.1's labeling grading anchored WITHIN Definition 6.1's span "
+     "(round-112 F7: the draft gate matched anywhere, so 1aa's own recital "
+     "satisfied it)",
+     i_d61 > 0 and i_end > i_d61
+     and "is a labeling, not a derivation" in d61_span)
+gate("part4a's FIRST-desert sentence anchored (round-112 F3: it covers "
+     "d=7..11 only)",
+     "five real (Majorana) layers $d=7,8,9,10,11$" in norm(part4a)
+     and "support no quantum matter content visible to the $d=4$" in norm(part4a))
 gate("the convention-free-distinction sentence anchored",
      "one convention-free arithmetic distinction" in np_.replace("**", ""))
 
@@ -143,17 +161,19 @@ npp = np_.replace("**", "")
 ok5 = "stratify the question into its forcible parts" in npp
 ok5 &= "Stratum C (C1-primitive — the exact residue). Three items and no more" in npp
 ok5 &= "(d) alone consumes the seat" in npp
-ok5 &= ("the properties are forced (the menus), the projection is entailed "
-        "(given the seat), and the seat is the hypothesis" in npp)
-gate("the strata, the exact residue, the conjunction, the one-sentence answer",
-     ok5)
+ok5 &= "Stratum D (empirically anchored — the terminations; added round 112" in npp
+ok5 &= "given the seat plus the convention ledger" in npp
+ok5 &= ("the window arithmetic is forced (Clifford, Adams, Γ), the charged "
+        "ladder's termination is empirically anchored" in npp)
+ok5 &= "the index at which the clock reaches its unique nontrivially-real residue, −1" in npp
+gate("the strata (incl. D), the corrected answer, the F5 wording anchored", ok5)
 ok6 = ("a committed derivation of the observer↔4 link from the clock "
        "distinction would move the labeling from stratum C to stratum F"
        in npp)
 gate("the stopping-rule-gated labeling route anchored", ok6)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (18 gates)")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (17 gates; 3 identities declared, not counted -- round-112 F6)")
 print("READING: the forcing question stratifies exactly -- the menus are")
 print("theorems (Clifford, Bott, Adams, Gamma), the projection is entailed")
 print("given the seat, and the seat is C1, carrying one convention-free")

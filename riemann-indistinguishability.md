@@ -1624,30 +1624,64 @@ be a theorem"*; Theorem 13's own scope honesty: the exhaustion's content is *"'a
 fully-specified address book leaves zero residual freedom,' not 'the address book
 is forced'"*). What this theorem does: stratify the question into its forcible
 parts and audit each, so the C1-primitive residue is exact rather than diffuse.
-*(ii) The three strata.* **Stratum F (structure-forced, observer-free — the
-menus).** Which layers *can* carry visible quantum matter is a theorem chain
-consuming no hypothesis: Cl(1, d−1) has complex minimal spinors iff d mod 8 ∈
-{4, 5, 6} (Bott/Lounesto, part4a), giving the windows {4,5,6}, {12,13,14},
-{20,21,22} and the **Majorana deserts** between them (d = 7–11, 15–19: *"carry no
-complex spinor structure and support no quantum matter content visible to the
-d=4 observer"* — part4a, verbatim); the generation seats are the Dirac layers
-d ≡ 5 (mod 8): {5, 13, 21} (Bott); the gauge triple {12, 13, 14} with
-SU(3)×SU(2)×U(1) is Adams-forced, N_c = 3 kernel-entailed given the act (1w);
-the distinguished layers {5, 7, 19, 217} are Γ-theorems with the feature→layer
-assignment entailed end-to-end (1y). **Stratum E (entailed given the seat).**
-Given C1's minimal content — the observer occupies twist 4 — everything the
-owner's question calls "these properties" follows by committed determination:
-the visible spectrum is exactly [first-window fermions] + [mirror-window gauge]
-+ [the Bott ladder], the deserts contribute nothing, and the address book's rules
-are single-valued (Theorem 13; the windows' alternatives data-excluded, 1z).
+*(ii) The strata — as corrected by round 112, which struck the first draft's
+promotion of two empirically-anchored terminations into "forced."* **Stratum F
+(structure-forced, observer-free — the window arithmetic).** Which *residues*
+can carry complex quantum matter is a theorem consuming no hypothesis:
+Cl(1, d−1) has complex minimal spinors iff d mod 8 ∈ {4, 5, 6} (Bott/Lounesto,
+part4a), giving in the tower's distinguished span the windows {4,5,6},
+{12,13,14}, {20,21,22}; the first **Majorana desert** (d = 7–11) carries
+part4a's verbatim sentence — *"carry no complex spinor structure and support no
+quantum matter content visible to the d=4 observer"* — while for the second
+(d = 15–19) **the spinor half is committed via the same iff and the
+visible-matter-content half carries no committed sentence** *(round-112 F3: the
+first draft stamped both deserts "part4a, verbatim")*; the gauge triple
+{12, 13, 14} with SU(3)×SU(2)×U(1) is Adams-forced (N_c = 3 kernel-entailed
+**given the act** — an act-conditional item housed here with its condition
+disclosed, round-112 F4); the distinguished layers {5, 7, 19, 217} are
+Γ-theorems with the feature→layer assignment entailed end-to-end (1y).
+~~the generation seats are the Dirac layers d ≡ 5 (mod 8): {5, 13, 21}
+(Bott)~~ **[struck round 112 (F1, MAJOR): the Bott seat *residue class* is
+forced; the *set* {5, 13, 21} is not — part4a's own sentence: "Bott
+periodicity is infinite. The cascade descent contains Bott Dirac layers
+(d mod 8 = 5) at d = 5, 13, 21, 29, 37, …, with no cascade-internal
+termination of the replication"; the cut at three charged generations "relies
+on empirical non-observation at LEP, atomic, fixed-target, and cosmological
+observations — not on cascade-internal exp-suppression," Tier-4-graded by
+part4a's own Open Questions; and d = 29 carries committed neutrino-sector
+content. The termination belongs to Stratum D.]** **Stratum D (empirically
+anchored — the terminations; added round 112, F1/F2).** Two completeness gaps
+the record itself acknowledges (category (a)), restated here because the first
+draft's strata absorbed them into "forced": the Bott ladder's cut at three
+**charged** generations is Tier-4 empirical input; and the third window's
+non-seat layers (20, 22) have **no committed disposition** — part4a's table row
+defers *"(see part4b)"* and part4b carries no third-window content; the
+exclusion route is part4a's *candidate* derivation, uncommitted by its own
+wording. **Stratum E (entailed given the seat plus the convention ledger —
+round-112 F4).** Given C1's minimal content — the observer occupies twist 4 —
+**and given the record's standing convention residue** (the seven-item count
+with the class's two remaining members, the pairing-act among them; Theorems
+8–12's determination runs through these), the *accounted* spectrum follows:
+first-window fermions, mirror-window gauge, the charged Bott seats —
+~~the visible spectrum is exactly [first-window fermions] + [mirror-window
+gauge] + [the Bott ladder], the deserts contribute nothing~~ **[struck round
+112 (F2 MAJOR / F8 minor): "exactly" required a committed exclusion of visible
+content at d = 20, 22 and beyond, which the record does not carry (Stratum D);
+and the desert layers contribute no visible *matter content* while d₀ = 7 and
+d₁ = 19 are source layers of committed precision closures — the deserts'
+imprint on observables is real and committed]** — with the address book's
+rules single-valued (Theorem 13) and the window alternatives data-excluded
+(1z).
 **Stratum C (C1-primitive — the exact residue).** Three items and no more: that
 the tower is *occupied* at all; the observer↔twist-4 **labeling**; and the
 occupancy entries of Definition 6.1 outside strata F/E (~60–100 discrete
 entries, no continuous parameter). On the labeling, the record's sharpest
 committed fact is an **exhibit, not a derivation**, and Definition 6.1 grades it
 itself: twist 4 carries *"**one** convention-free arithmetic distinction"* — the
-torsion half-period, {k : γᵏ = −1} = **{4}** (the unique nontrivially-real
-residue of the ℤ/8 clock; the flip-word arithmetic is derived, Mechanism M) —
+torsion half-period, {k : γᵏ = −1} = **{4}** (the index at which the clock
+reaches its unique nontrivially-real residue, −1 — round-112 F5 corrected the
+first draft's conflation of index and residue; the flip-word arithmetic is
+derived, Mechanism M) —
 *"though its link to the **observer** is a labeling, not a derivation"*
 (Definition 6.1, verbatim; anchored and gated). *(iii) The d = 5 presentation
 chain.* Why matter presents as particles at the 5-layer, assembled from
@@ -1660,19 +1694,23 @@ presentation *as particles* is the committed machinery, cited: per-layer
 Grassmann locality (part4b's fermion action), the chirality basins χ(S^(2n)) = 2
 at the even boundary sphere S⁴, per-layer mass m(d) = R(d)/χ, measurement along
 root frames (A4/S5). And the deserts answer the question's negative half: the
-observer sees the Standard Model's *shape* because between the windows
-**nothing is visible** — the spectrum's sparseness is Clifford arithmetic, not
-selection. *(iv) Honest scope and falsifiers.* Check 8 is load-bearing
+observer sees the Standard Model's *shape* because between the windows **no
+visible matter content presents** (round-112 F8: the desert layers' imprint on
+observables is real — d₀ and d₁ are source layers of committed closures —
+potential-side, not matter content) — the spectrum's sparseness within the
+committed span is Clifford arithmetic, not selection. *(iv) Honest scope and falsifiers.* Check 8 is load-bearing
 throughout: no step above derives the seat; stratum E is conditional on C1 and
 says so; the γ⁴ exhibit corroborates the labeling and does not force it (a
 committed derivation of the observer↔4 link from the clock distinction would
 move the labeling from stratum C to stratum F and is the standing route this
 theorem names — stopping-rule-gated per the 1h(iv) pattern). No closure; no
 number changes; no data consumed beyond the already-committed record; category
-(a). The answer to the commission, in one sentence: **the properties are forced
-(the menus), the projection is entailed (given the seat), and the seat is the
-hypothesis — carrying exactly one convention-free arithmetic distinction, on the
-record as an exhibit.**
+(a). The answer to the commission, in one sentence *(as corrected by round 112)*:
+**the window arithmetic is forced (Clifford, Adams, Γ), the charged ladder's
+termination is empirically anchored (Tier 4, part4a's own grading), the
+projection is entailed given the seat plus the convention ledger, and the seat
+is the hypothesis — carrying exactly one convention-free arithmetic
+distinction, on the record as an exhibit.**
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

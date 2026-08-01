@@ -9646,6 +9646,67 @@ constants. No data consumed; no number changes; category (a).
 Trajectory: 1aa landed → round 112 (hostile review, per protocol)
 spawned on this commit.
 
+## Addendum 196: hostile review round 112 on commit 18665d5 (Theorem 1aa) — NOT CONVERGED (4 MAJORs, 4 minors); the strata restructured: the terminations are empirically anchored, not forced; all findings lead-verified and swept
+
+Round 112 landed the largest finding set of any arc this session, and
+the MAJORs were substantive — the first draft's strata promoted two
+empirically-anchored terminations into "forced":
+
+- **F1 (MAJOR):** "the generation seats are the Dirac layers d ≡ 5
+  (mod 8): {5, 13, 21} (Bott)" — but part4a's own sentence commits
+  the opposite: "Bott periodicity is infinite … d = 5, 13, 21, 29,
+  37, …, with no cascade-internal termination of the replication";
+  the cut at three charged generations "relies on empirical
+  non-observation at LEP, atomic, fixed-target, and cosmological
+  observations," Tier-4-graded by part4a's Open Questions; d = 29
+  carries committed neutrino-sector content. **Swept:**
+  struck-and-annotated with part4a's sentences recited; the residue
+  CLASS stays Stratum F, the termination moves to the new Stratum D.
+- **F2 (MAJOR):** Stratum E's "the visible spectrum is exactly …"
+  required a committed exclusion of visible content at d = 20, 22 —
+  which the record does not carry (part4a's table row defers "(see
+  part4b)"; part4b has zero third-window content; the exclusion
+  route is part4a's candidate derivation, uncommitted). **Swept:**
+  struck; Stratum D carries the gap as acknowledged category (a).
+- **F3 (MAJOR):** the part4a desert sentence covers d = 7–11 only;
+  the draft stamped both deserts "verbatim." **Swept:** the
+  first-desert scope stated; the second desert's visible-content
+  half disclosed as carrying no committed sentence; the anchor gate
+  re-labeled and extended to the five-layers phrase.
+- **F4 (MAJOR):** the accounting omitted the standing convention
+  residue — stratum E's determination runs through Theorems 8–12,
+  which carry the charged conventions (the act among them; stratum
+  F's N_c is act-conditional). **Swept:** Stratum E re-headed
+  "entailed given the seat plus the convention ledger"; the N_c
+  condition disclosed in place; the one-sentence answer corrected.
+- **F5 (minor):** index/residue conflation at the exhibit's
+  centerpiece ({4} is the index; −1 the unique nontrivially-real
+  residue). **Swept** on the paper and the verifier docstring.
+- **F6 (minor):** three tautology-class gates counted in the 18.
+  **Swept:** declared identities, not counted — 17 gates + 3
+  declarations; two new F1 anchors added (the infinite-ladder and
+  Tier-4 sentences, gated in part4a).
+- **F7 (minor):** the Definition-6.1 grading anchor matched anywhere
+  in the paper, so 1aa's own recital satisfied it — the reviewer
+  demonstrated a source-only perturbation passing 18/18. **Swept:**
+  the gate is now locational (within Definition 6.1's span); the
+  source-only sabotage exits 1 (run).
+- **F8 (minor):** "the deserts contribute nothing / nothing is
+  visible" swept too broadly — d₀ = 7 and d₁ = 19 are source layers
+  of committed closures. **Swept:** "no visible matter content,"
+  with the potential-side imprint stated.
+
+**Battery after sweep:** forcing_ledger 17/0 (+3 declared
+identities); the other 16 instruments green; validator clean on 12
+files. The honest one-sentence answer now on the record: the window
+arithmetic is forced (Clifford, Adams, Γ); the charged ladder's
+termination is empirically anchored (Tier 4, part4a's own grading);
+the projection is entailed given the seat plus the convention
+ledger; the seat is the hypothesis, carrying one convention-free
+arithmetic distinction as an exhibit. Trajectory: 1aa landed → 112
+NOT CONVERGED 4M+4m (swept this commit) → round 113 (convergence
+test) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
