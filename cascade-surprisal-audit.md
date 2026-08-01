@@ -9815,8 +9815,10 @@ the next substantive paper change.**
 The owner commissioned the per-species census. The assembly, with
 every factor classified:
 
-- **The fully-committed composite (new to the record, zero
-  imports):** Ω_b h² = h²/(2π²) = 0.0225892 — H₀ from the certified
+- **The fully-committed composite ~~(new to the record, zero
+  imports)~~ [corrected on notice, round 116 F2/F7: part5 already
+  forms the composite at 4 s.f.; the imports scoping is "beyond the
+  certified chain's CODATA unit-anchors"]:** Ω_b h² = h²/(2π²) = 0.0225892 — H₀ from the certified
   chain (M_red computed from CODATA G exactly as cascade_h0_chain
   does; the first draft's rounded M_red reproduced 66.775222 and
   failed the half-ULP gate, corrected pre-commit), Ω_b from Part V's
@@ -9850,6 +9852,62 @@ two sabotages exit 1 (the composite expectation; the part5 anchor).
 **Battery:** all 18 instruments green; validator clean on 12 files.
 Trajectory: 1ab landed → round 116 (hostile review, per protocol)
 spawned on this commit.
+
+## Addendum 201: hostile review round 116 on commit 2ccf6c5 (Theorem 1ab) — NOT CONVERGED (3 MAJORs, 5 minors, 2 cosmetics); the arithmetic held completely; the defects were quotation fidelity, novelty claims, verification labels, and disclosure scope; all findings lead-verified and swept
+
+Round 116 recomputed every number independently at 40 dps and held
+them all ("every displayed number is the correct round of the
+committed chain"), then broke the write-up:
+
+- **F1 (MAJOR):** the paper's baryon-theorem "quotation" was a
+  splice of two half-sentences existing nowhere in part5, and the
+  gate anchored a different, real sentence. **Swept:** the two real
+  sentences quoted separately with the splice disclosed; the second
+  sentence now gated too.
+- **F2 (MAJOR):** "new to the record here" was false — part5:667
+  already forms ω_b^cas = (1/2π²)×0.6678² = 0.02259 and ratios it
+  to Planck's 0.02237 in the sound-horizon proof. **Swept:**
+  struck-and-annotated with part5's display and prose recited; the
+  novelty rescoped to the seven-digit value and σ-grading.
+- **F3 (MAJOR):** the proportionality gate was algebraically
+  identical by construction (eta_obs defined from eta — a gate that
+  cannot fail), the "observed 6.116×10⁻¹⁰" was the verifier's own
+  construction labeled "observed" and gated nowhere, and the one
+  independent comparison (BBN deuterium) was absent undisclosed.
+  **Swept:** the identity declared, not gated; the comparison class
+  stated honestly (the m_p-converted Planck value named as such;
+  the standard conversion's 6.127 noted); the BBN comparison added
+  and gated — η₁₀ = 6.10 ± 0.20, the cascade at +0.38σ (sabotage:
+  a σ-expectation flip exits 1, run).
+- **F4 (minor):** "+10.9% … the deviation's cube" — the bare cube
+  is +9.78%; the total compounds it on the composite's +0.98%.
+  **Swept** on paper and docstring, the decomposition gated.
+- **F5 (minor):** the head-counts were present densities × the
+  asymptotic budget volume, undisclosed. **Swept:** the epoch
+  disclosure added; the present event horizon computed by
+  quadrature and gated (5152 Mpc; N_b = 4.3×10⁷⁸, −14%); three
+  volume conventions now disclosed.
+- **F6 (minor):** "every cascade surface" gated by a 2-of-12 grep.
+  **Swept:** the full 12-file scan gated (zero 'proton' tokens).
+- **F7 (minor):** "zero imports" unscoped against the chain's own
+  CODATA-G disclosure; the 9/11 factor's thermal history
+  unclassified. **Swept:** the scoping stated with the propagated
+  G-band (±5×10⁻⁷, 0.3% of Planck's σ); the relic factor's
+  physics inventory disclosed (4/11 transfer, N_eff idealization,
+  +1.5% under 3.044).
+- **F8 (minor):** electrons omitted from a "per-species" census.
+  **Swept:** N_e = N_p ≈ (1 − Y_p/2)·N_b ≈ 4.3×10⁷⁸ by charge
+  neutrality, Y_p disclosed as an import.
+- **F9/F10 (cosmetics):** tolerances tightened to half-ULP (all
+  recitals pass with margin); the dead disjunct replaced by
+  verbatim case-correct anchors; the docstring hierarchy completed
+  (+ N_ν); the dataset named (Planck 2018 TT,TE,EE+lowE+lensing).
+
+**Battery after sweep:** species_census 18/0 (18 gates + 1 declared
+identity); the other 17 instruments green; validator clean on 12
+files. A200 corrected on notice. Trajectory: 1ab landed → 116 NOT
+CONVERGED 3M+5m+2c (swept this commit) → round 117 (convergence
+test) next.
 
 ## Caveats
 

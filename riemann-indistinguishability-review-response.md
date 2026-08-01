@@ -2288,3 +2288,20 @@ anchored (Stratum D); the projection entailed given the seat plus the
 convention ledger; the seat C1-primitive with the γ⁴ = −1 exhibit on
 the record. Next hostile round on the next substantive paper
 change.**
+
+# Round 116: hostile review of Theorem 1ab (the per-species census, commit 2ccf6c5) — NOT CONVERGED (3 MAJORs, 5 minors, 2 cosmetics); the arithmetic held; round 117 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F116-1 (MAJOR) — a spliced quotation attributed to Part V's theorem, existing nowhere in the source, ungated | **Accepted; the two real sentences quoted separately**, the splice disclosed, both gated | paper + verifier |
+| F116-2 (MAJOR) — "new to the record here" false (part5 forms the composite at 4 s.f. and ratios it to 0.02237) | **Accepted; struck-and-annotated** with part5 recited; novelty rescoped to the σ-graded seven-digit headline | paper |
+| F116-3 (MAJOR) — a tautology gate; "observed" labeling the verifier's own construction; BBN absent undisclosed | **Accepted; identity declared; comparison class stated honestly; BBN added and gated** (+0.38σ; sabotage exits 1) | paper + verifier |
+| F116-4 (minor) — the +10.9% attributed wholly to the cube (+9.78% bare) | **Accepted; the compounding stated and gated** | paper + verifier |
+| F116-5 (minor) — mixed-epoch counts undisclosed | **Accepted; epoch disclosure + the present event horizon gated by quadrature** (5152 Mpc, −14%) | paper + verifier |
+| F116-6 (minor) — "every cascade surface" gated 2-of-12 | **Accepted; the full 12-file scan gated** | paper + verifier |
+| F116-7 (minor) — "zero imports" unscoped; the 9/11 factor unclassified | **Accepted; scoped with the propagated G-band; the relic inventory disclosed** | paper |
+| F116-8 (minor) — electrons omitted | **Accepted; N_e by charge neutrality added**, Y_p disclosed | paper |
+| F116-9/10 (cosmetics) — tolerances; dead disjunct; docstring hierarchy; unnamed dataset | **Accepted; all swept** (half-ULP; verbatim anchors; + N_ν; Planck 2018 named) | verifier + paper |
+
+**Trajectory: 1ab landed → 116 NOT CONVERGED 3M+5m+2c (swept) →
+round 117 (convergence test) next.**

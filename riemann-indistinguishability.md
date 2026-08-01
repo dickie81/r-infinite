@@ -1729,30 +1729,59 @@ commission and the factor inventory.* The owner commissioned the per-species
 census — how many instances of each particle type the seat records. The chain's
 factors, classified: **committed** — H₀ = 66.77523 (Part V's theorem through the
 certified chain, M_Pl,red√(2I/(3(π−1)))), Ω_b = 1/(2π²) (Part V's baryon-fraction
-theorem: *"one unit of content on the observer's boundary shell S³"*), Ω_m =
+theorem — its proof's two sentences, quoted separately: *"Baryonic matter is the
+content directly accessible to the observer on its own boundary shell S³"*; *"One
+unit of content on this boundary corresponds to a fraction 1/Ω₃ of the total"* —
+round-116 F1: the first draft spliced these into one quotation-marked string that
+exists nowhere in the source), Ω_m =
 0.31150, w = −1, the Friedmann relation, and the horizon budget S_dS =
 24π²M⁴/ρ_Λ with ρ = (2/π)e^(0.02108)I (1n(iii)); **committed at leading order
 with its deviation on the record** — T_CMB = 2.642 K (−3.1% of the observed
 2.7255 K, part5's own table); **imports, disclosed** — the proton mass m_p (the
-QCD composite; grep-verified uncommitted on every cascade surface) and the
+QCD composite; grep-verified uncommitted on all twelve tex surfaces — the gate
+now runs the full scan, round-116 F6) and the
 observed T_CMB for the photon density (the leading-order alternative computed
-alongside). *(ii) The fully-committed composite — zero imports.* **Ω_b h² =
+alongside). *(ii) The fully-committed composite — zero imports beyond the certified
+chain's CODATA unit-anchors (round-116 F7: the chain's own record is "not
+category (a) pure arithmetic — it uses the CODATA physical constants (G, hbar,
+the parsec)"; the G-band propagates ±5×10⁻⁷ on the composite, 0.3% of Planck's
+σ — negligible, disclosed).* **Ω_b h² =
 h²/(2π²) = 0.0225892**, both factors the record's own, compared like-for-like:
-Planck's 0.02237 ± 0.00015 puts it at **+1.46σ (+0.98%)** — a sharper statement
+Planck 2018 (TT,TE,EE+lowE+lensing) 0.02237 ± 0.00015 puts it at **+1.46σ (+0.98%)** — a sharper statement
 than the ledger's standing Ω_b-alone +2.8% (which compares against the
 observed fraction extracted with the *observed* h; the composite is the honest
-committed-vs-observed object, and it is new to the record here). *(iii) The
+committed-vs-observed object). ~~and it is new to the record here~~ **[struck
+round 116 (F2, MAJOR): part5 already forms the composite at 4 s.f. — ω_b^cas =
+(1/2π²)×0.6678² = 0.02259 — and ratios it to Planck's 0.02237 inside the
+sound-horizon proof, with the prose "the cascade's (ω_b, ω_m) land essentially on
+top of Planck's 2018 values." What is new here is the seven-digit value and the
+σ-grading as a headline comparison, not the object.]** *(iii) The
 census, with the two imports.* n_γ = (2ζ(3)/π²)(kT/ħc)³ = **410.73 cm⁻³**; n_b
-= Ω_b ρ_crit/m_p = 0.2537 m⁻³; the baryon-to-photon ratio **η = 6.176×10⁻¹⁰**
-against the observed 6.116×10⁻¹⁰ — **+0.98%, exactly the Ω_b h² deviation
-carried through** (η ∝ Ω_b h² at fixed T; gated). Within the record's own
-budget geometry — the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc — the
-head-counts: **N_b = 4.9×10⁷⁸ baryons, N_γ = 8.0×10⁸⁷ photons, N_ν = 6.6×10⁸⁷
-relic neutrinos** (the 9/11 statistical factor; all gated). The popular
-"~10⁸⁰" attaches to the larger comoving observable volume — a different,
-disclosed volume convention. Under the cascade-leading T_CMB the photon side
-shifts by T³: η = 6.78×10⁻¹⁰ (+10.9%) — reported alongside, the −3.1%
-temperature deviation's cube. *(iv) The hierarchy and the honest grading.* N_b
+= Ω_b ρ_crit/m_p = 0.2537 m⁻³; the baryon-to-photon ratio **η = 6.176×10⁻¹⁰**.
+Its comparison class, stated honestly (round-116 F3): against Planck's Ω_b h²
+re-expressed through this theorem's own m_p conversion (6.116×10⁻¹⁰; the standard
+mean-mass-per-baryon conversion gives 6.127×10⁻¹⁰) the +0.98% is **exactly the
+Ω_b h² deviation carried through — the same comparison re-expressed, an identity
+declared, not gated** (the first draft's "gated" label sat on a tautology gate,
+removed); the one **independent** head-count-level comparison is BBN deuterium,
+η₁₀ = 6.10 ± 0.20, against which the cascade sits at **+0.38σ** (gated, the
+dataset named). Within the record's own
+budget geometry — the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc, exactly
+the S_dS budget sphere's radius — the head-counts: **N_b = 4.9×10⁷⁸ baryons,
+N_γ = 8.0×10⁸⁷ photons, N_ν = 6.6×10⁸⁷ relic neutrinos** (the 9/11 relic
+factor — standard thermal history, the 4/11 entropy transfer with the N_eff = 3
+idealization, +1.5% under N_eff = 3.044, within display — round-116 F7; all
+gated). *Epoch disclosure (round-116 F5):* these are **present densities filling
+the asymptotic budget volume** — a budget-referenced convention, the count at no
+single epoch; the present event horizon (5152 Mpc, gated by quadrature) gives
+N_b = 4.3×10⁷⁸ (−14%), and the popular "~10⁸⁰" attaches to the larger comoving
+observable volume — three disclosed volume conventions. By charge neutrality the
+census extends to **electrons at zero marginal import beyond the helium mass
+fraction**: N_e = N_p ≈ (1 − Y_p/2)·N_b ≈ 4.3×10⁷⁸ (Y_p ≈ 0.25, a disclosed
+import — round-116 F8). Under the cascade-leading T_CMB the photon side
+shifts by T³: η = 6.78×10⁻¹⁰ — reported alongside; the +10.9% total deviation is
+the temperature cube (+9.8%) **compounded on** the composite's +0.98%
+(round-116 F4: the first draft attributed the whole +10.9% to the cube). *(iv) The hierarchy and the honest grading.* N_b
 ≪ N_γ + N_ν ≪ S_dS: 10⁷⁸·⁷ ≪ 10⁸⁸ ≪ 10¹²²·⁵ — the budget is
 horizon-dominated, stated as arithmetic (the record commits the budget and the
 counts' factors, not a matter-entropy theorem). Grading, Check-8 disciplined:
