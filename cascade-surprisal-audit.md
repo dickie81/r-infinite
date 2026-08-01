@@ -9810,6 +9810,47 @@ disposition; the charged-termination mechanism (part4a's candidate
 route); the pairing-act; A3's underived rules. Next hostile round on
 the next substantive paper change.**
 
+## Addendum 200: Theorem 1ab — the per-species census (owner-commissioned); the head-count chain assembled from committed content, imports disclosed
+
+The owner commissioned the per-species census. The assembly, with
+every factor classified:
+
+- **The fully-committed composite (new to the record, zero
+  imports):** Ω_b h² = h²/(2π²) = 0.0225892 — H₀ from the certified
+  chain (M_red computed from CODATA G exactly as cascade_h0_chain
+  does; the first draft's rounded M_red reproduced 66.775222 and
+  failed the half-ULP gate, corrected pre-commit), Ω_b from Part V's
+  theorem — vs Planck's 0.02237 ± 0.00015: **+1.46σ (+0.98%)** —
+  the like-for-like committed-vs-observed object, sharper than the
+  ledger's standing Ω_b-alone +2.8%.
+- **The census (two disclosed imports — m_p, the QCD composite,
+  grep-verified uncommitted; the observed T_CMB = 2.7255 K):**
+  n_γ = 410.73 cm⁻³; η = 6.176×10⁻¹⁰ vs observed 6.116×10⁻¹⁰ —
+  +0.98%, exactly the composite's deviation carried through (η ∝
+  Ω_b h² at fixed T; the proportionality gated). The
+  cascade-leading T_CMB (2.642 K, −3.1% on the record) gives η =
+  6.78×10⁻¹⁰ (+10.9%, the temperature deviation cubed) — reported
+  alongside.
+- **The head-counts, in the record's own budget geometry** (the de
+  Sitter horizon, r_H = (c/H₀)/√Ω_Λ = 5411 Mpc): **N_b = 4.9×10⁷⁸
+  baryons; N_γ = 8.0×10⁸⁷ photons; N_ν = 6.6×10⁸⁷ relic neutrinos**
+  (the 9/11 factor); the popular ~10⁸⁰ attaches to the larger
+  comoving volume, disclosed. Hierarchy: N_b ≪ N_γ + N_ν ≪ S_dS =
+  3.315×10¹²² nats (the budget recomputed from the committed
+  closure ρ = (2/π)e^(0.02108)I — matches 1n(iii)).
+- **Grading:** data-facing assembly — committed cosmology × two
+  disclosed imports; a head-count-level cross-check of the
+  cosmological sector, no closure; the upgrade routes named (a
+  committed m_p; the T_CMB deviation's closure).
+
+**Surfaces:** Theorem 1ab in the paper (after 1aa; additive); footer
+47 → 48. **Verifier:** cascade_species_census.py, C1–C5, 17 gates,
+17/0 (the RESULT line's first draft said 15 — corrected pre-commit);
+two sabotages exit 1 (the composite expectation; the part5 anchor).
+**Battery:** all 18 instruments green; validator clean on 12 files.
+Trajectory: 1ab landed → round 116 (hostile review, per protocol)
+spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

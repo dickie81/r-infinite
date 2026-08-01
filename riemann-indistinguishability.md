@@ -1723,6 +1723,47 @@ projection is entailed given the seat plus the convention ledger, and the seat
 is the hypothesis — carrying exactly one convention-free arithmetic
 distinction, on the record as an exhibit.**
 
+**Theorem 1ab (the per-species census: the head-count chain assembled from
+committed content, imports disclosed; `cascade_species_census.py`).** *(i) The
+commission and the factor inventory.* The owner commissioned the per-species
+census — how many instances of each particle type the seat records. The chain's
+factors, classified: **committed** — H₀ = 66.77523 (Part V's theorem through the
+certified chain, M_Pl,red√(2I/(3(π−1)))), Ω_b = 1/(2π²) (Part V's baryon-fraction
+theorem: *"one unit of content on the observer's boundary shell S³"*), Ω_m =
+0.31150, w = −1, the Friedmann relation, and the horizon budget S_dS =
+24π²M⁴/ρ_Λ with ρ = (2/π)e^(0.02108)I (1n(iii)); **committed at leading order
+with its deviation on the record** — T_CMB = 2.642 K (−3.1% of the observed
+2.7255 K, part5's own table); **imports, disclosed** — the proton mass m_p (the
+QCD composite; grep-verified uncommitted on every cascade surface) and the
+observed T_CMB for the photon density (the leading-order alternative computed
+alongside). *(ii) The fully-committed composite — zero imports.* **Ω_b h² =
+h²/(2π²) = 0.0225892**, both factors the record's own, compared like-for-like:
+Planck's 0.02237 ± 0.00015 puts it at **+1.46σ (+0.98%)** — a sharper statement
+than the ledger's standing Ω_b-alone +2.8% (which compares against the
+observed fraction extracted with the *observed* h; the composite is the honest
+committed-vs-observed object, and it is new to the record here). *(iii) The
+census, with the two imports.* n_γ = (2ζ(3)/π²)(kT/ħc)³ = **410.73 cm⁻³**; n_b
+= Ω_b ρ_crit/m_p = 0.2537 m⁻³; the baryon-to-photon ratio **η = 6.176×10⁻¹⁰**
+against the observed 6.116×10⁻¹⁰ — **+0.98%, exactly the Ω_b h² deviation
+carried through** (η ∝ Ω_b h² at fixed T; gated). Within the record's own
+budget geometry — the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc — the
+head-counts: **N_b = 4.9×10⁷⁸ baryons, N_γ = 8.0×10⁸⁷ photons, N_ν = 6.6×10⁸⁷
+relic neutrinos** (the 9/11 statistical factor; all gated). The popular
+"~10⁸⁰" attaches to the larger comoving observable volume — a different,
+disclosed volume convention. Under the cascade-leading T_CMB the photon side
+shifts by T³: η = 6.78×10⁻¹⁰ (+10.9%) — reported alongside, the −3.1%
+temperature deviation's cube. *(iv) The hierarchy and the honest grading.* N_b
+≪ N_γ + N_ν ≪ S_dS: 10⁷⁸·⁷ ≪ 10⁸⁸ ≪ 10¹²²·⁵ — the budget is
+horizon-dominated, stated as arithmetic (the record commits the budget and the
+counts' factors, not a matter-entropy theorem). Grading, Check-8 disciplined:
+this census is a **data-facing assembly** — committed cosmology composed with
+two disclosed imports — a cross-check of the record's cosmological sector at
+the head-count level, not a closure; the identity and abundance *structure*
+(why alike, why many) is 1aa's and the measurement clauses'; the brute
+occupancy is C1. **What would upgrade it:** a committed m_p (closing the QCD
+composite) or the T_CMB deviation's closure would make η fully committed —
+the standing routes, named; no member, count, or number changes anywhere.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -2257,4 +2298,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1aa: the **47 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ab: the **48 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
