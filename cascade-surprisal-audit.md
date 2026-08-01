@@ -10214,6 +10214,46 @@ returns zero.
 (swept, f96cb4e) → 121 NOT CONVERGED 0M+1m (swept here) → round
 122 (convergence test) next.**
 
+## Addendum 208: convergence-test round 122 on the round-121 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1ac certified stable; the A3-rules arc closes
+
+Round 122 returned zero findings at any severity. Its held list,
+lead-spot-checked: the script's prose fully aligned (six-item set
+item-for-item identical to the paper's; stale-phrase grep zero);
+13 gates counted call-by-call, 13/0, exit 0; every anchor verified
+by direct read, including ok10's precise attribution split (the
+conditional in part4b's Tier-2 summary at 4117, the empirical
+adjudication in the closed oq:mu-e-residual note at 4089 — not in
+the proposition's statement); the marker outside V1's span by
+computation (index 4165 ≥ i1 = 4143); the R1 sabotage re-run 12/1
+exit 1 with clean baselines; battery 19/19 at expected counts with
+zero FAIL lines; validator, census, hygiene clean; Checks 7/8
+clean. The reviewer also resolved the "residue item five" ordinal
+(it indexes the paper's opening seven-item non-arithmetic residue
+list, where P>L>G is fifth with "deletable on the uniform reading"
+as its recorded status — consistent, not stale) and verified the
+three 1ac quotes the script does not itself gate.
+
+**Trajectory: 1ac landed (d4f3c63) → 120 NOT CONVERGED 3M+3m
+(swept, f96cb4e) → 121 NOT CONVERGED 0M+1m (swept, ed4527e) → 122
+CONVERGED 0+0+0. Theorem 1ac is stable and the A3-rules audit is
+certified: the tail sentence superseded-true (confirmed by git
+archaeology — written at A31 while the ledger graded the rules
+underived; T5/A33 closed the increment rule's form afterwards);
+the increment rule closed as mathematics with attach-once proved
+twice over (ℤ's total order; unit source strength via
+Sturm–Liouville, now exit-gated); the per-period rule decomposed
+per ledger row 2 (shape derived; mechanism at Tier-2; the unit
+normalization and marked coset the residue); A3's net residue six
+items — occupancy, (m,k), P>L>G, the per-period unit
+normalization, the marked coset, the strict G-flag reading —
+instantiation, convention, or empirically anchored reading; zero
+underived rules-in-form, qualified per the ledger's own gradings.
+By-products of the arc: real exit gating on riemann_kernel and
+unit_source_strength (the round-120 mask closed); the hardened
+battery filter (FAIL-line census). Standing candidate commission:
+exit-gating the remaining pre-1ac battery instruments. Next
+hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -2391,3 +2391,24 @@ clean; Checks 7/8 clean.
 
 **Trajectory: 1ac landed (d4f3c63) → 120 3M+3m (swept) → 121 NOT
 CONVERGED 0M+1m (swept) → round 122 (convergence test) next.**
+
+# Round 122: convergence test on the round-121 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1ac certified stable; the A3-rules arc closes
+
+Zero findings at any severity. The script's prose aligned
+item-for-item with the paper's six-item residue set; 13/0 with every
+anchor verified by direct read; ok10's attribution split confirmed
+precisely (Tier-2 summary vs. closure note vs. the proposition's
+statement); the marker outside V1's span by computation; the R1
+sabotage re-run 12/1 exit 1; battery 19/19 zero FAIL lines;
+validator, census, hygiene, Checks 7/8 all clean. The "residue item
+five" ordinal resolved as consistent (it indexes the paper's opening
+seven-item list).
+
+**Trajectory: 1ac landed (d4f3c63) → 120 3M+3m → 121 0M+1m → 122
+CONVERGED 0+0+0. The A3-rules audit certified: the tail
+superseded-true (git archaeology confirmed); the increment rule
+closed as mathematics, attach-once proved twice over; the per-period
+rule decomposed per its ledger row; the residue six items —
+instantiation, convention, or empirically anchored reading; zero
+underived rules-in-form, qualified. Next hostile round on the next
+substantive paper change.**
