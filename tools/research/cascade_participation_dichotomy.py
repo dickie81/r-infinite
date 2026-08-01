@@ -171,7 +171,8 @@ gate("the mechanism: nearest(21) == nearest(29) == 19 (the last source), "
      min(S, key=lambda s: abs(21 - s)) == 19
      and min(S, key=lambda s: abs(29 - s)) == 19)
 
-print("D3 -- the forced contrast")
+print("D3 -- the contrast, split (round 126 F1; banner aligned round "
+      "128 F1)")
 print("  IDENTITY (declared, not gated): chi^8 = 2^8 = 256 -- literal "
       "arithmetic")
 chi = 2

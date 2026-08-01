@@ -2503,3 +2503,17 @@ validator; census; hygiene; Checks 7/8.
 
 **Trajectory: 1ae landed → 126 1M+1m+1c (swept) → 127 NOT CONVERGED
 0M+2m (swept) → round 128 (convergence test) next.**
+
+# Round 128: convergence test on the round-127 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor); the D3 banner, fourth print-class instance; round 129 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F128-1 (minor) — the verifier's D3 print banner "the forced contrast" (the retired compound name, directly above the χ⁸=256 identity in the transcript) — the un-swept-print class, fourth instance; reviewer offered a cosmetic defense and deferred | **Lead adjudication: minor per the F127-2 precedent** (display lines are surfaces; class consistency controls). Banner aligned to "the contrast, split", tagged; 18/0 re-run; "forced contrast" count zero | verifier |
+
+Held in full: the title annotation clause-accurate; struck-phrase
+grep census clean; 18 gates verified; sabotage end-to-end;
+battery 22/22; validator; census; hygiene; Checks 7/8; arithmetic
+re-derived by hand.
+
+**Trajectory: 1ae landed → 126 1M+1m+1c → 127 0M+2m → 128 NOT
+CONVERGED 0M+1m (swept) → round 129 (convergence test) next.**

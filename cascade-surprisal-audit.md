@@ -10710,6 +10710,37 @@ exit 1.
 CONVERGED 0M+2m (swept here) → round 128 (convergence test)
 next.**
 
+## Addendum 217: convergence-test round 128 on the round-127 sweep — NOT CONVERGED (0 majors, 1 minor); the D3 banner, fourth instance of the print class; adjudicated minor per precedent and swept
+
+Round 128 held everything — the title annotation accurate clause
+by clause; the struck-phrase grep census clean (every hit inside a
+strike or historical recital except the one finding); the verifier
+18/0 at exactly 18 gates with the F127-2 prints verified aligned;
+the sabotage reproduced end-to-end (17/1 exit 1, restore 18/0);
+battery 22/22 at expected counts; validator; census (with the
+reviewer's note that the name-grep needs [A-Za-z] for
+cascade_T4_uniqueness.py); hygiene; Checks 7/8; the census/gap/
+contrast arithmetic re-derived by hand.
+
+The one finding, **F128-1 (minor)** — the D3 print banner "the
+forced contrast," the retired pre-regrade compound name, sitting
+directly above the chi^8 = 256 identity in the transcript: the
+fourth instance of the un-swept-print class (F121-1, F125-1,
+F127-2). The reviewer stated a defense for cosmetic (D3's gated
+conjuncts are the theorem-half δ-contrast and the consonance
+anchor — the banner's referent is genuinely forced) and deferred
+the grading. **Lead adjudication: minor** — the F127-2 precedent
+(a display line carrying a retired compound grading, mostly-true
+referent, graded minor) controls; diluting an accepted class to
+avoid a round would be the exact failure the process exists to
+prevent. Swept: the banner aligned to the docstring's own name
+("the contrast, split"), tagged in place; dichotomy re-run 18/0;
+the file's "forced contrast" count now zero.
+
+**Trajectory: 1ae landed → 126 1M+1m+1c → 127 0M+2m → 128 NOT
+CONVERGED 0M+1m (swept here) → round 129 (convergence test)
+next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
