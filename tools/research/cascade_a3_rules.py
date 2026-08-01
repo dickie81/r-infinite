@@ -11,14 +11,19 @@ strength, the marginal Green's-function identity with source
 coefficient exactly 1 via Sturm-Liouville assembly -- the committed
 verifier run here), plus the 1/chi^k filtering derivation and the
 slot-precedence proposition (conditional on the strict G-flag
-reading, its own disclosure); the per-period rule is row 2's
-decomposition (shape/flip-count/x3 derived; the unit normalization
-and marked coset the residue). The axiom block is byte-identity
-gated (the adoption's discipline), so the net-state marker sits
-ADJACENT to the block, and the block's untouchedness is gated here
-by re-running riemann_kernel. A3's net residue: {occupancy, (m,k)
-counts, P>L>G, the per-period unit normalization, the marked coset}
--- instantiation or convention class; zero underived rules-in-form.
+reading -- disclosed in part4b's Tier-2 summary and closure note,
+adjudicated empirically there, per round 120 F6); the per-period
+rule is row 2's decomposition (shape derived; mechanism at Tier-2
+(A38/A43), form conditional on availability assignments; the unit
+normalization and marked coset the residue). The axiom block is
+byte-identity gated (the adoption's discipline), so the net-state
+marker sits ADJACENT to the block, and the block's untouchedness
+is gated here by re-running riemann_kernel. A3's net residue, six
+items (round 120 F6): {occupancy, (m,k) counts, P>L>G, the
+per-period unit normalization, the marked coset, the strict
+G-flag reading} -- instantiation, convention, or empirically
+anchored reading; zero underived rules-in-form, with row 2's
+mechanism carried at Tier-2 per its own ledger row.
 The 1z route narrowed: the strict-boundary stipulation's committed
 home is thm:alpha-s-closure's scope condition; the marginal-Green's
 reading is the named open derivation route. Thirteen gates.
@@ -57,10 +62,12 @@ Gates:
         normalization convention; the JUNO cannot-convict clause).
   R5 -- the block untouched (riemann_kernel subprocess, exit 0);
         the adjacent marker anchored in the formulation; 1ac's key
-        sentences anchored (superseded-true; zero underived
-        rules-in-form; the residue set; the 1z narrowing with
-        thm:alpha-s-closure's scope quote); prop:slot-precedence's
-        conditional disclosure anchored in part4b.
+        sentences anchored (superseded-true; the qualified
+        zero-underived-rules-in-form license; the six-item residue
+        set; the 1z narrowing with thm:alpha-s-closure's scope
+        quote); the strict-G-flag conditional plus its empirical
+        adjudication anchored in part4b (Tier-2 summary + closure
+        note); the 1v carrying-surface markers on both surfaces.
 
 No data consumed; no number changes; category (a). Sabotage record
 (scratchpad copies, at the landing commit): (a) "closed as
@@ -177,12 +184,19 @@ gate("the 1v carrying-surface markers present on both surfaces "
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates)")
-print("READING: A3's tail is superseded-true -- the increment rule is the")
-print("ledger's own 'derived from arithmetic first principles ... closed as")
+print("READING (aligned round 121 F1 to the paper's post-sweep wording):")
+print("A3's tail is superseded-true -- the increment rule is the ledger's")
+print("own 'derived from arithmetic first principles ... closed as")
 print("mathematics' (attach-once proved twice over: Z's total order; unit")
 print("source strength via Sturm-Liouville, the committed instrument run")
-print("here), the filtering derived, the slot placement proposition-grade;")
-print("the per-period rule is row 2's decomposition. A3's net residue is")
-print("instantiation and convention -- occupancy, (m,k), precedence, the")
-print("unit normalization, the marked coset. Zero underived rules-in-form.")
+print("here), the filtering derived, the slot placement proposition-grade")
+print("and conditional on the strict G-flag reading (part4b's Tier-2")
+print("summary + closure note, adjudicated empirically); the per-period")
+print("rule is row 2's decomposition, mechanism at Tier-2 (A38/A43), form")
+print("conditional on availability assignments. A3's net residue, six")
+print("items: occupancy, (m,k), precedence, the unit normalization, the")
+print("marked coset, the strict G-flag reading -- instantiation,")
+print("convention, or empirically anchored reading. Zero underived")
+print("rules-in-form remain, with row 2's mechanism carried at Tier-2")
+print("per its own ledger row.")
 sys.exit(0 if n_fail == 0 else 1)

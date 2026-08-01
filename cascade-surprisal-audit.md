@@ -10176,6 +10176,44 @@ them for now.
 **Trajectory: 1ac landed (d4f3c63) → 120 NOT CONVERGED 3M+3m
 (swept here) → round 121 (convergence test) next.**
 
+## Addendum 207: convergence-test round 121 on the round-120 sweep — NOT CONVERGED (0 majors, 1 minor); the sweep incomplete on its own edited file; swept
+
+Round 121 verified the round-120 sweep's substance completely: the
+marker genuinely outside V1's span (marker index > i1, direct
+computation; span tail matches the embedded A2_TO_END); the kernel
+5/0 with real exit gating and the d4f3c63 mask independently
+reproduced from a git-archive of that tree (18 of 19 green, only
+the kernel carrying a FAIL line at exit 0 — A206's object claims
+both confirmed); both round-120 probes and both original sabotages
+trip their gates (12/1 exit 1 each, clean baselines 13/0); all
+part4b quotes verbatim (the F6 re-attribution factually right —
+prop:slot-precedence's statement carries no conditional clause);
+the F4 markers placed and mirroring the 1y precedent, with the
+repo-wide "underived" sweep-completeness grep clean; battery 19/19
+at expected counts with zero FAIL lines; validator, census (51 =
+50 + constants; footer's 55 = 50 + 4° + constants), hygiene all
+clean; Checks 7/8 clean.
+
+The one finding, **F121-1 (minor)**: the round-120 F5/F6 sweep did
+not reach cascade_a3_rules.py's own prose — the live READING block
+still printed the pre-sweep five-item residue set and the
+unqualified "Zero underived rules-in-form," and the docstring
+retained the F6-misattributed "its own disclosure" phrase and the
+five-item set, while the same script's ok9 gate enforced the
+qualified six-item wording on the paper. The marking rule's own
+clause ("the sweep's target list includes the files being edited
+for sibling findings") was the miss. Swept in this commit: the
+docstring claim paragraph, the Gates-list entry, and the READING
+block all aligned to the paper's post-sweep wording (six items;
+the qualified license; the Tier-2/availability qualifiers; the
+part4b attribution); a3_rules re-run 13/0; the stale-phrase grep
+("its own disclosure"; "instantiation or convention class")
+returns zero.
+
+**Trajectory: 1ac landed (d4f3c63) → 120 NOT CONVERGED 3M+3m
+(swept, f96cb4e) → 121 NOT CONVERGED 0M+1m (swept here) → round
+122 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

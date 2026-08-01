@@ -2375,3 +2375,19 @@ hardening pass is a candidate commission.
 
 **Trajectory: 1ac landed (d4f3c63) → 120 NOT CONVERGED 3M+3m
 (swept) → round 121 (convergence test) next.**
+
+# Round 121: convergence test on the round-120 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor); the sweep incomplete on its own edited file; round 122 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F121-1 (minor) — cascade_a3_rules.py's live READING block and docstring still carried the pre-F5/F6 wording (five-item residue set; unqualified "Zero underived rules-in-form"; the "its own disclosure" misattribution) while the same script's ok9 gate enforced the qualified six-item wording on the paper | **Accepted; docstring claim paragraph, Gates-list entry, and READING block all aligned to the paper's post-sweep wording**; a3_rules re-run 13/0; stale-phrase grep zero | verifier |
+
+Checked and held (lead-confirmed): marker outside V1's span by direct
+computation; the d4f3c63 mask independently reproduced from a
+git-archive of that tree; both probes and both sabotages trip; all
+part4b quotes verbatim; the "underived" sweep-completeness grep
+clean; battery 19/19 zero FAIL lines; validator, census, hygiene
+clean; Checks 7/8 clean.
+
+**Trajectory: 1ac landed (d4f3c63) → 120 3M+3m (swept) → 121 NOT
+CONVERGED 0M+1m (swept) → round 122 (convergence test) next.**
