@@ -2517,3 +2517,25 @@ re-derived by hand.
 
 **Trajectory: 1ae landed → 126 1M+1m+1c → 127 0M+2m → 128 NOT
 CONVERGED 0M+1m (swept) → round 129 (convergence test) next.**
+
+# Round 129: convergence test on the round-128 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); the print class terminated by an empty exhaustive hunt; Theorems 1ad and 1ae certified stable; the participation arc closes
+
+Zero findings. The exhaustive print-class hunt — every print,
+banner, gate label, docstring and READING line in both
+participation verifiers, checked in source and executed
+transcripts against the current 1ad/1ae text, plus the
+sixteen-phrase retired-wording census with every hit classified —
+came back empty of live pre-regrade claims. The class (F121-1 /
+F125-1 / F127-2 / F128-1) is exhausted. Both verifiers' gate
+counts hand-verified; sabotage end-to-end; battery 22/22;
+validator; census; hygiene; Checks 7/8; self-containment all held.
+
+**Trajectory: 1ae landed → 126 1M+1m+1c → 127 0M+2m → 128 0M+1m →
+129 CONVERGED 0+0+0. The participation arc certified at its honest
+grading: census and gap theorems over the committed source set;
+exhaustiveness closing at the remark-level type-counting step; the
+δ-contrast theorem (one Bott period, shared nearest source); the
+coupling contrast conditional; two named unproved items, both
+threshold-free. The rule predicts a null KATRIN/TRISTAN sterile
+result; a detection falsifies it. Next hostile round on the next
+substantive paper change.**

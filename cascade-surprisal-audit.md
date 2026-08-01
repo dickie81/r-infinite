@@ -10741,6 +10741,50 @@ the file's "forced contrast" count now zero.
 CONVERGED 0M+1m (swept here) → round 129 (convergence test)
 next.**
 
+## Addendum 218: convergence-test round 129 on the round-128 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); the print class TERMINATED by an empty exhaustive hunt; Theorems 1ad and 1ae certified stable; the participation arc closes
+
+Round 129 returned zero findings. Its held list, lead-spot-checked:
+the sweep diff exactly as described; both verifiers' full
+transcripts read and self-consistent with the regraded paper text
+clause for clause (gate counts hand-verified: 19 = 6+5+2+2+4 and
+18 = 4+3+2+5+4); the sabotage end-to-end (17/1 exit 1, restore
+18/0); battery 22/22 at expected counts with zero FAIL lines;
+validator; footer census exact both directions (55 counted +
+constants = 56, the [A-Za-z] name-pattern note carried); hygiene;
+Checks 7/8 clean with the two open items confirmed cascade-native;
+self-containment; the 13%-vs-12.89% rounding held consistent.
+
+**The print class is terminated:** the exhaustive hunt — every
+print, banner, gate label, IDENTITY line, docstring line, and
+READING line in both participation verifiers, checked in source
+AND in executed transcripts against the current 1ad/1ae text, plus
+the sixteen-phrase retired-wording census across all three
+surfaces with every hit classified — came back EMPTY of live
+pre-regrade claims. After four consecutive single-residual rounds
+(F121-1, F125-1, F127-2, F128-1), the class is exhausted, and the
+standing lesson is recorded: a regrade's sweep list must include
+the edited file's own printed output, checked in the transcript,
+not only its logic and docstring.
+
+**Trajectory: 1ae + F125 sweep landed (6bcd99b) → 126 NOT
+CONVERGED 1M+1m+1c (swept, cafdea3) → 127 NOT CONVERGED 0M+2m
+(swept, 8644f28) → 128 NOT CONVERGED 0M+1m (swept, d5bed48) → 129
+CONVERGED 0+0+0. Theorems 1ad and 1ae are stable and the
+participation arc is certified at its honest grading: the census
+(three generations at seats {5, 13, 21}) and the gap theorem (no
+seat within [3, 9] of a source — a seven-integer margin) are
+THEOREMS over the committed source set; exhaustiveness closes at
+part4b's remark-level type-counting step; the δ-contrast of
+exactly one Bott period is a theorem (shared nearest source); the
+coupling contrast χ⁸ = 256 is conditional on the named cost model;
+two unproved items remain, named exactly — (v-a) the cost model,
+(v-b) the A4/S4 measurement biconditional — both threshold-free
+thanks to the gap. The rule predicts a null KATRIN/TRISTAN sterile
+result; a detection falsifies it. Standing routes: the two lemmas;
+the tower-script 2√π repair; the charged-termination and
+observer↔4 questions unchanged. Next hostile round on the next
+substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
