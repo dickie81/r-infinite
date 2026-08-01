@@ -2327,3 +2327,22 @@ round 117 (convergence test) next.**
 
 **Trajectory: 1ab landed → 116 3M+5m+2c → 117 1M+2m+2c → 118 NOT
 CONVERGED 0M+1m+2c (swept) → round 119 (convergence test) next.**
+
+# Round 119: convergence test on the round-118 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic — swept in the record commit); Theorem 1ab certified stable; the per-species census arc closes
+
+The display-shift arithmetic exact (N_b's non-shift independently
+checked); recitals verbatim with provenance; the token census clean;
+both new anchors bite; battery, validator, footer census, hygiene
+all clean.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F119-1 (cosmetic) — the C5 gate label's stale "round-116" tag (conjuncts span 116–118) | **Accepted; tag updated**; species_census re-run 19/0 | verifier |
+
+**Trajectory: 1ab landed → 116 3M+5m+2c → 117 1M+2m+2c → 118
+0M+1m+2c → 119 CONVERGED 0+0+1c. The per-species census certified:
+Ω_b h² = 0.0225892 (+1.46σ, fully committed); BBN +0.38σ
+(independent); η = 6.176×10⁻¹⁰; N_b = 4.9×10⁷⁸, N_γ = 8.0×10⁸⁷,
+N_ν = 6.6×10⁸⁷, N_e ≈ 4.3×10⁷⁸ in the r_H volume against the
+3.315×10¹²²-nat budget. Next hostile round on the next substantive
+paper change.**

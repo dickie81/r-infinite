@@ -9979,6 +9979,41 @@ instruments green. Trajectory: 1ab landed → 116 3M+5m+2c (swept) →
 117 1M+2m+2c (swept) → 118 NOT CONVERGED 0M+1m+2c (swept this
 commit) → round 119 (convergence test) next.
 
+## Addendum 204: convergence-test round 119 on the round-118 sweep — CONVERGED (0 majors, 0 minors, 1 cosmetic, swept in this record commit); Theorem 1ab certified stable; the per-species census arc closes
+
+Round 119 returned zero majors and zero minors. Its held list,
+lead-spot-checked: the display-shift arithmetic exact (including the
+reviewer's independent check that N_b's 2-s.f. display does NOT
+shift — the annotation's listing of only N_γ and N_ν is exact, not
+an omission); both old-phrase recitals verbatim with provenance
+confirmed ("the first frame" at 2ccf6c5; "the round-116 phrase" at
+3d69d6f); the token census clean (every budget-geometry/volume token
+inside recitals or NOT-disclaimers); both new anchor conjuncts bite
+under sabotage; the corrected phrase adjudicated physically exact
+where the old was false at 1.7% in volume; battery at expected
+counts (18 instruments); validator clean; footer census exact both
+directions; hygiene clean. The one cosmetic (a stale "round-116"
+provenance tag on the C5 gate label whose conjuncts now span rounds
+116–118) is swept in this record commit; species_census re-run
+19/0.
+
+**Trajectory: 1ab landed (2ccf6c5) → 116 NOT CONVERGED 3M+5m+2c
+(swept, 3d69d6f) → 117 NOT CONVERGED 1M+2m+2c (swept, aab3780) →
+118 NOT CONVERGED 0M+1m+2c (swept, 60caad1) → 119 CONVERGED 0+0+1c
+(swept here). Theorem 1ab is stable and the per-species census is
+certified: the fully-committed composite Ω_b h² = h²/(2π²) =
+0.0225892 at +1.46σ of Planck 2018; the independent BBN-deuterium
+comparison at +0.38σ; n_γ = 410.73 cm⁻³; η = 6.176×10⁻¹⁰ (the
+composite's deviation carried through, an identity declared); the
+head-counts in the r_H volume — N_b = 4.9×10⁷⁸, N_γ = 8.0×10⁸⁷,
+N_ν = 6.6×10⁸⁷, N_e ≈ 4.3×10⁷⁸ by charge neutrality — against the
+budget S_dS = 3.315×10¹²² nats, with the budget sphere's 0.56%
+distinction disclosed and gated; two imports disclosed (m_p, the
+observed T_CMB), three volume conventions disclosed, the epoch
+hybrid disclosed. Upgrade routes standing: a committed m_p; the
+T_CMB leading-order deviation's closure. Next hostile round on the
+next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

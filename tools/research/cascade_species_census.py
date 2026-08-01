@@ -217,7 +217,8 @@ ok3 &= "the gated counts are r_H-volume counts, now labeled as such" in npp
 ok3 &= "spliced these into one quotation-marked string that exists nowhere in the source" in npp
 ok3 &= "the sphere carrying exactly the gated budget S_dS has radius 5381 Mpc" in npp
 ok3 &= "the band is an uncommitted-obs recital, disclosed as such" in npp
-gate("1ab's round-116 key sentences anchored (verbatim, case-correct)", ok3)
+gate("1ab's rounds-116/117/118 key sentences anchored (verbatim, case-correct; "
+     "round-119 F1 updated the stale round-116 tag)", ok3)
 import glob
 all_tex = "".join(open(f, encoding="utf-8").read()
                   for f in glob.glob(os.path.join(ROOT, "src", "cascade-series-*.tex")))
