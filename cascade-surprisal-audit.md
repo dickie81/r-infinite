@@ -11583,6 +11583,58 @@ green, zero FAIL lines; validator clean; hygiene zero.
 (swept, 16f1a6c) → 141 NOT CONVERGED 0M+1m+2c (swept) → round 142
 (convergence test) next.**
 
+## Addendum 235: round 142 (convergence test on the round-141 sweep) — **CONVERGED**, zero findings; Theorem 1ai certified stable; the Weil-positivity arc closes
+
+Round 142 (fresh-context subagent, session model) attacked the
+round-141 sweep (9a307b1) and returned zero findings — no MAJORs,
+no minors, no cosmetics. The reviewer's own verification (not
+inherited from the record): the F141-1 strike verbatim-accurate
+against 16f1a6c with every repo "Weil" hit classified by hand
+(the bridge's naming note confirmed as the sole pre-1ai
+object-level explicit-formula-sense use, its pre-1ai ancestry
+proved via `git merge-base --is-ancestor`); the F141-2 sublabels
+checked against the solver's LEVELS; the F141-3 population
+arithmetic (12 tex + 241 py − SELF = 252) recomputed; both
+sabotages reproduced on a full-tree copy (the W1 floor sentence
+mid-anchor → V5 9/1; the planted route term → V1 9/1 at
+"repo-wide 1 over 252 files"; clean baselines 10/0 around each);
+the span re-read end to end with all three retracted phrasings
+confined to their strike frames; the inherited round-140 strikes
+re-verified against 8ccc169; the W0 proof, the F3 sign statement
+(both halves, with the exact inequality s−β > s−1 ≥ 1), the F4
+|ĝ|² ≥ 0 obstruction, and V4's numbers independently recomputed
+(γ* = 1.9139157 closed-form and by 80-step bisection; c =
+1.160330 consistent with 1af's committed values); an independent
+zero-side hunt across all of tools/ re-confirming the s ≥ 2
+floor; the full 62-script footer-cited suite green; validator
+clean on 12 files; hygiene zero; Checks 7/8 clean; V3's
+self-contained arithmetic examined for vacuity and held with
+reasons (the inline range(4, 218) IS the lattice's committed code
+transcription, used identically by committed instruments); A234
+consistent with the surfaces.
+
+**Trajectory: 1ai landed (8ccc169) → 140 NOT CONVERGED 1M+4m+1c
+(swept, 16f1a6c) → 141 NOT CONVERGED 0M+1m+2c (swept, 9a307b1) →
+142 CONVERGED 0+0+0. Certified stable: Theorem 1ai — the
+Weil-positivity route entered and mapped. W0 (blind-cone
+criterion, proof stated), W1 (blindness: every committed
+zero-side evaluation at real s ≥ 2 > 1, the lattice packaging at
+s = d+1 ∈ [5, 218] — all kernels one-signed on the strip, zero RH
+content in the committed packaging's positivity), W2 (the lattice
+never enters the strip), W3 (boundary-crossing exhibit: signed
+combinations leave the blind cone; not
+admissible-discriminating), and the named gap (vi): no committed
+map from the configuration-space positivity cone to the
+test-function positivity cone; what would open the route is a
+committed morphism forcing explicit-formula positivity on a
+family whose kernels change sign off the line while staying
+nonnegative on it. Standing open routes across the campaign:
+(v-b), C1 (odd-Δ committed instance or the formula's derivation),
+C2, C3; the Weil-route morphism; the type-counting
+remark-to-theorem upgrade; the tower-script 2√π repair; the
+observer↔4 and charged-termination questions. Next hostile round
+on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
