@@ -10354,6 +10354,69 @@ closed: all 19 instruments exit-gate, print RESULT lines at
 verified counts, and every gate is demonstrated to bite. Next
 hostile round on the next substantive paper change.**
 
+## Addendum 211: Theorem 1ad — the participation rule (owner-commissioned); a sourced-cell criterion whose census is a theorem and whose coupling mechanism is a proposition
+
+The owner commissioned the single target behind "why exactly three
+generations" and the occupancy residue. The finding — a candidate
+criterion assembled entirely from committed, Γ-forced data:
+
+- **The rule:** partition the descent's 27 Dirac seats (d ≡ 5 mod
+  8 in [4, 217]) into trailing Bott cells (d−8, d]; a seat hosts
+  propagating (time-coupled) content iff its cell contains a
+  Γ-distinguished source layer (the committed set {5, 7, 14, 19}
+  of part4b's prop:source-selection).
+- **The census is a theorem** (exact arithmetic, recomputed in the
+  verifier): cell(5) ∋ {5}, cell(13) ∋ {7}, cell(21) ∋ {14, 19},
+  every cell from seat 29 onward empty. Exactly three sourced
+  cells — N_gen = 3 as a counting theorem, with the four-source /
+  three-generation mismatch explained by the 14/19 cell collision.
+- **Postdictions, no new inputs:** (a) the α_em exactly-three
+  brake (part4a's (D1)/(D2) tension: *"N_gen = 3 is currently a
+  hidden empirical input the cascade relies on without deriving"*
+  — the rule is a candidate discharge); (b) d=29's committed
+  source-only role — the neutrino formula's heaviest-mass filter
+  is χ^8, exactly one Bott period: cross-cell coupling carries the
+  full period's chirality filter, read structurally
+  (cascade_neutrino_mass_audit.py, a gated instrument, subprocess
+  exit-gated); (c) part4a's empirical time-decoupling bracket
+  (21.0, 29.0) sharpened to d*₁ + 8 = 27.73, strictly inside.
+- **Honest grading:** the coupling biconditional ("sourced cell ⟺
+  time-coupled") is proposition-grade and NOT derived — it is the
+  concrete candidate for part4a's resolution route (a), and its
+  derivation is the named remaining theorem. The flags' P > L > G
+  precedence and categorical derivation stay open (the rule
+  consumes the source set, not the flag assignments). Check 8
+  clean: the source set is Γ-forced, observer-free.
+- **Disclosures:** the two part4a-named tower scripts
+  (cascade_bott_tower_beyond_29.py, cascade_d29_sterile_neutrino.py)
+  are ANALYSIS-GRADE — tables without verdict gates — run for
+  runnability only, so stated in the paper and gated as a
+  disclosure. **By-catch, flagged not adjudicated:** part4a's prose
+  tower masses (0.2 eV, 30 μeV) vs the tower script's table
+  (0.70 eV, 105 μeV) disagree by one factor ≈2√π (ratios 3.52 and
+  3.50 vs 3.545) — a pre-existing convention inconsistency on
+  non-load-bearing values, left to a future round.
+
+**Surfaces:** Theorem 1ad in the paper (after 1ac; additive);
+footer 50 → 54 ("1i–1ac" → "1i–1ad"; participation_rule new;
+neutrino_mass_audit, bott_tower_beyond_29, d29_sterile_neutrino
+newly body-cited). **Verifier:**
+cascade_participation_rule.py, P1–P5, 15 gates + 2 declared
+identities, 15/0 (the RESULT line's first draft said 13 —
+corrected pre-commit, the recurring count defect; the docstring's
+first sabotage-(c) wording referenced ok1-plumbing this script
+does not have — reworded pre-commit to the instrument-expectation
+precedent); three sabotages exit 1 at 14/1 on a fresh full-tree
+scratchpad copy (mid-anchor per the twice-recorded trap: part4a's
+"hidden empirical input" sentence → P2; part4b's source-set
+display → P3; DIST minus 19 in the instrument copy → P1), clean
+baselines before and after. **Battery:** all 20 instruments (the
+19 + participation_rule) exit 0, zero FAIL lines, RESULT lines at
+expected counts; validator clean on 12 files; footer census exact
+(54 counted + cascade_constants.py = 55 distinct, zero record
+names in body); hygiene clean. Trajectory: 1ad landed → round 124
+(hostile review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

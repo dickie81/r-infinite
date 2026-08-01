@@ -1892,6 +1892,76 @@ record's own gradings in one place; no number changes; category (a); the
 flags' categorical derivation (part4b's Open Question, Tier 3) remains the
 standing upgrade route.
 
+**Theorem 1ad (the participation rule: a sourced-cell criterion for the Bott
+tower; the census is a theorem, the coupling mechanism a proposition;
+`cascade_participation_rule.py`).** *(i) The commission and the committed
+tension.* The owner commissioned the participation rule — the single target
+behind "why exactly three generations" and the selection-flag/occupancy
+residue. The committed tension is part4a's own (rem:bott-tower-open): *"Bott
+periodicity is infinite"*; the Dirac seats *"$d = 5, 13, 21, 29, 37,
+\ldots$"* replicate *"with no cascade-internal termination of the
+replication"*; the α_em closure *"requires exactly three Dirac layers to
+contribute"*; and — part4a's own words — *"$N_{\rm gen}=3$ is currently a
+hidden empirical input the cascade relies on without deriving."* The
+suppression argument's flaw is likewise part4a's own disclosure (OQ-T4): the
+289× amplitude suppression *"applies to the mass, not the charge"* — the
+extrapolated fourth-generation mass is ≈543 eV, *lighter* than the electron,
+so *"lower mass at fixed charge does not produce invisibility; it produces
+enhanced low-energy accessibility."* Part4a's candidate resolution
+(time-decoupling past supercritical depth) brackets a threshold empirically
+between Gen 1's overshoot and d=29's (1.3 to ~9.3 layers past d*₁ = 19.731)
+but derives no value. *(ii) The rule, and the census theorem.* Partition the
+descent's Dirac seats into their trailing Bott cells — for each seat d, the
+eight layers (d−8, d] it terminates. **The rule: a seat hosts propagating
+(time-coupled) content iff its cell contains a Γ-distinguished source layer**
+(the committed source set {d_V, d_0, d_gw, d_1} = {5, 7, 14, 19} of part4b's
+prop:source-selection — Γ-forced, observer-free; Check 8 clean). The census
+is exact arithmetic: of the 27 seats in the descent [4, 217], cell(5) ∋ {5},
+cell(13) ∋ {7}, cell(21) ∋ {14, 19}, and **every cell from seat 29 onward is
+empty** (all four sources lie ≤ 19 < 22). Exactly three sourced cells —
+N_gen = 3 as a counting theorem over Γ-forced data, with the four-source /
+three-generation mismatch explained in passing: 14 and 19 share a cell.
+*(iii) What the rule postdicts from the committed record, without new
+inputs.* (a) The α_em brake: exactly three contributing Dirac layers, which
+the 137.028 closure (0.006%) demands — the (D1)/(D2) conspiracy resolves to
+"cells without sources decouple." (b) d=29's committed role: source-only,
+coupled to the physics at seat 21 through the committed neutrino formula
+m_ν(Gen g) = m₂₉·α(d_g)/χ^(29−d_g) (part4b, verifier
+`cascade_neutrino_mass_audit.py`, run and exit-gated here; 0.0493 eV vs
+observed 0.0495 eV) — the filter exponent for the heaviest neutrino is
+χ^8 = 256, **exactly one Bott period**: cross-cell coupling carries the full
+period's chirality filter, in-cell coupling does not. The rule's mechanism is
+the formula's own exponent read structurally. (c) The threshold sharpened:
+"within one Bott period of the last source" puts the participation cut at
+d₁ + 8 ≈ 27.7, strictly inside part4a's empirical bracket (21.0, 29.0) —
+the bracket's midpoint mystery resolves to the period length. *(iv) Honest
+grading.* The **census is a theorem** (finite arithmetic over the committed
+source set and the Bott partition — the verifier recomputes it exactly). The
+**coupling mechanism is proposition-grade**: "sourced cell ⟺ time-coupled" is
+grounded in committed pieces (unit source strength at the four sources —
+Sturm–Liouville, exit-gated in 1ac; the χ-per-layer filter with cross-cell
+cost χ^(layer distance), committed in the neutrino formula) but the
+biconditional itself is not derived — it is the concrete candidate for
+part4a's resolution route (a), a *"cascade theorem terminating the
+Bott-replication of propagating fermion content at the third orbit, with the
+higher Bott layers then realised as something other than propagating
+fermions"* — here: as sources. What this does NOT close: the P > L > G
+precedence and the flags' categorical derivation (part4b's OQ, Tier 3) stand
+open — the rule consumes the source *set*, not the flag *assignments*; and
+the biconditional's derivation is the named remaining theorem. *(v)
+Falsifiers and by-catch.* Any propagating fourth-generation fermion at any
+mass kills the rule outright; a KATRIN/TRISTAN sterile-neutrino detection
+consistent with part4b's mixing prediction would confirm the source reading
+of d=29 (Reading A) without disturbing the rule; the analysis instruments
+part4a names (`cascade_bott_tower_beyond_29.py`,
+`cascade_d29_sterile_neutrino.py`) are run here (exit 0) but are
+**analysis-grade — tables without verdict gates** — disclosed as such, not
+counted as verification. By-catch, flagged not adjudicated: part4a's prose
+tower masses (m₃₇ ≈ 0.2 eV, m₄₅ ≈ 30 μeV) and the tower script's table
+(0.70 eV, 105 μeV) disagree by ×3.5 ≈ 2√π — a pre-existing one-factor
+convention inconsistency on non-load-bearing values, left to a future round.
+No number changes; category (a) plus one stated candidate criterion.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -2426,4 +2496,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ac: the **50 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ad: the **54 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
