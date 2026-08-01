@@ -10976,6 +10976,73 @@ A4/S4 measurement biconditional (v-b); the remark-to-theorem
 upgrade of the type-counting close; the tower-script 2√π repair.
 Next hostile round on the next substantive paper change.**
 
+## Addendum 223: Theorem 1ag — the spinor transport theorem (owner-commissioned); lemma (v-a) derived from the Clifford ladder plus committed equipartition; the metric and the per-layer factor both forced; (v-b) alone remains
+
+The owner commissioned the spinor transport theorem. The
+derivation, from committed structure only:
+
+- **T1 (the ladder split — exact algebra, computed not declared):**
+  Cl(D) as a Cl(d)-module is 2^(D−d) trace-orthogonal copies of
+  Cl(d); the Cl(d)-component is a 2^−(D−d) basis fraction. The
+  verifier implements the Clifford multiplication (monomial
+  bitmask basis, signature e_i² = +1 disclosed as a model choice,
+  signature-independence of the claims stated) and COMPUTES the
+  monomial orthonormality from the regular representation (64×64
+  Gram = identity at machine precision), with an associativity
+  self-test on 200 random triples.
+- **T2 (pairing localization — exact):** the trace pairing of
+  content at layers d and d* factors identically through the
+  common subalgebra Cl(min) — components carrying any generator
+  above the common depth pair to zero (gated at machine
+  precision). This forces the common-depth bottleneck and answers
+  round-124 F5's residual metric question: the layer-index
+  distance IS the ladder-depth difference.
+- **T3 (the transport cost):** under committed equipartition —
+  A4's own anchor ("weight e^(±½) per measured mode — lemma S4,
+  anchored by equipartition"), with S4's LLN ("quenched rate
+  forced by LLN") bridging expectation to record — content at
+  layer D retains expected weight exactly 2^−(D−d) in Cl(d).
+  Combined with T2: **the expected coupling weight between layers
+  d and d* is χ^−|d−d*| with χ = 2 — the cost model of 1ae's
+  (v-a), derived.** Monte-Carlo-confirmed on the implemented
+  algebra at the Δ = 8 case (Cl(11) → Cl(3): mean retained
+  fraction ×256 = 0.9990, tolerance 2% disclosed statistical,
+  n = 20000 fixed seed).
+- **The identification, argued from part4b's own words:** part4b's
+  χ = 2 is "splitting the spinor bundle into two equal-weight
+  chirality basins" (Poincaré–Hopf, "Topological theorem; no
+  assumption") — the same number and split shape as the ladder
+  step; the committed neutrino filter χ^(29−d_g) instantiates
+  T3's derived form exactly, partially addressing part4b's own
+  "no explicit derivation appears" for the χ-factor (m₂₉ and
+  α(d_g) remain open there). The mode-count χ-contexts (χ^(m−k))
+  are argued, not closed — stated.
+- **Consequence:** (v-a) is DERIVED, conditional on two committed
+  readings — (R1) the Clifford-ladder assignment of fermionic
+  content (part4a); (R2) equipartition as the amplitude selector
+  (A4's anchor). Net-state markers placed in 1ae ((v-a) derived;
+  the unproved pair reduces to (v-b) alone) and 1af (the candidate
+  upgrades from named to derived-given-readings). 1ae(iv)'s
+  coupling contrast χ⁸ = 256 upgrades with it. **What remains for
+  the full first-principles proof: (v-b) alone** — the binary
+  record-rate cutoff. The spinor-sector action's explicit
+  intra-fiber construction remains unwritten (named).
+
+**Surfaces:** Theorem 1ag in the paper (after 1af); the two
+net-state markers; footer 56 → 57 ("1i–1af" → "1i–1ag";
+cascade_spinor_transport.py new), verified against the FOOTER TEXT
+per the round-130 lesson (63 backticked = 57 counted + 4° + 2
+audited; body 59 distinct). **Verifier:**
+cascade_spinor_transport.py, S1–S5, 13 gates + 1 declared identity
+line, 13/0 (the gate count correct at first draft — the recurring
+count defect did not recur, noted); three sabotages exit 1 at 12/1
+on a full-tree scratchpad copy (part4b's basins sentence; the
+Monte-Carlo expectation flip; the paper's pairing-localization
+sentence), clean baselines 13/0. **Battery:** all 24 instruments
+(the 23 + spinor_transport) exit 0, zero FAIL lines; validator
+clean on 12 files; hygiene clean. Trajectory: 1ag landed → round
+133 (hostile review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

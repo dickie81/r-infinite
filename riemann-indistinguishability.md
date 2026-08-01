@@ -2125,7 +2125,13 @@ source-discriminating scalar objects exist on the same operator]: the
 committed chain's static two-point function depends only on
 max(seat, source), closing the static scalar-propagator route for (v-a);
 the Clifford-dimension candidate is the named survivor in the spinor
-sector, preferred not forced.)* **(v-b) The measurement biconditional:** that a
+sector, preferred not forced.)* *(Net-state, Theorem 1ag round 133:
+(v-a) is now DERIVED — the ladder split (exact algebra), the pairing
+localization at the common subalgebra (forcing the layer-index metric),
+and committed equipartition (A4's own anchor) give the coupling cost
+χ^|d−d*| as a theorem, conditional on two committed readings (the
+Clifford-ladder assignment; equipartition as selector). The unproved
+pair reduces to (v-b) alone.)* **(v-b) The measurement biconditional:** that a
 mode whose source coupling is filtered by ≥ χ^10 fails A4/S4's measurement
 condition (the LLN-quenched record rate) while modes at δ ≤ 2 pass it. The
 gap theorem keeps both threshold-free: any separation point inside the
@@ -2215,7 +2221,12 @@ declared identity). **Candidate mechanism for (v-a), named, not derived:**
 layer-to-layer transport projects the Clifford structure, surviving weight
 1/2 per generator — a spinor-chain analogue of (ii)'s scalar chain. The
 arithmetic of the identification is trivially exact; its content is the
-reading; the derivation of the spinor chain is the remaining work. *(vii)
+reading; the derivation of the spinor chain is the remaining work.
+*(Net-state, Theorem 1ag round 133: the remaining work is done — the
+transport cost χ^|d−d*| is derived from the ladder split + pairing
+localization + committed equipartition, conditional on the two committed
+readings named there; the candidate upgrades from named to
+derived-given-readings.)* *(vii)
 What a full first-principles proof now requires, exactly:* (1) a
 transport theorem delivering (v-a) — the static scalar-propagator route
 closed here, the spinor candidate named (requantified round 130 F2: the
@@ -2225,6 +2236,82 @@ biconditional (v-b) — untouched. *Honest scope:* (iii)–(v) are theorems
 (the committed flux argument plus linear algebra over the committed
 operator, numerically gated); (vi) is an identification with a named gap;
 no convention, no new number, no data consumed.
+
+**Theorem 1ag (the spinor transport theorem: lemma (v-a) derived from the
+Clifford ladder plus committed equipartition; the metric and the per-layer
+factor both forced; `cascade_spinor_transport.py`).** *(i) The commission
+and the target.* The owner commissioned the spinor transport theorem —
+1ae's lemma (v-a), the cost model "χ per layer of separation on the
+seat↔source channel," which 1af narrowed to the spinor sector and named a
+candidate for. This theorem derives it. *(ii) The setup — committed
+structure only.* The Clifford ladder over the layer lattice: Cl(d) on
+generators e₁…e_d, monomial basis {e_A : A ⊆ {1…d}}, dimension 2^d, with
+the ladder inclusions Cl(d) ⊂ Cl(d+1) (Cl(d) algebras are the cascade's
+own committed machinery — part4a's fermion assignment runs on them: *"A
+fermion generation requires a complex Dirac layer ($d\bmod 8=5$)"*). The
+signature convention e_i² = +1 is a model choice disclosed here; the
+dimension and orthogonality claims below are signature-independent, and
+the trace form is computed in the verifier from the actual algebra
+multiplication (the regular representation), not assumed. *(iii) Theorem
+T1 (the ladder split — exact algebra).* As a Cl(d)-module, Cl(D) =
+⊕_{B ⊆ {d+1…D}} Cl(d)·e_B — exactly 2^(D−d) trace-orthogonal copies of
+Cl(d), each of equal dimension; the Cl(d)-component proper (B = ∅) is a
+2^−(D−d) fraction of the monomial basis. Gated: the orthonormality of the
+monomial basis under the normalized regular-representation trace is
+computed from the implemented Clifford multiplication (with an
+associativity self-test), not declared. *(iv) Theorem T2 (pairing
+localization — exact).* For x ∈ Cl(d) and y ∈ Cl(d*) inside any common
+Cl(D), the trace pairing satisfies ⟨x, y⟩ = Σ_{A ⊆ {1…min(d,d*)}} x_A y_A
+— **the pairing factors identically through the common subalgebra
+Cl(min)**: components carrying any generator above min(d, d*) pair to
+zero. This is why coupling between layers is a bottleneck at the common
+depth — and why the natural metric is the layer-index difference: it is
+the ladder-depth difference. Round-124 F5's residual question ("why this
+metric?") is hereby answered from structure. *(v) Theorem T3 (the
+transport cost).* Under the committed equipartition selector — A4's own
+anchor, verbatim: *"weight e^(±½) per measured mode — lemma S4, anchored
+by equipartition"*, with S4's LLN quenching (*"quenched rate forced by
+LLN"*) turning expectation into record — content at layer D carries
+expected weight **exactly 2^−(D−d)** in Cl(d): the equipartitioned
+Gaussian's expected retained fraction equals the dimension fraction,
+which T1 makes exactly 2^−(D−d). Combining with T2: **the expected
+coupling weight between content at layers d and d* is χ^−|d−d*| with
+χ = 2** — the per-layer factor and the symmetric layer-index metric both
+derived. Gated two ways: exact dimension counting, and a Monte-Carlo
+equipartition test on the implemented algebra (Gaussian content in the
+Cl(11) model retains mean fraction 1/256 in Cl(3) — the Δ = 8 case,
+matching χ⁸). *(vi) The identification with the committed χ — argued from
+part4b's own words.* Part4b's χ = 2 is *"splitting the spinor bundle into
+two equal-weight chirality basins"* (Poincaré–Hopf, *"Topological
+theorem; no assumption"*), and *"The two factors $\sqrt{\pi}$ and
+$\chi = 2$ are the \emph{only}"* committed per-layer constants of this
+kind; the ladder step Cl(d) ⊂ Cl(d+1) is likewise an equal-weight
+two-way trace-orthogonal split. Same number, same split shape — and the
+committed neutrino filter χ^(29−d_g) instantiates T3's derived form
+exactly (base 2, exponent = layer distance): **the filter factor's form
+in that committed formula is hereby derived** (partially addressing
+part4b's own open item — *"no explicit derivation appears"* — for the
+χ-factor; the m₂₉ and α(d_g) factors remain open there). The full
+identification of the transport 2 with every committed χ-context (the
+mode-count exponents χ^(m−k)) is argued, not closed — stated. *(vii)
+Consequence: (v-a) is derived, conditional on two committed readings.*
+(R1) fermionic content lives on the Clifford ladder — part4a's committed
+assignment; (R2) equipartition selects the amplitude — A4's own anchor,
+not a new input. Given R1 and R2, 1ae's cost model is a **theorem**
+(net-state markers placed in 1ae and 1af), and 1ae(iv)'s conditional
+half upgrades with it: the participant/non-participant coupling contrast
+χ⁸ = 256 is now derived-given-readings, no longer merely conditional on
+an unproved model. **What remains is (v-b) alone** — the measurement
+biconditional: expectation-level coupling is graded, and the binary
+record-rate cutoff (why χ^−10-coupled modes yield no recorded particle
+while χ^−2-coupled modes do) still needs the A4/S4 argument. *Honest
+scope:* T1–T2 are exact algebra (computed, not declared); T3 is exact in
+expectation given R2, with S4's committed LLN bridging expectation to
+record; the R1/R2 conditionality is the honest boundary — both readings
+are committed structures, and a reviewer who rejects either rejects
+committed text, not this theorem; the spinor-sector action's explicit
+intra-fiber construction remains unwritten (named); no convention, no
+new number, no data consumed.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -2760,4 +2847,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1af: the **56 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ag: the **57 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
