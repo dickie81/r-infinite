@@ -2430,3 +2430,26 @@ source on notice.
 **Trajectory: hardening landed (235f545) → 123 CONVERGED 0+0+0. All
 19 battery instruments now exit-gate with demonstrated bite. Next
 hostile round on the next substantive paper change.**
+
+# Round 124: hostile review on commit 7d8e797 (Theorem 1ad) — NOT CONVERGED (3 MAJORs, 4 minors); the census held completely, the claims wrapped around it broke; round 125 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F124-1 (MAJOR) — cascade_neutrino_mass_audit.py labeled "a GATED verifier" on a `sys.exit(main())` returning 0 unconditionally (probe: chi→3⁸ garbage, exit 0) — the round-120 F3 vacuous-gate class, third instance | **Accepted; real verdict gating added (4 verdicts + RESULT); the paper claim struck-and-annotated; the subprocess gate now checks RESULT 4/0** | instrument + paper + verifier |
+| F124-2 (MAJOR) — Reading labels inverted (part4a OQ-T3: A = propagating sterile, B = structural source mass; the rule instantiates B) and the falsifier logic backwards (a KATRIN detection falsifies the rule; "Reading~B and Reading~C predict no such observation") | **Accepted; struck-and-annotated; the corrected statement — the rule predicts the null — with both anchors gated** | paper + verifier |
+| F124-3 (MAJOR) — "d₁ + 8 ≈ 27.7" conflated the integer last source (27) with the continuous threshold (27.73, not a source); the cut-27 criterion is part4a's own committed candidate, not the theorem's invention; "midpoint mystery" loose | **Accepted; rewritten — the cut declared as the integer identity, the continuous variant a disclosed different anchor, part4a's precedent quoted and gated, the contribution restated (grounding, not inventing)** | paper + verifier |
+| F124-4 (minor) — "Γ-forced" false for source 14 (Adams/Bott-forced per part4b's own attribution) | **Accepted; forcers named on all surfaces** (paper, verifier prose, A211 struck on notice) | paper + verifier + record |
+| F124-5 (minor) — the trailing-cell orientation load-bearing and undisclosed (leading gives N_gen = 2; the quoted contents unique to trailing) | **Accepted; disclosed as a stated convention with the 6-of-8 robustness census stated in the paper and gated in the verifier** | paper + verifier |
+| F124-6 (minor) — "in-cell coupling does not [carry the filter]" an unmarked new input contradicting the χ^(layer distance) reading | **Accepted; struck; mechanism confined to the committed cross-cell instances (χ^8/16/24)** | paper |
+| F124-7 (minor) — neutrino_mass_audit's stale "line 936 units defect, novel finding" report against long-fixed part4b text | **Accepted; converted to net-state history at all three sites** | instrument |
+
+By-catch adjudicated (reviewer-supplied, lead-verified): part4a's
+prose tower masses are correct; the tower script drops one 2√π
+factor and self-contradicts at its d=29 row (1999 eV vs committed
+543 eV) — repair recorded as a future item. Checked and held: the
+census arithmetic, d*₁ = 19.7308, the verifier's gates-as-built,
+sabotages, battery, validator, footer census, quotes, Checks 7/8,
+self-containment, hygiene.
+
+**Trajectory: 1ad landed (7d8e797) → 124 NOT CONVERGED 3M+4m
+(swept) → round 125 (convergence test) next.**

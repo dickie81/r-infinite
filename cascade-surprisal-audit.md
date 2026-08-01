@@ -10358,12 +10358,14 @@ hostile round on the next substantive paper change.**
 
 The owner commissioned the single target behind "why exactly three
 generations" and the occupancy residue. The finding — a candidate
-criterion assembled entirely from committed, Γ-forced data:
+criterion assembled entirely from committed, structure-forced data
+(~~Γ-forced~~ [corrected on notice, round 124 F4: Γ for {5, 7, 19},
+Adams/Bott for 14, per part4b's own attribution]):
 
 - **The rule:** partition the descent's 27 Dirac seats (d ≡ 5 mod
   8 in [4, 217]) into trailing Bott cells (d−8, d]; a seat hosts
   propagating (time-coupled) content iff its cell contains a
-  Γ-distinguished source layer (the committed set {5, 7, 14, 19}
+  distinguished source layer (the committed set {5, 7, 14, 19}
   of part4b's prop:source-selection).
 - **The census is a theorem** (exact arithmetic, recomputed in the
   verifier): cell(5) ∋ {5}, cell(13) ∋ {7}, cell(21) ∋ {14, 19},
@@ -10377,16 +10379,23 @@ criterion assembled entirely from committed, Γ-forced data:
   source-only role — the neutrino formula's heaviest-mass filter
   is χ^8, exactly one Bott period: cross-cell coupling carries the
   full period's chirality filter, read structurally
-  (cascade_neutrino_mass_audit.py, a gated instrument, subprocess
-  exit-gated); (c) part4a's empirical time-decoupling bracket
-  (21.0, 29.0) sharpened to d*₁ + 8 = 27.73, strictly inside.
+  (cascade_neutrino_mass_audit.py, ~~a gated instrument, subprocess
+  exit-gated~~ [struck on notice, round 124 F1: at 7d8e797 its only
+  exit path returned 0 unconditionally — the vacuous-gate class,
+  third instance; real verdict gating added in the sweep]); (c) ~~part4a's empirical time-decoupling bracket
+  (21.0, 29.0) sharpened to d*₁ + 8 = 27.73, strictly inside~~
+  [struck on notice, round 124 F3: the cut is the integer last
+  source + one period = 27, part4a's own committed candidate; the
+  continuous variant 27.73 is a different anchor, disclosed; both
+  in-bracket].
 - **Honest grading:** the coupling biconditional ("sourced cell ⟺
   time-coupled") is proposition-grade and NOT derived — it is the
   concrete candidate for part4a's resolution route (a), and its
   derivation is the named remaining theorem. The flags' P > L > G
   precedence and categorical derivation stay open (the rule
   consumes the source set, not the flag assignments). Check 8
-  clean: the source set is Γ-forced, observer-free.
+  clean: the source set is structure-forced (Γ + Adams),
+  observer-free.
 - **Disclosures:** the two part4a-named tower scripts
   (cascade_bott_tower_beyond_29.py, cascade_d29_sterile_neutrino.py)
   are ANALYSIS-GRADE — tables without verdict gates — run for
@@ -10397,7 +10406,8 @@ criterion assembled entirely from committed, Γ-forced data:
   3.50 vs 3.545) — a pre-existing convention inconsistency on
   non-load-bearing values, left to a future round.
 
-**Surfaces:** Theorem 1ad in the paper (after 1ac; additive);
+**Surfaces (see A212 for the round-124 strikes on this
+addendum's live-state bullets):** Theorem 1ad in the paper (after 1ac; additive);
 footer 50 → 54 ("1i–1ac" → "1i–1ad"; participation_rule new;
 neutrino_mass_audit, bott_tower_beyond_29, d29_sterile_neutrino
 newly body-cited). **Verifier:**
@@ -10416,6 +10426,91 @@ expected counts; validator clean on 12 files; footer census exact
 (54 counted + cascade_constants.py = 55 distinct, zero record
 names in body); hygiene clean. Trajectory: 1ad landed → round 124
 (hostile review, per protocol) spawned on this commit.
+
+## Addendum 212: hostile review round 124 on commit 7d8e797 (Theorem 1ad) — NOT CONVERGED (3 MAJORs, 4 minors); the census held completely, the write-up's claims around it broke; all findings lead-verified and swept
+
+Round 124 independently reproduced the census arithmetic, the
+threshold, the sabotages, the battery, and every verbatim quote —
+and broke the claims wrapped around them:
+
+- **F1 (MAJOR):** the landing labeled cascade_neutrino_mass_audit.py
+  "a GATED verifier" because it "contains sys.exit" — but its only
+  exit path was `sys.exit(main())` with an unconditional `return 0`
+  (the reviewer's probe: chi8 → 3⁸ prints garbage, exit 0). The
+  round-120 F3 vacuous-gate class, **third instance**, and a false
+  GATED-vs-analysis-grade differentiator against the two tower
+  scripts in the same verification state. Swept: real verdict
+  gating added (4 verdicts: m_e at d=21; m₂₉ = 543 eV; the heaviest
+  m_ν at 0.0493; the −0.4% deviation), RESULT line; the paper claim
+  struck-and-annotated; the participation-rule subprocess gate now
+  also checks RESULT 4/0.
+- **F2 (MAJOR):** the falsifier paragraph inverted part4a OQ-T3's
+  committed Reading labels (A = propagating sterile, B = structural
+  source mass — the rule instantiates B) and asserted its own
+  falsifier was compatible with it: a KATRIN-visible sterile at
+  d=29 is propagating content in an unsourced cell, which the
+  rule's biconditional forbids (part4a: "Reading~B and Reading~C
+  predict no such observation"). Swept: struck-and-annotated; the
+  corrected statement — the rule PREDICTS the null; a detection
+  falsifies it while vindicating Reading A — with both anchors
+  gated.
+- **F3 (MAJOR):** "d₁ + 8 ≈ 27.7" conflated the integer last
+  source (19 + 8 = 27) with the continuous threshold (d*₁ + 8 =
+  27.73 — d*₁ is not a source); and the cut-27 criterion is
+  part4a's own committed candidate ("a structural criterion at
+  'one Bott period past d₁' would give d ≤ d₁ + 8 = 27"), not the
+  theorem's invention; "midpoint mystery" was loose (midpoint 25).
+  Swept: rewritten — the cut declared as the integer identity, the
+  continuous variant disclosed as a different anchor, part4a's
+  precedent quoted and anchored, the rule's contribution restated
+  honestly (grounding the candidate in the source set, not
+  inventing the cut).
+- **F4 (minor):** "Γ-forced" was false for source 14 — part4b's
+  own attribution: Γ for the Part-0 critical points {5, 7, 19};
+  Adams' theorem + the Bott mirror for 14. Labels corrected on the
+  paper, the verifier prose, and A211 (struck on notice).
+- **F5 (minor):** the trailing-cell orientation was load-bearing
+  and undisclosed — the reviewer's 8-offset census (lead-reproduced
+  exactly): {5,13,21} at offsets 0–5, N_gen = 2 at the two
+  leading-most, the quoted contents {5},{7},{14,19} unique to
+  trailing. Swept: the orientation disclosed as a stated convention
+  grounded in the descent direction, the 6-of-8 robustness stated,
+  and the census gated in the verifier.
+- **F6 (minor):** "in-cell coupling does not [carry the filter]"
+  was an unmarked new input (no in-cell instance exists in the
+  record) contradicting the same theorem's χ^(layer distance)
+  reading. Swept: struck; the mechanism claim confined to the
+  committed cross-cell instances (χ^8, χ^16, χ^24 — all whole
+  periods).
+- **F7 (minor):** the newly cited neutrino_mass_audit still
+  asserted a live "novel finding" units defect against part4b text
+  that was fixed long ago (zero grep hits). Swept: converted to
+  net-state history in the script's docstring and both print
+  sites.
+
+**By-catch adjudicated** (reviewer-supplied; lead-verified: the
+formula reproduces m_e and 543 eV; dividing the tower table by 2√π
+recovers part4a's prose; the tower script's own d=29 row prints
+1999 eV vs the committed 543): part4a's prose is the correct side;
+the tower script drops one 2√π factor — repair left to a future
+commit, recorded here.
+
+**Post-sweep state:** participation_rule 19 gates + 2 declared
+identities, 19/0 (the landing had 15); all three sabotages re-run
+on the 19-gate tree — (a) 18/1, (b) 18/1, (c) 17/2 (the DIST
+perturbation now trips both census gates, the occupied-cells gate
+and the new offset-census gate, since both consume the source
+set), all exit 1 with clean baselines before and after;
+neutrino_mass_audit 4/0 with real gating, and its falsification
+probe (chi → 3 in a scratchpad copy) trips it 2/2 exit 1 with
+participation_rule's subprocess gate following at 18/1 exit 1;
+battery 21 instruments (the 20 + neutrino_mass_audit joins as a
+gated instrument) all exit 0, zero FAIL lines; validator clean on
+12 files; footer census unchanged (54 counted + constants = 55);
+hygiene clean.
+
+**Trajectory: 1ad landed (7d8e797) → 124 NOT CONVERGED 3M+4m
+(swept here) → round 125 (convergence test) next.**
 
 ## Caveats
 

@@ -1912,29 +1912,68 @@ enhanced low-energy accessibility."* Part4a's candidate resolution
 between Gen 1's overshoot and d=29's (1.3 to ~9.3 layers past d*₁ = 19.731)
 but derives no value. *(ii) The rule, and the census theorem.* Partition the
 descent's Dirac seats into their trailing Bott cells — for each seat d, the
-eight layers (d−8, d] it terminates. **The rule: a seat hosts propagating
-(time-coupled) content iff its cell contains a Γ-distinguished source layer**
+eight layers (d−8, d] it terminates. *Orientation disclosure (round 124 F5):
+the trailing choice is a convention, stated not forced — grounded in the
+descent direction (a seat's cell is the period the descent traverses to
+reach it), and load-bearing for the cell-contents narrative: of the eight
+seat-anchored offsets, six (including trailing) give N_gen = 3 at seats
+{5, 13, 21}, while the two leading-most give N_gen = 2 — the headline count
+is 6-of-8 robust, but the specific contents {5}, {7}, {14, 19} and the
+14/19-collision explanation below are trailing-specific (the offset census
+is gated in the verifier).* **The rule: a seat hosts propagating
+(time-coupled) content iff its cell contains a distinguished source layer**
 (the committed source set {d_V, d_0, d_gw, d_1} = {5, 7, 14, 19} of part4b's
-prop:source-selection — Γ-forced, observer-free; Check 8 clean). The census
+prop:source-selection — structure-forced and observer-free, with the forcers
+named per part4b's own attribution (round 124 F4): {5, 7, 19} by the Γ
+function (Part 0's critical points), 14 by Adams' theorem and the Bott
+mirror; Check 8 clean). The census
 is exact arithmetic: of the 27 seats in the descent [4, 217], cell(5) ∋ {5},
 cell(13) ∋ {7}, cell(21) ∋ {14, 19}, and **every cell from seat 29 onward is
 empty** (all four sources lie ≤ 19 < 22). Exactly three sourced cells —
-N_gen = 3 as a counting theorem over Γ-forced data, with the four-source /
-three-generation mismatch explained in passing: 14 and 19 share a cell.
+N_gen = 3 as a counting theorem over structure-forced data (Γ + Adams), with
+the four-source /
+three-generation mismatch explained in passing: 14 and 19 share a cell
+(under the trailing convention, per the disclosure above).
 *(iii) What the rule postdicts from the committed record, without new
 inputs.* (a) The α_em brake: exactly three contributing Dirac layers, which
 the 137.028 closure (0.006%) demands — the (D1)/(D2) conspiracy resolves to
 "cells without sources decouple." (b) d=29's committed role: source-only,
 coupled to the physics at seat 21 through the committed neutrino formula
 m_ν(Gen g) = m₂₉·α(d_g)/χ^(29−d_g) (part4b, verifier
-`cascade_neutrino_mass_audit.py`, run and exit-gated here; 0.0493 eV vs
+`cascade_neutrino_mass_audit.py`, run and ~~exit-gated here~~ [struck round
+124 F1: at the landing commit 7d8e797 that script's only exit path was
+`sys.exit(main())` with an unconditional `return 0` — the "GATED verifier"
+label was a vacuous differentiator, the defect class struck in round 120
+(F3), its third instance; real verdict gating (4 verdicts) was added in the
+round-124 sweep, after which the label is true and a falsification probe
+trips it]; 0.0493 eV vs
 observed 0.0495 eV) — the filter exponent for the heaviest neutrino is
-χ^8 = 256, **exactly one Bott period**: cross-cell coupling carries the full
-period's chirality filter, in-cell coupling does not. The rule's mechanism is
-the formula's own exponent read structurally. (c) The threshold sharpened:
-"within one Bott period of the last source" puts the participation cut at
-d₁ + 8 ≈ 27.7, strictly inside part4a's empirical bracket (21.0, 29.0) —
-the bracket's midpoint mystery resolves to the period length. *(iv) Honest
+χ^8 = 256, **exactly one Bott period**, and the committed instances (χ^8,
+χ^16, χ^24 for generations 1, 2, 3) all carry cost χ^(layer distance) with
+the distance a whole number of periods — all cross-cell. ~~In-cell coupling
+carries no filter~~ [struck round 124 F6: the landing text's "in-cell
+coupling does not" exemption was an unmarked new input — the record
+contains no in-cell coupling instance — and it contradicted (iv)'s own
+χ^(layer distance) reading, under which a hypothetical in-cell coupling
+would carry χ^(distance), not χ⁰; the mechanism claim is confined to what
+the record shows: cross-cell cost at the committed exponents]. The rule's
+mechanism is
+the formula's own exponent read structurally. (c) The cut, and its
+committed precedent [rewritten round 124 F3 — the landing sentence
+("the threshold sharpened … d₁ + 8 ≈ 27.7 … the bracket's midpoint mystery
+resolves to the period length") conflated two anchors: "the last source" is
+d₁ = 19, an integer, giving 19 + 8 = 27 exactly, while 27.73 = d*₁ + 8 uses
+the continuous supercritical threshold d*₁ = 19.731, which is not a source;
+and "midpoint mystery" was loose — the bracket's midpoint is 25]: the
+rule's cut is **last source + one Bott period = 27**, integer arithmetic —
+and this is not novel to the theorem: part4a's rem:bott-tower-open already
+computes it (*"a structural criterion at ``one Bott period past $d_1$''
+would give $d \leq d_1 + 8 = 27$, capturing $d=21$ but not $d=29$"*). The
+rule's contribution to (c) is narrower: it grounds that committed candidate
+in the source set (sourced cells) rather than positing an activation width;
+the cut — 27, or 27.73 on the continuous-threshold variant, disclosed as a
+different anchor — lies strictly inside part4a's empirical bracket
+(21.0, 29.0) either way. *(iv) Honest
 grading.* The **census is a theorem** (finite arithmetic over the committed
 source set and the Bott partition — the verifier recomputes it exactly). The
 **coupling mechanism is proposition-grade**: "sourced cell ⟺ time-coupled" is
@@ -1950,16 +1989,33 @@ precedence and the flags' categorical derivation (part4b's OQ, Tier 3) stand
 open — the rule consumes the source *set*, not the flag *assignments*; and
 the biconditional's derivation is the named remaining theorem. *(v)
 Falsifiers and by-catch.* Any propagating fourth-generation fermion at any
-mass kills the rule outright; a KATRIN/TRISTAN sterile-neutrino detection
-consistent with part4b's mixing prediction would confirm the source reading
-of d=29 (Reading A) without disturbing the rule; the analysis instruments
+mass kills the rule outright — **and that includes the KATRIN/TRISTAN
+sterile search** ~~a detection would confirm the source reading of d=29
+(Reading A) without disturbing the rule~~ [struck round 124 F2, a double
+error: (i) the committed labels were inverted — part4a's OQ-T3 defines
+Reading A as the *propagating* sub-keV sterile neutrino and Reading B as
+the *structural source mass that does not correspond to a particle*; the
+rule instantiates **Reading B**; (ii) the falsification logic was
+backwards — a KATRIN-visible sterile at d=29 is propagating fermion
+content in an unsourced cell, which the rule's biconditional forbids, and
+part4a says so for this reading family: *"Reading~B and Reading~C predict
+no such observation."* The corrected statement: the rule PREDICTS a null
+KATRIN/TRISTAN result; a detection consistent with part4b's mixing
+prediction would falsify the rule while vindicating Reading A]; the
+analysis instruments
 part4a names (`cascade_bott_tower_beyond_29.py`,
 `cascade_d29_sterile_neutrino.py`) are run here (exit 0) but are
 **analysis-grade — tables without verdict gates** — disclosed as such, not
-counted as verification. By-catch, flagged not adjudicated: part4a's prose
+counted as verification. By-catch, flagged: part4a's prose
 tower masses (m₃₇ ≈ 0.2 eV, m₄₅ ≈ 30 μeV) and the tower script's table
 (0.70 eV, 105 μeV) disagree by ×3.5 ≈ 2√π — a pre-existing one-factor
-convention inconsistency on non-load-bearing values, left to a future round.
+convention inconsistency on non-load-bearing values. *(Round-124
+adjudication, reviewer-supplied and lead-verified: part4a's prose is the
+correct side — the committed-convention mass formula reproduces m_e and
+543 eV, and dividing the tower script's values by 2√π recovers the prose;
+the tower script drops one (2√π) factor and its own d=29 row prints
+1999 eV against the committed 543 eV, an internal contradiction in an
+analysis-grade script, left to a future repair commit.)*
 No number changes; category (a) plus one stated candidate criterion.
 
 **Remark (Door 3: what the vector-field count load-bears on;
