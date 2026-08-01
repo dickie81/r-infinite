@@ -2792,3 +2792,32 @@ committed configuration-to-test-function morphism (off-line sign
 change, on-line nonnegativity). No RH content claimed in either
 direction. Next hostile round on the next substantive paper
 change.**
+
+# Round 143: hostile review on commit 07c3b53 (Theorem 1aj) — NOT CONVERGED (2 MAJORs, 6 minors, 1 cosmetic bundle); the false pair census and the unproved band converse; round 144 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F143-1 (MAJOR) — the pair census "22,578" false (C(213,2) quoted for the 214-layer lattice; true count C(214,2) = 22,791), asserted on four surfaces, gated on none | **Accepted; struck-and-annotated false-when-written (paper, A236; docstring rewritten); g12 counter-gated at 22,791; the counter sabotage (d) demonstrates the gate catches this class** | paper + verifier + A236 |
+| F143-2 (MAJOR) — "the discriminating band is exact" asserted with only the forward direction established | **Accepted; repaired by proof — Theorem R2′ (boundary-ratio monotonicity: K_s(0,γ) = (2s−1)(u+a)/((u+a)²+u); r*(u) strictly increasing via the certificate v⁴+2v³−4uv²−u² ≥ v²(v²−2v+79) > 0 for v ≥ u+20, guaranteed by the lattice floor a ≥ 20); gates g6b/g6c added** | paper + verifier |
+| F143-3 (minor) — the wall sentence quantified over every instance; confinement proved for the edge only | **Accepted; the domination line added (h_r = h* + (w₁/w₂−r)K_{s₁}, K_{s₁} > 0 on the strip)** | paper + verifier |
+| F143-4 (minor) — g9 a Fraction tautology that could not fail | **Accepted; rebuilt as coefficient extraction from quadrature; bite demonstrated by sabotage (e), 18/2** | verifier |
+| F143-5 (minor) — "width fraction" with no disclosed normalizer | **Accepted; raw width 1/297 and band-to-edge 1/243 both stated and gated with the normalizer named** | paper + verifier |
+| F143-6 (minor) — "inside Weil's class, exactly" convention-dependent | **Accepted; regraded to genuine self-convolution of an explicit L¹∩L² function, dense-class membership not claimed** | paper + verifier |
+| F143-7 (minor) — the headline compressed gap (vi)'s forcing clause away | **Accepted; rescoped in both places: the morphism COMPONENT exists; the forcing clause is the wall** | paper |
+| F143-8 (minor) — "other edge blind" universality on a 1% subsample, undisclosed | **Accepted; superseded by R2′ (proof for every pair); grid retained as a check** | paper + verifier |
+| F143-9 (cosmetic bundle) — "disc" for a band; the edge ratio's dropped sign; Z's mixed s/d arguments | **Accepted; all three fixed** | paper |
+
+Held: every closed form by the reviewer's own algebra; W =
+0.0780685798 at dps 40; the minimum-principle and
+bridge-convention bookkeeping; the net-state markers
+true-when-written; the sibling exclusion disclosed and biting;
+footer 66 = 60 + 4° + 2 by hand count; battery; validator;
+hygiene; Checks 7/8 with the hard Check-8 pass.
+
+Post-sweep: verifier 20/0 (census 20 = 20); five sabotages incl.
+the new counter and f_one-swap probes, all exit 1 with clean
+baselines; battery 27/27; validator clean on 12 files; hygiene
+zero.
+
+**Trajectory: 1aj landed (07c3b53) → 143 NOT CONVERGED 2M+6m+1c
+(swept) → round 144 (convergence test) next.**

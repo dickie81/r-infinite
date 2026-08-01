@@ -11665,7 +11665,10 @@ RH/GRH in either direction.
   to the positive scale 2(w₂²−w₁²)/w₂. Exact.
 - **R4 (the wall, located):** (a) {h* < 0} confined to |γ| < ½
   for EVERY committed pair (harmonicity + minimum principle +
-  exhaustive 22,578-pair scan: sup γ_b = 0.49999 at (216, 217) —
+  exhaustive ~~22,578~~ 22,791-pair scan [struck round 143 F1,
+  false-when-written: an off-by-one census, C(213,2) quoted for
+  the 214-layer lattice; the scan itself was exhaustive]: sup
+  γ_b = 0.49999 at (216, 217) —
   the half-shift approached; observer γ_b = 0.4806); (b) the
   value by the bridge identity, no zeros consumed: W(h*) = Z(6) −
   (9/11)Z(5) = 0.0780686 > 0, direct 100-zero partial sum
@@ -11710,6 +11713,109 @@ disclosed; (c) the gap-(vi) net-state marker mid-anchor → g16,
 route_traveled), zero FAIL lines; validator clean on 12 files;
 hygiene zero. Trajectory: 1aj landed → round 143 (hostile
 review, per protocol) spawned on this commit.
+
+## Addendum 237: round 143 (hostile review on 07c3b53, Theorem 1aj) — NOT CONVERGED, 2 MAJORs + 6 minors + 1 cosmetic bundle; the false pair census and the unproved band converse; both repaired by proof and counter-gate; swept; round 144 next
+
+Round 143 (fresh-context subagent, session model) attacked the 1aj
+landing. The theorem's mathematics held throughout — every closed
+form re-derived by the reviewer's own algebra, W recomputed at dps
+40, the minimum-principle logic and the bridge-convention
+bookkeeping examined and held, all three sabotages reproduced,
+Checks 7/8 hard-checked clean. Eight findings, all lead-verified:
+
+**F143-1 (MAJOR, accepted):** the pair census "22,578" was false —
+the committed lattice [4, 217] has 214 layers, C(214,2) = 22,791
+pairs (the landing quoted C(213,2), an off-by-one), and the number
+was asserted on four surfaces but gated on none. Lead-verified by
+running the loop counter (22,791). The scan itself WAS exhaustive;
+only the count was false. Swept: struck-and-annotated on the paper
+and this record's A236 (verifier docstring rewritten in place);
+g12 now carries a live pair counter gated at C(214,2) = 22,791 —
+and the new counter sabotage (d) shows it catches exactly this
+defect class (the shifted loop prints "22578 pairs", FAIL).
+
+**F143-2 (MAJOR, accepted; repaired by proof):** "the
+discriminating band is exact" asserted a set equality with only
+the forward direction established. The converse is now PROVED —
+**Theorem R2′ (boundary-ratio monotonicity)**: the boundary kernel
+factors as K_s(0,γ) = (2s−1)(u+a)/((u+a)²+u), a = s(s−1), u = γ²,
+and r*(u) = K_{s₂}/K_{s₁}(0,γ) is strictly increasing: ψ′(v)'s
+numerator v⁴+2v³−4uv²−u² ≥ v²(v²−2v+79) > 0 for v ≥ u+20, which
+the lattice floor guarantees (a ≥ 20 at s = 5). r* runs from the
+band endpoint (exact rational identity, four pairs gated) to the
+limit w₂/w₁ — settling the converse AND proving the other edge
+blind for every pair (F143-8's coarse grid upgraded to theorem,
+the grid retained as a check). Gates g6b/g6c added.
+
+**F143-3 (minor, accepted):** the wall sentence quantified over
+every discriminating instance while the confinement was proved for
+the edge only. The one-line domination argument is now in the
+paper and docstring: h_r = h* + (w₁/w₂ − r)K_{s₁}, K_{s₁} > 0 on
+the whole strip, so {h_r < 0} ⊆ {h* < 0}.
+
+**F143-4 (minor, accepted):** g9 was a Fraction tautology that
+could not fail. Rebuilt: the autocorrelation's two exponential
+coefficients are extracted from quadrature at two x points and
+their ratio gated against the live edge ratio; the new sabotage
+(e) (f_one's coefficients swapped) trips g8 AND g9, 18/2 —
+bite demonstrated.
+
+**F143-5 (minor, accepted):** "width fraction" had no disclosed
+normalizer. Now stated on both surfaces: raw width
+(w₂²−w₁²)/(4w₁w₂(w₂²−¼)) = 1/297 for the observer pair; the 1/243
+is the band-to-edge fraction (raw ÷ w₁/w₂); g6 gates both
+rationals and their consistency.
+
+**F143-6 (minor, accepted):** "lies inside Weil's class, exactly"
+was convention-dependent (the classical dense class is smooth
+compactly supported). Regraded: a genuine self-convolution of an
+explicit L¹∩L² function; dense-class membership not claimed;
+nothing leans on it (the zeros-side value is the bridge's
+unconditional identity at real s).
+
+**F143-7 (minor, accepted):** the headline "the morphism gap (vi)
+asked for EXISTS" compressed away gap (vi)'s forcing clause.
+Rescoped in both places: the morphism COMPONENT exists; the
+forcing clause is the wall itself (R4(c): action-positivity plays
+no role; dense-class forcing is RH).
+
+**F143-8 (minor, accepted):** the "other edge blind" universality
+rested on a 1% coarse subsample the paper's "(grid-gated)" did not
+disclose. Superseded by R2′ (proof for every pair); the paper now
+says "by theorem" with the grid retained as a check.
+
+**F143-9 (cosmetic bundle, accepted):** "height-½ disc" → "band"
+(the negative set is not a disc); the edge ratio's sign restored
+(−9/11, magnitude 9/11); Z's mixed s/d arguments annotated with
+s = d+1.
+
+**Held (reviewer, with evidence):** R1's transform identity by own
+algebra; R2's cone-edge binding argument (a theorem, not a grid
+claim); R3's autocorrelation by own integral; R4(a)'s
+minimum-principle logic including the unbounded end and the silent
+β ↔ 1−β symmetry; R4(b) W = 0.0780685798 at dps 40 and the
+factor/convention bookkeeping (quadruple pairing; sign-irrelevant
+positive scale); g14's from-below claim adequately supported;
+"sup approached is the half-shift" properly scoped as observed;
+the verbatim bridge quote; the committed-vs-constructed grading
+parallel to 1ai W3; both net-state markers true-when-written and
+anchor-safe; the sibling exclusion load-bearing, disclosed in
+three places, and biting under sabotage; footer 66 = 60 + 4° + 2
+counted by hand; battery/validator/hygiene; Checks 7/8 including
+the hard Check-8 pass (the observer pair enters only as the
+lattice floor exemplifying every-pair theorems).
+
+**Post-sweep record:** verifier 20/0 exit 0 (gate census 20 = 20
+call sites); five sabotages on a full-tree copy at the swept
+state: (a) edge sentence mid-anchor → g17, 19/1; (b) coefficient
+flip → 3 FAILs then the g11 abort; (c) marker mid-anchor → g16,
+19/1; (d) NEW counter sabotage → g12 FAIL at "22578 pairs", 19/1;
+(e) NEW f_one swap → g8+g9, 18/2; all exit 1, clean baselines
+20/0 around each. Battery 27/27 zero FAIL lines; validator clean
+on 12 files; hygiene zero.
+
+**Trajectory: 1aj landed (07c3b53) → 143 NOT CONVERGED 2M+6m+1c
+(swept) → round 144 (convergence test) next.**
 
 ## Caveats
 

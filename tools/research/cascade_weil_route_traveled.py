@@ -24,21 +24,41 @@ R2 (reachability, exact): on the pairwise slice {(c_1, c_2),
   (w_2^2+gamma^2)) >= 0 (zero only at gamma = 0), while at the
   strip boundary F(0) = -(w_2^2-w_1^2)/(2 w_2 (w_2^2-1/4)
   (w_1^2-1/4)) < 0: the edge of admissibility IS discriminating,
-  for every pair.  The discriminating band is exact:
-  c_1/c_2 in [-w_1/w_2, -(w_2/w_1)(w_1^2-1/4)/(w_2^2-1/4)), of
-  width fraction (w_2^2-w_1^2)/(4 w_1^2 (w_2^2-1/4)) -- for the
-  observer pair (4, 5): edge ratio 9/11 (1ai's window endpoint,
-  transposed into admissibility), band fraction exactly 1/243.
-  Of the cone's two edges exactly one is discriminating -- the one
-  de-weighting the shallower layer (the other edge's boundary
-  function is nonnegative; grid-gated).
+  for every pair.  The discriminating band is exact, BOTH
+  directions proved (the converse supplied in the round-143
+  sweep, F2, as Theorem R2'): the boundary kernel factors as
+  K_s(0, gamma) = (2s-1)(u+a)/((u+a)^2+u) with a = s(s-1),
+  u = gamma^2, and the boundary ratio r*(u) = K_{s2}/K_{s1}(0,
+  gamma) is STRICTLY INCREASING in u -- d/du log r* =
+  psi(u+a_2) - psi(u+a_1), psi(v) = 1/v - (2v+1)/(v^2+u), and
+  psi'(v)'s numerator v^4+2v^3-4uv^2-u^2 >= v^2(v^2-2v+79) > 0
+  for v >= u+20, guaranteed by the lattice floor a >= 20 at
+  s = 5.  r* runs from the band endpoint
+  r*(0) = (w_2/w_1)(w_1^2-1/4)/(w_2^2-1/4) (exact identity) up to
+  the limit w_2/w_1: at-or-beyond-endpoint ratios keep the
+  boundary nonnegative (blind, minimum principle); in-band ratios
+  cross it (discriminating).  The same monotonicity proves the
+  cone's OTHER edge blind for every pair (F_other >= 0 iff
+  r* <= w_2/w_1, strict below the limit) -- round 143 F8 upgraded
+  the coarse grid to theorem, the grid retained as a check.
+  Band widths with the normalizer disclosed (round 143 F5): raw
+  width (w_2^2-w_1^2)/(4 w_1 w_2 (w_2^2-1/4)); quoted as a
+  fraction OF THE EDGE RATIO w_1/w_2 it is
+  (w_2^2-w_1^2)/(4 w_1^2 (w_2^2-1/4)).  Observer pair (4, 5):
+  edge ratio -9/11, magnitude 9/11 (1ai's window endpoint,
+  transposed into admissibility); raw width exactly 1/297;
+  band-to-edge fraction exactly 1/243.
 R3 (genuine self-convolution): with f(x) = (w_2 e^{-w_2 x}
   - w_1 e^{-w_1 x})/(w_2-w_1) on x > 0, the autocorrelation
   f * f~ = [w_2 e^{-w_2|x|} - w_1 e^{-w_1|x|}] / (2 (w_1+w_2)
   (w_2-w_1)) -- exactly proportional to the edge profile -- and
   |f^(gamma)|^2 = gamma^2/((w_1^2+gamma^2)(w_2^2+gamma^2))
   reproduces L up to the positive scale 2(w_2^2-w_1^2)/w_2.  The
-  reached instance is inside Weil's class, exactly.
+  reached instance is a genuine self-convolution of an explicit
+  L1-cap-L2 function; membership in the classical dense class
+  (smooth compactly supported f) is NOT claimed and nothing leans
+  on it -- the zeros-side value is the bridge's unconditional
+  identity at real s (graded round 143 F6).
 R4 (the wall, located): (a) {h* < 0} is confined to |gamma| < 1/2
   for EVERY committed pair: h* is harmonic in rho on the strip
   (real parts of functions analytic there; poles at rho = s, 1-s
@@ -46,10 +66,15 @@ R4 (the wall, located): (a) {h* < 0} is confined to |gamma| < 1/2
   on {0 < beta < 1, |gamma| > 1/2} negativity would reach the
   region's boundary -- and the strip-boundary function F is
   nonnegative beyond its single crossing gamma_b < 1/2 (exhaustive
-  scan over all 22578 pairs: sup gamma_b = 0.49999 at (216, 217);
-  the bound approached is the half-shift itself), the gamma = 1/2
-  segment is positive (grid-gated per pair), and the tail
-  coefficient 2(w_2^2-w_1^2)/w_2 > 0.  (b) By the bridge's
+  scan over all 22791 pairs, counter-gated -- the landing
+  docstring said 22578, an off-by-one census struck round 143 F1:
+  sup gamma_b = 0.49999 at (216, 217); the bound approached is
+  the half-shift itself), the gamma = 1/2 segment is positive
+  (grid-gated per pair), and the tail coefficient
+  2(w_2^2-w_1^2)/w_2 > 0.  Band-interior instances by domination
+  (round 143 F3): h_r = h* + (w_1/w_2 - r) K_{s_1} with K_{s_1}
+  > 0 on the whole strip, so {h_r < 0} is a subset of {h* < 0} --
+  the confinement covers every discriminating instance.  (b) By the bridge's
   paired-form identity (RH-free) the zeros side is computable with
   no zeros consumed: W(h*) = Z(6) - (9/11) Z(5) = 0.0780686 > 0,
   Z(s) = p(d) + 1/(d+1) + 1/d - sum Lambda(n) n^{-s}; the direct
@@ -66,34 +91,46 @@ R4 (the wall, located): (a) {h* < 0} is confined to |gamma| < 1/2
   input) -- unclaimable by the program's rule.  The route is
   traveled to the wall; the wall is located at exact coordinates.
 
-Gates (eighteen):
+Gates (twenty, as swept round 143):
   V1 (R1) -- g1 transform identity (quad vs K, 1e-8, six points);
        g2 the bridge's half-shift sentence anchored at source.
   V2 (R2) -- g3 L closed form (1e-12) + grid nonneg, zero only at
        gamma = 0; g4 the cone edge exact (ratio l2/l1 minimized at
        gamma = 0, value w_1/w_2, grid-monotone); g5 F(0) closed
-       form < 0, matches direct (two pairs); g6 the band fraction
-       exact -- observer pair == 1/243 as a rational; g7 the other
-       edge blind (F >= 0; observer fine grid + all-pairs coarse).
+       form < 0, matches direct (two pairs); g6 the band widths
+       exact with the normalizer disclosed (raw 1/297,
+       band-to-edge 1/243, consistency); g6b Theorem R2': the
+       endpoint identity exact (four pairs, rationals) + r*
+       strictly increasing and strictly below the limit w_2/w_1
+       on the grid (three pairs incl. extremes); g6c the R2'
+       positivity certificate at the lattice-floor worst case
+       a = 20, u-grid to 1e7, including the algebraic lower bound
+       v^2(v^2-2v+79); g7 the other edge blind (F >= 0; observer
+       fine grid + all-pairs coarse -- retained as a check under
+       R2').
   V3 (R3) -- g8 autocorrelation quad vs closed form (1e-8);
-       g9 the profile ratio of f*f~ equals the edge ratio -w_1/w_2
-       (closed-form coefficients); g10 |f^|^2 * 2(w_2^2-w_1^2)/w_2
-       = L (1e-10).
+       g9 the autocorrelation's profile coefficients EXTRACTED
+       from quadrature at two x and their ratio gated against the
+       live edge ratio (rebuilt round 143 F4 -- the first draft
+       was a Fraction tautology that could not fail); g10 |f^|^2
+       * 2(w_2^2-w_1^2)/w_2 = L (1e-10).
   V4 (R4) -- g11 observer negative set: gamma_b in (0.48, 0.481),
        min_beta h < 0 at gamma = 0.45, > 0 at 0.5, and > 0 on the
-       gamma grid [0.5, 200]; g12 exhaustive pair scan: gamma_b <
-       1/2 for all 22578 pairs, sup in (0.4999, 0.5) at (216,
-       217), F single positive crossing (cubic root count) and the
-       gamma = 1/2 segment positive for every pair; g13 W = Z(6) -
+       gamma grid [0.5, 200]; g12 exhaustive pair scan,
+       COUNTER-GATED at C(214,2) = 22791 (round 143 F1): gamma_b
+       < 1/2 for every pair, single positive crossing (cubic root
+       count), the gamma = 1/2 segment positive per pair, sup in
+       (0.4999, 0.5) at (216, 217); g13 W = Z(6) -
        (9/11) Z(5) = 0.0780686 (5e-7), > 0, bridge identity only;
        g14 direct-zeros partial sum (100 zeros): every term
        positive, total < W; g15 the classical wall: gamma_1 =
        14.134725 (recomputed) > 1/2; zeta < 0 on real (0, 1)
        (grid).
   V5 -- g16 the two 1ai net-state markers anchored in the paper;
-       g17 1aj's key sentences anchored; g18 the footer census
-       (the new script backticked; "60 scripts cited in place";
-       "Theorems 1i--1aj").
+       g17 1aj's key sentences anchored (incl. R2''s monotonicity
+       and the vacant height-1/2 BAND -- F9's disc/band fix);
+       g18 the footer census (the new script backticked; "60
+       scripts cited in place"; "Theorems 1i--1aj").
 
 Grading: R1-R3 exact algebra with machine-precision gates (the
 t-integral identities are classical Fourier bookkeeping); R4(a)
@@ -106,17 +143,25 @@ explicit formula, potential theory -- classical; no semiclassics).
 Check 8 clean (every number traces to the lattice w = d+1/2).
 
 Sabotage record (full-tree scratchpad copy, at the landing
-commit; mid-anchor perturbations): (a) the paper's "the edge of
-admissibility IS discriminating" perturbed mid-anchor -> V5 g17
-trips, 17/1, exit 1; (b) the live edge coefficient flipped to
--w_2/w_1 in the SCRATCHPAD COPY of this verifier -> g3, g5, g10
-print FAIL and the run then ABORTS at g11's sign bracket (brentq
-finds no crossing; no RESULT line) -- the abort is part of the
-trip, exit 1, disclosed; (c) the 1ai gap-(vi) net-state marker
-perturbed mid-anchor -> V5 g16 trips, 17/1, exit 1.  Clean
-baselines 18/0 exit 0 before and after each.  Eighteen gates
-(count checked against the gate() census pre-commit; the count
-defect's history noted).
+commit; mid-anchor perturbations).  At the landing: (a) the
+paper's "the edge of admissibility IS discriminating" perturbed
+mid-anchor -> V5 g17 trips, 17/1, exit 1; (b) the live edge
+coefficient flipped to -w_2/w_1 in the SCRATCHPAD COPY of this
+verifier -> g3, g5, g10 print FAIL and the run then ABORTS at
+g11's sign bracket (brentq finds no crossing; no RESULT line) --
+the abort is part of the trip, exit 1, disclosed; (c) the 1ai
+gap-(vi) net-state marker perturbed mid-anchor -> V5 g16 trips,
+17/1, exit 1.  Redone at the round-143 sweep on the swept tree
+(now 20 gates): (a) 19/1 exit 1; (b) 3 FAIL lines then the g11
+abort, exit 1; (c) 19/1 exit 1; NEW (d) the pair loop's lower
+bound shifted in the copy -> the F1 counter gate g12 FAILS at
+"22578 pairs", 19/1, exit 1 -- the counter catches exactly the
+F1 defect class; NEW (e) f_one's coefficients swapped in the
+copy -> g8 AND the rebuilt g9 both FAIL, 18/2, exit 1 -- the F4
+rebuild's bite demonstrated.  Clean baselines (18/0 at landing,
+20/0 at the sweep) exit 0 before and after each.  Twenty gates
+(count checked against the gate() census; the count defect's
+history noted).
 """
 import os
 import sys
@@ -199,9 +244,42 @@ gate("g5 the boundary value F(0) = -(w2^2-w1^2)/(2 w2 (w2^2-1/4)"
 from fractions import Fraction  # noqa: E402
 w1f, w2f = Fraction(9, 2), Fraction(11, 2)
 band = (w2f ** 2 - w1f ** 2) / (4 * w1f ** 2 * (w2f ** 2 - Fraction(1, 4)))
-gate("g6 the discriminating band fraction (w2^2-w1^2)/(4 w1^2 "
-     "(w2^2-1/4)): observer pair exactly 1/243",
-     band == Fraction(1, 243), f"{band}")
+raw = w1f / w2f - (w2f / w1f) * (w1f ** 2 - Fraction(1, 4)) / (w2f ** 2 - Fraction(1, 4))
+gate("g6 the band widths exact with the normalizer disclosed (round 143 "
+     "F5): raw width 1/297; band-to-edge fraction (raw / (w1/w2)) 1/243",
+     raw == Fraction(1, 297) and band == Fraction(1, 243)
+     and raw / (w1f / w2f) == band, f"raw {raw}, fraction {band}")
+
+
+def Nbound(s, u):
+    a = s * (s - 1)
+    v = u + a
+    return (2 * s - 1) * v / (v * v + u)
+
+
+ok = True
+for (s1, s2) in ((5, 6), (5, 218), (100, 101), (216, 218)):
+    w1r, w2r = Fraction(2 * s1 - 1, 2), Fraction(2 * s2 - 1, 2)
+    r0 = Fraction((2 * s2 - 1) * s1 * (s1 - 1), (2 * s1 - 1) * s2 * (s2 - 1))
+    ok &= r0 == (w2r / w1r) * (w1r ** 2 - Fraction(1, 4)) / (w2r ** 2 - Fraction(1, 4))
+    ok &= r0 < w2r / w1r
+us_m = np.linspace(0, 1e6, 100001)
+for (s1, s2) in ((5, 6), (5, 218), (217, 218)):
+    rvals = Nbound(s2, us_m) / Nbound(s1, us_m)
+    ok &= (np.diff(rvals) > 0).all()
+    ok &= (rvals < (2 * s2 - 1) / (2 * s1 - 1)).all()
+gate("g6b Theorem R2' (round 143 F2): boundary ratio r*(u) strictly "
+     "increasing from the band endpoint (exact rational identity, four "
+     "pairs) to w2/w1 (strict below the limit on the grid) -- the band's "
+     "converse and the other edge's blindness", ok)
+us_c = np.linspace(0, 1e7, 100001)
+cert = (us_c + 20) ** 4 + 2 * (us_c + 20) ** 3 - 4 * us_c * (us_c + 20) ** 2 - us_c ** 2
+lower = (us_c + 20) ** 2 * ((us_c + 20) ** 2 - 2 * (us_c + 20) + 79)
+gate("g6c the R2' positivity certificate: v^4+2v^3-4uv^2-u^2 >= "
+     "v^2(v^2-2v+79) > 0 at the lattice-floor worst case a = 20 "
+     "(v = u+20), u-grid to 1e7",
+     (cert > 0).all() and (cert >= lower - 1e-6 * np.abs(lower)).all()
+     and (lower > 0).all())
 other = lambda g, w1, w2: (K(w1 + .5, 0, g)                       # noqa: E731
                            - (w1 / w2) * K(w2 + .5, 0, g))
 ok = all(other(g, W1, W2) >= 0 for g in np.linspace(0, 200, 8001))
@@ -223,9 +301,22 @@ for x in (0.0, 0.3, 1.0, 2.5):
     ok &= abs(v - cf) < 1e-8
 gate("g8 the autocorrelation f*f~ = [w2 e^{-w2|x|} - w1 e^{-w1|x|}]"
      "/(2(w1+w2)(w2-w1)), quad vs closed form", ok)
-gate("g9 the autocorrelation's profile ratio (-w1)/w2 equals the edge "
-     "ratio -9/11 exactly",
-     Fraction(-9, 2) / Fraction(11, 2) == Fraction(-9, 11))
+# g9 rebuilt round 143 F4: the first draft gated a Fraction tautology
+# that could not fail.  Now the autocorrelation's two exponential
+# coefficients are EXTRACTED from quadrature values at two x points
+# and their ratio gated against the live edge ratio.
+x1, x2 = 0.4, 1.2
+v1, _ = quad(lambda y: f_one(y) * f_one(y + x1), 0, 80, limit=200)
+v2, _ = quad(lambda y: f_one(y) * f_one(y + x2), 0, 80, limit=200)
+M = np.array([[np.exp(-W1 * x1), np.exp(-W2 * x1)],
+              [np.exp(-W1 * x2), np.exp(-W2 * x2)]])
+ca, cb = np.linalg.solve(M, np.array([v1, v2]))
+gate("g9 the autocorrelation's extracted profile coefficients (solved "
+     "from quadrature at two x) stand in the edge ratio: c_{w1}/c_{w2} "
+     "= -w1/w2 (rebuilt round 143 F4 -- the first draft was a "
+     "tautology)",
+     abs(ca / cb + W1 / W2) < 1e-6 and abs(ca / cb + R_EDGE) < 1e-6,
+     f"ratio {ca / cb:.8f}")
 fh2 = lambda g: g * g / ((W1 ** 2 + g * g) * (W2 ** 2 + g * g))  # noqa: E731
 scale = 2 * (W2 ** 2 - W1 ** 2) / W2
 ok = all(abs(hstar(.5, g) - scale * fh2(g)) < 1e-10 for g in (0.5, 2.0, 10.0, 50.0))
@@ -244,10 +335,12 @@ gate("g11 the observer negative set: gamma_b in (0.48, 0.481); "
      0.48 < gb < 0.481 and mn045 < 0 < mn05 and seg_ok,
      f"gamma_b = {gb:.4f}")
 sup_gb, sup_pair, all_ok, seg_all, single_root = 0.0, None, True, True, True
+npairs = 0
 bseg = np.linspace(0.001, 0.999, 101)
 for d1 in range(4, 217):
     w1 = d1 + .5
     for d2 in range(d1 + 1, 218):
+        npairs += 1
         w2 = d2 + .5
         r = w1 / w2
         bs4 = np.array([d2 + 1, d2, d1 + 1, d1], dtype=float)
@@ -273,12 +366,13 @@ for d1 in range(4, 217):
         if min(K(w2 + .5, b, 0.5) - r * K(w1 + .5, b, 0.5)
                for b in bseg) <= 0:
             seg_all = False
-gate("g12 exhaustive pair scan (22578 pairs): gamma_b < 1/2 for every "
-     "committed pair, single boundary crossing, the gamma = 1/2 segment "
-     "positive; sup at (216, 217)",
-     all_ok and single_root and seg_all
+gate("g12 exhaustive pair scan, COUNTER-GATED at C(214,2) = 22791 "
+     "(round 143 F1 -- the landing said 22578, an off-by-one census): "
+     "gamma_b < 1/2 for every committed pair, single boundary crossing, "
+     "the gamma = 1/2 segment positive; sup at (216, 217)",
+     npairs == 22791 and all_ok and single_root and seg_all
      and 0.4999 < sup_gb < 0.5 and sup_pair == (216, 217),
-     f"sup gamma_b = {sup_gb:.6f} at {sup_pair}")
+     f"{npairs} pairs, sup gamma_b = {sup_gb:.6f} at {sup_pair}")
 from mpmath import mp, mpf, log as mplog, pi as mppi, diff, zeta, zetazero  # noqa: E402
 mp.dps = 30
 
@@ -324,10 +418,13 @@ gate("g16 the two 1ai net-state markers anchored (W3's supersession; "
 ok = "the edge of admissibility IS discriminating" in paper
 ok &= "the RH wall itself, now located at exact coordinates" in paper
 ok &= ("every committed-family discriminating instance interrogates only "
-       "the classically vacant height-½ disc" in paper)
+       "the classically vacant height-½ band" in paper)
 ok &= "action-positivity plays no role in the sign" in paper
+ok &= ("r*(u) = K_{s₂}/K_{s₁}(0, γ) is STRICTLY INCREASING in u" in paper)
+ok &= "the other edge is blind, by theorem" in paper
 gate("g17 1aj's key sentences anchored (the edge theorem; the wall; the "
-     "vacant disc; the no-role-of-the-action)", ok)
+     "vacant band -- F9; R2''s monotonicity and the other-edge "
+     "blindness -- F2/F8; the no-role-of-the-action)", ok)
 ok = "`cascade_weil_route_traveled.py`" in paper
 ok &= "60 scripts cited in place" in paper
 ok &= "Theorems 1i–1aj" in paper
@@ -335,7 +432,7 @@ gate("g18 the footer census: the new script backticked; 60 cited in "
      "place; the theorem range 1i–1aj", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
-print(f"\nRESULT: {n_pass} pass / {n_fail} fail (18 gates)")
+print(f"\nRESULT: {n_pass} pass / {n_fail} fail (20 gates)")
 print("READING: the route is traveled.  R1: the profile morphism exists")
 print("in committed form -- configurations to test functions via the")
 print("bridge's half-shift z = d+1/2, transforming exactly onto the")
@@ -343,11 +440,16 @@ print("committed kernel family.  R2: the pairwise admissible cone's")
 print("edge ratio is forced by the lattice (-(2d1+1)/(2d2+1); observer")
 print("pair 9/11, 1ai's window endpoint transposed), and the edge IS")
 print("discriminating -- on-line nonnegative, off-line sign-changing --")
-print("for every pair; the discriminating band is exact (observer")
-print("fraction 1/243).  R3: the edge instance is a genuine Weil")
-print("self-convolution (explicit autocorrelation, exact).  R4: every")
-print("reached instance's negative set is confined below height 1/2")
-print("(exhaustive over 22578 pairs; sup gamma_b = 0.49999 at (216,")
+print("for every pair; the discriminating band is exact BOTH directions")
+print("(the converse by R2''s boundary-ratio monotonicity, round 143;")
+print("observer band-to-edge fraction 1/243, raw width 1/297), and the")
+print("cone's other edge is blind by the same theorem.  R3: the edge")
+print("instance is a genuine self-convolution of an explicit L1/L2")
+print("function (dense-class membership not claimed, round 143 F6).")
+print("R4: every discriminating instance's negative set is confined")
+print("below height 1/2 (edge by the minimum principle, band interior")
+print("by domination, round 143 F3; exhaustive counter-gated scan over")
+print("22791 pairs; sup gamma_b = 0.49999 at (216,")
 print("217) -- the half-shift approached); the value W = 0.0780686 > 0")
 print("by the bridge identity; the sign is forced by the classical")
 print("zero count below 1/2 (first zero 14.13; no real zeros), NOT by")

@@ -2564,8 +2564,12 @@ cited as classical input); Check 8 clean (no hypothesis content).
 reachability of the admissible-discriminating cone, and the RH wall
 located; `cascade_weil_route_traveled.py`).** *(i) The commission.*
 The owner commissioned traveling the route 1ai mapped ("Travel the
-route"). Result: the morphism gap (vi) asked for EXISTS in committed
-form; the admissible-discriminating cone is reachable from the
+route"). Result: the morphism COMPONENT of what gap (vi) asked for
+exists in committed form — the map, not the forcing clause (R4(c)
+shows action-positivity plays no role in the sign, and the forcing
+for the dense class is RH itself; rescoped round 143 F7 — the landing
+headline compressed the two); the admissible-discriminating cone is
+reachable from the
 committed family — by every lattice pair, at the admissible cone's
 forced edge; every reached instance's Weil positivity is settled by
 the classical zero count below height ½, not by cascade structure; and
@@ -2589,34 +2593,69 @@ line, L(γ) = 2γ²(w₂²−w₁²)/(w₂(w₁²+γ²)(w₂²+γ²)) ≥ 0 with
 γ = 0; at the strip boundary, F(0) = −(w₂²−w₁²)/(2w₂(w₂²−¼)(w₁²−¼))
 < 0 — on-line nonnegative, off-line sign-changing: the edge of
 admissibility IS discriminating, for every pair. The discriminating
-band is exact: c₁/c₂ ∈ [−w₁/w₂, −(w₂/w₁)(w₁²−¼)/(w₂²−¼)), of width
-fraction (w₂²−w₁²)/(4w₁²(w₂²−¼)) — for the observer pair (4, 5) the
-edge ratio is **9/11 (1ai's window endpoint, transposed into
-admissibility)** and the band fraction is exactly **1/243**. Of the
-cone's two edges exactly one is discriminating — the edge that
-de-weights the shallower layer against the deeper one; the other
-edge's boundary function is nonnegative (grid-gated). *(iv) Theorem
+band is exact — both directions proved: c₁/c₂ ∈ [−w₁/w₂,
+−(w₂/w₁)(w₁²−¼)/(w₂²−¼)). Forward: inside the band the boundary
+value F(0) < 0 (the closed form above). Converse — **Theorem R2′
+(the boundary-ratio monotonicity; supplied in the round-143 sweep,
+F2, the landing having asserted exactness with only the forward
+direction established)**: with a = s(s−1) and u = γ², each boundary
+kernel is K_s(0, γ) = (2s−1)(u+a)/((u+a)²+u), and the boundary ratio
+r*(u) = K_{s₂}/K_{s₁}(0, γ) is STRICTLY INCREASING in u: d/du log r*
+= ψ(u+a₂) − ψ(u+a₁) with ψ(v) = 1/v − (2v+1)/(v²+u), and ψ′(v) has
+numerator v⁴ + 2v³ − 4uv² − u² ≥ v²(v² − 2v + 79) > 0 whenever
+v ≥ u + 20 — which the lattice floor guarantees (a = s(s−1) ≥ 20 at
+s = 5). So r* runs monotonically from r*(0) = (w₂/w₁)(w₁²−¼)/(w₂²−¼)
+— the band endpoint, exactly — up to the limit w₂/w₁: any coefficient
+ratio at or beyond the endpoint keeps the boundary nonnegative
+everywhere, hence blind by the minimum principle; any ratio inside
+the band crosses it, hence discriminating. The same monotonicity
+settles the cone's other edge for every pair: F_other ∝ K_{s₁} −
+(w₁/w₂)K_{s₂} ≥ 0 ⟺ r*(u) ≤ w₂/w₁, which holds strictly at every
+finite γ since r* increases TO that limit — the other edge is blind,
+by theorem (the coarse all-pairs grid retained as a check; round 143
+F8). The band's raw width is (w₂²−w₁²)/(4w₁w₂(w₂²−¼)); quoted as a
+fraction OF THE EDGE RATIO w₁/w₂ it is (w₂²−w₁²)/(4w₁²(w₂²−¼)) — the
+normalizer disclosed per round 143 F5. For the observer pair (4, 5)
+the edge ratio is −9/11, magnitude **9/11 (1ai's window endpoint,
+transposed into admissibility)**; the raw width is exactly **1/297**
+and the band-to-edge fraction exactly **1/243**. Of the cone's two
+edges exactly one is discriminating — the edge that de-weights the
+shallower layer against the deeper one (R2′). *(iv) Theorem
 R3 (genuine self-convolution — admissibility instantiated, not
 cone-shaped only).* The edge instance is an actual Weil
 self-convolution: with f(x) = (w₂e^(−w₂x) − w₁e^(−w₁x))/(w₂−w₁) on
 x > 0, the autocorrelation f ⋆ f̃ equals [w₂e^(−w₂|x|) −
 w₁e^(−w₁|x|)]/(2(w₁+w₂)(w₂−w₁)) — exactly proportional to the edge
 profile — and |f̂(γ)|² = γ²/((w₁²+γ²)(w₂²+γ²)) reproduces L up to the
-positive scale 2(w₂²−w₁²)/w₂ (both gated). The reached instance lies
-inside Weil's class, exactly. *(v) Theorem R4 (the wall, located).*
+positive scale 2(w₂²−w₁²)/w₂ (both gated). The reached instance is a
+genuine self-convolution — of an explicit L¹∩L² function, exactly;
+the classical dense class quantifies over smooth compactly supported
+f, membership there is NOT claimed and nothing here leans on it (the
+zeros-side value is evaluated by the bridge's unconditional identity
+at real s; graded round 143 F6). *(v) Theorem R4 (the wall, located).*
 (a) The negative set {h* < 0} is confined to |γ| < ½ for every
 committed pair: h* is harmonic in ρ on the strip (real parts of
 functions analytic there; poles at ρ = s, 1−s lie outside) and decays
 like 1/γ², so by the minimum principle negativity in {|γ| > ½} would
 reach that region's boundary — and the strip-boundary function is
 nonnegative beyond its single crossing γ_b < ½ (exhaustive scan over
-all 22,578 committed pairs: sup γ_b = 0.49999, attained at (216, 217);
+all ~~22,578~~ 22,791 committed pairs [struck round 143 F1,
+false-when-written: an off-by-one census, C(213,2) quoted for the
+214-layer lattice [4, 217]; the scan itself was exhaustive over all
+C(214,2) = 22,791 pairs, and the count is now counter-gated]: sup
+γ_b = 0.49999, attained at (216, 217);
 the bound approached is the half-shift itself), the γ = ½ segment is
 positive (grid-gated per pair), and the tail coefficient
-2(w₂²−w₁²)/w₂ > 0. For the observer pair, γ_b = 0.4806. (b) The
+2(w₂²−w₁²)/w₂ > 0. For the observer pair, γ_b = 0.4806.
+Band-interior instances are covered by domination (round 143 F3): for
+r < w₁/w₂, h_r = h* + (w₁/w₂ − r)K_{s₁} and K_{s₁} > 0 on the whole
+strip (the blind-cone positivity), so {h_r < 0} ⊆ {h* < 0} — the
+confinement below height ½ holds for every discriminating instance,
+not the edge alone. (b) The
 value: by the bridge's paired-form identity (RH-free), the zeros side
 is computable with no zeros consumed: W(h*) = Z(6) − (9/11)Z(5) =
-0.0780686 > 0, where Z(s) = p(d) + 1/(d+1) + 1/d − Σ Λ(n)n^(−s); the
+0.0780686 > 0, where Z(s) = p(d) + 1/(d+1) + 1/d − Σ Λ(n)n^(−s) with
+s = d+1; the
 direct sum over the first 100 true zeros converges from below with
 every term positive. (c) The sign's true forcer (A66): W(h*) < 0
 would require a zeta zero inside {h* < 0} ⊆ {|γ| < ½}; the first zero
@@ -2631,13 +2670,17 @@ family the positivity is classical bookkeeping; extending forced
 positivity to the dense class of self-convolutions IS the Riemann
 Hypothesis (Weil's criterion, cited as classical); no committed
 structure supplies it, and under the program's rule none may be
-sought. What 1ai named as the gap — "no committed map" — closes; what
+sought. What 1ai named as the gap — "no committed map" — closes in
+its map component (the forcing clause is the wall itself; round 143
+F7); what
 remains is not a gap in the cascade but the RH wall itself, now
 located at exact coordinates: every committed-family discriminating
-instance interrogates only the classically vacant height-½ disc at
-the strip edges. *Honest scope:* R1–R3 exact (algebra gated at
+instance interrogates only the classically vacant height-½ band at
+the strip edges (the region |γ| < ½; "band", not "disc" — round 143
+F9). *Honest scope:* R1–R3 exact (algebra gated at
 machine precision; the t-integral identities are classical Fourier
-bookkeeping); R4(a) exhaustive over the committed lattice (finite
+bookkeeping; the band's converse direction by R2′'s positivity
+certificate, supplied round 143 F2); R4(a) exhaustive over the committed lattice (finite
 scan, gated), with the minimum principle (classical potential theory
 in the ρ-plane) and grid-gated segment checks, disclosed; R4(b) is
 the bridge's own identity; R4(c) cites classical inputs (the
