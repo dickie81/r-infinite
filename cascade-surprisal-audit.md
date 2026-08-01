@@ -11008,7 +11008,11 @@ derivation, from committed structure only:
   algebra at the Δ = 8 case (Cl(11) → Cl(3): mean retained
   fraction ×256 = 0.9990, tolerance 2% disclosed statistical,
   n = 20000 fixed seed).
-- **The identification, argued from part4b's own words:** part4b's
+- *(On-notice strike, round 135: this landing bullet's "partially
+  addressing" and "derived form" claims were retracted by rounds
+  133–134 — the form is reproduced within the selected model; see
+  A224–A226.)* **The identification, argued from part4b's own
+  words:** part4b's
   χ = 2 is "splitting the spinor bundle into two equal-weight
   chirality basins" (Poincaré–Hopf, "Topological theorem; no
   assumption") — the same number and split shape as the ladder
@@ -11127,6 +11131,32 @@ C1 closes. spinor_transport re-run 15/0.
 
 **Trajectory: 1ag landed → 133 3M+2m+1c (swept) → 134 NOT
 CONVERGED 0M+2m+1c (swept here) → round 135 (convergence test)
+next.**
+
+## Addendum 226: convergence-test round 135 on the round-134 sweep — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); the docstring's Identification paragraph, third instance of the strike-set class; swept
+
+Round 135 held everything else — the regrade complete in the
+paper, the Gates block and closing census aligned, the
+sign-deletion probe and sabotage reproduced (14/1, clean 15/0
+baselines), battery 24/24 at expected counts, validator, footer
+arithmetic (63 = 57 + 4° + 2 audited), hygiene, Checks 7/8 — and
+found: **F135-1 (minor)** — the verifier docstring's
+Identification paragraph still asserted, in the live voice, "T3's
+derived form … partially addressing part4b's own 'no explicit
+derivation appears'" — precisely the claim round 134 F2 struck in
+the paper; the sweep had aligned the Gates block and the closing
+census but not this sibling paragraph. **F135-2 (cosmetic)** — the
+gate label "the derived cost" against its own within-the-model
+anchor. Both swept in this commit: the Identification paragraph
+aligned (FORM reproduced within the selected model; the OQ stands
+un-addressed until C1 closes; the site-density disanalogy noted);
+the label aligned. The reviewer's record note (A223's landing
+bullet carrying the retracted phrases) struck on notice.
+spinor_transport re-run 15/0; the "derived form / partially
+addressing" grep now returns zero in the verifier.
+
+**Trajectory: 1ag landed → 133 3M+2m+1c → 134 0M+2m+1c → 135 NOT
+CONVERGED 0M+1m+1c (swept here) → round 136 (convergence test)
 next.**
 
 ## Caveats

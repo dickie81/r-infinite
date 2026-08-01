@@ -2628,3 +2628,17 @@ footer; hygiene; Checks 7/8.
 
 **Trajectory: 1ag landed → 133 3M+2m+1c → 134 NOT CONVERGED
 0M+2m+1c (swept) → round 135 (convergence test) next.**
+
+# Round 135: convergence test on the round-134 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); the docstring's Identification paragraph; round 136 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F135-1 (minor) — the verifier docstring's Identification paragraph still asserted "T3's derived form … partially addressing" in the live voice (the round-134 F2 claim, un-struck on this surface) | **Accepted; paragraph aligned** (form reproduced within the selected model; the OQ stands un-addressed until C1 closes) | verifier |
+| F135-2 (cosmetic) — the gate label "the derived cost" vs its within-the-model anchor | **Accepted; label aligned** | verifier |
+
+A223's landing bullet struck on notice. Held: the paper's regrade
+complete; probes and sabotage reproduced; battery 24/24; validator;
+footer; hygiene; Checks 7/8.
+
+**Trajectory: 1ag landed → 133 3M+2m+1c → 134 0M+2m+1c → 135 NOT
+CONVERGED 0M+1m+1c (swept) → round 136 (convergence test) next.**

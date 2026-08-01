@@ -34,13 +34,19 @@ independent):
      algebra (Cl(11) -> Cl(3), Delta = 8, mean retained fraction
      1/256 = 1/chi^8, the committed neutrino exponent's case).
 
-Identification (argued, gated at the anchors): part4b's chi = 2 is
-"splitting the spinor bundle into two equal-weight chirality
-basins" (Poincare-Hopf, "Topological theorem; no assumption") --
-the same number and split shape as the ladder step; the committed
-neutrino filter chi^(29-d_g) instantiates T3's derived form (base
-2, exponent = layer distance), partially addressing part4b's own
-"no explicit derivation appears" for the chi-factor.
+Identification (argued, gated at the anchors; aligned round 135 F1
+after rounds 133-134 struck the derivation claims): part4b's
+chi = 2 is "splitting the spinor bundle into two equal-weight
+chirality basins" (Poincare-Hopf, "Topological theorem; no
+assumption") -- the same number and equal-split shape as the
+ladder step, with the site-density disanalogy (per Dirac layer vs
+per layer) disclosed in the paper; the committed neutrino filter
+chi^(29-d_g) instantiates T3's FORM (base 2, exponent = layer
+distance) -- the form is REPRODUCED WITHIN THE SELECTED MODEL,
+not derived from committed structure (circular given C1: the
+fiber is selected because it matches this formula), and part4b's
+"no explicit derivation appears" stands un-addressed until C1
+closes.
 
 Gates:
   S1 -- the implemented algebra: associativity on 200 random
@@ -257,7 +263,8 @@ ok = ("the expected coupling weight between content at layers d and d* is "
       "χ^−|d−d*| with χ = 2" in paper)
 ok &= "the pairing factors identically through the common subalgebra" in paper
 ok &= "it is the ladder-depth difference" in paper
-gate("the derived cost + the metric answer anchored", ok)
+gate("the within-the-model cost + the metric answer anchored (label "
+     "aligned round 135 F2)", ok)
 ok = "(C1) the fiber assignment." in paper
 ok &= "(C2) the coupling model." in paper
 ok &= "(C3) the\nequipartition transfer.".replace("\n", " ") in paper
