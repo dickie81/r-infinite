@@ -12088,6 +12088,67 @@ validator clean on 12 files; hygiene zero.
 **Trajectory: regrade landed (777959a) → 146 NOT CONVERGED
 1M+3m+2c (swept) → round 147 (convergence test) next.**
 
+## Addendum 242: round 147 (convergence test on the round-146 sweep) — NOT CONVERGED, 1 MAJOR + 1 minor; the continuation threshold discovered (aim* ≈ ¼): below it the window detaches from its tangency; swept; round 148 next
+
+Round 147 (fresh-context subagent, session model) attacked the
+round-146 sweep and found a genuinely NEW mathematical fact by
+probing below everyone's smallest sampled aim.
+
+**F147-1 (MAJOR, accepted):** the window-geometry universals
+("half-width ≈ ½ centred on its line-tangency", "the window
+CONTAINS its aim", "within ≈ ½ of its line-tangency", "windows …
+about a relocatable tangency") are FALSE below a threshold
+aim* = 0.2436 ≈ ¼: at γ = aim the ±i/2-continued numerator is
+(−¼ ± i·aim)², with real part 1/16 − aim² changing sign at ¼ —
+the threshold IS the continuation scale. Below it the window
+persists but DETACHES from the tangency: the aim-0.1 instance
+(admissible, exact) has window [0.211, 1.123], excluding its
+tangency and extending to distance 1.023 — double the claimed
+≈ ½. Lead-verified (threshold root-found at 0.24357424; F(aim)
+> 0 for aims 0.05–0.2; the aim-0.1 window reproduced). Round
+146's probes ran 0.3–10⁴ — never below the threshold; the regime
+is physically inert (every zero height far above ¼) and the
+headline regrade claims (exact tangency relocation; reach not
+confined below ½; aimed windows at zero heights containing their
+aims) are unaffected. Swept: all four carrier sentences
+threshold-scoped on the paper (with the mechanism clause and the
+observed 0.2436 stated); the docstring and READING matched; g19
+extended with the below-threshold OPPOSITE-sign gate (F(0.1) > 0
+for the aim-0.01² instance — pinning the claim's boundary); the
+new threshold sentence added to g17's anchors.
+
+**F147-2 (minor, accepted):** the round-146 endpoint fix joined
+independently rounded values with an "=" whose displayed digits
+disagree (γ₁ − 0.583 = 13.5517 ≠ 13.5513), and its
+nearest-rounded endpoints again fell outward at half-ulp
+(F(13.5513) = +1.57e-9). Corrected to inward-rounded [13.5514,
+14.5669] with offsets −0.5834/+0.4322 at consistent precision
+(F verified negative at both inward endpoints), the recurrence
+disclosed in place on both surfaces.
+
+**Held (reviewer, with evidence):** all four round-146 fixes real
+(the READING resweep complete with the residual-universal hunt
+clean; the solve coupling genuine with sabotage (k) reproduced;
+the 1ai marker parenthetical accurate; g16 undisturbed); the
+regrade's mathematics under everything thrown at it (P(u) =
+(u−u₀)² identically in the aim, verified by hand from M3's
+elementary-symmetric structure); sabotages (i'), (j), (k)
+reproduced; gate census 22 = 22; battery samples; validator;
+hygiene; footer 66 = 60 + 4° + 2; Checks 7/8; "surveyed" held as
+fair; A241 accurate.
+
+**Post-sweep record:** verifier 22/0 exit 0; new sabotages on
+full-tree copies: (l) the below-threshold probe moved above the
+threshold (Fb(0.6) > 0 required where F < 0) → g19 trips, 21/1,
+exit 1; (m) the threshold anchor perturbed mid-anchor
+(above→below) → g17 trips, 21/1, exit 1; clean baselines 22/0;
+the 1ai verifier 10/0; validator clean on 12 files; hygiene
+zero.
+
+**Trajectory: regrade landed (777959a) → 146 1M+3m+2c (swept,
+126f2ba) → 147 NOT CONVERGED 1M+1m (swept) → round 148
+(convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

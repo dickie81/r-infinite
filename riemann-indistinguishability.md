@@ -2696,7 +2696,9 @@ with it the window, to ANY height] every pairwise discriminating
 instance interrogates only the classically vacant height-½ band at
 the strip edges (the region |γ| < ½; "band", not "disc" — round 143
 F9); the general committed-family instance carries a sensitivity
-window of half-width ≈ ½ centred on its line-tangency, relocatable to
+window of half-width ≈ ½ near its line-tangency (containing it for
+tangencies above the continuation threshold ≈ ¼; below it the window
+persists but detaches — round 147 F1), relocatable to
 any height — including the heights of actual zeros (the regrade
 below). *Honest scope:* R1–R3 exact (algebra gated at
 machine precision; the t-integral identities are classical Fourier
@@ -2719,7 +2721,11 @@ strip-boundary read is the line read analytically continued by ±i/2
 and averaged** — K_s(0, γ) = ½[K̂_s(γ+i/2) + K̂_s(γ−i/2)], K̂_s the
 on-line kernel's continuation (exact; machine precision). A
 discriminating instance's boundary negativity therefore lives within
-≈ ½ of its line-tangency; a PAIR's tangency is pinned to γ = 0 (the
+≈ ½ of its line-tangency for tangencies above the continuation
+threshold ≈ ¼ (round 147 F1: below it the window detaches — the
+mechanism's 1/16 − γ₀² sign flip — while the pairwise case, tangency
+pinned AT zero, keeps its independently proved ceiling); a PAIR's
+tangency is pinned to γ = 0 (the
 two-term numerator is degree 1 in γ², and a degree-1 polynomial
 nonnegative on [0, ∞) cannot vanish at an interior point — gated by
 the failed 2-term aim); pinned tangency + continuation distance ½ =
@@ -2729,18 +2735,28 @@ tangency relocates to any chosen height. The aimed instance on
 (d₁, d₂, d₃) = (4, 5, 6) with tangency at γ₁ = 14.134725 — the first
 zero's height — is admissible (L ∝ (u − γ₁²)² over positive
 denominators, ≥ 0 with the interior double zero) and its boundary
-function is negative on the window [γ₁ − 0.583, γ₁ + 0.432] =
-[13.5513, 14.5670] CONTAINING the first zero (gated; endpoints
-corrected round 146 F2 — the regrade's first draft quoted
-outward-rounded endpoints under an "exactly", and the boundary
-function is positive at those quoted points). Consequences, honestly
+function is negative on the window [13.5514, 14.5669]
+(inward-rounded at 4 dp; offsets −0.5834/+0.4322 from γ₁; precision
+made self-consistent round 147 F2 — the round-146 fix joined
+independently rounded values with an "=" whose displayed digits
+disagreed, and its nearest-rounded endpoints again fell outward at
+half-ulp scale) CONTAINING the first zero (gated; endpoints first
+corrected round 146 F2 — the regrade's original draft quoted
+outward-rounded endpoints under an "exactly", with the boundary
+function positive at those quoted points). Consequences, honestly
 stated: (1) the committed family's discriminating reach is NOT
 confined below height ½ — the tangency relocates to any chosen
 height (exact linear algebra: the 3×3 solve yields P(u) = (u − u₀)²
 identically in the aim), and window-nonemptiness-with-aim-containment
 is gated at γ₁ AND at a spread of other aims (0.5, 3, 100 — the
 universal scoped and multi-aim gated, round 146 F3; the window
-CONTAINS its aim but is not exactly centred on it); (2)
+CONTAINS its aim for aims above the continuation threshold
+aim* ≈ ¼ — the mechanism's own scale: at γ = aim the ±i/2-continued
+numerator is (−¼ ± i·aim)², with real part 1/16 − aim² changing sign
+at ¼ (observed threshold 0.2436; below it the window persists but
+detaches from the tangency — the aim-0.1 instance's window is
+[0.211, 1.123], excluding its tangency; the below-threshold sign is
+gated — round 147 F1) — and is not exactly centred on it); (2)
 "classically vacant" dies for relocated windows: the aimed
 instance's Weil positivity is enforced not by vacancy but by the
 verified on-line zeros themselves (each contributes L(γᵢ) ≥ 0, the
@@ -2755,7 +2771,9 @@ forces positivity on ANY discriminating instance, pairwise or aimed;
 the forcing is classical zero-location data, and the dense-class
 extension is RH, claimed in neither direction. The wall's
 coordinates regrade from "the vacant height-½ band" to: per-instance
-windows of half-width ≈ ½ about a relocatable tangency, positivity
+windows of half-width ≈ ½ about a relocatable tangency (above the
+≈ ¼ threshold — the physically relevant regime, every zero height
+lying far above it; round 147 F1), positivity
 within each window resting on the zeros verified there. Check 7
 clean (the continuation identity is classical Fourier bookkeeping);
 Check 8 clean (the aimed instance's coefficients solve a 3×3 linear

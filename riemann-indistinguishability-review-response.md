@@ -2899,3 +2899,24 @@ verifier 10/0; validator clean; hygiene zero.
 
 **Trajectory: regrade landed (777959a) → 146 NOT CONVERGED
 1M+3m+2c (swept) → round 147 (convergence test) next.**
+
+# Round 147: convergence test on the round-146 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 1 minor); the continuation threshold aim* ≈ ¼ discovered; round 148 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F147-1 (MAJOR) — the window-geometry universals false below the continuation threshold aim* = 0.2436 ≈ ¼ (the mechanism's 1/16 − aim² sign flip): the aim-0.1 instance's window [0.211, 1.123] excludes its tangency and reaches distance 1.023; four live sentences carried the universal | **Accepted; all four sentences threshold-scoped with the mechanism clause; g19 extended with the below-threshold opposite-sign gate (F(0.1) > 0); the threshold sentence added to g17's anchors; the physically-inert regime noted (every zero height far above ¼)** | paper + verifier |
+| F147-2 (minor) — the round-146 endpoint fix's "=" joined independently rounded values disagreeing in displayed digits, endpoints again outward at half-ulp | **Accepted; inward-rounded [13.5514, 14.5669], offsets −0.5834/+0.4322 at consistent precision, the recurrence disclosed** | paper + verifier |
+
+Held: all four round-146 fixes real (READING resweep complete;
+residual-universal hunt clean; solve coupling genuine; the 1ai
+marker accurate; g16 undisturbed); the regrade's mathematics in
+full; sabotages (i'), (j), (k) reproduced; gate census 22 = 22;
+battery; validator; hygiene; footer; Checks 7/8; A241 accurate.
+
+Post-sweep: verifier 22/0; new sabotages (l) probe-relocation →
+g19 21/1 and (m) threshold anchor mid-anchor → g17 21/1, clean
+baselines 22/0; 1ai verifier 10/0; validator clean; hygiene zero.
+
+**Trajectory: regrade landed (777959a) → 146 1M+3m+2c (swept,
+126f2ba) → 147 NOT CONVERGED 1M+1m (swept) → round 148
+(convergence test) next.**

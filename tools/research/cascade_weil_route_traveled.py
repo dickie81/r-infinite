@@ -109,14 +109,22 @@ tangency + continuation distance 1/2.  With THREE committed
 kernels the tangency relocates to any height: the aimed instance
 on (4, 5, 6) with tangency at gamma_1 = 14.134725 is admissible
 (L proportional to (u - gamma_1^2)^2 over positive denominators)
-and its boundary window [gamma_1 - 0.583, gamma_1 + 0.432] =
-[13.5513, 14.5670] CONTAINS the first zero (g19; endpoints
-corrected round 146 F2 -- the first draft quoted outward-rounded
-endpoints under an "exactly").  The tangency relocates to any
-chosen height (exact linear algebra, identical in the aim), with
-window-nonemptiness-and-aim-containment multi-aim gated (0.5, 3,
-100 -- round 146 F3; the window contains its aim but is not
-exactly centred on it); "classically
+and its boundary window [13.5514, 14.5669] (inward-rounded 4 dp;
+offsets -0.5834/+0.4322; precision made self-consistent round 147
+F2 -- the round-146 join of independently rounded values
+disagreed in its displayed digits and its endpoints fell outward
+at half-ulp) CONTAINS the first zero (g19; endpoints first
+corrected round 146 F2 -- the original draft quoted
+outward-rounded endpoints under an "exactly").  The tangency
+relocates to any chosen height (exact linear algebra, identical
+in the aim), with window-nonemptiness-and-aim-containment
+multi-aim gated (0.5, 3, 100 -- round 146 F3; the window contains
+its aim ABOVE the continuation threshold aim* ~ 1/4 -- the
+mechanism's 1/16 - aim^2 sign flip, observed 0.2436; below it the
+window persists but DETACHES from the tangency, e.g. aim 0.1 ->
+window [0.211, 1.123]; the below-threshold opposite sign gated --
+round 147 F1 -- and the window is not exactly centred on its
+aim); "classically
 vacant" dies for relocated windows -- their positivity is
 enforced by the verified on-line zeros (the grazed zero
 contributing ~ 0), so the sign statement stays RH-content-free
@@ -508,7 +516,10 @@ c2 = np.linalg.solve(M2, np.array([1.0, -u0]))
 L2_at_0 = c2[0] * 2 * 4.5 / 4.5 ** 2 + c2[1] * 2 * 5.5 / 5.5 ** 2
 # round 146 F3: the relocation universal is multi-aim gated -- for a
 # spread of aims the solved instance must be admissible (relative L
-# floor) with the boundary negative AT the aim itself.
+# floor) with the boundary negative AT the aim itself.  Round 147 F1:
+# the containment holds only ABOVE the continuation threshold
+# aim* ~ 1/4 (the mechanism's 1/16 - aim^2 sign flip; observed
+# 0.2436); the below-threshold OPPOSITE sign is gated after the loop.
 multi_ok = True
 for aim in (0.5, 3.0, 100.0):
     ua = aim * aim
@@ -521,12 +532,20 @@ for aim in (0.5, 3.0, 100.0):
     Lav = np.array([La(g) for g in ga])
     multi_ok &= Lav.min() > -1e-12 * max(1.0, Lav.max())
     multi_ok &= Fa(aim) < 0
+# round 147 F1: below the threshold the sign at the aim FLIPS -- the
+# window detaches from the tangency.  Gate the opposite sign at
+# aim = 0.1 to pin the claim's boundary.
+ub = 0.01
+cb = np.linalg.solve(M3, np.array([1.0, -2 * ub, ub * ub]))
+Fb = lambda g: sum(cb[i] * K(WS3[i] + .5, 0, g) for i in range(3))  # noqa: E731
+multi_ok &= Fb(0.1) > 0
 gate("g19 the aimed three-term instances (regrade): tangency relocated "
      "to gamma_1 = 14.134725 on committed (4, 5, 6) -- L >= 0 with the "
      "interior double zero; the boundary window contains the RECOMPUTED "
      "first zero; the 2-term aim FAILS (L(0) < 0, the pinning); AND the "
      "relocation universal multi-aim gated (aims 0.5, 3, 100: "
-     "admissible, boundary negative at the aim -- round 146 F3)",
+     "admissible, boundary negative at the aim -- round 146 F3; the "
+     "below-threshold OPPOSITE sign at aim 0.1 gated -- round 147 F1)",
      L3v.min() > -1e-9 and abs(L3(GAMMA_AIM)) < 1e-9
      and len(neg) > 0 and neg.min() < g1 < neg.max()
      and (neg.min() > GAMMA_AIM - 0.7) and (neg.max() < GAMMA_AIM + 0.5)
@@ -560,6 +579,8 @@ ok &= ("every pairwise discriminating instance interrogates only the "
        "classically vacant height-½ band" in paper)
 ok &= ("relocatable to any height — including the heights of actual "
        "zeros" in paper)
+ok &= ("containing it for tangencies above the continuation threshold "
+       "≈ ¼" in paper)
 ok &= "a genuine per-zero sensitivity probe" in paper
 ok &= "the wall stands where it stood" in paper
 ok &= "action-positivity plays no role in the sign" in paper
@@ -597,7 +618,9 @@ print("exhaustive counter-gated scan over 22791 pairs; sup gamma_b =")
 print("0.49999 -- the half-shift, which is the +/- i/2 continuation")
 print("distance, g20).  The pinning is a two-term artifact: three")
 print("committed kernels relocate the tangency to any aim (gated at")
-print("gamma_1 = 14.134725 and a spread of other aims, g19); the aimed")
+print("gamma_1 = 14.134725 and a spread of other aims, g19; containing")
+print("its aim above the ~ 1/4 continuation threshold and detaching")
+print("below it, the opposite sign gated -- round 147 F1); the aimed")
 print("window CONTAINS the first zero, so 'classically vacant' holds")
 print("only pairwise, and relocated windows rest on the verified")
 print("on-line zeros.  W = 0.0780686 > 0 by the bridge identity; the")
