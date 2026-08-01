@@ -683,8 +683,12 @@ selection to cross-check**: the data confirms the dictionary; what remains conve
 at E is the closure windows' **endpoint data** — Definition-6.1 instantiation plus the
 strict-boundary stipulation (part4b) — items already listed in the residue accounting.
 *(Net-state, Theorem 1z round 109: the endpoint data is menu-bounded with zero free
-numbers; every in-menu alternative data-excluded; the stipulation priced at two binary
-decisions, both alternatives excluded; member two persists, sharpened.)*
+numbers — five termini in forced menus, the sixth the observer dimension, C1-anchored;
+every in-menu alternative data-excluded; the stipulation priced at three attachment
+instances, all alternatives excluded, the weakest at −2.22σ; member two persists,
+sharpened. Round-110 F1: this marker was placed before the round-109 sweep corrected
+the instance count and was missed by that sweep — the stale "two binary decisions"
+recital is corrected here.)*
 *(iii) Site C sharpened.* The Geometric two-coset clause's passing computation used
 Ω(d−1) at layer d — the avatar, which Theorem 1's own Remark forswears (*"The paper
 never uses the avatar; the arithmetic is primary"*). Under the tower's own measure Ω(d)
@@ -1529,7 +1533,8 @@ in-menu alternative data-excluded; the stipulation priced; member two persists,
 sharpened; `cascade_endpoint_data.py`).** *(i) The commission and the inventory.*
 The owner commissioned an attack on member two's live content — 1l(ii)'s *"the
 closure windows' **endpoint data** — Definition-6.1 instantiation plus the
-strict-boundary stipulation (part4b)."* The committed inventory, read directly: the
+strict-boundary stipulation (part4b) […]"* (the bracketed ellipsis marking the
+source sentence's continuation — round-110 F5). The committed inventory, read directly: the
 three site-E closure windows are τ/μ = exp(Φ(6,13) + α(14)/χ)·χΓ(½) (the path
 5→13), μ/e = exp(Φ(14,21))·χΓ(½)·(radiative slot) (the path 13→21), and α_s =
 (N(12)²/Ω₂)·exp(Φ(5,12) + α(14)/χ) — with the addressing stated **per window**
@@ -1549,8 +1554,9 @@ it may not be laundered into a forced menu). The endpoint data still carries **z
 free numbers** — five termini in forced menus, the sixth the hypothesis's fixed
 point, none free — and its entire content is three window selections
 (Definition-6.1 instantiation), one attachment rule (the strict-boundary
-stipulation), and the **per-window pair-to-sum addressing, itself a disclosed
-fourth item** (round-109 F1). *(ii) The
+stipulation), and the **per-window pair-to-sum addressing** — the disclosure round
+109 added beyond the draft's three-component inventory (round-109 F1; wording
+clarified round-110 F6). *(ii) The
 exclusion census (new, gated).* Over the union menu M = {5, 7, 12, 13, 14, 19,
 21} *(round-109 F6: the first draft called M "the non-sink distinguished menu" —
 part4b's term for its own four-element set {5, 7, 14, 19}; M is this paper's
@@ -1597,7 +1603,9 @@ numbers, each in-menu alternative data-excluded, plus one attachment rule with
 all three alternatives excluded — the weakest at −2.22σ**. The class stays at
 two members; the seven-item
 count stands. *Honest scope:* observational values are consumed here — 16.8170 ±
-0.0011, 206.7683, 0.1180 ± 0.0009 — for the exclusion census only (the
+0.0011, 206.7683, 0.1179 ± 0.0009 — for the exclusion census only *(round-110
+F2: the disclosure had continued to recite the uncommitted 0.1180 after the census
+moved to the committed value)* (the
 cross-check class 1l's re-grade licenses); no number changes; no new prediction;
 no RH/GRH; no semiclassics. *Falsifiers:* any committed window endpoint found
 outside the forced menus fails the menu-bounded claim (gated); the A3-entailment

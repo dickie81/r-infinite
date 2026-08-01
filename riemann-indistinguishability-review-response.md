@@ -2186,3 +2186,20 @@ paper change.**
 
 **Trajectory: 1z landed → 109 NOT CONVERGED 2M+8m+2c (swept) → round
 110 (convergence test) next.**
+
+# Round 110: convergence test on the round-109 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 2 minors, 3 cosmetics); the sweep missed its own marker; round 111 follows
+
+Every round-109 disposition held on its own terms (numbers reproduced
+at 40 dps; the census re-run from scratch; the three-instance count
+adjudicated correct at site-E scope; all three sabotages reproduced).
+The defects were confined to the marker/disclosure periphery.
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F110-1 (MAJOR) — the 1l(ii) marker still recited "two binary decisions" (placed pre-sweep, missed by it; Z5 gated existence, not content) | **Accepted; marker corrected in place**; Z5 now gates the marker's content — the revert sabotage exits 1 | paper + verifier |
+| F110-2 (minor) — the honest-scope disclosure still recited the uncommitted 0.1180 | **Accepted; corrected with annotation** | paper |
+| F110-3 (minor, scoped) — two non-cited tools carried 206.7710 | **Accepted; corrected on notice** (not convergence-gating) | tools |
+| F110-4/5/6 (cosmetics) — the part4b note's rounded-factors overstatement; the quote boundary; "fourth item" | **Accepted; all swept** | part4b + paper |
+
+**Trajectory: 1z landed → 109 2M+8m+2c (swept) → 110 NOT CONVERGED
+1M+2m+3c (swept) → round 111 (convergence test) next.**

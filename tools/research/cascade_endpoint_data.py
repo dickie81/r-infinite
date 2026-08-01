@@ -62,7 +62,10 @@ changes; no new prediction. Sabotage record: at the round-109 sweep,
 (a) flipping the committed tau/mu computation to window (7,13) trips
 Z1, exit 1 (Z3's census recomputes independently); (b) deleting the
 1l(ii) marker trips Z5, exit 1; (c) corrupting the cascade_leptons
-window anchor trips Z2, exit 1.
+window anchor trips Z2, exit 1. Round-110 F1 added the marker
+CONTENT gate (a stale instance count in the 1l(ii) marker now
+fails Z5): reverting the marker's count on a scratchpad copy trips
+Z5, exit 1 (run at the round-110 sweep).
 """
 import math
 import os
@@ -223,7 +226,12 @@ ok7 = np_.count("Net-state, Theorem 1z round 109") >= 1
 ok7 &= "net-state, Theorem 1z round 109: sharpened" in np_
 ok7 &= np_.count("net-state, Theorem 1z round 109: menu-bounded") >= 1
 ok7 &= "the endpoint items sharpened — menu-bounded" in np_
-gate("the four 1z net-state markers anchored (1l(ii), 1l(iv) x2, 1y(iii))", ok7)
+# round-110 F1: the 1l(ii) marker's CONTENT is gated, not just its existence --
+# a stale instance count in the marker now fails here
+ok7 &= "the stipulation priced at three attachment instances, all alternatives excluded, the weakest at −2.22σ" in np_
+ok7 &= "two binary decisions, both alternatives excluded; member two" not in np_
+gate("the four 1z markers anchored AND the 1l(ii) marker's count current "
+     "(round-110 F1)", ok7)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (16 gates)")

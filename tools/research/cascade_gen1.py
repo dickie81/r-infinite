@@ -59,7 +59,7 @@ def main():
     ms = mb / bs
     mt = (V_GF / math.sqrt(2)) * math.exp(-alpha(14) / 4)
     mc = mt / (3 * bs * math.exp(alpha(5) / 8))
-    mue = 206.7710                                   # closed m_mu/m_e
+    mue = 206.7707                                   # closed m_mu/m_e (round-110 F3: 206.7710 was part4b's arithmetic slip, corrected round 109)
 
     print("=" * 74)
     print("PART A: the up-type threshold factor N_c pi^2")

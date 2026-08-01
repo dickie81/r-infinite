@@ -9490,8 +9490,9 @@ and a genuine sharpening — then broke both headline quantifiers:
   committed value; the census re-gated (runner-up 3.26σ); the
   substitution disclosed.
 - **F5 (minor, scoped):** part4b's "206.7710" is an arithmetic slip
-  against its own factors (206.4958 × 1.001331 = 206.7707, the value
-  its own cited verifier prints) — **corrected at both part4b sites
+  against its own factors (206.4958 × 1.001331 = 206.7707 via the unrounded factors
+  [tightened on notice, round 110 F4: the 4-dp rounded factors alone
+  give 206.7706], the value its own cited verifier prints) — **corrected at both part4b sites
   with in-place annotations**; the reviewer's companion charge
   against the −0.0012% sign is adjudicated NOT a defect (part4b
   defines the residual obs-vs-pred at its own display; 1z's +0.0012%
@@ -9511,6 +9512,45 @@ line corrected); three sabotages exit 1; the other 15 instruments
 green; validator clean on 12 files. A191's wrong numbers corrected
 on notice. Trajectory: 1z landed → 109 NOT CONVERGED 2M+8m+2c
 (swept this commit) → round 110 (convergence test) next.
+
+## Addendum 193: convergence-test round 110 on the round-109 sweep — NOT CONVERGED (1 MAJOR, 2 minors, 3 cosmetics); the sweep's periphery failed to carry its own headline correction; swept this commit
+
+Round 110 verified every round-109 disposition on its own terms (all
+priced numbers independently reproduced at 40 dps; the census re-run
+from scratch; the three-instance count adjudicated correct at site-E
+scope — m_τ-abs's α(19) attachment is a different site's chain rule;
+all three sabotages reproduced) and then found the sweep had not
+carried its correction to its own marker:
+
+- **F1 (MAJOR):** the 1l(ii) net-state marker — placed at 1z's
+  landing, before the round-109 sweep — still recited "two binary
+  decisions, both alternatives excluded," the exact quantifier
+  F109-2 struck; Z5 gated the marker's existence, not its content.
+  **Swept:** the marker corrected in place with the round-110 note;
+  Z5 now gates the marker's CONTENT (the corrected count present,
+  the stale phrase absent) — the revert sabotage exits 1 (run).
+- **F2 (minor):** the honest-scope disclosure still recited the
+  uncommitted 0.1180 after the census moved to the committed 0.1179.
+  **Swept** with annotation.
+- **F3 (minor, scope-adjudicated):** two non-paper-cited tools
+  (cascade_gen1.py, cascade_epsilon_dictionary.py) carried 206.7710
+  as the closed record value — not convergence-gating under the
+  round-43 freeze, corrected on notice with in-file annotations.
+- **F4 (cosmetic):** part4b's correction note said "against this
+  line's own factors" — the 4-dp rounded factors alone give
+  206.7706; the note now attributes the correction to the unrounded
+  computation. A192's repeat tightened on notice.
+- **F5 (cosmetic):** 1z's 1l(ii) quotation now ends with a bracketed
+  ellipsis marking the source sentence's continuation (the round-109
+  sweep had fixed a different quote's boundary).
+- **F6 (cosmetic):** "itself a disclosed fourth item" reworded — the
+  count resolved only against the pre-F1 inventory.
+
+**Battery after sweep:** endpoint_data 16/0 (the content gate live;
+the revert sabotage exit 1); the other 15 instruments green;
+validator clean on 12 files. Trajectory: 1z landed → 109 2M+8m+2c
+(swept) → 110 NOT CONVERGED 1M+2m+3c (swept this commit) → round 111
+(convergence test) next.
 
 ## Caveats
 

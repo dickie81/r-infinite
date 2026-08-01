@@ -115,7 +115,7 @@ def part_B():
     # lepton chain (papers' closures + composition, Addendum 17 chain)
     mtau = 1776.82e-3
     mue = math.exp(Phi(14, 21)) * CHI * GC        # lead m_mu/m_e
-    mue_closed = 206.7710
+    mue_closed = 206.7707  # round-110 F3: 206.7710 was part4b's arithmetic slip, corrected round 109
     # dictionary-generated spectrum
     bs = math.exp(Phi(6, 13)) * CHI * GC * E_COLOUR \
         * math.exp(-alpha(7) / CHI ** 4)
