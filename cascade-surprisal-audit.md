@@ -10275,7 +10275,11 @@ riemann_kernel). The pass:
   verdict logic changed** — the diffs are import + tail only.
 - **Battery after the pass:** all 19 instruments exit 0, zero FAIL
   lines, and — new — every instrument now prints a RESULT line at
-  its expected count (the four pre-existing no-RESULT entries in
+  its expected count (the ~~four~~ [corrected on notice, round 123
+  — the round's reviewer flagged the count as uncorroborated; the
+  pre-hardening battery transcript shows **eleven** no-RESULT
+  entries, exactly the 11 scripts of this pass] pre-existing
+  no-RESULT entries in
   battery transcripts are retired; future batteries can gate on
   exit codes, FAIL-line census, and RESULT lines uniformly).
 - **Sabotage record (full-tree scratchpad copy; the first sparse
@@ -10313,6 +10317,42 @@ riemann_kernel). The pass:
 This commit touches 11 footer-counted verifiers — a hostile round
 follows per the trigger. Trajectory: hardening landed → round 123
 (hostile review) spawned on this commit.
+
+## Addendum 210: hostile review round 123 on commit 235f545 (the battery hardening) — CONVERGED immediately (0 majors, 0 minors, 0 cosmetics); the hardening certified
+
+Round 123 read all 11 changed scripts end to end and the full diff,
+and returned zero findings. Its held list, lead-spot-checked: the
+diff is import + tail only in every file (170 insertions, 0
+deletions; the paper untouched by stat); the critical
+verdict-count-completeness check passed mechanically in every file
+(PASS/FAIL print sites = okN variables = RESULT hardcoded count:
+5/5/5 ×9, 7/7/7, 4/4/4; no okN inside a conditional; no verdict
+boolean outside the sum; no early return in any main; the single
+assert raises → exit 1, cannot mask); pairing_act correctly
+received no import (sys already present) and no file double-imports;
+battery 19/19 at expected counts with zero FAIL lines; all five
+surface sabotages and three plumbing flips independently reproduced
+at the recorded counts; three adversarial probes beyond the record
+found no residual maskable path (exception-before-tail exits 1;
+sum-is-last-statement everywhere; None-from-sympy folds falsy
+consistently in both print and sum); A209's pre-commit zero-sys.exit
+claim confirmed against ca187fe; validator, hygiene, census clean;
+Checks 7/8 clean. Since the commit is instrumentation-only and the
+round returned 0M+0m, it converges immediately (no separate
+convergence round owed).
+
+The round's one out-of-scope eyeball item — A209's "the four
+pre-existing no-RESULT entries" — was lead-checked and was indeed
+false-when-written: the pre-hardening battery transcript shows
+eleven no-RESULT entries (the 11 scripts of the pass); corrected
+at source on notice per the round-43 record-file rule, annotated
+in place.
+
+**Trajectory: hardening landed (235f545) → 123 CONVERGED 0+0+0.
+The battery-hardening commission (A206/A208 standing note) is
+closed: all 19 instruments exit-gate, print RESULT lines at
+verified counts, and every gate is demonstrated to bite. Next
+hostile round on the next substantive paper change.**
 
 ## Caveats
 

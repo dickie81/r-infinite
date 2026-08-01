@@ -2412,3 +2412,21 @@ rule decomposed per its ledger row; the residue six items —
 instantiation, convention, or empirically anchored reading; zero
 underived rules-in-form, qualified. Next hostile round on the next
 substantive paper change.**
+
+# Round 123: hostile review on commit 235f545 (the battery hardening) — **CONVERGED** immediately (0 majors, 0 minors, 0 cosmetics); the hardening certified
+
+Zero findings on the 11 changed instruments. The diff import + tail
+only in every file; verdict-count completeness mechanically verified
+(print sites = okN variables = RESULT counts in all 11); battery
+19/19 at expected counts with zero FAIL lines; all recorded
+sabotages independently reproduced; three adversarial probes beyond
+the record found no residual maskable path; validator, hygiene,
+census, Checks 7/8 clean. Instrumentation-only commit + 0M/0m ⇒
+immediate convergence, no separate convergence round owed. One
+out-of-scope record item (A209's "four" no-RESULT count) was
+lead-checked, found false-when-written (eleven), and corrected at
+source on notice.
+
+**Trajectory: hardening landed (235f545) → 123 CONVERGED 0+0+0. All
+19 battery instruments now exit-gate with demonstrated bite. Next
+hostile round on the next substantive paper change.**
