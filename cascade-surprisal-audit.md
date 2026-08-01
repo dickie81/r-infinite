@@ -11198,6 +11198,59 @@ type-counting remark-to-theorem upgrade; the tower-script 2√π
 repair; (v-b). Next hostile round on the next substantive paper
 change.**
 
+## Addendum 228: Theorem 1ah — C1 attacked from first principles (owner-commissioned); the fork dissolves via uniformity, canonicity, and the bilinear reconciliation; the unproved set reduces to (v-b) + C2 + C3
+
+The owner commissioned the C1 attack. Three graded legs, each
+verified before landing:
+
+- **Theorem U (uniformity — selection by form, not value):** no
+  minimal-spinor fiber grows uniformly per layer (complex dims
+  alternate ratio 1, 2; real Bott dims 1, 2, 4, 4, 8, 8, 8, 8
+  lumpier); the full algebra grows uniformly at 2. The committed
+  formula's FORM — a uniform integer per-layer exponent across all
+  three generations — is realizable only by the algebra fiber
+  (exhibit gated: the spinor fiber cannot distinguish 28→21 from
+  29→21, both 16; the algebra gives 128 vs 256). This answers
+  round 133's circularity charge: the value (base 2) confirmed,
+  the form selected. Conditional on the committed formula's form,
+  disclosed.
+- **Theorem K (canonicity):** the algebra ladder is the unique
+  inclusion-canonical transport; a minimal-spinor ladder requires
+  an unforced binary choice at each of the 107 odd layers of the
+  descent (2^107 alternatives; census gated). The
+  zero-free-parameter constitution — cited as the meta-principle
+  it is — selects the canonical ladder.
+- **Theorem B (the bilinear reconciliation — the fork was a false
+  dichotomy):** 2^d = (2^⌊d/2⌋)² × (2 if d odd), exact at every
+  layer 1..217 (gated) — the algebra IS the spinor bilinear space.
+  Part4a's minimal spinors carry state amplitudes (√2-average
+  rate); the algebra carries bilinears — and the committed formula
+  transports *"the source mass m₂₉"* (part4b's words), a
+  bilinear-class object, at the squared rate 2 = (√2)². Both
+  committed structures are right about different objects; the
+  round-133 tension between them dissolves. Disclosed reading
+  R-bilinear (masses/couplings as bilinear-class transports).
+- **Net:** C1 closes at [U conditional on the committed form + K
+  with the constitutional selection cited as meta + B with
+  R-bilinear disclosed]; 1ag's fiber choice is no longer
+  selection-by-target; the unproved set reduces to **(v-b), C2,
+  C3**. Net-state markers in 1ag(vii) and the 1ae marker.
+
+**Surfaces:** Theorem 1ah in the paper (after 1ag); the two
+markers; footer 57 → 58 ("1i–1ag" → "1i–1ah"; cascade_c1_closure.py
+new), verified against the FOOTER TEXT (64 backticked = 58 + 4° +
+2 audited). **Verifier:** cascade_c1_closure.py, U/K/B/P, 10
+gates, 10/0 (count correct at first draft); three sabotages exit 1
+at 9/1 (part4b's source-mass anchor; the B1 parity flip; the
+paper's false-dichotomy sentence), clean baselines 10/0. One
+sibling-anchor maintenance edit disclosed: spinor_transport's
+"(C1) the fiber assignment." anchor dropped its period (the 1ah
+marker sits inside the bold), noted in both docstrings;
+spinor_transport re-run 15/0. **Battery:** all 25 instruments (the
+24 + c1_closure) green; validator clean on 12 files; hygiene
+clean. Trajectory: 1ah landed → round 137 (hostile review, per
+protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

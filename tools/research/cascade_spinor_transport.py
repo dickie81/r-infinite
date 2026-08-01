@@ -265,7 +265,7 @@ ok &= "the pairing factors identically through the common subalgebra" in paper
 ok &= "it is the ladder-depth difference" in paper
 gate("the within-the-model cost + the metric answer anchored (label "
      "aligned round 135 F2)", ok)
-ok = "(C1) the fiber assignment." in paper
+ok = "(C1) the fiber assignment" in paper   # period dropped round 137: the 1ah net-state marker now sits inside the bold
 ok &= "(C2) the coupling model." in paper
 ok &= "(C3) the\nequipartition transfer.".replace("\n", " ") in paper
 ok &= "(v-b) plus\nC1–C3.".replace("\n", " ") in paper
