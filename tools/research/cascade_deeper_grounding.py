@@ -13,13 +13,17 @@ theorems from the committed dynamics, one identification:
         only on max(d, d*).  The flux argument is the instrument's
         own (quoted, anchored); the extension to arbitrary pairs
         is 1af's and is gated numerically here.
-  (iv)  SCALAR DELTA-BLINDNESS (corollary, the load-bearing
-        negative): G(seat, source) is independent of WHICH source
-        couples -- G(21, s) = tail(21) for all four sources,
-        G(29, s) = tail(29); the scalar 21-vs-29 ratio is 1.1603,
-        no dichotomy; hence no first-principles derivation of the
-        participation dichotomy can live in the scalar sector, and
-        1ae's (v-a) is forced into the chirality/spinor sector.
+  (iv)  STATIC-RESPONSE DELTA-BLINDNESS (corollary, the
+        load-bearing negative, requantified round 130 F2):
+        G(seat, source) is independent of WHICH source couples --
+        G(21, s) = tail(21) for all four sources, G(29, s) =
+        tail(29); the scalar 21-vs-29 ratio is 1.1603, no
+        dichotomy.  The STATIC SCALAR-PROPAGATOR route for (v-a)
+        is closed by theorem; the sector is NOT closed (the
+        round-130 reviewer exhibited source-discriminating scalar
+        objects on the same operator, e.g. the iterated inverse
+        L^-2 spreading 7.8% across the sources); the spinor
+        candidate is the named survivor, preferred not forced.
   (v)   SINK NULLITY (theorem, new): the sink is a constraint
         node (phi(217) = 0 imposed, no EL variation); forcing it
         produces the rigid shift phi == const -- zero bond
@@ -164,12 +168,13 @@ ok = ("Look for the deeper grounding. Interesting pattern but this is no "
       "first principles derivation or proof." in paper)
 ok &= "G(d, d*) = Σ_{k = max(d, d*)}^{216} α(k)" in paper
 gate("the commission quote + the two-point form anchored", ok)
-ok = "the scalar sector cannot see δ at all" in paper
-ok &= ("no first-principles derivation of the participation dichotomy can "
-       "live in the scalar sector" in paper)
+ok = ("the committed chain's static linear response — the "
+      "propagator-coupling route" in paper)
+ok &= "the static scalar-propagator route for (v-a) is closed by theorem" in paper
+ok &= "the spinor candidate of (vi) is the named survivor — preferred, not forced" in paper
 ok &= "unrelated to χ⁸ = 256 or part4a's ~289" in paper
-gate("the delta-blindness consequence + the no-coincidence disclosure "
-     "anchored", ok)
+gate("the requantified delta-blindness consequence (round-130 F2) + the "
+     "no-coincidence disclosure anchored", ok)
 ok = "forced by the committed dynamics" in paper
 ok &= "remains the chain's weakest link, stated" in paper
 ok &= "Candidate mechanism for (v-a), named, not derived:" in paper
@@ -195,12 +200,15 @@ print("  IDENTITY (declared, not gated): chi^8 = 2^8 = 256 = "
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (11 gates; 1 identity block declared, not counted)")
-print("READING: the deeper grounding -- the committed action is a grounded")
-print("elastic chain, and three theorems follow: the two-point function")
-print("depends only on max(d, d*) (the flux argument, gated at 2e-13);")
-print("hence the scalar sector is delta-blind (every seat couples to every")
-print("source identically -- the dichotomy CANNOT be scalar, and (v-a) is")
-print("forced into the spinor sector); and the sink is a constraint node")
+print("READING (requantified round 130 F2/F3): the committed action is a")
+print("grounded elastic chain, and three theorems follow: the two-point")
+print("function depends only on max(d, d*) (the flux argument, gated at")
+print("< 1e-10, observed 1.79e-13); hence the STATIC scalar response is")
+print("delta-blind -- every seat couples to every source identically --")
+print("closing the static scalar-propagator route for (v-a); the sector")
+print("is not closed (source-discriminating scalar objects exist on the")
+print("same operator), and the spinor candidate is the named survivor,")
+print("preferred not forced.  The sink is a constraint node")
 print("whose forcing is a rigid shift -- dynamically null, upgrading the")
 print("sink-exclusion step from remark to dynamics.  The spinor candidate")
 print("is named, not derived: chi per layer = Clifford doubling per layer.")

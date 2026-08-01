@@ -10791,8 +10791,11 @@ substantive paper change.**
 WITHOUT this addendum — the record-writing script's anchor
 assertion failed on a wording mismatch while the commit command,
 joined by newline rather than &&, ran anyway. This addendum lands
-in the immediate follow-up record commit; the object surfaces were
-complete at c3ce4c0.)
+in the immediate follow-up record commit; ~~the object surfaces were
+complete at c3ce4c0~~ [struck round 130 F1: the footer — an object
+surface — was NOT complete; the same slip pattern had earlier
+swallowed the footer count/range/list edits, under-disclosed
+here].)
 
 The owner demanded first principles. The response interrogates the
 committed action directly (the grounded elastic chain: S = Σ
@@ -10837,10 +10840,13 @@ as new):
   the A4/S4 measurement biconditional (v-b).
 
 **Surfaces:** Theorem 1af in the paper (after 1ae); two net-state
-markers in 1ae (the sink step; the (v-a) narrowing); footer 55 →
-56 ("1i–1ae" → "1i–1af"; cascade_deeper_grounding.py new;
-cascade_greens_function.py added to the audited-not-counted
-parenthetical alongside cascade_constants.py). **Verifier:**
+markers in 1ae (the sink step; the (v-a) narrowing); ~~footer 55 →
+56 ("1i–1ae" → "1i–1af"; cascade_deeper_grounding.py new; …)~~
+[struck round 130 F1: only the greens_function parenthetical
+landed at c3ce4c0 — the count/range/list edits were lost when the
+footer script's third assertion aborted before writing, and the
+landing battery's census checked the BODY, not the footer text;
+the full footer edit landed in the round-130 sweep]. **Verifier:**
 cascade_deeper_grounding.py, E1–E5, 11 gates + 1 declared identity
 block, 11/0 (the RESULT line's first draft said 10 and the
 docstring said 14 — the count defect's fifth instance, both
@@ -10853,6 +10859,61 @@ files; census 56 counted + 2 audited-uncounted (constants,
 greens_function) = 58 distinct body names, zero record names in
 body; hygiene clean. Trajectory: 1af landed (c3ce4c0) → round 130
 (hostile review, per protocol) spawned on the record commit.
+
+## Addendum 220: hostile review round 130 on c3ce4c0 + 0d4f754 (Theorem 1af) — NOT CONVERGED (2 MAJORs, 1 minor, 1 cosmetic); the theorems held under exhaustive attack, the quantifiers and a lost edit broke; all findings lead-verified and swept
+
+Round 130 verified 1af's mathematics beyond the record — the
+two-point theorem over the FULL 45,369-pair interior domain (worst
+7.76×10⁻¹³, including every edge the census omits), the gate's
+falsifiability probed beyond the sabotage record (off-by-one sum
+bounds both trip; the min-form trips at 0.995), the sink theorem's
+non-tautology confirmed (a two-pin chain would stretch), all
+quotes, all sabotages, a 25-instrument battery superset — and
+broke:
+
+- **F1 (MAJOR):** the footer edit half-failed at c3ce4c0 — the
+  script's third assertion aborted before writing, losing the
+  count/range/list subs while the parenthetical (applied by a
+  second script) landed; the landing "census check" counted the
+  body, not the footer text, so the mask survived. A219's "footer
+  55 → 56 …" and "the object surfaces were complete at c3ce4c0"
+  were false-when-written; the commit message's footer claim is
+  uncorrectable-in-place and this addendum is its correction.
+  Swept: the footer completed (56, "1i–1af",
+  cascade_deeper_grounding.py in the list); A219's two false
+  clauses struck-and-annotated.
+- **F2 (MAJOR):** the sector-wide negative ("the scalar sector
+  cannot see δ at all … no first-principles derivation … can live
+  in the scalar sector … forced into the chirality/spinor
+  sector") outran the proved object — the theorem covers the
+  static two-point function only, and the reviewer EXHIBITED
+  source-discriminating scalar objects on the same committed
+  operator (the iterated inverse L⁻² spreads 7.8% across the four
+  sources at seat 21; screened resolvents decay with separation —
+  lead-reproduced exactly). Swept on all four carrying surfaces
+  (the corollary, (vii), the 1ae (v-a) marker, the verifier's
+  docstring/READING/E5 anchors): the honest theorem stands — the
+  STATIC SCALAR-PROPAGATOR route for (v-a) is closed by theorem —
+  and the sector claim is retracted; the spinor candidate is the
+  named survivor, preferred not forced.
+- **F3 (minor):** "gated at ≤ 2×10⁻¹³" stated the observation as
+  the gate (the committed gate is < 10⁻¹⁰) — a print-class
+  recurrence in the round's own new instrument; both surfaces now
+  state gate and observation separately.
+- **F4 (cosmetic):** "exit-gated since 1ac" compressed over the
+  round-120 F3 strike; now "since the round-120 sweep of 1ac's
+  landing."
+
+**Post-sweep state:** deeper_grounding re-run 11/0; the footer
+census now checked against the FOOTER TEXT (56 counted in the
+list, "1i–1af", deeper_grounding present) as well as the body (58
+distinct = 56 counted + constants + greens_function); battery
+green; validator clean; hygiene clean. The standing lesson joins
+the instrument rules: a footer edit's verification must read the
+footer, not recount the body.
+
+**Trajectory: 1af landed (c3ce4c0 + 0d4f754) → 130 NOT CONVERGED
+2M+1m+1c (swept here) → round 131 (convergence test) next.**
 
 ## Caveats
 

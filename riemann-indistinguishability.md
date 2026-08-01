@@ -2118,10 +2118,14 @@ named exactly (two, not one — corrected round 126 F1: the landing's "the
 separation on the seat↔source channel — (iv)'s conditional input, an
 extrapolation whose committed antecedent (the neutrino formula) is itself
 an open-derivation item. *(Net-state, Theorem 1af round 130: the route is
-narrowed by theorem — the scalar sector is δ-blind (the committed chain's
-two-point function depends only on max(seat, source)), so (v-a), if true,
-lives in the chirality/spinor sector; the Clifford-dimension candidate is
-named there.)* **(v-b) The measurement biconditional:** that a
+narrowed by theorem — ~~the scalar sector is δ-blind … so (v-a), if true,
+lives in the chirality/spinor sector~~ [requantified round 130 F2: the
+theorem covers the static two-point response, not the sector —
+source-discriminating scalar objects exist on the same operator]: the
+committed chain's static two-point function depends only on
+max(seat, source), closing the static scalar-propagator route for (v-a);
+the Clifford-dimension candidate is the named survivor in the spinor
+sector, preferred not forced.)* **(v-b) The measurement biconditional:** that a
 mode whose source coupling is filtered by ≥ χ^10 fails A4/S4's measurement
 condition (the LLN-quenched record rate) while modes at δ ≤ 2 pass it. The
 gap theorem keeps both threshold-free: any separation point inside the
@@ -2152,7 +2156,9 @@ committed action is S[φ] = Σ_d (1/(2α(d)))(Δφ)² on the layer lattice with
 *"Neumann at d = 4 (observer)"* and *"Dirichlet at d = 217 (Part 0
 terminus)"* — a grounded elastic chain with bond compliance α(d) — and the
 committed instrument (`cascade_greens_function.py`, cited by
-`cascade_unit_source_strength.py`, exit-gated since 1ac) already derives
+`cascade_unit_source_strength.py`, exit-gated since the round-120 sweep
+of 1ac's landing — F4 round 130: "since 1ac" compressed over the
+round-120 F3 strike) already derives
 the observer-row closed form G(4, d*) = Σ_{k≥d*} α(k) by the flux
 argument: *"for a unit source at d*, the flux below d* is zero (Neumann at
 d_min), the flux above d* is unit."* Check 7 status is the instrument's
@@ -2163,19 +2169,31 @@ new).* The same flux argument, applied between arbitrary points, gives
 depends only on max(d, d*): below the source no bond carries flux, so the
 potential is constant from the free end up to the higher of the two
 indices; above it, unit flux integrates the compliances down to the pinned
-end. Gated numerically at worst relative error ≤ 2×10⁻¹³ over a 100-pair
-census of the committed operator's inverse. *(iv) Corollary (scalar
-δ-blindness — the load-bearing negative).* Because the two-point function
-depends only on the maximum, **the scalar sector cannot see δ at all**:
-G(21, d*) is identical for all four sources (numerical spread < 10⁻¹³ —
+end. Gated numerically at < 10⁻¹⁰ (the committed gate), observed worst
+relative error 1.79×10⁻¹³, over a 100-pair
+census of the committed operator's inverse (wording aligned round 130 F3 —
+the landing stated the observation as the gate). *(iv) Corollary (static-response
+δ-blindness — the load-bearing negative, requantified round 130 F2: the
+landing's ~~the scalar sector cannot see δ at all … no first-principles
+derivation of the participation dichotomy can live in the scalar sector …
+forced into the chirality/spinor sector — the search space halved~~
+quantified over the SECTOR while the theorem covers one scalar object; the
+round-130 reviewer exhibited source-discriminating scalar objects on the
+same committed operator — the iterated inverse L⁻² spreads 7.8% across the
+four sources at seat 21, and screened resolvents decay with separation —
+so the sector-wide negative was false as stated).* What the theorem
+proves, exactly: **the committed chain's static linear response — the
+propagator-coupling route that 1ae's cost model would most naturally
+ride — cannot carry the dichotomy.** G(21, d*) is identical for all four
+sources (numerical spread < 10⁻¹³ —
 the value is tail(21) = 1.167571 regardless of which source couples), and
 likewise G(29, d*) = tail(29) = 1.006240; the scalar 21-vs-29 ratio is
 1.1603 — smooth, nowhere near a dichotomy, and unrelated to χ⁸ = 256 or
 part4a's ~289 (stated to preempt any numerological reading). Consequence,
-by theorem: **no first-principles derivation of the participation
-dichotomy can live in the scalar sector.** Lemma (v-a), if true, is forced
-into the chirality/spinor sector — the scalar route is closed, the search
-space halved. *(v) Theorem (the sink cannot source — new; upgrading a 1ae
+honestly quantified: **the static scalar-propagator route for (v-a) is
+closed by theorem**; other scalar objects (iterated inverses, spectral
+weights with general f(λ)) are not excluded by this corollary, and the
+spinor candidate of (vi) is the named survivor — preferred, not forced. *(v) Theorem (the sink cannot source — new; upgrading a 1ae
 step).* In the committed action the sink is a **constraint node**:
 φ(217) = 0 is imposed, no Euler–Lagrange variation is taken there.
 Forcing it produces the rigid shift φ ≡ const — every bond stretch zero,
@@ -2196,9 +2214,11 @@ layer-to-layer transport projects the Clifford structure, surviving weight
 1/2 per generator — a spinor-chain analogue of (ii)'s scalar chain. The
 arithmetic of the identification is trivially exact; its content is the
 reading; the derivation of the spinor chain is the remaining work. *(vii)
-What a full first-principles proof now requires, exactly:* (1) the
-spinor-sector transport theorem delivering (v-a) — route narrowed here to
-one sector with one named candidate; (2) the A4/S4 measurement
+What a full first-principles proof now requires, exactly:* (1) a
+transport theorem delivering (v-a) — the static scalar-propagator route
+closed here, the spinor candidate named (requantified round 130 F2: the
+landing said "route narrowed … to one sector," which the corollary does
+not force); (2) the A4/S4 measurement
 biconditional (v-b) — untouched. *Honest scope:* (iii)–(v) are theorems
 (the committed flux argument plus linear algebra over the committed
 operator, numerically gated); (vi) is an identification with a named gap;
@@ -2738,4 +2758,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ae: the **55 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1af: the **56 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

@@ -2539,3 +2539,24 @@ coupling contrast conditional; two named unproved items, both
 threshold-free. The rule predicts a null KATRIN/TRISTAN sterile
 result; a detection falsifies it. Next hostile round on the next
 substantive paper change.**
+
+# Round 130: hostile review on c3ce4c0 + 0d4f754 (Theorem 1af) — NOT CONVERGED (2 MAJORs, 1 minor, 1 cosmetic); the theorems held under exhaustive attack; the quantifiers and a lost edit swept; round 131 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F130-1 (MAJOR) — the footer edit half-failed at the landing (the script's third assertion aborted before writing; the landing census counted the body, not the footer text): committed footer still "55 / 1i–1ae", deeper_grounding missing from the list; A219's "surfaces complete" false | **Accepted; footer completed (56, "1i–1af", the list); A219's two false clauses struck-and-annotated; the lesson recorded — footer verification must read the footer** | paper + record |
+| F130-2 (MAJOR) — the sector-wide negative ("no first-principles derivation can live in the scalar sector … forced into the spinor sector") outran the proved object: the reviewer exhibited source-discriminating scalar objects on the same operator (L⁻² spreads 7.8% at seat 21) | **Accepted; requantified on all four carrying surfaces** — the STATIC SCALAR-PROPAGATOR route is closed by theorem (that stands); the sector claim retracted; the spinor candidate the named survivor, preferred not forced | paper + 1ae marker + verifier |
+| F130-3 (minor) — "gated at ≤ 2×10⁻¹³" stated the observation as the gate (committed gate < 10⁻¹⁰) | **Accepted; gate and observation stated separately on both surfaces** | paper + verifier |
+| F130-4 (cosmetic) — "exit-gated since 1ac" compressed over the round-120 F3 strike | **Accepted; "since the round-120 sweep of 1ac's landing"** | paper |
+
+Held under exhaustive attack: the two-point theorem over all
+45,369 interior pairs (worst 7.76×10⁻¹³) with off-by-one and
+min-form falsifiability probes all tripping the committed gate;
+the sink theorem's non-tautology (a two-pin chain would stretch)
+with the Dirichlet-choice conditionality noted as carried; the
+Clifford identification's honest grading; all quotes; all
+sabotages; a 25-instrument battery superset; validator; hygiene;
+Checks 7/8.
+
+**Trajectory: 1af landed → 130 NOT CONVERGED 2M+1m+1c (swept) →
+round 131 (convergence test) next.**
