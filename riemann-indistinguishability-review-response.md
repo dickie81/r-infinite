@@ -2642,3 +2642,20 @@ footer; hygiene; Checks 7/8.
 
 **Trajectory: 1ag landed → 133 3M+2m+1c → 134 0M+2m+1c → 135 NOT
 CONVERGED 0M+1m+1c (swept) → round 136 (convergence test) next.**
+
+# Round 136: convergence test on the round-135 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1ag certified stable at the MODEL grading; the spinor transport arc closes
+
+Zero findings. The verifier re-read end-to-end with the regraded
+census consistent; the eight-phrase residual hunt clean; the
+sign-deletion probe and sabotage reproduced; the 63-script battery
+superset green; validator; footer both directions; hygiene; Checks
+7/8 all clean.
+
+**Trajectory: 1ag landed → 133 3M+2m+1c (regrade to MODEL) → 134
+0M+2m+1c → 135 0M+1m+1c → 136 CONVERGED 0+0+0. Certified: the
+spinor transport MODEL — exact T1–T3 mathematics, the metric forced
+within the model, the fiber fork disclosed and gated (√2-per-layer
+vs 2-per-layer — an internal tension between two committed
+structures, surfaced by this arc), the neutrino-formula form
+reproduced within the selected model. Unproved set: (v-b) plus
+C1–C3. Next hostile round on the next substantive paper change.**

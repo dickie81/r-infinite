@@ -11159,6 +11159,45 @@ addressing" grep now returns zero in the verifier.
 CONVERGED 0M+1m+1c (swept here) → round 136 (convergence test)
 next.**
 
+## Addendum 227: convergence-test round 136 on the round-135 sweep — CONVERGED (0 majors, 0 minors, 0 cosmetics); Theorem 1ag certified stable at the MODEL grading; the spinor transport arc closes
+
+Round 136 returned zero findings. Its held list, lead-spot-checked:
+the whole verifier re-read with the regraded census consistent
+end-to-end; the eight-phrase residual hunt clean (every hit inside
+a strike, recital, or unrelated context); the sign-deletion probe
+and the basins sabotage reproduced (14/1 exit 1, clean 15/0
+baselines); the 63-script battery superset green; validator clean;
+the footer arithmetic verified both directions (with the
+capital-letter regex note carried); hygiene clean; the aligned
+Identification paragraph consistent with the paper's (vi) strike;
+Checks 7/8 clean.
+
+**Trajectory: 1ag landed (6523024) → 133 NOT CONVERGED 3M+2m+1c
+(swept, c638a80 — the regrade to MODEL) → 134 NOT CONVERGED
+0M+2m+1c (swept, 12ce6f2) → 135 NOT CONVERGED 0M+1m+1c (swept,
+17a8801) → 136 CONVERGED 0+0+0. Theorem 1ag is stable at its
+honest grading: the spinor transport MODEL — 1af's candidate made
+precise. Exact mathematics (T1 the ladder split, computed from an
+implemented Clifford algebra with an anticommutation gate that
+fails under sign deletion; T2 pairing localization, forcing the
+layer-index metric within the model; T3 the expectation transport,
+Monte-Carlo-confirmed at the Δ = 8 case); the unique fiber choice
+consistent with the committed neutrino exponent's shape (selection
+by consistency, disclosed, not forcing); the fiber fork disclosed
+and gated (the committed minimal-spinor reading gives √2 per layer
+— 16 = χ⁴ across Δ = 8, not 256 — an internal tension between two
+committed structures, surfaced by this arc and belonging to the
+papers to resolve); the neutrino-formula form reproduced within
+the selected model, part4b's OQ standing until C1 closes. The
+unproved set for the full first-principles proof: (v-b) the
+measurement biconditional, plus C1 the fiber assignment, C2 the
+coupling model, C3 the equipartition transfer. Standing open
+routes: closing C1 (the sharpest new question — which committed
+reading wins, minimal spinors or the full algebra); the
+type-counting remark-to-theorem upgrade; the tower-script 2√π
+repair; (v-b). Next hostile round on the next substantive paper
+change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
