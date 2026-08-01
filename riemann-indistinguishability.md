@@ -2448,7 +2448,9 @@ criterion" / "positivity criterion" have zero occurrences on any
 committed object-level surface before this theorem (census gated
 repo-wide as of round 140 F6: the paper's pre-1ai span, the
 formulation, every `src/*.tex`, and the tools tree minus this theorem's
-own instrument; the two record files excluded as declared history); the record's
+own instrument — and, as of Theorem 1aj, minus that theorem's sibling
+instrument too, which postdates the census point and is excluded with
+disclosure; the two record files excluded as declared history); the record's
 "Weil" ~~is the metaplectic index (1e/1f)~~ [struck round 141 F1,
 false-when-written: the explicit-formula bridge's naming note — a
 pre-1ai committed instrument surface — names "Weil's test-function
@@ -2521,7 +2523,11 @@ shows signed combinations are native), but no committed — or
 here-constructed — combination is discriminating in the admissible
 sense: entering the discriminating cone requires a kernel that changes
 sign OFF the line while remaining nonnegative on it, which W3's
-on-line sign change specifically is not. *(vi) The gap, named
+on-line sign change specifically is not. *Net state (1aj):
+superseded-true — Theorem 1aj constructs an admissible-discriminating
+instance from the committed pair itself (on-line nonnegative, off-line
+sign-changing), at the admissible cone's forced edge; the sentence was
+true when written.* *(vi) The gap, named
 precisely — what the route needs.* The cascade's committed positivity
 structures live in CONFIGURATION space (the action's positive
 definiteness; the compliances α(d) > 0; trigamma positivity, gated in
@@ -2535,7 +2541,14 @@ under which action-positivity forces explicit-formula positivity on a
 family whose kernels change sign OFF the line while staying nonnegative
 on it (the admissibility W3's exhibit lacks, per F4). Nothing committed
 supplies it; the
-route is now mapped, not traveled. *Honest scope:* W0–W2 are theorems
+route is now mapped, not traveled. *Net state (1aj): the morphism now
+exists — the profile map (committed form, z = d+½) carries lattice
+configurations to genuine self-convolutions reaching the
+admissible-discriminating cone; the unforced link is exactly the
+positivity, which 1aj locates at the RH wall: on every reached instance
+the sign is settled by the classical zero count below height ½, and for
+the dense class it is RH itself. The route is traveled to the wall;
+these sentences were true when written.* *Honest scope:* W0–W2 are theorems
 (elementary inequalities over the committed arguments; W0's proof is
 three lines and stated — supplied in the round-140 sweep, F2, the
 landing text having claimed "stated" without stating it); W3 is an
@@ -2546,6 +2559,93 @@ every statement here is unconditional, and the theorem's central
 content is precisely that the cascade's committed positivity is
 RH-free. Check 7 clean (kernel arithmetic; the classical criterion
 cited as classical input); Check 8 clean (no hypothesis content).
+
+**Theorem 1aj (the route traveled: the profile morphism, the
+reachability of the admissible-discriminating cone, and the RH wall
+located; `cascade_weil_route_traveled.py`).** *(i) The commission.*
+The owner commissioned traveling the route 1ai mapped ("Travel the
+route"). Result: the morphism gap (vi) asked for EXISTS in committed
+form; the admissible-discriminating cone is reachable from the
+committed family — by every lattice pair, at the admissible cone's
+forced edge; every reached instance's Weil positivity is settled by
+the classical zero count below height ½, not by cascade structure; and
+the residual is exactly RH, unclaimable by the program's own rule. All
+statements unconditional; no RH/GRH in either direction. *(ii) Theorem
+R1 (the profile morphism, committed form).* A lattice configuration
+c = (c_d) maps to the even test function g_c(x) = Σ_d c_d
+e^(−(d+½)|x|) — decay rates the bridge's own committed half-shift
+(*"with s = d+1 and z = d + 1/2"*, the instrument's words). Its
+explicit-formula transform is exactly the committed kernel family:
+∫₀^∞ 2 e^(−(d+½)t) cosh((β−½)t) cos(γt) dt = K_{d+1}(β+iγ), gated at
+machine precision. The map gap (vi) called missing is this one:
+configurations → test functions, committed form, no chosen constants.
+*(iii) Theorem R2 (reachability, exact — the cone's edge is
+discriminating).* On the pairwise slice {(c₁, c₂), c₂ > 0} for any
+lattice pair d₁ < d₂ (w = d+½), the admissible cone {L ≥ 0 on the
+line} is exactly {c₁/c₂ ≥ −w₁/w₂}: the binding constraint sits at
+γ = 0, and the edge ratio −w₁/w₂ = −(2d₁+1)/(2d₂+1) is forced by the
+lattice. At the edge, h* = K_{s₂} − (w₁/w₂)K_{s₁} satisfies: on the
+line, L(γ) = 2γ²(w₂²−w₁²)/(w₂(w₁²+γ²)(w₂²+γ²)) ≥ 0 with zero only at
+γ = 0; at the strip boundary, F(0) = −(w₂²−w₁²)/(2w₂(w₂²−¼)(w₁²−¼))
+< 0 — on-line nonnegative, off-line sign-changing: the edge of
+admissibility IS discriminating, for every pair. The discriminating
+band is exact: c₁/c₂ ∈ [−w₁/w₂, −(w₂/w₁)(w₁²−¼)/(w₂²−¼)), of width
+fraction (w₂²−w₁²)/(4w₁²(w₂²−¼)) — for the observer pair (4, 5) the
+edge ratio is **9/11 (1ai's window endpoint, transposed into
+admissibility)** and the band fraction is exactly **1/243**. Of the
+cone's two edges exactly one is discriminating — the edge that
+de-weights the shallower layer against the deeper one; the other
+edge's boundary function is nonnegative (grid-gated). *(iv) Theorem
+R3 (genuine self-convolution — admissibility instantiated, not
+cone-shaped only).* The edge instance is an actual Weil
+self-convolution: with f(x) = (w₂e^(−w₂x) − w₁e^(−w₁x))/(w₂−w₁) on
+x > 0, the autocorrelation f ⋆ f̃ equals [w₂e^(−w₂|x|) −
+w₁e^(−w₁|x|)]/(2(w₁+w₂)(w₂−w₁)) — exactly proportional to the edge
+profile — and |f̂(γ)|² = γ²/((w₁²+γ²)(w₂²+γ²)) reproduces L up to the
+positive scale 2(w₂²−w₁²)/w₂ (both gated). The reached instance lies
+inside Weil's class, exactly. *(v) Theorem R4 (the wall, located).*
+(a) The negative set {h* < 0} is confined to |γ| < ½ for every
+committed pair: h* is harmonic in ρ on the strip (real parts of
+functions analytic there; poles at ρ = s, 1−s lie outside) and decays
+like 1/γ², so by the minimum principle negativity in {|γ| > ½} would
+reach that region's boundary — and the strip-boundary function is
+nonnegative beyond its single crossing γ_b < ½ (exhaustive scan over
+all 22,578 committed pairs: sup γ_b = 0.49999, attained at (216, 217);
+the bound approached is the half-shift itself), the γ = ½ segment is
+positive (grid-gated per pair), and the tail coefficient
+2(w₂²−w₁²)/w₂ > 0. For the observer pair, γ_b = 0.4806. (b) The
+value: by the bridge's paired-form identity (RH-free), the zeros side
+is computable with no zeros consumed: W(h*) = Z(6) − (9/11)Z(5) =
+0.0780686 > 0, where Z(s) = p(d) + 1/(d+1) + 1/d − Σ Λ(n)n^(−s); the
+direct sum over the first 100 true zeros converges from below with
+every term positive. (c) The sign's true forcer (A66): W(h*) < 0
+would require a zeta zero inside {h* < 0} ⊆ {|γ| < ½}; the first zero
+lies at γ₁ = 14.134725 and ζ has no real zeros in (0, 1) — both
+classical. Weil positivity on every reached instance is therefore
+forced by the classical zero count, not by the cascade:
+action-positivity plays no role in the sign — the action is positive
+on ALL configurations, including those mapping outside the admissible
+cone; the admissible cone is cut by the transform, not the action.
+*(vi) The wall, stated.* The route terminates here: for the reached
+family the positivity is classical bookkeeping; extending forced
+positivity to the dense class of self-convolutions IS the Riemann
+Hypothesis (Weil's criterion, cited as classical); no committed
+structure supplies it, and under the program's rule none may be
+sought. What 1ai named as the gap — "no committed map" — closes; what
+remains is not a gap in the cascade but the RH wall itself, now
+located at exact coordinates: every committed-family discriminating
+instance interrogates only the classically vacant height-½ disc at
+the strip edges. *Honest scope:* R1–R3 exact (algebra gated at
+machine precision; the t-integral identities are classical Fourier
+bookkeeping); R4(a) exhaustive over the committed lattice (finite
+scan, gated), with the minimum principle (classical potential theory
+in the ρ-plane) and grid-gated segment checks, disclosed; R4(b) is
+the bridge's own identity; R4(c) cites classical inputs (the
+first-zero height; no real zeros in the strip; Weil's criterion).
+Category (a) — no data, no closures, no RH/GRH in either direction.
+Check 7 clean (Fourier bookkeeping, the explicit formula, potential
+theory — classical; no semiclassics); Check 8 clean (every number
+traces to the lattice w = d+½; no hypothesis content).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -3081,4 +3181,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ai: the **59 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1aj: the **60 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

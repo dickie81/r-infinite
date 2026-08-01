@@ -155,19 +155,24 @@ outside = sum(paper_raw[:i0].count(x) + paper_raw[i1:].count(x) for x in terms)
 form_raw = open(FORM, encoding="utf-8").read()
 wide = 0
 # round 141 F3: SELF is excluded from the list itself, so the printed
-# file count equals the count actually scanned.
+# file count equals the count actually scanned.  1aj landing: the
+# sibling instrument cascade_weil_route_traveled.py POSTDATES this
+# census's "before 1ai" point (Theorem 1aj sits after 1ai inside the
+# same span) and is excluded with disclosure -- the census claim is
+# about the pre-1ai record, which it is not part of.
+SIBLING = os.path.join(os.path.dirname(SELF), "cascade_weil_route_traveled.py")
 wide_files = [p for p in
               (glob.glob(os.path.join(ROOT, "src", "*.tex"))
                + glob.glob(os.path.join(ROOT, "tools", "**", "*.py"),
                            recursive=True))
-              if os.path.abspath(p) != SELF]
+              if os.path.abspath(p) not in (SELF, os.path.abspath(SIBLING))]
 for path in wide_files:
     txt = open(path, encoding="utf-8", errors="replace").read()
     wide += sum(txt.count(x) for x in terms)
 gate("the route's terms occur only within 1ai's span (zero in the paper "
      "outside it; zero in the formulation; zero in src/*.tex and the "
-     "tools tree minus this instrument -- record files excluded as "
-     "declared history)",
+     "tools tree minus this instrument and the post-1ai sibling "
+     "route_traveled -- record files excluded as declared history)",
      outside == 0 and sum(form_raw.count(x) for x in terms) == 0
      and wide == 0,
      f"outside-span {outside}, repo-wide {wide} over {len(wide_files)} files")

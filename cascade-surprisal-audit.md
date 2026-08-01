@@ -11635,6 +11635,82 @@ remark-to-theorem upgrade; the tower-script 2√π repair; the
 observer↔4 and charged-termination questions. Next hostile round
 on the next substantive paper change.**
 
+## Addendum 236: Theorem 1aj — the route traveled (owner-commissioned): the profile morphism, the reachability of the admissible-discriminating cone, and the RH wall located
+
+The owner commissioned traveling the route 1ai mapped ("Travel the
+route"). The result closes 1ai's gap (vi) as stated and terminates
+at an exactly-located wall. All statements unconditional; no
+RH/GRH in either direction.
+
+- **R1 (the profile morphism, committed form):** a lattice
+  configuration c = (c_d) maps to g_c(x) = Σ c_d e^(−(d+½)|x|) —
+  decay rates the bridge's committed half-shift z = d+½ — whose
+  explicit-formula transform is EXACTLY the committed kernel
+  family (∫ 2e^(−(d+½)t) cosh((β−½)t) cos(γt) dt = K_{d+1}(ρ),
+  machine precision). The map gap (vi) called missing exists,
+  committed form, no chosen constants.
+- **R2 (reachability, exact):** on the pairwise slice the
+  admissible cone is exactly {c₁/c₂ ≥ −w₁/w₂} (binding at γ = 0),
+  the edge ratio −(2d₁+1)/(2d₂+1) forced by the lattice; AT the
+  edge the instance is on-line nonnegative and off-line
+  sign-changing (F(0) = −(w₂²−w₁²)/(2w₂(w₂²−¼)(w₁²−¼)) < 0,
+  closed form): the edge of admissibility IS discriminating, for
+  every pair. Discriminating band exact: observer pair (4, 5) has
+  edge ratio 9/11 — 1ai's window endpoint transposed — and band
+  fraction exactly 1/243. Of the cone's two edges exactly one
+  discriminates (the one de-weighting the shallower layer).
+- **R3 (genuine self-convolution):** the edge instance is an
+  actual Weil-class member — explicit f with autocorrelation
+  exactly proportional to the edge profile; |f̂|² reproduces L up
+  to the positive scale 2(w₂²−w₁²)/w₂. Exact.
+- **R4 (the wall, located):** (a) {h* < 0} confined to |γ| < ½
+  for EVERY committed pair (harmonicity + minimum principle +
+  exhaustive 22,578-pair scan: sup γ_b = 0.49999 at (216, 217) —
+  the half-shift approached; observer γ_b = 0.4806); (b) the
+  value by the bridge identity, no zeros consumed: W(h*) = Z(6) −
+  (9/11)Z(5) = 0.0780686 > 0, direct 100-zero partial sum
+  converging from below, every term positive; (c) the sign's true
+  forcer (A66): the classical zero count below height ½ (first
+  zero 14.134725; no real zeros in (0, 1)) — NOT cascade
+  structure; action-positivity plays no role (the action is
+  positive on ALL configurations; the admissible cone is cut by
+  the transform). Extending forced positivity to the dense class
+  IS RH (Weil's criterion, classical input) — unclaimable by the
+  program's rule. The route terminates at the wall, at exact
+  coordinates: every committed-family discriminating instance
+  interrogates only the classically vacant height-½ disc.
+
+**Net-state sweeps (marking rule, superseded-true → markers, no
+strikes):** 1ai's W3 sentence ("no committed — or here-constructed
+— combination is discriminating in the admissible sense") and gap
+(vi)'s "no committed map … Nothing committed supplies it; the
+route is now mapped, not traveled" — both true when written, both
+marked with Net state (1aj) markers at source. 1ai's V1 census
+gains a disclosed exclusion: the sibling instrument
+cascade_weil_route_traveled.py postdates the census's "before
+1ai" point and is excluded from the repo-wide scan (gate name,
+code comment, and the paper's census parenthetical all updated;
+the census count stays 252 = 254 − SELF − sibling).
+
+**Surfaces:** Theorem 1aj in the paper (after 1ai, before the
+Door-3 remark — inside 1ai's V1 span, so the route terms remain
+span-confined); the two net-state markers in 1ai; footer 59 → 60
+("1i–1ai" → "1i–1aj"), verified against the FOOTER TEXT (66
+backticked = 60 + 4° + 2 audited). **Verifier:**
+cascade_weil_route_traveled.py, V1–V5, 18 gates, 18/0 (one
+pre-commit fix: g1's quadrature upper limit scaled to the decay
+rate after the s = 218 point under-sampled at 9.2e-3). Three
+sabotages on a full-tree copy: (a) the R2 key sentence mid-anchor
+→ g17, 17/1, exit 1; (b) the live edge coefficient flipped to
+−w₂/w₁ in the copy → g3/g5/g10 FAIL then ABORT at g11's sign
+bracket (no RESULT line) — the abort is part of the trip, exit 1,
+disclosed; (c) the gap-(vi) net-state marker mid-anchor → g16,
+17/1, exit 1. Clean baselines 18/0 before and after each.
+**Battery:** all 27 instruments green (the 26 +
+route_traveled), zero FAIL lines; validator clean on 12 files;
+hygiene zero. Trajectory: 1aj landed → round 143 (hostile
+review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
