@@ -10915,6 +10915,33 @@ footer, not recount the body.
 **Trajectory: 1af landed (c3ce4c0 + 0d4f754) → 130 NOT CONVERGED
 2M+1m+1c (swept here) → round 131 (convergence test) next.**
 
+## Addendum 221: convergence-test round 131 on the round-130 sweep — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the requantification one sentence short on the verifier; swept
+
+Round 131 reproduced the round-130 sweep completely — the L⁻²
+exhibit (7.81% spread, lead-quoted 7.8%), the full 45,369-pair
+theorem check, the min-form probe at 0.9951, the footer text both
+directions (62 backticked = 56 + 4° + 2 audited), all strike
+quotes machine-compared against c3ce4c0, the requantified text
+confirmed not to under-claim (the static-route closure still bold,
+still a theorem) — and found: **F131-1 (minor)** — the READING's
+CLOSING sentence still asserted the retracted "one sector" and
+"the spinor transport theorem" live, seven lines below its own
+requantified header (the F2 disposition incomplete on the verifier
+surface; the sweep-completeness class per the round-127
+precedent); **F131-2 (cosmetic)** — the pre-requantification label
+"scalar δ-blindness" surviving at the 1af title and the E3 banner;
+**F131-3 (cosmetic)** — one unmarked elision in a strike-quote.
+All lead-verified and swept in this commit: the READING tail
+aligned ("a transport theorem delivering (v-a) — the static
+scalar-propagator route closed, the spinor candidate named"); both
+labels aligned to "static-response δ-blindness"; the elision
+marker added. deeper_grounding re-run 11/0; the residual "one
+sector" grep now returns only the paper's retraction recital.
+
+**Trajectory: 1af landed → 130 2M+1m+1c (swept) → 131 NOT
+CONVERGED 0M+1m+2c (swept here) → round 132 (convergence test)
+next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

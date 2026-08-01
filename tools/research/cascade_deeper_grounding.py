@@ -141,7 +141,8 @@ worst = max(abs(g(d, ds) / tail(max(d, ds)) - 1)
 gate("G(d, d*) = tail(max(d, d*)) over the 100-pair census, worst "
      "relative error < 1e-10", worst < 1e-10, f"{worst:.2e}")
 
-print("E3 -- scalar delta-blindness")
+print("E3 -- static-response delta-blindness (label aligned round 131 "
+      "F2)")
 v21 = [g(21, s) for s in (5, 7, 14, 19)]
 v29 = [g(29, s) for s in (5, 7, 14, 19)]
 ok = max(v21) / min(v21) - 1 < 1e-12 and max(v29) / min(v29) - 1 < 1e-12
@@ -212,7 +213,9 @@ print("preferred not forced.  The sink is a constraint node")
 print("whose forcing is a rigid shift -- dynamically null, upgrading the")
 print("sink-exclusion step from remark to dynamics.  The spinor candidate")
 print("is named, not derived: chi per layer = Clifford doubling per layer.")
-print("What remains for the full proof: the spinor transport theorem")
-print("(v-a, one sector, one candidate) and the measurement biconditional")
+print("What remains for the full proof: a transport theorem delivering")
+print("(v-a) -- the static scalar-propagator route closed, the spinor")
+print("candidate named (READING tail aligned round 131 F1) -- and the")
+print("measurement biconditional")
 print("(v-b).  No convention, no new number.")
 sys.exit(0 if n_fail == 0 else 1)

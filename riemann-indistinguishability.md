@@ -2143,7 +2143,8 @@ the named unproved pair. Nothing here is a convention; not everything here
 is a theorem, and the grading now says which is which.
 
 **Theorem 1af (the deeper grounding: three theorems from the committed
-dynamics — the two-point structure, scalar δ-blindness, and the sink's
+dynamics — the two-point structure, static-response δ-blindness (label
+aligned round 131 F2), and the sink's
 dynamical nullity — plus the spinor-sector candidate for (v-a), named;
 `cascade_deeper_grounding.py`).** *(i) The commission.* The owner's
 standard, verbatim: *"Look for the deeper grounding. Interesting pattern
@@ -2176,7 +2177,8 @@ the landing stated the observation as the gate). *(iv) Corollary (static-respons
 δ-blindness — the load-bearing negative, requantified round 130 F2: the
 landing's ~~the scalar sector cannot see δ at all … no first-principles
 derivation of the participation dichotomy can live in the scalar sector …
-forced into the chirality/spinor sector — the search space halved~~
+forced into the chirality/spinor sector … the search space halved~~
+[the elision marker added round 131 F3]
 quantified over the SECTOR while the theorem covers one scalar object; the
 round-130 reviewer exhibited source-discriminating scalar objects on the
 same committed operator — the iterated inverse L⁻² spreads 7.8% across the

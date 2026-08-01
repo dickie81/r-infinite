@@ -2560,3 +2560,18 @@ Checks 7/8.
 
 **Trajectory: 1af landed → 130 NOT CONVERGED 2M+1m+1c (swept) →
 round 131 (convergence test) next.**
+
+# Round 131: convergence test on the round-130 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the requantification one sentence short; round 132 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F131-1 (minor) — the READING's closing sentence still asserted the retracted "one sector" / "the spinor transport theorem" live, contradicting its own requantified header seven lines up | **Accepted; READING tail aligned** ("a transport theorem delivering (v-a) — the static scalar-propagator route closed, the spinor candidate named") | verifier |
+| F131-2/3 (cosmetics) — the pre-requantification "scalar δ-blindness" label at two sites; one unmarked elision in a strike-quote | **Accepted; labels aligned; elision marked** | paper + verifier |
+
+Held: the L⁻² exhibit reproduced (7.81%); the 45,369-pair theorem
+check; the footer both directions; all strike quotes verbatim; the
+requantified text does not under-claim; battery superset green;
+validator; hygiene; Checks 7/8.
+
+**Trajectory: 1af landed → 130 2M+1m+1c → 131 NOT CONVERGED
+0M+1m+2c (swept) → round 132 (convergence test) next.**
