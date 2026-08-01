@@ -11302,6 +11302,26 @@ green; validator clean; hygiene clean.
 **Trajectory: 1ah landed (974964e) → 137 NOT CONVERGED 2M+1m+1c
 (swept here) → round 138 (convergence test) next.**
 
+## Addendum 230: convergence-test round 138 on the round-137 sweep — NOT CONVERGED (0 majors, 1 minor, 1 cosmetic); the K1 gate name; swept
+
+Round 138 held the round-137 regrade completely — every strike,
+both markers, the honest residues, the F1/F2 mechanics
+lead-re-verified (the even-Δ census; the Cl_ℂ(3) gauge
+computation), all three sabotages at 9/1 with clean 10/0
+baselines, the 198-script battery superset, validator, footer,
+hygiene — and found: **F138-1 (minor)** — the K1 gate NAME still
+printed the retracted "2^107 inequivalent spinor ladders vs one
+algebra ladder" as live runtime output (the sweep-completeness
+class); **F138-2 (cosmetic)** — the READING header untagged over
+its recital lines. Both swept in this commit: the gate renamed
+("a single gauge orbit per round 137 F2, arithmetic only"); the
+header tagged. c1_closure re-run 10/0; "inequivalent" grep now
+zero in the verifier.
+
+**Trajectory: 1ah landed → 137 2M+1m+1c (swept) → 138 NOT
+CONVERGED 0M+1m+1c (swept here) → round 139 (convergence test)
+next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

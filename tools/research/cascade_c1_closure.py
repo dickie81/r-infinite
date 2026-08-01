@@ -122,8 +122,9 @@ gate("the committed formula's uniform three-generation form + 'the source "
 
 print("K -- the canonicity theorem")
 odd = [d for d in range(5, 218, 2)]
-gate("107 odd layers in the descent [4, 217] -> 2^107 inequivalent spinor "
-     "ladders vs one algebra ladder", len(odd) == 107, f"{len(odd)}")
+gate("107 odd layers in the descent [4, 217]; the 2^107 choice-vector "
+     "count -- a single gauge orbit per round 137 F2, arithmetic only "
+     "(gate name aligned round 138 F1)", len(odd) == 107, f"{len(odd)}")
 
 print("B -- the bilinear reconciliation")
 gate("2^d = (2^floor(d/2))^2 x (2 if d odd), exact for every d in 1..217",
@@ -158,7 +159,9 @@ gate("the sibling cascade_spinor_transport.py exit 0 at RESULT 15/0",
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (10 gates)")
-print("READING: C1 attacked from first principles -- the fork dissolves.")
+print("READING (regraded round 137; header tagged round 138 F2): C1")
+print("attacked from first principles -- the original claim set follows")
+print("as recital, the controlling regrade below.")
 print("Uniformity: no minimal-spinor fiber (real or complex) grows")
 print("uniformly per layer; the algebra does; the committed formula's")
 print("FORM (uniform per-layer exponent across three generations) selects")
