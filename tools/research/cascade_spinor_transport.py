@@ -60,19 +60,31 @@ Gates:
         sentence (equal-weight basins + no-assumption) and
         only-factors sentence; the neutrino formula + its OQ
         sentence; part4a's Dirac-layer fermion sentence.
-  S5 -- the paper: 1ag's key sentences anchored (the derived cost;
-        the metric answer; the R1/R2 conditionality; the (v-b)-
-        alone conclusion; the mode-count non-closure disclosure);
-        the 1ae and 1af net-state markers; subprocess siblings
+  S5 -- the paper: 1ag's REGRADED sentences anchored (the
+        within-the-model cost; the metric answer; the C1-C3 census;
+        the (v-b)-plus-C1-C3 conclusion; the selection-by-
+        consistency disclosure); the regraded 1ae and 1af net-state
+        markers; subprocess siblings
         cascade_participation_dichotomy.py (RESULT 18/0) and
         cascade_deeper_grounding.py (RESULT 11/0), both exit 0.
+        (Round-133 sweep additions, in S1/S3: the anticommutation
+        gate -- e1e2 = -e2e1 and (e1e2)^2 = -1 computed from
+        clifford_mul, which FAILS under sign deletion -- and the
+        fiber-fork gate: the committed minimal-spinor reading's
+        16 = chi^4 vs the model's 256, with the paper's fork
+        sentence anchored.  This Gates block was aligned round 134
+        F1 -- the round-133 sweep had left it describing the
+        13-gate landing suite.)
 
 Declared identities (not gated): 2^8 = 256; 29 - 21 = 8 --
 literal arithmetic (the 1l(iv) discipline).
 
 No data consumed; no number changes; T1-T2 exact algebra
-(computed), T3 exact in expectation given R2; the R1/R2
-conditionality is the honest boundary (both committed readings).
+(computed), T3 exact in expectation within the model; the C1-C3
+census is the honest boundary (the fiber assignment; the coupling
+model; the equipartition transfer -- none a free ride on committed
+text; aligned round 134 F1 after the round-133 sweep missed this
+paragraph).
 Sabotage record (full-tree scratchpad copy, at the landing
 commit; mid-anchor perturbations): (a) "two
 equal-weight chirality basins" -> mid-anchor SAB in the part4b

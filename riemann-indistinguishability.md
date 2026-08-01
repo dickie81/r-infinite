@@ -2306,11 +2306,15 @@ per mode, while the ladder step doubles per layer — the site densities
 differ, disclosed; the only committed per-unit-layer χ-exponent is the
 neutrino formula, itself part4b's underived OQ item]; the ladder step Cl(d) ⊂ Cl(d+1) is likewise an equal-weight
 two-way trace-orthogonal split. Same number, same split shape — and the
-committed neutrino filter χ^(29−d_g) instantiates T3's derived form
-exactly (base 2, exponent = layer distance): **the filter factor's form
-in that committed formula is hereby derived** (partially addressing
-part4b's own open item — *"no explicit derivation appears"* — for the
-χ-factor; the m₂₉ and α(d_g) factors remain open there). The full
+committed neutrino filter χ^(29−d_g) instantiates T3's form
+exactly (base 2, exponent = layer distance): ~~the filter factor's form
+in that committed formula is hereby derived~~ [struck round 134 F2:
+circular given C1 — the full-algebra fiber is selected BECAUSE it
+matches this formula's form (selection by consistency, per (vii)), so
+the form is **reproduced within the selected model**, not derived from
+committed structure; part4b's open item ("no explicit derivation
+appears") stands un-addressed until C1 is closed; the m₂₉ and α(d_g)
+factors remain open there regardless]. The full
 identification of the transport 2 with every committed χ-context (the
 mode-count exponents χ^(m−k)) is argued, not closed — stated. *(vii)
 Consequence — regraded round 133 (F1, F2, F3): the candidate is made

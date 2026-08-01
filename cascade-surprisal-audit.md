@@ -11101,6 +11101,34 @@ clean; hygiene clean.
 **Trajectory: 1ag landed (6523024) → 133 NOT CONVERGED 3M+2m+1c
 (swept here) → round 134 (convergence test) next.**
 
+## Addendum 225: convergence-test round 134 on the round-133 sweep — NOT CONVERGED (0 majors, 2 minors, 1 cosmetic); two strike-set residuals; swept
+
+Round 134 reproduced the round-133 sweep's substance completely —
+the sign-deletion probe trips (14/1, "signs 1,1,1"), all three
+sabotages at 14/1 with clean 15/0 baselines, the fork arithmetic
+and quotes verbatim, the regrade complete in the paper's main
+claims, no under-claiming, battery (61-verifier superset) green,
+validator, footer, hygiene clean — and found two residuals of the
+strike set: **F134-1 (minor)** — the verifier's mid-docstring
+still carried the retracted R1/R2 census as live text ("the R1/R2
+conditionality is the honest boundary (both committed readings)")
+and its Gates block still described the 13-gate landing suite;
+**F134-2 (minor)** — 1ag(vi)'s bolded "the filter factor's form in
+that committed formula is hereby derived" survived the regrade and
+is circular given C1 (the fiber is selected BECAUSE it matches
+that formula's form). **F134-3 (cosmetic)** — the round-134
+brief's "25 instruments" miscounted (the record's census is 24);
+noted so it does not propagate. All lead-verified and swept in
+this commit: the Gates block and closing census aligned to the
+15-gate suite and C1–C3 (with in-place round-134 tags); the
+"hereby derived" bold struck — the form is **reproduced within the
+selected model**, and part4b's open item stands un-addressed until
+C1 closes. spinor_transport re-run 15/0.
+
+**Trajectory: 1ag landed → 133 3M+2m+1c (swept) → 134 NOT
+CONVERGED 0M+2m+1c (swept here) → round 135 (convergence test)
+next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

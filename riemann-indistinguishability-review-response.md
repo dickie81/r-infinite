@@ -2612,3 +2612,19 @@ validator; footer; hygiene; Checks 7/8.
 
 **Trajectory: 1ag landed → 133 NOT CONVERGED 3M+2m+1c (swept) →
 round 134 (convergence test) next.**
+
+# Round 134: convergence test on the round-133 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 2 minors, 1 cosmetic); two strike-set residuals; round 135 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F134-1 (minor) — the verifier's mid-docstring carried the retracted R1/R2 census live ("both committed readings") and its Gates block described the 13-gate landing suite | **Accepted; Gates block and closing census aligned to the 15-gate suite and C1–C3, tagged in place** | verifier |
+| F134-2 (minor) — 1ag(vi)'s bolded "hereby derived" survived the regrade, circular given C1 (the fiber selected to match the target formula) | **Accepted; struck — "reproduced within the selected model"; part4b's open item stands un-addressed until C1 closes** | paper |
+| F134-3 (cosmetic) — the brief's "25 instruments" miscount (census: 24) | **Noted; not propagated** | — |
+
+Held: the sign-deletion probe trips; sabotages 14/1; fork
+arithmetic and quotes verbatim; the regrade complete in the main
+claims with no under-claiming; battery superset green; validator;
+footer; hygiene; Checks 7/8.
+
+**Trajectory: 1ag landed → 133 3M+2m+1c → 134 NOT CONVERGED
+0M+2m+1c (swept) → round 135 (convergence test) next.**
