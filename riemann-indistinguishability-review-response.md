@@ -2172,3 +2172,17 @@ observation; the class at two members; the seven-item count stands;
 {5, 7, 19, 217} entailed end-to-end given the amended axioms and the
 committed dictionary. Next hostile round on the next substantive
 paper change.**
+
+# Round 109: hostile review of Theorem 1z (the endpoint data, commit 45cfb0c) — NOT CONVERGED (2 MAJORs, 8 minors, 2 cosmetics); the census arithmetic held; both headline quantifiers failed as written; round 110 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F109-1 (MAJOR) — "every endpoint is a forced-menu layer" hid a per-window convention switch; the α_s descent's lower terminus is the observer dimension d = 4 (C1-anchored, no menu) | **Accepted; addressing stated per window**, the observer terminus named and Check-8-classified; zero-free-numbers retained on the corrected basis; the pair-to-sum map a disclosed fourth item | paper + verifier |
+| F109-2 (MAJOR) — "exactly two binary decisions" omitted the α_s instance, whose unshifted alternative (−2.22σ) is the analysis's weakest exclusion | **Accepted; three instances stated and priced**, the weakest flagged as such | paper + verifier |
+| F109-3/4 (minors) — "+0.09σ" wrong sign; 0.1180 uncommitted | **Accepted; +0.019σ against the committed 0.1179±0.0009**; census re-gated (3.26σ) | paper + verifier |
+| F109-5 (minor, scoped) — part4b's 206.7710 an arithmetic slip against its own factors | **Accepted; corrected at both sites with annotations**; the sign charge adjudicated not-a-defect (obs-vs-pred convention, stated at part4b's own display; cross-referenced) | part4b + paper |
+| F109-6/7/8/9/10 (minors) — menu term misappropriated; hardcoded endpoint gate; ceteris paribus undisclosed; two unmarked 1l(iv) carriers; 5-ULP tolerances | **Accepted; all swept** (union menu named; committed-surface gate + sabotage; disclosure added; markers placed; half-ULP) | paper + verifier |
+| F109-11/12 (cosmetics) — "ordered"; quote boundary | **Accepted; swept** | paper |
+
+**Trajectory: 1z landed → 109 NOT CONVERGED 2M+8m+2c (swept) → round
+110 (convergence test) next.**

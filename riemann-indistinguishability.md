@@ -696,12 +696,14 @@ the live route; no number changes (the Ω_m backing was already withdrawn from "
 the tower's dictionary, definitional and gated, whose only alternative is a contentless
 global renaming (s′ = s−1 renames every symbol and changes no computed number; declared,
 not gated — a tautology cannot fail) — **there is no per-site d↔s freedom**: E's residue
-is the endpoint data (listed); C's avatar is a frame error inside a demoted clause; B
+is the endpoint data (listed) *(net-state, Theorem 1z round 109: menu-bounded, zero free numbers, alternatives data-excluded; sharpened)*; C's avatar is a frame error inside a demoted clause; B
 and H are flip-invariant (re-gated); D was closed by Theorem 1k — given the site-E pairing
 plus the variational-sup labeling, its two givens (round-60 F1). The review-4 widening
 ("every d↔s layer/weight pairing choice") named a per-site family; **the family is
 closed**. Member two is **re-motivated, not deleted**: its live content is the
-dictionary itself plus the already-listed endpoint items. **Three members and the
+dictionary itself plus the already-listed endpoint items *(net-state, Theorem 1z
+round 109: the endpoint items sharpened — menu-bounded, zero free numbers,
+alternatives data-excluded)*. **Three members and the
 seven-item count stand.** *(Net-state, Theorem 1y round 107: member one closes — the site-E pairing entailed given the tower's dictionary, the sup labeling already resolved into A1's ledger; the class keeps two members; the seven-item count stands.)* *Honest scope:* no number changes, no closure, no new data
 (the observed 16.8170 appears only as the committed audit's recorded anchor, reproduced
 as instrument); the member's re-motivation is conditional on the dictionary, exactly as
@@ -1530,29 +1532,58 @@ closure windows' **endpoint data** — Definition-6.1 instantiation plus the
 strict-boundary stipulation (part4b)."* The committed inventory, read directly: the
 three site-E closure windows are τ/μ = exp(Φ(6,13) + α(14)/χ)·χΓ(½) (the path
 5→13), μ/e = exp(Φ(14,21))·χΓ(½)·(radiative slot) (the path 13→21), and α_s =
-(N(12)²/Ω₂)·exp(Φ(5,12) + α(14)/χ) — and **every endpoint is a forced-menu layer**:
-{5, 13, 21} is the Bott generation set, {12, 13, 14} the Adams gauge set, both
-part4a theorems, and part4b's own sentences are the anchor — *"The cascade has five
-structurally distinguished layers"*; *"The four layers in $\mathcal{S}$ are not
-chosen from a menu; they are the complete set of non-sink distinguished layers in
-the cascade."* The endpoint data therefore carries **zero free numbers**: its
-entire content is three menu-pair selections (Definition-6.1 instantiation), one
-attachment rule (the strict-boundary stipulation), and the step-sum convention
-(Φ(a,b) sums d = a..b — the path-start-exclusive reading, disclosed). *(ii) The
-exclusion census (new, gated).* Over the non-sink distinguished menu M = {5, 7,
-12, 13, 14, 19, 21} — all 21 ordered pairs per window, 63 computations — the
-committed selections are **unique within observation**: τ/μ at (5,13) sits at
-+0.28σ and the nearest alternative, (7,13), at **524σ**; μ/e at (13,21) sits at
-+0.0012% and the nearest alternative at 33%; α_s at (5,12) sits at +0.09σ and the
-nearest alternative, (12,14), at **3.15σ** — the census's weakest exclusion,
+(N(12)²/Ω₂)·exp(Φ(5,12) + α(14)/χ) — with the addressing stated **per window**
+*(round-109 F1: the first draft claimed "every endpoint is a forced-menu layer"
+under a single step-sum convention; the α_s window's committed addressing differs,
+and the claim was convention-dependent without disclosure)*: the two lepton windows
+are host-pair paths under the path-start-exclusive reading — pair (5,13) → Φ(6,13),
+pair (13,21) → Φ(14,21) — with all four endpoints in the forced menus ({5, 13, 21}
+the Bott generation set, {12, 13, 14} the Adams gauge set, both part4a theorems;
+part4b's anchors: *"The cascade has five structurally distinguished layers"*; *"The
+four layers in $\mathcal{S}$ are not chosen from a menu; they are the complete set
+of non-sink distinguished layers in the cascade"*); the α_s window is the committed
+**descent Φ(12→4) = Σ_(d=5..12) p(d)** (part4b's own display), whose upper terminus
+12 is menu-anchored (Adams) and whose lower terminus is **the observer dimension
+d = 4 — C1-anchored, the hypothesis's own fixed point, not a menu layer** (Check 8:
+it may not be laundered into a forced menu). The endpoint data still carries **zero
+free numbers** — five termini in forced menus, the sixth the hypothesis's fixed
+point, none free — and its entire content is three window selections
+(Definition-6.1 instantiation), one attachment rule (the strict-boundary
+stipulation), and the **per-window pair-to-sum addressing, itself a disclosed
+fourth item** (round-109 F1). *(ii) The
+exclusion census (new, gated).* Over the union menu M = {5, 7, 12, 13, 14, 19,
+21} *(round-109 F6: the first draft called M "the non-sink distinguished menu" —
+part4b's term for its own four-element set {5, 7, 14, 19}; M is this paper's
+construction, that set ∪ the Bott generation set ∪ the Adams gauge set, each
+committed)* — all 21 **unordered** pairs per window (round-109 F11), 63
+computations, **endpoint-only ceteris paribus** *(round-109 F8: every
+non-endpoint structure — the shift, the radiative slot, the A_GUT anchor — is
+held at its committed value while the window varies; "excluded" means excluded in
+that comparison class)* — the committed selections are **unique within
+observation**: τ/μ at (5,13) sits at +0.28σ and the nearest alternative, (7,13),
+at **524σ**; μ/e at (13,21) sits at +0.0012% (pred-vs-obs signing; part4b's
+−0.0012% is the same number under its own obs-vs-pred definition, stated at its
+own display — round-109 F5) and the nearest alternative at 33%; α_s at (5,12)
+sits at **+0.019σ against the record's committed 0.1179 ± 0.0009** *(round-109
+F3/F4: the first draft wrote "+0.09σ" — the sign was wrong, and the observation
+used, 0.1180, is carried by no committed surface; corrected to the committed
+observation, under which the census structure is unchanged)* and the nearest
+alternative, (12,14), at **3.26σ** — the endpoint census's weakest exclusion,
 reported exactly (every other α_s alternative is ≥ 18σ). *(iii) The stipulation
 isolated and priced.* The strict-boundary stipulation — part4b's *"begins at the
-$\mathrm{U}(1)$ layer and does not receive the shift"* — makes exactly **two
-binary decisions** at site E: the τ/μ window (which excludes 14) receives
-δΦ_U(1); the μ/e window (which begins at 14) does not. Both alternatives are
-data-excluded: τ/μ without the shift lands at 16.530, **−261σ**; μ/e with it
-lands at 210.36, +1.74% — some 1,400× the committed residual (both gated). The
-rule is consistent across both instances; a candidate entailment from A3's
+$\mathrm{U}(1)$ layer and does not receive the shift"* — governs **three
+attachment instances** at site E *(round-109 F2: the first draft said "exactly
+two binary decisions," omitting the α_s window, which also lies strictly below 14
+and receives the shift by the same committed theorem — "closes α_s(M_Z)… and
+m_τ/m_μ… together"; the count was false)*: the τ/μ window receives δΦ_U(1); the
+α_s window receives it; the μ/e window, which begins at 14, does not. All three
+alternatives are data-excluded, at very different strengths: τ/μ without the
+shift lands at 16.530, **−261σ**; α_s without it lands at 0.11590, **−2.22σ
+against the committed 0.1179 ± 0.0009 — the weakest exclusion in this entire
+analysis**, weaker than the endpoint census's 3.26σ and reported as such
+(round-109 F2); μ/e with it lands at 210.36, +1.74% — some 1,400× the committed
+residual (all gated). The rule is consistent across all three instances; a
+candidate entailment from A3's
 increment rule (*"corrections attach once, at sub-lead"*) is noted as an **open
 route, not claimed** — a future committed derivation would relocate the
 stipulation from member two to A3's ledger (stopping-rule-gated, the 1h(iv)
@@ -1563,7 +1594,8 @@ forcing** (the cross-check reading, exactly as the registered discipline
 requires); **no closure is claimed**. Member two persists with sharpened content:
 from "endpoint data (a list)" to **menu-bounded selections carrying zero free
 numbers, each in-menu alternative data-excluded, plus one attachment rule with
-both alternatives excluded**. The class stays at two members; the seven-item
+all three alternatives excluded — the weakest at −2.22σ**. The class stays at
+two members; the seven-item
 count stands. *Honest scope:* observational values are consumed here — 16.8170 ±
 0.0011, 206.7683, 0.1180 ± 0.0009 — for the exclusion census only (the
 cross-check class 1l's re-grade licenses); no number changes; no new prediction;

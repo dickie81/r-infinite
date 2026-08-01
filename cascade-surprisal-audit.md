@@ -9423,11 +9423,14 @@ site-E closure windows' endpoint data. The findings:
   per window (63 computations): the committed selections are unique
   within observation — τ/μ (5,13) at +0.28σ vs runner-up (7,13) at
   524σ; μ/e (13,21) at +0.0012% vs 33%; α_s (5,12) at +0.09σ vs
-  (12,14) at 3.15σ — the census's weakest exclusion, reported and
+  (12,14) at 3.15σ [corrected on notice, round 109 F3/F4: +0.019σ and
+  3.26σ against the committed 0.1179±0.0009; the draft's sign was
+  wrong and its 0.1180 uncommitted] — the census's weakest exclusion, reported and
   gated exactly, all other α_s alternatives ≥ 18σ.
 - **The stipulation priced:** part4b's strict-boundary rule ("begins
   at the U(1) layer and does not receive the shift") makes exactly
-  two binary decisions at site E; both alternatives data-excluded —
+  two binary decisions at site E [corrected on notice, round 109 F2:
+  three instances — the α_s window also receives the shift]; both alternatives data-excluded —
   τ/μ unshifted at −261σ; μ/e shifted at +1.74%, ~1,400× the
   committed residual (both gated). Candidate entailment from A3's
   increment rule noted as an OPEN route, not claimed
@@ -9456,6 +9459,58 @@ recomputes independently, disclosed; the marker deletion trips Z5).
 **Battery:** all 16 instruments green; validator clean on 12 files;
 census 47 body = 46 counted + constants. Trajectory: 1z landed →
 round 109 (hostile review, per protocol) spawned on this commit.
+
+## Addendum 192: hostile review round 109 on commit 45cfb0c (Theorem 1z) — NOT CONVERGED (2 MAJORs, 8 minors, 2 cosmetics); the census arithmetic held; the two headline quantified claims failed as written; all findings lead-verified and swept
+
+Round 109 reproduced every computed number ("every number I
+recomputed held") and held the exclusion census as sound arithmetic
+and a genuine sharpening — then broke both headline quantifiers:
+
+- **F1 (MAJOR):** "every endpoint is a forced-menu layer" rested on
+  an undisclosed per-window convention switch — the lepton windows
+  are path-start-exclusive host pairs, but the α_s window is the
+  committed descent Φ(12→4) = Σ_(d=5..12) p(d), whose lower terminus
+  is the observer dimension d = 4 — C1-anchored, in no menu; the
+  draft's (5,12) relabeling put a menu layer in the endpoint slot by
+  switching conventions for that one window. **Swept:** the
+  addressing stated per window; the observer terminus named and
+  Check-8-classified; "zero free numbers" retained on the corrected
+  basis (five menu termini + the hypothesis's fixed point); the
+  pair-to-sum map disclosed as a fourth inventory item.
+- **F2 (MAJOR):** "exactly two binary decisions" — the α_s window
+  also receives the shift by the same committed theorem; three
+  instances, and the omitted alternative (α_s unshifted, 0.11590) is
+  the analysis's genuinely weakest exclusion at −2.22σ, unreported.
+  **Swept:** three instances stated and priced (−261σ; −2.22σ,
+  flagged as the weakest in the entire analysis; +1.74%); the (iv)
+  summary corrected.
+- **F3/F4 (minors):** "+0.09σ" had the wrong sign and used 0.1180,
+  an observation no committed surface carries (the record commits
+  0.1179±0.0009 five times). **Swept:** +0.019σ against the
+  committed value; the census re-gated (runner-up 3.26σ); the
+  substitution disclosed.
+- **F5 (minor, scoped):** part4b's "206.7710" is an arithmetic slip
+  against its own factors (206.4958 × 1.001331 = 206.7707, the value
+  its own cited verifier prints) — **corrected at both part4b sites
+  with in-place annotations**; the reviewer's companion charge
+  against the −0.0012% sign is adjudicated NOT a defect (part4b
+  defines the residual obs-vs-pred at its own display; 1z's +0.0012%
+  is the same number pred-vs-obs, now cross-referenced).
+- **F6:** M renamed "the union menu," its construction disclosed
+  (part4b's non-sink set ∪ Bott ∪ Adams). **F7:** Z2 now reads the
+  committed surfaces (the window strings in cascade_leptons.py and
+  part4b's path labels/descent display; sabotage: corrupting the
+  leptons anchor exits 1). **F8:** endpoint-only ceteris paribus
+  disclosed. **F9:** two 1l(iv) markers placed. **F10:** recital
+  tolerances tightened to half-ULP. **F11/F12 (cosmetics):**
+  "unordered"; the quote boundary noted.
+
+**Battery after sweep:** endpoint_data 16/0 (16 gates — grown from
+13 by the committed-surface and third-instance gates; the RESULT
+line corrected); three sabotages exit 1; the other 15 instruments
+green; validator clean on 12 files. A191's wrong numbers corrected
+on notice. Trajectory: 1z landed → 109 NOT CONVERGED 2M+8m+2c
+(swept this commit) → round 110 (convergence test) next.
 
 ## Caveats
 
