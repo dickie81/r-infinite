@@ -13,7 +13,7 @@ this construction "observed"; +0.98% is the Omega_b h^2 deviation
 carried through, an identity DECLARED, not gated) and vs the
 INDEPENDENT BBN-deuterium band eta10 = 6.10 +- 0.20 at +0.38 sigma
 (gated); within the record's own de Sitter horizon (r_H =
-(c/H0)/sqrt(Omega_L) = 5411 Mpc -- NOT exactly the budget sphere,
+(c/H0)/sqrt(Omega_L) = 5411 Mpc -- the r_H volume, NOT the budget sphere,
 whose radius is 5381 Mpc; the 1.0112 entropy ratio gated, round-117
 F1): N_b = 4.9e78, N_gamma = 8.0e87, N_nu = 6.6e87 (9/11); the
 budget hierarchy N_b << N_gamma + N_nu << S_dS = 3.315e122 nats (the
@@ -188,7 +188,6 @@ gate("epoch disclosure: present event horizon = 5152 Mpc; N_b there = 4.3e78 "
 # rho_Lambda ratio identically (both computed independently here)
 S_rH = pi * r_H ** 2 * C_SI ** 3 / (G_SI * HBAR)
 r_exact = sqrt(S_dS * G_SI * HBAR / (pi * C_SI ** 3))
-I_inv = (Om(5) / Om(7)) ** 2 * Om(19) * Om(217)
 rho_ratio = ((2 / pi) * mp.e ** mpf("0.02108")) / (2 * Om_L / (pi - 1))
 gate("round-117 F1: S(r_H)/S_dS = 1.0112 = the closure-vs-Friedmann ratio; "
      "the exact-budget radius = 5381 Mpc (0.56% below r_H)",
@@ -206,14 +205,15 @@ np_ = norm(paper).replace("**", "")
 ok1 = "Baryonic matter is the content directly accessible to the observer on its own" in norm(part5)
 ok1 &= "One unit of content on this boundary corresponds to a fraction" in norm(part5)
 ok1 &= "$T_{\\rm CMB} = 2.642$~K at leading order" in norm(part5)
-gate("part5: the baryon-fraction proof sentence + the T_CMB leading-order line", ok1)
+gate("part5: the baryon-fraction proof sentences + the T_CMB leading-order line", ok1)
 ok2 = "sup **minimizes** the horizon budget" in norm(paper)
 gate("1n(iii)'s budget passage anchored", ok2)
 npp = norm(paper).replace("*", "")
 ok3 = "The fully-committed composite — zero imports beyond the certified" in npp
 ok3 &= "exactly the Ω_b h² deviation carried through — the same comparison re-expressed, an identity declared, not gated" in npp
 ok3 &= "grep-verified uncommitted on all twelve tex surfaces" in npp
-ok3 &= "present densities filling the asymptotic budget volume" in npp
+ok3 &= "present densities filling the asymptotic de Sitter volume" in npp
+ok3 &= "the gated counts are r_H-volume counts, now labeled as such" in npp
 ok3 &= "spliced these into one quotation-marked string that exists nowhere in the source" in npp
 ok3 &= "the sphere carrying exactly the gated budget S_dS has radius 5381 Mpc" in npp
 ok3 &= "the band is an uncommitted-obs recital, disclosed as such" in npp

@@ -9927,8 +9927,9 @@ reproduced; the battery at expected counts) and found:
   struck-and-annotated with the mechanism stated (part5's own
   leading-vs-subleading Ω_m gap); a new gate computes both the
   entropy ratio (= the closure-vs-Friedmann ratio, conjunct at
-  1e-8 — the first draft's 1e-10 failed on dps-30 conversion slop,
-  disclosed) and the exact-budget radius.
+  1e-8 — the first draft's 1e-10 failed on conversion-constant
+  truncation slop (the 10-s.f. HBAR_GEV_S; dps-independent —
+  relabeled on notice, round 118), disclosed) and the exact-budget radius.
 - **F2 (minor):** the verifier docstring still carried F116-3's
   "observed" mislabel, the deleted proportionality gate, and a
   17-gate-era Gates inventory. **Swept:** the claim paragraph and
@@ -9946,6 +9947,37 @@ identity); the other 17 instruments green; validator clean on 12
 files. A201's half-ULP blanket scoped on notice. Trajectory: 1ab
 landed → 116 3M+5m+2c (swept) → 117 NOT CONVERGED 1M+2m+2c (swept
 this commit) → round 118 (convergence test) next.
+
+## Addendum 203: convergence-test round 118 on the round-117 sweep — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the struck identification survived in noun form; swept this commit
+
+Round 118 held every round-117 disposition (the strike's numbers
+reproduced at dps 50; the algebraic identity verified symbolically
+to 2.7e-51 in reduced units; the 1e-8 conjunct adjudicated sound —
+9× the true 1.1e-9 constant-truncation floor, 6 orders below the
+effect; part5's leading-vs-subleading acknowledgment located
+verbatim; both sabotages exit 1) and found:
+
+- **F1 (minor):** the r_H-equals-budget-sphere identification the
+  round-117 strike removed survived in noun form — the frame's
+  "budget geometry" and the bolded epoch phrase "the asymptotic
+  budget volume" (gate-anchored verbatim) — a display-relevant
+  distinction: under the literal budget-sphere referent N_γ and N_ν
+  would shift at 2 s.f. (8.0 → 7.9; 6.6 → 6.4; the budget volume is
+  0.983× the r_H volume). **Swept:** "horizon geometry" and "the
+  asymptotic de Sitter volume," with the display-shift disclosure
+  annotated in place and the counts labeled r_H-volume; the C5
+  anchor updated to the corrected phrase plus the labeling
+  sentence.
+- **F2 (cosmetic):** the sweep's dead I_inv line removed. **F3
+  (cosmetic):** the C5 gate label pluralized ("sentences").
+- A202's "dps-30 conversion slop" mechanism label corrected on
+  notice (the residual is dps-independent — the 10-s.f. HBAR_GEV_S
+  truncation).
+
+**Battery after sweep:** species_census 19/0; the other 17
+instruments green. Trajectory: 1ab landed → 116 3M+5m+2c (swept) →
+117 1M+2m+2c (swept) → 118 NOT CONVERGED 0M+1m+2c (swept this
+commit) → round 119 (convergence test) next.
 
 ## Caveats
 

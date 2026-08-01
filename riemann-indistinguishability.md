@@ -1769,7 +1769,9 @@ band, the ±0.20 covering the nuclear-rate systematic spread — against which t
 cascade sits at **+0.38σ** (gated; round-117 F3: the first sweep wrote "the
 dataset named" while naming only the channel — the band is an uncommitted-obs
 recital, disclosed as such). Within the record's own
-budget geometry — the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc
+horizon geometry *(round-118 F1: the first frame said "budget geometry" —
+the struck identification in noun form; the budget sphere is 0.56% smaller)* —
+the de Sitter horizon r_H = (c/H₀)/√Ω_Λ = 5411 Mpc
 ~~, exactly the S_dS budget sphere's radius~~ **[struck round 117 (F1, MAJOR):
 false at 1.12% — the sphere carrying exactly the gated budget S_dS has radius
 5381 Mpc (0.56% below r_H), because the budget uses the closure's ρ_Λ =
@@ -1781,8 +1783,11 @@ N_γ = 8.0×10⁸⁷ photons, N_ν = 6.6×10⁸⁷ relic neutrinos** (the 9/11 r
 factor — standard thermal history, the 4/11 entropy transfer with the N_eff = 3
 idealization, +1.5% under N_eff = 3.044, within display — round-116 F7; all
 gated). *Epoch disclosure (round-116 F5):* these are **present densities filling
-the asymptotic budget volume** — a budget-referenced convention, the count at no
-single epoch; the present event horizon (5152 Mpc, gated by quadrature) gives
+the asymptotic de Sitter volume** *(round-118 F1: the round-116 phrase said
+"budget volume" — under that literal referent the 2-s.f. displays would shift,
+N_γ 8.0 → 7.9, N_ν 6.6 → 6.4, since the budget sphere's volume is 0.983× the
+r_H volume; the gated counts are r_H-volume counts, now labeled as such)* — a
+horizon-referenced convention, the count at no single epoch; the present event horizon (5152 Mpc, gated by quadrature) gives
 N_b = 4.3×10⁷⁸ (−14%), and the popular "~10⁸⁰" attaches to the larger comoving
 observable volume — three disclosed volume conventions. By charge neutrality the
 census extends to **electrons at zero marginal import beyond the helium mass

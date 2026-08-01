@@ -2317,3 +2317,13 @@ round 117 (convergence test) next.**
 
 **Trajectory: 1ab landed → 116 3M+5m+2c (swept) → 117 NOT CONVERGED
 1M+2m+2c (swept) → round 118 (convergence test) next.**
+
+# Round 118: convergence test on the round-117 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor, 2 cosmetics); the struck identification's noun-form residue; round 119 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F118-1 (minor) — "budget geometry"/"the asymptotic budget volume" carried the struck r_H-equals-budget-sphere identification in noun form (display-relevant: the budget volume is 0.983× the r_H volume) | **Accepted; "horizon geometry" / "the asymptotic de Sitter volume"** with the display-shift disclosure annotated; the counts labeled r_H-volume; the C5 anchor updated | paper + verifier |
+| F118-2/3 (cosmetics) — dead I_inv line; the C5 label singular | **Accepted; swept** | verifier |
+
+**Trajectory: 1ab landed → 116 3M+5m+2c → 117 1M+2m+2c → 118 NOT
+CONVERGED 0M+1m+2c (swept) → round 119 (convergence test) next.**
