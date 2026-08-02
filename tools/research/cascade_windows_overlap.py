@@ -374,7 +374,7 @@ gate("g3 the offset scaling: (lo - 1/2)*aim and (1/2 - hi)*aim in "
      "(1.23, 1.27) at 300/1000/3000 -- the OBSERVED c ~ 1.25 (not "
      "derived)", ok)
 
-print("V2 -- W2: the tiling chain (reach is complete)")
+print("V2 -- W2: the tiling chain (reach complete on the sampled width floor)")
 aims = [20.0 + 0.9 * k for k in range(23)]
 edges = []
 for a in aims:

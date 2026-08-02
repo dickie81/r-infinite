@@ -13420,9 +13420,67 @@ truncation (0.957874; 4-dp rounding 0.9579) — record-file prose,
 corrected here by notice per round 43. Convergence-test round
 163 next, after the (g) probe certifies.
 
-## Caveats
+## Addendum 263: round 163 (convergence test on the round-162 sweep, add317c + b2da999) — **CONVERGED**, 0 MAJORs + 0 minors + 1 cosmetic (applied); Theorem 1an certified stable; the windows-overlap arc closes
 
-- The grammar is one choice; a different atom set changes densities.
+Round 163 (fresh-context subagent, session model) attacked the
+round-162 sweep and returned zero majors, zero minors, one
+cosmetic — convergence under the standing rule. The reviewer's
+own verification: gate 13/0 (twice in-repo plus nine fresh-tree
+baselines) and --full 14/0 with g7f at exactly 216/200/41; the
+FULL sabotage record (a)–(g2) reproduced per-entry, serial,
+abort-safe — (a) with the digit-identical margin −0.0984, (c) at
+its own tree 99e53d4 with the pattern count 0 at HEAD confirming
+the F162-3 forensics, and the (g)-abort precondition (exactly
+two bare-pattern carriers) reproduced; the F162-1 relabel
+verified through the reviewer's OWN full 800×800 interval census
+(not the gate's loops): total occupancy 841, mean exactly
+1 + 41/800 = 1.05125, minimum 1, NO non-adjacent occupancies —
+so the adjacent-only census undercounts nothing and the census
+mean is the true mean; width × density 0.8337 at γ₈₀₀ with the
+crossing at 3364.6 against 2πe^{2π} = 3364.6; the struck clause
+surviving only inside its frame; the three tellings agreeing;
+all four new g10 conjuncts demonstrated fail-capable (g1/g2 from
+the record; the reviewer's own probes X1/X2 on the relabel
+needle and the 162-frame count, 12/1 each); endpoint discipline
+held on every sweep number; the un-swept-print sweep clean; the
+diff-scope closure exact.
+
+**The one cosmetic (F163-1, applied with this record per the
+editorial-batch precedent):** two residual bare "reach is
+complete" heading labels (the paper's W2 heading; the V2 print
+header) — every claim SENTENCE was already scoped; the headings
+now carry "on the sampled width floor". Also applied by notice
+(round 43, the reviewer's out-of-scope note): add317c's
+accidental truncated duplicate of the first Caveats bullet
+removed.
+
+**Trajectory: 1an landed (99e53d4) → 161 NOT CONVERGED 0M+4m+2c
+(swept, 68f4078 + aa2a698) → 162 NOT CONVERGED 0M+3m+1c (swept,
+add317c + b2da999) → 163 CONVERGED 0M+0m+1c (cosmetic applied).
+Certified stable: Theorem 1an — the windows overlap. W1: the
+window width falls from 1.0156 at γ₁ toward exactly 1 (the
+continuation mechanism's 2 × ½), the solves and F-signs
+exact-rational, the below-range dip gated (the sampled
+qualifiers load-bearing), the double-precision cliff disclosed
+and gated in both directions. W2: tiling — reach complete on
+the sampled width floor, one chain gated. W3: the crowding
+census — pairwise disjoint through zero #33 (first overlap
+#34/#35, γ ≈ 111), single-occupancy through #186 (the first
+two-zero window #187), first mutual containment #212/#213
+(γ ≈ 415); under --full, 200 of 799 pairs overlap with 41
+directional containment events and census mean occupancy
+1 + 41/800 ≈ 1.05; the width stays below the mean zero spacing
+until γ ≈ 3.4 × 10³. W4: reach vs resolution — the family
+relocates but cannot concentrate; the RH deficit is RESOLUTION,
+not reach; the wall stands where it stood. The 1aj per-zero
+sentence carries its net-state marker. The standing-open-routes
+list: (v-b), C1, C2, C3; the categorical flag derivation; the
+observer↔4 and charged-termination questions. The battery
+stands at 31 exit-gated instruments; the footer at 64 cited
+scripts, range 1i–1an. Next hostile round on the next
+substantive paper change.**
+
+## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
   the primitives the papers themselves use, which is the fairest available choice.

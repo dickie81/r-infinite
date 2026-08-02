@@ -3095,7 +3095,8 @@ arithmetic — is stably negative. (The gate's first draft pinned a float SIGN F
 clean run showed the flip is itself formulation-dependent noise —
 redesigned pre-commit to gate the noise magnitude and the collapse,
 disclosed.)
-*(iii) Theorem W2 (tiling: reach is complete).* Aims spaced below the
+*(iii) Theorem W2 (tiling: reach is complete on the sampled width
+floor).* Aims spaced below the
 width tile any interval with overlapping windows — gated on a 23-aim
 chain spanning [20, 40], every consecutive pair overlapping, the
 union connected: no height escapes the committed family's

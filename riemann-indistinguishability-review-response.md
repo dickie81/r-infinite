@@ -3298,3 +3298,33 @@ preserved.
 **Trajectory: 1an landed (99e53d4) → 161 NOT CONVERGED 0M+4m+2c
 (swept, 68f4078 + aa2a698) → 162 NOT CONVERGED 0M+3m+1c (swept)
 → the (g) probes, then round 163 (convergence test) next.**
+
+# Round 163: convergence test on the round-162 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, applied); Theorem 1an certified stable; the windows-overlap arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F163-1 (cosmetic) — two residual bare "reach is complete" heading labels (the paper's W2 heading; the V2 print header) while every claim sentence was already scoped | **Accepted; both headings now carry "on the sampled width floor", applied with the convergence record per the editorial-batch precedent** | paper, verifier |
+
+Held: gate 13/0 and --full 14/0 with g7f at 216/200/41; the full
+sabotage record (a)–(g2) reproduced per-entry serially with
+clean baselines — (a) digit-identical, (c) at its own tree with
+the HEAD pattern-count 0 confirming the F162-3 forensics, the
+(g)-abort precondition reproduced; the F162-1 relabel verified
+through the reviewer's own 800×800 interval census (mean exactly
+1 + 41/800 = 1.05125, minimum 1, no non-adjacent occupancies);
+width × density 0.8337 at γ₈₀₀, crossing 3364.6 = 2πe^{2π}; the
+struck clause only inside its frame; the three tellings
+agreeing; all four new g10 conjuncts fail-capable (g1/g2 + the
+reviewer's X1/X2 probes); endpoint discipline; the
+un-swept-print sweep clean; the diff scope exact. Also applied
+by notice (round 43): the accidental duplicate Caveats bullet in
+the audit file removed.
+
+**Trajectory: 1an landed (99e53d4) → 161 0M+4m+2c (swept) → 162
+0M+3m+1c (swept) → 163 CONVERGED 0M+0m+1c. Certified: the
+windows overlap — the width-1 limit with the sampled floor and
+the disclosed precision cliff; tiling on the sampled width
+floor; the crowding census (disjoint through #33,
+single-occupancy through #186, mean occupancy ≈ 1.05); and the
+wall's sharpened deficit — RESOLUTION, not reach. Next hostile
+round on the next substantive paper change.**
