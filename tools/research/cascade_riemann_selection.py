@@ -22,9 +22,9 @@ THE CONTENT (three theorems + honest partials).
   S1 (one equation, three landmarks, unit-spaced exactly).  psi(x) =
       ln(pi) has a single root ON x > 0, x* = 3.6284732024... (psi
       strictly increasing there; domain qualifier round 159 F2), and
-      the extremum conditions of the cascade's
-      Gamma-objects are that ONE equation in three half-unit-shifted
-      arguments: the ball-volume maximum at d = 2x*-2 = 5.2569...,
+      the extremum conditions of the cascade's Gamma-objects are that
+      ONE equation in three half-unit-shifted arguments: the
+      ball-volume maximum at d = 2x*-2 = 5.2569...,
       the sphere-area (Omega_d) maximum = the potential's zero at
       d = 2x*-1 = 6.2569..., and the S^(d-1)-area maximum at
       d = 2x* = 7.2569... -- spaced EXACTLY one layer apart.

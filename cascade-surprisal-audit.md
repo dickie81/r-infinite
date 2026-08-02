@@ -13134,6 +13134,61 @@ of the struck census phrase — repo-wide grep zero outside the
 strike frames). Convergence-test round 160 on this sweep next,
 per the standing rule.
 
+## Addendum 259: round 160 (convergence test on the round-159 sweep, 38385ec) — **CONVERGED**, 0 MAJORs + 0 minors + 1 cosmetic (applied); Theorem 1am certified stable; the selection-from-Riemann arc closes
+
+Round 160 (fresh-context subagent, session model) attacked the
+round-159 sweep and returned zero majors, zero minors, one
+cosmetic — convergence under the standing rule. The reviewer's
+own verification: the live verifier 12/0 with every printed line
+read against the swept state (the un-swept-print class empty);
+the FULL sabotage record (a)–(e) reproduced per-entry on its own
+full-tree copy, including (a)'s corrected 10/2 census and the
+flipped root 13.5531, with clean baselines before and after
+every entry; sweep completeness gated by repo-wide grep at both
+commits (exactly two carriers pre-sweep, survivors only inside
+the strike frames post-sweep, no live paraphrase carrier); the
+ONE-sink retraction content verified true against the record's
+own sink passages; the g6 bridge-route conjuncts recomputed
+independently at dps 50 with the rearrangement nature confirmed
+plainly (ξ′/ξ − poles − ζ′/ζ ≡ p, verified at a generic point)
+and the gate description assessed honest for what it computes
+under the retained no-direction caveat; the F2 negative-branch
+roots reproduced with the paper's −0.3816… a true prefix; the
+strike frames checked against the marking rule (retraction
+explicit, undiluted, not overstated); the three tellings
+consistent; every new conjunct edit-coupled (sabotages d/e plus
+flippability analysis); every printed number a true prefix with
+strict inward brackets.
+
+**The one cosmetic (F160-1, applied with this record per the
+editorial-batch precedent):** the F2 qualifier's minimal-diff
+insertion left a ragged short line in the docstring's S1
+paragraph; reflowed.
+
+**Trajectory: 1am landed (ead25ff) → 159 NOT CONVERGED 1M+2m
+(swept, 38385ec) → 160 CONVERGED 0M+0m+1c (cosmetic applied).
+Certified stable: Theorem 1am — the selection justified from
+Riemann. S1: the cascade's dynamic landmarks are one equation,
+ψ(x) = lnπ (single root on x > 0), read in three
+half-unit-shifted arguments, unit-spaced exactly. S2: the
+flanked point is ζ's pole balance (zeros + primes = poles, by
+the committed bridge identity) — the Amplitude feature AT the
+balance point, the Observer feature at exactly −1 from it, the
++1 flank structure-only. S3: the privileged levels are
+{0, lnΓ(½), Γ(½)} — one constant, Γ at the functional equation's
+half, read on the log scale (the Absolute threshold, label 19)
+and the value scale (the sink threshold, label 217,
+dynamics-excluded), both crossings recomputed through the bridge
+route. Honest partials certified as stated: the Gauge layer 14
+Adams-native by the record's own attribution; the
+feature→integer convention residue retained; the categorical
+flag derivation persists. The standing-open-routes list: (v-b),
+C1 (odd-Δ committed instance or the neutrino formula's
+derivation), C2, C3; the categorical flag derivation; the
+observer↔4 and charged-termination questions. The battery
+stands at 30 exit-gated instruments. Next hostile round on the
+next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

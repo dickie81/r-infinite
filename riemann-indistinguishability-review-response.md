@@ -3212,3 +3212,34 @@ baselines; no residual carrier of the struck phrase.
 
 **Trajectory: 1am landed (ead25ff) → 159 NOT CONVERGED 1M+2m
 (swept) → round 160 (convergence test) next.**
+
+# Round 160: convergence test on the round-159 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, applied); Theorem 1am certified stable; the selection-from-Riemann arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F160-1 (cosmetic) — the F2 qualifier's minimal-diff insertion left a ragged short line in the docstring's S1 paragraph | **Accepted; reflowed, applied with the convergence record per the editorial-batch precedent** | verifier docstring |
+
+Held: live verifier 12/0 with every printed line read (the
+un-swept-print class empty); the full sabotage record (a)–(e)
+reproduced per-entry with clean baselines, including (a)'s
+corrected 10/2; sweep completeness gated by repo-wide grep at
+both commits (survivors only inside the strike frames); the
+ONE-sink retraction verified true; the g6 bridge-route conjuncts
+recomputed at dps 50 with the rearrangement nature stated
+plainly and the gate description assessed honest under the
+retained no-direction caveat; the F2 negative-branch roots
+reproduced (−0.3816… a true prefix); the strike frames per the
+marking rule (explicit, undiluted, not overstated); the three
+tellings consistent; every new conjunct edit-coupled; every
+printed number a true prefix, brackets strict and inward.
+
+**Trajectory: 1am landed (ead25ff) → 159 NOT CONVERGED 1M+2m
+(swept, 38385ec) → 160 CONVERGED 0M+0m+1c (cosmetic applied).
+Certified: the selection justified from Riemann — the one-equation
+unit-spaced ladder (domain-qualified), the pole-balance flank
+(the Amplitude feature AT the balance point, the Observer feature
+at exactly −1), the one-constant Γ(½) threshold ladder with both
+crossings recomputed through the bridge route, and the honest
+partials (Gauge stays Adams-native; the convention residue and
+the categorical flag derivation persist). Next hostile round on
+the next substantive paper change.**
