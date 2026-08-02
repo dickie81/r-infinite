@@ -15,22 +15,28 @@ T1 (count mechanics, exact): a linear short-circuit decision list
   L 2, G 1, default 1).  "No fifth type without a new structural
   element" upgrades to: a fifth type requires a FOURTH FLAG --
   exact, not remark-grade.
-T2 (precedence idleness, NEW): the committed record's realized
+T2 (precedence idleness -- the round-9 vacuity verdict upgraded
+  to a gated theorem; the landing's "NEW" struck round 156 F1,
+  the verdict pre-existing in cascade_precedence_vacuity.py and
+  two paper passages): the committed record's realized
   flag vectors are exactly the four at-most-one-hot vectors
   {TFF, FTF, FFT, FFF}, two observables each (max true flags = 1
   across all eight); ALL 3! = 6 precedence orders classify the
   committed eight identically.  The open P > L > G precedence
-  derivation is NOT load-bearing on the committed record -- idle,
-  exercised only by hypothetical multi-flag observables.
+  derivation is NOT load-bearing on the committed record -- idle;
+  multi-flag vectors occur only under the sibling vacuity
+  instrument's four tested VARIANT readings (13-109 sigma
+  exclusions there, conditional -- scoped round 156 F1).
 T3 (the bijection, with the source side theorem-grade): the four
   types map bijectively onto the four non-sink distinguished
   layers {19, 5, 14, 7}, reproducing all eight committed
   assignments; the SOURCE side's count is theorem-grade -- Part
   0's tower completeness (Gamma-mechanism closed), Adams within
-  the committed scan whose interval is parameterized by
-  Gamma-forced endpoints (part4a's own notation "[5,d_1=19]" --
-  the upper endpoint is the first threshold BY NAME, not a bare
-  number), and the sink exclusion forced by the committed
+  the committed scan whose interval has a Gamma-named UPPER
+  endpoint (part4a's notation "[5,d_1=19]" writes it as the first
+  threshold BY NAME; the lower endpoint is a bare 5 in the
+  committed scan text -- de-pluralized round 156 F3), and the
+  sink exclusion forced by the committed
   dynamics (the 1af arc's constraint-node theorem).
 The residue, named exactly: the categorical flag derivation --
   part4b's own "Does not" item ("derive the three syntactic flags
@@ -85,8 +91,11 @@ requires a FOURTH FLAG" sentence perturbed mid-anchor -> g9
 trips, 11/1, exit 1; (b) one committed flag flipped in the COPY's
 verify_selection_rule.py (theta_C gauge_mediated False -> True)
 -> g1 trips (the two-observables-each census breaks: the flipped
-vector joins the FFT class, making it 3 and emptying FFF to 1),
-11/1, exit 1;
+vector joins the FFT class, making it 3 and emptying FFF to 1)
+AND g4 trips (theta_C reclassifies to Gauge -> source 14 != the
+committed 7, and the committed classifier subprocess itself
+exits 1), 10/2, exit 1 (the landing said 11/1 -- census corrected
+round 156 F2);
 (c) the 1al net-state marker at the 1af weakest-link sentence
 perturbed mid-anchor (sharpens -> narrows) -- DISCLOSED PRE-COMMIT
 CATCH: the first attempt did NOT trip (12/0) because g10's first
@@ -124,6 +133,10 @@ def norm(s):
     return " ".join(s.split())
 
 
+def paper_for_g2():
+    return norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+
+
 print("V1 -- T2: the precedence is idle on the committed record")
 obs = vsr.OBSERVABLES
 vecs = [(o.planck_anchored, o.observer_local, o.gauge_mediated) for o in obs]
@@ -150,9 +163,21 @@ def classify_order(v, order):
 base = [classify_order(v, ("P", "L", "G")) for v in vecs]
 idle = all([classify_order(v, o) for v in vecs] == base
            for o in itertools.permutations("PLG"))
+# round 156 F1: the pre-existing verdict cross-referenced and gated --
+# the sibling vacuity instrument runs green and both paper passages
+# carrying the round-9 verdict are anchored.
+rv = subprocess.run([sys.executable,
+                     os.path.join(ROOT, "tools", "research",
+                                  "cascade_precedence_vacuity.py")],
+                    capture_output=True, text=True)
+idle &= rv.returncode == 0
+idle &= "vacuous on primary readings" in paper_for_g2()
 gate("g2 ALL 6 precedence orders classify the committed eight "
-     "identically -- the open P > L > G derivation is idle on the "
-     "committed record", idle)
+     "identically -- the round-9 vacuity verdict upgraded, not "
+     "discovered (cross-referenced round 156 F1: the sibling "
+     "cascade_precedence_vacuity.py green; the paper's "
+     "vacuous-on-primary-readings passage anchored)", idle,
+     f"vacuity exit {rv.returncode}")
 
 print("V2 -- T1: the count mechanics, exact")
 all8 = list(itertools.product([True, False], repeat=3))

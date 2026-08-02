@@ -12800,6 +12800,80 @@ categorical flag derivation, the observer↔4 and
 charged-termination questions. Trajectory: 1al landed → round 156
 (hostile review, per protocol) spawned on this commit.
 
+## Addendum 254: round 156 (hostile review on d0bc7a3, Theorem 1al) — NOT CONVERGED, 1 MAJOR + 3 minors; the novelty overclaim (the round-9 vacuity verdict pre-existed); swept; round 157 next
+
+Round 156 (fresh-context subagent, session model) attacked the
+1al landing. T1–T3's mathematics held under independent
+re-derivation; the defects were claim hygiene. Four findings, all
+lead-verified and swept:
+
+**F156-1 (MAJOR, accepted):** T2 was presented as "new" — but its
+mathematical content (no committed observable is multi-flag on
+the primary readings, hence all precedence orders agree) is
+exactly the round-9-corrected verdict of the footer-counted
+cascade_precedence_vacuity.py ("vacuous on primary readings"),
+stated twice in this very paper (the front-matter residue list;
+the occupancy-precedence remark) — a novelty overclaim and a
+self-containment defect, with zero cross-reference. Lead-verified
+by running the sibling instrument (exit 0, "=> VACUOUS:
+precedence deletable") and reading both passages. Swept: the
+novelty struck on all carriers ("~~new~~ … the verdict pre-exists
+… T2's additions are provenance — the committed classifier's own
+encoded flags, imported live rather than dash-filled — and
+gating"); the "hypothetical multi-flag observables" clause scoped
+(under the sibling's four tested VARIANT readings the order fires
+for committed observables, 13–109σ exclusions, conditional — the
+record's own standing status); g2 extended to run the sibling
+green and anchor the vacuous-on-primary-readings passage.
+
+**F156-2 (minor, accepted):** the recorded sabotage (b) census
+"11/1" was false — the θ_C flag flip necessarily also trips g4
+(reclassification to Gauge → source 14 ≠ 7; the committed
+classifier subprocess exits 1). Lead-verified: the true result is
+10/2, exit 1 (reproduced on a fresh copy after a first no-op
+attempt whose assert caught a stale pattern — disclosed here).
+Census corrected in the docstring.
+
+**F156-3 (minor, accepted):** "Γ-forced endpoints" (plural)
+overclaimed — the committed scan text writes the upper endpoint
+as d₁ BY NAME but the lower endpoint as a bare 5, never d_V.
+De-pluralized on all carriers, maintaining round 126's
+commitment-vs-forcing distinction.
+
+**F156-4 (minor, accepted):** "a fifth type requires a FOURTH
+FLAG" is format-conditional (a non-linear tree on three flags can
+define up to 2³ classes). Format scope added in T1 and the 1ae
+marker, with the honest note that the tree route is itself a new
+structural element (part4b's original barrier) and dead-ends at
+the same fifth-non-sink-layer wall — the reduction in (v) is
+format-independent.
+
+**Held (reviewer, with evidence):** T1/T2/T3's mathematics under
+independent re-derivation (including the order-dependent
+partition SHAPE confirming order-disagreement occurs only on
+multi-flag vectors); the import's liveness proven by sabotage;
+no vacuous gates (g10's disclosed pre-commit catch empirically
+confirmed — the label count alone still passes the mid-marker
+sabotage); sabotages (a) and (c) as recorded; the sibling anchor
+advances honest and necessary; the footer census 68 = 62 + 4° +
+2 with all 62 body-cited; the reduction's conditional nowhere
+dropped; "one named open lemma" correctly scoped to the
+type-counting step; the Radon–Hurwitz recurrences spot-checked;
+both net-state markers true-when-written; battery, validator,
+hygiene, Checks 7/8 clean.
+
+**Post-sweep record:** verifier 12/0 exit 0 with the extended g2
+(the sibling vacuity instrument green in-process); sabotage (b)
+re-verified at the corrected census (10/2, exit 1) on a fresh
+full-tree copy; clean baselines 12/0; validator clean on 12
+files; hygiene zero. One sweep mishap disclosed: the docstring
+batch's first run aborted on a stale wrapping pattern before
+writing (atomic, nothing lost — the recurring
+abort-before-write class), reapplied with per-sub asserts.
+
+**Trajectory: 1al landed (d0bc7a3) → 156 NOT CONVERGED 1M+3m
+(swept) → round 157 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

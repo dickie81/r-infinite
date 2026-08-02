@@ -2097,7 +2097,8 @@ accounting: *"Removing $d_2=217$ as the Planck sink leaves exactly four
 sources"*); a new structural source mechanism would reopen it, and the
 record's own barrier against that is remark-grade. *Net state (1al):
 the barrier is upgraded — the count mechanics are exact combinatorics
-(a fifth type requires a fourth flag), the precedence is enumerated
+(a fifth type requires a fourth flag within the committed linear
+format — round 156 F4), the precedence is enumerated
 idle, and the remaining remark-grade content is one named open lemma
 (the categorical flag derivation); see Theorem 1al. The sentence was
 true when written.* *Sensitivity disclosure, load-bearing
@@ -2898,9 +2899,11 @@ over the committed lattice w = d + ½).
 commissioned the type-counting remark-to-theorem upgrade — the standing
 "weakest link" of 1ae(iii)'s exhaustiveness chain: part4b's
 remark-level "no fifth source *type*". Result: the link does not
-close; it SHARPENS — the count mechanics become exact combinatorics, a
-new enumerated theorem shows the open precedence carries no load on
-the committed record, the source side is confirmed theorem-grade, and
+close; it SHARPENS — the count mechanics become exact combinatorics,
+the standing round-9 precedence-vacuity verdict is upgraded to a gated
+theorem on the committed classifier's own flags (novelty claim
+corrected round 156 F1 — the landing called this "new"), the source
+side is confirmed theorem-grade, and
 the remaining remark-grade content contracts to ONE named open lemma.
 *(ii) Theorem T1 (the count mechanics, exact).* The committed decision
 procedure is a linear short-circuit list on three binary flags
@@ -2909,17 +2912,32 @@ procedure is a linear short-circuit list on three binary flags
 four types, and the 2³ = 8 possible flag vectors partition 4+2+1+1
 (P subsumes four, L two, G one, default one — gated). The remark's
 "no fifth type is definable without introducing a new structural
-element" upgrades to exact combinatorics: a fifth type requires a
-FOURTH FLAG. *(iii) Theorem T2 (the precedence is idle on the
-committed record — new).* The committed record's eight observables
+element" upgrades to exact combinatorics: within the committed linear
+short-circuit format, a fifth type requires a
+FOURTH FLAG (format scope added round 156 F4 — a non-linear tree on
+the same three flags could define up to 2³ classes, but a tree split
+is itself a new structural element, part4b's original barrier, and any
+fifth type still needs a fifth non-sink source layer, so the reduction
+in (v) is format-independent). *(iii) Theorem T2 (the precedence is idle on the
+committed record — ~~new~~ [struck round 156 F1, false-when-written as
+a novelty claim: the verdict pre-exists in this paper —
+`cascade_precedence_vacuity.py`'s round-9-corrected "vacuous on
+primary readings", stated in the front-matter residue list and the
+occupancy-precedence remark; T2's additions are provenance (the
+committed classifier's own encoded flags, imported live rather than
+dash-filled from the table) and gating]).* The committed record's eight observables
 (imported from the committed classifier,
 `tools/verifiers/verify_selection_rule.py`) realize exactly the four
 at-most-one-hot flag vectors {TFF, FTF, FFT, FFF}, two observables
 each — no committed observable carries two true flags. Consequently
 ALL 3! = 6 precedence orders classify the committed eight identically
 (enumerated, gated): the open P > L > G precedence derivation is idle
-on the committed record — exercised only by hypothetical multi-flag
-observables, load-bearing nowhere in the committed table. (The
+on the committed record — exercised only by multi-flag vectors, none
+committed on the primary readings (under the four tested VARIANT
+readings the sibling vacuity instrument shows the order firing for
+committed observables, with alternative orders excluded at 13–109σ —
+the conditional anchoring the record already carries; scoped round 156
+F1), load-bearing nowhere in the committed table. (The
 round-137 form/value class of finding, here working FOR the record:
 an open convention shown not to bear load.) *(iv) Theorem T3 (the
 bijection, with the source side theorem-grade).* The four types map
@@ -2928,9 +2946,11 @@ bijectively onto the four non-sink distinguished layers
 with the committed classifier run green). The SOURCE side's count is
 theorem-grade: Part 0's tower completeness closes the Γ-mechanism
 (*"exactly four distinguished dimensions … No fifth exists"*); the
-committed Adams scan's interval is parameterized by Γ-forced endpoints
-— part4a's own notation *"[5,d_1=19]"* names the upper endpoint AS the
-first threshold, not as a bare number; and the sink exclusion is
+committed Adams scan's interval has a Γ-named UPPER endpoint —
+part4a's own notation *"[5,d_1=19]"* writes it AS the first threshold,
+not as a bare number (the lower endpoint is a bare 5 in the committed
+scan text, not d_V — de-pluralized round 156 F3, maintaining round
+126's commitment-vs-forcing distinction); and the sink exclusion is
 forced by the committed dynamics (the 1af constraint-node theorem).
 *(v) The residue, named exactly.* What remains remark-grade is
 precisely part4b's own "Does not" item: *"derive the three syntactic

@@ -3117,3 +3117,25 @@ STABLE — exponent, committed inputs, index, and narrative all at
 the committed convention; the tower script, the gated audit,
 part4a's prose, and part4b's leading census agree end to end.
 Next hostile round on the next substantive paper change.**
+
+# Round 156: hostile review on commit d0bc7a3 (Theorem 1al) — NOT CONVERGED (1 MAJOR, 3 minors); the novelty overclaim; round 157 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F156-1 (MAJOR) — T2 presented as "new" while its content is the round-9-corrected vacuity verdict of the footer-counted cascade_precedence_vacuity.py, stated twice in this paper, uncited | **Accepted; the novelty struck on all carriers (T2's additions honestly stated: live-import provenance + gating); the hypothetical clause scoped to the sibling's conditional variant-reading channel (13–109σ); g2 extended to run the sibling green and anchor the vacuity passage** | paper + verifier |
+| F156-2 (minor) — the sabotage (b) census "11/1" false; the flip also trips g4 | **Accepted; corrected to 10/2 and re-verified on a fresh copy** | verifier |
+| F156-3 (minor) — "Γ-forced endpoints" plural; only the upper endpoint is Γ-named in the committed scan text | **Accepted; de-pluralized on all carriers** | paper + verifier |
+| F156-4 (minor) — "a fifth type requires a FOURTH FLAG" format-conditional | **Accepted; format scope added in T1 and the 1ae marker, with the tree route noted as dead-ending at the same fifth-layer wall (the reduction format-independent)** | paper |
+
+Held: T1/T2/T3's mathematics under independent re-derivation; the
+import liveness; no vacuous gates; sabotages (a)/(c); the sibling
+advances; the footer census; the reduction's conditional; the
+lemma's scope; the markers; battery; validator; hygiene; Checks
+7/8.
+
+Post-sweep: verifier 12/0 with the extended g2; sabotage (b)
+re-verified at 10/2; clean baselines; validator clean; hygiene
+zero.
+
+**Trajectory: 1al landed (d0bc7a3) → 156 NOT CONVERGED 1M+3m
+(swept) → round 157 (convergence test) next.**
