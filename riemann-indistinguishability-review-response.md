@@ -3069,3 +3069,28 @@ displacement's constant real part −¼; the detachment threshold
 exactly ¼ with frozen denominators). Unification only; no RH
 content in either direction. Next hostile round on the next
 substantive paper change.**
+
+# Round 154: hostile review on commit ee979b5 (the 2√π repair) — NOT CONVERGED (1 MAJOR, 2 minors, 2 cosmetics); the input-scale mismatch; round 155 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F154-1 (MAJOR) — the residuals (564 vs 543; 534 vs 511 keV) attributed to "the formula's leading-order precision" on three surfaces + A250; the true cause was the script's OBSERVED input scales (0.1179, 246.0) vs the committed formula inputs (0.1159, 240.8 — part4b's "where" clause; the gated audit's own inputs); the diagnostic ratio 1.0392 matches the gap to 99.8% | **Accepted; the committed inputs installed with full disclosure; the false attribution struck-and-annotated on the paper marker and A250; the REPAIR note and step-2 parenthetical rewritten (m_e +0.60%; 542.7 within 1 eV; 0.191 eV; 28.5 μeV); the gate extended to anchor the committed inputs (input-revert sabotage trips 18/1)** | script + paper + verifier + A250 |
+| F154-2 (minor) — step 3's d = 213 row used the list index (n_D = 15 vs the true 26), a (2√π)^11 internal contradiction — the by-catch class in another caller | **Accepted; n_D = (d − 5)//8, disclosed; step 3 now matches step 1** | script |
+| F154-3 (minor) — step 3's narrative ("tens of meV"/"tens of micro-eV") off ~10³–10⁴ against the script's own table since creation | **Accepted; corrected with disclosure (28.5 μeV; 2.1 neV)** | script |
+| F154-4 (cosmetic) — GAP-1's "~0.04 meV" | **Accepted; "~0.03 meV"** | script |
+| F154-5 (cosmetic) — "exactly" for a one-sig-fig match | **Accepted; retired for the rounding statement** | script |
+
+Held: the exponent repair's arithmetic and uniformity (every
+table row recomputed at 30 dps); old values as history only; the
+sibling script unaffected; the paper's single hunk; the sabotage
+reproduction; battery, validator, hygiene; A250's assessment
+numbers verified against reality with no relation claim leaked
+onto any object surface; Checks 7/8.
+
+Post-sweep: tower script exit 0 (committed-input table; step-3
+d = 213 consistent); participation_rule 19/0; the input-revert
+sabotage 18/1 with clean baselines; validator clean; hygiene
+zero.
+
+**Trajectory: repair landed (ee979b5) → 154 NOT CONVERGED
+1M+2m+2c (swept) → round 155 (convergence test) next.**

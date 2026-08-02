@@ -112,11 +112,15 @@ ago).  The by-catch adjudicated (reviewer-supplied, lead-verified):
 part4a's prose is correct; the tower script drops one 2 sqrt(pi)
 factor and self-contradicts at its d=29 row (1999 eV vs the
 committed 543 eV) -- repair left to a future commit.  NET STATE
-(A250): the repair is APPLIED -- the tower script's exponent is
-now (n_D + 2), its table matches the prose (0.199 eV, 29.6
-microeV; d=29 row 564 eV at leading order), and the by-catch gate
-below keeps the pre-repair ratios as recorded history while
-anchoring the repair at source.
+(A250, amended round 154 F1): the repair is APPLIED -- the tower
+script's exponent is now (n_D + 2) AND its inputs are the
+committed ones (alpha_s = 0.1159, v = 240.8; the A250 sweep had
+left observed scales and misattributed the residuals to formula
+precision).  Its table now reads 0.191 eV / 28.5 microeV (prose
+0.2 / 30 at one significant figure), d=29 row 542.7 eV (within
+1 eV of 543), m_e +0.60%.  The by-catch gate below keeps the
+pre-repair ratios as recorded history while anchoring the repair
+at source.
 """
 import math
 import os
@@ -287,12 +291,18 @@ tower_src = open(os.path.join(ROOT, "tools", "research",
                  encoding="utf-8").read()
 ok &= "TWOSQRTPI ** (-(n_D + 2))" in tower_src
 ok &= "REPAIR (the round-124 by-catch" in tower_src
+# round 154 F1: the committed INPUTS anchored too -- the A250 sweep
+# had left observed scales (0.1179, 246.0) in the script.
+ok &= "ALPHA_S = 0.1159" in tower_src and "V_GEV = 240.8" in tower_src
 ok &= ("Net state, A250: the repair is applied — the tower script's "
        "exponent is now (n_D + 2)" in paper)
+ok &= ("its table reads 0.191 eV at d = 37 (prose 0.2) and 28.5 μeV at "
+       "d = 45 (prose 30)" in paper)
 gate("the by-catch: both HISTORICAL prose-vs-table ratios within 5% of "
-     "2√π (recorded history), the paper flag anchored; AND the A250 "
-     "repair anchored at source (the (n_D + 2) exponent + the REPAIR "
-     "note) with the paper's net-state marker",
+     "2√π (recorded history), the paper flag anchored; AND the repair "
+     "anchored at source (the (n_D + 2) exponent + the REPAIR note + "
+     "the COMMITTED inputs, round 154 F1) with the paper's amended "
+     "net-state marker",
      ok, f"{r1:.3f}, {r2:.3f} vs {tsp:.3f}")
 
 n_pass, n_fail = sum(results), len(results) - sum(results)

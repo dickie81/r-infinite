@@ -2025,9 +2025,18 @@ the tower script drops one (2√π) factor and its own d=29 row prints
 1999 eV against the committed 543 eV, an internal contradiction in an
 analysis-grade script, left to a future repair commit.)* *(Net state,
 A250: the repair is applied — the tower script's exponent is now
-(n_D + 2); its table matches part4a's prose (0.199 eV at d = 37,
+(n_D + 2); ~~its table matches part4a's prose (0.199 eV at d = 37,
 29.6 μeV at d = 45) and its d = 29 row prints 564 eV against the
-committed 543, the formula's leading-order precision; the pre-repair
+committed 543, the formula's leading-order precision~~ [struck round
+154 F1, false-when-written attribution: those were OBSERVED-input
+values (α_s = 0.1179, v = 246.0), and the 3.9–4.5% residuals were the
+input-scale mismatch, not formula precision — the committed formula
+inputs are α_s = 0.1159, v = 240.8 (part4b's own "where" clause, the
+same inputs the gated neutrino-mass audit runs); the script now runs
+the committed inputs, at which] its table reads 0.191 eV at d = 37
+(prose 0.2) and 28.5 μeV at d = 45 (prose 30), its d = 29 row prints
+542.7 eV against the committed 543 (within 1 eV), and m_e lands at
++0.60% — part4b's documented leading-order precision; the pre-repair
 values quoted above are recorded history. The flag was true when
 written.)*
 No number changes; category (a) plus one stated candidate criterion.

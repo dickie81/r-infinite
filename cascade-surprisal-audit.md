@@ -12566,11 +12566,18 @@ closed the standing item and produced the assessment below.
 cascade_bott_tower_beyond_29.py's mass formula used the exponent
 (2√π)^−(n_D+1), dropping one factor of 2√π against the committed
 convention. Lead-verified before the fix: the corrected exponent
-(n_D + 2) simultaneously reproduces m_e at d = 21 (534 keV vs
+(n_D + 2) simultaneously reproduces ~~m_e at d = 21 (534 keV vs
 511 — the formula's leading-order precision), the committed
 543 eV at d = 29 (564), and part4a's prose tower exactly
-(0.199 eV at d = 37; 29.6 μeV at d = 45) — a uniform one-factor
-fix, exactly as adjudicated. Surfaces: the script's exponent +
+(0.199 eV at d = 37; 29.6 μeV at d = 45)~~ [struck round 154 F1,
+false-when-written attribution: those were OBSERVED-input values
+and the residuals were the input-scale mismatch (α_s = 0.1179,
+v = 246.0 vs the committed 0.1159, 240.8); at the committed
+inputs — installed by the round-154 sweep — the formula gives
+m_e = 514.07 keV (+0.60%, part4b's documented precision),
+m₂₉ = 542.7 eV (within 1 eV of 543), 0.191 eV, 28.5 μeV] the
+committed values at part4b's documented precision — a uniform
+one-factor fix, exactly as adjudicated. Surfaces: the script's exponent +
 REPAIR docstring note (and a tightened step-2 parenthetical that
 had called 1768 and 543 "consistent" — the accurate arithmetic
 now printed); the paper's by-catch flag carries its net-state
@@ -12617,6 +12624,72 @@ green; validator clean on 12 files; hygiene zero. Trajectory:
 repair landed → round 154 (hostile review, per protocol) spawned
 on this commit. The standing-open-routes list shortens: the
 tower-script 2√π repair is CLOSED.
+
+## Addendum 251: round 154 (hostile review on ee979b5, the 2√π repair) — NOT CONVERGED, 1 MAJOR + 2 minors + 2 cosmetics; the input-scale mismatch behind the misattributed residuals; swept; round 155 next
+
+Round 154 (fresh-context subagent, session model) attacked the
+repair. Its arithmetic and uniformity held; the sabotage anchor
+bit; the sibling script proved unaffected (it hardcodes the
+committed 543, no formula reimplementation). Five findings, all
+lead-verified and swept:
+
+**F154-1 (MAJOR, accepted):** the repair's three surfaces (paper
+marker, REPAIR note, step-2 parenthetical) and A250 attributed
+the remaining 3.9–4.5% residuals (564 vs 543; 534 vs 511 keV) to
+"the formula's leading-order precision" — a false causal
+attribution. The residuals were an INPUT-SCALE mismatch: the
+script ran observed scales (α_s = 0.1179, v = 246.0) while the
+committed formula inputs are α_s = 0.1159, v = 240.8 (part4b's
+own "where" clause; the same inputs the gated
+neutrino_mass_audit runs 4/0 on), and 0.1179 is moreover part4b's
+closure OUTPUT, not a formula input. Lead-verified: at the
+committed inputs the formula gives m_e = 514.07 keV (+0.60% —
+part4b's documented precision), m₂₉ = 542.73 eV (within 1 eV of
+543), 0.191 eV at d = 37, 28.5 μeV at d = 45; the reviewer's
+diagnostic ratio (0.1179·246.0)/(0.1159·240.8) = 1.0392 matches
+the d = 29 gap to 99.8%. Swept: the committed inputs installed in
+the script with the full disclosure; the false attribution
+struck-and-annotated on the paper marker and A250; the REPAIR
+note and step-2 parenthetical rewritten with accurate numbers;
+the participation-rule gate extended to anchor the committed
+inputs at source (the input-revert sabotage trips it, 18/1,
+exit 1).
+
+**F154-2 (minor, accepted):** step 3's d = 213 row used the list
+index (n_D = 15) instead of the layer index (26), printing a mass
+(2√π)^11 above step 1's own row — the same internal-contradiction
+class the repair closed at d = 29, in another caller. Fixed:
+n_D = (d − 5)//8, disclosed in place; step 3's d = 213 now
+matches step 1 (3.138e-124 eV both).
+
+**F154-3 (minor, accepted):** step 3's narrative lines ("By d=45,
+m ~ tens of meV"; "By d=53, m ~ tens of micro-eV") were off by
+~10³–10⁴ against the script's own table under either convention,
+since creation. Corrected with the disclosure in place (28.5 μeV;
+2.1 neV).
+
+**F154-4/5 (cosmetics, accepted):** GAP-1's "~0.04 meV" → "~0.03
+meV"; the REPAIR note's "exactly" retired for "at the prose's
+one-significant-figure rounding".
+
+**Held (reviewer, with evidence):** the exponent repair's
+arithmetic and uniformity (every visible table row recomputed
+independently at 30 dps); the old values as history only; the
+step-2 arithmetic; the sibling unaffected; the paper's single
+hunk with the three theorem spans and footer untouched; the
+sabotage reproduction; the battery, validator, hygiene; A250's
+assessment numbers (p(d) = √π at 217.6267086; 2πe^{2√π} =
+217.6274744; Γ_R(1) = 1) all verified against reality; NO
+relation claim leaked onto any object surface; Checks 7/8 clean.
+
+**Post-sweep record:** tower script exit 0 with the
+committed-input table (514.1 keV, 542.7 eV, 0.191 eV, 28.5 μeV;
+step-3 d = 213 consistent); participation_rule 19/0 with the
+extended gate; the input-revert sabotage 18/1 with clean 19/0
+baselines; validator clean on 12 files; hygiene zero.
+
+**Trajectory: repair landed (ee979b5) → 154 NOT CONVERGED
+1M+2m+2c (swept) → round 155 (convergence test) next.**
 
 ## Caveats
 
