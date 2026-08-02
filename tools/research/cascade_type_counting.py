@@ -198,7 +198,10 @@ gate("g2 ALL 6 precedence orders classify the committed eight "
      "round 157 F3: the sibling cascade_precedence_vacuity.py green; "
      "BOTH pre-existing carriers anchored distinctly -- the remark "
      "phrase counted >= 2, the front-matter wording separate)", idle,
-     f"vacuity exit {rv.returncode}")
+     f"vacuity exit {rv.returncode}, remark-count "
+     f"{_pg2.count('vacuous on primary readings')}, front-matter "
+     f"{'ok' if 'vacuous on the papers' in _pg2 else 'MISSING'} "
+     "(detail widened round 158 F1)")
 
 print("V2 -- T1: the count mechanics, exact")
 all8 = list(itertools.product([True, False], repeat=3))

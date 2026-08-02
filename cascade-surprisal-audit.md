@@ -12934,6 +12934,55 @@ clean on 12 files; hygiene zero.
 → 157 NOT CONVERGED 1M+3m+1c (swept) → round 158 (convergence
 test) next.**
 
+## Addendum 256: round 158 (convergence test on the round-157 sweep) — **CONVERGED**, 0 MAJORs + 0 minors + 1 cosmetic (applied); Theorem 1al certified stable; the type-counting arc closes
+
+Round 158 (fresh-context subagent, session model) attacked the
+round-157 sweep (f1dc3b9) and returned zero majors, zero minors,
+one cosmetic — convergence under the standing rule. The
+reviewer's own verification: every printed line of a live run
+read with the residual-novelty and residual-plural hunts clean;
+the count ≥ 2 logic verified independently (exactly 2 carriers;
+sabotages (d)/(e) reproduced; the strike-frame-alone mangle also
+trips — assessed as surprising-but-defensible and correct, quote
+integrity being the paraphrase-drift class the campaign gates;
+the two-edit add-then-delete residual assessed and held as the
+suite-wide baseline the count ≥ 2 condition strictly improves
+on); ALL FIVE sabotage-record entries (a)–(e) reproduced
+per-entry including (b)'s corrected 10/2 census; the three
+tellings read side by side with no residual divergence; the
+paper verified untouched this round; siblings, validator,
+hygiene, footer, Checks 7/8 all clean; A255 accurate.
+
+**The one cosmetic (F158-1, applied with this record per the
+editorial-batch precedent):** g2's FAIL detail named only the
+subprocess conjunct ("vacuity exit 0" printing even when an
+anchor conjunct was the failure); the detail widened to print
+the remark-count and front-matter status.
+
+**Trajectory: 1al landed (d0bc7a3) → 156 NOT CONVERGED 1M+3m
+(swept, 8b52e7d) → 157 NOT CONVERGED 1M+3m+1c (swept, f1dc3b9) →
+158 CONVERGED 0M+0m+1c (cosmetic applied). Certified stable:
+Theorem 1al — the type-counting close upgraded to its exact
+residue. T1: within the committed linear short-circuit format a
+fifth type requires a fourth flag (k+1 classes, enumerated;
+tree-splits are themselves new structural elements and dead-end
+at the same fifth-layer wall — the reduction format-independent).
+T2: the round-9 precedence-vacuity verdict upgraded to a gated
+theorem on the committed classifier's live-imported flags — no
+committed observable is multi-flag on the primary readings, all
+six precedence orders agree; the P > L > G derivation stays
+open-but-idle. T3: the type→source bijection reproduces all
+eight committed assignments with the source side theorem-grade.
+The residue: the categorical flag derivation (part4b's own
+Does-not item), with the fourth-flag question reduced to the
+fifth-non-sink-layer question under the committed flag↔layer
+correspondence. The standing-open-routes list: (v-b), C1 (odd-Δ
+committed instance or the neutrino formula's derivation), C2,
+C3; the categorical flag derivation (the sharpened type-counting
+residue); the observer↔4 and charged-termination questions. The
+battery stands at 29 exit-gated instruments. Next hostile round
+on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

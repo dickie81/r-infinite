@@ -3162,3 +3162,27 @@ baselines; validator clean; hygiene zero.
 **Trajectory: 1al landed (d0bc7a3) → 156 1M+3m (swept, 8b52e7d)
 → 157 NOT CONVERGED 1M+3m+1c (swept) → round 158 (convergence
 test) next.**
+
+# Round 158: convergence test on the round-157 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, applied); Theorem 1al certified stable; the type-counting arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F158-1 (cosmetic) — g2's FAIL detail named only the subprocess conjunct, pointing at the passing half under anchor failures | **Accepted; the detail widened (remark-count + front-matter status), applied with the convergence record per the editorial-batch precedent** | verifier |
+
+Held: every printed line of a live run with the residual hunts
+clean; the count ≥ 2 logic independently verified (the
+strike-frame-alone trip assessed defensible — quote integrity is
+the paraphrase-drift class; the two-edit residual held as the
+suite-wide baseline the condition strictly improves on); all
+five sabotage entries reproduced per-entry including the
+corrected 10/2; the three tellings one story; the paper
+untouched; siblings, validator, hygiene, footer, Checks 7/8;
+A255 accurate.
+
+**Trajectory: 1al landed → 156 1M+3m → 157 1M+3m+1c → 158
+CONVERGED 0M+0m+1c. Certified: the type-counting close upgraded
+to its exact residue — the fourth-flag combinatorics
+(format-scoped), the round-9 vacuity verdict gated as a theorem,
+the bijection with the source side theorem-grade, and the
+residue named (the categorical flag derivation). Next hostile
+round on the next substantive paper change.**
