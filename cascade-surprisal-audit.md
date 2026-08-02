@@ -13358,7 +13358,71 @@ certified censuses are appended to the sabotage record in a
 follow-up commit before convergence round 162 is spawned, and no
 census for (d)/(e)/(f) is claimed here.
 
+*(Follow-up, aa2a698: the (d)/(e)/(f) suite certified — 12/1
+exit 1 each, g8/g10/g1 respectively, clean baselines 13/0
+throughout; the deferral closed.)*
+
+## Addendum 262: round 162 (convergence test on the round-161 sweep) — NOT CONVERGED: 0 MAJORs + 3 minors + 1 cosmetic, all in the sweep itself; swept
+
+Round 162 ran the verifier (13/0), --full (14/0, 216/200/41),
+and the FULL sabotage suite: (a), (b), (d), (e), (f) reproduced
+on the swept tree — (a)'s min margin −0.0984 digit-identical —
+and (c) correctly reproduced on its own tree (the landing
+99e53d4), its pattern's absence on the swept tree being exactly
+what the record's "at the landing" framing states. It recomputed
+the sweep's numbers through its own implementations (the four
+rational F signs; width(1) = 0.9209675; the (4.1, 4.5) crossing;
+γ₁'s effective constants 1.178902/0.957874; the census firsts
+and the 41 directional events; width×density 0.8337 at
+γ₈₀₀ = 1183.71 with the crossing at 2πe^{2π} ≈ 3364.5). Zero
+majors. Four findings, each verified directly by the lead
+(Check 3):
+
+**F162-1 minor (accepted; swept):** the round-161 replacement
+clause "mean occupancy stays below 1 across the gated range"
+mislabeled width × density (an UNAIMED interval's expected
+count) as the aimed windows' occupancy — an aimed window
+contains its own zero (the gated aim-containment; every zero
+height is far above the ¼ threshold), so occupancy ≥ 1
+identically and the census mean is 1 + 41/800 = 1.05125
+(lead-verified by direct arithmetic against the reviewer's
+1.0513). Swept: the clause struck on the paper carrier
+(false-when-written under the sentence's own count sense) and
+replaced with the width-vs-spacing statement + the honest census
+mean; relabeled on the docstring and READING tellings; g10
+anchors the corrected content and the round-162 strike frame.
+
+**F162-2 minor (accepted; swept):** the docstring's own W2
+paragraph had kept the bare tiling universal while the file's
+round-161 sweep note claimed F3 swept — a three-tellings drift
+inside the file being edited. Swept: the paragraph scoped, with
+the catch disclosed in place.
+
+**F162-3 minor (accepted; swept):** the round-161 marker rewrite
+destroyed the landing's sabotage-(c) raw pattern, silently
+uncoupling the marker's disjointness clause — the reviewer's
+probe mangled its #33 and NOTHING tripped (13/0), on exactly the
+numeral F161-1 was about. Swept: g10 anchors the clause
+("stay pairwise disjoint through zero #33 — first overlap
+#34/#35"); the trip probe (g) — the reviewer's own probe redone
+— certified in the follow-up commit before round 163 spawns.
+
+**F162-4 cosmetic (applied):** the residual compressed
+"exact-rational" labels (the paper W1 heading; the V1 print
+header) expanded to "exact-rational solves" — the un-swept-print
+lineage (round 157) treated with priority despite cosmetic
+grade.
+
+**Post-sweep:** verifier 13/0 exit 0 with the new anchors live
+(F1 frames 3, 162 frame 1); the docstring VERIFICATION summaries
+for g1/g8 extended; A261's "0.9578" noted by the reviewer as a
+truncation (0.957874; 4-dp rounding 0.9579) — record-file prose,
+corrected here by notice per round 43. Convergence-test round
+163 next, after the (g) probe certifies.
+
 ## Caveats
+
+- The grammar is one choice; a different atom set changes densities.
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
   the primitives the papers themselves use, which is the fairest available choice.

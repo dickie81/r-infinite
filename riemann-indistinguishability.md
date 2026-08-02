@@ -3063,7 +3063,7 @@ single-occupancy through #186** [struck round 161 F1: what ends at
 #33 is window DISJOINTNESS — every window through #186 still holds
 exactly one zero, its own]), and the wall's coordinates sharpen —
 the RH deficit is RESOLUTION, not reach. *(ii) Theorem W1 (the width limit,
-exact-rational).* For the committed instance (d = 4, 5, 6 — the 1aj
+exact-rational solves).* For the committed instance (d = 4, 5, 6 — the 1aj
 solve), the window width lo + hi decreases monotonically on the
 sampled aim spread from 1.0156… at γ₁ toward EXACTLY 1 — the
 continuation mechanism's own 2 × ½ — gated at aims γ₁, 300, 1000,
@@ -3120,9 +3120,17 @@ per-window occupancy is width × density → ln(γ/2π)/2π
 bound: ~~the probe is per-zero through #33 and per-cluster beyond~~
 **the windows are pairwise disjoint through #33, single-occupancy
 through #186 — the first two-zero window is #187, the theorem's own
-first containment — and mean occupancy stays below 1 across the
+first containment — ~~and mean occupancy stays below 1 across the
 gated range (≈ 0.83 at γ ≈ 1184), crossing 1 only near
-γ ≈ 3.4 × 10³, outside it** [struck round 161 F1,
+γ ≈ 3.4 × 10³, outside it~~ [struck round 162 F1,
+false-when-written under the sentence's own count sense: an aimed
+window contains its own zero, so its occupancy is ≥ 1 identically —
+the quantity that stays below 1 is width × density, an UNAIMED
+interval's expected count] and the window width stays below the
+mean zero spacing across the gated range (width × density ≈ 0.83
+at γ ≈ 1184, reaching 1 only near γ ≈ 3.4 × 10³, outside it), so
+second occupants are atypical: the census mean occupancy of the
+aimed windows is 1 + 41/800 ≈ 1.05** [struck round 161 F1,
 false-when-written: the transition was pinned to the wrong
 threshold — overlap-onset (#34), not occupancy-onset (#187); the
 probe semantics is a single-window property, and a window that

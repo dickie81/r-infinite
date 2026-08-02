@@ -3274,3 +3274,27 @@ audited); the four sibling advances green; Checks 7/8 clean.
 **Trajectory: 1an landed (99e53d4) → 161 NOT CONVERGED 0M+4m+2c
 (swept) → the new-conjunct trip suite, then round 162
 (convergence test) next.**
+
+# Round 162: convergence test on the round-161 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 3 minors + 1 cosmetic, all in the sweep itself; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F162-1 (minor) — the round-161 clause "mean occupancy stays below 1" mislabeled width × density as the aimed windows' occupancy, which is ≥ 1 identically (census mean 1 + 41/800 ≈ 1.05) | **Accepted; lead-verified by direct arithmetic; struck on the paper carrier, relabeled on all three tellings; g10 anchors the corrected content + the round-162 strike frame** | paper, verifier ×2, g10 |
+| F162-2 (minor) — the docstring's own W2 paragraph kept the bare tiling universal while the file's sweep note claimed F3 swept | **Accepted; the paragraph scoped with the catch disclosed in place** | verifier docstring |
+| F162-3 (minor) — the round-161 marker rewrite destroyed the landing's sabotage-(c) pattern, uncoupling the marker's disjointness #33 (the reviewer's probe tripped nothing) | **Accepted; g10 anchors the marker's clause AND the W3 body's same numeral (a second uncoupled carrier caught at the probe's own count assert); trip probes (g1)/(g2) certified in the follow-up** | verifier g10 |
+| F162-4 (cosmetic) — residual compressed "exact-rational" labels (paper W1 heading; V1 print header) | **Applied ("exact-rational solves")** | paper, verifier |
+
+Held (reviewer, spot-verified by the lead): verifier 13/0 and
+--full 14/0; sabotages (a)/(b)/(d)/(e)/(f) reproduced on the
+swept tree with (a)'s margin digit-identical, and (c) reproduced
+at its own tree (the landing) per the record's framing; the four
+rational F signs, the dip brackets, γ₁'s effective constants,
+and the census firsts all recomputed through the reviewer's own
+implementations; sweep completeness on every needle (struck
+phrases only inside frames); the marking rule held on all three
+F161-1 frames; the 1aj marker's superseded-true discipline
+preserved.
+
+**Trajectory: 1an landed (99e53d4) → 161 NOT CONVERGED 0M+4m+2c
+(swept, 68f4078 + aa2a698) → 162 NOT CONVERGED 0M+3m+1c (swept)
+→ the (g) probes, then round 163 (convergence test) next.**

@@ -24,6 +24,22 @@ reviewer's held note, verified and gated: the width floor FAILS
 below the sampled range (width(1) ~ 0.921; crossing 1 in (4.1,
 4.5)) -- the sampled qualifiers are load-bearing (g8 extended).
 
+ROUND-162 SWEEP (the convergence test on the round-161 sweep; 0
+majors, 3 minors + 1 cosmetic, all verified by the lead and swept):
+F1 -- the round-161 clause "mean occupancy stays below 1" mislabeled
+width x density (an unaimed interval's expected count) as the aimed
+windows' occupancy, which is >= 1 identically with census mean
+1 + 41/800 ~ 1.05; struck on the paper carrier, relabeled on all
+three tellings.  F2 -- this docstring's own W2 paragraph had kept
+the bare tiling universal while the file's sweep note claimed F3
+swept; scoped.  F3 -- the marker rewrite had destroyed the
+landing's sabotage-(c) pattern, uncoupling the marker's
+disjointness clause (the reviewer's probe tripped nothing); g10
+anchors it now, with the trip probe (g) recorded in the sabotage
+record below once certified.  F4 (cosmetic) -- the residual
+compressed "exact-rational" labels on the paper W1 heading and the
+V1 print header expanded to "exact-rational solves".
+
   W1 (the width limit, exact-rational solves).  For the committed three-term
       instance (d = 4, 5, 6 -- the 1aj solve, kernels at w = d+1/2),
       the window width lo + hi decreases monotonically on the sampled
@@ -48,11 +64,16 @@ below the sampled range (width(1) ~ 0.921; crossing 1 in (4.1,
       pre-commit to gate the noise magnitude and the collapse,
       disclosed.  Any future gate probing aims above ~10^3 must use
       the exact-rational route.
-  W2 (tiling: reach is complete).  Aims spaced below the width tile
-      any interval with overlapping windows -- gated on a 23-aim
-      chain spanning [20, 40]: every consecutive pair overlaps and
-      the union is connected, covering [20, 40].  No height escapes
-      the committed family's sensitivity.
+  W2 (tiling: reach is complete on the sampled width floor).  Aims
+      spaced below the width tile any interval with overlapping
+      windows -- gated on a 23-aim chain spanning [20, 40]: every
+      consecutive pair overlaps and the union is connected,
+      covering [20, 40].  No height escapes the committed family's
+      sensitivity -- the universal resting on the SAMPLED width
+      floor, one chain gated (round 161 F3; this paragraph's own
+      scope was the round-162 F2 catch -- the file's sweep note
+      claimed F3 swept while this telling still carried the bare
+      universal).
   W3 (the crowding census; "first" claims gated over zeros 1-240
       recomputed live; the 800-zero extension under --full).
       Per-zero windows (each aimed at its own zero) are pairwise
@@ -69,9 +90,14 @@ below the sampled range (width(1) ~ 0.921; crossing 1 in (4.1,
       occupancy is width x density -> ln(gamma/2pi)/2pi
       (Riemann-von Mangoldt, classical input) -- growing without
       bound: pairwise disjoint through #33, SINGLE-OCCUPANCY
-      through #186 (the first two-zero window is #187; mean
-      occupancy ~ 0.83 at gamma ~ 1184, crossing 1 only near
-      gamma ~ 3.4e3, outside the gated range).  [Round 161 F1: the
+      through #186 (the first two-zero window is #187; the window
+      width stays below the mean zero spacing -- width x density
+      ~ 0.83 at gamma ~ 1184, reaching 1 only near gamma ~ 3.4e3 --
+      so second occupants are atypical; the census mean occupancy
+      of the AIMED windows is 1 + 41/800 ~ 1.05, never below 1,
+      each window containing its own zero -- relabeled round 162
+      F1: the round-161 sweep called width x density "mean
+      occupancy").  [Round 161 F1: the
       first wording, "per-zero through #33, per-cluster beyond",
       pinned the transition to overlap-onset; the probe semantics
       is a single-window property and the correct threshold is
@@ -99,7 +125,8 @@ lattice w = d+1/2 and classical zeros; no hypothesis input).
 VERIFICATION (13 gates, exit-gated; --full extends the census).
   V1 -- g1 the width limit (exact-rational Cramer solve; widths at
        gamma_1/300/1000/3000 bracketed, strictly decreasing, > 1;
-       F(aim) < 0 at all four); g2 the precision cliff (the float64
+       F(aim) < 0 at all four, the sign decided in PURE Fraction
+       arithmetic -- round 161 F2); g2 the precision cliff (the float64
        value at 3000 is noise: |float - exact| > 50x the exact
        magnitude; the float64 window at 1000 collapses: width off
        by > 0.5 from the exact, or fails to bracket); g3 the offset
@@ -122,7 +149,9 @@ VERIFICATION (13 gates, exit-gated; --full extends the census).
        240 -- the classical density the asymptotic occupancy
        formula multiplies).
   V4 -- g8 the resolution floor (width > 1 at every sampled aim --
-       "sampled" is the claim's scope); g9 the 1aj committed-window
+       "sampled" is the claim's scope; plus the below-range dip
+       gated, width(1) in (0.920, 0.922) and the crossing of 1
+       inside (4.1, 4.5) -- round 161); g9 the 1aj committed-window
        tie (at aim gamma_1 the boundary function is negative at
        both committed inward endpoints 13.5514 / 14.5669 and
        positive just outside both, matching 1aj's gated window).
@@ -243,7 +272,7 @@ def reaches(aim):
 
 GAMMA1 = 14.134725
 
-print("V1 -- W1: the width limit (exact-rational) and the precision cliff")
+print("V1 -- W1: the width limit (exact-rational solves) and the precision cliff")
 widths, Fs = {}, {}
 ok = True
 for a in (GAMMA1, 300.0, 1000.0, 3000.0):
@@ -495,11 +524,28 @@ ok &= paper.count("struck round 161 F1") == 3
 ok &= "the lower reach exceeds ½ and captures first" in paper
 ok &= paper.count("net-state, Theorem 1an") == 1
 ok &= "single-occupancy through #186, a window first holding a second zero at #187" in paper
+# round 162 F3: the marker rewrite had destroyed the landing's
+# sabotage-(c) pattern, leaving the marker's DISJOINTNESS clause
+# uncoupled (the reviewer's probe mangled its #33 with no trip).
+# Anchor it; and anchor the round-162 F1 relabel by content.
+ok &= ("stay pairwise disjoint through zero #33 — first overlap "
+       "#34/#35" in paper)
+# the same numeral in the W3 body is anchored too (the F162-3
+# class applies to every carrier of it, caught at the (g) probe's
+# abort: the pattern matched two instances)
+ok &= ("are pairwise disjoint through zero #33; the first overlap "
+       "is #34/#35" in paper)
+ok &= ("the census mean occupancy of the aimed windows is "
+       "1 + 41/800" in paper)
+ok &= paper.count("struck round 162 F1") == 1
 gate("g10 1an's key sentences + the 1aj net-state marker anchored by "
      "content (the deficit's name; relocate-not-concentrate; the "
      "CORRECTED disjointness/occupancy thresholds + three F1 strike "
-     "frames -- round 161; the one-sided capture; the marker)", ok,
-     f"F1 frames {paper.count('struck round 161 F1')}")
+     "frames -- round 161; the marker's disjointness clause + the "
+     "occupancy relabel + its strike frame -- round 162; the "
+     "one-sided capture; the marker)", ok,
+     f"F1 frames {paper.count('struck round 161 F1')}, "
+     f"162 frame {paper.count('struck round 162 F1')}")
 
 ok = ("no numerical advance over classical zero-verification is "
       "claimed or implied" in paper)
@@ -553,8 +599,11 @@ print("containment #186/#187 (the lower reach captures first); first")
 print("mutual containment #212/#213 (gamma ~ 415); under --full, 200")
 print("of 799 pairs overlap by gamma ~ 1184 with 41 DIRECTIONAL")
 print("containment events (a mutual pair contributes two -- round 161")
-print("F4); mean occupancy ~ 0.83 at gamma ~ 1184, crossing 1 only")
-print("near gamma ~ 3.4e3, outside the gated range; positivity")
+print("F4); the window width stays below the mean zero spacing --")
+print("width x density ~ 0.83 at gamma ~ 1184, reaching 1 only near")
+print("gamma ~ 3.4e3 -- so second occupants are atypical, the census")
+print("mean occupancy of the aimed windows being 1 + 41/800 ~ 1.05,")
+print("never below 1 (relabeled round 162 F1); positivity")
 print("unchanged by sharing.  W4: the family relocates but cannot")
 print("concentrate -- coverage is complete on the sampled scope while")
 print("the width floor stays above 1 at every sampled aim >= gamma_1")
