@@ -3047,3 +3047,25 @@ baselines.
 **Trajectory: 1ak landed (cec9246) → 151 0M+4m+3c (swept,
 420f690) → 152 NOT CONVERGED 0M+1m (swept) → round 153
 (convergence test) next.**
+
+# Round 153: convergence test on the round-152 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1ak certified stable; the quarter-square arc closes
+
+Zero findings. The reviewer traced the g7 repair
+conjunct-by-conjunct to live computations (both sign-flip
+directions verified tripping); ran a third-pass tautology hunt
+across all twelve gates finding no cannot-fail conjunct;
+reproduced ALL SEVEN sabotage-record entries exactly as written
+(the g5 magnitude to the digit); diff-verified the paper
+undisturbed; ran both Weil siblings green; counted the footer
+independently (67 = 61 + 4° + 2); battery, validator, hygiene,
+Checks 7/8 all clean; A248 accurate.
+
+**Trajectory: 1ak landed → 151 0M+4m+3c → 152 0M+1m → 153
+CONVERGED 0+0+0. Certified: the quarter-square — one scale
+behind five constants (the parabola vertex = the pole's image;
+ξ's pole-cancelling polynomial up to ½ = the lattice anchors =
+the squared half-shift minus the quarter-square; the
+displacement's constant real part −¼; the detachment threshold
+exactly ¼ with frozen denominators). Unification only; no RH
+content in either direction. Next hostile round on the next
+substantive paper change.**

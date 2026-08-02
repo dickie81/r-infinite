@@ -12511,6 +12511,51 @@ full-tree copy trips 11/1 with clean 12/0 baselines around it.
 420f690) → 152 NOT CONVERGED 0M+1m (swept) → round 153
 (convergence test) next.**
 
+## Addendum 249: round 153 (convergence test on the round-152 sweep) — **CONVERGED**, zero findings; Theorem 1ak certified stable; the quarter-square arc closes
+
+Round 153 (fresh-context subagent, session model) attacked the
+round-152 sweep (db1abe7) and returned zero findings — zero
+majors, zero minors, zero cosmetics. The reviewer's own
+verification: the g7 repair traced conjunct-by-conjunct to live
+computations, with the comment's "either sign flip trips" claim
+verified in BOTH directions; a third-pass tautology hunt across
+all twelve gates finding no cannot-fail conjunct anywhere; ALL
+SEVEN sabotage-record entries reproduced empirically, each
+tripping exactly the recorded gate (including the g5 magnitude
+1.1e-3 to the digit, and with the reviewer disclosing its own
+first single-line sed no-op on the hard-wrapped a' anchor, caught
+and redone); the paper diff-verified undisturbed; both Weil
+siblings green; the footer arithmetic independently counted
+(67 = 61 + 4° + 2, including the capital-letter filenames a
+lowercase grep drops); battery, validator, hygiene, Checks 7/8
+clean; A248 accurate.
+
+**Trajectory: 1ak landed (cec9246) → 151 NOT CONVERGED 0M+4m+3c
+(swept, 420f690) → 152 NOT CONVERGED 0M+1m (swept, db1abe7) →
+153 CONVERGED 0+0+0. Certified stable: Theorem 1ak — the
+quarter-square, one scale behind five constants. Under the
+squared-shift map the critical line is the negative real ray,
+the strip's boundary the parabola with vertex ¼ = the image of
+ζ's pole and its mirror; the pole's image is +¼ in the v-plane
+and −¼ in the height plane, where it IS the displacement
+constant; ξ's pole-cancelling polynomial (up to the constant ½)
+is every lattice kernel's anchor, the squared half-shift minus
+the quarter-square, with the denominator factoring exactly over
+adjacent squared layers; and the round-147 detachment threshold
+is exactly ¼ with frozen denominators — the observed 0.24357 = ¼
+minus the family-specific denominator-variation correction.
+Unification only: four previously-recorded constants plus the
+vertex exhibited here; no new RH content in either direction.
+The Weil arc now stands at three certified theorems (1ai the
+route mapped; 1aj the route traveled, regraded and re-certified;
+1ak the quarter-square) with 44 exit-gated gates across the
+three instruments. Standing open routes across the campaign:
+(v-b), C1 (odd-Δ committed instance or the neutrino formula's
+derivation), C2, C3; the type-counting remark-to-theorem
+upgrade; the tower-script 2√π repair; the observer↔4 and
+charged-termination questions. Next hostile round on the next
+substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
