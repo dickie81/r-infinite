@@ -12874,6 +12874,66 @@ abort-before-write class), reapplied with per-sub asserts.
 **Trajectory: 1al landed (d0bc7a3) → 156 NOT CONVERGED 1M+3m
 (swept) → round 157 (convergence test) next.**
 
+## Addendum 255: round 157 (convergence test on the round-156 sweep) — NOT CONVERGED, 1 MAJOR + 3 minors + 1 cosmetic; the un-swept-print class again (the READING block) and the shadowed anchor; swept; round 158 next
+
+Round 157 (fresh-context subagent, session model) attacked the
+round-156 sweep. The paper-side strikes and scopes, the corrected
+sabotage census, and the g2 subprocess all held; the failures
+were the third telling and the anchor's scope. Five findings, all
+lead-verified and swept:
+
+**F157-1 (MAJOR, accepted):** the verifier's printed READING
+block still asserted "T2 (new)" on every live run — the exact
+novelty claim round 156 graded MAJOR and the sweep claimed
+"struck on all carriers". The un-swept-print class recurring
+(the recorded lesson — a sweep must check the edited file's own
+printed output — violated once more; re-recorded with this
+instance). Swept: the READING line rewritten with the resweep
+disclosed in-line.
+
+**F157-2 (minor, accepted):** the READING's "Gamma-forced
+endpoints" plural likewise survived F156-3's de-pluralization.
+Swept in the same resweep, disclosed in-line.
+
+**F157-3 (minor, accepted):** g2's comment claimed "both paper
+passages … anchored" while the code anchored ONE needle —
+satisfiable by 1al's own strike-frame quote (the
+self-satisfying-anchor class): the reviewer demonstrated the
+occupancy remark's body could be deleted without a trip. Swept:
+both pre-existing carriers now gated distinctly — the remark
+phrase COUNTED ≥ 2 (the strike frame's self-quote alone cannot
+satisfy) and the front-matter residue list's distinct wording
+("vacuous on the papers' uniform expression-tree flag readings")
+anchored separately; the comment and gate label corrected; both
+new sabotages ((d) the remark body vacuous→inert; (e) the
+front-matter wording) trip 11/1 with clean baselines.
+
+**F157-4 (minor, accepted):** the docstring's and READING's
+fourth-flag sentences lacked F156-4's format scope. Scoped in
+both, disclosed.
+
+**F157-5 (cosmetic, accepted):** the docstring's gates-census g2
+entry described the pre-extension gate; brought current.
+
+**Held (reviewer, with evidence):** the F156-2 census correction
+verified at exactly 10/2 on a fresh copy; g9's anchor surviving
+the F156-4 edit with the sabotage tripping; g10's anchors
+surviving the 1ae-marker amendment; the g2 subprocess half live
+(a sys.exit(1) plant trips it); the strike quotes accurate
+against d0bc7a3; the provenance claim accurate (the sibling
+hard-codes its table; 1al imports live); the paper spans
+untouched beyond the four sweep hunks; the footer census; the
+battery; the validator; hygiene; Checks 7/8; A254 accurate
+except its "all carriers" claims (charged at the object surface).
+
+**Post-sweep record:** verifier 12/0 exit 0; sabotages (d) and
+(e) trip 11/1 with clean 12/0 baselines around each; validator
+clean on 12 files; hygiene zero.
+
+**Trajectory: 1al landed (d0bc7a3) → 156 1M+3m (swept, 8b52e7d)
+→ 157 NOT CONVERGED 1M+3m+1c (swept) → round 158 (convergence
+test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

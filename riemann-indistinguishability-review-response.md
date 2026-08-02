@@ -3139,3 +3139,26 @@ zero.
 
 **Trajectory: 1al landed (d0bc7a3) → 156 NOT CONVERGED 1M+3m
 (swept) → round 157 (convergence test) next.**
+
+# Round 157: convergence test on the round-156 sweep (subagent, per protocol) — NOT CONVERGED (1 MAJOR, 3 minors, 1 cosmetic); the un-swept READING and the shadowed anchor; round 158 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F157-1 (MAJOR) — the READING block still printed "T2 (new)" — the struck novelty live in every run; the un-swept-print class recurring | **Accepted; the READING line rewritten with the resweep disclosed in-line; the lesson re-recorded** | verifier |
+| F157-2 (minor) — the READING's "Gamma-forced endpoints" plural survived F156-3 | **Accepted; de-pluralized in the same resweep** | verifier |
+| F157-3 (minor) — g2's "both passages anchored" comment vs one shadowable needle (the strike frame's self-quote could satisfy it with both carriers gone) | **Accepted; both carriers gated distinctly (remark phrase counted ≥ 2; the front-matter wording anchored separately); comment and label corrected; sabotages (d)/(e) trip 11/1** | verifier |
+| F157-4 (minor) — the docstring/READING fourth-flag sentences lacked the format scope | **Accepted; scoped in both** | verifier |
+| F157-5 (cosmetic) — the gates-census g2 entry pre-extension | **Accepted; brought current** | verifier |
+
+Held: the F156-2 census at exactly 10/2; g9/g10 anchors surviving
+the sweep edits with sabotages tripping; the g2 subprocess live;
+strike quotes accurate; the provenance claim accurate (the
+sibling hard-codes, 1al imports live); paper spans untouched;
+footer; battery; validator; hygiene; Checks 7/8.
+
+Post-sweep: verifier 12/0; sabotages (d)/(e) 11/1 with clean
+baselines; validator clean; hygiene zero.
+
+**Trajectory: 1al landed (d0bc7a3) → 156 1M+3m (swept, 8b52e7d)
+→ 157 NOT CONVERGED 1M+3m+1c (swept) → round 158 (convergence
+test) next.**

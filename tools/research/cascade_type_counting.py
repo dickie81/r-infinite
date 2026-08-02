@@ -13,8 +13,11 @@ T1 (count mechanics, exact): a linear short-circuit decision list
   for k = 1..6); with the committed k = 3, exactly four types, and
   the 8 possible flag vectors partition 4+2+1+1 (P subsumes 4,
   L 2, G 1, default 1).  "No fifth type without a new structural
-  element" upgrades to: a fifth type requires a FOURTH FLAG --
-  exact, not remark-grade.
+  element" upgrades to: within the committed linear short-circuit
+  format, a fifth type requires a FOURTH FLAG -- exact, not
+  remark-grade (format scope round 156 F4; a tree split is itself
+  a new structural element and dead-ends at the same
+  fifth-layer wall).
 T2 (precedence idleness -- the round-9 vacuity verdict upgraded
   to a gated theorem; the landing's "NEW" struck round 156 F1,
   the verdict pre-existing in cascade_precedence_vacuity.py and
@@ -60,7 +63,11 @@ Gates (twelve):
        verifier (tools/verifiers/verify_selection_rule.py):
        realized vectors exactly the four at-most-one-hot, two
        observables each, max true flags 1; g2 all 6 precedence
-       orders classify the committed eight identically.
+       orders classify the committed eight identically, PLUS (round
+       156 F1, scope fixed round 157 F3) the sibling
+       cascade_precedence_vacuity.py subprocess green and both
+       pre-existing paper carriers anchored distinctly (the remark
+       phrase counted >= 2; the front-matter wording separate).
   V2 (T1) -- g3 the 8 flag vectors partition 4+2+1+1 into exactly
        4 classes; k-flag linear lists give k+1 classes for
        k = 1..6.
@@ -101,7 +108,13 @@ perturbed mid-anchor (sharpens -> narrows) -- DISCLOSED PRE-COMMIT
 CATCH: the first attempt did NOT trip (12/0) because g10's first
 draft counted the marker labels only (the count-only-gate class);
 content anchors were added and the redone sabotage trips g10,
-11/1, exit 1.  Clean baselines
+11/1, exit 1.  At the round-157 sweep (the READING resweep + the
+g2 anchor-scope fix): (d) the occupancy remark's body phrase
+mangled (vacuous -> inert) -> g2 trips, 11/1, exit 1 -- the
+strike frame's self-quote alone no longer satisfies (the count
+>= 2 condition, the round-157 F3 fix biting); (e) the
+front-matter residue wording mangled -> g2 trips, 11/1, exit 1.
+Clean baselines
 12/0 exit 0 before and after each.  Twelve gates (count checked
 against the gate() census pre-commit; the count defect's history
 noted).
@@ -163,20 +176,28 @@ def classify_order(v, order):
 base = [classify_order(v, ("P", "L", "G")) for v in vecs]
 idle = all([classify_order(v, o) for v in vecs] == base
            for o in itertools.permutations("PLG"))
-# round 156 F1: the pre-existing verdict cross-referenced and gated --
-# the sibling vacuity instrument runs green and both paper passages
-# carrying the round-9 verdict are anchored.
+# round 156 F1: the pre-existing verdict cross-referenced and gated.
+# Round 157 F3: the first draft anchored ONE needle satisfiable by
+# 1al's own strike-frame quote (the self-satisfying-anchor class);
+# now BOTH pre-existing carriers are gated distinctly -- the
+# occupancy remark's phrase counted >= 2 (the strike frame's
+# self-quote alone cannot satisfy it) and the front-matter residue
+# list's distinct wording anchored separately.
 rv = subprocess.run([sys.executable,
                      os.path.join(ROOT, "tools", "research",
                                   "cascade_precedence_vacuity.py")],
                     capture_output=True, text=True)
 idle &= rv.returncode == 0
-idle &= "vacuous on primary readings" in paper_for_g2()
+_pg2 = paper_for_g2()
+idle &= _pg2.count("vacuous on primary readings") >= 2
+idle &= ("vacuous on the papers' uniform expression-tree flag readings"
+         in _pg2)
 gate("g2 ALL 6 precedence orders classify the committed eight "
      "identically -- the round-9 vacuity verdict upgraded, not "
-     "discovered (cross-referenced round 156 F1: the sibling "
-     "cascade_precedence_vacuity.py green; the paper's "
-     "vacuous-on-primary-readings passage anchored)", idle,
+     "discovered (cross-referenced round 156 F1; anchor scope fixed "
+     "round 157 F3: the sibling cascade_precedence_vacuity.py green; "
+     "BOTH pre-existing carriers anchored distinctly -- the remark "
+     "phrase counted >= 2, the front-matter wording separate)", idle,
      f"vacuity exit {rv.returncode}")
 
 print("V2 -- T1: the count mechanics, exact")
@@ -282,14 +303,18 @@ print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")
 print("READING: the type-counting close, upgraded to its exact residue.")
 print("T1: a linear short-circuit list on k flags has k+1 types (k=1..6")
 print("enumerated); committed k=3 -> exactly four; the 8 vectors")
-print("partition 4+2+1+1 -- a fifth type requires a fourth flag,")
-print("exactly.  T2 (new): the committed record realizes only the four")
+print("partition 4+2+1+1 -- a fifth type requires a fourth flag")
+print("within the committed linear format (scoped round 156 F4).")
+print("T2 (the round-9 vacuity verdict upgraded to a gated theorem --")
+print("novelty struck round 156 F1; READING resweep round 157 F1, the")
+print("un-swept-print class): the committed record realizes only the four")
 print("at-most-one-hot vectors (two observables each), so ALL six")
 print("precedence orders agree on the committed eight -- the open")
 print("P > L > G derivation carries no load on the committed record.")
 print("T3: the type->source bijection reproduces all eight committed")
 print("assignments, and the SOURCE side is theorem-grade (tower")
-print("completeness; the Adams scan with Gamma-forced endpoints; the")
+print("completeness; the Adams scan with its Gamma-named UPPER endpoint")
+print("(de-pluralized round 156 F3, READING resweep round 157 F2); the")
 print("sink exclusion forced by dynamics).  The residue, named: the")
 print("categorical flag derivation (part4b's own Does-not item) --")
 print("under the committed flag<->layer correspondence the fourth-flag")
