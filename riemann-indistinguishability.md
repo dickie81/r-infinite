@@ -2795,6 +2795,65 @@ clean (the continuation identity is classical Fourier bookkeeping);
 Check 8 clean (the aimed instance's coefficients solve a 3×3 linear
 system over the committed w's; no hypothesis input).
 
+**Theorem 1ak (the quarter-square: one scale behind five constants;
+`cascade_quarter_square.py`).** *(i) The commission.* The owner
+commissioned exploring the ¼ = (½)² connection observed at the
+continuation threshold ("Explore the squared half-shift ¼ = (½)²
+connection"). Result: five separately-recorded constants of the
+traveled route — the strip's u-plane vertex, ξ's prefactor, the
+lattice kernels' anchors, the boundary-read displacement, and the
+detachment threshold's leading order — are the SAME quarter-square,
+by exact algebra: the functional equation's half-shift, squared by
+the u = z² change of variable. Unification only; no data; no RH
+content in either direction. *(ii) Theorem Q1 (the parabola and its
+vertex).* Under v = (ρ − ½)² the critical line maps to the negative
+real ray (v = −γ²) and the strip's boundary β ∈ {0, 1} maps to the
+parabola Re v = ¼ − (Im v)²; both real corners of the strip — s = 1
+(ζ's pole) and s = 0 (its functional-equation mirror) — map to the
+parabola's VERTEX v = ¼ (exact, gated). The quarter-square is the
+pole's u-plane image. *(iii) Theorem Q2 (the prefactor is the
+anchor).* The R2′ factorization constant a = s(s−1) — every lattice
+kernel's u-space anchor — is exactly ξ's own prefactor (the bridge's
+source: *mpf("0.5") \* s \* (s − 1)*, anchored), and equals w² − ¼
+at the committed half-shift w = d + ½: each lattice site's anchor is
+its squared half-shift MINUS the quarter-square (exact for every
+d ∈ [1, 217], gated as rationals; arithmetically a = d(d+1), the
+product of adjacent layer indices). The boundary kernel's
+denominator factors EXACTLY: (u + a)² + u = (u + s²)(u + (s−1)²) —
+each committed kernel is anchored by the adjacent squared layers
+−d², −(d+1)², with the on-line kernel's single pole −(d+½)²
+interlaced between them (gated for every d). *(iv) Theorem Q3 (the
+displacement).* In u-space the ±i/2 continuation (1aj's g20
+mechanism) is the displacement u ↦ u − ¼ ± i√u: the strip-boundary
+read is the line read displaced by a CONSTANT real quarter-square
+plus a height-proportional imaginary part (identity gated at machine
+precision). The real displacement never varies — it is −¼ at every
+height. *(v) Theorem Q4 (the threshold's leading order is exactly
+¼).* At an aimed instance's tangency the displaced double-zero
+factor is (−¼ ± iγ₀)², with real part 1/16 − γ₀² — positive below
+γ₀ = ¼, negative above. So: with the denominators frozen at the
+tangency, the detachment threshold is EXACTLY ¼ (algebra exact in
+rationals; the frozen root-find lands on 0.25 within 1e-9, gated);
+the observed 0.24357 is ¼ minus the denominator-variation correction
+0.00643 (root-found, gated). The round-147 threshold is the
+quarter-square to leading order — the pole's u-plane image (Q1)
+reappearing as the height below which the constant real displacement
+dominates the squared tangency factor. *(vi) What this is and is
+not.* Unification, exact: one scale — (½)², the functional
+equation's half-shift squared — organizes the strip's geometry (the
+vertex), the completed zeta's algebra (the prefactor), the committed
+family's anchors (a = w² − ¼), the mechanism's displacement (real
+part −¼), and the detachment threshold (leading order ¼). It adds no
+new RH content in either direction. *Honest scope:* Q1–Q3 are exact
+identities (gated as rationals and at machine precision); Q4's
+frozen-denominator statement is exact, and the full threshold's
+deficit is numeric (root-found, gated). Category (a) — no data, no
+closures, no RH/GRH. Check 7 clean (change of variable, partial
+fractions, root-finding — classical bookkeeping; a = d(d+1) is
+stated as arithmetic and no spectral procedure is invoked); Check 8
+clean (no hypothesis input — every identity is classical algebra
+over the committed lattice w = d + ½).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -3329,4 +3388,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1aj: the **60 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ak: the **61 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

@@ -663,11 +663,14 @@ ok &= "the other edge is blind, by theorem" in paper
 gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
      "the wall with the PAIRWISE scope; the relocatable windows; the "
      "per-zero probe; R2'; the no-role-of-the-action)", ok)
+# 1ak landing: the footer census advanced (60 -> 61; range -> 1ak);
+# the anchors updated with disclosure -- the census-evolution class,
+# same as the 1ai sibling exclusion at the 1aj landing.
 ok = "`cascade_weil_route_traveled.py`" in paper
-ok &= "60 scripts cited in place" in paper
-ok &= "Theorems 1i–1aj" in paper
-gate("g18 the footer census: the new script backticked; 60 cited in "
-     "place; the theorem range 1i–1aj", ok)
+ok &= "61 scripts cited in place" in paper
+ok &= "Theorems 1i–1ak" in paper
+gate("g18 the footer census (advanced at the 1ak landing, disclosed): "
+     "this script backticked; 61 cited in place; the range 1i–1ak", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (22 gates)")

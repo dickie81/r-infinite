@@ -12328,6 +12328,65 @@ remark-to-theorem upgrade; the tower-script 2√π repair; the
 observer↔4 and charged-termination questions. Next hostile round
 on the next substantive paper change.**
 
+## Addendum 246: Theorem 1ak — the quarter-square (owner-commissioned): one scale behind five constants, exact
+
+The owner commissioned exploring the ¼ = (½)² connection
+("Explore the squared half-shift ¼ = (½)² connection"). Result: a
+pure unification theorem — five separately-recorded constants of
+the traveled route are the SAME quarter-square, by exact algebra,
+the functional equation's half-shift squared under the u = z²
+change of variable. All lead-verified before landing:
+
+- **Q1 (the parabola):** under v = (ρ−½)² the critical line maps
+  to the negative real ray and the strip's boundary to the
+  parabola Re v = ¼ − (Im v)²; BOTH real corners — s = 1 (ζ's
+  pole) and s = 0 (its mirror) — map to the vertex ¼. The
+  quarter-square is the pole's u-plane image.
+- **Q2 (the prefactor is the anchor):** the R2′ constant
+  a = s(s−1) is exactly ξ's prefactor (the bridge's source
+  anchored) and equals w² − ¼ at the committed half-shift — every
+  lattice anchor is its squared half-shift minus the
+  quarter-square (exact rationals, all d ∈ [1, 217]); the
+  boundary denominator factors EXACTLY as (u+s²)(u+(s−1)²) — each
+  kernel anchored by the adjacent squared layers with the on-line
+  pole −(d+½)² interlaced.
+- **Q3 (the displacement):** the ±i/2 continuation in u-space is
+  u ↦ u − ¼ ± i√u — the boundary read is the line read displaced
+  by a CONSTANT real quarter-square (identity at 6.9e-18).
+- **Q4 (the threshold's leading order):** the displaced tangency
+  factor (−¼ ± iγ₀)² has real part 1/16 − γ₀², so with frozen
+  denominators the round-147 detachment threshold is EXACTLY ¼
+  (frozen root-find 0.2500000000); the observed 0.24357424 is ¼
+  minus the denominator-variation correction 0.00642576.
+
+Unification only: no new RH content in either direction; no data;
+no closures. Check 7 clean (change of variable, partial
+fractions, root-finding; a = d(d+1) stated as arithmetic — the
+product of adjacent layer indices — with no spectral procedure
+invoked); Check 8 clean (classical algebra over the committed
+lattice).
+
+**Surfaces:** Theorem 1ak in the paper (after the 1aj span,
+before the Door-3 remark); footer 60 → 61 ("1i–1aj" → "1i–1ak"),
+verified against the FOOTER TEXT (67 backticked = 61 + 4° + 2
+audited); the 1aj verifier's g18 footer anchors advanced with
+disclosure (the census-evolution class, per the 1ai-sibling
+precedent). The new instrument contains none of the 1ai census
+terms (grep zero), so the 1ai V1 exclusion list is unchanged.
+**Verifier:** cascade_quarter_square.py, V1–V5, 12 gates, 12/0
+(first run); g10's 1aj anchors LOCATIONAL (pre-1ak span) per the
+self-satisfying-gate lesson. Three sabotages on a full-tree
+copy: (a) the frozen-threshold key sentence mid-anchor
+(EXACTLY → ROUGHLY) → g11, 11/1, exit 1; (b) the displacement
+constant −0.25 → −0.30 in the copy → g5 trips at 1.1e-3, 11/1,
+exit 1; (c) the frozen-threshold construction's displacement
+perturbed → g8, 11/1, exit 1. Clean baselines 12/0 before and
+after each. **Battery:** all 28 instruments green (the 27 +
+quarter_square), zero FAIL lines; both Weil siblings re-run
+green (1aj 22/0 with the advanced g18; 1ai 10/0); validator
+clean on 12 files; hygiene zero. Trajectory: 1ak landed → round
+151 (hostile review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
