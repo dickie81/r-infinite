@@ -35,8 +35,10 @@ the bare tiling universal while the file's sweep note claimed F3
 swept; scoped.  F3 -- the marker rewrite had destroyed the
 landing's sabotage-(c) pattern, uncoupling the marker's
 disjointness clause (the reviewer's probe tripped nothing); g10
-anchors it now, with the trip probe (g) recorded in the sabotage
-record below once certified.  F4 (cosmetic) -- the residual
+anchors it now -- BOTH carriers of the numeral, the probe's own
+count assert having exposed the W3 body as a second uncoupled
+instance -- with the trip probes (g1)/(g2) certified in the
+sabotage record below.  F4 (cosmetic) -- the residual
 compressed "exact-rational" labels on the paper W1 heading and the
 V1 print header expanded to "exact-rational solves".
 
@@ -190,7 +192,15 @@ width(10) > 1) -> g8 trips, 12/1, exit 1; (e) the 1aj marker's
 occupancy content mangled (#186 -> #196) -> g10 trips, 12/1,
 exit 1; (f) a rational-sign aim flipped below the continuation
 threshold (Fr(300) -> Fr(1,10), where F(aim) > 0) -> g1 trips,
-12/1, exit 1.  Clean baselines 13/0 exit 0 before and after
+12/1, exit 1.  At the round-162 sweep (serial, fresh tree,
+abort-safe): the first (g) attempt ABORTED at its own count
+assert -- the pattern "pairwise disjoint through zero #33"
+matches TWO carriers (the marker AND the W3 body), exposing a
+second uncoupled instance of the F162-3 class; both were then
+anchored in g10 and probed separately with newline-unique
+patterns: (g1) the marker's #33 -> #43 -> g10 trips, 12/1,
+exit 1; (g2) the W3 body's #33 -> #43 -> g10 trips, 12/1,
+exit 1.  Clean baselines 13/0 exit 0 before and after
 every entry.  Thirteen gates (count checked against the gate()
 census pre-commit).
 """
