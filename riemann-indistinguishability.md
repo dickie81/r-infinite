@@ -2807,11 +2807,14 @@ classical facts, not cascade structure), while the instance becomes
 a genuine per-zero sensitivity probe: a hypothetical off-line zero
 inside the window would contribute a negative term, and the
 instance's value is computable unconditionally through the bridge
-identity *(net-state, Theorem 1an: per-zero literally through zero
-#33 — per-zero windows first overlap at #34/#35, γ ≈ 111, and crowd
-logarithmically beyond, the probe generalizing to per-cluster with
-positivity unchanged; the sentence was true as written of the γ₁
-instance)*; (3) the wall stands where it stood — nothing cascade-side
+identity *(net-state, Theorem 1an: the per-zero windows stay
+pairwise disjoint through zero #33 — first overlap #34/#35,
+γ ≈ 111 — and single-occupancy through #186, a window first
+holding a second zero at #187, with occupancy growing
+logarithmically beyond and positivity unchanged;
+~~per-zero literally through zero #33~~ [struck round 161 F1 — the
+#33 threshold is disjointness, not occupancy]; the sentence was
+true as written of the γ₁ instance)*; (3) the wall stands where it stood — nothing cascade-side
 forces positivity on ANY discriminating instance, pairwise or aimed;
 the forcing is classical zero-location data, and the dense-class
 extension is RH, claimed in neither direction. The wall's
@@ -3053,15 +3056,32 @@ wall's resolution restatement; `cascade_windows_overlap.py`).** *(i)
 The commission.* The owner asked "Do the windows overlap?" of 1aj's
 relocatable sensitivity windows and commissioned the landing. Result:
 the committed three-term family's windows tile every height (reach
-complete), crowd logarithmically with height (per-zero only through
-zero #33), and the wall's coordinates sharpen — the RH deficit is
-RESOLUTION, not reach. *(ii) Theorem W1 (the width limit,
+complete, the tiling universal resting on the sampled width floor —
+scope round 161 F3), crowd logarithmically with height (~~per-zero
+only through zero #33~~ **pairwise disjoint only through zero #33,
+single-occupancy through #186** [struck round 161 F1: what ends at
+#33 is window DISJOINTNESS — every window through #186 still holds
+exactly one zero, its own]), and the wall's coordinates sharpen —
+the RH deficit is RESOLUTION, not reach. *(ii) Theorem W1 (the width limit,
 exact-rational).* For the committed instance (d = 4, 5, 6 — the 1aj
 solve), the window width lo + hi decreases monotonically on the
 sampled aim spread from 1.0156… at γ₁ toward EXACTLY 1 — the
 continuation mechanism's own 2 × ½ — gated at aims γ₁, 300, 1000,
-3000 in exact rational arithmetic, with offsets ½ ± c/γ, c ≈ 1.25
-observed (not derived), and F(aim) < 0 throughout. The apparent
+3000: the coefficient solves and the F(aim) SIGNS in exact rational
+arithmetic (the sign conjunct made fully rational at the round-161
+sweep), the edges located by 30-digit root-finds [method label
+corrected round 161 F2 — the first wording claimed the widths
+themselves were computed in exact rational arithmetic; only the
+solves were, the edges being floating root-finds on exact
+coefficients], with offsets ½ ± c/γ, c ≈ 1.25
+observed at the asymptotic aims 300–3000 (not derived; at γ₁ the
+effective constants are ≈ 1.18 and 0.96 — scope round 161 F6), and
+F(aim) < 0 throughout. Below the sampled range the width floor
+genuinely fails — width ≈ 0.921 at aim 1, crossing 1 between aims
+4.1 and 4.5 (gated) — so W1/W4's "sampled" qualifiers are
+load-bearing; every zero height lies far above, at γ ≥ γ₁, where
+every observed width exceeds 1 (the round-161 reviewer's held note,
+verified and gated at the sweep). The apparent
 window collapse above aim ≈ 10³ in double precision is an instrument
 artifact (the solved coefficients grow like aim⁴ against kernels
 shrinking like aim⁻²; cancellation), disclosed and gated in BOTH
@@ -3070,7 +3090,8 @@ orders above the exact magnitude, its sign formulation-dependent —
 and at aim 1000 the float64 window collapses (to a noise-dependent
 fraction — ≈ 0.17 in the gated instrument, ≈ 0.30 in the scratch
 formulation — against the exact ≈ 1.000004), while the
-exact-rational F(aim) is stably negative. (The gate's first draft pinned a float SIGN FLIP; the
+F(aim) — its sign decided in exact rational
+arithmetic — is stably negative. (The gate's first draft pinned a float SIGN FLIP; the
 clean run showed the flip is itself formulation-dependent noise —
 redesigned pre-commit to gate the noise magnitude and the collapse,
 disclosed.)
@@ -3078,7 +3099,9 @@ disclosed.)
 width tile any interval with overlapping windows — gated on a 23-aim
 chain spanning [20, 40], every consecutive pair overlapping, the
 union connected: no height escapes the committed family's
-sensitivity. *(iv) Theorem W3 (the crowding census; the "first"
+sensitivity — the universal rests on the SAMPLED width floor, the
+same sampled scope W1 and W4 carry, with one chain gated (scope
+qualifier added round 161 F3). *(iv) Theorem W3 (the crowding census; the "first"
 claims gated over zeros 1–240 recomputed live, the 800-zero
 extension in the instrument's --full mode, run and recorded at the
 landing).* Per-zero windows (each aimed at its own zero) are
@@ -3089,10 +3112,22 @@ lo(γ₁₈₇) but above hi(γ₁₈₆): the lower reach exceeds ½ and captur
 first, W1's asymmetry biting); the first MUTUAL containment is
 #212/#213 (γ = 415.0188…/415.4552…, gap 0.4364…). In the --full
 extension (800 zeros, to γ ≈ 1184): 200 of 799 adjacent pairs
-overlap and 41 containment events occur. Asymptotically the
+overlap and 41 DIRECTIONAL containment events occur (a mutual pair
+contributes two — the instrument's counting convention, restored to
+the paper round 161 F4). Asymptotically the
 per-window occupancy is width × density → ln(γ/2π)/2π
 (Riemann–von Mangoldt, classical input named) — growing without
-bound: the probe is per-zero through #33 and per-cluster beyond.
+bound: ~~the probe is per-zero through #33 and per-cluster beyond~~
+**the windows are pairwise disjoint through #33, single-occupancy
+through #186 — the first two-zero window is #187, the theorem's own
+first containment — and mean occupancy stays below 1 across the
+gated range (≈ 0.83 at γ ≈ 1184), crossing 1 only near
+γ ≈ 3.4 × 10³, outside it** [struck round 161 F1,
+false-when-written: the transition was pinned to the wrong
+threshold — overlap-onset (#34), not occupancy-onset (#187); the
+probe semantics is a single-window property, and a window that
+overlaps its neighbour while holding only its own zero is still a
+per-zero probe].
 *(v) Theorem W4 (reach vs resolution — the wall sharpened).*
 Combining W2 with W1: the committed family can look ANYWHERE, but
 its window width stays above 1 on the sampled family and its profile

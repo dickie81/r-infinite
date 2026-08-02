@@ -3243,3 +3243,34 @@ crossings recomputed through the bridge route, and the honest
 partials (Gauge stays Adams-native; the convention residue and
 the categorical flag derivation persist). Next hostile round on
 the next substantive paper change.**
+
+# Round 161: hostile round on the Theorem 1an landing (99e53d4) (subagent, per protocol) — NOT CONVERGED: 0 majors + 4 minors + 2 cosmetics, all statement-discipline; the quantitative content fully verified; the first certified battery at this commit (31/31, 328/0); swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F161-1 (minor) — the per-zero→per-cluster transition pinned to #33 (overlap-onset) on three carriers including the 1aj net-state marker; the probe semantics is single-window and the correct threshold is occupancy-onset (#187; single-occupancy through #186; mean occupancy ≈ 0.83 at γ ≈ 1184) | **Accepted; lead-verified against the theorem's own census; struck-and-annotated on all three carriers; g10 re-anchored (three F1 frames counted)** | paper ×3, verifier g10 |
+| F161-2 (minor) — "in exact rational arithmetic" overstated the gate (solves exact; edges 30-digit root-finds) | **Accepted; label corrected on both paper carriers; the sign conjunct made fully rational in g1 (lead-verified negative at all four aims in pure Fractions before wiring)** | paper ×2, verifier g1 |
+| F161-3 (minor) — W2's tiling universals unscoped while W1/W4 carry "sampled" | **Accepted; both carriers now state the sampled-width-floor scope, one chain gated** | paper ×2 |
+| F161-4 (minor) — "41 containment events" dropped the directional convention | **Accepted; the convention restored ("a mutual pair contributes two")** | paper |
+| F161-5 (cosmetic) — dead conditional at the RvM line | **Applied (`T = zs[239]`)** | verifier |
+| F161-6 (cosmetic) — c ≈ 1.25 unscoped in the paper | **Applied (scoped to aims 300–3000; γ₁'s effective constants ≈ 1.18/0.96, lead-verified)** | paper |
+
+Plus the reviewer's held note, lead-verified and GATED: the width
+floor fails below the sampled range (width(1) = 0.9210; the
+crossing of 1 inside (4.1, 4.5)) — the "sampled" qualifiers are
+load-bearing; g8 extended, the paper's W1 carries the clause.
+
+Held (reviewer, spot-verified by the lead): verifier 13/0 and
+--full 14/0 re-run; THE FULL BATTERY 31/31 green (328/0
+aggregate) — the record's first certified battery at 99e53d4;
+the (a)–(c) sabotage suite reproduced per-entry with clean
+baselines; the formulation-dependent float sign reproduced blind
+(+7.276e-12 vs −7.28e-12, identical magnitude); the no-prefilter
+census matching at 240 and 800 zeros; every digit string a true
+prefix; the width-limit attribution independently derived; the
+1aj tie; the footer census by direct count (70 = 64 + 4° + 2
+audited); the four sibling advances green; Checks 7/8 clean.
+
+**Trajectory: 1an landed (99e53d4) → 161 NOT CONVERGED 0M+4m+2c
+(swept) → the new-conjunct trip suite, then round 162
+(convergence test) next.**

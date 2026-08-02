@@ -13277,6 +13277,87 @@ itself — no battery claim is made here.
 **Spawn.** Hostile round 161 on this landing (fresh-context
 subagent, session model) per the standing protocol.
 
+## Addendum 261: round 161 (hostile, on the 1an landing 99e53d4) — NOT CONVERGED: 0 MAJORs + 4 minors + 2 cosmetics, all statement-discipline; the quantitative content fully verified; the record's first certified battery at this commit (31/31, 328/0); swept
+
+Round 161 ran the verifier (13/0), --full (14/0, census 216/200/41
+reproduced), THE FULL BATTERY (31/31 green, 328 pass / 0 fail
+aggregate — the record's first certified battery at 99e53d4, per
+A260's deferral; the lead's own background sweep independently
+returned 31/31), the complete sabotage suite (a)–(c) per-entry
+with clean baselines, and recomputed the mathematics through
+genuinely independent formulations: its own exact-rational
+Gaussian elimination with the polynomial identity re-asserted;
+its own float64 kernel giving F(3000) = +7.276e-12 against the
+instrument's −7.28e-12 (the disclosed formulation-dependent sign
+reproduced blind, identical magnitude, opposite sign) and float
+width(1000) = 0.3030 matching the disclosed scratch value; a
+no-prefilter census over all pairs at 240 and 800 zeros matching
+the gated censuses exactly; every quoted digit string a true
+prefix; the width-limit attribution independently derived from
+the ±i/2-average (numerator ∝ t² − ¼, roots ±½, width → 1); the
+1aj tie signs; the footer census by direct count; no paraphrase
+drift in W4 vs the 1aj wall passage. Zero majors. Six findings,
+each verified directly by the lead before acceptance (Check 3):
+
+**F161-1 minor (accepted; swept):** the per-zero→per-cluster
+transition was pinned to #33 on THREE carriers (the (i) summary,
+the (iv) close, and the 1aj net-state marker — including
+"per-zero literally"). What ends at #33 is window DISJOINTNESS;
+under the marked sentence's own single-window probe semantics,
+every window through #186 holds exactly one zero (the first
+two-zero window is #187, the theorem's own first containment),
+and mean occupancy stays below 1 across the gated range (≈ 0.83
+at γ ≈ 1184; crossing 1 near γ = 2πe^{2π} ≈ 3.4 × 10³, verified
+by direct arithmetic). Swept: strike-and-annotate on all three
+carriers; g10 re-anchored on the corrected content with the
+three strike frames counted == 3.
+
+**F161-2 minor (accepted; swept):** "in exact rational
+arithmetic" overstated the gate — only the Cramer solves were
+exact; the edges are 30-digit root-finds. Swept: the method
+label corrected on the paper (both carriers), AND the repair
+computed rather than worded-down where possible: F at a rational
+aim is a rational number, so g1's sign conjunct is now decided
+in PURE Fraction arithmetic at all four aims (verified negative
+by the lead before wiring: −1.6e-5 / −1.2e-10 / −1.0e-12 /
+−1.2e-14).
+
+**F161-3 minor (accepted; swept):** W2's tiling universals
+("tile every height", "no height escapes") carried no sampled
+scope while W1/W4 did. Swept: both carriers now state the
+universal rests on the SAMPLED width floor, one chain gated.
+
+**F161-4 minor (accepted; swept):** the paper's "41 containment
+events" dropped the directional counting convention the
+instrument, commit message, and A260 all state. Swept: "41
+DIRECTIONAL containment events (a mutual pair contributes two)".
+
+**F161-5 cosmetic (applied):** the dead conditional
+`T = zs[239] if not FULL else zs[239]` reduced to `T = zs[239]`
+with a comment.
+
+**F161-6 cosmetic (applied):** the c ≈ 1.25 observation scoped
+to the asymptotic aims 300–3000 on the paper (at γ₁ the
+effective constants are ≈ 1.18/0.96, verified by the lead:
+1.1789 and 0.9578).
+
+**Plus the reviewer's held note, verified by the lead and
+GATED:** the width floor genuinely fails below the sampled range
+— width(1) = 0.9210, the crossing of 1 inside (4.1, 4.5)
+(lead-verified: width(4.1) = 0.99386 < 1 < width(4.5) =
+1.00072) — so the "sampled" qualifiers are load-bearing; every
+zero height lies at γ ≥ γ₁, above the crossing. g8 extended
+with the dip brackets; the paper's W1 carries the clause.
+
+**Post-sweep:** verifier 13/0 exit 0; READING rewritten to the
+swept state in full (the un-swept-print class checked). The
+trip-capability suite for the sweep's NEW conjuncts (the g8 dip
+probes, the g10 re-anchors, the g1 rational signs) was IN
+PROGRESS at this commit — serial, fresh tree, abort-safe; its
+certified censuses are appended to the sabotage record in a
+follow-up commit before convergence round 162 is spawned, and no
+census for (d)/(e)/(f) is claimed here.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

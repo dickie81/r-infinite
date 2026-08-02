@@ -7,12 +7,31 @@ THE COMMISSION.  The owner asked "Do the windows overlap?" of 1aj's
 relocatable sensitivity windows and commissioned the landing.
 
 THE CONTENT (four theorems + honest scope).
-  W1 (the width limit, exact-rational).  For the committed three-term
+ROUND-161 SWEEP (the landing's hostile round; 0 majors, 4 minors +
+2 cosmetics, all statement-discipline, all verified by the lead and
+swept): F1 -- the per-zero->per-cluster transition was pinned to
+#33 (overlap-onset) on three paper carriers including the 1aj
+net-state marker; the correct threshold is occupancy-onset (#187);
+struck on all three, g10 re-anchored.  F2 -- "in exact rational
+arithmetic" overstated the gate (only the solves were exact; edges
+are 30-digit root-finds); label corrected on the paper AND the sign
+conjunct made fully rational in g1.  F3 -- W2's tiling universal
+now carries its sampled-width-floor scope.  F4 -- the paper's
+"41 containment events" now states the directional convention.
+F5 -- the dead conditional at the RvM line removed.  F6 -- the
+c ~ 1.25 observation scoped to the asymptotic aims.  Plus the
+reviewer's held note, verified and gated: the width floor FAILS
+below the sampled range (width(1) ~ 0.921; crossing 1 in (4.1,
+4.5)) -- the sampled qualifiers are load-bearing (g8 extended).
+
+  W1 (the width limit, exact-rational solves).  For the committed three-term
       instance (d = 4, 5, 6 -- the 1aj solve, kernels at w = d+1/2),
       the window width lo + hi decreases monotonically on the sampled
       aim spread from 1.0156... at gamma_1 toward EXACTLY 1 (the
       continuation mechanism's own 2 x 1/2), with offsets
-      1/2 +/- c/gamma, c ~ 1.25 OBSERVED (not derived), and
+      1/2 +/- c/gamma, c ~ 1.25 OBSERVED at the asymptotic aims
+      300-3000 (not derived; at gamma_1 the effective constants
+      are ~1.18/0.96 -- round 161 F6), and
       F(aim) < 0 throughout.  The apparent window collapse above
       aim ~ 10^3 in double precision is an instrument artifact (the
       solved coefficients grow like aim^4 against kernels shrinking
@@ -49,7 +68,15 @@ THE CONTENT (four theorems + honest scope).
       mutual pair contributes two).  Asymptotically the per-window
       occupancy is width x density -> ln(gamma/2pi)/2pi
       (Riemann-von Mangoldt, classical input) -- growing without
-      bound: per-zero through #33, per-cluster beyond.
+      bound: pairwise disjoint through #33, SINGLE-OCCUPANCY
+      through #186 (the first two-zero window is #187; mean
+      occupancy ~ 0.83 at gamma ~ 1184, crossing 1 only near
+      gamma ~ 3.4e3, outside the gated range).  [Round 161 F1: the
+      first wording, "per-zero through #33, per-cluster beyond",
+      pinned the transition to overlap-onset; the probe semantics
+      is a single-window property and the correct threshold is
+      occupancy-onset -- struck on the paper's three carriers and
+      corrected here.]
   W4 (reach vs resolution -- the wall sharpened).  W2 + W1: the
       family can look ANYWHERE, but its width stays above 1 on the
       sampled family and its profile is the fixed three-Lorentzian
@@ -222,9 +249,30 @@ ok &= mpf("1.000049") < widths[300.0] < mpf("1.000051")
 ok &= mpf("1.0000035") < widths[1000.0] < mpf("1.0000045")
 ok &= mpf("1.0000001") < widths[3000.0] < mpf("1.000001")
 ok &= widths[GAMMA1] > widths[300.0] > widths[1000.0] > widths[3000.0] > 1
-gate("g1 the width limit: exact-rational widths bracketed at aims "
-     "gamma_1/300/1000/3000, strictly decreasing toward 1, all > 1, "
-     "F(aim) < 0 at all four",
+# round 161 F2: the paper's method label overstated ("exact rational
+# arithmetic" for the widths); the solves were exact, the edges are
+# 30-digit root-finds.  The label is corrected on the paper AND the
+# sign conjunct is made FULLY rational here: F at a rational aim is
+# a rational number, its sign decided with zero rounding.
+
+
+def F_rational(a_fr):
+    cs = solve3_exact(a_fr * a_fr)
+    g2 = a_fr * a_fr
+    tot = Fr(0)
+    for c, w in zip(cs, WS):
+        s = w + Fr(1, 2)
+        tot += c * (s / (s * s + g2) + (s - 1) / ((s - 1) ** 2 + g2))
+    return tot
+
+
+for a_fr in (Fr(14134725, 1000000), Fr(300), Fr(1000), Fr(3000)):
+    ok &= F_rational(a_fr) < 0
+gate("g1 the width limit: widths from the exact-rational solves "
+     "bracketed at aims gamma_1/300/1000/3000 (edges by 30-digit "
+     "root-finds -- label corrected round 161 F2), strictly "
+     "decreasing toward 1, all > 1; F(aim) < 0 at all four with the "
+     "sign decided in PURE rational arithmetic",
      ok, f"w(g1)={float(widths[GAMMA1]):.6f} w(3000)={float(widths[3000.0]):.8f}")
 
 M3f = np.zeros((3, 3))
@@ -367,7 +415,8 @@ gate("g6 the containment firsts: none below #186; #186/#187 "
      "mutual below #212",
      ok, f"gap186 {g186:.6f}, gap212 {g212:.6f}")
 
-T = zs[239] if not FULL else zs[239]
+T = zs[239]        # gamma_240 in both modes (round 161 F5: the dead
+                   # conditional `if not FULL else` removed)
 rvm = T / (2 * np.pi) * np.log(T / (2 * np.pi * np.e)) + 7.0 / 8.0
 ok = abs(rvm - 240) < 1.5
 gate("g7 the occupancy cross-check: the Riemann-von Mangoldt main "
@@ -397,9 +446,23 @@ ok = True
 for a in (GAMMA1, 20.0, 50.0, 100.0, 300.0, 1000.0, 3000.0):
     lo, hi, _ = reaches(a)
     ok &= lo + hi > 1
+# round 161 (the reviewer's held note, verified by the lead and
+# gated at the sweep): the floor genuinely FAILS below the sampled
+# range -- the "sampled" qualifiers are load-bearing.  width(1) ~
+# 0.921 < 1; the crossing sits between aims 4.1 and 4.5; every zero
+# height lies far above, at gamma >= gamma_1.
+lo1, hi1, _ = reaches(1.0)
+lo41, hi41, _ = reaches(4.1)
+lo45, hi45, _ = reaches(4.5)
+ok &= mpf("0.920") < lo1 + hi1 < mpf("0.922")
+ok &= lo41 + hi41 < 1 < lo45 + hi45
 gate("g8 the resolution floor: width > 1 at every SAMPLED aim "
      "(gamma_1, 20, 50, 100, 300, 1000, 3000) -- the family "
-     "relocates, it does not concentrate (sampled, not proved)", ok)
+     "relocates, it does not concentrate (sampled, not proved); AND "
+     "the dip below the sampled range gated (width(1) in (0.920, "
+     "0.922); the crossing of 1 inside (4.1, 4.5)) -- the sampled "
+     "qualifiers are load-bearing (round 161)", ok,
+     f"width(1)={float(lo1+hi1):.4f}")
 
 Fg1 = Fs[GAMMA1]
 ok = Fg1(mpf("13.5513")) > 0
@@ -414,13 +477,22 @@ print("V5 -- the paper: key sentences, honest scope, siblings, footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 ok = "the RH deficit is RESOLUTION, not reach" in paper
 ok &= "it can relocate, it cannot concentrate" in paper
-ok &= "the probe is per-zero through #33 and per-cluster beyond" in paper
+# round 161 F1: the per-zero->per-cluster transition was pinned to
+# the wrong threshold (#33 is overlap-onset; occupancy-onset is
+# #187).  The old needle now lives only inside its strike frames;
+# the anchors are the corrected content + the three strike frames.
+ok &= ("pairwise disjoint through #33, single-occupancy through "
+       "#186" in paper)
+ok &= "the first two-zero window is #187" in paper
+ok &= paper.count("struck round 161 F1") == 3
 ok &= "the lower reach exceeds ½ and captures first" in paper
 ok &= paper.count("net-state, Theorem 1an") == 1
-ok &= "per-zero literally through zero #33" in paper
+ok &= "single-occupancy through #186, a window first holding a second zero at #187" in paper
 gate("g10 1an's key sentences + the 1aj net-state marker anchored by "
      "content (the deficit's name; relocate-not-concentrate; the "
-     "per-cluster scope; the one-sided capture; the marker)", ok)
+     "CORRECTED disjointness/occupancy thresholds + three F1 strike "
+     "frames -- round 161; the one-sided capture; the marker)", ok,
+     f"F1 frames {paper.count('struck round 161 F1')}")
 
 ok = ("no numerical advance over classical zero-verification is "
       "claimed or implied" in paper)
@@ -454,24 +526,34 @@ n_pass, n_fail = sum(results), len(results) - sum(results)
 n_gates = 14 if FULL else 13
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail ({n_gates} gates)")
 print("READING: the windows overlap.  W1: the committed instance's")
-print("window width falls from 1.0156 at gamma_1 to EXACTLY 1 (the")
-print("continuation mechanism's 2 x 1/2), offsets 1/2 +/- c/gamma with")
-print("c ~ 1.25 observed; the double-precision collapse above aim ~10^3")
-print("is a cancellation artifact, gated in both directions -- future")
-print("large-aim gates must use the exact-rational route.  W2: aims")
-print("spaced below the width tile any interval -- reach is complete,")
-print("no height escapes the family.  W3: per-zero windows are")
-print("disjoint through zero #33; first overlap #34/#35 (gamma ~ 111);")
-print("first one-sided containment #186/#187 (the lower reach captures")
-print("first); first mutual containment #212/#213 (gamma ~ 415); under")
-print("--full, 200 of 799 pairs overlap by gamma ~ 1184 with 41")
-print("directional containment events; occupancy grows as")
-print("ln(gamma/2pi)/2pi -- per-zero through #33, per-cluster beyond,")
-print("positivity unchanged by sharing.  W4: the family relocates but")
-print("cannot concentrate -- coverage is complete while the width")
-print("floor stays above 1 (sampled) and the profile is fixed; Weil's")
-print("dense class needs arbitrary concentration, so the RH deficit is")
-print("RESOLUTION, not reach.  The wall stands where it stood.  No")
-print("closures, no data, no numerical advance over classical methods")
-print("claimed; no direction of explanation.")
+print("window width falls from 1.0156 at gamma_1 toward EXACTLY 1 (the")
+print("continuation mechanism's 2 x 1/2); the solves and the F-signs")
+print("are exact-rational, the edges 30-digit root-finds (round 161")
+print("F2); offsets 1/2 +/- c/gamma with c ~ 1.25 observed at the")
+print("asymptotic aims 300-3000 (round 161 F6); below the sampled")
+print("range the floor fails (width(1) ~ 0.921, crossing 1 in (4.1,")
+print("4.5), gated) -- the sampled qualifiers are load-bearing; the")
+print("double-precision collapse above aim ~10^3 is a cancellation")
+print("artifact, gated in both directions -- future large-aim gates")
+print("must use the exact-rational route.  W2: aims spaced below the")
+print("width tile any interval -- reach complete on the SAMPLED width")
+print("floor (round 161 F3), one chain gated.  W3: per-zero windows")
+print("are pairwise disjoint through zero #33 (first overlap #34/#35,")
+print("gamma ~ 111) and SINGLE-OCCUPANCY through #186 -- the first")
+print("two-zero window is #187 (round 161 F1: the transition is")
+print("occupancy-onset, not overlap-onset); first one-sided")
+print("containment #186/#187 (the lower reach captures first); first")
+print("mutual containment #212/#213 (gamma ~ 415); under --full, 200")
+print("of 799 pairs overlap by gamma ~ 1184 with 41 DIRECTIONAL")
+print("containment events (a mutual pair contributes two -- round 161")
+print("F4); mean occupancy ~ 0.83 at gamma ~ 1184, crossing 1 only")
+print("near gamma ~ 3.4e3, outside the gated range; positivity")
+print("unchanged by sharing.  W4: the family relocates but cannot")
+print("concentrate -- coverage is complete on the sampled scope while")
+print("the width floor stays above 1 at every sampled aim >= gamma_1")
+print("and the profile is fixed; Weil's dense class needs arbitrary")
+print("concentration, so the RH deficit is RESOLUTION, not reach.")
+print("The wall stands where it stood.  No closures, no data, no")
+print("numerical advance over classical methods claimed; no direction")
+print("of explanation.")
 sys.exit(0 if n_fail == 0 else 1)
