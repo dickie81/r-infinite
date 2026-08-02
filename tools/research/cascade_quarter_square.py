@@ -322,12 +322,14 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
      "anchors; the displacement; the frozen threshold; the "
      "unification)", ok)
 # 1al landing: the footer census advanced (61 -> 62; range -> 1al);
-# anchors updated with disclosure -- the census-evolution class.
+# 1am landing: advanced again (62 -> 63; range -> 1am) -- the
+# census-evolution class, disclosed each time.
 ok = "`cascade_quarter_square.py`" in paper
-ok &= "62 scripts cited in place" in paper
-ok &= "Theorems 1i–1al" in paper
-gate("g12 the footer census (advanced at the 1al landing, disclosed): "
-     "this script backticked; 62 cited in place; the range 1i–1al", ok)
+ok &= "63 scripts cited in place" in paper
+ok &= "Theorems 1i–1am" in paper
+gate("g12 the footer census (advanced at the 1al and 1am landings, "
+     "disclosed): this script backticked; 63 cited in place; the "
+     "range 1i–1am", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

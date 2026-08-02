@@ -12983,6 +12983,96 @@ residue); the observer↔4 and charged-termination questions. The
 battery stands at 29 exit-gated instruments. Next hostile round
 on the next substantive paper change.**
 
+## Addendum 257: Theorem 1am lands — the selection justified from Riemann (the pole-balance flank and the Γ(½) ladder); `cascade_riemann_selection.py` (12 gates); the battery reaches 30; hostile round 159 spawned
+
+**The commission.** The owner: "We need to justify this selection
+from Riemann" — ground the source-selection rule's committed
+features in ζ-native structure rather than standalone
+Γ-phenomenology.
+
+**The result (Theorem 1am, three theorems + honest partials).**
+S1 (one equation, three landmarks, unit-spaced exactly): ψ(x) =
+lnπ has a single root x* = 3.6284732024…, and the cascade's
+Γ-object extremum conditions are that ONE equation in three
+half-unit-shifted arguments — the ball-volume max at 2x*−2 =
+5.2569…, the Ω_d max = the potential's zero at 2x*−1 = 6.2569…,
+the S^(d−1)-area max at 2x* = 7.2569… — spaced EXACTLY one layer
+apart (three independent root-finds agree to 30 digits);
+equivalently p(d+1) = 0 / p(d) = 0 / p(d−1) = 0, one condition at
+three consecutive tower arguments. The committed Observer feature
+(part0: *"$V_d$ has a unique maximum at $d_V = 5$"*) and
+Amplitude feature (part0: *"$p(d)$ has a unique zero at
+$d_0 = 7$"*) are the first two rungs; the third rung is stated as
+structure only — NOT a derivation of the integer label 7. S2 (the
+flanked point is ζ's pole balance): by the committed bridge
+identity, p = 0 is the exact balance zeros + primes = poles —
+verified 0.292665… + 0.004955… = 0.297621… with residual 5.7e-42
+— so the Observer/Amplitude features are ζ's own pole-balance
+condition (the s = 1 pole with its functional-equation mirror at
+s = 0) read at consecutive arguments: the Amplitude feature AT
+the balance point, the Observer feature at exactly −1 from it;
+the +1 flank is the structure-only third rung (the rung pair
+flanks at ±1, but only the −1 side is a committed feature — a
+referent defect in the drafted sentence "the features flank at
+±1", caught and swept pre-commit across all four carrying
+surfaces). S3 (the ladder is one constant): the committed
+privileged levels {0, c₁, c₂} are {0, lnΓ(½), Γ(½)} with c₂ =
+e^{c₁} exactly — one generator, Γ at the functional equation's
+symmetry point ½ (whose square is 1ak's ¼), read on the log scale
+(the Absolute threshold d₁* = 19.730775…, label 19) and the value
+scale (the sink threshold d₂* = 217.626708…, label 217,
+dynamics-excluded from sourcing per 1af). Honest partials, stated
+in the theorem: the Gauge layer 14 stays Adams-native (the
+record's own external-route attribution anchored as retained);
+the feature→integer convention residue is retained — the ζ-native
+content is at the CONTINUOUS features, no rounding story offered;
+the categorical flag derivation persists. Category (a): no data,
+no closures, no new physics; the bridge's no-direction caveat
+applies. Checks 7/8 clean (Γ/ψ + committed-bridge bookkeeping; no
+hypothesis input).
+
+**The instrument.** `cascade_riemann_selection.py`, 12 exit-gated
+checks: g1 the three independent root-finds (brackets, spacings
+exactly 1 to 30 digits, ψ′ > 0 sampled); g2 the object
+identification (direct log-Γ differentiation stationary at the
+rungs; integer argmaxes V:5, Ω:6 per part0); g3 the displacement
+identity; g4 the pole balance (ξ′/ξ + (−ζ′/ζ) = poles to 30
+digits, components bracketed); g5 the ladder exactness; g6 the
+crossings in inward brackets, rounding to part0's printed values;
+g7 part0 anchors (privileged-values sentence ≥ 2; the d_V/d_0
+sentences; 19.7308/217.6267/6.257 each ≥ 2); g8 the substrate
+(the bridge identity block + ξ prefactor anchored; the committed
+classifier imported LIVE, sources {19, 5, 14, 7} tied to the
+rungs); g9 the honest partials retained; g10 1am's key sentences
+by content; g11 the sibling chain green (type_counting 12/0,
+transitively the two Weil siblings); g12 the footer census.
+Run: 12/0, exit 0.
+
+**Sabotages (full-tree copy, clean baselines 12/0 before/after
+each):** (a) the verifier copy's r3 equation flipped to ln(2π) →
+g1 AND g3 trip, 10/2 (the drafted prediction "g2/g3, 9/3" was
+wrong — g2 differentiates at r1/r2 only; census corrected to the
+run in the docstring, per the round-156 F2 lesson, disclosed);
+(b) the paper's "one condition, three consecutive tower
+arguments" mangled mid-anchor → g10, 11/1; (c) part0's
+unique-zero sentence mangled in the copy → g7, 11/1.
+
+**The census-evolution sweep.** Footer advanced 62 → 63 with the
+range 1i–1am and the new name backticked (69 backticked = 63
+counted + 4° + 2 audited-not-counted, reconciled by direct
+census: 64 body-cited − greens_function audited = 63); the three
+footer-anchoring siblings advanced with disclosure
+(route_traveled g18, quarter_square g12, type_counting g11 +
+docstring) and re-run green via the g11 chain.
+
+**Batteries and hygiene.** The battery now 30 exit-gated
+instruments — full run green; validator clean across 12 files;
+model-ID hygiene grep zero; footer census read from the footer
+text itself.
+
+**Spawn.** Hostile round 159 on this landing (fresh-context
+subagent, session model) per the standing protocol.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
