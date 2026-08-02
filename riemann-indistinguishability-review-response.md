@@ -3094,3 +3094,26 @@ zero.
 
 **Trajectory: repair landed (ee979b5) → 154 NOT CONVERGED
 1M+2m+2c (swept) → round 155 (convergence test) next.**
+
+# Round 155: convergence test on the round-154 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, applied); the tower-script 2√π repair arc closes stable
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F155-1 (cosmetic) — the step-2 disclosure's compressed quotation ("'564 at leading order'") with an ambiguous referent | **Accepted; quote fidelity fixed in place with the round-155 disclosure (applied with the convergence record per the editorial-batch precedent)** | script |
+
+Held: the entire table recomputed independently at 40 dps (every
+displayed digit, both steps); every disclosed number's rounding
+direction checked; F154-1's diagnosis re-derived from scratch;
+part4b's "where" clause, precision census, and closure-output
+status verified verbatim; the gated audit at the same inputs
+printing the same 542.734 eV; both sabotages 18/1 with clean
+baselines; the strike verbatim; the paper single-hunk; the
+residual hunt clean; battery; validator; hygiene; Checks 7/8;
+A251 consistent with the surfaces.
+
+**Trajectory: repair landed (ee979b5) → 154 1M+2m+2c (swept,
+467a7af) → 155 CONVERGED 0M+0m+1c. The 2√π repair arc CLOSED
+STABLE — exponent, committed inputs, index, and narrative all at
+the committed convention; the tower script, the gated audit,
+part4a's prose, and part4b's leading census agree end to end.
+Next hostile round on the next substantive paper change.**

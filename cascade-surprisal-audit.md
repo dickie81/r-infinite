@@ -12691,6 +12691,50 @@ baselines; validator clean on 12 files; hygiene zero.
 **Trajectory: repair landed (ee979b5) → 154 NOT CONVERGED
 1M+2m+2c (swept) → round 155 (convergence test) next.**
 
+## Addendum 252: round 155 (convergence test on the round-154 sweep) — **CONVERGED**, 0 MAJORs + 0 minors + 1 cosmetic (applied); the tower-script 2√π repair arc closes stable
+
+Round 155 (fresh-context subagent, session model) attacked the
+round-154 sweep (467a7af) and returned zero majors, zero minors,
+one cosmetic — convergence under the standing rule. The
+reviewer's own verification: the entire visible table (all 16
+step-3 rows and all 14 step-1 rows) recomputed independently at
+40 dps with an independent digamma, matching every displayed
+digit; every disclosed number's ROUNDING DIRECTION checked (the
+half-ulp-outward class — none stretched); F154-1's diagnosis
+re-derived from scratch (ratio 1.039224; all four struck values
+reproduced exactly as observed-input artifacts); part4b's "where"
+clause, precision census, and 0.1179-as-closure-output verified
+verbatim; the gated neutrino audit confirmed at the same inputs
+printing the same 542.734 eV (cross-instrument consistency
+stronger than the sweep claimed — the d = 5/13/21 rows match
+part4b's full leading census m_τ/m_μ/m_e); both sabotages
+reproduced 18/1 with three clean 19/0 baselines; the strike
+verbatim against ee979b5; the paper single-hunk with all theorem
+spans and footer untouched; the residual hunt clean across the
+object surfaces, part4a/part4b, and the sibling script; the
+five-instrument battery green; validator; hygiene; Checks 7/8.
+
+**The one cosmetic (F155-1, applied with this record per the
+editorial-batch precedent):** the step-2 disclosure's compressed
+quotation ("'564 at leading order'" for the A250-commit text
+"the repaired formula gives 564 eV at leading order", with an
+ambiguous referent) — quote fidelity fixed in place, disclosed.
+
+**Trajectory: repair landed (ee979b5) → 154 NOT CONVERGED
+1M+2m+2c (swept, 467a7af) → 155 CONVERGED 0M+0m+1c (cosmetic
+applied). The tower-script 2√π repair arc is CLOSED STABLE:
+exponent (n_D + 2), committed inputs (α_s = 0.1159, v = 240.8),
+the d = 213 index, and the narrative all at the committed
+convention; the tower script, the gated neutrino audit, part4a's
+prose, and part4b's leading census now agree end to end
+(m_τ 1755 MeV, m_μ 106.2 MeV, m_e 514.07 keV +0.60%,
+m₂₉ 542.7 eV within 0.27 of 543, m₃₇ 0.191 eV, m₄₅ 28.5 μeV).
+The standing-open-routes list stands at: (v-b), C1 (odd-Δ
+committed instance or the neutrino formula's derivation), C2,
+C3; the type-counting remark-to-theorem upgrade; the observer↔4
+and charged-termination questions. Next hostile round on the
+next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
