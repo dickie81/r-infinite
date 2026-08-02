@@ -2995,3 +2995,32 @@ the ≈ ¼ threshold; reach 0.91 → ½-crossing ≈ 2.04 → minimum
 first zero; positivity resting on verified on-line zeros; no RH
 content in either direction. Next hostile round on the next
 substantive paper change.**
+
+# Round 151: hostile review on commit cec9246 (Theorem 1ak) — NOT CONVERGED (0 majors, 4 minors, 3 cosmetics); claim precision, the algebra steel; round 152 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F151-1 (minor) — "five separately-recorded constants": the vertex has no pre-1ak record | **Accepted; corrected to four-recorded-plus-one-exhibited on all carriers** | paper + verifier |
+| F151-2 (minor) — "is exactly ξ's own prefactor" false by the ½ the quoted line carries | **Accepted; struck-and-annotated (pole-cancelling polynomial UP TO THE CONSTANT ½)** | paper + verifier |
+| F151-3 (minor) — two cannot-fail clauses (g7's self-comparison; g4's constant-coefficient tautology) | **Accepted; both rebuilt live (rational-components square vs independent literal; three exact-rational u evaluations per d); sabotages (d)/(e) demonstrate both bites, 11/1** | verifier |
+| F151-4 (minor) — "the pole's u-plane image" conflated two sign-opposite planes | **Accepted; rewritten as the stronger two-plane statement (+¼ vertex in v; −¼ in the height plane = Q3's displacement constant); anchors swapped; sabotage (a') bites** | paper + verifier |
+| F151-5 (cosmetic) — g1 sampled only β = 0 | **Accepted; both edges sampled** | verifier |
+| F151-6 (cosmetic) — "both real corners of the strip" | **Accepted; the boundary lines' real-axis points** | paper + verifier |
+| F151-7 (cosmetic) — the deficit's family specificity implicit | **Accepted; stated and gated both ways (second family: frozen root ¼, threshold 0.2402)** | paper + verifier |
+
+Held: every identity in Q1–Q4 by the reviewer's own sympy
+(including the unsampled β = 1 edge and the exact unfrozen-F
+derivation); the unification's connective claim exact, not
+numerology; all recorded sabotages bit-for-bit; the locational
+g10 unfooled by decoys; the g18 advance necessary; footer 67 =
+61 + 4° + 2; battery superset 185 scripts; validator; hygiene;
+Checks 7/8; A246 accurate modulo inherited phrasings.
+
+Post-sweep: verifier 12/0 (two sweep mishaps disclosed in A247 —
+an aborted-before-write heredoc and a syntax error the verifier
+itself exposed, both repaired in place); sabotages (d), (e),
+(a') each 11/1 with clean baselines; both Weil siblings green;
+validator clean; hygiene zero.
+
+**Trajectory: 1ak landed (cec9246) → 151 NOT CONVERGED 0M+4m+3c
+(swept) → round 152 (convergence test) next.**

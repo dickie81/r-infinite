@@ -2799,22 +2799,35 @@ system over the committed w's; no hypothesis input).
 `cascade_quarter_square.py`).** *(i) The commission.* The owner
 commissioned exploring the ¼ = (½)² connection observed at the
 continuation threshold ("Explore the squared half-shift ¼ = (½)²
-connection"). Result: five separately-recorded constants of the
-traveled route — the strip's u-plane vertex, ξ's prefactor, the
-lattice kernels' anchors, the boundary-read displacement, and the
-detachment threshold's leading order — are the SAME quarter-square,
+connection"). Result: five constants of the traveled route — four
+already on the committed record (ξ's prefactor, the lattice kernels'
+anchors, the boundary-read displacement, the detachment threshold's
+leading order) and a fifth exhibited here for the first time (the
+strip's vertex under the squared-shift map; the count corrected
+round 151 F1 — the landing said "five separately-recorded", but the
+vertex has no pre-1ak record) — are the SAME quarter-square,
 by exact algebra: the functional equation's half-shift, squared by
 the u = z² change of variable. Unification only; no data; no RH
 content in either direction. *(ii) Theorem Q1 (the parabola and its
 vertex).* Under v = (ρ − ½)² the critical line maps to the negative
 real ray (v = −γ²) and the strip's boundary β ∈ {0, 1} maps to the
-parabola Re v = ¼ − (Im v)²; both real corners of the strip — s = 1
-(ζ's pole) and s = 0 (its functional-equation mirror) — map to the
+parabola Re v = ¼ − (Im v)²; the two boundary lines' real-axis
+points — s = 1 (ζ's pole) and s = 0 (its functional-equation
+mirror; "corners" corrected round 151 F6) — map to the
 parabola's VERTEX v = ¼ (exact, gated). The quarter-square is the
-pole's u-plane image. *(iii) Theorem Q2 (the prefactor is the
+pole's image under the squared-shift map: +¼ in the v-plane just
+defined (the vertex), equivalently −¼ in the height plane u = γ²
+that R2′ and Q2–Q3 use (u = −v on the line) — where the pole's image
+IS Q3's displacement constant (the plane-name conflation corrected
+round 151 F4: the landing called both "the u-plane"; the corrected
+statement is the stronger unification). *(iii) Theorem Q2 (the
+prefactor is the
 anchor).* The R2′ factorization constant a = s(s−1) — every lattice
-kernel's u-space anchor — is exactly ξ's own prefactor (the bridge's
-source: *mpf("0.5") \* s \* (s − 1)*, anchored), and equals w² − ¼
+kernel's u-space anchor — is ξ's pole-cancelling polynomial factor
+UP TO THE CONSTANT ½ (~~is exactly ξ's own prefactor~~ struck round
+151 F2, false-when-written: the bridge's quoted source line itself
+carries the ½ — *mpf("0.5") \* s \* (s − 1)*, anchored), and equals
+w² − ¼
 at the committed half-shift w = d + ½: each lattice site's anchor is
 its squared half-shift MINUS the quarter-square (exact for every
 d ∈ [1, 217], gated as rationals; arithmetically a = d(d+1), the
@@ -2835,8 +2848,10 @@ factor is (−¼ ± iγ₀)², with real part 1/16 − γ₀² — positive belo
 tangency, the detachment threshold is EXACTLY ¼ (algebra exact in
 rationals; the frozen root-find lands on 0.25 within 1e-9, gated);
 the observed 0.24357 is ¼ minus the denominator-variation correction
-0.00643 (root-found, gated). The round-147 threshold is the
-quarter-square to leading order — the pole's u-plane image (Q1)
+0.00643 (root-found, gated; the correction is specific to the aimed
+(4, 5, 6) family while the frozen ¼ is family-independent — gated
+both ways, round 151 F7). The round-147 threshold is the
+quarter-square to leading order — the pole's image (Q1)
 reappearing as the height below which the constant real displacement
 dominates the squared tangency factor. *(vi) What this is and is
 not.* Unification, exact: one scale — (½)², the functional

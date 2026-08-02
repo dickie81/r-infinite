@@ -12387,6 +12387,83 @@ green (1aj 22/0 with the advanced g18; 1ai 10/0); validator
 clean on 12 files; hygiene zero. Trajectory: 1ak landed → round
 151 (hostile review, per protocol) spawned on this commit.
 
+## Addendum 247: round 151 (hostile review on cec9246, Theorem 1ak) — NOT CONVERGED, 0 MAJORs + 4 minors + 3 cosmetics; claim-precision defects, the algebra held everywhere; swept; round 152 next
+
+Round 151 (fresh-context subagent, session model) attacked the
+1ak landing. The mathematics held at every point of attack —
+every identity in Q1–Q4 re-derived independently in sympy
+(including the β = 1 edge the gate did not sample and the exact
+unfrozen-F derivation confirming the frozen construction differs
+from the full one ONLY in the denominators); all three recorded
+sabotages reproduced bit-for-bit; the g18 advance verified honest
+and necessary; the footer census exact; the battery superset
+green; Checks 7/8 clean. Seven findings, all claim-precision,
+all lead-verified and swept:
+
+**F151-1 (minor, accepted):** "five separately-recorded
+constants" overcounted — the vertex has no pre-1ak record (git
+grep at the parent commit: zero object-surface hits for
+parabola/u-plane/quarter-square). Corrected on all carriers:
+four already on the committed record, the fifth (the vertex)
+exhibited here for the first time.
+
+**F151-2 (minor, accepted):** "is exactly ξ's own prefactor" was
+false by the factor ½ that the quoted source line itself carries.
+Struck-and-annotated: a is ξ's pole-cancelling polynomial factor
+UP TO THE CONSTANT ½.
+
+**F151-3 (minor, accepted):** two cannot-fail clauses inside
+otherwise-live gates — g7's self-comparison (an expression
+against a character-identical copy) and g4's constant-coefficient
+tautology (a² == (s(s−1))² given a's definition). Both rebuilt:
+g7 now computes the complex square in rational components against
+an independent target literal (sabotage (d), A_COMP → −1/5,
+trips 11/1); g4 now evaluates the factorization LIVE at three
+exact-rational u per d (sabotage (e), (s−1)² → (s−2)², trips
+11/1). The gate-that-cannot-fail class's census grows by two,
+both caught by review.
+
+**F151-4 (minor, accepted):** the anchored punchline "the pole's
+u-plane image" conflated two sign-opposite planes both called u —
+Q1's v-plane has the vertex at +¼ while the theorem's working
+u = γ² (R2′'s) is the negated plane, where the pole's image is
+−¼. Rewritten as the STRONGER unification: +¼ in the v-plane (the
+vertex), equivalently −¼ in the height plane — where the pole's
+image IS Q3's displacement constant. The g11 anchors swapped;
+sabotage (a') (IS → WAS mid-anchor) trips 11/1.
+
+**F151-5/6/7 (cosmetics, accepted):** g1 now samples BOTH
+boundary edges; "both real corners of the strip" → the two
+boundary lines' real-axis points; the deficit's family
+specificity stated and gated both ways (g9 now carries a second
+family: its frozen root stays ¼ while its threshold moves to
+0.2402).
+
+**Held (reviewer, with evidence):** all of Q1–Q4's algebra;
+the unification's connective claim ("the half-shift, squared by
+u = z²") verified as exact algebra, not numerology, for each of
+the five appearances; the frozen-construction faithfulness; the
+locational g10 not fooled by post-span decoys (the reviewer's own
+probe); the g18 advance necessary (the old anchors have zero
+live occurrences); footer 67 = 61 + 4° + 2 with all 61 body-cited;
+battery superset 185 scripts; validator; hygiene; Checks 7/8
+including the arithmetic-only a = d(d+1) phrasing; A246 accurate
+modulo the F1/F2 phrasings it inherited from the landing.
+
+**Post-sweep record (this sweep also had its own disclosed
+mishap):** a batch-edit heredoc aborted on a stale pattern
+BEFORE writing (nothing lost — the round-130 class, caught
+immediately), and a separate READING rewrite left an unterminated
+string that the verifier's own syntax error exposed at once;
+both repaired in place, all subs then applied with per-sub
+asserts. Verifier 12/0 exit 0; sabotages (d), (e), (a') on a
+full-tree copy at the swept state, each 11/1 exit 1 with clean
+12/0 baselines; both Weil siblings green (22/0, 10/0); validator
+clean on 12 files; hygiene zero.
+
+**Trajectory: 1ak landed (cec9246) → 151 NOT CONVERGED 0M+4m+3c
+(swept) → round 152 (convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
