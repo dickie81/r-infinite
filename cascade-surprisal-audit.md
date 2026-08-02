@@ -12556,6 +12556,68 @@ upgrade; the tower-script 2√π repair; the observer↔4 and
 charged-termination questions. Next hostile round on the next
 substantive paper change.**
 
+## Addendum 250: the tower-script 2√π repair applied (the round-124 by-catch closed), prompted by the owner's relation question; the ¼/√π sibling-export assessment recorded
+
+The owner asked whether the standing 2√π repair could be related
+to the quarter-square structure (1ak). Investigating the question
+closed the standing item and produced the assessment below.
+
+**The repair (applied; the round-124 adjudication executed):**
+cascade_bott_tower_beyond_29.py's mass formula used the exponent
+(2√π)^−(n_D+1), dropping one factor of 2√π against the committed
+convention. Lead-verified before the fix: the corrected exponent
+(n_D + 2) simultaneously reproduces m_e at d = 21 (534 keV vs
+511 — the formula's leading-order precision), the committed
+543 eV at d = 29 (564), and part4a's prose tower exactly
+(0.199 eV at d = 37; 29.6 μeV at d = 45) — a uniform one-factor
+fix, exactly as adjudicated. Surfaces: the script's exponent +
+REPAIR docstring note (and a tightened step-2 parenthetical that
+had called 1768 and 543 "consistent" — the accurate arithmetic
+now printed); the paper's by-catch flag carries its net-state
+marker (true when written; the pre-repair values recorded
+history); the participation-rule verifier's docstring net-stated
+and its by-catch gate extended to anchor the repair at source
+(the (n_D + 2) exponent + the REPAIR note + the paper marker) —
+the exponent-revert sabotage on a full-tree copy trips it, 18/1,
+exit 1, clean 19/0 baselines.
+
+**The relation assessment (the owner's question, answered with
+verification):** the repair ITSELF is bookkeeping — unrelated to
+the quarter-square. The PRIMITIVE 2√π is related, precisely, as a
+SIBLING export of the same half: (i) √π = Γ(½) — the Gamma
+function AT the half-shift argument, and the bare Γ-factor of ξ
+at the pole s = 1 (Γ(s/2)|_{s=1} = √π; the COMPLETED factor
+Γ_R(1) = 1, checked); the same pole whose squared-shift image is
+1ak's vertex ¼. So the pole exports two constants: its position
+under squaring (¼ — the vertex, the displacement, the threshold)
+and the Γ-value at it (√π — the fermion obstruction's irreducible
+constant via 2√π = N(0)·Γ(½), part4b's committed corollary).
+(ii) The lattice CEILING is defined by the potential hitting
+Γ(½): p(d) = √π at d = 217.6267 against the committed
+d₂ = 2πe^{2√π} = 217.6275 (verified; the difference is the
+Stirling step), and the exponent's 2 is 1/(½) from Γ_R's
+log-slope — the half again. So the lattice's floor-side strip
+geometry (¼) and its ceiling's defining level (√π) are both
+children of the functional equation's ½ — through DIFFERENT
+functions (squaring vs Γ-evaluation). NOT claimed: any committed
+identity linking ¼ and √π to each other beyond the common parent
+(none exists on the record); and the several 2's (N(0) = 2 = χ,
+the exponent's 1/(½), the squaring map's 2-to-1-ness, the two
+vertex preimages) are pattern-matches only — no committed
+argument links them, flagged as such. The assessment is recorded
+here as category (a) — no paper claim is made beyond the
+net-state marker; a sibling-export theorem would be a separate
+commission.
+
+**Verification:** tower script exit 0 with the repaired table;
+participation_rule 19/0 with the extended gate; the
+exponent-revert sabotage 18/1; spot battery (the two tower-arc
+verifiers + the three Weil-arc instruments + quarter_square)
+green; validator clean on 12 files; hygiene zero. Trajectory:
+repair landed → round 154 (hostile review, per protocol) spawned
+on this commit. The standing-open-routes list shortens: the
+tower-script 2√π repair is CLOSED.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

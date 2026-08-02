@@ -2023,7 +2023,13 @@ correct side — the committed-convention mass formula reproduces m_e and
 543 eV, and dividing the tower script's values by 2√π recovers the prose;
 the tower script drops one (2√π) factor and its own d=29 row prints
 1999 eV against the committed 543 eV, an internal contradiction in an
-analysis-grade script, left to a future repair commit.)*
+analysis-grade script, left to a future repair commit.)* *(Net state,
+A250: the repair is applied — the tower script's exponent is now
+(n_D + 2); its table matches part4a's prose (0.199 eV at d = 37,
+29.6 μeV at d = 45) and its d = 29 row prints 564 eV against the
+committed 543, the formula's leading-order precision; the pre-repair
+values quoted above are recorded history. The flag was true when
+written.)*
 No number changes; category (a) plus one stated candidate criterion.
 
 **Theorem 1ae (the participation dichotomy, de-conventioned: the orientation

@@ -16,6 +16,21 @@ This script:
      are "exp-suppressed and invisible".
   3. Identifies the empirical input that distinguishes "source mass"
      from "charged 4th generation".
+
+REPAIR (the round-124 by-catch, adjudicated then; applied at the
+A250 commit): this script's mass formula originally used the
+exponent (2 sqrt(pi))^-(n_D+1) and thereby dropped one factor of
+2 sqrt(pi) against the committed convention -- its d=29 row printed
+1999 eV against the committed 543 eV, and its tower rows (0.70 eV,
+105 microeV) sat one factor above part4a's prose (0.2 eV,
+30 microeV).  The adjudication (lead-verified at round 124):
+part4a's prose is the correct side.  The exponent is now
+(n_D + 2); with it the same formula reproduces m_e at d=21
+(534 keV vs 511, the formula's leading-order precision), the
+committed 543 eV at d=29 (564), and the prose tower exactly
+(0.199 eV at d=37; 29.6 microeV at d=45).  The pre-repair table
+values remain quoted in the participation-rule verifier's
+by-catch gate as recorded history.
 """
 
 from __future__ import annotations
@@ -69,9 +84,13 @@ ME_EV = 510_998.95
 def cascade_mass(d: int, n_D: int) -> float:
     """Cascade fermion mass formula at a Dirac layer.
 
-    m(d) = (alpha_s v / sqrt(2)) * exp(-Phi(d)) * (2 sqrt(pi))^(-(n_D+1))
+    m(d) = (alpha_s v / sqrt(2)) * exp(-Phi(d)) * (2 sqrt(pi))^(-(n_D+2))
+
+    The exponent is n_D + 2 per the committed convention (the A250
+    repair -- the original n_D + 1 dropped one 2 sqrt(pi) factor;
+    see the REPAIR note in the module docstring).
     """
-    return M_PRE_EV * math.exp(-Phi_cascade(d)) * TWOSQRTPI ** (-(n_D + 1))
+    return M_PRE_EV * math.exp(-Phi_cascade(d)) * TWOSQRTPI ** (-(n_D + 2))
 
 
 # ---------------------------------------------------------------------------
@@ -136,7 +155,11 @@ def check_invisibility_claim():
     print(f"  m_e = {m_e/1e6:.3f} MeV")
     print(f"  Implied 4th-gen charged lepton mass:")
     print(f"    m_4 = m_e / 289 = {m_29_charged_lepton:.0f} eV")
-    print(f"  (The cascade formula directly gives 543 eV, consistent.)")
+    print(f"  (The committed cascade value is m_29 = 543 eV; the repaired")
+    print(f"  formula gives 564 eV at leading order.  m_e/289 = 1768 eV is")
+    print(f"  the '289x' prose reading; the full committed ratio is")
+    print(f"  m_e/543 = 941.  Wording tightened at the A250 repair -- the")
+    print(f"  old parenthetical called 1768 and 543 'consistent'.)")
     print()
     print(f"  If d=29 hosted a CHARGED lepton at 543 eV:")
     print(f"    - LEP would see it directly (sensitive to charged leptons up to ~100 GeV)")

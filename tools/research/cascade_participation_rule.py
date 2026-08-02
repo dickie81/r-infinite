@@ -111,7 +111,12 @@ report corrected to net-state (the papers-side fix landed long
 ago).  The by-catch adjudicated (reviewer-supplied, lead-verified):
 part4a's prose is correct; the tower script drops one 2 sqrt(pi)
 factor and self-contradicts at its d=29 row (1999 eV vs the
-committed 543 eV) -- repair left to a future commit.
+committed 543 eV) -- repair left to a future commit.  NET STATE
+(A250): the repair is APPLIED -- the tower script's exponent is
+now (n_D + 2), its table matches the prose (0.199 eV, 29.6
+microeV; d=29 row 564 eV at leading order), and the by-catch gate
+below keeps the pre-repair ratios as recorded history while
+anchoring the repair at source.
 """
 import math
 import os
@@ -276,8 +281,18 @@ r1, r2 = 0.704 / 0.2, 105.0 / 30.0
 tsp = 2 * math.sqrt(math.pi)
 ok = abs(r1 / tsp - 1) < 0.05 and abs(r2 / tsp - 1) < 0.05
 ok &= "×3.5 ≈ 2√π" in paper
-gate("the by-catch: both prose-vs-table ratios within 5% of 2√π at the "
-     "quoted values, and flagged in the paper",
+# A250: the repair applied -- anchor it at source and in the paper.
+tower_src = open(os.path.join(ROOT, "tools", "research",
+                              "cascade_bott_tower_beyond_29.py"),
+                 encoding="utf-8").read()
+ok &= "TWOSQRTPI ** (-(n_D + 2))" in tower_src
+ok &= "REPAIR (the round-124 by-catch" in tower_src
+ok &= ("Net state, A250: the repair is applied — the tower script's "
+       "exponent is now (n_D + 2)" in paper)
+gate("the by-catch: both HISTORICAL prose-vs-table ratios within 5% of "
+     "2√π (recorded history), the paper flag anchored; AND the A250 "
+     "repair anchored at source (the (n_D + 2) exponent + the REPAIR "
+     "note) with the paper's net-state marker",
      ok, f"{r1:.3f}, {r2:.3f} vs {tsp:.3f}")
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
