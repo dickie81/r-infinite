@@ -13073,6 +13073,67 @@ text itself.
 **Spawn.** Hostile round 159 on this landing (fresh-context
 subagent, session model) per the standing protocol.
 
+## Addendum 258: round 159 (hostile, on the 1am landing ead25ff) — NOT CONVERGED: 1 MAJOR + 2 minors, all in the theorem's prose; the mathematics fully verified; swept
+
+Round 159 (fresh-context subagent, session model) ran all four
+scoped verifiers itself at expected counts, reproduced the
+sabotage record per-entry on its own full-tree copy (including
+the corrected 10/2 census for (a)), and recomputed every number
+independently at dps 60 (roots, spacings exactly 1, the balance
+components, the ladder identities, both crossings, both inward
+brackets, the truncation prefixes, the part0 roundings, the
+integer argmaxes). Its gate-by-gate can-fail audit held every
+conjunct (g4's poles-tie conjunct assessed near-vacuous
+numerically but edit-sensitive — held, not a tautology); the
+footer census verified from both directions; the flank-referent
+consistency across the three tellings held; the third rung never
+quietly committed; Checks 7/8 clean. Three findings, all
+verified directly by the lead before acceptance (Check 3):
+
+**F159-1 MAJOR (accepted; swept):** the census phrase "both sink
+rungs" (two paper carriers, lines ~2980/~3027) was
+false-when-written — the record has ONE sink (d₂ = 217) with one
+selecting feature; "rung" is 1am-local vocabulary and no gate
+computes two sink quantities; the Absolute threshold was already
+named in the same list. Lead verification: repo-wide grep — the
+phrase's only carriers are the two paper instances (no verifier,
+READING, or record carrier). Swept: strike-and-annotate at both
+carriers ("the sink threshold", singular, with the one-sink
+annotation), and g10 extended with content anchors (the two
+strike frames counted == 2; "the record has ONE sink").
+
+**F159-2 minor (accepted; swept):** "ψ(x) = lnπ has a single
+root x* (ψ strictly increasing)" lacked its domain — on ψ's full
+domain every negative branch carries a root. Lead verification:
+negative-branch roots recomputed at dps 40 (−0.3816448814…,
+−1.4532490619…, residuals ~5e-42). Swept: "on x > 0" qualifier
+added at the paper sentence and the docstring, g1's gate text
+names the domain, and g10 anchors the qualifier.
+
+**F159-3 minor (accepted; swept):** the census clause attributed
+the Absolute/sink thresholds' ζ-native grading to "the committed
+bridge identity" while only S2 used the bridge — S3's gated
+content was Γ-identities plus crossings of p. Lead verification:
+direct read of S3 and gates g5/g6 (no bridge call), then the
+repair computed before wiring: at both crossings the bridge
+route zeros − poles + primes (zeros = ξ′/ξ, primes = −ζ′/ζ)
+equals the level constant with residual 0.0 at dps 40. Swept: g6
+extended with both bridge-route conjuncts; the paper census
+clause annotated (gated round 159 F3, the attribution previously
+resting on S2 alone).
+
+**Sabotages on the sweep (full-tree copy, clean baselines 12/0
+before/after each):** (d) the one-sink annotation content
+mangled (ONE → A) → g10 trips, 11/1, exit 1; (e) the
+bridge-route probe decoupled (sB = ds_ + 1.1) → g6 trips, 11/1,
+exit 1. Both recorded in the docstring.
+
+**Post-sweep:** verifier 12/0 exit 0; the docstring, gate texts,
+and READING re-read against the swept state (no residual carrier
+of the struck census phrase — repo-wide grep zero outside the
+strike frames). Convergence-test round 160 on this sweep next,
+per the standing rule.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

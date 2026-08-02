@@ -7,10 +7,22 @@ THE COMMISSION.  Justify the source selection from Riemann: ground the
 committed source-selecting features in zeta-native structure rather
 than standalone Gamma-phenomenology.
 
+ROUND-159 SWEEP (the landing's hostile round; findings verified by
+the lead and swept here and in the paper): F1 MAJOR -- the paper's
+census phrase "both sink rungs" was false-when-written (ONE sink,
+one selecting feature; struck on both carriers); F2 minor -- the
+"single root" claim lacked its domain (qualifier "on x > 0" added
+here and in the paper; on psi's full domain every negative branch
+carries a root, e.g. -0.3816...); F3 minor -- the census attributed
+the Absolute/sink thresholds to the bridge identity while only S2
+used it (g6 extended with the bridge-route recomputation of BOTH
+crossings; the attribution now computed, not associative).
+
 THE CONTENT (three theorems + honest partials).
   S1 (one equation, three landmarks, unit-spaced exactly).  psi(x) =
-      ln(pi) has a single root x* = 3.6284732024... (psi strictly
-      increasing), and the extremum conditions of the cascade's
+      ln(pi) has a single root ON x > 0, x* = 3.6284732024... (psi
+      strictly increasing there; domain qualifier round 159 F2), and
+      the extremum conditions of the cascade's
       Gamma-objects are that ONE equation in three half-unit-shifted
       arguments: the ball-volume maximum at d = 2x*-2 = 5.2569...,
       the sphere-area (Omega_d) maximum = the potential's zero at
@@ -77,8 +89,10 @@ VERIFICATION (12 gates, exit-gated).
        Gamma(1/2) = sqrt(pi) = e^{c_1}, all residuals < 1e-35 at dps
        40; g6 the threshold crossings: d_1* in (19,20) within
        [19.7307750, 19.7307751], d_2* in (217,218) within
-       [217.6267086, 217.6267087] (inward-rounded brackets), and both
-       round to part0's printed 19.7308 / 217.6267.
+       [217.6267086, 217.6267087] (inward-rounded brackets), both
+       rounding to part0's printed 19.7308 / 217.6267, AND both
+       recomputed through the bridge route zeros - poles + primes =
+       the level constant (round 159 F3).
   V4 -- g7 part0 anchors (the privileged-values sentence >= 2; the
        d_V = 5 and d_0 = 7 sentences; 19.7308, 217.6267, 6.257 each
        >= 2); g8 the substrate: the bridge file's identity block +
@@ -90,7 +104,9 @@ VERIFICATION (12 gates, exit-gated).
   V5 -- g9 the honest partials retained in the paper (the
        external-route attribution; the front-matter convention
        residue; "the sink cannot source"); g10 1am's key sentences
-       anchored by content; g11 the sibling chain green after the
+       anchored by content, plus the round-159 sweep anchors (two F1
+       strike frames counted, the one-sink content, the F2 domain
+       qualifier); g11 the sibling chain green after the
        census advance (cascade_type_counting.py 12/0, which itself
        re-runs the two Weil-arc siblings); g12 the footer census
        (this script backticked; "63 scripts cited in place";
@@ -107,7 +123,11 @@ round-156 F2 lesson); (b) the paper copy's 1am sentence "one
 condition, three consecutive tower arguments" mangled mid-anchor
 ("three" -> "two") -> g10 trips, 11/1, exit 1; (c) the part0 copy's
 "$p(d)$ has a unique zero at $d_0 = 7$" mangled ("unique" ->
-"special") -> g7 trips, 11/1, exit 1.  Clean baselines 12/0 exit 0
+"special") -> g7 trips, 11/1, exit 1.  At the round-159 sweep:
+(d) the F1 one-sink annotation content mangled in the paper copy
+(ONE -> A) -> g10 trips, 11/1, exit 1; (e) the bridge-route probe
+decoupled in the verifier copy (sB = ds_ + 1.1) -> g6 trips, 11/1,
+exit 1.  Clean baselines 12/0 exit 0
 before and after each.  Twelve gates (count checked against the
 gate() census pre-commit).
 """
@@ -158,7 +178,8 @@ ok &= abs((r2 - r1) - 1) < mpf("1e-30") and abs((r3 - r2) - 1) < mpf("1e-30")
 ok &= mono
 gate("g1 three independent root-finds of the ONE equation psi = ln pi "
      "(shifts d/2+1, (d+1)/2, d/2): brackets (5,6)/(6,7)/(7,8), "
-     "spacings exactly 1 to 30 digits, psi' > 0 sampled",
+     "spacings exactly 1 to 30 digits, psi' > 0 sampled on x > 0 "
+     "(the domain of the uniqueness claim, round 159 F2)",
      ok, f"r1={float(r1):.10f} r2={float(r2):.10f} r3={float(r3):.10f}")
 
 lnV = lambda d: (d / 2) * lnpi - log(mpgamma(d / 2 + 1))     # noqa: E731
@@ -220,10 +241,21 @@ ok &= mpf("19.7307750") < d1s < mpf("19.7307751")
 ok &= mpf("217.6267086") < d2s < mpf("217.6267087")
 ok &= abs(d1s - mpf("19.7308")) < mpf("0.00005")     # part0's printed value
 ok &= abs(d2s - mpf("217.6267")) < mpf("0.00005")
+# round 159 F3: the census attributed the thresholds to the bridge
+# identity while only S2 used it -- both crossings are now recomputed
+# through the bridge route itself: zeros - poles + primes (zeros =
+# xi'/xi, primes = -zeta'/zeta) must equal the level constant at the
+# crossing.
+for ds_, c_ in ((d1s, c1), (d2s, c2)):
+    sB = ds_ + 1
+    zB = diff(lambda t: log(xi(t)), sB)
+    pB = -diff(lambda t: log(zeta(t)), sB)
+    ok &= abs(zB - (1 / sB + 1 / (sB - 1)) + pB - c_) < mpf("1e-30")
 gate("g6 the threshold crossings: p = c1 at d1* in "
      "[19.7307750, 19.7307751], p = c2 at d2* in "
      "[217.6267086, 217.6267087] (inward brackets), both rounding to "
-     "part0's printed values",
+     "part0's printed values; AND both recomputed through the bridge "
+     "route zeros - poles + primes = the level (round 159 F3)",
      ok, f"d1*={float(d1s):.9f} d2*={float(d2s):.9f}")
 
 print("V4 -- the committed anchors and the live substrate")
@@ -270,9 +302,17 @@ ok &= ("the Amplitude feature AT the balance point, the Observer "
 ok &= "The ladder is generated by the single constant Γ(½)" in paper
 ok &= "it is NOT offered as a derivation of the integer label 7" in paper
 ok &= "the ζ-native content is at the CONTINUOUS features" in paper
+# round 159 sweep anchors, BY CONTENT: the two F1 strike frames (count
+# == 2), the one-sink annotation content, and the F2 domain qualifier.
+ok &= paper.count("struck round 159 F1") == 2
+ok &= "the record has ONE sink" in paper
+ok &= "single root on x > 0" in paper
 gate("g10 1am's key sentences anchored by content (the one-condition "
      "ladder; the flank; the one-constant ladder; the label-7 "
-     "non-claim; the continuous-features scope)", ok)
+     "non-claim; the continuous-features scope; the round-159 sweep: "
+     "two F1 strike frames, the one-sink content, the F2 domain "
+     "qualifier)", ok,
+     f"F1 frames {paper.count('struck round 159 F1')}")
 
 rr = subprocess.run([sys.executable,
                      os.path.join(ROOT, "tools", "research",

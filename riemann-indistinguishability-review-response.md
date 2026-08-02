@@ -3186,3 +3186,29 @@ to its exact residue — the fourth-flag combinatorics
 the bijection with the source side theorem-grade, and the
 residue named (the categorical flag derivation). Next hostile
 round on the next substantive paper change.**
+
+# Round 159: hostile round on the Theorem 1am landing (ead25ff) (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 2 minors, all in the theorem's prose; the mathematics fully verified; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F159-1 (MAJOR) — the census phrase "both sink rungs" false-when-written: the record has ONE sink (d₂ = 217, one selecting feature); "rung" is 1am-local vocabulary; no gate computes two sink quantities; two paper carriers | **Accepted; verified by repo-wide grep (two carriers, paper only); struck-and-annotated at both ("the sink threshold", singular); g10 extended with content anchors (strike frames == 2; the one-sink content)** | paper ×2, verifier g10 |
+| F159-2 (minor) — "single root (ψ strictly increasing)" without its domain; ψ's negative branches each carry a root | **Accepted; negative-branch roots reproduced by the lead (−0.3816…, −1.4532…, residuals ~5e-42); "on x > 0" added at paper + docstring; g1 gate text names the domain; g10 anchors the qualifier** | paper, verifier |
+| F159-3 (minor) — the census attributed the Absolute/sink thresholds to the bridge identity while only S2 used the bridge; S3's gated content was Γ-identities + crossings | **Accepted; the bridge route computed by the lead before wiring (zeros − poles + primes = the level at both crossings, residual 0.0 at dps 40); g6 extended with both bridge-route conjuncts; the paper census clause annotated** | paper, verifier g6 |
+
+Held (reviewer, spot-verified by the lead): all four scoped
+verifiers green at expected counts, run by the reviewer; the
+sabotage record reproduced per-entry including (a)'s corrected
+10/2; every number recomputed independently at dps 60 (spacings
+exactly 1; truncations true prefixes; brackets strict and
+inward; part0 roundings correct); the three part0 quotes exact;
+the flank referent consistent across the three tellings; the
+third rung never quietly committed; the 1af sink exclusion and
+1ak ¼-kinship supported; the footer census verified from both
+directions; the sibling advances correct and disclosed; the
+READING sweep clean; Checks 7/8 clean; all findings category (b).
+
+Post-sweep: verifier 12/0; sabotages (d)/(e) 11/1 with clean
+baselines; no residual carrier of the struck phrase.
+
+**Trajectory: 1am landed (ead25ff) → 159 NOT CONVERGED 1M+2m
+(swept) → round 160 (convergence test) next.**

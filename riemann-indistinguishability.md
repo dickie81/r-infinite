@@ -2977,12 +2977,21 @@ commission.* The owner commissioned: justify the source selection from
 Riemann — ground the committed source-selecting features in ζ-native
 structure rather than standalone Γ-phenomenology. Result: the selecting
 features of three of the four committed source layers (Observer,
-Amplitude, Absolute) and both sink rungs become ζ-native theorems on the
-committed potential and the committed bridge identity; the Gauge layer
+Amplitude, Absolute) and ~~both sink rungs~~ **the sink threshold**
+[struck round 159 F1, false-when-written: the record has ONE sink —
+d₂ = 217, with one selecting feature, the c₂ crossing; "both sink
+rungs" had no referent, the Absolute threshold being already named in
+the same list] become ζ-native theorems on the
+committed potential and the committed bridge identity (both threshold
+crossings recomputed through the bridge identity itself — zeros −
+poles + primes = lnΓ(½) at d₁* and = Γ(½) at d₂*, gated round 159 F3:
+the census's bridge attribution had rested on S2 alone); the Gauge layer
 stays Adams-native by the record's own attribution; the feature→integer
 convention residue is retained, not resolved. *(ii) Theorem S1 (one
 equation, three landmarks, unit-spaced exactly).* ψ(x) = lnπ has a
-single root x* = 3.6284732024… (ψ strictly increasing), and the
+single root on x > 0, x* = 3.6284732024… (ψ strictly increasing
+there; domain qualifier added round 159 F2 — on ψ's full domain every
+negative branch carries a further root, e.g. −0.3816…), and the
 extremum conditions of the cascade's Γ-objects are that one equation in
 three half-unit-shifted arguments: the ball-volume maximum at
 d = 2x*−2 = 5.2569…, the sphere-area (Ω_d) maximum = the potential's
@@ -3024,7 +3033,8 @@ no ζ-native selection for it; the feature→integer-layer convention
 (the front-matter residue) is retained: the ζ-native content is at the
 CONTINUOUS features, and no rounding story is offered. Net: the
 selection rule's feature side is ζ-native for Observer, Amplitude, and
-Absolute plus both sink rungs; Gauge stays Adams-native; the
+Absolute plus ~~both sink rungs~~ **the sink threshold** [struck round
+159 F1 — one sink, one feature]; Gauge stays Adams-native; the
 convention residue and the categorical flag derivation persist.
 *Honest scope:* pure mathematics on the committed p and the committed
 bridge identity; no data, no closures, no new physics — category (a);
