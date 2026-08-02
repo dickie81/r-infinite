@@ -3024,3 +3024,26 @@ validator clean; hygiene zero.
 
 **Trajectory: 1ak landed (cec9246) → 151 NOT CONVERGED 0M+4m+3c
 (swept) → round 152 (convergence test) next.**
+
+# Round 152: convergence test on the round-151 sweep (subagent, per protocol) — NOT CONVERGED (0 majors, 1 minor); the F3 rebuild's own dead conjunct; round 153 follows
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F152-1 (minor) — the rebuilt g7 retained a cannot-fail conjunct (sq_im_avg assigned a literal zero under a comment claiming 2ab was "COMPUTED"); the F151-3 class surviving inside its own repair | **Accepted; both imaginary components now computed and conjugate-averaged; the comment corrected with the history disclosed; sabotage (f) (im_minus sign flip) trips via the previously-dead conjunct, 11/1; the lesson recorded — every conjunct of a rebuilt gate must trace to a computation** | verifier |
+
+Held: the entire round-151 sweep otherwise — the provenance
+correction factually verified; the F2 strike verbatim; g4's
+three-sample rebuild subsuming the removed checks; the two-plane
+statement exact with the pole's height-plane image ≡ the
+displacement constant; the second family recomputed; the
+tautology hunt clean across all other gates; sabotages (d), (e),
+(a') reproduced; the 1aj/1ai spans undisturbed; battery;
+validator; hygiene; footer; Checks 7/8; A247 accurate with the
+two disclosed mishaps leaving no residue.
+
+Post-sweep: verifier 12/0; sabotage (f) 11/1 with clean 12/0
+baselines.
+
+**Trajectory: 1ak landed (cec9246) → 151 0M+4m+3c (swept,
+420f690) → 152 NOT CONVERGED 0M+1m (swept) → round 153
+(convergence test) next.**

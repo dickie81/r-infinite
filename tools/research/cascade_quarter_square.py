@@ -108,7 +108,10 @@ A_COMP flipped to -1/5 in the copy -> g7 trips, 11/1, exit 1 --
 the self-comparison's replacement bites; (e) the rebuilt g4's
 live factorization perturbed ((s-1)^2 -> (s-2)^2) -> g4 trips,
 11/1, exit 1; (a') the F4-rewritten anchored sentence perturbed
-mid-anchor (IS -> WAS) -> g11 trips, 11/1, exit 1.  Clean
+mid-anchor (IS -> WAS) -> g11 trips, 11/1, exit 1.  At the
+round-152 sweep (the g7 imaginary-component repair): (f)
+im_minus's sign flipped in the copy -> g7 trips via sq_im_avg,
+11/1, exit 1 -- the previously-dead conjunct now bites.  Clean
 baselines 12/0 exit 0 before
 and after each.  Twelve gates (count checked against the gate()
 census pre-commit; the count defect's history noted).
@@ -202,14 +205,19 @@ gate("g6 the displacement's real part is the CONSTANT -1/4 at every "
 
 print("V4 -- Q4: the threshold's leading order is exactly 1/4")
 # round 151 F3: the first draft compared an expression to a copy of
-# itself.  Now the complex square is COMPUTED in rational components
-# ((a, b) -> (a^2 - b^2, 2ab)) and compared to the independent target
-# literal -- perturbing the component a = -1/4 trips the gate.
+# itself.  Round 152 F1: the F3 rebuild itself left a cannot-fail
+# conjunct (sq_im_avg assigned a literal zero under a comment claiming
+# 2ab was computed).  Now BOTH components are computed
+# ((a, b) -> (a^2 - b^2, 2ab)), the conjugate pair's imaginary parts
+# averaged for real -- perturbing a = -1/4 trips via sq_re, and
+# flipping either imaginary component's sign trips via sq_im_avg.
 ok = True
 A_COMP = Fraction(-1, 4)
 for g0 in (Fraction(1, 10), Fraction(1, 4), Fraction(2, 5)):
     sq_re = A_COMP * A_COMP - g0 * g0          # Re[(a + i b)^2]
-    sq_im_avg = Fraction(0)                    # averaged with conjugate
+    im_plus = 2 * A_COMP * g0                  # Im[(a + i b)^2]
+    im_minus = 2 * A_COMP * (-g0)              # Im[(a - i b)^2]
+    sq_im_avg = (im_plus + im_minus) / 2       # averaged with conjugate
     ok &= sq_re == Fraction(1, 16) - g0 ** 2 and sq_im_avg == 0
     if g0 == Fraction(1, 4):
         ok &= sq_re == 0

@@ -12464,6 +12464,53 @@ clean on 12 files; hygiene zero.
 **Trajectory: 1ak landed (cec9246) → 151 NOT CONVERGED 0M+4m+3c
 (swept) → round 152 (convergence test) next.**
 
+## Addendum 248: round 152 (convergence test on the round-151 sweep) — NOT CONVERGED, 0 MAJORs + 1 minor; the F3 rebuild's own dead conjunct; swept; round 153 next
+
+Round 152 (fresh-context subagent, session model) attacked the
+round-151 sweep. Everything held except one residue INSIDE the
+F151-3 repair itself:
+
+**F152-1 (minor, accepted):** the rebuilt g7 still carried a
+cannot-fail conjunct — sq_im_avg assigned the literal Fraction(0)
+and compared to 0, under a comment claiming the 2ab component was
+"COMPUTED" (it was not, anywhere in the gate). The exact class
+F151-3 was graded for, remaining in the very gate rebuilt to
+purge it; the reviewer demonstrated the clause constant-True over
+arbitrary inputs including A_COMP = 999. Lead-verified by
+inspection. Swept: both imaginary components now computed
+(im_plus = 2ab, im_minus = −2ab) and conjugate-averaged; the
+comment corrected and the round-152 history disclosed in place;
+the new sabotage (f) (im_minus's sign flipped) trips g7 via
+sq_im_avg, 11/1, exit 1 — the previously-dead conjunct now bites.
+The gate-that-cannot-fail census: this is the class's first
+recorded instance surviving INSIDE a repair of itself; the lesson
+appended — when rebuilding a gate for vacuity, every conjunct of
+the rebuilt condition must be traced to a computation, not only
+the one that motivated the rebuild.
+
+**Held (reviewer, with evidence):** every other element of the
+round-151 sweep — the provenance correction factually verified
+(zero pre-1ak occurrences); the F2 strike verbatim with the ½
+true at source; g4's three-sample rebuild subsuming the removed
+coefficient checks (three points determine a quadratic); the
+two-plane statement exact (u = −v on the line verified; the
+pole's height-plane image −¼ ≡ the displacement constant); the
+second family's numbers recomputed (frozen ¼; threshold
+0.24022176; separation 0.00335 > 0.002); the tautology hunt
+across all other gates clean; sabotages (d), (e), (a')
+reproduced; the 1aj/1ai spans undisturbed (diff-verified, both
+siblings green); battery; validator; hygiene; footer 67 = 61 +
+4° + 2; Checks 7/8; A247 accurate including the two disclosed
+mishaps leaving no residue (AST-parse clean); "the stronger
+unification" held as supported, not editorial.
+
+**Post-sweep record:** verifier 12/0 exit 0; sabotage (f) on a
+full-tree copy trips 11/1 with clean 12/0 baselines around it.
+
+**Trajectory: 1ak landed (cec9246) → 151 0M+4m+3c (swept,
+420f690) → 152 NOT CONVERGED 0M+1m (swept) → round 153
+(convergence test) next.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
