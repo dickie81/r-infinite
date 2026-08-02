@@ -155,8 +155,15 @@ raced a redone batch launched into the same tree (one interleaved
 run showed the other batch's mangle).  All interleaved results were
 discarded; the suite was rerun serially in a fresh tree with
 abort-on-mangle-failure, and only those censuses are recorded
-here.  Thirteen gates (count checked against the gate() census
-pre-commit).
+here.  At the round-161 sweep (serial, fresh tree, abort-safe):
+(d) the g8 dip probe decoupled (reaches(4.1) -> reaches(10.0),
+width(10) > 1) -> g8 trips, 12/1, exit 1; (e) the 1aj marker's
+occupancy content mangled (#186 -> #196) -> g10 trips, 12/1,
+exit 1; (f) a rational-sign aim flipped below the continuation
+threshold (Fr(300) -> Fr(1,10), where F(aim) > 0) -> g1 trips,
+12/1, exit 1.  Clean baselines 13/0 exit 0 before and after
+every entry.  Thirteen gates (count checked against the gate()
+census pre-commit).
 """
 import os
 import subprocess
