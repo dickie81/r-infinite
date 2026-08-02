@@ -2807,7 +2807,11 @@ classical facts, not cascade structure), while the instance becomes
 a genuine per-zero sensitivity probe: a hypothetical off-line zero
 inside the window would contribute a negative term, and the
 instance's value is computable unconditionally through the bridge
-identity; (3) the wall stands where it stood — nothing cascade-side
+identity *(net-state, Theorem 1an: per-zero literally through zero
+#33 — per-zero windows first overlap at #34/#35, γ ≈ 111, and crowd
+logarithmically beyond, the probe generalizing to per-cluster with
+positivity unchanged; the sentence was true as written of the γ₁
+instance)*; (3) the wall stands where it stood — nothing cascade-side
 forces positivity on ANY discriminating instance, pairwise or aimed;
 the forcing is classical zero-location data, and the dense-class
 extension is RH, claimed in neither direction. The wall's
@@ -3043,6 +3047,72 @@ bookkeeping, not a causal direction). Check 7 clean (Γ/ψ and
 committed-bridge bookkeeping; no semiclassics); Check 8 clean (no
 hypothesis input — the features and levels are committed structure,
 the balance is ζ's own identity).
+
+**Theorem 1an (the windows overlap: coverage, crowding, and the
+wall's resolution restatement; `cascade_windows_overlap.py`).** *(i)
+The commission.* The owner asked "Do the windows overlap?" of 1aj's
+relocatable sensitivity windows and commissioned the landing. Result:
+the committed three-term family's windows tile every height (reach
+complete), crowd logarithmically with height (per-zero only through
+zero #33), and the wall's coordinates sharpen — the RH deficit is
+RESOLUTION, not reach. *(ii) Theorem W1 (the width limit,
+exact-rational).* For the committed instance (d = 4, 5, 6 — the 1aj
+solve), the window width lo + hi decreases monotonically on the
+sampled aim spread from 1.0156… at γ₁ toward EXACTLY 1 — the
+continuation mechanism's own 2 × ½ — gated at aims γ₁, 300, 1000,
+3000 in exact rational arithmetic, with offsets ½ ± c/γ, c ≈ 1.25
+observed (not derived), and F(aim) < 0 throughout. The apparent
+window collapse above aim ≈ 10³ in double precision is an instrument
+artifact (the solved coefficients grow like aim⁴ against kernels
+shrinking like aim⁻²; cancellation), disclosed and gated in BOTH
+directions: at aim 3000 the float64 value is cancellation noise —
+orders above the exact magnitude, its sign formulation-dependent —
+and at aim 1000 the float64 window collapses (to a noise-dependent
+fraction — ≈ 0.17 in the gated instrument, ≈ 0.30 in the scratch
+formulation — against the exact ≈ 1.000004), while the
+exact-rational F(aim) is stably negative. (The gate's first draft pinned a float SIGN FLIP; the
+clean run showed the flip is itself formulation-dependent noise —
+redesigned pre-commit to gate the noise magnitude and the collapse,
+disclosed.)
+*(iii) Theorem W2 (tiling: reach is complete).* Aims spaced below the
+width tile any interval with overlapping windows — gated on a 23-aim
+chain spanning [20, 40], every consecutive pair overlapping, the
+union connected: no height escapes the committed family's
+sensitivity. *(iv) Theorem W3 (the crowding census; the "first"
+claims gated over zeros 1–240 recomputed live, the 800-zero
+extension in the instrument's --full mode, run and recorded at the
+landing).* Per-zero windows (each aimed at its own zero) are
+pairwise disjoint through zero #33; the first overlap is #34/#35
+(γ = 111.0295…/111.8746…, gap 0.8451…, overlap depth ≈ 0.155); the
+first containment is ONE-SIDED at #186/#187 (gap 0.4981… — below
+lo(γ₁₈₇) but above hi(γ₁₈₆): the lower reach exceeds ½ and captures
+first, W1's asymmetry biting); the first MUTUAL containment is
+#212/#213 (γ = 415.0188…/415.4552…, gap 0.4364…). In the --full
+extension (800 zeros, to γ ≈ 1184): 200 of 799 adjacent pairs
+overlap and 41 containment events occur. Asymptotically the
+per-window occupancy is width × density → ln(γ/2π)/2π
+(Riemann–von Mangoldt, classical input named) — growing without
+bound: the probe is per-zero through #33 and per-cluster beyond.
+*(v) Theorem W4 (reach vs resolution — the wall sharpened).*
+Combining W2 with W1: the committed family can look ANYWHERE, but
+its window width stays above 1 on the sampled family and its profile
+is the fixed three-Lorentzian shape — it can relocate, it cannot
+concentrate. Weil's dense class requires arbitrary concentration;
+the committed family supplies relocation without resolution. The
+wall stands where it stood — nothing cascade-side forces positivity
+on any discriminating instance, and the dense-class extension is RH,
+claimed in neither direction; what sharpens is the deficit's name:
+resolution, not reach. *Honest scope:* category (a) — no data, no
+closures, no new physics; no numerical advance over classical
+zero-verification is claimed or implied (the coverage statement
+repackages ζ's own bookkeeping in committed-lattice terms);
+positivity is unchanged by window sharing (every on-line zero
+contributes ≥ 0 in any window it enters); c ≈ 1.25 is observed, not
+derived; width > 1 is sampled, not proved; the census's "first"
+claims are scoped to the gated range. Check 7 clean (kernel and
+potential-theory bookkeeping plus classical zero data; no
+semiclassics); Check 8 clean (every number traces to the committed
+lattice w = d+½ and classical zeros; no hypothesis input).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -3578,4 +3648,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1am: the **63 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1an: the **64 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

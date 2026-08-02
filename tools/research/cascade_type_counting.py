@@ -87,9 +87,9 @@ Gates (twelve):
        anchored.
   V5 -- g9 1al's key sentences anchored; g10 the two net-state
        markers on the weakest-link sentences anchored; g11 the
-       footer census (the new script backticked; "63 scripts
-       cited in place"; "Theorems 1i–1am" -- advanced at the 1am
-       landing, the census-evolution class, disclosed); g12 the two Weil-arc
+       footer census (the new script backticked; "64 scripts
+       cited in place"; "Theorems 1i–1an" -- advanced at the 1am
+       and 1an landings, the census-evolution class, disclosed); g12 the two Weil-arc
        footer-gating siblings re-run green after the census
        advance (quarter_square 12/0; route_traveled 22/0).
 
@@ -287,13 +287,15 @@ gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
      "passage; the 1af passage; count-only first draft caught by "
      "sabotage pre-commit, disclosed)", ok,
      f"count {paper.count('Net state (1al):')}")
-# 1am landing: the footer census advanced (62 -> 63; range -> 1am)
-# -- the census-evolution class, disclosed.
+# 1am landing: the footer census advanced (62 -> 63; range -> 1am);
+# 1an landing: advanced again (63 -> 64; range -> 1an) -- the
+# census-evolution class, disclosed each time.
 ok = "`cascade_type_counting.py`" in paper
-ok &= "63 scripts cited in place" in paper
-ok &= "Theorems 1i–1am" in paper
-gate("g11 the footer census (advanced at the 1am landing, disclosed): "
-     "this script backticked; 63 cited in place; the range 1i–1am", ok)
+ok &= "64 scripts cited in place" in paper
+ok &= "Theorems 1i–1an" in paper
+gate("g11 the footer census (advanced at the 1am and 1an landings, "
+     "disclosed): this script backticked; 64 cited in place; the "
+     "range 1i–1an", ok)
 ok = True
 for s, expect in (("cascade_quarter_square", "12 pass / 0 fail"),
                   ("cascade_weil_route_traveled", "22 pass / 0 fail")):

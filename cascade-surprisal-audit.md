@@ -13189,6 +13189,94 @@ observer↔4 and charged-termination questions. The battery
 stands at 30 exit-gated instruments. Next hostile round on the
 next substantive paper change.**
 
+## Addendum 260: Theorem 1an lands — the windows overlap (coverage, crowding, the wall's resolution restatement); `cascade_windows_overlap.py` (13 gates + --full); two instrument mishaps disclosed; hostile round 161 spawned
+
+**The commission.** The owner asked "Do the windows overlap?" of
+1aj's relocatable sensitivity windows; the assessment answered
+yes (from zero #34, increasingly with height) and the owner
+commissioned the landing ("The word").
+
+**The result (Theorem 1an, four theorems + honest scope).** W1
+(the width limit, exact-rational): the committed instance's
+window width falls monotonically from 1.0156… at γ₁ to EXACTLY 1
+(the continuation mechanism's 2×½; gated at aims γ₁/300/1000/3000
+by exact-rational Cramer solves), offsets ½ ± c/γ with c ≈ 1.25
+OBSERVED (not derived), F(aim) < 0 throughout; the
+double-precision collapse above aim ≈ 10³ is a cancellation
+artifact gated in both directions — and the gate's FIRST DRAFT
+pinned a float sign flip that the clean run exposed as
+formulation-dependent noise (this instrument's kernel gives
+−7e-12 at aim 3000 where the scratch formulation gave ≥ 0);
+redesigned pre-commit to gate the noise magnitude (> 50× the
+exact) and the window collapse at aim 1000 (to a noise-dependent
+fraction, ≈ 0.17 here vs ≈ 0.30 in the scratch), disclosed on
+both carriers. W2 (tiling): aims spaced 0.9 < width tile [20, 40]
+with all 22 consecutive overlaps positive (min margin 0.1021) —
+reach is complete. W3 (the crowding census; "first" claims gated
+over zeros 1–240 recomputed live; --full extends to 800):
+disjoint through #33; first overlap #34/#35 (γ = 111.0295…/
+111.8746…, gap 0.8451…, depth 0.1552); first containment
+ONE-SIDED #186/#187 (hi(a) < gap 0.4981… < lo(b) — W1's
+asymmetry biting); first mutual #212/#213 (gap 0.4364…); --full:
+216 candidates, 200/799 overlapping pairs, 41 directional
+containment events, run green 14/0 at the landing; occupancy →
+ln(γ/2π)/2π (RvM, classical input; the g7 cross-check 239.48 vs
+240). W4 (the wall sharpened): reach complete + width floor > 1
+(sampled) + fixed profile = the family relocates but cannot
+concentrate; the RH deficit is RESOLUTION, not reach; the wall
+itself unmoved. The 1aj per-zero-probe sentence carries a
+net-state marker (true as written of the γ₁ instance; per-zero
+literally through #33, per-cluster beyond). Honest scope in the
+theorem: no numerical advance over classical zero-verification
+claimed or implied; positivity unchanged by sharing; category (a);
+Checks 7/8 clean.
+
+**The instrument.** 13 exit-gated checks (g1 widths; g2 the
+cliff; g3 the scaling; g4 the tiling; g5/g6 the census firsts;
+g7 RvM; g8 the resolution floor; g9 the 1aj committed-window tie
+— F negative at both committed inward endpoints 13.5514/14.5669
+and positive just outside; g10/g11 paper anchors including the
+case-free wall-sentence core at count ≥ 2 — the first draft's
+case-sensitive needle failed the clean run, 1aj carrying the
+sentence lowercase mid-sentence, fixed and disclosed; g12 the
+sibling chain; g13 the footer census 64/1i–1an). Default run
+13/0; --full 14/0.
+
+**Sabotages (the certified suite: SERIAL, fresh tree,
+abort-on-mangle-failure):** (a) tiling spacing 1.1 → g4, 12/1
+(min margin −0.0984); (b) the W4 sentence mangled across its
+line wrap → g10, 12/1; (c) the net-state marker's #33 → #43
+across its line wrap → g10, 12/1; clean baselines 13/0 before
+and after every entry. **Two instrument mishaps disclosed** (the
+docstring carries both): (i) the abort-before-write class again —
+the first (b)/(c) patterns were single-line against line-wrapped
+phrases, count 0, aborted unwritten; (ii) a NEW corollary: the
+aborted STEP did not abort the BATCH, whose surviving
+restore/run steps raced a redone batch in the same tree (one
+interleaved run observed the other's mangle); all interleaved
+results discarded, the suite rerun serially in a fresh tree, and
+only those censuses recorded.
+
+**The census-evolution sweep.** Footer 63 → 64, range 1i–1an,
+the new name backticked (70 backticked = 64 counted +
+greens_function audited + 5 footer-only, reconciled by direct
+census); FOUR siblings advanced with disclosure (route_traveled
+g18, quarter_square g12, type_counting g11, riemann_selection
+g12) and re-run green via the chains.
+
+**Verification state at commit.** Verifier 13/0 and --full 14/0;
+validator clean across 12 files; hygiene grep zero; the footer
+census read from the footer text; the four instruments touched
+by this landing individually green post-change via the g12
+chains. The full 31-instrument battery sweep was IN PROGRESS at
+commit time (launched, no failures printed at commit); its
+result is to be recorded in the round-161 record, and the
+round-161 brief instructs the reviewer to run the battery
+itself — no battery claim is made here.
+
+**Spawn.** Hostile round 161 on this landing (fresh-context
+subagent, session model) per the standing protocol.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
