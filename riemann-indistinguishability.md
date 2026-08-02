@@ -2095,7 +2095,12 @@ new structural element"* — committed, but a remark, not a theorem. Net:
 the census is closed **relative to the committed source set** (sink
 accounting: *"Removing $d_2=217$ as the Planck sink leaves exactly four
 sources"*); a new structural source mechanism would reopen it, and the
-record's own barrier against that is remark-grade. *Sensitivity disclosure, load-bearing
+record's own barrier against that is remark-grade. *Net state (1al):
+the barrier is upgraded — the count mechanics are exact combinatorics
+(a fifth type requires a fourth flag), the precedence is enumerated
+idle, and the remaining remark-grade content is one named open lemma
+(the categorical flag derivation); see Theorem 1al. The sentence was
+true when written.* *Sensitivity disclosure, load-bearing
 and stated:* the sink exclusion matters — under the counterfactual reading
 that counts the Planck sink d₂ = 217 as a source, exactly one additional
 seat would participate (seat 213, δ = 4, the Planck-adjacent Dirac seat);
@@ -2235,7 +2240,11 @@ d₂ = 217 as the Planck sink"* is thereby **forced by the committed
 dynamics**, not merely remark-level accounting — the corresponding step of
 1ae(iii)'s exhaustiveness chain upgrades (net-state marker placed in 1ae;
 the remark-level type-counting step for "no fifth source *type*" is
-untouched and remains the chain's weakest link, stated). *(vi) The
+untouched and remains the chain's weakest link, stated). *Net state
+(1al): the step is upgraded — exact count mechanics, enumerated
+precedence-idleness, the source side theorem-grade — and the weakest
+link sharpens to one named open lemma (the categorical flag
+derivation); the sentence was true when written.* *(vi) The
 spinor-sector candidate, identified honestly.* The committed per-layer
 factor χ = 2 (Poincaré–Hopf, theorem-grade) coincides exactly with the
 per-layer doubling of the Clifford algebra — dim Cl(d+1) = 2·dim Cl(d) —
@@ -2884,6 +2893,64 @@ stated as arithmetic and no spectral procedure is invoked); Check 8
 clean (no hypothesis input — every identity is classical algebra
 over the committed lattice w = d + ½).
 
+**Theorem 1al (the type-counting close, upgraded to its exact residue;
+`cascade_type_counting.py`).** *(i) The commission.* The owner
+commissioned the type-counting remark-to-theorem upgrade — the standing
+"weakest link" of 1ae(iii)'s exhaustiveness chain: part4b's
+remark-level "no fifth source *type*". Result: the link does not
+close; it SHARPENS — the count mechanics become exact combinatorics, a
+new enumerated theorem shows the open precedence carries no load on
+the committed record, the source side is confirmed theorem-grade, and
+the remaining remark-grade content contracts to ONE named open lemma.
+*(ii) Theorem T1 (the count mechanics, exact).* The committed decision
+procedure is a linear short-circuit list on three binary flags
+(P, L, G); a k-flag linear list has exactly k+1 outcome classes
+(enumerated k = 1..6, gated), so the committed k = 3 gives exactly
+four types, and the 2³ = 8 possible flag vectors partition 4+2+1+1
+(P subsumes four, L two, G one, default one — gated). The remark's
+"no fifth type is definable without introducing a new structural
+element" upgrades to exact combinatorics: a fifth type requires a
+FOURTH FLAG. *(iii) Theorem T2 (the precedence is idle on the
+committed record — new).* The committed record's eight observables
+(imported from the committed classifier,
+`tools/verifiers/verify_selection_rule.py`) realize exactly the four
+at-most-one-hot flag vectors {TFF, FTF, FFT, FFF}, two observables
+each — no committed observable carries two true flags. Consequently
+ALL 3! = 6 precedence orders classify the committed eight identically
+(enumerated, gated): the open P > L > G precedence derivation is idle
+on the committed record — exercised only by hypothetical multi-flag
+observables, load-bearing nowhere in the committed table. (The
+round-137 form/value class of finding, here working FOR the record:
+an open convention shown not to bear load.) *(iv) Theorem T3 (the
+bijection, with the source side theorem-grade).* The four types map
+bijectively onto the four non-sink distinguished layers
+{19, 5, 14, 7}, reproducing all eight committed assignments (gated,
+with the committed classifier run green). The SOURCE side's count is
+theorem-grade: Part 0's tower completeness closes the Γ-mechanism
+(*"exactly four distinguished dimensions … No fifth exists"*); the
+committed Adams scan's interval is parameterized by Γ-forced endpoints
+— part4a's own notation *"[5,d_1=19]"* names the upper endpoint AS the
+first threshold, not as a bare number; and the sink exclusion is
+forced by the committed dynamics (the 1af constraint-node theorem).
+*(v) The residue, named exactly.* What remains remark-grade is
+precisely part4b's own "Does not" item: *"derive the three syntactic
+flags $(P,L,G)$ themselves from a formal category of cascade
+observables"* — the categorical flag derivation. Under the committed
+flag↔layer correspondence (P↔19, L↔5, G↔14, default↔7 — the pairing
+rationales committed in part4b), the fourth-flag question REDUCES to
+the fifth-non-sink-layer question, which is: closed by theorem on the
+Γ-mechanism; closed relative to the committed scan on the Adams
+mechanism (Radon–Hurwitz recurrences at 20, 28, 36 lie beyond the
+Γ-forced first threshold); open only as the round-126 barrier — a new
+structural mechanism would reopen it. Net: the weakest link sharpens
+but does not vanish — from "remark-level type counting" to the single
+named open lemma. *Honest scope:* T1–T3 are exact finite enumerations
+plus committed anchors (all gated); the residue is NOT closed and this
+theorem does not claim it is; no data, no closures, no new physics —
+category (a). Check 7 clean (finite enumeration; no semiclassics);
+Check 8 clean (the flags and layers are committed structure; no
+hypothesis input).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -3418,4 +3485,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ak: the **61 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1al: the **62 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

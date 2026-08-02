@@ -12735,6 +12735,71 @@ C3; the type-counting remark-to-theorem upgrade; the observer↔4
 and charged-termination questions. Next hostile round on the
 next substantive paper change.**
 
+## Addendum 253: Theorem 1al — the type-counting close upgraded to its exact residue (owner-commissioned); the precedence proved idle on the committed record; the weakest link sharpens to one named lemma
+
+The owner commissioned the standing type-counting
+remark-to-theorem upgrade. Result: the link does not close — it
+SHARPENS, with two new enumerated theorems and one honest
+reduction. All lead-verified before landing:
+
+- **T1 (count mechanics, exact):** a k-flag linear short-circuit
+  list has exactly k+1 outcome classes (enumerated k = 1..6); the
+  committed k = 3 gives four types; the 8 flag vectors partition
+  4+2+1+1. "No fifth type without a new structural element"
+  upgrades to exact combinatorics: a fifth type requires a FOURTH
+  FLAG.
+- **T2 (precedence idleness, NEW):** the committed eight
+  observables (imported from the committed
+  verify_selection_rule.py, not re-encoded) realize exactly the
+  four at-most-one-hot flag vectors, two observables each — no
+  committed observable carries two true flags — so ALL 3! = 6
+  precedence orders classify the committed eight identically. The
+  open P > L > G precedence derivation (flagged open since the
+  1ad arc) is IDLE on the committed record: load-bearing nowhere.
+  The round-137 form/value class of finding, here working FOR the
+  record.
+- **T3 (the bijection, source side theorem-grade):** types →
+  {19, 5, 14, 7} bijective, all eight committed assignments
+  reproduced, the committed classifier run green; the source
+  side's count rests on tower completeness (theorem), the Adams
+  scan with Γ-forced endpoints (part4a's own notation
+  "[5,d_1=19]" names the upper endpoint AS the threshold), and
+  the 1af sink-dynamics theorem.
+- **The residue, named exactly:** part4b's own "Does not" item —
+  the categorical flag derivation. Under the committed
+  flag↔layer correspondence the fourth-flag question reduces to
+  the fifth-non-sink-layer question (Γ-closed by theorem;
+  Adams-closed relative to the committed scan; the round-126
+  barrier otherwise). The weakest link sharpens from
+  "remark-level type counting" to this single named open lemma.
+
+**Surfaces:** Theorem 1al in the paper (after 1ak); two net-state
+markers on the weakest-link sentences (the 1ae-chain
+relative-closure passage; the 1af "remains the chain's weakest
+link" passage) — both superseded-true; footer 61 → 62
+("1i–1ak" → "1i–1al"), verified against the FOOTER TEXT (68
+backticked = 62 + 4° + 2 audited); both footer-gating siblings'
+anchors advanced with disclosure (the census-evolution class) and
+re-run green inside the new verifier's g12. **Verifier:**
+cascade_type_counting.py, V1–V5, 12 gates, 12/0. Three sabotages
+on a full-tree copy: (a) the fourth-flag sentence mid-anchor →
+g9, 11/1, exit 1; (b) a committed flag flipped in the copy's
+verify_selection_rule.py (θ_C's G) → g1 trips (the
+two-observables-each census breaks), 11/1, exit 1; (c) the 1af
+marker mid-anchor (sharpens → narrows) — DISCLOSED PRE-COMMIT
+CATCH: the first attempt passed 12/0 because g10's first draft
+counted marker labels only (the count-only-gate class); content
+anchors added, the redone sabotage trips, 11/1, exit 1. Clean
+baselines 12/0 around each. **Battery:** all 29 instruments green
+(the 28 + type_counting), zero FAIL lines; validator clean on 12
+files; hygiene zero. Category (a) — no data, no closures, no new
+physics; Checks 7/8 clean. The standing-open-routes list: the
+type-counting item is UPGRADED (its residue now the categorical
+flag derivation, named); remaining: (v-b), C1, C2, C3, the
+categorical flag derivation, the observer↔4 and
+charged-termination questions. Trajectory: 1al landed → round 156
+(hostile review, per protocol) spawned on this commit.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
