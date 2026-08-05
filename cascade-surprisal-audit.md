@@ -13873,6 +13873,41 @@ chain-verified green inside all thirteen suite baselines
 the round-168 reviewer runs what it chooses. Convergence-test
 round 168 next.
 
+## Addendum 271: round 168 (convergence test on the round-167 sweep) — NOT CONVERGED: 1 MAJOR + 1 minor; the replacement question's own closure; swept
+
+Round 168 (fresh-context subagent, session model) reproduced the
+committed verifier (12/0), the full re-certified suite (a)–(f)
+with all censuses matching A270 including (b)'s two-gate
+sensitivity gain, derived both laws by hand (confirming the
+paper's stated derivation as correct mathematics, with
+convergence re-checked at height 10⁴), proved the membership
+identity analytically (noting the residues sum to 1, the leading
+coefficient — a consistency check the paper doesn't claim), and
+verified every endpoint. Two findings:
+
+**F168-1 MAJOR (accepted; swept):** the round-167 replacement
+question ("is 5/2 the infimum of width·γ₀ over admissible
+three-site instances?") repeated the struck question's own defect
+class — answered NO by g4's committed from-below products (2.1356
+attained at γ₁; the reviewer's low-height probes reach 0.106), so
+5/2 is the ladder's supremum, not a candidate infimum. The lead
+had flagged exactly this in the round's brief; confirmed and
+swept: struck in turn on all carriers, with the standing question
+now asymptotically scoped — is 5/2 the infimum of
+liminf(width·γ₀, γ₀ → ∞) over admissible three-site CONCENTRATING
+FAMILIES? — which no committed datum touches. The g9 needle
+advanced (probe (e2) certified: 11/1, clean baselines; entry (e)
+scoped to the pre-168 tree); the g9 label synced.
+
+**F168-2 minor (accepted; swept):** the A270/docstring claim "the
+hulls unchanged" in entry (f) was false — three of four hulls
+change, collapsing to the ε→0 value; what is true is that the
+hull and component CONJUNCTS still pass, leaving the vanished gap
+as the sole tripwire. Corrected in the record.
+
+**Post-sweep:** verifier 12/0; probe (e2) certified.
+Convergence-test round 169 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

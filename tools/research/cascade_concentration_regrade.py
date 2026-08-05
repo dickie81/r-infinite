@@ -13,9 +13,12 @@ ROUND-167 SWEEP (the landing's hostile round; 1 MAJOR + 6 minors +
 drafted open question ("width at fixed depth-per-|Q|-scale") was
 CLOSED by the theorem's own data (the construction holds
 depth*g0^(2n) fixed at -(2n-1)^2/4 while width -> 0; the quantity
-is not scale-invariant); struck, replaced by the well-posed
-question (is 5/2 the infimum of width*g0 over admissible
-three-site instances?).  F2/F9 -- the width and depth laws are now
+is not scale-invariant); struck.  [Round 168 F1, MAJOR: the
+round-167 replacement itself repeated the defect class -- closed
+NO by g4's own from-below products (2.1356 attained) -- struck in
+turn; the asymptotically-scoped open question now stands: is 5/2
+the infimum of liminf(width*g0) over admissible three-site
+CONCENTRATING FAMILIES?]  F2/F9 -- the width and depth laws are now
 DERIVED (F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t near the pair) and
 gated at height 3000 in mpmath for BOTH site counts; the "is ZERO"
 infimum claim now rests on the derivation, not sampling.  F3 --
@@ -72,9 +75,12 @@ cascade-side forces positivity; the dense-class extension is RH,
 claimed in neither direction) and the sampled aimed family's own
 phenomenology.  The deficit's honest coordinate regrades to
 CONTRAST; the drafted contrast-normalized question was CLOSED by
-the theorem's own data (round 167 F1, MAJOR -- struck); the
-well-posed replacement: is 5/2 the infimum of width*g0 over
-admissible three-site instances?  1ao's wall-sidestep carries its
+the theorem's own data (round 167 F1, MAJOR -- struck), and the
+round-167 replacement was closed in turn by g4's from-below
+products (round 168 F1, MAJOR -- struck); the standing open
+question, asymptotically scoped: is 5/2 the infimum of
+liminf(width*g0) over three-site concentrating families?  1ao's
+wall-sidestep carries its
 net-state marker (the sidestep rests on the decay-rate exclusion,
 now sign-free per F7).
 
@@ -152,9 +158,16 @@ landing census was 11/1); (c) the off-curve limit instance -> g3,
 (2.499990 -> 2.599990) -> g4 trips, 11/1, exit 1; (e) the
 replacement-question needle mangled in the paper (5/2 -> 7/2) ->
 g9 trips, 11/1, exit 1; (f) the two pairs collapsed to one
-(z2 -> z1) -> g6 trips VIA THE POSITIVE-GAP CONJUNCT (the
-component count stayed 2 and the hulls unchanged -- the gap
-between the pair heights is what vanishes), 11/1, exit 1.
+(z2 -> z1) -> g6 trips VIA THE POSITIVE-GAP CONJUNCT: the hull and
+component CONJUNCTS still pass -- three of four hulls in fact
+change, collapsing to the eps->0 value 2.0754 (the round-167
+record's "hulls unchanged" was false, corrected round 168 F2) --
+and the vanished gap is the sole tripwire, 11/1, exit 1.  At the
+round-168 sweep: entry (e)'s needle text was struck with the
+round-167 replacement question (entry (e) reproduces at the
+pre-168 tree); the probe for the ASYMPTOTIC question's needle:
+(e2) the paper's "is 5/2 the infimum" (asymptotic form) -> "7/2"
+-> g9 trips, 11/1, exit 1, clean baselines 12/0.
 """
 import os
 import subprocess
@@ -426,17 +439,23 @@ ok &= "The concentration mechanism is height, not degree" in paper
 # inside the strike); the replacement + the derived laws + the F3
 # strike + the membership lemma anchored by content.
 ok &= paper.count("struck round 167 F1, MAJOR") == 1
-ok &= ("is 5/2 the infimum of the scale-invariant product width·γ₀ "
-       "over all admissible THREE-SITE instances?" in paper)
+# round 168 F1: the round-167 replacement question struck (closed
+# by g4's own from-below products); the needle advances to the
+# asymptotically-scoped question + the new strike frame.  Sabotage
+# entry (e) certifies the OLD needle at the pre-168 tree; the new
+# needle's probe is (e2) below.
+ok &= paper.count("struck round 168 F1, MAJOR") == 1
+ok &= ("is 5/2 the infimum of liminf(width·γ₀, γ₀ → ∞) over "
+       "admissible three-site CONCENTRATING FAMILIES?" in paper)
 ok &= "DERIVED at the round-167 sweep" in paper
 ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
 ok &= paper.count("struck round 167 F3") == 1
 ok &= "the membership lemma, stated and gated round 167 F10" in paper
 gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "claim now derived; the contrast law; the height mechanism; the "
-     "F1 strike frame + the well-posed replacement question; the "
-     "derived-law sentences; the F3 strike; the membership lemma -- "
-     "round 167)", ok,
+     "167-F1 and 168-F1 strike frames + the asymptotically-scoped "
+     "standing question; the derived-law sentences; the F3 strike; "
+     "the membership lemma)", ok,
      f"167 frames F1={paper.count('struck round 167 F1, MAJOR')} "
      f"F3={paper.count('struck round 167 F3')}")
 
@@ -487,7 +506,9 @@ print("forces positivity; the dense-class extension is RH, claimed in")
 print("neither direction.  The deficit's honest coordinate is")
 print("CONTRAST; the drafted contrast-normalized question was CLOSED")
 print("by the theorem's own data (round 167 F1, MAJOR -- struck); the")
-print("well-posed replacement: is 5/2 the infimum of width*gamma_0")
-print("over admissible three-site instances?  No data, no closures, no new")
+print("round-167 replacement was closed in turn by g4's from-below")
+print("products (round 168 F1 -- struck); the standing question,")
+print("asymptotically scoped: is 5/2 the infimum of liminf(width*g0)")
+print("over three-site concentrating families?  No data, no closures, no new")
 print("physics; no direction of explanation.")
 sys.exit(0 if n_fail == 0 else 1)
