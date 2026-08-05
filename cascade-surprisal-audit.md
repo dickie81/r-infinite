@@ -13682,6 +13682,52 @@ baseline); the three tellings re-read. Convergence-test round
 166 next — the reviewer's own assessment: nothing else in the
 two object surfaces is out of order.
 
+## Addendum 267: round 166 (convergence test on the round-165 sweep, 40bb2c3) — **CONVERGED**, 0 MAJORs + 0 minors + 0 cosmetics; Theorem 1ao certified stable; the infinite-unit-ball RH arc closes
+
+Round 166 (fresh-context subagent, session model) attacked the
+round-165 sweep and returned zero findings of any grade — full
+convergence. The reviewer's own verification: the committed
+verifier 13/0 with every detail matching its docstring brackets;
+probe (f) reproduced independently (g4 FAIL ALONE with exactly
+one FAIL line across the whole 38-line chain log, 12/1, clean
+baselines) with its arithmetic recomputed from scratch (base
+ratio 0.99767686; corrupted ratio 1.1080236; trip thresholds
++0.927%/−0.885% — the "~1% level" wording endpoint-honest);
+the corrupted-rung isolation verified statically (lam[9] enters
+no gate but g4 — "ALONE" forced, not incidental); the corrected
+route-census clause verified true on both carriers against the
+source's own loops; the annotation verified verbatim against
+both pre-sweep carriers with the [corrected round N] precedent
+(rounds 82, 90/91, 120, 125) noted; F165-2/3 landed on both
+tellings with every printed line of a live run read against the
+swept state; sabotage entry (e) reproduced live at its recorded
+detail ("floor 1/2", 12/1) and entry (d) verified statically;
+endpoint discipline held on every sweep number; no stowaway
+edits — every hunk mapped to a declared finding.
+
+**Trajectory: 1ao landed (3936ede) → 164 NOT CONVERGED 0M+4m+2c
+(swept, 8043ed9) → 165 NOT CONVERGED 0M+1m+2c (swept, 40bb2c3)
+→ 166 CONVERGED 0M+0m+0c. Certified stable: Theorem 1ao — the
+infinite unit ball RH theorem. The committed decomposition
+ξ = B·A splits Li's ladder exactly; the ball factor's
+log-derivative is the committed potential plus the prefactor's
+pole ladder; the first rungs are exact identities (λ₁^A = γ,
+λ₁^B = 1 + p(0)); RH ⟺ every rung ≥ 0 (Li; Bombieri–Lagarias —
+classical, verified against the literature at round 164); the
+crossover honest (ball rungs negative exactly n = 1..7, the drag
+ending at 8, the share crossing half near 11; arithmetic rungs
+positive with minimum γ); the Li family outside the committed
+cone by decay-rate separation (the lattice floor 3/2 vs the Li
+scale ½, gated); the teeth demonstrated; NO PROOF LEVERAGE, the
+wall standing, claimed in neither direction. The window's
+certified chain: 1am (the selection justified from Riemann), 1an
+(the windows overlap), 1ao (the Li criterion at the tower's
+edge). The battery stands at 32 exit-gated instruments; the
+footer at 65 cited scripts, range 1i–1ao. The standing
+open-routes list: (v-b), C1, C2, C3; the categorical flag
+derivation; the observer↔4 and charged-termination questions.
+Next hostile round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

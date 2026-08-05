@@ -3378,3 +3378,28 @@ documentation conjunct noted and held); Checks 7/8 clean.
 **Trajectory: 1ao landed (3936ede) → 164 NOT CONVERGED 0M+4m+2c
 (swept, 8043ed9) → 165 NOT CONVERGED 0M+1m+2c (swept) → round
 166 (convergence test) next.**
+
+# Round 166: convergence test on the round-165 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1ao certified stable; the infinite-unit-ball RH arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — none — | **Full convergence: zero findings of any grade** | — |
+
+Held: the committed verifier 13/0 with details matching the
+docstring brackets; probe (f) reproduced independently (g4 alone,
+12/1, one FAIL line in the whole chain log) with the arithmetic
+recomputed from scratch (ratios 0.99768/1.10802; thresholds
++0.927%/−0.885%); the corrupted-rung isolation verified
+statically; the corrected clause true on both carriers; the
+annotation verbatim-accurate with precedent; F165-2/3 on both
+tellings; sabotage (e) reproduced live at its recorded detail and
+(d) statically; endpoint discipline on every number; no
+stowaways.
+
+**Trajectory: 1ao landed (3936ede) → 164 0M+4m+2c (swept) → 165
+0M+1m+2c (swept) → 166 CONVERGED 0M+0m+0c. Certified: the
+infinite unit ball RH theorem — the exact ball/arithmetic split
+of Li's ladder at the tower's edge, the first-rung identities,
+the honest crossover, the decay-rate cone exclusion, the teeth,
+and the no-proof-leverage scope. Next hostile round on the next
+substantive paper change.**
