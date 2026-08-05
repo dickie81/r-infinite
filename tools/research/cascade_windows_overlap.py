@@ -579,11 +579,14 @@ gate("g12 the sibling chain green after the census advance "
      "(riemann_selection 12/0, chaining type_counting and the two "
      "Weil-arc siblings)", ok)
 
+# 1ao landing: the footer census advanced (64 -> 65; range -> 1ao)
+# -- the census-evolution class, disclosed.
 ok = "`cascade_windows_overlap.py`" in paper
-ok &= "64 scripts cited in place" in paper
-ok &= "Theorems 1i–1an" in paper
-gate("g13 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 64 cited in place; the range 1i–1an", ok)
+ok &= "65 scripts cited in place" in paper
+ok &= "Theorems 1i–1ao" in paper
+gate("g13 the footer census (advanced at this landing and 1ao, "
+     "disclosed): this script backticked; 65 cited in place; the "
+     "range 1i–1ao", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 n_gates = 14 if FULL else 13

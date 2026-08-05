@@ -109,8 +109,8 @@ VERIFICATION (12 gates, exit-gated).
        qualifier); g11 the sibling chain green after the
        census advance (cascade_type_counting.py 12/0, which itself
        re-runs the two Weil-arc siblings); g12 the footer census
-       (this script backticked; "64 scripts cited in place";
-       "Theorems 1i-1an" -- the census advanced at the 1am and 1an
+       (this script backticked; "65 scripts cited in place";
+       "Theorems 1i-1ao" -- the census advanced at the 1am-1ao
        landings, the census-evolution class, disclosed).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git, at
@@ -323,13 +323,15 @@ gate("g11 the sibling chain green after the census advance "
      "(type_counting 12/0, itself re-running the two Weil-arc "
      "footer-gating siblings)", ok)
 
-# 1an landing: the footer census advanced (63 -> 64; range -> 1an)
-# -- the census-evolution class, disclosed.
+# 1an landing: the footer census advanced (63 -> 64; range -> 1an);
+# 1ao landing: advanced again (64 -> 65; range -> 1ao) -- the
+# census-evolution class, disclosed each time.
 ok = "`cascade_riemann_selection.py`" in paper
-ok &= "64 scripts cited in place" in paper
-ok &= "Theorems 1i–1an" in paper
-gate("g12 the footer census (advanced at the 1an landing, disclosed): "
-     "this script backticked; 64 cited in place; the range 1i–1an", ok)
+ok &= "65 scripts cited in place" in paper
+ok &= "Theorems 1i–1ao" in paper
+gate("g12 the footer census (advanced at the 1an and 1ao landings, "
+     "disclosed): this script backticked; 65 cited in place; the "
+     "range 1i–1ao", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

@@ -13480,6 +13480,99 @@ stands at 31 exit-gated instruments; the footer at 64 cited
 scripts, range 1i–1an. Next hostile round on the next
 substantive paper change.**
 
+## Addendum 264: Theorem 1ao lands — the infinite unit ball RH theorem (the Li criterion at the tower's edge); `cascade_unit_ball_rh.py` (13 gates); the battery reaches 32; hostile round 164 spawned
+
+**The commission.** The owner: "Investigate an infinite unit ball
+RH theorem" — following the assessment that the Li route is the
+one place the program's RH interface becomes actionable
+(resolution-free, countable, bridge-expressible).
+
+**The result (Theorem 1ao).** The classical Li criterion stated
+and gated in the committed decomposition ξ = B·A (the unit-ball
+factor B(s) = ½sΓ_ℝ(s); the pole-removed arithmetic factor
+A(s) = (s−1)ζ(s)) at the tower's singular edge d = 0. The ball
+factor's log-derivative IS the committed potential
+(d/ds ln B = p(s−1) + 1/s, residual 7.8e-62 gated); Li's ladder
+splits exactly by linearity, λₙ = λₙ^B + λₙ^A; the first rungs
+are exact identities (λ₁^A = γ; λ₁^B = 1 + p(0) =
+1 − ½lnπ − γ/2 − ln2). RH ⟺ λₙ ≥ 0 ∀n (Li; Bombieri–Lagarias —
+classical, cited; the footer's classical-inputs list extended).
+Three independent routes agree (Stieltjes+polygamma series;
+direct differentiation; the paired zero-sum); λₙ > 0 gated to
+n = 50. The crossover, honest: the ball rungs are NEGATIVE for
+n = 1..7 exactly (min −1.01305… at n = 3), positive and growing
+from 8; the arithmetic rungs positive and bounded (min = γ at
+n = 1; the n = 24 dip 0.5944 > γ) — positivity is
+arithmetic-carried early, ball-carried from n ≈ 8. The teeth:
+a counterfactual off-line quadruple (β = 0.95, γ = 2, a
+classically zero-free region) drives the ladder negative by
+n = 13 (min ≈ −84). Honest scope: NO PROOF LEVERAGE — positivity
+for all n is as hard as RH; the wall stands; internal consistency
+only, claimed in neither direction; category (a). Checks 7/8
+clean.
+
+**Pre-commit catches by the lead (disclosed).** (i) The drafted
+narrative "the ball dominates at every rung" was WRONG at the low
+rungs — caught at the first split computation and corrected
+before landing (the crossover is the theorem's honest structure).
+(ii) The drafted claim that the arithmetic minimum might sit at
+the n ≈ 24 dip was checked before landing: the minimum is γ at
+n = 1 (0.5944 > γ), the paper sentence verified. (iii) g4's
+first tail model was FIRST-ORDER in n and failed its own clean
+run (12/1): the per-pair deficit is [n + n(n−1)]/γ² = n²/γ² —
+the binomial second-order term is same-order in the γ-tail;
+redesigned to the n² paired-tail model, observed ratio 0.998
+uniform, gated in (0.9, 1.1).
+
+**The instrument.** `cascade_unit_ball_rh.py`, 13 exit-gated
+checks (the tie; the series ladder vs classical values; route
+agreement; the zero route with the n² tail; the first-rung
+identities; the crossover; the teeth; positivity; paper anchors;
+honest-scope anchors; classical-inputs anchors; the sibling
+chain — windows_overlap 13/0 transitively chaining four more;
+the footer census 65/1i–1ao).
+
+**Sabotages (serial, abort-safe, fresh tree; actual censuses):**
+(a) the crossover handoff sentence mangled mid-anchor → g9,
+12/1 (the first attempt aborted at its count assert — the
+line-wrap class again, redone newline-aware, disclosed); (b) the
+teeth quadruple flipped ON-line (β → 0.5) → the FIRST run
+CRASHED at a bare next() (StopIteration — no negative rung
+exists on-line) instead of tripping: an instrument robustness
+defect, fixed in place (default None) and disclosed; redone →
+g7 trips gracefully ("first neg None"), 12/1; (c) the ball
+series' lnπ term dropped → SIX gates trip (g2–g7), 7/6 — the
+drafted census "10/3" undercounted, corrected to the actual run.
+Clean baselines 13/0 around every entry.
+
+**The battery and the census collision (disclosed).** The full
+32-instrument sweep returned 31/32: the 1ai prior-pursuit census
+(cascade_weil_positivity_status V1) caught the landing's footer
+citation carrying one of its census bigrams. The fix kept the
+census strong rather than allowlisting: the footer reworded to
+the 1ao body's own vocabulary ("the positivity ladder") — and
+the FIRST repair then wrote the bigram into its own disclosure
+comment and failed the census again (repo-wide 1); both
+reworded. A further instrument mishap disclosed: the rerun
+batch's ps-grep waiting guard matched its own wrapper's command
+line and slept 51 minutes without running anything (the
+stuck-waiter self-match class; killed, rerun directly). Final
+state: census 10/0 and the 1ao verifier 13/0 against the final
+tree; the other 30 battery members unaffected by the text-only
+fix (their 31/32-sweep runs stand).
+
+**The census-evolution sweep.** Footer 64 → 65, range 1i–1ao,
+the new name backticked (71 backticked = 65 counted + 4° + 2
+audited, reconciled by direct census); classical inputs
+extended (Li and Bombieri–Lagarias; Stieltjes); FIVE siblings
+advanced with disclosure (route_traveled g18, quarter_square
+g12, type_counting g11, riemann_selection g12, windows_overlap
+g13) and re-verified green through the g12 chain. Validator
+clean; model-ID hygiene zero.
+
+**Spawn.** Hostile round 164 on this landing (fresh-context
+subagent, session model) per the standing protocol.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
