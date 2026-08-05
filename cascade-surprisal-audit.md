@@ -14091,6 +14091,81 @@ made whitespace-aware; the abort guard left the tree clean at
 off-curve triple 2.061542/1.499985/2.692574); probes (d2)/(e4)
 certified. Convergence-test round 171 next.
 
+## Addendum 274: round 171 (convergence test on the round-170 sweep) — NOT CONVERGED: 1 MAJOR + 1 minor; the classification's second correction — drifting offsets attain the endpoints; the third statement scoped to fixed offsets; swept
+
+Round 171 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) re-derived the off-curve law
+independently (discriminant closure exact), verified it at its
+own never-gated instance ((3, −1) → 3.354074/3.354095 at
+γ₀ = 1500/3000 vs ½√45 = 3.354102, deviations scaling γ₀⁻²),
+reproduced the clean run at every printed census, reproduced
+probes (e4) and (d2) at their recorded censuses (confirming the
+(e4) line-wrap disclosure accurate: the g9 needle verifiably
+wraps), confirmed the four-frame strike chain and the four
+sibling syncs, recounted the footer census (66 exact), and found
+no residual "(0, 5/2]" carrier outside strike frames. Two
+findings, both verified directly by the lead (Check 3):
+
+**F171-1 MAJOR (accepted; swept):** the round-170 corrected
+classification failed one scope out — "the whole half-line
+(0, ∞) … every positive value attained, none extremal" is false
+over the FULL class, because height-drifting offsets attain the
+degenerate endpoints in exactly the limit sense in which the
+on-curve family attains 5/2. The drift family c(γ₀) → (2n−1)²/8
+is strictly admissible at every rung and concentrating, and its
+product walks to 0 (lead-verified along the reviewer's drift
+path, reproducing their figures exactly: width·γ₀ = 0.446734 /
+0.244852 / 0.141406 at γ₀ = 10³/3·10³/10⁴ vs predicted ½√(8δ),
+deviations vanishing like γ₀⁻²); symmetrically a(γ₀) → ∞ walks
+it to ∞. So 0 is an attained minimum of the closure — by the
+round-170 frame's own template, an attained extremum is a
+distinguished value, and "none extremal" contradicted it.
+Swept: the second classification struck with the round-171
+frame; the THIRD statement written, properly scoped — over FIXED
+offsets the spectrum is exactly the open half-line (0, ∞) (the
+law onto, none extremal at fixed offset, the on-curve 5/2
+interior); drifting offsets attain exactly the two degenerate
+endpoints, so the full class's attained closure is [0, ∞] whose
+only extremal values are those endpoints — order-theoretic
+boundary values shared by every class with full-half-line
+spectrum, carrying no lattice content, unlike the finite
+attained extremum the struck 5/2 candidacy would have been; the
+conclusion re-scoped to "NO distinguished positive finite
+asymptotic constant exists for the class." g4 gains a drift-rung
+conjunct (c = 25/8 − 0.03 at γ₀ = 3000, bracket
+(0.2448, 0.2450), actual 0.244852, predicted ½√0.24 = 0.244949)
+and the ordering conjunct extends to wdr < w02 < w01 < 5/2 <
+w10; g9 advances to five frame counts + the third-statement
+needles ("onto (0, ∞) over the admissible offset domain",
+"attained closure is [0, ∞]", the re-scoped conclusion), with
+the two struck-text needles removed (anchoring struck text is
+the F169-2 defect class); all verifier carriers (frame
+annotations, REGRADE, V2/V3, header, READING) synced in the
+same edit set.
+
+**F171-2 minor (accepted; swept):** the g4 off-curve comment
+cluster was stale against the code it annotates after round
+170's a-branch call — "two sub-5/2 instances", the unscoped
+"Both window edges sit BELOW g0", the a = 0 seed formula, and
+the "a = 0 cases" inline comment (for a > 0 the upper edge sits
+ABOVE γ₀ and the code uses the general-form roots). All synced
+to the general form with the scoping stated.
+
+**Probes (e5)/(d3) certified (fresh tar tree, serial, per-mangle
+restore, clean baselines 12/0 around both):** (e5) the closure
+needle mangled in the paper copy ("[0, ∞]" → "(0, ∞)") → g9
+trips ALONE, 11/1, exit 1; (d3) the drift-rung bracket decoupled
+(0.2448 → 0.3448) → g4 trips ALONE, 11/1, exit 1. Entry (e4)
+rescoped to the pre-171 tree (its needle is now struck text).
+Instrument note: the probes' first pass truncated the log column
+carrying the PASS/FAIL marker, so the failing-gate identities
+were captured on an explicit re-run (disclosed in the record) —
+the record-actuals rule held at the cost of two extra runs.
+
+**Post-sweep:** verifier 12/0 (g4 detail printing the off-curve
+quad 2.061542/1.499985/2.692574/0.244852). Convergence-test
+round 172 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

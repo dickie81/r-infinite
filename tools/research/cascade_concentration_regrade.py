@@ -23,11 +23,20 @@ classification: no distinguished asymptotic constant exists.]
 [Round 170 F1, MAJOR: the FIRST classification's support
 misstated the spectrum ("sweeps (0, 5/2]") and would have made
 5/2 an attained supremum -- itself a distinguished constant;
-struck.  The corrected classification: the spectrum is the whole
-half-line (0, inf) -- the c-branch sweeps below 5/2 toward 0, the
-a-branch (a > 0, strictly admissible, P >= g0^2 identically)
-rises above 5/2 without bound, gated at (1, 0) -> sqrt(29)/2;
-every positive value attained, none extremal.]  F2/F9 -- the width and depth laws are now
+struck.]  [Round 171 F1, MAJOR: the SECOND classification
+("the whole half-line (0, inf), every positive value attained,
+none extremal") failed one scope out -- height-drifting offsets
+attain the degenerate endpoints in the same limit sense in which
+the on-curve family attains 5/2 (c(g0) -> 25/8 walks the product
+to 0, gated at a drift rung; a(g0) -> inf walks it to inf), so
+"none extremal" was false; struck.  The THIRD statement, scoped:
+over FIXED offsets the spectrum is exactly the open half-line
+(0, inf) -- the law is onto, none extremal at fixed offset, the
+on-curve 5/2 interior; the full class's attained closure is
+[0, inf], its only extremal values the two degenerate endpoints
+-- order-theoretic boundary values carrying no lattice content;
+NO distinguished positive finite asymptotic constant exists.]
+F2/F9 -- the width and depth laws are now
 DERIVED (F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t near the pair) and
 gated at height 3000 in mpmath for BOTH site counts; the "is ZERO"
 infimum claim now rests on the derivation, not sampling.  F3 --
@@ -85,13 +94,14 @@ claimed in neither direction) and the sampled aimed family's own
 phenomenology.  The deficit's honest coordinate regrades to
 CONTRAST; the question slot died three times by the same
 mechanism (rounds 167/168/169 F1, each MAJOR, each struck) and is
-RETIRED with a classification -- corrected round 170 F1 (the
-first classification's "sweeps (0, 5/2]" support misstated the
-spectrum): the off-curve law's two branches sweep the asymptotic
-product over the whole half-line (0, inf), below 5/2 toward 0 and
-above 5/2 without bound, so no value is extremal and no
-distinguished constant exists for the class; the standing facts
-are the derived laws and the contrast trade-off.  1ao's
+RETIRED with a classification -- corrected twice (round 170 F1:
+the "(0, 5/2]" support; round 171 F1: the fixed-offset scoping):
+over fixed offsets the law is onto the open half-line (0, inf)
+with no extremal value; height-drifting offsets attain only the
+two degenerate endpoints, so the class's attained closure is
+[0, inf] with no distinguished positive finite constant; the
+standing facts are the derived laws and the contrast trade-off.
+1ao's
 wall-sidestep carries its
 net-state marker (the sidestep rests on the decay-rate exclusion,
 now sign-free per F7).
@@ -105,7 +115,7 @@ Check 7 clean (rational-function geometry; no semiclassics);
 Check 8 clean (no hypothesis input).
 
 VERIFICATION (12 gates, exit-gated; census updated at the
-round-167 rebuild and the 168/169/170 needle advances).
+round-167 rebuild and the 168-171 needle advances).
   V1 -- g1 strict admissibility EXACT (P >= y0^2 > 0 identically,
        exact rationals; L-min positive) PLUS the membership lemma
        (real residues bracketed; boundary read = the
@@ -117,15 +127,17 @@ round-167 rebuild and the 168/169/170 needle advances).
        3000 in mpmath, both site counts (3-site -> 5/2 and -25/4;
        5-site -> 9/2 and -81/4), PLUS the off-curve spectrum gated
        on both branches (sqrt(17)/2 and 3/2 below 5/2 -- round
-       169; sqrt(29)/2 above -- round 170); g5 the contrast ladder (three
+       169; sqrt(29)/2 above -- round 170) and at a drift rung
+       near the 0 endpoint (0.2449 -- round 171); g5 the contrast ladder (three
        ratio-exponents bracketed, rising toward 6); g6 the
        anti-concentration REBUILT component-aware (two components,
        the positive gap between the pair heights gated, the outer
        hull bracketed -- F3/F4); g7 the infimum-zero chain.
   V3 -- g8 the regrade strikes (frames 2 + 2; the CONTRAST
        content; the TWO net-state markers); g9 1ap's key sentences
-       including the 167/168/169/170 strike frames, the RETIREMENT
-       + the corrected half-line classification, the derived-law
+       including the five 167-171 strike frames, the RETIREMENT
+       + the third-statement classification (fixed-offset spectrum
+       onto (0, inf); drifting closure [0, inf]), the derived-law
        sentences, and the membership lemma; g10
        the honest-scope anchors (the three- and five-site scope
        clause; the forcing clause on its THREE carriers with W4
@@ -202,7 +214,18 @@ the needle wraps a line break, so the mangle pattern is
 whitespace-aware -- the first raw-string attempt aborted safely
 at count 0 with the tree left clean at 12/0, disclosed) -> g9
 trips ALONE, 11/1, exit 1; clean baselines 12/0 around both,
-serial fresh tree, per-mangle restore.
+serial fresh tree, per-mangle restore.  At the round-171 sweep
+(the classification's second correction): entry (e4)'s needle
+("none extremal") was struck with the second classification, so
+(e4) reproduces at the pre-171 tree; the new probes: (e5) the
+closure needle mangled in the paper copy ("attained closure is
+[0, inf]" -> "(0, inf)", square bracket to round) -> g9 trips
+ALONE, 11/1, exit 1; (d3) the drift-rung bracket decoupled in
+the verifier copy (0.2448 -> 0.3448) -> g4 trips ALONE, 11/1,
+exit 1; clean baselines 12/0 around both, serial fresh tree,
+per-mangle restore, the failing-gate identity captured
+explicitly on the re-run after the first pass's log truncated
+the PASS/FAIL column (disclosed).
 """
 import os
 import subprocess
@@ -380,12 +403,16 @@ ok &= 2.499990 < wp3 < 2.499992          # -> 5/2
 ok &= -6.24990 < dp3 < -6.24988          # -> -25/4
 ok &= 4.499980 < wp5 < 4.499982          # -> 9/2
 ok &= -20.24935 < dp5 < -20.24933        # -> -81/4
-# round 169 F1: the OFF-CURVE deformation law gated -- the pair at
-# z0 = (g0^2 - 1/4 + a) + i(g0 + c/g0) gives width*g0 ->
-# (1/2) sqrt((2n-1)^2 + 4a - 8c); two sub-5/2 instances close the
-# retired question's 5/2 candidacy.  Both window edges sit BELOW
-# g0 (the quadratic's roots are negative for c > 0): seed each
-# edge from the predicted roots t+- = (-5 +- sqrt(25-8c))/(4 g0).
+# rounds 169-171 F1: the OFF-CURVE deformation law gated -- the
+# pair at z0 = (g0^2 - 1/4 + a) + i(g0 + c/g0) gives width*g0 ->
+# (1/2) sqrt((2n-1)^2 + 4a - 8c).  Gated instances: two sub-5/2
+# (c-branch, round 169), one above (a-branch, round 170), and a
+# drift rung near the 0 endpoint (round 171, the closure
+# classification).  Seed each edge from the predicted roots
+# t+- = (-(5-2a) +- sqrt(25+4a-8c))/(4 g0) -- both edges below g0
+# only in the a = 0, c > 0 cases; for a > 0 the upper edge sits
+# ABOVE g0 (round 171 F2, the comment cluster synced to the
+# general form).
 import math as _math
 
 
@@ -398,7 +425,7 @@ def _mpoff(gz, a, c):
         for w2 in W3m:
             r = r * (u + w2)
         return (((u - z0o) * (u - z0o.conjugate())) / r).real
-    disc = _math.sqrt(25 + 4 * a - 8 * c)      # (2n-1)^2 + 4a - 8c, n = 3, a = 0 cases
+    disc = _math.sqrt(25 + 4 * a - 8 * c)      # (2n-1)^2 + 4a - 8c at n = 3, general (a, c)
     t_lo = (-(5 - 2 * a) - disc) / 4.0
     t_hi = (-(5 - 2 * a) + disc) / 4.0
     lo_o = findroot(Fo, g0 + mpf(t_lo) / g0)
@@ -409,20 +436,23 @@ def _mpoff(gz, a, c):
 w01 = _mpoff(3000, 0, 1)
 w02 = _mpoff(3000, 0, 2)
 w10 = _mpoff(3000, 1, 0)
+wdr = _mpoff(3000, 0, 25.0 / 8 - 0.03)
 ok &= 2.0615 < w01 < 2.0616              # -> sqrt(17)/2 = 2.06155
 ok &= 1.49998 < w02 < 1.49999            # -> 3/2
 ok &= 2.6925 < w10 < 2.6926              # -> sqrt(29)/2 = 2.69258 (a-branch, ABOVE 5/2)
-ok &= w02 < w01 < 2.5 < w10
+ok &= 0.2448 < wdr < 0.2450              # drift rung: -> (1/2)sqrt(8*0.03) = 0.244949
+ok &= wdr < w02 < w01 < 2.5 < w10
 gate("g4 the height ladder: four widths bracketed inward; "
      "width*gamma_0 strictly increasing; the DERIVED laws gated at "
      "height 3000 in mpmath, both site counts (3-site -> 5/2 and "
      "-25/4; 5-site -> 9/2 and -81/4); AND the OFF-CURVE law's "
      "spectrum gated on BOTH branches (c-branch sqrt(17)/2 and 3/2 "
      "below 5/2 -- round 169; a-branch sqrt(29)/2 above 5/2 -- "
-     "round 170, the half-line classification)",
+     "round 170) AND at a drift rung near the 0 endpoint (round "
+     "171, the closure classification)",
      ok, f"products {[f'{p:.4f}' for p in prods]}; "
          f"laws {wp3:.6f}/{dp3:.5f}/{wp5:.6f}/{dp5:.5f}; "
-         f"off-curve {w01:.6f}/{w02:.6f}/{w10:.6f}")
+         f"off-curve {w01:.6f}/{w02:.6f}/{w10:.6f}/{wdr:.6f}")
 
 import math
 exps = []
@@ -510,31 +540,34 @@ ok &= "The concentration mechanism is height, not degree" in paper
 # inside the strike); the replacement + the derived laws + the F3
 # strike + the membership lemma anchored by content.
 ok &= paper.count("struck round 167 F1, MAJOR") == 1
-# rounds 168/169 F1: the question slot died three times by the
-# same mechanism and is RETIRED; round 170 F1 struck the first
-# classification (its support misstated the spectrum) and wrote
-# the corrected one: the half-line (0, inf), both branches gated.
-# The needles: all four strike frames + the retirement + the
-# off-curve law + the corrected classification.  Probes: (e)
-# pre-168 tree; (e2) pre-169 tree; (e3) the retirement needle;
-# (e4) the corrected-classification needle.
+# rounds 168-171 F1: the question slot died three times by the
+# same mechanism and is RETIRED; the classification itself then
+# needed two corrections (170: the (0, 5/2] support; 171: the
+# fixed-offset scoping and the [0, inf] closure with drifting
+# offsets).  The needles: all five strike frames + the retirement
+# + the off-curve law + the third-statement classification.
+# Probes: (e) pre-168 tree; (e2) pre-169 tree; (e3) the
+# retirement needle; (e4) pre-171 tree; (e5) the closure needle.
 ok &= paper.count("struck round 168 F1, MAJOR") == 1
 ok &= paper.count("struck round 169 F1, MAJOR") == 1
 ok &= paper.count("struck round 170 F1, MAJOR") == 1
+ok &= paper.count("struck round 171 F1, MAJOR") == 1
 ok &= "THE SLOT IS RETIRED, with a classification in its place" in paper
 ok &= "width·γ₀ → ½√((2n−1)² + 4a − 8c)" in paper
-ok &= "is the whole half-line (0, ∞)" in paper
-ok &= "every positive value attained, none extremal" in paper
-ok &= "NO distinguished asymptotic constant exists for the class" in paper
+ok &= "onto (0, ∞) over the admissible offset domain" in paper
+ok &= "attained closure is [0, ∞]" in paper
+ok &= ("NO distinguished positive finite asymptotic constant "
+       "exists for the class") in paper
 ok &= "DERIVED at the round-167 sweep" in paper
 ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
 ok &= paper.count("struck round 167 F3") == 1
 ok &= "the membership lemma, stated and gated round 167 F10" in paper
 gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "claim now derived; the contrast law; the height mechanism; the "
-     "four strike frames 167/168/169/170-F1 + THE SLOT IS RETIRED "
-     "with the corrected half-line classification and the off-curve "
-     "law; the derived-law sentences; the F3 strike; the membership "
+     "five strike frames 167-171-F1 + THE SLOT IS RETIRED with the "
+     "third-statement classification (fixed-offset spectrum onto "
+     "(0, inf); drifting closure [0, inf]) and the off-curve law; "
+     "the derived-law sentences; the F3 strike; the membership "
      "lemma)", ok,
      f"167 frames F1={paper.count('struck round 167 F1, MAJOR')} "
      f"F3={paper.count('struck round 167 F3')}")
@@ -590,11 +623,13 @@ print("round-167 replacement was closed by g4's from-below products")
 print("(round 168 F1 -- struck); the asymptotic form was closed by the")
 print("off-curve deformation law width*g0 -> (1/2)sqrt((2n-1)^2+4a-8c)")
 print("(round 169 F1 -- struck; two sub-5/2 instances gated).  The")
-print("slot is RETIRED with a classification, corrected round 170 F1")
-print("(the first support misstated the spectrum): the law's branches")
-print("sweep the whole half-line (0, inf) -- gated on both sides of")
-print("5/2 -- so no value is extremal and no distinguished")
-print("asymptotic constant exists for the class; the standing facts")
+print("slot is RETIRED with a classification, corrected twice (rounds")
+print("170/171 F1): over fixed offsets the law is onto the open")
+print("half-line (0, inf) -- gated on both sides of 5/2 and at a")
+print("drift rung -- with no extremal value; drifting offsets attain")
+print("only the degenerate endpoints (closure [0, inf]); no")
+print("distinguished positive finite asymptotic constant exists for")
+print("the class; the standing facts")
 print("are the derived laws and the contrast trade-off.  No data, no closures, no new")
 print("physics; no direction of explanation.")
 sys.exit(0 if n_fail == 0 else 1)

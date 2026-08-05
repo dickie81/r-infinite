@@ -3504,3 +3504,23 @@ Checks 7/8 clean.
 **Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c (swept) → 168
 1M+1m (swept) → 169 1M+1m+1c (swept, 3e2fa69) → 170 NOT
 CONVERGED 1M+2m (swept) → round 171 (convergence test) next.**
+
+# Round 171: convergence test on the round-170 sweep (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 1 minor; the classification's second correction (the drift closure); swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F171-1 (MAJOR) — the round-170 classification failed one scope out: "the whole half-line (0, ∞) … every positive value attained, none extremal" is false over the full class — height-drifting offsets c(γ₀) → (2n−1)²/8 stay strictly admissible and concentrating while walking the product to 0 (and a(γ₀) → ∞ walks it to ∞), attaining the endpoints in exactly the limit sense in which the on-curve family attains 5/2; an attained minimum 0 is, by the round-170 frame's own template, a distinguished value | **Accepted; lead-verified along the drift path (0.446734/0.244852/0.141406 at γ₀ = 10³/3·10³/10⁴ vs ½√(8δ), deviations ~γ₀⁻²); the second classification struck with the round-171 frame; the THIRD statement written, properly scoped (fixed-offset spectrum exactly the open half-line (0, ∞), onto and extremal-free; drifting closure [0, ∞] adding only the two order-theoretic endpoints, which carry no lattice content; conclusion re-scoped to "no distinguished positive finite asymptotic constant"); g4 gains the drift-rung conjunct (actual 0.244852) + extended ordering; g9 advances to five frame counts + the third-statement needles with the struck-text needles removed; probes (e5)/(d3) certified 11/1 with clean baselines** | paper, verifier g4/g9, docstring, READING |
+| F171-2 (minor) — the g4 off-curve comment cluster stale after the a-branch call: "two sub-5/2 instances", "Both window edges sit BELOW g0" unscoped, the a = 0 seed formula, "a = 0 cases" | **Accepted; synced to the general form with the a > 0 upper-edge behavior stated — the stale-carrier class again, on the lead verifier's own comments** | verifier g4 comments |
+
+Held (spot-verified by the lead): the law re-derived
+independently with the discriminant closure exact; the
+reviewer's own never-gated instance ((3, −1) → ½√45) verified;
+every printed census reproduced; probes (e4)/(d2) reproduced at
+recorded censuses with the line-wrap disclosure confirmed
+accurate; the four-frame chain and four sibling syncs held; the
+footer census 66 exact; no residual "(0, 5/2]" carrier outside
+frames; no gate that cannot fail; Checks 7/8 clean.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
+169 1M+1m+1c → 170 1M+2m (swept, df76f2e) → 171 NOT CONVERGED
+1M+1m (swept) → round 172 (convergence test) next.**
