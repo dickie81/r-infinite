@@ -670,11 +670,11 @@ gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
 # (64 -> 65; range -> 1ao) -- the census-evolution class,
 # disclosed each time.
 ok = "`cascade_weil_route_traveled.py`" in paper
-ok &= "65 scripts cited in place" in paper
-ok &= "Theorems 1i–1ao" in paper
+ok &= "66 scripts cited in place" in paper
+ok &= "Theorems 1i–1ap" in paper
 gate("g18 the footer census (advanced at the 1ak-1ao landings, "
-     "disclosed): this script backticked; 65 cited in "
-     "place; the range 1i–1ao", ok)
+     "disclosed): this script backticked; 66 cited in "
+     "place; the range 1i–1ap (1ap advance disclosed)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (22 gates)")

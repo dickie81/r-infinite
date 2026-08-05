@@ -108,10 +108,17 @@ V1 print header expanded to "exact-rational solves".
   W4 (reach vs resolution -- the wall sharpened).  W2 + W1: the
       family can look ANYWHERE, but its width stays above 1 on the
       sampled family and its profile is the fixed three-Lorentzian
-      shape -- it can relocate, it cannot concentrate.  Weil's dense
+      shape -- it can relocate, it cannot concentrate [STRUCK at the
+      Theorem 1ap regrade, self-caught: an admissible complex-pair
+      numerator concentrates, width ~ 5/(2 gamma_0) -> 0 at height,
+      at contrast price ~ gamma_0^-6; the sampled scope below was
+      load-bearing].  Weil's dense
       class requires arbitrary concentration; the committed family
-      supplies relocation without resolution.  The wall stands where
-      it stood; the deficit's name sharpens: RESOLUTION, not reach.
+      supplies relocation without resolution [STRUCK at the 1ap
+      regrade: it supplies both -- relocation, and resolution priced
+      in contrast].  The wall stands where
+      it stood; the deficit's name sharpens: RESOLUTION, not reach
+      [STRUCK at the 1ap regrade -- the honest name is CONTRAST].
 
 HONEST SCOPE.  Category (a) -- no data contact, no closures, no new
 physics.  No numerical advance over classical zero-verification is
@@ -521,8 +528,14 @@ gate("g9 the 1aj committed-window tie: at aim gamma_1 the boundary "
 
 print("V5 -- the paper: key sentences, honest scope, siblings, footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+# 1ap regrade: the two W4 needles now live INSIDE strike frames on
+# the paper (struck at the 1ap regrade, self-caught); the anchors
+# advance to the frames + the regrade content, per the F161 pattern.
 ok = "the RH deficit is RESOLUTION, not reach" in paper
 ok &= "it can relocate, it cannot concentrate" in paper
+ok &= (paper.count("struck at the Theorem 1ap regrade")
+       + paper.count("struck at the 1ap regrade")) == 4
+ok &= "honest name is CONTRAST" in paper
 # round 161 F1: the per-zero->per-cluster transition was pinned to
 # the wrong threshold (#33 is overlap-onset; occupancy-onset is
 # #187).  The old needle now lives only inside its strike frames;
@@ -582,10 +595,10 @@ gate("g12 the sibling chain green after the census advance "
 # 1ao landing: the footer census advanced (64 -> 65; range -> 1ao)
 # -- the census-evolution class, disclosed.
 ok = "`cascade_windows_overlap.py`" in paper
-ok &= "65 scripts cited in place" in paper
-ok &= "Theorems 1i–1ao" in paper
+ok &= "66 scripts cited in place" in paper
+ok &= "Theorems 1i–1ap" in paper
 gate("g13 the footer census (advanced at this landing and 1ao, "
-     "disclosed): this script backticked; 65 cited in place; the "
+     "disclosed): this script backticked; 66 cited in place; the "
      "range 1i–1ao", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
@@ -617,11 +630,15 @@ print("width x density ~ 0.83 at gamma ~ 1184, reaching 1 only near")
 print("gamma ~ 3.4e3 -- so second occupants are atypical, the census")
 print("mean occupancy of the aimed windows being 1 + 41/800 ~ 1.05,")
 print("never below 1 (relabeled round 162 F1); positivity")
-print("unchanged by sharing.  W4: the family relocates but cannot")
+print("unchanged by sharing.  W4 (as regraded by Theorem 1ap): the")
+print("sampled aimed family relocates but does not concentrate; the")
+print("full cone DOES concentrate (width ~ 5/(2 gamma_0) at height,")
+print("contrast ~ gamma_0^-6 -- 1ap); the forcing clause stands: the")
 print("concentrate -- coverage is complete on the sampled scope while")
 print("the width floor stays above 1 at every sampled aim >= gamma_1")
 print("and the profile is fixed; Weil's dense class needs arbitrary")
-print("concentration, so the RH deficit is RESOLUTION, not reach.")
+print("wall's forcing is classical zero data, claimed in neither")
+print("direction; the deficit's honest coordinate is CONTRAST (1ap).")
 print("The wall stands where it stood.  No closures, no data, no")
 print("numerical advance over classical methods claimed; no direction")
 print("of explanation.")

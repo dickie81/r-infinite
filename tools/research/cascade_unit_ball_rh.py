@@ -27,7 +27,10 @@ THE CRITERION (classical, cited).  RH <=> lambda_n >= 0 for all
 n >= 1 (Li; the Bombieri-Lagarias complement) -- a COUNTABLE
 positivity ladder requiring no test-function concentration: it
 sidesteps 1an's resolution wall entirely (the wall bounds the
-committed Lorentzian cone; Li's family is not in it).
+committed Lorentzian cone; Li's family is not in it) [net-state,
+Theorem 1ap: the wall's width coordinate is struck -- the cone
+concentrates at height -- so the sidestep rests solely on the
+decay-rate exclusion, untouched].
 
 THE CROSSOVER (the honest structure -- the landing's own draft said
 "the ball dominates at every rung", wrong at the low rungs and
@@ -101,8 +104,8 @@ VERIFICATION (13 gates, exit-gated).
        sibling chain green (windows_overlap 13/0, transitively
        chaining riemann_selection, type_counting, and the two
        Weil-arc siblings); g13 the footer census (this script
-       backticked; "65 scripts cited in place"; "Theorems
-       1i-1ao").
+       backticked; "66 scripts cited in place"; "Theorems
+       1i-1ap" -- the 1ap advance disclosed).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, abort-on-mangle-failure, at the landing; three disclosed
@@ -374,10 +377,10 @@ gate("g12 the sibling chain green after the census advance "
      "siblings)", ok)
 
 ok = "`cascade_unit_ball_rh.py`" in paper
-ok &= "65 scripts cited in place" in paper
-ok &= "Theorems 1i–1ao" in paper
+ok &= "66 scripts cited in place" in paper
+ok &= "Theorems 1i–1ap" in paper
 gate("g13 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 65 cited in place; the range 1i–1ao", ok)
+     "this script backticked; 66 cited in place; the range 1i–1ap (1ap advance disclosed)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates)")
@@ -391,7 +394,9 @@ print("derivative ladder at the edge d = 0.  First rungs exact:")
 print("lambda_1^A = gamma, lambda_1^B = 1 + p(0).  RH <=> every rung")
 print(">= 0 (Li; Bombieri-Lagarias -- classical, cited): a COUNTABLE")
 print("criterion needing no concentration, sidestepping 1an's")
-print("resolution wall (Li's family is not in the committed cone).")
+print("resolution wall via the decay-rate exclusion (Li's family is")
+print("not in the committed cone; net-state 1ap: the wall's width")
+print("coordinate is struck, the exclusion stands on rates alone).")
 print("The crossover: ball rungs negative exactly n = 1..7, positive")
 print("and growing from 8; arithmetic rungs positive and bounded --")
 print("positivity is arithmetic-carried early; the ball's drag ends")

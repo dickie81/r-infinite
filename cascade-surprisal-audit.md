@@ -13728,6 +13728,61 @@ open-routes list: (v-b), C1, C2, C3; the categorical flag
 derivation; the observer↔4 and charged-termination questions.
 Next hostile round on the next substantive paper change.**
 
+## Addendum 268: Theorem 1ap lands — the concentration regrade (Push A inverted: the resolution wall refuted to ZERO, the contrast wall named); `cascade_concentration_regrade.py` (12 gates); the battery reaches 33; hostile round 167 spawned
+
+**The commission and the inversion.** The owner commissioned
+Push A — prove the width floor for every admissible committed
+instance. The attempt refuted it, self-caught, in the 1aj-regrade
+mould: a STRICTLY admissible three-term instance (L > 0
+everywhere — the cone's interior, no tangency) whose numerator
+carries a complex-conjugate zero pair ON the displaced curve
+concentrates with window width ≈ 5/(2γ₀) ending at its height —
+0.1510 at γ₁ down to 0.0083 at height 300, width·γ₀ → 2.4991 ≈
+5/2 (observed, not derived). The infimum over the cone is ZERO.
+
+**The laws (gated).** The contrast law: depth collapses like
+γ₀⁻⁶ (measured exponents 5.46/5.93/5.99 — |Q|'s growth along the
+curve) — resolution is purchasable, contrast pays.
+Anti-concentration: two on-curve pairs at spacing ε give width
+≈ 2.075 INDEPENDENT of ε — the mechanism is height, not degree.
+
+**The regrade.** The 1an W4 flat clauses ("it cannot
+concentrate"; "relocation without resolution"; "the RH deficit is
+RESOLUTION, not reach") struck at their carriers,
+false-when-written beyond the sampled family — every "sampled"
+qualifier the hostile rounds enforced scopes the damage exactly,
+and the sampled aimed family's phenomenology stands. What stands
+untouched: the forcing clause (nothing cascade-side forces
+positivity; the dense-class extension is RH, claimed in neither
+direction) and 1ao's wall-sidestep, now resting solely on the
+decay-rate exclusion (its net-state marker). The deficit's honest
+coordinate regrades to CONTRAST; whether a nonzero
+contrast-normalized floor exists is the new named open question.
+The 1an and 1ao verifier tellings (docstrings, READINGs, gate
+needles) swept in step, including one self-caught broken-Python
+mishap in the windows_overlap g10 edit (repaired pre-run,
+syntax-gated) and the strike-frame anchors advanced to exact
+counts (2 + 2 frames; 2 net-state markers).
+
+**The instrument.** `cascade_concentration_regrade.py`, 12
+exit-gated checks; first clean run 11/1 at g8's own marker count
+(expected one net-state marker where the paper correctly carries
+two — corrected to the true census, disclosed); 12/0 thereafter.
+Sabotages from actuals: (a) the CONTRAST strike-frame mangle
+trips g8 AND g11 (the sibling chain cross-anchors the content),
+10/2; (b) the curve-displacement flip trips g2 alone — the
+curve-relative constructions stay self-consistent while the
+δ-ladder's explicit ¼ literal catches the two-arm disagreement;
+(c) the off-curve limit instance trips g3 (width 0.3047, F(γ₀)
+≠ 0), 11/1. Clean baselines 12/0 throughout.
+
+**Census and hygiene.** Footer 65 → 66, range 1i–1ap, the new
+name backticked; SIX sibling anchors advanced with disclosure;
+battery 33/33 green; validator clean; model-ID hygiene zero.
+
+**Spawn.** Hostile round 167 on this landing (fresh-context
+subagent, session model) per the standing protocol.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

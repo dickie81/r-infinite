@@ -326,10 +326,10 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = "`cascade_quarter_square.py`" in paper
-ok &= "65 scripts cited in place" in paper
-ok &= "Theorems 1i–1ao" in paper
+ok &= "66 scripts cited in place" in paper
+ok &= "Theorems 1i–1ap" in paper
 gate("g12 the footer census (advanced at the 1al-1ao landings, "
-     "disclosed): this script backticked; 65 cited in place; the "
+     "disclosed): this script backticked; 66 cited in place; the "
      "range 1i–1ao", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)

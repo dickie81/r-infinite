@@ -327,10 +327,10 @@ gate("g11 the sibling chain green after the census advance "
 # 1ao landing: advanced again (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = "`cascade_riemann_selection.py`" in paper
-ok &= "65 scripts cited in place" in paper
-ok &= "Theorems 1i–1ao" in paper
+ok &= "66 scripts cited in place" in paper
+ok &= "Theorems 1i–1ap" in paper
 gate("g12 the footer census (advanced at the 1an and 1ao landings, "
-     "disclosed): this script backticked; 65 cited in place; the "
+     "disclosed): this script backticked; 66 cited in place; the "
      "range 1i–1ao", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
