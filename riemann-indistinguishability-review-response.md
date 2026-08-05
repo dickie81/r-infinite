@@ -3524,3 +3524,27 @@ frames; no gate that cannot fail; Checks 7/8 clean.
 **Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
 169 1M+1m+1c → 170 1M+2m (swept, df76f2e) → 171 NOT CONVERGED
 1M+1m (swept) → round 172 (convergence test) next.**
+
+# Round 172: convergence test on the round-171 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 4 minors + 2 cosmetics, all statement-discipline; the third statement's structure held under attack; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F172-1 (minor) — the round-171 frame's "deviations vanishing like γ₀⁻²" false against its own recorded numbers: along the drift path the rate is γ₀^(−3/2) (path exponents 1.45/1.54) | **Accepted; lead-checked arithmetically; corrected in the frame with the rate attribution (fixed-offset γ₀⁻² over the shrinking √δ) and the δ-schedule stated** | paper (171 frame) |
+| F172-2 (minor) — "exactly (0, ∞)" over fixed offsets rested on the unexamined disc = 0 boundary case (had F gone negative at higher order there, a fixed offset would attain 0 and the fixed/drifting split would collapse) | **Accepted; lead-verified in the paper's favor (positive floor F·\|Q\| → K/γ₀², K = 429.7642 at γ₀ = 3000, local min at the vertex, three heights); the concentrating offset domain defined as exactly {(2n−1)² + 4a − 8c > 0}; g4 gains the disc = 0 conjunct; the g9 needle advanced; probes (e6)/(d4) certified 11/1** | paper, verifier g4/g9 |
+| F172-3 (minor) — "drifting offsets attain only/exactly the two endpoints" false as a census (drifting families also re-attain interior values) | **Accepted; re-scoped incremental on all carriers: drifting offsets ADD, beyond the fixed-offset spectrum, exactly the two degenerate endpoints** | paper, docstring, READING |
+| F172-4 (minor) — the round-171 comment repair itself overclaimed ("for a > 0 the upper edge sits ABOVE g0"; (1, 3) refutes it) | **Accepted; lead-checked (t₊ = (−3+√5)/4 < 0); the correct iff (a < 5/2, c > 3a − a²/2) stated with the counterexample — the stale-comment class's seventh recurrence, in the prior sweep's own repair** | verifier g4 comments |
+| Cosmetics 1–2 — the δ-schedule unstated; the spliced docstring quotation | **Applied** | paper, docstring |
+
+Held: the law re-derived by hand; the reviewer's never-gated
+instance verified; both boundary cases probed in the paper's
+favor (disc ≤ 0 does not concentrate; oscillating families
+attain nothing); the five-frame chain verbatim-accurate; probes
+(e5)/(d3) reproduced; the footer census 66 exact; unit_ball_rh
+13/0; no residual carrier of either struck identity; every gate
+can fail; Checks 7/8 clean. Lead instrument note (A275): an
+`ok =` for `ok &=` slip in the new g4 conjunct — a would-be gate
+weakening — self-caught on re-read before any run.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
+169 1M+1m+1c → 170 1M+2m → 171 1M+1m (swept, 2d2ce7c) → 172 NOT
+CONVERGED 0M+4m+2c (swept) → round 173 (convergence test) next.**

@@ -3395,22 +3395,31 @@ F1, MAJOR — the corrected classification repeated the defect one
 scope out: over the FULL class, height-drifting offsets attain
 the degenerate endpoints in exactly the limit sense in which the
 on-curve family attains 5/2 — c(γ₀) → (2n−1)²/8 walks the
-product to 0 (lead-verified along the drift path: 0.446734 /
-0.244852 / 0.141406 at γ₀ = 10³/3·10³/10⁴ against the predicted
-½√(8δ), deviations vanishing like γ₀⁻²) and a(γ₀) → ∞ walks it
-to ∞ — so "none extremal" was false: 0 is an attained minimum of
+product to 0 (lead-verified along the drift path δ = 0.1/0.03/
+0.01 at γ₀ = 10³/3·10³/10⁴: 0.446734 / 0.244852 / 0.141406
+against the predicted ½√(8δ), deviations vanishing along the
+path like γ₀^(−3/2) — the fixed-offset rate γ₀⁻² divided by the
+shrinking √δ; rate corrected round 172 F1) and a(γ₀) → ∞ walks
+it to ∞ — so "none extremal" was false: 0 is an attained minimum of
 the closure, and by the round-170 frame's own template an
 attained extremum is a distinguished value]. The classification,
 third statement, properly scoped: over FIXED offsets (a, c) the
 asymptotic-product spectrum is exactly the open half-line
 (0, ∞) — the law ½√((2n−1)² + 4a − 8c) is onto (0, ∞) over the
-admissible offset domain — so at fixed offset every positive
-value is attained and none is extremal there, with the on-curve
-5/2 an interior value; height-drifting offsets attain, in the
-limit, exactly the two degenerate endpoints (0 via
-c(γ₀) → (2n−1)²/8, gated at a drift rung; ∞ via a(γ₀) → ∞), so
-the full class's attained closure is [0, ∞] and its only
-extremal values are those endpoints — order-theoretic boundary
+concentrating offset domain, which is exactly
+{(2n−1)² + 4a − 8c > 0}: every real offset is strictly
+admissible, but at the critical offset disc = 0 and beyond the
+instance stops concentrating — the next-order term is a positive
+floor, F·|Q| → K/γ₀² with K = 429.76… at the critical offset's
+vertex, gated round 172 — so no fixed offset attains 0 — so at
+fixed offset every positive value is attained and none is
+extremal there, with the on-curve 5/2 an interior value;
+height-drifting offsets add, beyond the fixed-offset spectrum,
+exactly the two degenerate endpoints (0 via
+c(γ₀) → (2n−1)²/8, gated at a drift rung; ∞ via a(γ₀) → ∞;
+drifting families also re-attain interior values), so the full
+class's attained closure is [0, ∞] and its only extremal values
+are those endpoints — order-theoretic boundary
 values shared by every class with full-half-line spectrum,
 carrying no lattice content, unlike the finite attained extremum
 the struck 5/2 candidacy would have been. NO distinguished

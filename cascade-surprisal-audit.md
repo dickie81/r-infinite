@@ -14166,6 +14166,83 @@ the record-actuals rule held at the cost of two extra runs.
 quad 2.061542/1.499985/2.692574/0.244852). Convergence-test
 round 172 next.
 
+## Addendum 275: round 172 (convergence test on the round-171 sweep) — NOT CONVERGED: 0 MAJORs + 4 minors + 2 cosmetics, all statement-discipline on the round-171 text; the third statement's structure held under attack; swept
+
+Round 172 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) attacked the third statement's
+pressure points directly and the structure HELD: the law
+re-derived by hand (root separation exact), verified at its own
+never-gated instance ((3, −1) at γ₀ = 2000/5000, deviations
+scaling γ₀⁻² at fixed offset), both dangerous boundary cases
+probed in the paper's favor (the disc = 0 critical offset stays
+strictly admissible but does NOT concentrate — positive floor
+F·|Q| → K/γ₀², K ≈ 429.76, broad scans finding zero negatives —
+so no fixed offset attains 0 and the fixed/drifting split is
+sound; oscillating families attain nothing, so the closure
+statement is complete), the five-frame chain verified verbatim,
+probes (e5)/(d3) reproduced, the footer census recounted (66
+exact), unit_ball_rh 13/0. Four minors + two cosmetics, all
+verified directly by the lead (Check 3):
+
+**F172-1 minor (accepted; swept):** the round-171 frame's
+"deviations vanishing like γ₀⁻²" was false against its own three
+recorded numbers — along the drift path the rate is γ₀^(−3/2)
+(the fixed-offset γ₀⁻² divided by the shrinking √δ; path
+exponents 1.45/1.54 from the recorded deviations, lead-checked
+arithmetically). Corrected in the frame with the rate
+attribution stated and the δ-schedule added (cosmetic-1).
+
+**F172-2 minor (accepted; swept):** the fixed-offset "exactly
+(0, ∞)" claim rested on an unexamined boundary case — nothing
+committed established that the critical fixed offset
+c = (2n−1)²/8 (disc = 0) fails to concentrate; had F dipped
+negative at higher order there, a fixed offset would attain 0
+and the whole fixed/drifting split would collapse. Lead-verified
+in the paper's favor at three heights (F(vertex) = 4.297e-22 /
+6.550e-26 / 4.298e-30 at γ₀ = 10³/3·10³/10⁴, all positive, local
+minimum at the vertex, K = F·|Q|·γ₀² = 429.75/429.76/429.77).
+Swept: the concentrating offset domain defined in the paper as
+exactly {(2n−1)² + 4a − 8c > 0} with the positive-floor clause;
+g4 gains the disc = 0 conjunct (F(vertex) > 0 and K ∈
+(429.7, 429.8), actual printed 429.7642); the g9 needle advanced
+("admissible offset domain" → "concentrating offset domain").
+
+**F172-3 minor (accepted; swept):** "drifting offsets attain
+only/exactly the two degenerate endpoints" was false as a census
+of drifting attainment — drifting families also re-attain
+interior values (c(γ₀) = 1 + 1/ln γ₀ attains √17/2 with a
+never-fixed offset). The load-bearing content is incremental and
+now stated as such on all carriers: drifting offsets ADD, beyond
+the fixed-offset spectrum, exactly the two degenerate endpoints.
+
+**F172-4 minor (accepted; swept):** the round-171 F2 comment
+repair itself overclaimed — "for a > 0 the upper edge sits ABOVE
+g0" is false in general ((1, 3) has both edges below γ₀;
+lead-checked: t₊ = (−3+√5)/4 < 0). The correct iff (a < 5/2 and
+c > 3a − a²/2, given disc > 0) now stated in the comment with
+the counterexample and the gated-instance census. The
+stale/overclaiming-comment class's SEVENTH recurrence, this time
+in the very comment the previous round's sweep wrote.
+
+**Cosmetics (applied):** the δ-schedule stated in the frame; the
+docstring's spliced frame quotation given an ellipsis.
+
+**Probes (e6)/(d4) certified (fresh tar tree, serial, per-mangle
+restore, clean baselines 12/0 around both, gate identity in the
+first pass):** (e6) the concentrating-domain needle mangled
+("domain" → "region") → g9 trips ALONE, 11/1, exit 1; (d4) the
+floor bracket decoupled (429.7 → 439.7) → g4 trips ALONE, 11/1,
+exit 1.
+
+**Lead instrument note:** while adding the g4 floor conjunct the
+lead's first edit accidentally wrote `ok =` where `ok &=` was
+required — which would have silently dropped the ladder and law
+conjuncts from g4 (a gate weakening). Self-caught on immediate
+re-read before any run; fixed and verified in the block read.
+
+**Post-sweep:** verifier 12/0 (g4 detail now printing Kfloor
+429.7642). Convergence-test round 173 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
