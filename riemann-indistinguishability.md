@@ -3201,8 +3201,12 @@ nonnegative committed superposition matches a Li member's tail
 three independent routes agree — with their committed scopes
 stated (round 164 F4): the series route spans n = 1..50, direct
 differentiation covers n = 1..8, and the paired zero-sum samples
-n ∈ {1, 3, 5, 10} within the n² tail model, so rungs above 8 are
-single-route in the committed instrument (the reviewer's own
+n ∈ {1, 3, 5, 10} within the n² tail model, so rungs 9 and 11..50
+are single-route in the committed instrument while n = 10 is
+cross-checked only at the zero-sum's ~1% level [corrected round 165
+F1: the round-164 sweep's clause "rungs above 8 are single-route"
+was false at n = 10 by its own route census — the zero route
+samples it] (the reviewer's own
 independent implementations confirmed all 50 rungs and the λ₅₀
 value by a 1200-zero route) — (the series route from Stieltjes
 constants + polygamma at ½; direct high-precision differentiation

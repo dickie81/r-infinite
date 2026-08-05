@@ -3357,3 +3357,24 @@ their frames.
 
 **Trajectory: 1ao landed (3936ede) → 164 NOT CONVERGED 0M+4m+2c
 (swept) → round 165 (convergence test) next.**
+
+# Round 165: convergence test on the round-164 sweep (subagent, per protocol) — NOT CONVERGED by one minor (swept; probe certified); two cosmetics applied
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F165-1 (minor) — the round-164 F4 clause "rungs above 8 are single-route" false at n = 10 (g4 samples it) | **Accepted; verified against g4's own sample set with the margin arithmetic recomputed by hand; corrected on both carriers with annotation; the reviewer's prepared probe (f) run by the lead — g4 trips alone at the ~1.108 ratio, 12/1, clean baselines** | paper, verifier g2 label |
+| F165-2 (cosmetic) — docstring/READING pole-ladder compressions (F164-5 class residues) | **Applied on both tellings** | verifier |
+| F165-3 (cosmetic) — the docstring's g1 census line stale (rate-floor conjunct omitted) | **Applied** | verifier |
+
+Held: the full sabotage record (a)–(e) reproduced per-entry at
+the recorded censuses including (a)-at-landing-tree and the
+graceful None trip; the F164-2 decay-rate argument independently
+confirmed sound at every link and correctly gate-scoped; the
+F164-3 shares and F164-1 residuals reproduced; struck phrases
+frame-confined; the three tellings consistent; endpoint
+discipline held; no gate that cannot fail (the floor's
+documentation conjunct noted and held); Checks 7/8 clean.
+
+**Trajectory: 1ao landed (3936ede) → 164 NOT CONVERGED 0M+4m+2c
+(swept, 8043ed9) → 165 NOT CONVERGED 0M+1m+2c (swept) → round
+166 (convergence test) next.**

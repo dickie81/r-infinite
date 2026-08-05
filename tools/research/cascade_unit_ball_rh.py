@@ -12,12 +12,13 @@ EXPRESS; no proof leverage claimed; the wall stands.
 THE DECOMPOSITION (exact).  xi = B * A with B(s) = (1/2) s Gamma_R(s)
 the unit-ball (Archimedean) factor and A(s) = (s-1) zeta(s) the
 pole-removed arithmetic factor, both analytic and nonzero at s = 1.
-The ball factor's log-derivative IS the committed potential:
-d/ds ln B(s) = p(s-1) + 1/s exactly.  Li's ladder
+The ball factor's log-derivative is the committed potential plus
+the prefactor's pole ladder: d/ds ln B(s) = p(s-1) + 1/s exactly.  Li's ladder
 lambda_n = (1/(n-1)!) (d^n/ds^n)[s^(n-1) ln xi(s)] at s = 1 splits
 exactly by linearity: lambda_n = lambda_n^B + lambda_n^A -- the ball
 rungs are the committed potential's derivative ladder at the edge
-d = 0 (closed series form through psi^(k)(1/2) and ln pi), the
+d = 0 (closed series form through psi^(k)(1/2), ln pi, and the
+prefactor's elementary 1/s ladder), the
 arithmetic rungs come from zeta's Stieltjes expansion.  First-rung
 identities, exact: lambda_1^A = EulerGamma and lambda_1^B = 1 + p(0)
 = 1 - (1/2)ln pi - gamma/2 - ln 2, so lambda_1 = 1 + p(0) + gamma.
@@ -72,7 +73,8 @@ data; no semiclassics); Check 8 clean (no hypothesis input).
 
 VERIFICATION (13 gates, exit-gated).
   V1 -- g1 the tie d/ds ln B = p(s-1) + 1/s (five samples,
-       < 1e-50); g2 the series ladder reproduces the classical
+       < 1e-50) plus the rate-floor conjunct 3/2 > 1/2 in exact
+       rationals (round 164 F2); g2 the series ladder reproduces the classical
        values (lambda_1..lambda_4 bracketed at 10 digits; lambda_50
        bracketed); g3 route agreement (direct high-precision
        differentiation of ln xi to n = 8 vs the series route,
@@ -128,7 +130,13 @@ abort-safe): (d) the REWORDED handoff sentence mangled mid-anchor
 ("two marks" -> "three marks") -> g9 trips, 12/1, exit 1; (e) the
 rate-floor lattice decoupled in the copy (range(1, 218) ->
 range(0, 218), the floor collapsing to 1/2) -> g1 trips (detail
-"floor 1/2"), 12/1, exit 1.  Clean baselines 13/0 exit 0 before
+"floor 1/2"), 12/1, exit 1.  At the round-165 sweep (serial,
+fresh tree): (f) rung 10 corrupted x1.01 in the copy (the
+round-165 reviewer's prepared probe, run by the lead) -> g4 trips
+ALONE (the zero route's ~1% cross-check on the sampled rung
+biting; ratio pushed to ~1.108 > 1.1), 12/1, exit 1 -- the
+corrected route-scope clause's quantitative claim demonstrated.
+Clean baselines 13/0 exit 0 before
 and after every entry.  Thirteen gates (count checked against the
 gate() census pre-commit).
 """
@@ -227,8 +235,9 @@ ok &= mpf("43.5310") < lam[49] < mpf("43.5312")
 gate("g2 the series ladder (Stieltjes + polygamma, composed through "
      "s = 1/(1-z)) reproduces the classical values: lambda_1..4 at "
      "10 digits, lambda_50 bracketed (the series route's own value; "
-     "rungs above 8 are single-route in this instrument -- scoped "
-     "round 164 F4)",
+     "rungs 9 and 11..50 single-route, n = 10 cross-checked at the "
+     "zero-sum's ~1% level -- scoped round 164 F4, corrected round "
+     "165 F1)",
      ok, f"l1={mp.nstr(lam[0], 10)} l50={mp.nstr(lam[49], 8)}")
 
 with mp.workdps(40):
@@ -375,7 +384,8 @@ print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates)")
 print("READING: the infinite unit ball RH theorem -- the Li criterion")
 print("at the tower's edge.  The committed decomposition xi = B * A")
 print("(ball x arithmetic) splits Li's ladder exactly; the ball")
-print("factor's log-derivative IS the committed potential (d/ds ln B")
+print("factor's log-derivative = the committed potential + the")
+print("prefactor's pole ladder (d/ds ln B")
 print("= p(s-1) + 1/s), so the ball rungs are the potential's")
 print("derivative ladder at the edge d = 0.  First rungs exact:")
 print("lambda_1^A = gamma, lambda_1^B = 1 + p(0).  RH <=> every rung")

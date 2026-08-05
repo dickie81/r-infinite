@@ -13638,6 +13638,50 @@ trips, 12/1. Recorded in the docstring.
 against the swept state. Convergence-test round 165 next, per
 the standing rule.
 
+## Addendum 266: round 165 (convergence test on the round-164 sweep, 8043ed9) — NOT CONVERGED by one minor; swept; probe (f) certified
+
+Round 165 (fresh-context subagent, session model) verified the
+round-164 sweep at every link: the full sabotage record (a)–(e)
+reproduced per-entry — (a) at the landing tree with the HEAD
+pattern-count 0, (b)'s graceful None trip, (c)'s exact six-gate
+census, (d)/(e) with their recorded details — with clean
+baselines throughout; the F164-2 decay-rate argument
+independently confirmed SOUND at every link (the 1aj morphism
+verbatim; the d ≥ 1 lattice floor 3/2; the Li members'
+poly·e^(−|x|/2) form by the reviewer's own residue derivation;
+the exclusion holding for infinite nonnegative superpositions —
+if anything under-claimed) and correctly scoped to what g1
+gates; the F164-3 shares reproduced (1.426% at 8; 54.57% at 11);
+the F164-1 strike empirically confirmed (dps-60 → 7.78e-62,
+dps-80 → 2.11e-81); both struck phrases inside their frames
+only; endpoint discipline held on every number. One minor + two
+cosmetics, all in the sweep itself:
+
+**F165-1 minor (accepted; swept):** the round-164 F4 fix's
+summarizing clause "rungs above 8 are single-route in the
+committed instrument" was false at n = 10 by its own route
+census — g4 samples n = 10, making rung 10 two-route at the
+zero-sum's ~1% level. Lead verification: g4's sample set read
+directly; the reviewer's margin arithmetic recomputed by hand
+(±1% on λ₁₀ moves the ratio to 1.108/0.887, outside (0.9, 1.1)).
+Swept on both carriers ("rungs 9 and 11..50 are single-route
+… n = 10 cross-checked only at the zero-sum's ~1% level", with
+the correction annotated); the reviewer's prepared probe (f) —
+rung 10 corrupted ×1.01 — run by the lead: g4 trips ALONE, 12/1,
+clean baselines, certifying the corrected clause's quantitative
+claim.
+
+**F165-2/3 cosmetic (applied):** the docstring and READING
+carried the pre-sweep "IS the committed potential" compressions
+(the pole-ladder wording applied to both tellings); the
+docstring's VERIFICATION census line for g1 had not been
+extended for the rate-floor conjunct (extended).
+
+**Post-sweep:** verifier 13/0 on the swept tree (probe-f
+baseline); the three tellings re-read. Convergence-test round
+166 next — the reviewer's own assessment: nothing else in the
+two object surfaces is out of order.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
