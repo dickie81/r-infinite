@@ -71,9 +71,12 @@ scope the damage exactly.  What stands: the forcing clause (nothing
 cascade-side forces positivity; the dense-class extension is RH,
 claimed in neither direction) and the sampled aimed family's own
 phenomenology.  The deficit's honest coordinate regrades to
-CONTRAST; whether a nonzero contrast-normalized floor exists is the
-NEW NAMED OPEN QUESTION.  1ao's wall-sidestep carries its net-state
-marker (the sidestep rests on the decay-rate exclusion, untouched).
+CONTRAST; the drafted contrast-normalized question was CLOSED by
+the theorem's own data (round 167 F1, MAJOR -- struck); the
+well-posed replacement: is 5/2 the infimum of width*g0 over
+admissible three-site instances?  1ao's wall-sidestep carries its
+net-state marker (the sidestep rests on the decay-rate exclusion,
+now sign-free per F7).
 
 HONEST SCOPE.  Category (a) -- pure geometry of the committed
 kernels; no data, no closures, no new physics; the width and depth
@@ -83,27 +86,29 @@ denominators are the gated scope with the site-dependence derived
 Check 7 clean (rational-function geometry; no semiclassics);
 Check 8 clean (no hypothesis input).
 
-VERIFICATION (12 gates, exit-gated).
-  V1 -- g1 strict admissibility EXACT (P = (u-x0)^2 + y0^2 >= y0^2
-       > 0 identically -- exact rationals at all four heights; the
-       numerical L-minimum positive); g2 the delta-ladder at
-       gamma_1 (widths bracketed inward, monotone decreasing);
-       g3 the limit instance (F(gamma_0) = 0 exactly by
-       construction; window width and depth bracketed).
-  V2 -- g4 the height ladder (four widths bracketed; width*gamma_0
-       increasing with the last in (2.498, 2.500) -- the observed
-       5/2); g5 the contrast ladder (three ratio-exponents
-       bracketed, rising toward 6); g6 the anti-concentration (two
-       pairs: four widths in (2.07, 2.14), the last three within
-       0.01 -- eps-independence); g7 the infimum-zero chain
-       (width(300) < 0.01 < width(100) < ... < width(gamma_1) < 1).
-  V3 -- g8 the regrade strikes anchored on the paper (the 1ap
-       strike-frame counts exactly 2 + 2; "honest name is
-       CONTRAST"; the 1an honest-scope net-state; the 1ao sidestep
-       marker); g9 1ap's key sentences anchored; g10 the
-       honest-scope anchors (the gated-scope clause; "wall stands
-       where it stood" count >= 2 -- the forcing clause survives on
-       both carriers); g11 the sibling chain green
+VERIFICATION (12 gates, exit-gated; census updated at the
+round-167 rebuild).
+  V1 -- g1 strict admissibility EXACT (P >= y0^2 > 0 identically,
+       exact rationals; L-min positive) PLUS the membership lemma
+       (real residues bracketed; boundary read = the
+       committed-kernel sum, s = d+1 -- F10); g2 the delta-ladder
+       at gamma_1 (widths bracketed inward, monotone decreasing);
+       g3 the limit instance (F(gamma_0) = 0 exactly; width and
+       depth bracketed).
+  V2 -- g4 the height ladder PLUS the DERIVED laws gated at height
+       3000 in mpmath, both site counts (3-site -> 5/2 and -25/4;
+       5-site -> 9/2 and -81/4); g5 the contrast ladder (three
+       ratio-exponents bracketed, rising toward 6); g6 the
+       anti-concentration REBUILT component-aware (two components,
+       the positive gap between the pair heights gated, the outer
+       hull bracketed -- F3/F4); g7 the infimum-zero chain.
+  V3 -- g8 the regrade strikes (frames 2 + 2; the CONTRAST
+       content; the TWO net-state markers); g9 1ap's key sentences
+       including the F1 strike frame, the replacement question,
+       the derived-law sentences, and the membership lemma; g10
+       the honest-scope anchors (the three- and five-site scope
+       clause; the forcing clause on its THREE carriers with W4
+       pinned -- F11); g11 the sibling chain green
        (unit_ball_rh 13/0, transitively chaining windows_overlap,
        riemann_selection, type_counting, and the two Weil-arc
        siblings); g12 the footer census (this script backticked;
