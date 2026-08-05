@@ -19,7 +19,15 @@ NO by g4's own from-below products (2.1356 attained) -- struck in
 turn.]  [Round 169 F1, MAJOR: the asymptotic form died the same
 way -- the off-curve law width*g0 -> (1/2)sqrt((2n-1)^2+4a-8c)
 sweeps below 5/2 -- struck; THE SLOT IS RETIRED with the
-classification: no distinguished asymptotic constant exists.]  F2/F9 -- the width and depth laws are now
+classification: no distinguished asymptotic constant exists.]
+[Round 170 F1, MAJOR: the FIRST classification's support
+misstated the spectrum ("sweeps (0, 5/2]") and would have made
+5/2 an attained supremum -- itself a distinguished constant;
+struck.  The corrected classification: the spectrum is the whole
+half-line (0, inf) -- the c-branch sweeps below 5/2 toward 0, the
+a-branch (a > 0, strictly admissible, P >= g0^2 identically)
+rises above 5/2 without bound, gated at (1, 0) -> sqrt(29)/2;
+every positive value attained, none extremal.]  F2/F9 -- the width and depth laws are now
 DERIVED (F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t near the pair) and
 gated at height 3000 in mpmath for BOTH site counts; the "is ZERO"
 infimum claim now rests on the derivation, not sampling.  F3 --
@@ -77,10 +85,13 @@ claimed in neither direction) and the sampled aimed family's own
 phenomenology.  The deficit's honest coordinate regrades to
 CONTRAST; the question slot died three times by the same
 mechanism (rounds 167/168/169 F1, each MAJOR, each struck) and is
-RETIRED with a classification: the off-curve law sweeps the
-asymptotic product below 5/2 toward 0, so no distinguished
-constant exists for the class; the standing facts are the derived
-laws and the contrast trade-off.  1ao's
+RETIRED with a classification -- corrected round 170 F1 (the
+first classification's "sweeps (0, 5/2]" support misstated the
+spectrum): the off-curve law's two branches sweep the asymptotic
+product over the whole half-line (0, inf), below 5/2 toward 0 and
+above 5/2 without bound, so no value is extremal and no
+distinguished constant exists for the class; the standing facts
+are the derived laws and the contrast trade-off.  1ao's
 wall-sidestep carries its
 net-state marker (the sidestep rests on the decay-rate exclusion,
 now sign-free per F7).
@@ -94,7 +105,7 @@ Check 7 clean (rational-function geometry; no semiclassics);
 Check 8 clean (no hypothesis input).
 
 VERIFICATION (12 gates, exit-gated; census updated at the
-round-167 rebuild and the 168/169 needle advances).
+round-167 rebuild and the 168/169/170 needle advances).
   V1 -- g1 strict admissibility EXACT (P >= y0^2 > 0 identically,
        exact rationals; L-min positive) PLUS the membership lemma
        (real residues bracketed; boundary read = the
@@ -104,16 +115,18 @@ round-167 rebuild and the 168/169 needle advances).
        depth bracketed).
   V2 -- g4 the height ladder PLUS the DERIVED laws gated at height
        3000 in mpmath, both site counts (3-site -> 5/2 and -25/4;
-       5-site -> 9/2 and -81/4); g5 the contrast ladder (three
+       5-site -> 9/2 and -81/4), PLUS the off-curve spectrum gated
+       on both branches (sqrt(17)/2 and 3/2 below 5/2 -- round
+       169; sqrt(29)/2 above -- round 170); g5 the contrast ladder (three
        ratio-exponents bracketed, rising toward 6); g6 the
        anti-concentration REBUILT component-aware (two components,
        the positive gap between the pair heights gated, the outer
        hull bracketed -- F3/F4); g7 the infimum-zero chain.
   V3 -- g8 the regrade strikes (frames 2 + 2; the CONTRAST
        content; the TWO net-state markers); g9 1ap's key sentences
-       including the 167/168/169 strike frames, the RETIREMENT
-       classification, the derived-law sentences, and the
-       membership lemma; g10
+       including the 167/168/169/170 strike frames, the RETIREMENT
+       + the corrected half-line classification, the derived-law
+       sentences, and the membership lemma; g10
        the honest-scope anchors (the three- and five-site scope
        clause; the forcing clause on its THREE carriers with W4
        pinned -- F11); g11 the sibling chain green
@@ -175,9 +188,21 @@ asymptotic question (entry (e2) reproduces at the pre-169 tree);
 the probes for the RETIREMENT needles: (e3-i) the paper's "THE
 SLOT IS RETIRED," -> "THE SLOT REMAINS OPEN," -> g9 trips ALONE,
 11/1, exit 1; (e3-ii) the off-curve law's radicand "4a - 8c" ->
-"4a - 9c" -> g9 trips ALONE, 11/1, exit 1; clean baselines 12/0
+"4a - 9c" -> g9 trips ALONE, 11/1, exit 1 (the paper's radicand
+uses the U+2212 minus; this ASCII-normalized docstring
+transliterates it -- the probe's actual needle was the unicode
+text, disclosed round 170 F2); clean baselines 12/0
 before, between, and after (one serial fresh-tree sequence,
-per-mangle restore from a pristine copy).
+per-mangle restore from a pristine copy).  At the round-170
+sweep (the classification corrected): (d2) the a-branch bracket
+decoupled in the verifier copy (2.6925 -> 2.7925) -> g4 trips
+ALONE, 11/1, exit 1; (e4) the corrected-classification needle
+mangled in the paper copy ("none extremal" -> "one extremal";
+the needle wraps a line break, so the mangle pattern is
+whitespace-aware -- the first raw-string attempt aborted safely
+at count 0 with the tree left clean at 12/0, disclosed) -> g9
+trips ALONE, 11/1, exit 1; clean baselines 12/0 around both,
+serial fresh tree, per-mangle restore.
 """
 import os
 import subprocess
@@ -383,18 +408,21 @@ def _mpoff(gz, a, c):
 
 w01 = _mpoff(3000, 0, 1)
 w02 = _mpoff(3000, 0, 2)
+w10 = _mpoff(3000, 1, 0)
 ok &= 2.0615 < w01 < 2.0616              # -> sqrt(17)/2 = 2.06155
 ok &= 1.49998 < w02 < 1.49999            # -> 3/2
-ok &= w02 < w01 < 2.5
+ok &= 2.6925 < w10 < 2.6926              # -> sqrt(29)/2 = 2.69258 (a-branch, ABOVE 5/2)
+ok &= w02 < w01 < 2.5 < w10
 gate("g4 the height ladder: four widths bracketed inward; "
      "width*gamma_0 strictly increasing; the DERIVED laws gated at "
      "height 3000 in mpmath, both site counts (3-site -> 5/2 and "
-     "-25/4; 5-site -> 9/2 and -81/4); AND the OFF-CURVE law's two "
-     "sub-5/2 instances gated (sqrt(17)/2 and 3/2 -- round 169, "
-     "closing the retired question's candidacy)",
+     "-25/4; 5-site -> 9/2 and -81/4); AND the OFF-CURVE law's "
+     "spectrum gated on BOTH branches (c-branch sqrt(17)/2 and 3/2 "
+     "below 5/2 -- round 169; a-branch sqrt(29)/2 above 5/2 -- "
+     "round 170, the half-line classification)",
      ok, f"products {[f'{p:.4f}' for p in prods]}; "
          f"laws {wp3:.6f}/{dp3:.5f}/{wp5:.6f}/{dp5:.5f}; "
-         f"off-curve {w01:.6f}/{w02:.6f}")
+         f"off-curve {w01:.6f}/{w02:.6f}/{w10:.6f}")
 
 import math
 exps = []
@@ -483,15 +511,20 @@ ok &= "The concentration mechanism is height, not degree" in paper
 # strike + the membership lemma anchored by content.
 ok &= paper.count("struck round 167 F1, MAJOR") == 1
 # rounds 168/169 F1: the question slot died three times by the
-# same mechanism and is RETIRED with a classification (round 169;
-# the off-curve law sweeps the product below 5/2).  The needles:
-# all three strike frames + the retirement + the off-curve law.
-# Probes: (e) pre-168 tree; (e2) pre-169 tree; (e3) certifies the
-# retirement needle.
+# same mechanism and is RETIRED; round 170 F1 struck the first
+# classification (its support misstated the spectrum) and wrote
+# the corrected one: the half-line (0, inf), both branches gated.
+# The needles: all four strike frames + the retirement + the
+# off-curve law + the corrected classification.  Probes: (e)
+# pre-168 tree; (e2) pre-169 tree; (e3) the retirement needle;
+# (e4) the corrected-classification needle.
 ok &= paper.count("struck round 168 F1, MAJOR") == 1
 ok &= paper.count("struck round 169 F1, MAJOR") == 1
+ok &= paper.count("struck round 170 F1, MAJOR") == 1
 ok &= "THE SLOT IS RETIRED, with a classification in its place" in paper
 ok &= "width·γ₀ → ½√((2n−1)² + 4a − 8c)" in paper
+ok &= "is the whole half-line (0, ∞)" in paper
+ok &= "every positive value attained, none extremal" in paper
 ok &= "NO distinguished asymptotic constant exists for the class" in paper
 ok &= "DERIVED at the round-167 sweep" in paper
 ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
@@ -499,9 +532,10 @@ ok &= paper.count("struck round 167 F3") == 1
 ok &= "the membership lemma, stated and gated round 167 F10" in paper
 gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "claim now derived; the contrast law; the height mechanism; the "
-     "three strike frames 167/168/169-F1 + THE SLOT IS RETIRED with "
-     "its classification and the off-curve law; the derived-law "
-     "sentences; the F3 strike; the membership lemma)", ok,
+     "four strike frames 167/168/169/170-F1 + THE SLOT IS RETIRED "
+     "with the corrected half-line classification and the off-curve "
+     "law; the derived-law sentences; the F3 strike; the membership "
+     "lemma)", ok,
      f"167 frames F1={paper.count('struck round 167 F1, MAJOR')} "
      f"F3={paper.count('struck round 167 F3')}")
 
@@ -556,7 +590,10 @@ print("round-167 replacement was closed by g4's from-below products")
 print("(round 168 F1 -- struck); the asymptotic form was closed by the")
 print("off-curve deformation law width*g0 -> (1/2)sqrt((2n-1)^2+4a-8c)")
 print("(round 169 F1 -- struck; two sub-5/2 instances gated).  The")
-print("slot is RETIRED with a classification: no distinguished")
+print("slot is RETIRED with a classification, corrected round 170 F1")
+print("(the first support misstated the spectrum): the law's branches")
+print("sweep the whole half-line (0, inf) -- gated on both sides of")
+print("5/2 -- so no value is extremal and no distinguished")
 print("asymptotic constant exists for the class; the standing facts")
 print("are the derived laws and the contrast trade-off.  No data, no closures, no new")
 print("physics; no direction of explanation.")

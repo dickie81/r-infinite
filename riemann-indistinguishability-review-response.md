@@ -3482,3 +3482,25 @@ standing rule stands: sweeps write per-edit or verify post-write.
 **Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c (swept) → 168
 1M+1m (swept, ce998f0) → 169 NOT CONVERGED 1M+1m+1c (swept) →
 round 170 (convergence test) next.**
+
+# Round 170: convergence test on the round-169 sweep (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 2 minors; the retirement classification corrected to the half-line; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F170-1 (MAJOR) — the retirement classification's support ("the off-curve law sweeps (0, 5/2], the on-curve pair attains 5/2, the aimed family diverges") misstated the spectrum and entailed the negation of its own conclusion: the law's a-branch (a > 0, c = 0, strictly admissible, concentrating) gives ½√((2n−1)² + 4a) > 5/2 unbounded above, so the spectrum is (0, ∞) not (0, 5/2]; a (0, 5/2] spectrum with attained endpoint would make 5/2 a distinguished constant; the aimed family is not in the class | **Accepted; lead-verified in mpmath at height 3000 ((1,0) → 2.692574 vs √29/2 = 2.692582; (4,0) → 3.201555 vs √41/2); the support clause struck with the round-170 frame; the corrected classification written (the whole half-line (0, ∞), every positive value attained, none extremal — the conclusion survives, strengthened); g4 gains the a-branch conjunct (bracket → √29/2, ordering w02 < w01 < 5/2 < w10); g9 gains the frame count + the corrected needles; all three verifier carriers corrected; probes (d2)/(e4) certified 11/1 with clean baselines** | paper, verifier g4/g9, docstring, READING |
+| F170-2 (minor) — the (e3-ii) record needle stated in ASCII where the paper's radicand uses U+2212: a literal replay is a no-op | **Accepted; transliteration disclosed at the record entry; the unicode mangle verified to reproduce the recorded census** | verifier docstring |
+| F170-3 (minor) — four sibling docstring censuses stale (65/1ao, 64/1an, 61/1ak, 60/1aj vs the committed 66/1ap gates): the fourth-carrier recurrence of the stale-census class | **Accepted; all four synced with the census-evolution disclosure phrased generically to retire the recurrence mechanism; the lead self-caught two more instances in the lead verifier's own V2/V3 censuses (the off-curve conjuncts and the 170 frame), synced** | four sibling verifiers, lead docstring |
+
+Held (spot-verified by the lead): the off-curve law re-derived by
+hand with the cross-term and constant exact; an ungated instance
+((0,3) → 1/2) and a general-a instance ((0.5,1) → √19/2)
+verified; the strike chain honest with each struck text verbatim
+the previously-live question sentence; probes (e3-i)/(e3-ii) and
+entry (b) reproduced at their recorded censuses; the footer
+census recounted independently (66 exact); no gate that cannot
+fail; no residual open-question phrasing outside strike markers;
+Checks 7/8 clean.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c (swept) → 168
+1M+1m (swept) → 169 1M+1m+1c (swept, 3e2fa69) → 170 NOT
+CONVERGED 1M+2m (swept) → round 171 (convergence test) next.**

@@ -3369,11 +3369,28 @@ admissible for every fixed offset, sweeping the asymptotic
 product below 5/2 all the way toward 0 as c → (2n−1)²/8 —
 lead-verified and gated at (a, c) = (0, 1) → √17/2 = 2.0615… and
 (0, 2) → 3/2, both below 5/2]. THE SLOT IS RETIRED, with a
-classification in its place: the asymptotic-product spectrum of
+classification in its place: ~~the asymptotic-product spectrum of
 admissible three-site concentrating families fills the interval —
 the off-curve law sweeps (0, 5/2], the on-curve pair attains 5/2,
 the aimed family diverges — so NO distinguished asymptotic
-constant exists for the class, and no open question is owed here.
+constant exists for the class~~ [struck round 170 F1, MAJOR — the
+classification's support misstated the spectrum and entailed the
+negation of its own conclusion: a spectrum of (0, 5/2] with the
+endpoint attained would make 5/2 the class's attained supremum,
+which is exactly a distinguished constant; and the aimed family,
+which does not concentrate, is not a member of the class at all.
+The off-curve law itself closes the defect: its a-branch
+(a > 0, c = 0) is strictly admissible (P ≥ γ₀² > 0 identically)
+and concentrating, with asymptotic product ½√((2n−1)² + 4a) > 5/2
+unbounded above — lead-verified and gated at (a, c) = (1, 0) →
+√29/2 = 2.69258]. The corrected classification: the
+asymptotic-product spectrum of admissible three-site concentrating
+families is the whole half-line (0, ∞) — the off-curve law's
+c-branch sweeps the product below 5/2 toward 0, its a-branch
+raises it above 5/2 without bound, and the on-curve pair's 5/2 is
+an interior value like any other — every positive value attained,
+none extremal, so NO distinguished asymptotic constant exists for
+the class, and no open question is owed here.
 The standing structural facts of the regrade are the derived
 width and depth laws and the contrast trade-off; the derived
 n-site law (2n−1)/2 remains the on-curve constant,

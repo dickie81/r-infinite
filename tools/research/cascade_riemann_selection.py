@@ -109,9 +109,10 @@ VERIFICATION (12 gates, exit-gated).
        qualifier); g11 the sibling chain green after the
        census advance (cascade_type_counting.py 12/0, which itself
        re-runs the two Weil-arc siblings); g12 the footer census
-       (this script backticked; "65 scripts cited in place";
-       "Theorems 1i-1ao" -- the census advanced at the 1am-1ao
-       landings, the census-evolution class, disclosed).
+       (this script backticked; "66 scripts cited in place";
+       "Theorems 1i-1ap" -- the census advances with each landing
+       (the census-evolution class, disclosed; the gate carries
+       the live values)).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git, at
 the landing): (a) the verifier copy's r3 equation flipped to

@@ -91,9 +91,10 @@ Gates (twelve):
        mechanism sentence) -- locational per the
        self-satisfying-gate lesson; g11 1ak's key sentences
        anchored as swept round 151 (the two-plane pole image;
-       the up-to-half prefactor); g12 the footer census (the new script
-       backticked; "61 scripts cited in place"; "Theorems
-       1i–1ak").
+       the up-to-half prefactor); g12 the footer census (the script
+       backticked; "66 scripts cited in place"; "Theorems
+       1i–1ap" -- the census advances with each landing; the
+       gate carries the live values).
 
 Sabotage record (full-tree scratchpad copy, at the landing
 commit; mid-anchor perturbations): (a) the paper's "the

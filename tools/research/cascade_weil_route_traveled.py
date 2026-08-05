@@ -199,8 +199,10 @@ g19-g20):
        round 147, listed round 148 F4); the per-zero probe; the
        wall-stands sentence; R2''s monotonicity; the
        no-role-of-the-action;
-       g18 the footer census (the new script backticked; "60
-       scripts cited in place"; "Theorems 1i--1aj").
+       g18 the footer census (the script backticked; "66
+       scripts cited in place"; "Theorems 1i--1ap" -- the census
+       advances with each landing; the gate carries the live
+       values).
 
 Grading: R1-R3 exact algebra with machine-precision gates (the
 t-integral identities are classical Fourier bookkeeping); R4(a)

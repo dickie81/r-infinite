@@ -14002,6 +14002,95 @@ round-43 fix-on-notice scoping.
 **Post-sweep:** verifier 12/0; probes (e3-i)/(e3-ii) certified.
 Convergence-test round 170 next.
 
+## Addendum 273: round 170 (convergence test on the round-169 sweep) — NOT CONVERGED: 1 MAJOR + 2 minors; the retirement classification's support contradicted its own conclusion; corrected to the half-line; swept
+
+Round 170 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) reproduced the committed
+verifier (12/0 with every printed census matching, including the
+off-curve actuals), re-derived the off-curve law by hand
+(cross-term coefficient 2γ₀(2n−1−2a)t and constant a²+2c−2na
+exactly as committed), verified an UNGATED law instance
+((0,3) → 0.499952 vs predicted 1/2) plus a general-a instance
+((0.5,1) → 2.179439 vs √19/2), reproduced probes (e3-i)/(e3-ii)
+and suite entry (b) at their recorded censuses in fresh trees,
+recounted the footer census independently (66 exact), and swept
+the 1ap region for residual open-question phrasing (none — all
+question text inside strike markers or the closure itself). Three
+findings, all verified directly by the lead (Check 3):
+
+**F170-1 MAJOR (accepted; swept):** the retirement
+classification's support misstated the spectrum and entailed the
+negation of its own conclusion. The struck text claimed the
+spectrum "fills the interval — the off-curve law sweeps (0, 5/2],
+the on-curve pair attains 5/2, the aimed family diverges — so NO
+distinguished asymptotic constant exists": (i) by the committed
+law itself, the a-branch (a > 0, c = 0) is strictly admissible
+(P ≥ γ₀² > 0 identically) and concentrating with asymptotic
+product ½√((2n−1)² + 4a) > 5/2, unbounded above — the true
+spectrum is the whole half-line (0, ∞), not (0, 5/2]; (ii) taken
+at face value, a spectrum of (0, 5/2] with the endpoint attained
+would make 5/2 the class's attained supremum — exactly a
+distinguished constant, the very thing the sentence denies;
+(iii) the aimed family does not concentrate and is not a member
+of the class being classified. The conclusion (no distinguished
+constant) is TRUE, but only via the unstated a-branch.
+Lead-verified in mpmath at height 3000: (1,0) → width·γ₀ =
+2.692574 vs √29/2 = 2.692582; (4,0) → 3.201555 vs √41/2 =
+3.201562; both with genuinely negative windows (F(mid) < 0) and
+exact strict admissibility. Swept: the support clause struck at
+the carrier with the round-170 frame; the corrected
+classification written (the spectrum is the whole half-line
+(0, ∞) — the c-branch sweeps below 5/2 toward 0, the a-branch
+rises above without bound, the on-curve 5/2 an interior value —
+every positive value attained, none extremal); g4 gains the
+a-branch conjunct gated in mpmath (bracket (2.6925, 2.6926) →
+√29/2, actual printed 2.692574, plus the ordering conjunct
+w02 < w01 < 5/2 < w10); g9 gains the round-170 frame count and
+the corrected-classification needles; all three verifier
+carriers (docstring annotation, REGRADE paragraph, READING)
+corrected in the same edit set.
+
+**F170-2 minor (accepted; swept):** the sabotage record's
+(e3-ii) needle was stated in ASCII ("4a - 8c") but the paper's
+radicand uses the U+2212 minus — a literal replay of the recorded
+mangle is a no-op; the census reproduces only under the
+transliteration. Disclosed at the record entry (the docstring is
+ASCII-normalized; the probe's actual needle was the unicode
+text). The reviewer verified the unicode mangle reproduces the
+recorded census exactly.
+
+**F170-3 minor (accepted; swept):** four sibling verifiers in
+g11's transitive chain carried docstring VERIFICATION tellings
+misdescribing their own committed footer gates
+(riemann_selection "65/1ao"; windows_overlap "64/1an";
+quarter_square "61/1ak"; weil_route_traveled "60/1aj" — all four
+code gates check 66/1ap since the 1ap landing). The round-167 F6
+sync covered the gate() labels but not these docstring tellings —
+the predicted fourth-carrier recurrence of the stale-census
+class. All four synced to 66/1ap with the census-evolution
+disclosure phrased generically ("the census advances with each
+landing; the gate carries the live values") to retire the
+recurrence mechanism itself. During the same sweep the lead
+self-caught two more instances of the class in the lead
+verifier's own docstring: the V2 census had never picked up
+round 169's off-curve conjuncts, and the V3 census needed the
+170 frame — both synced.
+
+**Probes (d2)/(e4) certified (fresh tar tree, serial, per-mangle
+restore, clean baselines 12/0 around both):** (d2) the a-branch
+bracket decoupled in the verifier copy (2.6925 → 2.7925) → g4
+trips ALONE, 11/1, exit 1; (e4) the corrected-classification
+needle mangled in the paper copy ("none extremal" → "one
+extremal") → g9 trips ALONE, 11/1, exit 1. Instrument note: the
+first (e4) attempt aborted safely at count 0 — the needle wraps
+a line break (the recurring line-wrap class), so the pattern was
+made whitespace-aware; the abort guard left the tree clean at
+12/0 throughout, disclosed in the record.
+
+**Post-sweep:** verifier 12/0 (g4 detail now printing the
+off-curve triple 2.061542/1.499985/2.692574); probes (d2)/(e4)
+certified. Convergence-test round 171 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
