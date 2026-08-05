@@ -597,9 +597,9 @@ gate("g12 the sibling chain green after the census advance "
 ok = "`cascade_windows_overlap.py`" in paper
 ok &= "66 scripts cited in place" in paper
 ok &= "Theorems 1i–1ap" in paper
-gate("g13 the footer census (advanced at this landing and 1ao, "
+gate("g13 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 66 cited in place; the "
-     "range 1i–1ao", ok)
+     "range 1i–1ap (label re-synced round 167 F6)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 n_gates = 14 if FULL else 13
@@ -633,12 +633,12 @@ print("never below 1 (relabeled round 162 F1); positivity")
 print("unchanged by sharing.  W4 (as regraded by Theorem 1ap): the")
 print("sampled aimed family relocates but does not concentrate; the")
 print("full cone DOES concentrate (width ~ 5/(2 gamma_0) at height,")
-print("contrast ~ gamma_0^-6 -- 1ap); the forcing clause stands: the")
-print("concentrate -- coverage is complete on the sampled scope while")
-print("the width floor stays above 1 at every sampled aim >= gamma_1")
-print("and the profile is fixed; Weil's dense class needs arbitrary")
-print("wall's forcing is classical zero data, claimed in neither")
-print("direction; the deficit's honest coordinate is CONTRAST (1ap).")
+print("contrast ~ gamma_0^-6 -- 1ap); coverage is complete on the")
+print("sampled scope, the width floor stays above 1 at every sampled")
+print("aim >= gamma_1, and the profile is fixed for the aimed family;")
+print("the forcing clause stands: the wall's forcing is classical")
+print("zero data, claimed in neither direction; the deficit's honest")
+print("coordinate is CONTRAST (1ap; splice repaired round 167 F5).")
 print("The wall stands where it stood.  No closures, no data, no")
 print("numerical advance over classical methods claimed; no direction")
 print("of explanation.")

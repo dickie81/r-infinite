@@ -89,7 +89,7 @@ Gates (twelve):
        markers on the weakest-link sentences anchored; g11 the
        footer census (the new script backticked; "66 scripts
        cited in place"; "Theorems 1i–1ap" -- advanced at the
-       1am-1ao landings, the census-evolution class, disclosed); g12 the two Weil-arc
+       1am-1ap landings, the census-evolution class, disclosed); g12 the two Weil-arc
        footer-gating siblings re-run green after the census
        advance (quarter_square 12/0; route_traveled 22/0).
 
@@ -293,9 +293,9 @@ gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
 ok = "`cascade_type_counting.py`" in paper
 ok &= "66 scripts cited in place" in paper
 ok &= "Theorems 1i–1ap" in paper
-gate("g11 the footer census (advanced at the 1am-1ao landings, "
+gate("g11 the footer census (advanced at the 1am-1ap landings, "
      "disclosed): this script backticked; 66 cited in place; the "
-     "range 1i–1ao", ok)
+     "range 1i–1ap (label re-synced round 167 F6)", ok)
 ok = True
 for s, expect in (("cascade_quarter_square", "12 pass / 0 fail"),
                   ("cascade_weil_route_traveled", "22 pass / 0 fail")):

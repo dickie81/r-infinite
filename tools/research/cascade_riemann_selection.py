@@ -329,9 +329,9 @@ gate("g11 the sibling chain green after the census advance "
 ok = "`cascade_riemann_selection.py`" in paper
 ok &= "66 scripts cited in place" in paper
 ok &= "Theorems 1i–1ap" in paper
-gate("g12 the footer census (advanced at the 1an and 1ao landings, "
+gate("g12 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 66 cited in place; the "
-     "range 1i–1ao", ok)
+     "range 1i–1ap (label re-synced round 167 F6)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

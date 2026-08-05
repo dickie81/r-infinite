@@ -8,28 +8,59 @@ prove the width floor for every admissible committed instance.  The
 attempt refuted it (self-caught; the 1aj-regrade precedent): the
 floor fails, and fails to ZERO.
 
+ROUND-167 SWEEP (the landing's hostile round; 1 MAJOR + 6 minors +
+3 cosmetics, all verified by the lead and swept): F1 MAJOR -- the
+drafted open question ("width at fixed depth-per-|Q|-scale") was
+CLOSED by the theorem's own data (the construction holds
+depth*g0^(2n) fixed at -(2n-1)^2/4 while width -> 0; the quantity
+is not scale-invariant); struck, replaced by the well-posed
+question (is 5/2 the infimum of width*g0 over admissible
+three-site instances?).  F2/F9 -- the width and depth laws are now
+DERIVED (F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t near the pair) and
+gated at height 3000 in mpmath for BOTH site counts; the "is ZERO"
+infimum claim now rests on the derivation, not sampling.  F3 --
+the two-pair negative set is TWO windows with a positive gap ~ eps
+between the pair heights; g6 rebuilt component-aware (the gated
+2.075 was the outer hull).  F4 -- the five-site P3 denominator
+disclosed; the eps-independence scoped to the three smallest eps.
+F5/F6 -- sibling telling repairs (the windows_overlap READING
+splice; four stale range labels).  F7 -- the 1ao exclusion's sign
+scope widened (any signs; cancellation only speeds decay).  F8 --
+8.5 -> 8.6 rounding.  F10 -- the membership lemma stated and gated
+(real residues; boundary read = the committed-kernel sum).  F11 --
+g10's carrier count corrected to three with the W4 carrier pinned.
+
 P1 (the concentration construction).  On the committed lattice take
 three sites (d = 4, 5, 6) and give the numerator a
 complex-conjugate zero pair ON the displaced curve at height
 gamma_0: q(u) = ((u - x0)^2 + y0^2)/Q(u), x0 = gamma_0^2 - 1/4,
-y0 = gamma_0.  The instance is STRICTLY admissible -- L > 0
+y0 = gamma_0.  The instance IS the committed geometry: q
+partial-fractions into the three committed kernels with real
+residues (gated), and the boundary read equals Re q along the
+displaced curve u~ = gamma^2 - 1/4 + i*gamma (R2''s closed form --
+the 1ak displacement; round 167 F10).  The instance is STRICTLY admissible -- L > 0
 everywhere, the cone's interior, no tangency -- yet its boundary
-read is negative on a window of width ~ 5/(2 gamma_0) ending at
-gamma_0.  Gated at heights gamma_1/50/100/300: widths
-0.1510/0.0493/0.0249/0.0083, width*gamma_0 rising to 2.4991 ~ 5/2
-(equivalently constant u-plane width ~ 5.0 -- observed, not
-derived).  The infimum of window widths over the admissible cone is
+read is negative on a window of width (2n-1)/(2 gamma_0) (1+o(1))
+ending at gamma_0 -- DERIVED (round 167).  Gated at heights
+gamma_1/50/100/300: widths 0.1510/0.0493/0.0249/0.0083,
+width*gamma_0 rising to 2.4991, and at height 3000 to 2.499991
+(-> 5/2; five sites -> 9/2, both gated in mpmath -- the float
+cliff forbids float64 there).  The infimum of window widths over the admissible cone is
 ZERO: the committed family concentrates arbitrarily at height.
 
-P2 (the contrast law).  The price is depth: the negativity depth
-collapses like gamma_0^-6 for the fixed three-site denominator
-(measured exponents 5.5/5.9/6.0 -- |Q| ~ gamma_0^6 along the curve;
-observed, not derived) -- 3.7e-7 at gamma_1 down to 8.5e-15 at
-height 300.  Resolution is purchasable; contrast pays.
+P2 (the contrast law).  The price is depth: depth*gamma_0^(2n) ->
+-(2n-1)^2/4 -- DERIVED (three sites -25/4, gated to -6.24989 at
+height 3000; five sites -81/4, gated); measured exponents
+5.5/5.9/6.0 along the ladder; 3.7e-7 at gamma_1 down to 8.6e-15 at
+height 300 (the "8.5" truncation corrected, F8).  Resolution is
+purchasable; contrast pays.
 
-P3 (stacking anti-concentrates).  Two on-curve pairs at spacing eps
-give width ~ 2.075 INDEPENDENT of eps (gated at eps = 0.5..0.01) --
-wider than one pair.  The concentration mechanism is height, not
+P3 (stacking anti-concentrates).  Two on-curve pairs at spacing
+eps, on a FIVE-site denominator (disclosed, F4), give TWO disjoint
+windows (the positive gap ~ eps between the pair heights gated,
+F3) whose outer hull ~ 2.075 is eps-independent across the three
+smallest sampled eps -- wider than the like-for-like five-site
+single pair.  The concentration mechanism is height, not
 numerator degree.
 
 THE REGRADE.  The 1an W4 flat clauses ("it cannot concentrate";
@@ -45,9 +76,10 @@ NEW NAMED OPEN QUESTION.  1ao's wall-sidestep carries its net-state
 marker (the sidestep rests on the decay-rate exclusion, untouched).
 
 HONEST SCOPE.  Category (a) -- pure geometry of the committed
-kernels; no data, no closures, no new physics; the 5/2 and
-gamma_0^-6 constants observed with gated brackets, not derived; the
-three-site denominator is the gated scope; positivity unchanged.
+kernels; no data, no closures, no new physics; the width and depth
+laws DERIVED and gated (round 167); the three- and five-site
+denominators are the gated scope with the site-dependence derived
+(width_u -> 2n-1); positivity unchanged.
 Check 7 clean (rational-function geometry; no semiclassics);
 Check 8 clean (no hypothesis input).
 
@@ -77,8 +109,13 @@ VERIFICATION (12 gates, exit-gated).
        siblings); g12 the footer census (this script backticked;
        "66 scripts cited in place"; "Theorems 1i-1ap").
 
-Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
-serial, abort-on-mangle-failure, at the landing; actual censuses):
+Sabotage record.  THE LANDING'S ENTRIES (below) were certified
+against the LANDING gate set; the round-167 rebuild (g1/g4/g6/g9/
+g10) changes the censuses, and the suite was RE-RUN at the sweep --
+the re-certified censuses are appended after the landing entries.
+Landing entries (full-tree scratchpad copy, tar --exclude=.git,
+serial, abort-on-mangle-failure; actual censuses at the landing
+gate set):
 (a) the CONTRAST strike-frame content mangled in the paper copy
 (CONTRAST -> PRECISION) -> TWO gates trip: g8 directly AND g11
 through the sibling chain (windows_overlap's g10 cross-anchors the
@@ -165,10 +202,39 @@ z = curve(G1)
 Lv = np.array([(((g * g - z) * (g * g - np.conj(z))) / Q(g * g + 0j)).real
                for g in gg])
 ok &= Lv.min() > 0
-gate("g1 strict admissibility EXACT: P = (u-x0)^2 + y0^2 >= y0^2 > 0 "
-     "identically (exact rationals, four heights); the numerical "
-     "L-minimum strictly positive (the cone's INTERIOR -- no "
-     "tangency)", ok, f"L_min {Lv.min():.2e}")
+# round 167 F10: the membership lemma gated -- q partial-fractions
+# into the three committed kernels with REAL residues, and the
+# boundary read equals sum c_d K_{s_d}(0, gamma) (R2' closed form).
+c_res = []
+for i, w2 in enumerate(W2):
+    others = [W2[j] for j in range(3) if j != i]
+    u_i = -w2
+    num = (u_i - (G1 ** 2 - 0.25)) ** 2 + G1 ** 2
+    den = (u_i + others[0]) * (u_i + others[1])
+    c_res.append(num / den)
+ok &= 220.4 < c_res[0] < 220.5 and -441.7 < c_res[1] < -441.6 \
+    and 222.2 < c_res[2] < 222.3
+
+
+def K_bdry(s, g):
+    return s / (s ** 2 + g ** 2) + (s - 1) / ((s - 1) ** 2 + g ** 2)
+
+
+# F(gamma) = Re q(u~) = sum c_i K_{s_i}(0, gamma)/(2 s_i - 1) with
+# the committed s = d + 1 (w = d + 1/2; 2s - 1 = 2w = 2d + 1).
+worst = 0.0
+for gpt in (3.0, G1, 40.0):
+    lhs = make_F(curve(G1))(gpt)
+    rhs = sum(c_res[i] * K_bdry((4, 5, 6)[i] + 1, gpt)
+              / (2 * ((4, 5, 6)[i] + 1) - 1)
+              for i in range(3))
+    worst = max(worst, abs(lhs - rhs))
+ok &= worst < 1e-12
+gate("g1 strict admissibility EXACT + the membership lemma (round "
+     "167 F10): P >= y0^2 > 0 identically; L-min positive; the "
+     "REAL residues bracketed (220.4../-441.6../222.2..) and the "
+     "boundary read = the committed-kernel sum at samples",
+     ok, f"L_min {Lv.min():.2e}, resid {worst:.1e}")
 
 DELTAS = (1.0, 0.3, 0.1, 0.03, 0.01)
 DW = [(0.4004, 0.4005), (0.2552, 0.2553), (0.1924, 0.1925),
@@ -212,10 +278,45 @@ for gz, (blo, bhi) in zip(HEIGHTS, HW):
 prods = [w * g for w, g in zip(widths, HEIGHTS)]
 ok &= prods[0] < prods[1] < prods[2] < prods[3]
 ok &= 2.498 < prods[3] < 2.500
+# round 167 (F1/F2/F9 repair): the width law DERIVED -- near the
+# pair F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t, so width*g0 -> (2n-1)/2
+# and depth*g0^(2n) -> -(2n-1)^2/4.  Gated at height 3000 with
+# mpmath (the float cliff forbids float64 here), BOTH site counts.
+from mpmath import mp, mpf, findroot
+mp.dps = 50
+def _mpstudy(w2s, gz):
+    g0 = mpf(gz)
+    z0m = g0 * g0 - mpf("0.25") + 1j * g0
+    def Qm(u):
+        r = mpf(1)
+        for w2 in w2s:
+            r = r * (u + w2)
+        return r
+    def Fm(g):
+        u = g * g - mpf("0.25") + 1j * g
+        return (((u - z0m) * (u - z0m.conjugate())) / Qm(u)).real
+    n = len(w2s)
+    lo_m = findroot(Fm, g0 - mpf(2 * n - 1) / (2 * g0))
+    dmin = min(Fm(g0 - mpf(2 * n - 1) / (4 * g0) * (k / mpf(20)))
+               for k in range(1, 41))
+    return float((g0 - lo_m) * g0), float(dmin * g0 ** (2 * n))
+W3m = [mpf(d) + mpf("0.5") for d in (4, 5, 6)]
+W3m = [w * w for w in W3m]
+W5m = [mpf(d) + mpf("0.5") for d in (4, 5, 6, 7, 8)]
+W5m = [w * w for w in W5m]
+wp3, dp3 = _mpstudy(W3m, 3000)
+wp5, dp5 = _mpstudy(W5m, 3000)
+ok &= 2.499990 < wp3 < 2.499992          # -> 5/2
+ok &= -6.24990 < dp3 < -6.24988          # -> -25/4
+ok &= 4.499980 < wp5 < 4.499982          # -> 9/2
+ok &= -20.24935 < dp5 < -20.24933        # -> -81/4
 gate("g4 the height ladder: four widths bracketed inward; "
-     "width*gamma_0 strictly increasing with the last in "
-     "(2.498, 2.500) -- the observed 5/2 law",
-     ok, f"products {[f'{p:.4f}' for p in prods]}")
+     "width*gamma_0 strictly increasing; AND the DERIVED laws gated "
+     "at height 3000 in mpmath, both site counts (3-site -> 5/2 and "
+     "-25/4; 5-site -> 9/2 and -81/4) -- round 167, the observed "
+     "labels superseded",
+     ok, f"products {[f'{p:.4f}' for p in prods]}; "
+         f"laws {wp3:.6f}/{dp3:.5f}/{wp5:.6f}/{dp5:.5f}")
 
 import math
 exps = []
@@ -247,13 +348,30 @@ for eps in EPS:
     ng = gg[Fv < 0]
     lo = brentq(F2, ng.min() - 0.005, ng.min() + 0.0005)
     hi = brentq(F2, ng.max() - 0.0005, ng.max() + 0.005)
-    tw.append(hi - lo)
-ok = all(2.07 < w < 2.14 for w in tw)
-ok &= max(tw[1:]) - min(tw[1:]) < 0.01
-gate("g6 anti-concentration: two on-curve pairs (five-site "
-     "denominator), four widths in (2.07, 2.14) with the last three "
-     "within 0.01 -- eps-INDEPENDENT; stacking widens, it does not "
-     "narrow", ok, f"widths {[f'{w:.4f}' for w in tw]}")
+    # round 167 F3: the negative set is TWO components with a
+    # positive gap ~ eps between the pair heights; count them and
+    # bracket the gap instead of silently bridging it.
+    comps, inside = 0, False
+    for v in Fv:
+        if v < 0 and not inside:
+            comps += 1
+            inside = True
+        elif v >= 0 and inside:
+            inside = False
+    gap_mask = (gg > G1 + 0.001) & (gg < G1 + eps - 0.001) if eps > 0.004 else None
+    gap_pos = bool(np.all(Fv[gap_mask] >= 0)) if gap_mask is not None and gap_mask.any() else True
+    tw.append((hi - lo, comps, gap_pos))
+ok = all(2.07 < w < 2.14 for w, _, _ in tw)
+ok &= max(w for w, _, _ in tw[1:]) - min(w for w, _, _ in tw[1:]) < 0.01
+ok &= all(c == 2 for _, c, _ in tw)
+ok &= all(gp for _, _, gp in tw)
+gate("g6 anti-concentration (round 167 F3/F4 rebuilt): two on-curve "
+     "pairs, FIVE-site denominator (disclosed); the negative set is "
+     "TWO components with the positive gap between the pair heights "
+     "gated; the outer HULL in (2.07, 2.14), the last three within "
+     "0.01; stacking widens, it does not narrow",
+     ok, f"hulls {[f'{w:.4f}' for w, _, _ in tw]}, comps "
+         f"{[c for _, c, _ in tw]}")
 
 ok = widths[3] < 0.01 < widths[2] < widths[1] < widths[0] < 1
 gate("g7 the infimum-zero chain: width(300) < 0.01 < width(100) < "
@@ -282,16 +400,33 @@ ok = ("The infimum of window widths over the admissible cone is ZERO"
       in paper)
 ok &= "Resolution is purchasable; contrast pays for it" in paper
 ok &= "The concentration mechanism is height, not degree" in paper
-ok &= "the NEW NAMED OPEN QUESTION, replacing the refuted conjecture" in paper
+# round 167: F1 struck the drafted open question (its frame anchored
+# inside the strike); the replacement + the derived laws + the F3
+# strike + the membership lemma anchored by content.
+ok &= paper.count("struck round 167 F1, MAJOR") == 1
+ok &= ("is 5/2 the infimum of the scale-invariant product width·γ₀ "
+       "over all admissible THREE-SITE instances?" in paper)
+ok &= "DERIVED at the round-167 sweep" in paper
+ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
+ok &= paper.count("struck round 167 F3") == 1
+ok &= "the membership lemma, stated and gated round 167 F10" in paper
 gate("g9 1ap's key sentences anchored by content (the infimum-zero "
-     "claim; the contrast law; the height mechanism; the new open "
-     "question)", ok)
+     "claim now derived; the contrast law; the height mechanism; the "
+     "F1 strike frame + the well-posed replacement question; the "
+     "derived-law sentences; the F3 strike; the membership lemma -- "
+     "round 167)", ok,
+     f"167 frames F1={paper.count('struck round 167 F1, MAJOR')} "
+     f"F3={paper.count('struck round 167 F3')}")
 
-ok = "the three-site denominator is the gated scope" in paper
-ok &= paper.count("wall stands where it stood") >= 2
-gate("g10 the honest-scope anchors: the gated-scope clause; the "
-     "forcing clause surviving on both carriers (count >= 2)",
-     ok, f"wall count {paper.count('wall stands where it stood')}")
+ok = "the three- and five-site denominators are the gated scope" in paper
+ok &= paper.count("wall stands where it stood") == 3
+ok &= ("The wall stands where it stood — nothing cascade-side forces "
+       "positivity on any discriminating instance" in paper)
+gate("g10 the honest-scope anchors: the gated-scope clause (round 167 "
+     "F4 rewording); the forcing clause on its THREE carriers (count "
+     "corrected round 167 F11) with the W4 carrier pinned by its "
+     "local content", ok,
+     f"wall count {paper.count('wall stands where it stood')}")
 
 rr = subprocess.run([sys.executable,
                      os.path.join(ROOT, "tools", "research",
@@ -313,19 +448,24 @@ n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")
 print("READING: the concentration regrade.  Push A inverted: the width")
 print("floor is refuted, and to ZERO -- a strictly admissible")
-print("complex-pair instance (the cone's interior, no tangency)")
-print("concentrates with width ~ 5/(2 gamma_0) ending at its height,")
-print("the 5/2 observed not derived.  The price is CONTRAST: depth")
-print("collapses like gamma_0^-6 (the fixed denominator's growth).")
-print("Stacking pairs anti-concentrates (width ~ 2.075,")
-print("eps-independent): the mechanism is height, not degree.  The")
+print("complex-pair instance (the cone's interior, no tangency; the")
+print("membership lemma gated, round 167 F10) concentrates with width")
+print("(2n-1)/(2 gamma_0) ending at its height -- DERIVED at the")
+print("round-167 sweep, both site counts gated in mpmath.  The price")
+print("is CONTRAST: depth*gamma_0^(2n) -> -(2n-1)^2/4, also derived.")
+print("Stacking pairs anti-concentrates: TWO disjoint windows (the")
+print("gap ~ eps gated, round 167 F3) with an eps-independent outer")
+print("hull ~ 2.075 on the disclosed five-site denominator: the")
+print("mechanism is height, not degree.  The")
 print("1an W4 flat clauses are struck at their carriers,")
 print("false-when-written beyond the sampled family -- the sampled")
 print("qualifiers the rounds enforced scope the damage exactly -- and")
 print("the forcing clause stands unchanged: nothing cascade-side")
 print("forces positivity; the dense-class extension is RH, claimed in")
 print("neither direction.  The deficit's honest coordinate is")
-print("CONTRAST; whether a nonzero contrast-normalized floor exists")
-print("is the new named open question.  No data, no closures, no new")
+print("CONTRAST; the drafted contrast-normalized question was CLOSED")
+print("by the theorem's own data (round 167 F1, MAJOR -- struck); the")
+print("well-posed replacement: is 5/2 the infimum of width*gamma_0")
+print("over admissible three-site instances?  No data, no closures, no new")
 print("physics; no direction of explanation.")
 sys.exit(0 if n_fail == 0 else 1)

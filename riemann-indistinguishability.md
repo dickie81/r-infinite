@@ -3214,9 +3214,12 @@ exclusion now argued, not merely asserted (round 164 F2, the
 reviewer's verification committed): every committed-lattice
 profile decays at rate w = d+½ ≥ 3/2 in |x| (the lattice floor,
 d ≥ 1), while the Li members carry the e^(−|x|/2) scale of the
-functional equation's half — rates 3/2 versus ½, so no
-nonnegative committed superposition matches a Li member's tail
-(the rate floor gated in exact rationals). Computed and gated:
+functional equation's half — rates 3/2 versus ½, so no finite
+committed superposition — ANY signs: cancellation can only speed
+decay — matches a Li member's tail (the sign scope widened round
+167 F7: the cone contains mixed-sign instances, as 1ap's own
+concentrating residues show, and the exclusion never needed
+nonnegativity; the rate floor gated in exact rationals). Computed and gated:
 three independent routes agree — with their committed scopes
 stated (round 164 F4): the series route spans n = 1..50, direct
 differentiation covers n = 1..8, and the paired zero-sum samples
@@ -3284,24 +3287,50 @@ precedent): the floor fails, and fails to ZERO. *(ii) Theorem P1
 (the concentration construction).* On the committed lattice take
 three sites (gated at d = 4, 5, 6) and give the numerator a
 complex-conjugate zero pair ON the displaced curve at height γ₀:
-q(u) = ((u−x₀)² + y₀²)/Q(u), x₀ = γ₀² − ¼, y₀ = γ₀. The instance is
+q(u) = ((u−x₀)² + y₀²)/Q(u), x₀ = γ₀² − ¼, y₀ = γ₀. The instance IS the
+committed geometry (the membership lemma, stated and gated round
+167 F10): q partial-fractions into the three committed kernels
+with real residues 220.489…/−441.695…/222.206…, and its
+strip-boundary read equals Re q along the displaced curve
+ũ = γ² − ¼ + iγ by the 1aj-regrade continuation identity in
+R2′'s closed form — the 1ak displacement. The instance is
 STRICTLY admissible — L > 0 everywhere, the cone's interior, no
 tangency — yet its boundary read is negative on a window of width
-≈ 5/(2γ₀) ending at γ₀ (gated at heights γ₁/50/100/300: widths
+(2n−1)/(2γ₀)·(1+o(1)) ending at γ₀ — DERIVED at the round-167
+sweep (the reviewer's asymptotics, lead-verified at 50 digits and
+gated: near the pair, F·|Q| ≈ 4γ₀²t² + 2(2n−1)γ₀t with
+t = γ − γ₀, roots t = 0 and −(2n−1)/(2γ₀), minimum −(2n−1)²/4) —
+gated at heights γ₁/50/100/300: widths
 0.1510…/0.0493…/0.0249…/0.0083…, the product width·γ₀ rising to
-2.4991… ≈ 5/2, equivalently constant u-plane width ≈ 5.0 —
-observed, not derived). The infimum of window widths over the
-admissible cone is ZERO: the committed family concentrates
-arbitrarily at height. *(iii) Theorem P2 (the contrast law).* The
+2.4991… and to 2.499991… at height 3000 (three sites: → 5/2;
+five sites: → 9/2, both gated), equivalently u-plane width rising
+to 2n−1 = 5 from below (≈ 4.25 at γ₁ — the earlier "constant
+≈ 5.0" corrected round 167 F9). The infimum of window widths over the
+admissible cone is ZERO — now by the DERIVED law, not sampling
+(round 167 F2: the landing's flat "is ZERO" outran its sampled
+gates; the derivation supplies the beyond-sample content): the
+committed family concentrates arbitrarily at height. *(iii) Theorem P2 (the contrast law).* The
 price is depth: the negativity depth collapses along the height
 ladder like γ₀⁻⁶ for the fixed three-site denominator (measured
-exponents 5.5/5.9/6.0 — |Q| ~ γ₀⁶ along the curve; observed, not
-derived) — from 3.7 × 10⁻⁷ at γ₁ to 8.5 × 10⁻¹⁵ at height 300.
+exponents 5.5/5.9/6.0; now DERIVED with the width law:
+depth·γ₀^(2n) → −(2n−1)²/4 — three sites −25/4, gated to
+−6.24989… at height 3000; five sites −81/4, gated) — from
+3.7 × 10⁻⁷ at γ₁ to 8.6 × 10⁻¹⁵ at height 300 (the landing's
+"8.5" was an unmarked truncation, round 167 F8).
 Resolution is purchasable; contrast pays for it. *(iv) Theorem P3
 (stacking anti-concentrates).* Numerator complexity does NOT
-concentrate: two on-curve pairs at spacing ε give a window of
-width ≈ 2.075, INDEPENDENT of ε (gated at ε = 0.5 down to 0.01) —
-wider than one pair, not narrower. The concentration mechanism is
+concentrate: two on-curve pairs at spacing ε give ~~a window of
+width ≈ 2.075, INDEPENDENT of ε~~ [struck round 167 F3: the
+negative set is TWO disjoint windows separated by a positive gap
+of width ≈ ε sitting exactly between the pair heights; the gated
+2.075 was the outer HULL, silently bridging the gap] two disjoint
+windows whose outer hull is ≈ 2.075, the hull ε-independent
+across the three smallest sampled ε (2.085/2.076/2.075; ε = 0.5
+gives 2.135 — the "independent" scope corrected round 167 F4) —
+computed on a FIVE-site denominator, d = 4..8 (deg P = 4 needs
+deg Q ≥ 5; the switch was undisclosed in the landing's prose,
+round 167 F4) — and wider than the like-for-like five-site single
+pair (width 0.265… at γ₁). The concentration mechanism is
 height, not degree. *(v) The regrade, and what stands.* The 1an W4
 flat clauses — "it cannot concentrate", "relocation without
 resolution", "the RH deficit is RESOLUTION, not reach" — are
@@ -3314,15 +3343,26 @@ discriminating instance; the dense-class extension is RH, claimed
 in neither direction — and 1ao's wall-sidestep, which now rests
 solely on the decay-rate exclusion (its own marker). The wall's
 honest coordinate regrades from RESOLUTION to CONTRAST: sharp
-probes exist at every height and fade like γ₀⁻⁶; whether a nonzero
+probes exist at every height and fade like γ₀⁻⁶; ~~whether a nonzero
 contrast-normalized floor exists (width at fixed
 depth-per-|Q|-scale) is the NEW NAMED OPEN QUESTION, replacing the
-refuted conjecture. *Honest scope:* category (a) — pure geometry
+refuted conjecture~~ [struck round 167 F1, MAJOR: the drafted
+question was CLOSED by the theorem's own data — the construction
+holds depth·γ₀^(2n) asymptotically fixed at −(2n−1)²/4 while its
+width → 0, and the drafted quantity is not scale-invariant
+(q ↦ αq rescales depth freely at fixed width)]. The well-posed
+replacement, named: is 5/2 the infimum of the scale-invariant
+product width·γ₀ over all admissible THREE-SITE instances? The
+pair family attains it in the limit; the aimed family's product
+diverges; the derived n-site law (2n−1)/2 shows the constant is
+site-count-dependent. *Honest scope:* category (a) — pure geometry
 of the committed kernels; no data, no closures, no new physics;
-the 5/2 and γ₀⁻⁶ constants are observed with gated brackets, not
-derived; the three-site denominator is the gated scope (other
-denominators are expected to shift the depth exponent with the
-same width mechanism — unexplored); positivity is unchanged (every
+the width and depth laws are DERIVED and gated at the round-167
+sweep (the landing's "observed, not derived" labels superseded);
+the three- and five-site denominators are the gated scope, the
+site-dependence itself now derived — width_u → 2n−1,
+depth·γ₀^(2n) → −(2n−1)²/4 (the landing's "unexplored" was
+contradicted by P3's own five-site gate, round 167 F4); positivity is unchanged (every
 on-line zero contributes ≥ 0 in any window). Check 7 clean
 (rational-function geometry on the committed lattice; no
 semiclassics); Check 8 clean (no hypothesis input).

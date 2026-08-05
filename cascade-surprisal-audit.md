@@ -13783,6 +13783,77 @@ battery 33/33 green; validator clean; model-ID hygiene zero.
 **Spawn.** Hostile round 167 on this landing (fresh-context
 subagent, session model) per the standing protocol.
 
+## Addendum 269: round 167 (hostile, on the 1ap landing 9ca08be) — NOT CONVERGED: 1 MAJOR + 6 minors + 3 cosmetics; the laws upgraded from observed to DERIVED; swept (the sabotage re-certification running, censuses to follow)
+
+Round 167 (fresh-context subagent, session model) ran the full
+gate and suite reproduction, recomputed every number with its own
+implementation, and — the round's standout — DERIVED both scaling
+laws analytically (near the pair F·|Q| ≈ 4γ₀²t² + 2(2n−1)γ₀t:
+width·γ₀ → (2n−1)/2, depth·γ₀^(2n) → −(2n−1)²/4), verifying the
+site-dependence with its own five-site control. Findings, all
+verified directly by the lead (Check 3):
+
+**F167-1 MAJOR (accepted; swept):** the landing's "NEW NAMED OPEN
+QUESTION" (width at fixed depth-per-|Q|-scale) was CLOSED by the
+theorem's own data — the construction holds depth·γ₀^(2n)
+asymptotically fixed at −(2n−1)²/4 while width → 0 (lead-verified
+at 50 digits: −6.2499 at height 3000), and the quantity is not
+scale-invariant. Struck with the closure explained in the frame;
+the well-posed replacement named: is 5/2 the infimum of width·γ₀
+over admissible three-site instances?
+
+**F167-2/9 (accepted; swept):** the width and depth laws upgraded
+from "observed, not derived" to DERIVED and gated at height 3000
+in mpmath for BOTH site counts (3-site → 5/2 and −25/4; 5-site →
+9/2 and −81/4; the reviewer's 3000-height wobble was float noise
+— the 1an cliff — hence the mpmath gates); the "is ZERO" infimum
+claim now rests on the derivation; the "constant u-width ≈ 5.0"
+corrected to "rising to 2n−1 = 5 from below".
+
+**F167-3/4 (accepted; swept):** the two-pair negative set is TWO
+disjoint windows with a positive gap ≈ ε exactly between the pair
+heights (lead-verified: components 2, gap [γ₀, γ₀+ε]); g6 rebuilt
+component-aware; the five-site P3 denominator disclosed in the
+paper; the ε-independence scoped to the three smallest ε; the
+honest-scope "unexplored" contradiction fixed with the
+site-dependence now derived.
+
+**F167-7 (accepted; swept):** the 1ao decay-rate exclusion's sign
+scope widened to any-signs (cancellation only speeds decay) — the
+cone contains mixed-sign instances, as 1ap's own concentrating
+residues show.
+
+**F167-10 (accepted; swept):** the membership lemma stated in the
+paper and gated (real residues 220.489/−441.695/222.206; the
+boundary read = the committed-kernel sum via R2′, s = d+1 — the
+lead's first gate draft mis-set s = d+1.5, caught by the gate's
+own clean-run failure at residual 0.11 and fixed).
+
+**F167-5/6/8/11 (accepted; swept):** the windows_overlap READING
+splice repaired; four stale range labels re-synced; the 8.6
+rounding; g10's carrier count corrected to three with the W4
+carrier pinned.
+
+**Two instrument mishaps disclosed:** (i) the first paper-sweep
+script CRASHED at a pattern mismatch AFTER its early edits but
+BEFORE its single end-of-script write — the early edits were
+silently lost while a second script's edits landed; caught by the
+rebuilt g9's own clean-run failure (F1 frame count 0), the lost
+edits re-applied and confirmed written (the abort-before-write
+class, now in its whole-script form: sweeps must write per-edit
+or verify post-write); (ii) an earlier heredoc edit left
+line-continuation text collapsed into a syntactically-valid but
+wrong single-line form — fixed via the exact on-disk text.
+
+**Post-sweep state:** the rebuilt verifier 12/0; the sabotage
+re-certification against the rebuilt gate set is RUNNING (six
+entries: the landing's a/b/c re-certified — (b) expected to gain
+a g1 trip via the new membership identity — plus probes d/e/f for
+the law gates, the replacement-question needle, and the component
+census); the re-certified censuses and the convergence-test
+round-168 spawn follow in the next commit, closing this
+addendum's deferral.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
