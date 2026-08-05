@@ -16,9 +16,10 @@ depth*g0^(2n) fixed at -(2n-1)^2/4 while width -> 0; the quantity
 is not scale-invariant); struck.  [Round 168 F1, MAJOR: the
 round-167 replacement itself repeated the defect class -- closed
 NO by g4's own from-below products (2.1356 attained) -- struck in
-turn; the asymptotically-scoped open question now stands: is 5/2
-the infimum of liminf(width*g0) over admissible three-site
-CONCENTRATING FAMILIES?]  F2/F9 -- the width and depth laws are now
+turn.]  [Round 169 F1, MAJOR: the asymptotic form died the same
+way -- the off-curve law width*g0 -> (1/2)sqrt((2n-1)^2+4a-8c)
+sweeps below 5/2 -- struck; THE SLOT IS RETIRED with the
+classification: no distinguished asymptotic constant exists.]  F2/F9 -- the width and depth laws are now
 DERIVED (F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t near the pair) and
 gated at height 3000 in mpmath for BOTH site counts; the "is ZERO"
 infimum claim now rests on the derivation, not sampling.  F3 --
@@ -74,12 +75,12 @@ scope the damage exactly.  What stands: the forcing clause (nothing
 cascade-side forces positivity; the dense-class extension is RH,
 claimed in neither direction) and the sampled aimed family's own
 phenomenology.  The deficit's honest coordinate regrades to
-CONTRAST; the drafted contrast-normalized question was CLOSED by
-the theorem's own data (round 167 F1, MAJOR -- struck), and the
-round-167 replacement was closed in turn by g4's from-below
-products (round 168 F1, MAJOR -- struck); the standing open
-question, asymptotically scoped: is 5/2 the infimum of
-liminf(width*g0) over three-site concentrating families?  1ao's
+CONTRAST; the question slot died three times by the same
+mechanism (rounds 167/168/169 F1, each MAJOR, each struck) and is
+RETIRED with a classification: the off-curve law sweeps the
+asymptotic product below 5/2 toward 0, so no distinguished
+constant exists for the class; the standing facts are the derived
+laws and the contrast trade-off.  1ao's
 wall-sidestep carries its
 net-state marker (the sidestep rests on the decay-rate exclusion,
 now sign-free per F7).
@@ -93,7 +94,7 @@ Check 7 clean (rational-function geometry; no semiclassics);
 Check 8 clean (no hypothesis input).
 
 VERIFICATION (12 gates, exit-gated; census updated at the
-round-167 rebuild).
+round-167 rebuild and the 168/169 needle advances).
   V1 -- g1 strict admissibility EXACT (P >= y0^2 > 0 identically,
        exact rationals; L-min positive) PLUS the membership lemma
        (real residues bracketed; boundary read = the
@@ -110,8 +111,9 @@ round-167 rebuild).
        hull bracketed -- F3/F4); g7 the infimum-zero chain.
   V3 -- g8 the regrade strikes (frames 2 + 2; the CONTRAST
        content; the TWO net-state markers); g9 1ap's key sentences
-       including the F1 strike frame, the replacement question,
-       the derived-law sentences, and the membership lemma; g10
+       including the 167/168/169 strike frames, the RETIREMENT
+       classification, the derived-law sentences, and the
+       membership lemma; g10
        the honest-scope anchors (the three- and five-site scope
        clause; the forcing clause on its THREE carriers with W4
        pinned -- F11); g11 the sibling chain green
@@ -167,7 +169,15 @@ round-168 sweep: entry (e)'s needle text was struck with the
 round-167 replacement question (entry (e) reproduces at the
 pre-168 tree); the probe for the ASYMPTOTIC question's needle:
 (e2) the paper's "is 5/2 the infimum" (asymptotic form) -> "7/2"
--> g9 trips, 11/1, exit 1, clean baselines 12/0.
+-> g9 trips, 11/1, exit 1, clean baselines 12/0.  At the
+round-169 sweep: entry (e2)'s needle was struck in turn with the
+asymptotic question (entry (e2) reproduces at the pre-169 tree);
+the probes for the RETIREMENT needles: (e3-i) the paper's "THE
+SLOT IS RETIRED," -> "THE SLOT REMAINS OPEN," -> g9 trips ALONE,
+11/1, exit 1; (e3-ii) the off-curve law's radicand "4a - 8c" ->
+"4a - 9c" -> g9 trips ALONE, 11/1, exit 1; clean baselines 12/0
+before, between, and after (one serial fresh-tree sequence,
+per-mangle restore from a pristine copy).
 """
 import os
 import subprocess
@@ -345,13 +355,46 @@ ok &= 2.499990 < wp3 < 2.499992          # -> 5/2
 ok &= -6.24990 < dp3 < -6.24988          # -> -25/4
 ok &= 4.499980 < wp5 < 4.499982          # -> 9/2
 ok &= -20.24935 < dp5 < -20.24933        # -> -81/4
+# round 169 F1: the OFF-CURVE deformation law gated -- the pair at
+# z0 = (g0^2 - 1/4 + a) + i(g0 + c/g0) gives width*g0 ->
+# (1/2) sqrt((2n-1)^2 + 4a - 8c); two sub-5/2 instances close the
+# retired question's 5/2 candidacy.  Both window edges sit BELOW
+# g0 (the quadratic's roots are negative for c > 0): seed each
+# edge from the predicted roots t+- = (-5 +- sqrt(25-8c))/(4 g0).
+import math as _math
+
+
+def _mpoff(gz, a, c):
+    g0 = mpf(gz)
+    z0o = (g0 * g0 - mpf("0.25") + mpf(a)) + 1j * (g0 + mpf(c) / g0)
+    def Fo(g):
+        u = g * g - mpf("0.25") + 1j * g
+        r = mpf(1)
+        for w2 in W3m:
+            r = r * (u + w2)
+        return (((u - z0o) * (u - z0o.conjugate())) / r).real
+    disc = _math.sqrt(25 + 4 * a - 8 * c)      # (2n-1)^2 + 4a - 8c, n = 3, a = 0 cases
+    t_lo = (-(5 - 2 * a) - disc) / 4.0
+    t_hi = (-(5 - 2 * a) + disc) / 4.0
+    lo_o = findroot(Fo, g0 + mpf(t_lo) / g0)
+    hi_o = findroot(Fo, g0 + mpf(t_hi) / g0)
+    return float((hi_o - lo_o) * g0)
+
+
+w01 = _mpoff(3000, 0, 1)
+w02 = _mpoff(3000, 0, 2)
+ok &= 2.0615 < w01 < 2.0616              # -> sqrt(17)/2 = 2.06155
+ok &= 1.49998 < w02 < 1.49999            # -> 3/2
+ok &= w02 < w01 < 2.5
 gate("g4 the height ladder: four widths bracketed inward; "
-     "width*gamma_0 strictly increasing; AND the DERIVED laws gated "
-     "at height 3000 in mpmath, both site counts (3-site -> 5/2 and "
-     "-25/4; 5-site -> 9/2 and -81/4) -- round 167, the observed "
-     "labels superseded",
+     "width*gamma_0 strictly increasing; the DERIVED laws gated at "
+     "height 3000 in mpmath, both site counts (3-site -> 5/2 and "
+     "-25/4; 5-site -> 9/2 and -81/4); AND the OFF-CURVE law's two "
+     "sub-5/2 instances gated (sqrt(17)/2 and 3/2 -- round 169, "
+     "closing the retired question's candidacy)",
      ok, f"products {[f'{p:.4f}' for p in prods]}; "
-         f"laws {wp3:.6f}/{dp3:.5f}/{wp5:.6f}/{dp5:.5f}")
+         f"laws {wp3:.6f}/{dp3:.5f}/{wp5:.6f}/{dp5:.5f}; "
+         f"off-curve {w01:.6f}/{w02:.6f}")
 
 import math
 exps = []
@@ -439,23 +482,26 @@ ok &= "The concentration mechanism is height, not degree" in paper
 # inside the strike); the replacement + the derived laws + the F3
 # strike + the membership lemma anchored by content.
 ok &= paper.count("struck round 167 F1, MAJOR") == 1
-# round 168 F1: the round-167 replacement question struck (closed
-# by g4's own from-below products); the needle advances to the
-# asymptotically-scoped question + the new strike frame.  Sabotage
-# entry (e) certifies the OLD needle at the pre-168 tree; the new
-# needle's probe is (e2) below.
+# rounds 168/169 F1: the question slot died three times by the
+# same mechanism and is RETIRED with a classification (round 169;
+# the off-curve law sweeps the product below 5/2).  The needles:
+# all three strike frames + the retirement + the off-curve law.
+# Probes: (e) pre-168 tree; (e2) pre-169 tree; (e3) certifies the
+# retirement needle.
 ok &= paper.count("struck round 168 F1, MAJOR") == 1
-ok &= ("is 5/2 the infimum of liminf(width·γ₀, γ₀ → ∞) over "
-       "admissible three-site CONCENTRATING FAMILIES?" in paper)
+ok &= paper.count("struck round 169 F1, MAJOR") == 1
+ok &= "THE SLOT IS RETIRED, with a classification in its place" in paper
+ok &= "width·γ₀ → ½√((2n−1)² + 4a − 8c)" in paper
+ok &= "NO distinguished asymptotic constant exists for the class" in paper
 ok &= "DERIVED at the round-167 sweep" in paper
 ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
 ok &= paper.count("struck round 167 F3") == 1
 ok &= "the membership lemma, stated and gated round 167 F10" in paper
 gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "claim now derived; the contrast law; the height mechanism; the "
-     "167-F1 and 168-F1 strike frames + the asymptotically-scoped "
-     "standing question; the derived-law sentences; the F3 strike; "
-     "the membership lemma)", ok,
+     "three strike frames 167/168/169-F1 + THE SLOT IS RETIRED with "
+     "its classification and the off-curve law; the derived-law "
+     "sentences; the F3 strike; the membership lemma)", ok,
      f"167 frames F1={paper.count('struck round 167 F1, MAJOR')} "
      f"F3={paper.count('struck round 167 F3')}")
 
@@ -506,9 +552,12 @@ print("forces positivity; the dense-class extension is RH, claimed in")
 print("neither direction.  The deficit's honest coordinate is")
 print("CONTRAST; the drafted contrast-normalized question was CLOSED")
 print("by the theorem's own data (round 167 F1, MAJOR -- struck); the")
-print("round-167 replacement was closed in turn by g4's from-below")
-print("products (round 168 F1 -- struck); the standing question,")
-print("asymptotically scoped: is 5/2 the infimum of liminf(width*g0)")
-print("over three-site concentrating families?  No data, no closures, no new")
+print("round-167 replacement was closed by g4's from-below products")
+print("(round 168 F1 -- struck); the asymptotic form was closed by the")
+print("off-curve deformation law width*g0 -> (1/2)sqrt((2n-1)^2+4a-8c)")
+print("(round 169 F1 -- struck; two sub-5/2 instances gated).  The")
+print("slot is RETIRED with a classification: no distinguished")
+print("asymptotic constant exists for the class; the standing facts")
+print("are the derived laws and the contrast trade-off.  No data, no closures, no new")
 print("physics; no direction of explanation.")
 sys.exit(0 if n_fail == 0 else 1)

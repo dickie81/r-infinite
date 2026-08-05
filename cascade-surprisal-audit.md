@@ -13908,6 +13908,100 @@ as the sole tripwire. Corrected in the record.
 **Post-sweep:** verifier 12/0; probe (e2) certified.
 Convergence-test round 169 next.
 
+## Addendum 272: round 169 (convergence test on the round-168 sweep) — NOT CONVERGED: 1 MAJOR + 1 minor + 1 cosmetic; the question slot's THIRD consecutive death by the same mechanism; THE SLOT IS RETIRED with a classification; swept
+
+Round 169 (fresh-context subagent, session model, foreground-only
+brief) reproduced the committed verifier (12/0 with every printed
+census matching), probe (e2) and suite entry (f) at their recorded
+censuses (entry (f) chosen deliberately to test the F168-2
+correction — confirmed verbatim: three of four hulls collapse to
+the ε→0 value 2.0754, the vanished gap the sole tripwire by
+elimination), verified the strike-chain's honesty frame by frame,
+and held endpoint discipline throughout. Three findings, all
+verified directly by the lead (Check 3):
+
+**F169-1 MAJOR (accepted; swept):** the round-168
+asymptotically-scoped standing question ("is 5/2 the infimum of
+liminf(width·γ₀, γ₀ → ∞) over admissible three-site CONCENTRATING
+FAMILIES?") is closed NO by an elementary off-curve extension of
+the theorem's own derived law — the THIRD consecutive death of
+this slot by the same mechanism (a named open question closed by
+a short computation inside the theorem's own instance class;
+rounds 167 F1, 168 F1, 169 F1, each MAJOR). Placing the pair off
+the displaced curve on the side the committed data never explored
+(g2 probed only the widening side), z₀ = (γ₀²−¼+a) + i(γ₀+c/γ₀),
+extends the derived expansion to F·|Q| ≈ 4γ₀²t² + 2γ₀(2n−1−2a)t
++ (2c−2na+a²), giving width·γ₀ → ½√((2n−1)² + 4a − 8c): for
+n = 3 every fixed c ∈ (0, 25/8) is a strictly admissible
+concentrating family with asymptotic product ½√(25−8c) < 5/2,
+and c → 25/8 drives it to 0. The infimum is 0; 5/2 is a property
+of the on-curve placement only. Lead-verified in mpmath at height
+3000 ((a,c) = (0,1): width·γ₀ = 2.061542 vs √17/2 = 2.061553;
+(0,2): 1.499985 vs 3/2; windows genuinely negative, entirely
+below γ₀ as the quadratic's roots predict). Swept: the third
+strike frame written at the carrier; **THE SLOT IS RETIRED, with
+a classification in its place** — the asymptotic-product spectrum
+of the class fills the interval (the off-curve law sweeps
+(0, 5/2], the on-curve pair attains 5/2, the aimed family
+diverges), so NO distinguished asymptotic constant exists for the
+class and no open question is owed; g4 gains two off-curve
+conjuncts gated in mpmath at height 3000 (brackets (2.0615,
+2.0616) → √17/2 and (1.49998, 1.49999) → 3/2, seeded from the
+quadratic's predicted roots t± = (−(5−2a) ± √(25+4a−8c))/(4γ₀)
+since both window edges sit below γ₀ — naive seeds above γ₀
+misconverge, self-flagged before gating); g9's needle set
+advanced to the three strike-frame counts + the retirement + the
+off-curve law + the no-distinguished-constant clause.
+
+**F169-2 minor (accepted; swept):** the verifier docstring's V3
+census still described the pre-168 g9 (naming the struck
+replacement question as a live anchor, omitting the 168 frame) —
+the round-168 "label synced" was executed on the gate() label and
+the two strike mentions but missed this third carrier (the
+round-167 F6 stale-census class). Synced. During this sweep the
+lead self-caught the SAME class one carrier further: the g9
+gate() label itself still carried the round-168 state
+("the asymptotically-scoped standing question") after the needle
+rewrite — re-synced to the three frames + the retirement, and the
+probe baseline certified the fixed label green.
+
+**F169-3 cosmetic (accepted; swept):** the VERIFICATION header
+dated the census only to "the round-167 rebuild", and the code
+comment above g9's ok-chain described the pre-168 anchor set —
+both readable as historical but synced with the same edit set.
+
+**Instrument disclosure — the crashed-before-write class
+RECURRED:** the round-169 verifier sweep script died at a
+whitespace-mismatched g4 pattern before its end-of-script write,
+and the subsequent "12/0 clean run" was unknowingly against the
+UNSWEPT verifier (g9 passed because struck text still matches
+inside its frames under norm()). Caught on inspection of the
+sweep task's traceback; all nine verifier edits re-applied via
+per-edit writes (each reporting WRITTEN, ast.parse after every
+write), and the true clean run then confirmed 12/0. This is the
+second recurrence after round 167's whole-script form; the
+standing rule is now standing: **sweep scripts write per-edit or
+verify post-write — a clean run only counts after confirming the
+edits are on disk.**
+
+**Probe (e3) certified (fresh tar tree, serial, per-mangle
+restore from a pristine copy, clean baselines 12/0 before,
+between, and after):** (e3-i) the retirement needle ("THE SLOT IS
+RETIRED," → "THE SLOT REMAINS OPEN,") → g9 trips ALONE, 11/1,
+exit 1; (e3-ii) the off-curve law's radicand ("4a − 8c" →
+"4a − 9c") → g9 trips ALONE, 11/1, exit 1. Entry (e2) is scoped
+to the pre-169 tree (its needle is now struck text), mirroring
+(e)'s scoping at 168.
+
+**Record-file note:** the round-167 and 168 tables had never been
+appended to `riemann-indistinguishability-review-response.md`
+(the audit's A269–A271 carried those rounds alone) — both
+appended with this sweep, late-append disclosed, per the
+round-43 fix-on-notice scoping.
+
+**Post-sweep:** verifier 12/0; probes (e3-i)/(e3-ii) certified.
+Convergence-test round 170 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

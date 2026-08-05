@@ -3358,13 +3358,26 @@ question's own defect class: it is answered NO by the sweep's own
 committed data, the g4 products rising to 5/2 FROM BELOW (2.1356
 attained at γ₁; the reviewer's low-height probes reach 0.106 at
 γ₀ = 2), so 5/2 is the pair family's SUPREMUM along the ladder,
-not a candidate infimum]. The question that is actually open,
+not a candidate infimum]. ~~The question that is actually open,
 asymptotically scoped: is 5/2 the infimum of
 liminf(width·γ₀, γ₀ → ∞) over admissible three-site CONCENTRATING
-FAMILIES? The pair family's liminf attains 5/2; whether any
-three-site family concentrates with a smaller asymptotic product
-is untouched by every committed datum; the derived n-site law
-(2n−1)/2 shows the constant is site-count-dependent. *Honest scope:* category (a) — pure geometry
+FAMILIES?~~ [struck round 169 F1, MAJOR — the slot's THIRD
+consecutive death by the same mechanism: the off-curve
+deformation z₀ = (γ₀²−¼+a) + i(γ₀ + c/γ₀) extends the derived
+expansion to width·γ₀ → ½√((2n−1)² + 4a − 8c), strictly
+admissible for every fixed offset, sweeping the asymptotic
+product below 5/2 all the way toward 0 as c → (2n−1)²/8 —
+lead-verified and gated at (a, c) = (0, 1) → √17/2 = 2.0615… and
+(0, 2) → 3/2, both below 5/2]. THE SLOT IS RETIRED, with a
+classification in its place: the asymptotic-product spectrum of
+admissible three-site concentrating families fills the interval —
+the off-curve law sweeps (0, 5/2], the on-curve pair attains 5/2,
+the aimed family diverges — so NO distinguished asymptotic
+constant exists for the class, and no open question is owed here.
+The standing structural facts of the regrade are the derived
+width and depth laws and the contrast trade-off; the derived
+n-site law (2n−1)/2 remains the on-curve constant,
+site-count-dependent. *Honest scope:* category (a) — pure geometry
 of the committed kernels; no data, no closures, no new physics;
 the width and depth laws are DERIVED and gated at the round-167
 sweep (the landing's "observed, not derived" labels superseded);

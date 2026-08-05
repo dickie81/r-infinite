@@ -3403,3 +3403,82 @@ of Li's ladder at the tower's edge, the first-rung identities,
 the honest crossover, the decay-rate cone exclusion, the teeth,
 and the no-proof-leverage scope. Next hostile round on the next
 substantive paper change.**
+
+# Round 167: hostile round on the Theorem 1ap landing (9ca08be) (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 6 minors + 3 cosmetics; both scaling laws upgraded from observed to DERIVED; swept
+
+*(Tables 167–169 appended together after the round-169 sweep; the
+audit's A269–A272 carry the full per-round records — this table and
+the two below are the round-table summaries owed at each sweep,
+appended late and disclosed as such per the record-file
+fix-on-notice scoping.)*
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F167-1 (MAJOR) — the landing's "NEW NAMED OPEN QUESTION" (width at fixed depth-per-\|Q\|-scale) closed by the theorem's own data: depth·γ₀^(2n) is held asymptotically fixed at −(2n−1)²/4 while width → 0, and the quantity is not scale-invariant | **Accepted; lead-verified at 50 digits (−6.2499 at height 3000); struck with the closure in the frame; the well-posed replacement named (in turn struck round 168)** | paper, verifier |
+| F167-2/9 (minors) — the width and depth laws "observed, not derived"; the "is ZERO" infimum claim resting on sampling | **Accepted; both laws DERIVED (F·\|Q\| ≈ 4γ₀²t² + 2(2n−1)γ₀t near the pair) and gated at height 3000 in mpmath, BOTH site counts (3-site → 5/2, −25/4; 5-site → 9/2, −81/4); the reviewer's 3000-height wobble diagnosed as the 1an float cliff, hence the mpmath gates** | paper, verifier g4 |
+| F167-3/4 (minors) — the two-pair negative set is TWO windows with a positive gap ≈ ε between the pair heights; the five-site P3 denominator undisclosed | **Accepted; lead-verified (components 2, gap [γ₀, γ₀+ε]); g6 rebuilt component-aware; the denominator disclosed; ε-independence scoped to the three smallest ε** | paper, verifier g6 |
+| F167-7 (minor) — the 1ao decay-rate exclusion's sign scope too narrow | **Accepted; widened to any-signs (cancellation only speeds decay); both tellings** | paper, unit_ball_rh docstring |
+| F167-10 (minor) — the kernel-membership of the complex-pair instance load-bearing but ungated | **Accepted; the membership lemma stated and gated (real residues 220.489/−441.695/222.206; boundary read = the committed-kernel sum via R2′, s = d+1 — the lead's first gate draft mis-set s = d+1.5, caught by its own clean-run failure at residual 0.11)** | paper, verifier g1 |
+| F167-5/6/8/11 (cosmetics) — the windows_overlap READING splice; four stale range labels; the 8.6 rounding; g10's carrier count | **Applied; the W4 carrier pinned** | verifier, siblings |
+
+Held: the full gate and suite reproduction; every number
+recomputed by the reviewer's own implementation; the site
+dependence verified with an independent five-site control; Checks
+7/8 clean. Two instrument mishaps disclosed in A269: the paper
+sweep script's crash-after-early-edits-before-write (caught by the
+rebuilt g9's clean-run failure; the abort-before-write class in
+whole-script form — sweeps must write per-edit or verify
+post-write), and a collapsed heredoc line-continuation.
+
+Post-sweep: the rebuilt verifier 12/0; the sabotage
+re-certification (a)–(f) against the rebuilt gates all certified
+(A270), with entry (b) STRICTLY MORE SENSITIVE (g1+g2, 10/2,
+vs the landing's 11/1).
+
+**Trajectory: 1ap landed (9ca08be) → 167 NOT CONVERGED 1M+6m+3c
+(swept, 93261b9 + 71c0f05 + 0384044) → round 168 (convergence
+test) next.**
+
+# Round 168: convergence test on the round-167 sweep (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 1 minor; the replacement question repeated the struck question's own defect class; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F168-1 (MAJOR) — the round-167 replacement question ("is 5/2 the infimum of width·γ₀ over admissible three-site instances?") answered NO by g4's own committed from-below products (2.1356 attained at γ₁; the reviewer's probes reach 0.106): 5/2 is the ladder's supremum, not a candidate infimum | **Accepted (the lead had flagged exactly this in the round's brief); struck in turn on all carriers with the closure in the frame; the standing question asymptotically re-scoped (liminf over concentrating families — in turn struck round 169); probe (e2) certified 11/1 with clean baselines; the g9 needle advanced and label synced** | paper, verifier g9 |
+| F168-2 (minor) — the A270/docstring claim "the hulls unchanged" in sabotage entry (f) false: three of four hulls change, collapsing to the ε→0 value 2.0754 | **Accepted; corrected in the record — what holds is that the hull and component conjuncts still pass, leaving the vanished gap as the sole tripwire** | verifier docstring, A270 record |
+
+Held: the committed verifier 12/0 reproduced; the full suite
+(a)–(f) at the A270 censuses including (b)'s two-gate sensitivity
+gain; both laws derived by hand with convergence re-checked at
+height 10⁴; the membership identity proved analytically (residues
+sum to 1 — a consistency check the paper doesn't claim); every
+endpoint verified.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c (swept) → 168
+NOT CONVERGED 1M+1m (swept, ce998f0) → round 169 (convergence
+test) next.**
+
+# Round 169: convergence test on the round-168 sweep (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 1 minor + 1 cosmetic; the slot's THIRD death by the same mechanism; THE SLOT IS RETIRED with a classification; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F169-1 (MAJOR) — the asymptotically-scoped standing question closed NO by an off-curve extension of the theorem's own derived law: z₀ = (γ₀²−¼+a) + i(γ₀+c/γ₀) gives width·γ₀ → ½√((2n−1)² + 4a − 8c), so for n = 3 every c ∈ (0, 25/8) concentrates with asymptotic product ½√(25−8c) < 5/2, driven to 0 as c → 25/8; the infimum is 0 and 5/2 is a property of the on-curve placement only — the third consecutive instance of the same defect class (167 F1, 168 F1, 169 F1) | **Accepted; lead-verified in mpmath at height 3000 ((0,1) → 2.061542 vs √17/2 = 2.061553; (0,2) → 1.499985 vs 3/2, windows genuinely negative and below γ₀); the third strike frame written; THE SLOT IS RETIRED with a classification (the off-curve law sweeps (0, 5/2], the on-curve pair attains 5/2, the aimed family diverges — no distinguished asymptotic constant exists for the class); g4 gains two off-curve conjuncts gated in mpmath (root-based seeds, self-flagged misconvergence risk); g9's needles advanced; probes (e3-i)/(e3-ii) certified 11/1 with clean baselines** | paper, verifier g4/g9 |
+| F169-2 (minor) — the docstring's V3 census still described the pre-168 g9 (a struck question named as a live anchor); the round-168 "label synced" missed this third carrier | **Accepted; synced — and the lead self-caught the same class one carrier further (the g9 gate() label itself still carried the 168 state after the needle rewrite), re-synced and certified green by the probe baseline** | verifier docstring, g9 label |
+| F169-3 (cosmetic) — the VERIFICATION header's dating and the g9 ok-chain comment pre-168 | **Applied with the same edit set** | verifier |
+
+Held: the committed verifier 12/0 with every printed census
+matching; probe (e2) and suite entry (f) reproduced at their
+recorded censuses ((f) confirming the F168-2 correction verbatim
+— three of four hulls collapse to 2.0754, the vanished gap the
+sole tripwire by elimination); the strike chain honest frame by
+frame; the 167/168 frames carrying distinct accurate charges;
+endpoint discipline throughout; Checks 7/8 clean.
+
+Instrument disclosure (A272): the crashed-before-write class
+recurred — the verifier sweep script died at a whitespace
+mismatch before its write and the first "clean run" was against
+the unswept file; caught, re-applied per-edit, re-run. The
+standing rule stands: sweeps write per-edit or verify post-write.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c (swept) → 168
+1M+1m (swept, ce998f0) → 169 NOT CONVERGED 1M+1m+1c (swept) →
+round 170 (convergence test) next.**
