@@ -13854,6 +13854,25 @@ census); the re-certified censuses and the convergence-test
 round-168 spawn follow in the next commit, closing this
 addendum's deferral.
 
+## Addendum 270: the round-167 deferral closed — the sabotage re-certification against the rebuilt gates (six entries, all certified); convergence round 168 spawned
+
+The suite ran serially on a fresh tree with clean baselines 12/0
+around every entry: (a) g8+g11 10/2 (unchanged — the chain
+cross-anchor); (b) g1 AND g2 10/2 — the PREDICTED sensitivity
+gain confirmed: the new membership identity catches the
+curve-flip (residual 2.3e-3) alongside the δ-ladder's ¼ literal,
+where the landing set caught only g2; (c) g3 11/1 (unchanged);
+(d) the law-bracket probe → g4 11/1; (e) the replacement-question
+needle probe (5/2 → 7/2) → g9 11/1; (f) the coincident-pairs
+probe → g6 via the positive-gap conjunct (components stayed 2 —
+the gap is what vanishes), 11/1. The re-certified record is
+appended to the instrument's docstring; A269's deferral is
+closed. Battery note: the sweep's affected siblings were
+chain-verified green inside all thirteen suite baselines
+(unit_ball_rh 13/0 in every run, transitively the full chain);
+the round-168 reviewer runs what it chooses. Convergence-test
+round 168 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

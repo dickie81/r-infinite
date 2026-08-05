@@ -133,6 +133,23 @@ failed 11/1 at g8's own marker count (the gate expected one
 net-state marker where the paper correctly carries two) --
 corrected to the true census in the gate text.  Twelve gates
 (count checked against the gate() census pre-commit).
+
+RE-CERTIFICATION at the round-167 sweep (the rebuilt gate set;
+serial, fresh tree, abort-safe, clean baselines 12/0 around every
+entry; actual censuses): (a) the CONTRAST strike-frame mangle ->
+g8 + g11 (the sibling-chain cross-anchor), 10/2, exit 1
+(unchanged); (b) the curve-displacement flip -> g1 AND g2, 10/2,
+exit 1 -- the rebuilt set is STRICTLY MORE SENSITIVE than the
+landing's (the new membership identity catches the flip at
+residual 2.3e-3 alongside the delta-ladder's 1/4 literal; the
+landing census was 11/1); (c) the off-curve limit instance -> g3,
+11/1, exit 1 (unchanged); (d) the derived-law bracket decoupled
+(2.499990 -> 2.599990) -> g4 trips, 11/1, exit 1; (e) the
+replacement-question needle mangled in the paper (5/2 -> 7/2) ->
+g9 trips, 11/1, exit 1; (f) the two pairs collapsed to one
+(z2 -> z1) -> g6 trips VIA THE POSITIVE-GAP CONJUNCT (the
+component count stayed 2 and the hulls unchanged -- the gap
+between the pair heights is what vanishes), 11/1, exit 1.
 """
 import os
 import subprocess
