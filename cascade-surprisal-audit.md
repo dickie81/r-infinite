@@ -13573,6 +13573,71 @@ clean; model-ID hygiene zero.
 **Spawn.** Hostile round 164 on this landing (fresh-context
 subagent, session model) per the standing protocol.
 
+## Addendum 265: round 164 (hostile, on the 1ao landing 3936ede) — NOT CONVERGED: 0 MAJORs + 4 minors + 2 cosmetics, all statement-discipline; the mathematics fully verified including the Li-criterion literature check; swept
+
+Round 164 (fresh-context subagent, session model) ran the
+verifier (13/0, repeatedly), the census sibling (10/0, confirmed
+unweakened — byte-identical logic, no allowlist, the new file
+genuinely scanned), reproduced the sabotage record (a)–(c)
+per-entry including the graceful "first neg None" trip and the
+exact six-gate census for (c), recomputed every number with its
+own implementations (three scripts sharing none of the
+instrument's code paths; the 1200-zero route confirming λ₅₀),
+re-derived the n² tail model and traced the 0.998 ratio to its
+cause, verified the footer census from both directions, and
+checked the Li criterion against the classical literature — Li
+1997 and Bombieri–Lagarias 1999 — finding the paper's statement
+verbatim-faithful (the brief's MAJOR-watch item; held). Four
+minors + two cosmetics, all verified directly by the lead
+(Check 3) before acceptance:
+
+**F164-1 minor (accepted; swept):** the paper's tie residual
+"2.1e-81 before landing" was an unscoped dps-80 drafting-run
+numeric no committed surface reproduces (the committed gate
+prints 7.8e-62 at dps 60). Struck with annotation; the committed
+figure quoted; the exact-algebra identity stated in-line (both
+sides equal 1/s − ½lnπ + ½ψ(s/2)).
+
+**F164-2 minor (accepted; swept):** the wall-sidestep clause's
+membership exclusion ("Li's family is not in the committed
+Lorentzian cone") was load-bearing but ungated. The reviewer
+verified it TRUE via decay-rate separation; the lead verified
+and committed the argument: every committed-lattice profile
+decays at rate w = d+½ ≥ 3/2 (the lattice floor, d ≥ 1) while
+the Li members carry the e^(−|x|/2) scale — rates 3/2 vs ½. The
+paper now argues it; g1 gates the floor in exact rationals.
+
+**F164-3 minor (accepted; swept):** "ball-carried from n = 8"
+was over-definite — the ball's share of rung 8 is 1.4%, crossing
+half only near n = 11 (lead-verified: 0.0209/1.4658 at 8;
+0.546 at 11); what happens at 8 is the sign change. Struck and
+reworded on all three tellings (the drag's end at 8; the share
+crossing near 11; positivity over-determined after the drag).
+The old sabotage-(a) needle survives only at the landing tree —
+recorded in the sabotage record — and the reworded sentence has
+its own certified probe.
+
+**F164-4 minor (accepted; swept):** "three independent routes
+agree" carried no per-route scopes (series 1..50; direct 1..8;
+zeros sampled {1,3,5,10}); the scopes are now stated in the
+paper and the g2 label, with the reviewer's own all-50
+confirmation noted. Independence itself was assessed honest
+(disjoint code paths) and held.
+
+**F164-5/6 cosmetic (applied):** the pole-ladder term named in
+both prose compressions; the "certified constant-structure"
+allusion replaced by its referents (1am's Γ(½) ladder; the
+half-shift lattice).
+
+**Probes on the sweep (serial, fresh tree, clean baselines
+13/0):** (d) the reworded handoff sentence mangled → g9 trips,
+12/1; (e) the rate-floor lattice decoupled (floor → ½) → g1
+trips, 12/1. Recorded in the docstring.
+
+**Post-sweep:** verifier 13/0; the three tellings re-read
+against the swept state. Convergence-test round 165 next, per
+the standing rule.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -3168,13 +3168,20 @@ EXPRESS; no proof leverage is claimed, and the wall stands. *(ii)
 The decomposition (exact).* ξ = B · A with B(s) = ½sΓ_ℝ(s) the
 unit-ball (Archimedean) factor and A(s) = (s−1)ζ(s) the
 pole-removed arithmetic factor, both analytic and nonzero at s = 1.
-The ball factor's log-derivative IS the committed potential:
-d/ds ln B(s) = p(s−1) + 1/s exactly (gated; verified at residual
-2.1e-81 before landing). Li's ladder
+The ball factor's log-derivative is the committed potential plus
+the prefactor's pole ladder:
+d/ds ln B(s) = p(s−1) + 1/s exactly — exact algebra, both sides
+equal 1/s − ½lnπ + ½ψ(s/2) — (gated at the committed residual
+7.8e-62, dps 60; ~~verified at residual 2.1e-81 before landing~~
+[struck round 164 F1: an unscoped dps-80 drafting-run numeric no
+committed surface reproduces — session runs are drafting until
+they land in code; the committed gate's figure stands, and the
+residual scales with precision as exact algebra should]). Li's ladder
 λₙ = (1/(n−1)!)(dⁿ/dsⁿ)[s^(n−1) ln ξ(s)] at s = 1 splits exactly
 by linearity: λₙ = λₙ^B + λₙ^A — the ball rungs are the committed
 potential's derivative ladder at the edge d = 0 (in closed series
-form through ψ^(k)(½) and lnπ), the arithmetic rungs come from ζ's
+form through ψ^(k)(½), lnπ, and the prefactor's elementary 1/s
+ladder), the arithmetic rungs come from ζ's
 Stieltjes expansion. The first rungs are exact identities:
 λ₁^B = 1 + p(0) and λ₁^A = γ (Euler's constant), so
 λ₁ = 1 + p(0) + γ — the first Li rung is the committed edge
@@ -3183,8 +3190,21 @@ potential plus one plus γ (each gated). *(iii) The criterion
 Bombieri–Lagarias complement) — a COUNTABLE positivity ladder
 requiring no test-function concentration: it sidesteps 1an's
 resolution wall entirely, because the wall bounds the committed
-Lorentzian cone and Li's family is not in it. Computed and gated:
-three independent routes agree (the series route from Stieltjes
+Lorentzian cone and Li's family is not in it — the membership
+exclusion now argued, not merely asserted (round 164 F2, the
+reviewer's verification committed): every committed-lattice
+profile decays at rate w = d+½ ≥ 3/2 in |x| (the lattice floor,
+d ≥ 1), while the Li members carry the e^(−|x|/2) scale of the
+functional equation's half — rates 3/2 versus ½, so no
+nonnegative committed superposition matches a Li member's tail
+(the rate floor gated in exact rationals). Computed and gated:
+three independent routes agree — with their committed scopes
+stated (round 164 F4): the series route spans n = 1..50, direct
+differentiation covers n = 1..8, and the paired zero-sum samples
+n ∈ {1, 3, 5, 10} within the n² tail model, so rungs above 8 are
+single-route in the committed instrument (the reviewer's own
+independent implementations confirmed all 50 rungs and the λ₅₀
+value by a 1200-zero route) — (the series route from Stieltjes
 constants + polygamma at ½; direct high-precision differentiation
 of ln ξ; the paired zero-sum, converging from below at the
 paired-tail scale n²·Σ_{γ>T} γ⁻² — the gate's first draft modeled
@@ -3201,9 +3221,15 @@ landing).* The ball rungs are NEGATIVE for n = 1..7 exactly
 arithmetic rungs stay positive and bounded on the computed range
 (oscillating; the first rung γ = 0.5772… is their minimum there)
 — so positivity is arithmetic-carried at the low rungs, where the
-ball drags, and ball-carried from n = 8, where the ball grows and
-the arithmetic oscillates bounded: the two factors hand positivity
-to each other across n ≈ 8. In the unit-ball reading, RH says the
+ball drags, and ~~ball-carried from n = 8~~ [struck round 164 F3,
+over-definite: at n = 8 the ball's share of the rung is 1.4% —
+what happens at 8 is the ball's SIGN change, and its share of the
+rung passes half only near n = 11] released from the drag at
+n = 8, where the ball's rungs turn positive (its share passing
+half near n = 11) while the arithmetic rungs stay positive
+throughout the range — after the drag ends, positivity is
+over-determined: the drag's end at n = 8 and the share crossing
+near n = 11 are the two marks of the handoff. In the unit-ball reading, RH says the
 prime-side oscillation never overwhelms the ball ladder — and the
 ball's early drag never overwhelms the prime side. *(v) The teeth
 (counterfactual, labeled).* The criterion reacts: an off-line
@@ -3218,7 +3244,8 @@ the committed-potential tie, and the gating. NO PROOF LEVERAGE:
 proving λₙ ≥ 0 for all n is as hard as RH; nothing cascade-side
 forces it — the wall stands where it stood; what the identification
 adds is internal consistency in Check 8's exact sense (the
-universe's certified constant-structure and the criterion live on
+universe's certified ½-structure — 1am's Γ(½) threshold ladder
+and the half-shift lattice w = d+½ — and the criterion live on
 the same ½-axis), never forcing; claimed in neither direction.
 Check 7 clean (Γ/ψ series arithmetic, the Stieltjes expansion,
 classical zero data; no semiclassics); Check 8 clean (no

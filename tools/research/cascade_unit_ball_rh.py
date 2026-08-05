@@ -35,13 +35,30 @@ exactly (minimum -1.01305... at n = 3), positive and growing from
 n = 8; the arithmetic rungs stay positive and bounded on the
 computed range (their minimum there is the first rung, gamma; the
 dip near n = 24 bottoms at 0.5944 > gamma) -- positivity is
-arithmetic-carried at the low rungs and ball-carried from n = 8.
+arithmetic-carried at the low rungs; the ball's drag ends at
+n = 8 (its rungs turn positive) and its share of the rung passes
+half near n = 11 (round 164 F3: the landing's "ball-carried from
+n = 8" was over-definite -- the ball's share at 8 is 1.4%).
 
 THE TEETH (counterfactual, labeled).  An off-line quadruple at
 beta = 0.95, gamma = 2 -- a region classically zero-free; the
 injection is pure instrument-teeth -- drives the perturbed ladder
 negative by n = 13 (minimum ~ -84 within n <= 50) while the true
 ladder's minimum on the range is lambda_1 = 0.0230957... > 0.
+
+ROUND-164 SWEEP (the landing's hostile round; 0 majors, 4 minors
++ 2 cosmetics, all statement-discipline, verified by the lead and
+swept): F1 -- the paper's tie residual was an unscoped dps-80
+drafting-run numeric (struck; the committed 7.8e-62 quoted).
+F2 -- the wall-sidestep membership clause was ungated; the
+decay-rate separation is now argued in the paper and the lattice
+floor 3/2 > 1/2 gated in g1.  F3 -- "ball-carried from n = 8" was
+over-definite (the ball's share at 8 is 1.4%, crossing half near
+11); reworded on all three tellings, the old sabotage-(a) needle
+surviving only at the landing tree.  F4 -- the three routes'
+committed scopes stated (series 1..50; direct 1..8; zeros sampled
+{1,3,5,10}).  F5/F6 (cosmetic) -- the pole-ladder term named; the
+half-axis referents named.
 
 HONEST SCOPE.  Category (a) -- no data, no closures, no new
 physics.  The criterion is classical; new for the program is only
@@ -91,7 +108,10 @@ mishaps, per-entry actual censuses): (a) the paper's crossover
 sentence mangled mid-anchor ("hand positivity to each other across
 n ~ 8" -> "n ~ 9"; the FIRST attempt aborted at its count assert --
 the phrase wraps a line break, the recurring single-line-pattern
-class -- redone newline-aware) -> g9 trips, 12/1, exit 1; (b) the
+class -- redone newline-aware) -> g9 trips, 12/1, exit 1
+[round-164 F3 replaced this sentence: entry (a) reproduces at the
+LANDING tree 3936ede; the reworded sentence's trip is probe (d)
+below]; (b) the
 teeth quadruple flipped ON-line in the copy (beta 0.95 -> 0.5, the
 growth factor collapsing to 1): the FIRST run CRASHED at the bare
 next() (StopIteration -- an on-line quadruple has no negative rung)
@@ -103,9 +123,14 @@ g2, g3, g4, g5, g6, g7 (the corrupted ladder breaks the values,
 both cross-routes, the first-rung identity, the crossover, and the
 teeth indices), 7/6, exit 1 -- the drafted census "g2+g5+g6,
 10/3" undercounted and is corrected to the actual run, per the
-record-actuals rule.  Clean baselines 13/0 exit 0 before and after
-each.  Thirteen gates (count checked against the gate() census
-pre-commit).
+record-actuals rule.  At the round-164 sweep (serial, fresh tree,
+abort-safe): (d) the REWORDED handoff sentence mangled mid-anchor
+("two marks" -> "three marks") -> g9 trips, 12/1, exit 1; (e) the
+rate-floor lattice decoupled in the copy (range(1, 218) ->
+range(0, 218), the floor collapsing to 1/2) -> g1 trips (detail
+"floor 1/2"), 12/1, exit 1.  Clean baselines 13/0 exit 0 before
+and after every entry.  Thirteen gates (count checked against the
+gate() census pre-commit).
 """
 import os
 import subprocess
@@ -151,9 +176,19 @@ worst = mpf(0)
 for sv in ("2.0", "3.7", "7.25", "20.0", "218.6"):
     s = mpf(sv)
     worst = max(worst, abs(mp.diff(lambda t: log(B(t)), s) - (p(s - 1) + 1 / s)))
-gate("g1 the tie: d/ds ln B(s) = p(s-1) + 1/s at five samples -- the "
-     "ball factor's log-derivative IS the committed potential",
-     worst < mpf("1e-50"), f"worst {float(worst):.1e}")
+# round 164 F2: the wall-sidestep clause's membership exclusion is
+# now argued via the decay-rate separation -- the lattice floor
+# min_{d>=1}(d + 1/2) = 3/2 exceeds the Li members' 1/2 scale --
+# gated here in exact rationals.
+from fractions import Fraction as Fr
+floor = min(d + Fr(1, 2) for d in range(1, 218))
+ok = worst < mpf("1e-50")
+ok &= floor == Fr(3, 2) and floor > Fr(1, 2)
+gate("g1 the tie: d/ds ln B(s) = p(s-1) + 1/s at five samples (the "
+     "ball factor's log-derivative = the committed potential + the "
+     "prefactor's pole ladder); AND the decay-rate floor over the "
+     "lattice = 3/2 > 1/2, the Li scale (round 164 F2)",
+     ok, f"worst {float(worst):.1e}, floor {floor}")
 
 # the series route: ln A from the Stieltjes expansion, ln B from
 # polygamma at 1/2; composed through s = 1/(1-z); lambda_n = n c_n.
@@ -191,7 +226,9 @@ ok &= mpf("0.3687904794") < lam[3] < mpf("0.3687904795")
 ok &= mpf("43.5310") < lam[49] < mpf("43.5312")
 gate("g2 the series ladder (Stieltjes + polygamma, composed through "
      "s = 1/(1-z)) reproduces the classical values: lambda_1..4 at "
-     "10 digits, lambda_50 bracketed",
+     "10 digits, lambda_50 bracketed (the series route's own value; "
+     "rungs above 8 are single-route in this instrument -- scoped "
+     "round 164 F4)",
      ok, f"l1={mp.nstr(lam[0], 10)} l50={mp.nstr(lam[49], 8)}")
 
 with mp.workdps(40):
@@ -276,11 +313,23 @@ paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 ok = ("the first Li rung is the committed edge potential plus one "
       "plus γ" in paper)
 ok &= "it sidesteps 1an's resolution wall entirely" in paper
-ok &= "hand positivity to each other across n ≈ 8" in paper
+# round 164 F3: the handoff sentence reworded (the old needle "hand
+# positivity to each other across n ≈ 8" now lives only at the
+# landing tree; sabotage (a) reproduces there, the new wording's
+# trip is probe (d)).  F2: the rate-separation sentence anchored.
+# F1/F3 strike frames counted.
+ok &= ("the drag's end at n = 8 and the share crossing near n = 11 "
+       "are the two marks of the handoff" in paper)
+ok &= "rates 3/2 versus ½" in paper
+ok &= paper.count("struck round 164 F1") == 1
+ok &= paper.count("struck round 164 F3") == 1
 ok &= "wrong at the low rungs and corrected before landing" in paper
 gate("g9 1ao's key sentences anchored by content (the first-rung "
-     "identity; the wall sidestep; the crossover handoff; the "
-     "corrected-draft disclosure)", ok)
+     "identity; the wall sidestep; the REWORDED handoff + the "
+     "rate-separation sentence + the two strike frames -- round "
+     "164; the corrected-draft disclosure)", ok,
+     f"164 frames {paper.count('struck round 164 F1')}+"
+     f"{paper.count('struck round 164 F3')}")
 
 ok = "NO PROOF LEVERAGE" in paper
 ok &= "as hard as RH" in paper
@@ -335,9 +384,13 @@ print("criterion needing no concentration, sidestepping 1an's")
 print("resolution wall (Li's family is not in the committed cone).")
 print("The crossover: ball rungs negative exactly n = 1..7, positive")
 print("and growing from 8; arithmetic rungs positive and bounded --")
-print("positivity is arithmetic-carried early, ball-carried from")
-print("n = 8 (the landing's draft said 'the ball dominates at every")
-print("rung' -- wrong at the low rungs, corrected before landing).")
+print("positivity is arithmetic-carried early; the ball's drag ends")
+print("at n = 8 and its share of the rung passes half near n = 11")
+print("(round 164 F3; the landing's draft said 'the ball dominates")
+print("at every rung' -- wrong at the low rungs, corrected before")
+print("landing).  The Li family sits outside the committed cone by")
+print("decay-rate separation: the lattice floor 3/2 vs the Li scale")
+print("1/2 (round 164 F2, gated).")
 print("The teeth: a counterfactual off-line quadruple (beta 0.95,")
 print("gamma 2 -- classically zero-free region, pure")
 print("instrument-teeth) drives the ladder negative by n = 13.  NO")

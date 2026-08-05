@@ -3328,3 +3328,32 @@ floor; the crowding census (disjoint through #33,
 single-occupancy through #186, mean occupancy ≈ 1.05); and the
 wall's sharpened deficit — RESOLUTION, not reach. Next hostile
 round on the next substantive paper change.**
+
+# Round 164: hostile round on the Theorem 1ao landing (3936ede) (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 4 minors + 2 cosmetics, all statement-discipline; the mathematics fully verified; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F164-1 (minor) — the tie residual "2.1e-81" an unscoped dps-80 drafting-run numeric; the committed gate prints 7.8e-62 | **Accepted; struck with annotation, the committed figure quoted, the exact-algebra identity stated in-line** | paper |
+| F164-2 (minor) — the wall-sidestep membership clause load-bearing but ungated | **Accepted; the decay-rate separation argued in the paper (lattice floor 3/2 vs the Li scale ½) and the floor gated in exact rationals (g1); probe (e) certified** | paper, verifier g1 |
+| F164-3 (minor) — "ball-carried from n = 8" over-definite (the ball's share at 8 is 1.4%, crossing half near 11) | **Accepted; struck and reworded on all three tellings; the old sabotage-(a) needle scoped to the landing tree; probe (d) certified** | paper, verifier, READING |
+| F164-4 (minor) — "three independent routes agree" without per-route scopes | **Accepted; scopes stated (series 1..50; direct 1..8; zeros sampled); the g2 label scoped** | paper, verifier g2 |
+| F164-5/6 (cosmetic) — prose compressions (the pole-ladder term; the "certified constant-structure" allusion) | **Applied; referents named** | paper |
+
+Held (reviewer, spot-verified by the lead): the Li criterion
+verbatim-faithful to Li 1997 / Bombieri–Lagarias 1999 (the
+MAJOR-watch item); the census sibling clean and unweakened; the
+sabotage record (a)–(c) reproduced exactly including the
+graceful None trip and the six-gate census; every number
+independently recomputed (three implementations, none sharing
+the instrument's code paths; the 1200-zero λ₅₀ confirmation);
+the n² tail model re-derived with the 0.998 ratio traced to its
+cause; the footer census exact at 65; the five sibling advances
+green through the chain; endpoint discipline held throughout;
+Checks 7/8 clean; all findings category (b).
+
+Post-sweep: verifier 13/0; probes (d)/(e) 12/1 with clean
+baselines; no residual carrier of the struck phrases outside
+their frames.
+
+**Trajectory: 1ao landed (3936ede) → 164 NOT CONVERGED 0M+4m+2c
+(swept) → round 165 (convergence test) next.**
