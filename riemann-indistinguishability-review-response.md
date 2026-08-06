@@ -3661,3 +3661,24 @@ unit_ball_rh 13/0; defines-up-to-scale exact; Checks 7/8 clean.
 **Trajectory: 1aq landed (25028d8) → 175 1M+3m+1c → 176 0M+3m+3c
 (swept, fe9fd01) → 177 NOT CONVERGED 0M+3m+3c (swept) → round 178
 (convergence test) next.**
+
+# Round 178: convergence test on the round-177 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 2 minors + 1 cosmetic; the leg list declared a census; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F178-1 (minor) — the four-leg split failed exhaustiveness a third consecutive round: ln π in every committed p(d) (W(h*)'s content exactly −ln π/11) fits no leg; the universal was supported only by round-by-round discovery | **Accepted; lead-verified (W(h*) = 0.078068579… reproduced); the Γ_ℝ leg extended (+ −½ln π) AND the form changed — the leg list declared A CENSUS, NOT A COMPLETENESS THEOREM (the 1ap-retirement move); new needles; probe (h) certified 9/1** | paper, verifier g8, docstring |
+| F178-2 (minor) — the γ_b/γ_b² conflation: 0.4806's minimal polynomial is the quartic 4γ⁴+103γ²−24, not the cubic (whose root is γ_b²) | **Accepted; lead-verified in sympy (cubic at 0.4806 → 6733); both carriers corrected, the quartic named** | paper, docstring |
+| F178-3 (cosmetic) — g9's chain enumeration omitted precedence_vacuity (chained via type_counting g2) | **Applied; the label's other claims verified true** | verifier g9 |
+
+Held: the verifier 10/0; probes (g)/(b) reproduced; the γ_b cubic
+arithmetic exact (re-derived, factorization 10(u+25)(4u²+103u−24));
+the round-177 exclusion clause now exact; the seven sibling labels
+clean; the footer 67 with set-identity; unit_ball_rh 13/0; Checks
+7/8 clean. Instrument notes disclosed: the restructure broke two
+g8 needles and the first clean run caught it (g8 failing live,
+pre-commit); one scripted edit's broken placeholder caught by its
+own post-write parse.
+
+**Trajectory: 1aq landed (25028d8) → 175 1M+3m+1c → 176 0M+3m+3c
+→ 177 0M+3m+3c (swept, 1c1863b) → 178 NOT CONVERGED 0M+2m+1c
+(swept) → round 179 (convergence test) next.**

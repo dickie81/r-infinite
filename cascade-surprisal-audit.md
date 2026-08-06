@@ -14612,6 +14612,57 @@ chained by no suite script.
 **Post-sweep:** verifier 10/0; probe (g) certified.
 Convergence-test round 178 next.
 
+## Addendum 282: round 178 (convergence test on the round-177 sweep) — NOT CONVERGED: 0 MAJORs + 2 minors + 1 cosmetic; the leg list declared a census, not a completeness theorem — the recurrence retired; swept
+
+Round 178 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) reproduced every gate and probe
+at recorded censuses and verified the round-177 repairs exact as
+far as they went. Findings, all verified directly by the lead
+(Check 3):
+
+**F178-1 minor (accepted; swept):** the four-leg evaluation split
+failed exhaustiveness for the THIRD consecutive round — every
+committed p(d) = −½ln π + ½ψ((d+1)/2) carries ln π, which is in
+no leg (not rational, not a ζ-argument value, outside A5's
+γ_E/ln 2/harmonic enumeration, not algebraic); W(h*)'s ln π
+content is exactly −ln π/11 ≈ −0.104066 (lead-verified, with
+W(h*) = 0.078068579… reproducing the committed 0.0780686). The
+reviewer's diagnosis adopted: the universal was supported only by
+round-by-round type discovery. Swept structurally, the way the
+1ap question slot was retired: the Γ_ℝ leg extended (ψ ladder
+PLUS the −½ln π normalization constant) AND the claim's form
+changed — THE LEG LIST IS NOW DECLARED A CENSUS, NOT A
+COMPLETENESS THEOREM, with the three discovery rounds cited and
+no further exhaustiveness asserted; the unconditional-evaluation
+claim rests on each quantity's own committed evaluation. New g8
+needles; probe (h) certified (g8 ALONE, 9/1, clean baselines).
+
+**F178-2 minor (accepted; swept):** the γ_b/γ_b² conflation —
+the round-177 text predicated cubic-root-hood of 0.4806 itself,
+but γ_b's minimal polynomial is the QUARTIC 4γ⁴ + 103γ² − 24
+(lead-verified in sympy; the cubic at u = 0.4806 evaluates to
+6733) — the cubic's positive root is γ_b² = (−103+√10993)/8 in
+R2′'s u = γ² convention. Both carriers corrected with the
+apposition made explicit and the quartic named (it is itself the
+fourth leg's cleanest witness).
+
+**F178-3 cosmetic (applied):** g9's chain enumeration gains
+precedence_vacuity (chained via type_counting g2 — the
+reviewer's grep); the label's other two claims (the g12 pair;
+1ai's verifier chained by no suite script) verified TRUE.
+
+**Instrument notes (disclosed in the record):** the paper
+restructure broke two pre-existing g8 needles and the first
+clean run FAILED 9/1 at g8 — the gate catching its own needle
+lag pre-commit, a live demonstration of g8's failability; and
+one scripted edit wrote a syntactically-broken placeholder that
+its own post-write ast.parse caught (the write-then-parse order
+is the per-edit pattern's residual exposure — repaired in the
+next write).
+
+**Post-sweep:** verifier 10/0; probe (h) certified.
+Convergence-test round 179 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

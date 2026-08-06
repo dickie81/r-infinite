@@ -3536,18 +3536,28 @@ form (R4(b) itself evaluates it numerically); what the section
 buys is integer arguments and exact rational structure]. The
 lattice is thereby the exactly-structured slice of the Weil
 framework — unique among unit-spaced translates, gated — on which
-every committed quantity evaluates unconditionally: in exact
-rationals where the structure is rational (the edge ratios, pole
-terms, and band widths), at integer ζ-arguments where it is
-arithmetic (the prime side), and in ψ closed forms where it is
-archimedean (A5's ladder — the third leg added round 176 F3, the
-two-case split having read as exhaustive), and as algebraic roots
-of exact-rational polynomials where it is a crossing (the
-strip-boundary heights γ_b: the observer pair's 0.4806 is
-√((−103+√10993)/8), the positive root of
-40u³ + 2030u² + 25510u − 6000 — exact-rational coefficients
-BECAUSE the lattice is — the fourth leg added round 177 F1, the
-three-leg list having again read as exhaustive). That is why the arc's exact rationals
+every committed quantity evaluates unconditionally, in the
+types so far cataloged: exact rationals where the structure is
+rational (the edge ratios, pole terms, and band widths); integer
+ζ-arguments where it is arithmetic (the prime side); the Γ_ℝ/ψ
+closed forms where it is archimedean (A5's ladder in γ_E, ln 2,
+and harmonic numbers, PLUS the −½ln π of Γ_ℝ's normalization
+carried by every committed p(d) — e.g. W(h*)'s ln π content is
+exactly −ln π/11 — the constant added round 178 F1); and
+algebraic roots of exact-rational polynomials where it is a
+crossing (the strip-boundary heights γ_b: the observer pair's
+0.4806 is √((−103+√10993)/8), whose SQUARE u = γ_b² is the
+positive root of 40u³ + 2030u² + 25510u − 6000 in R2′'s u = γ²
+convention — equivalently γ_b is a root of the exact-rational
+quartic 4γ⁴ + 103γ² − 24, its minimal polynomial, the
+square/root apposition corrected round 178 F2 — exact-rational
+coefficients BECAUSE the lattice is; the leg added round 177
+F1). THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM:
+rounds 176 F3, 177 F1, and 178 F1 each found a committed type
+beyond the then-current list, and the unconditional-evaluation
+claim rests on each quantity's own committed evaluation, not on
+the census's closure — no further exhaustiveness is asserted.
+That is why the arc's exact rationals
 (9/11, 1/297, 1/243, the bridge's unit fractions) had to
 appear — and R4's wall statement is the same fact seen from the
 other side: the rational section is exactly where positivity is

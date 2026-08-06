@@ -51,8 +51,10 @@ ROUND-177 SWEEP (the convergence test; 0 majors + 3 minors + 3
 cosmetics, all verified by the lead and swept): F1 -- the
 three-leg split was STILL not exhaustive (the strip-boundary
 crossing heights gamma_b are algebraic irrationals -- the
-observer pair's 0.4806 is the root of an exact-rational cubic,
-lead-verified -- fitting no leg); the fourth leg added and gated;
+observer pair's gamma_b^2 is the root of an exact-rational
+cubic, lead-verified; the gamma/gamma^2 apposition in this note's
+first form corrected round 178 F2 -- fitting no leg); the fourth
+leg added and gated;
 F2 -- the round-176 exclusion clause's two numbers were both
 false (the root equals -1/6 EXACTLY at m = 1, so the interval is
 [-1/6, 0); the translate floor is w >= 1, not 3/2 -- the
@@ -64,6 +66,19 @@ the honest-scope coordinate-fact mention, the g8/V5 needle-census
 enumerations, and g9's ambiguous "the two Weil-arc siblings"
 (three Weil-titled siblings exist; the chained pair is now named,
 with 1ai's verifier noted as chained by no suite script).
+ROUND-178 SWEEP (the convergence test; 0 majors + 2 minors + 1
+cosmetic, all verified by the lead and swept): F1 -- the
+four-leg split failed exhaustiveness a THIRD consecutive round
+(ln pi in every committed p(d) = -1/2 ln pi + 1/2 psi((d+1)/2);
+W(h*)'s ln pi content is exactly -ln pi/11, lead-verified); the
+Gamma_R leg extended AND the claim's form changed: the leg list
+is now declared A CENSUS, NOT A COMPLETENESS THEOREM -- the
+recurrence mechanism retired the way the 1ap question slot was;
+F2 -- the gamma_b/gamma_b^2 conflation (0.4806 is a root of the
+QUARTIC 4g^4+103g^2-24, not of the cubic -- the cubic's root is
+its square; minimal polynomial lead-verified in sympy); both
+carriers corrected; F3 (cosmetic) -- g9's chain enumeration
+gains precedence_vacuity (chained via type_counting g2).
   A1 (prime side): the Weil pairing of e^(-w|x|) is
       sum Lambda(n) n^(-(w+1/2)) = -zeta'/zeta(w+1/2); on the
       lattice the argument is the INTEGER d+1 and every Euler term
@@ -98,13 +113,18 @@ with 1ai's verifier noted as chained by no suite script).
       rounds 176-177).  The lattice is the exactly-structured
       slice of the Weil framework -- unique among unit-spaced
       translates, gated -- on which every committed quantity
-      evaluates unconditionally: in exact rationals where the
-      structure is rational; at integer zeta-arguments where it
-      is arithmetic (the prime side; no closed form is claimed);
-      in psi closed forms where it is archimedean (A5's ladder,
-      round 176 F3); and as algebraic roots of exact-rational
-      polynomials where it is a crossing (the gamma_b heights,
-      round 177 F1) -- why the arc's exact rationals
+      evaluates unconditionally, in the types so far cataloged:
+      exact rationals; integer zeta-arguments (the prime side; no
+      closed form is claimed); the Gamma_R/psi closed forms
+      (A5's ladder PLUS the -1/2 ln pi normalization constant in
+      every committed p(d), round 178 F1); and algebraic roots of
+      exact-rational polynomials (the gamma_b heights -- gamma_b
+      itself a root of the quartic 4g^4+103g^2-24, its square the
+      cubic's root, the apposition corrected round 178 F2).  THE
+      LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM (rounds
+      176-178 each found a type beyond the then-current list; no
+      further exhaustiveness is asserted) -- why the arc's exact
+      rationals
       (9/11, 1/297, 1/243, the bridge's unit fractions) had to
       appear -- and R4's wall is the same fact from the other side:
       the rational section is where positivity is classical
@@ -154,9 +174,11 @@ VERIFICATION (10 gates, exit-gated).
        arithmetic-rational section; NO positivity advantage; the
        two round-175 strike frames; the scoped four-iff sentence
        + the coordinate fact; the exactly-structured slice WITH
-       the third and fourth evaluation legs (psi closed forms;
-       algebraic roots -- rounds 176-177); one fact/four sides;
-       the Check 8 texture clause; no RH leverage); g9 the sibling chain green
+       the leg census (Gamma_R/psi closed forms incl. -1/2 ln pi;
+       algebraic roots incl. the gamma_b quartic; the
+       census-not-theorem sentence -- rounds 176-178); one
+       fact/four sides; the Check 8 texture clause; no RH
+       leverage); g9 the sibling chain green
        (cascade_concentration_regrade.py 12/0, transitively
        chaining the Weil-arc sibling chain -- the "full suite"
        label corrected round 175 F5); g10 the footer census (this
@@ -188,8 +210,19 @@ ALONE, 9/1, exit 1; clean baselines 10/0 around it.  At the
 round-177 sweep: (g) the fourth-leg needle mangled in the paper
 copy ("exact-rational polynomials" -> "exact-integer
 polynomials", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1;
-clean baselines 10/0 around it.  Ten gates (count checked
-against the gate() census pre-commit).
+clean baselines 10/0 around it.  At the round-178 sweep: (h) the
+census-not-theorem needle mangled in the paper copy ("NOT A
+COMPLETENESS THEOREM" -> "NOW A ...", whitespace-aware) -> g8
+trips ALONE, 9/1, exit 1; clean baselines 10/0 around it.  Also
+disclosed from the sweep itself: the paper restructure broke two
+pre-existing g8 needles and the first clean run FAILED 9/1 at g8
+-- the gate catching its own needle lag before commit (the
+needles re-synced to the current text and verified); and one
+scripted edit wrote a syntactically-broken placeholder before
+its post-write ast.parse caught it (repaired in the next write;
+the write-then-parse order is the residual exposure of the
+per-edit pattern).  Ten gates (count checked against the gate()
+census pre-commit).
 """
 import os
 import subprocess
@@ -376,8 +409,11 @@ ok &= paper.count("struck round 175 F3") == 1
 ok &= "each of A1, A2, A3, and A5 below is true for α = ½" in paper
 ok &= "the coordinate fact, not a translate iff" in paper
 ok &= "the exactly-structured slice of the Weil framework" in paper
-ok &= "in ψ closed forms where it is archimedean" in paper
-ok &= "as algebraic roots of exact-rational polynomials" in paper
+ok &= "the Γ_ℝ/ψ closed forms where it is archimedean" in paper
+ok &= "algebraic roots of exact-rational polynomials where it is a crossing" in paper
+ok &= "PLUS the −½ln π of Γ_ℝ's normalization" in paper
+ok &= "THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM" in paper
+ok &= "quartic 4γ⁴ + 103γ² − 24, its minimal polynomial" in paper
 ok &= "unique among unit-spaced translates, gated" in paper
 ok &= "one fact, seen independently on all four sides of the explicit formula" in paper
 ok &= "consistency texture under Check 8, not forcing" in paper
@@ -386,8 +422,9 @@ ok &= paper.count("Theorem 1aq") >= 1
 gate("g8 1aq's key sentences anchored by content (the section "
      "identification; no positivity advantage; the two round-175 "
      "strike frames; the scoped four-iff sentence + the coordinate "
-     "fact; the exactly-structured slice with the third and fourth "
-     "evaluation legs (rounds 176-177); one fact/four sides; the "
+     "fact; the exactly-structured slice with the leg CENSUS "
+     "(four legs + the census-not-theorem sentence, rounds "
+     "176-178); one fact/four sides; the "
      "Check 8 texture clause; no RH leverage)", ok)
 
 r = subprocess.run(
@@ -397,7 +434,8 @@ r = subprocess.run(
 ok = r.returncode == 0 and "12 pass / 0 fail" in r.stdout
 gate("g9 the sibling chain green (cascade_concentration_regrade.py "
      "12/0, transitively chaining: unit_ball_rh, windows_overlap, "
-     "riemann_selection, type_counting, quarter_square, and "
+     "riemann_selection, type_counting, precedence_vacuity (via "
+     "type_counting g2 -- round 178 F3), quarter_square, and "
      "weil_route_traveled -- the chained pair named round 177 F6; "
      "1ai's weil_positivity_status is chained by no suite script; "
      "the 'full committed suite' label corrected round 175 F5)", ok)
