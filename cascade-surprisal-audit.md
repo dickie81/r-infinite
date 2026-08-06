@@ -15047,6 +15047,37 @@ the surviving conjunct's comment.
 **Post-sweep:** verifier 10/0; probe (i) certified.
 Convergence-test round 186 next.
 
+## Addendum 291: round 186 (convergence test on the round-185 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 1 cosmetic; the relocation residual closed; swept
+
+Round 186 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) verified the round-185 repair
+genuine against rewording drift (probe (i) reproduced; the
+both-occurrences co-drift ALSO trips — count 0), held g4's
+surviving conjuncts sole-trippable and V4's sync exact, ran the
+ninth-pass slack-class hunt (no dead OR-branches anywhere; no
+quote shadows on any other anchor — each verified
+single-occurrence at its true source; no g8 needle satisfied
+inside struck text), and reproduced the suite. Findings,
+verified directly by the lead (Check 3):
+
+**F186-1 minor (accepted; swept):** g7's repaired anchor was
+position-blind — a RELOCATION mangle (the front-matter source
+deleted, the needle re-inserted downstream) kept count ≥ 2 and
+passed 10/0 while 1ar's "The paper's front matter declares"
+claim went false (reviewer-probed). Swept: the count pinned to
+== 2 (≥ 2 would silently re-open on a third occurrence) AND
+position-gated (the first occurrence must precede C1's
+statement — the front-matter source position); V4 synced; probe
+(j) certified (the reviewer's exact relocation mangle now trips
+g7 ALONE, 9/1, clean baselines 10/0).
+
+**F186-2 cosmetic (applied):** g10's print string claimed "in
+body and footer" positions its count-only check does not gate;
+aligned to the V5 census's honest "backticked ≥ 2".
+
+**Post-sweep:** verifier 10/0; probe (j) certified.
+Convergence-test round 187 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -3833,3 +3833,23 @@ Checks 7/8 clean.
 181 3M+1m+1c → 182 1M+1m+1c → 183 0M+1m+2c → 184 0M+1m+2c →
 185 NOT CONVERGED 0M+1m+1c (swept) → round 186 (convergence
 test) next.**
+
+# Round 186: convergence test on the round-185 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 1 minor + 1 cosmetic; the relocation residual closed; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F186-1 (minor) — g7's count anchor position-blind: a relocation mangle (source deleted, needle re-inserted downstream) passed 10/0 while 1ar's front-matter claim went false | **Accepted; count pinned == 2 AND position-gated (first occurrence precedes C1); V4 synced; probe (j) certified — the reviewer's exact mangle now trips g7 ALONE, 9/1** | verifier g7, V-block |
+| F186-2 (cosmetic) — g10's print string claimed positions its count does not gate | **Applied; aligned to the honest "backticked ≥ 2"** | verifier g10 label |
+
+Held: the round-185 repair genuine against rewording drift AND
+co-drift (both probed); g4's conjuncts sole-trippable; V4 exact;
+the ninth-pass slack hunt clean (no dead OR-branches, no quote
+shadows, no needle inside struck text); the full needle census at
+expected counts; the mathematics recomputed; probes (i)/(d)
+reproduced; the footer 68 with set-identity; unit_ball_rh 13/0;
+Checks 7/8 clean.
+
+**Trajectory: 1ar landed (5625ea8) → 180 3M+2m → 181 3M+1m+1c →
+182 1M+1m+1c → 183 0M+1m+2c → 184 0M+1m+2c → 185 0M+1m+1c → 186
+NOT CONVERGED 0M+1m+1c (swept) → round 187 (convergence test)
+next.**

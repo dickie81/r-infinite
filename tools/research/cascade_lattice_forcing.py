@@ -78,9 +78,10 @@ VERIFICATION (10 gates, exit-gated).
        tautological conjuncts removed round 180 F5; this
        V-entry synced round 182 F2).
   V4 -- g7 P0 and the conditionality: the front-matter
-       zero-free-parameter sentence anchored at count >= 2
-       (source AND 1ar's quote -- quote-satisfiability slack
-       closed round 185 F1); the theorem's
+       zero-free-parameter sentence anchored at count == 2 AND
+       position-gated (the first occurrence precedes C1's
+       statement -- the quote-satisfiability slack closed round
+       185 F1, the relocation residual closed round 186 F1); the theorem's
        explicit-premise statement anchored; the conditionality
        clause anchored as the LIVE needle plus the post-regrade
        P1-and-P2 extension (the landing's two never-live or-chain
@@ -132,8 +133,13 @@ front-matter SOURCE sentence mangled with 1ar's quote left
 intact ("zero free parameters" -> "one fitted parameter" at the
 source only) -> g7 trips ALONE, 9/1, exit 1 -- the
 quote-satisfiability slack the reviewer probed at 10/0 now
-bites; clean baselines 10/0 around it.  Ten gates (count
-checked against the gate() census pre-commit).
+bites; clean baselines 10/0 around it.  At the round-186 sweep:
+(j) the RELOCATION mangle (the source sentence deleted, the
+needle re-inserted downstream of the 1ar block) -> g7 trips
+ALONE, 9/1, exit 1 -- the position-blind residual the reviewer
+probed at 10/0 now bites via the position conjunct; clean
+baselines 10/0 around it.  Ten gates (count checked against the
+gate() census pre-commit).
 """
 import os
 import subprocess
@@ -267,7 +273,13 @@ gate("g6 the role-assignment anchors: the displaced-curve half-shift "
      "tautologies removed)", ok)
 
 print("V4 -- P0 and the conditionality")
-ok = paper.count("one hypothesis and zero free parameters") >= 2
+ok = paper.count("one hypothesis and zero free parameters") == 2
+# round 186 F1: the count is pinned (== 2, the current census) AND
+# position-gated -- the first occurrence must precede C1's
+# statement (the front-matter SOURCE position); a relocation
+# mangle (source deleted, needle re-inserted downstream) passed
+# the count-only form at 10/0 (reviewer-probed).
+ok &= 0 <= paper.find("one hypothesis and zero free parameters") < paper.find("Hypothesis (C1")
 # round 185 F1: the needle occurs at the front-matter SOURCE and
 # in 1ar's quote of it; the landing's `in paper` was satisfied by
 # the quote alone, so source drift under the quote passed 10/0
@@ -320,8 +332,9 @@ gate("g9 the sibling chain green (cascade_arithmetic_section.py 10/0, "
 ok = paper.count("`cascade_lattice_forcing.py`") >= 2
 ok &= "68 scripts cited in place" in paper
 ok &= "Theorems 1i–1ar" in paper
-gate("g10 the footer census (this script backticked in body and "
-     "footer; \"68 scripts cited in place\"; \"Theorems 1i-1ar\")", ok)
+gate("g10 the footer census (this script backticked >= 2 -- the "
+     "count, not positions, per the V5 census; round 186 F2; "
+     "\"68 scripts cited in place\"; \"Theorems 1i-1ar\")", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")
