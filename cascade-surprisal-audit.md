@@ -15173,6 +15173,117 @@ a declared threat-model boundary. Trajectory: 1ar landed
 0M+1m+1c → 187 0M+1m+3c → 188 CONVERGED 0M+0m+0c. Next hostile
 round on the next substantive paper change.**
 
+## Addendum 294: the Theorem 1as landing — the ball from the primes: roundness selected by self-duality, the two-channel ledger, the pure-phase equivalence, and the insufficiency certificate; the declared-conjecture fence
+
+**The commission trail.** After the round-188 certification the owner
+ran an interpretive arc, each step delivered as an assessment with
+in-session verification: (1) the primes-side construction commission
+("build the infinite unit ball strictly from the other side — from the
+primes and their outer product") — the adelic loop verified
+(Maxwell–Borel, ℓ^p selection, theta FE, p-adic shell identity);
+(2) "the RH is in the gap between the two objects" — the explicit
+formula verified at x = 1000.5 (the zeros ARE the gap); (3) "prove the
+gap is pure phase" — answered honestly: the statement IS RH; the von
+Koch equivalence proved both directions and the provable fragment
+ledger F1–F5 verified; (4) the congruence question — the line as the
+|χ| = 1 locus, zeros as interference nulls, fairness as the RH
+restatement; (5) "does this not prove they all sit on the line?" —
+answered with the Davenport–Heilbronn insufficiency certificate: same
+FE geometry, off-line zeros at 0.808517…+85.699i and 0.650830…+114.163i
+verified to 30 digits; congruence provably cannot decide RH; the
+differentiator is the Euler product alone; (6) the
+informational-structure commission — the three-level ledger
+(FE-linearity / product property / positivity), the log-spectrum
+censuses, the superposition anatomy (component congruence at both
+off-line roots, ratio −c₂/c₁ to 10⁻²⁴), the free-parameter gloss;
+(7) the CC-derivation resonance — the identity p(d) = (log Γ_ℝ)′(d+1)
+shared verbatim between part0's engine and this paper's §2 primitive;
+two orthogonal slices of one factor; (8) the ζ-universe reading and
+three physical identifications (vacuum fluctuations = the zero
+channel; one prime per Planck tick at the d = 5 boundary; the
+container/fixed-point readings of the Λ ~ 1/N² coincidence) — each
+assessed with its committed-mathematics substrate verified and its
+tensions declared. The owner then gave the word.
+
+**Stale-container disclosure (second recurrence of the A278 class).**
+At landing start the working tree was found silently reverted to the
+round-166 state (HEAD 46b78b2 — the entire 1ap/1aq/1ar arc absent).
+The tree was clean; the remote was authoritative; repaired by
+`git fetch` + `git reset --hard origin/claude/cascade-series-review-1axe9q`
+to 08611eb before any edit. No committed content was lost.
+
+**The landing.** Theorem 1as inserted after the 1ar block: (ii) the
+loop with the shell identity Z_p(1_{ℤ_p},s)(1−p^(−s)) = 1−1/p and the
+exact-marginal Maxwell–Borel route; (iii) the selection lever (only
+the round ball's concentration limit is Fourier-self-dual;
+scale-scanned p = 1/p = 4 minima gated > 0.05); (iv) the gap + the von
+Koch equivalence + fragments F1–F5 (Turing 29 == 29 gated); (v) the
+congruence anatomy with the Euler floor; (vi) the insufficiency
+certificate with the log-spectrum and superposition anatomies;
+(vii) the CC identity, source-anchored both ends; (viii) evolution as
+condensation (corr ladder 0.6971/0.8330/0.9175/0.9425 rising,
+0.7885 falling at y = 20000 — the divergence edge; proto-dips at two
+primes); (ix) the DECLARED CONJECTURE fence — C-a/C-b/C-c/C-d with
+the mandatory double-counting caveat on the classic Λ ~ 1/N²
+coincidence, the declared tensions (epoch, preferred frame, Check 8
+on observer anchoring, no observable), and the container consequence
+stated (a capped vessel never completes the limit — physics realizes
+the statistical theorem; only the completed mathematics holds the
+perfect one). Footer advanced 68 → 69 scripts, range 1i–1ar → 1i–1as,
+`cascade_primes_side_ball.py` added.
+
+**The census sweep.** Nine sibling carriers advanced (68 → 69,
+1i–1ar → 1i–1as, all wrapped and double-hyphen variants included, per
+the rounds-175/176 lesson) in one regex pass with per-file ast.parse
+before write: concentration_regrade 4 lines, quarter_square 6,
+windows_overlap 6, weil_route_traveled 6, type_counting 6,
+lattice_forcing 4, unit_ball_rh 5, arithmetic_section 5,
+riemann_selection 6; residual grep CLEAN. All nine siblings then run:
+9/9 exit 0.
+
+**The verifier.** `cascade_primes_side_ball.py`, 15 exit-gated gates
+(g1 Maxwell–Borel sup-norm ladder; g2 the ℓ^p selection scan; g3 theta
+FE 25 digits; g4 the shell identity p = 2,3; g5 the explicit-formula
+gap with envelope; g6 the pure-phase fragments incl. the Turing count;
+g7 the congruence locus + Euler floor + RS bracket; g8 the full D–H
+certificate incl. component congruence at both roots; g9 the
+log-spectrum censuses; g10 the condensation ladder with the
+divergence-edge fall gated; g11 the CC identity numeric + both source
+needles; g12 the conjecture arithmetic + paper values pinned + fence
+needles; g13 the 1as needles; g14 the chain to `cascade_lattice_forcing.py`;
+g15 the footer census). First clean run 15/15.
+
+**Post-tree-cut edit, disclosed.** After the sabotage tree was cut, a
+Check-2 quote-fidelity edit landed in the repo copy only (the Φ quote's
+escaped asterisks `\*the\*` replaced by the source's literal `*the*`,
+the quote re-framed with em-dashes). No gate needles that sentence; a
+full repo-clean run after the edit: 15/15.
+
+**The sabotage suite** (fresh `tar --exclude=.git` tree, serial, single
+mangle per probe, per-probe restore from pristine copies verified by
+`cmp`, abort-safe count asserts; clean baselines B1 and B2 both 15/15,
+restore integrity OK): (a) title needle → g13 alone; (b) paper constant
+1.88 → 1.98 → g12 alone; (c) DH root digit in the paper → g13 falls
+while g8 stands (paper-vs-computation independence); (d) the g9
+negative-census set edited in code → g9 alone; (e) footer 69 → 68 →
+g15 AND g14 — the chained 1ar verifier's own footer gate catches the
+same reversion, so the census defect propagates through the chain
+(observed, stronger than the single-gate design); (f) chain target
+renamed → g14 alone. The verifier docstring's prospective record was
+amended post-suite to the observed censuses (docstring only; gates
+untouched; ast-checked) — the (e) propagation and the (a) 14/15
+phrasing.
+
+**Check compliance.** Check 2: all three in-block quotes verified
+against source this session (the Φ sentence at the paper's A1 dynamics
+block; part0's p(d) formula at part0.tex:265–266; part1:853's "The
+standard statement of the cosmological constant problem assumes QFT").
+Check 7: every instrument classical-admissible (explicit formula,
+character L-functions, theta, concentration); the conjecture block's
+physics language quarantined inside the fence. Check 8: no hypothesis
+input in (ii)–(viii); (ix) fenced as observer-referencing consistency
+readings only. Next: hostile round 189 on this landing.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

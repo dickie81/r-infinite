@@ -3726,6 +3726,190 @@ direction. Check 7 clean (character/Γ
 bookkeeping; no semiclassics); Check 8 clean (no hypothesis
 input — C1 appears nowhere in the chain).
 
+**Theorem 1as (the ball from the primes: roundness selected by
+self-duality — the two-channel ledger, the pure-phase
+equivalence, and the insufficiency certificate;
+`cascade_primes_side_ball.py`).** *(i) The commission.* Build the
+infinite unit ball strictly from the other side — from the
+primes and their outer product, out of the information
+structures. *(ii) The loop (all arrows classical; the
+identification is the content).* The free monoid on the primes
+under the outer product is ℤ (unique factorization). At each
+finite place its closure is ℤ_p — the p-adic unit ball, whose
+indicator is Fourier-self-dual and whose |·|-pairing achieves
+the Euler factor: the shell identity
+Z_p(1_{ℤ_p}, s)·(1−p^(−s)) = 1−1/p holds exactly (gated, p = 2,
+3), so ζ is the outer product of unit-ball self-pairings. The
+archimedean place has no compact subring — the unit-ball slot at
+∞ is empty — and adelic self-duality fixes its occupant to
+g = e^(−πx²) (Theorem 2). Concentration manufactures exactly
+that occupant: the exact sphere-marginal density
+f_d(x) = c_d(1−x²/d)^((d−3)/2) converges to the Gaussian in
+sup-norm at rate O(1/d) (gated at d = 10/100/1000) —
+Maxwell–Poincaré–Borel. The split is parameter-free on both
+legs: concentration gives the SHAPE (Gaussianity), arithmetic
+self-duality gives the SCALE (the π in e^(−πx²)). The infinite
+unit ball is the archimedean analogue of ℤ_p — the object
+playing the unit-ball role in the committed vector — "the
+program's Gaussian is the archimedean component of *the*
+standard adelic self-dual vector Φ = e^(−πx²)·Π 1_{ℤ_p}"
+(§2's A1 dynamics block) — available only in the d → ∞ limit.
+*(iii) The selection lever (the sharpest new claim).* Among the
+ℓ^p unit balls, ONLY the round one concentrates to a limit the
+adelic vector can accept: the ℓ^p sphere marginals converge to
+densities ∝ e^(−|x|^p/p) (Schechtman–Zinn), and a scale scan
+finds no Fourier-self-dual member of the p = 1 or p = 4 families
+(gated minima > 0.05) while the p = 2 family contains e^(−πx²)
+(self-dual to machine precision; the width-2 Gaussian is not).
+Roundness is selected by the primes' self-duality requirement —
+Euclidean geometry as the arithmetic's unique admissible
+concentration limit. *(iv) The gap and the pure-phase
+equivalence.* The two constructions agree perfectly on the
+object Φ; the gap opens at the pairing, and the zeros ARE it:
+von Mangoldt's explicit formula, gated at x = 1000.5 with 200
+zero pairs (ψ = 996.681 against the zero-corrected prediction,
+truncation-level agreement; gap −3.819 vs zero-term −4.452,
+inside the √x = 31.6 envelope). **The equivalence (von Koch
+1901, both directions):** all zeros on the line ⟺
+ψ(x) − x = O(x^(½+ε)) for every ε — "the gap is pure phase."
+(⇒ via the truncated explicit formula at T = √x; ⇐ via the
+Mellin representation of −ζ′/ζ: the O(x^(½+ε)) bound makes
+−ζ′/ζ(s) − s/(s−1) analytic on Re s > ½+ε, so no zero-pole
+survives right of the line, and the functional equation reflects
+the exclusion.) The provable fragment ledger, each gated or
+cited: F1 the gap is real and any amplitude use would be
+FE-symmetric (ξ(s) = ξ(1−s) gated to 10^(−25)); F2 full-power
+amplitude provably unused — no zero on σ = 1, by
+3+4cos θ+cos 2θ = 2(1+cos θ)² ≥ 0 forcing
+|ζ(σ)³ζ(σ+it)⁴ζ(σ+2it)| ≥ 1 (both gated); F3 the de la Vallée
+Poussin sliver (cited); F4 every zero below T = 100 exactly on
+the line — Turing count: 29 sign changes of Z equal the strip
+count θ(100)/π + 1 = 29.0024 rounded (gated; literature:
+first ~10¹³ zeros); F5 100% of zeros line-adherent in density
+(Ingham) and > 41% exactly (Conrey-class) — cited, primes-side
+technology. Littlewood's Ω±(√x log log log x) shows the floor is
+attained: RH pins amplitude AT the occupied floor. *(v) The
+congruence anatomy.* The critical line is exactly the
+CONGRUENCE LOCUS of the two balls: with ζ(s) = χ(s)ζ(1−s),
+|χ(½+it)| = 1 exactly and |χ(σ+it)| = (t/2π)^(½−σ)(1+o(1))
+off it (both gated at t = 50) — the locus where the FE
+involution is an isometry, where the arithmetic read at s and
+read through the gamma mirror at 1−s carry equal weight. Zeros
+are the interference nulls ON the stage: Z(t) ≈
+2Σn^(−½)cos(θ(t) − t log n), the gamma phase beating against
+the arithmetic phases (sign change bracketing γ₁ gated). Where
+incongruence is strong the contest is provably unfair — the
+Euler floor |ζ(σ+it)| ≥ ζ(2σ)/ζ(σ) for σ > 1 (gated at
+σ = 1.1) — and extending "incongruent ⇒ no zero" to every
+σ > ½ is verbatim RH: exact cancellation requires fairness.
+*(vi) The insufficiency certificate (Davenport–Heilbronn 1936).*
+The congruence frame provably CANNOT decide RH: the function
+f = 1 + κ/2^s − κ/3^s − 1/4^s + ⋯ (period 5,
+κ = (√(10−2√5)−2)/(√5−1) = 0.28408…) has the identical two-ball
+geometry — Λ(s) = (5/π)^((s+1)/2)Γ((s+1)/2)f(s) satisfies
+Λ(s) = Λ(1−s) (gated to 10^(−28)) with the same congruence locus
+— yet carries zeros OFF the line at 0.808517… + 85.699348…i and
+0.650830… + 114.163343…i (both gated to 10^(−25), FE partners
+included). The differentiator is the Euler product alone. The
+informational anatomy, gated: ζ's log-spectrum Λ(n) is supported
+exactly on prime powers with positive weights (support and sign
+censuses to n = 20) — multiplicativity as an information
+structure: coefficient channel empty (all 1s), information
+factorizing over primes, a product state over the places; f's
+log-spectrum leaks off the prime powers (Λ_f(6) = +1.94 ≠ 0)
+and goes negative (7 entries by n = 20). Every proven zero-free
+result consumes exactly the positivity ζ has and f lacks. The
+superposition anatomy: f is an equal-weight superposition of two
+product states (|c₁| = |c₂|), and at BOTH off-line zeros the
+components are nonzero, of equal modulus, with ratio exactly
+−c₂/c₁ (gated to 10^(−20)) — off-line zeros are congruence
+points BETWEEN the superposed channels, on a curve wandering the
+strip. The structural law: zeros sit where two equal-weight
+channels interfere to cancellation; a superposition admits an
+internal decomposition and its zeros use it; a pure product
+state has only its own mirror, whose equal-weight locus is the
+line. RH restated: a pure product state over the primes admits
+no interference decomposition other than its own mirror. The
+free-parameter reading (gloss, not theorem): the ratio −c₂/c₁
+recovers κ from either off-line zero alone — the free parameter
+spent in the coefficient channel is banked in the zeros'
+off-line freedom; ζ has nothing to bank. *(vii) The CC identity
+(two orthogonal slices of one factor).* Part 0's
+cosmological-constant engine is verbatim this paper's committed
+potential: part0's decay rate *"p(d) = -\tfrac{1}{2}\ln\pi +
+\tfrac{1}{2}\psi\!\left(\tfrac{d+1}{2}\right)"* equals
+(log Γ_ℝ)′(d+1) — §2's primitive — identically (gated,
+d = 1…10), and (log Γ_ℝ)′ is the archimedean local term of the
+explicit formula. The cascade reads Γ_ℝ along the REAL AXIS
+(level sets of p at d = 7, 19, 217 → the 10^(−120) floor); RH
+lives on the same factor's CRITICAL-LINE slice (the unimodular
+locus). The CC is a pure gamma-channel quantity — no prime
+enters I₀ — which is the structural explanation of the
+program's success asymmetry: the flagship closure lives on the
+channel mathematics fully controls, and the insufficiency
+certificate proves that channel cannot reach the other. *(viii)
+Evolution as condensation (the resolution flow).* A truncated
+arithmetic ball (primes ≤ y) has NO spectrum — finite Euler
+products cannot vanish (exact) — and the zero-structure
+condenses as primes accrue: line-profile correlation with
+log|ζ| climbs 0.70 → 0.83 → 0.92 → 0.94 at y = 3/10/100/1000
+(gated), with proto-dips at the true zero heights already at
+y = 3 (two primes); at y = 20000 the correlation FALLS to 0.79
+(gated) — the critical line is the edge of the primes'
+convergence domain, so the truncations sharpen the skeleton but
+never converge on it. The spectrum's skeleton is fixed from the
+first primes; accrual grows resolution, not resonances. *(ix)
+Declared conjectures.* **THE FOLLOWING ARE DECLARED CONJECTURES,
+NOT RESULTS** — physical identifications recorded at the owner's
+commission, fenced in the P1/P2 style: named, graded, never
+citable as results. **C-a (fluctuation channel):** vacuum
+fluctuations = the zero channel. The committed mathematics
+beneath: the explicit formula's mean/fluctuation split
+(ψ(x) = x − Σx^ρ/ρ — mean from the pole, fluctuation from the
+zeros) and the CC's residence on the gamma/mean channel; Part 1
+declines the QFT vacuum (*"The standard statement of the
+cosmological constant problem assumes QFT"*), leaving the
+fluctuation slot vacant and exactly this shape. The
+identification itself derives no observable. **C-b (the tick
+clock):** one prime per Planck tick at the d = 5 boundary. At
+N = 8.07×10⁶⁰ ticks: largest accrued prime 1.17×10⁶³, ~210
+bits/tick, outer-product matrix N² = 6.5×10¹²¹, with
+N²·(Λℓ²_Pl) = 1.88 and S_dS/N² = 5.0 (gated arithmetic). CAVEAT,
+mandatory: this is the classic Λ ~ 1/N² coincidence rebranded —
+it must never be double-counted as new evidence; the new content
+is only the EXPONENT'S reason (linear generator accrual squared
+by the outer product = an area law at the boundary,
+parameter-free rate). **C-c (the container reading):** the
+gamma channel's static Λ fixes the vessel; the N² ledger is at
+20% fill, saturating at N_sat = √S_dS = 2.24×N_now (≈ 31 Gyr),
+with a finite arithmetic terminus p_max ≈ 2.6×10⁶³ (gated
+arithmetic). Consequence, independent of the model's truth as
+physics: a capped container never completes the limit —
+physics realizes the statistical theorem; only the completed
+mathematics holds the perfect one. **C-d (the open anchor):**
+"something between the gamma and the arithmetic" — the unique
+committed between-object is the functional equation itself, and
+an observer whose reading is anchored at its self-dual point
+sees balanced ledgers by construction; nothing derives that
+anchor, and per Check 8 an observer-placement premise can
+support consistency readings only. Declared tensions: the epoch
+problem survives C-b in weakened form; a global tick is a
+preferred frame against Part II=III's Lovelock structure; no
+identification connects to a measured observable. *Honest
+scope:* categories — (ii)–(viii) classical mathematics
+(Maxwell–Poincaré–Borel, Schechtman–Zinn, Tate, von
+Koch/Landau, Hadamard–de la Vallée Poussin, Hardy/Turing,
+Ingham/Conrey, Davenport–Heilbronn), novel as identification,
+selection lever, and certificate-use; (ix) conjecture only. No
+RH leverage in either direction — the certificate (vi) is
+precisely the proof that the geometric channel cannot supply
+any. Check 7 clean (explicit formula, character L-functions,
+theta, concentration of measure — all declared-admissible
+instruments; no semiclassics; C-a's physics language is
+quarantined inside the conjecture fence). Check 8 clean in
+(ii)–(viii) (no hypothesis input); (ix) references observer
+placement and is fenced accordingly.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -4260,4 +4444,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ar: the **68 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1as: the **69 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
