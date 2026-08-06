@@ -4010,9 +4010,11 @@ a finite ferromagnetic partition function's zeros are pinned to
 the unit circle by the Lee–Yang circle theorem, mechanism
 coupling positivity; gated instance: the N = 10 Ising ring at
 βJ = 0.7, all ten zeros at ||z| − 1| < 10⁻⁹ — where z = e^(2βh)
-is the fugacity of the complexified external field, the
-variable the circle theorem's hypotheses are about (the
-fugacity defined and the bound made two-sided round 192 F6).
+is the fugacity of the complexified external field — the
+variable of the circle theorem's STATEMENT, its hypotheses
+constraining the couplings (word-level scope fixed round 193;
+the fugacity defined and the bound made two-sided round 192
+F6).
 The triangulation:
 three unrelated worlds, three unrelated proofs, one mechanism
 TYPE — positivity (geometric, unitary, ferromagnetic) —
@@ -4047,8 +4049,10 @@ near the attractor. The Hermite POLYNOMIALS are the Gaussian's
 orthogonal family; weighted by the Gaussian they become the
 Hermite FUNCTIONS — the Fourier transform's eigenfunctions,
 1as's h₄ₖ among them (the landing conflated the two families
-across its appositives; polynomials attract, functions
-self-dualize — corrected round 192 F5). In the program's
+across its appositives; polynomials attract, the h₄ₖ
+self-dualize — the general Hermite functions carry eigenvalues
+(−i)ⁿ and only the index ≡ 0 mod 4 slice is fixed; epigram
+scoped round 193 — corrected round 192 F5). In the program's
 two-channel language: **the gamma
 channel's Gaussian is the attractor of the arithmetic channel's
 finite fill** — the two channels of Theorem 1as(vii) meet

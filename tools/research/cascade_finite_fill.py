@@ -29,7 +29,9 @@ Gates (all exit-gated; any failure exits 1):
   g6  the paper needles for the 1at block (title; the three-worlds
       triangulation sentence; the Laguerre-Polya definition sentence;
       the attractor identification; the uniformity residual; the
-      no-physical-identification disclaimer).
+      no-physical-identification disclaimer; plus the seven round-192
+      repair needles and the round-193 epigram needle -- see the
+      in-code list, which is the authoritative census).
   g7  the chain: cascade_primes_side_ball.py (Theorem 1as) exits 0.
   g8  the footer census (this script backticked >= 2; "70 scripts cited
       in place"; "Theorems 1i-1at").
@@ -148,7 +150,7 @@ needles = [
     "Ξ(t) = ξ(½+it) lying in the Laguerre–Pólya class",
     "Deligne's general theorem proceeds by a different",
     "fugacity of the complexified external field",
-    "polynomials attract, functions",
+    "polynomials attract, the h₄ₖ",
     "the analogue-finite target, named HERE as the",
     "exactness\nis the cited theorem's, not the gate's",
 ]

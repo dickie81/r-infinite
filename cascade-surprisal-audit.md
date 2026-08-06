@@ -15584,6 +15584,55 @@ round-192 annotations:**
 seven repair-pinning needles (one wrap-aware); swept verifier re-run:
 8/8. Convergence test (round 193) next.
 
+## Addendum 300: round 193 (convergence test on the round-192 sweep) — **CONVERGED** (0 majors, 0 minors, 3 cosmetics applied with the record); Theorem 1at certified STABLE
+
+**The round.** Fresh-context subagent on commit 730bce9. Zero
+majors, zero minors. All seven round-192 repairs verified correct
+and complete: the F1 strike preserves the refuted universal verbatim
+and the Ihara annotation was verified empirically (the reviewer
+exhibited a non-Ramanujan 3-regular 32-vertex graph, λ₂ = 2.9239 >
+2√2, and re-ran the antiferromagnetic probe: max ||z|−1| = 61.25);
+the Ξ ∈ LP equivalence held exactly (Hadamard product in LP form
+under RH; no missing hypothesis); the Hasse/Weil/Deligne scoping
+held historically and mathematically, with line 4067's surviving
+"Hasse–Weil–Deligne" verified a provenance list, not a mechanism
+ascription; the 1as(viii) contrast quote verified verbatim; the
+Hermite families and the fugacity algebra checked by hand against
+the gate (Z = e^(−βhN)·Σcₙzⁿ with z = e^(2βh)); the adverb re-homing
+verified with no surviving "exactly real"; all seven needles pinned
+to their repair regions; the footer census counted empirically both
+ways (set difference empty); no pre-repair carrier survives outside
+quoted annotations. Three cosmetics, applied with this record:
+(1) the fugacity clause now names z the variable of the theorem's
+STATEMENT with the hypotheses constraining the couplings; (2) the
+epigram scoped — "polynomials attract, the h₄ₖ self-dualize" with
+the (−i)ⁿ eigenvalue structure stated (its g6 needle updated in
+step); (3) the g6 docstring enumeration now defers to the in-code
+needle list as authoritative. Verifier re-run after the cosmetics:
+8/8.
+
+**CERTIFIED: Theorem 1at — the three worlds and the finite fill:
+one common pinning mechanism, the Jensen stages of ξ, and the
+Gaussian attractor.** The final statement, hostile-tested through
+two rounds: there are three finite worlds in which the analogue of
+RH is a theorem — curves over finite fields, the unitary ensembles,
+the ferromagnetic Lee–Yang vacuums — each delimited by its
+positivity hypothesis, with the false every-finite-world universal
+struck and preserved (the Ihara world refutes it; the suite's own
+antiferromagnetic probe is the internal counterexample); RH is
+equivalent to Ξ(t) = ξ(½+it) lying in the Laguerre–Pólya class —
+the closure of real-rooted polynomials, "the finite fill of the
+infinite" as the definition of RH's home class — with the Jensen
+stages gated hyperbolic at every tested (d, n), GORZ 2019 cited for
+d ≤ 8 and every-d-eventually, the Hermite-polynomial attractor
+identified in the program's two-channel language (the gamma
+channel's Gaussian as the attractor of the arithmetic channel's
+finite fill), and the residual named: uniformity of the Gaussian
+attraction — the statistical/perfect gap in its cleanest
+incarnation. Trajectory: 1at landed (26e99e0) → 192 1M+5m+1c (the
+false universal struck; six scoping repairs) → 193 CONVERGED
+0M+0m+3c. Next hostile round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
