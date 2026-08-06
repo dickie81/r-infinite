@@ -3853,3 +3853,23 @@ Checks 7/8 clean.
 182 1M+1m+1c → 183 0M+1m+2c → 184 0M+1m+2c → 185 0M+1m+1c → 186
 NOT CONVERGED 0M+1m+1c (swept) → round 187 (convergence test)
 next.**
+
+# Round 187: convergence test on the round-186 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 1 minor + 3 cosmetics; the anchor regress terminated; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F187-1 (minor) — the position conjunct's anchor itself relocatable: the contiguous source+C1 block cut-pasted downstream passed 10/0 (reviewer-probed) | **Accepted; the position gate is now a skeleton chain (needle < C1 < Definition 2.1 < Theorem 1ar) with the single-region threat-model boundary DECLARED (no gate claimed against wholesale skeleton reconstruction — the census-not-theorem move applied to the instrument); probe (k) certified — the joint relocation now trips g7 ALONE, 9/1** | verifier g7, V-block |
+| F187-2/3/4 (cosmetics) — the stale ">= 2" narration; g4's print item for the entailed pole pair; the lettering gap + paste artifact | **Applied; all synced/noted in place** | verifier |
+
+Held: the shadow census (22 anchors, all single-occurrence at
+true sources); the dead-OR/entailed re-hunt clean (g7's sentinel
+leg held); the strike-frame counts paper-wide; the mathematics
+re-derived; the 1aq touchpoints verbatim; probes (j)/(b)
+reproduced; the footer 68 with set-identity; unit_ball_rh 13/0;
+Checks 7/8 clean.
+
+**Trajectory: 1ar landed (5625ea8) → 180 3M+2m → 181 3M+1m+1c →
+182 1M+1m+1c → 183 0M+1m+2c → 184 0M+1m+2c → 185 0M+1m+1c → 186
+0M+1m+1c → 187 NOT CONVERGED 0M+1m+3c (swept; the slack-ladder
+terminated by declared boundary) → round 188 (convergence test)
+next.**

@@ -30,7 +30,8 @@ disclosed.  THE REGRADED CONTENT: the two-class lemma (exact);
 under review); and the ANATOMY -- Definition 2.1's "integer
 points" decomposes into exactly three named premises {P0, P1,
 P2}, none silent.  The upgrade is the anatomy, not the forcing;
-the lattice is forced GIVEN P1 and P2.  The meaning layer (classical): the arithmetic class is
+the lattice is forced GIVEN P1 and P2.
+The meaning layer (classical): the arithmetic class is
 the algebraic-character lattice Hom(G_m, G_m) = Z (unit spacing
 and integrality are the group law's), with the parity linkage of
 x -> x^n exactly the committed even/odd tower interleaving
@@ -79,9 +80,13 @@ VERIFICATION (10 gates, exit-gated).
        V-entry synced round 182 F2).
   V4 -- g7 P0 and the conditionality: the front-matter
        zero-free-parameter sentence anchored at count == 2 AND
-       position-gated (the first occurrence precedes C1's
-       statement -- the quote-satisfiability slack closed round
-       185 F1, the relocation residual closed round 186 F1); the theorem's
+       position-gated through the skeleton chain needle < C1 <
+       Definition 2.1 < Theorem 1ar (quote-satisfiability closed
+       round 185 F1; the probed relocation closed round 186 F1;
+       the joint source+C1 relocation closed round 187 F1, with
+       the single-region threat-model boundary DECLARED -- no
+       gate is claimed against wholesale skeleton
+       reconstruction); the theorem's
        explicit-premise statement anchored; the conditionality
        clause anchored as the LIVE needle plus the post-regrade
        P1-and-P2 extension (the landing's two never-live or-chain
@@ -128,7 +133,9 @@ fresh tree, per-mangle restore, gate identity in the first pass.
 At the round-181 sweep: (f) the corrected conditioning needle
 mangled in the paper copy ("GIVEN P1 AND P2" -> "GIVEN P1 OR
 P2", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1; clean
-baselines 10/0 around it.  At the round-185 sweep: (i) the
+baselines 10/0 around it.  Lettering note (round 187 F4): (g)/(h) were never used -- the
+185 sweep lettered its probe (i) directly; no entries were
+deleted.  At the round-185 sweep: (i) the
 front-matter SOURCE sentence mangled with 1ar's quote left
 intact ("zero free parameters" -> "one fitted parameter" at the
 source only) -> g7 trips ALONE, 9/1, exit 1 -- the
@@ -245,7 +252,8 @@ ok &= abs(GR(mpf(-2) + mpf("1e-8"))) > 1e6
 ok &= abs(GR(mpf(-1) + 1 + mpf("1e-8"))) > 1e6   # odd-tower pole: GR(s+1) at s = -1 (GR at 0 -- a DISTINCT evaluation; the round-181 F5 duplicate, -3+1 = -2, removed)
 gate("g4 the pole orbit: the even+odd Gamma_R pole union is Z<=0 "
      "(range scan); its FE orbit fills Z; the arithmetic class "
-     "contains the pole pair {0, 1}; the critical class's center 1/2 "
+     "contains the pole pair {0, 1} (entailed by the superset check, "
+     "stated not gated -- round 187 F3); the critical class's center 1/2 "
      "is no pole", ok)
 
 print("V3 -- evenness and the half-density center")
@@ -274,16 +282,28 @@ gate("g6 the role-assignment anchors: the displaced-curve half-shift "
 
 print("V4 -- P0 and the conditionality")
 ok = paper.count("one hypothesis and zero free parameters") == 2
-# round 186 F1: the count is pinned (== 2, the current census) AND
-# position-gated -- the first occurrence must precede C1's
-# statement (the front-matter SOURCE position); a relocation
-# mangle (source deleted, needle re-inserted downstream) passed
-# the count-only form at 10/0 (reviewer-probed).
-ok &= 0 <= paper.find("one hypothesis and zero free parameters") < paper.find("Hypothesis (C1")
+# rounds 186-187: the count is pinned (== 2, the current census)
+# AND position-gated through a SKELETON CHAIN -- needle < C1 <
+# Definition 2.1 < Theorem 1ar -- so a relocation mangle must
+# drag the paper's skeleton with it (the round-187 joint
+# relocation of the contiguous source+C1 block passed the
+# single-anchor form at 10/0, reviewer-probed; the chain now
+# trips it).  DECLARED THREAT-MODEL BOUNDARY: the gates police
+# single-region mangles, the sabotage record's own class;
+# wholesale skeleton reconstruction is outside the model and no
+# gate is claimed to catch it.  (The round-185 comment's
+# ">= 2" narration superseded by the == 2 pin, synced round 187
+# F2.)
+_pos_needle = paper.find("one hypothesis and zero free parameters")
+_pos_c1 = paper.find("Hypothesis (C1")
+_pos_def21 = paper.find("integer points s = d+1")
+_pos_1ar = paper.find("Theorem 1ar")
+ok &= 0 <= _pos_needle < _pos_c1 < _pos_def21 < _pos_1ar
 # round 185 F1: the needle occurs at the front-matter SOURCE and
 # in 1ar's quote of it; the landing's `in paper` was satisfied by
 # the quote alone, so source drift under the quote passed 10/0
-# (reviewer-probed).  count >= 2 enforces quote-source agreement.
+# (reviewer-probed).  The count pin (== 2 since round 186) plus
+# the skeleton chain (round 187) enforce quote-source agreement.
 ok &= "P0 is that discipline stated as a premise" in paper
 ok &= ("every conclusion below is conditional on it" in paper)
 ok &= "and, post-regrade, on P1 and P2 equally" in paper
