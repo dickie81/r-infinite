@@ -78,7 +78,9 @@ VERIFICATION (10 gates, exit-gated).
        tautological conjuncts removed round 180 F5; this
        V-entry synced round 182 F2).
   V4 -- g7 P0 and the conditionality: the front-matter
-       zero-free-parameter sentence anchored; the theorem's
+       zero-free-parameter sentence anchored at count >= 2
+       (source AND 1ar's quote -- quote-satisfiability slack
+       closed round 185 F1); the theorem's
        explicit-premise statement anchored; the conditionality
        clause anchored as the LIVE needle plus the post-regrade
        P1-and-P2 extension (the landing's two never-live or-chain
@@ -125,8 +127,13 @@ fresh tree, per-mangle restore, gate identity in the first pass.
 At the round-181 sweep: (f) the corrected conditioning needle
 mangled in the paper copy ("GIVEN P1 AND P2" -> "GIVEN P1 OR
 P2", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1; clean
-baselines 10/0 around it.  Ten gates (count checked against the
-gate() census pre-commit).
+baselines 10/0 around it.  At the round-185 sweep: (i) the
+front-matter SOURCE sentence mangled with 1ar's quote left
+intact ("zero free parameters" -> "one fitted parameter" at the
+source only) -> g7 trips ALONE, 9/1, exit 1 -- the
+quote-satisfiability slack the reviewer probed at 10/0 now
+bites; clean baselines 10/0 around it.  Ten gates (count
+checked against the gate() census pre-commit).
 """
 import os
 import subprocess
@@ -221,8 +228,9 @@ odd_poles = set(range(-1, -40, -2))
 union = even_poles | odd_poles
 fe_orbit = union | {1 - s for s in union}
 ok = union == set(range(-39, 1))
-ok &= fe_orbit >= set(range(-39, 41))
-ok &= {0, 1} <= fe_orbit
+ok &= fe_orbit >= set(range(-39, 41))   # contains the pole pair {0, 1}
+# (the separate {0,1} conjunct was entailed by the superset check
+#  -- dead weight removed round 185 F2, the 180-F5 precedent)
 # falsifiable pole detection (round-175-F4 lesson: no tautologies):
 # Gamma_R is FINITE at every half-integer (the critical class) and
 # BLOWS UP at the poles -- both checked by evaluation.
@@ -259,7 +267,11 @@ gate("g6 the role-assignment anchors: the displaced-curve half-shift "
      "tautologies removed)", ok)
 
 print("V4 -- P0 and the conditionality")
-ok = "one hypothesis and zero free parameters" in paper
+ok = paper.count("one hypothesis and zero free parameters") >= 2
+# round 185 F1: the needle occurs at the front-matter SOURCE and
+# in 1ar's quote of it; the landing's `in paper` was satisfied by
+# the quote alone, so source drift under the quote passed 10/0
+# (reviewer-probed).  count >= 2 enforces quote-source agreement.
 ok &= "P0 is that discipline stated as a premise" in paper
 ok &= ("every conclusion below is conditional on it" in paper)
 ok &= "and, post-regrade, on P1 and P2 equally" in paper

@@ -3813,3 +3813,23 @@ Checks 7/8 clean.
 **Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade) →
 181 3M+1m+1c → 182 1M+1m+1c → 183 0M+1m+2c → 184 NOT CONVERGED
 0M+1m+2c (swept) → round 185 (convergence test) next.**
+
+# Round 185: convergence test on the round-184 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 1 minor + 1 cosmetic; the quote-satisfiability slack closed; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F185-1 (minor) — g7's front-matter anchor quote-satisfiable: the source sentence could drift under 1ar's intact quote at 10/0 (reviewer-probed) — verbatim-quote drift passing silently | **Accepted; count ≥ 2 enforces quote–source agreement; V4 synced; probe (i) certified — the reviewer's exact mangle now trips g7 ALONE, 9/1** | verifier g7, V-block |
+| F185-2 (cosmetic) — g4's {0,1} conjunct entailed by the superset check | **Applied; removed per the 180-F5 precedent, note folded into the surviving conjunct** | verifier g4 |
+
+Held: probe (h) — the struck-form conditionality regression now
+FAILS where it would have passed pre-184; the warrants census
+verified step-by-step; the truncation mark exact; the full
+31-needle census with every multiplicity accounted; the
+mathematics recomputed by hand; probes (f)/(b) at recorded
+censuses; the footer 68 with set-identity; unit_ball_rh 13/0;
+Checks 7/8 clean.
+
+**Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade) →
+181 3M+1m+1c → 182 1M+1m+1c → 183 0M+1m+2c → 184 0M+1m+2c →
+185 NOT CONVERGED 0M+1m+1c (swept) → round 186 (convergence
+test) next.**

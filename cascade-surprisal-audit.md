@@ -15016,6 +15016,37 @@ truncation, now disclosed).
 
 **Post-sweep:** verifier 10/0. Convergence-test round 185 next.
 
+## Addendum 290: round 185 (convergence test on the round-184 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 1 cosmetic; the quote-satisfiability slack closed; swept
+
+Round 185 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) verified all three round-184
+repairs under direct attack — including probe (h), the struck-form
+conditionality regression, which now FAILS (g7 alone, 9/1) where
+it would have passed pre-184 — held the warrants census step by
+step ("L4 decorates the result and warrants nothing" verified
+against every step's actual warrant), confirmed the truncation
+mark exact, recomputed the mathematics by hand, and ran a full
+needle census (all 31 needles; every intended multiplicity
+accounted). Findings, verified directly by the lead (Check 3):
+
+**F185-1 minor (accepted; swept):** g7's front-matter anchor was
+quote-satisfiable — the needle occurs at the SOURCE (line 64) and
+in 1ar's own quote of it, so the reviewer's probe mangled the
+source alone ("one fitted parameter") and the suite stayed 10/0:
+verbatim-quote drift, the exact class the review standards name,
+passing silently one conjunct over from the round-184 fix. Swept:
+count ≥ 2 now enforces quote–source agreement; V4 synced with
+the miss disclosed; probe (i) certified (the reviewer's exact
+mangle now trips g7 ALONE, 9/1, clean baselines 10/0).
+
+**F185-2 cosmetic (applied):** g4's {0,1} conjunct was entailed
+by the range-superset check (safe AND-direction dead weight, the
+180-F5 precedent); removed with the pole-pair note folded into
+the surviving conjunct's comment.
+
+**Post-sweep:** verifier 10/0; probe (i) certified.
+Convergence-test round 186 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
