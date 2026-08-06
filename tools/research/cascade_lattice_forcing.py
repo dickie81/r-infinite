@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-THEOREM 1ar -- the lattice forced: the binary selection closed by
-the paper's own discipline.
+THEOREM 1ar -- the lattice selection anatomized (the landing's
+title "the lattice forced: the binary selection closed by the
+paper's own discipline" was struck round 180, three MAJORs).
 
 THE COMMISSION.  The owner rejected the axiom route to 1aq's
 section as circular and commissioned the hard road: derive the
@@ -107,7 +108,11 @@ close" -> "does NOW close", whitespace-aware) -> g8 trips ALONE,
 premise" -> "derived premise", whitespace-aware) -> g8 trips
 ALONE, 9/1, exit 1; clean baselines 10/0 around both, serial
 fresh tree, per-mangle restore, gate identity in the first pass.
-Ten gates (count checked against the gate() census pre-commit).
+At the round-181 sweep: (f) the corrected conditioning needle
+mangled in the paper copy ("GIVEN P1 AND P2" -> "GIVEN P1 OR
+P2", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1; clean
+baselines 10/0 around it.  Ten gates (count checked against the
+gate() census pre-commit).
 """
 import os
 import subprocess
@@ -209,7 +214,7 @@ ok &= {0, 1} <= fe_orbit
 # BLOWS UP at the poles -- both checked by evaluation.
 ok &= all(abs(GR(k + mpf("0.5"))) < 1e3 for k in range(-6, 7))
 ok &= abs(GR(mpf(-2) + mpf("1e-8"))) > 1e6
-ok &= abs(GR(mpf(-3) + 1 + mpf("1e-8"))) > 1e6   # odd-tower pole via GR(s+1)
+ok &= abs(GR(mpf(-1) + 1 + mpf("1e-8"))) > 1e6   # odd-tower pole: GR(s+1) at s = -1 (GR at 0 -- a DISTINCT evaluation; the round-181 F5 duplicate, -3+1 = -2, removed)
 gate("g4 the pole orbit: the even+odd Gamma_R pole union is Z<=0 "
      "(range scan); its FE orbit fills Z; the arithmetic class "
      "contains the pole pair {0, 1}; the critical class's center 1/2 "
@@ -263,7 +268,8 @@ ok &= "the lattice selection anatomized" in paper
 ok &= "P1 (declared premise)" in paper
 ok &= "P2 (declared premise)" in paper
 ok &= "The forcing chain does NOT close from P0 alone" in paper
-ok &= "integrality is derived GIVEN P1" in paper
+ok &= "integrality is derived GIVEN P1 AND P2" in paper
+ok &= "the selection is the preference" in paper
 ok &= "Hom(𝔾_m, 𝔾_m) = ℤ is a classical theorem" in paper
 ok &= "no forcing is claimed from the remark" in paper
 ok &= "C1 appears nowhere in the chain" in paper
@@ -289,14 +295,17 @@ gate("g10 the footer census (this script backticked in body and "
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")
-print("READING.  The half-shift lattice is derived, not adopted: P0")
-print("(the paper's declared zero-parameter discipline, an explicit")
-print("premise) plus the framework's evenness collapse the translate")
-print("continuum to two classes -- the critical (half-density) class")
-print("and the arithmetic (algebraic-character) class -- and P0's")
-print("second application through 1aq's certified 4/4-vs-0/4")
-print("dichotomy decides the binary.  No link mentions integer")
-print("points.  The rungs live on the algebraic class; the reading")
-print("coordinate is centered at the half-density point.  Conditional")
-print("on P0, and says so; no RH leverage in either direction.")
+print("READING (regraded round 180).  The lattice selection")
+print("anatomized: GIVEN the declared ansatz P1 (unit spacing +")
+print("involution closure) the translate continuum collapses to two")
+print("classes -- the critical (half-density) class and the")
+print("arithmetic (algebraic-character) class -- and GIVEN the")
+print("declared preference P2 (exact integrality structure, selecting")
+print("on 1aq's certified 4/4-vs-0/4 dichotomy) the arithmetic class")
+print("survives: w = d + 1/2.  The forcing chain does NOT close from")
+print("P0 alone; Definition 2.1's integer points decompose into the")
+print("three named premises {P0, P1, P2}, none silent.  The rungs")
+print("live on the algebraic class; the reading coordinate is")
+print("centered at the half-density point.  Conditional on all three")
+print("premises, and says so; no RH leverage in either direction.")
 sys.exit(0 if n_fail == 0 else 1)

@@ -3589,8 +3589,12 @@ The commission.* The owner rejected the axiom route to 1aq's
 section as circular ("the integrality was put in by the axiom")
 and commissioned the hard road: derive the half-shift lattice
 from premises that never mention integer points. The chain has
-four links; each is a framework-forced fact, the paper's own
-declared discipline, or a certified theorem. *(ii) P0, the
+four links; ~~each is a framework-forced fact, the paper's own
+declared discipline, or a certified theorem~~ [struck round 181
+F3c — post-regrade the links carrying P1 (an ansatz) and P2 (a
+preference) are none of the three named kinds]: the links are a
+declared discipline (P0), a declared ansatz (P1), a declared
+preference (P2), and a certified theorem (1aq). *(ii) P0, the
 constitutive premise, made explicit.* The paper's front matter
 declares: *"This paper meets that standard with one hypothesis
 and zero free parameters."* P0 is that discipline stated as a
@@ -3598,9 +3602,12 @@ premise: no underived constant may enter the foundations — every
 number must be produced by committed structure. P0 is
 constitutive (the program's founding rule, in force since the
 front matter), not a theorem; every conclusion below is
-conditional on it, and that conditionality is the theorem's
-honest boundary. *(iii) L1–L2: the translate continuum collapses
-to a binary, by two independent selectors.* A unit-spaced decay
+conditional on it — and, post-regrade, on P1 and P2 equally;
+the three-premise conditionality is the theorem's honest
+boundary (widened from P0-only round 181). *(iii) L1–L2: the translate continuum collapses to a binary —
+GIVEN the declared ansatz (~~by two independent selectors~~
+[struck round 181 F3a — the independence claim was already
+struck at F4 below; this header had carried it unannotated]).* A unit-spaced decay
 lattice w = d + α needs its translate α produced by committed
 structure (P0). ~~The record's only translate-selecting structure
 is the functional equation's involution acting through the
@@ -3627,8 +3634,11 @@ land on the same binary independently~~ [struck round 180 F4 —
 P0 alone cannot collapse the continuum (the record derives
 non-binary constants usable as translates, S1's x* among them),
 and the P0 route reached the binary only through the struck
-evenness census: one route contained the other]. *(iv) L3: the binary is decided by P0's second
-application through 1aq's certified iffs.* Between the two
+evenness census: one route contained the other]. *(iv) L3: the binary is decided ~~by P0's second application~~
+[struck round 181 F3b — the decision mechanism is the declared
+preference P2, per the F2 strike below; this header had carried
+the struck mechanism unannotated] by P2, selecting on 1aq's
+certified iffs.* Between the two
 classes, exact explicit-formula bookkeeping holds 4/4 on the
 arithmetic class and 0/4 on the critical class (Theorem 1aq's
 four integralities; the α = 0 counter-gate of its iff scan IS
@@ -3654,8 +3664,11 @@ arithmetic class: w = d + ½. ~~Integrality is DERIVED, not
 adopted: no link mentioned integer points~~ [struck round 180
 F3, MAJOR — L1's own ansatz opened on a unit-spaced translate of
 ℤ; the chain derives the translate, never the spacing]:
-integrality is derived GIVEN P1 — the translate α = ½ is forced
-within the ansatz; the spacing and closure are the ansatz. *(v) L4,
+integrality is derived GIVEN P1 AND P2 — within the ansatz the
+preference selects the translate α = ½ (α = 0 satisfies P1 in
+full and is excluded only by P2 — the round-180 sweep's own
+replacement had dropped P2, corrected round 181 F2); the spacing
+and closure are the ansatz, the selection is the preference. *(v) L4,
 the meaning layer (classical).* The two classes have classical
 names, and the committed structure uses BOTH, in different
 roles. The arithmetic class is the algebraic-character lattice

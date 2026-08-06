@@ -3733,3 +3733,23 @@ with set-identity; unit_ball_rh 13/0. Probes (d)/(e) certified
 (swept — the regrade: "forced" → "anatomized"; the lattice
 forced GIVEN the three named premises {P0, P1, P2}) → round 181
 (convergence test) next.**
+
+# Round 181: convergence test on the round-180 sweep (subagent, per protocol) — NOT CONVERGED: 3 MAJORs + 1 minor + 1 cosmetic, all sweep-incompleteness on the regrade; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F181-1 (MAJOR) — the verifier's READING block still printed the struck forcing narrative on every run (the sweep missed one surface) | **Accepted; confirmed by the commit diff; rewritten to the regraded content** | verifier READING |
+| F181-2 (MAJOR) — the round-180 replacement sentence itself dropped P2 ("derived GIVEN P1"; α = 0 satisfies P1 in full and scores 0/4 — a direct counterexample) | **Accepted; corrected to GIVEN P1 AND P2 with the counterexample stated; needle advanced; probe (f) certified 9/1** | paper, verifier g8 |
+| F181-3 (MAJOR) — three residual struck-claim carriers: the (iii) "two independent selectors" header, the (iv) "decided by P0" header, the (i) trichotomy + P0-only boundary | **Accepted; all struck/corrected in place; the (i) census now: a declared discipline, a declared ansatz, a declared preference, and a certified theorem** | paper ×4 |
+| F181-4 (minor) — the docstring title line carried the struck title as current | **Accepted; re-headed with the strike noted** | verifier docstring |
+| F181-5 (cosmetic) — g4's odd-tower conjunct duplicated its predecessor (−3+1 = −2) | **Applied; replaced with the distinct GR(0)-pole evaluation** | verifier g4 |
+
+Held: every round-180 strike frame's factual charge independently
+verified; no fourth silent premise (the "exactly three" census
+held under attack); the two-class lemma, the 1aq cross-stitch,
+L4, and the Remark all held; probes (d)/(e)/(b) reproduced; the
+footer 68 with set-identity; unit_ball_rh 13/0; Checks 7/8 clean.
+
+**Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade,
+c760e71) → 181 NOT CONVERGED 3M+1m+1c (all sweep-incompleteness,
+swept) → round 182 (convergence test) next.**

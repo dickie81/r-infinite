@@ -14837,6 +14837,61 @@ rescoped to the pre-180 tree (its needle is now struck text).
 
 **Post-sweep:** verifier 10/0. Convergence-test round 181 next.
 
+## Addendum 286: round 181 (convergence test on the round-180 sweep) — NOT CONVERGED: 3 MAJORs + 1 minor + 1 cosmetic, all sweep-incompleteness on the regrade itself; swept
+
+Round 181 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) independently verified every
+round-180 strike frame's factual charge (the x-evenness fact; the
+16/15 rationality; the ψ quarter-integer closure; the S1 x*
+counterexample; the unit-spacing omission), held the surviving
+content (the two-class lemma, the 1aq cross-stitch, L4's
+classical claims, the Remark), found NO fourth silent premise
+("exactly three" held under attack), and reproduced the suite.
+Its findings were all sweep-incompleteness on the round-180
+sweep itself, verified directly by the lead (Check 3):
+
+**F181-1 MAJOR (accepted; swept):** the verifier's READING print
+block still recited the struck forcing narrative on every run —
+"derived, not adopted", the evenness collapse, "P0's second
+application decides", "No link mentions integer points",
+"Conditional on P0" alone — the sweep had rewritten the
+docstring and gates but left the landing's summary paragraph
+intact (the marking rule's every-surface requirement missed one
+surface; confirmed by the commit diff). Rewritten to the
+regraded content.
+
+**F181-2 MAJOR (accepted; swept):** the round-180 sweep's OWN
+replacement sentence mis-conditioned — "integrality is derived
+GIVEN P1" drops P2, and α = 0 satisfies P1 in full (unit-spaced,
+involution-closed) while scoring 0/4: a direct counterexample.
+Corrected to "GIVEN P1 AND P2" with the α = 0 counterexample
+stated in place; the g8 needle advanced; probe (f) certified
+(g8 ALONE, 9/1, clean baselines).
+
+**F181-3 MAJOR (accepted; swept):** three residual struck-claim
+carriers in the standing text — the (iii) header's "two
+independent selectors" (the F4-struck claim), the (iv) header's
+"decided by P0's second application" (the F2-struck mechanism),
+and the (i) trichotomy "each is a framework-forced fact, the
+paper's own declared discipline, or a certified theorem" (false
+post-regrade: P1 is an ansatz, P2 a preference) plus the
+P0-only honest-boundary clause. All struck/corrected in place
+with round-181 annotations; the (i) census now reads: a declared
+discipline, a declared ansatz, a declared preference, and a
+certified theorem.
+
+**F181-4 minor (accepted; swept):** the verifier docstring's
+title line still carried the struck title as current; re-headed
+to the anatomized title with the strike noted.
+
+**F181-5 cosmetic (applied):** g4's "odd-tower pole" conjunct
+evaluated the identical point as its predecessor (−3+1 = −2);
+replaced with the genuinely distinct evaluation (GR(s+1) at
+s = −1, i.e. GR at its s = 0 pole).
+
+**Post-sweep:** verifier 10/0; probe (f) certified.
+Convergence-test round 182 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
