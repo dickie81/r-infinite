@@ -143,6 +143,14 @@ needles = [
     "The clues functioned as pointers only; no",
     "Griffin–Ono–Rolen–Zagier (2019)",
     "KS = 0.071",
+    # round-192 repair needles
+    "there are THREE finite worlds in which",
+    "Ξ(t) = ξ(½+it) lying in the Laguerre–Pólya class",
+    "Deligne's general theorem proceeds by a different",
+    "fugacity of the complexified external field",
+    "polynomials attract, functions",
+    "the analogue-finite target, named HERE as the",
+    "exactness\nis the cited theorem's, not the gate's",
 ]
 ok = all(nd in paper for nd in needles)
 for nd in needles:

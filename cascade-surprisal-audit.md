@@ -15528,6 +15528,62 @@ semiclassical procedure as a route to any cascade quantity. Check 8:
 no hypothesis input; the physical clues contributed direction, not
 premises. Next: hostile round 192 on this landing.
 
+## Addendum 299: round 192 (hostile review of the 1at landing) — NOT CONVERGED: 1 MAJOR + 5 minors + 1 cosmetic, all accepted and swept; every computation held again
+
+**The round.** Fresh-context subagent on commit 26e99e0. The
+reviewer ran the verifier (8/8 incl. the transitive chain),
+reproduced probe (b)'s crash-fail-closed census and probe (c)'s
+g3-alone census in fresh trees, reproduced all three worlds with its
+own code (exact-KS closed-form Wigner statistic 0.0712/0.3527; the
+antiferromagnetic zeros scattering to moduli 0.016–62.3 — the
+positivity-is-the-pinning demonstration confirmed), recomputed the
+Jensen machinery from independent coefficients (radius 2, M = 256,
+dps 60; identical spread ratios to all quoted digits; the trend
+extended to n = 22, still decreasing), verified the GORZ citation
+character-exact against the PNAS text, verified the block's γ
+normalization is 1/8 of GORZ's (a global positive scalar — the
+equivalence transfers verbatim), and machine-censused the footer's
+70. Every gated number held.
+
+**Findings, all lead-verified and accepted, all swept in place with
+round-192 annotations:**
+
+- **F1 (MAJOR):** "In every finite world carrying an analogue of RH,
+  the analogue is PROVED" — a false universal never censused: the
+  Ihara-zeta world (graph RH ⟺ Ramanujan) fails for non-Ramanujan
+  regular graphs, and the suite's own antiferromagnetic probe is the
+  internal counterexample. Struck and annotated per the marking
+  rule; replaced by the existential three-worlds statement with the
+  positivity-delimitation clause (remove the positivity and the
+  pinning fails — the probe demonstrates exactly this).
+- **F2 (minor):** "RH is equivalent to ξ lying in the Laguerre–Pólya
+  class" — false as printed (ξ in the s-variable never is; its
+  zeros are never real). Corrected to Ξ(t) = ξ(½+it) with the
+  rotation stated.
+- **F3 (minor):** "Hasse–Weil–Deligne, by intersection-form
+  positivity" — Deligne's proof avoided positivity; that route is
+  the open standard conjecture. Attribution scoped (Hasse/Weil for
+  curves by positivity; Deligne by a different route).
+- **F4 (minor):** "the analogue-finite completion named at 1as's
+  close" — unresolvable pointer (the concept lived in the
+  commission record, not the paper). Now named in place as the
+  contrast with 1as(viii)'s spectrum-free truncations.
+- **F5 (minor):** the Hermite polynomials/functions conflation
+  (the attractor is the polynomial family; the Fourier
+  eigenfunctions and 1as's h₄ₖ are the Gaussian-weighted
+  functions). Both families now named; "polynomials attract,
+  functions self-dualize."
+- **F6 (minor):** the Lee–Yang variable undefined and the bound
+  one-sided in prose. The fugacity z = e^(2βh) defined; the bound
+  made two-sided (the gate was always two-sided).
+- **F7 (cosmetic):** "all roots exactly real" attached the
+  granularity adverb to the gate (which checks < 10⁻⁸); re-homed to
+  the cited theorem.
+
+**Sweep verification.** All seven repairs in place; g6 extended with
+seven repair-pinning needles (one wrap-aware); swept verifier re-run:
+8/8. Convergence test (round 193) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

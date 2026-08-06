@@ -3972,3 +3972,28 @@ roundness selected by self-duality, the two-channel ledger, the
 pure-phase equivalence, and the insufficiency certificate, with the
 declared-conjecture fence C-a–C-d. Next hostile round on the next
 substantive paper change.**
+
+# Round 192: hostile review of the Theorem 1at landing (subagent, per protocol) — 1 MAJOR + 5 minors + 1 cosmetic, all accepted and swept; every computation held
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 MAJOR: "In every finite world carrying an analogue of RH, the analogue is PROVED" — false universal (Ihara/Ramanujan counterexample; the AF probe is the internal one) | Accepted — lead verified both counterexamples | Struck-and-annotated; existential three-worlds statement with the positivity-delimitation clause |
+| F2 minor: "ξ lying in the Laguerre–Pólya class" false as printed (s-variable) | Accepted | Ξ(t) = ξ(½+it) rotation stated |
+| F3 minor: "Hasse–Weil–Deligne, by intersection-form positivity" (Deligne avoided positivity) | Accepted | Attribution scoped; the open standard-conjecture gap named |
+| F4 minor: "named at 1as's close" — unresolvable pointer | Accepted | Named in place as the contrast with 1as(viii) |
+| F5 minor: Hermite polynomials/functions conflation | Accepted | Both families named; polynomials attract, functions self-dualize |
+| F6 minor: Lee–Yang fugacity undefined; one-sided bound in prose | Accepted | z = e^(2βh) defined; bound two-sided |
+| F7 cosmetic: "exactly real" adverb on the gated claim | Accepted | Re-homed to the cited theorem |
+
+Checked and held: verifier 8/8 by the reviewer; probes (b) and (c)
+reproduced at recorded censuses; all three worlds reproduced with
+independent code (exact-KS 0.0712/0.3527; AF moduli 0.016–62.3); the
+Jensen machinery from independent coefficients (dps 60) with
+identical ratios and the trend extended to n = 22; the γ
+normalization proved a global positive scalar of GORZ's (equivalence
+transfers verbatim); GORZ citation character-exact; footer census
+machine-exact at 70; ten sibling diffs census-only; no gate that
+cannot fail; the pointers-only disclaimer audited clean.
+
+**Trajectory: 1at landed (26e99e0) → 192 1M+5m+1c (swept; the swept
+verifier 8/8) → round 193 (convergence test) next.**

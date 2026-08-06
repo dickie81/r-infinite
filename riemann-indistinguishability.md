@@ -3967,18 +3967,36 @@ pinning mechanism, the Jensen stages of ξ, and the Gaussian
 attractor; `cascade_finite_fill.py`).** *(i) The commission.*
 Pursue the mathematics whose shape the physical clues point at —
 quantum discreteness, vacuum fluctuations — toward the
-analogue-finite completion named at 1as's close: finite stages
+analogue-finite completion: finite stages
 that are each complete, with pinned pure-phase spectra,
-converging to ζ. The clues functioned as pointers only; no
+converging to ζ — the analogue-finite target, named HERE as the
+contrast with 1as(viii)'s truncation stages, which carry no
+spectrum at all (the landing pointed this concept at "1as's
+close", where it does not appear; pointer repaired round 192
+F4). The clues functioned as pointers only; no
 physical identification is made in this theorem and none of its
 content requires one (no conjecture fence needed — every claim
 below is classical mathematics, gated or cited). *(ii) The
-three finite worlds — where the pinning is theorem.* In every
-finite world carrying an analogue of RH, the analogue is PROVED,
+three finite worlds — where the pinning is theorem.* ~~In every
+finite world carrying an analogue of RH, the analogue is
+PROVED~~ [struck round 192 F1, MAJOR — a false universal never
+censused: the Ihara-zeta world carries a standard analogue
+(graph RH ⟺ Ramanujan) that FAILS for non-Ramanujan regular
+graphs, and this suite's own antiferromagnetic probe is the
+internal counterexample]: there are THREE finite worlds in which
+the analogue is a theorem, each delimited by its positivity
+hypothesis — remove the positivity and the pinning fails with it
+(the probe demonstrates exactly this) —
 and each proof is a positivity: **(W1) geometry** — function
 fields: the zeta of a curve over F_q is a polynomial and its
-Frobenius eigenvalues are pinned to |α| = √q (Hasse–Weil–
-Deligne, by intersection-form positivity); gated instance:
+Frobenius eigenvalues are pinned to |α| = √q (Hasse for the
+elliptic instance, Weil for curves — by intersection-form
+positivity; Deligne's general theorem proceeds by a different
+route, and a positivity route for general varieties is
+precisely the open standard-conjecture gap — the landing's
+"Hasse–Weil–Deligne, by intersection-form positivity" ascribed
+the mechanism to a name whose proof avoided it; attribution
+scoped round 192 F3); gated instance:
 y² = x³ + x over F₅ has 4 points, numerator 1 − 2T + 5T²,
 eigenvalues 1 ± 2i of modulus exactly √5. **(W2) quantum
 discreteness** — the finite unitary world: an N×N unitary
@@ -3991,14 +4009,23 @@ N ↔ log(t/2π)). **(W3) the vacuum world** — partition functions:
 a finite ferromagnetic partition function's zeros are pinned to
 the unit circle by the Lee–Yang circle theorem, mechanism
 coupling positivity; gated instance: the N = 10 Ising ring at
-βJ = 0.7, all ten zeros at |z| − 1 < 10⁻⁹. The triangulation:
+βJ = 0.7, all ten zeros at ||z| − 1| < 10⁻⁹ — where z = e^(2βh)
+is the fugacity of the complexified external field, the
+variable the circle theorem's hypotheses are about (the
+fugacity defined and the bound made two-sided round 192 F6).
+The triangulation:
 three unrelated worlds, three unrelated proofs, one mechanism
 TYPE — positivity (geometric, unitary, ferromagnetic) —
 independently consistent with the Weil-positivity equivalence
 and with the recognized Arakelov gap (the missing Hodge-index
 analogue at the archimedean fiber), both cited as landscape.
-*(iii) The finite fill of ξ exists.* RH is equivalent to ξ lying
-in the Laguerre–Pólya class — which is, by definition, the
+*(iii) The finite fill of ξ exists.* RH is equivalent to
+Ξ(t) = ξ(½+it) lying in the Laguerre–Pólya class (in the
+s-variable ξ is NEVER in the class — its zeros are the
+nontrivial zeros, none of them real; the rotation to the
+t-variable is the classical statement, and the landing's "ξ
+lying in the Laguerre–Pólya class" was false as printed —
+corrected round 192 F2) — the class which is, by definition, the
 closure of polynomials with only real roots: "the finite fill of
 the infinite" is the definition of the class where RH lives. The
 finite stages are the Jensen polynomials
@@ -4006,7 +4033,9 @@ J^(d,n)(X) = Σⱼ C(d,j) γ(n+j) X^j with γ(j) = j!·[z^(2j)] ξ(½+z)
 (RH ⟺ every J^(d,n) hyperbolic; Jensen–Pólya). Gated: the
 Taylor coefficients computed by Cauchy integral at 40 digits
 (γ(0) = ξ(½) = 0.4971…), and every stage d = 2…5, n = 0…10 is
-hyperbolic with all roots exactly real. The theorem behind the
+hyperbolic (gated at relative imaginary parts < 10⁻⁸; exactness
+is the cited theorem's, not the gate's — the granularity adverb
+re-homed round 192 F7). The theorem behind the
 fill is Griffin–Ono–Rolen–Zagier (2019): hyperbolicity for all
 d ≤ 8 at every n, and for EVERY d at all sufficiently large n —
 RH is theorem asymptotically at every finite degree (cited).
@@ -4014,10 +4043,13 @@ RH is theorem asymptotically at every finite degree (cited).
 the arrows are GORZ's).* GORZ's proof route: the suitably
 renormalized Jensen stages converge to the HERMITE polynomials,
 whose roots are real and simple, and hyperbolicity is inherited
-near the attractor. The Hermite family is the Gaussian's
-orthogonal family — the Fourier transform's eigenfunctions, the
-archimedean ball's own polynomials (the h₄ₖ of 1as's Theorem-2
-two-step). In the program's two-channel language: **the gamma
+near the attractor. The Hermite POLYNOMIALS are the Gaussian's
+orthogonal family; weighted by the Gaussian they become the
+Hermite FUNCTIONS — the Fourier transform's eigenfunctions,
+1as's h₄ₖ among them (the landing conflated the two families
+across its appositives; polynomials attract, functions
+self-dualize — corrected round 192 F5). In the program's
+two-channel language: **the gamma
 channel's Gaussian is the attractor of the arithmetic channel's
 finite fill** — the two channels of Theorem 1as(vii) meet
 inside a published theorem, and wherever the attraction has
