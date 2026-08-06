@@ -3572,3 +3572,30 @@ ok-chain verified unbroken); Checks 7/8 clean.
 169 1M+1m+1c → 170 1M+2m → 171 1M+1m → 172 0M+4m+2c (swept,
 a545f10) → 173 NOT CONVERGED 0M+2m+2c (swept) → round 174
 (convergence test) next.**
+
+# Round 174: convergence test on the round-173 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, applied); Theorem 1ap certified stable; the concentration-regrade arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| C1 (cosmetic) — the "and beyond" (disc < 0) half of the stops-concentrating claim carried no stated support (at disc < 0 the floor is leading-order −disc/4, not next-order) | **Applied with the convergence record per precedent; reviewer-verified 1.750003 at (0, 4), γ₀ = 12000, vs −disc/4 = 1.75; both carriers; post-application clean run 12/0** | paper, docstring |
+
+Held: the boundary floor law K(a) = 420 + c² independently
+re-derived in closed form (the 420 expressed through the lattice
+sum S₁ = 92; the constant three-site-specific, five-site
+analogue 1620) and verified at three untouched offsets
+(a = 1/6/−1, Richardson limits matching to ~1e−10); the third
+statement end-to-end under quantifier pressure; strike-frame
+verbatim integrity against git (no retro-edit); the verifier
+12/0 with every census exact and the g4 ok-chain unbroken;
+probes (e7)/(d5)/(e5) reproduced in a fresh tree; unit_ball_rh
+13/0; the footer census set-identical, script-verified; all
+sibling tellings consistent; Checks 7/8 clean.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
+169 1M+1m+1c → 170 1M+2m → 171 1M+1m → 172 0M+4m+2c → 173
+0M+2m+2c → 174 CONVERGED 0M+0m+1c. Certified: Theorem 1ap — the
+concentration regrade: the resolution wall refuted to zero, the
+contrast wall named, the width/depth/off-curve/boundary-floor
+laws derived and gated, the question slot retired with the
+stabilized third-statement classification. Next hostile round on
+the next substantive paper change.**

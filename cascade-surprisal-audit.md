@@ -14314,6 +14314,59 @@ boundary bracket decoupled (437.0 → 447.0) → g4 trips ALONE,
 1M+6m+3c → 1M+1m → 1M+1m+1c → 1M+2m → 1M+1m → 0M+4m+2c →
 0M+2m+2c. Convergence-test round 174 next.
 
+## Addendum 277: round 174 (convergence test on the round-173 sweep) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic, applied); Theorem 1ap certified STABLE; the concentration-regrade arc closes
+
+Round 174 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) returned ZERO majors and ZERO
+minors. The round over-verified the boundary floor law: an
+independent analytic re-derivation (exact expansion in
+s = γ²−γ₀²−a yielding the off-curve radicand, the a-independent
+vertex, and K = 420 + c² in closed form, with the 420 expressed
+through the lattice sum S₁ = Σ(w²−¼) = 92 — and the observation
+that the constant is three-site-specific, the five-site analogue
+being 1620, correctly inside the class scope) plus numerics at
+three offsets the lead never touched (a = 1/6/−1: Richardson
+limits equal to 420 + c² to ~1e−10 — the paper's "six digits" a
+conservative under-claim). Strike-frame verbatim integrity was
+checked against git at the object level (struck texts
+byte-identical to their live versions at the striking commits;
+no retro-edit). The full suite: verifier 12/0 with every census
+exact; probes (e7)/(d5)/(e5) reproduced in a fresh tree at
+recorded censuses; unit_ball_rh 13/0; the footer census
+set-identical (script-verified); the five-frame history, the
+third statement end-to-end, the height scoping, and all sibling
+tellings held.
+
+**C1 cosmetic (accepted; applied with this record per the
+rounds-17/21/24/27/29 precedent):** the "and beyond" (disc < 0)
+half of the stops-concentrating claim carried no stated support
+— at disc < 0 the floor is leading-order, not next-order (no
+real roots; min F·|Q| → −disc/4, an O(1) positive constant;
+reviewer-verified 1.750048/1.750003 at (0, 4), γ₀ = 3000/12000,
+vs −disc/4 = 1.75; lead-checked trivially from the quadratic).
+The clause added on both carriers (paper and docstring telling);
+post-application clean run 12/0.
+
+**CERTIFIED: Theorem 1ap — the concentration regrade.** The
+resolution wall refuted to zero (the strictly admissible
+complex-pair instance concentrates arbitrarily at height); the
+width and depth laws DERIVED and gated at both site counts; the
+off-curve deformation law DERIVED with its spectrum gated on
+both branches, at a drift rung, and at the domain boundary (the
+boundary floor law K = 420 + c²); the contrast wall named with
+its trade-off gated; stacking anti-concentration component-aware;
+the membership lemma gated; the question slot retired after
+three deaths with the classification corrected twice and
+stabilized in its third statement (fixed-offset spectrum exactly
+(0, ∞); drifting closure [0, ∞]; no distinguished positive
+finite asymptotic-product constant); the 1an W4 regrade and the
+1ao net-state markers consistent throughout the sibling chain.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
+169 1M+1m+1c → 170 1M+2m → 171 1M+1m → 172 0M+4m+2c → 173
+0M+2m+2c → 174 CONVERGED 0M+0m+1c (applied). Next hostile round
+on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

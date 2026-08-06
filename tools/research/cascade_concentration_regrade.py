@@ -32,9 +32,10 @@ to 0, gated at a drift rung; a(g0) -> inf walks it to inf), so
 "none extremal" was false; struck.  The THIRD statement, scoped:
 over FIXED offsets the spectrum is exactly the open half-line
 (0, inf) -- the law is onto over the concentrating domain
-disc > 0 (at disc <= 0 the fixed offset stops concentrating: the
-boundary floor law K = 420 + c^2, gated round 173 at two rungs
-with limit agreement), none extremal at
+disc > 0 (at disc = 0 the fixed offset stops concentrating --
+the boundary floor law K = 420 + c^2, gated round 173 at two
+rungs with limit agreement; at disc < 0 no real roots, the floor
+is leading-order -disc/4 -- round 174 C1), none extremal at
 fixed offset, the on-curve 5/2 interior; drifting offsets ADD
 only the two degenerate endpoints beyond the fixed-offset
 spectrum (they also re-attain interior values), so the attained

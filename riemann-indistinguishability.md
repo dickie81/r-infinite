@@ -3413,7 +3413,11 @@ concentrating offset domain, which is exactly
 admissible at every sufficiently large height (for c < 0 the
 single rung γ₀ = √(−c) degenerates to a boundary tangency —
 height scope added round 173), but on the boundary disc = 0 and
-beyond the instance stops concentrating — the next-order term is
+beyond the instance stops concentrating (beyond the boundary,
+disc < 0, the quadratic has no real roots and the floor is
+leading-order — F·|Q| → −disc/4 + O(γ₀⁻²), an O(1) positive
+constant, e.g. 1.750003 at (0, 4), γ₀ = 12000, vs −disc/4 = 1.75
+— round 174 C1); on the boundary itself the next-order term is
 a positive floor obeying the boundary floor law: F·|Q| → K/γ₀²
 with K = 420 + c² along the whole boundary 8c = (2n−1)² + 4a
 (the a-dependence cancels at the vertex — round 173, the
