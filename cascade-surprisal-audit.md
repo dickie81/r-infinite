@@ -14367,6 +14367,86 @@ finite asymptotic-product constant); the 1an W4 regrade and the
 0M+2m+2c → 174 CONVERGED 0M+0m+1c (applied). Next hostile round
 on the next substantive paper change.**
 
+## Addendum 278: Theorem 1aq landed — the arithmetic section: the half-shift lattice's distinguished status among Weil test-function cones; hostile round 175 next
+
+**The commission.** The owner asked "check whether the half-shift
+lattice w = d+½ has any distinguished status among Weil
+test-function cones," reviewed the assessment, and commissioned
+the landing ("land it").
+
+**The content.** Under the critical-line coordinate w = s − ½ the
+committed lattice is exactly the integer ladder s = d+1 — one
+fact seen independently on all four sides of the explicit
+formula, each an iff at the translate α = ½ among unit-spaced
+decay lattices w = d + α: A1 the prime side is ζ-integer
+evaluation (Σ Λ(n)n^(−(w+½)) = −ζ′/ζ(d+1), Euler terms
+ln p/(p^(d+1)−1) with integer denominators — already silently
+present in the bridge identity's s = d+1); A2 the pole term is
+unit fractions (2w/(w²−¼) = 1/d + 1/(d+1) exactly; integer-w
+values are consecutive-unit-fraction sums for no integer, an
+odd/even reduced-denominator obstruction); A3 the kernel poles
+sit at integer heights on the displaced curve
+((γ+i/2)² + w² = (γ−id)(γ+i(d+1)); algebraically w²−¼ = d(d+1),
+exact over the full committed range — the source of the (s, s−1)
+telescoping and the 2s−1 = 2w normalization); A4 the
+functional-equation involution s ↔ 1−s is the evenness w ↔ −w
+exactly in the half-shift coordinate (R1's cosh((β−½)t)
+symmetrization); A5 the archimedean argument ¼ + w/2 = (d+1)/2
+lands on the ψ closed-form ladder. AND the counter-theorem: the
+cone's positivity geometry is lattice-INDEPENDENT (R2's on-line
+closed form, edge ratio, and strip-boundary sign reproduced
+verbatim at the non-lattice pairs (1.7, 2.9) and (2.13, 5.41)) —
+the half-shift buys no positivity advantage. The wall reframe:
+the lattice is the maximal exactly-computable slice of the Weil
+framework — why the arc's exact rationals (9/11, 1/297, 1/243,
+the bridge's unit fractions) had to appear — and R4's wall is the
+same fact from the other side: the rational section is where
+positivity is classical bookkeeping; beyond its reach is RH.
+Honest scope: category (a); the integralities are individually
+classical background — the theorem is the identification and the
+two-sidedness; consistency texture under Check 8, not forcing; no
+RH leverage in either direction.
+
+**The instrument.** `cascade_arithmetic_section.py`, 10 gates,
+exit-gated, first clean run 10/0: g1 A2 exact rationals + the
+integer-w counter-gate (m-scan); g2 A3 exact over d ∈ [1, 217] +
+complex factorization at samples; g3 A1 with a sieved Λ-sum to
+10⁵ against mpmath −ζ′/ζ within the integral tail bound; g4 A5
+against both closed-form families at dps 30; g5 A4 + the R1
+transform-sentence anchor; g6 the genericity counter-theorem at
+two non-lattice pairs; g7 the four-predicate iff scan over
+α ∈ {½; 0, ¼, ⅓, ¾}; g8 the paper's key sentences; g9 the
+sibling chain (concentration_regrade 12/0, transitively the full
+suite); g10 the footer census (67/1i–1aq). Footer advanced
+(66 → 67, 1i–1ap → 1i–1aq, the script added to the list); the
+seven sibling census gates advanced with their docstring
+tellings, per-file with syntax checks (the wrapped-"66" variants
+in three docstrings caught and fixed in a second pass,
+disclosed).
+
+**Sabotage record (landing):** (a) the section-identification
+needle mangled → g8 ALONE, 9/1 (the first attempt aborted safely
+at a wrong count guess — the lead asserted 2 where the needle
+appears once; the abort guard held, tree clean at 10/0,
+disclosed); (b) the pole-term identity decoupled → g1 ALONE,
+9/1; (c) the genericity closed form decoupled → g6 ALONE, 9/1;
+clean baselines 10/0 around every entry.
+
+**Infrastructure disclosure.** At the start of this landing the
+working tree was found reverted to the round-166 state (HEAD
+46b78b2, the 1ap arc absent — the container had been reclaimed
+between turns and re-provisioned from a stale clone). The remote
+branch held the full certified history (cbb24de confirmed by
+fetch); repaired by `git reset --hard
+origin/claude/cascade-series-review-1axe9q` on a clean tree
+before any landing edit. No committed content was lost; the two
+independent verification runs made on the stale tree (the D1–D5
+integralities and the R2 genericity check) used no repo
+instruments and are unaffected.
+
+**Post-landing:** verifier 10/0; hostile round 175 (fresh
+context, session model, per protocol) next on this landing.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -3455,6 +3455,80 @@ on-line zero contributes ≥ 0 in any window). Check 7 clean
 (rational-function geometry on the committed lattice; no
 semiclassics); Check 8 clean (no hypothesis input).
 
+**Theorem 1aq (the arithmetic section: the half-shift lattice's
+distinguished status among Weil test-function cones;
+`cascade_arithmetic_section.py`).** *(i) The commission.* The owner
+commissioned: check whether the half-shift lattice w = d+½ has any
+distinguished status among Weil test-function cones. Result: yes on
+the arithmetic side, no on the positivity side — the committed
+lattice is the unique arithmetic-rational section of a
+positivity-generic cone family, and the two-sidedness locates the
+R4 wall. The decomposition w = ½ + d reads: under the critical-line
+coordinate w = s − ½, the lattice is exactly the integer ladder
+s = d+1 ∈ {2, 3, 4, …} — one fact, seen independently on all four
+sides of the explicit formula. *(ii) The five integralities.* Each
+holds iff at α = ½: writing a unit-spaced decay lattice as
+w = d + α, each of the following is true for α = ½ and false for
+every other translate mod 1 (the iff scan gated at
+α ∈ {0, ¼, ⅓, ¾}). **A1 (the prime side is ζ-integer
+evaluation):** the Weil pairing of e^(−w|x|) is
+Σ Λ(n) n^(−(w+½)) = −ζ′/ζ(w+½); on the lattice the argument is the
+integer d+1 and every Euler term is ln p/(p^(d+1) − 1) with an
+integer denominator (gated at d = 1, 2, 3 against −ζ′/ζ with the
+prime tail bracketed); other translates leave irrational powers
+p^(d+α+½). The committed bridge identity carries this silently —
+R4(b)'s own "Σ Λ(n)n^(−s) with s = d+1". **A2 (the pole term is
+unit fractions):** 2w/(w²−¼) = 1/d + 1/(d+1) exactly (gated in
+exact rationals at d = 1..6; the integer-w lattice gives
+16/15-type values that are sums of two consecutive unit fractions
+for NO integer, counter-gated) — already present, unremarked, in
+the bridge's Z(s) = p(d) + 1/(d+1) + 1/d − Σ Λ(n)n^(−s). **A3
+(the kernel poles sit at integer heights on the displaced
+curve):** (γ + i/2)² + w² = (γ − id)(γ + i(d+1)) — the 1ak
+displacement factors each lattice kernel with poles at heights d
+and −(d+1), integers iff w ∈ ℤ+½ (gated by exact rational
+coefficient identity w² − ¼ = d(d+1) over the full committed range
+d ∈ [1, 217]); this is the source of the consecutive-pair
+(s, s−1) telescoping behind 1an's width → 1 and the membership
+lemma's 2s − 1 = 2w normalization. **A4 (the functional-equation
+involution is evenness):** s ↔ 1−s acts as w ↔ −w exactly in the
+half-shift coordinate — R1's cosh((β−½)t) symmetrization is this
+evenness (gated: K_s(β+iγ) = K_s(1−β+iγ) at samples, with R1's
+transform sentence anchored). **A5 (the archimedean side lands on
+the ψ closed-form ladder):** the Γ-term's argument ¼ + w/2 equals
+(d+1)/2 exactly on the lattice — integers and half-integers, where
+ψ closes in γ_E, ln 2, and harmonic numbers (gated at d = 1..6
+against both closed-form families); ¼ + w/2 ∈ ½ℤ iff α = ½ mod 1.
+*(iii) The genericity counter-theorem: the positivity side is
+lattice-independent.* R2's cone geometry holds verbatim at generic
+weights — the on-line closed form L(γ) =
+2γ²(w₂²−w₁²)/(w₂(w₁²+γ²)(w₂²+γ²)), the edge ratio −w₁/w₂, and the
+strip-boundary sign F(0) < 0 — reproduced at the non-lattice pairs
+(1.7, 2.9) and (2.13, 5.41) to machine precision (gated). The
+half-shift buys NO positivity advantage: the ¼ in F(0)'s
+denominators is the strip boundary's (β ∈ {0, 1}), fixed by ζ, not
+by the lattice. *(iv) The wall reframe.* The lattice is thereby
+the maximal exactly-computable slice of the Weil framework: on the
+arithmetic section every committed quantity evaluates
+unconditionally in closed form — which is why the arc's exact
+rationals (9/11, 1/297, 1/243, the bridge's unit fractions) had to
+appear — and R4's wall statement is the same fact seen from the
+other side: the rational section is exactly where positivity is
+classical bookkeeping, and extending beyond its reach to the dense
+class IS RH (R4(vi), unchanged in either direction). The
+distinguished status and the wall's location are one fact. *Honest
+scope:* category (a) — classical explicit-formula bookkeeping,
+exact arithmetic, and ψ/Γ special values; no data, no closures, no
+new physics. The five integralities are individually classical
+background — the theorem is the identification (the committed
+lattice IS that unique section, iff at α = ½) and the
+two-sidedness (arithmetically distinguished, positivity-generic);
+the ½-critical/integer-dimension decomposition is consistency
+texture under Check 8, not forcing; no RH leverage is claimed in
+either direction. Check 7 clean (explicit-formula bookkeeping,
+rational arithmetic, ψ/Γ special values; no semiclassics); Check 8
+clean (no hypothesis input).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -3989,4 +4063,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1ap: the **66 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1aq: the **67 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

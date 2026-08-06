@@ -199,8 +199,8 @@ g19-g20):
        round 147, listed round 148 F4); the per-zero probe; the
        wall-stands sentence; R2''s monotonicity; the
        no-role-of-the-action;
-       g18 the footer census (the script backticked; "66
-       scripts cited in place"; "Theorems 1i--1ap" -- the census
+       g18 the footer census (the script backticked; "67
+       scripts cited in place"; "Theorems 1i--1aq" -- the census
        advances with each landing; the gate carries the live
        values).
 
@@ -672,8 +672,8 @@ gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
 # (64 -> 65; range -> 1ao) -- the census-evolution class,
 # disclosed each time.
 ok = "`cascade_weil_route_traveled.py`" in paper
-ok &= "66 scripts cited in place" in paper
-ok &= "Theorems 1i–1ap" in paper
+ok &= "67 scripts cited in place" in paper
+ok &= "Theorems 1i–1aq" in paper
 gate("g18 the footer census (advanced at the 1ak-1ao landings, "
      "disclosed): this script backticked; 66 cited in "
      "place; the range 1i–1ap (1ap advance disclosed)", ok)

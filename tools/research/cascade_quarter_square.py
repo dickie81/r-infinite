@@ -92,7 +92,7 @@ Gates (twelve):
        self-satisfying-gate lesson; g11 1ak's key sentences
        anchored as swept round 151 (the two-plane pole image;
        the up-to-half prefactor); g12 the footer census (the script
-       backticked; "66 scripts cited in place"; "Theorems
+       backticked; "67 scripts cited in place"; "Theorems
        1i–1ap" -- the census advances with each landing; the
        gate carries the live values).
 
@@ -327,8 +327,8 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = "`cascade_quarter_square.py`" in paper
-ok &= "66 scripts cited in place" in paper
-ok &= "Theorems 1i–1ap" in paper
+ok &= "67 scripts cited in place" in paper
+ok &= "Theorems 1i–1aq" in paper
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
      "disclosed): this script backticked; 66 cited in place; the "
      "range 1i–1ap (label re-synced round 167 F6)", ok)
