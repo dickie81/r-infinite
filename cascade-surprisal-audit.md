@@ -14981,6 +14981,41 @@ census on resume and re-applied per-edit, clean run 10/0.
 
 **Post-sweep:** verifier 10/0. Convergence-test round 184 next.
 
+## Addendum 289: round 184 (convergence test on the round-183 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 2 cosmetics; the g7 dead-disjunct slack closed; swept
+
+Round 184 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) verified all three round-183
+repairs exactly right (including the Glaisher–Kinkelin
+mathematics: −ζ′/ζ(2) = γ + ln 2π − 12 ln A, no
+irrationality/transcendence result known — "classically open"
+correct), verified V5's census conjunct-by-conjunct against
+g8's 17 code conjuncts (complete both directions), ran the
+seventh-pass hunt, and reproduced the suite. Findings, all
+verified directly by the lead (Check 3):
+
+**F184-1 minor (accepted; swept):** g7's conditionality check
+was an or-chain with two never-live branches (0 matches at all
+five commits since the landing), one being EXACTLY the struck
+P0-only phrasing — a regression to the struck form at the very
+sentence the gate polices would have passed the whole suite
+10/0. The dead branches dropped; the live needle plus the
+post-regrade P1-and-P2 extension are now separate conjuncts;
+the V4 census synced with the miss disclosed.
+
+**F184-2 cosmetic (applied):** the "four links" census
+equivocated links-as-steps (L1–L4) with links-as-warrants;
+disambiguated ("the chain's four WARRANTS — what the steps rest
+on, not the step-labels — …; the meaning layer L4 decorates the
+result and warrants nothing").
+
+**F184-3 cosmetic (applied):** the front-matter quote's
+terminal colon had been silently swapped for a period;
+truncation now marked ("[:]" with the note that the colon
+introduces C1, which the chain never uses — Check-8-favorable
+truncation, now disclosed).
+
+**Post-sweep:** verifier 10/0. Convergence-test round 185 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

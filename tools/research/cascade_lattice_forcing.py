@@ -79,9 +79,12 @@ VERIFICATION (10 gates, exit-gated).
        V-entry synced round 182 F2).
   V4 -- g7 P0 and the conditionality: the front-matter
        zero-free-parameter sentence anchored; the theorem's
-       explicit-premise statement and its conditionality clause
-       anchored; the L2 census-scope clause anchored (a census,
-       not a theorem about all possible structure).
+       explicit-premise statement anchored; the conditionality
+       clause anchored as the LIVE needle plus the post-regrade
+       P1-and-P2 extension (the landing's two never-live or-chain
+       branches -- one the struck P0-only phrasing -- dropped
+       round 184 F1); the three-premise and no-exclusivity
+       clauses anchored.
   V5 -- g8 1ar's key sentences anchored by content (the
        hard-road commission; the two-class collapse; the
        4/4-vs-0/4 dichotomy; the FOUR round-180 strike-frame
@@ -258,9 +261,12 @@ gate("g6 the role-assignment anchors: the displaced-curve half-shift "
 print("V4 -- P0 and the conditionality")
 ok = "one hypothesis and zero free parameters" in paper
 ok &= "P0 is that discipline stated as a premise" in paper
-ok &= ("every conclusion below is conditional on P0" in paper
-       or "conditional on P0, and says so" in paper
-       or "every conclusion below is conditional on it" in paper)
+ok &= ("every conclusion below is conditional on it" in paper)
+ok &= "and, post-regrade, on P1 and P2 equally" in paper
+# round 184 F1: the landing's or-chain carried two never-live
+# branches, one being exactly the struck P0-only phrasing -- a
+# regression to the struck form would have passed; dropped, and
+# the post-regrade extension is now its own conjunct.
 ok &= "conditional on ALL THREE premises P0, P1, and P2" in paper
 ok &= "no exclusivity is claimed" in paper
 gate("g7 P0 and the conditionality: the front-matter zero-parameter "

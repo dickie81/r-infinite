@@ -3592,12 +3592,16 @@ from premises that never mention integer points. The chain has
 four links; ~~each is a framework-forced fact, the paper's own
 declared discipline, or a certified theorem~~ [struck round 181
 F3c — post-regrade the links carrying P1 (an ansatz) and P2 (a
-preference) are none of the three named kinds]: the links are a
-declared discipline (P0), a declared ansatz (P1), a declared
-preference (P2), and a certified theorem (1aq). *(ii) P0, the
+preference) are none of the three named kinds]: the chain's four
+WARRANTS — what the steps rest on, not the step-labels L1–L4 —
+are a declared discipline (P0), a declared ansatz (P1), a
+declared preference (P2), and a certified theorem (1aq); the
+meaning layer L4 decorates the result and warrants nothing
+(the links/warrants reading fixed round 184 F2). *(ii) P0, the
 constitutive premise, made explicit.* The paper's front matter
 declares: *"This paper meets that standard with one hypothesis
-and zero free parameters."* P0 is that discipline stated as a
+and zero free parameters[:]"* (the source's colon introduces C1,
+which this chain never uses — truncation marked round 184 F3). P0 is that discipline stated as a
 premise: no underived constant may enter the foundations — every
 number must be produced by committed structure. P0 is
 constitutive (the program's founding rule, in force since the

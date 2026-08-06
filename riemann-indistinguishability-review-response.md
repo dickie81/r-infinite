@@ -3793,3 +3793,23 @@ A288).
 **Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade) →
 181 3M+1m+1c → 182 1M+1m+1c → 183 NOT CONVERGED 0M+1m+2c
 (swept) → round 184 (convergence test) next.**
+
+# Round 184: convergence test on the round-183 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 1 minor + 2 cosmetics; the g7 dead-disjunct slack closed; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F184-1 (minor) — g7's or-chain carried two never-live branches, one exactly the struck P0-only phrasing: a regression to the struck form would have passed 10/0 | **Accepted; dead branches dropped, the live needle + the post-regrade P1-and-P2 extension now separate conjuncts; V4 synced with the miss disclosed** | verifier g7, V-block |
+| F184-2 (cosmetic) — the "four links" census equivocated steps with warrants | **Applied; "the chain's four WARRANTS … not the step-labels L1–L4"; L4 decorates, warrants nothing** | paper |
+| F184-3 (cosmetic) — the front-matter quote's colon silently swapped for a period | **Applied; truncation marked with the C1 note** | paper |
+
+Held: all round-183 repairs verified exactly right (the
+Glaisher–Kinkelin mathematics confirmed); V5's census complete
+against g8's 17 conjuncts both directions; the two-class lemma,
+the discriminant algebra, the strike frames, and the quantifier
+census all re-held; probes (f)/(b) reproduced at recorded
+censuses; the footer 68 with set-identity; unit_ball_rh 13/0;
+Checks 7/8 clean.
+
+**Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade) →
+181 3M+1m+1c → 182 1M+1m+1c → 183 0M+1m+2c → 184 NOT CONVERGED
+0M+1m+2c (swept) → round 185 (convergence test) next.**
