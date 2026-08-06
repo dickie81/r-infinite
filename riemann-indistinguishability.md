@@ -3482,8 +3482,10 @@ every other translate mod 1 (the iff scan gated at
 translates — for A2, solving 2w/(w²−¼) = (2m+1)/(m(m+1)) has
 discriminant 4m²(m+1)² + (2m+1)² = (2m²+2m+1)², a perfect
 square, forcing w = m+½ or the negative root −1/(2(2m+1)) —
-which lies in (−⅙, 0), off every decay lattice (w ≥ 3/2) —
-lead-verified and gated); A4 is the α-free coordinate fact that
+which lies in [−⅙, 0) — the endpoint attained at m = 1 — off
+every decay lattice (every translate point has w = d + α ≥ 1 > 0;
+the round-176 clause's open interval and 3/2 floor both corrected
+round 177 F2) — lead-verified and gated); A4 is the α-free coordinate fact that
 defines the coordinate up to scale — the evenness pins the center
 ½; the unit scale is the integralities' — the frame in which the
 other four become integralities. **A1 (the prime side is ζ-integer
@@ -3539,7 +3541,13 @@ rationals where the structure is rational (the edge ratios, pole
 terms, and band widths), at integer ζ-arguments where it is
 arithmetic (the prime side), and in ψ closed forms where it is
 archimedean (A5's ladder — the third leg added round 176 F3, the
-two-case split having read as exhaustive). That is why the arc's exact rationals
+two-case split having read as exhaustive), and as algebraic roots
+of exact-rational polynomials where it is a crossing (the
+strip-boundary heights γ_b: the observer pair's 0.4806 is
+√((−103+√10993)/8), the positive root of
+40u³ + 2030u² + 25510u − 6000 — exact-rational coefficients
+BECAUSE the lattice is — the fourth leg added round 177 F1, the
+three-leg list having again read as exhaustive). That is why the arc's exact rationals
 (9/11, 1/297, 1/243, the bridge's unit fractions) had to
 appear — and R4's wall statement is the same fact seen from the
 other side: the rational section is exactly where positivity is

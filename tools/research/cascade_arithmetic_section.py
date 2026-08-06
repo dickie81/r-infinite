@@ -42,10 +42,28 @@ the weil_route label above; F3 -- the wall reframe's two-case
 evaluation split read as exhaustive while the archimedean leg
 (psi closed forms, A5's ladder) is neither exact-rational nor a
 zeta-argument -- the third leg added; cosmetics: the negative
-root's off-lattice exclusion stated ((-1/6, 0) vs w >= 3/2), the
+root's off-lattice exclusion stated ([-1/6, 0) vs w >= 1 -- the
+round-176 open interval and 3/2 floor corrected round 177 F2), the
 irrational-powers clause scoped to rational translates, and
 "DEFINES w = s-1/2" weakened to defines-up-to-scale (the evenness
 pins the center; the unit scale is the integralities').
+ROUND-177 SWEEP (the convergence test; 0 majors + 3 minors + 3
+cosmetics, all verified by the lead and swept): F1 -- the
+three-leg split was STILL not exhaustive (the strip-boundary
+crossing heights gamma_b are algebraic irrationals -- the
+observer pair's 0.4806 is the root of an exact-rational cubic,
+lead-verified -- fitting no leg); the fourth leg added and gated;
+F2 -- the round-176 exclusion clause's two numbers were both
+false (the root equals -1/6 EXACTLY at m = 1, so the interval is
+[-1/6, 0); the translate floor is w >= 1, not 3/2 -- the
+committed lattice's own floor misattributed to every translate);
+corrected on both carriers; F3 -- this docstring's WALL REFRAME
+paragraph still carried the two-leg split its own sweep note said
+was replaced (the class's tenth recurrence), synced; cosmetics:
+the honest-scope coordinate-fact mention, the g8/V5 needle-census
+enumerations, and g9's ambiguous "the two Weil-arc siblings"
+(three Weil-titled siblings exist; the chained pair is now named,
+with 1ai's verifier noted as chained by no suite script).
   A1 (prime side): the Weil pairing of e^(-w|x|) is
       sum Lambda(n) n^(-(w+1/2)) = -zeta'/zeta(w+1/2); on the
       lattice the argument is the INTEGER d+1 and every Euler term
@@ -76,13 +94,17 @@ pins the center; the unit scale is the integralities').
       weights (1.7, 2.9) and (2.13, 5.41).  The half-shift buys no
       positivity advantage; the 1/4 in F(0) is the strip
       boundary's, fixed by zeta, not by the lattice.
-  THE WALL REFRAME (re-scoped round 175 F3).  The lattice is the
-      exactly-structured slice of the Weil framework -- unique
-      among unit-spaced translates, gated -- on which every
-      committed quantity evaluates unconditionally: in exact
-      rationals where the structure is rational, and at integer
-      zeta-arguments where it is not (the prime side; no
-      closed form is claimed) -- why the arc's exact rationals
+  THE WALL REFRAME (re-scoped round 175 F3; legs completed
+      rounds 176-177).  The lattice is the exactly-structured
+      slice of the Weil framework -- unique among unit-spaced
+      translates, gated -- on which every committed quantity
+      evaluates unconditionally: in exact rationals where the
+      structure is rational; at integer zeta-arguments where it
+      is arithmetic (the prime side; no closed form is claimed);
+      in psi closed forms where it is archimedean (A5's ladder,
+      round 176 F3); and as algebraic roots of exact-rational
+      polynomials where it is a crossing (the gamma_b heights,
+      round 177 F1) -- why the arc's exact rationals
       (9/11, 1/297, 1/243, the bridge's unit fractions) had to
       appear -- and R4's wall is the same fact from the other side:
       the rational section is where positivity is classical
@@ -90,8 +112,8 @@ pins the center; the unit scale is the integralities').
 
 HONEST SCOPE.  Category (a) -- classical explicit-formula
 bookkeeping, exact arithmetic, psi/Gamma special values; no data,
-no closures, no new physics.  The integralities are individually
-classical background; the theorem is the IDENTIFICATION (the
+no closures, no new physics.  The four integralities and the
+coordinate fact are individually classical background; the theorem is the IDENTIFICATION (the
 committed lattice is that unique section, iff at alpha = 1/2) and
 the two-sidedness.  The 1/2-critical/integer-dimension
 decomposition is consistency texture under Check 8, not forcing;
@@ -131,9 +153,10 @@ VERIFICATION (10 gates, exit-gated).
   V5 -- g8 1aq's key sentences anchored by content (the unique
        arithmetic-rational section; NO positivity advantage; the
        two round-175 strike frames; the scoped four-iff sentence
-       + the coordinate fact; the exactly-structured slice; one
-       fact/four sides; the Check 8 texture clause; no RH
-       leverage); g9 the sibling chain green
+       + the coordinate fact; the exactly-structured slice WITH
+       the third and fourth evaluation legs (psi closed forms;
+       algebraic roots -- rounds 176-177); one fact/four sides;
+       the Check 8 texture clause; no RH leverage); g9 the sibling chain green
        (cascade_concentration_regrade.py 12/0, transitively
        chaining the Weil-arc sibling chain -- the "full suite"
        label corrected round 175 F5); g10 the footer census (this
@@ -161,8 +184,12 @@ clean baselines 10/0 around both, serial fresh tree, per-mangle
 restore, gate identity in the first pass.  At the round-176
 sweep: (f) the third-leg needle mangled in the paper copy
 ("archimedean" -> "arithmetic", whitespace-aware) -> g8 trips
-ALONE, 9/1, exit 1; clean baselines 10/0 around it.  Ten gates
-(count checked against the gate() census pre-commit).
+ALONE, 9/1, exit 1; clean baselines 10/0 around it.  At the
+round-177 sweep: (g) the fourth-leg needle mangled in the paper
+copy ("exact-rational polynomials" -> "exact-integer
+polynomials", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1;
+clean baselines 10/0 around it.  Ten gates (count checked
+against the gate() census pre-commit).
 """
 import os
 import subprocess
@@ -350,6 +377,7 @@ ok &= "each of A1, A2, A3, and A5 below is true for α = ½" in paper
 ok &= "the coordinate fact, not a translate iff" in paper
 ok &= "the exactly-structured slice of the Weil framework" in paper
 ok &= "in ψ closed forms where it is archimedean" in paper
+ok &= "as algebraic roots of exact-rational polynomials" in paper
 ok &= "unique among unit-spaced translates, gated" in paper
 ok &= "one fact, seen independently on all four sides of the explicit formula" in paper
 ok &= "consistency texture under Check 8, not forcing" in paper
@@ -358,7 +386,8 @@ ok &= paper.count("Theorem 1aq") >= 1
 gate("g8 1aq's key sentences anchored by content (the section "
      "identification; no positivity advantage; the two round-175 "
      "strike frames; the scoped four-iff sentence + the coordinate "
-     "fact; the exactly-structured slice; one fact/four sides; the "
+     "fact; the exactly-structured slice with the third and fourth "
+     "evaluation legs (rounds 176-177); one fact/four sides; the "
      "Check 8 texture clause; no RH leverage)", ok)
 
 r = subprocess.run(
@@ -367,10 +396,11 @@ r = subprocess.run(
     capture_output=True, text=True, timeout=3600)
 ok = r.returncode == 0 and "12 pass / 0 fail" in r.stdout
 gate("g9 the sibling chain green (cascade_concentration_regrade.py "
-     "12/0, transitively chaining the Weil-arc sibling chain: "
-     "unit_ball_rh, windows_overlap, riemann_selection, "
-     "type_counting, and the two Weil-arc siblings -- the label's "
-     "'full committed suite' corrected round 175 F5)", ok)
+     "12/0, transitively chaining: unit_ball_rh, windows_overlap, "
+     "riemann_selection, type_counting, quarter_square, and "
+     "weil_route_traveled -- the chained pair named round 177 F6; "
+     "1ai's weil_positivity_status is chained by no suite script; "
+     "the 'full committed suite' label corrected round 175 F5)", ok)
 
 ok = paper.count("`cascade_arithmetic_section.py`") >= 2
 ok &= "67 scripts cited in place" in paper

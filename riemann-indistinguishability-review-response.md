@@ -3642,3 +3642,22 @@ Checks 7/8 clean.
 **Trajectory: 1aq landed (25028d8) → 175 1M+3m+1c (swept,
 0c47edf) → 176 NOT CONVERGED 0M+3m+3c (swept) → round 177
 (convergence test) next.**
+
+# Round 177: convergence test on the round-176 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 3 minors + 3 cosmetics; the fourth evaluation leg; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F177-1 (minor) — the three-leg split still not exhaustive: the crossing heights γ_b are algebraic irrationals (the observer pair's 0.4806 = √((−103+√10993)/8), root of an exact-rational cubic) fitting no leg | **Accepted; lead-recomputed exactly (cubic, root, non-square discriminant, match to the committed 0.4806); the fourth leg added (algebraic roots of exact-rational polynomials — exact-rational BECAUSE the lattice is) with a g8 needle; probe (g) certified 9/1** | paper, verifier g8 |
+| F177-2 (minor) — the round-176 exclusion clause's two numbers both false: the root is −⅙ EXACTLY at m = 1 (interval [−⅙, 0), not open), and the translate floor is w ≥ 1, not 3/2 | **Accepted; both corrected on both carriers with the correction noted; the conclusion itself never in doubt** | paper, docstring |
+| F177-3 (minor) — the docstring's WALL REFRAME paragraph still two-leg, contradicting the file's own sweep note (the stale-carrier class's tenth recurrence) | **Accepted; synced to four legs** | verifier docstring |
+| Cosmetics 4–6 — honest-scope coordinate-fact mention; g8/V5 needle-census enumerations; g9's "the two Weil-arc siblings" ambiguous (three Weil-titled siblings exist) | **Applied; the chained pair named, 1ai's verifier noted as chained by no suite script** | verifier |
+
+Held: the verifier 10/0 at census; probes (f)/(b) reproduced;
+both strike frames verbatim against the landing; the discriminant
+algebra at m = 1..50; the A2 parity theorem; the footer 67 with
+computed set-identity; the seven sibling labels clean;
+unit_ball_rh 13/0; defines-up-to-scale exact; Checks 7/8 clean.
+
+**Trajectory: 1aq landed (25028d8) → 175 1M+3m+1c → 176 0M+3m+3c
+(swept, fe9fd01) → 177 NOT CONVERGED 0M+3m+3c (swept) → round 178
+(convergence test) next.**

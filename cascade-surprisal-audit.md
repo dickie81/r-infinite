@@ -14560,6 +14560,58 @@ the unit scale is the integralities').
 **Post-sweep:** verifier 10/0; probe (f) certified.
 Convergence-test round 177 next.
 
+## Addendum 281: round 177 (convergence test on the round-176 sweep) — NOT CONVERGED: 0 MAJORs + 3 minors + 3 cosmetics; the fourth evaluation leg; the round-176 clause's own numbers corrected; swept
+
+Round 177 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) reproduced every gate and probe
+at recorded censuses, verified both strike frames verbatim
+against the landing commit, recounted the footer (67,
+set-identity computed), and confirmed the defines-up-to-scale
+decomposition exact (b = −a/2 forced; scale free). Findings, all
+verified directly by the lead (Check 3):
+
+**F177-1 minor (accepted; swept):** the three-leg evaluation
+split was STILL not exhaustive — the strip-boundary crossing
+heights γ_b (committed: 0.4806 at the observer pair; sup 0.49999
+at (216, 217)) are algebraic irrationals fitting no leg. The
+lead recomputed the observer pair's crossing exactly: the cubic
+40u³ + 2030u² + 25510u − 6000 (exact-rational coefficients
+BECAUSE the lattice is rational-structured) with positive root
+u = (−103+√10993)/8, γ_b = 0.4805606…, matching the committed
+0.4806, and 10993 is not a perfect square. The fourth leg added
+(algebraic roots of exact-rational polynomials) with a g8
+needle; probe (g) certified (g8 ALONE, 9/1, clean baselines).
+The round-176 F3 defect class one leg further out — the leg
+list's exhaustiveness now rests on the four-way split by the
+quantity's TYPE (rational structure / arithmetic / archimedean /
+crossing).
+
+**F177-2 minor (accepted; swept):** the round-176 exclusion
+clause's own two numbers were both false: at m = 1 the negative
+root is −⅙ EXACTLY (the open interval (−⅙, 0) excluded its
+attained endpoint — corrected to [−⅙, 0)), and "every decay
+lattice (w ≥ 3/2)" misattributed the committed lattice's floor
+to every translate (the translate floor is w = d + α ≥ 1; g7's
+own scan instantiates w = 1 at (d, α) = (1, 0)). Both corrected
+on both carriers; the exclusion conclusion itself was never in
+doubt (every lattice point ≥ 1 > 0 > root).
+
+**F177-3 minor (accepted; swept):** the verifier docstring's
+WALL REFRAME paragraph still carried the two-leg split its own
+sweep note recorded as replaced — the stale-carrier class's
+TENTH recurrence, this time a self-contradiction within one
+file. Synced to the four-leg version.
+
+**Cosmetics (applied):** the docstring honest-scope now names
+the coordinate fact; the g8 label and V5 listing enumerate the
+third and fourth leg needles; g9's ambiguous "the two Weil-arc
+siblings" replaced by the named chained pair (quarter_square,
+weil_route_traveled) with 1ai's weil_positivity_status noted as
+chained by no suite script.
+
+**Post-sweep:** verifier 10/0; probe (g) certified.
+Convergence-test round 178 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
