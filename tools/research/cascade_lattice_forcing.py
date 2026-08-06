@@ -89,7 +89,8 @@ VERIFICATION (10 gates, exit-gated).
        "The forcing chain does NOT close from P0 alone";
        "integrality is derived GIVEN P1 AND P2" + "the selection
        is the preference"; the algebraic-character theorem; the
-       remark's no-forcing clause; Check 8's C1-free clause --
+       remark's no-forcing clause; Check 8's C1-free clause; the
+       Theorem-1ar presence count --
        this V-entry had presented the round-180-struck
        "Integrality is DERIVED, not adopted" as a live anchor
        and claimed anchors g8 does not perform; synced round 182
@@ -286,7 +287,8 @@ ok &= "C1 appears nowhere in the chain" in paper
 ok &= paper.count("Theorem 1ar") >= 1
 gate("g8 1ar's key sentences anchored by content (the hard-road "
      "commission; the two-class collapse; the dichotomy decision; "
-     "integrality derived; the algebraic-character theorem; the "
+     "integrality derived GIVEN P1 AND P2; the algebraic-character "
+     "theorem; the "
      "remark's no-forcing clause; the C1-free clause)", ok)
 
 r = subprocess.run(

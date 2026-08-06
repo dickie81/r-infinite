@@ -14943,6 +14943,44 @@ records.
 **Post-sweep:** verifier 10/0 (docstring-only edits, ast-checked
 per edit). Convergence-test round 183 next.
 
+## Addendum 288: round 183 (convergence test on the round-182 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 2 cosmetics; the transcendence over-claim corrected; swept
+
+Round 183 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) verified the round-182 V-block
+sync entry-by-entry against the gate code (all five V-entries now
+exact), ran the sixth-pass residual hunt clean (no struck-claim
+carrier or forcing language on any surface outside frames),
+re-held the three-premise census and every strike frame's
+factual charge, and reproduced the suite. Findings, all verified
+directly by the lead (Check 3):
+
+**F183-1 minor (accepted; swept):** the round-180 F2 frame's
+rebuttal called the arithmetic class's prime side "a
+non-closed-form transcendental by 1aq's F3 strike" — a status
+over-claim twice over: transcendence (even irrationality) of
+ζ′(2)-type values is classically open (ζ′(2) reduces to the
+Glaisher–Kinkelin constant), and the cited strike says "no
+closed form" only. Corrected to "a non-closed-form constant"
+with the correction noted in place; the load-bearing parallelism
+(the dichotomy is a distinction, not a P0-exclusion) is
+unaffected.
+
+**F183-2 cosmetic (applied):** g8's print label compressed the
+conditional needle to the unconditional headline ("integrality
+derived"); expanded to "integrality derived GIVEN P1 AND P2".
+
+**F183-3 cosmetic (applied):** V5's conjunct census omitted the
+Theorem-1ar presence count g8 performs (the under-claim
+direction); added.
+
+**Infrastructure disclosure:** the container restarted mid-sweep,
+killing the background task carrying the fixes. Unlike the
+Addendum-284 incident, HEAD was intact (9578055); the paper edit
+had flushed, the two verifier edits had not — caught by grep
+census on resume and re-applied per-edit, clean run 10/0.
+
+**Post-sweep:** verifier 10/0. Convergence-test round 184 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -3653,7 +3653,9 @@ weights; ψ closes at quarter-integers by Gauss's digamma
 theorem; and every critical-class entry is the same committed
 formula at derived points — derived in exactly P0's sense, while
 the arithmetic class's own prime side is a non-closed-form
-transcendental by 1aq's F3 strike. The gated fact is the
+constant by 1aq's F3 strike (which claims no closed form only —
+transcendence of ζ′(2)-type values is classically open;
+"transcendental" corrected round 183 F1). The gated fact is the
 committed-integrality dichotomy, a DISTINCTION, not a
 P0-exclusion; converting it to an exclusion smuggled the
 conclusion]. **P2 (declared premise):** the foundation prefers
