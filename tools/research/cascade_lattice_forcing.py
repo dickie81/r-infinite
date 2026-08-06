@@ -145,6 +145,12 @@ bites; clean baselines 10/0 around it.  At the round-186 sweep:
 needle re-inserted downstream of the 1ar block) -> g7 trips
 ALONE, 9/1, exit 1 -- the position-blind residual the reviewer
 probed at 10/0 now bites via the position conjunct; clean
+baselines 10/0 around it.  At the round-187 sweep: (k) the JOINT
+relocation (the contiguous source+C1 block cut-pasted
+downstream) -> g7 trips ALONE, 9/1, exit 1 -- the single-anchor
+residual the reviewer probed at 10/0 now bites via the skeleton
+chain; the single-region threat-model boundary is DECLARED (no
+gate claimed against wholesale skeleton reconstruction); clean
 baselines 10/0 around it.  Ten gates (count checked against the
 gate() census pre-commit).
 """

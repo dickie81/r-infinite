@@ -15078,6 +15078,52 @@ aligned to the V5 census's honest "backticked ≥ 2".
 **Post-sweep:** verifier 10/0; probe (j) certified.
 Convergence-test round 187 next.
 
+## Addendum 292: round 187 (convergence test on the round-186 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 3 cosmetics; the anchor regress terminated by a skeleton chain and a declared threat-model boundary; swept
+
+Round 187 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) answered the brief's exact
+question — could the needle and the C1 anchor relocate TOGETHER?
+— with a live demonstration: the two are contiguous, and one
+cut-paste of the block passed 10/0 (the same slack class, one
+anchor deeper). It also re-held everything else: the shadow
+census (all 22 anchors single-occurrence at their true sources),
+the dead-OR/entailed re-hunt (clean; g7's 0 <= leg held as a
+live sentinel), the mathematics, the 1aq touchpoints, and the
+suite. Findings, verified directly by the lead (Check 3):
+
+**F187-1 minor (accepted; swept):** the position conjunct's
+anchor was itself relocatable. Swept with the terminating move:
+the position gate is now a SKELETON CHAIN (needle < C1 <
+Definition 2.1 < Theorem 1ar — each escalation must drag more of
+the paper's skeleton), and the threat-model boundary is DECLARED
+in code and docstring: the gates police single-region mangles
+(the sabotage record's own class); wholesale skeleton
+reconstruction is outside the model and no gate is claimed
+against it — the census-not-theorem move applied to the
+instrument, ending the anchor regress by honest scoping rather
+than unbounded chase. Probe (k) certified (the reviewer's exact
+joint relocation now trips g7 ALONE, 9/1, clean baselines).
+
+**F187-2/3/4 cosmetics (applied):** the stale ">= 2" narration
+synced to the == 2 pin; g4's print gains the
+entailed-stated-not-gated note for the pole pair; the sabotage
+lettering gap explained in place ((g)/(h) never used; no entries
+deleted) and the docstring paste artifact re-wrapped.
+
+**Instrument disclosure:** the round's record commit itself
+suffered the crashed-before-write class in PARTIAL-COMMIT form —
+the record script died at a wrongly-guessed pattern (the (j)
+entry's wrapping), the shell continued, and commit 948cf5d
+pushed with the round table but WITHOUT this addendum and the
+sabotage (k) entry. Caught on the commit output's failed assert;
+both applied in the immediate follow-up commit. The standing
+per-edit rule gains its corollary: record scripts and their
+commit must not share a shell chain whose later links run on the
+earlier links' failure.
+
+**Post-sweep:** verifier 10/0; probe (k) certified.
+Convergence-test round 188 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
