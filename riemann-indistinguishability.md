@@ -3733,16 +3733,27 @@ equivalence, and the insufficiency certificate;
 infinite unit ball strictly from the other side — from the
 primes and their outer product, out of the information
 structures. *(ii) The loop (all arrows classical; the
-identification is the content).* The free monoid on the primes
-under the outer product is ℤ (unique factorization). At each
+identification is the content).* The free commutative monoid on
+the primes — their outer product — is the multiplicative monoid
+of positive integers, by unique factorization (the landing's
+"free monoid … is ℤ" misstated both terms; corrected round 189
+F4). At each
 finite place its closure is ℤ_p — the p-adic unit ball, whose
 indicator is Fourier-self-dual and whose |·|-pairing achieves
 the Euler factor: the shell identity
 Z_p(1_{ℤ_p}, s)·(1−p^(−s)) = 1−1/p holds exactly (gated, p = 2,
-3), so ζ is the outer product of unit-ball self-pairings. The
+3; the gate's additive-measure normalization carries the unit
+factor 1−1/p — under Theorem 1e's units-normalized measure the
+factor is (1−p^(−s))^(−1) itself; round-189 normalization
+note), so ζ is the outer product of unit-ball self-pairings. The
 archimedean place has no compact subring — the unit-ball slot at
-∞ is empty — and adelic self-duality fixes its occupant to
-g = e^(−πx²) (Theorem 2). Concentration manufactures exactly
+∞ is empty — and Theorem 2 fixes its occupant in two steps:
+Tate's gcd condition on even Schwartz vectors forces the
+rescaled-Gaussian family, then self-duality fixes the
+normalization to g = e^(−πx²) (the landing's "self-duality
+fixes" over-credited the second step alone — the self-dual
+even Hermite functions h₄ₖ populate the +1 eigenspace;
+corrected round 189 F3). Concentration manufactures exactly
 that occupant: the exact sphere-marginal density
 f_d(x) = c_d(1−x²/d)^((d−3)/2) converges to the Gaussian in
 sup-norm at rate O(1/d) (gated at d = 10/100/1000) —
@@ -3753,14 +3764,25 @@ unit ball is the archimedean analogue of ℤ_p — the object
 playing the unit-ball role in the committed vector — "the
 program's Gaussian is the archimedean component of *the*
 standard adelic self-dual vector Φ = e^(−πx²)·Π 1_{ℤ_p}"
-(§2's A1 dynamics block) — available only in the d → ∞ limit.
-*(iii) The selection lever (the sharpest new claim).* Among the
-ℓ^p unit balls, ONLY the round one concentrates to a limit the
-adelic vector can accept: the ℓ^p sphere marginals converge to
-densities ∝ e^(−|x|^p/p) (Schechtman–Zinn), and a scale scan
-finds no Fourier-self-dual member of the p = 1 or p = 4 families
-(gated minima > 0.05) while the p = 2 family contains e^(−πx²)
-(self-dual to machine precision; the width-2 Gaussian is not).
+(§3's Theorem 1e, the A1 dynamics block; the landing's "§2"
+address corrected round 189 F2) — available only in the d → ∞
+limit. *(iii) The selection lever (the sharpest new claim).*
+Among the ℓ^p unit balls, only the round one concentrates to a
+limit the adelic vector can accept — and the exclusion is a
+classical two-obstruction argument, not a scan result (at the
+landing the universal rested on a two-point scan alone; the
+obstruction argument was supplied and gated round 189 F1): the
+ℓ^p sphere marginals converge to densities ∝ e^(−|x|^p/p)
+(Schechtman–Zinn); for p < 2 the limit's cusp at 0 forces its
+Fourier transform to decay only polynomially (~|ξ|^(−(1+p)) —
+at p = 1 exactly the Lorentzian, gated), which no scaling
+matches to stretched-exponential decay; for p > 2 the transform
+attains negative values against a positive function (gated at
+p = 4: min ≈ −0.19); either obstruction kills self-duality at
+every scale, and p = 2 alone escapes both. The scan is the
+gated illustration (minima > 0.05 at p = 1, 4 across the scale
+window; e^(−πx²) self-dual to machine precision; the width-2
+Gaussian excluded).
 Roundness is selected by the primes' self-duality requirement —
 Euclidean geometry as the arithmetic's unique admissible
 concentration limit. *(iv) The gap and the pure-phase
@@ -3770,7 +3792,9 @@ von Mangoldt's explicit formula, gated at x = 1000.5 with 200
 zero pairs (ψ = 996.681 against the zero-corrected prediction,
 truncation-level agreement; gap −3.819 vs zero-term −4.452,
 inside the √x = 31.6 envelope). **The equivalence (von Koch
-1901, both directions):** all zeros on the line ⟺
+1901 for the forward direction; the converse classical, proved
+inline — the landing's "both directions" attribution scoped
+round 189 F8):** all zeros on the line ⟺
 ψ(x) − x = O(x^(½+ε)) for every ε — "the gap is pure phase."
 (⇒ via the truncated explicit formula at T = √x; ⇐ via the
 Mellin representation of −ζ′/ζ: the O(x^(½+ε)) bound makes
@@ -3809,8 +3833,9 @@ f = 1 + κ/2^s − κ/3^s − 1/4^s + ⋯ (period 5,
 geometry — Λ(s) = (5/π)^((s+1)/2)Γ((s+1)/2)f(s) satisfies
 Λ(s) = Λ(1−s) (gated to 10^(−28)) with the same congruence locus
 — yet carries zeros OFF the line at 0.808517… + 85.699348…i and
-0.650830… + 114.163343…i (both gated to 10^(−25), FE partners
-included). The differentiator is the Euler product alone. The
+0.650830… + 114.163342…i (both gated to 10^(−25), FE partners
+included; the ordinate's sixth decimal was rounded rather than
+truncated at the landing — corrected round 189 F9). The differentiator is the Euler product alone. The
 informational anatomy, gated: ζ's log-spectrum Λ(n) is supported
 exactly on prime powers with positive weights (support and sign
 censuses to n = 20) — multiplicativity as an information
@@ -3844,7 +3869,10 @@ explicit formula. The cascade reads Γ_ℝ along the REAL AXIS
 (level sets of p at d = 7, 19, 217 → the 10^(−120) floor); RH
 lives on the same factor's CRITICAL-LINE slice (the unimodular
 locus). The CC is a pure gamma-channel quantity — no prime
-enters I₀ — which is the structural explanation of the
+enters part0's invariant I₀ = Ω₁₉ × Ω₂₁₇ ≈ 1.2051×10⁻¹²⁰, a
+product of two sphere areas, pure Γ values (the symbol is
+part0's; defined here per the self-containment header, round
+189 F6) — which is the structural explanation of the
 program's success asymmetry: the flagship closure lives on the
 channel mathematics fully controls, and the insufficiency
 certificate proves that channel cannot reach the other. *(viii)
@@ -3855,9 +3883,14 @@ condenses as primes accrue: line-profile correlation with
 log|ζ| climbs 0.70 → 0.83 → 0.92 → 0.94 at y = 3/10/100/1000
 (gated), with proto-dips at the true zero heights already at
 y = 3 (two primes); at y = 20000 the correlation FALLS to 0.79
-(gated) — the critical line is the edge of the primes'
-convergence domain, so the truncations sharpen the skeleton but
-never converge on it. The spectrum's skeleton is fixed from the
+(gated) — the line sits at the edge of the primes' convergence
+domain only under RH (the edge is the abscissa
+Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH; the landing's
+unconditional "the line is the edge" was RH-equivalent — scoped
+round 189 F5), and the truncations sharpen the skeleton but
+never converge on it (unconditional: on-line zeros exist by
+Hardy, and finite Euler products cannot vanish). The spectrum's
+skeleton is fixed from the
 first primes; accrual grows resolution, not resonances. *(ix)
 Declared conjectures.* **THE FOLLOWING ARE DECLARED CONJECTURES,
 NOT RESULTS** — physical identifications recorded at the owner's
@@ -3883,8 +3916,12 @@ parameter-free rate). **C-c (the container reading):** the
 gamma channel's static Λ fixes the vessel; the N² ledger is at
 20% fill, saturating at N_sat = √S_dS = 2.24×N_now (≈ 31 Gyr),
 with a finite arithmetic terminus p_max ≈ 2.6×10⁶³ (gated
-arithmetic). Consequence, independent of the model's truth as
-physics: a capped container never completes the limit —
+arithmetic). Consequence — where only the bare implication
+(finite container ⇒ limit never completed) is
+model-independent, and the reading stays C-c-conditional like
+everything in this fence (the landing's "independent of the
+model's truth" rode wider than the implication; scope tightened
+round 189 F7): under C-c,
 physics realizes the statistical theorem; only the completed
 mathematics holds the perfect one. **C-d (the open anchor):**
 "something between the gamma and the arithmetic" — the unique

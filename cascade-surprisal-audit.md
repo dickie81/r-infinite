@@ -15229,7 +15229,9 @@ coincidence, the declared tensions (epoch, preferred frame, Check 8
 on observer anchoring, no observable), and the container consequence
 stated (a capped vessel never completes the limit — physics realizes
 the statistical theorem; only the completed mathematics holds the
-perfect one). Footer advanced 68 → 69 scripts, range 1i–1ar → 1i–1as,
+perfect one; scope tightened round 189 F7 — the landing's
+"independent of the model's truth" rode wider than the bare
+implication). Footer advanced 68 → 69 scripts, range 1i–1ar → 1i–1as,
 `cascade_primes_side_ball.py` added.
 
 **The census sweep.** Nine sibling carriers advanced (68 → 69,
@@ -15283,6 +15285,82 @@ character L-functions, theta, concentration); the conjecture block's
 physics language quarantined inside the fence. Check 8: no hypothesis
 input in (ii)–(viii); (ix) fenced as observer-referencing consistency
 readings only. Next: hostile round 189 on this landing.
+
+## Addendum 295: round 189 (hostile review of the 1as landing) — NOT CONVERGED: 1 MAJOR + 6 minors + 3 cosmetics, all accepted and swept; every computation held
+
+**The round.** Fresh-context subagent, session model, brief per
+protocol (commit 09342e4; object surfaces only; record files out of
+scope; named attack vectors including the ℓ^p headline quantifier and
+the zero-free universal). The reviewer ran the verifier itself
+(15/15), re-ran two siblings (both exit 0), reproduced sabotage probe
+(e) in its own scratch tree at the recorded census (g14 AND g15 fall,
+13/15 stand — the chain propagation confirmed), independently
+recomputed the D–H roots, κ-recovery (28 digits from either root's
+ratio alone), the explicit-formula values, the Turing count
+(γ₂₉ = 98.83 < 100 < γ₃₀ = 101.32), the condensation correlations,
+the congruence values, the log-spectrum censuses, and the full
+conjecture arithmetic — all block numbers confirmed exact. It also
+verified the footer census by independent count (70 backticked
+body citations minus the declared audited-not-counted
+`cascade_greens_function.py` = 69) and held the attacked universal
+"Every proven zero-free result consumes exactly the positivity ζ has
+and f lacks" with the argument that the non-positivity ingredients
+are equally available to f.
+
+**Findings, all verified directly by the lead before acceptance
+(Check 3), all accepted, all swept in-place with round-189
+annotations:**
+
+- **F1 (MAJOR, the selection lever):** the headline "ONLY the round
+  one" quantified over p ∈ [1, ∞] on the evidence of a 25-point
+  scale scan at p ∈ {1, 4} — the block's self-labeled sharpest new
+  claim resting a universal on two samples. Lead verification: the
+  underlying universal IS classical (p < 2: cusp ⇒ polynomial FT
+  decay — at p = 1 exactly the Lorentzian, verified 3.4×10⁻⁶;
+  p > 2: the transform attains negative values — verified min
+  −0.187 at p = 4); the defect was the warrant, not the claim.
+  Sweep: the two-obstruction argument stated in the block with the
+  scan demoted to gated illustration; g2 extended with both
+  obstruction witnesses (FT(e^(−x⁴)) min < −0.1; Lorentzian match
+  < 10⁻⁴).
+- **F2 (minor):** the Φ quote's address "§2's A1 dynamics block" was
+  wrong — the sentence lives at lines 224–225 inside §3's Theorem 1e
+  (verified by section map and grep). Corrected in place.
+- **F3 (minor):** "adelic self-duality fixes its occupant" over-
+  credited self-duality alone; Theorem 2's actual text (verified,
+  lines 4034–4040) is gcd-condition-then-self-duality, and the +1
+  Fourier eigenspace is infinite-dimensional (h₄ₖ). Corrected to the
+  two-step statement.
+- **F4 (minor):** "the free monoid on the primes … is ℤ" misstated
+  both terms — free COMMUTATIVE monoid, and the positive integers,
+  not ℤ. Corrected.
+- **F5 (minor):** "the critical line is the edge of the primes'
+  convergence domain" asserted an RH-equivalent unconditionally
+  (edge = Θ = sup Re ρ; Θ = ½ ⟺ RH). Scoped: Θ-formulation with the
+  unconditional remainder (Hardy + finite-product nonvanishing)
+  separated.
+- **F6 (minor):** I₀ used as its sole occurrence in the document,
+  never defined — self-containment breach against the header's
+  commitment. Defined inline (part0's invariant, Ω₁₉ × Ω₂₁₇, pure Γ
+  values).
+- **F7 (minor):** fence leakage — the C-c consequence's "independent
+  of the model's truth" marker covered only the bare implication but
+  carried the physics reading with it. Scope tightened: implication
+  model-independent, reading C-c-conditional; the A294 summary
+  sentence annotated to match.
+- **F8 (cosmetic):** von Koch 1901 attribution scoped to the forward
+  direction (the converse is classical, proved inline).
+- **F9 (cosmetic):** the second D–H ordinate was rounded (…343…)
+  where truncation requires …342… — lead-verified against the
+  30-digit recomputation; corrected.
+- **F10 (cosmetic):** the shell-identity-to-Euler-product inference
+  crossed normalizations silently (additive measure with the 1−1/p
+  unit factor vs Theorem 1e's units-normalized (1−p^(−s))^(−1));
+  the normalization note added.
+
+**Sweep verification.** All ten repairs in place; g13 extended with
+seven repair-pinning needles; the swept verifier re-run: 15/15.
+Convergence test (round 190) next.
 
 ## Caveats
 

@@ -3899,3 +3899,32 @@ and the classical meaning layer — with the failed forcing claims
 struck and preserved, and the instrument's slack-ladder
 terminated by a declared threat-model boundary. Next hostile
 round on the next substantive paper change.**
+
+# Round 189: hostile review of the Theorem 1as landing (subagent, per protocol) — 1 MAJOR + 6 minors + 3 cosmetics, all accepted and swept; every computation held
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 MAJOR: "ONLY the round one" quantified over all p on a two-point scan | Accepted — lead verified the classical two-obstruction argument (p<2 cusp/Lorentzian; p>2 negativity, min −0.187 at p=4) | Obstruction argument stated in-block, scan demoted to illustration; g2 gains both witnesses |
+| F2 minor: Φ quote addressed to "§2" (lives in §3's Theorem 1e, lines 224–225) | Accepted — verified by section map | Address corrected in place |
+| F3 minor: "self-duality fixes its occupant" over-credits (Theorem 2 is gcd-then-self-duality; h₄ₖ eigenspace) | Accepted — Theorem 2 re-read | Two-step statement |
+| F4 minor: "free monoid on the primes is ℤ" (commutative; positive integers) | Accepted | Corrected |
+| F5 minor: "line = edge of convergence domain" unconditional ⟺ RH | Accepted — Θ = sup Re ρ | Θ-scoped; unconditional remainder separated |
+| F6 minor: I₀ sole-occurrence, undefined (self-containment) | Accepted — grep count 1 | Defined inline |
+| F7 minor: fence leakage on the C-c consequence's independence marker | Accepted | Implication/reading scopes split; A294 summary annotated |
+| F8 cosmetic: von Koch "both directions" | Accepted | Scoped to ⇒ |
+| F9 cosmetic: ordinate rounded not truncated (…343… → …342…) | Accepted — 30-digit recomputation | Corrected |
+| F10 cosmetic: shell-identity normalization crossed silently | Accepted | Normalization note added |
+
+Checked and held by the reviewer (with lead spot-verification): the
+verifier 15/15 run by the reviewer itself; two sibling re-runs exit 0;
+sabotage (e) reproduced at the recorded census incl. the chain
+propagation; the footer census independently counted to 69; all three
+verbatim quotes character-exact (one address wrong — F2); the D–H
+roots, κ-recovery to 28 digits, explicit-formula values, Turing count,
+condensation correlations, log-spectrum censuses, congruence values,
+and conjecture arithmetic all independently recomputed and exact; the
+zero-free-positivity universal attacked and held; the fence audit
+clean; Checks 7/8 clean.
+
+**Trajectory: 1as landed (09342e4) → 189 1M+6m+3c (all swept; the
+swept verifier 15/15) → round 190 (convergence test) next.**

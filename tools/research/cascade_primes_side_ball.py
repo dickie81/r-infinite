@@ -10,7 +10,12 @@ Gates (all exit-gated; any failure exits 1):
   g2  the l^p selection lever: e^(-pi x^2) Fourier-self-dual to 1e-10
       (normalized shapes); scale-scanned p = 1 and p = 4 families have
       self-duality deviation minima > 0.05; the width-2 Gaussian is not
-      self-dual (deviation > 0.1).
+      self-dual (deviation > 0.1); PLUS the round-189 obstruction
+      witnesses upgrading the scan to the classical argument: the
+      p = 4 transform attains negative values (min < -0.1) against a
+      positive function, and the p = 1 transform IS the Lorentzian
+      2/(1+4 pi^2 xi^2) to 1e-4 (polynomial decay -- no scaling
+      matches stretched-exponential).
   g3  theta functional equation theta(1/t) = sqrt(t) theta(t) to 25 digits.
   g4  the p-adic unit-ball shell identity: Z_p(1_{Z_p}, s) (1 - p^(-s))
       = 1 - 1/p exactly (p = 2, 3 at s = 2.3) -- the Euler factor as the
@@ -117,9 +122,21 @@ def scan_min(p):
         best = min(best, selfdual_dev(lambda x: np.exp(-a*np.abs(x)**p)))
     return best
 m1, m4 = scan_min(1), scan_min(4)
-print(f"  g2 devs: e^(-pi x^2) {dev2:.2e}; width-2 {devw:.2e}; min p=1 {m1:.3f}; min p=4 {m4:.3f}")
-gate("g2 l^p selection: only the round ball's limit is Fourier-self-dual",
-     dev2 < 1e-10 and devw > 0.1 and m1 > 0.05 and m4 > 0.05)
+# round-189 obstruction witnesses (F1): negativity at p = 4; Lorentzian at p = 1
+XW = np.linspace(-14, 14, 8193)
+g4v = np.exp(-XW**4)
+F4min = min(float(np.trapezoid(g4v*np.exp(-2j*np.pi*x*XW), XW).real)
+            for x in np.linspace(0, 3, 300))
+g1v = np.exp(-np.abs(XW))
+xiw = np.linspace(0, 5, 200)
+F1dev = max(abs(float(np.trapezoid(g1v*np.exp(-2j*np.pi*x*XW), XW).real)
+                - 2/(1 + 4*math.pi**2*x**2)) for x in xiw)
+print(f"  g2 devs: e^(-pi x^2) {dev2:.2e}; width-2 {devw:.2e}; min p=1 {m1:.3f}; "
+      f"min p=4 {m4:.3f}; FT(e^-x^4) min {F4min:.3f}; Lorentzian dev {F1dev:.1e}")
+gate("g2 l^p selection: only the round ball's limit is Fourier-self-dual "
+     "(scan + round-189 obstruction witnesses)",
+     dev2 < 1e-10 and devw > 0.1 and m1 > 0.05 and m4 > 0.05
+     and F4min < -0.1 and F1dev < 1e-4)
 
 # ---------------------------------------------------------------- g3
 def theta_fn(t):
@@ -311,6 +328,14 @@ needles = [
     "0.808517",
     "0.650830",
     "physics realizes the statistical theorem; only the completed",
+    # round-189 repair needles
+    "either obstruction kills self-duality at",
+    "Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH",
+    "114.163342…i",
+    "§3's Theorem 1e, the A1 dynamics block",
+    "Theorem 2 fixes its occupant in two steps:",
+    "The free commutative monoid on",
+    "enters part0's invariant I₀ = Ω₁₉ × Ω₂₁₇ ≈ 1.2051×10⁻¹²⁰",
 ]
 ok = all(nd in paper for nd in needles)
 for nd in needles:
