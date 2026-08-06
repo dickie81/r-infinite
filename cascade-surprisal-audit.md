@@ -15124,6 +15124,55 @@ earlier links' failure.
 **Post-sweep:** verifier 10/0; probe (k) certified.
 Convergence-test round 188 next.
 
+## Addendum 293: round 188 (convergence test on the round-187 sweep) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1ar certified STABLE; the hard-road arc closes
+
+Round 188 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) returned ZERO findings at any
+grade. Held with evidence: the skeleton chain verified against
+the paper's actual character positions (including the nuance that
+the third link anchors Definition 2.1's operative phrase rather
+than its literal label — the correct choice, since the label's
+first occurrence is an upstream net-state mention that would have
+broken the chain — noted and held); the threat-model boundary
+honest and consistent at all three sites, with "single-region
+mangles" correctly scoped to the sabotage record's own
+demonstrated class; probes (k) and (f) reproduced at recorded
+censuses with gate identity in a fresh tree; the partial-commit
+incident's final state verified against both commits; all four
+round-187 cosmetics holding; every gate's mathematics re-derived;
+all 1aq touchpoints verified in source; the four strike frames at
+their positions; the three-premise census and quantifier
+discipline held; quote fidelity to the front matter exact; the
+footer census 68; unit_ball_rh 13/0; Checks 7/8 clean.
+
+**CERTIFIED: Theorem 1ar — the lattice selection anatomized.**
+The final statement, hostile-tested through nine rounds: the
+half-shift lattice is NOT forced from the paper's discipline
+alone — the round-180 regrade struck that claim, and the record
+preserves the refutation — but Definition 2.1's "integer points"
+decomposes into exactly three identifiable premises, none silent:
+P0 (the declared zero-free-parameter discipline), P1 (the
+declared ansatz: unit spacing + FE-involution closure), and P2
+(the declared preference: exact integrality structure). GIVEN P1
+the translate continuum collapses to the two-class binary
+(critical/half-density vs arithmetic/algebraic — the two-class
+lemma, exact); GIVEN P1 AND P2 the arithmetic class survives
+(1aq's certified 4/4-vs-0/4 dichotomy as the selector), and the
+classical meaning layer names both branches (the
+algebraic-character lattice Hom(𝔾_m, 𝔾_m) = ℤ; the half-density
+class) with the role assignment: rungs on the algebraic class,
+the reading coordinate centered at the half-density point. The
+owner's instinct is the arc's spine: the axiom route was rejected
+as circular, the first forcing claim died under hostile review,
+and what stands is the honest anatomy — with the instrument
+hardened through a five-class slack-ladder (dead OR-branches,
+quote shadows, position-blindness, anchor regress) terminated by
+a declared threat-model boundary. Trajectory: 1ar landed
+(5625ea8) → 180 3M+2m (the regrade) → 181 3M+1m+1c → 182
+1M+1m+1c → 183 0M+1m+2c → 184 0M+1m+2c → 185 0M+1m+1c → 186
+0M+1m+1c → 187 0M+1m+3c → 188 CONVERGED 0M+0m+0c. Next hostile
+round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
