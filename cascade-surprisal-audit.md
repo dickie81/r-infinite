@@ -15403,6 +15403,56 @@ set unchanged and all needles verified present (the Θ needle
 survives in the rebuilt sentence); swept verifier re-run: 15/15.
 Convergence test (round 191) next.
 
+## Addendum 297: round 191 (convergence test on the round-190 sweep) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic applied with the record); Theorem 1as certified STABLE
+
+**The round.** Fresh-context subagent on commit 54d0532. Zero majors,
+zero minors. The single cosmetic: the verifier docstring and g10
+label still said "the divergence edge" — a stale echo of the
+pre-repair framing (divergence has no edge in y; the y = 20000 fall
+is where the pole term swamps the profile) — applied with this
+record (docstring and label rephrased; ast-checked; verifier re-run
+15/15). Held with evidence: the script untouched by the sweep and
+15/15 in the reviewer's own run; the prime-series abscissa argument
+exact (σ_c = σ_a for nonnegative coefficients; Euler at σ = 1); the
+pole-term claim verified numerically at s = ½+10i across
+y = 10⁴–10⁶ with the k = 2 prime-power subtlety closed (the k = 1
+pole term dominates everywhere in the strip); the limsup = Θ claim
+exact in both directions (truncated explicit formula at T = x;
+Landau–Phragmén oscillation) with no ε overclaim; the Mertens-series
+abscissa = Θ derivation held (Borel–Carathéodory + Perron); the
+annotation quotes character-exact against the landing; passage (b)'s
+C¹/unbounded-second-derivative claims verified numerically at
+p = 1.5 and the corner at p = 1 confirmed; all 14 g13 needles
+present, the Θ needle exactly once; the footer census machine-
+censused to 69 with empty set-difference; sweep completeness greps
+clean ("cusp" and "primes' convergence domain" survive only inside
+quoted annotations).
+
+**CERTIFIED: Theorem 1as — the ball from the primes: roundness
+selected by self-duality, the two-channel ledger, the pure-phase
+equivalence, and the insufficiency certificate; with the
+declared-conjecture fence C-a–C-d.** The final statement,
+hostile-tested through three rounds: the infinite unit ball is the
+archimedean analogue of ℤ_p — the unit-ball slot of the committed
+adelic self-dual vector, filled by concentration (shape) and
+arithmetic self-duality (scale), with Euclidean roundness selected
+by a classical two-obstruction argument now stated and gated; the
+zeros are exactly the gap between the two channels (the pure-phase
+equivalence, both directions, with the fragment ledger F1–F5); the
+congruence frame is the stage and provably cannot decide RH (the
+Davenport–Heilbronn certificate, with the superposition anatomy and
+the log-spectrum positivity ledger); the CC identity places the
+program's flagship closure on the gamma channel the certificate
+proves blind to the arithmetic; condensation is a resolution flow
+with a timeless skeleton and an unconditionally divergent raw
+truncation whose Θ-edge belongs to the pole-compensated ledger; and
+the physical identifications live behind a declared-conjecture
+fence, never citable as results. Trajectory: 1as landed (09342e4) →
+189 1M+6m+3c (the selection lever's warrant upgraded from scan to
+obstruction theorem; nine prose repairs) → 190 0M+1m+2c (the Θ-edge
+re-attached to the compensated series) → 191 CONVERGED 0M+0m+1c.
+Next hostile round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

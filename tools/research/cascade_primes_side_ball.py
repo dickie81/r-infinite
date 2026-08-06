@@ -43,8 +43,10 @@ Gates (all exit-gated; any failure exits 1):
   g10 evolution as condensation: correlation of the truncated Euler
       product's line profile with log|zeta| climbs 0.70/0.83/0.92/0.94 at
       y = 3/10/100/1000 (strictly increasing) and FALLS to 0.79 at
-      y = 20000 (the divergence edge); y = 100 dips within 0.15 of the
-      first three zeros.
+      y = 20000 (the pole-term fall -- the raw products diverge at every
+      strip point, so there is no edge in y; the fall is where the pole
+      term swamps the profile; phrasing corrected round 191); y = 100
+      dips within 0.15 of the first three zeros.
   g11 the CC identity: numeric (log Gamma_R)'(d+1) equals part0's
       p(d) = -ln(pi)/2 + psi((d+1)/2)/2 to 1e-15 for d = 1..10; source
       needles in part0.tex and this paper's Section 2 primitive line.
@@ -288,7 +290,7 @@ mins = [ts[i] for i in range(1, len(ts)-1)
 mins = sorted(mins, key=lambda t0: prof100[list(ts).index(t0)])[:3]
 ok &= all(min(abs(m - z0) for m in mins) < 0.15 for z0 in (14.1347, 21.0220, 25.0109))
 print(f"  g10 corrs: {[round(corrs[y],4) for y in (3,10,100,1000,20000)]}")
-gate("g10 condensation: corr ladder rises then falls at the divergence edge; dips on zeros", ok)
+gate("g10 condensation: corr ladder rises then falls at the pole-term fall; dips on zeros", ok)
 
 # ---------------------------------------------------------------- g11
 mp.dps = 25

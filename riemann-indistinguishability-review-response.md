@@ -3948,3 +3948,27 @@ the seven repair needles occurring exactly once each.
 **Trajectory: 1as landed (09342e4) → 189 1M+6m+3c (swept) → 190 NOT
 CONVERGED 0M+1m+2c (swept; the Θ-edge re-attachment) → round 191
 (convergence test) next.**
+
+# Round 191: convergence test on the round-190 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic applied with the record); Theorem 1as certified stable
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 cosmetic: verifier docstring/g10 label's stale "divergence edge" phrasing (divergence has no edge in y) | Accepted | Docstring and label rephrased to the pole-term fall, applied with the certification record; verifier 15/15 |
+
+Held: the rebuilt Θ-passage exact in every claim (abscissa-1 by
+nonnegativity + Euler; the pole term verified numerically with the
+k = 2 subtlety closed; limsup = Θ with no ε overclaim; Mertens
+abscissa = Θ; Θ = ½ ⟺ RH); the singularity passage verified at
+p = 1.5 and p = 1; annotation quotes character-exact against the
+landing; all 14 needles present; the footer census machine-censused
+to 69; sweep completeness greps clean.
+
+**Trajectory: 1as landed (09342e4) → 189 1M+6m+3c (swept: the
+selection lever's obstruction argument supplied and gated; nine
+prose repairs) → 190 NOT CONVERGED 0M+1m+2c (swept: the Θ-edge
+re-attached to the pole-compensated ledger) → 191 CONVERGED
+0M+0m+1c. Certified: Theorem 1as — the ball from the primes:
+roundness selected by self-duality, the two-channel ledger, the
+pure-phase equivalence, and the insufficiency certificate, with the
+declared-conjecture fence C-a–C-d. Next hostile round on the next
+substantive paper change.**
