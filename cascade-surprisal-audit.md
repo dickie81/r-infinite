@@ -15431,7 +15431,9 @@ quoted annotations).
 **CERTIFIED: Theorem 1as — the ball from the primes: roundness
 selected by self-duality, the two-channel ledger, the pure-phase
 equivalence, and the insufficiency certificate; with the
-declared-conjecture fence C-a–C-d.** The final statement,
+declared-conjecture fence C-a–C-d.** *(A298 note: the A297-era
+census values 69/1i–1as cited in this addendum were the live values
+at certification; the 1at landing advanced them to 70/1i–1at.)* The final statement,
 hostile-tested through three rounds: the infinite unit ball is the
 archimedean analogue of ℤ_p — the unit-ball slot of the committed
 adelic self-dual vector, filled by concentration (shape) and
@@ -15452,6 +15454,79 @@ fence, never citable as results. Trajectory: 1as landed (09342e4) →
 obstruction theorem; nine prose repairs) → 190 0M+1m+2c (the Θ-edge
 re-attached to the compensated series) → 191 CONVERGED 0M+0m+1c.
 Next hostile round on the next substantive paper change.
+
+## Addendum 298: the Theorem 1at landing — the three worlds and the finite fill: one common pinning mechanism, the Jensen stages of ξ, and the Gaussian attractor
+
+**The commission trail.** After the 1as certification the owner ran
+two interpretive steps, each delivered as an assessment with
+verification: (1) "perhaps the conjecture is the shape of what is
+missing that would prove RH — the finite fill of the infinite — the
+unification of the CC & its arithmetic inverse" — assessed with the
+function-field keystone verified (y² = x³ + x over F₅: eigenvalues
+1 ± 2i, modulus exactly √5; pure phase as theorem in the finite
+world) and the mapping made exact onto the Weil–Deligne transport
+problem and the Arakelov archimedean-positivity gap, with the honest
+hinge named (truncation-finite ≠ analogue-finite); (2) "maths is
+discovered — the universe's ruleset — the clues are there, vacuum
+fluctuations, the quantum discreetness — pursue the mathematics" —
+the pursuit delivered the three-worlds triangulation (GUE spacings
+KS 0.071 vs Poisson 0.352 for the first 201 zeros; the Lee–Yang
+circle exact at N = 10; the function-field world), the Jensen finite
+fill of ξ (every stage d ≤ 5, n ≤ 10 hyperbolic with exactly real
+roots; GORZ 2019 cited for d ≤ 8 all n and every d eventually), and
+the attractor identification (the Hermite/Gaussian family — the
+archimedean ball's own polynomials — as the limit shape of the
+arithmetic's finite stages), with the residual named as uniformity
+of the Gaussian attraction. The owner then gave the word.
+
+**The landing.** Theorem 1at inserted after the 1as block: (i) the
+commission with the clues-as-pointers-only disclaimer (no physical
+identification anywhere; no conjecture fence needed); (ii) the three
+finite worlds W1/W2/W3 with their pinning mechanisms (geometric,
+unitary, ferromagnetic positivity) and the triangulation statement,
+Weil-positivity and Arakelov cited as landscape; (iii) the finite
+fill (Laguerre–Pólya as the closure of real-rooted polynomials —
+"the finite fill of the infinite" as the definition of RH's home
+class; Jensen stages gated; GORZ cited); (iv) the attractor
+identification, flagged novel-as-identification with the arrows
+GORZ's; (v) the uniformity residual as the statistical/perfect gap's
+cleanest incarnation. Footer advanced 69 → 70 scripts, range
+1i–1as → 1i–1at, `cascade_finite_fill.py` added.
+
+**The census sweep.** TEN sibling carriers advanced (69 → 70,
+1as → 1at; wrapped variants included) in one regex pass with
+per-file ast.parse: the nine prior carriers plus
+`cascade_primes_side_ball.py` (4–6 lines each); residual grep CLEAN.
+All ten then run: 10/10 exit 0.
+
+**The verifier.** `cascade_finite_fill.py`, 8 exit-gated gates (g1
+the Hasse instance with eigenvalues pinned to √q; g2 the GUE/Poisson
+KS pair; g3 the Lee–Yang circle; g4 the Cauchy-integral Taylor
+coefficients and Jensen hyperbolicity d = 2–5, n = 0–10; g5 the
+attractor trend ratios 2.1715/1.9009/1.7596 pinned ± 0.01 and
+strictly decreasing; g6 the 1at needles; g7 the chain to
+`cascade_primes_side_ball.py`; g8 the footer census 70/1i–1at).
+First clean run 8/8.
+
+**The sabotage suite** (fresh tar tree, serial, single mangle per
+probe, per-probe restore verified by cmp; baselines B1/B2 both 8/8,
+restore integrity OK; all censuses OBSERVED): (a) title needle →
+g6 alone; (b) Jensen stage-builder index shift → CRASH fail-closed
+(IndexError in the g4 stage loop, exit 1 via traceback) — the
+prospective record had predicted a g5 pin-failure with g4 surviving;
+the observed behavior is stricter and the docstring was amended to
+observed per the marking rule; (c) the Lee–Yang coupling flipped
+antiferromagnetic → g3 alone (the positivity IS the pinning,
+demonstrated by its removal); (d) footer 70 → 69 → g8 AND g7 (census
+propagation through the chain, the 1as suite's probe-(e) class);
+(e) chain target renamed → g7 alone.
+
+**Check compliance.** Check 7: finite-field point counts,
+random-matrix statistics as classical spectral statistics,
+transfer-matrix partition functions, Taylor/Cauchy analysis — no
+semiclassical procedure as a route to any cascade quantity. Check 8:
+no hypothesis input; the physical clues contributed direction, not
+premises. Next: hostile round 192 on this landing.
 
 ## Caveats
 
