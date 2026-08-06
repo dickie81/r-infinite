@@ -14663,6 +14663,45 @@ next write).
 **Post-sweep:** verifier 10/0; probe (h) certified.
 Convergence-test round 179 next.
 
+## Addendum 283: round 179 (convergence test on the round-178 sweep) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1aq certified STABLE; the arithmetic-section arc closes
+
+Round 179 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) returned ZERO findings at any
+grade. Held with evidence: the census declaration honest and
+stable on all four carriers (with the grep for residual
+exhaustiveness wording hitting only strike frames and history
+notes); the unconditional-evaluation basis verified per quantity
+class (W(h*) via the bridge's RH-free identity; γ_b counter-gated
+over all 22,791 pairs; the exact rationals; p(d) in closed form;
+the prime side numerically with no closed form claimed); the
+−½ln π arithmetic exact to 30 digits with the −1/11 coefficient
+verified in Fractions; the quartic/cubic apposition exact on both
+carriers (minimal polynomial recomputed, irreducible); all four
+integrality identities and R2's closed forms re-derived by hand;
+every cited support verbatim at source; both strike frames
+accurate; no eleventh stale-carrier recurrence; Check 8 clean
+sentence-by-sentence; the verifier 10/0 with the g9 chain label
+verified against the actual subprocess code; probes (h)/(b)
+reproduced at recorded censuses in a fresh tree; all seven
+sibling labels clean; unit_ball_rh 13/0; the footer census
+exactly 67 with set-identity both directions.
+
+**CERTIFIED: Theorem 1aq — the arithmetic section.** The
+half-shift lattice w = d+½ is the integer ladder s = d+1 under
+the critical-line coordinate: the four integralities (prime side
+at integer ζ-arguments; pole term in unit fractions; kernel
+poles at integer heights, w²−¼ = d(d+1) over the full committed
+range; the archimedean Γ_ℝ/ψ closed-form ladder), each an iff at
+α = ½ with the all-real-translates upgrade gated; A4 the α-free
+coordinate fact, defining the coordinate up to scale; the
+positivity geometry lattice-independent (the genericity
+counter-theorem) — no positivity advantage, no RH leverage in
+either direction; the wall reframe with the evaluation-type
+census declared a census, not a completeness theorem. Trajectory:
+1aq landed (25028d8) → 175 1M+3m+1c → 176 0M+3m+3c → 177
+0M+3m+3c → 178 0M+2m+1c → 179 CONVERGED 0M+0m+0c. Next hostile
+round on the next substantive paper change.**
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
