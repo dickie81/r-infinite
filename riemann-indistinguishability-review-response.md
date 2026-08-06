@@ -3753,3 +3753,22 @@ footer 68 with set-identity; unit_ball_rh 13/0; Checks 7/8 clean.
 **Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade,
 c760e71) → 181 NOT CONVERGED 3M+1m+1c (all sweep-incompleteness,
 swept) → round 182 (convergence test) next.**
+
+# Round 182: convergence test on the round-181 sweep (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 1 minor + 1 cosmetic, all in the docstring's VERIFICATION block; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F182-1 (MAJOR) — V5 presented the round-180-struck "Integrality is DERIVED, not adopted" as a live g8 anchor and claimed anchors g8 does not perform, omitting every post-regrade needle (the fifth carrier class) | **Accepted; synced to the current needle set with the miss disclosed in the entry** | verifier V-block |
+| F182-2 (minor) — V3's g6 entry described the removed tautological conjuncts as still gated | **Accepted; synced to the anchors-only description** | verifier V-block |
+| F182-3 (cosmetic) — V3's g5 "the premise's mechanism" landing-era framing | **Applied; re-framed as P1's motivation, s-independence stated** | verifier V-block |
+
+Held: every round-181 repair verified against the commit diffs;
+the corrected conditioning sentence's mathematics checked; the
+two-class lemma re-derived; the 16/15 counter-value recomputed;
+the forcing-language sweep clean outside frames; the
+fourth-premise hunt again empty; probes (f)/(b) reproduced; the
+footer 68 with set-identity; unit_ball_rh 13/0; Checks 7/8 clean.
+
+**Trajectory: 1ar landed (5625ea8) → 180 3M+2m (the regrade) →
+181 3M+1m+1c (sweep-completion) → 182 NOT CONVERGED 1M+1m+1c
+(the V-block, swept) → round 183 (convergence test) next.**

@@ -68,22 +68,32 @@ VERIFICATION (10 gates, exit-gated).
        critical class contains 1/2 and no pole of either factor
        in the scanned range.
   V3 -- g5 evenness: K_s(beta + i gamma) = K_s(1 - beta +
-       i gamma) at samples (the premise's mechanism; cross-anchor
-       of 1aq's g5) + R1's "the even test function" anchored in
-       the paper; g6 the half-density center: w = 0 <-> s = 1/2
-       exactly; the displaced-curve half-shift anchor (the
-       (gamma + i/2)^2 convention) present; the two roles land in
-       DISTINCT classes (1/2 not in Z; rung arguments in Z).
+       i gamma) at samples (P1's MOTIVATION, not a selector --
+       the identity is s-independent, per the round-180 F1
+       strike; cross-anchor of 1aq's g5) + R1's "the even test
+       function" anchored in the paper; g6 the role-assignment
+       anchors ONLY (the displaced-curve half-shift and the
+       reading-coordinate sentence; the center/rung arithmetic
+       is definitional, stated not gated -- the landing's
+       tautological conjuncts removed round 180 F5; this
+       V-entry synced round 182 F2).
   V4 -- g7 P0 and the conditionality: the front-matter
        zero-free-parameter sentence anchored; the theorem's
        explicit-premise statement and its conditionality clause
        anchored; the L2 census-scope clause anchored (a census,
        not a theorem about all possible structure).
-  V5 -- g8 1ar's key sentences anchored by content (the hard-road
-       commission; the two-class collapse; the 4/4-vs-0/4
-       decision; "Integrality is DERIVED, not adopted"; the
-       algebraic-character theorem; the role assignment; the
-       remark's no-forcing clause; Check 8's C1-free clause);
+  V5 -- g8 1ar's key sentences anchored by content (the
+       hard-road commission; the two-class collapse; the
+       4/4-vs-0/4 dichotomy; the FOUR round-180 strike-frame
+       counts; the anatomized title; the P1/P2 declarations;
+       "The forcing chain does NOT close from P0 alone";
+       "integrality is derived GIVEN P1 AND P2" + "the selection
+       is the preference"; the algebraic-character theorem; the
+       remark's no-forcing clause; Check 8's C1-free clause --
+       this V-entry had presented the round-180-struck
+       "Integrality is DERIVED, not adopted" as a live anchor
+       and claimed anchors g8 does not perform; synced round 182
+       F1, MAJOR);
        g9 the sibling chain green (cascade_arithmetic_section.py
        10/0, transitively chaining the Weil-arc suite);
        g10 the footer census (this script backticked >= 2;

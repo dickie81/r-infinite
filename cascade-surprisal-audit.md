@@ -14892,6 +14892,57 @@ s = −1, i.e. GR at its s = 0 pole).
 **Post-sweep:** verifier 10/0; probe (f) certified.
 Convergence-test round 182 next.
 
+## Addendum 287: round 182 (convergence test on the round-181 sweep) — NOT CONVERGED: 1 MAJOR + 1 minor + 1 cosmetic, all in the verifier docstring's VERIFICATION block (the fifth carrier class); swept
+
+Round 182 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) verified every round-181 repair
+correct against the commit diffs — the corrected conditioning
+sentence (with the α = 0 mathematics checked), the three header
+strikes, the READING rewrite (clause-by-clause), the re-headed
+docstring title, and g4's genuinely-distinct new conjunct — and
+found the residuals confined to one surface the two regrade
+sweeps never reached: the docstring's VERIFICATION block, whose
+V3/V5 entries still described the landing-era g6 and g8. All
+verified directly by the lead (Check 3):
+
+**F182-1 MAJOR (accepted; swept):** V5 presented the
+round-180-struck "Integrality is DERIVED, not adopted" as a
+live g8 anchor — unannotated, present tense — and claimed
+anchors g8 does not perform (the needle was removed at the 180
+sweep; the role-assignment anchors live in g6), while omitting
+every post-regrade needle. The fifth carrier class after print
+blocks, replacement sentences, section headers, and title
+lines. Synced to the current g8 needle set with the miss
+disclosed in the entry.
+
+**F182-2 minor (accepted; swept):** V3's g6 entry described the
+tautological conjuncts the 180 sweep removed as if still gated
+(the gate's own printed label already said "stated not gated").
+Synced to the anchors-only description.
+
+**F182-3 cosmetic (applied):** V3's g5 "the premise's
+mechanism" — landing-era framing readable as the struck
+selector; re-framed as P1's motivation with the s-independence
+stated.
+
+**Held by the round (the substantive news):** every round-181
+repair verified against git; the corrected conditioning
+sentence's mathematics checked (α = 0 satisfies P1, excluded
+only by P2 — the quantifier exact); the two-class lemma
+re-derived; g2's predicates matched one-to-one to 1aq's
+integralities with the 16/15 counter-value recomputed; the
+forcing-language sweep of the whole block clean outside frames;
+the fourth-premise hunt again empty ("exactly three" held); the
+footer 68 with set-identity; probes (f)/(b) reproduced at
+recorded censuses; unit_ball_rh 13/0; Checks 7/8 clean. The
+script FILENAME cascade_lattice_forcing.py retains "forcing" —
+held as an identifier, disclosed by the docstring's first
+sentence, load-bearing in the footer census and sabotage
+records.
+
+**Post-sweep:** verifier 10/0 (docstring-only edits, ast-checked
+per edit). Convergence-test round 183 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
