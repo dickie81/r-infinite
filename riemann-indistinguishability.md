@@ -3365,7 +3365,9 @@ FAMILIES?~~ [struck round 169 F1, MAJOR — the slot's THIRD
 consecutive death by the same mechanism: the off-curve
 deformation z₀ = (γ₀²−¼+a) + i(γ₀ + c/γ₀) extends the derived
 expansion to width·γ₀ → ½√((2n−1)² + 4a − 8c), strictly
-admissible for every fixed offset, sweeping the asymptotic
+admissible for every fixed offset [height-scoped round 173: at
+every sufficiently large height; a c < 0 offset has one
+degenerate rung at γ₀ = √(−c)], sweeping the asymptotic
 product below 5/2 all the way toward 0 as c → (2n−1)²/8 —
 lead-verified and gated at (a, c) = (0, 1) → √17/2 = 2.0615… and
 (0, 2) → 3/2, both below 5/2]. THE SLOT IS RETIRED, with a
@@ -3408,10 +3410,19 @@ asymptotic-product spectrum is exactly the open half-line
 (0, ∞) — the law ½√((2n−1)² + 4a − 8c) is onto (0, ∞) over the
 concentrating offset domain, which is exactly
 {(2n−1)² + 4a − 8c > 0}: every real offset is strictly
-admissible, but at the critical offset disc = 0 and beyond the
-instance stops concentrating — the next-order term is a positive
-floor, F·|Q| → K/γ₀² with K = 429.76… at the critical offset's
-vertex, gated round 172 — so no fixed offset attains 0 — so at
+admissible at every sufficiently large height (for c < 0 the
+single rung γ₀ = √(−c) degenerates to a boundary tangency —
+height scope added round 173), but on the boundary disc = 0 and
+beyond the instance stops concentrating — the next-order term is
+a positive floor obeying the boundary floor law: F·|Q| → K/γ₀²
+with K = 420 + c² along the whole boundary 8c = (2n−1)² + 4a
+(the a-dependence cancels at the vertex — round 173, the
+reviewer's expansion lead-pinned overdetermined: three boundary
+offsets a = 0/2/4 Richardson-extrapolate to 429.765625 /
+437.015625 / 446.265625, equalling 420 + c² to six digits; the
+γ₀ = 3000 rungs at a = 0 and a = 2 gated with limit agreement,
+the gate's scope being those rungs) — so no fixed offset attains
+0 — so at
 fixed offset every positive value is attained and none is
 extremal there, with the on-curve 5/2 an interior value;
 height-drifting offsets add, beyond the fixed-offset spectrum,
@@ -3423,8 +3434,8 @@ are those endpoints — order-theoretic boundary
 values shared by every class with full-half-line spectrum,
 carrying no lattice content, unlike the finite attained extremum
 the struck 5/2 candidacy would have been. NO distinguished
-positive finite asymptotic constant exists for the class, and no
-open question is owed here.
+positive finite asymptotic-product constant exists for the
+class, and no open question is owed here.
 The standing structural facts of the regrade are the derived
 width and depth laws and the contrast trade-off; the derived
 n-site law (2n−1)/2 remains the on-curve constant,

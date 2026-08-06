@@ -3548,3 +3548,27 @@ weakening — self-caught on re-read before any run.
 **Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
 169 1M+1m+1c → 170 1M+2m → 171 1M+1m (swept, 2d2ce7c) → 172 NOT
 CONVERGED 0M+4m+2c (swept) → round 173 (convergence test) next.**
+
+# Round 173: convergence test on the round-172 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 2 minors + 2 cosmetics; the boundary floor law K(a) = 420 + c² derived and committed; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F173-1 (minor) — the disc = 0 boundary clause's support was one rung at one offset against asymptotic and whole-boundary claims ("→ K/γ₀²"; the domain identity needs the entire boundary line non-concentrating) | **Accepted; swept with the reviewer's own closed form — the boundary floor law K(a) = 420 + c² along 8c = (2n−1)² + 4a (a-dependence cancelling at the vertex), lead-pinned overdetermined (three offsets a = 0/2/4, Richardson limits 429.765625/437.015625/446.265625 = 420 + c² to six digits); g4's floor conjunct generalized to two rungs with limit agreement < 0.002 (actuals 429.7642/437.0141); the "gated" scope stated as the rungs** | paper, verifier g4 |
+| F173-2 (minor) — "every real offset is strictly admissible" unscoped over height, false at one rung per negative-c offset (tangency at γ₀ = √(−c); counterexample (0, −4) at γ₀ = 2) | **Accepted; height-scoped on both carriers ("at every sufficiently large height", the degenerate rung named): the third statement's clause and the round-169 frame (bracket-annotated)** | paper ×2 |
+| F173-3 (cosmetic) — the floor comment's "vertex s = −5/2" label undefined and convention-inconsistent | **Applied; γ-form and u-displacement stated** | verifier comment |
+| F173-4 (cosmetic) — the concluding universal lacked "product" while round 172 put a named positive finite constant (K) in the same paragraph | **Applied; "asymptotic-PRODUCT constant" on all carriers with the g9 needle advanced; probes (e7)/(d5) certified 11/1 with clean baselines** | paper, verifier g9, docstring, READING |
+
+Held: the boundary floor law derived by the reviewer in closed
+form and confirmed at a fresh boundary offset with strictly
+positive scanned minima; the on-curve and off-curve laws
+re-derived; the membership lemma verified analytically; the
+five-frame chain verbatim-accurate; the iff comment's
+mathematics derived both directions; the drift-rate correction's
+arithmetic exact; probes (e6)/(d4)/(e5) reproduced; the footer
+census 66 exact; unit_ball_rh 13/0; every gate can fail (g4's
+ok-chain verified unbroken); Checks 7/8 clean.
+
+**Trajectory: 1ap landed (9ca08be) → 167 1M+6m+3c → 168 1M+1m →
+169 1M+1m+1c → 170 1M+2m → 171 1M+1m → 172 0M+4m+2c (swept,
+a545f10) → 173 NOT CONVERGED 0M+2m+2c (swept) → round 174
+(convergence test) next.**

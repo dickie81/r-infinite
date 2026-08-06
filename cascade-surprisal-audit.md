@@ -14243,6 +14243,77 @@ re-read before any run; fixed and verified in the block read.
 **Post-sweep:** verifier 12/0 (g4 detail now printing Kfloor
 429.7642). Convergence-test round 173 next.
 
+## Addendum 276: round 173 (convergence test on the round-172 sweep) — NOT CONVERGED: 0 MAJORs + 2 minors + 2 cosmetics; the boundary floor law K(a) = 420 + c² derived by the reviewer and lead-pinned overdetermined; swept
+
+Round 173 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) attacked the round-172 repairs
+and the standing statement — and went further than any prior
+round on the mathematics: it DERIVED the boundary floor in
+closed form. At any disc = 0 offset (8c = (2n−1)² + 4a) the
+a-dependence cancels at the vertex and the floor coefficient is
+K(a) = 420 + c², with 420 carrying the lattice sum
+S = Σ(w_d² − ¼) = 92 through the expansion and c² the phase
+term. The lead verified the law overdetermined (two parameters,
+three boundary offsets a = 0/2/4, heights 3000/10⁴/3·10⁴ with
+Richardson extrapolation): limits 429.765625 / 437.015625 /
+446.265625, equalling 420 + c² to six digits in every case. The
+reviewer independently confirmed non-concentration at the fresh
+boundary offset (2, 33/8) with strictly positive scanned minima.
+The third statement's every clause held; the on-curve and
+off-curve laws, the membership lemma, the five-frame chain, the
+iff comment, the drift-rate correction, probes (e6)/(d4)/(e5),
+the footer census (66), and unit_ball_rh (13/0) all reproduced.
+Two minors + two cosmetics, all verified directly by the lead
+(Check 3):
+
+**F173-1 minor (accepted; swept):** the disc = 0 boundary
+clause's committed support was one rung at one offset while its
+claims were asymptotic ("→ K/γ₀²") and whole-boundary (the
+domain identity needs the entire line disc = 0
+non-concentrating). Swept with the reviewer's own mathematics:
+the boundary floor law stated in the paper (K = 420 + c² along
+the whole boundary, the a-dependence cancelling at the vertex,
+lead-pinned overdetermined with the three Richardson limits
+quoted); g4's floor conjunct generalized to a two-offset gate
+(the a = 0 and a = 2 rungs at γ₀ = 3000, brackets plus limit
+agreement < 0.002 each; actuals printed 429.7642/437.0141); the
+"gated" scope stated as the rungs.
+
+**F173-2 minor (accepted; swept):** "every real offset is
+strictly admissible" was an unscoped height universal, false at
+one rung per negative-c offset (at γ₀ = √(−c) the pair
+degenerates to a real double zero on the boundary curve —
+tangency, not the cone's interior; counterexample (0, −4) at
+γ₀ = 2, lead-confirmed from the definition). Height-scoped on
+both carriers ("at every sufficiently large height", with the
+degenerate rung named): the third statement's clause and the
+round-169 frame's "strictly admissible for every fixed offset"
+(bracket-annotated in place).
+
+**Cosmetics (applied):** the floor comment's bare "vertex
+s = −5/2" label replaced with the γ-form and u-displacement
+(the computation itself was verifiably correct); the concluding
+universal hardened to "NO distinguished positive finite
+asymptotic-PRODUCT constant exists for the class" — closing
+permanently the reading that K = 429.76… (a floor coefficient of
+non-concentrating non-members, and offset-dependent at that)
+could be offered as a counterexample — with the g9 needle
+advanced and the two docstring tellings and READING synced to
+the same wording.
+
+**Probes (e7)/(d5) certified (fresh tar tree, serial, per-mangle
+restore, clean baselines 12/0 around both, gate identity in the
+first pass):** (e7) the product-scoped conclusion needle mangled
+("asymptotic-product" → "asymptotic-sum", whitespace-aware — the
+phrase wraps) → g9 trips ALONE, 11/1, exit 1; (d5) the a = 2
+boundary bracket decoupled (437.0 → 447.0) → g4 trips ALONE,
+11/1, exit 1.
+
+**Post-sweep:** verifier 12/0 (g4 detail printing Kfloor
+429.7642/437.0141). The finding trend across the chain:
+1M+6m+3c → 1M+1m → 1M+1m+1c → 1M+2m → 1M+1m → 0M+4m+2c →
+0M+2m+2c. Convergence-test round 174 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

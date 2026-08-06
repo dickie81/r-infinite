@@ -33,13 +33,15 @@ to 0, gated at a drift rung; a(g0) -> inf walks it to inf), so
 over FIXED offsets the spectrum is exactly the open half-line
 (0, inf) -- the law is onto over the concentrating domain
 disc > 0 (at disc <= 0 the fixed offset stops concentrating: the
-positive floor K = 429.76, gated round 172), none extremal at
+boundary floor law K = 420 + c^2, gated round 173 at two rungs
+with limit agreement), none extremal at
 fixed offset, the on-curve 5/2 interior; drifting offsets ADD
 only the two degenerate endpoints beyond the fixed-offset
 spectrum (they also re-attain interior values), so the attained
 closure is [0, inf], its only extremal values the endpoints
 -- order-theoretic boundary values carrying no lattice content;
-NO distinguished positive finite asymptotic constant exists.]
+NO distinguished positive finite asymptotic-product constant
+exists.]
 F2/F9 -- the width and depth laws are now
 DERIVED (F*|Q| ~ 4 g0^2 t^2 + 2(2n-1) g0 t near the pair) and
 gated at height 3000 in mpmath for BOTH site counts; the "is ZERO"
@@ -104,7 +106,7 @@ over fixed offsets the law is onto the open half-line (0, inf)
 with no extremal value; height-drifting offsets add only the two
 degenerate endpoints beyond that spectrum, so the class's
 attained closure is [0, inf] with no distinguished positive
-finite constant; the
+finite asymptotic-product constant; the
 standing facts are the derived laws and the contrast trade-off.
 1ao's
 wall-sidestep carries its
@@ -120,7 +122,7 @@ Check 7 clean (rational-function geometry; no semiclassics);
 Check 8 clean (no hypothesis input).
 
 VERIFICATION (12 gates, exit-gated; census updated at the
-round-167 rebuild and the 168-172 needle advances).
+round-167 rebuild and the 168-173 needle advances).
   V1 -- g1 strict admissibility EXACT (P >= y0^2 > 0 identically,
        exact rationals; L-min positive) PLUS the membership lemma
        (real residues bracketed; boundary read = the
@@ -134,8 +136,9 @@ round-167 rebuild and the 168-172 needle advances).
        on both branches (sqrt(17)/2 and 3/2 below 5/2 -- round
        169; sqrt(29)/2 above -- round 170), at a drift rung
        near the 0 endpoint (0.2449 -- round 171), and at the
-       disc = 0 domain boundary (the positive floor K = 429.76,
-       non-concentrating -- round 172); g5 the contrast ladder (three
+       disc = 0 domain boundary (the boundary floor law
+       K = 420 + c^2, two rungs gated with limit agreement --
+       rounds 172-173); g5 the contrast ladder (three
        ratio-exponents bracketed, rising toward 6); g6 the
        anti-concentration REBUILT component-aware (two components,
        the positive gap between the pair heights gated, the outer
@@ -240,7 +243,15 @@ mangled in the paper copy ("concentrating offset domain" ->
 floor bracket decoupled in the verifier copy (429.7 -> 439.7) ->
 g4 trips ALONE, 11/1, exit 1; clean baselines 12/0 around both,
 serial fresh tree, per-mangle restore, gate identity captured in
-the first pass.
+the first pass.  At the round-173 sweep (the boundary floor law
+committed; two minors + two cosmetics): (e7) the product-scoped
+conclusion needle mangled in the paper copy ("asymptotic-product
+constant exists for the class" -> "asymptotic-sum ...",
+whitespace-aware -- the phrase wraps) -> g9 trips ALONE, 11/1,
+exit 1; (d5) the a = 2 boundary bracket decoupled in the
+verifier copy (437.0 -> 447.0) -> g4 trips ALONE, 11/1, exit 1;
+clean baselines 12/0 around both, serial fresh tree, per-mangle
+restore, gate identity in the first pass.
 """
 import os
 import subprocess
@@ -454,27 +465,42 @@ w01 = _mpoff(3000, 0, 1)
 w02 = _mpoff(3000, 0, 2)
 w10 = _mpoff(3000, 1, 0)
 wdr = _mpoff(3000, 0, 25.0 / 8 - 0.03)
-# round 172 F2: the disc = 0 critical offset (0, 25/8) stays
-# strictly admissible but stops concentrating -- the next-order
-# term is a positive floor F*|Q| -> K/g0^2, K = 429.76 at the
-# vertex s = -5/2 (gamma = g0 - 5/(4 g0)); this pins the
-# concentrating offset domain at exactly disc > 0.
-_g0c = mpf(3000)
-_z0c = (_g0c * _g0c - mpf("0.25") + 0) + 1j * (_g0c + (mpf(25) / 8) / _g0c)
-def _Fqc(g):
-    u = g * g - mpf("0.25") + 1j * g
-    r = mpf(1)
-    for w2 in W3m:
-        r = r * (u + w2)
-    return (((u - _z0c) * (u - _z0c.conjugate())) / r).real, abs(r)
-_fv, _qv = _Fqc(_g0c - mpf(5) / (4 * _g0c))
-Kfloor = float(_fv * _qv * _g0c * _g0c)
+# rounds 172-173: the disc = 0 boundary stays strictly
+# admissible (at sufficiently large height) but stops
+# concentrating -- the next-order term is a positive floor
+# obeying the BOUNDARY FLOOR LAW K(a) = 420 + c^2 along
+# 8c = 25 + 4a (round 173: the a-dependence cancels at the
+# vertex; lead-pinned overdetermined at a = 0/2/4, Richardson
+# limits 429.765625/437.015625/446.265625 = 420 + c^2 to six
+# digits).  Gated: the g0 = 3000 rungs at a = 0 and a = 2, each
+# with limit agreement < 0.002.  Vertex: gamma = g0 -
+# (5 - 2a)/(4 g0) (the u-plane displacement is -(5-2a)/2; the
+# round-172 comment's bare "s = -5/2" label fixed round 173).
+# This pins the concentrating offset domain at exactly disc > 0.
+def _Kfloor(a):
+    g0 = mpf(3000)
+    a = mpf(a)
+    c = (25 + 4 * a) / 8
+    z0 = (g0 * g0 - mpf("0.25") + a) + 1j * (g0 + c / g0)
+    def Fq(g):
+        u = g * g - mpf("0.25") + 1j * g
+        r = mpf(1)
+        for w2 in W3m:
+            r = r * (u + w2)
+        return (((u - z0) * (u - z0.conjugate())) / r).real, abs(r)
+    fv, qv = Fq(g0 - (5 - 2 * a) / (4 * g0))
+    return float(fv * qv * g0 * g0)
+Kfloor = _Kfloor(0)
+K2floor = _Kfloor(2)
 ok &= 2.0615 < w01 < 2.0616              # -> sqrt(17)/2 = 2.06155
 ok &= 1.49998 < w02 < 1.49999            # -> 3/2
 ok &= 2.6925 < w10 < 2.6926              # -> sqrt(29)/2 = 2.69258 (a-branch, ABOVE 5/2)
 ok &= 0.2448 < wdr < 0.2450              # drift rung: -> (1/2)sqrt(8*0.03) = 0.244949
 ok &= wdr < w02 < w01 < 2.5 < w10
-ok &= float(_fv) > 0 and 429.7 < Kfloor < 429.8   # the disc = 0 positive floor
+ok &= 429.7 < Kfloor < 429.8             # the disc = 0 positive floor, a = 0 rung
+ok &= 437.0 < K2floor < 437.1            # the a = 2 boundary rung (round 173)
+ok &= abs(Kfloor - (420 + (25.0 / 8) ** 2)) < 0.002    # limit agreement, a = 0
+ok &= abs(K2floor - (420 + (33.0 / 8) ** 2)) < 0.002   # limit agreement, a = 2
 gate("g4 the height ladder: four widths bracketed inward; "
      "width*gamma_0 strictly increasing; the DERIVED laws gated at "
      "height 3000 in mpmath, both site counts (3-site -> 5/2 and "
@@ -482,13 +508,13 @@ gate("g4 the height ladder: four widths bracketed inward; "
      "spectrum gated on BOTH branches (c-branch sqrt(17)/2 and 3/2 "
      "below 5/2 -- round 169; a-branch sqrt(29)/2 above 5/2 -- "
      "round 170) AND at a drift rung near the 0 endpoint (round "
-     "171, the closure classification) AND the disc = 0 critical "
-     "offset gated non-concentrating (the positive floor K = "
-     "429.76 -- round 172, the domain boundary)",
+     "171, the closure classification) AND the boundary floor "
+     "law K = 420 + c^2 gated at two disc = 0 rungs with limit "
+     "agreement (rounds 172-173, the domain boundary)",
      ok, f"products {[f'{p:.4f}' for p in prods]}; "
          f"laws {wp3:.6f}/{dp3:.5f}/{wp5:.6f}/{dp5:.5f}; "
          f"off-curve {w01:.6f}/{w02:.6f}/{w10:.6f}/{wdr:.6f}; "
-         f"Kfloor {Kfloor:.4f}")
+         f"Kfloor {Kfloor:.4f}/{K2floor:.4f}")
 
 import math
 exps = []
@@ -592,8 +618,9 @@ ok &= "THE SLOT IS RETIRED, with a classification in its place" in paper
 ok &= "width·γ₀ → ½√((2n−1)² + 4a − 8c)" in paper
 ok &= "onto (0, ∞) over the concentrating offset domain" in paper
 ok &= "attained closure is [0, ∞]" in paper
-ok &= ("NO distinguished positive finite asymptotic constant "
-       "exists for the class") in paper
+ok &= ("NO distinguished positive finite asymptotic-product "
+       "constant exists for the class") in paper
+ok &= "with K = 420 + c² along the whole boundary" in paper
 ok &= "DERIVED at the round-167 sweep" in paper
 ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
 ok &= paper.count("struck round 167 F3") == 1
@@ -662,11 +689,13 @@ print("(round 169 F1 -- struck; two sub-5/2 instances gated).  The")
 print("slot is RETIRED with a classification, corrected twice (rounds")
 print("170/171 F1): over fixed offsets the law is onto the open")
 print("half-line (0, inf) -- gated on both sides of 5/2, at a drift")
-print("rung, and at the disc = 0 domain boundary (the positive floor")
-print("K = 429.76) -- with no extremal value; drifting offsets add")
+print("rung, and at the disc = 0 domain boundary (the boundary floor")
+print("law K = 420 + c^2, two rungs gated) -- with no extremal value;")
+print("drifting offsets add")
 print("only the two endpoints beyond that spectrum (closure [0,")
 print("inf]); no")
-print("distinguished positive finite asymptotic constant exists for")
+print("distinguished positive finite asymptotic-product constant")
+print("exists for")
 print("the class; the standing facts")
 print("are the derived laws and the contrast trade-off.  No data, no closures, no new")
 print("physics; no direction of explanation.")
