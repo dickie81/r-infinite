@@ -3710,3 +3710,26 @@ coordinate, the four integralities each an iff at α = ½, the
 coordinate fact, the genericity counter-theorem, and the wall
 reframe with its census-not-theorem evaluation catalog. Next
 hostile round on the next substantive paper change.**
+
+# Round 180: hostile round on the Theorem 1ar landing (5625ea8) (subagent, per protocol) — NOT CONVERGED: 3 MAJORs + 2 minors; the forcing chain did not close; 1ar regraded to "the lattice selection anatomized"; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F180-1 (MAJOR) — the evenness selector a non sequitur: test-function evenness is evenness in x, automatic for every decay rate, constraining no α; the kernel identity is α-independent per the record's own 175-F1 strike; class-closure grounded nowhere | **Accepted; struck; the class-closure requirement declared as premise P1 (unit spacing + involution closure)** | paper, docstring |
+| F180-2 (MAJOR) — the P0-exclusion mischaracterized the critical-class ledger on three of four columns (integer-w pole terms rational; crossing geometry lattice-independent; ψ closes at quarter-integers by Gauss); the exclusion smuggled exactness-preference into P0 | **Accepted; struck; the integrality preference declared as premise P2, selecting on the certified 4/4-vs-0/4 dichotomy** | paper, docstring |
+| F180-3 (MAJOR) — the premise census omitted the unit-spacing ansatz; "what remains constitutive is P0 itself" and "Integrality is DERIVED, not adopted" false | **Accepted; both struck; the title regraded by strike to "the lattice selection anatomized"; the conclusion re-scoped: forced GIVEN P1 and P2** | paper (title + 2 carriers), docstring |
+| F180-4 (minor) — the "only translate-selecting structure" census failed in-record (S1's x*); the two-selector independence overclaim | **Accepted; both struck; no exclusivity claimed** | paper |
+| F180-5 (minor) — g6's tautological conjuncts (the F175-4 class recurring); g2's p1 ⟺ p2 duplication | **Accepted; tautologies removed, label re-scoped; equivalence disclosed** | verifier g2/g6 |
+
+Held: the instrument sound (10/0, sabotage at recorded censuses,
+census advances complete, zero remnants); the 1aq cross-stitch
+faithful (no double-counting); the meaning layer L4 correct in
+full (Hom(𝔾_m, 𝔾_m) = ℤ, the parity linkage, the Legendre pair
+gated); the Remark texture-only; Check 8 clean; the footer 68
+with set-identity; unit_ball_rh 13/0. Probes (d)/(e) certified
+9/1 with clean baselines; entry (a) rescoped pre-180.
+
+**Trajectory: 1ar landed (5625ea8) → 180 NOT CONVERGED 3M+2m
+(swept — the regrade: "forced" → "anatomized"; the lattice
+forced GIVEN the three named premises {P0, P1, P2}) → round 181
+(convergence test) next.**

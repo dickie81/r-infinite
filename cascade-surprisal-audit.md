@@ -14767,6 +14767,76 @@ baselines 10/0 around every entry.
 **Post-landing:** verifier 10/0; hostile round 180 (fresh
 context, session model, per protocol) next on this landing.
 
+## Addendum 285: round 180 (hostile, on the 1ar landing 5625ea8) — NOT CONVERGED: 3 MAJORs + 2 minors; the forcing chain did not close — 1ar regraded from "forced" to "anatomized"; swept
+
+Round 180 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) delivered the heaviest verdict
+of the campaign — and the correct one. All findings verified
+directly by the lead (Check 3):
+
+**F180-1 MAJOR (accepted; swept):** the binary collapse's
+selector was a non sequitur — test-function evenness is evenness
+in x, automatic for EVERY real decay rate (e^(−π|x|) is an even
+Weil test function), constraining no translate; the kernel
+identity it yields is α-independent by the record's own
+round-175 F1 strike one screen up; and the involution-closure of
+the CLASS is grounded nowhere (the committed tower is
+one-sided). Struck; the class-closure requirement is now the
+DECLARED premise P1 (unit spacing + involution closure,
+motivated by the kernels' pole pairs, named as a premise).
+
+**F180-2 MAJOR (accepted; swept):** the P0-exclusion of the
+critical class mischaracterized its ledger on three of four
+named columns — integer-w pole terms are exact rationals
+(16/15-type, 1aq's own counter-gate); the crossing geometry is
+lattice-independent (1aq(iii)) with γ_b algebraic at rational
+weights; ψ closes at quarter-integers by Gauss — and every
+critical-class entry is derived in exactly P0's sense, while
+the arithmetic class's own prime side is a non-closed-form
+transcendental by 1aq's F3 strike. The exclusion smuggled the
+conclusion (exactness-preference read into P0). Struck; the
+integrality preference is now the DECLARED premise P2,
+selecting on the certified 4/4-vs-0/4 dichotomy.
+
+**F180-3 MAJOR (accepted; swept):** the premise census omitted
+the unit-spacing ansatz (L1's own opening); "what remains
+constitutive is P0 itself" and "Integrality is DERIVED, not
+adopted: no link mentioned integer points" both struck. The
+chain derives the translate, never the spacing.
+
+**F180-4 minor (accepted; swept):** the "only
+translate-selecting structure" census failed in-record (S1's
+x* = 3.6284… is committed, derived, translate-capable —
+lead-confirmed) and the two selectors were not independent (one
+route passed through the other). Both struck.
+
+**F180-5 minor (accepted; swept):** g6's constant-expression
+tautologies removed (the F175-4 class, in the lead's own new
+gate — caught by the reviewer despite the design-time fix of
+g4); g2's p1 ⟺ p2 equivalence disclosed (three independent
+congruences at characterization level).
+
+**THE REGRADE.** 1ar's title claim dies: retitled by strike to
+"the lattice selection anatomized." What stands after the sweep:
+the two-class lemma (exact arithmetic); 1aq's certified
+dichotomy; the classical meaning layer (held under hostile
+review — Hom(𝔾_m, 𝔾_m) = ℤ, the parity linkage, the
+half-density naming, the role assignment); and the ANATOMY —
+Definition 2.1's "integer points" decomposes into exactly three
+named premises {P0, P1, P2}, none silent. The lattice is forced
+GIVEN P1 and P2; the hard road's honest yield is the anatomy,
+not the forcing. The owner's instinct ("lets not travel the
+easy road") is vindicated twice over: the axiom route was
+circular, and the first hard-road attempt overclaimed — the
+regraded statement is what survives adversarial review.
+
+**Probes (d)/(e) certified** (fresh tar tree, serial, clean
+baselines 10/0): (d) the not-close needle → g8 ALONE, 9/1;
+(e) the P1 declaration needle → g8 ALONE, 9/1. Entry (a)
+rescoped to the pre-180 tree (its needle is now struck text).
+
+**Post-sweep:** verifier 10/0. Convergence-test round 181 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

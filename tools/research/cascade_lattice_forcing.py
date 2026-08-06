@@ -6,19 +6,30 @@ the paper's own discipline.
 THE COMMISSION.  The owner rejected the axiom route to 1aq's
 section as circular and commissioned the hard road: derive the
 half-shift lattice from premises that never mention integer
-points.  The chain: P0 (the paper's declared zero-free-parameter
-discipline, made an explicit premise -- constitutive, not a
-theorem; every conclusion conditional on it) + evenness (Weil
-test functions are even, zeros pairing rho <-> 1-rho) collapse
-the translate continuum to TWO classes (2 alpha in Z): the
-CRITICAL (half-density) class s in Z+1/2 containing the fixed
-point s = 1/2, and the ARITHMETIC (algebraic) class s in Z
-containing the pole pair {0, 1}.  P0's second application through
-1aq's certified iffs decides the binary: exact bookkeeping holds
-4/4 on the arithmetic class, 0/4 on the critical class, and a
-foundation carrying its ledger in underived transcendentals is
-excluded.  Integrality is DERIVED: no link mentions integer
-points.  The meaning layer (classical): the arithmetic class is
+points.  ROUND-180 REGRADE (the landing's hostile round; 3
+MAJORs + 2 minors, all verified by the lead and swept): the
+forcing chain did NOT close as landed.  F1 MAJOR -- the evenness
+selector was a non sequitur (test-function evenness is evenness
+in x, automatic for every decay rate; the kernel identity is
+alpha-independent per the round-175 F1 strike); the class-closure
+requirement is now the DECLARED premise P1 (unit spacing +
+involution closure).  F2 MAJOR -- the P0-exclusion of the
+critical class mischaracterized its ledger on three of four
+columns (integer-w pole terms are rationals; the crossing
+geometry is lattice-independent; psi closes at quarter-integers
+by Gauss); the integrality preference is now the DECLARED
+premise P2, selecting on the certified 4/4-vs-0/4 dichotomy.
+F3 MAJOR -- the premise census omitted the unit-spacing ansatz;
+"what remains constitutive is P0 itself" struck.  F4 -- the
+"only translate-selecting structure" census failed in-record
+(S1's x*); the two-selector independence claim struck.  F5 --
+g6's tautological conjuncts removed; g2's p1/p2 equivalence
+disclosed.  THE REGRADED CONTENT: the two-class lemma (exact);
+1aq's certified dichotomy; the classical meaning layer (held
+under review); and the ANATOMY -- Definition 2.1's "integer
+points" decomposes into exactly three named premises {P0, P1,
+P2}, none silent.  The upgrade is the anatomy, not the forcing;
+the lattice is forced GIVEN P1 and P2.  The meaning layer (classical): the arithmetic class is
 the algebraic-character lattice Hom(G_m, G_m) = Z (unit spacing
 and integrality are the group law's), with the parity linkage of
 x -> x^n exactly the committed even/odd tower interleaving
@@ -33,9 +44,9 @@ s = 1 (1ao's Li rung) sits at zeta's pole.
 HONEST SCOPE.  Category (a) -- classical group theory, the
 functional equation's symmetry, exact rational arithmetic, and a
 certified theorem (1aq); no data, no closures, no new physics.
-Conditional on P0, and says so.  The L2 negative census ("the
-record's only translate-selecting structure") is a census of the
-committed record, not a theorem about all possible structure.
+Conditional on ALL THREE premises P0, P1, and P2, and says so
+(round 180).  The landing's L2 exclusivity census was struck
+(round 180 F1/F4); no exclusivity is claimed.
 No RH leverage in either direction.  Check 7 clean (character/
 Gamma bookkeeping; no semiclassics); Check 8 clean (no hypothesis
 input -- C1 appears nowhere in the chain).
@@ -86,8 +97,17 @@ the paper's derived-not-adopted needle mangled ("not adopted" ->
 -> Fr(1, 3) in the expected symmetric set) -> g1 trips ALONE,
 9/1, exit 1; (c) the pole-detection bound decoupled in the
 verifier copy (1e6 -> 1e26) -> g4 trips ALONE, 9/1, exit 1 --
-the round-175-F4-lesson conjunct demonstrated falsifiable.  Ten
-gates (count checked against the gate() census pre-commit).
+the round-175-F4-lesson conjunct demonstrated falsifiable.  At
+the round-180 regrade: entry (a)'s needle ("Integrality is
+DERIVED, not adopted") was struck with the landing's forcing
+claims, so (a) reproduces at the pre-180 tree; the new probes:
+(d) the not-close needle mangled in the paper copy ("does NOT
+close" -> "does NOW close", whitespace-aware) -> g8 trips ALONE,
+9/1, exit 1; (e) the P1 declaration needle mangled ("declared
+premise" -> "derived premise", whitespace-aware) -> g8 trips
+ALONE, 9/1, exit 1; clean baselines 10/0 around both, serial
+fresh tree, per-mangle restore, gate identity in the first pass.
+Ten gates (count checked against the gate() census pre-commit).
 """
 import os
 import subprocess
@@ -149,7 +169,8 @@ for d in range(1, 6):
     ok &= predicates(d, Fr(0)) == (False, False, False, False)
 gate("g2 the dichotomy: the four 1aq integrality predicates 4/4 on the "
      "arithmetic class (alpha = 1/2) and 0/4 on the critical class "
-     "(alpha = 0), d = 1..5, exact rationals", ok)
+     "(alpha = 0), d = 1..5, exact rationals (p1 and p2 are equivalent "
+     "congruences -- three independent, disclosed round 180 F5)", ok)
 
 print("V2 -- the Legendre pair and the pole orbit")
 from mpmath import mp, mpf, pi, gamma, power
@@ -211,15 +232,12 @@ gate("g5 evenness: K_s(beta+i gamma) = K_s(1-beta+i gamma) at samples "
      "(including a non-lattice s -- the premise is s-independent) + "
      "R1's even-test-function anchor", ok)
 
-ok = Fr(0) + Fr(1, 2) == Fr(1, 2)                 # w = 0 <-> s = 1/2
-ok &= Fr(1, 2).denominator != 1                   # the center is NOT an integer
-ok &= all(Fr(d + 1).denominator == 1 for d in range(1, 6))
-ok &= "(γ + i/2)² + w² = (γ − id)(γ + i(d+1))" in paper
+ok = "(γ + i/2)² + w² = (γ − id)(γ + i(d+1))" in paper
 ok &= "the READING COORDINATE w = s − ½ is centered at the half-density point" in paper
-gate("g6 the half-density center: w = 0 <-> s = 1/2 exactly; the rung "
-     "arguments are integers while the center is not (the two roles in "
-     "DISTINCT classes); the displaced-curve half-shift and the "
-     "role-assignment sentence anchored", ok)
+gate("g6 the role-assignment anchors: the displaced-curve half-shift "
+     "and the reading-coordinate sentence (the center/rung arithmetic "
+     "is definitional, stated not gated -- the round-180 F5 "
+     "tautologies removed)", ok)
 
 print("V4 -- P0 and the conditionality")
 ok = "one hypothesis and zero free parameters" in paper
@@ -227,7 +245,8 @@ ok &= "P0 is that discipline stated as a premise" in paper
 ok &= ("every conclusion below is conditional on P0" in paper
        or "conditional on P0, and says so" in paper
        or "every conclusion below is conditional on it" in paper)
-ok &= "a census of the committed record, not a theorem about all possible structure" in paper
+ok &= "conditional on ALL THREE premises P0, P1, and P2" in paper
+ok &= "no exclusivity is claimed" in paper
 gate("g7 P0 and the conditionality: the front-matter zero-parameter "
      "sentence; the explicit-premise statement; the conditionality "
      "clause; the L2 census-scope clause -- all anchored", ok)
@@ -236,7 +255,15 @@ print("V5 -- anchors, chain, census")
 ok = "derive the half-shift lattice from premises that never mention integer points" in paper
 ok &= "exactly two classes" in paper
 ok &= "4/4 on the arithmetic class and 0/4 on the critical class" in paper
-ok &= "Integrality is DERIVED, not adopted" in paper
+ok &= paper.count("struck round 180 F1, MAJOR") == 1
+ok &= paper.count("struck round 180 F2, MAJOR") == 1
+ok &= paper.count("struck round 180 F3, MAJOR") == 2
+ok &= paper.count("struck round 180 F4") == 1
+ok &= "the lattice selection anatomized" in paper
+ok &= "P1 (declared premise)" in paper
+ok &= "P2 (declared premise)" in paper
+ok &= "The forcing chain does NOT close from P0 alone" in paper
+ok &= "integrality is derived GIVEN P1" in paper
 ok &= "Hom(𝔾_m, 𝔾_m) = ℤ is a classical theorem" in paper
 ok &= "no forcing is claimed from the remark" in paper
 ok &= "C1 appears nowhere in the chain" in paper

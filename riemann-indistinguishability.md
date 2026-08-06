@@ -3579,8 +3579,12 @@ either direction. Check 7 clean (explicit-formula bookkeeping,
 rational arithmetic, ψ/Γ special values; no semiclassics); Check 8
 clean (no hypothesis input).
 
-**Theorem 1ar (the lattice forced: the binary selection closed by
-the paper's own discipline; `cascade_lattice_forcing.py`).** *(i)
+**Theorem 1ar (~~the lattice forced: the binary selection closed
+by the paper's own discipline~~ [struck round 180 F1–F3, three
+MAJORs — the chain does not close from P0 alone] the lattice
+selection anatomized: the two-class lemma, the certified
+dichotomy, and the three named premises;
+`cascade_lattice_forcing.py`).** *(i)
 The commission.* The owner rejected the axiom route to 1aq's
 section as circular ("the integrality was put in by the axiom")
 and commissioned the hard road: derive the half-shift lattice
@@ -3598,28 +3602,60 @@ conditional on it, and that conditionality is the theorem's
 honest boundary. *(iii) L1–L2: the translate continuum collapses
 to a binary, by two independent selectors.* A unit-spaced decay
 lattice w = d + α needs its translate α produced by committed
-structure (P0). The record's only translate-selecting structure
+structure (P0). ~~The record's only translate-selecting structure
 is the functional equation's involution acting through the
-required evenness of Weil test functions (zeros pair ρ ↔ 1−ρ;
-R1's profile is committed as *"the even test function"*): an
-even class needs −α ≡ α mod 1, i.e. 2α ∈ ℤ — exactly two
-classes. In s: the CRITICAL (half-density) class s ∈ ℤ+½,
+required evenness of Weil test functions~~ [struck round 180 F1,
+MAJOR — test-function evenness is evenness in x, automatic for
+EVERY real decay rate (e^(−π|x|) is an even Weil test function),
+so it constrains no α; the kernel identity it yields is
+α-independent by the round-175 F1 strike one screen up; and the
+"only" census fails in-record — S1's x* = 3.6284… is committed,
+derived, translate-capable structure (round 180 F4). The
+involution-closure of the CLASS is an additional premise, here
+named]. **P1 (declared premise):** the lattice is unit-spaced
+AND its class is closed under the FE involution w ↔ −w —
+motivated by the kernels' own pole pairs {w, −w} (1aq's A3),
+but a premise, not a derivation; the unit spacing in particular
+is an ansatz the chain never grounds (round 180 F3). GIVEN P1,
+the two-class lemma collapses the continuum: an
+involution-closed class needs −α ≡ α mod 1, i.e. 2α ∈ ℤ —
+exactly two classes. In s: the CRITICAL (half-density) class s ∈ ℤ+½,
 containing the involution's fixed point s = ½, the zeros' axis
 center; and the ARITHMETIC (algebraic) class s ∈ ℤ, containing
-ζ's pole s = 1 and its mirror s = 0. Both selectors — P0 (no
-underived α) and evenness (2α ∈ ℤ) — land on the same binary
-independently. *(iv) L3: the binary is decided by P0's second
+ζ's pole s = 1 and its mirror s = 0. ~~Both selectors — P0 (no underived α) and evenness (2α ∈ ℤ) —
+land on the same binary independently~~ [struck round 180 F4 —
+P0 alone cannot collapse the continuum (the record derives
+non-binary constants usable as translates, S1's x* among them),
+and the P0 route reached the binary only through the struck
+evenness census: one route contained the other]. *(iv) L3: the binary is decided by P0's second
 application through 1aq's certified iffs.* Between the two
 classes, exact explicit-formula bookkeeping holds 4/4 on the
 arithmetic class and 0/4 on the critical class (Theorem 1aq's
 four integralities; the α = 0 counter-gate of its iff scan IS
-the critical class). A foundation on the critical class would
-carry its ledger — pole terms, prime side, archimedean side,
-crossings — in underived transcendentals with no exact
-structure; P0 excludes it. The unique surviving lattice is the
-arithmetic class: w = d + ½. Integrality is DERIVED, not
-adopted: no link mentioned integer points — P0 speaks of derived
-constants, evenness of symmetry, and 1aq of exactness. *(v) L4,
+the critical class). ~~A foundation on the critical class would carry its ledger —
+pole terms, prime side, archimedean side, crossings — in
+underived transcendentals with no exact structure; P0 excludes
+it~~ [struck round 180 F2, MAJOR — false on three of four named
+columns: integer-w pole terms are exact rationals (16/15-type,
+1aq's own counter-gate); the crossing geometry is
+lattice-independent (1aq(iii)) with γ_b algebraic at rational
+weights; ψ closes at quarter-integers by Gauss's digamma
+theorem; and every critical-class entry is the same committed
+formula at derived points — derived in exactly P0's sense, while
+the arithmetic class's own prime side is a non-closed-form
+transcendental by 1aq's F3 strike. The gated fact is the
+committed-integrality dichotomy, a DISTINCTION, not a
+P0-exclusion; converting it to an exclusion smuggled the
+conclusion]. **P2 (declared premise):** the foundation prefers
+the class with exact integrality structure — a preference, not
+a theorem, and the certified dichotomy (4/4 vs 0/4) is what it
+selects on. GIVEN P1 and P2, the surviving lattice is the
+arithmetic class: w = d + ½. ~~Integrality is DERIVED, not
+adopted: no link mentioned integer points~~ [struck round 180
+F3, MAJOR — L1's own ansatz opened on a unit-spaced translate of
+ℤ; the chain derives the translate, never the spacing]:
+integrality is derived GIVEN P1 — the translate α = ½ is forced
+within the ansatz; the spacing and closure are the ansatz. *(v) L4,
 the meaning layer (classical).* The two classes have classical
 names, and the committed structure uses BOTH, in different
 roles. The arithmetic class is the algebraic-character lattice
@@ -3642,19 +3678,32 @@ recurrence, and the tower edge s = 1 (1ao's Li rung) sits at
 ζ's pole; the critical class is the orbit of the fixed point
 s = ½. Which orbit generates a foundation is not decided by this
 picture — L3 decides it — and no forcing is claimed from the
-remark. *(vii) The upgrade delivered.* Definition 2.1's "integer
-points" is no longer adopted integrality: the lattice is
-entailed by {P0, evenness, 1aq's iffs}, and what remains
-constitutive is P0 itself — the paper's declared discipline,
-adopted by construction and named as such, carrying no number.
+remark. *(vii) The regrade — the hard road, honestly surveyed.* ~~The
+lattice is entailed by {P0, evenness, 1aq's iffs}, and what
+remains constitutive is P0 itself~~ [struck round 180 F3, MAJOR
+— the premise census omitted the unit-spacing ansatz, the
+class-closure premise (F1), and the selection preference (F2)].
+The forcing chain does NOT close from P0 alone. What stands: the
+two-class lemma (exact arithmetic); 1aq's certified dichotomy;
+the classical meaning layer (L4, held under hostile review); and
+the ANATOMY — Definition 2.1's "integer points" decomposes into
+exactly three identifiable premises: P0 (the paper's declared
+discipline, carrying no number), P1 (unit spacing + involution
+closure), and P2 (the integrality preference). The upgrade
+delivered is the anatomy, not the forcing: what "adopted
+integrality" actually consists of is now named, none of it
+silent — smaller and sharper than "integer points by fiat", but
+not zero, and the title's "forced" is struck accordingly.
 *Honest scope:* category (a) — classical group theory
 (Hom(𝔾_m, 𝔾_m) = ℤ), the functional equation's symmetry, exact
 rational arithmetic, and a certified theorem (1aq); no data, no
-closures, no new physics; the conclusion is conditional on P0
-and says so; the negative census in L2 ("the record's only
-translate-selecting structure") is a census of the committed
-record, not a theorem about all possible structure; no RH
-leverage in either direction. Check 7 clean (character/Γ
+closures, no new physics; the conclusion is conditional on ALL
+THREE premises P0, P1, and P2, and says so (the round-180
+regrade; the landing's P0-only census was struck); the L2
+negative census was struck round 180 F1/F4 — the committed
+record contains other derived translate-capable structure (S1's
+x*), and no exclusivity is claimed; no RH leverage in either
+direction. Check 7 clean (character/Γ
 bookkeeping; no semiclassics); Check 8 clean (no hypothesis
 input — C1 appears nowhere in the chain).
 
