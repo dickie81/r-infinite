@@ -15362,6 +15362,47 @@ annotations:**
 seven repair-pinning needles; the swept verifier re-run: 15/15.
 Convergence test (round 190) next.
 
+## Addendum 296: round 190 (convergence test on the round-189 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 2 cosmetics; the Θ-edge re-attached to the compensated series; swept
+
+**The round.** Fresh-context subagent on commit 3adac1e. All nine
+repairs F1–F4, F6–F10 verified correct and complete by the reviewer
+with independent recomputation (the obstruction witnesses by scipy
+quadrature — FT(e^(−x⁴)) min −0.18713, positive-definite iff p ≤ 2;
+the polynomial-decay exponent confirmed at p = 1.5; I₀ recomputed
+from Γ values to 30 digits against part0's convention; both D–H zeros
+to 40 digits; the h₄ₖ eigenspace argument confirmed under the
+(−i)^n convention; both g4 normalizations rederived; the footer's 69
+machine-censused with zero duplicates and zero uncounted). Verifier
+run by the reviewer: 15/15.
+
+**Findings, lead-verified and accepted:**
+
+- **Finding 1 (minor, novel):** the round-189 F5 repair fixed the
+  conditionality defect but left the Θ-edge claim attached to the
+  wrong object — the raw Euler-product truncations, whose
+  convergence edge is unconditionally NOT the line: the prime series
+  has abscissa exactly 1 (nonnegative coefficients ⇒ conditional =
+  absolute; Euler at σ = 1; half-plane theorem kills every strip
+  point — lead re-derived), and the truncations' log carries the
+  pole term y^(1−s)/((1−s)ln y) of on-line modulus √y/(|1−s|ln y).
+  The Θ-edge statement belongs to the pole-compensated ledger
+  (limsup ln|ψ(x)−x|/ln x = Θ; equivalently Σμ(n)n^(−s) abscissa Θ).
+  Sweep: the sentence rebuilt — raw-truncation divergence stated
+  unconditionally with the pole-term driver, the Θ-edge re-attached
+  to the compensated series, the round-189 residual annotated.
+- **Finding 2 (cosmetic):** "cusp at 0" over-specified the p < 2
+  singularity (genuine corner only at p = 1; C¹ with unbounded
+  second derivative for 1 < p < 2). Corrected with annotation.
+- **Finding 3 (cosmetic):** the F5 annotation's quoted landing
+  fragment "the line is the edge" had silently dropped "critical" —
+  verbatim-quote discipline. The rebuilt annotation now quotes the
+  landing in full.
+
+**Sweep verification.** Both edit regions applied; the g13 needle
+set unchanged and all needles verified present (the Θ needle
+survives in the rebuilt sentence); swept verifier re-run: 15/15.
+Convergence test (round 191) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

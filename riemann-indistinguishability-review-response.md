@@ -3928,3 +3928,23 @@ clean; Checks 7/8 clean.
 
 **Trajectory: 1as landed (09342e4) → 189 1M+6m+3c (all swept; the
 swept verifier 15/15) → round 190 (convergence test) next.**
+
+# Round 190: convergence test on the round-189 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 1 minor + 2 cosmetics; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the repaired F5 sentence attached the Θ-edge to the raw Euler-product truncations, whose edge is unconditionally NOT the line (prime-series abscissa exactly 1; pole term √y/(|1−s|ln y) drives strip divergence) | Accepted — lead re-derived the Landau/half-plane argument | Sentence rebuilt: raw-truncation divergence stated unconditionally; Θ-edge re-attached to the pole-compensated ledger (limsup ln|ψ(x)−x|/ln x = Θ; Σμ(n)n^(−s)) |
+| 2 cosmetic: "cusp at 0" over-specifies 1 < p < 2 (fractional-order singularity; corner only at p = 1) | Accepted | Corrected with annotation |
+| 3 cosmetic: the F5 annotation's landing quote dropped "critical" without ellipsis | Accepted | Rebuilt annotation quotes the landing in full |
+
+Checked and held: all nine other round-189 repairs verified correct
+and complete with independent recomputation (obstruction witnesses by
+quadrature; positive-definite iff p ≤ 2; I₀ from Γ values to 30
+digits; both D–H zeros to 40 digits; the h₄ₖ (−i)^n eigenspace
+argument; both g4 normalizations; the footer's 69 machine-censused);
+the verifier 15/15 run by the reviewer; all g13 needles present with
+the seven repair needles occurring exactly once each.
+
+**Trajectory: 1as landed (09342e4) → 189 1M+6m+3c (swept) → 190 NOT
+CONVERGED 0M+1m+2c (swept; the Θ-edge re-attachment) → round 191
+(convergence test) next.**

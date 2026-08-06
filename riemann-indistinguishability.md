@@ -3773,7 +3773,10 @@ classical two-obstruction argument, not a scan result (at the
 landing the universal rested on a two-point scan alone; the
 obstruction argument was supplied and gated round 189 F1): the
 ℓ^p sphere marginals converge to densities ∝ e^(−|x|^p/p)
-(Schechtman–Zinn); for p < 2 the limit's cusp at 0 forces its
+(Schechtman–Zinn); for p < 2 the limit's fractional-order
+singularity at 0 (a genuine corner only at p = 1; C¹ with
+unbounded second derivative for 1 < p < 2 — "cusp" corrected
+round 190) forces its
 Fourier transform to decay only polynomially (~|ξ|^(−(1+p)) —
 at p = 1 exactly the Lorentzian, gated), which no scaling
 matches to stretched-exponential decay; for p > 2 the transform
@@ -3883,13 +3886,25 @@ condenses as primes accrue: line-profile correlation with
 log|ζ| climbs 0.70 → 0.83 → 0.92 → 0.94 at y = 3/10/100/1000
 (gated), with proto-dips at the true zero heights already at
 y = 3 (two primes); at y = 20000 the correlation FALLS to 0.79
-(gated) — the line sits at the edge of the primes' convergence
-domain only under RH (the edge is the abscissa
-Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH; the landing's
-unconditional "the line is the edge" was RH-equivalent — scoped
-round 189 F5), and the truncations sharpen the skeleton but
-never converge on it (unconditional: on-line zeros exist by
-Hardy, and finite Euler products cannot vanish). The spectrum's
+(gated) — and the raw partial products converge NOWHERE in the
+strip, under any hypothesis: the prime series Σ_p p^(−s) has
+abscissa exactly 1 (nonnegative coefficients, so conditional =
+absolute; divergence at σ = 1 is Euler's), and the truncations'
+log carries the pole term y^(1−s)/((1−s) ln y), of on-line
+modulus √y/(|1−s| ln y) — a divergence driver growing without
+bound. The line-as-edge statement belongs to the
+POLE-COMPENSATED fluctuation ledger: limsup of
+ln|ψ(x)−x|/ln x is the abscissa
+Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently
+Σ μ(n)n^(−s) has abscissa Θ). (The round-189 repair had left
+the Θ-edge attached to the raw truncations, for which it is
+false — re-attached to the compensated series round 190; the
+landing's unconditional "the critical line is the edge of the
+primes' convergence domain" was RH-equivalent even for the
+right object — scoped round 189 F5.) The truncations
+sharpen the skeleton but never converge on it (unconditional:
+on-line zeros exist by Hardy, and finite Euler products cannot
+vanish). The spectrum's
 skeleton is fixed from the
 first primes; accrual grows resolution, not resonances. *(ix)
 Declared conjectures.* **THE FOLLOWING ARE DECLARED CONJECTURES,
