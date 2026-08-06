@@ -14702,6 +14702,71 @@ census declared a census, not a completeness theorem. Trajectory:
 0M+3m+3c → 178 0M+2m+1c → 179 CONVERGED 0M+0m+0c. Next hostile
 round on the next substantive paper change.**
 
+## Addendum 284: Theorem 1ar landed — the lattice forced: the binary selection closed by the paper's own discipline; hostile round 180 next
+
+**The commission.** The owner rejected the axiom route to 1aq's
+section as circular ("thats more circular than I was hoping for -
+lets not travel the easy road"), reviewed the hard-road assessment
+(the two-selector collapse to a binary; the residue's cleanup
+routes) and the residue-cleanup assessment (Routes 1+2
+recommended), and commissioned the landing ("the word").
+
+**The content.** P0 — the paper's front-matter zero-free-parameter
+declaration, made an explicit premise, constitutive and named as
+such, with every conclusion conditional on it — plus the
+framework's evenness (Weil test functions even; zeros pair
+ρ ↔ 1−ρ) collapse the translate continuum to exactly two classes
+(2α ∈ ℤ): the critical (half-density) class s ∈ ℤ+½ containing
+the fixed point s = ½, and the arithmetic (algebraic) class
+s ∈ ℤ containing the pole pair {0, 1}. P0's second application
+through 1aq's certified iffs decides the binary (4/4 vs 0/4
+exact bookkeeping). Integrality is DERIVED, not adopted — no
+link mentions integer points. The meaning layer: the arithmetic
+class is the algebraic-character lattice (Hom(𝔾_m, 𝔾_m) = ℤ, a
+classical theorem; the parity linkage of x ↦ xⁿ is the committed
+Legendre even/odd interleaving); the critical class is the
+half-density class; the role assignment — rungs on the algebraic
+class, the reading coordinate w = s − ½ centered at the
+half-density point. Remark (texture, no forcing claimed): the
+arithmetic class as the pole pair's orbit; the tower edge at
+ζ's pole. Honest scope: conditional on P0 and says so; the L2
+negative census scoped as a census of the committed record;
+Check 7/8 clean (C1 appears nowhere in the chain).
+
+**The instrument.** `cascade_lattice_forcing.py`, 10 gates,
+exit-gated, first clean run 10/0: g1 the two-class lemma exact
+(60-point rational grid); g2 the 4/4-vs-0/4 dichotomy (exact
+rationals, d = 1..5); g3 the Legendre pair at 25+ digits + the
+committed even/odd anchors; g4 the pole orbit (range scan) with
+falsifiable pole detection by evaluation (the round-175-F4
+lesson applied at design time); g5 evenness including a
+non-lattice s (the premise is s-independent); g6 the
+half-density center and the distinct-roles arithmetic; g7 P0 and
+the conditionality clauses; g8 the key sentences; g9 the sibling
+chain (arithmetic_section 10/0, transitively the Weil-arc
+suite); g10 the footer census (68/1i–1ar). Two design-time
+self-catches disclosed: a cannot-fail conjunct in g4's first
+draft replaced by evaluation-based pole detection before any
+run; the A3 needle's spacing checked against the paper before
+the first run.
+
+**The census advance.** Footer 67 → 68, 1i–1aq → 1i–1ar, the
+script added to the list; EIGHT sibling census carriers advanced
+(the seven priors + cascade_arithmetic_section g10) — the
+wrapped label/docstring variants caught IN THE LANDING PASS this
+time (two batch passes + a per-file exact-pattern pass,
+grep-verified zero remnants; the batch aborted safely once at a
+prefix mismatch, per-file writes preserving completed work).
+
+**Sabotage record (landing):** (a) the derived-not-adopted
+needle → g8 ALONE, 9/1; (b) the two-class lemma decoupled → g1
+ALONE, 9/1; (c) the pole-detection bound decoupled → g4 ALONE,
+9/1 (the F4-lesson conjunct demonstrated falsifiable); clean
+baselines 10/0 around every entry.
+
+**Post-landing:** verifier 10/0; hostile round 180 (fresh
+context, session model, per protocol) next on this landing.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

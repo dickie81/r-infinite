@@ -3579,6 +3579,85 @@ either direction. Check 7 clean (explicit-formula bookkeeping,
 rational arithmetic, ψ/Γ special values; no semiclassics); Check 8
 clean (no hypothesis input).
 
+**Theorem 1ar (the lattice forced: the binary selection closed by
+the paper's own discipline; `cascade_lattice_forcing.py`).** *(i)
+The commission.* The owner rejected the axiom route to 1aq's
+section as circular ("the integrality was put in by the axiom")
+and commissioned the hard road: derive the half-shift lattice
+from premises that never mention integer points. The chain has
+four links; each is a framework-forced fact, the paper's own
+declared discipline, or a certified theorem. *(ii) P0, the
+constitutive premise, made explicit.* The paper's front matter
+declares: *"This paper meets that standard with one hypothesis
+and zero free parameters."* P0 is that discipline stated as a
+premise: no underived constant may enter the foundations — every
+number must be produced by committed structure. P0 is
+constitutive (the program's founding rule, in force since the
+front matter), not a theorem; every conclusion below is
+conditional on it, and that conditionality is the theorem's
+honest boundary. *(iii) L1–L2: the translate continuum collapses
+to a binary, by two independent selectors.* A unit-spaced decay
+lattice w = d + α needs its translate α produced by committed
+structure (P0). The record's only translate-selecting structure
+is the functional equation's involution acting through the
+required evenness of Weil test functions (zeros pair ρ ↔ 1−ρ;
+R1's profile is committed as *"the even test function"*): an
+even class needs −α ≡ α mod 1, i.e. 2α ∈ ℤ — exactly two
+classes. In s: the CRITICAL (half-density) class s ∈ ℤ+½,
+containing the involution's fixed point s = ½, the zeros' axis
+center; and the ARITHMETIC (algebraic) class s ∈ ℤ, containing
+ζ's pole s = 1 and its mirror s = 0. Both selectors — P0 (no
+underived α) and evenness (2α ∈ ℤ) — land on the same binary
+independently. *(iv) L3: the binary is decided by P0's second
+application through 1aq's certified iffs.* Between the two
+classes, exact explicit-formula bookkeeping holds 4/4 on the
+arithmetic class and 0/4 on the critical class (Theorem 1aq's
+four integralities; the α = 0 counter-gate of its iff scan IS
+the critical class). A foundation on the critical class would
+carry its ledger — pole terms, prime side, archimedean side,
+crossings — in underived transcendentals with no exact
+structure; P0 excludes it. The unique surviving lattice is the
+arithmetic class: w = d + ½. Integrality is DERIVED, not
+adopted: no link mentioned integer points — P0 speaks of derived
+constants, evenness of symmetry, and 1aq of exactness. *(v) L4,
+the meaning layer (classical).* The two classes have classical
+names, and the committed structure uses BOTH, in different
+roles. The arithmetic class is the algebraic-character lattice
+of the multiplicative group — Hom(𝔾_m, 𝔾_m) = ℤ is a classical
+theorem, so unit spacing and integrality are the group law's,
+not a choice — and the parity linkage of the algebraic
+characters x ↦ xⁿ (Γ-factor parity ≡ n mod 2) is exactly the
+committed even/odd tower interleaving (the Legendre pair
+Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1)). The critical class is the
+half-density class — the unitary normalization whose center
+s = ½ is the zeros' axis. The role assignment on the record:
+the tower's RUNGS sit on the algebraic class; the READING
+COORDINATE w = s − ½ is centered at the half-density point. The
+object lives where the primes' algebra lives; the observable is
+measured from where the zeros live. *(vi) Remark (the generation
+picture — texture, not forcing).* The arithmetic class is the
+orbit of the functional equation's pole pair {0, 1} (1ak's
+vertex; A2's pole term 1/(w−½) + 1/(w+½)) under the unit
+recurrence, and the tower edge s = 1 (1ao's Li rung) sits at
+ζ's pole; the critical class is the orbit of the fixed point
+s = ½. Which orbit generates a foundation is not decided by this
+picture — L3 decides it — and no forcing is claimed from the
+remark. *(vii) The upgrade delivered.* Definition 2.1's "integer
+points" is no longer adopted integrality: the lattice is
+entailed by {P0, evenness, 1aq's iffs}, and what remains
+constitutive is P0 itself — the paper's declared discipline,
+adopted by construction and named as such, carrying no number.
+*Honest scope:* category (a) — classical group theory
+(Hom(𝔾_m, 𝔾_m) = ℤ), the functional equation's symmetry, exact
+rational arithmetic, and a certified theorem (1aq); no data, no
+closures, no new physics; the conclusion is conditional on P0
+and says so; the negative census in L2 ("the record's only
+translate-selecting structure") is a census of the committed
+record, not a theorem about all possible structure; no RH
+leverage in either direction. Check 7 clean (character/Γ
+bookkeeping; no semiclassics); Check 8 clean (no hypothesis
+input — C1 appears nowhere in the chain).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -4113,4 +4192,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1aq: the **67 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ar: the **68 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
