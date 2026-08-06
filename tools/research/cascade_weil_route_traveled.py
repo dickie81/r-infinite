@@ -675,9 +675,10 @@ ok = "`cascade_weil_route_traveled.py`" in paper
 ok &= "67 scripts cited in place" in paper
 ok &= "Theorems 1i–1aq" in paper
 gate("g18 the footer census (advanced with each landing, "
-     "disclosed): this script backticked; 66 cited in "
+     "disclosed): this script backticked; 67 cited in "
      "place; the range 1i–1aq (advance disclosed; label re-synced "
-     "round 175 F2)", ok)
+     "rounds 175 F2, 176 F2 -- the census value missed in the 175 "
+     "pass)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (22 gates)")

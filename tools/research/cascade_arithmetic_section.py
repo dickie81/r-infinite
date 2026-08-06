@@ -24,14 +24,28 @@ EVERY s (the kernel's two terms exchange) -- struck at the
 carrier, the iff scoped to A1/A2/A3/A5 with the
 all-real-translates upgrade gated (the P3 discriminant is the
 perfect square (2m^2+2m+1)^2); F2 -- seven sibling gate labels
-and two docstring remnants still carried 66/1ap, synced; F3 --
+and two docstring remnants still carried 66/1ap, synced (the
+weil_route label's census VALUE was missed in that pass -- its
+label wraps differently -- completed round 176 F2, the class's
+ninth recurrence); F3 --
 "maximal exactly-computable slice ... in closed form" struck (no
 ordering named; -zeta'/zeta(d+1) has no closed form), re-scoped
 to the exactly-structured slice with the rational/integer-argument
 split stated; F4 -- g3's tautological isinstance conjunct removed
 (a gate that cannot fail), the integrality stated as arithmetic;
 F5 (cosmetic) -- g9's "full committed suite" label corrected to
-the actual Weil-arc chain.
+the actual Weil-arc chain.  ROUND-176 SWEEP (the convergence
+test; 0 majors + 3 minors + 3 cosmetics, all verified by the lead
+and swept): F1 -- the paper's honest-scope carrier still said
+"five integralities" (the struck umbrella's count), synced; F2 --
+the weil_route label above; F3 -- the wall reframe's two-case
+evaluation split read as exhaustive while the archimedean leg
+(psi closed forms, A5's ladder) is neither exact-rational nor a
+zeta-argument -- the third leg added; cosmetics: the negative
+root's off-lattice exclusion stated ((-1/6, 0) vs w >= 3/2), the
+irrational-powers clause scoped to rational translates, and
+"DEFINES w = s-1/2" weakened to defines-up-to-scale (the evenness
+pins the center; the unit scale is the integralities').
   A1 (prime side): the Weil pairing of e^(-w|x|) is
       sum Lambda(n) n^(-(w+1/2)) = -zeta'/zeta(w+1/2); on the
       lattice the argument is the INTEGER d+1 and every Euler term
@@ -144,8 +158,11 @@ conjunct decoupled in the verifier copy ((2m^2+2m+1)^2 ->
 coordinate-fact needle mangled ("not a translate iff" -> "not a
 translate law", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1;
 clean baselines 10/0 around both, serial fresh tree, per-mangle
-restore, gate identity in the first pass.  Ten gates (count
-checked against the gate() census pre-commit).
+restore, gate identity in the first pass.  At the round-176
+sweep: (f) the third-leg needle mangled in the paper copy
+("archimedean" -> "arithmetic", whitespace-aware) -> g8 trips
+ALONE, 9/1, exit 1; clean baselines 10/0 around it.  Ten gates
+(count checked against the gate() census pre-commit).
 """
 import os
 import subprocess
@@ -332,6 +349,7 @@ ok &= paper.count("struck round 175 F3") == 1
 ok &= "each of A1, A2, A3, and A5 below is true for α = ½" in paper
 ok &= "the coordinate fact, not a translate iff" in paper
 ok &= "the exactly-structured slice of the Weil framework" in paper
+ok &= "in ψ closed forms where it is archimedean" in paper
 ok &= "unique among unit-spaced translates, gated" in paper
 ok &= "one fact, seen independently on all four sides of the explicit formula" in paper
 ok &= "consistency texture under Check 8, not forcing" in paper

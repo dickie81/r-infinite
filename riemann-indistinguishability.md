@@ -3481,16 +3481,18 @@ every other translate mod 1 (the iff scan gated at
 α ∈ {0, ¼, ⅓, ¾}; and the iffs in fact hold over ALL real
 translates — for A2, solving 2w/(w²−¼) = (2m+1)/(m(m+1)) has
 discriminant 4m²(m+1)² + (2m+1)² = (2m²+2m+1)², a perfect
-square, forcing w = m+½ or the negative root −1/(2(2m+1)),
+square, forcing w = m+½ or the negative root −1/(2(2m+1)) —
+which lies in (−⅙, 0), off every decay lattice (w ≥ 3/2) —
 lead-verified and gated); A4 is the α-free coordinate fact that
-DEFINES w = s−½ — the frame in which the other four become
-integralities. **A1 (the prime side is ζ-integer
+defines the coordinate up to scale — the evenness pins the center
+½; the unit scale is the integralities' — the frame in which the
+other four become integralities. **A1 (the prime side is ζ-integer
 evaluation):** the Weil pairing of e^(−w|x|) is
 Σ Λ(n) n^(−(w+½)) = −ζ′/ζ(w+½); on the lattice the argument is the
 integer d+1 and every Euler term is ln p/(p^(d+1) − 1) with an
 integer denominator (gated at d = 1, 2, 3 against −ζ′/ζ with the
-prime tail bracketed); other translates leave irrational powers
-p^(d+α+½). The committed bridge identity carries this silently —
+prime tail bracketed); other rational translates leave irrational powers p^(d+α+½)
+(the operative iff is argument integrality). The committed bridge identity carries this silently —
 R4(b)'s own "Σ Λ(n)n^(−s) with s = d+1". **A2 (the pole term is
 unit fractions):** 2w/(w²−¼) = 1/d + 1/(d+1) exactly (gated in
 exact rationals at d = 1..6; the integer-w lattice gives
@@ -3534,8 +3536,10 @@ lattice is thereby the exactly-structured slice of the Weil
 framework — unique among unit-spaced translates, gated — on which
 every committed quantity evaluates unconditionally: in exact
 rationals where the structure is rational (the edge ratios, pole
-terms, and band widths) and at integer ζ-arguments where it is
-not (the prime side). That is why the arc's exact rationals
+terms, and band widths), at integer ζ-arguments where it is
+arithmetic (the prime side), and in ψ closed forms where it is
+archimedean (A5's ladder — the third leg added round 176 F3, the
+two-case split having read as exhaustive). That is why the arc's exact rationals
 (9/11, 1/297, 1/243, the bridge's unit fractions) had to
 appear — and R4's wall statement is the same fact seen from the
 other side: the rational section is exactly where positivity is
@@ -3544,9 +3548,12 @@ class IS RH (R4(vi), unchanged in either direction). The
 distinguished status and the wall's location are one fact. *Honest
 scope:* category (a) — classical explicit-formula bookkeeping,
 exact arithmetic, and ψ/Γ special values; no data, no closures, no
-new physics. The five integralities are individually classical
-background — the theorem is the identification (the committed
-lattice IS that unique section, iff at α = ½) and the
+new physics. The four integralities and the coordinate fact are
+individually classical background — the theorem is the
+identification (the committed lattice IS that unique section, the
+four integralities each an iff at α = ½ — count synced round 176
+F1, the honest-scope carrier having kept the struck umbrella's
+"five") and the
 two-sidedness (arithmetically distinguished, positivity-generic);
 the ½-critical/integer-dimension decomposition is consistency
 texture under Check 8, not forcing; no RH leverage is claimed in

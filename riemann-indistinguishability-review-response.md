@@ -3622,3 +3622,23 @@ Checks 7/8 clean.
 
 **Trajectory: 1aq landed (25028d8) → 175 NOT CONVERGED 1M+3m+1c
 (swept) → round 176 (convergence test) next.**
+
+# Round 176: convergence test on the round-175 sweep (subagent, per protocol) — NOT CONVERGED: 0 MAJORs + 3 minors + 3 cosmetics, all sweep-completeness; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F176-1 (minor) — the honest-scope carrier kept the struck umbrella's "five integralities" | **Accepted; synced to the four + the coordinate fact, sync noted in place** | paper |
+| F176-2 (minor) — the weil_route label's census value still 66 (its wrapping differs from the four batch-fixed; the ninth stale-census recurrence, inside the label claiming its own re-sync); the F2 "7/7 synced" record falsified for one | **Accepted; completed with the miss disclosed in label and record** | weil_route, verifier docstring |
+| F176-3 (minor) — the wall sentence's two-case split read as exhaustive; the archimedean leg (ψ closed forms) is neither case | **Accepted; the third leg added with a g8 needle; probe (f) certified 9/1 with clean baselines** | paper, verifier g8 |
+| Cosmetics 4–6 — the negative root's off-lattice exclusion unstated; "irrational powers" unscoped over irrational translates; "DEFINES" overstated (evenness pins the center, not the scale) | **Applied; exclusion stated, rational-translate scope added, defines-up-to-scale** | paper |
+
+Held: the sweep's mathematics verified "steel" — the discriminant
+algebra at m = 1..50, the A2 parity argument (a theorem, not a
+scan), the 59-point α-grid, both strike frames accurate, every
+quotation verbatim at source, the footer census 67 with computed
+set-identity, probes (d)/(e)/(a) reproduced, unit_ball_rh 13/0,
+Checks 7/8 clean.
+
+**Trajectory: 1aq landed (25028d8) → 175 1M+3m+1c (swept,
+0c47edf) → 176 NOT CONVERGED 0M+3m+3c (swept) → round 177
+(convergence test) next.**

@@ -14516,6 +14516,50 @@ first pass):** (d) the discriminant conjunct decoupled
 
 **Post-sweep:** verifier 10/0. Convergence-test round 176 next.
 
+## Addendum 280: round 176 (convergence test on the round-175 sweep) — NOT CONVERGED: 0 MAJORs + 3 minors + 3 cosmetics, all sweep-completeness residues; swept
+
+Round 176 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) found the sweep's mathematics
+"steel" — every struck claim correctly struck, every replacement
+true, all algebra re-derived independently (the discriminant at
+m = 1..50; the A2 parity argument confirmed a theorem, not a
+scan; a 59-point rational-α grid confirming P3's all-real
+failure) — and returned three missed-carrier minors plus three
+precision cosmetics, all verified directly by the lead (Check 3):
+
+**F176-1 minor (accepted; swept):** the paper's honest-scope
+carrier still said "The five integralities are individually
+classical background" — the struck umbrella's count surviving
+unmarked on the same surface as the strike. Synced to the four +
+the coordinate fact, with the sync noted in place.
+
+**F176-2 minor (accepted; swept):** the weil_route gate label
+still read "66 cited in place" while claiming "label re-synced
+round 175 F2" — its label wraps differently from the four the
+175 pass batch-fixed, so the census VALUE was missed while the
+range was updated. The stale-census class's NINTH recurrence,
+this time inside the label claiming its own re-sync. Completed,
+with the miss disclosed in the label and in the F2 record (which
+had claimed 7/7 synced — falsified for one; corrected).
+
+**F176-3 minor (accepted; swept):** the re-scoped wall sentence's
+two-case evaluation split read as exhaustive ("in exact rationals
+… and at integer ζ-arguments where it is not") while the
+archimedean leg — ψ closed forms, A5's own ladder — is neither.
+The third leg added on the paper carrier with a g8 needle; probe
+(f) certified (g8 ALONE, 9/1, clean baselines 10/0).
+
+**Cosmetics (applied):** the negative root's off-lattice
+exclusion stated ((−⅙, 0) vs w ≥ 3/2); the irrational-powers
+clause scoped to rational translates (measure-zero irrational
+translates can make one power rational at one prime, the
+operative iff being argument integrality); "DEFINES w = s−½"
+weakened to defines-up-to-scale (the evenness pins the center ½;
+the unit scale is the integralities').
+
+**Post-sweep:** verifier 10/0; probe (f) certified.
+Convergence-test round 177 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
