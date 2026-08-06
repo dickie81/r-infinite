@@ -14447,6 +14447,75 @@ instruments and are unaffected.
 **Post-landing:** verifier 10/0; hostile round 175 (fresh
 context, session model, per protocol) next on this landing.
 
+## Addendum 279: round 175 (hostile, on the 1aq landing 25028d8) — NOT CONVERGED: 1 MAJOR + 3 minors + 1 cosmetic; the iff umbrella scoped to the four true integralities; swept
+
+Round 175 (fresh-context subagent, session model, foreground-only
+brief, record files out of scope) verified the arithmetic core
+sound — and stronger than gated: it re-derived all four true iffs
+over ALL real translates (the P3 quadratic's discriminant is the
+perfect square (2m²+2m+1)², forcing w = m+½ or −1/(2(2m+1)) —
+lead-verified by hand), proved the genericity closed forms
+symbolically for all weights, reproduced the sabotage entries and
+the footer recount (67 exact, set-identity both directions), and
+confirmed every wall-reframe quotation against its committed
+source. Five findings, all verified directly by the lead
+(Check 3):
+
+**F175-1 MAJOR (accepted; swept):** the landing's umbrella "The
+five integralities. Each holds iff at α = ½ … false for every
+other translate mod 1" quantified falsely over A4 — the FE
+evenness K_s(β+iγ) = K_s(1−β+iγ) is an exchange of the kernel's
+two terms, an identity for EVERY s (lead-verified by inspection),
+hence α-independent: a property of the coordinate w = s−½, not of
+the translate. The verifier's own census exposed it (five
+integralities, four predicates). Swept: the umbrella struck at
+the carrier with the round-175 frame; the scoped statement
+written (each of A1/A2/A3/A5 an iff, with the all-real-translates
+upgrade stated and gated — g7 gains the exact-rational
+discriminant/roots conjunct); A4 restated as the α-free
+coordinate fact that DEFINES w = s−½ — the frame in which the
+other four become integralities — on all carriers (paper, g5
+label, docstring, READING).
+
+**F175-2 minor (accepted; swept):** the seven sibling gate()
+labels still printed "66 cited in place; the range 1i–1ap" while
+their predicates checked 67/1aq — the landing's label pass had
+caught the wrapped-"66" docstring variants and missed the label
+wording entirely (0/7), plus two docstring remnants
+internally inconsistent (67 beside 1ap) and weil_route's
+"advanced at the 1ak-1ao landings" header. All synced per-edit
+with syntax checks; grep-verified zero remnants. The
+stale-census class's eighth recurrence, exactly as the brief
+predicted.
+
+**F175-3 minor (accepted; swept):** the wall reframe's "maximal
+exactly-computable slice … every committed quantity evaluates
+unconditionally in closed form" was false on the prime side
+(−ζ′/ζ(d+1) has no closed form; R4(b) evaluates it numerically)
+and "maximal" named no ordering. Struck with the round-175 frame;
+re-scoped: the exactly-structured slice, unique among unit-spaced
+translates (gated), evaluating unconditionally in exact rationals
+where the structure is rational and at integer ζ-arguments where
+it is not.
+
+**F175-4 minor (accepted; swept):** g3's Euler-denominator
+conjunct was `isinstance(2**(d+1), int)` — a tautology, a gate
+that cannot fail. Removed; the label re-scoped to the live
+tail-bound comparison with the integrality stated as arithmetic.
+
+**F175-5 cosmetic (applied):** g9's "transitively chaining the
+full committed suite" overstated the chain's reach — corrected to
+the actual Weil-arc sibling chain on both carriers.
+
+**Probes (d)/(e) certified (fresh tar tree, serial, per-mangle
+restore, clean baselines 10/0 around both, gate identity in the
+first pass):** (d) the discriminant conjunct decoupled
+((2m²+2m+1)² → (2m²+2m+2)²) → g7 trips ALONE, 9/1, exit 1;
+(e) the coordinate-fact needle mangled ("not a translate iff" →
+"not a translate law") → g8 trips ALONE, 9/1, exit 1.
+
+**Post-sweep:** verifier 10/0. Convergence-test round 176 next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

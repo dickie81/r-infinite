@@ -13,9 +13,25 @@ on all four sides of the explicit formula.  The lattice is the
 unique arithmetic-rational section of a positivity-generic cone
 family, and the two-sidedness locates the R4 wall.
 
-THE CONTENT (five integralities, each an iff at alpha = 1/2 among
-unit-spaced translates w = d + alpha; a genericity counter-theorem;
-the wall reframe).
+THE CONTENT (four integralities, each an iff at alpha = 1/2 among
+unit-spaced translates w = d + alpha, plus the alpha-free
+coordinate fact A4; a genericity counter-theorem; the wall
+reframe).  ROUND-175 SWEEP (the landing's hostile round; 1 MAJOR +
+3 minors + 1 cosmetic, all verified by the lead and swept): F1
+MAJOR -- the landing's umbrella "five integralities, each an iff"
+quantified falsely over A4, whose evenness is an identity for
+EVERY s (the kernel's two terms exchange) -- struck at the
+carrier, the iff scoped to A1/A2/A3/A5 with the
+all-real-translates upgrade gated (the P3 discriminant is the
+perfect square (2m^2+2m+1)^2); F2 -- seven sibling gate labels
+and two docstring remnants still carried 66/1ap, synced; F3 --
+"maximal exactly-computable slice ... in closed form" struck (no
+ordering named; -zeta'/zeta(d+1) has no closed form), re-scoped
+to the exactly-structured slice with the rational/integer-argument
+split stated; F4 -- g3's tautological isinstance conjunct removed
+(a gate that cannot fail), the integrality stated as arithmetic;
+F5 (cosmetic) -- g9's "full committed suite" label corrected to
+the actual Weil-arc chain.
   A1 (prime side): the Weil pairing of e^(-w|x|) is
       sum Lambda(n) n^(-(w+1/2)) = -zeta'/zeta(w+1/2); on the
       lattice the argument is the INTEGER d+1 and every Euler term
@@ -30,10 +46,12 @@ the wall reframe).
       heights, iff w in Z+1/2; algebraically w^2 - 1/4 = d(d+1),
       exact over the committed range [1, 217].  The source of the
       (s, s-1) telescoping and the 2s-1 = 2w normalization.
-  A4 (functional equation): s <-> 1-s acts as w <-> -w exactly in
-      the half-shift coordinate; R1's cosh((beta-1/2)t)
-      symmetrization is this evenness; K_s(beta+i gamma) =
-      K_s(1-beta+i gamma) identically.
+  A4 (functional equation -- the coordinate fact, alpha-free,
+      round 175 F1): s <-> 1-s acts as w <-> -w exactly in the
+      half-shift coordinate; R1's cosh((beta-1/2)t) symmetrization
+      is this evenness; K_s(beta+i gamma) = K_s(1-beta+i gamma)
+      identically IN s -- the frame in which A1/A2/A3/A5 become
+      integralities, not itself a translate iff.
   A5 (archimedean): the Gamma-term argument 1/4 + w/2 = (d+1)/2 --
       the psi closed-form ladder (integers and half-integers;
       -gamma_E + H_n and -gamma_E - 2 ln 2 + 2 sum 1/(2k-1));
@@ -44,8 +62,13 @@ the wall reframe).
       weights (1.7, 2.9) and (2.13, 5.41).  The half-shift buys no
       positivity advantage; the 1/4 in F(0) is the strip
       boundary's, fixed by zeta, not by the lattice.
-  THE WALL REFRAME.  The lattice is the maximal exactly-computable
-      slice of the Weil framework -- why the arc's exact rationals
+  THE WALL REFRAME (re-scoped round 175 F3).  The lattice is the
+      exactly-structured slice of the Weil framework -- unique
+      among unit-spaced translates, gated -- on which every
+      committed quantity evaluates unconditionally: in exact
+      rationals where the structure is rational, and at integer
+      zeta-arguments where it is not (the prime side; no
+      closed form is claimed) -- why the arc's exact rationals
       (9/11, 1/297, 1/243, the bridge's unit fractions) had to
       appear -- and R4's wall is the same fact from the other side:
       the rational section is where positivity is classical
@@ -71,7 +94,9 @@ VERIFICATION (10 gates, exit-gated).
        factorization at samples to machine precision.
   V2 -- g3 A1: the sieved Lambda-sum sum_{n<=1e5} Lambda(n)n^(-s)
        vs mpmath -zeta'/zeta(s) at s = 2, 3, 4, within the
-       integral tail bound (ln N + 1/(s-1)) N^(1-s)/(s-1);
+       integral tail bound (ln N + 1/(s-1)) N^(1-s)/(s-1) (the
+       Euler-denominator integrality stated as arithmetic, not
+       gated -- round 175 F4);
        g4 A5: psi((d+1)/2) against BOTH closed-form families
        (d = 1..6), residuals < 1e-25 at dps 30.
   V3 -- g5 A4: K_s(beta+i gamma) = K_s(1-beta+i gamma) at samples
@@ -81,18 +106,23 @@ VERIFICATION (10 gates, exit-gated).
        (2.13, 5.41), L rebuilt from kernels matches the closed
        form < 1e-12, min L >= 0 on the grid, F(0) < 0 matching its
        closed form.
-  V4 -- g7 the iff scan: predicates P1 (w+1/2 integer), P2
-       (w-1/2 integer), P3 (pole term a consecutive-unit-fraction
-       sum), P4 (1/4+w/2 in (1/2)Z) -- ALL true at alpha = 1/2
-       (d = 1..5), ALL false at every alpha in {0, 1/4, 1/3, 3/4}
-       (d = 1..5).
+  V4 -- g7 the iff scan over the FOUR integralities: predicates
+       P1 (w+1/2 integer), P2 (w-1/2 integer), P3 (pole term a
+       consecutive-unit-fraction sum), P4 (1/4+w/2 in (1/2)Z) --
+       ALL true at alpha = 1/2 (d = 1..5), ALL false at every
+       alpha in {0, 1/4, 1/3, 3/4} (d = 1..5); PLUS the
+       all-real-translates upgrade (the P3 discriminant a perfect
+       square, roots exactly m+1/2 and -1/(2(2m+1)), exact
+       rationals, m = 1..6 -- round 175 F1 sweep).
   V5 -- g8 1aq's key sentences anchored by content (the unique
        arithmetic-rational section; NO positivity advantage; the
-       maximal exactly-computable slice; one fact/four sides; iff
-       at alpha = 1/2; the Check 8 texture clause; no RH
+       two round-175 strike frames; the scoped four-iff sentence
+       + the coordinate fact; the exactly-structured slice; one
+       fact/four sides; the Check 8 texture clause; no RH
        leverage); g9 the sibling chain green
        (cascade_concentration_regrade.py 12/0, transitively
-       chaining the full suite); g10 the footer census (this
+       chaining the Weil-arc sibling chain -- the "full suite"
+       label corrected round 175 F5); g10 the footer census (this
        script backticked >= 2; "67 scripts cited in place";
        "Theorems 1i-1aq").
 
@@ -107,8 +137,15 @@ left the tree clean at 10/0, disclosed); (b) the pole-term
 identity decoupled in the verifier copy (Fr(1, d+1) ->
 Fr(1, d+2)) -> g1 trips ALONE, 9/1, exit 1; (c) the genericity
 closed form decoupled in the verifier copy (w2^2 - 0.25 ->
-w2^2 - 0.35 in F0c) -> g6 trips ALONE, 9/1, exit 1.  Ten gates
-(count checked against the gate() census pre-commit).
+w2^2 - 0.35 in F0c) -> g6 trips ALONE, 9/1, exit 1.  At the
+round-175 sweep: (d) the all-real-translates discriminant
+conjunct decoupled in the verifier copy ((2m^2+2m+1)^2 ->
+(2m^2+2m+2)^2) -> g7 trips ALONE, 9/1, exit 1; (e) the paper's
+coordinate-fact needle mangled ("not a translate iff" -> "not a
+translate law", whitespace-aware) -> g8 trips ALONE, 9/1, exit 1;
+clean baselines 10/0 around both, serial fresh tree, per-mangle
+restore, gate identity in the first pass.  Ten gates (count
+checked against the gate() census pre-commit).
 """
 import os
 import subprocess
@@ -197,10 +234,10 @@ for s in (2, 3, 4):
     tail = (mplog(N) + mpf(1) / (s - 1)) * mpf(N) ** (1 - s) / (s - 1)
     ok &= abs(direct - target) < tail
     details.append(f"s={s}: |diff| {float(abs(direct-target)):.2e} < tail {float(tail):.2e}")
-ok &= all(isinstance(2 ** (d + 1), int) for d in range(1, 7))
 gate("g3 A1: the sieved Lambda-sum equals -zeta'/zeta at the INTEGER "
-     "arguments s = d+1 = 2, 3, 4 within the integral tail bound; the "
-     "Euler denominators p^(d+1)-1 are integers", ok,
+     "arguments s = d+1 = 2, 3, 4 within the integral tail bound (the "
+     "Euler-denominator integrality is arithmetic, stated not gated -- "
+     "the round-175 F4 tautology removed)", ok,
      "; ".join(details))
 
 ok = True
@@ -233,8 +270,9 @@ for d in (1, 4, 12):
             ok &= abs(K(s, b, g) - K(s, 1 - b, g)) < 1e-14
 ok &= "cosh((β−½)t)" in paper
 gate("g5 A4: K_s(beta+i gamma) = K_s(1-beta+i gamma) at samples (the "
-     "FE involution as w-evenness) + R1's cosh((beta-1/2)t) transform "
-     "sentence anchored", ok)
+     "FE involution as w-evenness; an identity for EVERY s -- the "
+     "coordinate fact, not a translate iff, round 175 F1) + R1's "
+     "cosh((beta-1/2)t) transform sentence anchored", ok)
 
 ok = True
 for (w1, w2) in ((1.7, 2.9), (2.13, 5.41)):
@@ -269,22 +307,41 @@ for d in range(1, 6):
     ok &= predicates(d, Fr(1, 2)) == (True, True, True, True)
     for alpha in (Fr(0), Fr(1, 4), Fr(1, 3), Fr(3, 4)):
         ok &= predicates(d, alpha) == (False, False, False, False)
-gate("g7 the iff: all four integrality predicates true at alpha = 1/2 "
-     "(d = 1..5), all false at alpha in {0, 1/4, 1/3, 3/4}", ok)
+# round 175 F1 sweep: the iffs hold over ALL real translates -- the
+# P3 quadratic (2m+1)w^2 - 2m(m+1)w - (2m+1)/4 = 0 has discriminant
+# 4m^2(m+1)^2 + (2m+1)^2 = (2m^2+2m+1)^2, a perfect square, so its
+# roots are exactly w = m+1/2 and w = -1/(2(2m+1)).
+for m in range(1, 7):
+    disc = 4 * Fr(m) ** 2 * Fr(m + 1) ** 2 + Fr(2 * m + 1) ** 2
+    ok &= disc == Fr(2 * m * m + 2 * m + 1) ** 2
+    root_p = (Fr(2 * m * (m + 1)) + Fr(2 * m * m + 2 * m + 1)) / (2 * (2 * m + 1))
+    root_m = (Fr(2 * m * (m + 1)) - Fr(2 * m * m + 2 * m + 1)) / (2 * (2 * m + 1))
+    ok &= root_p == Fr(2 * m + 1, 2) and root_m == -Fr(1, 2 * (2 * m + 1))
+gate("g7 the iff over the FOUR integralities A1/A2/A3/A5 (A4 is the "
+     "alpha-free coordinate fact, round 175 F1): all four predicates "
+     "true at alpha = 1/2 (d = 1..5), all false at alpha in "
+     "{0, 1/4, 1/3, 3/4}; AND the all-real-translates upgrade -- the "
+     "P3 discriminant is the perfect square (2m^2+2m+1)^2 with roots "
+     "exactly m+1/2 and -1/(2(2m+1)) (m = 1..6, exact rationals)", ok)
 
 print("V5 -- anchors, chain, census")
 ok = "the unique arithmetic-rational section of a positivity-generic cone family" in paper
 ok &= "buys NO positivity advantage" in paper
-ok &= "the maximal exactly-computable slice of the Weil framework" in paper
+ok &= paper.count("struck round 175 F1, MAJOR") == 1
+ok &= paper.count("struck round 175 F3") == 1
+ok &= "each of A1, A2, A3, and A5 below is true for α = ½" in paper
+ok &= "the coordinate fact, not a translate iff" in paper
+ok &= "the exactly-structured slice of the Weil framework" in paper
+ok &= "unique among unit-spaced translates, gated" in paper
 ok &= "one fact, seen independently on all four sides of the explicit formula" in paper
-ok &= "true for α = ½ and false for every other translate mod 1" in paper
 ok &= "consistency texture under Check 8, not forcing" in paper
 ok &= "no RH leverage is claimed in either direction" in paper
 ok &= paper.count("Theorem 1aq") >= 1
 gate("g8 1aq's key sentences anchored by content (the section "
-     "identification; no positivity advantage; the computable slice; "
-     "one fact/four sides; the iff; the Check 8 texture clause; no RH "
-     "leverage)", ok)
+     "identification; no positivity advantage; the two round-175 "
+     "strike frames; the scoped four-iff sentence + the coordinate "
+     "fact; the exactly-structured slice; one fact/four sides; the "
+     "Check 8 texture clause; no RH leverage)", ok)
 
 r = subprocess.run(
     [sys.executable,
@@ -292,7 +349,10 @@ r = subprocess.run(
     capture_output=True, text=True, timeout=3600)
 ok = r.returncode == 0 and "12 pass / 0 fail" in r.stdout
 gate("g9 the sibling chain green (cascade_concentration_regrade.py "
-     "12/0, transitively chaining the full committed suite)", ok)
+     "12/0, transitively chaining the Weil-arc sibling chain: "
+     "unit_ball_rh, windows_overlap, riemann_selection, "
+     "type_counting, and the two Weil-arc siblings -- the label's "
+     "'full committed suite' corrected round 175 F5)", ok)
 
 ok = paper.count("`cascade_arithmetic_section.py`") >= 2
 ok &= "67 scripts cited in place" in paper
@@ -305,10 +365,13 @@ print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gat
 print("READING.  The half-shift lattice is the arithmetic-rational")
 print("section of the Weil cone family: prime side at integer zeta")
 print("arguments, pole term in unit fractions, kernel poles at integer")
-print("heights, FE involution as evenness, psi closed-form ladder --")
-print("each an iff at alpha = 1/2 -- while the cone's positivity")
-print("geometry is lattice-independent (gated at non-lattice weights).")
-print("The section is the maximal exactly-computable slice; R4's wall")
+print("heights, psi closed-form ladder -- the FOUR integralities, each")
+print("an iff at alpha = 1/2 (over all real translates, gated) -- with")
+print("the FE evenness the alpha-free coordinate fact (round 175 F1);")
+print("the cone's positivity geometry is lattice-independent (gated at")
+print("non-lattice weights).")
+print("The section is the exactly-structured slice, unique among")
+print("unit-spaced translates (re-scoped round 175 F3); R4's wall")
 print("is the same fact from the other side.  No data, no closures,")
 print("no RH leverage in either direction.")
 sys.exit(0 if n_fail == 0 else 1)

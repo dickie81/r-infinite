@@ -3466,11 +3466,25 @@ positivity-generic cone family, and the two-sidedness locates the
 R4 wall. The decomposition w = ½ + d reads: under the critical-line
 coordinate w = s − ½, the lattice is exactly the integer ladder
 s = d+1 ∈ {2, 3, 4, …} — one fact, seen independently on all four
-sides of the explicit formula. *(ii) The five integralities.* Each
-holds iff at α = ½: writing a unit-spaced decay lattice as
-w = d + α, each of the following is true for α = ½ and false for
+sides of the explicit formula. *(ii) The four integralities and
+the coordinate fact.* ~~The five integralities. Each holds iff at
+α = ½: writing a unit-spaced decay lattice as w = d + α, each of
+the following is true for α = ½ and false for every other
+translate mod 1~~ [struck round 175 F1, MAJOR — the umbrella
+quantified falsely over A4: the FE evenness
+K_s(β+iγ) = K_s(1−β+iγ) is an exchange of the kernel's two
+terms, an identity for EVERY s, hence α-independent — a property
+of the coordinate w = s−½, not of the translate]. The scoped
+statement: writing a unit-spaced decay lattice as w = d + α, each
+of A1, A2, A3, and A5 below is true for α = ½ and false for
 every other translate mod 1 (the iff scan gated at
-α ∈ {0, ¼, ⅓, ¾}). **A1 (the prime side is ζ-integer
+α ∈ {0, ¼, ⅓, ¾}; and the iffs in fact hold over ALL real
+translates — for A2, solving 2w/(w²−¼) = (2m+1)/(m(m+1)) has
+discriminant 4m²(m+1)² + (2m+1)² = (2m²+2m+1)², a perfect
+square, forcing w = m+½ or the negative root −1/(2(2m+1)),
+lead-verified and gated); A4 is the α-free coordinate fact that
+DEFINES w = s−½ — the frame in which the other four become
+integralities. **A1 (the prime side is ζ-integer
 evaluation):** the Weil pairing of e^(−w|x|) is
 Σ Λ(n) n^(−(w+½)) = −ζ′/ζ(w+½); on the lattice the argument is the
 integer d+1 and every Euler term is ln p/(p^(d+1) − 1) with an
@@ -3494,7 +3508,9 @@ lemma's 2s − 1 = 2w normalization. **A4 (the functional-equation
 involution is evenness):** s ↔ 1−s acts as w ↔ −w exactly in the
 half-shift coordinate — R1's cosh((β−½)t) symmetrization is this
 evenness (gated: K_s(β+iγ) = K_s(1−β+iγ) at samples, with R1's
-transform sentence anchored). **A5 (the archimedean side lands on
+transform sentence anchored; an identity for every s — the
+coordinate fact, not a translate iff, round 175 F1). **A5 (the
+archimedean side lands on
 the ψ closed-form ladder):** the Γ-term's argument ¼ + w/2 equals
 (d+1)/2 exactly on the lattice — integers and half-integers, where
 ψ closes in γ_E, ln 2, and harmonic numbers (gated at d = 1..6
@@ -3507,11 +3523,20 @@ strip-boundary sign F(0) < 0 — reproduced at the non-lattice pairs
 (1.7, 2.9) and (2.13, 5.41) to machine precision (gated). The
 half-shift buys NO positivity advantage: the ¼ in F(0)'s
 denominators is the strip boundary's (β ∈ {0, 1}), fixed by ζ, not
-by the lattice. *(iv) The wall reframe.* The lattice is thereby
+by the lattice. *(iv) The wall reframe.* ~~The lattice is thereby
 the maximal exactly-computable slice of the Weil framework: on the
 arithmetic section every committed quantity evaluates
-unconditionally in closed form — which is why the arc's exact
-rationals (9/11, 1/297, 1/243, the bridge's unit fractions) had to
+unconditionally in closed form~~ [struck round 175 F3 — "maximal"
+named no ordering, and the prime side −ζ′/ζ(d+1) has no closed
+form (R4(b) itself evaluates it numerically); what the section
+buys is integer arguments and exact rational structure]. The
+lattice is thereby the exactly-structured slice of the Weil
+framework — unique among unit-spaced translates, gated — on which
+every committed quantity evaluates unconditionally: in exact
+rationals where the structure is rational (the edge ratios, pole
+terms, and band widths) and at integer ζ-arguments where it is
+not (the prime side). That is why the arc's exact rationals
+(9/11, 1/297, 1/243, the bridge's unit fractions) had to
 appear — and R4's wall statement is the same fact seen from the
 other side: the rational section is exactly where positivity is
 classical bookkeeping, and extending beyond its reach to the dense

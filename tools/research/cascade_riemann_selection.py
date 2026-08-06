@@ -331,8 +331,8 @@ ok = "`cascade_riemann_selection.py`" in paper
 ok &= "67 scripts cited in place" in paper
 ok &= "Theorems 1i–1aq" in paper
 gate("g12 the footer census (advanced at the 1an-1ap landings, "
-     "disclosed): this script backticked; 66 cited in place; the "
-     "range 1i–1ap (label re-synced round 167 F6)", ok)
+     "disclosed): this script backticked; 67 cited in place; the "
+     "range 1i–1aq (label re-synced rounds 167 F6, 175 F2)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

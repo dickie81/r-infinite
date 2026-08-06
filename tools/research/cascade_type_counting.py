@@ -294,8 +294,8 @@ ok = "`cascade_type_counting.py`" in paper
 ok &= "67 scripts cited in place" in paper
 ok &= "Theorems 1i–1aq" in paper
 gate("g11 the footer census (advanced at the 1am-1ap landings, "
-     "disclosed): this script backticked; 66 cited in place; the "
-     "range 1i–1ap (label re-synced round 167 F6)", ok)
+     "disclosed): this script backticked; 67 cited in place; the "
+     "range 1i–1aq (label re-synced rounds 167 F6, 175 F2)", ok)
 ok = True
 for s, expect in (("cascade_quarter_square", "12 pass / 0 fail"),
                   ("cascade_weil_route_traveled", "22 pass / 0 fail")):

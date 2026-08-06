@@ -105,7 +105,7 @@ VERIFICATION (13 gates, exit-gated).
        chaining riemann_selection, type_counting, and the two
        Weil-arc siblings); g13 the footer census (this script
        backticked; "67 scripts cited in place"; "Theorems
-       1i-1ap" -- the 1ap advance disclosed).
+       1i-1aq" -- the census advances with each landing).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, abort-on-mangle-failure, at the landing; three disclosed
@@ -380,7 +380,8 @@ ok = "`cascade_unit_ball_rh.py`" in paper
 ok &= "67 scripts cited in place" in paper
 ok &= "Theorems 1i–1aq" in paper
 gate("g13 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 66 cited in place; the range 1i–1ap (1ap advance disclosed)", ok)
+     "this script backticked; 67 cited in place; the range 1i–1aq "
+     "(advance disclosed; label re-synced round 175 F2)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates)")

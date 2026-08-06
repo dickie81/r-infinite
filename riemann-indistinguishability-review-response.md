@@ -3599,3 +3599,26 @@ contrast wall named, the width/depth/off-curve/boundary-floor
 laws derived and gated, the question slot retired with the
 stabilized third-statement classification. Next hostile round on
 the next substantive paper change.**
+
+# Round 175: hostile round on the Theorem 1aq landing (25028d8) (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 3 minors + 1 cosmetic; the iff umbrella scoped; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F175-1 (MAJOR) — the umbrella "five integralities, each an iff at α = ½ … false for every other translate" quantified falsely over A4: the FE evenness is a two-term exchange, an identity for EVERY s — α-independent, a coordinate fact not a translate iff; the verifier's own census exposed it (five integralities, four predicates) | **Accepted; lead-verified by inspection; struck with the round-175 frame; the iff scoped to A1/A2/A3/A5 with the all-real-translates upgrade stated and gated (the P3 discriminant is the perfect square (2m²+2m+1)², lead-verified by hand — g7 gains the exact-rational conjunct); A4 restated as the α-free coordinate fact on all carriers; probes (d)/(e) certified 9/1 with clean baselines** | paper, verifier g5/g7/g8, docstring, READING |
+| F175-2 (minor) — seven sibling gate labels still printed 66/1ap against 67/1aq predicates (0/7 caught at the landing); two inconsistent docstring remnants; the weil_route header | **Accepted; all synced per-edit with syntax checks, grep-verified zero remnants — the stale-census class's eighth recurrence, as the brief predicted** | seven siblings |
+| F175-3 (minor) — "maximal exactly-computable slice … in closed form" false on the prime side (−ζ′/ζ(d+1) has no closed form) and "maximal" named no ordering | **Accepted; struck with the round-175 frame; re-scoped to the exactly-structured slice, unique among unit-spaced translates (gated), with the rational/integer-argument split stated** | paper, docstring, READING |
+| F175-4 (minor) — g3's Euler-denominator conjunct a tautology (a gate that cannot fail) | **Accepted; removed; label re-scoped to the live tail-bound comparison** | verifier g3 |
+| F175-5 (cosmetic) — g9's "full committed suite" overstated the chain | **Applied; the actual Weil-arc chain named on both carriers** | verifier g9 |
+
+Held: the four true iffs re-derived over ALL real translates
+(stronger than gated); the A1 half-shift bookkeeping confirmed;
+the sieve verified against an independent construction; the tail
+bound proved an upper bound; the genericity closed forms proved
+symbolically for all weights (plus third and fourth pairs); every
+wall-reframe quotation verbatim against its committed source; the
+"four sides" census accurate; the footer recount 67 exact with
+set-identity; sabotage (a)/(b) reproduced; unit_ball_rh 13/0;
+Checks 7/8 clean.
+
+**Trajectory: 1aq landed (25028d8) → 175 NOT CONVERGED 1M+3m+1c
+(swept) → round 176 (convergence test) next.**
