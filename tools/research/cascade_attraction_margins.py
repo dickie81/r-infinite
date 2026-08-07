@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Theorem 1au verifier: the push record -- the open-region census, the
-monotone-attraction conjecture's data, the Turan rate law, and the
-thinnest Li direction.
+first-stage floor's data, the Turan rate law, and the thinnest Li
+direction. (The docstring title had carried the refuted monotone
+draft's name -- the fourth carrier of the round-194 F2 class, caught
+round 195 F2 and corrected here.)
 
 Gates (all exit-gated; any failure exits 1):
   g1  the moment instrument: 2*int Phi over [0,8] equals xi(1/2)/2 to
@@ -62,8 +64,9 @@ clean baselines around the suite; censuses are the OBSERVED results):
                                               -> g3 FAIL alone (the
       floor census is load-bearing)
   (c) closed-form digits mangled in the paper (0.0230957 -> 0.0230857,
-      a GLOBAL replacement hitting all three occurrences, two of them
-      in earlier blocks -- disclosed round 194 F5; the probe
+      a GLOBAL replacement hitting all three occurrences, both others
+      in one earlier block, Theorem 1ao ("blocks" corrected round 195
+      F4) -- disclosed round 194 F5; the probe
       demonstrated paper-vs-computation independence, not single-site
       corruption detection) -> g7 FAIL while g6 (recomputed closed
       form) STANDS
@@ -243,8 +246,9 @@ ok = abs(closed - mpf("0.0230957090")) < mpf(10)**-9
 # a fixed true inequality between constants, a gate that could not fail)
 ok &= float(lam[1]) < float(closed) < float(lam[1]) + tailb
 print(f"  g6 closed form {float(closed):.10f}; bracket ({float(lam[1]):.4f}, {float(lam[1]) + tailb:.4f})")
-gate("g6 the thinnest direction: lambda_1 = 1 + gamma/2 - log(4pi)/2, the "
-     "archimedean inequality, the zeros-side bracket", ok)
+gate("g6 the thinnest direction: lambda_1 = 1 + gamma/2 - log(4pi)/2 and "
+     "the zeros-side bracket (the inequality conjunct removed round 194 F8; "
+     "label re-synced round 195 F3)", ok)
 
 # ---------------------------------------------------------------- g7
 needles = [
@@ -258,8 +262,10 @@ needles = [
     "all-n hyperbolicity reduces to the n = 0 line",
     # round-194 repair needles
     "the 198 tested steps",
-    "termwise-nonnegative LOWER BOUNDS",
-    "λ₄₀ = 30.4774, anchored at this",
+    "the 200-pair partial sums are\nPOSITIVE unconditionally",
+    "struck round 195 F1, MAJOR",
+    "unconditional and zeros-free: this paper's committed",
+    "λ₄₀ = 30.4774, anchored at the",
     "an\nabsolute margin of 0.0462 — 1.8% of log 4π",
     "parts below 10⁻⁴⁰ (gated",
     "the FIRST-STAGE-FLOOR conjecture is DECLARED,",

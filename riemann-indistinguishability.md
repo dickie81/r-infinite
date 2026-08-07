@@ -4158,14 +4158,22 @@ SUM, understating the true λ₄₀ = 30.4774 by 3.297, which is
 exactly the paper's committed paired-tail scale n²·Σγ⁻² ≈ 3.30;
 and "explicit tail bounds" named a warrant the code carried
 only for λ₁]. The honest ledger: the 200-pair partial sums are
-termwise-nonnegative LOWER BOUNDS — each paired on-line term is
-2(1 − cos(n·θ_ρ)) ≥ 0, and the first 200 zeros lie on the line
-— so positivity of λ₁…λ₄₀ follows from the lower bounds alone
-(gated; the partial sum at n = 40 is 27.1808, now labeled as
-such); the TRUE values come from the zeros-free ladder — Cauchy
-extraction of log ξ(1/(1−z)), λ₄₀ = 30.4774, anchored at this
-paper's committed gated λ₅₀ = 43.5311 (both gated) — and grow
-in agreement with the RH-predicted
+POSITIVE unconditionally — each paired on-line term is
+2(1 − cos(n·θ_ρ)) ≥ 0 and the first 200 zeros lie on the line
+(gated termwise; the partial sum at n = 40 is 27.1808, labeled
+as such). ~~so positivity of λ₁…λ₄₀ follows from the lower
+bounds alone~~ [struck round 195 F1, MAJOR — a partial sum is a
+lower bound on the TRUE λ_n only if the TAIL contributes
+nonnegatively, which is RH-strength (an off-line quadruple
+contributes 4 − 2Re wⁿ − 2Re vⁿ, negative when phases align
+since x + 1/x > 2); the round-194 rebuild had replaced one
+unwarranted warrant with another]. Positivity of the TRUE
+λ₁…λ₄₀ is unconditional and zeros-free: this paper's committed
+gate carries it (`cascade_unit_ball_rh.py`, λ_n > 0 for
+n = 1…50), and the ladder is re-anchored here — Cauchy
+extraction of log ξ(1/(1−z)), λ₄₀ = 30.4774, anchored at the
+committed gated λ₅₀ = 43.5311 (both gated) — growing in
+agreement with the RH-predicted
 (n/2)(log n + γ − 1 − log 2π). *(vii) Front B,
 the thinnest direction (classical value; novel as the
 two-channel connection).* The positivity margin is thinnest at

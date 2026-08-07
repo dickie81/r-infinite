@@ -4046,3 +4046,23 @@ clean; "no proof is claimed" held sentence-by-sentence.
 **Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c (swept; the
 rebuilt verifier 9/9; probe (c′) observed) → round 195 (convergence
 test) next.**
+
+# Round 195: convergence test on the round-194 sweep (subagent, per protocol) — NOT CONVERGED: 1 MAJOR + 2 minors + 1 cosmetic; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 MAJOR: "positivity of λ₁…λ₄₀ follows from the lower bounds alone" — the lower-bound property needs tail nonnegativity, an RH-strength premise (off-line quadruple 4 − 2Re wⁿ − 2Re vⁿ < 0 at aligned phases) | Accepted — lead verified the algebra | Struck with the refuting algebra preserved; partial sums scoped to unconditional positivity; true-λ positivity re-warranted on the committed zeros-free gate (`cascade_unit_ball_rh.py`, n = 1…50) |
+| 2 minor: fourth carrier of the refuted monotone name (verifier docstring title) | Accepted | Corrected with annotation |
+| 3 minor: g6 label named the removed conjunct | Accepted | Label re-synced |
+| 4 cosmetic: "earlier blocks" plural | Accepted | Singular, corrected |
+
+Checked and held: all eight round-194 repairs' numbers independently
+reconfirmed (different-radius Cauchy ladder; the paired-tail scale to
+0.03%; probe (c′) full-tree at g7-alone with the reviewer's own
+incomplete-tree artifact disclosed and eliminated; 19 needles; the
+census set-compared both ways; the γ(1) cross-check independence
+verified).
+
+**Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c (swept) → 195 NOT
+CONVERGED 1M+2m+1c (swept; the lower-bound inference struck) →
+round 196 (convergence test) next.**

@@ -15765,6 +15765,39 @@ the rebuilt verifier's clean run 9/9 (γ(1) cross-check 1.4e-81;
 zeros-free ladder on its pins; deficit 3.2966); probe (c′) observed
 g7-alone. Convergence test (round 195) next.
 
+## Addendum 303: round 195 (convergence test on the round-194 sweep) — NOT CONVERGED: 1 MAJOR + 2 minors + 1 cosmetic; the lower-bound inference struck; swept
+
+**The round.** Fresh-context subagent on commit ea6afbf. All eight
+round-194 repairs verified individually well-executed with every
+number confirmed by independent recomputation (a different-radius,
+different-M Cauchy route matching λ₁ to 5e-51, λ₄₀ = 30.47737542,
+λ₅₀ = 43.53109649; the paired-tail scale confirmed at 3.29758 vs the
+3.2966 deficit; probe (c′) reproduced full-tree at g7-alone after the
+reviewer disclosed and corrected its own incomplete-tree artifact;
+all 19 needles verified; the footer census set-compared both ways).
+But the F1 rebuild introduced a fresh defect: **Finding 1 (MAJOR)** —
+"positivity of λ₁…λ₄₀ follows from the lower bounds alone" is an
+unwarranted inference: partial sums are lower bounds on the TRUE λ_n
+only if the tail contributes nonnegatively, which is RH-strength (an
+off-line quadruple contributes 4 − 2Re wⁿ − 2Re vⁿ, negative when
+phases align since x + 1/x > 2) — the lead verified the algebra and
+accepted; the honest warrant was available all along in the paper's
+own committed zeros-free gate (`cascade_unit_ball_rh.py`, λ_n > 0
+for n = 1…50). Struck per the marking rule and rebuilt: partial sums
+positive unconditionally (termwise, gated), the lower-bound
+inference struck with the refuting algebra preserved, true-λ
+positivity re-warranted on the committed gate. **Finding 2 (minor)**
+— a FOURTH carrier of the refuted monotone draft's name survived in
+the verifier's docstring title; corrected with annotation.
+**Finding 3 (minor)** — the g6 label still named the removed
+inequality conjunct as gated content; re-synced. **Finding 4
+(cosmetic)** — "earlier blocks" plural (both occurrences are in
+Theorem 1ao); corrected.
+
+**Sweep verification.** All four repairs applied; needles re-synced
+(two new, one updated); the swept verifier re-run: 9/9. Convergence
+test (round 196) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
