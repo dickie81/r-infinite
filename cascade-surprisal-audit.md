@@ -15825,6 +15825,44 @@ n ≤ 40"). The residual "LOWER BOUNDS" string survives only inside
 the annotation quoting the refuted comment. Swept verifier re-run:
 9/9. Convergence test (round 197) next.
 
+## Addendum 305: round 197 (convergence test on the round-196 sweep) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1au certified STABLE; the push arc closes
+
+**The round.** Fresh-context subagent on commit 00d036e. Zero
+findings at any grade. Both round-196 repairs verified closed (the
+carrier grep clean on both surfaces — the refuted inference survives
+only inside strikes and their quoting annotations; the termwise
+attribution exact against the code's li_terms(40) and per-n loops);
+the verifier run by the reviewer 9/9 (11m46s incl. the transitive
+chain); all 21 needles; the footer census independently recounted to
+71; Front-A and Front-B numbers spot-recomputed by independent
+routes (hermroots benchmarks; a third-radius Cauchy ladder; the
+paired-tail scale from 2000 zeros); the off-line-quadruple algebra
+re-verified; every annotation from rounds 194–196 checked accurate.
+
+**CERTIFIED: Theorem 1au — the push record: two fronts advanced past
+their certified boundaries — the open-region census, the first-stage
+floor, the Turán rate law, and the thinnest Li direction.** The final
+statement, hostile-tested through four rounds: the no-proof frame
+first and throughout; the Jensen open-region census (d = 9…25, every
+reachable n, all hyperbolic, beyond GORZ's proven d ≤ 8); the
+FIRST-STAGE FLOOR declared conjecture (margin(d, n) ≥ margin(d, 0) —
+the n = 0 reduction), standing where the lead's monotone draft fell
+to the instrument's own first clean run (the located micro-dip, gated
+as an exception census) and where the declining d-trend (global
+tested floor 0.8119) is stated as the open d-uniformity component;
+the empirical Turán rate law r_j ≈ 1/(2j); the Li ledger rebuilt
+twice under review to full honesty — partial sums positive
+unconditionally with exact-scope gating, the true zeros-free ladder
+(λ₄₀ = 30.4774) anchored at the committed λ₅₀, and the lower-bound
+inference struck as RH-strength — and the thinnest direction's
+closed form λ₁ = 1 + γ/2 − ½log 4π with RH's first positivity test
+as the archimedean inequality 2 + γ > log 4π (absolute margin
+0.0462, 1.8% of log 4π); the two targets T1 (an n-uniform positive
+floor) and T2 (an archimedean inequality engine for λ_n) stated with
+data behind them. Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c →
+195 1M+2m+1c → 196 0M+2m → 197 CONVERGED 0M+0m+0c. Next hostile
+round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

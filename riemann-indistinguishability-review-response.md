@@ -4083,3 +4083,25 @@ census set-compared; the reviewer's own verifier run 9/9).
 **Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c (swept) → 195
 1M+2m+1c (swept) → 196 NOT CONVERGED 0M+2m (swept; the F1 blast
 radius closed) → round 197 (convergence test) next.**
+
+# Round 197: convergence test on the round-196 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1au certified stable; the push arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| — none — | **Full convergence: zero findings of any grade** | — |
+
+Held: both round-196 repairs verified closed (carrier grep clean;
+attribution exact-scope against the code); the reviewer's own
+verifier run 9/9; all 21 needles; the footer census recounted to 71;
+independent spot-recomputation on both fronts (third-radius Cauchy
+ladder; hermroots benchmarks; the paired-tail scale from 2000
+zeros); the off-line-quadruple algebra re-verified; all round-194/
+195/196 annotations accurate.
+
+**Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c → 195 1M+2m+1c →
+196 0M+2m → 197 CONVERGED 0M+0m+0c. Certified: Theorem 1au — the
+push record: the open-region census, the first-stage floor (standing
+where the monotone draft fell to the instrument), the Turán rate
+law, and the thinnest Li direction with the archimedean inequality
+2 + γ > log 4π. Next hostile round on the next substantive paper
+change.**
