@@ -15863,6 +15863,81 @@ data behind them. Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c →
 195 1M+2m+1c → 196 0M+2m → 197 CONVERGED 0M+0m+0c. Next hostile
 round on the next substantive paper change.
 
+## Addendum 306: the Theorem 1av landing — the two channels of the Li ladder; the T2 arc certified as a block; the informational-pressure program declared
+
+**The commission trail.** After the 1au certification: "push T2" (the
+two-regime anatomy — the primes carry Regime I, the gamma channel
+Regime II, the junction constant γ = −ψ(1) = γ₀ shared); "increase
+the resolution and range of the hunt — say up to 1000" (the
+thousand-direction census by branch-safe dual Cauchy extraction:
+first negative λ_A at 156, runs at the first zero's cadence, the
+seam maximum 0.8325 at n = 11, the global scarcity at n = 1, the
+trend identity to 0.03%); "thats very early in the window" (the
+phase-coincidence mechanism: single-withholder insufficiency at 132,
+collective withholding at 156 on the third zero's clock); "invert
+the principle" (the pole-side inversion: γ₁ recovered to 10⁻⁴ with
+pole modulus 1.000000 from data sampled entirely below the first
+zero; the modulus meter as a self-diagnosing line-adherence
+instrument); the bounds question (the dichotomy: termwise [0, 4] on
+the line vs exponential envelopes off it — no intermediate regime,
+so only a structural a priori positivity can decide, recovering
+1at's triangulation from inside the Li ledger); and the owner's
+informational-pressure proposal (assessed with mechanism-class
+necessity, the Rodgers–Tao Λ = 0 criticality exhibit, and the gated
+entropy anchors; declared as a research program with its unbuilt
+coupling named). The owner then said "land it please."
+
+**Incidents, disclosed.** (1) A worker restart struck mid-landing,
+immediately after the block edit; the block survived (grep-verified)
+and the landing resumed from the footer step — the A288 class, this
+time lossless. (2) Against the session's thrice-recurred
+stale-container loss class and with the verification batch ~4 h from
+completion, the landing was CHECKPOINT-COMMITTED (5503987) with the
+in-flight state disclosed in the commit message — the first
+checkpoint commit of the campaign; this completion commit carries
+the suite record and A306. (3) The suite's probe (a) as designed was
+a NO-OP: the mangle appended a character after the suffix-open
+needle's end and substring matching still passed (10/10, exit 0) —
+a probe-design defect of the quote-satisfiability class, disclosed
+as observed; the corrected probe (a′) with an in-span mangle fells
+g8 alone. Instrument failures inside the investigation (the
+B-channel branch jump; the dead correlation statistic) are disclosed
+in the block itself.
+
+**The landing.** Theorem 1av after the 1au block (title: the
+two-regime anatomy, the thousand-direction census, the
+phase-coincidence mechanism, the pole-side inversion, the dichotomy,
+and the informational-pressure program). Footer advanced 71 → 72,
+range 1i–1au → 1i–1av, `cascade_li_two_channels.py` added; TWELVE
+sibling carriers swept (71 → 72, 1au → 1av) with per-file ast.parse,
+residual grep clean; all twelve then run: 12/12 exit 0.
+
+**The verifier.** `cascade_li_two_channels.py`, 10 exit-gated gates
+(g1 the anatomy with both crossovers and the λ_A(1) = γ exactness;
+g2 the junction constant to 25 digits; g3 the census with two-route
+cross-checks, the exact run starts, the seam, the scarcity, and the
+trend; g4 the mechanism table; g5 the live ESPRIT inversion with
+on-line pole moduli; g6 the dichotomy rates; g7 the entropy anchors
+incl. the equal split; g8 the needles; g9 the chain to
+`cascade_attraction_margins.py`; g10 the footer census). First clean
+run 10/10.
+
+**The sabotage suite** (fresh tar tree, serial, single mangle,
+per-probe restore verified by cmp; baselines B1/B2 both 10/10,
+restore integrity OK; censuses OBSERVED): (a) suffix-append NO-OP
+(disclosed above); (a′) in-span title mangle → g8 alone; (b) census
+pin 156 → 155 in code → g3 alone; (c) the recovered-γ₁ digits
+mangled in the paper → g8 falls while g5 (the live inversion)
+stands — paper-vs-computation independence; (d) footer 72 → 71 →
+g10 AND g9 (census propagation through the chained 1au verifier);
+(e) chain target renamed → g9 alone.
+
+**Check compliance.** Check 7: the committed ladder, Cauchy
+extraction, ESPRIT, entropy integrals, classical zeros at labeled
+steps — no semiclassics. Check 8: no hypothesis input; the owner's
+proposals supplied direction, translated into pure mathematics.
+Next: hostile round 198 on this landing.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -61,7 +61,15 @@ Gates (all exit-gated; any failure exits 1):
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):
-  (a) title needle mangled in the paper       -> g8 FAIL alone
+  (a) title needle "mangled" by APPENDING a character after the needle's
+      end ("two-regime" -> "two-regimes") -> NO DETECTION (exit 0,
+      10/10): the needle is suffix-open and substring matching still
+      succeeds -- a probe-design defect of the quote-satisfiability
+      class (round-184 lineage), disclosed as observed; the probe
+      demonstrated nothing about the gate
+  (a') the corrected probe: in-span mangle ("two channels" -> "two
+      channel") -> g8 FAIL alone -- title corruption inside the needle
+      span is detected
   (b) the census pin 156 -> 155 in code       -> g3 FAIL alone (the
       first-negative census is load-bearing)
   (c) the recovered-gamma_1 digits mangled in the paper (14.1348 ->
