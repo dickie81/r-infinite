@@ -4021,3 +4021,28 @@ world delimited by its positivity hypothesis), the Jensen stages of
 Ξ with the GORZ theorems cited, the Gaussian/Hermite attractor
 identification in the two-channel language, and the uniformity
 residual. Next hostile round on the next substantive paper change.**
+
+# Round 194: hostile review of the Theorem 1au landing (subagent, per protocol) — 2 MAJORs + 5 minors + 1 cosmetic, all accepted and swept; Front A held completely
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 MAJOR: the 200-pair partial sum published as λ₄₀ (true 30.4774; deficit 3.297 = the committed tail scale) under a nonexistent tail-bounds warrant | Accepted — lead verified by the zeros-free Cauchy ladder, anchored at the committed λ₅₀ | Struck; lower-bound reframe (termwise gated); the true ladder gated |
+| F2 MAJOR: title/scope/docstring kept DECLARED status on the refuted monotone conjecture (+ a ghost needle) | Accepted | All three carriers struck/rewritten to the first-stage floor |
+| F3 minor: "~230 steps" (actual 198/203) | Accepted | Corrected |
+| F4 minor: "2.3%" was 100·λ₁, not a percentage of the inequality | Accepted | Absolute margin 0.0462 = 1.8% of log 4π |
+| F5 minor: sabotage (c) was a three-site global replace; single-site corruption undetected | Accepted — reviewer's 9/9 on the corrupted tree | Record disclosed; unique-context needle added; probe (c′) observed g7-alone |
+| F6 minor: "exactly zero (gated)" vs the 1e-40 gate | Accepted | Honest-bound phrasing |
+| F7 minor: vacuous γ(0) calibration clause | Accepted | Re-scoped; live γ(1) cross-check added (1.4e-81) |
+| F8 cosmetic: a conjunct that could not fail | Accepted | Removed with annotation |
+
+Checked and held by the reviewer: the entire Front-A refutation story
+through an independent chain (dip unique at (12,3→4) depth 3.99e-6;
+floor at every stage; ratios/floor exact; Turán exact); probe (b)
+independently reproduced; the footer census 71 exact both ways; the
+moment instrument cross-validated to 3.7e-60; the closed form,
+asymptotic, and Li-ladder anchors all classical-correct; Checks 7/8
+clean; "no proof is claimed" held sentence-by-sentence.
+
+**Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c (swept; the
+rebuilt verifier 9/9; probe (c′) observed) → round 195 (convergence
+test) next.**

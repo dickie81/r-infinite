@@ -5,9 +5,11 @@ thinnest Li direction.
 
 Gates (all exit-gated; any failure exits 1):
   g1  the moment instrument: 2*int Phi over [0,8] equals xi(1/2)/2 to
-      1e-10 (the normalization ratio is exactly 1/2), and the calibrated
-      gamma(0) reproduces xi(1/2) = 0.497120778188 to 1e-9. Coefficients
-      through j = 56.
+      1e-10 (the ratio-1/2 pin -- the LIVE calibration); the gamma(0)
+      pin is a digit-string check only (gamma(0) = xi(1/2) holds by
+      construction, round-194 F7); the real instrument evidence is the
+      gamma(1) cross-check against an independent derivative route
+      (relative deviation < 1e-20). Coefficients through j = 56.
   g2  the open-region census (beyond GORZ's proven d <= 8): for
       d in {9, 12, 16, 20, 25} and every reachable n (n <= 56 - d),
       every Jensen stage is hyperbolic with relative imaginary root
@@ -27,16 +29,28 @@ Gates (all exit-gated; any failure exits 1):
   g4  the Turan rate law r_j ~ 1/(2j): r_j > 0 for j <= 55; the products
       j*r_j pinned at j=10: 0.2932 and j=55: 0.4687 (each +- 0.005) and
       increasing across the sampled ladder.
-  g5  the Li margins: lambda_1..40 from 200 zero pairs ALL POSITIVE;
-      lambda_40 = 27.1808 +- 0.02; the minimum of lambda_n/n over
-      n <= 40 is attained at n = 1.
+  g5  the Li margins (rebuilt round 194 F1): the 200-pair partial sums
+      are termwise-nonnegative LOWER BOUNDS (every paired term at
+      n = 40 checked >= 0), all positive, with the n = 40 partial sum
+      27.1808 +- 0.02 labeled as a partial sum; the TRUE zeros-free
+      ladder via Cauchy extraction of log xi(1/(1-z)): lambda_1 to
+      1e-8, lambda_40 = 30.4774 +- 0.002, lambda_50 = 43.5311 +- 0.002
+      (the committed gated-ladder anchor); the truncation deficit
+      lambda_40 - partial(40) in (3.25, 3.35), the paired-tail scale;
+      argmin of partial(n)/n at n = 1.
   g6  the thinnest direction's closed form: |(1 + gamma/2 - log(4 pi)/2)
-      - 0.0230957090| < 1e-9; the inequality 2 + gamma > log(4 pi); and
-      the bracket: zeros-side lambda_1 < closed form < zeros-side + 2x
-      the stated tail bound.
+      - 0.0230957090| < 1e-9, and the bracket: zeros-side lambda_1 <
+      closed form < zeros-side + 2x the stated tail bound. (The former
+      fixed-inequality conjunct was removed round 194 F8 as a gate that
+      could not fail.)
   g7  the paper needles for the 1au block (title; the no-proof frame;
-      MONOTONE ATTRACTION; the n = 0 reduction; the rate law; the
-      archimedean inequality; the closed-form digits; beyond-GORZ).
+      the FIRST-STAGE FLOOR; the n = 0 reduction; the rate law; the
+      archimedean inequality; the closed-form digits; beyond-GORZ;
+      plus the round-194 repair needles including a unique-context
+      anchor for the 1au closed-form sentence -- the in-code list is
+      the authoritative census; the original docstring's "MONOTONE
+      ATTRACTION" entry named a needle that never existed, round-194
+      F2's docstring carrier).
   g8  the chain: cascade_finite_fill.py (Theorem 1at) exits 0.
   g9  the footer census (this script backticked >= 2; "71 scripts cited
       in place"; "Theorems 1i-1au").
@@ -47,9 +61,17 @@ clean baselines around the suite; censuses are the OBSERVED results):
   (b) the global-floor pin mangled in code (0.8119 -> 0.8319)
                                               -> g3 FAIL alone (the
       floor census is load-bearing)
-  (c) closed-form digits mangled in the paper (0.0230957 -> 0.0230857)
-      -> g7 FAIL (value needle) while g6 (recomputed closed form)
-      STANDS -- paper-vs-computation independence
+  (c) closed-form digits mangled in the paper (0.0230957 -> 0.0230857,
+      a GLOBAL replacement hitting all three occurrences, two of them
+      in earlier blocks -- disclosed round 194 F5; the probe
+      demonstrated paper-vs-computation independence, not single-site
+      corruption detection) -> g7 FAIL while g6 (recomputed closed
+      form) STANDS
+  (c') the round-194 repair: single-site mangle of the 1au block's own
+      closed-form sentence (unique-context needle "0.0230957… (gated
+      to nine digits") -> g7 FAIL alone -- single-site corruption of
+      the 1au value is now detected (observed in the round-194 sweep's
+      probe run)
   (d) footer census reverted 71 -> 70         -> g9 FAIL AND g8 FAIL
       (census propagation through the chain: the chained 1at verifier's
       own footer gate catches the same reversion)
@@ -86,9 +108,16 @@ for j in range(JMAX + 1):
     m2j = 2*quad(lambda u: Phi(u)*u**(2*j), [0, 8])
     gam.append(factorial(j)*(m2j/factorial(2*j))*(xi_half/m0))
 ok = abs(ratio - mpf("0.5")) < mpf(10)**-10
-ok &= abs(gam[0] - mpf("0.497120778188")) < mpf(10)**-9
-print(f"  g1 ratio = {float(ratio):.12f}; gamma(0) = {float(gam[0]):.12f}")
-gate("g1 the moment instrument calibrated (ratio 1/2; gamma(0) = xi(1/2))", ok)
+ok &= abs(gam[0] - mpf("0.497120778188")) < mpf(10)**-9   # digit-string check only:
+# gam[0] = xi_half BY CONSTRUCTION (round-194 F7) -- the live calibration is the
+# ratio pin above plus this independent-derivative cross-check on gamma(1):
+from mpmath import diff as mpdiff
+d2 = mpdiff(lambda s: s*(s-1)/2 * pi**(-s/2) * G(s/2) * zeta(s), mpf("0.5"), 2)
+ok &= abs(gam[1] - d2/2)/abs(gam[1]) < mpf(10)**-20
+print(f"  g1 ratio = {float(ratio):.12f}; gamma(0) = {float(gam[0]):.12f}; "
+      f"gamma(1) cross-check rel dev {float(abs(gam[1]-d2/2)/abs(gam[1])):.1e}")
+gate("g1 the moment instrument: ratio-1/2 pin (live), gamma(0) digit check "
+     "(by-construction), gamma(1) independent-derivative cross-check", ok)
 
 # ---------------------------------------------------------------- g2, g3
 def jensen(d, n):
@@ -174,22 +203,44 @@ gate("g4 the Turan rate law: r_j > 0 through j = 55; j*r_j pinned and increasing
 # ---------------------------------------------------------------- g5
 mp.dps = 30
 zs = [zetazero(k) for k in range(1, 201)]
-def li_n(n):
-    return sum(2*(1 - ((z - 1)/z)**n).real for z in zs)
-lam = {n: li_n(n) for n in range(1, 41)}
-ok = all(lam[n] > 0 for n in lam)
-ok &= abs(float(lam[40]) - 27.1808) < 0.02
+def li_terms(n):
+    return [2*(1 - ((z - 1)/z)**n).real for z in zs]
+lam = {n: sum(li_terms(n)) for n in range(1, 41)}
+# termwise nonnegativity: the on-line paired terms are 2(1 - cos) >= 0,
+# so the partial sums are LOWER BOUNDS (round-194 F1 reframe)
+ok = all(t >= -mpf(10)**-25 for t in li_terms(40))
+ok &= all(lam[n] > 0 for n in lam)
+ok &= abs(float(lam[40]) - 27.1808) < 0.02      # the PARTIAL SUM, labeled as such
 argmin = min(range(1, 41), key=lambda n: float(lam[n])/n)
 ok &= argmin == 1
-print(f"  g5 lambda_1 = {float(lam[1]):.4f}; lambda_40 = {float(lam[40]):.4f}; argmin lambda_n/n = {argmin}")
-gate("g5 Li margins: lambda_1..40 all positive; lambda_40 pinned; thinnest at n = 1", ok)
+# the TRUE ladder, zeros-free: lambda_n = n*[z^n] log xi(1/(1-z))
+mp.dps = 60
+def xi60(s):
+    from mpmath import gamma as G60, zeta as z60
+    return s*(s-1)/2 * pi**(-s/2) * G60(s/2) * z60(s)
+M5, r5 = 512, mpf("0.5")
+lv = [log(xi60(1/(1 - r5*exp(mpc(0, 2*pi*m/M5))))) for m in range(M5)]
+def lam_free(n):
+    c = sum(lv[m]*exp(mpc(0, -2*pi*n*m/M5)) for m in range(M5))/(M5*r5**n)
+    return float(n*c.real)
+lf1, lf40, lf50 = lam_free(1), lam_free(40), lam_free(50)
+ok &= abs(lf1 - 0.023095709) < 1e-8
+ok &= abs(lf40 - 30.4774) < 0.002
+ok &= abs(lf50 - 43.5311) < 0.002                # the committed gated-ladder anchor
+ok &= 3.25 < lf40 - float(lam[40]) < 3.35        # the deficit at the paired-tail scale
+print(f"  g5 partial(40) = {float(lam[40]):.4f}; TRUE lambda_40 = {lf40:.4f}; "
+      f"lambda_50 = {lf50:.4f}; deficit {lf40 - float(lam[40]):.4f}; argmin = {argmin}")
+gate("g5 Li margins: termwise-nonnegative partial sums (lower bounds) all "
+     "positive; the TRUE zeros-free ladder (lambda_40 = 30.4774, anchored at "
+     "the committed lambda_50); the deficit at the paired-tail scale", ok)
 
 # ---------------------------------------------------------------- g6
 closed = 1 + euler/2 - log(4*pi)/2
 gam_last = float(zs[-1].imag)
 tailb = 2*float(1*2*0.5*((log(gam_last/(2*pi)) + 1)/(2*pi*gam_last))*2)
 ok = abs(closed - mpf("0.0230957090")) < mpf(10)**-9
-ok &= (2 + euler) > log(4*pi)
+# (the former "(2 + euler) > log(4 pi)" conjunct was removed round 194 F8 --
+# a fixed true inequality between constants, a gate that could not fail)
 ok &= float(lam[1]) < float(closed) < float(lam[1]) + tailb
 print(f"  g6 closed form {float(closed):.10f}; bracket ({float(lam[1]):.4f}, {float(lam[1]) + tailb:.4f})")
 gate("g6 the thinnest direction: lambda_1 = 1 + gamma/2 - log(4pi)/2, the "
@@ -205,6 +256,14 @@ needles = [
     "margin(d, n) ≥ margin(d, 0)",
     "global tested floor 0.8119",
     "all-n hyperbolicity reduces to the n = 0 line",
+    # round-194 repair needles
+    "the 198 tested steps",
+    "termwise-nonnegative LOWER BOUNDS",
+    "λ₄₀ = 30.4774, anchored at this",
+    "an\nabsolute margin of 0.0462 — 1.8% of log 4π",
+    "parts below 10⁻⁴⁰ (gated",
+    "the FIRST-STAGE-FLOOR conjecture is DECLARED,",
+    "0.0230957… (gated to nine digits",
     "r_j ≈ 1/(2j)",
     "2 + γ > log 4π",
     "0.0230957",

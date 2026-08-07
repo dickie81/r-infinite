@@ -4086,9 +4086,12 @@ Check 8 clean (no hypothesis input anywhere; the clues that
 commissioned the pursuit contributed direction, not premises).
 
 **Theorem 1au (the push record: two fronts advanced past their
-certified boundaries — the open-region census, the
-monotone-attraction conjecture, the Turán rate law, and the
-thinnest Li direction; `cascade_attraction_margins.py`).** *(i)
+certified boundaries — the open-region census, ~~the
+monotone-attraction conjecture~~ [struck round 194 F2 — the
+refuted draft's name, carried into the title by an incomplete
+pre-commit sweep] the first-stage floor, the Turán rate law,
+and the thinnest Li direction;
+`cascade_attraction_margins.py`).** *(i)
 The commission and the frame.* "Push for that proof." The push
 was executed on the two fronts 1at mapped, with the frame stated
 before the first computation and repeated here: **no proof is
@@ -4097,12 +4100,19 @@ proven boundaries and two targets made precise. *(ii) Front A,
 the instrument.* The Taylor coefficients of Ξ were recomputed by
 the moment route — γ(j) = j!·m₂ⱼ/(2j)! against the Jacobi-theta
 kernel Φ, calibration exact (the normalization ratio is ½ to ten
-digits and γ(0) reproduces ξ(½) = 0.497120778188 to twelve) —
+digits — the calibration's sole live content, since γ(0) = ξ(½)
+holds by construction and its pin is a digit-string check only;
+the landing's γ(0) clause was vacuous as calibration evidence,
+re-scoped round 194 F7, and the instrument now carries an
+in-gate cross-check of γ(1) against an independent derivative
+route) —
 reaching j = 56, enough for degree-25 stages. *(iii) Front A,
 the open-region census.* GORZ's all-n theorem covers d ≤ 8.
 Beyond it — d = 9, 12, 16, 20, 25, at every reachable n (up to
 47) — EVERY stage is hyperbolic with relative imaginary root
-parts exactly zero (gated). The empirical base for the
+parts below 10⁻⁴⁰ (gated; the observed exact zeros are the root
+finder's cleanup, so the honest certificate is the bound — the
+landing's "exactly zero (gated)" corrected round 194 F6). The empirical base for the
 uniformity conjecture now extends far beyond GORZ's proven
 range. *(iv) Front A, the finding: the FIRST-STAGE FLOOR
 (declared conjecture, data-backed, not claimed) — and a
@@ -4110,7 +4120,9 @@ refutation the instrument delivered before commit.* The lead's
 draft claimed the normalized minimal root-gap increases
 monotonically in n; the verifier's first clean run refuted the
 lead's monotone draft pre-commit: the full-step census finds
-exactly ONE violation among the ~230 tested steps — a micro-dip
+exactly ONE violation among the 198 tested steps (203 stages;
+the landing's "~230" overcounted the census base — corrected
+round 194 F3) — a micro-dip
 at (d = 12, n = 3 → 4) of depth 4.0×10⁻⁶, computed at 80 digits
 (gated as located: the exception is part of the record). What
 the data DOES support, and what the reduction actually needs:
@@ -4138,18 +4150,34 @@ j = 55, gated), consistent with j·r_j → ½. A uniformity proof
 must establish the degree-d analogue of this
 decays-but-never-vanishes law. *(vi) Front B, the Li margins.*
 Li's criterion (RH ⟺ λ_n ≥ 0 for all n; the criterion is a
-committed classical input of this paper's ladder): λ₁ through
+committed classical input of this paper's ladder): ~~λ₁ through
 λ₄₀ computed from 200 zero pairs with explicit tail bounds —
-ALL POSITIVE (gated; λ₄₀ = 27.1808), growing in agreement with
-the RH-predicted (n/2)(log n + γ − 1 − log 2π). *(vii) Front B,
+ALL POSITIVE (gated; λ₄₀ = 27.1808)~~ [struck round 194 F1,
+MAJOR — the value published as λ₄₀ was the 200-pair PARTIAL
+SUM, understating the true λ₄₀ = 30.4774 by 3.297, which is
+exactly the paper's committed paired-tail scale n²·Σγ⁻² ≈ 3.30;
+and "explicit tail bounds" named a warrant the code carried
+only for λ₁]. The honest ledger: the 200-pair partial sums are
+termwise-nonnegative LOWER BOUNDS — each paired on-line term is
+2(1 − cos(n·θ_ρ)) ≥ 0, and the first 200 zeros lie on the line
+— so positivity of λ₁…λ₄₀ follows from the lower bounds alone
+(gated; the partial sum at n = 40 is 27.1808, now labeled as
+such); the TRUE values come from the zeros-free ladder — Cauchy
+extraction of log ξ(1/(1−z)), λ₄₀ = 30.4774, anchored at this
+paper's committed gated λ₅₀ = 43.5311 (both gated) — and grow
+in agreement with the RH-predicted
+(n/2)(log n + γ − 1 − log 2π). *(vii) Front B,
 the thinnest direction (classical value; novel as the
 two-channel connection).* The positivity margin is thinnest at
 the FIRST direction, where it has a closed form:
 λ₁ = 1 + γ/2 − ½log 4π = 0.0230957… (gated to nine digits, and
 bracketed by the zeros-side computation plus its tail bound) —
 equivalently, **RH's first positivity test is the archimedean
-inequality 2 + γ > log 4π** (2.5772 > 2.5310), surviving by
-2.3%. The gap functional's scarcest direction is a pure
+inequality 2 + γ > log 4π** (2.5772 > 2.5310), surviving by an
+absolute margin of 0.0462 — 1.8% of log 4π (the landing's
+"2.3%" was 100·λ₁, the halved form's absolute margin misread as
+a percentage; corrected round 194 F4). The gap functional's
+scarcest direction is a pure
 gamma-channel constant inequality: the two channels of Theorems
 1as–1at meet exactly where positivity is tightest. *(viii) The
 two targets, stated.* What a proof still needs, now with data
@@ -4160,8 +4188,11 @@ engine forcing λ_n ≥ 0 without consulting zeros — the λ₁ closed
 form exhibits what such an engine's outputs look like. *Honest
 scope:* category (a) — instruments classical throughout
 (Jensen–Pólya, Turán, Li's criterion, the theta-kernel moment
-representation); the monotone-attraction conjecture is DECLARED,
-not claimed; the rate law is marked empirical; the λ₁ closed
+representation); the FIRST-STAGE-FLOOR conjecture is DECLARED,
+not claimed (~~the monotone-attraction conjecture~~ [struck
+round 194 F2 — the scope line had kept the refuted draft's
+name; the monotone form is refuted, per (iv), not declared]);
+the rate law is marked empirical; the λ₁ closed
 form is classical (Li; the Hadamard-product constant) and only
 its two-channel reading is this program's; no RH leverage
 claimed — the push's deliverable is precision, not progress

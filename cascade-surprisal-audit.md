@@ -15718,6 +15718,53 @@ theta-kernel moments, classical zeros — no semiclassics. Check 8: no
 hypothesis input; the commission supplied direction only. Next:
 hostile round 194 on this landing.
 
+## Addendum 302: round 194 (hostile review of the 1au landing) — NOT CONVERGED: 2 MAJORs + 5 minors + 1 cosmetic, all accepted and swept; Front A held completely
+
+**The round.** Fresh-context subagent on commit 47c1fdc. Front A is
+steel: the reviewer reproduced the entire refutation story through a
+fully independent chain (Cauchy-route coefficients, own stage
+construction, hermgauss benchmarks) — the micro-dip at (12, 3→4) of
+depth 3.98998e-6 confirmed unique over the 198 steps, the first-stage
+floor confirmed at every stage (argmin at n = 0 for all five d), the
+n = 0 Hermite ratios and global floor 0.811944 exact, the Turán
+products exact, probe (b) reproduced independently, the footer census
+exact both ways, the moment instrument cross-validated to 3.7e-60.
+The defects were in Front B's ledger and in the pre-commit rewrite's
+sweep: **F1 (MAJOR)** — the block published the 200-pair PARTIAL SUM
+27.1808 as "λ₄₀" under an "explicit tail bounds" warrant the code
+carried only for λ₁; the true λ₄₀ = 30.4774 (lead-verified by the
+zeros-free Cauchy ladder, anchored at the paper's committed gated
+λ₅₀ = 43.5311; deficit 3.2966 = the paper's own paired-tail scale).
+Struck and rebuilt: partial sums reframed as termwise-nonnegative
+lower bounds (each on-line paired term 2(1 − cos) ≥ 0 — now gated
+termwise), the true ladder gated (λ₄₀, λ₅₀, and the deficit window).
+**F2 (MAJOR)** — the title, the Honest-scope line, and the verifier
+docstring still assigned DECLARED status to the refuted
+monotone-attraction conjecture (the docstring additionally listing a
+"MONOTONE ATTRACTION" needle that never existed). All three carriers
+struck/rewritten to the first-stage floor. **F3** — "~230 tested
+steps" corrected to 198 (203 stages). **F4** — "surviving by 2.3%"
+was 100·λ₁ misread as a percentage; corrected to the absolute margin
+0.0462 = 1.8% of log 4π. **F5** — the sabotage (c) record's "single
+mangle" was in fact a three-site global replacement, and single-site
+corruption of the 1au value was undetected (reviewer's 9/9 run on the
+corrupted tree); disclosed in the record, and repaired with a
+unique-context needle plus the observed probe (c′): single-site
+mangle → g7 FAIL alone. **F6** — "exactly zero (gated)" attributed to
+the gate what is the root finder's cleanup; corrected to the honest
+1e-40 bound. **F7** — the γ(0) calibration clause was vacuous
+(γ(0) = ξ(½) by construction); re-scoped, and the instrument now
+carries a live γ(1) cross-check against an independent derivative
+route (observed relative deviation 1.4e-81). **F8 (cosmetic)** — the
+fixed-inequality conjunct (2 + γ > log 4π) removed as a gate that
+could not fail.
+
+**Sweep verification.** All eight repairs applied across both
+surfaces; seven round-194 repair needles added (one unique-context);
+the rebuilt verifier's clean run 9/9 (γ(1) cross-check 1.4e-81;
+zeros-free ladder on its pins; deficit 3.2966); probe (c′) observed
+g7-alone. Convergence test (round 195) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
