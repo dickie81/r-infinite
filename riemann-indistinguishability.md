@@ -4085,6 +4085,91 @@ language is the classical mathematics of unitary ensembles).
 Check 8 clean (no hypothesis input anywhere; the clues that
 commissioned the pursuit contributed direction, not premises).
 
+**Theorem 1au (the push record: two fronts advanced past their
+certified boundaries — the open-region census, the
+monotone-attraction conjecture, the Turán rate law, and the
+thinnest Li direction; `cascade_attraction_margins.py`).** *(i)
+The commission and the frame.* "Push for that proof." The push
+was executed on the two fronts 1at mapped, with the frame stated
+before the first computation and repeated here: **no proof is
+claimed, and none resulted** — what follows is data past the
+proven boundaries and two targets made precise. *(ii) Front A,
+the instrument.* The Taylor coefficients of Ξ were recomputed by
+the moment route — γ(j) = j!·m₂ⱼ/(2j)! against the Jacobi-theta
+kernel Φ, calibration exact (the normalization ratio is ½ to ten
+digits and γ(0) reproduces ξ(½) = 0.497120778188 to twelve) —
+reaching j = 56, enough for degree-25 stages. *(iii) Front A,
+the open-region census.* GORZ's all-n theorem covers d ≤ 8.
+Beyond it — d = 9, 12, 16, 20, 25, at every reachable n (up to
+47) — EVERY stage is hyperbolic with relative imaginary root
+parts exactly zero (gated). The empirical base for the
+uniformity conjecture now extends far beyond GORZ's proven
+range. *(iv) Front A, the finding: the FIRST-STAGE FLOOR
+(declared conjecture, data-backed, not claimed) — and a
+refutation the instrument delivered before commit.* The lead's
+draft claimed the normalized minimal root-gap increases
+monotonically in n; the verifier's first clean run refuted the
+lead's monotone draft pre-commit: the full-step census finds
+exactly ONE violation among the ~230 tested steps — a micro-dip
+at (d = 12, n = 3 → 4) of depth 4.0×10⁻⁶, computed at 80 digits
+(gated as located: the exception is part of the record). What
+the data DOES support, and what the reduction actually needs:
+the margins converge upward toward the Hermite attractor's own
+gap from below (d = 9: 0.1067 → 0.1100 against H₉ = 0.1134;
+d = 16: 0.0520 → 0.0556 against H₁₆ = 0.0583; d = 25:
+0.0290 → 0.0329 against H₂₅ = 0.0357; all gated), and at every
+tested stage — the micro-dip included —
+margin(d, n) ≥ margin(d, 0): **the first stage is the worst
+stage.** **The declared conjecture (first-stage floor):**
+margin(d, n) ≥ margin(d, 0) for all n. If proven, uniformity
+collapses — all-n hyperbolicity reduces to the n = 0 line, a
+single checkable stage per degree — and hyperbolicity needs
+only a positive floor, not monotonicity. Declared in the
+program's premise style: named, dated, supported by every
+tested (d, n), proved by nothing. Honest d-trend: the n = 0
+ratio to the Hermite gap DECLINES with d
+(0.9414/0.9244/0.8914/0.8559/0.8119 at d = 9/12/16/20/25,
+gated; global tested floor 0.8119) — whether the per-d floor
+stays positive as d → ∞ is the d-uniformity component of the
+residual, open. *(v) Front A, the rate law
+(empirical).* The degree-2 margins obey r_j ≈ 1/(2j): the
+products j·r_j climb steadily (0.2932 at j = 10, 0.4687 at
+j = 55, gated), consistent with j·r_j → ½. A uniformity proof
+must establish the degree-d analogue of this
+decays-but-never-vanishes law. *(vi) Front B, the Li margins.*
+Li's criterion (RH ⟺ λ_n ≥ 0 for all n; the criterion is a
+committed classical input of this paper's ladder): λ₁ through
+λ₄₀ computed from 200 zero pairs with explicit tail bounds —
+ALL POSITIVE (gated; λ₄₀ = 27.1808), growing in agreement with
+the RH-predicted (n/2)(log n + γ − 1 − log 2π). *(vii) Front B,
+the thinnest direction (classical value; novel as the
+two-channel connection).* The positivity margin is thinnest at
+the FIRST direction, where it has a closed form:
+λ₁ = 1 + γ/2 − ½log 4π = 0.0230957… (gated to nine digits, and
+bracketed by the zeros-side computation plus its tail bound) —
+equivalently, **RH's first positivity test is the archimedean
+inequality 2 + γ > log 4π** (2.5772 > 2.5310), surviving by
+2.3%. The gap functional's scarcest direction is a pure
+gamma-channel constant inequality: the two channels of Theorems
+1as–1at meet exactly where positivity is tightest. *(viii) The
+two targets, stated.* What a proof still needs, now with data
+behind each formulation: (T1) prove the first-stage floor — or
+any n-uniform positive lower bound on the margin trajectory —
+reducing uniformity to the n = 0 line; (T2) an archimedean inequality
+engine forcing λ_n ≥ 0 without consulting zeros — the λ₁ closed
+form exhibits what such an engine's outputs look like. *Honest
+scope:* category (a) — instruments classical throughout
+(Jensen–Pólya, Turán, Li's criterion, the theta-kernel moment
+representation); the monotone-attraction conjecture is DECLARED,
+not claimed; the rate law is marked empirical; the λ₁ closed
+form is classical (Li; the Hadamard-product constant) and only
+its two-channel reading is this program's; no RH leverage
+claimed — the push's deliverable is precision, not progress
+toward a proof that did not occur. Check 7 clean (no
+semiclassical procedure; classical zeros and classical
+criteria). Check 8 clean (no hypothesis input; the commission
+supplied direction only).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -4619,4 +4704,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1at: the **70 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1au: the **71 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov.*

@@ -15633,6 +15633,91 @@ incarnation. Trajectory: 1at landed (26e99e0) → 192 1M+5m+1c (the
 false universal struck; six scoping repairs) → 193 CONVERGED
 0M+0m+3c. Next hostile round on the next substantive paper change.
 
+## Addendum 301: the Theorem 1au landing — the push record: the open-region census, the first-stage floor (with the instrument's pre-commit refutation of the lead's monotone draft), the Turán rate law, and the thinnest Li direction
+
+**The commission trail.** After the 1at certification the owner asked
+for the program summary, then commissioned "Push for that proof." The
+push ran on 1at's two mapped fronts and was delivered as an
+assessment: Front A extended the Jensen stages far beyond GORZ's
+proven d ≤ 8 (moment-route coefficients to j = 56, calibration exact);
+Front B computed the Li margins λ₁–λ₄₀ from 200 zero pairs and pinned
+the thinnest direction's closed form λ₁ = 1 + γ/2 − ½log 4π =
+0.0230957… (RH's first positivity test as the archimedean inequality
+2 + γ > log 4π). The owner then said "Land it pls."
+
+**Stale-container disclosure (third recurrence of the A278 class).**
+At landing start the working tree was again found reverted to the
+round-166 state (46b78b2); clean tree, remote authoritative; repaired
+by fetch + hard reset to 0fc9874 before any edit. No committed
+content lost.
+
+**The pre-commit refutation — the instrument against the lead.** The
+lead's push assessment and first block draft claimed MONOTONE
+attraction (margins nondecreasing in n, "never dipping"), inferred
+from endpoint data. The verifier's g3, checking every step, FAILED on
+its first clean run: the full census finds exactly ONE violation
+among ~230 tested steps — a micro-dip at (d = 12, n = 3 → 4) of depth
+3.99×10⁻⁶ at 80 digits. The monotone conjecture as drafted is FALSE.
+The block was rewritten before commit to the statement the data
+supports and the reduction needs: **the first-stage floor**
+(margin(d, n) ≥ margin(d, 0) at every tested stage, micro-dip
+included — the first stage is the worst stage; hyperbolicity needs
+only a positive floor, not monotonicity), with the refutation
+narrated in the block and the exception gated as a located census
+(g3: exactly one violation, at (12, 3), depth in (2e-6, 6e-6)). A
+second overclaim died in the same diagnosis: the "~92–94% of the
+attractor" figure held only for d ≤ 12 — the n = 0 Hermite ratio
+DECLINES with d (0.9414/0.9244/0.8914/0.8559/0.8119 at
+d = 9/12/16/20/25, all now gated), and the d-uniformity of the floor
+is stated as the open component. Since nothing had been committed,
+the marking rule required no strike — the correction is the landing;
+the refutation is disclosed here and in the block itself.
+
+**The landing.** Theorem 1au after the 1at block: (i) the commission
+with the no-proof frame stated first; (ii) the moment instrument
+(ratio exactly ½; γ(0) to twelve digits); (iii) the open-region
+census (d = 9…25, every reachable n, all hyperbolic, relative
+imaginary parts exactly zero); (iv) the first-stage floor — the
+refutation, the located micro-dip, the declared conjecture, the
+declining d-trend with global tested floor 0.8119; (v) the Turán
+rate law r_j ≈ 1/(2j) (j·r_j 0.2932 → 0.4687, gated, marked
+empirical); (vi) the Li margins (λ₁–λ₄₀ all positive, λ₄₀ = 27.1808,
+thinnest at n = 1); (vii) the thinnest direction's closed form and
+the archimedean inequality 2 + γ > log 4π (classical value; the
+two-channel reading the program's); (viii) the two targets T1
+(first-stage floor / any n-uniform positive lower bound) and T2 (an
+archimedean inequality engine for λ_n ≥ 0). Footer advanced 70 → 71,
+range 1i–1at → 1i–1au, `cascade_attraction_margins.py` added.
+
+**The census sweep.** ELEVEN carriers advanced (70 → 71, 1at → 1au)
+with per-file ast.parse; residual grep clean (one false positive from
+the digits of an unrelated constant, inspected and dismissed). All
+eleven then run: 11/11 exit 0.
+
+**The verifier.** `cascade_attraction_margins.py`, 9 exit-gated gates
+(g1 calibration; g2 the open-region census; g3 the first-stage floor
+with the exception census, endpoint pins, below-Hermite, the
+declining n0 ratios, and the global floor; g4 the Turán products; g5
+the Li margins; g6 the closed form + inequality + zeros-side
+bracket; g7 the 1au needles incl. the refutation needles; g8 the
+chain to `cascade_finite_fill.py`; g9 the footer census). First run
+8/9 — the g3 FAIL that refuted the draft; corrected run 9/9.
+
+**The sabotage suite** (fresh tar tree, serial, single-mangle,
+per-probe restore verified by cmp; baselines B1/B2 both 9/9, restore
+integrity OK; all censuses OBSERVED and matching the prospective
+record without amendment): (a) title needle → g7 alone; (b) the
+global-floor pin 0.8119 → 0.8319 in code → g3 alone; (c) the
+closed-form digits mangled in the paper → g7 falls while g6
+(recomputed) stands — paper-vs-computation independence; (d) footer
+71 → 70 → g9 AND g8 (census propagation through the chain); (e)
+chain target renamed → g8 alone.
+
+**Check compliance.** Check 7: Jensen–Pólya, Turán, Li's criterion,
+theta-kernel moments, classical zeros — no semiclassics. Check 8: no
+hypothesis input; the commission supplied direction only. Next:
+hostile round 194 on this landing.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""Theorem 1au verifier: the push record -- the open-region census, the
+monotone-attraction conjecture's data, the Turan rate law, and the
+thinnest Li direction.
+
+Gates (all exit-gated; any failure exits 1):
+  g1  the moment instrument: 2*int Phi over [0,8] equals xi(1/2)/2 to
+      1e-10 (the normalization ratio is exactly 1/2), and the calibrated
+      gamma(0) reproduces xi(1/2) = 0.497120778188 to 1e-9. Coefficients
+      through j = 56.
+  g2  the open-region census (beyond GORZ's proven d <= 8): for
+      d in {9, 12, 16, 20, 25} and every reachable n (n <= 56 - d),
+      every Jensen stage is hyperbolic with relative imaginary root
+      part < 1e-40 (observed: exactly zero).
+  g3  the first-stage floor (the declared conjecture's data, with the
+      refutation the gate itself delivered): the full-step monotonicity
+      census finds EXACTLY ONE violation -- the micro-dip at
+      (d = 12, n = 3 -> 4), depth in (2e-6, 6e-6) -- which refuted the
+      lead's monotone draft on the first clean run, pre-commit; the
+      floor min(seq) >= seq[0] holds for every d (the first stage is
+      the worst stage); endpoints pinned (d=9: 0.1067 -> 0.1100; d=16:
+      0.0520 -> 0.0556; d=25: 0.0290 -> 0.0329; each +- 0.002); every
+      margin BELOW its Hermite benchmark (H_9 0.1134, H_16 0.0583,
+      H_25 0.0357, each +- 0.002); the n = 0 Hermite ratios pinned and
+      DECLINING (0.9414/0.9244/0.8914/0.8559/0.8119 at d =
+      9/12/16/20/25) with the global tested floor 0.8119 +- 0.003.
+  g4  the Turan rate law r_j ~ 1/(2j): r_j > 0 for j <= 55; the products
+      j*r_j pinned at j=10: 0.2932 and j=55: 0.4687 (each +- 0.005) and
+      increasing across the sampled ladder.
+  g5  the Li margins: lambda_1..40 from 200 zero pairs ALL POSITIVE;
+      lambda_40 = 27.1808 +- 0.02; the minimum of lambda_n/n over
+      n <= 40 is attained at n = 1.
+  g6  the thinnest direction's closed form: |(1 + gamma/2 - log(4 pi)/2)
+      - 0.0230957090| < 1e-9; the inequality 2 + gamma > log(4 pi); and
+      the bracket: zeros-side lambda_1 < closed form < zeros-side + 2x
+      the stated tail bound.
+  g7  the paper needles for the 1au block (title; the no-proof frame;
+      MONOTONE ATTRACTION; the n = 0 reduction; the rate law; the
+      archimedean inequality; the closed-form digits; beyond-GORZ).
+  g8  the chain: cascade_finite_fill.py (Theorem 1at) exits 0.
+  g9  the footer census (this script backticked >= 2; "71 scripts cited
+      in place"; "Theorems 1i-1au").
+
+Sabotage record (each: fresh tree, single mangle, restore from pristine;
+clean baselines around the suite; censuses are the OBSERVED results):
+  (a) title needle mangled in the paper       -> g7 FAIL alone
+  (b) the global-floor pin mangled in code (0.8119 -> 0.8319)
+                                              -> g3 FAIL alone (the
+      floor census is load-bearing)
+  (c) closed-form digits mangled in the paper (0.0230957 -> 0.0230857)
+      -> g7 FAIL (value needle) while g6 (recomputed closed form)
+      STANDS -- paper-vs-computation independence
+  (d) footer census reverted 71 -> 70         -> g9 FAIL AND g8 FAIL
+      (census propagation through the chain: the chained 1at verifier's
+      own footer gate catches the same reversion)
+  (e) chain target renamed in code            -> g8 FAIL alone
+"""
+import sys, math, subprocess, os
+import numpy as np
+from mpmath import (mp, mpf, mpc, exp, pi, quad, gamma as G, zeta, polyroots,
+                    factorial, binomial, zetazero, log, euler)
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
+paper = open(PAPER, encoding="utf-8").read()
+
+fails = []
+def gate(label, ok):
+    print(("PASS " if ok else "FAIL ") + label)
+    if not ok:
+        fails.append(label)
+
+# ---------------------------------------------------------------- g1
+mp.dps = 80
+def Phi(u):
+    s = mpf(0)
+    for n in range(1, 26):
+        s += (2*pi**2*n**4*exp(mpf(9)*u/2) - 3*pi*n*n*exp(mpf(5)*u/2))*exp(-pi*n*n*exp(2*u))
+    return s
+xi_half = mpf("0.25")*(-1)*pi**mpf("-0.25")*G(mpf("0.25"))*zeta(mpf("0.5"))/2
+m0 = 2*quad(Phi, [0, 8])
+ratio = m0/xi_half
+JMAX = 56
+gam = []
+for j in range(JMAX + 1):
+    m2j = 2*quad(lambda u: Phi(u)*u**(2*j), [0, 8])
+    gam.append(factorial(j)*(m2j/factorial(2*j))*(xi_half/m0))
+ok = abs(ratio - mpf("0.5")) < mpf(10)**-10
+ok &= abs(gam[0] - mpf("0.497120778188")) < mpf(10)**-9
+print(f"  g1 ratio = {float(ratio):.12f}; gamma(0) = {float(gam[0]):.12f}")
+gate("g1 the moment instrument calibrated (ratio 1/2; gamma(0) = xi(1/2))", ok)
+
+# ---------------------------------------------------------------- g2, g3
+def jensen(d, n):
+    return [binomial(d, j)*gam[n + j] for j in range(d + 1)]
+def stage_roots(d, n):
+    c = jensen(d, n)
+    return polyroots([c[d - k] for k in range(d + 1)], maxsteps=200, extraprec=120)
+worst_im = mpf(0)
+gapseq = {}
+for d in (9, 12, 16, 20, 25):
+    seq = []
+    for n in range(0, JMAX - d + 1):
+        rts = stage_roots(d, n)
+        worst_im = max(worst_im, max(abs(r.imag) for r in rts)/max(abs(r) for r in rts))
+        re = sorted([r.real for r in rts])
+        seq.append(min(re[i+1] - re[i] for i in range(len(re) - 1))/(re[-1] - re[0]))
+    gapseq[d] = seq
+print(f"  g2 worst relative imaginary part: {float(worst_im):.2e}")
+gate("g2 open-region census: every stage d in {9,12,16,20,25}, all reachable n, "
+     "hyperbolic", worst_im < mpf(10)**-40)
+
+def hermite_gap(d):
+    hprev = np.zeros(d + 1); hprev[0] = 1.0
+    hcur = np.zeros(d + 1); hcur[1] = 2.0
+    for k in range(1, d):
+        nxt = np.zeros(d + 1)
+        nxt[1:] += 2*hcur[:-1]
+        nxt -= 2*k*hprev
+        hprev, hcur = hcur, nxt
+    r = np.sort(np.roots(hcur[::-1]).real)
+    return float(min(np.diff(r))/(r[-1] - r[0]))
+ok = True
+violations = []
+for d in (9, 12, 16, 20, 25):
+    seq = gapseq[d]
+    for i in range(len(seq) - 1):
+        if seq[i+1] < seq[i] - mpf(10)**-12:
+            violations.append((d, i, float(seq[i] - seq[i+1])))
+    # the first-stage floor: the n = 0 stage is the worst stage
+    ok &= min(seq) >= seq[0] - mpf(10)**-12
+# the exception census: exactly ONE micro-dip, located, depth pinned
+ok &= len(violations) == 1
+ok &= violations[0][0] == 12 and violations[0][1] == 3
+ok &= 2e-6 < violations[0][2] < 6e-6
+hb = {9: 0.1134, 16: 0.0583, 25: 0.0357}
+pins = {9: (0.1067, 0.1100), 16: (0.0520, 0.0556), 25: (0.0290, 0.0329)}
+for d, (p0, p1) in pins.items():
+    seq = gapseq[d]
+    ok &= abs(float(seq[0]) - p0) < 0.002 and abs(float(seq[-1]) - p1) < 0.002
+    hg = hermite_gap(d)
+    ok &= abs(hg - hb[d]) < 0.002
+    ok &= all(float(x) < hg for x in seq)
+# the d-trend of the n = 0 ratio, pinned, declining; the global floor
+n0r = {d: float(gapseq[d][0])/hermite_gap(d) for d in (9, 12, 16, 20, 25)}
+n0pins = {9: 0.9414, 12: 0.9244, 16: 0.8914, 20: 0.8559, 25: 0.8119}
+for d in n0pins:
+    ok &= abs(n0r[d] - n0pins[d]) < 0.003
+ok &= n0r[9] > n0r[12] > n0r[16] > n0r[20] > n0r[25]
+ok &= abs(min(min(float(x)/hermite_gap(d) for x in gapseq[d])
+              for d in (9, 12, 16, 20, 25)) - 0.8119) < 0.003
+print(f"  g3 violations: {violations}; endpoints d=9 "
+      f"{float(gapseq[9][0]):.4f}->{float(gapseq[9][-1]):.4f} (H {hermite_gap(9):.4f}); "
+      f"d=25 {float(gapseq[25][0]):.4f}->{float(gapseq[25][-1]):.4f} (H {hermite_gap(25):.4f}); "
+      f"n0 ratios {[round(n0r[d],4) for d in (9,12,16,20,25)]}")
+gate("g3 the first-stage floor: exactly one located micro-dip; min at n = 0 "
+     "for every d; pinned endpoints; below-Hermite; declining n0 ratios with "
+     "global floor 0.8119", ok)
+
+# ---------------------------------------------------------------- g4
+sample = (1, 2, 5, 10, 20, 30, 40, 50, 55)
+jr = {}
+ok = True
+for j in range(1, 56):
+    r = gam[j]**2/(gam[j-1]*gam[j+1]) - 1
+    ok &= r > 0
+    if j in sample:
+        jr[j] = float(j*r)
+ok &= abs(jr[10] - 0.2932) < 0.005 and abs(jr[55] - 0.4687) < 0.005
+ok &= all(jr[sample[i+1]] > jr[sample[i]] for i in range(len(sample) - 1))
+print(f"  g4 j*r_j: j=10 {jr[10]:.4f}, j=55 {jr[55]:.4f}")
+gate("g4 the Turan rate law: r_j > 0 through j = 55; j*r_j pinned and increasing", ok)
+
+# ---------------------------------------------------------------- g5
+mp.dps = 30
+zs = [zetazero(k) for k in range(1, 201)]
+def li_n(n):
+    return sum(2*(1 - ((z - 1)/z)**n).real for z in zs)
+lam = {n: li_n(n) for n in range(1, 41)}
+ok = all(lam[n] > 0 for n in lam)
+ok &= abs(float(lam[40]) - 27.1808) < 0.02
+argmin = min(range(1, 41), key=lambda n: float(lam[n])/n)
+ok &= argmin == 1
+print(f"  g5 lambda_1 = {float(lam[1]):.4f}; lambda_40 = {float(lam[40]):.4f}; argmin lambda_n/n = {argmin}")
+gate("g5 Li margins: lambda_1..40 all positive; lambda_40 pinned; thinnest at n = 1", ok)
+
+# ---------------------------------------------------------------- g6
+closed = 1 + euler/2 - log(4*pi)/2
+gam_last = float(zs[-1].imag)
+tailb = 2*float(1*2*0.5*((log(gam_last/(2*pi)) + 1)/(2*pi*gam_last))*2)
+ok = abs(closed - mpf("0.0230957090")) < mpf(10)**-9
+ok &= (2 + euler) > log(4*pi)
+ok &= float(lam[1]) < float(closed) < float(lam[1]) + tailb
+print(f"  g6 closed form {float(closed):.10f}; bracket ({float(lam[1]):.4f}, {float(lam[1]) + tailb:.4f})")
+gate("g6 the thinnest direction: lambda_1 = 1 + gamma/2 - log(4pi)/2, the "
+     "archimedean inequality, the zeros-side bracket", ok)
+
+# ---------------------------------------------------------------- g7
+needles = [
+    "**Theorem 1au (the push record: two fronts advanced past their",
+    "**no proof is\nclaimed, and none resulted**",
+    "the FIRST-STAGE FLOOR",
+    "refuted the\nlead's monotone draft pre-commit",
+    "(d = 12, n = 3 → 4) of depth 4.0×10⁻⁶",
+    "margin(d, n) ≥ margin(d, 0)",
+    "global tested floor 0.8119",
+    "all-n hyperbolicity reduces to the n = 0 line",
+    "r_j ≈ 1/(2j)",
+    "2 + γ > log 4π",
+    "0.0230957",
+    "far beyond GORZ's proven",
+]
+ok = all(nd in paper for nd in needles)
+for nd in needles:
+    if nd not in paper:
+        print(f"  g7 MISSING: {nd!r}")
+gate("g7 the 1au paper needles", ok)
+
+# ---------------------------------------------------------------- g8
+rr = subprocess.run([sys.executable, os.path.join(HERE, "cascade_finite_fill.py")],
+                    capture_output=True, text=True)
+gate("g8 the chain: cascade_finite_fill.py (Theorem 1at) exits 0", rr.returncode == 0)
+
+# ---------------------------------------------------------------- g9
+ok = paper.count("`cascade_attraction_margins.py`") >= 2
+ok &= "71 scripts cited in place" in paper
+ok &= "Theorems 1i–1au" in paper
+gate("g9 the footer census (this script backticked >= 2; 71 cited in place; "
+     "the range 1i–1au)", ok)
+
+print()
+if fails:
+    print(f"FAILURES ({len(fails)}):")
+    for f in fails:
+        print("  " + f)
+    sys.exit(1)
+print("ALL GATES PASS (9/9)")
