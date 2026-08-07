@@ -31,10 +31,12 @@ Gates (all exit-gated; any failure exits 1):
   g4  the Turan rate law r_j ~ 1/(2j): r_j > 0 for j <= 55; the products
       j*r_j pinned at j=10: 0.2932 and j=55: 0.4687 (each +- 0.005) and
       increasing across the sampled ladder.
-  g5  the Li margins (rebuilt round 194 F1): the 200-pair partial sums
-      are termwise-nonnegative LOWER BOUNDS (every paired term at
-      n = 40 checked >= 0), all positive, with the n = 40 partial sum
-      27.1808 +- 0.02 labeled as a partial sum; the TRUE zeros-free
+  g5  the Li margins (rebuilt round 194 F1; the lower-bound framing
+      struck round 195 F1 and its docstring/label carriers swept round
+      196 F1): the 200-pair partial sums are POSITIVE, with termwise
+      nonnegativity gated at n = 40 (every paired term checked >= 0)
+      and per-n positivity gated for every n <= 40; the n = 40 partial
+      sum 27.1808 +- 0.02 labeled as a partial sum; the TRUE zeros-free
       ladder via Cauchy extraction of log xi(1/(1-z)): lambda_1 to
       1e-8, lambda_40 = 30.4774 +- 0.002, lambda_50 = 43.5311 +- 0.002
       (the committed gated-ladder anchor); the truncation deficit
@@ -209,8 +211,11 @@ zs = [zetazero(k) for k in range(1, 201)]
 def li_terms(n):
     return [2*(1 - ((z - 1)/z)**n).real for z in zs]
 lam = {n: sum(li_terms(n)) for n in range(1, 41)}
-# termwise nonnegativity: the on-line paired terms are 2(1 - cos) >= 0,
-# so the partial sums are LOWER BOUNDS (round-194 F1 reframe)
+# termwise nonnegativity at n = 40: the on-line paired terms are
+# 2(1 - cos) >= 0, so the PARTIAL SUMS are positive. (The former
+# "so the partial sums are LOWER BOUNDS" comment reproduced the
+# inference struck round 195 F1 -- tail nonnegativity is RH-strength;
+# carrier caught round 196 F1.)
 ok = all(t >= -mpf(10)**-25 for t in li_terms(40))
 ok &= all(lam[n] > 0 for n in lam)
 ok &= abs(float(lam[40]) - 27.1808) < 0.02      # the PARTIAL SUM, labeled as such
@@ -233,9 +238,10 @@ ok &= abs(lf50 - 43.5311) < 0.002                # the committed gated-ladder an
 ok &= 3.25 < lf40 - float(lam[40]) < 3.35        # the deficit at the paired-tail scale
 print(f"  g5 partial(40) = {float(lam[40]):.4f}; TRUE lambda_40 = {lf40:.4f}; "
       f"lambda_50 = {lf50:.4f}; deficit {lf40 - float(lam[40]):.4f}; argmin = {argmin}")
-gate("g5 Li margins: termwise-nonnegative partial sums (lower bounds) all "
-     "positive; the TRUE zeros-free ladder (lambda_40 = 30.4774, anchored at "
-     "the committed lambda_50); the deficit at the paired-tail scale", ok)
+gate("g5 Li margins: partial sums positive (termwise-gated at n = 40; the "
+     "lower-bound framing struck round 195 F1, label swept round 196 F1); "
+     "the TRUE zeros-free ladder (lambda_40 = 30.4774, anchored at the "
+     "committed lambda_50); the deficit at the paired-tail scale", ok)
 
 # ---------------------------------------------------------------- g6
 closed = 1 + euler/2 - log(4*pi)/2

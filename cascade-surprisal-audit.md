@@ -15798,6 +15798,33 @@ Theorem 1ao); corrected.
 (two new, one updated); the swept verifier re-run: 9/9. Convergence
 test (round 196) next.
 
+## Addendum 304: round 196 (convergence test on the round-195 sweep) — NOT CONVERGED: 0 MAJORs + 2 minors; the F1 blast radius swept across the instrument; swept
+
+**The round.** Fresh-context subagent on commit 8d49b33. All four
+round-195 repairs verified substantively correct with full
+independent recomputation (the refuting quadruple algebra checked by
+hand — v = 1/w exactly, contribution 4 − 2(xⁿ + x⁻ⁿ)cos(nφ) — and
+matched against the committed algebra in `cascade_unit_ball_rh.py`;
+the new warrant chain's gate read directly and confirmed zeros-free
+and failable; λ₄₀/λ₅₀ recomputed independently; both dual renderings
+of λ₅₀ confirmed correct; all 21 needles; the footer census
+set-compared; the reviewer ran the verifier itself: 9/9). Two
+minors, both novel, both in the round-195 F1 repair's blast radius:
+**Finding 1** — the verifier retained the struck "LOWER BOUNDS"
+framing live in three places (docstring g5, the g5 comment — which
+reproduced the exact struck inference "terms ≥ 0, so the partial
+sums are LOWER BOUNDS" — and the gate label), a marking-rule
+every-surface residue; **Finding 2** — the paper's new "gated
+termwise" attribution omitted its n = 40 scope (termwise gating
+covers 200 of the 8000 terms; per-n positivity is gated for every
+n ≤ 40), the round-194 F6 class. Both lead-verified by grep and
+code-read, accepted, and swept: the three instrument carriers
+rewritten with strike annotations; the paper attribution scoped
+("gated termwise at n = 40, with per-n positivity gated for every
+n ≤ 40"). The residual "LOWER BOUNDS" string survives only inside
+the annotation quoting the refuted comment. Swept verifier re-run:
+9/9. Convergence test (round 197) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

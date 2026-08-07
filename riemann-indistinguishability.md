@@ -4160,8 +4160,9 @@ and "explicit tail bounds" named a warrant the code carried
 only for λ₁]. The honest ledger: the 200-pair partial sums are
 POSITIVE unconditionally — each paired on-line term is
 2(1 − cos(n·θ_ρ)) ≥ 0 and the first 200 zeros lie on the line
-(gated termwise; the partial sum at n = 40 is 27.1808, labeled
-as such). ~~so positivity of λ₁…λ₄₀ follows from the lower
+(gated termwise at n = 40, with per-n positivity gated for
+every n ≤ 40 — the attribution's scope stated round 196 F2;
+the partial sum at n = 40 is 27.1808, labeled as such). ~~so positivity of λ₁…λ₄₀ follows from the lower
 bounds alone~~ [struck round 195 F1, MAJOR — a partial sum is a
 lower bound on the TRUE λ_n only if the TAIL contributes
 nonnegatively, which is RH-strength (an off-line quadruple

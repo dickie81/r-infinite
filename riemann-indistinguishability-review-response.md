@@ -4066,3 +4066,20 @@ verified).
 **Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c (swept) → 195 NOT
 CONVERGED 1M+2m+1c (swept; the lower-bound inference struck) →
 round 196 (convergence test) next.**
+
+# Round 196: convergence test on the round-195 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 2 minors; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the struck "LOWER BOUNDS" framing live in three verifier carriers (docstring, comment reproducing the struck inference, gate label) | Accepted — grep-verified | All three rewritten with strike annotations; the string survives only inside the annotation quoting the refuted comment |
+| 2 minor: "gated termwise" without its n = 40 scope (the F6 class) | Accepted | Scoped: "gated termwise at n = 40, with per-n positivity gated for every n ≤ 40" |
+
+Checked and held: all four round-195 repairs substantively correct
+(the quadruple algebra hand-verified with v = 1/w; the committed
+warrant gate read directly, zeros-free and failable; λ₄₀/λ₅₀
+independently recomputed; both λ₅₀ renderings correct; 21 needles;
+census set-compared; the reviewer's own verifier run 9/9).
+
+**Trajectory: 1au landed (47c1fdc) → 194 2M+5m+1c (swept) → 195
+1M+2m+1c (swept) → 196 NOT CONVERGED 0M+2m (swept; the F1 blast
+radius closed) → round 197 (convergence test) next.**
