@@ -4420,8 +4420,12 @@ law 1.99·d^(−0.300) (rms 0.041). Instrument disclosure (the
 draft-digit class, caught pre-commit by the harvest-first
 practice): the session draft carried a "rebound at d = 65"
 (ratio 0.6554) — a float64 Hermite-recurrence artifact; the
-recurrence loses the d = 65 gap silently before overflowing
-outright at d = 80; the stable Gauss–Hermite route gives
+recurrence loses the d = 65 gap silently before ~~overflowing
+outright~~ [struck round 201 F5: the coefficients stay finite
+(~10⁷⁵); the d = 80 failure is complex-root breakdown
+collapsing the gap to a spurious 0.0 — the session's
+ZeroDivisionError] breaking down at d = 80; the stable
+Gauss–Hermite route gives
 0.5732, in sequence, and the committed gate refuted the rebound
 on its first run. The [9, 45]-window linear fit — which
 predicted a zero crossing at d ≈ 132 and 0.246 at d = 100 — is
@@ -4458,8 +4462,12 @@ and the inversion ρ = p/(p−1) landing at (0.7500, 20.000)
 arithmetic data. Instrument disclosure: the 1av model order
 K = 16 — adequate there, where the dominant pole is the target
 — BLENDS the plant with γ₂ (~20 zero-pairs share the band; the
-harvest run measured excess 2.7×10⁻⁴, biased toward the line);
-K = 32 recovers the plant machine-exactly. Detection requires
+harvest configuration — N = 1000, K = 16 — measured excess
+2.7×10⁻⁴ with inversion (0.6101, 20.093), a session-run value,
+provenance labeled per round 201 F3; at the committed N = 2000
+the K = 16 blend persists and is GATED as a diagnostic: excess
+~5.0×10⁻⁴, inversion (0.695, 19.80), still biased toward the
+line); K = 32 recovers the plant machine-exactly. Detection requires
 a model order adequate to the band's population — a calibration
 fact, part of the validation record. The INFEASIBILITY RECORD:
 the wild Davenport–Heilbronn target (the 1as certificate's
@@ -4481,8 +4489,20 @@ the exception is uniformly negative at n = 1 (all 303, closed
 form Δ_p(1) = −ln p/(p−1), gated at every prime): each new
 prime DRAINS the first Li direction — the scarcest direction
 (the 1av census's global minimum) is the one every prime pushes
-toward zero, though the sum converges and λ₁ = 0.0231 > 0 is
-held by the Γ-side. What survives exactly: D(P_y‖P_∞) =
+toward zero, ~~though the sum converges and λ₁ = 0.0231 > 0 is
+held by the Γ-side~~ [struck round 201 F1+F2, MAJOR ×2: the
+drains' prime-sum DIVERGES (−Σ ln p/(p−1) ~ −ln y by Mertens;
+the gated S_2000 = −7.048 is a partial sum, unbounded below),
+and 1av's gated decomposition puts the first direction's
+positivity in the PRIMES channel (λ_B(1) = −0.5541 < 0) — the
+Γ-side attribution inverted the committed record]. Corrected:
+the drains accumulate without bound and are canceled INSIDE the
+primes channel by its (s−1) pole compensator (each term of the
+decomposition diverges alone; only their sum is analytic), the
+combined λ_A(1) = γ finite and positive — the 1au
+dual-citizenship reading of γ notwithstanding, the channel
+holding λ₁ positive is 1av's primes channel. What survives
+exactly: D(P_y‖P_∞) =
 log(ζ(2)/ζ_y(2)) ↓ 0 along the fill, and the prime-additivity
 of the zeta-measure entropy (both identities gated by direct
 summation) — exact laws, thermodynamically thin. *(v) The
@@ -4495,13 +4515,19 @@ at y = 30000); C-II (negentropy against the Gaussian, Selberg's
 limit) is REFUTED as a monotone law — the Vasicek-estimated
 sequence 0.872, 0.790, 0.844, 0.859, 0.865, 0.865, 0.872,
 0.867, 0.839 (gated on shape) dips, then RISES through moderate
-fill (the low primes' non-Gaussian imprint), declining only
-from y ≈ 3000: the Selberg-CLT second law is asymptotic, not
+fill (the low primes' non-Gaussian imprint), ~~declining only
+from y ≈ 3000~~ [struck round 201 F6: the gate's 4-dp printout
+shows a micro-dip already at y = 1000 (0.8654 → 0.8648), hidden
+by the 3-dp display; the wiggle is now gated] — the SUSTAINED
+decline sets in only after the y = 3000 crest (gated): the
+Selberg-CLT second law is asymptotic, not
 monotone; C-III (spectral entropy of the periodogram) is
 monotone on the coarse nine-stage ladder, but the fine 58-stage
 ladder exhibits 5 micro-violations (at y = 1283, 3253, 4793,
 15313, 22469; deepest 0.0075; gated as a census — the stage
-boundaries are the committed ladder's, the count is the claim),
+boundaries are the committed ladder's, the count is the claim;
+the exact count, locations, and depth pinned round 201 F7,
+making the census label true),
 and against the ideal atom-weight entropy it correlates at
 0.979 while the window excess CHANGES SIGN (+0.545 → −0.161 →
 −0.850): it carries collective structure beyond the atom

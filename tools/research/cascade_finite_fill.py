@@ -33,7 +33,7 @@ Gates (all exit-gated; any failure exits 1):
       repair needles and the round-193 epigram needle -- see the
       in-code list, which is the authoritative census).
   g7  the chain: cascade_primes_side_ball.py (Theorem 1as) exits 0.
-  g8  the footer census (this script backticked >= 2; "72 scripts cited
+  g8  the footer census (this script backticked >= 2; "73 scripts cited
       in place"; "Theorems 1i-1aw").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;

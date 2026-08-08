@@ -87,7 +87,7 @@ Gates (twelve):
        anchored.
   V5 -- g9 1al's key sentences anchored; g10 the two net-state
        markers on the weakest-link sentences anchored; g11 the
-       footer census (the new script backticked; "72 scripts
+       footer census (the new script backticked; "73 scripts
        cited in place"; "Theorems 1i–1aw" -- advanced at the
        1am-1ap landings, the census-evolution class, disclosed); g12 the two Weil-arc
        footer-gating siblings re-run green after the census

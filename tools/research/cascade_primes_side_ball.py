@@ -58,7 +58,7 @@ Gates (all exit-gated; any failure exits 1):
       product-state restatement; fairness sentence; both off-line zero
       values; the statistical-vs-completed sentence).
   g14 the chain: cascade_lattice_forcing.py (Theorem 1ar) exits 0.
-  g15 the footer census (this script backticked >= 2; "72 scripts cited
+  g15 the footer census (this script backticked >= 2; "73 scripts cited
       in place"; "Theorems 1i-1aw").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;

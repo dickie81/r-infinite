@@ -72,7 +72,7 @@ Gates (all exit-gated; any failure exits 1):
       list is the authoritative census, enumeration extended round 199
       finding 5).
   g9  the chain: cascade_attraction_margins.py (Theorem 1au) exits 0.
-  g10 the footer census (this script backticked >= 2; "72 scripts cited
+  g10 the footer census (this script backticked >= 2; "73 scripts cited
       in place"; "Theorems 1i-1aw").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;

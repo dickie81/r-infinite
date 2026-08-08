@@ -4173,3 +4173,27 @@ re-run.
 reports; swept) → 199 0M+1m+4c (swept) → 200 CONVERGED 0M+0m+4c
 applied. Certified: Theorem 1av — the two channels of the Li
 ladder. Next hostile round on the next substantive paper change.**
+
+
+# Round 201: hostile review of the Theorem 1aw landing (subagent, per protocol) — 2 majors (one sentence) + 5 minors (one regraded from proposed MAJOR); swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 MAJOR: "the sum converges" — the per-prime drains' sum diverges (Mertens; reviewer computed partials to y = 2×10⁶) | Accepted (lead verified: divergence immediate; the pole compensator carries the canceling divergence) | Strike-and-annotate at the single carrier; corrected statement in place |
+| F2 MAJOR: "λ₁ … held by the Γ-side" inverts 1av's gated record (λ_B(1) = −0.5541 < 0; positivity carried by the primes channel) | Accepted (lead re-read 1av's block and gate) | Same strike-and-annotate; dual-citizenship reading subordinated to the committed decomposition |
+| F3 proposed MAJOR: K = 16 disclosure digit 2.7×10⁻⁴ is the harvest (N = 1000) configuration, not the committed pipeline (4.98×10⁻⁴) | Accepted as minor — the digit was provenance-labeled and true as history; the label under-specified the configuration (regrade grounds in A311) | Configuration named in the block; the committed-pipeline K = 16 blend gated as a g5 diagnostic (windowed pins, rationale in the gate) |
+| F4 minor: carrier sweep incomplete — seven wrapped docstring census strings, weil's double-hyphen range, weil's g18 LABEL printing 72 (its third desync) | Accepted (lead reproduced by multiline regex) | Wrap-tolerant sweep across all variants; zero residuals; ast.parse each; weil re-run green |
+| F5 minor: "overflowing outright at d = 80" — false mechanism (coefficients finite ~10⁷⁵; complex-root collapse to a 0.0 gap) | Accepted (lead re-ran the recurrence under warnings-as-errors) | Strike-and-annotate on both carriers (block + docstring) |
+| F6 minor: "declining only from y ≈ 3000" false at the gate's own 4-dp (micro-dip at y = 1000, hidden by 3-dp display); shape ungated at those stages | Accepted (gate printout read directly) | Strike-and-annotate; full barrier shape gated |
+| F7 minor: "the count is the claim" overstated the census gate (count ∈ [3,8] only) | Accepted | Census pinned exactly (count == 5, y-list equality, depth window) per the round-198 F4 precedent; making-the-label-true annotation |
+
+Held: the reviewer ran the battery itself (11/11 with the g10
+chain); every gated number survived independent recomputation
+(extension ratios, fits, planted-zero recovery reproduced at K = 32
+exactly, g4/g6 mathematics by hand, Δ_p(1) closed form, exact laws,
+censuses); needles unique and in-span; footer census 73 exact;
+zero model-id hits; Check-7/8 clean; tree clean.
+
+**Trajectory: 1aw landed (52d8c80 + 5e7bd7f, two pre-commit
+instrument refutations disclosed) → 201 2M+5m swept. Convergence
+round 202 next.**

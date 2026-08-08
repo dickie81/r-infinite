@@ -16,7 +16,9 @@ Gates (all exit-gated; any failure exits 1):
       across the full ten-point ladder d = 9..100 (the session
       draft's "rebound at d = 65" was a float64 Hermite-recurrence
       artifact -- the recurrence loses the d = 65 gap before
-      overflowing outright at d = 80; the stable Gauss-Hermite route
+      breaking down at d = 80 (complex-root collapse to a spurious
+      0.0 gap, coefficients finite ~1e75; "overflowing outright"
+      struck round 201 F5); the stable Gauss-Hermite route
       gives 0.5732, in sequence -- REFUTED by this gate's first
       harvest run, disclosed in the paper block); the Hermite
       benchmark by hermgauss, cross-checked against the recurrence
@@ -55,7 +57,11 @@ Gates (all exit-gated; any failure exits 1):
       while the on-line control (gamma_1's pole, present in the same
       data) keeps modulus within 5e-7 of 1; the inversion
       rho_rec = p/(p-1) lands within 1e-4 of beta = 0.75 and within
-      1e-3 of gamma = 20.
+      1e-3 of gamma = 20. The K = 16 diagnostic (round 201 F3): at
+      the committed N = 2000 the 1av model order's blend is gated in
+      windows (excess in (4.9e-4, 5.1e-4); inversion beta in
+      (0.69, 0.70), gamma in (19.7, 19.9)) so the paper's
+      committed-pipeline blend figures are this gate's output.
   g6  the D-H crowding infeasibility: at the certified off-line
       Davenport-Heilbronn zero height gamma = 85.699348 (the
       cascade_primes_side_ball.py certificate), the pole-frequency
@@ -88,12 +94,15 @@ Gates (all exit-gated; any failure exits 1):
       lags the additive value, ratio in (0.80, 0.92)); C-II the
       negentropy J(y) (Vasicek-estimated differential entropy against
       the Gaussian at matched variance) is NOT monotone decreasing --
-      a dip-then-barrier shape with the late decline only from
-      y ~ 3000 (the Selberg-CLT second law is asymptotic, not
-      monotone); C-III the spectral entropy of the periodogram is
-      monotone on the coarse ladder but the fine ~60-stage ladder
-      (12% prime-count growth per stage) exhibits a small census of
-      micro-violations (count in [3, 8], deepest in (5e-3, 2e-2)),
+      the full barrier shape pinned (round 201 F6): dip at stage 2,
+      rise through y = 300, a 4-dp micro-dip at y = 1000, the crest
+      at y = 3000, the sustained decline after (the Selberg-CLT
+      second law is asymptotic, not monotone); C-III the spectral
+      entropy of the periodogram is monotone on the coarse ladder
+      but the fine 58-stage ladder (12% prime-count growth per
+      stage) exhibits EXACTLY 5 micro-violations at y = 1283, 3253,
+      4793, 15313, 22469 with deepest in (0.0074, 0.0076) (pinned
+      round 201 F7),
       and the atom-weight control (H_a of q ~ 1/(k^2 p^k)) correlates
       > 0.95 with H_s while the window excess H_s - H_a CHANGES SIGN
       along the fill: near-monotone, collective, not exactly a second
@@ -321,6 +330,14 @@ Vs = Vt[:32].T
 zev = np.linalg.eigvals(np.linalg.pinv(Vs[:-1]) @ Vs[1:])
 cands = [(abs(np.angle(zz)), abs(zz)) for zz in zev if 0.012 < abs(np.angle(zz)) < 0.2]
 th_true = abs(math.atan2(float(p75.imag), float(p75.real)))
+# the K = 16 DIAGNOSTIC (round 201 F3): at the committed N = 2000 the
+# 1av model order still blends the plant with gamma_2 -- gated so the
+# paper's committed-pipeline blend figures are the gate's output (the
+# harvest configuration N = 1000 / K = 16 is session history,
+# provenance-labeled in the block)
+V16 = Vt[:16].T
+z16 = np.linalg.eigvals(np.linalg.pinv(V16[:-1]) @ V16[1:])
+c16 = [(abs(np.angle(zz)), abs(zz)) for zz in z16 if 0.012 < abs(np.angle(zz)) < 0.2]
 # the planted pole: nearest candidate in frequency
 e_th, m_pl = min((abs(a - th_true), mod) for a, mod in cands)
 ok &= e_th < 1e-10
@@ -334,10 +351,19 @@ th_meas = min(cands, key=lambda c: abs(c[0] - th_true))[0]
 p_meas = m_pl*complex(math.cos(th_meas), math.sin(th_meas))
 rho_rec = p_meas/(p_meas - 1)
 ok &= abs(rho_rec.real - 0.75) < 1e-4 and abs(abs(rho_rec.imag) - 20) < 1e-3
+# the K = 16 diagnostic pins (windowed, not display-equal: the blended
+# pole is ill-conditioned by construction, so cross-platform jitter is
+# not bounded by the clean pole's determinism argument)
+e16, m16, th16 = min((abs(a - th_true), mod, a) for a, mod in c16)
+p16 = m16*complex(math.cos(th16), math.sin(th16))
+r16 = p16/(p16 - 1)
+ok &= 4.9e-4 < m16 - 1 < 5.1e-4
+ok &= 0.69 < r16.real < 0.70 and 19.7 < abs(r16.imag) < 19.9
 print(f"  g5 winding = {winding:.2e}; planted theta err {e_th:.1e}, |p|-1 = "
       f"{m_pl-1:.4e} (true {true_mod_excess:.4e}, diff {abs((m_pl-1)-true_mod_excess):.1e}); "
       f"on-line control |p| = {m_g1:.8f}; inverted to "
-      f"({rho_rec.real:.4f}, {abs(rho_rec.imag):.3f})", flush=True)
+      f"({rho_rec.real:.4f}, {abs(rho_rec.imag):.3f}); K16 diagnostic: "
+      f"excess {m16-1:.4e}, inverted ({r16.real:.4f}, {abs(r16.imag):.3f})", flush=True)
 gate("g5 the planted-zero detection: winding 0, the off-line pole found at "
      "the planted frequency with the beta = 3/4 modulus, the on-line control "
      "clean, the location inverted", ok)
@@ -449,6 +475,11 @@ ok &= not all(Jl[i+1] < Jl[i] for i in range(8))     # NOT monotone decreasing
 ok &= Jl[1] < Jl[0] and Jl[2] > Jl[1]                # the dip then the rise
 ok &= Jl[6] > Jl[2]                                  # the barrier climbs to y = 3000
 ok &= Jl[8] < Jl[7] < Jl[6]                          # the late decline
+# round 201 F6: the full barrier shape pinned -- the rise through
+# y = 300, the 4-dp micro-dip at y = 1000 (0.8654 -> 0.8648, hidden
+# by 3-dp display), the crest at y = 3000
+ok &= Jl[3] > Jl[2] and Jl[4] > Jl[3]
+ok &= Jl[5] < Jl[4] and Jl[6] > Jl[5]
 def spec_H(P):
     ps = np.abs(np.fft.rfft(P - P.mean()))**2
     q = ps/ps.sum()
@@ -479,7 +510,11 @@ for y in ys_fine:
 viol = [(ys_fine[i+1], round(Hs_f[i], 4), round(Hs_f[i+1], 4))
         for i in range(len(Hs_f) - 1) if Hs_f[i+1] < Hs_f[i]]
 deepest = max((Hs_f[i] - Hs_f[i+1]) for i in range(len(Hs_f) - 1))
-ok &= 3 <= len(viol) <= 8 and 5e-3 < deepest < 2e-2
+# round 201 F7: the census pinned exactly (the ladder is deterministic,
+# so the paper's "the count is the claim" is now what the gate gates)
+ok &= len(viol) == 5
+ok &= [v[0] for v in viol] == [1283, 3253, 4793, 15313, 22469]
+ok &= 0.0074 < deepest < 0.0076
 corr = float(np.corrcoef(Hs_f, Ha_f)[0, 1])
 exc = [Hs_f[i] - Ha_f[i] for i in range(len(Hs_f))]
 ok &= corr > 0.95
