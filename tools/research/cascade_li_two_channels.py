@@ -34,7 +34,8 @@ Gates (all exit-gated; any failure exits 1):
       [1, 1000] attained at n = 1 within 1e-3 of the pinned 0.0231 (the
       lambda_1 value itself is separately cross-checked at 1e-8; the
       original "within 1e-6" description overstated this conjunct's own
-      tolerance, round 198 F6); max |lambda_A|/lambda_B over
+      tolerance, a round-198 cosmetic — the "F6" pointer here named a
+      different canonical finding, re-synced round 200); max |lambda_A|/lambda_B over
       [11, 1000] = 0.8325 +- 0.003 attained at n = 11; lambda_B(1000)
       = 2324.30 +- 0.05 vs the RH trend 2323.54 +- 0.05.
   g4  the phase-coincidence mechanism (theta_k = pi - 2 atan(2 gamma_k),
@@ -47,8 +48,10 @@ Gates (all exit-gated; any failure exits 1):
       W_1 < 0.01 while W_2 > 3.1 (zero 1's second trough exact).
   g5  the pole-side inversion: ESPRIT (Hankel SVD, K2 = 16) on the
       detrended g3 lambda_A recovers the line nearest gamma_1 with
-      error < 1e-4 and pole modulus within 1e-5 of 1 (tightened round
-      198 F1 to hold the paper's displayed precision), and the line
+      error < 5e-6 and pole modulus within 5e-7 of 1 (display-equal
+      bounds per round 199 finding 1; this docstring had retained the
+      pre-repair 1e-4/1e-5 figures and their struck characterization —
+      synced round 200), and the line
       nearest gamma_2 with error < 0.05 and modulus within 5e-4 of 1 --
       position AND line-adherence from pole-side data alone.
   g6  the dichotomy rates: at beta = 1/2 the multiplier modulus is 1 to
@@ -219,10 +222,13 @@ p3 = 2*math.pi*gams[2]
 ok &= 157.0 < p3 < 157.3 and abs(156 - p3) < 1.3
 ok &= W(1, 178) < 0.01 and W(2, 178) > 3.1
 # round-198 F3 conjunct: firstness POST-TRANSIENT -- the all-four-below
-# condition holds trivially through the small-n transient (n <= 22) and
-# must first RETURN at exactly 156
+# condition holds through the small-n transient (n <= 22; marginally at
+# its edge, W1(22) = 1.970 -- "trivially" retired round 200) and must
+# first RETURN at exactly 156
 first_post = next(n for n in range(23, 1001) if all(W(k, n) < 2 for k in (1, 3, 4, 5)))
 ok &= first_post == 156
+# round-200 conjuncts: the gloss figures witnessed (edge clearance and break)
+ok &= 1.9695 < W(1, 22) < 2 and W(1, 23) > 2
 print(f"  g4 W2(132) = {W(2,132):.4f}, W1(132) = {W(1,132):.4f}, lam_A(132) = {lamA[131]:.3f}; "
       f"2 pi gamma_3 = {p3:.2f}; W1(178) = {W(1,178):.4f}")
 gate("g4 the phase-coincidence mechanism: single-withholder insufficiency at "
@@ -250,7 +256,9 @@ ok = e1 < 5e-6 and abs(m1v - 1) < 5e-7   # round-199 finding 1: the round-198
 # as written; NOW the gate bounds equal the displayed bounds exactly (the
 # extraction is mpmath-deterministic at dps 60; the numpy ESPRIT stage's
 # platform jitter is ~1e-12, irrelevant at this tolerance)
-ok &= e2 < 0.05 and abs(m2v - 1) < 5e-4
+ok &= e2 < 0.02 and abs(m2v - 1) < 5e-5   # round-200 cosmetic 4: gamma_2
+# display-equal bounds under the same determinism argument (observed
+# 0.0181 / 2.8e-5 -- margins 1.1x / 1.8x, honest for a deterministic gate)
 print(f"  g5 gamma_1 recovered {g1v:.4f} (err {e1:.5f}, |pole| {m1v:.6f}); "
       f"gamma_2 {g2v:.4f} (err {e2:.4f}, |pole| {m2v:.6f})")
 gate("g5 the pole-side inversion: gamma_1 and gamma_2 recovered with on-line "
@@ -313,7 +321,7 @@ needles = [
     "maximum ratio 0.8325 AT THE SEAM n = 11",
     "λ₁ = 0.0231 at n = 1",
     "γ₁ recovered to 14.1347 (error < 5×10⁻⁶)",
-    "struck round 198 F1, MAJOR",
+    "struck round 198 F2, MAJOR",
     "the first POST-TRANSIENT collective withholding",
     "Mechanism-class MEMBERSHIP",
     "no\nUNPROVEN zero location enters",

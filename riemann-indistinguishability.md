@@ -4300,7 +4300,9 @@ evidence.) *(v) The pole-side inversion.* Inverting the
 spectrometer: ESPRIT on the detrended λ_A recovers the zeros
 from arithmetic-channel data alone — data sampled entirely
 below the first zero. Gated: ~~**γ₁ recovered to 14.1348 against
-14.1347 (error 10⁻⁴)**~~ [struck round 198 F1, MAJOR — found
+14.1347 (error 10⁻⁴)**~~ [struck round 198 F2, MAJOR ("F1" at
+the sweep — the pointer re-synced to the canonical round-table
+numbering round 200) — found
 independently by BOTH reviewers of the two-report round: the
 digits were the draft hunt's session-run residue, never the
 committed gate's output ("session runs are drafting until they
@@ -4344,7 +4346,8 @@ functionals are among the mechanisms yielding a priori
 positivity without estimates (states, entropy production,
 convex pressure) — members of the broader structural-positivity
 class (vi)'s elimination selects (~~necessity … precisely~~
-[struck round 198 F2/F6, both reviewers — the elimination
+[struck round 198 F6, both reviewers ("F2/F6" at the sweep;
+pointer re-synced round 200) — the elimination
 covers magnitude estimation only; rival structural mechanisms —
 spectral self-adjointness, Weil-cone positive-definiteness, the
 very cone P4 targets — were never eliminated]). (b) The

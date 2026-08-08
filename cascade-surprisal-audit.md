@@ -16057,6 +16057,54 @@ the sweep's six added needles (extended, deferring to the in-code
 census). Swept verifier re-run: 10/10 with g5 passing at the
 display-exact tolerance. Convergence test (round 200) next.
 
+## Addendum 309: round 200 (convergence test on the round-199 sweep) — **CONVERGED** (0 majors, 0 minors, 4 cosmetics applied with the record); Theorem 1av certified STABLE; the two-channel arc closes
+
+**The round.** Fresh-context subagent on commit 28e82e3. Zero majors,
+zero minors. All five round-199 repairs verified — with the
+determinism argument not merely held but EMPIRICALLY CONFIRMED: the
+reviewer perturbation-tested the ESPRIT stage at the BLAS-variation
+scale (1e-15 relative input jitter shifts γ₁ by ≤ 9×10⁻¹³ and the
+modulus by ≤ 7×10⁻¹⁵ — six orders below the display-equal margins),
+and its third-implementation reproduction measured the true gate
+margins (e1 = 2.5×10⁻⁶, 1.99× under; modulus 1.6×10⁻⁸, 32× under).
+The census was reproduced yet again by an independent implementation
+(the fourth full replication across the chain); the 9.744 supremum
+derivation, the quarter-turn figures, the g8 enumeration, and the
+footer census all verified exactly. Four cosmetics, applied with
+this record and the verifier re-run 10/10: (1) the g5 docstring had
+retained the pre-repair bounds and the struck characterization
+(synced); (2) the round-198 F-pointers on the object surfaces were
+tangled against the canonical round-table numbering (re-synced on
+both surfaces, the strike needle updated in step); (3) the
+transient-edge gloss figures were ungated and g4's comment retained
+"trivially" (conjuncts added — W₁(22) ∈ (1.9695, 2), W₁(23) > 2 —
+and the word retired); (4) the γ₂ display's bounds were loose
+(made display-equal: e2 < 0.02, |m2 − 1| < 5e-5, observed margins
+1.1×/1.8× under the same confirmed determinism argument).
+
+**CERTIFIED: Theorem 1av — the two channels of the Li ladder: the
+two-regime anatomy, the thousand-direction census, the
+phase-coincidence mechanism, the pole-side inversion, the
+dichotomy, and the informational-pressure program.** The final
+statement, hostile-tested through the campaign's longest and
+strangest chain — a two-reviewer round born of environment
+instability (the incident chronicle in A307), then two convergence
+rounds: the primes carry Regime I of the Li ladder and the gamma
+channel Regime II, joined at the shared constant γ = −ψ(1) = γ₀;
+the thousand-direction census stands quadruply replicated (first
+negative λ_A at 156 on the third zero's clock, the seam at n = 11,
+the scarcity at n = 1, the trend identity at 0.03%); the pole-side
+inversion reads the first zeros' positions AND line-adherence from
+data sampled entirely below the first zero, at gate bounds now
+equal to its displayed precision; the dichotomy stands with its
+mechanism conclusion scoped to membership; and the
+informational-pressure program remains a declared research program
+behind its fence, its equilibrium shadow (Λ = 0) correctly cited
+and its unbuilt coupling named. Trajectory: 1av landed
+(5503987+9ea37f3) → 198 2M+4m+6c unioned across two independent
+reports (swept) → 199 0M+1m+4c (swept) → 200 CONVERGED 0M+0m+4c
+applied. Next hostile round on the next substantive paper change.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

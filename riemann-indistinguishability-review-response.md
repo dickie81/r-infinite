@@ -4151,3 +4151,25 @@ stderr empty; footer census exact; the criticality labels resolve.
 **Trajectory: 1av landed → 198 2M+4m+6c unioned (swept) → 199 NOT
 CONVERGED 0M+1m+4c (swept; the gate-display metric closed exactly) →
 round 200 (convergence test) next.**
+
+# Round 200: convergence test on the round-199 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 4 cosmetics applied with the record); Theorem 1av certified stable; the two-channel arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 cosmetic: g5 docstring retained pre-repair bounds and the struck characterization | Accepted | Synced to display-equal bounds |
+| 2 cosmetic: round-198 F-pointers tangled vs canonical numbering | Accepted | Re-synced both surfaces; strike needle updated in step |
+| 3 cosmetic: transient-edge figures ungated; "trivially" retained in g4's comment | Accepted | W₁(22)/W₁(23) conjuncts added; the word retired |
+| 4 cosmetic: γ₂ display bounds loose | Accepted | Display-equal (e2 < 0.02, 5e-5); observed margins 1.1×/1.8× |
+
+Held: the g5 determinism argument empirically confirmed by
+perturbation testing (BLAS-scale jitter six orders below margins);
+true margins measured by a third implementation (1.99×/32×); the
+census reproduced a fourth time; the 9.744 supremum, quarter-turn
+figures, enumeration, needles, and footer census all exact; the
+verifier 10/10 by the reviewer and 10/10 on the post-cosmetics
+re-run.
+
+**Trajectory: 1av landed → 198 2M+4m+6c unioned (two independent
+reports; swept) → 199 0M+1m+4c (swept) → 200 CONVERGED 0M+0m+4c
+applied. Certified: Theorem 1av — the two channels of the Li
+ladder. Next hostile round on the next substantive paper change.**
