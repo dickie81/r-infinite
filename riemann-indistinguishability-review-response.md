@@ -4105,3 +4105,29 @@ where the monotone draft fell to the instrument), the Turán rate
 law, and the thinnest Li direction with the archimedean inequality
 2 + γ > log 4π. Next hostile round on the next substantive paper
 change.**
+
+# Round 198: hostile review of the Theorem 1av landing (TWO independent reports, per the incident chronicle in A307) — 2 MAJORs + 4 minors + 6 cosmetics unioned, all accepted and swept; the mathematics held under double review
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 MAJOR (R2): the g8 no-proof needle carried 1au's wrap — the 1av frame unpinned | Accepted — wraps grep-verified | Needle repointed to the 1av wrap, defect annotated |
+| F2 MAJOR (both, 6+ reproductions): "Gated: γ₁ … 14.1348 (error 10⁻⁴)" was draft-run residue; committed gate observes 14.1347, err < 5×10⁻⁶ | Accepted | Struck and corrected; g5 tightened 50×/200×; probe-(c) record annotated; the 0.031/0.061 provenance noted; A306's clause corrected per the record-file rule |
+| F3 minor (R2): collective-withholding firstness lacked the n ≤ 22 transient qualifier | Accepted — census verified | Qualified; firstness gate added (== 156) |
+| F4 minor (both): "(all gated)" overclaimed the trough census | Accepted | Trough conjuncts added; label now true |
+| F5 minor (reviewers conflicted): "zeros 1–3 cleanly" vs committed-order strain at γ₃ | Adjudicated to the committed-parameter reading | "1–2 cleanly," both readings recorded in place |
+| F6 minor (both): mechanism-class "necessity/precisely" never established; P4 itself targets the Weil cone | Accepted | Struck to MEMBERSHIP with the rivals named |
+| 6 cosmetics | Accepted | Zero-location scoping; classical-inputs census +6; identity-gate annotations; docstring tolerance; log masking; criticality labels resolved |
+
+Checked and held (both reviewers, independently): the committed
+verifier 10/10 each; every census/anatomy/phase/dichotomy/entropy
+number reproduced at different parameters (R3 re-deriving λ_B values
+by pure series at dps 400); the inversion robust across windows with
+truth-free selection; probe (c) reproduced in a fresh tree by each;
+the (a)-no-op disclosure verified analytically; twelve sibling diffs
+census-only; the footer census exact both ways; dependencies and
+classical citations verified; the no-proof frame honored in
+substance sentence-by-sentence.
+
+**Trajectory: 1av landed (5503987+9ea37f3) → 198 2M+4m+6c unioned
+across two independent reports (swept; the swept verifier 10/10) →
+round 199 (convergence test) next.**

@@ -13,7 +13,11 @@ Gates (all exit-gated; any failure exits 1):
       present; lambda_A(50) = 1.4979 +- 0.002 (the g3 cross-check
       anchor).
   g2  the junction constant: euler == -psi(1) == stieltjes(0), both to
-      1e-25 -- the one number the two channels share.
+      1e-25 -- the one number the two channels share. (Round-198 F8
+      note: this is an identity/library-consistency check -- the
+      identity is classical and the conjunct cannot fail short of
+      mpmath breakage; retained because the paper's "gated to 25
+      digits" names it, with its nature stated here.)
   g3  the thousand-direction census (branch-safe dual Cauchy extraction,
       M = 2048, r = 0.95, dps 60; the contour's image has |Im s| <= 9.74
       < gamma_1, so no zero location enters): branch continuity max
@@ -23,8 +27,13 @@ Gates (all exit-gated; any failure exits 1):
       1e-3, lambda_B(89) = 99.8944 +- 0.005; FIRST NEGATIVE lambda_A at
       n = 156; negative-run starts exactly [156, 247, 353, 424, 516,
       603, 759, 919]; 336 negatives total; the first trough min over
-      [80, 95] in (0.20, 0.22); min lambda_n over [1, 1000] attained at
-      n = 1 within 1e-6 of lambda_1; max |lambda_A|/lambda_B over
+      [80, 95] in (0.20, 0.22), its location gated == 88 and value
+      0.208 +- 0.0015, the second trough gated == 172 in (-1.04, -1.01)
+      (the trough conjuncts added round 198 F4); min lambda_n over
+      [1, 1000] attained at n = 1 within 1e-3 of the pinned 0.0231 (the
+      lambda_1 value itself is separately cross-checked at 1e-8; the
+      original "within 1e-6" description overstated this conjunct's own
+      tolerance, round 198 F6); max |lambda_A|/lambda_B over
       [11, 1000] = 0.8325 +- 0.003 attained at n = 11; lambda_B(1000)
       = 2324.30 +- 0.05 vs the RH trend 2323.54 +- 0.05.
   g4  the phase-coincidence mechanism (theta_k = pi - 2 atan(2 gamma_k),
@@ -37,7 +46,8 @@ Gates (all exit-gated; any failure exits 1):
       W_1 < 0.01 while W_2 > 3.1 (zero 1's second trough exact).
   g5  the pole-side inversion: ESPRIT (Hankel SVD, K2 = 16) on the
       detrended g3 lambda_A recovers the line nearest gamma_1 with
-      error < 0.005 and pole modulus within 1e-4 of 1, and the line
+      error < 1e-4 and pole modulus within 1e-5 of 1 (tightened round
+      198 F1 to hold the paper's displayed precision), and the line
       nearest gamma_2 with error < 0.05 and modulus within 5e-4 of 1 --
       position AND line-adherence from pole-side data alone.
   g6  the dichotomy rates: at beta = 1/2 the multiplier modulus is 1 to
@@ -72,10 +82,15 @@ clean baselines around the suite; censuses are the OBSERVED results):
       span is detected
   (b) the census pin 156 -> 155 in code       -> g3 FAIL alone (the
       first-negative census is load-bearing)
-  (c) the recovered-gamma_1 digits mangled in the paper (14.1348 ->
-      14.1358)                                -> g8 FAIL (value needle)
+  (c) the recovered-gamma_1 digits mangled in the paper (run against
+      the PRE-round-198 needle "14.1348 against"; both round-198
+      reviewers reproduced it, one in a fresh tree)
+                                              -> g8 FAIL (value needle)
       while g5 (the live inversion) STANDS -- paper-vs-computation
-      independence
+      independence. Round-198 note: the sweep corrected the paper's
+      digits to the committed instrument's 14.1347 and repointed the
+      needle accordingly; the probe's mechanism (in-span digit mangle
+      -> g8-alone) is unchanged by the repointing
   (d) footer census reverted 72 -> 71         -> g10 FAIL AND g9 FAIL
       (census propagation through the chained 1au verifier's own
       footer gate)
@@ -170,6 +185,11 @@ ok &= neg[0] == 156 and len(neg) == 336
 ok &= runs == [156, 247, 353, 424, 516, 603, 759, 919]
 tr1 = min(lamA[n-1] for n in range(80, 96))
 ok &= 0.20 < tr1 < 0.22
+# round-198 F4 conjuncts: the trough census fully gated
+ok &= min(range(80, 96), key=lambda n: lamA[n-1]) == 88
+ok &= abs(tr1 - 0.208) < 0.0015
+n2t = min(range(160, 186), key=lambda n: lamA[n-1])
+ok &= n2t == 172 and -1.04 < lamA[171] < -1.01
 nmin = min(range(1, N3+1), key=lambda n: lamA[n-1] + lamB[n-1])
 ok &= nmin == 1 and abs(lamA[0] + lamB[0] - 0.0231) < 1e-3
 ratios = [(abs(lamA[n-1])/lamB[n-1], n) for n in range(11, N3+1)]
@@ -195,6 +215,11 @@ ok &= all(W(k, 156) < 2 for k in (1, 3, 4, 5)) and W(3, 156) < 0.01
 p3 = 2*math.pi*gams[2]
 ok &= 157.0 < p3 < 157.3 and abs(156 - p3) < 1.3
 ok &= W(1, 178) < 0.01 and W(2, 178) > 3.1
+# round-198 F3 conjunct: firstness POST-TRANSIENT -- the all-four-below
+# condition holds trivially through the small-n transient (n <= 22) and
+# must first RETURN at exactly 156
+first_post = next(n for n in range(23, 1001) if all(W(k, n) < 2 for k in (1, 3, 4, 5)))
+ok &= first_post == 156
 print(f"  g4 W2(132) = {W(2,132):.4f}, W1(132) = {W(1,132):.4f}, lam_A(132) = {lamA[131]:.3f}; "
       f"2 pi gamma_3 = {p3:.2f}; W1(178) = {W(1,178):.4f}")
 gate("g4 the phase-coincidence mechanism: single-withholder insufficiency at "
@@ -216,7 +241,9 @@ def best_near(gtrue):
     return min(scored)
 e1, g1v, m1v = best_near(14.134725)
 e2, g2v, m2v = best_near(21.022040)
-ok = e1 < 0.005 and abs(m1v - 1) < 1e-4
+ok = e1 < 1e-4 and abs(m1v - 1) < 1e-5   # tightened round 198 F1: the gate
+# now holds the paper's displayed precision (the landing's 0.005/1e-4 were
+# 50x/200x looser than the display, letting draft digits ship)
 ok &= e2 < 0.05 and abs(m2v - 1) < 5e-4
 print(f"  g5 gamma_1 recovered {g1v:.4f} (err {e1:.5f}, |pole| {m1v:.6f}); "
       f"gamma_2 {g2v:.4f} (err {e2:.4f}, |pole| {m2v:.6f})")
@@ -244,8 +271,10 @@ def entpair(f):
     fv = f(X7); fv = fv/np.sqrt(np.trapezoid(fv**2, X7))
     F = np.array([np.trapezoid(fv*np.exp(-2j*np.pi*u*X7), X7) for u in xi7])
     p = fv**2; q = np.abs(F)**2; q = q/np.trapezoid(q, xi7)
-    h1 = -np.trapezoid(np.where(p > 1e-300, p*np.log(p), 0), X7)
-    h2 = -np.trapezoid(np.where(q > 1e-300, q*np.log(q), 0), xi7)
+    pm = np.where(p > 1e-300, p, 1.0)   # round-198 F9: mask before log
+    qm = np.where(q > 1e-300, q, 1.0)   # (np.where evaluates both branches)
+    h1 = -np.trapezoid(p*np.log(pm), X7)
+    h2 = -np.trapezoid(q*np.log(qm), xi7)
     return h1, h2
 hg, hgh = entpair(lambda t: np.exp(-np.pi*t**2))
 he = sum(entpair(lambda t: np.exp(-np.abs(t))))
@@ -263,13 +292,22 @@ gate("g7 the entropy anchors: family saturation at 1 - ln 2; self-duality "
 # ---------------------------------------------------------------- g8
 needles = [
     "**Theorem 1av (the two channels of the Li ladder: the two-regime",
-    "**no proof is\nclaimed, and none resulted**",
+    # round-198 F1 (R2): the landing's needle here carried 1au's line-wrap
+    # ("no proof is\nclaimed") and was satisfied ONLY by the 1au block --
+    # the 1av frame was unpinned; repointed to the 1av wrap:
+    "**no proof is claimed, and\nnone resulted**",
     "the first Li direction's positivity is carried by the",
     "γ = −ψ(1) = γ₀",
     "first negative direction is\nn = 156",
     "maximum ratio 0.8325 AT THE SEAM n = 11",
     "λ₁ = 0.0231 at n = 1",
-    "γ₁ recovered to 14.1348 against",
+    "γ₁ recovered to 14.1347 (error < 5×10⁻⁶)",
+    "struck round 198 F1, MAJOR",
+    "the first POST-TRANSIENT collective withholding",
+    "Mechanism-class MEMBERSHIP",
+    "no\nUNPROVEN zero location enters",
+    "resolve zeros 1–2 cleanly",
+    "the\ncommitted M = 2048 instrument prints 0.061",
     "**There is no\nintermediate regime**",
     "DECLARED RESEARCH PROGRAM",
     "the arithmetic sits exactly at the phase boundary",

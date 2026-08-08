@@ -15938,6 +15938,92 @@ steps — no semiclassics. Check 8: no hypothesis input; the owner's
 proposals supplied direction, translated into pure mathematics.
 Next: hostile round 198 on this landing.
 
+## Addendum 307: round 198 (hostile review of the 1av landing, TWO independent reports) — NOT CONVERGED: 2 MAJORs + 4 minors + 6 cosmetics (unioned), all accepted and swept; the mathematics held under double review; the incident chronicle
+
+**The round's shape.** Environment instability turned round 198 into
+the campaign's first TWO-REPORT round. The chronicle, disclosed in
+full: (1) launch #1 was killed by a container restart (its 253 KB
+transcript survives; no report). (2) The lead's liveness instruments
+then produced FALSE death verdicts for launches #2 and #3 — the task
+symlinks report 121 bytes (the target-path length) to non-following
+stat, a new instrument-defect genus (the symlink-stat artifact,
+kin of the round-190 grep mangles) — driving a triple launch. The
+owner's suspicion ("I smell a rat") triggered the diagnosis; the rat
+was the lead's monitor. (3) Reviewer #2 (launch 2) had done two
+hours of real work including its own 10/10 verifier run before
+pausing; resumed, it delivered a full report. (4) Reviewer #3
+(launch 3) survived a second overnight restart that killed its
+probe-waiter and wiped its scratchpad; resumed, it delivered a full
+report with the probe loss disclosed and its pre-restart g1–g8
+record preserved. Both reports are independent (each disclaims the
+other; #3 verified its evidence chain uncontaminated by #2's
+concurrent artifacts). Both ran the committed verifier themselves:
+10/10 each.
+
+**The mathematics held under double review.** Every substantive
+number was reproduced independently by BOTH reviewers at different
+parameters and implementations — #2 at M = 4096/r = 0.93 with its
+own unwrap; #3 additionally re-deriving λ_B(89) and λ_B(1000) by
+pure polygamma series at dps 400 with no contour at all — including
+the census (156; 336; the run starts exactly; the seam 0.8325 at
+11), the anatomy, the phase table, the dichotomy algebra (with the
+O(γ⁻²) correction), the entropy anchors, the classical citations,
+the footer census (set-compared both ways by each), and the
+twelve sibling diffs (census-only, mechanically filtered).
+Reviewer #3's truth-free modulus-ranked ESPRIT re-run confirmed the
+inversion's robustness (γ₁ at 1.5×10⁻⁷ across detrending windows
+121/151/179/201 — the window is not load-bearing).
+
+**The unioned findings, all lead-verified and accepted:**
+- **F1 (MAJOR, R2 only):** the g8 "no-proof frame" needle carried
+  1au's line-wrap and was satisfied ONLY by the 1au block — the 1av
+  frame was unpinned (the quote-satisfiability class, living in the
+  live gate). Repointed to the 1av wrap with the defect annotated.
+- **F2 (MAJOR, BOTH reviewers, six-plus reproductions):** the
+  bolded "Gated: γ₁ recovered to 14.1348 … (error 10⁻⁴)" digits
+  were the draft hunt's session-run residue; the committed gate
+  observes 14.1347 with error < 5×10⁻⁶ (better than drafted).
+  Struck per the marking rule and corrected; g5 tightened 50×/200×
+  to hold the displayed precision; the sabotage-(c) record
+  annotated (its mechanism unchanged); the A-channel disclosure's
+  0.031-vs-0.061 provenance noted in place (R3's corroborating
+  observation). A306's "γ₁ recovered to 10⁻⁴" clause carries the
+  same draft digits — corrected here per the record-file rule
+  (noticed, noted, no strike obligation).
+- **F3 (minor, R2):** "the first COLLECTIVE withholding at 156"
+  needed the post-transient qualifier (the condition holds
+  trivially at every n ≤ 22 — lead-verified census). Qualified,
+  with a firstness gate added (first post-transient return == 156).
+- **F4 (minor, both):** "(all gated)" overclaimed — the trough
+  location, its third digit, and the second trough were ungated.
+  Conjuncts added (argmin == 88, 0.208 ± 0.0015, 172 ∈
+  (−1.04, −1.01)), making the label true.
+- **F5 (minor, the reviewers CONFLICTED):** "resolve zeros 1–3
+  cleanly" — R2's committed-parameter replication strains at γ₃
+  (error 0.07 beside a spurious competitor); R3's K = 24 run
+  recovers it at 0.004–0.007. Adjudication: the committed-parameter
+  reading governs a "gated"-adjacent ledger; rescaled to "1–2
+  cleanly" with both readings recorded in place.
+- **F6 (minor, both):** "Mechanism-class necessity … precisely" —
+  the (vi) elimination covers magnitude estimation only; rival
+  structural mechanisms (spectral self-adjointness, Weil-cone
+  positive-definiteness — the very cone P4 targets, R3's sharpest
+  point) were never eliminated. Struck to MEMBERSHIP.
+- **Cosmetics (six):** the zero-location wording scoped (the
+  certificate consumes the classical γ₁ > 9.74); the footer's
+  classical-inputs census extended by six (dB–Newman/Rodgers–Tao,
+  Bost–Connes, the entropic bound, GORZ, Lee–Yang,
+  Montgomery–Odlyzko) with its running-census nature stated; the
+  identity gates (g2, g6-first) annotated as library-consistency
+  checks; the g3 docstring tolerance corrected; the entropy
+  integrand's log masked; the fourth-criticality member labels
+  resolved to their in-paper homes.
+
+**Sweep verification.** Nine paper regions and eleven verifier
+regions applied; seven new/updated needles; the swept verifier
+re-run: 10/10 with the tightened g5 and the new conjuncts passing.
+Convergence test (round 199) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly
