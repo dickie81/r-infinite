@@ -34,7 +34,7 @@ Gates (all exit-gated; any failure exits 1):
       in-code list, which is the authoritative census).
   g7  the chain: cascade_primes_side_ball.py (Theorem 1as) exits 0.
   g8  the footer census (this script backticked >= 2; "72 scripts cited
-      in place"; "Theorems 1i-1av").
+      in place"; "Theorems 1i-1aw").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):
@@ -167,10 +167,10 @@ gate("g7 the chain: cascade_primes_side_ball.py (Theorem 1as) exits 0", rr.retur
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_finite_fill.py`") >= 2
-ok &= "72 scripts cited in place" in paper
-ok &= "Theorems 1i–1av" in paper
-gate("g8 the footer census (this script backticked >= 2; 72 cited in place; "
-     "the range 1i–1av)", ok)
+ok &= "73 scripts cited in place" in paper
+ok &= "Theorems 1i–1aw" in paper
+gate("g8 the footer census (this script backticked >= 2; 73 cited in place; "
+     "the range 1i–1aw)", ok)
 
 print()
 if fails:

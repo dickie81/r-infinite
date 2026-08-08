@@ -4397,6 +4397,134 @@ Check 8 clean (no hypothesis input; the owner's proposals
 supplied direction, translated into pure mathematics before
 use).
 
+**Theorem 1aw (the floor and the meter: the extension census to
+d = 100, the pole-side meter validated against a planted
+off-line zero, and the second-law clause's anatomy — atomic
+refutation, collective near-monotonicity;
+`cascade_floor_meter.py`).** *(i) The commission and the frame.*
+"Continue the research program," then "proceed with B / C with
+an eye to A," then the A-peek, then "collective information
+structures." The frame, stated first: **no proof is claimed,
+and none resulted** — the deliverables are an extension census
+with two refutations, an instrument validation with an
+infeasibility record, and the honest narrowing of a declared
+program's central clause. *(ii) Front B: the floor extended to
+d = 100.* The 1au moment instrument (ratio-½ live calibration,
+γ(1) independent-derivative cross-check) extended to j = 100 at
+dps 160; the n = 0 Jensen stages at d = 45, 55, 65, 80, 100 all
+hyperbolic (relative imaginary parts at zero, gated below
+10⁻³⁰), with margin-over-Hermite ratios 0.6701, 0.6172, 0.5732,
+0.5196, 0.4642 — the decline CONTINUES, does NOT cross, and is
+MONOTONE across the full ten-point ladder d = 9..100: a power
+law 1.99·d^(−0.300) (rms 0.041). Instrument disclosure (the
+draft-digit class, caught pre-commit by the harvest-first
+practice): the session draft carried a "rebound at d = 65"
+(ratio 0.6554) — a float64 Hermite-recurrence artifact; the
+recurrence loses the d = 65 gap silently before overflowing
+outright at d = 80; the stable Gauss–Hermite route gives
+0.5732, in sequence, and the committed gate refuted the rebound
+on its first run. The [9, 45]-window linear fit — which
+predicted a zero crossing at d ≈ 132 and 0.246 at d = 100 — is
+refuted by the extension itself (computed 0.4642, nearly double
+the prediction; the short-window-fit lesson for the third time:
+the monotone draft, the linear scare, now the rebound — each
+instrument-refuted). *(iii) Front C: the meter validated.*
+Three certificates, then the validation. The DISC GEOMETRY: the
+image of |z| ≤ r under s = 1/(1−z) lies in Re s ≥ 1/(1+r) > ½
+(gated at r = 0.95 against the closed form) — the extraction
+contour never touches the critical line; analyticity is
+unconditional. The RECIPROCAL-ORIENTATION CONVENTION: the
+meter's pole for a zero ρ is ρ/(ρ−1) — the FE-partner's
+multiplier — and the identity |ρ/(ρ−1)|² − 1 = (2β − 1)/|ρ−1|²
+(gated) makes orientation the side-of-line reading: modulus = 1
+exactly iff β = ½, and modulus > 1 iff β > ½ (the zero's
+preimage moves INSIDE the unit disc, the pole outside). For an
+FE-symmetric function the paired orientations coincide and the
+convention is invisible — which retroactively confirms the 1av
+readings — while for a non-FE target it is decisive. The
+VALIDATION: a synthetic target F(s) = (s−1)ζ(s)(1 − a·b^(−s))
+with ln b = π/20 and a = b^(3/4)e^(iπ) carries zeros planted at
+exactly 3/4 ± 20i (the factor's conjugate-symmetric tower); the
+meter — branch-safe Cauchy extraction to N = 2000 (winding 0,
+gated; coefficients by a radix-2 FFT at working precision,
+cross-checked against the direct DFT) plus ESPRIT at model
+order K = 32 — detects the plant blind: a pole at the planted
+frequency (θ error < 10⁻¹⁰, gated), modulus excess
+6.2471×10⁻⁴ equal to the true β = 3/4 signature
+|ρ/(ρ−1)| − 1 to < 10⁻⁸ (gated), the on-line control (γ₁ in
+the same data) at modulus 1.00000000 (within 5×10⁻⁷, gated),
+and the inversion ρ = p/(p−1) landing at (0.7500, 20.000)
+(gated at 10⁻⁴/10⁻³). The meter reads side-of-line from
+arithmetic data. Instrument disclosure: the 1av model order
+K = 16 — adequate there, where the dominant pole is the target
+— BLENDS the plant with γ₂ (~20 zero-pairs share the band; the
+harvest run measured excess 2.7×10⁻⁴, biased toward the line);
+K = 32 recovers the plant machine-exactly. Detection requires
+a model order adequate to the band's population — a calibration
+fact, part of the validation record. The INFEASIBILITY RECORD:
+the wild Davenport–Heilbronn target (the 1as certificate's
+off-line zero at γ = 85.699348) is out of reach honestly —
+pole-frequency density 4/(1 + 4γ²) ≈ 1.4×10⁻⁴ rad per unit
+height there, against the meter's resolving power 2π/4500 ≈
+1.4×10⁻³ at reachable coefficient counts: an order of magnitude
+short (ratio 10.3, gated); the planted target sits where the
+zero tower is ~18× thinner. The wild target is INFEASIBLE for
+this instrument at this reach — the validation is honest about
+where the instrument works. *(iv) The A-peek: the atomic
+refutation.* The 1av program's P2 clause (an entropy functional
+monotone under the fill) fails ATOMICALLY: the per-prime
+increments Δ_p(n) of the primes channel have mixed signs at
+every tested n ≥ 5 (censuses over the 303 primes p ≤ 2000,
+gated exactly: 59 negative at n = 5, 197 at n = 10, 113 at
+n = 20, 210 at n = 40) — no per-prime monotone law lives there;
+the exception is uniformly negative at n = 1 (all 303, closed
+form Δ_p(1) = −ln p/(p−1), gated at every prime): each new
+prime DRAINS the first Li direction — the scarcest direction
+(the 1av census's global minimum) is the one every prime pushes
+toward zero, though the sum converges and λ₁ = 0.0231 > 0 is
+held by the Γ-side. What survives exactly: D(P_y‖P_∞) =
+log(ζ(2)/ζ_y(2)) ↓ 0 along the fill, and the prime-additivity
+of the zeta-measure entropy (both identities gated by direct
+summation) — exact laws, thermodynamically thin. *(v) The
+collective anatomy.* The profile P_y(t) = Σ_{p≤y,k≤3}
+cos(tk log p)/(kp^(k/2)) on t ∈ [10, 110]: C-I (variance) is
+monotone and additive — energy strictly accumulates, each atom
+deposits Σ_k 1/(2k²p^k) and nothing withdraws (gated, with the
+finite-window lag at large y disclosed: 84% of the atom value
+at y = 30000); C-II (negentropy against the Gaussian, Selberg's
+limit) is REFUTED as a monotone law — the Vasicek-estimated
+sequence 0.872, 0.790, 0.844, 0.859, 0.865, 0.865, 0.872,
+0.867, 0.839 (gated on shape) dips, then RISES through moderate
+fill (the low primes' non-Gaussian imprint), declining only
+from y ≈ 3000: the Selberg-CLT second law is asymptotic, not
+monotone; C-III (spectral entropy of the periodogram) is
+monotone on the coarse nine-stage ladder, but the fine 58-stage
+ladder exhibits 5 micro-violations (at y = 1283, 3253, 4793,
+15313, 22469; deepest 0.0075; gated as a census — the stage
+boundaries are the committed ladder's, the count is the claim),
+and against the ideal atom-weight entropy it correlates at
+0.979 while the window excess CHANGES SIGN (+0.545 → −0.161 →
+−0.850): it carries collective structure beyond the atom
+weights, and is near-monotone, collective, not exactly a second
+law. The narrowing: P2's true form, if any, is asymptotic-only
+or lives in an untried functional — the de Bruijn–Newman
+heat-flow energy along the fill is the named next candidate
+(monotonicity there is a theorem of the flow, not an empirical
+hope). *Honest scope:* category (a) instruments throughout; the
+extension census and the fit refutation are data; the
+planted-zero validation is a demonstration on a SYNTHETIC
+target (one plant, one geometry — not a survey); the
+infeasibility record is a calibration statement about THIS
+instrument at THIS reach, not a theorem about the D–H function;
+the atomic and collective results are refutations and
+near-misses that NARROW a declared program, closing nothing; no
+RH leverage claimed anywhere. Check 7 clean (spectral
+estimation, entropy estimators, classical zeros at labeled
+comparison steps — classical mathematics; no semiclassical
+procedure as a route to any cascade quantity). Check 8 clean
+(no hypothesis input; the owner's commissions supplied
+direction, translated into pure mathematics before use).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -4931,4 +5059,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1av: the **72 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1aw: the **73 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*

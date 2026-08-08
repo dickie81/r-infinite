@@ -57,7 +57,7 @@ Gates (all exit-gated; any failure exits 1):
       F2's docstring carrier).
   g8  the chain: cascade_finite_fill.py (Theorem 1at) exits 0.
   g9  the footer census (this script backticked >= 2; "72 scripts cited
-      in place"; "Theorems 1i-1av").
+      in place"; "Theorems 1i-1aw").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):
@@ -294,10 +294,10 @@ gate("g8 the chain: cascade_finite_fill.py (Theorem 1at) exits 0", rr.returncode
 
 # ---------------------------------------------------------------- g9
 ok = paper.count("`cascade_attraction_margins.py`") >= 2
-ok &= "72 scripts cited in place" in paper
-ok &= "Theorems 1i–1av" in paper
-gate("g9 the footer census (this script backticked >= 2; 72 cited in place; "
-     "the range 1i–1av)", ok)
+ok &= "73 scripts cited in place" in paper
+ok &= "Theorems 1i–1aw" in paper
+gate("g9 the footer census (this script backticked >= 2; 73 cited in place; "
+     "the range 1i–1aw)", ok)
 
 print()
 if fails:
