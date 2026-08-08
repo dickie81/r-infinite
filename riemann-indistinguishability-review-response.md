@@ -4197,3 +4197,21 @@ zero model-id hits; Check-7/8 clean; tree clean.
 **Trajectory: 1aw landed (52d8c80 + 5e7bd7f, two pre-commit
 instrument refutations disclosed) → 201 2M+5m swept. Convergence
 round 202 next.**
+
+
+# Round 202: convergence test on the round-201 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 1 minor; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 minor: the C-II crest displayed 0.872 where the gate prints 0.8725 (→ 0.873 at 3-dp) — a mis-round creating a false tie, the very class round 201 F6 policed in the same sentence | Accepted (lead verified: round(0.8725395, 3) = 0.873) | Digit corrected with round-202 annotation; needles intact; verifier re-run green on the corrected surface |
+
+Held: all seven round-201 dispositions executed byte-exact with
+their mathematics independently confirmed (Mertens partials to
+y = 10⁶; the committed λ_B(1); the log z compensator; the harvest
+configuration reproduced exactly at N = 1000, K = 16); wrap-tolerant
+census scan zero hits over 213 verifiers; both batteries green by
+the reviewer; needles, footer census 73, diff scope, quantifier
+audit, Checks 7/8 all clean.
+
+**Trajectory: 1aw landed → 201 2M+5m (swept) → 202 0M+1m (swept).
+Convergence round 203 next.**
