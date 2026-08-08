@@ -103,16 +103,26 @@ Gates (all exit-gated; any failure exits 1):
   g11 the footer census (this script backticked >= 2; "73 scripts cited
       in place"; "Theorems 1i-1aw").
 
-Sabotage record (each: fresh tree, single mangle, restore from
-pristine; censuses are the OBSERVED results):
-  (a) title needle mangled in the paper single-site -> g9 FAIL alone
-  (b) the d = 100 ratio pin mangled in code (0.46 window shifted)
-      -> g2 FAIL alone (the extension census is load-bearing)
-  (c) the planted-zero beta mangled in code (3/4 -> 0.76 in the
-      inversion pin) -> g5 FAIL alone (the detection is live)
-  (d) footer census reverted 73 -> 72 -> g11 FAIL AND g10 FAIL
-      (census propagation through the chained 1av verifier's own
-      footer gate)
+Sabotage record (each: fresh tar tree, single mangle, restore from
+pristine verified by cmp; censuses are the OBSERVED results):
+  (a)  title needle mangled in-span single-site in the paper
+       -> OBSERVED g9 FAIL alone (exit 1)
+  (b)  as first driven: NO-OP, disclosed -- the driver predated the
+       d = 65 correction, its old-string no longer matched, the
+       assert failed and the suite ran the UNMANGLED tree to a
+       masquerading exit 0 (the 1av probe-(a) genus)
+  (b') the d = 100 ratio pin shifted in code (0.4642 -> 0.4842),
+       mangle-application-checked (assert + cmp) -> OBSERVED g2
+       FAIL alone (the extension census is load-bearing)
+  (c)  as first driven: NO-OP, disclosed -- same mechanism (the
+       driver's inversion bound predated the display-equal
+       tightening); predicted from the diff before the run
+  (c') the inversion pin's beta mangled in code (0.75 -> 0.76),
+       mangle-application-checked -> OBSERVED g5 FAIL alone (the
+       detection is live)
+  (d)  footer census reverted 73 -> 72 in the paper -> OBSERVED
+       g11 FAIL AND g10 FAIL (census propagation: the chained 1av
+       verifier's own footer gate catches the same reversion)
 """
 import sys, math, subprocess, os
 import numpy as np
