@@ -4243,9 +4243,11 @@ The thousand-direction census.* Both channels extended to
 n = 1000 by branch-safe Cauchy extraction (log(s/2) −
 (s/2)log π + loggamma(s/2) for the B-channel; log((s−1)ζ(s))
 for the A-channel; contour |z| = 0.95, whose image satisfies
-|Im s| ≤ 9.74 < γ₁ — analyticity holds unconditionally; no
+|Im s| ≤ 9.744 < γ₁ — analyticity holds unconditionally (the
+supremum is r/(1−r²) = 9.74359…; the landing's "9.74" truncated
+a bound downward, rounded up round 199); no
 UNPROVEN zero location enters: the certificate consumes the
-classical fact γ₁ > 9.74, and no zero ordinate enters the
+classical fact γ₁ > 9.744, and no zero ordinate enters the
 extraction as data — wording scoped round 198).
 Instrument disclosure: the first
 B-channel pass took the principal log of the assembled product
@@ -4282,8 +4284,10 @@ sign while a neighbor over-pays — gated: at n = 132 (zero 2's
 trough, W₂ < 0.01) zero 1 sits at its peak (W₁ > 3.98) and
 λ_A stays +2.2; the first POST-TRANSIENT collective withholding
 — zeros 1, 3, 4, 5 simultaneously below mean — arrives at
-n = 156 (the small-n transient n ≤ 22, where every phase is
-still near zero, satisfies the condition trivially; the
+n = 156 (the small-n transient n ≤ 22, where no phase has yet
+completed its first quarter-turn — the edge is marginal, not
+trivial: W₁(22) = 1.970, a 1.5% clearance; gloss corrected
+round 199 — with the
 firstness qualifier and its gate added round 198 F3), timed by
 the third zero's period (2πγ₃ = 157.1; flip within 1.2 of it),
 with the trough at 172 the γ₁–γ₃–γ₄ compromise (zero 1's

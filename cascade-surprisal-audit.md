@@ -16024,6 +16024,39 @@ regions applied; seven new/updated needles; the swept verifier
 re-run: 10/10 with the tightened g5 and the new conjuncts passing.
 Convergence test (round 199) next.
 
+## Addendum 308: round 199 (convergence test on the round-198 sweep) — NOT CONVERGED: 0 MAJORs + 1 minor + 4 cosmetics; the gate-vs-display metric closed exactly; swept
+
+**The round.** Fresh-context subagent on commit e600e67. Both
+round-198 MAJOR repairs verified substantively closed: the two
+no-proof wraps confirmed distinct, each pinned by its own theorem's
+verifier; the corrected γ₁ digits confirmed as the committed
+instrument's true output and independently reproduced (err 3×10⁻⁶,
+modulus 1.0000000 at a third parameter set); the strike verbatim
+against the pre-image; no stale digit outside strike and historical
+note; the whole thousand-direction census replicated a THIRD time
+(M = 1024, r = 0.90, dps 70) with every number confirmed; all six
+appended classical inputs verified against genuine body consumption;
+the verifier run by the reviewer 10/10 with empty stderr (the F9
+masking fix confirmed). **Finding 1 (minor):** the round-198 g5
+tightening (1e-4/1e-5) was still 20× looser than the paper's new
+display ("error < 5×10⁻⁶ … 1.000000"), and the sweep's own comment
+claiming closure was false as written — the round-198 mechanism at
+reduced scale (a regression in the (5×10⁻⁶, 10⁻⁴) band would ship a
+stale bolded claim at ten green gates). Swept: the gate bounds now
+EQUAL the displayed bounds (5×10⁻⁶ / 5×10⁻⁷; determinism argued in
+place — the extraction is mpmath-fixed, the numpy stage's platform
+jitter ~10⁻¹² is irrelevant), the comment rewritten honestly.
+**Findings 2–5 (cosmetic):** the accepted g6 identity annotation had
+been missed in the 198 sweep (applied); the contour bound "9.74"
+truncated a supremum downward (rounded up to 9.744 on both surfaces
+with r/(1−r²) = 9.74359… shown); the transient gloss "every phase
+still near zero" overstated at its own boundary (W₁(22) = 1.970, a
+1.5% clearance — reworded to the quarter-turn criterion with the
+marginal edge stated); the g8 docstring enumeration under-counted
+the sweep's six added needles (extended, deferring to the in-code
+census). Swept verifier re-run: 10/10 with g5 passing at the
+display-exact tolerance. Convergence test (round 200) next.
+
 ## Caveats
 
 - The grammar is one choice; a different atom set changes densities. The atoms used are exactly

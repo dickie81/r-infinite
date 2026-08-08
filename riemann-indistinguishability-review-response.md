@@ -4131,3 +4131,23 @@ substance sentence-by-sentence.
 **Trajectory: 1av landed (5503987+9ea37f3) → 198 2M+4m+6c unioned
 across two independent reports (swept; the swept verifier 10/10) →
 round 199 (convergence test) next.**
+
+# Round 199: convergence test on the round-198 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 1 minor + 4 cosmetics; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the repaired g5 still 20× looser than the display; the closure comment false as written | Accepted — the round-198 mechanism at reduced scale | Gate bounds now EQUAL the display (5×10⁻⁶ / 5×10⁻⁷); determinism argued in place; comment rewritten |
+| 2 cosmetic: the accepted g6 identity annotation missed in the 198 sweep | Accepted (A307 wording confirms g6 was in scope) | Applied |
+| 3 cosmetic: "9.74" truncated a supremum downward | Accepted | 9.744 on both surfaces, supremum shown |
+| 4 cosmetic: transient gloss overstated at its edge (W₁(22) = 1.970) | Accepted | Quarter-turn criterion with the marginal edge stated |
+| 5 cosmetic: g8 docstring under-enumerated by six | Accepted | Extended; in-code census authoritative |
+
+Held: both MAJOR repairs closed (wraps distinct and severally
+pinned; digits true of the committed instrument, third-parameter
+reproduction err 3×10⁻⁶); the census replicated a third time in
+full; the six classical inputs consumption-verified; verifier 10/10,
+stderr empty; footer census exact; the criticality labels resolve.
+
+**Trajectory: 1av landed → 198 2M+4m+6c unioned (swept) → 199 NOT
+CONVERGED 0M+1m+4c (swept; the gate-display metric closed exactly) →
+round 200 (convergence test) next.**

@@ -19,7 +19,8 @@ Gates (all exit-gated; any failure exits 1):
       mpmath breakage; retained because the paper's "gated to 25
       digits" names it, with its nature stated here.)
   g3  the thousand-direction census (branch-safe dual Cauchy extraction,
-      M = 2048, r = 0.95, dps 60; the contour's image has |Im s| <= 9.74
+      M = 2048, r = 0.95, dps 60; the contour's image has |Im s| <= 9.744
+      (r/(1-r^2) = 9.74359..., bound rounded UP per round 199 finding 3)
       < gamma_1, so no zero location enters): branch continuity max
       steps < pi on BOTH logs; cross-checks lambda_1 to 1e-8,
       lambda_40 = 30.4774 +- 0.002, lambda_50 = 43.5311 +- 0.002,
@@ -64,7 +65,9 @@ Gates (all exit-gated; any failure exits 1):
       census; the seam maximum; the n = 1 scarcity; the recovered
       gamma_1 digits; the dichotomy sentence; the declared-program
       fence; the Lambda = 0 exhibit; the entropy constant; the unbuilt
-      coupling).
+      coupling; plus the six round-198 repair needles -- the in-code
+      list is the authoritative census, enumeration extended round 199
+      finding 5).
   g9  the chain: cascade_attraction_margins.py (Theorem 1au) exits 0.
   g10 the footer census (this script backticked >= 2; "72 scripts cited
       in place"; "Theorems 1i-1av").
@@ -241,9 +244,12 @@ def best_near(gtrue):
     return min(scored)
 e1, g1v, m1v = best_near(14.134725)
 e2, g2v, m2v = best_near(21.022040)
-ok = e1 < 1e-4 and abs(m1v - 1) < 1e-5   # tightened round 198 F1: the gate
-# now holds the paper's displayed precision (the landing's 0.005/1e-4 were
-# 50x/200x looser than the display, letting draft digits ship)
+ok = e1 < 5e-6 and abs(m1v - 1) < 5e-7   # round-199 finding 1: the round-198
+# tightening (1e-4/1e-5) was still 20x looser than the paper's display
+# "error < 5e-6 ... 1.000000", and the comment claiming closure was false
+# as written; NOW the gate bounds equal the displayed bounds exactly (the
+# extraction is mpmath-deterministic at dps 60; the numpy ESPRIT stage's
+# platform jitter is ~1e-12, irrelevant at this tolerance)
 ok &= e2 < 0.05 and abs(m2v - 1) < 5e-4
 print(f"  g5 gamma_1 recovered {g1v:.4f} (err {e1:.5f}, |pole| {m1v:.6f}); "
       f"gamma_2 {g2v:.4f} (err {e2:.4f}, |pole| {m2v:.6f})")
@@ -255,6 +261,11 @@ mp.dps = 40
 def logw(beta, gam_):
     rho = mpc(beta, gam_)
     return float(abs(log(abs((rho - 1)/rho))))
+# round-199 finding 2 (the accepted g6 half of the round-198 F8 cosmetic,
+# missed in that sweep): this first conjunct is the algebraic identity
+# |(rho-1)/rho| = 1 at beta = 1/2 (rho - 1 = -conj(rho)) -- a
+# library-consistency check that cannot fail short of mpmath breakage;
+# retained because the paper's on-line clause names it, nature stated here.
 ok = logw(mpf("0.5"), mpf("14.134725")) < 1e-25
 for beta, gam_ in ((mpf("0.5001"), mpf("14.13")), (mpf("0.51"), mpf("25")),
                    (mpf("0.500001"), mpf("100"))):
