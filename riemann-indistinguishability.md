@@ -4513,8 +4513,11 @@ deposits Σ_k 1/(2k²p^k) and nothing withdraws (gated, with the
 finite-window lag at large y disclosed: 84% of the atom value
 at y = 30000); C-II (negentropy against the Gaussian, Selberg's
 limit) is REFUTED as a monotone law — the Vasicek-estimated
-sequence 0.872, 0.790, 0.844, 0.859, 0.865, 0.865, 0.872,
-0.867, 0.839 (gated on shape) dips, then RISES through moderate
+sequence 0.872, 0.790, 0.844, 0.859, 0.865, 0.865, 0.873,
+0.867, 0.839 (gated on shape; the crest digit corrected round
+202 F1 — the gate prints 0.8725, mis-rounded 0.872 at the
+sweep, a false tie with the initial value where the crest in
+fact exceeds it) dips, then RISES through moderate
 fill (the low primes' non-Gaussian imprint), ~~declining only
 from y ≈ 3000~~ [struck round 201 F6: the gate's 4-dp printout
 shows a micro-dip already at y = 1000 (0.8654 → 0.8648), hidden
