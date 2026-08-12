@@ -45,8 +45,8 @@ Gates (all exit-gated; any failure exits 1):
       pinned.
   g5  the paper needles for the 1ax block (in-code list authoritative).
   g6  the chain: cascade_floor_meter.py (Theorem 1aw) exits 0.
-  g7  the footer census (this script backticked >= 2; "74 scripts cited
-      in place"; "Theorems 1i-1ax").
+  g7  the footer census (this script backticked >= 2; "75 scripts cited
+      in place"; "Theorems 1i-1ay").
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;
@@ -233,10 +233,10 @@ gate("g6 the chain: cascade_floor_meter.py (Theorem 1aw) exits 0", rr.returncode
 
 # ---------------------------------------------------------------- g7
 ok = paper.count("`cascade_heatflow_energy.py`") >= 2
-ok &= "74 scripts cited in place" in paper
-ok &= "Theorems 1i–1ax" in paper
-gate("g7 the footer census (this script backticked >= 2; 74 cited in place; "
-     "the range 1i–1ax)", ok)
+ok &= "75 scripts cited in place" in paper
+ok &= "Theorems 1i–1ay" in paper
+gate("g7 the footer census (this script backticked >= 2; 75 cited in place; "
+     "the range 1i–1ay)", ok)
 
 print(flush=True)
 if fails:

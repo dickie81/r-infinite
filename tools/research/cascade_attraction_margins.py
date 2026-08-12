@@ -56,8 +56,8 @@ Gates (all exit-gated; any failure exits 1):
       ATTRACTION" entry named a needle that never existed, round-194
       F2's docstring carrier).
   g8  the chain: cascade_finite_fill.py (Theorem 1at) exits 0.
-  g9  the footer census (this script backticked >= 2; "74 scripts cited
-      in place"; "Theorems 1i-1ax").
+  g9  the footer census (this script backticked >= 2; "75 scripts cited
+      in place"; "Theorems 1i-1ay").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):
@@ -294,10 +294,10 @@ gate("g8 the chain: cascade_finite_fill.py (Theorem 1at) exits 0", rr.returncode
 
 # ---------------------------------------------------------------- g9
 ok = paper.count("`cascade_attraction_margins.py`") >= 2
-ok &= "74 scripts cited in place" in paper
-ok &= "Theorems 1i–1ax" in paper
-gate("g9 the footer census (this script backticked >= 2; 74 cited in place; "
-     "the range 1i–1ax)", ok)
+ok &= "75 scripts cited in place" in paper
+ok &= "Theorems 1i–1ay" in paper
+gate("g9 the footer census (this script backticked >= 2; 75 cited in place; "
+     "the range 1i–1ay)", ok)
 
 print()
 if fails:
