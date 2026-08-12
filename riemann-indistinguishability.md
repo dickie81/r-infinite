@@ -4593,8 +4593,7 @@ tightest pair among the first 60 zeros is (γ₃₄, γ₃₅) =
 collision law t_c = −g²/8 gives −0.0893 there and ≈ −1.8×10⁻⁴
 at the Lehmer-pair scale (gap 0.0377, the γ₆₇₀₉ pair; the
 landing's "0.040" corrected round 205 F2) — the classical
-mechanism of
-the historical lower bounds on Λ. *(iv) The controls: the low
+mechanism of the historical lower bounds on Λ. *(iv) The controls: the low
 zeros are quieter than GUE.* At the same local density ladder
 (integrity gated: the ladder spans 98.2% of the actual window —
 the ~2% bias INFLATES the ensembles ~~and so weakens, not
@@ -4609,8 +4608,8 @@ everything); true-GUE spectral windows (400 trials, 600×600
 eigvalsh, central window unfolded to the ladder) have median
 246 in the committed draw, and the arithmetic value sits at the 1.8th
 percentile raw, ≈ 3rd bias-corrected (both gated) — at this
-height the actual zeros are MORE rigid
-than random-matrix statistics, consistent with the known extra
+height the actual zeros are MORE rigid than random-matrix
+statistics, consistent with the known extra
 stiffness of low zeros; one window at one height, a height
 survey the named follow-up. *(v) The criticality demonstration.*
 Backward flow (t → −2×10⁻⁴): E rises strictly monotonically
