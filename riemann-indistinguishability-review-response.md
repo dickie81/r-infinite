@@ -4233,3 +4233,24 @@ census, hygiene — all exact.
 
 **Trajectory: 1aw landed → 201 2M+5m (swept) → 202 0M+1m (swept) →
 203 0M+1m (swept). Convergence round 204 next.**
+
+
+# Round 204: convergence test on the round-203 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic applied with the record); Theorem 1aw certified stable; the floor-and-meter arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 cosmetic: ragged 18-char hard-wrap line from the minimal-diff 757acca edit ("where the crest in / fact exceeds it") | Accepted | Reflowed with the record; needles intact; verifier re-run green on the final surface |
+
+Held: the corrected provenance reproduced independently (git -S
+census {ea77669, 52d8c80}; the line unchanged context in 147378a;
+5e7bd7f paper-untouched); the nested annotation parses, brackets
+balanced; the touched sentence's digits re-verified against the
+reviewer's own g8 printout position-for-position; battery 11/11 by
+the reviewer; needles, footer census 73 (body set identical to the
+footer's non-°-marked list), diff scope, hygiene — all exact.
+
+**Trajectory: 1aw landed (52d8c80 + 5e7bd7f) → 201 2M+5m (swept
+147378a) → 202 0M+1m (swept ea77669 + 413db29) → 203 0M+1m (swept
+757acca + 6d59159) → 204 CONVERGED 0M+0m+1c applied. Certified:
+Theorem 1aw — the floor and the meter. Next hostile round on the
+next substantive paper change.**
