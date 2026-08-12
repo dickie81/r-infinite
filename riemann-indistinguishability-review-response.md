@@ -4254,3 +4254,25 @@ footer's non-°-marked list), diff scope, hygiene — all exact.
 757acca + 6d59159) → 204 CONVERGED 0M+0m+1c applied. Certified:
 Theorem 1aw — the floor and the meter. Next hostile round on the
 next substantive paper change.**
+
+
+# Round 205: hostile review of the Theorem 1ax landing (subagent, per protocol) — 0 majors + 3 minors + 2 cosmetics; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 minor: the bias-direction sentence inverted ("weakens, not strengthens" — mechanically the bias DEPRESSES the raw percentile; raw 1.8th overstates, corrected ≈ 3rd) | Accepted (the lead's own named attack vector; reviewer's paired correction verified, then gated) | Strike-and-annotate; bias-corrected construction gated in g3 (median, percentile, direction conjuncts); docstring + label rewritten |
+| F2 minor: "(gap 0.040)" vs the true γ₆₇₀₉-pair gap 0.037698 | Accepted (lead recomputed zetazero 6709/6710) | Block + constants-only conjunct corrected (0.0377, t_c ≈ −1.8×10⁻⁴), annotated |
+| F3 minor: deterministic pins at 10–100 display-ULP (g4 endpoints, g2 γ/t_c/gap) — gates that could not fail for the displayed digits | Accepted | Display-equal half-ULP pins (5×10⁻⁵) per the round-199 standard |
+| F4 cosmetic: GUE figures lacked the "committed draw" qualifier | Applied | Parallel tagging |
+| F5 cosmetic: 80-char ragged line | Applied | Rewrapped in the F1 sweep |
+
+Held: the identity derived symbolically with the ½ factor checked;
+the flow's sign and factor from H_t; the two-body law by dsolve; the
+census, both controls (committed seeds exact), and the demonstration
+reproduced end to end; needles byte-exact; footer census 74; the
+15-carrier wrap-tolerant census clean; attributions accurate;
+Checks 7/8 clean; every gated number survived.
+
+**Trajectory: 1ax landed (8ec3007 + ffb4ab4, one pre-commit draft
+digit caught by harvest-first) → 205 0M+3m+2c swept. Convergence
+round 206 next.**
