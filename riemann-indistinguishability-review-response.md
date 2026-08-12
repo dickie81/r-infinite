@@ -4276,3 +4276,24 @@ Checks 7/8 clean; every gated number survived.
 **Trajectory: 1ax landed (8ec3007 + ffb4ab4, one pre-commit draft
 digit caught by harvest-first) → 205 0M+3m+2c swept. Convergence
 round 206 next.**
+
+
+# Round 206: convergence test on the round-205 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic applied with the record); Theorem 1ax certified stable; the heat-flow arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 cosmetic: two ragged hard-wraps left by the round-205 sweep's own insertions ("mechanism of"; "height the actual zeros are MORE rigid") | Accepted | Reflowed with the record; needles intact; verifier re-run green on the final surface |
+
+Held: the F1 strike byte-exact with the corrected mechanics
+independently re-derived; the corrected construction mangle-tested
+by the reviewer (the conjuncts can fail) and reproduced exactly by
+a third independent implementation; F2 recomputed from scratch with
+every rounding verified; all nine display-equal pins within
+half-ULP margins; the full digit hunt clean; battery 7/7 by the
+reviewer; needles, footer census 74, diff scope, Checks 7/8,
+hygiene — all exact.
+
+**Trajectory: 1ax landed (8ec3007 + ffb4ab4) → 205 0M+3m+2c (swept
+9718297 + d940d15) → 206 CONVERGED 0M+0m+1c applied. Certified:
+Theorem 1ax — the heat-flow energy at criticality. Next hostile
+round on the next substantive paper change.**
