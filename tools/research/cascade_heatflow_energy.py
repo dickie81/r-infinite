@@ -43,7 +43,8 @@ Gates (all exit-gated; any failure exits 1):
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;
-censuses are the OBSERVED results):
+censuses are the OBSERVED results of the landing suite -- five runs,
+baseline exit 0, zero probe no-ops, every prediction matched):
   (a) title needle mangled in-span single-site in the paper
       -> OBSERVED: g5 FAIL alone (exit 1)
   (b) the dissipation pin mangled in code (183.4567 -> 183.6567)
