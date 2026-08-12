@@ -60,13 +60,16 @@ Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;
 censuses are the OBSERVED results):
   (a) title needle mangled in-span single-site in the paper
-      -> OBSERVED: pending suite
+      -> OBSERVED: g6 FAIL alone (exit 1; also observed identically in
+      the first, wipe-killed suite before its container died)
   (b) the trace pin mangled in code (91.728 -> 91.928)
-      -> OBSERVED: pending suite
-  (c) the fill-ladder landing pin mangled in code (rel dev 1e-4 window
-      shifted) -> OBSERVED: pending suite
-  (d) footer census reverted 75 -> 74 in the paper -> OBSERVED:
-      pending suite
+      -> OBSERVED: g4 FAIL alone (the curvature census is load-bearing)
+  (c) the fill-ladder y = 29 pin shifted in code (122.40 -> 122.60;
+      redesigned pre-run from a tighten-past-truth mangle whose no-op
+      risk was caught at design time) -> OBSERVED: g5 FAIL alone
+  (d) footer census reverted 75 -> 74 in the paper -> OBSERVED: g8
+      FAIL AND g7 FAIL (census propagation through the chained 1ax
+      verifier's own footer gate)
 """
 import sys, subprocess, os
 import numpy as np
