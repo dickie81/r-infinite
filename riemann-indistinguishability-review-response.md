@@ -4215,3 +4215,21 @@ audit, Checks 7/8 all clean.
 
 **Trajectory: 1aw landed → 201 2M+5m (swept) → 202 0M+1m (swept).
 Convergence round 203 next.**
+
+
+# Round 203: convergence test on the round-202 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 1 minor; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 minor: the round-202 annotation's "mis-rounded 0.872 at the sweep" — false provenance; the digit entered at the landing 52d8c80 (git -S census {ea77669, 52d8c80}; the sequence line is unchanged context in 147378a) | Accepted (lead reproduced both git facts) | "at the landing and carried through the round-201 sweep [provenance corrected round 203 F1]"; needles intact; verifier re-run green |
+
+Held: battery 11/11 by the reviewer; the full C-II ladder recomputed
+at full precision with every 3-dp position confirmed (no sibling
+mis-round); every display in the block audited against the
+reviewer's own gate printout, including the by-hand 6.2471×10⁻⁴
+rederivation and the g6 arithmetic; ea77669 diff scope exactly one
+digit + annotation; needles, footer census 73, crest-digit carrier
+census, hygiene — all exact.
+
+**Trajectory: 1aw landed → 201 2M+5m (swept) → 202 0M+1m (swept) →
+203 0M+1m (swept). Convergence round 204 next.**
