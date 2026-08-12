@@ -4556,6 +4556,90 @@ procedure as a route to any cascade quantity). Check 8 clean
 (no hypothesis input; the owner's commissions supplied
 direction, translated into pure mathematics before use).
 
+**Theorem 1ax (the heat-flow energy at criticality: the Lyapunov
+identity for the de Bruijn–Newman flow, the pressure census with
+matched-ensemble controls, and the second-law clause's corrected
+form; `cascade_heatflow_energy.py`).** *(i) The commission and
+the frame.* "Pursue the de Bruijn–Newman heat-flow energy along
+the fill" — the candidate named at the 1aw narrowing. The frame,
+stated first: **no proof is claimed, and none results** — the
+deliverables are one classical-in-essence identity verified live
+on the arithmetic, one new measured number with controls, a
+criticality demonstration, and the corrected statement of the
+program's P2 clause. *(ii) The flow and the identity.* The
+de Bruijn–Newman deformation H_t(z) = ∫ e^(tu²) Φ(u) cos(zu) du
+— Φ the same super-exponential kernel committed in this paper's
+own moment instrument — moves its real zeros by the pairwise
+dynamics ẋ_k = Σ_{j≠k} 2/(x_k − x_j); RH ⟺ Λ ≤ 0 (de
+Bruijn–Newman) and Λ ≥ 0 (Rodgers–Tao), so RH says the
+arithmetic sits at the flow's EXACT critical point. Along this
+flow the log-gap Coulomb energy E = −Σ_{j<k} log|x_j − x_k|
+satisfies the H-theorem **dE/dt = −½ Σ ẋ_k²** ≤ 0: three lines
+of chain rule (dE/dt = −Σ_k ẋ_k · ½v_k with v_k = ẋ_k) — the
+P2-shaped functional whose monotonicity is
+algebra, not hope. Gated live on the windowed system of the
+first ±60 zeros: the finite-difference dE/dt matches −½Σv² to
+relative deviation 1.7×10⁻⁷ (the RK4-step scale). The structure
+is classical in essence — the Calogero-type dynamics behind
+Csordas–Smith–Varga's Lehmer-pair bounds and Rodgers–Tao's
+Λ ≥ 0; the identity's live verification on the arithmetic
+window and everything measured below are this block's additions.
+*(iii) The pressure at criticality: ½Σv² = 183.46* for the
+±60-zero window — the informational-pressure proposal made a
+number: the dissipation rate the arithmetic configuration would
+release under the flow at t = 0. The anatomy is gated: the
+tightest pair among the first 60 zeros is (γ₃₄, γ₃₅) =
+(111.0295, 111.8747), gap 0.8451; the two-body backward
+collision law t_c = −g²/8 gives −0.0893 there and ~−2×10⁻⁴ at
+the Lehmer-pair scale (gap 0.040) — the classical mechanism of
+the historical lower bounds on Λ. *(iv) The controls: the low
+zeros are quieter than GUE.* At the same local density ladder
+(integrity gated: the ladder spans 98.2% of the actual window —
+the ~2% bias INFLATES the ensembles and so weakens, not
+strengthens, this reading; disclosed), matched Poisson windows
+dissipate two orders of magnitude more (median ~16,000 in the
+committed draw: repulsion is everything); true-GUE spectral windows (400 trials,
+600×600 eigvalsh, central window unfolded to the ladder) have
+median 246, and the arithmetic value sits at the 1.8th
+percentile — at this height the actual zeros are MORE rigid
+than random-matrix statistics, consistent with the known extra
+stiffness of low zeros; one window at one height, a height
+survey the named follow-up. *(v) The criticality demonstration.*
+Backward flow (t → −2×10⁻⁴): E rises strictly monotonically
+(−31326.1167 → −31326.0800, all 20 steps) and the tightest gap
+contracts strictly (0.8451 → 0.8443); forward flow the exact
+reverse (E → −31326.1534, gap → 0.8459), all gated. Close pairs
+are where the backward flow first breaks reality; RH is the
+statement that the arithmetic configuration is
+the last configuration the backward flow cannot improve. *(vi)
+The program mapping, honestly.* P1: E is sourced by the zeros —
+the fill's condensate (the 1as reading). P2 CORRECTED: the
+monotone direction is heat time t (a theorem of the flow); fill
+monotonicity stays refuted (1aw stands) — the fill's role is
+not to descend an entropy gradient but to place the initial
+data at the flow's critical point Λ = 0, where Rodgers–Tao
+forbids the subcritical side. P3: the flow commutes with the FE
+symmetry x ↔ −x; the equilibrium is the symmetric configuration
+— a detailed-balance reading, structural only. P4: the
+stability of the critical configuration (the Hessian of E, the
+pair-repulsion form) is where this must meet Weil positivity —
+the coupling remains unbuilt; the hardness is conserved at P4,
+exactly as the 1av declaration predicted. *Honest scope:*
+category (a) instruments throughout (classical zeros as data at
+labeled steps, RK4 on the windowed pairwise dynamics, seeded
+ensembles); the identity is classical in essence and its
+derivation elementary; the windowed system approximates the
+full flow (the omitted tail zeros and archimedean confinement
+act as a slow drift common to configuration and controls); the
+percentile is one window at one height; the flow relaxes AWAY
+from the arithmetic and nothing here decides where Λ sits; no
+RH leverage claimed anywhere. Check 7 clean (heat kernels,
+entire-function zero dynamics, random-matrix ensembles as
+CONTROLS only — classical mathematics; no semiclassical
+procedure as a route to any cascade quantity). Check 8 clean
+(no hypothesis input; the owner's commission supplied
+direction, translated into pure mathematics before use).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -5090,4 +5174,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1aw: the **73 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ax: the **74 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*
