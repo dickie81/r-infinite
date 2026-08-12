@@ -4518,8 +4518,8 @@ sequence 0.872, 0.790, 0.844, 0.859, 0.865, 0.865, 0.873,
 202 F1 — the gate prints 0.8725, mis-rounded 0.872 at the
 landing and carried through the round-201 sweep [provenance
 corrected round 203 F1], a false tie with the initial value
-where the crest in
-fact exceeds it) dips, then RISES through moderate
+where the crest in fact exceeds it) dips, then RISES through
+moderate
 fill (the low primes' non-Gaussian imprint), ~~declining only
 from y ≈ 3000~~ [struck round 201 F6: the gate's 4-dp printout
 shows a micro-dip already at y = 1000 (0.8654 → 0.8648), hidden
