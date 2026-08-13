@@ -4363,3 +4363,29 @@ battery 8/8 by the reviewer with every displayed digit matched.
 CONVERGED 0M+0m+4c applied. Certified: Theorem 1ay — the saddle and
 the arithmetic curvature. Next hostile round on the next
 substantive paper change.**
+
+
+
+# Round 210: hostile round on the Theorem 1az landing (subagent, per protocol) — 3 MAJORS + 7 minors + 2 cosmetics; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 MAJOR: the δ = 4 "extremal balance" (−2.415/+6.795/−4.379) is a noise-selected direction inside a degenerate near-null cluster | Accepted (lead: cluster confirmed — ev₀ = −2.45×10⁻⁷ then five within 10⁻¹¹; vec1 balance +1.43/+0.05/−1.48; the reviewer's sign-flip NOT reproduced with the committed quadrature — overlap 1.0000 — attributed to their analytic prime correlations shifting the cluster, which is itself the finding) | Balance sentence struck-and-annotated; g2 pins replaced by degeneracy + direction-dependence gates |
+| 2 MAJOR: the adapted-tail constant omitted the boundary jump masses — f is only C^(m−1) at ±a; the displayed inequality invalid as stated | Accepted (V = ∫\|f^(m+1)\| + \|f^(m)(±a)\|; corrected tails 3.05×10⁻¹² / 6.08×10⁻¹⁷; every displayed claim survives) | Struck-and-annotated; Vbnd in code |
+| 3 MAJOR: "bracket ends equal at four digits, gated" — no conjunct gated the equality | Accepted | Struck-and-annotated; t09/lo09 < 10⁻⁴ now its own gate |
+| 4 minor: m5/1.4 rate was a 2-endpoint fit (0.47), undisclosed beside 5-point fits; staircase decay | Accepted | 5-point fit gated (0.509); staircase-envelope disclosed |
+| 5 minor: Rmax = 600 floor truncation-biased in the 4th digit | Accepted (converged 0.034761) | Converged floor gated alongside the committed value |
+| 6 minor: horizon 15.46 — hardcoded print; 2πe^0.9 = 15.4541 | Accepted | 15.45; prints computed, windows display-equal |
+| 7 minor: "zero SDP slack" — no committed antecedent (this gate counted twice) | Accepted | Criticality list reduced to committed antecedents; annotated |
+| 8 minor: (iii)→(iv) resolution claimed with mp witnesses only at δ ≤ 2.2 | Accepted | δ = 4 (m3, n8) mp section gated strictly positive (2.565×10⁻¹⁴) |
+| 9 minor: "RH ⟺ PSD for every δ" false at fixed section | Accepted | Struck to necessary-only; Weil's criterion scoped to the full functional |
+| 10 minor: the 1.2 zero-density cushion undisclosed | Accepted | Disclosed in code and block |
+| 11 cosmetic: g4 docstring garbled the lower-bound objects | Accepted | Reworded (K-zero section margin IS the value; lower-bounds the full-zero-set section) |
+| 12 cosmetic: (ii) "margin of RH at reach δ" vs (vi)'s section/ε_∞ scoping | Accepted | (ii) now carries (vi)'s scoping |
+
+Held: the reviewer's independent rebuild reproduced every measured
+number — all seven mp pins at rel dev ≤ 3×10⁻⁴, rates exact, the
+float64 ladder, the saturation/continuation ratios; needles, footer
+76, census sweep, hygiene; battery 9/9 by the reviewer.
+
+**Trajectory: 1az landed (02b0517 + 07c4411) → 210 3M+7m+2c (swept 3773a80 + the completion commit carrying this table). Convergence round 211 next.**
