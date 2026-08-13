@@ -4411,3 +4411,20 @@ strike recitals 7/8 verbatim, footer 76, sweep-completeness, hygiene.
 **Trajectory: 1az landed (02b0517 + 07c4411) → 210 3M+7m+2c (swept
 3773a80 + e078969) → 211 0M+2m+3c (swept 62007d0 + the completion
 commit carrying this table). Convergence round 212 next.**
+
+# Round 212: convergence test on the round-211 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1az certified stable; the dark-horse arc closes
+
+No findings table: the round returned zero findings at every severity.
+
+Held: the twelve/five/three censuses display-accurate on independent
+rebuild; the full docstring-tolerance audit; 11 needles unique; eight
+strike recitals character-verbatim with the quoted round-210 phrases
+verified against e078969; the F5 numbers reproduced both halves with
+the G = a·I metric identity closing the ambiguity attack; diff
+hunk-by-hunk; footer 76 set-identical; hygiene; battery 9/9 by the
+reviewer.
+
+**Trajectory: 1az landed (02b0517 + 07c4411) → 210 3M+7m+2c (swept
+3773a80 + e078969) → 211 0M+2m+3c (swept 62007d0 + f6b6e07) → 212
+CONVERGED 0M+0m+0c. Certified: Theorem 1az — the Weil margin and its
+rate law. Next hostile round on the next substantive paper change.**
