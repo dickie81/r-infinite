@@ -21,7 +21,9 @@ Gates (all exit-gated; any failure exits 1):
       converged floor 0.034761 (Rmax = 3000) gated alongside the
       committed-quadrature 0.034733 (round 210 F5); at delta = 4 the
       bottom of the spectrum is a DEGENERATE near-null cluster
-      (|ev[1..5]| < 1e-11) whose balance decompositions are
+      (the gate pins |ev[1..5]| < 1e-11; twelve eigenvalues lie within
+      1e-11 on this instrument, round-211 F1) whose balance
+      decompositions are
       direction-dependent (vec1: arch > 1, |pole| < 0.1, primes < -1)
       -- the former single-extremal balance pins were struck (round
       210 F1: a noise-selected direction inside the cluster).
@@ -35,7 +37,9 @@ Gates (all exit-gated; any failure exits 1):
       K-zero section's margin exactly -- and because the omitted
       beyond-K terms are nonnegative it is a rigorous lower bound on
       the FULL-zero-set form's margin over the same section (round
-      210 F11 rewording)): pinned margins (rel 1e-3): (0.9, m3, n2)
+      210 F11 rewording)): pinned margins (rel 1e-2 -- the committed
+      window; round-211 F2 corrected the docstring's "rel 1e-3", which
+      named a tighter window than any conjunct): (0.9, m3, n2)
       1.574e-3, (0.9, m3, n12) 5.221e-5, (1.4, m3, n12) 3.338e-10,
       (2.2, m3, n10) 2.156e-13, (2.2, m5, n12) 1.932e-15; the fitted
       per-dimension rates c(delta) in windows c(0.9) in (0.05, 0.2),
@@ -393,7 +397,7 @@ needles = [
     "ε(n, δ) ≈ C(m, δ)·10^(−c(δ)·n)",
     "the rate is intrinsic",
     "the dodging horizon",
-    "2πe^δ",
+    "the horizon 2πe^δ",
     "the cushion is now a measured curve",
     "noted, not leaned on",
     "no certificate of strict positivity at any fixed finite level",

@@ -4810,20 +4810,29 @@ Rmax = 3000 floor is 0.03476, both now gated; round-210 F5);
 the first prime's entry at δ = log 2
 costs a factor 27 (0.00128 at δ = 0.7); and WITHOUT the rank-one
 pole term the form is violently negative (−0.91 at δ = 0.5,
-−16.8 at δ = 5): the positivity is POLE-CARRIED. ~~Along the
+−16.8 at δ = 5): the positivity is POLE-CARRIED ~~— along the
 δ = 4 extremal the balance is arch −2.415 + pole +6.795 +
 primes −4.379 ≈ 0, the pole of ζ fighting the primes and the
-archimedean drag to a draw~~ *(struck, round-210 F1 MAJOR: at
-δ = 4 the bottom of the spectrum is a DEGENERATE near-null
-cluster — five eigenvalues within 10⁻¹¹ of zero above
-ev₀ = −2.45×10⁻⁷ — and the quoted decomposition is a
-noise-selected direction inside it: neighbouring directions in
-the cluster carry qualitatively different balances (the second
-eigenvector: arch +1.43, pole +0.05, primes −1.48), and which
-direction the solver returns depends on instrument details down
-to the archimedean and prime quadratures. The gates now pin the
-honest structure — the cluster's degeneracy and the
-direction-dependence of balance decompositions within it)*. *(iii) The dodger.* At δ = 4 the
+archimedean drag to a draw~~ *(struck, round-210 F1 MAJOR;
+annotation corrected round 211: at δ = 4 the bottom of the
+spectrum is a DEGENERATE near-null cluster — on the committed
+instrument TWELVE eigenvalues lie within 10⁻¹¹ of zero above
+ev₀ = −2.45×10⁻⁷, of which the gate pins the first five (the
+round-210 annotation wrote "five", presenting the gate's scope
+as the spectrum's census — round-211 F1), and the census itself
+is instrument-dependent (three at Rmax = 3000) — and the quoted
+decomposition is a noise-selected direction in that near-null
+bottom: neighbouring directions carry qualitatively different
+balances (the second eigenvector: arch +1.43, pole +0.05,
+primes −1.48), and which direction the solver returns depends
+on the prime-side quadrature — refining the prime t-grid moves
+the returned direction (overlap 0.893, ev₀ → −2.7×10⁻⁸) while
+archimedean refinements leave it fixed at overlap 1.0000 (the
+round-210 annotation attributed the dependence to "the
+archimedean and prime quadratures"; round-211 F5 narrowed it to
+the demonstrated half). The gates now pin the honest structure
+— the cluster's degeneracy and the direction-dependence of
+balance decompositions within it)*. *(iii) The dodger.* At δ = 4 the
 float64 sections sit ON the boundary (|λ_min| < 5×10⁻⁶, gated)
 because the extremal is the uniform dodger: it suppresses
 |f̂(γ_k)|²/‖f‖² below 10⁻⁴ at each of the first 8 zeros
