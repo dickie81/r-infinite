@@ -4935,6 +4935,95 @@ procedure as a route to any cascade quantity). Check 8 clean
 (no hypothesis input; the owner's commissions supplied
 direction, translated into pure mathematics before use).
 
+**Theorem 1ba (the crossover: where pole-carried positivity ends
+— the modulated sections of the restricted Weil form;
+`cascade_weil_crossover.py`).** *(i) The commission and the
+frame.* "Thread the 5th" → "crossover instrument pls" → "Land
+it." No proof is claimed; the deliverables are an instrument
+and a measured carrier curve — the first continuous object connecting
+the certified baseband floors of Theorem 1az to the high-band
+regime where the proportion literature's sections live. *(ii)
+The instrument.* Frequency-modulated sections
+f = g(t)·e^(−iτ₀t) of the reach-δ class (the committed 1az cos
+basis, modulated — still supported in [−δ/2, δ/2], so every
+margin is a section margin of the same restricted Weil class):
+the Hermitian form arch(τ₀) + pole(τ₀) − primes(τ₀), built from
+primes and Γ-data only — the pole enters through ĝ(i/2 − τ₀) as
+2·Re(u uᵀ) and dies polynomially in τ₀; the prime terms rotate
+with phases n^(iτ₀); the archimedean term samples the density μ
+near τ₀. Validation, gated twice: at τ₀ = 0 the builder
+reproduces the certified 1az instrument display-equal (0.034733
+at δ = 0.5; 0.001279 at 0.7; the δ = 4 boundary −2.45×10⁻⁷);
+and the explicit-formula identity — the zero-free form
+evaluated on minimizers against the ±γ zero side over 260
+verified zeros — holds at ratio 0.9996–0.9999 at four spots
+spanning both δ and both regimes (gated in (0.995, 1.0001); the
+deficit is the positive beyond-260 tail). *(iii) The handoff
+(δ = 0.5, no primes).* The margin rises monotonically 0.034749
+→ 1.2854 across the 41-point grid τ₀ = 0…40 (every step gated);
+the carrier flips pole → arch, the pole share falling from
+0.894 while the arch share crosses sign inside (8, 9) — the
+μ-kernel's sign change smeared by the window's resolution
+(balances gated only at lifted margins, per the round-210 F1
+caution). *(iv) The gap-meter (δ = 1.4).* Boundary at ~5×10⁻⁷
+while the pole lives (τ₀ ≤ 6); then the six-decade lift
+(ratio > 10⁵, gated) across τ₀ = 7–13 as γ₁ = 14.13 enters the
+window footprint; beyond γ₁ the margin curve reads the zero gaps:
+local minima at τ₀ = 17 and τ₀ = 23 — the (γ₁, γ₂) and
+(γ₂, γ₃) gap centers — pinned 0.2060 and 0.3545, gated as local
+minima against both neighbors, filling in as the local density
+grows (0.2060 < 0.3545, gated). The margin-in-frequency curve is
+an image of the zero field's gap structure, computed from
+primes alone. *(v) The three regimes (δ = 4).* Here
+positivity changes hands twice: (1) the pole-carried boundary (τ₀ ≲ 20:
+margins −2.45×10⁻⁷, −9.9×10⁻⁸ — the certified baseband story);
+(2) the arch–prime draw at τ₀ = 40 — the pole numerically gone
+(|pole share| < 10⁻³, gated) yet the section still on the
+boundary (|margin| < 10⁻⁷) with nine decades of arch–prime
+cancellation (margin/arch < 10⁻⁶, gated): positivity carried by
+neither the pole nor visible zero mass but by the near-exact
+cancellation of the archimedean density against the rotating
+prime sums — Montgomery's diagonal draw at section level; (3)
+the zero-carried regime (τ₀ ≥ 60): margins lift to
+O(10⁻³…1), the cancellation depth decaying 1.87×10⁻³ (τ₀ = 60)
+→ 0.299 (τ₀ = 300) (both windowed), and the arch share tracking
+the density identity arch ≈ log(τ₀/2π) within 0.05 at τ₀ = 300
+and 520 (gated) — the section watching the zero-counting
+density rise. *(vi) The refutation.* The session's stated
+prediction — dodger death at the horizon 2πe⁴ = 343.05 — is
+**REFUTED**: the lift-off sits in (40, 60) (both sides gated:
+|margin(40)| < 10⁻⁷, margin(60) = 4.180×10⁻³ > 10⁻³), and the
+5-step grid τ₀ = 300…400 straddling the horizon never dips
+below 0.5 (gated) — no feature at 343. The mechanism: the
+fixed-n cos-basis section exhausts its own tail-cancellation
+capacity — the basis's edge discontinuity gives 1/r Fourier
+tails, and n = 24 dimensions cancel leakage at only ~n zeros
+against the growing density — long before the analytic
+Paley–Wiener capacity; the analytic horizon remains
+the smooth-basis n → ∞ envelope, untested here (the follow-up:
+the (1−x²)^m modulated basis with n growing along the sweep, at
+mp cost). *(vii) The reading.* The crossover curve answers
+"where does pole-carried positivity end" empirically: the pole
+hands off to Montgomery's diagonal draw, and the draw hands off
+to the zeros themselves — with the gap-meter dips as the
+visible remnant of dodging in between. *Honest scope:* float64
+instrument, one basis family, fixed n = 24, three δ, one
+support geometry; balance decompositions at near-boundary
+margins are direction-sensitive per the round-210/211 record
+and every balance gate is either at a lifted margin or a coarse
+magnitude/sign bound; the identity checks are
+ceiling-deficient-positive by construction (the beyond-260 tail
+is nonnegative); the refuted prediction is reported per the
+campaign standard (the d = 65-rebound precedent); no literature
+sweep was run this arc beyond the reading of the
+proportion-world formalism that motivated the sweep; no RH
+leverage claimed anywhere. Check 7 clean (the classical
+explicit formula, entire-function theory, finite Hermitian
+eigenproblems — no semiclassical procedure as a route to any
+cascade quantity). Check 8 clean (no hypothesis input; the
+owner's commissions supplied direction, translated into pure
+mathematics before use).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -5469,4 +5558,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1az: the **76 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1ba: the **77 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*

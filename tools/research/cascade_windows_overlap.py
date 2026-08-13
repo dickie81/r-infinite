@@ -170,8 +170,7 @@ VERIFICATION (13 gates, exit-gated; --full extends the census).
        the wall-unchanged sentence at count >= 2 -- it also lives in
        1aj); g12 the sibling chain green (riemann_selection 12/0,
        which chains type_counting and the two Weil-arc siblings);
-       g13 the footer census (this script backticked; "76 scripts
-       cited in place"; "Theorems 1i-1az" -- the census advances
+       g13 the footer census (this script backticked; "77 scripts cited in place"; "Theorems 1i-1ba" -- the census advances
        with each landing; the gate carries the live values).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git, at
@@ -596,11 +595,11 @@ gate("g12 the sibling chain green after the census advance "
 # 1ao landing: the footer census advanced (64 -> 65; range -> 1ao)
 # -- the census-evolution class, disclosed.
 ok = "`cascade_windows_overlap.py`" in paper
-ok &= "76 scripts cited in place" in paper
-ok &= "Theorems 1i–1az" in paper
+ok &= "77 scripts cited in place" in paper
+ok &= "Theorems 1i–1ba" in paper
 gate("g13 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 76 cited in place; the "
-     "range 1i–1az (label re-synced rounds 167 F6, 175 F2)", ok)
+     "range 1i–1ba (label re-synced rounds 167 F6, 175 F2)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 n_gates = 14 if FULL else 13

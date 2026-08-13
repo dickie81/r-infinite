@@ -92,8 +92,8 @@ Gates (twelve):
        self-satisfying-gate lesson; g11 1ak's key sentences
        anchored as swept round 151 (the two-plane pole image;
        the up-to-half prefactor); g12 the footer census (the script
-       backticked; "76 scripts cited in place"; "Theorems
-       1i–1az" -- the census advances with each landing; the
+       backticked; "77 scripts cited in place"; "Theorems
+       1i–1ba" -- the census advances with each landing; the
        gate carries the live values).
 
 Sabotage record (full-tree scratchpad copy, at the landing
@@ -327,11 +327,11 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = "`cascade_quarter_square.py`" in paper
-ok &= "76 scripts cited in place" in paper
-ok &= "Theorems 1i–1az" in paper
+ok &= "77 scripts cited in place" in paper
+ok &= "Theorems 1i–1ba" in paper
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
      "disclosed): this script backticked; 76 cited in place; the "
-     "range 1i–1az (label re-synced rounds 167 F6, 175 F2)", ok)
+     "range 1i–1ba (label re-synced rounds 167 F6, 175 F2)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")
