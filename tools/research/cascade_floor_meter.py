@@ -109,8 +109,8 @@ Gates (all exit-gated; any failure exits 1):
       law.
   g9  the paper needles for the 1aw block (in-code list authoritative).
   g10 the chain: cascade_li_two_channels.py (Theorem 1av) exits 0.
-  g11 the footer census (this script backticked >= 2; "75 scripts cited
-      in place"; "Theorems 1i-1ay").
+  g11 the footer census (this script backticked >= 2; "76 scripts cited
+      in place"; "Theorems 1i-1az").
 
 Sabotage record (each: fresh tar tree, single mangle, restore from
 pristine verified by cmp; censuses are the OBSERVED results):
@@ -556,10 +556,10 @@ gate("g10 the chain: cascade_li_two_channels.py (Theorem 1av) exits 0", rr.retur
 
 # ---------------------------------------------------------------- g11
 ok = paper.count("`cascade_floor_meter.py`") >= 2
-ok &= "75 scripts cited in place" in paper
-ok &= "Theorems 1i–1ay" in paper
-gate("g11 the footer census (this script backticked >= 2; 75 cited in place; "
-     "the range 1i–1ay)", ok)
+ok &= "76 scripts cited in place" in paper
+ok &= "Theorems 1i–1az" in paper
+gate("g11 the footer census (this script backticked >= 2; 76 cited in place; "
+     "the range 1i–1az)", ok)
 
 print(flush=True)
 if fails:

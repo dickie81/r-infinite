@@ -109,7 +109,7 @@ VERIFICATION (10 gates, exit-gated).
        g9 the sibling chain green (cascade_arithmetic_section.py
        10/0, transitively chaining the Weil-arc suite);
        g10 the footer census (this script backticked >= 2;
-       "75 scripts cited in place"; "Theorems 1i-1ay").
+       "76 scripts cited in place"; "Theorems 1i-1az").
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, per-mangle restore from pristine copies, abort-safe; clean
@@ -356,11 +356,11 @@ gate("g9 the sibling chain green (cascade_arithmetic_section.py 10/0, "
      "transitively chaining the Weil-arc suite)", ok)
 
 ok = paper.count("`cascade_lattice_forcing.py`") >= 2
-ok &= "75 scripts cited in place" in paper
-ok &= "Theorems 1i–1ay" in paper
+ok &= "76 scripts cited in place" in paper
+ok &= "Theorems 1i–1az" in paper
 gate("g10 the footer census (this script backticked >= 2 -- the "
      "count, not positions, per the V5 census; round 186 F2; "
-     "\"75 scripts cited in place\"; \"Theorems 1i-1ay\")", ok)
+     "\"76 scripts cited in place\"; \"Theorems 1i-1az\")", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")
