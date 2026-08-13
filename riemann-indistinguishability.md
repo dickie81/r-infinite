@@ -4791,55 +4791,101 @@ of the margin a certificate proof would have to control. *(ii)
 The form.* For test functions supported in [−δ/2, δ/2], the Weil
 explicit-formula functional restricts to a computable n×n
 quadratic form — archimedean + pole − primes,
-built purely from primes and Γ-data, no zeros anywhere; RH ⟺
-the form is PSD for every δ. Its minimum eigenvalue is the
-margin of RH at reach δ; its minimizer is the finite section of
+built purely from primes and Γ-data, no zeros anywhere; ~~RH ⟺
+the form is PSD for every δ~~ **RH ⟹ the form is PSD for every
+δ and n: the finite sections are necessary conditions, and the
+equivalence (Weil's criterion) holds only for the full
+functional over all admissible test functions, not at fixed n**
+*(round-210 F9: the biconditional at fixed section is false as
+written — a PSD section at one n rules nothing in)*. Its
+minimum eigenvalue is the SECTION margin at reach δ — an upper
+bound on the support-class infimum ε_∞(δ), per the scoping of
+(vi) *(round-210 F12: (ii) and (vi) now carry the same
+scoping)*; its minimizer is the finite section of
 the would-be extremal function. Gated anatomy (float64
 instrument, n = 24): the unconditional floor λ_min = 0.0347 at
-δ = 0.5 (no primes reach); the first prime's entry at δ = log 2
+δ = 0.5 (no primes reach; the committed Rmax = 600 quadrature
+is truncation-biased in the fourth digit — the converged
+Rmax = 3000 floor is 0.03476, both now gated; round-210 F5);
+the first prime's entry at δ = log 2
 costs a factor 27 (0.00128 at δ = 0.7); and WITHOUT the rank-one
 pole term the form is violently negative (−0.91 at δ = 0.5,
-−16.8 at δ = 5): the positivity is POLE-CARRIED — along the
+−16.8 at δ = 5): the positivity is POLE-CARRIED. ~~Along the
 δ = 4 extremal the balance is arch −2.415 + pole +6.795 +
 primes −4.379 ≈ 0, the pole of ζ fighting the primes and the
-archimedean drag to a draw. *(iii) The dodger.* At δ = 4 the
+archimedean drag to a draw~~ *(struck, round-210 F1 MAJOR: at
+δ = 4 the bottom of the spectrum is a DEGENERATE near-null
+cluster — five eigenvalues within 10⁻¹¹ of zero above
+ev₀ = −2.45×10⁻⁷ — and the quoted decomposition is a
+noise-selected direction inside it: neighbouring directions in
+the cluster carry qualitatively different balances (the second
+eigenvector: arch +1.43, pole +0.05, primes −1.48), and which
+direction the solver returns depends on instrument details down
+to the archimedean and prime quadratures. The gates now pin the
+honest structure — the cluster's degeneracy and the
+direction-dependence of balance decompositions within it)*. *(iii) The dodger.* At δ = 4 the
 float64 sections sit ON the boundary (|λ_min| < 5×10⁻⁶, gated)
 because the extremal is the uniform dodger: it suppresses
 |f̂(γ_k)|²/‖f‖² below 10⁻⁴ at each of the first 8 zeros
-simultaneously (gated) — the fourth appearance of the
-campaign's criticality signature (Λ = 0; the saddle; zero SDP
-slack; now the boundary-hugging sections), and the reason the
+simultaneously (gated) — the ~~fourth~~ **third** appearance of
+the campaign's criticality signature (Λ = 0; the saddle;
+~~zero SDP slack;~~ now the boundary-hugging sections)
+*(round-210 F7: "zero SDP slack" had no committed antecedent —
+it named the float64 boundary-sitting of THIS gate, counting
+the same observation twice)*, and the reason the
 rate instrument exists. *(iv) The rate law.* At mp precision
 (dps 60; the exact moment recursion cross-checked against
 direct quadrature at 10⁻³⁰, gated; K = 1000 verified zeros as
-labeled classical data; every measured value a rigorous lower
-bound — the truncation omits only nonnegative terms):
+labeled classical data; every measured value IS the K-zero
+section's margin exactly and — the omitted beyond-K terms being
+nonnegative — a rigorous lower bound on the full-zero-set
+form's margin over the same section; round-210 F11 rewording):
 **ε(n, δ) ≈ C(m, δ)·10^(−c(δ)·n)**, with the level C depending
 on the basis smoothness but the rate is intrinsic —
 basis-independent across two families (m = 3 vs m = 5:
 c agreeing within 0.1 at δ = 1.4 and δ = 2.2, gated): c(0.9) ≈
-0.08 (stalling), c(1.4) ≈ 0.56 (0.47 on the second family),
+0.08 (stalling), c(1.4) ≈ 0.56 (~~0.47~~ **0.509** on the second
+family *(round-210 F4: the landing's 0.47 was a two-endpoint
+fit, undisclosed while every other rate was a 5-point fit; the
+gated slope is now the same 5-point fit — and the m5 decay at
+δ = 1.4 is a staircase whose envelope the fit averages,
+disclosed)*),
 c(2.2) ≈ 0.775 — IDENTICAL across the two families at the third
 digit. Pinned margins (rel
 10⁻²): 1.574×10⁻³ (δ = 0.9, n = 2) down to 1.932×10⁻¹⁵
 (δ = 2.2, m = 5, n = 12). *(v) The phase change at the dodging
 horizon.* A support-δ function can only place zeros at ζ-zeros
 below T ≈ 2πe^δ (type capacity vs zero density — classical
-Paley–Wiener/Jensen reasoning); the horizons are 15.46 / 25.48
-/ 56.71 at δ = 0.9 / 1.4 / 2.2 (constants-only conjuncts). The
+Paley–Wiener/Jensen reasoning); the horizons are ~~15.46~~
+**15.45** / 25.48 / 56.71 at δ = 0.9 / 1.4 / 2.2
+(constants-only conjuncts, now computed and gated display-equal
+in the verifier) *(round-210 F6: 2πe^{0.9} = 15.4541 — the
+landing's 15.46 was a rounding defect in a hardcoded print)*. The
 data match: at δ = 0.9 (one zero inside) the decay SATURATES —
 n = 12 → 20 crawls 5.22×10⁻⁵ → 2.90×10⁻⁵ (ratio gated > 0.5);
 at δ = 1.4 it continues (factor > 100 over the same range,
 gated; 1.905×10⁻¹² at n = 20). The 0.5% proximity of 2πe^{2.2}
 to γ₁₂ is noted, not leaned on. *(vi) The two-sided pins.* The
-minimizer-adapted tail bound (|f̂(r)| ≤ V/r^{m+1} with V from
-the actual minimizer's (m+1)-th derivative, mp quadrature) pins
+minimizer-adapted tail bound (|f̂(r)| ≤ V/r^{m+1} with ~~V from
+the actual minimizer's (m+1)-th derivative, mp quadrature~~
+**V = ∫|f^{(m+1)}| + |f^{(m)}(a)| + |f^{(m)}(−a)|, mp
+quadrature — the minimizer is only C^{m−1} at the support
+edges, so the (m+1)-fold integration by parts leaves boundary
+jump masses** *(round-210 F2 MAJOR: the landing's V omitted the
+boundary terms, making the displayed inequality invalid as
+stated; with the repaired constant every displayed claim
+survives)*) pins
 the n = 20 SECTION margins over the full zero set essentially
-exactly: 2.896×10⁻⁵ at δ = 0.9 (bracket ends equal at four
-digits, gated) and 1.905×10⁻¹² at δ = 1.4 (adapted tail
-~6×10⁻¹⁷, gated below 10⁻¹²) — measured Weil margins for these
+exactly: 2.896×10⁻⁵ at δ = 0.9 (~~bracket ends equal at four
+digits, gated~~ **corrected tail 3.05×10⁻¹², tail/floor < 10⁻⁴
+now its own gate** *(round-210 F3 MAJOR: the landing displayed
+the bracket-end equality as gated while no conjunct gated it)*)
+and 1.905×10⁻¹² at δ = 1.4 (corrected adapted tail 6.08×10⁻¹⁷,
+gated below 10⁻¹²) — measured Weil margins for these
 sections, with the ceiling reading the beyond-K zeros as the
-nonnegative |f̂|² form. Scope, stated precisely: the section
+nonnegative |f̂|² form against a zero-density majorant carrying
+a disclosed 1.2 cushion over the counting density *(round-210
+F10: the cushion was undisclosed at the landing)*. Scope, stated precisely: the section
 value only UPPER-bounds the support-class infimum ε_∞(δ);
 saturation suggests convergence in n at δ = 0.9 but does not
 prove it. *(vii) The
@@ -4861,7 +4907,12 @@ constants. *Honest scope:* small-support Weil positivity is
 Bombieri's studied regime; the Conrey–Li episode is the
 standing caution for numerical near-null directions — the
 float64 "zeros" of (iii) were chased at mp precision until they
-resolved into the strictly positive tail-scale margins of (iv);
+resolved into the strictly positive tail-scale margins of (iv)
+— including at δ = 4 itself, where an (m = 3, n = 8) mp section
+resolves strictly positive at 2.565×10⁻¹⁴, gated *(round-210
+F8: the landing
+claimed this resolution with mp witnesses only at δ ≤ 2.2; the
+δ = 4 witness now exists in g4)*;
 the placement-horizon heuristic is classical; the first 1000
 zeros enter as verified classical data and the rate is an
 approximation-theoretic property of that set; n ≤ 24, three δ,
