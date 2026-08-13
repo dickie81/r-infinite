@@ -4341,3 +4341,25 @@ quantifier audit; needles, footer 75, diff scope, hygiene; battery
 
 **Trajectory: 1ay landed → 207 1M+4m+2c (swept) → 208 0M+2m
 (swept). Convergence round 209 next.**
+
+
+# Round 209: convergence test on the round-208 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 4 cosmetics applied with the record); Theorem 1ay certified stable; the saddle-and-curvature arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 cosmetic: two ragged hard-wraps from the round-208 repairs | Accepted | Reflowed with the record |
+| 2 cosmetic: "the cutoff" singular — the u ≥ 10⁻⁴ head (0.00066, the print's fourth decimal) undisclosed | Accepted (accounting closes exactly: 6.54575 + 0.03333 + 0.00066 = 2π²/3) | Both cutoffs disclosed with the closed accounting |
+| 3 cosmetic: the F4 annotation named two of three obstructions (summability, taper) — the window omitted | Accepted (untapered 100-zero sum 203.346 ≠ tr L 91.728) | The third obstruction added |
+| 4 cosmetic: "an order beyond" understated the deterministic 88× | Accepted | Ratio stated |
+
+Held: both repairs recited verbatim and true (the committed print
+replicated; the Abel mean of C_B in closed form = 27.441558 with
+C_B's oscillation exhibited); the leaked-display provenance
+confirmed quantitatively; needles 11/11; footer 75; diff scope;
+battery 8/8 by the reviewer with every displayed digit matched.
+
+**Trajectory: 1ay landed (8cf3b12 + 7acd0e5) → 207 1M+4m+2c (swept
+5d9480b + b7b8d63) → 208 0M+2m (swept 3cfd479 + a0a512a) → 209
+CONVERGED 0M+0m+4c applied. Certified: Theorem 1ay — the saddle and
+the arithmetic curvature. Next hostile round on the next
+substantive paper change.**
