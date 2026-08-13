@@ -4389,3 +4389,25 @@ float64 ladder, the saturation/continuation ratios; needles, footer
 76, census sweep, hygiene; battery 9/9 by the reviewer.
 
 **Trajectory: 1az landed (02b0517 + 07c4411) → 210 3M+7m+2c (swept 3773a80 + the completion commit carrying this table). Convergence round 211 next.**
+
+
+# Round 211: convergence test on the round-210 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 2 minors + 3 cosmetics; all in or near the sweep's own annotations; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the F1 annotation's census "five eigenvalues within 10⁻¹¹" — the committed instrument shows twelve; the gate's scope presented as the spectrum's census; census instrument-dependence (three at Rmax = 3000) undisclosed | Accepted (lead-reproduced: 12 at Rmax = 600, 3 at Rmax = 3000; ev[13] = 1.93e-10 first outside) | Annotation corrected in place, original quoted, both censuses disclosed; docstring scoped |
+| 2 minor: docstring "pinned margins (rel 1e-3)" vs committed conjuncts rel 1e-2 (pre-existing, re-shipped by the sweep's F11 rewrite) | Accepted (values agree at rel 3e-4; the window was misdescribed, nothing gated false) | Docstring corrected with marker |
+| 3 cosmetic: needle "2πe^δ" non-unique (twice in-span) | Accepted | Extended to "the horizon 2πe^δ"; 11-needle uniqueness census clean |
+| 4 cosmetic: F1 strike recital "along" → "Along" (one character of case) | Accepted | Em-dash restored inside the strike; recital character-verbatim |
+| 5 cosmetic: direction-selection attributed to "the archimedean and prime quadratures" — demonstrated dependence is prime-side only | Accepted (lead-reproduced: t-grid 8001 overlap 0.8928 vs arch-refinement overlap 1.0000 at Rmax 1200/3000) | Attribution narrowed to the demonstrated half, both halves' evidence stated |
+
+Held: battery 9/9 by the reviewer; every pinned margin reproduced to
+every printed digit from independent zetazero pulls; the corrected
+tail constant re-derived exactly (boundary masses 38% of V — the F2
+repair material); "every displayed claim survives" checked claim-by-
+claim; slopes, floors, horizons, antecedents, majorant dominance,
+strike recitals 7/8 verbatim, footer 76, sweep-completeness, hygiene.
+
+**Trajectory: 1az landed (02b0517 + 07c4411) → 210 3M+7m+2c (swept
+3773a80 + e078969) → 211 0M+2m+3c (swept 62007d0 + the completion
+commit carrying this table). Convergence round 212 next.**
