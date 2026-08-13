@@ -4297,3 +4297,30 @@ hygiene — all exact.
 9718297 + d940d15) → 206 CONVERGED 0M+0m+1c applied. Certified:
 Theorem 1ax — the heat-flow energy at criticality. Next hostile
 round on the next substantive paper change.**
+
+
+# Round 207: hostile review of the Theorem 1ay landing (subagent, per protocol) — 1 MAJOR + 4 minors + 2 cosmetics; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 MAJOR: "each within 0.001" false — the log 23 spike at 0.001006; the session 3-dp rounding read as truth, ungated at that precision | Accepted (lead reproduced the per-spike census exactly) | Strike-and-annotate ("within 0.0011"); per-spike maximum gated at 0.0011 and printed |
+| F2 minor: I = 6.54575 was an undisclosed u ≤ 60 cutoff; the unqualified integral is 2π²/3 = 6.579736 exactly | Accepted (lead verified both by quad) | Closed form stated; cutoff disclosed both surfaces; band value gated against the closed form |
+| F3 minor: "softened by mirror and neighbour coupling" — wrong direction (2/g² = 2.80 < λ_max = 3.19: STIFFENED) and currency conflation | Accepted (docstring-only carrier) | Struck and corrected; both currencies printed |
+| F4 minor: "the raw tr L is the B → ∞ Cesàro limit" — (C,1) does not converge; needs (C,2)/Abel; the object is the tapered sum | Accepted | Strike-and-annotate with the corrected summability statement |
+| F5 minor: "C = archimedean − prime sum, term by term" — the identity is for S; C is quadratic; the overshoot witnesses non-additivity | Accepted | Strike-and-annotate; P1 restated in its true form |
+| F6 cosmetic: baseline label omitted the pole term | Applied | Corrected on both carriers |
+| F7 cosmetic: "6×10⁻⁴" vs the printout 6.5×10⁻⁴ | Applied | Corrected |
+
+Held: the saddle theorem derived independently (FD confirmed, Hxy
+structurally zero); the spectrum, rates (0.999998/0.999873), tr L,
+and ladder reproduced from the reviewer's own pulls; the
+explicit-formula normalization audited against Iwaniec–Kowalski at
+7.7×10⁻⁸ (no missing term can hide); Parseval by sympy; the IPR,
+Poisson, GUE, rhetoric-consistency, and probe-structure attack
+vectors all ruled and held; needles, footer census 75, 15-carrier
+sweep, hygiene — all exact. Battery 8/8 observed by the reviewer
+(first run killed by a worker restart mid-g7; resumed and observed
+complete).
+
+**Trajectory: 1ay landed (8cf3b12 + 7acd0e5, recurrence #7
+weathered) → 207 1M+4m+2c swept. Convergence round 208 next.**
