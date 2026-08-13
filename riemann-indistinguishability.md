@@ -4687,8 +4687,10 @@ finiteness is the quadratic-repulsion statement: GUE's
 R₂ ~ u² exactly cancels the 1/u² kernel (the density-scaled
 integral is 2π²/3 = 6.5797 in closed form — identified round
 207 F2; the committed instrument integrates the band u ≤ 60
-and prints 6.546, the cutoff now disclosed and gated against
-the closed form), while Poisson's R₂ = 1 makes the
+and prints I_gue = 6.54575 ~~prints 6.546~~ [round 208 F1: the
+lead's independent quad display leaked into the sweep as the
+instrument's print; the committed printout is 6.54575], the
+cutoff disclosed and gated against the closed form), while Poisson's R₂ = 1 makes the
 expected curvature DIVERGENT (gated demonstration: matched
 Poisson windows, median trace an order beyond the arithmetic).
 Against seeded true-GUE windows the arithmetic trace sits at the
@@ -4759,9 +4761,12 @@ stability is RH-blind, so nothing here distinguishes RH from
 its negation; one window at one height; band-limited and
 tapered throughout ~~(the raw tr L is the B → ∞ Cesàro limit,
 stated not taken)~~ [struck round 207 F4: (C,1) Cesàro does not
-converge here — the cos(BΔ) term survives; the untapered trace
-is recovered only in a (C,2)/Abel limit of C_B, still not
-taken]; no RH leverage claimed anywhere. Check 7
+converge here — the cos(BΔ) term survives; the (C,2)/Abel limit
+of C_B recovers the TAPERED infinite-band pair sum (27.44),
+still not taken — and the raw tr L additionally requires
+removing the taper, which no summability supplies; the sweep's
+first wording reversed this limit-object half of the accepted
+finding, corrected round 208 F2]; no RH leverage claimed anywhere. Check 7
 clean (entire-function zero dynamics, the classical explicit
 formula, RMT strictly as controls — no semiclassical procedure
 as a route to any cascade quantity). Check 8 clean (no
