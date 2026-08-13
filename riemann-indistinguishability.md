@@ -4685,7 +4685,10 @@ its complete rate spectrum. *(iv) The curvature census.*
 tr L = 91.728 (gated) — and its
 finiteness is the quadratic-repulsion statement: GUE's
 R₂ ~ u² exactly cancels the 1/u² kernel (the density-scaled
-integral I = 6.54575, gated), while Poisson's R₂ = 1 makes the
+integral is 2π²/3 = 6.5797 in closed form — identified round
+207 F2; the committed instrument integrates the band u ≤ 60
+and prints 6.546, the cutoff now disclosed and gated against
+the closed form), while Poisson's R₂ = 1 makes the
 expected curvature DIVERGENT (gated demonstration: matched
 Poisson windows, median trace an order beyond the arithmetic).
 Against seeded true-GUE windows the arithmetic trace sits at the
@@ -4699,27 +4702,40 @@ now measured with controls: value E, slope (the 1ax pressure
 curvature's arithmetic representation.* With a Gaussian taper on
 the first 100 zeros, the Weil explicit formula rebuilds the
 zeros' exponential sum S(ω) = 2Σφ(γ)cos(ωγ) from archimedean +
-pole + prime terms to max deviation 6×10⁻⁴ on scale ~52 across
+pole + prime terms to max deviation 6.5×10⁻⁴ on scale ~52 across
 ω ∈ (0.3, 4.2) — four digits, no free pieces (gated);
 the ten deepest spikes of S sit at log n for n = 3, 5, 7, 11,
-13, 17, 19, 23, 29, 31, each within 0.001 (gated at 0.002): the
+13, 17, 19, 23, 29, 31, each within 0.0011 ~~within 0.001~~
+[struck round 207 F1, MAJOR: the log 23 spike deviates 0.001006
+— the landing read the session printout's 3-dp rounding as
+truth; the per-spike maximum is now gated at 0.0011]: the
 zeros' pair structure, read in frequency, IS the prime ledger.
 The band-limited curvature C_B = Σφφ·K_B(Δ) (the tapered,
 regularized trace; K_B the band-limited 1/Δ² kernel) equals its
 spectral representation −∫₀^B ω(S² − diag)dω to 1.5×10⁻⁵
 (Parseval, gated), and substituting the explicit-formula S with
 primes ≤ y gives the fill ladder: 294.24 with no primes (the
-pure archimedean + diagonal baseline), 122.40 at y = 29, landing
+archimedean + pole + diagonal baseline; label corrected round
+207 F6), 122.40 at y = 29, landing
 at the measured 28.832 by y = 97 (rel dev < 10⁻⁴, gated) —
 the primes carve the band-limited curvature down from the
 structureless baseline by an order of magnitude, each prime
 power at its own frequency log p^k. The quiet, stiff landscape
 of (iv) is BUILT BY THE PRIMES, term by term. The convergence is
 rapid but NOT monotone (the y = 53 overshoot gated): P2's
-corrected form survives intact. *(vi) The program ledger.* P1 is
+corrected form survives intact. *(vi) The program ledger.* ~~P1 is
 satisfied for the curvature at IDENTITY level — C = archimedean
-− prime sum, term by term, the program's strongest fill-sourcing
-(the 1aw collective candidates were asymptotic; this is exact).
+− prime sum, term by term~~ [struck round 207 F5: that equation
+misstates the verified identity's form — the IDENTITY is for the
+spectral side, S = archimedean + pole − prime sum, exact at the
+linear level (the reviewer's independent rebuild: 10⁻⁸); the
+curvature is the ω-integral of S², QUADRATIC in the fill, and
+the y = 53 overshoot is the witness that the primes' curvature
+contributions are not fixed-sign additive]. P1 is satisfied at
+identity level for S, and through it the curvature is
+fill-sourced quadratically — still the program's strongest
+fill-sourcing (the 1aw collective candidates were asymptotic;
+the S-identity is exact).
 P4's two sides now share both a signature structure (the saddle)
 and a computable currency (explicit-formula conversions of
 Hessian invariants — the trace-in-band done here; tr L²,
@@ -4741,8 +4757,11 @@ record's knowledge" is bounded by training data; the saddle is
 UNCONDITIONAL (true whether RH holds or not) and linear
 stability is RH-blind, so nothing here distinguishes RH from
 its negation; one window at one height; band-limited and
-tapered throughout (the raw tr L is the B → ∞ Cesàro limit,
-stated not taken); no RH leverage claimed anywhere. Check 7
+tapered throughout ~~(the raw tr L is the B → ∞ Cesàro limit,
+stated not taken)~~ [struck round 207 F4: (C,1) Cesàro does not
+converge here — the cos(BΔ) term survives; the untapered trace
+is recovered only in a (C,2)/Abel limit of C_B, still not
+taken]; no RH leverage claimed anywhere. Check 7
 clean (entire-function zero dynamics, the classical explicit
 formula, RMT strictly as controls — no semiclassical procedure
 as a route to any cascade quantity). Check 8 clean (no

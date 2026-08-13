@@ -18,8 +18,11 @@ Gates (all exit-gated; any failure exits 1):
       edge), lambda_max = 3.1867 (the stiff edge), the top mode
       localized on the tightest pair (argmax at |x| = 111.8747, IPR
       0.250 -- the four-site antisymmetric structure); the two-body
-      comparison 4/g^2 = 5.6004 printed (the actual mode is softened
-      by mirror and neighbour coupling).
+      comparison printed in both currencies: eigenvalue 2/g^2 = 2.8002
+      and rate 4/g^2 = 5.6004 (the actual mode's lambda_max = 3.1867
+      is STIFFENED by neighbour coupling relative to the isolated
+      pair's eigenvalue -- the landing's "softened", which also
+      conflated the currencies, struck round 207 F3).
   g3  the exact flow rates: off-line perturbations along eigenmodes of
       L relax under the nonlinear holomorphic dB-N flow at rate
       2 lambda_k -- measured/predicted ratio in (0.999, 1.001) at the
@@ -28,8 +31,11 @@ Gates (all exit-gated; any failure exits 1):
       backward flow amplifies at the same rates.
   g4  the curvature census: tr L = 91.728 for the window (the pair
       functional sum 1/D^2); the finiteness dichotomy -- GUE's
-      R2 ~ u^2 exactly cancels the 1/u^2 kernel (I_gue = 6.54575,
-      deterministic integral) while Poisson's R2 = 1 diverges (gated
+      R2 ~ u^2 exactly cancels the 1/u^2 kernel (the unqualified
+      integral is 2 pi^2/3 = 6.5797 in closed form, round 207 F2; the
+      instrument's u <= 60 band gives I_gue = 6.54575, cutoff
+      disclosed and gated against the closed form) while Poisson's
+      R2 = 1 diverges (gated
       demonstration: seeded Poisson windows give median trace > 500,
       an order beyond the arithmetic); seeded true-GUE windows: trace
       median in (110, 140) with the arithmetic at percentile
@@ -43,9 +49,11 @@ Gates (all exit-gated; any failure exits 1):
       deviation < 1e-3 on scale ~52 over omega in (0.3, 4.2) (Gaussian
       taper, first 100 zeros); the ten deepest spikes of S sit at
       log n for n = 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, each within
-      0.002; the band-limited curvature identity C_pairs = spectral
+      0.002 with the per-spike maximum gated at 0.0011 (round 207 F1;
+      the log 23 spike at 0.001006); the band-limited curvature identity C_pairs = spectral
       integral to rel dev < 1e-4 (Parseval); the fill ladder: the
-      no-prime (archimedean + diagonal) value 294.24, primes <= 29
+      no-prime (archimedean + pole + diagonal, round 207 F6) value
+      294.24, primes <= 29
       give 122.40, primes <= 97 land within rel dev 1e-4 of the
       measured value 28.832 -- the primes carve the band-limited
       curvature down from the structureless baseline by an order of
@@ -151,7 +159,8 @@ ok &= abs(lammax - 3.1867) < 5e-5
 ok &= abs(ipr - 0.250) < 5e-4
 ok &= abs(abs(X0[kmax]) - 111.8747) < 5e-5
 print(f"  g2 lambda_2 = {lam2:.5f}; lambda_max = {lammax:.4f}; IPR {ipr:.3f}; "
-      f"peak |x| = {abs(X0[kmax]):.4f}; two-body 4/g^2 = {4/gaps[imin]**2:.4f}", flush=True)
+      f"peak |x| = {abs(X0[kmax]):.4f}; two-body eigenvalue 2/g^2 = "
+      f"{2/gaps[imin]**2:.4f} (rate currency 4/g^2 = {4/gaps[imin]**2:.4f})", flush=True)
 gate("g2 the stability spectrum: soft edge, stiff edge, tight-pair "
      "localization", ok)
 
@@ -189,7 +198,11 @@ ok = abs(trL - 91.728) < 0.001
 uu = np.linspace(1e-4, 60, 4000000)
 R2 = 1 - (np.sin(np.pi*uu)/(np.pi*uu))**2
 I_gue = float(2*np.trapezoid(R2/uu**2, uu))
-ok &= abs(I_gue - 6.54575) < 5e-4
+ok &= abs(I_gue - 6.54575) < 5e-4      # the instrument's own band value
+# round 207 F2: the unqualified integral has the closed form 2 pi^2/3
+# = 6.579736; the committed instrument integrates the band u <= 60
+# (tail 0.0333) -- cutoff disclosed, gated against the closed form
+ok &= abs(I_gue - 2*np.pi**2/3) < 0.04
 def mean_spacing(g):
     return 2*np.pi/np.log(g/(2*np.pi))
 def trace_of(gs):
@@ -282,12 +295,18 @@ deep = sorted(mins, key=lambda i: ZS[i])[:10]
 targets = sorted(nn for nn in ns if 0.4 < np.log(nn) < 4.1)
 expect = {3, 5, 7, 11, 13, 17, 19, 23, 29, 31}
 found = set()
+spike_devs = []
 for i in deep:
     w = om[i]
     nbest = min(targets, key=lambda nn: abs(np.log(nn) - w))
+    spike_devs.append(abs(np.log(nbest) - w))
     ok &= abs(np.log(nbest) - w) < 0.002
     found.add(int(nbest))
 ok &= found == expect
+# round 207 F1: the per-spike maximum gated at the display value (the
+# landing's "within 0.001" read the session's 3-dp rounding as truth;
+# the log 23 spike sits at 0.001006)
+ok &= max(spike_devs) < 0.0011
 B = 4.0
 sel = om < B
 X100 = np.concatenate([-gams100[::-1], gams100])
@@ -311,7 +330,7 @@ ok &= abs(ladder[1] - 294.24) < 0.01
 ok &= abs(ladder[29] - 122.40) < 0.01
 ok &= abs(ladder[97] - C_pairs)/abs(C_pairs) < 1e-4
 ok &= ladder[53] < C_pairs          # the overshoot: NOT monotone convergence
-print(f"  g5 rebuild max dev {dev.max():.1e}; spikes {sorted(found)}; C_pairs "
+print(f"  g5 rebuild max dev {dev.max():.1e}; spikes {sorted(found)}, per-spike max {max(spike_devs):.6f}; C_pairs "
       f"{C_pairs:.3f} = spec {C_spec:.3f} (rel {abs(C_pairs-C_spec)/C_pairs:.1e}); "
       f"ladder 1:{ladder[1]:.2f} 29:{ladder[29]:.2f} 53:{ladder[53]:.3f} "
       f"97:{ladder[97]:.3f}", flush=True)
