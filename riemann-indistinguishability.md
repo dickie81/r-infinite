@@ -4689,10 +4689,13 @@ integral is 2π²/3 = 6.5797 in closed form — identified round
 207 F2; the committed instrument integrates the band u ≤ 60
 and prints I_gue = 6.54575 ~~prints 6.546~~ [round 208 F1: the
 lead's independent quad display leaked into the sweep as the
-instrument's print; the committed printout is 6.54575], the
-cutoff disclosed and gated against the closed form), while Poisson's R₂ = 1 makes the
+instrument's print; the committed printout is 6.54575], both
+cutoffs disclosed (the grid runs 10⁻⁴ ≤ u ≤ 60; head 0.00066 +
+tail 0.03333 close the account to 2π²/3 exactly, round 209 F2)
+and gated against the closed form), while Poisson's R₂ = 1 makes the
 expected curvature DIVERGENT (gated demonstration: matched
-Poisson windows, median trace an order beyond the arithmetic).
+Poisson windows, median trace ~88× the arithmetic — round 209
+F4: "an order beyond" understated the deterministic printout).
 Against seeded true-GUE windows the arithmetic trace sits at the
 1.5th percentile — the 1ax low-height rigidity, now in the
 second landscape invariant — while the soft edge λ₂ sits at the
@@ -4764,9 +4767,12 @@ stated not taken)~~ [struck round 207 F4: (C,1) Cesàro does not
 converge here — the cos(BΔ) term survives; the (C,2)/Abel limit
 of C_B recovers the TAPERED infinite-band pair sum (27.44),
 still not taken — and the raw tr L additionally requires
-removing the taper, which no summability supplies; the sweep's
+removing the taper AND returning to the 60-zero sharp window,
+neither of which any summability supplies (the third
+obstruction, the window, added round 209 F3); the sweep's
 first wording reversed this limit-object half of the accepted
-finding, corrected round 208 F2]; no RH leverage claimed anywhere. Check 7
+finding, corrected round 208 F2]; no RH leverage claimed
+anywhere. Check 7
 clean (entire-function zero dynamics, the classical explicit
 formula, RMT strictly as controls — no semiclassical procedure
 as a route to any cascade quantity). Check 8 clean (no
