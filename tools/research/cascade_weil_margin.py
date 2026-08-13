@@ -66,13 +66,16 @@ Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;
 censuses are the OBSERVED results):
   (a) title needle mangled in-span single-site in the paper
-      -> OBSERVED: pending suite
+      -> OBSERVED: g7 FAIL alone (exit 1)
   (b) the delta = 0.5 floor pin mangled in code (0.034733 -> 0.036733)
-      -> OBSERVED: pending suite
-  (c) the (2.2, m5, n12) margin pin mangled in code (1.932e-15 ->
-      1.932e-14) -> OBSERVED: pending suite
-  (d) footer census reverted 76 -> 75 in the paper -> OBSERVED:
-      pending suite
+      -> OBSERVED: g2 FAIL alone (the unconditional floor is
+      load-bearing)
+  (c) the (2.2, m5, n12) margin pin mangled a decade in code
+      (1.932e-15 -> 1.932e-14) -> OBSERVED: g4 FAIL alone (the deep
+      rate-law pin is live)
+  (d) footer census reverted 76 -> 75 in the paper -> OBSERVED: g9
+      FAIL AND g8 FAIL (census propagation through the chained 1ay
+      verifier's own footer gate)
 """
 import sys, subprocess, os
 import numpy as np
