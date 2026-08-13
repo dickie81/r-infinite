@@ -16239,3 +16239,14 @@ applied. Next hostile round on the next substantive paper change.
 **Sweep re-runs.** `cascade_saddle_curvature.py` full re-run after the sweep: ALL GATES PASS (8/8), exit 0 — the per-spike maximum prints 0.001006 inside its new 0.0011 gate; the closed-form conjunct and the corrected prints observed passing.
 
 **Standing state.** Convergence round 208 next.
+
+## Addendum 320 — convergence round 208 on the round-207 sweep: NOT converged (0 majors + 2 minors); both in the sweep's own annotations
+
+**Round.** Fresh-context same-model reviewer on commits 5d9480b + b7b8d63. Everything substantive held: strike recitals verbatim; the per-spike census reproduced exactly from the reviewer's own pulls (max 0.001006 at n = 23, the new gate non-vacuous since the max exceeds the old display value); the closed form 2π²/3 = 6.57973627 verified independently with the analytic tail 0.033333 matching the comment; 2/g² = 2.8002 recomputed (stiffened confirmed); the F4 summability half verified analytically and numerically ((C,1) oscillates, (C,2) converges); the F5 replacement quantifier-audited; needles, footer census 75, diff scope hunk-for-hunk, hygiene — all exact; battery 8/8 by the reviewer. Findings, both lead-verified (Check 3):
+
+- **F1 (minor, accepted).** The F2 annotation wrote "prints 6.546": the committed instrument prints I_gue = 6.54575 (the :.5f format; "6.546" appears nowhere in code or printout — lead verified by grep). The lead's independent quad display (6.546403 in A319) leaked into the paper as the instrument's print — the display-fidelity class round 207's own MAJOR made a standing target, introduced inside the very annotation repairing F2. Swept: the printout stated verbatim with a round-208 annotation.
+- **F2 (minor, accepted).** The F4 replacement wrote "the untapered trace is recovered only in a (C,2)/Abel limit of C_B" — reversing the limit-object half of the accepted finding (A319's own record says "the B → ∞ object is the tapered sum, not raw tr L"): the (C,2)/Abel limit of C_B is the TAPERED pair sum (27.44, reviewer-computed), while raw tr L = 91.728 additionally requires removing the taper, which no summability supplies — a dilution of a verified finding on the object surface, a lead obligation breached and now repaired. Swept: the annotation corrected with both objects and the dilution disclosed.
+
+**Sweep re-runs.** ALL GATES PASS (8/8), exit 0 on the swept surface
+
+**Standing state.** Convergence round 209 next.

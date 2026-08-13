@@ -4324,3 +4324,20 @@ complete).
 
 **Trajectory: 1ay landed (8cf3b12 + 7acd0e5, recurrence #7
 weathered) → 207 1M+4m+2c swept. Convergence round 208 next.**
+
+
+# Round 208: convergence test on the round-207 sweep (subagent, per protocol) — NOT CONVERGED: 0 majors + 2 minors; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| F1 minor: the F2 annotation's "prints 6.546" — the instrument prints I_gue = 6.54575; the lead's quad display leaked as the instrument's print | Accepted (lead verified by grep: "6.546" nowhere in code) | Printout stated verbatim, round-208 annotation |
+| F2 minor: the F4 replacement's "the untapered trace is recovered … limit of C_B" — the limit object is the TAPERED sum (27.44), not tr L (91.73); the sweep reversed half of its own accepted finding | Accepted (the disposition record itself states the correct half) | Annotation corrected with both objects; the dilution disclosed |
+
+Held: per-spike census exact from the reviewer's own pulls (gate
+non-vacuous); the closed form and tail verified independently; the
+F3 direction and both currencies; the F4 summability half; the F5
+quantifier audit; needles, footer 75, diff scope, hygiene; battery
+8/8 by the reviewer.
+
+**Trajectory: 1ay landed → 207 1M+4m+2c (swept) → 208 0M+2m
+(swept). Convergence round 209 next.**
