@@ -358,9 +358,10 @@ for nd in needles:
 gate("g6 the 1ay paper needles", ok)
 
 # ---------------------------------------------------------------- g7
-rr = subprocess.run([sys.executable, os.path.join(HERE, "cascade_heatflow_energy.py")],
-                    capture_output=True, text=True)
-gate("g7 the chain: cascade_heatflow_energy.py (Theorem 1ax) exits 0", rr.returncode == 0)
+sys.path.insert(0, HERE)
+from cascade_tower import chain_ok
+gate("g7 the chain: cascade_heatflow_energy.py (Theorem 1ax) exits 0",
+     chain_ok("cascade_heatflow_energy.py"))
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_saddle_curvature.py`") >= 2

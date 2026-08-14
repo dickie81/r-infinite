@@ -287,9 +287,10 @@ for nd in needles:
 gate("g7 the 1au paper needles", ok)
 
 # ---------------------------------------------------------------- g8
-rr = subprocess.run([sys.executable, os.path.join(HERE, "cascade_finite_fill.py")],
-                    capture_output=True, text=True)
-gate("g8 the chain: cascade_finite_fill.py (Theorem 1at) exits 0", rr.returncode == 0)
+sys.path.insert(0, HERE)
+from cascade_tower import chain_ok
+gate("g8 the chain: cascade_finite_fill.py (Theorem 1at) exits 0",
+     chain_ok("cascade_finite_fill.py"))
 
 # ---------------------------------------------------------------- g9
 ok = paper.count("`cascade_attraction_margins.py`") >= 2

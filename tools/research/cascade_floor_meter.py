@@ -549,9 +549,10 @@ for nd in needles:
 gate("g9 the 1aw paper needles", ok)
 
 # ---------------------------------------------------------------- g10
-rr = subprocess.run([sys.executable, os.path.join(HERE, "cascade_li_two_channels.py")],
-                    capture_output=True, text=True)
-gate("g10 the chain: cascade_li_two_channels.py (Theorem 1av) exits 0", rr.returncode == 0)
+sys.path.insert(0, HERE)
+from cascade_tower import chain_ok
+gate("g10 the chain: cascade_li_two_channels.py (Theorem 1av) exits 0",
+     chain_ok("cascade_li_two_channels.py"))
 
 # ---------------------------------------------------------------- g11
 ok = paper.count("`cascade_floor_meter.py`") >= 2

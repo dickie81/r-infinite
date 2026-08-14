@@ -1,0 +1,50 @@
+{
+ "census_count_string": "78 scripts cited in place",
+ "census_range_string": "Theorems 1i\u20131bb",
+ "tower": [
+  {
+   "file": "cascade_lattice_forcing.py",
+   "sha256": "ed32febf4d406ee40b76db7fd4354ede45804a1fad9f5eefb891029a95c54d5a"
+  },
+  {
+   "file": "cascade_primes_side_ball.py",
+   "sha256": "3596525780702272369499ca5fa1f53b47a2f49e00a69519fbfdd03c7b0a4f1e"
+  },
+  {
+   "file": "cascade_finite_fill.py",
+   "sha256": "19e8206bcbf54387e73e32def49eddd813acd967433a014a2ec5168076f36fb7"
+  },
+  {
+   "file": "cascade_attraction_margins.py",
+   "sha256": "ef3ed1e362b20ca620f5ff9d6693c0483252c2d65fc8b253f3dadd7f3c08e1ae"
+  },
+  {
+   "file": "cascade_li_two_channels.py",
+   "sha256": "852fc01bd2a0291fb568a24d467fa66a925c6aed8140cc83eafc7b4c3c7ba632"
+  },
+  {
+   "file": "cascade_floor_meter.py",
+   "sha256": "c771db96f418cd7d0581ec266e5745c875d4679d8e75214e7d974cf66ef85b3b"
+  },
+  {
+   "file": "cascade_heatflow_energy.py",
+   "sha256": "a08b36ebf6a121c3a1356c17d0366ba60c691519a45a02862e6ab5960cc99e3b"
+  },
+  {
+   "file": "cascade_saddle_curvature.py",
+   "sha256": "c7c3092820f89da44613bb4e9223f2ecdef3ff152cdd94c3ae94b39230fdb986"
+  },
+  {
+   "file": "cascade_weil_margin.py",
+   "sha256": "91021d3b14e982af8b775225bc5cfc58bfe05f2de7a27396a781b38d8af9f94b"
+  },
+  {
+   "file": "cascade_weil_crossover.py",
+   "sha256": "a5e80a82d2952637793d4046f48dbb53a7f188b92eb80fa1b2878bdecb663591"
+  },
+  {
+   "file": "cascade_prolate_horizon.py",
+   "sha256": "39364343071e98d04e52e274ce41bfa99a4cd51c91688a370ae31b3a531025b6"
+  }
+ ]
+}

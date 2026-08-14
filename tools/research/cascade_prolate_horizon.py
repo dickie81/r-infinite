@@ -347,11 +347,10 @@ for nd in needles:
 gate("g6 the 1bb paper needles", ok)
 
 # ---------------------------------------------------------------- g7
-r = subprocess.run([sys.executable,
-                    os.path.join(HERE, "cascade_weil_crossover.py")],
-                   capture_output=True, text=True)
+sys.path.insert(0, HERE)
+from cascade_tower import chain_ok
 gate("g7 the chain: cascade_weil_crossover.py (Theorem 1ba) exits 0",
-     r.returncode == 0)
+     chain_ok("cascade_weil_crossover.py"))
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_prolate_horizon.py`") >= 2

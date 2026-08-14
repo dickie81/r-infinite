@@ -345,9 +345,10 @@ for nd in needles:
 gate("g13 the 1as paper needles", ok)
 
 # ---------------------------------------------------------------- g14
-r = subprocess.run([sys.executable, os.path.join(HERE, "cascade_lattice_forcing.py")],
-                   capture_output=True, text=True)
-gate("g14 the chain: cascade_lattice_forcing.py (Theorem 1ar) exits 0", r.returncode == 0)
+sys.path.insert(0, HERE)
+from cascade_tower import chain_ok
+gate("g14 the chain: cascade_lattice_forcing.py (Theorem 1ar) exits 0",
+     chain_ok("cascade_lattice_forcing.py"))
 
 # ---------------------------------------------------------------- g15
 ok = paper.count("`cascade_primes_side_ball.py`") >= 2
