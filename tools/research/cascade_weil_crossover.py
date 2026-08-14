@@ -76,9 +76,13 @@ balances at near-boundary margins are direction-sensitive and
 instrument-dependent; every balance gate above is either at a lifted
 margin (direction-stable) or a coarse magnitude/sign bound.
 
-Sabotage record (each: fresh tar tree, single mangle with application
-verified by assert + cmp against pristine, restore verified by cmp;
-censuses are the OBSERVED results):
+Sabotage record (parallel-isolation design: baseline + four probes as
+five INDEPENDENT tar trees from committed HEAD, run concurrently and
+discarded after -- no restore step exists; each mangle's application
+verified by assert + cmp against the committed copy before launch;
+the first attempt was killed mid-chain by a container restart after
+all five trees had recorded g1-g6, and the record below is the full
+uninterrupted relaunch; censuses are the OBSERVED results):
   (a) title needle mangled in-span single-site in the paper
       -> OBSERVED: g6 FAIL alone (exit 1)
   (b) the gap-dip pin 0.2060 mangled a decade in code (-> 2.060)
