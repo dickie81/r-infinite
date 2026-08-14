@@ -4454,3 +4454,27 @@ exact; hygiene clean.
 **Trajectory: 1ba landed (a145a90 + ce5650f) → 213 1M+4m+2c returned,
 6 accepted + F7 rejected (swept bd35a6e + the completion commit
 carrying this table). Convergence round 214 next.**
+
+
+# Round 214: convergence test on the round-213 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic applied); Theorem 1ba certified stable; the crossover arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 cosmetic: six re-synced gate labels' provenance lists end at round 175 while weil_route_traveled records the 213 re-sync — inconsistent treatment, nothing false | Accepted; lead verification found a SEVENTH of the same class (attraction_margins, provenance at 195 F3) | All seven extended with 213 F3 (1015b4c); certification battery re-run green |
+
+Held: the F1 replacement's mathematics verified in every particular
+(edge vanishing 8×10⁻¹⁵; pair-cancellation identity re-derived; 1/r²
+envelopes 3.9993–4.0000 per doubling, env·r² = 2w_k to five digits);
+F2 measurements reproduced exactly; the seventeen-carrier re-sync
+complete (all eighteen label-carriers at 77); strikes verbatim; the
+F7 REJECTION independently adjudicated and UPHELD (reviewer's own
+dps-30 arithmetic: 2πe⁴ = 343.050294087439); needles 11/11; footer
+census set-equal both directions; battery 8/8 exit 0 twice (the first
+run killed by a container restart after g1–g6 green; the relaunch
+uninterrupted).
+
+**Trajectory: 1ba landed (a145a90 + ce5650f) → 213 1M+4m+2c returned,
+6 accepted + F7 rejected on lead recomputation (swept bd35a6e +
+db86e89) → 214 CONVERGED 0M+0m+1c applied (1015b4c). Certified:
+Theorem 1ba — the crossover: where pole-carried positivity ends. Next
+hostile round on the next substantive paper change.**
