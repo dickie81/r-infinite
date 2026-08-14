@@ -4428,3 +4428,29 @@ reviewer.
 3773a80 + e078969) → 211 0M+2m+3c (swept 62007d0 + f6b6e07) → 212
 CONVERGED 0M+0m+0c. Certified: Theorem 1az — the Weil margin and its
 rate law. Next hostile round on the next substantive paper change.**
+
+
+# Round 213: hostile round on the Theorem 1ba landing (subagent, per protocol) — 1 MAJOR + 4 minors + 2 cosmetics returned; 6 accepted, 1 REJECTED on lead recomputation; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 MAJOR: the refutation's mechanism — "edge discontinuity gives 1/r Fourier tails" — false on both counts (the cos modes vanish exactly at ±δ/2; the 1/r sinc leading terms cancel in pairs; tails are 1/r²) | Accepted (reviewer's 4.00×-per-doubling measurement; lead derivation cos((k+½)π) = 0) | Struck-and-annotated in block and docstring; capacity conclusion retained |
+| 2 minor: the τ₀ = 17/23 dips equated with the gap centers (17.578/23.016; nearest grid point to the first center is 18, margin higher; continuum dips ≈17.4/22.8) | Accepted | Appositive corrected — dips inside the gaps, centers stated |
+| 3 minor: 15/17 carrier gate labels still print "76 cited in place" against 77-checking conjuncts (sweep pattern gap; weil_route_traveled's wrapped label missed by the same class in round 175) | Accepted | All fifteen re-synced wrap-tolerant; double-miss recorded in the label |
+| 4 minor: residual "Theorems 1i--1az" (double-hyphen form) in weil_route_traveled g18 docstring | Accepted | Advanced to 1i--1ba |
+| 5 minor: conservation check "at every gated spot" vs the committed five-spot loop | Accepted | Scoped to the loop (τ₀ = 0, 40, 60, 300, 520) |
+| 6 cosmetic: "~5×10⁻⁷ (τ₀ ≤ 6)" pairs the gated τ₀ = 5 value with an off-grid endpoint (margin there 1.8×10⁻⁶) | Accepted | Unpaired |
+| 7 cosmetic: "343.05 should be 343.06" | **REJECTED** (lead recomputation: 2πe⁴ = 343.0502940874 — 343.05 is correct rounding; the reviewer's 343.0576 was its own arithmetic error) | No change; recomputation recorded |
+
+Held: the reviewer's own battery 8/8 with the chained tower; the
+modulated form re-derived from scratch (pole Schwarz shortcut verified
+to 6 digits against direct quadrature; density identity's 2π
+bookkeeping independently confirmed); every attempted curve point
+reproduced; the horizon-straddle extended to sub-spacing resolution
+(no feature at 343 beyond the committed grid); the two-instrument
+−2.45×10⁻⁷ display usage consistent; needles 11/11; footer census 77
+exact; hygiene clean.
+
+**Trajectory: 1ba landed (a145a90 + ce5650f) → 213 1M+4m+2c returned,
+6 accepted + F7 rejected (swept bd35a6e + the completion commit
+carrying this table). Convergence round 214 next.**
