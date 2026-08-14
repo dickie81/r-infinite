@@ -331,7 +331,7 @@ ok &= "77 scripts cited in place" in paper
 ok &= "Theorems 1i–1ba" in paper
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
      "disclosed): this script backticked; 77 cited in place; the "
-     "range 1i–1ba (label re-synced rounds 167 F6, 175 F2)", ok)
+     "range 1i–1ba (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

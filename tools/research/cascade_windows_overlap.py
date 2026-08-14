@@ -599,7 +599,7 @@ ok &= "77 scripts cited in place" in paper
 ok &= "Theorems 1i–1ba" in paper
 gate("g13 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 77 cited in place; the "
-     "range 1i–1ba (label re-synced rounds 167 F6, 175 F2)", ok)
+     "range 1i–1ba (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 n_gates = 14 if FULL else 13

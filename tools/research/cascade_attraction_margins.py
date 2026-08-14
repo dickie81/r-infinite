@@ -253,7 +253,7 @@ ok &= float(lam[1]) < float(closed) < float(lam[1]) + tailb
 print(f"  g6 closed form {float(closed):.10f}; bracket ({float(lam[1]):.4f}, {float(lam[1]) + tailb:.4f})")
 gate("g6 the thinnest direction: lambda_1 = 1 + gamma/2 - log(4pi)/2 and "
      "the zeros-side bracket (the inequality conjunct removed round 194 F8; "
-     "label re-synced round 195 F3)", ok)
+     "label re-synced rounds 195 F3, 213 F3)", ok)
 
 # ---------------------------------------------------------------- g7
 needles = [
