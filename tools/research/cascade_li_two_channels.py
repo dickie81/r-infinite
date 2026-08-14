@@ -72,7 +72,7 @@ Gates (all exit-gated; any failure exits 1):
       list is the authoritative census, enumeration extended round 199
       finding 5).
   g9  the chain: cascade_attraction_margins.py (Theorem 1au) exits 0.
-  g10 the footer census (this script backticked >= 2; "77 scripts cited in place"; "Theorems 1i-1ba").
+  g10 the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):
@@ -346,10 +346,10 @@ gate("g9 the chain: cascade_attraction_margins.py (Theorem 1au) exits 0",
 
 # ---------------------------------------------------------------- g10
 ok = paper.count("`cascade_li_two_channels.py`") >= 2
-ok &= "77 scripts cited in place" in paper
-ok &= "Theorems 1i–1ba" in paper
-gate("g10 the footer census (this script backticked >= 2; 77 cited in place; "
-     "the range 1i–1ba)", ok)
+ok &= "78 scripts cited in place" in paper
+ok &= "Theorems 1i–1bb" in paper
+gate("g10 the footer census (this script backticked >= 2; 78 cited in place; "
+     "the range 1i–1bb)", ok)
 
 print()
 if fails:
