@@ -348,7 +348,7 @@ gate("g9 the chain: cascade_attraction_margins.py (Theorem 1au) exits 0",
 ok = paper.count("`cascade_li_two_channels.py`") >= 2
 ok &= "77 scripts cited in place" in paper
 ok &= "Theorems 1i–1ba" in paper
-gate("g10 the footer census (this script backticked >= 2; 76 cited in place; "
+gate("g10 the footer census (this script backticked >= 2; 77 cited in place; "
      "the range 1i–1ba)", ok)
 
 print()

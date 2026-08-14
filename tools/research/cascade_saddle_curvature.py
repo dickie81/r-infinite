@@ -366,7 +366,7 @@ gate("g7 the chain: cascade_heatflow_energy.py (Theorem 1ax) exits 0", rr.return
 ok = paper.count("`cascade_saddle_curvature.py`") >= 2
 ok &= "77 scripts cited in place" in paper
 ok &= "Theorems 1i–1ba" in paper
-gate("g8 the footer census (this script backticked >= 2; 76 cited in place; "
+gate("g8 the footer census (this script backticked >= 2; 77 cited in place; "
      "the range 1i–1ba)", ok)
 
 print(flush=True)

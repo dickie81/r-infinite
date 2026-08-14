@@ -660,7 +660,7 @@ ok = "`cascade_concentration_regrade.py`" in paper
 ok &= "77 scripts cited in place" in paper
 ok &= "Theorems 1i–1ba" in paper
 gate("g12 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 76 cited in place; the range 1i–1ba "
+     "this script backticked; 77 cited in place; the range 1i–1ba "
      "(advance disclosed; label re-synced round 175 F2)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)

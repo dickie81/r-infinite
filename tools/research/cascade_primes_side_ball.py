@@ -353,7 +353,7 @@ gate("g14 the chain: cascade_lattice_forcing.py (Theorem 1ar) exits 0", r.return
 ok = paper.count("`cascade_primes_side_ball.py`") >= 2
 ok &= "77 scripts cited in place" in paper
 ok &= "Theorems 1i–1ba" in paper
-gate("g15 the footer census (this script backticked >= 2; 76 cited in place; "
+gate("g15 the footer census (this script backticked >= 2; 77 cited in place; "
      "the range 1i–1ba)", ok)
 
 print()

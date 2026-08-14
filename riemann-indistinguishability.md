@@ -4965,12 +4965,19 @@ the carrier flips pole → arch, the pole share falling from
 0.894 while the arch share crosses sign inside (8, 9) — the
 μ-kernel's sign change smeared by the window's resolution
 (balances gated only at lifted margins, per the round-210 F1
-caution). *(iv) The gap-meter (δ = 1.4).* Boundary at ~5×10⁻⁷
-while the pole lives (τ₀ ≤ 6); then the six-decade lift
+caution). *(iv) The gap-meter (δ = 1.4).* Boundary-scale
+(4.7×10⁻⁷ at the gated τ₀ = 5) while the pole lives (through
+τ₀ ≈ 6; round-213 F6 unpaired the value from the off-grid
+endpoint); then the six-decade lift
 (ratio > 10⁵, gated) across τ₀ = 7–13 as γ₁ = 14.13 enters the
 window footprint; beyond γ₁ the margin curve reads the zero gaps:
-local minima at τ₀ = 17 and τ₀ = 23 — the (γ₁, γ₂) and
-(γ₂, γ₃) gap centers — pinned 0.2060 and 0.3545, gated as local
+local minima at τ₀ = 17 and τ₀ = 23 — ~~the (γ₁, γ₂) and
+(γ₂, γ₃) gap centers~~ **inside the (γ₁, γ₂) and (γ₂, γ₃) gaps
+(centers 17.578 and 23.016; the continuum dips sit near 17.4
+and 22.8 — round-213 F2: the landing's appositive equated the
+integer-grid dips with the gap centers, and the nearest grid
+point to the first center is 18, where the margin is higher)**
+— pinned 0.2060 and 0.3545, gated as local
 minima against both neighbors, filling in as the local density
 grows (0.2060 < 0.3545, gated). The margin-in-frequency curve is
 an image of the zero field's gap structure, computed from
@@ -4996,8 +5003,17 @@ prediction — dodger death at the horizon 2πe⁴ = 343.05 — is
 5-step grid τ₀ = 300…400 straddling the horizon never dips
 below 0.5 (gated) — no feature at 343. The mechanism: the
 fixed-n cos-basis section exhausts its own tail-cancellation
-capacity — the basis's edge discontinuity gives 1/r Fourier
-tails, and n = 24 dimensions cancel leakage at only ~n zeros
+capacity — ~~the basis's edge discontinuity gives 1/r Fourier
+tails~~ **the basis's edge kink gives 1/r² Fourier tails — the
+cos modes vanish exactly at ±δ/2 (cos((k+½)π) = 0), so the
+sections are continuous with a first-derivative kink, and the
+modes' 1/r sinc leading terms cancel in pairs (their
+coefficient is cos((k+½)π) = 0)** *(round-213 F1 MAJOR: the
+landing's stated cause — an edge discontinuity producing 1/r
+tails — was false on both counts, verified by the reviewer's
+4.00×-per-doubling decay measurement and the lead's
+derivation; the capacity conclusion below is unaffected)*, and
+n = 24 dimensions cancel leakage at only ~n zeros
 against the growing density — long before the analytic
 Paley–Wiener capacity; the analytic horizon remains
 the smooth-basis n → ∞ envelope, untested here (the follow-up:

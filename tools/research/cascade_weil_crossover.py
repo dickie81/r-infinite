@@ -55,8 +55,12 @@ Gates (all exit-gated; any failure exits 1):
       session's stated prediction of lift-off at the horizon
       2 pi e^4 = 343.05: the 5-step grid tau0 = 300..400 straddling
       the horizon never dips below 0.5 (gated) -- the fixed-n
-      cos-basis section exhausts its own 1/r-tail cancellation
-      capacity (~n zeros) long before the analytic type capacity;
+      cos-basis section exhausts its own tail-cancellation capacity
+      (~n zeros; the tails are 1/r^2 -- the cos modes vanish exactly
+      at the support edges and their 1/r sinc leading terms cancel in
+      pairs; round-213 F1 corrected the landing's "edge discontinuity
+      gives 1/r tails", false on both counts) long before the
+      analytic type capacity;
       the horizon remains the smooth-basis n -> infinity envelope,
       untested here. The zero-carried regime: cancellation depth
       margin/arch = 1.873e-3 at 60 and 0.2991 at 300 (windowed);
@@ -64,7 +68,10 @@ Gates (all exit-gated; any failure exits 1):
       |arch - log(tau0/2pi)| < 0.05 at tau0 = 300 and 520 (under the
       c^H G c = 1 normalisation, int |fhat|^2 = 2 pi, so
       arch ~ 2 pi mu(tau0) = log(tau0/2pi)); the conservation check
-      |arch + pole + prime - margin| < 1e-8 at every gated spot.
+      |arch + pole + prime - margin| < 1e-8 at the five spots of the
+      depth/draw/density loop (tau0 = 0, 40, 60, 300, 520; round-213
+      F5 corrected the landing's "at every gated spot", which
+      overreached the committed loop).
   g6  the paper needles for the 1ba block (in-code list
       authoritative).
   g7  the chain: cascade_weil_margin.py (Theorem 1az) exits 0.
