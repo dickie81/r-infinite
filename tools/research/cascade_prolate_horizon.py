@@ -64,11 +64,15 @@ Near-boundary caution (round-210 F1 standing): boundary-regime margins
 are pinned by magnitude windows only; no balance decompositions are
 gated anywhere in this verifier.
 
-Sabotage record (parallel-isolation design: baseline + four probes as
-five INDEPENDENT tar trees from committed HEAD, run concurrently and
-discarded after; each mangle's application verified by assert + cmp
-against the committed copy before launch; censuses are the OBSERVED
-results):
+Sabotage record (parallel-isolation design under MANIFEST chain mode
+-- the cadence amendment's first production suite: baseline + four
+probes as five INDEPENDENT tar trees from committed HEAD, each run
+with CASCADE_CHAIN=manifest so ancestors are attested by the committed
+manifest; each mangle's application verified by assert + cmp against
+the committed copy before launch. Two prior full-chain suite attempts
+were killed by container restarts at g1-g6 (all detections already on
+the designed gates both times); the record below is the completed
+manifest-mode run; censuses are the OBSERVED results):
   (a) title needle mangled in-span single-site in the paper
       -> OBSERVED: g6 FAIL alone (exit 1)
   (b) the tau_inf window mangled in code ((341.5, 343.5) ->
@@ -76,8 +80,10 @@ results):
   (c) the cliff bound mangled past truth in code (> 500 -> > 50000)
       -> OBSERVED: g5 FAIL alone (exit 1)
   (d) footer census reverted 78 -> 77 in the paper -> OBSERVED: g8
-      FAIL AND g7 FAIL (census propagation through the chained 1ba
-      verifier's own footer gate)
+      FAIL AND g7 FAIL (the chain gate's manifest census check printed
+      "paper lacks '78 scripts cited in place'" -- the two-gate
+      detection preserved with zero tower execution, per the
+      amendment's design)
 """
 import sys, subprocess, os, math
 import numpy as np
