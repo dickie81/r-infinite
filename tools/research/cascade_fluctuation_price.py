@@ -95,6 +95,26 @@ Gates (all exit-gated; any failure exits 1):
 
 Near-boundary caution (round-210 F1 standing): margins are pinned by
 magnitude windows only; no balance decompositions are gated here.
+
+Sabotage record (parallel-isolation design under MANIFEST chain mode:
+baseline + four probes as five INDEPENDENT tar trees from committed
+HEAD 847b711, each mangle's application verified by assert + cmp
+against the committed copy before launch; the first suite attempt was
+killed by container restart #12 at g5 with all trees tracking
+identically; the record below is the completed relaunch; censuses are
+the OBSERVED results):
+  (a) title needle mangled in-span single-site in the paper
+      -> OBSERVED: g8 FAIL alone (exit 1)
+  (b) the headline pin shifted past truth in code (0.710 -> 0.810 at
+      window +-0.05) -> OBSERVED: g5 FAIL alone (exit 1)
+  (c) the excess window shifted past truth in code ((32, 41) ->
+      (42, 51) against observed +36.24) -> OBSERVED: g7 FAIL alone
+      (exit 1)
+  (d) footer census reverted 79 -> 78 in the paper -> OBSERVED: g10
+      FAIL AND g9 FAIL (the chain gate's manifest census check printed
+      "paper lacks 'the **79 scripts cited in place** above'" -- the
+      two-gate detection at the advanced census, the anchored needles'
+      first sabotage-probe exercise since their tower-wide adoption)
 """
 import sys, os, math
 import numpy as np
