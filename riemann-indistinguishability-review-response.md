@@ -4478,3 +4478,36 @@ uninterrupted).
 db86e89) → 214 CONVERGED 0M+0m+1c applied (1015b4c). Certified:
 Theorem 1ba — the crossover: where pole-carried positivity ends. Next
 hostile round on the next substantive paper change.**
+
+
+# Round 215: hostile round on the Theorem 1bb landing + the cadence amendment (subagent, per protocol) — 2 MAJORS (fixed and reviewer-verified mid-round) + 5 minors + 3 cosmetics; all ten accepted; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 MAJOR: completion commit 0bf3202 stamped the top verifier's docstring without refreshing the manifest — `run_tower.py` failed closed (MANIFEST STALE, exit 2) at the review target; the amendment's own refresh rule violated in the first commit after adoption | Conceded; fixed mid-round | Manifest refreshed at 79c7bd3; reviewer re-ran the tower: TOWER PASS 11/11, exit 0 |
+| 2 MAJOR: `refresh_tower_manifest.py` cited by `cascade_tower.py` but never committed — `.gitignore` `build/` silently excluded the new file under tools/build/; restore #11 destroyed the only copy | Conceded; fixed mid-round | Recreated tracked at `tools/research/refresh_tower_manifest.py` (79c7bd3); reviewer confirmed byte-for-byte idempotent with the committed manifest |
+| 3 minor: "a stale manifest fails every manifest-mode chain gate (by design)" false for a stale TOP entry — the top is nobody's ancestor; only run_tower's precheck catches it (proved live by Finding 1: the stale-top battery passed 8/8) | Accepted; `chain_ok` read directly by lead | Both docstrings state the below-top/top distinction (6850eb8) |
+| 4 minor: "\|margin\| < 10⁻⁹ gated at τ₀ = 0, 60, and 100" — the committed conjunct is 10⁻⁸ at 100 (verifier line 227); observed 1.3×10⁻¹⁰, so observationally true but gate-attribution false | Accepted; conjunct read directly by lead | Corrected at both carriers + A329 mirror in place (6850eb8) |
+| 5 minor: census gates were bare substring checks — 78 → 778 passed both the footer gate and the manifest census check on the reviewer's scratch probe | Accepted; anchored semantics verified by lead (778/178/789 + range extension all detected, recorded run) | Refresher emits anchored census strings; g8 checks the anchored forms (6850eb8) |
+| 6 minor: "measured at the 0.2% level" not gated at that precision — containment gate allows ~1.2%; the four-point fit's own 1σ(τ∞) = 5.44 | Accepted; lead LSQ reproduced τ∞ = 342.54, σ = 5.44, central agreement 0.150% | Qualified form at both paper carriers + docstring: central fit within 0.2%, containment gated ±4, fit 1σ ≈ 5 (6850eb8) |
+| 7 minor: chain-gate PASS labels claim "exits 0" under manifest mode where nothing executes | Accepted | All ten labels + nine docstring mirrors made mode-neutral: "the chain obligation to X (Theorem Y) met" (6850eb8) |
+| 8 cosmetic: "Gram orthonormal to 10⁻¹⁰" — diagonal gated at rel 10⁻⁶ only | Accepted; conjuncts read directly by lead | Split into gated parts at both carriers (6850eb8) |
+| 9 cosmetic: "residuals within ±4" vs committed gate < 5 | Accepted | Gate bound annotated (6850eb8) |
+| 10 cosmetic: stray leading space on the wrapped line 5080 | Accepted | Removed (6850eb8) |
+
+Held (reviewer, all lead-spot-checked): every 1bb gated quantity
+reproduced on an independent implementation (Nyström sinc eigensolve;
+direct-quadrature transforms; independent LSQ; one full march row);
+the pole construction verified in code (both f̂(±i/2) vectors, no
+Schwarz shortcut); probe (d) replicated on a reviewer scratch tree
+(g7 FAIL + g8 FAIL verbatim); B1–B7 amendment vectors all held (full
+mode semantics unchanged; manifest mode covers every strict ancestor;
+census check two-sided; disclosure verbatim; labels byte-stable
+pre-amendment); census 20 carriers clean, needles 11/11 in-span;
+BLAS-variation robustness confirmed. Out-of-scope record notes
+(A329 "1as/twelve") corrected in place per round-43.
+
+**Trajectory: 1bb + amendment landed (1c12364 + 2e9a463 + 0bf3202,
+manifest recovered 79c7bd3) → 215 2M+5m+3c returned, all accepted
+(MAJORS fixed mid-round, swept 6850eb8 + the completion commit
+carrying this table). Convergence round 216 next.**
