@@ -23,7 +23,7 @@ environment variable CASCADE_CHAIN:
     (and scheduled: certification batteries run tools/research/
     run_tower.py, which executes every level in parallel).
 
-The manifest is refreshed by tools/build/refresh_tower_manifest.py in
+The manifest is refreshed by tools/research/refresh_tower_manifest.py in
 any commit that touches a tower member or advances the census; a
 stale manifest fails every manifest-mode chain gate (by design).
 """
