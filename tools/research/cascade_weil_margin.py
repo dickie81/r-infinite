@@ -73,7 +73,7 @@ Gates (all exit-gated; any failure exits 1):
       beyond-K zeros' contributions as the nonnegative |fhat|^2 form
       (the labeled-classical-data clause).
   g7  the paper needles for the 1az block (in-code list authoritative).
-  g8  the chain: cascade_saddle_curvature.py (Theorem 1ay) exits 0.
+  g8  the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met.
   g9  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tar tree, single mangle with application
@@ -410,7 +410,7 @@ gate("g7 the 1az paper needles", ok)
 # ---------------------------------------------------------------- g8
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g8 the chain: cascade_saddle_curvature.py (Theorem 1ay) exits 0",
+gate("g8 the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met",
      chain_ok("cascade_saddle_curvature.py"))
 
 # ---------------------------------------------------------------- g9

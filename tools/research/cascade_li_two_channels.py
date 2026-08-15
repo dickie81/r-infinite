@@ -71,7 +71,7 @@ Gates (all exit-gated; any failure exits 1):
       coupling; plus the six round-198 repair needles -- the in-code
       list is the authoritative census, enumeration extended round 199
       finding 5).
-  g9  the chain: cascade_attraction_margins.py (Theorem 1au) exits 0.
+  g9  the chain obligation to cascade_attraction_margins.py (Theorem 1au) met.
   g10 the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -341,7 +341,7 @@ gate("g8 the 1av paper needles", ok)
 # ---------------------------------------------------------------- g9
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g9 the chain: cascade_attraction_margins.py (Theorem 1au) exits 0",
+gate("g9 the chain obligation to cascade_attraction_margins.py (Theorem 1au) met",
      chain_ok("cascade_attraction_margins.py"))
 
 # ---------------------------------------------------------------- g10

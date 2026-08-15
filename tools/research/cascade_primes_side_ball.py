@@ -57,7 +57,7 @@ Gates (all exit-gated; any failure exits 1):
   g13 the paper needles for the 1as block (title; selection sentence;
       product-state restatement; fairness sentence; both off-line zero
       values; the statistical-vs-completed sentence).
-  g14 the chain: cascade_lattice_forcing.py (Theorem 1ar) exits 0.
+  g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met.
   g15 the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -347,7 +347,7 @@ gate("g13 the 1as paper needles", ok)
 # ---------------------------------------------------------------- g14
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g14 the chain: cascade_lattice_forcing.py (Theorem 1ar) exits 0",
+gate("g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met",
      chain_ok("cascade_lattice_forcing.py"))
 
 # ---------------------------------------------------------------- g15

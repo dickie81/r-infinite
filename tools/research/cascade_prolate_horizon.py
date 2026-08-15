@@ -5,7 +5,9 @@ cos-basis lift-off of Theorem 1ba was section capacity, not analytic
 capacity: the prolate basis extends the dodging range fourfold at equal
 dimension, and the bandwidth march tau*(c) extrapolates by a measured
 1/c law to the analytic horizon 2 pi e^4 -- the smooth-basis n -> inf
-envelope, the follow-up 1ba named, now measured at the 0.2% level.
+envelope, the follow-up 1ba named, now measured -- the central fit
+within 0.2% of 2 pi e^4 (containment gated at |tau_inf - 2 pi e^4|
+< 4; the four-point fit's own 1-sigma is about 5; round-215 F6).
 
 Two committed instruments, each exactly the session recipe:
   E (extension): KL = 90 Legendre truncation, c = 40, n = 26 prolates,
@@ -24,7 +26,9 @@ Gates (all exit-gated; any failure exits 1):
       1e-6).
   g2  the extension (instrument E, delta = 4): the prolate section
       holds the Weil boundary where the certified cos section (1ba g5)
-      had lifted -- |margin| < 1e-9 at tau0 = 0, 60, and 100 (the cos
+      had lifted -- |margin| < 1e-9 at tau0 = 0 and 60, < 1e-8 at
+      100 (round-215 F4 corrected the landing's uniform 1e-9 claim
+      to the gate's actual conjunct) (the cos
       value at 60, 4.180e-3, is gated in the chained 1ba verifier: the
       contrast IS the basis-capacity demonstration); the lift:
       margin(250) = 1.223e-2 and margin(340) = 5.151e-1 (rel 1e-2);
@@ -56,7 +60,9 @@ Gates (all exit-gated; any failure exits 1):
       margin(n=38) = 9.79e-6 rel 5e-2.
   g6  the paper needles for the 1bb block (in-code list
       authoritative).
-  g7  the chain: cascade_weil_crossover.py (Theorem 1ba) exits 0.
+  g7  the chain obligation to cascade_weil_crossover.py (Theorem 1ba)
+      met (full mode: parent executed, exit 0; manifest mode: ancestor
+      hashes + census attested -- round-215 F7 relabel).
   g8  the footer census (this script backticked >= 2; "78 scripts
       cited in place"; "Theorems 1i-1bb").
 
@@ -355,13 +361,13 @@ gate("g6 the 1bb paper needles", ok)
 # ---------------------------------------------------------------- g7
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g7 the chain: cascade_weil_crossover.py (Theorem 1ba) exits 0",
+gate("g7 the chain obligation to cascade_weil_crossover.py (Theorem 1ba) met",
      chain_ok("cascade_weil_crossover.py"))
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_prolate_horizon.py`") >= 2
-ok &= "78 scripts cited in place" in paper
-ok &= "Theorems 1i–1bb" in paper
+ok &= "the **78 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bb:" in paper
 gate("g8 the footer census (this script backticked >= 2; 78 cited in "
      "place; the range 1i–1bb)", ok)
 

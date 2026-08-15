@@ -108,7 +108,7 @@ Gates (all exit-gated; any failure exits 1):
       along the fill: near-monotone, collective, not exactly a second
       law.
   g9  the paper needles for the 1aw block (in-code list authoritative).
-  g10 the chain: cascade_li_two_channels.py (Theorem 1av) exits 0.
+  g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met.
   g11 the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tar tree, single mangle, restore from
@@ -551,7 +551,7 @@ gate("g9 the 1aw paper needles", ok)
 # ---------------------------------------------------------------- g10
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g10 the chain: cascade_li_two_channels.py (Theorem 1av) exits 0",
+gate("g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met",
      chain_ok("cascade_li_two_channels.py"))
 
 # ---------------------------------------------------------------- g11

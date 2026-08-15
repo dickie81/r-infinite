@@ -60,7 +60,7 @@ Gates (all exit-gated; any failure exits 1):
       magnitude, each at its own frequency log p^k; the convergence
       is NOT monotone (the y = 53 overshoot gated: C(53) < C_pairs).
   g6  the paper needles for the 1ay block (in-code list authoritative).
-  g7  the chain: cascade_heatflow_energy.py (Theorem 1ax) exits 0.
+  g7  the chain obligation to cascade_heatflow_energy.py (Theorem 1ax) met.
   g8  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tar tree, single mangle with application
@@ -360,7 +360,7 @@ gate("g6 the 1ay paper needles", ok)
 # ---------------------------------------------------------------- g7
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g7 the chain: cascade_heatflow_energy.py (Theorem 1ax) exits 0",
+gate("g7 the chain obligation to cascade_heatflow_energy.py (Theorem 1ax) met",
      chain_ok("cascade_heatflow_energy.py"))
 
 # ---------------------------------------------------------------- g8

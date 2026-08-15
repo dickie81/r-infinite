@@ -74,7 +74,7 @@ Gates (all exit-gated; any failure exits 1):
       overreached the committed loop).
   g6  the paper needles for the 1ba block (in-code list
       authoritative).
-  g7  the chain: cascade_weil_margin.py (Theorem 1az) exits 0.
+  g7  the chain obligation to cascade_weil_margin.py (Theorem 1az) met.
   g8  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Balance-decomposition caution (round-210 F1 / round-211 F5 standing):
@@ -317,7 +317,7 @@ gate("g6 the 1ba paper needles", ok)
 # ---------------------------------------------------------------- g7
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g7 the chain: cascade_weil_margin.py (Theorem 1az) exits 0",
+gate("g7 the chain obligation to cascade_weil_margin.py (Theorem 1az) met",
      chain_ok("cascade_weil_margin.py"))
 
 # ---------------------------------------------------------------- g8

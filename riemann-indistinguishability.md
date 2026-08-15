@@ -5047,17 +5047,22 @@ frame.* "Explore prolate spheroidal wave functions" → "chase
 343" → "Land 1bb." No proof is claimed; the deliverables are
 the Slepian-optimal instrument and the measurement of the
 analytic dodging horizon as the infinite-bandwidth limit of its
-sections — the follow-up Theorem 1ba named, now measured at the
-0.2% level. *(ii) The basis.* Prolate spheroidal wave functions
+sections — the follow-up Theorem 1ba named, now measured — the
+central fit within 0.2% of 2πe⁴ (containment gated at
+|τ∞ − 2πe⁴| < 4; the four-point fit's own 1σ ≈ 5; round-215
+F6). *(ii) The basis.* Prolate spheroidal wave functions
 at bandwidth parameter c (the Legendre-tridiagonal construction
 — Slepian's commuting differential operator), concentration
 eigenvalues gated straddling the Shannon number 2c/π: at c = 40
 (Shannon 25.46), λ₂₃ = 0.9494, λ₂₅ = 0.4873, λ₂₇ = 0.0456,
-monotone across the plunge; the numeric Gram orthonormal to
-10⁻¹⁰ (gated). *(iii) The extension.* At δ = 4, n = 26, the
+monotone across the plunge; the numeric Gram orthonormal (max
+off-diagonal < 10⁻¹⁰ gated; diagonal 1 to a relative 10⁻⁶
+gated — round-215 F8). *(iii) The extension.* At δ = 4, n = 26, the
 prolate-modulated section
 holds the Weil boundary where the certified cos section (Theorem 1ba, g5) had lifted:
-|margin| < 10⁻⁹ gated at τ₀ = 0, 60, and 100 against the cos
+|margin| gated < 10⁻⁹ at τ₀ = 0 and 60 and < 10⁻⁸ at 100
+(round-215 F4 corrected the landing's uniform 10⁻⁹ claim to the
+gate's actual conjunct) against the cos
 basis's gated 4.180×10⁻³ at τ₀ = 60 — the 1ba lift-off was
 section capacity, demonstrated by contrast at equal dimension
 count; the lift arrives at τ₀ ≈ 250 (1.223×10⁻², pinned) and
@@ -5072,12 +5077,13 @@ verified zeros, the deficit the positive beyond-260 tail).
 (205.15, 258.50), (243.80, 285.53), (270.60, 305.79). *(v) The
 extrapolation.* The approach obeys a measured 1/c law: the
 least-squares fit τ* = τ∞ − K/c on the four 10⁻³ crossings
-gives τ∞ = 342.53 with K = 4870 and residuals within ±4 —
+gives τ∞ = 342.53 with K = 4870 and residuals within ±4
+(gate < 5; round-215 F9) —
 the fit contains the analytic horizon 2πe⁴ = 343.05 (the constant
 computed in the gate, |τ∞ − 2πe⁴| < 4 gated): the capacity
 edge of Slepian sections IS the Paley–Wiener horizon, measured.
 At the deeper threshold the deep-threshold edge extrapolates interior:
- τ∞(10⁻⁶) = 320.07 (windowed) — an ε-dependent offset
+τ∞(10⁻⁶) = 320.07 (windowed) — an ε-dependent offset
 recorded as a measurement, its
 interpretation deferred to the concentration-null arc (the pure-concentration decomposition is
 that arc's subject, not this theorem's). *(vi) The control.*
@@ -5098,8 +5104,9 @@ reach-vs-support dictionary (classical input: the
 proportion-of-zeros formalism whose band-length parameter
 λ = δ/log(T/2π) makes our horizon its λ = 1 wall, priced at
 prime pairs of Hardy–Littlewood strength), this measurement
-locates the known frontier from the fixed-height side to two
-parts in a thousand. *Honest scope:* float64 throughout; one
+locates the known frontier from the fixed-height side — the
+central fit two parts in a thousand from the wall, the
+containment gate ±4 (round-215 F6). *Honest scope:* float64 throughout; one
 δ, one support geometry, four bandwidths; the crossings are
 log-linear interpolations on the committed 20-wide grid (the
 ±1.5 pin windows and the ±4 fit residuals absorb this); the

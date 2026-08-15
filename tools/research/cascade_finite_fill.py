@@ -32,7 +32,7 @@ Gates (all exit-gated; any failure exits 1):
       no-physical-identification disclaimer; plus the seven round-192
       repair needles and the round-193 epigram needle -- see the
       in-code list, which is the authoritative census).
-  g7  the chain: cascade_primes_side_ball.py (Theorem 1as) exits 0.
+  g7  the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met.
   g8  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -162,7 +162,7 @@ gate("g6 the 1at paper needles", ok)
 # ---------------------------------------------------------------- g7
 sys.path.insert(0, HERE)
 from cascade_tower import chain_ok
-gate("g7 the chain: cascade_primes_side_ball.py (Theorem 1as) exits 0",
+gate("g7 the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met",
      chain_ok("cascade_primes_side_ball.py"))
 
 # ---------------------------------------------------------------- g8

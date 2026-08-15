@@ -24,8 +24,11 @@ environment variable CASCADE_CHAIN:
     run_tower.py, which executes every level in parallel).
 
 The manifest is refreshed by tools/research/refresh_tower_manifest.py in
-any commit that touches a tower member or advances the census; a
-stale manifest fails every manifest-mode chain gate (by design).
+any commit that touches a tower member or advances the census. A stale
+entry for any tower member BELOW THE TOP fails every manifest-mode
+chain gate above it (by design); a stale TOP entry has no chain gate
+above it and is caught only by run_tower.py's manifest-integrity
+precheck (round-215 F3).
 """
 import hashlib, json, os, subprocess, sys
 
