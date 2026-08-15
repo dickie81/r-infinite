@@ -33,7 +33,7 @@ Gates (all exit-gated; any failure exits 1):
       repair needles and the round-193 epigram needle -- see the
       in-code list, which is the authoritative census).
   g7  the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met.
-  g8  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
+  g8  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):
@@ -167,10 +167,10 @@ gate("g7 the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met",
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_finite_fill.py`") >= 2
-ok &= "78 scripts cited in place" in paper
-ok &= "Theorems 1i–1bb" in paper
-gate("g8 the footer census (this script backticked >= 2; 78 cited in place; "
-     "the range 1i–1bb)", ok)
+ok &= "the **79 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bc:" in paper
+gate("g8 the footer census (this script backticked >= 2; 79 cited in place; "
+     "the range 1i–1bc)", ok)
 
 print()
 if fails:

@@ -74,7 +74,7 @@ Gates (all exit-gated; any failure exits 1):
       (the labeled-classical-data clause).
   g7  the paper needles for the 1az block (in-code list authoritative).
   g8  the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met.
-  g9  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
+  g9  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;
@@ -415,10 +415,10 @@ gate("g8 the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met",
 
 # ---------------------------------------------------------------- g9
 ok = paper.count("`cascade_weil_margin.py`") >= 2
-ok &= "78 scripts cited in place" in paper
-ok &= "Theorems 1i–1bb" in paper
-gate("g9 the footer census (this script backticked >= 2; 78 cited in place; "
-     "the range 1i–1bb)", ok)
+ok &= "the **79 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bc:" in paper
+gate("g9 the footer census (this script backticked >= 2; 79 cited in place; "
+     "the range 1i–1bc)", ok)
 
 print(flush=True)
 if fails:

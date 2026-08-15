@@ -5128,6 +5128,97 @@ cascade quantity). Check 8 clean (no hypothesis input; the
 owner's commissions supplied direction, translated into pure
 mathematics before use).
 
+**Theorem 1bc (the nulls and the fluctuation price — three nulls
+on one instrument, the zeta stiffness excess measured;
+`cascade_fluctuation_price.py`).** *(i) The commission and the
+frame.* "Sweep the price of fluctuations - c and height" → "Land
+1bc." No proof is claimed; the deliverable is the measurement of
+what the zeros' fluctuations buy and cost the dodging section,
+against three nulls sharing the certified 1bb instrument (the
+prolate-modulated zero-side margin at δ = 4; the committed
+section reproduces the certified-era pins at c = 120 —
+1.139×10⁻⁷ / 3.760×10⁻⁴ / 2.549×10⁻¹ at τ₀ = 260/300/360, rel
+10⁻², gated). *(ii) The comb null.* Against
+the count-matched rigid comb at the Riemann density (γ̃_k solving
+N̄ = k: maximal rigidity, zero fluctuation), the true zeros dodge
+CHEAPER: the discount R_ζ = log₁₀(m_ζ/m_comb) is below +0.10 at
+all 26 grid points (c ∈ {40, 60, 90, 120} × six-to-eight heights;
+the single positive point, +0.07 at (90, 280); every other
+negative), and the c = 120 ladder deepens from R(260) = −0.40 to
+R(360) = −0.58 (pinned ±0.06, deepening > 0.10 gated) — the
+zeros' fluctuations make dodging cheaper than maximal rigidity,
+increasingly so approaching lift-off. *(iii) The height trend.*
+The fit R_ζ = −0.126 − 0.0056·Z on the in-band smooth count Z
+(26 points, rms 0.213; slope gated in (−0.0080, −0.0035)): the
+comb discount grows with the number of levels in the band.
+*(iv) The calibration.* Unconditioned GUE-unfolded sets
+(semicircle-CDF unfolding, three seeded realizations) carry
+±1–2-level count errors and pay for them at ~6 decades per
+un-dodgeable level: R_GUE(120, 260) = +6.82 collapsing to −0.11
+at (120, 450), with mean(R_ζ − R_GUE) = −3.557 over the grid
+(gated windows) — the unconditioned comparison is
+count-artifact-dominated: the count-sensitivity calibration that
+forces the next instrument's conditioning. *(v) The headline.*
+The count-conditioned CUE null — unitary-ensemble sets unfolded
+to the Riemann density and accepted only when the in-band count
+equals the comb's (deterministic seed ladder, 16 accepted per
+point, ten points across c = 60 and 120) — gives a per-point
+difference R_ζ − mean(R_CUE) positive at every point, averaging
+**+0.710 ± 0.086** (gated |mean − 0.710| < 0.05; reproduced
+exactly across a container restore): the zeros are STIFFER than
+count-matched generic fluctuations — the stiffness excess, a
+factor ~5 in margin —
+the third instrument on the low-height rigidity anomaly,
+alongside the 1ax GUE percentiles (1.5%/10.5%) and the 1ay
+curvature census. *(vi) The ordering.*
+comb above zeta above CUE, gated per point at all ten conditioned
+points (R_ζ < 0 < R_ζ − mean(R_CUE)): the zeros sit strictly
+between maximal rigidity and generic fluctuation — stiff enough
+to be anomalous, loose enough to be cheap. *(vii) The
+concentration null.* The Landau–Widom counting model (exact
+Slepian out-of-band leakage × the smooth in-band count, no
+arithmetic): its lift-off crossings τ*(10⁻³, c) =
+174.55/212.47/245.15/265.01 (pinned ±1.5), its 1/c extrapolations
+τ∞ = 306.30 (10⁻³) and 263.52 (10⁻⁶) — the CERTIFIED 1bb
+measured edges exceed the model by +36.24 and +56.55 (gated
+(+32, +41) / (+51, +62)): the horizon's LOCATION is counting
+(Theorem 1bb), but its APPROACH carries
+arithmetic rigidity beyond counting — the section holds the
+boundary 36–57 beyond what concentration alone explains.
+Pointwise below lift-off, dodging BEATS the model everywhere —
+log₁₀(m_meas/m_model) runs −3.69 → −0.63 along the c = 120
+ladder (all negative, strictly increasing, ends pinned) — and
+the model reproduces the 1bb deep-threshold pattern (deeper ε
+crosses earlier and extrapolates interior): the 1bb ε-offset is
+concentration economics, not a hidden wall — the interpretation
+Theorem 1bb deferred to the concentration-null arc, closed.
+*(viii) The reading.* One instrument, three nulls, one ordering:
+the comb null prices rigidity (fluctuations help dodging),
+the conditioned-CUE null prices genericity (the zeros'
+fluctuations are anomalously stiff for their density), and
+the pure-concentration null isolates arithmetic (the approach to
+the horizon outruns counting). What the low-height instruments
+(1ax, 1ay) reported as a rigidity anomaly in spectral statistics,
+this measurement (`cascade_fluctuation_price.py`, g5) reprices in
+dodging economics: the anomaly costs the zeros a factor ~5 in
+margin against generic count-matched configurations, at every
+point measured. *Honest scope:* float64 throughout; one δ, 380
+zeros (dps-13 pull), one support geometry; the CUE conditioning
+matches the in-band count only (not higher moments); three GUE
+and 16-per-point CUE realizations (deterministic seeds — the
+ensemble spread is reported, not resampled); the LW model's
+crossings are bisection on its own continuous curve while the
+1bb measured crossings are grid-interpolated (both schemes
+committed; the ±1.5 pins and the excess windows absorb this);
+the "factor ~5" is 10^0.710 rounded; the low-height rigidity
+link is a reading, not a derivation; no literature sweep; no RH
+leverage claimed anywhere. Check 7 clean (finite random-matrix
+ensembles, Slepian concentration theory, the classical explicit
+formula — no semiclassical procedure as a route to any cascade
+quantity). Check 8 clean (no hypothesis input; the owner's
+commission supplied direction, translated into pure mathematics
+before use).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -5662,4 +5753,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1bb: the **78 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1bc: the **79 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing)*; *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*.*

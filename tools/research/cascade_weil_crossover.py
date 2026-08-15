@@ -75,7 +75,7 @@ Gates (all exit-gated; any failure exits 1):
   g6  the paper needles for the 1ba block (in-code list
       authoritative).
   g7  the chain obligation to cascade_weil_margin.py (Theorem 1az) met.
-  g8  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
+  g8  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
 
 Balance-decomposition caution (round-210 F1 / round-211 F5 standing):
 balances at near-boundary margins are direction-sensitive and
@@ -322,10 +322,10 @@ gate("g7 the chain obligation to cascade_weil_margin.py (Theorem 1az) met",
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_weil_crossover.py`") >= 2
-ok &= "78 scripts cited in place" in paper
-ok &= "Theorems 1i–1bb" in paper
-gate("g8 the footer census (this script backticked >= 2; 78 cited in "
-     "place; the range 1i–1bb)", ok)
+ok &= "the **79 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bc:" in paper
+gate("g8 the footer census (this script backticked >= 2; 79 cited in "
+     "place; the range 1i–1bc)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

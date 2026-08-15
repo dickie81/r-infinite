@@ -61,7 +61,7 @@ Gates (all exit-gated; any failure exits 1):
       is NOT monotone (the y = 53 overshoot gated: C(53) < C_pairs).
   g6  the paper needles for the 1ay block (in-code list authoritative).
   g7  the chain obligation to cascade_heatflow_energy.py (Theorem 1ax) met.
-  g8  the footer census (this script backticked >= 2; "78 scripts cited in place"; "Theorems 1i-1bb").
+  g8  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;
@@ -365,10 +365,10 @@ gate("g7 the chain obligation to cascade_heatflow_energy.py (Theorem 1ax) met",
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_saddle_curvature.py`") >= 2
-ok &= "78 scripts cited in place" in paper
-ok &= "Theorems 1i–1bb" in paper
-gate("g8 the footer census (this script backticked >= 2; 78 cited in place; "
-     "the range 1i–1bb)", ok)
+ok &= "the **79 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bc:" in paper
+gate("g8 the footer census (this script backticked >= 2; 79 cited in place; "
+     "the range 1i–1bc)", ok)
 
 print(flush=True)
 if fails:

@@ -26,6 +26,7 @@ TOWER = [
     "cascade_weil_margin.py",
     "cascade_weil_crossover.py",
     "cascade_prolate_horizon.py",
+    "cascade_fluctuation_price.py",
 ]
 
 paper = open(PAPER, encoding="utf-8").read()

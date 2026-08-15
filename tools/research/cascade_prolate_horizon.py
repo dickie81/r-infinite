@@ -65,8 +65,8 @@ Gates (all exit-gated; any failure exits 1):
       met (full mode: parent executed, exit 0; manifest mode: ancestor
       hashes + census attested -- round-215 F7 relabel).
   g8  the footer census (this script backticked >= 2; the anchored
-      needles "the **78 scripts cited in place** above" and
-      "extended by Theorems 1i–1bb:" — round-216 F2 mirrored the
+      needles "the **79 scripts cited in place** above" and
+      "extended by Theorems 1i–1bc:" — round-216 F2 mirrored the
       round-215 F5 anchoring into this line; the un-anchored forms
       this line previously carried (one ASCII-transliterated, not a
       byte-exact quote of the pre-F5 code needle — round-217 c2)
@@ -93,9 +93,11 @@ manifest-mode run; censuses are the OBSERVED results):
       -> OBSERVED: g5 FAIL alone (exit 1)
   (d) footer census reverted 78 -> 77 in the paper -> OBSERVED: g8
       FAIL AND g7 FAIL (the chain gate's manifest census check printed
-      "paper lacks '78 scripts cited in place'" -- the two-gate
-      detection preserved with zero tower execution, per the
-      amendment's design)
+      "paper lacks '78 scripts cited in place'" -- the observed
+      printout at the then-current census, preserved verbatim as
+      history while the live needles advance with each landing --
+      the two-gate detection preserved with zero tower execution,
+      per the amendment's design)
 """
 import sys, subprocess, os, math
 import numpy as np
@@ -372,10 +374,10 @@ gate("g7 the chain obligation to cascade_weil_crossover.py (Theorem 1ba) met",
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_prolate_horizon.py`") >= 2
-ok &= "the **78 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bb:" in paper
-gate("g8 the footer census (this script backticked >= 2; 78 cited in "
-     "place; the range 1i–1bb)", ok)
+ok &= "the **79 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bc:" in paper
+gate("g8 the footer census (this script backticked >= 2; 79 cited in "
+     "place; the range 1i–1bc)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)
