@@ -22,8 +22,9 @@ Gates (all exit-gated; any failure exits 1):
       the sinc kernel on the 400-pt grid plunge STRADDLING the Shannon
       number 2c/pi = 25.46 -- lambda_23 = 0.9494, lambda_25 = 0.4873,
       lambda_27 = 0.0456 (rel 1e-2), monotone across the plunge; the
-      numeric Gram orthonormal (max offdiag < 1e-10; diag = a rel
-      1e-6).
+      numeric Gram orthogonal with uniform norm (max offdiag < 1e-10;
+      diag = a rel 1e-6; round-217 c1 aligned this word with the
+      paper's round-216 F1 correction).
   g2  the extension (instrument E, delta = 4): the prolate section
       holds the Weil boundary where the certified cos section (1ba g5)
       had lifted -- |margin| < 1e-9 at tau0 = 0 and 60, < 1e-8 at
@@ -66,9 +67,10 @@ Gates (all exit-gated; any failure exits 1):
   g8  the footer census (this script backticked >= 2; the anchored
       needles "the **78 scripts cited in place** above" and
       "extended by Theorems 1i–1bb:" — round-216 F2 mirrored the
-      round-215 F5 anchoring into this line; the pre-F5 un-anchored
-      substrings quoted here previously were the sabotage-blind
-      forms the anchoring retired).
+      round-215 F5 anchoring into this line; the un-anchored forms
+      this line previously carried (one ASCII-transliterated, not a
+      byte-exact quote of the pre-F5 code needle — round-217 c2)
+      were the sabotage-blind class the anchoring retired).
 
 Near-boundary caution (round-210 F1 standing): boundary-regime margins
 are pinned by magnitude windows only; no balance decompositions are
@@ -187,7 +189,7 @@ print(f"  g1 plunge (Shannon {2*c1/np.pi:.2f}): l23 {lam[23]:.4f}, "
       f"l25 {lam[25]:.4f}, l27 {lam[27]:.4f}; Gram offdiag {offd:.1e}",
       flush=True)
 gate("g1 the Slepian machinery: the plunge straddles the Shannon "
-     "number; the Gram is orthonormal", ok)
+     "number; the Gram is orthogonal with uniform norm", ok)
 
 # ---------------------------------------------------------------- g2
 TGX, TGW = np.polynomial.legendre.leggauss(600)

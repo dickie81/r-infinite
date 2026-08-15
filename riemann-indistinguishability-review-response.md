@@ -4535,3 +4535,28 @@ footer census arithmetic re-verified; commit hygiene clean.
 accepted (swept 6850eb8 + 85db8c4) → 216 NOT CONVERGED 1m+1c, both
 in the sweep's own edits (swept dbcc86c + the completion commit
 carrying this table). Convergence round 217 next.**
+
+
+# Round 217: convergence test on the round-216 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 2 cosmetics applied); Theorem 1bb AND the cadence amendment certified stable; the prolate arc closes
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 cosmetic: the verifier's g1 docstring + gate label still said "orthonormal" — the exact word the round-216 F1 sweep corrected in the paper (diag = a = 2); sweep-created divergence between paper and instrument, no numeric claim false | Accepted; lead grep + read of both carriers | Both now "orthogonal with uniform norm" with the round-217 c1 annotation (certification commit) |
+| 2 cosmetic: the round-216 F2 docstring note overclaimed quote fidelity — the old "Theorems 1i-1bb" (ASCII hyphen) was a transliteration, not a byte-exact quote, of the pre-F5 en-dash code needle | Accepted; lead read of the reviewer's git byte-comparison | Note reworded to say so (certification commit) |
+
+Held: both round-216 sweep contracts verified without dilution (the
+Gram sentence true in value, normalization, and matrix attribution
+against conjuncts read directly; the anchored docstring needles
+character-for-character equal to the code needles); manifest 11/11
+FRESH by independent hashing; batteries at HEAD — manifest-mode top
+run 8/8 with every paper digit live, TOWER PASS 11/11; independent
+footer recount 78 exact; sweep-surface diff exactly the two edits +
+manifest; hygiene clean.
+
+**Trajectory: 1bb + amendment landed → 215 2M+5m+3c, all accepted
+(swept 6850eb8 + 85db8c4) → 216 NOT CONVERGED 1m+1c (swept dbcc86c +
+94cb2d6) → 217 CONVERGED 0M+0m+2c applied. Certified: Theorem 1bb —
+the prolate crossover and the measured horizon — and the cadence
+amendment, its fail-closed design demonstrated in production by its
+own first violation. Next hostile round on the next substantive
+paper change.**
