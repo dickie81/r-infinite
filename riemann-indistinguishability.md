@@ -5176,10 +5176,11 @@ measured)*: R_GUE(120, 260) = +6.82 collapsing to −0.11 at
 (120, 450), with mean(R_ζ − R_GUE) = −3.557 over the grid
 (gated windows, the values real and reproduced) — the
 unconditioned comparison is count-artifact-dominated, a
-fortiori under the corrected description: the count-sensitivity
-calibration that forces the next instrument's conditioning is
-precisely that un-dodgeable in-band excess destroys the
-comparison unless counts are pinned. *(v) The headline.*
+fortiori under the corrected description:
+the count-sensitivity calibration that forces the next
+instrument's conditioning is precisely that un-dodgeable
+in-band excess destroys the comparison unless counts are
+pinned. *(v) The headline.*
 The count-conditioned CUE null — unitary-ensemble sets unfolded
 to the Riemann density and accepted only when the in-band count
 equals the comb's (deterministic seed ladder, 16 accepted per
