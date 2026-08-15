@@ -63,8 +63,12 @@ Gates (all exit-gated; any failure exits 1):
   g7  the chain obligation to cascade_weil_crossover.py (Theorem 1ba)
       met (full mode: parent executed, exit 0; manifest mode: ancestor
       hashes + census attested -- round-215 F7 relabel).
-  g8  the footer census (this script backticked >= 2; "78 scripts
-      cited in place"; "Theorems 1i-1bb").
+  g8  the footer census (this script backticked >= 2; the anchored
+      needles "the **78 scripts cited in place** above" and
+      "extended by Theorems 1i–1bb:" — round-216 F2 mirrored the
+      round-215 F5 anchoring into this line; the pre-F5 un-anchored
+      substrings quoted here previously were the sabotage-blind
+      forms the anchoring retired).
 
 Near-boundary caution (round-210 F1 standing): boundary-regime margins
 are pinned by magnitude windows only; no balance decompositions are

@@ -5055,9 +5055,11 @@ at bandwidth parameter c (the Legendre-tridiagonal construction
 — Slepian's commuting differential operator), concentration
 eigenvalues gated straddling the Shannon number 2c/π: at c = 40
 (Shannon 25.46), λ₂₃ = 0.9494, λ₂₅ = 0.4873, λ₂₇ = 0.0456,
-monotone across the plunge; the numeric Gram orthonormal (max
-off-diagonal < 10⁻¹⁰ gated; diagonal 1 to a relative 10⁻⁶
-gated — round-215 F8). *(iii) The extension.* At δ = 4, n = 26, the
+monotone across the plunge; the numeric Gram orthogonal with
+uniform norm (max off-diagonal < 10⁻¹⁰ gated; diagonal
+a = δ/2 = 2 to a relative 10⁻⁶ gated — round-215 F8; round-216
+F1 corrected the diagonal's stated value from 1 to a, the
+committed gate's actual normalization). *(iii) The extension.* At δ = 4, n = 26, the
 prolate-modulated section
 holds the Weil boundary where the certified cos section (Theorem 1ba, g5) had lifted:
 |margin| gated < 10⁻⁹ at τ₀ = 0 and 60 and < 10⁻⁸ at 100
