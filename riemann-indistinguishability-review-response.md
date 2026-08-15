@@ -4511,3 +4511,27 @@ BLAS-variation robustness confirmed. Out-of-scope record notes
 manifest recovered 79c7bd3) → 215 2M+5m+3c returned, all accepted
 (MAJORS fixed mid-round, swept 6850eb8 + the completion commit
 carrying this table). Convergence round 216 next.**
+
+
+# Round 216: convergence test on the round-215 sweep (subagent, per protocol) — NOT CONVERGED: 1 minor + 1 cosmetic, both inside the sweep's own edits; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the F8 paper edit wrote "diagonal 1 to a relative 10⁻⁶ gated" — the committed gate checks diag(G_E)/A with A = δ/2 = 2, so the gated diagonal is a = 2, not 1; the docstring carrier of the same sweep said "diag = a" (carrier-vs-carrier value contradiction, the F4 gate-attribution class) | Accepted; conjuncts read directly by lead (lines 178–181: `A = DELTA/2.0`, `diag(G_E)/A` rel 10⁻⁶) | Paper states the gate's actual normalization: "orthogonal with uniform norm … diagonal a = δ/2 = 2" (dbcc86c) |
+| 2 cosmetic: the g8 docstring line still quoted the retired un-anchored census substrings while the swept code checks the anchored forms — the one mirror the round-215 sweep missed on the file it was editing | Accepted; direct read | Docstring quotes the anchored needles (dbcc86c) |
+
+Held (reviewer, all batteries run at HEAD): TOWER PASS 11/11 with
+manifest integrity 11/11 verified up front; manifest-mode top run
+8/8 with every paper digit reproduced live; the F5 probe on a
+scratch tree detected by g7 + g8 (the anchoring closes the
+prefix-extension hole the un-anchored forms missed); independent
+LSQ τ∞ = 342.536, σ = 5.436, central agreement 0.150%; all seven
+round-215 sweep contracts held (F3 true in both directions; F4
+annotation historically accurate; F7 complete — zero "exits 0"
+chain labels; MAJOR repairs healthy, refresher idempotent);
+footer census arithmetic re-verified; commit hygiene clean.
+
+**Trajectory: 1bb + amendment landed → 215 2M+5m+3c returned, all
+accepted (swept 6850eb8 + 85db8c4) → 216 NOT CONVERGED 1m+1c, both
+in the sweep's own edits (swept dbcc86c + the completion commit
+carrying this table). Convergence round 217 next.**
