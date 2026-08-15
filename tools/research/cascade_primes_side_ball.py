@@ -58,7 +58,9 @@ Gates (all exit-gated; any failure exits 1):
       product-state restatement; fairness sentence; both off-line zero
       values; the statistical-vs-completed sentence).
   g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met.
-  g15 the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g15 the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines B1/B2 15/15 around the suite; restore integrity by cmp;

@@ -45,7 +45,9 @@ Gates (all exit-gated; any failure exits 1):
       pinned.
   g5  the paper needles for the 1ax block (in-code list authoritative).
   g6  the chain obligation to cascade_floor_meter.py (Theorem 1aw) met.
-  g7  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g7  the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;

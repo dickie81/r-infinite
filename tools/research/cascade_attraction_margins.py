@@ -56,7 +56,9 @@ Gates (all exit-gated; any failure exits 1):
       ATTRACTION" entry named a needle that never existed, round-194
       F2's docstring carrier).
   g8  the chain obligation to cascade_finite_fill.py (Theorem 1at) met.
-  g9  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g9  the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
 clean baselines around the suite; censuses are the OBSERVED results):

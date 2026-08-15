@@ -4,43 +4,43 @@
  "tower": [
   {
    "file": "cascade_lattice_forcing.py",
-   "sha256": "e9f11b40a310982d83dfc2da16f22f6c5c6fb7e133c3761850913d3c16d07667"
+   "sha256": "1487d8a5a10a8baf0e648367d260dd60ad81d7dd4db815920dec076237b0c7e8"
   },
   {
    "file": "cascade_primes_side_ball.py",
-   "sha256": "e9fcb56dec95ec597f6d2b649198dde07e57ab34cfb980d4f8d60b370acdf417"
+   "sha256": "83dec2087f07eff710780727e0e5cd3d05985e61bc45be42e3339518f1579487"
   },
   {
    "file": "cascade_finite_fill.py",
-   "sha256": "3cc4da049d12a90107b3253ada51e1b742ab9f039ee090b4847238aba1bec287"
+   "sha256": "1bed4a4cdf2ba6505f790172e4f9f9c240b3d2bf7c55b3766f2b3ebf4ba4a552"
   },
   {
    "file": "cascade_attraction_margins.py",
-   "sha256": "edfe222144ac0feccae111d45fbf46b15151d41361b9afcbbcbd2cfbb9baa040"
+   "sha256": "ae1a1f2f917ba4780b0bba944843ab44c569bc4142d2ac28dad6cad8e1e06705"
   },
   {
    "file": "cascade_li_two_channels.py",
-   "sha256": "c91f5777169a898bd4ffa10e0e7252f3e17cc3d152d07a229a102f08c6157f92"
+   "sha256": "14ac6392c36acf79bb63c054a1d056ded1943903119527b8fa3cb6942de161d6"
   },
   {
    "file": "cascade_floor_meter.py",
-   "sha256": "e102fcabad70660fa31256b30f59f6fedfd01bb45d1920c1bffbd4d191a2a87e"
+   "sha256": "35de5cd2f2261867a5cfb9d370562ec85df4e3ec0bc3957f24567859c41d18a0"
   },
   {
    "file": "cascade_heatflow_energy.py",
-   "sha256": "adf8b6e3a277d03064a0145f21f0ceb334e23d166e62ce74f7f2e333dd6a33a0"
+   "sha256": "e003548db74025cee30d27881c67683b141d5c5d1e4b057260d1259ead2e6c08"
   },
   {
    "file": "cascade_saddle_curvature.py",
-   "sha256": "85c39fcf8179afd994731af77d2a34b2cc650388e069b8c21f336c700dc862a3"
+   "sha256": "c82e3c0d36acb44a02b3220660aa5f9b646ee15b94aecea6e3ebfdd0519c5d06"
   },
   {
    "file": "cascade_weil_margin.py",
-   "sha256": "eb6296cbd48dc5ea3f2b2a7996113b7a4bdaa913a2094f5bfb1c629bb8f2536d"
+   "sha256": "3517eff904c307a3385c5218ad3251d590014d1cd4ac8032a265e3138c9d1cb5"
   },
   {
    "file": "cascade_weil_crossover.py",
-   "sha256": "8bd8f6a22a1705584dac430c594df83d50349bb8856918685cce84b2a7296982"
+   "sha256": "395a9f5352712ba13f6caf698a0894acc2f8b81f775b0020f5c5d4898f6817e9"
   },
   {
    "file": "cascade_prolate_horizon.py",
@@ -48,7 +48,7 @@
   },
   {
    "file": "cascade_fluctuation_price.py",
-   "sha256": "5b1f9dcfad4dbe724457ffdabacf110dd72178d005169b8cc9828711d2c82e4a"
+   "sha256": "bd1589b3f73a2c40cb50f7250d03f954333b3a7d68dbb6dec1ab119c1222d5d1"
   }
  ]
 }

@@ -75,7 +75,9 @@ Gates (all exit-gated; any failure exits 1):
   g6  the paper needles for the 1ba block (in-code list
       authoritative).
   g7  the chain obligation to cascade_weil_margin.py (Theorem 1az) met.
-  g8  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g8  the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Balance-decomposition caution (round-210 F1 / round-211 F5 standing):
 balances at near-boundary margins are direction-sensitive and

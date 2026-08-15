@@ -74,7 +74,9 @@ Gates (all exit-gated; any failure exits 1):
       (the labeled-classical-data clause).
   g7  the paper needles for the 1az block (in-code list authoritative).
   g8  the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met.
-  g9  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g9  the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;

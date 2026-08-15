@@ -109,7 +109,9 @@ Gates (all exit-gated; any failure exits 1):
       law.
   g9  the paper needles for the 1aw block (in-code list authoritative).
   g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met.
-  g11 the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g11 the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle, restore from
 pristine verified by cmp; censuses are the OBSERVED results):

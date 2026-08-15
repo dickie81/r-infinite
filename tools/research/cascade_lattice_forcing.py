@@ -109,7 +109,9 @@ VERIFICATION (10 gates, exit-gated).
        g9 the sibling chain green (cascade_arithmetic_section.py
        10/0, transitively chaining the Weil-arc suite);
        g10 the footer census (this script backticked >= 2;
-       "79 scripts cited in place"; "Theorems 1i-1bc").
+       the anchored needles "the **79 scripts cited in place**
+       above" and "extended by Theorems 1i–1bc:" against the RAW
+       normalized text -- round-218 F1 + F12).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, per-mangle restore from pristine copies, abort-safe; clean
@@ -175,6 +177,11 @@ def norm(s):
 
 
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+paper_raw = norm(open(PAPER, encoding="utf-8").read())  # census needles
+# are anchored WITH the ** markers (round-218 F1: the anchored needle
+# pasted at the 1bc adoption could never match the **-stripped text --
+# the tower base failed unconditionally at 847b711; the census
+# conjuncts now read the raw normalized text)
 
 print("V1 -- the two-class lemma and the dichotomy")
 ok = True
@@ -356,11 +363,11 @@ gate("g9 the sibling chain green (cascade_arithmetic_section.py 10/0, "
      "transitively chaining the Weil-arc suite)", ok)
 
 ok = paper.count("`cascade_lattice_forcing.py`") >= 2
-ok &= "the **79 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bc:" in paper
+ok &= "the **79 scripts cited in place** above" in paper_raw
+ok &= "extended by Theorems 1i–1bc:" in paper_raw
 gate("g10 the footer census (this script backticked >= 2 -- the "
-     "count, not positions, per the V5 census; round 186 F2; "
-     "\"79 scripts cited in place\"; \"Theorems 1i-1bc\")", ok)
+     "count, not positions, per the V5 census; round 186 F2; the "
+     "anchored needles against the raw text, round-218 F1)", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")

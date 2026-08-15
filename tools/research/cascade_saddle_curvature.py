@@ -61,7 +61,9 @@ Gates (all exit-gated; any failure exits 1):
       is NOT monotone (the y = 53 overshoot gated: C(53) < C_pairs).
   g6  the paper needles for the 1ay block (in-code list authoritative).
   g7  the chain obligation to cascade_heatflow_energy.py (Theorem 1ax) met.
-  g8  the footer census (this script backticked >= 2; "79 scripts cited in place"; "Theorems 1i-1bc").
+  g8  the footer census (this script backticked >= 2; the anchored needles "the **79 scripts cited in place** above"
+      and "extended by Theorems 1i–1bc:" -- round-218 F12 mirrored
+      the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle with application
 verified by assert + cmp against pristine, restore verified by cmp;

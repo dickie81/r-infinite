@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Theorem 1bc verifier: the nulls and the fluctuation price -- what
 the zeros' fluctuations buy and cost the dodging section, measured
-against three nulls sharing one instrument (the certified 1bb
-prolate-modulated zero-side margin at delta = 4). The nulls:
+against three nulls sharing one instrument (the zero-side margin at
+delta = 4 on the certified 1bb section machinery -- basis, Gram,
+dimensions; pole- and prime-free, distinct from 1bb's gated
+Weil-side form: round-218 F4). The nulls:
   COMB -- the count-matched rigid comb at the Riemann density
      (gamma-tilde_k solving Nbar = k, maximal rigidity, zero
      fluctuation): the zeros BEAT it (the section dodges the true
@@ -16,11 +18,15 @@ prolate-modulated zero-side margin at delta = 4). The nulls:
      low-height rigidity anomaly (with the 1ax GUE-percentile and
      1ay curvature-census readings).
   CONCENTRATION -- the Landau--Widom counting model (exact Slepian
-     out-of-band leakage times the smooth in-band count, no
-     arithmetic): the measured lift-off sits 40-57 above the model's
-     at every bandwidth, and the extrapolated edges land +36/+57
-     beyond it -- the horizon's location is counting, but its
-     APPROACH carries arithmetic rigidity beyond counting; and the
+     out-of-band leakage interpolated at the smooth in-band count
+     index, times the mean zero density -- the committed formula,
+     round-218 F8; no arithmetic): the measured lift-off sits 40-58 above the model's
+     at every bandwidth (round-218 F11), and the extrapolated edges
+     land +36/+57 beyond it -- the horizon's location is counting;
+     the excess over the model is SHARED by every discrete
+     configuration measured (round-218 F3 struck the landing's
+     "arithmetic rigidity beyond counting" attribution -- the comb
+     exceeds the model by 96% of the zeros' excess); and the
      measured deep margins run DECADES BELOW the model (the
      epsilon-offset of 1bb g4 is concentration economics, not a
      hidden wall -- the 1bb block's deferred interpretation, closed).
@@ -37,8 +43,11 @@ mean-anchored, count-conditioned by in-band acceptance (seed ladder
 from 1000, 16 accepted per point, cap 400 tries).
 
 Gates (all exit-gated; any failure exits 1):
-  g1  the instrument: true-zero margins reproduce the certified-era
-      pins at c = 120 -- m(260) = 1.139e-7, m(300) = 3.760e-4,
+  g1  the instrument: true-zero margins reproduce the session pins
+      (1bc-session values of the zero-side form on the 1bb section
+      machinery -- round-218 F4 struck "certified-era": the values
+      appear on no certified surface; the certified 1bb margin is
+      the Weil-side form, distinct) at c = 120 -- m(260) = 1.139e-7, m(300) = 3.760e-4,
       m(360) = 2.549e-1 (rel 1e-2); the zero pull (Z_1 = 14.1347 rel
       1e-4, 380 zeros to 653.6 rel 1e-3) and the count-matched comb
       (to 653.6 rel 1e-3) verified.
@@ -53,9 +62,13 @@ Gates (all exit-gated; any failure exits 1):
       (session -0.0056), rms residual < 0.28 (session 0.213): the
       discount grows with the number of levels in the band.
   g4  the count-sensitivity calibration (why conditioning is
-      forced): unconditioned GUE-unfolded sets carry semicircle-CDF
-      count errors of +-1-2 levels, and the margin pays ~6 decades
-      per un-dodgeable level -- R_gue(120, 260) > +5 (session +6.82)
+      forced): the committed unfolding is MIS-SCALED (the ensemble's
+      semicircle edge sits at sqrt(2) where the CDF assumes 1;
+      round-218 F2 struck the landing's "+-1-2 level" narrative), so
+      each GUE set carries ~735 levels on the 380-zero range --
+      double density, in-band excess ~+60 levels at c = 120, at or
+      beyond the section dimension, so the margin saturates --
+      R_gue(120, 260) > +5 (session +6.82)
       collapsing to |R_gue(120, 450)| < 0.3 (session -0.11);
       mean(R_zeta - R_gue) over the grid in (-4.3, -2.8) (session
       -3.557): the unconditioned comparison is count-artifact-
@@ -68,7 +81,9 @@ Gates (all exit-gated; any failure exits 1):
       +0.710 (|mean - 0.710| < 0.05; s.e. in (0.04, 0.14); session
       +0.710 +- 0.086, reproduced exactly across a container
       restore) -- the zeros are STIFFER than count-matched generic
-      fluctuations by a factor ~5 in margin, at every point.
+      fluctuations by a factor ~5 in margin ON AVERAGE (per-point
+      factors 1.4-13.4; positivity is the at-every-point claim --
+      round-218 F10).
   g6  the ordering: at all ten conditioned points R_zeta < 0 <
       R_zeta - mean(R_cue): COMB above zeta above CUE -- rigidity
       ordering comb > zeta > CUE with zeta strictly between.
@@ -81,8 +96,8 @@ Gates (all exit-gated; any failure exits 1):
       (model): 1e-3 in (+32, +41) (session +36.2) and 1e-6 in
       (+51, +62) (session +56.5); pointwise at c = 120, tau0 = 260..
       340: log10(m_measured/m_model) all NEGATIVE and strictly
-      increasing (session -3.66 -> -0.63, abs 0.35/0.20 at the
-      ends): dodging BEATS pure concentration everywhere below
+      increasing (session -3.69 -> -0.63, abs 0.35/0.20 at the
+      ends; round-218 F7 corrected the mis-transcribed -3.66): dodging BEATS pure concentration everywhere below
       lift-off, by less as the boundary nears.
   g8  the paper needles for the 1bc block (in-code list
       authoritative).
@@ -238,8 +253,8 @@ ok &= abs(m120[360]/2.549e-1 - 1) < 1e-2
 print(f"  g1 zeros {Z[0]:.4f}..{Z[-1]:.1f}; comb to {comb[-1]:.1f}; "
       f"m120(260/300/360) {m120[260]:.3e}/{m120[300]:.3e}/{m120[360]:.3e}",
       flush=True)
-gate("g1 the instrument: the certified-era margin pins reproduce on the "
-     "committed section", ok)
+gate("g1 the instrument: the session pins reproduce on the committed "
+     "section (1bb machinery, zero-side form)", ok)
 
 # ---------------------------------------------------------------- g2, g3, g4
 GRID = {40.0: [160, 180, 200, 220, 240, 260],
@@ -415,7 +430,7 @@ ratios = [math.log10(m120[t0]) - lm120(float(t0))
           for t0 in (260, 280, 300, 320, 340)]
 ok &= all(r < 0 for r in ratios)
 ok &= all(ratios[i] < ratios[i + 1] for i in range(len(ratios) - 1))
-ok &= abs(ratios[0] - (-3.66)) < 0.35
+ok &= abs(ratios[0] - (-3.69)) < 0.35
 ok &= abs(ratios[-1] - (-0.63)) < 0.20
 print(f"  g7 model tau*(1e-3): " +
       "/".join(f"{mod_star[c][1e-3]:.2f}" for c in (40.0, 60.0, 90.0, 120.0)) +
@@ -436,7 +451,7 @@ needles = [
     "comb above zeta above CUE",
     "the count-sensitivity calibration",
     "the pure-concentration null",
-    "arithmetic rigidity beyond counting",
+    "an excess shared by every discrete configuration measured",
     "concentration economics, not a hidden wall",
     "the third instrument on the low-height rigidity anomaly",
 ]
