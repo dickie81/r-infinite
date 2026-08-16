@@ -41,17 +41,18 @@ def AB(lam, mu, X=110.0, t0=0.04):
     nrm = math.hypot(A, B)
     return A/nrm, B/nrm
 import json, os
-CKPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..",
-                    "home_repo_ckpt") if False else "/home/user/r-infinite/tools/research/checkpoints/sonin_shoot.json"
-def load_ck():
-    try: return json.load(open(CKPT))
-    except Exception: return {}
-def save_ck(ck):
-    json.dump(ck, open(CKPT, "w"), indent=0)
+CKDIR = "/home/user/r-infinite/tools/research/checkpoints"
+def ck_path(key):
+    return os.path.join(CKDIR, "sonin_" + key.replace(":", "_").replace(".", "p") + ".json")
+def load_key(key):
+    try: return json.load(open(ck_path(key)))
+    except Exception: return None
+def save_key(key, st):
+    json.dump(st, open(ck_path(key), "w"), indent=0)
 def find_eigs(lam, parity, Emax, dE=0.18):
     # even: B = 0; odd: A = 0 -- resumable: state under key lam:parity
     key = f"{lam:.6f}:{parity}"
-    ck = load_ck(); st = ck.get(key, {"E_done": 0.6, "eigs": [], "prev": None})
+    st = load_key(key) or {"E_done": 0.6, "eigs": [], "prev": None}
     disc = (lambda a, b: b) if parity == "even" else (lambda a, b: a)
     eigs = list(st["eigs"]); prev = tuple(st["prev"]) if st["prev"] else None
     E = st["E_done"]
@@ -74,10 +75,8 @@ def find_eigs(lam, parity, Emax, dE=0.18):
         prev = (E, d)
         nsave += 1
         if nsave % 25 == 0:
-            ck = load_ck(); ck[key] = {"E_done": E, "eigs": eigs, "prev": list(prev)}
-            save_ck(ck)
-    ck = load_ck(); ck[key] = {"E_done": Emax, "eigs": eigs, "prev": list(prev), "complete": True}
-    save_ck(ck)
+            save_key(key, {"E_done": E, "eigs": eigs, "prev": list(prev)})
+    save_key(key, {"E_done": Emax, "eigs": eigs, "prev": list(prev), "complete": True})
     return np.array(eigs)
 def fit_c0(eigs, lam):
     # n = (E/2pi)(log(E/2pi) - 1 + c0) + C  -> lsq in (c0, C)
@@ -87,10 +86,19 @@ def fit_c0(eigs, lam):
     (c0, C), *_ = np.linalg.lstsq(M, n - base, rcond=None)
     resid = n - base - M @ [c0, C]
     return c0, C, float(np.sqrt(np.mean(resid**2)))
+import sys
+if len(sys.argv) == 3:
+    lam = 1.0 if sys.argv[1] == "1" else math.sqrt(2)
+    find_eigs(lam, sys.argv[2], 120.0)
+    print(f"pass complete: lam={lam:.4f} {sys.argv[2]}", flush=True)
+    raise SystemExit(0)
 t0 = time.time()
 for lam, label, target in ((1.0, "log4", math.log(4)), (math.sqrt(2), "log2", math.log(2))):
-    ev = find_eigs(lam, "even", 120.0)
-    od = find_eigs(lam, "odd", 120.0)
+    kv = f"{lam:.6f}:even"; ko = f"{lam:.6f}:odd"
+    sv = load_key(kv); so = load_key(ko)
+    if not (sv and sv.get("complete") and so and so.get("complete")):
+        print(f"lam={lam:.4f}: passes incomplete", flush=True); continue
+    ev = np.array(sv["eigs"]); od = np.array(so["eigs"])
     c0e, Ce, re_ = fit_c0(ev, lam)
     c0o, Co, ro_ = fit_c0(od, lam)
     print(f"lam={lam:.4f}: even {len(ev)} eigs, c0 = {c0e:.4f} (rms {re_:.3f}); "
