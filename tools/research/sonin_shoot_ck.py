@@ -51,6 +51,15 @@ def AB(lam, mu, X=40.0, t0=0.04):
     beta = math.atan2(kX*v, vp) - k0*X - tail
     return math.cos(beta), math.sin(beta)
 
+import json, os
+CKDIR = "/home/user/r-infinite/tools/research/checkpoints"
+def ck_path(key):
+    return os.path.join(CKDIR, "sonin_" + key.replace(":", "_").replace(".", "p") + ".json")
+def load_key(key):
+    try: return json.load(open(ck_path(key)))
+    except Exception: return None
+def save_key(key, st):
+    json.dump(st, open(ck_path(key), "w"), indent=0)
 def find_eigs(lam, parity, Emax, dE=0.18):
     # even: B = 0; odd: A = 0 -- resumable: state under key lam:parity
     key = f"{lam:.6f}:{parity}"
