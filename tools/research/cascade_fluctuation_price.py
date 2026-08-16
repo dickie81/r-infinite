@@ -66,8 +66,9 @@ Gates (all exit-gated; any failure exits 1):
       semicircle edge sits at sqrt(2) where the CDF assumes 1;
       round-218 F2 struck the landing's "+-1-2 level" narrative), so
       each GUE set carries ~735 levels on the 380-zero range --
-      double density, in-band excess ~+60 levels at c = 120, at or
-      beyond the section dimension, so the margin saturates --
+      double density, in-band excess ~+65 levels at c = 120 driving
+      the in-band count (134-152) at or beyond the section
+      dimension (80), so the margin saturates (round-219 F3) --
       R_gue(120, 260) > +5 (session +6.82)
       collapsing to |R_gue(120, 450)| < 0.3 (session -0.11);
       mean(R_zeta - R_gue) over the grid in (-4.3, -2.8) (session

@@ -5169,8 +5169,10 @@ un-dodgeable level~~ *(struck round-218 F2: the committed
 unfolding is mis-scaled — the ensemble's semicircle edge sits at
 √2 where the CDF formula assumes 1 — so each set carries ~735
 levels mapped onto the 380-zero range, roughly double density,
-with in-band excesses of ~+60 levels at c = 120: at or beyond
-the section dimension, so the margin saturates; no committed
+with in-band excesses of ~+65 levels at c = 120 driving the
+in-band count (134–152) at or beyond the section dimension (80),
+so the margin saturates (round-219 F3 corrected the sweep's
+attachment of the threshold to the excess); no committed
 gate counts the GUE sets, and the struck rate was never
 measured)*: R_GUE(120, 260) = +6.82 collapsing to −0.11 at
 (120, 450), with mean(R_ζ − R_GUE) = −3.557 over the grid
@@ -5225,7 +5227,8 @@ discreteness against the smooth heuristic plus the model's
 normalization convention — and isolates nothing arithmetic;
 what is zeta-specific is carried by the comb discount (ii) and
 the stiffness excess (v), where the zeros sit between comb and
-CUE with comb τ∞ within 1.4 of the zeros')*.
+CUE with comb τ∞ within 1.4 of the zeros' at 10⁻³ and 2.4 at
+10⁻⁶ — round-219 F2 qualified the sweep's unqualified 1.4)*.
 Pointwise below lift-off, dodging BEATS the model everywhere —
 log₁₀(m_meas/m_model) runs −3.69 → −0.63 along the c = 120
 ladder (all negative, strictly increasing, ends pinned) — and
@@ -5261,7 +5264,9 @@ the zeros' own in-band count differs from that target by 1
 the excess down; round-218 F5); the LW model's absolute
 normalization is a convention (the bare mean density as
 prefactor — alternative Parseval bookkeepings shift it ~0.8
-decade and its crossings by ~5–10 in τ; the (vii) comparisons
+decade and its crossings by ~10–30 in τ (±12 in τ∞; round-219 F1
+corrected the sweep's ~5–10 understatement, lead-recomputed
+−22.9/+28.5 at c = 40, 10⁻³); the (vii) comparisons
 are exact for the committed convention, round-218 F3); three GUE
 and 16-per-point CUE realizations (deterministic seeds — the
 ensemble spread is reported, not resampled); the LW model's
