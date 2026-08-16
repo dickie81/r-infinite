@@ -16452,3 +16452,15 @@ applied. Next hostile round on the next substantive paper change.
 **The re-run.** Post-sweep batteries sequential at 00c6345: full tower — manifest integrity 12 verified, **TOWER PASS (12/12)**, exit 0; standalone manifest-mode run — **ALL GATES PASS (10/10)**, exit 0. Needles 12/12 unique in-span; hygiene clean.
 
 **Standing state.** Convergence round 220 next on this three-edit sweep.
+
+## Addendum 337 — the docstring-only battery refinement (owner-commissioned); restore #14 weathered
+
+**The commission.** The lead observed that rounds 219 and 220 each corrected a few prose tokens yet re-triggered the full ~2.5 h battery, because a verifier DOCSTRING mirrors the paper text and any verifier-byte change fell into the code-touch class. Proposed: classify docstring-only verifier diffs with prose. The owner: "That would be great."
+
+**The rule (codified in CLAUDE.md under the prose-only scoping).** A diff whose only verifier-byte changes lie entirely within docstrings or comments — no executable statement, no gate label, no conjunct, no needle list — is classified with prose (docstrings cannot change computation; reviewers confirm the classification by reading the diff hunks). Obligation: the manifest refresh committed with the change + the manifest-integrity precheck + a full run of every verifier whose bytes changed. Any executable-line change reverts the round to the full-tower class. Sabotage suites always run live.
+
+**Restore #14, recorded.** Between the round-220 sweep (832ed38) and this amendment, a container restore rolled the local repo back to the 1bb-era 0bf3202 — the deepest rollback of the campaign — and wiped the scratchpad (drafts, the excess-arc theory note). Recovery: `git fetch && git reset --hard origin/...` restored HEAD to 832ed38 in full (every commit was pushed at completion, per the standing checkpoint discipline); the round-220 sweep's post-sweep batteries, killed mid-run, are relaunched below under the classification this amendment introduces.
+
+**First application.** The round-220 sweep (832ed38) is precisely the docstring-only class: two paper prose tokens + one docstring token in `cascade_fluctuation_price.py` + the manifest refresh. Its owed battery under the rule: precheck + a full run of `cascade_fluctuation_price.py`. (Its first-attempt FULL battery, killed by the restore, had been owed only under the pre-amendment classification.)
+
+**Standing state.** Round-220 completion next (the reduced battery quoted there), then convergence round 221 on the two-token sweep.
