@@ -25,30 +25,32 @@ def series_start(lam, mu, t0, nterms=24):
     u = sum(a[k]*t0**k for k in range(nterms + 1))
     up = sum(k*a[k]*t0**(k-1) for k in range(1, nterms + 1))
     return u, up
-def AB(lam, mu, X=110.0, t0=0.04):
+def AB(lam, mu, X=40.0, t0=0.04):
+    # corrected phase extraction (the banked session's "WKB phase
+    # extraction + tail correction"): local wavenumber k_X of v = x*u,
+    # local phase beta = atan2(k v, v') - k0 X - tail remainder
+    # (closed form); quantize on beta mod pi. Even sector: sine tail
+    # <=> sin(beta) = 0 (b-slot); odd: cos(beta) = 0 (a-slot).
     u0, up0 = series_start(lam, mu, t0)
     w = (2*math.pi*lam)**2
     def rhs(x, y):
         u, up = y
         p = x*x - lam*lam
         return [up, ((mu - w*x*x)*u - 2*x*up)/p]
-    sol = solve_ivp(rhs, (lam + t0, X), [u0, up0], rtol=1e-10, atol=1e-300, method="RK45", dense_output=False)
+    sol = solve_ivp(rhs, (lam + t0, X), [u0, up0], rtol=1e-10,
+                    atol=1e-300, method="RK45", dense_output=False)
     u, up = sol.y[0][-1], sol.y[1][-1]
     v = X*u; vp = u + X*up
-    th = 2*math.pi*lam*X; k = 2*math.pi*lam
-    A = v*math.sin(th) + (vp/k)*math.cos(th)
-    B = v*math.cos(th) - (vp/k)*math.sin(th)
-    nrm = math.hypot(A, B)
-    return A/nrm, B/nrm
-import json, os
-CKDIR = "/home/user/r-infinite/tools/research/checkpoints"
-def ck_path(key):
-    return os.path.join(CKDIR, "sonin_" + key.replace(":", "_").replace(".", "p") + ".json")
-def load_key(key):
-    try: return json.load(open(ck_path(key)))
-    except Exception: return None
-def save_key(key, st):
-    json.dump(st, open(ck_path(key), "w"), indent=0)
+    k0 = 2*math.pi*lam
+    c2 = abs(mu) + w*lam*lam
+    kX = math.sqrt(k0*k0 + c2/(X*X))
+    sc = math.sqrt(c2)
+    F = lambda x: (math.sqrt(k0*k0*x*x + c2) - k0*x
+                   - sc*math.log((sc + math.sqrt(k0*k0*x*x + c2))/x))
+    tail = (-sc*math.log(k0)) - F(X)
+    beta = math.atan2(kX*v, vp) - k0*X - tail
+    return math.cos(beta), math.sin(beta)
+
 def find_eigs(lam, parity, Emax, dE=0.18):
     # even: B = 0; odd: A = 0 -- resumable: state under key lam:parity
     key = f"{lam:.6f}:{parity}"
