@@ -4560,3 +4560,39 @@ the prolate crossover and the measured horizon — and the cadence
 amendment, its fail-closed design demonstrated in production by its
 own first violation. Next hostile round on the next substantive
 paper change.**
+
+
+# Round 218: hostile round on the Theorem 1bc landing + the tower-wide anchored-census adoption (subagent, per protocol) — 4 MAJORS + 6 minors + 3 cosmetics; all thirteen accepted; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 MAJOR: the committed tower red at HEAD — the anchoring pasted the `**`-carrying needle into the base verifier, whose census gate strips `**` before matching; unsatisfiable conjunct, base failing unconditionally since 847b711, run_tower 11/12 | Conceded; lead read of the stripped-paper line + conjuncts | Census needles read the raw normalized text; standalone base 10/10; tower 12/12 re-verified (c8c6c86) |
+| 2 MAJOR: g4's "±1–2-level count errors, ~6 decades per level" false — mis-scaled unfolding (edge √2 vs assumed 1) gives ~735-level double-density sets, in-band excess ~+60, margin saturation; no gate counts the GUE sets | Conceded; lead recomputed edge 1.413, length 735, counts 134-vs-71 and 152-vs-81 | Struck-and-annotated both surfaces; values stand as data; conclusion a fortiori (c8c6c86 + needle fix 90248fa) |
+| 3 MAJOR: "arithmetic rigidity beyond counting" refuted by the block's own comb — comb exceeds the LW model by 96% of the zeros' excess; the gap is discreteness-vs-smooth-model, isolating nothing arithmetic | Conceded; lead recomputed comb τ*(10⁻³,40) = 216.93, exact match | Struck both surfaces; needle replaced; zeta-specificity re-anchored to (ii)/(v); normalization convention disclosed (c8c6c86) |
+| 4 MAJOR: "certified-era pins" / "the certified 1bb instrument" — pins on no certified surface; 1bb's certified margin is Weil-side | Conceded; lead provenance grep empty | Struck-and-annotated at all four carriers (c8c6c86) |
+| 5 minor: 2 of 10 conditioned points comb-matched to a count differing from the zeros' by 1 | Accepted; lead counts 32/33 and 35/36 | Honest-scope disclosure, conservative direction stated (c8c6c86) |
+| 6 minor: ±0.086 treats ten dependent points as independent | Accepted | Qualified as dispersion summary (c8c6c86) |
+| 7 minor: docstring session value −3.66 vs live −3.69 | Accepted; lead log check | Corrected + pin recentered (c8c6c86) |
+| 8 minor: LW formula misdescribed ("leakage × count") | Accepted; code read | Committed formula stated both surfaces (c8c6c86) |
+| 9 minor: ε-offset closure partial (model 42.78 vs measured 22.47) undisclosed | Accepted; lead arithmetic | Qualified to sign-and-pattern with magnitudes (c8c6c86) |
+| 10 minor: "factor ~5 … at every point" attaches the mean to every point | Accepted; per-point diffs 0.134–1.126 | Mean attribution + per-point range stated both surfaces (c8c6c86) |
+| 11 cosmetic: "40–57" excludes the 57.10 gap | Accepted | 40–58 (c8c6c86) |
+| 12 cosmetic: ten tower docstrings un-anchored paraphrase | Accepted | All mirrored to anchored quotes (c8c6c86) |
+| 13 cosmetic: footer marker order | Accepted | Reordered (c8c6c86) |
+
+Held (reviewer, lead-spot-checked): every gated number reproduced on
+an independent implementation (4-decimal agreement); the headline
++0.710 ± 0.086 exact with identical acceptance censuses and
+accepted-seed lists cross-implementation; probe (d) replicated
+verbatim; the 12-member manifest fresh with TOWER order = chain
+topology; footer recount 79 exact; the preserved historical quote's
+chronology verified against the manifest history; needle census
+12/12 unique in-span; g2's ungated "every other is negative"
+sentence TRUE; CUE sets sound (380 levels, O(1) count fluctuations).
+One sweep-introduced defect (the F2 rewrite wrapping the
+count-sensitivity needle) was caught by the sweep's own needle
+census and fixed at 90248fa before the clean run.
+
+**Trajectory: 1bc landed (847b711 + e2fff87) → 218 4M+6m+3c
+returned, all accepted (swept c8c6c86 + 90248fa + the completion
+commit carrying this table). Convergence round 219 next.**
