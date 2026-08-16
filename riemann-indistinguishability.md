@@ -5170,7 +5170,7 @@ unfolding is mis-scaled — the ensemble's semicircle edge sits at
 √2 where the CDF formula assumes 1 — so each set carries ~735
 levels mapped onto the 380-zero range, roughly double density,
 with in-band excesses of ~+65 levels at c = 120 driving the
-in-band count (134–152) at or beyond the section dimension (80),
+in-band count (134–154; round-220 F1 corrected the sweep's 152 top end) at or beyond the section dimension (80),
 so the margin saturates (round-219 F3 corrected the sweep's
 attachment of the threshold to the excess); no committed
 gate counts the GUE sets, and the struck rate was never
@@ -5264,7 +5264,7 @@ the zeros' own in-band count differs from that target by 1
 the excess down; round-218 F5); the LW model's absolute
 normalization is a convention (the bare mean density as
 prefactor — alternative Parseval bookkeepings shift it ~0.8
-decade and its crossings by ~10–30 in τ (±12 in τ∞; round-219 F1
+decade and its crossings by ~10–30 in τ (±11–12 in τ∞, per threshold — round-220 F2; round-219 F1
 corrected the sweep's ~5–10 understatement, lead-recomputed
 −22.9/+28.5 at c = 40, 10⁻³); the (vii) comparisons
 are exact for the committed convention, round-218 F3); three GUE
