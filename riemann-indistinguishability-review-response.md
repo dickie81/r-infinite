@@ -4596,3 +4596,28 @@ census and fixed at 90248fa before the clean run.
 **Trajectory: 1bc landed (847b711 + e2fff87) → 218 4M+6m+3c
 returned, all accepted (swept c8c6c86 + 90248fa + the completion
 commit carrying this table). Convergence round 219 next.**
+
+
+# Round 219: convergence test on the round-218 sweep (subagent, per protocol) — NOT CONVERGED: 3 minors, all in the sweep's own prose; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the honest-scope "~5–10 in τ" understates the LW model's ±0.8-decade shift sensitivity ~2× (true range ~10.6–28.5 in τ, ±11–12 in τ∞) | Accepted; lead recomputed −22.9/+28.5 at c = 40, 10⁻³ | Corrected to ~10–30 in τ (±12 in τ∞) with the recomputation cited (00c6345) |
+| 2 minor: "comb τ∞ within 1.4 of the zeros'" unqualified — holds at 10⁻³ (1.30), fails at 10⁻⁶ (2.37) | Accepted; arithmetic on the reproduced comb fits | Qualified per threshold (00c6345) |
+| 3 minor: "at or beyond the section dimension" attached to the excess (+63–71 < 80) instead of the in-band count (134–152 ≥ 80); "~+60" at the generous edge | Accepted; lead recount confirmed excess-vs-total attachment | Re-attached with the numbers stated on both surfaces; ~+65 (00c6345) |
+
+Held (reviewer, lead-spot-checked): all thirteen round-218 sweeps
+present and undiluted with struck text preserved; the F1 fix
+fail-capable (scratch probe g10 FAIL alone) and pass-capable (two
+tower runs); the F1 class complete across all 20 census-checking
+verifiers; every sweep number reproduced independently; both
+batteries green at HEAD (TOWER 12/12; standalone 10/10 with live
+prints matching the swept text, including the g5 diffs 0.134–1.126
+and the recomputed s.e. 0.0857); manifest 12/12 fresh; footer
+recount 79 exact; needle census 12/12 unique in-span; the
+90248fa needle unwrap verified.
+
+**Trajectory: 1bc landed (847b711 + e2fff87) → 218 4M+6m+3c, all
+accepted (swept c8c6c86 + 90248fa) → 219 NOT CONVERGED 3m, all in
+the sweep's own prose (swept 00c6345 + the completion commit
+carrying this table). Convergence round 220 next.**

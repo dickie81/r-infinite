@@ -16429,7 +16429,7 @@ applied. Next hostile round on the next substantive paper change.
 
 **First application.** This very commit (CLAUDE.md + this record; no paper, no verifier, no manifest): battery obligation none beyond the precheck. Not applicable to the in-flight round-218 completion (its sweep touched thirteen verifier files and the manifest — the full 12/12 tower re-run stands, and is running) nor to convergence round 219 (same diff under review). The scoping first bites on the first prose-only sweep after 219.
 
-**Standing state.** Round-218 batteries green — see Addendum 335.
+**Standing state.** Round-218 batteries green — see Addendum 335. Convergence round 219 delivered — see Addendum 336.
 
 ## Addendum 335 — hostile round 218 on the Theorem 1bc landing: 4 MAJORS + 6 minors + 3 cosmetics, all thirteen accepted; the sweep
 
@@ -16442,3 +16442,13 @@ applied. Next hostile round on the next substantive paper change.
 **The re-run.** Manifest refreshed at the swept bytes. Post-sweep batteries (first attempts killed by container restart #13; relaunches completed): manifest-mode clean run **ALL GATES PASS (10/10)**, exit 0; full tower `run_tower.py` → manifest integrity 12 members verified → **TOWER PASS (12/12)**, exit 0 (heavies inflated by concurrent research compute: heatflow 155.7 min, saddle 134.8, prolate 99.9, fluctuation_price 111.0 — all green) — the certification battery green again after the F1 red-tower interval (847b711 → c8c6c86).
 
 **Standing state.** The 1bc landing is swept awaiting convergence round 219.
+
+## Addendum 336 — convergence round 219: NOT CONVERGED (3 minors, all in the round-218 sweep's own prose); the sweep
+
+**The round.** Fresh-context same-model subagent on c8c6c86 + 90248fa + d5fe348 against e2fff87, full battery obligations (code-touching diff; the prose-only scoping read and correctly held inapplicable). The reviewer ran both batteries itself sequentially (**TOWER PASS 12/12** with manifest integrity 12 verified; standalone **ALL GATES PASS 10/10** with every live print matching the swept text), probed the F1 fix fail-capable on a scratch tree (exactly g10 FAIL, 9/1, exit 1), verified the F1 class swept completely (no other of the 20 census-checking verifiers strips `**` against an anchored needle — the 8 strip-normalizing non-tower scripts all use un-anchored needles), reproduced every round-218 sweep number independently (edge √2, 735/732/733 levels, comb 216.93 exact, +34.94/+54.18, 96%, the two conservative count mismatches, factors 1.36–13.37, std/√10 = 0.0857 recomputed from the live diffs), and verified all thirteen sweeps present without dilution, with every strike preserving its struck text. Verdict: NOT CONVERGED — 3 minors, all in the round-218 sweep's newly-added prose, none touching a gated value.
+
+**The findings, lead-verified and swept (00c6345).** F1: the honest-scope's "~5–10 in τ" understated the LW model's shift sensitivity by ~2× — lead recomputation applied ±0.8 decade to the committed model at c = 40 and re-bisected: −22.9/+28.5 at 10⁻³ (reviewer's full table 10.6–28.5 across c and ε, τ∞ ±11–12). Corrected to ~10–30 in τ (±12 in τ∞) with the recomputation cited. F2: "comb τ∞ within 1.4 of the zeros'" held at 10⁻³ (1.30) but not at 10⁻⁶ (2.37) — qualified per threshold. F3: "at or beyond the section dimension" attached to the in-band excess (+63–71, below the dimension 80) instead of the resulting in-band count (134–152, at or beyond it), on both surfaces; re-attached with the numbers stated, ~+60 → ~+65. Manifest refreshed at the swept docstring bytes.
+
+**The re-run.** Post-sweep batteries sequential at 00c6345: full tower — manifest integrity 12 verified, **TOWER PASS (12/12)**, exit 0; standalone manifest-mode run — **ALL GATES PASS (10/10)**, exit 0. Needles 12/12 unique in-span; hygiene clean.
+
+**Standing state.** Convergence round 220 next on this three-edit sweep.
