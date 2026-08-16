@@ -4642,3 +4642,23 @@ manifest.
 the completion commit carrying this table; battery under the
 Addendum-337 docstring-only rule, its first application).
 Convergence round 221 next.**
+
+
+# Round 221: convergence test on the round-220 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 0 cosmetics); Theorem 1bc certified stable; the fluctuation-price arc closes
+
+No findings. Held (reviewer, all re-derived): the docstring-only
+classification confirmed from the diff (one token, needle lists
+untouched); precheck 12/12 FRESH; the changed verifier 10/10 with
+the headline +0.710 ± 0.086 live; the GUE counts exactly 134–154
+(seed-47 at 154; excesses +63.07…+72.48, mean +65.907); the τ∞
+shifts ±11.79/11.89 and ±10.68/10.97 — "±11–12 per threshold"
+honest; annotation provenance verified by git archaeology; zero
+unswept mirrors outside declared history; needle census 12/12
+unique in-span; footer recount 79 exact.
+
+**Trajectory: 1bc landed (847b711 + e2fff87) → 218 4M+6m+3c, all
+accepted (swept c8c6c86 + 90248fa) → 219 3m (swept 00c6345) → 220
+1m+1c (swept 832ed38) → 221 CONVERGED 0+0+0. Certified: Theorem
+1bc — the nulls and the fluctuation price. The commissioned bundle
+(1ba, 1bb, 1bc) is fully certified. Next hostile round on the next
+substantive paper change.**
