@@ -16464,3 +16464,13 @@ applied. Next hostile round on the next substantive paper change.
 **First application.** The round-220 sweep (832ed38) is precisely the docstring-only class: two paper prose tokens + one docstring token in `cascade_fluctuation_price.py` + the manifest refresh. Its owed battery under the rule: precheck + a full run of `cascade_fluctuation_price.py`. (Its first-attempt FULL battery, killed by the restore, had been owed only under the pre-amendment classification.)
 
 **Standing state.** Round-220 completion next (the reduced battery quoted there), then convergence round 221 on the two-token sweep.
+
+## Addendum 338 — convergence round 220: NOT CONVERGED (1 minor + 1 cosmetic, both in the round-219 sweep's corrective prose); the sweep; the refinement's first application
+
+**The round.** Fresh-context same-model subagent on 00c6345 + 54c46aa against d5fe348, full sequential batteries (pre-refinement classification; one container-stop restart mid-tower, relaunched clean): **TOWER PASS (12/12)** and standalone **ALL GATES PASS (10/10)** with every live print matching the swept text. The reviewer recomputed the full 16-value shift table (the round-219 F1 figures exact: −22.92/+28.54 at c = 40, 10⁻³; grid 10.6–28.5), the comb crossings and fits from scratch (216.93; 341.24/317.70; gaps 1.30/2.37 — the per-threshold qualification held), and the GUE counts per seed per point on byte-identical sets. Verdict: 1 minor + 1 cosmetic — the fourth consecutive round finding defects in the previous sweep's own prose.
+
+**F1 (minor, lead-verified).** The round-219 range "(134–152)" excluded an observed value: the seed-47 set holds **154** levels in band at τ₀ = 450 (lead recount: totals 134–154, excesses +63–73, mean 65.9). Conclusion-preserving (154 ≥ 80 strengthens saturation; "~+65" survives as the mean) but false at the top end on both surfaces. Swept (832ed38): 134–154 with the round-220 F1 annotation, both carriers. **F2 (cosmetic).** "±12 in τ∞" compressed both thresholds (fits shift ±11.79/11.89 at 10⁻³, ±10.68/10.97 at 10⁻⁶); now "±11–12 per threshold". Conservative direction.
+
+**The re-run — the docstring-only refinement's first application.** The sweep (832ed38) is the docstring-only class (two paper tokens + one docstring token + the manifest refresh); its owed battery under Addendum 337's rule: precheck (12/12 FRESH) + a full run of the changed verifier — **ALL GATES PASS (10/10)**, exit 0, headline +0.710 ± 0.086 live. Wall ~35 min against the pre-refinement ~2.5 h (whose first attempt restore #14 killed).
+
+**Standing state.** Convergence round 221 next on the two-token sweep, classified docstring-only.

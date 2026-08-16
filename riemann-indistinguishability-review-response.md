@@ -4621,3 +4621,24 @@ recount 79 exact; needle census 12/12 unique in-span; the
 accepted (swept c8c6c86 + 90248fa) → 219 NOT CONVERGED 3m, all in
 the sweep's own prose (swept 00c6345 + the completion commit
 carrying this table). Convergence round 220 next.**
+
+
+# Round 220: convergence test on the round-219 sweep (subagent, per protocol) — NOT CONVERGED: 1 minor + 1 cosmetic, both in the sweep's own prose; swept
+
+| Finding | Disposition | Sweep |
+|---|---|---|
+| 1 minor: the range "(134–152)" excludes seed-47's observed 154 at τ₀ = 450 (true totals 134–154, excesses +63–73, mean 65.9); conclusion-preserving but false at the top end, both surfaces | Accepted; lead recount reproduced 154 directly | 134–154 with annotation, both carriers (832ed38) |
+| 2 cosmetic: "±12 in τ∞" unqualified — the 10⁻⁶ fit shifts round to ±11 | Accepted; fit arithmetic on the lead-matched crossing table | "±11–12 per threshold" (832ed38) |
+
+Held (reviewer, lead-spot-checked): the round-219 F1 figures exact
+to the decimal; F2's gaps 1.30/2.37 reproduced from scratch; F3's
+re-attachment correct; annotations accurate; needle census 12/12;
+manifest 12/12 fresh; TOWER PASS 12/12 + standalone 10/10 with all
+live prints matching; diff scope exactly the three hunks + mirror +
+manifest.
+
+**Trajectory: 1bc landed → 218 4M+6m+3c (swept c8c6c86 + 90248fa) →
+219 3m (swept 00c6345) → 220 NOT CONVERGED 1m+1c (swept 832ed38 +
+the completion commit carrying this table; battery under the
+Addendum-337 docstring-only rule, its first application).
+Convergence round 221 next.**
