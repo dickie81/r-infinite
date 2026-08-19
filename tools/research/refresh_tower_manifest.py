@@ -28,6 +28,7 @@ TOWER = [
     "cascade_prolate_horizon.py",
     "cascade_fluctuation_price.py",
     "cascade_sonin_dirac.py",
+    "cascade_prime_budget_fold.py",
 ]
 
 paper = open(PAPER, encoding="utf-8").read()

@@ -109,8 +109,8 @@ VERIFICATION (12 gates, exit-gated).
        qualifier); g11 the sibling chain green after the
        census advance (cascade_type_counting.py 12/0, which itself
        re-runs the two Weil-arc siblings); g12 the footer census
-       (this script backticked; "80 scripts cited in place";
-       "Theorems 1i-1bd" -- the census advances with each landing
+       (this script backticked; "81 scripts cited in place";
+       "Theorems 1i-1be" -- the census advances with each landing
        (the census-evolution class, disclosed; the gate carries
        the live values)).
 
@@ -328,11 +328,11 @@ gate("g11 the sibling chain green after the census advance "
 # 1ao landing: advanced again (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = "`cascade_riemann_selection.py`" in paper
-ok &= "80 scripts cited in place" in paper
-ok &= "Theorems 1i–1bd" in paper
+ok &= "81 scripts cited in place" in paper
+ok &= "Theorems 1i–1be" in paper
 gate("g12 the footer census (advanced at the 1an-1ap landings, "
-     "disclosed): this script backticked; 80 cited in place; the "
-     "range 1i–1bd (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
+     "disclosed): this script backticked; 81 cited in place; the "
+     "range 1i–1be (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

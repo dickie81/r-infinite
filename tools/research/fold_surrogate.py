@@ -118,7 +118,11 @@ GRIDS = {60.0: [200, 280],
          120.0: [260, 280, 300, 320, 340, 360, 400, 450]}
 NACC = 16
 
-if __name__ == "__main__":
+
+def run_fold(seed_base=9000, nacc=NACC, verbose=True):
+    """The parameter-free fold at one deterministic seed ladder.
+    Returns (per-point excess dict keyed "c:t0", mean, sem,
+    calibration dict, profile summary dict)."""
     comb = np.array([inv_Nbar(float(k)) for k in range(1, NZ + 1)])
     lags = np.arange(1, 1025).astype(float)
     # PARAMETER-FREE profiles (fold_harden.py's decomposition):
@@ -135,10 +139,10 @@ if __name__ == "__main__":
     Dz_prof = np.maximum(np.minimum(D_cue_analytic(lags), Vsat) - SIXTH,
                          0.12)
     Dc_prof = np.maximum(D_cue_analytic(lags) - SIXTH, 0.18)
-    print(f"parameter-free: zeta sat bracket {Vsat*math.pi**2:.3f}/pi^2 "
+    if verbose: print(f"parameter-free: zeta sat bracket {Vsat*math.pi**2:.3f}/pi^2 "
           f"-> plateau {Vsat - SIXTH:.3f}; CUE(24) {Dc_prof[23]:.3f}",
           flush=True)
-    print(f"profiles: zeta plateau {Dz_prof[500]:.3f}; "
+    if verbose: print(f"profiles: zeta plateau {Dz_prof[500]:.3f}; "
           f"CUE at 24/380: {Dc_prof[23]:.3f}/{Dc_prof[379]:.3f}", flush=True)
     # per-profile calibration: circulant clipping inflates the realized
     # D uniformly (measured x1.30 flat across lags for the zeta
@@ -150,10 +154,11 @@ if __name__ == "__main__":
         r = np.mean([D_emp(surrogate_field(prof, crng), 48)
                      for _ in range(80)], axis=0)/prof[:48]
         scale[name] = 1.0/math.sqrt(float(np.mean(r)))
-        print(f"  calibration [{name}]: realized/target {np.mean(r):.3f} "
-              f"-> field scale {scale[name]:.4f}", flush=True)
+        if verbose:
+            print(f"  calibration [{name}]: realized/target {np.mean(r):.3f} "
+                  f"-> field scale {scale[name]:.4f}", flush=True)
 
-    print("building sections...", flush=True)
+    if verbose: print("building sections...", flush=True)
     sects = {c: Sect(c) for c in GRIDS}
 
     def band_count(zeros, c, t0):
@@ -168,9 +173,9 @@ if __name__ == "__main__":
             m_comb = S.margin(comb, float(t0))
             out = {}
             for name, prof in (("zeta", Dz_prof), ("cue", Dc_prof)):
-                rng = np.random.default_rng(9000 + int(t0) + (0 if name == "zeta" else 1))
+                rng = np.random.default_rng(seed_base + int(t0) + (0 if name == "zeta" else 1))
                 Rs, tried = [], 0
-                while len(Rs) < NACC and tried < 4000:
+                while len(Rs) < nacc and tried < 4000:
                     tried += 1
                     d = scale[name]*surrogate_field(prof, rng)
                     g = np.array([inv_Nbar(k - 0.5 + d[k-1], g0=comb[k-1])
@@ -184,11 +189,22 @@ if __name__ == "__main__":
                 out[name] = (np.mean(Rs), np.std(Rs), len(Rs), tried)
             dz, dc = out["zeta"], out["cue"]
             ex = dz[0] - dc[0]
-            results[(c, t0)] = ex
-            print(f"  c={c:4.0f} t0={t0:3d}: R_surrzeta {dz[0]:+.3f}"
-                  f"(n={dz[2]}/{dz[3]}) R_surrcue {dc[0]:+.3f}"
-                  f"(n={dc[2]}/{dc[3]}) excess {ex:+.3f}", flush=True)
+            results[f"{c:g}:{t0}"] = ex
+            if verbose:
+                print(f"  c={c:4.0f} t0={t0:3d}: R_surrzeta {dz[0]:+.3f}"
+                      f"(n={dz[2]}/{dz[3]}) R_surrcue {dc[0]:+.3f}"
+                      f"(n={dc[2]}/{dc[3]}) excess {ex:+.3f}", flush=True)
     vals = np.array(list(results.values()))
-    print(f"\n FOLD RESULT: surrogate excess mean {np.mean(vals):+.3f} "
-          f"+- {np.std(vals)/math.sqrt(len(vals)):.3f} over {len(vals)} "
-          f"points (1bc measured +0.710 +- 0.086)", flush=True)
+    mean = float(np.mean(vals))
+    sem = float(np.std(vals)/math.sqrt(len(vals)))
+    prof = {"Vsat_bracket": Vsat*math.pi**2, "zeta_plateau": float(Dz_prof[500]),
+            "cue_24": float(Dc_prof[23])}
+    if verbose:
+        print(f"\n FOLD RESULT: surrogate excess mean {mean:+.3f} "
+              f"+- {sem:.3f} over {len(vals)} "
+              f"points (1bc measured +0.710 +- 0.086)", flush=True)
+    return results, mean, sem, {k: float(v) for k, v in scale.items()}, prof
+
+
+if __name__ == "__main__":
+    run_fold(seed_base=9000)

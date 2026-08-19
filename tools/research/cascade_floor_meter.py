@@ -109,8 +109,8 @@ Gates (all exit-gated; any failure exits 1):
       law.
   g9  the paper needles for the 1aw block (in-code list authoritative).
   g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met.
-  g11 the footer census (this script backticked >= 2; the anchored needles "the **80 scripts cited in place** above"
-      and "extended by Theorems 1i–1bd:" -- round-218 F12 mirrored
+  g11 the footer census (this script backticked >= 2; the anchored needles "the **81 scripts cited in place** above"
+      and "extended by Theorems 1i–1be:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle, restore from
@@ -558,10 +558,10 @@ gate("g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met",
 
 # ---------------------------------------------------------------- g11
 ok = paper.count("`cascade_floor_meter.py`") >= 2
-ok &= "the **80 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bd:" in paper
-gate("g11 the footer census (this script backticked >= 2; 80 cited in place; "
-     "the range 1i–1bd)", ok)
+ok &= "the **81 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1be:" in paper
+gate("g11 the footer census (this script backticked >= 2; 81 cited in place; "
+     "the range 1i–1be)", ok)
 
 print(flush=True)
 if fails:

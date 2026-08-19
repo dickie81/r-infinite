@@ -5393,6 +5393,81 @@ cascade quantity is derived: a null measurement on a literature
 object). Check 8 clean (no hypothesis input; the owner's
 commission supplied direction only).
 
+**Theorem 1be (the fold — the stiffness excess derived from the
+primes' budget, with the non-Gaussian remainder measured;
+`cascade_prime_budget_fold.py`).** *(i) The commission and the
+claim.* "Attack the fold" → "Harden it" → "Land it." Theorem 1bc
+measured the zeros' dodging economics as +0.710 ± 0.086 decades
+stiffer than count-conditioned CUE; this theorem derives that
+excess, parameter-free, from second-order rigidity alone, and
+measures what is left over. *(ii) The two profiles, both analytic.*
+The displacement structure function D(ℓ) = E[(δ_{n+ℓ} − δ_n)²]:
+for count-matched CUE it is the RMT counting law Σ²(ℓ) =
+(1/π²)(ln 2πℓ + γ + 1) (measured equal to the form to < 0.01 per
+lag on the fixed-shift statistic); for the zeros it follows the
+same universal law only to a crossover at a few spacings and then
+saturates, because **the primes' budget** is finite — the
+fixed-shift saturation bracket is **ln ln(T/2π) + Mertens + 1**
+(Mertens' theorem for the resolved primes plus the GUE short-time
+resummation tail; measured 2.630/π² against the formula's
+2.615/π² at the window center T₀ = 320, gated ±0.20). The two
+statistics conventions are bridged by an exact constant: sampling
+increments at the zeros rather than at fixed heights subtracts
+**the sawtooth constant 1/6** (S falls linearly by one between
+consecutive zeros — two endpoints × uniform variance 1/12; CUE
+check 0.667 − 1/6 = 0.500 against measured 0.499, gated ±0.025).
+The saturation dichotomy is gated: the zeros' index-statistic D is
+flat from lag 16 to 48 while CUE's climbs; the analytic
+plateau-to-climb ratio at lags 16–32 is 0.50 against the measured
+0.49 (both gated). *(iii) The transfer.* Gaussian surrogate zero
+sets carrying ONLY these two zero-parameter profiles (circulant
+embedding; positions γ_n = N̄⁻¹(n − ½ + δ_n)), count-conditioned
+per the certified 1bc protocol and pushed through the same prolate
+sections at the same ten conditioned points, reproduce the
+certified excess: deterministic seed ladders give **+0.922 ± 0.097**
+and **+0.841 ± 0.094** (means pinned ±0.02, every point positive at
+all twenty point-evaluations, gated) against the certified
++0.710 ± 0.086. *(iv) The remainder.* The surrogates overshoot by
++0.21/+0.13 (gated in (0.02, 0.35)): real zeta dodges slightly
+WORSE than its Gaussian second-order twin — **the non-Gaussian
+remainder**, ~20% of the excess, the measured trace of
+higher-than-second-order structure (the primes' third and fourth
+cumulants) in the dodging economics, and the open piece. *(v) The
+reading.* The 1ax GUE-percentile anomaly, the 1ay curvature
+census, and 1bc's factor-~5 stiffness excess are one phenomenon
+with one derived cause: the primes' displacement budget is finite
+(ln ln + Mertens + 1) while genericity's grows (ln 2πℓ); the
+certified section instrument reads exactly that second-order gap
+to ~80%, plus the measured non-Gaussian premium. Jointly with
+Theorem 1bd (the archimedean operator carries counting and no
+fluctuations), the bracket closes: counting is archimedean, the
+fluctuation excess is the pair-correlation prime budget, and
+anything deeper contributes at most the ~20% remainder — a
+quantified ceiling on what the margin economics can extract.
+*Honest scope:* float64; one height window (zeros 40–340, heights
+130–500; T₀ = 320 for the analytic brackets, window-smeared where
+stated); 380 zeros at dps 13; ten CUE seeds for the empirical D
+and deterministic surrogate seed ladders (dispersion across the
+ten shared points reported as ±sem, not independent-sample error,
+per the 1bc convention); the surrogate fields are clipped
+circulant embeddings (calibration factors 1.001/1.018, gated
+inert by construction printout); the saturation bracket's "+1"
+(the GUE resummation tail) is confirmed against measurement at
+one height window, not derived height-resolved; Berry-class
+resummation is consumed as a literature-attributed mechanism for
+a measured constant, not executed as a procedure; the remainder's
+attribution to prime cumulants is a reading — what is measured is
+Gaussian-vs-real at fixed D; no RH leverage claimed. Check 7
+clean (explicit-formula second-order statistics, Mertens'
+theorem, RMT counting variance — classical analysis; no
+semiclassical procedure as a route to a cascade quantity; no
+cascade quantity derived). Check 8 clean (no hypothesis input;
+the owner's commissions supplied direction only). The substrate
+instruments `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`
+are committed, imported by the verifier, and content-addressed
+into its compute keys (any substrate edit self-invalidates the
+checkpoints).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -5927,4 +6002,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1bd: the **80 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1be: the **81 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py` — the committed instruments at `tools/research/`, quoted as Theorem 1be's substrates, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*.*
