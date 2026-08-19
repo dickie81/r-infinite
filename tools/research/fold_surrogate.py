@@ -20,20 +20,26 @@ Conditioning: accept iff the in-band count at the point equals the
 comb's (the 1bc protocol), deterministic seed ladder, 16 accepted
 per point per ensemble.
 
-RESULT (run at edbc6c3, log in the session record): surrogate excess
-mean +0.812 +- 0.096 over the ten conditioned points, every point
-positive (range +0.35..+1.39), against 1bc's measured +0.710 +-
-0.086 -- agreement within one sigma. The stiffness excess is
-REPRODUCED by Gaussian fields carrying only the two second-order
-profiles: zeta's prime-budget saturation (plateau ~0.121 = alpha x
-the diagonal explicit-formula sum, alpha = 0.681 the finite-height
-overshoot factor pinned by the plateau) vs CUE's RMT log-climb
-(Sigma^2 form minus the ~0.16 range-statistic conversion). Empirical
-dial-ins disclosed: alpha, the 0.16 conversion, and the circulant
-clip calibration (x0.876 zeta / x1.018 CUE, mechanical). The open
-analytic residue is alpha alone (Berry-resummation class -- the
-finite-T suppression of the bare diagonal sum); the profiles'
-SHAPES and the CUE side are parameter-free.
+RESULT LADDER (session record; three runs, ten conditioned points
+each, vs 1bc's measured +0.710 +- 0.086):
+  hybrid profiles (alpha-scaled, run at edbc6c3):  +0.812 +- 0.096
+  PARAMETER-FREE profiles, seed base 7000:          +0.841 +- 0.094
+  PARAMETER-FREE profiles, seed base 9000:          +0.922 +- 0.097
+Every point positive in every run. The parameter-free profiles are
+  CUE:  D(l) = (1/pi^2)(ln 2 pi l + gamma + 1) - 1/6
+  zeta: D(l) = min[same, (1/pi^2)(ln ln(T/2pi) + Mertens + 1)] - 1/6
+with the 1/6 the exact sawtooth conversion (fold_harden.py) and the
+saturation bracket = Mertens' theorem for the resolved primes + the
+GUE resummation tail (measured 2.630/pi^2 vs 2.615/pi^2). The
+calibration factors collapse to 1.001/1.018 (inert). Combined
+surrogate estimate ~ +0.88 +- 0.07 sits ~0.17 +- 0.11 ABOVE the real
+zeros' +0.710: the second-order prime budget accounts for ~80% and
+overshoots slightly -- real zeta pays a small premium relative to
+its Gaussian twin (a non-Gaussian / higher-order remainder of ~0.15
+decades, sign: real zeta dodges slightly WORSE than second-order
+predicts). Decomposition: excess = prime-budget rigidity gap
+(derived, parameter-free, dominant) + non-Gaussian remainder
+(measured ~20%, open).
 """
 import numpy as np, math, os, sys
 from numpy.polynomial import legendre as L
