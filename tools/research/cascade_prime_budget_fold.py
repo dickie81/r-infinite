@@ -27,9 +27,12 @@ excess), the open higher-order piece.
 Substrates (committed research instruments, audited not counted):
 fold_D.py (profiles + empirics), fold_harden.py (the decomposition),
 fold_surrogate.py (the transfer). Compute is content-addressed via
-ckpt_key KEYED ON THIS VERIFIER's dependency set: every stage's
-params carry the sha256 of each substrate, so any substrate edit
-self-invalidates the checkpoints while gate-pin edits here do not.
+ckpt_key keyed on fold_surrogate.py's bytes PLUS every substrate's
+sha256 in the params, so any substrate edit self-invalidates the
+checkpoints while gate-pin edits to THIS file do not (the landing's
+first keying used this verifier's own bytes, which discarded compute
+on every pin edit -- caught by the suite's probe (b) and fixed
+before the record).
 CASCADE_COMPUTE=fresh forces recomputation (~15-20 min); cached
 runs take seconds.
 
@@ -106,21 +109,22 @@ PIN_MEAN = {9000: 0.922, 7000: 0.841}
 PIN_G380 = 653.650
 
 # ---- staged compute (content-addressed on the substrate shas) -------
-st = ckpt_key.load("fold_decomp", __file__, {"deps": DEPS})
+KEYFILE = os.path.join(HERE, "fold_surrogate.py")
+st = ckpt_key.load("fold_decomp", KEYFILE, {"deps": DEPS})
 if st is None:
     st = decomposition(verbose=False)
-    ckpt_key.save("fold_decomp", __file__, {"deps": DEPS}, st)
+    ckpt_key.save("fold_decomp", KEYFILE, {"deps": DEPS}, st)
 D = st
 
 folds = {}
 for base in (9000, 7000):
     key = {"deps": DEPS, "seed_base": base, "nacc": 16}
-    r = ckpt_key.load(f"fold_ladder_{base}", __file__, key)
+    r = ckpt_key.load(f"fold_ladder_{base}", KEYFILE, key)
     if r is None:
         pts, mean, sem, scale, prof = run_fold(seed_base=base, verbose=False)
         r = {"points": pts, "mean": mean, "sem": sem, "scale": scale,
              "prof": prof}
-        ckpt_key.save(f"fold_ladder_{base}", __file__, key, r)
+        ckpt_key.save(f"fold_ladder_{base}", KEYFILE, key, r)
     folds[base] = r
     print(f"  [ladder {base}] mean {r['mean']:+.3f} +- {r['sem']:.3f}; "
           f"min point {min(r['points'].values()):+.3f}", flush=True)
