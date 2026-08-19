@@ -19,6 +19,21 @@ D-profiles: the measured/analytic hybrid pinned by fold_D.py --
 Conditioning: accept iff the in-band count at the point equals the
 comb's (the 1bc protocol), deterministic seed ladder, 16 accepted
 per point per ensemble.
+
+RESULT (run at edbc6c3, log in the session record): surrogate excess
+mean +0.812 +- 0.096 over the ten conditioned points, every point
+positive (range +0.35..+1.39), against 1bc's measured +0.710 +-
+0.086 -- agreement within one sigma. The stiffness excess is
+REPRODUCED by Gaussian fields carrying only the two second-order
+profiles: zeta's prime-budget saturation (plateau ~0.121 = alpha x
+the diagonal explicit-formula sum, alpha = 0.681 the finite-height
+overshoot factor pinned by the plateau) vs CUE's RMT log-climb
+(Sigma^2 form minus the ~0.16 range-statistic conversion). Empirical
+dial-ins disclosed: alpha, the 0.16 conversion, and the circulant
+clip calibration (x0.876 zeta / x1.018 CUE, mechanical). The open
+analytic residue is alpha alone (Berry-resummation class -- the
+finite-T suppression of the bare diagonal sum); the profiles'
+SHAPES and the CUE side are parameter-free.
 """
 import numpy as np, math, os, sys
 from numpy.polynomial import legendre as L
