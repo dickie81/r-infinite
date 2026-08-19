@@ -5418,8 +5418,9 @@ consecutive zeros — two endpoints × uniform variance 1/12; CUE
 check 0.667 − 1/6 = 0.500 against measured 0.499, gated ±0.025).
 The saturation dichotomy is gated: the zeros' index-statistic D is
 flat from lag 16 to 48 while CUE's climbs; the analytic
-plateau-to-climb ratio at lags 16–32 is 0.50 against the measured
-0.49 (both gated). *(iii) The transfer.* Gaussian surrogate zero
+plateau-to-climb ratio at lags 16–32 — in the index statistics both
+sides carry into the transfer, post-1/6 — is 0.200 against the
+measured 0.231 (both gated). *(iii) The transfer.* Gaussian surrogate zero
 sets carrying ONLY these two zero-parameter profiles (circulant
 embedding; positions γ_n = N̄⁻¹(n − ½ + δ_n)), count-conditioned
 per the certified 1bc protocol and pushed through the same prolate

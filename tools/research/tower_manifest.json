@@ -1,58 +1,62 @@
 {
- "census_count_string": "the **80 scripts cited in place** above",
- "census_range_string": "extended by Theorems 1i\u20131bd:",
+ "census_count_string": "the **81 scripts cited in place** above",
+ "census_range_string": "extended by Theorems 1i\u20131be:",
  "tower": [
   {
    "file": "cascade_lattice_forcing.py",
-   "sha256": "22554a006b43c5aa6f905beaa95eb24ef3ad86d0ae8b2e0ff576aa6a7a69d97d"
+   "sha256": "5b49171bd592fc7f9849793198356dfe60438186ea2c31ed199ef12f308fef85"
   },
   {
    "file": "cascade_primes_side_ball.py",
-   "sha256": "6dc60232657a4b8029578072c6ed2155996db02d6c1850d344eb748c8728506a"
+   "sha256": "18aa5ef26b6d993156b83a00ba3292708c7661d2523c852d4dcf2e5f89eee46b"
   },
   {
    "file": "cascade_finite_fill.py",
-   "sha256": "324e2c7391705b42fbfcd9bba40fa9edb11d61e8df27a950737ecb44ed938184"
+   "sha256": "f7f0c171d5aa189b2af61a69c20d265f93e3cb64cd9c5d96cfaf505214c74db7"
   },
   {
    "file": "cascade_attraction_margins.py",
-   "sha256": "7fb860c851f36167ce691205e636e390a0155e11f9f78c6b843d289330b7b39a"
+   "sha256": "a6a0a9e7f57d6e93b435f8731f0e09efca13722759ddb9bbc659398063b6471c"
   },
   {
    "file": "cascade_li_two_channels.py",
-   "sha256": "993a8b9c1f3a01d69de3ba4edb16671ef168f97d3597165bbaca1ddb422a3691"
+   "sha256": "7e1b1c06fc9527cc193ec7feb657ccdf355f076f72a7d608a72d9b9a939829cd"
   },
   {
    "file": "cascade_floor_meter.py",
-   "sha256": "fb8aab5e71295638344b409773c7c8048fad36ecf9d9b2964a9ca140d46cf10d"
+   "sha256": "61a381bc3a2170d9ad63a1a6542602ad47c2c54fa96292e34ec0c537fb4f0f2b"
   },
   {
    "file": "cascade_heatflow_energy.py",
-   "sha256": "63c5fc9f77e9b18c9534a7019bdec0e9e789128ef67b2d1e33ba0df7f45569ac"
+   "sha256": "d3edfebcabf038495f24d451db59bb3e83c8fc52d29b75f03d9855a7ba7485fb"
   },
   {
    "file": "cascade_saddle_curvature.py",
-   "sha256": "6431eacc9c30d9ae47f204d5609259885c0c680b64b9bab58db22ca11f7e4bb5"
+   "sha256": "a03d4aba5e6c6dd01ea7e2d708ba42d83a6f82ad631d701ba4e9a68658163a75"
   },
   {
    "file": "cascade_weil_margin.py",
-   "sha256": "6e86d85500cadc6744541fcf798c860938754cd6f76ce585957a1f65b6a65f20"
+   "sha256": "642d3bfb803dc98678399a0f335a997ae582b98f718e3db7b40bb596ba299917"
   },
   {
    "file": "cascade_weil_crossover.py",
-   "sha256": "121590852e8074e1b17d8530eb0f859cc8dab887abecdc2a6c30595abd19b73c"
+   "sha256": "1b5842a49fe1fab65104371bb44d8e4cc4639a6984f2d80794080564b81ccdd8"
   },
   {
    "file": "cascade_prolate_horizon.py",
-   "sha256": "271ddc77d10fc13e40be4f94201f1bef0a934626df81599e8ff28a8530d2aa4a"
+   "sha256": "8a5b3521db78b790af1ae7ecd6217e885f644efb85f5e3aaa19a2250c6b2be7d"
   },
   {
    "file": "cascade_fluctuation_price.py",
-   "sha256": "a46ff184bd9f9607e50f68cf834dda15f017f39c74c1b43fe2d42233928a4016"
+   "sha256": "52489f9f8a5aba89ed299c3eaaee3e45a20a8eeb003db5d9a793afdeabad45bf"
   },
   {
    "file": "cascade_sonin_dirac.py",
-   "sha256": "4807f42f2a4ab9fe76560f0b8ecab216c97fe303844832a668b35c1c8b27ca5d"
+   "sha256": "6ac4e7f25f86b67c06e3b6a8c75748e17abfe853a66ec234f517f7e39a216f7c"
+  },
+  {
+   "file": "cascade_prime_budget_fold.py",
+   "sha256": "ae728bd8dbf90c8e48ef9c16dfabdd90590403eadd9f217abe7c170420519362"
   }
  ]
 }

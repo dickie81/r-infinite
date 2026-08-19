@@ -45,8 +45,9 @@ Gates:
   g5  the saturation dichotomy: zeta index D(48) - D(16) inside
       (-0.08, 0.08) (saturated) while CUE climbs by > 0.05;
       zeta index plateau in (0.09, 0.15)
-  g6  the analytic ratio: profile zeta/CUE at lags 16..32 in
-      (0.42, 0.58); empirical in (0.35, 0.65)
+  g6  the analytic ratio at lags 16..32, index statistics (both
+      sides post-1/6, the fold's actual inputs): profile 0.200 in
+      (0.15, 0.25); empirical 0.231 in (0.17, 0.30)
   g7  THE FOLD, ladder 9000: mean = pinned +0.922 +- 0.02, all ten
       points positive (> +0.25)
   g8  THE FOLD, ladder 7000: mean = pinned +0.841 +- 0.02, all ten
@@ -176,8 +177,9 @@ emp_ratio = zpl/np.mean([D["cue_index_at_lags"][lags.index(a)]
                          for a in (16, 24, 32)])
 print(f"  g6 ratio zeta/CUE 16..32: profile {prof_ratio:.3f}; "
       f"empirical {emp_ratio:.3f}", flush=True)
-gate("g6 the analytic ratio: profile in (0.42, 0.58), empirical in "
-     "(0.35, 0.65)", 0.42 < prof_ratio < 0.58 and 0.35 < emp_ratio < 0.65)
+gate("g6 the analytic ratio (index statistics, post-1/6): profile in "
+     "(0.15, 0.25), empirical in (0.17, 0.30)",
+     0.15 < prof_ratio < 0.25 and 0.17 < emp_ratio < 0.30)
 
 # ------------------------------------------------------------- g7/g8
 for gname, base in (("g7", 9000), ("g8", 7000)):
