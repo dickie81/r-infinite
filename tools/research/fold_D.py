@@ -33,6 +33,7 @@ def inv_Nbar(t, g0=20.0):
     g = g0
     for _ in range(80):
         g -= (Nbar(g) - t)/(np.log(g/TWO_PI)/TWO_PI)
+        g = max(g, 8.0)   # clamp above 2 pi: Newton diverges for t <~ 0
     return g
 
 
