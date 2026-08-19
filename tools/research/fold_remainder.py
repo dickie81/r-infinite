@@ -47,7 +47,11 @@ def positions(field):
                      for k in range(1, NZ + 1)])
 
 
-if __name__ == "__main__":
+def significance(ndraw=32, verbose=True):
+    """The shared-field twin test. Returns dict: real_mean (the
+    correlated ten-point real-zeta excess over the surrogate-CUE
+    comparator), draws (ndraw shared-field surrogate mean excesses),
+    percentile, z."""
     Z = zeros380()
     comb = np.array([inv_Nbar(float(k)) for k in range(1, NZ + 1)])
     Dz_prof, Dc_prof = profiles()
@@ -90,11 +94,12 @@ if __name__ == "__main__":
         mz = S.margin(Z, float(t0))
         real_ex.append(math.log10(mz/m_comb[(c, t0)]) - cue_mean[(c, t0)])
     real_mean = float(np.mean(real_ex))
-    print(f"REAL zeta correlated draw: mean excess {real_mean:+.3f} "
-          f"(per-point {[f'{v:+.2f}' for v in real_ex]})", flush=True)
+    if verbose:
+        print(f"REAL zeta correlated draw: mean excess {real_mean:+.3f} "
+              f"(per-point {[f'{v:+.2f}' for v in real_ex]})", flush=True)
 
     # shared-field surrogate draws (unconditioned, like the real side)
-    NDRAW = 32
+    NDRAW = ndraw
     rng = np.random.default_rng(4242)
     draws = []
     for i in range(NDRAW):
@@ -110,18 +115,31 @@ if __name__ == "__main__":
             ex.append(math.log10(m/m_comb[(c, t0)]) - cue_mean[(c, t0)])
         ex = [e for e in ex if e is not None]
         draws.append(float(np.mean(ex)))
-        print(f"  draw {i:2d}: mean excess {draws[-1]:+.3f}", flush=True)
+        if verbose:
+            print(f"  draw {i:2d}: mean excess {draws[-1]:+.3f}", flush=True)
     draws = np.array(draws)
     pct = float(np.mean(draws <= real_mean))
-    print(f"\n(A) shared-field surrogate mean-excess distribution: "
+    if verbose: print(f"\n(A) shared-field surrogate mean-excess distribution: "
           f"mean {np.mean(draws):+.3f}, sd {np.std(draws):.3f}, "
           f"range [{draws.min():+.3f}, {draws.max():+.3f}]", flush=True)
-    print(f"    REAL {real_mean:+.3f} sits at percentile {100*pct:.1f} "
+    if verbose: print(f"    REAL {real_mean:+.3f} sits at percentile {100*pct:.1f} "
           f"({np.sum(draws <= real_mean)}/{NDRAW} draws below); "
           f"z = {(real_mean - np.mean(draws))/np.std(draws):+.2f}", flush=True)
+    return {"real_mean": real_mean, "real_per_point": [float(v) for v in real_ex],
+            "draws": [float(v) for v in draws], "percentile": pct,
+            "z": float((real_mean - np.mean(draws))/np.std(draws))}
 
-    # (B) cumulant census
+
+def cumulant_census(verbose=True):
+    """(B): skew/excess-kurtosis of the displacement fields (window
+    zeros 40..340) and their increments, for zeta / CUE / the
+    Gaussian surrogate baseline. Returns {name: [skew, exkurt]}."""
     from scipy.stats import skew, kurtosis, unitary_group
+    Z = zeros380()
+    Dz_prof, _ = profiles()
+    crng = np.random.default_rng(99)
+    sz = calib(Dz_prof, crng)
+    rng = np.random.default_rng(4242)
     dz = (Nbar(Z) - np.arange(1, NZ + 1) + 0.5)[40:340]
     rows = [("zeta", dz)]
     cu = []
@@ -134,12 +152,22 @@ if __name__ == "__main__":
     g = np.concatenate([sz*surrogate_field(Dz_prof, rng)[40:340]
                         for _ in range(8)])
     rows.append(("surr", g))
-    print("\n(B) cumulants:  field      skew   ex-kurt   (increments "
-          "lag 1 / 4 / 16: skew, ex-kurt)", flush=True)
+    out = {}
+    if verbose:
+        print("\n(B) cumulants:  field      skew   ex-kurt   (increments "
+              "lag 1 / 4 / 16: skew, ex-kurt)", flush=True)
     for name, v in rows:
-        incs = []
-        for l in (1, 4, 16):
-            d = v[l:] - v[:-l]
-            incs.append(f"{skew(d):+.2f},{kurtosis(d):+.2f}")
-        print(f"    {name:5s}  {skew(v):+.3f}  {kurtosis(v):+.3f}   "
-              f"[{' | '.join(incs)}]", flush=True)
+        out[name] = [float(skew(v)), float(kurtosis(v))]
+        if verbose:
+            incs = []
+            for l in (1, 4, 16):
+                d = v[l:] - v[:-l]
+                incs.append(f"{skew(d):+.2f},{kurtosis(d):+.2f}")
+            print(f"    {name:5s}  {skew(v):+.3f}  {kurtosis(v):+.3f}   "
+                  f"[{' | '.join(incs)}]", flush=True)
+    return out
+
+
+if __name__ == "__main__":
+    significance()
+    cumulant_census()

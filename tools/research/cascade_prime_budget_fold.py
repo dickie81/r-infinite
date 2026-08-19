@@ -26,11 +26,20 @@ F2: the landing's grid differed at four of ten), reproduce the
 certified stiffness excess: seed ladders +0.952 +- 0.127 and
 +0.919 +- 0.111 vs the certified +0.710 +- 0.086 -- every point
 positive, mins +0.354/+0.369 -- with the surrogate overshoot
-(+0.24/+0.21) measuring the NON-GAUSSIAN REMAINDER: real zeta pays
-a premium over its Gaussian twin (~25% of the surrogate excess,
-range ~10-35% given the dispersion), the open higher-order piece.
-The round-224 reviewer's independent no-floor 1bc-grid run gave
-+0.952 +- 0.127 (seed 9000), matched exactly by the re-pin.
+(+0.24/+0.21). Round 227 INVERTED the overshoot's attribution: the
+shared-field twin test (g13) puts the real zeros' correlated
+ten-point excess INSIDE the Gaussian-twin distribution (real +0.908
+vs draws +0.976 +- 0.087, z = -0.79, percentile 15.6) -- zeta is
+CONSISTENT with its second-order Gaussian twin at this sample --
+while the CUE twin test (g14) locates the overshoot's carrier on
+the comparator side: real determinantal CUE dodges +0.243 +- 0.077
+worse than ITS Gaussian D-matched twin (9/10 points positive; the
+anchoring/D-mismatch confound bounded at +-0.05 non-systematic in
+D, an order below the gap). The decomposition arithmetic closes:
+zeta-twin gap (-0.068) minus CUE-twin gap (+0.243) = -0.31 vs the
+observed -0.24 within errors. The round-224 reviewer's independent
+no-floor 1bc-grid run gave +0.952 +- 0.127 (seed 9000), matched
+exactly by the re-pin.
 
 Substrates (committed research instruments, audited not counted):
 fold_D.py (profiles + empirics), fold_harden.py (the decomposition),
@@ -71,6 +80,14 @@ Gates:
   g11 the chain obligation to cascade_sonin_dirac.py (Theorem 1bd)
   g12 the footer census (this script backticked >= 2; the anchored
       count and range needles) and the 1be paper needles
+  g13 the zeta twin test (round 227): the real zeros' correlated
+      ten-point excess inside the shared-field Gaussian-twin
+      distribution (pin +0.908 +- 0.02; z in (-1.4, -0.2);
+      percentile 5-40%)
+  g14 the CUE twin gap (round 227): real determinantal CUE vs its
+      Gaussian twin, mean pinned +0.243 +- 0.03, >= 8/10 positive
+      (substrates fold_remainder.py / fold_remainder2.py, keyed
+      via DEPS2)
 
 Sabotage suite (run live at the landing battery; edit-run-observe-
 restore):
@@ -120,6 +137,9 @@ def _sha(name):
     return hashlib.sha256(open(os.path.join(HERE, name), "rb").read()).hexdigest()
 
 DEPS = {f: _sha(f) for f in ("fold_D.py", "fold_harden.py", "fold_surrogate.py")}
+DEPS2 = {f: _sha(f) for f in ("fold_D.py", "fold_harden.py",
+                              "fold_surrogate.py", "fold_remainder.py",
+                              "fold_remainder2.py")}
 
 # ---- pins (from the research record, session runs at 4b13418) -------
 PIN_MEAN = {9000: 0.952, 7000: 0.919}
@@ -217,6 +237,34 @@ gate("g9 the remainder: both ladders' overshoot of the certified "
      "+0.710 in (0.05, 0.40), means in (0.75, 1.10) -- the "
      "non-Gaussian premium positive and bounded", ok)
 
+# ------------------------------------------------------------ g13/g14
+# (round-227 correction stages: the remainder attribution inverts)
+from fold_remainder import significance
+from fold_remainder2 import cue_twin_gap
+sig = ckpt_key.load("fold_twin_sig", KEYFILE, {"deps": DEPS2, "ndraw": 32})
+if sig is None:
+    sig = significance(ndraw=32, verbose=False)
+    ckpt_key.save("fold_twin_sig", KEYFILE, {"deps": DEPS2, "ndraw": 32}, sig)
+gapr = ckpt_key.load("fold_twin_gap", KEYFILE, {"deps": DEPS2})
+if gapr is None:
+    gapr = cue_twin_gap(verbose=False)
+    ckpt_key.save("fold_twin_gap", KEYFILE, {"deps": DEPS2}, gapr)
+print(f"  g13 zeta twin: real {sig['real_mean']:+.3f}, z {sig['z']:+.2f}, "
+      f"pct {100*sig['percentile']:.1f}", flush=True)
+ok = abs(sig["real_mean"] - 0.908) < 0.02
+ok &= -1.4 < sig["z"] < -0.2 and 0.05 < sig["percentile"] < 0.40
+gate("g13 the zeta twin test: the real zeros' correlated ten-point "
+     "excess sits INSIDE the shared-field Gaussian-twin distribution "
+     "(pin +0.908 +- 0.02; z in (-1.4, -0.2); percentile 5-40%) -- "
+     "zeta is consistent with its second-order Gaussian twin", ok)
+print(f"  g14 CUE twin gap: mean {gapr['mean']:+.3f} +- {gapr['sem']:.3f}, "
+      f"{gapr['npos']}/10 positive", flush=True)
+ok = abs(gapr["mean"] - 0.243) < 0.03 and gapr["npos"] >= 8
+gate("g14 the CUE twin gap: real determinantal CUE dodges worse than "
+     "its Gaussian D-matched twin (pin +0.243 +- 0.03; >= 8/10 points "
+     "positive) -- the certified overshoot's carrier is the "
+     "comparator side", ok)
+
 # ---------------------------------------------------------------- g10
 gate("g10 the 1bc consistency: the certified headline needle in the "
      "paper", "+0.710 ± 0.086" in paper)
@@ -249,6 +297,6 @@ ok &= "extended by Theorems 1i–1be:" in normp
 gate("g12 the 1be paper needles and the footer census (backticked >= 2; "
      "the anchored count and range needles)", ok)
 
-print(("\nALL GATES PASS (13/13)" if not fails else
+print(("\nALL GATES PASS (15/15)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)
 sys.exit(1 if fails else 0)

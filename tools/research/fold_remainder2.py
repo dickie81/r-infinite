@@ -29,7 +29,9 @@ def cue_real_set(seed):
     return np.array([inv_Nbar(max(float(x), 0.6)) for x in np.sort(t)])
 
 
-if __name__ == "__main__":
+def cue_twin_gap(verbose=True):
+    """Returns dict: per-point real-CUE minus surrogate-CUE R gaps,
+    mean, sem, npos."""
     comb = np.array([inv_Nbar(float(k)) for k in range(1, NZ + 1)])
     lags = np.arange(1, 1025).astype(float)
     Dc_prof = D_cue_analytic(lags) - SIXTH
@@ -75,8 +77,17 @@ if __name__ == "__main__":
                 Rs.append(math.log10(m/mc))
         gap = float(np.mean(Rr) - np.mean(Rs))
         gaps.append(gap)
-        print(f"  c={c:4.0f} t0={t0:3d}: R_realCUE {np.mean(Rr):+.3f} "
-              f"R_surrCUE {np.mean(Rs):+.3f}  gap {gap:+.3f}", flush=True)
-    print(f"\nCUE twin gap (real - surrogate): mean "
-          f"{np.mean(gaps):+.3f} +- {np.std(gaps)/math.sqrt(len(gaps)):.3f}",
-          flush=True)
+        if verbose:
+            print(f"  c={c:4.0f} t0={t0:3d}: R_realCUE {np.mean(Rr):+.3f} "
+                  f"R_surrCUE {np.mean(Rs):+.3f}  gap {gap:+.3f}", flush=True)
+    mean = float(np.mean(gaps))
+    sem = float(np.std(gaps)/math.sqrt(len(gaps)))
+    if verbose:
+        print(f"\nCUE twin gap (real - surrogate): mean "
+              f"{mean:+.3f} +- {sem:.3f}", flush=True)
+    return {"gaps": gaps, "mean": mean, "sem": sem,
+            "npos": int(sum(g > 0 for g in gaps))}
+
+
+if __name__ == "__main__":
+    cue_twin_gap()
