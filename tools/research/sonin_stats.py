@@ -64,8 +64,6 @@ def analyze(tag, s, g, lam):
           f" (banked 0.32)")
     u = Nsmooth(s, lam)
     inc = np.diff(u) - 1
-    gu = g/(2*math.pi)*(np.log(g/(2*math.pi)) - 1)  # zeros unfolded (RvM)
-    ginc = np.diff(gu*2*math.pi/np.log(g[:-1]/(2*math.pi))/(2*math.pi))  # not used
     gN = g/(2*math.pi)*np.log(g/(2*math.pi)) - g/(2*math.pi) + 7.0/8
     gi = np.diff(gN) - 1
     print(f"   increment sd: instrument {np.std(inc):.3f} (banked 0.012) "
@@ -79,8 +77,10 @@ def analyze(tag, s, g, lam):
 if __name__ == "__main__":
     ev = json.load(open(sys.argv[1]))
     od = json.load(open(sys.argv[2]))
+    de = int(sys.argv[3]) if len(sys.argv) > 3 else 0   # leading suspects to drop
+    do = int(sys.argv[4]) if len(sys.argv) > 4 else 0
     lam = ev["lam"]
     g = zeros_to(260.0)
     g = g[g <= 240]
-    analyze(f"even (K={ev['K']}, X={ev['X']:g})", ev["s"], g, lam)
-    analyze(f"odd  (K={od['K']}, X={od['X']:g})", od["s"], g, lam)
+    analyze(f"even (K={ev['K']}, X={ev['X']:g}, drop {de})", ev["s"][de:], g, lam)
+    analyze(f"odd  (K={od['K']}, X={od['X']:g}, drop {do})", od["s"][do:], g, lam)
