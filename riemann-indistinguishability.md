@@ -5282,6 +5282,86 @@ quantity). Check 8 clean (no hypothesis input; the owner's
 commission supplied direction, translated into pure mathematics
 before use).
 
+**Theorem 1bd (the archimedean comb — the prolate operator
+carries the counting and none of the fluctuations;
+`cascade_sonin_dirac.py`).** *(i) The commission and the object.*
+"Land 1bd." The Connes–Moscovici prolate operator W_λ =
+−∂ₓ(λ²−x²)∂ₓ + (2πλ)²x² (PNAS 119 (2022); deficiency (4,4)),
+whose self-adjoint realization commutes with both the space and
+Fourier cutoffs, so its negative spectrum lives in the Sonin space
+{f : f = 0 on J = [−λ,λ] and f̂ = 0 on J} (their Theorem 1.6) —
+the canonical archimedean-place candidate for a spectral
+realization of the zeros. No proof is claimed; the deliverable is
+the measurement of which features of the zeros this operator
+carries. *(ii) The instrument.* Outside-region Sonin compression
+(the committed `sonin_outside.py`): basis supported on [λ, X] only
+(f = 0 on J exact), the Fourier-vanishing constraint cut at the
+Slepian knee — constraint ranks pin at the Landau count 2λ(X−λ)
+(gated ±25; observed 345/572/1138 at X = 120/200/400 against
+335.3/561.4/1127.1) — the same Landau–Widom concentration object
+Theorem 1bc's third null used, here on the constraint side. A
+machine-precision cut over-constrains: the true eigenfunctions'
+universal sin/cos(2πλx)/x tails carry O(1/X) Fourier residual on J
+when truncated, so the numerically-null space at 1e−15 excludes
+them (the research log records two failed routes: shooting
+quantizes a different self-adjoint extension — the Sonin condition
+is nonlocal — and a Hermite–Galerkin basis covers the 1/x tails
+only as M^(−1/4)). *(iii) The counting side — carried exactly.* At
+λ = √2 the C-M per-parity counting constant log 4 − 2 log λ equals
+the zeros' log 2 — each parity's counting matches the zeros'
+counting (algebra gated, g2) — and the instrument confirms it
+λ-resolved: per-parity counts in (10, 240] climb 96/97 → 98/98 →
+99/99 across X = 120/200/400 (gated exact, monotone, approaching
+the zeros' 102 from below with the 1/X truncation deficit); the
+shallow end lands on the zeros' region (the X = 120 odd ladder
+starts at 13.23 against γ₁ = 14.13; the parities interlace, and the
+per-configuration merged shallowest ladder entry sits within 2.5 of
+γ₁ at every √2 configuration, gated); the affine dilation against the zeros
+shrinks toward 1 with X (endpoints gated in (1.0, 1.05),
+a(400) < a(120)); and the **−2 log λ constant law** is confirmed
+with the truncation bias cancelled: the matched-X difference
+c₀(λ=1) − c₀(λ=√2) = log 2 ± 0.08 (gated; both absolute fits below
+their targets log 4 and log 2 in the truncation direction, gated).
+*(iv) The fluctuation side — absent.* **The rigid-comb verdict**
+(`cascade_sonin_dirac.py`, g5–g6): the spectrum's unfolded
+increment sd is 0.016–0.020 at every √2 configuration (gated
+(0.004, 0.05)) against the zeros' own 0.352 (gated (0.33, 0.37)) —
+a factor ~20 quieter — and the increments are uncorrelated with
+the zeros' (per-configuration |corr| < 0.06 gated, observed
+≤ 0.015; mean gated < 0.03). *(v) The reading.* Theorem 1bc
+measured the zeros' fluctuations as anomalously stiff for their
+density (+0.710 over count-conditioned CUE) yet strictly looser
+than a rigid comb; this measurement places the canonical
+archimedean spectral candidate AT the comb end of that ordering:
+W_sa reproduces the counting function — location, constant term,
+λ-law — and none of the fluctuation content. On this instrument
+the archimedean place carries the smooth counting; the arithmetic
+fluctuations, the primes' contribution, are exactly what it lacks
+— the complementary null to 1bc's price list: a spectral geometry
+that hits the smooth side exactly still sits a full fluctuation
+class away from the zeros. *Honest scope:* float64; one knee
+convention (relative cut 3e−4; the rank plateau 343→345 across
+3e−3 → 3e−4 at X = 120 is the knee's sharpness); the (10, 240]
+ladder window excludes knee-leakage entries (tol-wandering, below
+the real ladder's start at √2; the same numeric cut applied
+uniformly at λ = 1); individual shallow eigenvalues wander ±1–1.5
+across X (the truncation–knee interplay) — the pinned quantities
+are ladder-level statistics, and the single individual-eigenvalue
+pin is same-configuration determinism, not a truth claim; compute
+is content-addressed on the instrument's bytes (ckpt_key; the
+landing recomputed fresh); a prior-session harvest of the same
+operator reproduced in phenomenon (rigid comb, decorrelation,
+counting, constant law) with its exact digits instrument-dependent
+and superseded by this committed instrument's gated values; C-M's
+λ = 2 spectral-realization theorem (their Theorem 5.1, a 2D
+construction) is a different object from this 1D compression and
+is not tested here; no RH leverage claimed. Check 7 clean
+(spectral theory of an ODE operator plus Fourier concentration —
+classical analysis; no semiclassical procedure invoked, and no
+cascade quantity is derived: a null measurement on a literature
+object). Check 8 clean (no hypothesis input; the owner's
+commission supplied direction only).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -5816,4 +5896,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1bc: the **79 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1bd: the **80 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the prolate operator W_λ, its self-adjoint extension, and the Sonin space *(the one appended at the 1bd landing)*.*
