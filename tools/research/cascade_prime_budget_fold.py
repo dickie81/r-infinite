@@ -67,12 +67,21 @@ Gates:
 Sabotage suite (run live at the landing battery; edit-run-observe-
 restore):
   (a) substrate mangle -- fold_surrogate.py's zeta profile min ->
-      max (kills the saturation) -> dependency-sha keys change,
-      RECOMPUTING printed, g7/g8 FAIL (the excess collapses), exit 1
-  (b) pin mangle -- g7 mean pin 0.922 -> 0.822 -> REUSED, g7 FAIL
-      alone, exit 1
-  (c) census revert -- footer 81 -> 80 -> g11 FAIL (manifest census)
-      AND g12 FAIL, exit 1 (two-gate detection)
+      max (kills the saturation) -> OBSERVED: keys changed,
+      RECOMPUTING x3 (decomp + both ladders), the excess COLLAPSES
+      to +0.019/+0.061 (without the saturation the two profiles
+      coincide -- the probe doubles as the physics control), g7+g8+g9
+      FAIL, exit 1
+  (b) pin mangle -- g7 mean pin 0.922 -> 0.822 -> first run OBSERVED
+      RECOMPUTING x3 where the docstring promised REUSED: the
+      landing's keying used this verifier's own bytes, a real
+      contract defect caught by this probe and fixed (re-keyed to
+      substrate bytes; the gate detection held throughout: g7 FAIL
+      alone, exit 1). Redo under the fixed keying OBSERVED: REUSED
+      x4, seconds, g7 FAIL alone, exit 1
+  (c) census revert -- footer 81 -> 80 -> OBSERVED: g11 FAIL (the
+      chain gate prints the missing census string) AND g12 FAIL,
+      exit 1 (two-gate detection)
 """
 import hashlib, math, os, sys
 
