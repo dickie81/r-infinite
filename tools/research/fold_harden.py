@@ -26,9 +26,6 @@ def D_fixed_from_points(points, tlo, thi, mean_density_fn, amax_sp, ng=8000):
     tg = np.linspace(tlo, thi, ng)
     Nt = np.searchsorted(points, tg)
     S = Nt - mean_density_fn(tg)
-    sp = (thi - tlo)/np.mean(np.diff(np.sort(
-        points[(points > tlo) & (points < thi)])))/ng  # grid pts per spacing^-1
-    # mean spacing in t at window center:
     pts = points[(points > tlo) & (points < thi)]
     msp = np.mean(np.diff(np.sort(pts)))
     out = []
@@ -95,7 +92,32 @@ def decomposition(verbose=True):
             "bare_smeared": [float(v) for v in bare_smear],
             "cue_fixed": [float(v) for v in Dcf],
             "cue_index_at_lags": [float(Dci[a-1]) for a in lags_sp],
-            "sigma2": [float(v) for v in sig2]}
+            "sigma2": [float(v) for v in sig2],
+            "surrogate_sawtooth": surrogate_sawtooth(lags_sp)}
+
+
+def surrogate_sawtooth(lags_sp, nreal=40):
+    """The self-consistency branch (round-224 F7: the docstring
+    promised this measurement; now computed): Gaussian surrogate
+    fields with a climbing D, positions by inv_Nbar, sawtooth =
+    D_fixed - D_index, expected 1/6 at every lag."""
+    from fold_D import inv_Nbar
+    from fold_surrogate import surrogate_field
+    rng = np.random.default_rng(7)
+    prof = D_cue_analytic(np.arange(1, 1025).astype(float)) - 1.0/6
+    NZ = 380
+    vals = []
+    for _ in range(nreal):
+        d = surrogate_field(prof, rng)
+        g = np.array([inv_Nbar(k - 0.5 + d[k-1], g0=20.0 + 2.3*k)
+                      for k in range(1, NZ + 1)])
+        g = np.sort(g)
+        Di = D_emp(Nbar(g) - np.arange(1, NZ + 1) + 0.5, 48)
+        Df = D_fixed_from_points(g, float(g[30]), float(g[-30]),
+                                 Nbar, lags_sp, ng=6000)
+        vals.append([float(Df[i] - Di[a-1])
+                     for i, a in enumerate(lags_sp)])
+    return [float(v) for v in np.mean(vals, axis=0)]
 
 
 if __name__ == "__main__":

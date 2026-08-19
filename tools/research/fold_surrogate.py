@@ -20,26 +20,18 @@ Conditioning: accept iff the in-band count at the point equals the
 comb's (the 1bc protocol), deterministic seed ladder, 16 accepted
 per point per ensemble.
 
-RESULT LADDER (session record; three runs, ten conditioned points
-each, vs 1bc's measured +0.710 +- 0.086):
-  hybrid profiles (alpha-scaled, run at edbc6c3):  +0.812 +- 0.096
-  PARAMETER-FREE profiles, seed base 7000:          +0.841 +- 0.094
-  PARAMETER-FREE profiles, seed base 9000:          +0.922 +- 0.097
-Every point positive in every run. The parameter-free profiles are
-  CUE:  D(l) = (1/pi^2)(ln 2 pi l + gamma + 1) - 1/6
-  zeta: D(l) = min[same, (1/pi^2)(ln ln(T/2pi) + Mertens + 1)] - 1/6
-with the 1/6 the exact sawtooth conversion (fold_harden.py) and the
-saturation bracket = Mertens' theorem for the resolved primes + the
-GUE resummation tail (measured 2.630/pi^2 vs 2.615/pi^2). The
-calibration factors collapse to 1.001/1.018 (inert). Combined
-surrogate estimate ~ +0.88 +- 0.07 sits ~0.17 +- 0.11 ABOVE the real
-zeros' +0.710: the second-order prime budget accounts for ~80% and
-overshoots slightly -- real zeta pays a small premium relative to
-its Gaussian twin (a non-Gaussian / higher-order remainder of ~0.15
-decades, sign: real zeta dodges slightly WORSE than second-order
-predicts). Decomposition: excess = prime-budget rigidity gap
-(derived, parameter-free, dominant) + non-Gaussian remainder
-(measured ~20%, open).
+RESULT LADDER (superseded history, round-224 F1/F2: the runs below
+carried empirical floors 0.12/0.18 that overrode the derived zeta
+bracket, and a grid differing from certified 1bc's at four of ten
+points; the as-stated configuration's pins live in
+cascade_prime_budget_fold.py g7/g8):
+  hybrid profiles (alpha-scaled):                    +0.812 +- 0.096
+  floored profiles, landing grid, seeds 7000/9000:   +0.841 / +0.922
+The parameter-free profile FORMS and the exact constants (sawtooth
+1/6; bracket ln ln X + Mertens + 1, measured 2.630/pi^2 vs the
+formula's 2.630/pi^2 at T0 = 320) stand; the reviewer's sensitivity
+runs showed the qualitative result robust across all four
+configurations (forty point-evaluations, all positive).
 """
 import numpy as np, math, os, sys
 from numpy.polynomial import legendre as L
@@ -114,8 +106,10 @@ def surrogate_field(Dprof, rng, n=NZ, grid=2048):
     return f[:n]
 
 
-GRIDS = {60.0: [200, 280],
-         120.0: [260, 280, 300, 320, 340, 360, 400, 450]}
+# round-224 F2: the landing's grid differed from certified 1bc's at
+# four of ten points; this is 1bc's CGRID verbatim.
+GRIDS = {60.0: [200, 240, 280, 300],
+         120.0: [260, 300, 340, 360, 400, 450]}
 NACC = 16
 
 
@@ -136,9 +130,18 @@ def run_fold(seed_base=9000, nacc=NACC, verbose=True):
     MERTENS = 0.2614972128476428
     X0 = 320.0/TWO_PI
     Vsat = (math.log(math.log(X0)) + MERTENS + 1)/math.pi**2
-    Dz_prof = np.maximum(np.minimum(D_cue_analytic(lags), Vsat) - SIXTH,
-                         0.12)
-    Dc_prof = np.maximum(D_cue_analytic(lags) - SIXTH, 0.18)
+    # round-224 F1: the landing carried empirical floors (0.12/0.18)
+    # here that silently overrode the derived bracket -- min(Sigma^2,
+    # Vsat) - 1/6 = 0.0998 < 0.12 at EVERY lag, so the transfer ran on
+    # the floor, not the formula. Floors removed: the profiles below
+    # are exactly the stated parameter-free forms. (The zeta profile
+    # is then the constant Vsat - 1/6 at every integer lag at this
+    # window -- Sigma^2(1) = 0.346 already exceeds the bracket 0.266
+    # -- i.e. a white-noise displacement field at the derived
+    # variance; the CUE circulant's negative modes are clipped,
+    # disclosed.)
+    Dz_prof = np.minimum(D_cue_analytic(lags), Vsat) - SIXTH
+    Dc_prof = D_cue_analytic(lags) - SIXTH
     if verbose: print(f"parameter-free: zeta sat bracket {Vsat*math.pi**2:.3f}/pi^2 "
           f"-> plateau {Vsat - SIXTH:.3f}; CUE(24) {Dc_prof[23]:.3f}",
           flush=True)
