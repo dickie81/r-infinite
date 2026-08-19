@@ -71,7 +71,7 @@ if __name__ == "__main__":
     X = float(sys.argv[3]) if len(sys.argv) > 3 else 40.0
     tol = float(sys.argv[4]) if len(sys.argv) > 4 else 1e-15
     parity = sys.argv[5] if len(sys.argv) > 5 else "even"
-    NJ = 160
+    NJ = max(160, int(6*lam*X))   # xi-grid resolves the ~1/X kernel period
     NQ = max(1600, 4*K)
     dims, rank, s = build(lam, K, X, NJ, tol, NQ, parity)
     out = {"lam": lam, "K": K, "X": X, "NJ": NJ, "tol": tol, "NQ": NQ,
