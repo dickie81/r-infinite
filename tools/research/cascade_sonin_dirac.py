@@ -60,14 +60,19 @@ Gates:
 
 Sabotage suite (run live at the landing battery; each probe edits,
 runs, observes, restores):
-  (a) instrument mangle -- sonin_outside.py constraint phase sign
-      flipped -> ckpt_key self-invalidates (RECOMPUTING printed) and
-      the recomputed spectrum fails g4/g5 -> OBSERVED: keys changed,
-      RECOMPUTING on all 8 configs, g4 FAIL (counts collapse), exit 1
-  (b) pin mangle -- g4 count pin 97 -> 96 -> OBSERVED: g4 FAIL
-      alone (cached compute, seconds), exit 1
-  (c) census revert -- footer 80 -> 79 -> OBSERVED: g11 FAIL and
-      g10 FAIL (manifest census check), exit 1 (two-gate detection)
+  (a) instrument mangle -- sonin_outside.py even-parity Fourier
+      kernel cos -> sin (hands the even sector the odd constraint)
+      -> OBSERVED: all 8 ckpt keys changed, RECOMPUTING on all 8
+      configs (self-invalidation live), g4 FAIL alone with the even
+      counts becoming the odd sector's (A even 96 -> 97, D even
+      123 -> 122; Landau ranks unchanged so g3 holds -- the count
+      pins, not the rank pins, carry the detection), exit 1
+  (b) pin mangle -- g4 count pin A-even 96 -> 95 -> OBSERVED:
+      REUSED on all 8 (cached compute, seconds), g4 FAIL alone,
+      exit 1
+  (c) census revert -- footer 80 -> 79 -> OBSERVED: g10 FAIL (the
+      manifest-mode chain gate prints the missing census string)
+      AND g11 FAIL, exit 1 (two-gate detection)
 """
 import math, os, sys
 
