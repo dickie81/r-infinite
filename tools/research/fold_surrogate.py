@@ -12,10 +12,12 @@ non-Gaussian / higher-order remainder.
 Surrogates: stationary Gaussian delta_n on n = 1..380 by circulant
 embedding of C(l) = sigma^2 - D(l)/2 (negative circulant modes
 clipped); positions gamma_n = inv_Nbar(n - 1/2 + delta_n).
-D-profiles: the measured/analytic hybrid pinned by fold_D.py --
-  zeta: alpha * D_prime_sum(l; T0=320), alpha = plateau match
-  CUE:  Sigma^2 form minus the statistic-conversion constant c0,
-        both from fold_D's empirics.
+D-profiles (parameter-free; round-225 F2 replaced this header's
+stale alpha-hybrid spec, eliminated at d86d912):
+  zeta: min(Sigma^2(l), Vsat) - 1/6 with Vsat = (ln ln(T0/2pi)
+        + Mertens + 1)/pi^2 at T0 = 320 -- the derived constant
+        0.0998 at every integer lag at this window
+  CUE:  Sigma^2(l) - 1/6 = (1/pi^2)(ln 2 pi l + gamma + 1) - 1/6.
 Conditioning: accept iff the in-band count at the point equals the
 comb's (the 1bc protocol), deterministic seed ladder, 16 accepted
 per point per ensemble.
@@ -39,8 +41,7 @@ from scipy.special import spherical_jn
 from scipy.linalg import eigh as scipy_eigh
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from fold_D import (Nbar, inv_Nbar, D_zeta_analytic, D_cue_analytic,
-                    TWO_PI)
+from fold_D import Nbar, inv_Nbar, D_cue_analytic, TWO_PI
 
 A = 2.0
 NZ = 380

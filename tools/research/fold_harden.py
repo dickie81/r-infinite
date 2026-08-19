@@ -18,7 +18,7 @@ window). For CUE: the eigenphase counting function on its own circle.
 import numpy as np, math, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fold_D import (Nbar, zeros380, D_emp, D_zeta_analytic,
-                    D_cue_analytic, D_zeta_sat, TWO_PI)
+                    D_cue_analytic, TWO_PI)
 
 
 def D_fixed_from_points(points, tlo, thi, mean_density_fn, amax_sp, ng=8000):

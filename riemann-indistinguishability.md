@@ -5467,8 +5467,12 @@ measured non-Gaussian premium. Jointly with
 Theorem 1bd (the archimedean operator carries counting and no
 fluctuations), the bracket closes: counting is archimedean, the
 fluctuation excess is the pair-correlation prime budget, and
-anything deeper contributes at most the ~20% remainder — a
-quantified ceiling on what the margin economics can extract.
+anything deeper contributes ~~at most the ~20% remainder~~ the
+measured remainder — ~25% of the surrogate excess, within its
+~10–35% dispersion band *(round-225 F1: the closing sentence had
+kept the floored-configuration figure and asserted it as a
+ceiling)* — a quantified bound-class on what the margin economics
+can extract.
 *Honest scope:* float64; one height window (zeros 40–340, heights
 130–500; T₀ = 320 for the analytic brackets, window-smeared where
 stated); 380 zeros at dps 13; ten CUE seeds for the empirical D
