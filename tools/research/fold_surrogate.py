@@ -162,7 +162,7 @@ if __name__ == "__main__":
             m_comb = S.margin(comb, float(t0))
             out = {}
             for name, prof in (("zeta", Dz_prof), ("cue", Dc_prof)):
-                rng = np.random.default_rng(7000 + int(t0) + (0 if name == "zeta" else 1))
+                rng = np.random.default_rng(9000 + int(t0) + (0 if name == "zeta" else 1))
                 Rs, tried = [], 0
                 while len(Rs) < NACC and tried < 4000:
                     tried += 1
