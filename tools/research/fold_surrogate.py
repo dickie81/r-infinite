@@ -132,7 +132,7 @@ if __name__ == "__main__":
     print(f"parameter-free: zeta sat bracket {Vsat*math.pi**2:.3f}/pi^2 "
           f"-> plateau {Vsat - SIXTH:.3f}; CUE(24) {Dc_prof[23]:.3f}",
           flush=True)
-    print(f"profiles: zeta plateau {Dz_prof[500]:.3f} (alpha {alpha:.3f}); "
+    print(f"profiles: zeta plateau {Dz_prof[500]:.3f}; "
           f"CUE at 24/380: {Dc_prof[23]:.3f}/{Dc_prof[379]:.3f}", flush=True)
     # per-profile calibration: circulant clipping inflates the realized
     # D uniformly (measured x1.30 flat across lags for the zeta
