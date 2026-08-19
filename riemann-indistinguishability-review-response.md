@@ -4685,3 +4685,12 @@ substantive paper change.**
 **Sweep battery (full-tower class — gate-label and instrument-byte changes):** manifest refreshed; the docstring change to the instrument self-invalidated all 8 ckpt keys, so the sweep verifier run recomputed the full spectrum fresh and passed 12/12; TOWER PASS 13/13 recorded below at the convergence round.
 
 **Trajectory: 1bd landed (0dae413 + fcf4653) → 222: 3M+6m+1c, all accepted, swept this commit. Convergence round 223 next.**
+
+
+# Round 223: convergence test on the round-222 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic); Theorem 1bd certified stable
+
+One cosmetic (C1, held): the instrument docstring's "retained only in the audit record's A343" — the superseded banked digits also appear in three uncited research-scratch docstrings (out of object-level scope) and in the note's own preceding sentence; the pointer's substance is true. Lead-verified and accepted as cosmetic; the fix is deferred to the next instrument-byte change (any edit to sonin_outside.py invalidates all eight content-addressed keys and forces a full fresh recompute — not owed for a cosmetic).
+
+Held (reviewer, all re-derived or re-run): sweep completeness F1–F10 with zero unswept mirrors; the s-units 2σ form derived independently and matched to the code; every C-M attribution verified against the PNAS full text and arXiv v1 directly (Prop 3.2's 2σ verbatim; Thm 1.6 Sonin-free; Cor 2.2; Section 5's λ = √2 and ²𝔇 with ±2√μ; Thm 5.1's −log(E/2π) refinement verbatim); F6's 0.7170→0.7359 and F9's 104.95/102.00/101.82 reproduced; F5's wander re-measured live (leakage 1.51 vs ladder ≤ 0.85, plus the 343-rank plateau digit confirmed); F7 roundings exact; annotation integrity (all strikes tagged, no touch outside the 1bd block + footer); checkpoint re-key verified byte-identical in state. Batteries (its own runs): manifest 13/13 current; verifier REUSED ×8, 12/12; TOWER PASS 13/13.
+
+**Trajectory: 1bd landed (0dae413 + fcf4653) → 222: 3M+6m+1c, all accepted (swept f207ae9 + ea5bdf4) → 223 CONVERGED 0+0+1c. Certified: Theorem 1bd — the archimedean comb. Next hostile round on the next substantive paper change.**

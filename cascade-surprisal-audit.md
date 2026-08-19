@@ -16528,3 +16528,11 @@ applied. Next hostile round on the next substantive paper change.
 **Battery (full-tower class — gate-label + instrument-byte changes).** The instrument docstring edit self-invalidated all 8 content-addressed keys (A341 working as designed on the defender's side too): the sweep verifier run recomputed the full spectrum fresh, 12/12; manifest refreshed (13 members); full tower re-run at the convergence round.
 
 **Standing state.** Round 222 swept; convergence round 223 owed on this sweep.
+
+## Addendum 345 — round 223: convergence; Theorem 1bd CERTIFIED
+
+**The round.** Fresh-context subagent on the round-222 sweep: CONVERGED — 0 majors, 0 minors, 1 cosmetic (C1: a loose "only" in the instrument docstring's supersession note; lead-verified, accepted, deferred to the next instrument-byte change since any edit to sonin_outside.py re-keys all eight checkpoints). Its batteries: manifest 13/13 current; changed verifier REUSED ×8, 12/12; TOWER PASS 13/13. Its source work: every C-M attribution re-verified directly against the PNAS full text and the arXiv v1, including the Thm 5.1 refined-counting sentence verbatim.
+
+**Certification.** Theorem 1bd — the archimedean comb (the Connes–Moscovici prolate operator carries the zeros' counting to its constant term and none of their fluctuations) — is **stable**: landed 0dae413/fcf4653, hostile round 222 (3M+6m+1c, all source-fidelity/documentation, all accepted and swept f207ae9/ea5bdf4), convergence round 223 clean. The tower stands at 13 members, census 80 / 1i–1bd.
+
+**Standing state.** The 1bd commission is complete. Open next moves (owner's choice): the excess-arc quantitative fold (derive the intermediate-scale structure-function ratio analytically and fold through the measured response law to derive 1bc's +0.710), the price-list experiment (inject primes, measure horizon motion against the Hardy–Littlewood rate), or a new commission.
