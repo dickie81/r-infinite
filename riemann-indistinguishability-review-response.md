@@ -4694,3 +4694,24 @@ One cosmetic (C1, held): the instrument docstring's "retained only in the audit 
 Held (reviewer, all re-derived or re-run): sweep completeness F1–F10 with zero unswept mirrors; the s-units 2σ form derived independently and matched to the code; every C-M attribution verified against the PNAS full text and arXiv v1 directly (Prop 3.2's 2σ verbatim; Thm 1.6 Sonin-free; Cor 2.2; Section 5's λ = √2 and ²𝔇 with ±2√μ; Thm 5.1's −log(E/2π) refinement verbatim); F6's 0.7170→0.7359 and F9's 104.95/102.00/101.82 reproduced; F5's wander re-measured live (leakage 1.51 vs ladder ≤ 0.85, plus the 343-rank plateau digit confirmed); F7 roundings exact; annotation integrity (all strikes tagged, no touch outside the 1bd block + footer); checkpoint re-key verified byte-identical in state. Batteries (its own runs): manifest 13/13 current; verifier REUSED ×8, 12/12; TOWER PASS 13/13.
 
 **Trajectory: 1bd landed (0dae413 + fcf4653) → 222: 3M+6m+1c, all accepted (swept f207ae9 + ea5bdf4) → 223 CONVERGED 0+0+1c. Certified: Theorem 1bd — the archimedean comb. Next hostile round on the next substantive paper change.**
+
+
+# Round 224: hostile review of the 1be landing (fresh-context subagent, landing-round fresh rule) — 3 MAJOR + 5 minor + 2 cosmetic, all accepted; batteries green; sweep + re-pin this commit
+
+**Reviewer's batteries:** fresh TOP 13/13 (~4.5 min; FRESH-mode prints ×5, pins reproduced to every displayed digit); TOWER PASS 14/14; probes (b)/(c) re-run live with exact censuses; four sensitivity configurations of its own design (no-floor, 1bc-grid, both) — forty point-evaluations, all positive.
+
+**Findings (each lead-verified before acceptance):**
+- **F1 MAJOR** (the headline): undisclosed empirical floors (0.12/0.18) in the substrate overrode the derived bracket — min(Σ², V_sat) − 1/6 = 0.0998 < 0.12 at every lag, so the landing's transfer ran on the floor and Mertens/ln ln/+1 were numerically inert in it; the landing's "parameter-free" was false as stated. Lead-verified by arithmetic (Σ²(1) = 0.346 > V_sat = 0.266) and by the re-pin runs. Swept: floors REMOVED (the zeta profile is now exactly the derived constant 0.0998), the paper struck-and-annotated, ladders re-pinned +0.952 ± 0.127 / +0.919 ± 0.111 — the reviewer's independent no-floor certified-grid run (+0.952 ± 0.127) matched exactly by the lead's re-pin.
+- **F2 MAJOR**: "the same ten conditioned points" was false — the landing's grid differed from certified 1bc's CGRID at four of ten points (−0.055 effect measured by the reviewer). Swept: CGRID adopted verbatim; struck-and-annotated.
+- **F3 MAJOR**: "< 0.01 per lag" false at four of eight committed lags (max 0.0225). Lead-verified from the committed checkpoint. Swept: "mean signed difference 0.004, per-lag within 0.023."
+- **F4 minor**: the quoted formula value 2.615/π² was the T = 300 number; at T₀ = 320 it is 2.6302/π² and the agreement with measurement is 0.0006 — better than the landing claimed. Swept.
+- **F5 minor**: "crossover at a few spacings" — the formal crossover is ℓ* = 0.456 (sub-spacing) and the zeros sit below the universal law at every measured lag. Swept.
+- **F6 minor**: "calibration ... gated" — nothing gated the scale factors. Swept to "printed and stored, not gated."
+- **F7 minor**: fold_harden's docstring promised a surrogate self-consistency measurement the committed code did not perform (the reviewer performed it: 0.163–0.165 vs 1/6 — it would have held). Swept: the branch added to the committed instrument.
+- **F8 minor**: the 1ax/1ay unification presented as "one derived cause" — a reading per 1bc's own scope. Swept to reading-status.
+- **C1/C2 cosmetic**: dead variable; stale ×1.30 comment. Swept.
+- Held highlights: the sawtooth 1/6 derivation adjudicated sound (the reviewer's independent derivation found the two omitted covariance terms cancel identically); g4's bracket honestly measured/gated; keying contract (post round-224-suite fix) verified both ways; census 81 recounted bijectively; the qualitative dichotomy robust in all four sensitivity configurations.
+
+**Sweep battery (full-tower class):** substrate edits self-invalidated all fold checkpoints; confirmation run recomputed fresh and hit the new pins exactly, 13/13; TOWER PASS 14/14 on commit-final bytes; one self-caught label/code drift (g9's window text) fixed with its own manifest refresh + verifier rerun + final tower.
+
+**Trajectory: 1be landed (654b4af…0cc73b2, incl. the suite's probe-b keying-defect catch) → 224: 3M+5m+2c, all accepted, swept (0e120f1 + 1f7c5a1 + the label commit). Convergence round 225 next.**
