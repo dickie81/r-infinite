@@ -214,8 +214,8 @@ for gname, base in (("g7", 9000), ("g8", 7000)):
 ok = all(0.05 < folds[b]["mean"] - CERT_1BC < 0.40 and
          0.75 < folds[b]["mean"] < 1.10 for b in (9000, 7000))
 gate("g9 the remainder: both ladders' overshoot of the certified "
-     "+0.710 in (0.02, 0.35) -- the non-Gaussian premium positive "
-     "and bounded", ok)
+     "+0.710 in (0.05, 0.40), means in (0.75, 1.10) -- the "
+     "non-Gaussian premium positive and bounded", ok)
 
 # ---------------------------------------------------------------- g10
 gate("g10 the 1bc consistency: the certified headline needle in the "
