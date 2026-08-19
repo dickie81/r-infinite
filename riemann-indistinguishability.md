@@ -5403,14 +5403,22 @@ excess, parameter-free, from second-order rigidity alone, and
 measures what is left over. *(ii) The two profiles, both analytic.*
 The displacement structure function D(ℓ) = E[(δ_{n+ℓ} − δ_n)²]:
 for count-matched CUE it is the RMT counting law Σ²(ℓ) =
-(1/π²)(ln 2πℓ + γ + 1) (measured equal to the form to < 0.01 per
-lag on the fixed-shift statistic); for the zeros it follows the
+(1/π²)(ln 2πℓ + γ + 1) (~~measured equal to the form to < 0.01 per lag~~ *(round-224 F3,
+MAJOR: four of the eight committed lags exceed 0.01)* — mean
+signed difference 0.004, per-lag within 0.023, gated < 0.035 at
+lags 8/16/24, on the fixed-shift statistic); for the zeros it ~~follows the
 same universal law only to a crossover at a few spacings and then
-saturates, because **the primes' budget** is finite — the
+saturates~~ *(round-224 F5: at this height window the budget binds
+from the first lag — Σ²(1) = 0.346 already exceeds the bracket
+0.266, the formal crossover ℓ* = 0.456 is sub-spacing, and the
+measured zeros sit below the universal law at every lag ≥ 1)* sits
+at its saturated budget from the first measured lag, because **the primes' budget** is finite — the
 fixed-shift saturation bracket is **ln ln(T/2π) + Mertens + 1**
 (Mertens' theorem for the resolved primes plus the GUE short-time
-resummation tail; measured 2.630/π² against the formula's
-2.615/π² at the window center T₀ = 320, gated ±0.20). The two
+resummation tail; measured 2.6297/π² against the formula's ~~2.615/π²~~
+**2.6302/π²** *(round-224 F4: the landing quoted the formula's
+value at T = 300; at T₀ = 320 the agreement is 0.0006)*, gated
+±0.20). The two
 statistics conventions are bridged by an exact constant: sampling
 increments at the zeros rather than at fixed heights subtracts
 **the sawtooth constant 1/6** (S falls linearly by one between
@@ -5422,24 +5430,40 @@ plateau-to-climb ratio at lags 16–32 — in the index statistics both
 sides carry into the transfer, post-1/6 — is 0.200 against the
 measured 0.231 (both gated). *(iii) The transfer.* Gaussian surrogate zero
 sets carrying ONLY these two zero-parameter profiles (circulant
-embedding; positions γ_n = N̄⁻¹(n − ½ + δ_n)), count-conditioned
-per the certified 1bc protocol and pushed through the same prolate
-sections at the same ten conditioned points, reproduce the
-certified excess: deterministic seed ladders give **+0.922 ± 0.097**
-and **+0.841 ± 0.094** (means pinned ±0.02, every point positive at
-all twenty point-evaluations, gated) against the certified
-+0.710 ± 0.086. *(iv) The remainder.* The surrogates overshoot by
-+0.21/+0.13 (gated in (0.02, 0.35)): real zeta dodges slightly
-WORSE than its Gaussian second-order twin — **the non-Gaussian
-remainder**, ~20% of the excess, the measured trace of
-higher-than-second-order structure (the primes' third and fourth
-cumulants) in the dodging economics, and the open piece. *(v) The
-reading.* The 1ax GUE-percentile anomaly, the 1ay curvature
+embedding; positions γ_n = N̄⁻¹(n − ½ + δ_n)) ~~at the landing~~
+*(round-224 F1, MAJOR, struck: the landing's substrate carried
+undisclosed empirical floors (0.12/0.18) that silently overrode the
+derived bracket — min(Σ², V_sat) − 1/6 = 0.0998 < 0.12 at every
+lag, so the landing's transfer ran on the floor, not the formula,
+and its ladder means +0.922/+0.841 were floored-configuration
+values; the floors are removed and the zeta profile is now exactly
+the derived constant)*, count-conditioned per the certified 1bc
+protocol and pushed through the same prolate sections at
+~~the same ten conditioned points~~ certified 1bc's own ten points
+*(round-224 F2, MAJOR: the landing's grid differed from certified
+1bc's at four of the ten points; it is now 1bc's CGRID verbatim)*,
+reproduce the certified excess: deterministic seed ladders give
+**+0.952 ± 0.127** and **+0.919 ± 0.111** (means pinned ±0.02,
+every point positive at all twenty point-evaluations, minima
++0.354/+0.369, gated) against the certified +0.710 ± 0.086 — the
+round-224 reviewer's independent no-floor run on the certified
+grid, +0.952 ± 0.127, matched exactly by the re-pin. *(iv) The
+remainder.* The surrogates overshoot by +0.24/+0.21 (gated in
+(0.05, 0.40)): real zeta dodges slightly WORSE than its Gaussian
+second-order twin — **the non-Gaussian remainder**, ~25% of the
+surrogate excess (range ~10–35% given the dispersion), the
+measured trace of higher-than-second-order structure (the primes'
+third and fourth cumulants) in the dodging economics, and the open
+piece. *(v) The
+reading.* That the 1ax GUE-percentile anomaly, the 1ay curvature
 census, and 1bc's factor-~5 stiffness excess are one phenomenon
-with one derived cause: the primes' displacement budget is finite
-(ln ln + Mertens + 1) while genericity's grows (ln 2πℓ); the
-certified section instrument reads exactly that second-order gap
-to ~80%, plus the measured non-Gaussian premium. Jointly with
+with one cause — the primes' displacement budget is finite
+(ln ln + Mertens + 1) while genericity's grows (ln 2πℓ) — is the
+reading this measurement supports (round-224 F8: a reading, per
+1bc's own scope, not a derivation across the low-height
+instruments); what is derived and gated is that the certified
+section instrument reads the second-order gap to ~75%, plus the
+measured non-Gaussian premium. Jointly with
 Theorem 1bd (the archimedean operator carries counting and no
 fluctuations), the bracket closes: counting is archimedean, the
 fluctuation excess is the pair-correlation prime budget, and
@@ -5450,9 +5474,10 @@ quantified ceiling on what the margin economics can extract.
 stated); 380 zeros at dps 13; ten CUE seeds for the empirical D
 and deterministic surrogate seed ladders (dispersion across the
 ten shared points reported as ±sem, not independent-sample error,
-per the 1bc convention); the surrogate fields are clipped
-circulant embeddings (calibration factors 1.001/1.018, gated
-inert by construction printout); the saturation bracket's "+1"
+per the 1bc convention); the surrogate fields are circulant embeddings (the CUE side
+clipped; the zeta side, constant-D, is white noise with nothing to
+clip; calibration factors 1.001/1.018, printed and stored in the
+checkpoints, ~~gated~~ not gated — round-224 F6); the saturation bracket's "+1"
 (the GUE resummation tail) is confirmed against measurement at
 one height window, not derived height-resolved; Berry-class
 resummation is consumed as a literature-attributed mechanism for

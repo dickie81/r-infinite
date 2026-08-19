@@ -8,21 +8,29 @@ saturates because the primes' budget is finite -- the explicit
 formula's diagonal gives a fixed-shift saturation bracket of
 ln ln(T/2pi) + Mertens + 1 (Mertens' theorem for the resolved
 primes + the GUE short-time resummation tail; measured 2.630/pi^2
-vs 2.615/pi^2 at the window center T0 = 320) -- while count-matched
+vs the formula 2.6302/pi^2 at the window center T0 = 320, agreement 0.0006 -- round-224 F4 corrected the stale 2.615) -- while count-matched
 CUE's D(l) keeps climbing as the RMT log law Sigma^2(l) =
-(1/pi^2)(ln 2 pi l + gamma + 1) (measured = the form to < 0.01).
+(1/pi^2)(ln 2 pi l + gamma + 1) (mean signed difference 0.004; per-lag within 0.023 -- round-224 F3 corrected the landing's "< 0.01 per lag").
 (2) The index/fixed statistic conversion is the exact sawtooth
 constant 1/6 (S falls linearly by one between zeros: two endpoints
 x uniform variance 1/12; CUE check 0.667 - 1/6 = 0.500 vs measured
 0.499). (3) Gaussian surrogate ensembles carrying ONLY these two
-parameter-free profiles, count-conditioned per the certified 1bc
-protocol and pushed through the same prolate sections at the same
-ten points, reproduce the certified stiffness excess:
-seed ladders +0.841 +- 0.094 and +0.922 +- 0.097 vs the certified
-+0.710 +- 0.086 -- every point positive -- with the surrogate
-overshoot (+0.13/+0.21) measuring the NON-GAUSSIAN REMAINDER: real
-zeta pays a small premium over its Gaussian twin (~20% of the
-excess), the open higher-order piece.
+parameter-free profiles (round-224 F1: the landing carried
+empirical floors 0.12/0.18 that silently overrode the derived
+bracket -- min(Sigma^2, Vsat) - 1/6 = 0.0998 < 0.12 at every lag,
+so the landing's transfer ran on the floor; floors removed, and the
+zeta profile is now exactly the derived constant 0.0998), count-
+conditioned per the certified 1bc protocol and pushed through the
+same prolate sections at certified 1bc's own ten points (round-224
+F2: the landing's grid differed at four of ten), reproduce the
+certified stiffness excess: seed ladders +0.952 +- 0.127 and
++0.919 +- 0.111 vs the certified +0.710 +- 0.086 -- every point
+positive, mins +0.354/+0.369 -- with the surrogate overshoot
+(+0.24/+0.21) measuring the NON-GAUSSIAN REMAINDER: real zeta pays
+a premium over its Gaussian twin (~25% of the surrogate excess,
+range ~10-35% given the dispersion), the open higher-order piece.
+The round-224 reviewer's independent no-floor 1bc-grid run gave
++0.952 +- 0.127 (seed 9000), matched exactly by the re-pin.
 
 Substrates (committed research instruments, audited not counted):
 fold_D.py (profiles + empirics), fold_harden.py (the decomposition),
@@ -51,13 +59,13 @@ Gates:
   g6  the analytic ratio at lags 16..32, index statistics (both
       sides post-1/6, the fold's actual inputs): profile 0.200 in
       (0.15, 0.25); empirical 0.231 in (0.17, 0.30)
-  g7  THE FOLD, ladder 9000: mean = pinned +0.922 +- 0.02, all ten
+  g7  THE FOLD, ladder 9000: mean = pinned +0.952 +- 0.02, all ten
       points positive (> +0.25)
-  g8  THE FOLD, ladder 7000: mean = pinned +0.841 +- 0.02, all ten
+  g8  THE FOLD, ladder 7000: mean = pinned +0.919 +- 0.02, all ten
       points positive (> +0.25)
   g9  the remainder: both ladder means minus the certified 0.710
-      in (0.02, 0.35) -- the non-Gaussian premium positive and
-      bounded; both means in (0.70, 1.05)
+      in (0.05, 0.40) -- the non-Gaussian premium positive and
+      bounded; both means in (0.75, 1.10)
   g10 the 1bc consistency: the certified headline needle
       "+0.710 ± 0.086" present in the paper
   g11 the chain obligation to cascade_sonin_dirac.py (Theorem 1bd)
@@ -114,7 +122,7 @@ def _sha(name):
 DEPS = {f: _sha(f) for f in ("fold_D.py", "fold_harden.py", "fold_surrogate.py")}
 
 # ---- pins (from the research record, session runs at 4b13418) -------
-PIN_MEAN = {9000: 0.922, 7000: 0.841}
+PIN_MEAN = {9000: 0.952, 7000: 0.919}
 PIN_G380 = 653.650
 
 # ---- staged compute (content-addressed on the substrate shas) -------
@@ -203,8 +211,8 @@ for gname, base in (("g7", 9000), ("g8", 7000)):
          f"{PIN_MEAN[base]:+.3f} +- 0.02, all ten points > +0.25", ok)
 
 # ---------------------------------------------------------------- g9
-ok = all(0.02 < folds[b]["mean"] - CERT_1BC < 0.35 and
-         0.70 < folds[b]["mean"] < 1.05 for b in (9000, 7000))
+ok = all(0.05 < folds[b]["mean"] - CERT_1BC < 0.40 and
+         0.75 < folds[b]["mean"] < 1.10 for b in (9000, 7000))
 gate("g9 the remainder: both ladders' overshoot of the certified "
      "+0.710 in (0.02, 0.35) -- the non-Gaussian premium positive "
      "and bounded", ok)

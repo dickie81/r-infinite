@@ -147,9 +147,10 @@ def run_fold(seed_base=9000, nacc=NACC, verbose=True):
           flush=True)
     if verbose: print(f"profiles: zeta plateau {Dz_prof[500]:.3f}; "
           f"CUE at 24/380: {Dc_prof[23]:.3f}/{Dc_prof[379]:.3f}", flush=True)
-    # per-profile calibration: circulant clipping inflates the realized
-    # D uniformly (measured x1.30 flat across lags for the zeta
-    # profile); scale each field so the realized D hits the target
+    # per-profile calibration: scale each field so the realized D
+    # hits the target (round-224 C2: the x1.30 note described the
+    # old hybrid profile; the current zeta field needs no clipping
+    # and calibrates at 1.001)
     from fold_D import D_emp
     scale = {}
     crng = np.random.default_rng(99)
