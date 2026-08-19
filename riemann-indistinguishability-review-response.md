@@ -4715,3 +4715,12 @@ Held (reviewer, all re-derived or re-run): sweep completeness F1–F10 with zero
 **Sweep battery (full-tower class):** substrate edits self-invalidated all fold checkpoints; confirmation run recomputed fresh and hit the new pins exactly, 13/13; TOWER PASS 14/14 on commit-final bytes; one self-caught label/code drift (g9's window text) fixed with its own manifest refresh + verifier rerun + final tower.
 
 **Trajectory: 1be landed (654b4af…0cc73b2, incl. the suite's probe-b keying-defect catch) → 224: 3M+5m+2c, all accepted, swept (0e120f1 + 1f7c5a1 + the label commit). Convergence round 225 next.**
+
+
+# Round 225: convergence test on the round-224 sweep (subagent, per protocol) — NOT CONVERGED: 2 minors + 1 cosmetic, all in sweep prose; swept
+
+Reviewer's batteries: manifest 14/14 by its own hash run; verifier 13/13 with REUSED ×4 on keys it recomputed independently; TOWER PASS 14/14. All round-224 fixes verified correct in substance (the derived-constant profile, the CGRID, every re-pinned digit, the checkpoint-keying attack defeated, gate label/code sync across g0–g12, annotation integrity, census 81 bijective).
+
+Findings, all lead-verified verbatim and accepted: **F1 minor** — the block's closing sentence still asserted "at most the ~20% remainder" (the floored-configuration figure, as a ceiling the re-pinned values exceed); struck-and-annotated, re-quoted at ~25% within the ~10–35% band. **F2 minor** — fold_surrogate.py's header still specified the eliminated alpha-hybrid profiles as the instrument's contract; replaced with the parameter-free spec. **F3 cosmetic** — two dead imports removed. Sweep battery (substrate bytes changed → checkpoints self-invalidated): fresh recompute hit the pins exactly, 13/13; TOWER PASS 14/14.
+
+**Trajectory: 1be landed → 224: 3M+5m+2c (swept 0e120f1 + 1f7c5a1 + the label commit) → 225 NOT CONVERGED 2m+1c (swept 7bee484). Convergence round 226 next.**

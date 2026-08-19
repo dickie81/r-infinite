@@ -16554,3 +16554,7 @@ applied. Next hostile round on the next substantive paper change.
 **The sweep.** Floors removed (the profiles are now exactly the stated forms — the zeta side a white-noise field at the DERIVED variance 0.0998); certified 1bc's CGRID adopted; ladders re-pinned +0.952 ± 0.127 / +0.919 ± 0.111 (overshoots +0.24/+0.21; the non-Gaussian remainder re-quoted at ~25%, range ~10–35%); seven paper strikes/qualifications; the surrogate self-consistency branch added to the committed instrument; one self-caught g9 label/code drift fixed. Batteries: confirmation 13/13 with fresh recompute hitting the new pins exactly; TOWER PASS 14/14; final tower on the label commit.
 
 **Standing state.** Round 224 swept; convergence round 225 owed.
+
+## Addendum 348 — round 225: near-convergence; the residue swept
+
+Round 225 on the round-224 sweep: 0 majors, 2 minors, 1 cosmetic — all in sweep prose (a stale ~20%-as-ceiling clause; the substrate header's stale alpha-hybrid spec; dead imports), none touching a pin, gate, or computed value; all round-224 substance verified correct including the keying attack and the gate-sync audit. Swept in 7bee484 with the owed recompute (pins hit exactly) and TOWER PASS 14/14. Convergence round 226 owed.
