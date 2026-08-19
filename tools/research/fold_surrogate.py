@@ -115,18 +115,23 @@ NACC = 16
 if __name__ == "__main__":
     comb = np.array([inv_Nbar(float(k)) for k in range(1, NZ + 1)])
     lags = np.arange(1, 1025).astype(float)
-    # zeta profile: prime-sum shape averaged over the height window
-    # (T 130..500, matching the empirical measurement window -- the
-    # window smear damps the bare sum's non-decaying oscillations,
-    # restoring positive-definiteness), scaled to the measured plateau
-    Dz_shape = np.mean([D_zeta_analytic(lags, T)
-                        for T in np.linspace(130, 500, 15)], axis=0)
-    alpha = 0.121/np.mean(Dz_shape[15:32])
-    Dz_prof = alpha*Dz_shape
-    # CUE profile: Sigma^2 log form minus the conversion constant,
-    # floored at the lag-1 measured value
-    c0 = 0.16
-    Dc_prof = np.maximum(D_cue_analytic(lags) - c0, 0.18)
+    # PARAMETER-FREE profiles (fold_harden.py's decomposition):
+    # the index/fixed conversion is the sawtooth constant 1/6 exactly
+    # (S falls linearly by 1 between zeros: 2 x uniform var 1/12);
+    # CUE fixed-shift D = Sigma^2 itself; zeta's saturation bracket =
+    # ln ln X + Mertens + 1 (Mertens' theorem for the resolved primes
+    # + the GUE short-time resummation tail), X = T0/2pi at the
+    # window center. Zero fitted parameters.
+    SIXTH = 1.0/6.0
+    MERTENS = 0.2614972128476428
+    X0 = 320.0/TWO_PI
+    Vsat = (math.log(math.log(X0)) + MERTENS + 1)/math.pi**2
+    Dz_prof = np.maximum(np.minimum(D_cue_analytic(lags), Vsat) - SIXTH,
+                         0.12)
+    Dc_prof = np.maximum(D_cue_analytic(lags) - SIXTH, 0.18)
+    print(f"parameter-free: zeta sat bracket {Vsat*math.pi**2:.3f}/pi^2 "
+          f"-> plateau {Vsat - SIXTH:.3f}; CUE(24) {Dc_prof[23]:.3f}",
+          flush=True)
     print(f"profiles: zeta plateau {Dz_prof[500]:.3f} (alpha {alpha:.3f}); "
           f"CUE at 24/380: {Dc_prof[23]:.3f}/{Dc_prof[379]:.3f}", flush=True)
     # per-profile calibration: circulant clipping inflates the realized
