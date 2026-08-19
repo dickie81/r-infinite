@@ -2,7 +2,10 @@
 """1bd instrument, outside-region Sonin compression (route 3).
 
 The Sonin space S_lam = {f : f = 0 on J = [-lam, lam] and fhat = 0 on
-J} (C-M Theorem 1.6; convention e^{-2 pi i x xi}). Support the basis
+J} (the localization of W_sa's negative eigenfunctions there is C-M
+Corollary 2.2, PNAS numbering -- round-222 F2 corrected this line's
+Theorem-1.6 tag; 1.6 is the commutation theorem; convention
+e^{-2 pi i x xi}). Support the basis
 on the OUTSIDE region only -- normalized Legendre modes on [lam, X],
 zero on J, even or odd reflection -- so f = 0 on J holds exactly, and
 impose the single remaining constraint fhat = 0 on [0, lam] via an
@@ -10,15 +13,22 @@ SVD null space at tol:
   even: fhat(xi) = 2 int_lam^X f(x) cos(2 pi x xi) dx
   odd:  fhat(xi) = -2i int_lam^X f(x) sin(2 pi x xi) dx  (drop -2i)
 Landau count: the constraint operator has effective rank ~ 2 lam
-(X - lam), so K modes give a ~ (K - 2 lam (X-lam))-dim Sonin basis
-(banked: 268 dims at 1e-15).
+(X - lam), so K modes give a ~ (K - 2 lam (X-lam))-dim Sonin basis.
 
 Compress the quadratic form of W = d/dx((x^2-lam^2) d/dx .) +
 (2 pi lam)^2 x^2 (natural BCs; boundary terms dropped):
   <f, W g> = -int p f' g' + (2 pi lam)^2 int x^2 f g,  p = x^2-lam^2
 onto the null basis; eigensolve; negative xi -> s = 2 sqrt(-xi).
-Banked targets: merged (even+odd) count of s <= 240 = 103 (vs 102
-zeros); Delta = 0.510 spacings; cal rms 0.32; increment resid ~0.012.
+
+Historical note (round-222 F8): this file's landing revision listed
+the lost prior session's "banked targets" here as if current --
+merged-parity count 103, Delta 0.510, cal rms 0.32, increment resid
+0.012, "268 dims at 1e-15". Those were that instrument's values
+under merged-parity bookkeeping and a machine-precision constraint
+cut; the committed instrument (and C-M Prop 3.2) carries PER-PARITY
+~ N counting and the knee cut, and its gated values live in
+cascade_sonin_dirac.py. The banked digits are superseded, retained
+only in the audit record's A343.
 """
 import numpy as np, math, json, sys, os
 CKDIR = "/home/user/r-infinite/tools/research/checkpoints"

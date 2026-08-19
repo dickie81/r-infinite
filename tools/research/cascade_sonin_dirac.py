@@ -3,16 +3,26 @@
 prolate operator carries the zeros' counting and none of their
 fluctuations.
 
-The operator (C-M, PNAS 119 (2022), arXiv:2112.05500): W_lam =
+The operator (C-M, PNAS 119 (2022), arXiv:2112.05500; theorem
+numbers below are the PNAS version's -- the arXiv version numbers
+them Thm 2.6 / Cor 3.2 / Prop 4.2 / Thm 6.1): W_lam =
 -d/dx (lam^2 - x^2) d/dx + (2 pi lam)^2 x^2 on J = [-lam, lam]'s
 complement pairing, deficiency (4,4); its self-adjoint realization
 W_sa commutes with both the space cutoff P_lam and the Fourier cutoff
-(convention e^{-2 pi i x xi}), so the negative spectrum lives in the
-SONIN SPACE S_lam = {f : f = 0 on J and fhat = 0 on J} (their
-Theorem 1.6), with per-parity counting sigma(E, lam) ~ (E/2pi)(
-log(E/2pi) - 1 + log 4 - 2 log lam) + lam^2 (their Prop. 3.2) --
-so at lam = sqrt2 (2 log lam = log 2) EACH PARITY's count of
-s = 2E matches the Riemann counting N(s) to its constant term.
+(convention e^{-2 pi i x xi}; their Theorem 1.6), so the negative
+spectrum lives in the SONIN SPACE S_lam = {f : f = 0 on J and
+fhat = 0 on J} (their Corollary 2.2; round-222 F2 corrected the
+landing's Theorem-1.6 tag on this conclusion). The per-parity
+count of negative eigenvalues with -xi <= E^2 is 2 sigma(E, lam)
+-- their Prop. 3.2 verbatim: "on even functions is the same as on
+odd functions and is equal to 2 sigma(E, lam)"; round-222 F1
+corrected the landing's "sigma" label (the code below always
+implemented 2 sigma) -- with sigma(E, lam) ~ (E/2pi)(log(E/2pi)
+- 1 + log 4 - 2 log lam) + lam^2, i.e. per-parity count of
+s = 2E below s0: (s0/2pi)(log(s0/2pi) - 1 + log 2 - 2 log lam)
++ 2 lam^2 (the constant shifts by -log 2 in s-units), so at
+lam = sqrt2 (2 log lam = log 2) EACH PARITY's count of s matches
+the Riemann counting N(s) to its constant term.
 
 The instrument (committed: tools/research/sonin_outside.py): basis
 supported on the outside region [lam, X] only (f = 0 on J exact,
@@ -28,8 +38,14 @@ any edit to sonin_outside.py self-invalidates every checkpoint here,
 while gate-pin edits to this verifier do not discard compute.
 CASCADE_COMPUTE=fresh forces full recomputation (~20 min); cached
 runs take seconds. Eigenvalues below s = 10 are excluded from every
-census as the knee-leakage class (the real ladder starts >= 12;
-leakage entries wander with tol while ladder entries do not).
+census as the sub-cut class: at sqrt2 these are knee-leakage
+entries (tol-wander ~2 vs the ladder's ~1, and all below the sqrt2
+ladder's start >= 12 -- round-222 F5 softened the landing's
+absolute wander dichotomy); at lam = 1 the same numeric cut
+excludes one tol-STABLE mode at s ~ 8.0 (semiclassically expected
+there; keeping it moves g7's difference 0.717 -> 0.736, in-window
+either way -- round-222 F6: a disclosed uniform convention, not a
+wander class).
 
 Gates:
   g0  all pins set (a None pin prints its observed candidate, fails)
@@ -39,7 +55,8 @@ Gates:
   g3  Slepian-knee ranks: exact pins per config AND every rank
       within 25 of the Landau count 2 lam (X - lam)
   g4  per-parity counts of s in (10, 240]: exact pins; monotone
-      non-decreasing in X at sqrt2; all <= 102 (approach from below)
+      non-decreasing in X at sqrt2; all <= the zeros' 102 over the
+      measured configs (the X -> inf constant is open within O(1))
   g5  the rigid comb: unfolded increment sd in (0.004, 0.05) at
       every sqrt2 config vs the zeros' own (0.33, 0.37)
   g6  the decorrelation: |corr(instrument increments, zero
@@ -48,11 +65,16 @@ Gates:
       lam = 1, log 2 at sqrt2; the truncation direction), and the
       matched-X difference c0(1) - c0(sqrt2) = log 2 +- 0.08
       (the -2 log lam law, truncation bias cancelled)
-  g8  the dilation trend: affine slope vs the zeros a(X=120) >
-      a(200) > a(400) > 1 (the 1/X systematic shrinking toward 1)
-  g9  the shallow end: at every sqrt2 config the first ladder
-      entry sits within 1.6 of gamma_1 = 14.1347; the X = 120 odd
-      first entry reproduces its pin +- 0.05
+  g8  the dilation trend: every affine slope vs the zeros in
+      (1.0, 1.05) and the endpoint shrink a(X=400) < a(X=120)
+      (round-222 F4 synced this list to the code: the middle
+      ordering is soft under shallow-end index wander)
+  g9  the shallow end: the per-config MERGED shallowest ladder
+      entry (the parities interlace) within 2.5 of gamma_1 =
+      14.1347 at every sqrt2 config; the X = 120 odd first entry
+      reproduces its pin +- 0.05 (round-222 F4 synced: the landing
+      docstring's per-parity 1.6 window was never the coded gate
+      and the shipped C config would fail it)
   g10 the chain obligation to cascade_fluctuation_price.py
       (Theorem 1bc) met (manifest or full mode)
   g11 the footer census (this script backticked >= 2; the anchored
@@ -209,7 +231,8 @@ for parity in ("even", "odd"):
     seq = [len(ladder(res[(t, parity)])) for t in ("A", "B", "C")]
     ok &= seq[0] <= seq[1] <= seq[2] <= 102
 gate("g4 per-parity counts in (10, 240]: pins exact, monotone in X at "
-     "sqrt2, approaching 102 from below", ok)
+     "sqrt2, <= the zeros' 102 over the measured configs (the X -> inf "
+     "constant is open within O(1), round-222 F9)", ok)
 
 # ---------------------------------------------------------------- g5
 gN = Zg/(2*math.pi)*np.log(Zg/(2*math.pi)) - Zg/(2*math.pi) + 7.0/8

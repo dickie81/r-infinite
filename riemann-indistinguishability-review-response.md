@@ -4662,3 +4662,26 @@ accepted (swept c8c6c86 + 90248fa) → 219 3m (swept 00c6345) → 220
 1bc — the nulls and the fluctuation price. The commissioned bundle
 (1ba, 1bb, 1bc) is fully certified. Next hostile round on the next
 substantive paper change.**
+
+
+# Round 222: hostile review of the 1bd landing (fresh-context subagent, landing-round fresh rule) — 3 MAJOR + 6 minor + 1 cosmetic, all accepted; batteries green; sweep this commit
+
+**Reviewer's batteries (its own runs):** CASCADE_COMPUTE=fresh single-member → RECOMPUTING ×8, ALL GATES PASS (12/12), committed checkpoints reproduced byte-identically; run_tower.py → manifest 13/13, TOWER PASS (13/13); all three sabotage probes re-run live with censuses matching the committed record exactly.
+
+**Findings (each lead-verified before acceptance — the C-M source re-read directly via the arXiv full text; the F6/F7/F9 numerics recomputed from the committed checkpoints and closed-form):**
+- **F1 MAJOR** (verifier docstring): "per-parity counting sigma(E,lam)" — C-M Prop 3.2 says the per-parity count is **2σ**, verbatim confirmed by the lead's own fetch ("on even functions is the same as on odd functions and is equal to 2σ(E,λ)"). The code always implemented 2σ; the paper block carried only the (correct) constant. Swept: docstring corrected, with the verbatim quote and an s-units form (constant shifts by −log 2; a unit-conversion slip in the first sweep draft caught and fixed by the lead before commit).
+- **F2 MAJOR** (paper + verifier + instrument docstrings, 3 surfaces): the Sonin-space localization tagged "(their Theorem 1.6)" — 1.6 is the commutation theorem (four items, no Sonin statement); the localization is **Corollary 2.2** (PNAS; Cor 3.2 arXiv). Lead-verified against the source. Swept: strike-and-annotate on the paper; corrected on both docstrings with the PNAS/arXiv numbering note.
+- **F3 MAJOR** (paper): "C-M's λ = 2 spectral-realization theorem (their Theorem 5.1, a 2D construction)" — Section 5 takes **λ = √2** (the instrument's own λ); "²𝔇" is the operator's name (twice a Dirac operator, Darboux-doubled, on the half-line; spectrum ±2√μ — the same s-map this verifier uses); "λ = 2" appears nowhere in the source. Lead-verified (the landing's "λ = 2" was a misread of the operator name ²𝔇). Swept: strike-and-annotate with the corrected description; the not-tested scoping retained and restated precisely.
+- **F4 minor**: verifier docstring documented a g8 strict ordering and a g9 per-parity 1.6 window that the code does not implement (and the shipped C config would fail the documented 1.6). Swept: gate list synced to code with the finding noted.
+- **F5 minor**: "leakage entries wander with tol while ladder entries do not" — lead re-measured: ladder entries wander too (~half the magnitude). Swept: dichotomy softened to the measured relative statement.
+- **F6 minor**: the λ=1 exclusion under the uniform (10,240] cut drops a tol-STABLE, semiclassically expected mode at s ≈ 8.0 — not "knee-leakage". Lead-recomputed the impact: g7 difference 0.7170 → 0.7359 keeping it, both in log 2 ± 0.08 (cut-robust; the cut moves the result toward the target's far side, no rigging). Swept: paper clause struck-and-annotated; docstring rewritten.
+- **F7 minor**: quoted Landau digits 335.3/561.4/1127.1 were hand-rounded; 2λ(X−λ) = 335.41/561.69/1127.37 (lead-recomputed). Swept: strike-and-annotate.
+- **F8 minor**: the instrument docstring presented the lost session's banked digits (merged-parity bookkeeping, machine-precision cut) as current targets. Swept: replaced by a historical note stating the supersession; the paper's "reproduced in phenomenon" gloss qualified (merged ≈ N then, per-parity ≈ N now — the latter is what Prop 3.2 supports).
+- **F9 minor**: "carried exactly" (the verifier's own "to its constant term" dropped) and "approaching the zeros' 102 from below" as if 102 were the established limit — the semiclassical constant gives ≈105 and C-M's refined counting gives 102.0 (lead-recomputed: 104.95 / 102.00); the limit is open within O(1). Swept: paper qualified with both numbers; g4's label and docstring reworded (the ≤102 conjunct now scoped to the measured configs).
+- **F10 cosmetic**: the classical-input entry over-attributed W_λ and the Sonin space to C-M. Swept: narrowed to the self-adjoint extension + the Sonin localization, with the Bell-Labs/Sonin–de Branges–Burnol credits noted.
+
+**Checked-and-held highlights (reviewer, with evidence):** operator form/deficiency/convention verbatim; the λ=√2 identity re-derived with the code confirmed on 2σ; s = 2√(−ξ) = C-M's ±2√μ; the quadratic-form signs, normalization, and compression exact; every gate falsifiable (g6's null |corr| ≈ 0.10 makes the observed ≤ 0.0148 a strong pass); census recounted bijectively at 80; every paper digit reproduced from the fresh run; the rank plateau and shallow-wander scope claims re-measured true.
+
+**Sweep battery (full-tower class — gate-label and instrument-byte changes):** manifest refreshed; the docstring change to the instrument self-invalidated all 8 ckpt keys, so the sweep verifier run recomputed the full spectrum fresh and passed 12/12; TOWER PASS 13/13 recorded below at the convergence round.
+
+**Trajectory: 1bd landed (0dae413 + fcf4653) → 222: 3M+6m+1c, all accepted, swept this commit. Convergence round 223 next.**
