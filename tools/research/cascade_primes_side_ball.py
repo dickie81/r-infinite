@@ -58,8 +58,8 @@ Gates (all exit-gated; any failure exits 1):
       product-state restatement; fairness sentence; both off-line zero
       values; the statistical-vs-completed sentence).
   g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met.
-  g15 the footer census (this script backticked >= 2; the anchored needles "the **81 scripts cited in place** above"
-      and "extended by Theorems 1i–1be:" -- round-218 F12 mirrored
+  g15 the footer census (this script backticked >= 2; the anchored needles "the **82 scripts cited in place** above"
+      and "extended by Theorems 1i–1bf:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -354,10 +354,10 @@ gate("g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met",
 
 # ---------------------------------------------------------------- g15
 ok = paper.count("`cascade_primes_side_ball.py`") >= 2
-ok &= "the **81 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1be:" in paper
-gate("g15 the footer census (this script backticked >= 2; 81 cited in place; "
-     "the range 1i–1be)", ok)
+ok &= "the **82 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bf:" in paper
+gate("g15 the footer census (this script backticked >= 2; 82 cited in place; "
+     "the range 1i–1bf)", ok)
 
 print()
 if fails:

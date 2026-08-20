@@ -29,6 +29,7 @@ TOWER = [
     "cascade_fluctuation_price.py",
     "cascade_sonin_dirac.py",
     "cascade_prime_budget_fold.py",
+    "cascade_twosided_witness.py",
 ]
 
 paper = open(PAPER, encoding="utf-8").read()

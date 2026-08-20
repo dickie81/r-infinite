@@ -72,8 +72,8 @@ Gates (all exit-gated; any failure exits 1):
       list is the authoritative census, enumeration extended round 199
       finding 5).
   g9  the chain obligation to cascade_attraction_margins.py (Theorem 1au) met.
-  g10 the footer census (this script backticked >= 2; the anchored needles "the **81 scripts cited in place** above"
-      and "extended by Theorems 1i–1be:" -- round-218 F12 mirrored
+  g10 the footer census (this script backticked >= 2; the anchored needles "the **82 scripts cited in place** above"
+      and "extended by Theorems 1i–1bf:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -348,10 +348,10 @@ gate("g9 the chain obligation to cascade_attraction_margins.py (Theorem 1au) met
 
 # ---------------------------------------------------------------- g10
 ok = paper.count("`cascade_li_two_channels.py`") >= 2
-ok &= "the **81 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1be:" in paper
-gate("g10 the footer census (this script backticked >= 2; 81 cited in place; "
-     "the range 1i–1be)", ok)
+ok &= "the **82 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bf:" in paper
+gate("g10 the footer census (this script backticked >= 2; 82 cited in place; "
+     "the range 1i–1bf)", ok)
 
 print()
 if fails:

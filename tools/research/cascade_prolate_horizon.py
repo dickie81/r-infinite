@@ -65,8 +65,8 @@ Gates (all exit-gated; any failure exits 1):
       met (full mode: parent executed, exit 0; manifest mode: ancestor
       hashes + census attested -- round-215 F7 relabel).
   g8  the footer census (this script backticked >= 2; the anchored
-      needles "the **81 scripts cited in place** above" and
-      "extended by Theorems 1i–1be:" — round-216 F2 mirrored the
+      needles "the **82 scripts cited in place** above" and
+      "extended by Theorems 1i–1bf:" — round-216 F2 mirrored the
       round-215 F5 anchoring into this line; the un-anchored forms
       this line previously carried (one ASCII-transliterated, not a
       byte-exact quote of the pre-F5 code needle — round-217 c2)
@@ -374,10 +374,10 @@ gate("g7 the chain obligation to cascade_weil_crossover.py (Theorem 1ba) met",
 
 # ---------------------------------------------------------------- g8
 ok = paper.count("`cascade_prolate_horizon.py`") >= 2
-ok &= "the **81 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1be:" in paper
-gate("g8 the footer census (this script backticked >= 2; 81 cited in "
-     "place; the range 1i–1be)", ok)
+ok &= "the **82 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bf:" in paper
+gate("g8 the footer census (this script backticked >= 2; 82 cited in "
+     "place; the range 1i–1bf)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)
