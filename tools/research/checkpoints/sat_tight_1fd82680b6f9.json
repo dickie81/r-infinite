@@ -1,0 +1,43 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "1fd82680b6f92140b0db6ed422f6f338a9987f134c7c96abdaf00ec10b499f39",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"witness_offline.py": "3cc6702bd147f114e69c4b893048d600a9a685d04fb1726bb8aacca0b36949d8",
+"witness_twosided.py": "18e83e829fd039ff1f0c8b64a1facddda35a1eded6717758ffa209a12b242a42",
+"floor_probe.py": "37480740df8caaa7e0db78fa503c2a74e116be5d29266efc3a7489c26fdc27aa",
+"floor_probe6.py": "112aa3a159713d2f36e10524d3d262d483038d02589dd868d7498c441d039b22"
+},
+"sat_t0": [
+380.0,
+420.0,
+460.0,
+500.0
+],
+"c": 120.0
+},
+"state": [
+{
+"t0": 380.0,
+"Qtop": 4.079542311432443,
+"L": 4.102294186311086
+},
+{
+"t0": 420.0,
+"Qtop": 4.215454031904953,
+"L": 4.2023776448680685
+},
+{
+"t0": 460.0,
+"Qtop": 4.294048756926242,
+"L": 4.293349423073796
+},
+{
+"t0": 500.0,
+"Qtop": 4.362746023521137,
+"L": 4.376731032012846
+}
+]
+}

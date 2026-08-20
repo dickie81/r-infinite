@@ -95,10 +95,12 @@ def local_density(t0):
     return math.log(t0/(2*math.pi))/(2*math.pi)   # zeros per unit gamma
 
 
-def cue_points(rng, t0, half, dens):
+def cue_points(rng, t0, half, dens, N=320):
     """CUE eigenangle spacings rescaled to the target density,
-    unfolded, laid down over [t0-half, t0+half] (Mezzadri QR)."""
-    N = 256
+    unfolded, laid down over [t0-half, t0+half] (Mezzadri QR).
+    N must satisfy (N-1)/dens > 2*half + slack, or the surrogate
+    under-covers the band and grants edge dodges (the first run's
+    N = 256 gave ~+-190 < +-200: cue 0.096 was edge-biased low)."""
     Zm = (rng.standard_normal((N, N)) +
           1j*rng.standard_normal((N, N)))/math.sqrt(2)
     Qm, Rm = np.linalg.qr(Zm)
@@ -240,6 +242,32 @@ def run():
               f"{r['gmax']:.2f}", flush=True)
 
 
+def run2():
+    """E2b: the coverage-fixed surrogate rerun (N = 320, full-band
+    CUE) plus the lattice at half = 300 (edge-effect quantifier)."""
+    Z = zeros380()
+    S = TwoSided(C0)
+    params = {"deps": DEPS6, "c": C0, "t0": T0, "nreal": 10,
+              "seed": 23, "half": 200.0, "N": 320, "lat_half": 300.0}
+    st = ckpt_key.load("sat_surrogates2", KEYFILE, params)
+    if st is None:
+        dens = local_density(T0)
+        rng = np.random.default_rng(23)
+        vals = [margin(S, cue_points(rng, T0, 200.0, dens, N=320),
+                       T0) for _ in range(10)]
+        lat3 = T0 + (np.arange(-int(300.0*dens),
+                               int(300.0*dens) + 1))/dens
+        st = {"cue_fixed": [float(np.mean(vals)), float(np.std(vals)),
+                            float(np.min(vals)), float(np.max(vals))],
+              "lattice300": margin(S, lat3, T0)}
+        ckpt_key.save("sat_surrogates2", KEYFILE, params, st)
+    print(f"  E2b cue (full coverage, N=320): {st['cue_fixed'][0]:.3f} "
+          f"+- {st['cue_fixed'][1]:.3f} (range {st['cue_fixed'][2]:.3f}"
+          f"..{st['cue_fixed'][3]:.3f});  lattice half=300: "
+          f"{st['lattice300']:.3f}", flush=True)
+
+
 if __name__ == "__main__":
     run()
+    run2()
     print("saturation probes complete", flush=True)
