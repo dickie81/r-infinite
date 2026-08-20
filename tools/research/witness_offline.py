@@ -12,9 +12,15 @@ Hermitian but INDEFINITE pair block
     v(s - i dA) v(s + i dA)^H + v(s + i dA) v(s - i dA)^H
 (plus the mirror at -gamma0), where v at complex argument is the
 quadrature Fourier transform of the section basis (entire, type A).
-The min generalized eigenvalue can then go NEGATIVE -- Weil
-positivity failing on the section, the RH-equivalence machinery
-ringing. The experiment: the detection threshold d*(c, tau0) where
+The min generalized eigenvalue can then go NEGATIVE. [SCOPE
+CORRECTED at the two-sided diagnostic, session at 6f82769: this
+truncated zero-side form is NOT the Weil form at depth -- the
+dodging minimizer exports O(1) Parseval mass beyond the measured
+zero window (tail(w_Z) = 3.12 at (60,200)) -- so a negative margin
+here is an INSTRUMENT-sensitivity detection, not a Weil-positivity
+violation; the genuine Weil-positivity witness lives on the
+arithmetic-side form and concentrated test vectors, see
+witness_twosided.py.] The experiment: the detection threshold d*(c, tau0) where
 the margin crosses zero, its scaling against the base margin (the
 lift-off amplifier question), and the ladder-statistics witness (an
 off-line pair is a doubled ordinate: a zero spacing).
@@ -39,11 +45,11 @@ margin across seven decades gives slope ~0.51 -- d* ~ sqrt(m). The
 mechanism: the quadruplet is even in d (functional-equation
 symmetry), so the indefinite response enters at O(d^2): the margin
 shifts by ~ -(dA)^2 |<w, v'>|^2, crossing zero at d* ~ sqrt(m)/(A
-|overlap|). Consequence: the certified lift-off horizon (margin ->
-0) is the locus where the section becomes an arbitrarily sharp
-in-band witness -- at the deep certified points the section's Weil
-form flips negative for an in-band zero displaced ~6e-4 from the
-critical line.
+|overlap|). Consequence (scope-corrected, see above): at the deep certified
+points the DODGING INSTRUMENT's margin flips negative for an
+in-band zero displaced ~6e-4 from the line -- a sensitivity law
+for the certified instrument, whose relation to genuine Weil
+positivity runs through the two-sided closure.
 """
 import numpy as np, math, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
