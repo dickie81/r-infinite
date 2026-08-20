@@ -83,20 +83,26 @@ odd(M) = (M - P M P)/2, the identity is equivalent to
     odd(Q_Z,380) ~= -odd(PRIME) + [odd(ARCH) ~ 6% + poles 0.1%]
 measured: ||odd QZ|| = 20.716 vs ||odd PRIME|| = 20.717 with
 ||odd QW + odd QZ|| = 0.043 at (60,200) (23.096/22.992/0.035 at
-(120,300)) -- the tau0-antisymmetric part of the zero
-configuration, which DOMINATES the form (odd ~ 21 vs even ~ 7)
-and looks erratic, is minus the finite prime sum's antisymmetric
-part, locally at every measured center. Combined with the exact
-windowed explicit formula (Q_W = Q_full - ArchTail), the
-remaining nontrivial content is a window-partition statement:
-the in-band zeros carry -1x the prime odd part while the zero
-tail carries +2x (odd(ZeroTail) ~= 2 odd(PRIME) + small) -- how
-the formula's global identity distributes between band and tail.
-Open: derive the partition (classical density + stationary phase,
-or genuine zero-statistics input?); the defect's anatomy (which
-of arch-odd/tails carries the 0.2-0.7%, and why it grows with
-tau0). Check 7: finite linear algebra + the unconditional
-explicit formula throughout; Check 8: no hypothesis input.
+(120,300)).
+
+[SCOPE CORRECTED at the partition attack -- floor_probe4.py
+RESULT, E4/E5. This block's original closing read the identity as
+a "windowed duality" ("the zeros' asymmetry is minus the primes'
+asymmetry") and predicted a window-partition (in-band -1x, zero
+tail +2x). Both readings are RETRACTED: E4 measured the tail
+contribution at 0.0000 (269 further ordinates), and E5's
+gauge-rebuild showed ||ARCH_true - conj(ARCH_code)|| = 0.0000 --
+the 1bb-lineage arithmetic build is the CONJUGATE of the
+explicit-formula operator, so Q_W ~= conj(Q_Z) is the plain
+windowed explicit formula seen through the build's phase-gauge
+convention. The measurements above all stand; the mystery
+deflates to: the windowed explicit formula holds operator-wise on
+concentrated sections at 0.2-0.4%, tail-free, per-prime resolved.
+Certified scalars are conjugation-blind and unaffected; the g4
+derivation stands in cleaner form. Open: the defect's anatomy
+(0.2-0.7%, rising with tau0).] Check 7: finite linear algebra +
+the unconditional explicit formula throughout; Check 8: no
+hypothesis input.
 """
 import hashlib, math, os, sys
 

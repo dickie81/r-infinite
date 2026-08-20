@@ -36,7 +36,54 @@ hypothesis input. Keying per A355: DEPS carries this file,
 floor_probe.py, and the four substrate modules; params carry the
 stage inputs (point, window list, chunk indices).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (probes complete; the E5 gauge experiment settles the arc).
+NOTE FIRST: this file's header premise -- "the FULL zero form
+carries +odd(PRIME) ... so the zero tail must carry +2 odd(PRIME)"
+-- was REFUTED by its own E4: there is no tail bookkeeping at all.
+The header is retained as the record of the hypothesis under test.
+
+  E1 (window sweep): beta(T) plateaus at -0.998/-1.000 from
+      T = 350-400 upward -- the identity locks once the window
+      covers band + leakage reach ((120,300) at T = 350 clips the
+      reach: -0.926); NOT window-tuned.
+  E2 (per-prime): beta_n = -1 within 1-3% for every prime power
+      with non-tiny odd norm at (120,300) (all 24 powers; the bulk
+      within 1%); same at (60,200) for ||odd PRIME_n|| >~ 1.5
+      (small-norm entries fit-noisy). The windowed zero
+      configuration reconstructs EACH prime's operator
+      contribution individually.
+  E3 (residual anatomy): R projects onto odd(ARCH) at
+      -0.9998/-0.9958 and onto the pole at ~ +-0.9: the statement
+      is odd(Q_Z) = -odd(ARCH + POLE + PRIME)_code + eps with
+      ||eps|| = 0.02-0.03 out of ~21 -- the full arithmetic trio
+      at -1, closure 1.5e-3.
+  E4 (tail): 269 further ordinates (653 -> 1013) contribute
+      0.0000 to the odd projection; beta(win) unmoved to four
+      decimals. The far zeros are invisible to the section.
+  E5 (the gauge experiment; gauge_check() below): rebuilding ARCH
+      in the true gauge (complex vhat on the same r-grid) gives
+      ||ARCH_true - conj(ARCH_code)|| = 0.0000 exactly, and
+      ARCH_true + POLE + conj(PRIME_code) matches Q_Z,380
+      DIRECTLY at 0.0020/0.0037 Frobenius (the code-orientation
+      build matches conj(Q_Z) at 0.047/0.055 instead).
+
+VERDICT -- the Reflection Identity DEFLATES: the certified
+1bb-lineage arithmetic machinery builds the CONJUGATE of the
+explicit-formula operator (a phase-gauge convention: real
+psi_hat_batch + the e^{+i tau0 u} prime orientation), so
+Q_W_code ~= conj(Q_Z) is the plain windowed explicit formula seen
+through that convention. Every certified scalar -- margins,
+eigenvalues, pins -- is conjugation-blind and UNAFFECTED; the g4
+proximity explanation stands in cleaner form (isospectrality =
+the formula's operator-level closure + the measured defect).
+What stands as the arc's real content: THE WINDOWED EXPLICIT
+FORMULA HOLDS OPERATOR-WISE ON CONCENTRATED SECTIONS at 0.2-0.4%
+Frobenius -- tail-free (E4), window-local (E1), per-prime
+resolved at beta_n = -1 (E2), odd-sector closure 1.5e-3 (E3).
+Open: the defect's anatomy (0.2-0.7%, rising with tau0 --
+quadrature/Rwin/list-finiteness split unmeasured). Convention
+flag for future operator-level (phase-sensitive) work on the 1bb
+lineage: as-built arithmetic = conj(formula operator).
 """
 import hashlib, math, os, sys
 
@@ -217,6 +264,47 @@ def run():
                   flush=True)
 
 
+def gauge_check():
+    """E5: rebuild ARCH in the true gauge (complex vhat over the
+    code's own r-grid) and test which orientation satisfies the
+    explicit formula directly. Recorded output at 87f30b1+:
+      (60,200):  ARCH_true+POLE+PRIME_code vs QZ 0.7891 / vs
+                 conj(QZ) 0.0470;  ...+conj(PRIME_code) vs QZ
+                 0.0020 / vs conj(QZ) 0.7896;
+                 ||ARCH_true - conj(ARCH_code)|| = 0.0000
+      (120,300): 0.5870/0.0554; 0.0037/0.5896; 0.0000"""
+    from scipy.special import digamma as scipy_digamma
+    Z = zeros380()
+    for c, t0 in PTS4:
+        S = TwoSided(c)
+        QZ = zform(S, Z, t0)
+        S.weil_margin(t0)
+        Rwin, NR = 800.0, 120001
+        r = np.linspace(t0 - Rwin, t0 + Rwin, NR)
+        Vc = np.asarray(S.vhat(((r - t0)*A).astype(complex)))
+        if Vc.shape[0] != NR:
+            Vc = Vc.T
+        ker = np.real(scipy_digamma(0.25 + 0.5j*r)) - np.log(np.pi)
+        dr = r[1] - r[0]
+        AT = (Vc.conj().T * ker[None, :]) @ Vc * dr/(2*np.pi)
+        AT = (AT + AT.conj().T)/2
+        POLE = S.QW - S.ARCH - S.PRIME
+        for tag, PR in (("PRIME_code", S.PRIME),
+                        ("conj(PRIME_code)", np.conj(S.PRIME))):
+            QWt = AT + POLE + PR
+            QWt = (QWt + QWt.conj().T)/2
+            nq = np.linalg.norm(QWt)
+            print(f"  ({c:.0f},{t0:.0f}) ARCH_true+POLE+{tag}: vs QZ "
+                  f"{np.linalg.norm(QWt - QZ)/nq:.4f}  vs conj(QZ) "
+                  f"{np.linalg.norm(QWt - np.conj(QZ))/nq:.4f}",
+                  flush=True)
+        print(f"  ({c:.0f},{t0:.0f}) ||ARCH_true - conj(ARCH_code)|| = "
+              f"{np.linalg.norm(AT - np.conj(S.ARCH)):.6f}", flush=True)
+
+
 if __name__ == "__main__":
-    run()
+    if len(sys.argv) > 1 and sys.argv[1] == "gauge":
+        gauge_check()
+    else:
+        run()
     print("partition probes complete", flush=True)
