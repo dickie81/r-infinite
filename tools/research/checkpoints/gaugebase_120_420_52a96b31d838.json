@@ -1,0 +1,33 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "52a96b31d838ce5e6186e6f65ffd2d8841ece1ebfe1fd3a81af2f6276a8a90a6",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"witness_offline.py": "3cc6702bd147f114e69c4b893048d600a9a685d04fb1726bb8aacca0b36949d8",
+"witness_twosided.py": "18e83e829fd039ff1f0c8b64a1facddda35a1eded6717758ffa209a12b242a42",
+"floor_probe.py": "4cc206b03acf8decec8198ae8c42f52d430797ad45a7a1a0dd2d5e78e1800bc4",
+"floor_probe2.py": "46445261412a300c2ee15cfe2b112ac0f41ba12e32d09ec58080476af7b218b0",
+"floor_probe3.py": "7f356c0e02f7e76583562f84731d24e43bb7cccf7653e0f51aed2aec2daa62c2",
+"floor_probe4.py": "e2de1fb34c05cae38b7ec825e9a2b2f4068ca2bb6290a222a25c44c76dc75282",
+"floor_probe5.py": "09e9dbf0dfa7cc3653c3a088b8a64e8196bdf6d4f9635961a3978b763f902b0a",
+"floor_landing.py": "d9c485795513db4d991a81e4359c181d13ac7118f1026fee101ef65513bb905a"
+},
+"c": 120.0,
+"t0": 420.0,
+"rlo": -380.0,
+"rhi": 1220.0,
+"NR": 120001,
+"z_sha": "7d4f67d89529f74a"
+},
+"state": {
+"c": 120.0,
+"t0": 420.0,
+"arch_gauge": 3.138797232235764e-12,
+"true_vs_QZ": 0.006939438084490472,
+"true_vs_cQZ": 0.5793325087946478,
+"code_vs_QZ": 0.5786708523944518,
+"code_vs_cQZ": 0.03732821173732307
+}
+}

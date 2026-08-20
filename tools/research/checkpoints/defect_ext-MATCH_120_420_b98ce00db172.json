@@ -1,0 +1,32 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "b98ce00db172034a7f45620c4e235fc816f653fd0e927b2cf1f1790e57bd18d4",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"witness_offline.py": "3cc6702bd147f114e69c4b893048d600a9a685d04fb1726bb8aacca0b36949d8",
+"witness_twosided.py": "18e83e829fd039ff1f0c8b64a1facddda35a1eded6717758ffa209a12b242a42",
+"floor_probe.py": "4cc206b03acf8decec8198ae8c42f52d430797ad45a7a1a0dd2d5e78e1800bc4",
+"floor_probe4.py": "e2de1fb34c05cae38b7ec825e9a2b2f4068ca2bb6290a222a25c44c76dc75282",
+"floor_probe5.py": "09e9dbf0dfa7cc3653c3a088b8a64e8196bdf6d4f9635961a3978b763f902b0a"
+},
+"c": 120.0,
+"t0": 420.0,
+"list": 660,
+"rlo": -1013.1,
+"rhi": 1013.1,
+"NR": 180001,
+"z_n": 660,
+"z_hi": 1013.058638,
+"z_sha": "a059492413d535c3"
+},
+"state": {
+"rel": 2.7332190666754478e-05,
+"rel_odd": 2.4158621492046765e-05,
+"rel_even": 1.2783178565905922e-05,
+"mW": 0.25305104688004637,
+"mZ": 0.2530511065941666,
+"dm_rel": -2.3597652271831434e-07
+}
+}
