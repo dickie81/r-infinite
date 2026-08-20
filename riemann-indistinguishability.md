@@ -5596,15 +5596,19 @@ core-local and collapses off-center. Measurements restated in
 round-230 F4 — the first annotation quoted u-offsets unlabeled
 (u = A(γ − τ₀), A = 2) beside a γ-units clause and read the
 response-support edge as the confinement radius. The scan at
-(120, 300), max resp₂ over the top-8 prolates, collision-pair
-means in γ (the realized means sit within 1.7 of the probe
-targets): 2.5×10⁻² at +0.7 (u 1.5) *(round-231 F1: the
+(120, 300), max resp₂ over the top-8 prolates, listed by realized
+collision-pair mean in γ (probes targeted at +0.7, +15, +20, +25,
++30, +41.5; every realized mean sits within 1.7 of its target):
+2.5×10⁻² at +0.7 (u 1.5) *(round-231 F1: the
 round-230 restatement printed 4.5×10⁻² here — a target-rounding
 misattribution; that coefficient belongs to the next pair, at
 +2.2 (u 4.3), and the core pair's honest 2.5×10⁻² is the
-round-229 digit restored)*, 2.4×10⁻² at +15 (u 30), 6.6×10⁻³ at
-+20 (u 40), 5.3×10⁻⁴ at +25 (u 50), 1.2×10⁻⁶ at +30 (u 60), 0
-to double precision at +41.5 (u 83), where the bound is vacuous.
+round-229 digit restored)*, 2.4×10⁻² at +16.6 (u 33.2), 6.6×10⁻³
+at +20.0 (u 40.0), 5.3×10⁻⁴ at +26.2 (u 52.3), 1.2×10⁻⁶ at +30.7
+(u 61.4), 0 to double precision at +41.5 (u 83.1), where the
+bound is vacuous *(round-232 F1: the round-231 relabel changed
+the heading to "means" but left the +15/+25/+30 entries carrying
+their probe targets; the realized means now stand)*.
 The ppm-scale confinement therefore holds for |γ − τ₀| ≲ 20 at
 (120, 300); the bound degrades through 10⁻⁴–10⁻³ by +25 to +30
 and dies at the support edge ≈ 41.5 — the honest radius is

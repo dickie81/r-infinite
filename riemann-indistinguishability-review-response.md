@@ -4800,3 +4800,14 @@ One cosmetic (C1, held with round-226's two: the g14 docstring entry's pin value
 **Sweep battery (docstring-only class — the verifier change is wholly inside the module docstring; no executable statement, gate label, conjunct, or needle changed):** manifest refresh committed with the change; full TOP verifier run — REUSED + 14/14, exit 0.
 
 **Trajectory: 1bf landed → 229: 2M+5m+3c (swept 1897cb9 + aa6ac5c) → 230: 5m+2c (swept 48a1e7a + 6b3a848) → 231 NOT CONVERGED 1m (swept this commit). Convergence round 232 next; Theorem 1bf certification pends it.**
+
+
+# Round 232: convergence test on the round-231 sweep (subagent, per protocol) — NOT CONVERGED: 1 minor; swept
+
+**Reviewer's batteries:** manifest precheck no-op; the verifier live (REUSED witness_main_30751545e7f5, every pin matched, 14/14); its own sabotage probe (paper needle mangle → g13 FAIL alone, exit 1, restored); all 15 members hash-verified with the 14 unchanged members byte-identity-judged against the recorded TOWER PASS 15/15 and the one changed member run live. It reproduced every scan coefficient at printed precision and verified the round-231 disposition itself held digit-for-digit at both loci (core 2.4557e-2, next pair 4.4823e-2, the tip mechanism confirmed by direct computation, "the round-229 digit restored" verbatim-true against 1897cb9).
+
+**The finding, lead-verified and accepted:** **F1 minor** — the round-231 relabel changed the scan's heading to "collision-pair means in γ" but left three of six entries carrying their probe targets: the realized means are +16.605 (u 33.2), +26.153 (u 52.3), +30.714 (u 61.4) against the labels +15 (u 30), +25 (u 50), +30 (u 60) — the heading's noun was checked-false for those entries (the third consecutive occurrence of the target-vs-realized labeling class). Lead-reproduced exactly (argmin pair means at the six targets: +2.173*/+16.605/+20.007/+26.153/+30.714/+41.549 — *the naive argmin at +0.7 reproduces the round-231 bug itself; the core pair's +0.745 requires the explicit straddling-donor selection, as the annotation states). Every coefficient was verified numerically correct against its realized pair; no load-bearing conclusion moves. Swept: entries 2/4/5 relabeled by realized means, the probe targets stated parenthetically, the "within 1.7" disclosure kept (verified max deviation 1.605), round-232 F1 annotation added. The verifier-docstring locus was verified NOT implicated (its three retained u-labels all match realized values) — no code-side change.
+
+**Sweep battery (prose-only class — one paper sentence):** manifest precheck no-op; full TOP verifier run — REUSED + 14/14, exit 0.
+
+**Trajectory: 1bf landed → 229: 2M+5m+3c → 230: 5m+2c → 231: 1m → 232 NOT CONVERGED 1m (swept this commit). Convergence round 233 next; Theorem 1bf certification pends it.**
