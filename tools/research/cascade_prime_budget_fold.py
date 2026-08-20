@@ -73,8 +73,9 @@ Gates:
   g8  THE FOLD, ladder 7000: mean = pinned +0.919 +- 0.02, all ten
       points positive (> +0.25)
   g9  the remainder: both ladder means minus the certified 0.710
-      in (0.05, 0.40) -- the non-Gaussian premium positive and
-      bounded; both means in (0.75, 1.10)
+      in (0.05, 0.40); both means in (0.75, 1.10) -- the overshoot
+      positive and bounded, its carrier adjudicated at g13-g15
+      (round 227: the comparator's determinantal premium, not zeta)
   g10 the 1bc consistency: the certified headline needle
       "+0.710 ± 0.086" present in the paper
   g11 the chain obligation to cascade_sonin_dirac.py (Theorem 1bd)
@@ -85,9 +86,14 @@ Gates:
       distribution (pin +0.908 +- 0.02; z in (-1.4, -0.2);
       percentile 5-40%)
   g14 the CUE twin gap (round 227): real determinantal CUE vs its
-      Gaussian twin, mean pinned +0.243 +- 0.03, >= 8/10 positive
+      Gaussian twin, mean pinned +- 0.03, >= 8/10 positive
       (substrates fold_remainder.py / fold_remainder2.py, keyed
-      via DEPS2)
+      via DEPS2; the round-227 sweep aligned the twin's calibration
+      stream with 1be's -- F3 -- so the pin was re-collected)
+  g15 the fully-matched control (round-227 F2, the reviewer's B''
+      ported to the committed substrate): the premium survives full
+      convention- and measured-D matching, pin +- 0.03, >= 7/10
+      positive
 
 Sabotage suite (run live at the landing battery; edit-run-observe-
 restore):
@@ -107,6 +113,12 @@ restore):
   (c) census revert -- footer 81 -> 80 -> OBSERVED: g11 FAIL (the
       chain gate prints the missing census string) AND g12 FAIL,
       exit 1 (two-gate detection)
+  (d) round-227 reviewer's live probes on the twin gates: g13 pin
+      0.908 -> 0.808 -> OBSERVED REUSED x6, g13 FAIL alone, exit 1;
+      g14 pin -> mangled -> OBSERVED REUSED x6, g14 FAIL alone,
+      exit 1 (the fixed keying contract held: pin edits reuse)
+  (e) g15 pin mangle (this sweep's battery) -- OBSERVED: recorded
+      at the round-227 sweep battery below
 """
 import hashlib, math, os, sys
 
@@ -143,6 +155,7 @@ DEPS2 = {f: _sha(f) for f in ("fold_D.py", "fold_harden.py",
 
 # ---- pins (from the research record, session runs at 4b13418) -------
 PIN_MEAN = {9000: 0.952, 7000: 0.919}
+PIN_G15 = None   # pinned from the sweep battery's fresh run
 PIN_G380 = 653.650
 
 # ---- staged compute (content-addressed on the substrate shas) -------
@@ -168,7 +181,7 @@ for base in (9000, 7000):
 
 # ---------------------------------------------------------------- g0
 gate("g0 all pins set", all(v is not None for v in
-     list(PIN_MEAN.values()) + [PIN_G380]))
+     list(PIN_MEAN.values()) + [PIN_G380, PIN_G15]))
 
 # ---------------------------------------------------------------- g1
 Z = zeros380()
@@ -234,8 +247,9 @@ for gname, base in (("g7", 9000), ("g8", 7000)):
 ok = all(0.05 < folds[b]["mean"] - CERT_1BC < 0.40 and
          0.75 < folds[b]["mean"] < 1.10 for b in (9000, 7000))
 gate("g9 the remainder: both ladders' overshoot of the certified "
-     "+0.710 in (0.05, 0.40), means in (0.75, 1.10) -- the "
-     "non-Gaussian premium positive and bounded", ok)
+     "+0.710 in (0.05, 0.40), means in (0.75, 1.10) -- the overshoot "
+     "positive and bounded (its carrier adjudicated at g13-g15: the "
+     "comparator's determinantal premium, round 227)", ok)
 
 # ------------------------------------------------------------ g13/g14
 # (round-227 correction stages: the remainder attribution inverts)
@@ -253,10 +267,12 @@ print(f"  g13 zeta twin: real {sig['real_mean']:+.3f}, z {sig['z']:+.2f}, "
       f"pct {100*sig['percentile']:.1f}", flush=True)
 ok = abs(sig["real_mean"] - 0.908) < 0.02
 ok &= -1.4 < sig["z"] < -0.2 and 0.05 < sig["percentile"] < 0.40
-gate("g13 the zeta twin test: the real zeros' correlated ten-point "
-     "excess sits INSIDE the shared-field Gaussian-twin distribution "
-     "(pin +0.908 +- 0.02; z in (-1.4, -0.2); percentile 5-40%) -- "
-     "zeta is consistent with its second-order Gaussian twin", ok)
+gate("g13 the zeta twin test: reproducibility pins (real +0.908 "
+     "+- 0.02; z in (-1.4, -0.2); percentile 5-40% -- windows around "
+     "the observed draw, so a z nearer 0 would STRENGTHEN the "
+     "consistency claim while failing the pin); the claim itself is "
+     "the interior position: zeta consistent with its second-order "
+     "Gaussian twin", ok)
 print(f"  g14 CUE twin gap: mean {gapr['mean']:+.3f} +- {gapr['sem']:.3f}, "
       f"{gapr['npos']}/10 positive", flush=True)
 ok = abs(gapr["mean"] - 0.243) < 0.03 and gapr["npos"] >= 8
@@ -264,6 +280,19 @@ gate("g14 the CUE twin gap: real determinantal CUE dodges worse than "
      "its Gaussian D-matched twin (pin +0.243 +- 0.03; >= 8/10 points "
      "positive) -- the certified overshoot's carrier is the "
      "comparator side", ok)
+
+from fold_remainder2 import matched_twin_gap
+mt = ckpt_key.load("fold_twin_matched", KEYFILE, {"deps": DEPS2})
+if mt is None:
+    mt = matched_twin_gap(verbose=False)
+    ckpt_key.save("fold_twin_matched", KEYFILE, {"deps": DEPS2}, mt)
+print(f"  g15 fully-matched premium: {mt['mean']:+.3f} +- {mt['sem']:.3f}, "
+      f"{mt['npos']}/10 positive", flush=True)
+ok = PIN_G15 is not None and abs(mt["mean"] - PIN_G15) < 0.03 and mt["npos"] >= 7
+gate("g15 the fully-matched control (round-227 F2): the determinantal "
+     "premium survives anchoring + registration + measured-D + "
+     "calibration matching (pin from the committed run +- 0.03; "
+     ">= 7/10 points positive) -- not a convention artifact", ok)
 
 # ---------------------------------------------------------------- g10
 gate("g10 the 1bc consistency: the certified headline needle in the "
@@ -297,6 +326,6 @@ ok &= "extended by Theorems 1i–1be:" in normp
 gate("g12 the 1be paper needles and the footer census (backticked >= 2; "
      "the anchored count and range needles)", ok)
 
-print(("\nALL GATES PASS (15/15)" if not fails else
+print(("\nALL GATES PASS (16/16)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)
 sys.exit(1 if fails else 0)
