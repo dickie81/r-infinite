@@ -89,13 +89,22 @@ Gates:
 
 Sabotage suite (live at the landing battery; edit-run-observe-
 restore; the family keying localizes the recompute cost):
-  (a) substrate mangle -- floor_probe3.py conj_point's parity
-      matrix sign -> the conjugacy sub-checkpoints and the
-      consolidated stage self-invalidate (the heavy ladder and
-      defect checkpoints REUSE), g6-g8 fail
-  (b) pin mangle -- a g1 climb pin -> REUSED, one gate, exit 1
-  (c) census revert -- footer 83 -> 82 -> g13 (chain census) +
-      g14, two-gate detection
+  (a) substrate mangle -- floor_probe3.py conj_point's conjugation
+      target (D = QW - conj(QZ) -> QW - QZ; the originally planned
+      parity-sign mangle is undetectable by construction, a global
+      sign cancels in P Q P, and was replaced) -> OBSERVED: the
+      conjugacy family + DEPSL-keyed stages self-invalidate and
+      recompute (~13 min; ladders and defect families REUSE),
+      g6+g8 FAIL, exit 1. Incident on the record: the second fresh
+      battery's wrapper had a pending final tick that auto-
+      committed the probe's mangled-KEY checkpoint data files
+      (never the mangled source); swept by the reachability pass
+      -- probes now wait for WRAPPER-COMPLETE.
+  (b) pin mangle -- g1 climb pin 1.150e-9 -> 2.150e-9 ->
+      OBSERVED: REUSED, g1 FAIL alone, exit 1
+  (c) census revert -- footer 83 -> 82 -> OBSERVED: the chain
+      gate prints the missing census string, g13 + g14 FAIL,
+      exit 1 (two-gate detection)
 """
 import hashlib, math, os, sys
 
