@@ -5683,9 +5683,23 @@ at c = 60 and 120 (52 points), the truncated dodging margin obeys
 **the floor law** m_Z ≈ m_sat·10^(−β(N* − n_b)) on the climb,
 where n_b is the in-band zero count and **the pinning count is
 the Shannon number**: N*/N_sh = 0.976/0.997 at c = 60/120 (gated
-g2), with β = 1.2–1.5 decades per zero and β/(Slepian plunge
+g2), with β = 1.2–1.5 decades per zero and ~~β/(Slepian plunge
 rate) ≈ 2.4 at both bandwidths — both rates individually scaling
-as 1/ln c (Landau–Widom, gated g4). Below the horizon the margin
+as 1/ln c (Landau–Widom, gated g4)~~ **β/(Slepian plunge rate) =
+2.3–2.5 as measured under the landing's basis and fit recipe
+(gated g3/g4 as pins)** *(pre-round-234 self-correction, the
+ratio attack `floor_probe7.py`: the ratio is NOT a structural
+constant — under one fixed recipe it drifts 1.37 → 2.44 across
+c = 45–170, the drift carried by the denominator (β is
+approximately c-flat at ~1.1 ± 0.15 decades per zero while the
+measured plunge rate is basis-truncation-conditioned: extending
+the section by 8 modes moves it +42% and the ratio to 1.76); the
+apparent c-independence at 60/120 was the shared truncation
+depth of the standard basis, n = N_sh + 4. The honest law is
+m_Z ≈ m_sat·10^(−β(N* − n_b)) with β ≈ 1.1, at most weakly
+c-dependent; the plunge remains the mechanism — the minimizer's
+occupancy edge advances ≈ 2 modes per added zero — but the 2.4
+is a conditioned slope ratio, not a constant to derive)*. Below the horizon the margin
 is numerical zero (free directions inside the concentrated
 subspace); on the climb the minimizer migrates into the plunge
 (44% plunge mass mid-climb, gated g5); at saturation (m ≈ 0.253–
@@ -5727,8 +5741,16 @@ horizons (gated g12): **the g4 ratio is a derived quantity, not
 an observation**. *Honest scope:* window-bounded (heights ≤ 653.6
 base, ≤ 1013 extended; two bandwidths; per-point measured fits,
 not theorems); the floor-law constants are measured, not derived
-(β/plunge ≈ 2.4 and the 0.25 saturation are open — Slepian-
-geometry questions); the operator closure verifies the
+~~(β/plunge ≈ 2.4 and the 0.25 saturation are open — Slepian-
+geometry questions)~~ *(both closed by deflation post-landing:
+the 0.25 saturation is a feature-local extreme statistic, not a
+constant — ensemble 0.18–0.42, the minimizer riding one soft-gap
+neighborhood across the whole plateau, with two new exact
+theorems alongside (τ\* = 2πe^(2A) ≈ 343.1 c-independent, and
+the tight mean ln(τ₀/2π) by Poisson summation), `floor_probe6.py`;
+the 2.4 is a (recipe, basis)-conditioned slope ratio per the
+(ii) correction, `floor_probe7.py`; the open remainder is small:
+β ≈ 1.1's closed form and the ≈ 2-modes-per-zero price)*; the operator closure verifies the
 UNCONDITIONAL explicit formula against our instruments, so it
 carries **no RH leverage claimed** — indeed the arc *removed* a
 leverage candidate (the transfer-inequality reading of the g4

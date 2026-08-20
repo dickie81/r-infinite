@@ -41,7 +41,49 @@ Check 8: no hypothesis input. Keying per A355: DEPS = this file +
 floor_probe.py + the four substrates; params carry every stage
 input; CUE seeds explicit.
 
-RESULT: appended after the run by the analysis pass.
+RESULT (all probes complete): THE 2.4 DEFLATES -- it is not a
+universal constant.
+
+  E1 (one fixed recipe, dense uniform grid): the ratio is NOT
+     c-independent: 1.374 / 1.916 / 1.982 / 2.346 / 2.443 at
+     c = 45/60/90/120/170 -- and the drift is carried by the
+     DENOMINATOR: beta is approximately c-flat (0.87-1.16, no
+     monotone trend, median ~1.1 decades per in-band zero) while
+     p falls as ~1/ln(alpha c) (alpha = 0.66-0.69 for c <= 120;
+     the c = 170 value 0.53 is the truncation artifact below).
+  E5 (the killer): extending the basis by 8 modes at c = 120
+     moves p 0.486 -> 0.690 (+42%) and beta 1.140 -> 1.212 (+6%);
+     the ratio moves 2.346 -> 1.757. The measured "plunge rate"
+     is BASIS-TRUNCATION-CONDITIONED: the standard section
+     (n = N_sh + 4) clips the plunge at the same relative depth
+     at every c -- which is exactly why the landed ratio looked
+     c-independent at c = 60/120. The pi^2/4 candidate is dead as
+     a finite-c identity and not even well-posed as an asymptote
+     under this sensitivity.
+  E2 (process dependence): mild and non-uniform -- zeta
+     1.109/1.140 vs lattice 0.882/1.219 vs CUE 0.709/0.956 at
+     c = 60/120. CUE is consistently ~20% shallower; the lattice
+     brackets zeta. At leading order the slope is
+     sampling-geometric; the certified 1bc stiffness excess
+     remains an intercept phenomenon.
+  E3 (mechanism): the minimizer's 90%-occupancy edge advances
+     ~2 modes per added zero (slopes 1.4-2.3, median ~2): the
+     per-zero price is roughly two plunge-mode leakage quanta --
+     measured, not derived.
+  Recipe sensitivity disclosed: the 1bg landing recipe gave 2.34
+     at c = 60; this recipe gives 1.92 (integer-chunky counts +
+     window choice).
+
+NET: the honest floor law simplifies -- m_Z ~ m_sat *
+10^(-beta (N* - nb)) with beta ~ 1.1 +- 0.15 decades per in-band
+zero, at most weakly c-dependent; the "beta/plunge ~ 2.4"
+framing landed in Theorem 1bg is a (recipe, basis)-conditioned
+slope ratio, not a structural constant, and the paper block is
+corrected accordingly (the g3/g4 gates remain honest as measured
+pins under the standard basis and recipe -- their stage
+reproduces them -- but the c-independence INTERPRETATION is
+struck). Open (small): why ~2 modes per zero; whether beta's
+~1.1 has a closed form.
 """
 import hashlib, math, os, sys
 
