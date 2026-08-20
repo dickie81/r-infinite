@@ -14,9 +14,10 @@ truncation ordering, and fold through the sqrt-amplifier law:
   (iii) the witness law (witness_offline: the margin flips at
        d* ~ sqrt(m)) applied to m_W bounds the line-displacement of
        a CORE-LOCAL in-band zero -- one inside the concentrated
-       probes' response support (|gamma - tau0| <~ 40 at c = 120;
-       the collision response coefficient collapses off-center,
-       round-229 F1): (d A)^2 |<w, dv/ds>|^2 <= m_W + budget.
+       probes' ppm response radius (|gamma - tau0| <~ 20 at
+       (120,300), the support edge ~41.5; the collision response
+       coefficient collapses off-center, round-229 F1 / round-230
+       F4): (d A)^2 |<w, dv/ds>|^2 <= m_W + budget.
 
 Output per point: m_W, m_Z(380), the identity ratio ladder
 z_N/(m_W nrm) for N = 260/320/380, the donor overlap factor, and

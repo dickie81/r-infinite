@@ -5544,7 +5544,9 @@ checkpoints).
 
 **Theorem 1bf (the two-sided witness — section-level Weil
 positivity from arithmetic alone, and the millionths-scale
-confinement of the in-band zeros; `cascade_twosided_witness.py`).**
+confinement of the ~~in-band zeros~~ core-local in-band zeros
+*(round-230 F1: the title carried the round-229 F1 quantifier the
+sweep struck everywhere else)*; `cascade_twosided_witness.py`).**
 *(i) The commission and the pivot.* "Attack the witness" → "Land
 the two-sided witness." The arc's own first framing was refuted en
 route and the refutation is part of the record: the witness
@@ -5578,7 +5580,8 @@ twelve decimals — against a
 jitter-calibrated ordinate-error budget (the zero side's response
 to ordinate jitter is linear — the 10⁻⁹-scale rms is 50.0× the
 2×10⁻¹¹-scale rms, gated *(round-229 F4)*; dps-13 worst case
-5.75–8.98×10⁻¹², gated in (10⁻¹², 5×10⁻¹¹),
+5.75–8.98×10⁻¹² *(round-229 F6: the landing's "6–9×10⁻¹²"
+excluded the measured minimum)*, gated in (10⁻¹², 5×10⁻¹¹),
 g7). *(iv) The confinement.* **The collision injection** — two
 adjacent in-band donors collide to the off-line pair at their
 mean, the correct off-line topology; the response is even in d
@@ -5589,11 +5592,19 @@ symmetry holds by construction, so evenness is printed, not gated
 sits within~~ **a collision pair at the probed concentration cores
 sits within** *(round-229 F1, MAJOR: the original quantifier was
 false when written — the probe's response coefficient is
-core-local and collapses off-center: at (120, 300), resp₂ =
-2.5×10⁻² for the pair 1.5 above the section center, 6.6×10⁻³ at
-+40, and 0 to double precision at +83, where the bound is vacuous;
-the confinement holds where the concentrated vectors look,
-|γ − τ₀| ≲ 40 at c = 120, not across the band)* **d ≤
+core-local and collapses off-center. Measurements restated in
+round-230 F4 — the first annotation quoted u-offsets unlabeled
+(u = A(γ − τ₀), A = 2) beside a γ-units clause and read the
+response-support edge as the confinement radius. The scan at
+(120, 300), max resp₂ over the top-8 prolates, offsets in γ:
+4.5×10⁻² at +0.7 (u 1.5), 2.4×10⁻² at +15 (u 30), 6.6×10⁻³ at
++20 (u 40), 5.3×10⁻⁴ at +25 (u 50), 1.2×10⁻⁶ at +30 (u 60), 0
+to double precision at +41.5 (u 83), where the bound is vacuous.
+The ppm-scale confinement therefore holds for |γ − τ₀| ≲ 20 at
+(120, 300); the bound degrades through 10⁻⁴–10⁻³ by +25 to +30
+and dies at the support edge ≈ 41.5 — the honest radius is
+roughly half the support, not the ≲ 40 the first annotation
+claimed)* **d ≤
 5.5–9.2×10⁻⁶ of the critical line** at the
 four gated points (g9) — **millionths of the critical line** —
 and the injected alarm at d = 2×10⁻³ rings five-plus orders
@@ -5604,9 +5615,11 @@ calibrated as an RH-consistency instrument: the arithmetic side
 alone certifies section positivity at 10⁻⁷; the two-sided
 identity certifies the ordinate list at 10⁻¹²; and their
 combination confines ~~every in-band zero~~ **the core-local
-zeros — those within the probes' response support** *(round-229
-F1)* to the line at the ppm
-scale — a positivity-based verification bound, per point, with
+zeros — those within the probes' ppm response radius, |γ − τ₀| ≲
+20 at the measured (120, 300)** *(round-229
+F1; the radius per round-230 F4 — the response support extends
+to ≈ 41.5 but the ppm bound dies well inside it)* to the line at
+the ppm scale — a positivity-based verification bound, per point, with
 the load-bearing ingredients gated (evenness printed by
 construction). *Honest scope:* window-bounded (heights ≤
 653.6, the four gated section points; nothing here is
@@ -5615,7 +5628,9 @@ claimed**); the ordinate list is mpmath's (computed on the line by
 construction — the identity tests its completeness and
 consistency against the primes: a missing off-line pair would
 leave T ≈ +2|amp|², a mis-listed collision T ≈ −resp₂(dA)², both
-far above the floor); the budget is jitter-calibrated at the
+far above the floor near a concentration core — off-core both
+amplitudes vanish with the response, per (iv)'s core-local scope
+*(round-230 F2)*); the budget is jitter-calibrated at the
 dps-13 worst case (the observed floor is ~3× better; a
 higher-precision pull tightens d_bound as √budget); the collision
 topology covers the standard off-line mechanism (pairs splitting

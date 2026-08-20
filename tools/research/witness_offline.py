@@ -76,7 +76,7 @@ class WSect(Sect):
         PX = np.zeros((self.n, len(XG)))
         for m in range(self.n):
             PX[m] = L.legval(XG, self.P[m]*np.sqrt(np.arange(KL) + 0.5))
-        self.PXw = PX*WG[None, :]          # n x 800, weighted values
+        self.PXw = PX*WG[None, :]          # n x 3000, weighted values
 
     def vhat(self, s):
         """psi_hat at complex s by quadrature: int psi(x) e^{isx} dx,

@@ -32,9 +32,11 @@ injection (two adjacent donors collide to the off-line pair at
 their mean -- the correct off-line topology; the response is even
 in d by construction and O(d^2), measured coefficients resp2 ~
 0.02-0.09 per (dA)^2) then confines a CORE-LOCAL collision pair
-(round-229 F1: the response coefficient collapses off-center --
-at (120,300), resp2 = 2.5e-2 at s = +1.5, 6.6e-3 at +40, 0 at
-+83 where the bound is vacuous; |gamma - tau0| <~ 40 at c = 120)
+(round-229 F1, radius per round-230 F4: the response coefficient
+collapses off-center -- at (120,300), max resp2 over the top-8
+prolates in u = A(gamma - tau0): 4.5e-2 at u +1.5, 6.6e-3 at
+u +40, 0 at u +83 where the bound is vacuous; the ppm radius is
+|gamma - tau0| <~ 20, the support edge ~41.5)
 to d <= sqrt((|T| + budget)/resp2)/A = 5.5e-6 .. 9.2e-6 at the
 four gated points, with the injected alarm at d = 2e-3 ringing
 5+ orders above the floor.
@@ -69,10 +71,13 @@ Gates:
       (60,200) -- the dodging minimizer's exported mass, O(1)
   g6  the concentrated identity: max |T| < 1e-11 over the top-8
       prolates at every point; Slepian leakage < 1e-12
-  g7  the jitter calibration: every budget in (1e-12, 5e-11) and
-      the response linear -- the 1e-9/2e-11 rms ratio gated in
-      (49, 51), measured 50.0x (round-229 F4: previously
-      documented-not-coded with a stale "30-300x" digit)
+  g7  the jitter calibration: the best-bound prolate's budget per
+      point in (1e-12, 5e-11) (round-230 F5: the stage computes
+      all 32 budgets but stores and gates the four best -- "every
+      budget" was documented-not-gated) and the response linear --
+      the 1e-9/2e-11 rms ratio gated in (49, 51), measured 50.0x
+      (round-229 F4: previously documented-not-coded with a stale
+      "30-300x" digit)
   g8  the collision probe: resp2 pinned per point (rel 0.3);
       evenness printed, not gated -- T(+d) = T(-d) is bit-exact by
       construction for real test vectors, so an evenness conjunct
@@ -134,8 +139,10 @@ PIN_DB = [5.51e-6, 8.15e-6, 7.32e-6, 9.24e-6]
 PIN_DSTAR = [6.151e-4, 1.312e-3, 1.017e-1, 3.747e-2]   # dstar_tol 1e-6; the landing draft's 1e-3 was effectively absolute at the deep points; cross-validates witness_offline's committed table to 0.15%
 
 # ---- staged compute (the stage body lives in witness_twosided.py's
-# landing_stage so the producing code is keyed; round-229 F7) --------
-STAGE_PARAMS = {"deps": DEPS_1BF, "dstar_tol": 1e-6}
+# landing_stage so the producing code is keyed, round-229 F7; the
+# point list keyed too, round-230 F3 -- a PTS edit must invalidate,
+# not silently reuse) ------------------------------------------------
+STAGE_PARAMS = {"deps": DEPS_1BF, "dstar_tol": 1e-6, "pts": PTS}
 st = ckpt_key.load("witness_main", KEYFILE, STAGE_PARAMS)
 if st is None:
     st = landing_stage(dstar_tol=STAGE_PARAMS["dstar_tol"],
@@ -185,8 +192,9 @@ gate("g6 the concentrated identity: max|T| < 1e-11, leakage < 1e-12 "
 # ---------------------------------------------------------------- g7
 ok = all(1e-12 < p["best"]["bud"] < 5e-11 for p in P)
 ok &= all(49.0 < p["best"]["lin_ratio"] < 51.0 for p in P)
-gate("g7 the jitter budgets in (1e-12, 5e-11); linear response "
-     "(the 1e-9/2e-11 rms ratio in (49, 51) -- round-229 F4)", ok)
+gate("g7 the best-bound jitter budgets (one per point) in "
+     "(1e-12, 5e-11); linear response (the 1e-9/2e-11 rms ratio "
+     "in (49, 51) -- round-229 F4; round-230 F5)", ok)
 
 # ---------------------------------------------------------------- g8
 for p in P:
