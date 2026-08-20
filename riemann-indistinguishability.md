@@ -5558,8 +5558,10 @@ dodging minimizer exports O(1) Parseval mass beyond the measured
 zero window (⟨w_Z, Q_W w_Z⟩ = 3.12 at (60, 200), gated g5), so the
 truncated zero-side form is not the Weil form at depth, the deep
 minima's 2–5% agreement is a section-floor effect (gated g4 as an
-observation), and the √-law is an instrument-sensitivity law for
-the dodging form. *(ii) Section-level Weil positivity, arithmetic
+observation *(net state: derived in Theorem 1bg — the proximity
+is the arch/zero horizon mismatch and vanishes to < 0.2% under
+matched horizons)*), and the √-law is an instrument-sensitivity
+law for the dodging form. *(ii) Section-level Weil positivity, arithmetic
 inputs only.* The certified 1bb Weil-side machinery (digamma ARCH
 + pole pair + von Mangoldt primes — no zero-location input, every
 ingredient unconditional) evaluated on the certified deep 1bc
@@ -5668,6 +5670,83 @@ no cascade quantity derived). Check 8 clean (no hypothesis
 input). Substrates `witness_offline.py` and `witness_twosided.py`
 committed, imported, and content-addressed into the verifier's
 keys (with `fold_D.py`, `fold_surrogate.py`).
+
+**Theorem 1bg (the floor arc — the Slepian floor law, the
+conjugacy of the arithmetic build, and the operator-level closure
+of the windowed explicit formula; `cascade_floor_closure.py`).**
+*(i) The commissions.* Four attacks in sequence — "Attack the
+floor" → "Attack the antisymmetry" → "Attack the partition" →
+"Attack the defect" — each refuting part of its predecessor's
+reading, with every refutation on the record in the committed
+instruments' RESULT blocks. *(ii) The floor law.* On τ₀ ladders
+at c = 60 and 120 (52 points), the truncated dodging margin obeys
+**the floor law** m_Z ≈ m_sat·10^(−β(N* − n_b)) on the climb,
+where n_b is the in-band zero count and **the pinning count is
+the Shannon number**: N*/N_sh = 0.976/0.997 at c = 60/120 (gated
+g2), with β = 1.2–1.5 decades per zero and β/(Slepian plunge
+rate) ≈ 2.4 at both bandwidths — both rates individually scaling
+as 1/ln c (Landau–Widom, gated g4). Below the horizon the margin
+is numerical zero (free directions inside the concentrated
+subspace); on the climb the minimizer migrates into the plunge
+(44% plunge mass mid-climb, gated g5); at saturation (m ≈ 0.253–
+0.255 at c = 120, gated g1) it re-concentrates. The certified
+deep margins are quantitatively the plunge attenuation. *(iii)
+The conjugacy.* The certified 1bb-lineage arithmetic build
+satisfies Q_W ≈ conj(Q_Z) — by machine-exact parity algebra, the
+zero form with its ordinates reflected about the section center —
+at defect 0.2–0.7% (pinned, g6). Everything the arc first met as
+mystery follows: the g4 isospectrality, w_W = conj(w_Z)
+(conjugate overlap 1.0000, gated g7 — the plain overlap is
+0.01–0.36), the antisymmetry T(w_Z) = −T(w_W), the pencil
+symmetry; and m_W − m_Z = D(conj w_Z) closes to 15% at every
+regime point (first-order in the defect, gated g8). *(iv) The
+deflation.* Rebuilding the archimedean side in the true gauge
+gives ‖ARCH_true − conj(ARCH_code)‖ = 0 exactly (gated g9): the
+certified machinery computes the **conjugate** of the
+explicit-formula operator (a phase-gauge convention — every
+certified scalar is conjugation-blind and unaffected), and the
+"reflection identity" is **the plain windowed explicit formula
+seen through that** convention. The formula is window-local (the
+odd-sector projection β(T) plateaus at −1 from T ≈ 400),
+per-prime resolved (β_n = −1 within 1–3% for every prime power
+of non-tiny norm — the windowed zero configuration reconstructs
+each prime's operator contribution individually), and tail-free
+(269 further ordinates, computed to γ ≈ 1013, project at 0.0000;
+gated g10 — the arc's own "+2/−1 window-partition" hypothesis
+was refuted by this measurement and is retracted in the
+instrument's RESULT). *(v) The defect closure and the derived
+g4.* The 0.2–0.7% residual is **the horizon mismatch, entirely**:
+the arch window (τ₀ ± 800) against the fixed ordinate coverage
+(±653.6). The quadrature share is zero (NR/2 = base = 2NR to
+every digit); matching the arch horizon to the ordinate coverage
+collapses the defect 40–70×, and with the 660-ordinate list at
+matched ±1013 it is 2–3×10⁻⁵, τ₀-uniform (gated g11). The
+certified 1bf g4 proximity — dm/m = +0.019/+0.047/+0.001 at the
+code windows — becomes −0.000/−0.001/+0.000 under matched
+horizons (gated g12): **the g4 ratio is a derived quantity, not
+an observation**. *Honest scope:* window-bounded (heights ≤ 653.6
+base, ≤ 1013 extended; two bandwidths; per-point measured fits,
+not theorems); the floor-law constants are measured, not derived
+(β/plunge ≈ 2.4 and the 0.25 saturation are open — Slepian-
+geometry questions); the operator closure verifies the
+UNCONDITIONAL explicit formula against our instruments, so it
+carries **no RH leverage claimed** — indeed the arc *removed* a
+leverage candidate (the transfer-inequality reading of the g4
+coincidence, now known to be windowing bookkeeping); the
+remaining ~2×10⁻⁵ closure residual is unattributed; RH content
+sits untouched in height-uniformity and in the sign of the bottom
+eigenvalue at the Shannon crossing, where zero fluctuations
+enter. Conventions flag for future operator-level work: the
+as-built arithmetic is the conjugate of the formula operator.
+Check 7 clean (Slepian–Landau–Widom concentration asymptotics,
+finite eigenproblems, the unconditional explicit formula —
+classical analysis; no cascade quantity derived, no semiclassical
+procedure). Check 8 clean (no hypothesis input). Substrates
+`floor_probe.py`, `floor_probe2.py`, `floor_probe3.py`,
+`floor_probe4.py`, `floor_probe5.py`, `floor_landing.py`
+committed, imported, and content-addressed into the verifier's
+keys (the stage lives in `floor_landing.py`; family-level keying
+localizes recomputation).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -6203,4 +6282,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1bf: the **82 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`, `fold_remainder.py`, `fold_remainder2.py` — the committed instruments at `tools/research/`, named in Theorem 1be's block and honest scope as its substrates, audited not counted; and `witness_offline.py`, `witness_twosided.py` — the committed instruments at `tools/research/`, named in Theorem 1bf's block as its substrates, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_twosided_witness.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*; Weil, the explicit-formula positivity criterion; Turing, the zero-verification method — cited for spirit, not used *(the two appended at the 1bf landing)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1bg: the **83 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`, `fold_remainder.py`, `fold_remainder2.py` — the committed instruments at `tools/research/`, named in Theorem 1be's block and honest scope as its substrates, audited not counted; and `witness_offline.py`, `witness_twosided.py` — the committed instruments at `tools/research/`, named in Theorem 1bf's block as its substrates, audited not counted; and `floor_probe.py`, `floor_probe2.py`, `floor_probe3.py`, `floor_probe4.py`, `floor_probe5.py`, `floor_landing.py` — the committed instruments at `tools/research/`, named in Theorem 1bg's block as its substrates, audited not counted): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_twosided_witness.py`, `cascade_floor_closure.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*; Weil, the explicit-formula positivity criterion; Turing, the zero-verification method — cited for spirit, not used *(the two appended at the 1bf landing; at the 1bg landing Weil's explicit formula proper — the unconditional identity, as distinct from the positivity criterion — is consumed as an operator-level input; the criterion remains spirit-only)*.*
