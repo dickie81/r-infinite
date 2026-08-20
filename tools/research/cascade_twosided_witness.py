@@ -31,7 +31,7 @@ off-line topology; the response is even in d and O(d^2), measured
 coefficients resp2 ~ 0.02-0.09 per (dA)^2) then confines every
 in-band collision pair to d <= sqrt((|T| + budget)/resp2)/A =
 5.5e-6 .. 9.2e-6 across the four gated points, with the injected
-alarm at d = 2e-3 ringing ~8 orders above the floor.
+alarm at d = 2e-3 ringing 5+ orders above the floor.
 
 Honest scope is carried by the paper block: window-bounded (heights
 <= 653, four section points), ordinate-input caveats, no RH
@@ -67,7 +67,7 @@ Gates:
       rel 0.25) -- every in-band collision pair within ~1e-5 of
       the critical line
   g10 the injected alarm: |collision T-shift| at d = 2e-3 exceeds
-      1e-4 at every point (>= 7 orders above the identity floor)
+      1e-7 at every point (5+ orders above the identity floor)
   g11 the sqrt-law: d* recomputed at the four points, log-log
       slope vs the base dodging margin in (0.30, 0.60)
   g12 the chain obligation to cascade_prime_budget_fold.py
@@ -117,10 +117,11 @@ KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 PTS = [(60.0, 200.0), (120.0, 260.0), (60.0, 280.0), (120.0, 300.0)]
 PIN_MW = [4.501e-7, 1.196e-7, 9.496e-3, 3.921e-4]
 PIN_DB = [5.51e-6, 8.15e-6, 7.32e-6, 9.24e-6]
-PIN_DSTAR = [6.142e-4, 1.311e-3, 1.017e-1, 3.747e-2]
+PIN_DSTAR = None   # re-collected at dstar_tol 1e-6 (the landing draft's 1e-3 was effectively absolute at the deep points)
 
 # ---- staged compute -------------------------------------------------
-st = ckpt_key.load("witness_main", KEYFILE, {"deps": DEPS3})
+STAGE_PARAMS = {"deps": DEPS3, "dstar_tol": 1e-6}
+st = ckpt_key.load("witness_main", KEYFILE, STAGE_PARAMS)
 if st is None:
     Z = zeros380()
     out = {"pts": []}
@@ -162,7 +163,7 @@ if st is None:
                           "db": db, "even_rel": even_rel, "alarm": alarm})
         best = min((p for p in per_k if p["db"]), key=lambda p: p["db"])
         # sqrt-law point on the dodging instrument
-        ds = dstar(S, Z, t0, t0, tol=1e-3)
+        ds = dstar(S, Z, t0, t0, tol=1e-6)
         out["pts"].append({
             "c": c, "t0": t0, "mW": mW, "arch": arch, "prime": prime,
             "mZ": mZ, "tail": tail, "Tmax": Tmax,
@@ -173,7 +174,7 @@ if st is None:
     m_ref = S.margin(Z, 200.0)
     m_cpx = S.base_margin(Z, 200.0)
     out["consist_rel"] = abs(m_ref - m_cpx)/m_ref
-    ckpt_key.save("witness_main", KEYFILE, {"deps": DEPS3}, out)
+    ckpt_key.save("witness_main", KEYFILE, STAGE_PARAMS, out)
     st = out
 
 P = st["pts"]
@@ -184,7 +185,8 @@ for p in P:
           f"db {p['best']['db']:.3e} d* {p['dstar']:.3e}", flush=True)
 
 # ---------------------------------------------------------------- g0
-gate("g0 pins set", all(v is not None for v in PIN_MW + PIN_DB + PIN_DSTAR))
+gate("g0 pins set", PIN_DSTAR is not None and all(
+     v is not None for v in PIN_MW + PIN_DB + PIN_DSTAR))
 
 # ---------------------------------------------------------------- g1
 gate("g1 consistency: complex path = certified real path (rel < 1e-6)",
@@ -231,16 +233,20 @@ gate("g9 the d_bounds pinned: every in-band collision pair within "
      "~1e-5 of the critical line", ok)
 
 # --------------------------------------------------------------- g10
-ok = all(p["best"]["alarm"] > 1e-4 for p in P)
-gate("g10 the injected alarm at d = 2e-3 exceeds 1e-4 at every point "
-     "(>= 7 orders above the identity floor)", ok)
+ok = all(p["best"]["alarm"] > 1e-7 for p in P)
+gate("g10 the injected alarm at d = 2e-3 exceeds 1e-7 at every point "
+     "(5+ orders above the identity floor; the response is "
+     "resp2 (dA)^2 ~ 1e-6 -- the landing draft's 1e-4 threshold was "
+     "calibrated to the superseded single-donor probe's doubling "
+     "artifact)", ok)
 
 # --------------------------------------------------------------- g11
 lm = np.log([p["mZ"] for p in P])
 ld = np.log([p["dstar"] for p in P])
 b = float(np.polyfit(lm, ld, 1)[0])
 ok = 0.30 < b < 0.60
-ok &= all(abs(p["dstar"]/pin - 1) < 0.10 for p, pin in zip(P, PIN_DSTAR))
+ok &= PIN_DSTAR is not None and all(
+    abs(p["dstar"]/pin - 1) < 0.10 for p, pin in zip(P, PIN_DSTAR))
 print(f"  g11 sqrt-law slope {b:.3f}", flush=True)
 gate("g11 the sqrt-law: d* pins and log-log slope in (0.30, 0.60) "
      "(the dodging-instrument sensitivity law)", ok)

@@ -5581,8 +5581,9 @@ mean, the correct off-line topology; the response is even in d
 — converts the identity into a bound: any in-band collision pair
 sits within **d ≤ 5.5–9.2×10⁻⁶ of the critical line** across the
 four gated points (g9) — **millionths of the critical line** —
-and the injected alarm at d = 2×10⁻³ rings seven-plus orders
-above the identity floor (gated g10). *(v) The reading.* The
+and the injected alarm at d = 2×10⁻³ rings five-plus orders
+above the identity floor (gated g10; the collision response is
+resp₂(dA)² ≈ 10⁻⁶ against the 10⁻¹² floor). *(v) The reading.* The
 positivity margin the program has measured since 1ba is now
 calibrated as an RH-consistency instrument: the arithmetic side
 alone certifies section positivity at 10⁻⁷; the two-sided
