@@ -38,7 +38,48 @@ file, floor_probe.py, floor_probe4.py (whose zext checkpoints the
 extended list reuses), and the four substrate modules; params
 carry the full config (point, NR, interval, list length).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (all 19 configs complete; single-cause verdict):
+
+THE DEFECT IS THE HORIZON MISMATCH, ENTIRELY.
+  D1 quadrature: ZERO share -- NR/2, base, NRx2 identical to every
+     printed digit (0.00204/0.00204/0.00204 at (60,200)).
+  D2 matched windows (arch integrated exactly over the zero
+     coverage +-653.7): the defect COLLAPSES by a factor 40-70 --
+     (60,200): 0.00204 -> 0.00003;  (120,300): 0.00373 -> 0.00007;
+     (120,420): 0.00694 -> 0.00017. The symmetric sweeps confirm
+     the sign (Rwin1200, more overhang, is worse: 0.00404/0.00596;
+     ext-base, more zeros under the same overhang, halves it).
+  D3 ext-MATCH (660 ordinates, arch +-1013.1): 0.00002 / 0.00002 /
+     0.00003 -- tau0-UNIFORM at ~2-3e-5. The closure sharpens
+     ~100x and the rising trend flattens completely: the trend was
+     the arch window tau0 +- 800 growing more mismatched against
+     the fixed +-653.6 list as tau0 rose.
+  D5 sector split: the defect is even-sector dominated (odd share
+     5-15%) -- the overhang is a smooth positive mean-density
+     form, as the mechanism requires.
+
+THE g4 RATIO IS NOW FULLY DERIVED, END TO END: dm/m at the base
+(code) windows = +0.019 / +0.047 / +0.001 -- the certified 1bf g4
+proximity values -- and at matched windows dm/m = -0.000 / -0.001
+/ +0.000: with the arch horizon matched to the zero coverage, the
+Weil and dodging margins agree to ~0.1% at every point including
+the deep ones (m_W = 4.414e-7 vs m_Z = 4.415e-7 at (60,200)).
+The chain across the four attacks: g4 observed (1bf, gated) ->
+explained as conjugacy/isospectrality (the antisymmetry attack) ->
+derived as first-order defect perturbation (the partition attack)
+-> the defect itself closed as pure arch-window overhang, ratio
+-> ~0 under matching (this attack). Nothing mysterious remains at
+the operator level.
+
+NET STATEMENT: the windowed explicit formula holds OPERATOR-WISE
+on concentrated sections at the 2-3e-5 level (matched horizons,
+660 ordinates, quadrature-converged, tau0-uniform) -- tail-free,
+window-local, per-prime resolved (floor_probe4 E2). The remaining
+~2e-5 (leakage x kernel-slope at the shared horizon, list-edge
+and ordinate-precision effects) is unattributed but two orders
+below the old defect. The arc's remaining REAL open objects are
+the floor-law constants (beta/plunge ~ 2.4; saturation 0.25) --
+Slepian-geometry questions, not arithmetic ones.
 """
 import hashlib, math, os, sys
 
