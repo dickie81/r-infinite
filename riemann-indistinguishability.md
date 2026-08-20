@@ -5463,8 +5463,10 @@ exactly as the one real zero set is — puts the real zeros'
 correlated ten-point excess INSIDE the Gaussian-twin distribution:
 real +0.908 against draws +0.976 ± 0.087, z = −0.79, percentile
 15.6, gated g13. The carrier is the comparator: real determinantal
-CUE dodges +0.243 ± 0.077 WORSE than its own Gaussian D-matched
-twin — 9/10 points positive, gated g14. ~~The unfolding-convention
+CUE dodges +0.272 ± 0.073 WORSE than its own Gaussian D-matched
+twin — 10/10 points positive, gated g14 (the calibration-aligned
+value; the round-227 landing quoted +0.243/9-of-10 under the
+F3-miscalibrated twin). ~~The unfolding-convention
 confound bounded at ±0.05 non-systematic in D~~ — corrected at the
 round-227 sweep, F2, to the measured truth: the twins' band-lag D
 mismatch is SYSTEMATIC, −0.05 to −0.07 one-signed at lags 24–120,
@@ -5473,9 +5475,9 @@ margin by ~0.11 decades in opposite directions, cancelling; none
 of it carries the gap, established by the committed fully-matched
 control (anchoring + registration + measured-D + calibration
 matching): the premium survives at +0.23 ± 0.09, ≥ 7/10 points,
-gated g15. The decomposition closes: zeta-twin −0.068 minus
-CUE-twin +0.243 = −0.31 against the observed −0.24 within
-errors.)* **At this sample the real zeros' dodging economics is
+gated g15. The decomposition arithmetic: zeta-twin −0.068
+minus CUE-twin +0.272 = −0.34 against the observed −0.24, within
+~1.3 sem.)* **At this sample the real zeros' dodging economics is
 consistent with their second-order Gaussian twin** (the
 zeta field's strong sub-Gaussianity — excess kurtosis −0.64, the
 bounded almost-periodic signature — does not price into the

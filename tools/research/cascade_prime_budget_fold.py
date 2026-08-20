@@ -32,12 +32,17 @@ ten-point excess INSIDE the Gaussian-twin distribution (real +0.908
 vs draws +0.976 +- 0.087, z = -0.79, percentile 15.6) -- zeta is
 CONSISTENT with its second-order Gaussian twin at this sample --
 while the CUE twin test (g14) locates the overshoot's carrier on
-the comparator side: real determinantal CUE dodges +0.243 +- 0.077
-worse than ITS Gaussian D-matched twin (9/10 points positive; the
-anchoring/D-mismatch confound bounded at +-0.05 non-systematic in
-D, an order below the gap). The decomposition arithmetic closes:
-zeta-twin gap (-0.068) minus CUE-twin gap (+0.243) = -0.31 vs the
-observed -0.24 within errors. The round-224 reviewer's independent
+the comparator side: real determinantal CUE dodges +0.272 +- 0.073
+worse than ITS Gaussian D-matched twin (10/10 points positive;
+the calibration-aligned value -- the landing's +0.243/9-of-10 ran
+the F3-miscalibrated twin). The confound account (round-227 F2,
+corrected): the twins' band-lag D mismatch is SYSTEMATIC (-0.05 to
+-0.07 one-signed at lags 24-120) and the anchoring/registration
+conventions each shift ~0.11 decades, cancelling; the committed
+fully-matched control (g15) removes all of it and the premium
+survives at +0.227 +- 0.085 (8/10). The decomposition arithmetic:
+zeta-twin gap (-0.068) minus CUE-twin gap (+0.272) = -0.34 vs the
+observed -0.24, within ~1.3 sem. The round-224 reviewer's independent
 no-floor 1bc-grid run gave +0.952 +- 0.127 (seed 9000), matched
 exactly by the re-pin.
 
@@ -117,8 +122,9 @@ restore):
       0.908 -> 0.808 -> OBSERVED REUSED x6, g13 FAIL alone, exit 1;
       g14 pin -> mangled -> OBSERVED REUSED x6, g14 FAIL alone,
       exit 1 (the fixed keying contract held: pin edits reuse)
-  (e) g15 pin mangle (this sweep's battery) -- OBSERVED: recorded
-      at the round-227 sweep battery below
+  (e) g15 pin mangle 0.227 -> 0.127 (the round-227 sweep battery)
+      -- OBSERVED: REUSED x7 (all stages cached, seconds), g15 FAIL
+      alone, exit 1; restored, 16/16
 """
 import hashlib, math, os, sys
 
@@ -155,7 +161,7 @@ DEPS2 = {f: _sha(f) for f in ("fold_D.py", "fold_harden.py",
 
 # ---- pins (from the research record, session runs at 4b13418) -------
 PIN_MEAN = {9000: 0.952, 7000: 0.919}
-PIN_G15 = None   # pinned from the sweep battery's fresh run
+PIN_G15 = 0.227   # the fully-matched premium (sweep battery fresh run)
 PIN_G380 = 653.650
 
 # ---- staged compute (content-addressed on the substrate shas) -------
@@ -275,11 +281,12 @@ gate("g13 the zeta twin test: reproducibility pins (real +0.908 "
      "Gaussian twin", ok)
 print(f"  g14 CUE twin gap: mean {gapr['mean']:+.3f} +- {gapr['sem']:.3f}, "
       f"{gapr['npos']}/10 positive", flush=True)
-ok = abs(gapr["mean"] - 0.243) < 0.03 and gapr["npos"] >= 8
+ok = abs(gapr["mean"] - 0.272) < 0.03 and gapr["npos"] >= 8
 gate("g14 the CUE twin gap: real determinantal CUE dodges worse than "
-     "its Gaussian D-matched twin (pin +0.243 +- 0.03; >= 8/10 points "
-     "positive) -- the certified overshoot's carrier is the "
-     "comparator side", ok)
+     "its Gaussian D-matched twin (pin +0.272 +- 0.03, the "
+     "calibration-aligned value -- the round-227 landing's +0.243 ran "
+     "the F3-miscalibrated twin; >= 8/10 points positive) -- the "
+     "certified overshoot's carrier is the comparator side", ok)
 
 from fold_remainder2 import matched_twin_gap
 mt = ckpt_key.load("fold_twin_matched", KEYFILE, {"deps": DEPS2})
