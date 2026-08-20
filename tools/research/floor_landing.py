@@ -182,26 +182,37 @@ def _gauge_base(Z, sects):
     return out
 
 
-def _defects(Z, ZE, sects):
+def _defects(Z, Zfull, sects):
+    """Zfull = the 380-list concatenated with the extension (the
+    landing battery's first fresh run passed the extension ALONE
+    as the '660-list', caught by g11/g12 -- the checkpoint params
+    keyed the intent ('list': 660), not the content; the params
+    now carry a content fingerprint and the list length is
+    asserted (the keying class's fifth catch)."""
     out = {}
     cfgs = [("MATCHED", 380, -TLIST, TLIST, 120001),
             ("ext-MATCH", 660, -TEXT, TEXT, 180001)]
     for c, t0 in DEF_PTS:
         for lab, nlist, rlo, rhi, NR in cfgs:
+            Zl = Z if nlist == 380 else Zfull
+            assert len(Zl) == nlist, (lab, len(Zl), nlist)
             params = {"deps": floor_probe5.DEPS5, "c": c, "t0": t0,
-                      "list": nlist, "rlo": rlo, "rhi": rhi, "NR": NR}
+                      "list": nlist, "rlo": rlo, "rhi": rhi,
+                      "NR": NR, "z_n": int(len(Zl)),
+                      "z_hi": round(float(Zl.max()), 6)}
             name = f"defect_{lab}_{int(c)}_{int(t0)}"
             st = ckpt_key.load(name, KEYFILE, params)
             if st is None:
-                st = floor_probe5.defect(
-                    sects(c), Z if nlist == 380 else ZE, t0,
-                    rlo, rhi, NR)
+                st = floor_probe5.defect(sects(c), Zl, t0,
+                                         rlo, rhi, NR)
                 ckpt_key.save(name, KEYFILE, params, st)
             out[(lab, c, t0)] = st
     # NR invariance pair at (60,200)
     for lab, NR in (("base", 120001), ("NR-2", 60001)):
         params = {"deps": floor_probe5.DEPS5, "c": 60.0, "t0": 200.0,
-                  "list": 380, "rlo": -600.0, "rhi": 1000.0, "NR": NR}
+                  "list": 380, "rlo": -600.0, "rhi": 1000.0,
+                  "NR": NR, "z_n": int(len(Z)),
+                  "z_hi": round(float(Z.max()), 6)}
         name = f"defect_{lab}_60_200"
         st = ckpt_key.load(name, KEYFILE, params)
         if st is None:
@@ -248,7 +259,8 @@ def _partition(Z, ZE, sects):
 
 def landing_stage():
     Z = zeros380()
-    ZE = floor_probe4.ext_zeros()
+    Zext = floor_probe4.ext_zeros()          # the extension ONLY
+    Zfull = np.concatenate([Z, Zext])        # the 660-ordinate list
     sects_d = {}
     def sects(c):
         if c not in sects_d:
@@ -261,8 +273,8 @@ def landing_stage():
         "conj": _conj(Z, sects),
         "gauge": _gauge_base(Z, sects),
         "defects": {f"{k[0]}|{k[1]:.0f}|{k[2]:.0f}": v
-                    for k, v in _defects(Z, ZE, sects).items()},
-        "partition": _partition(Z, ZE, sects),
+                    for k, v in _defects(Z, Zfull, sects).items()},
+        "partition": _partition(Z, Zext, sects),
     }
     return st
 
