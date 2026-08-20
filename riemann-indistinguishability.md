@@ -5596,8 +5596,13 @@ core-local and collapses off-center. Measurements restated in
 round-230 F4 — the first annotation quoted u-offsets unlabeled
 (u = A(γ − τ₀), A = 2) beside a γ-units clause and read the
 response-support edge as the confinement radius. The scan at
-(120, 300), max resp₂ over the top-8 prolates, offsets in γ:
-4.5×10⁻² at +0.7 (u 1.5), 2.4×10⁻² at +15 (u 30), 6.6×10⁻³ at
+(120, 300), max resp₂ over the top-8 prolates, collision-pair
+means in γ (the realized means sit within 1.7 of the probe
+targets): 2.5×10⁻² at +0.7 (u 1.5) *(round-231 F1: the
+round-230 restatement printed 4.5×10⁻² here — a target-rounding
+misattribution; that coefficient belongs to the next pair, at
++2.2 (u 4.3), and the core pair's honest 2.5×10⁻² is the
+round-229 digit restored)*, 2.4×10⁻² at +15 (u 30), 6.6×10⁻³ at
 +20 (u 40), 5.3×10⁻⁴ at +25 (u 50), 1.2×10⁻⁶ at +30 (u 60), 0
 to double precision at +41.5 (u 83), where the bound is vacuous.
 The ppm-scale confinement therefore holds for |γ − τ₀| ≲ 20 at

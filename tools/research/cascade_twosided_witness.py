@@ -34,7 +34,9 @@ in d by construction and O(d^2), measured coefficients resp2 ~
 0.02-0.09 per (dA)^2) then confines a CORE-LOCAL collision pair
 (round-229 F1, radius per round-230 F4: the response coefficient
 collapses off-center -- at (120,300), max resp2 over the top-8
-prolates in u = A(gamma - tau0): 4.5e-2 at u +1.5, 6.6e-3 at
+prolates in u = A(gamma - tau0): 2.5e-2 at u +1.5 (round-231 F1:
+the 4.5e-2 previously printed here belongs to the next pair, at
+u +4.3 -- a target-rounding misattribution), 6.6e-3 at
 u +40, 0 at u +83 where the bound is vacuous; the ppm radius is
 |gamma - tau0| <~ 20, the support edge ~41.5)
 to d <= sqrt((|T| + budget)/resp2)/A = 5.5e-6 .. 9.2e-6 at the
