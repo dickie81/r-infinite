@@ -26,7 +26,40 @@ Check 7: Slepian spectra, finite eigenproblems -- classical.
 Check 8: no hypothesis input. Keying per A355: DEPS = this file +
 the substrates; params carry (c, extra, windows, grid).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (run complete): PI^2/4 IS EXCLUDED; there is no
+instrument-invariant asymptote.
+
+  E0 (convergence control, c = 120): p_matched converges at
+     extra = 16 (0.7894, bit-stable to extra = 28) -- the
+     CONVERGED matched-window plunge rate is 62% HIGHER than the
+     standard-basis 0.486 that fed the ratio-2.4 reading. The
+     convexity is intrinsic even when converged: shallow 0.594 /
+     matched 0.789 / deep 0.837 (+-17% by window choice) -- the
+     log-lambda fall steepens through the plunge, so any single
+     "plunge rate" carries a stated-window qualifier forever.
+  E1 (the converged, matched-window ladder): ratio(c) =
+     1.02/1.98 (c=60; the integer regressor spans too few counts
+     there -- unreliable), 1.70/1.88 (120), 1.68/1.70 (170),
+     1.43/1.68 (240) [beta_int/beta_con against p_matched].
+     The measured band for c >= 120 is 1.4-1.9, trending if
+     anywhere DOWNWARD with c; pi^2/4 = 2.467 lies far outside.
+     The earlier apparent drift toward 2.44 was entirely the
+     truncated-basis artifact (the clipped p inflated the ratio).
+     c = 340 produced no in-window climb points (all margins
+     below the 1e-15 guard -- the numerical eigenvalue floor at
+     n = 245; not load-bearing, noted).
+
+NET: the asymptote question closes by exclusion. No version of
+beta/p -- truncated or converged, shallow or matched or deep,
+integer or continuous regressor -- is a constant: the honest
+summary is beta = 1.0-1.5 decades per in-band zero (recipe and c
+scatter ~20%) against a window-qualified plunge rate, ratio band
+1.4-1.9 for c >= 120. The pi^2/4 candidate, and with it any
+numerological reading of its "/4", is dead on the record. The
+floor law's content stays what the deflations left: the horizon
+tau* = 2pi e^(2A) (exact), the tight mean ln(tau0/2pi) (exact),
+an order-one-decade-per-zero climb through the plunge (measured,
+window-qualified), and feature-local saturation.
 """
 import hashlib, math, os, sys
 
