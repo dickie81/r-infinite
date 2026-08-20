@@ -4836,3 +4836,20 @@ One cosmetic (C1, held per the rounds 17/21/24/27/29 precedent, batched to the n
 **Sweep battery (full-tower class — verifier, stage, and five substrate surfaces changed; key semantics changed):** fresh recompute of the entire landing stage under the z_sha keys (every pin reproduced, 15/15); probes (b) and (c) live post-sweep with exact censuses (REUSED + g1 alone; census revert → g13+g14); reachability sweep (76 reachable present, 69 old-key files removed); the 15 tower ancestors are byte-identical to the recorded TOWER PASS 16/16 and the changed TOP ran fresh-and-live at 15/15.
 
 **Trajectory: 1bg landed (c382f92…5d36308, corrections 359579b) → 234: 0M+5m+4c, all accepted, swept (ac8281f + ff56a0e). Convergence round 235 next; Theorem 1bg certification pends it.**
+
+
+# Round 235: convergence test on the round-234 sweep (subagent, per protocol) — NOT CONVERGED: 5 minors + 2 cosmetics; swept
+
+**Reviewer's batteries:** manifest no-op; the verifier live (REUSED, 15/15, full census inspected); two probes of its own (g4 tolerance mangle → g4 alone; g9 gate tightened to 10⁻¹³ → g9 alone — doubling as the empirical proof the gauge residual is nonzero); tower judged by byte-identity (16/16 sha walk; only the TOP changed since the recorded pass) with the TOP run live; a no-edit key-collision computation. Every round-234 disposition was verified at its locus and against data (counts, checkpoints, the flow rows, the probe9 relabeling, 2πe⁴ = 343.0503).
+
+**Findings, all lead-verified and accepted:**
+- **F235-1 minor** (the class one level up): the consolidated checkpoint — the only one the verifier loads — keyed the base list's content but the EXTENSION by intent; the reviewer demonstrated an interior-corrupted extension colliding to the identical committed key, invisible at 15/15. Swept: zext_sha into the consolidated params; the class is now closed at every level the verifier touches.
+- **F235-2/3 minor**: one residual "269" (floor_probe3's scope-correction annotation) and one residual "= 0.0000 exactly" (floor_probe4's E5) — unswept instances of accepted F2/F3 on substrate surfaces. Both annotated.
+- **F235-4 minor**: the F4 fix made the keying-scheme prose false on two surfaces ("sub-stages reuse the attack runs' exact keys" — no longer true once the landing keys diverged) and left a stale "seven module shas" (ten). All three corrected.
+- **F235-5 minor**: the verifier docstring's gates list retained the struck "Landau-Widom scaling" head-noun for g4. Struck with markers.
+- **F235-6/7 cosmetic**: the "≤ 3.1×10⁻¹²" bound nudged to 3.2 (the data's 3.1388 exceeded it); the docstring's "to every digit" → "every printed digit". Both fixed.
+- **The held observation swept with the round**: probe6–9's own checkpoints keyed ordinates by intent — the same class outside the landing scope; all four instruments now carry _zsha params (their stale families reachability-removed; they regenerate content-keyed on next run).
+
+**Sweep battery (full-tower class):** the consolidated + conjugacy + defect families recomputed under the completed keys (probe3/4 edits cascade through DEPS3/DEPS5), every pin reproduced, 15/15; probes (b)/(c) live post-sweep (REUSED + g1 alone; census revert → g13+g14); reachability sweep 76/76 present, 52 stale removed; the 15 tower ancestors remain byte-identical to the recorded TOWER PASS 16/16, the TOP live at 15/15.
+
+**Trajectory: 1bg landed → 234: 0M+5m+4c (swept ac8281f + ff56a0e) → 235 NOT CONVERGED 5m+2c (swept dc1f98a + dcbd48b). Convergence round 236 next; Theorem 1bg certification pends it.**
