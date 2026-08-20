@@ -1,0 +1,35 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "b6b0b0d18a55f0ceac2c2642a91584f1229b3dce4e925ca37c7ed7d698793289",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"witness_offline.py": "3cc6702bd147f114e69c4b893048d600a9a685d04fb1726bb8aacca0b36949d8",
+"witness_twosided.py": "18e83e829fd039ff1f0c8b64a1facddda35a1eded6717758ffa209a12b242a42",
+"floor_probe.py": "4cc206b03acf8decec8198ae8c42f52d430797ad45a7a1a0dd2d5e78e1800bc4",
+"floor_probe3.py": "ee8dddad708ad1a7495f020743d2d172e9e9b82f39749849b57683154f6ef93e"
+},
+"c": 120.0,
+"t0": 260.0,
+"nz": 380,
+"z_sha": "7d4f67d89529f74a"
+},
+"state": {
+"c": 120.0,
+"t0": 260.0,
+"mZ": 1.138938692028755e-07,
+"mW": 1.1960572416474002e-07,
+"n": 80,
+"rel_raw": 0.6876438897031906,
+"rel_conj": 0.003178192081666552,
+"rel_parity_ident": 5.5377602013301365e-15,
+"rel_T_2iIm": 0.004621857518487314,
+"spec_rel_med": 0.0004405913370907905,
+"spec_rel_max": 0.05015069123792896,
+"ov_plain": 0.11142309254416,
+"ov_conj": 0.9999995649465245,
+"dm": 5.7118549618645206e-09,
+"D_conjwZ": 6.220237509725743e-09
+}
+}
