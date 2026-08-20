@@ -13,7 +13,10 @@ truncation ordering, and fold through the sqrt-amplifier law:
        in N -- the ordering + convergence is the integrity check;
   (iii) the witness law (witness_offline: the margin flips at
        d* ~ sqrt(m)) applied to m_W bounds the line-displacement of
-       any in-band zero: (d A)^2 |<w, dv/ds>|^2 <= m_W + budget.
+       a CORE-LOCAL in-band zero -- one inside the concentrated
+       probes' response support (|gamma - tau0| <~ 40 at c = 120;
+       the collision response coefficient collapses off-center,
+       round-229 F1): (d A)^2 |<w, dv/ds>|^2 <= m_W + budget.
 
 Output per point: m_W, m_Z(380), the identity ratio ladder
 z_N/(m_W nrm) for N = 260/320/380, the donor overlap factor, and
@@ -124,15 +127,16 @@ class TwoSided(WSect):
         return abs(np.vdot(w.astype(complex), dv))
 
 
-def concentrated_witness(S, Z, tau0, ktop=8, d_probe=0.0):
+def concentrated_witness(S, Z, tau0, ktop=8):
     """The honest two-sided witness on leakage-bounded vectors: for
     the top-k prolates (Slepian eigenvalue ~ 1, out-of-band leakage
     1 - lambda_k exponentially small), T_k = <psi_k, Q_W psi_k> -
-    z_380(psi_k) must equal tail + numerics; an in-band off-line
+    z_380(psi_k) must equal tail + numerics; a core-local off-line
     zero at distance d would shift T by ~ -(dA)^2 |<psi_k, v'>|^2.
-    Returns per-k: T_k, the Slepian leakage bound, z, qw. With
-    d_probe > 0, the zero side replaces the donor by the off-line
-    quadruplet (the injected-alarm control)."""
+    Returns per-k: T_k, the Slepian leakage bound, z, qw. (The
+    earlier d_probe branch -- the single-donor injection -- is
+    removed: superseded by collision_probe, whose two-donor topology
+    fixed the single-donor doubling artifact; round-229 c3.)"""
     if not hasattr(S, "QW"):
         S.build_QW(tau0)
     out = []
@@ -140,20 +144,7 @@ def concentrated_witness(S, Z, tau0, ktop=8, d_probe=0.0):
     for k in range(ktop):
         w = ei[:, k]/math.sqrt(S.G[k, k])       # G ~ A I: unit G-norm
         qw = float(np.real(np.conj(w) @ S.QW @ w))
-        if d_probe > 0:
-            kz = int(np.argmin(np.abs(Z - tau0)))
-            Zp = np.delete(Z, kz)
-            z = S.zero_side_on(w, Zp, tau0)
-            g0 = Z[kz]
-            for g in (g0, -g0):
-                s0 = (g - tau0)*A
-                vm = S.vhat(complex(s0, -d_probe*A))
-                vp = S.vhat(complex(s0, +d_probe*A))
-                z += 2*float(np.real(np.vdot(w.astype(complex), vm.conj())
-                                     * np.vdot(vp.conj(), w.astype(complex))))
-            # note: amps convention matches zero_side_on (Vb @ w)
-        else:
-            z = S.zero_side_on(w, Z, tau0)
+        z = S.zero_side_on(w, Z, tau0)
         out.append((k, qw, z, qw - z))
     return out
 
@@ -188,6 +179,78 @@ def jitter_budget(S, Z, tau0, w, scale=2e-11, nreal=8, seed=5):
     dz = [S.zero_side_on(w, Z + rng.standard_normal(len(Z))*scale, tau0) - z0
           for _ in range(nreal)]
     return float(np.std(dz))
+
+
+def landing_stage(dstar_tol=1e-6,
+                  pts=((60.0, 200.0), (120.0, 260.0),
+                       (60.0, 280.0), (120.0, 300.0))):
+    """The 1bf verifier's staged compute, relocated here from the
+    verifier so the producing code is itself content-addressed into
+    the checkpoint key via this module's sha (round-229 F7: the
+    verifier's in-file stage body was not keyed -- an edit to it
+    would have reused a stale checkpoint). Per point: the Weil
+    margin with its ARCH/PRIME decomposition, the on-line base
+    margin, the dodging minimizer's truncation tail, the
+    concentrated-identity rows, and per top-8 prolate the jitter
+    budget, collision response, alarm, and d_bound; for the
+    best-bound prolate additionally the 1e-9-scale jitter rms
+    (the linearity census, round-229 F4) and the dodging-instrument
+    d* at the honest tolerance."""
+    from witness_offline import dstar
+    Z = zeros380()
+    out = {"pts": []}
+    sects = {}
+    for c, t0 in pts:
+        if c not in sects:
+            sects[c] = TwoSided(c)
+        S = sects[c]
+        mW, wW = S.weil_margin(t0)
+        arch = float(np.real(np.conj(wW) @ S.ARCH @ wW))
+        prime = float(np.real(np.conj(wW) @ S.PRIME @ wW))
+        mZ = S.base_margin(Z, t0)
+        # dodging minimizer for the tail measurement
+        s = np.concatenate([(Z - t0)*A, (-Z - t0)*A])
+        Vb = np.asarray(S.vhat(s.astype(complex)))
+        if Vb.shape[0] != len(s):
+            Vb = Vb.T
+        QZ = Vb.conj().T @ Vb
+        QZ = (QZ + QZ.conj().T)/2
+        evz, VZ = scipy_eigh(QZ, S.G)
+        wZ = VZ[:, 0]
+        tail = float(np.real(np.conj(wZ) @ S.QW @ wZ))
+        rows = concentrated_witness(S, Z, t0, ktop=8)
+        leak = S.slepian_leakage()
+        Tmax = max(abs(r[3]) for r in rows)
+        per_k = []
+        for k, qw, z, T in rows:
+            w = np.eye(S.n)[:, k]/math.sqrt(S.G[k, k])
+            bud = jitter_budget(S, Z, t0, w)
+            rP = collision_probe(S, Z, t0, w, 1e-3)
+            rM = collision_probe(S, Z, t0, w, -1e-3)
+            r0 = collision_probe(S, Z, t0, w, 1e-6)
+            resp2 = abs(rP - r0)/((1e-3*A)**2)
+            alarm = abs(collision_probe(S, Z, t0, w, 2e-3) - r0)
+            even_rel = abs(rP - rM)/max(abs(rP), 1e-30)
+            db = math.sqrt((abs(T) + bud)/resp2)/A if resp2 > 0 else None
+            per_k.append({"k": k, "T": T, "bud": bud, "resp2": resp2,
+                          "db": db, "even_rel": even_rel, "alarm": alarm})
+        best = min((p for p in per_k if p["db"]), key=lambda p: p["db"])
+        kb = best["k"]
+        wb = np.eye(S.n)[:, kb]/math.sqrt(S.G[kb, kb])
+        best["bud9"] = jitter_budget(S, Z, t0, wb, scale=1e-9)
+        best["lin_ratio"] = best["bud9"]/best["bud"]
+        ds = dstar(S, Z, t0, t0, tol=dstar_tol)
+        out["pts"].append({
+            "c": c, "t0": t0, "mW": mW, "arch": arch, "prime": prime,
+            "mZ": mZ, "tail": tail, "Tmax": Tmax,
+            "leak_max": float(leak[:8].max()), "best": best,
+            "dstar": ds, "consist_rel": None})
+    # consistency at the first point's bandwidth
+    S = sects[pts[0][0]]
+    m_ref = S.margin(Z, pts[0][1])
+    m_cpx = S.base_margin(Z, pts[0][1])
+    out["consist_rel"] = abs(m_ref - m_cpx)/m_ref
+    return out
 
 
 def final_report():

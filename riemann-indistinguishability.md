@@ -5569,17 +5569,32 @@ direction **the prime term cancels the archimedean** to seven
 decades (ARCH +3.443 / PRIME −3.443 at (60, 200); PRIME/ARCH =
 −1 within 3×10⁻⁷, gated g3). *(iii) The concentrated-vector
 identity.* On the top-8 prolates of each section (Slepian leakage
-≤ 1.1×10⁻¹³, gated), the arithmetic side and the 380-ordinate
+~10⁻¹³, grid-limited — the printed 1.1×10⁻¹³ digit moves to
+3.2×10⁻¹³ at 4000 quadrature nodes; gated < 10⁻¹² *(round-229
+F6)*), the arithmetic side and the 380-ordinate
 on-line zero side agree at |T| = |⟨w, Q_W w⟩ − z₃₈₀(w)| ≤
-3.5×10⁻¹² at every point (gated g6) — twelve decimals — against a
+3.5×10⁻¹² at every point (measured; gated at < 10⁻¹¹, g6) —
+twelve decimals — against a
 jitter-calibrated ordinate-error budget (the zero side's response
-to ordinate jitter is linear; dps-13 worst case 6–9×10⁻¹², gated
+to ordinate jitter is linear — the 10⁻⁹-scale rms is 50.0× the
+2×10⁻¹¹-scale rms, gated *(round-229 F4)*; dps-13 worst case
+5.75–8.98×10⁻¹², gated in (10⁻¹², 5×10⁻¹¹),
 g7). *(iv) The confinement.* **The collision injection** — two
 adjacent in-band donors collide to the off-line pair at their
 mean, the correct off-line topology; the response is even in d
-(rel 10⁻⁶, gated) and O(d²) with measured coefficients (gated g8)
-— converts the identity into a bound: any in-band collision pair
-sits within **d ≤ 5.5–9.2×10⁻⁶ of the critical line** across the
+(bit-exact for the real test vectors — the functional-equation
+symmetry holds by construction, so evenness is printed, not gated
+*(round-229 F3)*) and O(d²) with measured coefficients (gated g8)
+— converts the identity into a bound: ~~any in-band collision pair
+sits within~~ **a collision pair at the probed concentration cores
+sits within** *(round-229 F1, MAJOR: the original quantifier was
+false when written — the probe's response coefficient is
+core-local and collapses off-center: at (120, 300), resp₂ =
+2.5×10⁻² for the pair 1.5 above the section center, 6.6×10⁻³ at
++40, and 0 to double precision at +83, where the bound is vacuous;
+the confinement holds where the concentrated vectors look,
+|γ − τ₀| ≲ 40 at c = 120, not across the band)* **d ≤
+5.5–9.2×10⁻⁶ of the critical line** at the
 four gated points (g9) — **millionths of the critical line** —
 and the injected alarm at d = 2×10⁻³ rings five-plus orders
 above the identity floor (gated g10; the collision response is
@@ -5588,9 +5603,12 @@ positivity margin the program has measured since 1ba is now
 calibrated as an RH-consistency instrument: the arithmetic side
 alone certifies section positivity at 10⁻⁷; the two-sided
 identity certifies the ordinate list at 10⁻¹²; and their
-combination confines every in-band zero to the line at the ppm
+combination confines ~~every in-band zero~~ **the core-local
+zeros — those within the probes' response support** *(round-229
+F1)* to the line at the ppm
 scale — a positivity-based verification bound, per point, with
-every ingredient gated. *Honest scope:* window-bounded (heights ≤
+the load-bearing ingredients gated (evenness printed by
+construction). *Honest scope:* window-bounded (heights ≤
 653.6, the four gated section points; nothing here is
 height-uniform, which is where RH lives — **no RH leverage
 claimed**); the ordinate list is mpmath's (computed on the line by
@@ -5601,15 +5619,26 @@ far above the floor); the budget is jitter-calibrated at the
 dps-13 worst case (the observed floor is ~3× better; a
 higher-precision pull tightens d_bound as √budget); the collision
 topology covers the standard off-line mechanism (pairs splitting
-from the line) — a hypothetical isolated off-line zero without a
+from the line) — ~~a hypothetical isolated off-line zero without a
 collision partner changes the count parity and is excluded by the
-counting identity (1bd's g1/g2 census class); positivity-based
+counting identity (1bd's g1/g2 census class)~~ *(round-229 F2,
+MAJOR: retracted — false when written. 1bd's g1 counts zeros from
+the same mpmath list this identity consumes, so it is circular as
+an independent census; 1bd's g2 window at ±1.2 passes a ±1
+ordinate shift (the nearest gap at its test point is 1.17); its
+height cap at 240 is far below this window's 653.6; and an
+off-line excursion enters the count in twos — the pair at β and
+1 − β̄ — so no parity change occurs even in principle)* **an
+isolated off-line excursion is outside the probed collision
+topology: near a concentration core the identity residual would
+flag the mislisted mass (T ≈ +2|amp|² against the 10⁻¹² floor);
+off-core, nothing gated here detects it**; positivity-based
 numerical zero-verification is classical in spirit (Turing's
 method verifies by counting) — the novelty of this positivity
 form is unswept; resp₂ and the bounds are per-point measured
-quantities, not height-uniform theorems; float64 throughout with
-NR-stability gated by the quadrature scan recorded in the
-substrate. Check 7 clean (the explicit formula's arithmetic side,
+quantities, not height-uniform theorems; float64 throughout — the
+quadrature-node stability scan is recorded in the substrate as a
+comment, not a gate *(round-229 c1)*. Check 7 clean (the explicit formula's arithmetic side,
 digamma quadrature, Slepian concentration — classical analysis;
 no cascade quantity derived). Check 8 clean (no hypothesis
 input). Substrates `witness_offline.py` and `witness_twosided.py`

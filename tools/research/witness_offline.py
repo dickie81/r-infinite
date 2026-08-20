@@ -41,7 +41,14 @@ rel 6.5e-9, the certified pins reproduced to the digit):
   120   400    2.526e-01      3.143e-01
   120   450    2.545e-01      5.187e-01
 THE SQUARE-ROOT AMPLIFIER LAW: log-log fit of d* against the base
-margin across seven decades gives slope ~0.51 -- d* ~ sqrt(m). The
+margin across 6.35 decades of margin gives slope 0.440 on this
+committed 8-point table (0.448 on the verifier's four deep points;
+the draft's "~0.51 across seven decades" was a stale session digit,
+round-229 F5) -- d* ~ sqrt(m). Note the two deepest points are
+anti-ordered against the monotone law ((60,200): m 4.415e-07,
+d* 6.142e-04 vs (120,260): m 1.139e-07, d* 1.311e-03 -- the
+smaller margin has the LARGER d*): the law is a cross-section
+scaling trend, not per-point monotone. The
 mechanism: the quadruplet is even in d (functional-equation
 symmetry), so the indefinite response enters at O(d^2): the margin
 shifts by ~ -(dA)^2 |<w, v'>|^2, crossing zero at d* ~ sqrt(m)/(A
