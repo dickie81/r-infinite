@@ -6,7 +6,7 @@ plateau; c = 60 scattered 0.21-0.50 with steps).
 THE SCAFFOLD (derived before measurement; this run tests it):
   (T1) THE HORIZON HEIGHT IN CLOSED FORM: the count crossing
        nb = N_sh reads (2c/A) ln(tau0/2pi)/(2pi) = 2c/pi, i.e.
-       ln(tau0/2pi) = 2A: tau* = 2pi e^(2A) = 2pi e^4 = 343.06,
+       ln(tau0/2pi) = 2A: tau* = 2pi e^(2A) = 2pi e^4 = 343.05,
        INDEPENDENT of c -- and e^(2A) is also the prime cutoff
        (DELTA = 2A): the same u-support width sets which primes
        the section hears and where its dodging dies (the Nyquist
@@ -50,8 +50,9 @@ are explicit params.
 RESULT (all probes + the E2b coverage-fixed rerun complete):
 
 DERIVED EXACTLY, VERIFIED:
-  (1) THE HORIZON HEIGHT: tau* = 2pi e^(2A) = 343.06, c-independent
-      (T1 algebra; the ladders saturate there at both c) -- and
+  (1) THE HORIZON HEIGHT: tau* = 2pi e^(2A) = 343.05, c-independent
+      (T1 algebra; the ladders saturate there at both c;
+      round-234 F9 corrects the last digit) -- and
       e^(2A) is the prime cutoff: one u-support width sets both.
   (2) THE TIGHT MEAN: Q(top prolate) = ln(tau0/2pi) to 0.3-0.6% at
       all four saturated points (T2, Poisson summation -- every

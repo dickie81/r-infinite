@@ -64,9 +64,11 @@ on the climb, where nb = in-band zero count (|u| <= c) and
   beta = 1.35 / 1.20 decades per zero (c = 60 / 120; rms resid
       0.9 / 0.5 dec -- the count regressor is integer-chunky);
   beta / (Slepian plunge fall rate 0.579 / 0.486 dec per mode)
-      = 2.34 / 2.46 -- a c-independent ratio ~ 2.4, with both
-      rates individually scaling ~ 1/ln c (the measured rate
-      ratio 1.19 vs ln 120 / ln 60 = 1.17, Landau-Widom).
+      = 2.34 / 2.46 [round-234 F1 net-state marker: NOT a
+      c-independent constant -- the standard-basis plunge rate is
+      truncation-clipped and the ratio is (recipe, basis)-
+      conditioned; see floor_probe7/8 RESULTs and the corrected
+      1bg block. The raw numbers stand as landing-recipe pins].
 Regimes: below the horizon (nb <~ N_sh - 8) the margin is
 NUMERICAL ZERO -- free directions inside the concentrated
 subspace (the minimizer is 100% concentrated-class, perfect
@@ -90,8 +92,10 @@ so m_W ~ m_Z is an antisymmetric cancellation identity. T
 compressed to the bottom-5 Q_Z eigenspace is positive (2.1-4.0):
 the ordering m_W > m_Z holds there. See floor_probe2.py for the
 mechanism probe (the minimizers are nearly orthogonal -- the
-symmetry is structural, not perturbative). Open: the mechanism;
-the beta/plunge ~ 2.4 constant; the 0.25 saturation value.
+symmetry is structural, not perturbative). Open: the mechanism.
+[Net state, round-234 F1: the beta/plunge ~ 2.4 and 0.25
+saturation "constants" both closed by deflation -- see
+floor_probe6/7/8 RESULTs.]
 """
 import math, os, sys
 

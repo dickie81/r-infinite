@@ -4,8 +4,10 @@ every quantity the Theorem 1bg verifier (cascade_floor_closure.py)
 gates on, by driving the four attack instruments --
 
   floor_probe.py / floor_probe2.py : the floor ladders and fits
-      (the floor law: N* = N_sh, beta/plunge ~ 2.4, Landau-Widom
-      1/ln c scaling, regime pins, minimizer migration)
+      (the floor law: N* = N_sh, regime pins, minimizer migration,
+      and the landing-recipe rate pins [round-234 F1: the
+      beta/plunge ~ 2.4 / Landau-Widom reading is struck on the
+      paper -- (recipe, basis)-conditioned, per floor_probe7/8])
   floor_probe3.py : the conjugacy (Q_W_code ~= conj Q_Z), the
       conjugate overlap, the first-order g4 accounting
   floor_probe4.py : the partition refutation (window locality,
@@ -46,6 +48,15 @@ def _sha(name):
     return hashlib.sha256(
         open(os.path.join(HERE, name), "rb").read()).hexdigest()
 
+
+def _zsha(a):
+    """Content hash of an ordinate array (round-234 F4: the sixth
+    keying-class catch -- intent-level params (nz) and the weak
+    (z_n, z_hi) fingerprint both collide under interior
+    corruption; every family now keys the array bytes)."""
+    return hashlib.sha256(
+        np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
+
 MODULES = ("fold_D.py", "fold_surrogate.py", "witness_offline.py",
            "witness_twosided.py", "floor_probe.py", "floor_probe2.py",
            "floor_probe3.py", "floor_probe4.py", "floor_probe5.py",
@@ -66,7 +77,8 @@ def _ladder_points(Z, sects):
         S = sects(c)
         for t0 in t0s:
             params = {"deps": floor_probe.DEPS, "c": c, "t0": t0,
-                      "nz": floor_probe.NZ, "botk": floor_probe.BOTK}
+                      "nz": floor_probe.NZ, "botk": floor_probe.BOTK,
+                      "z_sha": _zsha(Z)}
             name = f"floor_{int(c)}_{int(t0)}"
             st = ckpt_key.load(name, KEYFILE, params)
             if st is None:
@@ -77,7 +89,8 @@ def _ladder_points(Z, sects):
         S = sects(c)
         for t0 in t0s:
             params = {"deps": floor_probe2.DEPS2, "c": c, "t0": t0,
-                      "nz": floor_probe2.NZ, "botk": floor_probe2.BOTK}
+                      "nz": floor_probe2.NZ, "botk": floor_probe2.BOTK,
+                      "z_sha": _zsha(Z)}
             name = f"floor2_{int(c)}_{int(t0)}"
             st = ckpt_key.load(name, KEYFILE, params)
             if st is None:
@@ -138,7 +151,7 @@ def _conj(Z, sects):
     out = []
     for c, t0 in CONJ_PTS:
         params = {"deps": floor_probe3.DEPS3, "c": c, "t0": t0,
-                  "nz": floor_probe3.NZ}
+                  "nz": floor_probe3.NZ, "z_sha": _zsha(Z)}
         name = f"conj_{int(c)}_{int(t0)}"
         st = ckpt_key.load(name, KEYFILE, params)
         if st is None:
@@ -154,7 +167,8 @@ def _gauge_base(Z, sects):
     out = []
     for c, t0 in DEF_PTS:
         params = {"deps": DEPSL, "c": c, "t0": t0,
-                  "rlo": t0 - 800.0, "rhi": t0 + 800.0, "NR": 120001}
+                  "rlo": t0 - 800.0, "rhi": t0 + 800.0,
+                  "NR": 120001, "z_sha": _zsha(Z)}
         name = f"gaugebase_{int(c)}_{int(t0)}"
         st = ckpt_key.load(name, KEYFILE, params)
         if st is None:
@@ -188,7 +202,9 @@ def _defects(Z, Zfull, sects):
     as the '660-list', caught by g11/g12 -- the checkpoint params
     keyed the intent ('list': 660), not the content; the params
     now carry a content fingerprint and the list length is
-    asserted (the keying class's fifth catch)."""
+    asserted (the keying class's fifth catch; round-234 F4, the
+    sixth, adds z_sha -- the array-bytes hash -- to every family:
+    (z_n, z_hi) collides under interior corruption)."""
     out = {}
     cfgs = [("MATCHED", 380, -TLIST, TLIST, 120001),
             ("ext-MATCH", 660, -TEXT, TEXT, 180001)]
@@ -199,7 +215,8 @@ def _defects(Z, Zfull, sects):
             params = {"deps": floor_probe5.DEPS5, "c": c, "t0": t0,
                       "list": nlist, "rlo": rlo, "rhi": rhi,
                       "NR": NR, "z_n": int(len(Zl)),
-                      "z_hi": round(float(Zl.max()), 6)}
+                      "z_hi": round(float(Zl.max()), 6),
+                      "z_sha": _zsha(Zl)}
             name = f"defect_{lab}_{int(c)}_{int(t0)}"
             st = ckpt_key.load(name, KEYFILE, params)
             if st is None:
@@ -212,7 +229,8 @@ def _defects(Z, Zfull, sects):
         params = {"deps": floor_probe5.DEPS5, "c": 60.0, "t0": 200.0,
                   "list": 380, "rlo": -600.0, "rhi": 1000.0,
                   "NR": NR, "z_n": int(len(Z)),
-                  "z_hi": round(float(Z.max()), 6)}
+                  "z_hi": round(float(Z.max()), 6),
+                  "z_sha": _zsha(Z)}
         name = f"defect_{lab}_60_200"
         st = ckpt_key.load(name, KEYFILE, params)
         if st is None:
@@ -225,7 +243,8 @@ def _defects(Z, Zfull, sects):
 
 def _partition(Z, ZE, sects):
     params = {"deps": DEPSL, "pt": [120.0, 300.0],
-              "sweepT": [400.0, 653.7], "text": TEXT}
+              "sweepT": [400.0, 653.7], "text": TEXT,
+              "z_sha": _zsha(Z), "zext_sha": _zsha(ZE)}
     name = "part_landing"
     st = ckpt_key.load(name, KEYFILE, params)
     if st is None:
@@ -259,6 +278,7 @@ def _partition(Z, ZE, sects):
 
 def landing_stage():
     Z = zeros380()
+    assert len(Z) == 380, len(Z)             # round-234 F4
     Zext = floor_probe4.ext_zeros()          # the extension ONLY
     Zfull = np.concatenate([Z, Zext])        # the 660-ordinate list
     sects_d = {}
@@ -281,7 +301,8 @@ def landing_stage():
 
 def load_or_run():
     params = {"deps": DEPSL, "conj_pts": CONJ_PTS,
-              "def_pts": DEF_PTS, "tlist": TLIST, "text": TEXT}
+              "def_pts": DEF_PTS, "tlist": TLIST, "text": TEXT,
+              "z_sha": _zsha(zeros380())}
     st = ckpt_key.load("floor_arc_landing", KEYFILE, params)
     if st is None:
         st = landing_stage()

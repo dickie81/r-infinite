@@ -57,7 +57,8 @@ The header is retained as the record of the hypothesis under test.
       is odd(Q_Z) = -odd(ARCH + POLE + PRIME)_code + eps with
       ||eps|| = 0.02-0.03 out of ~21 -- the full arithmetic trio
       at -1, closure 1.5e-3.
-  E4 (tail): 269 further ordinates (653 -> 1013) contribute
+  E4 (tail): 280 further ordinates (653 -> 1013; 269 of them
+      below the T = 1000 trajectory cap -- round-234 F2) contribute
       0.0000 to the odd projection; beta(win) unmoved to four
       decimals. The far zeros are invisible to the section.
   E5 (the gauge experiment; gauge_check() below): rebuilding ARCH

@@ -28,8 +28,9 @@ T(w_Z) = -T(w_W) holds to 5e-4 median. The perturbative reading
 (w_W = w_Z + small) is REFUTED: the antisymmetry is a structural
 symmetry of the PAIR (Q_Z, Q_W) -- each form's minimizer pays the
 same excess in the other form -- and its mechanism is the arc's
-open object, alongside the beta/plunge ~ 2.4 constant and the
-c-independent saturation value 0.25.
+open object. [Net state, round-234 F1: the beta/plunge ~ 2.4
+and 0.25 saturation "constants" both closed by deflation -- see
+floor_probe6/7/8 RESULTs.]
 """
 import hashlib, math, os, sys
 

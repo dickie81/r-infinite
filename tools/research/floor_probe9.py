@@ -50,8 +50,10 @@ control-bounded window):
      The finite surrogate's anti-evaporation endpoint is measured;
      past it, pairs leave the line -- locally the certified 1bf
      collision topology.
-  P4 CONFIRMED: stdgap(420-band) 0.560 -> 0.023 forward (24x
-     annealing); min gap 0.44 -> 1.53 (equalization).
+  P4 CONFIRMED: stdgap(420-band) 0.560 -> 0.028 at the trusted
+     edge t = 1.5 (20x annealing; 0.023 at the excluded t = 5
+     row); min gap 0.44 -> 1.47 at t = 1.5 (1.53 at t = 5) --
+     round-234 F8 relabels the endpoints to the trusted window.
   TRUNCATION BOUNDARY (the control earning its keep): beyond
      t ~ 0.5-1.5 the unconfined 380-particle gas EXPANDS -- Qtop
      drifts -1.7% (t = 1.5) and -4.7% (t = 5), the band count

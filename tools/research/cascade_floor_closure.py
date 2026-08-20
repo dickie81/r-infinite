@@ -13,8 +13,10 @@ instrument and RESULT):
     margin obeys m_Z ~ m_sat 10^(-beta (N* - nb)) on the climb,
     with the pinning count N* equal to the Shannon number 2c/pi
     to 1-2%, beta = 1.2-1.5 decades per in-band zero, and
-    beta/(Slepian plunge rate) ~ 2.4 at BOTH c -- both rates
-    individually scaling as 1/ln c (Landau-Widom). Below the
+    beta/(Slepian plunge rate) ~ 2.4 at BOTH c under the landing
+    recipe [round-234 F1: struck on the paper at 359579b -- a
+    (recipe, basis)-conditioned ratio, not a structural constant;
+    retained here only as the landing stage's pin description]. Below the
     horizon the margin is numerical zero (free directions inside
     the concentrated subspace); on the climb the minimizer
     migrates into the plunge; at saturation (m ~ 0.25 at c = 120)
@@ -29,14 +31,16 @@ instrument and RESULT):
     T(w_Z) = -T(w_W), the pencil symmetry.
 (3) THE GAUGE VERDICT + PARTITION REFUTATION (floor_probe4.py):
     rebuilding ARCH in the true gauge (complex vhat) gives
-    ||ARCH_true - conj(ARCH_code)|| = 0 exactly: the build is the
+    ||ARCH_true - conj(ARCH_code)|| = 0 to machine precision
+    (measured ~3e-12 relative; round-234 F3): the build is the
     CONJUGATE of the explicit-formula operator (a phase-gauge
     convention; every certified scalar is conjugation-blind), and
     the "reflection identity" deflates to the plain windowed
     explicit formula. The formula is window-local (beta(T)
     plateaus at -1 from T ~ 400), per-prime resolved (beta_n = -1
-    for every prime power of non-tiny norm), and tail-free (269
-    further ordinates project at 0.0000).
+    for every prime power of non-tiny norm), and tail-free (280
+    further ordinates project at 0.0000; round-234 F2 -- the
+    landing's 269 was the T = 1000 trajectory count).
 (4) THE DEFECT CLOSURE (floor_probe5.py): the residual is the
     arch/zero HORIZON MISMATCH, entirely -- quadrature share zero
     (NR/2 = base = NRx2 to every digit); matching the arch window
@@ -179,8 +183,10 @@ lw = math.log(120)/math.log(60)
 rb = F["60"]["beta"]/F["120"]["beta"]
 rp = F["60"]["plunge"]/F["120"]["plunge"]
 ok = abs(rb/lw - 1) < 0.10 and abs(rp/lw - 1) < 0.10
-gate("g4 Landau-Widom scaling: the c-ratios of beta and of the "
-     "plunge rate within 10% of ln120/ln60", ok)
+gate("g4 the c-ratios of beta and of the plunge rate within 10% "
+     "of ln120/ln60 (a pin of the landing recipe; the Landau-Widom "
+     "interpretation is struck per the paper (ii) correction -- "
+     "round-234 F1)", ok)
 
 # ---------------------------------------------------------------- g5
 ok = R["pm_below"] < 0.02 and 0.30 < R["pm_mid"] < 0.60 \
@@ -212,8 +218,9 @@ ok = all(g["arch_gauge"] < 1e-4 for g in GA)
 ok &= all(g["true_vs_QZ"] < 0.008 for g in GA)
 ok &= all(g["true_vs_cQZ"] > 0.4 and g["code_vs_QZ"] > 0.4
           for g in GA)
-gate("g9 the gauge verdict: ARCH_true = conj(ARCH_code) exactly; "
-     "the true orientation satisfies the formula directly", ok)
+gate("g9 the gauge verdict: ARCH_true = conj(ARCH_code) to machine "
+     "precision (~3e-12 measured; gated < 1e-4); the true orientation "
+     "satisfies the formula directly", ok)
 
 # --------------------------------------------------------------- g10
 ok = abs(PT["betas"]["400.0"] + 1) < 0.01

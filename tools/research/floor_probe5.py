@@ -77,9 +77,10 @@ on concentrated sections at the 2-3e-5 level (matched horizons,
 window-local, per-prime resolved (floor_probe4 E2). The remaining
 ~2e-5 (leakage x kernel-slope at the shared horizon, list-edge
 and ordinate-precision effects) is unattributed but two orders
-below the old defect. The arc's remaining REAL open objects are
-the floor-law constants (beta/plunge ~ 2.4; saturation 0.25) --
-Slepian-geometry questions, not arithmetic ones.
+below the old defect. The arc's remaining REAL open objects were
+the floor-law constants. [Net state, round-234 F1: both closed by
+deflation -- the saturation is feature-local (floor_probe6), the
+ratio (recipe, basis)-conditioned (floor_probe7/8).]
 """
 import hashlib, math, os, sys
 
