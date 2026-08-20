@@ -78,11 +78,14 @@ Gates:
 Sabotage suite (live at the landing battery; edit-run-observe-
 restore):
   (a) substrate mangle -- witness_twosided.py's prime_mat sign
-      flip -> keys change, RECOMPUTING, g2/g3 FAIL (m_W jumps to
-      O(1): no cancellation), exit 1
-  (b) pin mangle -- g2 m_W pin at (60,200) -> g2 FAIL alone on
-      cached compute, exit 1
-  (c) census revert -- footer 82 -> 81 -> g12 FAIL AND g13 FAIL,
+      flip -> OBSERVED: key changed, RECOMPUTING, m_W COLLAPSES to
+      -0.542 at (60,200) (the flipped prime cannot cancel ARCH; the
+      identity floor explodes to Tmax = 1.16), g2+g3+g4+g6+g8+g9
+      FAIL, exit 1 -- richer detection than designed
+  (b) pin mangle -- g2 m_W pin 4.501e-7 -> 5.501e-7 -> OBSERVED:
+      REUSED (cached, seconds), g2 FAIL alone, exit 1
+  (c) census revert -- footer 82 -> 81 -> OBSERVED: g12 FAIL (the
+      chain gate prints the missing census string) AND g13 FAIL,
       exit 1 (two-gate detection)
 """
 import hashlib, math, os, sys
