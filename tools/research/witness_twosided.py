@@ -158,7 +158,39 @@ def concentrated_witness(S, Z, tau0, ktop=8, d_probe=0.0):
     return out
 
 
-if __name__ == "__main__":
+def collision_probe(S, Z, tau0, w, d):
+    """The honest off-line injection: TWO adjacent in-band donors
+    (gamma_k, gamma_k+1) collide to the off-line pair at their mean
+    (gbar, +-d) [quadruplet with the -gbar mirror]. Returns the
+    injected T minus the base T (the pure off-line response; even in
+    d, O(d^2) with the collision-limit baseline at d = 0)."""
+    kz = int(np.argmin(np.abs(Z - tau0)))
+    g1, g2 = Z[kz], Z[kz + 1]
+    gbar = 0.5*(g1 + g2)
+    Zp = np.delete(Z, [kz, kz + 1])
+    z = S.zero_side_on(w, Zp, tau0)
+    for g in (gbar, -gbar):
+        s0 = (g - tau0)*A
+        vm = S.vhat(complex(s0, -d*A))
+        vp = S.vhat(complex(s0, +d*A))
+        z += 2*float(np.real(np.vdot(w.astype(complex), vm.conj())
+                             * np.vdot(vp.conj(), w.astype(complex))))
+    z_base = S.zero_side_on(w, Z, tau0)
+    return z_base - z    # T_injected - T_base = z_base - z_injected
+
+
+def jitter_budget(S, Z, tau0, w, scale=2e-11, nreal=8, seed=5):
+    """Empirical |T| budget from ordinate uncertainty: rms of the
+    zero-side response to Gaussian ordinate jitter at the dps-13
+    worst-case absolute scale."""
+    rng = np.random.default_rng(seed)
+    z0 = S.zero_side_on(w, Z, tau0)
+    dz = [S.zero_side_on(w, Z + rng.standard_normal(len(Z))*scale, tau0) - z0
+          for _ in range(nreal)]
+    return float(np.std(dz))
+
+
+def final_report():
     Z = zeros380()
     pts = [(60.0, 200.0), (120.0, 260.0), (60.0, 280.0), (120.0, 300.0)]
     sects = {}
@@ -168,27 +200,27 @@ if __name__ == "__main__":
         S = sects[c]
         mW, wW = S.weil_margin(t0)
         leak = S.slepian_leakage()
+        rows = concentrated_witness(S, Z, t0, ktop=8)
+        Tmax = max(abs(r[3]) for r in rows)
         print(f"\nc={c:4.0f} t0={t0:4.0f}: m_W {mW:+.3e}  "
-              f"(ARCH {float(np.real(np.conj(wW)@S.ARCH@wW)):+.3f}, "
-              f"PRIME {float(np.real(np.conj(wW)@S.PRIME@wW)):+.3f} on null dir)",
+              f"max|T| over k<8: {Tmax:.2e}  leak {leak[:8].max():.1e}",
               flush=True)
-        print("  k   leak(1-lam)    qw           z380         T=qw-z      "
-              "T(d=2e-3 probe)", flush=True)
-        base = concentrated_witness(S, Z, t0, ktop=8)
-        probe = concentrated_witness(S, Z, t0, ktop=8, d_probe=2e-3)
-        kz = int(np.argmin(np.abs(Z - t0)))
-        for (k, qw, z, T), (_, _, _, Tp) in zip(base, probe):
-            print(f"  {k}   {leak[k]:.2e}   {qw:+.4e}  {z:+.4e}  "
-                  f"{T:+.3e}   {Tp:+.3e}", flush=True)
-        # d_bound on the best witness vector: smallest |T| + leakage vs overlap
         best = None
-        for (k, qw, z, T) in base:
+        for k, qw, z, T in rows:
             w = np.eye(S.n)[:, k]/math.sqrt(S.G[k, k])
-            ov = S.overlap_deriv(w, t0, Z[kz])
-            if ov <= 0:
+            bud = jitter_budget(S, Z, t0, w)
+            # response coefficient from the collision probe at two ds
+            r1 = collision_probe(S, Z, t0, w, 1e-3) - collision_probe(S, Z, t0, w, 1e-6)
+            resp2 = abs(r1)/((1e-3*A)**2) if abs(r1) > 0 else 0.0
+            if resp2 <= 0:
                 continue
-            db = math.sqrt(max(abs(T), 0) + abs(leak[k]))/(A*ov)
+            db = math.sqrt((abs(T) + bud)/resp2)/A   # resp2 is per (dA)^2
             if best is None or db < best[1]:
-                best = (k, db, ov, T)
-        print(f"  d_bound (best k={best[0]}): {best[1]:.3e}  "
-              f"(ov {best[2]:.3f}, |T| {abs(best[3]):.2e})", flush=True)
+                best = (k, db, bud, resp2, abs(T))
+        print(f"  best k={best[0]}: d_bound {best[1]:.3e}  "
+              f"(|T| {best[4]:.1e}, jitter budget {best[2]:.1e}, "
+              f"resp2 {best[3]:.3e})", flush=True)
+
+
+if __name__ == "__main__":
+    final_report()
