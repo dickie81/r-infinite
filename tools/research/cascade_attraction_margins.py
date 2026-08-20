@@ -56,8 +56,8 @@ Gates (all exit-gated; any failure exits 1):
       ATTRACTION" entry named a needle that never existed, round-194
       F2's docstring carrier).
   g8  the chain obligation to cascade_finite_fill.py (Theorem 1at) met.
-  g9  the footer census (this script backticked >= 2; the anchored needles "the **82 scripts cited in place** above"
-      and "extended by Theorems 1i–1bf:" -- round-218 F12 mirrored
+  g9  the footer census (this script backticked >= 2; the anchored needles "the **83 scripts cited in place** above"
+      and "extended by Theorems 1i–1bg:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -296,10 +296,10 @@ gate("g8 the chain obligation to cascade_finite_fill.py (Theorem 1at) met",
 
 # ---------------------------------------------------------------- g9
 ok = paper.count("`cascade_attraction_margins.py`") >= 2
-ok &= "the **82 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bf:" in paper
-gate("g9 the footer census (this script backticked >= 2; 82 cited in place; "
-     "the range 1i–1bf)", ok)
+ok &= "the **83 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bg:" in paper
+gate("g9 the footer census (this script backticked >= 2; 83 cited in place; "
+     "the range 1i–1bg)", ok)
 
 print()
 if fails:

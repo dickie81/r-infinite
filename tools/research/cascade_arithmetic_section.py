@@ -182,7 +182,7 @@ VERIFICATION (10 gates, exit-gated).
        (cascade_concentration_regrade.py 12/0, transitively
        chaining the Weil-arc sibling chain -- the "full suite"
        label corrected round 175 F5); g10 the footer census (this
-       script backticked >= 2; "82 scripts cited in place";
+       script backticked >= 2; "83 scripts cited in place";
        "Theorems 1i-1bf").
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
@@ -441,10 +441,10 @@ gate("g9 the sibling chain green (cascade_concentration_regrade.py "
      "the 'full committed suite' label corrected round 175 F5)", ok)
 
 ok = paper.count("`cascade_arithmetic_section.py`") >= 2
-ok &= "82 scripts cited in place" in paper
-ok &= "Theorems 1i–1bf" in paper
+ok &= "83 scripts cited in place" in paper
+ok &= "Theorems 1i–1bg" in paper
 gate("g10 the footer census (this script backticked in body and "
-     "footer; \"82 scripts cited in place\"; \"Theorems 1i-1bf\")", ok)
+     "footer; \"83 scripts cited in place\"; \"Theorems 1i-1bf\")", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")

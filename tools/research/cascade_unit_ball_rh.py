@@ -104,7 +104,7 @@ VERIFICATION (13 gates, exit-gated).
        sibling chain green (windows_overlap 13/0, transitively
        chaining riemann_selection, type_counting, and the two
        Weil-arc siblings); g13 the footer census (this script
-       backticked; "82 scripts cited in place"; "Theorems 1i-1bf" -- the census advances with each landing).
+       backticked; "83 scripts cited in place"; "Theorems 1i-1bf" -- the census advances with each landing).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, abort-on-mangle-failure, at the landing; three disclosed
@@ -376,10 +376,10 @@ gate("g12 the sibling chain green after the census advance "
      "siblings)", ok)
 
 ok = "`cascade_unit_ball_rh.py`" in paper
-ok &= "82 scripts cited in place" in paper
-ok &= "Theorems 1i–1bf" in paper
+ok &= "83 scripts cited in place" in paper
+ok &= "Theorems 1i–1bg" in paper
 gate("g13 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 82 cited in place; the range 1i–1bf "
+     "this script backticked; 83 cited in place; the range 1i–1bg "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
