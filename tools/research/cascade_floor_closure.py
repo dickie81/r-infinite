@@ -44,8 +44,8 @@ instrument and RESULT):
 (4) THE DEFECT CLOSURE (floor_probe5.py): the residual is the
     arch/zero HORIZON MISMATCH, entirely -- quadrature share zero
     (NR/2 = base = NRx2 to every printed digit; round-235 F7);
-    matching the arch window
-    to the ordinate coverage collapses the defect 40-70x, and with
+    matching the arch window to the ordinate coverage collapses
+    the defect 40-70x, and with
     the 660-ordinate list at matched +-1013 it is 2-3e-5,
     tau0-uniform. The g4 ratio dm/m = +0.019/+0.047/+0.001 at the
     code windows -> -0.000/-0.001/+0.000 matched: THE CERTIFIED
@@ -69,8 +69,7 @@ Gates:
       beta/plunge in (2.2, 2.6) at both c
   g4  the c-ratio pin (the 'Landau-Widom scaling' reading is
       struck, round-234 F1/round-235 F5): the c60/c120 ratios of
-      beta and of
-      the plunge rate each within 10% of ln 120 / ln 60
+      beta and of the plunge rate each within 10% of ln 120/ln 60
   g5  the minimizer migration: plunge mass < 0.02 below the
       horizon, in (0.30, 0.60) at (120,340), < 0.05 at saturation
   g6  the conjugacy: rel_conj pinned (rel 0.3) and < 1e-2 at the

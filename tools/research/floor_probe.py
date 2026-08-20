@@ -37,10 +37,15 @@ analysis -- Slepian prolates, Landau-Widom plunge counting, finite
 eigenproblems on the committed section machinery. No semiclassical
 procedure, no compactification, no sphere Green's functions.
 
-Instrument: per-point staged compute, content-addressed per the
-A355 standing rule -- EVERY stage input in the key: the DEPS sha
-set includes this file itself (the producing code), the four
-substrate modules, and the per-point params (c, t0, NZ, BOTK).
+Instrument: per-point staged compute, content-addressed on the
+DEPS sha set (this file itself -- the producing code -- plus the
+four substrate modules) and the per-point params (c, t0, NZ,
+BOTK). [Round-236 F1: this instrument's own runs are INTENT-keyed
+for the ordinate list (no z_sha), per the disclosed attack-run
+status -- the landing stage re-keys the same computations by
+content (floor_landing.py, rounds 234-235); the earlier 'EVERY
+stage input in the key' quantifier was false at this locus and is
+struck.]
 Ladders resume point-by-point across container restarts (each
 point is its own checkpoint; the wrapper pushes checkpoints to
 origin every 10 minutes).
