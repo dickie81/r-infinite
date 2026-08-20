@@ -117,7 +117,7 @@ KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 PTS = [(60.0, 200.0), (120.0, 260.0), (60.0, 280.0), (120.0, 300.0)]
 PIN_MW = [4.501e-7, 1.196e-7, 9.496e-3, 3.921e-4]
 PIN_DB = [5.51e-6, 8.15e-6, 7.32e-6, 9.24e-6]
-PIN_DSTAR = None   # re-collected at dstar_tol 1e-6 (the landing draft's 1e-3 was effectively absolute at the deep points)
+PIN_DSTAR = [6.151e-4, 1.312e-3, 1.017e-1, 3.747e-2]   # dstar_tol 1e-6; the landing draft's 1e-3 was effectively absolute at the deep points; cross-validates witness_offline's committed table to 0.15%
 
 # ---- staged compute -------------------------------------------------
 STAGE_PARAMS = {"deps": DEPS3, "dstar_tol": 1e-6}
@@ -265,7 +265,7 @@ needles = [
     "section-level Weil positivity",
     "the prime term cancels the archimedean",
     "the truncation-tail discovery",
-    "the collision injection",
+    "The collision injection",
     "millionths of the critical line",
     "no RH leverage claimed",
 ]
