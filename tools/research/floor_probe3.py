@@ -52,7 +52,51 @@ Keying per A355: DEPS carries this file, floor_probe.py (whose
 zero_form it uses), and the four substrate modules; params carry
 (c, t0, nz).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (run complete; ten regime points + two pencils): the
+mechanism is CONFIRMED at every point --
+
+  THE REFLECTION IDENTITY:  Q_W ~= conj(Q_Z)  [= P Q_Z P = the
+  zero form with the ordinates reflected about tau0; the parity
+  identity is machine-exact, 4e-15]
+  defect ||Q_W - conj(Q_Z)||/||Q_W|| = 0.0022-0.0069 across both
+  c and all three floor regimes (vs 0.52-0.79 raw), rising slowly
+  with tau0 (anatomy unmeasured, open).
+
+Verified consequences, each a previously-open mystery:
+  - the conjugate overlap |<conj(w_Z), G w_W>| = 1.0000 at 9/10
+    points (plain overlap 0.01-0.64): w_W IS conj(w_Z). The one
+    exception is the below-horizon point (120,180) at 0.61, where
+    the bottom eigenvalue is a degenerate near-null subspace and
+    the eigensolver's representative is arbitrary -- expected.
+  - m_W - m_Z ~= D(conj w_Z) (first-order perturbation in the
+    defect D = Q_W - conj Q_Z) closes to 4-10% at every point,
+    from dm = -3e-12 through +1.5e-3: THE CERTIFIED g4 RATIO IS
+    DERIVED -- the proximity is isospectrality of a matrix and
+    its conjugate, broken only by the defect.
+  - T = -2i Im(Q_Z) to 0.3-1.2%; T(conj w) = -T(w) identically:
+    the antisymmetry invariant is exact under the identity.
+  - the pencil min-eig curve is theta <-> 1-theta symmetric to
+    1.5e-4 absolute (m(1/2) ~ 0.55-0.67).
+
+THE ODD-PART DECOMPOSITION (the arithmetic content): writing
+odd(M) = (M - P M P)/2, the identity is equivalent to
+    odd(Q_Z,380) ~= -odd(PRIME) + [odd(ARCH) ~ 6% + poles 0.1%]
+measured: ||odd QZ|| = 20.716 vs ||odd PRIME|| = 20.717 with
+||odd QW + odd QZ|| = 0.043 at (60,200) (23.096/22.992/0.035 at
+(120,300)) -- the tau0-antisymmetric part of the zero
+configuration, which DOMINATES the form (odd ~ 21 vs even ~ 7)
+and looks erratic, is minus the finite prime sum's antisymmetric
+part, locally at every measured center. Combined with the exact
+windowed explicit formula (Q_W = Q_full - ArchTail), the
+remaining nontrivial content is a window-partition statement:
+the in-band zeros carry -1x the prime odd part while the zero
+tail carries +2x (odd(ZeroTail) ~= 2 odd(PRIME) + small) -- how
+the formula's global identity distributes between band and tail.
+Open: derive the partition (classical density + stationary phase,
+or genuine zero-statistics input?); the defect's anatomy (which
+of arch-odd/tails carries the 0.2-0.7%, and why it grows with
+tau0). Check 7: finite linear algebra + the unconditional
+explicit formula throughout; Check 8: no hypothesis input.
 """
 import hashlib, math, os, sys
 
