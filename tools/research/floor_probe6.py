@@ -47,7 +47,56 @@ input. Keying per A355: DEPS = this file + floor_probe.py + the
 four substrates; params carry every stage input; the CUE seeds
 are explicit params.
 
-RESULT: appended after the run by the analysis pass.
+RESULT (all probes + the E2b coverage-fixed rerun complete):
+
+DERIVED EXACTLY, VERIFIED:
+  (1) THE HORIZON HEIGHT: tau* = 2pi e^(2A) = 343.06, c-independent
+      (T1 algebra; the ladders saturate there at both c) -- and
+      e^(2A) is the prime cutoff: one u-support width sets both.
+  (2) THE TIGHT MEAN: Q(top prolate) = ln(tau0/2pi) to 0.3-0.6% at
+      all four saturated points (T2, Poisson summation -- every
+      aliasing term vanishes above tau* since the autocorrelation
+      support is |u| <= 2A). The finite-band lattice margin
+      converges to it (3.530 at half=200, 3.786 at 300, L = 4.202).
+
+THE "CONSTANT" DEFLATES -- m_sat IS NOT UNIVERSAL:
+  (3) E3/E4: the saturated minimizer LOCKS ONTO ONE spectral
+      feature (a soft wide-gap neighborhood at gamma ~ 416.8) for
+      every center from tau0 = 360 to ~465 -- the 0.253 plateau is
+      that single feature's dodge value, ridden as the band slides
+      100+ units; at ~475 the feature exits the reachable band and
+      the margin steps to the next feature's value (0.37-0.42).
+      Ensemble across the scan: range 0.183-0.417, median 0.254;
+      corr(log m, band max-gap) = -0.805. The minimizer is
+      gap-seeking but optimizes a gap NEIGHBORHOOD, not the argmax
+      gap (dist to argmax ~ 45 at three of four points). The
+      c = 60 scatter/steps = a narrower band changing features
+      more often; the apparent c-independence = both bands riding
+      the same feature. m_sat ~ 1/4 IS A COINCIDENCE of one
+      feature -- the quarter reading is dead.
+  (4) THE DISORDER LADDER (E2/E2b, same density throughout):
+      lattice 3.53-3.79 >> jitter 0.05/0.15/0.30: 3.00/1.33/0.09
+      >> zeta 0.253 vs CUE (full coverage, N=320) 0.064 +- 0.038
+      (range 0.010-0.119; all ten realizations below zeta) >>
+      Poisson 0.000. The saturated margin is a RIGIDITY METER.
+      Zeta's ~0.6-decade elevation above CUE is the certified 1bc
+      stiffness excess (+0.71 decades at the deep points, Theorem
+      1bc/1be) measured in the saturated regime -- consistent with
+      certified 1be's attribution (counting + the prime
+      pair-correlation budget; CUE's determinantal premium makes
+      CUE the better dodger, g14/g15). Caveat: the surrogates use
+      constant density (zeta's ln-growth varies ~+-12% across the
+      +-200 band; second-order for concentrated sections, but a
+      density-modulated surrogate is the clean follow-up).
+
+NET: the saturation "constant" is m_sat = L x F(local spacing
+landscape) with L = ln(tau0/2pi) derived and F a feature-local
+extreme statistic, not a universal number; what IS universal is
+the ordering and the scale of the rigidity gap to CUE, which the
+certified fold arc already derived from the prime budget. No
+quarter, no new constant to derive -- the commission closes by
+deflation into certified results plus two new exact theorems
+(tau* and the tight mean).
 """
 import hashlib, math, os, sys
 
