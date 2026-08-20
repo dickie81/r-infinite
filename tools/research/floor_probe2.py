@@ -17,7 +17,19 @@ the four substrate modules; params carry (c, t0, nz, botk).
 floor_probe.py's own checkpoints are untouched (separate names,
 separate producing code -- this file does not edit that one).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (run complete at f403d73): the dense climb sharpened the
+combined fits recorded in floor_probe.py's RESULT (N* = N_sh to
+1-2%; beta/plunge = 2.34/2.46). The overlap probe DECIDED the
+antisymmetry mechanism: |<w_Z, G w_W>| = 0.014-0.36 at the six
+regime points (0.36 at the certified (60,200); 0.01-0.11 on the
+climb and at saturation) -- the two minimizers are far from
+parallel, in several cases nearly G-orthogonal, while
+T(w_Z) = -T(w_W) holds to 5e-4 median. The perturbative reading
+(w_W = w_Z + small) is REFUTED: the antisymmetry is a structural
+symmetry of the PAIR (Q_Z, Q_W) -- each form's minimizer pays the
+same excess in the other form -- and its mechanism is the arc's
+open object, alongside the beta/plunge ~ 2.4 constant and the
+c-independent saturation value 0.25.
 """
 import hashlib, math, os, sys
 

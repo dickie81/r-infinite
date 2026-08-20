@@ -51,7 +51,47 @@ window edge 653 clear by >120); c = 120: tau0 = 160..500 step 20
 every point (build_QW ~ a minute per point; the 1bf landing's
 50-minute stage was the probes, not the margins).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (ladders complete at f403d73; 37 points + floor_probe2's
+15 dense-climb and 6 overlap points; fits are the combined set):
+
+THE FLOOR LAW -- the dodging margin rides the Slepian plunge with
+the pinning count at the Shannon number:
+    m_Z(c, tau0) ~ m_sat * 10^(-beta(c) * (N*(c) - nb(c, tau0)))
+on the climb, where nb = in-band zero count (|u| <= c) and
+  N* (extrapolated pinning count, m_Z -> m_sat = 0.25):
+      37.3 at c = 60 vs N_sh = 2c/pi = 38.2
+      76.2 at c = 120 vs N_sh = 76.4     -- N* = N_sh to 1-2%;
+  beta = 1.35 / 1.20 decades per zero (c = 60 / 120; rms resid
+      0.9 / 0.5 dec -- the count regressor is integer-chunky);
+  beta / (Slepian plunge fall rate 0.579 / 0.486 dec per mode)
+      = 2.34 / 2.46 -- a c-independent ratio ~ 2.4, with both
+      rates individually scaling ~ 1/ln c (the measured rate
+      ratio 1.19 vs ln 120 / ln 60 = 1.17, Landau-Widom).
+Regimes: below the horizon (nb <~ N_sh - 8) the margin is
+NUMERICAL ZERO -- free directions inside the concentrated
+subspace (the minimizer is 100% concentrated-class, perfect
+dodge); on the climb the minimizer migrates into the plunge
+(44% plunge mass at (120, 340)); at saturation it is the top
+prolate and m_sat = 0.253-0.255 at BOTH c (with unexplained
+steps to ~0.42-0.46 at tau0 >~ 460, noted open). The certified
+1bf deep points sit 2-8 zeros below pinning: the seven-decade
+"hair-thin" margins are quantitatively the plunge attenuation.
+
+THE CANCELLATION (the g4 proximity is NOT a double dodge): the
+tail form T = Q_W - Q_Z,380 is truncation-dominated and deeply
+indefinite on the section (lambda in [-7.2, +5.2]; the Rwin = 800
+archimedean window, so the naive transfer inequality
+m_W >= m_Z + lambda_min(T) is vacuous as posed), and the Weil
+minimizer does not dodge: it pays O(3) to the windowed zeros and
+recoups the same from T. Measured invariant at every one of the
+37 points, both regimes, both c:
+    T(w_Z) = -T(w_W)   (median relative residual 3-5e-4)
+so m_W ~ m_Z is an antisymmetric cancellation identity. T
+compressed to the bottom-5 Q_Z eigenspace is positive (2.1-4.0):
+the ordering m_W > m_Z holds there. See floor_probe2.py for the
+mechanism probe (the minimizers are nearly orthogonal -- the
+symmetry is structural, not perturbative). Open: the mechanism;
+the beta/plunge ~ 2.4 constant; the 0.25 saturation value.
 """
 import math, os, sys
 
