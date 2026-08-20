@@ -33,7 +33,47 @@ classical. Check 8: no hypothesis input. Keying per A355: DEPS =
 this file + substrates; params carry every t and the integrator
 step; evolved configurations are checkpointed per t.
 
-RESULT: appended after the run by the analysis pass.
+RESULT (run complete; all four predictions confirmed within the
+control-bounded window):
+
+  P1 CONFIRMED -- THE DISCOUNT EVAPORATES, NOT THE HORIZON: the
+     saturated margin m(120,420) rises 0.253 -> 0.577 -> 1.087 ->
+     2.675 across t = 0 -> +0.5 (10.6x, two-thirds of the way to
+     the tight value 4.2 in log terms) while Qtop stays 4.18-4.22
+     (P2, the horizon control, stable to 0.3-0.8%). Forward flow
+     anneals exactly the fluctuation structure the saturation
+     attack showed the minimizer exploiting.
+  P3 CONFIRMED + A QUANTITATIVE BULLSEYE: backward, margins fall
+     (0.253 -> 0.176 -> 0.142) and the integration hits its FIRST
+     COLLISION at t = -0.0142 -- the two-body estimate g^2/8 for
+     the tightest t = 0 gap (0.332^2/8 = 0.0138) matches to 3%.
+     The finite surrogate's anti-evaporation endpoint is measured;
+     past it, pairs leave the line -- locally the certified 1bf
+     collision topology.
+  P4 CONFIRMED: stdgap(420-band) 0.560 -> 0.023 forward (24x
+     annealing); min gap 0.44 -> 1.53 (equalization).
+  TRUNCATION BOUNDARY (the control earning its keep): beyond
+     t ~ 0.5-1.5 the unconfined 380-particle gas EXPANDS -- Qtop
+     drifts -1.7% (t = 1.5) and -4.7% (t = 5), the band count
+     drops, and climb margins collapse by the floor law itself
+     (losing 2-3 in-band zeros at beta ~ 1.1 decades/zero
+     explains the observed x156-x360 falls at t = 5
+     quantitatively). Within the trusted window the climb margins
+     rise modestly forward (+17-39%), the intercept motion
+     predicted. t >= 1.5 rows are truncation-contaminated and
+     carry no physics claims.
+
+NET: the floor law now has a measured one-parameter family in the
+dBN surrogate time -- intercepts flow (saturation rises toward
+tight forward, everything falls backward to the collision at
+t = -0.0142), while the exact objects (tau*, the tight mean) sit
+still. The evaporation analogy's honest content: forward flow
+evaporates the arithmetic's fluctuation discount under an
+immovable kinematic horizon; the backward endpoint is a measured
+collision time matching pair mechanics; and the actual zeros sit
+at t = 0 -- by Rodgers-Tao (Lambda >= 0, in the true dBN
+normalization) at or arbitrarily near the critical time. No
+calibration between surrogate and true dBN time is claimed.
 """
 import hashlib, math, os, sys
 
