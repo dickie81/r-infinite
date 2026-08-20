@@ -123,6 +123,16 @@ DEPS6 = {f: _sha(f) for f in (
 KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 
 C0, T0 = 120.0, 420.0
+
+def _zsha(a):
+    """Ordinate-content hash (round-235 held observation: the
+    keying class's landing-scope fix extended to this instrument's
+    own checkpoints -- stage inputs keyed by content, not intent).
+    """
+    import numpy as _np
+    return hashlib.sha256(
+        _np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
+
 SAT_T0 = [380.0, 420.0, 460.0, 500.0]
 
 
@@ -233,7 +243,7 @@ def run():
     Z = zeros380()
     S = TwoSided(C0)
     # E1
-    params = {"deps": DEPS6, "sat_t0": SAT_T0, "c": C0}
+    params = {"deps": DEPS6, "sat_t0": SAT_T0, "c": C0, "z_sha": _zsha(Z)}
     st = ckpt_key.load("sat_tight", KEYFILE, params)
     if st is None:
         st = [{"t0": t0, "Qtop": tight_mean(S, Z, t0),
@@ -245,7 +255,7 @@ def run():
               f"{r['Qtop']/r['L']:.3f})", flush=True)
     # E2
     params = {"deps": DEPS6, "c": C0, "t0": T0, "nreal": 10,
-              "seed": 11, "half": 200.0}
+              "seed": 11, "half": 200.0, "z_sha": _zsha(Z)}
     sur = ckpt_key.load("sat_surrogates", KEYFILE, params)
     if sur is None:
         sur = surrogate_ladder(S, Z, T0)
@@ -262,7 +272,7 @@ def run():
           f"poisson: {sur['poisson'][0]:.3f} +- {sur['poisson'][1]:.3f}",
           flush=True)
     # E3
-    params = {"deps": DEPS6, "c": C0, "t0s": SAT_T0}
+    params = {"deps": DEPS6, "c": C0, "t0s": SAT_T0, "z_sha": _zsha(Z)}
     ga = ckpt_key.load("sat_gaps", KEYFILE, params)
     if ga is None:
         ga = [dict(t0=t0, **gap_alignment(S, Z, t0))
@@ -276,7 +286,7 @@ def run():
               flush=True)
     # E4
     params = {"deps": DEPS6, "c": C0, "lo": 350.0, "hi": 520.0,
-              "step": 5.0}
+              "step": 5.0, "z_sha": _zsha(Z)}
     fs = ckpt_key.load("sat_scan", KEYFILE, params)
     if fs is None:
         fs = fine_scan(S, Z)
@@ -298,7 +308,8 @@ def run2():
     Z = zeros380()
     S = TwoSided(C0)
     params = {"deps": DEPS6, "c": C0, "t0": T0, "nreal": 10,
-              "seed": 23, "half": 200.0, "N": 320, "lat_half": 300.0}
+              "seed": 23, "half": 200.0, "N": 320, "lat_half": 300.0,
+              "z_sha": _zsha(Z)}
     st = ckpt_key.load("sat_surrogates2", KEYFILE, params)
     if st is None:
         dens = local_density(T0)

@@ -43,7 +43,8 @@ instrument and RESULT):
     landing's 269 was the T = 1000 trajectory count).
 (4) THE DEFECT CLOSURE (floor_probe5.py): the residual is the
     arch/zero HORIZON MISMATCH, entirely -- quadrature share zero
-    (NR/2 = base = NRx2 to every digit); matching the arch window
+    (NR/2 = base = NRx2 to every printed digit; round-235 F7);
+    matching the arch window
     to the ordinate coverage collapses the defect 40-70x, and with
     the 660-ordinate list at matched +-1013 it is 2-3e-5,
     tau0-uniform. The g4 ratio dm/m = +0.019/+0.047/+0.001 at the
@@ -52,8 +53,10 @@ instrument and RESULT):
 
 Stage: floor_landing.landing_stage() (the producing code is in
 the substrate per round-229 F7), content-addressed on all ten
-module shas + the config (A355); sub-stages reuse the attack
-checkpoints' exact keys. The landing battery runs the stage
+module shas + the config + the content of both ordinate lists
+(z_sha and zext_sha, round-235 F1); sub-stages are content-keyed
+(the landing shares no keys with the attack instruments'
+intent-keyed runs -- round-235 F4). The landing battery runs the stage
 fresh once (CASCADE_COMPUTE=fresh), per the instrument rules.
 
 Gates:
@@ -64,7 +67,9 @@ Gates:
   g2  the pinning count: N* / N_sh in (0.94, 1.03) at both c
   g3  the climb rate: beta in (1.0, 1.6) decades/zero and
       beta/plunge in (2.2, 2.6) at both c
-  g4  Landau-Widom scaling: the c60/c120 ratios of beta and of
+  g4  the c-ratio pin (the 'Landau-Widom scaling' reading is
+      struck, round-234 F1/round-235 F5): the c60/c120 ratios of
+      beta and of
       the plunge rate each within 10% of ln 120 / ln 60
   g5  the minimizer migration: plunge mass < 0.02 below the
       horizon, in (0.30, 0.60) at (120,340), < 0.05 at saturation

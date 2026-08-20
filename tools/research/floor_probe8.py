@@ -86,6 +86,16 @@ DEPS8 = {f: _sha(f) for f in (
 KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 
 CS_A = [60.0, 120.0, 170.0, 240.0, 340.0]
+
+def _zsha(a):
+    """Ordinate-content hash (round-235 held observation: the
+    keying class's landing-scope fix extended to this instrument's
+    own checkpoints -- stage inputs keyed by content, not intent).
+    """
+    import numpy as _np
+    return hashlib.sha256(
+        _np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
+
 EXTRA = 28
 CONV_EXTRAS = [8, 16, 28]
 MWIN = (1e-11, 1e-2)
@@ -181,7 +191,8 @@ def run():
     # the ladder
     for c in CS_A:
         params = {"deps": DEPS8, "c": c, "extra": EXTRA,
-                  "mwin": MWIN, "lwin": LWIN, "step": 5.0}
+                  "mwin": MWIN, "lwin": LWIN, "step": 5.0,
+                  "z_sha": _zsha(Z)}
         st = ckpt_key.load(f"asym_c{int(c)}", KEYFILE, params)
         if st is None:
             S = SectX(c, EXTRA)

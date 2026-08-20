@@ -18,12 +18,18 @@ gates on, by driving the four attack instruments --
       the gauge verdict also uses
 
 The stage lives here (not in the verifier) per the round-229 F7
-rule: the producing code is content-addressed. Sub-stages reuse
-the attack runs' exact checkpoint keys (same names, same params,
-same producing-module shas), so a clean landing run REUSES them;
-CASCADE_COMPUTE=fresh recomputes everything (the landing battery
-runs fresh once, per the instrument rules). The consolidated
-checkpoint is keyed on all seven module shas plus the config.
+rule: the producing code is content-addressed. Sub-stages are
+content-keyed (z_sha, round-234 F4) on the producing modules'
+shas plus the ordinate-array bytes; since ac8281f the landing
+shares NO keys with the attack instruments' own intent-keyed
+checkpoints (round-235 F4 corrects the earlier 'reuses the
+attack runs' exact keys' description, made false by the F4 fix
+itself). CASCADE_COMPUTE=fresh recomputes everything. The
+consolidated checkpoint is keyed on all ten module shas plus the
+config plus the CONTENT of both ordinate lists (z_sha AND
+zext_sha -- round-235 F1: the base list alone was hashed at the
+round-234 sweep, leaving the extension keyed by intent at the one
+checkpoint the verifier actually loads).
 """
 import hashlib, math, os, sys
 
@@ -302,7 +308,8 @@ def landing_stage():
 def load_or_run():
     params = {"deps": DEPSL, "conj_pts": CONJ_PTS,
               "def_pts": DEF_PTS, "tlist": TLIST, "text": TEXT,
-              "z_sha": _zsha(zeros380())}
+              "z_sha": _zsha(zeros380()),
+              "zext_sha": _zsha(floor_probe4.ext_zeros())}
     st = ckpt_key.load("floor_arc_landing", KEYFILE, params)
     if st is None:
         st = landing_stage()

@@ -90,7 +90,8 @@ RESULT, E4/E5. This block's original closing read the identity as
 a "windowed duality" ("the zeros' asymmetry is minus the primes'
 asymmetry") and predicted a window-partition (in-band -1x, zero
 tail +2x). Both readings are RETRACTED: E4 measured the tail
-contribution at 0.0000 (269 further ordinates), and E5's
+contribution at 0.0000 (280 further ordinates; round-235 F2 --
+the earlier 269 was the T = 1000 trajectory count), and E5's
 gauge-rebuild showed ||ARCH_true - conj(ARCH_code)|| = 0.0000 --
 the 1bb-lineage arithmetic build is the CONJUGATE of the
 explicit-formula operator, so Q_W ~= conj(Q_Z) is the plain

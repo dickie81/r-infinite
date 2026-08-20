@@ -113,6 +113,16 @@ DEPS7 = {f: _sha(f) for f in (
 KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 
 CS = [45.0, 60.0, 90.0, 120.0, 170.0]
+
+def _zsha(a):
+    """Ordinate-content hash (round-235 held observation: the
+    keying class's landing-scope fix extended to this instrument's
+    own checkpoints -- stage inputs keyed by content, not intent).
+    """
+    import numpy as _np
+    return hashlib.sha256(
+        _np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
+
 T0S = [230.0 + 10.0*i for i in range(13)]      # 230..350
 SUR_CS = [60.0, 120.0]
 MWIN = (1e-13, 0.15)
@@ -163,7 +173,8 @@ def plunge_rate(S):
 def run():
     Z = zeros380()
     for c in CS:
-        params = {"deps": DEPS7, "c": c, "t0s": T0S}
+        params = {"deps": DEPS7, "c": c, "t0s": T0S,
+                  "z_sha": _zsha(Z)}
         st = ckpt_key.load(f"ratio_c{int(c)}", KEYFILE, params)
         if st is None:
             S = TwoSided(c)
@@ -202,7 +213,7 @@ def run():
 
     for c in SUR_CS:
         params = {"deps": DEPS7, "c": c, "t0s": T0S, "nreal": 5,
-                  "seed": 31, "half": 300.0}
+                  "seed": 31, "half": 300.0, "z_sha": _zsha(Z)}
         st = ckpt_key.load(f"ratio_sur_c{int(c)}", KEYFILE, params)
         if st is None:
             S = TwoSided(c)
@@ -232,7 +243,8 @@ def run():
               f"{st['beta_cue'] if st['beta_cue'] else float('nan'):.4f} "
               f"({st['n_cue']} pts)", flush=True)
 
-    params = {"deps": DEPS7, "c": 120.0, "t0s": T0S, "extra": 8}
+    params = {"deps": DEPS7, "c": 120.0, "t0s": T0S, "extra": 8,
+              "z_sha": _zsha(Z)}
     st = ckpt_key.load("ratio_ext120", KEYFILE, params)
     if st is None:
         S = TwoSidedN(120.0, 8)

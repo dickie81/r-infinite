@@ -101,6 +101,16 @@ DEPS9 = {f: _sha(f) for f in (
 KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 
 T_FWD = [0.05, 0.15, 0.5, 1.5, 5.0]
+
+def _zsha(a):
+    """Ordinate-content hash (round-235 held observation: the
+    keying class's landing-scope fix extended to this instrument's
+    own checkpoints -- stage inputs keyed by content, not intent).
+    """
+    import numpy as _np
+    return hashlib.sha256(
+        _np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
+
 T_BWD = [-0.01, -0.02, -0.03, -0.045]
 PTS9 = [(120.0, 260.0), (120.0, 300.0), (120.0, 420.0)]
 DT_F, DT_B = 1e-3, 2e-4
@@ -159,7 +169,8 @@ def run():
     for t_tgt in [0.0] + T_FWD + T_BWD:
         dt = DT_F if t_tgt >= 0 else DT_B
         params = {"deps": DEPS9, "t": t_tgt, "dt": dt,
-                  "guard": GAP_GUARD, "nz": 380}
+                  "guard": GAP_GUARD, "nz": 380,
+                  "z_sha": _zsha(Z0)}
         name = f"flow_t{t_tgt:+.3f}".replace(".", "p")
         st = ckpt_key.load(name, KEYFILE, params)
         if st is None:

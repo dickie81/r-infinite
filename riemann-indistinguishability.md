@@ -5716,7 +5716,7 @@ symmetry; and m_W − m_Z = D(conj w_Z) closes to 15% at every
 regime point (first-order in the defect, gated g8). *(iv) The
 deflation.* Rebuilding the archimedean side in the true gauge
 gives ‖ARCH_true − conj(ARCH_code)‖ = 0 to machine precision
-(measured ≤ 3.1×10⁻¹² relative; gated < 10⁻⁴, g9 *(round-234 F3:
+(measured ≤ 3.2×10⁻¹² relative; gated < 10⁻⁴, g9 *(round-234 F3:
 the landing's "= 0 exactly" overstated a computed residual)*): the
 certified machinery computes the **conjugate** of the
 explicit-formula operator (a phase-gauge convention — every

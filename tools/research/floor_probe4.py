@@ -63,7 +63,8 @@ The header is retained as the record of the hypothesis under test.
       decimals. The far zeros are invisible to the section.
   E5 (the gauge experiment; gauge_check() below): rebuilding ARCH
       in the true gauge (complex vhat on the same r-grid) gives
-      ||ARCH_true - conj(ARCH_code)|| = 0.0000 exactly, and
+      ||ARCH_true - conj(ARCH_code)|| = 0 to machine precision
+      (~3e-12 relative; round-235 F3), and
       ARCH_true + POLE + conj(PRIME_code) matches Q_Z,380
       DIRECTLY at 0.0020/0.0037 Frobenius (the code-orientation
       build matches conj(Q_Z) at 0.047/0.055 instead).
