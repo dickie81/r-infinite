@@ -76,13 +76,22 @@ def _zsha(a):
 
 
 C0 = 120.0
-# per rung: aperture A', tau0 ladder (through tau*(A') and into
-# saturation), max zetazero index needed (band + leakage slack)
+# per rung: aperture A', tau0 ladder, max zetazero index needed.
+# SECOND LADDER SET (the first run's tau*-straddling design missed
+# the high-A climbs entirely -- the climb WIDTH in tau0 stretches
+# as tau0*A/(2c) per zero, so at A = 3 the climb spans ~1350-2450,
+# far below tau*; these ladders are DEFICIT-parameterized,
+# tau0(d) = 2pi exp(2A - d*pi*A/c), sampling matched count
+# deficits d ~ 8..0 at every aperture -- also the race curve's
+# honest axis):
 RUNGS = [
-    (1.5, [90.0 + 10.0*i for i in range(13)], 380),     # tau* 126.7
+    (1.5, [90.0 + 10.0*i for i in range(13)]
+          + [112.0, 116.5], 380),                       # tau* 126.7
     (2.0, [260.0 + 10.0*i for i in range(15)], 380),    # tau* 343.1
-    (2.5, [850.0 + 20.0*i for i in range(11)], 810),    # tau* 932.6
-    (3.0, [2400.0 + 40.0*i for i in range(9)], 2270),   # tau* 2535.9
+    (2.5, [550.0, 630.0, 715.0, 770.0, 825.0, 880.0, 910.0]
+          + [850.0 + 20.0*i for i in range(11)], 810),  # tau* 932.6
+    (3.0, [1350.0, 1580.0, 1850.0, 2000.0, 2170.0, 2340.0, 2440.0]
+          + [2400.0 + 40.0*i for i in range(9)], 2270), # tau* 2535.9
 ]
 EXT_CHUNK = 50
 DPS = 15
