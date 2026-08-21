@@ -33,15 +33,24 @@ strictly beyond CC's L <= log 2 (their Selecta Theorem 1). The
 verified-zeros chain of the original B1 plan survives as the
 fallback route if the direct analysis cannot close.
 
-PRIOR-ART DUTY (Stage-0 amendment). CC's ref [14] for the
-numerical positivity at lambda = sqrt(2) is Yoshida 1992 ("On
-Hermitian forms attached to zeta functions") -- numerics, at
-L = log 2 exactly, consistent with the Stage-0 verdict. Bombieri's
-"Remarks on Weil's quadratic functional in the theory of prime
-numbers" (Rend. Lincei 2000) works variationally on the same
-functional and MUST be read before any unconditional-theorem claim
-for the window is made; until that check, every positivity number
-here is a measurement, not a claimed theorem.
+PRIOR-ART (Stage-0 amendment, swept 2026-08-21). CC's ref [14]
+for the numerical positivity at lambda = sqrt(2) is Yoshida 1992
+("On Hermitian forms attached to zeta functions") -- numerics at
+L = log 2 plus a QUALITATIVE small-support positivity theorem (no
+explicit threshold). Bombieri, "Remarks on Weil's quadratic
+functional in the theory of prime numbers, I" (Rend. Lincei 11
+(2000) 183-233): the minimum is attained on the unit ball of the
+support class, Yoshida's small-t positivity reproved, truncation
+eigenvalue theory (finitely many off-line zeros <-> negative
+eigenvalue count) -- no explicit threshold. Suzuki school's screw
+function line (arXiv:2606.09096, June 2026): lambda_a is
+CONTINUOUS in the support length a unconditionally (their Thm
+1.3) -- a useful lemma -- positivity still conditional. Li
+(arXiv:2404.13427): trace-class positivity relations on the
+hhat(0) = hhat(1) = 0 class -- different object. VERDICT: the
+explicit-threshold record remains CC's L <= log 2; the window
+[log 2, log 3) stands open, and every positivity number here is a
+measurement, not a claimed theorem.
 
 THE INSTRUMENT.
   S1  the representation gate: the diagonal prime
@@ -72,6 +81,72 @@ THE INSTRUMENT.
 CHECKS. 7: classical throughout (explicit formula, Fourier
 analysis, Kato-Temple spectral bounds); no semiclassics. 8: no
 hypothesis input; pure analytic number theory.
+
+RESULT (first full S1-S5 run, 2026-08-21; S1/S2 asserted in code,
+S3-S5 recorded here and reproducible from the checkpoint):
+  S1 THE REPRESENTATION HOLDS, GATED: the diagonal prime vs the
+  certified t-overlap PRIME at 5.5e-7 - 5.7e-6 on the form
+  (ARCH-relative) scale, both parities, delta in {0.7, 0.9, 1.05};
+  the PRIME-relative figures at delta 0.7 (1.1e-3/1.5e-3) are the
+  tiny-denominator artifact of log 2 sitting 0.0069 from the
+  support edge, disclosed in the gate comment.
+  S2 THE KERNEL GEOMETRY: W < 0 exactly on two dips,
+  [0, 3.305] (depth -6.3524 at t = 0) and [6.945, 10.531] (depth
+  -0.6276 at t = 8.823); crossings 3.3060 / 6.9450 / 10.5320;
+  W > 0 from the last crossing to 200 (checked at dr 1e-3), with
+  the tightest squeak W = +0.079275 at t = 4pi/log 2 = 18.1294.
+  S3 THE FIRST-PASS SURVEY (smooth p = 4, nsm = 16 trials): the
+  Kato-Temple value fails at every delta, both parities, with the
+  needed-vs-actual sigma factors measured: even sector 1.27
+  (log 2), 1.29 (0.75), 1.62 (0.8), 2.91 (0.9), 6.1 (1.0), 10.9
+  (1.05), 16.2 (1.09) -- the even-sector cos-24 gap ell_2
+  collapses toward the window top (0.666 at log 2 -> 1.96e-3 at
+  1.09), making the top the hard end regardless of trial quality.
+  THE BUDGET DECOMPOSITION: the even extremal balances pole
+  (+1.08..+1.28) against dip mass (-1.25..-1.43) plus positive
+  mass (+0.15..+0.17) -- the pole-vs-well duel canceling to seven
+  digits at the window top; this is 1bf/1bg's near-exact
+  PRIME/ARCH cancellation localized to the explicit dips. The odd
+  extremal balances positive mass (+0.26..+0.38) against dip mass
+  (-0.22..-0.24) with a small NEGATIVE pole (-0.009..-0.021).
+  S4 THE EDGE DISCOVERY: sigma SHRINKS as the trial window
+  roughens (p = 6 -> 4 -> 2 monotone at fixed nsm, all three
+  cells) -- the true eigenfunction has weak edge vanishing -- and
+  the route closes for the first time at delta = log 2 with the
+  p = 2 trial: Temple-feas +9.981e-5.
+  S5 THE CLOSURES (best trial per cell; p = 1, nsm = 32 wins
+  everywhere in the even sector):
+    delta 0.6931  +1.035e-3  (rho 1.388e-3, sigma 1.530e-2,
+                              needed 3.037e-2 -- closes 2x deep)
+    delta 0.75    +2.610e-4  (sigma 1.166e-2 vs needed 1.641e-2)
+    delta 0.80    +2.288e-5  (sigma 7.491e-3 vs needed 7.970e-3
+                              -- the current frontier)
+    delta 0.90    -4.543e-5  (sigma 2.560e-3 vs needed 1.363e-3:
+                              factor 1.88 remains)
+    odd 1.09      -4.110e-5  (cos24 trial best: sigma 2.738e-3 vs
+                              needed 1.620e-3: factor 1.69)
+  The certified cos-24 extremal is competitive as a trial
+  (closes log 2 and 0.75, misses 0.80 by 7e-7) -- consistent with
+  the p = 1 linear-edge class being near the truth.
+  THE STANDING VERDICT: at feasibility level the certificate route
+  closes on [log 2, 0.80] -- already strictly beyond CC's log 2
+  record -- with the frontier delta* in (0.80, 0.90) at current
+  trial quality. NOT YET A THEOREM, on three counts, each with its
+  identified repair: (i) ell_2 is the cos-24 section lambda_2, an
+  UPPER bound on the true second eigenvalue by min-max where
+  Temple needs a LOWER bound -- repair: a Lehmann-Goerisch
+  second-eigenvalue bound; (ii) quadratures are float64 grids, not
+  interval arithmetic -- repair: standard rigorous-quadrature
+  enclosures on the kernel integrals (the kernel is smooth and
+  explicit); (iii) the trial subspace optimizes rho, not the
+  Temple objective -- repair: maximize rho - sigma^2/(ell_2 - rho)
+  over the subspace directly (needs the <T phi_i, T phi_j> Gram,
+  computable with the same wide-grid machinery), plus
+  edge-exponent-adapted trials (a^2 - t^2)^s, which should push
+  delta* past 0.9. The odd sector needs its own (easier) pass.
+  The window top keeps the collapsing-gap obstruction; a
+  first-theorem target of [log 2, delta_max] with delta_max in
+  (0.8, 0.9] is the structurally supported aim.
 
 Keying law: every producing file in every key.
 """
