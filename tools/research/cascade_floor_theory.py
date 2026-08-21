@@ -105,7 +105,10 @@ gate("g2 the constraint price derived: edge advance in (1.90, 2.10) "
      f"modes/zero (measured {adv:+.2f})", 1.90 <= abs(adv) <= 2.10)
 
 # ---------------------------------------------------------------- g3
-beta = P1["identity"]["beta"]
+beta = abs(P1["identity"]["beta"])  # the stage stores the fit
+# slope's sign convention (printed "-1.280"); the law's beta is
+# its magnitude -- the first fresh battery caught the raw read
+# failing g3 (12/13) and this is the fix, on the record
 comp = abs(P1["identity"]["composition"])
 ok = 1.15 <= beta <= 1.45 and abs(comp/beta - 1) <= 0.15
 gate("g3 the rate composition: beta_comb in (1.15, 1.45), "
