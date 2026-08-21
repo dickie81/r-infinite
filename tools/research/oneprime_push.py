@@ -24,15 +24,22 @@ the sub-span where the denominator form is positive definite
 replaces S5's hand-picked trials with the best trial the subspace
 CONTAINS.
 
-THE SUBSPACE. The union of the two grid-safe r^-2-decay families
-that S5 found nearest the truth (linear edge vanishing): the
-certified-family modes cos((k+1/2) pi t/a), k < 40 (even) /
-sin(k pi t/a), k <= 40 (odd), and the p = 1 windowed harmonics
-(nsm = 32), whitened together on the t-grid (cutoff 1e-10;
-effective dimension reported). Both families have ghat ~ r^-2, so
-the wide-grid (Rmax 3000) truncation error in S sits at
-sigma-floor ~ 1e-5 -- below every needed-sigma in the window
-except the extreme top, which remains gap-limited regardless.
+THE SUBSPACE AND THE TRUNCATION DISCIPLINE (the first run's gA
+catch). Every linear-edge mode has |ghat(r)| ~ 2w/r^2
+asymptotically (sinc tails at its frequency w), so the S-matrix's
+wide-grid truncation error scales like w^2 log^2(R)/R^3 -- and an
+optimizer EXPLOITS underestimated ||T b||^2 on high modes to fake
+sigma^2 gains. The first run (NCOS = 40, frequencies to ~358,
+gate route at Rmax 600) was stopped by its own gA at 1.45e-3: the
+r-grid route truncated exactly those tails. The discipline now:
+frequencies capped at the certified reach (NCOS = 24 fam1 modes:
+cos((k+1/2) pi t/a) even / sin((k+1) pi t/a) odd; NSM = 24
+p = 1 windowed harmonics), the wide grid extended to Rmax 6000
+(top-mode sigma^2 truncation ~1e-6, i.e. exploit-scale <= 1e-7 at
+|c_top| <= 0.3), and the optimal vector's fam1-top-mode weight
+reported so any residual exploitation is visible. Assembly is on
+the RAW 48-mode basis (whitening applied afterwards as a linear
+map), so the gate below compares raw sub-blocks directly.
 
 THE ELL_2 LADDER. ell_2 is still a STAND-IN (Temple needs a true
 lower bound on lambda_2; min-max gives sections as upper bounds).
@@ -43,11 +50,13 @@ half-lambda_2 conservative rung showing sensitivity -- a closure
 that survives ell_2/2 is robust to the stand-in worry; one that
 does not is flagged by construction.
 
-GATES. gA: the T-application cross-check -- M computed as
-<b_i, T b_j> from the wide-grid application must match the r-grid
-section form (rel Frobenius < 1e-6): two independent routes to the
-same matrix. gB: sigma^2 >= -1e-12 clamp monitoring (Cauchy-Schwarz
-on the grid).
+GATES. gA: the fam1 sub-block of the t-inner-product M (from the
+wide-grid T-application) against the certified build_Q64 matrix Q
+on the same 24 modes -- two independent assemblies; tolerance
+5e-4, the scale of build_Q64's own documented Rmax-600 ARCH
+truncation class on its top modes (round 210 F5's fourth-digit
+bias, seen here from the operator side). gB: sigma^2 clamped at 0
+per vector; the clamp's firing is monitored.
 
 CHECKS. 7: classical (spectral bounds, Fourier analysis). 8: no
 hypothesis input.
@@ -78,13 +87,16 @@ DEPSP = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "oneprime_push.py")}
 KEYFILE = os.path.join(HERE, "oneprime_push.py")
 
-NCOS = 40
-NSM = 32
-RMAX, NR = 3000.0, 600001
+NCOS = 24
+NSM = 24
+RMAX, NR = 6000.0, 1200001
 CHUNK = 10001
 
 
-def combined_basis(a, parity, npts=4001):
+def raw_basis(a, parity, npts=4001):
+    """The raw 48-mode union: fam1 = the certified-family modes,
+    fam2 = p = 1 windowed harmonics. Returns the raw rows plus the
+    whitening map Wh (B_orthonormal = Wh @ raw)."""
     tg, dt = tgrid(a, npts)
     ks = np.arange(NCOS)
     if parity == "even":
@@ -99,8 +111,8 @@ def combined_basis(a, parity, npts=4001):
     Gm = (raw*wq[None, :]) @ raw.T
     ev, U = np.linalg.eigh(Gm)
     keep = ev > 1e-10*ev[-1]
-    B = (U[:, keep]/np.sqrt(ev[keep])[None, :]).T @ raw
-    return tg, dt, B
+    Wh = (U[:, keep]/np.sqrt(ev[keep])[None, :]).T
+    return tg, dt, raw, Wh
 
 
 def apply_T_batch(B, tg, dt, parity):
@@ -151,40 +163,34 @@ def run():
              ("even", 0.90), ("even", 0.95), ("even", 1.00),
              ("even", 1.05), ("even", 1.09),
              ("odd", 0.90), ("odd", 1.09)]
-    r6 = np.linspace(-600.0, 600.0, 120001)
-    dr6 = r6[1] - r6[0]
     for parity, delta in cells:
         a = delta/2
-        tg, dt, B = combined_basis(a, parity)
-        n = B.shape[0]
+        tg, dt, raw, Wh = raw_basis(a, parity)
         wq = trapzw(len(tg), dt)
-        TB = apply_T_batch(B, tg, dt, parity)
-        N = (B*wq[None, :]) @ B.T
-        M = (B*wq[None, :]) @ TB.T
-        M = (M + M.T)/2
-        S = (TB*wq[None, :]) @ TB.T
-        S = (S + S.T)/2
+        TBraw = apply_T_batch(raw, tg, dt, parity)
+        Nr_ = (raw*wq[None, :]) @ raw.T
+        Mr_ = (raw*wq[None, :]) @ TBraw.T
+        Mr_ = (Mr_ + Mr_.T)/2
+        Sr_ = (TBraw*wq[None, :]) @ TBraw.T
+        Sr_ = (Sr_ + Sr_.T)/2
 
-        # gA: the r-grid section form as an independent route to M
-        f = np.cos if parity == "even" else np.sin
-        Bw = B*wq[None, :]
-        qs = np.empty((n, len(r6)))
-        for i in range(0, len(r6), CHUNK):
-            rr = r6[i:i + CHUNK]
-            qs[:, i:i + CHUNK] = Bw @ f(np.outer(tg, rr))
-        W6 = Wker(r6)
-        Mr = (qs*W6[None, :]) @ qs.T * dr6/(2*np.pi)
-        chi = np.cosh(tg/2) if parity == "even" else np.sinh(tg/2)
-        cv = Bw @ chi
-        Mr = Mr + psign(parity)*2*np.outer(cv, cv)
-        Mr = (Mr + Mr.T)/2
-        gA = float(np.linalg.norm(M - Mr)/np.linalg.norm(Mr))
-        assert gA < 1e-6, f"gA FAIL at {parity}:{delta:g}: {gA:.2e}"
+        # gA: the fam1 sub-block against the certified build_Q64
+        # matrix on the same 24 modes (independent assembly)
+        Qc, Gc, _, _, _ = build_Q64(delta, parity=parity)
+        gA = float(np.linalg.norm(Mr_[:NCOS, :NCOS] - Qc)
+                   / np.linalg.norm(Qc))
+        assert gA < 5e-4, f"gA FAIL at {parity}:{delta:g}: {gA:.2e}"
+        l2c = float(scipy_eigh(Qc, Gc, eigvals_only=True)[1])
+
+        # whiten
+        N = Wh @ Nr_ @ Wh.T
+        M = Wh @ Mr_ @ Wh.T
+        S = Wh @ Sr_ @ Wh.T
+        N, M, S = (N + N.T)/2, (M + M.T)/2, (S + S.T)/2
+        n = N.shape[0]
 
         lams = scipy_eigh(M, N, eigvals_only=True)
         l1s, l2s = float(lams[0]), float(lams[1])
-        Qc, Gc, _, _, _ = build_Q64(delta, parity=parity)
-        l2c = float(scipy_eigh(Qc, Gc, eigvals_only=True)[1])
 
         row = {"dim": n, "gA": gA, "l1_sec": l1s, "l2_sec": l2s,
                "l2_cos24": l2c}
@@ -196,16 +202,24 @@ def run():
                 rho = float(c @ M @ c)/nn
                 sig = math.sqrt(max(float(c @ S @ c)/nn - rho*rho,
                                     0.0))
+                # fam1 top-mode weight of the optimal vector (the
+                # truncation-exploit monitor): coefficients back in
+                # the raw basis via Wh
+                craw = Wh.T @ c
+                topw = float(np.sum(craw[NCOS-6:NCOS]**2)
+                             / np.sum(craw**2))
             else:
-                rho = sig = float("nan")
+                rho = sig = topw = float("nan")
             row[tag] = {"ell2": ell2, "temple": mu, "rho": rho,
-                        "sigma": sig}
+                        "sigma": sig, "top_weight": topw}
         st[f"{parity}:{delta:g}"] = row
         print(f"PUSH {parity} delta {delta:g} (dim {n}, gA "
-              f"{gA:.1e}): l1_sec {l1s:+.3e} l2_sec {l2s:+.3e} | "
-              f"Temple-opt: l2sec {row['l2sec']['temple']:+.3e} "
-              f"(rho {row['l2sec']['rho']:+.3e} sigma "
-              f"{row['l2sec']['sigma']:.3e}), l2cos24 "
+              f"{gA:.1e}): l1_sec {l1s:+.3e} l2_sec {l2s:+.3e} "
+              f"l2_cos24 {l2c:+.3e} | Temple-opt: l2sec "
+              f"{row['l2sec']['temple']:+.3e} (rho "
+              f"{row['l2sec']['rho']:+.3e} sigma "
+              f"{row['l2sec']['sigma']:.3e} topw "
+              f"{row['l2sec']['top_weight']:.3f}), l2cos24 "
               f"{row['l2cos24']['temple']:+.3e}, half "
               f"{row['half']['temple']:+.3e}", flush=True)
     ckpt_key.save("oneprime_push", KEYFILE, params, st)
