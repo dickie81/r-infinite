@@ -38,7 +38,53 @@ Keying per the standing law (A361): content-keyed on the
 producing modules, the full config, and the ordinate bytes.
 No RH leverage claimed: verification through the dial.
 
-RESULT: appended after the run by the analysis pass.
+RESULT (run 1 full-window + run 2 s-matched windows, both on the
+record):
+
+  THE DEEP CRITICAL WINDOWS -- THE COMMISSION'S CORE -- ARE GREEN
+  WITH THE 1bg CLOSURE OUT-OF-SAMPLE IN APERTURE:
+    A = 2.5, tau0 = 630 (height 630, 48 prime powers, primes to
+      ~148): m_W = +1.09e-7 vs m_Z to dm/m = -0.0007 (0.07%),
+      closure rel 8.3e-5 (run 1 full-window: 7.8e-5 -- recipe-
+      stable), null cancellation A/P = +4.599/-4.599 (four
+      digits).
+    A = 3.0, tau0 = 1580 (height 1580, 98 prime powers, primes to
+      403): m_W = +6.321e-8 vs m_Z = 6.322e-8 -- dm/m = -0.0001
+      (0.01%), closure rel 1.19e-5 (BETTER than the A = 2
+      benchmark 2-3e-5), A/P = +5.527/-5.527. ARITHMETIC-ONLY
+      SECTION WEIL POSITIVITY AT THE DEEP CRITICAL WINDOW AT
+      HEIGHT 1580, hair-thin positive exactly as the floor law
+      demands, matching the zero side to a hundredth of a percent.
+  The near-crossing A = 2.5 point (880) is likewise clean
+  (closure 1.8e-4, dm/m 0.15%).
+
+  THE RUN-1 LESSON (on the record): the full-window build FAILED
+  at A = 3 -- the mirror ordinates reach |s| ~ 15,400, far beyond
+  the 3000-node quadrature validity (~2400), aliasing both sides
+  (m_Z read 2.28 against the real path's 6.5e-8). The s-matched
+  window (SCUT = 2000 on both sides -- the 1bg horizon-matching
+  lesson generalized to s) fixed the deep point completely.
+
+  OPEN RESIDUE (flagged, not closed): the A = 3 saturated-regime
+  points degrade under the same recipe -- tau0 = 2000: closure
+  4.1e-2 with m_W = 4.1e-3 vs m_Z = 9.3e-4 (the zero side agrees
+  with the real-path ladder; the ARITHMETIC side is high);
+  tau0 = 2340: closure 1.8e-2, dm/m -2.8%. Both sit in the
+  saturated/climb regime where positivity is not delicate
+  (margins 1e-3-0.1), and the deep point at the same aperture and
+  recipe is clean at 1.2e-5 -- so the residue is config-local,
+  not an arithmetic failure. Note (2000) carries the tight
+  min-gap 0.098 feature in-band. Diagnosis owed: an SCUT sweep
+  (1600/2000/2400) and a real-path conj-gauge cross-check to
+  split windowing-edge from quadrature effects.
+
+NET: the height arc's Phase 2 core stands -- the windowed
+explicit formula's operator closure and arithmetic-only Weil
+positivity hold at the DEEP critical windows out-of-sample in
+aperture, at heights 630 and 1580, with the enlarged prime sets
+doing the null-direction cancellation to four digits. The
+saturated-regime closure at A = 3 has a config-local residue
+under diagnosis. No RH leverage claimed.
 """
 import hashlib, math, os, sys
 
