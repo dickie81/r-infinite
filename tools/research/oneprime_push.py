@@ -87,9 +87,19 @@ DEPSP = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "oneprime_push.py")}
 KEYFILE = os.path.join(HERE, "oneprime_push.py")
 
+# Run-2 lesson (the degenerate-union catch): cos(pi t/(2a)) times
+# the integer harmonics recombines EXACTLY into half-integer
+# cosines, so in the even sector the p = 1 window family is a
+# linear recombination of fam1 -- the NCOS = NSM = 24 union
+# collapsed to dim 24 and the optimizer merely re-derived the
+# cos-24 trial (Temple-exhausted at 3 digits). The S5-winning
+# p1n32 span reaches the half-integer modes 24.5..32.5 that the
+# cap excluded; NSM = 32 restores them, and Rmax rises to 9000 so
+# the new top frequency (~a-dependent, up to ~295) keeps the
+# S-truncation below exploit scale (~2e-7 in sigma^2).
 NCOS = 24
-NSM = 24
-RMAX, NR = 6000.0, 1200001
+NSM = 32
+RMAX, NR = 9000.0, 1800001
 CHUNK = 10001
 
 
@@ -162,7 +172,7 @@ def run():
     cells = [("even", 0.6931), ("even", 0.80), ("even", 0.85),
              ("even", 0.90), ("even", 0.95), ("even", 1.00),
              ("even", 1.05), ("even", 1.09),
-             ("odd", 0.90), ("odd", 1.09)]
+             ("odd", 0.90), ("odd", 1.05), ("odd", 1.09)]
     for parity, delta in cells:
         a = delta/2
         tg, dt, raw, Wh = raw_basis(a, parity)
