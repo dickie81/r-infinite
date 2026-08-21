@@ -1,0 +1,31 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "d0a00800c5cf8319129c518dbe0864c637f7e1357b4929de358a629d8e46d5d0",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"height_uniformity.py": "d6a654cd273aa0b64eccf7dd32f945ef525db14233d15b3040022bcfa3cf33c7",
+"height_arith.py": "1329ca4490c3cf1f4ed268afeb46f4d33346a002bf73bde702eb01d910bd515b"
+},
+"A": 2.5,
+"t0": 880.0,
+"c": 120.0,
+"Tz": 1196.53,
+"s_step": 0.03,
+"kmax": 810,
+"z_sha": "0966cdd9055a5e90"
+},
+"state": {
+"A": 2.5,
+"t0": 880.0,
+"Tz": 1196.5346717486711,
+"NR": 199423,
+"mW": 0.14182991887000837,
+"mZ": 0.14165339444578476,
+"rel": 0.00016508790532386052,
+"arch": 4.921308058848732,
+"prime": -4.779456825010609,
+"nprimes": 48
+}
+}
