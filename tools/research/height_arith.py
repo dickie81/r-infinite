@@ -71,6 +71,15 @@ def _zsha(a):
 
 
 C0 = 120.0
+SCUT = 2000.0    # symmetric s-window on BOTH sides (run 2): the
+                 # run-1 full-window build failed at A = 3 -- the
+                 # mirror ordinates reach |s| ~ 15,400, far beyond
+                 # the 3000-node quadrature's ~2400 validity
+                 # (witness_offline's own header), aliasing both
+                 # sides (m_Z 2.28 vs the real-path 6.5e-8).
+                 # Matching the windows in s keeps every evaluated
+                 # |s| <= 2000 and drops identical content from
+                 # both forms (leakage-negligible to the section).
 XG3, WG3 = np.polynomial.legendre.leggauss(3000)
 TGX, TGW = np.polynomial.legendre.leggauss(600)
 S_STEP = 0.03
@@ -145,9 +154,12 @@ def pole_vecs_A(S, tau0, Ap):
 
 
 def arch_true_A(S, tau0, Ap, Tz, chunk=15000):
-    """True-gauge ARCH over the MATCHED horizon [-Tz, Tz]."""
-    NR = int(2*Tz*Ap/S_STEP) | 1
-    r = np.linspace(-Tz, Tz, NR)
+    """True-gauge ARCH over the s-matched window |s| <= SCUT,
+    intersected with the ordinate coverage [-Tz, Tz]."""
+    rlo = max(-Tz, tau0 - SCUT/Ap)
+    rhi = min(Tz, tau0 + SCUT/Ap)
+    NR = int((rhi - rlo)*Ap/S_STEP) | 1
+    r = np.linspace(rlo, rhi, NR)
     ker = np.real(scipy_digamma(0.25 + 0.5j*r)) - np.log(np.pi)
     dr = r[1] - r[0]
     AT = np.zeros((S.n, S.n), dtype=complex)
@@ -163,6 +175,7 @@ def arch_true_A(S, tau0, Ap, Tz, chunk=15000):
 
 def zform_A(S, Z, tau0, Ap):
     s = np.concatenate([(Z - tau0)*Ap, (-Z - tau0)*Ap])
+    s = s[np.abs(s) <= SCUT]
     Vb = S.vhat(s.astype(complex), Ap)
     if Vb.shape[0] != len(s):
         Vb = Vb.T
@@ -179,6 +192,7 @@ def run():
         Tz = float(Z.max()) + 0.5
         params = {"deps": DEPSP2, "A": Ap, "t0": t0, "c": C0,
                   "Tz": round(Tz, 2), "s_step": S_STEP,
+                  "s_cut": SCUT,
                   "kmax": kmax, "z_sha": _zsha(Z)}
         name = f"arith_A{Ap:.1f}_t{int(t0)}".replace(".", "p")
         st = ckpt_key.load(name, KEYFILE, params)
