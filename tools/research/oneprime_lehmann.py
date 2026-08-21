@@ -94,14 +94,15 @@ DEPSL = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
 KEYFILE = os.path.join(HERE, "oneprime_lehmann.py")
 
 NNY = 260          # Nystrom order
-BASE = 0.005       # the round-3 pipeline's quadrature base here
-NUGRID = (0.002, 0.005, 0.01, 0.02, 0.04, 0.08, 0.15)
-BETAGRID = (1.0, 1.5, 2.0, 2.5, 3.0)
+BASE = 0.003       # the round-3 pipeline's quadrature base here
+NUGRID = (0.002, 0.005, 0.01, 0.013, 0.015, 0.02, 0.03, 0.04,
+          0.08, 0.15)
+BETAGRID = (1.0, 1.5, 2.0, 2.5, 3.0, 3.5)
 UMAX = 1.2         # covers 2a for every cell in the window
 
 _qcache = {}
 
-def qt_profile(nu, beta, rmax=700.0):
+def qt_profile(nu, beta, rmax=1500.0):
     """qtcheck(u) on a fine u-grid (CELL-INDEPENDENT: qt depends
     only on the kernel), returned as a cubic spline plus the exact
     trace ingredients; cached per (nu, beta). The r-grid at
