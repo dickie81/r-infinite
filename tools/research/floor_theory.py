@@ -37,7 +37,8 @@ RESULT (the three-phase record; phases run and checkpointed):
   D1 CONFIRMED -- THE LEAKAGE IDENTITY. On the climb the margin IS
      the out-of-band sampled energy (in-band residual 1e-3 to 1e-4
      of the margin); the density x continuous-leakage approximation
-     holds within a factor ~2 at the median, with two climb points
+     holds within a factor ~2.5 at the median (2.44 measured;
+     round-241 F6), with two climb points
      at factor ~20 (round-240 F1: the landing's "~2-3" understated
      the tail; the g1 window [0.03, 0.8] is the honest bound),
      systematically below 1 because the
@@ -54,7 +55,9 @@ RESULT (the three-phase record; phases run and checkpointed):
      The per-mode rate follows the Landau-Widom logit form
      pi^2/ln(kappa c) with kappa ~ 3-4 drifting; the predicted
      beta declines 1.63 -> 1.31 over c = 60 -> 170 -- WITHIN the
-     certified "approximately c-flat" +-15% scatter: c-flatness
+     certified "approximately c-flat" +-0.15 decades-per-zero
+     scatter (+-14% at its center; round-241 F5 aligned this
+     carrier with the round-240 F4 paper fix): c-flatness
      and the LW slow decline are indistinguishable at measured
      precision, and beta's closed form is the LW slope doubled.
   THE DISCOUNT LAW (phase 2, part A). Jitter lowers the margin
@@ -66,8 +69,10 @@ RESULT (the three-phase record; phases run and checkpointed):
      -0.498 +- 0.03, brackets the certified true-zero R(260) =
      -0.40 at +0.4 sd.
   THE DRIFT VERDICT (phase 3; phase 2's band-comb Part B is
-     SUPERSEDED -- its truncation depressed the twins by the D1
-     mechanism itself, 0.44 decades at (2, 260)). With full
+     SUPERSEDED -- its truncation depressed the BAND COMB by the D1
+     mechanism itself, 0.44 decades at (2, 260), the twins 0.38
+     (round-241 F1: the round-240 F2 noun fix had missed this
+     second carrier)). With full
      certified coverage (kmax 380/810/2270) and per-height budget
      variance, the certified d ~ 5.4 race triple sits at
      z = +0.38 / +1.55 / +0.41 in the twin ladders -- typical at
@@ -82,9 +87,12 @@ RESULT (the three-phase record; phases run and checkpointed):
   THE DERIVED FORM OF THE HEIGHT-STATIONARITY CONJECTURE: the
   matched-deficit margin declines like the discount of the
   Mertens budget, Delta log10 m ~ -g x Delta(ln ln T)/pi^2 with
-  g the measured discount slope -- roughly a quarter decade per
-  unit of ln ln growth at these regimes, i.e. under half a
-  decade per MILLION-fold height increase. The race curve is
+  g the measured discount slope -- at the measured rate ~0.6
+  decades per unit of ln ln growth (the span: -0.245 over
+  Delta ln ln = 0.395), about one decade per MILLION-fold height
+  increase from these heights (round-241 F2: the first writing's
+  quarter-decade and half-decade glosses understated the measured
+  drift ~2.5x). The race curve is
   flat-modulo-budget-drift, and the certified data confirms the
   drift's sign and central magnitude at the first opportunity.
 

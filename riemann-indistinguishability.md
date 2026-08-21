@@ -5877,7 +5877,8 @@ growing across the crossing), then the derivation of the certified
 leakage identity.* On the climb the dodging margin IS the
 minimizer's out-of-band sampled energy — the in-band residual is
 10⁻³–10⁻⁴ of the margin (gated g1) — and the density × continuous
-leakage approximation holds within a factor ~2 at the median —
+leakage approximation holds within a factor ~2.5 at the median
+(2.44 measured; round-241 F6) —
 with two climb points at factor ~20, the spread the g1 window
 [0.03, 0.8] honestly bounds *(round-240 F1: the landing's
 unscoped "~2–3" understated the tail)* — systematically below
@@ -5897,7 +5898,7 @@ drifting (gated g4 across c = 60/90/120/170), predicting β
 declining 1.63 → 1.31 over that span — **within the certified
 "approximately c-flat" ±0.15 decades-per-zero scatter — ±14% at
 its center *(round-240 F4: the landing's "±15%" unit-switched
-the certified absolute bound)* — : c-flatness and the LW slow
+the certified absolute bound)*: c-flatness and the LW slow
 decline are indistinguishable at measured precision**, and β's
 closed form is the LW slope doubled. *(v) The discount law
 (measured).* Jitter lowers the margin — the min's concavity — by
@@ -5917,9 +5918,12 @@ the triple at 2.5× *(round-240 F7)*) **matches the
 predicted budget drift** (comb geometry −0.02 + discount growth
 −0.24 = −0.26 decades) centrally (gated g8). The
 height-stationarity conjecture's derived form: **flat modulo the
-budget drift**, Δlog₁₀m ≈ −g·Δ(ln ln T)/π² — roughly a quarter
-decade per unit of ln ln growth, under half a decade per
-million-fold height increase. *(vii) The self-correction on the
+budget drift**, Δlog₁₀m ≈ −g·Δ(ln ln T)/π² — at the measured
+rate ≈ 0.6 decades per unit of ln ln growth (the certified span:
+−0.245 over Δ ln ln = 0.395), about one decade per million-fold
+height increase from these heights *(round-241 F2: the landing's
+"quarter decade" and "under half a decade" glosses understated
+the block's own measured drift ~2.5×)*. *(vii) The self-correction on the
 record.* The first drift attempt (band combs, window + 40 slack)
 was refuted by the derivation's own leakage identity — truncating
 distant samples removes exactly the energy the margin consists of,

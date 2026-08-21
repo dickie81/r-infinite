@@ -84,7 +84,9 @@ RESULT (run complete; census over 2270 ordinates, seven cutoffs):
 
   THE DELIVERABLE MEASURED: from primes alone, zero locations to
   ~0.02-0.03 mean spacings rms at the height-matched cutoff
-  (~50x better than the comb), with the comb's budget-priced
+  (~10-13x better than the comb; round-241 F3 corrected the
+  first writing's ~50x against the census's own 0.251/0.019 =
+  13.2x), with the comb's budget-priced
   0.25-0.28 floor as the zero-arithmetic baseline. No
   computational novelty claimed (Riemann-Siegel-class classical
   bookkeeping); the additions are the calibrated error laws and

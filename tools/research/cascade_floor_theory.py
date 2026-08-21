@@ -11,7 +11,8 @@ phase states (content-keyed per the post-eighth-catch law: every
 producing file in every key) plus the crossing-null state, and
 gates the derivation's claims.
 
-Gates (twelve):
+Gates (thirteen, g0-g12; round-240 F5, applied at the round-241
+sweep -- the first application was lost to a script abort):
   g0  pins set
   g1  the leakage identity: the in-band residual <= 3e-3 of the
       margin at every deep climb point (t0 <= 290), and the

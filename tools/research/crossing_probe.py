@@ -78,7 +78,8 @@ calibrations 1.0009/1.0184 -- the 1be protocol values):
      itself: unconditioned count sd 0.25-0.68 (P(nb > target)
      0.01-0.30), and the unconditioned and conditioned
      zeta-profile distributions are near-identical (medians
-     within 0.08 decades at every point). The saturated Mertens
+     within 0.09 decades at every point -- 0.086 at tau0 = 330;
+     round-241 F7 corrected the 0.08). The saturated Mertens
      budget -- Berry's number-variance saturation, seen in
      dodging economics -- pins the in-band count at the
      crossing: a pair-correlation-budget universe almost never
