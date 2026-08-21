@@ -45,7 +45,52 @@ classical. Check 8: no hypothesis input. Keying per the standing
 law (A361): every ladder keyed on the producing modules' shas,
 the full config, and the ordinate CONTENT (z_sha).
 
-RESULT: appended after the run by the analysis pass.
+RESULT (both ladder sets complete; the first run's tau*-straddling
+design missed the high-A climbs -- the climb width stretches as
+tau0*A/(2c) per zero -- and was replaced by the deficit ladders,
+both runs on the record):
+
+  (1) THE tau* LAW HOLDS OUT-OF-SAMPLE ACROSS A FACTOR ~20 IN
+      HEIGHT: lift-off tracks tau*(A) = 2pi e^(2A) at every rung
+      (A = 1.5: the climb straddles 126.2 exactly, numerical zero
+      below 100, 1.5e-7 by 130; A = 2.5 and 3.0: the
+      deficit-parameterized calendar anchored at tau* lands every
+      point on the predicted climb). The formula, derived at
+      A = 2, is verified at 127, 343, 933, 2535.
+  (2) THE TIGHT MEAN IS APERTURE-INDEPENDENT: Q(top) =
+      ln(tau0/2pi) at every rung (rel <= 0.11% at A = 1.5, <= 2%
+      at 2.5, <= 3.7% at 3.0 -- the scatter grows as the gamma-band
+      narrows and Q(top) becomes feature-local, consistent with
+      the saturation attack).
+  (3) THE FLOOR LAW IS HEIGHT-UNIFORM OVER THE MEASURED SPAN --
+      the arc's headline. At matched count deficit the climb
+      slope is the same at every aperture (beta = 1.14 / 1.38 /
+      1.31 / 1.30 decades per zero at A = 1.5/2/2.5/3, inside the
+      known recipe scatter), and the deep-margin scale at matched
+      deficit is height-STABLE for A >= 2: at d ~ 5.4, m =
+      1.14e-7 / 1.10e-7 / 6.5e-8 at heights 260 / 630 / 1580 --
+      within 2x across a 6x height span; at d ~ 8.4, 8.1e-11 /
+      9.7e-11 at heights 550 / 1350. THE RACE CURVE IS FLAT SO
+      FAR: the critical window's positivity information does not
+      degrade with height over the measured factor ~20.
+  (4) THE LOW-HEIGHT ANOMALY (open): the A = 1.5 rung sits 4-5
+      decades BELOW the uniform scale at matched deficit
+      (d ~ 4.4: 4.7e-11 vs 1.8e-5/2.6e-5 at A = 2.5/3). Candidate
+      mechanism: mirror proximity -- at tau0 ~ 110-130 the
+      reflected ordinates sit only ~66 s-units beyond the band
+      edge (vs ~400+ at A >= 2), adding effective constraints the
+      band count does not see; low-height spacing statistics are
+      the alternative. Unresolved; the uniformity claim in (3) is
+      scoped to A >= 2 accordingly.
+
+Honest scope: c = 120 only; four apertures; heights <= 2780;
+zero-side margins (Phase 2 owed: the arithmetic side at A != 2 --
+the prime cutoff e^(2A) moves with the dial and the 1bg closure
+is verified only at A = 2); the deep-margin statistic is
+ladder-sampled, not an extreme-value census; no RH leverage
+claimed -- this is the uniformity STRUCTURE measured, not a
+uniform theorem. The race's second axis (the detection budget vs
+height) is unmeasured.
 """
 import hashlib, math, os, sys
 
