@@ -30,7 +30,42 @@ Check 8: no hypothesis input. Keying per the standing law (A361):
 DEPS = the producing modules (incl. height_uniformity.py, whose
 ASect this imports); params carry the config + z_sha.
 
-RESULT: appended after the run by the analysis pass.
+RESULT (E1 + the follow-on E3 gradient test; both hypotheses on
+the commissioning record are REFUTED and the anomaly is RESOLVED):
+
+  E1 MIRROR ABLATION -- H1 refuted, with the sign lesson: Q_mirror
+     is PSD, so mirrors can only RAISE margins (m_full >= m_dir
+     identically); the ablated margins are MORE anomalous (m_dir /
+     m_full = 0.003-0.8 on the A = 1.5 ladder), and the far-mirror
+     control moves <= 3%. Mirror proximity cannot produce a
+     depression; the commissioning hypothesis had the sign
+     backwards.
+  E3 THE GRADIENT TEST -- H3 (deterministic band geometry)
+     CONFIRMED, H2 (low-height statistics) refuted with it: the
+     smooth-counting comb (inv_Nbar positions -- the density
+     gradient with NO fluctuations) reproduces the anomalous depth
+     at both A = 1.5 points (7.5e-12 vs the zeros' 4.7e-11 at
+     tau0 = 116.5; 3.4e-7 vs 1.5e-7 at 130) while the
+     constant-density comb sits 7-9 DECADES higher (1.0e-2 /
+     2.26); at the A = 3 control all three agree within 2x.
+     MECHANISM: at A = 1.5 the local Nyquist line L(gamma) = 2A
+     sits at gamma = 126, INSIDE the +-80 band -- the low-gamma
+     side is sub-Nyquist (free directions) at every tau0 near the
+     crossing, so the transition smears across the band instead of
+     being a sharp tau0-event. The relative density variation
+     across the band scales like (c/A)/tau* -- negligible for
+     A >= 2 at c = 120, order-unity at A = 1.5.
+     (The minimizer band-position diagnostic returned
+     high-gamma-edge peaks, opposite the naive sub-Nyquist-camp
+     expectation -- recorded, not interpreted; the margin verdict
+     does not rest on it.)
+
+NET: the height-uniformity RESULT's low-height anomaly is a
+COMPUTABLE, deterministic geometry correction (the band-integrated
+local deficit replaces the point deficit when the band straddles
+the local Nyquist line), not a height effect and not arithmetic:
+the uniformity claim strengthens -- no measured deviation from
+height uniformity remains anywhere in the arc.
 """
 import hashlib, math, os, sys
 

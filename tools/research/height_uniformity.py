@@ -80,8 +80,15 @@ both runs on the record):
       reflected ordinates sit only ~66 s-units beyond the band
       edge (vs ~400+ at A >= 2), adding effective constraints the
       band count does not see; low-height spacing statistics are
-      the alternative. Unresolved; the uniformity claim in (3) is
-      scoped to A >= 2 accordingly.
+      the alternative. [RESOLVED at the anomaly attack,
+      height_anomaly.py: BOTH hypotheses refuted -- mirrors can
+      only raise margins (PSD), and the smooth-counting comb with
+      no fluctuations reproduces the anomaly while the
+      constant-density comb sits 7-9 decades higher. The cause is
+      the deterministic density gradient: at A = 1.5 the local
+      Nyquist line sits inside the band and the crossing smears.
+      A computable geometry correction; the uniformity claim in
+      (3) stands without a height-effect exception.]
 
 Honest scope: c = 120 only; four apertures; heights <= 2780;
 zero-side margins (Phase 2 owed: the arithmetic side at A != 2 --
