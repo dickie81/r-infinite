@@ -48,6 +48,51 @@ Check 7: classical explicit-formula bookkeeping, Newton iteration,
 prime sums -- no semiclassics, no cascade quantity. Check 8: no
 hypothesis input. Keying per the standing law: every producing
 file in every key; ordinates by z_sha.
+
+RESULT (run complete; census over 2270 ordinates, seven cutoffs):
+
+  Q3 THE EXHIBIT: gamma_1 = 14.5213 (comb) -> 14.1627 (TWO primes)
+     -> 14.1400 (P = 10) -> 14.1349 (P = 100) against 14.1347.
+  Q1 HOLDS UNDER THE INDEX CONVENTION -- and the as-coded overlay
+     was the wrong convention, recorded: the committed pred column
+     used Var = (ln ln + M + 1)/(2 pi^2), the fixed-shift bracket,
+     overstating the comb rms at 0.37-0.39; the 1be INDEX-sampling
+     conversion (subtract the sawtooth 1/6 in D units before
+     halving) gives 0.223 / 0.252 / 0.266 against the measured
+     0.251 / 0.268 / 0.282 -- 6-11% low at every band, and the
+     height GROWTH matches (x1.12 measured vs x1.19 predicted over
+     a x6 height span): the comb error is the budget, pointwise,
+     nearly height-flat -- the race curve's third face.
+  Q2 THE DEPARTURE, FOUND AS PRE-REGISTERED -- AND TWO-SIDED. The
+     refinement ladder improves to a HEIGHT-DEPENDENT optimum --
+     rms 0.019 at P* ~ 100 (low band), 0.026 at P* ~ 1000 (mid),
+     0.027 at P* ~ 1e4 (high; decade-resolution on P*) -- the
+     effective-resolution cutoff growing with height, the horizon
+     law in predictor form. BEYOND P* the predictor DEGRADES
+     (low-band rms 0.019 -> 0.155 by P = 3e4, worst error 1.31
+     spacings): the divergent-series noise of the un-smoothed
+     tail, the same computed-negligible lesson as the pole rule --
+     terms beyond the height's resolution add noise, not signal.
+     And the naive residual overlay FAILS BELOW at moderate P
+     (measured 0.019 vs predicted-residual 0.274 at P = 100):
+     the unresolved-budget subtraction needs the height-resolved
+     effective cutoff, not the raw ln ln P -- the pre-registered
+     failure mode fired for the RESIDUAL FORM while the TOTAL
+     (comb) budget held, and both are recorded.
+
+  THE DELIVERABLE MEASURED: from primes alone, zero locations to
+  ~0.02-0.03 mean spacings rms at the height-matched cutoff
+  (~50x better than the comb), with the comb's budget-priced
+  0.25-0.28 floor as the zero-arithmetic baseline. No
+  computational novelty claimed (Riemann-Siegel-class classical
+  bookkeeping); the additions are the calibrated error laws and
+  their agreement with the certified budget. HONEST SCOPE: one
+  taper (cosine, disclosed -- P* and the post-P* degradation are
+  taper-conditioned); decade-resolution P ladder; heights <= 2796;
+  errors measured against mpmath ordinates (dps 13/15). No RH
+  leverage claimed -- the predictor's residual IS the unresolved
+  prime sum, and its good behavior is the no-conspiracy property
+  RH quantifies, not evidence for it.
 """
 import hashlib, math, os, sys
 
