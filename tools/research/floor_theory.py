@@ -29,7 +29,71 @@ composition:
        0.18-0.42 band.
 
 All deterministic (the comb configuration -- zero jitter); the twin's
-jitter discount and the height drift are phase 2. Check 7: Slepian
+jitter discount and the height drift are phase 2 (floor_theory2.py)
+and phase 3 (floor_theory3.py -- the full-coverage drift rerun).
+
+RESULT (the three-phase record; phases run and checkpointed):
+
+  D1 CONFIRMED -- THE LEAKAGE IDENTITY. On the climb the margin IS
+     the out-of-band sampled energy (in-band residual 1e-3 to 1e-4
+     of the margin); the density x continuous-leakage approximation
+     holds to a factor ~2-3, systematically below 1 because the
+     minimizer also dodges the NEAR out-of-band samples.
+  D2 DERIVED EXACTLY -- THE CONSTRAINT PRICE. The minimizer's
+     occupancy edge advances +2.00 modes per in-band zero (fit over
+     the full climb): one complex vanishing condition = two real
+     constraints on the real-coefficient section. The certified
+     1bg "~2 modes per added zero" open remainder is closed.
+  D3 COMPOSED TO 10% -- AND THE C-FLATNESS DEFLATED. beta_comb =
+     (edge advance 2.00) x (per-mode leakage decade-rate of the
+     section's computed spectrum): 1.41 composed vs 1.28 measured
+     at c = 120 (the minimizer spreads beyond a single edge mode).
+     The per-mode rate follows the Landau-Widom logit form
+     pi^2/ln(kappa c) with kappa ~ 3-4 drifting; the predicted
+     beta declines 1.63 -> 1.31 over c = 60 -> 170 -- WITHIN the
+     certified "approximately c-flat" +-15% scatter: c-flatness
+     and the LW slow decline are indistinguishable at measured
+     precision, and beta's closed form is the LW slope doubled.
+  THE DISCOUNT LAW (phase 2, part A). Jitter lowers the margin
+     (the min's concavity); at the physical budget sigma the
+     discount is -0.50 / -0.60 / -1.17 decades at deep / crossing
+     / near-saturation (growing with the in-band count, the 1bc
+     trend), with regime-dependent sigma-form (~sigma^1.3 deep,
+     ~sigma^2 at the crossing). The twin discount at (120, 260),
+     -0.498 +- 0.03, brackets the certified true-zero R(260) =
+     -0.40 at +0.4 sd.
+  THE DRIFT VERDICT (phase 3; phase 2's band-comb Part B is
+     SUPERSEDED -- its truncation depressed the twins by the D1
+     mechanism itself, 0.44 decades at (2, 260)). With full
+     certified coverage (kmax 380/810/2270) and per-height budget
+     variance, the certified d ~ 5.4 race triple sits at
+     z = +0.38 / +1.55 / +0.41 in the twin ladders -- typical at
+     every height, three quasi-independent samples. And the
+     drift: the certified triple's own small decline (-0.245
+     decades from height 260 to 1580 -- recorded as "flat within
+     2x") matches the twin's predicted budget drift (comb
+     geometry -0.02 + discount growth -0.24 = -0.26 decades from
+     sigma^2 growing 0.094 -> 0.134) centrally, well within the
+     single-realization scatter (+-0.26/point).
+
+  THE DERIVED FORM OF THE HEIGHT-STATIONARITY CONJECTURE: the
+  matched-deficit margin declines like the discount of the
+  Mertens budget, Delta log10 m ~ -g x Delta(ln ln T)/pi^2 with
+  g the measured discount slope -- roughly a quarter decade per
+  unit of ln ln growth at these regimes, i.e. under half a
+  decade per MILLION-fold height increase. The race curve is
+  flat-modulo-budget-drift, and the certified data confirms the
+  drift's sign and central magnitude at the first opportunity.
+
+  HONEST SCOPE: the composition is leading-order (10% residual);
+  the discount law is measured, its form not derived; the drift
+  agreement is one realization per height against ensembles of
+  80 (sd ~0.26) -- consistency at z <= 1.6, not a sharp
+  confirmation; c = 120 only for the drift; the twin model's
+  completeness is itself the measured 1be/crossing-probe result,
+  not a theorem. No RH leverage claimed -- the derivation prices
+  the instrument's behavior under the second-order null; it says
+  nothing about why the zeros obey that null. Check 7: Slepian
 concentration spectra, finite eigenproblems -- classical. Check 8: no
 hypothesis input. Keying per the standing law: every producing file
 in the key (this file + fold_D + fold_surrogate), full config,
