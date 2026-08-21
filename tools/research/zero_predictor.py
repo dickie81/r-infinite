@@ -58,10 +58,12 @@ RESULT (run complete; census over 2270 ordinates, seven cutoffs):
      used Var = (ln ln + M + 1)/(2 pi^2), the fixed-shift bracket,
      overstating the comb rms at 0.37-0.39; the 1be INDEX-sampling
      conversion (subtract the sawtooth 1/6 in D units before
-     halving) gives 0.223 / 0.252 / 0.266 against the measured
-     0.251 / 0.268 / 0.282 -- 6-11% low at every band, and the
-     height GROWTH matches (x1.12 measured vs x1.19 predicted over
-     a x6 height span): the comb error is the budget, pointwise,
+     halving, at each band's own stored Tmid -- round-240 F3: the
+     first writing's low-band 0.223 used the 1be T0 = 320 anchor
+     the other bands did not) gives 0.231 / 0.252 / 0.266 against
+     the measured 0.251 / 0.268 / 0.282 -- 6-8% low at every band,
+     and the height GROWTH matches (x1.12 measured vs x1.15
+     predicted over a x6 height span): the comb error is the budget, pointwise,
      nearly height-flat -- the race curve's third face.
   Q2 THE DEPARTURE, FOUND AS PRE-REGISTERED -- AND TWO-SIDED. The
      refinement ladder improves to a HEIGHT-DEPENDENT optimum --

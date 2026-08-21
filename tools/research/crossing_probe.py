@@ -92,13 +92,15 @@ calibrations 1.0009/1.0184 -- the 1be protocol values):
      0.990/0.990 -- the stiffness excess at the crossing.
   P3 CONFIRMED AND LARGER: conditioned-CUE medians sit
      0.85-1.36 decades below the zeta-profile null, the gap
-     GROWING across the crossing (0.94 -> 1.30 along the
-     ladder; the certified +0.710 was the 1bc grid's average).
+     GROWING across the crossing (0.93 -> 1.30 along the
+     ladder, per the stored endpoints -- round-240 F6; the certified +0.710 was the 1bc grid's average).
   P4 NOT TRIGGERED -- no formal deflation (the null does not
      concentrate above the zeros; 22-48% of its mass lies
      below them). THE SHARP FINDING SITS BESIDE IT: the zeros
      are STATISTICALLY TYPICAL OF THEIR SECOND-ORDER TWIN at
-     the crossing -- percentiles 0.22-0.53 vs the conditioned
+     the crossing -- percentiles 0.245-0.535 (round-240 F6
+     corrected 0.22-0.53: the 0.22 was the unconditioned
+     column's minimum) vs the conditioned
      zeta-profile ensemble at all six (heavily correlated)
      windows, mildly low-side, consistent with the certified
      1be shared-field percentile 15.6 (z = -0.79). The

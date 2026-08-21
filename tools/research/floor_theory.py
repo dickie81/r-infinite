@@ -37,7 +37,10 @@ RESULT (the three-phase record; phases run and checkpointed):
   D1 CONFIRMED -- THE LEAKAGE IDENTITY. On the climb the margin IS
      the out-of-band sampled energy (in-band residual 1e-3 to 1e-4
      of the margin); the density x continuous-leakage approximation
-     holds to a factor ~2-3, systematically below 1 because the
+     holds within a factor ~2 at the median, with two climb points
+     at factor ~20 (round-240 F1: the landing's "~2-3" understated
+     the tail; the g1 window [0.03, 0.8] is the honest bound),
+     systematically below 1 because the
      minimizer also dodges the NEAR out-of-band samples.
   D2 DERIVED EXACTLY -- THE CONSTRAINT PRICE. The minimizer's
      occupancy edge advances +2.00 modes per in-band zero (fit over

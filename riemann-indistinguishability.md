@@ -5877,9 +5877,12 @@ growing across the crossing), then the derivation of the certified
 leakage identity.* On the climb the dodging margin IS the
 minimizer's out-of-band sampled energy — the in-band residual is
 10⁻³–10⁻⁴ of the margin (gated g1) — and the density × continuous
-leakage approximation holds to a factor ~2–3, systematically
-below one because the minimizer also dodges the *near*
-out-of-band samples. *(iii) The constraint price, derived.* The
+leakage approximation holds within a factor ~2 at the median —
+with two climb points at factor ~20, the spread the g1 window
+[0.03, 0.8] honestly bounds *(round-240 F1: the landing's
+unscoped "~2–3" understated the tail)* — systematically below
+one because the minimizer also dodges the *near* out-of-band
+samples. *(iii) The constraint price, derived.* The
 minimizer's occupancy edge advances **+2.00 modes per in-band
 zero** (fit over the full climb, gated g2): one complex vanishing
 condition is two real constraints on the real-coefficient section
@@ -5892,7 +5895,9 @@ beyond a single edge mode (gated g3). The per-mode rate follows
 the Landau–Widom logit form π²/ln(κc) with κ ≈ 3–4 slowly
 drifting (gated g4 across c = 60/90/120/170), predicting β
 declining 1.63 → 1.31 over that span — **within the certified
-"approximately c-flat" ±15% scatter: c-flatness and the LW slow
+"approximately c-flat" ±0.15 decades-per-zero scatter — ±14% at
+its center *(round-240 F4: the landing's "±15%" unit-switched
+the certified absolute bound)* — : c-flatness and the LW slow
 decline are indistinguishable at measured precision**, and β's
 closed form is the LW slope doubled. *(v) The discount law
 (measured).* Jitter lowers the margin — the min's concavity — by
@@ -5907,7 +5912,8 @@ and per-height budget variance σ²(T) = (ln ln(T/2π) + Mertens +
 **z = +0.38/+1.55/+0.41 in the twin ladders** — typical at every
 height, three quasi-independent samples (gated g7) — and the
 triple's own small decline (−0.245 decades over heights
-260 → 1580, certified as "flat within 2×") **matches the
+260 → 1580, measured within 2× — the certification gate bounds
+the triple at 2.5× *(round-240 F7)*) **matches the
 predicted budget drift** (comb geometry −0.02 + discount growth
 −0.24 = −0.26 decades) centrally (gated g8). The
 height-stationarity conjecture's derived form: **flat modulo the
@@ -5917,7 +5923,9 @@ million-fold height increase. *(vii) The self-correction on the
 record.* The first drift attempt (band combs, window + 40 slack)
 was refuted by the derivation's own leakage identity — truncating
 distant samples removes exactly the energy the margin consists of,
-depressing the twins 0.44 decades at (2, 260) and pushing the
+depressing the band comb 0.44 decades at (2, 260), the twins
+0.38 *(round-240 F2: the landing attached the comb's number to
+the twins)*, and pushing the
 certified values to spuriously high percentiles; the mechanism is
 gated as a demonstration (g9) and the full-coverage rerun is the
 verdict. *Remark (the classical spine, noted — not consumed).*
