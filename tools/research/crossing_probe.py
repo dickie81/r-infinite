@@ -69,6 +69,64 @@ THIS file; full config + z_sha in params.
 Check 7: Slepian sections, Gaussian fields, classical zeros as data
 -- no semiclassics, no cascade quantity derived. Check 8: no
 hypothesis input.
+
+RESULT (run complete; 200 draws/ensemble at each of six tau0;
+calibrations 1.0009/1.0184 -- the 1be protocol values):
+
+  P1 REFUTED IN ITS STATED FORM -- and the refutation is the
+     finding. The count channel is SUPPRESSED by the budget
+     itself: unconditioned count sd 0.25-0.68 (P(nb > target)
+     0.01-0.30), and the unconditioned and conditioned
+     zeta-profile distributions are near-identical (medians
+     within 0.08 decades at every point). The saturated Mertens
+     budget -- Berry's number-variance saturation, seen in
+     dodging economics -- pins the in-band count at the
+     crossing: a pair-correlation-budget universe almost never
+     produces an uninformative crossing at this aperture
+     (floor-frac 0.00 everywhere; P(m < 1e-6) = 0 beyond
+     tau0 = 300). The blind mass P1 predicted does not exist;
+     the crossing climb is nearly deterministic for zeta-class
+     configurations.
+  P2 CONFIRMED: the zeros sit in the conditioned-CUE upper tail
+     at every point -- percentiles 0.885/0.780/0.970/0.960/
+     0.990/0.990 -- the stiffness excess at the crossing.
+  P3 CONFIRMED AND LARGER: conditioned-CUE medians sit
+     0.85-1.36 decades below the zeta-profile null, the gap
+     GROWING across the crossing (0.94 -> 1.30 along the
+     ladder; the certified +0.710 was the 1bc grid's average).
+  P4 NOT TRIGGERED -- no formal deflation (the null does not
+     concentrate above the zeros; 22-48% of its mass lies
+     below them). THE SHARP FINDING SITS BESIDE IT: the zeros
+     are STATISTICALLY TYPICAL OF THEIR SECOND-ORDER TWIN at
+     the crossing -- percentiles 0.22-0.53 vs the conditioned
+     zeta-profile ensemble at all six (heavily correlated)
+     windows, mildly low-side, consistent with the certified
+     1be shared-field percentile 15.6 (z = -0.79). The
+     crossing's positivity depth is fully priced by the
+     pair-correlation prime budget as far as this instrument
+     resolves: no arithmetic stiffness beyond second order is
+     visible AT the crossing.
+
+  THE LOCALIZATION DELIVERED: at this aperture and height,
+  "what RH needs beyond Montgomery pair correlation" has a
+  measured answer at the crossing -- nothing this instrument
+  can detect. The sign-informative structure of the crossing
+  is second-order-complete at n = 200 x 6 resolution, and the
+  count channel that could have carried sign risk is closed by
+  the budget's own saturation. Door (ii) stands NOT because
+  the crossing is fluctuation-fragile (it is not, for
+  zeta-class configurations) but because the second-order
+  model's completeness is itself only measured, not proved --
+  the residual door is exactly the twin-equivalence's height-
+  and aperture-uniformity, which is Door (i)'s territory.
+
+  HONEST SCOPE: one aperture (A = 2), one bandwidth (c = 120),
+  one height band (~290-340); the six windows overlap heavily
+  (width 120 vs spacing 10), so the zeros' six percentiles
+  carry ~1-2 independent samples, and the low-side tendency is
+  a consistency note, not a detection; 200 draws bound the
+  resolvable tail at ~0.5%; the true zeros are one realization.
+  No RH leverage claimed.
 """
 import hashlib, math, os, sys
 
