@@ -156,7 +156,7 @@ round-167 rebuild and the 168-173 needle advances).
        (unit_ball_rh 13/0, transitively chaining windows_overlap,
        riemann_selection, type_counting, and the two Weil-arc
        siblings); g12 the footer census (this script backticked;
-       "84 scripts cited in place"; "Theorems 1i-1bh").
+       "85 scripts cited in place"; "Theorems 1i-1bi").
 
 Sabotage record.  THE LANDING'S ENTRIES (below) were certified
 against the LANDING gate set; the round-167 rebuild (g1/g4/g6/g9/
@@ -657,10 +657,10 @@ gate("g11 the sibling chain green after the census advance "
      "siblings)", ok)
 
 ok = "`cascade_concentration_regrade.py`" in paper
-ok &= "84 scripts cited in place" in paper
-ok &= "Theorems 1i–1bh" in paper
+ok &= "85 scripts cited in place" in paper
+ok &= "Theorems 1i–1bi" in paper
 gate("g12 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 84 cited in place; the range 1i–1bh "
+     "this script backticked; 85 cited in place; the range 1i–1bi "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
