@@ -1,4 +1,0 @@
-
-## Addendum 362 — round 236: one quantifier, one reflow; the keying arc's last prose locus
-
-Round 236 on the round-235 sweep: NOT CONVERGED by a single minor — floor_probe.py's "EVERY stage input in the key," true of the landing's content-keyed families but false of the instrument's own intent-keyed runs, and standing in direct contradiction to the corrected sibling prose. Struck at the locus; the docstring edit's content-addressing tax (a full stage recompute) paid; 15/15 with every pin reproduced. The reviewer's eighth-catch hunt over every ckpt_key.load site in the suite came back empty at the checkpoint level — the keying law (content, never intent, never fingerprint) now has no undisclosed exception on any committed surface, with the attack instruments' own intent-keyed runs disclosed as such at every locus that describes them. Convergence round 237 next; Theorem 1bg certification pends it.

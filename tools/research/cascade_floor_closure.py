@@ -44,8 +44,8 @@ instrument and RESULT):
 (4) THE DEFECT CLOSURE (floor_probe5.py): the residual is the
     arch/zero HORIZON MISMATCH, entirely -- quadrature share zero
     (NR/2 = base = NRx2 to every printed digit; round-235 F7);
-    matching the arch window to the ordinate coverage collapses
-    the defect 40-70x, and with
+    matching the arch window to the ordinate coverage
+    collapses the defect 40-70x, and with
     the 660-ordinate list at matched +-1013 it is 2-3e-5,
     tau0-uniform. The g4 ratio dm/m = +0.019/+0.047/+0.001 at the
     code windows -> -0.000/-0.001/+0.000 matched: THE CERTIFIED

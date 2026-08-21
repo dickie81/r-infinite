@@ -4853,3 +4853,21 @@ One cosmetic (C1, held per the rounds 17/21/24/27/29 precedent, batched to the n
 **Sweep battery (full-tower class):** the consolidated + conjugacy + defect families recomputed under the completed keys (probe3/4 edits cascade through DEPS3/DEPS5), every pin reproduced, 15/15; probes (b)/(c) live post-sweep (REUSED + g1 alone; census revert → g13+g14); reachability sweep 76/76 present, 52 stale removed; the 15 tower ancestors remain byte-identical to the recorded TOWER PASS 16/16, the TOP live at 15/15.
 
 **Trajectory: 1bg landed → 234: 0M+5m+4c (swept ac8281f + ff56a0e) → 235 NOT CONVERGED 5m+2c (swept dc1f98a + dcbd48b). Convergence round 236 next; Theorem 1bg certification pends it.**
+
+
+# Round 236: convergence test on the round-235 sweep (subagent, per protocol) — NOT CONVERGED: 1 minor + 1 cosmetic; swept
+
+**Reviewer's batteries:** manifest precheck no-op; the verifier live (REUSED, 15/15); its own probes — a needle mangle (g14 alone) and the decisive F235-1 mechanism observed live (an interior-corrupted zext chunk → the consolidated load prints RECOMPUTING, no stale reuse possible); two no-edit key computations (the clean key matches the committed filename; a corrupted extension moves it); tower by byte-identity (only the TOP changed since the recorded 16/16) with the TOP live. Every round-235 disposition verified at its locus against data; the eighth-catch hunt over all 24 ckpt_key.load sites came back empty at the checkpoint level.
+
+**The finding, lead-verified and accepted:** **F236-1 minor** — floor_probe.py's docstring claimed "EVERY stage input in the key" while its own runs are intent-keyed (the disclosed attack-run status), contradicting the sibling prose the round-235 sweep wrote. Swept: the quantifier struck at the locus with the intent-keyed status disclosed and the landing's content-keyed re-keying cited. **C236-1 cosmetic** (docstring line wraps) swept in the same commit.
+
+**Sweep battery:** the floor_probe.py docstring edit self-invalidated every family keying its sha (the content-addressing tax, paid in full); full stage recompute, every pin reproduced, 15/15; probes (b)/(c) live (REUSED + g1 alone; census revert → g13+g14); reachability sweep clean; ancestors byte-identical to the recorded TOWER PASS 16/16.
+
+**Trajectory: 1bg landed → 234: 0M+5m+4c (swept) → 235: 5m+2c (swept) → 236 NOT CONVERGED 1m+1c (swept d5842f5 + this commit). Convergence round 237 next; Theorem 1bg certification pends it.**
+
+
+# Round 237: convergence test on the round-236 sweep (subagent, per protocol) — **CONVERGED** (0 majors, 0 minors, 1 cosmetic); Theorem 1bg certified stable; the floor arc closes
+
+One cosmetic (F237-2, a residual ragged docstring wrap — fixed at this records commit with its manifest refresh and a live 15/15) and one out-of-scope record-hygiene catch (F237-1: the round-236 records had been appended to stray files under tools/research/ — the cwd trap — leaving the canonical root records without A362 and the round-236 table; corrected mechanically at this commit per round 43, strays removed). Held highlights (reviewer, all verified directly): the F236-1 marker verbatim with every claim in it empirically true (the intent-keyed vs content-keyed key computations both reproduced, the content key byte-exact to the committed checkpoint); the residual quantifier class EMPTY suite-wide (the only remaining "every stage input" claims are true at their loci); the diff docstring-only with no executable drift; the battery reproduced (REUSED + 15/15 with every pin at its recorded value; its own g1 probe live; tower by byte-identity — 15 ancestors unchanged since the recorded 16/16, the TOP live).
+
+**Trajectory: 1bg landed (c382f92…5d36308; corrections 359579b) → 234: 0M+5m+4c (swept ac8281f + ff56a0e) → 235: 5m+2c (swept dc1f98a + dcbd48b) → 236: 1m+1c (swept d5842f5 + 2678e31) → 237 CONVERGED 0+0+1c. Certified: Theorem 1bg — the floor arc: the Slepian floor law with the pinning count at the Shannon number, the conjugacy of the arithmetic build, the operator-level closure of the windowed explicit formula, and the certified 1bf g4 proximity derived end to end as horizon mismatch — with every post-landing deflation (saturation, ratio, asymptote) and the flow family on the record. Next hostile round on the next substantive paper change.**
