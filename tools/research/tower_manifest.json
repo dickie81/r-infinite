@@ -1,6 +1,6 @@
 {
- "census_count_string": "the **83 scripts cited in place** above",
- "census_range_string": "extended by Theorems 1i\u20131bg:",
+ "census_count_string": "the **84 scripts cited in place** above",
+ "census_range_string": "extended by Theorems 1i\u20131bh:",
  "tower": [
   {
    "file": "cascade_lattice_forcing.py",
@@ -65,6 +65,10 @@
   {
    "file": "cascade_floor_closure.py",
    "sha256": "9e2a5afd87ec824aad7d2bc10b9dcb638556f2744efb739e969e20b78a1b21bb"
+  },
+  {
+   "file": "cascade_height_uniformity.py",
+   "sha256": "0e9997d514dfb4de5965ce625b883215ac54a5fddb3a77921a87a2e7aa1c433e"
   }
  ]
 }

@@ -31,6 +31,7 @@ TOWER = [
     "cascade_prime_budget_fold.py",
     "cascade_twosided_witness.py",
     "cascade_floor_closure.py",
+    "cascade_height_uniformity.py",
 ]
 
 paper = open(PAPER, encoding="utf-8").read()
