@@ -109,8 +109,8 @@ VERIFICATION (10 gates, exit-gated).
        g9 the sibling chain green (cascade_arithmetic_section.py
        10/0, transitively chaining the Weil-arc suite);
        g10 the footer census (this script backticked >= 2;
-       the anchored needles "the **83 scripts cited in place**
-       above" and "extended by Theorems 1i–1bg:" against the RAW
+       the anchored needles "the **84 scripts cited in place**
+       above" and "extended by Theorems 1i–1bh:" against the RAW
        normalized text -- round-218 F1 + F12).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
@@ -363,8 +363,8 @@ gate("g9 the sibling chain green (cascade_arithmetic_section.py 10/0, "
      "transitively chaining the Weil-arc suite)", ok)
 
 ok = paper.count("`cascade_lattice_forcing.py`") >= 2
-ok &= "the **83 scripts cited in place** above" in paper_raw
-ok &= "extended by Theorems 1i–1bg:" in paper_raw
+ok &= "the **84 scripts cited in place** above" in paper_raw
+ok &= "extended by Theorems 1i–1bh:" in paper_raw
 gate("g10 the footer census (this script backticked >= 2 -- the "
      "count, not positions, per the V5 census; round 186 F2; the "
      "anchored needles against the raw text, round-218 F1)", ok)
