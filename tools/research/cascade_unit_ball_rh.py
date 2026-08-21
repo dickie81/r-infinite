@@ -104,7 +104,7 @@ VERIFICATION (13 gates, exit-gated).
        sibling chain green (windows_overlap 13/0, transitively
        chaining riemann_selection, type_counting, and the two
        Weil-arc siblings); g13 the footer census (this script
-       backticked; "84 scripts cited in place"; "Theorems 1i-1bf" -- the census advances with each landing).
+       backticked; "84 scripts cited in place"; "Theorems 1i-1bh" -- the census advances with each landing).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, abort-on-mangle-failure, at the landing; three disclosed

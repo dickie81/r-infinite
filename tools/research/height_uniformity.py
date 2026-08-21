@@ -65,8 +65,10 @@ both runs on the record):
   (3) THE FLOOR LAW IS HEIGHT-UNIFORM OVER THE MEASURED SPAN --
       the arc's headline. At matched count deficit the climb
       slope is the same at every aperture (beta = 1.14 / 1.38 /
-      1.31 / 1.30 decades per zero at A = 1.5/2/2.5/3, inside the
-      known recipe scatter), and the deep-margin scale at matched
+      1.31 / 1.30 decades per zero at A = 1.5/2/2.5/3 -- a
+      drafting-run fit under an uncommitted recipe, superseded by
+      the landing's declared-recipe gated values 1.0916 / 1.3122 /
+      1.3721 / 1.2048; round-238 F11a), and the deep-margin scale at matched
       deficit is height-STABLE for A >= 2: at d ~ 5.4, m =
       1.14e-7 / 1.10e-7 / 6.5e-8 at heights 260 / 630 / 1580 --
       within 2x across a 6x height span; at d ~ 8.4, 8.1e-11 /
@@ -138,7 +140,7 @@ C0 = 120.0
 # honest axis):
 RUNGS = [
     (1.5, [90.0 + 10.0*i for i in range(13)]
-          + [112.0, 116.5], 380),                       # tau* 126.7
+          + [112.0, 116.5], 380),                       # tau* 126.2
     (2.0, [260.0 + 10.0*i for i in range(15)], 380),    # tau* 343.1
     (2.5, [550.0, 630.0, 715.0, 770.0, 825.0, 880.0, 910.0]
           + [850.0 + 20.0*i for i in range(11)], 810),  # tau* 932.6

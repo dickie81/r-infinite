@@ -36,12 +36,16 @@ instrument and RESULT):
     closes OPERATOR-WISE at every point (1e-5 class at A = 3;
     <= 2e-4 at A = 2.5) and m_W >= 0 arithmetic-only at all five
     critical-window points -- at height 1580 from 98 prime powers
-    (primes to 403), hair-thin positive (6.3e-8) with dm/m = 0.01%
+    (primes to 403), hair-thin positive (6.3e-8) with dm/m = 0.022% (round-238
+    F1: the 0.01% was the instrument-era with-pole value; the
+    landed pole-rule checkpoint gives -2.2e-4)
     and the null cancellation A/P = -1 to four digits.
 Capability note (stated with its caveat): m_W at tau*(A) is an
 arithmetic-only RH FALSIFIER at height 2pi e^(2A) -- primes to
 tau*/2pi plus a fixed-cost integral, no zero computations; a
-negative value anywhere disproves RH. Spot-checks at single
+CERTIFIED-negative value anywhere -- the exact functional
+bounded below zero by an explicit error budget, not a bare
+float -- disproves RH (round-238 F4). Spot-checks at single
 heights are cheap; SWEEPING a height range multiplies by the
 core-local window count, and no complexity advantage over
 classical verification at accessible heights is claimed.
@@ -73,7 +77,9 @@ Gates:
       2.4e-5} (rel 0.5) and every closure <= 3e-4
   g8  arithmetic positivity: m_W > 0 at all five points, pinned;
       |dm/m| <= 0.003 at every point
-  g9  the null cancellation: |PRIME/ARCH + 1| <= 1e-3 at the deep
+  g9  the null cancellation: |PRIME/ARCH + 1| <= 1e-4 at the deep
+      (tightened from 1e-3 at the round-238 sweep, F9 -- measured
+      1-2e-8, four decades of margin)
       points (630, 1580)
   g10 the pole rule demonstrated: |u| pinned {1.93, 1.48}
       (rel 0.3) at (3, 2000/2340) and the with-pole closure
@@ -211,8 +217,8 @@ gate("g8 arithmetic-only Weil positivity at all five points; "
 
 # ---------------------------------------------------------------- g9
 deep = [a for a in AR if a["t0"] in (630.0, 1580.0)]
-ok = all(abs(a["prime"]/a["arch"] + 1) <= 1e-3 for a in deep)
-gate("g9 the null cancellation PRIME/ARCH = -1 within 1e-3 at the "
+ok = all(abs(a["prime"]/a["arch"] + 1) <= 1e-4 for a in deep)
+gate("g9 the null cancellation PRIME/ARCH = -1 within 1e-4 at the "
      "deep points (primes to 148/403)", ok)
 
 # --------------------------------------------------------------- g10

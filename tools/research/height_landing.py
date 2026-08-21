@@ -22,7 +22,13 @@ instruments --
 
 The stage lives here per the round-229 F7 rule; every sub-stage
 and the consolidated checkpoint are content-keyed per the standing
-law (A361: module shas + full config + ordinate-array bytes).
+law (A361: module shas + full config + ordinate-array bytes;
+round-238 F2 -- the eighth keying catch: the _rungs/_anomaly
+sub-stages had keyed on the instruments' DEPSH/DEPSA, which
+exclude this file, their actual producing code -- two producers
+sharing one key, with the landing's reduced anom schema shown
+poisoning the instrument's standalone REUSE; all sub-stages now
+key on DEPSL2, and the poisoned anom checkpoints are removed).
 """
 import hashlib, math, os, sys
 
@@ -51,7 +57,8 @@ DEPSL2 = {f: _sha(f) for f in MODULES}
 KEYFILE = os.path.join(HERE, "fold_surrogate.py")
 _zsha = HU._zsha
 
-POLE_VALID = 2200.0            # |A*tau0| quadrature validity bound
+POLE_VALID = 2200.0    # pole-rule threshold, chosen inside the
+                       # ~2400 quadrature validity (round-238 F6)
 ARITH_PTS = [(2.5, 630.0, 810), (2.5, 880.0, 810),
              (3.0, 1580.0, 2270), (3.0, 2000.0, 2270),
              (3.0, 2340.0, 2270)]
@@ -69,7 +76,7 @@ def _rungs(Z380):
     out = {}
     for Ap, t0s, kmax in HU.RUNGS:
         Z = _zfor(Z380, kmax)
-        params = {"deps": HU.DEPSH, "A": Ap, "c": HU.C0, "t0s": t0s,
+        params = {"deps": DEPSL2, "A": Ap, "c": HU.C0, "t0s": t0s,
                   "kmax": kmax, "z_sha": _zsha(Z)}
         name = f"height_A{Ap:.1f}".replace(".", "p")
         st = ckpt_key.load(name, KEYFILE, params)
@@ -101,7 +108,7 @@ def _anomaly(Z380):
     out = {}
     for Ap, t0s, kmax in HA.LADDERS_AB:
         Z = _zfor(Z380, kmax)
-        params = {"deps": HA.DEPSA, "A": Ap, "c": HA.C0, "t0s": t0s,
+        params = {"deps": DEPSL2, "A": Ap, "c": HA.C0, "t0s": t0s,
                   "kmax": kmax, "z_sha": _zsha(Z)}
         name = f"anom_A{Ap:.1f}".replace(".", "p")
         st = ckpt_key.load(name, KEYFILE, params)

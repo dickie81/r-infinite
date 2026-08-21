@@ -170,7 +170,7 @@ VERIFICATION (13 gates, exit-gated; --full extends the census).
        the wall-unchanged sentence at count >= 2 -- it also lives in
        1aj); g12 the sibling chain green (riemann_selection 12/0,
        which chains type_counting and the two Weil-arc siblings);
-       g13 the footer census (this script backticked; "84 scripts cited in place"; "Theorems 1i-1bf" -- the census advances
+       g13 the footer census (this script backticked; "84 scripts cited in place"; "Theorems 1i-1bh" -- the census advances
        with each landing; the gate carries the live values).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git, at

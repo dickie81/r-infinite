@@ -6,8 +6,9 @@ the high-aperture critical windows.
 
 What moves with the aperture dial, all generalized here:
   - the PRIME operator: von Mangoldt sum over n < e^(2A) (the
-    cutoff moves: ~54 prime powers at A = 2, ~110 at A = 3, primes
-    to 403), autocorrelation panels at shift u/A, phase in the
+    cutoff moves: 24 prime powers at A = 2, 98 at A = 3, primes
+    to 403 -- the header's original ~54/~110 confused the cutoff
+    e^(2A) with the count; round-238 F11b), autocorrelation panels at shift u/A, phase in the
     TRUE gauge (phz = e^(-i tau0 u), per the 1bg E5 verdict --
     the certified code convention is its conjugate);
   - the ARCH operator: the digamma kernel integrated over the
@@ -43,7 +44,7 @@ record):
 
   THE DEEP CRITICAL WINDOWS -- THE COMMISSION'S CORE -- ARE GREEN
   WITH THE 1bg CLOSURE OUT-OF-SAMPLE IN APERTURE:
-    A = 2.5, tau0 = 630 (height 630, 48 prime powers, primes to
+    A = 2.5, tau0 = 630 (height 630, 47 prime powers -- the stored nprimes field prints 48, overcounting by one whenever int(e^(2A))+1 is a prime power (149 here), which the u >= DELTA clause excludes from the operator; round-238 F11b -- primes to
       ~148): m_W = +1.09e-7 vs m_Z to dm/m = -0.0007 (0.07%),
       closure rel 8.3e-5 (run 1 full-window: 7.8e-5 -- recipe-
       stable), null cancellation A/P = +4.599/-4.599 (four
