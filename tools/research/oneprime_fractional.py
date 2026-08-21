@@ -202,20 +202,20 @@ def gl_panels(lo, hi, sing=(), base=0.012, depth=34):
 
 # ------------------------------------------------ the mode catalog
 class Modes:
-    def __init__(self, a, parity):
+    def __init__(self, a, parity, nus=NUS, nfr=NFR, nrough=NROUGH):
         self.a, self.parity = a, parity
         if parity == "even":
             self.w = list((np.arange(NHALF) + 0.5)*np.pi/a) \
-                + list(np.arange(NROUGH)*np.pi/a)
+                + list(np.arange(nrough)*np.pi/a)
         else:
             self.w = sorted(list((np.arange(NHALF) + 1.0)*np.pi/a)
                             + list((np.arange(NHALF) + 0.5)*np.pi/a))
         self.w = np.array(self.w)
         self.nharm = len(self.w)
         self.frac = []
-        ns = (np.arange(NFR)*2 if parity == "even"
-              else np.arange(NFR)*2 + 1)
-        for nu in NUS:
+        ns = (np.arange(nfr)*2 if parity == "even"
+              else np.arange(nfr)*2 + 1)
+        for nu in nus:
             s = nu - 0.5
             xj, wj = roots_jacobi(220, s, s)
             for n in ns:
@@ -263,12 +263,12 @@ class Modes:
         return out
 
 # ------------------------------------------- the t-space operator
-def apply_T(md):
+def apply_T(md, base=0.012):
     """T b_i on the GL-panel t-grid (half-line [0, a]; all
     integrands' products are even); returns (tn, tw, B, TB, v)."""
     a, parity = md.a, md.parity
     k0 = min(max(LOG2 - a, 0.0), a)
-    tn, tw = gl_panels(0.0, a, sing=(k0, a))
+    tn, tw = gl_panels(0.0, a, sing=(k0, a), base=base)
     B = md.t_eval(tn)
     TB = -LG4PI*B.copy()
     f = np.cos if parity == "even" else np.sin
@@ -277,7 +277,7 @@ def apply_T(md):
         acc = np.zeros(md.n)
         for lo, hi, sing in (((0.0, a - t, (a - t,))),
                              ((a - t, a + t, (a - t, a + t)))):
-            u, wu = gl_panels(lo, hi, sing=sing)
+            u, wu = gl_panels(lo, hi, sing=sing, base=base)
             if len(u) == 0:
                 continue
             A = (np.exp(u/2) - 1)/np.sinh(u)
@@ -301,10 +301,10 @@ def apply_T(md):
     return tn, tw, B, TB, v
 
 
-def cell_matrices(a, parity):
-    md = Modes(a, parity)
+def cell_matrices(a, parity, base=0.012, **modeskw):
+    md = Modes(a, parity, **modeskw)
     gf4 = max(max(fr["gF4"]) for fr in md.frac)
-    tn, tw, B, TB, v = apply_T(md)
+    tn, tw, B, TB, v = apply_T(md, base=base)
     N = 2*(B*tw[None, :]) @ B.T
     M = 2*(B*tw[None, :]) @ TB.T
     S = 2*(TB*tw[None, :]) @ TB.T
