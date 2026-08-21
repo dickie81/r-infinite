@@ -13,9 +13,13 @@ THE TWO LEVERS.
        ~1.5-1.9e-4 and was still falling under refinement at
        delta = 1.0 (-9.4e-7 -> -2.7e-7 from base 0.012 -> 0.008):
        part of the plateau is floor, not physics. This round runs
-       a base ladder {0.012, 0.008, 0.005} per cell so the
-       saturation of both sigma and the Temple value is MEASURED,
-       and only ladder-stable closures are claimed.
+       a base ladder {0.008, 0.005, 0.003} (plus 0.002 at the two
+       nearest cells) so the saturation of both sigma and the
+       Temple value is MEASURED, and only ladder-stable closures
+       are claimed. A cutoff-1e-5 variant runs alongside
+       (admissible under the per-vector sigma^2 >= 0 exactness
+       lemma; its coarse-base values are junk-direction noise and
+       only its convergence at the finest rung is read).
   (ii) EDGE RESOLUTION: the round-3 optimum put 57-73% of its
        weight in the edge families; near the window top the
        extremal's edge structure may need finer exponent
@@ -36,6 +40,38 @@ MACHINERY: oneprime_fractional's t-space operator pipeline
 (validated at five digits against the adjudicated sigma anchor),
 parameterized here by (base, nus, nfr, nrough); its gF1/gF4 gates
 run per cell.
+
+RESULT (the extended-ladder run, 2026-08-21; gF1 1.2e-4 - 1.6e-4
+and gF4 asserted per cell; dims 28 at cut 1e-4 / 29 at 1e-5 --
+the enriched families added ~1 effective dimension, so quadrature
+was the live lever, as run 1 indicated):
+  delta 1.00  CLOSES, LADDER-STABLE at the own-lambda_2 rung:
+              +3.228e-7 / +4.044e-7 / +4.137e-7 at base
+              0.005/0.003/0.002, sigma saturated 1.055e-4 ->
+              9.811e-5 -> 9.717e-5 vs needed 1.300e-4; the
+              cut5 variant converges to agreement (+2.418e-7 at
+              0.002). NOT half-rung robust (-1.099e-7) -- a
+              single-rung closure, claimed as exactly that.
+  delta 1.02  A STABLE HAIR-MISS: -8.3e-8 / -7.0e-8 at
+              0.003/0.002, sigma saturated 8.535e-5 vs needed
+              8.051e-5 (6% over).
+  delta 1.05 / 1.07 / 1.09  DO NOT CLOSE: sigma saturates at
+              ~6.7-7.4e-5 (still drifting ~-12% per rung, so
+              sigma_oo ~ 5-6e-5 plausibly) against needed
+              3.78e-5 / 2.13e-5 / 1.15e-5 -- short by x2 to x6.
+  THE STRUCTURAL READING. needed sigma = sqrt(rho(ell_2 - rho))
+  collapses with rho as delta -> log 3 (the margin curve's own
+  collapse), so ANY fixed sigma-floor fails sufficiently near the
+  top: Temple's even-sector reach ends at ~1.0-1.02 for this span
+  REGARDLESS of further quadrature; only genuinely new span
+  directions (the enrichment here added ~1 dimension) could move
+  it. Since Weil positivity needs both parity sectors, the arc's
+  full-form feasibility closure now stands at [log 2, 1.0] (the
+  1.0 endpoint at single-rung robustness), with the even top
+  [1.02, log 3) the identified hard residue -- consistent with
+  its collapsing true margins (8.6e-8 at 1.09, the bridge's
+  curve). The odd sector's whole-window closure (round 3) stands
+  but cannot carry the full form alone.
 
 CHECKS. 7: classical. 8: no hypothesis input.
 
