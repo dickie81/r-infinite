@@ -61,6 +61,47 @@ per vector; the clamp's firing is monitored.
 CHECKS. 7: classical (spectral bounds, Fourier analysis). 8: no
 hypothesis input.
 
+RESULT (the NSM = 32 / Rmax = 9000 run, 2026-08-21; gA asserted in
+code; run 2's capped-span data in the git record at commit
+8fc0e56):
+  gA 1.3e-4 - 4.4e-4 across all eleven cells (inside the certified
+  truncation class). Whitened dimensions: even 32, odd 36. The
+  top-mode exploit monitor read 0.000 at every even cell and
+  0.27-0.30 at the odd cells (where the truncation budget is
+  ~2e-7 in sigma^2 -- far below the odd sigmas ~2e-3).
+  THE EVEN SECTOR SATURATES AT delta ~ 0.80: Temple-opt +1.035e-3
+  at log 2 (equal to S5's p1n32 trial -- the optimizer certifies
+  that trial was already optimal in its span), +2.103e-5 at 0.80
+  (the frontier; fails the half-rung), -4.573e-5 at 0.85 (sigma
+  factor 1.31 short), -4.648e-5 at 0.90 (factor 1.89 short). The
+  enrichment 24 -> 32.5-modes bought only 7% of sigma at 0.90
+  (2.751e-3 -> 2.558e-3): the missing residual is NOT in the next
+  harmonics -- with S4's roughening trend (p -> 1 optimal,
+  cos-24 ~ p1), the identified suspects are fractional edge
+  exponents ((a^2 - t^2)^s, s < 1) and/or much higher frequency
+  content, both requiring analytic tail corrections beyond
+  uniform grids (the gA lesson: |ghat| ~ 2w/r^2 tails).
+  THE ODD SECTOR REACHES 1.05: +2.105e-3 at 0.90 with the
+  half-rung at +1.750e-3 (ROBUST); +1.613e-5 at 1.05 on the
+  tightest realistic rung (l2sec; +5.701e-5 at l2cos24), failing
+  only the half-lambda_2 stress (-1.721e-5) -- semi-robust;
+  -8.659e-6 at 1.09 on l2sec (the l2cos24 rung's +2.282e-5 is
+  non-robust, flagged by the ladder as designed).
+  THE ROUND'S STANDING VERDICT (feasibility level, both sectors
+  minimized): the full semi-local form Temple-closes on
+  [log 2, 0.80] -- the even sector binding -- with the odd sector
+  individually closed to 1.05 robustly-or-better. The
+  sigma/needed ratio in the even sector grows 0.50 -> 9.9 across
+  the window (sigma falls ~2x per 0.05-0.1 of delta while
+  needed = sqrt(l1 l2) collapses faster), so no trial refinement
+  alone reaches the top: past ~0.85 the route needs either the
+  fractional-edge/high-frequency trials with analytic tails, or a
+  different bound family (Lehmann-Goerisch with auxiliary
+  vectors), or the fallback verified-zeros chain. Still a survey,
+  not a theorem: the ell_2 rungs remain section stand-ins and the
+  quadratures float64 grids -- unchanged from the B1-opening
+  scoping, with the same identified repairs.
+
 Keying law: every producing file in every key.
 """
 import hashlib, math, os, sys
