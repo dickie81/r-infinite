@@ -11,7 +11,7 @@ instrument and RESULT):
     hair-thin regime is ONE band per aperture, at tau*(A) =
     2pi e^(2A) -- derived at A = 2 by Poisson summation, and here
     verified OUT-OF-SAMPLE at A = 1.5/2.5/3.0 (critical windows at
-    heights 127/933/2536; a factor ~20). The tight mean Q(top) =
+    heights 126/933/2535 -- figures per round-239 F1; a factor ~20). The tight mean Q(top) =
     ln(tau0/2pi) is aperture-independent as the algebra demands.
 (2) THE HEIGHT-UNIFORM FLOOR LAW: under the declared recipe the
     climb rate is beta = 1.09-1.37 decades per in-band zero at

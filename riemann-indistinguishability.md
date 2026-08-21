@@ -5788,8 +5788,10 @@ is **one band per aperture**, at τ\*(A) = 2π·e^(2A): **the
 aperture dial** places the critical window at any height. The
 law, derived at A = 2 by Poisson summation, is verified
 **out-of-sample at every other aperture** measured — critical
-windows at heights 126, 933, and 2536 *(the first misrounded
-127 at the landing; 2πe³ = 126.2 — round-238 F5)*, a factor ~20 (gated g1/g2,
+windows at heights 126, 933, and 2535 *(the first misrounded
+127 at the landing, 2πe³ = 126.2 — round-238 F5; the third
+misrounded 2536 through two rounds, 2πe⁶ = 2534.8 — round-239
+F1)*, a factor ~20 (gated g1/g2,
 with the deficit-parameterized climb calendar anchored at τ\*
 landing every point; the first τ\*-straddling ladder design
 missed the stretched high-A climbs and was corrected on the
@@ -5856,7 +5858,9 @@ mpmath ordinates — classical; no semiclassical procedure). Check
 `height_anomaly.py`, `height_arith.py`, `height_residue.py`,
 `height_landing.py` committed, imported, and content-addressed
 into the verifier's keys (the stage in `height_landing.py`; the
-ordinate ledger to γ ≈ 2780 in content-keyed chunks).
+ordinate ledger to γ ≈ 2796 in content-keyed chunks — the
+≈ 2780 corrected round-239 F1, the last chunk ordinate being
+γ₂₂₇₀ = 2796.0).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
