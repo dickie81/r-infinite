@@ -22,7 +22,29 @@ Suspect ranking from the config pattern:
 Check 7/8: classical; no hypothesis input. Keying per the
 standing law: content-keyed, full config in params.
 
-RESULT: appended after the run by the analysis pass.
+RESULT (run complete): R4 CONFIRMED IN FULL; THE RESIDUE IS
+CLOSED.
+
+  The smoking gun -- the pole-vector magnitudes: |u| = |v| =
+  0.039 at tau0 = 1580 (harmless noise) vs 1.93 at 2000 and 1.48
+  at 2340 -- ORDER-ONE quadrature garbage at oscillation
+  frequency A*tau0 ~ 6000-7000 rad (validity ~2400), where the
+  true pole vectors are superexponentially negligible.
+
+  The ablation (the analytically-justified omission):
+    tau0 = 2000: closure 4.07e-2 -> 3.41e-5; dm/m +3.42 -> -0.0000
+    tau0 = 2340: closure 1.84e-2 -> 2.36e-5; dm/m -0.028 -> +0.0000
+    tau0 = 1580: 1.19e-5 -> 8.84e-6 (indifferent, as predicted)
+
+  With the poles omitted, EVERY Phase-2 point is in the 1e-5
+  closure class and dm/m <= 0.15%: the height arc's arithmetic
+  side is uniformly green at A = 2.5 and 3.0, heights 630-2340.
+
+STANDING RULE (the arc's instrument legacy, alongside 1bg's
+horizon matching and the s-window matching): when A*tau0 exceeds
+the quadrature validity, the pole term is analytically negligible
+and must be OMITTED, never computed -- a computed negligible term
+is not a small error, it is unbounded noise.
 """
 import hashlib, math, os, sys
 

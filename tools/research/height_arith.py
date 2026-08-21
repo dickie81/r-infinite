@@ -65,7 +65,14 @@ record):
   window (SCUT = 2000 on both sides -- the 1bg horizon-matching
   lesson generalized to s) fixed the deep point completely.
 
-  OPEN RESIDUE (flagged, not closed): the A = 3 saturated-regime
+  RESIDUE [CLOSED at the residue attack, height_residue.py: the
+  pole vectors at oscillation frequency A*tau0 ~ 6000-7000 rad
+  are O(1) quadrature noise (|u| = 1.93/1.48 at 2000/2340 vs the
+  superexponentially tiny truth); omitting the analytically-
+  negligible pole term recovers 2000 to closure 3.4e-5 (dm/m
+  0.00%) and 2340 to 2.4e-5 (0.00%), the deep point indifferent.
+  Every Phase-2 point now closes in the 1e-5 class.] The original
+  flag, retained as the record: the A = 3 saturated-regime
   points degrade under the same recipe -- tau0 = 2000: closure
   4.1e-2 with m_W = 4.1e-3 vs m_Z = 9.3e-4 (the zero side agrees
   with the real-path ladder; the ARITHMETIC side is high);

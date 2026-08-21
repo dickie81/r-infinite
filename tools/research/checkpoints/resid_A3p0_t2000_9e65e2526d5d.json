@@ -1,0 +1,36 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "9e65e2526d5dcefd5e9d487efa595df21633180849c2135293e447fddb1a01fd",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"height_uniformity.py": "d6a654cd273aa0b64eccf7dd32f945ef525db14233d15b3040022bcfa3cf33c7",
+"height_arith.py": "b67353eace72033f30734a613a798a81c9eae0c0218e0a978e1f26369fe1268e",
+"height_residue.py": "ffa6edf315f81303882cec1b7f17e6ec34220be418be7102136249ca3ca4665f"
+},
+"A": 3.0,
+"t0": 2000.0,
+"c": 120.0,
+"Tz": 2796.53,
+"s_cut": 2000.0,
+"s_step": 0.03,
+"z_sha": "2cd286e66257db92"
+},
+"state": {
+"A": 3.0,
+"t0": 2000.0,
+"norm_u": 1.9322714157220315,
+"norm_v": 1.9322714157220304,
+"with-pole": {
+"mW": 0.004093469385779668,
+"mZ": 0.0009260428087237467,
+"rel": 0.040742104531245854
+},
+"no-pole": {
+"mW": 0.000926042624895083,
+"mZ": 0.0009260428087237467,
+"rel": 3.407976503119593e-05
+}
+}
+}
