@@ -37,7 +37,8 @@ assumed. Temple validity still rests on the stand-in ell_2 (the
 standing caveat); the half rung is reported throughout.
 
 MACHINERY: oneprime_fractional's t-space operator pipeline
-(validated at five digits against the adjudicated sigma anchor),
+(validated at rel 3.6e-5 against the committed adjudicator's
+anchor -- round-243 F5 language fix),
 parameterized here by (base, nus, nfr, nrough); its gF1/gF4 gates
 run per cell.
 

@@ -43,11 +43,14 @@ first two versions of this file are in the git record at f05719b):
          floor and the analytic sub-floor correction),
        T_prime b(t) = -(C2/2)[b(t + log 2) + b(t - log 2)],
        T_pole b(t) = ps 2 <chi, b> chi(t).
-     Quadratures are double-exponential (tanh-sinh) per segment,
-     kink-split (u at a - t and a + t; t at log 2 - a), so
-     algebraic endpoint singularities of any exponent s >= 0 and
-     the log-endpoint behavior of T b for s = 0 modes are handled
-     spectrally. A validated robustness property of this route:
+     Quadratures are composite Gauss-Legendre-12 panels with
+     dyadic refinement toward singular endpoints, kink-split (u at
+     a - t and a + t; t at log 2 - a), so algebraic endpoint
+     singularities of any exponent s >= 0 and the log-endpoint
+     behavior of T b for s = 0 modes are handled to quadrature
+     tolerance (round-243 F12: the earlier "tanh-sinh" and
+     "u > 1e-6 floor with sub-floor correction" described the
+     superseded second architecture, not this code). A validated robustness property of this route:
      an additive error c * b(t) in T b (e.g. a counterterm slip)
      leaves sigma^2 EXACTLY invariant.
 
@@ -92,8 +95,11 @@ check, 2026-08-21):
   CALIBRATION AND ADJUDICATION. The old-span column reproduces
   S5/run-2 at 3-4 digits everywhere it overlaps (even log 2
   +9.812e-4 sig 1.678e-2; even 0.9 -5.471e-5 sig 2.750e-3; even
-  1.09 -1.954e-5 sig 1.963e-4), and gF2 hits the adjudicated
-  anchor at five digits (2.7526e-3 vs 2.7527e-3). ROUND 2'S ODD
+  1.09 -1.954e-5 sig 1.963e-4), and gF2 hits the committed
+  adjudicator's anchor at rel 3.6e-5 (2.7526e-3 vs 2.7527e-3 --
+  round-243 F5: the earlier "five digits" was ~4.4 digits, and
+  the anchor's producer is now committed as
+  oneprime_adjudicator.py). ROUND 2'S ODD
   CLOSURES ARE CONFIRMED, slightly strengthened -- the suspect
   r-truncation was inflating odd sigma, in the conservative
   direction: old-span odd 0.9 +2.386e-3, 1.05 +4.594e-5, 1.09
@@ -115,8 +121,10 @@ check, 2026-08-21):
     odd  0.90   +2.393e-3 (+2.378e-3)
     odd  1.05   +4.636e-5 (+4.462e-5)
     odd  1.09   +1.789e-5 (+1.624e-5)
-  Stability at base 0.008: even 0.9 +1.491e-5, even 0.95
-  +2.894e-6, odd 1.09 +1.811e-5 -- every claimed closure holds.
+  Stability at base 0.008 (producer: stability_check() below,
+  committed by round-243 F6 -- the numbers were session-drafted
+  before it existed): even 0.9 +1.491e-5, even 0.95 +2.894e-6,
+  odd 1.09 +1.811e-5 -- every claimed closure holds.
   THE ROUND'S STANDING VERDICT (feasibility level): the full
   semi-local form Temple-closes on [log 2, 0.95] -- the even
   frontier advanced 0.80 -> 0.95, robust through the half rung at
@@ -438,6 +446,41 @@ def run():
     return st
 
 
+def stability_check():
+    """The base-0.008 stability producer (round-243 F6): the three
+    claimed-closure cells rerun at refined quadrature."""
+    from oneprime_bridge import build_Q64 as _b
+    for parity, delta in (("even", 0.9), ("even", 0.95),
+                          ("odd", 1.09)):
+        a = delta/2
+        md, N, M, S, gf4, grids = cell_matrices(a, parity,
+                                                base=0.008)
+        tn, tw, B, TB = grids
+        d = 1.0/np.sqrt(np.diag(N))
+        ev, U = np.linalg.eigh(d[:, None]*N*d[None, :])
+        keep = ev > 1e-4
+        Wh = ((U[:, keep]/np.sqrt(ev[keep])[None, :]).T
+              * d[None, :])
+        Bw, TBw = Wh @ B, Wh @ TB
+        NA = 2*(Bw*tw[None, :]) @ Bw.T
+        MA = 2*(Bw*tw[None, :]) @ TBw.T
+        SA = 2*(TBw*tw[None, :]) @ TBw.T
+        NA, MA, SA = ((NA + NA.T)/2, (MA + MA.T)/2,
+                      (SA + SA.T)/2)
+        l2A = float(scipy_eigh(MA, NA, eigvals_only=True)[1])
+        mu, c = temple_opt(NA, MA, SA, l2A)
+        nn = float(c @ NA @ c)
+        rho = float(c @ MA @ c)/nn
+        sig = math.sqrt(max(float(c @ SA @ c)/nn - rho*rho, 0.0))
+        print(f"STAB {parity} {delta:g} base 0.008: Temple "
+              f"{mu:+.3e} rho {rho:+.3e} sigma {sig:.3e}",
+              flush=True)
+
+
 if __name__ == "__main__":
-    run()
+    import os as _os
+    if _os.environ.get("FRAC_STABILITY") == "1":
+        stability_check()
+    else:
+        run()
     print("one-prime rough/fractional-edge round complete", flush=True)

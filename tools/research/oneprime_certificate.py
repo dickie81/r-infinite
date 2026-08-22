@@ -48,9 +48,11 @@ CONTINUOUS in the support length a unconditionally (their Thm
 1.3) -- a useful lemma -- positivity still conditional. Li
 (arXiv:2404.13427): trace-class positivity relations on the
 hhat(0) = hhat(1) = 0 class -- different object. VERDICT: the
-explicit-threshold record remains CC's L <= log 2; the window
-[log 2, log 3) stands open, and every positivity number here is a
-measurement, not a claimed theorem.
+explicit-threshold record remains CC's L <= log 2 (on their
+vanishing-conditions class -- round-243 F13: not directly the
+unrestricted class certified here); the window [log 2, log 3)
+stands open, and every positivity number here is a measurement,
+not a claimed theorem.
 
 THE INSTRUMENT.
   S1  the representation gate: the diagonal prime
@@ -92,9 +94,15 @@ S3-S5 recorded here and reproducible from the checkpoint):
   support edge, disclosed in the gate comment.
   S2 THE KERNEL GEOMETRY: W < 0 exactly on two dips,
   [0, 3.305] (depth -6.3524 at t = 0) and [6.945, 10.531] (depth
-  -0.6276 at t = 8.823); crossings 3.3060 / 6.9450 / 10.5320;
-  W > 0 from the last crossing to 200 (checked at dr 1e-3), with
-  the tightest squeak W = +0.079275 at t = 4pi/log 2 = 18.1294.
+  -0.6276 at t = 8.823); crossings at 3.305 / 6.945 / 10.531
+  (grid right-edges at dr 1e-3; round-243 F15: the true first
+  crossing is 3.30501); W > 0 from the last crossing to 200
+  (checked at dr 1e-3), the minimum on that range being 0.00133
+  just past the last crossing (round-243 F11 correction: the
+  earlier "tightest squeak" phrasing wrongly promoted the local
+  minimum near the second cosine peak -- which sits at t = 18.011
+  with W = 0.0760, not at the peak 4pi/log 2 = 18.1294 where
+  W = 0.0793 -- over the true range minimum 0.00133).
   S3 THE FIRST-PASS SURVEY (smooth p = 4, nsm = 16 trials): the
   Kato-Temple value fails at every delta, both parities, with the
   needed-vs-actual sigma factors measured: even sector 1.27

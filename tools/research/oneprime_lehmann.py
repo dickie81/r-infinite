@@ -6,42 +6,50 @@ Commission: "Attack B pls" (the second next move at the round-4
 landing: Lehmann-Goerisch-class ell_2 -- the novelty-bearing step
 from feasibility toward theorem).
 
-THE CHAIN (each link elementary and checkable).
+THE CHAIN (each link elementary and checkable; the odd link
+CORRECTED by hostile round 243 -- the first committed version
+stated the interlacing BACKWARDS, lambda_2(T) >= lambda_3(PWP),
+and shipped need = 2 against its own comment's correct need = 0;
+every odd certificate of that version is struck, and the even
+chain was independently confirmed sound by the same round).
   (1) POLE REDUCTION. Even sector: the pole is PSD rank one, so
       lambda_2(T) >= lambda_2(PWP): count <= 1 for the pole-free
-      operator suffices. Odd sector: the pole is negative rank
-      one, and Weyl interlacing for a rank-one non-positive
-      perturbation gives lambda_2(T) >= lambda_3(PWP): count <= 2
-      suffices.
-  (2) THE BIRMAN-SCHWINGER-TYPE SPLIT. For beta > 0 write
-      W - nu = max(W - nu, beta) - qt,  qt := (nu + beta - W)_+ ,
-      so PWP - nu >= beta - P qt(D) P as forms. On any subspace
-      where PWP < nu, therefore, P qt(D) P > beta:
-        #{PWP < nu} <= #{eig(P qt(D) P) > beta}.
-      qt is COMPACTLY SUPPORTED in frequency (the kernel W grows
-      like log r, so {W < nu + beta} is bounded: the two dips plus
-      shoulders), hence P qt(D) P is the integral operator on
-      [-a, a] with the explicit convolution kernel
-        k(x, y) = qtcheck(x - y),
-        qtcheck(u) = (1/pi) int_0^Rq qt(r) cos(ru) dr.
-  (3) THE COUNT. The kernel is analytic, so Nystrom (GL-260 with
-      symmetric weighting) converges spectrally; its traces are
-      GATED against the exact identities
-        tr  = (2a/2pi) int qt dr           (= 2a qtcheck(0)),
-        tr2 = int |qtcheck(u)|^2 (2a - |u|) du
-            = the exact Hilbert-Schmidt norm,
-      and the count #{mu_j > beta} is read off the mu-ladder with
-      the trace-power scaffold #{mu > beta} <= 1 +
-      (sum_{j>=2} mu_j^{2m})/beta^{2m} recorded alongside (the
-      inequality chain that survives interval hardening; m = 3).
-  (4) THE CERTIFICATE. The largest nu with certified count <= 1
-      (even) / = 0 before the +1 (odd) gives the RIGOROUS
-      lambda_2(T) >= nu* -- and Kato-Temple runs with ell_2 = nu*
-      instead of the section stand-in:
-        lambda_1(T) >= rho - sigma^2/(nu* - rho).
-      (N, M, S) come from the validated round-3 t-space pipeline
-      at base 0.005, with the exact-pencil optimizer choosing the
-      trial.
+      even-projected operator suffices. Odd sector: the pole is
+      negative rank one, and rank-one interlacing gives
+      lambda_2(T) >= lambda_1(PWP) -- the CORRECT direction -- so
+      the odd route is two-stage: first LOWER-BOUND
+      lambda_1(PWP_odd) itself by Kato-Temple on the pole-free
+      form (whose own ell_2 needs only #{PWP_odd < nu'} <= 1),
+      then use that bound nu1 as the full form's rigorous ell_2.
+  (2) THE BIRMAN-SCHWINGER-TYPE SPLIT, PARITY-PROJECTED. For
+      beta > 0, W - nu = max(W - nu, beta) - qt with
+      qt = (nu + beta - W)_+ compactly supported, so
+      #{PWP_par < nu} <= #{eig(P_par qt(D) P_par) > beta}.
+      PWP and qt(D) commute with parity, so the sector counts are
+      exact, and the projected compressions live on [0, a] with
+      the image-charge kernels
+        K_+/-(x, y) = qtcheck(|x - y|) +/- qtcheck(x + y)
+      (+ even, - odd). Projection SHARPENS both sectors: the
+      unprojected count charged each sector with the other's dip
+      modes.
+  (3) THE COUNT. Nystrom (GL-NNY on [0, a]) on the analytic
+      kernels; gates: gLW the trace wiring check (the two trace
+      expressions are the same sum by construction -- labeled as
+      wiring, per round 243's F2: it CANNOT catch physics errors);
+      gL2 the Hilbert-Schmidt identity vs the Nystrom mu-sum (real
+      content against the discretization); gL4 the r-quadrature
+      refinement gate (int qt at dr vs dr/2); gL3 the resolution
+      gate (counts and top eigenvalues stable from NNY to 2*NNY;
+      implemented -- round 243's F3 found the first version
+      claimed this gate without shipping it).
+  (4) THE CERTIFICATES. Even: the largest grid nu with even-
+      projected count <= 1 gives lambda_2(T) >= nu*; Kato-Temple
+      with ell_2 = nu*. Odd: the largest nu' with odd-projected
+      count <= 1 feeds Temple on the POLE-FREE form (rho_free,
+      sigma_free from the same t-space pipeline with the pole
+      column removed), giving nu1 <= lambda_1(PWP_odd); then
+      Temple on the full form with ell_2 = nu1. (N, M, S) from the
+      round-3 pipeline at base 0.003.
 
 WHAT THIS ROUND DOES AND DOES NOT CLAIM. It removes the ell_2
 stand-in -- the certificate's one structural IOU -- so the bound
@@ -53,12 +61,9 @@ numerics with its trace-power scaffold recorded for the future
 interval pass. That pass (round 6) is mechanical: 1-d integrals of
 explicit smooth functions and finite eigenproblems.
 
-GATES. gL1: Nystrom trace vs the exact (2a/2pi) int qt (rel
-< 1e-8). gL2: Nystrom sum mu^2 vs the exact HS norm (rel < 1e-6).
-gL3: the toy count check -- for a synthetic multiplier with known
-compression behavior (qt = indicator-like bump), the Nystrom count
-matches the trace-power scaffold's implication. gF1/gF4 inherited
-per cell from the round-3 pipeline.
+GATES: as listed in chain step (3) -- gLW (wiring), gL2 (HS vs
+Nystrom), gL4 (r-refinement), gL3 (resolution doubling), plus
+gF1/gF4 inherited per cell from the round-3 pipeline.
 
 CHECKS. 7: classical (Birman-Schwinger counting, prolate-type
 compressions, Kato-Temple). 8: no hypothesis input.
@@ -103,51 +108,109 @@ UMAX = 1.2         # covers 2a for every cell in the window
 _qcache = {}
 
 def qt_profile(nu, beta, rmax=1500.0):
-    """qtcheck(u) on a fine u-grid (CELL-INDEPENDENT: qt depends
-    only on the kernel), returned as a cubic spline plus the exact
-    trace ingredients; cached per (nu, beta). The r-grid at
-    dr = 0.01 is 500+ points per oscillation period (u <= 1.2),
-    with the support-edge kink costing ~1e-5 relative -- the
-    float64-stage tolerance, noted for the interval pass."""
+    """qtcheck(u) on a fine u-grid (CELL-INDEPENDENT), as a cubic
+    spline plus exact trace ingredients; cached per (nu, beta).
+    The r-grid is COMPOSITE: base dr 0.01 with dr 1e-4 refinement
+    zones around every support-edge kink of qt (round 243: the
+    uniform grid's kink error, ~3.5e-4 relative, was caught by the
+    new gL4 refinement gate on its first run)."""
     key = (round(nu, 9), round(beta, 9))
     if key in _qcache:
         return _qcache[key]
-    dr = 0.01
-    r = np.arange(0.0, rmax, dr)
-    r[0] = 1e-9
-    Wv = Wker(r)
-    qt = np.clip(nu + beta - Wv, 0.0, None)
-    assert qt[-int(2.0/dr):].max() == 0.0, "qt support hit rmax"
+    r, wr = _qt_grid(nu, beta, rmax, 0.01)
+    qt = np.clip(nu + beta - Wker(r), 0.0, None)
+    assert qt[r > rmax - 2.0].max() == 0.0, "qt support hit rmax"
     ug = np.arange(0.0, UMAX, 1e-4)
     qc = np.empty(len(ug))
+    qw = qt*wr
     for i in range(0, len(ug), 500):
         uu = ug[i:i + 500]
-        qc[i:i + 500] = (np.cos(np.outer(uu, r)) @ qt)*dr/np.pi
+        qc[i:i + 500] = (np.cos(np.outer(uu, r)) @ qw)/np.pi
     from scipy.interpolate import CubicSpline
     spl = CubicSpline(ug, qc)
-    intqt = 2*float(np.sum(qt))*dr    # int over the full line
+    intqt = 2*float(np.sum(qw))    # int over the full line
     _qcache[key] = (spl, intqt, ug, qc)
     return _qcache[key]
 
-def qtcheck_matrix(a, nu, beta):
-    """The Nystrom matrix of P qt(D) P on [-a, a] via the cached
-    qtcheck spline; returns (mu descending, tr_ny, tr_exact,
-    tr2_ny, tr2_exact)."""
+def _qt_grid(nu, beta, rmax, base):
+    """Composite trapz grid: base spacing, with 1e-4 spacing in
+    +-0.05 zones around each sign change of nu + beta - W."""
+    r0 = np.arange(0.0, rmax, base)
+    r0[0] = 1e-9
+    g0 = (nu + beta - Wker(r0)) > 0
+    flips = r0[1:][g0[1:] != g0[:-1]]
+    zones = sorted(set(float(f) for f in flips))
+    segs = []
+    lo = 0.0
+    for z in zones:
+        zl, zh = max(z - 0.05, lo), min(z + 0.05, rmax)
+        if zl > lo:
+            segs.append((lo, zl, base))
+        segs.append((zl, zh, 1e-4))
+        lo = zh
+    segs.append((lo, rmax, base))
+    rs, ws = [], []
+    for slo, shi, h in segs:
+        n = max(2, int(np.ceil((shi - slo)/h)) + 1)
+        rr = np.linspace(slo, shi, n)
+        ww = np.full(n, (shi - slo)/(n - 1))
+        ww[0] /= 2; ww[-1] /= 2
+        rs.append(rr); ws.append(ww)
+    r = np.concatenate(rs)
+    w = np.concatenate(ws)
+    r[r < 1e-9] = 1e-9
+    return r, w
+
+def qtcheck_matrix(a, nu, beta, parity, nny=None):
+    """Nystrom matrix of the PARITY-PROJECTED compression of
+    qt(D) to [-a, a]: image-charge kernel on [0, a],
+    K(x,y) = qtcheck(|x-y|) + s*qtcheck(x+y), s = +1 even / -1
+    odd. Returns (mu descending, gate dict)."""
+    if nny is None:
+        nny = NNY
     spl, intqt, ug, qc = qt_profile(nu, beta)
-    x, w = np.polynomial.legendre.leggauss(NNY)
-    xs, ws = a*x, a*w
-    U = np.abs(xs[:, None] - xs[None, :])
-    K = spl(U)
+    s = 1.0 if parity == "even" else -1.0
+    x, w = np.polynomial.legendre.leggauss(nny)
+    xs, ws = a*(x + 1)/2, a*w/2
+    K = spl(np.abs(xs[:, None] - xs[None, :])) \
+        + s*spl(xs[:, None] + xs[None, :])
     sw = np.sqrt(ws)
     Ks = sw[:, None]*K*sw[None, :]
     mu = np.linalg.eigvalsh((Ks + Ks.T)/2)[::-1]
     tr_ny = float(np.trace(Ks))
-    tr_exact = (2*a/(2*np.pi))*intqt
     m2 = ug < 2*a
     integ = (qc*qc*(2*a - ug))[m2]
-    tr2_exact = 2*(float(np.sum(integ)) - integ[0]/2)*1e-4
-    tr2_ny = float(np.sum(mu*mu))
-    return mu, tr_ny, tr_exact, tr2_ny, tr2_exact
+    tr2_full = 2*(float(np.sum(integ)) - integ[0]/2)*1e-4
+    return mu, {"tr_ny": tr_ny, "intqt": intqt,
+                "tr2_full": tr2_full}
+
+def gate_suite(a, nu, beta):
+    """gLW/gL2/gL4/gL3 on one (nu, beta): the round-243 gate
+    repair -- gLW is labeled wiring; the rest have real content."""
+    mue, ge = qtcheck_matrix(a, nu, beta, "even")
+    muo, go = qtcheck_matrix(a, nu, beta, "odd")
+    spl, intqt, ug, qc = qt_profile(nu, beta)
+    trfull = 2*a*float(spl(0.0))
+    assert abs((ge["tr_ny"] + go["tr_ny"])/trfull - 1) < 1e-10, \
+        "gLW FAIL"
+    hs_ny = float(np.sum(mue*mue) + np.sum(muo*muo))
+    assert abs(hs_ny/ge["tr2_full"] - 1) < 1e-5, \
+        f"gL2 FAIL {hs_ny:.6e} vs {ge['tr2_full']:.6e}"
+    r1, w1 = _qt_grid(nu, beta, 1500.0, 0.01)
+    r2, w2 = _qt_grid(nu, beta, 1500.0, 0.005)
+    i1 = 2*float(np.sum(np.clip(nu + beta - Wker(r1), 0, None)*w1))
+    i2 = 2*float(np.sum(np.clip(nu + beta - Wker(r2), 0, None)*w2))
+    # residual ~2e-6 is the smooth-region dr^2 convergence (the
+    # kink error is killed by the composite zones); count margins
+    # sit three orders above this scale
+    assert abs(i1/i2 - 1) < 5e-6, f"gL4 FAIL {i1:.6e} {i2:.6e}"
+    for par, mu1 in (("even", mue), ("odd", muo)):
+        mu2, _ = qtcheck_matrix(a, nu, beta, par, nny=2*NNY)
+        for b in BETAGRID:
+            assert int(np.sum(mu1 > b)) == int(np.sum(mu2 > b)), \
+                f"gL3 FAIL count {par} beta {b}"
+        assert max(abs(mu1[:3]/mu2[:3] - 1)) < 1e-8, "gL3 FAIL mu"
+    return True
 
 def certified_count(mu, beta, m=3):
     """The Nystrom count above beta, plus the trace-power scaffold
@@ -161,7 +224,7 @@ def certified_count(mu, beta, m=3):
 
 def run():
     params = {"deps": DEPSL, "nny": NNY, "base": BASE,
-              "nugrid": NUGRID, "betagrid": BETAGRID}
+              "nugrid": NUGRID, "betagrid": BETAGRID, "round": 243}
     st = ckpt_key.load("oneprime_lehmann", KEYFILE, params)
     if st is not None:
         return st
@@ -169,35 +232,30 @@ def run():
     cells = [("even", 0.6931), ("even", 0.80), ("even", 0.90),
              ("even", 0.95), ("even", 1.00),
              ("odd", 0.90), ("odd", 1.05), ("odd", 1.09)]
+    gates_done = set()
     for parity, delta in cells:
         a = delta/2
-        # --- the certified count curve nu -> K
+        if a not in gates_done:
+            gate_suite(a, 0.01, 2.0)
+            gates_done.add(a)
         best = {}
-        gl_done = False
         for nu in NUGRID:
             kbest, srec = None, None
             for beta in BETAGRID:
-                mu, trn, tre, t2n, t2e = qtcheck_matrix(a, nu, beta)
-                if not gl_done:
-                    assert abs(trn/tre - 1) < 1e-8, \
-                        f"gL1 FAIL {trn:.6e} vs {tre:.6e}"
-                    assert abs(t2n/t2e - 1) < 1e-6, \
-                        f"gL2 FAIL {t2n:.6e} vs {t2e:.6e}"
-                    gl_done = True
+                mu, _ = qtcheck_matrix(a, nu, beta, parity)
                 cnt, scaff = certified_count(mu, beta)
                 if kbest is None or cnt < kbest:
                     kbest = cnt
-                    srec = {"beta": beta, "mu123": [float(mu[0]),
-                                                   float(mu[1]),
-                                                   float(mu[2])],
+                    srec = {"beta": beta,
+                            "mu123": [float(mu[0]), float(mu[1]),
+                                      float(mu[2])],
                             "scaffold": scaff}
             best[f"{nu:g}"] = {"count": kbest, **srec}
-        # the pole reduction: even needs count <= 1 for ell2 = nu;
-        # odd needs count = 0 (its pole can ADD one below nu)
-        need = 1 if parity == "even" else 2
+        # both sectors need projected count <= 1: even for
+        # lambda_2(PWP_even) >= nu directly; odd for the
+        # pole-free Temple's own ell_2 (stage one)
         nustar = max((float(k) for k, v in best.items()
-                      if v["count"] <= need), default=None)
-        # --- the certificate with the rigorous ell_2 = nustar
+                      if v["count"] <= 1), default=None)
         md, N, M, S, gf4, grids = opf.cell_matrices(
             a, parity, base=BASE)
         assert gf4 < 1e-8, "gF4 FAIL"
@@ -217,44 +275,68 @@ def run():
         Nn = d[:, None]*N*d[None, :]
         ev, U = np.linalg.eigh(Nn)
         keep = ev > 1e-4
-        Wh = ((U[:, keep]/np.sqrt(ev[keep])[None, :]).T*d[None, :])
+        Wh = ((U[:, keep]/np.sqrt(ev[keep])[None, :])
+              .T*d[None, :])
+        chi = (np.cosh(tn/2) if parity == "even"
+               else np.sinh(tn/2))
         Bw, TBw = Wh @ B, Wh @ TB
+        vfull = 2*(Bw*(tw*chi)[None, :]).sum(1)
+        TBfree = TBw - opf.psign(parity)*2*np.outer(vfull, chi)
         NA = 2*(Bw*tw[None, :]) @ Bw.T
         MA = 2*(Bw*tw[None, :]) @ TBw.T
         SA = 2*(TBw*tw[None, :]) @ TBw.T
-        NA, MA, SA = ((NA + NA.T)/2, (MA + MA.T)/2, (SA + SA.T)/2)
+        MF = 2*(Bw*tw[None, :]) @ TBfree.T
+        SF = 2*(TBfree*tw[None, :]) @ TBfree.T
+        NA, MA, SA = ((NA + NA.T)/2, (MA + MA.T)/2,
+                      (SA + SA.T)/2)
+        MF, SF = (MF + MF.T)/2, (SF + SF.T)/2
         l2sec = float(scipy_eigh(MA, NA, eigvals_only=True)[1])
-        # also the pole-free section lambda_1 (the reduction's
-        # sanity view: how much room the pole-free operator has)
-        chi = (np.cosh(tn/2) if parity == "even"
-               else np.sinh(tn/2))
-        v = 2*(Bw*(tw*chi)[None, :]).sum(1)
-        MP = MA - opf.psign(parity)*2*np.outer(v, v)
-        l1free = float(scipy_eigh((MP + MP.T)/2, NA,
-                                  eigvals_only=True)[0])
+        l1free = float(scipy_eigh(MF, NA, eigvals_only=True)[0])
         row = {"count_curve": best, "nustar": nustar,
                "l2sec": l2sec, "l1_polefree_sec": l1free,
                "gF1": gf1}
-        if nustar is not None:
-            mu, c = temple_opt(NA, MA, SA, min(nustar, l2sec))
+        ell2 = None
+        if parity == "even" and nustar is not None:
+            ell2 = nustar
+        elif parity == "odd" and nustar is not None:
+            muF, cF = temple_opt(NA, MF, SF, nustar)
+            if cF is not None:
+                nnF = float(cF @ NA @ cF)
+                rhoF = float(cF @ MF @ cF)/nnF
+                sigF = math.sqrt(max(
+                    float(cF @ SF @ cF)/nnF - rhoF*rhoF, 0.0))
+                nu1 = (rhoF - sigF*sigF/(nustar - rhoF)
+                       if nustar > rhoF else float("-inf"))
+                row.update({"rho_free": rhoF,
+                            "sigma_free": sigF, "nu1": nu1})
+                if nu1 > 0:
+                    ell2 = nu1
+        if ell2 is not None and ell2 > 0:
+            mu, c = temple_opt(NA, MA, SA, min(ell2, l2sec))
             nn = float(c @ NA @ c)
             rho = float(c @ MA @ c)/nn
             sig = math.sqrt(max(float(c @ SA @ c)/nn - rho*rho,
                                 0.0))
-            lam = rho - sig*sig/(nustar - rho) \
-                if nustar > rho else float("-inf")
-            row.update({"rho": rho, "sigma": sig,
-                        "temple_rig": lam})
+            lam = (rho - sig*sig/(ell2 - rho)
+                   if ell2 > rho else float("-inf"))
+            row.update({"ell2_cert": ell2, "rho": rho,
+                        "sigma": sig, "temple_rig": lam})
+            extra = (f" [two-stage: rho_free "
+                     f"{row.get('rho_free', float('nan')):+.3e} "
+                     f"sigma_free "
+                     f"{row.get('sigma_free', float('nan')):.3e}"
+                     f" -> nu1 {ell2:+.4e}]"
+                     if parity == "odd" else "")
             print(f"LEH {parity} delta {delta:g}: nustar "
-                  f"{nustar:g} (counts "
+                  f"{nustar:g} (proj counts "
                   f"{[best[f'{nu:g}']['count'] for nu in NUGRID]}"
-                  f", l1_polefree_sec {l1free:+.3e}) -> RIGOROUS-"
-                  f"ell2 Temple {lam:+.3e} (rho {rho:+.3e} sigma "
-                  f"{sig:.3e}; stand-in l2sec {l2sec:.3e})",
-                  flush=True)
+                  f", l1_polefree_sec {l1free:+.3e}){extra} -> "
+                  f"RIGOROUS-ell2 {ell2:.4g} Temple {lam:+.3e} "
+                  f"(rho {rho:+.3e} sigma {sig:.3e}; stand-in "
+                  f"l2sec {l2sec:.3e})", flush=True)
         else:
-            print(f"LEH {parity} delta {delta:g}: NO nu with "
-                  f"count <= {need} on the grid (counts "
+            print(f"LEH {parity} delta {delta:g}: NO certificate "
+                  f"(nustar {nustar}, proj counts "
                   f"{[best[f'{nu:g}']['count'] for nu in NUGRID]}"
                   f", l1_polefree_sec {l1free:+.3e})", flush=True)
         st[f"{parity}:{delta:g}"] = row

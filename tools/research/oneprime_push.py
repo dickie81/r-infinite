@@ -31,7 +31,10 @@ wide-grid truncation error scales like w^2 log^2(R)/R^3 -- and an
 optimizer EXPLOITS underestimated ||T b||^2 on high modes to fake
 sigma^2 gains. The first run (NCOS = 40, frequencies to ~358,
 gate route at Rmax 600) was stopped by its own gA at 1.45e-3: the
-r-grid route truncated exactly those tails. The discipline now:
+r-grid route truncated exactly those tails. The discipline now
+[round-243 F8 net-state marker: this paragraph describes the
+RUN-2 constants; the committed instrument runs NSM = 32 and
+Rmax = 9000 per the run-2 lesson block below]:
 frequencies capped at the certified reach (NCOS = 24 fam1 modes:
 cos((k+1/2) pi t/a) even / sin((k+1) pi t/a) odd; NSM = 24
 p = 1 windowed harmonics), the wide grid extended to Rmax 6000
@@ -67,7 +70,8 @@ code; run 2's capped-span data in the git record at commit
   gA 1.3e-4 - 4.4e-4 across all eleven cells (inside the certified
   truncation class). Whitened dimensions: even 32, odd 36. The
   top-mode exploit monitor read 0.000 at every even cell and
-  0.27-0.30 at the odd cells (where the truncation budget is
+  0.22-0.30 at the odd cells (round-243 F16: the l2cos24-rung
+  optimum at odd 1.09 read 0.218, outside the earlier 0.27-0.30) (where the truncation budget is
   ~2e-7 in sigma^2 -- far below the odd sigmas ~2e-3).
   THE EVEN SECTOR SATURATES AT delta ~ 0.80: Temple-opt +1.035e-3
   at log 2 (equal to S5's p1n32 trial -- the optimizer certifies
@@ -91,8 +95,9 @@ code; run 2's capped-span data in the git record at commit
   minimized): the full semi-local form Temple-closes on
   [log 2, 0.80] -- the even sector binding -- with the odd sector
   individually closed to 1.05 robustly-or-better. The
-  sigma/needed ratio in the even sector grows 0.50 -> 9.9 across
-  the window (sigma falls ~2x per 0.05-0.1 of delta while
+  sigma/needed ratio in the even sector grows 0.50 -> 15.1 across
+  the window (round-243 F9 correction of the earlier 9.9, which
+  matched no cell on any rung) (sigma falls ~2x per 0.05-0.1 of delta while
   needed = sqrt(l1 l2) collapses faster), so no trial refinement
   alone reaches the top: past ~0.85 the route needs either the
   fractional-edge/high-frequency trials with analytic tails, or a

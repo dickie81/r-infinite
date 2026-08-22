@@ -15,7 +15,14 @@ pre-registered kill DOES NOT FIRE):
     (2021)), Theorem 1: positivity for g supported in
     [2^{-1/2}, 2^{1/2}] -- f = g * g^* supported in (1/2, 2),
     "so that rational primes are not involved" -- the prime-free
-    regime, exactly up to L = log 2. Mechanism: the semi-local
+    regime, exactly up to L = log 2. [Round-243 F13 annotation:
+    the theorem carries VANISHING CONDITIONS -- g's transform
+    vanishing at i/2 and 0 -- so CC's proven record is positivity
+    on that restricted class, not on the unrestricted L^2 class
+    this arc's instruments certify against; the bridge's
+    hyperplane finding (the near-null directions all have
+    v.c != 0) shows the two classes behave very differently, and
+    "record to beat" comparisons must carry this caveat.] Mechanism: the semi-local
     trace formula's Hilbert-space framework; the Sonin-space
     compression of the scaling action; prolate spheroidal wave
     functions; hermitian Toeplitz control of (Weil distribution
@@ -23,14 +30,16 @@ pre-registered kill DOES NOT FIRE):
     Support(f) in (p^{-1}, p) generally; the paper executes only
     the archimedean case.
   NUMERICAL, NOT PROVEN: Connes-Consani, "Spectral triples and
-    zeta-cycles" (arXiv:2106.01715), section 2.2, verbatim: "the
+    zeta-cycles" (arXiv:2106.01715), the section-2 preamble
+    describing sec 2.2 (round-243 F14 attribution fix), verbatim: "the
     positivity is restored after that value, and precisely in the
     interval log 2 <= L < log 3, by implementing also the
     contribution of the prime p = 2, in terms of the related
     functional -W2" -- framed inside "The numerical tests consist
     in ..." with Figure 6; no theorem for L > log 2 anywhere in
     the swept record.
-  THE SHARPENER (same paper, section 2.3, verbatim substance):
+  THE SHARPENER (same paper, the section-2 preamble describing
+    sec 2.3 -- round-243 F14 -- verbatim substance):
     "the computations show that the positivity of the quadratic
     form fails if one considers real values of p outside an
     interval of size < 10^-3 around 2." CONSEQUENCE FOR ANY
