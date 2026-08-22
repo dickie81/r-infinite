@@ -65,6 +65,38 @@ GATES: as listed in chain step (3) -- gLW (wiring), gL2 (HS vs
 Nystrom), gL4 (r-refinement), gL3 (resolution doubling), plus
 gF1/gF4 inherited per cell from the round-3 pipeline.
 
+RESULT (the round-243 corrected-chain run; the invalid prior
+odd-chain claims were never in this file -- forensics showed the
+round-5 RESULT edit raced a commit inside a background job and a
+rollback recovery destroyed the uncommitted text, so those claims
+live only in commit messages c07360d/80e8e0d/c18866f, struck by
+round 243; the no-edits-inside-background-jobs rule was born
+there. All gates gLW/gL2/gL3/gL4 + gF1/gF4 passed;
+float64-modulo throughout, the interval pass still owed):
+  THE PARITY PROJECTION SHARPENED EVERY CELL (the unprojected
+  count had charged each sector with the other's dip modes):
+    even log 2  nu* 0.15   Temple +1.330e-3
+    even 0.80   nu* 0.15   Temple +1.763e-4
+    even 0.90   nu* 0.04   Temple +1.316e-5
+    even 0.95   nu* 0.03   Temple +2.485e-6
+    even 1.00   nu* 0.01   Temple -7.151e-7  (the unchanged
+                rigorous even frontier: the projected count flips
+                to 2 at nu 0.013, below the needed ~0.018)
+  THE TWO-STAGE ODD ROUTE (projected counts are 0 through
+  nu ~ 0.02-0.04, so stage one certifies the pole-free operator's
+  lambda_1 with room to spare):
+    odd 0.90  rho_free +2.044e-2, sigma_free 2.44e-3
+              -> nu1 +2.039e-2 -> Temple +1.798e-3
+    odd 1.05  nu1 +1.904e-2 -> Temple +3.158e-5
+    odd 1.09  nu1 +1.585e-2 -> Temple +1.123e-5
+  THE ROUND'S STANDING VERDICT: the full semi-local form carries
+  rigorous-ell2 Kato-Temple lower bounds -- no stand-in, the
+  chain now CORRECT at every link -- on [log 2, 0.95], and the
+  odd sector on the entire one-prime window; every certificate
+  equals or beats the struck commit-message claims. What
+  separates this from a theorem remains the mechanical interval
+  pass.
+
 CHECKS. 7: classical (Birman-Schwinger counting, prolate-type
 compressions, Kato-Temple). 8: no hypothesis input.
 
