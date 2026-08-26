@@ -120,7 +120,7 @@ compressions, Kato-Temple). 8: no hypothesis input.
 
 Keying law: every producing file in every key.
 """
-import hashlib, math, os, sys
+import hashlib, json, math, os, sys
 
 import numpy as np
 from scipy.linalg import eigh as scipy_eigh
@@ -157,6 +157,47 @@ UMAX = 1.2         # covers 2a for every cell in the window
 
 _qcache = {}
 
+# Partial-checkpoint support (owner's rule after the 2026-08-26
+# container restart lost a 90-minute in-memory run: ALL long
+# computations carry partial save points). Two content-addressed
+# side files in checkpoints/ (ephemeral compute state, out of
+# review scope, deleted when the final checkpoint lands): a JSON
+# of completed cells and a compressed NPZ of the qt-profile cache
+# -- the profile builds dominate the cost, and a resumed run
+# rebuilds each spline from the identical (ug, qc) arrays, so
+# resumed numbers are bit-identical to a straight-through run.
+_PROF_PATH = None
+
+def _save_profiles():
+    if _PROF_PATH is None:
+        return
+    data = {"ug": np.arange(0.0, UMAX, 1e-4)}
+    for (nu, beta), (_spl, intqt, _ug, qc) in _qcache.items():
+        tag = f"{nu:.9f}|{beta:.9f}"
+        data["qc_" + tag] = qc
+        data["meta_" + tag] = np.array([nu, beta, intqt])
+    tmp = _PROF_PATH + ".tmp.npz"
+    np.savez_compressed(tmp, **data)
+    os.replace(tmp, _PROF_PATH)
+
+def _load_profiles():
+    if _PROF_PATH is None or not os.path.exists(_PROF_PATH):
+        return
+    from scipy.interpolate import CubicSpline
+    z = np.load(_PROF_PATH)
+    ug = z["ug"]
+    n = 0
+    for name in z.files:
+        if not name.startswith("qc_"):
+            continue
+        tag = name[3:]
+        nu, beta, intqt = z["meta_" + tag]
+        qc = z[name]
+        _qcache[(round(float(nu), 9), round(float(beta), 9))] = (
+            CubicSpline(ug, qc), float(intqt), ug, qc)
+        n += 1
+    print(f"  partial: reloaded {n} qt profiles", flush=True)
+
 def qt_profile(nu, beta, rmax=1500.0):
     """qtcheck(u) on a fine u-grid (CELL-INDEPENDENT), as a cubic
     spline plus exact trace ingredients; cached per (nu, beta).
@@ -167,6 +208,7 @@ def qt_profile(nu, beta, rmax=1500.0):
     key = (round(nu, 9), round(beta, 9))
     if key in _qcache:
         return _qcache[key]
+    print(f"  profile ({nu:g}, {beta:g})", flush=True)
     r, wr = _qt_grid(nu, beta, rmax, 0.01)
     qt = np.clip(nu + beta - Wker(r), 0.0, None)
     assert qt[r > rmax - 2.0].max() == 0.0, "qt support hit rmax"
@@ -180,6 +222,7 @@ def qt_profile(nu, beta, rmax=1500.0):
     spl = CubicSpline(ug, qc)
     intqt = 2*float(np.sum(qw))    # int over the full line
     _qcache[key] = (spl, intqt, ug, qc)
+    _save_profiles()
     return _qcache[key]
 
 def _qt_grid(nu, beta, rmax, base):
@@ -278,12 +321,32 @@ def run():
     st = ckpt_key.load("oneprime_lehmann", KEYFILE, params)
     if st is not None:
         return st
+    k12 = ckpt_key.key(KEYFILE, params)[:12]
+    ckdir = os.path.join(HERE, "checkpoints")
+    pjson = os.path.join(
+        ckdir, f"oneprime_lehmann_partial_{k12}.json")
+    global _PROF_PATH
+    _PROF_PATH = os.path.join(
+        ckdir, f"oneprime_lehmann_profiles_{k12}.npz")
+    _load_profiles()
+    part = {}
+    try:
+        part = json.load(open(pjson))["state"]
+        done = [c for c in part if not c.startswith("__")]
+        print(f"  partial: resuming with {len(done)} cells done "
+              f"({', '.join(done)})", flush=True)
+    except Exception:
+        pass
     st = {}
     cells = [("even", 0.6931), ("even", 0.80), ("even", 0.90),
              ("even", 0.95), ("even", 1.00),
              ("odd", 0.90), ("odd", 1.05), ("odd", 1.09)]
-    gates_done = set()
+    gates_done = set(part.get("__gates_done__", []))
     for parity, delta in cells:
+        cellk = f"{parity}:{delta:g}"
+        if cellk in part:
+            st[cellk] = part[cellk]
+            continue
         a = delta/2
         if a not in gates_done:
             gate_suite(a, 0.01, 2.0)
@@ -404,8 +467,15 @@ def run():
                   f"(nustar {nustar}, proj counts "
                   f"{[best[f'{nu:g}']['count'] for nu in NUGRID]}"
                   f", l1_polefree_sec {l1free:+.3e})", flush=True)
-        st[f"{parity}:{delta:g}"] = row
+        st[cellk] = row
+        part[cellk] = row
+        part["__gates_done__"] = sorted(gates_done)
+        json.dump({"key": ckpt_key.key(KEYFILE, params),
+                   "state": part}, open(pjson, "w"), indent=0)
     ckpt_key.save("oneprime_lehmann", KEYFILE, params, st)
+    for p in (pjson, _PROF_PATH):
+        if os.path.exists(p):
+            os.remove(p)
     return st
 
 
