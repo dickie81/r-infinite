@@ -87,22 +87,32 @@ hypothesis input; pure analytic number theory.
 RESULT (first full S1-S5 run, 2026-08-21; S1/S2 asserted in code,
 S3-S5 recorded here and reproducible from the checkpoint):
   S1 THE REPRESENTATION HOLDS, GATED: the diagonal prime vs the
-  certified t-overlap PRIME at 5.5e-7 - 5.7e-6 on the form
-  (ARCH-relative) scale, both parities, delta in {0.7, 0.9, 1.05};
+  certified t-overlap PRIME at 5.1e-7 - 5.7e-6 on the form
+  (ARCH-relative) scale (round-244 F7: an earlier lower endpoint
+  5.5e-7 matched the second-smallest value; the checkpoint
+  minimum is 5.12e-7 at odd:1.05), both parities, delta in
+  {0.7, 0.9, 1.05};
   the PRIME-relative figures at delta 0.7 (1.1e-3/1.5e-3) are the
   tiny-denominator artifact of log 2 sitting 0.0069 from the
   support edge, disclosed in the gate comment.
   S2 THE KERNEL GEOMETRY: W < 0 exactly on two dips,
   [0, 3.305] (depth -6.3524 at t = 0) and [6.945, 10.531] (depth
-  -0.6276 at t = 8.823); crossings at 3.305 / 6.945 / 10.531
-  (grid right-edges at dr 1e-3; round-243 F15: the true first
-  crossing is 3.30501); W > 0 from the last crossing to 200
-  (checked at dr 1e-3), the minimum on that range being 0.00133
-  just past the last crossing (round-243 F11 correction: the
-  earlier "tightest squeak" phrasing wrongly promoted the local
-  minimum near the second cosine peak -- which sits at t = 18.011
-  with W = 0.0760, not at the peak 4pi/log 2 = 18.1294 where
-  W = 0.0793 -- over the true range minimum 0.00133).
+  -0.6276 at t = 8.823); the true crossings (brentq) are
+  3.305011 / 6.944877 / 10.531017, while the checkpoint's
+  stored crossings field holds the dr 1e-3 grid right-edges
+  [3.306, 6.945, 10.532] (round-244 F5 correction: an earlier
+  line quoted the rounded true crossings but labeled them grid
+  right-edges, making the RESULT mismatch the checkpoint);
+  W > 0 from the last crossing to 200 (checked at dr 1e-3); the
+  smallest grid value on that range is 0.0013347 at t = 10.533,
+  one grid step past the crossing -- a grid artifact, not a
+  minimum of W, whose infimum on the open range is 0+ since W
+  vanishes at the crossing (round-244 F6 correction: earlier
+  called this the "true range minimum"; round-243 F11 stands in
+  its remaining content -- the "tightest squeak" phrasing had
+  wrongly promoted the local minimum near the second cosine
+  peak, which sits at t = 18.011 with W = 0.0760, not at the
+  peak 4pi/log 2 = 18.1294 where W = 0.0793).
   S3 THE FIRST-PASS SURVEY (smooth p = 4, nsm = 16 trials): the
   Kato-Temple value fails at every delta, both parities, with the
   needed-vs-actual sigma factors measured: even sector 1.27

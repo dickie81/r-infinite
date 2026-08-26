@@ -63,7 +63,14 @@ explicit smooth functions and finite eigenproblems.
 
 GATES: as listed in chain step (3) -- gLW (wiring), gL2 (HS vs
 Nystrom), gL4 (r-refinement), gL3 (resolution doubling), plus
-gF1/gF4 inherited per cell from the round-3 pipeline.
+gF1/gF4 inherited per cell from the round-3 pipeline, and gL5
+(round 244 F3: cross-pipeline count consistency -- the
+Birman-Schwinger/Nystrom count must dominate the independent
+t-space section's count below every nu on the grid; this is the
+committed anchor tying the counting kernel qtcheck to a second
+pipeline -- the earlier suite compared spline-derived quantities
+only against each other, so a uniform kernel rescale passed
+every gate).
 
 RESULT (the round-243 corrected-chain run; the invalid prior
 odd-chain claims were never in this file -- forensics showed the
@@ -83,19 +90,30 @@ float64-modulo throughout, the interval pass still owed):
                 rigorous even frontier: the projected count flips
                 to 2 at nu 0.013, below the needed ~0.018)
   THE TWO-STAGE ODD ROUTE (projected counts are 0 through
-  nu ~ 0.02-0.04, so stage one certifies the pole-free operator's
-  lambda_1 with room to spare):
+  nu ~ 0.015-0.02, flipping to 1 exactly at the pole-free
+  lambda_1 values nu1 ~ 0.016-0.020 and staying <= 1 through
+  nu* = 0.15/0.15/0.08, so stage one certifies the pole-free
+  operator's lambda_1 with room to spare; round-244 F2
+  correction: an earlier gloss put the zero-count regime at
+  "0.02-0.04", contradicting the committed count curves at both
+  ends):
     odd 0.90  rho_free +2.044e-2, sigma_free 2.44e-3
               -> nu1 +2.039e-2 -> Temple +1.798e-3
-    odd 1.05  nu1 +1.904e-2 -> Temple +3.158e-5
+    odd 1.05  nu1 +1.903e-2 -> Temple +3.158e-5  (round-244 F4:
+              an earlier double-round printed 1.904e-2)
     odd 1.09  nu1 +1.585e-2 -> Temple +1.123e-5
   THE ROUND'S STANDING VERDICT: the full semi-local form carries
   rigorous-ell2 Kato-Temple lower bounds -- no stand-in, the
   chain now CORRECT at every link -- on [log 2, 0.95], and the
   odd sector on the entire one-prime window; every certificate
-  equals or beats the struck commit-message claims. What
-  separates this from a theorem remains the mechanical interval
-  pass.
+  equals or beats the struck FINAL claims (c18866f) -- but not
+  every struck interim number: vs the struck run-1 message
+  (80e8e0d) the corrected odd 0.9 is 15% weaker (+1.798e-3 vs
+  the invalid +2.12e-3). Round-244 F1 correction: the earlier
+  sentence "every certificate equals or beats the struck
+  commit-message claims" was unscoped and false at that cell.
+  What separates this from a theorem remains the mechanical
+  interval pass.
 
 CHECKS. 7: classical (Birman-Schwinger counting, prolate-type
 compressions, Kato-Temple). 8: no hypothesis input.
@@ -323,7 +341,22 @@ def run():
                       (SA + SA.T)/2)
         MF, SF = (MF + MF.T)/2, (SF + SF.T)/2
         l2sec = float(scipy_eigh(MA, NA, eigvals_only=True)[1])
-        l1free = float(scipy_eigh(MF, NA, eigvals_only=True)[0])
+        evF = scipy_eigh(MF, NA, eigvals_only=True)
+        l1free = float(evF[0])
+        # gL5 (round 244 F3): cross-pipeline count consistency.
+        # Rayleigh-Ritz sections bound eigenvalues from above, so
+        # #{section eigs < nu} <= #{PWP eigs < nu} <= the
+        # Birman-Schwinger/Nystrom count, for every beta and hence
+        # for the min over beta. One-sided by construction: it
+        # catches undercounting -- the direction that could fake a
+        # certificate -- while overcounting only weakens nustar.
+        # A uniform kernel rescale below ~1 trips it (the mangle
+        # class the pre-244 suite passed).
+        for nu in NUGRID:
+            scnt = int(np.sum(evF < nu))
+            assert best[f"{nu:g}"]["count"] >= scnt, \
+                f"gL5 FAIL {parity} d {delta:g} nu {nu:g}: " \
+                f"count {best[f'{nu:g}']['count']} < sec {scnt}"
         row = {"count_curve": best, "nustar": nustar,
                "l2sec": l2sec, "l1_polefree_sec": l1free,
                "gF1": gf1}
