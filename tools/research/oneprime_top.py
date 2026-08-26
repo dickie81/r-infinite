@@ -92,8 +92,10 @@ from oneprime_push import temple_opt
 import oneprime_fractional as opf
 
 def _sha(name):
-    return hashlib.sha256(
-        open(os.path.join(HERE, name), "rb").read()).hexdigest()
+    # executable-content hash (owner's decision, round 245): prose
+    # edits in dependencies no longer rotate downstream keys
+    import ckpt_key
+    return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPST = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "height_uniformity.py",
@@ -116,7 +118,7 @@ def run():
     params = {"deps": DEPST, "nus": NUS_TOP, "nfr": NFR_TOP,
               "nrough": NROUGH_TOP, "bases": BASES,
               "cells": CELLS}
-    st = ckpt_key.load("oneprime_top", KEYFILE, params)
+    st = ckpt_key.load("oneprime_top", KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:
         return st
     st = {}
@@ -189,7 +191,7 @@ def run():
                   f"{l2A:.3e} | cut5 dim {N5.shape[0]} Temple "
                   f"{mu5:+.3e} sigma {sig5:.3e}", flush=True)
         st[f"{delta:g}"] = rows
-    ckpt_key.save("oneprime_top", KEYFILE, params, st)
+    ckpt_key.save("oneprime_top", KEYFILE, params, st, kfun=ckpt_key.code_key)
     return st
 
 

@@ -190,8 +190,10 @@ from fold_D import zeros380
 from height_uniformity import ext_zeros_to
 
 def _sha(name):
-    return hashlib.sha256(
-        open(os.path.join(HERE, name), "rb").read()).hexdigest()
+    # executable-content hash (owner's decision, round 245): prose
+    # edits in dependencies no longer rotate downstream keys
+    import ckpt_key
+    return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPSB = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "height_uniformity.py",
@@ -354,7 +356,7 @@ def hyper_min(M, v, n, a):
 
 def run():
     params = {"deps": DEPSB, "nbase": NBASE}
-    st = ckpt_key.load("oneprime_bridge", KEYFILE, params)
+    st = ckpt_key.load("oneprime_bridge", KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:
         return st
     st = {}
@@ -570,7 +572,7 @@ def run():
               f"{h['full_unrestricted']:+.3e}", flush=True)
     st["hyperplane"] = hyp
 
-    ckpt_key.save("oneprime_bridge", KEYFILE, params, st)
+    ckpt_key.save("oneprime_bridge", KEYFILE, params, st, kfun=ckpt_key.code_key)
     return st
 
 

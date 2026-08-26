@@ -154,8 +154,10 @@ from oneprime_certificate import psign
 from oneprime_push import temple_opt
 
 def _sha(name):
-    return hashlib.sha256(
-        open(os.path.join(HERE, name), "rb").read()).hexdigest()
+    # executable-content hash (owner's decision, round 245): prose
+    # edits in dependencies no longer rotate downstream keys
+    import ckpt_key
+    return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPSF = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "height_uniformity.py",
@@ -339,7 +341,7 @@ def ladder(N, M, S, l2sec, l2c):
 def run():
     params = {"deps": DEPSF, "nus": NUS, "nfr": NFR,
               "nrough": NROUGH}
-    st = ckpt_key.load("oneprime_frac", KEYFILE, params)
+    st = ckpt_key.load("oneprime_frac", KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:
         return st
     st = {}
@@ -442,7 +444,7 @@ def run():
               f"{LA['l2sec']['sigma']:.3e} nw {fw:.3f}) l2cos24 "
               f"{LA['l2cos24']['temple']:+.3e} half "
               f"{LA['half']['temple']:+.3e}", flush=True)
-    ckpt_key.save("oneprime_frac", KEYFILE, params, st)
+    ckpt_key.save("oneprime_frac", KEYFILE, params, st, kfun=ckpt_key.code_key)
     return st
 
 

@@ -183,8 +183,10 @@ from oneprime_bridge import (NBASE, LOG2, LOG3, build_Q64,
                              basis_eval, freqs)
 
 def _sha(name):
-    return hashlib.sha256(
-        open(os.path.join(HERE, name), "rb").read()).hexdigest()
+    # executable-content hash (owner's decision, round 245): prose
+    # edits in dependencies no longer rotate downstream keys
+    import ckpt_key
+    return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPSC = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "height_uniformity.py",
@@ -278,7 +280,7 @@ def residual(phi, tg, dt, parity, rw, Ww, chunk=10001):
 
 def run():
     params = {"deps": DEPSC, "nbase": NBASE}
-    st = ckpt_key.load("oneprime_cert", KEYFILE, params)
+    st = ckpt_key.load("oneprime_cert", KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:
         return st
     st = {}
@@ -466,7 +468,7 @@ def run():
                   f"-> Temple-feas {lT:+.3e}", flush=True)
     st["S5"] = s5
 
-    ckpt_key.save("oneprime_cert", KEYFILE, params, st)
+    ckpt_key.save("oneprime_cert", KEYFILE, params, st, kfun=ckpt_key.code_key)
     return st
 
 

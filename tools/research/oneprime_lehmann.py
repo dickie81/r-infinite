@@ -120,7 +120,10 @@ float64-modulo throughout, the interval pass still owed):
 CHECKS. 7: classical (Birman-Schwinger counting, prolate-type
 compressions, Kato-Temple). 8: no hypothesis input.
 
-Keying law: every producing file in every key.
+Keying law: every producing file in every key -- by executable
+content (docstring-stripped AST) since round 245, by owner's
+decision: prose edits no longer rotate keys; every executable edit,
+string literals in executable statements included, still does.
 """
 import hashlib, json, math, os, sys
 
@@ -137,8 +140,10 @@ from oneprime_push import temple_opt
 import oneprime_fractional as opf
 
 def _sha(name):
-    return hashlib.sha256(
-        open(os.path.join(HERE, name), "rb").read()).hexdigest()
+    # executable-content hash (owner's decision, round 245): prose
+    # edits in dependencies no longer rotate downstream keys
+    import ckpt_key
+    return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPSL = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "height_uniformity.py",
@@ -335,10 +340,10 @@ def certified_count(mu, beta, m=3):
 def run():
     params = {"deps": DEPSL, "nny": NNY, "base": BASE,
               "nugrid": NUGRID, "betagrid": BETAGRID, "round": 243}
-    st = ckpt_key.load("oneprime_lehmann", KEYFILE, params)
+    st = ckpt_key.load("oneprime_lehmann", KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:
         return st
-    k12 = ckpt_key.key(KEYFILE, params)[:12]
+    k12 = ckpt_key.code_key(KEYFILE, params)[:12]
     ckdir = os.path.join(HERE, "checkpoints")
     pjson = os.path.join(
         ckdir, f"oneprime_lehmann_partial_{k12}.json")
@@ -487,9 +492,9 @@ def run():
         st[cellk] = row
         part[cellk] = row
         part["__gates_done__"] = sorted(gates_done)
-        json.dump({"key": ckpt_key.key(KEYFILE, params),
+        json.dump({"key": ckpt_key.code_key(KEYFILE, params),
                    "state": part}, open(pjson, "w"), indent=0)
-    ckpt_key.save("oneprime_lehmann", KEYFILE, params, st)
+    ckpt_key.save("oneprime_lehmann", KEYFILE, params, st, kfun=ckpt_key.code_key)
     for p in (pjson, _PROF_PATH):
         if os.path.exists(p):
             os.remove(p)

@@ -123,8 +123,10 @@ from oneprime_certificate import (Wker, tgrid, trapzw, smooth_basis,
                                   psign)
 
 def _sha(name):
-    return hashlib.sha256(
-        open(os.path.join(HERE, name), "rb").read()).hexdigest()
+    # executable-content hash (owner's decision, round 245): prose
+    # edits in dependencies no longer rotate downstream keys
+    import ckpt_key
+    return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPSP = {f: _sha(f) for f in ("fold_D.py", "fold_surrogate.py",
                               "height_uniformity.py",
@@ -211,7 +213,7 @@ def temple_opt(N, M, S, ell2, safety=0.95):
 
 def run():
     params = {"deps": DEPSP, "ncos": NCOS, "nsm": NSM, "rmax": RMAX}
-    st = ckpt_key.load("oneprime_push", KEYFILE, params)
+    st = ckpt_key.load("oneprime_push", KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:
         return st
     st = {}
@@ -278,7 +280,7 @@ def run():
               f"{row['l2sec']['top_weight']:.3f}), l2cos24 "
               f"{row['l2cos24']['temple']:+.3e}, half "
               f"{row['half']['temple']:+.3e}", flush=True)
-    ckpt_key.save("oneprime_push", KEYFILE, params, st)
+    ckpt_key.save("oneprime_push", KEYFILE, params, st, kfun=ckpt_key.code_key)
     return st
 
 
