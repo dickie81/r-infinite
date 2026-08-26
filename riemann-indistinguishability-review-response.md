@@ -4967,3 +4967,11 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **The sweep (91306f2, comment-only):** the overclaim (and its "three orders" predecessor) struck at the carrier with the computed margins in place. The owed battery ran in under a minute — lehmann's full run REUSED its checkpoint, manifest clean, tower 13/13: the executable-content keying's first live payoff.
 
 **Trajectory: 243: 3M+10m+3c → 244: 0M+3m+4c → 245: 0M+1m+2c → 246: 0M+1m+2c (swept 91306f2). Convergence round 247 next; the interval pass (round 6 of the arc) pends it.**
+
+# Round 247: convergence test on the round-246 sweep — CONVERGED: 0 majors + 0 minors (F247-1/2 cosmetic, held with loci; C246-1/2 standing); the one-prime arc is STABLE
+
+**Scope:** the 91306f2 comment-line sweep in full file context; ckpt_key.py; checkpoints. Verification: the binding minimum confirmed over the full 240-pair committed corpus as scoped; the protective row recomputed fresh; all ratio endpoints checked; the strike history verified by git -L; the diff confirmed executable-content-null; lehmann REUSED in 0.85 s; no second carriers; keying probes behave as documented; C246-1 attacked anew and held. Battery: manifest clean; tower TOP 13/13.
+
+**Held cosmetics (lead-verified):** F247-1 — absolute-vs-relative units juxtaposition in the margin comment (all numbers individually true; adverse propagation leaves ~9x headroom). F247-2 — ckpt_key's script_sha256 field holds a keyed hash, not the raw sha (pre-existing A341 label, ungated).
+
+**Trajectory: 243: 3M+10m+3c → 244: 0M+3m+4c → 245: 0M+1m+2c → 246: 0M+1m+2c → 247 CONVERGED 0M+0m. The round-243 chain is closed; the seven-instrument arc is STABLE with its certificates quadruply reproduced, gL5-anchored, and content-addressed. The interval pass (arc round 6), the even-1.0 sharpening, Stage B2, and the Bombieri-II sweep are unblocked — owner's choice.**
