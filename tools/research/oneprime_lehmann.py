@@ -316,8 +316,14 @@ def gate_suite(a, nu, beta):
     # the composite zones" was struck -- an honest uniform trapz
     # sits at ~3e-8 here; what gL4 genuinely gates is the O(dr)
     # weight-defect class, e.g. the round-5 rectangle rule's
-    # 3.5e-4 endpoint error, 70x this tolerance); count margins
-    # sit four orders above this scale
+    # 3.5e-4 endpoint error, 70x this tolerance). Round-246 F1:
+    # the binding count margin over the committed curves is
+    # |mu2 - beta| = 2.24e-4 at even:0.95 nu 0.03 beta 3.0
+    # (6.1e-4 at the protective beta 3.5 row, count still 1) --
+    # 2.2-2.7 orders above this residual and 45-120x the 5e-6
+    # tolerance; two prior versions of this line overclaimed
+    # ("three orders", then "four orders") without a supporting
+    # computation, and both are struck
     assert abs(i1/i2 - 1) < 5e-6, f"gL4 FAIL {i1:.6e} {i2:.6e}"
     for par, mu1 in (("even", mue), ("odd", muo)):
         mu2, _ = qtcheck_matrix(a, nu, beta, par, nny=2*NNY)
