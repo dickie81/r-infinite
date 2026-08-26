@@ -68,9 +68,9 @@ gF1/gF4 inherited per cell from the round-3 pipeline, and gL5
 Birman-Schwinger/Nystrom count must dominate the independent
 t-space section's count below every nu on the grid; this is the
 committed anchor tying the counting kernel qtcheck to a second
-pipeline -- the earlier suite compared spline-derived quantities
-only against each other, so a uniform kernel rescale passed
-every gate).
+pipeline -- the earlier suite's comparisons were all
+spline-vs-spline or spline-free (round-245 C2 wording fix), so
+a uniform kernel rescale passed every gate).
 
 RESULT (the round-243 corrected-chain run; the invalid prior
 odd-chain claims were never in this file -- forensics showed the
@@ -105,7 +105,9 @@ float64-modulo throughout, the interval pass still owed):
   THE ROUND'S STANDING VERDICT: the full semi-local form carries
   rigorous-ell2 Kato-Temple lower bounds -- no stand-in, the
   chain now CORRECT at every link -- on [log 2, 0.95], and the
-  odd sector on the entire one-prime window; every certificate
+  odd sector on the entire one-prime window through 1.09 (the
+  sliver (1.09, log 3) by the arc's standing top-cell
+  convention; round-245 C1); every certificate
   equals or beats the struck FINAL claims (c18866f) -- but not
   every struck interim number: vs the struck run-1 message
   (80e8e0d) the corrected odd 0.9 is 15% weaker (+1.798e-3 vs
@@ -202,9 +204,20 @@ def qt_profile(nu, beta, rmax=1500.0):
     """qtcheck(u) on a fine u-grid (CELL-INDEPENDENT), as a cubic
     spline plus exact trace ingredients; cached per (nu, beta).
     The r-grid is COMPOSITE: base dr 0.01 with dr 1e-4 refinement
-    zones around every support-edge kink of qt (round 243: the
-    uniform grid's kink error, ~3.5e-4 relative, was caught by the
-    new gL4 refinement gate on its first run)."""
+    zones around every support-edge kink of qt. Round-245 F1
+    re-diagnosis of the round-243 gL4 first-firing story: the
+    3.5e-4 gL4 caught was the round-5 RECTANGLE rule's O(dr)
+    endpoint error at r = 0, where qt is largest -- the closed
+    form qt(0)(dr1-dr2)/int reproduces the measured 3.503e-4 to
+    four digits -- NOT a support-edge kink error; the kink class
+    sits at ~3e-8 on an honest uniform trapezoid grid at these
+    (nu, beta), below this composite grid's own ~1.3e-6
+    zone-structure residual. The earlier attribution ("the
+    uniform grid's kink error ... caught by gL4") is struck: gL4
+    gates the O(dr) weight-defect class (a rectangle regression
+    trips it at 70x tolerance) and dr^2 refinement stability, not
+    kink placement; the counting kernel's independent anchor is
+    gL5."""
     key = (round(nu, 9), round(beta, 9))
     if key in _qcache:
         return _qcache[key]
@@ -293,9 +306,13 @@ def gate_suite(a, nu, beta):
     r2, w2 = _qt_grid(nu, beta, 1500.0, 0.005)
     i1 = 2*float(np.sum(np.clip(nu + beta - Wker(r1), 0, None)*w1))
     i2 = 2*float(np.sum(np.clip(nu + beta - Wker(r2), 0, None)*w2))
-    # residual ~2e-6 is the smooth-region dr^2 convergence (the
-    # kink error is killed by the composite zones); count margins
-    # sit three orders above this scale
+    # residual ~1.3e-6 is the composite grid's own zone-structure
+    # convergence (round-245 F1: the earlier "kink error killed by
+    # the composite zones" was struck -- an honest uniform trapz
+    # sits at ~3e-8 here; what gL4 genuinely gates is the O(dr)
+    # weight-defect class, e.g. the round-5 rectangle rule's
+    # 3.5e-4 endpoint error, 70x this tolerance); count margins
+    # sit four orders above this scale
     assert abs(i1/i2 - 1) < 5e-6, f"gL4 FAIL {i1:.6e} {i2:.6e}"
     for par, mu1 in (("even", mue), ("odd", muo)):
         mu2, _ = qtcheck_matrix(a, nu, beta, par, nny=2*NNY)
