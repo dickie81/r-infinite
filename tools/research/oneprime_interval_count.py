@@ -26,7 +26,11 @@ THE METHOD (no kernel, no polynomial bases, no Bessel):
       M_{4-j} with M_j the proved W-derivative majorants (M_0 =
       qt_max), because each d/dr of <f, phi_r> brings a factor
       x <= a and |<f,phi_r>|^2 <= a. Composite Simpson error
-      per piece is (piece length) H^4 |g^{(4)}|/180; crossing
+      per piece is (piece length) H^4 |g^{(4)}|/180 with
+      g4 = a(M4 + 4(2a)M3 + 6(2a)^2 M2 + 8(2a)^3 M1
+      + 2(2a)^4 qmax) (the code's 8/2 coefficients on the last
+      two terms are the doubled -- conservative -- binomials;
+      round-248 F248-8); crossing
       brackets contribute |qt| <= M1 * (bracket width) times
       a * width by the hull bound. Total: ||T - T_H||_op <= EOP,
       an explicit interval quantity.
@@ -59,7 +63,7 @@ THE METHOD (no kernel, no polynomial bases, no Bessel):
 CELL ROWS (margin-friendly re-selection, from the committed
 float64 count curves; the float row choice carries no rigor
 burden -- the certificate is whatever the enclosures prove):
-    even log2  a 0.34657  nu* 0.15  beta 1.0
+    even log2  a 0.34655  nu* 0.15  beta 1.0
     even 0.80  a 0.40     nu* 0.15  beta 1.0
     even 0.90  a 0.45     nu* 0.04  beta 1.5
     even 0.95  a 0.475    nu* 0.02  beta 1.5
@@ -229,7 +233,11 @@ def _sin_core_v(y):
     tot = V(term.lo.copy(), term.hi.copy())
     for k in range(1, K):
         term = term*y2
-        term = term*(-1.0/((2*k)*(2*k + 1)))
+        # interval coefficient (round-248 F248-1c): the integer
+        # (2k)(2k+1) <= 33*32 is float-exact; the division is
+        # enclosed rather than pre-rounded
+        term = term*V.scalar(I(-1.0)/I(float((2*k)*(2*k + 1))),
+                             len(y.lo))
         tot = tot + term
     m = np.maximum(np.abs(y.lo), np.abs(y.hi))
     rem = vup((m**(2*K + 1))/math.factorial(2*K + 1))
@@ -440,7 +448,11 @@ def eop_bound(nu, beta, a, pieces, brackets, H):
     m2 = d2W_majorant(260.0)
     m3 = M3_majorant()
     m4 = M4_majorant()
-    qmax = _u(nu + beta + 6.36)     # qt <= c - min W <= c+6.36
+    # qt <= c - min W; -min W <= -psi(1/4) + ln pi + C2
+    #   = gamma + 3 ln 2 + pi/2 + ln pi + sqrt2 ln 2
+    #   = 6.35244... < 6.36  (round-248 F248-2: derivation
+    # recorded; the constant is an upper bound, safe direction)
+    qmax = _u(nu + beta + 6.36)
     ta = 2*a
     g4 = a*(m4 + 4*ta*m3 + 6*ta*ta*m2 + 8*ta**3*m1
             + 2*ta**4*qmax)
@@ -579,8 +591,10 @@ def certify_cell(parity, a, nu, beta, H=0.02, rmax=260.0):
     sq_lo = np.sqrt(np.maximum(clo, 0.0))
     sq_hi = vup(np.sqrt(chi))
     sq_lo = vdn(sq_lo)
-    SL = sq_lo[:, None]*sq_lo[None, :]
-    SH = sq_hi[:, None]*sq_hi[None, :]
+    # directed outer products (round-248 F248-1f: the chained
+    # nearest roundings exceeded the single directed step)
+    SL = vdn(sq_lo[:, None]*sq_lo[None, :])
+    SH = vup(sq_hi[:, None]*sq_hi[None, :])
     # A entries: G can be negative; product with nonneg scale
     Alo = vdn(np.minimum(np.minimum(SL*Glo, SL*Ghi),
                          np.minimum(SH*Glo, SH*Ghi)))

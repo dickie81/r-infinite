@@ -144,7 +144,9 @@ def _vexp_end(x, side):
     term = V(np.ones_like(x), np.ones_like(x))
     tot = V(np.ones_like(x), np.ones_like(x))
     for k in range(1, K):
-        term = term*sV*V.scalar(1.0/k, len(x))
+        # interval coefficient (round-248 F248-1c: the float
+        # 1.0/k pre-rounds outside any remainder budget)
+        term = term*sV*V.scalar(I(1.0)/I(float(k)), len(x))
         tot = tot + term
     m = np.maximum(np.abs(sV.lo), np.abs(sV.hi))
     rem = vup((m**K)/math.factorial(K)/(1 - m/(K + 1)))
@@ -202,7 +204,7 @@ def _sinh_cosh(u):
     n = len(u.lo)
     e2 = _vexp(u*V.scalar(0.5, n))
     e = e2*e2
-    einv = V(1.0/e.hi, 1.0/e.lo)
+    einv = V(vdn(1.0/e.hi), vup(1.0/e.lo))   # directed (F248-1b)
     sh = (e - einv)*V.scalar(0.5, n)
     ch = (e + einv)*V.scalar(0.5, n)
     small = u.hi < 0.01
@@ -246,10 +248,14 @@ class Table:
     error cumsums: differences over [x1, x2] carry only the
     error accumulated BETWEEN the bracketing nodes (a shared
     prefix error would otherwise enter every difference twice
-    -- the round-6 build's first width blowup).  Core cumsums
-    are kept as directed lo/hi partial sums (their own rounding
-    accumulation is genuinely prefix-shared and stays; it is
-    ~n*eps*scale ~ 1e-10, negligible)."""
+    -- the round-6 build's first width blowup).  The fl-cumsum
+    accumulation of the directed terms is ENCLOSED by the slop
+    lemma (round-248 F248-1a): each partial sum differs from
+    the exact sum of its (already directed) float terms by at
+    most (n-1) u Sigma|terms| / (1 - n u), and a difference of
+    two partials by at most twice that; the bound (with a 1.05
+    factor covering its own nearest-rounded assembly) is folded
+    into `extra`, which callers therefore ADD to, not assign."""
 
     def __init__(self, nodes, fmid, fpp, fcell):
         self.x = nodes
@@ -261,9 +267,14 @@ class Table:
         self.core_hi = np.concatenate(
             [[0.0], np.cumsum(vup(fmid.hi*h))])
         self.errc = np.concatenate([[0.0], np.cumsum(vup(err))])
+        u_ = np.finfo(np.float64).eps
+        absum = float(np.sum(np.maximum(np.abs(fmid.lo),
+                                        np.abs(fmid.hi))*h))
+        nn_ = len(h)
+        self.extra = _u(1.05*2.0*nn_*u_*absum)
+        # (head-sliver widenings from callers ADD to this slop)
         self.f_lo = fcell.lo
         self.f_hi = fcell.hi
-        self.extra = 0.0     # sliver widening (both directions)
         # suffix max of |f| over cells >= j: for SIGNED
         # integrands (C/S tables) the enclosure of an integral
         # over an endpoint sliver of width w is +/- w * this
@@ -369,7 +380,13 @@ def _table_nodes(a, htab=HTAB):
     return np.concatenate([np.array(geo[:-1]), uni])
 
 
-def build_tables(a, ws, degmax, htab=HTAB):
+def build_tables(a, harm_ws, degmax, htab=HTAB):
+    """harm_ws: list of (w_float, wI_interval) pairs.  The float
+    w keys the table NAMES; every integrand uses the EXACT
+    interval frequency wIv (round-248 F248-1d: tabulating at
+    the float frequency while the operator multiplies by trig
+    at the exact frequency broke the closed-form identity by
+    ~ulp(w); one source of truth now)."""
     nodes = _table_nodes(a, htab)
     mid = 0.5*(nodes[:-1] + nodes[1:])
     cellV = V(nodes[:-1], nodes[1:])
@@ -379,7 +396,7 @@ def build_tables(a, ws, degmax, htab=HTAB):
     Ec, Ac, Epc, Eppc, Apc, Appc = E_A_prime(cellV)
     tabs = {}
     tA = Table(nodes, Am, Appc, Ac)
-    tA.extra = _u(0.51*X0)
+    tA.extra += _u(0.51*X0)
     tabs["IA"] = tA
     for i in range(0, degmax + 1):
         ui_m = V.point(mid**i)
@@ -397,27 +414,28 @@ def build_tables(a, ws, degmax, htab=HTAB):
                 * _upow_cell(cellV, i - 2)
         t = Table(nodes, f_m, fpp, f_c)
         if i >= 2:
-            t.extra = _u(X0**i/i + X0**(i + 1)/(i + 1))
+            t.extra += _u(X0**i/i + X0**(i + 1)/(i + 1))
         tabs[f"H{i}"] = t
-    for w in ws:
-        wI = I(w)
-        s2m = vsin(midV*V.scalar(wI/2, n))
+    for w, wIv in harm_ws:
+        s2m = vsin(midV*V.scalar(wIv*I(0.5), n))
         s2m = s2m*s2m
-        s2c = vsin(cellV*V.scalar(wI/2, n))
+        s2c = vsin(cellV*V.scalar(wIv*I(0.5), n))
         s2c = s2c*s2c
-        sinw_c = vsin(cellV*V.scalar(wI, n))
-        cosw_c = vcos(cellV*V.scalar(wI, n))
-        fpp = Eppc*s2c + Epc*sinw_c*V.scalar(wI, n) \
-            + Ec*cosw_c*V.scalar(wI*wI/2, n)
+        sinw_c = vsin(cellV*V.scalar(wIv, n))
+        cosw_c = vcos(cellV*V.scalar(wIv, n))
+        fpp = Eppc*s2c + Epc*sinw_c*V.scalar(wIv, n) \
+            + Ec*cosw_c*V.scalar(wIv*wIv*I(0.5), n)
         tG = Table(nodes, Em*s2m, fpp, Ec*s2c)
-        tG.extra = _u((w/2)**2*X0**2)
+        # head: int_0^X0 E sin^2(wu/2) <= (w/2)^2 X0^2 (2x room
+        # over the true w^2 X0^2/8 covers the nearest rounding)
+        tG.extra += _u((w/2)**2*X0**2)
         tabs[f"G{w:.9f}"] = tG
-        cosm = vcos(midV*V.scalar(wI, n))
-        sinm = vsin(midV*V.scalar(wI, n))
-        fppC = Eppc*cosw_c - V.scalar(2*w, n)*Epc*sinw_c \
-            - V.scalar(w*w, n)*Ec*cosw_c
-        fppS = Eppc*sinw_c + V.scalar(2*w, n)*Epc*cosw_c \
-            - V.scalar(w*w, n)*Ec*sinw_c
+        cosm = vcos(midV*V.scalar(wIv, n))
+        sinm = vsin(midV*V.scalar(wIv, n))
+        fppC = Eppc*cosw_c - V.scalar(I(2.0)*wIv, n)*Epc*sinw_c \
+            - V.scalar(wIv*wIv, n)*Ec*cosw_c
+        fppS = Eppc*sinw_c + V.scalar(I(2.0)*wIv, n)*Epc*cosw_c \
+            - V.scalar(wIv*wIv, n)*Ec*sinw_c
         tabs[f"C{w:.9f}"] = Table(nodes, Em*cosm, fppC,
                                   Ec*cosw_c)
         tabs[f"S{w:.9f}"] = Table(nodes, Em*sinm, fppS,
@@ -440,10 +458,10 @@ class Trial:
         self.poly = poly
         self.deg = len(poly) - 1
         self.ws = [(k + off)*math.pi/a for _, k, off in harm]
-        self.cabs = _u(sum(abs(c) for c, _, _ in harm)
-                       + sum(max(abs(p.lo), abs(p.hi))
-                             * max(a, 1.0)**j
-                             for j, p in enumerate(poly)))
+        self.cabs = _u(math.fsum(
+            [abs(c) for c, _, _ in harm]
+            + [max(abs(p.lo), abs(p.hi))*max(a, 1.0)**j
+               for j, p in enumerate(poly)]))
 
     def wI(self, idx):
         c, k, off = self.harm[idx]
@@ -679,10 +697,10 @@ class ClosedT:
             corr = corr + cV*term
             if deriv:
                 dtrig = (-swt)*wS if even else cwt*wS
-                s = vsin(k2*V.scalar(I(w)*I(0.5), n))
+                s = vsin(k2*V.scalar(wIv*I(0.5), n))
                 gint = E2*s*s
                 ddint = ddint + cV*(-2.0)*(dtrig*G + trig*gint)
-                wpt = V.scalar(I(w), n)
+                wpt = V.scalar(wIv, n)
                 ec2 = E2*vcos(k2*wpt)
                 ec1 = E1*vcos(k1*wpt)
                 es2 = E2*vsin(k2*wpt)
@@ -764,7 +782,7 @@ class ClosedT:
             if deriv:
                 dtrig = (-isin(wIv*t))*wIv if even \
                     else icos(wIv*t)*wIv
-                s = isin(I(w)*k2*I(0.5))
+                s = isin(wIv*k2*I(0.5))
                 gint = E2*s*s
                 ddint = ddint + I(c)*I(-2.0)*(dtrig*G
                                               + trig*gint)
@@ -789,10 +807,10 @@ class ClosedT:
                 term = swt*Cd + cwt*Sd
             corr = corr + I(c)*term
             if deriv:
-                ec2 = E2*icos(I(w)*k2)
-                ec1 = E1*icos(I(w)*k1)
-                es2 = E2*isin(I(w)*k2)
-                es1 = E1*isin(I(w)*k1)
+                ec2 = E2*icos(wIv*k2)
+                ec1 = E1*icos(wIv*k1)
+                es2 = E2*isin(wIv*k2)
+                es1 = E1*isin(wIv*k1)
                 if even:
                     dterm = (-swt)*wIv*Cd - cwt*wIv*Sd \
                         + cwt*(ec2 + ec1) - swt*(es2 + es1)
@@ -916,8 +934,8 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
         use_cosh = (even == even_toggle)
         fn = icosh if use_cosh else isinh
         return fn(x*I(0.5))*_ipow(I(0.5), order)
-    chi_lo = chi_hi = 0.0
-    n_lo = n_hi = 0.0
+    chi_lo_p, chi_hi_p = [], []
+    n_lo_p, n_hi_p = [], []
     # Simpson converges as h^5: the FIXED pitch HCHI (the value
     # validated at the round's first certified cell: n width
     # ~2e-10, chi width ~1e-10) suffices independently of the
@@ -947,31 +965,65 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
               + I(6.0)*pc[2]*cc[2] + I(4.0)*pc[1]*cc[3]
               + pc[0]*cc[4])
         e = _u(h**5*f4.abs_hi()/2880.0)
-        chi_lo += _d(simp.lo - e)
-        chi_hi += _u(simp.hi + e)
+        chi_lo_p.append(_d(simp.lo - e))
+        chi_hi_p.append(_u(simp.hi + e))
         simp2 = (pl*pl + I(4.0)*pm*pm + ph*ph)*I(h/6.0)
         g4 = I(2.0)*(pc[4]*pc[0] + I(4.0)*pc[3]*pc[1]
                      + I(3.0)*pc[2]*pc[2])
         e2_ = _u(h**5*g4.abs_hi()/2880.0)
-        n_lo += _d(simp2.lo - e2_)
-        n_hi += _u(simp2.hi + e2_)
-    sl = _u(2*DEDGE*1.3*tr.cabs)
+        n_lo_p.append(_d(simp2.lo - e2_))
+        n_hi_p.append(_u(simp2.hi + e2_))
+    # fsum is exactly rounded, one directed step after
+    # (round-248 F248-1g: the += accumulation was nearest)
+    chi_lo = _d(math.fsum(chi_lo_p))
+    chi_hi = _u(math.fsum(chi_hi_p))
+    n_lo = _d(math.fsum(n_lo_p))
+    n_hi = _u(math.fsum(n_hi_p))
+    # uncovered t-measure: the two DEDGE slivers PLUS the
+    # _gcells terminal gap <= a*1e-15 (round-248 F248-1e: sl2
+    # previously budgeted exactly 2*DEDGE with zero headroom);
+    # |chi| <= cosh(a/2) <= 1.3 on a <= 0.55
+    DG = _u(DEDGE + a*2e-15)
+    sl = _u(2*DG*1.3*tr.cabs)
     chi_phi = I(_d(2*(chi_lo - sl)), _u(2*(chi_hi + sl)))
-    sl2 = _u(2*DEDGE*tr.cabs**2)
+    sl2 = _u(2*DG*tr.cabs**2)
     nn = I(_d(2*(n_lo - sl2)), _u(2*(n_hi + sl2)))
 
     ct = ClosedT(tr, tabs, chi_phi)
     # |T phi(t)| <= CE_A + CE_B ln(1/(a - t)) on the sliver:
     # the divergent piece is the correction integral, |corr| <=
-    # (cabs/2)(ln(k2/k1) + k2); everything else bounded.
-    CE_B = _u(0.51*tr.cabs)
-    CE_A = _u((float(LG4PI.hi) + 2.2 + 40.0 + 1.0
-               + float(C2I.hi))*tr.cabs
-              + 2*max(abs(chi_phi.lo), abs(chi_phi.hi))
-              * float(icosh(I(a/2)).hi)
-              + 0.51*tr.cabs*abs(math.log(2*a + 1e-3)))
-    lnD = abs(math.log(DEDGE))
-    CEDGE = _u(CE_A + CE_B*lnD)
+    # (cabs/2)(ln(k2/k1) + k2) since E(u) <= 1/u + 1 on (0, 1.2]
+    # (see the E-bound note in _sinh_cosh); every other term is
+    # a COMPUTED enclosure (round-248 F248-2: the previous
+    # 2.2/40.0/1.0 were verified-true but underived constants):
+    #   |phi| <= cabs;  |dint| <= sum_h 2|c_h| Gw(xtop) (poly
+    #   part identically zero for the pure-harmonic trials --
+    #   asserted);  IA(k2) <= IA(xtop);  lcoth(k2) <= lcoth(a);
+    #   |prime| <= C2 cabs;  (cabs/2) k2 <= 0.51 cabs (2a+1e-3).
+    assert tr.deg == 0, "CE_A dint bound assumes pure-harmonic"
+    cabsI = I(tr.cabs)
+    xtop = 2*a + 1e-3
+    ia_top = tabs["IA"].at(xtop)
+    ea_ = iexp(I(a))
+    lcoth_a = ilog((ea_ + 1)/(ea_ - 1))
+    dint_top = I(0.0)
+    for idx, (c, k, off) in enumerate(tr.harm):
+        w = tr.ws[idx]
+        dint_top = dint_top + I(abs(c))*I(2.0) \
+            *tabs[f"G{w:.9f}"].at(xtop)
+    chiam = I(max(abs(chi_phi.lo), abs(chi_phi.hi)))
+    CE_B_I = I(0.51)*cabsI
+    CE_A_I = (LG4PI*cabsI + cabsI*I(ia_top.hi)
+              + cabsI*I(lcoth_a.hi) + I(dint_top.hi)
+              + C2I*cabsI
+              + I(0.51)*cabsI*I(xtop)
+              + I(2.0)*chiam*icosh(I(a)*I(0.5))
+              + I(0.51)*cabsI*I(ilog(I(xtop)).abs_hi()))
+    CE_B = _u(CE_B_I.hi)
+    CE_A = _u(CE_A_I.hi)
+    lnD_I = I(0.0) - ilog(I(DEDGE))
+    lnD = _u(lnD_I.hi)
+    CEDGE = _u((CE_A_I + CE_B_I*lnD_I).hi)
     # gT6: the batch and scalar paths both enclose the same true
     # values, so their enclosures must overlap
     for tv in (0.31*a, 0.57*a, 0.83*a):
@@ -994,7 +1046,11 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     for s0 in range(0, ncl, CH):
         cl = cl_arr[s0:s0 + CH]
         chh = ch_arr[s0:s0 + CH]
-        h = chh - cl
+        # true cell width chh - cl as an INTERVAL (round-248
+        # F248-1f: the float difference is not Sterbenz-exact
+        # for the first cells above DEDGE); e uses its upper end
+        hV = V(vdn(chh - cl), vup(chh - cl))
+        hhi = hV.hi
         mV = V.point(0.5*(cl + chh))
         cellV = V(cl, chh)
         Tm, _n = ct.Tphi_batch(mV, deriv=False, pole=use_pole)
@@ -1004,18 +1060,19 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
         p0 = tr.phi_v(cellV)
         p1_ = tr.dphi_v(cellV, 1)
         f = phim*Tm
+        fh = f*hV
         fp = p1_*Tc + p0*dTc
-        e = vup(h*h*0.25*np.maximum(np.abs(fp.lo),
-                                    np.abs(fp.hi)))
-        mlo_p.append(math.fsum(vdn(f.lo*h - e)))
-        mhi_p.append(math.fsum(vup(f.hi*h + e)))
-        f2 = Tm.sq()
+        e = vup(hhi*hhi*0.25*np.maximum(np.abs(fp.lo),
+                                        np.abs(fp.hi)))
+        mlo_p.append(math.fsum(vdn(fh.lo - e)))
+        mhi_p.append(math.fsum(vup(fh.hi + e)))
+        f2h = Tm.sq()*hV
         f2p = Tc*dTc*2.0
-        e2_ = vup(h*h*0.25*np.maximum(np.abs(f2p.lo),
-                                      np.abs(f2p.hi)))
-        shi_p.append(math.fsum(vup(np.maximum(f2.hi, 0.0)*h
+        e2_ = vup(hhi*hhi*0.25*np.maximum(np.abs(f2p.lo),
+                                          np.abs(f2p.hi)))
+        shi_p.append(math.fsum(vup(np.maximum(f2h.hi, 0.0)
                                    + e2_)))
-        slo_p.append(math.fsum(vdn(np.maximum(f2.lo*h - e2_,
+        slo_p.append(math.fsum(vdn(np.maximum(f2h.lo - e2_,
                                               0.0))))
         done = min(s0 + CH, ncl)
         print(f"    ms {done}/{ncl} "
@@ -1025,12 +1082,20 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     S_hi = _u(math.fsum(shi_p))
     S_lo = _d(math.fsum(slo_p))
     # sliver integrals: int_{a-DEDGE}^{a} ln^k(1/d) dd =
-    # DEDGE*(lnD^k + k lnD^{k-1} + ...) <= DEDGE*(lnD + k)^k
-    Msl = _u(DEDGE*tr.cabs*(CE_A + CE_B*(lnD + 1))
-             + 2*DEDGE*tr.cabs*CEDGE)   # a-edge + k0-region
+    # DEDGE*(lnD^k + k lnD^{k-1} + ...) <= DEDGE*(lnD + k)^k;
+    # assembled in I arithmetic (round-248: no nearest-rounded
+    # chains inside the budgets); the CEDGE-bounded terms use
+    # DG = DEDGE + gap, covering the _gcells terminal gap and
+    # the [0, DEDGE] head
+    DGI = I(_u(DG))
+    DEI = I(DEDGE)
+    CEDGE_I = CE_A_I + CE_B_I*lnD_I
+    Msl = _u((DEI*cabsI*(CE_A_I + CE_B_I*(lnD_I + I(1.0)))
+              + I(2.0)*DGI*cabsI*CEDGE_I).hi)
     M = I(_d(2*(M_lo - Msl)), _u(2*(M_hi + Msl)))
-    Ssl = _u(DEDGE*(CE_A + CE_B*(lnD + 2))**2
-             + 2*DEDGE*CEDGE*CEDGE)
+    Sedge = CE_A_I + CE_B_I*(lnD_I + I(2.0))
+    Ssl = _u((DEI*Sedge*Sedge
+              + I(2.0)*DGI*CEDGE_I*CEDGE_I).hi)
     S = I(_d(2*S_lo), _u(2*(S_hi + Ssl)))
     rho = M/nn
     ok = rho.hi < ell2.lo
@@ -1164,14 +1229,17 @@ def _sha(name):
     return ckpt_key.code_sha(os.path.join(HERE, name))
 
 DEPST3 = {f: _sha(f) for f in ("oneprime_fractional.py",
+                               "oneprime_push.py",
                                "oneprime_interval_core.py",
                                "oneprime_interval_count.py",
                                "oneprime_interval_temple.py")}
+# (oneprime_push.py added round 248, F248-3: make_fixtures
+# imports temple_opt from it -- every producing file in every
+# key, per the round-245 keying law)
 KEYFILE = os.path.join(HERE, "oneprime_interval_temple.py")
 
 
 def run():
-    import glob
     # gT7: the vectorized log agrees with the Stage-I scalar
     # (itself mpmath-gated) -- overlap + width cap
     for xv in (1e-3, 0.11, 0.5, 1.0, 2.5, 7.0):
@@ -1187,10 +1255,17 @@ def run():
                        kfun=ckpt_key.code_key)
     if st is not None:
         return st
-    ivc = sorted(glob.glob(os.path.join(
-        HERE, "checkpoints", "oneprime_ivcount_*.json")))
-    assert ivc, "Stage II checkpoint required"
-    counts = json.load(open(ivc[0]))["state"]
+    # keyed Stage-II premise load (round-248 F248-4: the glob
+    # could silently consume a stale or partial checkpoint)
+    import oneprime_interval_count as OC
+    cparams = {"deps": OC.DEPSII, "H": 0.02, "cells": OC.CELLS,
+               "round": 6}
+    counts = ckpt_key.load(
+        "oneprime_ivcount",
+        os.path.join(HERE, "oneprime_interval_count.py"),
+        cparams, kfun=ckpt_key.code_key)
+    assert counts is not None, \
+        "Stage II checkpoint at the CURRENT key required"
     fx = make_fixtures()
     pjson = os.path.join(
         HERE, "checkpoints",
@@ -1216,7 +1291,10 @@ def run():
         nustar = I(f["nustar"])
         ht_, htab_, th_ = CELLCFG[cellk]
         tr = trial_from_fixture(f, f["c"])
-        tabs = build_tables(f["a"], tr.ws, tr.deg, htab_)
+        tabs = build_tables(
+            f["a"],
+            [(tr.ws[i], tr.wI(i)) for i in range(len(tr.ws))],
+            tr.deg, htab_)
         if f["parity"] == "even":
             res = temple_cell(tr, tabs, nustar, True,
                               ht=ht_, theta=th_)
@@ -1259,7 +1337,12 @@ def run():
         print("THEOREM (interval-rigorous): the semi-local "
               "one-prime Weil form is positive -- the full form "
               "on [log 2, 0.95] and the odd sector through "
-              "1.09 -- every ingredient an interval enclosure.",
+              "1.09 -- every ingredient an interval enclosure "
+              "(the round-248 slop lemma and directed repairs "
+              "close the former sub-ulp conventions); "
+              "positivity at each certified support length "
+              "covers every shorter length by domain nesting "
+              "(restriction of a positive quadratic form).",
               flush=True)
     ckpt_key.save("oneprime_ivtemple", KEYFILE, params, st,
                   kfun=ckpt_key.code_key)

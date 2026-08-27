@@ -71,9 +71,11 @@ GATES (all asserted in run()):
        [1e-6, 260] (the scipy value is spectral-quality; a
        rigorous enclosure that misses it is wrong).
   gI2  transcendental containment: each in-house function's
-       enclosure contains the mpmath.iv (80-bit) enclosure
-       midpoint at randomized points, and the two intervals
-       overlap.
+       enclosure CONTAINS the mpmath.iv (80-bit) reference
+       interval at randomized points (exp/log/cos/sin), or the
+       120-bit point value where mpmath.iv lacks the function
+       (atan/cosh/sinh) -- round-248 F248-9: the description
+       now matches the stronger assertion the code makes.
   gI3  arithmetic self-tests: algebraic identities hold as
        containments; refinement shrinks widths monotonically.
   gI4  derivative-majorant sanity: |finite difference of W| at
@@ -418,6 +420,10 @@ def _J_re_im_iv(x, y):
     two_xy = x*y*2
     reJ = I(0.0)
     imJ = I(0.0)
+    # tI.width is EXACT: the uniform grid from 0 satisfies
+    # Sterbenz (node ratio <= 2 except the first cell, whose
+    # difference from 0 is trivially exact) -- round-248
+    # disposition of F248-1f's core:424 sub-item
     for tI, gI in _binet_grid():
         a = tI.sq() + x2y2
         den = a.sq() + two_xy.sq()
@@ -497,25 +503,30 @@ def run():
     iv.prec = 80
     mp.prec = 120
     rng = np.random.default_rng(6)
+    ptref = {iatan: mp.atan, icosh: mp.cosh, isinh: mp.sinh}
     for fn, ref in ((iexp, iv.exp), (ilog, iv.log),
                     (icos, iv.cos), (isin, iv.sin),
-                    (iatan, None)):
+                    (iatan, None), (icosh, None),
+                    (isinh, None)):
         for _ in range(60):
             x = float(rng.uniform(0.01, 30.0)
                       if fn in (ilog,) else rng.uniform(-30, 30))
             mine = fn(I(x))
             if ref is None:
-                # mpmath.iv lacks atan; gate on containment of
-                # the 120-bit point value instead
-                v = float(mp.atan(mp.mpf(x)))
-                assert mine.contains(v), f"gI2 FAIL atan({x})"
+                # mpmath.iv lacks atan/cosh/sinh; gate on
+                # containment of the 120-bit point value
+                # (cosh/sinh added round 248, F248-9: the
+                # docstring claimed them gated, now they are)
+                v = float(ptref[fn](mp.mpf(x)))
+                assert mine.contains(v), \
+                    f"gI2 FAIL {fn.__name__}({x})"
                 continue
             r = ref(iv.mpf(x))
             assert mine.lo <= float(r.a) and \
                 float(r.b) <= mine.hi, \
                 f"gI2 FAIL {fn.__name__}({x})"
-    print("gI2 PASS: exp/log/cos/sin/atan contain 80-bit refs "
-          "at 60 random points each", flush=True)
+    print("gI2 PASS: exp/log/cos/sin/atan/cosh/sinh contain "
+          "80/120-bit refs at 60 random points each", flush=True)
 
     # gI1 + gI5: W enclosures contain scipy values, widths capped
     rs = np.concatenate([np.linspace(1e-6, 12, 40),
