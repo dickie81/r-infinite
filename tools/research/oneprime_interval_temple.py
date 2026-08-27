@@ -200,7 +200,13 @@ def _sinh_cosh(u):
     (the direct (e^u - e^{-u})/2 loses ~11 digits of RELATIVE
     width at u ~ 1e-11, which summed over the geometric table
     region was a 3e-4 width leak).  sinh u = u(1 + u^2/6 +
-    u^4/120 + R), 0 <= R <= u^6/5040/(1 - u^2/56)."""
+    u^4/120 + R), 0 <= R <= u^6/5040/(1 - u^2/56).
+    E-BOUND NOTE (cited by the CE_B budget; round-249 F249-4
+    restores the note the citation pointed at): E(u) =
+    e^{u/2}/sinh u <= 1/u + 1 on (0, 1.2], since termwise
+    (1 + u) sinh u = (1+u)(u + u^3/6 + ...) >= u(1 + u/2 +
+    u^2/8 + ...) = u e^{u/2} (coefficient-by-coefficient for
+    u <= 1.2); numeric margin >= 0.499 over the whole range."""
     n = len(u.lo)
     e2 = _vexp(u*V.scalar(0.5, n))
     e = e2*e2
@@ -214,8 +220,8 @@ def _sinh_cosh(u):
         us = V(ulo, uhi)
         u2 = us*us
         one = V(np.ones(m), np.ones(m))
-        ser = one + u2*V.scalar(1.0/6, m) \
-            + u2*u2*V.scalar(1.0/120, m)
+        ser = one + u2*V.scalar(I(1.0)/I(6.0), m) \
+            + u2*u2*V.scalar(I(1.0)/I(120.0), m)
         rem = vup((uhi**6)/5040.0/(1 - 1e-4/56))
         ser = V(ser.lo, vup(ser.hi + rem))
         shs = us*ser
@@ -268,8 +274,12 @@ class Table:
             [[0.0], np.cumsum(vup(fmid.hi*h))])
         self.errc = np.concatenate([[0.0], np.cumsum(vup(err))])
         u_ = np.finfo(np.float64).eps
+        # absum covers BOTH value cumsums AND the errc cumsum
+        # (round-249 F249-3: errc is an equally-nearest
+        # fl-cumsum whose terms were outside the lemma's sum)
         absum = float(np.sum(np.maximum(np.abs(fmid.lo),
-                                        np.abs(fmid.hi))*h))
+                                        np.abs(fmid.hi))*h
+                             + err))
         nn_ = len(h)
         self.extra = _u(1.05*2.0*nn_*u_*absum)
         # (head-sliver widenings from callers ADD to this slop)
@@ -414,7 +424,12 @@ def build_tables(a, harm_ws, degmax, htab=HTAB):
                 * _upow_cell(cellV, i - 2)
         t = Table(nodes, f_m, fpp, f_c)
         if i >= 2:
-            t.extra += _u(X0**i/i + X0**(i + 1)/(i + 1))
+            # head int_0^X0 E u^i with E <= 1/u + 1: enclosed
+            # assembly (round-249 F249-6: the float form's
+            # margin was below its own assembly slop)
+            x0i = _ipow(I(X0), i)
+            t.extra += _u((x0i/I(float(i))
+                           + x0i*I(X0)/I(float(i + 1))).hi)
         tabs[f"H{i}"] = t
     for w, wIv in harm_ws:
         s2m = vsin(midV*V.scalar(wIv*I(0.5), n))
@@ -949,28 +964,36 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     gl_, gh_ = _gcells(a - D0, a - DEDGE, HCHI)
     ccells += list(zip(gl_, gh_))
     for (cl, ch) in ccells:
-        h = ch - cl
+        # round-249 F249-1: the panel width, midpoint, and
+        # Simpson weight are INTERVALS enclosing the true
+        # values (the width is not Sterbenz-exact near DEDGE;
+        # fl(h/6) pre-rounds; the fl midpoint is off-center by
+        # an unbudgeted first-order term) -- same class as the
+        # M/S loop's F248-1f repair, now applied here
         lo_, hi_ = I(cl), I(ch)
-        m = I(0.5*(cl + ch))
+        hI = hi_ - lo_
+        mI = (lo_ + hi_)*I(0.5)
+        w6 = hI/I(6.0)
         cellI = I(cl, ch)
-        pl, pm, ph = (tr.phi_pt(lo_), tr.phi_pt(m),
+        pl, pm, ph = (tr.phi_pt(lo_), tr.phi_pt(mI),
                       tr.phi_pt(hi_))
-        xl, xm, xh = (chider(lo_, 0), chider(m, 0),
+        xl, xm, xh = (chider(lo_, 0), chider(mI, 0),
                       chider(hi_, 0))
-        simp = (pl*xl + I(4.0)*pm*xm + ph*xh)*I(h/6.0)
+        simp = (pl*xl + I(4.0)*pm*xm + ph*xh)*w6
         pc = [tr.phi_pt(cellI)] + [tr.dphi_pt(cellI, o)
                                    for o in (1, 2, 3, 4)]
         cc = [chider(cellI, o) for o in range(5)]
         f4 = (pc[4]*cc[0] + I(4.0)*pc[3]*cc[1]
               + I(6.0)*pc[2]*cc[2] + I(4.0)*pc[1]*cc[3]
               + pc[0]*cc[4])
-        e = _u(h**5*f4.abs_hi()/2880.0)
+        h5 = _ipow(hI, 5)
+        e = _u((h5*I(f4.abs_hi())/I(2880.0)).hi)
         chi_lo_p.append(_d(simp.lo - e))
         chi_hi_p.append(_u(simp.hi + e))
-        simp2 = (pl*pl + I(4.0)*pm*pm + ph*ph)*I(h/6.0)
+        simp2 = (pl*pl + I(4.0)*pm*pm + ph*ph)*w6
         g4 = I(2.0)*(pc[4]*pc[0] + I(4.0)*pc[3]*pc[1]
                      + I(3.0)*pc[2]*pc[2])
-        e2_ = _u(h**5*g4.abs_hi()/2880.0)
+        e2_ = _u((h5*I(g4.abs_hi())/I(2880.0)).hi)
         n_lo_p.append(_d(simp2.lo - e2_))
         n_hi_p.append(_u(simp2.hi + e2_))
     # fsum is exactly rounded, one directed step after
@@ -1200,22 +1223,6 @@ def trial_from_fixture(fx, coeffs):
     return Trial(a, parity, harm, poly)
 
 
-def _geg_coeffs(n, nu):
-    c0 = [I(1.0)]
-    if n == 0:
-        return c0
-    c1 = [I(0.0), I(2*nu)]
-    if n == 1:
-        return c1
-    for k in range(1, n):
-        nxt = [I(0.0)]*(k + 2)
-        for j, cj in enumerate(c1):
-            nxt[j + 1] = nxt[j + 1] + cj*I(2*(k + nu))
-        for j, cj in enumerate(c0):
-            nxt[j] = nxt[j] - cj*I(k + 2*nu - 1)
-        nxt = [x*I(1.0/(k + 1)) for x in nxt]
-        c0, c1 = c1, nxt
-    return c1
 
 def _ipow(x, k):
     p = I(1.0)
@@ -1230,12 +1237,17 @@ def _sha(name):
 
 DEPST3 = {f: _sha(f) for f in ("oneprime_fractional.py",
                                "oneprime_push.py",
+                               "oneprime_bridge.py",
+                               "oneprime_certificate.py",
                                "oneprime_interval_core.py",
                                "oneprime_interval_count.py",
                                "oneprime_interval_temple.py")}
-# (oneprime_push.py added round 248, F248-3: make_fixtures
-# imports temple_opt from it -- every producing file in every
-# key, per the round-245 keying law)
+# (push added round 248 F248-3; bridge + certificate added
+# round 249 F249-2: the TRANSITIVE import closure of
+# make_fixtures' producers -- fractional imports build_Q64
+# from bridge and psign from certificate (psign is
+# load-bearing in the odd TBfree), push imports both -- every
+# producing file in every key, per the round-245 keying law)
 KEYFILE = os.path.join(HERE, "oneprime_interval_temple.py")
 
 
