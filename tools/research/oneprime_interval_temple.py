@@ -1042,11 +1042,15 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     # (see the E-bound note in _sinh_cosh); every other term is
     # a COMPUTED enclosure (round-248 F248-2: the previous
     # 2.2/40.0/1.0 were verified-true but underived constants):
-    #   |phi| <= cabs;  |dint| <= sum_h 2|c_h| Gw(xtop) (poly
-    #   part identically zero for the pure-harmonic trials --
-    #   asserted);  IA(k2) <= IA(xtop);  lcoth(k2) <= lcoth(a);
+    #   |phi| <= cabs;  |dint| <= sum_h 2|c_h| Gw(xtop)
+    #   + sum_{i even >= 2} Qabs_i Hi(xtop) (round 7: the poly
+    #   part's Dfull term sum u^i Q_i(t) bounded coefficientwise
+    #   on |t| <= a -- Qabs_i = sum_k |Pi[i][k]| a^k, the SAME
+    #   Pi = poly_shift_coeffs the DINT computation uses, and
+    #   the same i-range; identically zero when deg = 0, so the
+    #   rounds <= 6 cells are unchanged);
+    #   IA(k2) <= IA(xtop);  lcoth(k2) <= lcoth(a);
     #   |prime| <= C2 cabs;  (cabs/2) k2 <= 0.51 cabs (2a+1e-3).
-    assert tr.deg == 0, "CE_A dint bound assumes pure-harmonic"
     cabsI = I(tr.cabs)
     xtop = 2*a + 1e-3
     ia_top = tabs["IA"].at(xtop)
@@ -1057,6 +1061,13 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
         w = tr.ws[idx]
         dint_top = dint_top + I(abs(c))*I(2.0) \
             *tabs[f"G{w:.9f}"].at(xtop)
+    Pi_b = tr.poly_shift_coeffs()
+    for i in range(2, tr.deg + 1, 2):
+        qabs = I(0.0)
+        for k_, cj in enumerate(Pi_b[i]):
+            qabs = qabs + I(cj.abs_hi())*_ipow(I(a), k_)
+        dint_top = dint_top \
+            + qabs*I(tabs[f"H{i}"].at(xtop).abs_hi())
     chiam = I(max(abs(chi_phi.lo), abs(chi_phi.hi)))
     CE_B_I = I(0.51)*cabsI
     CE_A_I = (LG4PI*cabsI + cabsI*I(ia_top.hi)
