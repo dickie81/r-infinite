@@ -474,8 +474,10 @@ def _sha(name):
     import ckpt_key
     return ckpt_key.code_sha(os.path.join(HERE, name))
 
-DEPSI = {f: _sha(f) for f in ("oneprime_certificate.py",
-                              "oneprime_interval_core.py")}
+# COMPUTED transitive closure (round 252, reviewer-3 F4 -- the
+# hand-listed pair omitted certificate's own bridge/fold chain)
+DEPSI = {f: _sha(f) for f in sorted(__import__("ckpt_key")
+        .producer_closure(("oneprime_interval_core.py",), HERE))}
 KEYFILE = os.path.join(HERE, "oneprime_interval_core.py")
 
 NSAMP = 160

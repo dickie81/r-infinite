@@ -33,25 +33,27 @@ Gates (twelve, g0-g11):
       flag True, temple_lo pinned to 4 significant figures
   g4  the premise wiring: even ell2 = [nu*, nu*] with the
       matching count row certified at that nu; odd ell2 =
-      [nu1, nu1] from a positive, premise_ok stage-1 record,
-      with the matching odd count row certified
-  g5  the window arithmetic: every certified delta < log 3
-      (the one-prime = full-form identity domain); the even
-      maximum is 0.95 >= log 2; the odd maximum 1.09; the
-      domain-nesting order log 2 < 0.8 < 0.9 < 0.95 and
-      0.9 < 1.05 < 1.09 (the largest cells carry the window)
+      [nu1, nu1] from a positive, premise_ok stage-1 record
+      whose OWN ell2 equals the certified odd count row's nu
+      (the stage-1 link re-checkable since round 252 -- the
+      instrument stores ell2 in every temple_cell result)
+  g5  the window arithmetic, LIVE from the checkpoint key
+      strings (round-252): the key set matches the pins;
+      every certified delta < log 3 (the one-prime =
+      full-form identity domain); the even maximum 0.95 >=
+      log 2; the odd maximum 1.09 < log 3
   g6  the frontier honestly open: "even:1" carries a certified
       COUNT row (margin pinned 2.058e-4) and NO temple cell --
       the even delta = 1.0 Temple is not claimed
   g7  internal consistency: per cell temple_lo <= rho.lo
       (Temple sits below the Rayleigh quotient) and
       rho.hi < ell2.lo (the ratio-form premise)
-  g8  sigma^2 consistency: sigma2_hi >= S.lo/n.hi - rho.hi^2
-      is not asserted directly; instead S.lo >= 0,
-      n in [0.5, 2], and sigma2_hi < ell2.lo * (ell2.lo -
-      rho.hi) fails nowhere it should hold -- the Temple
-      denominator's positivity re-derived from the stored
-      enclosures
+  g8  stored-enclosure sanity: S.lo >= 0, n in [0.5, 2],
+      and sigma2_hi < ell2.lo (ell2.lo - rho.hi) -- the
+      Temple gap condition, ASSERTED from the stored
+      enclosures (round-252, reviewer-3 F1: the docstring
+      had described this conjunct while the code carried a
+      duplicate of g7)
   g9  mangle probes: the certificate predicate FAILS on a
       sign-flipped temple_lo and on a premise-violating
       (rho.hi >= ell2.lo) mangled copy -- the gate can fail
@@ -99,10 +101,10 @@ TEMPLE_PINS = {
     "odd:0.9": 1.373e-3, "odd:1.05": 2.258e-5,
     "odd:1.09": 4.852e-6,
 }
-DELTAS = {"even:0.6931": 0.6931, "even:0.8": 0.80,
-          "even:0.9": 0.90, "even:0.95": 0.95,
-          "odd:0.9": 0.90, "odd:1.05": 1.05,
-          "odd:1.09": 1.09}
+# deltas are DERIVED from the checkpoint key strings at gate
+# time (round-252 sweep, reviewer-3 F2: the hand-listed dict
+# was constant arithmetic -- a gate that could not fail against
+# external state)
 
 def pin4(x, pin):
     return abs(x - pin) <= 5e-4*abs(pin)
@@ -147,6 +149,7 @@ for k in TEMPLE_PINS:
     else:
         s1 = cell["stage1"]
         ok &= s1["premise_ok"] and s1["temple_lo"] > 0
+        ok &= s1["ell2"][0] == s1["ell2"][1] == row["nu"]
         ok &= lo == hi == s1["temple_lo"] and row["certified"]
 gate("g4 the premise wiring: even ell2 = nu* at a certified "
      "count row; odd ell2 = stage-1 nu1 > 0 with premise_ok "
@@ -154,12 +157,16 @@ gate("g4 the premise wiring: even ell2 = nu* at a certified "
 
 # ---------------------------------------------------------------- g5
 L3 = math.log(3.0)
-ok = all(d < L3 for d in DELTAS.values())
-ok &= max(d for k, d in DELTAS.items()
-          if k.startswith("even")) == 0.95 >= math.log(2.0)
-ok &= max(d for k, d in DELTAS.items()
-          if k.startswith("odd")) == 1.09
-ok &= (0.6931 < 0.80 < 0.90 < 0.95) and (0.90 < 1.05 < 1.09)
+cells_live = (set(P2) - {"__gII4__"}) | (set(P3) - {"theorem"})
+dl = {k: float(k.split(":")[1]) for k in cells_live}
+ok = set(dl) == set(COUNT_PINS) | set(TEMPLE_PINS)
+ok &= all(d < L3 for d in dl.values())
+ev = sorted(d for k, d in dl.items()
+            if k.startswith("even") and k in P3)
+od = sorted(d for k, d in dl.items() if k.startswith("odd"))
+ok &= ev[-1] == 0.95 and 0.95 >= math.log(2.0)
+ok &= od[-1] == 1.09 and 1.09 < L3
+ok &= ev == sorted(set(ev)) and od == sorted(set(od))
 gate("g5 the window arithmetic: every delta < log 3 (the "
      "one-prime = full-form domain); even max 0.95 >= log 2; "
      "odd max 1.09; nesting order", ok)
@@ -181,11 +188,13 @@ gate("g7 internal consistency: temple_lo <= rho.lo and "
 # ---------------------------------------------------------------- g8
 ok = all(P3[k]["S"][0] >= 0 and 0.5 < P3[k]["n"][0]
          and P3[k]["n"][1] < 2.0
-         and P3[k]["ell2"][0] > P3[k]["rho"][1]
+         and P3[k]["sigma2_hi"]
+         < P3[k]["ell2"][0]*(P3[k]["ell2"][0]
+                             - P3[k]["rho"][1])
          for k in TEMPLE_PINS)
-gate("g8 stored-enclosure sanity: S >= 0, n in [0.5, 2], the "
-     "Temple denominator positive from the stored intervals",
-     ok)
+gate("g8 stored-enclosure sanity: S >= 0, n in [0.5, 2], and "
+     "sigma2_hi < ell2 (ell2 - rho.hi) -- the Temple gap "
+     "condition from the stored intervals", ok)
 
 # ---------------------------------------------------------------- g9
 def cert_ok(cell):

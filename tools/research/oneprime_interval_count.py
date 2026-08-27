@@ -629,9 +629,10 @@ def _sha(name):
     import ckpt_key
     return ckpt_key.code_sha(os.path.join(HERE, name))
 
-DEPSII = {f: _sha(f) for f in ("oneprime_certificate.py",
-                               "oneprime_interval_core.py",
-                               "oneprime_interval_count.py")}
+# COMPUTED transitive closure (round 252, reviewer-3 F4)
+DEPSII = {f: _sha(f) for f in sorted(__import__("ckpt_key")
+         .producer_closure(("oneprime_interval_count.py",),
+                           HERE))}
 KEYFILE = os.path.join(HERE, "oneprime_interval_count.py")
 
 

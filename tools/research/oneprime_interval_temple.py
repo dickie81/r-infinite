@@ -1126,11 +1126,16 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     if ok:
         lam = _d(((ell2*M - S)/(ell2*nn - M)).lo)
     sig2 = _u((S/nn - rho.sq()).hi)
+    # ell2 recorded in EVERY result (round-252, reviewer-3 F3:
+    # the stage-1 record previously lacked it, so the odd
+    # nu*-to-stage-1 premise link was not re-checkable from the
+    # stored state)
     return {"rho": [rho.lo, rho.hi], "sigma2_hi": sig2,
             "n": [nn.lo, nn.hi], "S": [S.lo, S.hi],
             "chi_phi": [chi_phi.lo, chi_phi.hi],
             "ncells": int(ncl), "premise_ok": bool(ok),
-            "temple_lo": lam}
+            "temple_lo": lam,
+            "ell2": [ell2.lo, ell2.hi]}
 
 
 def make_fixtures():
@@ -1235,51 +1240,17 @@ def _sha(name):
     import ckpt_key
     return ckpt_key.code_sha(os.path.join(HERE, name))
 
-def _local_imports(fn):
-    """Local-module imports of fn (files that exist in HERE),
-    from the AST -- conditional imports included."""
-    import ast as _ast
-    out = set()
-    tree = _ast.parse(open(os.path.join(HERE, fn)).read())
-    for node in _ast.walk(tree):
-        if isinstance(node, _ast.ImportFrom) and node.module:
-            if os.path.exists(os.path.join(HERE,
-                                           node.module + ".py")):
-                out.add(node.module + ".py")
-        elif isinstance(node, _ast.Import):
-            for a in node.names:
-                if os.path.exists(os.path.join(HERE,
-                                               a.name + ".py")):
-                    out.add(a.name + ".py")
-    return out
-
-def _producer_closure(roots):
-    """COMPUTED transitive import closure (round-250 F250-1:
-    three consecutive hand-listed iterations each stopped one
-    level short -- F248-3 added push, F249-2 added bridge +
-    certificate, and bridge's own imports of fold_D /
-    height_uniformity / fold_surrogate were still missing; the
-    closure is now computed from the ASTs, so any future
-    import change enters the key automatically).  ckpt_key.py
-    is excluded by the arc's convention: no instrument keys
-    the keying machinery itself."""
-    closure = set(roots)
-    frontier = set(roots)
-    while frontier:
-        nxt = set()
-        for f in frontier:
-            nxt |= _local_imports(f) - closure
-        closure |= nxt
-        frontier = nxt
-    closure.discard("ckpt_key.py")
-    return closure
-
+# the closure helpers live in ckpt_key (hoisted round 252 so
+# core and count share them -- reviewer-3 F4 / the A386 held
+# note: the sibling DEPS dicts were hand-listed one import
+# level short of their AST closures)
 _ROOTS = ("oneprime_fractional.py", "oneprime_push.py",
           "oneprime_interval_core.py",
           "oneprime_interval_count.py",
           "oneprime_interval_temple.py")
 DEPST3 = {f: _sha(f)
-          for f in sorted(_producer_closure(_ROOTS))}
+          for f in sorted(ckpt_key.producer_closure(_ROOTS,
+                                                    HERE))}
 KEYFILE = os.path.join(HERE, "oneprime_interval_temple.py")
 
 
@@ -1342,7 +1313,6 @@ def run():
         if f["parity"] == "even":
             res = temple_cell(tr, tabs, nustar, True,
                               ht=ht_, theta=th_)
-            res["ell2"] = [nustar.lo, nustar.hi]
         else:
             trF = trial_from_fixture(f, f["cfree"])
             resF = temple_cell(trF, tabs, nustar, False,
@@ -1355,7 +1325,6 @@ def run():
             res = temple_cell(tr, tabs, nu1, True,
                               ht=ht_, theta=th_)
             res["stage1"] = resF
-            res["ell2"] = [nu1.lo, nu1.hi]
         assert abs(0.5*(res["rho"][0] + res["rho"][1])
                    - f["rho_float"]) < 1e-4, \
             f"gT2 FAIL {cellk}: rho {res['rho']} vs " \

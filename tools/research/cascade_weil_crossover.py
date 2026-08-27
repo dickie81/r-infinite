@@ -326,7 +326,7 @@ gate("g7 the chain obligation to cascade_weil_margin.py (Theorem 1az) met",
 ok = paper.count("`cascade_weil_crossover.py`") >= 2
 ok &= "the **86 scripts cited in place** above" in paper
 ok &= "extended by Theorems 1i–1bj:" in paper
-gate("g8 the footer census (this script backticked >= 2; 85 cited in "
+gate("g8 the footer census (this script backticked >= 2; 86 cited in "
      "place; the range 1i–1bj)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else

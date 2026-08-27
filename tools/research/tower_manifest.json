@@ -40,15 +40,15 @@
   },
   {
    "file": "cascade_weil_crossover.py",
-   "sha256": "02baaaed1f6d6517b3989b4d4f8a2768ef690ab6b87544a8f95eea4dd9a318d0"
+   "sha256": "0dbbcf8325d619d74aafad2e4081293415a86528e58a81ed1759eb6035dd445c"
   },
   {
    "file": "cascade_prolate_horizon.py",
-   "sha256": "f1db166ec22edc1b27c8b061ee82c7c03fc6ea19f628982928db045809a33f73"
+   "sha256": "9ef0cb3dc44b745127d5a8300a2061125a6cd4755d2ec42f9f7517023fd299c3"
   },
   {
    "file": "cascade_fluctuation_price.py",
-   "sha256": "637b4013321ef50bc66c7dfe8fdb86da36b29284ea5d0389bd0b30fe7ffec337"
+   "sha256": "840ab60cdbdef2ffe390ef4ef898ecf7a979c3cf338c403029ace8ec3caa869a"
   },
   {
    "file": "cascade_sonin_dirac.py",
@@ -76,7 +76,7 @@
   },
   {
    "file": "cascade_oneprime_interval.py",
-   "sha256": "45ba1d5035821b0e1ee4e4f93c27c0469c86cd7d0d1b37bad04d6ab3d3be1d6b"
+   "sha256": "4b58ee000544fb8efdf61db7ce69c97e9d42f249ec8a12047dc4b8617d77011a"
   }
  ]
 }

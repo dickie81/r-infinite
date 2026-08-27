@@ -76,3 +76,42 @@ def save(name, script_path, params, state, kfun=None):
                "key": kfun(script_path, params),
                "params": params, "state": state}, open(p, "w"), indent=0)
     return p
+
+
+def local_imports(fn, here):
+    """Local-module imports of fn (files existing in `here`),
+    from the AST -- conditional and function-local imports
+    included. Hoisted from the temple instrument round 252 so
+    every oneprime DEPS dict can compute its closure."""
+    import ast as _ast
+    out = set()
+    tree = _ast.parse(open(os.path.join(here, fn)).read())
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.ImportFrom) and node.module:
+            if os.path.exists(os.path.join(here,
+                                           node.module + ".py")):
+                out.add(node.module + ".py")
+        elif isinstance(node, _ast.Import):
+            for a in node.names:
+                if os.path.exists(os.path.join(here,
+                                               a.name + ".py")):
+                    out.add(a.name + ".py")
+    return out
+
+
+def producer_closure(roots, here):
+    """COMPUTED transitive import closure of the root producer
+    files (round-250 F250-1 for the temple; extended to the
+    sibling instruments round 252, reviewer-3 F4). ckpt_key.py
+    itself is excluded by the arc's convention: no instrument
+    keys the keying machinery."""
+    closure = set(roots)
+    frontier = set(roots)
+    while frontier:
+        nxt = set()
+        for f in frontier:
+            nxt |= local_imports(f, here) - closure
+        closure |= nxt
+        frontier = nxt
+    closure.discard("ckpt_key.py")
+    return closure

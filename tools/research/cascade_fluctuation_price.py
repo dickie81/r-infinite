@@ -128,9 +128,13 @@ the OBSERVED results):
       (exit 1)
   (d) footer census reverted 79 -> 78 in the paper -> OBSERVED: g10
       FAIL AND g9 FAIL (the chain gate's manifest census check printed
-      "paper lacks 'the **86 scripts cited in place** above'" -- the
+      "paper lacks 'the **79 scripts cited in place** above'" -- the
       two-gate detection at the advanced census, the anchored needles'
       first sabotage-probe exercise since their tower-wide adoption)
+      [the printed "79" is the FROZEN OBSERVED output of that
+      historical probe (restored round 252 from the landing
+      commit e2fff87 -- mechanical census sweeps had advanced a
+      recorded observation); census sweeps must not touch it]
 """
 import sys, os, math
 import numpy as np
