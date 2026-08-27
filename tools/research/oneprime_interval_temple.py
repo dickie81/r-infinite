@@ -1235,19 +1235,51 @@ def _sha(name):
     import ckpt_key
     return ckpt_key.code_sha(os.path.join(HERE, name))
 
-DEPST3 = {f: _sha(f) for f in ("oneprime_fractional.py",
-                               "oneprime_push.py",
-                               "oneprime_bridge.py",
-                               "oneprime_certificate.py",
-                               "oneprime_interval_core.py",
-                               "oneprime_interval_count.py",
-                               "oneprime_interval_temple.py")}
-# (push added round 248 F248-3; bridge + certificate added
-# round 249 F249-2: the TRANSITIVE import closure of
-# make_fixtures' producers -- fractional imports build_Q64
-# from bridge and psign from certificate (psign is
-# load-bearing in the odd TBfree), push imports both -- every
-# producing file in every key, per the round-245 keying law)
+def _local_imports(fn):
+    """Local-module imports of fn (files that exist in HERE),
+    from the AST -- conditional imports included."""
+    import ast as _ast
+    out = set()
+    tree = _ast.parse(open(os.path.join(HERE, fn)).read())
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.ImportFrom) and node.module:
+            if os.path.exists(os.path.join(HERE,
+                                           node.module + ".py")):
+                out.add(node.module + ".py")
+        elif isinstance(node, _ast.Import):
+            for a in node.names:
+                if os.path.exists(os.path.join(HERE,
+                                               a.name + ".py")):
+                    out.add(a.name + ".py")
+    return out
+
+def _producer_closure(roots):
+    """COMPUTED transitive import closure (round-250 F250-1:
+    three consecutive hand-listed iterations each stopped one
+    level short -- F248-3 added push, F249-2 added bridge +
+    certificate, and bridge's own imports of fold_D /
+    height_uniformity / fold_surrogate were still missing; the
+    closure is now computed from the ASTs, so any future
+    import change enters the key automatically).  ckpt_key.py
+    is excluded by the arc's convention: no instrument keys
+    the keying machinery itself."""
+    closure = set(roots)
+    frontier = set(roots)
+    while frontier:
+        nxt = set()
+        for f in frontier:
+            nxt |= _local_imports(f) - closure
+        closure |= nxt
+        frontier = nxt
+    closure.discard("ckpt_key.py")
+    return closure
+
+_ROOTS = ("oneprime_fractional.py", "oneprime_push.py",
+          "oneprime_interval_core.py",
+          "oneprime_interval_count.py",
+          "oneprime_interval_temple.py")
+DEPST3 = {f: _sha(f)
+          for f in sorted(_producer_closure(_ROOTS))}
 KEYFILE = os.path.join(HERE, "oneprime_interval_temple.py")
 
 
