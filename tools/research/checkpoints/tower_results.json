@@ -11,6 +11,12 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"0b51fb86561d0e2f3b8409df": {
+"dt": 54.96943545341492,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-27T20:16Z"
+},
 "13d87b559468f21f16c965fe": {
 "dt": 57.402857065200806,
 "file": "cascade_heatflow_energy.py",
@@ -53,6 +59,12 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"22f8dd36885bdfb699c52f78": {
+"dt": 84.86356663703918,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-27T20:10Z"
+},
 "24d7f084b9ba0a75f9cee50f": {
 "dt": 7.224920034408569,
 "file": "cascade_fluctuation_price.py",
@@ -64,6 +76,12 @@
 "file": "cascade_floor_closure.py",
 "rc": 0,
 "when": "2026-08-27T18:43Z"
+},
+"3854b5bfa5a252938b4e82da": {
+"dt": 174.99900007247925,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-27T20:16Z"
 },
 "3957ab05f57515e4c6277da2": {
 "dt": 4.702974796295166,
@@ -106,6 +124,12 @@
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-27T19:56Z"
+},
+"4c6428b38bff1a3d8d314b95": {
+"dt": 563.7650191783905,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-27T20:16Z"
 },
 "57dc47f022a24a56c41f8f3a": {
 "dt": 0.7224500179290771,
@@ -185,6 +209,12 @@
 "rc": 0,
 "when": "2026-08-27T19:08Z"
 },
+"9e0f7659ada1c745d9af9b2a": {
+"dt": 342.4041247367859,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-27T20:16Z"
+},
 "a6feeb27ca54515ac3c6550b": {
 "dt": 42.677764654159546,
 "file": "cascade_saddle_curvature.py",
@@ -257,11 +287,29 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"cf0df99fdf34750ab6c27001": {
+"dt": 43.02434849739075,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-27T20:16Z"
+},
 "cf39cc5609318db21e80237f": {
 "dt": 27.95657992362976,
 "file": "cascade_finite_fill.py",
 "rc": 0,
 "when": "2026-08-27T19:40Z"
+},
+"d354915f7aa6500d6e050745": {
+"dt": 179.87200665473938,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-27T20:10Z"
+},
+"d56cd047fe9e690357305ef5": {
+"dt": 28.347941637039185,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-27T20:10Z"
 },
 "d811335ac6f69591abcf9971": {
 "dt": 4.226663589477539,
