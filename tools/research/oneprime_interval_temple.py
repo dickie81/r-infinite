@@ -99,11 +99,11 @@ from oneprime_interval_count import V, vsin, vcos, vup, vdn
 
 LG4PI = ilog(I(4.0)*PI) + EULER
 
-X0 = 1e-11
+X0 = 1e-16
 XSW = 1e-3
 HTAB = 1e-5
 HT = 5e-5
-DEDGE = 1e-9    # > 10*X0: k1 = a - t stays in table range
+DEDGE = 1e-14   # > 10*X0; the edge sliver (log-squared bound)
 
 
 def _vexp_end(x, side):
@@ -543,13 +543,35 @@ def _ucells(lo, hi, h):
     e = np.linspace(lo, hi, n + 1)
     return e[:-1], e[1:]
 
+def _gcells(far, near, hstart):
+    """Geometric cells from far toward the singular point near
+    (near > far side handled), ratio 2, per-cell width <= half
+    the remaining distance."""
+    lo_l, hi_l = [], []
+    pos = far
+    h = hstart
+    while near - pos > 1e-16:
+        step = min(h, (near - pos))
+        lo_l.append(pos)
+        hi_l.append(pos + step)
+        pos += step
+        h = max((near - pos)/2.0, 1e-16)
+        if near - pos <= near*1e-15:
+            break
+    return np.array(lo_l), np.array(hi_l)
+
 
 def temple_cell(tr, tabs, ell2, use_pole):
     a = tr.a
     even = tr.parity == "even"
+    # T phi log-diverges at t = a (the E ~ 1/u correction
+    # integral against nonvanishing phi(a)); mean-value cells
+    # GRADED toward a (h ~ dist neutralizes the 1/dist of dT),
+    # uniform elsewhere, split at the prime-shift kink k0.
     k0 = math.log(2.0) - a
-    bset = {DEDGE, a - DEDGE}
-    if DEDGE < k0 < a - DEDGE:
+    D0 = 1e-3
+    bset = {DEDGE, a - D0}
+    if DEDGE < k0 < a - D0:
         bset.add(k0)
     bounds = sorted(bset)
     cells = []
@@ -558,6 +580,8 @@ def temple_cell(tr, tabs, ell2, use_pole):
             continue
         cl, ch = _ucells(lo, hi, HT)
         cells += list(zip(cl, ch))
+    gl, gh = _gcells(a - D0, a - DEDGE, HT)
+    cells += list(zip(gl, gh))
     # <chi, phi> and n by per-cell SIMPSON with interval
     # fourth-derivative bounds (the mean-value form accumulated
     # a (h/4)-times-phi-prime-L1 width ~1e-3 that flowed through
@@ -580,6 +604,8 @@ def temple_cell(tr, tabs, ell2, use_pole):
             continue
         cl_, ch_ = _ucells(lo, hi, HT*10)
         ccells += list(zip(cl_, ch_))
+    gl_, gh_ = _gcells(a - D0, a - DEDGE, HT*10)
+    ccells += list(zip(gl_, gh_))
     for (cl, ch) in ccells:
         h = ch - cl
         lo_, hi_ = I(cl), I(ch)
@@ -611,10 +637,17 @@ def temple_cell(tr, tabs, ell2, use_pole):
     nn = I(_d(2*(n_lo - sl2)), _u(2*(n_hi + sl2)))
 
     ct = ClosedT(tr, tabs, chi_phi)
-    CEDGE = _u((float(LG4PI.hi) + 2.2 + 40.0 + 1.0
-                + float(C2I.hi))*tr.cabs
-               + 2*max(abs(chi_phi.lo), abs(chi_phi.hi))
-               * float(icosh(I(a/2)).hi))
+    # |T phi(t)| <= CE_A + CE_B ln(1/(a - t)) on the sliver:
+    # the divergent piece is the correction integral, |corr| <=
+    # (cabs/2)(ln(k2/k1) + k2); everything else bounded.
+    CE_B = _u(0.51*tr.cabs)
+    CE_A = _u((float(LG4PI.hi) + 2.2 + 40.0 + 1.0
+               + float(C2I.hi))*tr.cabs
+              + 2*max(abs(chi_phi.lo), abs(chi_phi.hi))
+              * float(icosh(I(a/2)).hi)
+              + 0.51*tr.cabs*abs(math.log(2*a + 1e-3)))
+    lnD = abs(math.log(DEDGE))
+    CEDGE = _u(CE_A + CE_B*lnD)
     M_lo = M_hi = 0.0
     S_hi = 0.0
     S_lo = 0.0
@@ -637,9 +670,13 @@ def temple_cell(tr, tabs, ell2, use_pole):
         e2_ = _u(h*h*0.25*f2p.abs_hi())
         S_hi += _u(max(f2.hi, 0.0)*h + e2_)
         S_lo += _d(max(f2.lo*h - e2_, 0.0))
-    Msl = _u(2*DEDGE*tr.cabs*CEDGE)
+    # sliver integrals: int_{a-DEDGE}^{a} ln^k(1/d) dd =
+    # DEDGE*(lnD^k + k lnD^{k-1} + ...) <= DEDGE*(lnD + k)^k
+    Msl = _u(DEDGE*tr.cabs*(CE_A + CE_B*(lnD + 1))
+             + 2*DEDGE*tr.cabs*CEDGE)   # a-edge + k0-region
     M = I(_d(2*(M_lo - Msl)), _u(2*(M_hi + Msl)))
-    Ssl = _u(2*DEDGE*CEDGE*CEDGE)
+    Ssl = _u(DEDGE*(CE_A + CE_B*(lnD + 2))**2
+             + 2*DEDGE*CEDGE*CEDGE)
     S = I(_d(2*S_lo), _u(2*(S_hi + Ssl)))
     rho = M/nn
     ok = rho.hi < ell2.lo
