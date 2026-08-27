@@ -66,7 +66,10 @@ baseline exit 0, zero probe no-ops, every prediction matched):
 """
 import sys, subprocess, os
 import numpy as np
-from mpmath import mp, zetazero
+
+HERE0 = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE0)
+from zeta_zeros_cache import zeros_im
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
@@ -78,9 +81,11 @@ def gate(label, ok):
     if not ok:
         fails.append(label)
 
-mp.dps = 20
+# the dps-20 pull was ~100 min per run; the shared cache with
+# live first/last anchors replaces it (round 252, owner pace
+# retrofit); the g2 pins gate the values downstream
 M = 60
-gams = np.array([float(zetazero(k).imag) for k in range(1, M + 1)])
+gams = np.array(zeros_im(M, 20))
 X0 = np.concatenate([-gams[::-1], gams])
 
 def vel(X):

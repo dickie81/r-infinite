@@ -136,15 +136,17 @@ the OBSERVED results):
       commit e2fff87 -- mechanical census sweeps had advanced a
       recorded observation); census sweeps must not touch it]
 """
-import sys, os, math
+import json, sys, os, math
 import numpy as np
 from numpy.polynomial import legendre as L
 from scipy.special import spherical_jn
 from scipy.linalg import eigh as scipy_eigh
 from scipy.stats import unitary_group
-from mpmath import mp, zetazero
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import ckpt_key
+from zeta_zeros_cache import zeros_im
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
@@ -180,9 +182,9 @@ def psi_hat(coefs, s):
     KL = coefs.shape[1]
     s = np.atleast_1d(s).astype(float)
     ks = np.arange(KL)
-    J = np.empty((KL, len(s)))
-    for k in ks:
-        J[k] = spherical_jn(int(k), np.abs(s))
+    # one broadcast call replaces the per-order loop (round 252
+    # pace retrofit; bitwise-identical per (n, z) pair)
+    J = spherical_jn(ks[:, None], np.abs(s)[None, :])
     sign = np.where(s[None, :] >= 0, 1.0, (-1.0)**(ks[:, None]))
     ph = (1j**ks)*np.sqrt(ks + 0.5)
     return (coefs.astype(complex)*ph[None, :]) @ (2*sign*J)
@@ -214,11 +216,15 @@ class Sect:
         return scipy_eigh(Q, self.G, eigvals_only=True)[0]
 
 # ---- the shared data: zeros, comb, GUE sets ------------------------
-mp.dps = 13
-print("pulling 380 zeros (dps 13)...", flush=True)
-Z = np.array([float(zetazero(k).imag) for k in range(1, 381)])
+# round-252 pace retrofit: the zeros through the shared live-
+# anchored cache; inv_Nbar call sites vectorized (the Newton
+# iteration is elementwise, so the vector path is bitwise-
+# identical to the scalar loop -- verified); RNG draw order
+# untouched everywhere, so every seeded ensemble reproduces
+# its recorded values exactly
+Z = np.array(zeros_im(380, 13))
 NZ = len(Z)
-comb = np.array([inv_Nbar(float(k)) for k in range(1, NZ + 1)])
+comb = inv_Nbar(np.arange(1, NZ + 1).astype(float))
 
 def gue_set(seed):
     rng = np.random.default_rng(seed)
@@ -233,7 +239,7 @@ def gue_set(seed):
     cdf = NG*(0.5 + (xb*np.sqrt(1 - xb**2) + np.arcsin(xb))/math.pi)
     u = cdf - cdf[0]
     u = u/(u[-1])*(NZ - 1)
-    return np.array([inv_Nbar(1.0 + t) for t in u])
+    return inv_Nbar(1.0 + u)
 
 GUES = [gue_set(s) for s in (11, 23, 47)]
 
@@ -243,15 +249,30 @@ def cue_set(seed):
     th = np.sort(np.angle(np.linalg.eigvals(U)))
     t = (th + math.pi)/TWO_PI*NZ
     t = t - t.mean() + (NZ + 1)/2
-    return np.array([inv_Nbar(max(float(x), 0.6)) for x in np.sort(t)])
+    return inv_Nbar(np.maximum(np.sort(t), 0.6))
+
+# margin-state checkpoint (round-252 pace retrofit): the
+# expensive computed STATE (m120, the 26-point grid rows, the
+# ten conditioned points) is byte-keyed on this file -- any
+# edit rotates the key; the GATES always run, on loaded or
+# fresh state alike (the floor_theory phase pattern; the
+# oneprime F248-5 lesson: gates must not sit behind the
+# early-return)
+_SELF = os.path.abspath(__file__)
+_MPAR = {"stage": "margins"}
+_MST = ckpt_key.load("flucprice_margins", _SELF, _MPAR)
 
 # ---------------------------------------------------------------- g1
 ok = abs(Z[0]/14.134725 - 1) < 1e-4
 ok &= abs(Z[-1]/653.6 - 1) < 1e-3
 ok &= abs(comb[-1]/653.6 - 1) < 1e-3
-S120 = Sect(120.0)
-m120 = {t0: S120.margin(Z, float(t0))
-        for t0 in (260, 280, 300, 320, 340, 360)}
+S120 = None
+if _MST is None:
+    S120 = Sect(120.0)
+    m120 = {t0: S120.margin(Z, float(t0))
+            for t0 in (260, 280, 300, 320, 340, 360)}
+else:
+    m120 = {int(k): float(v) for k, v in _MST["m120"].items()}
 ok &= abs(m120[260]/1.139e-7 - 1) < 1e-2
 ok &= abs(m120[300]/3.760e-4 - 1) < 1e-2
 ok &= abs(m120[360]/2.549e-1 - 1) < 1e-2
@@ -266,20 +287,23 @@ GRID = {40.0: [160, 180, 200, 220, 240, 260],
         60.0: [200, 220, 240, 260, 280, 300],
         90.0: [240, 260, 280, 300, 320, 340],
         120.0: [260, 280, 300, 320, 340, 360, 400, 450]}
-rows = []
 SECTS = {}
-for c, taus in GRID.items():
-    S = SECTS.setdefault(c, S120 if c == 120.0 else Sect(c))
-    W = c/A
-    for t0 in taus:
-        Zb = Nbar(t0 + W) - Nbar(max(t0 - W, 15))
-        mz = m120[t0] if (c == 120.0 and t0 in m120) else S.margin(Z, float(t0))
-        mc = S.margin(comb, float(t0))
-        mg = [S.margin(gz, float(t0)) for gz in GUES]
-        Rz = math.log10(mz/mc)
-        Rg = [math.log10(m/mc) for m in mg]
-        rows.append((c, t0, Zb, Rz, float(np.mean(Rg))))
-rows = np.array(rows)
+if _MST is None:
+    rows = []
+    for c, taus in GRID.items():
+        S = SECTS.setdefault(c, S120 if c == 120.0 else Sect(c))
+        W = c/A
+        for t0 in taus:
+            Zb = Nbar(t0 + W) - Nbar(max(t0 - W, 15))
+            mz = m120[t0] if (c == 120.0 and t0 in m120) else S.margin(Z, float(t0))
+            mc = S.margin(comb, float(t0))
+            mg = [S.margin(gz, float(t0)) for gz in GUES]
+            Rz = math.log10(mz/mc)
+            Rg = [math.log10(m/mc) for m in mg]
+            rows.append((c, t0, Zb, Rz, float(np.mean(Rg))))
+    rows = np.array(rows)
+else:
+    rows = np.array(_MST["rows"])
 rz_all = rows[:, 3]
 lad = {int(t0): r for c, t0, _, r, _ in rows if c == 120.0}
 ok = bool(np.all(rz_all < 0.10))
@@ -316,25 +340,58 @@ gate("g4 the count-sensitivity calibration: unconditioned unfolding "
 # ---------------------------------------------------------------- g5, g6
 CGRID = {60.0: [200, 240, 280, 300], 120.0: [260, 300, 340, 360, 400, 450]}
 NSEED = 16
-pts = []
-for c, taus in CGRID.items():
-    S = SECTS[c]
-    W = c/A
-    for t0 in taus:
-        cnt_c = int(sum(1 for g in comb if t0 - W < g < t0 + W))
-        acc, tried, seed = [], 0, 1000
-        while len(acc) < NSEED and tried < 400:
-            q = cue_set(seed); seed += 1; tried += 1
-            if int(sum(1 for g in q if t0 - W < g < t0 + W)) == cnt_c:
-                acc.append(S.margin(q, float(t0)))
-        mz = S.margin(Z, float(t0))
-        mc = S.margin(comb, float(t0))
-        full = len(acc) == NSEED and min([mz, mc] + acc) > 1e-12
-        Rz = math.log10(mz/mc) if full else float("nan")
-        Rq = float(np.mean([math.log10(m/mc) for m in acc])) if full else float("nan")
-        pts.append((full, Rz, Rq))
-        print(f"  g5 c {c:.0f} tau0 {t0}: cnt {cnt_c}, acc {len(acc)}/{tried}; "
-              f"R_zeta {Rz:+.3f}; R_cue {Rq:+.3f}", flush=True)
+if _MST is not None:
+    pts = [(bool(f), float(rz), float(rq))
+           for f, rz, rq in _MST["pts"]]
+else:
+    # per-point partial (round-252: the acceptance loop is the
+    # member's long pole -- a restart resumes from the last
+    # completed point; the deterministic seed ladder restarts
+    # per point, so a resumed point reproduces exactly)
+    _pj = os.path.join(
+        HERE, "checkpoints",
+        f"flucprice_partial_"
+        f"{ckpt_key.key(_SELF, _MPAR)[:12]}.json")
+    _part = {}
+    try:
+        _part = json.load(open(_pj))["state"]
+        print(f"  g5 partial: {len(_part)} points", flush=True)
+    except Exception:
+        pass
+    pts = []
+    for c, taus in CGRID.items():
+        S = SECTS[c]
+        W = c/A
+        for t0 in taus:
+            pk = f"{c:.0f}:{t0}"
+            if pk in _part:
+                pts.append(tuple(_part[pk]))
+                continue
+            cnt_c = int(sum(1 for g in comb if t0 - W < g < t0 + W))
+            acc, tried, seed = [], 0, 1000
+            while len(acc) < NSEED and tried < 400:
+                q = cue_set(seed); seed += 1; tried += 1
+                if int(sum(1 for g in q if t0 - W < g < t0 + W)) == cnt_c:
+                    acc.append(S.margin(q, float(t0)))
+            mz = S.margin(Z, float(t0))
+            mc = S.margin(comb, float(t0))
+            full = len(acc) == NSEED and min([mz, mc] + acc) > 1e-12
+            Rz = math.log10(mz/mc) if full else float("nan")
+            Rq = float(np.mean([math.log10(m/mc) for m in acc])) if full else float("nan")
+            pts.append((full, Rz, Rq))
+            _part[pk] = [bool(full), float(Rz), float(Rq)]
+            json.dump({"key": ckpt_key.key(_SELF, _MPAR),
+                       "state": _part}, open(_pj, "w"))
+            print(f"  g5 c {c:.0f} tau0 {t0}: cnt {cnt_c}, acc {len(acc)}/{tried}; "
+                  f"R_zeta {Rz:+.3f}; R_cue {Rq:+.3f}", flush=True)
+    ckpt_key.save("flucprice_margins", _SELF, _MPAR,
+                  {"m120": {str(k): float(v)
+                            for k, v in m120.items()},
+                   "rows": np.asarray(rows).tolist(),
+                   "pts": [[bool(f), float(rz), float(rq)]
+                           for f, rz, rq in pts]})
+    if os.path.exists(_pj):
+        os.remove(_pj)
 diffs = np.array([Rz - Rq for full, Rz, Rq in pts])
 mean_d = float(np.mean(diffs))
 se_d = float(np.std(diffs)/math.sqrt(len(diffs)))

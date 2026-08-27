@@ -70,7 +70,15 @@ if os.path.exists(CACHE_PATH):
         cache = {}
 
 fresh = os.environ.get("TOWER_FRESH") == "1"
-env = dict(os.environ, CASCADE_CHAIN="manifest")
+# thread pinning (round 252, measured): 4 workers x full-core
+# BLAS oversubscribed the box ~4x -- cascade_heatflow_energy ran
+# 105 min in-tower vs 38 s standalone. Each member gets
+# cpu_count/workers BLAS threads.
+NW = min(4, os.cpu_count() or 4)
+THR = str(max(1, (os.cpu_count() or 4)//NW))
+env = dict(os.environ, CASCADE_CHAIN="manifest",
+           OMP_NUM_THREADS=THR, OPENBLAS_NUM_THREADS=THR,
+           MKL_NUM_THREADS=THR, NUMEXPR_NUM_THREADS=THR)
 
 
 def run(name):
@@ -93,8 +101,7 @@ for n in cached:
 
 fails = []
 if live:
-    with cf.ProcessPoolExecutor(
-            max_workers=min(4, os.cpu_count() or 4)) as ex:
+    with cf.ProcessPoolExecutor(max_workers=NW) as ex:
         for name, rc, dt, tail in ex.map(run, live):
             print(f"  {'PASS' if rc == 0 else 'FAIL'} {name} "
                   f"(exit {rc}, {dt/60:.1f} min)", flush=True)

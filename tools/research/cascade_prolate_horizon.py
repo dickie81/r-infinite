@@ -104,7 +104,10 @@ import numpy as np
 from numpy.polynomial import legendre as L
 from scipy.special import psi as scipy_digamma, spherical_jn
 from scipy.linalg import eigh as scipy_eigh
-from mpmath import mp, zetazero
+
+HERE0 = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE0)
+from zeta_zeros_cache import zeros_im
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
@@ -146,9 +149,10 @@ def psi_hat(coefs, s, chunk=20000):
     out = np.empty((coefs.shape[0], len(s)), dtype=complex)
     for lo in range(0, len(s), chunk):
         sl = s[lo:lo+chunk]
-        J = np.empty((KL, len(sl)))
-        for k in ks:
-            J[k] = spherical_jn(int(k), np.abs(sl))
+        # one broadcast call replaces the per-order loop
+        # (round 252 pace retrofit; bitwise-identical -- scipy
+        # evaluates each (n, z) pair the same way either route)
+        J = spherical_jn(ks[:, None], np.abs(sl)[None, :])
         sign = np.where(sl[None, :] >= 0, 1.0, (-1.0)**(ks[:, None]))
         out[:, lo:lo+chunk] = M @ (2*sign*J)
     return out
@@ -239,8 +243,7 @@ for t0 in (0.0, 60.0, 100.0, 250.0, 300.0, 340.0, 360.0):
 ok = abs(mE[0.0]) < 1e-9 and abs(mE[60.0]) < 1e-9 and abs(mE[100.0]) < 1e-8
 ok &= abs(mE[250.0]/1.223e-2 - 1) < 1e-2
 ok &= abs(mE[340.0]/5.151e-1 - 1) < 1e-2
-mp.dps = 15
-Z260 = [float(zetazero(k).imag) for k in range(1, 261)]
+Z260 = zeros_im(260, 15)
 def identity_ratio(P, G, tau0, lm, cvec):
     z = 0.0
     s = np.concatenate([(np.array(Z260) - tau0)*A, (-np.array(Z260) - tau0)*A])
