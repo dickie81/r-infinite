@@ -16,10 +16,14 @@ where the closure is the member's full code REACH, iterated to a
 TRUE fixed point over BOTH expansions of every reached file: its
 import step, and every code file named by a string constant in
 its docstring-stripped AST -- bare .py names AND module stems
-(spawns built as s + ".py"), resolved against every code root
-(tools/research and tools/verifiers) -- the subprocess/chain
-reach the import walk cannot see (rounds 255-256, F255-1 and
-F256-1/2); code_sha is ckpt_key's docstring-stripped-AST hash. Prose edits to members or their
+(spawns built as s + ".py") resolved against every code root
+(tools/research and tools/verifiers), AND .tex names resolved
+against src/ (round-257 F257-1: needle-gated tex substrates are
+verdict inputs, byte-bound like the paper) -- the subprocess/
+chain/needle reach the import walk cannot see (rounds 255-257);
+imports resolve against the file's own directory AND every code
+root (F257-2); code_sha is ckpt_key's docstring-stripped-AST
+hash for .py, raw bytes for the tex substrates. Prose edits to members or their
 substrates do NOT invalidate; any executable change anywhere in
 the member's code reach does (the named-.py rule
 over-approximates deliberately: over-invalidation, never a stale
@@ -84,16 +88,30 @@ import ckpt_key
 CODE_ROOTS = (HERE,
               os.path.normpath(os.path.join(HERE, "..",
                                             "verifiers")))
+TEXT_ROOTS = (os.path.normpath(os.path.join(HERE, "..", "..",
+                                            "src")),)
 
 
 def _resolve(sc):
-    """Resolve a string constant to a HERE-relative code path.
-    Accepts bare .py names AND module stems (round-256 F256-1:
-    cascade_type_counting spawns via s + ".py" -- the stem is
-    the constant); searches every code root (F256-1: tools/
-    verifiers/verify_selection_rule.py failed the old
-    exists-in-HERE test). Returns None for non-code constants."""
+    """Resolve a string constant to a HERE-relative substrate
+    path. Code: bare .py names AND module stems (round-256
+    F256-1 -- spawns built as s + ".py"), searched in every
+    code root. TEXT substrates (round-257 F257-1): .tex names
+    searched in src/ -- three members needle-gate raw
+    substrings of the cascade tex papers, so those bytes are
+    verdict inputs and must be in the key (bound by raw-byte
+    sha via code_sha's non-.py fallback), exactly the
+    rationale that byte-binds the main paper. Returns None
+    for non-substrate constants."""
     if "/" in sc or " " in sc or not sc:
+        return None
+    if sc.endswith(".tex"):
+        if not sc[:-4].replace("_", "").replace("-", "").isalnum():
+            return None
+        for r in TEXT_ROOTS:
+            pth = os.path.join(r, sc)
+            if os.path.exists(pth):
+                return os.path.relpath(pth, HERE)
         return None
     cands = [sc] if sc.endswith(".py") else [sc + ".py"]
     for c in cands:
@@ -111,11 +129,15 @@ _NAMED_MEMO = {}
 
 
 def _named_py(rel):
-    """Every code file named by a string constant (bare .py name
-    OR module stem) in the DOCSTRING-STRIPPED AST of the file at
-    HERE-relative path rel -- the subprocess/chain reach the
-    import walk cannot see. Over-approximates (any mention
-    counts): the safe direction. Memoized per file per run."""
+    """Every substrate named by a string constant (bare .py
+    name, module stem, or .tex name) in the DOCSTRING-STRIPPED
+    AST of the file at HERE-relative path rel -- the
+    subprocess/chain/needle reach the import walk cannot see.
+    Over-approximates (any mention counts): the safe
+    direction. Memoized per file per run. Non-.py reach
+    entries (tex substrates) expand to nothing."""
+    if not rel.endswith(".py"):
+        return set()
     if rel in _NAMED_MEMO:
         return _NAMED_MEMO[rel]
     import ast
@@ -143,13 +165,30 @@ _IMP_MEMO = {}
 
 def _imports_of(rel):
     """HERE-relative import closure step for the file at rel,
-    resolved against the file's OWN directory."""
+    resolved against the file's OWN directory AND every code
+    root (round-257 F257-2: sys.path-inserted cross-root
+    imports -- riemann_selection and type_counting import
+    verify_selection_rule from tools/verifiers). Non-.py
+    entries expand to nothing."""
+    if not rel.endswith(".py"):
+        return set()
     if rel in _IMP_MEMO:
         return _IMP_MEMO[rel]
+    import ast
+    tree = ast.parse(open(os.path.join(HERE, rel), "rb").read())
+    mods = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.module:
+            mods.add(node.module)
+        elif isinstance(node, ast.Import):
+            mods.update(a.name for a in node.names)
     d = os.path.dirname(os.path.join(HERE, rel)) or HERE
-    base = os.path.basename(rel)
-    out = {os.path.relpath(os.path.join(d, g), HERE)
-           for g in ckpt_key.local_imports(base, d)}
+    out = set()
+    for m in mods:
+        for root in {d} | set(CODE_ROOTS):
+            pth = os.path.join(root, m + ".py")
+            if os.path.exists(pth):
+                out.add(os.path.relpath(pth, HERE))
     _IMP_MEMO[rel] = out
     return out
 
