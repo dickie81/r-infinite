@@ -24,10 +24,13 @@ chain/needle reach the import walk cannot see (rounds 255-257);
 imports resolve against the file's own directory AND every code
 root (F257-2); code_sha is ckpt_key's docstring-stripped-AST
 hash for .py, raw bytes for the tex substrates. Prose edits to members or their
-substrates do NOT invalidate; any executable change anywhere in
-the member's code reach does (the named-.py rule
+.py substrates do NOT invalidate; any executable change anywhere
+in the member's code reach does (the named-.py rule
 over-approximates deliberately: over-invalidation, never a stale
-PASS). The
+PASS); tex substrates, like the paper, are byte-bound -- ANY tex
+edit, prose included, rotates every key that reaches it (round-258
+F258-1: needle gates match raw tex substrings, so no
+prose/executable distinction exists there). The
 PAPER stays byte-hashed deliberately: the needle gates match raw
 substrings of the paper, so any paper byte can flip a gate outcome
 -- a paper edit owes one live tower. The manifest sha is NOT in
@@ -97,7 +100,8 @@ def _resolve(sc):
     path. Code: bare .py names AND module stems (round-256
     F256-1 -- spawns built as s + ".py"), searched in every
     code root. TEXT substrates (round-257 F257-1): .tex names
-    searched in src/ -- three members needle-gate raw
+    searched in src/ -- three reach files (one manifest member
+    plus two chained verifiers) needle-gate raw
     substrings of the cascade tex papers, so those bytes are
     verdict inputs and must be in the key (bound by raw-byte
     sha via code_sha's non-.py fallback), exactly the
