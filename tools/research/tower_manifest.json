@@ -28,7 +28,7 @@
   },
   {
    "file": "cascade_heatflow_energy.py",
-   "sha256": "d5717aef5b27ed3af131cf676fd423999efbdcf7c6ac8dfdf1498743d7e1ab1a"
+   "sha256": "bd3f9f86a55c59d0c5a18fb2d6621e8783a8e35106a22fcd2ad88309e944b29f"
   },
   {
    "file": "cascade_saddle_curvature.py",
@@ -44,11 +44,11 @@
   },
   {
    "file": "cascade_prolate_horizon.py",
-   "sha256": "9ef0cb3dc44b745127d5a8300a2061125a6cd4755d2ec42f9f7517023fd299c3"
+   "sha256": "2cd181b076624c50b477f2b924bc22e4d8bd145b1a2caa0013555026ce7e5d95"
   },
   {
    "file": "cascade_fluctuation_price.py",
-   "sha256": "840ab60cdbdef2ffe390ef4ef898ecf7a979c3cf338c403029ace8ec3caa869a"
+   "sha256": "c5be5a1b92898b625281f7aebaea9e4387d568ad08da1d9904961124844b649d"
   },
   {
    "file": "cascade_sonin_dirac.py",
