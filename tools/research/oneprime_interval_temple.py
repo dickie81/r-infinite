@@ -328,16 +328,23 @@ class Trial:
         return tot + p
 
     def dphi_pt(self, x, order=1):
+        """phi^(order) at interval x, orders 1..4.  Trig cycle:
+        even (cos base): -w sin, -w^2 cos, +w^3 sin, +w^4 cos;
+        odd (sin base): w cos, -w^2 sin, -w^3 cos, +w^4 sin."""
         even = self.parity == "even"
         tot = I(0.0)
         for idx, (c, k, off) in enumerate(self.harm):
             w = self.wI(idx)
             arg = w*x
-            wpow = w if order == 1 else w*w
-            if order == 1:
-                tr = (-isin(arg)) if even else icos(arg)
+            wpow = I(1.0)
+            for _ in range(order):
+                wpow = wpow*w
+            if even:
+                tr = [None, -isin(arg), -icos(arg),
+                      isin(arg), icos(arg)][order]
             else:
-                tr = (-icos(arg)) if even else (-isin(arg))
+                tr = [None, icos(arg), -isin(arg),
+                      -icos(arg), isin(arg)][order]
             tot = tot + I(c)*wpow*tr
         dp = _poly_deriv(self.poly, order)
         p = I(0.0)
@@ -551,30 +558,53 @@ def temple_cell(tr, tabs, ell2, use_pole):
             continue
         cl, ch = _ucells(lo, hi, HT)
         cells += list(zip(cl, ch))
+    # <chi, phi> and n by per-cell SIMPSON with interval
+    # fourth-derivative bounds (the mean-value form accumulated
+    # a (h/4)-times-phi-prime-L1 width ~1e-3 that flowed through
+    # the pole into every T phi -- the relaunch-1 failure);
+    # Simpson panel error is h^5 |f4|/2880.
+    def chider(x, order):
+        # d^order/dt^order of chi(t): chi = cosh(t/2) (even) or
+        # sinh(t/2) (odd); each derivative halves and toggles
+        even_toggle = (order % 2 == 0)
+        use_cosh = (even == even_toggle)
+        fn = icosh if use_cosh else isinh
+        return fn(x*I(0.5))*_ipow(I(0.5), order)
     chi_lo = chi_hi = 0.0
     n_lo = n_hi = 0.0
-    for (cl, ch) in cells:
+    # Simpson converges as h^5: a 10x coarser grid than the M/S
+    # cells still leaves ~1e-11 error here
+    ccells = []
+    for lo, hi in zip(bounds[:-1], bounds[1:]):
+        if hi - lo < 1e-12:
+            continue
+        cl_, ch_ = _ucells(lo, hi, HT*10)
+        ccells += list(zip(cl_, ch_))
+    for (cl, ch) in ccells:
         h = ch - cl
+        lo_, hi_ = I(cl), I(ch)
         m = I(0.5*(cl + ch))
         cellI = I(cl, ch)
-        phim = tr.phi_pt(m)
-        chim = icosh(m*I(0.5)) if even else isinh(m*I(0.5))
-        f = phim*chim
-        p0 = tr.phi_pt(cellI)
-        p1_ = tr.dphi_pt(cellI, 1)
-        c0 = icosh(cellI*I(0.5)) if even \
-            else isinh(cellI*I(0.5))
-        c1 = (isinh(cellI*I(0.5)) if even
-              else icosh(cellI*I(0.5)))*I(0.5)
-        fp = p1_*c0 + p0*c1
-        e = _u(h*h*0.25*fp.abs_hi())
-        chi_lo += _d(f.lo*h - e)
-        chi_hi += _u(f.hi*h + e)
-        f2 = phim*phim
-        f2p = I(2.0)*p0*p1_
-        e2_ = _u(h*h*0.25*f2p.abs_hi())
-        n_lo += _d(f2.lo*h - e2_)
-        n_hi += _u(f2.hi*h + e2_)
+        pl, pm, ph = (tr.phi_pt(lo_), tr.phi_pt(m),
+                      tr.phi_pt(hi_))
+        xl, xm, xh = (chider(lo_, 0), chider(m, 0),
+                      chider(hi_, 0))
+        simp = (pl*xl + I(4.0)*pm*xm + ph*xh)*I(h/6.0)
+        pc = [tr.phi_pt(cellI)] + [tr.dphi_pt(cellI, o)
+                                   for o in (1, 2, 3, 4)]
+        cc = [chider(cellI, o) for o in range(5)]
+        f4 = (pc[4]*cc[0] + I(4.0)*pc[3]*cc[1]
+              + I(6.0)*pc[2]*cc[2] + I(4.0)*pc[1]*cc[3]
+              + pc[0]*cc[4])
+        e = _u(h**5*f4.abs_hi()/2880.0)
+        chi_lo += _d(simp.lo - e)
+        chi_hi += _u(simp.hi + e)
+        simp2 = (pl*pl + I(4.0)*pm*pm + ph*ph)*I(h/6.0)
+        g4 = I(2.0)*(pc[4]*pc[0] + I(4.0)*pc[3]*pc[1]
+                     + I(3.0)*pc[2]*pc[2])
+        e2_ = _u(h**5*g4.abs_hi()/2880.0)
+        n_lo += _d(simp2.lo - e2_)
+        n_hi += _u(simp2.hi + e2_)
     sl = _u(2*DEDGE*1.3*tr.cabs)
     chi_phi = I(_d(2*(chi_lo - sl)), _u(2*(chi_hi + sl)))
     sl2 = _u(2*DEDGE*tr.cabs**2)
