@@ -4995,3 +4995,13 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **The sweep (f820bbc, temple-only):** the chi/n loop repaired with the M/S loop's own pattern (interval width/midpoint/weight, I-assembled error terms); DEPST3 transitively closed; errc folded into absum; the three cosmetics closed; the small-u series coefficients made interval unprompted. Stage III recompute at the rotated key: all seven cells IDENTICAL at displayed precision (the tight cell 7.3568e-7 again); chi_phi/n moved ~1e-14 as predicted.
 
 **Trajectory: 248: 1M+6m+3c swept → 249: 1M+2m+3c swept (f820bbc + the Stage III recompute through the wrapper's final commit). Convergence round 250 next.**
+
+# Round 250: convergence test on the round-249 sweep (fresh-context subagent, per protocol) — NOT CONVERGED: 0 majors + 1 minor (+1 non-gating record correction); swept; round 251 owed
+
+**Scope:** object-level = commit f820bbc in full, the Stage III recompute, checkpoint lineage, A384's numeric claims; record prose out per round 43. Reviewer's verification: the chi/n enclosure chain proved link-by-link and probed at 50 digits (12/12 panel containments); the slop-lemma extension re-derived (worst measured ratio 0.002 of budget); the E-bound termwise proof checked for all k; ncells and every certified value identical across the checkpoint lineage; core/count keys not rotated; batteries green (gT7 live + REUSED; manifest clean; tower TOP 13/13).
+
+**Findings:** F250-1 minor (accepted) — DEPST3's sworn "transitive import closure" one level short for the third consecutive round (bridge -> fold_D + height_uniformity -> fold_surrogate; sibling dicts DEPSF/DEPSP/DEPSC/DEPSB all list all three); practical exposure nil this round (no missing-file function in the fixture path), but the quantifier was false on a verifier surface. R250-A record correction (non-gating): A384's "733/734 panels inexact" census was the Sterbenz-width count misattached to the weight clause; true weight censuses 74/734 (vs own float width) and 75/734 (vs true width); all companion figures reproduce.
+
+**The sweep (9f111ba, temple-only):** DEPST3 is now COMPUTED — an AST walk over the producers' local imports, transitive from the five roots, ckpt_key excluded by arc convention; verified = previous seven + {fold_D, fold_surrogate, height_uniformity}, no deeper level; future import changes enter the key automatically. Stage III recompute: all seven cells value-identical (no value path touched).
+
+**Trajectory: 248: 1M+6m+3c → 249: 1M+2m+3c → 250: 0M+1m swept (9f111ba + the recompute through the wrapper's final commit). Convergence round 251 next on this one-hunk sweep.**
