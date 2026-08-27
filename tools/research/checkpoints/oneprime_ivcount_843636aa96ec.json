@@ -1,5 +1,73 @@
 {
+"script_sha256": "cbc95c3bb53e130c9351f2e753d2e35f456b49c799785e8b13e6c03e11b9a3e9",
 "key": "843636aa96ec964042ce8e142a92f3e4dc713779f5a5ec5fd086a3df40941b15",
+"params": {
+"deps": {
+"oneprime_certificate.py": "6c0a13849eb1d4e4fcb133ebdb324ab46091e74abfa4ce3085309738298c55b2",
+"oneprime_interval_core.py": "f9e5aea1a12572f480f3f17ec60b8a9be7f017c565fcca40752ed1dcc5144890",
+"oneprime_interval_count.py": "6268ac82c89288f5ff6ed27c99a54bede0a9b620a61c11bcb1b732dad3d8f17a"
+},
+"H": 0.02,
+"cells": [
+[
+"even",
+0.6931,
+0.34655,
+0.15,
+1.0
+],
+[
+"even",
+0.8,
+0.4,
+0.15,
+1.0
+],
+[
+"even",
+0.9,
+0.45,
+0.04,
+1.5
+],
+[
+"even",
+0.95,
+0.475,
+0.02,
+1.5
+],
+[
+"even",
+1.0,
+0.5,
+0.01,
+2.0
+],
+[
+"odd",
+0.9,
+0.45,
+0.15,
+1.0
+],
+[
+"odd",
+1.05,
+0.525,
+0.15,
+1.0
+],
+[
+"odd",
+1.09,
+0.545,
+0.08,
+1.5
+]
+],
+"round": 6
+},
 "state": {
 "even:0.6931": {
 "m": 1270,
@@ -160,6 +228,10 @@
 "npieces": 23,
 "nbrackets": 15,
 "certified": true
+},
+"__gII4__": {
+"shift": 4.66136018673069e-11,
+"eop_ref": 1.880706868076986e-06
 }
 }
 }
