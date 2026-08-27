@@ -5,13 +5,19 @@ pass. This is the full-re-execution battery for certification rounds --
 wall time = the longest single verifier instead of the serial sum.
 Manifest-vs-disk integrity is checked for all members up front.
 
-RESUME CACHE (round 252, owner-commissioned after a container restart
-threw away a 45-minute partial run): each member's PASS is recorded in
-checkpoints/tower_results.json under a key binding the EXACT inputs of
-that pass -- sha256(member bytes) + sha256(tower_manifest.json) +
-sha256(the paper) -- so any change to the member, the tower set, or the
-paper surface invalidates the cache honestly (every tower member's
-census/needle gates read the paper, so the paper hash is a true input).
+RESUME CACHE (round 252, owner-commissioned; key hardened round 253
+F253-1): each member's PASS is recorded in
+checkpoints/tower_results.json under a key binding sha256(member
+bytes) + sha256(tower_manifest.json) + sha256(the paper) + the
+sha256s of every file in the member's COMPUTED transitive local
+import closure (ckpt_key.producer_closure -- cascade_tower.py,
+zeta_zeros_cache.py, the oneprime substrates, everything the member
+executes), so any executable change anywhere in the member's code
+reach invalidates the cache. NOT bound: committed checkpoint DATA
+files -- those are content-addressed to the closure's own bytes by
+the instruments' keying, and every gate re-runs live on every
+non-cached run; a data-only corruption is the gates' job, not the
+cache key's.
 A member with a cached PASS at the current key is SKIPPED and reported
 as "PASS (cached ...)"; the run's summary prints the live-vs-cached
 census explicitly (no silent caps). This is the same
@@ -54,11 +60,20 @@ MAN_SHA = _sha(MAN_PATH)
 PAPER_SHA = _sha(PAPER_PATH)
 
 
+sys.path.insert(0, HERE)
+import ckpt_key
+
+
 def member_key(name):
     h = hashlib.sha256()
     h.update(_sha(os.path.join(HERE, name)).encode())
     h.update(MAN_SHA.encode())
     h.update(PAPER_SHA.encode())
+    # round-253 F253-1: bind the member's computed import
+    # closure (code reach), not just its own bytes
+    for f in sorted(ckpt_key.producer_closure((name,), HERE)):
+        h.update(f.encode())
+        h.update(_sha(os.path.join(HERE, f)).encode())
     return h.hexdigest()[:24]
 
 

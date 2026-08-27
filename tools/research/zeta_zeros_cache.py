@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 """Shared cache for verified zeta-zero ordinates (round 252,
 owner-commissioned pace retrofit): several tower members pull the
-same zeros from mpmath.zetazero on every run -- at dps 20 the
-60-zero pull alone cost cascade_heatflow_energy ~100 minutes per
-tower battery. The ordinates are mathematical constants, so the
+same zeros from mpmath.zetazero on every run; the member that
+motivated this cache ran ~105 min in-tower under BLAS
+contention (round-253 F253-4: the pull-phase share of that was
+never separately measured -- the standalone pulls measure
+~0.1 s/zero; the cache removes the repeated work either way). The ordinates are mathematical constants, so the
 cache is keyed by (dps, count) only; TRUST IS NOT STORED: on
 every cache hit the first and last ordinates are recomputed LIVE
 at the same dps and must match the cached values exactly
 (mpmath is deterministic and json round-trips float64 exactly,
 so equality is exact; any mismatch -- corruption, a different
-mpmath -- falls through to a full recompute and rewrite). The
-consuming members' own gates additionally pin zero values
-downstream (heatflow g2 pins gamma_34/35 to 5e-5; fluctuation
-g1 pins Z_1 and Z_380; prolate g2's identity runs over the
-pulled set), so a poisoned cache cannot pass silently.
+mpmath -- falls through to a full recompute and rewrite). COVERAGE,
+stated honestly (round 253, F253-2): the anchors and the count
+check catch gross corruption -- wrong length, shifted or
+perturbed endpoints, a swapped dps block; a SUB-WINDOW interior
+perturbation is NOT detected by the anchors, and the consumers'
+own gates give only partial interior coverage (heatflow's diss
+pin is a 1e-3-absolute functional of all 60 ordinates and its
+gap pins hold 5e-5; fluctuation's g1 pins duplicate the anchors;
+prolate's identity windows tolerate small interior shifts) --
+adequate for these members' float-grade windows, and no more is
+claimed.
 Committed under checkpoints/ like every compute checkpoint."""
 import json, os
 

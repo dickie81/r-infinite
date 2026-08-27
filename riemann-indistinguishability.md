@@ -6010,8 +6010,9 @@ endpoint slivers (the corner hull is not an enclosure for
 signed integrands — a defect self-caught and repaired before
 the landing certification); the whole chain recomputed once at
 the round-248 review sweep with every margin held or improved,
-and the third stage twice more across the subsequent sweeps,
-value-identically. *(v) The
+the third stage twice more across the subsequent sweeps, and
+the whole chain once more at the round-252 rotation — these
+last three value-identically on every row and cell. *(v) The
 falsification content.* Because the one-prime form is the full
 functional below log 3, a certified negative eigenvalue at any
 of these cells would have disproved the Riemann Hypothesis

@@ -28,7 +28,7 @@
   },
   {
    "file": "cascade_heatflow_energy.py",
-   "sha256": "bd3f9f86a55c59d0c5a18fb2d6621e8783a8e35106a22fcd2ad88309e944b29f"
+   "sha256": "59d6436e5bebd4b54788ae42d1ef3a52c0aa054c1fa2f7b120638e3af24f0abd"
   },
   {
    "file": "cascade_saddle_curvature.py",

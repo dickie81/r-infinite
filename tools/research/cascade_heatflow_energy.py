@@ -81,9 +81,10 @@ def gate(label, ok):
     if not ok:
         fails.append(label)
 
-# the dps-20 pull was ~100 min per run; the shared cache with
-# live first/last anchors replaces it (round 252, owner pace
-# retrofit); the g2 pins gate the values downstream
+# the member ran ~105 min in-tower under BLAS contention; the
+# shared live-anchored cache removes the repeated pull (round
+# 252 pace retrofit; attribution hedged round 253 F253-4); the
+# g2 pins gate the values downstream
 M = 60
 gams = np.array(zeros_im(M, 20))
 X0 = np.concatenate([-gams[::-1], gams])
