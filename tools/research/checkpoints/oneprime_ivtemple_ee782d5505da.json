@@ -1,5 +1,59 @@
 {
+"script_sha256": "142af11661b6b93a72ac5568b9939c595e264b716c40ace85a15490227bc2b4f",
 "key": "ee782d5505da112656960fa0eb2b42eef205705024c49eb84c96619a869def44",
+"params": {
+"deps": {
+"fold_D.py": "db839b550d0b4fcb37e1cab98ac52a280815b0100fb810389a39e274e2124da5",
+"fold_surrogate.py": "d0c8e45f206f55615adef3991d532a36144c9ac92f2774c3fdd5a430f19a4db9",
+"height_uniformity.py": "475d522c5d2a70170b99f26c2cf8e2c7559fbdf6ed70d8f203ede01f6f8f2094",
+"oneprime_bridge.py": "5194cbe6e815f2e5edfe7078999226fcbd900e8419ed0295b88914a6fcb7421f",
+"oneprime_certificate.py": "6c0a13849eb1d4e4fcb133ebdb324ab46091e74abfa4ce3085309738298c55b2",
+"oneprime_fractional.py": "afc86a3a7150ee971862e828b87aebd7aba37068fb22b6938679b009fc122274",
+"oneprime_interval_core.py": "5d9e841b8aff2af049ca44310218c060fc22080bca9867afef60a56ab62da88b",
+"oneprime_interval_count.py": "73341eff5f265d195c92d05d525fd9a1f871ec309b60ebe734d6e7fad19394d4",
+"oneprime_interval_temple.py": "05198e4e13821ddcb47adb8156f74cde8bc565fcd424ceb43ae2c701626ef03f",
+"oneprime_push.py": "8489e330c1b379df1304d2f099bb48b14dff1c8b54bccd73a074c5b0b90f8a59"
+},
+"cfg": {
+"even:0.6931": [
+5e-05,
+1e-05,
+0.1
+],
+"even:0.8": [
+5e-06,
+1e-05,
+0.05
+],
+"even:0.9": [
+3e-06,
+1e-05,
+0.03
+],
+"even:0.95": [
+8e-07,
+4e-06,
+0.01
+],
+"odd:0.9": [
+2e-05,
+1e-05,
+0.1
+],
+"odd:1.05": [
+4e-06,
+1e-05,
+0.04
+],
+"odd:1.09": [
+2e-06,
+5e-06,
+0.02
+]
+},
+"hchi": 0.0005,
+"round": 6
+},
 "state": {
 "even:0.6931": {
 "rho": [
@@ -214,6 +268,60 @@
 ]
 },
 "certified": true
-}
+},
+"odd:1.09": {
+"rho": [
+1.9522901360308407e-05,
+1.9575538695489984e-05
+],
+"sigma2_hi": 2.2619465777927007e-07,
+"n": [
+0.9999999999328658,
+1.0000000000499207
+],
+"S": [
+2.1993750439729233e-07,
+2.2657580144158334e-07
+],
+"chi_phi": [
+-0.10523491480163746,
+-0.1052349147860901
+],
+"ncells": 273334,
+"premise_ok": true,
+"temple_lo": 4.852097088132261e-06,
+"ell2": [
+0.015437536362403942,
+0.015437536362403942
+],
+"stage1": {
+"rho": [
+0.016416826179270014,
+0.016417771049524223
+],
+"sigma2_hi": 6.226635502722916e-05,
+"n": [
+0.999999999456981,
+1.0000000006040213
+],
+"S": [
+0.0003314716658849543,
+0.0003317785366474323
+],
+"chi_phi": [
+-0.07602262513001702,
+-0.07602262504611328
+],
+"ncells": 273334,
+"premise_ok": true,
+"temple_lo": 0.015437536362403942,
+"ell2": [
+0.08,
+0.08
+]
+},
+"certified": true
+},
+"theorem": true
 }
 }
