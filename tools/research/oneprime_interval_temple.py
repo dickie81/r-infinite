@@ -423,6 +423,11 @@ class ClosedT:
         k1 = I(a) - t
         k2 = I(a) + t
         IAv = self._tab_at("IA", k2)
+        # hoisted: E at k1, k2 (harmonic-independent; the
+        # per-harmonic scalar sinh evaluations were the first
+        # run's 20x hot-spot)
+        E1 = self._EI(k1) if deriv else None
+        E2 = self._EI(k2) if deriv else None
         dint = I(0.0)
         ddint = I(0.0)
         for idx, (c, k, off) in enumerate(tr.harm):
@@ -435,7 +440,7 @@ class ClosedT:
                 dtrig = (-isin(wIv*t))*wIv if even \
                     else icos(wIv*t)*wIv
                 s = isin(I(w)*k2*I(0.5))
-                gint = self._EI(k2)*s*s
+                gint = E2*s*s
                 ddint = ddint + I(c)*I(-2.0)*(dtrig*G
                                               + trig*gint)
         for i in range(2, tr.deg + 1, 2):
@@ -444,7 +449,7 @@ class ClosedT:
             dint = dint + Qi*Hi
             if deriv:
                 dQi = self._peval(_poly_deriv(self.Pi[i], 1), t)
-                ddint = ddint + dQi*Hi + Qi*self._E_ui(i, k2)
+                ddint = ddint + dQi*Hi + Qi*E2*_ipow(k2, i)
         corr = I(0.0)
         dcorr = I(0.0)
         for idx, (c, k, off) in enumerate(tr.harm):
@@ -459,10 +464,10 @@ class ClosedT:
                 term = swt*Cd + cwt*Sd
             corr = corr + I(c)*term
             if deriv:
-                ec2 = self._EI(k2)*icos(I(w)*k2)
-                ec1 = self._EI(k1)*icos(I(w)*k1)
-                es2 = self._EI(k2)*isin(I(w)*k2)
-                es1 = self._EI(k1)*isin(I(w)*k1)
+                ec2 = E2*icos(I(w)*k2)
+                ec1 = E1*icos(I(w)*k1)
+                es2 = E2*isin(I(w)*k2)
+                es1 = E1*isin(I(w)*k1)
                 if even:
                     dterm = (-swt)*wIv*Cd - cwt*wIv*Sd \
                         + cwt*(ec2 + ec1) - swt*(es2 + es1)
@@ -477,8 +482,7 @@ class ClosedT:
             if deriv:
                 dPi = self._peval(_poly_deriv(self.Pi[i], 1), t)
                 dcorr = dcorr + dPi*Hd \
-                    + Pi_t*(self._E_ui(i, k2)
-                            + self._E_ui(i, k1))
+                    + Pi_t*(E2*_ipow(k2, i) + E1*_ipow(k1, i))
         corr = corr*I(0.5)
         dcorr = dcorr*I(0.5)
         DINT = dint - corr
