@@ -12,12 +12,14 @@ oneprime decision applied one layer up): each member's PASS is
 recorded in checkpoints/tower_results.json under a key binding
   code_sha(member) + code_sha(every file in the member's COMPUTED
   transitive local import closure) + sha256(the paper),
-where the closure is the member's full code REACH -- the
-transitive import closure UNION every existing local .py named by
-a string constant in any reach file's docstring-stripped AST (the
-subprocess/chain reach the import walk cannot see; round-255
-F255-1), iterated to a fixed point -- and code_sha is ckpt_key's
-docstring-stripped-AST hash. Prose edits to members or their
+where the closure is the member's full code REACH, iterated to a
+TRUE fixed point over BOTH expansions of every reached file: its
+import step, and every code file named by a string constant in
+its docstring-stripped AST -- bare .py names AND module stems
+(spawns built as s + ".py"), resolved against every code root
+(tools/research and tools/verifiers) -- the subprocess/chain
+reach the import walk cannot see (rounds 255-256, F255-1 and
+F256-1/2); code_sha is ckpt_key's docstring-stripped-AST hash. Prose edits to members or their
 substrates do NOT invalidate; any executable change anywhere in
 the member's code reach does (the named-.py rule
 over-approximates deliberately: over-invalidation, never a stale
@@ -79,17 +81,45 @@ sys.path.insert(0, HERE)
 import ckpt_key
 
 
-def _named_py(fn):
-    """Every existing local .py named by a string constant in
-    the DOCSTRING-STRIPPED AST of fn -- the subprocess/chain
-    reach the import walk cannot see (round-255 F255-1:
-    cascade_lattice_forcing's g9 subprocess-runs a sibling
-    chain). Over-approximates (any mention counts) -- the safe
-    direction for a cache key: over-invalidation, never a
-    stale PASS. Docstrings are stripped first so prose
-    mentions do not enter the key."""
+CODE_ROOTS = (HERE,
+              os.path.normpath(os.path.join(HERE, "..",
+                                            "verifiers")))
+
+
+def _resolve(sc):
+    """Resolve a string constant to a HERE-relative code path.
+    Accepts bare .py names AND module stems (round-256 F256-1:
+    cascade_type_counting spawns via s + ".py" -- the stem is
+    the constant); searches every code root (F256-1: tools/
+    verifiers/verify_selection_rule.py failed the old
+    exists-in-HERE test). Returns None for non-code constants."""
+    if "/" in sc or " " in sc or not sc:
+        return None
+    cands = [sc] if sc.endswith(".py") else [sc + ".py"]
+    for c in cands:
+        stem = c[:-3]
+        if not stem.replace("_", "").isalnum():
+            continue
+        for r in CODE_ROOTS:
+            pth = os.path.join(r, c)
+            if os.path.exists(pth):
+                return os.path.relpath(pth, HERE)
+    return None
+
+
+_NAMED_MEMO = {}
+
+
+def _named_py(rel):
+    """Every code file named by a string constant (bare .py name
+    OR module stem) in the DOCSTRING-STRIPPED AST of the file at
+    HERE-relative path rel -- the subprocess/chain reach the
+    import walk cannot see. Over-approximates (any mention
+    counts): the safe direction. Memoized per file per run."""
+    if rel in _NAMED_MEMO:
+        return _NAMED_MEMO[rel]
     import ast
-    tree = ast.parse(open(os.path.join(HERE, fn), "rb").read())
+    tree = ast.parse(open(os.path.join(HERE, rel), "rb").read())
     for node in ast.walk(tree):
         body = getattr(node, "body", None)
         if (isinstance(body, list) and body
@@ -100,33 +130,45 @@ def _named_py(fn):
     out = set()
     for node in ast.walk(tree):
         if (isinstance(node, ast.Constant)
-                and isinstance(node.value, str)
-                and node.value.endswith(".py")
-                and "/" not in node.value
-                and os.path.exists(os.path.join(HERE,
-                                                node.value))):
-            out.add(node.value)
+                and isinstance(node.value, str)):
+            r = _resolve(node.value)
+            if r is not None:
+                out.add(r)
+    _NAMED_MEMO[rel] = out
+    return out
+
+
+_IMP_MEMO = {}
+
+
+def _imports_of(rel):
+    """HERE-relative import closure step for the file at rel,
+    resolved against the file's OWN directory."""
+    if rel in _IMP_MEMO:
+        return _IMP_MEMO[rel]
+    d = os.path.dirname(os.path.join(HERE, rel)) or HERE
+    base = os.path.basename(rel)
+    out = {os.path.relpath(os.path.join(d, g), HERE)
+           for g in ckpt_key.local_imports(base, d)}
+    _IMP_MEMO[rel] = out
     return out
 
 
 def member_reach(name):
-    """The member's full code reach: the transitive import
-    closure UNION the named-.py spawn/chain reach of every
-    file in it, iterated to a fixed point; ckpt_key.py
-    excluded by the standing convention."""
+    """The member's full code reach, iterated to a TRUE fixed
+    point (round-256 F256-2: the previous loop's import-added
+    files never received the named-.py scan -- a dead-code
+    comprehension): every file reached gains BOTH its import
+    step and its named-code step; ckpt_key.py excluded by the
+    standing convention."""
     reach = set()
     frontier = {name}
     while frontier:
         f = frontier.pop()
         if f in reach:
             continue
-        reach |= ckpt_key.producer_closure((f,), HERE)
         reach.add(f)
-        for g in _named_py(f):
-            if g not in reach:
-                frontier.add(g)
-        frontier |= {g for g in ckpt_key.producer_closure(
-            (f,), HERE) if g not in reach}
+        frontier |= (_imports_of(f) | _named_py(f)) - reach
     reach.discard("ckpt_key.py")
     return reach
 
