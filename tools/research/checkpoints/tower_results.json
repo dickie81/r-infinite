@@ -1,9 +1,51 @@
 {
+"0aeae7d61328dc0ff9f2125c": {
+"dt": 10.179892301559448,
+"file": "cascade_sonin_dirac.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
+},
+"153dd59187ce1e4ffccd52da": {
+"dt": 4.527397394180298,
+"file": "cascade_height_uniformity.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
+},
+"1b3cf8154658e59aa613b90e": {
+"dt": 400.3411467075348,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-08-27T18:34Z"
+},
+"1fcc77613101487103dd857c": {
+"dt": 852.4633500576019,
+"file": "cascade_prolate_horizon.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
+},
+"31cc986c42cdaa4338a3f333": {
+"dt": 4.2720818519592285,
+"file": "cascade_floor_closure.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
+},
 "39d111b3962942e1956e81b3": {
 "dt": 556.3881809711456,
 "file": "cascade_attraction_margins.py",
 "rc": 0,
 "when": "2026-08-27T18:33Z"
+},
+"621fb35cc605a70394769a58": {
+"dt": 0.7295215129852295,
+"file": "cascade_oneprime_interval.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
+},
+"7a0d76b6549b7c08779925e8": {
+"dt": 1.231212854385376,
+"file": "cascade_prime_budget_fold.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
 },
 "8fd318e001e0635be4bb3b62": {
 "dt": 43.32334280014038,
@@ -17,17 +59,35 @@
 "rc": 0,
 "when": "2026-08-27T18:27Z"
 },
+"b1fa167b7fb77aabe99eda05": {
+"dt": 64.81489491462708,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-08-27T18:34Z"
+},
 "be5554b63c79ec62701f24da": {
 "dt": 53.608410596847534,
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
 "when": "2026-08-27T18:33Z"
 },
+"c411aded25354891d9cb2a9e": {
+"dt": 0.48389434814453125,
+"file": "cascade_floor_theory.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
+},
 "c90459941807abbdc35c374f": {
 "dt": 345.1719527244568,
 "file": "cascade_floor_meter.py",
 "rc": 0,
 "when": "2026-08-27T18:33Z"
+},
+"cd8a2cbd733574fbe0907aa0": {
+"dt": 75.87948250770569,
+"file": "cascade_fluctuation_price.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
 },
 "daf549a6dd84e2d1f7de9ed5": {
 "dt": 173.40981078147888,
@@ -40,6 +100,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-08-27T18:27Z"
+},
+"e0f615eb0641be641b246b37": {
+"dt": 4.5190229415893555,
+"file": "cascade_twosided_witness.py",
+"rc": 0,
+"when": "2026-08-27T18:43Z"
 },
 "fcc5cd50a95479669da3ad4a": {
 "dt": 27.76031494140625,
