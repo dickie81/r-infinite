@@ -29,6 +29,12 @@
 "rc": 0,
 "when": "2026-08-27T19:14Z"
 },
+"1a09b616eed0ea9d21c092fa": {
+"dt": 348.92706274986267,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-27T19:46Z"
+},
 "1b3cf8154658e59aa613b90e": {
 "dt": 400.3411467075348,
 "file": "cascade_weil_margin.py",
@@ -83,6 +89,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"4996329dc236026ca787dbc8": {
+"dt": 42.873234033584595,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-27T19:46Z"
+},
 "58936f551d0017f44e1f0f8d": {
 "dt": 176.41718006134033,
 "file": "cascade_li_two_channels.py",
@@ -106,6 +118,12 @@
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-27T19:24Z"
+},
+"892fda73307783e525a5819f": {
+"dt": 559.5935852527618,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-27T19:46Z"
 },
 "8fd318e001e0635be4bb3b62": {
 "dt": 43.32334280014038,
@@ -131,11 +149,23 @@
 "rc": 0,
 "when": "2026-08-27T18:27Z"
 },
+"b05e06d1bdd03b385e3b1ad8": {
+"dt": 177.44670486450195,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-27T19:40Z"
+},
 "b1fa167b7fb77aabe99eda05": {
 "dt": 64.81489491462708,
 "file": "cascade_weil_crossover.py",
 "rc": 0,
 "when": "2026-08-27T18:34Z"
+},
+"b3c4c2c5f2f7e38c1596644a": {
+"dt": 84.584228515625,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-27T19:40Z"
 },
 "be5554b63c79ec62701f24da": {
 "dt": 53.608410596847534,
@@ -179,6 +209,12 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"cf39cc5609318db21e80237f": {
+"dt": 27.95657992362976,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-27T19:40Z"
+},
 "d811335ac6f69591abcf9971": {
 "dt": 4.226663589477539,
 "file": "cascade_floor_closure.py",
@@ -215,6 +251,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"f733808818cb359ebcf11d52": {
+"dt": 53.76193833351135,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-27T19:46Z"
+},
 "f918620516c32cd481ff6676": {
 "dt": 400.05227279663086,
 "file": "cascade_weil_margin.py",
@@ -226,5 +268,11 @@
 "file": "cascade_finite_fill.py",
 "rc": 0,
 "when": "2026-08-27T18:27Z"
+},
+"ff3567ef7f7d91ee830b0a1f": {
+"dt": 172.0821704864502,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-27T19:46Z"
 }
 }
