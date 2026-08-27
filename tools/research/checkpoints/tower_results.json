@@ -1,0 +1,50 @@
+{
+"39d111b3962942e1956e81b3": {
+"dt": 556.3881809711456,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-27T18:33Z"
+},
+"8fd318e001e0635be4bb3b62": {
+"dt": 43.32334280014038,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-27T18:33Z"
+},
+"ab8e959cf7fe80f6fc456929": {
+"dt": 83.66659951210022,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-27T18:27Z"
+},
+"be5554b63c79ec62701f24da": {
+"dt": 53.608410596847534,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-27T18:33Z"
+},
+"c90459941807abbdc35c374f": {
+"dt": 345.1719527244568,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-27T18:33Z"
+},
+"daf549a6dd84e2d1f7de9ed5": {
+"dt": 173.40981078147888,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-27T18:33Z"
+},
+"decc11540f09e0a06a12cfff": {
+"dt": 179.99547576904297,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-27T18:27Z"
+},
+"fcc5cd50a95479669da3ad4a": {
+"dt": 27.76031494140625,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-27T18:27Z"
+}
+}
