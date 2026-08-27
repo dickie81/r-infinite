@@ -5031,3 +5031,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Batteries: TOWER PASS (19/19) live under the new keys; TOWER PASS (19/19) cached in 0.975 s immediately after; verifier 12/12; manifest zero drift.**
 
 **Trajectory: 252: 1M+10m+c swept → 253: 0M+2m+2c swept (+254 keying, owner) → convergence round 255 next on the narrow 253/254 sweep; Surface A (the 1bj landing) already CLEAN.**
+
+# Round 255: convergence test on the 253/254 sweep — NOT CONVERGED: 0 majors + 2 minors + 3 cosmetics; swept (the key binds full subprocess-inclusive code reach, computed); round 256 owed
+
+**Findings:** F255-1 minor — the sworn code-reach invalidation falsifiable at cascade_lattice_forcing (its g9 subprocess chain, ~9 sibling files, invisible to the AST import walk; the round's only live member subprocess site by grep census; nil exposure — the rotation ran fully live). F255-2 minor — the cached-report line swore the removed round-252 key semantics. Three cosmetics. The data-file residual held as disclosed-and-accepted. **Sweep (872a618):** member_reach computed to a fixed point over imports + named-.py constants in docstring-stripped ASTs (safe-direction over-approximation; lattice_forcing's key verified to bind its full 9-file chain); the report line re-sworn; disclosures sharpened; the paper sentence scoped per event. Battery: TOWER PASS (19/19) live under the reach keys; verifier 12/12.
+
+**Trajectory: 252: 1M+10m → 253: 0M+2m (Surface A CLEAN) → 254 → 255: 0M+2m+3c swept. Convergence round 256 next.**
