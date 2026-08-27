@@ -9,18 +9,29 @@ bound (ratio form)
 rearranged positivity of <phi,(T - lambda_1)(T - ell2)phi>),
 with n = <phi, phi>, M = <phi, T phi>, S = ||T phi||^2 all
 interval enclosures, and ell2 from Stage II's certified counts
-(even: ell2 = nu*, the even pole being PSD rank-one; odd:
-two-stage per round 243 -- the pole-free Temple gives
-nu1 <= lambda_1(PWP_odd), then negative-rank-one interlacing
-gives lambda_2(T_odd) >= nu1).
+(even through 0.95: ell2 = nu*, the even pole being PSD
+rank-one; odd: two-stage per round 243 -- the pole-free Temple
+gives nu1 <= lambda_1(PWP_odd), then negative-rank-one
+interlacing gives lambda_2(T_odd) >= nu1; even 1.0, round 7:
+ell2 = nu* from Stage II-b's POLE-INCLUSIVE count
+(oneprime_interval_pole) -- #{T_even < nu*} <= 1 certified with
+the pole KEPT INSIDE the counting operator, so the premise is
+lambda_2(T_even) >= nu* directly, with no interlacing loss;
+the pole-free route's nu* caps at 0.01 at this cell while the
+Temple side needs ~0.015).
 
 THE TRIAL IS ENTIRE. phi = sum_h c_h trig(w_h t) + P(t) with P
 the polynomial part (the nu = 3/2 modes q(t) C_m^{3/2}(t/a) are
-polynomials).  The float64 survey (this round) shows the entire
-basis closes every theorem cell, so no fractional-edge mode
-enters the certificates and every derivative of phi is bounded
-and explicit.  The trial's coefficients are float64-optimized
-and FROZEN (a trial carries no rigor burden).
+polynomials).  The float64 survey (round 6) shows the
+pure-harmonic basis closes every theorem cell through 0.95; the
+even-1.0 cell (round 7) NEEDS the nu = 3/2 polynomial modes
+(the committed probes: pure-harmonic sigma saturates at
+1.20e-4, base-independent, against needed 1.19e-4; with the
+polynomial part sigma = 9.2e-5), so its fixture carries P(t)
+via the gT8-verified monomial split.  Every trial remains
+entire with bounded explicit derivatives.  The trial's
+coefficients are float64-optimized and FROZEN (a trial carries
+no rigor burden).
 
 THE OPERATOR IN CLOSED FORM.  With phi_an the globally-defined
 trig+poly expression and phi its restriction to [-a, a] (zero
@@ -124,16 +135,28 @@ DEDGE = 1e-14   # > 10*X0; the edge sliver (log-squared bound)
 # per-cell (ht, htab, theta): mean-value pitch, table pitch,
 # edge grading -- sized from each cell's float64 Temple margin
 # (the lambda-loss scales as ht^2 and theta^2; the tightest
-# cell, even:0.95 at float margin ~8e-7, needs ht ~ 8e-7)
+# cell, even:1 at float margin ~3.7e-7, needs ht ~ 3e-7)
 CELLCFG = {
     "even:0.6931": (5e-5, 1e-5, 0.1),
     "even:0.8":    (5e-6, 1e-5, 0.05),
     "even:0.9":    (3e-6, 1e-5, 0.03),
     "even:0.95":   (8e-7, 4e-6, 0.01),
+    "even:1":      (3e-7, 2e-6, 0.008),
     "odd:0.9":     (2e-5, 1e-5, 0.1),
     "odd:1.05":    (4e-6, 1e-5, 0.04),
     "odd:1.09":    (2e-6, 5e-6, 0.02),
 }
+# the even-1.0 frontier cell (round 7, the deflation arc): its
+# ell_2 premise is Stage II-b's POLE-INCLUSIVE count
+# (oneprime_interval_pole: lambda_2(T_even) >= NUSTAR_POLE
+# certified with the pole kept inside the counting operator --
+# no interlacing loss), and its trial carries the nu = 3/2
+# Gegenbauer polynomial part (the committed reconnaissance and
+# the pure-harmonic probe: harmonics alone saturate at sigma
+# 1.20e-4 against needed 1.19e-4 at this cell; the polynomial
+# modes bring sigma to 9.2e-5)
+NUSTAR_POLE = 0.015
+POLE_ROW_BETA = 2.5
 
 
 def _vexp_end(x, side):
@@ -1138,21 +1161,48 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
             "ell2": [ell2.lo, ell2.hi]}
 
 
+def _geg_monomial(n, nu):
+    """Monomial coefficients of C_n^{(nu)}(x) (float; the frozen
+    trial carries no rigor burden -- whatever polynomial the
+    frozen floats define IS the trial)."""
+    c0 = [1.0]
+    if n == 0:
+        return c0
+    c1 = [0.0, 2.0*nu]
+    for m in range(2, n + 1):
+        new = [0.0]*(m + 1)
+        for j, cj in enumerate(c1):
+            new[j + 1] += 2.0*(m + nu - 1.0)*cj/m
+        for j, cj in enumerate(c0):
+            new[j] -= (m + 2.0*nu - 2.0)*cj/m
+        c0, c1 = c1, new
+    return c1
+
+
 def make_fixtures():
     """Float64 fixtures on the PURE-HARMONIC basis (this round's
     survey: harmonics alone -- half-integer plus the integer
     'rough' modes with nonvanishing edges -- close every theorem
-    cell; the entire trial keeps Stage III explosion-free)."""
+    cell up to 0.95; the entire trial keeps Stage III
+    explosion-free).  The even-1.0 frontier cell (round 7)
+    additionally carries the nu = 3/2 Gegenbauer modes
+    (1 - (t/a)^2) C_m^{3/2}(t/a) -- POLYNOMIALS, so the trial
+    stays entire -- expanded here to the monomial coefficients
+    Stage III's Trial.poly consumes; the expansion is verified
+    on the pipeline grid before freezing (gT8)."""
     import oneprime_fractional as opf
     from oneprime_push import temple_opt
     out = {}
     specs = [("even", 0.6931, 0.15), ("even", 0.80, 0.15),
              ("even", 0.90, 0.04), ("even", 0.95, 0.02),
+             ("even", 1.00, NUSTAR_POLE),
              ("odd", 0.90, 0.15), ("odd", 1.05, 0.15),
              ("odd", 1.09, 0.08)]
     for parity, delta, nustar in specs:
         a = delta/2
-        md = opf.Modes(a, parity, nus=(), nfr=0)
+        rich = parity == "even" and abs(delta - 1.00) < 1e-9
+        md = (opf.Modes(a, parity, nus=(1.5,), nfr=12, nrough=13)
+              if rich else opf.Modes(a, parity, nus=(), nfr=0))
         tn, tw, B, TB, _v = opf.apply_T(md, base=0.003)
         N = 2*(B*tw[None, :]) @ B.T
         M = 2*(B*tw[None, :]) @ TB.T
@@ -1197,10 +1247,32 @@ def make_fixtures():
         cf = np.array(Wh.T @ c)
         nrm = math.sqrt(float(cf @ N @ cf))
         cf = cf/nrm
-        entry["c"] = list(map(float, cf))
+        entry["c"] = list(map(float, cf[:md.nharm]))
         entry["rho_float"] = float(cf @ M @ cf)
         entry["ws"] = list(map(float, md.w))
         entry["nharm"] = int(md.nharm)
+        if rich:
+            # the polynomial part: sum_j cf_j (1 - x^2)
+            # C_{n_j}^{3/2}(x), x = t/a, as t-monomials
+            deg = max(fr["n"] for fr in md.frac) + 2
+            px = np.zeros(deg + 1)
+            for j, fr in enumerate(md.frac):
+                g = np.array(_geg_monomial(fr["n"], fr["nu"]))
+                mode = np.zeros(fr["n"] + 3)
+                mode[:fr["n"] + 1] += g
+                mode[2:fr["n"] + 3] -= g
+                px[:len(mode)] += float(cf[md.nharm + j])*mode
+            pt = px/np.power(a, np.arange(deg + 1))
+            entry["poly"] = list(map(float, pt))
+            # gT8: the frozen split reproduces the pipeline's
+            # trial on the grid (harmonics + monomials vs the
+            # full-basis row combination)
+            recon = (np.array(entry["c"]) @ B[:md.nharm]
+                     + np.polyval(pt[::-1], tn))
+            full = cf @ B
+            dev = float(np.max(np.abs(recon - full)))
+            assert dev < 1e-9, f"gT8 FAIL {delta:g}: {dev:.2e}"
+            print(f"  gT8: poly split dev {dev:.2e}", flush=True)
         out[f"{parity}:{delta:g}"] = entry
         print(f"  fixture {parity}:{delta:g}", flush=True)
     return out
@@ -1224,7 +1296,10 @@ def trial_from_fixture(fx, coeffs):
         else:
             raise ValueError(f"bad w {val}")
         harm.append((coeffs[i], kk, offv))
-    poly = [I(0.0)]        # pure-harmonic trial
+    # the polynomial part: point intervals on the frozen float
+    # monomial coefficients (even:1.0's nu = 3/2 Gegenbauer
+    # content; absent -> the pure-harmonic [0] of rounds <= 6)
+    poly = [I(p) for p in fx.get("poly", [0.0])]
     return Trial(a, parity, harm, poly)
 
 
@@ -1247,6 +1322,7 @@ def _sha(name):
 _ROOTS = ("oneprime_fractional.py", "oneprime_push.py",
           "oneprime_interval_core.py",
           "oneprime_interval_count.py",
+          "oneprime_interval_pole.py",
           "oneprime_interval_temple.py")
 DEPST3 = {f: _sha(f)
           for f in sorted(ckpt_key.producer_closure(_ROOTS,
@@ -1265,7 +1341,8 @@ def run():
             f"gT7 FAIL at {xv}"
     params = {"deps": DEPST3,
               "cfg": {k: list(v) for k, v in CELLCFG.items()},
-              "hchi": HCHI, "round": 6}
+              "hchi": HCHI, "round": 7,
+              "pole": [NUSTAR_POLE, POLE_ROW_BETA]}
     st = ckpt_key.load("oneprime_ivtemple", KEYFILE, params,
                        kfun=ckpt_key.code_key)
     if st is not None:
@@ -1281,6 +1358,17 @@ def run():
         cparams, kfun=ckpt_key.code_key)
     assert counts is not None, \
         "Stage II checkpoint at the CURRENT key required"
+    # keyed Stage II-b premise (the even-1.0 pole-inclusive
+    # count; same no-glob discipline as the Stage II load)
+    import oneprime_interval_pole as OP
+    pparams = {"deps": OP.DEPSP, "H": OP.HFRAME,
+               "rows": OP.ROWS, "rmax": OP.RMAX, "round": 7}
+    poles = ckpt_key.load(
+        "oneprime_ivpole",
+        os.path.join(HERE, "oneprime_interval_pole.py"),
+        pparams, kfun=ckpt_key.code_key)
+    assert poles is not None, \
+        "Stage II-b checkpoint at the CURRENT key required"
     fx = make_fixtures()
     pjson = os.path.join(
         HERE, "checkpoints",
@@ -1299,10 +1387,19 @@ def run():
             st[cellk] = part[cellk]
             allok = allok and st[cellk]["certified"]
             continue
-        countrow = counts[cellk]
-        assert countrow["certified"] and \
-            abs(countrow["nu"] - f["nustar"]) < 1e-12, \
-            f"count cert mismatch {cellk}"
+        if cellk == "even:1":
+            # Stage II-b premise: lambda_2(T_even) >= nustar via
+            # the pole-inclusive count (no interlacing loss)
+            prow = poles[f"even:{NUSTAR_POLE:g}:"
+                         f"{POLE_ROW_BETA:g}"]
+            assert prow["certified"] and \
+                abs(prow["nu"] - f["nustar"]) < 1e-12, \
+                f"pole count cert mismatch {cellk}"
+        else:
+            countrow = counts[cellk]
+            assert countrow["certified"] and \
+                abs(countrow["nu"] - f["nustar"]) < 1e-12, \
+                f"count cert mismatch {cellk}"
         nustar = I(f["nustar"])
         ht_, htab_, th_ = CELLCFG[cellk]
         tr = trial_from_fixture(f, f["c"])
@@ -1347,15 +1444,18 @@ def run():
                    "state": part}, open(pjson, "w"), indent=0)
     st["theorem"] = bool(allok)
     if allok:
-        print("THEOREM (interval-rigorous): the semi-local "
-              "one-prime Weil form is positive -- the full form "
-              "on [log 2, 0.95] and the odd sector through "
-              "1.09 -- every ingredient an interval enclosure "
-              "(the round-248 slop lemma and directed repairs "
-              "close the former sub-ulp conventions); "
-              "positivity at each certified support length "
-              "covers every shorter length by domain nesting "
-              "(restriction of a positive quadratic form).",
+        etop = ("1.0" if st.get("even:1", {}).get("certified")
+                else "0.95")
+        print(f"THEOREM (interval-rigorous): the semi-local "
+              f"one-prime Weil form is positive -- the full form "
+              f"on [log 2, {etop}] and the odd sector through "
+              f"1.09 -- every ingredient an interval enclosure "
+              f"(the round-248 slop lemma and directed repairs "
+              f"close the former sub-ulp conventions; the even "
+              f"top cell by the round-7 pole-inclusive count); "
+              f"positivity at each certified support length "
+              f"covers every shorter length by domain nesting "
+              f"(restriction of a positive quadratic form).",
               flush=True)
     ckpt_key.save("oneprime_ivtemple", KEYFILE, params, st,
                   kfun=ckpt_key.code_key)
