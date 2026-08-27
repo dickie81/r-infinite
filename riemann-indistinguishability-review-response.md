@@ -5005,3 +5005,11 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **The sweep (9f111ba, temple-only):** DEPST3 is now COMPUTED — an AST walk over the producers' local imports, transitive from the five roots, ckpt_key excluded by arc convention; verified = previous seven + {fold_D, fold_surrogate, height_uniformity}, no deeper level; future import changes enter the key automatically. Stage III recompute: all seven cells value-identical (no value path touched).
 
 **Trajectory: 248: 1M+6m+3c → 249: 1M+2m+3c → 250: 0M+1m swept (9f111ba + the recompute through the wrapper's final commit). Convergence round 251 next on this one-hunk sweep.**
+
+# Round 251: convergence test on the round-250 sweep — CONVERGED: 0 majors + 0 minors + 0 cosmetics; the round-248 chain is closed; the interval theorem is STABLE
+
+**Scope:** the 9f111ba one-hunk sweep in full file context; the recompute lineage; A385's numeric claims. Verification: independent closure scanner (fixed point = the ten files, no deeper level); hash-seed determinism probes; superseded-vs-new checkpoint value-diff ZERO; R250-A censuses in exact arithmetic; failure-direction analysis (missing dep => key rotation, never stale reuse); batteries green (temple/core/count REUSED at the recorded keys; manifest clean; tower TOP 13/13; lead re-ran all four).
+
+**Held note (acknowledged, ungraded):** DEPSI/DEPSII not import-closed under the DEPST3 rationale; nil exposure today; hardening candidate recorded in Addendum 386 for the next substantive instrument round.
+
+**Trajectory: 248: 1M+6m+3c → 249: 1M+2m+3c → 250: 0M+1m → 251 CONVERGED 0M+0m+0c. The interval pass is STABLE: the semi-local one-prime Weil form positive — full form on [log 2, 0.95], odd through 1.09 — every ingredient an interval enclosure, quadruply reproduced. Open: even-1.0 Temple, the two-prime window, Stage B2, the DEPS hardening, the paper statement (owner's hold).**
