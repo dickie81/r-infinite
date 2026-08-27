@@ -5,8 +5,9 @@ same zeros from mpmath.zetazero on every run; the member that
 motivated this cache ran ~105 min in-tower under BLAS
 contention (round-253 F253-4: the pull-phase share of that was
 never separately measured -- the standalone pulls measure
-~0.1 s/zero; the cache removes the repeated work either way). The ordinates are mathematical constants, so the
-cache is keyed by (dps, count) only; TRUST IS NOT STORED: on
+~0.1 s/zero; the cache removes the repeated work either way).
+The ordinates are mathematical constants, so the cache is keyed
+by (dps, count) only; TRUST IS NOT STORED: on
 every cache hit the first and last ordinates are recomputed LIVE
 at the same dps and must match the cached values exactly
 (mpmath is deterministic and json round-trips float64 exactly,

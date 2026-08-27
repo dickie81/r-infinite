@@ -12,19 +12,28 @@ oneprime decision applied one layer up): each member's PASS is
 recorded in checkpoints/tower_results.json under a key binding
   code_sha(member) + code_sha(every file in the member's COMPUTED
   transitive local import closure) + sha256(the paper),
-where code_sha is ckpt_key's docstring-stripped-AST hash -- prose
-edits to members or their substrates do NOT invalidate; any
-executable change anywhere in the member's code reach does. The
+where the closure is the member's full code REACH -- the
+transitive import closure UNION every existing local .py named by
+a string constant in any reach file's docstring-stripped AST (the
+subprocess/chain reach the import walk cannot see; round-255
+F255-1), iterated to a fixed point -- and code_sha is ckpt_key's
+docstring-stripped-AST hash. Prose edits to members or their
+substrates do NOT invalidate; any executable change anywhere in
+the member's code reach does (the named-.py rule
+over-approximates deliberately: over-invalidation, never a stale
+PASS). The
 PAPER stays byte-hashed deliberately: the needle gates match raw
 substrings of the paper, so any paper byte can flip a gate outcome
 -- a paper edit owes one live tower. The manifest sha is NOT in
 the key (round 254): manifest-vs-disk consistency is re-verified
 LIVE by this driver's integrity precheck on every invocation, so
 binding it would only re-import byte sensitivity. NOT bound:
-committed checkpoint DATA files -- content-addressed to the
-closure's own bytes by the instruments' keying, and every gate
-re-runs live on every non-cached run; data-only corruption is the
-gates' job, not the cache key's.
+committed checkpoint DATA files -- their producing CODE is in the
+reach (the instruments' own keying binds code, not state bytes,
+and the zeros cache is anchor-validated, not content-addressed);
+every gate re-runs live on every non-cached run; data-only
+corruption of a cached pass's inputs is caught only at the next
+key rotation or TOWER_FRESH -- the disclosed, accepted residual.
 A member with a cached PASS at the current key is SKIPPED and reported
 as "PASS (cached ...)"; the run's summary prints the live-vs-cached
 census explicitly (no silent caps). This is the same
@@ -70,13 +79,65 @@ sys.path.insert(0, HERE)
 import ckpt_key
 
 
+def _named_py(fn):
+    """Every existing local .py named by a string constant in
+    the DOCSTRING-STRIPPED AST of fn -- the subprocess/chain
+    reach the import walk cannot see (round-255 F255-1:
+    cascade_lattice_forcing's g9 subprocess-runs a sibling
+    chain). Over-approximates (any mention counts) -- the safe
+    direction for a cache key: over-invalidation, never a
+    stale PASS. Docstrings are stripped first so prose
+    mentions do not enter the key."""
+    import ast
+    tree = ast.parse(open(os.path.join(HERE, fn), "rb").read())
+    for node in ast.walk(tree):
+        body = getattr(node, "body", None)
+        if (isinstance(body, list) and body
+                and isinstance(body[0], ast.Expr)
+                and isinstance(body[0].value, ast.Constant)
+                and isinstance(body[0].value.value, str)):
+            node.body = body[1:]
+    out = set()
+    for node in ast.walk(tree):
+        if (isinstance(node, ast.Constant)
+                and isinstance(node.value, str)
+                and node.value.endswith(".py")
+                and "/" not in node.value
+                and os.path.exists(os.path.join(HERE,
+                                                node.value))):
+            out.add(node.value)
+    return out
+
+
+def member_reach(name):
+    """The member's full code reach: the transitive import
+    closure UNION the named-.py spawn/chain reach of every
+    file in it, iterated to a fixed point; ckpt_key.py
+    excluded by the standing convention."""
+    reach = set()
+    frontier = {name}
+    while frontier:
+        f = frontier.pop()
+        if f in reach:
+            continue
+        reach |= ckpt_key.producer_closure((f,), HERE)
+        reach.add(f)
+        for g in _named_py(f):
+            if g not in reach:
+                frontier.add(g)
+        frontier |= {g for g in ckpt_key.producer_closure(
+            (f,), HERE) if g not in reach}
+    reach.discard("ckpt_key.py")
+    return reach
+
+
 def member_key(name):
     h = hashlib.sha256()
     h.update(PAPER_SHA.encode())
-    # round-253 F253-1 + round-254: the member's computed import
-    # closure (which contains the member itself), each file at
-    # its EXECUTABLE-CONTENT hash -- prose edits hold the cache
-    for f in sorted(ckpt_key.producer_closure((name,), HERE)):
+    # rounds 253-255: the member's full code REACH (imports +
+    # named-.py spawn chain, transitive), each file at its
+    # EXECUTABLE-CONTENT hash -- prose edits hold the cache
+    for f in sorted(member_reach(name)):
         h.update(f.encode())
         h.update(ckpt_key.code_sha(
             os.path.join(HERE, f)).encode())
@@ -117,8 +178,8 @@ live = [n for n in names if n not in cached]
 for n in cached:
     c = cache[keys[n]]
     print(f"  PASS {n} (cached {c.get('when', '?')}, "
-          f"{c.get('dt', 0)/60:.1f} min live at identical "
-          f"member/manifest/paper hashes)", flush=True)
+          f"{c.get('dt', 0)/60:.1f} min live at an identical "
+          f"executable-reach + paper key)", flush=True)
 
 fails = []
 if live:
