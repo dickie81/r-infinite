@@ -6,18 +6,25 @@ wall time = the longest single verifier instead of the serial sum.
 Manifest-vs-disk integrity is checked for all members up front.
 
 RESUME CACHE (round 252, owner-commissioned; key hardened round 253
-F253-1): each member's PASS is recorded in
-checkpoints/tower_results.json under a key binding sha256(member
-bytes) + sha256(tower_manifest.json) + sha256(the paper) + the
-sha256s of every file in the member's COMPUTED transitive local
-import closure (ckpt_key.producer_closure -- cascade_tower.py,
-zeta_zeros_cache.py, the oneprime substrates, everything the member
-executes), so any executable change anywhere in the member's code
-reach invalidates the cache. NOT bound: committed checkpoint DATA
-files -- those are content-addressed to the closure's own bytes by
-the instruments' keying, and every gate re-runs live on every
-non-cached run; a data-only corruption is the gates' job, not the
-cache key's.
+F253-1; EXECUTABLE-CONTENT keying round 254, owner: "no executable
+code changes... this should not invalidate cache" -- the round-245
+oneprime decision applied one layer up): each member's PASS is
+recorded in checkpoints/tower_results.json under a key binding
+  code_sha(member) + code_sha(every file in the member's COMPUTED
+  transitive local import closure) + sha256(the paper),
+where code_sha is ckpt_key's docstring-stripped-AST hash -- prose
+edits to members or their substrates do NOT invalidate; any
+executable change anywhere in the member's code reach does. The
+PAPER stays byte-hashed deliberately: the needle gates match raw
+substrings of the paper, so any paper byte can flip a gate outcome
+-- a paper edit owes one live tower. The manifest sha is NOT in
+the key (round 254): manifest-vs-disk consistency is re-verified
+LIVE by this driver's integrity precheck on every invocation, so
+binding it would only re-import byte sensitivity. NOT bound:
+committed checkpoint DATA files -- content-addressed to the
+closure's own bytes by the instruments' keying, and every gate
+re-runs live on every non-cached run; data-only corruption is the
+gates' job, not the cache key's.
 A member with a cached PASS at the current key is SKIPPED and reported
 as "PASS (cached ...)"; the run's summary prints the live-vs-cached
 census explicitly (no silent caps). This is the same
@@ -56,7 +63,6 @@ if bad:
 print(f"manifest integrity: {len(MAN['tower'])} members verified",
       flush=True)
 
-MAN_SHA = _sha(MAN_PATH)
 PAPER_SHA = _sha(PAPER_PATH)
 
 
@@ -66,14 +72,14 @@ import ckpt_key
 
 def member_key(name):
     h = hashlib.sha256()
-    h.update(_sha(os.path.join(HERE, name)).encode())
-    h.update(MAN_SHA.encode())
     h.update(PAPER_SHA.encode())
-    # round-253 F253-1: bind the member's computed import
-    # closure (code reach), not just its own bytes
+    # round-253 F253-1 + round-254: the member's computed import
+    # closure (which contains the member itself), each file at
+    # its EXECUTABLE-CONTENT hash -- prose edits hold the cache
     for f in sorted(ckpt_key.producer_closure((name,), HERE)):
         h.update(f.encode())
-        h.update(_sha(os.path.join(HERE, f)).encode())
+        h.update(ckpt_key.code_sha(
+            os.path.join(HERE, f)).encode())
     return h.hexdigest()[:24]
 
 
