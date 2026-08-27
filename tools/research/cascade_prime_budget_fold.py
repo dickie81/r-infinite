@@ -328,8 +328,8 @@ for nd in needles:
     if nd not in plain:
         print(f"  g12 MISSING: {nd!r}", flush=True)
 ok &= paper.count("`cascade_prime_budget_fold.py`") >= 2
-ok &= "the **85 scripts cited in place** above" in normp
-ok &= "extended by Theorems 1i–1bi:" in normp
+ok &= "the **86 scripts cited in place** above" in normp
+ok &= "extended by Theorems 1i–1bj:" in normp
 gate("g12 the 1be paper needles and the footer census (backticked >= 2; "
      "the anchored count and range needles)", ok)
 

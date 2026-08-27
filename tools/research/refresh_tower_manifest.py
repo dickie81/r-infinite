@@ -33,6 +33,7 @@ TOWER = [
     "cascade_floor_closure.py",
     "cascade_height_uniformity.py",
     "cascade_floor_theory.py",
+    "cascade_oneprime_interval.py",
 ]
 
 paper = open(PAPER, encoding="utf-8").read()

@@ -106,8 +106,8 @@ Gates (all exit-gated; any failure exits 1):
       1bb) met (full mode: parent executed, exit 0; manifest mode:
       ancestor hashes + census attested).
   g10 the footer census (this script backticked >= 2; the anchored
-      needles "the **85 scripts cited in place** above" and
-      "extended by Theorems 1i–1bi:").
+      needles "the **86 scripts cited in place** above" and
+      "extended by Theorems 1i–1bj:").
 
 Near-boundary caution (round-210 F1 standing): margins are pinned by
 magnitude windows only; no balance decompositions are gated here.
@@ -128,7 +128,7 @@ the OBSERVED results):
       (exit 1)
   (d) footer census reverted 79 -> 78 in the paper -> OBSERVED: g10
       FAIL AND g9 FAIL (the chain gate's manifest census check printed
-      "paper lacks 'the **85 scripts cited in place** above'" -- the
+      "paper lacks 'the **86 scripts cited in place** above'" -- the
       two-gate detection at the advanced census, the anchored needles'
       first sabotage-probe exercise since their tower-wide adoption)
 """
@@ -470,8 +470,8 @@ gate("g9 the chain obligation to cascade_prolate_horizon.py (Theorem 1bb) "
 
 # ---------------------------------------------------------------- g10
 ok = paper.count("`cascade_fluctuation_price.py`") >= 2
-ok &= "the **85 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bi:" in paper
+ok &= "the **86 scripts cited in place** above" in paper
+ok &= "extended by Theorems 1i–1bj:" in paper
 gate("g10 the footer census (this script backticked >= 2; the anchored "
      "count and range needles)", ok)
 
