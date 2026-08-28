@@ -291,6 +291,56 @@ def member_reach(name):
 _paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
 _pforms = paper_needles.forms(_paper_bytes)
 
+# the three committed print-evidence gate shapes (round-271
+# F271-1): a candidate gate def must be byte-shape-identical to
+# one of these (compared via same-interpreter ast.dump, so
+# unparse-version drift cancels). Each shape's verdict
+# accumulator receives only a bare parameter and every other
+# parameter reaches print alone -- the property that makes a
+# gate-argument f-string print-evidence rather than a verdict
+# input.
+_GATE_CANON_SRC = (
+    'def gate(name, ok, detail=""):\n'
+    '    results.append(ok)\n'
+    '    print(f"  {name}: {\'PASS\' if ok else \'FAIL\'}"'
+    ' + (f"  ({detail})" if detail else ""))\n',
+    'def gate(label, ok):\n'
+    '    print(("PASS " if ok else "FAIL ") + label)\n'
+    '    if not ok:\n'
+    '        fails.append(label)\n',
+    'def gate(label, ok):\n'
+    '    print(("PASS " if ok else "FAIL ") + label, flush=True)\n'
+    '    if not ok:\n'
+    '        fails.append(label)\n',
+)
+_GATE_CANON = {_ast.dump(_ast.parse(s).body[0])
+               for s in _GATE_CANON_SRC}
+
+
+def _gate_print_canonical(tree):
+    """True iff every FunctionDef named gate matches a canon
+    shape, nothing else binds the name gate, and nothing binds
+    the name print (round-271 F271-1 -- the _norm_canonical
+    pattern applied to the f-string sanction's callees)."""
+    for n in _ast.walk(tree):
+        if (isinstance(n, _ast.Name) and n.id in ("gate", "print")
+                and isinstance(n.ctx, (_ast.Store, _ast.Del))):
+            return False
+        if isinstance(n, (_ast.Import, _ast.ImportFrom)):
+            for a in n.names:
+                if (a.asname or a.name.split(".")[0]) in ("gate",
+                                                          "print"):
+                    return False
+        if isinstance(n, _ast.FunctionDef):
+            if n.name == "print":
+                return False
+            if n.name == "gate":
+                if n.decorator_list:
+                    return False
+                if _ast.dump(n) not in _GATE_CANON:
+                    return False
+    return True
+
 
 def _precheck_file(rel):
     """The per-file needle clauses; returns (failures,
@@ -504,19 +554,28 @@ def _precheck_file(rel):
     # full paper mirror into a plain variable invisible to every
     # clause -- a demonstrated stale-PASS channel). An f-string
     # paper-var load is sanctioned ONLY when the JoinedStr is a
-    # DIRECT argument of a gate(...) or print(...) call -- the
-    # committed print-evidence idiom, exactly; an f-string
-    # anywhere else (an assignment, a return, a comparison, a
-    # nested call) leaves its paper-var loads flagged at the
-    # interpolation.
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Call)
-                and isinstance(node.func, _ast.Name)
-                and node.func.id in ("gate", "print")):
-            for a in node.args:
-                if isinstance(a, _ast.JoinedStr):
-                    for sub in _ast.walk(a):
-                        in_fstr.add(id(sub))
+    # DIRECT argument of a gate(...) or print(...) call AND the
+    # file's gate/print bindings are CANONICAL (round-271 F271-1:
+    # matching the callee by bare name reopened the F267-4
+    # trust-the-name class -- a rogue `def gate` routing its
+    # detail argument into the verdict made the sanctioned
+    # f-string a live paper gate; the definition is now part of
+    # the matched shape, exactly as _norm_canonical does for
+    # norm). _gate_print_canonical demands: every FunctionDef
+    # named gate is byte-shape-identical to one of the three
+    # committed print-evidence gates; no other binding of the
+    # name gate; no binding of the name print at all. A
+    # non-canonical file gets NO f-string sanction -- its
+    # evidence f-strings flag at the interpolation.
+    if _gate_print_canonical(tree):
+        for node in _ast.walk(tree):
+            if (isinstance(node, _ast.Call)
+                    and isinstance(node.func, _ast.Name)
+                    and node.func.id in ("gate", "print")):
+                for a in node.args:
+                    if isinstance(a, _ast.JoinedStr):
+                        for sub in _ast.walk(a):
+                            in_fstr.add(id(sub))
     in_fstr -= in_compare
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Name)
