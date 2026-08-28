@@ -26,12 +26,18 @@ polynomials).  The float64 survey (round 6) shows the
 pure-harmonic basis closes every theorem cell through 0.95; the
 even-1.0 cell (round 7) NEEDS the nu = 3/2 polynomial modes
 (the committed probes: pure-harmonic sigma saturates at
-1.20e-4, base-independent, against needed 1.19e-4; with the
-polynomial part sigma = 9.2e-5), so its fixture carries P(t)
-via the gT8-verified monomial split.  Every trial remains
-entire with bounded explicit derivatives.  The trial's
-coefficients are float64-optimized and FROZEN (a trial carries
-no rigor burden).
+1.20e-4, base-independent, against needed 1.19e-4; with five
+polynomial modes, degree 10, sigma = 9.47e-5), so its fixture
+carries P(t) via the gT8-verified monomial split.  The degree
+is CAPPED at 10 deliberately: high-degree Gegenbauer content
+expanded to t-monomials carries huge cancelling coefficients
+(degree 24 reached ~1e15 and its interval-Horner widths
+swallowed the norm enclosure -- nn contained 0); at degree 10
+the coefficients stay ~1e3 and every width is harmless, while
+the sigma gain beyond is ~5% per two degrees (the committed
+nfr scan).  Every trial remains entire with bounded explicit
+derivatives.  The trial's coefficients are float64-optimized
+and FROZEN (a trial carries no rigor burden).
 
 THE OPERATOR IN CLOSED FORM.  With phi_an the globally-defined
 trig+poly expression and phi its restriction to [-a, a] (zero
@@ -1212,7 +1218,16 @@ def make_fixtures():
     for parity, delta, nustar in specs:
         a = delta/2
         rich = parity == "even" and abs(delta - 1.00) < 1e-9
-        md = (opf.Modes(a, parity, nus=(1.5,), nfr=12, nrough=13)
+        # nfr = 5 (poly degree 10), by the committed nfr scan:
+        # nfr 3 fails (sigma 1.43e-4); nfr 4 closes (+3.20e-7 at
+        # ell2 0.015, max|pt| 108); nfr 5 = +3.38e-7, max|pt|
+        # 888; beyond, the margin gains ~5% per step while the
+        # monomial coefficients grow ~x10^3 per step -- and the
+        # first attempt's nfr = 12 (degree 24, coefficients
+        # ~1e15) DESTROYED the norm enclosure by interval-Horner
+        # cancellation (nn contained 0). Degree 10 keeps every
+        # interval width harmless.
+        md = (opf.Modes(a, parity, nus=(1.5,), nfr=5, nrough=13)
               if rich else opf.Modes(a, parity, nus=(), nfr=0))
         tn, tw, B, TB, _v = opf.apply_T(md, base=0.003)
         N = 2*(B*tw[None, :]) @ B.T
