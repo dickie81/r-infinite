@@ -5972,33 +5972,45 @@ frequency-diagonal, the pole rank-one. For test support length
 is log 2, so on that window the one-prime form **is** Weil's full
 quadratic functional — identically, no truncation and no model.
 *(ii) The theorem.* **The semi-local one-prime Weil form is
-positive — the full form on [log 2, 0.95] and the odd sector
+positive — the full form on [log 2, 1.0] and the odd sector
 through 1.09 — every ingredient an interval enclosure**, and
 positivity at each certified support length covers every shorter
 length by domain nesting (restriction of a positive quadratic
 form; extension by zero embeds the smaller support class).
-Certified at seven cells, each an unconditional finite
-certificate: even δ = 0.6931, 0.8, 0.9, 0.95 and odd δ = 0.9,
-1.05, 1.09 — the first even cell sits a hair below log 2, where
-the prime shift is dead (an archimedean anchor; the window
-[log 2, 0.95] is carried by the 0.8/0.9/0.95 cells through the
-nesting) — the odd reach (1.09 − log 2)/(log 3 − log 2) = 97.9%
+Certified at eight cells, each an unconditional finite
+certificate: even δ = 0.6931, 0.8, 0.9, 0.95, 1.0 and odd δ =
+0.9, 1.05, 1.09 — the first even cell sits a hair below log 2,
+where the prime shift is dead (an archimedean anchor; the window
+[log 2, 1.0] is carried by the 0.8/0.9/0.95/1.0 cells through the
+nesting) — the full-form reach (1.0 − log 2)/(log 3 − log 2) =
+75.7% and the odd reach (1.09 − log 2)/(log 3 − log 2) = 97.9%
 of the one-prime window by length.
 *(iii) The two-sided machine.* Lower bounds by the Kato–Temple
 ratio form λ₁ ≥ (ℓ₂M − S)/(ℓ₂n − M), valid for ρ = M/n < ℓ₂ ≤ λ₂
-— both premises gated per cell — on frozen pure-harmonic
-trials (n, M, S interval enclosures of the closed-form operator
-through one-dimensional cumulative tables); the ℓ₂ premises by
-Birman–Schwinger counting — eight certified count rows (the
-parity-compressed counting operator's eigenvalue count at ν,
-composite-Simpson frames with an explicit operator-error budget,
-verified eigenvalue enclosures); the odd sector two-stage (the
-pole-free Temple bound ν₁ ≤ λ₁ of the pole-free section, then
-negative-rank-one interlacing: λ₂ of the full odd operator
-≥ ν₁). The certified margins: Temple ≥ 1.2947×10⁻³ (even
-0.6931), 1.6888×10⁻⁴ (0.8), 1.0091×10⁻⁵ (0.9), 7.3568×10⁻⁷
-(0.95); odd ≥ 1.3730×10⁻³ (0.9), 2.2583×10⁻⁵ (1.05),
-4.8521×10⁻⁶ (1.09); count margins from 4.114×10⁻¹ down
+— both premises gated per cell — on frozen entire trials
+(pure-harmonic through 0.95 and in the odd sector; the even-1.0
+cell adds a ν = 3/2 Gegenbauer polynomial part, degree 10 —
+still entire; n, M, S interval enclosures of the closed-form
+operator through one-dimensional cumulative tables); the ℓ₂
+premises by Birman–Schwinger counting — eight certified count
+rows (the parity-compressed counting operator's eigenvalue
+count at ν, composite-Simpson frames with an explicit
+operator-error budget, verified eigenvalue enclosures); the odd
+sector two-stage (the pole-free Temple bound ν₁ ≤ λ₁ of the
+pole-free section, then negative-rank-one interlacing: λ₂ of
+the full odd operator ≥ ν₁); the even-1.0 premise by the
+POLE-INCLUSIVE count (`oneprime_interval_pole.py`): the pole
+kept inside the counting operator — a bordered Simpson frame
+with the Woodbury secular certificate g(β′) = 1 − 4χᵀ(T_H −
+β′)⁻¹χ < 0 under a two-sided eigenvalue-count regime gate —
+certifies λ₂(T_even) ≥ 0.015 directly, with no interlacing
+loss, where the pole-free route's certified count caps at
+ν = 0.01 at this cell; two certified rows (ν, β) = (0.014, 2.0)
+and (0.015, 2.5), margins 2.486×10⁻³ and 3.016×10⁻³. The
+certified margins: Temple ≥ 1.2947×10⁻³ (even 0.6931),
+1.6888×10⁻⁴ (0.8), 1.0091×10⁻⁵ (0.9), 7.3568×10⁻⁷ (0.95),
+2.6832×10⁻⁷ (1.0); odd ≥ 1.3730×10⁻³ (0.9), 2.2583×10⁻⁵
+(1.05), 4.8521×10⁻⁶ (1.09); count margins from 4.114×10⁻¹ down
 to 2.058×10⁻⁴ across the eight rows. *(iv) The arithmetic.*
 IEEE-754 outward-rounded intervals with in-house transcendental
 enclosures (argument reduction + series with explicit
@@ -6013,7 +6025,11 @@ the round-248 review sweep with every margin held or improved,
 the third stage twice more across the subsequent sweeps —
 value-identically on every recomputed cell — and the whole
 chain once more at the round-252 rotation, value-identically
-on every row and cell. *(v) The
+on every row and cell; at the even-1.0 landing the seven
+established cells were recomputed value-identically five more
+times, once per enclosure-width repair of the new cell (every
+repair flag-gated to polynomial trials, so the recorded values
+could not move — and did not). *(v) The
 falsification content.* Because the one-prime form is the full
 functional below log 3, a certified negative eigenvalue at any
 of these cells would have disproved the Riemann Hypothesis
@@ -6036,17 +6052,19 @@ consulted. The 2026 Galerkin-truncation certification line
 different axis and states no support-window theorem. Within the
 accessible record this is **the first explicit unconditional
 positivity threshold beyond log 2** for any localization of the
-Weil functional. *Honest scope:* the even sector stops at 0.95 —
-at δ = 1.0 the count is interval-certified (margin 2.058×10⁻⁴)
-but the Temple side closed in float only at feasibility grade
-(a single-rung ladder closure, not half-rung robust, on an
-uncertified ℓ₂ stand-in) and never at certificate grade — the
-certified count sits at ν = 0.01 where the closure needs
-ν* ≈ 0.018: the
-even ground state is near-degenerate at the top of the window
-and its resolution is an open problem, stated as such; the odd
+Weil functional. *Honest scope:* the even sector stops at 1.0:
+the even ground state is near-degenerate at the top of the window
+— the pole-free count route caps at ν = 0.01 against a needed
+ℓ₂ ≈ 0.015 there, which is exactly the interlacing loss the
+pole-inclusive premise removes (λ₂ of the pole-free even
+section ≈ 0.012 while λ₂ of the full even operator, pole kept,
+is certified ≥ 0.015) — and beyond 1.0 the even top (1.0, log 3)
+remains open and is structurally Temple-hard for this trial
+span: the needed σ = √(ρ(ℓ₂ − ρ)) collapses with the margin
+curve toward log 3, so only genuinely new span directions could
+move it (the recorded even-top ladder study); the odd
 sector stops at 1.09 < log 3 = 1.0986…; the certificates are
-seven discrete cells plus nesting, not a continuum sweep; the
+eight discrete cells plus nesting, not a continuum sweep; the
 trials are frozen float64 vectors (a trial carries no rigor
 burden — any trial yields a valid enclosure); **no Riemann
 Hypothesis consequence is claimed** — window positivity at fixed
@@ -6059,13 +6077,16 @@ semiclassics; no cascade quantity derived). Check 8 clean (no
 hypothesis input; the result is Riemann-side pure mathematics,
 independent of the cascade). Substrates
 `oneprime_interval_core.py`, `oneprime_interval_count.py`,
-`oneprime_interval_temple.py` committed, imported, and
+`oneprime_interval_pole.py`, `oneprime_interval_temple.py`
+committed, imported, and
 content-addressed into the verifier's keys — with the fixture
 chain (`oneprime_fractional.py`, `oneprime_push.py`,
-`oneprime_bridge.py`, `oneprime_certificate.py` and their fold-
-and height-instruments already listed above) keyed by a
-COMPUTED transitive import closure per the post-eighth-catch
-law (every producing file in every key).
+`oneprime_bridge.py`, `oneprime_certificate.py`,
+`oneprime_deflate.py` — the committed deflation reconnaissance
+whose flip curves and section spectra set the even-1.0 row —
+and their fold- and height-instruments already listed above)
+keyed by a COMPUTED transitive import closure per the
+post-eighth-catch law (every producing file in every key).
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -6601,4 +6622,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1bj: the **86 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`, `fold_remainder.py`, `fold_remainder2.py` — the committed instruments at `tools/research/`, named in Theorem 1be's block and honest scope as its substrates, audited not counted; and `witness_offline.py`, `witness_twosided.py` — the committed instruments at `tools/research/`, named in Theorem 1bf's block as its substrates, audited not counted; and `floor_probe.py`, `floor_probe2.py`, `floor_probe3.py`, `floor_probe4.py`, `floor_probe5.py`, `floor_landing.py`, `floor_probe6.py`, `floor_probe7.py`, `floor_probe8.py`, `floor_probe9.py` — the committed instruments at `tools/research/`, named in Theorem 1bg's block and its post-landing correction annotations as its substrates and correcting instruments, audited not counted *(the last four appended at the round-234 sweep)*; and `height_uniformity.py`, `height_anomaly.py`, `height_arith.py`, `height_residue.py`, `height_landing.py` — the committed instruments at `tools/research/`, named in Theorem 1bh's block as its substrates, audited not counted; and `crossing_probe.py`, `floor_theory.py`, `floor_theory2.py`, `floor_theory3.py` — the committed instruments at `tools/research/`, named in Theorem 1bi's block as its substrates, audited not counted; and `oneprime_interval_core.py`, `oneprime_interval_count.py`, `oneprime_interval_temple.py`, `oneprime_fractional.py`, `oneprime_push.py`, `oneprime_bridge.py`, `oneprime_certificate.py` — the committed instruments at `tools/research/`, named in Theorem 1bj's block as its substrates and fixture chain, audited not counted *(fold_D.py, fold_surrogate.py, height_uniformity.py, shared with the 1be/1bh clauses above, complete the computed keying closure)*): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_twosided_witness.py`, `cascade_floor_closure.py`, `cascade_height_uniformity.py`, `cascade_floor_theory.py`, `cascade_oneprime_interval.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*; Weil, the explicit-formula positivity criterion; Turing, the zero-verification method — cited for spirit, not used *(the two appended at the 1bf landing; at the 1bg landing Weil's explicit formula proper — the unconditional identity, as distinct from the positivity criterion — is consumed as an operator-level input; the criterion remains spirit-only)*; Poisson, the summation formula *(appended at the round-238 sweep, F10 — consumed by the 1bg deflation quintet's τ\* and tight-mean theorems and the 1bh dial's derivation)*; Kato and Temple, the eigenvalue lower bound; Birman and Schwinger, the counting principle; Binet, the second expression for log Γ; Weyl, eigenvalue monotonicity and interlacing; Hurwitz, the zeta-function tails *(the first three appended at the 1bj landing, the last two at its round-252 sweep — consumed by 1bj's odd two-stage and Stage-I majorants; Yoshida and Connes–Consani enter 1bj as context, not inputs; Weil's positivity criterion is consumed only counterfactually, in 1bj(v)'s falsification clause)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1bj: the **86 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`, `fold_remainder.py`, `fold_remainder2.py` — the committed instruments at `tools/research/`, named in Theorem 1be's block and honest scope as its substrates, audited not counted; and `witness_offline.py`, `witness_twosided.py` — the committed instruments at `tools/research/`, named in Theorem 1bf's block as its substrates, audited not counted; and `floor_probe.py`, `floor_probe2.py`, `floor_probe3.py`, `floor_probe4.py`, `floor_probe5.py`, `floor_landing.py`, `floor_probe6.py`, `floor_probe7.py`, `floor_probe8.py`, `floor_probe9.py` — the committed instruments at `tools/research/`, named in Theorem 1bg's block and its post-landing correction annotations as its substrates and correcting instruments, audited not counted *(the last four appended at the round-234 sweep)*; and `height_uniformity.py`, `height_anomaly.py`, `height_arith.py`, `height_residue.py`, `height_landing.py` — the committed instruments at `tools/research/`, named in Theorem 1bh's block as its substrates, audited not counted; and `crossing_probe.py`, `floor_theory.py`, `floor_theory2.py`, `floor_theory3.py` — the committed instruments at `tools/research/`, named in Theorem 1bi's block as its substrates, audited not counted; and `oneprime_interval_core.py`, `oneprime_interval_count.py`, `oneprime_interval_pole.py`, `oneprime_interval_temple.py`, `oneprime_fractional.py`, `oneprime_push.py`, `oneprime_bridge.py`, `oneprime_certificate.py`, `oneprime_deflate.py` — the committed instruments at `tools/research/`, named in Theorem 1bj's block as its substrates, fixture chain, and deflation reconnaissance, audited not counted *(the pole instrument and the reconnaissance appended at the even-1.0 landing)* *(fold_D.py, fold_surrogate.py, height_uniformity.py, shared with the 1be/1bh clauses above, complete the computed keying closure)*): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_twosided_witness.py`, `cascade_floor_closure.py`, `cascade_height_uniformity.py`, `cascade_floor_theory.py`, `cascade_oneprime_interval.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*; Weil, the explicit-formula positivity criterion; Turing, the zero-verification method — cited for spirit, not used *(the two appended at the 1bf landing; at the 1bg landing Weil's explicit formula proper — the unconditional identity, as distinct from the positivity criterion — is consumed as an operator-level input; the criterion remains spirit-only)*; Poisson, the summation formula *(appended at the round-238 sweep, F10 — consumed by the 1bg deflation quintet's τ\* and tight-mean theorems and the 1bh dial's derivation)*; Kato and Temple, the eigenvalue lower bound; Birman and Schwinger, the counting principle; Binet, the second expression for log Γ; Weyl, eigenvalue monotonicity and interlacing; Hurwitz, the zeta-function tails *(the first three appended at the 1bj landing, the last two at its round-252 sweep — consumed by 1bj's odd two-stage and Stage-I majorants; Yoshida and Connes–Consani enter 1bj as context, not inputs; Weil's positivity criterion is consumed only counterfactually, in 1bj(v)'s falsification clause)*; Woodbury, the rank-one resolvent identity *(appended at the even-1.0 landing — consumed by 1bj's pole-inclusive counting certificate)*.*

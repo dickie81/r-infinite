@@ -5,46 +5,59 @@ Weil positivity beyond log 2. Tower member 19 (top).
 THE CLAIM GATED. For test support length delta < log 3 the
 semi-local one-prime Weil form IS Weil's full quadratic
 functional (the only prime power in the autocorrelation window
-is log 2). The three interval instruments certify positivity --
-the full form on [log 2, 0.95], the odd sector through 1.09 --
+is log 2). The four interval instruments certify positivity --
+the full form on [log 2, 1.0], the odd sector through 1.09 --
 with every ingredient an interval enclosure: Stage I encloses
 the kernel W (Binet + in-house transcendentals, no libm trust);
 Stage II certifies the eight Birman-Schwinger count rows (the
-ell2 <= lambda_2 premises); Stage III certifies the seven
-Kato-Temple ratio-form cells (even ell2 = nu*; odd two-stage,
-pole-free nu1 then negative-rank-one interlacing). This
-verifier loads the three committed checkpoints AT THEIR CURRENT
+pole-free ell2 <= lambda_2 premises); Stage II-b (round 7, the
+deflation arc) certifies the POLE-INCLUSIVE count at the
+even-1.0 frontier -- the pole kept inside the counting
+operator, the Woodbury secular certificate g(beta') < 0 under a
+two-sided count-regime gate -- giving lambda_2(T_even) >= 0.015
+with no interlacing loss; Stage III certifies the eight
+Kato-Temple ratio-form cells (even ell2 = nu* through 0.95; the
+even-1.0 cell on the Stage II-b premise with a degree-10
+Gegenbauer polynomial trial part; odd two-stage, pole-free nu1
+then negative-rank-one interlacing). This
+verifier loads the four committed checkpoints AT THEIR CURRENT
 EXECUTABLE-CONTENT KEYS (a stale or mangled instrument cannot
 match), pins every certified margin, re-checks the premise
 wiring and the window arithmetic, demonstrates the certificate
 predicate can fail (mangle probes), and carries the chain and
 census obligations of the tower.
 
-Gates (twelve, g0-g11):
-  g0  the three checkpoints load at the current keys with
-      complete states (8 count rows + __gII4__; 7 temple cells
-      + the theorem flag)
+Gates (thirteen, g0-g12):
+  g0  the four checkpoints load at the current keys with
+      complete states (8 count rows + __gII4__; 8 temple cells
+      + the theorem flag; 2 pole-inclusive rows + __gP4__ +
+      __nustar__)
   g1  the Stage I record: gI2 pass; W-width max <= the cap
       (7.49e-7 <= 1.2e-6); the derivative majorants pinned
   g2  all eight count rows certified with margins pinned to
       4 significant figures (2.436e-1 ... 2.058e-4 ...
       2.753e-2)
-  g3  all seven temple cells certified, premise_ok, theorem
+  g3  all eight temple cells certified, premise_ok, theorem
       flag True, temple_lo pinned to 4 significant figures
   g4  the premise wiring: even ell2 = [nu*, nu*] with the
-      matching count row certified at that nu; odd ell2 =
-      [nu1, nu1] from a positive, premise_ok stage-1 record
-      whose OWN ell2 equals the certified odd count row's nu
-      (the stage-1 link re-checkable since round 252 -- the
-      instrument stores ell2 in every temple_cell result)
+      matching count row certified at that nu THROUGH 0.95;
+      the even-1.0 ell2 = [0.015, 0.015] backed by the
+      CERTIFIED Stage II-b pole row at that nu (its pole-free
+      count row sits at nu = 0.01 and does NOT back it); odd
+      ell2 = [nu1, nu1] from a positive, premise_ok stage-1
+      record whose OWN ell2 equals the certified odd count
+      row's nu (the stage-1 link re-checkable since round 252)
   g5  the window arithmetic, LIVE from the checkpoint key
       strings (round-252): the key set matches the pins;
       every certified delta < log 3 (the one-prime =
-      full-form identity domain); the even maximum 0.95 >=
+      full-form identity domain); the even maximum 1.0 >=
       log 2; the odd maximum 1.09 < log 3
-  g6  the frontier honestly open: "even:1" carries a certified
-      COUNT row (margin pinned 2.058e-4) and NO temple cell --
-      the even delta = 1.0 Temple is not claimed
+  g6  the deflation closure wired end to end: "even:1" carries
+      BOTH the certified pole-free count row (margin pinned
+      2.058e-4 at nu = 0.01 -- the recorded interlacing
+      ceiling) AND a certified temple cell whose ell2 = 0.015
+      equals the certified pole row's nu; the pole rows' nu
+      ladder is consistent (0.014 < 0.015 = __nustar__)
   g7  internal consistency: per cell temple_lo <= rho.lo
       (Temple sits below the Rayleigh quotient) and
       rho.hi < ell2.lo (the ratio-form premise)
@@ -61,6 +74,10 @@ Gates (twelve, g0-g11):
       (Theorem 1bi) met
   g11 the 1bj paper needles and the footer census (backticked
       >= 2; the anchored count and range needles)
+  g12 the Stage II-b rows: both certified with g(beta') < 0
+      strictly (interval hi), margins pinned (2.486e-3,
+      3.016e-3), the count-regime gaps positive, and the
+      mangle probe fails (a g interval crossing 0)
 
 Checks 7/8 clean: Kato-Temple, Birman-Schwinger, interlacing,
 Binet, Hurwitz zeta, IEEE-754 intervals -- classical; no
@@ -73,6 +90,7 @@ sys.path.insert(0, HERE)
 
 from oneprime_interval_core import run as run_I
 from oneprime_interval_count import run as run_II
+from oneprime_interval_pole import run as run_IIb
 from oneprime_interval_temple import run as run_III
 
 PAPER = os.path.join(HERE, "..", "..",
@@ -87,6 +105,7 @@ def gate(label, ok):
 
 P1 = run_I()
 P2 = run_II()
+P4 = run_IIb()
 P3 = run_III()
 
 COUNT_PINS = {
@@ -98,9 +117,13 @@ COUNT_PINS = {
 TEMPLE_PINS = {
     "even:0.6931": 1.295e-3, "even:0.8": 1.689e-4,
     "even:0.9": 1.009e-5, "even:0.95": 7.357e-7,
+    "even:1": 2.683e-7,
     "odd:0.9": 1.373e-3, "odd:1.05": 2.258e-5,
     "odd:1.09": 4.852e-6,
 }
+POLE_PINS = {"even:0.014:2": 2.486e-3,
+             "even:0.015:2.5": 3.016e-3}
+NUSTAR_POLE = 0.015
 # deltas are DERIVED from the checkpoint key strings at gate
 # time (round-252 sweep, reviewer-3 F2: the hand-listed dict
 # was constant arithmetic -- a gate that could not fail against
@@ -112,10 +135,11 @@ def pin4(x, pin):
 # ---------------------------------------------------------------- g0
 ok = set(P2) == set(COUNT_PINS) | {"__gII4__"}
 ok &= set(P3) == set(TEMPLE_PINS) | {"theorem"}
+ok &= set(P4) == set(POLE_PINS) | {"__gP4__", "__nustar__"}
 ok &= all(k in P1 for k in ("gI2", "wmax", "wcap", "m1", "m2"))
-gate("g0 the three checkpoints load at the current keys with "
-     "complete states (8 count rows; 7 temple cells + theorem)",
-     ok)
+gate("g0 the four checkpoints load at the current keys with "
+     "complete states (8 count rows; 8 temple cells + theorem; "
+     "2 pole rows)", ok)
 
 # ---------------------------------------------------------------- g1
 ok = P1["gI2"] == "pass" and P1["wmax"] <= P1["wcap"]
@@ -135,7 +159,7 @@ ok = bool(P3["theorem"])
 ok &= all(P3[k]["certified"] and P3[k]["premise_ok"]
           and pin4(P3[k]["temple_lo"], v)
           for k, v in TEMPLE_PINS.items())
-gate("g3 all seven temple cells certified, premise_ok, theorem "
+gate("g3 all eight temple cells certified, premise_ok, theorem "
      "True, temple_lo pinned", ok)
 
 # ---------------------------------------------------------------- g4
@@ -144,7 +168,14 @@ for k in TEMPLE_PINS:
     cell = P3[k]
     row = P2[k]
     lo, hi = cell["ell2"]
-    if k.startswith("even"):
+    if k == "even:1":
+        # the deflation premise: ell2 from the CERTIFIED Stage
+        # II-b pole row, NOT the (nu = 0.01) pole-free count row
+        prow = P4[f"even:{NUSTAR_POLE:g}:2.5"]
+        ok &= lo == hi == NUSTAR_POLE == prow["nu"]
+        ok &= prow["certified"] and row["certified"]
+        ok &= row["nu"] == 0.01
+    elif k.startswith("even"):
         ok &= lo == hi == row["nu"] and row["certified"]
     else:
         s1 = cell["stage1"]
@@ -164,19 +195,25 @@ ok &= all(d < L3 for d in dl.values())
 ev = sorted(d for k, d in dl.items()
             if k.startswith("even") and k in P3)
 od = sorted(d for k, d in dl.items() if k.startswith("odd"))
-ok &= ev[-1] == 0.95 and 0.95 >= math.log(2.0)
+ok &= ev[-1] == 1.0 and 1.0 >= math.log(2.0)
 ok &= od[-1] == 1.09 and 1.09 < L3
 ok &= ev == sorted(set(ev)) and od == sorted(set(od))
 gate("g5 the window arithmetic: every delta < log 3 (the "
-     "one-prime = full-form domain); even max 0.95 >= log 2; "
+     "one-prime = full-form domain); even max 1.0 >= log 2; "
      "odd max 1.09; nesting order", ok)
 
 # ---------------------------------------------------------------- g6
 ok = "even:1" in P2 and P2["even:1"]["certified"] \
     and pin4(P2["even:1"]["margin"], 2.058e-4) \
-    and "even:1" not in P3
-gate("g6 the frontier honestly open: even delta = 1.0 count "
-     "certified (2.058e-4), no temple cell claimed", ok)
+    and P2["even:1"]["nu"] == 0.01
+ok &= "even:1" in P3 and P3["even:1"]["certified"]
+nus_p = sorted(P4[k]["nu"] for k in POLE_PINS)
+ok &= nus_p == [0.014, 0.015] and P4["__nustar__"] == 0.015
+ok &= P3["even:1"]["ell2"][0] == 0.015
+gate("g6 the deflation closure wired: even:1 carries the "
+     "pole-free count row (2.058e-4 at nu 0.01, the interlacing "
+     "ceiling) AND a certified temple cell at ell2 = 0.015 = "
+     "the certified pole row's nu", ok)
 
 # ---------------------------------------------------------------- g7
 ok = all(P3[k]["temple_lo"] <= P3[k]["rho"][0]
@@ -222,10 +259,14 @@ needles = [
     "Theorem 1bj (the one-prime window certified",
     "the one-prime form is the full functional below log 3",
     "every ingredient an interval enclosure",
-    "the full form on [log 2, 0.95] and the odd sector through 1.09",
+    "the full form on [log 2, 1.0] and the odd sector through 1.09",
     "the first explicit unconditional positivity threshold beyond log 2",
     "no Riemann Hypothesis consequence is claimed",
     "the even ground state is near-degenerate at the top of the window",
+    "the pole kept inside the counting operator",
+    "with no interlacing loss",
+    "(1.0 \u2212 log 2)/(log 3 \u2212 log 2) = 75.7%",
+    "2.6832\u00d710\u207b\u2077 (1.0)",
 ]
 ok = all(nd in plain for nd in needles)
 for nd in needles:
@@ -238,6 +279,24 @@ gate("g11 the 1bj paper needles and the footer census "
      "(backticked >= 2; the anchored count and range needles)",
      ok)
 
-print(("\nALL GATES PASS (12/12)" if not fails else
+# --------------------------------------------------------------- g12
+ok = all(P4[k]["certified"] and pin4(P4[k]["gmargin"], v)
+         and P4[k]["g"][1] < 0.0
+         and P4[k]["gap_lo"] > 0 and P4[k]["gap_hi"] > 0
+         for k, v in POLE_PINS.items())
+mp_ = dict(P4[f"even:{NUSTAR_POLE:g}:2.5"])
+mp_["g"] = [mp_["g"][0], abs(mp_["g"][1])]
+
+def pole_ok(row):
+    return (row["certified"] and row["g"][1] < 0.0
+            and row["gap_lo"] > 0 and row["gap_hi"] > 0)
+
+ok &= all(pole_ok(P4[k]) for k in POLE_PINS)
+ok &= not pole_ok(mp_)
+gate("g12 the Stage II-b rows: certified, g(beta') < 0 "
+     "strictly, margins pinned (2.486e-3, 3.016e-3), count-"
+     "regime gaps positive; mangle probe fails", ok)
+
+print(("\nALL GATES PASS (13/13)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)
 sys.exit(1 if fails else 0)
