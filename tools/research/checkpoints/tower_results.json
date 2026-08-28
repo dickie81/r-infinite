@@ -11,11 +11,23 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"04943e07f3b8d88942fdc46f": {
+"dt": 180.97234392166138,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T15:16Z"
+},
 "059d2c7fa3bbfa16b946f056": {
 "dt": 0.5407214164733887,
 "file": "cascade_floor_theory.py",
 "rc": 0,
 "when": "2026-08-28T13:52Z"
+},
+"06ef9c715ec38c4a394ee7e5": {
+"dt": 360.4381687641144,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T15:16Z"
 },
 "09084c4a3d95b537f8ec45f4": {
 "dt": 1.0385854244232178,
@@ -149,6 +161,12 @@
 "rc": 0,
 "when": "2026-08-28T12:13Z"
 },
+"19d3e8fed873a880b9a63011": {
+"dt": 55.34768581390381,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T15:16Z"
+},
 "1a09b616eed0ea9d21c092fa": {
 "dt": 348.92706274986267,
 "file": "cascade_floor_meter.py",
@@ -274,6 +292,12 @@
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
 "when": "2026-08-28T11:16Z"
+},
+"2ddcb363704fd38f25471db8": {
+"dt": 580.4402074813843,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T15:16Z"
 },
 "2dfdc1f92c2bc6b895a1c0d7": {
 "dt": 43.94928812980652,
@@ -563,6 +587,12 @@
 "rc": 0,
 "when": "2026-08-27T20:54Z"
 },
+"5dc53950a2c60387fada9472": {
+"dt": 181.70247602462769,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T15:10Z"
+},
 "5e3bfff56e58e97f8d3534a6": {
 "dt": 10.601163625717163,
 "file": "cascade_sonin_dirac.py",
@@ -580,6 +610,12 @@
 "file": "cascade_oneprime_interval.py",
 "rc": 0,
 "when": "2026-08-27T18:43Z"
+},
+"62b0c245875509356d2dbe7c": {
+"dt": 89.28266978263855,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T15:10Z"
 },
 "62b799d8582569dd8dd6f72c": {
 "dt": 408.2236409187317,
@@ -1229,6 +1265,12 @@
 "rc": 0,
 "when": "2026-08-28T12:11Z"
 },
+"c855d96fda2663687bcbf5b5": {
+"dt": 30.161429166793823,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T15:10Z"
+},
 "c8600684dd2a95960d8cb98f": {
 "dt": 84.41424131393433,
 "file": "cascade_primes_side_ball.py",
@@ -1372,6 +1414,12 @@
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-28T10:31Z"
+},
+"dcf5af301d5503345158dc65": {
+"dt": 45.46330690383911,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T15:16Z"
 },
 "de69476f594eca8366219dbd": {
 "dt": 42.986127853393555,
