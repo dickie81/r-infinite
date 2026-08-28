@@ -527,6 +527,12 @@
 "rc": 0,
 "when": "2026-08-28T10:15Z"
 },
+"53becef0e1e49f09e0a64ccc": {
+"dt": 71.52269101142883,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-08-28T15:18Z"
+},
 "54fc2e4e33982b478854b86a": {
 "dt": 4.741029500961304,
 "file": "cascade_height_uniformity.py",
@@ -1162,6 +1168,12 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-08-27T21:03Z"
+},
+"b9d58eaef1ad244738ec84dc": {
+"dt": 421.3768560886383,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-08-28T15:18Z"
 },
 "ba698d9f7ca45b25d5cfc5a7": {
 "dt": 349.77643179893494,
