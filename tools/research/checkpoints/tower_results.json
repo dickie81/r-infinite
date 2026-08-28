@@ -131,6 +131,12 @@
 "rc": 0,
 "when": "2026-08-27T19:14Z"
 },
+"150b8234b6a6a5206f241aad": {
+"dt": 287.3611400127411,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T17:21Z"
+},
 "153dd59187ce1e4ffccd52da": {
 "dt": 4.527397394180298,
 "file": "cascade_height_uniformity.py",
@@ -286,6 +292,12 @@
 "file": "cascade_fluctuation_price.py",
 "rc": 0,
 "when": "2026-08-27T20:26Z"
+},
+"2a07b76afdcb42dbfe3750ba": {
+"dt": 1023.480631351471,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T17:21Z"
 },
 "2a8b908a160f7918905d6f44": {
 "dt": 10.391568183898926,
@@ -857,6 +869,12 @@
 "rc": 0,
 "when": "2026-08-28T10:31Z"
 },
+"84536278a6dc75c6f8cbad45": {
+"dt": 688.780809879303,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T17:21Z"
+},
 "8455891bb6f6ec405bd1b750": {
 "dt": 84.91155195236206,
 "file": "cascade_primes_side_ball.py",
@@ -947,6 +965,12 @@
 "rc": 0,
 "when": "2026-08-28T10:22Z"
 },
+"8e1c2a5b3fb072e303d64bdc": {
+"dt": 95.6260974407196,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T17:21Z"
+},
 "8e321492feff826a49982430": {
 "dt": 28.704638957977295,
 "file": "cascade_finite_fill.py",
@@ -958,6 +982,12 @@
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
 "when": "2026-08-27T18:33Z"
+},
+"9083883cdc67c4117dc01b55": {
+"dt": 721.9147562980652,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-08-28T17:22Z"
 },
 "92fdb114c335c85fd9c86dd1": {
 "dt": 1.0070879459381104,
@@ -1307,6 +1337,12 @@
 "rc": 0,
 "when": "2026-08-28T10:31Z"
 },
+"c3f73a6ae014290120f800e0": {
+"dt": 115.77169728279114,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T17:21Z"
+},
 "c411aded25354891d9cb2a9e": {
 "dt": 0.48389434814453125,
 "file": "cascade_floor_theory.py",
@@ -1588,6 +1624,12 @@
 "file": "cascade_twosided_witness.py",
 "rc": 0,
 "when": "2026-08-28T08:53Z"
+},
+"ed9e9c50dfe3b292968bdc50": {
+"dt": 153.946120262146,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-08-28T17:22Z"
 },
 "efed76769223f5c2708b8474": {
 "dt": 397.6717436313629,
