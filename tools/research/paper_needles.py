@@ -90,6 +90,23 @@ def _norm_canonical(tree):
     of the matched shape -- a file with a non-canonical or absent
     norm gets no norm-based mappings, and its reads then trip the
     driver's clause (v))."""
+    # round-268 F268-3: a canonical def can be SHADOWED at runtime
+    # by any other binding of the name (norm = lambda ...,
+    # import ... as norm) -- the def then stands as camouflage
+    # while the effective transform diverges. Any non-FunctionDef
+    # binding of the name refuses all norm-based mappings.
+    for n in ast.walk(tree):
+        if (isinstance(n, ast.Name) and n.id == "norm"
+                and isinstance(n.ctx, (ast.Store, ast.Del))):
+            return False
+        if isinstance(n, (ast.Import, ast.ImportFrom)):
+            for a in n.names:
+                if (a.asname or a.name.split(".")[0]) == "norm":
+                    return False
+        if (isinstance(n, ast.FunctionDef) and n.name == "norm"
+                and any(isinstance(d, ast.expr)
+                        for d in n.decorator_list)):
+            return False
     found = False
     for n in ast.walk(tree):
         if not (isinstance(n, ast.FunctionDef) and n.name == "norm"):
@@ -160,8 +177,25 @@ def var_forms(src):
     touching PAPER is left unmapped -- an unmapped variable's
     loads are then flagged by the harvester (inside compares) or
     by the driver's clauses (iii)/(v) (everywhere else)."""
-    out = {}
-    tree = ast.parse(src)
+    vf, _nodes = var_form_nodes(ast.parse(src))
+    return vf
+
+
+def var_form_nodes(tree):
+    """The node-identity form of var_forms (round-268 F268-1:
+    the driver's creation census keyed on target NAMES, so a
+    later REBIND of a mapped name -- an arbitrary unrecognized
+    transform -- was counted as a creation and its loads
+    sanctioned; creation membership must be the recognized
+    Assign NODES themselves). Returns (vf, node_ids) where vf is
+    the name->form map and node_ids is the set of id(node) for
+    exactly the recognized creation Assigns. A name mapped more
+    than once (even by two recognized shapes -- the map is
+    flow-insensitive, so a second binding would let compares
+    before and after it disagree about the form) is DROPPED from
+    vf and contributes no recognized nodes; the driver then
+    flags every binding and load of it."""
+    out, nodes, dup = {}, {}, set()
     norm_ok = _norm_canonical(tree)
     assigns = sorted((n for n in ast.walk(tree)
                       if isinstance(n, ast.Assign)),
@@ -171,19 +205,20 @@ def var_forms(src):
                 or not isinstance(node.targets[0], ast.Name)):
             continue
         tgt, v = node.targets[0].id, node.value
+        form = None
         if _is_paper_read(v):
-            out[tgt] = "raw"
+            form = "raw"
         elif norm_ok and _is_norm(v) and _is_paper_read(v.args[0]):
-            out[tgt] = "ws"
+            form = "ws"
         elif (norm_ok and _is_star_strip(v)
                 and _is_norm(v.func.value)
                 and _is_paper_read(v.func.value.args[0])):
-            out[tgt] = "plain"
+            form = "plain"
         elif (norm_ok and _is_star_strip(v)
                 and _is_norm(v.func.value)
                 and isinstance(v.func.value.args[0], ast.Name)
                 and out.get(v.func.value.args[0].id) == "raw"):
-            out[tgt] = "plain"
+            form = "plain"
         elif (isinstance(v, ast.Call) and not v.keywords
                 and isinstance(v.func, ast.Attribute)
                 and v.func.attr == "sub"
@@ -196,12 +231,21 @@ def var_forms(src):
                 and v.args[1].value == " "
                 and isinstance(v.args[2], ast.Name)
                 and out.get(v.args[2].id) == "raw"):
-            out[tgt] = "ws"
+            form = "ws"
         elif (_is_star_strip(v)
                 and isinstance(v.func.value, ast.Name)
                 and out.get(v.func.value.id) == "ws"):
-            out[tgt] = "plain"
-    return out
+            form = "plain"
+        if form is not None:
+            if tgt in out:
+                dup.add(tgt)
+            else:
+                out[tgt] = form
+                nodes[tgt] = id(node)
+    for tgt in dup:
+        out.pop(tgt, None)
+        nodes.pop(tgt, None)
+    return out, set(nodes.values())
 
 
 def harvest(tree, vf):
@@ -303,6 +347,11 @@ def valid(d):
     if sq is not None and (not isinstance(sq, list) or not sq
                            or any(not isinstance(x, str) or not x
                                   for x in sq)):
+        return False
+    # round-268 F268-5: min/max on a seq entry are silently
+    # ignored by check() -- reject the co-presence so a bound
+    # someone believes is enforced cannot ride along dead
+    if sq is not None and ("min" in d or "max" in d):
         return False
     if not isinstance(lo, int) or isinstance(lo, bool) or lo < 0:
         return False

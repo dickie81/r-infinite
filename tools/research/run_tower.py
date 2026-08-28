@@ -305,14 +305,15 @@ def _precheck_file(rel):
                 and id(node) not in _path_ok):
             out.append(f"{rel}: paper-naming constant outside the "
                        f"PAPER assignment at line {node.lineno}")
-    # paper-var census (round-267 F267-1/F267-2: recognition is
-    # now var_forms' alone -- an Assign is a CREATION only if its
-    # target was mapped by the exact-shape rules, or it captures
-    # paper_needles.forms; the earlier looser is_read rule
-    # sanctioned any Call mentioning PAPER, which clause (v)
-    # below now polices instead)
-    vf = paper_needles.var_forms(src)
-    paper_vars, created = set(vf), set()
+    # paper-var census (round-267 F267-1/F267-2; round-268
+    # F268-1: creation membership is the var_forms-recognized
+    # Assign NODES themselves -- the round-267 version keyed on
+    # target NAMES, so a later REBIND of a mapped name (an
+    # arbitrary unrecognized transform) was counted as a creation
+    # and its loads sanctioned, resurrecting the suffixed/
+    # re-encoded/truncated read classes behind one line of drift)
+    vf, _rec_nodes = paper_needles.var_form_nodes(tree)
+    paper_vars, created = set(vf), set(_rec_nodes)
     for node in _ast.walk(tree):
         if not isinstance(node, _ast.Assign):
             continue
@@ -321,11 +322,29 @@ def _precheck_file(rel):
                     and getattr(node.value.func.value, "id", "")
                     == "paper_needles"
                     and node.value.func.attr == "forms")
-        tgts = {t.id for t in node.targets
-                if isinstance(t, _ast.Name)}
-        if is_forms or tgts & set(vf):
-            paper_vars |= tgts
+        if is_forms:
+            paper_vars |= {t.id for t in node.targets
+                           if isinstance(t, _ast.Name)}
             created.add(id(node))
+    _created_ids = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Assign) and id(node) in created:
+            for sub in _ast.walk(node):
+                _created_ids.add(id(sub))
+    # rebind clause (round-268 F268-1): every STORE of a paper
+    # variable must be one of its recognized creation assigns --
+    # a second binding of a mapped name (paper = paper[:N],
+    # paper = "...", a loop target, a walrus) is flagged at the
+    # binding, so no downstream compare can run against text the
+    # precheck did not evaluate
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Name)
+                and node.id in paper_vars
+                and isinstance(node.ctx, (_ast.Store, _ast.Del))
+                and id(node) not in _created_ids):
+            out.append(f"{rel}: paper variable {node.id!r} "
+                       f"rebound outside its recognized creation "
+                       f"at line {node.lineno} (rebind clause)")
     # clause (v) (round-267 F267-1: cascade_type_counting read the
     # paper through a FUNCTION-WRAPPED open -- return, not Assign
     # -- invisible to every prior clause, and a one-word paper
@@ -336,14 +355,13 @@ def _precheck_file(rel):
     # binding, a call argument, a suffixed or re-encoded read
     # (F267-2/F267-3: those shapes fail var_forms, so their
     # assigns are not creations) -- is flagged HERE at the read
-    # itself. Jointly with clause (iv), every route to the paper's
-    # bytes must spell PAPER or the paper's filename, so no read
-    # can exist outside a recognized, declared surface.
-    _created_ids = set()
-    for node in _ast.walk(tree):
-        if isinstance(node, _ast.Assign) and id(node) in created:
-            for sub in _ast.walk(node):
-                _created_ids.add(id(sub))
+    # itself. Scope, stated honestly (round-268 F268-4): this
+    # clause polices reads SPELLED through the name PAPER, and
+    # clause (iv) polices constants spelling the filename; a
+    # computed spelling (globals()['PAPER'], os.listdir
+    # filtering, concatenated fragments) is deliberate evasion
+    # outside this tripwire's scope -- drift detection, not a
+    # semantic proof.
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Name) and node.id == "PAPER"
                 and isinstance(node.ctx, _ast.Load)
@@ -382,7 +400,22 @@ def _precheck_file(rel):
     for s, f_, lo, hi in paper_needles.covers(decl, reqs):
         out.append(f"{rel}: inline compare not covered by the "
                    f"declaration: ({s!r}, {f_}, {lo}, {hi})")
-    # clause (iii): residual paper-var loads
+    # clause (iii): residual paper-var loads. A check() call is
+    # sanctioned ONLY when its entries argument is the declared
+    # surface itself -- the bare name PAPER_NEEDLES or a
+    # comprehension filtering it (round-268 F268-2: the blanket
+    # sanction admitted paper_needles.check([undeclared literal],
+    # papervar), a paper conjunct the driver never re-verifies;
+    # any other argument shape now fails the precheck)
+    def _decl_arg(a):
+        if isinstance(a, _ast.Name):
+            return a.id == "PAPER_NEEDLES"
+        if isinstance(a, (_ast.ListComp, _ast.GeneratorExp)):
+            return (len(a.generators) == 1
+                    and isinstance(a.generators[0].iter, _ast.Name)
+                    and a.generators[0].iter.id == "PAPER_NEEDLES")
+        return False
+
     sanctioned = set()
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Call)
@@ -390,6 +423,13 @@ def _precheck_file(rel):
                 and getattr(node.func.value, "id", "")
                 == "paper_needles"
                 and node.func.attr in ("check", "forms")):
+            if (node.func.attr == "check"
+                    and (not node.args
+                         or not _decl_arg(node.args[0]))):
+                out.append(f"{rel}: paper_needles.check on a "
+                           f"non-declared entries argument at "
+                           f"line {node.lineno} (clause iii)")
+                continue
             for sub in _ast.walk(node):
                 sanctioned.add(id(sub))
         elif isinstance(node, _ast.Assign) and id(node) in created:

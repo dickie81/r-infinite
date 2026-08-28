@@ -155,6 +155,7 @@ def norm(s):
 # shared checker here and re-evaluated live by the driver.
 import paper_needles
 paper_g2raw = open(PAPER, encoding="utf-8").read()
+paper_g2 = norm(paper_g2raw).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
@@ -230,9 +231,11 @@ gate("g2 ALL 6 precedence orders classify the committed eight "
      "round 157 F3: the sibling cascade_precedence_vacuity.py green; "
      "BOTH pre-existing carriers anchored distinctly -- the remark "
      "phrase counted >= 2, the front-matter wording separate)", idle,
-     f"vacuity exit {rv.returncode}, declared g2 needles "
+     f"vacuity exit {rv.returncode}, remark-count "
+     f"{paper_g2.count('vacuous on primary readings')}, front-matter "
      f"{'ok' if _okg2 else 'MISSING'} "
-     "(detail widened round 158 F1; declared surface round 267)")
+     "(detail widened round 158 F1; declared surface round 267; "
+     "observed count restored round 268)")
 
 print("V2 -- T1: the count mechanics, exact")
 all8 = list(itertools.product([True, False], repeat=3))
