@@ -261,14 +261,16 @@ def member_reach(name):
 #        hard failure -- unharvestable consumption cannot be
 #        re-verified live, so it may not exist;
 #   (iii) paper variables may be LOADED only inside
-#        paper_needles.check/forms calls, recognized creation/
-#        transform assignments, harvested compares, or f-string
-#        interpolations -- so an alias (p2 = paper) or a novel
-#        derivation fails at the point of creation. The f-string
-#        sanction is print-evidence only: a formatted count is a
-#        string, not a verdict input, and a compare BUILT on an
-#        f-string still contains the paper var inside the Compare
-#        node, which the harvester flags unharvestable (clause ii);
+#        exact-shape paper_needles.check/forms calls, recognized
+#        creation/transform assignments, harvested compares, or
+#        f-strings passed DIRECTLY to gate()/print() -- so an
+#        alias (p2 = paper) or a novel derivation fails at the
+#        point of creation. The f-string sanction was narrowed at
+#        round-270 F270-1: the earlier blanket exemption let
+#        `mirror = f"{paper}"` launder the paper into a plain
+#        variable invisible to every clause (a demonstrated
+#        stale-PASS channel); only the direct gate/print
+#        print-evidence idiom is sanctioned now;
 #   (iv) STRING-CONSTANT CLAUSE (F264-2): outside the PAPER path
 #        assignment, no string constant in the docstring-stripped
 #        AST names the paper file -- a second, undeclared read
@@ -497,12 +499,24 @@ def _precheck_file(rel):
         if isinstance(node, _ast.Compare):
             for sub in _ast.walk(node):
                 in_compare.add(id(sub))
-        elif isinstance(node, _ast.FormattedValue):
-            for sub in _ast.walk(node):
-                in_fstr.add(id(sub))
-    # an f-string interpolation inside a Compare is NOT sanctioned
-    # by the f-string rule -- harvest already flagged the Compare
-    # unharvestable (clause ii), and the Load stays flagged here
+    # f-string sanction NARROWED (round-270 F270-1: the blanket
+    # FormattedValue exemption let `mirror = f"{paper}"` bind a
+    # full paper mirror into a plain variable invisible to every
+    # clause -- a demonstrated stale-PASS channel). An f-string
+    # paper-var load is sanctioned ONLY when the JoinedStr is a
+    # DIRECT argument of a gate(...) or print(...) call -- the
+    # committed print-evidence idiom, exactly; an f-string
+    # anywhere else (an assignment, a return, a comparison, a
+    # nested call) leaves its paper-var loads flagged at the
+    # interpolation.
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Call)
+                and isinstance(node.func, _ast.Name)
+                and node.func.id in ("gate", "print")):
+            for a in node.args:
+                if isinstance(a, _ast.JoinedStr):
+                    for sub in _ast.walk(a):
+                        in_fstr.add(id(sub))
     in_fstr -= in_compare
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Name)
