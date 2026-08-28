@@ -292,16 +292,11 @@ class Table:
     factor covering its own nearest-rounded assembly) is folded
     into `extra`, which callers therefore ADD to, not assign."""
 
-    def __init__(self, nodes, fmid, fpp, fcell):
+    def __init__(self, nodes, fmid, fpp, fcell, tight=False):
         self.x = nodes
         h = np.diff(nodes)
         err = vup(h**3/24.0*np.maximum(np.abs(fpp.lo),
                                        np.abs(fpp.hi)))
-        self.core_lo = np.concatenate(
-            [[0.0], np.cumsum(vdn(fmid.lo*h))])
-        self.core_hi = np.concatenate(
-            [[0.0], np.cumsum(vup(fmid.hi*h))])
-        self.errc = np.concatenate([[0.0], np.cumsum(vup(err))])
         u_ = np.finfo(np.float64).eps
         # absum covers BOTH value cumsums AND the errc cumsum
         # (round-249 F249-3: errc is an equally-nearest
@@ -309,7 +304,49 @@ class Table:
         absum = float(np.sum(np.maximum(np.abs(fmid.lo),
                                         np.abs(fmid.hi))*h
                              + err))
-        nn_ = len(h)
+        if not tight:
+            # the rounds-<=6 accumulation, byte-identical for
+            # the pure-harmonic cells
+            self.core_lo = np.concatenate(
+                [[0.0], np.cumsum(vdn(fmid.lo*h))])
+            self.core_hi = np.concatenate(
+                [[0.0], np.cumsum(vup(fmid.hi*h))])
+            self.errc = np.concatenate([[0.0],
+                                        np.cumsum(vup(err))])
+            nn_ = len(h)
+        else:
+            # ROUND 7 -- BLOCK-EXACT prefixes.  The n u absum
+            # slop with n ~ 5e5 puts a ~1e-10 x absum floor
+            # under every table difference, and the even-1.0
+            # trial multiplies the H-table floors by its
+            # |P_i(t)| ~ 1e3-1e4 series values (the measured
+            # dint_p/corr_p widths ~3e-7..3e-6 -- the cell's
+            # third failure mode).  Here every block of B terms
+            # is summed EXACTLY (math.fsum), block prefixes are
+            # combined exactly again, and only the WITHIN-BLOCK
+            # naive cumsum drifts, so the lemma's n drops from
+            # len(h) to B + nblocks + 4 -- ~200x.  The directed
+            # terms are identical; only the summation grouping
+            # (and hence the rounding budget) changes.
+            B = 2048
+
+            def _blockcum(terms):
+                nb = (len(terms) + B - 1)//B
+                bs = [math.fsum(terms[b*B:(b + 1)*B])
+                      for b in range(nb)]
+                out = np.empty(len(terms) + 1)
+                out[0] = 0.0
+                for b in range(nb):
+                    base = math.fsum(bs[:b])
+                    seg = terms[b*B:(b + 1)*B]
+                    out[b*B + 1:b*B + 1 + len(seg)] = \
+                        base + np.cumsum(seg)
+                return out
+
+            self.core_lo = _blockcum(vdn(fmid.lo*h))
+            self.core_hi = _blockcum(vup(fmid.hi*h))
+            self.errc = _blockcum(vup(err))
+            nn_ = B + (len(h) + B - 1)//B + 4
         self.extra = _u(1.05*2.0*nn_*u_*absum)
         # (head-sliver widenings from callers ADD to this slop)
         self.f_lo = fcell.lo
@@ -434,7 +471,8 @@ def build_tables(a, harm_ws, degmax, htab=HTAB):
     Em, Am, Epm, Eppm, Apm, Appm = E_A_prime(midV)
     Ec, Ac, Epc, Eppc, Apc, Appc = E_A_prime(cellV)
     tabs = {}
-    tA = Table(nodes, Am, Appc, Ac)
+    tight = degmax > 0
+    tA = Table(nodes, Am, Appc, Ac, tight=tight)
     tA.extra += _u(0.51*X0)
     tabs["IA"] = tA
     for i in range(0, degmax + 1):
@@ -451,7 +489,7 @@ def build_tables(a, harm_ws, degmax, htab=HTAB):
                 * _upow_cell(cellV, i - 1) \
                 + V.scalar(float(i*(i - 1)), n)*Ec \
                 * _upow_cell(cellV, i - 2)
-        t = Table(nodes, f_m, fpp, f_c)
+        t = Table(nodes, f_m, fpp, f_c, tight=tight)
         if i >= 2:
             # head int_0^X0 E u^i with E <= 1/u + 1: enclosed
             # assembly (round-249 F249-6: the float form's
@@ -469,7 +507,8 @@ def build_tables(a, harm_ws, degmax, htab=HTAB):
         cosw_c = vcos(cellV*V.scalar(wIv, n))
         fpp = Eppc*s2c + Epc*sinw_c*V.scalar(wIv, n) \
             + Ec*cosw_c*V.scalar(wIv*wIv*I(0.5), n)
-        tG = Table(nodes, Em*s2m, fpp, Ec*s2c)
+        tG = Table(nodes, Em*s2m, fpp, Ec*s2c,
+                   tight=tight)
         # head: int_0^X0 E sin^2(wu/2) <= (w/2)^2 X0^2 (2x room
         # over the true w^2 X0^2/8 covers the nearest rounding)
         tG.extra += _u((w/2)**2*X0**2)
@@ -481,9 +520,9 @@ def build_tables(a, harm_ws, degmax, htab=HTAB):
         fppS = Eppc*sinw_c + V.scalar(I(2.0)*wIv, n)*Epc*cosw_c \
             - V.scalar(wIv*wIv, n)*Ec*sinw_c
         tabs[f"C{w:.9f}"] = Table(nodes, Em*cosm, fppC,
-                                  Ec*cosw_c)
+                                  Ec*cosw_c, tight=tight)
         tabs[f"S{w:.9f}"] = Table(nodes, Em*sinm, fppS,
-                                  Ec*sinw_c)
+                                  Ec*sinw_c, tight=tight)
     return tabs
 
 
