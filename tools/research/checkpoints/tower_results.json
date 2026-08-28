@@ -185,6 +185,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"2579104d4a52bd7a1282967d": {
+"dt": 364.0199325084686,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T13:42Z"
+},
 "281c6d96edc3f8b08703fff9": {
 "dt": 6.599614381790161,
 "file": "cascade_fluctuation_price.py",
@@ -214,6 +220,12 @@
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
 "when": "2026-08-28T11:16Z"
+},
+"2dfdc1f92c2bc6b895a1c0d7": {
+"dt": 43.94928812980652,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T13:42Z"
 },
 "2ed5c5b646cb3b4caa8276dd": {
 "dt": 839.8396284580231,
@@ -545,6 +557,12 @@
 "rc": 0,
 "when": "2026-08-28T12:21Z"
 },
+"7242a01e85ebe47aba500d7a": {
+"dt": 584.6142816543579,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T13:42Z"
+},
 "7331870fecb344422f9002ba": {
 "dt": 82.85191178321838,
 "file": "cascade_primes_side_ball.py",
@@ -653,6 +671,12 @@
 "rc": 0,
 "when": "2026-08-28T08:53Z"
 },
+"84cf7db85fc57d309c0dbea4": {
+"dt": 54.48983550071716,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T13:42Z"
+},
 "85070ffb45ac6c34c14f4124": {
 "dt": 4.652363300323486,
 "file": "cascade_twosided_witness.py",
@@ -682,6 +706,12 @@
 "file": "cascade_attraction_margins.py",
 "rc": 0,
 "when": "2026-08-27T19:46Z"
+},
+"8976cdd2e98ab4af446bb7bd": {
+"dt": 88.0248327255249,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T13:35Z"
 },
 "8a1f0ec63fb79e3d595cb966": {
 "dt": 345.3962502479553,
@@ -1019,6 +1049,12 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"c4f0a5be7b80117b41794599": {
+"dt": 177.6331193447113,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T13:42Z"
+},
 "c518c9aabf3ea37795e3b8d7": {
 "dt": 0.568077564239502,
 "file": "cascade_floor_theory.py",
@@ -1295,6 +1331,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"f6a364ecf830adb2e6854dbb": {
+"dt": 184.61725902557373,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T13:35Z"
+},
 "f6d7a4440eec82d77ab21e0d": {
 "dt": 1.0565571784973145,
 "file": "cascade_oneprime_interval.py",
@@ -1366,5 +1408,11 @@
 "file": "cascade_li_two_channels.py",
 "rc": 0,
 "when": "2026-08-27T19:46Z"
+},
+"ff3cf76546830aed5f9cf6dc": {
+"dt": 29.34505271911621,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T13:35Z"
 }
 }
