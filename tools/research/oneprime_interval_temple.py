@@ -1062,26 +1062,69 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     ia_top = tabs["IA"].at(xtop)
     ea_ = iexp(I(a))
     lcoth_a = ilog((ea_ + 1)/(ea_ - 1))
-    dint_top = I(0.0)
-    for idx, (c, k, off) in enumerate(tr.harm):
-        w = tr.ws[idx]
-        dint_top = dint_top + I(abs(c))*I(2.0) \
-            *tabs[f"G{w:.9f}"].at(xtop)
-    Pi_b = tr.poly_shift_coeffs()
-    for i in range(2, tr.deg + 1, 2):
-        qabs = I(0.0)
-        for k_, cj in enumerate(Pi_b[i]):
-            qabs = qabs + I(cj.abs_hi())*_ipow(I(a), k_)
-        dint_top = dint_top \
-            + qabs*I(tabs[f"H{i}"].at(xtop).abs_hi())
     chiam = I(max(abs(chi_phi.lo), abs(chi_phi.hi)))
-    CE_B_I = I(0.51)*cabsI
-    CE_A_I = (LG4PI*cabsI + cabsI*I(ia_top.hi)
-              + cabsI*I(lcoth_a.hi) + I(dint_top.hi)
-              + C2I*cabsI
-              + I(0.51)*cabsI*I(xtop)
-              + I(2.0)*chiam*icosh(I(a)*I(0.5))
-              + I(0.51)*cabsI*I(ilog(I(xtop)).abs_hi()))
+    if tr.deg == 0:
+        # the rounds-<=6 derivation, byte-identical for the
+        # pure-harmonic cells (their certified values must not
+        # move):  |dint| <= sum_h 2|c_h| Gw(xtop)
+        dint_top = I(0.0)
+        for idx, (c, k, off) in enumerate(tr.harm):
+            w = tr.ws[idx]
+            dint_top = dint_top + I(abs(c))*I(2.0) \
+                *tabs[f"G{w:.9f}"].at(xtop)
+        cab_s = cabsI
+        CE_B_I = I(0.51)*cabsI
+        CE_A_I = (LG4PI*cabsI + cabsI*I(ia_top.hi)
+                  + cabsI*I(lcoth_a.hi) + I(dint_top.hi)
+                  + C2I*cabsI
+                  + I(0.51)*cabsI*I(xtop)
+                  + I(2.0)*chiam*icosh(I(a)*I(0.5))
+                  + I(0.51)*cabsI*I(ilog(I(xtop)).abs_hi()))
+    else:
+        # ROUND 7 -- the SUPPORT-ONLY sliver envelope (any
+        # entire trial, polynomial part included).  The
+        # coefficient-sum route dies for polynomials: their
+        # analytic continuation past the support edge is huge
+        # (the measured Sigma_i |P_i(a)| Hi(xtop) = 7.4e3 put
+        # Ssl at ~1e-4 -- the failed first runs).  Instead, on
+        # [k1, k2] the +u branch of Dfull cancels the
+        # correction integrand EXACTLY:
+        #   DINT(t) = int_0^{k1} E Dfull du
+        #           + int_{k1}^{k2} E [phi_an(t-u)/2 - phi(t)] du
+        # (algebra: Dfull - phi_an(t+u)/2 = phi_an(t-u)/2
+        # - phi(t); ranges: t + u <= a for u <= k1 = a - t, and
+        # t - u in [-a, 2t - a] subset [-a, a] for u <= k2 --
+        # every argument IN SUPPORT).  With M0 = sup_supp|phi|
+        # (rigorous subdivided enclosure), M2 = sup_supp|phi''|
+        # (coefficient sums -- enters only times k1^2 <=
+        # DEDGE^2, via |Dfull| <= u^2 M2 / 2 and E <= 1/u + 1
+        # on (0, 1.2]: int_0^{k1} E u^2 M2/2 <= 0.3 M2 k1^2 at
+        # k1 <= 1e-3), and |phi(t-u)/2 - phi(t)| <= 1.5 M0:
+        #   |DINT| <= 0.3 M2 k1^2
+        #           + 1.5 M0 (ln(k2/k1) + k2).
+        # The remaining terms as before with M0 in place of the
+        # coefficient sum (t and t +- log2 stay in support).
+        nsub = 8192
+        edges = np.linspace(0.0, a, nsub + 1)
+        pc_ = tr.phi_v(V(edges[:-1], edges[1:]))
+        m0f = float(np.max(np.maximum(np.abs(pc_.lo),
+                                      np.abs(pc_.hi))))
+        m0I = I(_u(m0f))
+        m2I = I(0.0)
+        for idx, (c, k, off) in enumerate(tr.harm):
+            m2I = m2I + I(abs(c))*tr.wI(idx)*tr.wI(idx)
+        d2p = _poly_deriv(tr.poly, 2)
+        for j, cj in enumerate(d2p):
+            m2I = m2I + I(cj.abs_hi())*_ipow(I(a), j)
+        cab_s = m0I
+        CE_B_I = I(1.5)*m0I
+        CE_A_I = (LG4PI*m0I + m0I*I(ia_top.hi)
+                  + m0I*I(lcoth_a.hi)
+                  + C2I*m0I
+                  + I(1.5)*m0I*I(xtop)
+                  + I(2.0)*chiam*icosh(I(a)*I(0.5))
+                  + I(1.5)*m0I*I(ilog(I(xtop)).abs_hi())
+                  + I(0.3)*m2I*I(DEDGE)*I(DEDGE))
     CE_B = _u(CE_B_I.hi)
     CE_A = _u(CE_A_I.hi)
     lnD_I = I(0.0) - ilog(I(DEDGE))
@@ -1153,8 +1196,8 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     DGI = I(_u(DG))
     DEI = I(DEDGE)
     CEDGE_I = CE_A_I + CE_B_I*lnD_I
-    Msl = _u((DEI*cabsI*(CE_A_I + CE_B_I*(lnD_I + I(1.0)))
-              + I(2.0)*DGI*cabsI*CEDGE_I).hi)
+    Msl = _u((DEI*cab_s*(CE_A_I + CE_B_I*(lnD_I + I(1.0)))
+              + I(2.0)*DGI*cab_s*CEDGE_I).hi)
     M = I(_d(2*(M_lo - Msl)), _u(2*(M_hi + Msl)))
     Sedge = CE_A_I + CE_B_I*(lnD_I + I(2.0))
     Ssl = _u((DEI*Sedge*Sedge
@@ -1175,7 +1218,8 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
             "chi_phi": [chi_phi.lo, chi_phi.hi],
             "ncells": int(ncl), "premise_ok": bool(ok),
             "temple_lo": lam,
-            "ell2": [ell2.lo, ell2.hi]}
+            "ell2": [ell2.lo, ell2.hi],
+            "ce": [CE_A, CE_B, CEDGE, Msl, Ssl]}
 
 
 def _geg_monomial(n, nu):
