@@ -5079,3 +5079,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Held:** the six/four/two census from both artifact sets (JSON-diff value-identity across all seven states; five repair commits each followed by a fresh run); the ckpt_key memo (probed both versions; per-process semantics sufficient across all 128 call sites; uncollidability analytic); gP2 vs its gate code; the nfr scan's rungs live-reproduced exactly; the θ endpoints reconciled; the footer's 1al address and census-86 arithmetic. **Findings (swept, 08e9276):** F261-1 the σ-rate citation contradicted its committed referent (2% per two degrees, not 5%); F261-2 the TRUE-σ² anchor uncommitted — oneprime_sigma_truecheck.py landed, validated before commit (every recorded value exact); F261-3 the ×10³ coefficient-growth claim vs the recorded ×8–17 — re-sworn in both carriers; F261-4 the scan's output label; F261-5 ckpt_key's script_sha256 made honest; F261-6 the census history pointer. Batteries: verifier 13/13; live tower 19/19. The paper-needle precheck commissioned as the next arc (owner).
 
 **Trajectory: 260: 0M+4m+1c → 261: 0M+3m+3c swept. Convergence round 262 next.**
+
+# Round 262: convergence test on the round-261 sweep — NOT CONVERGED: 0 majors + 1 minor + 1 cosmetic; all six dispositions held; swept; round 263 owed
+
+**Held:** the truecheck's arithmetic (recomputed exactly), the recovery location (parsed from history), the ckpt_key probe under both kfuns + full call-site survey, the census clause term by term, both batteries at expected counts. **Findings (swept, 8c67e4e):** F262-1 the rate sentence mixed step conventions (margin tail overstated 2×) — re-sworn with one convention and plain head/tail rates in all three carriers; F262-2 the digest print-order wording. Docstring-only sweep: keys held, verifier 13/13, cached tower 19/19.
+
+**Trajectory: 260: 0M+4m+1c → 261: 0M+3m+3c → 262: 0M+1m+1c swept. Convergence round 263 next.**
