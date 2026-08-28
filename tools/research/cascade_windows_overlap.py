@@ -528,13 +528,46 @@ gate("g9 the 1aj committed-window tie: at aim gamma_1 the boundary "
 
 print("V5 -- the paper: key sentences, honest scope, siblings, footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_windows_overlap.py`', 'form': 'plain', 'min': 1},
+    {'s': 'are pairwise disjoint through zero #33; the first overlap is #34/#35', 'form': 'plain', 'min': 1},
+    {'s': 'c ≈ 1.25 is observed, not derived', 'form': 'plain', 'min': 1},
+    {'s': 'honest name is CONTRAST', 'form': 'plain', 'min': 1},
+    {'s': 'it can relocate, it cannot concentrate', 'form': 'plain', 'min': 1},
+    {'s': 'net-state, Theorem 1an', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'no numerical advance over classical zero-verification is claimed or implied', 'form': 'plain', 'min': 1},
+    {'s': 'pairwise disjoint through #33, single-occupancy through #186', 'form': 'plain', 'min': 1},
+    {'s': 'single-occupancy through #186, a window first holding a second zero at #187', 'form': 'plain', 'min': 1},
+    {'s': 'stay pairwise disjoint through zero #33 — first overlap #34/#35', 'form': 'plain', 'min': 1},
+    {'s': 'struck at the 1ap regrade', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'struck at the Theorem 1ap regrade', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'struck round 161 F1', 'form': 'plain', 'min': 3, 'max': 3},
+    {'s': 'struck round 162 F1', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'the RH deficit is RESOLUTION, not reach', 'form': 'plain', 'min': 1},
+    {'s': 'the census mean occupancy of the aimed windows is 1 + 41/800', 'form': 'plain', 'min': 1},
+    {'s': 'the first two-zero window is #187', 'form': 'plain', 'min': 1},
+    {'s': 'the lower reach exceeds ½ and captures first', 'form': 'plain', 'min': 1},
+    {'s': 'wall stands where it stood', 'form': 'plain', 'min': 2},
+    {'s': 'width > 1 is sampled, not proved', 'form': 'plain', 'min': 1},
+]
 # 1ap regrade: the two W4 needles now live INSIDE strike frames on
 # the paper (struck at the 1ap regrade, self-caught); the anchors
 # advance to the frames + the regrade content, per the F161 pattern.
 ok = "the RH deficit is RESOLUTION, not reach" in paper
 ok &= "it can relocate, it cannot concentrate" in paper
-ok &= (paper.count("struck at the Theorem 1ap regrade")
-       + paper.count("struck at the 1ap regrade")) == 4
+# round 264: the sum-compare (long+short == 4) split into two
+# exact pins (2 each, verified at the split) so the conjunct is
+# harvestable by the paper-needle meta-gate; strictly stronger.
+ok &= paper.count("struck at the Theorem 1ap regrade") == 2
+ok &= paper.count("struck at the 1ap regrade") == 2
 ok &= "honest name is CONTRAST" in paper
 # round 161 F1: the per-zero->per-cluster transition was pinned to
 # the wrong threshold (#33 is overlap-onset; occupancy-onset is

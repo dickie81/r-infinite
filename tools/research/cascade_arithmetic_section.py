@@ -248,6 +248,35 @@ def norm(s):
 
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': "PLUS the −½ln π of Γ_ℝ's normalization", 'form': 'plain', 'min': 1},
+    {'s': 'THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM', 'form': 'plain', 'min': 1},
+    {'s': 'Theorem 1aq', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_arithmetic_section.py`', 'form': 'plain', 'min': 2},
+    {'s': 'algebraic roots of exact-rational polynomials where it is a crossing', 'form': 'plain', 'min': 1},
+    {'s': 'buys NO positivity advantage', 'form': 'plain', 'min': 1},
+    {'s': 'consistency texture under Check 8, not forcing', 'form': 'plain', 'min': 1},
+    {'s': 'cosh((β−½)t)', 'form': 'plain', 'min': 1},
+    {'s': 'each of A1, A2, A3, and A5 below is true for α = ½', 'form': 'plain', 'min': 1},
+    {'s': 'no RH leverage is claimed in either direction', 'form': 'plain', 'min': 1},
+    {'s': 'one fact, seen independently on all four sides of the explicit formula', 'form': 'plain', 'min': 1},
+    {'s': 'quartic 4γ⁴ + 103γ² − 24, its minimal polynomial', 'form': 'plain', 'min': 1},
+    {'s': 'struck round 175 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 175 F3', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'the coordinate fact, not a translate iff', 'form': 'plain', 'min': 1},
+    {'s': 'the exactly-structured slice of the Weil framework', 'form': 'plain', 'min': 1},
+    {'s': 'the unique arithmetic-rational section of a positivity-generic cone family', 'form': 'plain', 'min': 1},
+    {'s': 'the Γ_ℝ/ψ closed forms where it is archimedean', 'form': 'plain', 'min': 1},
+    {'s': 'unique among unit-spaced translates, gated', 'form': 'plain', 'min': 1},
+]
+
 
 def unit_fraction_pair(q):
     """Is q = 1/m + 1/(m+1) for some positive integer m?"""

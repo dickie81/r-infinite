@@ -293,16 +293,43 @@ gate("g9 the full threshold in (0.2435, 0.2437) with deficit in "
 
 print("V5 -- the anchors and the footer")
 paper_raw = open(PAPER, encoding="utf-8").read()
-i_ak = paper_raw.find("**Theorem 1ak (")
-assert i_ak > 0
-pre = norm(paper_raw[:i_ak]).replace("**", "")
+# round 264: the prefix-slice pre-1ak span test converted to
+# declared seq entries (below) -- first occurrence before the
+# unique 1ak heading, the heading's uniqueness pinned max=1, so
+# the seq test is equivalent to the old `in pre` membership.
 paper = norm(paper_raw).replace("**", "")
-ok = ("containing it for tangencies above the continuation threshold "
-      "≈ ¼" in pre)
-ok &= ("the strip-boundary read is the line read analytically continued "
-       "by ±i/2 and averaged" in pre)
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': "The quarter-square is the pole's image under the squared-shift map", 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_quarter_square.py`', 'form': 'plain', 'min': 1},
+    {'s': "each lattice site's anchor is its squared half-shift MINUS the quarter-square", 'form': 'plain', 'min': 1},
+    {'s': "one scale — (½)², the functional equation's half-shift squared", 'form': 'plain', 'min': 1},
+    {'s': 'the strip-boundary read is the line read displaced by a CONSTANT real quarter-square', 'form': 'plain', 'min': 1},
+    {'s': "where the pole's image IS Q3's displacement constant", 'form': 'plain', 'min': 1},
+    {'s': 'with the denominators frozen at the tangency, the detachment threshold is EXACTLY ¼', 'form': 'plain', 'min': 1},
+    {'s': "ξ's pole-cancelling polynomial factor UP TO THE CONSTANT ½", 'form': 'plain', 'min': 1},
+    {'s': 'Theorem 1ak (', 'form': 'plain', 'min': 1, 'max': 1},
+    {'seq': ['containing it for tangencies above the continuation '
+             'threshold ≈ ¼', 'Theorem 1ak ('], 'form': 'plain'},
+    {'seq': ['the strip-boundary read is the line read analytically '
+             'continued by ±i/2 and averaged', 'Theorem 1ak ('],
+     'form': 'plain'},
+]
+import paper_needles
+_ok10, _m10 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if "seq" in d], paper_raw)
+for _d, _n in _m10:
+    print(f"  g10 seq miss {_n}: {_d!r}", flush=True)
 gate("g10 the 1aj sentences 1ak leans on, anchored LOCATIONALLY in the "
-     "pre-1ak span (the threshold; the mechanism)", ok)
+     "pre-1ak span (declared seq entries: first occurrence before the "
+     "unique 1ak heading; the threshold; the mechanism)", _ok10)
 # round 151 F4: the anchored punchline rewritten -- the pole's image
 # is +1/4 in the v-plane and -1/4 in the height plane u = gamma^2
 # (where it IS the displacement constant); anchors updated.

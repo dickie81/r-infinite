@@ -321,6 +321,30 @@ gate("g8 positivity: lambda_n > 0 for every n = 1..50 (the "
 
 print("V3 -- the paper: key sentences, scope, classical inputs, siblings, footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'Li and Bombieri–Lagarias, the positivity ladder', 'form': 'plain', 'min': 1},
+    {'s': 'NO PROOF LEVERAGE', 'form': 'plain', 'min': 1},
+    {'s': 'Stieltjes, the Laurent constants of ζ', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_unit_ball_rh.py`', 'form': 'plain', 'min': 1},
+    {'s': 'a region classically zero-free; the injection is pure instrument-teeth', 'form': 'plain', 'min': 1},
+    {'s': 'as hard as RH', 'form': 'plain', 'min': 1},
+    {'s': 'claimed in neither direction', 'form': 'plain', 'min': 2},
+    {'s': "it sidesteps 1an's resolution wall entirely", 'form': 'plain', 'min': 1},
+    {'s': 'rates 3/2 versus ½', 'form': 'plain', 'min': 1},
+    {'s': 'struck round 164 F1', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 164 F3', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': "the drag's end at n = 8 and the share crossing near n = 11 are the two marks of the handoff", 'form': 'plain', 'min': 1},
+    {'s': 'the first Li rung is the committed edge potential plus one plus γ', 'form': 'plain', 'min': 1},
+    {'s': 'wrong at the low rungs and corrected before landing', 'form': 'plain', 'min': 1},
+]
 ok = ("the first Li rung is the committed edge potential plus one "
       "plus γ" in paper)
 ok &= "it sidesteps 1an's resolution wall entirely" in paper

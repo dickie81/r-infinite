@@ -34,10 +34,13 @@ prose/executable distinction exists there). The
 PAPER left the key at the A397 arc: every member's paper surface
 is one declared PAPER_NEEDLES literal, AST-extracted and
 re-evaluated LIVE by this driver's needle precheck on every
-invocation (with a closure meta-gate proving the declaration IS
-the member's whole paper surface), so a paper edit either flips
-a declared needle -- failing the precheck before any cached PASS
-is served -- or provably changes no member's verdict inputs. A
+invocation -- reach-wide (round-264 F264-1: spawned chain
+scripts read the paper too), with a closure meta-gate that
+TRIPWIRES undeclared consumption via named AST clauses (see the
+precheck block; it is drift detection, not a semantic proof) --
+so a paper edit either flips a declared needle, failing the
+precheck before any cached PASS is served, or changes no
+declared surface. A
 paper-prose edit now costs the precheck, not a live tower. The manifest sha is NOT in
 the key (round 254): manifest-vs-disk consistency is re-verified
 LIVE by this driver's integrity precheck on every invocation, so
@@ -86,87 +89,10 @@ if bad:
 print(f"manifest integrity: {len(MAN['tower'])} members verified",
       flush=True)
 
-# THE PAPER-NEEDLE PRECHECK (the A397 arc; the round-254
-# manifest precedent applied to the paper). Every member
-# declares its ENTIRE paper surface as one pure-literal
-# PAPER_NEEDLES constant (schema: paper_needles.py); this
-# precheck AST-extracts each declaration WITHOUT executing the
-# member and evaluates it against the live paper on every
-# invocation, failing the run before any cached PASS is served.
-# The closure META-GATE enforces that the declaration IS the
-# member's entire paper surface: every variable assigned from
-# an open(PAPER...) read may be consumed only as an argument to
-# paper_needles.check/forms, and no other string constant in
-# the member names the paper file. With both holding, a paper
-# edit can only flip declared-needle outcomes -- all re-checked
-# live here -- so PAPER_SHA has LEFT the member cache key and a
-# paper-prose edit costs this precheck (seconds), not a live
-# tower.
 import ast as _ast
 
 sys.path.insert(0, HERE)
 import paper_needles
-
-_paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
-_pforms = paper_needles.forms(_paper_bytes)
-_pfail = []
-for e in MAN["tower"]:
-    rel = e["file"]
-    tree = _ast.parse(open(os.path.join(HERE, rel), "rb").read())
-    decl = None
-    ndecl = 0
-    for node in tree.body:
-        if (isinstance(node, _ast.Assign)
-                and len(node.targets) == 1
-                and getattr(node.targets[0], "id", "")
-                == "PAPER_NEEDLES"):
-            decl = _ast.literal_eval(node.value)
-            ndecl += 1
-    if decl is None or ndecl != 1:
-        _pfail.append(f"{rel}: PAPER_NEEDLES literals = {ndecl}")
-        continue
-    ok, miss = paper_needles.check(decl, _paper_bytes,
-                                   pre=_pforms)
-    for d, n in miss:
-        _pfail.append(f"{rel}: needle miss ({n}): {d!r}")
-    # meta-gate: the declared surface is the WHOLE paper surface
-    paper_vars = set()
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Assign)
-                and isinstance(node.value, _ast.Call)):
-            names = {n.id for n in _ast.walk(node.value)
-                     if isinstance(n, _ast.Name)}
-            if "PAPER" in names:
-                paper_vars |= {t.id for t in node.targets
-                               if isinstance(t, _ast.Name)}
-    sanctioned = set()
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Call)
-            and isinstance(node.func, _ast.Attribute)
-            and getattr(node.func.value, "id", "")
-                == "paper_needles"
-                and node.func.attr in ("check", "forms")):
-            for sub in _ast.walk(node):
-                if isinstance(sub, _ast.Name):
-                    sanctioned.add(id(sub))
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Name)
-                and isinstance(node.ctx, _ast.Load)
-                and node.id in paper_vars
-                and id(node) not in sanctioned):
-            _pfail.append(f"{rel}: paper var {node.id!r} used "
-                          f"outside paper_needles at line "
-                          f"{node.lineno}")
-if _pfail:
-    print("PAPER-NEEDLE PRECHECK FAILURES:", flush=True)
-    for f_ in _pfail:
-        print(f"  {f_}", flush=True)
-    sys.exit(2)
-print(f"paper-needle precheck: {len(MAN['tower'])} declared "
-      f"surfaces verified live", flush=True)
-
-
-sys.path.insert(0, HERE)
 import ckpt_key
 
 
@@ -296,6 +222,190 @@ def member_reach(name):
         frontier |= (_imports_of(f) | _named_py(f)) - reach
     reach.discard("ckpt_key.py")
     return reach
+
+
+# THE PAPER-NEEDLE PRECHECK (the A397 arc; REACH-WIDE per round-264
+# F264-1: lattice_forcing's g9 spawn chain consumes the paper five
+# scripts deep, so the scan runs over every .py file in every
+# member's transitive reach, not the member files alone). Every
+# paper-reading reach file declares its paper surface as one
+# pure-literal PAPER_NEEDLES constant (schema: paper_needles.py);
+# this precheck AST-extracts each declaration WITHOUT executing
+# anything and evaluates it against the live paper on every
+# invocation, failing the run (exit 2) before any cached PASS is
+# served. The closure meta-gate is a TRIPWIRE against drift, not a
+# semantic proof (round-264 F264-3): it enforces exactly these
+# named clauses on each reach file --
+#   (i)  a file whose AST assigns from an open(PAPER...) read (or
+#        from paper_needles.forms) must carry exactly ONE
+#        PAPER_NEEDLES literal, parsed with literal_eval under
+#        try/except (F264-4: a computed declaration is a precheck
+#        failure, never an uncaught exception);
+#   (ii) HARVEST COVERAGE: every inline paper compare the file
+#        keeps (the chain scripts mirror rather than rewrite) is
+#        AST-harvested (paper_needles.harvest) and must be
+#        ENTAILED by the declaration (paper_needles.covers);
+#        any paper expression the harvester cannot classify is a
+#        hard failure -- unharvestable consumption cannot be
+#        re-verified live, so it may not exist;
+#   (iii) paper variables may be LOADED only inside
+#        paper_needles.check/forms calls, recognized creation/
+#        transform assignments, harvested compares, or f-string
+#        interpolations -- so an alias (p2 = paper) or a novel
+#        derivation fails at the point of creation. The f-string
+#        sanction is print-evidence only: a formatted count is a
+#        string, not a verdict input, and a compare BUILT on an
+#        f-string still contains the paper var inside the Compare
+#        node, which the harvester flags unharvestable (clause ii);
+#   (iv) STRING-CONSTANT CLAUSE (F264-2): outside the PAPER path
+#        assignment, no string constant in the docstring-stripped
+#        AST names the paper file -- a second, undeclared read
+#        path cannot be spelled.
+# With these holding, a paper edit either flips a declared needle
+# -- failing this precheck before any cached PASS is served -- or
+# changes no declared surface; PAPER_SHA stays out of the member
+# key and a paper-prose edit costs seconds, not a live tower.
+
+_paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
+_pforms = paper_needles.forms(_paper_bytes)
+
+
+def _precheck_file(rel):
+    """The per-file needle clauses; returns (failures,
+    is-declared-paper-reader)."""
+    out = []
+    src = open(os.path.join(HERE, rel), "rb").read().decode("utf-8")
+    tree = _ast.parse(src)
+    # clause (iv) on the docstring-stripped copy (docstrings MAY
+    # name the paper; executable constants may not)
+    stripped = _ast.parse(src)
+    for node in _ast.walk(stripped):
+        body = getattr(node, "body", None)
+        if (isinstance(body, list) and body
+                and isinstance(body[0], _ast.Expr)
+                and isinstance(body[0].value, _ast.Constant)
+                and isinstance(body[0].value.value, str)):
+            node.body = body[1:]
+    _path_ok = set()
+    for node in _ast.walk(stripped):
+        if (isinstance(node, _ast.Assign) and len(node.targets) == 1
+                and getattr(node.targets[0], "id", "") == "PAPER"):
+            for sub in _ast.walk(node):
+                _path_ok.add(id(sub))
+    for node in _ast.walk(stripped):
+        if (isinstance(node, _ast.Constant)
+                and isinstance(node.value, str)
+                and "riemann-indistinguishability" in node.value
+                and id(node) not in _path_ok):
+            out.append(f"{rel}: paper-naming constant outside the "
+                       f"PAPER assignment at line {node.lineno}")
+    # paper-var census: open(PAPER...) assigns, paper_needles.forms
+    # assigns, and var_forms-recognized transform assigns
+    vf = paper_needles.var_forms(src)
+    paper_vars, created = set(vf), set()
+    for node in _ast.walk(tree):
+        if not isinstance(node, _ast.Assign):
+            continue
+        names = {n.id for n in _ast.walk(node.value)
+                 if isinstance(n, _ast.Name)}
+        is_read = "PAPER" in names and isinstance(node.value,
+                                                 _ast.Call)
+        is_forms = (isinstance(node.value, _ast.Call)
+                    and isinstance(node.value.func, _ast.Attribute)
+                    and getattr(node.value.func.value, "id", "")
+                    == "paper_needles"
+                    and node.value.func.attr == "forms")
+        tgts = {t.id for t in node.targets
+                if isinstance(t, _ast.Name)}
+        if is_read or is_forms or tgts & set(vf):
+            paper_vars |= tgts
+            created.add(id(node))
+    if not paper_vars:
+        return out, False   # not a paper reader; only clause (iv)
+    # clause (i): exactly one pure-literal declaration
+    decl, ndecl = None, 0
+    for node in tree.body:
+        if (isinstance(node, _ast.Assign) and len(node.targets) == 1
+                and getattr(node.targets[0], "id", "")
+                == "PAPER_NEEDLES"):
+            ndecl += 1
+            try:
+                decl = _ast.literal_eval(node.value)
+            except Exception as ex:
+                out.append(f"{rel}: PAPER_NEEDLES is not a pure "
+                           f"literal ({ex})")
+                return out, True
+    if decl is None or ndecl != 1:
+        out.append(f"{rel}: paper reader with PAPER_NEEDLES "
+                   f"literals = {ndecl}")
+        return out, True
+    # the live evaluation
+    ok, miss = paper_needles.check(decl, _paper_bytes, pre=_pforms)
+    for d, n in miss:
+        out.append(f"{rel}: needle miss ({n}): {d!r}")
+    # clause (ii): harvest coverage of retained inline compares
+    reqs, cplx = paper_needles.harvest(tree, vf)
+    for ln in cplx:
+        out.append(f"{rel}: unharvestable paper expression at "
+                   f"line {ln}")
+    for s, f_, lo, hi in paper_needles.covers(decl, reqs):
+        out.append(f"{rel}: inline compare not covered by the "
+                   f"declaration: ({s!r}, {f_}, {lo}, {hi})")
+    # clause (iii): residual paper-var loads
+    sanctioned = set()
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Call)
+                and isinstance(node.func, _ast.Attribute)
+                and getattr(node.func.value, "id", "")
+                == "paper_needles"
+                and node.func.attr in ("check", "forms")):
+            for sub in _ast.walk(node):
+                sanctioned.add(id(sub))
+        elif isinstance(node, _ast.Assign) and id(node) in created:
+            for sub in _ast.walk(node):
+                sanctioned.add(id(sub))
+    in_compare, in_fstr = set(), set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Compare):
+            for sub in _ast.walk(node):
+                in_compare.add(id(sub))
+        elif isinstance(node, _ast.FormattedValue):
+            for sub in _ast.walk(node):
+                in_fstr.add(id(sub))
+    # an f-string interpolation inside a Compare is NOT sanctioned
+    # by the f-string rule -- harvest already flagged the Compare
+    # unharvestable (clause ii), and the Load stays flagged here
+    in_fstr -= in_compare
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Name)
+                and isinstance(node.ctx, _ast.Load)
+                and node.id in paper_vars
+                and id(node) not in sanctioned
+                and id(node) not in in_fstr
+                and not (node.id in vf
+                         and id(node) in in_compare)):
+            out.append(f"{rel}: paper var {node.id!r} used outside "
+                       f"the declared-needle machinery at line "
+                       f"{node.lineno}")
+    return out, True
+
+
+_scan = set()
+for _e in MAN["tower"]:
+    _scan |= {f for f in member_reach(_e["file"])
+              if f.endswith(".py")}
+_pfail, _nreaders = [], 0
+for _rel in sorted(_scan):
+    _f, _isreader = _precheck_file(_rel)
+    _pfail += _f
+    _nreaders += _isreader
+if _pfail:
+    print("PAPER-NEEDLE PRECHECK FAILURES:", flush=True)
+    for f_ in _pfail:
+        print(f"  {f_}", flush=True)
+    sys.exit(2)
+print(f"paper-needle precheck: {len(_scan)} reach files scanned, "
+      f"{_nreaders} declared surfaces verified live", flush=True)
 
 
 def member_key(name):

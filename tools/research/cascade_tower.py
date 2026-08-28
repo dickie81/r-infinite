@@ -36,6 +36,21 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, "tower_manifest.json")
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 
+# declared paper surface (round-264 F264-1): the two manifest
+# census strings are the ONLY paper consumption of chain mode.
+# The manifest's values are dynamic and unharvestable, so this
+# module declares the CURRENT literals and chain_ok additionally
+# asserts man[key] == the declared literal -- a census advance
+# must edit this declaration (rotating the module's sha and every
+# reach key) or the tower fails.  run_tower's precheck evaluates
+# these needles live like any member declaration.
+PAPER_NEEDLES = [
+    {"s": "the **86 scripts cited in place** above", "form": "raw",
+     "key": "census_count_string"},
+    {"s": "extended by Theorems 1i–1bj:", "form": "raw",
+     "key": "census_range_string"},
+]
+
 
 def _sha(path):
     return hashlib.sha256(open(path, "rb").read()).hexdigest()
@@ -67,12 +82,18 @@ def chain_ok(parent_basename):
             print(f"  chain [manifest mode]: HASH MISMATCH {e['file']}",
                   flush=True)
             ok = False
+    import paper_needles
     paper = open(PAPER, encoding="utf-8").read()
-    for key in ("census_count_string", "census_range_string"):
-        if man[key] not in paper:
-            print(f"  chain [manifest mode]: paper lacks {man[key]!r}",
-                  flush=True)
+    for d in PAPER_NEEDLES:
+        if man[d["key"]] != d["s"]:
+            print(f"  chain [manifest mode]: manifest {d['key']} "
+                  f"{man[d['key']]!r} != declared {d['s']!r}", flush=True)
             ok = False
+    ok_n, miss = paper_needles.check(PAPER_NEEDLES, paper)
+    for d, n in miss:
+        print(f"  chain [manifest mode]: paper lacks {d['s']!r} "
+              f"(count {n})", flush=True)
+    ok = ok and ok_n
     if ok:
         print(f"  chain [manifest mode]: {top + 1} ancestor hashes verified; "
               f"census strings verified", flush=True)

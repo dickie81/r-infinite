@@ -43,7 +43,122 @@ run_tower's meta-gate enforces by AST scan (no `in paper` /
 `paper.count` expressions outside this module, exactly one
 PAPER_NEEDLES literal per member).
 """
+import ast
 import re
+
+def var_forms(src):
+    """Per-file paper-variable -> form map, derived from the
+    ACTUAL read transforms (round-264: a name map alone
+    mislabels e.g. quarter_square's raw paper_raw). Recognized
+    assignment styles (the codebase's only ones):
+      X = open(PAPER...).read()                  -> raw
+      X = norm(open(PAPER...).read())            -> ws
+      X = norm(open(PAPER...).read()).replace("**", "") -> plain
+      X = norm(<rawvar>).replace("**", "")       -> plain
+      X = re.sub(r"\s+", " ", <rawvar>)         -> ws
+      X = <wsvar>.replace("**", "")              -> plain
+    Anything else touching PAPER is left unmapped -- the
+    harvester then reports it as complex."""
+    out = {}
+    for line in src.split("\n"):
+        m = re.match(r"(\w+) = open\(PAPER.*\.read\(\)\s*$", line)
+        if m:
+            out[m.group(1)] = "raw"
+            continue
+        m = re.match(r'(\w+) = norm\(open\(PAPER.*\)\)\.replace\("\*\*", ""\)', line)
+        if m:
+            out[m.group(1)] = "plain"
+            continue
+        m = re.match(r"(\w+) = norm\(open\(PAPER.*\)\)\s*(#.*)?$", line)
+        if m:
+            out[m.group(1)] = "ws"
+            continue
+        m = re.match(r'(\w+) = norm\((\w+)\)\.replace\("\*\*", ""\)', line)
+        if m and out.get(m.group(2)) == "raw":
+            out[m.group(1)] = "plain"
+            continue
+        m = re.match(r'(\w+) = re\.sub\(r"\\s\+", " ", (\w+)\)', line)
+        if m and out.get(m.group(2)) == "raw":
+            out[m.group(1)] = "ws"
+            continue
+        m = re.match(r'(\w+) = (\w+)\.replace\("\*\*", ""\)', line)
+        if m and out.get(m.group(2)) == "ws":
+            out[m.group(1)] = "plain"
+    return out
+
+
+def harvest(tree, vf):
+    """AST-harvest every inline paper-compare from a module tree
+    (round-264 F264-1: the mirror meta-gate's extraction side).
+    Recognized idioms, matching the codebase's historical forms:
+      "needle" in <papervar>            -> (s, form, min 1, None)
+      <papervar>.count("needle") >= n   -> (s, form, n, None)
+      <papervar>.count("needle") == n   -> (s, form, n, n)
+    Returns (reqs, complex_nodes): reqs are requirement tuples
+    (s, form, min, max); complex_nodes lists line numbers of any
+    OTHER expression touching a paper variable inside a Compare
+    (e.g. .find position logic) -- the caller must treat those as
+    non-harvestable and demand full conversion."""
+    reqs, cplx = [], []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Compare) or len(node.ops) != 1:
+            continue
+        op = node.ops[0]
+        L, R = node.left, node.comparators[0]
+        if (isinstance(op, (ast.In, ast.NotIn))
+                and isinstance(L, ast.Constant)
+                and isinstance(L.value, str)
+                and isinstance(R, ast.Name)
+                and R.id in vf):
+            if isinstance(op, ast.In):
+                reqs.append((L.value, vf[R.id], 1, None))
+            else:
+                cplx.append(node.lineno)
+        elif (isinstance(L, ast.Call)
+                and isinstance(L.func, ast.Attribute)
+                and L.func.attr == "count"
+                and isinstance(L.func.value, ast.Name)
+                and L.func.value.id in vf
+                and len(L.args) == 1
+                and isinstance(L.args[0], ast.Constant)
+                and isinstance(R, ast.Constant)):
+            s = L.args[0].value
+            f = vf[L.func.value.id]
+            n = R.value
+            if isinstance(op, ast.GtE):
+                reqs.append((s, f, n, None))
+            elif isinstance(op, ast.Eq):
+                reqs.append((s, f, n, n))
+            else:
+                cplx.append(node.lineno)
+        else:
+            for sub in ast.walk(node):
+                if isinstance(sub, ast.Name) and sub.id in vf:
+                    cplx.append(node.lineno)
+                    break
+    return reqs, cplx
+
+
+def covers(decl, reqs):
+    """Does the declared surface entail every harvested inline
+    requirement?  A requirement (s, form, lo, hi) is covered by a
+    declared entry with the same s and form whose min >= lo and
+    (if hi is not None) whose max == hi.  Returns the uncovered
+    list."""
+    unc = []
+    for s, f, lo, hi in reqs:
+        ok = False
+        for d in decl:
+            if "seq" in d:
+                continue
+            if (d["s"] == s and d.get("form", "raw") == f
+                    and d.get("min", 1) >= lo
+                    and (hi is None or d.get("max") == hi)):
+                ok = True
+                break
+        if not ok:
+            unc.append((s, f, lo, hi))
+    return unc
 
 
 def forms(paper):
@@ -66,7 +181,14 @@ def check(decl, paper, pre=None):
     fv = pre if pre is not None else forms(paper)
     misses = []
     for d in decl:
-        body = fv[d.get("form", "raw")]
+        # schema validation (round-264 F264-4): an unknown form
+        # or malformed entry is a MISS with a reason, never an
+        # uncaught exception inside the precheck
+        f = d.get("form", "raw")
+        if f not in fv or ("s" not in d and "seq" not in d):
+            misses.append((d, "bad-entry"))
+            continue
+        body = fv[f]
         if "seq" in d:
             pos = [body.find(s) for s in d["seq"]]
             okd = all(p >= 0 for p in pos) and \

@@ -637,6 +637,30 @@ gate("g20 the mechanism identity (regrade): the strip-boundary read = "
 
 print("V5 -- the anchors and the footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'Net state (1aj): superseded-true — Theorem 1aj constructs an admissible-discriminating instance from the committed pair itself', 'form': 'plain', 'min': 1},
+    {'s': 'Net state (1aj): the morphism now exists', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_weil_route_traveled.py`', 'form': 'plain', 'min': 1},
+    {'s': 'a genuine per-zero sensitivity probe', 'form': 'plain', 'min': 1},
+    {'s': 'action-positivity plays no role in the sign', 'form': 'plain', 'min': 1},
+    {'s': 'approaches ½ FROM BELOW — rising with height throughout the zero-height regime', 'form': 'plain', 'min': 1},
+    {'s': 'containing it for tangencies above the continuation threshold ≈ ¼', 'form': 'plain', 'min': 1},
+    {'s': 'every pairwise discriminating instance interrogates only the classically vacant height-½ band', 'form': 'plain', 'min': 1},
+    {'s': 'r*(u) = K_{s₂}/K_{s₁}(0, γ) is STRICTLY INCREASING in u', 'form': 'plain', 'min': 1},
+    {'s': 'relocatable to any height — including the heights of actual zeros', 'form': 'plain', 'min': 1},
+    {'s': 'the RH wall itself, now located at exact coordinates', 'form': 'plain', 'min': 1},
+    {'s': 'the edge of admissibility IS discriminating', 'form': 'plain', 'min': 1},
+    {'s': 'the other edge is blind, by theorem', 'form': 'plain', 'min': 1},
+    {'s': 'the wall stands where it stood', 'form': 'plain', 'min': 1},
+]
 ok = ("Net state (1aj): superseded-true — Theorem 1aj constructs an "
       "admissible-discriminating instance from the committed pair itself"
       in paper)

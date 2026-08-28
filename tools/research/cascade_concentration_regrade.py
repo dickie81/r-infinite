@@ -579,6 +579,43 @@ gate("g7 the infimum-zero chain: width(300) < 0.01 < width(100) < "
 
 print("V3 -- the paper: the regrade strikes, key sentences, siblings, footer")
 paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'DERIVED at the round-167 sweep', 'form': 'plain', 'min': 1},
+    {'s': 'NO distinguished positive finite asymptotic-product constant exists for the class', 'form': 'plain', 'min': 1},
+    {'s': 'Resolution is purchasable; contrast pays for it', 'form': 'plain', 'min': 1},
+    {'s': 'THE SLOT IS RETIRED, with a classification in its place', 'form': 'plain', 'min': 1},
+    {'s': 'The concentration mechanism is height, not degree', 'form': 'plain', 'min': 1},
+    {'s': 'The infimum of window widths over the admissible cone is ZERO', 'form': 'plain', 'min': 1},
+    {'s': 'The wall stands where it stood — nothing cascade-side forces positivity on any discriminating instance', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_concentration_regrade.py`', 'form': 'plain', 'min': 1},
+    {'s': 'attained closure is [0, ∞]', 'form': 'plain', 'min': 1},
+    {'s': 'beyond the sample the floor fails entirely, and to zero', 'form': 'plain', 'min': 1},
+    {'s': 'depth·γ₀^(2n) → −(2n−1)²/4', 'form': 'plain', 'min': 1},
+    {'s': 'honest name is CONTRAST', 'form': 'plain', 'min': 1},
+    {'s': 'net-state, Theorem 1ap', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'onto (0, ∞) over the concentrating offset domain', 'form': 'plain', 'min': 1},
+    {'s': 'struck at the 1ap regrade', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'struck at the Theorem 1ap regrade', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'struck round 167 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 167 F3', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 168 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 169 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 170 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'struck round 171 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': 'the membership lemma, stated and gated round 167 F10', 'form': 'plain', 'min': 1},
+    {'s': 'the three- and five-site denominators are the gated scope', 'form': 'plain', 'min': 1},
+    {'s': 'wall stands where it stood', 'form': 'plain', 'min': 3, 'max': 3},
+    {'s': 'width·γ₀ → ½√((2n−1)² + 4a − 8c)', 'form': 'plain', 'min': 1},
+    {'s': 'with K = 420 + c² along the whole boundary', 'form': 'plain', 'min': 1},
+]
 ok = paper.count("struck at the Theorem 1ap regrade") == 2
 ok &= paper.count("struck at the 1ap regrade") == 2
 ok &= "honest name is CONTRAST" in paper

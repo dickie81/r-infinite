@@ -330,8 +330,11 @@ gate("g11 the chain obligation to cascade_sonin_dirac.py (Theorem 1bd) "
      "met", chain_ok("cascade_sonin_dirac.py"))
 
 # ---------------------------------------------------------------- g12
+# round-264 F264-5: g12 evaluates ONLY its own entries -- the g10
+# headline needle is g10's gate, not a silent second conjunct here
 import re
-ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g12"], paper)
 for _d, _n in _miss:
     print(f"  g12 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g12 the 1be paper needles and the footer census "

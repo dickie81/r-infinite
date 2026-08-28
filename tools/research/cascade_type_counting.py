@@ -258,6 +258,26 @@ ok &= ("No fifth type is definable without introducing a new structural "
 gate("g7 the residue's committed anchors (the Does-not flag-derivation "
      "item; the no-fifth-type remark sentence)", ok)
 part4a = norm(open(PART4A, encoding="utf-8").read())
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'Net state (1al):', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_type_counting.py`', 'form': 'plain', 'min': 1},
+    {'s': 'a fifth type requires a FOURTH FLAG', 'form': 'plain', 'min': 1},
+    {'s': 'closed relative to the committed source set', 'form': 'plain', 'min': 1},
+    {'s': 'forced by the committed dynamics', 'form': 'plain', 'min': 1},
+    {'s': 'the barrier is upgraded — the count mechanics are exact combinatorics', 'form': 'plain', 'min': 1},
+    {'s': 'the fourth-flag question REDUCES to the fifth-non-sink-layer question', 'form': 'plain', 'min': 1},
+    {'s': 'the open P > L > G precedence derivation is idle on the committed record', 'form': 'plain', 'min': 1},
+    {'s': 'the weakest link sharpens but does not vanish', 'form': 'plain', 'min': 1},
+    {'s': 'the weakest link sharpens to one named open lemma (the categorical flag derivation)', 'form': 'plain', 'min': 1},
+]
 ok = "unique} dimension in $[5,d_1=19]$ where $\\rho(d)-1=3$" in part4a
 ok &= "closed relative to the committed source set" in paper
 gate("g8 the Adams-scan interval's committed notation (the upper "
