@@ -29,11 +29,23 @@
 "rc": 0,
 "when": "2026-08-27T20:16Z"
 },
+"0b6af91d36debff70c8750ba": {
+"dt": 82.25846695899963,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T10:15Z"
+},
 "0b7f0d30b159a1cad64ac3e8": {
 "dt": 5.040316581726074,
 "file": "cascade_height_uniformity.py",
 "rc": 0,
 "when": "2026-08-28T08:53Z"
+},
+"0cbfda2b209716b6d56dd37d": {
+"dt": 343.2669897079468,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T10:22Z"
 },
 "0d63d5e09f75e2f869127708": {
 "dt": 43.70913100242615,
@@ -52,6 +64,12 @@
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
 "when": "2026-08-27T20:53Z"
+},
+"106c8375becccfd89bacc4bd": {
+"dt": 169.7771942615509,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T10:22Z"
 },
 "11e638995c3fc96d48afc802": {
 "dt": 183.4399664402008,
@@ -269,6 +287,12 @@
 "rc": 0,
 "when": "2026-08-27T20:16Z"
 },
+"529c6af4ff409ba5777f17fd": {
+"dt": 27.75085759162903,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T10:15Z"
+},
 "54fc2e4e33982b478854b86a": {
 "dt": 4.741029500961304,
 "file": "cascade_height_uniformity.py",
@@ -377,6 +401,12 @@
 "rc": 0,
 "when": "2026-08-28T08:14Z"
 },
+"738a45b00433dbe136b7c8e6": {
+"dt": 43.12261128425598,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T10:22Z"
+},
 "79dfe6354d6f2b07b4271099": {
 "dt": 176.32526063919067,
 "file": "cascade_li_two_channels.py",
@@ -442,6 +472,12 @@
 "file": "cascade_twosided_witness.py",
 "rc": 0,
 "when": "2026-08-27T19:56Z"
+},
+"8b7a665fd04edd1c459ac783": {
+"dt": 570.1921365261078,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T10:22Z"
 },
 "8e321492feff826a49982430": {
 "dt": 28.704638957977295,
@@ -599,6 +635,12 @@
 "rc": 0,
 "when": "2026-08-27T19:40Z"
 },
+"b41cb63cdd42a7c4b9f9de03": {
+"dt": 52.4198853969574,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T10:22Z"
+},
 "b7fa3c7ada54faabd8d1fe08": {
 "dt": 1.0282909870147705,
 "file": "cascade_prime_budget_fold.py",
@@ -640,6 +682,12 @@
 "file": "cascade_floor_closure.py",
 "rc": 0,
 "when": "2026-08-27T21:03Z"
+},
+"c2463562b1e98ae5ad7c5150": {
+"dt": 175.36011004447937,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T10:15Z"
 },
 "c37fd35dedae5bb34de9174b": {
 "dt": 28.223674535751343,
