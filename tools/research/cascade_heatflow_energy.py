@@ -75,6 +75,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# the declared paper surface (the needle-precheck arc, A397):
+# ONE pure-literal constant, AST-extractable by run_tower's live
+# precheck; the member's own gates consume the same entries via
+# paper_needles.check, filtered by the "g" tag. This member
+# touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {"g": "g5", "s": "**Theorem 1ax (the heat-flow energy at criticality:"},
+    {"g": "g5", "s": "monotonicity is\nalgebra, not hope"},
+    {"g": "g5", "s": "dE/dt = \u2212\u00bd \u03a3 \u1e8b_k\u00b2"},
+    {"g": "g5", "s": "pressure at criticality: \u00bd\u03a3v\u00b2 = 183.46"},
+    {"g": "g5", "s": "the 1.8th\npercentile"},
+    {"g": "g5", "s": "quieter than GUE"},
+    {"g": "g5", "s": "t_c = \u2212g\u00b2/8"},
+    {"g": "g5", "s": "the last configuration the backward flow cannot improve"},
+    {"g": "g5", "s": "not to descend an entropy gradient but to place"},
+    {"g": "g5", "s": "the hardness is conserved at P4"},
+    {"g": "g7", "s": "`cascade_heatflow_energy.py`", "min": 2},
+    {"g": "g7", "s": "the **86 scripts cited in place** above"},
+    {"g": "g7", "s": "extended by Theorems 1i\u20131bj:"},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -215,23 +236,14 @@ gate("g4 the criticality demonstration: backward raises E and closes the "
      "pinned", ok)
 
 # ---------------------------------------------------------------- g5
-needles = [
-    "**Theorem 1ax (the heat-flow energy at criticality:",
-    "monotonicity is\nalgebra, not hope",
-    "dE/dt = −½ Σ ẋ_k²",
-    "pressure at criticality: ½Σv² = 183.46",
-    "the 1.8th\npercentile",
-    "quieter than GUE",
-    "t_c = −g²/8",
-    "the last configuration the backward flow cannot improve",
-    "not to descend an entropy gradient but to place",
-    "the hardness is conserved at P4",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g5 MISSING: {nd!r}", flush=True)
-gate("g5 the 1ax paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g5"], paper,
+    pre=_pforms)
+for d, n in _miss:
+    print(f"  g5 MISSING (count {n}): {d['s']!r}", flush=True)
+gate("g5 the 1ax paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g6
 sys.path.insert(0, HERE)
@@ -240,9 +252,11 @@ gate("g6 the chain obligation to cascade_floor_meter.py (Theorem 1aw) met",
      chain_ok("cascade_floor_meter.py"))
 
 # ---------------------------------------------------------------- g7
-ok = paper.count("`cascade_heatflow_energy.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _miss7 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g7"], paper,
+    pre=_pforms)
+for d, n in _miss7:
+    print(f"  g7 MISSING (count {n}): {d['s']!r}", flush=True)
 gate("g7 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 
