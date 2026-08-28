@@ -11,11 +11,29 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"059d2c7fa3bbfa16b946f056": {
+"dt": 0.5407214164733887,
+"file": "cascade_floor_theory.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
+},
 "09084c4a3d95b537f8ec45f4": {
 "dt": 1.0385854244232178,
 "file": "cascade_oneprime_interval.py",
 "rc": 0,
 "when": "2026-08-28T08:31Z"
+},
+"09d0b695296d2de1fcf5826b": {
+"dt": 4.788317441940308,
+"file": "cascade_twosided_witness.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
+},
+"0a1026ec5ea871938c060c94": {
+"dt": 1.1569182872772217,
+"file": "cascade_prime_budget_fold.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
 },
 "0aeae7d61328dc0ff9f2125c": {
 "dt": 10.179892301559448,
@@ -137,6 +155,12 @@
 "rc": 0,
 "when": "2026-08-27T19:46Z"
 },
+"1a54f4e0f6fc8d6d2cade609": {
+"dt": 4.989183664321899,
+"file": "cascade_floor_closure.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
+},
 "1aa4db8feee507c850fbe411": {
 "dt": 182.23344659805298,
 "file": "cascade_lattice_forcing.py",
@@ -166,6 +190,12 @@
 "file": "cascade_prolate_horizon.py",
 "rc": 0,
 "when": "2026-08-27T18:43Z"
+},
+"2033a44f50ca8325c67799eb": {
+"dt": 1.2777740955352783,
+"file": "cascade_oneprime_interval.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
 },
 "21d67f8cbedd83a0a83409bf": {
 "dt": 1.0342605113983154,
@@ -491,6 +521,12 @@
 "rc": 0,
 "when": "2026-08-27T20:54Z"
 },
+"5e3bfff56e58e97f8d3534a6": {
+"dt": 10.601163625717163,
+"file": "cascade_sonin_dirac.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
+},
 "621fb35cc605a70394769a58": {
 "dt": 0.7295215129852295,
 "file": "cascade_oneprime_interval.py",
@@ -580,6 +616,12 @@
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
 "when": "2026-08-28T10:22Z"
+},
+"75c7e234406f4a0482c76163": {
+"dt": 5.053786516189575,
+"file": "cascade_height_uniformity.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
 },
 "77cf4547a8d7a52e2eaee936": {
 "dt": 1.0519802570343018,
@@ -886,6 +928,12 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-08-28T08:31Z"
+},
+"aa8a4d36e3a87352b9836cfb": {
+"dt": 881.8435363769531,
+"file": "cascade_prolate_horizon.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
 },
 "ab8e959cf7fe80f6fc456929": {
 "dt": 83.66659951210022,
@@ -1402,6 +1450,12 @@
 "file": "cascade_floor_closure.py",
 "rc": 0,
 "when": "2026-08-27T20:26Z"
+},
+"fbbacc2723b353a980da1327": {
+"dt": 7.203523635864258,
+"file": "cascade_fluctuation_price.py",
+"rc": 0,
+"when": "2026-08-28T13:52Z"
 },
 "fc397465ee179befb65fdaef": {
 "dt": 65.01850605010986,
