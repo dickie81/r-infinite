@@ -35,9 +35,10 @@ expanded to t-monomials carries huge cancelling coefficients
 (degree 24 reached ~1e15 and its interval-Horner widths
 swallowed the norm enclosure -- nn contained 0); at degree 10
 the coefficients stay ~1e3 and every width is harmless, while
-the sigma gain beyond is ~2% per two degrees
-(the margin gain ~5-7% per step; oneprime_nfr_scan.py,
-committed at the round-260 sweep, re-read round 261 F261-1).  Every trial remains entire with bounded explicit
+the sigma gain beyond is ~2% then ~1% per two degrees (the
+margin ~7% then ~3% per step, nfr 6 -> 8 as two steps;
+oneprime_nfr_scan.py, committed at the round-260 sweep,
+re-sworn rounds 261/262).  Every trial remains entire with bounded explicit
 derivatives.  The trial's coefficients are float64-optimized
 and FROZEN (a trial carries no rigor burden).
 
@@ -1325,11 +1326,12 @@ def make_fixtures():
         # as oneprime_nfr_scan.py at the round-260 sweep):
         # nfr 3 fails (sigma 1.43e-4); nfr 4 closes (+3.20e-7 at
         # ell2 0.015, max|pt| 108); nfr 5 = +3.38e-7, max|pt|
-        # 888; beyond, the margin gains ~5-7% per step while
-        # the monomial coefficients grow roughly an order of
-        # magnitude per step (1.1e2 -> 8.9e2 -> 1.5e4 -> 1.3e6
-        # across the recorded rungs; F261-3 re-swore the earlier
-        # x10^3) -- and the
+        # 888; beyond, the margin gains ~7% then ~3% per step
+        # (nfr 6 -> 8 as two steps; F262-1) while the monomial
+        # coefficients grow roughly an order of magnitude per
+        # step (1.1e2 -> 8.9e2 -> 1.5e4 -> 1.3e6 across the
+        # recorded rungs; F261-3 re-swore the earlier x10^3)
+        # -- and the
         # first attempt's nfr = 12 (degree 24, coefficients
         # ~1e15) DESTROYED the norm enclosure by interval-Horner
         # cancellation (nn contained 0). Degree 10 keeps every
