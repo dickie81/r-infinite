@@ -260,7 +260,13 @@ def member_reach(name):
 #   (iv) STRING-CONSTANT CLAUSE (F264-2): outside the PAPER path
 #        assignment, no string constant in the docstring-stripped
 #        AST names the paper file -- a second, undeclared read
-#        path cannot be spelled.
+#        path cannot be spelled;
+#   (v)  PAPER-LOAD CLAUSE (round-267 F267-1): every Load of the
+#        name PAPER sits inside a var_forms-recognized creation
+#        assignment -- so a function-wrapped, re-encoded,
+#        suffixed, or non-Assign-bound read is flagged at the
+#        read itself, and with clause (iv) no route to the
+#        paper's bytes exists outside a declared surface.
 # With these holding, a paper edit either flips a declared needle
 # -- failing this precheck before any cached PASS is served -- or
 # changes no declared surface; PAPER_SHA stays out of the member
@@ -299,17 +305,17 @@ def _precheck_file(rel):
                 and id(node) not in _path_ok):
             out.append(f"{rel}: paper-naming constant outside the "
                        f"PAPER assignment at line {node.lineno}")
-    # paper-var census: open(PAPER...) assigns, paper_needles.forms
-    # assigns, and var_forms-recognized transform assigns
+    # paper-var census (round-267 F267-1/F267-2: recognition is
+    # now var_forms' alone -- an Assign is a CREATION only if its
+    # target was mapped by the exact-shape rules, or it captures
+    # paper_needles.forms; the earlier looser is_read rule
+    # sanctioned any Call mentioning PAPER, which clause (v)
+    # below now polices instead)
     vf = paper_needles.var_forms(src)
     paper_vars, created = set(vf), set()
     for node in _ast.walk(tree):
         if not isinstance(node, _ast.Assign):
             continue
-        names = {n.id for n in _ast.walk(node.value)
-                 if isinstance(n, _ast.Name)}
-        is_read = "PAPER" in names and isinstance(node.value,
-                                                 _ast.Call)
         is_forms = (isinstance(node.value, _ast.Call)
                     and isinstance(node.value.func, _ast.Attribute)
                     and getattr(node.value.func.value, "id", "")
@@ -317,11 +323,36 @@ def _precheck_file(rel):
                     and node.value.func.attr == "forms")
         tgts = {t.id for t in node.targets
                 if isinstance(t, _ast.Name)}
-        if is_read or is_forms or tgts & set(vf):
+        if is_forms or tgts & set(vf):
             paper_vars |= tgts
             created.add(id(node))
+    # clause (v) (round-267 F267-1: cascade_type_counting read the
+    # paper through a FUNCTION-WRAPPED open -- return, not Assign
+    # -- invisible to every prior clause, and a one-word paper
+    # edit produced TOWER PASS from cache against a live member
+    # FAIL): every Load of the name PAPER must sit inside a
+    # recognized creation assignment. A paper read anywhere else
+    # -- a return expression, an AnnAssign/walrus/tuple-unpack
+    # binding, a call argument, a suffixed or re-encoded read
+    # (F267-2/F267-3: those shapes fail var_forms, so their
+    # assigns are not creations) -- is flagged HERE at the read
+    # itself. Jointly with clause (iv), every route to the paper's
+    # bytes must spell PAPER or the paper's filename, so no read
+    # can exist outside a recognized, declared surface.
+    _created_ids = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Assign) and id(node) in created:
+            for sub in _ast.walk(node):
+                _created_ids.add(id(sub))
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Name) and node.id == "PAPER"
+                and isinstance(node.ctx, _ast.Load)
+                and id(node) not in _created_ids):
+            out.append(f"{rel}: PAPER read outside a recognized "
+                       f"transform assignment at line "
+                       f"{node.lineno} (clause v)")
     if not paper_vars:
-        return out, False   # not a paper reader; only clause (iv)
+        return out, False   # not a paper reader; clauses (iv)/(v)
     # clause (i): exactly one pure-literal declaration
     decl, ndecl = None, 0
     for node in tree.body:

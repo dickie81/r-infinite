@@ -146,8 +146,39 @@ def norm(s):
     return " ".join(s.split())
 
 
-def paper_for_g2():
-    return norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+# round 267 F267-1: g2's paper consumption rerouted through the
+# declared surface -- the old paper_for_g2() function-wrapped read
+# was invisible to the tower's needle precheck (a paper edit
+# breaking a g2 needle produced a stale cached TOWER PASS), so the
+# read is now a recognized module-level transform and the two g2
+# needles live in PAPER_NEEDLES (tagged g2), evaluated by the
+# shared checker here and re-evaluated live by the driver.
+import paper_needles
+paper_g2raw = open(PAPER, encoding="utf-8").read()
+
+# declared paper surface (round-264 F264-1: chain
+# scripts in tower members' reaches mirror their
+# inline paper conjuncts here; run_tower's harvest
+# meta-gate verifies this declaration COVERS every
+# inline compare, so drift fails the precheck;
+# relocated above V1 at the round-267 sweep so the
+# g2 declared check can execute)
+PAPER_NEEDLES = [
+    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'Net state (1al):', 'form': 'plain', 'min': 2, 'max': 2},
+    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': '`cascade_type_counting.py`', 'form': 'plain', 'min': 1},
+    {'s': 'a fifth type requires a FOURTH FLAG', 'form': 'plain', 'min': 1},
+    {'s': 'closed relative to the committed source set', 'form': 'plain', 'min': 1},
+    {'s': 'forced by the committed dynamics', 'form': 'plain', 'min': 1},
+    {'s': 'the barrier is upgraded — the count mechanics are exact combinatorics', 'form': 'plain', 'min': 1},
+    {'s': 'the fourth-flag question REDUCES to the fifth-non-sink-layer question', 'form': 'plain', 'min': 1},
+    {'s': 'the open P > L > G precedence derivation is idle on the committed record', 'form': 'plain', 'min': 1},
+    {'s': 'the weakest link sharpens but does not vanish', 'form': 'plain', 'min': 1},
+    {'s': 'the weakest link sharpens to one named open lemma (the categorical flag derivation)', 'form': 'plain', 'min': 1},
+    {'s': 'vacuous on primary readings', 'form': 'plain', 'min': 2, 'g': 'g2'},
+    {'s': "vacuous on the papers' uniform expression-tree flag readings", 'form': 'plain', 'min': 1, 'g': 'g2'},
+]
 
 
 print("V1 -- T2: the precedence is idle on the committed record")
@@ -188,20 +219,20 @@ rv = subprocess.run([sys.executable,
                                   "cascade_precedence_vacuity.py")],
                     capture_output=True, text=True)
 idle &= rv.returncode == 0
-_pg2 = paper_for_g2()
-idle &= _pg2.count("vacuous on primary readings") >= 2
-idle &= ("vacuous on the papers' uniform expression-tree flag readings"
-         in _pg2)
+_okg2, _mg2 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d.get("g") == "g2"], paper_g2raw)
+for _d, _n in _mg2:
+    print(f"  g2 needle miss ({_n}): {_d['s']!r}", flush=True)
+idle &= _okg2
 gate("g2 ALL 6 precedence orders classify the committed eight "
      "identically -- the round-9 vacuity verdict upgraded, not "
      "discovered (cross-referenced round 156 F1; anchor scope fixed "
      "round 157 F3: the sibling cascade_precedence_vacuity.py green; "
      "BOTH pre-existing carriers anchored distinctly -- the remark "
      "phrase counted >= 2, the front-matter wording separate)", idle,
-     f"vacuity exit {rv.returncode}, remark-count "
-     f"{_pg2.count('vacuous on primary readings')}, front-matter "
-     f"{'ok' if 'vacuous on the papers' in _pg2 else 'MISSING'} "
-     "(detail widened round 158 F1)")
+     f"vacuity exit {rv.returncode}, declared g2 needles "
+     f"{'ok' if _okg2 else 'MISSING'} "
+     "(detail widened round 158 F1; declared surface round 267)")
 
 print("V2 -- T1: the count mechanics, exact")
 all8 = list(itertools.product([True, False], repeat=3))
@@ -259,25 +290,6 @@ gate("g7 the residue's committed anchors (the Does-not flag-derivation "
      "item; the no-fifth-type remark sentence)", ok)
 part4a = norm(open(PART4A, encoding="utf-8").read())
 
-# declared paper surface (round-264 F264-1: chain
-# scripts in tower members' reaches mirror their
-# inline paper conjuncts here; run_tower's harvest
-# meta-gate verifies this declaration COVERS every
-# inline compare, so drift fails the precheck)
-PAPER_NEEDLES = [
-    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
-    {'s': 'Net state (1al):', 'form': 'plain', 'min': 2, 'max': 2},
-    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
-    {'s': '`cascade_type_counting.py`', 'form': 'plain', 'min': 1},
-    {'s': 'a fifth type requires a FOURTH FLAG', 'form': 'plain', 'min': 1},
-    {'s': 'closed relative to the committed source set', 'form': 'plain', 'min': 1},
-    {'s': 'forced by the committed dynamics', 'form': 'plain', 'min': 1},
-    {'s': 'the barrier is upgraded — the count mechanics are exact combinatorics', 'form': 'plain', 'min': 1},
-    {'s': 'the fourth-flag question REDUCES to the fifth-non-sink-layer question', 'form': 'plain', 'min': 1},
-    {'s': 'the open P > L > G precedence derivation is idle on the committed record', 'form': 'plain', 'min': 1},
-    {'s': 'the weakest link sharpens but does not vanish', 'form': 'plain', 'min': 1},
-    {'s': 'the weakest link sharpens to one named open lemma (the categorical flag derivation)', 'form': 'plain', 'min': 1},
-]
 ok = "unique} dimension in $[5,d_1=19]$ where $\\rho(d)-1=3$" in part4a
 ok &= "closed relative to the committed source set" in paper
 gate("g8 the Adams-scan interval's committed notation (the upper "

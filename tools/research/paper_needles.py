@@ -47,26 +47,80 @@ import ast
 import re
 
 def _is_paper_read(n):
-    """open(PAPER, ...).read() -- exactly, no extra args and no
-    extra call layers."""
-    return (isinstance(n, ast.Call) and not n.args and not n.keywords
+    """open(PAPER).read() or open(PAPER, encoding="utf-8").read()
+    -- EXACTLY (round-267 F267-3: the first version never examined
+    the inner open()'s keywords or extra positionals, so an
+    encoding swap mapped as a clean read while the member decoded
+    different bytes). No extra args, keywords, or call layers
+    anywhere in the shape."""
+    if not (isinstance(n, ast.Call) and not n.args and not n.keywords
             and isinstance(n.func, ast.Attribute)
             and n.func.attr == "read"
             and isinstance(n.func.value, ast.Call)
             and isinstance(n.func.value.func, ast.Name)
-            and n.func.value.func.id == "open"
-            and n.func.value.args
-            and isinstance(n.func.value.args[0], ast.Name)
-            and n.func.value.args[0].id == "PAPER"
-            and all(isinstance(a, (ast.Name, ast.Constant))
-                    for a in n.func.value.args))
+            and n.func.value.func.id == "open"):
+        return False
+    op = n.func.value
+    if (len(op.args) != 1 or not isinstance(op.args[0], ast.Name)
+            or op.args[0].id != "PAPER"):
+        return False
+    if not op.keywords:
+        return True
+    return (len(op.keywords) == 1
+            and op.keywords[0].arg == "encoding"
+            and isinstance(op.keywords[0].value, ast.Constant)
+            and op.keywords[0].value.value == "utf-8")
 
 
 def _is_norm(n):
-    """norm(X) -- exactly one positional argument."""
+    """norm(X) -- exactly one positional argument. The CALL shape
+    only; var_forms additionally verifies the file's norm
+    DEFINITION is canonical (round-267 F267-4)."""
     return (isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
             and n.func.id == "norm" and len(n.args) == 1
             and not n.keywords)
+
+
+def _norm_canonical(tree):
+    """True iff every FunctionDef named `norm` in the tree is
+    EXACTLY the codebase's canonical whitespace collapse,
+    `return " ".join(s.split())` (round-267 F267-4: the shape
+    rules trusted the NAME norm, so a rogue norm body silently
+    mislabeled every downstream form; the definition is now part
+    of the matched shape -- a file with a non-canonical or absent
+    norm gets no norm-based mappings, and its reads then trip the
+    driver's clause (v))."""
+    found = False
+    for n in ast.walk(tree):
+        if not (isinstance(n, ast.FunctionDef) and n.name == "norm"):
+            continue
+        found = True
+        body = [b for b in n.body
+                if not (isinstance(b, ast.Expr)
+                        and isinstance(b.value, ast.Constant)
+                        and isinstance(b.value.value, str))]
+        if len(n.args.args) != 1 or len(body) != 1:
+            return False
+        r = body[0]
+        arg = n.args.args[0].arg
+        if not (isinstance(r, ast.Return)
+                and isinstance(r.value, ast.Call)
+                and not r.value.keywords
+                and len(r.value.args) == 1
+                and isinstance(r.value.func, ast.Attribute)
+                and r.value.func.attr == "join"
+                and isinstance(r.value.func.value, ast.Constant)
+                and r.value.func.value.value == " "):
+            return False
+        c = r.value.args[0]
+        if not (isinstance(c, ast.Call) and not c.args
+                and not c.keywords
+                and isinstance(c.func, ast.Attribute)
+                and c.func.attr == "split"
+                and isinstance(c.func.value, ast.Name)
+                and c.func.value.id == arg):
+            return False
+    return found
 
 
 def _is_star_strip(n):
@@ -92,32 +146,41 @@ def var_forms(src):
       X = norm(<rawvar>).replace("**", "")       -> plain
       X = re.sub(r"\s+", " ", <rawvar>)         -> ws
       X = <wsvar>.replace("**", "")              -> plain
-    Matching is by EXACT AST shape on module-level single-target
-    assignments (round-266 F266-2/F266-3: the earlier line-regex
-    ladder was fooled by an INFIX mutation inside the greedy
-    open(PAPER...) span, and by a phantom mapping line sitting
-    inside a docstring -- AST shapes admit neither: string
-    content is never scanned, and any extra call layer, argument,
-    or keyword anywhere in the shape fails the match). Anything
-    else touching PAPER is left unmapped -- an unmapped
-    variable's loads are then flagged by the harvester (inside
-    compares) or by the driver's clause (iii) (everywhere
-    else)."""
+    Matching is by EXACT AST shape on single-target assignments
+    (round-266 F266-2/F266-3: the earlier line-regex ladder was
+    fooled by an INFIX mutation inside the greedy open(PAPER...)
+    span, and by a phantom mapping line sitting inside a
+    docstring -- AST shapes admit neither: string content is
+    never scanned, and any extra call layer, argument, or keyword
+    anywhere in the shape fails the match, the inner open()'s
+    encoding included, F267-3). Assignments anywhere in the tree
+    are eligible, walked in line order (round-267: cascade_tower
+    reads inside a function); norm-based rules require the file's
+    norm DEFINITION to be canonical (F267-4). Anything else
+    touching PAPER is left unmapped -- an unmapped variable's
+    loads are then flagged by the harvester (inside compares) or
+    by the driver's clauses (iii)/(v) (everywhere else)."""
     out = {}
-    for node in ast.parse(src).body:
-        if (not isinstance(node, ast.Assign)
-                or len(node.targets) != 1
+    tree = ast.parse(src)
+    norm_ok = _norm_canonical(tree)
+    assigns = sorted((n for n in ast.walk(tree)
+                      if isinstance(n, ast.Assign)),
+                     key=lambda n: n.lineno)
+    for node in assigns:
+        if (len(node.targets) != 1
                 or not isinstance(node.targets[0], ast.Name)):
             continue
         tgt, v = node.targets[0].id, node.value
         if _is_paper_read(v):
             out[tgt] = "raw"
-        elif _is_norm(v) and _is_paper_read(v.args[0]):
+        elif norm_ok and _is_norm(v) and _is_paper_read(v.args[0]):
             out[tgt] = "ws"
-        elif (_is_star_strip(v) and _is_norm(v.func.value)
+        elif (norm_ok and _is_star_strip(v)
+                and _is_norm(v.func.value)
                 and _is_paper_read(v.func.value.args[0])):
             out[tgt] = "plain"
-        elif (_is_star_strip(v) and _is_norm(v.func.value)
+        elif (norm_ok and _is_star_strip(v)
+                and _is_norm(v.func.value)
                 and isinstance(v.func.value.args[0], ast.Name)
                 and out.get(v.func.value.args[0].id) == "raw"):
             out[tgt] = "plain"
@@ -218,10 +281,20 @@ def valid(d):
     needle, negative min, s+seq co-presence)."""
     if not isinstance(d, dict):
         return False
+    # key whitelist (round-267 F267-6): 'g' and 'key' are the two
+    # load-bearing caller tags; anything else -- e.g. a mistyped
+    # 'frm' -- would silently fall back to defaults
+    if any(k not in ("s", "seq", "form", "min", "max", "g", "key")
+           for k in d):
+        return False
     f = d.get("form", "raw")
     sv, sq = d.get("s"), d.get("seq")
     lo, hi = d.get("min", 1), d.get("max")
     if f not in _FORMS:
+        return False
+    # round-267 F267-5: min 0 with no max can never miss -- the
+    # absence pattern must pin max (canonically {"min":0,"max":0})
+    if lo == 0 and hi is None:
         return False
     if (sv is None) == (sq is None):
         return False
