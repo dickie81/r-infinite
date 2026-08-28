@@ -185,6 +185,12 @@
 "rc": 0,
 "when": "2026-08-28T08:53Z"
 },
+"1ed64ab7ee06d41eb32062c2": {
+"dt": 67.80389165878296,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-08-28T14:28Z"
+},
 "1fcc77613101487103dd857c": {
 "dt": 852.4633500576019,
 "file": "cascade_prolate_horizon.py",
@@ -538,6 +544,12 @@
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-28T13:52Z"
+},
+"5f2694839deffbb953d640ed": {
+"dt": 417.0383126735687,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-08-28T14:28Z"
 },
 "621fb35cc605a70394769a58": {
 "dt": 0.7295215129852295,
