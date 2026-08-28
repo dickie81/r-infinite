@@ -65,6 +65,12 @@
 "rc": 0,
 "when": "2026-08-27T20:53Z"
 },
+"0fb62bbb64fc0effa921a1ad": {
+"dt": 350.4472939968109,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T12:11Z"
+},
 "106c8375becccfd89bacc4bd": {
 "dt": 169.7771942615509,
 "file": "cascade_li_two_channels.py",
@@ -491,6 +497,12 @@
 "rc": 0,
 "when": "2026-08-28T10:31Z"
 },
+"78042dbef3d885ea29720d9a": {
+"dt": 568.2471482753754,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T12:11Z"
+},
 "79dfe6354d6f2b07b4271099": {
 "dt": 176.32526063919067,
 "file": "cascade_li_two_channels.py",
@@ -544,6 +556,12 @@
 "file": "cascade_twosided_witness.py",
 "rc": 0,
 "when": "2026-08-27T20:26Z"
+},
+"88791da7d785eee2696dbb2a": {
+"dt": 44.49750733375549,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T12:11Z"
 },
 "88a8b07d26ad28e201f8a27e": {
 "dt": 1.0978100299835205,
@@ -604,6 +622,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-08-27T19:08Z"
+},
+"94deafccacfdf172fce59554": {
+"dt": 178.03550481796265,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T12:05Z"
 },
 "95a1937a56d242fd55e1a5e0": {
 "dt": 27.695724487304688,
@@ -833,6 +857,12 @@
 "rc": 0,
 "when": "2026-08-27T19:16Z"
 },
+"c7fba03f36e59f30c6f58788": {
+"dt": 174.84948801994324,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T12:11Z"
+},
 "c8600684dd2a95960d8cb98f": {
 "dt": 84.41424131393433,
 "file": "cascade_primes_side_ball.py",
@@ -959,6 +989,12 @@
 "rc": 0,
 "when": "2026-08-28T10:23Z"
 },
+"dc1a90846a4ef4d276529181": {
+"dt": 88.9750247001648,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T12:05Z"
+},
 "dcd4394b970f2d2be10857fb": {
 "dt": 10.007789373397827,
 "file": "cascade_sonin_dirac.py",
@@ -1013,6 +1049,12 @@
 "rc": 0,
 "when": "2026-08-27T20:54Z"
 },
+"e50f520c67c9423f263bad42": {
+"dt": 55.53106904029846,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T12:11Z"
+},
 "e852ca8a2a756f2a444146b9": {
 "dt": 83.40372037887573,
 "file": "cascade_primes_side_ball.py",
@@ -1048,6 +1090,12 @@
 "file": "cascade_primes_side_ball.py",
 "rc": 0,
 "when": "2026-08-27T20:46Z"
+},
+"f126aca2f29da75a86ed9c71": {
+"dt": 28.84828209877014,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T12:05Z"
 },
 "f2b2e0c5f80a38d9bfa1aba7": {
 "dt": 557.3350417613983,
