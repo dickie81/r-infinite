@@ -845,6 +845,12 @@
 "rc": 0,
 "when": "2026-08-28T09:30Z"
 },
+"a54ce2f20c8f0f5b17e267fe": {
+"dt": 66.91886258125305,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-08-28T13:43Z"
+},
 "a5b5a0e9a8b09aeb30434de8": {
 "dt": 0.7806704044342041,
 "file": "cascade_oneprime_interval.py",
@@ -1060,6 +1066,12 @@
 "file": "cascade_floor_theory.py",
 "rc": 0,
 "when": "2026-08-28T13:10Z"
+},
+"c6aaf4e7fa0585f90018fd43": {
+"dt": 419.5215001106262,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-08-28T13:43Z"
 },
 "c73f8ee2e8dfb5573231f326": {
 "dt": 65.07183146476746,
