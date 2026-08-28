@@ -295,8 +295,14 @@ print("V5 -- the anchors and the footer")
 paper_raw = open(PAPER, encoding="utf-8").read()
 # round 264: the prefix-slice pre-1ak span test converted to
 # declared seq entries (below) -- first occurrence before the
-# unique 1ak heading, the heading's uniqueness pinned max=1, so
-# the seq test is equivalent to the old `in pre` membership.
+# unique 1ak heading (plain form, uniqueness pinned max=1).
+# Round-265 F265-3: the old code ALSO asserted the raw BOLDED
+# heading "**Theorem 1ak (" exists (find > 0); that conjunct was
+# dropped at the conversion -- restored below as a raw max=1 pin,
+# so an un-bolding paper edit fails the tower again. With both
+# pins, first-occurrence-before-heading matches the old whole-
+# needle-in-prefix membership for these needles (neither needle's
+# tail is a prefix of the heading string, so no straddle exists).
 paper = norm(paper_raw).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
@@ -316,6 +322,7 @@ PAPER_NEEDLES = [
     {'s': 'with the denominators frozen at the tangency, the detachment threshold is EXACTLY ¼', 'form': 'plain', 'min': 1},
     {'s': "ξ's pole-cancelling polynomial factor UP TO THE CONSTANT ½", 'form': 'plain', 'min': 1},
     {'s': 'Theorem 1ak (', 'form': 'plain', 'min': 1, 'max': 1},
+    {'s': '**Theorem 1ak (', 'form': 'raw', 'min': 1, 'max': 1},
     {'seq': ['containing it for tangencies above the continuation '
              'threshold ≈ ¼', 'Theorem 1ak ('], 'form': 'plain'},
     {'seq': ['the strip-boundary read is the line read analytically '

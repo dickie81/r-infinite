@@ -57,15 +57,23 @@ def var_forms(src):
       X = norm(<rawvar>).replace("**", "")       -> plain
       X = re.sub(r"\s+", " ", <rawvar>)         -> ws
       X = <wsvar>.replace("**", "")              -> plain
-    Anything else touching PAPER is left unmapped -- the
-    harvester then reports it as complex."""
+    Anything else touching PAPER is left unmapped (every rule
+    $-anchored, round-265 F265-2) -- an unmapped variable's loads
+    are then flagged by the harvester (inside compares) or by the
+    driver's clause (iii) (everywhere else)."""
     out = {}
     for line in src.split("\n"):
         m = re.match(r"(\w+) = open\(PAPER.*\.read\(\)\s*$", line)
         if m:
             out[m.group(1)] = "raw"
             continue
-        m = re.match(r'(\w+) = norm\(open\(PAPER.*\)\)\.replace\("\*\*", ""\)', line)
+        # round-265 F265-2: every rule is $-anchored (allowing a
+        # trailing comment) -- a SUFFIXED transform must fail to
+        # match and stay unmapped, so the driver's clause (iii)
+        # flags its loads instead of the precheck evaluating the
+        # declared needles against the wrong text
+        m = re.match(r'(\w+) = norm\(open\(PAPER.*\)\)'
+                     r'\.replace\("\*\*", ""\)\s*(#.*)?$', line)
         if m:
             out[m.group(1)] = "plain"
             continue
@@ -73,15 +81,18 @@ def var_forms(src):
         if m:
             out[m.group(1)] = "ws"
             continue
-        m = re.match(r'(\w+) = norm\((\w+)\)\.replace\("\*\*", ""\)', line)
+        m = re.match(r'(\w+) = norm\((\w+)\)'
+                     r'\.replace\("\*\*", ""\)\s*(#.*)?$', line)
         if m and out.get(m.group(2)) == "raw":
             out[m.group(1)] = "plain"
             continue
-        m = re.match(r'(\w+) = re\.sub\(r"\\s\+", " ", (\w+)\)', line)
+        m = re.match(r'(\w+) = re\.sub\(r"\\s\+", " ", (\w+)\)'
+                     r'\s*(#.*)?$', line)
         if m and out.get(m.group(2)) == "raw":
             out[m.group(1)] = "ws"
             continue
-        m = re.match(r'(\w+) = (\w+)\.replace\("\*\*", ""\)', line)
+        m = re.match(r'(\w+) = (\w+)\.replace\("\*\*", ""\)'
+                     r'\s*(#.*)?$', line)
         if m and out.get(m.group(2)) == "ws":
             out[m.group(1)] = "plain"
     return out
@@ -101,7 +112,17 @@ def harvest(tree, vf):
     non-harvestable and demand full conversion."""
     reqs, cplx = [], []
     for node in ast.walk(tree):
-        if not isinstance(node, ast.Compare) or len(node.ops) != 1:
+        if not isinstance(node, ast.Compare):
+            continue
+        if len(node.ops) != 1:
+            # round-265 F265-1: a CHAINED compare touching a paper
+            # variable is unclassifiable and must be flagged, not
+            # skipped -- the skip made "unharvestable is a hard
+            # failure" false for this node shape
+            for sub in ast.walk(node):
+                if isinstance(sub, ast.Name) and sub.id in vf:
+                    cplx.append(node.lineno)
+                    break
             continue
         op = node.ops[0]
         L, R = node.left, node.comparators[0]
@@ -181,11 +202,27 @@ def check(decl, paper, pre=None):
     fv = pre if pre is not None else forms(paper)
     misses = []
     for d in decl:
-        # schema validation (round-264 F264-4): an unknown form
-        # or malformed entry is a MISS with a reason, never an
-        # uncaught exception inside the precheck
+        # schema validation (round-264 F264-4; completed round-265
+        # F265-4 -- the first version validated only dict entries
+        # and crashed on anything else): a malformed entry of ANY
+        # shape is a MISS with a reason, never an uncaught
+        # exception inside the precheck
+        if not isinstance(d, dict):
+            misses.append((d, "bad-entry"))
+            continue
         f = d.get("form", "raw")
-        if f not in fv or ("s" not in d and "seq" not in d):
+        sv, sq = d.get("s"), d.get("seq")
+        lo, hi = d.get("min", 1), d.get("max")
+        if (f not in fv
+                or (sv is None and sq is None)
+                or (sv is not None and not isinstance(sv, str))
+                or (sq is not None
+                    and (not isinstance(sq, list) or not sq
+                         or any(not isinstance(x, str)
+                                for x in sq)))
+                or not isinstance(lo, int) or isinstance(lo, bool)
+                or (hi is not None and (not isinstance(hi, int)
+                                        or isinstance(hi, bool)))):
             misses.append((d, "bad-entry"))
             continue
         body = fv[f]
