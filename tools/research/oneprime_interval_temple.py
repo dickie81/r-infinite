@@ -35,8 +35,9 @@ expanded to t-monomials carries huge cancelling coefficients
 (degree 24 reached ~1e15 and its interval-Horner widths
 swallowed the norm enclosure -- nn contained 0); at degree 10
 the coefficients stay ~1e3 and every width is harmless, while
-the sigma gain beyond is ~5% per two degrees
-(oneprime_nfr_scan.py, committed at the round-260 sweep).  Every trial remains entire with bounded explicit
+the sigma gain beyond is ~2% per two degrees
+(the margin gain ~5-7% per step; oneprime_nfr_scan.py,
+committed at the round-260 sweep, re-read round 261 F261-1).  Every trial remains entire with bounded explicit
 derivatives.  The trial's coefficients are float64-optimized
 and FROZEN (a trial carries no rigor burden).
 
@@ -157,8 +158,12 @@ CELLCFG = {
     # hulls widen with cell width, so the graded correction
     # channel shrinks superlinearly in theta. MEASURED
     # endpoints: at theta 0.008 the one-sided S_hi excess was
-    # 9.7e-9 (the closed-form float cross-check pins the TRUE
-    # sigma^2 at 8.97e-9, so the excess was pure hull slop); at
+    # 9.7e-9 (the closed-form float cross-check -- COMMITTED as
+    # oneprime_sigma_truecheck.py, round 261 F261-2 -- pins the
+    # TRUE sigma^2 at 8.967e-9, so the excess was pure hull
+    # slop; the theta-0.008 sigma2_hi 1.87e-8 lives in the
+    # key-misattributed checkpoint removed at the round-260
+    # sweep, recoverable at commit 0ecdb7c~1); at
     # theta 0.002 the total remaining sigma^2 slop is 8.8e-10
     # -- an ~11x cut of the total, sufficient by the margin
     # budget, for ~9k extra cells. No exponent is claimed.
@@ -1320,8 +1325,11 @@ def make_fixtures():
         # as oneprime_nfr_scan.py at the round-260 sweep):
         # nfr 3 fails (sigma 1.43e-4); nfr 4 closes (+3.20e-7 at
         # ell2 0.015, max|pt| 108); nfr 5 = +3.38e-7, max|pt|
-        # 888; beyond, the margin gains ~5% per step while the
-        # monomial coefficients grow ~x10^3 per step -- and the
+        # 888; beyond, the margin gains ~5-7% per step while
+        # the monomial coefficients grow roughly an order of
+        # magnitude per step (1.1e2 -> 8.9e2 -> 1.5e4 -> 1.3e6
+        # across the recorded rungs; F261-3 re-swore the earlier
+        # x10^3) -- and the
         # first attempt's nfr = 12 (degree 24, coefficients
         # ~1e15) DESTROYED the norm enclosure by interval-Horner
         # cancellation (nn contained 0). Degree 10 keeps every

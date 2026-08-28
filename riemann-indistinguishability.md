@@ -6030,7 +6030,9 @@ established cells were recomputed value-identically at every
 landing-arc run that reached them — the four even cells six
 times, the three odd cells four, per the committed checkpoint
 census (two runs aborted at the new cell; the five enclosure
-repairs each preceded a fresh run) — every repair flag-gated to
+repairs each preceded a fresh run; two census members —
+superseded states removed at the round-260 sweep as
+key-misattributed — survive in the git history) — every repair flag-gated to
 polynomial trials, so the recorded values could not move, and
 did not. *(v) The
 falsification content.* Because the one-prime form is the full

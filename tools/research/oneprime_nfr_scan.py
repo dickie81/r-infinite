@@ -7,16 +7,22 @@ lands it, unchanged in method, with the recorded output below).
 Measures, at even delta = 1.0, the Temple margin / sigma /
 polynomial-coefficient tradeoff against the count of nu = 3/2
 Gegenbauer modes (poly degree = 2*nfr), on the committed t-space
-pipeline at base 0.005. RECORDED OUTPUT (2026-08-28 session,
-reproduced by running this file; the trial carries no rigor
-burden -- the scan chooses a fixture, it certifies nothing):
+pipeline at base 0.005. CONDENSED DIGEST of the recorded output (2026-08-28 session;
+the numbers reproduce by running this file, whose actual lines
+carry per-row rho, separate 'NFR k deg d: max|pt|' lines
+printed before the ell2 rows, and ell2 = 0.014 rows omitted
+here -- F261-4 re-swore the earlier 'RECORDED OUTPUT' label;
+the trial carries no rigor burden -- the scan chooses a
+fixture, it certifies nothing):
     NFR 3 ell2 0.015: -4.307e-07  sigma 1.433e-04  (fails)
     NFR 4 ell2 0.015: +3.203e-07  sigma 9.604e-05  max|pt| 1.085e+02
     NFR 5 ell2 0.015: +3.376e-07  sigma 9.467e-05  max|pt| 8.880e+02
     NFR 6 ell2 0.015: +3.614e-07  sigma 9.277e-05  max|pt| 1.521e+04
     NFR 8 ell2 0.015: +3.855e-07  sigma 9.080e-05  max|pt| 1.262e+06
-nfr = 5 chosen: past it the margin gains ~5% per step while the
-monomial coefficients grow ~x10^3 per step, and degree 24
+nfr = 5 chosen: past it the margin gains ~5-7% per step (the
+sigma gain ~2% per two degrees) while the monomial coefficients
+grow roughly an order of magnitude per step (1.1e2 -> 8.9e2 ->
+1.5e4 -> 1.3e6 across the recorded rungs), and degree 24
 (nfr 12) had destroyed the norm enclosure outright. The
 pure-harmonic saturation (sigma 1.20e-4, base-independent, vs
 needed 1.19e-4) is the separate harmonic probe recorded in

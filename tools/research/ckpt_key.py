@@ -71,10 +71,19 @@ _KEY_MEMO = {}
 def _memo_id(name, params):
     return name + "|" + json.dumps(params, sort_keys=True)
 
+def _script_sha(script_path, kfun):
+    # round-261 F261-5: the stored "script_sha256" field was
+    # kfun(path, {}) -- a key, not a sha. It is now the honest
+    # per-kfun script hash (nothing consumes the field; the
+    # historical files keep their old values as history).
+    if kfun is code_key:
+        return code_sha(script_path)
+    return hashlib.sha256(open(script_path, "rb").read()).hexdigest()
+
 def load(name, script_path, params, kfun=None):
     kfun = kfun or key
     k = kfun(script_path, params)
-    _KEY_MEMO[_memo_id(name, params)] = (k, kfun(script_path, {}))
+    _KEY_MEMO[_memo_id(name, params)] = (k, _script_sha(script_path, kfun))
     if os.environ.get("CASCADE_COMPUTE") == "fresh":
         print(f"  ckpt [{name}]: FRESH mode -- ignoring any existing state", flush=True)
         return None
@@ -92,7 +101,8 @@ def save(name, script_path, params, state, kfun=None):
     kfun = kfun or key
     memo = _KEY_MEMO.get(_memo_id(name, params))
     if memo is None:
-        memo = (kfun(script_path, params), kfun(script_path, {}))
+        memo = (kfun(script_path, params),
+                _script_sha(script_path, kfun))
     k, ssha = memo
     p = os.path.join(CKDIR, f"{name}_{k[:12]}.json")
     json.dump({"script_sha256": ssha,
