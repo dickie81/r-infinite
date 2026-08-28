@@ -46,55 +46,98 @@ PAPER_NEEDLES literal per member).
 import ast
 import re
 
+def _is_paper_read(n):
+    """open(PAPER, ...).read() -- exactly, no extra args and no
+    extra call layers."""
+    return (isinstance(n, ast.Call) and not n.args and not n.keywords
+            and isinstance(n.func, ast.Attribute)
+            and n.func.attr == "read"
+            and isinstance(n.func.value, ast.Call)
+            and isinstance(n.func.value.func, ast.Name)
+            and n.func.value.func.id == "open"
+            and n.func.value.args
+            and isinstance(n.func.value.args[0], ast.Name)
+            and n.func.value.args[0].id == "PAPER"
+            and all(isinstance(a, (ast.Name, ast.Constant))
+                    for a in n.func.value.args))
+
+
+def _is_norm(n):
+    """norm(X) -- exactly one positional argument."""
+    return (isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+            and n.func.id == "norm" and len(n.args) == 1
+            and not n.keywords)
+
+
+def _is_star_strip(n):
+    """X.replace("**", "") -- exactly."""
+    return (isinstance(n, ast.Call)
+            and isinstance(n.func, ast.Attribute)
+            and n.func.attr == "replace" and not n.keywords
+            and len(n.args) == 2
+            and isinstance(n.args[0], ast.Constant)
+            and n.args[0].value == "**"
+            and isinstance(n.args[1], ast.Constant)
+            and n.args[1].value == "")
+
+
 def var_forms(src):
     """Per-file paper-variable -> form map, derived from the
     ACTUAL read transforms (round-264: a name map alone
     mislabels e.g. quarter_square's raw paper_raw). Recognized
-    assignment styles (the codebase's only ones):
+    assignment shapes (the codebase's only ones):
       X = open(PAPER...).read()                  -> raw
       X = norm(open(PAPER...).read())            -> ws
       X = norm(open(PAPER...).read()).replace("**", "") -> plain
       X = norm(<rawvar>).replace("**", "")       -> plain
       X = re.sub(r"\s+", " ", <rawvar>)         -> ws
       X = <wsvar>.replace("**", "")              -> plain
-    Anything else touching PAPER is left unmapped (every rule
-    $-anchored, round-265 F265-2) -- an unmapped variable's loads
-    are then flagged by the harvester (inside compares) or by the
-    driver's clause (iii) (everywhere else)."""
+    Matching is by EXACT AST shape on module-level single-target
+    assignments (round-266 F266-2/F266-3: the earlier line-regex
+    ladder was fooled by an INFIX mutation inside the greedy
+    open(PAPER...) span, and by a phantom mapping line sitting
+    inside a docstring -- AST shapes admit neither: string
+    content is never scanned, and any extra call layer, argument,
+    or keyword anywhere in the shape fails the match). Anything
+    else touching PAPER is left unmapped -- an unmapped
+    variable's loads are then flagged by the harvester (inside
+    compares) or by the driver's clause (iii) (everywhere
+    else)."""
     out = {}
-    for line in src.split("\n"):
-        m = re.match(r"(\w+) = open\(PAPER.*\.read\(\)\s*$", line)
-        if m:
-            out[m.group(1)] = "raw"
+    for node in ast.parse(src).body:
+        if (not isinstance(node, ast.Assign)
+                or len(node.targets) != 1
+                or not isinstance(node.targets[0], ast.Name)):
             continue
-        # round-265 F265-2: every rule is $-anchored (allowing a
-        # trailing comment) -- a SUFFIXED transform must fail to
-        # match and stay unmapped, so the driver's clause (iii)
-        # flags its loads instead of the precheck evaluating the
-        # declared needles against the wrong text
-        m = re.match(r'(\w+) = norm\(open\(PAPER.*\)\)'
-                     r'\.replace\("\*\*", ""\)\s*(#.*)?$', line)
-        if m:
-            out[m.group(1)] = "plain"
-            continue
-        m = re.match(r"(\w+) = norm\(open\(PAPER.*\)\)\s*(#.*)?$", line)
-        if m:
-            out[m.group(1)] = "ws"
-            continue
-        m = re.match(r'(\w+) = norm\((\w+)\)'
-                     r'\.replace\("\*\*", ""\)\s*(#.*)?$', line)
-        if m and out.get(m.group(2)) == "raw":
-            out[m.group(1)] = "plain"
-            continue
-        m = re.match(r'(\w+) = re\.sub\(r"\\s\+", " ", (\w+)\)'
-                     r'\s*(#.*)?$', line)
-        if m and out.get(m.group(2)) == "raw":
-            out[m.group(1)] = "ws"
-            continue
-        m = re.match(r'(\w+) = (\w+)\.replace\("\*\*", ""\)'
-                     r'\s*(#.*)?$', line)
-        if m and out.get(m.group(2)) == "ws":
-            out[m.group(1)] = "plain"
+        tgt, v = node.targets[0].id, node.value
+        if _is_paper_read(v):
+            out[tgt] = "raw"
+        elif _is_norm(v) and _is_paper_read(v.args[0]):
+            out[tgt] = "ws"
+        elif (_is_star_strip(v) and _is_norm(v.func.value)
+                and _is_paper_read(v.func.value.args[0])):
+            out[tgt] = "plain"
+        elif (_is_star_strip(v) and _is_norm(v.func.value)
+                and isinstance(v.func.value.args[0], ast.Name)
+                and out.get(v.func.value.args[0].id) == "raw"):
+            out[tgt] = "plain"
+        elif (isinstance(v, ast.Call) and not v.keywords
+                and isinstance(v.func, ast.Attribute)
+                and v.func.attr == "sub"
+                and isinstance(v.func.value, ast.Name)
+                and v.func.value.id == "re"
+                and len(v.args) == 3
+                and isinstance(v.args[0], ast.Constant)
+                and v.args[0].value == r"\s+"
+                and isinstance(v.args[1], ast.Constant)
+                and v.args[1].value == " "
+                and isinstance(v.args[2], ast.Name)
+                and out.get(v.args[2].id) == "raw"):
+            out[tgt] = "ws"
+        elif (_is_star_strip(v)
+                and isinstance(v.func.value, ast.Name)
+                and out.get(v.func.value.id) == "ws"):
+            out[tgt] = "plain"
     return out
 
 
@@ -160,17 +203,57 @@ def harvest(tree, vf):
     return reqs, cplx
 
 
+_FORMS = ("raw", "ws", "plain")
+
+
+def valid(d):
+    """The shared schema predicate (round-266 F266-1: check()
+    validated entries but covers() then crashed on the same
+    malformed decl -- both callers now share this). Well-formed:
+    a dict carrying exactly one of a non-empty string "s" or a
+    non-empty list-of-non-empty-strings "seq"; a known form;
+    non-negative int min; int max >= min when present (bools
+    rejected). The non-empty and min<=max clauses also close the
+    round-266 F266-5 degenerate always-pass shapes (empty
+    needle, negative min, s+seq co-presence)."""
+    if not isinstance(d, dict):
+        return False
+    f = d.get("form", "raw")
+    sv, sq = d.get("s"), d.get("seq")
+    lo, hi = d.get("min", 1), d.get("max")
+    if f not in _FORMS:
+        return False
+    if (sv is None) == (sq is None):
+        return False
+    if sv is not None and (not isinstance(sv, str) or not sv):
+        return False
+    if sq is not None and (not isinstance(sq, list) or not sq
+                           or any(not isinstance(x, str) or not x
+                                  for x in sq)):
+        return False
+    if not isinstance(lo, int) or isinstance(lo, bool) or lo < 0:
+        return False
+    if hi is not None and (not isinstance(hi, int)
+                           or isinstance(hi, bool) or hi < lo):
+        return False
+    return True
+
+
 def covers(decl, reqs):
     """Does the declared surface entail every harvested inline
     requirement?  A requirement (s, form, lo, hi) is covered by a
     declared entry with the same s and form whose min >= lo and
     (if hi is not None) whose max == hi.  Returns the uncovered
-    list."""
+    list.  Malformed entries are skipped (round-266 F266-1: they
+    can never cover anything, and check() already reports each of
+    them as a bad-entry miss); a non-list decl covers nothing."""
     unc = []
+    if not isinstance(decl, list):
+        decl = []
     for s, f, lo, hi in reqs:
         ok = False
         for d in decl:
-            if "seq" in d:
+            if not valid(d) or "seq" in d:
                 continue
             if (d["s"] == s and d.get("form", "raw") == f
                     and d.get("min", 1) >= lo
@@ -200,31 +283,18 @@ def check(decl, paper, pre=None):
       present and their FIRST occurrences strictly increasing;
       the miss records the offending index positions."""
     fv = pre if pre is not None else forms(paper)
+    # schema validation (round-264 F264-4; completed round-265
+    # F265-4; shared with covers() round-266 F266-1): a malformed
+    # declaration or entry of ANY shape is a MISS with a reason,
+    # never an uncaught exception inside the precheck
+    if not isinstance(decl, list):
+        return False, [(decl, "bad-decl")]
     misses = []
     for d in decl:
-        # schema validation (round-264 F264-4; completed round-265
-        # F265-4 -- the first version validated only dict entries
-        # and crashed on anything else): a malformed entry of ANY
-        # shape is a MISS with a reason, never an uncaught
-        # exception inside the precheck
-        if not isinstance(d, dict):
+        if not valid(d):
             misses.append((d, "bad-entry"))
             continue
         f = d.get("form", "raw")
-        sv, sq = d.get("s"), d.get("seq")
-        lo, hi = d.get("min", 1), d.get("max")
-        if (f not in fv
-                or (sv is None and sq is None)
-                or (sv is not None and not isinstance(sv, str))
-                or (sq is not None
-                    and (not isinstance(sq, list) or not sq
-                         or any(not isinstance(x, str)
-                                for x in sq)))
-                or not isinstance(lo, int) or isinstance(lo, bool)
-                or (hi is not None and (not isinstance(hi, int)
-                                        or isinstance(hi, bool)))):
-            misses.append((d, "bad-entry"))
-            continue
         body = fv[f]
         if "seq" in d:
             pos = [body.find(s) for s in d["seq"]]
