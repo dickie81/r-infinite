@@ -167,6 +167,12 @@
 "rc": 0,
 "when": "2026-08-28T12:13Z"
 },
+"196f9b2d1c863f9cceb4814f": {
+"dt": 41.445910692214966,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T17:08Z"
+},
 "19d3e8fed873a880b9a63011": {
 "dt": 57.965699911117554,
 "file": "cascade_heatflow_energy.py",
@@ -340,6 +346,12 @@
 "file": "cascade_height_uniformity.py",
 "rc": 0,
 "when": "2026-08-27T20:26Z"
+},
+"360fb94485c2a4174b536e4e": {
+"dt": 116.0350501537323,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T17:08Z"
 },
 "373e3d5fd83fa2c95f39128c": {
 "dt": 4.0196661949157715,
@@ -646,6 +658,12 @@
 "file": "cascade_weil_margin.py",
 "rc": 0,
 "when": "2026-08-28T08:22Z"
+},
+"63343eb22022cd8f59c79a17": {
+"dt": 278.68404364585876,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T17:08Z"
 },
 "64521bd31c335ac1bb86258f": {
 "dt": 6.734421730041504,
