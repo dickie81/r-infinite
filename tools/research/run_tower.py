@@ -197,10 +197,22 @@ def _imports_of(rel):
     d = os.path.dirname(os.path.join(HERE, rel)) or HERE
     out = set()
     for m in mods:
+        # round-269 F269-3: dotted local imports resolve as path
+        # segments -- the old `m + ".py"` probe never existed for
+        # `import pkg.helper`, so a package-housed helper escaped
+        # BOTH the precheck scan and the cache key (a demonstrated
+        # stale-PASS channel against paper AND code edits). Every
+        # module file and every package __init__.py on the dotted
+        # path joins the reach.
+        parts = m.split(".")
         for root in {d} | set(CODE_ROOTS):
-            pth = os.path.join(root, m + ".py")
-            if os.path.exists(pth):
-                out.add(os.path.relpath(pth, HERE))
+            cands = [os.path.join(root, *parts) + ".py"]
+            for i in range(1, len(parts) + 1):
+                cands.append(os.path.join(root, *parts[:i],
+                                          "__init__.py"))
+            for pth in cands:
+                if os.path.exists(pth):
+                    out.add(os.path.relpath(pth, HERE))
     _IMP_MEMO[rel] = out
     return out
 
@@ -265,8 +277,10 @@ def member_reach(name):
 #        name PAPER sits inside a var_forms-recognized creation
 #        assignment -- so a function-wrapped, re-encoded,
 #        suffixed, or non-Assign-bound read is flagged at the
-#        read itself, and with clause (iv) no route to the
-#        paper's bytes exists outside a declared surface.
+#        read itself (scope per the clause-site comment: drift
+#        detection over routes spelled through PAPER or the
+#        filename, not a semantic closure -- round-269 F269-4
+#        re-swore this entry too).
 # With these holding, a paper edit either flips a declared needle
 # -- failing this precheck before any cached PASS is served -- or
 # changes no declared surface; PAPER_SHA stays out of the member
@@ -336,7 +350,15 @@ def _precheck_file(rel):
     # a second binding of a mapped name (paper = paper[:N],
     # paper = "...", a loop target, a walrus) is flagged at the
     # binding, so no downstream compare can run against text the
-    # precheck did not evaluate
+    # precheck did not evaluate. Scope (round-269 F269-5): the
+    # clause sees ast.Name Store/Del nodes; binding forms with
+    # no Name node (except-as, import aliases, class/def
+    # statements, parameters, match captures) are unflagged --
+    # fail-safe, because none of them can carry paper-derived
+    # content (any transform feeding them loads a paper var or
+    # PAPER outside sanction, tripping clauses iii/v), so a
+    # hollowed runtime mirror still leaves every declared needle
+    # live-enforced by this precheck.
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Name)
                 and node.id in paper_vars
@@ -400,21 +422,57 @@ def _precheck_file(rel):
     for s, f_, lo, hi in paper_needles.covers(decl, reqs):
         out.append(f"{rel}: inline compare not covered by the "
                    f"declaration: ({s!r}, {f_}, {lo}, {hi})")
-    # clause (iii): residual paper-var loads. A check() call is
-    # sanctioned ONLY when its entries argument is the declared
-    # surface itself -- the bare name PAPER_NEEDLES or a
-    # comprehension filtering it (round-268 F268-2: the blanket
-    # sanction admitted paper_needles.check([undeclared literal],
-    # papervar), a paper conjunct the driver never re-verifies;
-    # any other argument shape now fails the precheck)
+    # clause (iii): residual paper-var loads. A check()/forms()
+    # call is sanctioned ONLY when EVERY argument position is the
+    # exact committed shape (round-268 F268-2 policed the entries
+    # argument alone; round-269 F269-1/F269-2 demonstrated both
+    # remaining channels as stale-PASS constructions -- an
+    # arbitrary transform in the TEXT position or pre= keyword,
+    # and an arbitrary elt smuggled through the comprehension):
+    #   - check entries: the bare name PAPER_NEEDLES, or a
+    #     single-generator comprehension over it whose ELEMENT is
+    #     the bare generator target (filters allowed);
+    #   - check/forms text: a bare Name mapped "raw" by
+    #     var_forms (the census: every committed site passes the
+    #     file's raw read variable);
+    #   - keywords: only pre=, a bare Name assigned from
+    #     paper_needles.forms; nothing else.
+    # Any other shape fails the precheck with a named diagnostic.
     def _decl_arg(a):
         if isinstance(a, _ast.Name):
             return a.id == "PAPER_NEEDLES"
         if isinstance(a, (_ast.ListComp, _ast.GeneratorExp)):
-            return (len(a.generators) == 1
-                    and isinstance(a.generators[0].iter, _ast.Name)
-                    and a.generators[0].iter.id == "PAPER_NEEDLES")
+            g_ = a.generators[0] if len(a.generators) == 1 else None
+            return (g_ is not None
+                    and isinstance(g_.iter, _ast.Name)
+                    and g_.iter.id == "PAPER_NEEDLES"
+                    and isinstance(g_.target, _ast.Name)
+                    and isinstance(a.elt, _ast.Name)
+                    and a.elt.id == g_.target.id)
         return False
+
+    def _raw_text_arg(a):
+        return (isinstance(a, _ast.Name)
+                and vf.get(a.id) == "raw")
+
+    _forms_vars = paper_vars - set(vf)
+
+    def _call_ok(node):
+        if node.func.attr == "forms":
+            return (len(node.args) == 1 and not node.keywords
+                    and _raw_text_arg(node.args[0]))
+        if not node.args or not _decl_arg(node.args[0]):
+            return False
+        if len(node.args) > 2:
+            return False
+        if len(node.args) == 2 and not _raw_text_arg(node.args[1]):
+            return False
+        for k in node.keywords:
+            if (k.arg != "pre"
+                    or not isinstance(k.value, _ast.Name)
+                    or k.value.id not in _forms_vars):
+                return False
+        return True
 
     sanctioned = set()
     for node in _ast.walk(tree):
@@ -423,12 +481,11 @@ def _precheck_file(rel):
                 and getattr(node.func.value, "id", "")
                 == "paper_needles"
                 and node.func.attr in ("check", "forms")):
-            if (node.func.attr == "check"
-                    and (not node.args
-                         or not _decl_arg(node.args[0]))):
-                out.append(f"{rel}: paper_needles.check on a "
-                           f"non-declared entries argument at "
-                           f"line {node.lineno} (clause iii)")
+            if not _call_ok(node):
+                out.append(f"{rel}: paper_needles."
+                           f"{node.func.attr} with a non-committed"
+                           f" argument shape at line {node.lineno}"
+                           f" (clause iii)")
                 continue
             for sub in _ast.walk(node):
                 sanctioned.add(id(sub))
