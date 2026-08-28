@@ -6025,11 +6025,13 @@ the round-248 review sweep with every margin held or improved,
 the third stage twice more across the subsequent sweeps —
 value-identically on every recomputed cell — and the whole
 chain once more at the round-252 rotation, value-identically
-on every row and cell; at the even-1.0 landing the seven
-established cells were recomputed value-identically five more
-times, once per enclosure-width repair of the new cell (every
+on every row and cell; at the even-1.0 landing the
+established cells were recomputed value-identically at every
+landing-arc run that reached them — the four even cells five
+times, the three odd cells four (the first run aborted at the
+new cell), one run per enclosure repair of the new cell — every
 repair flag-gated to polynomial trials, so the recorded values
-could not move — and did not). *(v) The
+could not move, and did not. *(v) The
 falsification content.* Because the one-prime form is the full
 functional below log 3, a certified negative eigenvalue at any
 of these cells would have disproved the Riemann Hypothesis
