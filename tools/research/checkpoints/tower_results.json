@@ -161,11 +161,23 @@
 "rc": 0,
 "when": "2026-08-28T10:31Z"
 },
+"286736ad866363213a6d3220": {
+"dt": 28.090632677078247,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T11:09Z"
+},
 "29f716262914d4771871af60": {
 "dt": 6.987239599227905,
 "file": "cascade_fluctuation_price.py",
 "rc": 0,
 "when": "2026-08-27T20:26Z"
+},
+"2cdf9fb7449369034e1c0ac4": {
+"dt": 53.283732414245605,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T11:16Z"
 },
 "2ed5c5b646cb3b4caa8276dd": {
 "dt": 839.8396284580231,
@@ -203,6 +215,12 @@
 "rc": 0,
 "when": "2026-08-28T09:40Z"
 },
+"377d34ed25e9aff20080cf65": {
+"dt": 43.025755882263184,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T11:16Z"
+},
 "37a0ddbc30af15ddb863ab0b": {
 "dt": 343.26848435401917,
 "file": "cascade_floor_meter.py",
@@ -220,6 +238,12 @@
 "file": "cascade_li_two_channels.py",
 "rc": 0,
 "when": "2026-08-27T20:16Z"
+},
+"390d17531e69483a9adc5e3f": {
+"dt": 83.17332649230957,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T11:09Z"
 },
 "3927ee8cb90df008a40f374a": {
 "dt": 54.406545877456665,
@@ -905,6 +929,12 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"e181af739a774ad223210589": {
+"dt": 338.4894518852234,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T11:16Z"
+},
 "e185d65f7c87c4f02af7e930": {
 "dt": 4.525518178939819,
 "file": "cascade_height_uniformity.py",
@@ -916,6 +946,12 @@
 "file": "cascade_weil_crossover.py",
 "rc": 0,
 "when": "2026-08-27T19:47Z"
+},
+"e29e738baa8f855e03340363": {
+"dt": 169.74807238578796,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T11:16Z"
 },
 "e3f6731e7adc5112d09f89d5": {
 "dt": 393.41040658950806,
@@ -959,6 +995,12 @@
 "rc": 0,
 "when": "2026-08-27T20:46Z"
 },
+"f2b2e0c5f80a38d9bfa1aba7": {
+"dt": 557.3350417613983,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T11:16Z"
+},
 "f2b80f414f65d7afb5d67845": {
 "dt": 843.8799901008606,
 "file": "cascade_prolate_horizon.py",
@@ -982,6 +1024,12 @@
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
 "when": "2026-08-27T19:46Z"
+},
+"f77814912cd54ef329587838": {
+"dt": 175.80147862434387,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T11:09Z"
 },
 "f7ddce52c173ad6cf588a898": {
 "dt": 5.045531272888184,
