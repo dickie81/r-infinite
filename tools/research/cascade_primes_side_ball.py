@@ -87,6 +87,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 PART0 = os.path.join(HERE, "..", "..", "src", "cascade-series-part0.tex")
 paper = open(PAPER, encoding="utf-8").read()
+
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+import paper_needles
+PAPER_NEEDLES = [
+    {'g': 'g13', 's': '**Theorem 1as (the ball from the primes: roundness selected by'},
+    {'g': 'g13', 's': "Roundness is selected by the primes' self-duality requirement"},
+    {'g': 'g13', 's': 'a pure product state over the primes admits'},
+    {'g': 'g13', 's': 'exact cancellation requires fairness'},
+    {'g': 'g13', 's': '0.808517'},
+    {'g': 'g13', 's': '0.650830'},
+    {'g': 'g13', 's': 'physics realizes the statistical theorem; only the completed'},
+    {'g': 'g13', 's': 'either obstruction kills self-duality at'},
+    {'g': 'g13', 's': 'Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH'},
+    {'g': 'g13', 's': '114.163342…i'},
+    {'g': 'g13', 's': "§3's Theorem 1e, the A1 dynamics block"},
+    {'g': 'g13', 's': 'Theorem 2 fixes its occupant in two steps:'},
+    {'g': 'g13', 's': 'The free commutative monoid on'},
+    {'g': 'g13', 's': "enters part0's invariant I₀ = Ω₁₉ × Ω₂₁₇ ≈ 1.2051×10⁻¹²⁰"},
+    {'g': 'g15', 's': '`cascade_primes_side_ball.py`', 'min': 2},
+    {'g': 'g15', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g15', 's': 'extended by Theorems 1i–1bj:'},
+    {'g': 'g11', 's': 'p(d) = (log Γ_ℝ)′(d+1)'},
+    {'g': 'g12', 's': 'THE FOLLOWING ARE DECLARED CONJECTURES,'},
+    {'g': 'g12', 's': 'the classic Λ ~ 1/N² coincidence rebranded'},
+    {'g': 'g12', 's': 'N²·(Λℓ²_Pl) = 1.88 and S_dS/N² = 5.0'},
+]
 part0 = open(PART0, encoding="utf-8").read()
 
 fails = []
@@ -301,7 +328,9 @@ for d in range(1, 11):
     closed = -log(pi)/2 + digamma(0, (mpf(d)+1)/2)/2
     ok &= abs(numeric - closed) < mpf(10)**-15
 ok &= r"p(d) = -\tfrac{1}{2}\ln\pi" in part0
-ok &= "p(d) = (log Γ_ℝ)′(d+1)" in paper
+_ok11, _m11 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g11"], paper)
+ok &= _ok11
 gate("g11 the CC identity: part0's p(d) == (log Gamma_R)'(d+1), source-anchored", ok)
 
 # ---------------------------------------------------------------- g12
@@ -316,35 +345,20 @@ ok &= abs(math.sqrt(S)/N - 2.24) < 0.02
 ok &= abs(N*N/S - 0.20) < 0.01
 p_max = math.sqrt(S)*(math.log(math.sqrt(S)) + math.log(math.log(math.sqrt(S))))
 ok &= 2.5e63 < p_max < 2.8e63
-ok &= "THE FOLLOWING ARE DECLARED CONJECTURES," in paper
-ok &= "the classic Λ ~ 1/N² coincidence rebranded" in paper
-ok &= "N²·(Λℓ²_Pl) = 1.88 and S_dS/N² = 5.0" in paper
+_ok12, _m12 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g12"], paper)
+ok &= _ok12
 gate("g12 conjecture-block arithmetic gated, paper values pinned, fence and "
      "caveat needles present", ok)
 
 # ---------------------------------------------------------------- g13
-needles = [
-    "**Theorem 1as (the ball from the primes: roundness selected by",
-    "Roundness is selected by the primes' self-duality requirement",
-    "a pure product state over the primes admits",
-    "exact cancellation requires fairness",
-    "0.808517",
-    "0.650830",
-    "physics realizes the statistical theorem; only the completed",
-    # round-189 repair needles
-    "either obstruction kills self-duality at",
-    "Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH",
-    "114.163342…i",
-    "§3's Theorem 1e, the A1 dynamics block",
-    "Theorem 2 fixes its occupant in two steps:",
-    "The free commutative monoid on",
-    "enters part0's invariant I₀ = Ω₁₉ × Ω₂₁₇ ≈ 1.2051×10⁻¹²⁰",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g13 MISSING: {nd!r}")
-gate("g13 the 1as paper needles", ok)
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g13"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g13 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g13 the 1as paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g14
 sys.path.insert(0, HERE)
@@ -353,9 +367,11 @@ gate("g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met",
      chain_ok("cascade_lattice_forcing.py"))
 
 # ---------------------------------------------------------------- g15
-ok = paper.count("`cascade_primes_side_ball.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g15"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g15 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g15 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 

@@ -74,6 +74,21 @@ from crossing_probe import run as run_cx
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g12', 's': 'Theorem 1bi (the floor law derived', 'form': 'plain'},
+    {'g': 'g12', 's': 'the leakage identity', 'form': 'plain'},
+    {'g': 'g12', 's': 'one complex vanishing condition is two real constraints', 'form': 'plain'},
+    {'g': 'g12', 's': 'the LW slow decline are indistinguishable at measured precision', 'form': 'plain'},
+    {'g': 'g12', 's': 'flat modulo the budget drift', 'form': 'plain'},
+    {'g': 'g12', 's': 'conspiracy detectors', 'form': 'plain'},
+    {'g': 'g12', 's': 'no RH leverage claimed', 'form': 'plain'},
+    {'s': '`cascade_floor_theory.py`', 'min': 2, 'g': 'g12'},
+    {'s': 'the **86 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
+    {'s': 'extended by Theorems 1i–1bj:', 'form': 'ws', 'g': 'g12'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -192,26 +207,13 @@ gate("g11 the chain obligation to cascade_height_uniformity.py "
 
 # --------------------------------------------------------------- g12
 import re
-normp = re.sub(r"\s+", " ", paper)
-plain = normp.replace("**", "")
-needles = [
-    "Theorem 1bi (the floor law derived",
-    "the leakage identity",
-    "one complex vanishing condition is two real constraints",
-    "the LW slow decline are indistinguishable at measured precision",
-    "flat modulo the budget drift",
-    "conspiracy detectors",
-    "no RH leverage claimed",
-]
-ok = all(nd in plain for nd in needles)
-for nd in needles:
-    if nd not in plain:
-        print(f"  g12 MISSING: {nd!r}", flush=True)
-ok &= paper.count("`cascade_floor_theory.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in normp
-ok &= "extended by Theorems 1i–1bj:" in normp
-gate("g12 the 1bi paper needles and the footer census (backticked "
-     ">= 2; the anchored count and range needles)", ok)
+import paper_needles
+ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+for _d, _n in _miss:
+    print(f"  g12 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g12 the 1bi paper needles and the footer census "
+     "(backticked >= 2; the anchored count and range needles) "
+     "(declared surface)", ok)
 
 print(("\nALL GATES PASS (13/13)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

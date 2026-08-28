@@ -150,6 +150,26 @@ from zeta_zeros_cache import zeros_im
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g8', 's': '**Theorem 1bc (the nulls and the fluctuation price'},
+    {'g': 'g8', 's': 'the count-matched rigid comb'},
+    {'g': 'g8', 's': 'fluctuations make dodging cheaper'},
+    {'g': 'g8', 's': 'count-conditioned CUE'},
+    {'g': 'g8', 's': 'the zeta stiffness excess'},
+    {'g': 'g8', 's': 'positive at every point'},
+    {'g': 'g8', 's': 'comb above zeta above CUE'},
+    {'g': 'g8', 's': 'the count-sensitivity calibration'},
+    {'g': 'g8', 's': 'the pure-concentration null'},
+    {'g': 'g8', 's': 'an excess shared by every discrete configuration measured'},
+    {'g': 'g8', 's': 'concentration economics, not a hidden wall'},
+    {'g': 'g8', 's': 'the third instrument on the low-height rigidity anomaly'},
+    {'g': 'g10', 's': '`cascade_fluctuation_price.py`', 'min': 2},
+    {'g': 'g10', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g10', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -503,25 +523,14 @@ gate("g7 the pure-concentration null: the certified edges sit far beyond "
      "counting, and dodging beats concentration below lift-off", ok)
 
 # ---------------------------------------------------------------- g8
-needles = [
-    "**Theorem 1bc (the nulls and the fluctuation price",
-    "the count-matched rigid comb",
-    "fluctuations make dodging cheaper",
-    "count-conditioned CUE",
-    "the zeta stiffness excess",
-    "positive at every point",
-    "comb above zeta above CUE",
-    "the count-sensitivity calibration",
-    "the pure-concentration null",
-    "an excess shared by every discrete configuration measured",
-    "concentration economics, not a hidden wall",
-    "the third instrument on the low-height rigidity anomaly",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g8 MISSING: {nd!r}", flush=True)
-gate("g8 the 1bc paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g8"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g8 the 1bc paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g9
 sys.path.insert(0, HERE)
@@ -530,9 +539,11 @@ gate("g9 the chain obligation to cascade_prolate_horizon.py (Theorem 1bb) "
      "met", chain_ok("cascade_prolate_horizon.py"))
 
 # ---------------------------------------------------------------- g10
-ok = paper.count("`cascade_fluctuation_price.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g10"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g10 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g10 the footer census (this script backticked >= 2; the anchored "
      "count and range needles)", ok)
 

@@ -121,6 +121,23 @@ from witness_twosided import landing_stage
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g13', 's': 'Theorem 1bf (the two-sided witness', 'form': 'plain'},
+    {'g': 'g13', 's': 'section-level Weil positivity', 'form': 'plain'},
+    {'g': 'g13', 's': 'the prime term cancels the archimedean', 'form': 'plain'},
+    {'g': 'g13', 's': 'the truncation-tail discovery', 'form': 'plain'},
+    {'g': 'g13', 's': 'The collision injection', 'form': 'plain'},
+    {'g': 'g13', 's': 'millionths of the critical line', 'form': 'plain'},
+    {'g': 'g13', 's': 'no RH leverage claimed', 'form': 'plain'},
+    {'g': 'g13', 's': 'core-local and collapses off-center', 'form': 'plain'},
+    {'g': 'g13', 's': 'outside the probed collision topology', 'form': 'plain'},
+    {'s': '`cascade_twosided_witness.py`', 'min': 2, 'g': 'g13'},
+    {'s': 'the **86 scripts cited in place** above', 'form': 'ws', 'g': 'g13'},
+    {'s': 'extended by Theorems 1i–1bj:', 'form': 'ws', 'g': 'g13'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -241,28 +258,13 @@ gate("g12 the chain obligation to cascade_prime_budget_fold.py "
 
 # --------------------------------------------------------------- g13
 import re
-normp = re.sub(r"\s+", " ", paper)
-plain = normp.replace("**", "")
-needles = [
-    "Theorem 1bf (the two-sided witness",
-    "section-level Weil positivity",
-    "the prime term cancels the archimedean",
-    "the truncation-tail discovery",
-    "The collision injection",
-    "millionths of the critical line",
-    "no RH leverage claimed",
-    "core-local and collapses off-center",       # round-229 F1 sweep
-    "outside the probed collision topology",     # round-229 F2 sweep
-]
-ok = all(nd in plain for nd in needles)
-for nd in needles:
-    if nd not in plain:
-        print(f"  g13 MISSING: {nd!r}", flush=True)
-ok &= paper.count("`cascade_twosided_witness.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in normp
-ok &= "extended by Theorems 1i–1bj:" in normp
-gate("g13 the 1bf paper needles and the footer census (backticked >= 2; "
-     "the anchored count and range needles)", ok)
+import paper_needles
+ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+for _d, _n in _miss:
+    print(f"  g13 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g13 the 1bf paper needles and the footer census "
+     "(backticked >= 2; the anchored count and range needles) "
+     "(declared surface)", ok)
 
 print(("\nALL GATES PASS (14/14)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

@@ -140,6 +140,23 @@ from fold_surrogate import run_fold
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+import paper_needles
+PAPER_NEEDLES = [
+    {'g': 'g12', 's': 'Theorem 1be (the fold', 'form': 'plain'},
+    {'g': 'g12', 's': "the primes' budget", 'form': 'plain'},
+    {'g': 'g12', 's': 'the sawtooth constant 1/6', 'form': 'plain'},
+    {'g': 'g12', 's': 'ln ln(T/2π) + Mertens + 1', 'form': 'plain'},
+    {'g': 'g12', 's': 'the non-Gaussian remainder', 'form': 'plain'},
+    {'g': 'g12', 's': 'every point positive', 'form': 'plain'},
+    {'g': 'g12', 's': 'count-conditioned per the certified 1bc protocol', 'form': 'plain'},
+    {'s': '`cascade_prime_budget_fold.py`', 'min': 2, 'g': 'g12'},
+    {'s': 'the **86 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
+    {'s': 'extended by Theorems 1i–1bj:', 'form': 'ws', 'g': 'g12'},
+    {'g': 'g10', 's': '+0.710 ± 0.086'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -302,8 +319,10 @@ gate("g15 the fully-matched control (round-227 F2): the determinantal "
      ">= 7/10 points positive) -- not a convention artifact", ok)
 
 # ---------------------------------------------------------------- g10
+_ok10, _m10 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g10"], paper)
 gate("g10 the 1bc consistency: the certified headline needle in the "
-     "paper", "+0.710 ± 0.086" in paper)
+     "paper (declared surface)", _ok10)
 
 # ---------------------------------------------------------------- g11
 from cascade_tower import chain_ok
@@ -312,26 +331,12 @@ gate("g11 the chain obligation to cascade_sonin_dirac.py (Theorem 1bd) "
 
 # ---------------------------------------------------------------- g12
 import re
-normp = re.sub(r"\s+", " ", paper)
-plain = normp.replace("**", "")
-needles = [
-    "Theorem 1be (the fold",
-    "the primes' budget",
-    "the sawtooth constant 1/6",
-    "ln ln(T/2π) + Mertens + 1",
-    "the non-Gaussian remainder",
-    "every point positive",
-    "count-conditioned per the certified 1bc protocol",
-]
-ok = all(nd in plain for nd in needles)
-for nd in needles:
-    if nd not in plain:
-        print(f"  g12 MISSING: {nd!r}", flush=True)
-ok &= paper.count("`cascade_prime_budget_fold.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in normp
-ok &= "extended by Theorems 1i–1bj:" in normp
-gate("g12 the 1be paper needles and the footer census (backticked >= 2; "
-     "the anchored count and range needles)", ok)
+ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+for _d, _n in _miss:
+    print(f"  g12 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g12 the 1be paper needles and the footer census "
+     "(backticked >= 2; the anchored count and range needles) "
+     "(declared surface)", ok)
 
 print(("\nALL GATES PASS (16/16)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

@@ -4,79 +4,79 @@
  "tower": [
   {
    "file": "cascade_lattice_forcing.py",
-   "sha256": "f85d525e7d4568db5d8dfb6c39bc711345572f84415da2ec88132e62f701b333"
+   "sha256": "78a406b4f7d26b00b03db74481dcf13a897a8a11ea6043b6334402d161726e5c"
   },
   {
    "file": "cascade_primes_side_ball.py",
-   "sha256": "569445048f94bac67e8cea0b5fad713adc6a21f72e571fbe31f8fa2eb3a737b0"
+   "sha256": "86c31cd07d23ca9b66a2d66562fbe73176b6702388295aabe5ba1660d0655483"
   },
   {
    "file": "cascade_finite_fill.py",
-   "sha256": "e1966cc2f407f479eb930f134903ff9feb3550b59d2adfa572b0e168db94f5f3"
+   "sha256": "d621250773a0db6e13694cfa3c365b7ff89086ebf2fec21ff96457a89c077ec0"
   },
   {
    "file": "cascade_attraction_margins.py",
-   "sha256": "4335f2cf44c16d6f83a1111407f93ab464b6645a07a970ee6029507247c6fe63"
+   "sha256": "da407f9659815714ddcbb76882fcd587655e80ef9412e03a8b2b401e231866e1"
   },
   {
    "file": "cascade_li_two_channels.py",
-   "sha256": "17b6edb65b7e9563c23d048a65dd7d6b3bdae15184388ea385f8b4dd307203c2"
+   "sha256": "61f467fbdb8b8200f64fd534d7f344a57a54561d3a7facd952968d87d914235e"
   },
   {
    "file": "cascade_floor_meter.py",
-   "sha256": "4e42c7b9dde4971cdf4fc274dbf3c1646bbcb3d3e5e4393866e5e247ef032618"
+   "sha256": "64b27d07791549640043f73252c5260b76a8fa47d9447205126174b9e69be1dc"
   },
   {
    "file": "cascade_heatflow_energy.py",
-   "sha256": "59d6436e5bebd4b54788ae42d1ef3a52c0aa054c1fa2f7b120638e3af24f0abd"
+   "sha256": "3c625a50fb671b6dc770ce7f477682e67de3f95202d0bb3898799350fef4d1d0"
   },
   {
    "file": "cascade_saddle_curvature.py",
-   "sha256": "c2e2ce0918bc4c120ffbbb5a027653b5f7dfc4732355dab7065cf3b3a720cae7"
+   "sha256": "d2e475c7757a3e0aec1d619bcac74b78631f1c3303acf95341ee0fa889c94f09"
   },
   {
    "file": "cascade_weil_margin.py",
-   "sha256": "aa06591d16ec82907941f4d73770e5fea110e89a8fc552521fb4391ee87db5eb"
+   "sha256": "098e8c33cb17fe0cbda533c6cb6c359ae045c24a0244f94f46eda1ec8dfded6f"
   },
   {
    "file": "cascade_weil_crossover.py",
-   "sha256": "0dbbcf8325d619d74aafad2e4081293415a86528e58a81ed1759eb6035dd445c"
+   "sha256": "9ec84fa540189f0b04b244e17bd82dc8812c76c82bb3906daefdce4371c3e897"
   },
   {
    "file": "cascade_prolate_horizon.py",
-   "sha256": "2cd181b076624c50b477f2b924bc22e4d8bd145b1a2caa0013555026ce7e5d95"
+   "sha256": "b1000f04310357af791b19e66a6c316333b66f27de5fe991ffecb1466c4e8ac8"
   },
   {
    "file": "cascade_fluctuation_price.py",
-   "sha256": "c5be5a1b92898b625281f7aebaea9e4387d568ad08da1d9904961124844b649d"
+   "sha256": "d54c07489ccc1a26fbfcf0aa88e04b2fb8d5dd0d5ef2254d3fb7b1f7cf6252cf"
   },
   {
    "file": "cascade_sonin_dirac.py",
-   "sha256": "e590f8540ada80753e713e3fe8c3ae77b80d634e8ed0177fc0fcc696dec81c15"
+   "sha256": "f755af2ddcba88e6d666ba873d31088210fb82946fcbc3ad76bb66e641237952"
   },
   {
    "file": "cascade_prime_budget_fold.py",
-   "sha256": "f13e9d596e1401d878199cf93bbd84a606c28ea5203c4fb876df0b2ca80b4fc8"
+   "sha256": "434e345bc8ecb4f9770ed7f3d90a49fb4243b1db4d1c98d6f330fea7a342a1ed"
   },
   {
    "file": "cascade_twosided_witness.py",
-   "sha256": "6f3730c265e0b7c5ed3a91a34977fcc18a164485ecc3763fb4a2b810ba81622e"
+   "sha256": "af4c4ca8ddf1fe44ca93e24c21b491c7c217f382f45ffe70e959d762c3857665"
   },
   {
    "file": "cascade_floor_closure.py",
-   "sha256": "b2b162680b32521396776b2d60e3cecb74d3af237bf399fab48340984dd3dded"
+   "sha256": "d90e26ca2a98381b34772df5d88493ebdd9b74812c370f136332352257daaad3"
   },
   {
    "file": "cascade_height_uniformity.py",
-   "sha256": "d78be8723dfd75168fecff3ec1b9384aaed09dfce109724d1ba2c33affc8f465"
+   "sha256": "8ac09897eb2edcbd9fb7bb999a2d861adbb2b9392b139cb9c95f220076eb4da3"
   },
   {
    "file": "cascade_floor_theory.py",
-   "sha256": "2a9129c41d1f747219e062c41902064ef99736c1f2626401c1f927945ba2fa5b"
+   "sha256": "840d9fc3842a92a8ec2f3987cccaf107bb64f682ca8539a133766d6c402494c0"
   },
   {
    "file": "cascade_oneprime_interval.py",
-   "sha256": "b2c63f19f9f635ca80e54f657972c150c86fc63ff0d05db7f481de1b22975da7"
+   "sha256": "52aa6b091b2d1798acc60076f61a2ede319d3c621ab6613166172d4740fa8177"
   }
  ]
 }

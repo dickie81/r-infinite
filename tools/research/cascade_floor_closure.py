@@ -125,6 +125,21 @@ from floor_landing import load_or_run
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g14', 's': 'Theorem 1bg (the floor arc', 'form': 'plain'},
+    {'g': 'g14', 's': 'the floor law', 'form': 'plain'},
+    {'g': 'g14', 's': 'the pinning count is the Shannon number', 'form': 'plain'},
+    {'g': 'g14', 's': 'the plain windowed explicit formula seen through that', 'form': 'plain'},
+    {'g': 'g14', 's': 'the horizon mismatch, entirely', 'form': 'plain'},
+    {'g': 'g14', 's': 'a derived quantity, not an observation', 'form': 'plain'},
+    {'g': 'g14', 's': 'no RH leverage claimed', 'form': 'plain'},
+    {'s': '`cascade_floor_closure.py`', 'min': 2, 'g': 'g14'},
+    {'s': 'the **86 scripts cited in place** above', 'form': 'ws', 'g': 'g14'},
+    {'s': 'extended by Theorems 1i–1bj:', 'form': 'ws', 'g': 'g14'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -257,26 +272,13 @@ gate("g13 the chain obligation to cascade_twosided_witness.py "
 
 # --------------------------------------------------------------- g14
 import re
-normp = re.sub(r"\s+", " ", paper)
-plain = normp.replace("**", "")
-needles = [
-    "Theorem 1bg (the floor arc",
-    "the floor law",
-    "the pinning count is the Shannon number",
-    "the plain windowed explicit formula seen through that",
-    "the horizon mismatch, entirely",
-    "a derived quantity, not an observation",
-    "no RH leverage claimed",
-]
-ok = all(nd in plain for nd in needles)
-for nd in needles:
-    if nd not in plain:
-        print(f"  g14 MISSING: {nd!r}", flush=True)
-ok &= paper.count("`cascade_floor_closure.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in normp
-ok &= "extended by Theorems 1i–1bj:" in normp
-gate("g14 the 1bg paper needles and the footer census (backticked "
-     ">= 2; the anchored count and range needles)", ok)
+import paper_needles
+ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+for _d, _n in _miss:
+    print(f"  g14 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g14 the 1bg paper needles and the footer census "
+     "(backticked >= 2; the anchored count and range needles) "
+     "(declared surface)", ok)
 
 print(("\nALL GATES PASS (15/15)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

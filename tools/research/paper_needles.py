@@ -54,11 +54,26 @@ def forms(paper):
 
 def check(decl, paper, pre=None):
     """Evaluate declared needles. Returns (ok, misses); misses
-    entries are (needle-dict, observed-count)."""
+    entries are (needle-dict, observed-count).
+
+    Entry kinds:
+    - {"s": needle, "form": F, "min": m, "max": M} -- count
+      bounds, as documented above.
+    - {"seq": [n1, n2, ...], "form": F} -- a SKELETON CHAIN
+      (the lattice_forcing round-187 position gate): every ni
+      present and their FIRST occurrences strictly increasing;
+      the miss records the offending index positions."""
     fv = pre if pre is not None else forms(paper)
     misses = []
     for d in decl:
         body = fv[d.get("form", "raw")]
+        if "seq" in d:
+            pos = [body.find(s) for s in d["seq"]]
+            okd = all(p >= 0 for p in pos) and \
+                all(a < b for a, b in zip(pos, pos[1:]))
+            if not okd:
+                misses.append((d, pos))
+            continue
         n = body.count(d["s"])
         lo = d.get("min", 1)
         hi = d.get("max")

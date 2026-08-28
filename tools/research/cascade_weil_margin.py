@@ -105,6 +105,25 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g7', 's': '**Theorem 1az (the Weil margin and its rate law:'},
+    {'g': 'g7', 's': 'built purely from primes and Γ-data'},
+    {'g': 'g7', 's': 'the positivity is POLE-CARRIED'},
+    {'g': 'g7', 's': 'the uniform dodger'},
+    {'g': 'g7', 's': 'ε(n, δ) ≈ C(m, δ)·10^(−c(δ)·n)'},
+    {'g': 'g7', 's': 'the rate is intrinsic'},
+    {'g': 'g7', 's': 'the dodging horizon'},
+    {'g': 'g7', 's': 'the horizon 2πe^δ'},
+    {'g': 'g7', 's': 'the cushion is now a measured curve'},
+    {'g': 'g7', 's': 'noted, not leaned on'},
+    {'g': 'g7', 's': 'no certificate of strict positivity at any fixed finite level'},
+    {'g': 'g9', 's': '`cascade_weil_margin.py`', 'min': 2},
+    {'g': 'g9', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g9', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -390,24 +409,14 @@ gate("g6 the two-sided pins: the minimizer-adapted tails pin the n = 20 "
      "SECTION margins (0.9 essentially exactly; 1.4 ceiling below 1e-12)", ok)
 
 # ---------------------------------------------------------------- g7
-needles = [
-    "**Theorem 1az (the Weil margin and its rate law:",
-    "built purely from primes and Γ-data",
-    "the positivity is POLE-CARRIED",
-    "the uniform dodger",
-    "ε(n, δ) ≈ C(m, δ)·10^(−c(δ)·n)",
-    "the rate is intrinsic",
-    "the dodging horizon",
-    "the horizon 2πe^δ",
-    "the cushion is now a measured curve",
-    "noted, not leaned on",
-    "no certificate of strict positivity at any fixed finite level",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g7 MISSING: {nd!r}", flush=True)
-gate("g7 the 1az paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g7"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g7 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g7 the 1az paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g8
 sys.path.insert(0, HERE)
@@ -416,9 +425,11 @@ gate("g8 the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met",
      chain_ok("cascade_saddle_curvature.py"))
 
 # ---------------------------------------------------------------- g9
-ok = paper.count("`cascade_weil_margin.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g9"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g9 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g9 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 

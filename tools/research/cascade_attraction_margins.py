@@ -92,6 +92,35 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g7', 's': '**Theorem 1au (the push record: two fronts advanced past their'},
+    {'g': 'g7', 's': '**no proof is\nclaimed, and none resulted**'},
+    {'g': 'g7', 's': 'the FIRST-STAGE FLOOR'},
+    {'g': 'g7', 's': "refuted the\nlead's monotone draft pre-commit"},
+    {'g': 'g7', 's': '(d = 12, n = 3 → 4) of depth 4.0×10⁻⁶'},
+    {'g': 'g7', 's': 'margin(d, n) ≥ margin(d, 0)'},
+    {'g': 'g7', 's': 'global tested floor 0.8119'},
+    {'g': 'g7', 's': 'all-n hyperbolicity reduces to the n = 0 line'},
+    {'g': 'g7', 's': 'the 198 tested steps'},
+    {'g': 'g7', 's': 'the 200-pair partial sums are\nPOSITIVE unconditionally'},
+    {'g': 'g7', 's': 'struck round 195 F1, MAJOR'},
+    {'g': 'g7', 's': "unconditional and zeros-free: this paper's committed"},
+    {'g': 'g7', 's': 'λ₄₀ = 30.4774, anchored at the'},
+    {'g': 'g7', 's': 'an\nabsolute margin of 0.0462 — 1.8% of log 4π'},
+    {'g': 'g7', 's': 'parts below 10⁻⁴⁰ (gated'},
+    {'g': 'g7', 's': 'the FIRST-STAGE-FLOOR conjecture is DECLARED,'},
+    {'g': 'g7', 's': '0.0230957… (gated to nine digits'},
+    {'g': 'g7', 's': 'r_j ≈ 1/(2j)'},
+    {'g': 'g7', 's': '2 + γ > log 4π'},
+    {'g': 'g7', 's': '0.0230957'},
+    {'g': 'g7', 's': "far beyond GORZ's proven"},
+    {'g': 'g9', 's': '`cascade_attraction_margins.py`', 'min': 2},
+    {'g': 'g9', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g9', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label)
@@ -258,35 +287,14 @@ gate("g6 the thinnest direction: lambda_1 = 1 + gamma/2 - log(4pi)/2 and "
      "label re-synced rounds 195 F3, 213 F3)", ok)
 
 # ---------------------------------------------------------------- g7
-needles = [
-    "**Theorem 1au (the push record: two fronts advanced past their",
-    "**no proof is\nclaimed, and none resulted**",
-    "the FIRST-STAGE FLOOR",
-    "refuted the\nlead's monotone draft pre-commit",
-    "(d = 12, n = 3 → 4) of depth 4.0×10⁻⁶",
-    "margin(d, n) ≥ margin(d, 0)",
-    "global tested floor 0.8119",
-    "all-n hyperbolicity reduces to the n = 0 line",
-    # round-194 repair needles
-    "the 198 tested steps",
-    "the 200-pair partial sums are\nPOSITIVE unconditionally",
-    "struck round 195 F1, MAJOR",
-    "unconditional and zeros-free: this paper's committed",
-    "λ₄₀ = 30.4774, anchored at the",
-    "an\nabsolute margin of 0.0462 — 1.8% of log 4π",
-    "parts below 10⁻⁴⁰ (gated",
-    "the FIRST-STAGE-FLOOR conjecture is DECLARED,",
-    "0.0230957… (gated to nine digits",
-    "r_j ≈ 1/(2j)",
-    "2 + γ > log 4π",
-    "0.0230957",
-    "far beyond GORZ's proven",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g7 MISSING: {nd!r}")
-gate("g7 the 1au paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g7"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g7 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g7 the 1au paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g8
 sys.path.insert(0, HERE)
@@ -295,9 +303,11 @@ gate("g8 the chain obligation to cascade_finite_fill.py (Theorem 1at) met",
      chain_ok("cascade_finite_fill.py"))
 
 # ---------------------------------------------------------------- g9
-ok = paper.count("`cascade_attraction_margins.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g9"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g9 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g9 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 

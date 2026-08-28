@@ -143,6 +143,25 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g9', 's': '**Theorem 1aw (the floor and the meter:'},
+    {'g': 'g9', 's': '**no proof is claimed,\nand none resulted**'},
+    {'g': 'g9', 's': 'a float64 Hermite-recurrence artifact'},
+    {'g': 'g9', 's': 'refuted the rebound\non its first run'},
+    {'g': 'g9', 's': "the FE-partner's\nmultiplier"},
+    {'g': 'g9', 's': 'modulus > 1 iff β > ½'},
+    {'g': 'g9', 's': 'planted at\nexactly 3/4 ± 20i'},
+    {'g': 'g9', 's': 'INFEASIBLE for\nthis instrument at this reach'},
+    {'g': 'g9', 's': 'uniformly negative at n = 1 (all 303'},
+    {'g': 'g9', 's': 'asymptotic, not\nmonotone'},
+    {'g': 'g9', 's': 'near-monotone, collective, not exactly a second\nlaw'},
+    {'g': 'g11', 's': '`cascade_floor_meter.py`', 'min': 2},
+    {'g': 'g11', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g11', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -531,24 +550,14 @@ gate("g8 the collective anatomy: C-I monotone with the additive control; "
      "excess over the atom control", ok)
 
 # ---------------------------------------------------------------- g9
-needles = [
-    "**Theorem 1aw (the floor and the meter:",
-    "**no proof is claimed,\nand none resulted**",
-    "a float64 Hermite-recurrence artifact",
-    "refuted the rebound\non its first run",
-    "the FE-partner's\nmultiplier",
-    "modulus > 1 iff β > ½",
-    "planted at\nexactly 3/4 ± 20i",
-    "INFEASIBLE for\nthis instrument at this reach",
-    "uniformly negative at n = 1 (all 303",
-    "asymptotic, not\nmonotone",
-    "near-monotone, collective, not exactly a second\nlaw",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g9 MISSING: {nd!r}", flush=True)
-gate("g9 the 1aw paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g9"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g9 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g9 the 1aw paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g10
 sys.path.insert(0, HERE)
@@ -557,9 +566,11 @@ gate("g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met",
      chain_ok("cascade_li_two_channels.py"))
 
 # ---------------------------------------------------------------- g11
-ok = paper.count("`cascade_floor_meter.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g11"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g11 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 

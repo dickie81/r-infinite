@@ -176,13 +176,56 @@ def norm(s):
     return " ".join(s.split())
 
 
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
-paper_raw = norm(open(PAPER, encoding="utf-8").read())  # census needles
 # are anchored WITH the ** markers (round-218 F1: the anchored needle
 # pasted at the 1bc adoption could never match the **-stripped text --
 # the tower base failed unconditionally at 847b711; the census
 # conjuncts now read the raw normalized text)
 
+
+# declared paper surface (the needle-precheck arc, A397):
+# this member touches the paper ONLY through these entries
+# (forms: 'plain' = whitespace-collapsed, **-stripped --
+# the member's historical norm(...).replace transform;
+# 'ws' = whitespace-collapsed raw; the seq entry is the
+# round-187 skeleton chain). Shared evaluator:
+# paper_needles.py.
+import paper_needles
+_paper_bytes = open(PAPER, encoding="utf-8").read()
+_pforms = paper_needles.forms(_paper_bytes)
+PAPER_NEEDLES = [
+    {'g': 'g3', 's': 'Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1), so p_ℂ = p_triv', 'form': 'plain'},
+    {'g': 'g3', 's': 'archimedean factor of every odd Dirichlet', 'form': 'plain'},
+    {'g': 'g5', 's': 'the even test function', 'form': 'plain'},
+    {'g': 'g6', 's': '(γ + i/2)² + w² = (γ − id)(γ + i(d+1))', 'form': 'plain'},
+    {'g': 'g6', 's': 'the READING COORDINATE w = s − ½ is centered at the half-density point', 'form': 'plain'},
+    {'g': 'g7', 's': 'one hypothesis and zero free parameters', 'form': 'plain', 'min': 2, 'max': 2},
+    {'g': 'g7', 'form': 'plain', 'seq': ['one hypothesis and zero free parameters', 'Hypothesis (C1', 'integer points s = d+1', 'Theorem 1ar']},
+    {'g': 'g7', 's': 'P0 is that discipline stated as a premise', 'form': 'plain'},
+    {'g': 'g7', 's': 'every conclusion below is conditional on it', 'form': 'plain'},
+    {'g': 'g7', 's': 'and, post-regrade, on P1 and P2 equally', 'form': 'plain'},
+    {'g': 'g7', 's': 'conditional on ALL THREE premises P0, P1, and P2', 'form': 'plain'},
+    {'g': 'g7', 's': 'no exclusivity is claimed', 'form': 'plain'},
+    {'g': 'g8', 's': 'derive the half-shift lattice from premises that never mention integer points', 'form': 'plain'},
+    {'g': 'g8', 's': 'exactly two classes', 'form': 'plain'},
+    {'g': 'g8', 's': '4/4 on the arithmetic class and 0/4 on the critical class', 'form': 'plain'},
+    {'g': 'g8', 's': 'struck round 180 F1, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'g': 'g8', 's': 'struck round 180 F2, MAJOR', 'form': 'plain', 'min': 1, 'max': 1},
+    {'g': 'g8', 's': 'struck round 180 F3, MAJOR', 'form': 'plain', 'min': 2, 'max': 2},
+    {'g': 'g8', 's': 'struck round 180 F4', 'form': 'plain', 'min': 1, 'max': 1},
+    {'g': 'g8', 's': 'the lattice selection anatomized', 'form': 'plain'},
+    {'g': 'g8', 's': 'P1 (declared premise)', 'form': 'plain'},
+    {'g': 'g8', 's': 'P2 (declared premise)', 'form': 'plain'},
+    {'g': 'g8', 's': 'The forcing chain does NOT close from P0 alone', 'form': 'plain'},
+    {'g': 'g8', 's': 'integrality is derived GIVEN P1 AND P2', 'form': 'plain'},
+    {'g': 'g8', 's': 'the selection is the preference', 'form': 'plain'},
+    {'g': 'g8', 's': 'Hom(𝔾_m, 𝔾_m) = ℤ is a classical theorem', 'form': 'plain'},
+    {'g': 'g8', 's': 'no forcing is claimed from the remark', 'form': 'plain'},
+    {'g': 'g8', 's': 'C1 appears nowhere in the chain', 'form': 'plain'},
+    {'g': 'g8', 's': 'Theorem 1ar', 'form': 'plain'},
+    {'g': 'g10', 's': '`cascade_lattice_forcing.py`', 'form': 'plain', 'min': 2},
+    {'g': 'g10', 's': 'the **86 scripts cited in place** above', 'form': 'ws'},
+    {'g': 'g10', 's': 'extended by Theorems 1i–1bj:', 'form': 'ws'},
+]
 print("V1 -- the two-class lemma and the dichotomy")
 ok = True
 grid = [Fr(k, 60) for k in range(60)]
@@ -243,8 +286,12 @@ for s in (0.7, 2.0, 3.5, 6.0):
     lhs = GR(s) * GR(s + 1)
     rhs = GC(s)
     ok &= abs(lhs - rhs) / abs(rhs) < mpf("1e-25")
-ok &= "Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1), so p_ℂ = p_triv" in paper
-ok &= "archimedean factor of every odd Dirichlet" in paper
+_ok3, _miss3 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g3"],
+    _paper_bytes, pre=_pforms)
+for _d, _n in _miss3:
+    print(f"  g3 MISSING ({_n}): {_d}", flush=True)
+ok &= _ok3
 gate("g3 the Legendre pair Gamma_C = Gamma_R(s) Gamma_R(s+1) at 25+ "
      "digits (samples) + the committed even/odd tower anchors (the "
      "parity linkage of the algebraic characters)", ok)
@@ -281,20 +328,36 @@ for s in (2, 5, 7.3):
     for b in (0.0, 0.3):
         for g in (0.7, 14.134725):
             ok &= abs(K(s, b, g) - K(s, 1 - b, g)) < 1e-14
-ok &= "the even test function" in paper
+_ok5, _miss5 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g5"],
+    _paper_bytes, pre=_pforms)
+for _d, _n in _miss5:
+    print(f"  g5 MISSING ({_n}): {_d}", flush=True)
+ok &= _ok5
 gate("g5 evenness: K_s(beta+i gamma) = K_s(1-beta+i gamma) at samples "
      "(including a non-lattice s -- the premise is s-independent) + "
      "R1's even-test-function anchor", ok)
 
-ok = "(γ + i/2)² + w² = (γ − id)(γ + i(d+1))" in paper
-ok &= "the READING COORDINATE w = s − ½ is centered at the half-density point" in paper
+ok = True
+_ok6, _miss6 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g6"],
+    _paper_bytes, pre=_pforms)
+for _d, _n in _miss6:
+    print(f"  g6 MISSING ({_n}): {_d}", flush=True)
+ok &= _ok6
 gate("g6 the role-assignment anchors: the displaced-curve half-shift "
      "and the reading-coordinate sentence (the center/rung arithmetic "
      "is definitional, stated not gated -- the round-180 F5 "
      "tautologies removed)", ok)
 
 print("V4 -- P0 and the conditionality")
-ok = paper.count("one hypothesis and zero free parameters") == 2
+ok = True
+_ok7, _miss7 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g7"],
+    _paper_bytes, pre=_pforms)
+for _d, _n in _miss7:
+    print(f"  g7 MISSING ({_n}): {_d}", flush=True)
+ok &= _ok7
 # rounds 186-187: the count is pinned (== 2, the current census)
 # AND position-gated through a SKELETON CHAIN -- needle < C1 <
 # Definition 2.1 < Theorem 1ar -- so a relocation mangle must
@@ -307,47 +370,27 @@ ok = paper.count("one hypothesis and zero free parameters") == 2
 # gate is claimed to catch it.  (The round-185 comment's
 # ">= 2" narration superseded by the == 2 pin, synced round 187
 # F2.)
-_pos_needle = paper.find("one hypothesis and zero free parameters")
-_pos_c1 = paper.find("Hypothesis (C1")
-_pos_def21 = paper.find("integer points s = d+1")
-_pos_1ar = paper.find("Theorem 1ar")
-ok &= 0 <= _pos_needle < _pos_c1 < _pos_def21 < _pos_1ar
 # round 185 F1: the needle occurs at the front-matter SOURCE and
 # in 1ar's quote of it; the landing's `in paper` was satisfied by
 # the quote alone, so source drift under the quote passed 10/0
 # (reviewer-probed).  The count pin (== 2 since round 186) plus
 # the skeleton chain (round 187) enforce quote-source agreement.
-ok &= "P0 is that discipline stated as a premise" in paper
-ok &= ("every conclusion below is conditional on it" in paper)
-ok &= "and, post-regrade, on P1 and P2 equally" in paper
 # round 184 F1: the landing's or-chain carried two never-live
 # branches, one being exactly the struck P0-only phrasing -- a
 # regression to the struck form would have passed; dropped, and
 # the post-regrade extension is now its own conjunct.
-ok &= "conditional on ALL THREE premises P0, P1, and P2" in paper
-ok &= "no exclusivity is claimed" in paper
 gate("g7 P0 and the conditionality: the front-matter zero-parameter "
      "sentence; the explicit-premise statement; the conditionality "
      "clause; the L2 census-scope clause -- all anchored", ok)
 
 print("V5 -- anchors, chain, census")
-ok = "derive the half-shift lattice from premises that never mention integer points" in paper
-ok &= "exactly two classes" in paper
-ok &= "4/4 on the arithmetic class and 0/4 on the critical class" in paper
-ok &= paper.count("struck round 180 F1, MAJOR") == 1
-ok &= paper.count("struck round 180 F2, MAJOR") == 1
-ok &= paper.count("struck round 180 F3, MAJOR") == 2
-ok &= paper.count("struck round 180 F4") == 1
-ok &= "the lattice selection anatomized" in paper
-ok &= "P1 (declared premise)" in paper
-ok &= "P2 (declared premise)" in paper
-ok &= "The forcing chain does NOT close from P0 alone" in paper
-ok &= "integrality is derived GIVEN P1 AND P2" in paper
-ok &= "the selection is the preference" in paper
-ok &= "Hom(𝔾_m, 𝔾_m) = ℤ is a classical theorem" in paper
-ok &= "no forcing is claimed from the remark" in paper
-ok &= "C1 appears nowhere in the chain" in paper
-ok &= paper.count("Theorem 1ar") >= 1
+ok = True
+_ok8, _miss8 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g8"],
+    _paper_bytes, pre=_pforms)
+for _d, _n in _miss8:
+    print(f"  g8 MISSING ({_n}): {_d}", flush=True)
+ok &= _ok8
 gate("g8 1ar's key sentences anchored by content (the hard-road "
      "commission; the two-class collapse; the dichotomy decision; "
      "integrality derived GIVEN P1 AND P2; the algebraic-character "
@@ -362,9 +405,13 @@ ok = r.returncode == 0 and "10 pass / 0 fail" in r.stdout
 gate("g9 the sibling chain green (cascade_arithmetic_section.py 10/0, "
      "transitively chaining the Weil-arc suite)", ok)
 
-ok = paper.count("`cascade_lattice_forcing.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper_raw
-ok &= "extended by Theorems 1i–1bj:" in paper_raw
+ok = True
+_ok10, _miss10 = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g10"],
+    _paper_bytes, pre=_pforms)
+for _d, _n in _miss10:
+    print(f"  g10 MISSING ({_n}): {_d}", flush=True)
+ok &= _ok10
 gate("g10 the footer census (this script backticked >= 2 -- the "
      "count, not positions, per the V5 census; round 186 F2; the "
      "anchored needles against the raw text, round-218 F1)", ok)

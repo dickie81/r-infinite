@@ -31,9 +31,14 @@ PASS); tex substrates, like the paper, are byte-bound -- ANY tex
 edit, prose included, rotates every key that reaches it (round-258
 F258-1: needle gates match raw tex substrings, so no
 prose/executable distinction exists there). The
-PAPER stays byte-hashed deliberately: the needle gates match raw
-substrings of the paper, so any paper byte can flip a gate outcome
--- a paper edit owes one live tower. The manifest sha is NOT in
+PAPER left the key at the A397 arc: every member's paper surface
+is one declared PAPER_NEEDLES literal, AST-extracted and
+re-evaluated LIVE by this driver's needle precheck on every
+invocation (with a closure meta-gate proving the declaration IS
+the member's whole paper surface), so a paper edit either flips
+a declared needle -- failing the precheck before any cached PASS
+is served -- or provably changes no member's verdict inputs. A
+paper-prose edit now costs the precheck, not a live tower. The manifest sha is NOT in
 the key (round 254): manifest-vs-disk consistency is re-verified
 LIVE by this driver's integrity precheck on every invocation, so
 binding it would only re-import byte sensitivity. NOT bound:
@@ -81,7 +86,84 @@ if bad:
 print(f"manifest integrity: {len(MAN['tower'])} members verified",
       flush=True)
 
-PAPER_SHA = _sha(PAPER_PATH)
+# THE PAPER-NEEDLE PRECHECK (the A397 arc; the round-254
+# manifest precedent applied to the paper). Every member
+# declares its ENTIRE paper surface as one pure-literal
+# PAPER_NEEDLES constant (schema: paper_needles.py); this
+# precheck AST-extracts each declaration WITHOUT executing the
+# member and evaluates it against the live paper on every
+# invocation, failing the run before any cached PASS is served.
+# The closure META-GATE enforces that the declaration IS the
+# member's entire paper surface: every variable assigned from
+# an open(PAPER...) read may be consumed only as an argument to
+# paper_needles.check/forms, and no other string constant in
+# the member names the paper file. With both holding, a paper
+# edit can only flip declared-needle outcomes -- all re-checked
+# live here -- so PAPER_SHA has LEFT the member cache key and a
+# paper-prose edit costs this precheck (seconds), not a live
+# tower.
+import ast as _ast
+
+sys.path.insert(0, HERE)
+import paper_needles
+
+_paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
+_pforms = paper_needles.forms(_paper_bytes)
+_pfail = []
+for e in MAN["tower"]:
+    rel = e["file"]
+    tree = _ast.parse(open(os.path.join(HERE, rel), "rb").read())
+    decl = None
+    ndecl = 0
+    for node in tree.body:
+        if (isinstance(node, _ast.Assign)
+                and len(node.targets) == 1
+                and getattr(node.targets[0], "id", "")
+                == "PAPER_NEEDLES"):
+            decl = _ast.literal_eval(node.value)
+            ndecl += 1
+    if decl is None or ndecl != 1:
+        _pfail.append(f"{rel}: PAPER_NEEDLES literals = {ndecl}")
+        continue
+    ok, miss = paper_needles.check(decl, _paper_bytes,
+                                   pre=_pforms)
+    for d, n in miss:
+        _pfail.append(f"{rel}: needle miss ({n}): {d!r}")
+    # meta-gate: the declared surface is the WHOLE paper surface
+    paper_vars = set()
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Assign)
+                and isinstance(node.value, _ast.Call)):
+            names = {n.id for n in _ast.walk(node.value)
+                     if isinstance(n, _ast.Name)}
+            if "PAPER" in names:
+                paper_vars |= {t.id for t in node.targets
+                               if isinstance(t, _ast.Name)}
+    sanctioned = set()
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Call)
+            and isinstance(node.func, _ast.Attribute)
+            and getattr(node.func.value, "id", "")
+                == "paper_needles"
+                and node.func.attr in ("check", "forms")):
+            for sub in _ast.walk(node):
+                if isinstance(sub, _ast.Name):
+                    sanctioned.add(id(sub))
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Name)
+                and isinstance(node.ctx, _ast.Load)
+                and node.id in paper_vars
+                and id(node) not in sanctioned):
+            _pfail.append(f"{rel}: paper var {node.id!r} used "
+                          f"outside paper_needles at line "
+                          f"{node.lineno}")
+if _pfail:
+    print("PAPER-NEEDLE PRECHECK FAILURES:", flush=True)
+    for f_ in _pfail:
+        print(f"  {f_}", flush=True)
+    sys.exit(2)
+print(f"paper-needle precheck: {len(MAN['tower'])} declared "
+      f"surfaces verified live", flush=True)
 
 
 sys.path.insert(0, HERE)
@@ -218,7 +300,13 @@ def member_reach(name):
 
 def member_key(name):
     h = hashlib.sha256()
-    h.update(PAPER_SHA.encode())
+    # PAPER_SHA left the key at the A397 needle-precheck arc:
+    # every member's declared paper surface is re-verified LIVE
+    # by the precheck above on every invocation (the round-254
+    # manifest precedent), so binding paper bytes would only
+    # re-import prose sensitivity. The needle-gated TEX
+    # substrates stay byte-bound in the reach (they are read by
+    # members directly, outside the paper precheck's scope).
     # rounds 253-255: the member's full code REACH (imports +
     # named-.py spawn chain, transitive), each file at its
     # EXECUTABLE-CONTENT hash -- prose edits hold the cache
@@ -264,7 +352,8 @@ for n in cached:
     c = cache[keys[n]]
     print(f"  PASS {n} (cached {c.get('when', '?')}, "
           f"{c.get('dt', 0)/60:.1f} min live at an identical "
-          f"executable-reach + paper key)", flush=True)
+          f"executable-reach key; the paper re-verified by the "
+          f"live needle precheck)", flush=True)
 
 fails = []
 if live:

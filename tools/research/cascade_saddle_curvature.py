@@ -90,6 +90,25 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g6', 's': '**Theorem 1ay (the saddle and the arithmetic curvature:'},
+    {'g': 'g6', 's': 'Hess E = [[L, 0], [0, −L]]'},
+    {'g': 'g6', 's': 'a perfect saddle'},
+    {'g': 'g6', 's': '(119 positive, 119 negative — exact\nmirrors, 2 zero)'},
+    {'g': 'g6', 's': 'ratio 1.0000 at the soft edge and 0.9998'},
+    {'g': 'g6', 's': 'finiteness is the quadratic-repulsion statement'},
+    {'g': 'g6', 's': 'the rigidity has a spectral address'},
+    {'g': 'g6', 's': 'the ten deepest spikes'},
+    {'g': 'g6', 's': 'the primes carve the band-limited curvature'},
+    {'g': 'g6', 's': 'the quantifier over test functions'},
+    {'g': 'g6', 's': 'no literature sweep was run'},
+    {'g': 'g8', 's': '`cascade_saddle_curvature.py`', 'min': 2},
+    {'g': 'g8', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g8', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -340,24 +359,14 @@ gate("g5 the conversion: the explicit formula rebuilds S; the spikes are "
      "the y = 53 overshoot gated", ok)
 
 # ---------------------------------------------------------------- g6
-needles = [
-    "**Theorem 1ay (the saddle and the arithmetic curvature:",
-    "Hess E = [[L, 0], [0, −L]]",
-    "a perfect saddle",
-    "(119 positive, 119 negative — exact\nmirrors, 2 zero)",
-    "ratio 1.0000 at the soft edge and 0.9998",
-    "finiteness is the quadratic-repulsion statement",
-    "the rigidity has a spectral address",
-    "the ten deepest spikes",
-    "the primes carve the band-limited curvature",
-    "the quantifier over test functions",
-    "no literature sweep was run",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g6 MISSING: {nd!r}", flush=True)
-gate("g6 the 1ay paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g6"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g6 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g6 the 1ay paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g7
 sys.path.insert(0, HERE)
@@ -366,9 +375,11 @@ gate("g7 the chain obligation to cascade_heatflow_energy.py (Theorem 1ax) met",
      chain_ok("cascade_heatflow_energy.py"))
 
 # ---------------------------------------------------------------- g8
-ok = paper.count("`cascade_saddle_curvature.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g8"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g8 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 

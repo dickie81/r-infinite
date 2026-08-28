@@ -111,6 +111,25 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g6', 's': '**Theorem 1ba (the crossover:'},
+    {'g': 'g6', 's': 'positivity changes hands twice'},
+    {'g': 'g6', 's': 'the arch–prime draw'},
+    {'g': 'g6', 's': "Montgomery's diagonal draw at section level"},
+    {'g': 'g6', 's': 'the margin curve reads the zero gaps'},
+    {'g': 'g6', 's': 'six-decade lift'},
+    {'g': 'g6', 's': 'lift-off sits in (40, 60)'},
+    {'g': 'g6', 's': 'the smooth-basis n → ∞ envelope'},
+    {'g': 'g6', 's': 'ratio 0.9996–0.9999'},
+    {'g': 'g6', 's': 'the first continuous object connecting'},
+    {'g': 'g6', 's': 'dodger death at the horizon'},
+    {'g': 'g8', 's': '`cascade_weil_crossover.py`', 'min': 2},
+    {'g': 'g8', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g8', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -297,24 +316,14 @@ gate("g5 the three regimes at delta = 4: pole-carried boundary, the "
      "horizon, the density identity", ok)
 
 # ---------------------------------------------------------------- g6
-needles = [
-    "**Theorem 1ba (the crossover:",
-    "positivity changes hands twice",
-    "the arch–prime draw",
-    "Montgomery's diagonal draw at section level",
-    "the margin curve reads the zero gaps",
-    "six-decade lift",
-    "lift-off sits in (40, 60)",
-    "the smooth-basis n → ∞ envelope",
-    "ratio 0.9996–0.9999",
-    "the first continuous object connecting",
-    "dodger death at the horizon",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g6 MISSING: {nd!r}", flush=True)
-gate("g6 the 1ba paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g6"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g6 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g6 the 1ba paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g7
 sys.path.insert(0, HERE)
@@ -323,9 +332,11 @@ gate("g7 the chain obligation to cascade_weil_margin.py (Theorem 1az) met",
      chain_ok("cascade_weil_margin.py"))
 
 # ---------------------------------------------------------------- g8
-ok = paper.count("`cascade_weil_crossover.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g8"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g8 the footer census (this script backticked >= 2; 86 cited in "
      "place; the range 1i–1bj)", ok)
 

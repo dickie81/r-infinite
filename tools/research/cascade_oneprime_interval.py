@@ -97,6 +97,25 @@ PAPER = os.path.join(HERE, "..", "..",
                      "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g11', 's': 'Theorem 1bj (the one-prime window certified', 'form': 'plain'},
+    {'g': 'g11', 's': 'the one-prime form is the full functional below log 3', 'form': 'plain'},
+    {'g': 'g11', 's': 'every ingredient an interval enclosure', 'form': 'plain'},
+    {'g': 'g11', 's': 'the full form on [log 2, 1.0] and the odd sector through 1.09', 'form': 'plain'},
+    {'g': 'g11', 's': 'the first explicit unconditional positivity threshold beyond log 2', 'form': 'plain'},
+    {'g': 'g11', 's': 'no Riemann Hypothesis consequence is claimed', 'form': 'plain'},
+    {'g': 'g11', 's': 'the even ground state is near-degenerate at the top of the window', 'form': 'plain'},
+    {'g': 'g11', 's': 'the pole kept inside the counting operator', 'form': 'plain'},
+    {'g': 'g11', 's': 'with no interlacing loss', 'form': 'plain'},
+    {'g': 'g11', 's': '(1.0 − log 2)/(log 3 − log 2) = 75.7%', 'form': 'plain'},
+    {'g': 'g11', 's': '2.6832×10⁻⁷ (1.0)', 'form': 'plain'},
+    {'s': '`cascade_oneprime_interval.py`', 'min': 2, 'g': 'g11'},
+    {'s': 'the **86 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
+    {'s': 'extended by Theorems 1i–1bj:', 'form': 'ws', 'g': 'g11'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label, flush=True)
@@ -253,31 +272,13 @@ gate("g10 the chain obligation to cascade_floor_theory.py "
 
 # ---------------------------------------------------------------- g11
 import re
-normp = re.sub(r"\s+", " ", paper)
-plain = normp.replace("**", "")
-needles = [
-    "Theorem 1bj (the one-prime window certified",
-    "the one-prime form is the full functional below log 3",
-    "every ingredient an interval enclosure",
-    "the full form on [log 2, 1.0] and the odd sector through 1.09",
-    "the first explicit unconditional positivity threshold beyond log 2",
-    "no Riemann Hypothesis consequence is claimed",
-    "the even ground state is near-degenerate at the top of the window",
-    "the pole kept inside the counting operator",
-    "with no interlacing loss",
-    "(1.0 \u2212 log 2)/(log 3 \u2212 log 2) = 75.7%",
-    "2.6832\u00d710\u207b\u2077 (1.0)",
-]
-ok = all(nd in plain for nd in needles)
-for nd in needles:
-    if nd not in plain:
-        print(f"  g11 MISSING: {nd!r}", flush=True)
-ok &= paper.count("`cascade_oneprime_interval.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in normp
-ok &= "extended by Theorems 1i–1bj:" in normp
+import paper_needles
+ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+for _d, _n in _miss:
+    print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g11 the 1bj paper needles and the footer census "
-     "(backticked >= 2; the anchored count and range needles)",
-     ok)
+     "(backticked >= 2; the anchored count and range needles) "
+     "(declared surface)", ok)
 
 # --------------------------------------------------------------- g12
 ok = all(P4[k]["certified"] and pin4(P4[k]["gmargin"], v)

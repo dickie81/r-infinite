@@ -113,6 +113,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 paper = open(PAPER, encoding="utf-8").read()
 
+# declared paper surface (the needle-precheck arc, A397): the
+# member touches the paper ONLY through these entries.
+PAPER_NEEDLES = [
+    {'g': 'g8', 's': '**Theorem 1av (the two channels of the Li ladder: the two-regime'},
+    {'g': 'g8', 's': '**no proof is claimed, and\nnone resulted**'},
+    {'g': 'g8', 's': "the first Li direction's positivity is carried by the"},
+    {'g': 'g8', 's': 'γ = −ψ(1) = γ₀'},
+    {'g': 'g8', 's': 'first negative direction is\nn = 156'},
+    {'g': 'g8', 's': 'maximum ratio 0.8325 AT THE SEAM n = 11'},
+    {'g': 'g8', 's': 'λ₁ = 0.0231 at n = 1'},
+    {'g': 'g8', 's': 'γ₁ recovered to 14.1347 (error < 5×10⁻⁶)'},
+    {'g': 'g8', 's': 'struck round 198 F2, MAJOR'},
+    {'g': 'g8', 's': 'the first POST-TRANSIENT collective withholding'},
+    {'g': 'g8', 's': 'Mechanism-class MEMBERSHIP'},
+    {'g': 'g8', 's': 'no\nUNPROVEN zero location enters'},
+    {'g': 'g8', 's': 'resolve zeros 1–2 cleanly'},
+    {'g': 'g8', 's': 'the\ncommitted M = 2048 instrument prints 0.061'},
+    {'g': 'g8', 's': '**There is no\nintermediate regime**'},
+    {'g': 'g8', 's': 'DECLARED RESEARCH PROGRAM'},
+    {'g': 'g8', 's': 'the arithmetic sits exactly at the phase boundary'},
+    {'g': 'g8', 's': '1 − ln 2 = 0.30685'},
+    {'g': 'g8', 's': 'The coupling (P1)+(P2)→(P4) exists'},
+    {'g': 'g10', 's': '`cascade_li_two_channels.py`', 'min': 2},
+    {'g': 'g10', 's': 'the **86 scripts cited in place** above'},
+    {'g': 'g10', 's': 'extended by Theorems 1i–1bj:'},
+]
+
 fails = []
 def gate(label, ok):
     print(("PASS " if ok else "FAIL ") + label)
@@ -310,35 +337,14 @@ gate("g7 the entropy anchors: family saturation at 1 - ln 2; self-duality "
      "as the equal split", ok)
 
 # ---------------------------------------------------------------- g8
-needles = [
-    "**Theorem 1av (the two channels of the Li ladder: the two-regime",
-    # round-198 F1 (R2): the landing's needle here carried 1au's line-wrap
-    # ("no proof is\nclaimed") and was satisfied ONLY by the 1au block --
-    # the 1av frame was unpinned; repointed to the 1av wrap:
-    "**no proof is claimed, and\nnone resulted**",
-    "the first Li direction's positivity is carried by the",
-    "γ = −ψ(1) = γ₀",
-    "first negative direction is\nn = 156",
-    "maximum ratio 0.8325 AT THE SEAM n = 11",
-    "λ₁ = 0.0231 at n = 1",
-    "γ₁ recovered to 14.1347 (error < 5×10⁻⁶)",
-    "struck round 198 F2, MAJOR",
-    "the first POST-TRANSIENT collective withholding",
-    "Mechanism-class MEMBERSHIP",
-    "no\nUNPROVEN zero location enters",
-    "resolve zeros 1–2 cleanly",
-    "the\ncommitted M = 2048 instrument prints 0.061",
-    "**There is no\nintermediate regime**",
-    "DECLARED RESEARCH PROGRAM",
-    "the arithmetic sits exactly at the phase boundary",
-    "1 − ln 2 = 0.30685",
-    "The coupling (P1)+(P2)→(P4) exists",
-]
-ok = all(nd in paper for nd in needles)
-for nd in needles:
-    if nd not in paper:
-        print(f"  g8 MISSING: {nd!r}")
-gate("g8 the 1av paper needles", ok)
+import paper_needles
+_pforms = paper_needles.forms(paper)
+ok, _miss = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g8"], paper,
+    pre=_pforms)
+for _d, _n in _miss:
+    print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
+gate("g8 the 1av paper needles (declared surface)", ok)
 
 # ---------------------------------------------------------------- g9
 sys.path.insert(0, HERE)
@@ -347,9 +353,11 @@ gate("g9 the chain obligation to cascade_attraction_margins.py (Theorem 1au) met
      chain_ok("cascade_attraction_margins.py"))
 
 # ---------------------------------------------------------------- g10
-ok = paper.count("`cascade_li_two_channels.py`") >= 2
-ok &= "the **86 scripts cited in place** above" in paper
-ok &= "extended by Theorems 1i–1bj:" in paper
+ok, _missC = paper_needles.check(
+    [d for d in PAPER_NEEDLES if d["g"] == "g10"], paper,
+    pre=_pforms)
+for _d, _n in _missC:
+    print(f"  g10 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g10 the footer census (this script backticked >= 2; 86 cited in place; "
      "the range 1i–1bj)", ok)
 
