@@ -79,12 +79,20 @@ direction.)
 
 GATES:
   gP1  veigs self-test (Stage II's gII2 pattern, seed 7).
-  gP2  frame cross-anchor: this file's frame + Gram + veigs at
-       the CERTIFIED pole-free even:1.0 row (nu 0.01, beta 2.0)
+  gP2  shared-machinery drift guard (re-sworn round 260,
+       F260-3: the previous description claimed "this file's
+       frame + Gram" -- false; the gate calls Stage II's own
+       certify_cell): the IMPORTED certify_cell at the
+       certified pole-free even:1.0 row (nu 0.01, beta 2.0)
        reproduces the committed oneprime_ivcount checkpoint's
        mu1/mu2 enclosures within the sum of enclosure radii
-       plus 1e-9 -- the new code path tied to the certified
-       instrument on its own row.
+       plus 1e-9 -- a drift guard on the machinery this file
+       imports (frames, W enclosures, veigs). What pins THIS
+       file's own bordered path instead: gP3/gP3b (float
+       wiring vs the committed reconnaissance + the Woodbury
+       cross-check), gP4 (H-refinement), gP5 (the regime
+       gates), and the recon's gD4 count-vs-section
+       consistency.
   gP3  float wiring vs the committed reconnaissance: the
        bordered operator's float mu_2 (dense eigh of the signed
        Gram in the A-basis) must sit within 2e-4 of the

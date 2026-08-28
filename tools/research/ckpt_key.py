@@ -54,12 +54,31 @@ def code_key(script_path, params):
 def path(name, script_path, params):
     return os.path.join(CKDIR, f"{name}_{key(script_path, params)[:12]}.json")
 
+# round-260 F260-2: the key is captured ONCE, at load time, and
+# reused by the matching save -- save() previously recomputed the
+# key from the on-disk file AT SAVE TIME, so an instrument edited
+# while its own run was in flight saved state under a key pairing
+# the NEW code's hash with the OLD run's params: a checkpoint
+# whose stored provenance no honest run can produce (two such
+# misattributed states were found and removed at the sweep; the
+# reviewer proved no unsound-REUSE path exists -- the keyfile's
+# own sha inside params["deps"] makes a contaminated key
+# uncollidable with any self-consistent one -- so the defect was
+# provenance-only). The memo is per (name, params); a save with
+# no prior load still computes its own key.
+_KEY_MEMO = {}
+
+def _memo_id(name, params):
+    return name + "|" + json.dumps(params, sort_keys=True)
+
 def load(name, script_path, params, kfun=None):
     kfun = kfun or key
+    k = kfun(script_path, params)
+    _KEY_MEMO[_memo_id(name, params)] = (k, kfun(script_path, {}))
     if os.environ.get("CASCADE_COMPUTE") == "fresh":
         print(f"  ckpt [{name}]: FRESH mode -- ignoring any existing state", flush=True)
         return None
-    p = os.path.join(CKDIR, f"{name}_{kfun(script_path, params)[:12]}.json")
+    p = os.path.join(CKDIR, f"{name}_{k[:12]}.json")
     try:
         st = json.load(open(p))
         print(f"  ckpt [{name}]: REUSED {os.path.basename(p)} "
@@ -71,9 +90,13 @@ def load(name, script_path, params, kfun=None):
 
 def save(name, script_path, params, state, kfun=None):
     kfun = kfun or key
-    p = os.path.join(CKDIR, f"{name}_{kfun(script_path, params)[:12]}.json")
-    json.dump({"script_sha256": kfun(script_path, {}),
-               "key": kfun(script_path, params),
+    memo = _KEY_MEMO.get(_memo_id(name, params))
+    if memo is None:
+        memo = (kfun(script_path, params), kfun(script_path, {}))
+    k, ssha = memo
+    p = os.path.join(CKDIR, f"{name}_{k[:12]}.json")
+    json.dump({"script_sha256": ssha,
+               "key": k,
                "params": params, "state": state}, open(p, "w"), indent=0)
     return p
 

@@ -25,7 +25,8 @@ the polynomial part (the nu = 3/2 modes q(t) C_m^{3/2}(t/a) are
 polynomials).  The float64 survey (round 6) shows the
 pure-harmonic basis closes every theorem cell through 0.95; the
 even-1.0 cell (round 7) NEEDS the nu = 3/2 polynomial modes
-(the committed probes: pure-harmonic sigma saturates at
+(the committed nfr scan, oneprime_nfr_scan.py, and the
+A395-recorded harmonic probe: pure-harmonic sigma saturates at
 1.20e-4, base-independent, against needed 1.19e-4; with five
 polynomial modes, degree 10, sigma = 9.47e-5), so its fixture
 carries P(t) via the gT8-verified monomial split.  The degree
@@ -34,8 +35,8 @@ expanded to t-monomials carries huge cancelling coefficients
 (degree 24 reached ~1e15 and its interval-Horner widths
 swallowed the norm enclosure -- nn contained 0); at degree 10
 the coefficients stay ~1e3 and every width is harmless, while
-the sigma gain beyond is ~5% per two degrees (the committed
-nfr scan).  Every trial remains entire with bounded explicit
+the sigma gain beyond is ~5% per two degrees
+(oneprime_nfr_scan.py, committed at the round-260 sweep).  Every trial remains entire with bounded explicit
 derivatives.  The trial's coefficients are float64-optimized
 and FROZEN (a trial carries no rigor burden).
 
@@ -147,15 +148,20 @@ CELLCFG = {
     "even:0.8":    (5e-6, 1e-5, 0.05),
     "even:0.9":    (3e-6, 1e-5, 0.03),
     "even:0.95":   (8e-7, 4e-6, 0.01),
-    # even:1 theta 0.002 (round 7, fourth repair): the graded
-    # edge cells' mean-value corrections use CELL-HULL
-    # derivative enclosures, and the polynomial trial's
-    # interval-Horner hulls widen proportionally to cell width
-    # -- e2 per graded cell ~ h^4, summed ~ theta^3 (~1e-8 at
-    # theta 0.008, the measured one-sided S_hi excess; the
-    # closed-form float cross-check pins the TRUE sigma^2 at
-    # 8.97e-9, so the excess was pure hull slop). theta 0.002
-    # cuts it 64x for ~9k extra cells.
+    # even:1 theta 0.002 (round 7, fourth repair; comment
+    # re-sworn round 260, F260-5 -- the previous "summed ~
+    # theta^3 ... cuts it 64x" stated a scaling law where only
+    # the endpoints were measured): the graded edge cells'
+    # mean-value corrections use CELL-HULL derivative
+    # enclosures, and the polynomial trial's interval-Horner
+    # hulls widen with cell width, so the graded correction
+    # channel shrinks superlinearly in theta. MEASURED
+    # endpoints: at theta 0.008 the one-sided S_hi excess was
+    # 9.7e-9 (the closed-form float cross-check pins the TRUE
+    # sigma^2 at 8.97e-9, so the excess was pure hull slop); at
+    # theta 0.002 the total remaining sigma^2 slop is 8.8e-10
+    # -- an ~11x cut of the total, sufficient by the margin
+    # budget, for ~9k extra cells. No exponent is claimed.
     "even:1":      (3e-7, 2e-6, 0.002),
     "odd:0.9":     (2e-5, 1e-5, 0.1),
     "odd:1.05":    (4e-6, 1e-5, 0.04),
@@ -1310,7 +1316,8 @@ def make_fixtures():
     for parity, delta, nustar in specs:
         a = delta/2
         rich = parity == "even" and abs(delta - 1.00) < 1e-9
-        # nfr = 5 (poly degree 10), by the committed nfr scan:
+        # nfr = 5 (poly degree 10), by the nfr scan (committed
+        # as oneprime_nfr_scan.py at the round-260 sweep):
         # nfr 3 fails (sigma 1.43e-4); nfr 4 closes (+3.20e-7 at
         # ell2 0.015, max|pt| 108); nfr 5 = +3.38e-7, max|pt|
         # 888; beyond, the margin gains ~5% per step while the
