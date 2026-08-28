@@ -147,7 +147,16 @@ CELLCFG = {
     "even:0.8":    (5e-6, 1e-5, 0.05),
     "even:0.9":    (3e-6, 1e-5, 0.03),
     "even:0.95":   (8e-7, 4e-6, 0.01),
-    "even:1":      (3e-7, 2e-6, 0.008),
+    # even:1 theta 0.002 (round 7, fourth repair): the graded
+    # edge cells' mean-value corrections use CELL-HULL
+    # derivative enclosures, and the polynomial trial's
+    # interval-Horner hulls widen proportionally to cell width
+    # -- e2 per graded cell ~ h^4, summed ~ theta^3 (~1e-8 at
+    # theta 0.008, the measured one-sided S_hi excess; the
+    # closed-form float cross-check pins the TRUE sigma^2 at
+    # 8.97e-9, so the excess was pure hull slop). theta 0.002
+    # cuts it 64x for ~9k extra cells.
+    "even:1":      (3e-7, 2e-6, 0.002),
     "odd:0.9":     (2e-5, 1e-5, 0.1),
     "odd:1.05":    (4e-6, 1e-5, 0.04),
     "odd:1.09":    (2e-6, 5e-6, 0.02),
