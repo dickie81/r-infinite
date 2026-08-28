@@ -17223,3 +17223,15 @@ Every margin held or IMPROVED (the exact-frequency tables tightened the C/S diff
 **Battery (full-tower class: paper_needles.py changed — every key rotated).** `run_with_checkpoints.sh … run_tower.py` → precheck line first, then **19 live PASS + 0 cached PASS + 0 FAIL, TOWER PASS (19/19)**. Sweep commit 6a6ced4.
 
 **Standing state.** Convergence round 273 owed. The research front queued behind the chain. [A397_NEEDLE_ARC]
+
+## Addendum 410 — round 273: NOT CONVERGED (1M); the canon guards missed every raw-string binding form; verified by the lead and swept (92040aa); round 274 owed
+
+**The round.** Fresh-context session-model convergence test on the round-272 sweep (6a6ced4). The round-272 fixes held at the unit level (class/async gate and print refuse; the vacuous case withholds the sanction; class/async norm refuse; no prior-round regression; the recorded full live 19/19 battery verified genuine by independent key recomputation against the cache stamps).
+
+**F273-1 — MAJOR (novel), verified and swept.** The round-272 docstring claimed "NOTHING ELSE binds the name gate or print through ANY binding node" while the walk enumerated only Name-target forms. Python also binds names through constructs whose target is a plain string — function/lambda parameters (all kinds), `except ... as`, match-case captures (MatchAs/MatchStar/MatchMapping), and the opaque `from m import *` — all invisible to the walk. The parameter route is not fail-safe: the paper content arrives as the sanctioned f-string ARGUMENT, not through the bound name, so a helper `def run_checks(gate): gate("t", True, f"{paper}")` called with a rogue argument had its evidence f-string sanctioned (a canonical module gate supplied found=True) while the runtime callee routed the detail into the verdict — demonstrated by the reviewer as the full paper-edit-only stale cached TOWER PASS on unmodified driver bytes. **Swept:** `paper_needles.shadow_bound(tree, names)` enumerates the raw-string binding forms; both canon guards refuse their sanction when any guarded name is so bound (gate/print in the driver's guard, norm in paper_needles'); the "ANY binding node" claim re-sworn to the enumerated forms. Census: zero raw-string bindings of gate/print/norm in the committed reach — the tightening is exact, not accommodating.
+
+**Lead verification (Check 3).** The charge confirmed by direct read of my own round-272 walk (four node kinds only); post-sweep probes on the real tree, restored byte-identical: parameter-shadow, except-as, and star-import each exit 2 (the star-import case also refuses the norm mappings, failing at the read itself); match-as and lambda-parameter binds refused at the unit level; clean precheck 64 files / 28 surfaces before and after.
+
+**Battery (full-tower class: paper_needles.py changed — every key rotated).** `run_with_checkpoints.sh … run_tower.py` → precheck line first, then **19 live PASS + 0 cached PASS + 0 FAIL, TOWER PASS (19/19)**. Sweep commit 92040aa.
+
+**Standing state.** Convergence round 274 owed. The research front queued behind the chain. [A397_NEEDLE_ARC]
