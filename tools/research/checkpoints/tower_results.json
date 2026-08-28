@@ -35,6 +35,12 @@
 "rc": 0,
 "when": "2026-08-28T08:53Z"
 },
+"0d63d5e09f75e2f869127708": {
+"dt": 43.70913100242615,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-08-28T09:30Z"
+},
 "0ec77815cab9f75125198935": {
 "dt": 172.27101731300354,
 "file": "cascade_li_two_channels.py",
@@ -46,6 +52,12 @@
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
 "when": "2026-08-27T20:53Z"
+},
+"11e638995c3fc96d48afc802": {
+"dt": 183.4399664402008,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-08-28T09:24Z"
 },
 "13d87b559468f21f16c965fe": {
 "dt": 57.402857065200806,
@@ -353,11 +365,23 @@
 "rc": 0,
 "when": "2026-08-28T08:43Z"
 },
+"8340da34f95739f87f2250d7": {
+"dt": 340.6303312778473,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-08-28T09:30Z"
+},
 "835fd901ad885f5b4b0fcf2e": {
 "dt": 10.387105464935303,
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-27T19:24Z"
+},
+"8455891bb6f6ec405bd1b750": {
+"dt": 84.91155195236206,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-08-28T09:24Z"
 },
 "8480176820efbb576f684fff": {
 "dt": 0.5233662128448486,
@@ -388,6 +412,12 @@
 "file": "cascade_twosided_witness.py",
 "rc": 0,
 "when": "2026-08-27T19:56Z"
+},
+"8e321492feff826a49982430": {
+"dt": 28.704638957977295,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-08-28T09:24Z"
 },
 "8fd318e001e0635be4bb3b62": {
 "dt": 43.32334280014038,
@@ -436,6 +466,12 @@
 "file": "cascade_prolate_horizon.py",
 "rc": 0,
 "when": "2026-08-27T20:26Z"
+},
+"a48aa39d61180ef3e69c2aeb": {
+"dt": 54.55827498435974,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-08-28T09:30Z"
 },
 "a5b5a0e9a8b09aeb30434de8": {
 "dt": 0.7806704044342041,
@@ -599,6 +635,12 @@
 "rc": 0,
 "when": "2026-08-28T08:31Z"
 },
+"cc2bdcb7827aea81e23a7a04": {
+"dt": 568.1664841175079,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-08-28T09:30Z"
+},
 "cc62f1909143533d1e264bb2": {
 "dt": 181.52153491973877,
 "file": "cascade_lattice_forcing.py",
@@ -652,6 +694,12 @@
 "file": "cascade_weil_margin.py",
 "rc": 0,
 "when": "2026-08-28T08:44Z"
+},
+"da562a5a754283ef66ee12b4": {
+"dt": 176.1021022796631,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-08-28T09:30Z"
 },
 "daab55350c36a2aea39ac894": {
 "dt": 565.0049879550934,
