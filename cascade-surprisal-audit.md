@@ -17209,3 +17209,17 @@ Every margin held or IMPROVED (the exact-frequency tables tightened the C/S diff
 **Battery (driver-only diff, member keys unchanged).** Cached tower after the sweep: **0 live + 19 cached + 0 FAIL, TOWER PASS (19/19)**. Sweep commit 53ad98b.
 
 **Standing state.** Convergence round 272 owed. The research front queued behind the chain. [A397_NEEDLE_ARC]
+
+## Addendum 409 — round 272: NOT CONVERGED (1M + 1m); the canon checks enumerated only FunctionDef — class/async bindings escaped; verified by the lead and swept (6a6ced4); round 273 owed
+
+**The round.** Fresh-context session-model convergence test on the round-271 sweep (53ad98b). The round-271 canon machinery held on every enumerated branch (FunctionDef rogue gates, Name-Store rebinds of gate/print, import aliases, global-assign, walrus, decorated defs, class-method gates — all refuse; the 27 committed gate defs census exactly 9+4+14 across the three shapes, zero non-canon; all prior probes reproduced; driver-absent-from-keys re-verified; cached tower 19/19).
+
+**F272-1 — MAJOR (novel), verified and swept.** `_gate_print_canonical` walked only `ast.FunctionDef`: a `class gate` or `async def gate` (and class/async `print`) binding passed every branch, so the sanction was granted while the effective runtime gate was the rogue class whose constructor routes the sanctioned evidence f-string's detail into the verdict — demonstrated by the reviewer as a paper-edit-only stale cached TOWER PASS on a reach file every member reaches. The check also lacked `_norm_canonical`'s found-guard, returning True vacuously with no FunctionDef gate at all, so the sweep's "the _norm_canonical pattern applied exactly" claim was false in both directions. **Swept:** AsyncFunctionDef and ClassDef bindings of gate/print refuse the sanction; the function returns (ok, gate_found) and gate-call f-strings are sanctioned only when a canonical FunctionDef gate is present; print remains the builtin, sanctioned iff nothing rebinds it. The class-gate, async-gate, and class-print probes each exit 2 flagging the evidence f-string's load.
+
+**F272-2 — minor (novel), verified and swept.** `_norm_canonical` shared the FunctionDef-only shadow scan: `class norm` / `async def norm` after the canonical def stood as camouflage (fail-safe at runtime — a class norm breaks the member rather than silently passing — but the template the round-271 sweep cited as its model was itself holed for the shadowing case). Swept: class and async-def bindings of norm refuse all norm-based mappings (unit-probed both ways).
+
+**Lead verification (Check 3).** Both charges confirmed by direct read of my own round-271/267 code (the FunctionDef-only walks); post-sweep probes on the real tree, restored byte-identical: class-gate shadow, async-gate shadow, class-print → each exit 2; class-norm and async-norm shadows refused; clean precheck 64 files / 28 surfaces before and after.
+
+**Battery (full-tower class: paper_needles.py changed — every key rotated).** `run_with_checkpoints.sh … run_tower.py` → precheck line first, then **19 live PASS + 0 cached PASS + 0 FAIL, TOWER PASS (19/19)**. Sweep commit 6a6ced4.
+
+**Standing state.** Convergence round 273 owed. The research front queued behind the chain. [A397_NEEDLE_ARC]
