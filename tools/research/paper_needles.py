@@ -81,6 +81,47 @@ def _is_norm(n):
             and not n.keywords)
 
 
+def shadow_bound(tree, names):
+    """True if any RAW-STRING binding form binds one of `names`
+    (round-273 F273-1: Python binds names through constructs
+    whose target is a plain str, invisible to Name-node walks --
+    function/lambda parameters, except-as, match-case captures
+    -- and `from m import *` binds opaquely). The canon guards
+    (_norm_canonical here; _gate_print_canonical in the driver)
+    refuse their sanction whenever one of these binds a guarded
+    name: a parameter shadow routed a sanctioned evidence
+    f-string into a rogue callee in the round-273 demonstration."""
+    names = set(names)
+    for n in ast.walk(tree):
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef,
+                          ast.Lambda)):
+            a = n.args
+            ps = (list(a.posonlyargs) + list(a.args)
+                  + list(a.kwonlyargs))
+            if a.vararg:
+                ps.append(a.vararg)
+            if a.kwarg:
+                ps.append(a.kwarg)
+            if any(p.arg in names for p in ps):
+                return True
+        elif isinstance(n, ast.ExceptHandler):
+            if n.name in names:
+                return True
+        elif isinstance(n, ast.MatchAs):
+            if n.name in names:
+                return True
+        elif isinstance(n, ast.MatchStar):
+            if n.name in names:
+                return True
+        elif isinstance(n, ast.MatchMapping):
+            if n.rest in names:
+                return True
+        elif isinstance(n, (ast.Import, ast.ImportFrom)):
+            if any(x.name == "*" for x in n.names):
+                return True
+    return False
+
+
 def _norm_canonical(tree):
     """True iff every FunctionDef named `norm` in the tree is
     EXACTLY the codebase's canonical whitespace collapse,
@@ -95,6 +136,8 @@ def _norm_canonical(tree):
     # import ... as norm) -- the def then stands as camouflage
     # while the effective transform diverges. Any non-FunctionDef
     # binding of the name refuses all norm-based mappings.
+    if shadow_bound(tree, ("norm",)):
+        return False
     for n in ast.walk(tree):
         if (isinstance(n, ast.Name) and n.id == "norm"
                 and isinstance(n.ctx, (ast.Store, ast.Del))):

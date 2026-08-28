@@ -319,15 +319,22 @@ _GATE_CANON = {_ast.dump(_ast.parse(s).body[0])
 
 def _gate_print_canonical(tree):
     """Returns (ok, gate_found): ok iff every def of gate matches
-    a canon shape and NOTHING ELSE binds the name gate or print
-    through ANY binding node -- Name Store/Del, import alias,
-    async def, or class statement (round-272 F272-1: the first
-    version enumerated FunctionDef only, so `class gate` /
-    `async def gate` escaped and a class constructor routed the
-    sanctioned f-string into the verdict); gate_found iff at
+    a canon shape and nothing else binds the name gate or print
+    through the ENUMERATED binding forms -- Name Store/Del,
+    import alias, async def, class statement (round-272 F272-1),
+    and the raw-string forms via shadow_bound: parameters,
+    except-as, match captures, star imports (round-273 F273-1 --
+    the round-272 wording claimed ANY binding node while walking
+    only Name-target forms); gate_found iff at
     least one canonical FunctionDef gate exists, so a file whose
     ONLY gate binding is invisible-to-us cannot be sanctioned
     vacuously (the found-guard _norm_canonical always had)."""
+    # round-273 F273-1: raw-string binding forms (parameters,
+    # except-as, match captures, star imports) bound the guarded
+    # names invisibly to the Name-node walk -- a parameter shadow
+    # made a sanctioned f-string's runtime callee rogue
+    if paper_needles.shadow_bound(tree, ("gate", "print")):
+        return False, False
     found = False
     for n in _ast.walk(tree):
         if (isinstance(n, _ast.Name) and n.id in ("gate", "print")
