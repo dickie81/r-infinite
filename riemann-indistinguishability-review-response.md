@@ -5085,3 +5085,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Held:** the truecheck's arithmetic (recomputed exactly), the recovery location (parsed from history), the ckpt_key probe under both kfuns + full call-site survey, the census clause term by term, both batteries at expected counts. **Findings (swept, 8c67e4e):** F262-1 the rate sentence mixed step conventions (margin tail overstated 2×) — re-sworn with one convention and plain head/tail rates in all three carriers; F262-2 the digest print-order wording. Docstring-only sweep: keys held, verifier 13/13, cached tower 19/19.
 
 **Trajectory: 260: 0M+4m+1c → 261: 0M+3m+3c → 262: 0M+1m+1c swept. Convergence round 263 next.**
+
+# Round 263: convergence test on the round-262 sweep — CONVERGED: 0 majors + 0 minors + 0 cosmetics; the even-1.0 landing is STABLE
+
+**Zero findings.** Both dispositions verified by recomputation and live execution (every rate clause holds under the stated convention; the print order matches code and output; the scan's full digest reproduced live); the docstring-only classification confirmed by code_sha invariance; batteries at expected censuses (13/13; 0 live + 19 cached + 0 FAIL).
+
+**Chain closed: 260: 0M+4m+1c → 261: 0M+3m+3c → 262: 0M+1m+1c → 263: 0M+0m+0c CONVERGED. Theorem 1bj on [log 2, 1.0] — the paper block, the 13-gate verifier, the Stage II-b pole-inclusive count, the polynomial-trial Stage III machinery, and the three committed float instruments — is STABLE.**
