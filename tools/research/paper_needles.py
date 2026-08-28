@@ -103,6 +103,12 @@ def _norm_canonical(tree):
             for a in n.names:
                 if (a.asname or a.name.split(".")[0]) == "norm":
                     return False
+        # round-272 F272-2: class and async-def bindings of the
+        # name are shadows too -- the FunctionDef-only scan let
+        # `class norm` / `async def norm` stand as camouflage
+        if (isinstance(n, (ast.AsyncFunctionDef, ast.ClassDef))
+                and n.name == "norm"):
+            return False
         if (isinstance(n, ast.FunctionDef) and n.name == "norm"
                 and any(isinstance(d, ast.expr)
                         for d in n.decorator_list)):

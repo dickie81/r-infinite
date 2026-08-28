@@ -318,28 +318,39 @@ _GATE_CANON = {_ast.dump(_ast.parse(s).body[0])
 
 
 def _gate_print_canonical(tree):
-    """True iff every FunctionDef named gate matches a canon
-    shape, nothing else binds the name gate, and nothing binds
-    the name print (round-271 F271-1 -- the _norm_canonical
-    pattern applied to the f-string sanction's callees)."""
+    """Returns (ok, gate_found): ok iff every def of gate matches
+    a canon shape and NOTHING ELSE binds the name gate or print
+    through ANY binding node -- Name Store/Del, import alias,
+    async def, or class statement (round-272 F272-1: the first
+    version enumerated FunctionDef only, so `class gate` /
+    `async def gate` escaped and a class constructor routed the
+    sanctioned f-string into the verdict); gate_found iff at
+    least one canonical FunctionDef gate exists, so a file whose
+    ONLY gate binding is invisible-to-us cannot be sanctioned
+    vacuously (the found-guard _norm_canonical always had)."""
+    found = False
     for n in _ast.walk(tree):
         if (isinstance(n, _ast.Name) and n.id in ("gate", "print")
                 and isinstance(n.ctx, (_ast.Store, _ast.Del))):
-            return False
+            return False, False
         if isinstance(n, (_ast.Import, _ast.ImportFrom)):
             for a in n.names:
                 if (a.asname or a.name.split(".")[0]) in ("gate",
                                                           "print"):
-                    return False
+                    return False, False
+        if (isinstance(n, (_ast.AsyncFunctionDef, _ast.ClassDef))
+                and n.name in ("gate", "print")):
+            return False, False
         if isinstance(n, _ast.FunctionDef):
             if n.name == "print":
-                return False
+                return False, False
             if n.name == "gate":
                 if n.decorator_list:
-                    return False
+                    return False, False
                 if _ast.dump(n) not in _GATE_CANON:
-                    return False
-    return True
+                    return False, False
+                found = True
+    return True, found
 
 
 def _precheck_file(rel):
@@ -567,11 +578,17 @@ def _precheck_file(rel):
     # name gate; no binding of the name print at all. A
     # non-canonical file gets NO f-string sanction -- its
     # evidence f-strings flag at the interpolation.
-    if _gate_print_canonical(tree):
+    _canon_ok, _gate_found = _gate_print_canonical(tree)
+    if _canon_ok:
         for node in _ast.walk(tree):
             if (isinstance(node, _ast.Call)
                     and isinstance(node.func, _ast.Name)
                     and node.func.id in ("gate", "print")):
+                # gate calls need a canonical def present
+                # (round-272: no vacuous sanction); print is the
+                # builtin -- sanctioned iff nothing rebinds it
+                if node.func.id == "gate" and not _gate_found:
+                    continue
                 for a in node.args:
                     if isinstance(a, _ast.JoinedStr):
                         for sub in _ast.walk(a):
