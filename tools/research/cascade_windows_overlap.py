@@ -600,8 +600,7 @@ gate("g10 1an's key sentences + the 1aj net-state marker anchored by "
      "frames -- round 161; the marker's disjointness clause + the "
      "occupancy relabel + its strike frame -- round 162; the "
      "one-sided capture; the marker)", ok,
-     f"F1 frames {paper.count('struck round 161 F1')}, "
-     f"162 frame {paper.count('struck round 162 F1')}")
+     "161/162 frame counts declared; evidence f-string retired round 274 (F274-1)")
 
 ok = ("no numerical advance over classical zero-verification is "
       "claimed or implied" in paper)
@@ -614,7 +613,7 @@ gate("g11 the honest-scope anchors: the no-numerical-advance "
      "disclaimer; observed-not-derived; sampled-not-proved; the "
      "wall-unchanged sentence (case-free core, count >= 2 -- it "
      "also lives in 1aj)",
-     ok, f"wall count {paper.count('wall stands where it stood')}")
+     ok, "wall count declared; evidence f-string retired round 274 (F274-1)")
 
 rr = subprocess.run([sys.executable,
                      os.path.join(ROOT, "tools", "research",

@@ -629,8 +629,7 @@ gate("g8 the regrade strikes anchored: the 1ap strike frames exactly "
      "2 + 2; the CONTRAST regrade content; the TWO net-state markers "
      "(the 1an honest-scope; the 1ao sidestep) -- count corrected "
      "from the clean-run failure, disclosed",
-     ok, f"frames {paper.count('struck at the Theorem 1ap regrade')}+"
-         f"{paper.count('struck at the 1ap regrade')}")
+     ok, "frame counts declared; evidence f-string retired round 274 (F274-1)")
 
 ok = ("The infimum of window widths over the admissible cone is ZERO"
       in paper)
@@ -670,8 +669,7 @@ gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "(0, inf); drifting closure [0, inf]) and the off-curve law; "
      "the derived-law sentences; the F3 strike; the membership "
      "lemma)", ok,
-     f"167 frames F1={paper.count('struck round 167 F1, MAJOR')} "
-     f"F3={paper.count('struck round 167 F3')}")
+     "167 frame counts declared; evidence f-string retired round 274 (F274-1)")
 
 ok = "the three- and five-site denominators are the gated scope" in paper
 ok &= paper.count("wall stands where it stood") == 3
@@ -681,7 +679,7 @@ gate("g10 the honest-scope anchors: the gated-scope clause (round 167 "
      "F4 rewording); the forcing clause on its THREE carriers (count "
      "corrected round 167 F11) with the W4 carrier pinned by its "
      "local content", ok,
-     f"wall count {paper.count('wall stands where it stood')}")
+     "wall count declared; evidence f-string retired round 274 (F274-1)")
 
 rr = subprocess.run([sys.executable,
                      os.path.join(ROOT, "tools", "research",

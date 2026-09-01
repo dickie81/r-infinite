@@ -231,8 +231,8 @@ gate("g2 ALL 6 precedence orders classify the committed eight "
      "round 157 F3: the sibling cascade_precedence_vacuity.py green; "
      "BOTH pre-existing carriers anchored distinctly -- the remark "
      "phrase counted >= 2, the front-matter wording separate)", idle,
-     f"vacuity exit {rv.returncode}, remark-count "
-     f"{paper_g2.count('vacuous on primary readings')}, front-matter "
+     f"vacuity exit {rv.returncode}, remark-count declared "
+     f"(evidence f-string retired round 274 (F274-1)), front-matter "
      f"{'ok' if _okg2 else 'MISSING'} "
      "(detail widened round 158 F1; declared surface round 267; "
      "observed count restored round 268)")
@@ -320,7 +320,7 @@ ok &= ("the weakest link sharpens to one named open lemma (the "
 gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
      "passage; the 1af passage; count-only first draft caught by "
      "sabotage pre-commit, disclosed)", ok,
-     f"count {paper.count('Net state (1al):')}")
+     "count declared; evidence f-string retired round 274 (F274-1)")
 # 1am landing: the footer census advanced (62 -> 63; range -> 1am);
 # then 1an (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.

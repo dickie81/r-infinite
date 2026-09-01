@@ -335,7 +335,7 @@ gate("g10 1am's key sentences anchored by content (the one-condition "
      "non-claim; the continuous-features scope; the round-159 sweep: "
      "two F1 strike frames, the one-sink content, the F2 domain "
      "qualifier)", ok,
-     f"F1 frames {paper.count('struck round 159 F1')}")
+     "F1 frame count declared; evidence f-string retired round 274 (F274-1)")
 
 rr = subprocess.run([sys.executable,
                      os.path.join(ROOT, "tools", "research",

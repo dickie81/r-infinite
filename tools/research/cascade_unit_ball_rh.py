@@ -363,8 +363,7 @@ gate("g9 1ao's key sentences anchored by content (the first-rung "
      "identity; the wall sidestep; the REWORDED handoff + the "
      "rate-separation sentence + the two strike frames -- round "
      "164; the corrected-draft disclosure)", ok,
-     f"164 frames {paper.count('struck round 164 F1')}+"
-     f"{paper.count('struck round 164 F3')}")
+     "164 frame counts declared; evidence f-string retired round 274 (F274-1)")
 
 ok = "NO PROOF LEVERAGE" in paper
 ok &= "as hard as RH" in paper
@@ -374,7 +373,7 @@ ok &= ("a region classically zero-free; the injection is pure "
 gate("g10 the honest-scope anchors: no-proof-leverage; as-hard-as-RH; "
      "neither-direction (count >= 2, it also lives in 1aj); the "
      "counterfactual teeth label",
-     ok, f"neither-direction count {paper.count('claimed in neither direction')}")
+     ok, "neither-direction count declared; evidence f-string retired round 274 (F274-1)")
 
 # "positivity ladder", NOT the bigram "positivity"+"criterion"
 # (adjacent): that two-word phrase is a census term of the 1ai

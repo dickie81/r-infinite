@@ -262,15 +262,16 @@ def member_reach(name):
 #        re-verified live, so it may not exist;
 #   (iii) paper variables may be LOADED only inside
 #        exact-shape paper_needles.check/forms calls, recognized
-#        creation/transform assignments, harvested compares, or
-#        f-strings passed DIRECTLY to gate()/print() -- so an
-#        alias (p2 = paper) or a novel derivation fails at the
-#        point of creation. The f-string sanction was narrowed at
-#        round-270 F270-1: the earlier blanket exemption let
-#        `mirror = f"{paper}"` launder the paper into a plain
-#        variable invisible to every clause (a demonstrated
-#        stale-PASS channel); only the direct gate/print
-#        print-evidence idiom is sanctioned now;
+#        creation/transform assignments, or harvested compares --
+#        so an alias (p2 = paper), a novel derivation, or ANY
+#        f-string interpolation fails at the point of use. The
+#        f-string sanction (narrowed round 270, canon-guarded
+#        rounds 271-273) was RETIRED at round 274 F274-1: its
+#        soundness needed the callee and sink identity at call
+#        time, invisible to static binding walks (gate.__code__
+#        swap, builtins.print rebinding, sys.stdout replacement
+#        -- each a demonstrated stale cached PASS); the ten
+#        evidence sites were retired instead;
 #   (iv) STRING-CONSTANT CLAUSE (F264-2): outside the PAPER path
 #        assignment, no string constant in the docstring-stripped
 #        AST names the paper file -- a second, undeclared read
@@ -291,73 +292,19 @@ def member_reach(name):
 _paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
 _pforms = paper_needles.forms(_paper_bytes)
 
-# the three committed print-evidence gate shapes (round-271
-# F271-1): a candidate gate def must be byte-shape-identical to
-# one of these (compared via same-interpreter ast.dump, so
-# unparse-version drift cancels). Each shape's verdict
-# accumulator receives only a bare parameter and every other
-# parameter reaches print alone -- the property that makes a
-# gate-argument f-string print-evidence rather than a verdict
-# input.
-_GATE_CANON_SRC = (
-    'def gate(name, ok, detail=""):\n'
-    '    results.append(ok)\n'
-    '    print(f"  {name}: {\'PASS\' if ok else \'FAIL\'}"'
-    ' + (f"  ({detail})" if detail else ""))\n',
-    'def gate(label, ok):\n'
-    '    print(("PASS " if ok else "FAIL ") + label)\n'
-    '    if not ok:\n'
-    '        fails.append(label)\n',
-    'def gate(label, ok):\n'
-    '    print(("PASS " if ok else "FAIL ") + label, flush=True)\n'
-    '    if not ok:\n'
-    '        fails.append(label)\n',
-)
-_GATE_CANON = {_ast.dump(_ast.parse(s).body[0])
-               for s in _GATE_CANON_SRC}
-
-
-def _gate_print_canonical(tree):
-    """Returns (ok, gate_found): ok iff every def of gate matches
-    a canon shape and nothing else binds the name gate or print
-    through the ENUMERATED binding forms -- Name Store/Del,
-    import alias, async def, class statement (round-272 F272-1),
-    and the raw-string forms via shadow_bound: parameters,
-    except-as, match captures, star imports (round-273 F273-1 --
-    the round-272 wording claimed ANY binding node while walking
-    only Name-target forms); gate_found iff at
-    least one canonical FunctionDef gate exists, so a file whose
-    ONLY gate binding is invisible-to-us cannot be sanctioned
-    vacuously (the found-guard _norm_canonical always had)."""
-    # round-273 F273-1: raw-string binding forms (parameters,
-    # except-as, match captures, star imports) bound the guarded
-    # names invisibly to the Name-node walk -- a parameter shadow
-    # made a sanctioned f-string's runtime callee rogue
-    if paper_needles.shadow_bound(tree, ("gate", "print")):
-        return False, False
-    found = False
-    for n in _ast.walk(tree):
-        if (isinstance(n, _ast.Name) and n.id in ("gate", "print")
-                and isinstance(n.ctx, (_ast.Store, _ast.Del))):
-            return False, False
-        if isinstance(n, (_ast.Import, _ast.ImportFrom)):
-            for a in n.names:
-                if (a.asname or a.name.split(".")[0]) in ("gate",
-                                                          "print"):
-                    return False, False
-        if (isinstance(n, (_ast.AsyncFunctionDef, _ast.ClassDef))
-                and n.name in ("gate", "print")):
-            return False, False
-        if isinstance(n, _ast.FunctionDef):
-            if n.name == "print":
-                return False, False
-            if n.name == "gate":
-                if n.decorator_list:
-                    return False, False
-                if _ast.dump(n) not in _GATE_CANON:
-                    return False, False
-                found = True
-    return True, found
+# The evidence-f-string sanction and its canon guards
+# (_GATE_CANON / _gate_print_canonical, rounds 271-273) were
+# RETIRED at round 274 (F274-1): the sanction's soundness rested
+# on the identity of the gate/print callee and its output sink
+# AT CALL TIME, which no static walk of a file's bindings can
+# see -- gate.__code__ swaps, builtins.print rebinding, and
+# sys.stdout replacement each left every name binding canonical
+# while routing a sanctioned f-string into the verdict (three
+# demonstrated paper-edit-only stale cached TOWER PASSes). The
+# ten evidence sites that needed the sanction were retired
+# (their counts are declared needles; check()'s misses carry the
+# observed counts on failure), so paper content now has NO
+# sanctioned path into any f-string: clause (iii) below.
 
 
 def _precheck_file(rel):
@@ -562,51 +509,19 @@ def _precheck_file(rel):
         elif isinstance(node, _ast.Assign) and id(node) in created:
             for sub in _ast.walk(node):
                 sanctioned.add(id(sub))
-    in_compare, in_fstr = set(), set()
+    in_compare = set()
     for node in _ast.walk(tree):
         if isinstance(node, _ast.Compare):
             for sub in _ast.walk(node):
                 in_compare.add(id(sub))
-    # f-string sanction NARROWED (round-270 F270-1: the blanket
-    # FormattedValue exemption let `mirror = f"{paper}"` bind a
-    # full paper mirror into a plain variable invisible to every
-    # clause -- a demonstrated stale-PASS channel). An f-string
-    # paper-var load is sanctioned ONLY when the JoinedStr is a
-    # DIRECT argument of a gate(...) or print(...) call AND the
-    # file's gate/print bindings are CANONICAL (round-271 F271-1:
-    # matching the callee by bare name reopened the F267-4
-    # trust-the-name class -- a rogue `def gate` routing its
-    # detail argument into the verdict made the sanctioned
-    # f-string a live paper gate; the definition is now part of
-    # the matched shape, exactly as _norm_canonical does for
-    # norm). _gate_print_canonical demands: every FunctionDef
-    # named gate is byte-shape-identical to one of the three
-    # committed print-evidence gates; no other binding of the
-    # name gate; no binding of the name print at all. A
-    # non-canonical file gets NO f-string sanction -- its
-    # evidence f-strings flag at the interpolation.
-    _canon_ok, _gate_found = _gate_print_canonical(tree)
-    if _canon_ok:
-        for node in _ast.walk(tree):
-            if (isinstance(node, _ast.Call)
-                    and isinstance(node.func, _ast.Name)
-                    and node.func.id in ("gate", "print")):
-                # gate calls need a canonical def present
-                # (round-272: no vacuous sanction); print is the
-                # builtin -- sanctioned iff nothing rebinds it
-                if node.func.id == "gate" and not _gate_found:
-                    continue
-                for a in node.args:
-                    if isinstance(a, _ast.JoinedStr):
-                        for sub in _ast.walk(a):
-                            in_fstr.add(id(sub))
-    in_fstr -= in_compare
+    # NO f-string sanction (round-274 F274-1; see the retirement
+    # note above _precheck_file): a paper-var load inside any
+    # JoinedStr flags exactly like any other unsanctioned load.
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Name)
                 and isinstance(node.ctx, _ast.Load)
                 and node.id in paper_vars
                 and id(node) not in sanctioned
-                and id(node) not in in_fstr
                 and not (node.id in vf
                          and id(node) in in_compare)):
             out.append(f"{rel}: paper var {node.id!r} used outside "

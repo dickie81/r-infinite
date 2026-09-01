@@ -81,16 +81,23 @@ def _is_norm(n):
             and not n.keywords)
 
 
+_TYPEPARAM_NODES = tuple(
+    getattr(ast, k) for k in ("TypeVar", "ParamSpec", "TypeVarTuple")
+    if hasattr(ast, k)) or (type(None),)
+
+
 def shadow_bound(tree, names):
     """True if any RAW-STRING binding form binds one of `names`
     (round-273 F273-1: Python binds names through constructs
     whose target is a plain str, invisible to Name-node walks --
     function/lambda parameters, except-as, match-case captures
-    -- and `from m import *` binds opaquely). The canon guards
-    (_norm_canonical here; _gate_print_canonical in the driver)
-    refuse their sanction whenever one of these binds a guarded
-    name: a parameter shadow routed a sanctioned evidence
-    f-string into a rogue callee in the round-273 demonstration."""
+    -- and `from m import *` binds opaquely). _norm_canonical
+    refuses its norm mappings whenever one of these binds norm
+    (the driver's gate/print guard that also consumed this was
+    retired at round 274 with the evidence-f-string sanction).
+    Round-274 F274-3: PEP 695 type-parameter names (3.12+
+    TypeVar/ParamSpec/TypeVarTuple, raw-string names) are
+    enumerated too when the running grammar has them."""
     names = set(names)
     for n in ast.walk(tree):
         if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef,
@@ -118,6 +125,9 @@ def shadow_bound(tree, names):
                 return True
         elif isinstance(n, (ast.Import, ast.ImportFrom)):
             if any(x.name == "*" for x in n.names):
+                return True
+        elif isinstance(n, _TYPEPARAM_NODES):
+            if getattr(n, "name", None) in names:
                 return True
     return False
 
