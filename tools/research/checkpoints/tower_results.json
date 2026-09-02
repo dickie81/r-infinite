@@ -689,6 +689,12 @@
 "rc": 0,
 "when": "2026-08-27T19:46Z"
 },
+"499bb08d5129e5c6f2b57ca4": {
+"dt": 1.4651610851287842,
+"file": "cascade_oneprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T17:29Z"
+},
 "4a05ec0a80e1046ed3406161": {
 "dt": 10.367470264434814,
 "file": "cascade_sonin_dirac.py",
@@ -952,6 +958,12 @@
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-28T15:58Z"
+},
+"664263bad19851f6c73a774e": {
+"dt": 3.9888739585876465,
+"file": "cascade_twoprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T17:30Z"
 },
 "667faf241ade86c7f4294866": {
 "dt": 7.127524375915527,
