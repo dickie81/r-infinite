@@ -414,6 +414,14 @@ def temple_cell23(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     # prime-shift kink k0.
     k0 = math.log(2.0) - a
     k1_ = math.log(3.0) - a          # the second prime-shift kink
+    KINKS = ((k0, LOG2, C2I), (k1_, LOG3, C3I))
+    KINKS_F = (k0, k1_)
+    for kk in KINKS_F:
+        # round-280 observation: a kink inside the graded region
+        # (a - D0, a) would be silently dropped from the cell
+        # boundaries -- refuse instead of mis-budgeting
+        assert kk <= DEDGE or kk < a - D0 or kk >= a, \
+            f"prime-shift kink {kk} inside the graded region (a - D0, a)"
     D0 = 1e-3
     bset = {DEDGE, a - D0}
     if DEDGE < k0 < a - D0:
@@ -650,6 +658,30 @@ def temple_cell23(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     M_hi = _u(math.fsum(mhi_p))
     S_hi = _u(math.fsum(shi_p))
     S_lo = _d(math.fsum(slo_p))
+
+    # round-280 F280-3: the prime-shift kink of T phi -- the
+    # restricted shift switching on at t = log p - a -- is a JUMP of
+    # size J = (C_p/2)|phi(-a)| whose true location LOGpI - a lies
+    # within D of the float cell boundary at kk; the midpoint rule's
+    # derivative bound does not see a jump inside its cell, so the
+    # cell containing the true kink is budgeted by |phi| J D on M and
+    # (2 |T phi| J + J^2) D on S, assembled in I arithmetic
+    Mk = I(0.0)
+    Sk = I(0.0)
+    for kk, LPI, CPI in KINKS:
+        if not (DEDGE < kk < a - D0):
+            continue
+        KI = LPI - I(a)
+        Dk = I(_u(max(KI.hi - kk, kk - KI.lo, 0.0) + (KI.hi - KI.lo)))
+        Jk = CPI*I(0.5)*I(tr.phi_pt(I(-a)).abs_hi())
+        win = I(_d(kk - Dk.hi), _u(kk + Dk.hi))
+        Tw, _ = ct.Tphi(win, deriv=False, pole=use_pole)
+        Mk = Mk + I(tr.phi_pt(win).abs_hi())*Jk*Dk
+        Sk = Sk + (I(2.0)*I(Tw.abs_hi())*Jk + Jk*Jk)*Dk
+    M_lo = _d(M_lo - Mk.hi)
+    M_hi = _u(M_hi + Mk.hi)
+    S_hi = _u(S_hi + Sk.hi)
+    S_lo = max(0.0, _d(S_lo - Sk.hi))
     # sliver integrals: int_{a-DEDGE}^{a} ln^k(1/d) dd =
     # DEDGE*(lnD^k + k lnD^{k-1} + ...) <= DEDGE*(lnD + k)^k;
     # assembled in I arithmetic (round-248: no nearest-rounded
@@ -682,7 +714,8 @@ def temple_cell23(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
             "ncells": int(ncl), "premise_ok": bool(ok),
             "temple_lo": lam,
             "ell2": [ell2.lo, ell2.hi],
-            "ce": [CE_A, CE_B, CEDGE, Msl, Ssl]}
+            "ce": [CE_A, CE_B, CEDGE, Msl, Ssl],
+            "kink": [Mk.hi, Sk.hi]}
 
 
 def make_fixture(a, nustar, nhalf=NHALF_FIX):
@@ -768,7 +801,7 @@ def run():
     tabs = build_tables(fx["a"], [(tr.ws[i], tr.wI(i)) for i in range(len(tr.ws))],
                         tr.deg, htab_)
     res = temple_cell23(tr, tabs, I(fx["nustar"]), True, ht=ht_, theta=th_)
-    assert abs(0.5*(res["rho"][0] + res["rho"][1]) - fx["rho_float"]) < 1e-4, \
+    assert abs(0.5*(res["rho"][0] + res["rho"][1]) - fx["rho_float"]) < 1e-3*abs(fx["rho_float"]), \
         f"gT2 FAIL: rho {res['rho']} vs {fx['rho_float']}"
     assert 0.5 < res["n"][0] and res["n"][1] < 2.0, f"gT5 FAIL n {res['n']}"
     ok = res["premise_ok"] and res["temple_lo"] is not None and res["temple_lo"] > 0

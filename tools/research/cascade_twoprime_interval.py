@@ -39,7 +39,7 @@ Gates (eleven, g0-g10):
       <g,g> = 2(sinh a - a) = 0.0563 pinned); m and the support
       length pinned
   g2  the temple cell: certified, premise_ok, theorem True,
-      temple_lo pinned to 4 sf
+      temple_lo pinned to 5 sf (relative 5e-4)
   g3  the premise wiring: temple ell2 = [nu*, nu*] with nu* =
       the certified count row's nu = ROW nu; the fixture's a
       = the count row's a = 0.55
@@ -61,7 +61,9 @@ Gates (eleven, g0-g10):
   g9  the 1bk paper needles and the footer census (declared
       surface)
   g10 the float-fixture consistency: the stored fixture's
-      rho_float within 1e-4 of the enclosed rho; its Temple
+      rho_float within 1e-3 RELATIVE of the enclosed rho (round
+      280 F280-5: the absolute 1e-4 could not distinguish rho
+      from zero); its Temple
       float within a factor 3 of the certified value
 
 Checks 7/8 clean: Kato-Temple, Birman-Schwinger, Weyl
@@ -102,7 +104,7 @@ PC = run_C()
 PT = run_T()
 
 COUNT_PIN = 9.054e-3
-TEMPLE_PIN = 6.3136e-06          # the Stage-2 checkpoint, pinned to 4 sf
+TEMPLE_PIN = 6.3136e-06          # the Stage-2 checkpoint, pinned to 5 sf (relative 5e-4)
 GG_PIN = 0.05632
 M_PIN = 4616
 SUPPORT_PIN = 87.0
@@ -202,10 +204,10 @@ gate("g9 the 1bk paper needles and the footer census (declared surface)", ok)
 
 # ---------------------------------------------------------------- g10
 fx = cell["fixture"]
-ok = abs(0.5*(cell["rho"][0] + cell["rho"][1]) - fx["rho_float"]) < 1e-4
+ok = abs(0.5*(cell["rho"][0] + cell["rho"][1]) - fx["rho_float"]) < 1e-3*abs(fx["rho_float"])
 ok &= cell["temple_lo"] > 0 and fx["temple_float"] > 0 \
     and 1/3 < fx["temple_float"]/cell["temple_lo"] < 3
-gate("g10 the float-fixture consistency: rho within 1e-4; the float "
+gate("g10 the float-fixture consistency: rho within 1e-3 relative; the float "
      "Temple within a factor 3 of the certified value", ok)
 
 print(("\nALL GATES PASS (11/11)" if not fails else
