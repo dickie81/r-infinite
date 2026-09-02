@@ -179,9 +179,9 @@ def verified_pswf(parity, NH, nmax, c2, log):
     e_tail = c2*nA*(nA - 1)/((2*nA - 1)*((2*nA - 3)*(2*nA + 1)).sqrt())
     K = NH + 3
     x_max = float(chi[K]) + 100.0
-    d_tail_min = float((nA*(nA + 1)).lower()) - 2*float(e_tail.upper()) - x_max
+    d_tail_min = float((nA*(nA + 1) - 2*e_tail - x_max).lower())     # a lower endpoint (round 287 F287-4)
     assert d_tail_min > 0
-    tail_widen = float((e_tail*e_tail).upper())/d_tail_min*(1 + 1e-12)
+    tail_widen = float((e_tail*e_tail/d_tail_min).upper())
     out = []
     for k in range(K):
         v = [arb(float(x)) for x in Vv[:, k]]
@@ -298,12 +298,15 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
         # the Legendre tail n >= nmax of the TRUE prolate (F286-5): geometric decay from
         # the diagonally dominant tail block; |NF_n P_n(0)| <= 1 (even) and
         # |NF_n P_n'(0)| <= 2n (odd, n >= 1) bound the basis values
-        q_t = 2*p["e_tail"]/p["d_tail"]; assert 0 < q_t < 1
+        # every factor a ball (round 287 F287-4); the j-th tail coefficient (j >= 1)
+        # has Legendre degree L + 2(j-1), so the odd sum is
+        # sum_j q^(j-1) 2(L + 2(j-1)) = 2 (L/(1-q) + 2q/(1-q)^2)  (round 287 F287-2)
+        q_t = 2*arb(p["e_tail"])/arb(p["d_tail"]); assert float(q_t.lower()) > 0 and float(q_t.upper()) < 1
         beta_last = arb(p["vlast"]) + p["eps"]
         tail_amp = arb(p["e_tail"])*beta_last/(arb(p["d_tail"])*(1 - q_t))      # sum_j |beta_{last+j}| <= tail_amp/(1-q)
         L = p["nlast"]
         tail_even = tail_amp/(1 - q_t)                                           # sum_j |beta| * 1
-        tail_odd = tail_amp*2*(arb(L)/(1 - q_t) + 1/(1 - q_t)**2)                # sum_j |beta| * 2(L+j)
+        tail_odd = tail_amp*2*(arb(L)/(1 - q_t) + 2*q_t/(1 - q_t)**2)            # sum_j |beta| * 2(L + 2(j-1))
         if parity == "even":
             psi0 = sum((coefs[k][n]*NF[n]*P0[n] for n in range(0, nmax, 2)), arb(0)) + eps*normP0 + arb(0, float(tail_even.upper()))
             num = arb(2).sqrt()*(coefs[k][0] + eps)

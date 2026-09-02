@@ -94,7 +94,7 @@
   },
   {
    "file": "ckpt_migrate.py",
-   "sha256": "1432282bf8bd44363b64a563c2c5183e16459ce99dbc725235674397eb293c3d"
+   "sha256": "dd12eb798b2ad3d5c7af0e6c443c9606914e677147f2cdf620af4f3237217fb5"
   },
   {
    "file": "ckpt_key_probes.py",

@@ -6247,7 +6247,7 @@ parameter 3 on each cell lies in that strip, and Trefethen's Theorem
 covering the ellipse (polynomial sups by |P_n(z)| ≤ ρ_d^n on the
 global ellipse, kernel sups by a complex-ball Stirling enclosure with
 Binet's remainder) — total quadrature error ≤ 3.6×10⁻²¹; the kernel at
-the nodes by ARB's digamma (radius 2×10⁻⁷⁴); M_W from the node
+the nodes by ARB's digamma (radius ≤ 2.1×10⁻⁷⁴); M_W from the node
 maximum plus a Lipschitz constant of W times the largest node gap;
 the pole vector by ∫P_n(x)e^{sx}dx = 2i_n(s) in balls; λ_min(M_head)
 by a verified Cholesky factorisation of M_head − σI (positive pivots
