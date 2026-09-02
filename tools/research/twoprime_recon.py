@@ -49,7 +49,7 @@ WHAT STAGE 0 MEASURES (float64, NOT a certificate):
     against W_2 (the Birman-Schwinger counting support of a later
     Stage II).
 
-CELLS. delta in {1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.38} for
+CELLS. delta in {1.10, 1.12, 1.13, 1.15, 1.20, 1.25, 1.30, 1.35, 1.38} for
 even and odd (log 3 = 1.0986, log 4 = 1.3863).
 
 CHECKS. 7: classical (the explicit formula's semi-local form,
@@ -96,7 +96,7 @@ def Cp(p):
 
 PRIMES_ONE = (2,)
 PRIMES_TWO = (2, 3)
-CELLS = (1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.38)
+CELLS = (1.10, 1.12, 1.13, 1.15, 1.20, 1.25, 1.30, 1.35, 1.38)
 
 
 def W_kernel(r, primes):
@@ -173,7 +173,13 @@ def cell(a, parity, primes, base=0.012):
     out = {"dim": int(NA.shape[0]), "gF4": gf4, "lambda1": l1,
            "lambda2": l2, "minres": minres, "nharm": md.nharm}
     for tag, ell2 in (("own", l2), ("half", 0.5*l2)):
-        mu, c = temple_opt(NA, MA, SA, ell2)
+        try:
+            mu, c = temple_opt(NA, MA, SA, ell2)
+        except np.linalg.LinAlgError:
+            # a form negative enough that ell2 N - M is not positive
+            # definite (the wrong-form diagnostic past its window):
+            # Temple is undefined there; lambda_1 is the verdict
+            mu, c = float("nan"), None
         if c is not None:
             nn = float(c @ NA @ c)
             rho = float(c @ MA @ c)/nn
