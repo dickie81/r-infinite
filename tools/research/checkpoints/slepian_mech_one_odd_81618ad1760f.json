@@ -1,9 +1,9 @@
 {
-"script_sha256": "6a26da7cacefe132ef1f3172c581df36bc2cb2c5795cb223237790dc38ef382a",
-"key": "515c2982a19815b48bcc2ccdf09715bebef58310b81c5a1229f67aac57ca297e",
+"script_sha256": "97c82f1339e653f719c20d4428ce0b70aa591bee75546299cd237b9665250d34",
+"key": "81618ad1760f988b441c6c5c6da73f216bd4c6b7bd7d5f95cab72dbd891a0414",
 "params": {
 "deps": {
-"slepian_arb_certificate.py": "6a26da7cacefe132ef1f3172c581df36bc2cb2c5795cb223237790dc38ef382a"
+"slepian_arb_certificate.py": "97c82f1339e653f719c20d4428ce0b70aa591bee75546299cd237b9665250d34"
 },
 "kernel": "one",
 "parity": "odd",
@@ -25,7 +25,7 @@
 "nmax": 280,
 "prec": 256,
 "lam_head": 1.3566877173916414e-05,
-"eig_radius": 1.418360900897747e-25,
+"eig_radius": 2.836721801795494e-25,
 "normE": 1.3137107790855737e-47,
 "Lam_tail": 6.239031787250284e-55,
 "Pperp2": 4.193429722549576e-49,

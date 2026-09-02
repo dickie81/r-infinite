@@ -1,9 +1,9 @@
 {
-"script_sha256": "6a26da7cacefe132ef1f3172c581df36bc2cb2c5795cb223237790dc38ef382a",
-"key": "1fd9b93032042ac09efa4434cea80b12f784abcbb0de992c1977cb2ba4041bdc",
+"script_sha256": "97c82f1339e653f719c20d4428ce0b70aa591bee75546299cd237b9665250d34",
+"key": "26cdeec1b3b1fa06afd5d16b6659650f54fdac7db3e8bb58f05e4f5d0cb3ee1e",
 "params": {
 "deps": {
-"slepian_arb_certificate.py": "6a26da7cacefe132ef1f3172c581df36bc2cb2c5795cb223237790dc38ef382a"
+"slepian_arb_certificate.py": "97c82f1339e653f719c20d4428ce0b70aa591bee75546299cd237b9665250d34"
 },
 "kernel": "two",
 "parity": "even",
@@ -24,14 +24,14 @@
 "NGL": 30,
 "nmax": 316,
 "prec": 256,
-"lam_head": 5.713560454475215e-13,
-"eig_radius": 4.806391119448088e-23,
+"lam_head": 5.713560407372535e-13,
+"eig_radius": 9.612782238896176e-23,
 "normE": 5.990819664272342e-48,
 "Lam_tail": 2.209234603446165e-43,
 "Pperp2": 6.969082297340405e-45,
 "q_perp": 0.7653243096879216,
 "b": 4.20798549789842e-21,
-"final": 5.713560454475215e-13,
+"final": 5.713560407372535e-13,
 "W_out_lo": 0.7653243096879216,
 "M_W": 7.761211260547854,
 "max_quad_err": 3.16333989625851e-21,

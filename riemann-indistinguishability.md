@@ -6246,12 +6246,12 @@ parameter 3 on each cell lies in that strip, and Trefethen's Theorem
 19.3 bounds each cell's error by (64/15)(h/2)M·3⁻⁶⁰/8 with M the sup on the disk
 covering the ellipse (polynomial sups by |P_n(z)| ≤ ρ_d^n on the
 global ellipse, kernel sups by a complex-ball Stirling enclosure with
-Binet's remainder) — total quadrature error ≤ 3.6×10⁻²¹; the kernel at
+Binet's remainder) — total quadrature error ≤ 7.1×10⁻²¹ on the doubled half-integral *(round-288 F288-1: the landing's chain carried the half-integral's error once for the doubled integral; the factor restored, the cells recomputed)*; the kernel at
 the nodes by ARB's digamma (radius ≤ 2.1×10⁻⁷⁴); M_W from the node
 maximum plus a Lipschitz constant of W times the largest node gap;
 the pole vector by ∫P_n(x)e^{sx}dx = 2i_n(s) in balls; λ_min(M_head)
 by a verified Cholesky factorisation of M_head − σI (positive pivots
-prove λ_min ≥ σ; head entry radii ≤ 4.9×10⁻²³); the 2×2 in balls.
+prove λ_min ≥ σ; head entry radii ≤ 9.8×10⁻²³); the 2×2 in balls.
 *(v) The falsification content.* The bound is one-sided (a lower
 bound on the true ground state), so the instrument can certify
 positivity but cannot certify a negative value: an outcome below zero

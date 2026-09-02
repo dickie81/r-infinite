@@ -436,7 +436,7 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
                 ej = (Fnorm + abs(mu[j]))*arb(pr[j]["eps"]); ek = (Fnorm + abs(mu[k]))*arb(pr[k]["eps"])
                 nj = Gam[j][j].sqrt(); nk = Gam[k][k].sqrt()
                 slop = fac*(abs(mu[j])*nj*ek + abs(mu[k])*nk*ej + ej*ek)
-                Ib = 2*Iband[j, k] + arb(0, err_tot[j][k])
+                Ib = 2*Iband[j, k] + arb(0, 2*err_tot[j][k])      # the doubled half-integral carries twice the error (round 288 F288-1)
                 Ain = fac*mu[j]*mu[k]*Ib + arb(0, M_W)*slop
                 G = fac*mu[j]*mu[k]*Gam[j][k] + arb(0, 1)*slop
             M_h[j, k] = acb(Ain + arb(W_out_lo)*(Gam[j][k] - G) + sign*2*cvec[j]*cvec[k])
