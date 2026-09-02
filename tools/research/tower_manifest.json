@@ -90,11 +90,15 @@
   },
   {
    "file": "ckpt_migrate.py",
-   "sha256": "6b21d1affa9df4a7e983133e0f18d2e820fe10ccf5b5723e92e317f11f512e7e"
+   "sha256": "1432282bf8bd44363b64a563c2c5183e16459ce99dbc725235674397eb293c3d"
   },
   {
    "file": "ckpt_key_probes.py",
-   "sha256": "3674dfd1216c8e505b52bd7f244047e6a11d21d737235d90161577dfe061b238"
+   "sha256": "f583060425c31309972e6f32761bebe44f250850e0394d5b08e7b4d244553655"
+  },
+  {
+   "file": "precheck_probes.py",
+   "sha256": "70473b602fe772be6fdd6f3ca5895a900fafcec5f0b2102e6c2077fc459f5a09"
   }
  ]
 }

@@ -37,7 +37,8 @@ TOWER = [
     "cascade_twoprime_interval.py",
 ]
 
-KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py"]
+KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
+          "precheck_probes.py"]     # the last added round 284 (observation a)
 
 paper = open(PAPER, encoding="utf-8").read()
 mc = re.search(r"the \*\*(\d+) scripts cited in place\*\*", paper)

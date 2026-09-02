@@ -92,9 +92,13 @@ for e in MAN.get("keying", []):          # round 283: the keying machinery, pinn
 if bad:
     print(f"MANIFEST STALE for: {bad}", flush=True)
     sys.exit(2)
-if len(MAN.get("keying", [])) < 3:
-    print("MANIFEST lacks the keying pins (ckpt_key.py, ckpt_migrate.py, "
-          "ckpt_key_probes.py) -- refresh it", flush=True)
+# round 284 F284-1: the pinned SET is checked by name, not by count
+KEYING_PINS = {"ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
+               "precheck_probes.py"}
+_pinned = {e["file"] for e in MAN.get("keying", [])}
+if _pinned != KEYING_PINS:
+    print(f"MANIFEST keying pins {sorted(_pinned)} != required "
+          f"{sorted(KEYING_PINS)} -- refresh it", flush=True)
     sys.exit(2)
 print(f"manifest integrity: {len(MAN['tower'])} members verified, "
       f"{len(MAN['keying'])} keying files pinned", flush=True)
@@ -692,6 +696,23 @@ if (_kp.returncode != 0 or _m is None or int(_m.group(1)) != KEY_PROBE_CASES
         or int(_m.group(3)) != 0 or int(_m.group(2)) != int(_m.group(1))):
     print("KEYING-PROBE PRECHECK FAILURE:", flush=True)
     print(_kp.stdout[-2000:] + _kp.stderr[-2000:], flush=True)
+    sys.exit(2)
+
+# needle-precheck sabotage suite (round 284, reviewer's observation a):
+# precheck_probes.py was the one reported-census suite run by no tower
+# invocation and pinned nowhere; it is now pinned (manifest) and run here,
+# its census pinned exactly like the keying suite's
+PRECHECK_PROBE_CASES = 85
+_pp = subprocess.run([sys.executable, os.path.join(HERE, "precheck_probes.py")],
+                     capture_output=True, text=True)
+_pp_line = [l for l in _pp.stdout.splitlines() if l.startswith("precheck probes:")]
+print("needle-probe precheck: " + (_pp_line[-1] if _pp_line else "no census line"), flush=True)
+_m2 = re.match(r"precheck probes: (\d+) cases, (\d+) as expected, (\d+) unexpected",
+               _pp_line[-1]) if _pp_line else None
+if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CASES
+        or int(_m2.group(3)) != 0 or int(_m2.group(2)) != int(_m2.group(1))):
+    print("NEEDLE-PROBE PRECHECK FAILURE:", flush=True)
+    print(_pp.stdout[-2000:] + _pp.stderr[-2000:], flush=True)
     sys.exit(2)
 
 

@@ -10,8 +10,13 @@ that MUST hash differently (an arithmetic mangle; a print whose
 argument calls a non-whitelisted function; a print that writes to a
 file; a print carrying a walrus; a mangle in a string literal used in
 arithmetic; a lambda inside a print; an assignment of print's
-return value; a higher-order builtin with key=; a starred argument). Also: the legacy hash (strip_prints=False) DOES rotate
-on a print edit (it is what run_tower's member reach key uses).
+return value; a higher-order builtin with key=; a starred argument;
+a method call outside the attribute whitelist). Also: two pure
+prints reordered hold; a generator inside a print calling only
+whitelisted names is stripped; a print-free file hashes identically
+under both modes; and the legacy hash (strip_prints=False) DOES
+rotate on a print edit (it is what run_tower's member reach key
+uses).
 
 Migration cases (M): a checkpoint whose stored script_sha256 matches
 no historical version is 'unverifiable'; one whose stored key does

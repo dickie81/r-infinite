@@ -54,13 +54,17 @@ _versions = {}      # file -> {old_sha: (blob, src)}, plus byte shas
 
 def _history(fn):
     """All distinct COMMITTED historical blobs of tools/research/fn (git
-    rev-list over HEAD, first-parent and merges alike); never the
-    working tree (round 282 F282-3; docstring aligned round 283 F283-2)."""
+    rev-list --full-history over HEAD: every commit that touched the path
+    on any ancestry line, no simplification); never the working tree
+    (round 282 F282-3; docstring aligned round 283 F283-2; --full-history
+    round 284 F284-6)."""
     if fn in _versions:
         return _versions[fn]
     rel = os.path.join(RELDIR, fn)
+    # --full-history (round 284 F284-6): no history simplification, so a
+    # version that lived only on a side branch of a TREESAME merge resolves
     commits = subprocess.check_output(
-        ["git", "-C", REPO, "rev-list", "HEAD", "--", rel], text=True).split()
+        ["git", "-C", REPO, "rev-list", "--full-history", "HEAD", "--", rel], text=True).split()
     blobs = {}
     for c in commits:
         try:
