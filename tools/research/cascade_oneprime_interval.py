@@ -109,8 +109,8 @@ PAPER_NEEDLES = [
     {'g': 'g11', 's': '(1.0 − log 2)/(log 3 − log 2) = 75.7%', 'form': 'plain'},
     {'g': 'g11', 's': '2.6832×10⁻⁷ (1.0)', 'form': 'plain'},
     {'s': '`cascade_oneprime_interval.py`', 'min': 2, 'g': 'g11'},
-    {'s': 'the **87 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
-    {'s': 'extended by Theorems 1i–1bk:', 'form': 'ws', 'g': 'g11'},
+    {'s': 'the **88 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
+    {'s': 'extended by Theorems 1i–1bl:', 'form': 'ws', 'g': 'g11'},
 ]
 
 fails = []

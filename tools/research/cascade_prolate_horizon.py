@@ -65,8 +65,8 @@ Gates (all exit-gated; any failure exits 1):
       met (full mode: parent executed, exit 0; manifest mode: ancestor
       hashes + census attested -- round-215 F7 relabel).
   g8  the footer census (this script backticked >= 2; the anchored
-      needles "the **87 scripts cited in place** above" and
-      "extended by Theorems 1i–1bk:" — round-216 F2 mirrored the
+      needles "the **88 scripts cited in place** above" and
+      "extended by Theorems 1i–1bl:" — round-216 F2 mirrored the
       round-215 F5 anchoring into this line; the un-anchored forms
       this line previously carried (one ASCII-transliterated, not a
       byte-exact quote of the pre-F5 code needle — round-217 c2)
@@ -126,8 +126,8 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the follow-up Theorem 1ba named, now measured'},
     {'g': 'g6', 's': 'interpretation deferred to the concentration-null arc'},
     {'g': 'g8', 's': '`cascade_prolate_horizon.py`', 'min': 2},
-    {'g': 'g8', 's': 'the **87 scripts cited in place** above'},
-    {'g': 'g8', 's': 'extended by Theorems 1i–1bk:'},
+    {'g': 'g8', 's': 'the **88 scripts cited in place** above'},
+    {'g': 'g8', 's': 'extended by Theorems 1i–1bl:'},
 ]
 
 fails = []
@@ -384,7 +384,7 @@ ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _missC:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g8 the footer census (this script backticked >= 2; 86 cited in "
-     "place; the range 1i–1bk)", ok)
+     "place; the range 1i–1bl)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

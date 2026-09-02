@@ -37,6 +37,7 @@ TOWER = [
     "cascade_floor_theory.py",
     "cascade_oneprime_interval.py",
     "cascade_twoprime_interval.py",
+    "cascade_slepian_mechanism.py",
 ]
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """THE MECHANISM PROOF OVER THE ONE-PRIME WINDOW, STAGE 1 (owner: "Do the
-mechanism proof over the one-prime window"; Addendum 425; a research
-instrument -- not yet a tower member, not yet cited by the paper): an interval-rigorous LOWER
+mechanism proof over the one-prime window"): an interval-rigorous LOWER
 BOUND on the one-prime semi-local Weil form, uniform over every probe of
 support length delta = 2a, by Slepian concentration -- no Temple trial, no
 Birman-Schwinger count, no zero.
@@ -68,8 +67,7 @@ intervals -- classical; no hypothesis input.  No RH consequence is claimed.
 """
 import sys, os, math, time, json
 import numpy as np
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
+sys.path.insert(0, '/home/user/r-infinite/tools/research')
 from oneprime_interval_core import (I, PI, TWO_PI, LOG2, LOGPI, C2I, _u, _d, iexp,
                                     repsi_quarter, W_enclose, dW_majorant, d2W_majorant)
 from oneprime_interval_count import V, vup, vdn, W_batch, M3_majorant, M4_majorant, veigs
@@ -587,6 +585,6 @@ if __name__ == "__main__":
     res = {}
     for par in (("even", "odd") if which == "both" else (which,)):
         res[par] = certify(par, NH=NH, h=h)
-    out = os.path.join(HERE, "checkpoints", f"slepian_cert_{which}_NH{NH}_h{h}.json")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"slepian_cert_{which}_NH{NH}_h{h}.json")
     json.dump(res, open(out, "w"), indent=1)
     print("saved", out)

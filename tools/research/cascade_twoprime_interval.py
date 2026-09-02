@@ -90,8 +90,8 @@ PAPER_NEEDLES = [
     {'g': 'g9', 's': 'no Riemann Hypothesis consequence is claimed', 'form': 'plain', 'min': 2},
     {'g': 'g9', 's': 'the even sector is open on the whole two-prime window', 'form': 'plain'},
     {'s': '`cascade_twoprime_interval.py`', 'min': 2, 'g': 'g9'},
-    {'s': 'the **87 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
-    {'s': 'extended by Theorems 1i–1bk:', 'form': 'ws', 'g': 'g9'},
+    {'s': 'the **88 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
+    {'s': 'extended by Theorems 1i–1bl:', 'form': 'ws', 'g': 'g9'},
 ]
 
 fails = []

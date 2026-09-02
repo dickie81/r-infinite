@@ -118,8 +118,8 @@ PAPER_NEEDLES = [
     {'g': 'g11', 's': '−2 log λ constant law', 'form': 'plain'},
     {'g': 'g11', 's': "each parity's counting matches the zeros' counting", 'form': 'plain'},
     {'s': '`cascade_sonin_dirac.py`', 'min': 2, 'g': 'g11'},
-    {'s': 'the **87 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
-    {'s': 'extended by Theorems 1i–1bk:', 'form': 'ws', 'g': 'g11'},
+    {'s': 'the **88 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
+    {'s': 'extended by Theorems 1i–1bl:', 'form': 'ws', 'g': 'g11'},
 ]
 INSTRUMENT = os.path.join(HERE, "sonin_outside.py")
 

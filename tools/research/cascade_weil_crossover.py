@@ -75,8 +75,8 @@ Gates (all exit-gated; any failure exits 1):
   g6  the paper needles for the 1ba block (in-code list
       authoritative).
   g7  the chain obligation to cascade_weil_margin.py (Theorem 1az) met.
-  g8  the footer census (this script backticked >= 2; the anchored needles "the **87 scripts cited in place** above"
-      and "extended by Theorems 1i–1bk:" -- round-218 F12 mirrored
+  g8  the footer census (this script backticked >= 2; the anchored needles "the **88 scripts cited in place** above"
+      and "extended by Theorems 1i–1bl:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Balance-decomposition caution (round-210 F1 / round-211 F5 standing):
@@ -124,8 +124,8 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the first continuous object connecting'},
     {'g': 'g6', 's': 'dodger death at the horizon'},
     {'g': 'g8', 's': '`cascade_weil_crossover.py`', 'min': 2},
-    {'g': 'g8', 's': 'the **87 scripts cited in place** above'},
-    {'g': 'g8', 's': 'extended by Theorems 1i–1bk:'},
+    {'g': 'g8', 's': 'the **88 scripts cited in place** above'},
+    {'g': 'g8', 's': 'extended by Theorems 1i–1bl:'},
 ]
 
 fails = []
@@ -331,7 +331,7 @@ ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _missC:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g8 the footer census (this script backticked >= 2; 86 cited in "
-     "place; the range 1i–1bk)", ok)
+     "place; the range 1i–1bl)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

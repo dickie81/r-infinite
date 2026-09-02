@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """THE MECHANISM PROOF, ARB PORT (owner: "Install python-flint and port the
 numerics layer to ARB and pull the algorithmic lever"; Addendum 425/427).
-A research instrument -- not yet a tower member, not yet cited by the
-paper.  Every quantity is an ARB ball (rigorous, arbitrary precision).
+The substrate of Theorem 1bl (the 1bl landing; verifier
+cascade_slepian_mechanism.py, tower member 21): every quantity is an
+ARB ball (rigorous, arbitrary precision); the four certified cells are
+content-addressed checkpoints produced by run(kernel, parity).
 
 THE BOUND (Addendum 425).  For a real probe g on [-a, a] of fixed parity,
 ghat its Fourier transform (exponential type a), the S-local Weil form
@@ -471,15 +473,34 @@ def certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
                 max_residual=max(p["r"] for p in pr), min_gap=min(p["gap"] for p in pr), max_eps=max(p["eps"] for p in pr),
                 kstar=kstar, verdict=verdict)
 
+# ------------------------------------------------ keyed producer (the 1bl landing)
+sys.path.insert(0, HERE)
+import ckpt_key
+
+DEPS_SM = {f: ckpt_key.code_sha(os.path.join(HERE, f)) for f in sorted(
+    ckpt_key.producer_closure(("slepian_arb_certificate.py",), HERE))}
+KEYFILE = os.path.join(HERE, "slepian_arb_certificate.py")
+
+CELLS = {"one": dict(NH=30, h=5e-3, Omega=64.0), "two": dict(NH=48, h=2.5e-3, Omega=128.0)}
+
+def run(kernel, parity):
+    """The certified cell (kernel in one|two, parity in even|odd) at its
+    current executable-content key: REUSED from checkpoints/ when the
+    producing code and inputs match, else recomputed and saved."""
+    cfg = CELLS[kernel]
+    params = {"deps": DEPS_SM, "kernel": kernel, "parity": parity, "prec": PREC,
+              "NH": cfg["NH"], "h": cfg["h"], "Omega": cfg["Omega"], "round": 1}
+    name = f"slepian_mech_{kernel}_{parity}"
+    st = ckpt_key.load(name, KEYFILE, params, kfun=ckpt_key.code_key)
+    if st is not None:
+        return st
+    st = certify(kernel, parity, NH=cfg["NH"], h=cfg["h"], Omega=cfg["Omega"])
+    ckpt_key.save(name, KEYFILE, params, st, kfun=ckpt_key.code_key)
+    return st
+
 if __name__ == "__main__":
     kernel = sys.argv[1] if len(sys.argv) > 1 else "one"
     which = sys.argv[2] if len(sys.argv) > 2 else "both"
-    NH = int(sys.argv[3]) if len(sys.argv) > 3 else None
-    h = float(sys.argv[4]) if len(sys.argv) > 4 else None
-    Omega = float(sys.argv[5]) if len(sys.argv) > 5 else None
-    res = {}
     for par in (("even", "odd") if which == "both" else (which,)):
-        res[par] = certify(kernel, par, NH=NH, h=h, Omega=Omega)
-    out = os.path.join(HERE, "checkpoints", f"slepian_arb_{kernel}_{which}.json")
-    json.dump(res, open(out, "w"), indent=1)
-    print("saved", out)
+        st = run(kernel, par)
+        print(f"{kernel}/{par}: {st['verdict']} (lambda_min >= {st['final']:.6e})", flush=True)

@@ -1,4 +1,4 @@
-"""THE MECHANISM PROOF, STAGE 0 (Addendum 425; a research probe -- not a tower member) (owner: "Do the mechanism proof over the
+"""THE MECHANISM PROOF, STAGE 0 (owner: "Do the mechanism proof over the
 one-prime window"): float64 feasibility of a Slepian-concentration LOWER
 bound on the one-prime Weil form, uniform over all probes.
 
