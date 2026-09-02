@@ -60,11 +60,18 @@ reached the text plainly; the driver now requires the three
 attributes to be immediately called, forbids any import or
 constant naming this module beyond the exact plain import, and
 forbids introspection dunder attributes reach-wide.) The
-disclosed evasion class is spellings that never write the module
-name or the filename as one constant and never touch a dunder:
-string arithmetic, getattr with a computed name, exec/eval,
-filesystem enumeration, sys.path-fed computed imports (F268-4):
-drift detection, not a semantic proof.
+disclosed evasion class (re-sworn round 279 to match the driver's
+clauses A-I) is spellings that never write the module name or the
+filename as one constant, never touch an introspection dunder as
+attribute or string, never store on or alias an imported module,
+and never call an interpreter hook by name: string arithmetic,
+getattr with a computed name, exec/eval reached through a computed
+route, filesystem enumeration, a committed non-.py helper the
+member names, a write into the interpreter's installation
+(F268-4): drift detection, not a semantic proof. SCOPE (round 279,
+the owner's decision, CLAUDE.md): this instrument detects drift;
+deliberate self-subversion of a member's own process is out of
+scope.
 """
 import ast
 import copy

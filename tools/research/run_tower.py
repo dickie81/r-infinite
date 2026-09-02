@@ -293,9 +293,9 @@ def member_reach(name):
 #       declaration;
 #   (G) NO STORE ON AN IMPORTED MODULE (round-278 F277-1): no
 #       Attribute/Subscript Store or Del whose root is an
-#       import-bound name, except dps/prec on the roots mp/iv (the
-#       mpmath precision contexts -- the reach's 42 committed
-#       stores; round-279 F278-2 pinned the roots); no Assign
+#       import-bound name, except the exact pairs mp.dps/mp.prec/
+#       iv.prec (the mpmath precision contexts -- the reach's 42
+#       committed stores, 39+1+2; round-279 pinned the pairs); no Assign
 #       binding a bare import-bound module name to another name;
 #       and (round-279 F278-1, the round-273 lesson applied here)
 #       no Store/Del target whose root is NOT a Name at all
@@ -340,7 +340,8 @@ def member_reach(name):
 # name or the paper filename as one constant, never touch an
 # introspection dunder as attribute or string, and never store
 # on an imported module -- string arithmetic, getattr with a
-# computed name, exec/eval of assembled source, filesystem
+# computed name, exec/eval reached through a computed route (the
+# Name calls exec()/eval() are clause H), filesystem
 # enumeration, a committed non-.py helper the member names, a
 # write into the interpreter's own installation (the -I child
 # still imports the installation's sitecustomize; round-279
@@ -358,6 +359,10 @@ _paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
 _pforms = paper_needles.forms(_paper_bytes)
 
 _PN_ATTRS = ("verify", "needle", "declared")
+# the reach's 42 committed stores on imported modules, by exact
+# (root, attr) pair (round-279 cosmetic 1: mp.dps 39, mp.prec 1,
+# iv.prec 2 -- the product set admitted the unused iv.dps)
+_PREC_STORES = frozenset((("mp", "dps"), ("mp", "prec"), ("iv", "prec")))
 _HOOK_ATTRS = frozenset((
     "settrace", "setprofile", "addaudithook", "_getframe", "exc_info",
     "get_objects", "get_referrers", "get_referents", "currentframe",
@@ -504,8 +509,7 @@ def _precheck_file(rel):
                            f"{node.lineno} (clause G)")
             elif (r_ in _imp_names
                     and not (isinstance(node, _ast.Attribute)
-                             and node.attr in ("dps", "prec")
-                             and r_ in ("mp", "iv"))):
+                             and (r_, node.attr) in _PREC_STORES)):
                 out.append(f"{rel}: store on imported module "
                            f"{_ast.unparse(node)!r} at line "
                            f"{node.lineno} (clause G)")

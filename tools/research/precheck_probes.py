@@ -214,6 +214,8 @@ CASES = [
     ("G_dash_c", "import sys, subprocess\n" + IMP + DECL + GATE
      + "subprocess.run([sys.executable, '-c', 'pass'])\n", True),
     ("G_dps_nonmp_root", "import sys\nsys.dps = 1\n" + IMP + DECL + GATE, True),
+    ("G_iv_dps_unused_pair", "from mpmath import iv\niv.dps = 30\n" + IMP + DECL
+     + GATE, True),
     ("G_module_attr_call_ok", "import subprocess, sys\n" + IMP + DECL + GATE
      + "subprocess.run([sys.executable, '--version'])\n"
        "x = sys.argv[0]\n", False),
