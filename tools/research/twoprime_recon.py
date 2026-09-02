@@ -253,6 +253,50 @@ def run():
     return st
 
 
+STAB_CELLS = ((1.30, "even"), (1.30, "odd"), (1.35, "even"),
+              (1.35, "odd"), (1.38, "even"), (1.38, "odd"))
+STAB_BASES = (0.012, 0.008, 0.005)
+
+
+def stability():
+    """The window-top adjudication (Stage 0b): the base-0.012 run
+    read the odd section's lambda_1 at -1.45e-9 (1.35) and
+    -3.1e-9 (1.38) -- a sign the FULL form cannot have below
+    log 4 unless RH is false, so the reading must be measured
+    against the pipeline's quadrature floor before any statement.
+    The six window-top cells at GL-panel bases 0.012 / 0.008 /
+    0.005: a lambda_1 that moves with the base is quadrature; the
+    record's precedent (the even-1.0 Temple value, -9.4e-7 ->
+    -2.7e-7 at base 0.008) sets the expected scale."""
+    params = {"deps": DEPS2, "cells": STAB_CELLS, "bases": STAB_BASES,
+              "primes": PRIMES_TWO, "nus": OF.NUS, "nfr": OF.NFR,
+              "nrough": OF.NROUGH}
+    st = ckpt_key.load("twoprime_stab", KEYFILE, params,
+                       kfun=ckpt_key.code_key)
+    if st is not None:
+        return st
+    st = {}
+    t0 = time.time()
+    for delta, parity in STAB_CELLS:
+        for base in STAB_BASES:
+            r = cell(delta/2, parity, PRIMES_TWO, base=base)
+            st[f"{parity}:{delta:g}:{base:g}"] = r
+            print(f"STAB two-prime {parity:4s} delta {delta:g} base {base:g}: "
+                  f"lambda1 {r['lambda1']:+.3e} lambda2 {r['lambda2']:+.3e} "
+                  f"Temple(own) {r['own']['temple']:+.3e} sigma "
+                  f"{r['own']['sigma']:.3e} mr {r['minres']:+.1e} "
+                  f"[{time.time() - t0:.0f}s]", flush=True)
+            ckpt_key.save("twoprime_stab_partial", KEYFILE, params, st,
+                          kfun=ckpt_key.code_key)
+    ckpt_key.save("twoprime_stab", KEYFILE, params, st,
+                  kfun=ckpt_key.code_key)
+    return st
+
+
 if __name__ == "__main__":
-    run()
-    print("two-prime window stage-0 reconnaissance complete", flush=True)
+    if os.environ.get("TP_STABILITY") == "1":
+        stability()
+        print("two-prime window stage-0b stability complete", flush=True)
+    else:
+        run()
+        print("two-prime window stage-0 reconnaissance complete", flush=True)
