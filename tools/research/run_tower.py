@@ -290,18 +290,52 @@ def member_reach(name):
 #       pair present in the declaration / declared(PAPER_NEEDLES)
 #       (read-only deep copies) -- nothing else;
 #   (E) a file calling verify/needle/declared must carry the
-#       declaration.
+#       declaration;
+#   (G) NO STORE ON AN IMPORTED MODULE (round-278 F277-1): no
+#       Attribute/Subscript Store or Del whose root is an
+#       import-bound name, except the attrs dps/prec (the mpmath
+#       precision contexts -- the reach's 42 committed stores);
+#       no Assign binding a bare import-bound module name to
+#       another name -- so re.sub/builtins.open/subprocess.run/
+#       sys.executable/os.environ[...] cannot be replaced at the
+#       spelling (the child-process evaluator's spawn depends on
+#       sys.executable and subprocess; round 277's H1/H2 hooked
+#       re.sub and open inside the then in-process reader);
+#   (H) NO INTERPRETER HOOK OR NAMESPACE ENUMERATION: no Attribute
+#       named settrace/setprofile/addaudithook/_getframe/exc_info/
+#       get_objects/get_referrers/get_referents/currentframe/
+#       getmodule/getsource/stack/modules/meta_path/path_hooks/
+#       displayhook/excepthook; no Call of globals/vars/locals/
+#       dir/breakpoint/eval/exec/compile/setattr/delattr; no
+#       import of builtins/gc/inspect/ctypes/importlib/runpy/
+#       code/codeop/pdb/trace/faulthandler/types/dis/marshal/
+#       tracemalloc/threading/_thread/atexit/signal/sitecustomize/
+#       usercustomize (the reach's census: zero of each);
+#   (I) NO INTROSPECTION DUNDER AS A STRING CONSTANT: none of
+#       __globals__/__dict__/__code__/__class__/__subclasses__/
+#       __base__/__bases__/__mro__/__builtins__/__closure__/
+#       __func__/__self__/__module__/__import__/__loader__/
+#       __spec__/__file__/__getattribute__/__getattr__/
+#       __reduce__/__wrapped__ appears as a string constant
+#       (round-277 F277-3: "never touch a dunder" now means the
+#       attribute AND the string).
 # With these holding, a member's verdict depends on the paper
-# only through declared entries this precheck evaluates LIVE.
-# Scope, stated honestly (F268-4 carried forward; re-sworn round
-# 277): spellings that never write the module name or the paper
-# filename as one constant and never touch a dunder attribute --
-# string arithmetic ("paper_" + "needles"), getattr with a
+# only through declared entries this precheck evaluates LIVE --
+# and since round 278 the paper text never exists in a member's
+# process at all: paper_needles.verify/needle evaluate in an
+# isolated child (-I, scrubbed environment) that returns only
+# (ok, misses). What remains for a member is to subvert the child
+# (its interpreter path, its spawn, its environment -- clause G)
+# or to read the file itself (clauses A/A2), each at the plain
+# spelling. Scope, stated honestly (F268-4 carried forward;
+# re-sworn round 278): spellings that never write the module
+# name or the paper filename as one constant, never touch an
+# introspection dunder as attribute or string, and never store
+# on an imported module -- string arithmetic, getattr with a
 # computed name, exec/eval of assembled source, filesystem
-# enumeration (os.listdir/glob filtered at runtime), and
-# sys.path manipulation feeding a computed import -- are
-# deliberate evasion outside these tripwires; drift detection,
-# not a semantic proof.
+# enumeration, a committed non-.py helper the member names --
+# are deliberate evasion outside these tripwires; drift
+# detection, not a semantic proof.
 # Rounds 264-274's member-side read/transform/compare/f-string/
 # canon-shape/binding-walk clauses are RETIRED with the member
 # reads they policed (there is no paper text in a member to
@@ -311,6 +345,25 @@ _paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
 _pforms = paper_needles.forms(_paper_bytes)
 
 _PN_ATTRS = ("verify", "needle", "declared")
+_HOOK_ATTRS = frozenset((
+    "settrace", "setprofile", "addaudithook", "_getframe", "exc_info",
+    "get_objects", "get_referrers", "get_referents", "currentframe",
+    "getmodule", "getsource", "stack", "modules", "meta_path",
+    "path_hooks", "displayhook", "excepthook"))
+_HOOK_CALLS = frozenset((
+    "globals", "vars", "locals", "dir", "breakpoint", "eval", "exec",
+    "compile", "setattr", "delattr"))
+_RISKY_MODULES = frozenset((
+    "builtins", "gc", "inspect", "ctypes", "importlib", "runpy", "code",
+    "codeop", "pdb", "trace", "faulthandler", "types", "dis", "marshal",
+    "tracemalloc", "threading", "_thread", "atexit", "signal",
+    "sitecustomize", "usercustomize"))
+_DUNDER_STRINGS = frozenset((
+    "__globals__", "__dict__", "__code__", "__class__", "__subclasses__",
+    "__base__", "__bases__", "__mro__", "__builtins__", "__closure__",
+    "__func__", "__self__", "__module__", "__import__", "__loader__",
+    "__spec__", "__file__", "__getattribute__", "__getattr__",
+    "__reduce__", "__wrapped__"))
 
 
 def _precheck_file(rel):
@@ -404,6 +457,60 @@ def _precheck_file(rel):
             else:
                 out.append(f"{rel}: the name paper_needles rebound at "
                            f"line {node.lineno} (clause B)")
+    # (G) stores on imported modules; module aliases
+    _imp_names = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Import):
+            for a in node.names:
+                _imp_names.add(a.asname or a.name.split(".")[0])
+        if isinstance(node, _ast.ImportFrom):
+            for a in node.names:
+                _imp_names.add(a.asname or a.name)
+
+    def _root(x):
+        while isinstance(x, (_ast.Attribute, _ast.Subscript)):
+            x = x.value
+        return x.id if isinstance(x, _ast.Name) else None
+
+    for node in _ast.walk(tree):
+        if (isinstance(node, (_ast.Attribute, _ast.Subscript))
+                and isinstance(node.ctx, (_ast.Store, _ast.Del))
+                and _root(node) in _imp_names
+                and not (isinstance(node, _ast.Attribute)
+                         and node.attr in ("dps", "prec"))):
+            out.append(f"{rel}: store on imported module "
+                       f"{_ast.unparse(node)!r} at line {node.lineno} "
+                       f"(clause G)")
+        if (isinstance(node, _ast.Assign)
+                and isinstance(node.value, _ast.Name)
+                and node.value.id in _imp_names):
+            out.append(f"{rel}: import-bound name {node.value.id!r} "
+                       f"aliased at line {node.lineno} (clause G)")
+    # (H) interpreter hooks, namespace enumeration, risky imports
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Attribute) and node.attr in _HOOK_ATTRS:
+            out.append(f"{rel}: hook/enumeration attribute "
+                       f"{node.attr} at line {node.lineno} (clause H)")
+        if (isinstance(node, _ast.Call) and isinstance(node.func, _ast.Name)
+                and node.func.id in _HOOK_CALLS):
+            out.append(f"{rel}: {node.func.id}() at line "
+                       f"{node.lineno} (clause H)")
+        if isinstance(node, _ast.Import):
+            for a in node.names:
+                if a.name.split(".")[0] in _RISKY_MODULES:
+                    out.append(f"{rel}: import of {a.name} at line "
+                               f"{node.lineno} (clause H)")
+        if (isinstance(node, _ast.ImportFrom)
+                and (node.module or "").split(".")[0] in _RISKY_MODULES):
+            out.append(f"{rel}: from-import of {node.module} at line "
+                       f"{node.lineno} (clause H)")
+    # (I) introspection dunders as string constants
+    for node in _ast.walk(stripped):
+        if (isinstance(node, _ast.Constant)
+                and isinstance(node.value, str)
+                and node.value in _DUNDER_STRINGS):
+            out.append(f"{rel}: introspection dunder string "
+                       f"{node.value} at line {node.lineno} (clause I)")
     if paper_needles.shadow_bound(tree, ("paper_needles",
                                          "PAPER_NEEDLES")):
         out.append(f"{rel}: paper_needles/PAPER_NEEDLES bound through "

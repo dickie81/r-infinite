@@ -68,47 +68,69 @@ drift detection, not a semantic proof.
 """
 import ast
 import copy
+import json
 import os
 import re
+import subprocess
+import sys
 
-PAPER_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          "..", "..", "riemann-indistinguishability.md")
-_TEXTCACHE = None
-_FORMCACHE = None
-
-
-def _forms_cached():
-    global _TEXTCACHE, _FORMCACHE
-    if _FORMCACHE is None:
-        _TEXTCACHE = open(PAPER_PATH, encoding="utf-8").read()
-        _FORMCACHE = forms(_TEXTCACHE)
-    return _FORMCACHE
+# captured at import: the interpreter and this file, for the child.
+# The paper's path is NOT a parent-module constant (round 278):
+# it is computed only inside the child, so a member enumerating
+# loaded modules finds no path to read.
+_PY = sys.executable
+_SELF = os.path.abspath(__file__)
 
 
-def verify(decl, g=None, seq=False):
-    """Evaluate the declared entries (all; or those tagged g; or
-    the skeleton chains when seq=True) against the paper this
-    module reads. Returns (ok, misses) exactly as check() does;
-    no paper text leaves this module."""
-    if not isinstance(decl, list):
-        return False, [(decl, "bad-decl")]
+def _eval_child(payload):
+    """Round-278 (F277-1): the paper is read and the entries are
+    evaluated in an ISOLATED CHILD PROCESS (-I: no PYTHONPATH, no
+    user site, no cwd on sys.path; a scrubbed environment), so no
+    paper text ever exists in the member's process -- hooks on
+    re/open, trace/profile/audit hooks, and sys.modules/globals/gc
+    enumeration in the member find nothing. The child returns
+    (ok, misses) as JSON; misses carry the member's own entries
+    and observed counts, never text."""
+    r = subprocess.run([_PY, "-I", _SELF, "--eval"],
+                       input=json.dumps(payload), capture_output=True,
+                       text=True, timeout=300,
+                       env={"PATH": os.environ.get("PATH", "")})
+    if r.returncode != 0:
+        raise RuntimeError("paper_needles child failed: "
+                           + r.stderr[-500:])
+    out = json.loads(r.stdout)
+    return bool(out["ok"]), [(d, n) for d, n in out["misses"]]
+
+
+def _select(decl, g=None, seq=False):
     sub = decl
     if g is not None:
         sub = [d for d in decl if isinstance(d, dict) and d.get("g") == g]
     if seq:
         sub = [d for d in sub if isinstance(d, dict) and "seq" in d]
-    return check(sub, None, pre=_forms_cached())
+    return sub
+
+
+def verify(decl, g=None, seq=False):
+    """Evaluate the declared entries (all; or those tagged g; or
+    the skeleton chains when seq=True) against the paper, in the
+    isolated child. Returns (ok, misses) exactly as check() does;
+    no paper text enters the caller's process."""
+    if not isinstance(decl, list):
+        return False, [(decl, "bad-decl")]
+    return _eval_child({"decl": _select(decl, g, seq)})
 
 
 def needle(decl, s, form):
     """The single-needle gate: every declared entry with this
-    (s, form) holds. Undeclared (s, form) raises KeyError -- a
-    member cannot consume a needle it did not declare."""
+    (s, form) holds, evaluated in the isolated child. Undeclared
+    (s, form) raises KeyError -- a member cannot consume a needle
+    it did not declare."""
     hits = [d for d in decl if isinstance(d, dict)
             and d.get("s") == s and d.get("form", "raw") == form]
     if not hits:
         raise KeyError((s, form))
-    ok, _ = check(hits, None, pre=_forms_cached())
+    ok, _ = _eval_child({"decl": hits})
     return ok
 
 
@@ -259,3 +281,21 @@ def check(decl, paper, pre=None):
         if n < lo or (hi is not None and n > hi):
             misses.append((d, n))
     return (not misses), misses
+
+
+
+def _child_main():
+    """--eval: read the declared entries from stdin (JSON), read
+    the paper, evaluate, print (ok, misses) as JSON. Runs only in
+    the isolated child; the parent never calls check() on text."""
+    payload = json.load(sys.stdin)
+    paper_path = os.path.join(os.path.dirname(_SELF), "..", "..",
+                              "riemann-indistinguishability.md")
+    text = open(paper_path, encoding="utf-8").read()
+    ok, misses = check(payload["decl"], text)
+    json.dump({"ok": ok, "misses": [[d, n] for d, n in misses]},
+              sys.stdout)
+
+
+if __name__ == "__main__" and "--eval" in sys.argv:
+    _child_main()

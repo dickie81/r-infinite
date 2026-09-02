@@ -153,6 +153,54 @@ CASES = [
     # (E) declaration required
     ("E_no_decl", IMP + 'ok, _ = paper_needles.verify([{"s": "x", "form": "raw"}])\n',
      True),
+    # (G) stores on imported modules (round 278, F277-1 H1/H2 and the
+    #     child-process spawn's dependencies)
+    ("G_mp_dps_ok", IMP + DECL + GATE
+     + "import mpmath\nfrom mpmath import mp, iv\nmp.dps = 50\nmp.prec = 100\n"
+       "iv.prec = 53\n", False),
+    ("G_re_sub_hook", "import re\nre.sub = lambda *a, **k: ''\n" + IMP + DECL
+     + GATE, True),
+    ("G_builtins_open_hook", "import builtins\nbuiltins.open = print\n" + IMP
+     + DECL + GATE, True),          # also clause H (import builtins)
+    ("G_sys_executable", "import sys\nsys.executable = './fake'\n" + IMP + DECL
+     + GATE, True),
+    ("G_subprocess_run", "import subprocess\nsubprocess.run = None\n" + IMP
+     + DECL + GATE, True),
+    ("G_os_environ_store", "import os\nos.environ['PYTHONPATH'] = '.'\n" + IMP
+     + DECL + GATE, True),
+    ("G_del_attr", "import re\ndel re.sub\n" + IMP + DECL + GATE, True),
+    ("G_module_alias", "import re\nM = re\nM.sub = None\n" + IMP + DECL + GATE,
+     True),
+    ("G_setattr_call", "import re\nsetattr(re, 'sub', None)\n" + IMP + DECL
+     + GATE, True),                 # clause H (setattr)
+    # (H) interpreter hooks and namespace enumeration (round 278)
+    ("H_settrace", "import sys\nsys.settrace(lambda *a: None)\n" + IMP + DECL
+     + GATE, True),
+    ("H_setprofile", "import sys\nsys.setprofile(lambda *a: None)\n" + IMP
+     + DECL + GATE, True),
+    ("H_audithook", "import sys\nsys.addaudithook(lambda *a: None)\n" + IMP
+     + DECL + GATE, True),
+    ("H_sys_modules_enum", "import sys\n" + IMP + DECL + GATE
+     + "m = [v for v in sys.modules.values() if hasattr(v, 'PAPER_PATH')]\n",
+     True),
+    ("H_globals_enum", IMP + DECL + GATE
+     + "m = [v for v in globals().values() if hasattr(v, 'PAPER_PATH')]\n",
+     True),
+    ("H_gc_enum", "import gc\n" + IMP + DECL + GATE
+     + "o = [x for x in gc.get_objects() if isinstance(x, dict)]\n", True),
+    ("H_inspect", "import inspect\n" + IMP + DECL + GATE, True),
+    ("H_ctypes", "import ctypes\n" + IMP + DECL + GATE, True),
+    ("H_importlib", "import importlib\n" + IMP + DECL + GATE, True),
+    ("H_exec", IMP + DECL + GATE + "exec('x = 1')\n", True),
+    ("H_dunder_import_ok", IMP + DECL + GATE
+     + "k = __import__('ckpt_key')\n", False),   # committed spelling
+    ("H_sys_executable_load_ok", "import sys, subprocess\n" + IMP + DECL + GATE
+     + "r = subprocess.run([sys.executable, '-c', 'pass'])\n", False),
+    # (I) introspection dunders as string constants (round 278, F277-3)
+    ("I_getattr_globals", IMP + DECL + GATE
+     + "g = getattr(print, '__globals__', None)\n", True),
+    ("I_main_ok", IMP + DECL + GATE + "if __name__ == '__main__':\n    pass\n",
+     False),
 ]
 
 
