@@ -159,6 +159,75 @@ def prime_side():
     return out
 
 
+def prolate0(c, M=400):
+    """Slepian's most-concentrated function psi_0 for bandwidth-interval
+    product c on [-1, 1] (Nystrom on the sinc kernel at M Gauss-Legendre
+    nodes): nodes, weights, psi_0 at the nodes, the eigenvalue lambda_0(c)."""
+    x, w = np.polynomial.legendre.leggauss(M)
+    D = x[:, None] - x[None, :]
+    K = np.where(np.abs(D) < 1e-14, c/math.pi,
+                 np.sin(c*D)/(math.pi*np.where(np.abs(D) < 1e-14, 1.0, D)))
+    A = np.sqrt(w)[:, None]*K*np.sqrt(w)[None, :]
+    e, U = np.linalg.eigh(A)
+    return x, w, U[:, -1]/np.sqrt(w), e[-1]
+
+
+def prolate_extend(c, T, xg, wg, psi, lam0, xs):
+    Dm = xs[:, None]/T - xg[None, :]
+    Kx = np.where(np.abs(Dm) < 1e-14, c/math.pi,
+                  np.sin(c*Dm)/(math.pi*np.where(np.abs(Dm) < 1e-14, 1.0, Dm)))
+    return (Kx*wg[None, :]) @ psi/lam0
+
+
+def ground_state(gam, a, parity, K):
+    """The zero-side ground state's coefficient vector and basis."""
+    fs = basis(a, parity, K); N = len(gam); T = gam[-1]
+    V = np.array([fhat(f, a, gam) for f in fs]); G = 2*V @ V.T
+    x = np.arange(T, TMAX, DX); dens = np.log(x/(2*math.pi))/(2*math.pi)
+    W = np.array([fhat(f, a, x) for f in fs]); Gt = 2*(W*dens) @ W.T*DX
+    e = np.array([edge(f, a) for f in fs])
+    far = np.outer(e, e)*4*(math.log(TMAX/(2*math.pi)) + 1)/(2*math.pi*TMAX)
+    P = whiten(mass(fs, a)); w, v = np.linalg.eigh(P.T @ (G + Gt + far) @ P)
+    return P @ v[:, 0], fs
+
+
+def prolate_test(gam, deltas, K=13, parity="even"):
+    """THE MECHANISM TEST (A421). For each delta: the overlap of the ground
+    state's ghat with Slepian's psi_0 on [-T0, T0], T0 = 2 pi e^delta (the
+    Beurling sampling threshold for exponential type a = delta/2: above it
+    the zeros are denser than a/pi), its mass inside, its real zeros below
+    T0 against the zeta zeros below T0, and the best-fit prolate interval
+    T_eff (scanned over [0.6, 1.6] T0) with its overlap."""
+    tr = np.trapezoid
+    print(f"prolate test ({parity}): T0 = 2 pi e^delta; c = a T0")
+    for d in deltas:
+        a = d/2; T0 = 2*math.pi*math.exp(d); c = a*T0
+        g, fs = ground_state(gam, a, parity, K)
+        xs = np.linspace(-T0, T0, 4001); gh = g @ np.array([fhat(f, a, xs) for f in fs])
+        xg, wg, psi, lam0 = prolate0(c); px = prolate_extend(c, T0, xg, wg, psi, lam0, xs)
+        ov = abs(tr(gh*px, xs))/math.sqrt(tr(gh**2, xs)*tr(px**2, xs))
+        inside = tr(gh**2, xs)/(2*math.pi)
+        pos = xs > 0; s = np.sign(gh[pos]); zc = xs[pos][:-1][np.diff(s) != 0]
+        best = (0.0, 0.0)
+        for Tf in np.linspace(0.6*T0, 1.6*T0, 21):
+            cc = a*Tf; xg2, wg2, psi2, l2 = prolate0(cc)
+            xs2 = np.linspace(-Tf, Tf, 2001); gh2 = g @ np.array([fhat(f, a, xs2) for f in fs])
+            p2 = prolate_extend(cc, Tf, xg2, wg2, psi2, l2, xs2)
+            o = abs(tr(gh2*p2, xs2))/math.sqrt(tr(gh2**2, xs2)*tr(p2**2, xs2))
+            if o > best[0]:
+                best = (o, Tf)
+        print(f"  delta {d:5.3f}: T0 {T0:5.1f} c {c:5.2f}; overlap with psi0 on [-T0,T0] {ov:.4f}; "
+              f"mass inside {inside:.4f}; ghat zeros in (0,T0) {np.round(zc, 1)} vs zeta {np.round(gam[gam < T0], 1)}; "
+              f"T_eff {best[1]:.1f} = {best[1]/T0:.2f} T0 (overlap {best[0]:.4f})", flush=True)
+
+
+if __name__ == "__main__" and "--prolate" in sys.argv:
+    sys.argv.remove("--prolate")
+    N = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
+    deltas = [float(s) for s in sys.argv[2:]] or [0.8, 1.0, 1.2, 1.386, 1.5]
+    prolate_test(zeros(N), deltas)
+    sys.exit(0)
+
 if __name__ == "__main__":
     N = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
     K = int(sys.argv[2]) if len(sys.argv) > 2 else 13
