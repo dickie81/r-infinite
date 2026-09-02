@@ -53,10 +53,18 @@ on the declared literal; the literal bound once and never mutated) and
 re-evaluates every declaration LIVE on every invocation, so a
 paper edit either flips a declared needle -- failing the tower
 before any cached PASS is served -- or changes no declared
-surface. Computed spellings (getattr/importlib/exec/sys.modules
-lookups of this module's internals) remain the disclosed
-out-of-scope evasion class (F268-4): drift detection, not a
-semantic proof.
+surface. (Round-277 F276-1 struck the first version's "internals
+reachable only by computed spelling": the sanctioned function
+objects' __globals__ and alternate import spellings of this file
+reached the text plainly; the driver now requires the three
+attributes to be immediately called, forbids any import or
+constant naming this module beyond the exact plain import, and
+forbids introspection dunder attributes reach-wide.) The
+disclosed evasion class is spellings that never write the module
+name or the filename as one constant and never touch a dunder:
+string arithmetic, getattr with a computed name, exec/eval,
+filesystem enumeration, sys.path-fed computed imports (F268-4):
+drift detection, not a semantic proof.
 """
 import ast
 import copy

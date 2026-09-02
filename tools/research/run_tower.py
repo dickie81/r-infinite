@@ -251,14 +251,31 @@ def member_reach(name):
 # clauses, each a static tripwire:
 #   (A) NO PAPER-NAMING CONSTANT: no string constant in the
 #       docstring-stripped AST names the paper file (the round-264
-#       clause (iv) with its PAPER-assignment exception removed --
-#       a plainly-spelled read cannot exist in a member);
-#   (B) THE MODULE IS USED ONLY THROUGH verify/needle/declared: the name
-#       paper_needles is bound only by `import paper_needles`
-#       (no alias, no from-import, no other binding form); every
-#       Load of it is the value of an Attribute whose attr is
-#       verify, needle, or declared -- so PAPER_PATH, the cached text, and
-#       every internal are unreachable by plain spelling;
+#       clause (iv) with its PAPER-assignment exception removed);
+#       and (A2, round-277 F276-1) none names the module
+#       paper_needles -- so __import__("paper_needles"),
+#       sys.modules["paper_needles"], importlib.import_module(...)
+#       cannot be spelled with the name;
+#   (B) THE MODULE IS USED ONLY THROUGH verify/needle/declared,
+#       IMMEDIATELY CALLED: the name paper_needles is bound only
+#       by the exact statement `import paper_needles`; every Load
+#       of it is the value of an Attribute that is the func of a
+#       Call and whose attr is verify, needle, or declared
+#       (round-277 F276-1a: `paper_needles.verify.__globals__`
+#       reached the cached text through the sanctioned function
+#       object -- the attribute may no longer be loaded as a
+#       value); no Import/ImportFrom names paper_needles in any
+#       dotted path or leaf (F276-1b/c: `from tools.research
+#       import paper_needles as pn`, `import tools.research.
+#       paper_needles`, `from research import ...` bound the same
+#       file under another name); no Attribute anywhere has attr
+#       paper_needles (the module object obtained through another
+#       reach module's namespace);
+#   (F) NO INTROSPECTION SPELLINGS (round-277): no Attribute
+#       anywhere whose attr is a dunder name, except __init__ and
+#       __name__ (the committed reach's census) -- closes
+#       __globals__/__dict__/__code__/__class__/__subclasses__/
+#       __builtins__ chains from any object at the spelling;
 #   (C) THE DECLARATION IS BOUND ONCE AND NEVER MUTATED: at most
 #       one module-level Assign to PAPER_NEEDLES, a pure literal
 #       (literal_eval under try/except, F264-4), every entry
@@ -272,13 +289,19 @@ def member_reach(name):
 #       needle(PAPER_NEEDLES, <str>, <str>) with the (s, form)
 #       pair present in the declaration / declared(PAPER_NEEDLES)
 #       (read-only deep copies) -- nothing else;
-#   (E) a file calling verify/needle must carry the declaration.
+#   (E) a file calling verify/needle/declared must carry the
+#       declaration.
 # With these holding, a member's verdict depends on the paper
 # only through declared entries this precheck evaluates LIVE.
-# Scope, stated honestly (F268-4 carried forward): computed
-# spellings -- getattr(paper_needles, ...), importlib,
-# sys.modules[...], exec, globals()[...] -- are deliberate evasion
-# outside these tripwires; drift detection, not a semantic proof.
+# Scope, stated honestly (F268-4 carried forward; re-sworn round
+# 277): spellings that never write the module name or the paper
+# filename as one constant and never touch a dunder attribute --
+# string arithmetic ("paper_" + "needles"), getattr with a
+# computed name, exec/eval of assembled source, filesystem
+# enumeration (os.listdir/glob filtered at runtime), and
+# sys.path manipulation feeding a computed import -- are
+# deliberate evasion outside these tripwires; drift detection,
+# not a semantic proof.
 # Rounds 264-274's member-side read/transform/compare/f-string/
 # canon-shape/binding-walk clauses are RETIRED with the member
 # reads they policed (there is no paper text in a member to
@@ -312,31 +335,57 @@ def _precheck_file(rel):
                 and "riemann-indistinguishability" in node.value):
             out.append(f"{rel}: paper-naming constant at line "
                        f"{node.lineno} (clause A)")
+        if (isinstance(node, _ast.Constant)
+                and isinstance(node.value, str)
+                and "paper_needles" in node.value):
+            out.append(f"{rel}: module-naming constant at line "
+                       f"{node.lineno} (clause A2)")
     # (B) the module name: bindings and loads
     calls = []          # (node, attr) for verify/needle calls
     attr_loads = set()  # id() of Name nodes that are call-func values
+    _call_funcs = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Call):
+            _call_funcs.add(id(node.func))
     for node in _ast.walk(tree):
         if isinstance(node, _ast.Import):
             for a in node.names:
-                if a.name == "paper_needles" and a.asname is not None:
-                    out.append(f"{rel}: paper_needles imported under "
-                               f"an alias at line {node.lineno} "
-                               f"(clause B)")
-                elif a.asname == "paper_needles":
-                    out.append(f"{rel}: the name paper_needles bound "
-                               f"to another module at line "
+                if a.name == "paper_needles" and a.asname is None:
+                    continue
+                if ("paper_needles" in a.name.split(".")
+                        or a.asname == "paper_needles"):
+                    out.append(f"{rel}: import spelling {a.name!r}"
+                               f"{' as ' + a.asname if a.asname else ''}"
+                               f" names paper_needles at line "
                                f"{node.lineno} (clause B)")
-        if (isinstance(node, _ast.ImportFrom)
-                and node.module == "paper_needles"):
-            out.append(f"{rel}: from-import of paper_needles at line "
-                       f"{node.lineno} (clause B)")
+        if isinstance(node, _ast.ImportFrom):
+            segs = (node.module or "").split(".")
+            if ("paper_needles" in segs
+                    or any(a.name == "paper_needles"
+                           or a.asname == "paper_needles"
+                           for a in node.names)):
+                out.append(f"{rel}: from-import naming paper_needles "
+                           f"at line {node.lineno} (clause B)")
+        if isinstance(node, _ast.Attribute):
+            if node.attr == "paper_needles":
+                out.append(f"{rel}: attribute named paper_needles at "
+                           f"line {node.lineno} (clause B)")
+            if (node.attr.startswith("__") and node.attr.endswith("__")
+                    and node.attr not in ("__init__", "__name__")):
+                out.append(f"{rel}: introspection attribute "
+                           f"{node.attr} at line {node.lineno} "
+                           f"(clause F)")
         if (isinstance(node, _ast.Attribute)
                 and isinstance(node.value, _ast.Name)
                 and node.value.id == "paper_needles"):
             if node.attr not in _PN_ATTRS:
                 out.append(f"{rel}: paper_needles.{node.attr} at line "
-                           f"{node.lineno} is not verify/needle "
-                           f"(clause B)")
+                           f"{node.lineno} is not verify/needle/"
+                           f"declared (clause B)")
+            elif id(node) not in _call_funcs:
+                out.append(f"{rel}: paper_needles.{node.attr} loaded "
+                           f"as a value (not called) at line "
+                           f"{node.lineno} (clause B)")
             else:
                 attr_loads.add(id(node.value))
         if (isinstance(node, _ast.Call)
