@@ -839,6 +839,12 @@
 "rc": 0,
 "when": "2026-09-02T07:50Z"
 },
+"5acc42aa11fe830012e2573a": {
+"dt": 88.61442875862122,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-09-02T19:02Z"
+},
 "5bf46584d7511d0996052cbd": {
 "dt": 4.660355091094971,
 "file": "cascade_floor_closure.py",
@@ -1379,6 +1385,12 @@
 "rc": 0,
 "when": "2026-09-01T23:59Z"
 },
+"93cc2caff00591849ee860ec": {
+"dt": 198.0327286720276,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-09-02T19:02Z"
+},
 "93d825014eecaeca7e2590f1": {
 "dt": 6.888950347900391,
 "file": "cascade_fluctuation_price.py",
@@ -1858,6 +1870,12 @@
 "file": "cascade_floor_theory.py",
 "rc": 0,
 "when": "2026-08-27T18:43Z"
+},
+"c4681c3aa69acdf3f88bc01b": {
+"dt": 29.532219648361206,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-09-02T19:02Z"
 },
 "c4f0a5be7b80117b41794599": {
 "dt": 177.6331193447113,
