@@ -63,7 +63,8 @@ from flint import arb, acb, arb_mat, acb_mat, ctx
 HERE = os.path.dirname(os.path.abspath(__file__))
 PREC = 256
 PREC_LEG = 400
-ctx.prec = PREC
+# precision is set by ctx.workprec(...) context managers, never by a store on
+# the imported context (the tower precheck's clause G, the 1bl landing)
 
 BERN = [(1, 6), (-1, 30), (1, 42), (-1, 30), (5, 66), (-691, 2730), (7, 6), (-3617, 510),
         (43867, 798), (-174611, 330), (854513, 138)]        # B_2 .. B_22
@@ -231,12 +232,12 @@ def verified_pswf(parity, NH, nmax, c2, log):
 # -------------------------------------------------------- Legendre tools
 def legendre_P_at(x, nmax):
     """P_0..P_{nmax-1} at an arb point x, by the recurrence at PREC_LEG bits."""
-    ctx.prec = PREC_LEG
-    vals = [arb(1), x]
-    for n in range(1, nmax - 1):
-        vals.append(((2*n + 1)*x*vals[n] - n*vals[n - 1])/(n + 1))
-    ctx.prec = PREC
-    return [arb(v) for v in vals[:nmax]]
+    with ctx.workprec(PREC_LEG):
+        vals = [arb(1), x]
+        for n in range(1, nmax - 1):
+            vals.append(((2*n + 1)*x*vals[n] - n*vals[n - 1])/(n + 1))
+    with ctx.workprec(PREC):
+        return [arb(v) for v in vals[:nmax]]
 
 def P0_dP0(nmax):
     P0 = [arb(1), arb(0)]; dP0 = [arb(0), arb(1)]
@@ -251,6 +252,11 @@ def sph_in(n, s):
 
 # --------------------------------------------------------------- the proof
 def certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
+    """The certified cell; every ball operation inside runs at PREC bits."""
+    with ctx.workprec(PREC):
+        return _certify(kernel, parity, NH, h, Omega, verbose)
+
+def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     t0 = time.time()
     log = (lambda *a: print(*a, flush=True)) if verbose else (lambda *a: None)
     if kernel == "one":

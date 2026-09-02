@@ -1,0 +1,44 @@
+{
+"script_sha256": "025ed0ddb2fd3b14759d7a62d3badcd0b7e2e945c6cc69e5a214d6ddf86fae61",
+"key": "9f6ff3e22acf437bcd10de640b937e18496e21775d3419813d904871af530b81",
+"params": {
+"deps": {
+"slepian_arb_certificate.py": "025ed0ddb2fd3b14759d7a62d3badcd0b7e2e945c6cc69e5a214d6ddf86fae61"
+},
+"kernel": "one",
+"parity": "even",
+"prec": 256,
+"NH": 30,
+"h": 0.005,
+"Omega": 64.0,
+"round": 1
+},
+"state": {
+"kernel": "one",
+"parity": "even",
+"a": 0.546875,
+"delta": 1.09375,
+"Omega": 64.0,
+"NH": 30,
+"h": 0.005,
+"NGL": 30,
+"nmax": 280,
+"prec": 256,
+"lam_head": 4.3420095382167245e-08,
+"eig_radius": 2.892727147391635e-25,
+"normE": 4.570448510412473e-47,
+"Lam_tail": 3.219272392142462e-53,
+"Pperp2": 0.0,
+"q_perp": 1.3407377005210643,
+"b": 4.453801866893161e-26,
+"final": 4.3420095382167245e-08,
+"W_out_lo": 1.3407377005210643,
+"M_W": 6.50894370440027,
+"max_quad_err": 3.3768531598254477e-22,
+"max_residual": 1.0547916425205552e-45,
+"min_gap": 66.64369109991594,
+"max_eps": 1.000000213480388e-40,
+"kstar": 32,
+"verdict": "THEOREM: positive for every probe at delta = 1.0937500 (even), hence on [0, 1.0937500]"
+}
+}

@@ -128,13 +128,13 @@ gate("g1 the certified bounds pinned in the safe direction (stated <= stored; "
 
 # ---------------------------------------------------------------- g2
 from flint import acb, arb, ctx
-ctx.prec = PREC
 def W_out_live(kernel, Omega):
-    z = acb(arb(1)/4, arb(Omega)/2)
-    v = z.digamma().real - arb.pi().log() - arb(2).sqrt()*arb(2).log()
-    if kernel == "two":
-        v = v - 2*arb(3).log()/arb(3).sqrt()
-    return float(v.lower())
+    with ctx.workprec(PREC):      # precision by context manager, never a store (clause G)
+        z = acb(arb(1)/4, arb(Omega)/2)
+        v = z.digamma().real - arb.pi().log() - arb(2).sqrt()*arb(2).log()
+        if kernel == "two":
+            v = v - 2*arb(3).log()/arb(3).sqrt()
+        return float(v.lower())
 A_EXACT = {"one": 35/64, "two": 177/256}
 NEXT = {"one": math.log(3.0), "two": math.log(4.0)}
 ok = True
@@ -156,9 +156,10 @@ def two_by_two(lh, qp, b):
     # in ball arithmetic, as the instrument does it (a float sqrt cancels
     # catastrophically when lam_head ~ 1e-13 against q_perp ~ 1): the lower
     # endpoint of 0.5 (tr - sqrt(tr^2 - 4 det))
-    lh, qp, b = arb(lh), arb(qp), arb(b)
-    tr = lh + qp; det = lh*qp - b*b
-    return float((0.5*(tr - (tr*tr - 4*det).sqrt())).lower())
+    with ctx.workprec(PREC):
+        lh, qp, b = arb(lh), arb(qp), arb(b)
+        tr = lh + qp; det = lh*qp - b*b
+        return float((0.5*(tr - (tr*tr - 4*det).sqrt())).lower())
 ok = True
 for st in ST.values():
     f2 = two_by_two(st["lam_head"], st["q_perp"], st["b"])
