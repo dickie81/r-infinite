@@ -111,6 +111,19 @@ from oneprime_interval_core import (
 
 # ---------- vectorized interval layer (lo/hi ndarrays) ----------
 
+
+def _fdir(x, sf, up):
+    """Print x to sf significant figures rounded in the SAFE direction
+    (round-280 F280-2 at the instrument prints): up=False for a lower
+    bound (toward -inf), up=True for an upper bound (toward +inf)."""
+    from decimal import Decimal, localcontext, ROUND_CEILING, ROUND_FLOOR
+    if x is None or x != x:
+        return "nan"
+    with localcontext() as c:
+        c.rounding = ROUND_CEILING if up else ROUND_FLOOR
+        c.prec = sf
+        return format(+Decimal(repr(float(x))), "e")
+
 def vup(x):
     return np.nextafter(x, np.inf)
 
@@ -684,7 +697,7 @@ def run():
               f"[{res['mu2'][0]:.6f}, {res['mu2'][1]:.6f}] "
               f"EOP {res['eop']:.2e} rho {res['rho']:.2e} -> "
               f"mu2+EOP {res['mu2_full_hi']:.6f} < beta "
-              f"{beta:g} margin {res['margin']:.3e} "
+              f"{beta:g} margin {_fdir(res['margin'], 4, False)} "
               f"[COUNT <= 1 CERTIFIED at nu {nu:g}]", flush=True)
         st[cellk] = res
         part[cellk] = res

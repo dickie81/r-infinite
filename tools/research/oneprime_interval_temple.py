@@ -983,6 +983,19 @@ def _ucells(lo, hi, h):
     e = np.linspace(lo, hi, n + 1)
     return e[:-1], e[1:]
 
+
+def _fdir(x, sf, up):
+    """Print x to sf significant figures rounded in the SAFE direction
+    (round-280 F280-2 at the instrument prints): up=False for a lower
+    bound (toward -inf), up=True for an upper bound (toward +inf)."""
+    from decimal import Decimal, localcontext, ROUND_CEILING, ROUND_FLOOR
+    if x is None or x != x:
+        return "nan"
+    with localcontext() as c:
+        c.rounding = ROUND_CEILING if up else ROUND_FLOOR
+        c.prec = sf
+        return format(+Decimal(repr(float(x))), "e")
+
 def _gcells(far, near, hstart, theta=0.5):
     """Geometric cells from far toward the singular point near,
     per-cell width <= theta times the remaining distance (the
@@ -1599,10 +1612,10 @@ def run():
         ok = res["premise_ok"] and res["temple_lo"] is not None \
             and res["temple_lo"] > 0
         tl = res["temple_lo"]
-        print(f"IVT {cellk}: rho [{res['rho'][0]:.4e}, "
-              f"{res['rho'][1]:.4e}] s2<={res['sigma2_hi']:.3e} "
+        print(f"IVT {cellk}: rho [{_fdir(res['rho'][0], 5, False)}, "
+              f"{_fdir(res['rho'][1], 5, True)}] s2<={_fdir(res['sigma2_hi'], 4, True)} "
               f"ell2 {res['ell2'][0]:.4g} -> Temple >= "
-              f"{tl if tl is not None else float('nan'):.4e} "
+              f"{_fdir(tl, 5, False)} "
               f"{'CERTIFIED' if ok else 'FAIL'}", flush=True)
         res["certified"] = bool(ok)
         allok = allok and ok

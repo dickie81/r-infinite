@@ -103,6 +103,19 @@ RMAX = 600.0                     # tail lemma: h+(600) - C2 - C3 = 2.31 > 2.05
 H_FRAME = 0.02
 
 
+
+def _fdir(x, sf, up):
+    """Print x to sf significant figures rounded in the SAFE direction
+    (round-280 F280-2 at the instrument prints): up=False for a lower
+    bound (toward -inf), up=True for an upper bound (toward +inf)."""
+    from decimal import Decimal, localcontext, ROUND_CEILING, ROUND_FLOOR
+    if x is None or x != x:
+        return "nan"
+    with localcontext() as c:
+        c.rounding = ROUND_CEILING if up else ROUND_FLOOR
+        c.prec = sf
+        return format(+Decimal(repr(float(x))), "e")
+
 def W23_batch(r):
     r = np.asarray(r, np.float64)
     n = len(r)
@@ -377,7 +390,7 @@ def run():
           f"{res['mu2'][1]:.6f}] (pole-free [{res['mu2_polefree'][0]:.6f}, "
           f"{res['mu2_polefree'][1]:.6f}]) EOP {res['eop']:.2e} rho "
           f"{res['rho']:.2e} -> mu2+EOP {res['mu2_full_hi']:.6f} < beta "
-          f"{ROW['beta']:g}: margin {res['margin']:+.3e} "
+          f"{ROW['beta']:g}: margin {_fdir(res['margin'], 4, False)} "
           f"[{'COUNT <= 1 CERTIFIED: lambda_2(T_odd) >= nu' if res['certified'] else 'FAIL'}]",
           flush=True)
     assert res["certified"], f"gII3 FAIL: margin {res['margin']:.3e}"

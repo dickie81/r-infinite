@@ -404,6 +404,19 @@ class ClosedT23:
         return self.tr.dphi_pt(xI, 1)
 
 
+
+def _fdir(x, sf, up):
+    """Print x to sf significant figures rounded in the SAFE direction
+    (round-280 F280-2 at the instrument prints): up=False for a lower
+    bound (toward -inf), up=True for an upper bound (toward +inf)."""
+    from decimal import Decimal, localcontext, ROUND_CEILING, ROUND_FLOOR
+    if x is None or x != x:
+        return "nan"
+    with localcontext() as c:
+        c.rounding = ROUND_CEILING if up else ROUND_FLOOR
+        c.prec = sf
+        return format(+Decimal(repr(float(x))), "e")
+
 def temple_cell23(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     a = tr.a
     even = tr.parity == "even"
@@ -791,7 +804,7 @@ def run():
     assert crow["certified"] and abs(crow["nu"] - ROW["nu"]) < 1e-12 \
         and abs(crow["a"] - A_CELL) < 1e-12, f"gT9 FAIL: count row {crow}"
     print(f"gT9 PASS: count row certified at nu {crow['nu']:g} "
-          f"(margin {crow['margin']:.3e})", flush=True)
+          f"(margin {_fdir(crow['margin'], 4, False)})", flush=True)
     fx = make_fixture(A_CELL, ROW["nu"])
     print(f"  fixture odd:1.1: float Temple {fx['temple_float']:+.3e} rho "
           f"{fx['rho_float']:+.4e} sigma {fx['sigma_float']:.3e} section l1/l2 "
@@ -806,9 +819,9 @@ def run():
     assert 0.5 < res["n"][0] and res["n"][1] < 2.0, f"gT5 FAIL n {res['n']}"
     ok = res["premise_ok"] and res["temple_lo"] is not None and res["temple_lo"] > 0
     tl = res["temple_lo"]
-    print(f"IVT2 odd:1.1: rho [{res['rho'][0]:.4e}, {res['rho'][1]:.4e}] "
-          f"s2<={res['sigma2_hi']:.3e} ell2 {res['ell2'][0]:.4g} -> Temple >= "
-          f"{tl if tl is not None else float('nan'):.4e} "
+    print(f"IVT2 odd:1.1: rho [{_fdir(res['rho'][0], 5, False)}, {_fdir(res['rho'][1], 5, True)}] "
+          f"s2<={_fdir(res['sigma2_hi'], 4, True)} ell2 {res['ell2'][0]:.4g} -> Temple >= "
+          f"{_fdir(tl, 5, False)} "
           f"{'CERTIFIED' if ok else 'FAIL'}", flush=True)
     res["certified"] = bool(ok)
     res["fixture"] = fx
@@ -817,9 +830,9 @@ def run():
         print(f"THEOREM (interval-rigorous): the semi-local two-prime Weil "
               f"form -- Weil's full functional on [log 3, log 4) -- is "
               f"positive in the odd sector at support length 1.10, "
-              f"lambda_1 >= {tl:.4e}, every ingredient an interval enclosure; "
+              f"lambda_1 >= {_fdir(tl, 5, False)}, every ingredient an interval enclosure; "
               f"by domain nesting the odd-sector margin at the log 3 "
-              f"threshold, and on the whole one-prime window, is >= {tl:.4e}.",
+              f"threshold, and on the whole one-prime window, is >= {_fdir(tl, 5, False)}.",
               flush=True)
     ckpt_key.save("twoprime_ivtemple", KEYFILE, params, st,
                   kfun=ckpt_key.code_key)
