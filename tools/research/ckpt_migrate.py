@@ -53,8 +53,9 @@ _versions = {}      # file -> {old_sha: (blob, src)}, plus byte shas
 
 
 def _history(fn):
-    """All distinct historical blobs of tools/research/fn (git log over
-    HEAD, first-parent and merges alike) plus the working-tree bytes."""
+    """All distinct COMMITTED historical blobs of tools/research/fn (git
+    rev-list over HEAD, first-parent and merges alike); never the
+    working tree (round 282 F282-3; docstring aligned round 283 F283-2)."""
     if fn in _versions:
         return _versions[fn]
     rel = os.path.join(RELDIR, fn)

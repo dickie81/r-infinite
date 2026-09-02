@@ -37,6 +37,8 @@ TOWER = [
     "cascade_twoprime_interval.py",
 ]
 
+KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py"]
+
 paper = open(PAPER, encoding="utf-8").read()
 mc = re.search(r"the \*\*(\d+) scripts cited in place\*\*", paper)
 mr = re.search(r"extended by Theorems (1i–1[a-z]+)", paper)
@@ -51,6 +53,16 @@ manifest = {
          "sha256": hashlib.sha256(
              open(os.path.join(HERE, f), "rb").read()).hexdigest()}
         for f in TOWER
+    ],
+    # round 283 (reviewer's observation O1): the keying machinery is outside
+    # every member's reach by convention, so it is integrity-pinned here
+    # instead -- an edit to any of these requires the same manifest refresh
+    # a member edit does, and run_tower fails closed on a stale pin
+    "keying": [
+        {"file": f,
+         "sha256": hashlib.sha256(
+             open(os.path.join(HERE, f), "rb").read()).hexdigest()}
+        for f in KEYING
     ],
 }
 out = os.path.join(HERE, "tower_manifest.json")

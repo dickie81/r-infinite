@@ -85,11 +85,19 @@ for e in MAN["tower"]:
     p = os.path.join(HERE, e["file"])
     if _sha(p) != e["sha256"]:
         bad.append(e["file"])
+for e in MAN.get("keying", []):          # round 283: the keying machinery, pinned
+    p = os.path.join(HERE, e["file"])
+    if _sha(p) != e["sha256"]:
+        bad.append(e["file"])
 if bad:
     print(f"MANIFEST STALE for: {bad}", flush=True)
     sys.exit(2)
-print(f"manifest integrity: {len(MAN['tower'])} members verified",
-      flush=True)
+if len(MAN.get("keying", [])) < 3:
+    print("MANIFEST lacks the keying pins (ckpt_key.py, ckpt_migrate.py, "
+          "ckpt_key_probes.py) -- refresh it", flush=True)
+    sys.exit(2)
+print(f"manifest integrity: {len(MAN['tower'])} members verified, "
+      f"{len(MAN['keying'])} keying files pinned", flush=True)
 
 import ast as _ast
 
@@ -672,12 +680,15 @@ _kp = subprocess.run([sys.executable, os.path.join(HERE, "ckpt_key_probes.py")],
                      capture_output=True, text=True)
 _kp_line = [l for l in _kp.stdout.splitlines() if l.startswith("ckpt_key probes:")]
 print("keying-probe precheck: " + (_kp_line[-1] if _kp_line else "no census line"), flush=True)
-# the gate reads the CENSUS, not just the exit code: an emptied suite
-# exiting 0 must still fail (pinned minimum case count; 0 unexpected)
-KEY_PROBE_MIN = 24
+# the gate reads the CENSUS, not just the exit code: an emptied or
+# thinned suite exiting 0 must still fail (the case count pinned
+# EXACTLY -- round 283 O2 -- and 0 unexpected); the suite itself is
+# integrity-pinned in the manifest, so a forged census line needs a
+# manifest refresh that git review sees (round 283 O1)
+KEY_PROBE_CASES = 24
 _m = re.match(r"ckpt_key probes: (\d+) cases, (\d+) as expected, (\d+) unexpected",
               _kp_line[-1]) if _kp_line else None
-if (_kp.returncode != 0 or _m is None or int(_m.group(1)) < KEY_PROBE_MIN
+if (_kp.returncode != 0 or _m is None or int(_m.group(1)) != KEY_PROBE_CASES
         or int(_m.group(3)) != 0 or int(_m.group(2)) != int(_m.group(1))):
     print("KEYING-PROBE PRECHECK FAILURE:", flush=True)
     print(_kp.stdout[-2000:] + _kp.stderr[-2000:], flush=True)

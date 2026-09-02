@@ -82,5 +82,19 @@
    "file": "cascade_twoprime_interval.py",
    "sha256": "8461470797b339c58e434b2d4933fcc9e142338e23b29e6382398b542a9ab154"
   }
+ ],
+ "keying": [
+  {
+   "file": "ckpt_key.py",
+   "sha256": "43d018a150366a5282e33ed66ca10a183cd1f0d29e82769de876d3d3d3b8cf3d"
+  },
+  {
+   "file": "ckpt_migrate.py",
+   "sha256": "6b21d1affa9df4a7e983133e0f18d2e820fe10ccf5b5723e92e317f11f512e7e"
+  },
+  {
+   "file": "ckpt_key_probes.py",
+   "sha256": "3674dfd1216c8e505b52bd7f244047e6a11d21d737235d90161577dfe061b238"
+  }
  ]
 }

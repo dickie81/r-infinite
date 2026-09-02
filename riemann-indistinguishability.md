@@ -6165,12 +6165,16 @@ monotonicity, Binet, IEEE-754 interval arithmetic — classical;
 no semiclassics; no cascade quantity derived). Check 8 clean (no
 hypothesis input; Riemann-side pure mathematics). Substrates
 `twoprime_interval_count.py`, `twoprime_interval_temple.py`
-(with `twoprime_recon.py`, `twoprime_odd_recon.py`, and
-`twoprime_margin.py` — the reconnaissance and the margin curve)
+(with `twoprime_recon.py`~~,~~ **and** `twoprime_odd_recon.py`~~, and
+`twoprime_margin.py`~~ — the reconnaissance ~~and the margin curve~~)
 committed, imported, and content-addressed into the verifier's
 keys (`cascade_twoprime_interval.py`, tower member 20, the top)
 by the computed transitive import closure (every producing file
-in every key).
+in every key); `twoprime_margin.py` — the margin curve — committed
+and cited, imported by neither instrument and in no key *(round-283
+F283-1: the landing's sentence listed it among the imported,
+content-addressed substrates; it never was — false when written,
+struck)*.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

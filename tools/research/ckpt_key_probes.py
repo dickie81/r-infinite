@@ -9,15 +9,19 @@ edit, a docstring edit, a comment edit, an added flush=True) and pairs
 that MUST hash differently (an arithmetic mangle; a print whose
 argument calls a non-whitelisted function; a print that writes to a
 file; a print carrying a walrus; a mangle in a string literal used in
-arithmetic; a print inside a lambda body; an assignment of print's
-return value). Also: the legacy hash (strip_prints=False) DOES rotate
+arithmetic; a lambda inside a print; an assignment of print's
+return value; a higher-order builtin with key=; a starred argument). Also: the legacy hash (strip_prints=False) DOES rotate
 on a print edit (it is what run_tower's member reach key uses).
 
 Migration cases (M): a checkpoint whose stored script_sha256 matches
 no historical version is 'unverifiable'; one whose stored key does
 not recompute from its own provenance is 'unverifiable'; one whose
-dep changed beyond prints is 'blocked' (M5, from a real historical
-blob of twoprime_recon.py); and the migration never rewrites state.
+dep changed beyond prints is 'blocked' (M5, hermetic: a synthetic
+"historical" version of twoprime_recon.py injected into the resolver;
+M5r, from a real historical blob when the clone carries the history,
+else the truncated history must make the same checkpoint
+'unverifiable' -- a refusal either way); and the migration never
+rewrites state. The scratch directory is removed at exit.
 """
 import hashlib, json, os, sys, tempfile
 
@@ -112,22 +116,45 @@ expect("M3 a self-consistent checkpoint is 'migrate' or 'unchanged', never block
 expect("M4 a migrated record carries the state unchanged and the old key",
        st == "unchanged" or (rec["state"] == {"v": 7} and rec["migrated"]["from_key"] == goodkey))
 
-# M5 (round 282 F282-1): a dep that changed beyond prints since the checkpoint
-# was produced is 'blocked' -- built from a real historical blob of a keyed
-# producer whose print-insensitive hash differs from today's file
-hist = ckpt_migrate._history("twoprime_recon.py")
-cur_new = ckpt_key.code_sha(os.path.join(HERE, "twoprime_recon.py"), strip_prints=True)
-stale = [h for h, (kind, blob, src) in hist.items()
-         if kind == "old" and ckpt_key.code_sha_src(src, "x.py", strip_prints=True) != cur_new]
-expect("M5a a keyed producer with executable history beyond prints exists (twoprime_recon.py)", bool(stale))
-if stale:
-    params5 = {"deps": {"twoprime_recon.py": stale[0]}, "round": 1}
-    key5 = hashlib.sha256(stale[0].encode() + json.dumps(params5, sort_keys=True).encode()).hexdigest()
-    fn5 = os.path.join(tmp, f"probe5_{key5[:12]}.json")
-    json.dump({"script_sha256": stale[0], "key": key5, "params": params5, "state": {"v": 5}}, open(fn5, "w"))
-    st, det, _, _ = ckpt_migrate.plan(os.path.basename(fn5))
-    expect("M5 a dep changed beyond prints since production is 'blocked'", st == "blocked")
+# M5 (round 282 F282-1; made hermetic round 283 F283-4): a dep that changed
+# beyond prints since the checkpoint was produced is 'blocked'. The
+# "historical" version is synthetic -- today's twoprime_recon.py with one
+# executable statement appended -- injected into the resolver's table under
+# its own old hash, so the case needs no git history at all.
+def _refusal_case(tag, old_sha):
+    params_ = {"deps": {"twoprime_recon.py": old_sha}, "round": 1}
+    key_ = hashlib.sha256(old_sha.encode() + json.dumps(params_, sort_keys=True).encode()).hexdigest()
+    fn_ = os.path.join(tmp, f"{tag}_{key_[:12]}.json")
+    json.dump({"script_sha256": old_sha, "key": key_, "params": params_, "state": {"v": 5}}, open(fn_, "w"))
+    return ckpt_migrate.plan(os.path.basename(fn_))[0]
 
+hist = ckpt_migrate._history("twoprime_recon.py")
+cur_src = open(os.path.join(HERE, "twoprime_recon.py"), "rb").read()
+cur_new = ckpt_key.code_sha_src(cur_src, "x.py", strip_prints=True)
+synth = cur_src + b"\nZZ_PROBE_MANGLE = 1\n"
+synth_old = ckpt_key.code_sha_src(synth, "x.py", strip_prints=False)
+assert ckpt_key.code_sha_src(synth, "x.py", strip_prints=True) != cur_new
+hist[synth_old] = ("old", "synthetic", synth)
+expect("M5 a dep changed beyond prints since production is 'blocked' (hermetic)",
+       _refusal_case("probe5", synth_old) == "blocked")
+del hist[synth_old]
+# M5r: the same refusal from a REAL historical blob when the clone carries it;
+# on a truncated history the hash resolves to nothing and the checkpoint is
+# 'unverifiable' -- a refusal either way, never a migration
+stale = [h for h, (kind, blob, src) in hist.items()
+         if kind == "old" and blob != "synthetic"
+         and ckpt_key.code_sha_src(src, "x.py", strip_prints=True) != cur_new]
+if stale:
+    st5r = _refusal_case("probe5r", stale[0]); want = "blocked"
+else:
+    fake5r = hashlib.sha256(b"a historical version this clone does not carry").hexdigest()
+    st5r = _refusal_case("probe5r", fake5r); want = "unverifiable"
+    print("  NOTE: git history of twoprime_recon.py carries no stale blob (shallow clone?); "
+          "M5r exercises the truncated-history refusal instead", flush=True)
+expect(f"M5r a real (or history-less) stale dep is refused as '{want}'", st5r == want)
+
+import shutil
+shutil.rmtree(tmp, ignore_errors=True)
 nfail = sum(1 for _, ok in cases if not ok)
 print(f"ckpt_key probes: {len(cases)} cases, {len(cases)-nfail} as expected, {nfail} unexpected", flush=True)
 print("CKPT_KEY PROBES " + ("PASS" if nfail == 0 else "FAIL"), flush=True)
