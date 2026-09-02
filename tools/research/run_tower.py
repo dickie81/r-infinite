@@ -293,10 +293,18 @@ def member_reach(name):
 #       declaration;
 #   (G) NO STORE ON AN IMPORTED MODULE (round-278 F277-1): no
 #       Attribute/Subscript Store or Del whose root is an
-#       import-bound name, except the attrs dps/prec (the mpmath
-#       precision contexts -- the reach's 42 committed stores);
-#       no Assign binding a bare import-bound module name to
-#       another name -- so re.sub/builtins.open/subprocess.run/
+#       import-bound name, except dps/prec on the roots mp/iv (the
+#       mpmath precision contexts -- the reach's 42 committed
+#       stores; round-279 F278-2 pinned the roots); no Assign
+#       binding a bare import-bound module name to another name;
+#       and (round-279 F278-1, the round-273 lesson applied here)
+#       no Store/Del target whose root is NOT a Name at all
+#       ((sys,)[0].executable = x) and no bare Load of an
+#       `import`-bound MODULE name anywhere but as an Attribute's
+#       value (f(subprocess), for m in [re], (sys,)[0] -- every
+#       route that hands the module OBJECT to a binding the root
+#       walk cannot see); no string constant "-c" (the spawn-
+#       hijack idiom). So re.sub/builtins.open/subprocess.run/
 #       sys.executable/os.environ[...] cannot be replaced at the
 #       spelling (the child-process evaluator's spawn depends on
 #       sys.executable and subprocess; round 277's H1/H2 hooked
@@ -333,9 +341,14 @@ def member_reach(name):
 # introspection dunder as attribute or string, and never store
 # on an imported module -- string arithmetic, getattr with a
 # computed name, exec/eval of assembled source, filesystem
-# enumeration, a committed non-.py helper the member names --
-# are deliberate evasion outside these tripwires; drift
-# detection, not a semantic proof.
+# enumeration, a committed non-.py helper the member names, a
+# write into the interpreter's own installation (the -I child
+# still imports the installation's sitecustomize; round-279
+# F278-3) -- are deliberate evasion outside these tripwires;
+# drift detection, not a semantic proof. SCOPE (round 279, the
+# owner's decision, recorded in CLAUDE.md): this precheck is a
+# drift-detection instrument, not a sandbox; deliberate
+# self-subversion of a member's own process is out of scope.
 # Rounds 264-274's member-side read/transform/compare/f-string/
 # canon-shape/binding-walk clauses are RETIRED with the member
 # reads they policed (there is no paper text in a member to
@@ -472,20 +485,44 @@ def _precheck_file(rel):
             x = x.value
         return x.id if isinstance(x, _ast.Name) else None
 
+    _mod_names = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Import):
+            for a in node.names:
+                _mod_names.add(a.asname or a.name.split(".")[0])
+    _attr_values = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Attribute):
+            _attr_values.add(id(node.value))
     for node in _ast.walk(tree):
         if (isinstance(node, (_ast.Attribute, _ast.Subscript))
-                and isinstance(node.ctx, (_ast.Store, _ast.Del))
-                and _root(node) in _imp_names
-                and not (isinstance(node, _ast.Attribute)
-                         and node.attr in ("dps", "prec"))):
-            out.append(f"{rel}: store on imported module "
-                       f"{_ast.unparse(node)!r} at line {node.lineno} "
-                       f"(clause G)")
+                and isinstance(node.ctx, (_ast.Store, _ast.Del))):
+            r_ = _root(node)
+            if r_ is None:
+                out.append(f"{rel}: store target with a non-Name root "
+                           f"{_ast.unparse(node)!r} at line "
+                           f"{node.lineno} (clause G)")
+            elif (r_ in _imp_names
+                    and not (isinstance(node, _ast.Attribute)
+                             and node.attr in ("dps", "prec")
+                             and r_ in ("mp", "iv"))):
+                out.append(f"{rel}: store on imported module "
+                           f"{_ast.unparse(node)!r} at line "
+                           f"{node.lineno} (clause G)")
         if (isinstance(node, _ast.Assign)
                 and isinstance(node.value, _ast.Name)
                 and node.value.id in _imp_names):
             out.append(f"{rel}: import-bound name {node.value.id!r} "
                        f"aliased at line {node.lineno} (clause G)")
+        if (isinstance(node, _ast.Name) and isinstance(node.ctx, _ast.Load)
+                and node.id in _mod_names
+                and id(node) not in _attr_values):
+            out.append(f"{rel}: module {node.id!r} loaded as a bare "
+                       f"value at line {node.lineno} (clause G)")
+    for node in _ast.walk(stripped):
+        if (isinstance(node, _ast.Constant) and node.value == "-c"):
+            out.append(f"{rel}: '-c' constant at line {node.lineno} "
+                       f"(clause G)")
     # (H) interpreter hooks, namespace enumeration, risky imports
     for node in _ast.walk(tree):
         if isinstance(node, _ast.Attribute) and node.attr in _HOOK_ATTRS:

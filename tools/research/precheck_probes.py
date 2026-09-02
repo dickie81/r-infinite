@@ -195,7 +195,28 @@ CASES = [
     ("H_dunder_import_ok", IMP + DECL + GATE
      + "k = __import__('ckpt_key')\n", False),   # committed spelling
     ("H_sys_executable_load_ok", "import sys, subprocess\n" + IMP + DECL + GATE
-     + "r = subprocess.run([sys.executable, '-c', 'pass'])\n", False),
+     + "r = subprocess.run([sys.executable, '--version'])\n", False),
+    # (G) binding forms that hand over the module OBJECT (round 279, F278-1)
+    ("G_param_store", "import subprocess\ndef _f(m):\n    m.run = None\n"
+     "_f(subprocess)\n" + IMP + DECL + GATE, True),
+    ("G_tuple_store", "import sys\n(sys,)[0].executable = '/tmp/fake'\n" + IMP
+     + DECL + GATE, True),
+    ("G_loop_store", "import re\nfor m in [re]:\n    m.sub = None\n" + IMP + DECL
+     + GATE, True),
+    ("G_walrus_alias", "import sys\nif (m := sys):\n    m.executable = 'x'\n"
+     + IMP + DECL + GATE, True),
+    ("G_unpack_alias", "import sys, re\na, b = sys, re\na.executable = 'x'\n"
+     + IMP + DECL + GATE, True),
+    ("G_or_alias", "import sys\nm = None or sys\nm.executable = 'x'\n" + IMP
+     + DECL + GATE, True),
+    ("G_next_iter", "import sys\nnext(iter([sys])).executable = 'x'\n" + IMP
+     + DECL + GATE, True),
+    ("G_dash_c", "import sys, subprocess\n" + IMP + DECL + GATE
+     + "subprocess.run([sys.executable, '-c', 'pass'])\n", True),
+    ("G_dps_nonmp_root", "import sys\nsys.dps = 1\n" + IMP + DECL + GATE, True),
+    ("G_module_attr_call_ok", "import subprocess, sys\n" + IMP + DECL + GATE
+     + "subprocess.run([sys.executable, '--version'])\n"
+       "x = sys.argv[0]\n", False),
     # (I) introspection dunders as string constants (round 278, F277-3)
     ("I_getattr_globals", IMP + DECL + GATE
      + "g = getattr(print, '__globals__', None)\n", True),
