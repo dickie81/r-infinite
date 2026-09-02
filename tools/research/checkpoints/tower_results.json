@@ -1985,6 +1985,12 @@
 "rc": 0,
 "when": "2026-08-28T13:43Z"
 },
+"c725ab6ac34baed9a4d44e1d": {
+"dt": 1.7016215324401855,
+"file": "cascade_slepian_mechanism.py",
+"rc": 0,
+"when": "2026-09-02T19:53Z"
+},
 "c73f8ee2e8dfb5573231f326": {
 "dt": 65.07183146476746,
 "file": "cascade_weil_crossover.py",

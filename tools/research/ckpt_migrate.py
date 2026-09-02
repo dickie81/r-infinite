@@ -122,6 +122,17 @@ def plan(basename):
             return ("skip", f"non-local dep {fn}", None, None)
         tab = _history(fn)
         if h not in tab:
+            # a checkpoint already written under the CURRENT (print-insensitive)
+            # keying: every dep hash equals today's new hash and the key recomputes
+            # from the producer's new hash -- nothing to migrate (round 286)
+            cur_ok = all(os.path.exists(os.path.join(HERE, f))
+                         and ckpt_key.code_sha(os.path.join(HERE, f), strip_prints=True) == hh
+                         for f, hh in deps.items())
+            if cur_ok:
+                pj0 = json.dumps(params, sort_keys=True).encode()
+                if hashlib.sha256(d["script_sha256"].encode() + pj0).hexdigest() == d["key"] \
+                        and d["script_sha256"] in deps.values():
+                    return ("current", "already at the current keying", None, None)
             return ("unverifiable", f"dep {fn} hash {h[:12]} matches no historical version", None, None)
         resolved[fn] = tab[h]
     kinds = {v[0] for v in resolved.values()}

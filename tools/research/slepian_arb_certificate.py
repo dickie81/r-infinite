@@ -216,7 +216,15 @@ def verified_pswf(parity, NH, nmax, c2, log):
                 done = True; break
             Dk *= 10.0
         assert done, f"Sturm pivots indefinite at k={k}"
+        assert out[k]["chi"] + Dk <= x_max, "Sturm point beyond the tail's dominance range"   # F286-8
         out[k]["D"] = Dk
+        # the true eigenvector's Legendre tail beyond the truncation (F286-5): with
+        # T the tail block, (T - chi) beta_tail = -e_tail beta_last e_1 and the tail
+        # diagonally dominant (d_n - chi >= d_tail_min, off-diagonals <= e_tail), the
+        # Neumann series gives |beta_{last+j}| <= e_tail |beta_last| q^(j-1) / (d_tail_min (1 - q)),
+        # q = 2 e_tail / d_tail_min; |beta_last| <= |v_last| + eps (eps is an l2 bound)
+        out[k]["vlast"] = float(abs(out[k]["v"][-1]).upper())
+        out[k]["e_tail"] = float(e_tail.upper()); out[k]["d_tail"] = d_tail_min; out[k]["nlast"] = nlast
     for k in range(K - 1):
         gaps = []
         if k > 0: gaps.append(out[k]["chi"] - out[k]["D"] - (out[k-1]["chi"] + out[k-1]["D"]))
@@ -261,11 +269,11 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     log = (lambda *a: print(*a, flush=True)) if verbose else (lambda *a: None)
     if kernel == "one":
         A = arb(35)/64; Omega = Omega or 64.0; terms = [(arb(2).log(), arb(2).sqrt()*arb(2).log())]
-        NH = NH or 30; h = h or 5e-3
+        NH = NH or 30; h = h or 1/256
     else:
         A = arb(177)/256; Omega = Omega or 128.0
         terms = [(arb(2).log(), arb(2).sqrt()*arb(2).log()), (arb(3).log(), 2*arb(3).log()/arb(3).sqrt())]
-        NH = NH or 48; h = h or 2.5e-3
+        NH = NH or 48; h = h or 1/512
     OmA = arb(Omega); c = A*OmA; c2 = c*c
     delta = float((2*A).mid())
     nmax = 2*(NH + 90) + 40
@@ -287,12 +295,21 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     lam = []; mu = []; kstar = None
     for k, p in enumerate(pr):
         eps = arb(0, p["eps"])
+        # the Legendre tail n >= nmax of the TRUE prolate (F286-5): geometric decay from
+        # the diagonally dominant tail block; |NF_n P_n(0)| <= 1 (even) and
+        # |NF_n P_n'(0)| <= 2n (odd, n >= 1) bound the basis values
+        q_t = 2*p["e_tail"]/p["d_tail"]; assert 0 < q_t < 1
+        beta_last = arb(p["vlast"]) + p["eps"]
+        tail_amp = arb(p["e_tail"])*beta_last/(arb(p["d_tail"])*(1 - q_t))      # sum_j |beta_{last+j}| <= tail_amp/(1-q)
+        L = p["nlast"]
+        tail_even = tail_amp/(1 - q_t)                                           # sum_j |beta| * 1
+        tail_odd = tail_amp*2*(arb(L)/(1 - q_t) + 1/(1 - q_t)**2)                # sum_j |beta| * 2(L+j)
         if parity == "even":
-            psi0 = sum((coefs[k][n]*NF[n]*P0[n] for n in range(0, nmax, 2)), arb(0)) + eps*normP0
+            psi0 = sum((coefs[k][n]*NF[n]*P0[n] for n in range(0, nmax, 2)), arb(0)) + eps*normP0 + arb(0, float(tail_even.upper()))
             num = arb(2).sqrt()*(coefs[k][0] + eps)
             mk = None if psi0.contains(arb(0)) else num/psi0
         else:
-            dpsi0 = sum((coefs[k][n]*NF[n]*dP0[n] for n in range(1, nmax, 2)), arb(0)) + eps*normdP0
+            dpsi0 = sum((coefs[k][n]*NF[n]*dP0[n] for n in range(1, nmax, 2)), arb(0)) + eps*normdP0 + arb(0, float(tail_odd.upper()))
             num = c*(arb(2)/3).sqrt()*(coefs[k][1] + eps)
             mk = None if dpsi0.contains(arb(0)) else num/dpsi0
         if mk is None or float(mk.rad()) > 0.5*float(abs(mk).upper()):
@@ -320,7 +337,12 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     cvec = [A.sqrt()*sum((coefs[k][n]*NF[n]*inv[n]*2 for n in range(par0, nmax, 2)), arb(0)) for k in range(n_head)]
     chi_norm2 = (A.sinh() + A) if parity == "even" else (A.sinh() - A)
     # (4) the band integral by Gauss-Legendre on cells with the analytic error bound
+    # round 286 F286-1: the cells must tile [0, 1] EXACTLY -- h is a power of two,
+    # so every boundary ci*h and every node/weight scaling is exact in binary
+    # (a non-dyadic h left gaps/overlaps of ~1e-16 per boundary, an error term
+    # outside the certified chain)
     ncell = int(round(1.0/h)); h = 1.0/ncell
+    assert ncell & (ncell - 1) == 0 and ncell*h == 1.0, "cell width must be dyadic (exact tiling)"
     NGL = 30
     roots = [arb.legendre_p_root(NGL, k, weight=True) for k in range(NGL)]
     # global ellipse parameter for the disk radius d covering each cell's local ellipse
@@ -369,7 +391,11 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     M_W_band = max(float(abs(w).upper()) for w in Wn)
     log(f"  kernel disk sups: max {max(MW):.3f}; |W| on the band <= {M_W_band:.4f} (nodes) ({time.time()-t0:.0f}s)")
     # per-cell error factors: (64/15) rho^{-2 NGL}/(rho^2-1) * (h/2) * MW[cell]
-    efac = [(64/15)*rho**(-2*NGL)/(rho*rho - 1)*(h/2)*MW[ci] for ci in range(ncell)]
+    # (assembled in balls, upper endpoints -- round 286 F286-4: the scalar
+    # assembly is directed, not round-to-nearest float)
+    _ef = (arb(64)/15)*arb(rho)**(-2*NGL)/(arb(rho)*rho - 1)*(arb(h)/2)
+    efac = [float((_ef*arb(MW[ci])).upper()) for ci in range(ncell)]
+    efac_sum = float(sum((_ef*arb(MW[ci]) for ci in range(ncell)), arb(0)).upper())
     # band integrals I_jk = 2 * sum_nodes w_i phi_j phi_k W  +/- errors
     Wcol = arb_mat(nn, 1)
     for i in range(nn):
@@ -380,15 +406,16 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
         for k in range(n_head):
             PhiW[i, k] = Phi[i, k]*Wcol[i, 0]
     Iband = Phi.transpose()*PhiW
-    err_tot = [[sum(efac)*Mphi[j]*Mphi[k] for k in range(n_head)] for j in range(n_head)]
+    err_tot = [[float((arb(efac_sum)*arb(Mphi[j])*arb(Mphi[k])).upper()) for k in range(n_head)] for j in range(n_head)]
     log(f"  band integrals: max quadrature error {max(max(r) for r in err_tot):.2e}, I_00 = {(2*Iband[0,0]).str(15, radius=True)}  ({time.time()-t0:.0f}s)")
     # (5) A_in, G, M_head
     # sup |W| on the REAL band: node maximum + M1 * (largest gap between consecutive nodes in r),
     # |W'| <= |psi'(1/4 + ir/2)|/2 + sum w lag <= (16 + pi^2/6)/2 + sum w lag  (the core's dW_majorant argument)
-    M1 = (16 + math.pi**2/6)/2 + sum(float((w*lag).upper()) for lag, w in terms)
-    xs_sorted = sorted(float(x.mid()) for x in nodes)
-    max_gap = max(max(b - a for a, b in zip(xs_sorted[:-1], xs_sorted[1:])), xs_sorted[0], 1.0 - xs_sorted[-1])*Omega
-    M_W = M_W_band + M1*max_gap*(1 + 1e-12)
+    M1a = (16 + arb.pi()**2/6)/2 + sum((w*lag for lag, w in terms), arb(0))
+    M1 = float(M1a.upper())
+    xs_up = sorted(float(x.upper()) for x in nodes); xs_lo = sorted(float(x.lower()) for x in nodes)
+    max_gap = float((arb(max(max(b - a for a, b in zip(xs_lo[:-1], xs_up[1:])), xs_up[0], 1.0 - xs_lo[-1]))*OmA).upper())
+    M_W = float((arb(M_W_band) + M1a*arb(max_gap)).upper())
     log(f"  |W| on the band <= {M_W:.4f} (node max {M_W_band:.4f} + M1 {M1:.2f} x max node gap {max_gap:.2e})")
     W_out = W_real(OmA, []) - sum((w for lag, w in terms), arb(0))
     W_out_lo = float(W_out.lower())
@@ -453,16 +480,19 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
             lam_min_M = sigma; break
     assert lam_min_M is not None, "no verified positive-definite shift found"
     log(f"  head: float lambda_min {lam_float:+.6e}; verified Cholesky at sigma = lambda_float - {lam_float - lam_min_M:.1e} (max entry radius {max_rad:.1e})")
-    Emat = [[float(abs(Gam[j][k] - (1 if j == k else 0)).upper()) for k in range(n_head)] for j in range(n_head)]
-    normE = float(np.linalg.norm(np.array(Emat)))*(1 + 1e-12)
-    lam_head = lam_min_M/(1 + normE) if lam_min_M >= 0 else lam_min_M/(1 - normE)
+    # Frobenius norm of Gamma - I in balls (>= the spectral norm), upper endpoint
+    normEa = sum(((Gam[j][k] - (1 if j == k else 0))**2 for k in range(n_head) for j in range(n_head)), arb(0)).sqrt()
+    normE = float(normEa.upper())
+    lam_head = float((arb(lam_min_M)/(1 + normEa)).lower()) if lam_min_M >= 0 else float((arb(lam_min_M)/(1 - normEa)).lower())
     log(f"  lambda_min(M_head) >= {lam_head:.6e} (||Gamma - I|| <= {normE:.1e})  ({time.time()-t0:.0f}s)")
-    # (6) tail and coupling
-    Lam_tail = float(lam[NH + 1].upper()) + sum(float(lam[k].upper())*pr[k]["eps"]**2 for k in range(n_head))
+    # (6) tail and coupling -- every scalar a ball, taken at its safe endpoint (F286-4)
+    Lam_tail_a = lam[NH + 1] + sum((lam[k]*arb(pr[k]["eps"])**2 for k in range(n_head)), arb(0))
+    Lam_tail = float(Lam_tail_a.upper())
     cc = sum((cvec[k]*cvec[k] for k in range(n_head)), arb(0))
-    Pperp2 = max(0.0, float(chi_norm2.upper()) - float(cc.lower())/(1 + normE))
-    q_perp = W_out_lo*(1 - Lam_tail) - M_W*Lam_tail - (2*Pperp2 if parity == "odd" else 0.0)
-    b = (M_W + float(W_out.upper()))*math.sqrt(Lam_tail) + 2*math.sqrt(float(chi_norm2.upper())*Pperp2)
+    Pperp2_a = chi_norm2 - cc/(1 + normEa)
+    Pperp2 = max(0.0, float(Pperp2_a.upper()))
+    q_perp = float((arb(W_out_lo)*(1 - arb(Lam_tail)) - arb(M_W)*arb(Lam_tail) - (2*arb(Pperp2) if parity == "odd" else 0)).lower())
+    b = float(((arb(M_W) + W_out)*arb(Lam_tail).sqrt() + 2*(chi_norm2*arb(Pperp2)).sqrt()).upper())
     # the 2x2 minimum eigenvalue in ball arithmetic (a float guard factor here would
     # cost ~1e-12 * q_perp, comparable to the two-prime even head's margin)
     lh, qp, bb = arb(lam_head), arb(q_perp), arb(b)
@@ -487,7 +517,7 @@ DEPS_SM = {f: ckpt_key.code_sha(os.path.join(HERE, f)) for f in sorted(
     ckpt_key.producer_closure(("slepian_arb_certificate.py",), HERE))}
 KEYFILE = os.path.join(HERE, "slepian_arb_certificate.py")
 
-CELLS = {"one": dict(NH=30, h=5e-3, Omega=64.0), "two": dict(NH=48, h=2.5e-3, Omega=128.0)}
+CELLS = {"one": dict(NH=30, h=1/256, Omega=64.0), "two": dict(NH=48, h=1/512, Omega=128.0)}   # dyadic h (F286-1)
 
 def run(kernel, parity):
     """The certified cell (kernel in one|two, parity in even|odd) at its

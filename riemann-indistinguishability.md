@@ -6212,7 +6212,8 @@ mass onto the band, where the kernel can be negative, and the rest
 where the kernel exceeds W_out > 0 — and positivity of the
 infinite-dimensional form collapses to a finite matrix plus Slepian's
 theorem. *(iii) The theorem.* Every quantity a ball in 256-bit ball
-arithmetic (python-flint/ARB): **at the one-prime cell a = 35/64
+arithmetic (python-flint 0.9.0/ARB), every scalar of the assembly
+taken at its safe endpoint: **at the one-prime cell a = 35/64
 (δ = 1.09375 < log 3; Ω = 64, c = aΩ = 35, 31 prolates per parity)
 λ_min(Q) ≥ 4.3420e-08 (even) and ≥ 1.3566e-05 (odd); at the two-prime
 cell a = 177/256 (δ = 1.3828125 < log 4; Ω = 128, c = 88.5, 49
@@ -6223,33 +6224,45 @@ positive for every even and every odd probe of support length ≤
 prolates: the float eigenvectors of Slepian's Legendre tridiagonal
 (the commuting differential operator −d/dx(1−x²)d/dx + c²x², exact in
 c² ∈ ℚ) refined by inverse iteration in ball arithmetic, a rigorous
-residual per vector (≤ 10⁻⁴⁵), a rigorous Sturm count on the interval
+residual per vector (≤ 1.1×10⁻⁴⁵), a rigorous Sturm count on the interval
 tridiagonal with the last pivot widened by the Schur bound for the
 diagonally dominant infinite tail (exactly one eigenvalue per
-bracket, none between; min gap ≥ 65), hence ‖ψ_k − φ_k‖ ≤ ε_k ≤ 10⁻⁴⁰
-with φ_k the stored polynomial; the Slepian eigenvalues from the
+bracket, none between; min gap ≥ 65), hence ‖ψ_k − φ_k‖ ≤ ε_k ≤
+1.001×10⁻⁴⁰ (the instrument's 10⁻⁴⁰ floor plus the computed terms)
+with φ_k the stored polynomial, whose Legendre tail beyond the
+truncation is bounded geometrically from the diagonally dominant
+tail block; the Slepian eigenvalues from the
 finite-Fourier eigen-relation λ_k = (c/2π)|μ_k|², every prolate
-through NH + 1 resolved (λ_{NH+1} ≤ 3.2×10⁻⁵³ / 6.2×10⁻⁵⁵ one-prime,
-2.2×10⁻⁴³ / 1.1×10⁻⁴⁴ two-prime); the band integrals
-∫φ_jφ_kW(Ωx)dx by 30-point Gauss–Legendre on cells of width 1/200
-(Ω = 64) and 1/400 (Ω = 128) with the analytic error bound — the
+through NH + 1 resolved (λ_{NH+1} ≤ 3.3×10⁻⁵³ / 6.3×10⁻⁵⁵ one-prime,
+2.3×10⁻⁴³ / 1.2×10⁻⁴⁴ two-prime); the band integrals
+∫φ_jφ_kW(Ωx)dx by 30-point Gauss–Legendre on cells of width 1/256
+(Ω = 64) and 1/512 (Ω = 128) — dyadic, so the cells tile [0, 1]
+exactly in binary *(round-286 F286-1: the landing's cells of width
+1/200 and 1/400 had float boundaries that left gaps of order 10⁻¹⁶,
+an error term outside the certified chain; struck, the four cells
+recomputed)* — with the analytic error bound — the
 integrand is holomorphic in |Im x| < 1/(2Ω), the Bernstein ellipse of
 parameter 3 on each cell lies in that strip, and Trefethen's Theorem
-19.3 bounds the error by (64/15)M·3⁻⁶⁰/8 with M the sup on the disk
+19.3 bounds each cell's error by (64/15)(h/2)M·3⁻⁶⁰/8 with M the sup on the disk
 covering the ellipse (polynomial sups by |P_n(z)| ≤ ρ_d^n on the
 global ellipse, kernel sups by a complex-ball Stirling enclosure with
-Binet's remainder) — total quadrature error ≤ 2×10⁻²⁰; the kernel at
+Binet's remainder) — total quadrature error ≤ 3.6×10⁻²¹; the kernel at
 the nodes by ARB's digamma (radius 2×10⁻⁷⁴); M_W from the node
 maximum plus a Lipschitz constant of W times the largest node gap;
 the pole vector by ∫P_n(x)e^{sx}dx = 2i_n(s) in balls; λ_min(M_head)
 by a verified Cholesky factorisation of M_head − σI (positive pivots
-prove λ_min ≥ σ; head entry radii ≤ 1.6×10⁻²²); the 2×2 in balls.
+prove λ_min ≥ σ; head entry radii ≤ 4.9×10⁻²³); the 2×2 in balls.
 *(v) The falsification content.* The bound is one-sided (a lower
-bound on the true ground state) and the claim is positivity: a
-certified negative value would have disproved RH; the instrument's
-float head eigenvalue is reproduced to seven figures by the verified
-Cholesky (two-prime even 5.713471e-13 float against 5.7134707e-13
-certified). *(vi) What is new and honest scope.* Against 1bj/1bk:
+bound on the true ground state), so the instrument can certify
+positivity but cannot certify a negative value: an outcome below zero
+is NOT CERTIFIED and leaves the cell open — a disproof of RH at a
+cell needs a two-sided certificate of the kind Theorem 1bk's Temple
+machine gives. What the instrument does falsify is its own claim of
+rigor against its float shadow: the head's float minimum eigenvalue
+is reproduced to six figures by the verified Cholesky (two-prime even
+5.713561e-13 float against 5.713560e-13 certified) *(round-286
+F286-3: the landing's clause claimed a disproof capability the
+one-sided bound does not have; struck)*. *(vi) What is new and honest scope.* Against 1bj/1bk:
 the even sector's certified top moves from 1.0 (1bj) to 1.3828125 —
 the even sector was open on the whole two-prime window — and the odd
 sector's from 1.10 (1bk) to 1.3828125; the method carries no Temple
