@@ -245,6 +245,12 @@
 "rc": 0,
 "when": "2026-08-28T17:08Z"
 },
+"19b4ed8328085700f9de1ed5": {
+"dt": 414.29052782058716,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-09-02T07:52Z"
+},
 "19d3e8fed873a880b9a63011": {
 "dt": 57.965699911117554,
 "file": "cascade_heatflow_energy.py",
@@ -2080,6 +2086,12 @@
 "file": "cascade_weil_margin.py",
 "rc": 0,
 "when": "2026-08-27T20:54Z"
+},
+"e4a184ffed992579c1907a38": {
+"dt": 67.57733082771301,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-09-02T07:52Z"
 },
 "e4f580e05f132db5dff35038": {
 "dt": 2.3678739070892334,
