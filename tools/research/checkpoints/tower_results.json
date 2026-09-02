@@ -1073,6 +1073,12 @@
 "rc": 0,
 "when": "2026-08-28T13:52Z"
 },
+"7722777d1bef9950654ccc3d": {
+"dt": 2394.915047645569,
+"file": "cascade_twoprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T08:31Z"
+},
 "7786d3500bc272397e46c4e3": {
 "dt": 10.258491516113281,
 "file": "cascade_floor_closure.py",
