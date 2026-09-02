@@ -110,7 +110,7 @@ VERIFICATION (12 gates, exit-gated).
        census advance (cascade_type_counting.py 12/0, which itself
        re-runs the two Weil-arc siblings); g12 the footer census
        (this script backticked; "88 scripts cited in place";
-       "Theorems 1i-1bk" -- the census advances with each landing
+       "Theorems 1i-1bl" -- the census advances with each landing
        (the census-evolution class, disclosed; the gate carries
        the live values)).
 

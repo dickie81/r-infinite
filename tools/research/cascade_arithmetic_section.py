@@ -183,7 +183,7 @@ VERIFICATION (10 gates, exit-gated).
        chaining the Weil-arc sibling chain -- the "full suite"
        label corrected round 175 F5); g10 the footer census (this
        script backticked >= 2; "88 scripts cited in place";
-       "Theorems 1i-1bk").
+       "Theorems 1i-1bl").
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, per-mangle restore from pristine copies, abort-safe; clean
@@ -472,7 +472,7 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_arithmetic_section.py`', 'pla
 ok &= paper_needles.needle(PAPER_NEEDLES, '88 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bl', 'plain')
 gate("g10 the footer census (this script backticked in body and "
-     "footer; \"88 scripts cited in place\"; \"Theorems 1i-1bk\")", ok)
+     "footer; \"88 scripts cited in place\"; \"Theorems 1i-1bl\")", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")
