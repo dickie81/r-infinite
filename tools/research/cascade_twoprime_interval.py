@@ -102,7 +102,7 @@ PC = run_C()
 PT = run_T()
 
 COUNT_PIN = 9.054e-3
-TEMPLE_PIN = None            # set at the landing from the Stage-2 checkpoint
+TEMPLE_PIN = 6.3136e-06          # the Stage-2 checkpoint, pinned to 4 sf
 GG_PIN = 0.05632
 M_PIN = 4616
 SUPPORT_PIN = 87.0

@@ -199,7 +199,7 @@ g19-g20):
        round 147, listed round 148 F4); the per-zero probe; the
        wall-stands sentence; R2''s monotonicity; the
        no-role-of-the-action;
-       g18 the footer census (the script backticked; "86 scripts cited in place"; "Theorems 1i--1bj" -- the census
+       g18 the footer census (the script backticked; "87 scripts cited in place"; "Theorems 1i--1bj" -- the census
        advances with each landing; the gate carries the live
        values).
 
@@ -643,10 +643,10 @@ print("V5 -- the anchors and the footer")
 # inline compare, so drift fails the precheck)
 import paper_needles
 PAPER_NEEDLES = [
-    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '87 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1aj): superseded-true — Theorem 1aj constructs an admissible-discriminating instance from the committed pair itself', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1aj): the morphism now exists', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bk', 'form': 'plain', 'min': 1},
     {'s': '`cascade_weil_route_traveled.py`', 'form': 'plain', 'min': 1},
     {'s': 'a genuine per-zero sensitivity probe', 'form': 'plain', 'min': 1},
     {'s': 'action-positivity plays no role in the sign', 'form': 'plain', 'min': 1},
@@ -688,11 +688,11 @@ gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
 # (64 -> 65; range -> 1ao) -- the census-evolution class,
 # disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_weil_route_traveled.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '87 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bk', 'plain')
 gate("g18 the footer census (advanced with each landing, "
      "disclosed): this script backticked; 86 cited in "
-     "place; the range 1i–1bj (advance disclosed; label re-synced "
+     "place; the range 1i–1bk (advance disclosed; label re-synced "
      "rounds 175 F2, 176 F2, and again round 213 F3 -- the census "
      "value missed in the 175 pass and in the 1ba sweep)", ok)
 

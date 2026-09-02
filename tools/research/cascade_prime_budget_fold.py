@@ -150,8 +150,8 @@ PAPER_NEEDLES = [
     {'g': 'g12', 's': 'every point positive', 'form': 'plain'},
     {'g': 'g12', 's': 'count-conditioned per the certified 1bc protocol', 'form': 'plain'},
     {'s': '`cascade_prime_budget_fold.py`', 'min': 2, 'g': 'g12'},
-    {'s': 'the **86 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
-    {'s': 'extended by Theorems 1i–1bj:', 'form': 'ws', 'g': 'g12'},
+    {'s': 'the **87 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
+    {'s': 'extended by Theorems 1i–1bk:', 'form': 'ws', 'g': 'g12'},
     {'g': 'g10', 's': '+0.710 ± 0.086'},
 ]
 

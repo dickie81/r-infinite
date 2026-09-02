@@ -92,8 +92,8 @@ Gates (twelve):
        self-satisfying-gate lesson; g11 1ak's key sentences
        anchored as swept round 151 (the two-plane pole image;
        the up-to-half prefactor); g12 the footer census (the script
-       backticked; "86 scripts cited in place"; "Theorems
-       1i–1bj" -- the census advances with each landing; the
+       backticked; "87 scripts cited in place"; "Theorems
+       1i–1bk" -- the census advances with each landing; the
        gate carries the live values).
 
 Sabotage record (full-tree scratchpad copy, at the landing
@@ -308,9 +308,9 @@ print("V5 -- the anchors and the footer")
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
 PAPER_NEEDLES = [
-    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '87 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': "The quarter-square is the pole's image under the squared-shift map", 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bk', 'form': 'plain', 'min': 1},
     {'s': '`cascade_quarter_square.py`', 'form': 'plain', 'min': 1},
     {'s': "each lattice site's anchor is its squared half-shift MINUS the quarter-square", 'form': 'plain', 'min': 1},
     {'s': "one scale — (½)², the functional equation's half-shift squared", 'form': 'plain', 'min': 1},
@@ -352,11 +352,11 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_quarter_square.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '87 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bk', 'plain')
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
-     "disclosed): this script backticked; 86 cited in place; the "
-     "range 1i–1bj (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
+     "disclosed): this script backticked; 87 cited in place; the "
+     "range 1i–1bk (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

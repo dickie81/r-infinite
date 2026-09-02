@@ -128,6 +128,34 @@ def fixture(a, parity, nus=(), nfr=0, base=0.003):
     return md, sym(NA), sym(MA), sym(SA), sym(MF), sym(SF)
 
 
+def fixture_nh(a, parity, nh, base=0.003):
+    """fixture() with the harmonic count nh set on the LOCAL Modes
+    object (w, nharm, n) -- never by storing on the imported module
+    (the tower precheck's clause G)."""
+    md = opf.Modes(a, parity, nus=(), nfr=0, nrough=0)
+    if parity == "even":
+        w = list((np.arange(nh) + 0.5)*np.pi/a)
+    else:
+        w = sorted(list((np.arange(nh) + 1.0)*np.pi/a)
+                   + list((np.arange(nh) + 0.5)*np.pi/a))
+    md.w = np.array(w); md.nharm = len(md.w); md.n = md.nharm + len(md.frac)
+    tn, tw, B, TB, v = TR.apply_T(md, (2, 3), base=base)
+    N = 2*(B*tw[None, :]) @ B.T
+    M = 2*(B*tw[None, :]) @ TB.T
+    S = 2*(TB*tw[None, :]) @ TB.T
+    N, M, S = (N + N.T)/2, (M + M.T)/2, (S + S.T)/2
+    d = 1.0/np.sqrt(np.diag(N))
+    ev, U = np.linalg.eigh(d[:, None]*N*d[None, :])
+    keep = ev > 1e-4
+    Wh = ((U[:, keep]/np.sqrt(ev[keep])[None, :]).T*d[None, :])
+    Bw, TBw = Wh @ B, Wh @ TB
+    NA = 2*(Bw*tw[None, :]) @ Bw.T
+    MA = 2*(Bw*tw[None, :]) @ TBw.T
+    SA = 2*(TBw*tw[None, :]) @ TBw.T
+    sym = lambda X: (X + X.T)/2
+    return md, sym(NA), sym(MA), sym(SA)
+
+
 def two_stage(NA, MA, SA, MF, SF, nustar):
     """Float two-stage odd route: pole-free Temple at ell2 = nustar
     -> nu1; full Temple at ell2 = nu1 (the fixture builder's 0.9
@@ -280,15 +308,13 @@ def lever_scan():
             print(f"  POLE-COUNT nu {nu:g} beta {beta:g} rmax 1500: mu2(bordered) {m2:.5f} "
                   f"(pole-free {m2free:.5f}) margin {beta - m2:+.3e} {'<=1' if m2 < beta else '2+'}", flush=True)
     for nh in (24, 32, 40, 48):
-        opf.NHALF = nh
-        md, NA, MA, SA, MF, SF = fixture(A, "odd")
+        md, NA, MA, SA = fixture_nh(A, "odd", nh)
         for ell2 in (0.03, 0.035, 0.04):
             mu, c = temple_opt(NA, MA, SA, ell2)
             nn = float(c @ NA @ c); rho = float(c @ MA @ c)/nn
             sig = math.sqrt(max(float(c @ SA @ c)/nn - rho**2, 0.0))
             print(f"TEMPLE harm NHALF {nh} (dim {NA.shape[0]}) ell2 {ell2:g}: {mu:+.3e} (rho {rho:+.3e} "
                   f"sigma {sig:.2e} needed {math.sqrt(max(rho*(ell2 - rho), 0)):.2e})", flush=True)
-    opf.NHALF = 24
 
 
 if __name__ == "__main__" and os.environ.get("TP_LEVER") == "1":
@@ -302,15 +328,13 @@ def lever_scan2():
             print(f"  POLE-COUNT nu {nu:g} beta {beta:g} rmax {rmax:g}: mu2(bordered) {m2:.5f} "
                   f"(pole-free {m2free:.5f}) margin {beta - m2:+.3e} {'<=1' if m2 < beta else '2+'}", flush=True)
     for nh in (24, 32, 40):
-        opf.NHALF = nh
-        md, NA, MA, SA, MF, SF = fixture(A, "odd")
+        md, NA, MA, SA = fixture_nh(A, "odd", nh)
         for ell2 in (0.035, 0.04):
             mu, c = temple_opt(NA, MA, SA, ell2)
             nn = float(c @ NA @ c); rho = float(c @ MA @ c)/nn
             sig = math.sqrt(max(float(c @ SA @ c)/nn - rho**2, 0.0))
             print(f"TEMPLE harm NHALF {nh} (dim {NA.shape[0]}) ell2 {ell2:g}: {mu:+.3e} (rho {rho:+.3e} "
                   f"sigma {sig:.2e} needed {math.sqrt(max(rho*(ell2 - rho), 0)):.2e})", flush=True)
-    opf.NHALF = 24
 
 
 if __name__ == "__main__" and os.environ.get("TP_LEVER2") == "1":

@@ -87,7 +87,7 @@ Gates (twelve):
        anchored.
   V5 -- g9 1al's key sentences anchored; g10 the two net-state
        markers on the weakest-link sentences anchored; g11 the
-       footer census (the new script backticked; "86 scripts cited in place"; "Theorems 1i–1bj" -- advanced at the
+       footer census (the new script backticked; "87 scripts cited in place"; "Theorems 1i–1bk" -- advanced at the
        1am-1ap landings, the census-evolution class, disclosed); g12 the two Weil-arc
        footer-gating siblings re-run green after the census
        advance (quarter_square 12/0; route_traveled 22/0).
@@ -162,9 +162,9 @@ import paper_needles
 # relocated above V1 at the round-267 sweep so the
 # g2 declared check can execute)
 PAPER_NEEDLES = [
-    {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '87 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1al):', 'form': 'plain', 'min': 2, 'max': 2},
-    {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bk', 'form': 'plain', 'min': 1},
     {'s': '`cascade_type_counting.py`', 'form': 'plain', 'min': 1},
     {'s': 'a fifth type requires a FOURTH FLAG', 'form': 'plain', 'min': 1},
     {'s': 'closed relative to the committed source set', 'form': 'plain', 'min': 1},
@@ -316,11 +316,11 @@ gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
 # then 1an (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_type_counting.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '87 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bk', 'plain')
 gate("g11 the footer census (advanced at the 1am-1ap landings, "
-     "disclosed): this script backticked; 86 cited in place; the "
-     "range 1i–1bj (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
+     "disclosed): this script backticked; 87 cited in place; the "
+     "range 1i–1bk (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 ok = True
 for s, expect in (("cascade_quarter_square", "12 pass / 0 fail"),
                   ("cascade_weil_route_traveled", "22 pass / 0 fail")):

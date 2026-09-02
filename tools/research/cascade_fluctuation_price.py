@@ -106,8 +106,8 @@ Gates (all exit-gated; any failure exits 1):
       1bb) met (full mode: parent executed, exit 0; manifest mode:
       ancestor hashes + census attested).
   g10 the footer census (this script backticked >= 2; the anchored
-      needles "the **86 scripts cited in place** above" and
-      "extended by Theorems 1i–1bj:").
+      needles "the **87 scripts cited in place** above" and
+      "extended by Theorems 1i–1bk:").
 
 Near-boundary caution (round-210 F1 standing): margins are pinned by
 magnitude windows only; no balance decompositions are gated here.
@@ -164,8 +164,8 @@ PAPER_NEEDLES = [
     {'g': 'g8', 's': 'concentration economics, not a hidden wall'},
     {'g': 'g8', 's': 'the third instrument on the low-height rigidity anomaly'},
     {'g': 'g10', 's': '`cascade_fluctuation_price.py`', 'min': 2},
-    {'g': 'g10', 's': 'the **86 scripts cited in place** above'},
-    {'g': 'g10', 's': 'extended by Theorems 1i–1bj:'},
+    {'g': 'g10', 's': 'the **87 scripts cited in place** above'},
+    {'g': 'g10', 's': 'extended by Theorems 1i–1bk:'},
 ]
 
 fails = []

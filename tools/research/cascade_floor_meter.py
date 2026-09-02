@@ -109,8 +109,8 @@ Gates (all exit-gated; any failure exits 1):
       law.
   g9  the paper needles for the 1aw block (in-code list authoritative).
   g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met.
-  g11 the footer census (this script backticked >= 2; the anchored needles "the **86 scripts cited in place** above"
-      and "extended by Theorems 1i–1bj:" -- round-218 F12 mirrored
+  g11 the footer census (this script backticked >= 2; the anchored needles "the **87 scripts cited in place** above"
+      and "extended by Theorems 1i–1bk:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle, restore from
@@ -156,8 +156,8 @@ PAPER_NEEDLES = [
     {'g': 'g9', 's': 'asymptotic, not\nmonotone'},
     {'g': 'g9', 's': 'near-monotone, collective, not exactly a second\nlaw'},
     {'g': 'g11', 's': '`cascade_floor_meter.py`', 'min': 2},
-    {'g': 'g11', 's': 'the **86 scripts cited in place** above'},
-    {'g': 'g11', 's': 'extended by Theorems 1i–1bj:'},
+    {'g': 'g11', 's': 'the **87 scripts cited in place** above'},
+    {'g': 'g11', 's': 'extended by Theorems 1i–1bk:'},
 ]
 
 fails = []
@@ -564,8 +564,8 @@ gate("g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met",
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g11')
 for _d, _n in _missC:
     print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g11 the footer census (this script backticked >= 2; 86 cited in place; "
-     "the range 1i–1bj)", ok)
+gate("g11 the footer census (this script backticked >= 2; 87 cited in place; "
+     "the range 1i–1bk)", ok)
 
 print(flush=True)
 if fails:

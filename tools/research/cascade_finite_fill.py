@@ -33,8 +33,8 @@ Gates (all exit-gated; any failure exits 1):
       repair needles and the round-193 epigram needle -- see the
       in-code list, which is the authoritative census).
   g7  the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met.
-  g8  the footer census (this script backticked >= 2; the anchored needles "the **86 scripts cited in place** above"
-      and "extended by Theorems 1i–1bj:" -- round-218 F12 mirrored
+  g8  the footer census (this script backticked >= 2; the anchored needles "the **87 scripts cited in place** above"
+      and "extended by Theorems 1i–1bk:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -80,8 +80,8 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the analogue-finite target, named HERE as the'},
     {'g': 'g6', 's': "exactness\nis the cited theorem's, not the gate's"},
     {'g': 'g8', 's': '`cascade_finite_fill.py`', 'min': 2},
-    {'g': 'g8', 's': 'the **86 scripts cited in place** above'},
-    {'g': 'g8', 's': 'extended by Theorems 1i–1bj:'},
+    {'g': 'g8', 's': 'the **87 scripts cited in place** above'},
+    {'g': 'g8', 's': 'extended by Theorems 1i–1bk:'},
 ]
 
 fails = []
@@ -174,8 +174,8 @@ gate("g7 the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met",
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _missC:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g8 the footer census (this script backticked >= 2; 86 cited in place; "
-     "the range 1i–1bj)", ok)
+gate("g8 the footer census (this script backticked >= 2; 87 cited in place; "
+     "the range 1i–1bk)", ok)
 
 print()
 if fails:

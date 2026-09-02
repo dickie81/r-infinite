@@ -693,13 +693,13 @@ def make_fixture(a, nustar, nhalf=NHALF_FIX):
     import twoprime_recon as TR
     from oneprime_push import temple_opt
     from scipy.linalg import eigh as scipy_eigh
-    old = opf.NHALF
-    opf.NHALF = nhalf
-    try:
-        md = opf.Modes(a, "odd", nus=(), nfr=0, nrough=0)
-        tn, tw, B, TB, _v = TR.apply_T(md, (2, 3), base=0.003)
-    finally:
-        opf.NHALF = old
+    # the harmonic count is the module default (NHALF_FIX = 24 =
+    # opf.NHALF); a different count would be set on the LOCAL
+    # Modes object (w, nharm, n), never by storing on the imported
+    # module (the tower precheck's clause G)
+    assert nhalf == opf.NHALF, "fixture harmonic count is the module default"
+    md = opf.Modes(a, "odd", nus=(), nfr=0, nrough=0)
+    tn, tw, B, TB, _v = TR.apply_T(md, (2, 3), base=0.003)
     N = 2*(B*tw[None, :]) @ B.T
     M = 2*(B*tw[None, :]) @ TB.T
     S = 2*(TB*tw[None, :]) @ TB.T
