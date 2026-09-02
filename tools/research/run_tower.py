@@ -679,8 +679,12 @@ def member_key(name):
     # EXECUTABLE-CONTENT hash -- prose edits hold the cache
     for f in sorted(member_reach(name)):
         h.update(f.encode())
+        # strip_prints=False (round 282): the member reach key keeps
+        # the docstring-only hash -- a print edit in the reach
+        # re-verifies the member live (cheap), while the producers'
+        # compute keys (ckpt_key.code_key) ignore pure prints.
         h.update(ckpt_key.code_sha(
-            os.path.join(HERE, f)).encode())
+            os.path.join(HERE, f), strip_prints=False).encode())
     return h.hexdigest()[:24]
 
 

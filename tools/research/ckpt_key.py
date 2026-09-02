@@ -28,12 +28,61 @@ def key(script_path, params):
     h.update(json.dumps(params, sort_keys=True).encode())
     return h.hexdigest()
 
-def code_sha(path):
-    """sha256 of the executable content: the docstring-stripped AST
-    dump for .py files, raw bytes for anything else."""
-    data = open(path, "rb").read()
-    if not path.endswith(".py"):
-        return hashlib.sha256(data).hexdigest()
+# Pure-print stripping (owner's decision, round 282: "abort and fix
+# the process" -- a safe-direction edit to five instruments' print
+# lines had rotated every interval key and owed a two-hour
+# recompute). A bare statement `print(...)` is dropped from the
+# executable-content hash when its whole argument subtree is
+# side-effect-free by construction: no assignment expression, await,
+# yield, lambda, or `file=` keyword, and every call inside it is to a
+# name or attribute on the read-only formatting whitelist below.
+# Anything else -- a print whose argument calls a function outside
+# the whitelist, a print that writes to a file, a print hidden in a
+# larger statement -- stays in the hash exactly as before, so a
+# probe's mangle cannot ride inside a print. The legacy hash
+# (docstring-stripped only) remains available as
+# code_sha(path, strip_prints=False); run_tower's member reach key
+# keeps it, so a print edit in a member's reach still re-verifies the
+# member live (cheap) while the producers' compute state survives.
+PRINT_CALL_NAMES = frozenset((
+    "print", "_fdir", "float", "int", "str", "repr", "len", "abs",
+    "max", "min", "round", "format", "sum", "sorted", "bool", "list",
+    "tuple", "dict", "hex", "type", "range", "enumerate", "zip"))
+PRINT_CALL_ATTRS = frozenset((
+    "upper", "lower", "mid", "rad", "str", "get", "keys", "values",
+    "items", "format", "join", "strip", "rstrip", "lstrip", "hexdigest",
+    "basename", "isoformat", "strftime", "time", "count", "index",
+    "replace", "ljust", "rjust", "hex", "startswith", "endswith",
+    "split", "real", "imag", "tolist", "sum", "max", "min", "mean"))
+PRINT_KEYWORDS = frozenset(("flush", "sep", "end"))
+
+def _is_pure_print(stmt):
+    import ast
+    if not (isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Call)):
+        return False
+    call = stmt.value
+    if not (isinstance(call.func, ast.Name) and call.func.id == "print"):
+        return False
+    for kw in call.keywords:
+        if kw.arg is None or kw.arg not in PRINT_KEYWORDS:
+            return False
+    for node in ast.walk(call):
+        if isinstance(node, (ast.NamedExpr, ast.Await, ast.Yield,
+                             ast.YieldFrom, ast.Lambda)):
+            return False
+        if isinstance(node, ast.Call):
+            f = node.func
+            if isinstance(f, ast.Name):
+                if f.id not in PRINT_CALL_NAMES:
+                    return False
+            elif isinstance(f, ast.Attribute):
+                if f.attr not in PRINT_CALL_ATTRS:
+                    return False
+            else:
+                return False
+    return True
+
+def _stripped_tree(data, strip_prints):
     import ast
     tree = ast.parse(data)
     for node in ast.walk(tree):
@@ -42,8 +91,26 @@ def code_sha(path):
                 and isinstance(body[0], ast.Expr)
                 and isinstance(body[0].value, ast.Constant)
                 and isinstance(body[0].value.value, str)):
-            node.body = body[1:]
-    return hashlib.sha256(ast.dump(tree).encode()).hexdigest()
+            body = node.body = body[1:]
+        if strip_prints:
+            for attr in ("body", "orelse", "finalbody"):
+                lst = getattr(node, attr, None)
+                if isinstance(lst, list) and lst and isinstance(lst[0], ast.stmt):
+                    setattr(node, attr, [s for s in lst if not _is_pure_print(s)])
+    return tree
+
+def code_sha_src(data, path=".py", strip_prints=True):
+    """The executable-content hash of source bytes (see code_sha)."""
+    if not path.endswith(".py"):
+        return hashlib.sha256(data).hexdigest()
+    import ast
+    return hashlib.sha256(ast.dump(_stripped_tree(data, strip_prints)).encode()).hexdigest()
+
+def code_sha(path, strip_prints=True):
+    """sha256 of the executable content: the docstring-stripped,
+    pure-print-stripped AST dump for .py files (strip_prints=False:
+    docstrings only -- the round-245 hash), raw bytes for anything else."""
+    return code_sha_src(open(path, "rb").read(), path, strip_prints)
 
 def code_key(script_path, params):
     h = hashlib.sha256()

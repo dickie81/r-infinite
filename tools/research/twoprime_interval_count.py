@@ -114,7 +114,7 @@ def _fdir(x, sf, up):
     with localcontext() as c:
         c.rounding = ROUND_CEILING if up else ROUND_FLOOR
         c.prec = sf
-        return format(+Decimal(float(x)), "e")   # exact binary value (round-281 F281-2)
+        return format(+Decimal(repr(float(x))), "e")
 
 def W23_batch(r):
     r = np.asarray(r, np.float64)

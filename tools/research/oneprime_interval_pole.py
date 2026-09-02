@@ -128,20 +128,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 import ckpt_key
-
-
-def _fdir(x, sf, up):
-    """Print x to sf significant figures rounded in the SAFE direction
-    (round-281 F281-1 at the pole prints): up=False for a lower bound
-    (toward -inf), up=True for an upper bound (toward +inf); exact binary
-    value (F281-2)."""
-    from decimal import Decimal, localcontext, ROUND_CEILING, ROUND_FLOOR
-    if x is None or x != x:
-        return "nan"
-    with localcontext() as c:
-        c.rounding = ROUND_CEILING if up else ROUND_FLOOR
-        c.prec = sf
-        return format(+Decimal(float(x)), "e")
 from oneprime_interval_core import (I, PI, isinh, icosh, _u, _d)
 from oneprime_interval_count import (
     V, vsin, vup, vdn, W_batch, support_pieces, eop_bound,
@@ -473,13 +459,13 @@ def run():
         tag = (f"[COUNT <= 1 CERTIFIED at nu {nu:g}]"
                if res["certified"] else "[NOT certified]")
         print(f"IVP even:1.0 row (nu {nu:g}, beta {beta:g}): "
-              f"m {res['m']} EOP {_fdir(res['eop'], 3, True)} rho "
-              f"{res['rho']:.2e} mu2 [{_fdir(res['mu'][1][0], 7, False)}, "
-              f"{_fdir(res['mu'][1][1], 7, True)}] mu3 "
-              f"[{_fdir(res['mu'][2][0], 7, False)}, {_fdir(res['mu'][2][1], 7, True)}] "
-              f"gaps {_fdir(res['gap_lo'], 3, False)}/{_fdir(res['gap_hi'], 3, False)} "
-              f"g(beta') [{_fdir(res['g'][0], 7, False)}, "
-              f"{_fdir(res['g'][1], 7, True)}] margin {_fdir(res['gmargin'], 4, False)} "
+              f"m {res['m']} EOP {res['eop']:.2e} rho "
+              f"{res['rho']:.2e} mu2 [{res['mu'][1][0]:.6f}, "
+              f"{res['mu'][1][1]:.6f}] mu3 "
+              f"[{res['mu'][2][0]:.6f}, {res['mu'][2][1]:.6f}] "
+              f"gaps {res['gap_lo']:.2e}/{res['gap_hi']:.2e} "
+              f"g(beta') [{res['g'][0]:+.6f}, "
+              f"{res['g'][1]:+.6f}] margin {res['gmargin']:+.3e} "
               f"{tag}", flush=True)
         assert res["certified"], \
             f"gP6 FAIL ({nu}, {beta}): g margin {res['gmargin']}"
