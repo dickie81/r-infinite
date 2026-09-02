@@ -5271,3 +5271,11 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **The sweep:** the factor 2 restored; the four cells recomputed at the rotated keys (radii 2.9×10⁻²⁵ / 9.7×10⁻²³); the paper's two (iv) figures re-stated outward with the round named; the records corrected. Battery: cells recomputed at the rotated keys (finals unchanged), manifest refreshed after every edit, tower on the final tree 1 live + 20 cached (21/21), member 21 11/11, TOP 11/11, probes 24/24 and 85/85, migrate dry unverifiable 4 (89b3a9a).
 
 **Trajectory: 286 (the 1bl landing): 1M+5m+2c → 287: 1M+2m+1c → 288: 0M+1m+0c swept. Convergence round 289 next.**
+
+# Round 289: convergence test on the round-288 sweep of the 1bl landing — CONVERGED: 0 MAJOR + 0 minor + 2 cosmetics; the Theorem 1bl landing STABLE; cosmetics swept editorially
+
+**Held under attack:** the F288-1 sweep item by item (exact tiling; every use of the error terms; the concentration Gram needing no quadrature; the cells fresh byte-identical with the radii exactly doubled); every number in the block in the safe direction; the whole normalisation chain derived and tested against direct integrals in double precision (the pole vector, the χ-norms, the Gram, `fac` and λ_k, the odd μ_k, the A_in main term three ways, the slop constant, the pole sign in both sectors, the kernel against 1bj(i)); the tail extremes; the HEAD ordering; the batteries. **Findings (lead-verified):** F289-1 cosmetic — docstring/comment drift in the substrate and an unused per-cell list. F289-2 cosmetic — the stored quadrature field and two labels carried the undoubled value.
+
+**The sweep (editorial, c78235f):** docstrings and comments to the committed state, the unused list removed, the stored field and labels doubled to the paper's quantity; the cells recomputed at the rotated keys with the finals unchanged; tower 21/21 on the final tree.
+
+**Trajectory: 286 (the 1bl landing): 1M+5m+2c → 287: 1M+2m+1c → 288: 0M+1m → 289: 0M+0m+2c — CONVERGED. The Theorem 1bl landing is stable.**
