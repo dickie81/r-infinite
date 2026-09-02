@@ -77,6 +77,12 @@
 "rc": 0,
 "when": "2026-08-28T08:53Z"
 },
+"0c417d9d8a0077a6b6a8cb07": {
+"dt": 83.91460251808167,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-09-01T23:59Z"
+},
 "0c9a0911462e5c479cbae6e1": {
 "dt": 4.844276666641235,
 "file": "cascade_twosided_witness.py",
@@ -587,6 +593,12 @@
 "rc": 0,
 "when": "2026-08-28T11:26Z"
 },
+"50432b0ae2a37374ef51aa24": {
+"dt": 347.8450610637665,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-09-02T00:05Z"
+},
 "5047c6e632dbd9077b0bd1db": {
 "dt": 0.5484664440155029,
 "file": "cascade_floor_theory.py",
@@ -622,6 +634,12 @@
 "file": "cascade_fluctuation_price.py",
 "rc": 0,
 "when": "2026-08-28T11:26Z"
+},
+"5550660cfdc017f6b9e74bb1": {
+"dt": 180.98306274414062,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-09-01T23:59Z"
 },
 "559f8c124bf972b6f44950c5": {
 "dt": 43.51061415672302,
@@ -736,6 +754,12 @@
 "file": "cascade_twosided_witness.py",
 "rc": 0,
 "when": "2026-08-28T17:31Z"
+},
+"65d0774ec34d4b629c0f2aa6": {
+"dt": 170.6673927307129,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-09-02T00:05Z"
 },
 "6600f24d0316589fe68a4a1e": {
 "dt": 10.743913888931274,
@@ -886,6 +910,12 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-08-27T18:43Z"
+},
+"7ae5eea53ebb2ba9ac779829": {
+"dt": 554.4868152141571,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-09-02T00:05Z"
 },
 "7b113d99c170d6a0c5cdf914": {
 "dt": 1.2397749423980713,
@@ -1072,6 +1102,18 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-08-28T09:40Z"
+},
+"932d557e39b6be614452d36c": {
+"dt": 42.55683946609497,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-09-02T00:05Z"
+},
+"939a2658d7fc60f275ac3b82": {
+"dt": 27.907870769500732,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-09-01T23:59Z"
 },
 "93d825014eecaeca7e2590f1": {
 "dt": 6.888950347900391,
@@ -1372,6 +1414,12 @@
 "file": "cascade_prolate_horizon.py",
 "rc": 0,
 "when": "2026-08-28T14:38Z"
+},
+"bafa8fdf80539c1151582de3": {
+"dt": 52.77743077278137,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-09-02T00:05Z"
 },
 "bb284eacdf1f3abcbf554bd6": {
 "dt": 5.33033013343811,
