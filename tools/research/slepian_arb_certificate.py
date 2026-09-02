@@ -21,7 +21,7 @@ is positive by concentration, so  lambda_min(Q) >= lambda_min of the 2x2
 WHAT THE PORT CHANGES (against oneprime_slepian_certificate.py):
   * arithmetic: python-flint ARB/ACB balls at 256 bits (the Legendre
     recurrence at 400 bits, where naive ball propagation doubles the
-    radius per step: 2^240 * 2^-400 = 2^-160);
+    radius per step: 2^314 * 2^-400 = 2^-86 at the longest recurrence);
   * prolates: the float eigenvectors of Slepian's tridiagonal are refined
     by inverse iteration in ball arithmetic (residuals ~1e-40), then the
     rigorous residual / Sturm count / gap chain as before;
@@ -42,8 +42,10 @@ WHAT THE PORT CHANGES (against oneprime_slepian_certificate.py):
     ellipse of parameter rho_d = 1 + d + sqrt(2d + d^2) (every point within
     distance d of [-1,1] lies inside it), the kernel sup by the Stirling
     enclosure on the disk.  Nodes and weights: arb.legendre_p_root
-    (rigorous).  30 nodes on cells of 5e-3 replace 10^4 Simpson cells, with
-    errors ~1e-26 per cell instead of ~1e-11.
+    (rigorous).  30 nodes on dyadic cells (1/256 at Omega 64, 1/512 at
+    Omega 128 -- exact tiling, round 286) replace 10^4 Simpson cells, with
+    errors ~1e-25 per cell instead of ~1e-11; the doubled half-integral
+    carries twice the summed cell error (round 288).
   * lambda_min of the head pencil: a verified Cholesky factorisation of
     M - sigma I in ball arithmetic (positive pivots prove M - sigma I > 0,
     hence lambda_min >= sigma; the near-degenerate cluster of high prolates
@@ -185,7 +187,7 @@ def verified_pswf(parity, NH, nmax, c2, log):
     out = []
     for k in range(K):
         v = [arb(float(x)) for x in Vv[:, k]]
-        # inverse-iteration refinement in ball arithmetic (2 steps; the
+        # inverse-iteration refinement in ball arithmetic (3 steps; the
         # midpoints are re-taken as exact numbers after each step)
         chik = arb(float(chi[k]))
         for _ in range(3):
@@ -397,7 +399,6 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     # (assembled in balls, upper endpoints -- round 286 F286-4: the scalar
     # assembly is directed, not round-to-nearest float)
     _ef = (arb(64)/15)*arb(rho)**(-2*NGL)/(arb(rho)*rho - 1)*(arb(h)/2)
-    efac = [float((_ef*arb(MW[ci])).upper()) for ci in range(ncell)]
     efac_sum = float(sum((_ef*arb(MW[ci]) for ci in range(ncell)), arb(0)).upper())
     # band integrals I_jk = 2 * sum_nodes w_i phi_j phi_k W  +/- errors
     Wcol = arb_mat(nn, 1)
@@ -452,7 +453,7 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
             ej = (Fnorm + abs(mu[j]))*arb(pr[j]["eps"]); ek = (Fnorm + abs(mu[k]))*arb(pr[k]["eps"])
             slop = fac*(abs(mu[j])*Gam[j][j].sqrt()*ek + abs(mu[k])*Gam[k][k].sqrt()*ej + ej*ek)
             parts = (f"mu_j rad {float(mu[j].rad()):.1e} mu_k rad {float(mu[k].rad()):.1e} Iband rad {float(Iband[j,k].rad()):.1e} "
-                     f"quad err {err_tot[j][k]:.1e} slop {float(slop.upper()):.1e} Gam rad {float(Gam[j][k].rad()):.1e} cvec rads {float(cvec[j].rad()):.1e},{float(cvec[k].rad()):.1e}")
+                     f"quad err (doubled) {2*err_tot[j][k]:.1e} slop {float(slop.upper()):.1e} Gam rad {float(Gam[j][k].rad()):.1e} cvec rads {float(cvec[j].rad()):.1e},{float(cvec[k].rad()):.1e}")
         log(f"  widest entry ({j},{k}): radius {rad_:.2e} | {parts}")
     # symmetrize (union of the two enclosures)
     for j in range(n_head):
@@ -508,7 +509,7 @@ def _certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     log(f"  FINAL LOWER BOUND lambda_min(Q) >= {final:+.6e}  -> {verdict}  ({time.time()-t0:.0f}s)")
     return dict(kernel=kernel, parity=parity, a=float(A.mid()), delta=delta, Omega=Omega, NH=NH, h=h, NGL=NGL, nmax=nmax,
                 prec=PREC, lam_head=lam_head, eig_radius=ev_rad, normE=normE, Lam_tail=Lam_tail, Pperp2=Pperp2,
-                q_perp=q_perp, b=b, final=final, W_out_lo=W_out_lo, M_W=M_W, max_quad_err=max(max(r) for r in err_tot),
+                q_perp=q_perp, b=b, final=final, W_out_lo=W_out_lo, M_W=M_W, max_quad_err=2*max(max(r) for r in err_tot),    # on the doubled half-integral (round 289)
                 max_residual=max(p["r"] for p in pr), min_gap=min(p["gap"] for p in pr), max_eps=max(p["eps"] for p in pr),
                 kstar=kstar, verdict=verdict)
 

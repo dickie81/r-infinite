@@ -50,7 +50,8 @@ Gates (eleven, g0-g10):
       q_perp
   g4  internal consistency: every prolate through NH+1 resolved
       (kstar >= NH+2), Lambda_tail <= 1e-40, max eps <= 1.1e-40,
-      min gap > 60, ||Gamma - I|| <= 1e-40, quadrature error <= 1e-19,
+      min gap > 60, ||Gamma - I|| <= 1e-40, quadrature error on the
+      doubled half-integral <= 1e-19,
       P_perp^2 >= 0, prec 256, NH/h/Omega as configured
   g5  the head's slack is small: final >= 0.99 lam_head (the 2x2
       costs under 1 percent -- the tail carries the mechanism)

@@ -1,9 +1,9 @@
 {
-"script_sha256": "97c82f1339e653f719c20d4428ce0b70aa591bee75546299cd237b9665250d34",
-"key": "26cdeec1b3b1fa06afd5d16b6659650f54fdac7db3e8bb58f05e4f5d0cb3ee1e",
+"script_sha256": "a37a94e58ca7248fd1ef31c56391b715614f3b8e739f5f7c4eade82fcf18553c",
+"key": "5f5db2342fb2b50e9c18a21a8eb4928c8b17dacc3f4ec922e21961c63ce85103",
 "params": {
 "deps": {
-"slepian_arb_certificate.py": "97c82f1339e653f719c20d4428ce0b70aa591bee75546299cd237b9665250d34"
+"slepian_arb_certificate.py": "a37a94e58ca7248fd1ef31c56391b715614f3b8e739f5f7c4eade82fcf18553c"
 },
 "kernel": "two",
 "parity": "even",
@@ -34,7 +34,7 @@
 "final": 5.713560407372535e-13,
 "W_out_lo": 0.7653243096879216,
 "M_W": 7.761211260547854,
-"max_quad_err": 3.16333989625851e-21,
+"max_quad_err": 6.32667979251702e-21,
 "max_residual": 3.1255041024715067e-46,
 "min_gap": 147.22744595267068,
 "max_eps": 1.0000000259641362e-40,

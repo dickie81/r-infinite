@@ -755,6 +755,12 @@
 "rc": 0,
 "when": "2026-08-27T19:56Z"
 },
+"4a4e49d6cdf3fd966d8b007c": {
+"dt": 1.641178846359253,
+"file": "cascade_slepian_mechanism.py",
+"rc": 0,
+"when": "2026-09-02T20:43Z"
+},
 "4a91e431bc12b1004bcf2364": {
 "dt": 97.29914116859436,
 "file": "cascade_li_two_channels.py",
