@@ -185,17 +185,17 @@ def verified_pswf(parity, NH, nmax, c2, log):
         # inverse-iteration refinement in ball arithmetic (2 steps; the
         # midpoints are re-taken as exact numbers after each step)
         chik = arb(float(chi[k]))
-        for _ in range(2):
+        for _ in range(3):
             rhs = v
             try:
                 w = tri_solve(d, e, chik + arb(1e-9), rhs)   # tiny shift keeps the solve nonsingular
             except ZeroDivisionError:
                 break
             nrm = sum((x*x for x in w), arb(0)).sqrt()
-            v = [arb(float((x/nrm).mid())) for x in w]
+            v = [(x/nrm).mid() for x in w]                  # exact 256-bit midpoints (zero radius)
             # Rayleigh quotient update
             Tv = [d[i]*v[i] + (e[i - 1]*v[i - 1] if i > 0 else 0) + (e[i]*v[i + 1] if i < m - 1 else 0) for i in range(m)]
-            chik = arb(float(sum((v[i]*Tv[i] for i in range(m)), arb(0)).mid()))
+            chik = sum((v[i]*Tv[i] for i in range(m)), arb(0)).mid()
         # rigorous residual of the exact stored vector (padded), with the tail coupling
         Tv = [d[i]*v[i] + (e[i - 1]*v[i - 1] if i > 0 else 0) + (e[i]*v[i + 1] if i < m - 1 else 0) for i in range(m)]
         res2 = sum(((Tv[i] - chik*v[i])**2 for i in range(m)), arb(0)) + (e_tail*v[-1])**2
@@ -299,6 +299,11 @@ def certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     lam_star_hi = float(lam[kstar - 1].upper())
     for k in range(kstar, len(pr)):
         lam[k] = arb(lam_star_hi/2, lam_star_hi/2)
+    if kstar - 1 < NH + 1:
+        # the head is the resolvable prolates only; the tail starts at k*, whose
+        # concentration is <= lambda_{k*-1} by monotonicity
+        log(f"  head truncated to the resolvable prolates: NH {NH} -> {kstar - 2}")
+        NH = kstar - 2; n_head = NH + 1
     log(f"  lambda_0 = {lam[0].str(12, radius=True)}; resolvable through k* = {kstar-1} (lambda ~ {float(lam[kstar-1].upper()):.2e}); lambda_NH+1 <= {float(lam[NH+1].upper()):.2e}  ({time.time()-t0:.0f}s)")
     # (3) Gram, pole vector
     Gam = [[sum((coefs[j][n]*coefs[k][n] for n in range(par0, nmax, 2)), arb(0)) for k in range(n_head)] for j in range(n_head)]
@@ -370,7 +375,13 @@ def certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     err_tot = [[sum(efac)*Mphi[j]*Mphi[k] for k in range(n_head)] for j in range(n_head)]
     log(f"  band integrals: max quadrature error {max(max(r) for r in err_tot):.2e}, I_00 = {(2*Iband[0,0]).str(15, radius=True)}  ({time.time()-t0:.0f}s)")
     # (5) A_in, G, M_head
-    M_W = max(M_W_band, max(MW))     # sup |W| on the band (the disks cover it)
+    # sup |W| on the REAL band: node maximum + M1 * (largest gap between consecutive nodes in r),
+    # |W'| <= |psi'(1/4 + ir/2)|/2 + sum w lag <= (16 + pi^2/6)/2 + sum w lag  (the core's dW_majorant argument)
+    M1 = (16 + math.pi**2/6)/2 + sum(float((w*lag).upper()) for lag, w in terms)
+    xs_sorted = sorted(float(x.mid()) for x in nodes)
+    max_gap = max(max(b - a for a, b in zip(xs_sorted[:-1], xs_sorted[1:])), xs_sorted[0], 1.0 - xs_sorted[-1])*Omega
+    M_W = M_W_band + M1*max_gap*(1 + 1e-12)
+    log(f"  |W| on the band <= {M_W:.4f} (node max {M_W_band:.4f} + M1 {M1:.2f} x max node gap {max_gap:.2e})")
     W_out = W_real(OmA, []) - sum((w for lag, w in terms), arb(0))
     W_out_lo = float(W_out.lower())
     fac = A*OmA/(2*arb.pi())
@@ -444,8 +455,13 @@ def certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
     Pperp2 = max(0.0, float(chi_norm2.upper()) - float(cc.lower())/(1 + normE))
     q_perp = W_out_lo*(1 - Lam_tail) - M_W*Lam_tail - (2*Pperp2 if parity == "odd" else 0.0)
     b = (M_W + float(W_out.upper()))*math.sqrt(Lam_tail) + 2*math.sqrt(float(chi_norm2.upper())*Pperp2)
-    tr = lam_head + q_perp; det = lam_head*q_perp - b*b
-    final = 0.5*(tr - math.sqrt(max(tr*tr - 4*det, 0.0))*(1 + 1e-12)) - 1e-300
+    # the 2x2 minimum eigenvalue in ball arithmetic (a float guard factor here would
+    # cost ~1e-12 * q_perp, comparable to the two-prime even head's margin)
+    lh, qp, bb = arb(lam_head), arb(q_perp), arb(b)
+    tr = lh + qp; det = lh*qp - bb*bb
+    disc = tr*tr - 4*det
+    assert float(disc.lower()) >= 0
+    final = float((0.5*(tr - disc.sqrt())).lower())
     verdict = f"THEOREM: positive for every probe at delta = {delta:.7f} ({parity}), hence on [0, {delta:.7f}]" if final > 0 else "NOT CERTIFIED"
     log(f"  tail: Lambda_tail <= {Lam_tail:.2e}, ||P_perp chi||^2 <= {Pperp2:.2e}, q_perp >= {q_perp:.4f}, b <= {b:.2e}")
     log(f"  FINAL LOWER BOUND lambda_min(Q) >= {final:+.6e}  -> {verdict}  ({time.time()-t0:.0f}s)")
