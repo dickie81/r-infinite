@@ -1433,6 +1433,12 @@
 "rc": 0,
 "when": "2026-09-02T00:15Z"
 },
+"984ccc185dea16849cd24a9f": {
+"dt": 3.174417495727539,
+"file": "cascade_twoprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T11:47Z"
+},
 "986dedddf374209b61e1fad2": {
 "dt": 54.38933444023132,
 "file": "cascade_heatflow_energy.py",
@@ -1900,6 +1906,12 @@
 "file": "cascade_floor_theory.py",
 "rc": 0,
 "when": "2026-08-28T08:31Z"
+},
+"ca84a267caacd5a6c3ab39a2": {
+"dt": 1.4688961505889893,
+"file": "cascade_oneprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T11:47Z"
 },
 "cc2bdcb7827aea81e23a7a04": {
 "dt": 568.1664841175079,
