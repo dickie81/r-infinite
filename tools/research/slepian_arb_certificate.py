@@ -391,6 +391,20 @@ def certify(kernel, parity, NH=None, h=None, Omega=None, verbose=True):
                 Ain = fac*mu[j]*mu[k]*Ib + arb(0, M_W)*slop
                 G = fac*mu[j]*mu[k]*Gam[j][k] + arb(0, 1)*slop
             M_h[j, k] = acb(Ain + arb(W_out_lo)*(Gam[j][k] - G) + sign*2*cvec[j]*cvec[k])
+    # radius diagnostic: the widest entries and their parts
+    diag = []
+    for j in range(n_head):
+        for k in range(j, n_head):
+            diag.append((float(M_h[j, k].real.rad()), j, k))
+    diag.sort(reverse=True)
+    for rad_, j, k in diag[:3]:
+        parts = ""
+        if mu[j] is not None and mu[k] is not None:
+            ej = (Fnorm + abs(mu[j]))*arb(pr[j]["eps"]); ek = (Fnorm + abs(mu[k]))*arb(pr[k]["eps"])
+            slop = fac*(abs(mu[j])*Gam[j][j].sqrt()*ek + abs(mu[k])*Gam[k][k].sqrt()*ej + ej*ek)
+            parts = (f"mu_j rad {float(mu[j].rad()):.1e} mu_k rad {float(mu[k].rad()):.1e} Iband rad {float(Iband[j,k].rad()):.1e} "
+                     f"quad err {err_tot[j][k]:.1e} slop {float(slop.upper()):.1e} Gam rad {float(Gam[j][k].rad()):.1e} cvec rads {float(cvec[j].rad()):.1e},{float(cvec[k].rad()):.1e}")
+        log(f"  widest entry ({j},{k}): radius {rad_:.2e} | {parts}")
     # symmetrize (union of the two enclosures)
     for j in range(n_head):
         for k in range(j + 1, n_head):
