@@ -415,7 +415,7 @@ def _fdir(x, sf, up):
     with localcontext() as c:
         c.rounding = ROUND_CEILING if up else ROUND_FLOOR
         c.prec = sf
-        return format(+Decimal(repr(float(x))), "e")
+        return format(+Decimal(float(x)), "e")   # exact binary value (round-281 F281-2)
 
 def temple_cell23(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     a = tr.a

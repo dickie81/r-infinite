@@ -122,7 +122,7 @@ def _fdir(x, sf, up):
     with localcontext() as c:
         c.rounding = ROUND_CEILING if up else ROUND_FLOOR
         c.prec = sf
-        return format(+Decimal(repr(float(x))), "e")
+        return format(+Decimal(float(x)), "e")   # exact binary value (round-281 F281-2)
 
 def vup(x):
     return np.nextafter(x, np.inf)
@@ -694,9 +694,9 @@ def run():
             assert res["certified"], \
                 f"gII3 FAIL {cellk}: margin {res['margin']:.3e}"
         print(f"IVC {cellk}: m {res['m']} mu2 "
-              f"[{res['mu2'][0]:.6f}, {res['mu2'][1]:.6f}] "
-              f"EOP {res['eop']:.2e} rho {res['rho']:.2e} -> "
-              f"mu2+EOP {res['mu2_full_hi']:.6f} < beta "
+              f"[{_fdir(res['mu2'][0], 7, False)}, {_fdir(res['mu2'][1], 7, True)}] "
+              f"EOP {_fdir(res['eop'], 3, True)} rho {res['rho']:.2e} -> "
+              f"mu2+EOP {_fdir(res['mu2_full_hi'], 7, True)} < beta "
               f"{beta:g} margin {_fdir(res['margin'], 4, False)} "
               f"[COUNT <= 1 CERTIFIED at nu {nu:g}]", flush=True)
         st[cellk] = res

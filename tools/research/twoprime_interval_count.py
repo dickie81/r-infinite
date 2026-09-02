@@ -114,7 +114,7 @@ def _fdir(x, sf, up):
     with localcontext() as c:
         c.rounding = ROUND_CEILING if up else ROUND_FLOOR
         c.prec = sf
-        return format(+Decimal(repr(float(x))), "e")
+        return format(+Decimal(float(x)), "e")   # exact binary value (round-281 F281-2)
 
 def W23_batch(r):
     r = np.asarray(r, np.float64)
@@ -386,10 +386,10 @@ def run():
     res = certify_row(a, ROW["nu"], ROW["beta"])
     print(f"IVC2 odd:1.1 nu {ROW['nu']:g} beta {ROW['beta']:g}: m {res['m']} "
           f"support {res['support_len']:.1f} pieces {res['npieces']} "
-          f"brackets {res['nbrackets']}; mu2 [{res['mu2'][0]:.6f}, "
-          f"{res['mu2'][1]:.6f}] (pole-free [{res['mu2_polefree'][0]:.6f}, "
-          f"{res['mu2_polefree'][1]:.6f}]) EOP {res['eop']:.2e} rho "
-          f"{res['rho']:.2e} -> mu2+EOP {res['mu2_full_hi']:.6f} < beta "
+          f"brackets {res['nbrackets']}; mu2 [{_fdir(res['mu2'][0], 7, False)}, "
+          f"{_fdir(res['mu2'][1], 7, True)}] (pole-free [{_fdir(res['mu2_polefree'][0], 7, False)}, "
+          f"{_fdir(res['mu2_polefree'][1], 7, True)}]) EOP {_fdir(res['eop'], 3, True)} rho "
+          f"{res['rho']:.2e} -> mu2+EOP {_fdir(res['mu2_full_hi'], 7, True)} < beta "
           f"{ROW['beta']:g}: margin {_fdir(res['margin'], 4, False)} "
           f"[{'COUNT <= 1 CERTIFIED: lambda_2(T_odd) >= nu' if res['certified'] else 'FAIL'}]",
           flush=True)
