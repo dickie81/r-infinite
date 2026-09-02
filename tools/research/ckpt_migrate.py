@@ -104,6 +104,8 @@ def plan(basename):
         d = json.load(open(p))
     except Exception as e:
         return ("skip", f"unreadable ({e})", None, None)
+    if isinstance(d, dict) and "migrated" in d:
+        return ("skip", "already a migrated file (its provenance is its migrated record)", None, None)
     if not (isinstance(d, dict) and {"script_sha256", "key", "params", "state"} <= set(d)
             and isinstance(d["params"], dict) and isinstance(d["params"].get("deps"), dict)):
         return ("skip", "no keyed provenance", None, None)

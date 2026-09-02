@@ -68,6 +68,12 @@ expect("H11 a method call outside the attribute whitelist is NOT stripped",
        H(BASE.replace('_fdir(y, 5, False)', "state.pop('a')")) != base)
 expect("H12 a string literal in arithmetic still rotates",
        H(BASE.replace('y = x*2 + 1', 'y = float("2")*x + 1')) != base)
+expect("H16 a whitelisted higher-order builtin with key= inside a print is NOT stripped",
+       H(BASE.replace('_fdir(y, 5, False)', 'max(xs, key=mutator)')) != base)
+expect("H17 a starred argument inside a print is NOT stripped",
+       H(BASE.replace('    print(f"IVT cell', '    print(*items)\n    print(f"IVT cell')) != base)
+expect("H18 a generator inside a print calling only whitelisted names is stripped",
+       H(BASE.replace('_fdir(y, 5, False)', "', '.join(str(v) for v in xs)")) == base)
 expect("H13 the legacy hash rotates on a pure print edit",
        L(BASE.replace('IVT cell: y', 'IVT cell -- y')) != L(BASE))
 expect("H14 two pure prints in different orders hold the hash",

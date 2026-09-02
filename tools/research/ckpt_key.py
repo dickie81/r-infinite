@@ -68,7 +68,7 @@ def _is_pure_print(stmt):
             return False
     for node in ast.walk(call):
         if isinstance(node, (ast.NamedExpr, ast.Await, ast.Yield,
-                             ast.YieldFrom, ast.Lambda)):
+                             ast.YieldFrom, ast.Lambda, ast.Starred)):
             return False
         if isinstance(node, ast.Call):
             f = node.func
@@ -79,6 +79,11 @@ def _is_pure_print(stmt):
                 if f.attr not in PRINT_CALL_ATTRS:
                     return False
             else:
+                return False
+            # no keyword arguments on any inner call: a whitelisted
+            # higher-order builtin (max/min/sorted/sum) could otherwise
+            # smuggle a callable through key=/default= without a Call node
+            if node is not call and node.keywords:
                 return False
     return True
 
