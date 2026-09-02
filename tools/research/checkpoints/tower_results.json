@@ -1889,6 +1889,12 @@
 "rc": 0,
 "when": "2026-08-28T17:21Z"
 },
+"c4023aeb08bce2474060e452": {
+"dt": 71.9143579006195,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-09-02T19:10Z"
+},
 "c411aded25354891d9cb2a9e": {
 "dt": 0.48389434814453125,
 "file": "cascade_floor_theory.py",
@@ -1924,6 +1930,12 @@
 "file": "cascade_weil_crossover.py",
 "rc": 0,
 "when": "2026-08-27T19:16Z"
+},
+"c74b5a0bb26ffe3ad5a3abbb": {
+"dt": 425.1293864250183,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-09-02T19:10Z"
 },
 "c7fba03f36e59f30c6f58788": {
 "dt": 174.84948801994324,
