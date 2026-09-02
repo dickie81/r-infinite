@@ -96,7 +96,7 @@ if bad:
 KEYING_PINS = {"ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
                "precheck_probes.py"}
 _pinned = {e["file"] for e in MAN.get("keying", [])}
-if _pinned != KEYING_PINS:
+if _pinned != KEYING_PINS or len(MAN.get("keying", [])) != len(KEYING_PINS):   # F285-1: no duplicates
     print(f"MANIFEST keying pins {sorted(_pinned)} != required "
           f"{sorted(KEYING_PINS)} -- refresh it", flush=True)
     sys.exit(2)
@@ -694,7 +694,9 @@ _m = re.match(r"ckpt_key probes: (\d+) cases, (\d+) as expected, (\d+) unexpecte
               _kp_line[-1]) if _kp_line else None
 if (_kp.returncode != 0 or _m is None or int(_m.group(1)) != KEY_PROBE_CASES
         or int(_m.group(3)) != 0 or int(_m.group(2)) != int(_m.group(1))):
-    print("KEYING-PROBE PRECHECK FAILURE:", flush=True)
+    print(f"KEYING-PROBE PRECHECK FAILURE (expected exactly {KEY_PROBE_CASES} cases, "
+          f"0 unexpected, exit 0; a grown suite must update KEY_PROBE_CASES and "
+          f"refresh the manifest):", flush=True)
     print(_kp.stdout[-2000:] + _kp.stderr[-2000:], flush=True)
     sys.exit(2)
 
@@ -711,7 +713,9 @@ _m2 = re.match(r"precheck probes: (\d+) cases, (\d+) as expected, (\d+) unexpect
                _pp_line[-1]) if _pp_line else None
 if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CASES
         or int(_m2.group(3)) != 0 or int(_m2.group(2)) != int(_m2.group(1))):
-    print("NEEDLE-PROBE PRECHECK FAILURE:", flush=True)
+    print(f"NEEDLE-PROBE PRECHECK FAILURE (expected exactly {PRECHECK_PROBE_CASES} cases, "
+          f"0 unexpected, exit 0; a grown suite must update PRECHECK_PROBE_CASES and "
+          f"refresh the manifest):", flush=True)
     print(_pp.stdout[-2000:] + _pp.stderr[-2000:], flush=True)
     sys.exit(2)
 

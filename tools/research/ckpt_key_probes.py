@@ -27,6 +27,12 @@ M5r, from a real historical blob when the clone carries the history,
 else the truncated history must make the same checkpoint
 'unverifiable' -- a refusal either way); and the migration never
 rewrites state. The scratch directory is removed at exit.
+
+This file is integrity-PINNED in tower_manifest.json (keying list)
+and RUN by run_tower.py as the keying-probe precheck with its case
+count pinned exactly (KEY_PROBE_CASES): an edit here must be followed
+by refresh_tower_manifest.py, and an added or removed case by updating
+that constant, or the tower fails closed (round 285 F285-3).
 """
 import hashlib, json, os, sys, tempfile
 

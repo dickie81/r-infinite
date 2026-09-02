@@ -8,7 +8,12 @@ expected verdict; the suite exits 1 on any unexpected one and
 prints the census. Cases carry the round that introduced them.
 
 Not in any member's reach (nothing imports or names this file),
-so running or editing it rotates no cache key.
+so running or editing it rotates no cache key. Since round 284 it
+is integrity-PINNED in tower_manifest.json (keying list) and RUN by
+run_tower.py as the needle-probe precheck with its case count pinned
+exactly (PRECHECK_PROBE_CASES): an edit here must be followed by
+refresh_tower_manifest.py, and an added or removed case by updating
+that constant, or the tower fails closed (round 285 F285-3).
 """
 import os
 import sys

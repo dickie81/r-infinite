@@ -6098,8 +6098,9 @@ post-eighth-catch law (every producing file in every key);
 `oneprime_deflate.py` — the committed deflation reconnaissance
 whose flip curves and section spectra set the even-1.0 row —
 committed and consumed by the pole instrument's gP3 through its
-checkpoint files at recompute time, imported by nothing and in no
-key *(round-284 F284-2: the landing's sentence placed it inside the
+checkpoint files at recompute time, imported by nothing and in none
+of the verifier's four keys (it keys its own reconnaissance states)
+*(round-284 F284-2, wording narrowed round-285 F285-2: the landing's sentence placed it inside the
 keyed fixture chain; it never was — false when written, struck; the
 F283-1 class one theorem earlier)*.
 
