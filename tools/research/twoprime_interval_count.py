@@ -54,8 +54,8 @@ is the committed round-6 chain, imported or copied verbatim):
     C_3 log^k 3 added to M2, M3, M4 (the cosine's derivatives);
   * the tail lemma: for r >= rmax, W_23(r) >= h_+(rmax) - C_2 -
     C_3 (h_+ increasing), asserted > nu + beta -- which forces
-    rmax = 1500 here (h_+(1500) - C_2 - C_3 = 3.23; at 260 the
-    cap 1.47 would exclude beta >= 1.5);
+    rmax = 600 here (h_+(600) - C_2 - C_3 = 2.31 > 2.05; at 260
+    the cap 1.47 would exclude beta >= 1.5);
   * qmax: -min W_23 <= -psi(1/4) + ln pi + C_2 + C_3 = 7.621 <
     7.64 (the one-prime 6.36 plus C_3 = 1.2686);
   * the bordered Gram (above).
@@ -98,8 +98,8 @@ C3I = I(2.0)*LOG3/SQRT3          # 2 log 3 / sqrt 3 = 1.26857...
 
 # THE ROW (set from the float reconnaissance; recorded in A419)
 A_CELL = 0.55                    # delta = 1.10
-ROW = {"nu": 0.04, "beta": 2.0}  # placeholder until the scan lands
-RMAX = 1500.0
+ROW = {"nu": 0.05, "beta": 2.0}  # the lever scan (A419): margin ~9e-3 float
+RMAX = 600.0                     # tail lemma: h+(600) - C2 - C3 = 2.31 > 2.05
 H_FRAME = 0.02
 
 
