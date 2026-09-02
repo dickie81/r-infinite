@@ -15,7 +15,7 @@ provenance:
   1. RESOLVE. Every entry of params["deps"] ({file: hash}) and the
      stored script_sha256 must resolve, under the OLD hash, to a
      concrete historical version of that file in this repository's
-     git history (or the working tree). A hash that resolves to no
+     git history (committed blobs only; F282-3). A hash that resolves to no
      version is unverifiable and the checkpoint is left alone.
   2. RECOMPUTE THE OLD KEY. With the producer identified (the dep
      whose old hash equals script_sha256), the stored key must equal
@@ -73,11 +73,8 @@ def _history(fn):
     for b, src in blobs.items():
         table[ckpt_key.code_sha_src(src, fn, strip_prints=False)] = ("old", b, src)
         table[hashlib.sha256(src).hexdigest()] = ("bytes", b, src)
-    p = os.path.join(HERE, fn)
-    if os.path.exists(p):
-        src = open(p, "rb").read()
-        table.setdefault(ckpt_key.code_sha_src(src, fn, strip_prints=False), ("old", "worktree", src))
-        table.setdefault(hashlib.sha256(src).hexdigest(), ("bytes", "worktree", src))
+    # (round 282 F282-3: no working-tree fallback -- a state whose producing
+    # code is not in git could not be re-verified later; commit first)
     _versions[fn] = table
     return table
 

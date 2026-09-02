@@ -65,7 +65,7 @@ pushed every 10 minutes -- git is the only restore-proof storage.
 Failures are never cached.
 """
 import concurrent.futures as cf
-import hashlib, json, os, subprocess, sys, time
+import hashlib, json, os, re, subprocess, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAN_PATH = os.path.join(HERE, "tower_manifest.json")
@@ -663,6 +663,25 @@ if _pfail:
     sys.exit(2)
 print(f"paper-needle precheck: {len(_scan)} reach files scanned, "
       f"{_nreaders} declared surfaces verified live", flush=True)
+
+# keying-probe precheck (round 282, reviewer's observation): the
+# keying module is outside every member's reach by convention, so a
+# change to it re-verifies no member live; its sabotage suite runs
+# here on every invocation instead, and the tower fails if it does.
+_kp = subprocess.run([sys.executable, os.path.join(HERE, "ckpt_key_probes.py")],
+                     capture_output=True, text=True)
+_kp_line = [l for l in _kp.stdout.splitlines() if l.startswith("ckpt_key probes:")]
+print("keying-probe precheck: " + (_kp_line[-1] if _kp_line else "no census line"), flush=True)
+# the gate reads the CENSUS, not just the exit code: an emptied suite
+# exiting 0 must still fail (pinned minimum case count; 0 unexpected)
+KEY_PROBE_MIN = 24
+_m = re.match(r"ckpt_key probes: (\d+) cases, (\d+) as expected, (\d+) unexpected",
+              _kp_line[-1]) if _kp_line else None
+if (_kp.returncode != 0 or _m is None or int(_m.group(1)) < KEY_PROBE_MIN
+        or int(_m.group(3)) != 0 or int(_m.group(2)) != int(_m.group(1))):
+    print("KEYING-PROBE PRECHECK FAILURE:", flush=True)
+    print(_kp.stdout[-2000:] + _kp.stderr[-2000:], flush=True)
+    sys.exit(2)
 
 
 def member_key(name):

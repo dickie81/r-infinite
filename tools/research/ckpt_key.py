@@ -32,10 +32,17 @@ def key(script_path, params):
 # the process" -- a safe-direction edit to five instruments' print
 # lines had rotated every interval key and owed a two-hour
 # recompute). A bare statement `print(...)` is dropped from the
-# executable-content hash when its whole argument subtree is
-# side-effect-free by construction: no assignment expression, await,
-# yield, lambda, or `file=` keyword, and every call inside it is to a
-# name or attribute on the read-only formatting whitelist below.
+# executable-content hash when its whole argument subtree contains
+# no construct that can write state through a name it does not own:
+# no assignment expression, await, yield, lambda, starred argument, or
+# `file=` keyword; no keyword argument on an inner call; and every
+# call inside it is to a name or attribute on the read-only
+# formatting whitelist below. This is a syntactic rule, not a
+# semantic proof (round 282 F282-2): a stripped print may still
+# CONSUME an iterator bound to a name (`print(list(it))`) or read the
+# clock; the standing census of the keyed closures finds no such
+# site, and a print over an iterator is not a certified-state edit
+# unless the computation later consumes the same iterator.
 # Anything else -- a print whose argument calls a function outside
 # the whitelist, a print that writes to a file, a print hidden in a
 # larger statement -- stays in the hash exactly as before, so a

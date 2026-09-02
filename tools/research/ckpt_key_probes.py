@@ -16,8 +16,8 @@ on a print edit (it is what run_tower's member reach key uses).
 Migration cases (M): a checkpoint whose stored script_sha256 matches
 no historical version is 'unverifiable'; one whose stored key does
 not recompute from its own provenance is 'unverifiable'; one whose
-dep changed beyond prints is 'blocked'; and the migration never
-rewrites state.
+dep changed beyond prints is 'blocked' (M5, from a real historical
+blob of twoprime_recon.py); and the migration never rewrites state.
 """
 import hashlib, json, os, sys, tempfile
 
@@ -111,6 +111,22 @@ expect("M3 a self-consistent checkpoint is 'migrate' or 'unchanged', never block
        st in ("migrate", "unchanged"))
 expect("M4 a migrated record carries the state unchanged and the old key",
        st == "unchanged" or (rec["state"] == {"v": 7} and rec["migrated"]["from_key"] == goodkey))
+
+# M5 (round 282 F282-1): a dep that changed beyond prints since the checkpoint
+# was produced is 'blocked' -- built from a real historical blob of a keyed
+# producer whose print-insensitive hash differs from today's file
+hist = ckpt_migrate._history("twoprime_recon.py")
+cur_new = ckpt_key.code_sha(os.path.join(HERE, "twoprime_recon.py"), strip_prints=True)
+stale = [h for h, (kind, blob, src) in hist.items()
+         if kind == "old" and ckpt_key.code_sha_src(src, "x.py", strip_prints=True) != cur_new]
+expect("M5a a keyed producer with executable history beyond prints exists (twoprime_recon.py)", bool(stale))
+if stale:
+    params5 = {"deps": {"twoprime_recon.py": stale[0]}, "round": 1}
+    key5 = hashlib.sha256(stale[0].encode() + json.dumps(params5, sort_keys=True).encode()).hexdigest()
+    fn5 = os.path.join(tmp, f"probe5_{key5[:12]}.json")
+    json.dump({"script_sha256": stale[0], "key": key5, "params": params5, "state": {"v": 5}}, open(fn5, "w"))
+    st, det, _, _ = ckpt_migrate.plan(os.path.basename(fn5))
+    expect("M5 a dep changed beyond prints since production is 'blocked'", st == "blocked")
 
 nfail = sum(1 for _, ok in cases if not ok)
 print(f"ckpt_key probes: {len(cases)} cases, {len(cases)-nfail} as expected, {nfail} unexpected", flush=True)
