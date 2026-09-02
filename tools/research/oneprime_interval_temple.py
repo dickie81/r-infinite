@@ -1015,13 +1015,13 @@ def temple_cell(tr, tabs, ell2, use_pole, ht=HT, theta=0.1):
     k0 = math.log(2.0) - a
     KINKS = ((k0, LOG2, C2I),)
     KINKS_F = (k0,)
+    D0 = 1e-3
     for kk in KINKS_F:
         # round-280 observation: a kink inside the graded region
         # (a - D0, a) would be silently dropped from the cell
         # boundaries -- refuse instead of mis-budgeting
         assert kk <= DEDGE or kk < a - D0 or kk >= a, \
             f"prime-shift kink {kk} inside the graded region (a - D0, a)"
-    D0 = 1e-3
     bset = {DEDGE, a - D0}
     if DEDGE < k0 < a - D0:
         bset.add(k0)
