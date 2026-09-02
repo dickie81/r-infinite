@@ -113,6 +113,12 @@
 "rc": 0,
 "when": "2026-08-28T09:30Z"
 },
+"0e6bd1c4d90e59dc9d186a4e": {
+"dt": 40.49396991729736,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-09-02T02:20Z"
+},
 "0ec77815cab9f75125198935": {
 "dt": 172.27101731300354,
 "file": "cascade_li_two_channels.py",
@@ -311,6 +317,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"2511fff4edbd95495d01fb2c": {
+"dt": 127.31876397132874,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-09-02T02:16Z"
+},
 "2579104d4a52bd7a1282967d": {
 "dt": 364.0199325084686,
 "file": "cascade_floor_meter.py",
@@ -496,6 +508,12 @@
 "file": "cascade_li_two_channels.py",
 "rc": 0,
 "when": "2026-08-28T13:00Z"
+},
+"3da62dfc58bc6dd57d444fff": {
+"dt": 53.945489168167114,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-09-02T02:16Z"
 },
 "3dcaff92a55bc8a1f0bc6b7f": {
 "dt": 69.29474329948425,
@@ -713,6 +731,12 @@
 "rc": 0,
 "when": "2026-08-28T08:31Z"
 },
+"56a5891566be03e51da6a237": {
+"dt": 375.5634422302246,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-09-02T02:20Z"
+},
 "57dc47f022a24a56c41f8f3a": {
 "dt": 0.7224500179290771,
 "file": "cascade_oneprime_interval.py",
@@ -826,6 +850,12 @@
 "file": "cascade_oneprime_interval.py",
 "rc": 0,
 "when": "2026-09-02T01:18Z"
+},
+"65383305c4a9652851609926": {
+"dt": 31.089191675186157,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-09-02T02:20Z"
 },
 "655f7823a1a8e27b0c171cc2": {
 "dt": 10.67188572883606,
@@ -1030,6 +1060,12 @@
 "file": "cascade_floor_theory.py",
 "rc": 0,
 "when": "2026-08-28T18:08Z"
+},
+"7c6e6e11171d87e6c25c09f7": {
+"dt": 283.4418046474457,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-09-02T02:21Z"
 },
 "7d0ad0ed7407d4f2b1fa5f75": {
 "dt": 1.2017102241516113,
@@ -1307,6 +1343,12 @@
 "rc": 0,
 "when": "2026-08-28T12:21Z"
 },
+"9a7c2af9f6b68d6b7fc9a610": {
+"dt": 48.614365339279175,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-09-02T02:21Z"
+},
 "9a89c36c966b7786b01b8386": {
 "dt": 5.231062412261963,
 "file": "cascade_twosided_witness.py",
@@ -1450,6 +1492,12 @@
 "file": "cascade_floor_meter.py",
 "rc": 0,
 "when": "2026-08-28T08:43Z"
+},
+"aedff4d1c75f629e2a2c7459": {
+"dt": 116.30360341072083,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-09-02T02:20Z"
 },
 "b05e06d1bdd03b385e3b1ad8": {
 "dt": 177.44670486450195,
@@ -1624,6 +1672,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-08-28T10:15Z"
+},
+"c288086e30fb66f47c3d32f4": {
+"dt": 20.67879867553711,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-09-02T02:16Z"
 },
 "c37fd35dedae5bb34de9174b": {
 "dt": 28.223674535751343,
@@ -1876,6 +1930,12 @@
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
 "when": "2026-08-28T15:47Z"
+},
+"dd6c8b8f51ffba94c6196da0": {
+"dt": 241.33636021614075,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-09-02T02:20Z"
 },
 "de69476f594eca8366219dbd": {
 "dt": 42.986127853393555,
