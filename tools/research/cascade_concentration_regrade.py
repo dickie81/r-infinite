@@ -263,7 +263,6 @@ import numpy as np
 from scipy.optimize import brentq
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 
 results = []
 
@@ -578,13 +577,13 @@ gate("g7 the infimum-zero chain: width(300) < 0.01 < width(100) < "
      "toward zero", ok)
 
 print("V3 -- the paper: the regrade strikes, key sentences, siblings, footer")
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
 # inline paper conjuncts here; run_tower's harvest
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
+import paper_needles
 PAPER_NEEDLES = [
     {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'DERIVED at the round-167 sweep', 'form': 'plain', 'min': 1},
@@ -616,29 +615,27 @@ PAPER_NEEDLES = [
     {'s': 'width·γ₀ → ½√((2n−1)² + 4a − 8c)', 'form': 'plain', 'min': 1},
     {'s': 'with K = 420 + c² along the whole boundary', 'form': 'plain', 'min': 1},
 ]
-ok = paper.count("struck at the Theorem 1ap regrade") == 2
-ok &= paper.count("struck at the 1ap regrade") == 2
-ok &= "honest name is CONTRAST" in paper
-ok &= ("beyond the sample the floor fails entirely, and to zero"
-       in paper)
+ok = paper_needles.needle(PAPER_NEEDLES, 'struck at the Theorem 1ap regrade', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck at the 1ap regrade', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'honest name is CONTRAST', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'beyond the sample the floor fails entirely, and to zero', 'plain'))
 # two 1ap net-state markers: the 1an honest-scope marker AND the 1ao
 # sidestep marker (the first gate draft expected 1 and failed its own
 # clean run 11/1 -- corrected to the true census, disclosed).
-ok &= paper.count("net-state, Theorem 1ap") == 2
+ok &= paper_needles.needle(PAPER_NEEDLES, 'net-state, Theorem 1ap', 'plain')
 gate("g8 the regrade strikes anchored: the 1ap strike frames exactly "
      "2 + 2; the CONTRAST regrade content; the TWO net-state markers "
      "(the 1an honest-scope; the 1ao sidestep) -- count corrected "
      "from the clean-run failure, disclosed",
      ok, "frame counts declared; evidence f-string retired round 274 (F274-1)")
 
-ok = ("The infimum of window widths over the admissible cone is ZERO"
-      in paper)
-ok &= "Resolution is purchasable; contrast pays for it" in paper
-ok &= "The concentration mechanism is height, not degree" in paper
+ok = (paper_needles.needle(PAPER_NEEDLES, 'The infimum of window widths over the admissible cone is ZERO', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Resolution is purchasable; contrast pays for it', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'The concentration mechanism is height, not degree', 'plain')
 # round 167: F1 struck the drafted open question (its frame anchored
 # inside the strike); the replacement + the derived laws + the F3
 # strike + the membership lemma anchored by content.
-ok &= paper.count("struck round 167 F1, MAJOR") == 1
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 167 F1, MAJOR', 'plain')
 # rounds 168-171 F1: the question slot died three times by the
 # same mechanism and is RETIRED; the classification itself then
 # needed two corrections (170: the (0, 5/2] support; 171: the
@@ -647,21 +644,20 @@ ok &= paper.count("struck round 167 F1, MAJOR") == 1
 # + the off-curve law + the third-statement classification.
 # Probes: (e) pre-168 tree; (e2) pre-169 tree; (e3) the
 # retirement needle; (e4) pre-171 tree; (e5) the closure needle.
-ok &= paper.count("struck round 168 F1, MAJOR") == 1
-ok &= paper.count("struck round 169 F1, MAJOR") == 1
-ok &= paper.count("struck round 170 F1, MAJOR") == 1
-ok &= paper.count("struck round 171 F1, MAJOR") == 1
-ok &= "THE SLOT IS RETIRED, with a classification in its place" in paper
-ok &= "width·γ₀ → ½√((2n−1)² + 4a − 8c)" in paper
-ok &= "onto (0, ∞) over the concentrating offset domain" in paper
-ok &= "attained closure is [0, ∞]" in paper
-ok &= ("NO distinguished positive finite asymptotic-product "
-       "constant exists for the class") in paper
-ok &= "with K = 420 + c² along the whole boundary" in paper
-ok &= "DERIVED at the round-167 sweep" in paper
-ok &= "depth·γ₀^(2n) → −(2n−1)²/4" in paper
-ok &= paper.count("struck round 167 F3") == 1
-ok &= "the membership lemma, stated and gated round 167 F10" in paper
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 168 F1, MAJOR', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 169 F1, MAJOR', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 170 F1, MAJOR', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 171 F1, MAJOR', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'THE SLOT IS RETIRED, with a classification in its place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'width·γ₀ → ½√((2n−1)² + 4a − 8c)', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'onto (0, ∞) over the concentrating offset domain', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'attained closure is [0, ∞]', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'NO distinguished positive finite asymptotic-product constant exists for the class', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'with K = 420 + c² along the whole boundary', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'DERIVED at the round-167 sweep', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'depth·γ₀^(2n) → −(2n−1)²/4', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 167 F3', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the membership lemma, stated and gated round 167 F10', 'plain')
 gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "claim now derived; the contrast law; the height mechanism; the "
      "five strike frames 167-171-F1 + THE SLOT IS RETIRED with the "
@@ -671,10 +667,9 @@ gate("g9 1ap's key sentences anchored by content (the infimum-zero "
      "lemma)", ok,
      "167 frame counts declared; evidence f-string retired round 274 (F274-1)")
 
-ok = "the three- and five-site denominators are the gated scope" in paper
-ok &= paper.count("wall stands where it stood") == 3
-ok &= ("The wall stands where it stood — nothing cascade-side forces "
-       "positivity on any discriminating instance" in paper)
+ok = paper_needles.needle(PAPER_NEEDLES, 'the three- and five-site denominators are the gated scope', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'wall stands where it stood', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'The wall stands where it stood — nothing cascade-side forces positivity on any discriminating instance', 'plain'))
 gate("g10 the honest-scope anchors: the gated-scope clause (round 167 "
      "F4 rewording); the forcing clause on its THREE carriers (count "
      "corrected round 167 F11) with the W4 carrier pinned by its "
@@ -691,9 +686,9 @@ gate("g11 the sibling chain green after the census advance "
      "riemann_selection, type_counting, and the two Weil-arc "
      "siblings)", ok)
 
-ok = "`cascade_concentration_regrade.py`" in paper
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_concentration_regrade.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g12 the footer census (advanced at this landing, disclosed): "
      "this script backticked; 86 cited in place; the range 1i–1bj "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)

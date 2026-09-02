@@ -147,8 +147,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ckpt_key
 from zeta_zeros_cache import zeros_im
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -524,10 +522,7 @@ gate("g7 the pure-concentration null: the certified edges sit far beyond "
 
 # ---------------------------------------------------------------- g8
 import paper_needles
-_pforms = paper_needles.forms(paper)
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g8"], paper,
-    pre=_pforms)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _miss:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g8 the 1bc paper needles (declared surface)", ok)
@@ -539,9 +534,7 @@ gate("g9 the chain obligation to cascade_prolate_horizon.py (Theorem 1bb) "
      "met", chain_ok("cascade_prolate_horizon.py"))
 
 # ---------------------------------------------------------------- g10
-ok, _missC = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g10"], paper,
-    pre=_pforms)
+ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g10')
 for _d, _n in _missC:
     print(f"  g10 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g10 the footer census (this script backticked >= 2; the anchored "

@@ -162,7 +162,6 @@ import sys
 from fractions import Fraction as Fr
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 
 results = []
 
@@ -190,8 +189,6 @@ def norm(s):
 # round-187 skeleton chain). Shared evaluator:
 # paper_needles.py.
 import paper_needles
-_paper_bytes = open(PAPER, encoding="utf-8").read()
-_pforms = paper_needles.forms(_paper_bytes)
 PAPER_NEEDLES = [
     {'g': 'g3', 's': 'Γ_ℂ(s) = Γ_ℝ(s)Γ_ℝ(s+1), so p_ℂ = p_triv', 'form': 'plain'},
     {'g': 'g3', 's': 'archimedean factor of every odd Dirichlet', 'form': 'plain'},
@@ -286,9 +283,7 @@ for s in (0.7, 2.0, 3.5, 6.0):
     lhs = GR(s) * GR(s + 1)
     rhs = GC(s)
     ok &= abs(lhs - rhs) / abs(rhs) < mpf("1e-25")
-_ok3, _miss3 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g3"],
-    _paper_bytes, pre=_pforms)
+_ok3, _miss3 = paper_needles.verify(PAPER_NEEDLES, g='g3')
 for _d, _n in _miss3:
     print(f"  g3 MISSING ({_n}): {_d}", flush=True)
 ok &= _ok3
@@ -328,9 +323,7 @@ for s in (2, 5, 7.3):
     for b in (0.0, 0.3):
         for g in (0.7, 14.134725):
             ok &= abs(K(s, b, g) - K(s, 1 - b, g)) < 1e-14
-_ok5, _miss5 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g5"],
-    _paper_bytes, pre=_pforms)
+_ok5, _miss5 = paper_needles.verify(PAPER_NEEDLES, g='g5')
 for _d, _n in _miss5:
     print(f"  g5 MISSING ({_n}): {_d}", flush=True)
 ok &= _ok5
@@ -339,9 +332,7 @@ gate("g5 evenness: K_s(beta+i gamma) = K_s(1-beta+i gamma) at samples "
      "R1's even-test-function anchor", ok)
 
 ok = True
-_ok6, _miss6 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g6"],
-    _paper_bytes, pre=_pforms)
+_ok6, _miss6 = paper_needles.verify(PAPER_NEEDLES, g='g6')
 for _d, _n in _miss6:
     print(f"  g6 MISSING ({_n}): {_d}", flush=True)
 ok &= _ok6
@@ -352,9 +343,7 @@ gate("g6 the role-assignment anchors: the displaced-curve half-shift "
 
 print("V4 -- P0 and the conditionality")
 ok = True
-_ok7, _miss7 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g7"],
-    _paper_bytes, pre=_pforms)
+_ok7, _miss7 = paper_needles.verify(PAPER_NEEDLES, g='g7')
 for _d, _n in _miss7:
     print(f"  g7 MISSING ({_n}): {_d}", flush=True)
 ok &= _ok7
@@ -385,9 +374,7 @@ gate("g7 P0 and the conditionality: the front-matter zero-parameter "
 
 print("V5 -- anchors, chain, census")
 ok = True
-_ok8, _miss8 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g8"],
-    _paper_bytes, pre=_pforms)
+_ok8, _miss8 = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _miss8:
     print(f"  g8 MISSING ({_n}): {_d}", flush=True)
 ok &= _ok8
@@ -406,9 +393,7 @@ gate("g9 the sibling chain green (cascade_arithmetic_section.py 10/0, "
      "transitively chaining the Weil-arc suite)", ok)
 
 ok = True
-_ok10, _miss10 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g10"],
-    _paper_bytes, pre=_pforms)
+_ok10, _miss10 = paper_needles.verify(PAPER_NEEDLES, g='g10')
 for _d, _n in _miss10:
     print(f"  g10 MISSING ({_n}): {_d}", flush=True)
 ok &= _ok10

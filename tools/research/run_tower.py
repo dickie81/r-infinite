@@ -35,12 +35,14 @@ PAPER left the key at the A397 arc: every member's paper surface
 is one declared PAPER_NEEDLES literal, AST-extracted and
 re-evaluated LIVE by this driver's needle precheck on every
 invocation -- reach-wide (round-264 F264-1: spawned chain
-scripts read the paper too), with a closure meta-gate that
-TRIPWIRES undeclared consumption via named AST clauses (see the
-precheck block; it is drift detection, not a semantic proof) --
-so a paper edit either flips a declared needle, failing the
-precheck before any cached PASS is served, or changes no
-declared surface. A
+scripts consume the paper too). Since round 275 (F275-1, owner's
+decision) MEMBERS NEVER HOLD PAPER TEXT: paper_needles.py is the
+only reader in any reach, consumed through verify/needle on the
+declared literal, and the closure meta-gate enforces that SHAPE
+statically (see the precheck block; drift detection, not a
+semantic proof) -- so a paper edit either flips a declared
+needle, failing the precheck before any cached PASS is served,
+or changes no declared surface. A
 paper-prose edit now costs the precheck, not a live tower. The manifest sha is NOT in
 the key (round 254): manifest-vs-disk consistency is re-verified
 LIVE by this driver's integrity precheck on every invocation, so
@@ -237,84 +239,65 @@ def member_reach(name):
 
 
 # THE PAPER-NEEDLE PRECHECK (the A397 arc; REACH-WIDE per round-264
-# F264-1: lattice_forcing's g9 spawn chain consumes the paper five
-# scripts deep, so the scan runs over every .py file in every
-# member's transitive reach, not the member files alone). Every
-# paper-reading reach file declares its paper surface as one
-# pure-literal PAPER_NEEDLES constant (schema: paper_needles.py);
-# this precheck AST-extracts each declaration WITHOUT executing
-# anything and evaluates it against the live paper on every
-# invocation, failing the run (exit 2) before any cached PASS is
-# served. The closure meta-gate is a TRIPWIRE against drift, not a
-# semantic proof (round-264 F264-3): it enforces exactly these
-# named clauses on each reach file --
-#   (i)  a file whose AST assigns from an open(PAPER...) read (or
-#        from paper_needles.forms) must carry exactly ONE
-#        PAPER_NEEDLES literal, parsed with literal_eval under
-#        try/except (F264-4: a computed declaration is a precheck
-#        failure, never an uncaught exception);
-#   (ii) HARVEST COVERAGE: every inline paper compare the file
-#        keeps (the chain scripts mirror rather than rewrite) is
-#        AST-harvested (paper_needles.harvest) and must be
-#        ENTAILED by the declaration (paper_needles.covers);
-#        any paper expression the harvester cannot classify is a
-#        hard failure -- unharvestable consumption cannot be
-#        re-verified live, so it may not exist;
-#   (iii) paper variables may be LOADED only inside
-#        exact-shape paper_needles.check/forms calls, recognized
-#        creation/transform assignments, or harvested compares --
-#        so an alias (p2 = paper), a novel derivation, or ANY
-#        f-string interpolation fails at the point of use. The
-#        f-string sanction (narrowed round 270, canon-guarded
-#        rounds 271-273) was RETIRED at round 274 F274-1: its
-#        soundness needed the callee and sink identity at call
-#        time, invisible to static binding walks (gate.__code__
-#        swap, builtins.print rebinding, sys.stdout replacement
-#        -- each a demonstrated stale cached PASS); the ten
-#        evidence sites were retired instead;
-#   (iv) STRING-CONSTANT CLAUSE (F264-2): outside the PAPER path
-#        assignment, no string constant in the docstring-stripped
-#        AST names the paper file -- a second, undeclared read
-#        path cannot be spelled;
-#   (v)  PAPER-LOAD CLAUSE (round-267 F267-1): every Load of the
-#        name PAPER sits inside a var_forms-recognized creation
-#        assignment -- so a function-wrapped, re-encoded,
-#        suffixed, or non-Assign-bound read is flagged at the
-#        read itself (scope per the clause-site comment: drift
-#        detection over routes spelled through PAPER or the
-#        filename, not a semantic closure -- round-269 F269-4
-#        re-swore this entry too).
-# With these holding, a paper edit either flips a declared needle
-# -- failing this precheck before any cached PASS is served -- or
-# changes no declared surface; PAPER_SHA stays out of the member
-# key and a paper-prose edit costs seconds, not a live tower.
+# F264-1; RESTRUCTURED round 275 F275-1, owner's decision: MEMBERS
+# NEVER HOLD PAPER TEXT). paper_needles.py is the only file in any
+# member's reach that reads the paper; every member consumes it
+# through paper_needles.verify / paper_needles.needle applied to
+# its one pure-literal PAPER_NEEDLES declaration. This precheck
+# AST-extracts each declaration WITHOUT executing anything and
+# evaluates it against the live paper on every invocation, failing
+# the run (exit 2) before any cached PASS is served. The closure
+# meta-gate enforces the SHAPE on every reach file -- named
+# clauses, each a static tripwire:
+#   (A) NO PAPER-NAMING CONSTANT: no string constant in the
+#       docstring-stripped AST names the paper file (the round-264
+#       clause (iv) with its PAPER-assignment exception removed --
+#       a plainly-spelled read cannot exist in a member);
+#   (B) THE MODULE IS USED ONLY THROUGH verify/needle/declared: the name
+#       paper_needles is bound only by `import paper_needles`
+#       (no alias, no from-import, no other binding form); every
+#       Load of it is the value of an Attribute whose attr is
+#       verify, needle, or declared -- so PAPER_PATH, the cached text, and
+#       every internal are unreachable by plain spelling;
+#   (C) THE DECLARATION IS BOUND ONCE AND NEVER MUTATED: at most
+#       one module-level Assign to PAPER_NEEDLES, a pure literal
+#       (literal_eval under try/except, F264-4), every entry
+#       schema-valid; every OTHER occurrence of the name is a Load
+#       standing as the first positional argument of a
+#       verify/needle call (round-275 route (d): AugAssign,
+#       .append, subscript store, aliasing, comprehension over it
+#       all flag);
+#   (D) CALL SHAPES: verify(PAPER_NEEDLES) / verify(PAPER_NEEDLES,
+#       g=<str>) / verify(PAPER_NEEDLES, seq=True) /
+#       needle(PAPER_NEEDLES, <str>, <str>) with the (s, form)
+#       pair present in the declaration / declared(PAPER_NEEDLES)
+#       (read-only deep copies) -- nothing else;
+#   (E) a file calling verify/needle must carry the declaration.
+# With these holding, a member's verdict depends on the paper
+# only through declared entries this precheck evaluates LIVE.
+# Scope, stated honestly (F268-4 carried forward): computed
+# spellings -- getattr(paper_needles, ...), importlib,
+# sys.modules[...], exec, globals()[...] -- are deliberate evasion
+# outside these tripwires; drift detection, not a semantic proof.
+# Rounds 264-274's member-side read/transform/compare/f-string/
+# canon-shape/binding-walk clauses are RETIRED with the member
+# reads they policed (there is no paper text in a member to
+# police).
 
 _paper_bytes = open(PAPER_PATH, encoding="utf-8").read()
 _pforms = paper_needles.forms(_paper_bytes)
 
-# The evidence-f-string sanction and its canon guards
-# (_GATE_CANON / _gate_print_canonical, rounds 271-273) were
-# RETIRED at round 274 (F274-1): the sanction's soundness rested
-# on the identity of the gate/print callee and its output sink
-# AT CALL TIME, which no static walk of a file's bindings can
-# see -- gate.__code__ swaps, builtins.print rebinding, and
-# sys.stdout replacement each left every name binding canonical
-# while routing a sanctioned f-string into the verdict (three
-# demonstrated paper-edit-only stale cached TOWER PASSes). The
-# ten evidence sites that needed the sanction were retired
-# (their counts are declared needles; check()'s misses carry the
-# observed counts on failure), so paper content now has NO
-# sanctioned path into any f-string: clause (iii) below.
+_PN_ATTRS = ("verify", "needle", "declared")
 
 
 def _precheck_file(rel):
-    """The per-file needle clauses; returns (failures,
-    is-declared-paper-reader)."""
+    """The per-file clauses (A)-(E) plus the live evaluation;
+    returns (failures, is-declared-surface)."""
     out = []
     src = open(os.path.join(HERE, rel), "rb").read().decode("utf-8")
     tree = _ast.parse(src)
-    # clause (iv) on the docstring-stripped copy (docstrings MAY
-    # name the paper; executable constants may not)
+    # (A) on the docstring-stripped copy (docstrings MAY name the
+    # paper; executable constants may not)
     stripped = _ast.parse(src)
     for node in _ast.walk(stripped):
         body = getattr(node, "body", None)
@@ -323,210 +306,146 @@ def _precheck_file(rel):
                 and isinstance(body[0].value, _ast.Constant)
                 and isinstance(body[0].value.value, str)):
             node.body = body[1:]
-    _path_ok = set()
-    for node in _ast.walk(stripped):
-        if (isinstance(node, _ast.Assign) and len(node.targets) == 1
-                and getattr(node.targets[0], "id", "") == "PAPER"):
-            for sub in _ast.walk(node):
-                _path_ok.add(id(sub))
     for node in _ast.walk(stripped):
         if (isinstance(node, _ast.Constant)
                 and isinstance(node.value, str)
-                and "riemann-indistinguishability" in node.value
-                and id(node) not in _path_ok):
-            out.append(f"{rel}: paper-naming constant outside the "
-                       f"PAPER assignment at line {node.lineno}")
-    # paper-var census (round-267 F267-1/F267-2; round-268
-    # F268-1: creation membership is the var_forms-recognized
-    # Assign NODES themselves -- the round-267 version keyed on
-    # target NAMES, so a later REBIND of a mapped name (an
-    # arbitrary unrecognized transform) was counted as a creation
-    # and its loads sanctioned, resurrecting the suffixed/
-    # re-encoded/truncated read classes behind one line of drift)
-    vf, _rec_nodes = paper_needles.var_form_nodes(tree)
-    paper_vars, created = set(vf), set(_rec_nodes)
+                and "riemann-indistinguishability" in node.value):
+            out.append(f"{rel}: paper-naming constant at line "
+                       f"{node.lineno} (clause A)")
+    # (B) the module name: bindings and loads
+    calls = []          # (node, attr) for verify/needle calls
+    attr_loads = set()  # id() of Name nodes that are call-func values
     for node in _ast.walk(tree):
-        if not isinstance(node, _ast.Assign):
-            continue
-        is_forms = (isinstance(node.value, _ast.Call)
-                    and isinstance(node.value.func, _ast.Attribute)
-                    and getattr(node.value.func.value, "id", "")
-                    == "paper_needles"
-                    and node.value.func.attr == "forms")
-        if is_forms:
-            paper_vars |= {t.id for t in node.targets
-                           if isinstance(t, _ast.Name)}
-            created.add(id(node))
-    _created_ids = set()
+        if isinstance(node, _ast.Import):
+            for a in node.names:
+                if a.name == "paper_needles" and a.asname is not None:
+                    out.append(f"{rel}: paper_needles imported under "
+                               f"an alias at line {node.lineno} "
+                               f"(clause B)")
+                elif a.asname == "paper_needles":
+                    out.append(f"{rel}: the name paper_needles bound "
+                               f"to another module at line "
+                               f"{node.lineno} (clause B)")
+        if (isinstance(node, _ast.ImportFrom)
+                and node.module == "paper_needles"):
+            out.append(f"{rel}: from-import of paper_needles at line "
+                       f"{node.lineno} (clause B)")
+        if (isinstance(node, _ast.Attribute)
+                and isinstance(node.value, _ast.Name)
+                and node.value.id == "paper_needles"):
+            if node.attr not in _PN_ATTRS:
+                out.append(f"{rel}: paper_needles.{node.attr} at line "
+                           f"{node.lineno} is not verify/needle "
+                           f"(clause B)")
+            else:
+                attr_loads.add(id(node.value))
+        if (isinstance(node, _ast.Call)
+                and isinstance(node.func, _ast.Attribute)
+                and isinstance(node.func.value, _ast.Name)
+                and node.func.value.id == "paper_needles"
+                and node.func.attr in _PN_ATTRS):
+            calls.append(node)
     for node in _ast.walk(tree):
-        if isinstance(node, _ast.Assign) and id(node) in created:
-            for sub in _ast.walk(node):
-                _created_ids.add(id(sub))
-    # rebind clause (round-268 F268-1): every STORE of a paper
-    # variable must be one of its recognized creation assigns --
-    # a second binding of a mapped name (paper = paper[:N],
-    # paper = "...", a loop target, a walrus) is flagged at the
-    # binding, so no downstream compare can run against text the
-    # precheck did not evaluate. Scope (round-269 F269-5): the
-    # clause sees ast.Name Store/Del nodes; binding forms with
-    # no Name node (except-as, import aliases, class/def
-    # statements, parameters, match captures) are unflagged --
-    # fail-safe, because none of them can carry paper-derived
-    # content (any transform feeding them loads a paper var or
-    # PAPER outside sanction, tripping clauses iii/v), so a
-    # hollowed runtime mirror still leaves every declared needle
-    # live-enforced by this precheck.
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Name)
-                and node.id in paper_vars
-                and isinstance(node.ctx, (_ast.Store, _ast.Del))
-                and id(node) not in _created_ids):
-            out.append(f"{rel}: paper variable {node.id!r} "
-                       f"rebound outside its recognized creation "
-                       f"at line {node.lineno} (rebind clause)")
-    # clause (v) (round-267 F267-1: cascade_type_counting read the
-    # paper through a FUNCTION-WRAPPED open -- return, not Assign
-    # -- invisible to every prior clause, and a one-word paper
-    # edit produced TOWER PASS from cache against a live member
-    # FAIL): every Load of the name PAPER must sit inside a
-    # recognized creation assignment. A paper read anywhere else
-    # -- a return expression, an AnnAssign/walrus/tuple-unpack
-    # binding, a call argument, a suffixed or re-encoded read
-    # (F267-2/F267-3: those shapes fail var_forms, so their
-    # assigns are not creations) -- is flagged HERE at the read
-    # itself. Scope, stated honestly (round-268 F268-4): this
-    # clause polices reads SPELLED through the name PAPER, and
-    # clause (iv) polices constants spelling the filename; a
-    # computed spelling (globals()['PAPER'], os.listdir
-    # filtering, concatenated fragments) is deliberate evasion
-    # outside this tripwire's scope -- drift detection, not a
-    # semantic proof.
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Name) and node.id == "PAPER"
-                and isinstance(node.ctx, _ast.Load)
-                and id(node) not in _created_ids):
-            out.append(f"{rel}: PAPER read outside a recognized "
-                       f"transform assignment at line "
-                       f"{node.lineno} (clause v)")
-    if not paper_vars:
-        return out, False   # not a paper reader; clauses (iv)/(v)
-    # clause (i): exactly one pure-literal declaration
-    decl, ndecl = None, 0
+        if isinstance(node, _ast.Name) and node.id == "paper_needles":
+            if isinstance(node.ctx, _ast.Load):
+                if id(node) not in attr_loads:
+                    out.append(f"{rel}: bare use of the name "
+                               f"paper_needles at line {node.lineno} "
+                               f"(clause B)")
+            else:
+                out.append(f"{rel}: the name paper_needles rebound at "
+                           f"line {node.lineno} (clause B)")
+    if paper_needles.shadow_bound(tree, ("paper_needles",
+                                         "PAPER_NEEDLES")):
+        out.append(f"{rel}: paper_needles/PAPER_NEEDLES bound through "
+                   f"a raw-string binding form (clause B/C)")
+    # (C) the declaration
+    decl, ndecl, decl_node = None, 0, None
     for node in tree.body:
         if (isinstance(node, _ast.Assign) and len(node.targets) == 1
                 and getattr(node.targets[0], "id", "")
                 == "PAPER_NEEDLES"):
             ndecl += 1
+            decl_node = node
             try:
                 decl = _ast.literal_eval(node.value)
             except Exception as ex:
                 out.append(f"{rel}: PAPER_NEEDLES is not a pure "
-                           f"literal ({ex})")
+                           f"literal ({ex}) (clause C)")
                 return out, True
-    if decl is None or ndecl != 1:
-        out.append(f"{rel}: paper reader with PAPER_NEEDLES "
-                   f"literals = {ndecl}")
+    if ndecl > 1:
+        out.append(f"{rel}: PAPER_NEEDLES literals = {ndecl} (clause C)")
         return out, True
+    if decl is not None:
+        if not isinstance(decl, list) or not all(
+                paper_needles.valid(d) for d in decl):
+            out.append(f"{rel}: PAPER_NEEDLES has a schema-invalid "
+                       f"entry (clause C)")
+            return out, True
+    first_args = {id(c.args[0]) for c in calls if c.args}
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Name) and node.id == "PAPER_NEEDLES":
+            if node is (decl_node.targets[0] if decl_node else None):
+                continue
+            if (not isinstance(node.ctx, _ast.Load)
+                    or id(node) not in first_args):
+                out.append(f"{rel}: PAPER_NEEDLES used outside a "
+                           f"verify/needle first argument at line "
+                           f"{node.lineno} (clause C)")
+    # (D) call shapes; (E) declaration present
+    declared_pairs = set()
+    if decl:
+        declared_pairs = {(d.get("s"), d.get("form", "raw"))
+                          for d in decl if "s" in d}
+    for c in calls:
+        ln = c.lineno
+        if decl is None:
+            out.append(f"{rel}: verify/needle call at line {ln} "
+                       f"without a PAPER_NEEDLES declaration "
+                       f"(clause E)")
+            continue
+        if not (c.args and isinstance(c.args[0], _ast.Name)
+                and c.args[0].id == "PAPER_NEEDLES"):
+            out.append(f"{rel}: {c.func.attr} first argument is not "
+                       f"the bare PAPER_NEEDLES at line {ln} "
+                       f"(clause D)")
+            continue
+        if c.func.attr == "verify":
+            if len(c.args) != 1:
+                out.append(f"{rel}: verify positional shape at line "
+                           f"{ln} (clause D)")
+            for k in c.keywords:
+                v = k.value
+                if k.arg == "g" and isinstance(v, _ast.Constant) \
+                        and isinstance(v.value, str):
+                    continue
+                if k.arg == "seq" and isinstance(v, _ast.Constant) \
+                        and v.value is True:
+                    continue
+                out.append(f"{rel}: verify keyword {k.arg!r} shape at "
+                           f"line {ln} (clause D)")
+        elif c.func.attr == "declared":
+            if len(c.args) != 1 or c.keywords:
+                out.append(f"{rel}: declared call shape at line {ln} "
+                           f"(clause D)")
+        else:  # needle
+            if (len(c.args) != 3 or c.keywords
+                    or not all(isinstance(a, _ast.Constant)
+                               and isinstance(a.value, str)
+                               for a in c.args[1:])):
+                out.append(f"{rel}: needle call shape at line {ln} "
+                           f"(clause D)")
+                continue
+            pair = (c.args[1].value, c.args[2].value)
+            if pair not in declared_pairs:
+                out.append(f"{rel}: needle {pair!r} at line {ln} is "
+                           f"not declared (clause D)")
+    if decl is None:
+        return out, False
     # the live evaluation
     ok, miss = paper_needles.check(decl, _paper_bytes, pre=_pforms)
     for d, n in miss:
         out.append(f"{rel}: needle miss ({n}): {d!r}")
-    # clause (ii): harvest coverage of retained inline compares
-    reqs, cplx = paper_needles.harvest(tree, vf)
-    for ln in cplx:
-        out.append(f"{rel}: unharvestable paper expression at "
-                   f"line {ln}")
-    for s, f_, lo, hi in paper_needles.covers(decl, reqs):
-        out.append(f"{rel}: inline compare not covered by the "
-                   f"declaration: ({s!r}, {f_}, {lo}, {hi})")
-    # clause (iii): residual paper-var loads. A check()/forms()
-    # call is sanctioned ONLY when EVERY argument position is the
-    # exact committed shape (round-268 F268-2 policed the entries
-    # argument alone; round-269 F269-1/F269-2 demonstrated both
-    # remaining channels as stale-PASS constructions -- an
-    # arbitrary transform in the TEXT position or pre= keyword,
-    # and an arbitrary elt smuggled through the comprehension):
-    #   - check entries: the bare name PAPER_NEEDLES, or a
-    #     single-generator comprehension over it whose ELEMENT is
-    #     the bare generator target (filters allowed);
-    #   - check/forms text: a bare Name mapped "raw" by
-    #     var_forms (the census: every committed site passes the
-    #     file's raw read variable);
-    #   - keywords: only pre=, a bare Name assigned from
-    #     paper_needles.forms; nothing else.
-    # Any other shape fails the precheck with a named diagnostic.
-    def _decl_arg(a):
-        if isinstance(a, _ast.Name):
-            return a.id == "PAPER_NEEDLES"
-        if isinstance(a, (_ast.ListComp, _ast.GeneratorExp)):
-            g_ = a.generators[0] if len(a.generators) == 1 else None
-            return (g_ is not None
-                    and isinstance(g_.iter, _ast.Name)
-                    and g_.iter.id == "PAPER_NEEDLES"
-                    and isinstance(g_.target, _ast.Name)
-                    and isinstance(a.elt, _ast.Name)
-                    and a.elt.id == g_.target.id)
-        return False
-
-    def _raw_text_arg(a):
-        return (isinstance(a, _ast.Name)
-                and vf.get(a.id) == "raw")
-
-    _forms_vars = paper_vars - set(vf)
-
-    def _call_ok(node):
-        if node.func.attr == "forms":
-            return (len(node.args) == 1 and not node.keywords
-                    and _raw_text_arg(node.args[0]))
-        if not node.args or not _decl_arg(node.args[0]):
-            return False
-        if len(node.args) > 2:
-            return False
-        if len(node.args) == 2 and not _raw_text_arg(node.args[1]):
-            return False
-        for k in node.keywords:
-            if (k.arg != "pre"
-                    or not isinstance(k.value, _ast.Name)
-                    or k.value.id not in _forms_vars):
-                return False
-        return True
-
-    sanctioned = set()
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Call)
-                and isinstance(node.func, _ast.Attribute)
-                and getattr(node.func.value, "id", "")
-                == "paper_needles"
-                and node.func.attr in ("check", "forms")):
-            if not _call_ok(node):
-                out.append(f"{rel}: paper_needles."
-                           f"{node.func.attr} with a non-committed"
-                           f" argument shape at line {node.lineno}"
-                           f" (clause iii)")
-                continue
-            for sub in _ast.walk(node):
-                sanctioned.add(id(sub))
-        elif isinstance(node, _ast.Assign) and id(node) in created:
-            for sub in _ast.walk(node):
-                sanctioned.add(id(sub))
-    in_compare = set()
-    for node in _ast.walk(tree):
-        if isinstance(node, _ast.Compare):
-            for sub in _ast.walk(node):
-                in_compare.add(id(sub))
-    # NO f-string sanction (round-274 F274-1; see the retirement
-    # note above _precheck_file): a paper-var load inside any
-    # JoinedStr flags exactly like any other unsanctioned load.
-    for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Name)
-                and isinstance(node.ctx, _ast.Load)
-                and node.id in paper_vars
-                and id(node) not in sanctioned
-                and not (node.id in vf
-                         and id(node) in in_compare)):
-            out.append(f"{rel}: paper var {node.id!r} used outside "
-                       f"the declared-needle machinery at line "
-                       f"{node.lineno}")
     return out, True
 
 
@@ -534,6 +453,7 @@ _scan = set()
 for _e in MAN["tower"]:
     _scan |= {f for f in member_reach(_e["file"])
               if f.endswith(".py")}
+_scan.discard("paper_needles.py")   # the one sanctioned reader
 _pfail, _nreaders = [], 0
 for _rel in sorted(_scan):
     _f, _isreader = _precheck_file(_rel)

@@ -108,8 +108,6 @@ from scipy.linalg import eigh as scipy_eigh
 from mpmath import mp, zetazero
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -317,10 +315,7 @@ gate("g5 the three regimes at delta = 4: pole-carried boundary, the "
 
 # ---------------------------------------------------------------- g6
 import paper_needles
-_pforms = paper_needles.forms(paper)
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g6"], paper,
-    pre=_pforms)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g6')
 for _d, _n in _miss:
     print(f"  g6 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g6 the 1ba paper needles (declared surface)", ok)
@@ -332,9 +327,7 @@ gate("g7 the chain obligation to cascade_weil_margin.py (Theorem 1az) met",
      chain_ok("cascade_weil_margin.py"))
 
 # ---------------------------------------------------------------- g8
-ok, _missC = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g8"], paper,
-    pre=_pforms)
+ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _missC:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g8 the footer census (this script backticked >= 2; 86 cited in "

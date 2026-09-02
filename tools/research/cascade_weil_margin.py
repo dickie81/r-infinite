@@ -102,8 +102,6 @@ from mpmath import (mp, mpf, mpc, exp as mpexp, gamma as mpgamma, pi as mppi,
                     cos as mpcos, log as mplog, diff as mpdiff)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -410,10 +408,7 @@ gate("g6 the two-sided pins: the minimizer-adapted tails pin the n = 20 "
 
 # ---------------------------------------------------------------- g7
 import paper_needles
-_pforms = paper_needles.forms(paper)
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g7"], paper,
-    pre=_pforms)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g7')
 for _d, _n in _miss:
     print(f"  g7 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g7 the 1az paper needles (declared surface)", ok)
@@ -425,9 +420,7 @@ gate("g8 the chain obligation to cascade_saddle_curvature.py (Theorem 1ay) met",
      chain_ok("cascade_saddle_curvature.py"))
 
 # ---------------------------------------------------------------- g9
-ok, _missC = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g9"], paper,
-    pre=_pforms)
+ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g9')
 for _d, _n in _missC:
     print(f"  g9 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g9 the footer census (this script backticked >= 2; 86 cited in place; "

@@ -72,8 +72,6 @@ sys.path.insert(0, HERE0)
 from zeta_zeros_cache import zeros_im
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # the declared paper surface (the needle-precheck arc, A397):
 # ONE pure-literal constant, AST-extractable by run_tower's live
@@ -237,10 +235,7 @@ gate("g4 the criticality demonstration: backward raises E and closes the "
 
 # ---------------------------------------------------------------- g5
 import paper_needles
-_pforms = paper_needles.forms(paper)
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g5"], paper,
-    pre=_pforms)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g5')
 for d, n in _miss:
     print(f"  g5 MISSING (count {n}): {d['s']!r}", flush=True)
 gate("g5 the 1ax paper needles (declared surface)", ok)
@@ -252,9 +247,7 @@ gate("g6 the chain obligation to cascade_floor_meter.py (Theorem 1aw) met",
      chain_ok("cascade_floor_meter.py"))
 
 # ---------------------------------------------------------------- g7
-ok, _miss7 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g7"], paper,
-    pre=_pforms)
+ok, _miss7 = paper_needles.verify(PAPER_NEEDLES, g='g7')
 for d, n in _miss7:
     print(f"  g7 MISSING (count {n}): {d['s']!r}", flush=True)
 gate("g7 the footer census (this script backticked >= 2; 86 cited in place; "

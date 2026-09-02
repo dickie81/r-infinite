@@ -232,7 +232,6 @@ from fractions import Fraction as Fr
 import numpy as np
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 
 results = []
 
@@ -246,13 +245,13 @@ def norm(s):
     return " ".join(s.split())
 
 
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
 # inline paper conjuncts here; run_tower's harvest
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
+import paper_needles
 PAPER_NEEDLES = [
     {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': "PLUS the −½ln π of Γ_ℝ's normalization", 'form': 'plain', 'min': 1},
@@ -374,7 +373,7 @@ for d in (1, 4, 12):
     for b in (0.0, 0.3):
         for g in (0.7, 14.134725):
             ok &= abs(K(s, b, g) - K(s, 1 - b, g)) < 1e-14
-ok &= "cosh((β−½)t)" in paper
+ok &= paper_needles.needle(PAPER_NEEDLES, 'cosh((β−½)t)', 'plain')
 gate("g5 A4: K_s(beta+i gamma) = K_s(1-beta+i gamma) at samples (the "
      "FE involution as w-evenness; an identity for EVERY s -- the "
      "coordinate fact, not a translate iff, round 175 F1) + R1's "
@@ -431,23 +430,23 @@ gate("g7 the iff over the FOUR integralities A1/A2/A3/A5 (A4 is the "
      "exactly m+1/2 and -1/(2(2m+1)) (m = 1..6, exact rationals)", ok)
 
 print("V5 -- anchors, chain, census")
-ok = "the unique arithmetic-rational section of a positivity-generic cone family" in paper
-ok &= "buys NO positivity advantage" in paper
-ok &= paper.count("struck round 175 F1, MAJOR") == 1
-ok &= paper.count("struck round 175 F3") == 1
-ok &= "each of A1, A2, A3, and A5 below is true for α = ½" in paper
-ok &= "the coordinate fact, not a translate iff" in paper
-ok &= "the exactly-structured slice of the Weil framework" in paper
-ok &= "the Γ_ℝ/ψ closed forms where it is archimedean" in paper
-ok &= "algebraic roots of exact-rational polynomials where it is a crossing" in paper
-ok &= "PLUS the −½ln π of Γ_ℝ's normalization" in paper
-ok &= "THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM" in paper
-ok &= "quartic 4γ⁴ + 103γ² − 24, its minimal polynomial" in paper
-ok &= "unique among unit-spaced translates, gated" in paper
-ok &= "one fact, seen independently on all four sides of the explicit formula" in paper
-ok &= "consistency texture under Check 8, not forcing" in paper
-ok &= "no RH leverage is claimed in either direction" in paper
-ok &= paper.count("Theorem 1aq") >= 1
+ok = paper_needles.needle(PAPER_NEEDLES, 'the unique arithmetic-rational section of a positivity-generic cone family', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'buys NO positivity advantage', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 175 F1, MAJOR', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 175 F3', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'each of A1, A2, A3, and A5 below is true for α = ½', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the coordinate fact, not a translate iff', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the exactly-structured slice of the Weil framework', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the Γ_ℝ/ψ closed forms where it is archimedean', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'algebraic roots of exact-rational polynomials where it is a crossing', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, "PLUS the −½ln π of Γ_ℝ's normalization", 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'quartic 4γ⁴ + 103γ² − 24, its minimal polynomial', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'unique among unit-spaced translates, gated', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'one fact, seen independently on all four sides of the explicit formula', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'consistency texture under Check 8, not forcing', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'no RH leverage is claimed in either direction', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorem 1aq', 'plain')
 gate("g8 1aq's key sentences anchored by content (the section "
      "identification; no positivity advantage; the two round-175 "
      "strike frames; the scoped four-iff sentence + the coordinate "
@@ -469,9 +468,9 @@ gate("g9 the sibling chain green (cascade_concentration_regrade.py "
      "1ai's weil_positivity_status is chained by no suite script; "
      "the 'full committed suite' label corrected round 175 F5)", ok)
 
-ok = paper.count("`cascade_arithmetic_section.py`") >= 2
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_arithmetic_section.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g10 the footer census (this script backticked in body and "
      "footer; \"86 scripts cited in place\"; \"Theorems 1i-1bj\")", ok)
 

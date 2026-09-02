@@ -34,7 +34,6 @@ import hashlib, json, os, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, "tower_manifest.json")
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 
 # declared paper surface (round-264 F264-1): the two manifest
 # census strings are the ONLY paper consumption of chain mode.
@@ -44,6 +43,7 @@ PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 # must edit this declaration (rotating the module's sha and every
 # reach key) or the tower fails.  run_tower's precheck evaluates
 # these needles live like any member declaration.
+import paper_needles
 PAPER_NEEDLES = [
     {"s": "the **86 scripts cited in place** above", "form": "raw",
      "key": "census_count_string"},
@@ -83,13 +83,12 @@ def chain_ok(parent_basename):
                   flush=True)
             ok = False
     import paper_needles
-    paper = open(PAPER, encoding="utf-8").read()
-    for d in PAPER_NEEDLES:
+    for d in paper_needles.declared(PAPER_NEEDLES):
         if man[d["key"]] != d["s"]:
             print(f"  chain [manifest mode]: manifest {d['key']} "
                   f"{man[d['key']]!r} != declared {d['s']!r}", flush=True)
             ok = False
-    ok_n, miss = paper_needles.check(PAPER_NEEDLES, paper)
+    ok_n, miss = paper_needles.verify(PAPER_NEEDLES)
     for d, n in miss:
         print(f"  chain [manifest mode]: paper lacks {d['s']!r} "
               f"(count {n})", flush=True)

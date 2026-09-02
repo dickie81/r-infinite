@@ -220,7 +220,6 @@ import numpy as np
 from mpmath import mp, mpf, findroot, zetazero, log, pi as mppi
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 
 mp.dps = 30
 results = []
@@ -527,13 +526,13 @@ gate("g9 the 1aj committed-window tie: at aim gamma_1 the boundary "
      "13.5514 / 14.5669 and positive just outside both", ok)
 
 print("V5 -- the paper: key sentences, honest scope, siblings, footer")
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
 # inline paper conjuncts here; run_tower's harvest
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
+import paper_needles
 PAPER_NEEDLES = [
     {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Theorems 1i–1bj', 'form': 'plain', 'min': 1},
@@ -561,39 +560,35 @@ PAPER_NEEDLES = [
 # 1ap regrade: the two W4 needles now live INSIDE strike frames on
 # the paper (struck at the 1ap regrade, self-caught); the anchors
 # advance to the frames + the regrade content, per the F161 pattern.
-ok = "the RH deficit is RESOLUTION, not reach" in paper
-ok &= "it can relocate, it cannot concentrate" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, 'the RH deficit is RESOLUTION, not reach', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'it can relocate, it cannot concentrate', 'plain')
 # round 264: the sum-compare (long+short == 4) split into two
 # exact pins (2 each, verified at the split) so the conjunct is
 # harvestable by the paper-needle meta-gate; strictly stronger.
-ok &= paper.count("struck at the Theorem 1ap regrade") == 2
-ok &= paper.count("struck at the 1ap regrade") == 2
-ok &= "honest name is CONTRAST" in paper
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck at the Theorem 1ap regrade', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck at the 1ap regrade', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'honest name is CONTRAST', 'plain')
 # round 161 F1: the per-zero->per-cluster transition was pinned to
 # the wrong threshold (#33 is overlap-onset; occupancy-onset is
 # #187).  The old needle now lives only inside its strike frames;
 # the anchors are the corrected content + the three strike frames.
-ok &= ("pairwise disjoint through #33, single-occupancy through "
-       "#186" in paper)
-ok &= "the first two-zero window is #187" in paper
-ok &= paper.count("struck round 161 F1") == 3
-ok &= "the lower reach exceeds ½ and captures first" in paper
-ok &= paper.count("net-state, Theorem 1an") == 1
-ok &= "single-occupancy through #186, a window first holding a second zero at #187" in paper
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'pairwise disjoint through #33, single-occupancy through #186', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the first two-zero window is #187', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 161 F1', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the lower reach exceeds ½ and captures first', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'net-state, Theorem 1an', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'single-occupancy through #186, a window first holding a second zero at #187', 'plain')
 # round 162 F3: the marker rewrite had destroyed the landing's
 # sabotage-(c) pattern, leaving the marker's DISJOINTNESS clause
 # uncoupled (the reviewer's probe mangled its #33 with no trip).
 # Anchor it; and anchor the round-162 F1 relabel by content.
-ok &= ("stay pairwise disjoint through zero #33 — first overlap "
-       "#34/#35" in paper)
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'stay pairwise disjoint through zero #33 — first overlap #34/#35', 'plain'))
 # the same numeral in the W3 body is anchored too (the F162-3
 # class applies to every carrier of it, caught at the (g) probe's
 # abort: the pattern matched two instances)
-ok &= ("are pairwise disjoint through zero #33; the first overlap "
-       "is #34/#35" in paper)
-ok &= ("the census mean occupancy of the aimed windows is "
-       "1 + 41/800" in paper)
-ok &= paper.count("struck round 162 F1") == 1
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'are pairwise disjoint through zero #33; the first overlap is #34/#35', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'the census mean occupancy of the aimed windows is 1 + 41/800', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 162 F1', 'plain')
 gate("g10 1an's key sentences + the 1aj net-state marker anchored by "
      "content (the deficit's name; relocate-not-concentrate; the "
      "CORRECTED disjointness/occupancy thresholds + three F1 strike "
@@ -602,13 +597,12 @@ gate("g10 1an's key sentences + the 1aj net-state marker anchored by "
      "one-sided capture; the marker)", ok,
      "161/162 frame counts declared; evidence f-string retired round 274 (F274-1)")
 
-ok = ("no numerical advance over classical zero-verification is "
-      "claimed or implied" in paper)
-ok &= "c ≈ 1.25 is observed, not derived" in paper
-ok &= "width > 1 is sampled, not proved" in paper
+ok = (paper_needles.needle(PAPER_NEEDLES, 'no numerical advance over classical zero-verification is claimed or implied', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'c ≈ 1.25 is observed, not derived', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'width > 1 is sampled, not proved', 'plain')
 # case-robust: 1aj carries the sentence mid-sentence (lowercase),
 # 1an sentence-initial -- count the case-free core.
-ok &= paper.count("wall stands where it stood") >= 2
+ok &= paper_needles.needle(PAPER_NEEDLES, 'wall stands where it stood', 'plain')
 gate("g11 the honest-scope anchors: the no-numerical-advance "
      "disclaimer; observed-not-derived; sampled-not-proved; the "
      "wall-unchanged sentence (case-free core, count >= 2 -- it "
@@ -626,9 +620,9 @@ gate("g12 the sibling chain green after the census advance "
 
 # 1ao landing: the footer census advanced (64 -> 65; range -> 1ao)
 # -- the census-evolution class, disclosed.
-ok = "`cascade_windows_overlap.py`" in paper
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_windows_overlap.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g13 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 86 cited in place; the "
      "range 1i–1bj (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)

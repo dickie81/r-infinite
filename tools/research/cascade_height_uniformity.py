@@ -108,8 +108,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from height_landing import load_or_run
 
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -251,7 +249,7 @@ gate("g11 the chain obligation to cascade_floor_closure.py "
 # --------------------------------------------------------------- g12
 import re
 import paper_needles
-ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES)
 for _d, _n in _miss:
     print(f"  g12 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g12 the 1bh paper needles and the footer census "

@@ -140,8 +140,6 @@ from mpmath import (mp, mpf, mpc, exp, pi, quad, gamma as G, zeta, polyroots,
                     factorial, binomial, zetazero, log, euler, loggamma)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -551,10 +549,7 @@ gate("g8 the collective anatomy: C-I monotone with the additive control; "
 
 # ---------------------------------------------------------------- g9
 import paper_needles
-_pforms = paper_needles.forms(paper)
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g9"], paper,
-    pre=_pforms)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g9')
 for _d, _n in _miss:
     print(f"  g9 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g9 the 1aw paper needles (declared surface)", ok)
@@ -566,9 +561,7 @@ gate("g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met",
      chain_ok("cascade_li_two_channels.py"))
 
 # ---------------------------------------------------------------- g11
-ok, _missC = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g11"], paper,
-    pre=_pforms)
+ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g11')
 for _d, _n in _missC:
     print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g11 the footer census (this script backticked >= 2; 86 cited in place; "

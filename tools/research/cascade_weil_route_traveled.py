@@ -272,7 +272,6 @@ from scipy.integrate import quad
 from scipy.optimize import brentq
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 BRIDGE = os.path.join(ROOT, "tools", "research",
                       "cascade_explicit_formula_bridge.py")
 
@@ -636,13 +635,13 @@ gate("g20 the mechanism identity (regrade): the strip-boundary read = "
      "machine precision", ok)
 
 print("V5 -- the anchors and the footer")
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
 # inline paper conjuncts here; run_tower's harvest
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
+import paper_needles
 PAPER_NEEDLES = [
     {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1aj): superseded-true — Theorem 1aj constructs an admissible-discriminating instance from the committed pair itself', 'form': 'plain', 'min': 1},
@@ -661,30 +660,24 @@ PAPER_NEEDLES = [
     {'s': 'the other edge is blind, by theorem', 'form': 'plain', 'min': 1},
     {'s': 'the wall stands where it stood', 'form': 'plain', 'min': 1},
 ]
-ok = ("Net state (1aj): superseded-true — Theorem 1aj constructs an "
-      "admissible-discriminating instance from the committed pair itself"
-      in paper)
-ok &= ("Net state (1aj): the morphism now exists" in paper)
+ok = (paper_needles.needle(PAPER_NEEDLES, 'Net state (1aj): superseded-true — Theorem 1aj constructs an admissible-discriminating instance from the committed pair itself', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'Net state (1aj): the morphism now exists', 'plain'))
 gate("g16 the two 1ai net-state markers anchored (W3's supersession; "
      "gap (vi)'s closure)", ok)
-ok = "the edge of admissibility IS discriminating" in paper
-ok &= "the RH wall itself, now located at exact coordinates" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, 'the edge of admissibility IS discriminating', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the RH wall itself, now located at exact coordinates', 'plain')
 # regrade anchor swap: the old universal ("every committed-family
 # discriminating instance interrogates only...") is STRUCK in the
 # paper -- the anchors below are the regraded live sentences.
-ok &= ("every pairwise discriminating instance interrogates only the "
-       "classically vacant height-½ band" in paper)
-ok &= ("relocatable to any height — including the heights of actual "
-       "zeros" in paper)
-ok &= ("containing it for tangencies above the continuation threshold "
-       "≈ ¼" in paper)
-ok &= ("approaches ½ FROM BELOW — rising with height throughout the "
-       "zero-height regime" in paper)
-ok &= "a genuine per-zero sensitivity probe" in paper
-ok &= "the wall stands where it stood" in paper
-ok &= "action-positivity plays no role in the sign" in paper
-ok &= ("r*(u) = K_{s₂}/K_{s₁}(0, γ) is STRICTLY INCREASING in u" in paper)
-ok &= "the other edge is blind, by theorem" in paper
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'every pairwise discriminating instance interrogates only the classically vacant height-½ band', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'relocatable to any height — including the heights of actual zeros', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'containing it for tangencies above the continuation threshold ≈ ¼', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'approaches ½ FROM BELOW — rising with height throughout the zero-height regime', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'a genuine per-zero sensitivity probe', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the wall stands where it stood', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'action-positivity plays no role in the sign', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'r*(u) = K_{s₂}/K_{s₁}(0, γ) is STRICTLY INCREASING in u', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the other edge is blind, by theorem', 'plain')
 gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
      "the wall with the PAIRWISE scope; the relocatable windows; the "
      "per-zero probe; R2'; the no-role-of-the-action)", ok)
@@ -694,9 +687,9 @@ gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
 # again (63 -> 64; range -> 1an); 1ao landing: advanced again
 # (64 -> 65; range -> 1ao) -- the census-evolution class,
 # disclosed each time.
-ok = "`cascade_weil_route_traveled.py`" in paper
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_weil_route_traveled.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g18 the footer census (advanced with each landing, "
      "disclosed): this script backticked; 86 cited in "
      "place; the range 1i–1bj (advance disclosed; label re-synced "

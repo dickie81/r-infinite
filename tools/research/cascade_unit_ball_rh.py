@@ -151,7 +151,6 @@ from mpmath import (mp, mpf, mpc, log, pi as mppi, gamma as mpgamma, zeta,
                     factorial, digamma)
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 
 mp.dps = 60
 N = 50
@@ -320,13 +319,13 @@ gate("g8 positivity: lambda_n > 0 for every n = 1..50 (the "
      "criterion's computed depth)", all(x > 0 for x in lam))
 
 print("V3 -- the paper: key sentences, scope, classical inputs, siblings, footer")
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
 # inline paper conjuncts here; run_tower's harvest
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
+import paper_needles
 PAPER_NEEDLES = [
     {'s': '86 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Li and Bombieri–Lagarias, the positivity ladder', 'form': 'plain', 'min': 1},
@@ -345,31 +344,28 @@ PAPER_NEEDLES = [
     {'s': 'the first Li rung is the committed edge potential plus one plus γ', 'form': 'plain', 'min': 1},
     {'s': 'wrong at the low rungs and corrected before landing', 'form': 'plain', 'min': 1},
 ]
-ok = ("the first Li rung is the committed edge potential plus one "
-      "plus γ" in paper)
-ok &= "it sidesteps 1an's resolution wall entirely" in paper
+ok = (paper_needles.needle(PAPER_NEEDLES, 'the first Li rung is the committed edge potential plus one plus γ', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, "it sidesteps 1an's resolution wall entirely", 'plain')
 # round 164 F3: the handoff sentence reworded (the old needle "hand
 # positivity to each other across n ≈ 8" now lives only at the
 # landing tree; sabotage (a) reproduces there, the new wording's
 # trip is probe (d)).  F2: the rate-separation sentence anchored.
 # F1/F3 strike frames counted.
-ok &= ("the drag's end at n = 8 and the share crossing near n = 11 "
-       "are the two marks of the handoff" in paper)
-ok &= "rates 3/2 versus ½" in paper
-ok &= paper.count("struck round 164 F1") == 1
-ok &= paper.count("struck round 164 F3") == 1
-ok &= "wrong at the low rungs and corrected before landing" in paper
+ok &= (paper_needles.needle(PAPER_NEEDLES, "the drag's end at n = 8 and the share crossing near n = 11 are the two marks of the handoff", 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'rates 3/2 versus ½', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 164 F1', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'struck round 164 F3', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'wrong at the low rungs and corrected before landing', 'plain')
 gate("g9 1ao's key sentences anchored by content (the first-rung "
      "identity; the wall sidestep; the REWORDED handoff + the "
      "rate-separation sentence + the two strike frames -- round "
      "164; the corrected-draft disclosure)", ok,
      "164 frame counts declared; evidence f-string retired round 274 (F274-1)")
 
-ok = "NO PROOF LEVERAGE" in paper
-ok &= "as hard as RH" in paper
-ok &= paper.count("claimed in neither direction") >= 2
-ok &= ("a region classically zero-free; the injection is pure "
-       "instrument-teeth" in paper)
+ok = paper_needles.needle(PAPER_NEEDLES, 'NO PROOF LEVERAGE', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'as hard as RH', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'claimed in neither direction', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'a region classically zero-free; the injection is pure instrument-teeth', 'plain'))
 gate("g10 the honest-scope anchors: no-proof-leverage; as-hard-as-RH; "
      "neither-direction (count >= 2, it also lives in 1aj); the "
      "counterfactual teeth label",
@@ -382,8 +378,8 @@ gate("g10 the honest-scope anchors: no-proof-leverage; as-hard-as-RH; "
 # battery (31/32); a first repair then wrote the bigram into THIS
 # comment and failed the census again (repo-wide 1) -- both reworded,
 # the census kept strong rather than allowlisted.
-ok = "Li and Bombieri–Lagarias, the positivity ladder" in paper
-ok &= "Stieltjes, the Laurent constants of ζ" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, 'Li and Bombieri–Lagarias, the positivity ladder', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Stieltjes, the Laurent constants of ζ', 'plain')
 gate("g11 the classical-inputs additions anchored in the footer list "
      "(Li; Bombieri–Lagarias; Stieltjes; the census-safe wording, "
      "disclosed)", ok)
@@ -398,9 +394,9 @@ gate("g12 the sibling chain green after the census advance "
      "riemann_selection, type_counting, and the two Weil-arc "
      "siblings)", ok)
 
-ok = "`cascade_unit_ball_rh.py`" in paper
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_unit_ball_rh.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g13 the footer census (advanced at this landing, disclosed): "
      "this script backticked; 86 cited in place; the range 1i–1bj "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)

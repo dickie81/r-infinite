@@ -93,9 +93,6 @@ from oneprime_interval_count import run as run_II
 from oneprime_interval_pole import run as run_IIb
 from oneprime_interval_temple import run as run_III
 
-PAPER = os.path.join(HERE, "..", "..",
-                     "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -273,7 +270,7 @@ gate("g10 the chain obligation to cascade_floor_theory.py "
 # ---------------------------------------------------------------- g11
 import re
 import paper_needles
-ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES)
 for _d, _n in _miss:
     print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g11 the 1bj paper needles and the footer census "

@@ -4,79 +4,79 @@
  "tower": [
   {
    "file": "cascade_lattice_forcing.py",
-   "sha256": "78a406b4f7d26b00b03db74481dcf13a897a8a11ea6043b6334402d161726e5c"
+   "sha256": "2bba083f887a2e6b3619f5f3f928921c04bac42f8deee7aed63f982761151b22"
   },
   {
    "file": "cascade_primes_side_ball.py",
-   "sha256": "86c31cd07d23ca9b66a2d66562fbe73176b6702388295aabe5ba1660d0655483"
+   "sha256": "7c19044e6873e5a9e29cacad10991aea47d508821765e122f87eba295acf885e"
   },
   {
    "file": "cascade_finite_fill.py",
-   "sha256": "d621250773a0db6e13694cfa3c365b7ff89086ebf2fec21ff96457a89c077ec0"
+   "sha256": "8de2515caf6c69953c9691acf4ba0762d0839dc2a77c5c7bfcd30db8706b8110"
   },
   {
    "file": "cascade_attraction_margins.py",
-   "sha256": "da407f9659815714ddcbb76882fcd587655e80ef9412e03a8b2b401e231866e1"
+   "sha256": "03a4ecef6d0b3aed6d8570c360809ba1536409f2444cf4cc87cf214da1ff5bd1"
   },
   {
    "file": "cascade_li_two_channels.py",
-   "sha256": "61f467fbdb8b8200f64fd534d7f344a57a54561d3a7facd952968d87d914235e"
+   "sha256": "d437eae9bd5a78187e64e36554eb209c1a57db8a1359305de6a611b5f9fc76ce"
   },
   {
    "file": "cascade_floor_meter.py",
-   "sha256": "64b27d07791549640043f73252c5260b76a8fa47d9447205126174b9e69be1dc"
+   "sha256": "ad161a7cf989bbc35b989cf3f07c8aa17f09f15ad7c38dafa3a74d2890ebf036"
   },
   {
    "file": "cascade_heatflow_energy.py",
-   "sha256": "3c625a50fb671b6dc770ce7f477682e67de3f95202d0bb3898799350fef4d1d0"
+   "sha256": "90a1306de7c92f906aa78719a20672f5f2db259ecdceab7ce236ce40ef381fad"
   },
   {
    "file": "cascade_saddle_curvature.py",
-   "sha256": "d2e475c7757a3e0aec1d619bcac74b78631f1c3303acf95341ee0fa889c94f09"
+   "sha256": "6e94cc57f8e6d8f1fc216b38f2f59090f0e50678c349d8551b8e1ec75dbd943a"
   },
   {
    "file": "cascade_weil_margin.py",
-   "sha256": "098e8c33cb17fe0cbda533c6cb6c359ae045c24a0244f94f46eda1ec8dfded6f"
+   "sha256": "e6366cd0a595c4c143523218596f3639ccbdcea6369263731d2233db897cc0b4"
   },
   {
    "file": "cascade_weil_crossover.py",
-   "sha256": "9ec84fa540189f0b04b244e17bd82dc8812c76c82bb3906daefdce4371c3e897"
+   "sha256": "ee94dcfd47810165125de12d94abd6b7ba36a920429ef433b58c366cfcfce4b9"
   },
   {
    "file": "cascade_prolate_horizon.py",
-   "sha256": "b1000f04310357af791b19e66a6c316333b66f27de5fe991ffecb1466c4e8ac8"
+   "sha256": "9d31bb2383298cf73ee94245c57ac463490522e0e2c5dff2bc396d4e98430133"
   },
   {
    "file": "cascade_fluctuation_price.py",
-   "sha256": "d54c07489ccc1a26fbfcf0aa88e04b2fb8d5dd0d5ef2254d3fb7b1f7cf6252cf"
+   "sha256": "4f467c976c95d8eebad34457b51ab062d0d0a22613f926ebd167a970561cafee"
   },
   {
    "file": "cascade_sonin_dirac.py",
-   "sha256": "f755af2ddcba88e6d666ba873d31088210fb82946fcbc3ad76bb66e641237952"
+   "sha256": "e62b0eba469647eade06a478e080a62d219a7dfaf97ecec09ecca89db1b36a90"
   },
   {
    "file": "cascade_prime_budget_fold.py",
-   "sha256": "e89ee10cfe64bc7f6a64bac2bb4673f56541bd7d706c7544da2e17bea4d6a476"
+   "sha256": "6302b2b4c760bdd9ba95b6178bc621b88237c99226b26b4fd460913ffc84af38"
   },
   {
    "file": "cascade_twosided_witness.py",
-   "sha256": "af4c4ca8ddf1fe44ca93e24c21b491c7c217f382f45ffe70e959d762c3857665"
+   "sha256": "651d8f0df84d6f3cc6c7c5a3a427d125d74d3c9a1f5176f294c3ff92d14b256f"
   },
   {
    "file": "cascade_floor_closure.py",
-   "sha256": "d90e26ca2a98381b34772df5d88493ebdd9b74812c370f136332352257daaad3"
+   "sha256": "f4013dab36b2a5a8237ad68823aed442e01994b2f5d8a48e42e30f76ac7fd6c8"
   },
   {
    "file": "cascade_height_uniformity.py",
-   "sha256": "8ac09897eb2edcbd9fb7bb999a2d861adbb2b9392b139cb9c95f220076eb4da3"
+   "sha256": "2e66711f1e24277503de7df70a2b3e9afeec93fe15b7b533cce11c1acf0868c7"
   },
   {
    "file": "cascade_floor_theory.py",
-   "sha256": "840d9fc3842a92a8ec2f3987cccaf107bb64f682ca8539a133766d6c402494c0"
+   "sha256": "9ba824c3cfaf1ac75afc217d33ef771478fede4bcc9a1413de4c444e49f26ac6"
   },
   {
    "file": "cascade_oneprime_interval.py",
-   "sha256": "52aa6b091b2d1798acc60076f61a2ede319d3c621ab6613166172d4740fa8177"
+   "sha256": "e8301ee88fd4d1e516d66d5974b749cc34e98b6b556f0a32f66db10cf246e21d"
   }
  ]
 }

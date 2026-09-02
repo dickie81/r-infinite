@@ -84,9 +84,7 @@ from mpmath import (mp, mpf, mpc, zeta, gamma, pi, sqrt, log, cos, exp,
                     jtheta, isnan)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
 PART0 = os.path.join(HERE, "..", "..", "src", "cascade-series-part0.tex")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -328,8 +326,7 @@ for d in range(1, 11):
     closed = -log(pi)/2 + digamma(0, (mpf(d)+1)/2)/2
     ok &= abs(numeric - closed) < mpf(10)**-15
 ok &= r"p(d) = -\tfrac{1}{2}\ln\pi" in part0
-_ok11, _m11 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g11"], paper)
+_ok11, _m11 = paper_needles.verify(PAPER_NEEDLES, g='g11')
 ok &= _ok11
 gate("g11 the CC identity: part0's p(d) == (log Gamma_R)'(d+1), source-anchored", ok)
 
@@ -345,17 +342,13 @@ ok &= abs(math.sqrt(S)/N - 2.24) < 0.02
 ok &= abs(N*N/S - 0.20) < 0.01
 p_max = math.sqrt(S)*(math.log(math.sqrt(S)) + math.log(math.log(math.sqrt(S))))
 ok &= 2.5e63 < p_max < 2.8e63
-_ok12, _m12 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g12"], paper)
+_ok12, _m12 = paper_needles.verify(PAPER_NEEDLES, g='g12')
 ok &= _ok12
 gate("g12 conjecture-block arithmetic gated, paper values pinned, fence and "
      "caveat needles present", ok)
 
 # ---------------------------------------------------------------- g13
-_pforms = paper_needles.forms(paper)
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g13"], paper,
-    pre=_pforms)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g13')
 for _d, _n in _miss:
     print(f"  g13 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g13 the 1as paper needles (declared surface)", ok)
@@ -367,9 +360,7 @@ gate("g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met",
      chain_ok("cascade_lattice_forcing.py"))
 
 # ---------------------------------------------------------------- g15
-ok, _missC = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g15"], paper,
-    pre=_pforms)
+ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g15')
 for _d, _n in _missC:
     print(f"  g15 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g15 the footer census (this script backticked >= 2; 86 cited in place; "

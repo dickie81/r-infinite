@@ -106,8 +106,6 @@ sys.path.insert(0, HERE)
 from sonin_outside import build            # the committed instrument
 import ckpt_key
 
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -330,7 +328,7 @@ gate("g10 the chain obligation to cascade_fluctuation_price.py "
 # ---------------------------------------------------------------- g11
 import re
 import paper_needles
-ok, _miss = paper_needles.check(PAPER_NEEDLES, paper)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES)
 for _d, _n in _miss:
     print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g11 the 1bd paper needles and the footer census "

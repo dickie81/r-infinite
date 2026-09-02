@@ -137,8 +137,6 @@ from fold_D import zeros380, D_cue_analytic
 from fold_harden import decomposition
 from fold_surrogate import run_fold
 
-PAPER = os.path.join(HERE, "..", "..", "riemann-indistinguishability.md")
-paper = open(PAPER, encoding="utf-8").read()
 
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
@@ -319,8 +317,7 @@ gate("g15 the fully-matched control (round-227 F2): the determinantal "
      ">= 7/10 points positive) -- not a convention artifact", ok)
 
 # ---------------------------------------------------------------- g10
-_ok10, _m10 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g10"], paper)
+_ok10, _m10 = paper_needles.verify(PAPER_NEEDLES, g='g10')
 gate("g10 the 1bc consistency: the certified headline needle in the "
      "paper (declared surface)", _ok10)
 
@@ -333,8 +330,7 @@ gate("g11 the chain obligation to cascade_sonin_dirac.py (Theorem 1bd) "
 # round-264 F264-5: g12 evaluates ONLY its own entries -- the g10
 # headline needle is g10's gate, not a silent second conjunct here
 import re
-ok, _miss = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d["g"] == "g12"], paper)
+ok, _miss = paper_needles.verify(PAPER_NEEDLES, g='g12')
 for _d, _n in _miss:
     print(f"  g12 MISSING (count {_n}): {_d['s']!r}", flush=True)
 gate("g12 the 1be paper needles and the footer census "

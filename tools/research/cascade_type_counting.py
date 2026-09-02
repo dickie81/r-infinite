@@ -126,7 +126,6 @@ import sys
 from collections import Counter
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 PART0 = os.path.join(ROOT, "src", "cascade-series-part0.tex")
 PART4A = os.path.join(ROOT, "src", "cascade-series-part4a.tex")
 PART4B = os.path.join(ROOT, "src", "cascade-series-part4b.tex")
@@ -154,8 +153,6 @@ def norm(s):
 # needles live in PAPER_NEEDLES (tagged g2), evaluated by the
 # shared checker here and re-evaluated live by the driver.
 import paper_needles
-paper_g2raw = open(PAPER, encoding="utf-8").read()
-paper_g2 = norm(paper_g2raw).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
@@ -220,8 +217,7 @@ rv = subprocess.run([sys.executable,
                                   "cascade_precedence_vacuity.py")],
                     capture_output=True, text=True)
 idle &= rv.returncode == 0
-_okg2, _mg2 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if d.get("g") == "g2"], paper_g2raw)
+_okg2, _mg2 = paper_needles.verify(PAPER_NEEDLES, g='g2')
 for _d, _n in _mg2:
     print(f"  g2 needle miss ({_n}): {_d['s']!r}", flush=True)
 idle &= _okg2
@@ -271,11 +267,10 @@ gate("g4 types -> {19, 5, 14, 7} bijective, all eight committed "
      f"exit {r.returncode}")
 part0 = norm(open(PART0, encoding="utf-8").read())
 part4b = norm(open(PART4B, encoding="utf-8").read())
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
 ok = ("The Gamma function produces exactly four distinguished dimensions "
       "in the cascade. No fifth exists." in part0)
 ok &= "Removing $d_2=217$ as the Planck sink leaves exactly four" in part4b
-ok &= "forced by the committed dynamics" in paper
+ok &= paper_needles.needle(PAPER_NEEDLES, 'forced by the committed dynamics', 'plain')
 gate("g5 the source side's theorem anchors (tower completeness; the "
      "sink-removal accounting; the 1af sink-dynamics upgrade)", ok)
 ok = "The unique non-sink threshold is $d_1=19$" in part4b
@@ -294,29 +289,25 @@ gate("g7 the residue's committed anchors (the Does-not flag-derivation "
 part4a = norm(open(PART4A, encoding="utf-8").read())
 
 ok = "unique} dimension in $[5,d_1=19]$ where $\\rho(d)-1=3$" in part4a
-ok &= "closed relative to the committed source set" in paper
+ok &= paper_needles.needle(PAPER_NEEDLES, 'closed relative to the committed source set', 'plain')
 gate("g8 the Adams-scan interval's committed notation (the upper "
      "endpoint is d_1 BY NAME) + the paper's relative-closure sentence",
      ok)
 
 print("V5 -- the anchors and the footer")
-ok = "a fifth type requires a FOURTH FLAG" in paper
-ok &= ("the open P > L > G precedence derivation is idle on the "
-       "committed record" in paper)
-ok &= "the weakest link sharpens but does not vanish" in paper
-ok &= ("the fourth-flag question REDUCES to the fifth-non-sink-layer "
-       "question" in paper)
+ok = paper_needles.needle(PAPER_NEEDLES, 'a fifth type requires a FOURTH FLAG', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'the open P > L > G precedence derivation is idle on the committed record', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the weakest link sharpens but does not vanish', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'the fourth-flag question REDUCES to the fifth-non-sink-layer question', 'plain'))
 gate("g9 1al's key sentences anchored (the fourth-flag upgrade; the "
      "idleness; the sharpened link; the reduction)", ok)
 # DISCLOSED PRE-COMMIT CATCH: the first draft counted the marker
 # labels only ("Net state (1al):" == 2) and the mid-marker sabotage
 # (sharpens -> narrows) passed 12/0 -- the count-only-gate class.
 # Content anchors added; the redone sabotage trips.
-ok = paper.count("Net state (1al):") == 2
-ok &= ("the barrier is upgraded — the count mechanics are exact "
-       "combinatorics" in paper)
-ok &= ("the weakest link sharpens to one named open lemma (the "
-       "categorical flag derivation)" in paper)
+ok = paper_needles.needle(PAPER_NEEDLES, 'Net state (1al):', 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'the barrier is upgraded — the count mechanics are exact combinatorics', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'the weakest link sharpens to one named open lemma (the categorical flag derivation)', 'plain'))
 gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
      "passage; the 1af passage; count-only first draft caught by "
      "sabotage pre-commit, disclosed)", ok,
@@ -324,9 +315,9 @@ gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
 # 1am landing: the footer census advanced (62 -> 63; range -> 1am);
 # then 1an (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
-ok = "`cascade_type_counting.py`" in paper
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_type_counting.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g11 the footer census (advanced at the 1am-1ap landings, "
      "disclosed): this script backticked; 86 cited in place; the "
      "range 1i–1bj (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)

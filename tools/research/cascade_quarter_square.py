@@ -125,7 +125,6 @@ import numpy as np
 from scipy.optimize import brentq
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-PAPER = os.path.join(ROOT, "riemann-indistinguishability.md")
 BRIDGE = os.path.join(ROOT, "tools", "research",
                       "cascade_explicit_formula_bridge.py")
 
@@ -292,7 +291,6 @@ gate("g9 the full threshold in (0.2435, 0.2437) with deficit in "
      f"{th_b:.8f}, frozen {thf_b:.10f}")
 
 print("V5 -- the anchors and the footer")
-paper_raw = open(PAPER, encoding="utf-8").read()
 # round 264: the prefix-slice pre-1ak span test converted to
 # declared seq entries (below) -- first occurrence before the
 # unique 1ak heading (plain form, uniqueness pinned max=1).
@@ -303,7 +301,6 @@ paper_raw = open(PAPER, encoding="utf-8").read()
 # pins, first-occurrence-before-heading matches the old whole-
 # needle-in-prefix membership for these needles (neither needle's
 # tail is a prefix of the heading string, so no straddle exists).
-paper = norm(paper_raw).replace("**", "")
 
 # declared paper surface (round-264 F264-1: chain
 # scripts in tower members' reaches mirror their
@@ -330,8 +327,7 @@ PAPER_NEEDLES = [
      'form': 'plain'},
 ]
 import paper_needles
-_ok10, _m10 = paper_needles.check(
-    [d for d in PAPER_NEEDLES if "seq" in d], paper_raw)
+_ok10, _m10 = paper_needles.verify(PAPER_NEEDLES, seq=True)
 for _d, _n in _m10:
     print(f"  g10 seq miss {_n}: {_d!r}", flush=True)
 gate("g10 the 1aj sentences 1ak leans on, anchored LOCATIONALLY in the "
@@ -340,18 +336,13 @@ gate("g10 the 1aj sentences 1ak leans on, anchored LOCATIONALLY in the "
 # round 151 F4: the anchored punchline rewritten -- the pole's image
 # is +1/4 in the v-plane and -1/4 in the height plane u = gamma^2
 # (where it IS the displacement constant); anchors updated.
-ok = ("The quarter-square is the pole's image under the squared-shift "
-      "map" in paper)
-ok &= "where the pole's image IS Q3's displacement constant" in paper
-ok &= ("ξ's pole-cancelling polynomial factor UP TO THE CONSTANT ½"
-       in paper)
-ok &= ("each lattice site's anchor is its squared half-shift MINUS the "
-       "quarter-square" in paper)
-ok &= ("the strip-boundary read is the line read displaced by a "
-       "CONSTANT real quarter-square" in paper)
-ok &= ("with the denominators frozen at the tangency, the detachment "
-       "threshold is EXACTLY ¼" in paper)
-ok &= "one scale — (½)², the functional equation's half-shift squared" in paper
+ok = (paper_needles.needle(PAPER_NEEDLES, "The quarter-square is the pole's image under the squared-shift map", 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, "where the pole's image IS Q3's displacement constant", 'plain')
+ok &= (paper_needles.needle(PAPER_NEEDLES, "ξ's pole-cancelling polynomial factor UP TO THE CONSTANT ½", 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, "each lattice site's anchor is its squared half-shift MINUS the quarter-square", 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'the strip-boundary read is the line read displaced by a CONSTANT real quarter-square', 'plain'))
+ok &= (paper_needles.needle(PAPER_NEEDLES, 'with the denominators frozen at the tangency, the detachment threshold is EXACTLY ¼', 'plain'))
+ok &= paper_needles.needle(PAPER_NEEDLES, "one scale — (½)², the functional equation's half-shift squared", 'plain')
 gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
      "two-plane pole image -- F4; the up-to-half prefactor -- F2; the "
      "anchors; the displacement; the frozen threshold; the "
@@ -360,9 +351,9 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # 1am landing: advanced again (62 -> 63; range -> 1am); then 1an
 # (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
-ok = "`cascade_quarter_square.py`" in paper
-ok &= "86 scripts cited in place" in paper
-ok &= "Theorems 1i–1bj" in paper
+ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_quarter_square.py`', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '86 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bj', 'plain')
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
      "disclosed): this script backticked; 86 cited in place; the "
      "range 1i–1bj (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
