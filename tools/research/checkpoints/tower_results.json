@@ -2147,6 +2147,18 @@
 "rc": 0,
 "when": "2026-08-27T20:54Z"
 },
+"e450c39a000eeb497e03bd2e": {
+"dt": 1.6660122871398926,
+"file": "cascade_oneprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T15:56Z"
+},
+"e452bbb585c3bb6622deb833": {
+"dt": 4.115419149398804,
+"file": "cascade_twoprime_interval.py",
+"rc": 0,
+"when": "2026-09-02T15:56Z"
+},
 "e4a184ffed992579c1907a38": {
 "dt": 67.57733082771301,
 "file": "cascade_weil_crossover.py",
