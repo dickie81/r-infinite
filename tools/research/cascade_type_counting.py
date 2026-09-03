@@ -87,7 +87,7 @@ Gates (twelve):
        anchored.
   V5 -- g9 1al's key sentences anchored; g10 the two net-state
        markers on the weakest-link sentences anchored; g11 the
-       footer census (the new script backticked; "89 scripts cited in place"; "Theorems 1i–1bn" -- advanced at the
+       footer census (the new script backticked; "90 scripts cited in place"; "Theorems 1i–1bn" -- advanced at the
        1am-1ap landings, the census-evolution class, disclosed); g12 the two Weil-arc
        footer-gating siblings re-run green after the census
        advance (quarter_square 12/0; route_traveled 22/0).
@@ -162,7 +162,7 @@ import paper_needles
 # relocated above V1 at the round-267 sweep so the
 # g2 declared check can execute)
 PAPER_NEEDLES = [
-    {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '90 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1al):', 'form': 'plain', 'min': 2, 'max': 2},
     {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_type_counting.py`', 'form': 'plain', 'min': 1},
@@ -316,7 +316,7 @@ gate("g10 the two net-state markers anchored BY CONTENT (the 1ae-chain "
 # then 1an (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_type_counting.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '90 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g11 the footer census (advanced at the 1am-1ap landings, "
      "disclosed): this script backticked; 88 cited in place; the "

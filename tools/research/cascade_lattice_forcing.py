@@ -109,7 +109,7 @@ VERIFICATION (10 gates, exit-gated).
        g9 the sibling chain green (cascade_arithmetic_section.py
        10/0, transitively chaining the Weil-arc suite);
        g10 the footer census (this script backticked >= 2;
-       the anchored needles "the **89 scripts cited in place**
+       the anchored needles "the **90 scripts cited in place**
        above" and "extended by Theorems 1i–1bn:" against the RAW
        normalized text -- round-218 F1 + F12).
 

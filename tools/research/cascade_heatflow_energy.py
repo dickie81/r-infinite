@@ -91,7 +91,7 @@ PAPER_NEEDLES = [
     {"g": "g5", "s": "the hardness is conserved at P4"},
     {"g": "g7", "s": "`cascade_heatflow_energy.py`", "min": 2},
     {"g": "g7", "s": "the **90 scripts cited in place** above"},
-    {"g": "g7", "s": "extended by Theorems 1i\u20131bm:"},
+    {"g": "g7", "s": "extended by Theorems 1i\u20131bn:"},
 ]
 
 fails = []

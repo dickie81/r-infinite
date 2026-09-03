@@ -6580,10 +6580,11 @@ radius below 2^{−prec/2}, every lower end positive:
 
 *(iii) What the table says.* The certified bounds sit within 0.1 nats
 of the zero-side model at every cell (+0.002, +0.011, +0.099, +0.062,
-+0.064, +0.042, −0.064; gated within 0.15): the same eigenvalue seen
++0.064, +0.043, −0.064 as the gate prints them from the stored values;
+gated within 0.15): the same eigenvalue seen
 from the primes and from the zeros — the first with nothing truncated
 but the trial basis, whose refinement only lowers the bound (K1 → K2
-by 0.003–0.107 nats; gated), the second a model. So the slack law of
+by 0.004–0.107 nats; gated), the second a model. So the slack law of
 Theorem 1bm stands on the true form as an upper bound, unconditionally:
 **−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.27, 140.71, 221.90, 383.28** at
 the seven cells — the positivity margin of Weil's functional on support

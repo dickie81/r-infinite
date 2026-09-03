@@ -156,7 +156,7 @@ round-167 rebuild and the 168-173 needle advances).
        (unit_ball_rh 13/0, transitively chaining windows_overlap,
        riemann_selection, type_counting, and the two Weil-arc
        siblings); g12 the footer census (this script backticked;
-       "89 scripts cited in place"; "Theorems 1i-1bm").
+       "90 scripts cited in place"; "Theorems 1i-1bm").
 
 Sabotage record.  THE LANDING'S ENTRIES (below) were certified
 against the LANDING gate set; the round-167 rebuild (g1/g4/g6/g9/
@@ -585,7 +585,7 @@ print("V3 -- the paper: the regrade strikes, key sentences, siblings, footer")
 # inline compare, so drift fails the precheck)
 import paper_needles
 PAPER_NEEDLES = [
-    {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '90 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'DERIVED at the round-167 sweep', 'form': 'plain', 'min': 1},
     {'s': 'NO distinguished positive finite asymptotic-product constant exists for the class', 'form': 'plain', 'min': 1},
     {'s': 'Resolution is purchasable; contrast pays for it', 'form': 'plain', 'min': 1},
@@ -687,7 +687,7 @@ gate("g11 the sibling chain green after the census advance "
      "siblings)", ok)
 
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_concentration_regrade.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '90 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g12 the footer census (advanced at this landing, disclosed): "
      "this script backticked; 88 cited in place; the range 1i–1bl "

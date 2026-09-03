@@ -182,7 +182,7 @@ VERIFICATION (10 gates, exit-gated).
        (cascade_concentration_regrade.py 12/0, transitively
        chaining the Weil-arc sibling chain -- the "full suite"
        label corrected round 175 F5); g10 the footer census (this
-       script backticked >= 2; "89 scripts cited in place";
+       script backticked >= 2; "90 scripts cited in place";
        "Theorems 1i-1bm").
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
@@ -253,7 +253,7 @@ def norm(s):
 # inline compare, so drift fails the precheck)
 import paper_needles
 PAPER_NEEDLES = [
-    {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '90 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': "PLUS the −½ln π of Γ_ℝ's normalization", 'form': 'plain', 'min': 1},
     {'s': 'THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM', 'form': 'plain', 'min': 1},
     {'s': 'Theorem 1aq', 'form': 'plain', 'min': 1},
@@ -469,10 +469,10 @@ gate("g9 the sibling chain green (cascade_concentration_regrade.py "
      "the 'full committed suite' label corrected round 175 F5)", ok)
 
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_arithmetic_section.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '90 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g10 the footer census (this script backticked in body and "
-     "footer; \"89 scripts cited in place\"; \"Theorems 1i-1bm\")", ok)
+     "footer; \"90 scripts cited in place\"; \"Theorems 1i-1bm\")", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")
