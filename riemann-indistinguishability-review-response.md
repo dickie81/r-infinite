@@ -5382,4 +5382,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Brief.** `brief_round298.md` (scratchpad): standards, classification, precheck scope, nine attack vectors (the rigour of every ball — tail remainders, the prime-power cutoff, the f_jk formulas, the subspace statement; the explicit-formula normalisation; the archimedean closed forms; CCM's construction as they define it; 1 − χ₂'s relation; every number and word of the block; the verifier's failability; the footer; anything else).
 
+**Findings.** 0 MAJOR, 4 minor, 6 cosmetic — all verified directly by the lead and accepted (A455): F298-1 certified bounds rounded to nearest, sometimes unsafely — the table, the bold line and (v) rounded outward, g1 made directional; F298-2 "within a factor 1.6 of the ground state" → 1.63 of the certified minimiser, with the ground-state factors where lower bounds exist; F298-3 the Poisson-defect ratios restated with the gate's quantity (3.7–10.5) and the tail an order below; F298-4 the three substrates added to the footer's census; F298-5–10 cosmetics (the verifier docstring; hyphenated census forms; A454 pointers; Gauss's digamma series appended; the 10⁻¹⁷ metric; the dead-clause comment). Reviewer's independent instruments: a quadrature-only Gram, a Nyström 1 − χ₂, mangled-constant tests of the normalisation, three cells recomputed from nothing at the same keys. Sweep battery: member 13/13; manifest 23; TOWER PASS 23/23 (23 live). A container restore interrupted the first reviewer; the branch was reset to the pushed landing and the round re-run. **Trajectory: 298 (the 1bn landing): 0M+4m+6c → 299: convergence round commissioned.**
+
+### Round 299 — convergence test on the round-298 sweep (Theorem 1bn)
+
+**Scope.** The round-298 sweep commit(s) after cdee23c. Full-tower class. Brief `brief_round299.md`.
+
 **Findings.** Pending.
