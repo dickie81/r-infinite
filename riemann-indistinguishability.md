@@ -6057,7 +6057,12 @@ text is paywalled and its survey-based reading carries that
 caveat; a literal "Remarks II" does not exist in any bibliography
 consulted. The 2026 Galerkin-truncation certification line
 (prime-cutoff band-limited truncations of the full form) is a
-different axis and states no support-window theorem. Within the
+different axis and states no support-window theorem. Kim et al.
+(arXiv 2607.24830, July 2026, math.GM) report finite-element values
+of the lowest eigenvalue "strictly positive" to a = 0.45 and
+"borderline" at a = 0.5 (δ = 1.0), numerical and by their own
+statement no proof at any support ("a positive value may be pure
+O(h²) error"). Within the
 accessible record this is **the first explicit unconditional
 positivity threshold beyond log 2** for any localization of the
 Weil functional. *Honest scope:* the even sector stops at 1.0:
@@ -6429,9 +6434,20 @@ reported in Figures 18 and 19, where log s(L) is plotted in terms of
 2.20), reading −27.65 at µ = 3.986 and −67.02 at µ = 7.389 against
 this block's −27.765 and −67.332 at those δ (digitised from the
 figure's vector path, round 293; not gated; a graph, no constant
-stated). Connes (*The Riemann Hypothesis: Past, Present and a Letter
+stated). Connes–Consani–Moscovici (*Zeta spectral triples*, arXiv
+2511.22755, November 2025, sec. 7–8) put the prolate comparison in
+print first: with h_λ the combination of the prolates h_{0,λ},
+h_{4,λ} of vanishing integral and k_λ = E(h_λ) their "educated
+guess" for the ground state, "for n = 4, by [8], Theorem 1, one has
+1 − χ(λ) ∼ (2¹⁴/3)√2π⁵ e^{−4πλ² + 9 log(λ)}", and, of the two missing
+steps of their strategy, "(2) The extremely small numbers ε_λ that
+occur as eigenvalues of the Weil quadratic form QW_λ also appear—see
+Figure 4—when evaluating the discrepancy for h_λ to belong
+simultaneously to P_λ and P̂_λ" (their Figure 4: "Graphs of log(ε_λ)
+and log(1 − χ(λ)) as functions of µ = λ²"). Connes (*The Riemann
+Hypothesis: Past, Present and a Letter
 Through Time*, arXiv 2602.04022, February 2026, sec. 6.4) carries
-ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83; digitised from his
+the same comparison as his Figure 1, ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83; digitised from his
 Figure 1, round 293, not gated: log ε = −183 at the end, and −27.6,
 −66.7, −97.8, −140.6 at this block's δ = 1.3828125, 2.0, 2.3, 2.6
 against the cells' −27.765, −67.332, −98.330, −140.777) and states: "The numerical computation of the smallest eigenvalue
@@ -6464,7 +6480,31 @@ nats over the cells and 1 − χ₂ itself to within 2.6 (the function
 sits 0.54 to 0.04 nats below its asymptotic at the cells' c = T₀;
 computed by Legendre–Galerkin at 400–1400 bits, round 294, not
 gated), as his Figure 1 shows for ε(λ) — consistent with a shared
-subleading term and no test of it: not claimed. Check 7 clean (the explicit
+subleading term and no test of it: not claimed. Suzuki (*Weil's
+quadratic form via the screw function*, arXiv 2606.09096, June 2026)
+is the rigorous frame for this object: A_a on L²(−a, a) is the
+Friedrichs extension of D*G_aD with G_a the integral operator of the
+screw function g (Theorem 1.1), whose distributional second
+derivative −g″ is the Weil distribution (his (2.11)); the lowest
+eigenvalue is continuous in a — "Theorem 1.3. The lowest eigenvalue
+λ_a is continuous in a." — unconditionally; for small a it is
+"positive, simple, and satisfies λ_a = log(1/a) + µ₁ − log(2π) +
+ψ(2) − 1 + O(a) as a → 0+, for some constant µ₁ > 0" with an even
+eigenfunction (Theorem 1.4); and his sec. 7.7 states the
+factorisation whose unconditional form is the open problem: "RH
+would follow if one could establish unconditionally that
+∫_{−∞}^{∞} S_x(z)S_y(z) dz = g(x − y) − g(x) − g(−y) + g(0)". No
+decay rate of λ_a is stated there. Kim et al. (arXiv 2607.24830,
+July 2026, math.GM; a finite-element study of Suzuki's operator)
+report "R7: λ₁(a) is always strictly positive and decays
+superexponentially" to a = 0.5 (their 1.017×10⁻⁶ at a = 0.5 against
+Theorem 1bj's certified enclosure [9.2494, 9.4548]×10⁻⁷ at δ = 1.0,
+above it as a Rayleigh–Ritz value must be), extrapolate it as
+e^{−ca²} — "Extrapolating, λ₁ ∼ 10⁻²⁵ at a = 2 and ∼ 10⁻⁷⁸ at
+a = 6" (δ = 4, against this block's −651.008 nats at δ = 4.0) — and
+list "The exact form of the decay law of λ₁(a)" among their open
+problems: the law of (ii)–(iv) is the answer to that question, and
+none of the four sources states it. Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
 plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
 semiclassics; no cascade quantity derived). Check 8 clean (no

@@ -5343,3 +5343,13 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Lead's sweep battery (prose-only).** Member 13/13; `run_tower.py`: `census: 0 live PASS + 22 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22).
 
 **Trajectory: 293 (the (vii) landing): 0M+4m+1c → 294: 0M+0m+2c — CONVERGED. Theorem 1bm with clause (vii) is stable.**
+
+### Round 295 — the prior-art reading (Suzuki 2026, Connes–Consani–Moscovici 2025, Kim et al. 2026): clause (vii) corrected and extended, 1bj(vi) extended, three needles (A450)
+
+**Scope.** The commit after c909db8: 1bm(vii) — CCM (arXiv 2511.22755, November 2025) identified as the first print of the ε_λ versus 1 − χ(λ) comparison (the block had credited Connes, February 2026); Suzuki (arXiv 2606.09096) added as the rigorous frame; Kim et al. (arXiv 2607.24830) added with their open problem; 1bj(vi) — Kim et al.'s numerical values with their caveat; `cascade_slack_law.py` — three needles; manifest refreshed (22). Full-tower class.
+
+**Lead's battery.** Member 13/13; `run_tower.py`: `census: 1 live PASS + 21 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22), prechecks 72/31, probes 24 and 85.
+
+**Brief.** `brief_round295.md`: eight attack vectors (every quotation; "first" against 2310.18423 and ζ-cycles; "no decay rate"/"none of the four sources"; Suzuki's equation and theorem numbers; Kim et al.'s numbers and the Rayleigh–Ritz direction; 1bj's claim; regressions; anything else).
+
+**Findings.** Pending.

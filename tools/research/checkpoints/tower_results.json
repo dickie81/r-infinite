@@ -347,6 +347,12 @@
 "rc": 0,
 "when": "2026-08-28T14:38Z"
 },
+"1c5144d5011312514e2e1c0d": {
+"dt": 63.34511184692383,
+"file": "cascade_slack_law.py",
+"rc": 0,
+"when": "2026-09-03T18:14Z"
+},
 "1ca6b124ea7e09f1d21a3d63": {
 "dt": 4.790939569473267,
 "file": "cascade_floor_closure.py",

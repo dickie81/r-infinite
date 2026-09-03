@@ -126,6 +126,9 @@ PAPER_NEEDLES = [
     {'g': 'g12', 's': 'λ₁(log 2) = 1.3292×10⁻³ at 35 extra Legendre modes (1.3291×10⁻³ at 120', 'form': 'ws'},
     {'g': 'g12', 's': '1 − χ₂ ∼ (2¹⁴/3)√2π⁵ e^{−4πe^L + 9L/2}', 'form': 'ws'},
     {'g': 'g12', 's': 'sits 1.10, 1.43, 1.85, 1.98, 2.04, 2.28, 2.50 nats above ln((2¹⁴/3)√2π⁵) + (9/2)δ', 'form': 'ws'},
+    {'g': 'g12', 's': 'Connes–Consani–Moscovici (*Zeta spectral triples*, arXiv 2511.22755, November 2025, sec. 7–8) put the prolate comparison in print first', 'form': 'ws'},
+    {'g': 'g12', 's': 'list "The exact form of the decay law of λ₁(a)" among their open problems', 'form': 'ws'},
+    {'g': 'g12', 's': '"Theorem 1.3. The lowest eigenvalue λ_a is continuous in a."', 'form': 'ws'},
     {'g': 'g12', 's': 'the constant 4π is in print there as the prolate\'s, matched to ε(λ) by graph, not derived for ε(λ)', 'form': 'plain'},
     {'g': 'g12', 's': 'residual ln λ₁ + 4πeᵟ is 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9, least-squares slope 5.04 per unit δ', 'form': 'ws'},
 ]
