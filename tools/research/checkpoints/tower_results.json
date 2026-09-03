@@ -2393,6 +2393,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"e190065a83c18b94ca4eb33d": {
+"dt": 4.9129252433776855,
+"file": "cascade_slack_law.py",
+"rc": 0,
+"when": "2026-09-03T13:28Z"
+},
 "e1b5d96a7bbc483a2a9d608b": {
 "dt": 64.78860926628113,
 "file": "cascade_weil_crossover.py",

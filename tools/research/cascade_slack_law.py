@@ -16,12 +16,14 @@ delta 3.5 at EXTRA 300). (2) THE LAW. f(delta) = -ln lambda_1 / e^delta
 rises monotonically across the cells and stays below 4 pi. (3) THE
 REDUCED PROBLEM, SOLVED (A441): the equilibrium value f(X) = 2 pi X
 (1 + ln 2 - ln X) with maximum 4 pi at X = 2, from A = pi/2 and
-B = -(pi/2)(1 + ln 2); the balayage density positive on the exterior at
-X = 2 and negative at the edge for X = 2.1; the exterior potential
-constant at -2 pi; the interior potential <= 0. (4) THE FINITE-delta
+B = -(pi/2)(1 + ln 2); the balayage density's edge singularity coefficient
+sqrt(X/2) ln(2/X) vanishing exactly at X = 2, its edge value there ln 2,
+positive on the exterior; the exterior potential constant at -2 pi; the
+interior potential <= 0 and monotone. (4) THE FINITE-delta
 FORMULA (A442): ln lambda_1 = min_T [4 sum_{gamma<T} ln((1 + sqrt(1 -
-gamma^2/T^2)) T/gamma) - 2 a T] + c(delta) with 0 < c(delta) <= 3 delta
-+ 5 at every cell, and the discrete-to-continuum difference
+gamma^2/T^2)) T/gamma) - 2 a T] + c(delta) (the minimum located by a
+fine grid plus bounded refinement, round-290 F290-2) with 0 < c(delta)
+<= 3 delta + 5 at every cell, and the discrete-to-continuum difference
 2 s_delta(2 T0) + 4 pi e^delta between 10 and 8 delta + 15. (5) THE
 CROSS-CHECKS: the delta = 1.0 cell inside Theorem 1bj's Temple
 enclosure; the delta = 1.3828125 cell above Theorem 1bl's certified
@@ -45,13 +47,18 @@ Gates (twelve, g0-g11):
       R = f/delta decreasing from delta = 2 on
   g3  the closed form LIVE: A = pi/2 and B = -(pi/2)(1 + ln 2) by
       quadrature (1e-8); f(2) = 4 pi; f(1.9), f(2.1) < f(2)
-  g4  the balayage LIVE (harmonic measure of the doubly slit plane):
-      density > 0 on the exterior at X = 2 (six points to 10 X), the
-      edge density < 0 at X = 2.1, the exterior potential within 3e-3
-      of -2 pi at five points, the interior potential <= 0 at five
-      points
+  g4  the balayage LIVE, on the exact kernel of the doubly slit plane
+      (tau(x) = -I(x)/(pi sqrt(x^2 - X^2)), I the Hilbert transform of
+      sqrt(X^2 - t^2) ln|t|): the edge identity I(X) = pi X ln(X/2) at
+      X = 1.5, 2, 2.5 (the 1/sqrt(x - X) coefficient sqrt(X/2) ln(2/X)
+      vanishes exactly at the maximiser: positive at 1.95, negative at
+      2.05), the edge value ln 2 at X = 2 (1e-3), density > 0 on the
+      exterior to 1e6 X, the exterior potential within 3e-3 of -2 pi at
+      five points, the interior potential <= 0 and monotone at twelve
+      points (round-290 F290-1, F290-4)
   g5  the finite-delta formula: 0 < c(delta) <= 3 delta + 5 at every
-      cell and increasing in delta
+      cell and increasing in delta (c = 4.70, 5.21, 5.94, 6.39, 6.64,
+      7.30, 7.90 at the round-290 sweep)
   g6  the discrete-to-continuum difference in (10, 8 delta + 15) at
       every cell
   g7  basis convergence: ln lambda_1 non-increasing in EXTRA at delta
@@ -145,31 +152,43 @@ gate(f"g3 the closed form LIVE: A = pi/2 ({A:.10f}), B = -(pi/2)(1 + ln 2) ({B:.
 
 # ---------------------------------------------------------------- g4
 import numpy as np
-def bal_density(x, X, n=4001):
-    """-(balayage of ln|t| dt on [-X, X]) at x > X: harmonic measure of the doubly slit plane through
-    the disc map w = z/(1 + sqrt(1 - z^2)); boundary point x = X/cos(theta), both sides of the slit."""
-    th = math.acos(X/x); dx_dth = X*math.sin(th)/math.cos(th)**2
-    ts = np.linspace(-X, X, n + 1)[1:-1]; zeta = ts/X
-    w0 = zeta/(1 + np.sqrt(1 - zeta*zeta))
-    P = (1 - w0*w0)/(1 - 2*w0*math.cos(th) + w0*w0)
-    return -float(np.trapezoid(P/math.pi*np.log(np.abs(ts)), ts))/dx_dth
-def phi_bal(x, X, mids, tau_w):
+def I_int(x, X):
+    """I(x) = int_{-X}^{X} sqrt(X^2 - t^2) ln|t| / (x - t) dt  (x > X): the balayage density of
+    -(ln|t| dt on [-X, X]) onto the exterior is tau(x) = -I(x)/(pi sqrt(x^2 - X^2)), from the harmonic
+    measure (1/pi) sqrt(X^2 - t^2)/(sqrt(x^2 - X^2) |x - t|) of the doubly slit plane (round-290 F290-1:
+    the landing's disc-map trapezoid sample carried a 14 percent error at the edge)."""
+    f = lambda t: math.sqrt(X*X - t*t)*math.log(abs(t))/(x - t)
+    return quad(f, -X, 0, limit=400)[0] + quad(f, 0, X, limit=400)[0]
+def tau(x, X): return -I_int(x, X)/(math.pi*math.sqrt(x*x - X*X))
+X = 2.0
+# (a) the edge identity I(X) = pi X ln(X/2): the coefficient of the 1/sqrt(x - X) singularity is
+#     sqrt(X/2) ln(2/X), zero exactly at X = 2 (the maximiser), positive below, negative above
+ok = all(abs(I_int(Xv*(1 + 1e-12), Xv) - math.pi*Xv*math.log(Xv/2)) < 1e-5 for Xv in (1.5, 2.0, 2.5))
+ok &= tau(1.95*1.0001, 1.95) > 0 and tau(2.05*1.0001, 2.05) < 0
+# (b) the edge value at X = 2 is ln 2 (the singular part gone)
+edge = tau(2.0*(1 + 1e-7), 2.0)
+ok &= abs(edge - math.log(2)) < 1e-3
+# (c) positive on the whole exterior at X = 2, on a log grid to 1e6 X
+xs = X*np.concatenate([1 + np.geomspace(1e-7, 1, 60), np.geomspace(2, 1e6, 60)])
+tv = np.array([tau(x, X) for x in xs]); ok &= bool(np.all(tv > 0))
+# (d) the exterior potential is -2 pi and the interior potential is monotone from 0 to -2 pi:
+#     the balayage measure on a fine log grid (exact density at cell midpoints)
+edges = X*(1 + np.geomspace(1e-7, 4999, 4001)); mids = 0.5*(edges[1:] + edges[:-1]); widths = np.diff(edges)   # log-spaced in x - X: the near-edge cells resolve the potential at 1.001 X
+tau_w = np.array([tau(m_, X) for m_ in mids])*widths
+def phi_bal(x):
     fz = lambda y: math.log(abs(1 - x*x/(y*y)))*math.log(y)
     pts = [x] if 0 < x < X else []
     v = quad(fz, 1e-12, X, points=pts, limit=400)[0]
     return v + float(np.sum(tau_w*np.log(np.abs(1 - x*x/(mids*mids)))))
-X = 2.0
-edges = X*np.geomspace(1, 2000, 2001); mids = 0.5*(edges[1:] + edges[:-1]); widths = np.diff(edges)
-dens = np.array([bal_density(m_, X) for m_ in mids]); tau_w = dens*widths
-ok = all(bal_density(X*r, X) > 0 for r in (1.0005, 1.05, 1.3, 2.0, 4.0, 10.0))
-ok &= bal_density(2.1*1.0005, 2.1) < 0
-outs = [phi_bal(X*r, X, mids, tau_w) for r in (1.001, 1.3, 2.0, 4.0, 10.0)]
+outs = [phi_bal(X*r) for r in (1.001, 1.3, 2.0, 4.0, 10.0)]
 ok &= all(abs(v + 2*math.pi) < 3e-3 for v in outs)
-ins = [phi_bal(x, X, mids, tau_w) for x in (0.01, 0.5, 1.0, 1.5, 1.99)]
-ok &= all(v <= 0 for v in ins)
-gate("g4 the balayage LIVE: density positive on the exterior at X = 2 (edge %.3f), negative at the "
-     "edge for X = 2.1 (%.3f); exterior potential %s (-2 pi = %.4f); interior potential <= 0"
-     % (bal_density(X*1.0005, X), bal_density(2.1*1.0005, 2.1), ", ".join(f"{v:.4f}" for v in outs), -2*math.pi), ok)
+ins = [phi_bal(x) for x in (0.01, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 1.9, 1.99)]
+ok &= all(v <= 0 for v in ins) and all(ins[k] >= ins[k + 1] for k in range(len(ins) - 1))
+gate("g4 the balayage LIVE (exact kernel): I(X) = pi X ln(X/2) at X = 1.5, 2, 2.5 (edge singularity "
+     "coefficient sqrt(X/2) ln(2/X): positive at 1.95, negative at 2.05, zero at the maximiser); edge value "
+     f"at X = 2 {edge:.5f} vs ln 2 {math.log(2):.5f}; density positive on the exterior to 1e6 X (min {tv.min():.2e}); "
+     "exterior potential " + ", ".join(f"{v:.4f}" for v in outs) + f" (-2 pi = {-2*math.pi:.4f}); interior potential "
+     "<= 0 and monotone non-increasing at twelve points", ok)
 
 # ---------------------------------------------------------------- g5, g6
 ZEROS = np.array([float(z) for z in json.load(open(ZFILE_6700))])
@@ -177,8 +196,18 @@ def s_delta(delta, T):
     a = delta/2; z = ZEROS[ZEROS < T]
     return 2*np.sum(np.log((1 + np.sqrt(1 - z*z/(T*T)))*T/z)) - a*T
 def formula_min(delta):
+    """min_T 2 s_delta(T): a 20001-point grid on [1.2, 3.0] T0 refined by bounded minimisation inside the
+    zero-free intervals around the grid minimum (2 s_delta has a vertical tangent at every zero; round-290
+    F290-2: the landing's 181-point grid overshot the minimum by up to 0.10 nats)."""
+    from scipy.optimize import minimize_scalar
     T0 = 2*math.pi*math.exp(delta)
-    return min(2*s_delta(delta, x*T0) for x in np.linspace(1.2, 3.0, 181))
+    grid = np.linspace(1.2*T0, 3.0*T0, 20001); vals = np.array([2*s_delta(delta, T) for T in grid]); k = int(np.argmin(vals))
+    lo, hi = grid[max(k - 1, 0)], grid[min(k + 1, len(grid) - 1)]
+    pts = [lo] + list(ZEROS[(ZEROS > lo) & (ZEROS < hi)]) + [hi]; best = float(vals[k])
+    for a_, b_ in zip(pts[:-1], pts[1:]):
+        r = minimize_scalar(lambda T: 2*s_delta(delta, T), bounds=(a_ + 1e-9, b_ - 1e-9), method="bounded", options={"xatol": 1e-10})
+        best = min(best, float(r.fun))
+    return best
 cvals = {c: ST[c]["ln_eig"] - formula_min(ST[c]["delta"]) for c in MAIN}
 ok = all(0 < cvals[c] <= 3*ST[c]["delta"] + 5 for c in MAIN)
 ok &= all(cvals[MAIN[i]] < cvals[MAIN[i + 1]] for i in range(len(MAIN) - 1))
