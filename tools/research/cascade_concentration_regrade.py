@@ -156,7 +156,7 @@ round-167 rebuild and the 168-173 needle advances).
        (unit_ball_rh 13/0, transitively chaining windows_overlap,
        riemann_selection, type_counting, and the two Weil-arc
        siblings); g12 the footer census (this script backticked;
-       "90 scripts cited in place"; "Theorems 1i-1bm").
+       "90 scripts cited in place"; "Theorems 1i–1bn").
 
 Sabotage record.  THE LANDING'S ENTRIES (below) were certified
 against the LANDING gate set; the round-167 rebuild (g1/g4/g6/g9/

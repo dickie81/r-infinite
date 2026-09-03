@@ -11,7 +11,7 @@ THE FORM. For a real even probe g on [-a, a] with ghat(r) = int g e^{irt} dt
 and f = g * g~ its autocorrelation (f(0) = ||g||^2, f(u) = 0 for u > 2a),
 Weil's explicit formula gives, with Q(g) := sum_gamma |ghat(gamma)|^2 under RH
 and in general the arithmetic side (verified against the 6700 zeros on
-Gaussian probes to 1e-17, Addendum 447/455):
+Gaussian probes to 1e-17, Addendum 447/454):
 
   Q(g) = 2 ghat(i/2)^2 + (psi(1/4) - log pi) ||g||^2
          + int_0^inf [f(0) - f(u)] e^{u/2}/sinh(u) du
@@ -121,7 +121,7 @@ def gram(delta, K, prec):
             P.append((2*(w*a).sinh()/w).real)
         # prime powers
         pp = prime_powers(int(math.floor(float(twoa.exp()) + 1e-9)))
-        pp = [(n, p) for n, p in pp if arb(n).log() < twoa or arb(n).log() == twoa]
+        pp = [(n, p) for n, p in pp if arb(n).log() < twoa or arb(n).log() == twoa]   # the equality branch never fires (ball equality); harmless: f_jk(2a) = 0 (round-298 F298-10)
         lam = [(arb(n).log(), arb(p).log()/arb(n).sqrt()) for n, p in pp]
         sinl = [[(om[k]*u).sin() for k in range(K)] for u, _ in lam]
         cosl = [[(om[k]*u).cos() for k in range(K)] for u, _ in lam]

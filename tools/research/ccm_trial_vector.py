@@ -114,7 +114,7 @@ def build(delta, K, prec, nodes, kmax=None):
                 "odd_part_max": kodd, "k_at_a": kv[-1].str(15, radius=False), "k_at_minus_a": kv[0].str(15, radius=False),
                 "norm2": norm2.str(20, radius=False),
                 "coeffs": [x.str(int(prec*0.31) + 10, radius=False) for x in coeffs],   # full working precision: a 60-digit
-                                                                                        # serialisation floored Q at 1e-120 (A455)
+                                                                                        # serialisation floored Q at 1e-120 (A454)
                 "coeff_tail": [float(abs(x)) for x in coeffs[-5:]]}
 
 if __name__ == "__main__":

@@ -53,7 +53,7 @@ def ball_fields(rq, prec):
 
 KMAX_EXTRA = 300   # Legendre cutoff c + 300 for the prolates: the c + 120 default of ccm_trial_vector truncates at
                    # |d_k| ~ 1e-83, enough for a trial vector (its Q error is quadratic in the truncation) but not for
-                   # 1 - chi_2 at delta >= 3 (A455: kmax = c + 120 gave -3.5e-85 at delta = 3; c + 300 and c + 500 agree)
+                   # 1 - chi_2 at delta >= 3 (A454: kmax = c + 120 gave -3.5e-85 at delta = 3; c + 300 and c + 500 agree)
 
 def chi2_deficit(delta, prec):
     """1 - chi_2 = 1 - sqrt(lambda_4(c)), c = 2 pi e^delta, without quadrature: the finite Fourier eigenvalue
