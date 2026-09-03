@@ -535,7 +535,7 @@ print("V5 -- the paper: key sentences, honest scope, siblings, footer")
 import paper_needles
 PAPER_NEEDLES = [
     {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_windows_overlap.py`', 'form': 'plain', 'min': 1},
     {'s': 'are pairwise disjoint through zero #33; the first overlap is #34/#35', 'form': 'plain', 'min': 1},
     {'s': 'c ≈ 1.25 is observed, not derived', 'form': 'plain', 'min': 1},
@@ -622,7 +622,7 @@ gate("g12 the sibling chain green after the census advance "
 # -- the census-evolution class, disclosed.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_windows_overlap.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g13 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 88 cited in place; the "
      "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)

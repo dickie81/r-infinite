@@ -257,7 +257,7 @@ PAPER_NEEDLES = [
     {'s': "PLUS the −½ln π of Γ_ℝ's normalization", 'form': 'plain', 'min': 1},
     {'s': 'THE LEG LIST IS A CENSUS, NOT A COMPLETENESS THEOREM', 'form': 'plain', 'min': 1},
     {'s': 'Theorem 1aq', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_arithmetic_section.py`', 'form': 'plain', 'min': 2},
     {'s': 'algebraic roots of exact-rational polynomials where it is a crossing', 'form': 'plain', 'min': 1},
     {'s': 'buys NO positivity advantage', 'form': 'plain', 'min': 1},
@@ -470,7 +470,7 @@ gate("g9 the sibling chain green (cascade_concentration_regrade.py "
 
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_arithmetic_section.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g10 the footer census (this script backticked in body and "
      "footer; \"89 scripts cited in place\"; \"Theorems 1i-1bm\")", ok)
 

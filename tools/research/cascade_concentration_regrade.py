@@ -593,7 +593,7 @@ PAPER_NEEDLES = [
     {'s': 'The concentration mechanism is height, not degree', 'form': 'plain', 'min': 1},
     {'s': 'The infimum of window widths over the admissible cone is ZERO', 'form': 'plain', 'min': 1},
     {'s': 'The wall stands where it stood — nothing cascade-side forces positivity on any discriminating instance', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_concentration_regrade.py`', 'form': 'plain', 'min': 1},
     {'s': 'attained closure is [0, ∞]', 'form': 'plain', 'min': 1},
     {'s': 'beyond the sample the floor fails entirely, and to zero', 'form': 'plain', 'min': 1},
@@ -688,7 +688,7 @@ gate("g11 the sibling chain green after the census advance "
 
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_concentration_regrade.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g12 the footer census (advanced at this landing, disclosed): "
      "this script backticked; 88 cited in place; the range 1i–1bl "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)

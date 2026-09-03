@@ -132,8 +132,8 @@ PAPER_NEEDLES = [
     {'g': 'g13', 's': 'core-local and collapses off-center', 'form': 'plain'},
     {'g': 'g13', 's': 'outside the probed collision topology', 'form': 'plain'},
     {'s': '`cascade_twosided_witness.py`', 'min': 2, 'g': 'g13'},
-    {'s': 'the **89 scripts cited in place** above', 'form': 'ws', 'g': 'g13'},
-    {'s': 'extended by Theorems 1i–1bm:', 'form': 'ws', 'g': 'g13'},
+    {'s': 'the **90 scripts cited in place** above', 'form': 'ws', 'g': 'g13'},
+    {'s': 'extended by Theorems 1i–1bn:', 'form': 'ws', 'g': 'g13'},
 ]
 
 fails = []

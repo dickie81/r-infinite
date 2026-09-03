@@ -310,7 +310,7 @@ print("V5 -- the anchors and the footer")
 PAPER_NEEDLES = [
     {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': "The quarter-square is the pole's image under the squared-shift map", 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_quarter_square.py`', 'form': 'plain', 'min': 1},
     {'s': "each lattice site's anchor is its squared half-shift MINUS the quarter-square", 'form': 'plain', 'min': 1},
     {'s': "one scale — (½)², the functional equation's half-shift squared", 'form': 'plain', 'min': 1},
@@ -353,7 +353,7 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # census-evolution class, disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_quarter_square.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
      "disclosed): this script backticked; 88 cited in place; the "
      "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)

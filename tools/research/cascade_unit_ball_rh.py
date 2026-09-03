@@ -331,7 +331,7 @@ PAPER_NEEDLES = [
     {'s': 'Li and Bombieri–Lagarias, the positivity ladder', 'form': 'plain', 'min': 1},
     {'s': 'NO PROOF LEVERAGE', 'form': 'plain', 'min': 1},
     {'s': 'Stieltjes, the Laurent constants of ζ', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_unit_ball_rh.py`', 'form': 'plain', 'min': 1},
     {'s': 'a region classically zero-free; the injection is pure instrument-teeth', 'form': 'plain', 'min': 1},
     {'s': 'as hard as RH', 'form': 'plain', 'min': 1},
@@ -396,7 +396,7 @@ gate("g12 the sibling chain green after the census advance "
 
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_unit_ball_rh.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g13 the footer census (advanced at this landing, disclosed): "
      "this script backticked; 88 cited in place; the range 1i–1bl "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)

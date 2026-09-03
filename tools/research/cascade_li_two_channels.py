@@ -72,8 +72,8 @@ Gates (all exit-gated; any failure exits 1):
       list is the authoritative census, enumeration extended round 199
       finding 5).
   g9  the chain obligation to cascade_attraction_margins.py (Theorem 1au) met.
-  g10 the footer census (this script backticked >= 2; the anchored needles "the **89 scripts cited in place** above"
-      and "extended by Theorems 1i–1bm:" -- round-218 F12 mirrored
+  g10 the footer census (this script backticked >= 2; the anchored needles "the **90 scripts cited in place** above"
+      and "extended by Theorems 1i–1bn:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -134,8 +134,8 @@ PAPER_NEEDLES = [
     {'g': 'g8', 's': '1 − ln 2 = 0.30685'},
     {'g': 'g8', 's': 'The coupling (P1)+(P2)→(P4) exists'},
     {'g': 'g10', 's': '`cascade_li_two_channels.py`', 'min': 2},
-    {'g': 'g10', 's': 'the **89 scripts cited in place** above'},
-    {'g': 'g10', 's': 'extended by Theorems 1i–1bm:'},
+    {'g': 'g10', 's': 'the **90 scripts cited in place** above'},
+    {'g': 'g10', 's': 'extended by Theorems 1i–1bn:'},
 ]
 
 fails = []

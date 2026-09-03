@@ -75,8 +75,8 @@ Gates (all exit-gated; any failure exits 1):
   g6  the paper needles for the 1ba block (in-code list
       authoritative).
   g7  the chain obligation to cascade_weil_margin.py (Theorem 1az) met.
-  g8  the footer census (this script backticked >= 2; the anchored needles "the **89 scripts cited in place** above"
-      and "extended by Theorems 1i–1bm:" -- round-218 F12 mirrored
+  g8  the footer census (this script backticked >= 2; the anchored needles "the **90 scripts cited in place** above"
+      and "extended by Theorems 1i–1bn:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Balance-decomposition caution (round-210 F1 / round-211 F5 standing):
@@ -124,8 +124,8 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the first continuous object connecting'},
     {'g': 'g6', 's': 'dodger death at the horizon'},
     {'g': 'g8', 's': '`cascade_weil_crossover.py`', 'min': 2},
-    {'g': 'g8', 's': 'the **89 scripts cited in place** above'},
-    {'g': 'g8', 's': 'extended by Theorems 1i–1bm:'},
+    {'g': 'g8', 's': 'the **90 scripts cited in place** above'},
+    {'g': 'g8', 's': 'extended by Theorems 1i–1bn:'},
 ]
 
 fails = []

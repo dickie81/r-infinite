@@ -110,7 +110,7 @@ VERIFICATION (10 gates, exit-gated).
        10/0, transitively chaining the Weil-arc suite);
        g10 the footer census (this script backticked >= 2;
        the anchored needles "the **89 scripts cited in place**
-       above" and "extended by Theorems 1i–1bm:" against the RAW
+       above" and "extended by Theorems 1i–1bn:" against the RAW
        normalized text -- round-218 F1 + F12).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
@@ -220,8 +220,8 @@ PAPER_NEEDLES = [
     {'g': 'g8', 's': 'C1 appears nowhere in the chain', 'form': 'plain'},
     {'g': 'g8', 's': 'Theorem 1ar', 'form': 'plain'},
     {'g': 'g10', 's': '`cascade_lattice_forcing.py`', 'form': 'plain', 'min': 2},
-    {'g': 'g10', 's': 'the **89 scripts cited in place** above', 'form': 'ws'},
-    {'g': 'g10', 's': 'extended by Theorems 1i–1bm:', 'form': 'ws'},
+    {'g': 'g10', 's': 'the **90 scripts cited in place** above', 'form': 'ws'},
+    {'g': 'g10', 's': 'extended by Theorems 1i–1bn:', 'form': 'ws'},
 ]
 print("V1 -- the two-class lemma and the dichotomy")
 ok = True

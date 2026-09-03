@@ -51,19 +51,22 @@ def ball_fields(rq, prec):
                 "ln_upper": float(up.log()) if up > 0 else None,
                 "positive": bool(rq.lower() > 0)}
 
+KMAX_EXTRA = 300   # Legendre cutoff c + 300 for the prolates: the c + 120 default of ccm_trial_vector truncates at
+                   # |d_k| ~ 1e-83, enough for a trial vector (its Q error is quadratic in the truncation) but not for
+                   # 1 - chi_2 at delta >= 3 (A455: kmax = c + 120 gave -3.5e-85 at delta = 3; c + 300 and c + 500 agree)
+
 def chi2_deficit(delta, prec):
-    """1 - chi_2 = 1 - sqrt(lambda_4(c)), c = 2 pi e^delta, from the finite Fourier eigenvalue of psi_4
-    at x = 0.3 and 0.7 (Gauss-Legendre with c + 300 nodes); returns (value at 0.3, value at 0.7)."""
+    """1 - chi_2 = 1 - sqrt(lambda_4(c)), c = 2 pi e^delta, without quadrature: the finite Fourier eigenvalue
+    relation at x = 0, int psi_4 = mu_4 psi_4(0) with int psi_4 = sqrt(2) d_0 and |mu_4|^2 = 2 pi lambda_4 / c,
+    gives lambda_4 = (c/pi) (d_0 / psi_4(0))^2. Returned at two Legendre cutoffs (c + KMAX_EXTRA and c + KMAX_EXTRA
+    + 200) whose agreement is the convergence check."""
     with ctx.workprec(prec):
-        c = 2*arb.pi()*arb(delta).exp(); kmax = int(float(c)) + 120
-        ks, d0, d4, chi0, chi4 = prolate_coeffs(c, kmax, prec)
-        nq = int(float(c)) + 300
-        xg = [arb.legendre_p_root(nq, i, weight=True) for i in range(nq)]
+        c = 2*arb.pi()*arb(delta).exp()
         out = []
-        for x in (arb('0.3'), arb('0.7')):
-            fx = sum(w*(c*x*y).cos()*legendre_eval(ks, d4, y, prec) for y, w in xg)
-            mu = fx/legendre_eval(ks, d4, x, prec)
-            lam4 = c*mu*mu/(2*arb.pi())
+        for extra in (KMAX_EXTRA, KMAX_EXTRA + 200):
+            kmax = int(float(c)) + extra
+            ks, d0, d4, chi0, chi4 = prolate_coeffs(c, kmax, prec)
+            lam4 = c/arb.pi()*(d4[0]/legendre_eval(ks, d4, arb(0), prec))**2
             out.append(1 - lam4.sqrt())
         return out
 
@@ -80,7 +83,7 @@ def run(cell):
     c2, ev2 = minimiser(G2, N2, prec); rq2 = rayleigh(G2, N2, c2, prec); t2 = time.time()
     G1, N1, _ = gram(d, K1, prec)
     c1, ev1 = minimiser(G1, N1, prec); rq1 = rayleigh(G1, N1, c1, prec); t3 = time.time()
-    tr = build(d, K2, cfg["tprec"], cfg["nodes"]); t4 = time.time()
+    tr = build(d, K2, cfg["tprec"], cfg["nodes"], int(2*math.pi*math.exp(d)) + KMAX_EXTRA); t4 = time.time()
     with ctx.workprec(prec):
         cc = [arb(x) for x in tr["coeffs"]]
         rqc = rayleigh(G2, N2, cc, prec)
@@ -104,7 +107,8 @@ def run(cell):
 if __name__ == "__main__":
     for cell in (sys.argv[1:] or list(CELLS)):
         st = run(cell)
-        print(f"{cell:6s} delta {st['delta']:<9} min K1 ln {st['min_K1']['ln_upper']:9.3f}  min K2 ln {st['min_K2']['ln_upper']:9.3f}  "
-              f"CCM ln {st['ccm']['ln_upper']:9.3f}  1-chi2 ln {st['ln_one_minus_chi2'][0]:9.3f} (x=0.7: {st['ln_one_minus_chi2'][1]:9.3f})  "
+        f3 = lambda x: f"{x:9.3f}" if x is not None else "     None"
+        print(f"{cell:6s} delta {st['delta']:<9} min K1 ln {f3(st['min_K1']['ln_upper'])}  min K2 ln {f3(st['min_K2']['ln_upper'])}  "
+              f"CCM ln {f3(st['ccm']['ln_upper'])}  1-chi2 ln {f3(st['ln_one_minus_chi2'][0])} (cutoff +200: {f3(st['ln_one_minus_chi2'][1])})  "
               f"rad log2 {st['min_K2']['rad_log2']}  primes {len(st['prime_powers'])}  "
               f"gram {st['gram_s']:.0f}s eig {st['eig_K2_s']:.0f}s trial {st['trial_s']:.0f}s", flush=True)

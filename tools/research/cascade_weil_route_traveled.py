@@ -646,7 +646,7 @@ PAPER_NEEDLES = [
     {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1aj): superseded-true — Theorem 1aj constructs an admissible-discriminating instance from the committed pair itself', 'form': 'plain', 'min': 1},
     {'s': 'Net state (1aj): the morphism now exists', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bn', 'form': 'plain', 'min': 1},
     {'s': '`cascade_weil_route_traveled.py`', 'form': 'plain', 'min': 1},
     {'s': 'a genuine per-zero sensitivity probe', 'form': 'plain', 'min': 1},
     {'s': 'action-positivity plays no role in the sign', 'form': 'plain', 'min': 1},
@@ -689,7 +689,7 @@ gate("g17 1aj's key sentences anchored as regraded (the edge theorem; "
 # disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_weil_route_traveled.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bn', 'plain')
 gate("g18 the footer census (advanced with each landing, "
      "disclosed): this script backticked; 86 cited in "
      "place; the range 1i–1bl (advance disclosed; label re-synced "

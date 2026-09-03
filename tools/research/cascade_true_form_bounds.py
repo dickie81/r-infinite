@@ -201,7 +201,7 @@ for c in ORDER:
     below[c] = (C_FUCHS + 4.5*d - 4*math.pi*math.exp(d)) - v[0]
     above[c] = ST[c]["min_K2"]["ln_upper"] - v[0]
     ok &= 0.03 <= below[c] <= 0.6 and 1.5 <= above[c] <= 2.6
-gate("g9 1 - chi_2 at the cells (two points to 1e-8): below the Fuchs law by " + ", ".join(f"{below[c]:.3f}" for c in ORDER)
+gate("g9 1 - chi_2 at the cells (Legendre cutoffs c + 300 and c + 500 agreeing to 1e-8): below the Fuchs law by " + ", ".join(f"{below[c]:.3f}" for c in ORDER)
      + " nats (in [0.03, 0.6]); the certified minimiser above it by " + ", ".join(f"{above[c]:.2f}" for c in ORDER) + " (in [1.5, 2.6])", ok)
 
 # ---------------------------------------------------------------- g10

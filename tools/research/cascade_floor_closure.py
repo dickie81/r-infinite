@@ -134,8 +134,8 @@ PAPER_NEEDLES = [
     {'g': 'g14', 's': 'a derived quantity, not an observation', 'form': 'plain'},
     {'g': 'g14', 's': 'no RH leverage claimed', 'form': 'plain'},
     {'s': '`cascade_floor_closure.py`', 'min': 2, 'g': 'g14'},
-    {'s': 'the **89 scripts cited in place** above', 'form': 'ws', 'g': 'g14'},
-    {'s': 'extended by Theorems 1i–1bm:', 'form': 'ws', 'g': 'g14'},
+    {'s': 'the **90 scripts cited in place** above', 'form': 'ws', 'g': 'g14'},
+    {'s': 'extended by Theorems 1i–1bn:', 'form': 'ws', 'g': 'g14'},
 ]
 
 fails = []
