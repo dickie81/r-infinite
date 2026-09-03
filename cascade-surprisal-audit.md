@@ -17940,3 +17940,15 @@ Checks 7/8 clean throughout (classical inputs only; Riemann-side; no cascade qua
 **Round 292 commissioned** on the sweep commit, convergence test on this sweep.
 
 ---
+
+## Addendum 446 — round 292 (the convergence test on the round-291 sweep): 0 MAJOR, 0 minor, 4 cosmetic — CONVERGED; the Theorem 1bm landing is STABLE (trajectory 290: 0M+5m+5c → 291: 0M+1m+3c → 292: 0M+0m+4c); the four cosmetics swept editorially (docstring-only class for the verifier: the member's reach key unchanged, the manifest refreshed, tower 22/22 cached)
+
+**The round.** The reviewer re-derived the edge identity two ways (the ψ-form and u² = X − t) to 10⁻³¹, confirmed that the new conjunct fails under five mangles of the constant and passes only within its 10⁻⁹ tolerance, showed that conjunct (b) is not of the same defect class (scipy exact at 10⁻⁷; at smaller offsets it fails in the safe direction), reproduced the singular coefficient, the kernel's unit mass, the exterior potential and the interior monotonicity by an independent double quadrature, recomputed every number in the block from the checkpoints, re-censused the footer (89 body-only, with `cascade_greens_function.py` excluded by the footer's own clause), verified the needle counts and the manifest hashes, and ran the battery on 4e93710 (tower 22/22, all cached; member 12/12 live in 5 s).
+
+**The cosmetics, verified and swept.** F292-1: the (iii) gaps' inputs are ln λ₁ to three decimals and the gaps to two — stated so. F292-2: the integral's limits rendered as lowercase sub/superscript x — now ∫_{−X}^{X}. F292-3: the verifier's docstring generalised the F291-1 exceedance to all three sample points; it holds at X = 2.5 only (−1.018×10⁻⁵; −2.7×10⁻⁶ and −6.2×10⁻⁶ at 1.5 and 2) — stated so. F292-4: the exterior potential's gate extent (within 3×10⁻³ at five points) now stated beside the monotonicity's.
+
+**Battery (docstring-only class for the verifier; prose for the paper).** `refresh_tower_manifest.py` → 22 members; `CASCADE_CHAIN=manifest python3 tools/research/cascade_slack_law.py` → 12/12; `python3 tools/research/run_tower.py` on the final tree → `census: 0 live PASS + 22 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22) — the member's executable-reach key unchanged by the docstring edit, as the keying rule intends.
+
+**Standing state.** Theorem 1bm is stable: the slack law's cells (certified upper bounds on the truncated model's λ₁ at δ = 1.0 … 3.5, truncations measured), the dodging-prolate ground state (computed), the reduction (conjectural, five lemmas), the closed form of the reduced problem with f_∞ = 4π at X = 2 (proved, the balayage admissible exactly at the maximiser with edge value ln 2), and the finite-δ formula with its O(δ) offsets. **Nothing here bears on RH.**
+
+---

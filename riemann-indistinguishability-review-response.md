@@ -5305,3 +5305,17 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Lead's sweep battery.** Member 12/12 on the new conjunct; manifest refreshed (22); `run_tower.py` on the final tree: `census: 1 live PASS + 21 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22).
 
 **Trajectory: 290 (landing): 0M+5m+5c → 291: 0M+1m+3c → 292: pending.**
+
+### Round 292 — convergence test on the round-291 sweep (Theorem 1bm): 0M + 0m + 4c — CONVERGED (A446)
+
+**Scope.** Commit 4e93710 (the round-291 sweep). Full-tower class.
+
+**Reviewer's battery.** `run_tower.py` on 4e93710: 22 cached PASS, TOWER PASS (22/22), prechecks 72 reach files / 31 surfaces, probes 24 and 85; the member live 12/12 in 5.1 s, ten cells REUSED; member sha256 = manifest entry.
+
+**Findings.** F292-1 (cosmetic): the (iii) gaps' inputs described as three-decimal (ln λ₁ is, the gaps are two-decimal) — swept. F292-2 (cosmetic): the integral's limits rendered in lowercase sub/superscript — swept to ∫_{−X}^{X}. F292-3 (cosmetic): the verifier docstring's exceedance generalised beyond X = 2.5 — swept. F292-4 (cosmetic): the exterior potential's gate extent unstated — swept.
+
+**Checked and held (reviewer).** The new conjunct's identity re-derived two ways to 10⁻³¹ and mangle-tested (five failures, one sub-tolerance pass); conjunct (b) not of the F291-1 class; the singular coefficient; the kernel's unit mass; the potentials by independent quadrature; every block number from the checkpoints; the footer census 89; the needles; the manifest; substrate and instruments unchanged since the landing.
+
+**Lead's sweep battery (docstring-only / prose).** Manifest refreshed (22); member 12/12; `run_tower.py`: `census: 0 live PASS + 22 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22).
+
+**Trajectory: 290 (the 1bm landing): 0M+5m+5c → 291: 0M+1m+3c → 292: 0M+0m+4c — CONVERGED. The Theorem 1bm landing is stable.**

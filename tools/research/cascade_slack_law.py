@@ -164,8 +164,9 @@ def tau(x, X): return -I_int(x, X)/(math.pi*math.sqrt(x*x - X*X))
 def I_edge(X):
     """I at the edge x = X in its integrable form, int sqrt((X+t)/(X-t)) ln|t| dt = X int_{-pi/2}^{pi/2}
     (1 + sin psi) ln|X sin psi| dpsi (round-291 F291-1: the sweep's conjunct sampled I at x = X(1 + 1e-12),
-    where the true value sits on the sqrt(x - X) branch by more than its 1e-5 tolerance, and passed only
-    because the quadrature could not resolve that layer; the identity is now checked where it holds)."""
+    where the true value sits on the sqrt(x - X) branch by more than its 1e-5 tolerance at X = 2.5
+    (-1.018e-5; -2.7e-6 and -6.2e-6 at X = 1.5 and 2), and passed only because the quadrature could not
+    resolve that layer; the identity is now checked where it holds)."""
     f = lambda p: (1 + math.sin(p))*math.log(abs(X*math.sin(p)))*X
     return quad(f, -math.pi/2, 0, limit=400)[0] + quad(f, 0, math.pi/2, limit=400)[0]
 X = 2.0
