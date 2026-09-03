@@ -5,7 +5,7 @@ basis of the parity; exact Gauss-Legendre nodes in arb).  Reports lambda_1 by
 an eigenvalue of the ball-midpoint matrix, and (as the check) the Rayleigh
 quotient of the returned eigenvector evaluated in ball arithmetic.
 Usage: slack_law_flint.py <prec> <parity> delta [delta ...]
-Environment: TAIL_PANELS / TAIL_PTS (the smooth-density tail beyond the last
+Environment: NZ (number of zeros used; default the whole list), ZERO_CHUNK (zeros per Gram block, default 1000), TAIL_PANELS / TAIL_PTS (the smooth-density tail beyond the last
 listed zero: log-spaced panels on [gamma_2000, 200 gamma_2000] and Gauss-Legendre
 points per panel; defaults 50 / 16 as in slack_law_mp.py), EXTRA (Legendre modes beyond 2 a T_0/pi; default 35 -- the
 lambda_1 values converge slowly in it: at delta = 2, 5.896e-30 / 5.775e-30 /
@@ -47,16 +47,24 @@ def gram(delta, parity, nz, nmax_extra=35):
     def jn(n, x):
         x = a*x
         return (pi2/x).sqrt()*x.bessel_j(arb(n) + half)
-    Gz = arb_mat(m, len(zs)); Gt = arb_mat(m, len(rs))
+    # accumulate Z = 2 (Gz Gz^T + Gt Gt^T) in chunks of zeros, so the memory is O(m * chunk) not O(m * nz)
+    CH = int(os.environ.get("ZERO_CHUNK", "1000"))
+    Z = arb_mat(m, m)
+    for c0 in range(0, len(zs), CH):
+        blk = zs[c0:c0 + CH]; Gz = arb_mat(m, len(blk))
+        for i, n in enumerate(ns):
+            for k, z in enumerate(blk):
+                Gz[i, k] = sgn[i]*fac[i]*jn(n, z)
+        Z += 2*(Gz*Gz.transpose())
+    Gt = arb_mat(m, len(rs))
     for i, n in enumerate(ns):
-        for k, z in enumerate(zs):
-            Gz[i, k] = sgn[i]*fac[i]*jn(n, z)
         for k, r in enumerate(rs):
             Gt[i, k] = sgn[i]*fac[i]*jn(n, r)*(ws[k]*dens[k]).sqrt()
-    Z = 2*(Gz*Gz.transpose() + Gt*Gt.transpose())
-    return Z, m, Gz
+    Z += 2*(Gt*Gt.transpose())
+    return Z, m, None
 
-def lam1(delta, parity, prec, nz=2000, extra=35):
+def lam1(delta, parity, prec, nz=None, extra=35):
+    nz = nz or int(os.environ.get('NZ', str(len(ZEROS))))
     with ctx.workprec(prec):
         t0 = time.time()
         Z, m, Gz = gram(delta, parity, nz, extra)
@@ -76,4 +84,4 @@ if __name__ == "__main__":
     for d in [float(s) for s in sys.argv[3:]]:
         lam, rq, m, tg, te = lam1(d, parity, prec, extra=extra)
         ed = math.exp(d); ln = float(lam.log())
-        print(f"{d:8.4f} {parity} lambda_1 {lam.str(8, radius=False)} (Rayleigh {rq.str(8)}) ln {ln:10.3f} ln/e^d {ln/ed:8.4f} ln/(d e^d) {ln/(d*ed):8.4f} | m {m} | gram {tg:.0f}s eig {te:.0f}s", flush=True)
+        print(f"{d:8.4f} {parity} lambda_1 {lam.str(8, radius=False)} (Rayleigh {rq.str(8)}) ln {ln:10.3f} ln/e^d {ln/ed:8.4f} ln/(d e^d) {ln/(d*ed):8.4f} | m {m} | zeros {int(os.environ.get('NZ', str(len(ZEROS))))} to {ZEROS[int(os.environ.get('NZ', str(len(ZEROS))))-1]:.0f} | gram {tg:.0f}s eig {te:.0f}s", flush=True)
