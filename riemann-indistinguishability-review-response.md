@@ -5332,6 +5332,14 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 ### Round 294 — convergence test on the round-293 sweep (Theorem 1bm clause (vii), g12)
 
-**Scope.** The round-293 sweep commit. Full-tower class. Brief `brief_round294.md`.
+**Scope.** Commit 0c01ca7 (the round-293 sweep). Full-tower class. Brief `brief_round294.md`.
 
-**Findings.** Pending.
+**Reviewer's battery.** `run_tower.py` on 0c01ca7: 22 cached PASS, TOWER PASS (22/22), prechecks 72 reach files / 31 surfaces, probes 24 and 85; the member live 13/13 in 58 s, ten cells REUSED; member sha256 = manifest entry.
+
+**Findings.** F294-1 (cosmetic): "tracks 1 − χ₂ to within three nats" named the function while the gate pins the offset above the asymptotic law — the exact 1 − χ₂ computed at the seven cells (λ₁ 1.64–2.53 nats above it); swept, labelled computed, not gated. F294-2 (cosmetic): Fuchs absent from the footer's running census of classical inputs — appended. O1 (record, out of scope): A448's "≤ 0.6 nats" exceeded by its own δ = 2 figure (0.63) — corrected in place.
+
+**Checked and held (reviewer).** The constant re-derived and confirmed numerically; both log-2 values and truncations; offsets, residuals and slope from the checkpoints; every g12 tolerance at its rounding half-width, each conjunct failable; the digitised values re-derived on both figures; every quotation verbatim; "not derived for ε(λ)" against §6.3–6.6; c = 2πλ² = T₀; same eigenvalue and normalisation; the rest of the block byte-identical; the census 89; the needles; the manifest; the docstring; self-containment; Checks 7/8.
+
+**Lead's sweep battery (prose-only).** Member 13/13; `run_tower.py`: `census: 0 live PASS + 22 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22).
+
+**Trajectory: 293 (the (vii) landing): 0M+4m+1c → 294: 0M+0m+2c — CONVERGED. Theorem 1bm with clause (vii) is stable.**
