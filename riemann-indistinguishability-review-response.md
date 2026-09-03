@@ -5328,4 +5328,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Brief.** `brief_round293.md`: nine attack vectors (every quotation against the extracted source texts; the same-eigenvalue and normalisation claim; the figure readings against the rendered pages; Connes' prolate parameter 2πλ² against the horizon; g12's failability and the slope's scoping; the "near radical" reading; self-containment; regressions; anything else).
 
+**Findings.** 0 MAJOR, 4 minor, 1 cosmetic — all verified directly by the lead and accepted (A448): F293-1 the Fuchs constant misread as 2¹⁴/(3√2π⁵) — the source has (2¹⁴/3)√2π⁵ (derived: Fuchs n = 4, halved), so the cells sit 1.10 … 2.50 nats above the prolate law, now stated and gated; F293-2 the Figure 18 reading wrong (digitised: −74 at µ = 8, −86 at 9; agreement with the cells to 0.3 nats); F293-3 the Figure 1 reading wrong (digitised: −183 at λ² = 17; agreement with four cells to ≤ 0.6 nats); F293-4 λ₁(log 2)'s truncation unstated (35 modes: 1.3292×10⁻³; 120: 1.3291×10⁻³; both gated); F293-5 "the same vector" → "the same ground state, each an approximation". Sweep battery: member 13/13, manifest 22, TOWER PASS 22/22 (1 live + 21 cached). **Trajectory: 293 (the (vii) landing): 0M+4m+1c → 294: convergence round commissioned.**
+
+### Round 294 — convergence test on the round-293 sweep (Theorem 1bm clause (vii), g12)
+
+**Scope.** The round-293 sweep commit. Full-tower class. Brief `brief_round294.md`.
+
 **Findings.** Pending.

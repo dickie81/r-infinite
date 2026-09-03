@@ -6420,39 +6420,48 @@ Weil form on [λ⁻¹, λ] — this paper's object (Theorem 1bj's fixture
 `oneprime_bridge.py` gates their even sector as the 1az operator
 term by term) with L = 2 log λ the support length, so L = δ, in the
 same normalisation: this block's instrument gives λ₁(log 2) =
-1.3292×10⁻³ (even, the 2000-zero list, 320 bits; gated live) against
-their Figure 5 caption, "The smallest eigenvalue when L = log 2 is
+1.3292×10⁻³ at 35 extra Legendre modes (1.3291×10⁻³ at 120; even, the
+2000-zero list, 320 and 400 bits; both gated live) against their
+Figure 5 caption, "The smallest eigenvalue when L = log 2 is
 ∼ 0.00133" — and wrote: "One finds an exponential behavior, as
 reported in Figures 18 and 19, where log s(L) is plotted in terms of
-µ = exp L", the plotted curve near-linear in µ = eᵟ to µ ≈ 8 (δ ≈ 2.08;
-roughly −85 there, read from the figure — a graph, no constant
+µ = exp L", the plotted curve near-linear in µ = eᵟ to µ = 9 (δ ≈
+2.20), reading −27.65 at µ = 3.986 and −67.02 at µ = 7.389 against
+this block's −27.765 and −67.332 at those δ (digitised from the
+figure's vector path, round 293; not gated; a graph, no constant
 stated). Connes (*The Riemann Hypothesis: Past, Present and a Letter
 Through Time*, arXiv 2602.04022, February 2026, sec. 6.4) carries
-ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83, log ε roughly −175
-read from his Figure 1: the range of this block's δ = 2.6–3.0 cells)
-and states: "The numerical computation of the smallest eigenvalue
+ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83; digitised from his
+Figure 1, round 293, not gated: log ε = −183 at the end, and −27.6,
+−66.7, −97.8, −140.6 at this block's δ = 1.3828125, 2.0, 2.3, 2.6
+against the cells' −27.765, −67.332, −98.330, −140.777) and states: "The numerical computation of the smallest eigenvalue
 ϵ(λ) of A_λ, done in [25], shows that ϵ(λ) tends exponentially fast to
 0 as a function of µ = λ². In fact a careful analysis reveals a
 striking similarity (Figure 1) between the behavior of ϵ(λ) and of
 the angular function 1 − χ₂(λ)", the prolate eigenvalue deficit at
 bandwidth parameter 2πλ² — which is T₀ = 2πeᵟ, this block's horizon —
-with the Fuchs asymptotic written there as 1 − χ₂ ∼ (2¹⁴/(3√2π⁵))
-e^{−4πe^L + 9L/2}: **the constant 4π is in print there as the
+with the Fuchs asymptotic written there as 1 − χ₂ ∼ (2¹⁴/3)√2π⁵
+e^{−4πe^L + 9L/2} (Fuchs' n = 4 constant with the half of 1 − χ₂²;
+ln((2¹⁴/3)√2π⁵) = 14.68): **the constant 4π is in print there as the
 prolate's, matched to ε(λ) by graph, not derived for ε(λ)**, and the
 route offered to it is the "near radical" of the Weil form under
 Poisson summation (the near-intersection of the time- and
 band-limiting projections), not the zeros. What this block adds: the
 certified cells (balls, measured truncations); the ground state
-described on the zero side ((iii)'s dodging prolate — a description
-of the same vector as his k_λ = E(h_λ) of eq. (17), not compared
-here); the derivation of 4π from the zeros' density alone by
+described on the zero side ((iii)'s dodging prolate — an approximation
+of the same ground state as his k_λ = E(h_λ) of eq. (17), itself "an
+educated guess for an approximation of the eigenvector associated to
+the smallest eigenvalue ϵ(λ) of A_λ"; not compared here); the derivation of 4π from the zeros' density alone by
 balayage, conditional on the reduction — which is why a prolate at
 c = T₀ and the zero side share the exponent 2T₀; and the finite-δ
-formula. Against the prolate law's subleading 9L/2, the cells'
+formula. Against the prolate law, the cells'
 residual ln λ₁ + 4πeᵟ is 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9,
 least-squares slope 5.04 per unit δ across the seven cells (gated in
-[4.5, 5.5], increasing) — consistent with a shared subleading term
-and no test of it: not claimed. Check 7 clean (the explicit
+[4.5, 5.5], increasing) against its 9/2, and sits 1.10, 1.43, 1.85,
+1.98, 2.04, 2.28, 2.50 nats above ln((2¹⁴/3)√2π⁵) + (9/2)δ (gated
+within 0.01, increasing): λ₁ tracks 1 − χ₂ to within three nats over
+the cells, as his Figure 1 shows for ε(λ) — consistent with a shared
+subleading term and no test of it: not claimed. Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
 plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
 semiclassics; no cascade quantity derived). Check 8 clean (no

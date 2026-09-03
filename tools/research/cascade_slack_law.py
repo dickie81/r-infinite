@@ -32,12 +32,15 @@ even bound (and within a factor 2 of it -- the mechanism's band slack).
 round 293): Connes-Consani (zeta-cycles, 2023) and Connes (arXiv
 2602.04022, Feb 2026) report the same eigenvalue's exponential-of-
 exponential decay numerically, the latter matched by graph to the
-prolate law 1 - chi_2 ~ e^{-4 pi e^L + 9L/2}; the normalisation is
-checked live at delta = log 2 (lambda_1 = 1.3292e-3 against their
-"~ 0.00133"), and the cells' residual ln lambda_1 + 4 pi e^delta
-(20.3 ... 32.9) has least-squares slope 5.04 per unit delta, gated in
-[4.5, 5.5] and increasing -- consistent with, not a test of, a shared
-9/2 subleading term.
+prolate law 1 - chi_2 ~ (2^14/3) sqrt2 pi^5 e^{-4 pi e^L + 9L/2}
+(Fuchs' n = 4 constant, ln C = 14.68; round-293 F293-1 corrected the
+landing's transcription of the constant); the normalisation is
+checked live at delta = log 2 (lambda_1 = 1.3292e-3 at 35 extra modes,
+1.3291e-3 at 120, against their "~ 0.00133"), and the cells' residual
+ln lambda_1 + 4 pi e^delta (20.3 ... 32.9) has least-squares slope
+5.04 per unit delta, gated in [4.5, 5.5] and increasing, and sits
+1.10 ... 2.50 nats above ln C + 4.5 delta (gated within 0.01) --
+consistent with, not a test of, a shared 9/2 subleading term.
 
 WHAT IS NOT CLAIMED. The reduction of the true lambda_1 to the
 equilibrium problem (A440 Step 1; A442's five lemmas) is not a
@@ -85,12 +88,16 @@ Gates (thirteen, g0-g12):
       1bl) met
   g11 the 1bm paper needles and the footer census (declared surface)
   g12 the prior-art normalisation LIVE: lambda_1(log 2) on the
-      2000-zero list at 320 bits within 5e-6 of Connes-Consani's
-      "~ 0.00133" (Rayleigh radius < 1e-9); the residuals
+      2000-zero list at 35 extra modes / 320 bits within 5e-6 of
+      Connes-Consani's "~ 0.00133" and within 5e-8 of the block's
+      1.3292e-3, and at 120 extra modes / 400 bits within 5e-8 of
+      the block's 1.3291e-3 (Rayleigh radii < 1e-9); the residuals
       ln lambda_1 + 4 pi e^delta at the seven cells within 0.05 of
       the block's 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9,
       increasing, least-squares slope in [4.5, 5.5] and within 0.01
-      of the block's 5.04
+      of the block's 5.04; the offsets above the prolate law
+      ln C + 4.5 delta, C = (2^14/3) sqrt2 pi^5, within 0.01 of the
+      block's 1.10, 1.43, 1.85, 1.98, 2.04, 2.28, 2.50 and increasing
 
 Checks 7/8 clean: the explicit formula, Hadamard, Cartwright, Slepian,
 the Green function of the slit plane, balayage, the maximum principle,
@@ -116,7 +123,9 @@ PAPER_NEEDLES = [
     {'s': '`cascade_slack_law.py`', 'min': 2, 'g': 'g11'},
     {'s': 'the **89 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
     {'s': 'extended by Theorems 1i–1bm:', 'form': 'ws', 'g': 'g11'},
-    {'g': 'g12', 's': 'λ₁(log 2) = 1.3292×10⁻³', 'form': 'ws'},
+    {'g': 'g12', 's': 'λ₁(log 2) = 1.3292×10⁻³ at 35 extra Legendre modes (1.3291×10⁻³ at 120', 'form': 'ws'},
+    {'g': 'g12', 's': '1 − χ₂ ∼ (2¹⁴/3)√2π⁵ e^{−4πe^L + 9L/2}', 'form': 'ws'},
+    {'g': 'g12', 's': 'sits 1.10, 1.43, 1.85, 1.98, 2.04, 2.28, 2.50 nats above ln((2¹⁴/3)√2π⁵) + (9/2)δ', 'form': 'ws'},
     {'g': 'g12', 's': 'the constant 4π is in print there as the prolate\'s, matched to ε(λ) by graph, not derived for ε(λ)', 'form': 'plain'},
     {'g': 'g12', 's': 'residual ln λ₁ + 4πeᵟ is 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9, least-squares slope 5.04 per unit δ', 'form': 'ws'},
 ]
@@ -292,15 +301,24 @@ Z2000 = load_zeros(os.path.join(HERE, "checkpoints", "zeta_zeros_2000.json"))
 _lam, rq_log2, m_log2, _, _ = lam1(math.log(2), "even", 320, Z2000, 35)
 v_log2 = float(rq_log2.mid()); r_log2 = float(rq_log2.rad())
 ok = abs(v_log2 - 1.33e-3) <= 5e-6 and r_log2 < 1e-9            # Connes-Consani, zeta-cycles Figure 5: "~ 0.00133"
+ok &= abs(v_log2 - 1.3292e-3) <= 5e-8
+_lam, rq_120, m_120, _, _ = lam1(math.log(2), "even", 400, Z2000, 120)   # round-293 F293-4: the block's stated basis
+v_120 = float(rq_120.mid()); ok &= abs(v_120 - 1.3291e-3) <= 5e-8 and float(rq_120.rad()) < 1e-9
 res = {c: ST[c]["ln_eig"] + 4*math.pi*math.exp(ST[c]["delta"]) for c in MAIN}
 RES_PINS = {"d1.0": 20.3, "d1.38": 22.3, "d2.0": 25.5, "d2.3": 27.0, "d2.6": 28.4, "d3.0": 30.5, "d3.5": 32.9}
 ok &= all(abs(res[c] - RES_PINS[c]) <= 0.05 for c in MAIN)
 ok &= all(res[MAIN[i]] < res[MAIN[i + 1]] for i in range(len(MAIN) - 1))
 slope = float(np.polyfit([ST[c]["delta"] for c in MAIN], [res[c] for c in MAIN], 1)[0])
 ok &= 4.5 <= slope <= 5.5 and abs(slope - 5.04) <= 0.01
-gate(f"g12 the prior-art normalisation LIVE: lambda_1(log 2) = {v_log2:.5e} (radius {r_log2:.1e}) vs Connes-Consani's "
-     "~ 0.00133; residuals ln lambda_1 + 4 pi e^delta " + ", ".join(f"{res[c]:.1f}" for c in MAIN) +
-     f" (pinned, increasing), least-squares slope {slope:.3f} in [4.5, 5.5] and within 0.01 of 5.04", ok)
+C_FUCHS = math.log(2**14/3*math.sqrt(2)*math.pi**5)     # 14.6757: 1 - chi_2 ~ C e^{-4 pi e^L + 9L/2} (Fuchs n = 4, halved), round-293 F293-1
+off = {c: res[c] - (C_FUCHS + 4.5*ST[c]["delta"]) for c in MAIN}
+OFF_PINS = {"d1.0": 1.10, "d1.38": 1.43, "d2.0": 1.85, "d2.3": 1.98, "d2.6": 2.04, "d3.0": 2.28, "d3.5": 2.50}
+ok &= all(abs(off[c] - OFF_PINS[c]) <= 0.01 for c in MAIN)
+ok &= all(off[MAIN[i]] < off[MAIN[i + 1]] for i in range(len(MAIN) - 1))
+gate(f"g12 the prior-art normalisation LIVE: lambda_1(log 2) = {v_log2:.5e} at 35 modes (radius {r_log2:.1e}), {v_120:.5e} at 120, "
+     "vs Connes-Consani's ~ 0.00133; residuals ln lambda_1 + 4 pi e^delta " + ", ".join(f"{res[c]:.1f}" for c in MAIN) +
+     f" (pinned, increasing), least-squares slope {slope:.3f} in [4.5, 5.5] and within 0.01 of 5.04; offsets above the prolate law "
+     f"ln C + 4.5 delta (ln C = {C_FUCHS:.4f}) " + ", ".join(f"{off[c]:.2f}" for c in MAIN) + " (pinned, increasing)", ok)
 
 print(("\nALL GATES PASS (13/13)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

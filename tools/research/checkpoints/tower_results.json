@@ -2183,6 +2183,12 @@
 "rc": 0,
 "when": "2026-08-28T08:31Z"
 },
+"ca19f093fce00517fa347250": {
+"dt": 58.99114513397217,
+"file": "cascade_slack_law.py",
+"rc": 0,
+"when": "2026-09-03T16:33Z"
+},
 "ca84a267caacd5a6c3ab39a2": {
 "dt": 1.4688961505889893,
 "file": "cascade_oneprime_interval.py",
