@@ -18040,3 +18040,18 @@ Checks 7/8 clean throughout (classical inputs only; Riemann-side; no cascade qua
 **Round 296 (convergence) commissioned** on the sweep commit (brief `brief_round296.md`).
 
 ---
+
+## Addendum 452 — round 296 (the convergence test on the round-295 sweep): 0 MAJOR, 1 minor, 2 cosmetic, all verified and swept; the minor was the lead's own Richardson step attributed to Kim et al. at an unsupported precision ("their own h² extrapolation … landing at 9.458×10⁻⁷"); round 297 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F296-1 (minor, verified, ACCEPTED).** Kim et al. print no extrapolated value at a = 0.5 (Table 10 ends "0.500 … 1.017×10⁻⁶ 1.21 borderline"); the 9.458×10⁻⁷ was the lead's two-point Richardson step (A451 says so), and from the printed inputs (ρ = 1.21 to two decimals, λ₁ to four figures) the step is determined only to (9.437–9.480)×10⁻⁷ — lead's recomputation: 9.4365×10⁻⁷ to 9.4797×10⁻⁷ from the rounding corners. Swept: "a two-point h² Richardson step on their N = 800/1600 pair from their printed refinement ratio 1.21 landing near 9.46×10⁻⁷, computed here from their Table 10, not gated, the ratio's two decimals fixing two figures".
+- **F296-2 (cosmetic, ACCEPTED).** Fuchs is named in the clause and his Theorem 1 does derive a decay law (the prolate's). Swept: "none of the five papers on the Weil form cited in this clause derives a decay law for λ₁ or states the finite-δ formula (Fuchs' Theorem 1, quoted through CCM and Connes, is the prolate's)".
+- **F296-3 (cosmetic, ACCEPTED).** The caption "as printed" now carries the subscript: "log(ϵ_λ))".
+
+**Checked and held (reviewer).** The docstring-only classification (docstring-stripped ASTs of HEAD~1 and HEAD identical; `code_sha` identical in both modes); the enclosure semantics from the loaded even:1 checkpoint (rho [9.2494…, 9.4547…]×10⁻⁷, temple_lo 2.6832…×10⁻⁷, certified True); Kim's own Rayleigh–Ritz statement and normalisation; every CCM, Connes, Suzuki (v1 and v2) and Kim quotation verbatim at the cited lines, the sec. 7.7 identity re-rendered with the bar; "no decay rate" in Suzuki by exhaustive grep; the a-versus-δ conversions at every number; the needles (15 verified live); the footer census 89 body-only by independent recount; no gate that cannot fail introduced; Checks 7/8.
+
+**Battery (prose-only).** `CASCADE_CHAIN=manifest python3 tools/research/cascade_slack_law.py` → 13/13; `python3 tools/research/run_tower.py` → manifest integrity 22 / 4 pins; needle precheck 72 reach files / 31 surfaces; probes 24/24 and 85/85; `census: 0 live PASS + 22 cached PASS + 0 FAIL of 22`; **TOWER PASS (22/22)**.
+
+**Round 297 (convergence) commissioned** on the sweep commit (brief `brief_round297.md`).
+
+---

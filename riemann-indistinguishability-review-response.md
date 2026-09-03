@@ -5358,4 +5358,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-295 sweep commit. Docstring-only for the verifier, prose for the paper. Brief `brief_round296.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 2 cosmetic — verified and swept (A452): F296-1 (minor) the lead's Richardson step attributed to Kim et al. at unsupported precision — now labelled computed here, not gated, "near 9.46×10⁻⁷"; F296-2 (cosmetic) "five sources" with Fuchs named — now "five papers on the Weil form … (Fuchs' Theorem 1 … is the prolate's)"; F296-3 (cosmetic) the caption's subscript. Sweep battery: member 13/13; TOWER PASS 22/22 (prose-only, 22 cached). **Trajectory: 295: 0M+4m+4c → 296: 0M+1m+2c → 297: convergence round commissioned.**
+
+### Round 297 — convergence test on the round-296 sweep (Theorem 1bm clause (vii))
+
+**Scope.** The round-296 sweep commit (three prose edits in (vii); no verifier change). Prose-only. Brief `brief_round297.md`.
+
 **Findings.** Pending.

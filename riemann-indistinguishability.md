@@ -6445,7 +6445,7 @@ strategy, "(2) The extremely small numbers ε_λ that occur as
 eigenvalues of the Weil quadratic form QW_λ also appear—see Figure
 4—when evaluating the discrepancy for h_λ to belong simultaneously to
 P_λ and P̂_λ" (their Figure 4, caption as printed: "Graphs of
-log(ϵλ)) and log(1−χ(λ))) as functions of µ = λ²" [sic]). Connes
+log(ϵ_λ)) and log(1−χ(λ))) as functions of µ = λ²" [sic]). Connes
 (*The Riemann Hypothesis: Past, Present and a Letter Through Time*,
 arXiv 2602.04022, February 2026, sec. 6.4) carries the same
 comparison, as his Figure 1, for ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83; digitised from his
@@ -6505,18 +6505,21 @@ superexponentially" to a = 0.5 (their 1.017×10⁻⁶ at a = 0.5 against
 Theorem 1bj's certified two-sided enclosure at δ = 1.0, Temple
 ≥ 2.6832×10⁻⁷ and the trial's Rayleigh quotient ρ ≤ 9.4548×10⁻⁷:
 above the true λ₁ as a Rayleigh–Ritz value must be, above 1bj's ρ
-as an observation — two upper bounds are unordered — their own h²
-extrapolation from their refinement ratio 1.21 landing at
-9.458×10⁻⁷), extrapolate it as e^{−ca²} — "Extrapolating, λ₁ ∼
+as an observation — two upper bounds are unordered — a two-point h²
+Richardson step on their N = 800/1600 pair from their printed
+refinement ratio 1.21 landing near 9.46×10⁻⁷, computed here from
+their Table 10, not gated, the ratio's two decimals fixing two
+figures), extrapolate it as e^{−ca²} — "Extrapolating, λ₁ ∼
 10⁻²⁵ at a = 2 and ∼ 10⁻⁷⁸ at a = 6" — which at a = 2 (δ = 4) is
 −57.6 nats against this block's −651.008 at δ = 4.0, a factor
 eleven in the exponent — and list "The exact form of the decay law
 of λ₁(a)" among their open problems. CCM and Connes state the
 leading decay of ε_λ by graph; the law of (ii)–(iv) with the
 finite-δ formula (v) is a candidate answer to that question,
-conjectural for λ₁ itself by (vi), and none of the five sources
-cited in this clause derives a decay law or states the finite-δ
-formula. Check 7 clean (the explicit
+conjectural for λ₁ itself by (vi), and none of the five papers on
+the Weil form cited in this clause derives a decay law for λ₁ or
+states the finite-δ formula (Fuchs' Theorem 1, quoted through CCM and
+Connes, is the prolate's). Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
 plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
 semiclassics; no cascade quantity derived). Check 8 clean (no
