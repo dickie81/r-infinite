@@ -5279,3 +5279,15 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **The sweep (editorial, c78235f):** docstrings and comments to the committed state, the unused list removed, the stored field and labels doubled to the paper's quantity; the cells recomputed at the rotated keys with the finals unchanged; tower 21/21 on the final tree.
 
 **Trajectory: 286 (the 1bl landing): 1M+5m+2c → 287: 1M+2m+1c → 288: 0M+1m → 289: 0M+0m+2c — CONVERGED. The Theorem 1bl landing is stable.**
+
+### Round 290 — the Theorem 1bm landing (the slack law): LANDING round
+
+**Scope.** The landing commit(s) after `6a4f748`: the Theorem 1bm block (`riemann-indistinguishability.md`, after 1bl), the footer census (88 → 89; `1i–1bl` → `1i–1bm`; the 1bm substrate clauses; six classical inputs), the tower member `cascade_slack_law.py` (22, top; gates g0–g11), the keyed producer `slack_law_flint.py` (ten cells on the 6700-zero list), `tools/research/checkpoints/slack_law_*.json` and `zeta_zeros_6700.json`, the manifest (22 members), the census literal advanced in every member and `cascade_tower.py`. Record-file forensics out of scope (round 43). Precheck scope per round 279.
+
+**Classification.** Full-tower class (new member, code, manifest, census). Battery owed: manifest-integrity precheck + `python3 tools/research/run_tower.py` on the committed tree; the new member's cells recomputed fresh once at the landing.
+
+**Lead's battery (recorded as run).** `CASCADE_COMPUTE=fresh python3 tools/research/slack_law_flint.py cells` — ten cells, 2.4 h of compute; `CASCADE_CHAIN=manifest python3 tools/research/cascade_slack_law.py` — 12/12 (after one fix of the live f(2) check: the first run failed g3 on a factor 2 in the check itself; the gate can fail); `python3 tools/research/refresh_tower_manifest.py` — 22 members; `python3 tools/research/run_tower.py` — TOWER PASS (22/22), 22 live, 0 cached, 0 FAIL; prechecks 72 reach files / 31 surfaces / probes 24 and 85.
+
+**Brief.** `brief_round290.md` (scratchpad; reproduced in A443's commissioning note): standards, classification, precheck scope, eight named attack vectors (the certified-upper-bound claim against the approx eigensolver; the 120-mode cells at δ = 1 and 1.38 against the record's 35/46-mode values; the "twice the horizon" sentence's status; whether g5/g6's bounds are tuned; the T grid of the finite-δ formula; the universality remark's status; the zero list's height and horizon coverage; anything else).
+
+**Findings.** [PENDING — the round's findings, dispositions, and the lead's verification go here.]

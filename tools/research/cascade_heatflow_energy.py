@@ -45,8 +45,8 @@ Gates (all exit-gated; any failure exits 1):
       pinned.
   g5  the paper needles for the 1ax block (in-code list authoritative).
   g6  the chain obligation to cascade_floor_meter.py (Theorem 1aw) met.
-  g7  the footer census (this script backticked >= 2; the anchored needles "the **88 scripts cited in place** above"
-      and "extended by Theorems 1i–1bl:" -- round-218 F12 mirrored
+  g7  the footer census (this script backticked >= 2; the anchored needles "the **89 scripts cited in place** above"
+      and "extended by Theorems 1i–1bm:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tar tree, single mangle with application
@@ -90,8 +90,8 @@ PAPER_NEEDLES = [
     {"g": "g5", "s": "not to descend an entropy gradient but to place"},
     {"g": "g5", "s": "the hardness is conserved at P4"},
     {"g": "g7", "s": "`cascade_heatflow_energy.py`", "min": 2},
-    {"g": "g7", "s": "the **88 scripts cited in place** above"},
-    {"g": "g7", "s": "extended by Theorems 1i\u20131bl:"},
+    {"g": "g7", "s": "the **89 scripts cited in place** above"},
+    {"g": "g7", "s": "extended by Theorems 1i\u20131bm:"},
 ]
 
 fails = []

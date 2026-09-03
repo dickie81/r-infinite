@@ -58,8 +58,8 @@ Gates (all exit-gated; any failure exits 1):
       product-state restatement; fairness sentence; both off-line zero
       values; the statistical-vs-completed sentence).
   g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met.
-  g15 the footer census (this script backticked >= 2; the anchored needles "the **88 scripts cited in place** above"
-      and "extended by Theorems 1i–1bl:" -- round-218 F12 mirrored
+  g15 the footer census (this script backticked >= 2; the anchored needles "the **89 scripts cited in place** above"
+      and "extended by Theorems 1i–1bm:" -- round-218 F12 mirrored
       the tower-wide anchoring into this line).
 
 Sabotage record (each: fresh tree, single mangle, restore from pristine;
@@ -105,8 +105,8 @@ PAPER_NEEDLES = [
     {'g': 'g13', 's': 'The free commutative monoid on'},
     {'g': 'g13', 's': "enters part0's invariant I₀ = Ω₁₉ × Ω₂₁₇ ≈ 1.2051×10⁻¹²⁰"},
     {'g': 'g15', 's': '`cascade_primes_side_ball.py`', 'min': 2},
-    {'g': 'g15', 's': 'the **88 scripts cited in place** above'},
-    {'g': 'g15', 's': 'extended by Theorems 1i–1bl:'},
+    {'g': 'g15', 's': 'the **89 scripts cited in place** above'},
+    {'g': 'g15', 's': 'extended by Theorems 1i–1bm:'},
     {'g': 'g11', 's': 'p(d) = (log Γ_ℝ)′(d+1)'},
     {'g': 'g12', 's': 'THE FOLLOWING ARE DECLARED CONJECTURES,'},
     {'g': 'g12', 's': 'the classic Λ ~ 1/N² coincidence rebranded'},

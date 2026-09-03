@@ -170,7 +170,7 @@ VERIFICATION (13 gates, exit-gated; --full extends the census).
        the wall-unchanged sentence at count >= 2 -- it also lives in
        1aj); g12 the sibling chain green (riemann_selection 12/0,
        which chains type_counting and the two Weil-arc siblings);
-       g13 the footer census (this script backticked; "88 scripts cited in place"; "Theorems 1i-1bl" -- the census advances
+       g13 the footer census (this script backticked; "89 scripts cited in place"; "Theorems 1i-1bm" -- the census advances
        with each landing; the gate carries the live values).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git, at
@@ -534,8 +534,8 @@ print("V5 -- the paper: key sentences, honest scope, siblings, footer")
 # inline compare, so drift fails the precheck)
 import paper_needles
 PAPER_NEEDLES = [
-    {'s': '88 scripts cited in place', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bl', 'form': 'plain', 'min': 1},
+    {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
     {'s': '`cascade_windows_overlap.py`', 'form': 'plain', 'min': 1},
     {'s': 'are pairwise disjoint through zero #33; the first overlap is #34/#35', 'form': 'plain', 'min': 1},
     {'s': 'c ≈ 1.25 is observed, not derived', 'form': 'plain', 'min': 1},
@@ -621,8 +621,8 @@ gate("g12 the sibling chain green after the census advance "
 # 1ao landing: the footer census advanced (64 -> 65; range -> 1ao)
 # -- the census-evolution class, disclosed.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_windows_overlap.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '88 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bl', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
 gate("g13 the footer census (advanced at the 1an-1ap landings, "
      "disclosed): this script backticked; 88 cited in place; the "
      "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)

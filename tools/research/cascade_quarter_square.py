@@ -92,7 +92,7 @@ Gates (twelve):
        self-satisfying-gate lesson; g11 1ak's key sentences
        anchored as swept round 151 (the two-plane pole image;
        the up-to-half prefactor); g12 the footer census (the script
-       backticked; "88 scripts cited in place"; "Theorems
+       backticked; "89 scripts cited in place"; "Theorems
        1i–1bl" -- the census advances with each landing; the
        gate carries the live values).
 
@@ -308,9 +308,9 @@ print("V5 -- the anchors and the footer")
 # meta-gate verifies this declaration COVERS every
 # inline compare, so drift fails the precheck)
 PAPER_NEEDLES = [
-    {'s': '88 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '89 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': "The quarter-square is the pole's image under the squared-shift map", 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1bl', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bm', 'form': 'plain', 'min': 1},
     {'s': '`cascade_quarter_square.py`', 'form': 'plain', 'min': 1},
     {'s': "each lattice site's anchor is its squared half-shift MINUS the quarter-square", 'form': 'plain', 'min': 1},
     {'s': "one scale — (½)², the functional equation's half-shift squared", 'form': 'plain', 'min': 1},
@@ -352,8 +352,8 @@ gate("g11 1ak's key sentences anchored AS SWEPT round 151 (the "
 # (63 -> 64) and 1ao (64 -> 65; range -> 1ao) -- the
 # census-evolution class, disclosed each time.
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_quarter_square.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '88 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bl', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '89 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bm', 'plain')
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
      "disclosed): this script backticked; 88 cited in place; the "
      "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
