@@ -1151,6 +1151,12 @@
 "rc": 0,
 "when": "2026-08-27T19:56Z"
 },
+"68d63f06ea9c5a8332114f13": {
+"dt": 5.214205503463745,
+"file": "cascade_slack_law.py",
+"rc": 0,
+"when": "2026-09-03T15:28Z"
+},
 "691b57ce9a33126d8b6c388b": {
 "dt": 308.1628329753876,
 "file": "cascade_weil_margin.py",

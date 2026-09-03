@@ -6337,7 +6337,8 @@ zero inside its band and, among such, maximises its band concentration
 — reproducing λ₁ to within 0.16, 0.24, 0.33, 0.39, 0.50 nats at δ = 1,
 1.38, 2, 2.3, 3 against the λ₁ of the family's own basis
 (`constrained_prolate.py`, A439; against this block's cells the same
-trials give 0.16, 0.25, 0.34, 0.41, 0.47), dodging exactly the
+trials are consistent to ±0.01: 0.16, 0.25, 0.34, 0.41, 0.47 from the
+record's three-decimal inputs), dodging exactly the
 in-band zeros and no others, on a band of 1.7–2.0 horizons. Its
 envelope is a logarithmic potential: by Hadamard's product, ln|ĝ(r)| =
 const + ∫ln|1 − r²/t²| dM(t) with M the probe's zero count, a uniform
@@ -6370,7 +6371,8 @@ normalised at the origin (the potential's reference point x₀ = 0; its
 equality with (iii)'s max φ is the pole lemma of A442, checked
 numerically, not proved), by the maximum principle for the difference
 potential in Ω. The balayage density is explicit, τ(x) = −I(x)/(π√(x² −
-X²)) with I the Hilbert transform of √(X² − t²) ln|t| over the band, and
+X²)) with I(x) = ∫₋ₓˣ √(X² − t²) ln|t|/(x − t) dt, the un-normalised
+Cauchy integral of √(X² − t²) ln|t| over the band, and
 at the edge I(X) = πX ln(X/2): the coefficient of its 1/√(x − X)
 singularity is √(X/2)·ln(2/X), positive for X < 2, negative for X > 2,
 zero exactly at X = 2 — **the admissibility threshold is the maximiser**
@@ -6378,7 +6380,7 @@ zero exactly at X = 2 — **the admissibility threshold is the maximiser**
 ln 2; positivity on the whole exterior at X = 2 is checked to 10⁶X, not
 proved. The exterior potential is exactly −2π and the interior
 potential falls monotonically from 0 to −2π (both gated live on the
-exact kernel). So, *within
+exact kernel, the monotonicity at twelve interior points). So, *within
 the reduced problem*, −ln λ₁ = 4πeᵟ(1 + o(1)) = 2T₀(1 + o(1)): the
 positivity margin of the explicit formula on support δ is the
 exponential of minus twice the horizon, 2π per spare degree of freedom

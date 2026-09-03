@@ -48,9 +48,10 @@ Gates (twelve, g0-g11):
   g3  the closed form LIVE: A = pi/2 and B = -(pi/2)(1 + ln 2) by
       quadrature (1e-8); f(2) = 4 pi; f(1.9), f(2.1) < f(2)
   g4  the balayage LIVE, on the exact kernel of the doubly slit plane
-      (tau(x) = -I(x)/(pi sqrt(x^2 - X^2)), I the Hilbert transform of
-      sqrt(X^2 - t^2) ln|t|): the edge identity I(X) = pi X ln(X/2) at
-      X = 1.5, 2, 2.5 (the 1/sqrt(x - X) coefficient sqrt(X/2) ln(2/X)
+      (tau(x) = -I(x)/(pi sqrt(x^2 - X^2)), I(x) the Cauchy integral
+      int sqrt(X^2 - t^2) ln|t|/(x - t) dt over the band): the edge
+      identity I(X) = pi X ln(X/2) at X = 1.5, 2, 2.5, checked at x = X in
+      its integrable form to 1e-9 (the 1/sqrt(x - X) coefficient sqrt(X/2) ln(2/X)
       vanishes exactly at the maximiser: positive at 1.95, negative at
       2.05), the edge value ln 2 at X = 2 (1e-3), density > 0 on the
       exterior to 1e6 X, the exterior potential within 3e-3 of -2 pi at
@@ -160,10 +161,18 @@ def I_int(x, X):
     f = lambda t: math.sqrt(X*X - t*t)*math.log(abs(t))/(x - t)
     return quad(f, -X, 0, limit=400)[0] + quad(f, 0, X, limit=400)[0]
 def tau(x, X): return -I_int(x, X)/(math.pi*math.sqrt(x*x - X*X))
+def I_edge(X):
+    """I at the edge x = X in its integrable form, int sqrt((X+t)/(X-t)) ln|t| dt = X int_{-pi/2}^{pi/2}
+    (1 + sin psi) ln|X sin psi| dpsi (round-291 F291-1: the sweep's conjunct sampled I at x = X(1 + 1e-12),
+    where the true value sits on the sqrt(x - X) branch by more than its 1e-5 tolerance, and passed only
+    because the quadrature could not resolve that layer; the identity is now checked where it holds)."""
+    f = lambda p: (1 + math.sin(p))*math.log(abs(X*math.sin(p)))*X
+    return quad(f, -math.pi/2, 0, limit=400)[0] + quad(f, 0, math.pi/2, limit=400)[0]
 X = 2.0
-# (a) the edge identity I(X) = pi X ln(X/2): the coefficient of the 1/sqrt(x - X) singularity is
-#     sqrt(X/2) ln(2/X), zero exactly at X = 2 (the maximiser), positive below, negative above
-ok = all(abs(I_int(Xv*(1 + 1e-12), Xv) - math.pi*Xv*math.log(Xv/2)) < 1e-5 for Xv in (1.5, 2.0, 2.5))
+# (a) the edge identity I(X) = pi X ln(X/2), checked at x = X exactly (tolerance 1e-9): the coefficient of the
+#     1/sqrt(x - X) singularity is sqrt(X/2) ln(2/X), zero exactly at X = 2 (the maximiser), positive below,
+#     negative above
+ok = all(abs(I_edge(Xv) - math.pi*Xv*math.log(Xv/2)) < 1e-9 for Xv in (1.5, 2.0, 2.5))
 ok &= tau(1.95*1.0001, 1.95) > 0 and tau(2.05*1.0001, 2.05) < 0
 # (b) the edge value at X = 2 is ln 2 (the singular part gone)
 edge = tau(2.0*(1 + 1e-7), 2.0)

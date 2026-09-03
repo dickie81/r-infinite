@@ -17918,3 +17918,25 @@ Checks 7/8 clean throughout (classical inputs only; Riemann-side; no cascade qua
 **Round 291 (convergence) commissioned** on the sweep commit.
 
 ---
+
+## Addendum 445 — round 291 (the convergence test on the round-290 sweep): 0 MAJOR, 1 minor, 3 cosmetic, all verified and swept; the minor was a gate conjunct that passed on quadrature error — g4's edge identity I(X) = πX ln(X/2) was sampled at x = X(1 + 10⁻¹²), where the true value sits on the √(x − X) branch by more than its 10⁻⁵ tolerance (−1.018×10⁻⁵ at X = 2.5) and the quadrature could not resolve the endpoint layer; the conjunct now evaluates I at x = X in its integrable form, X∫(1 + sin ψ) ln|X sin ψ| dψ, to 10⁻⁹; round 292 commissioned
+
+**F291-1 (minor, verified).** The reviewer's charge: `quad` at x = X(1 + 10⁻¹²) returns effectively I(X), so the conjunct passes; an endpoint-resolved integrator fails it at X = 2.5. Verified directly: mpmath with the endpoint layer split gives I(X(1 + 10⁻¹²)) − πX ln(X/2) = −2.70×10⁻⁶, −6.16×10⁻⁶, −1.018×10⁻⁵ at X = 1.5, 2, 2.5 (the last outside the 10⁻⁵ tolerance), while the integrable form at x = X gives the identity to 4×10⁻¹⁶, 1×10⁻¹⁵, 2×10⁻¹⁶. Swept: `I_edge(X)` added to `cascade_slack_law.py`, the conjunct checks it at 10⁻⁹; docstring updated. The identity itself was never in doubt (A444's derivation; the reviewer re-derived it).
+
+**F291-2 (cosmetic, verified).** The (iii) gaps "against this block's cells" were re-differenced from the record's three-decimal inputs and three of five second decimals sit near rounding boundaries. Swept: "are consistent to ±0.01: … from the record's three-decimal inputs".
+
+**F291-3 (cosmetic, verified).** "I the Hilbert transform" was ambiguous by a factor π. Swept: I(x) = ∫₋ₓˣ √(X² − t²) ln|t|/(x − t) dt named as the un-normalised Cauchy integral in the block and the verifier's docstring.
+
+**F291-4 (cosmetic, verified).** The monotonicity clause did not state the gate's extent. Swept: "(both gated live on the exact kernel, the monotonicity at twelve interior points)".
+
+**Out-of-scope observation (pre-existing):** the block quotes 1bl's bound as 5.7134×10⁻¹³ (1bl's own rounded-down statement); the certified value is 5.71356×10⁻¹³. A true lower bound; left as 1bl states it.
+
+**Battery (full-tower class: verifier edit + manifest).** `CASCADE_CHAIN=manifest python3 tools/research/cascade_slack_law.py` → 12/12, g4 on the new conjunct; `python3 tools/research/refresh_tower_manifest.py` → 22 members; `python3 tools/research/run_tower.py` on the final tree → manifest integrity 22 members / 4 keying pins; needle precheck 72 reach files / 31 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 21 cached PASS + 0 FAIL of 22`; **TOWER PASS (22/22)**.
+
+**Round-291 battery, as the reviewer recorded it:** `run_tower.py` on the committed tree c124a19 → 22 cached PASS, TOWER PASS (22/22); the member live 12/12 with all ten cells REUSED; sha256 of the member equal to the manifest entry. The reviewer's independent minimiser confirmed the F290-2 values (the minimum of 2s_δ sits exactly at a zero, since d(2s_δ)/dT is +∞ just past every zero and decreasing between them): 4.70, 5.21, 5.94, 6.39, 6.64, 7.30, 7.90.
+
+**Process note.** Rounds 290–291 were interrupted by repeated API overloads (HTTP 529) and a container restore to a 03:00Z snapshot; the branch was reset to origin (c124a19), the round-291 brief re-created, and both agents resumed from their intact transcripts. No object-level surface was affected.
+
+**Round 292 commissioned** on the sweep commit, convergence test on this sweep.
+
+---

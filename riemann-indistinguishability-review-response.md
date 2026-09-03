@@ -5291,3 +5291,17 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Brief.** `brief_round290.md` (scratchpad; reproduced in A443's commissioning note): standards, classification, precheck scope, eight named attack vectors (the certified-upper-bound claim against the approx eigensolver; the 120-mode cells at δ = 1 and 1.38 against the record's 35/46-mode values; the "twice the horizon" sentence's status; whether g5/g6's bounds are tuned; the T grid of the finite-δ formula; the universality remark's status; the zero list's height and horizon coverage; anything else).
 
 **Findings.** 0 MAJOR, 5 minor, 5 cosmetic — all verified directly by the lead and accepted (A444): F290-1 the admissibility threshold and edge density (the true threshold is exactly the maximiser X = 2, edge coefficient √(X/2)·ln(2/X), edge value ln 2 — derived, block and g4 rebuilt on the exact kernel); F290-2 the (v) offsets were grid values (fine minimiser: 4.70, 5.21, 5.94, 6.39, 6.64, 7.30, 7.90); F290-3 the origin-normalisation scope of (iv) stated; F290-4 monotonicity now gated; F290-5 "each checked on the exact ground states" corrected; F290-6–10 cosmetics (6.966, 1.898; the `discrete_balayage.py` path; the modes wording; the (iii) gaps' basis; the bold phrase qualified). Battery on the sweep: member 12/12, TOWER PASS 22/22 (1 live + 21 cached). **Trajectory: 290 (the 1bm landing): 0M+5m+5c → 291: convergence round commissioned.**
+
+### Round 291 — convergence test on the round-290 sweep (Theorem 1bm): 0M + 1m + 3c → swept (A445)
+
+**Scope.** Commit c124a19 (the round-290 sweep). Full-tower class.
+
+**Reviewer's battery.** `run_tower.py` on c124a19: 22 cached PASS, TOWER PASS (22/22), prechecks 72 reach files / 31 surfaces, probes 24 and 85; the member live 12/12, ten cells REUSED; member sha256 = manifest entry.
+
+**Findings.** F291-1 (minor): g4's edge-identity conjunct sampled I at x = X(1 + 10⁻¹²) and passed on quadrature error (the true deviation −1.018×10⁻⁵ at X = 2.5 exceeds the 10⁻⁵ tolerance) — verified, swept (integrable form at x = X, 10⁻⁹). F291-2 (cosmetic): the (iii) gap figures re-differenced from rounded inputs — swept. F291-3 (cosmetic): "Hilbert transform" ambiguous by π — swept. F291-4 (cosmetic): the monotonicity clause's gate extent unstated — swept.
+
+**Checked and held (reviewer).** The edge identity re-derived; the singular coefficient and its sign change; the edge value ln 2 with (ln 2 − τ)/√ε → √2; the kernel's unit mass; exterior positivity to 10⁶X with the 1/x² tail; the exterior potential −2π; the F290-2 values by an independent minimiser (the minimum sits exactly at a zero); table (ii) recomputed; the census 89 body-only; the A442 cross-references; the F290 closures present verbatim.
+
+**Lead's sweep battery.** Member 12/12 on the new conjunct; manifest refreshed (22); `run_tower.py` on the final tree: `census: 1 live PASS + 21 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22).
+
+**Trajectory: 290 (landing): 0M+5m+5c → 291: 0M+1m+3c → 292: pending.**
