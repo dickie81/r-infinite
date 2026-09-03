@@ -5371,3 +5371,15 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Checked and held (reviewer).** The three swept sentences (arithmetic, rounding band, census of cited papers, the caption's subscript); every unchanged quotation in (vii) verbatim; the priority claim against the earlier texts; 1bj(vi); the 15 needles; the footer census 89; Checks 7/8.
 
 **Trajectory: 295 (the prior-art landing): 0M+4m+4c → 296: 0M+1m+2c → 297: 0 — CONVERGED. Theorem 1bm clause (vii) and 1bj(vi) are stable.**
+
+### Round 298 — the Theorem 1bn landing (the true Weil form certified from above at every cell; CCM's trial vector certified): LANDING round
+
+**Scope.** The landing commits after 32a21bc (WIP commits 011f96f, 503b6fe, 14bce63, e36ab48 and the landing commit): the Theorem 1bn block (`riemann-indistinguishability.md`, after 1bm), the footer census (89 → 90; `1i–1bm` → `1i–1bn`; `cascade_true_form_bounds.py` listed; Rayleigh–Ritz and Yoshida's K(a) appended), the substrates `weil_prime_gram.py`, `ccm_trial_vector.py`, the keyed producer `true_form_cells.py` (seven cells, `checkpoints/true_form_*.json`), the member `cascade_true_form_bounds.py` (23, top; g0–g12), the manifest (23 members), the census literals advanced in every member and `cascade_tower.py` (three literal forms). Record-file forensics out of scope (round 43). Precheck scope per round 279.
+
+**Classification.** Full-tower class (new member, code, manifest, census). Battery owed: manifest-integrity precheck + `run_tower.py` on the committed tree; the new member's cells recomputed fresh once at the landing.
+
+**Lead's battery (recorded as run).** `python3 tools/research/true_form_cells.py` — seven cells fresh under `run_with_checkpoints.sh`, ~70 min (d3.5: 1406 s at K2 = 540, 656 s at K1 = 420); `python3 tools/research/refresh_tower_manifest.py` — 23 members; `CASCADE_CHAIN=manifest python3 tools/research/cascade_true_form_bounds.py` — 13/13; `python3 tools/research/run_tower.py` — manifest integrity 23 / 4 keying pins; needle precheck 76 reach files / 32 surfaces; probes 24/24 and 85/85; `census: 23 live PASS + 0 cached PASS + 0 FAIL of 23`; **TOWER PASS (23/23)** (a first tower run failed its needle precheck on two census-literal variants missed by the sed — the plain '89 scripts cited in place' and the `–`-escaped range — advanced and re-run).
+
+**Brief.** `brief_round298.md` (scratchpad): standards, classification, precheck scope, nine attack vectors (the rigour of every ball — tail remainders, the prime-power cutoff, the f_jk formulas, the subspace statement; the explicit-formula normalisation; the archimedean closed forms; CCM's construction as they define it; 1 − χ₂'s relation; every number and word of the block; the verifier's failability; the footer; anything else).
+
+**Findings.** Pending.
