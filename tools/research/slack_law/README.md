@@ -1,4 +1,4 @@
-# The slack-law constant: potential-theory (Landau–Widom) analysis — Addendum 440
+# The slack-law constant: potential-theory (Landau–Widom) analysis — Addenda 440–441
 
 Research instruments, cited by no paper surface, keyed by nothing.
 
@@ -8,6 +8,7 @@ Research instruments, cited by no paper surface, keyed by nothing.
 - `lw_semidiscrete.py` — the same LP at a physical δ with the zeta zeros discrete.
 - `probe_test.py` — builds the explicit real-zero probe prescribed by an LP solution and computes its exact Rayleigh quotient (the test that showed the finite-δ model's O(log) slack).
 - `probe_profile.py` — pointwise envelope check of a constructed probe against the reduction.
+- `balayage_check.py` — Addendum 441: the equilibrium problem solved in closed form by balayage onto the doubly slit plane; checks B = −(π/2)(1 + ln 2), the positivity of the balayage density on the exterior (admissible for X ≤ 2.05), the constancy of the potential there (−2π at X = 2), the interior bound, and f(X) = 2πX(1 + ln 2 − ln X), maximal at X = 2 with f_∞ = 4π.
 - `lp_*.json` — the LP solutions used in Addendum 440 (X = 2, continuum; the simple probe; the semi-discrete δ = 2.3 optimum).
 
 Run from this directory (the zero list is read from `../checkpoints/zeta_zeros_2000.json`).
