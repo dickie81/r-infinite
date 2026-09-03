@@ -29,10 +29,11 @@ CROSS-CHECKS: the delta = 1.0 cell inside Theorem 1bj's Temple
 enclosure; the delta = 1.3828125 cell above Theorem 1bl's certified
 even bound (and within a factor 2 of it -- the mechanism's band slack).
 (6) THE PRIOR ART's NORMALISATION AND THE RESIDUAL (block (vii),
-round 293): Connes-Consani (zeta-cycles, 2023) and Connes (arXiv
-2602.04022, Feb 2026) report the same eigenvalue's exponential-of-
-exponential decay numerically, the latter matched by graph to the
-prolate law 1 - chi_2 ~ (2^14/3) sqrt2 pi^5 e^{-4 pi e^L + 9L/2}
+round 293): Connes-Consani (zeta-cycles, 2023), Connes-Consani-
+Moscovici (arXiv 2511.22755, Nov 2025; the first print of the prolate
+comparison, round 295) and Connes (arXiv 2602.04022, Feb 2026) report
+the same eigenvalue's exponential-of-exponential decay numerically,
+the latter two matched by graph to the prolate law 1 - chi_2 ~ (2^14/3) sqrt2 pi^5 e^{-4 pi e^L + 9L/2}
 (Fuchs' n = 4 constant, ln C = 14.68; round-293 F293-1 corrected the
 landing's transcription of the constant); the normalisation is
 checked live at delta = log 2 (lambda_1 = 1.3292e-3 at 35 extra modes,

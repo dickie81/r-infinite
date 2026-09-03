@@ -5352,4 +5352,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Brief.** `brief_round295.md`: eight attack vectors (every quotation; "first" against 2310.18423 and ζ-cycles; "no decay rate"/"none of the four sources"; Suzuki's equation and theorem numbers; Kim et al.'s numbers and the Rayleigh–Ritz direction; 1bj's claim; regressions; anything else).
 
+**Findings.** 0 MAJOR, 4 minor, 4 cosmetic — all verified directly by the lead and accepted (A451): F295-1 the Kim-versus-1bj comparison mislabelled the trial's Rayleigh interval as the certified enclosure and ordered two upper bounds by Rayleigh–Ritz — swept (Temple ≥ 2.6832×10⁻⁷, ρ ≤ 9.4548×10⁻⁷; "above 1bj's ρ as an observation"; Kim's own h² extrapolation 9.458×10⁻⁷); F295-2 CCM's "(2)" is an indication, not a missing step — swept; F295-3 the conjugate bar in Suzuki's sec. 7.7 identity restored; F295-4 "the answer … none of the four sources states it" → "a candidate answer … none of the five sources … derives a decay law or states the finite-δ formula"; F295-5–8 cosmetics (the caption as printed [sic]; the docstring; G_a = P_aGP_a, (2.9)–(2.11); the Connes sentence and the extrapolation parenthetical). Sweep battery: member 13/13, manifest 22, TOWER PASS 22/22 (0 live + 22 cached; docstring-only). **Trajectory: 295 (the prior-art landing): 0M+4m+4c → 296: convergence round commissioned.**
+
+### Round 296 — convergence test on the round-295 sweep (Theorem 1bm clause (vii), 1bj(vi))
+
+**Scope.** The round-295 sweep commit. Docstring-only for the verifier, prose for the paper. Brief `brief_round296.md`.
+
 **Findings.** Pending.

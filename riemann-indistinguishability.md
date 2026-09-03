@@ -6439,15 +6439,16 @@ stated). Connes–Consani–Moscovici (*Zeta spectral triples*, arXiv
 print first: with h_λ the combination of the prolates h_{0,λ},
 h_{4,λ} of vanishing integral and k_λ = E(h_λ) their "educated
 guess" for the ground state, "for n = 4, by [8], Theorem 1, one has
-1 − χ(λ) ∼ (2¹⁴/3)√2π⁵ e^{−4πλ² + 9 log(λ)}", and, of the two missing
-steps of their strategy, "(2) The extremely small numbers ε_λ that
-occur as eigenvalues of the Weil quadratic form QW_λ also appear—see
-Figure 4—when evaluating the discrepancy for h_λ to belong
-simultaneously to P_λ and P̂_λ" (their Figure 4: "Graphs of log(ε_λ)
-and log(1 − χ(λ)) as functions of µ = λ²"). Connes (*The Riemann
-Hypothesis: Past, Present and a Letter
-Through Time*, arXiv 2602.04022, February 2026, sec. 6.4) carries
-the same comparison as his Figure 1, ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83; digitised from his
+1 − χ(λ) ∼ (2¹⁴/3)√2π⁵ e^{−4πλ² + 9 log(λ)}", and, as the second of
+the three indications they offer for the two missing steps of their
+strategy, "(2) The extremely small numbers ε_λ that occur as
+eigenvalues of the Weil quadratic form QW_λ also appear—see Figure
+4—when evaluating the discrepancy for h_λ to belong simultaneously to
+P_λ and P̂_λ" (their Figure 4, caption as printed: "Graphs of
+log(ϵλ)) and log(1−χ(λ))) as functions of µ = λ²" [sic]). Connes
+(*The Riemann Hypothesis: Past, Present and a Letter Through Time*,
+arXiv 2602.04022, February 2026, sec. 6.4) carries the same
+comparison, as his Figure 1, for ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83; digitised from his
 Figure 1, round 293, not gated: log ε = −183 at the end, and −27.6,
 −66.7, −97.8, −140.6 at this block's δ = 1.3828125, 2.0, 2.3, 2.6
 against the cells' −27.765, −67.332, −98.330, −140.777) and states: "The numerical computation of the smallest eigenvalue
@@ -6483,9 +6484,10 @@ gated), as his Figure 1 shows for ε(λ) — consistent with a shared
 subleading term and no test of it: not claimed. Suzuki (*Weil's
 quadratic form via the screw function*, arXiv 2606.09096, June 2026)
 is the rigorous frame for this object: A_a on L²(−a, a) is the
-Friedrichs extension of D*G_aD with G_a the integral operator of the
-screw function g (Theorem 1.1), whose distributional second
-derivative −g″ is the Weil distribution (his (2.11)); the lowest
+Friedrichs extension of D*G_aD, G_a = P_aGP_a the compression to the
+mean-zero subspace of the integral operator G with the
+screw-function kernel g (Theorem 1.1), so that the form's kernel is
+the distributional second derivative −g″ (his (2.9)–(2.11)); the lowest
 eigenvalue is continuous in a — "Theorem 1.3. The lowest eigenvalue
 λ_a is continuous in a." — unconditionally; for small a it is
 "positive, simple, and satisfies λ_a = log(1/a) + µ₁ − log(2π) +
@@ -6493,18 +6495,28 @@ eigenvalue is continuous in a — "Theorem 1.3. The lowest eigenvalue
 eigenfunction (Theorem 1.4); and his sec. 7.7 states the
 factorisation whose unconditional form is the open problem: "RH
 would follow if one could establish unconditionally that
-∫_{−∞}^{∞} S_x(z)S_y(z) dz = g(x − y) − g(x) − g(−y) + g(0)". No
+∫_{−∞}^{∞} S_x(z) S̄_y(z) dz = g(x − y) − g(x) − g(−y) + g(0)" (his 𝔖;
+the bar the complex conjugate, as printed and dropped by text
+extraction). No
 decay rate of λ_a is stated there. Kim et al. (arXiv 2607.24830,
 July 2026, math.GM; a finite-element study of Suzuki's operator)
 report "R7: λ₁(a) is always strictly positive and decays
 superexponentially" to a = 0.5 (their 1.017×10⁻⁶ at a = 0.5 against
-Theorem 1bj's certified enclosure [9.2494, 9.4548]×10⁻⁷ at δ = 1.0,
-above it as a Rayleigh–Ritz value must be), extrapolate it as
-e^{−ca²} — "Extrapolating, λ₁ ∼ 10⁻²⁵ at a = 2 and ∼ 10⁻⁷⁸ at
-a = 6" (δ = 4, against this block's −651.008 nats at δ = 4.0) — and
-list "The exact form of the decay law of λ₁(a)" among their open
-problems: the law of (ii)–(iv) is the answer to that question, and
-none of the four sources states it. Check 7 clean (the explicit
+Theorem 1bj's certified two-sided enclosure at δ = 1.0, Temple
+≥ 2.6832×10⁻⁷ and the trial's Rayleigh quotient ρ ≤ 9.4548×10⁻⁷:
+above the true λ₁ as a Rayleigh–Ritz value must be, above 1bj's ρ
+as an observation — two upper bounds are unordered — their own h²
+extrapolation from their refinement ratio 1.21 landing at
+9.458×10⁻⁷), extrapolate it as e^{−ca²} — "Extrapolating, λ₁ ∼
+10⁻²⁵ at a = 2 and ∼ 10⁻⁷⁸ at a = 6" — which at a = 2 (δ = 4) is
+−57.6 nats against this block's −651.008 at δ = 4.0, a factor
+eleven in the exponent — and list "The exact form of the decay law
+of λ₁(a)" among their open problems. CCM and Connes state the
+leading decay of ε_λ by graph; the law of (ii)–(iv) with the
+finite-δ formula (v) is a candidate answer to that question,
+conjectural for λ₁ itself by (vi), and none of the five sources
+cited in this clause derives a decay law or states the finite-δ
+formula. Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
 plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
 semiclassics; no cascade quantity derived). Check 8 clean (no
