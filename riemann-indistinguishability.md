@@ -6535,6 +6535,94 @@ the equilibrium LPs, the balayage check, the explicit probes —
 committed and cited, imported by neither the instrument nor the
 verifier and in no key.
 
+**Theorem 1bn (the true form certified from above at every cell —
+unconditional, model-free upper bounds on the Weil form's ground state,
+with Connes–Consani–Moscovici's trial vector alongside;
+`cascade_true_form_bounds.py`).** *(i) The object.* Weil's quadratic
+functional itself, no zeros: for a real even g on [−a, a] (δ = 2a) with
+autocorrelation f = g ⋆ g̃, the explicit formula gives
+
+Q(g) = 2ĝ(i/2)² + (ψ(¼) − log π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^{u/2}/sinh u du − 2Σ_{n≥2} Λ(n)n^{−1/2} f(log n)
+
+(Suzuki's (2.11) in this normalisation; verified against the 6700 zeros
+on Gaussian probes to 10⁻¹⁷ and, in the basis below, on a C_c^∞ bump's
+expansion to 10⁻¹⁶ — the latter gated live). In Yoshida's periodic
+class, φ_k = cos(kπt/a), the bilinear autocorrelations f_jk are
+elementary, the archimedean integrals are digamma and trigamma values
+at ¼ + iω/2 less geometric tails over [2a, ∞) — ∫₀^∞ sin(ωu) K du =
+Im ψ(¼ + iω/2), ∫₀^∞ (1 − cos ωu) K du = Re ψ(¼ + iω/2) − ψ(¼),
+∫₀^∞ u cos(ωu) K du = ½ Re ψ′(¼ + iω/2) for K = e^{u/2}/sinh u (gated
+live against quadrature) — the pole term is Re[2 sinh((½ + iω)a)/(½ +
+iω)], and the primes enter as Λ(n)n^{−1/2} f_jk(log n) for n ≤ eᵟ
+(eighteen prime powers at δ = 3.5): the Gram is K × K balls
+(python-flint/ARB, 600–1300 bits; `weil_prime_gram.py`). The Rayleigh
+quotient of any coefficient vector, evaluated in balls, is a rigorous
+upper bound on λ₁(δ) = min Q(g)/‖g‖² over L²(−a, a). *(ii) The
+certificates.* Two trial vectors per cell — the Gram minimiser
+(flint's approximate eigenvector at K2 modes, and at K1 for the
+convergence) and CCM's k_λ = E(h_λ) restricted to the window (their
+(7.6): the prolates h_{0,λ}, h_{4,λ} at bandwidth 2πλ² = T₀ from the
+Legendre tridiagonal with cutoff c + 300, combined to vanishing
+integral, E summed over n ≤ λe^{−t}, the even part projected on K2
+modes at 400–750 bits; `ccm_trial_vector.py`) — at the seven cells,
+keyed on the producer closure (`true_form_cells.py`), every ball's
+radius below 2^{−prec/2}, every lower end positive:
+
+| δ | prime powers ≤ eᵟ | K1/K2 | certified ln λ₁ ≤ (K2) | at K1 | 1bm's model | CCM's k_λ | ln(1 − χ₂) |
+|---|---|---|---|---|---|---|---|
+| 1.0 | 1 | 70/120 | −13.882 | −13.879 | −13.884 | −13.669 | −15.522 |
+| 1.3828125 | 2 | 80/140 | −27.754 | −27.723 | −27.765 | −27.589 | −29.540 |
+| 2.0 | 5 | 100/160 | −67.233 | −67.206 | −67.332 | −66.891 | −69.357 |
+| 2.3 | 7 | 170/260 | −98.268 | −98.234 | −98.330 | −97.881 | −100.445 |
+| 2.6 | 9 | 220/320 | −140.713 | −140.672 | −140.777 | −140.288 | −142.911 |
+| 3.0 | 12 | 280/400 | −221.900 | −221.819 | −221.942 | −221.488 | −224.291 |
+| 3.5 | 18 | 420/540 | −383.283 | −383.176 | −383.219 | −382.800 | −385.754 |
+
+*(iii) What the table says.* The certified bounds sit within 0.1 nats
+of the zero-side model at every cell (+0.002, +0.011, +0.099, +0.062,
++0.064, +0.042, −0.064; gated within 0.15): the same eigenvalue seen
+from the primes and from the zeros — the first with nothing truncated
+but the trial basis, whose refinement only lowers the bound (K1 → K2
+by 0.003–0.107 nats; gated), the second a model. So the slack law of
+Theorem 1bm stands on the true form as an upper bound, unconditionally:
+**−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.27, 140.71, 221.90, 383.28** at
+the seven cells — the positivity margin of Weil's functional on support
+3.5 is at most e^{−383.28} in these units, whatever the zeros do. CCM's
+k_λ, Riemann's construction with prolates in place of Hermite
+functions, sits 0.17–0.48 nats above the minimiser at every cell (gated
+in [0.1, 0.6]): their "educated guess" is within a factor 1.6 of the
+ground state through δ = 3.5; and the minimiser sits 1.64–2.47 nats
+above 1 − χ₂ (computed from the finite-Fourier relation at x = 0, two
+Legendre cutoffs agreeing to 10⁻⁸; below the Fuchs asymptotic by
+0.54–0.04 nats, both gated) — their Figure 4's comparison, certified
+from one side. The odd part of k_λ and the tail of its cosine
+expansion are the Poisson defect of the truncated prolates, of size
+√(1 − χ₂)‖k_λ‖ (5–15 times it at the cells; gated at 30). *(iv) The
+falsification content.* Each certified quotient is a two-sided
+enclosure for its vector; a negative one would have disproved the
+Riemann Hypothesis outright, the forward Weil criterion with the zero
+side never consulted; the twenty-one balls are positive at their lower
+ends at 600–1300 bits. *(v) Cross-checks.* The δ = 1.0 bound
+9.3523×10⁻⁷ exceeds Theorem 1bj's certified Temple lower bound
+2.6832×10⁻⁷ and lies inside 1bj's trial enclosure [9.2494,
+9.4548]×10⁻⁷; the δ = 1.3828125 bound 8.8391×10⁻¹³ exceeds Theorem
+1bl's certified 5.7136×10⁻¹³ — the orderings an upper bound on the
+true λ₁ must satisfy against any certified lower bound, gated at both
+keys; the prime-power lists equal {n ≤ eᵟ : Λ(n) > 0} computed
+independently (gated). *(vi) What is proved, computed, not claimed.*
+Proved: each bound (a ball in the explicit formula's arithmetic side).
+Computed, gated only in their bands: the trial vectors' proximity to
+the minimum; the K-convergence; 1 − χ₂. Not claimed: any lower bound
+beyond 1.3828125 (Temple's spectral gap collapses under the ≈ 2eᵟ
+near-null directions of the dodging space); any Riemann Hypothesis
+consequence — **no Riemann Hypothesis consequence is claimed**. Check 7
+clean (Weil's explicit formula, the digamma representation, Rayleigh
+and Ritz, Legendre–Galerkin prolates — classical; no semiclassics; no
+cascade quantity). Check 8 clean (Riemann-side; no hypothesis input).
+Substrates `weil_prime_gram.py`, `ccm_trial_vector.py` and
+`true_form_cells.py` committed, imported, and content-addressed into
+the verifier's keys by the computed transitive import closure.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
