@@ -28,13 +28,23 @@ fine grid plus bounded refinement, round-290 F290-2) with 0 < c(delta)
 CROSS-CHECKS: the delta = 1.0 cell inside Theorem 1bj's Temple
 enclosure; the delta = 1.3828125 cell above Theorem 1bl's certified
 even bound (and within a factor 2 of it -- the mechanism's band slack).
+(6) THE PRIOR ART's NORMALISATION AND THE RESIDUAL (block (vii),
+round 293): Connes-Consani (zeta-cycles, 2023) and Connes (arXiv
+2602.04022, Feb 2026) report the same eigenvalue's exponential-of-
+exponential decay numerically, the latter matched by graph to the
+prolate law 1 - chi_2 ~ e^{-4 pi e^L + 9L/2}; the normalisation is
+checked live at delta = log 2 (lambda_1 = 1.3292e-3 against their
+"~ 0.00133"), and the cells' residual ln lambda_1 + 4 pi e^delta
+(20.3 ... 32.9) has least-squares slope 5.04 per unit delta, gated in
+[4.5, 5.5] and increasing -- consistent with, not a test of, a shared
+9/2 subleading term.
 
 WHAT IS NOT CLAIMED. The reduction of the true lambda_1 to the
 equilibrium problem (A440 Step 1; A442's five lemmas) is not a
 theorem; the cells are model values with certified upper bounds, not
 certified lower bounds; no Riemann Hypothesis consequence.
 
-Gates (twelve, g0-g11):
+Gates (thirteen, g0-g12):
   g0  the ten checkpoints load at the current keys (executable
       content + the zero list's sha256) with complete states; each
       Rayleigh ball's radius <= 1e-6 of its midpoint and the
@@ -74,6 +84,13 @@ Gates (twelve, g0-g11):
   g10 the chain obligation to cascade_slepian_mechanism.py (Theorem
       1bl) met
   g11 the 1bm paper needles and the footer census (declared surface)
+  g12 the prior-art normalisation LIVE: lambda_1(log 2) on the
+      2000-zero list at 320 bits within 5e-6 of Connes-Consani's
+      "~ 0.00133" (Rayleigh radius < 1e-9); the residuals
+      ln lambda_1 + 4 pi e^delta at the seven cells within 0.05 of
+      the block's 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9,
+      increasing, least-squares slope in [4.5, 5.5] and within 0.01
+      of the block's 5.04
 
 Checks 7/8 clean: the explicit formula, Hadamard, Cartwright, Slepian,
 the Green function of the slit plane, balayage, the maximum principle,
@@ -99,6 +116,9 @@ PAPER_NEEDLES = [
     {'s': '`cascade_slack_law.py`', 'min': 2, 'g': 'g11'},
     {'s': 'the **89 scripts cited in place** above', 'form': 'ws', 'g': 'g11'},
     {'s': 'extended by Theorems 1i–1bm:', 'form': 'ws', 'g': 'g11'},
+    {'g': 'g12', 's': 'λ₁(log 2) = 1.3292×10⁻³', 'form': 'ws'},
+    {'g': 'g12', 's': 'the constant 4π is in print there as the prolate\'s, matched to ε(λ) by graph, not derived for ε(λ)', 'form': 'plain'},
+    {'g': 'g12', 's': 'residual ln λ₁ + 4πeᵟ is 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9, least-squares slope 5.04 per unit δ', 'form': 'ws'},
 ]
 
 fails = []
@@ -266,6 +286,22 @@ for _d_, _n in _miss:
     print(f"  g11 MISSING (count {_n}): {_d_.get('s')!r}", flush=True)
 gate("g11 the 1bm paper needles and the footer census (declared surface)", ok)
 
-print(("\nALL GATES PASS (12/12)" if not fails else
+# ---------------------------------------------------------------- g12
+from slack_law_flint import lam1, load_zeros
+Z2000 = load_zeros(os.path.join(HERE, "checkpoints", "zeta_zeros_2000.json"))
+_lam, rq_log2, m_log2, _, _ = lam1(math.log(2), "even", 320, Z2000, 35)
+v_log2 = float(rq_log2.mid()); r_log2 = float(rq_log2.rad())
+ok = abs(v_log2 - 1.33e-3) <= 5e-6 and r_log2 < 1e-9            # Connes-Consani, zeta-cycles Figure 5: "~ 0.00133"
+res = {c: ST[c]["ln_eig"] + 4*math.pi*math.exp(ST[c]["delta"]) for c in MAIN}
+RES_PINS = {"d1.0": 20.3, "d1.38": 22.3, "d2.0": 25.5, "d2.3": 27.0, "d2.6": 28.4, "d3.0": 30.5, "d3.5": 32.9}
+ok &= all(abs(res[c] - RES_PINS[c]) <= 0.05 for c in MAIN)
+ok &= all(res[MAIN[i]] < res[MAIN[i + 1]] for i in range(len(MAIN) - 1))
+slope = float(np.polyfit([ST[c]["delta"] for c in MAIN], [res[c] for c in MAIN], 1)[0])
+ok &= 4.5 <= slope <= 5.5 and abs(slope - 5.04) <= 0.01
+gate(f"g12 the prior-art normalisation LIVE: lambda_1(log 2) = {v_log2:.5e} (radius {r_log2:.1e}) vs Connes-Consani's "
+     "~ 0.00133; residuals ln lambda_1 + 4 pi e^delta " + ", ".join(f"{res[c]:.1f}" for c in MAIN) +
+     f" (pinned, increasing), least-squares slope {slope:.3f} in [4.5, 5.5] and within 0.01 of 5.04", ok)
+
+print(("\nALL GATES PASS (13/13)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)
 sys.exit(1 if fails else 0)

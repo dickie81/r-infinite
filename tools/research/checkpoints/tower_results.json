@@ -1457,6 +1457,12 @@
 "rc": 0,
 "when": "2026-09-02T00:15Z"
 },
+"87b508d0050774224ecca32f": {
+"dt": 10.697211027145386,
+"file": "cascade_slack_law.py",
+"rc": 0,
+"when": "2026-09-03T16:06Z"
+},
 "88791da7d785eee2696dbb2a": {
 "dt": 44.49750733375549,
 "file": "cascade_saddle_curvature.py",

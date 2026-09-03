@@ -5319,3 +5319,13 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Lead's sweep battery (docstring-only / prose).** Manifest refreshed (22); member 12/12; `run_tower.py`: `census: 0 live PASS + 22 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22).
 
 **Trajectory: 290 (the 1bm landing): 0M+5m+5c → 291: 0M+1m+3c → 292: 0M+0m+4c — CONVERGED. The Theorem 1bm landing is stable.**
+
+### Round 293 — the prior-art clause (vii) of Theorem 1bm and gate g12 (A447)
+
+**Scope.** The commit adding clause (vii) to the stable Theorem 1bm block and gate g12 (plus three needles) to `cascade_slack_law.py`; manifest refreshed (22). The prior art: Connes–Consani, *Spectral triples and ζ-cycles* (2023) sec. 2.5 and Figure 5/18; Connes, arXiv 2602.04022 (February 2026) sec. 6.4 and Figure 1. Full-tower class.
+
+**Lead's battery.** Member 13/13 (g12 live: λ₁(log 2) = 1.32924×10⁻³ against "∼ 0.00133"; residuals pinned; slope 5.043); manifest 22; `run_tower.py`: `census: 1 live PASS + 21 cached PASS + 0 FAIL of 22`, TOWER PASS (22/22), prechecks 72/31, probes 24 and 85.
+
+**Brief.** `brief_round293.md`: nine attack vectors (every quotation against the extracted source texts; the same-eigenvalue and normalisation claim; the figure readings against the rendered pages; Connes' prolate parameter 2πλ² against the horizon; g12's failability and the slope's scoping; the "near radical" reading; self-containment; regressions; anything else).
+
+**Findings.** Pending.

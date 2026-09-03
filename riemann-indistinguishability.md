@@ -6411,7 +6411,48 @@ values are exact for the listed zeros and their smooth count, and only
 the density entered the constant, so the law carries no arithmetic
 content and **no Riemann Hypothesis consequence is claimed** — a
 positivity margin that vanishes doubly exponentially is what Weil's
-criterion looks like from finite support. Check 7 clean (the explicit
+criterion looks like from finite support. *(vii) Prior art, stated
+honestly.* The exponential-of-exponential form of (ii) is in print
+before this block, for the same eigenvalue. Connes–Consani (*Spectral
+triples and ζ-cycles*, Enseign. Math. 69 (2023), arXiv 2106.01715,
+sec. 2.5) computed the smallest eigenvalue s(L) of their semi-local
+Weil form on [λ⁻¹, λ] — this paper's object (Theorem 1bj's fixture
+`oneprime_bridge.py` gates their even sector as the 1az operator
+term by term) with L = 2 log λ the support length, so L = δ, in the
+same normalisation: this block's instrument gives λ₁(log 2) =
+1.3292×10⁻³ (even, the 2000-zero list, 320 bits; gated live) against
+their Figure 5 caption, "The smallest eigenvalue when L = log 2 is
+∼ 0.00133" — and wrote: "One finds an exponential behavior, as
+reported in Figures 18 and 19, where log s(L) is plotted in terms of
+µ = exp L", the plotted curve near-linear in µ = eᵟ to µ ≈ 8 (δ ≈ 2.08;
+roughly −85 there, read from the figure — a graph, no constant
+stated). Connes (*The Riemann Hypothesis: Past, Present and a Letter
+Through Time*, arXiv 2602.04022, February 2026, sec. 6.4) carries
+ε(λ) — the same eigenvalue — to λ² = 17 (δ ≈ 2.83, log ε roughly −175
+read from his Figure 1: the range of this block's δ = 2.6–3.0 cells)
+and states: "The numerical computation of the smallest eigenvalue
+ϵ(λ) of A_λ, done in [25], shows that ϵ(λ) tends exponentially fast to
+0 as a function of µ = λ². In fact a careful analysis reveals a
+striking similarity (Figure 1) between the behavior of ϵ(λ) and of
+the angular function 1 − χ₂(λ)", the prolate eigenvalue deficit at
+bandwidth parameter 2πλ² — which is T₀ = 2πeᵟ, this block's horizon —
+with the Fuchs asymptotic written there as 1 − χ₂ ∼ (2¹⁴/(3√2π⁵))
+e^{−4πe^L + 9L/2}: **the constant 4π is in print there as the
+prolate's, matched to ε(λ) by graph, not derived for ε(λ)**, and the
+route offered to it is the "near radical" of the Weil form under
+Poisson summation (the near-intersection of the time- and
+band-limiting projections), not the zeros. What this block adds: the
+certified cells (balls, measured truncations); the ground state
+described on the zero side ((iii)'s dodging prolate — a description
+of the same vector as his k_λ = E(h_λ) of eq. (17), not compared
+here); the derivation of 4π from the zeros' density alone by
+balayage, conditional on the reduction — which is why a prolate at
+c = T₀ and the zero side share the exponent 2T₀; and the finite-δ
+formula. Against the prolate law's subleading 9L/2, the cells'
+residual ln λ₁ + 4πeᵟ is 20.3, 22.3, 25.5, 27.0, 28.4, 30.5, 32.9,
+least-squares slope 5.04 per unit δ across the seven cells (gated in
+[4.5, 5.5], increasing) — consistent with a shared subleading term
+and no test of it: not claimed. Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
 plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
 semiclassics; no cascade quantity derived). Check 8 clean (no
