@@ -5,7 +5,9 @@ basis of the parity; exact Gauss-Legendre nodes in arb).  Reports lambda_1 by
 an eigenvalue of the ball-midpoint matrix, and (as the check) the Rayleigh
 quotient of the returned eigenvector evaluated in ball arithmetic.
 Usage: slack_law_flint.py <prec> <parity> delta [delta ...]
-Environment: EXTRA (Legendre modes beyond 2 a T_0/pi; default 35 -- the
+Environment: TAIL_PANELS / TAIL_PTS (the smooth-density tail beyond the last
+listed zero: log-spaced panels on [gamma_2000, 200 gamma_2000] and Gauss-Legendre
+points per panel; defaults 50 / 16 as in slack_law_mp.py), EXTRA (Legendre modes beyond 2 a T_0/pi; default 35 -- the
 lambda_1 values converge slowly in it: at delta = 2, 5.896e-30 / 5.775e-30 /
 5.715e-30 for EXTRA = 35 / 80 / 140), CASCADE_ZEROS (zero list).
 Precision: the Bessel evaluations lose ~n/2 nats at order n ~ argument, so prec
@@ -31,8 +33,9 @@ def gram(delta, parity, nz, nmax_extra=35):
     nmax = 2*(int(float((2*a*T0/arb.pi()).mid())) + nmax_extra)
     ns = list(range(0 if parity == "even" else 1, nmax, 2)); m = len(ns)
     gmax = zs[-1]
-    edges = [gmax*(arb(200)**(arb(i)/50)) for i in range(51)]
-    xg, wg = gl(16)
+    NP = int(os.environ.get("TAIL_PANELS", "50")); NG = int(os.environ.get("TAIL_PTS", "16"))
+    edges = [gmax*(arb(200)**(arb(i)/NP)) for i in range(NP + 1)]
+    xg, wg = gl(NG)
     rs = []; ws = []
     for lo, hi in zip(edges[:-1], edges[1:]):
         for xx, ww in zip(xg, wg):
