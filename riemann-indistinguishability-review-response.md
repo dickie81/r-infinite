@@ -5364,4 +5364,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-296 sweep commit (three prose edits in (vii); no verifier change). Prose-only. Brief `brief_round297.md`.
 
-**Findings.** Pending.
+**Reviewer's battery.** Member 13/13 live (ten cells REUSED); `run_tower.py`: 22 cached PASS, TOWER PASS (22/22), prechecks 72/31, probes 24 and 85.
+
+**Findings.** None at any severity. Two observations on unchanged text recorded in A453 (Kim et al.'s exact-arithmetic Rayleigh–Ritz statement; 1bm(vi)'s "Temple enclosure ρ" naming), neither a finding.
+
+**Checked and held (reviewer).** The three swept sentences (arithmetic, rounding band, census of cited papers, the caption's subscript); every unchanged quotation in (vii) verbatim; the priority claim against the earlier texts; 1bj(vi); the 15 needles; the footer census 89; Checks 7/8.
+
+**Trajectory: 295 (the prior-art landing): 0M+4m+4c → 296: 0M+1m+2c → 297: 0 — CONVERGED. Theorem 1bm clause (vii) and 1bj(vi) are stable.**
