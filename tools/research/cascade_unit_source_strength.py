@@ -122,7 +122,17 @@ def main() -> None:
     print(f"  Tested {n_layers} interior layers")
     print(f"  Max relative error: {max_rel_err:.2e}")
     print(f"  Layers with rel_err > 1e-9: {failed}")
-    print(f"  Conclusion: marginal identity holds at machine precision EVERYWHERE")
+    # round-120 F3: this conclusion was previously printed
+    # unconditionally (and the script exited 0 regardless), so the
+    # subprocess gate in cascade_a3_rules.py certified runnability
+    # only.  The conclusion is now conditional and the exit code
+    # carries the verdicts.
+    ok_marginal = failed == 0
+    if ok_marginal:
+        print("  Conclusion: marginal identity holds at machine precision "
+              "EVERYWHERE")
+    else:
+        print(f"  Conclusion: marginal identity FAILS at {failed} layer(s)")
     print()
 
     # Step 2: Source coefficient prefactor analysis
@@ -192,19 +202,31 @@ existing theorem-level cascade results.
     print("-" * 76)
     print(f"{'source':>8}  {'alpha(d*)':>14}  {'G_marg':>14}  {'coefficient':>12}")
     print("-" * 76)
+    ok_coeff = True
     for d_star in [5, 7, 14, 19]:
         G_marg = G[0, d_star - d_min] - G[0, d_star + 1 - d_min]
         a = alpha_cas(d_star)
         coeff = G_marg / a
+        ok_coeff &= abs(coeff - 1.0) < 1e-9
         print(f"{d_star:>8}  {a:>14.6e}  {G_marg:>14.6e}  {coeff:>12.10f}")
     print()
-    print("All four distinguished sources: source coefficient = 1.000... (exact).")
-    print("No fitted prefactor at any layer.")
+    if ok_coeff:
+        print("All four distinguished sources: source coefficient = "
+              "1.000... (exact).")
+        print("No fitted prefactor at any layer.")
+    else:
+        print("SOURCE COEFFICIENT DEVIATES FROM 1 at a distinguished layer.")
     print()
 
     print("=" * 76)
-    print("STATUS: ROADMAP Item 3 CLOSED at theorem level")
+    if ok_marginal and ok_coeff:
+        print("STATUS: ROADMAP Item 3 CLOSED at theorem level")
+    else:
+        print("STATUS: VERDICT FAILURE -- the closure claim does NOT hold "
+              "on this tree")
     print("=" * 76)
+    if not (ok_marginal and ok_coeff):
+        sys.exit(1)
     print("""
 The 'Wronskian normalisation' conjectured in ROADMAP Item 3 IS the
 marginal Green's function identity.  Both are theorem-level cascade
@@ -218,6 +240,13 @@ now resolved: the closure is by assembly, not by Hessian critical-
 point analysis (which was a plausibility hint, not the actual
 mechanism).
 """.rstrip())
+
+    n_fail = sum(0 if ok else 1 for ok in (ok_marginal, ok_coeff))
+    print()
+    print(f"RESULT: {2 - n_fail} pass / {n_fail} fail "
+          "(2 verdicts: marginal identity everywhere; unit coefficient "
+          "at the four sources -- exit gating added round 120 F3)")
+    sys.exit(0 if n_fail == 0 else 1)
 
 
 if __name__ == "__main__":

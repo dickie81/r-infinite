@@ -12,10 +12,20 @@ fitted to match the observed atmospheric neutrino mass?
 This script:
 1. Computes cascade primitives at d=29 (Phi(29), alpha(21), chi=2).
 2. Computes the charged-lepton mass formula extrapolated to d=29
-   (which gives m_4 ≈ 0.5 eV per Part IVb subsec "The fourth generation").
+   (which gives m_4 = 543 eV; Part IVb's prose now carries this value
+   -- the "0.5 eV" units defect this audit originally found at the
+   then-line-936 has since been FIXED in Part IVb, and this script's
+   stale defect report was corrected in review round 124, F7).
 3. Tests various cascade-internal candidate m_29 values and checks
    which (if any) gives 543 eV.
 4. Reports honestly whether m_29 = 543 eV is cascade-internal or fitted.
+
+Round-124 hardening (F1/F7): this script previously returned 0
+unconditionally -- `sys.exit(main())` with `return 0` -- so citing
+it as "gated" was false (the round-120 F3 defect class, third
+instance).  main() now computes verdicts (m_e reproduced at d=21;
+m_29 = 543 eV; the heaviest m_nu at 0.0493 eV vs part4b's quoted
+value; the -0.4% deviation vs 0.0495) and exit-gates on them.
 """
 
 from __future__ import annotations
@@ -91,8 +101,10 @@ def report_charged_lepton_check():
         else:
             print()
     print()
-    print("  -> Charged-lepton formula at d=29 gives m_4 ≈ 0.5 eV.")
-    print("     This is Part IVb subsec 'The fourth generation', line 936.")
+    print("  -> Charged-lepton formula at d=29 gives m_4 = 543 eV, the")
+    print("     value Part IVb's prose now carries (the old '0.5 eV' units")
+    print("     defect was fixed papers-side; round-124 F7 corrected this")
+    print("     script's stale report of it).")
     print()
 
 
@@ -205,14 +217,12 @@ def report_status():
     print("     All ingredients are Part IVb cascade primitives (α_s, v,")
     print("     Φ via digamma, (2√π) topological obstruction).")
     print()
-    print("  2. UNITS DEFECT in Part IVb subsec 'The fourth generation'")
-    print("     (line 936): 'the combined suppression gives m_4 ≈ 0.5 eV'")
-    print("     should read '≈ 0.5 keV' or '≈ 543 eV'.  The cascade-")
-    print("     internal value is 543 eV, off by 1000× from the stated")
-    print("     '0.5 eV'.  This is a TEXT ERROR in Part IVb that conflicts")
-    print("     with the (correct) m_29 ≈ 543 eV cited in the same paper's")
-    print("     Open Questions section.  RECOMMENDED FIX: change 'eV' to")
-    print("     'keV' on line 936 (or equivalently '~543 eV').")
+    print("  2. [RESOLVED -- net-state, round 124 F7] This audit originally")
+    print("     found a units defect ('m_4 ≈ 0.5 eV' for 543 eV) in Part")
+    print("     IVb's then-line-936.  Part IVb has since been fixed (the")
+    print("     prose now carries 543 eV throughout; grep for '0.5 eV'")
+    print("     returns zero) and this script's stale live-defect report")
+    print("     was corrected in review round 124.")
     print()
     print("  3. The full neutrino formula m_nu(Gen g) = m_29 × alpha(d_g)/")
     print("     chi^(29-d_g) IS cascade-internal at the heaviest-mass level:")
@@ -241,9 +251,9 @@ def report_status():
     print("  Lighter neutrino masses + solar splitting + PMNS: open;")
     print("    cascade analogue of mixing-matrix derivation needed.")
     print()
-    print("  Text defect (Part IVb line 936 'm_4 ≈ 0.5 eV'): novel finding,")
-    print("    units typo not flagged in CLAUDE.md or Tier 5 table.")
-    print("    Should be corrected to '~543 eV' or '~0.5 keV'.")
+    print("  Text defect (the old 'm_4 ≈ 0.5 eV'): RESOLVED papers-side;")
+    print("    this script's report of it is retained as history only")
+    print("    (net-state, round 124 F7).")
     print()
 
 
@@ -257,7 +267,33 @@ def main():
     test_neutrino_formula_with_candidate_m29s()
     verify_full_formula()
     report_status()
-    return 0
+
+    # round-124 F1 hardening: verdicts computed and exit-gated (the
+    # script previously returned 0 unconditionally, so subprocess
+    # callers certified runnability only -- the round-120 F3 class).
+    alpha_s, v_GeV, chi = 0.1159, 240.8, 2
+    m_e_eV = charged_lepton_formula(21, 3, alpha_s, v_GeV) * 1e9
+    m29_eV = charged_lepton_formula(29, 4, alpha_s, v_GeV) * 1e9
+    m_nu = m29_eV * alpha(21) / chi**8
+    dev = (m_nu - 0.0495) / 0.0495 * 100
+    verdicts = [
+        ("m_e reproduced at d=21 within 1%",
+         abs(m_e_eV - 0.511e6) / 0.511e6 < 0.01),
+        ("m_29 = 543 eV (part4b's committed value) within 1 eV",
+         abs(m29_eV - 543.0) < 1.0),
+        ("heaviest m_nu rounds to part4b's quoted 0.0493 eV",
+         abs(m_nu - 0.0493) < 5e-5),
+        ("deviation vs sqrt(Dm2_atm) = 0.0495 eV within -1% .. 0%",
+         -1.0 < dev < 0.0),
+    ]
+    n_fail = 0
+    for name, ok in verdicts:
+        print(f"  VERDICT {name}: {'PASS' if ok else 'FAIL'}")
+        n_fail += 0 if ok else 1
+    print()
+    print(f"RESULT: {len(verdicts) - n_fail} pass / {n_fail} fail "
+          "(4 verdicts -- exit gating added round 124 F1)")
+    return 0 if n_fail == 0 else 1
 
 
 if __name__ == "__main__":

@@ -56,7 +56,7 @@ The cascade invariant
 \[
 I = \max_{(d_0,d_1,d_2)}\;\frac{\Omega_5^2}{\Omega_{d_0}^2}\;\Omega_{d_1}\;\Omega_{d_2}
 = \frac{9}{\pi^2}\;\Omega_{19}\;\Omega_{217}
-= 1.0990\times 10^{-120},
+= 1.0989\times 10^{-120},
 \]
 where the supremum runs over integer labelings of the three boundary pairs
 $(d_0,d_1,d_2) \in \{6,7\}\times\{19,20\}\times\{217,218\}$ and the unique
@@ -1150,7 +1150,7 @@ proved.
 \end{remark}
 
 \begin{theorem}[Evaluation]
-$I = 1.0990\times 10^{-120}$.
+$I = 1.0989\times 10^{-120}$.
 \end{theorem}
 
 \begin{proof}
@@ -1160,7 +1160,13 @@ $\Omega_{19} = 0.51614$.\;
 $\Omega_{217} = 2.33490\times 10^{-120}$.\;
 $(\Omega_5/\Omega_7)^2 = 9/\pi^2 = 0.91189$.\;
 Product: $0.91189\times 0.51614\times 2.33490\times 10^{-120}
-= 1.0990\times 10^{-120}$.
+= 1.09895\times 10^{-120}$; unrounded factors give the exact
+$I = 1.098945\times 10^{-120} = 1.0989\times 10^{-120}$ to five
+significant figures. (An earlier version displayed
+$I = 1.0990\times 10^{-120}$ throughout: the rounded intermediates
+above compound to $1.09895$, which rounds up, while the exact value
+rounds to $1.0989$ --- last digit corrected at every occurrence,
+external review round 73.)
 \end{proof}
 
 \subsection{Variational characterisation}\label{sec:variational}
@@ -1194,7 +1200,7 @@ d_2\in\{217,218\}.
 \]
 The supremum is attained uniquely at $(d_0,d_1,d_2) = (7,19,217)$,
 giving $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2
-= 1.0990\times 10^{-120}$.
+= 1.0989\times 10^{-120}$.
 \end{theorem}
 
 \begin{proof}
@@ -1212,7 +1218,7 @@ $\Omega_{d_1}$ and $\Omega_{d_2}$:
 These three extremal choices give $(d_0,d_1,d_2) = (7,19,217)$. Full
 enumeration of all eight labelings is given in
 \texttt{tools/verifiers/verify\_continuous\_boundary.py}; the argmax is unique
-and its value is $1.0990\times 10^{-120}$.
+and its value is $1.0989\times 10^{-120}$.
 \end{proof}
 
 \begin{remark}[The variational form replaces integer labelling conventions]
@@ -1224,25 +1230,109 @@ continuous-crossing value all give smaller invariants: uniform floor
 differs by $3.7\%$, uniform ceiling and nearest integer differ by
 $\sim 90\%$, and the continuous value differs by $\sim 79\%$. The
 supremum $(7,19,217)$ is the only labelling that reproduces the
-observed $\rho_\Lambda/M_{\mathrm{Pl,red}}^4 =
-(1.10\pm 0.02)\times 10^{-120}$ within observational precision
-($0.1\%$). The $0.1\%$ match is therefore the statement that the
-supremum of the cascade invariant over boundary labelings coincides
-with the observed vacuum energy density, not that a particular
+observation: Planck 2018 gives $\rho_\Lambda/M_{\mathrm{Pl,red}}^4 =
+(7.150\pm 0.13)\times 10^{-121}$ (Part~I), which pulled back to
+invariant units through Part~I's closure
+$\rho_\Lambda/M^4 = (2/\pi)\,e^{0.02108}\,I$ corresponds to
+$I_{\mathrm{obs}} = (\pi/2)\,e^{-0.02108}\cdot(7.150\pm 0.13)\times
+10^{-121} = (1.10\pm 0.02)\times 10^{-120}$, matched by the supremum
+to $0.1\%$ --- well inside the $1.9\%$ Planck $1\sigma$ uncertainty
+(Part~I). (An earlier version of this
+sentence labelled $(1.10\pm 0.02)\times 10^{-120}$ directly as ``the
+observed $\rho_\Lambda/M_{\mathrm{Pl,red}}^4$''; that figure is the
+observation in invariant units --- unit label corrected, external
+review round 69.) The $0.1\%$ match is therefore the statement that
+the supremum of the cascade invariant over boundary labelings
+coincides with the observed vacuum energy density expressed in the
+invariant's own units, not that a particular
 rounding rule happens to hit the right value.
 \end{remark}
 
 \begin{remark}[Uniqueness of max over min]
 The variational form selects the supremum rather than the infimum.
-The infimum $(6,20,218)$ gives $1.02\times 10^{-121}$, two orders of
-magnitude below observation. Selecting max over min is not arbitrary:
+The infimum $(6,20,218)$ gives $1.02\times 10^{-121}$, an order of
+magnitude ($\approx 10.8\times$) below observation. (An earlier
+version of this sentence said ``two orders of magnitude''; the ratio
+$1.10\times 10^{-120}/1.02\times 10^{-121}\approx 10.8$ is one order
+--- corrected, external review round 62.) Selecting max over min is
+not arbitrary:
 the cascade invariant is a content-measuring quantity (product of
 sphere areas with a bilinear frame correction), and the physically
 meaningful representative of a content is the largest realisation its
 structure permits. A principled derivation of max from the cascade's
 own axioms---connecting the supremum to a distinguished quantity such
 as an entropy, a boundary area, or a characteristic of the observer's
-layer---remains open.
+layer---remains open. (Three exact reformulations narrow the question:
+over the eight labelings the supremum is equivalently (i) the
+labelling minimising the de~Sitter horizon entropy
+$S = 24\pi^2 M^4_{\mathrm{Pl,red}}/\rho_\Lambda$, which is strictly
+decreasing in the invariant; (ii) the \emph{odd} member of each
+straddling pair---the Euler-null sphere, $\chi(S^d) = 0$, the same
+Euler characteristic whose value $\chi(S^{2n}) = 2$ weights the
+potential-shift family below (Section~\ref{sec:inter-layer-coupling}
+onward); indeed all four distinguished
+dimensions $\{5, 7, 19, 217\}$ are odd; and (iii) arithmetically: the
+supremum's twist points $s = d+1 \in \{8, 20, 218\}$ are even---the
+Euler-rational points $\zeta(s) \in \mathbb{Q}\cdot\pi^s$, whose
+functional-equation mirrors $\zeta(1-s)$ are nonzero rationals---while
+the infimum's twist points $\{7, 21, 219\}$ mirror exactly onto the
+trivial zeros $\zeta(-6) = \zeta(-20) = \zeta(-218) = 0$: the supremum
+is the unique labelling avoiding the trivial-zero mirror set. In
+local form, (iii) reads: the infimum's twist points are poles of
+the archimedean local functional equation's transfer coefficient
+$\gamma_\infty(s) = \Gamma_{\mathbb{R}}(1-s)/\Gamma_{\mathbb{R}}(s)$
+(Tate), while the supremum's are its regular points --- so a single
+non-degeneracy principle, \emph{integer labels at regular points of
+the local functional equation}, forces the supremum outright, with
+the variational characterisation's output and all the reformulations
+above as corollaries. That per-label principle has an exactly
+equivalent reformulation on the invariant as a whole: the invariant,
+branch-swapped through the functional equation $s \mapsto 1-s$
+(every weight $2/\Gamma_{\mathbb{R}}(d+1)$ replaced by the mirror
+layer's $2/\Gamma_{\mathbb{R}}(-d)$), must evaluate to a finite
+nonzero value --- \emph{mirror coherence}. Since
+$\Gamma_{\mathbb{R}}$ never vanishes, this holds exactly when every
+label's mirror weight is nonzero, i.e.\ it is the per-label
+principle restated, not a logically prior requirement. Over the
+eight labelings the mirrored invariant evaluates finite-nonzero
+uniquely at the supremum; it is zero three times, infinite once,
+and an indeterminate $0\cdot\infty$ form (no exact value) three
+times --- so the supremum's uniqueness is a statement about exact
+values of the defining formula, not about regularised limits, one
+of which is finite. (An earlier version of this parenthetical
+stated ``infinite four times'' and framed coherence as a single
+requirement one level up; both were corrected --- three of the four
+are indeterminate forms, and the reformulation is an exact
+equivalent.) The fixed interior landmark $d_V = 5$ carries nonzero
+mirror weight $-15/(4\pi^3)$; since the mirror weight vanishes at
+every even layer, this is the parity fact that $d_V$ is odd,
+restated. Mirror coherence is adopted, not derived: the open
+question is unchanged --- whether the principle, in either face,
+follows from the cascade's axioms.) (Adjudicated for the committed
+record: it does not follow from them as committed --- the axioms'
+asserted content quantifies over the descent lattice and its
+weights, while the principle constrains the weight function at
+negative arguments, which no axiom governs; and each of its five
+equivalent faces is either an extremal convention, an unbacked
+parity rule, or an off-lattice condition. The question thereby
+becomes foundational: whether the weight function's global
+identity --- its continuation and functional equation --- is
+axiom content. That choice has now been made --- the review
+programme's round 98, by the owner's decision: the kernel is taken
+as $\Gamma_{\mathbb{R}}$ \emph{entire} (the owner's phrase;
+``entire'' in the sense of \emph{in its entirety} --- the function
+itself is meromorphic, its poles load-bearing), the global function
+with its functional-equation role, carrying mirror coherence as its
+non-degeneracy clause, worded as the boundary-labelling
+\emph{selector} --- and the labelling $(7,19,217)$ is thereby
+forced, with the variational characterisation's output and all the
+reformulations above following as corollaries; the variational
+characterisation of the Evaluation theorem thereby becomes an exact
+\emph{characterisation} rather than the primitive selector, its
+argmax provably coinciding with the clause-selected labelling. The cost is recorded
+in the open: the axiom enlarges from a lattice-value table to the
+global function with one clause; the adoption adds no empirical
+content and changes no number.)
 \end{remark}
 
 % ============================================================
@@ -1274,7 +1364,7 @@ Product: $\approx 277$ nats $\approx 120$ decades.
 \section{Robustness}\label{sec:robustness}
 % ============================================================
 
-The cascade invariant $I = 1.0990\times 10^{-120}$ is a pure number from
+The cascade invariant $I = 1.0989\times 10^{-120}$ is a pure number from
 the Gamma function. It was not constructed to match any physical quantity.
 The identification of $I$ with the dimensionless cosmological constant,
 and the observer-frame conversion that makes the numerical comparison
@@ -1922,7 +2012,7 @@ Step & Statement & Source \\
 15 & Scale: ratio $\Omega_5/\Omega_7 = 3/\pi$; exponent~2 & Thm~\ref{thm:twoscales}; Lem~\ref{lem:bilinear} \\
 16 & $I = 9\,\Omega_{19}\,\Omega_{217}/\pi^2$; unique bilinear form & Thm~\ref{thm:invariant} \\
 17 & $I = \sup_{\text{labelings}}$ over boundary pairs; argmax $(7,19,217)$ & Thm~\ref{thm:variational} \\
-18 & $I = 1.0990\times 10^{-120}$ & Computation \\
+18 & $I = 1.0989\times 10^{-120}$ & Computation \\
 19 & $120\approx\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10$ & Thm~\ref{thm:hierarchy} \\
 \bottomrule
 \end{tabular}
@@ -1977,7 +2067,7 @@ $I_0 = 0.51614\times 2.33490\times 10^{-120}
 $9/\pi^2 = 0.91189$\;$\checkmark$
 
 $I = 0.91189\times 1.2051\times 10^{-120}
-= 1.0990\times 10^{-120}$\;$\checkmark$
+= 1.0989\times 10^{-120}$\;$\checkmark$
 
 $\pi e^{2\sqrt{\pi}}(2\sqrt{\pi}-1)/\ln 10 = 120.27$\;$\checkmark$
 

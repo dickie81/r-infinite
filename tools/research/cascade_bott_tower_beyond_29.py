@@ -16,6 +16,25 @@ This script:
      are "exp-suppressed and invisible".
   3. Identifies the empirical input that distinguishes "source mass"
      from "charged 4th generation".
+
+REPAIR (the round-124 by-catch, adjudicated then; applied at the
+A250 commit): this script's mass formula originally used the
+exponent (2 sqrt(pi))^-(n_D+1) and thereby dropped one factor of
+2 sqrt(pi) against the committed convention -- its d=29 row printed
+1999 eV against the committed 543 eV, and its tower rows (0.70 eV,
+105 microeV) sat one factor above part4a's prose (0.2 eV,
+30 microeV).  The adjudication (lead-verified at round 124):
+part4a's prose is the correct side.  The exponent is now
+(n_D + 2); with it, AT THE COMMITTED INPUTS (alpha_s = 0.1159,
+v = 240.8 GeV -- installed at the round-154 sweep, F1: the first
+repair ran observed scales and misattributed the residuals), the
+formula reproduces m_e at d=21 (514.07 keV vs 511, +0.60% --
+part4b's documented leading-order precision), the committed
+543 eV at d=29 (542.7, within 1 eV), and the prose tower at its
+one-significant-figure rounding (0.191 eV at d=37 -> 0.2;
+28.5 microeV at d=45 -> 30; "exactly" retired round 154 F5).
+The pre-repair table values remain quoted in the
+participation-rule verifier's by-catch gate as recorded history.
 """
 
 from __future__ import annotations
@@ -59,9 +78,17 @@ CHI = 2
 SQRT_PI = math.sqrt(math.pi)
 TWOSQRTPI = 2 * SQRT_PI
 
-# Cascade input scales (from Part IVb)
-ALPHA_S = 0.1179
-V_GEV = 246.0
+# The COMMITTED formula inputs (part4b's own "where" clause: alpha_s =
+# 0.1159, v = 240.8 GeV -- the cascade-leading values, the same inputs
+# the gated cascade_neutrino_mass_audit.py runs).  Round 154 F1: the
+# first repair left the script on OBSERVED scales (0.1179, 246.0) and
+# misattributed the resulting 3.9-4.5% residuals to "the formula's
+# leading-order precision"; 0.1179 is moreover part4b's closure
+# OUTPUT, not a formula input.  At the committed inputs the formula
+# lands m_29 within 1 eV of 543 and m_e at +0.60% -- part4b's
+# documented leading-order precision.
+ALPHA_S = 0.1159
+V_GEV = 240.8
 M_PRE_EV = (ALPHA_S * V_GEV * 1e9 / math.sqrt(2))   # alpha_s v / sqrt(2)
 ME_EV = 510_998.95
 
@@ -69,9 +96,13 @@ ME_EV = 510_998.95
 def cascade_mass(d: int, n_D: int) -> float:
     """Cascade fermion mass formula at a Dirac layer.
 
-    m(d) = (alpha_s v / sqrt(2)) * exp(-Phi(d)) * (2 sqrt(pi))^(-(n_D+1))
+    m(d) = (alpha_s v / sqrt(2)) * exp(-Phi(d)) * (2 sqrt(pi))^(-(n_D+2))
+
+    The exponent is n_D + 2 per the committed convention (the A250
+    repair -- the original n_D + 1 dropped one 2 sqrt(pi) factor;
+    see the REPAIR note in the module docstring).
     """
-    return M_PRE_EV * math.exp(-Phi_cascade(d)) * TWOSQRTPI ** (-(n_D + 1))
+    return M_PRE_EV * math.exp(-Phi_cascade(d)) * TWOSQRTPI ** (-(n_D + 2))
 
 
 # ---------------------------------------------------------------------------
@@ -136,7 +167,15 @@ def check_invisibility_claim():
     print(f"  m_e = {m_e/1e6:.3f} MeV")
     print(f"  Implied 4th-gen charged lepton mass:")
     print(f"    m_4 = m_e / 289 = {m_29_charged_lepton:.0f} eV")
-    print(f"  (The cascade formula directly gives 543 eV, consistent.)")
+    print(f"  (The committed cascade value is m_29 = 543 eV; at the")
+    print(f"  committed inputs the formula gives 542.7 eV, within 1 eV")
+    print(f"  (round 154 F1 -- this script's A250-commit text said 'the")
+    print(f"  repaired formula gives 564 eV at leading order'; quote")
+    print(f"  fidelity fixed round 155 F1 -- an observed-inputs")
+    print(f"  artifact).  m_e/289 = 1768 eV is the")
+    print(f"  '289x' prose reading; the full committed ratio is")
+    print(f"  m_e/543 = 941.  Wording tightened at the A250 repair -- the")
+    print(f"  old parenthetical called 1768 and 543 'consistent'.)")
     print()
     print(f"  If d=29 hosted a CHARGED lepton at 543 eV:")
     print(f"    - LEP would see it directly (sensitive to charged leptons up to ~100 GeV)")
@@ -169,8 +208,11 @@ def cascade_tower_beyond_29():
     print(f"  Cascade-formula masses for higher Bott layers:")
     print()
     print(f"  {'d':>4}  {'cascade mass':>14}  {'phys interp':<35}")
-    for i, d in enumerate([5, 13, 21, 29, 37, 45, 53, 61, 69, 77, 85, 93, 101, 109, 117, 213]):
-        n_D = i
+    for d in [5, 13, 21, 29, 37, 45, 53, 61, 69, 77, 85, 93, 101, 109, 117, 213]:
+        # round 154 F2: n_D from the layer index, not the list index --
+        # the old n_D = i broke at d=213 (list index 15 vs the true 26),
+        # printing a step-3 mass (2 sqrt(pi))^11 above step 1's own row.
+        n_D = (d - 5) // 8
         m = cascade_mass(d, n_D)
         if d == 5:
             interp = "Gen 3 charged (m_tau)"
@@ -194,8 +236,10 @@ def cascade_tower_beyond_29():
     print()
     print(f"  Key observation: cascade masses approach ZERO rapidly.")
     print(f"  By d=37, m ~ 0.1-1 eV (neutrino mass scale).")
-    print(f"  By d=45, m ~ tens of meV.")
-    print(f"  By d=53, m ~ tens of micro-eV.")
+    print(f"  By d=45, m ~ tens of micro-eV (28.5).  By d=53, m ~ a few")
+    print(f"  neV (2.1).  (Round 154 F3: the original lines said 'tens of")
+    print(f"  meV' and 'tens of micro-eV' -- off by ~10^3 against the")
+    print(f"  script's own table under either exponent convention.)")
     print()
     print(f"  CASCADE-INTERNAL STOPPING CRITERION?")
     print(f"  - The cascade text explicitly invokes d=29 only.")
@@ -290,7 +334,7 @@ def verdict():
     print("  mentioned ('5, 13, 21, 29, ...') but never assigned a role.")
     print()
     print("  IF cascade fermions exist at d=29 as 'source masses' (Reading B), why")
-    print("  not also at d=37 (m ~ 0.2 eV), d=45 (m ~ 0.04 meV), etc.?  These would")
+    print("  not also at d=37 (m ~ 0.2 eV), d=45 (m ~ 0.03 meV), etc.?  These would")
     print("  also source neutrino mass corrections (sub-leading) and contribute to")
     print("  cosmological N_eff via thermal production.")
     print()
