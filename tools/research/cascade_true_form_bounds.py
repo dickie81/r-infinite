@@ -30,7 +30,10 @@ Poisson defect sqrt(1 - chi_2) ||k_lambda|| (observed 3.7-10.6 times);
 the cosine tail at most 5 percent of the odd part (observed 0.47-1.79 percent). (5) CROSS-CHECKS: the delta = 1.0 upper bound >=
 Theorem 1bj's certified Temple lower bound (loaded at its key) and the
 delta = 1.3828125 upper bound >= Theorem 1bl's certified even bound -- an
-upper bound on the true lambda_1 must exceed any certified lower bound.
+upper bound on the true lambda_1 must exceed any certified lower bound;
+clause (v)'s two sentences as declared needles, parsed and pinned
+directionally (F301-2), the enclosure at its parsed exponent with
+tolerances on both sides (F302-1).
 (6) THE GRAM LIVE: the prime-side Q of a C_c^inf bump's cosine expansion
 against sum_gamma |ghat(gamma)|^2 over the 6700 zeros plus the smooth
 tail, at delta = 1 and 2, to 1e-13 relative. (7) THE ARCHIMEDEAN
@@ -195,11 +198,19 @@ def _nums(t):   # every a×10^b in the literal, in order
 v1 = _nums(V1); v2 = _nums(V2)
 # V1: the bound (an upper bound: stated >= stored, within 1e-4), 1bj's Temple (stated <= loaded), the enclosure ends outward of rho
 ok &= len(v1) == 3 and 0 <= v1[0] - up10 <= 1e-4*up10 and v1[1] <= even10["temple_lo"] <= v1[1]*(1 + 1e-4)
-_rlo = float(V1.split('[')[1].split(',')[0]); _rhi = float(V1.split(', ')[1].split(']')[0])
-ok &= _rlo*1e-7 <= even10["rho"][0] and even10["rho"][1] <= _rhi*1e-7 and _rlo*1e-7 <= up10 <= _rhi*1e-7
+# the enclosure: both ends scaled by the PARSED exponent (round-302 F302-1: the scale was hardcoded and the outward side
+# untoleranced), outward of the stored rho within 1e-4 relative, containing the delta = 1.0 upper bound; the parsed
+# v1[2] (the upper end with its exponent) tied to the same value
+_m = _re.search(r'\[([0-9.]+), ([0-9.]+)\]×10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)', V1)
+_sc = 10**int(_m.group(3).translate(_sup)); _rlo = float(_m.group(1))*_sc; _rhi = float(_m.group(2))*_sc
+ok &= _rlo <= even10["rho"][0] <= _rlo*(1 + 1e-4) and _rhi*(1 - 1e-4) <= even10["rho"][1] <= _rhi and _rlo <= up10 <= _rhi
+ok &= abs(v1[2] - _rhi) <= 1e-12*_rhi
 ok &= len(v2) == 2 and 0 <= v2[0] - up138 <= 1e-4*up138 and v2[1] <= mech["final"] <= v2[1]*(1 + 1e-4)
 gate(f"g5 cross-checks: the delta = 1.0 upper bound {up10:.7e} >= 1bj's certified Temple {even10.get('temple_lo')}; "
-     f"the delta = 1.3828125 upper bound {up138:.7e} >= 1bl's certified {mech['final']:.7e}", ok)
+     f"the delta = 1.3828125 upper bound {up138:.7e} >= 1bl's certified {mech['final']:.7e}; clause (v)'s two sentences present "
+     "as declared needles, tied to the declared entries and parsed: the stated upper bounds >= the stored uppers within 1e-4, the "
+     "quoted 1bj/1bl bounds <= the loaded certificates within 1e-4, the enclosure (both ends at the parsed exponent) outward of "
+     "the stored rho within 1e-4 and containing the delta = 1.0 upper bound", ok)
 
 # ---------------------------------------------------------------- g6
 import mpmath as mp

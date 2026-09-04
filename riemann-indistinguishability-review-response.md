@@ -5406,4 +5406,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-301 sweep commit. Full-tower class. Brief `brief_round302.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 1 cosmetic — both verified and swept (A459): F302-1 clause (v)'s enclosure pinned at its parsed exponent with tolerances on both sides and the parsed upper end tied; F302-2 g5's label and docstring item (5) describe the (v) conjuncts. Sweep battery: member 13/13 (fifteen needles); manifest 23; TOWER PASS 23/23 (1 live + 22 cached). **Trajectory: 298 (the 1bn landing): 0M+4m+6c → 299: 0M+3m+1c → 300: 0M+1m+2c → 301: 0M+2m+2c → 302: 0M+1m+1c → 303: convergence round commissioned.**
+
+### Round 303 — convergence test on the round-302 sweep (Theorem 1bn)
+
+**Scope.** The round-302 sweep commit. Full-tower class. Brief `brief_round303.md`.
+
 **Findings.** Pending.

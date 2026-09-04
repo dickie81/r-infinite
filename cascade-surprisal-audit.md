@@ -18162,3 +18162,17 @@ Certified − model: +0.002, +0.011, +0.099, +0.062, +0.064, +0.043, −0.064 (t
 **Round 302 (convergence) commissioned** on the sweep commit (brief `brief_round302.md`).
 
 ---
+
+## Addendum 459 — round 302 (the convergence test on the round-301 sweep): 0 MAJOR, 1 minor, 1 cosmetic, both verified and swept — clause (v)'s enclosure now pinned at its parsed exponent with tolerances on both sides; round 303 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F302-1 (minor, verified, ACCEPTED).** The round-301 pin on the enclosure `[9.2494, 9.4548]×10⁻⁷` scaled both ends by a hardcoded `1e-7` and never used the parsed `v1[2]`, so a co-edit of the exponent (the reviewer's E11 `×10⁻⁸`, E11b `×10⁻⁶`) passed the member and the tower; and the outward side carried no tolerance, so an arbitrarily loose enclosure (E12 `[9.0000, 10.000]`) passed as well — the F301-2 class, narrower. Swept as the reviewer proposed: the enclosure parsed by the regex `\[([0-9.]+), ([0-9.]+)\]×10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)` from the declared V1 literal, both ends scaled by the parsed exponent, pinned `lo ≤ ρ₀ ≤ lo(1 + 10⁻⁴)` and `hi(1 − 10⁻⁴) ≤ ρ₁ ≤ hi` with `lo ≤ up10 ≤ hi`, and `v1[2]` tied to `hi` within 10⁻¹² relative. The lead re-ran the reviewer's E11/E12 constructions against the swept verifier (scratchpad mirror): each now fails g5; the committed surface passes.
+- **F302-2 (cosmetic, ACCEPTED).** g5's label now names the (v) conjuncts (the two needles present, the declared-list tie, the parsed pins with their tolerances, the enclosure at its parsed exponent); docstring item (5) carries the same.
+
+**Checked and held (reviewer).** F301-1 closes (a row and its needle co-edited with `ROW_CLAIMS` stale fails g1; an extra g1-tagged entry fails g1); F301-2 closes for the four scalar values (E2a/E2b/E3/E5/E6/E7/E8 each fail g5); no spurious g5 failure on reflow; every (v) number against the loaded certificates (up10 = 9.3523051×10⁻⁷ stated 9.3524, rel 1.0×10⁻⁵; Temple 2.6832443×10⁻⁷ stated 2.6832; ρ ⊂ [9.2494, 9.4548]×10⁻⁷ outward by 1.2×10⁻¹² and 5.2×10⁻¹²; up138 = 8.8391354×10⁻¹³ stated 8.8392; 1bl 5.7135604×10⁻¹³ stated 5.7134 as 1bl line 6225 states it); the swept parenthetical against g6's prints; the table, bold line and (iii) re-derived from the stored balls (bold margins 0.0025–0.0098; every range at its extreme cell); needles 15 = 5 + 8 + 2, each present once at its form; census 90 body-only (the body's 91 minus the audited-not-counted `cascade_greens_function.py`); the manifest hash and the four keying pins by recount; the precheck clauses A–I live on the new g5 code; Checks 7/8. Pre-existing naming inconsistency noted outside the diff ("Theorem 1bj's Temple enclosure ρ" in 1bm(vi) vs "1bj's trial enclosure" in 1bn(v)) — held for a later editorial pass, no claim differs.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 23; `CASCADE_CHAIN=manifest python3 tools/research/cascade_true_form_bounds.py` → 13/13 (seven cells REUSED; fifteen needles); `python3 tools/research/run_tower.py` → manifest integrity 23 / 4 pins; needle precheck 76 reach files / 32 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 22 cached PASS + 0 FAIL of 23`; **TOWER PASS (23/23)**.
+
+**Round 303 (convergence) commissioned** on the sweep commit (brief `brief_round303.md`).
+
+---
