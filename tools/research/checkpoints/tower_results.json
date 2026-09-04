@@ -557,6 +557,12 @@
 "rc": 0,
 "when": "2026-08-28T11:26Z"
 },
+"2ae15b687127a3250c22df9d": {
+"dt": 84.06708431243896,
+"file": "cascade_true_form_bounds.py",
+"rc": 0,
+"when": "2026-09-04T01:24Z"
+},
 "2c1e9a90dca96111be19acf1": {
 "dt": 188.70066213607788,
 "file": "cascade_lattice_forcing.py",
