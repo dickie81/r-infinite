@@ -18130,3 +18130,19 @@ Certified − model: +0.002, +0.011, +0.099, +0.062, +0.064, +0.043, −0.064 (t
 **Round 300 (convergence) commissioned** on the sweep commit (brief `brief_round300.md`).
 
 ---
+
+## Addendum 457 — round 300 (the convergence test on the round-299 sweep): 0 MAJOR, 1 minor, 2 cosmetic, all verified and swept — the minor: the block's numeric claims (the bold line, the three pinned columns) had no paper-side needle, so a regression of round 299's kind would pass the tower; now the bold line and the seven table rows are declared needles, and g1 parses those literals back against the pins, the cells' parameters and the stored model / 1 − χ₂ values; the precheck's clauses C and D shaped the implementation (a member may read its own needle list only through the needle API, and each needle call must carry its literal); round 301 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F300-2 (minor, verified, ACCEPTED).** The reviewer showed on scratchpad copies that dropping 140.71 from the bold line, or drifting the δ = 1.0 K2/K1 entries by 0.001 beyond their balls, left all five 1bn needles satisfied and g1 (which reads the verifier's own literals) passing. Swept: eight needles added — the bold line (plain form) and the seven table rows (ws form) — and g1 now (i) proves each literal declared and present through `paper_needles.needle(PAPER_NEEDLES, <literal>, <form>)` (clause D: literal arguments; clause C: the declared list read only through the API — the first attempt, a comprehension over PAPER_NEEDLES, was refused by the precheck, then a variable-argument needle call), (ii) parses the row literals and checks δ, the prime-power count, K1/K2, the three pinned columns (equal to the pins), the model column (the stored 1bm ln λ₁ to 10⁻³) and the 1 − χ₂ column (stored, to 10⁻³), and (iii) checks each bold value is the floor to 10⁻² of the stored −ln upper.
+- **F300-1 (cosmetic, ACCEPTED).** Four ranges widened to their extreme cells: 2.470982 → "1.63–2.48"; 0.0385 → "0.54–0.03"; 0.003823 → "0.003–0.107"; the docstring "0.47-1.79 percent" (0.4756 % at δ = 3.0).
+- **F300-3 (cosmetic, ACCEPTED).** "to 10⁻¹⁶ — the latter gated live" → "below 10⁻¹⁵ (6.2 and 6.9×10⁻¹⁶ relative) — the latter gated live at 10⁻¹³".
+- Observation swept: the `K1_PINS` conjunct carries the `is not None` guard.
+
+**Checked and held (reviewer).** The seven bold values as floors of the stored −ln uppers (margins 0.0025–0.0098); the three pinned columns entry by entry against the table and the balls; g1 failing in both directions on six mangled copies; the model and 1 − χ₂ columns to the nearest 10⁻³; (iii)'s differences equal to g2's prints; the swept ranges and factors (1.6209; 4.31480; 1.82596; 3.7216–10.5164; 3.303–12.015 %); (v)'s values and their directions; the table's structure (K1/K2, prime-power counts, bit counts, cutoffs, radii 2^{−587}…2^{−1284}); the needles' counts; the census 90; the manifest and keying pins; the cells REUSED at their keys; CCM (7.6), Lemma 7.1, the Figure 4 caption and Suzuki's (2.11) against the fetched texts; the footer; Checks 7/8.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 23; `CASCADE_CHAIN=manifest python3 tools/research/cascade_true_form_bounds.py` → 13/13 (seven cells REUSED; g12 with thirteen needles); `python3 tools/research/run_tower.py` → manifest integrity 23 / 4 pins; needle precheck 76 reach files / 32 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 22 cached PASS + 0 FAIL of 23`; **TOWER PASS (23/23)** (two earlier tower runs on this sweep failed the needle precheck on clauses C and D and were fixed as described).
+
+**Round 301 (convergence) commissioned** on the sweep commit (brief `brief_round301.md`).
+
+---

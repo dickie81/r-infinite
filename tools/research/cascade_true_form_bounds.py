@@ -23,7 +23,7 @@ within [0.1, 0.6] nats above the minimiser's (same subspace); its build
 diagnostics: the finite-Fourier checks of psi_0 and psi_4 agreeing at
 two points to 1e-10; the odd part of k_lambda at most 30 times the
 Poisson defect sqrt(1 - chi_2) ||k_lambda|| (observed 3.7-10.6 times);
-the cosine tail at most 5 percent of the odd part (observed 0.48-1.79 percent). (5) CROSS-CHECKS: the delta = 1.0 upper bound >=
+the cosine tail at most 5 percent of the odd part (observed 0.47-1.79 percent). (5) CROSS-CHECKS: the delta = 1.0 upper bound >=
 Theorem 1bj's certified Temple lower bound (loaded at its key) and the
 delta = 1.3828125 upper bound >= Theorem 1bl's certified even bound -- an
 upper bound on the true lambda_1 must exceed any certified lower bound.
@@ -62,6 +62,16 @@ PAPER_NEEDLES = [
     {'s': '`cascade_true_form_bounds.py`', 'min': 2, 'g': 'g12'},
     {'s': 'the **90 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
     {'s': 'extended by Theorems 1i–1bn:', 'form': 'ws', 'g': 'g12'},
+    # the block's numeric claims (round-300 F300-2): the bold line and the seven table rows, as literals that g1
+    # parses back against the pins and the stored model / 1 - chi_2 values
+    {'g': 'g1', 's': '−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 140.71, 221.89, 383.28', 'form': 'plain'},
+    {'g': 'g1', 's': '| 1.0 | 1 | 70/120 | −13.882 | −13.878 | −13.884 | −13.669 | −15.522 |', 'form': 'ws'},
+    {'g': 'g1', 's': '| 1.3828125 | 2 | 80/140 | −27.754 | −27.722 | −27.765 | −27.588 | −29.540 |', 'form': 'ws'},
+    {'g': 'g1', 's': '| 2.0 | 5 | 100/160 | −67.233 | −67.205 | −67.332 | −66.890 | −69.357 |', 'form': 'ws'},
+    {'g': 'g1', 's': '| 2.3 | 7 | 170/260 | −98.267 | −98.234 | −98.330 | −97.880 | −100.445 |', 'form': 'ws'},
+    {'g': 'g1', 's': '| 2.6 | 9 | 220/320 | −140.713 | −140.672 | −140.777 | −140.287 | −142.911 |', 'form': 'ws'},
+    {'g': 'g1', 's': '| 3.0 | 12 | 280/400 | −221.899 | −221.819 | −221.942 | −221.488 | −224.291 |', 'form': 'ws'},
+    {'g': 'g1', 's': '| 3.5 | 18 | 420/540 | −383.282 | −383.176 | −383.219 | −382.799 | −385.754 |', 'form': 'ws'},
 ]
 
 fails = []
@@ -92,7 +102,40 @@ gate("g0 the seven certificates load at their keys: three positive Rayleigh ball
 # (a valid, weaker statement) and within 2e-3 of it
 ok = all(PINS[c] is not None and 0 <= PINS[c] - ST[c]["min_K2"]["ln_upper"] <= 2e-3 for c in ORDER)
 ok &= all(CCM_PINS[c] is not None and 0 <= CCM_PINS[c] - ST[c]["ccm"]["ln_upper"] <= 2e-3 for c in ORDER)
-ok &= all(0 <= K1_PINS[c] - ST[c]["min_K1"]["ln_upper"] <= 2e-3 for c in ORDER)          # round-299 F299-3: the K1 column pinned too
+ok &= all(K1_PINS[c] is not None and 0 <= K1_PINS[c] - ST[c]["min_K1"]["ln_upper"] <= 2e-3 for c in ORDER)   # round-299 F299-3
+# round-300 F300-2: the paper's own numbers -- the bold line and the seven table rows are declared needles (g12 checks
+# their presence in the paper); here the literals are parsed and tied to the pins and to the stored model / 1 - chi_2
+# (the literals below are the same strings as the g1 entries of PAPER_NEEDLES; paper_needles.needle raises KeyError
+# for an undeclared (s, form), so each parsed literal is proved declared AND present in the paper -- the declared
+# list itself is read only through verify/needle, per the precheck's clause C)
+import paper_needles
+BOLD_CLAIM = '−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 140.71, 221.89, 383.28'
+ROW_CLAIMS = ['| 1.0 | 1 | 70/120 | −13.882 | −13.878 | −13.884 | −13.669 | −15.522 |',
+              '| 1.3828125 | 2 | 80/140 | −27.754 | −27.722 | −27.765 | −27.588 | −29.540 |',
+              '| 2.0 | 5 | 100/160 | −67.233 | −67.205 | −67.332 | −66.890 | −69.357 |',
+              '| 2.3 | 7 | 170/260 | −98.267 | −98.234 | −98.330 | −97.880 | −100.445 |',
+              '| 2.6 | 9 | 220/320 | −140.713 | −140.672 | −140.777 | −140.287 | −142.911 |',
+              '| 3.0 | 12 | 280/400 | −221.899 | −221.819 | −221.942 | −221.488 | −224.291 |',
+              '| 3.5 | 18 | 420/540 | −383.282 | −383.176 | −383.219 | −382.799 | −385.754 |']
+# each call carries its literal (the precheck's clause D); the strings equal BOLD_CLAIM / ROW_CLAIMS above by construction
+ok &= paper_needles.needle(PAPER_NEEDLES, '−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 140.71, 221.89, 383.28', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 1.0 | 1 | 70/120 | −13.882 | −13.878 | −13.884 | −13.669 | −15.522 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 1.3828125 | 2 | 80/140 | −27.754 | −27.722 | −27.765 | −27.588 | −29.540 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.0 | 5 | 100/160 | −67.233 | −67.205 | −67.332 | −66.890 | −69.357 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.3 | 7 | 170/260 | −98.267 | −98.234 | −98.330 | −97.880 | −100.445 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.6 | 9 | 220/320 | −140.713 | −140.672 | −140.777 | −140.287 | −142.911 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | 12 | 280/400 | −221.899 | −221.819 | −221.942 | −221.488 | −224.291 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | 18 | 420/540 | −383.282 | −383.176 | −383.219 | −382.799 | −385.754 |', 'ws')
+_lits = [BOLD_CLAIM] + ROW_CLAIMS
+ok &= len(set(_lits)) == 8
+_bvals = [float(x) for x in BOLD_CLAIM.split('≥')[1].replace('−', '-').split(',')]
+ok &= len(ROW_CLAIMS) == 7 and len(_bvals) == 7
+for c, row, bv in zip(ORDER, ROW_CLAIMS, _bvals):
+    f = [x.strip().replace('−', '-') for x in row.strip('|').split('|')]
+    ok &= abs(float(f[0]) - ST[c]["delta"]) < 1e-9 and int(f[1]) == len(ST[c]["prime_powers"]) and f[2] == f"{CELLS[c]['K1']}/{CELLS[c]['K2']}"
+    ok &= float(f[3]) == PINS[c] and float(f[4]) == K1_PINS[c] and float(f[6]) == CCM_PINS[c]
+    ok &= abs(float(f[5]) - round(run_SL(c)["ln_eig"], 3)) < 1e-9 and abs(float(f[7]) - round(ST[c]["ln_one_minus_chi2"][0], 3)) < 1e-9
+    ok &= 0 <= -ST[c]["min_K2"]["ln_upper"] - bv <= 1e-2 + 1e-9        # the bold value is the floor to 1e-2 of -ln upper
 gate("g1 the pins: the stated ln upper bounds (minimiser K2, the CCM trial, and the K1 column) at or above the stored upper ends and within 2e-3 at the seven cells ("
      + ", ".join(f"{ST[c]['min_K2']['ln_upper']:.3f}" for c in ORDER) + " | " + ", ".join(f"{ST[c]['ccm']['ln_upper']:.3f}" for c in ORDER) + ")", ok)
 

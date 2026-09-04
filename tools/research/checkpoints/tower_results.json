@@ -2561,6 +2561,12 @@
 "rc": 0,
 "when": "2026-08-27T19:24Z"
 },
+"d81f77d3e53ff01385ddb9b7": {
+"dt": 84.43609046936035,
+"file": "cascade_true_form_bounds.py",
+"rc": 0,
+"when": "2026-09-04T00:21Z"
+},
 "d84af6cd7004990fd94461ca": {
 "dt": 409.75025057792664,
 "file": "cascade_weil_margin.py",

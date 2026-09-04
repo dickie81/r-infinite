@@ -5394,4 +5394,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-299 sweep commit. Full-tower class. Brief `brief_round300.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 2 cosmetic — all verified and swept (A457): F300-2 the block's numeric claims unneedled — the bold line and the seven table rows are now declared needles, parsed back by g1 against the pins and the stored values (through the needle API, per the precheck's clauses C and D); F300-1 four ranges widened to their extreme cells; F300-3 the 10⁻¹⁶ sentence stated as g6 prints it. Sweep battery: member 13/13; manifest 23; TOWER PASS 23/23 (1 live + 22 cached). **Trajectory: 298 (the 1bn landing): 0M+4m+6c → 299: 0M+3m+1c → 300: 0M+1m+2c → 301: convergence round commissioned.**
+
+### Round 301 — convergence test on the round-300 sweep (Theorem 1bn)
+
+**Scope.** The round-300 sweep commit. Full-tower class. Brief `brief_round301.md`.
+
 **Findings.** Pending.

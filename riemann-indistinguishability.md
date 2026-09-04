@@ -6546,7 +6546,7 @@ Q(g) = 2ĝ(i/2)² + (ψ(¼) − log π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^
 
 (Suzuki's (2.11) in this normalisation; verified against the 6700 zeros
 on Gaussian probes to 10⁻¹⁷ absolute, 10⁻¹⁶ relative, and, in the basis below, on a C_c^∞ bump's
-expansion to 10⁻¹⁶ — the latter gated live). In Yoshida's periodic
+expansion below 10⁻¹⁵ (6.2 and 6.9×10⁻¹⁶ relative) — the latter gated live at 10⁻¹³). In Yoshida's periodic
 class, φ_k = cos(kπt/a), the bilinear autocorrelations f_jk are
 elementary, the archimedean integrals are digamma and trigamma values
 at ¼ + iω/2 less geometric tails over [2a, ∞) — ∫₀^∞ sin(ωu) K du =
@@ -6586,7 +6586,7 @@ of the zero-side model at every cell (+0.002, +0.011, +0.099, +0.062,
 gated within 0.15): the same eigenvalue seen
 from the primes and from the zeros — the first with nothing truncated
 but the trial basis, whose refinement only lowers the bound (K1 → K2
-by 0.004–0.107 nats; gated), the second a model. So the slack law of
+by 0.003–0.107 nats; gated), the second a model. So the slack law of
 Theorem 1bm stands on the true form as an upper bound, unconditionally:
 **−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 140.71, 221.89, 383.28** at
 the seven cells (rounded inward from the balls) — the positivity margin of Weil's functional on support
@@ -6596,10 +6596,10 @@ functions, sits 0.16–0.49 nats above the minimiser at every cell (gated
 in [0.1, 0.6]): their "educated guess" is within a factor 1.63 of the
 certified minimiser through δ = 3.5 (of the ground state itself only
 where a certified lower bound exists: within 4.32 at δ = 1.0 and 1.83
-at 1.3828125); and the minimiser sits 1.63–2.47 nats
+at 1.3828125); and the minimiser sits 1.63–2.48 nats
 above 1 − χ₂ (computed from the finite-Fourier relation at x = 0, two
 Legendre cutoffs agreeing to 10⁻⁸; below the Fuchs asymptotic by
-0.54–0.04 nats, both gated) — their Figure 4's comparison, certified
+0.54–0.03 nats, both gated) — their Figure 4's comparison, certified
 from one side. The odd part of k_λ and the tail of its cosine
 expansion are the Poisson defect of the truncated prolates, of size
 √(1 − χ₂)‖k_λ‖ (3.7–10.6 times it at the cells; gated at 30), the tail
