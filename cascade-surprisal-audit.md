@@ -18114,3 +18114,19 @@ Certified − model: +0.002, +0.011, +0.099, +0.062, +0.064, +0.043, −0.064 (t
 **Round 299 (convergence) commissioned** on the sweep commit (brief `brief_round299.md`).
 
 ---
+
+## Addendum 456 — round 299 (the convergence test on the round-298 sweep): 0 MAJOR, 3 minor, 1 cosmetic, all verified and swept — two were regressions of the sweep itself (the bold line lost its δ = 2.6 value when re-rounded; "within 4.3" for a factor 4.3148), one an ungated column (K1, now pinned); round 300 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F299-1 (minor, verified, ACCEPTED).** The re-rounded bold line read "≥ 13.88, 27.75, 67.23, 98.26, 221.89, 383.28 … at the seven cells" — six values; 140.71 dropped in the sweep (A455's own list has seven). Restored.
+- **F299-2 (minor, verified, ACCEPTED).** CCM's upper end 1.15776564×10⁻⁶ over 1bj's Temple 2.68324430×10⁻⁷ = 4.3148 — "within 4.3" overclaims by 0.0034 nats (lead's recomputation identical). Now "within 4.32"; the 1.83 (1.8260) holds.
+- **F299-3 (minor, verified, ACCEPTED).** The K1 column was stated "rounded outward" but had no pin; g1 now pins it directionally (`K1_PINS` −13.878, −27.722, −67.205, −98.234, −140.672, −221.819, −383.176; every entry 0.00003–0.0009 above its stored upper end).
+- **F299-4 (cosmetic, ACCEPTED).** Ranges rounded at their ends so the extreme cell fell outside: 0.1658 and 0.4830 → "0.16–0.49"; 10.516 → "3.7–10.6"; 12.02 % → "3–13 %"; 1.6394 → "1.63–2.47"; the docstring "observed 0.48-1.79 percent"; the g5 label at seven significant figures (8.8391354×10⁻¹³ against 1bl's 5.7135604×10⁻¹³).
+
+**Checked and held (reviewer).** Every outward-rounded table entry against its stored upper end (K2 +0.0001–0.0009; k_λ +0.00002–0.001; K1 as above); (v)'s values; (iii)'s numbers equal to the gates' prints; the Poisson-defect quantities recomputed (A455's list identical); the producers' keys unchanged under both hashes and equal to the stored deps, the seven cells REUSED; g1 failing in both directions on mangled copies; the footer's three substrates and three classical inputs; the census 90 by recount; the gate-label change covered by `cascade_lattice_forcing.py`'s reach and `cascade_arithmetic_section.py` 10/10 standalone; the manifest pins; the CCM/Suzuki quotations verbatim; the 10⁻¹⁷/10⁻¹⁶ sentence by an independent Gaussian-probe check; Checks 7/8.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 23; `CASCADE_CHAIN=manifest python3 tools/research/cascade_true_form_bounds.py` → 13/13 (seven cells REUSED; g1 on three pinned columns); `python3 tools/research/run_tower.py` → manifest integrity 23 / 4 pins; needle precheck 76 reach files / 32 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 22 cached PASS + 0 FAIL of 23`; **TOWER PASS (23/23)**.
+
+**Round 300 (convergence) commissioned** on the sweep commit (brief `brief_round300.md`).
+
+---

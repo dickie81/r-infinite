@@ -5388,4 +5388,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-298 sweep commit(s) after cdee23c. Full-tower class. Brief `brief_round299.md`.
 
+**Findings.** 0 MAJOR, 3 minor, 1 cosmetic — all verified and swept (A456): F299-1 the bold line's missing δ = 2.6 value restored; F299-2 "within 4.3" → 4.32; F299-3 the K1 column pinned directionally; F299-4 four ranges widened to their extreme cells, the docstring and the g5 label. Sweep battery: member 13/13; manifest 23; TOWER PASS 23/23 (1 live + 22 cached). **Trajectory: 298 (the 1bn landing): 0M+4m+6c → 299: 0M+3m+1c → 300: convergence round commissioned.**
+
+### Round 300 — convergence test on the round-299 sweep (Theorem 1bn)
+
+**Scope.** The round-299 sweep commit. Full-tower class. Brief `brief_round300.md`.
+
 **Findings.** Pending.

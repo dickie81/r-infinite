@@ -539,6 +539,12 @@
 "rc": 0,
 "when": "2026-08-28T17:21Z"
 },
+"2a2f30c20b820e4860731467": {
+"dt": 80.4758620262146,
+"file": "cascade_true_form_bounds.py",
+"rc": 0,
+"when": "2026-09-04T00:00Z"
+},
 "2a8b908a160f7918905d6f44": {
 "dt": 10.391568183898926,
 "file": "cascade_sonin_dirac.py",

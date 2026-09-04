@@ -22,8 +22,8 @@ the change <= 0.2 nats. (4) THE CCM TRIAL: its certified quotient is
 within [0.1, 0.6] nats above the minimiser's (same subspace); its build
 diagnostics: the finite-Fourier checks of psi_0 and psi_4 agreeing at
 two points to 1e-10; the odd part of k_lambda at most 30 times the
-Poisson defect sqrt(1 - chi_2) ||k_lambda|| (observed 3.7-10.5 times);
-the cosine tail at most 5 percent of the odd part (observed 0.5-1.8). (5) CROSS-CHECKS: the delta = 1.0 upper bound >=
+Poisson defect sqrt(1 - chi_2) ||k_lambda|| (observed 3.7-10.6 times);
+the cosine tail at most 5 percent of the odd part (observed 0.48-1.79 percent). (5) CROSS-CHECKS: the delta = 1.0 upper bound >=
 Theorem 1bj's certified Temple lower bound (loaded at its key) and the
 delta = 1.3828125 upper bound >= Theorem 1bl's certified even bound -- an
 upper bound on the true lambda_1 must exceed any certified lower bound.
@@ -75,6 +75,7 @@ ST = {c: run_TF(c) for c in ORDER}
 # the paper's stated certified upper bounds (ln), K2 minimiser -- PINS
 PINS = {"d1.0": -13.882, "d1.38": -27.754, "d2.0": -67.233, "d2.3": -98.267, "d2.6": -140.713, "d3.0": -221.899, "d3.5": -383.282}
 CCM_PINS = {"d1.0": -13.669, "d1.38": -27.588, "d2.0": -66.890, "d2.3": -97.880, "d2.6": -140.287, "d3.0": -221.488, "d3.5": -382.799}
+K1_PINS = {"d1.0": -13.878, "d1.38": -27.722, "d2.0": -67.205, "d2.3": -98.234, "d2.6": -140.672, "d3.0": -221.819, "d3.5": -383.176}
 
 def ball_ok(b, prec):
     return (all(k in b for k in ("mid", "rad_log2", "upper", "ln_upper", "positive")) and b["positive"]
@@ -91,7 +92,8 @@ gate("g0 the seven certificates load at their keys: three positive Rayleigh ball
 # (a valid, weaker statement) and within 2e-3 of it
 ok = all(PINS[c] is not None and 0 <= PINS[c] - ST[c]["min_K2"]["ln_upper"] <= 2e-3 for c in ORDER)
 ok &= all(CCM_PINS[c] is not None and 0 <= CCM_PINS[c] - ST[c]["ccm"]["ln_upper"] <= 2e-3 for c in ORDER)
-gate("g1 the pins: the stated ln upper bounds (minimiser K2 and the CCM trial) at or above the stored upper ends and within 2e-3 at the seven cells ("
+ok &= all(0 <= K1_PINS[c] - ST[c]["min_K1"]["ln_upper"] <= 2e-3 for c in ORDER)          # round-299 F299-3: the K1 column pinned too
+gate("g1 the pins: the stated ln upper bounds (minimiser K2, the CCM trial, and the K1 column) at or above the stored upper ends and within 2e-3 at the seven cells ("
      + ", ".join(f"{ST[c]['min_K2']['ln_upper']:.3f}" for c in ORDER) + " | " + ", ".join(f"{ST[c]['ccm']['ln_upper']:.3f}" for c in ORDER) + ")", ok)
 
 # ---------------------------------------------------------------- g2
@@ -115,7 +117,7 @@ for c in ORDER:
     f0 = [float(x) for x in tr["fourier_check_psi0"]]; f4 = [float(x) for x in tr["fourier_check_psi4"]]
     ok &= abs(f0[0] - f0[1]) <= 1e-10*abs(f0[0]) and abs(f4[0] - f4[1]) <= 1e-10*abs(f4[0])
     # the odd part of k_lambda and its cosine tail are the Poisson defect of the truncated prolates, of size
-    # sqrt(1 - chi_2) times the norm (observed 5-15x); gated at 30x, the tail at 5 percent of the odd part
+    # sqrt(1 - chi_2) times the norm (observed 3.7-10.6x); gated at 30x, the tail at 5 percent of the odd part
     sq = math.exp(ST[c]["ln_one_minus_chi2"][0]/2)*math.sqrt(float(tr["norm2"]))
     ok &= tr["odd_part_max"] <= 30*sq
     ok &= max(tr["coeff_tail"]) <= 0.05*tr["odd_part_max"]
@@ -129,8 +131,8 @@ mech = run_SM("two", "even")
 up10 = float(ST["d1.0"]["min_K2"]["upper"]); up138 = float(ST["d1.38"]["min_K2"]["upper"])
 ok = bool(even10) and even10.get("certified") and up10 >= even10["temple_lo"]
 ok &= up138 >= mech["final"]
-gate(f"g5 cross-checks: the delta = 1.0 upper bound {up10:.5e} >= 1bj's certified Temple {even10.get('temple_lo')}; "
-     f"the delta = 1.3828125 upper bound {up138:.4e} >= 1bl's certified {mech['final']:.4e}", ok)
+gate(f"g5 cross-checks: the delta = 1.0 upper bound {up10:.7e} >= 1bj's certified Temple {even10.get('temple_lo')}; "
+     f"the delta = 1.3828125 upper bound {up138:.7e} >= 1bl's certified {mech['final']:.7e}", ok)
 
 # ---------------------------------------------------------------- g6
 import mpmath as mp

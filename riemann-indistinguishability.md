@@ -6588,22 +6588,22 @@ from the primes and from the zeros — the first with nothing truncated
 but the trial basis, whose refinement only lowers the bound (K1 → K2
 by 0.004–0.107 nats; gated), the second a model. So the slack law of
 Theorem 1bm stands on the true form as an upper bound, unconditionally:
-**−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 221.89, 383.28** at
+**−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 140.71, 221.89, 383.28** at
 the seven cells (rounded inward from the balls) — the positivity margin of Weil's functional on support
 3.5 is at most e^{−383.28} in these units, whatever the zeros do. CCM's
 k_λ, Riemann's construction with prolates in place of Hermite
-functions, sits 0.17–0.48 nats above the minimiser at every cell (gated
+functions, sits 0.16–0.49 nats above the minimiser at every cell (gated
 in [0.1, 0.6]): their "educated guess" is within a factor 1.63 of the
 certified minimiser through δ = 3.5 (of the ground state itself only
-where a certified lower bound exists: within 4.3 at δ = 1.0 and 1.83
-at 1.3828125); and the minimiser sits 1.64–2.47 nats
+where a certified lower bound exists: within 4.32 at δ = 1.0 and 1.83
+at 1.3828125); and the minimiser sits 1.63–2.47 nats
 above 1 − χ₂ (computed from the finite-Fourier relation at x = 0, two
 Legendre cutoffs agreeing to 10⁻⁸; below the Fuchs asymptotic by
 0.54–0.04 nats, both gated) — their Figure 4's comparison, certified
 from one side. The odd part of k_λ and the tail of its cosine
 expansion are the Poisson defect of the truncated prolates, of size
-√(1 − χ₂)‖k_λ‖ (3.7–10.5 times it at the cells; gated at 30), the tail
-an order of magnitude below it (3–12 % of the defect; gated at 5 % of
+√(1 − χ₂)‖k_λ‖ (3.7–10.6 times it at the cells; gated at 30), the tail
+an order of magnitude below it (3–13 % of the defect; gated at 5 % of
 the odd part). *(iv) The
 falsification content.* Each certified quotient is a two-sided
 enclosure for its vector; a negative one would have disproved the
