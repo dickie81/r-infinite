@@ -14,7 +14,11 @@ minimiser (K1 and K2 modes) and of the CCM trial (K2 modes) load at their
 keys (executable content of the producer closure), are positive at their
 lower ends, and have radii below 2^{-prec/2}; the paper's stated ln upper
 bounds (rounded outward) at or above the stored upper ends and within
-2e-3 (round-298 F298-1). (2) AGREEMENT WITH THE ZERO SIDE: the certified
+2e-3 (round-298 F298-1); the bold line and the seven table rows declared
+as needles and parsed back against the pins, the cells' parameters and
+the stored model / 1 - chi_2 values (round-300 F300-2), the parsed copies
+tied to the declared entries (round-301 F301-1); clause (v)'s values
+likewise declared, parsed and pinned directionally in g5 (F301-2). (2) AGREEMENT WITH THE ZERO SIDE: the certified
 upper bound (K2) sits within 0.15 nats of Theorem 1bm's model value at
 every cell (the two are the same eigenvalue under RH; the model is
 truncated, the certificate is not). (3) BASIS CONVERGENCE: K2 <= K1 and
@@ -72,6 +76,9 @@ PAPER_NEEDLES = [
     {'g': 'g1', 's': '| 2.6 | 9 | 220/320 | −140.713 | −140.672 | −140.777 | −140.287 | −142.911 |', 'form': 'ws'},
     {'g': 'g1', 's': '| 3.0 | 12 | 280/400 | −221.899 | −221.819 | −221.942 | −221.488 | −224.291 |', 'form': 'ws'},
     {'g': 'g1', 's': '| 3.5 | 18 | 420/540 | −383.282 | −383.176 | −383.219 | −382.799 | −385.754 |', 'form': 'ws'},
+    # clause (v)'s certified values (round-301 F301-2), parsed back by g5
+    {'g': 'g5', 's': "The δ = 1.0 bound 9.3524×10⁻⁷ exceeds Theorem 1bj's certified Temple lower bound 2.6832×10⁻⁷ and lies inside 1bj's trial enclosure [9.2494, 9.4548]×10⁻⁷", 'form': 'ws'},
+    {'g': 'g5', 's': "the δ = 1.3828125 bound 8.8392×10⁻¹³ exceeds Theorem 1bl's certified 5.7134×10⁻¹³ (as 1bl states it)", 'form': 'ws'},
 ]
 
 fails = []
@@ -126,8 +133,9 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.3 | 7 | 170/260 | −98.267 | −
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.6 | 9 | 220/320 | −140.713 | −140.672 | −140.777 | −140.287 | −142.911 |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | 12 | 280/400 | −221.899 | −221.819 | −221.942 | −221.488 | −224.291 |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | 18 | 420/540 | −383.282 | −383.176 | −383.219 | −382.799 | −385.754 |', 'ws')
-_lits = [BOLD_CLAIM] + ROW_CLAIMS
-ok &= len(set(_lits)) == 8
+# round-301 F301-1: the parsed copies tied to the declared entries (the declared list read through the API)
+_lits = [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g1']
+ok &= _lits == [BOLD_CLAIM] + ROW_CLAIMS and len(set(_lits)) == 8
 _bvals = [float(x) for x in BOLD_CLAIM.split('≥')[1].replace('−', '-').split(',')]
 ok &= len(ROW_CLAIMS) == 7 and len(_bvals) == 7
 for c, row, bv in zip(ORDER, ROW_CLAIMS, _bvals):
@@ -136,7 +144,7 @@ for c, row, bv in zip(ORDER, ROW_CLAIMS, _bvals):
     ok &= float(f[3]) == PINS[c] and float(f[4]) == K1_PINS[c] and float(f[6]) == CCM_PINS[c]
     ok &= abs(float(f[5]) - round(run_SL(c)["ln_eig"], 3)) < 1e-9 and abs(float(f[7]) - round(ST[c]["ln_one_minus_chi2"][0], 3)) < 1e-9
     ok &= 0 <= -ST[c]["min_K2"]["ln_upper"] - bv <= 1e-2 + 1e-9        # the bold value is the floor to 1e-2 of -ln upper
-gate("g1 the pins: the stated ln upper bounds (minimiser K2, the CCM trial, and the K1 column) at or above the stored upper ends and within 2e-3 at the seven cells ("
+gate("g1 the pins and the paper's own numbers: the stated ln upper bounds (minimiser K2, the CCM trial, and the K1 column) at or above the stored upper ends and within 2e-3; the bold line and the seven table rows present as declared needles, parsed back (delta, prime-power count, K1/K2, the three pinned columns, the model and 1 - chi_2 columns to 1e-3, the bold floors) ("
      + ", ".join(f"{ST[c]['min_K2']['ln_upper']:.3f}" for c in ORDER) + " | " + ", ".join(f"{ST[c]['ccm']['ln_upper']:.3f}" for c in ORDER) + ")", ok)
 
 # ---------------------------------------------------------------- g2
@@ -174,6 +182,22 @@ mech = run_SM("two", "even")
 up10 = float(ST["d1.0"]["min_K2"]["upper"]); up138 = float(ST["d1.38"]["min_K2"]["upper"])
 ok = bool(even10) and even10.get("certified") and up10 >= even10["temple_lo"]
 ok &= up138 >= mech["final"]
+# round-301 F301-2: clause (v)'s stated values, declared as needles, parsed back and pinned directionally
+V1 = "The δ = 1.0 bound 9.3524×10⁻⁷ exceeds Theorem 1bj's certified Temple lower bound 2.6832×10⁻⁷ and lies inside 1bj's trial enclosure [9.2494, 9.4548]×10⁻⁷"
+V2 = "the δ = 1.3828125 bound 8.8392×10⁻¹³ exceeds Theorem 1bl's certified 5.7134×10⁻¹³ (as 1bl states it)"
+ok &= paper_needles.needle(PAPER_NEEDLES, "The δ = 1.0 bound 9.3524×10⁻⁷ exceeds Theorem 1bj's certified Temple lower bound 2.6832×10⁻⁷ and lies inside 1bj's trial enclosure [9.2494, 9.4548]×10⁻⁷", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "the δ = 1.3828125 bound 8.8392×10⁻¹³ exceeds Theorem 1bl's certified 5.7134×10⁻¹³ (as 1bl states it)", 'ws')
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g5'] == [V1, V2]
+import re as _re
+_sup = str.maketrans('⁻⁰¹²³⁴⁵⁶⁷⁸⁹', '-0123456789')
+def _nums(t):   # every a×10^b in the literal, in order
+    return [float(m.group(1))*10**int(m.group(2).translate(_sup)) for m in _re.finditer(r'([0-9.]+)×10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)', t.replace('[', '').replace(']', ''))]
+v1 = _nums(V1); v2 = _nums(V2)
+# V1: the bound (an upper bound: stated >= stored, within 1e-4), 1bj's Temple (stated <= loaded), the enclosure ends outward of rho
+ok &= len(v1) == 3 and 0 <= v1[0] - up10 <= 1e-4*up10 and v1[1] <= even10["temple_lo"] <= v1[1]*(1 + 1e-4)
+_rlo = float(V1.split('[')[1].split(',')[0]); _rhi = float(V1.split(', ')[1].split(']')[0])
+ok &= _rlo*1e-7 <= even10["rho"][0] and even10["rho"][1] <= _rhi*1e-7 and _rlo*1e-7 <= up10 <= _rhi*1e-7
+ok &= len(v2) == 2 and 0 <= v2[0] - up138 <= 1e-4*up138 and v2[1] <= mech["final"] <= v2[1]*(1 + 1e-4)
 gate(f"g5 cross-checks: the delta = 1.0 upper bound {up10:.7e} >= 1bj's certified Temple {even10.get('temple_lo')}; "
      f"the delta = 1.3828125 upper bound {up138:.7e} >= 1bl's certified {mech['final']:.7e}", ok)
 

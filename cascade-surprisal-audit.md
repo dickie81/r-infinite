@@ -18146,3 +18146,19 @@ Certified − model: +0.002, +0.011, +0.099, +0.062, +0.064, +0.043, −0.064 (t
 **Round 301 (convergence) commissioned** on the sweep commit (brief `brief_round301.md`).
 
 ---
+
+## Addendum 458 — round 301 (the convergence test on the round-300 sweep): 0 MAJOR, 2 minor, 2 cosmetic, all verified and swept — the parsed copies of the needle literals are now tied to the declared entries through the needle API, and clause (v)'s certified values are declared, parsed and pinned directionally; round 302 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F301-1 (minor, verified, ACCEPTED).** The round-300 parse-back read `BOLD_CLAIM`/`ROW_CLAIMS`, a third copy the `needle()` calls did not tie to the declared entries; the reviewer's experiment (a paper row and its two needle strings co-edited to −13.890, the parsed copy left) passed the member and a cloned tower. Swept: `_lits = [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g1']` with `ok &= _lits == [BOLD_CLAIM] + ROW_CLAIMS` (the reviewer's E3-fix, shown precheck-compliant and failing the co-edit).
+- **F301-2 (minor, verified, ACCEPTED).** Clause (v)'s five certified values had no needle and no pin (the reviewer's E6: 9.3524 → 9.3424 and 8.8392 → 8.8292, both below the stored uppers, passed the member and the cloned tower). Swept: the two (v) sentences declared as ws needles (g5), the literals parsed (every a×10^b in order), and pinned: the stated upper bounds ≥ the stored uppers within 10⁻⁴ relative; 1bj's Temple and 1bl's bound as quoted ≤ the loaded certificates within 10⁻⁴; the enclosure ends outward of 1bj's stored ρ and containing the δ = 1.0 upper bound; the parsed copies tied to the declared entries as in F301-1.
+- **F301-3 (cosmetic, ACCEPTED).** g1's label and the docstring's item (1) now describe the parse-back and the ties.
+- **F301-4 (cosmetic, ACCEPTED).** "(6.2 and 6.9×10⁻¹⁶ relative at δ = 1 and 2)".
+
+**Checked and held (reviewer).** The eight needles close paper-only drift (a dropped bold value and a drifted row entry each fail the member and the tower's precheck); no spurious failure on reflow or padding (ws form); the four swept ranges and the 10⁻¹⁵ sentence against the stored cells; every other number in the block re-derived (the bold floors with margins 0.0025–0.0098; the three outward columns; the model and 1 − χ₂ columns; (iii)'s differences; the factors 1.6209, 4.31480, 1.82596; the ranges; (v)'s directions); g4's Fourier conjunct non-tautological; the declared entries 13 = 5 + 8 with each present once; the census 90; the manifest and keying pins by recount; the member's cache entry consistent with the diff; Checks 7/8. Out-of-scope observation: ws needles fail on a glyph-only edit (U+2212 → hyphen) by design.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 23; `CASCADE_CHAIN=manifest python3 tools/research/cascade_true_form_bounds.py` → 13/13 (seven cells REUSED; fifteen needles); `python3 tools/research/run_tower.py` → manifest integrity 23 / 4 pins; needle precheck 76 reach files / 32 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 22 cached PASS + 0 FAIL of 23`; **TOWER PASS (23/23)**.
+
+**Round 302 (convergence) commissioned** on the sweep commit (brief `brief_round302.md`).
+
+---

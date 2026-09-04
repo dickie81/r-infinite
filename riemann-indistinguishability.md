@@ -6546,7 +6546,7 @@ Q(g) = 2ĝ(i/2)² + (ψ(¼) − log π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^
 
 (Suzuki's (2.11) in this normalisation; verified against the 6700 zeros
 on Gaussian probes to 10⁻¹⁷ absolute, 10⁻¹⁶ relative, and, in the basis below, on a C_c^∞ bump's
-expansion below 10⁻¹⁵ (6.2 and 6.9×10⁻¹⁶ relative) — the latter gated live at 10⁻¹³). In Yoshida's periodic
+expansion below 10⁻¹⁵ (6.2 and 6.9×10⁻¹⁶ relative at δ = 1 and 2) — the latter gated live at 10⁻¹³). In Yoshida's periodic
 class, φ_k = cos(kπt/a), the bilinear autocorrelations f_jk are
 elementary, the archimedean integrals are digamma and trigamma values
 at ¼ + iω/2 less geometric tails over [2a, ∞) — ∫₀^∞ sin(ωu) K du =
