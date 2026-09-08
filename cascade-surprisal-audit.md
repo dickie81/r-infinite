@@ -18303,3 +18303,20 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: convergence round commissioned (brief `brief_round309.md`).
 
 ---
+
+## Addendum 467 — round 309 (the convergence test on the round-308 sweep): 0 MAJOR, 1 minor, 5 cosmetic — all verified by the lead and swept; the session scan removed from the block (the gated sign change carries the conclusion); round 310 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F309-1 (minor, verified, ACCEPTED).** Clause (v)'s ledger (Proved / Computed, gated in bands / Not claimed) had no category for the labelled session scan the round-308 sweep left in (iv) ("a 41-cut session scan … changed sign 31 times"), while (v) asserted the gated status of "the zero-side agreements" without qualification; the reviewer's probe (41 → 40, 31 → 30) passed every gate, as a labelled observation would. Swept by removal: the scan leaves the block — the gated sign change between the live cuts 6600 and 6700 already carries "no lower end is a property of the cuts" — and stays in the bench's docstring as the labelled session observation with its cut set; (v) is consistent again.
+- **F309-2 (cosmetic, ACCEPTED).** The verifier's label and docstring said "the maximum at 3500 as the block states" where the block said "reaches 6.1×10⁻⁶ at the cut 3500"; the block now states "is largest of the four live cuts at 3500, 6.1×10⁻⁶" (the conjunct gates exactly that) and the label reads "the largest of the four".
+- **F309-3, F309-4 (cosmetic, ACCEPTED).** The bench docstrings' two residual "of order ghat(T)^2" phrasings → the envelope R(T)²; the docstring's scan values to four significant figures (6600: +1.115e-6, against the block's outward +1.2×10⁻⁶).
+- **F309-5 (cosmetic, ACCEPTED; pre-existing since the landing).** The verifier docstring's "within 1e-3" for `_outward`'s 2e-3 → 2e-3 (the largest actual outward gap over the table 5.6×10⁻⁴).
+- **F309-6 (cosmetic, ACCEPTED).** The block's signed values now name the convention: "(zero side minus true, relative: …)".
+
+**Checked and held (reviewer).** The six ×10 values against the live gates (the bump 2.568×10⁻¹⁶; 6700 −2.0574×10⁻⁷; the envelope 7.094×10⁻⁷; 6600 +1.1152×10⁻⁶; 3500 6.0845×10⁻⁶; the live signs tied through g6); "of the order of the envelope" at every live cut (ratios 0.29–2.84 to the local envelope); the identity ĝ = sin(ra)R from the bench's `phihat`; g7's pins failing on every inward, outward-beyond-10-percent, sign-flipped and dropped-value probe; g6's sign and largest-of-four conjuncts failing on two full mirror runs (the `signed` field negated; the 3500 entry fed the 3400 cut); needles 16 by AST with forms and counts; the census 91 body-only; the manifest hash and the four pins; the chain 23; the fourteen checkpoints REUSED (the bench outside both producers' closures); no stale phrasing from rounds 305–308 on the object surfaces; Checks 7/8.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 24; `CASCADE_CHAIN=manifest python3 tools/research/cascade_prime_ball.py` → 11/11 (seven knife-edge cells REUSED); `python3 tools/research/run_tower.py` → manifest integrity 24 / 4 pins; needle precheck 79 reach files / 33 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 23 cached PASS + 0 FAIL of 24`; **TOWER PASS (24/24)**.
+
+**Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: convergence round commissioned (brief `brief_round310.md`).
+
+---

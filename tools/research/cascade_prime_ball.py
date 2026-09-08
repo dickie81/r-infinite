@@ -48,13 +48,14 @@ on the C_c^inf bump within 1e-13 of the true form and on the K = 48 Gram's
 approximate minimiser within [1e-8, 1e-5] at four cuts of the zero list
 (6700, 6600, 3500, 3000 -- the residual is a draw of the counting function's
 fluctuation at the cut, round-306 F306-1; the sign change 6600 -> 6700 and
-the maximum at 3500 gated as the block states them, round-308 F308-1), the
+the largest of the four at 3500 gated as the block states them, round-308
+F308-1), the
 fluctuation scale -- the envelope R(T)^2/q, of which ghat(T)^2 = sin^2(aT)
 R(T)^2 is the value at the cut (F308-2) -- in [1e-7, 1e-5]; the archimedean-only candidate rejected by a
 certified margin (its Rayleigh quotient on g_1 above 1e-2, the true below
 1e-6). (7) THE PAPER'S NUMBERS: the block's table rows declared as needles
 and parsed back -- every stated shift at or above (rounded outward) the
-stored eta_hi within 1e-3, the ratios to two decimals, the lambda_1 column
+stored eta_hi within 2e-3, the ratios to two decimals, the lambda_1 column
 equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes; (9) the chain obligation to
 cascade_true_form_bounds.py; (10) the paper needles and the census.
 
@@ -91,7 +92,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'form': 'ws'},
     {'g': 'g7', 's': "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'form': 'ws'},
-    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (+1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and reaches 6.1×10⁻⁶ at the cut 3500, the four cuts gated live; a 41-cut session scan from 3000 to 6700 (its cut set in the bench's docstring) changed sign 31 times, so no lower end is a property of the cuts", 'form': 'ws'},
+    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'form': 'ws'},
     {'g': 'g7', 's': 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'form': 'ws'},
 ]
 
@@ -301,7 +302,7 @@ with ctx.workprec(400):
     _den = sum(mp.mpf((N1[i]*vecs["minimiser"][i]*vecs["minimiser"][i]).mid().str(40, radius=False)) for i in range(48))
     fluct_scale = float(_R*_R/(mp.mpf(rz["minimiser"]["rq_true"].mid().str(40, radius=False))*_den))
 ok &= rz["bump"]["rel"] <= 1e-13 and all(1e-8 <= v <= 1e-5 for v in rz_cuts.values()) and 1e-7 <= fluct_scale <= 1e-5
-ok &= rz_signed[6600] > 0 and rz_signed[6700] < 0 and rz_cuts[3500] == max(rz_cuts.values())   # the sign change and the maximum the block states (round-308 F308-1)
+ok &= rz_signed[6600] > 0 and rz_signed[6700] < 0 and rz_cuts[3500] == max(rz_cuts.values())   # the sign change and the largest-of-four at 3500 the block states (round-308 F308-1)
 G2, N2, _ = gram(1.0, 120, 600)
 with ctx.workprec(600):
     cv = [arb(x) for x in KE["d1.0"]["coeffs"]]
@@ -309,7 +310,7 @@ Ca, _, _ = archimedean(1.0, 120, 600)
 ra = compare(G2, Ca, N2, {"g1": cv}, 600)
 ok &= ra["g1"]["rq_cand"].lower() > 1e-2 and ra["g1"]["rq_true"].upper() < 1e-6 and float(ra["max_abs"]) >= 0.1
 gate("g6 the bench calibrations LIVE at delta = 1.0 (floating point, relative Rayleigh-quotient deviations): the zero side (tail resolved) on the bump within 1e-13 (" + f"{rz['bump']['rel']:.1e}" + ") and on the K = 48 minimiser in [1e-8, 1e-5] at the cuts 6700, 6600, 3500, 3000 (signed "
-     + ", ".join(f"{rz_signed[c]:+.1e}" for c in (6700, 6600, 3500, 3000)) + "; the sign change 6600 -> 6700 and the maximum at 3500 as the block states; the fluctuation scale, the envelope R(T)^2/q, " + f"{fluct_scale:.1e}" + " in [1e-7, 1e-5]); the archimedean-only candidate rejected -- Rayleigh on g_1 " + ra["g1"]["rq_cand"].str(5) + " against the true " + ra["g1"]["rq_true"].str(5)
+     + ", ".join(f"{rz_signed[c]:+.1e}" for c in (6700, 6600, 3500, 3000)) + "; the sign change 6600 -> 6700 and the largest of the four at 3500 as the block states; the fluctuation scale, the envelope R(T)^2/q, " + f"{fluct_scale:.1e}" + " in [1e-7, 1e-5]); the archimedean-only candidate rejected -- Rayleigh on g_1 " + ra["g1"]["rq_cand"].str(5) + " against the true " + ra["g1"]["rq_true"].str(5)
      + ", entrywise max " + ra["max_abs"], ok)
 
 # ---------------------------------------------------------------- g7
@@ -327,7 +328,7 @@ def _outward(stated, certified):   # a stated shift rounded outward: at or above
 ROWS = ['| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |']
 S_RATIO = "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5"
 S_EDGE = 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0'
-S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (+1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and reaches 6.1×10⁻⁶ at the cut 3500, the four cuts gated live; a 41-cut session scan from 3000 to 6700 (its cut set in the bench's docstring) changed sign 31 times, so no lower end is a property of the cuts"
+S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts"
 S_BENCH2 = 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)'
 # each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
 ok = True
@@ -340,7 +341,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | −221.899 | 8.882×10⁻⁹�
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (+1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and reaches 6.1×10⁻⁶ at the cut 3500, the four cuts gated live; a 41-cut session scan from 3000 to 6700 (its cut set in the bench's docstring) changed sign 31 times, so no lower end is a property of the cuts", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE, S_BENCH, S_BENCH2]
 ok &= len(ROWS) == 7

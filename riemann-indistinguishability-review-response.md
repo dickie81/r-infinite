@@ -5448,4 +5448,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-308 sweep commit. Full-tower class. Brief `brief_round309.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 5 cosmetic — all verified and swept (A467): F309-1 the labelled session scan removed from the block ((v)'s ledger had no category for it; the gated sign change carries the conclusion); F309-2 the block states the largest-of-four at 3500 as gated; F309-3/4 the bench docstrings; F309-5 the verifier docstring's tolerance 2e-3; F309-6 the sign convention named. Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: convergence round commissioned.**
+
+### Round 310 — convergence test on the round-309 sweep (Theorem 1bo)
+
+**Scope.** The round-309 sweep commit. Full-tower class. Brief `brief_round310.md`.
+
 **Findings.** Pending.

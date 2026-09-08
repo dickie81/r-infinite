@@ -1691,6 +1691,12 @@
 "rc": 0,
 "when": "2026-08-28T12:54Z"
 },
+"85ce54083570b75749c353a8": {
+"dt": 204.69515872001648,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T19:40Z"
+},
 "871de372e444408b0bcf5c39": {
 "dt": 4.642589569091797,
 "file": "cascade_height_uniformity.py",

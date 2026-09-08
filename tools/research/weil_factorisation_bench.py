@@ -17,7 +17,7 @@ CANDIDATES BUILT IN (the calibrations):
                                on a C_c^inf bump it agrees with the true form to 2.6e-16 (the calibration
                                that the bench measures the right object), on the Gram's approximate
                                minimiser to 2.1e-7 at delta = 1, K = 48 at the 6700-zero cut (a fluctuation
-                               draw of order ghat(T)^2 ~ 7e-7; see zeros())
+                               draw of the order of the envelope R(T)^2 ~ 7e-7; see zeros())
   archimedean(delta, K, prec)  the true Gram with the primes dropped (P = 0): the geometry of the Gamma
                                factor alone -- rejected by the prime part, a certified margin
   shifted(delta, K, prec, p, eta)  the true Gram with log p -> log p + eta (weil_knife_edge.py's perturbed
@@ -92,10 +92,10 @@ def zeros(delta, K, prec, zeros_file=None, cut=None):
     term itself is 9e-14 of it -- round-306 F306-2 corrected the first statement of this bound). Calibrations at
     delta = 1, K = 48 (relative Rayleigh-quotient deviations, floating point): a C_c^inf bump agrees to 2.6e-16; the
     Gram's approximate minimiser to 2.1e-7 at the 6700-zero cut -- a draw of the counting function's fluctuation at
-    the cut, of order ghat(T)^2 ~ 7e-7 of the quotient; the signed deviation (candidate - true)/true changes sign
+    the cut, of the order of the envelope R(T)^2 ~ 7e-7 of the quotient (ghat(T)^2 = sin^2(aT) R(T)^2); the signed deviation (candidate - true)/true changes sign
     between neighbouring cuts -- a SESSION SCAN (round 307; not gated: the cuts 3000, 3100, ..., 6600 in steps of 100 plus 6640,
-    6650, 6680, 6700, 41 in all) changed sign 31 times and reached 6.1e-6 at the cut 3500 (6700: -2.1e-7; 6650: +1.7e-6;
-    6600: +1.1e-6; 6000: -3.0e-7; 3500: +6.1e-6; 3000: +3.1e-6) -- so no lower end is a property of the cuts; the verifier
+    6650, 6680, 6700, 41 in all) changed sign 31 times and reached 6.1e-6 at the cut 3500 (6700: -2.057e-7; 6650: +1.655e-6;
+    6600: +1.115e-6; 6000: -2.954e-7; 3500: +6.085e-6; 3000: +3.139e-6) -- so no lower end is a property of the cuts; the verifier
     gates the cuts 6700, 6600, 3500, 3000 live (round-306 F306-1, round-307 F307-1, round-308 F308-1). The scale gated
     is the envelope R(T)^2, of which ghat(T)^2 = sin^2(aT) R(T)^2 is the value at the cut (F308-2)."""
     import mpmath as mp
