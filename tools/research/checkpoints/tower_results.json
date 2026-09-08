@@ -1517,6 +1517,12 @@
 "rc": 0,
 "when": "2026-08-28T13:01Z"
 },
+"790967933241f2cf65e3a11e": {
+"dt": 206.3398425579071,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T19:15Z"
+},
 "79bcee3cffc75f502fd8a236": {
 "dt": 10.406428337097168,
 "file": "cascade_sonin_dirac.py",

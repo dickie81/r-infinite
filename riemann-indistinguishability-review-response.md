@@ -5442,4 +5442,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-307 sweep commit. Full-tower class. Brief `brief_round308.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 1 cosmetic — both verified and swept (A466): F308-1 the block's cross-cut numbers were session-run and ungated — the four cuts 6700, 6600, 3500, 3000 now live in g6 (signed deviations; the sign change and the maximum gated as stated), g7 pinning the stated values within 10 percent, the 41-cut count labelled a session scan with its cut set in the bench's docstring; F308-2 the scale labelled as the envelope R(T)². Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: convergence round commissioned.**
+
+### Round 309 — convergence test on the round-308 sweep (Theorem 1bo)
+
+**Scope.** The round-308 sweep commit. Full-tower class. Brief `brief_round309.md`.
+
 **Findings.** Pending.

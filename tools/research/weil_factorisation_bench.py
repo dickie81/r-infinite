@@ -93,9 +93,11 @@ def zeros(delta, K, prec, zeros_file=None, cut=None):
     delta = 1, K = 48 (relative Rayleigh-quotient deviations, floating point): a C_c^inf bump agrees to 2.6e-16; the
     Gram's approximate minimiser to 2.1e-7 at the 6700-zero cut -- a draw of the counting function's fluctuation at
     the cut, of order ghat(T)^2 ~ 7e-7 of the quotient; the signed deviation (candidate - true)/true changes sign
-    between neighbouring cuts -- 31 times over 41 cuts from 3000 to 6700, reaching 6.1e-6 at the cut 3500 (6700: -2.1e-7;
-    6650: +1.7e-6; 6600: +1.1e-6; 6000: -3.0e-7; 3000: +3.1e-6) -- so no lower end is a property of the cuts
-    (round-306 F306-1, round-307 F307-1)."""
+    between neighbouring cuts -- a SESSION SCAN (round 307; not gated: the cuts 3000, 3100, ..., 6600 in steps of 100 plus 6640,
+    6650, 6680, 6700, 41 in all) changed sign 31 times and reached 6.1e-6 at the cut 3500 (6700: -2.1e-7; 6650: +1.7e-6;
+    6600: +1.1e-6; 6000: -3.0e-7; 3500: +6.1e-6; 3000: +3.1e-6) -- so no lower end is a property of the cuts; the verifier
+    gates the cuts 6700, 6600, 3500, 3000 live (round-306 F306-1, round-307 F307-1, round-308 F308-1). The scale gated
+    is the envelope R(T)^2, of which ghat(T)^2 = sin^2(aT) R(T)^2 is the value at the cut (F308-2)."""
     import mpmath as mp
     mp.mp.dps = 40
     zf = zeros_file or os.path.join(HERE, "checkpoints", "zeta_zeros_6700.json")
@@ -154,7 +156,8 @@ def compare(G, C, N, vectors, prec):
             else:
                 rc = arb(str(C(c)))/den
             out[name] = {"rq_true": rt, "rq_cand": rc,
-                         "rel": float(abs(rc.mid() - rt.mid())/abs(rt.mid())) if rt.mid() != 0 else None}
+                         "rel": float(abs(rc.mid() - rt.mid())/abs(rt.mid())) if rt.mid() != 0 else None,
+                         "signed": float((rc.mid() - rt.mid())/rt.mid()) if rt.mid() != 0 else None}   # (candidate - true)/true
         return out
 
 def bench(which, delta, K, prec, p=None, eta=None):

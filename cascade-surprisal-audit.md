@@ -18289,3 +18289,17 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: convergence round commissioned (brief `brief_round308.md`).
 
 ---
+
+## Addendum 466 — round 308 (the convergence test on the round-307 sweep): 0 MAJOR, 1 minor, 1 cosmetic — both verified by the lead and swept; the cross-cut numbers now gated live or marked as a session scan; round 309 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F308-1 (minor, verified, ACCEPTED).** The block's "31 times over 41 cuts … reaching 6.1×10⁻⁶ at the cut 3500" were session-run numbers (A465's scan) gated by no committed code — the count by nothing, the maximum only within a band over the three live cuts — while (v) filed them under "gated in bands"; the reviewer's mangle (6.1 → 4.0×10⁻⁶ co-edited) passed the member. The numbers themselves reproduced (41 cuts, 31 sign changes, 6.0845×10⁻⁶ at 3500). Swept: the block states what is gated — the sign change between the live cuts 6600 (+1.2×10⁻⁶) and 6700 (−2.1×10⁻⁷) and the maximum 6.1×10⁻⁶ at 3500, four cuts live in g6 (the sign change and the maximum-at-3500 gated as stated), g7 pinning the two signed values and the maximum within 10 percent of the live values; the 41-cut count stays in the block as "a 41-cut session scan … changed sign 31 times" with its cut set named in the bench's docstring and marked not gated (the standing rule: session runs are drafting until they land in code; here the observation is labelled as such rather than promoted). The first member run of the sweep failed g7 on the lead's own inward "+1.1×10⁻⁶" for the live +1.115×10⁻⁶ — restated outward as +1.2×10⁻⁶.
+- **F308-2 (cosmetic, ACCEPTED).** The gated "fluctuation scale" is the envelope R(T)² (ĝ(T)² = sin²(aT)R(T)², 8 percent apart at the 6700 cut, but ĝ² alone is no scale where sin(aT) ≈ 0 — the reviewer's cut 3400); the block, the label and the docstrings now say "the envelope R(T)²".
+
+**Checked and held (reviewer).** The restated sentence against the reproduction (41/31/6.0845×10⁻⁶ at 3500; 6700 −2.0574×10⁻⁷; the bump 2.5682×10⁻¹⁶; ≈ 7×10⁻⁷ under both readings); g7's conjuncts failing on both drift directions; the parse-back counts; needles 16 by AST with forms; the census 91 body-only (92 body names minus `cascade_greens_function.py`); the manifest hash, the chain 23, the fourteen checkpoints REUSED at their current keys (the bench outside the producer's closure); no stale text from rounds 305–307 on any object surface; the footer's substrate clause against the imports; Checks 7/8.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 24; `CASCADE_CHAIN=manifest python3 tools/research/cascade_prime_ball.py` → 11/11 (seven knife-edge cells REUSED; g6 prints the four cuts signed −2.1×10⁻⁷, +1.1×10⁻⁶, +6.1×10⁻⁶, +3.1×10⁻⁶); `python3 tools/research/run_tower.py` → manifest integrity 24 / 4 pins; needle precheck 79 reach files / 33 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 23 cached PASS + 0 FAIL of 24`; **TOWER PASS (24/24)**.
+
+**Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: convergence round commissioned (brief `brief_round309.md`).
+
+---
