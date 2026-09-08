@@ -12,11 +12,11 @@ is a difference).
 
 CANDIDATES BUILT IN (the calibrations):
   zeros(delta, K, prec)        the zero side as a quadratic form: 2 sum_gamma ghat(gamma)^2 over the 6700
-                               verified zeros plus the smooth-density tail (mpmath, dps 40) -- the
-                               'factorisation that knows the zeros'; on a C_c^inf bump it agrees with the
-                               true form to 1e-16 (the calibration that the bench measures the right
-                               object); on the minimiser, a near-null vector with edge structure, to ~1e-5
-                               at delta = 1 -- the zero sum over 6700 zeros converges as log T / T there
+                               verified zeros plus the smooth-density tail with its oscillation resolved
+                               (mpmath, dps 40; floating point) -- the 'factorisation that knows the zeros';
+                               on a C_c^inf bump it agrees with the true form to 2.6e-16 (the calibration
+                               that the bench measures the right object), on the Gram's approximate
+                               minimiser to 2.1e-7 at delta = 1, K = 48
   archimedean(delta, K, prec)  the true Gram with the primes dropped (P = 0): the geometry of the Gamma
                                factor alone -- rejected by the prime part, a certified margin
   shifted(delta, K, prec, p, eta)  the true Gram with log p -> log p + eta (weil_knife_edge.py's perturbed
@@ -78,14 +78,18 @@ def _shell_matrix(u, lp, K, a, prec):
                 M[j, k] = v; M[k, j] = v
         return M
 
-def zeros(delta, K, prec, zeros_file=None, tail_to_inf=False):
+def zeros(delta, K, prec, zeros_file=None):
     """The zero side as a quadratic form on coefficient vectors (mpmath floats, dps 40):
     q(c) = 2 sum_gamma ghat(gamma)^2 + the smooth-density tail above the last zero, ghat = sum c_k phihat_k.
-    Returned as a callable (the tail is a single quadrature per vector; the entrywise Gram in the raw cosine
-    basis converges only as log T / T over the zeros -- the basis elements are discontinuous at +-a -- so
-    the calibration is on vectors: a C_c^inf bump agrees to 1e-16, the minimiser to ~1e-5 at delta = 1). The tail is
-    integrated over [T, 100T] by default; tail_to_inf=True continues it to infinity (round-304 observation: at delta = 1
-    the minimiser's deviation is 4.3e-5 with the tail to 100T and 5.2e-5 to infinity -- the truncation is not the cause)."""
+    Returned as a callable. THE TAIL (round-305 F305-1): in the cosine basis ghat(r) = sin(ra) R(r) exactly, with
+    R(r) = sum_k (-1)^k c_k 2r/(r^2 - w_k^2) rational, so the tail integrand sin^2(ra) R^2 L (L = log(r/2pi)/2pi) oscillates
+    with period pi/a -- about 1e5 periods on [T, 100T] -- and a plain mp.quad over a few break points cannot resolve it
+    (the first version's 4.3e-5 'deviation' of the minimiser at delta = 1 was a 1 percent error in a 0.6 percent tail).
+    Now: sin^2 = 1/2 - cos(2ar)/2; the smooth half integrated on log-spaced pieces to infinity; the oscillatory half by
+    parts twice, -sin(2aT)F(T)/(2a) - cos(2aT)F'(T)/(4a^2) with F = R^2 L (the neglected remainder is bounded by
+    int |F''|/(4a^2), of order F(T)/(a^2 T^2), below 1e-18 of the quotient). Calibrations at delta = 1, K = 48: a C_c^inf
+    bump agrees to 2.6e-16, the Gram's approximate minimiser to 2.1e-7 (relative Rayleigh-quotient deviations,
+    floating point)."""
     import mpmath as mp
     mp.mp.dps = 40
     zf = zeros_file or os.path.join(HERE, "checkpoints", "zeta_zeros_6700.json")
@@ -97,12 +101,15 @@ def zeros(delta, K, prec, zeros_file=None, tail_to_inf=False):
         return mp.sin((r + w)*a)/(r + w) + mp.sin((r - w)*a)/(r - w)
     vals = [[phihat(k, g) for k in range(K)] for g in gam]
     T = gam[-1]
+    ws = [k*mp.pi/a for k in range(K)]
     def q(c):
         cc = [mp.mpf(x.mid().str(60, radius=False)) if isinstance(x, arb) else mp.mpf(str(x)) for x in c]
-        ghat = lambda r: sum(cc[k]*phihat(k, r) for k in range(K))
         s = 2*sum(sum(cc[k]*v[k] for k in range(K))**2 for v in vals)
-        pts = [T, 2*T, 10*T, 100*T] + ([1000*T, 10000*T, mp.inf] if tail_to_inf else [])
-        s += 2*mp.quad(lambda r: ghat(r)**2*mp.log(r/(2*mp.pi))/(2*mp.pi), pts)
+        R = lambda r: sum(((-1)**k)*cc[k]*2*r/(r*r - ws[k]**2) for k in range(K))     # ghat(r) = sin(ra) R(r)
+        F = lambda r: R(r)**2*mp.log(r/(2*mp.pi))/(2*mp.pi)
+        smooth = mp.quad(F, [T*mp.mpf(10)**(i/3) for i in range(0, 25)] + [mp.inf])
+        osc = -mp.sin(2*a*T)*F(T)/(2*a) - mp.cos(2*a*T)*mp.diff(F, T)/(4*a*a)
+        s += 2*(smooth - osc)/2
         return s
     return q
 

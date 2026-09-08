@@ -653,6 +653,12 @@
 "rc": 0,
 "when": "2026-09-03T23:30Z"
 },
+"3038d257b935f5cc6162e998": {
+"dt": 183.84074807167053,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T17:48Z"
+},
 "3132e6162e039131b0d049af": {
 "dt": 176.49704217910767,
 "file": "cascade_li_two_channels.py",

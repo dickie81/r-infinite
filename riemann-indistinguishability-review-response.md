@@ -5424,4 +5424,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-304 sweep commit. Full-tower class. Brief `brief_round305.md`.
 
+**Findings.** 1 MAJOR, 2 minor, 3 cosmetic, 2 observations — all verified and swept (A463): F305-1 (MAJOR) the bench's zero-side tail was an unresolved oscillatory quadrature and the block's minimiser agreement (4.4×10⁻⁵, the tail-to-infinity 5.3×10⁻⁵, the log T/T attribution) an artefact of it — the tail now resolved (smooth half to infinity, oscillatory half by parts), the sentence struck-and-annotated at source for 2.1×10⁻⁷, g6/g7 re-banded, A462's conclusion corrected in place; F305-2 the (iii) limit clause restated as entailed; F305-3 the producer's docstring corrected (key-neutral, cells REUSED); cosmetics F305-4/5/6; observation (a) the six two-sided balls re-derived live in g3. Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: convergence round commissioned.**
+
+### Round 306 — convergence test on the round-305 sweep (Theorem 1bo)
+
+**Scope.** The round-305 sweep commit. Full-tower class. Brief `brief_round306.md`.
+
 **Findings.** Pending.

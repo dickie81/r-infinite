@@ -32,9 +32,13 @@ negative at its upper end). eta_hi is a certified point where Q^{-eta} is
 NOT positive; eta_lo says only that g_1 does not witness it there. For
 p = 2 at the cells flagged two_sided, both directions with the perturbed
 Gram RE-MINIMISED at every step (its own approximate eigenvector, its
-Rayleigh ball certified): the crossing of the perturbed ground state itself
-to TOL; the re-minimised downward crossing must not exceed the fixed-vector
-one (gated).
+Rayleigh ball certified): the crossing of the re-minimised K2 quotient, an
+upper bound on the perturbed ground state's, to TOL2; the downward search
+starts at eta_hi/4 and doubles, so its upper end is the fixed-vector eta_hi
+by construction (the re-minimised quotient is at most g_1's) -- the content
+is its lower end (the verifier gates it at 0.98 eta_hi) [docstring
+corrected at the round-305 sweep, F305-3; a docstring edit does not rotate
+the key].
 
 State per cell: the lambda_1 ball of g_1 and g_1's coefficients; per
 prime: eta_lo, eta_hi, the two Rayleigh balls' ends, the evaluation count,
