@@ -95,7 +95,7 @@ def zeros(delta, K, prec, zeros_file=None, cut=None):
     the cut, of the order of the envelope R(T)^2 ~ 7e-7 of the quotient (ghat(T)^2 = sin^2(aT) R(T)^2); the signed deviation (candidate - true)/true changes sign
     between neighbouring cuts -- a SESSION SCAN (round 307; not gated: the cuts 3000, 3100, ..., 6600 in steps of 100 plus 6640,
     6650, 6680, 6700, 41 in all) changed sign 31 times and reached 6.1e-6 at the cut 3500 (6700: -2.057e-7; 6650: +1.655e-6;
-    6600: +1.115e-6; 6000: -2.954e-7; 3500: +6.085e-6; 3000: +3.139e-6) -- so no lower end is a property of the cuts; the verifier
+    6600: +1.115e-6; 6000: -2.954e-7; 3500: +6.084e-6; 3000: +3.139e-6) -- so no lower end is a property of the cuts; the verifier
     gates the cuts 6700, 6600, 3500, 3000 live (round-306 F306-1, round-307 F307-1, round-308 F308-1). The scale gated
     is the envelope R(T)^2, of which ghat(T)^2 = sin^2(aT) R(T)^2 is the value at the cut (F308-2)."""
     import mpmath as mp

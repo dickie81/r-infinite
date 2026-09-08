@@ -5454,4 +5454,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-309 sweep commit. Full-tower class. Brief `brief_round310.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 3 cosmetic — all verified and swept (A468): F310-1 (iii)'s "the other η_p at least as fast" now gated in g2 over every consecutive cell pair and every prime present at both, named in (v); F310-2/3/4 the bench docstring's rounding, two g7 comments, the four live cuts named in the block. Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: 0M+1m+3c → 311: convergence round commissioned.**
+
+### Round 311 — convergence test on the round-310 sweep (Theorem 1bo)
+
+**Scope.** The round-310 sweep commit. Full-tower class. Brief `brief_round311.md`.
+
 **Findings.** Pending.

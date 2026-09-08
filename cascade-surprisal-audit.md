@@ -18320,3 +18320,18 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: convergence round commissioned (brief `brief_round310.md`).
 
 ---
+
+## Addendum 468 — round 310 (the convergence test on the round-309 sweep): 0 MAJOR, 1 minor, 3 cosmetic — all verified by the lead and swept; the last ungated comparison in the block now gated; round 311 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F310-1 (minor, verified, ACCEPTED).** Clause (iii)'s "the other η_p at least as fast" (added at the round-305 sweep) was a cross-cell comparison of per-prime shifts that no committed gate read and (v) filed under no category — the class of F308-1 and F309-1; true on the stored certificates (the reviewer's 19 consecutive-cell comparisons, and now the gate's). Swept: g2 asserts, for every consecutive cell pair and every prime present at both, η_p(next)/η_p(prev) ≤ η₂(next)/η₂(prev); (iii) says "between consecutive cells (gated)"; (v)'s Computed list names it.
+- **F310-2, F310-3, F310-4 (cosmetic, ACCEPTED).** The bench docstring's double-rounded 3500 value (+6.085e-6 → +6.084e-6 for 6.084467×10⁻⁶); two g7 comments still saying "the maximum at 3500"; the block now names the four live cuts (6700, 6600, 3500, 3000) so "largest of the four" is checkable from the paper.
+- The sweep's first member run raised a KeyError: the new g2 loop had been inserted inside the per-cell loop ahead of the `loosest` assignment; moved after it.
+
+**Checked and held (reviewer).** The (iv) sentence byte-identical across the paper slice, the needle literal and `S_BENCH`, every clause against the live gates; (v)'s ledger mapping every other statement of (i)–(iv); the table and (iii) numbers from the stored balls (largest outward gap 5.63×10⁻⁴; ratios; the ceiling column; e^{−382}; the asymmetries; the minus brackets' ends; the shifted candidate's values; the loosest prime the largest prime ≤ eᵟ at every cell); the seven cells' keys recomputed with the closure `[weil_knife_edge.py, weil_prime_gram.py]`; needles 16 with counts; the census 91 body-only; the manifest and pins by independent sha256; the chain 23; the session scan reproduced; the Connes–Consani quotation verbatim at source; the object surfaces free of the retired phrasings; Checks 7/8; self-containment.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 24; `CASCADE_CHAIN=manifest python3 tools/research/cascade_prime_ball.py` → 11/11 (seven knife-edge cells REUSED); `python3 tools/research/run_tower.py` → manifest integrity 24 / 4 pins; needle precheck 79 reach files / 33 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 23 cached PASS + 0 FAIL of 24`; **TOWER PASS (24/24)**.
+
+**Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: 0M+1m+3c → 311: convergence round commissioned (brief `brief_round311.md`).
+
+---

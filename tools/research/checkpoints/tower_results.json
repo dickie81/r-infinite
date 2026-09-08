@@ -1793,6 +1793,12 @@
 "rc": 0,
 "when": "2026-09-03T23:39Z"
 },
+"8ccb37b6ec93458b77faca2a": {
+"dt": 220.0461344718933,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T20:06Z"
+},
 "8d3c1587dec58bb9220ce9ca": {
 "dt": 23.125699996948242,
 "file": "cascade_finite_fill.py",

@@ -17,8 +17,10 @@ relative), K coefficients stored. (2) THE BRACKETS: at every cell and every
 prime p <= e^delta the search is bracketed -- the Rayleigh ball of g_1 on
 Q^{-eta_hi} negative at its upper end, on Q^{-eta_lo} positive at its lower
 end, eta_hi/eta_lo <= 1 + 1e-3 -- the primes equal those of the cell's
-prime-power list, and eta_2/lambda_1 lies in [1, 10] at every cell (the
-paper's "comparable with lambda_1 itself"). (3) THE TWO-SIDED WINDOWS
+prime-power list, eta_2/lambda_1 lies in [1, 10] at every cell (the
+paper's "comparable with lambda_1 itself"), and between consecutive cells
+every other prime's shift falls at least as fast as eta_2 (round-310
+F310-1). (3) THE TWO-SIDED WINDOWS
 (p = 2, the three cells at delta <= 2.0, the perturbed Gram re-minimised at
 every step, brackets of relative width 1e-2): both brackets bracketed, the
 twelve balls (both ends of both brackets at the three cells) re-derived live from the stored shifts with their signs --
@@ -92,7 +94,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'form': 'ws'},
     {'g': 'g7', 's': "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'form': 'ws'},
-    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'form': 'ws'},
+    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'form': 'ws'},
     {'g': 'g7', 's': 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'form': 'ws'},
 ]
 
@@ -135,7 +137,14 @@ for c in ORDER:
     ratio2[c] = st["per_prime"]["2"]["hi_over_lambda"]
     ok &= 1 <= ratio2[c] <= 10
     loosest[c] = max(st["per_prime"].items(), key=lambda kv: kv[1]["eta_hi"])
-gate("g2 the brackets: at every cell and every prime, Q^(-eta_hi)(g_1) negative and Q^(-eta_lo)(g_1) positive in balls, eta_hi/eta_lo <= 1 + 1e-3; the primes those of the prime-power lists; eta_2/lambda_1 in [1, 10] ("
+# round-310 F310-1: the block's "the other eta_p at least as fast" -- between consecutive cells, every prime present at both
+# has eta_p(next)/eta_p(prev) <= eta_2(next)/eta_2(prev)
+for c0, c1 in zip(ORDER, ORDER[1:]):
+    f2 = KE[c1]["per_prime"]["2"]["eta_hi"]/KE[c0]["per_prime"]["2"]["eta_hi"]
+    for p_ in KE[c0]["per_prime"]:
+        if p_ != "2" and p_ in KE[c1]["per_prime"]:
+            ok &= KE[c1]["per_prime"][p_]["eta_hi"]/KE[c0]["per_prime"][p_]["eta_hi"] <= f2*(1 + 1e-12)
+gate("g2 the brackets: at every cell and every prime, Q^(-eta_hi)(g_1) negative and Q^(-eta_lo)(g_1) positive in balls, eta_hi/eta_lo <= 1 + 1e-3; the primes those of the prime-power lists; eta_2/lambda_1 in [1, 10]; the other primes' shifts falling at least as fast as eta_2 between consecutive cells ("
      + ", ".join(f"{ratio2[c]:.2f}" for c in ORDER) + "); loosest prime per cell " + ", ".join(f"{loosest[c][0]}: {loosest[c][1]['eta_hi']:.3e}" for c in ORDER), ok)
 
 # ---------------------------------------------------------------- g3
@@ -328,7 +337,7 @@ def _outward(stated, certified):   # a stated shift rounded outward: at or above
 ROWS = ['| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |']
 S_RATIO = "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5"
 S_EDGE = 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0'
-S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts"
+S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts"
 S_BENCH2 = 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)'
 # each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
 ok = True
@@ -341,7 +350,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | −221.899 | 8.882×10⁻⁹�
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE, S_BENCH, S_BENCH2]
 ok &= len(ROWS) == 7
@@ -374,14 +383,14 @@ ok &= len(_v) == 2 and _outward(_v[0], KE["d1.0"]["two_sided"]["plus"]["eta_hi"]
 _a = [float(x.replace(',', '')) for x in _re.findall(r'([0-9][0-9,]*)-fold', S_EDGE)]
 ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.10*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))   # two significant figures, rounded down; a ratio of two certified crossings, filed under Computed
 # the bench sentences: the zero-side values (the bump's 'below 3e-16' within a factor 2 of a noise-floor quantity, the minimiser's
-# within 10 percent, the envelope scale within a factor 2, the two signed cut values and the maximum at 3500 within 10 percent of the live values), the archimedean
+# within 10 percent, the envelope scale within a factor 2, the two signed cut values and the largest of the four at 3500 within 10 percent of the live values), the archimedean
 # candidate's and the true quotient on g_1 (within 1 percent of the live balls), the shifted candidate's two signed values
 # (within 1 percent of the stored delta = 1.0 balls for p = 2)
 _b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH)]
 ok &= len(_b) == 6 and rz["bump"]["rel"] <= _b[0] <= 2*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"]
 ok &= fluct_scale/2 <= _b[2] <= 2*fluct_scale                                              # the envelope scale within a factor 2
 ok &= rz_cuts[6600] <= _b[3] <= 1.1*rz_cuts[6600] and _b[3] > 0 and rz_cuts[6700] <= -_b[4] <= 1.1*rz_cuts[6700] and _b[4] < 0   # the two signed live values, outward
-ok &= rz_cuts[3500] <= _b[5] <= 1.1*rz_cuts[3500]                                          # the maximum at 3500, live, within 10 percent (round-308 F308-1)
+ok &= rz_cuts[3500] <= _b[5] <= 1.1*rz_cuts[3500]                                          # the largest of the four at 3500, live, within 10 percent (round-308 F308-1)
 _b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH2)]
 _r2 = KE["d1.0"]["per_prime"]["2"]
 ok &= len(_b) == 4 and abs(_b[0] - float(ra["g1"]["rq_cand"].mid())) <= 0.01*_b[0] and abs(_b[1] - float(ra["g1"]["rq_true"].mid())) <= 0.01*_b[1]

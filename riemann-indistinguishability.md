@@ -6717,8 +6717,8 @@ line in Krein's sense): whatever certifies the form at support δ
 carries every log p to within η_p(δ) from below, and whatever certifies
 it at every certified support carries log 2 to within 7.073×10⁻¹⁶⁷ —
 exactly, if the decay continues: η₂(δ) falls with λ₁(δ) through the
-cells (the ratio 2.0–5.4), the other η_p at least as fast, and no limit
-is certified — so no truncation or model of the primes at any fixed
+cells (the ratio 2.0–5.4), the other η_p at least as fast between consecutive cells (gated), and
+no limit is certified — so no truncation or model of the primes at any fixed
 precision survives across supports. Nothing sufficient is known: what is
 certified is that an error of η₂ in one shell's position already loses
 the form at support δ, not that any smaller error keeps it. *(iv) The bench.*
@@ -6726,14 +6726,16 @@ the form at support δ, not that any smaller error keeps it. *(iv) The bench.*
 proposed factorisation, kernel or arithmetic — is a Gram in balls or a
 quadratic form on the cell's cosine basis; the bench compares it with the
 true Gram entrywise and on named vectors' Rayleigh quotients. Three
-calibrations, gated live at δ = 1.0: the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts ~~only to 4.4×10⁻⁵, 5.3×10⁻⁵ with the tail taken to infinity — the raw cosine basis is discontinuous at ±a, its zero sums converge as log T/T (the truncated tail is not the cause)~~ *(struck round 305, F305-1: in the cosine basis ĝ(r) = sin(ra)R(r) with R rational, so the tail integrand oscillates with period π/a — about 10⁵ periods on [T, 100T] — and the first version's plain quadrature could not resolve it: a 1 percent error in a 0.6 percent tail, the whole stated deviation, and the log T/T attribution with it; the tail is now the smooth half on log-spaced pieces to infinity plus the oscillatory half by parts)* — a candidate is tested with its tail resolved; the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹): the bench resolves the knife-edge. A filter, never a
+calibrations, gated live at δ = 1.0: the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts ~~only to 4.4×10⁻⁵, 5.3×10⁻⁵ with the tail taken to infinity — the raw cosine basis is discontinuous at ±a, its zero sums converge as log T/T (the truncated tail is not the cause)~~ *(struck round 305, F305-1: in the cosine basis ĝ(r) = sin(ra)R(r) with R rational, so the tail integrand oscillates with period π/a — about 10⁵ periods on [T, 100T] — and the first version's plain quadrature could not resolve it: a 1 percent error in a 0.6 percent tail, the whole stated deviation, and the log T/T attribution with it; the tail is now the smooth half on log-spaced pieces to infinity plus the oscillatory half by parts)* — a candidate is tested with its tail resolved; the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹): the bench resolves the knife-edge. A filter, never a
 proof — what it proves is a difference. *(v) What is proved, computed,
 not claimed.* Proved: every identity of (i) (Tate's; gated where it carries
 content — the residue-counted shell volumes, the Euler product within
 its tail bound, the theta inversion, the shell-weight sum); every η_hi
 of (ii) (a negative ball on an explicit vector); the bench's two
 rejections (balls). Computed, gated in bands: the zero-side agreements
-(floating point), the ratios η₂/λ₁, the asymmetries. Not claimed: any
+(floating point), the ratios η₂/λ₁, the asymmetries, and the other
+primes' shifts falling at least as fast as η₂ between consecutive cells
+(every prime present at both cells). Not claimed: any
 lower bound on a window (η_lo is where the witnessing vector fails to
 witness — g₁, or the re-minimised vector for the two-sided windows —
 not where positivity holds); anything about the
