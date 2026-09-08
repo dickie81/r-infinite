@@ -64,6 +64,13 @@ CELLS = {
 }
 TOL = 1e-3          # relative width of the certified bracket
 TOL2 = 1e-2         # for the re-minimised two-sided search
+EVAL_CAP = 20000    # a search that has not bracketed by then reports it (the first run at delta = 3.5 spun on a midpoint of 0)
+
+def geomid(lo, hi):
+    """The geometric midpoint of a bracket, in log space: math.sqrt(lo*hi) underflows to 0 once lo*hi < 1e-308
+    (delta = 3.5 has eta ~ 4e-167), and a midpoint of 0 re-evaluates the unperturbed form forever."""
+    if lo == 0: return hi/2
+    return math.exp(0.5*(math.log(lo) + math.log(hi)))
 
 def ball_fields(rq, prec):
     with ctx.workprec(prec):
@@ -158,11 +165,13 @@ def search_fixed(num, den, fg, p, lam_up, prec):
             lo = eta; r_lo = r; eta *= 2
             if eta > 4: return {"status": "no crossing below 4", "eta_lo": lo, "evals": evals}
         while lo == 0 or hi/lo > 1 + TOL:
-            mid = hi/2 if lo == 0 else math.sqrt(lo*hi)
+            mid = geomid(lo, hi)
+            if not (lo < mid < hi): return {"status": "bracket stalled", "eta_lo": lo, "eta_hi": hi, "evals": evals}
             r = q(mid); evals += 1
             if r.upper() < 0: hi = mid; r_hi = r
             elif r.lower() > 0: lo = mid; r_lo = r
             else: return {"status": "ambiguous", "eta": mid, "ball": ball_fields(r, prec), "evals": evals}
+            if evals > EVAL_CAP: return {"status": "evaluation cap", "eta_lo": lo, "eta_hi": hi, "evals": evals}
         return {"status": "bracketed", "eta_lo": lo, "eta_hi": hi, "q_lo": ball_fields(r_lo, prec), "q_hi": ball_fields(r_hi, prec),
                 "evals": evals, "hi_over_lambda": hi/float(lam_up)}
 
@@ -181,7 +190,8 @@ def search_reminimised(G, N, p, K, a, prec, sign, start):
             lo = eta; r_lo = r; eta *= 2
             if eta > 4: return {"status": "no crossing below 4", "eta_lo": lo, "evals": evals}
         while lo == 0 or hi/lo > 1 + TOL2:
-            mid = hi/2 if lo == 0 else math.sqrt(lo*hi)
+            mid = geomid(lo, hi)
+            if not (lo < mid < hi): return {"status": "bracket stalled", "eta_lo": lo, "eta_hi": hi, "evals": evals}
             r = q(mid); evals += 1
             if r.upper() < 0: hi = mid; r_hi = r
             elif r.lower() > 0: lo = mid; r_lo = r
