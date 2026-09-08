@@ -6642,8 +6642,10 @@ tower, the function of Paper 0's sphere areas Ω_d = 2π^{(d+1)/2}/Γ((d+1)/2)
 at d + 1 = s. At each prime p the unit ball is ℤ_p, its shells p^kℤ_p^×
 (k ≥ 0) of Haar volume p^{−k}(1 − 1/p), and the shell series ∫_{ℤ_p}
 |x|_p^s d^×x = Σ_k p^{−ks} = (1 − p^{−s})^{−1} is the Euler factor
-(gated in balls with the exact geometric remainder, p = 2 to 11, real
-and complex s, below 10⁻⁵⁰). The ball Φ = e^{−πx_∞²}∏_p 1_{ℤ_p} on the
+(the shell volumes gated by residue counts — the fraction of x mod p^m
+with v_p(x) = k is p^{−k}(1 − 1/p), p = 2, 3, 5, m = 4 — and the series
+with its exact geometric remainder in balls, p = 2 to 11, real and
+complex s, below 10⁻⁵⁰). The ball Φ = e^{−πx_∞²}∏_p 1_{ℤ_p} on the
 adeles is self-dual — 1_{ℤ_p} is its own Fourier transform for the
 standard character: the sums p^{−m}Σ_{x mod p^m} e(ax/p^m) equal 0 for
 p ∤ a and 1 for a = 0 (gated, p = 2, 3, 5, m ≤ 3) — its multi-shells are
@@ -6676,8 +6678,11 @@ with the K × K shell matrices is gated at every cell and prime, and the
 p = 2 shift re-certified at every cell through the K × K path. Q^{−η_hi}
 is therefore not positive. For p = 2 at δ ≤ 2.0 both directions are
 bracketed with the perturbed Gram re-minimised at every step (its own
-eigenvector's ball certified), the crossing of the perturbed ground
-state itself. Every η below is rounded outward (upward: a stated shift at
+approximate eigenvector's ball certified): the crossing of the
+re-minimised K2 quotient, an upper bound on the perturbed ground
+state's, bracketed to relative width 10⁻² — the downward crossing
+coincides with the fixed-vector η_hi at all three cells, the
+re-minimised quotient still positive at 0.994 η_hi (gated). Every η below is rounded outward (upward: a stated shift at
 or above the certified η_hi), λ₁ is 1bn's certified upper bound:
 
 | δ | ln λ₁ ≤ | η₂: log 2 down by | η₂/λ₁ | loosest prime p: η_p | window for log 2 (re-minimised) |
@@ -6698,28 +6703,37 @@ value: whatever certifies the form at support δ carries log 2 to the
 precision η₂, and every prime p ≤ eᵟ to at most η_p (the loosest are
 the primes near the window's edge, where the autocorrelation vanishes).
 The edge is one-sided: at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0 —
-Connes–Consani's "knife-edge" of ζ-cycles §2.3, reproduced in Addendum
-371 at δ ≤ 1.09 on their semi-local form, here certified on the true
-form to δ = 3.5 downward and to 2.0 both ways. Consequence for the
+the sensitivity to the precise value of p = 2 that Connes–Consani report
+in ζ-cycles §2.3 ("the positivity requirement restricts the choice of p
+to an interval of size < 10⁻³ around p = 2", at L = log 3, their Figure
+8; the knife-edge label is this program's, Addendum 371's reproduction
+on their semi-local form at δ ≤ 1.09), here certified on the true form
+to δ = 3.5 downward and to 2.0 both ways. Consequence for the
 geometry this section is after (Suzuki's §7.7 factorisation, a screw
-line in Krein's sense): it must be an identity in the primes, not an
-inequality — it must reproduce the shells of (i) exactly, since at
-support δ an error of η₂ in one shell's position already loses the
-form; no truncation, approximation or model of the primes can stand in
-for it at any finite support. *(iv) The bench.*
+line in Krein's sense): whatever certifies the form at support δ
+carries every log p to within η_p(δ), and whatever certifies it at
+every support carries the primes exactly, since η_p(δ) falls through
+the cells as the slack law's e^{−4πeᵟ} — no truncation or model of the
+primes survives across supports. Nothing sufficient is known: what is
+certified is that an error of η₂ in one shell's position already loses
+the form at support δ, not that any smaller error keeps it. *(iv) The bench.*
 `weil_factorisation_bench.py`: a candidate for the form on a cell — a
 proposed factorisation, kernel or arithmetic — is a Gram in balls or a
 quadratic form on the cell's cosine basis; the bench compares it with the
 true Gram entrywise and on named vectors' Rayleigh quotients. Three
-calibrations, gated live at δ = 1.0: the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵ — the raw cosine basis is discontinuous
-at ±a, its zero sums converge as log T/T, so a candidate is tested on
+calibrations, gated live at δ = 1.0: the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail integrated to 100T — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser only to 4.4×10⁻⁵, 5.3×10⁻⁵ with the tail taken to infinity — the raw cosine basis is discontinuous
+at ±a, its zero sums converge as log T/T (the truncated tail is not the cause), so a candidate is tested on
 smooth vectors or with its tail resolved; the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹): the bench resolves the knife-edge. A filter, never a
 proof — what it proves is a difference. *(v) What is proved, computed,
-not claimed.* Proved: every identity of (i) (Tate's); every η_hi of (ii)
-(a negative ball on an explicit vector); the bench's three rejections
-and agreements as stated. Computed, gated in bands: the ratios η₂/λ₁,
-the asymmetries. Not claimed: any lower bound on a window (η_lo is where
-g₁ fails to witness, not where positivity holds); anything about the
+not claimed.* Proved: every identity of (i) (Tate's; gated where it carries
+content — the residue-counted shell volumes, the Euler product within
+its tail bound, the theta inversion, the shell-weight sum); every η_hi
+of (ii) (a negative ball on an explicit vector); the bench's two
+rejections (balls). Computed, gated in bands: the zero-side agreements
+(floating point), the ratios η₂/λ₁, the asymmetries. Not claimed: any
+lower bound on a window (η_lo is where the witnessing vector fails to
+witness — g₁, or the re-minimised vector for the two-sided windows —
+not where positivity holds); anything about the
 zeros; the geometry itself — **no Riemann Hypothesis consequence is
 claimed**. Check 7 clean (Tate's thesis, Poisson, Rayleigh–Ritz,
 Krein's screw functions as context — classical; no semiclassics; no

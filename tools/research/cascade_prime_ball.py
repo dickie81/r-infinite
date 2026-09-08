@@ -10,7 +10,8 @@ gated live. Tower member 24 (top).
 
 THE CLAIMS GATED. (0) THE KNIFE-EDGE CERTIFICATES load at their keys at the
 seven cells with the cells' (delta, K, prec) equal to Theorem 1bn's (delta,
-K2, prec). (1) THE VECTOR: the producer's lambda_1 ball reproduces 1bn's
+K2, prec) (the verdict field is informational -- written unconditionally --
+the per-prime statuses are gated in (2)). (1) THE VECTOR: the producer's lambda_1 ball reproduces 1bn's
 stored K2 ball (the same flint eigenvector; upper ends within 1e-20
 relative), K coefficients stored. (2) THE BRACKETS: at every cell and every
 prime p <= e^delta the search is bracketed -- the Rayleigh ball of g_1 on
@@ -19,26 +20,32 @@ end, eta_hi/eta_lo <= 1 + 1e-3 -- the primes equal those of the cell's
 prime-power list, and eta_2/lambda_1 lies in [1, 10] at every cell (the
 paper's "comparable with lambda_1 itself"). (3) THE TWO-SIDED WINDOWS
 (p = 2, the three cells at delta <= 2.0, the perturbed Gram re-minimised at
-every step): both brackets bracketed, the re-minimised downward crossing
-at or below the fixed-vector one, the upward crossing at least 100 times
-the downward. (4) INDEPENDENT RE-CERTIFICATION, K x K path: at every cell
+every step, brackets of relative width 1e-2): both brackets bracketed --
+the crossing of the re-minimised K2 quotient, an upper bound on the
+perturbed ground state's -- the re-minimised downward crossing within 2
+percent below the fixed-vector eta_hi (its upper end cannot exceed it),
+the upward crossing at least 100 times the downward. (4) INDEPENDENT RE-CERTIFICATION, K x K path: at every cell
 the O(K) shell sum at eta = 0 (the producer's evaluation path) equals the
 Gram's prime part on g_1 computed shell by shell as full matrices (the
 bench's path), to 1e-30 relative; and for p = 2 at every cell the bench's
 shifted Gram at -eta_hi gives g_1 a negative Rayleigh ball, at -eta_lo a
 positive one -- the headline shifts certified twice, by two code paths.
-(5) THE SHELL IDENTITIES LIVE: the p-adic shell series against the Euler
-factor in balls with the exact geometric remainder (p = 2..11, real and
-complex s; 1e-50); the archimedean shell series against Gamma_R by
+(5) THE SHELL IDENTITIES LIVE: the shell volumes by residue count (the
+fraction of x mod p^m with v_p(x) = k equals p^(-k)(1 - 1/p) exactly; p =
+2, 3, 5; m = 4) and the p-adic shell series against the Euler factor in
+balls with the exact geometric remainder (p = 2..11, real and complex s;
+1e-50); the archimedean shell series against Gamma_R by
 quadrature (1e-20); the truncated Euler product against zeta within the
 rigorous tail bound P^{1-sigma}/((sigma-1)(1-P^{-sigma})) (s = 2, 3, 2+5i;
 P = 100, 1000); the self-duality character sums of 1_{Z_p} (p = 2, 3, 5;
 m <= 3; 1e-12); theta inversion and Lambda(s) = Lambda(1-s) (1e-30); the
 shell-weight sum sum_{n<=N} Lambda(n) n^{-s} against -zeta'/zeta within its
-tail bound (s = 2, 3). (6) THE BENCH CALIBRATIONS LIVE at delta = 1.0: the
-zero side (6700 zeros + tail) on the C_c^inf bump within 1e-13 of the true
-form and on the minimiser within [1e-5, 1e-4] (the documented limitation of
-the raw cosine basis); the archimedean-only candidate rejected by a
+tail bound (s = 2, 3). (6) THE BENCH CALIBRATIONS LIVE at delta = 1.0 (floating
+point, relative Rayleigh-quotient deviations): the zero side (6700 zeros +
+tail) on the C_c^inf bump within 1e-13 of the true form and on the K = 48
+Gram's approximate minimiser within [1e-5, 1e-4], with the tail to 100T and
+to infinity (the documented limitation of the raw cosine basis, not the
+tail truncation); the archimedean-only candidate rejected by a
 certified margin (its Rayleigh quotient on g_1 above 1e-2, the true below
 1e-6). (7) THE PAPER'S NUMBERS: the block's table rows declared as needles
 and parsed back -- every stated shift at or above (rounded outward) the
@@ -79,7 +86,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'form': 'ws'},
     {'g': 'g7', 's': "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'form': 'ws'},
-    {'g': 'g7', 's': 'the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵', 'form': 'ws'},
+    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail integrated to 100T — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser only to 4.4×10⁻⁵, 5.3×10⁻⁵ with the tail taken to infinity", 'form': 'ws'},
     {'g': 'g7', 's': 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'form': 'ws'},
 ]
 
@@ -94,11 +101,11 @@ KE = {c: run_KE(c) for c in ORDER}
 TF = {c: run_TF(c) for c in ORDER}
 
 # ---------------------------------------------------------------- g0
-ok = all(KE[c]["verdict"].startswith("CERTIFIED") and KE[c]["cell"] == c for c in ORDER)
+ok = all(KE[c]["cell"] == c for c in ORDER)   # the verdict field is informational (written unconditionally); the statuses are gated in g2 (round-304 C2)
 ok &= all(abs(KCELLS[c]["delta"] - TCELLS[c]["delta"]) < 1e-12 and KCELLS[c]["K"] == TCELLS[c]["K2"] and KCELLS[c]["prec"] == TCELLS[c]["prec"] for c in ORDER)
 ok &= all(abs(KE[c]["delta"] - KCELLS[c]["delta"]) < 1e-12 and KE[c]["K"] == KCELLS[c]["K"] and KE[c]["prec"] == KCELLS[c]["prec"] for c in ORDER)
 ok &= list(KCELLS) == ORDER
-gate("g0 the seven knife-edge certificates load at their keys; the cells' (delta, K, prec) equal Theorem 1bn's (delta, K2, prec)", ok)
+gate("g0 the seven knife-edge certificates load at their keys (the verdict field informational; the statuses are gated in g2); the cells' (delta, K, prec) equal Theorem 1bn's (delta, K2, prec)", ok)
 
 # ---------------------------------------------------------------- g1
 ok = True
@@ -134,12 +141,16 @@ for c in ORDER:
         m, q = two["minus"], two["plus"]
         ok &= m["status"] == "bracketed" and q["status"] == "bracketed" and m["sign"] == -1 and q["sign"] == 1
         ok &= m["q_hi"]["negative"] and m["q_lo"]["positive"] and q["q_hi"]["negative"] and q["q_lo"]["positive"]
-        ok &= m["eta_hi"] <= KE[c]["per_prime"]["2"]["eta_hi"]*(1 + 1e-9)
+        fx = KE[c]["per_prime"]["2"]["eta_hi"]
+        # the re-minimised upper end can never exceed the fixed-vector eta_hi (the search starts at eta_hi/4 and the
+        # re-minimised quotient is at most g_1's); the content is the LOWER end: the re-minimised quotient still positive
+        # within 2 percent below eta_hi (round-304 F304-2)
+        ok &= 0.98*fx <= m["eta_lo"] < m["eta_hi"] <= fx*(1 + 1e-9)
         asym[c] = q["eta_hi"]/m["eta_hi"]
         ok &= asym[c] >= 100
     else:
         ok &= two is None
-gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised): both crossings bracketed with certified signs, the downward one at or below the fixed-vector crossing, the upward/downward asymmetry >= 100 ("
+gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised, relative width 1e-2): both crossings bracketed with certified signs, the downward one within 2 percent below the fixed-vector eta_hi (its upper end cannot exceed it), the upward/downward asymmetry >= 100 ("
      + ", ".join(f"{asym[c]:.3g}" for c in asym) + ")", ok)
 
 # ---------------------------------------------------------------- g4
@@ -188,6 +199,18 @@ with ctx.workprec(200):
             dev = float(abs(partial + r**Kc/(1 - r) - 1/(1 - r)).upper())
             mx = max(mx, dev)
 g5["a"] = mx; ok &= mx <= 1e-50
+# the shell volumes by residue count: the fraction of x mod p^m with v_p(x) = k equals p^(-k)(1 - 1/p) exactly (round-304 C3:
+# the series identity alone carries no content about the shells)
+from fractions import Fraction as _Fr
+def _vp(x, p):
+    k = 0
+    while x and x % p == 0: x //= p; k += 1
+    return k
+for p in (2, 3, 5):
+    m = 4
+    for k in range(m):
+        cnt = sum(1 for x in range(1, p**m) if _vp(x, p) == k)
+        ok &= _Fr(cnt, p**m) == _Fr(1, p**k)*(1 - _Fr(1, p))
 # (b) archimedean shell series
 mp.mp.dps = 40; mx = 0.0
 for s in (mp.mpf(1), mp.mpf(2), mp.mpf('0.5'), mp.mpf(5), mp.mpc(0.5, 3)):
@@ -235,7 +258,7 @@ for s in (mp.mpf(2), mp.mpf(3)):
     dev = abs(sm + mp.zeta(s, derivative=1)/mp.zeta(s))
     worst = max(worst, float(dev/bound)); ok &= dev <= bound
 g5["f"] = worst
-gate("g5 the shell identities LIVE: (a) p-adic shell series vs the Euler factor in balls, max " + f"{g5['a']:.1e}" + " <= 1e-50; (b) archimedean shell series vs Gamma_R, max "
+gate("g5 the shell identities LIVE: (a) the shell volumes by residue count (p = 2, 3, 5, m = 4, exact) and the p-adic shell series vs the Euler factor in balls, max " + f"{g5['a']:.1e}" + " <= 1e-50; (b) archimedean shell series vs Gamma_R, max "
      + f"{g5['b']:.1e}" + " <= 1e-20; (c) truncated Euler product within the tail bound (worst dev/bound " + f"{g5['c']:.2f}" + "); (d) 1_(Z_p) self-dual character sums, max "
      + f"{g5['d']:.1e}" + "; (e) theta inversion and Lambda(s) = Lambda(1-s), max " + f"{g5['e']:.1e}" + " <= 1e-30; (f) shell-weight sum vs -zeta'/zeta within the tail bound (worst " + f"{g5['f']:.2f}" + ")", ok)
 
@@ -247,15 +270,16 @@ c1, _ = minimiser(G1, N1, 400)
 with ctx.workprec(400):
     vecs = {"minimiser": [arb(x) for x in c1], "bump": bump_vector(1.0, 48)}
 rz = compare(G1, zeros(1.0, 48, 400), N1, vecs, 400)
-ok &= rz["bump"]["rel"] <= 1e-13 and 1e-5 <= rz["minimiser"]["rel"] <= 1e-4
+rzi = compare(G1, zeros(1.0, 48, 400, tail_to_inf=True), N1, {"minimiser": vecs["minimiser"]}, 400)   # round-304 observation
+ok &= rz["bump"]["rel"] <= 1e-13 and 1e-5 <= rz["minimiser"]["rel"] <= 1e-4 and 1e-5 <= rzi["minimiser"]["rel"] <= 1e-4
 G2, N2, _ = gram(1.0, 120, 600)
 with ctx.workprec(600):
     cv = [arb(x) for x in KE["d1.0"]["coeffs"]]
 Ca, _, _ = archimedean(1.0, 120, 600)
 ra = compare(G2, Ca, N2, {"g1": cv}, 600)
 ok &= ra["g1"]["rq_cand"].lower() > 1e-2 and ra["g1"]["rq_true"].upper() < 1e-6 and float(ra["max_abs"]) >= 0.1
-gate("g6 the bench calibrations LIVE at delta = 1.0: the zero side on the bump within 1e-13 (" + f"{rz['bump']['rel']:.1e}" + ") and on the minimiser in [1e-5, 1e-4] ("
-     + f"{rz['minimiser']['rel']:.1e}" + "); the archimedean-only candidate rejected -- Rayleigh on g_1 " + ra["g1"]["rq_cand"].str(5) + " against the true " + ra["g1"]["rq_true"].str(5)
+gate("g6 the bench calibrations LIVE at delta = 1.0 (floating point, relative Rayleigh-quotient deviations): the zero side on the bump within 1e-13 (" + f"{rz['bump']['rel']:.1e}" + ") and on the K = 48 minimiser in [1e-5, 1e-4] with the tail to 100T ("
+     + f"{rz['minimiser']['rel']:.1e}" + ") and to infinity (" + f"{rzi['minimiser']['rel']:.1e}" + "); the archimedean-only candidate rejected -- Rayleigh on g_1 " + ra["g1"]["rq_cand"].str(5) + " against the true " + ra["g1"]["rq_true"].str(5)
      + ", entrywise max " + ra["max_abs"], ok)
 
 # ---------------------------------------------------------------- g7
@@ -273,7 +297,7 @@ def _outward(stated, certified):   # a stated shift rounded outward: at or above
 ROWS = ['| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |']
 S_RATIO = "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5"
 S_EDGE = 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0'
-S_BENCH = 'the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵'
+S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail integrated to 100T — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser only to 4.4×10⁻⁵, 5.3×10⁻⁵ with the tail taken to infinity"
 S_BENCH2 = 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)'
 # each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
 ok = True
@@ -286,7 +310,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | −221.899 | 8.882×10⁻⁹�
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail integrated to 100T — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser only to 4.4×10⁻⁵, 5.3×10⁻⁵ with the tail taken to infinity", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE, S_BENCH, S_BENCH2]
 ok &= len(ROWS) == 7
@@ -318,11 +342,12 @@ _v = [_num(x) for x in _re.findall(r'[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]
 ok &= len(_v) == 2 and _outward(_v[0], KE["d1.0"]["two_sided"]["plus"]["eta_hi"]) and _outward(_v[1], KE["d1.0"]["two_sided"]["minus"]["eta_hi"])
 _a = [float(x.replace(',', '')) for x in _re.findall(r'([0-9][0-9,]*)-fold', S_EDGE)]
 ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.10*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))   # two significant figures, rounded down
-# the bench sentences: the two zero-side agreements (stated at or above the live value, within 10 percent), the archimedean
+# the bench sentences: the three zero-side agreements (stated at or above the live value: the bump's 'below 3e-16' within a factor 2 of a
+# noise-floor quantity, the minimiser's two within 10 percent), the archimedean
 # candidate's and the true quotient on g_1 (within 1 percent of the live balls), the shifted candidate's two signed values
 # (within 1 percent of the stored delta = 1.0 balls for p = 2)
 _b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH)]
-ok &= len(_b) == 2 and rz["bump"]["rel"] <= _b[0] <= 1.1*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"]
+ok &= len(_b) == 3 and rz["bump"]["rel"] <= _b[0] <= 2*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"] and rzi["minimiser"]["rel"] <= _b[2] <= 1.1*rzi["minimiser"]["rel"]
 _b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH2)]
 _r2 = KE["d1.0"]["per_prime"]["2"]
 ok &= len(_b) == 4 and abs(_b[0] - float(ra["g1"]["rq_cand"].mid())) <= 0.01*_b[0] and abs(_b[1] - float(ra["g1"]["rq_true"].mid())) <= 0.01*_b[1]

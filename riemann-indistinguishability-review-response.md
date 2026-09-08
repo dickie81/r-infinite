@@ -5418,4 +5418,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The landing commit: the Theorem 1bo block and the footer (census 91 / 1i–1bo); `cascade_prime_ball.py` (member 24, top; gates g0–g10); the substrates `weil_knife_edge.py` (seven keyed checkpoints) and `weil_factorisation_bench.py`; the census literals advanced across the members; the manifest (24). Full-tower class (a landing). Brief `brief_round304.md`.
 
+**Findings.** 0 MAJOR, 4 minor, 5 cosmetic, 1 observation tested, 1 out-of-scope record observation — all verified and swept (A462): F304-1 "knife-edge" was not Connes–Consani's term (their §2.3 quoted instead); F304-2 the two-sided search brackets the re-minimised K2 quotient, an upper bound, at width 10⁻², its downward end coinciding with the fixed-vector η_hi by construction (g3 now gates the lower end); F304-3 the "identity, not inequality … at any finite support" consequence restated in its entailed form; F304-4 the zero-side agreements moved from Proved to Computed. Cosmetics: the bench's clause label, g0's informational verdict conjunct, g5(a) extended with residue-counted shell volumes, (iv)'s vector and quantity named, (v)'s witness named. The tail-to-infinity test: the minimiser's deviation 4.3×10⁻⁵ → 5.2×10⁻⁵, the truncation not the cause. Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: convergence round commissioned.**
+
+### Round 305 — convergence test on the round-304 sweep (Theorem 1bo)
+
+**Scope.** The round-304 sweep commit. Full-tower class. Brief `brief_round305.md`.
+
 **Findings.** Pending.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The factorisation bench (Theorem 1bo(iii)): any CANDIDATE for the true
+"""The factorisation bench (Theorem 1bo(iv)): any CANDIDATE for the true
 Weil form on a window -- a proposed factorisation Q(g) = ||S g||^2, a
 proposed kernel, a proposed arithmetic -- is a Gram in the even cosine
 basis of weil_prime_gram.py; the bench compares it with the TRUE Gram
@@ -78,12 +78,14 @@ def _shell_matrix(u, lp, K, a, prec):
                 M[j, k] = v; M[k, j] = v
         return M
 
-def zeros(delta, K, prec, zeros_file=None):
+def zeros(delta, K, prec, zeros_file=None, tail_to_inf=False):
     """The zero side as a quadratic form on coefficient vectors (mpmath floats, dps 40):
     q(c) = 2 sum_gamma ghat(gamma)^2 + the smooth-density tail above the last zero, ghat = sum c_k phihat_k.
     Returned as a callable (the tail is a single quadrature per vector; the entrywise Gram in the raw cosine
     basis converges only as log T / T over the zeros -- the basis elements are discontinuous at +-a -- so
-    the calibration is on vectors: a C_c^inf bump agrees to 1e-16, the minimiser to ~1e-5 at delta = 1)."""
+    the calibration is on vectors: a C_c^inf bump agrees to 1e-16, the minimiser to ~1e-5 at delta = 1). The tail is
+    integrated over [T, 100T] by default; tail_to_inf=True continues it to infinity (round-304 observation: at delta = 1
+    the minimiser's deviation is 4.3e-5 with the tail to 100T and 5.2e-5 to infinity -- the truncation is not the cause)."""
     import mpmath as mp
     mp.mp.dps = 40
     zf = zeros_file or os.path.join(HERE, "checkpoints", "zeta_zeros_6700.json")
@@ -99,7 +101,8 @@ def zeros(delta, K, prec, zeros_file=None):
         cc = [mp.mpf(x.mid().str(60, radius=False)) if isinstance(x, arb) else mp.mpf(str(x)) for x in c]
         ghat = lambda r: sum(cc[k]*phihat(k, r) for k in range(K))
         s = 2*sum(sum(cc[k]*v[k] for k in range(K))**2 for v in vals)
-        s += 2*mp.quad(lambda r: ghat(r)**2*mp.log(r/(2*mp.pi))/(2*mp.pi), [T, 2*T, 10*T, 100*T])
+        pts = [T, 2*T, 10*T, 100*T] + ([1000*T, 10000*T, mp.inf] if tail_to_inf else [])
+        s += 2*mp.quad(lambda r: ghat(r)**2*mp.log(r/(2*mp.pi))/(2*mp.pi), pts)
         return s
     return q
 
