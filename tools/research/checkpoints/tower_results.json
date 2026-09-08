@@ -551,6 +551,12 @@
 "rc": 0,
 "when": "2026-08-28T11:09Z"
 },
+"28d90bd6de6d0c485b7b9f75": {
+"dt": 208.3849766254425,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T18:21Z"
+},
 "28deb5e9cbf3f671bb1b119d": {
 "dt": 30.042487621307373,
 "file": "cascade_saddle_curvature.py",

@@ -16,7 +16,8 @@ CANDIDATES BUILT IN (the calibrations):
                                (mpmath, dps 40; floating point) -- the 'factorisation that knows the zeros';
                                on a C_c^inf bump it agrees with the true form to 2.6e-16 (the calibration
                                that the bench measures the right object), on the Gram's approximate
-                               minimiser to 2.1e-7 at delta = 1, K = 48
+                               minimiser to 2.1e-7 at delta = 1, K = 48 at the 6700-zero cut (a fluctuation
+                               draw of order ghat(T)^2 ~ 7e-7; see zeros())
   archimedean(delta, K, prec)  the true Gram with the primes dropped (P = 0): the geometry of the Gamma
                                factor alone -- rejected by the prime part, a certified margin
   shifted(delta, K, prec, p, eta)  the true Gram with log p -> log p + eta (weil_knife_edge.py's perturbed
@@ -78,7 +79,7 @@ def _shell_matrix(u, lp, K, a, prec):
                 M[j, k] = v; M[k, j] = v
         return M
 
-def zeros(delta, K, prec, zeros_file=None):
+def zeros(delta, K, prec, zeros_file=None, cut=None):
     """The zero side as a quadratic form on coefficient vectors (mpmath floats, dps 40):
     q(c) = 2 sum_gamma ghat(gamma)^2 + the smooth-density tail above the last zero, ghat = sum c_k phihat_k.
     Returned as a callable. THE TAIL (round-305 F305-1): in the cosine basis ghat(r) = sin(ra) R(r) exactly, with
@@ -87,13 +88,17 @@ def zeros(delta, K, prec, zeros_file=None):
     (the first version's 4.3e-5 'deviation' of the minimiser at delta = 1 was a 1 percent error in a 0.6 percent tail).
     Now: sin^2 = 1/2 - cos(2ar)/2; the smooth half integrated on log-spaced pieces to infinity; the oscillatory half by
     parts twice, -sin(2aT)F(T)/(2a) - cos(2aT)F'(T)/(4a^2) with F = R^2 L (the neglected remainder is bounded by
-    int |F''|/(4a^2), of order F(T)/(a^2 T^2), below 1e-18 of the quotient). Calibrations at delta = 1, K = 48: a C_c^inf
-    bump agrees to 2.6e-16, the Gram's approximate minimiser to 2.1e-7 (relative Rayleigh-quotient deviations,
-    floating point)."""
+    int |F''|/(4a^2) ~ F(T)/(2 a^2 T) -- 2.3e-10 of the quotient for the K = 48 minimiser at delta = 1; the third by-parts
+    term itself is 9e-14 of it -- round-306 F306-2 corrected the first statement of this bound). Calibrations at
+    delta = 1, K = 48 (relative Rayleigh-quotient deviations, floating point): a C_c^inf bump agrees to 2.6e-16; the
+    Gram's approximate minimiser to 2.1e-7 at the 6700-zero cut -- a draw of the counting function's fluctuation at
+    the cut, of order ghat(T)^2 ~ 7e-7 of the quotient, the signed deviation ranging over 1e-7 .. 3e-6 across cuts
+    (6700: -2.1e-7; 6650: +1.7e-6; 6600: +1.1e-6; 6000: -3.0e-7; 3000: +3.1e-6; round-306 F306-1)."""
     import mpmath as mp
     mp.mp.dps = 40
     zf = zeros_file or os.path.join(HERE, "checkpoints", "zeta_zeros_6700.json")
     gam = [mp.mpf(z) for z in json.load(open(zf))]
+    if cut is not None: gam = gam[:cut]     # the first `cut` zeros only (the cross-cut calibration)
     a = mp.mpf(delta)/2
     def phihat(k, r):
         w = k*mp.pi/a
