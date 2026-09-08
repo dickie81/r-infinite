@@ -89,7 +89,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'form': 'ws'},
     {'g': 'g7', 's': "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'form': 'ws'},
-    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of order ĝ(T)² ≈ 7×10⁻⁷ of the quotient, the deviation ranging over 1×10⁻⁷ to 4×10⁻⁶ across cuts (gated live at three cuts)", 'form': 'ws'},
+    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of order ĝ(T)² ≈ 7×10⁻⁷ of the quotient — it changes sign between neighbouring cuts (31 times over 41 cuts from 3000 to 6700, reaching 6.1×10⁻⁶ at the cut 3500; three cuts gated live), so no lower end is a property of the cuts", 'form': 'ws'},
     {'g': 'g7', 's': 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'form': 'ws'},
 ]
 
@@ -151,7 +151,7 @@ for c in ORDER:
         ok &= 0.98*fx <= m["eta_lo"] < m["eta_hi"] <= fx*(1 + 1e-9)
         asym[c] = q["eta_hi"]/m["eta_hi"]
         ok &= asym[c] >= 100
-        # the six two-sided balls re-derived live (round-305 observation a): the perturbed Gram at the stored eta, its
+        # the twelve two-sided balls re-derived live (round-305 observation a; both ends of both brackets at the three cells): the perturbed Gram at the stored eta, its
         # approximate minimiser, the Rayleigh ball -- the stored signs reproduced by a fresh computation
         from weil_knife_edge import perturbed_gram
         from weil_prime_gram import minimiser as _minim
@@ -323,7 +323,7 @@ def _outward(stated, certified):   # a stated shift rounded outward: at or above
 ROWS = ['| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |']
 S_RATIO = "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5"
 S_EDGE = 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0'
-S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of order ĝ(T)² ≈ 7×10⁻⁷ of the quotient, the deviation ranging over 1×10⁻⁷ to 4×10⁻⁶ across cuts (gated live at three cuts)"
+S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of order ĝ(T)² ≈ 7×10⁻⁷ of the quotient — it changes sign between neighbouring cuts (31 times over 41 cuts from 3000 to 6700, reaching 6.1×10⁻⁶ at the cut 3500; three cuts gated live), so no lower end is a property of the cuts"
 S_BENCH2 = 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)'
 # each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
 ok = True
@@ -336,7 +336,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | −221.899 | 8.882×10⁻⁹�
 ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of order ĝ(T)² ≈ 7×10⁻⁷ of the quotient, the deviation ranging over 1×10⁻⁷ to 4×10⁻⁶ across cuts (gated live at three cuts)", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of order ĝ(T)² ≈ 7×10⁻⁷ of the quotient — it changes sign between neighbouring cuts (31 times over 41 cuts from 3000 to 6700, reaching 6.1×10⁻⁶ at the cut 3500; three cuts gated live), so no lower end is a property of the cuts", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE, S_BENCH, S_BENCH2]
 ok &= len(ROWS) == 7
@@ -369,19 +369,19 @@ ok &= len(_v) == 2 and _outward(_v[0], KE["d1.0"]["two_sided"]["plus"]["eta_hi"]
 _a = [float(x.replace(',', '')) for x in _re.findall(r'([0-9][0-9,]*)-fold', S_EDGE)]
 ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.10*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))   # two significant figures, rounded down; a ratio of two certified crossings, filed under Computed
 # the bench sentences: the zero-side values (the bump's 'below 3e-16' within a factor 2 of a noise-floor quantity, the minimiser's
-# within 10 percent, the fluctuation scale within a factor 2, the cross-cut range outward of the three live cuts), the archimedean
+# within 10 percent, the fluctuation scale within a factor 2, the sampled cross-cut maximum at or above the three live cuts), the archimedean
 # candidate's and the true quotient on g_1 (within 1 percent of the live balls), the shifted candidate's two signed values
 # (within 1 percent of the stored delta = 1.0 balls for p = 2)
 _b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH)]
-ok &= len(_b) == 5 and rz["bump"]["rel"] <= _b[0] <= 2*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"]
-ok &= fluct_scale/2 <= _b[2] <= 2*fluct_scale and _b[3] <= min(rz_cuts.values()) and max(rz_cuts.values()) <= _b[4]   # the scale within a factor 2; the range outward of the three live cuts
+ok &= len(_b) == 4 and rz["bump"]["rel"] <= _b[0] <= 2*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"]
+ok &= fluct_scale/2 <= _b[2] <= 2*fluct_scale and max(rz_cuts.values()) <= _b[3] <= 1e-5   # the scale within a factor 2; the sampled maximum at or above the three live cuts (round-307 F307-1: a lower end is not a property of the cuts)
 _b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH2)]
 _r2 = KE["d1.0"]["per_prime"]["2"]
 ok &= len(_b) == 4 and abs(_b[0] - float(ra["g1"]["rq_cand"].mid())) <= 0.01*_b[0] and abs(_b[1] - float(ra["g1"]["rq_true"].mid())) <= 0.01*_b[1]
 ok &= abs(_b[2] - float(_r2["q_hi"]["mid"])) <= 0.01*abs(_b[2]) and _b[2] < 0 and abs(_b[3] - float(_r2["q_lo"]["mid"])) <= 0.01*_b[3] and _b[3] > 0
 gate("g7 the paper's own numbers: the seven table rows and the two (iii) sentences present as declared needles, tied to the declared entries and parsed back -- "
      "ln lambda_1 = 1bn's pins; every stated shift at or above the certified eta_hi within 2e-3; the ratios to 0.005; the loosest prime and its shift; the "
-     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 10 percent; the bench sentences' nine values (five zero-side, four balls) against the live gates and the stored delta = 1.0 balls", ok)
+     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 10 percent; the bench sentences' eight values (four zero-side, four balls) against the live gates and the stored delta = 1.0 balls", ok)
 
 # ---------------------------------------------------------------- g8
 good = dict(KE["d2.0"]["per_prime"]["2"])

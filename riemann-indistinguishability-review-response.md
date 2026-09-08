@@ -5436,4 +5436,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-306 sweep commit. Full-tower class. Brief `brief_round307.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 2 cosmetic — all verified and swept (A465): F307-1 the cross-cut range was a five-sample range stated as a property of the cuts, inward at both ends — restated as the order ĝ(T)² ≈ 7×10⁻⁷ with the sign changes and the sampled maximum 6.1×10⁻⁶ over 41 cuts from 3000 to 6700, no lower end claimed; F307-2/3 the bench docstring's range and sign convention, the last 'six' comment. Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24. **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: convergence round commissioned.**
+
+### Round 308 — convergence test on the round-307 sweep (Theorem 1bo)
+
+**Scope.** The round-307 sweep commit. Full-tower class. Brief `brief_round308.md`.
+
 **Findings.** Pending.

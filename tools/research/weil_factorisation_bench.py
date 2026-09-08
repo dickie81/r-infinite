@@ -92,8 +92,10 @@ def zeros(delta, K, prec, zeros_file=None, cut=None):
     term itself is 9e-14 of it -- round-306 F306-2 corrected the first statement of this bound). Calibrations at
     delta = 1, K = 48 (relative Rayleigh-quotient deviations, floating point): a C_c^inf bump agrees to 2.6e-16; the
     Gram's approximate minimiser to 2.1e-7 at the 6700-zero cut -- a draw of the counting function's fluctuation at
-    the cut, of order ghat(T)^2 ~ 7e-7 of the quotient, the signed deviation ranging over 1e-7 .. 3e-6 across cuts
-    (6700: -2.1e-7; 6650: +1.7e-6; 6600: +1.1e-6; 6000: -3.0e-7; 3000: +3.1e-6; round-306 F306-1)."""
+    the cut, of order ghat(T)^2 ~ 7e-7 of the quotient; the signed deviation (candidate - true)/true changes sign
+    between neighbouring cuts -- 31 times over 41 cuts from 3000 to 6700, reaching 6.1e-6 at the cut 3500 (6700: -2.1e-7;
+    6650: +1.7e-6; 6600: +1.1e-6; 6000: -3.0e-7; 3000: +3.1e-6) -- so no lower end is a property of the cuts
+    (round-306 F306-1, round-307 F307-1)."""
     import mpmath as mp
     mp.mp.dps = 40
     zf = zeros_file or os.path.join(HERE, "checkpoints", "zeta_zeros_6700.json")

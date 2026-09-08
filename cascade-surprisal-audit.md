@@ -18275,3 +18275,17 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: convergence round commissioned (brief `brief_round307.md`).
 
 ---
+
+## Addendum 465 — round 307 (the convergence test on the round-306 sweep): 0 MAJOR, 1 minor, 2 cosmetic — all verified by the lead and swept; the cross-cut statement restated as a sampled maximum with no lower end; round 308 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F307-1 (minor, verified, ACCEPTED).** "The deviation ranging over 1×10⁻⁷ to 4×10⁻⁶ across cuts" was the range of five sampled cuts stated as a property of the cuts, inward at both ends: the reviewer's 96-cut scan found |deviation| below 10⁻⁷ at eight cuts (1.9×10⁻⁸ at 6640) and above 4×10⁻⁶ at six cuts below 3000, with 35 sign changes; A464 itself had recorded the reviewer's 21 cuts from 1.9×10⁻⁸. The lead's own 41-cut scan from 3000 to 6700 (step 100): 31 sign changes, |deviation| from 1.9×10⁻⁸ (6640) to 6.1×10⁻⁶ (3500) — above even the reviewer's suggested scoped upper end (their coarser scan stepped past 3500). Swept: (iv) states the order (ĝ(T)² ≈ 7×10⁻⁷ at the 6700 cut), the sign changes, the sampled maximum "reaching 6.1×10⁻⁶ at the cut 3500" over "41 cuts from 3000 to 6700", and that no lower end is a property of the cuts; g7 gates the stated maximum at or above the three live cuts and below 10⁻⁵; the bench docstring likewise (its inward "3e-6" corrected; the sign convention (candidate − true)/true stated — F307-2).
+- **F307-2, F307-3 (cosmetic, ACCEPTED).** The bench docstring's range and sign convention; the last "six two-sided balls" comment in the verifier's loop → twelve.
+
+**Checked and held (reviewer).** The scale: sin²(aT)ĝ² and the gate's envelope R(T)² within 8 percent at the 6700 cut, "of order ĝ(T)²" holding at every scanned cut with the cut's own T (|dev|/scale from 0.005 to 2.9, median 0.63); the attribution exact as dev = 2ĝ(T)²S(T⁺) + 2∫S(ĝ²)′ (the boundary term predicting the sign at 54 of 96 cuts — "at the cut" shorthand for the fluctuation integral beyond it, of the same order); F306-2's bound re-derived (2.264×10⁻¹⁰ and 8.53×10⁻¹⁴, both stated outward); g6's band fails at cut 500 (5.0×10⁻⁵) and g7's conjuncts fail on drifted ends and scales; twelve balls on the three surfaces; "2.0–5.4" outward; needles 16, forms as declared; the census 91 body-only; the manifest, chain 23, the cells REUSED (the producer's closure excludes the bench); the marking rule on object surfaces; Checks 7/8.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 24; `CASCADE_CHAIN=manifest python3 tools/research/cascade_prime_ball.py` → 11/11 (seven knife-edge cells REUSED); `python3 tools/research/run_tower.py` → manifest integrity 24 / 4 pins; needle precheck 79 reach files / 33 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 23 cached PASS + 0 FAIL of 24`; **TOWER PASS (24/24)**.
+
+**Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: convergence round commissioned (brief `brief_round308.md`).
+
+---
