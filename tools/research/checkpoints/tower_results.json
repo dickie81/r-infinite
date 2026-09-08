@@ -353,6 +353,12 @@
 "rc": 0,
 "when": "2026-09-02T07:52Z"
 },
+"19c833e96dcb5c5f186baef4": {
+"dt": 6.95360803604126,
+"file": "cascade_sonin_dirac.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
+},
 "19d3e8fed873a880b9a63011": {
 "dt": 57.965699911117554,
 "file": "cascade_heatflow_energy.py",
@@ -382,6 +388,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-08-27T20:46Z"
+},
+"1ab4ef614b7fe9d6f11d6722": {
+"dt": 2.9790661334991455,
+"file": "cascade_height_uniformity.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "1b3cf8154658e59aa613b90e": {
 "dt": 400.3411467075348,
@@ -490,6 +502,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-09-02T02:16Z"
+},
+"25366f2960b8d4bf32ffab4d": {
+"dt": 113.3244891166687,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "2579104d4a52bd7a1282967d": {
 "dt": 364.0199325084686,
@@ -1985,6 +2003,12 @@
 "rc": 0,
 "when": "2026-09-03T21:34Z"
 },
+"a37f122b61fd5fdd3e33b2b8": {
+"dt": 41.25478768348694,
+"file": "cascade_slack_law.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
+},
 "a3ea58edecad7b8e0cfe9eab": {
 "dt": 855.8815834522247,
 "file": "cascade_prolate_horizon.py",
@@ -2170,6 +2194,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-09-03T21:34Z"
+},
+"b183249eb54bb839af4fe3a7": {
+"dt": 3.026857614517212,
+"file": "cascade_twosided_witness.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "b19098660e1ead1aeb48978f": {
 "dt": 857.6153929233551,
@@ -2423,6 +2453,12 @@
 "rc": 0,
 "when": "2026-08-28T13:10Z"
 },
+"c64eac701c14d716d1481148": {
+"dt": 0.5159566402435303,
+"file": "cascade_floor_theory.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
+},
 "c656ab9a449b6b291a9040a1": {
 "dt": 11.146709203720093,
 "file": "cascade_sonin_dirac.py",
@@ -2476,6 +2512,12 @@
 "file": "cascade_primes_side_ball.py",
 "rc": 0,
 "when": "2026-08-27T19:08Z"
+},
+"c8d166a4a1710e664f78f7ee": {
+"dt": 1.1408371925354004,
+"file": "cascade_prime_budget_fold.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "c90459941807abbdc35c374f": {
 "dt": 345.1719527244568,
@@ -2614,6 +2656,12 @@
 "file": "cascade_finite_fill.py",
 "rc": 0,
 "when": "2026-08-27T20:10Z"
+},
+"d5b9ffde847997b5ef70f2f1": {
+"dt": 0.7369978427886963,
+"file": "cascade_oneprime_interval.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "d665db1c2615e797c2b72227": {
 "dt": 0.4567437171936035,
@@ -2807,6 +2855,12 @@
 "rc": 0,
 "when": "2026-08-28T17:31Z"
 },
+"e4fdb65434c31fb33d16c4f8": {
+"dt": 110.39214515686035,
+"file": "cascade_fluctuation_price.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
+},
 "e50a54a9ab7ed97878c21200": {
 "dt": 58.01064395904541,
 "file": "cascade_saddle_curvature.py",
@@ -2836,6 +2890,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-09-03T23:26Z"
+},
+"e7e2fdd66203592cbe5f920a": {
+"dt": 580.4706945419312,
+"file": "cascade_prolate_horizon.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "e852ca8a2a756f2a444146b9": {
 "dt": 83.40372037887573,
@@ -2927,6 +2987,12 @@
 "rc": 0,
 "when": "2026-08-27T20:46Z"
 },
+"f0853aeb79bf94ef9c908e1b": {
+"dt": 2.9401514530181885,
+"file": "cascade_floor_closure.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
+},
 "f126aca2f29da75a86ed9c71": {
 "dt": 28.84828209877014,
 "file": "cascade_finite_fill.py",
@@ -2944,6 +3010,12 @@
 "file": "cascade_prolate_horizon.py",
 "rc": 0,
 "when": "2026-08-28T08:53Z"
+},
+"f39a973284e0e51e45be9023": {
+"dt": 1.219745397567749,
+"file": "cascade_slepian_mechanism.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "f3eaf13272a539179a82a466": {
 "dt": 854.9506437778473,
@@ -3083,6 +3155,12 @@
 "rc": 0,
 "when": "2026-09-02T02:28Z"
 },
+"fca19ef048bda210af2f5bb6": {
+"dt": 2.2156012058258057,
+"file": "cascade_twoprime_interval.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
+},
 "fcc5cd50a95479669da3ad4a": {
 "dt": 27.76031494140625,
 "file": "cascade_finite_fill.py",
@@ -3100,6 +3178,12 @@
 "file": "cascade_attraction_margins.py",
 "rc": 0,
 "when": "2026-09-02T01:10Z"
+},
+"fea5202ed11b2e62df970d91": {
+"dt": 69.44956541061401,
+"file": "cascade_true_form_bounds.py",
+"rc": 0,
+"when": "2026-09-08T16:19Z"
 },
 "ff3567ef7f7d91ee830b0a1f": {
 "dt": 172.0821704864502,
