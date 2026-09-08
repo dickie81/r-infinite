@@ -5413,3 +5413,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Scope.** The round-302 sweep commit. Full-tower class. Brief `brief_round303.md`.
 
 **Findings.** 0 MAJOR, 0 minor, 2 cosmetic — **converged** (A460): F303-1 the `v1[2]` tie was a conjunct that could not fail on its own (dropped); F303-2 an unmatched enclosure regex raised instead of failing the gate (guarded). Both swept in the convergence commit with a full battery: member 13/13; manifest 23; TOWER PASS 23/23 (1 live + 22 cached). **Trajectory: 298 (the 1bn landing): 0M+4m+6c → 299: 0M+3m+1c → 300: 0M+1m+2c → 301: 0M+2m+2c → 302: 0M+1m+1c → 303: 0M+0m+2c — Theorem 1bn stable at 367f391.**
+
+### Round 304 — the Theorem 1bo landing (the prime-built ball, the knife-edge, and the bench)
+
+**Scope.** The landing commit: the Theorem 1bo block and the footer (census 91 / 1i–1bo); `cascade_prime_ball.py` (member 24, top; gates g0–g10); the substrates `weil_knife_edge.py` (seven keyed checkpoints) and `weil_factorisation_bench.py`; the census literals advanced across the members; the manifest (24). Full-tower class (a landing). Brief `brief_round304.md`.
+
+**Findings.** Pending.

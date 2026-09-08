@@ -70,7 +70,17 @@ PAPER_NEEDLES = [
     {'s': 'the **91 scripts cited in place** above', 'form': 'ws', 'g': 'g10'},
     {'s': 'extended by Theorems 1i–1bo:', 'form': 'ws', 'g': 'g10'},
     # the block's table rows (ws form), parsed back by g7
-    #ROWS#
+    {'g': 'g7', 's': '| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'form': 'ws'},
+    {'g': 'g7', 's': 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'form': 'ws'},
+    {'g': 'g7', 's': 'the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵', 'form': 'ws'},
+    {'g': 'g7', 's': 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'form': 'ws'},
 ]
 
 fails = []
@@ -260,8 +270,25 @@ def _num(t):   # a×10^b (superscript exponent) or a plain decimal
     return float(t)
 def _outward(stated, certified):   # a stated shift rounded outward: at or above the certified value, within 2e-3
     return 0 <= stated - certified <= 2e-3*certified
-ROWS = [#ROWLIST#]
-ok = [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE]
+ROWS = ['| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |']
+S_RATIO = "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5"
+S_EDGE = 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0'
+S_BENCH = 'the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵'
+S_BENCH2 = 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)'
+# each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
+ok = True
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'ws')
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE, S_BENCH, S_BENCH2]
 ok &= len(ROWS) == 7
 for c, row in zip(ORDER, ROWS):
     f = [x.strip() for x in row.strip().strip('|').split('|')]

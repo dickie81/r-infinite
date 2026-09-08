@@ -6630,6 +6630,104 @@ Substrates `weil_prime_gram.py`, `ccm_trial_vector.py` and
 `true_form_cells.py` committed, imported, and content-addressed into
 the verifier's keys by the computed transitive import closure.
 
+**Theorem 1bo (the prime-built ball, the knife-edge, and the bench —
+the adelic unit ball stated as the object, the precision to which Weil
+positivity at support δ pins the primes certified at every cell, and a
+filter for candidate factorisations; `cascade_prime_ball.py`).** *(i) The
+object (Tate's thesis in the cascade's shell language; nothing new is
+claimed here beyond the statement).* One dimension per place. At the
+real place the unit ball's shells carry the Gaussian and the shell
+series 2∫₀^∞ e^{−πx²} x^s dx/x = Γ_ℝ(s) = π^{−s/2}Γ(s/2) — Theorem 2's
+tower, the function of Paper 0's sphere areas Ω_d = 2π^{(d+1)/2}/Γ((d+1)/2)
+at d + 1 = s. At each prime p the unit ball is ℤ_p, its shells p^kℤ_p^×
+(k ≥ 0) of Haar volume p^{−k}(1 − 1/p), and the shell series ∫_{ℤ_p}
+|x|_p^s d^×x = Σ_k p^{−ks} = (1 − p^{−s})^{−1} is the Euler factor
+(gated in balls with the exact geometric remainder, p = 2 to 11, real
+and complex s, below 10⁻⁵⁰). The ball Φ = e^{−πx_∞²}∏_p 1_{ℤ_p} on the
+adeles is self-dual — 1_{ℤ_p} is its own Fourier transform for the
+standard character: the sums p^{−m}Σ_{x mod p^m} e(ax/p^m) equal 0 for
+p ∤ a and 1 for a = 0 (gated, p = 2, 3, 5, m ≤ 3) — its multi-shells are
+indexed by n = ∏ p^{k_p}, and the shell series of the whole ball is
+∏_p Σ_k p^{−ks} = Σ_n n^{−s} = ζ(s) (the truncated Euler product against
+ζ within the rigorous tail bound P^{1−σ}/((σ − 1)(1 − P^{−σ})), gated at
+s = 2, 3, 2 + 5i and P = 100, 1000); with the real shell series,
+Λ(s) = Γ_ℝ(s)ζ(s) = ∫ Φ|x|^s d^×x over the ideles, and Poisson summation
+on ℚ is the functional equation (θ(1/t) = √t θ(t) and Λ(s) = Λ(1 − s)
+gated below 10⁻³⁰). In the explicit formula the prime side
+−2Σ Λ(n)n^{−1/2}f(log n) is the sum over the shells of the ball at their
+multiplicative positions u = log n = −log|x|, with weight Λ(n) = log p —
+the log of the volume ratio of consecutive shells — and density
+n^{−1/2} = e^{−u/2}, the unitary line's |x|^{1/2}; Σ_{shells} (log p)n^{−s}
+= −ζ′/ζ(s) (gated with its tail bound at s = 2, 3). So "the arithmetic
+is geometric" means exactly this and no more: the primes' shells decay
+at the constant rate log p, carry no Gamma function and no distinguished
+dimension — the cascade's four dimensions are the real place's alone.
+*(ii) The knife-edge (certified).* For a prime p and a real η let Q^η be
+Weil's functional with the shells of p moved — log p → log p + η in
+position and weight, every other prime and the archimedean term fixed
+(Theorem 1bn's Gram, the shells of p replaced). At each of 1bn's seven
+cells, with g₁ the certified minimiser (K2 modes, 600–1300 bits; its
+coefficients stored) and for every prime p ≤ eᵟ, `weil_knife_edge.py`
+brackets the downward shift at which g₁'s Rayleigh ball on Q^{−η} turns
+negative — [η_lo, η_hi] of relative width 10⁻³, the ball positive at
+its lower end at η_lo and negative at its upper end at η_hi, the
+autocorrelation of g₁ evaluated by an O(K) closed form whose agreement
+with the K × K shell matrices is gated at every cell and prime, and the
+p = 2 shift re-certified at every cell through the K × K path. Q^{−η_hi}
+is therefore not positive. For p = 2 at δ ≤ 2.0 both directions are
+bracketed with the perturbed Gram re-minimised at every step (its own
+eigenvector's ball certified), the crossing of the perturbed ground
+state itself. Every η below is rounded outward (upward: a stated shift at
+or above the certified η_hi), λ₁ is 1bn's certified upper bound:
+
+| δ | ln λ₁ ≤ | η₂: log 2 down by | η₂/λ₁ | loosest prime p: η_p | window for log 2 (re-minimised) |
+|---|---|---|---|---|---|
+| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |
+| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |
+| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |
+| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |
+| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |
+| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |
+| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |
+
+*(iii) What it says.* The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5: the precision required of the primes grows as
+the slack law's e^{−4πeᵟ}. Any certificate of positivity on [−a, a]
+that is valid for every arithmetic within η₂ of the true one in log 2
+is impossible, because one such arithmetic has a form with a negative
+value: whatever certifies the form at support δ carries log 2 to the
+precision η₂, and every prime p ≤ eᵟ to at most η_p (the loosest are
+the primes near the window's edge, where the autocorrelation vanishes).
+The edge is one-sided: at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0 —
+Connes–Consani's "knife-edge" of ζ-cycles §2.3, reproduced in Addendum
+371 at δ ≤ 1.09 on their semi-local form, here certified on the true
+form to δ = 3.5 downward and to 2.0 both ways. Consequence for the
+geometry this section is after (Suzuki's §7.7 factorisation, a screw
+line in Krein's sense): it must be an identity in the primes, not an
+inequality — it must reproduce the shells of (i) exactly, since at
+support δ an error of η₂ in one shell's position already loses the
+form; no truncation, approximation or model of the primes can stand in
+for it at any finite support. *(iv) The bench.*
+`weil_factorisation_bench.py`: a candidate for the form on a cell — a
+proposed factorisation, kernel or arithmetic — is a Gram in balls or a
+quadratic form on the cell's cosine basis; the bench compares it with the
+true Gram entrywise and on named vectors' Rayleigh quotients. Three
+calibrations, gated live at δ = 1.0: the zero side (6700 zeros and the smooth tail) agrees with the true form on the C_c^∞ bump to 2.7×10⁻¹⁶ and on the minimiser only to 4.4×10⁻⁵ — the raw cosine basis is discontinuous
+at ±a, its zero sums converge as log T/T, so a candidate is tested on
+smooth vectors or with its tail resolved; the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹): the bench resolves the knife-edge. A filter, never a
+proof — what it proves is a difference. *(v) What is proved, computed,
+not claimed.* Proved: every identity of (i) (Tate's); every η_hi of (ii)
+(a negative ball on an explicit vector); the bench's three rejections
+and agreements as stated. Computed, gated in bands: the ratios η₂/λ₁,
+the asymmetries. Not claimed: any lower bound on a window (η_lo is where
+g₁ fails to witness, not where positivity holds); anything about the
+zeros; the geometry itself — **no Riemann Hypothesis consequence is
+claimed**. Check 7 clean (Tate's thesis, Poisson, Rayleigh–Ritz,
+Krein's screw functions as context — classical; no semiclassics; no
+cascade quantity). Check 8 clean (Riemann-side; no hypothesis input).
+Substrates `weil_knife_edge.py` and `weil_factorisation_bench.py`
+committed, imported, and content-addressed into the verifier's keys by
+the computed transitive import closure.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
