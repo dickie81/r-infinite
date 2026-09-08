@@ -254,9 +254,9 @@ gate("g6 the bench calibrations LIVE at delta = 1.0: the zero side on the bump w
 import paper_needles, re as _re
 _sup = str.maketrans('⁻⁰¹²³⁴⁵⁶⁷⁸⁹', '-0123456789')
 def _num(t):   # a×10^b (superscript exponent) or a plain decimal
-    t = t.strip().replace('−', '-').replace('+', '')
-    m = _re.fullmatch(r'([0-9.]+)×10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)', t)
-    if m: return float(m.group(1))*10**int(m.group(2).translate(_sup))
+    t = t.strip().replace('−', '-')
+    m = _re.fullmatch(r'([-+]?)([0-9.]+)×10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)', t)
+    if m: return (-1 if m.group(1) == '-' else 1)*float(m.group(2))*10**int(m.group(3).translate(_sup))
     return float(t)
 def _outward(stated, certified):   # a stated shift rounded outward: at or above the certified value, within 2e-3
     return 0 <= stated - certified <= 2e-3*certified
@@ -276,7 +276,7 @@ for c, row in zip(ORDER, ROWS):
         m = _re.fullmatch(r'\((−[^,]+), \+([^)]+)\)', f[5]); ok &= m is not None
         if m:
             two = st["two_sided"]
-            ok &= _outward(_num(m.group(1)), two["minus"]["eta_hi"]) and _outward(_num(m.group(2)), two["plus"]["eta_hi"])
+            ok &= _outward(-_num(m.group(1)), two["minus"]["eta_hi"]) and _outward(_num(m.group(2)), two["plus"]["eta_hi"])   # the minus end is written with its sign
     else:
         ok &= f[5] == '—'
 # (iii): "η₂/λ₁ between R_LO and R_HI" -- the min and max of the stored ratios to two decimals, rounded outward (down / up)
@@ -291,9 +291,18 @@ _v = [_num(x) for x in _re.findall(r'[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]
 ok &= len(_v) == 2 and _outward(_v[0], KE["d1.0"]["two_sided"]["plus"]["eta_hi"]) and _outward(_v[1], KE["d1.0"]["two_sided"]["minus"]["eta_hi"])
 _a = [float(x.replace(',', '')) for x in _re.findall(r'([0-9][0-9,]*)-fold', S_EDGE)]
 ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.05*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))
+# the bench sentences: the two zero-side agreements (stated at or above the live value, within 10 percent), the archimedean
+# candidate's and the true quotient on g_1 (within 1 percent of the live balls), the shifted candidate's two signed values
+# (within 1 percent of the stored delta = 1.0 balls for p = 2)
+_b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH)]
+ok &= len(_b) == 2 and rz["bump"]["rel"] <= _b[0] <= 1.1*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"]
+_b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH2)]
+_r2 = KE["d1.0"]["per_prime"]["2"]
+ok &= len(_b) == 4 and abs(_b[0] - float(ra["g1"]["rq_cand"].mid())) <= 0.01*_b[0] and abs(_b[1] - float(ra["g1"]["rq_true"].mid())) <= 0.01*_b[1]
+ok &= abs(_b[2] - float(_r2["q_hi"]["mid"])) <= 0.01*abs(_b[2]) and _b[2] < 0 and abs(_b[3] - float(_r2["q_lo"]["mid"])) <= 0.01*_b[3] and _b[3] > 0
 gate("g7 the paper's own numbers: the seven table rows and the two (iii) sentences present as declared needles, tied to the declared entries and parsed back -- "
      "ln lambda_1 = 1bn's pins; every stated shift at or above the certified eta_hi within 2e-3; the ratios to 0.005; the loosest prime and its shift; the "
-     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 5 percent", ok)
+     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 5 percent; the bench sentences' six values against the live gates and the stored delta = 1.0 balls", ok)
 
 # ---------------------------------------------------------------- g8
 good = dict(KE["d2.0"]["per_prime"]["2"])
