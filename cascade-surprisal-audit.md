@@ -18335,3 +18335,17 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: 0M+1m+3c → 311: convergence round commissioned (brief `brief_round311.md`).
 
 ---
+
+## Addendum 469 — round 311 (the convergence test on the round-310 sweep): 0 MAJOR, 1 minor, 1 cosmetic — both verified by the lead and swept; the two-sided brackets' width now re-derived by the verifier; round 312 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F311-1 (minor, verified, ACCEPTED).** The block's "bracketed to relative width 10⁻²" for the two-sided windows was gated by nothing numeric: g3 read the producer's status label, the signs and the lower-end conjunct, but never compared η_hi/η_lo with 1 + TOL2 for either direction (the reviewer's experiment: the plus bracket's η_lo lowered to η_hi/1.05 with the label intact passed 11/11 — the live re-derivation found the re-minimised ball positive there and nothing objected; checkpoint data are outside every key, which is why g2 re-checks the one-sided width from the numbers). The claim is true on the data (all six widths 2^{1/128} = 1.00543). Swept: a two-sided predicate `two_ok` (bracketed, certified signs, 0 < η_lo < η_hi, η_hi/η_lo ≤ 1 + TOL2) used for both directions at the three cells, `TOL2` imported from the producer; g8 probes it on a bracket widened to 1.05.
+- **F311-2 (cosmetic, ACCEPTED; a regression of the round-310 sweep).** g2's label had the η₂/λ₁ ratios printed after the new "at least as fast" clause; restored after "[1, 10]", and the new clause prints its own evidence (19 comparisons, minimum margin 1.128).
+
+**Checked and held (reviewer).** The new g2 conjunct gates exactly (iii)'s statement (six consecutive pairs, 19 comparisons, the entering primes skipped, nested prime sets so "present at both" = "present at the earlier cell"; a raised η₃ at δ = 3.5 fails g2 alone); the tolerance honest (margins 1.128 to 1.25×10²⁰, holding for the true crossings too); every table entry outward digit by digit; the widths 2^{1/1024} and 2^{1/128}; the minus brackets' ends; the asymmetries and the intervals of the true crossings; the bench numbers to four figures with the block's values outward within 10 percent; (v)'s ledger; needles 16 with counts; the census 91 body-only; the manifest hash and pins; the chain 23; the fourteen cells REUSED; Checks 7/8; self-containment. Observation: the p = 3 margin narrows through the cells (5.96 → 1.128), consistent with the block's "no limit is certified".
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 24; `CASCADE_CHAIN=manifest python3 tools/research/cascade_prime_ball.py` → 11/11 (seven knife-edge cells REUSED); `python3 tools/research/run_tower.py` → manifest integrity 24 / 4 pins; needle precheck 79 reach files / 33 surfaces; probes 24/24 and 85/85; `census: 1 live PASS + 23 cached PASS + 0 FAIL of 24`; **TOWER PASS (24/24)**.
+
+**Trajectory.** 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: 0M+1m+3c → 311: 0M+1m+1c → 312: convergence round commissioned (brief `brief_round312.md`).
+
+---

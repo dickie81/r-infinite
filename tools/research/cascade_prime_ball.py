@@ -22,8 +22,8 @@ paper's "comparable with lambda_1 itself"), and between consecutive cells
 every other prime's shift falls at least as fast as eta_2 (round-310
 F310-1). (3) THE TWO-SIDED WINDOWS
 (p = 2, the three cells at delta <= 2.0, the perturbed Gram re-minimised at
-every step, brackets of relative width 1e-2): both brackets bracketed, the
-twelve balls (both ends of both brackets at the three cells) re-derived live from the stored shifts with their signs --
+every step): both brackets bracketed with their relative width <= 1 + 1e-2
+re-derived from the stored ends (round-311 F311-1), the twelve balls (both ends of both brackets at the three cells) re-derived live from the stored shifts with their signs --
 the crossing of the re-minimised K2 quotient, an upper bound on the
 perturbed ground state's -- the re-minimised downward crossing within 2
 percent below the fixed-vector eta_hi (its upper end cannot exceed it),
@@ -58,7 +58,7 @@ certified margin (its Rayleigh quotient on g_1 above 1e-2, the true below
 1e-6). (7) THE PAPER'S NUMBERS: the block's table rows declared as needles
 and parsed back -- every stated shift at or above (rounded outward) the
 stored eta_hi within 2e-3, the ratios to two decimals, the lambda_1 column
-equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes; (9) the chain obligation to
+equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes (the one-sided and the two-sided bracket predicates); (9) the chain obligation to
 cascade_true_form_bounds.py; (10) the paper needles and the census.
 
 WHAT IS NOT CLAIMED. Nothing about the zeros; no lower bound on any
@@ -71,7 +71,7 @@ import math, os, sys, json, cmath
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
-from weil_knife_edge import run as run_KE, CELLS as KCELLS, TOL, Autocorr, prime_shells, primes_of
+from weil_knife_edge import run as run_KE, CELLS as KCELLS, TOL, TOL2, Autocorr, prime_shells, primes_of
 from true_form_cells import run as run_TF, CELLS as TCELLS
 from weil_prime_gram import gram, rayleigh
 from weil_factorisation_bench import archimedean, shifted, zeros, bump_vector, compare, _shell_matrix
@@ -139,23 +139,27 @@ for c in ORDER:
     loosest[c] = max(st["per_prime"].items(), key=lambda kv: kv[1]["eta_hi"])
 # round-310 F310-1: the block's "the other eta_p at least as fast" -- between consecutive cells, every prime present at both
 # has eta_p(next)/eta_p(prev) <= eta_2(next)/eta_2(prev)
+n_cmp = 0; min_margin = float("inf")
 for c0, c1 in zip(ORDER, ORDER[1:]):
     f2 = KE[c1]["per_prime"]["2"]["eta_hi"]/KE[c0]["per_prime"]["2"]["eta_hi"]
     for p_ in KE[c0]["per_prime"]:
         if p_ != "2" and p_ in KE[c1]["per_prime"]:
-            ok &= KE[c1]["per_prime"][p_]["eta_hi"]/KE[c0]["per_prime"][p_]["eta_hi"] <= f2*(1 + 1e-12)
-gate("g2 the brackets: at every cell and every prime, Q^(-eta_hi)(g_1) negative and Q^(-eta_lo)(g_1) positive in balls, eta_hi/eta_lo <= 1 + 1e-3; the primes those of the prime-power lists; eta_2/lambda_1 in [1, 10]; the other primes' shifts falling at least as fast as eta_2 between consecutive cells ("
-     + ", ".join(f"{ratio2[c]:.2f}" for c in ORDER) + "); loosest prime per cell " + ", ".join(f"{loosest[c][0]}: {loosest[c][1]['eta_hi']:.3e}" for c in ORDER), ok)
+            fp = KE[c1]["per_prime"][p_]["eta_hi"]/KE[c0]["per_prime"][p_]["eta_hi"]
+            ok &= fp <= f2*(1 + 1e-12); n_cmp += 1; min_margin = min(min_margin, f2/fp)
+gate("g2 the brackets: at every cell and every prime, Q^(-eta_hi)(g_1) negative and Q^(-eta_lo)(g_1) positive in balls, eta_hi/eta_lo <= 1 + 1e-3; the primes those of the prime-power lists; eta_2/lambda_1 in [1, 10] ("
+     + ", ".join(f"{ratio2[c]:.2f}" for c in ORDER) + "); the other primes' shifts falling at least as fast as eta_2 between consecutive cells (" + f"{n_cmp} comparisons, minimum margin {min_margin:.3f}" + "); loosest prime per cell " + ", ".join(f"{loosest[c][0]}: {loosest[c][1]['eta_hi']:.3e}" for c in ORDER), ok)
 
 # ---------------------------------------------------------------- g3
+def two_ok(r):   # a two-sided bracket: bracketed, certified signs at both ends, the stated relative width (round-311 F311-1)
+    return (r.get("status") == "bracketed" and r["q_hi"]["negative"] and r["q_lo"]["positive"] and 0 < r["eta_lo"] < r["eta_hi"]
+            and r["eta_hi"]/r["eta_lo"] <= 1 + TOL2 + 1e-12)
 ok = True; asym = {}
 for c in ORDER:
     two = KE[c]["two_sided"]
     if KCELLS[c]["two_sided"]:
         ok &= two is not None and two["p"] == 2
         m, q = two["minus"], two["plus"]
-        ok &= m["status"] == "bracketed" and q["status"] == "bracketed" and m["sign"] == -1 and q["sign"] == 1
-        ok &= m["q_hi"]["negative"] and m["q_lo"]["positive"] and q["q_hi"]["negative"] and q["q_lo"]["positive"]
+        ok &= two_ok(m) and two_ok(q) and m["sign"] == -1 and q["sign"] == 1
         fx = KE[c]["per_prime"]["2"]["eta_hi"]
         # the re-minimised upper end can never exceed the fixed-vector eta_hi (the search starts at eta_hi/4 and the
         # re-minimised quotient is at most g_1's); the content is the LOWER end: the re-minimised quotient still positive
@@ -179,7 +183,7 @@ for c in ORDER:
                     ok &= (_rq.upper() < 0) if _neg else (_rq.lower() > 0)
     else:
         ok &= two is None
-gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised, relative width 1e-2): both crossings bracketed with certified signs, the downward one within 2 percent below the fixed-vector eta_hi (its upper end cannot exceed it), the twelve balls re-derived live with the stored signs, the upward/downward asymmetry >= 100 ("
+gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised): both crossings bracketed with certified signs and relative width <= 1 + 1e-2 re-derived from the ends, the downward one within 2 percent below the fixed-vector eta_hi (its upper end cannot exceed it), the twelve balls re-derived live with the stored signs, the upward/downward asymmetry >= 100 ("
      + ", ".join(f"{asym[c]:.3g}" for c in asym) + ")", ok)
 
 # ---------------------------------------------------------------- g4
@@ -408,7 +412,9 @@ bad1 = dict(good); bad1["q_hi"] = dict(good["q_hi"]); bad1["q_hi"]["negative"] =
 bad2 = dict(good); bad2["eta_hi"] = good["eta_lo"]*1.01
 bad3 = dict(good); bad3["status"] = "ambiguous"
 ok = bracket_ok(good) and not bracket_ok(bad1) and not bracket_ok(bad2) and not bracket_ok(bad3)
-gate("g8 mangle probes: the bracket predicate fails on a non-negative upper ball, a bracket wider than 1 + 1e-3, a non-bracketed status", ok)
+good2 = dict(KE["d1.0"]["two_sided"]["plus"]); bad4 = dict(good2); bad4["eta_lo"] = good2["eta_hi"]/1.05   # a two-sided bracket widened to 5 percent
+ok &= two_ok(good2) and not two_ok(bad4)
+gate("g8 mangle probes: the bracket predicate fails on a non-negative upper ball, a bracket wider than 1 + 1e-3, a non-bracketed status; the two-sided predicate on a bracket widened to 1.05", ok)
 
 # ---------------------------------------------------------------- g9
 from cascade_tower import chain_ok

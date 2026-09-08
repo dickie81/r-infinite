@@ -5460,4 +5460,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-310 sweep commit. Full-tower class. Brief `brief_round311.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 1 cosmetic — both verified and swept (A469): F311-1 the two-sided brackets' width now re-derived from the stored ends by a two-sided predicate in g3 (both directions, three cells), probed in g8; F311-2 g2's label's evidence restored and the new clause's own evidence printed. Sweep battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: 0M+1m+3c → 311: 0M+1m+1c → 312: convergence round commissioned.**
+
+### Round 312 — convergence test on the round-311 sweep (Theorem 1bo)
+
+**Scope.** The round-311 sweep commit. Full-tower class. Brief `brief_round312.md`.
+
 **Findings.** Pending.

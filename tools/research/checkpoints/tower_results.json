@@ -2807,6 +2807,12 @@
 "rc": 0,
 "when": "2026-08-27T18:27Z"
 },
+"df5cedbfd903b8096ad3dfc6": {
+"dt": 202.13637232780457,
+"file": "cascade_prime_ball.py",
+"rc": 0,
+"when": "2026-09-08T20:29Z"
+},
 "e063ce62900d7b70f5a8ff86": {
 "dt": 1.0785787105560303,
 "file": "cascade_oneprime_interval.py",
