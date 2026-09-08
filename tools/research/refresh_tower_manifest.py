@@ -40,6 +40,7 @@ TOWER = [
     "cascade_slepian_mechanism.py",
     "cascade_slack_law.py",
     "cascade_true_form_bounds.py",
+    "cascade_prime_ball.py",
 ]
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",

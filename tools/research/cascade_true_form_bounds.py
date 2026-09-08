@@ -68,8 +68,8 @@ PAPER_NEEDLES = [
     {'g': 'g12', 's': 'Theorem 1bn (the true form certified from above', 'form': 'plain'},
     {'g': 'g12', 's': 'no Riemann Hypothesis consequence is claimed', 'form': 'plain', 'min': 5},
     {'s': '`cascade_true_form_bounds.py`', 'min': 2, 'g': 'g12'},
-    {'s': 'the **90 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
-    {'s': 'extended by Theorems 1i–1bn:', 'form': 'ws', 'g': 'g12'},
+    {'s': 'the **91 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
+    {'s': 'extended by Theorems 1i–1bo:', 'form': 'ws', 'g': 'g12'},
     # the block's numeric claims (round-300 F300-2): the bold line and the seven table rows, as literals that g1
     # parses back against the pins and the stored model / 1 - chi_2 values
     {'g': 'g1', 's': '−ln λ₁(δ) ≥ 13.88, 27.75, 67.23, 98.26, 140.71, 221.89, 383.28', 'form': 'plain'},
