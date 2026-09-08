@@ -43,7 +43,7 @@ certified margin (its Rayleigh quotient on g_1 above 1e-2, the true below
 1e-6). (7) THE PAPER'S NUMBERS: the block's table rows declared as needles
 and parsed back -- every stated shift at or above (rounded outward) the
 stored eta_hi within 1e-3, the ratios to two decimals, the lambda_1 column
-equal to 1bn's pins. (8) mangle probes; (9) the chain obligation to
+equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes; (9) the chain obligation to
 cascade_true_form_bounds.py; (10) the paper needles and the census.
 
 WHAT IS NOT CLAIMED. Nothing about the zeros; no lower bound on any
@@ -267,7 +267,7 @@ for c, row in zip(ORDER, ROWS):
     f = [x.strip() for x in row.strip().strip('|').split('|')]
     st = KE[c]; r2 = st["per_prime"]["2"]; lam = float(st["lambda1"]["upper"])
     ok &= len(f) == 6 and abs(float(f[0]) - st["delta"]) < 1e-9
-    ok &= abs(_num(f[1]) - round(TF[c]["min_K2"]["ln_upper"], 3)) < 1e-9 and 0 <= _num(f[1]) - TF[c]["min_K2"]["ln_upper"] <= 2e-3
+    ok &= abs(_num(f[1]) - math.ceil(TF[c]["min_K2"]["ln_upper"]*1000)/1000) < 1e-9 and 0 <= _num(f[1]) - TF[c]["min_K2"]["ln_upper"] <= 2e-3   # 1bn's outward pins
     ok &= _outward(_num(f[2]), r2["eta_hi"])
     ok &= abs(_num(f[3]) - r2["hi_over_lambda"]) <= 0.005 + 1e-9
     pl, el = f[4].split(':'); lp, lr = loosest[c]
@@ -290,7 +290,7 @@ if _m:   # eta_2(3.5) <= e^{-N}: N <= -ln eta_hi
 _v = [_num(x) for x in _re.findall(r'[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_EDGE)]
 ok &= len(_v) == 2 and _outward(_v[0], KE["d1.0"]["two_sided"]["plus"]["eta_hi"]) and _outward(_v[1], KE["d1.0"]["two_sided"]["minus"]["eta_hi"])
 _a = [float(x.replace(',', '')) for x in _re.findall(r'([0-9][0-9,]*)-fold', S_EDGE)]
-ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.05*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))
+ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.10*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))   # two significant figures, rounded down
 # the bench sentences: the two zero-side agreements (stated at or above the live value, within 10 percent), the archimedean
 # candidate's and the true quotient on g_1 (within 1 percent of the live balls), the shifted candidate's two signed values
 # (within 1 percent of the stored delta = 1.0 balls for p = 2)
@@ -302,7 +302,7 @@ ok &= len(_b) == 4 and abs(_b[0] - float(ra["g1"]["rq_cand"].mid())) <= 0.01*_b[
 ok &= abs(_b[2] - float(_r2["q_hi"]["mid"])) <= 0.01*abs(_b[2]) and _b[2] < 0 and abs(_b[3] - float(_r2["q_lo"]["mid"])) <= 0.01*_b[3] and _b[3] > 0
 gate("g7 the paper's own numbers: the seven table rows and the two (iii) sentences present as declared needles, tied to the declared entries and parsed back -- "
      "ln lambda_1 = 1bn's pins; every stated shift at or above the certified eta_hi within 2e-3; the ratios to 0.005; the loosest prime and its shift; the "
-     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 5 percent; the bench sentences' six values against the live gates and the stored delta = 1.0 balls", ok)
+     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 10 percent; the bench sentences' six values against the live gates and the stored delta = 1.0 balls", ok)
 
 # ---------------------------------------------------------------- g8
 good = dict(KE["d2.0"]["per_prime"]["2"])
