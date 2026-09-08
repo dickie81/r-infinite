@@ -1,0 +1,126 @@
+{
+"script_sha256": "6091f930609043d1fd5de69ca826554d3ec2b3e31b503728a985c1d8074c50a0",
+"key": "2698b982aa9023e22fcd4281747a69b8e983830871af5b828dadd1eca6f9a827",
+"params": {
+"deps": {
+"weil_knife_edge.py": "6091f930609043d1fd5de69ca826554d3ec2b3e31b503728a985c1d8074c50a0",
+"weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5"
+},
+"cell": "d1.0",
+"delta": 1.0,
+"K": 120,
+"prec": 600,
+"two_sided": true,
+"tol": 0.001,
+"tol2": 0.01,
+"round": 1
+},
+"state": {
+"cell": "d1.0",
+"delta": 1.0,
+"K": 120,
+"prec": 600,
+"prime_powers": [
+2
+],
+"primes": [
+2
+],
+"lambda1": {
+"mid": "9.35230510149240976131616917220e-7",
+"rad_log2": -587.0251459564909,
+"upper": "9.35230510149240976131616917220e-7",
+"lower": "9.35230510149240976131616917220e-7",
+"ln_upper": -13.88247280312349,
+"positive": true,
+"negative": false
+},
+"eig_ln": -13.88247280312349,
+"per_prime": {
+"2": {
+"status": "bracketed",
+"eta_lo": 4.98452628299215e-06,
+"eta_hi": 4.98790145872876e-06,
+"q_lo": {
+"mid": "2.31288732376332871911499766969e-11",
+"rad_log2": -586.989558799406,
+"upper": "2.31288732376332871911499766969e-11",
+"lower": "2.31288732376332871911499766969e-11",
+"ln_upper": -24.489939355198054,
+"positive": true,
+"negative": false
+},
+"q_hi": {
+"mid": "-6.10146831608679740301986330862e-10",
+"rad_log2": -586.989558799406,
+"upper": "-6.10146831608679740301986330862e-10",
+"lower": "-6.10146831608679740301986330862e-10",
+"ln_upper": null,
+"positive": false,
+"negative": true
+},
+"evals": 14,
+"hi_over_lambda": 5.333339112228928,
+"shell_sum_eta0": "0.0125118566335549003964798762859"
+}
+},
+"two_sided": {
+"p": 2,
+"minus": {
+"status": "bracketed",
+"sign": -1,
+"eta_lo": 4.960963915244798e-06,
+"eta_hi": 4.98790145872876e-06,
+"q_lo": {
+"mid": "2.74566192279278897403421418352e-9",
+"rad_log2": -587.0142111445357,
+"upper": "2.74566192279278897403421418352e-9",
+"lower": "2.74566192279278897403421418352e-9",
+"ln_upper": -19.71324365342449,
+"positive": true,
+"negative": false
+},
+"q_hi": {
+"mid": "-2.32705379817642099807682502359e-9",
+"rad_log2": -587.0141886524876,
+"upper": "-2.32705379817642099807682502359e-9",
+"lower": "-2.32705379817642099807682502359e-9",
+"ln_upper": null,
+"positive": false,
+"negative": true
+},
+"evals": 10
+},
+"plus": {
+"status": "bracketed",
+"sign": 1,
+"eta_lo": 0.0025400135246053364,
+"eta_hi": 0.002553805546869125,
+"q_lo": {
+"mid": "2.49185221585212132212367818844e-6",
+"rad_log2": -584.8535949366037,
+"upper": "2.49185221585212132212367818844e-6",
+"lower": "2.49185221585212132212367818844e-6",
+"ln_upper": -12.902484262227713,
+"positive": true,
+"negative": false
+},
+"q_hi": {
+"mid": "-1.45195347412580546393924751051e-7",
+"rad_log2": -584.845345859473,
+"upper": "-1.45195347412580546393924751051e-7",
+"lower": "-1.45195347412580546393924751051e-7",
+"ln_upper": null,
+"positive": false,
+"negative": true
+},
+"evals": 17
+}
+},
+"gram_s": 0.31285977363586426,
+"eig_s": 4.440107107162476,
+"search_s": 0.031467437744140625,
+"two_sided_s": 121.13868403434753,
+"verdict": "CERTIFIED (each eta_hi a downward shift of log p at which the perturbed form has a negative Rayleigh ball)"
+}
+}
