@@ -22,8 +22,9 @@ paper's "comparable with lambda_1 itself"), and between consecutive cells
 every other prime's shift falls at least as fast as eta_2 (round-310
 F310-1). (3) THE TWO-SIDED WINDOWS
 (p = 2, the three cells at delta <= 2.0, the perturbed Gram re-minimised at
-every step): both brackets bracketed with their relative width <= 1 + 1e-2
-re-derived from the stored ends (round-311 F311-1), the twelve balls (both ends of both brackets at the three cells) re-derived live from the stored shifts with their signs --
+every step): both brackets bracketed with eta_hi/eta_lo <= 1 + 1e-2 (relative width
+1e-2) re-derived from the stored ends (round-311 F311-1), the lower end of
+the downward bracket 2^(-1/128) eta_hi (round-312 F312-4), the twelve balls (both ends of both brackets at the three cells) re-derived live from the stored shifts with their signs --
 the crossing of the re-minimised K2 quotient, an upper bound on the
 perturbed ground state's -- the re-minimised downward crossing within 2
 percent below the fixed-vector eta_hi (its upper end cannot exceed it),
@@ -58,7 +59,8 @@ certified margin (its Rayleigh quotient on g_1 above 1e-2, the true below
 1e-6). (7) THE PAPER'S NUMBERS: the block's table rows declared as needles
 and parsed back -- every stated shift at or above (rounded outward) the
 stored eta_hi within 2e-3, the ratios to two decimals, the lambda_1 column
-equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes (the one-sided and the two-sided bracket predicates); (9) the chain obligation to
+equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes (the one predicate at both tolerances, one-sided and
+two-sided); (9) the chain obligation to
 cascade_true_form_bounds.py; (10) the paper needles and the census.
 
 WHAT IS NOT CLAIMED. Nothing about the zeros; no lower bound on any
@@ -124,7 +126,8 @@ for c in ORDER:
 gate("g1 the vector: the producer's lambda_1 ball reproduces 1bn's stored K2 ball (upper ends within 1e-20 relative), radii below 2^(-prec/2), K coefficients stored", ok)
 
 # ---------------------------------------------------------------- g2
-ok = True; ratio2 = {}; loosest = {}
+ok = TOL == 1e-3 and TOL2 == 1e-2     # the block's 10^-3 and 10^-2 tied to the producer's constants (round-312 F312-3)
+ratio2 = {}; loosest = {}
 for c in ORDER:
     st = KE[c]; pp = st["prime_powers"]
     ok &= pp == TF[c]["prime_powers"] and st["primes"] == primes_of(pp)
@@ -150,9 +153,10 @@ gate("g2 the brackets: at every cell and every prime, Q^(-eta_hi)(g_1) negative 
      + ", ".join(f"{ratio2[c]:.2f}" for c in ORDER) + "); the other primes' shifts falling at least as fast as eta_2 between consecutive cells (" + f"{n_cmp} comparisons, minimum margin {min_margin:.3f}" + "); loosest prime per cell " + ", ".join(f"{loosest[c][0]}: {loosest[c][1]['eta_hi']:.3e}" for c in ORDER), ok)
 
 # ---------------------------------------------------------------- g3
-def two_ok(r):   # a two-sided bracket: bracketed, certified signs at both ends, the stated relative width (round-311 F311-1)
+def bracket_ok(r, tol=TOL):   # a bracket: bracketed, certified signs at both ends, eta_hi/eta_lo <= 1 + tol (one-sided TOL, two-sided TOL2)
     return (r.get("status") == "bracketed" and r["q_hi"]["negative"] and r["q_lo"]["positive"] and 0 < r["eta_lo"] < r["eta_hi"]
-            and r["eta_hi"]/r["eta_lo"] <= 1 + TOL2 + 1e-12)
+            and r["eta_hi"]/r["eta_lo"] <= 1 + tol + 1e-12)
+def two_ok(r): return bracket_ok(r, TOL2)     # round-311 F311-1; unified with the one-sided predicate at round 312 (F312-2)
 ok = True; asym = {}
 for c in ORDER:
     two = KE[c]["two_sided"]
@@ -165,6 +169,7 @@ for c in ORDER:
         # re-minimised quotient is at most g_1's); the content is the LOWER end: the re-minimised quotient still positive
         # within 2 percent below eta_hi (round-304 F304-2)
         ok &= 0.98*fx <= m["eta_lo"] < m["eta_hi"] <= fx*(1 + 1e-9)
+        ok &= abs(m["eta_lo"]/fx - 2**(-1/128)) <= 1e-9 and round(2**(-1/128), 4) == 0.9946   # the block's 2^(-1/128) eta_hi = 0.9946 eta_hi (round-312 F312-4)
         asym[c] = q["eta_hi"]/m["eta_hi"]
         ok &= asym[c] >= 100
         # the twelve two-sided balls re-derived live (round-305 observation a; both ends of both brackets at the three cells): the perturbed Gram at the stored eta, its
@@ -183,7 +188,7 @@ for c in ORDER:
                     ok &= (_rq.upper() < 0) if _neg else (_rq.lower() > 0)
     else:
         ok &= two is None
-gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised): both crossings bracketed with certified signs and relative width <= 1 + 1e-2 re-derived from the ends, the downward one within 2 percent below the fixed-vector eta_hi (its upper end cannot exceed it), the twelve balls re-derived live with the stored signs, the upward/downward asymmetry >= 100 ("
+gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised): both crossings bracketed with certified signs and eta_hi/eta_lo <= 1 + 1e-2 (relative width 1e-2) re-derived from the ends, the downward one within 2 percent below the fixed-vector eta_hi (its upper end cannot exceed it) and its lower end 2^(-1/128) eta_hi, the twelve balls re-derived live with the expected signs, the upward/downward asymmetry >= 100 ("
      + ", ".join(f"{asym[c]:.3g}" for c in asym) + ")", ok)
 
 # ---------------------------------------------------------------- g4
@@ -405,16 +410,16 @@ gate("g7 the paper's own numbers: the seven table rows and the two (iii) sentenc
 
 # ---------------------------------------------------------------- g8
 good = dict(KE["d2.0"]["per_prime"]["2"])
-def bracket_ok(r):
-    return (r.get("status") == "bracketed" and r["q_hi"]["negative"] and r["q_lo"]["positive"] and 0 < r["eta_lo"] < r["eta_hi"]
-            and r["eta_hi"]/r["eta_lo"] <= 1 + TOL + 1e-12)
 bad1 = dict(good); bad1["q_hi"] = dict(good["q_hi"]); bad1["q_hi"]["negative"] = False
 bad2 = dict(good); bad2["eta_hi"] = good["eta_lo"]*1.01
 bad3 = dict(good); bad3["status"] = "ambiguous"
 ok = bracket_ok(good) and not bracket_ok(bad1) and not bracket_ok(bad2) and not bracket_ok(bad3)
-good2 = dict(KE["d1.0"]["two_sided"]["plus"]); bad4 = dict(good2); bad4["eta_lo"] = good2["eta_hi"]/1.05   # a two-sided bracket widened to 5 percent
-ok &= two_ok(good2) and not two_ok(bad4)
-gate("g8 mangle probes: the bracket predicate fails on a non-negative upper ball, a bracket wider than 1 + 1e-3, a non-bracketed status; the two-sided predicate on a bracket widened to 1.05", ok)
+good2 = dict(KE["d1.0"]["two_sided"]["plus"])
+bad4 = dict(good2); bad4["eta_lo"] = good2["eta_hi"]/1.05                                   # widened to 5 percent
+bad5 = dict(good2); bad5["q_lo"] = dict(good2["q_lo"]); bad5["q_lo"]["positive"] = False   # a non-positive lower ball
+bad6 = dict(good2); bad6["status"] = "ambiguous"
+ok &= two_ok(good2) and not two_ok(bad4) and not two_ok(bad5) and not two_ok(bad6)
+gate("g8 mangle probes: the bracket predicate fails on a non-negative upper ball, a bracket wider than 1 + 1e-3, a non-bracketed status; the two-sided predicate on a bracket widened to 1.05, a non-positive lower ball, a non-bracketed status", ok)
 
 # ---------------------------------------------------------------- g9
 from cascade_tower import chain_ok

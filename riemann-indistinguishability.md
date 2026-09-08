@@ -6681,10 +6681,13 @@ bracketed with the perturbed Gram re-minimised at every step (its own
 approximate eigenvector's ball certified): the crossing of the
 re-minimised K2 quotient, an upper bound on the perturbed ground
 state's, bracketed to relative width 10⁻² — the downward bracket's
-upper end is the fixed-vector η_hi by construction (the search doubles
-from η_hi/4 and inherits g₁'s negative ball), and its lower end, the
-re-minimised quotient still positive, is 0.9946 η_hi at all three cells
-(gated at 0.98; the twelve two-sided balls — both ends of both
+upper end is the fixed-vector η_hi (it can be no larger — the search
+doubles from η_hi/4 and inherits g₁'s negative ball — and every
+bisection point tested positive at each cell), and its lower end, the
+re-minimised quotient still positive, is 2^{−1/128} η_hi = 0.9946 η_hi at
+all three cells, the last bisection point of a bracket of ratio 2^{1/128}
+(gated: the ratio ≤ 1 + 10⁻², the lower end ≥ 0.98 η_hi, the lower end
+equal to 2^{−1/128} η_hi; the twelve two-sided balls — both ends of both
 brackets at the three cells — re-derived live by the verifier). Every η below is rounded outward (upward: a stated shift at
 or above the certified η_hi), λ₁ is 1bn's certified upper bound:
 
