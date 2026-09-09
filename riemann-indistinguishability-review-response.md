@@ -5562,4 +5562,4 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-327 sweep commit (the parenthetical on K/2 and 1bt's K, the dip's definition in the block; the grid test's tolerance in the verifier; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (a verifier constant). Brief `brief_round328.md`.
 
-**Findings.** Pending.
+**Findings.** 0 MAJOR, 0 minor, 1 cosmetic — **converged** (A489): F328-1 the grid test's comment quoted the nearest entry over every stored list (3 × 10⁻⁵) where the gated lists' nearest is 8 × 10⁻⁵ — swept in the convergence commit with a full battery: member 10/10, chain parent 9/9, manifest 30, TOWER PASS 30/30. **Trajectory: 321 (2M+7m+3c) → 322 (0M+3m+2c) → 323 (0M+7m+1c) → 324 (0M+4m+2c) → 325 (0M+2m+3c) → 326 (0M+1m+3c) → 327 (0M+1m+2c) → 328 (0M+0m+1c). Theorem 1bu stable.**

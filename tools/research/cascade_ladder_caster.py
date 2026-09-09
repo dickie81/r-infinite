@@ -201,7 +201,7 @@ for c in ORDER:
     st = ST[c]; below[c] = []
     for r in safe_rungs(c):
         nsafe += 1; ok &= len(r["hole"]) == r["k"] - 1 and len(set(r["hole"])) == len(r["hole"])   # k - 1 entries, none duplicated (a detected dip appends two equal entries: F325-1)
-        ok &= not any(abs(h - (_G0 + round((h - _G0)/_STEP)*_STEP)) < 1e-12 for h in r["hole"])    # no entry within 1e-12 of a census grid point: a dip's entries reconstruct the grid bitwise and one twin can be absorbed as a dodging zero (F326-1); a bisected sign change lies inside its bracket, on the grid only by a rounding of order 1e-14 (F327-2; the committed lists' nearest entry is 3e-5 off the grid)
+        ok &= not any(abs(h - (_G0 + round((h - _G0)/_STEP)*_STEP)) < 1e-12 for h in r["hole"])    # no entry within 1e-12 of a census grid point: a dip's entries reconstruct the grid bitwise and one twin can be absorbed as a dodging zero (F326-1); a bisected sign change lies inside its bracket, on the grid only by a rounding of order 1e-14 (F327-2; the gated lists' nearest entry is 8e-5 off the grid, 3e-5 over every stored list: F328-1)
         ok &= max(st["nodes"][r["k"] - 2]) < min(100.0, 0.8*r["edge"])                       # the census region covers the predicted nodes (F10)
         nb = sum(1 for h in r["hole"] if h < st["gamma1"]); below[c].append(nb)
         ok &= all(h < st["gamma1"] for h in r["hole"][:3])                                   # the first three hole zeros below the first zeta zero (F8)
