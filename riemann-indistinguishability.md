@@ -7059,17 +7059,20 @@ The classical inputs are the Riemann–von Mangoldt formula with its
 constant, S(T) = O(ln T), and S₁(T) = O(ln T) (Littlewood); for L(Δ, s)
 the last is used as the standard analogue. *(iii) Computed, gated.*
 On the committed zero lists the least-squares slope of B − I against
-ln T over twelve log-spaced heights on [max(40, 3γ₁), T_last] (ζ on [42, 7000]) is 3.50, 0.44, 0.61, −0.67, 10.92 against 7/2, 1/2, 1/2, −1/2, 11: the
+ln T over twelve log-spaced heights on [max(40, 3γ₁), T_last] (every height inside the list's coverage) is 3.48, 0.44, 0.61, −0.67, 10.92 against 7/2, 1/2, 1/2, −1/2, 11: the
 decisive tests are ζ (gated within 0.05) and Δ (within
 0.15 — the theorem's 11 predicted before the fit); the characters'
 lists are too short to fix a slope: over the four-window set lo ∈
 {2γ₁, max(40, 3γ₁)}, hi ∈ {T_last, 0.75T_last} (twelve heights each)
 the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ₋₃, χ₋₄, χ₈ (gated,
-outward), every window of χ₈ sitting below −½ (its list ends at
+outward), every window of χ₈ sitting below −½ (the highest −0.51 to the nearest 0.01; its list ends at
 T = 70), while on the same set ζ spans 3.45–3.51 and Δ 10.78–11.06, each
 enclosing its constant (gated); the stated-window fits are gated
 within 0.5 for the characters. The residual B − I − (7/2)ln T for ζ lies in
-[3.57, 4.39] over those 2.2 decades — the spread is the S(T) fluctuation of the proof's remainder — and C_ζ by its formula is 4.05
+[3.52, 4.41] over those 2.2 decades (the exact range, gated: on each
+inter-zero arc the residual is concave, so its minimum sits at a zero
+and its maximum at an interior critical point) — the spread is the
+S(T) fluctuation of the proof's remainder — and C_ζ by its formula is 4.05
 (the three terms −6.84, 10.70, 0.19; the Stirling remainder's tail
 4κ_R/T_last with κ_R = +0.0066 is nil); for Δ the same tail is not
 nil — S carries the next Stirling term of Γ_ℂ(s + 11/2), κ_R = −4.80
@@ -7101,8 +7104,8 @@ the pole is worth four orders, which is where the shadow's rung 1 sits
 (Theorem 1br: order 4, not 0) — to within the slope 1.59 of c − d.
 *(v) What is proved, computed, not claimed.* Proved: (i) with its
 constants, unconditionally. Computed, gated in bands: the slopes and
-constants of (iii), the seven-cell consequence of (iv), d(δ), the
-slopes of c, d and c − d and the o(1)'s balance. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
+constants of (iii), the seven-cell consequence of (iv); computed,
+pinned: d(δ), the slopes of c, d and c − d and the o(1)'s balance. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
 theorem concerns the ground-state formula), about the 2-mod-4 orders,
 or about c(δ) beyond its measured slope; anything about the zeros
 beyond the count; **no Riemann Hypothesis consequence is claimed**.

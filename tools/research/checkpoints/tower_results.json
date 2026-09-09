@@ -5,6 +5,12 @@
 "rc": 0,
 "when": "2026-09-09T06:28Z"
 },
+"00931613ca899bbf2e392ddd": {
+"dt": 54.901742696762085,
+"file": "cascade_pole_indefinite.py",
+"rc": 0,
+"when": "2026-09-09T08:23Z"
+},
 "00974217fbf241ae84dced93": {
 "dt": 55.92306303977966,
 "file": "cascade_weil_crossover.py",
@@ -1378,6 +1384,12 @@
 "file": "cascade_attraction_margins.py",
 "rc": 0,
 "when": "2026-09-03T12:08Z"
+},
+"5c3bc7fa85bccac249143a56": {
+"dt": 12.735634803771973,
+"file": "cascade_count_constant.py",
+"rc": 0,
+"when": "2026-09-09T08:22Z"
 },
 "5c8b7c864c1188cf9eb84c2e": {
 "dt": 120.52884531021118,

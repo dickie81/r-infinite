@@ -5508,4 +5508,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-318 sweep commit. Full-tower class (verifier and substrate executable lines; manifest). Brief `brief_round319.md`.
 
+**Findings.** 0 MAJOR, 2 minor, 2 cosmetic — all verified by the lead and swept (A479). F319-1 ζ's fit window [42, 7000] ran past the list's last zero 6996.89 (three zeros missing at the top height; the stated 3.50 was the fit of an incomplete quantity) — ζ now follows the uniform rule [max(40, 3γ₁), T_last], gated inside the coverage, slope 3.48; F319-2 the residual band [3.57, 4.39] was a 40-height sample, the exact range over the window is [3.52, 4.41] (concave per inter-zero arc: minimum at a zero, maximum at an interior critical point) — computed exactly and gated, the block restated. Cosmetics: χ₈'s highest window −0.51 stated to the nearest 0.01 beside the outward −0.50 (C1); 1bs(v)'s census split into "gated in bands" and "computed, pinned" (C2). Sweep battery: members 9/9, 9/9; manifest 29; TOWER PASS 29/29.
+
+### Round 320 — convergence test on the round-319 sweep (Theorems 1bs, 1bt)
+
+**Scope.** The round-319 sweep commit. Full-tower class (verifier executable lines; manifest). Brief `brief_round320.md`.
+
 **Findings.** Pending.

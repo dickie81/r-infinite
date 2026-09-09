@@ -17,7 +17,8 @@ Stieltjes right-hand side int_0^T (N - N_0) 4/(r sqrt(1 - r^2/T^2)) dr,
 evaluated exactly per interval (the N_0 piece by adaptive quadrature), below 1e-6 at three heights per form -- the
 integration by parts of the proof, as computation. (2) THE SLOPES: the
 least-squares slope of B - I against ln T (twelve log-spaced heights on
-[max(40, 3 gamma_1), T_last]) within 0.05 (zeta, T in [42, 7000]), 0.15 (Delta)
+[max(40, 3 gamma_1), T_last], every height inside the list's coverage --
+round 319 F319-1) within 0.05 (zeta), 0.15 (Delta)
 and 0.5 (the characters, whose short lists fix no slope -- round 317 F317-6)
 of 4 c_L; a wrong constant (7/8
 -> 1 or 3/4 for zeta) fails the band; over the four-window set lo in
@@ -25,7 +26,9 @@ of 4 c_L; a wrong constant (7/8
 each) the fits' spans are as the paper states (outward 0.01), zeta's and
 Delta's spans enclose 7/2 and 11, and chi_8's every window lies below -1/2
 (round 318 F318-2). (3) THE CONSTANTS C_L: the residual
-B - I - 4 c_L ln T for zeta over T in [42, 7000] within a band of width 1.0 (the
+B - I - 4 c_L ln T for zeta over [max(40, 3 gamma_1), T_last] has an exact range
+(concave per inter-zero arc: the minimum at a zero, the maximum at an interior
+critical point -- round 319 F319-2) of width at most 1.0 (the
 S(T) fluctuation) whose mean is C_zeta from the closed formula within 0.1; the formula's three parts
 and the five C_L printed. (4) THE 1bm CONSEQUENCE: at the seven cells B(2T_0)
 - I(2T_0) (= 1bm(v)'s difference, recomputed) lies within 0.5 of (7/2) ln(4
@@ -61,8 +64,8 @@ PAPER_NEEDLES = [
     {'s': '`cascade_count_constant.py`', 'min': 2, 'g': 'g8'},
     {'s': 'the **96 scripts cited in place** above', 'form': 'ws', 'g': 'g8'},
     {'s': 'extended by Theorems 1i–1bt:', 'form': 'ws', 'g': 'g8'},
-    {'g': 'g6', 's': '3.50, 0.44, 0.61, −0.67, 10.92', 'form': 'ws'},
-    {'g': 'g6', 's': '[3.57, 4.39]', 'form': 'ws'},
+    {'g': 'g6', 's': '3.48, 0.44, 0.61, −0.67, 10.92', 'form': 'ws'},
+    {'g': 'g6', 's': '[3.52, 4.41]', 'form': 'ws'},
     {'g': 'g6', 's': '4.05', 'form': 'ws'},
     {'g': 'g6', 's': '−6.84, 10.70, 0.19', 'form': 'ws'},
     {'g': 'g6', 's': 'C_Δ with its tail is 0.35 (0.56 without it)', 'form': 'ws'},
@@ -74,6 +77,7 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ₋₃, χ₋₄, χ₈', 'form': 'ws'},
     {'g': 'g6', 's': 'ζ spans 3.45–3.51 and Δ 10.78–11.06', 'form': 'ws'},
     {'g': 'g6', 's': "and the cells' o(1) the balance −0.05", 'form': 'ws'},
+    {'g': 'g6', 's': 'the highest −0.51 to the nearest 0.01', 'form': 'ws'},
 ]
 
 fails = []
@@ -110,8 +114,9 @@ gate(f"g1 the identity of the proof as computation: B - I equals the Stieltjes r
 ok = True; slopes = {}
 for f in FORDER:
     F = FORMS[f]; zs = ZS[f]
-    lo = 42.0 if f == "zeta" else max(40.0, 3*float(zs[0])); hi = 7000.0 if f == "zeta" else float(zs[-1])
+    lo = max(40.0, 3*float(zs[0])); hi = float(zs[-1])            # round 319 F319-1: every height inside the list's coverage (zeta's former [42, 7000] ran past T_last = 6996.89)
     sl, ic, Ts, y = slope(zs, F, lo, hi); slopes[f] = sl
+    ok &= Ts[-1] <= hi + 1e-9 and hi <= float(zs[-1]) + 1e-9
     ok &= abs(sl - float(EXACT[f])) <= SLOPE_BAND[f]
 # a wrong constant for zeta fails the band
 ok &= abs(slopes["zeta"] - 4.0) > SLOPE_BAND["zeta"] and abs(slopes["zeta"] - 3.0) > SLOPE_BAND["zeta"]
@@ -122,18 +127,28 @@ for f in FORDER:
     vals = [slope(zs, FORMS[f], lo, hi, 12)[0] for lo in (2*g1, max(40.0, 3*g1)) for hi in (Tl, 0.75*Tl)]
     spans[f] = (min(vals), max(vals))
 ok &= spans["zeta"][0] <= 3.5 <= spans["zeta"][1] and spans["Delta"][0] <= 11.0 <= spans["Delta"][1] and spans["chi_8"][1] < -0.5
-gate("g2 the slopes of B - I against ln T (least squares over twelve log-spaced heights on [max(40, 3 gamma_1), T_last]; zeta on [42, 7000]): " + ", ".join(f"{f}: {slopes[f]:+.3f} (4c_L = {float(EXACT[f]):+.1f}, band {SLOPE_BAND[f]})" for f in FORDER) + "; the constants 1 and 3/4 in place of 7/8 fail zeta's band"
+gate("g2 the slopes of B - I against ln T (least squares over twelve log-spaced heights on [max(40, 3 gamma_1), T_last], every height inside the list's coverage): " + ", ".join(f"{f}: {slopes[f]:+.3f} (4c_L = {float(EXACT[f]):+.1f}, band {SLOPE_BAND[f]})" for f in FORDER) + "; the constants 1 and 3/4 in place of 7/8 fail zeta's band"
      + "; over the four-window set the spans are " + ", ".join(f"{f}: [{spans[f][0]:+.4f}, {spans[f][1]:+.4f}]" for f in FORDER) + " (zeta's and Delta's enclose 7/2 and 11; chi_8's every window below -1/2)", ok)
 
 # ---------------------------------------------------------------- g3
 ok = True; Cf = {}; parts = {}
 for f in FORDER:
     Cf[f], parts[f] = C_from_formula(ZS[f], FORMS[f], float(ZS[f][-1]))
-zs = ZS["zeta"]; Ts = np.exp(np.linspace(math.log(42.0), math.log(7000.0), 40))
-res = np.array([residual(zs, T, FORMS["zeta"]) for T in Ts])
-ok &= res.max() - res.min() <= 1.0 and abs(res.mean() - Cf["zeta"]) <= 0.1
+zs = ZS["zeta"]; ZLO = max(40.0, 3*float(zs[0])); ZHI = float(zs[-1])
+# round 319 F319-2: the exact range of the residual over [ZLO, ZHI] -- on each inter-zero arc B - I - (7/2) ln T is concave
+# (B'' = -4 sum T/(T^2 - gamma^2)^{3/2} on the arc, the smooth part's second derivative -(T - 7/2)/T^2 < 0), so the minimum
+# sits at an endpoint (a zero) and the maximum at an interior critical point, found by bounded minimisation of the negative
+_f = lambda T: residual(zs, T, FORMS["zeta"])
+_pts = [ZLO] + [float(g) for g in zs[(zs > ZLO) & (zs < ZHI)]] + [ZHI]
+res_min = min(_f(p) for p in _pts); res_max = -1e9
+for _a, _b in zip(_pts[:-1], _pts[1:]):
+    _r = minimize_scalar(lambda T: -_f(T), bounds=(_a + 1e-9, _b - 1e-9), method="bounded", options={"xatol": 1e-8})
+    res_max = max(res_max, -float(_r.fun))
+Ts = np.exp(np.linspace(math.log(ZLO), math.log(ZHI), 4000))
+res = np.array([_f(T) for T in Ts])
+ok &= res_max - res_min <= 1.0 and abs(res.mean() - Cf["zeta"]) <= 0.1 and res_min <= res.min() and res.max() <= res_max
 ok &= abs(parts["Delta"][3] + 0.205) <= 0.01 and abs(parts["zeta"][3]) <= 1e-4        # round 317 F317-2: Delta's Stirling tail -0.20, zeta's nil
-gate(f"g3 the constants: zeta's residual B - I - (7/2) ln T over T in [42, 7000] in [{res.min():.3f}, {res.max():.3f}] (width <= 1.0: the S(T) fluctuation), mean {res.mean():.3f} within 0.1 of the closed formula's C_zeta = {Cf['zeta']:.3f} (parts {parts['zeta'][0]:.3f}, {parts['zeta'][1]:.3f}, {parts['zeta'][2]:.3f}, tail {parts['zeta'][3]:.4f}); "
+gate(f"g3 the constants: zeta's residual B - I - (7/2) ln T over T in [{ZLO:.2f}, {ZHI:.2f}] has the exact range [{res_min:.4f}, {res_max:.4f}] (width <= 1.0: the S(T) fluctuation; the 4000-height sample inside it), its 4000-height mean {res.mean():.3f} within 0.1 of the closed formula's C_zeta = {Cf['zeta']:.3f} (parts {parts['zeta'][0]:.3f}, {parts['zeta'][1]:.3f}, {parts['zeta'][2]:.3f}, tail {parts['zeta'][3]:.4f}); "
      + "C_L by formula with the Stirling tail: " + ", ".join(f"{f}: {Cf[f]:.3f} (tail {parts[f][3]:+.3f})" for f in FORDER), ok)
 
 # ---------------------------------------------------------------- g4
@@ -179,16 +194,16 @@ gate("g4 the 1bm consequence: 2 s_delta(2T_0) + 4 pi e^delta = B(2T_0) - I(2T_0)
 zs2 = zs + 0.1*np.where(np.arange(len(zs)) % 2 == 0, 1.0, -1.0)         # a list with its zeros jittered by an alternating +-0.1 (S changed by O(1))
 T = 687.0; lhs = B(zs2, T) - I(T, 1, 1); rhs = stieltjes_rhs(zs2, T, 1, 1)
 ok = abs(lhs - rhs) <= 1e-6                                              # the identity is an identity for any list
-sl2, _, _, _ = slope(zs2, FORMS["zeta"], 42.0, 7000.0)
+sl2, _, _, _ = slope(zs2, FORMS["zeta"], ZLO, ZHI)
 ok &= abs(sl2 - 3.5) <= SLOPE_BAND["zeta"]                               # an O(1) change of S leaves the slope
-sl3, _, _, _ = slope(zs[::2], FORMS["zeta"], 42.0, 7000.0)               # every other zero: a different density, the slope leaves the band
+sl3, _, _, _ = slope(zs[::2], FORMS["zeta"], ZLO, ZHI)               # every other zero: a different density, the slope leaves the band
 ok &= abs(sl3 - 3.5) > 1.0
 gate(f"g5 mangle probes: the Stieltjes identity holds for any list (|diff| {abs(lhs - rhs):.1e} on a shifted list); an O(1) jitter of the zeros leaves the slope in the band ({sl2:+.3f}); halving the list moves it out ({sl3:+.3f})", ok)
 
 # ---------------------------------------------------------------- g6
 import paper_needles
-S_SLOPES = '3.50, 0.44, 0.61, −0.67, 10.92'
-S_RESZ = '[3.57, 4.39]'
+S_SLOPES = '3.48, 0.44, 0.61, −0.67, 10.92'
+S_RESZ = '[3.52, 4.41]'
 S_CZ = '4.05'
 S_CZPARTS = '−6.84, 10.70, 0.19'
 S_CD = 'C_Δ with its tail is 0.35 (0.56 without it)'
@@ -200,13 +215,15 @@ S_BOOK = '7/2 + 1.59 = 5.09 against the directly fitted slope of ln λ₁ + 4πe
 S_SPANS = 'the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ₋₃, χ₋₄, χ₈'
 S_SPANZ = 'ζ spans 3.45–3.51 and Δ 10.78–11.06'
 S_BAL = "and the cells' o(1) the balance −0.05"
+S_CHI8 = 'the highest −0.51 to the nearest 0.01'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ₋₃, χ₋₄, χ₈', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ζ spans 3.45–3.51 and Δ 10.78–11.06', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, "and the cells' o(1) the balance −0.05", 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '3.50, 0.44, 0.61, −0.67, 10.92', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '[3.57, 4.39]', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the highest −0.51 to the nearest 0.01', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '3.48, 0.44, 0.61, −0.67, 10.92', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '[3.52, 4.41]', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '4.05', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '−6.84, 10.70, 0.19', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'C_Δ with its tail is 0.35 (0.56 without it)', 'ws')
@@ -215,14 +232,16 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'sit within 0.4 of (7/2)ln(4πeᵟ) + 
 ok &= paper_needles.needle(PAPER_NEEDLES, '1.28 for c(δ) and −0.32 for d(δ), 1.59 for c − d', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'd(δ) := 2s_δ(2T₀) − min_T 2s_δ(T) = 1.18, 0.69, 0.27, 0.59, 0.14, 0.33, 0.29 at the cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '7/2 + 1.59 = 5.09 against the directly fitted slope of ln λ₁ + 4πeᵟ, 5.04', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_SLOPES, S_RESZ, S_CZ, S_CZPARTS, S_CD, S_CCHI, S_DEV, S_CSLOPE, S_DLIST, S_BOOK, S_SPANS, S_SPANZ, S_BAL]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_SLOPES, S_RESZ, S_CZ, S_CZPARTS, S_CD, S_CCHI, S_DEV, S_CSLOPE, S_DLIST, S_BOOK, S_SPANS, S_SPANZ, S_BAL, S_CHI8]
 def _num(s): return float(s.strip().replace('−', '-'))
 _re = __import__("re")
 _m = _re.findall(r"([-−]?[0-9]+\.[0-9]{2})", S_SLOPES)
 ok &= len(_m) == 5 and all(abs(_num(a) - slopes[f]) <= 5e-3 + 1e-9 for a, f in zip(_m, FORDER))            # nearest 0.01
 _m = _re.search(r"\[([-−]?[0-9.]+), ([-−]?[0-9.]+)\]", S_RESZ)
-ok &= _num(_m.group(1)) <= res.min() < _num(_m.group(1)) + 0.01 + 1e-9 and _num(_m.group(2)) - 0.01 - 1e-9 < res.max() <= _num(_m.group(2))   # outward 0.01
+ok &= _num(_m.group(1)) <= res_min < _num(_m.group(1)) + 0.01 + 1e-9 and _num(_m.group(2)) - 0.01 - 1e-9 < res_max <= _num(_m.group(2))   # outward 0.01 of the exact range (round 319 F319-2)
 ok &= abs(_num(S_CZ) - Cf["zeta"]) <= 5e-3 + 1e-9
+_m = _re.findall(r"([-−]?[0-9]+\.[0-9]{2})", S_CHI8.split(" to the")[0])        # the 'nearest 0.01' excluded from the parse
+ok &= len(_m) == 1 and abs(_num(_m[0]) - spans["chi_8"][1]) <= 5e-3 + 1e-9                                      # nearest 0.01 (round 319 C319-1)
 _m = _re.findall(r"([0-9]+\.[0-9]{2})", S_CD)
 ok &= len(_m) == 2 and abs(_num(_m[0]) - Cf["Delta"]) <= 5e-3 + 1e-9 and abs(_num(_m[1]) - C_from_formula(ZS["Delta"], FORMS["Delta"], float(ZS["Delta"][-1]), tail=False)[0]) <= 5e-3 + 1e-9
 _m = _re.findall(r"([-−]?[0-9]+\.[0-9]{2})", S_CZPARTS)
