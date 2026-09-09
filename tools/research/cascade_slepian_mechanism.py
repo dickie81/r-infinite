@@ -93,8 +93,8 @@ PAPER_NEEDLES = [
     {'g': 'g9', 's': 'no Riemann Hypothesis consequence is claimed', 'form': 'plain', 'min': 3},
     {'g': 'g9', 's': 'net state after Theorem 1bl', 'form': 'plain'},
     {'s': '`cascade_slepian_mechanism.py`', 'min': 2, 'g': 'g9'},
-    {'s': 'the **96 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
-    {'s': 'extended by Theorems 1i–1bt:', 'form': 'ws', 'g': 'g9'},
+    {'s': 'the **97 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
+    {'s': 'extended by Theorems 1i–1bu:', 'form': 'ws', 'g': 'g9'},
 ]
 
 fails = []

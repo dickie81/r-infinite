@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""The Xi-limit of the ground state (Theorem 1bu's substrate, the delta -> infinity side). Riemann's
+    Xi(t) = xi(1/2 + i t),  xi(s) = (1/2) s (s - 1) pi^{-s/2} Gamma(s/2) zeta(s),
+an even real entire function with Hadamard's product Xi(t)/Xi(0) = prod_gamma (1 - t^2/gamma^2) over the zeros
+1/2 + i gamma (gamma paired with -gamma; complex gamma if RH fails, the product the same). Functions:
+  Xi(t)                         by mpmath (30 digits)
+  constants()                   Xi(0), int_R Xi^2 dt, the limit ghat_1(0)^2 = 2 pi Xi(0)^2/int Xi^2, <t^2> under Xi^2,
+                                K = 2 + gamma_E - ln 4 pi (Hadamard: sum_rho 1/(rho(1-rho))), 1/sqrt(2K), 2 sqrt(pi K)
+  nodes(mmax)                   the positive zeros of the even orthogonal polynomials P_{2m} of the weight Xi(t)^2 on R
+                                (Stieltjes in s = t^2 on Gauss-Legendre nodes of [0, R]), m = 1..mmax
+  hadamard_check(t, zeros, N0)  ln[Xi(t)/Xi(0)] against sum_{gamma in the list} ln(1 - t^2/gamma^2) plus the smooth tail
+The weight is negligible beyond t = 90 (|Xi(t)| ~ t^{7/4} e^{-pi t/4}: e^{-70} there). Floating point (mpmath, numpy)."""
+import math
+import numpy as np
+import mpmath as mp
+
+EULER = 0.57721566490153286060651209
+K_HADAMARD = 2 + EULER - math.log(4*math.pi)
+R_CUT = 90.0
+NODES = 3000
+
+def Xi(t):
+    with mp.workdps(30):
+        s = mp.mpc(0.5, t)
+        return float((s*(s - 1)/2*mp.pi**(-s/2)*mp.gamma(s/2)*mp.zeta(s)).real)
+
+def _grid():
+    x, wq = np.polynomial.legendre.leggauss(NODES)
+    x = 0.5*R_CUT*(x + 1); wq = 0.5*R_CUT*wq
+    E = np.array([Xi(t) for t in x])
+    return x, wq*E*E
+
+def constants():
+    x, w = _grid()
+    X0 = Xi(0.0); I2 = 2*float(np.sum(w)); m2 = float(np.sum(w*x*x)/np.sum(w))
+    return {"Xi0": X0, "int_Xi2": I2, "g0sq_limit": 2*math.pi*X0*X0/I2, "t2_mean": m2, "K": K_HADAMARD,
+            "inv_sqrt_2K": 1/math.sqrt(2*K_HADAMARD), "two_sqrt_piK": 2*math.sqrt(math.pi*K_HADAMARD)}
+
+def nodes(mmax, x=None, w=None):
+    """the positive zeros of P_{2m}, m = 1..mmax, for the even weight w(t) dt on [0, R] (default Xi^2): the monic
+    orthogonal polynomials p_m(s) of the measure w dt in s = t^2, zeros from the Jacobi matrix."""
+    if x is None: x, w = _grid()
+    s = x*x; al = []; be = []; out = []
+    p_prev = np.zeros_like(s); p = np.ones_like(s); nrm_prev = 1.0
+    for m in range(mmax + 1):
+        nrm = float(np.sum(w*p*p)); a_m = float(np.sum(w*s*p*p)/nrm); b_m = nrm/nrm_prev if m > 0 else 0.0
+        al.append(a_m); be.append(b_m)
+        if m >= 1:
+            J = np.diag(al[:m]) + np.diag(np.sqrt(be[1:m]), 1) + np.diag(np.sqrt(be[1:m]), -1)
+            out.append([float(v) for v in np.sqrt(np.maximum(np.linalg.eigvalsh(J), 0))])
+        p_next = (s - a_m)*p - b_m*p_prev; p_prev, p, nrm_prev = p, p_next, nrm
+    return out
+
+def hadamard_check(t, zeros, N0=None):
+    """ln[Xi(t)/Xi(0)] and sum over the listed zeros of ln(1 - t^2/gamma^2) plus the tail -t^2 int_{T}^inf n0(r)/r^2 dr
+    with n0 = ln(r/2pi)/(2pi), T the last listed zero (the tail's leading term)."""
+    z = np.asarray(zeros, dtype=float); T = float(z[-1])
+    s = float(np.sum(np.log(np.abs(1 - t*t/(z*z)))))
+    tail = -t*t*(math.log(T/(2*math.pi)) + 1)/(2*math.pi*T)
+    return math.log(abs(Xi(t)/Xi(0.0))), s + tail, s
+
+if __name__ == "__main__":
+    c = constants()
+    print("Xi(0) = %.10f; int Xi^2 = %.6f; limit ghat_1(0)^2 = %.5f; sqrt<t^2> = %.5f; K = %.6f; 1/sqrt(2K) = %.5f; 2 sqrt(pi K) = %.5f"
+          % (c["Xi0"], c["int_Xi2"], c["g0sq_limit"], math.sqrt(c["t2_mean"]), c["K"], c["inv_sqrt_2K"], c["two_sqrt_piK"]))
+    for m, z in enumerate(nodes(8), start=1):
+        print(f"m = {m} (rung {m + 1}): nodes {[round(v, 4) for v in z]}")
