@@ -7227,17 +7227,18 @@ R(δ) → ∞ with R(δ)²ε(δ) → 0, then, ∫ĝ₁² = 2π being fixed, ĝ�
 2πΞ(0)²/∫Ξ² and ⟨r²⟩ → ∫t²Ξ²/∫Ξ² (Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729, √(∫t²Ξ²/∫Ξ²) = 3.195). □
 Not proved: the rate of ε(δ). At the seven cells (computed, gated): D
 holds, within the dodging tolerance, by the real-zero census of ĝ₁ —
-in the cosine basis ĝ₁ =
+in the cosine basis of size K, ĝ₁ =
 2 sin(ra)M(r²)/(rΠ_{0<k<K}(r² − ω_k²)) with M of degree K − 1, so its
 zeros are K − 1 designed pairs, the roots of M, and the sinc zeros
-jπ/a, j ≥ K; the census locates all K − 1 designed pairs on the real line at δ = 1, 1.38, 2, 2.3, 2.6, 3 (no complex zero), the sum rule Σ_τ τ⁻² = κ closing within 10⁻¹⁶, and K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741 (the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells); and below T_D, the first
+jπ/a, j ≥ K; the census locates all K − 1 designed pairs on the real line at δ = 1, 1.38, 2, 2.3, 2.6, 3 (no complex zero), the sum rule Σ_τ τ⁻² = κ closing within 10⁻¹⁶, and K − 2 of them at δ = 3.5 (the basis size K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741 (the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells); and below T_D, the first
 zeta zero the ground state misses, the located zeros and the zeta zeros
 agree in number (each zeta zero has its dodging zero within 0.05; no
 zero is double — at the six complete cells every designed root is
 located as a simple sign change, and at δ = 3.5 the located roots are
 simple while the one unlocated root, being single, is simple too; the
-entry counts are sign-change counts because no dip was appended, gated
-as that precondition) —
+entry counts are sign-change counts because no dip — a grid point
+where |ĝ₁| falls below 10⁻⁶ of both neighbours, appended twice as a
+double zero — was appended, gated as that precondition) —
 the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀, its first free zero within 0.2 of it. D holds to the
 dodging tolerance, not exactly: the dodging zeros are displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043
 (the low half within 3 × 10⁻¹⁴ at δ ≥ 2 — the resolution of the

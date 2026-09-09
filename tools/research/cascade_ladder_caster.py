@@ -36,13 +36,14 @@ sum_{|tau| >= T_D} tau^-2 + sum_{gamma >= T_D} gamma^-2 from the located zeros
 rate is not proved: round 321 F5); the exterior mass beyond T_D/2 and T_D at
 most 1e-3 and 1e-5 of the whole (F6); the curvature sum 1/tau^2 rising across
 the cells and below sum gamma^-2 = -Xi''(0)/(2 Xi(0)) = 0.023105 (not K/2 =
-0.023096: F3); ghat_1(0)^2 rising and below 0.7729; sqrt<r^2> falling and above
+0.023096, K Hadamard's constant; the basis size is the other K: F3); ghat_1(0)^2 rising and below 0.7729; sqrt<r^2> falling and above
 3.195. (3) THE HOLE ZEROS: at every safely deep rung up to rung 12 (its OWN
 leakage ln(1 - chi_{2k}) < -20, order 4k = index 2k of the even list -- F1;
 Theorem 1br's threshold) the transform of rung k has exactly k - 1 hole zeros
 (the sign changes below min(100, 0.8 x the rung's dodging edge) left after one
 dodging zero per zeta zero is removed -- zeros of odd multiplicity, a sign change
-each; a double zero, giving no sign change, would escape the census) and the
+each; a double zero, giving no sign change, would escape the census; no entry a
+census grid point, a detected dip's entries being grid points) and the
 census region covers the predicted nodes (the weight for the nodes now evaluated in balls: F10);
 the ground state has none by the census of (2); the first three hole zeros of
 every safely deep rung lie below the first zeta zero, rungs 6-7 have four and
@@ -96,7 +97,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096', 'form': 'ws'},
     {'g': 'g7', 's': 'ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D', 'form': 'ws'},
     {'g': 'g7', 's': 'displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043', 'form': 'ws'},
-    {'g': 'g7', 's': 'K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'form': 'ws'},
+    {'g': 'g7', 's': 'K − 2 of them at δ = 3.5 (the basis size K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'form': 'ws'},
     {'g': 'g7', 's': 'the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells', 'form': 'ws'},
     {'g': 'g7', 's': 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'form': 'ws'},
@@ -173,7 +174,8 @@ for c in ORDER:
     # the real-zero census (round 321 F4/F9): all K - 1 designed pairs located on the real line and the sum rule closing (none missed, no
     # complex zero) -- or K - 2 located with the sum rule placing the one unlocated pair beyond the region (real or imaginary, |tau| >= R_ext:
     # outside the disc |r| < T_D either way); the located zeros below the edge and the zeta zeros below it equal in number (every zeta zero
-    # below the edge has one; a dodging zero turned double would break the equality either way, detected or not)
+    # below the edge has one; a dodging zero turned double and undetected moves the edge to it -- caught by the first-missed/first-free test --
+    # and a detected one appends two entries and breaks the dip precondition)
     cen = g["n_designed_real"] == g["K_minus_1"] and abs(g["sum_rule_residual"]) <= 1e-16                                                   # kappa Richardson-extrapolated about the exact ghat_1(0): the closure is the census's (F322-3)
     cen |= g["n_designed_real"] == g["K_minus_1"] - 1 and g["missing_pair"] is not None and g["missing_pair"]["abs_tau"] >= g["R_ext"] and abs(g["sum_rule_residual"]) >= 1e-9
     # the census's entries are sign changes plus two equal entries per detected dip (a double zero within 5e-5 of a grid point): the entry count is
@@ -193,10 +195,13 @@ gate("g2 the limit shape at the cells: Hypothesis D by the real-zero census, wit
 
 # ---------------------------------------------------------------- g3
 ok = True; worst_rel = 0.0; nsafe = 0; below = {}
+from ladder_caster import STEP_HOLE as _STEP
+_G0 = _STEP*0.3141592653                                                                              # the rung census's grid: _G0 + i*_STEP (ladder_caster.real_zeros)
 for c in ORDER:
     st = ST[c]; below[c] = []
     for r in safe_rungs(c):
         nsafe += 1; ok &= len(r["hole"]) == r["k"] - 1 and len(set(r["hole"])) == len(r["hole"])   # k - 1 entries, none duplicated (a detected dip appends two equal entries: F325-1)
+        ok &= not any(abs(h - (_G0 + round((h - _G0)/_STEP)*_STEP)) < 1e-9 for h in r["hole"])     # no entry a census grid point: a dip's entries are grid points and one twin can be absorbed as a dodging zero (F326-1); a bisected sign change is not
         ok &= max(st["nodes"][r["k"] - 2]) < min(100.0, 0.8*r["edge"])                       # the census region covers the predicted nodes (F10)
         nb = sum(1 for h in r["hole"] if h < st["gamma1"]); below[c].append(nb)
         ok &= all(h < st["gamma1"] for h in r["hole"][:3])                                   # the first three hole zeros below the first zeta zero (F8)
@@ -277,7 +282,7 @@ S_KAPPA = 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 
 S_CURV = 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096'
 S_EPS = 'ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D'
 S_DISP = 'displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043'
-S_MISS = 'K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741'
+S_MISS = 'K − 2 of them at δ = 3.5 (the basis size K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741'
 S_RESID = 'the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells'
 S_G0 = 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729'
 S_R2 = '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19'
@@ -307,7 +312,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'the curvature 0.0148, 0.0177, 0.0203,
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'K − 2 of them at δ = 3.5 (the basis size K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'ws')

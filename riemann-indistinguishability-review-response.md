@@ -5550,4 +5550,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-325 sweep commit (the dip precondition and the duplicate-entry conjunct in the verifier, two needles extended, four prose residues in the block's (ii)–(iv); no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round326.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 3 cosmetic; all four verified directly by the lead and accepted; swept in this commit (A487). **F326-1 (minor)** the duplicate-entry test was not a complete dip signature for the rungs (a detected dip's twin can be absorbed by the dodging classification) → grid-point entries refused in every safely deep rung's hole list (verifier only; the committed lists carry none). **F326-2 (cosmetic)** the g2 comment's undetected branch corrected. **F326-3 (cosmetic)** "the basis size K = 540" (the constant K's collision named). **F326-4 (cosmetic)** "dip" defined in the block. Convergence-test round 327 commissioned.
+
+### Round 327 — convergence test on the round-326 sweep (Theorem 1bu)
+
+**Scope.** The round-326 sweep commit (the grid-point refusal in g3, the g2 comment, the basis-size wording and the dip definition in the block; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round327.md`.
+
 **Findings.** Pending.
