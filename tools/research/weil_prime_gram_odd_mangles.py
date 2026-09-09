@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""The sabotage copy of the odd Gram (round-329 sweep, F329-4): weil_prime_gram_odd.gram_odd transcribed line for line
-with two switches, so that the verifier can show the odd form's signs are load-bearing without touching the keyed
+"""The sabotage copy of the odd Gram (round-329 sweep, F329-4): weil_prime_gram_odd.gram_odd transcribed with two switches
+(the substrate's parts=True archimedean matrix, unused here, omitted), so that the verifier can show the odd form's signs are load-bearing without touching the keyed
 substrate. gram_odd_mangled(delta, K, prec, mangle):
   mangle = None            the transcription itself -- the verifier gates it entry for entry (midpoint and radius)
                            against weil_prime_gram_odd.gram_odd at the self-test cell, so the copy cannot drift;

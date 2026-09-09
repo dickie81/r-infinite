@@ -79,7 +79,9 @@ def constants_odd():
     (Theorem 1bv(vi)): pole -2 p^2 with p = Ghat(i/2)/2 -> -c^2 xi(0)^2/2, xi(0) = 1/2; primes -2 sum Lambda(n) n^{-1/2} f_g(ln n)
     with f_g = -f_G'' and f_G -> c^2 (Phi*Phi), (Phi*Phi)''(u) = -(1/2 pi) int r^2 Xi^2 cos(ru) dr; the archimedean term the
     remainder to 0 (lambda_1 -> 0); arch_odd_direct and arch_even_direct are the archimedean term computed directly on the same grid,
-    (1/2 pi) int |ghat|^2 [Re psi(1/4 + i r/2) - psi(1/4)] dr (the check that the remainder is the archimedean term). The even
+    (1/2 pi) int |ghat|^2 [Re psi(1/4 + i r/2) - psi(1/4)] dr (the check that the remainder is the archimedean term; on this grid the even sector's residual is the grid's own
+    error, 7e-11 at 3000 nodes and 2e-10 at 6000 -- the weight Xi^2 concentrates at the endpoint t = 0 -- the odd sector's
+    1e-13; an mpmath quadrature closes the even identity to 4e-26, round 330). The even
     sector's limits by the same rule, 1.5637/-5.3722/3.8837/-0.0752, are first computed here (Theorem 1bu records no anatomy limits)."""
     from weil_prime_gram import prime_powers
     x, w = _grid()

@@ -7405,10 +7405,10 @@ from the Gram's own part (the identity within 10⁻⁹): pole −0.0206, −0.02
 ψ(¼) − ln π = −5.3722. At the Ξ-limit, computed from Ξ as in 1bu(vi)'s
 origin term: pole −0.0383, primes +0.3686 (the prime 2 alone +0.3475), archimedean +5.0418; the even sector by the same rule +1.5637, −0.0752, +3.8837. **In the odd sector the primes carry the
 positivity and the pole hurts; in the even sector the pole carries it
-and the primes hurt** — the prime 2 alone gives nearly all of the odd
-primes term (the archimedean term and the constant ψ(¼) − ln π taken
-together, their sum negative in both sectors at the Ξ-limit and at
-every odd cell). *(vii) What is proved, computed, not claimed.* Proved:
+and the primes hurt** (the archimedean term and the constant ψ(¼) − ln π
+taken together, their sum negative in both sectors at the Ξ-limit and at
+every odd cell) — the prime 2 alone gives nearly all of the odd primes
+term. *(vii) What is proved, computed, not claimed.* Proved:
 (i), (ii), (iv) under D_odd. Computed, gated: the self-test, the
 complete shadow, the census and the limits at the cells, the hole
 zeros, the anatomy and its Ξ-limit. Not claimed: the gap's O(1) (the
@@ -7961,49 +7961,60 @@ bounds already press the value:
 The Riemann-side program of §3 (through Theorem 1bv) stands at the wall it
 named: Weil's positivity criterion — the true form Q(g) of Theorem 1bn
 non-negative on every window, at every support — is equivalent to the
-Riemann Hypothesis, and the program claims it in neither direction. What
+Riemann Hypothesis, and the program as yet asserts neither that it holds
+nor that it fails. What
 follows is the forward agenda: every item is a step that could bear on the
 wall, stated with what is in hand, what would count as done, and exactly how
 it touches the wall. None is a claim. The stopping rule of §10.4 concerns the
 physical ledger; the arithmetic of the Riemann side is not finished arguing.
 
 1. **The caster explained — a prime-side reason for the shape, valid at
-   every support.** The item the other ten serve. Theorem 1br(iv): "the
-   shadow is identified, the law of its caster is not"; Theorem 1bu named
-   the caster — the ground state's transform converges to Ξ, the excited
-   states carry their extra zeros at the nodes of the orthogonal
-   polynomials of its power spectrum, a zero pair at fixed height costs
-   four prolate orders — and Theorem 1bv found the same law in the odd
-   sector. Every step of that identification reasons on the zero side,
-   where the explicit formula's 2Σ_γ ĝ(γ)² is a sum of squares when the
-   zeros are real, as the computed ones are: it is the direction RH ⇒
-   shadow, the shadow's description and not its cause. The target is the
-   reverse: derive from Theorem 1bn's prime side at support δ — the pole
-   term, the archimedean integral and the prime sum, no zero entering —
-   why the minimiser has the shape found: (a) its transform vanishes at
-   every zeta zero below T_D(δ) and nowhere else there (Hypothesis D,
-   item 5); (b) its zeros are real (M's roots real and positive, item 6); (c) the
-   excited states are the ground state times the orthogonal polynomials
-   of its power spectrum (computed, gated, Theorems 1bu(iii), 1bv(v); not
-   claimed exact — the exterior re-balayaged, 1bu(vii), 1bv(vii)); (d) the
-   rung spacing (the pair-cost lemma, 1bu(i), proved). Items 5 and 6 are
-   (a) and (b); (c) has no other item. Done when: at one support, (a)–(c)
-   forced by the form's Gram pencil with no zero computed, the exterior's
-   correction to (c) gated — a finite advance of the wall by T_D(δ). Bears
-   on the wall: at every support this is the proof itself — (a) and (b)
-   everywhere put Ξ's zeros on the line by item 6's step — Weil
-   positivity, the Riemann Hypothesis, claimed in neither direction.
+   every support.** The item most of the list serves; item 3 serves the wall
+   directly. Theorem 1br(iv): "the shadow is identified, the law of its
+   caster is not"; Theorem 1bu named the caster — the ground state's
+   transform converges to Ξ, the excited states carry their extra zeros at
+   the nodes of the orthogonal polynomials of its power spectrum, a zero
+   pair at fixed height costs four prolate orders — and Theorem 1bv found
+   the same law in the odd sector. Every step of that identification reasons
+   on the zero side, where the explicit formula's zero side is the sum of
+   squares 2Σ_γ|ĝ(γ)|² when the zeros are real, as the computed ones are: it
+   is the direction RH ⇒ shadow, the shadow's description and not its cause.
+   The target is the reverse: derive from Theorem 1bn's prime side at
+   support δ — the pole term, the constant, the archimedean integral and the
+   prime sum, no zero entering — why the ground state and the ladder above
+   it have the shape found: (a) the ground state's transform (Ĝ₁ = ĝ₁/(ir)
+   in the odd sector) vanishes at every zeta zero below T_D(δ) and nowhere
+   else there (Hypothesis D of Theorem 1bu(ii), D_odd of 1bv(iv), verified
+   at the cells within the dodging tolerance; item 5); (b) its zeros are
+   real — the polynomial M of item 6 with real, positive roots (found at
+   every cell, not proved; item 6); (c) the excited states carry their extra
+   zeros at the nodes of the orthogonal polynomials of its power spectrum
+   (computed, gated; Theorems 1bu(iii), 1bv(v)), the product form — the
+   ground state times those polynomials — not claimed exact (Theorem
+   1bu(vii): the exterior re-balayaged; Theorem 1bv(vii)); (d) a zero pair
+   costs four prolate orders (the pair-cost lemma, Theorem 1bu(i), proved),
+   read as the rung spacing through Theorem 1bm(v)'s formula (1bu(v)). Items
+   5 and 6 are (a) and (b); (c) has no other item. Done when: at one
+   support, (a) and (b) forced by the form's Gram pencil (Theorem 1br) with
+   no zero computed, and (c) made exact — the exterior's correction to the
+   polynomial multiples stated and derived — a finite advance of the wall by
+   T_D(δ). Bears on the wall: at every support this is the proof itself —
+   (a) and (b) everywhere put Ξ's zeros on the line by item 6's step — Weil
+   positivity, the Riemann Hypothesis, as yet asserted neither true nor
+   false.
 
 2. **The prime-side square root.** The true form is unconditional on the
-   prime side — the pole term, the archimedean integral and the prime sum of
-   Theorem 1bn — and its positivity on every window is the wall. A
+   prime side — the pole term, the constant, the archimedean integral and
+   the prime sum of Theorem 1bn — and its positivity on every window is the
+   wall. A
    factorisation Q = A*A with A built from the primes alone would be
-   positivity itself. In hand: the anatomy of the ground state in both
-   sectors at the cells and its Ξ-limit (Theorems 1bu(vi), 1bv(vi)) — in the
-   even sector the pole term carries the positivity and the primes subtract,
-   in the odd sector the primes carry it (the prime 2 nearly alone) and the
-   pole subtracts, the archimedean term and the constant taken together
-   subtracting in both; the same zero side Σ|ĝ(γ)|² sits under both. Done when: an
+   positivity itself. In hand: the anatomy of the odd ground state at the cells and its
+   Ξ-limit, and the even sector's Ξ-limit by the same rule (Theorem 1bv(vi))
+   — at the limit the even sector's pole term carries the positivity and
+   its primes subtract, the odd sector's primes carry it (the prime 2 nearly
+   alone) and its pole subtracts, the archimedean term and the constant
+   taken together subtracting in both sectors at the limit and at every odd
+   cell; the same zero side Σ|ĝ(γ)|² sits under both. Done when: an
    explicit A on a support beyond the certified 1.3828125 of Theorem 1bl.
    Each support gained is a finite advance of the wall; the whole line is
    the wall.
