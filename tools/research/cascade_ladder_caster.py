@@ -17,11 +17,12 @@ Hadamard's product Xi(t)/Xi(0) = prod (1 - t^2/gamma^2) against the 800 zeros
 plus the density tail at t = 3, 8, 13 (within 1e-4); Xi(0) = 0.49712; the limit
 constants 2 pi Xi(0)^2/int Xi^2 = 0.7729 and sqrt<t^2> = 3.195 (nearest 1e-4);
 K = 2 + gamma_E - ln 4 pi. (2) THE LIMIT SHAPE AT THE CELLS: Hypothesis D by
-the producer's real-zero census (round 321 F4/F9) -- all K - 1 designed zero
-pairs of the ground state's transform real at every cell, the sum rule
-kappa = sum tau^-2 closing within 1e-8, the located zeros below the edge
-matching the zeta zeros below it one to one (a double zero would count
-twice) -- with the first zeta zero the ground state misses and its first free
+the producer's real-zero census (round 321 F4/F9) -- the K - 1 designed zero
+pairs of the ground state's transform located on the real line at every
+cell with the sum rule kappa = sum tau^-2 closing within 1e-8, or K - 2
+located and the one unlocated pair placed beyond the region by the sum
+rule; the located zeros below the edge matching the zeta zeros below it
+one to one (a double zero would count twice) -- with the first zeta zero the ground state misses and its first free
 zero within 0.2 of each other and at >= 1.4 T_0; epsilon(delta) = sum_{|tau| >=
 T_D} tau^-2 + sum_{gamma >= T_D} gamma^-2 (the zeta tail beyond the 800 by the
 density) falling across the cells, between 0.18 and 0.24 of ln T_D/T_D (the
@@ -34,7 +35,7 @@ leakage ln(1 - chi_{2k}) < -20, order 4k = index 2k of the even list -- F1;
 Theorem 1br's threshold) the transform of rung k has exactly k - 1 hole zeros
 (the real zeros below min(100, 0.8 x the rung's dodging edge) left after one
 dodging zero per zeta zero is removed; a double zero counted twice) and the
-census region covers the predicted nodes (the stored nodes now by mpmath: F10);
+census region covers the predicted nodes (the weight for the nodes now evaluated in balls: F10);
 the ground state has none by the census of (2); the first three hole zeros of
 every safely deep rung lie below the first zeta zero, rungs 6-7 have four and
 rungs 8-12 four or five below it at delta >= 2.6, nondecreasing in k (F8; the
@@ -88,7 +89,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193', 'form': 'ws'},
     {'g': 'g7', 's': 'the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195', 'form': 'ws'},
     {'g': 'g7', 's': 'the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670', 'form': 'ws'},
-    {'g': 'g7', 's': 'c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37, 3.79 over rungs 1–8 at δ = 2.3', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_CK@', 'form': 'ws'},
     {'g': 'g7', 's': 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27', 'form': 'ws'},
     {'g': 'g7', 's': 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10', 'form': 'ws'},
@@ -247,7 +248,7 @@ S_R2 = '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3
 S_HOLE23 = 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193'
 S_FIRST = 'the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195'
 S_XINODES = 'the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670'
-S_CK = 'c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37, 3.79 over rungs 1–8 at δ = 2.3'
+S_CK = '@S_CK@'
 S_ANAT = 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27'
 S_XICONST = 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729'
 S_EXTW = 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10'
@@ -272,7 +273,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37, 3.79 over rungs 1–8 at δ = 2.3', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_CK@', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10', 'ws')
@@ -301,7 +302,7 @@ _m = _nums(S_HOLE23.split(" rung 2 at ")[1]); _h = ST["d2.3"]["rungs"][1]["hole"
 ok &= len(_m) == 12 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, _h))                                                                       # nearest 1e-3
 _m = _nums(S_FIRST); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m[:7], first)) and abs(_m[7] - XN[0][0]) <= 5e-4 + 1e-9
 _m = _nums(S_XINODES); _x = [v for n in XN for v in n]; ok &= len(_m) == 10 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, _x))
-_m = _nums(S_CK.split(" over rungs")[0]); _c = [r["ck"] for r in ST["d2.3"]["rungs"][:8]]; ok &= len(_m) == 8 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m, _c))
+_m = _nums(S_CK.split(" over rungs")[0]); _c = [r["ck"] for r in ST["d2.3"]["rungs"][:7]]; ok &= len(_m) == 7 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m, _c))   # rungs 1-7: the safely deep set at delta = 2.3
 _m = _nums(S_ANAT); _a = [G[c]["origin"] for c in ORDER] + [G[c]["peak_excess"] for c in ORDER] + [G[c]["count_800"] + G[c]["far_tail"] for c in ORDER]
 ok &= len(_m) == 21 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m, _a))
 _m = _nums(S_XICONST); ok &= len(_m) == 3 and abs(_m[0] - XC["Xi0"]) <= 5e-6 + 1e-9 and abs(_m[1] - XC["int_Xi2"]) <= 5e-6 + 1e-9 and abs(_m[2] - XC["g0sq_limit"]) <= 5e-5 + 1e-9
