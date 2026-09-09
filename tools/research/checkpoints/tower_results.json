@@ -407,6 +407,12 @@
 "rc": 0,
 "when": "2026-08-27T19:56Z"
 },
+"173c2eb9fbf22a8f1d26b7c2": {
+"dt": 14.356459379196167,
+"file": "cascade_ladder_caster.py",
+"rc": 0,
+"when": "2026-09-09T16:55Z"
+},
 "1794ad469343ee404bccb1c8": {
 "dt": 400.5971791744232,
 "file": "cascade_weil_margin.py",

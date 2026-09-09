@@ -7228,11 +7228,16 @@ Not proved: the rate of ε(δ). At the seven cells (computed, gated): D
 holds by the real-zero census of ĝ₁ — in the cosine basis ĝ₁ =
 2 sin(ra)M(r²)/(rΠ_{0<k<K}(r² − ω_k²)) with M of degree K − 1, so its
 zeros are K − 1 designed pairs, the roots of M, and the sinc zeros
-jπ/a, j ≥ K; the census locates all K − 1 designed pairs on the real line at δ = 1, 1.38, 2, 2.3, 2.6, 3 (no complex zero), the sum rule Σ_τ τ⁻² = κ closing within 10⁻⁸, and K − 2 of them at δ = 3.5, where the sum rule places the one pair beyond the region: |τ| = 14876, real, against the region 7741 (the residual there, 4.5 × 10⁻⁹, twenty times the closure elsewhere, so the sign is the pair’s); and below T_D, the first
+jπ/a, j ≥ K; the census locates all K − 1 designed pairs on the real line at δ = 1, 1.38, 2, 2.3, 2.6, 3 (no complex zero), the sum rule Σ_τ τ⁻² = κ closing within 10⁻¹⁶, and K − 2 of them at δ = 3.5, where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741 (the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells); and below T_D, the first
 zeta zero the ground state misses, the located zeros and the zeta zeros
 agree in number (each zeta zero has its dodging zero within 0.05; a
-double zero would count twice) — the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀, its first free zero within
-0.2 of it; ε = 0.02335, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D — consistent with O(ln T_D/T_D), a rate not proved;
+double zero, seen as a dip, would count twice — none occurs) —
+the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀, its first free zero within 0.2 of it. D holds to the
+dodging tolerance, not exactly: the dodging zeros are displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043
+(the low half exact to 10⁻¹⁴ at δ ≥ 2, the displacement growing
+toward the edge), which adds below 10⁻⁴ to the bound at r = 3 at
+every cell (gated); ε, from the located zeros, = ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D — consistent
+with O(ln T_D/T_D), a rate not proved;
 the mass of ĝ₁² beyond T_D/2 and T_D below 10⁻³ and 10⁻⁵ of the whole
 at every cell. The local bound 2R²ε is informative only near the
 origin at these δ, so the shape's convergence at the cells is the
@@ -7269,11 +7274,18 @@ moving inward from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5.
 monotone: from rung 2 over the safely deep rungs the successive
 differences of c_k change sign 4, 5, 3 times at δ = 2.6, 3.0, 3.5. The parity fine structure of Theorem
 1br(ii) — its offsets o_k = ln λ_k − ln(1 − χ_{2k}) split as c_k + d_k
-with d_k = F_k − ln(1 − χ_{2k}) the formula's part — **lives in the
-formula, not in the residual**: over the safely deep rungs the even minus odd means of the offsets o_k +0.27, +0.08, +0.21, +0.16 and of d_k +0.20, +0.39, +0.24, +0.06 at δ = 2.3, 2.6, 3.0, 3.5
-(1br(ii)'s +0.22 at δ = 3.0, over its longer ladder, within 0.02),
-against the residual c_k +0.07, −0.31, −0.03, +0.11: the hole zeros' positions carry the parity (gated as the
-signs of the means of o_k and d_k; not modelled). *(v) What it says.* The +1 eigenspace and the four
+with d_k = F_k − ln(1 − χ_{2k}) the formula's part — **is reproduced
+in sign by the formula's part**: over the balanced cells (nine or
+eleven safely deep rungs, the two parities' mean ranks equal) the
+even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5 (1br(ii)'s +0.22 at δ = 3.0, over its longer ladder, within
+0.02), against the residual c_k −0.31, −0.03, +0.11: d_k carries the parity's sign at every cell, c_k's
+sign changes across the cells, and the magnitude is shared — at δ =
+3.5 the residual's part is the larger; five or six rungs per parity,
+the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18 (at a balanced cell the raw mean difference equals the parity
+fitted with the trend removed; gated as the balance, the signs of the means of o_k and d_k
+and the residual's sign change; not modelled; δ = 2.3's six safely
+deep rungs give the parities unequal mean ranks and its raw means
+conflate trend and parity, so that cell is not used). *(v) What it says.* The +1 eigenspace and the four
 orders per rung are one fact: the excited states' extra zeros sit at
 fixed heights inside an envelope that does not widen with δ — the
 Riemann Ξ function's — so each pair costs four orders by (i), not the
@@ -7294,8 +7306,9 @@ Proved: (i), an expansion of the finite-δ formula's summand — (i) and
 (v) read the ladder through Theorem 1bm(v)'s formula, whose reduction
 1bm(vi) lists as conjectured; (ii) under D, its corollary under the
 exterior hypothesis stated there. Computed, gated: D at the cells by
-the real-zero census, the hole zeros and their nodes, the k-level
-residuals and the parity's location, the anatomy. Not claimed: the
+the real-zero census within the dodging tolerance, the hole zeros
+and their nodes, the k-level residuals and the parity's sign in the
+formula's part, the anatomy. Not claimed: the
 rate of ε(δ); that the excited states are exactly the
 orthogonal-polynomial multiples (the exterior is re-balayaged: the
 naive Rayleigh quotient of P·ĝ₁ lies 2–5 nats below the certified
