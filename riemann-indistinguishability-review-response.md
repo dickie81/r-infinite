@@ -5556,4 +5556,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-326 sweep commit (the grid-point refusal in g3, the g2 comment, the basis-size wording and the dip definition in the block; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round327.md`.
 
+**Findings.** 0 MAJOR, 1 minor, 2 cosmetic; all three verified directly by the lead and accepted; swept in this commit (A488). **F327-1 (minor)** the parenthetical named Theorem 1bt's constant as Σ_ρ 1/ρ = Σ_γ 1/(γ² + ¼), which is K/2 (1bt's K = Σ_ρ 1/(ρ(1 − ρ))) → corrected. **F327-2 (cosmetic)** the grid test's tolerance 10⁻⁹ → 10⁻¹², its comment made exact. **F327-3 (cosmetic)** the dip's definition completed (the step, the proximity exclusion). Record correction: A487's detector note. Convergence-test round 328 commissioned.
+
+### Round 328 — convergence test on the round-327 sweep (Theorem 1bu)
+
+**Scope.** The round-327 sweep commit (the parenthetical on K/2 and 1bt's K, the dip's definition in the block; the grid test's tolerance in the verifier; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (a verifier constant). Brief `brief_round328.md`.
+
 **Findings.** Pending.

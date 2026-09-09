@@ -7220,8 +7220,9 @@ factors below T_D cancel between the two products, since Ξ(r)/Ξ(0) =
 and |ln(1 − r²/τ²)| ≤ 2r²/|τ|² for |τ| ≥ 2R bounds the rest: **the
 ground state's transform converges to Riemann's Ξ function**, locally
 uniformly. With it the curvature at the origin Σ_τ τ⁻² =
-−ĝ₁″(0)/(2ĝ₁(0)) → Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096 (Theorem 1bt's Hadamard constant is
-Σ_ρ 1/ρ = Σ_γ 1/(γ² + ¼), the other sum). If in addition the mass and
+−ĝ₁″(0)/(2ĝ₁(0)) → Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096 (K/2 = Σ_ρ 1/ρ = Σ_γ 1/(γ² + ¼), the other
+sum; Theorem 1bt's Hadamard constant is K = Σ_ρ 1/(ρ(1 − ρ))). If in
+addition the mass and
 the second moment of ĝ₁² outside |r| ≤ R(δ) tend to zero for some
 R(δ) → ∞ with R(δ)²ε(δ) → 0, then, ∫ĝ₁² = 2π being fixed, ĝ₁(0)² →
 2πΞ(0)²/∫Ξ² and ⟨r²⟩ → ∫t²Ξ²/∫Ξ² (Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729, √(∫t²Ξ²/∫Ξ²) = 3.195). □
@@ -7236,9 +7237,10 @@ agree in number (each zeta zero has its dodging zero within 0.05; no
 zero is double — at the six complete cells every designed root is
 located as a simple sign change, and at δ = 3.5 the located roots are
 simple while the one unlocated root, being single, is simple too; the
-entry counts are sign-change counts because no dip — a grid point
-where |ĝ₁| falls below 10⁻⁶ of both neighbours, appended twice as a
-double zero — was appended, gated as that precondition) —
+entry counts are sign-change counts because no dip — a grid point of
+the census (step 0.05) where |ĝ₁| falls below 10⁻⁶ of both neighbours
+with no sign change within two steps, appended twice as a double zero
+— was appended, gated as that precondition) —
 the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀, its first free zero within 0.2 of it. D holds to the
 dodging tolerance, not exactly: the dodging zeros are displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043
 (the low half within 3 × 10⁻¹⁴ at δ ≥ 2 — the resolution of the
