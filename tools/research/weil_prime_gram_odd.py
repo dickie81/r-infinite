@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SCRATCH (the odd sector): the prime-side Gram of Weil's form in the ODD sine basis on [-a, a], every entry a ball.
+"""The odd sector: the prime-side Gram of Weil's form in the ODD sine basis on [-a, a], every entry a ball.
 
 THE FORM for a real ODD probe g: with H(r) = ghat(r) ghat(-r) (entire; |ghat|^2 on the line) the explicit formula gives
   Q(g) = sum_gamma |ghat(gamma)|^2 = H(i/2) + H(-i/2) + (psi(1/4) - log pi) ||g||^2 + int_0^inf [f(0) - f(u)] K(u) du

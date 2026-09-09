@@ -16,11 +16,15 @@ THE CLAIMS GATED. (0) THE ODD FORM as computation: the odd Gram's Q against
 the zero side 2 sum |ghat(gamma)|^2 over the 6700 zeros plus the density tail
 for an odd bump at delta = 1 and 2, within 1e-12 relative (the self-test cell);
 the mangles -- the cosine basis's autocorrelation signs, or the pole with the
-even sector's sign -- miss it by more than 1e-3. (1) THE XI SIDE: the odd limits
+even sector's sign, from weil_prime_gram_odd_mangles.py (the odd Gram transcribed with two
+switches, its unmangled Gram gated entry for entry against the substrate's) -- miss it by
+more than 1e-3 (gated in g0, round-329 sweep F329-4). (1) THE XI SIDE: the odd limits
 Ghat_1(0)^2 -> 2 pi Xi(0)^2/int t^2 Xi^2 = 0.0757, sqrt<r^2> -> sqrt(int t^4 Xi^2/
 int t^2 Xi^2) = 5.418, the nodes of t^2 Xi^2, the odd anatomy's limits (pole
 -0.0383, primes +0.3686, archimedean +5.0418) and, by the same rule, the even
-sector's (1.5637, -0.0752, 3.8837: Theorem 1bu's recorded values). (2) THE ODD
+sector's (1.5637, -0.0752, 3.8837: first computed at this landing and pinned here --
+Theorem 1bu records no anatomy limits); the archimedean limits computed directly,
+(1/2 pi) int |ghat|^2 [Re psi(1/4 + i r/2) - psi(1/4)] dr, against the remainder-defined values. (2) THE ODD
 GROUND STATE at the cells: the real-zero census of Ghat_1 (K - 2 designed pairs
 plus the sinc zeros; the sum rule; an unlocated pair placed), Hypothesis D_odd
 within the dodging tolerance, epsilon falling, Ghat_1(0)^2 rising toward and
@@ -28,8 +32,8 @@ below 0.0757, sqrt<r^2> falling toward and above 5.418, the curvature rising
 toward and below sum gamma^-2 = 0.023105, the exterior masses beyond T_D/2 and T_D at most 0.05 and 1e-3, falling across the cells down to the evaluation floor (~1e-39). (3) THE ODD
 SECTOR'S PLACE IN THE SHADOW: the odd ground state 2 ln T_0 + O(1) above the
 even one (odd - even within 1 of 2 ln T_0 at every cell, the excess stated and parsed back);
-at every safely deep odd rung (its leakage ln(1 - chi_{4k+2}) < -20) the offset
-ln lambda_k - ln(1 - chi_{4k+2}) is positive and within 1 of the even sector's
+at every safely deep odd rung (its leakage ln(1 - chi_{2k+1}) < -20; the paper's chi_j = sqrt(lambda_{2j})) the offset
+ln lambda_k - ln(1 - chi_{2k+1}) is positive and within 1 of the even sector's
 offset at the order 4k (Theorem 1br's shadow, read from Theorem 1bu's
 checkpoints); the odd dodging edge inside or at the even one. (4) THE ODD HOLE
 ZEROS: k - 1 at every safely deep rung through rung 12; rungs 2-4 within 1% of
@@ -76,6 +80,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'pole −0.0206, −0.0266, −0.0321, −0.0337, −0.0349, −0.0360, −0.0369; primes +0.1597, +0.2434, +0.3070, +0.3241, +0.3362, +0.3472, +0.3558; archimedean +5.2333, +5.1554, +5.0973, +5.0818, +5.0709, +5.0610, +5.0533', 'form': 'ws'},
     {'g': 'g7', 's': '0, 0, 3, 5, 9, 11, 11 safely deep odd rungs at the cells', 'form': 'ws'},
     {'g': 'g7', 's': 'all K − 2 designed pairs located at every cell, the sum rule closing within 10⁻¹⁶', 'form': 'ws'},
+    {'g': 'g7', 's': 'rung 4 at δ = 2.0 deviates 1.26%', 'form': 'ws'},
 ]
 
 fails = []
@@ -99,13 +104,30 @@ def safe_rungs(c):
 ok = len(SELF["cases"]) == 2
 for cs in SELF["cases"]:
     ok &= abs(cs["prime_side_mid"] - cs["zero_side"]) <= 1e-12*abs(cs["zero_side"]) and cs["prime_side_rad"] <= 1e-12*abs(cs["zero_side"])
-gate("g0 the odd form as computation: the odd Gram's Q against the zero side (6700 zeros plus the density tail) for an odd bump at delta = 1, 2 -- " + "; ".join(f"delta {cs['delta']}: prime side {cs['prime_side_mid']:.15e}, zero side {cs['zero_side']:.15e}, prime powers {cs['prime_powers']}" for cs in SELF["cases"]) + " (within 1e-12 relative)", ok)
+import mpmath as _mp
+import weil_prime_gram_odd as WO
+import weil_prime_gram_odd_mangles as WM
+from flint import arb as _arb
+_a = 0.5; _K = 48; _prec = 400
+_bump = lambda t: t*_mp.e**(-1/(1 - (t/_a)**2)) if abs(t) < _a else _mp.mpf(0)
+with _mp.workdps(40):
+    _cv = [_arb(str(_mp.quad(lambda t: _bump(t)*_mp.sin(k*_mp.pi*t/_a), [-_a, 0, _a])/_a)) for k in range(1, _K)]
+_G0, _N0, _ = WO.gram_odd(1.0, _K, _prec)
+_Gs, _Ns, _ = WM.gram_odd_mangled(1.0, _K, _prec, None)
+_same = WM.same_gram(_G0, _N0, _Gs, _Ns)
+_z = SELF["cases"][0]["zero_side"]; _q0 = float(WO.rayleigh_odd(_G0, _N0, _cv, _prec).mid())
+_miss = {}
+for _mg in ("cosine_signs", "pole_sign"):
+    _Gm, _Nm, _ = WM.gram_odd_mangled(1.0, _K, _prec, _mg); _miss[_mg] = abs(float(WO.rayleigh_odd(_Gm, _Nm, _cv, _prec).mid()) - _z)/abs(_z)
+ok &= _same and abs(_q0 - SELF["cases"][0]["prime_side_mid"]) <= 1e-12*abs(_z) and all(v > 1e-3 for v in _miss.values())
+gate("g0 the odd form as computation: the odd Gram's Q against the zero side (6700 zeros plus the density tail) for an odd bump at delta = 1, 2 -- " + f"; the transcription equal to the substrate entry for entry: {_same}; the mangles at delta = 1 (K = 48) miss the zero side by " + ", ".join(f"{k} {v:.3f}" for k, v in _miss.items()) + " relative -- " + "; ".join(f"delta {cs['delta']}: prime side {cs['prime_side_mid']:.15e}, zero side {cs['zero_side']:.15e}, prime powers {cs['prime_powers']}" for cs in SELF["cases"]) + " (within 1e-12 relative)", ok)
 
 # ---------------------------------------------------------------- g1
 XO = XI.constants_odd(); XC = XI.constants(); XNO = XI.nodes_odd(5)
 ok = abs(XO["G0sq_limit"] - 0.0757) <= 5e-5 and abs(math.sqrt(XO["r2_mean_odd"]) - 5.418) <= 5e-4
 ok &= abs(XO["pole_odd"] + 0.0383) <= 5e-5 and abs(XO["primes_odd"] - 0.3686) <= 5e-5 and abs(XO["arch_odd"] - 5.0418) <= 5e-5
-ok &= abs(XO["pole_even"] - 1.5637) <= 5e-5 and abs(XO["primes_even"] + 0.0752) <= 5e-5 and abs(XO["arch_even"] - 3.8837) <= 5e-5     # Theorem 1bu's recorded even limits
+ok &= abs(XO["pole_even"] - 1.5637) <= 5e-5 and abs(XO["primes_even"] + 0.0752) <= 5e-5 and abs(XO["arch_even"] - 3.8837) <= 5e-5     # the even limits by the same rule, pinned at the landing (1bu records none)
+ok &= abs(XO["arch_odd_direct"] - XO["arch_odd"]) <= 1e-10 and abs(XO["arch_even_direct"] - XO["arch_even"]) <= 1e-10                          # the archimedean limits directly vs the remainder
 ok &= abs(XNO[0][0] - math.sqrt(XO["r2_mean_odd"])) <= 1e-9                                                                            # the first node is sqrt<t^2> (the orthogonality argument)
 gate(f"g1 the Xi side of the odd sector: int t^2 Xi^2 = {XO['int_t2_Xi2']:.5f}, int t^4 Xi^2 = {XO['int_t4_Xi2']:.4f}; Ghat_1(0)^2 -> {XO['G0sq_limit']:.5f}; sqrt<r^2> -> {math.sqrt(XO['r2_mean_odd']):.4f}; the odd anatomy's limits pole {XO['pole_odd']:+.4f}, primes {XO['primes_odd']:+.4f} (p = 2: {XO['prime_terms_odd'][0][1]:+.4f}), archimedean {XO['arch_odd']:+.4f}; the even sector's by the same rule {XO['pole_even']:+.4f}, {XO['primes_even']:+.4f}, {XO['arch_even']:+.4f}; the nodes of t^2 Xi^2 " + "; ".join(", ".join(f"{v:.3f}" for v in n) for n in XNO[:4]), ok)
 
@@ -118,7 +140,7 @@ def _eps(c):
     return (g["kappa"] - g["sum_inv_sq_located_below"]) + float(np.sum(1/Zb[Zb >= TD]**2)) + ztail
 for c in ORDER:
     g = G[c]; ok &= g["first_missed"] is not None and g["first_free"] is not None and abs(g["first_missed"] - g["first_free"]) <= 0.3 and g["first_missed"] >= 1.2*T0[c]
-    cen = g["n_designed_real"] == g["K_minus_2"] and abs(g["sum_rule_residual"]) <= 1e-11
+    cen = g["n_designed_real"] == g["K_minus_2"] and abs(g["sum_rule_residual"]) <= 1e-16
     cen |= g["n_designed_real"] == g["K_minus_2"] - 1 and g["missing_pair"] is not None and g["missing_pair"]["abs_tau"] >= g["R_ext"] and abs(g["sum_rule_residual"]) >= 1e-9
     ok &= cen and g["n_located_below_edge"] == g["n_zeta_below_edge"] and g["n_dips_census"] == 0
     ok &= g["disp_max"] <= 0.05 and g["disp_term_r3"] <= 1e-4
@@ -146,7 +168,7 @@ for c in ORDER:
             oe = re["ln_lam"] - pro[2*r["k"]]; ok &= abs(o - oe) <= 1.0; offs[c].append((r["k"], o, oe))
     o1 = st["ground"]["ln_lam1"] - pro[3]; ok &= o1 > 0 and abs(o1 - (ev["ground"]["ln_lam1"] - pro[2])) <= 1.0
 exc = [omine[c] - 2*math.log(T0[c]) for c in ORDER]; ok &= all(exc[i] < exc[i + 1] for i in range(1, 6))    # the excess rising from delta = 1.38 on
-gate("g3 the odd sector's place in the shadow: odd - even ground " + ", ".join(f"{omine[c]:.3f}" for c in ORDER) + " against 2 ln T_0 " + ", ".join(f"{2*math.log(T0[c]):.3f}" for c in ORDER) + " (the excess " + ", ".join(f"{e:+.3f}" for e in exc) + "); the odd edge inside or at the even one; at every safely deep odd rung (its own ln(1 - chi_(4k+2)) < -20; " + ", ".join(str(len(safe_rungs(c))) for c in ORDER) + " rungs) the offset against the order 4k + 2 is positive and within 1 of the even sector's at 4k: " + "; ".join(f"{c}: " + ", ".join(f"{o:+.2f}/{oe:+.2f}" for k, o, oe in offs[c]) for c in ORDER if offs[c]), ok)
+gate("g3 the odd sector's place in the shadow: odd - even ground " + ", ".join(f"{omine[c]:.3f}" for c in ORDER) + " against 2 ln T_0 " + ", ".join(f"{2*math.log(T0[c]):.3f}" for c in ORDER) + " (the excess " + ", ".join(f"{e:+.3f}" for e in exc) + "); the odd edge inside or at the even one; at every safely deep odd rung (its own ln(1 - chi_(2k+1)) < -20; " + ", ".join(str(len(safe_rungs(c))) for c in ORDER) + " rungs) the offset against the order 4k + 2 is positive and within 1 of the even sector's at 4k: " + "; ".join(f"{c}: " + ", ".join(f"{o:+.2f}/{oe:+.2f}" for k, o, oe in offs[c]) for c in ORDER if offs[c]), ok)
 
 # ---------------------------------------------------------------- g4
 ok = True; worst = 0.0; nsafe = 0
@@ -160,8 +182,11 @@ for c in ORDER:
             if len(r["hole"]) == len(nodes):
                 rel = max(abs(h - n)/n for h, n in zip(r["hole"], nodes)); worst = max(worst, rel); ok &= rel <= 0.01
             else: ok = False
+_r20 = ST["d2.0"]["rungs"][3]; _n20 = ST["d2.0"]["nodes"][2]; assert _r20["k"] == 4
+_rel20 = max(abs(h - n)/n for h, n in zip(_r20["hole"], _n20)) if len(_r20["hole"]) == len(_n20) else float("nan")
+ok &= _rel20 > 0.01                                                                                 # the reason delta = 2.0 is excluded from the 1% gate; its figure is parsed by g7
 first = [ST[c]["rungs"][1]["hole"][0] for c in ORDER]; ok &= all(first[i] > first[i + 1] for i in range(6)) and first[-1] > XNO[0][0]
-gate(f"g4 the odd hole zeros: every safely deep rung k through rung 12 ({nsafe} rungs over the seven cells) has exactly k - 1, the census region covering the predicted nodes; at delta >= 2.3 rungs 2-4 within 1% of the nodes of P_(2(k-1)) for the weight ghat_1^2 (max relative deviation {worst:.2%}; 1.26% at delta = 2.0's rung 4, not gated); the first hole zero " + ", ".join(f"{v:.3f}" for v in first) + f" falling toward the Xi-limit {XNO[0][0]:.3f}", ok)
+gate(f"g4 the odd hole zeros: every safely deep rung k through rung 12 ({nsafe} rungs over the seven cells) has exactly k - 1, the census region covering the predicted nodes; at delta >= 2.3 rungs 2-4 within 1% of the nodes of P_(2(k-1)) for the weight ghat_1^2 (max relative deviation {worst:.2%}; {_rel20:.2%} at delta = 2.0's rung 4, excluded from the 1% gate and parsed back by g7); the first hole zero " + ", ".join(f"{v:.3f}" for v in first) + f" falling toward the Xi-limit {XNO[0][0]:.3f}", ok)
 
 # ---------------------------------------------------------------- g5
 ok = True
@@ -172,6 +197,7 @@ pol = [-G[c]["pole"] for c in ORDER]; pri = [G[c]["primes"] for c in ORDER]; arc
 ok &= all(pol[i] < pol[i + 1] for i in range(6)) and pol[-1] < -XO["pole_odd"]
 ok &= all(pri[i] < pri[i + 1] for i in range(6)) and pri[-1] < XO["primes_odd"]
 ok &= all(arc[i] > arc[i + 1] for i in range(6)) and arc[-1] > XO["arch_odd"]
+ok &= all(G[c]["arch"] + XO["const"] < 0 for c in ORDER) and XO["arch_odd"] + XO["const"] < 0 and XO["arch_even"] + XO["const"] < 0     # the archimedean term and the constant taken together: negative
 gate("g5 the odd anatomy lambda_1 = pole + const + archimedean + primes (the archimedean term from the Gram's own part; the identity within 1e-9): pole " + ", ".join(f"{G[c]['pole']:+.4f}" for c in ORDER) + f" (rising in magnitude toward {XO['pole_odd']:+.4f}); primes " + ", ".join(f"{G[c]['primes']:+.4f}" for c in ORDER) + f" (rising toward {XO['primes_odd']:+.4f}, the prime 2 carrying more than 0.9); archimedean " + ", ".join(f"{G[c]['arch']:+.4f}" for c in ORDER) + f" (falling toward {XO['arch_odd']:+.4f}); const {G['d1.0']['const']:+.4f}", ok)
 
 # ---------------------------------------------------------------- g6
@@ -199,6 +225,7 @@ S_XINODES = 'the Ξ-limit nodes of t²Ξ² 5.418; 4.171, 8.499; 3.622, 7.306, 11
 S_ANAT = 'pole −0.0206, −0.0266, −0.0321, −0.0337, −0.0349, −0.0360, −0.0369; primes +0.1597, +0.2434, +0.3070, +0.3241, +0.3362, +0.3472, +0.3558; archimedean +5.2333, +5.1554, +5.0973, +5.0818, +5.0709, +5.0610, +5.0533'
 S_NSAFE = '0, 0, 3, 5, 9, 11, 11 safely deep odd rungs at the cells'
 S_CENSUS = 'all K − 2 designed pairs located at every cell, the sum rule closing within 10⁻¹⁶'
+S_NODE20 = 'rung 4 at δ = 2.0 deviates 1.26%'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1 and 2 the odd Gram gives 0.021912748475 and 0.000167771811 against the zero side 0.021912748475 and 0.000167771811', 'ws')
@@ -216,7 +243,8 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'the Ξ-limit nodes of t²Ξ² 5.418; 
 ok &= paper_needles.needle(PAPER_NEEDLES, 'pole −0.0206, −0.0266, −0.0321, −0.0337, −0.0349, −0.0360, −0.0369; primes +0.1597, +0.2434, +0.3070, +0.3241, +0.3362, +0.3472, +0.3558; archimedean +5.2333, +5.1554, +5.0973, +5.0818, +5.0709, +5.0610, +5.0533', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '0, 0, 3, 5, 9, 11, 11 safely deep odd rungs at the cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'all K − 2 designed pairs located at every cell, the sum rule closing within 10⁻¹⁶', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_SELFTEST, S_XIODD, S_ANATLIM, S_OMINE, S_OFFS, S_EDGE, S_G0, S_R2, S_KAPPA, S_HOLE35, S_FIRST, S_XINODES, S_ANAT, S_NSAFE, S_CENSUS]
+ok &= paper_needles.needle(PAPER_NEEDLES, 'rung 4 at δ = 2.0 deviates 1.26%', 'ws')
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_SELFTEST, S_XIODD, S_ANATLIM, S_OMINE, S_OFFS, S_EDGE, S_G0, S_R2, S_KAPPA, S_HOLE35, S_FIRST, S_XINODES, S_ANAT, S_NSAFE, S_CENSUS, S_NODE20]
 _re = __import__("re")
 def _num(s): return float(s.strip().replace('−', '-'))
 def _nums(s, pat=r"([-−]?[0-9]+\.[0-9]+)"): return [_num(x) for x in _re.findall(pat, s)]
@@ -235,6 +263,7 @@ ok &= len(_m) == 20 and len(_h) == 20 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v
 _m = _nums(S_FIRST); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m[:7], first)) and abs(_m[7] - XNO[0][0]) <= 5e-4 + 1e-9
 _m = _nums(S_XINODES); _x = [v for n in XNO[:4] for v in n]; ok &= len(_m) == 10 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, _x))
 _m = _nums(S_ANAT); _v = [G[c]["pole"] for c in ORDER] + [G[c]["primes"] for c in ORDER] + [G[c]["arch"] for c in ORDER]; ok &= len(_m) == 21 and all(abs(x - v) <= 5e-5 + 1e-9 for x, v in zip(_m, _v))
+_m = _nums(S_NODE20.split("deviates")[1]); ok &= len(_m) == 1 and abs(_m[0] - 100*_rel20) <= 5e-3 + 1e-9
 _ns = [int(x) for x in _re.findall(r"[0-9]+", S_NSAFE.split(" safely")[0])]; ok &= _ns == [len(safe_rungs(c)) for c in ORDER]
 _full = [c for c in ORDER if G[c]["n_designed_real"] == G[c]["K_minus_2"]]; _one = [c for c in ORDER if c not in _full]
 ok &= ("K − 3" in S_CENSUS) == bool(_one) and ("every cell" in S_CENSUS) == (not _one) and all(abs(int(x) - G[c]["missing_pair"]["abs_tau"]) <= 0.5 + 1e-9 for x, c in zip(_re.findall(r"\|τ\| = ([0-9]+)", S_CENSUS), _one))

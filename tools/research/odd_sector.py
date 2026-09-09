@@ -27,13 +27,13 @@ primes with pole = -2 p^2 (p = sum_k v_k p_k, p_k = Im[2 sinh((1/2 + i omega_k) 
 term v^T A v from the Gram's own archimedean part (gram_odd(..., parts=True)), the identity lambda_1 = pole + const +
 arch + primes then a check (its residual stored); the participation and the cumulative shares of the 800-zero sum.
 
-THE DEEP RUNGS (the odd rung k at the prolate order 4k + 2: its leakage ln(1 - chi_{4k+2}) is index 2k + 1 of the even
+THE DEEP RUNGS (the odd rung k at the prolate order 4k + 2: its leakage ln(1 - chi_{2k+1}) is index 2k + 1 of the even
 list computed at c = T_0 as in weil_spectrum_ladder.prolate_even_leakage; deep = ln(1 - chi) < -2, up to rung 12).
 For rung k: the real zeros of Ghat_k on (0, min(100, 0.8 x the ground state's dodging edge)) at step 0.03, a double zero
 without sign change as a dip (counted twice); the HOLE ZEROS = the located zeros left after one dodging zero per zeta
 zero (the nearest within 0.2) is removed, the census stopping at 0.8 x the rung's own dodging edge; the k-level
 balayage formula F_k on the zeta zeros plus the hole zeros, T_k, c_k = ln lambda_k - F_k; the OFFSET ln lambda_k -
-ln(1 - chi_{4k+2}) against the prolate order 4k + 2.
+ln(1 - chi_{2k+1}) against the prolate order 4k + 2 (the paper's chi_j = sqrt(lambda_{2j})).
 
 THE NODES. The positive zeros of the even orthogonal polynomials P_{2m} of the weight ghat_1(r)^2 dr on [0, 1.6 T_0]
 (Stieltjes in s = r^2 at 40 digits), m = 1..min(deep, 12): the polynomial ladder's prediction for rung m + 1's hole

@@ -78,7 +78,9 @@ def constants_odd():
     2 pi Xi(0)^2/int t^2 Xi^2; <r^2> under ghat_1^2 = r^2 Ghat_1^2 -> int t^4 Xi^2/int t^2 Xi^2; the odd anatomy's limits
     (Theorem 1bv(vi)): pole -2 p^2 with p = Ghat(i/2)/2 -> -c^2 xi(0)^2/2, xi(0) = 1/2; primes -2 sum Lambda(n) n^{-1/2} f_g(ln n)
     with f_g = -f_G'' and f_G -> c^2 (Phi*Phi), (Phi*Phi)''(u) = -(1/2 pi) int r^2 Xi^2 cos(ru) dr; the archimedean term the
-    remainder to 0 (lambda_1 -> 0). The even sector's limits by the same rule reproduce Theorem 1bu's 1.5637/-5.3722/3.8837/-0.0752."""
+    remainder to 0 (lambda_1 -> 0); arch_odd_direct and arch_even_direct are the archimedean term computed directly on the same grid,
+    (1/2 pi) int |ghat|^2 [Re psi(1/4 + i r/2) - psi(1/4)] dr (the check that the remainder is the archimedean term). The even
+    sector's limits by the same rule, 1.5637/-5.3722/3.8837/-0.0752, are first computed here (Theorem 1bu records no anatomy limits)."""
     from weil_prime_gram import prime_powers
     x, w = _grid()
     I2 = 2*float(np.sum(w)); I4 = 2*float(np.sum(w*x*x)); I6 = 2*float(np.sum(w*x*x*x*x)); X0 = Xi(0.0)
@@ -89,9 +91,12 @@ def constants_odd():
     pp = prime_powers(200)
     pole_o = -2*(c2o*0.25)/4; primes_o = -2*c2o*sum(math.log(p)/math.sqrt(n)*(-phi2dd(math.log(n))) for n, p in pp)
     pole_e = 2*c2e*0.25; primes_e = -2*c2e*sum(math.log(p)/math.sqrt(n)*phi2(math.log(n)) for n, p in pp)
+    psi_re = np.array([float(mp.digamma(mp.mpc(0.25, t/2)).real) for t in x]) - float(mp.digamma(mp.mpf(1)/4))
+    arch_o_direct = c2o*2*float(np.sum(w*x*x*psi_re))/(2*math.pi); arch_e_direct = c2e*2*float(np.sum(w*psi_re))/(2*math.pi)
     return {"int_t2_Xi2": I4, "int_t4_Xi2": I6, "G0sq_limit": 2*math.pi*X0*X0/I4, "r2_mean_odd": I6/I4, "const": const,
             "pole_odd": pole_o, "primes_odd": primes_o, "arch_odd": -(pole_o + const + primes_o),
             "pole_even": pole_e, "primes_even": primes_e, "arch_even": -(pole_e + const + primes_e),
+            "arch_odd_direct": arch_o_direct, "arch_even_direct": arch_e_direct,
             "prime_terms_odd": [(n, -2*c2o*math.log(p)/math.sqrt(n)*(-phi2dd(math.log(n)))) for n, p in pp[:4]]}
 
 def nodes_odd(mmax):
