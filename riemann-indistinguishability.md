@@ -7182,6 +7182,107 @@ quantity). Check 8 clean (Riemann-side; no hypothesis input). Substrate
 `pole_witness.py` committed, imported, and content-addressed into the
 verifier's keys by the computed transitive import closure.
 
+**Theorem 1bu (the ladder's caster — the excited states carry their
+extra zeros in the zero-free interval below the first zero, at the
+nodes of the orthogonal polynomials of the ground state's power
+spectrum; the ground state's transform converges to Riemann's Ξ; a
+zero pair at fixed height is worth four prolate orders, which is why
+the shadow's rungs are the orders 4k; `cascade_ladder_caster.py`).**
+*(i) The pair-cost lemma (proved).* In the finite-δ formula of
+Theorem 1bm(v), ln λ ≈ min_T[4Σ_{τ<T} arccosh(T/τ) − δT] + c, a real
+zero pair ±τ of the probe's transform below the edge T contributes
+4 arccosh(T/τ) = 4 ln(2T/τ) − τ²/T² + O(τ⁴/T⁴). At an edge T = XT₀
+with X fixed, a pair at fixed height τ therefore costs 4 ln T₀ +
+4 ln(2X/τ) + O(T₀⁻²) — four units of ln T₀, which in Fuchs' fixed-order
+law ln(1 − λ_n(c)) = −2c + (n + ½)ln c + O(1) at c = T₀ (Theorem
+1bm(vii)) are four prolate orders — while a pair at the Hermite scale
+τ = x√T₀ costs 2 ln T₀ + O(1), two orders. The prolate's own zero pairs
+sit at the Hermite scale: Slepian's fixed-order asymptotics ψ_n(c, t) ~
+H_n(√c t)e^{−ct²/2} put its zeros at t_j = x_j/√c, hence the
+transform's at r_j = x_j√c/a, so each even prolate step is one pair at
+√c, and a rung whose extra pair sits at fixed height moves two even
+orders per pair. □ *(ii) The limit shape (proved under a hypothesis
+verified at the cells).* Let ĝ₁ be the ground state's transform at δ:
+even, real, entire of exponential type a and in L²(ℝ), hence of
+Cartwright class, with Hadamard's factorisation ĝ₁(r) =
+ĝ₁(0)Π_τ(1 − r²/τ²) over its zeros ±τ. Hypothesis D(δ): every zero of
+ĝ₁ with |τ| < T_D(δ) is a zero of ζ (the probe dodges every zero below
+T_D), and ε(δ) := Σ_{|τ| ≥ T_D}|τ|⁻² + Σ_{γ ≥ T_D}γ⁻² → 0. Then for
+|r| ≤ R < T_D/2, |ln[ĝ₁(r)/ĝ₁(0)] − ln[Ξ(r)/Ξ(0)]| ≤ 4R²ε(δ), since
+Ξ(r)/Ξ(0) = Π_γ(1 − r²/γ²) (Hadamard's product for ξ(s) =
+½s(s − 1)π^{−s/2}Γ(s/2)ζ(s) with ρ paired with 1 − ρ; Ξ(t) = ξ(½ + it))
+and |ln(1 − r²/τ²)| ≤ 2r²/|τ|² for |τ| ≥ 2R: **the ground state's
+transform converges to Riemann's Ξ function**, locally uniformly, at the
+rate ε(δ) = O(ln T_D/T_D). With it the curvature at the origin
+Σ_τ τ⁻² = −ĝ₁″(0)/(2ĝ₁(0)) → Σ_γ γ⁻² = K/2 = (2 + γ_E − ln 4π)/2 =
+0.023096 (Hadamard's constant of Theorem 1bt), and if the exterior
+mass ∫_{|r|>T_D}ĝ₁² → 0 as well, ĝ₁(0)² → 2πΞ(0)²/∫Ξ² and ⟨r²⟩ →
+∫t²Ξ²/∫Ξ² (Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729, √(∫t²Ξ²/∫Ξ²) = 3.195). □ At the seven cells (computed,
+gated): D holds with T_D the first zeta zero the ground state misses,
+the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀, its first free zero within 0.2
+of it; the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward K/2 = 0.0231;
+ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729;
+√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19. The Gaussian
+model of the envelope, e^{−Kr²}, would give 1/√(2K) = 3.290 and
+2√(πK) = 0.762: the cells pass through the Gaussian values on their way
+to Ξ's. *(iii) The hole zeros (computed, gated).* At every cell and
+every safely deep rung through rung 12 (ln(1 − χ_{2k}) < −20, Theorem 1br's threshold; 0, 1, 4, 7, 10, 11, 11 rungs at the cells;
+the census region, min(100, 0.8 × the rung's own dodging edge), covers
+the nodes through rung 12) the transform of rung k has exactly k − 1
+real zeros that are not dodging zeros — one dodging zero per zeta zero
+removed, a double zero counted twice — the ground state has none —
+the first three packed into the zero-free interval (0, γ₁ = 14.13), the
+fourth at the first zeta zero's height (15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5, crossing γ₁ between 3.0 and 3.5 toward its Ξ-limit
+13.670) and the rest in the gaps between the low zeros; and they sit at the
+nodes of the orthogonal polynomials P_{2(k−1)} of the weight ĝ₁(r)²
+on ℝ: at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193
+(gated within 1% for rungs 2–4 at δ ≥ 2); at δ = 3.5, rungs 2–5 at
+3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095. Across the cells the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195,
+the nodes' limits being those of the weight Ξ² — the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670: near the
+origin the excited states are Ξ times the orthogonal polynomials of
+Ξ², a Hermite ladder whose Gaussian is the Riemann Ξ function. *(iv)
+The k-level formula (computed).* With the hole zeros added to the
+zeta zeros, F_k := min_T[4Σ_{τ<T}arccosh(T/τ) − δT] reproduces the
+ladder with a residual c_k = ln λ_k − F_k that varies slowly: c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37, 3.79 over rungs 1–8 at δ = 2.3 (c₁ is 1bm(v)'s c(δ), within 0.15 at every cell), the edge T_k
+moving inward from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5. The rung spacing is the balayage cost of one more pair,
+4 arccosh(T_k/τ): the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55 — less the residual's drift, which is not
+monotone: over the safely deep rungs the successive differences of c_k
+change sign 5, 5, 3 times at δ = 2.6, 3.0, 3.5, the mean of c_k for even k minus that for odd k being −0.09, −0.03, +0.11: **the parity fine
+structure of Theorem 1br(ii) lives in c_k**, its phase changing with
+δ (gated as the alternation's existence; not modelled). *(v) What it says.* The +1 eigenspace and the four
+orders per rung are one fact: the excited states' extra zeros sit at
+fixed heights inside an envelope that does not widen with δ — the
+Riemann Ξ function's — so each pair costs four orders by (i), not the
+prolate's two; a rung at the orders 2 mod 4 would need a pair at the
+Hermite scale √T₀, which the fixed envelope does not offer; and rung 1
+is the pole's four (Theorem 1bs). The ladder from rung 2 on is cast by
+the hole zeros, the caster's law of Theorem 1br(iv) named: the
+orthogonal polynomials of Ξ². *(vi) The anatomy of c(δ) (computed).*
+Since ln λ₁ = ln 2Σ_γ ĝ₁(γ)² (the zero side on the 800 zeros known to
+100 digits plus the far tail), c(δ) = ln λ₁ − F(T*) splits as
+[ln ĝ₁(0)²] + [ln(2w_max/ĝ₁(0)²) − F(T*)] + [ln Σ_γ w_γ/w_max] — the
+origin value, the peak's excess over the balayage level, the effective
+count: origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27 (the far tail beyond γ₈₀₀ = 1184 included in the count; gated as an identity). The
+split between the last two depends on which zero carries the maximum;
+their sum is the robust quantity, the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10, rising. The origin's limit is proved in (ii), ln 0.7729 =
+−0.257; the exterior weight is measured: least-squares slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26; the exterior carries 0.37, 0.37, 0.37, 0.35, 0.32 of Q beyond 3T₀ at δ ≥ 2. Not derived: the exterior weight's slope. *(vii) What is proved, computed, not claimed.*
+Proved: (i); (ii) under D. Computed, gated: D at the cells, the hole
+zeros and their nodes, the k-level residuals and the parity's
+ordering, the anatomy. Not claimed: that the excited states are
+exactly the orthogonal-polynomial multiples (the exterior is
+re-balayaged: the naive Rayleigh quotient of P·ĝ₁ lies 2–5 nats below
+the certified rungs); a law for c_k or the parity; the constants of
+the offsets against the prolate ladder; the nodes beyond rung 4 at 1%;
+anything about the zeros — **no Riemann Hypothesis consequence is
+claimed**. Check 7 clean (Hadamard, Cartwright, Slepian's prolates,
+Stieltjes' orthogonal polynomials, Riemann's Ξ — classical; no
+semiclassics; no cascade quantity). Check 8 clean (Riemann-side; no
+hypothesis input). Substrates `ladder_caster.py` (keyed producer, the
+seven cells) and `xi_limit.py` committed, imported, and
+content-addressed into the verifier's keys by the computed transitive
+import closure; `zeta_zeros_precise.py` the data producer of the 800
+zeros (its file's hash in every key).
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
