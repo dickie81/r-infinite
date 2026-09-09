@@ -44,6 +44,8 @@ TOWER = [
     "cascade_linear_response.py",
     "cascade_lfunction_test.py",
     "cascade_spectrum_ladder.py",
+    "cascade_count_constant.py",
+    "cascade_pole_indefinite.py",
 ]
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",

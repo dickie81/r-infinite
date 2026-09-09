@@ -104,7 +104,7 @@ VERIFICATION (13 gates, exit-gated).
        sibling chain green (windows_overlap 13/0, transitively
        chaining riemann_selection, type_counting, and the two
        Weil-arc siblings); g13 the footer census (this script
-       backticked; "94 scripts cited in place"; "Theorems 1i–1br" -- the census advances with each landing).
+       backticked; "96 scripts cited in place"; "Theorems 1i–1bt" -- the census advances with each landing).
 
 Sabotage record (full-tree scratchpad copy, tar --exclude=.git,
 serial, abort-on-mangle-failure, at the landing; three disclosed
@@ -327,11 +327,11 @@ print("V3 -- the paper: key sentences, scope, classical inputs, siblings, footer
 # inline compare, so drift fails the precheck)
 import paper_needles
 PAPER_NEEDLES = [
-    {'s': '94 scripts cited in place', 'form': 'plain', 'min': 1},
+    {'s': '96 scripts cited in place', 'form': 'plain', 'min': 1},
     {'s': 'Li and Bombieri–Lagarias, the positivity ladder', 'form': 'plain', 'min': 1},
     {'s': 'NO PROOF LEVERAGE', 'form': 'plain', 'min': 1},
     {'s': 'Stieltjes, the Laurent constants of ζ', 'form': 'plain', 'min': 1},
-    {'s': 'Theorems 1i–1br', 'form': 'plain', 'min': 1},
+    {'s': 'Theorems 1i–1bt', 'form': 'plain', 'min': 1},
     {'s': '`cascade_unit_ball_rh.py`', 'form': 'plain', 'min': 1},
     {'s': 'a region classically zero-free; the injection is pure instrument-teeth', 'form': 'plain', 'min': 1},
     {'s': 'as hard as RH', 'form': 'plain', 'min': 1},
@@ -395,8 +395,8 @@ gate("g12 the sibling chain green after the census advance "
      "siblings)", ok)
 
 ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_unit_ball_rh.py`', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, '94 scripts cited in place', 'plain')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1br', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, '96 scripts cited in place', 'plain')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1bt', 'plain')
 gate("g13 the footer census (advanced at this landing, disclosed): "
      "this script backticked; 88 cited in place; the range 1i–1bl "
      "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)

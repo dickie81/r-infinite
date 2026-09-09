@@ -5491,3 +5491,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Scope.** The round-315 sweep commit. Full-tower class (verifier executable lines; manifest; the producer's docstring only, key-neutral). Brief `brief_round316.md`.
 
 **Findings.** 0 MAJOR, 0 minor, 4 cosmetic — **converged** (A475): F316-1 the rise/fall gate's scope widened to the four cells from δ = 2.3 on; F316-2 "the drop of every shell of any one of the primes 2, 3, 5" (the committed mangle) in place of "one first shell"; F316-3 the far-crossing ratio pins tight to two significant figures and the positions 0.97/0.87 pinned; F316-4 the parity's return over rungs 28–31 stated and gated. All four swept in the convergence commit with a full battery: members 10/10, 11/11 (9/9 unchanged); manifest 27; TOWER PASS 27/27. **Trajectory: 313 (the landing of 1bp, 1bq, 1br): 1M+4m+7c → 314: 0M+4m+7c → 315: 0M+2m+5c → 316: 0M+0m+4c — Theorems 1bp, 1bq, 1br stable at d4778f88.**
+
+### Round 317 — the landing of Theorems 1bs (the count-constant theorem) and 1bt (the pole-free form is indefinite)
+
+**Scope.** The landing commit (two theorem blocks with written proofs after Theorem 1br; the footer census 96 / 1i–1bt with two verifiers, one substrate clause and four classical inputs; verifiers `cascade_count_constant.py` (member 28) and `cascade_pole_indefinite.py` (29, top); substrates `balayage_count.py`, `pole_witness.py`; the census literals advanced across the tower; manifest 29). Full-tower class (a landing). Brief `brief_round317.md`. Commissioned by the owner: "Answer the open questions. Let's get some algebraic theorems proven." (A476).
+
+**Findings.** Pending.

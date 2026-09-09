@@ -45,9 +45,9 @@ MANIFEST = os.path.join(HERE, "tower_manifest.json")
 # these needles live like any member declaration.
 import paper_needles
 PAPER_NEEDLES = [
-    {"s": "the **94 scripts cited in place** above", "form": "raw",
+    {"s": "the **96 scripts cited in place** above", "form": "raw",
      "key": "census_count_string"},
-    {"s": "extended by Theorems 1i–1br:", "form": "raw",
+    {"s": "extended by Theorems 1i–1bt:", "form": "raw",
      "key": "census_range_string"},
 ]
 

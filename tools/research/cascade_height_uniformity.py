@@ -120,8 +120,8 @@ PAPER_NEEDLES = [
     {'g': 'g12', 's': 'an arithmetic-only falsifier', 'form': 'plain'},
     {'g': 'g12', 's': 'no RH leverage claimed', 'form': 'plain'},
     {'s': '`cascade_height_uniformity.py`', 'min': 2, 'g': 'g12'},
-    {'s': 'the **94 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
-    {'s': 'extended by Theorems 1i–1br:', 'form': 'ws', 'g': 'g12'},
+    {'s': 'the **96 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
+    {'s': 'extended by Theorems 1i–1bt:', 'form': 'ws', 'g': 'g12'},
 ]
 
 fails = []
