@@ -7404,8 +7404,8 @@ const + archimedean + primes, the pole −2p², the archimedean term
 from the Gram's own part (the identity within 10⁻⁹): pole −0.0206, −0.0266, −0.0321, −0.0337, −0.0349, −0.0360, −0.0369; primes +0.1597, +0.2434, +0.3070, +0.3241, +0.3362, +0.3472, +0.3558; archimedean +5.2333, +5.1554, +5.0973, +5.0818, +5.0709, +5.0610, +5.0533; const =
 ψ(¼) − ln π = −5.3722. At the Ξ-limit, computed from Ξ as in 1bu(vi)'s
 origin term: pole −0.0383, primes +0.3686 (the prime 2 alone +0.3475), archimedean +5.0418; the even sector by the same rule +1.5637, −0.0752, +3.8837. **In the odd sector the primes carry the
-positivity and the pole hurts; in the even sector the pole carries it
-and the primes hurt** (the archimedean term and the constant ψ(¼) − ln π
+positivity and the pole hurts; in the even sector, at the Ξ-limit, the
+pole carries it and the primes hurt** (the archimedean term and the constant ψ(¼) − ln π
 taken together, their sum negative in both sectors at the Ξ-limit and at
 every odd cell) — the prime 2 alone gives nearly all of the odd primes
 term. *(vii) What is proved, computed, not claimed.* Proved:
@@ -7969,9 +7969,9 @@ it touches the wall. None is a claim. The stopping rule of §10.4 concerns the
 physical ledger; the arithmetic of the Riemann side is not finished arguing.
 
 1. **The caster explained — a prime-side reason for the shape, valid at
-   every support.** The item most of the list serves; item 3 serves the wall
-   directly. Theorem 1br(iv): "the shadow is identified, the law of its
-   caster is not"; Theorem 1bu named the caster — the ground state's
+   every support.** The item most of the list serves; items 2, 3 and 7 bear
+   on the wall directly. Theorem 1br(iv): "the shadow is identified, the law
+   of its caster is not"; Theorem 1bu named the caster — the ground state's
    transform converges to Ξ, the excited states carry their extra zeros at
    the nodes of the orthogonal polynomials of its power spectrum, a zero
    pair at fixed height costs four prolate orders — and Theorem 1bv found
@@ -7986,17 +7986,19 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    in the odd sector) vanishes at every zeta zero below T_D(δ) and nowhere
    else there (Hypothesis D of Theorem 1bu(ii), D_odd of 1bv(iv), verified
    at the cells within the dodging tolerance; item 5); (b) its zeros are
-   real — the polynomial M of item 6 with real, positive roots (found at
-   every cell, not proved; item 6); (c) the excited states carry their extra
-   zeros at the nodes of the orthogonal polynomials of its power spectrum
-   (computed, gated; Theorems 1bu(iii), 1bv(v)), the product form — the
-   ground state times those polynomials — not claimed exact (Theorem
-   1bu(vii): the exterior re-balayaged; Theorem 1bv(vii)); (d) a zero pair
+   real — the polynomial M of item 6 (N of degree K − 2 for the odd sector's
+   Ĝ₁, Theorem 1bv(iv)) with real, positive roots (found at every cell, not
+   proved; item 6); (c) the excited states carry their extra zeros at the
+   nodes of the orthogonal polynomials of its power spectrum (computed,
+   gated; Theorems 1bu(iii), 1bv(v)), the product form — the ground state
+   times those polynomials — not claimed exact (Theorem 1bu(vii): the
+   exterior re-balayaged; Theorem 1bv(vii)); (d) a zero pair at fixed height
    costs four prolate orders (the pair-cost lemma, Theorem 1bu(i), proved),
-   read as the rung spacing through Theorem 1bm(v)'s formula (1bu(v)). Items
-   5 and 6 are (a) and (b); (c) has no other item. Done when: at one
-   support, (a) and (b) forced by the form's Gram pencil (Theorem 1br) with
-   no zero computed, and (c) made exact — the exterior's correction to the
+   read as the rung spacing through Theorem 1bm(v)'s formula (1bu(v)), whose
+   reduction is item 4's. Items 5 and 6 are (a) and (b), item 4 holds (d);
+   (c) has no other item. Done when: at one support, (a) and (b) forced by
+   the form's Gram pencil (Theorem 1br; the odd Gram of 1bv(i)) with no zero
+   computed, and (c) made exact — the exterior's correction to the
    polynomial multiples stated and derived — a finite advance of the wall by
    T_D(δ). Bears on the wall: at every support this is the proof itself —
    (a) and (b) everywhere put Ξ's zeros on the line by item 6's step — Weil
@@ -8014,7 +8016,7 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    its primes subtract, the odd sector's primes carry it (the prime 2 nearly
    alone) and its pole subtracts, the archimedean term and the constant
    taken together subtracting in both sectors at the limit and at every odd
-   cell; the same zero side Σ|ĝ(γ)|² sits under both. Done when: an
+   cell; the same zero side 2Σ_γ|ĝ(γ)|² sits under both. Done when: an
    explicit A on a support beyond the certified 1.3828125 of Theorem 1bl.
    Each support gained is a finite advance of the wall; the whole line is
    the wall.
@@ -8057,8 +8059,9 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    polynomial of degree K − 1, and the census of Theorem 1bu(ii) finds every
    root of M real and positive at every cell (all K − 1 at six cells, K − 2
    located and the last placed at δ = 3.5); the transform converges to
-   Riemann's Ξ under D (Theorem 1bu(ii)), and in the odd sector Ĝ₁ does the
-   same (Theorem 1bv(iv)). By Hurwitz's theorem the zeros of a locally
+   Riemann's Ξ under D (Theorem 1bu(ii)), and in the odd sector Ĝ₁, with
+   its polynomial N of degree K − 2 (all K − 2 pairs located at every
+   cell), does the same (Theorem 1bv(iv)). By Hurwitz's theorem the zeros of a locally
    uniform limit are limits of zeros: M's roots real and positive at every support,
    together with D at every support (which is what gives the convergence),
    puts Ξ's zeros on the real line. Both hypotheses are computed at the

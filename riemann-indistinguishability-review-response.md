@@ -5580,4 +5580,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the seven round-330 findings; the head item's revision from the drafting verdicts — the (c) label on the node statement, the re-balayage attributed to 1bu(vii) alone, the framing covering (a)–(d), the Done-when not forcing what is not claimed exact, the constant term in the prime side's enumeration; the owner's 'as yet' rewordings; the head item re-wrapped). Full-tower class (a verifier gate constant). Brief `brief_round331.md`. Trajectory: 329 (0M+6m+6c) → 330 (0M+2m+5c).
 
+**Findings.** 0 MAJOR, 1 minor, 5 cosmetic; all six accepted and swept (A493). Minor: F331-1 the block's even-sector carrier sentence without its Ξ-limit scope (F330-2 closed on item 2, open on the block) — scoped. Cosmetic: F331-2 the grid-error docstrings' magnitude and mechanism (the even residual is the endpoint offset in every f(ln n) replicated over the prime sum; ∫Ξ² good to 2e-12) — restated; F331-3 (b)'s M without the odd sector's N, the even pencil alone in the Done-when — N and the odd Gram named, item 6 likewise; F331-4 'at fixed height' restored, (d)'s home (item 4) stated; F331-5 the direct bearers on the wall completed (items 2, 3, 7); F331-6 one zero-side convention in §11. Checked and held: every round-330 sweep closed; the head item's attributions; the Done-when; 'as yet'; the numbers; the cross-references; the census; the parse tolerances; the mpmath closure of the even identity.
+
+### Round 332 — the convergence test on the round-331 sweep
+
+**Scope.** The sweep commit (the six round-331 findings: the block's even-sector scope; the grid-error mechanism in two docstrings; N and the odd Gram in the head item and item 6; 'at fixed height' and (d)'s home; the direct bearers; one zero-side convention). Prose-and-docstring class. Brief `brief_round332.md`. Trajectory: 329 (0M+6m+6c) → 330 (0M+2m+5c) → 331 (0M+1m+5c).
+
 **Findings.** Pending.
