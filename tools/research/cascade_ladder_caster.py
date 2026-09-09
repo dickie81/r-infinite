@@ -16,25 +16,45 @@ at T_0 = 10^6: within 0.02 of 4 and 2 after the constants). (1) THE XI SIDE:
 Hadamard's product Xi(t)/Xi(0) = prod (1 - t^2/gamma^2) against the 800 zeros
 plus the density tail at t = 3, 8, 13 (within 1e-4); Xi(0) = 0.49712; the limit
 constants 2 pi Xi(0)^2/int Xi^2 = 0.7729 and sqrt<t^2> = 3.195 (nearest 1e-4);
-K = 2 + gamma_E - ln 4 pi. (2) THE LIMIT SHAPE AT THE CELLS: Hypothesis D --
-the first zeta zero the ground state misses and its first free zero within 0.2
-of each other and at >= 1.4 T_0 at every cell; the curvature sum 1/tau^2 rising
-across the cells and below K/2; ghat_1(0)^2 rising and below 0.7729;
-sqrt<r^2> falling and above 3.195. (3) THE HOLE ZEROS: at every safely deep
-rung up to rung 12 (ln(1 - chi_{2k}) < -20, Theorem 1br's threshold; the producer's census region
-covers the nodes through rung 12) the transform of rung k has exactly k - 1
-hole zeros (the real zeros below min(100, 0.8 x the dodging edge) left after
-one dodging zero per zeta zero is removed; a double zero counted twice), the
-ground state none; at delta >= 2 the hole zeros of rungs 2-4 sit within 1% of
-the nodes of P_{2(k-1)} for the weight ghat_1^2; the first hole zero falls
-across the cells and stays above the Xi-limit 3.195.
+K = 2 + gamma_E - ln 4 pi. (2) THE LIMIT SHAPE AT THE CELLS: Hypothesis D by
+the producer's real-zero census (round 321 F4/F9) -- all K - 1 designed zero
+pairs of the ground state's transform real at every cell, the sum rule
+kappa = sum tau^-2 closing within 1e-8, the located zeros below the edge
+matching the zeta zeros below it one to one (a double zero would count
+twice) -- with the first zeta zero the ground state misses and its first free
+zero within 0.2 of each other and at >= 1.4 T_0; epsilon(delta) = sum_{|tau| >=
+T_D} tau^-2 + sum_{gamma >= T_D} gamma^-2 (the zeta tail beyond the 800 by the
+density) falling across the cells, between 0.18 and 0.24 of ln T_D/T_D (the
+rate is not proved: round 321 F5); the exterior mass beyond T_D/2 and T_D at
+most 1e-3 and 1e-5 of the whole (F6); the curvature sum 1/tau^2 rising across
+the cells and below sum gamma^-2 = -Xi''(0)/(2 Xi(0)) = 0.023105 (not K/2 =
+0.023096: F3); ghat_1(0)^2 rising and below 0.7729; sqrt<r^2> falling and above
+3.195. (3) THE HOLE ZEROS: at every safely deep rung up to rung 12 (its OWN
+leakage ln(1 - chi_{2k}) < -20, order 4k = index 2k of the even list -- F1;
+Theorem 1br's threshold) the transform of rung k has exactly k - 1 hole zeros
+(the real zeros below min(100, 0.8 x the rung's dodging edge) left after one
+dodging zero per zeta zero is removed; a double zero counted twice) and the
+census region covers the predicted nodes (the stored nodes now by mpmath: F10);
+the ground state has none by the census of (2); the first three hole zeros of
+every safely deep rung lie below the first zeta zero, rungs 6-7 have four and
+rungs 8-12 four or five below it at delta >= 2.6, nondecreasing in k (F8; the
+Xi-limit nodes: four for rungs 5-7, five for 8-11, six for 12); at delta >= 2
+the hole zeros of rungs 2-4 sit within 1% of the nodes of P_{2(k-1)} for the
+weight ghat_1^2; the first hole zero falls across the cells and stays above the
+Xi-limit 3.195.
 (4) THE k-LEVEL FORMULA: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell;
 c_k for the safely deep rungs (through rung 12) within [c_1 - 3, c_1 + 0.3];
-the parity: at the cells with >= 8 such rungs the successive differences of c_k
-change sign at least twice -- the alternation exists; its phase (even below odd
-at delta = 2.6, above at 3.5) is recorded, not gated. (5) THE ANATOMY of c(delta): the identity
+at the cells with >= 8 such rungs the successive differences of c_k from rung 2
+change sign at least twice (not monotone); THE PARITY (round 321 F2): over the
+safely deep rungs the offsets o_k = ln lambda_k - ln(1 - chi_{2k}) of Theorem
+1br(ii) split as c_k + d_k with d_k = F_k - ln(1 - chi_{2k}); even minus odd
+means of o_k and of d_k both positive at the four cells with >= 6 such rungs,
+o_k's at delta = 3.0 within 0.02 of 1br(ii)'s +0.22; c_k's sign not gated --
+the parity lives in the formula (the hole zeros' positions), not in the
+residual. (5) THE ANATOMY of c(delta): the identity
 c_1 = origin + peak excess + count + far tail (1e-9); the origin rising toward
-ln 0.7729; the share of Q beyond 3 T_0 at least 0.3 at delta >= 2. (6) mangle
+ln 0.7729; the share of Q beyond 3 T_0, the far tail included (F7), at least
+0.39 at delta >= 2. (6) mangle
 probes: a pair cost of 2 ln T_0 per rung misses the ladder; the Gaussian
 model's first node 1/sqrt(2K) = 3.290 is not the Xi-limit's 3.195 and the cells
 at delta >= 3 sit below the Gaussian value; (7) the paper's numbers parsed
@@ -42,9 +62,9 @@ back; (8) the chain obligation to cascade_pole_indefinite.py; (9) the needles
 and census.
 
 WHAT IS NOT CLAIMED. The orthogonal-polynomial structure of the excited states
-is computed, not proved; the residual c_k's law and its parity are not
-modelled; the constants of the offsets against the prolate ladder are not
-derived; no Riemann Hypothesis consequence.
+is computed, not proved; the rate of epsilon(delta) is not proved; the residual
+c_k's law and the parity's law are not modelled; the constants of the offsets
+against the prolate ladder are not derived; no Riemann Hypothesis consequence.
 """
 import math, os, sys, json
 import numpy as np
@@ -60,7 +80,9 @@ PAPER_NEEDLES = [
     {'s': 'the **97 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
     {'s': 'extended by Theorems 1i–1bu:', 'form': 'ws', 'g': 'g9'},
     {'g': 'g7', 's': 'the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀', 'form': 'ws'},
-    {'g': 'g7', 's': 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward K/2 = 0.0231', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_KAPPA@', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_CURV@', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_EPS@', 'form': 'ws'},
     {'g': 'g7', 's': 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193', 'form': 'ws'},
@@ -71,11 +93,13 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10', 'form': 'ws'},
     {'g': 'g7', 's': 'slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26', 'form': 'ws'},
-    {'g': 'g7', 's': '0.37, 0.37, 0.37, 0.35, 0.32 of Q beyond 3T₀ at δ ≥ 2', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_SHARE@', 'form': 'ws'},
     {'g': 'g7', 's': 'from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5', 'form': 'ws'},
     {'g': 'g7', 's': 'the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55', 'form': 'ws'},
-    {'g': 'g7', 's': 'change sign 5, 5, 3 times at δ = 2.6, 3.0, 3.5, the mean of c_k for even k minus that for odd k being −0.09, −0.03, +0.11', 'form': 'ws'},
-    {'g': 'g7', 's': '0, 1, 4, 7, 10, 11, 11 rungs at the cells', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_ALT@', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_PAR@', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_CKPAR@', 'form': 'ws'},
+    {'g': 'g7', 's': '@S_NSAFE@', 'form': 'ws'},
     {'g': 'g7', 's': '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'form': 'ws'},
     {'g': 'g7', 's': '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'form': 'ws'},
 ]
@@ -89,10 +113,10 @@ def gate(label, ok):
 ORDER = ["d1.0", "d1.38", "d2.0", "d2.3", "d2.6", "d3.0", "d3.5"]
 ST = {c: run_LC(c) for c in ORDER}
 T0 = {c: ST[c]["T0"] for c in ORDER}
-SAFE = -20.0                                  # the safely deep rungs: ln(1 - chi_{2k}) < -20 (Theorem 1br's own threshold)
+SAFE = -20.0                                  # the safely deep rungs: the rung's OWN leakage ln(1 - chi_{2k}) < -20 (Theorem 1br's threshold; order 4k = index 2k of the even list -- round 321 F1)
 def safe_rungs(c):
     st = ST[c]; pro = st["prolate_ln_leakage"]
-    return [r for r in st["rungs"][1:] if pro[2*(r["k"] - 1)] is not None and pro[2*(r["k"] - 1)] < SAFE and r["k"] <= 12]
+    return [r for r in st["rungs"][1:] if 2*r["k"] < len(pro) and pro[2*r["k"]] is not None and pro[2*r["k"]] < SAFE and r["k"] <= 12]
 
 # ---------------------------------------------------------------- g0
 ok = True; worst = 0.0
@@ -114,25 +138,48 @@ for t in (3.0, 8.0, 13.0):
 XC = XI.constants()
 ok &= abs(XC["Xi0"] - 0.49712) <= 5e-6 and abs(XC["g0sq_limit"] - 0.7729) <= 5e-5 and abs(math.sqrt(XC["t2_mean"]) - 3.195) <= 5e-4
 ok &= abs(XC["K"] - (2 + 0.5772156649015329 - math.log(4*math.pi))) < 1e-15 and abs(XC["inv_sqrt_2K"] - 3.290) <= 5e-4
-XN = XI.nodes(4)
-gate(f"g1 the Xi side: Hadamard's product against the 800 zeros (100 digits, agreeing with the double list within 1e-9) plus the density tail at t = 3, 8, 13 (max |diff| {worst:.1e}); Xi(0) = {XC['Xi0']:.5f}; 2 pi Xi(0)^2/int Xi^2 = {XC['g0sq_limit']:.4f}; sqrt<t^2> = {math.sqrt(XC['t2_mean']):.4f}; K = {XC['K']:.6f}, 1/sqrt(2K) = {XC['inv_sqrt_2K']:.4f}; the Xi-limit nodes " + "; ".join(", ".join(f"{v:.3f}" for v in n) for n in XN), ok)
+XN = XI.nodes(11); GAMMA1 = Z40[0]
+below_xi = [sum(1 for v in n if v < GAMMA1) for n in XN]                   # the Xi-limit nodes below the first zeta zero, rungs 2..12 (F8)
+ok &= below_xi == [1, 2, 3, 4, 4, 4, 5, 5, 5, 5, 6]
+gate(f"g1 the Xi side: Hadamard's product against the 800 zeros (100 digits, agreeing with the double list within 1e-9) plus the density tail at t = 3, 8, 13 (max |diff| {worst:.1e}); Xi(0) = {XC['Xi0']:.5f}; 2 pi Xi(0)^2/int Xi^2 = {XC['g0sq_limit']:.4f}; sqrt<t^2> = {math.sqrt(XC['t2_mean']):.4f}; K = {XC['K']:.6f}, 1/sqrt(2K) = {XC['inv_sqrt_2K']:.4f}; the curvature -Xi''(0)/(2 Xi(0)) = {XC['curvature']:.6f} against K/2 = {XC['K']/2:.6f}; the Xi-limit nodes " + "; ".join(", ".join(f"{v:.3f}" for v in n) for n in XN[:4]) + "; the nodes below the first zeta zero for rungs 2-12: " + ", ".join(str(b) for b in below_xi), ok)
 
 # ---------------------------------------------------------------- g2
 ok = True; G = {c: ST[c]["ground"] for c in ORDER}
+ZT = Z40[-1]; ztail = (math.log(ZT/(2*math.pi)) + 1)/(2*math.pi*ZT)        # sum_{gamma > gamma_800} gamma^-2 by the density, leading term (as xi_limit.hadamard_check)
+Zb = np.array(Z40)
+def _eps(c):
+    """epsilon(delta) = sum_{|tau| >= T_D} tau^-2 + sum_{gamma >= T_D} gamma^-2: under D the first is kappa less the zeta part below T_D"""
+    g = G[c]; TD = g["first_missed"]
+    return (g["kappa"] - float(np.sum(1/Zb[Zb < TD]**2))) + float(np.sum(1/Zb[Zb >= TD]**2)) + ztail
 for c in ORDER:
     g = G[c]; ok &= g["first_missed"] is not None and g["first_free"] is not None and abs(g["first_missed"] - g["first_free"]) <= 0.2 and g["first_missed"] >= 1.4*T0[c]
+    # the real-zero census (round 321 F4/F9): all K - 1 designed pairs located on the real line and the sum rule closing (none missed, no
+    # complex zero) -- or K - 2 located with the sum rule placing the one unlocated pair beyond the region (real or imaginary, |tau| >= R_ext:
+    # outside the disc |r| < T_D either way); the located zeros below the edge and the zeta zeros below it equal in number (every zeta zero
+    # below the edge has one, a double zero would count twice)
+    cen = g["n_designed_real"] == g["K_minus_1"] and abs(g["sum_rule_residual"]) <= 1e-8
+    cen |= g["n_designed_real"] == g["K_minus_1"] - 1 and g["missing_pair"] is not None and g["missing_pair"]["abs_tau"] >= g["R_ext"]
+    ok &= cen and g["n_located_below_edge"] == g["n_zeta_below_edge"]
+    ok &= g["mass_beyond"]["TD/2"] <= 1e-3 and g["mass_beyond"]["TD"] <= 1e-5                # the exterior mass (F6)
+eps = [_eps(c) for c in ORDER]; ratio = [eps[i]/(math.log(G[c]["first_missed"])/G[c]["first_missed"]) for i, c in enumerate(ORDER)]
+ok &= all(eps[i] > eps[i + 1] for i in range(6)) and eps[-1] > 0 and all(0.18 <= x <= 0.24 for x in ratio)
 kap = [G[c]["kappa"] for c in ORDER]; g0 = [math.exp(G[c]["ln_g0sq"]) for c in ORDER]; r2 = [math.sqrt(G[c]["r2_mean"]) for c in ORDER]
-ok &= all(kap[i] < kap[i + 1] for i in range(6)) and kap[-1] < XC["K"]/2
+ok &= all(kap[i] < kap[i + 1] for i in range(6)) and kap[-1] < XC["curvature"]               # toward sum gamma^-2, not K/2 (F3)
 ok &= all(g0[i] < g0[i + 1] for i in range(6)) and g0[-1] < XC["g0sq_limit"]
 ok &= all(r2[i] > r2[i + 1] for i in range(6)) and r2[-1] > math.sqrt(XC["t2_mean"])
-gate("g2 the limit shape at the cells: Hypothesis D (the first missed zeta zero and the first free zero within 0.2, at " + ", ".join(f"{G[c]['first_missed']/T0[c]:.2f}" for c in ORDER) + " T_0); the curvature " + ", ".join(f"{k:.4f}" for k in kap) + f" rising toward K/2 = {XC['K']/2:.4f}; ghat_1(0)^2 " + ", ".join(f"{v:.3f}" for v in g0) + f" rising toward {XC['g0sq_limit']:.4f}; sqrt<r^2> " + ", ".join(f"{v:.3f}" for v in r2) + f" falling toward {math.sqrt(XC['t2_mean']):.3f}", ok)
+gate("g2 the limit shape at the cells: Hypothesis D by the real-zero census (designed zero pairs located " + ", ".join(f"{G[c]['n_designed_real']}/{G[c]['K_minus_1']}" for c in ORDER) + " within " + ", ".join(f"{G[c]['R_ext']:.0f}" for c in ORDER) + "; the sum rule's residual " + ", ".join(f"{G[c]['sum_rule_residual']:.1e}" for c in ORDER) + "; unlocated pairs placed by the sum rule: " + (", ".join(f"{c}: |tau| = {G[c]['missing_pair']['abs_tau']:.0f} ({'real' if G[c]['missing_pair']['real'] else 'imaginary'})" for c in ORDER if G[c]["missing_pair"] is not None) or "none") + "; located/zeta zeros below the edge " + ", ".join(f"{G[c]['n_located_below_edge']}/{G[c]['n_zeta_below_edge']}" for c in ORDER) + "); the first missed zeta zero and the first free zero within 0.2, at " + ", ".join(f"{G[c]['first_missed']/T0[c]:.2f}" for c in ORDER) + " T_0; epsilon " + ", ".join(f"{e:.5f}" for e in eps) + " falling, " + ", ".join(f"{x:.2f}" for x in ratio) + " of ln T_D/T_D; the mass beyond T_D/2 and T_D at most " + f"{max(G[c]['mass_beyond']['TD/2'] for c in ORDER):.1e} and {max(G[c]['mass_beyond']['TD'] for c in ORDER):.1e}" + "; the curvature " + ", ".join(f"{k:.4f}" for k in kap) + f" rising toward sum gamma^-2 = {XC['curvature']:.6f} (K/2 = {XC['K']/2:.6f}); ghat_1(0)^2 " + ", ".join(f"{v:.3f}" for v in g0) + f" rising toward {XC['g0sq_limit']:.4f}; sqrt<r^2> " + ", ".join(f"{v:.3f}" for v in r2) + f" falling toward {math.sqrt(XC['t2_mean']):.3f}", ok)
 
 # ---------------------------------------------------------------- g3
-ok = True; worst_rel = 0.0; nsafe = 0
+ok = True; worst_rel = 0.0; nsafe = 0; below = {}
 for c in ORDER:
-    st = ST[c]; ok &= len(st["rungs"][0]["hole"]) == 0
+    st = ST[c]; below[c] = []
     for r in safe_rungs(c):
         nsafe += 1; ok &= len(r["hole"]) == r["k"] - 1
+        ok &= max(st["nodes"][r["k"] - 2]) < min(100.0, 0.8*r["edge"])                       # the census region covers the predicted nodes (F10)
+        nb = sum(1 for h in r["hole"] if h < st["gamma1"]); below[c].append(nb)
+        ok &= all(h < st["gamma1"] for h in r["hole"][:3])                                   # the first three hole zeros below the first zeta zero (F8)
+        if st["delta"] >= 2.6 and r["k"] >= 6: ok &= nb in ((4,) if r["k"] <= 7 else (4, 5))
+    ok &= all(below[c][i] <= below[c][i + 1] for i in range(len(below[c]) - 1))
     if st["delta"] >= 2.0:
         for r in st["rungs"][1:4]:
             nodes = st["nodes"][r["k"] - 2]
@@ -144,32 +191,40 @@ ok &= all(first[i] > first[i + 1] for i in range(6)) and first[-1] > XN[0][0]
 fourth = [ST[c]["rungs"][4]["hole"][3] for c in ("d2.3", "d2.6", "d3.0", "d3.5")]      # rung 5's fourth hole zero against the first zeta zero
 g1 = ST["d2.3"]["gamma1"]
 ok &= all(fourth[i] > fourth[i + 1] for i in range(3)) and fourth[0] > g1 and fourth[1] > g1 and fourth[2] > g1 and fourth[3] < g1 and fourth[3] > XN[3][3]
-gate(f"g3 the hole zeros: the ground state has none; every safely deep rung k through rung 12 (ln(1 - chi_2k) < -20; {nsafe} rungs over the seven cells) has exactly k - 1; at delta >= 2 rungs 2-4 sit within 1% of the nodes of P_(2(k-1)) for the weight ghat_1^2 (max relative deviation {worst_rel:.2%}); the first hole zero " + ", ".join(f"{v:.3f}" for v in first) + f" falling toward the Xi-limit {XN[0][0]:.3f}; rung 5's fourth hole zero " + ", ".join(f"{v:.3f}" for v in fourth) + f" at delta = 2.3, 2.6, 3.0, 3.5 crosses the first zeta zero {g1:.3f} between 3.0 and 3.5 and stays above its Xi-limit {XN[3][3]:.3f}", ok)
+gate(f"g3 the hole zeros: every safely deep rung k through rung 12 (its own ln(1 - chi_2k) < -20; {nsafe} rungs over the seven cells, " + ", ".join(str(len(safe_rungs(c))) for c in ORDER) + ") has exactly k - 1, the census region covering the predicted nodes; the ground state none (g2's census); the first three of every rung below the first zeta zero, and below it per rung " + "; ".join(f"{c}: " + ",".join(str(b) for b in below[c]) for c in ORDER if below[c]) + " (rungs 6-7 four, 8-12 four or five at delta >= 2.6, nondecreasing); at delta >= 2 rungs 2-4 sit within 1% of the nodes of P_(2(k-1)) for the weight ghat_1^2 (max relative deviation {worst_rel:.2%}); the first hole zero " + ", ".join(f"{v:.3f}" for v in first) + f" falling toward the Xi-limit {XN[0][0]:.3f}; rung 5's fourth hole zero " + ", ".join(f"{v:.3f}" for v in fourth) + f" at delta = 2.3, 2.6, 3.0, 3.5 crosses the first zeta zero {g1:.3f} between 3.0 and 3.5 and stays above its Xi-limit {XN[3][3]:.3f}", ok)
 
 # ---------------------------------------------------------------- g4
 CDEL = {"d1.0": 4.70, "d1.38": 5.21, "d2.0": 5.94, "d2.3": 6.39, "d2.6": 6.64, "d3.0": 7.30, "d3.5": 7.90}   # 1bm(v)
-ok = True; par = {}
+ok = True; par = {}; alt = {}
 for c in ORDER:
     st = ST[c]; c1 = st["rungs"][0]["ck"]; ok &= abs(c1 - CDEL[c]) <= 0.15
-    sr = safe_rungs(c)
+    sr = safe_rungs(c); pro = st["prolate_ln_leakage"]
     for r in sr: ok &= c1 - 3.0 <= r["ck"] <= c1 + 0.3
     if len(sr) >= 8:
-        cs = [c1] + [r["ck"] for r in sr]; dif = np.diff(cs); sgn = np.sign(dif)
-        changes = int(np.sum(sgn[1:] != sgn[:-1])); ev = [r["ck"] for r in sr if r["k"] % 2 == 0]; od = [r["ck"] for r in sr if r["k"] % 2 == 1]
-        par[c] = (changes, float(np.mean(ev)) - float(np.mean(od))); ok &= changes >= 2          # the alternation exists; its phase is not gated (it flips between the cells)
-gate("g4 the k-level formula: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell (" + ", ".join(f"{ST[c]['rungs'][0]['ck']:.2f}" for c in ORDER) + "); the safely deep rungs' c_k within [c_1 - 3, c_1 + 0.3]; the parity at the cells with >= 8 such rungs: the successive differences of c_k change sign at least twice -- " + ", ".join(f"{c}: {par[c][0]} changes, even minus odd mean {par[c][1]:+.2f}" for c in par), ok)
+        sgn = np.sign(np.diff([r["ck"] for r in sr]))                                           # from rung 2, the safely deep rungs only (F12)
+        alt[c] = int(np.sum(sgn[1:] != sgn[:-1])); ok &= alt[c] >= 2                            # c_k is not monotone
+    if len(sr) >= 6:
+        # THE PARITY (F2): 1br(ii)'s offsets o_k = ln lambda_k - ln(1 - chi_{2k}) = c_k + d_k, d_k = F_k - ln(1 - chi_{2k}) the formula's part
+        ev = [r for r in sr if r["k"] % 2 == 0]; od = [r for r in sr if r["k"] % 2 == 1]
+        def _em(f): return float(np.mean([f(r) for r in ev]) - np.mean([f(r) for r in od]))
+        par[c] = (_em(lambda r: r["ln_lam"] - pro[2*r["k"]]), _em(lambda r: r["Fk"] - pro[2*r["k"]]), _em(lambda r: r["ck"]))
+        ok &= par[c][0] > 0 and par[c][1] > 0                                                   # even above odd in the offsets and in the formula's part; c_k's sign not gated
+ok &= list(alt) == ["d2.6", "d3.0", "d3.5"] and list(par) == ["d2.3", "d2.6", "d3.0", "d3.5"] and abs(par["d3.0"][0] - 0.22) <= 0.02
+gate("g4 the k-level formula: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell (" + ", ".join(f"{ST[c]['rungs'][0]['ck']:.2f}" for c in ORDER) + "); the safely deep rungs' c_k within [c_1 - 3, c_1 + 0.3]; not monotone -- the successive differences from rung 2 change sign " + ", ".join(f"{alt[c]}" for c in alt) + " times at delta = 2.6, 3.0, 3.5; the parity over the safely deep rungs at delta = 2.3, 2.6, 3.0, 3.5 -- even minus odd means of the offsets " + ", ".join(f"{par[c][0]:+.3f}" for c in par) + " (1br(ii)'s +0.22 at 3.0 within 0.02), of the formula's part d_k " + ", ".join(f"{par[c][1]:+.3f}" for c in par) + ", of the residual c_k " + ", ".join(f"{par[c][2]:+.3f}" for c in par) + ": the parity lives in the formula", ok)
 
 # ---------------------------------------------------------------- g5
 ok = True
 for c in ORDER:
     g = G[c]; ok &= abs(g["c1"] - (g["origin"] + g["peak_excess"] + g["count_800"] + g["far_tail"])) <= 1e-9
-    if ST[c]["delta"] >= 2.0: ok &= 1 - g["shares"]["3"] >= 0.3
+sh3 = {c: 1 - G[c]["shares"]["3"]*math.exp(-G[c]["far_tail"]) for c in ORDER}                  # the share of Q beyond 3 T_0, the far tail beyond the 800 included (F7)
+for c in ORDER:
+    if ST[c]["delta"] >= 2.0: ok &= sh3[c] >= 0.39
 org = [G[c]["origin"] for c in ORDER]; ok &= all(org[i] < org[i + 1] for i in range(6)) and org[-1] < math.log(XC["g0sq_limit"])
 extw = [G[c]["peak_excess"] + G[c]["count_800"] + G[c]["far_tail"] for c in ORDER]; ok &= all(extw[i] < extw[i + 1] for i in range(6))
 lnT0 = np.array([math.log(T0[c]) for c in ORDER]); A_ = np.vstack([lnT0, np.ones(7)]).T
 def _slope(y): return float(np.linalg.lstsq(A_, np.array(y), rcond=None)[0][0])
 sl_org, sl_ext, sl_c = _slope(org), _slope(extw), _slope([G[c]["c1"] for c in ORDER]); ok &= abs(sl_org + sl_ext - sl_c) <= 1e-9
-gate("g5 the anatomy of c(delta) = origin + peak excess + count (+ the far tail beyond the 800 zeros), an identity at every cell: origin " + ", ".join(f"{G[c]['origin']:.3f}" for c in ORDER) + f" rising toward ln 0.7729 = {math.log(XC['g0sq_limit']):.3f}; peak excess " + ", ".join(f"{G[c]['peak_excess']:.2f}" for c in ORDER) + "; count " + ", ".join(f"{G[c]['count_800'] + G[c]['far_tail']:.2f}" for c in ORDER) + "; the exterior weight in units of the balayage level (peak excess + count) " + ", ".join(f"{v:.2f}" for v in extw) + f" rising; the least-squares slopes against ln T_0: origin {sl_org:.3f}, exterior {sl_ext:.3f}, c {sl_c:.3f} (an identity); the share of Q beyond 3 T_0 " + ", ".join(f"{1 - G[c]['shares']['3']:.2f}" for c in ORDER), ok)
+gate("g5 the anatomy of c(delta) = origin + peak excess + count (+ the far tail beyond the 800 zeros), an identity at every cell: origin " + ", ".join(f"{G[c]['origin']:.3f}" for c in ORDER) + f" rising toward ln 0.7729 = {math.log(XC['g0sq_limit']):.3f}; peak excess " + ", ".join(f"{G[c]['peak_excess']:.2f}" for c in ORDER) + "; count " + ", ".join(f"{G[c]['count_800'] + G[c]['far_tail']:.2f}" for c in ORDER) + "; the exterior weight in units of the balayage level (peak excess + count) " + ", ".join(f"{v:.2f}" for v in extw) + f" rising; the least-squares slopes against ln T_0: origin {sl_org:.3f}, exterior {sl_ext:.3f}, c {sl_c:.3f} (an identity); the share of Q beyond 3 T_0, the far tail included, " + ", ".join(f"{sh3[c]:.3f}" for c in ORDER), ok)
 
 # ---------------------------------------------------------------- g6
 ok = True
@@ -184,7 +239,9 @@ gate(f"g6 mangle probes: the first rung spacing at delta = 2.3 and 3.5 lies in (
 # ---------------------------------------------------------------- g7
 import paper_needles
 S_EDGE = 'the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀'
-S_KAPPA = 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward K/2 = 0.0231'
+S_KAPPA = '@S_KAPPA@'
+S_CURV = '@S_CURV@'
+S_EPS = '@S_EPS@'
 S_G0 = 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729'
 S_R2 = '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19'
 S_HOLE23 = 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193'
@@ -195,17 +252,21 @@ S_ANAT = 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; 
 S_XICONST = 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729'
 S_EXTW = 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10'
 S_SLOPES = 'slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26'
-S_SHARE = '0.37, 0.37, 0.37, 0.35, 0.32 of Q beyond 3T₀ at δ ≥ 2'
+S_SHARE = '@S_SHARE@'
 S_TK = 'from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5'
 S_SP = 'the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55'
-S_PAR = 'change sign 5, 5, 3 times at δ = 2.6, 3.0, 3.5, the mean of c_k for even k minus that for odd k being −0.09, −0.03, +0.11'
-S_NSAFE = '0, 1, 4, 7, 10, 11, 11 rungs at the cells'
+S_ALT = '@S_ALT@'
+S_PAR = '@S_PAR@'
+S_CKPAR = '@S_CKPAR@'
+S_NSAFE = '@S_NSAFE@'
 S_HOLE35 = '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095'
 S_FOURTH = '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward K/2 = 0.0231', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_KAPPA@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_CURV@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_EPS@', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193', 'ws')
@@ -216,19 +277,24 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'origin −0.46, −0.38, −0.32, −
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '0.37, 0.37, 0.37, 0.35, 0.32 of Q beyond 3T₀ at δ ≥ 2', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_SHARE@', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'change sign 5, 5, 3 times at δ = 2.6, 3.0, 3.5, the mean of c_k for even k minus that for odd k being −0.09, −0.03, +0.11', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '0, 1, 4, 7, 10, 11, 11 rungs at the cells', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_ALT@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_PAR@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_CKPAR@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '@S_NSAFE@', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_EDGE, S_KAPPA, S_G0, S_R2, S_HOLE23, S_FIRST, S_XINODES, S_CK, S_ANAT, S_XICONST, S_EXTW, S_SLOPES, S_SHARE, S_TK, S_SP, S_PAR, S_NSAFE, S_HOLE35, S_FOURTH]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_EDGE, S_KAPPA, S_CURV, S_EPS, S_G0, S_R2, S_HOLE23, S_FIRST, S_XINODES, S_CK, S_ANAT, S_XICONST, S_EXTW, S_SLOPES, S_SHARE, S_TK, S_SP, S_ALT, S_PAR, S_CKPAR, S_NSAFE, S_HOLE35, S_FOURTH]
 _re = __import__("re")
 def _num(s): return float(s.strip().replace('−', '-'))
 def _nums(s, pat=r"([-−]?[0-9]+\.[0-9]+)"): return [_num(x) for x in _re.findall(pat, s)]
 _m = _nums(S_EDGE); ok &= len(_m) == 7 and all(abs(x - G[c]["first_missed"]/T0[c]) <= 5e-3 + 1e-9 for x, c in zip(_m, ORDER))                  # nearest 0.01
-_m = _nums(S_KAPPA); ok &= len(_m) == 8 and all(abs(x - k) <= 5e-5 + 1e-9 for x, k in zip(_m[:7], kap)) and abs(_m[7] - XC["K"]/2) <= 5e-5 + 1e-9   # nearest 1e-4
+_m = _nums(S_KAPPA); ok &= len(_m) == 8 and all(abs(x - k) <= 5e-5 + 1e-9 for x, k in zip(_m[:7], kap)) and abs(_m[7] - XC["curvature"]) <= 5e-5 + 1e-9   # nearest 1e-4
+_m = _nums(S_CURV); ok &= len(_m) == 2 and abs(_m[0] - XC["curvature"]) <= 5e-7 + 1e-9 and abs(_m[1] - XC["K"]/2) <= 5e-7 + 1e-9                          # nearest 1e-6
+_m = _nums(S_EPS.split(" at the cells")[0]); ok &= len(_m) == 7 and all(abs(x - e) <= 5e-6 + 1e-9 for x, e in zip(_m, eps))                                 # nearest 1e-5
+_r = _nums(S_EPS.split(" at the cells")[1]); ok &= len(_r) == 2 and _r[0] <= min(ratio) + 5e-3 + 1e-9 and _r[1] >= max(ratio) - 5e-3 - 1e-9
 _m = _nums(S_G0); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m[:7], g0)) and abs(_m[7] - XC["g0sq_limit"]) <= 5e-4 + 1e-9
 _m = _nums(S_R2); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m[:7], r2)) and abs(_m[7] - math.sqrt(XC["t2_mean"])) <= 5e-3 + 1e-9
 _m = _nums(S_HOLE23.split(" rung 2 at ")[1]); _h = ST["d2.3"]["rungs"][1]["hole"] + ST["d2.3"]["nodes"][0] + ST["d2.3"]["rungs"][2]["hole"] + ST["d2.3"]["nodes"][1] + ST["d2.3"]["rungs"][3]["hole"] + ST["d2.3"]["nodes"][2]
@@ -241,18 +307,19 @@ ok &= len(_m) == 21 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m, _a))
 _m = _nums(S_XICONST); ok &= len(_m) == 3 and abs(_m[0] - XC["Xi0"]) <= 5e-6 + 1e-9 and abs(_m[1] - XC["int_Xi2"]) <= 5e-6 + 1e-9 and abs(_m[2] - XC["g0sq_limit"]) <= 5e-5 + 1e-9
 _m = _nums(S_EXTW); ok &= len(_m) == 7 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m, extw))
 _m = _nums(S_SLOPES); ok &= len(_m) == 3 and abs(_m[0] - sl_org) <= 5e-3 + 1e-9 and abs(_m[1] - sl_ext) <= 5e-3 + 1e-9 and abs(_m[2] - sl_c) <= 5e-3 + 1e-9
-_m = _nums(S_SHARE); ok &= len(_m) == 5 and all(abs(x - (1 - G[c]["shares"]["3"])) <= 5e-3 + 1e-9 for x, c in zip(_m, ORDER[2:]))
+_m = _nums(S_SHARE); ok &= len(_m) == 5 and all(abs(x - sh3[c]) <= 5e-3 + 1e-9 for x, c in zip(_m, ORDER[2:]))
 _m = _nums(S_TK.split(" over")[0]); _tk = [r["Tk"]/T0["d3.5"] for r in ST["d3.5"]["rungs"][:9]]; ok &= len(_m) == 2 and abs(_m[0] - _tk[0]) <= 5e-3 + 1e-9 and abs(_m[1] - _tk[8]) <= 5e-3 + 1e-9
 _m = _nums(S_SP.split(" from rung")[0]); _sp = [ST["d2.3"]["rungs"][k]["ln_lam"] - ST["d2.3"]["rungs"][k - 1]["ln_lam"] for k in range(1, 9)]
 ok &= len(_m) == 8 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m, _sp)) and abs(_nums(S_SP.split("4 ln T₀ = ")[1])[0] - 4*math.log(T0["d2.3"])) <= 5e-3 + 1e-9
-_pc = [int(x) for x in _re.findall(r"sign ([0-9]+), ([0-9]+), ([0-9]+) times", S_PAR)[0]]; _pm = _nums(S_PAR.split("being ")[1])
-ok &= [par[c][0] for c in ("d2.6", "d3.0", "d3.5")] == _pc and len(_pm) == 3 and all(abs(x - par[c][1]) <= 5e-3 + 1e-9 for x, c in zip(_pm, ("d2.6", "d3.0", "d3.5")))
+_pc = [int(x) for x in _re.findall(r"sign ([0-9]+), ([0-9]+), ([0-9]+) times", S_ALT)[0]]; ok &= [alt[c] for c in ("d2.6", "d3.0", "d3.5")] == _pc
+_pm = _nums(S_PAR.split(" at δ")[0]); ok &= len(_pm) == 8 and all(abs(x - par[c][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm[:4], par)) and all(abs(x - par[c][1]) <= 5e-3 + 1e-9 for x, c in zip(_pm[4:], par))
+_pm = _nums(S_CKPAR); ok &= len(_pm) == 4 and all(abs(x - par[c][2]) <= 5e-3 + 1e-9 for x, c in zip(_pm, par))
 _ns = [int(x) for x in _re.findall(r"[0-9]+", S_NSAFE.split(" rungs")[0])]; ok &= _ns == [len(safe_rungs(c)) for c in ORDER]
 _m = _nums(S_HOLE35.split(" against the nodes ")[0]) + _nums(S_HOLE35.split(" against the nodes ")[1])
 _h = [v for r in ST["d3.5"]["rungs"][1:5] for v in r["hole"]] + [v for n in ST["d3.5"]["nodes"][:4] for v in n]
 ok &= len(_m) == 20 and len(_h) == 20 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, _h))
 _m = _nums(S_FOURTH.split(" at δ")[0]); ok &= len(_m) == 4 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, fourth))
-gate("g7 the paper's numbers parsed back from the declared needles: the dodging edges (nearest 0.01 T_0), the curvatures (1e-4), ghat_1(0)^2 (1e-3), sqrt<r^2> (0.01), the hole zeros and nodes of rungs 2-4 at delta = 2.3 (1e-3), the first hole zeros (1e-3), the Xi-limit nodes (1e-3), c_k at delta = 2.3 (0.01), the anatomy (0.01), Xi's constants, the exterior weight and the slopes and the shares (0.01), the edge T_k (0.01), the steps at delta = 2.3 (0.01), the parity counts and means, the safe-rung counts, the delta = 3.5 zeros and nodes of rungs 2-5 (1e-3), rung 5's fourth zero (1e-3)", ok)
+gate("g7 the paper's numbers parsed back from the declared needles: the dodging edges (nearest 0.01 T_0), the curvatures (1e-4) and their limit (1e-6), epsilon (1e-5) and its range against ln T_D/T_D, ghat_1(0)^2 (1e-3), sqrt<r^2> (0.01), the hole zeros and nodes of rungs 2-4 at delta = 2.3 (1e-3), the first hole zeros (1e-3), the Xi-limit nodes (1e-3), c_k at delta = 2.3 (0.01), the anatomy (0.01), Xi's constants, the exterior weight and the slopes and the tail-inclusive shares (0.01), the edge T_k (0.01), the steps at delta = 2.3 (0.01), the sign-change counts, the parity means of the offsets, the formula's part and the residual (0.01), the safe-rung counts, the delta = 3.5 zeros and nodes of rungs 2-5 (1e-3), rung 5's fourth zero (1e-3)", ok)
 
 # ---------------------------------------------------------------- g8
 from cascade_tower import chain_ok

@@ -1,9 +1,9 @@
 {
-"script_sha256": "1ec13c2f6dbcdd48bcf9226cb3c7a6b774a8be713b550ec33bf13b5ec0840a47",
-"key": "88540cd352287973afbea6b5ca2e1484c6c7687120b502756d400471d0ad460d",
+"script_sha256": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
+"key": "1996e34543216ed757f1f10127611fe9b31584113184b24eade67df381ed9598",
 "params": {
 "deps": {
-"ladder_caster.py": "1ec13c2f6dbcdd48bcf9226cb3c7a6b774a8be713b550ec33bf13b5ec0840a47",
+"ladder_caster.py": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
 "weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5",
 "weil_spectrum_ladder.py": "db5677bf58d3e766130feaa4687b715ae07428768f3ac900791eab461fbc34b7"
 },
@@ -25,7 +25,7 @@
 "dip": 1e-06,
 "nodes_max": 12,
 "deep": -2.0,
-"round": 3
+"round": 5
 },
 "state": {
 "cell": "d1.0",
@@ -40,8 +40,22 @@
 "ln_lam1": -13.88247280312349,
 "ln_g0sq": -0.4628278976355751,
 "kappa": 0.014778481515376184,
-"r2_mean": 14.866679341843508,
+"r2_mean": 14.86667934184351,
 "first_missed": 25.01085758014569,
+"n_designed_real": 119,
+"K_minus_1": 119,
+"sum_rule": 0.014778481608496674,
+"sum_rule_residual": 9.31204904852656e-11,
+"R_ext": 1495.3981031087415,
+"missing_pair": null,
+"n_zeta_below_edge": 2,
+"n_located_below_edge": 2,
+"boundary_value": -0.0024119541195405303,
+"mass_beyond": {
+"TD/4": 0.10337296586621691,
+"TD/2": 0.0002425540172162778,
+"TD": 1.191021832512529e-06
+},
 "first_free": 25.195871801340605,
 "n_dodged": 2,
 "ln_zero_side_800": -13.902786939844589,
@@ -68,7 +82,7 @@
 ],
 [
 2.8281551363684185,
-8.489787467547103
+8.489787467547105
 ]
 ],
 "rungs": [
@@ -83,7 +97,7 @@
 {
 "k": 2,
 "ln_lam": -4.0155899495731715,
-"prolate_4k": -15.52190656277795,
+"prolate_4k": -4.976079615781958,
 "hole": [
 3.9169096099612237
 ],
@@ -95,7 +109,7 @@
 {
 "k": 3,
 "ln_lam": -0.18465512290585162,
-"prolate_4k": -4.976079615781958,
+"prolate_4k": -0.27940355337291456,
 "hole": [
 3.6727131753318845
 ],
@@ -128,10 +142,10 @@
 -8.779710461911672e-21,
 -1.0281633957670556e-22
 ],
-"gram_s": 5.723954677581787,
-"eig_s": 4.687644720077515,
-"ground_s": 11.173490524291992,
-"rungs_s": 0.24969482421875,
+"gram_s": 5.720593214035034,
+"eig_s": 4.719921827316284,
+"ground_s": 16.88761878013611,
+"rungs_s": 0.24100685119628906,
 "verdict": "COMPUTED (approximate eigenvectors; zeros located by sign change and bisection in balls at the working precision)"
 }
 }

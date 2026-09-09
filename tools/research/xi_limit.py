@@ -5,7 +5,8 @@ an even real entire function with Hadamard's product Xi(t)/Xi(0) = prod_gamma (1
 1/2 + i gamma (gamma paired with -gamma; complex gamma if RH fails, the product the same). Functions:
   Xi(t)                         by mpmath (30 digits)
   constants()                   Xi(0), int_R Xi^2 dt, the limit ghat_1(0)^2 = 2 pi Xi(0)^2/int Xi^2, <t^2> under Xi^2,
-                                K = 2 + gamma_E - ln 4 pi (Hadamard: sum_rho 1/(rho(1-rho))), 1/sqrt(2K), 2 sqrt(pi K)
+                                K = 2 + gamma_E - ln 4 pi (Hadamard: sum_rho 1/(rho(1-rho))), 1/sqrt(2K), 2 sqrt(pi K),
+                                the curvature -Xi''(0)/(2 Xi(0)) = sum gamma^-2 (not K/2: round 321 F3)
   nodes(mmax)                   the positive zeros of the even orthogonal polynomials P_{2m} of the weight Xi(t)^2 on R
                                 (Stieltjes in s = t^2 on Gauss-Legendre nodes of [0, R]), m = 1..mmax
   hadamard_check(t, zeros, N0)  ln[Xi(t)/Xi(0)] against sum_{gamma in the list} ln(1 - t^2/gamma^2) plus the smooth tail
@@ -30,10 +31,17 @@ def _grid():
     E = np.array([Xi(t) for t in x])
     return x, wq*E*E
 
+def curvature():
+    """-Xi''(0)/(2 Xi(0)) = sum_{gamma > 0} gamma^-2, the curvature of ln Xi at the origin (mpmath, 30 digits); it is not
+    K/2 = sum 1/(1/4 + gamma^2) -- the two differ by sum 1/(4 gamma^2 (gamma^2 + 1/4)) = 9.3e-6 (round 321 F3)."""
+    with mp.workdps(30):
+        f = lambda t: (lambda s: (s*(s - 1)/2*mp.pi**(-s/2)*mp.gamma(s/2)*mp.zeta(s)).real)(mp.mpc(0.5, t))
+        return float(-mp.diff(f, 0, 2)/(2*f(0)))
+
 def constants():
     x, w = _grid()
     X0 = Xi(0.0); I2 = 2*float(np.sum(w)); m2 = float(np.sum(w*x*x)/np.sum(w))
-    return {"Xi0": X0, "int_Xi2": I2, "g0sq_limit": 2*math.pi*X0*X0/I2, "t2_mean": m2, "K": K_HADAMARD,
+    return {"Xi0": X0, "int_Xi2": I2, "g0sq_limit": 2*math.pi*X0*X0/I2, "t2_mean": m2, "K": K_HADAMARD, "curvature": curvature(),
             "inv_sqrt_2K": 1/math.sqrt(2*K_HADAMARD), "two_sqrt_piK": 2*math.sqrt(math.pi*K_HADAMARD)}
 
 def nodes(mmax, x=None, w=None):
