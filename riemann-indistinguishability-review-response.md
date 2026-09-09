@@ -5586,4 +5586,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the six round-331 findings: the block's even-sector scope; the grid-error mechanism in two docstrings; N and the odd Gram in the head item and item 6; 'at fixed height' and (d)'s home; the direct bearers; one zero-side convention). Prose-and-docstring class. Brief `brief_round332.md`. Trajectory: 329 (0M+6m+6c) → 330 (0M+2m+5c) → 331 (0M+1m+5c).
 
+**Findings.** 0 MAJOR, 1 minor, 4 cosmetic; all five accepted and swept, one held observation taken (A494). Minor: F332-1 F331-1's scope closed on the block's bold sentence, open on the theorem's title and the verifier's docstring — both scoped (the primes at every cell and at the limit; the pole at the limit, at the cells in Theorem 1bt's sense). Cosmetic: F332-2 the endpoint error is the weights', not the nodes' (the first weight 2e-7 relative, verified by the lead), the sum Λ(n)n^{-1/2}-weighted, the degree dependence loose — restated; F332-3 the provenance label missing in one docstring — added; F332-4 item 11 among the direct bearers — added; F332-5 'under D_odd' in item 6 — added. Held observation taken: item 8's filter 'items 1–7'. Checked and held: the classification by hashing; every round-331 sweep closed; the head item's attributions; the cross-references; the numbers; the census.
+
+### Round 333 — the convergence test on the round-332 sweep
+
+**Scope.** The sweep commit (the five round-332 findings: the title's and the docstring's carrier scopes; the grid-error mechanism restated — weights, the weighted sum, the degree dependence; the provenance label; item 11 among the direct bearers; 'under D_odd'; item 8's filter). Prose-and-docstring class. Brief `brief_round333.md`. Trajectory: 329 (0M+6m+6c) → 330 (0M+2m+5c) → 331 (0M+1m+5c) → 332 (0M+1m+4c).
+
 **Findings.** Pending.

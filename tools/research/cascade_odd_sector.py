@@ -6,8 +6,9 @@ ladder sits at the prolate orders 4k + 2 -- the orders 2 mod 4 that the even
 sector cannot reach -- so the two sectors together fill every even prolate
 order from 4 on; its ground state's Ghat converges to Riemann's Xi, its hole
 zeros sit at the nodes of the orthogonal polynomials of the weight r^2 Ghat_1^2,
-and in its anatomy the primes carry the positivity the even sector's pole
-carries. Substrates odd_sector.py (keyed producer, seven cells and the
+and in its anatomy the primes carry the positivity (at every cell and at the Xi-limit)
+that the even sector's pole carries at the Xi-limit (at the cells in Theorem 1bt's sense:
+the pole-free even form is indefinite). Substrates odd_sector.py (keyed producer, seven cells and the
 self-test), weil_prime_gram_odd.py (the odd Gram, imported), xi_limit.py (the
 Xi side, imported); the even sector's checkpoints through ladder_caster.py
 (Theorem 1bu's producer, imported). Tower member 31 (top).
@@ -27,9 +28,10 @@ Theorem 1bu records no anatomy limits); the archimedean limits computed directly
 (1/2 pi) int |ghat|^2 [Re psi(1/4 + i r/2) - psi(1/4)] dr, against the remainder-defined values within
 1e-9 (the residuals 7e-11 even, 1e-13 odd at 3000 nodes). The even residual is the grid's endpoint error in the
 prime sum, not in the integrals: each f(ln n) = (1/2 pi) int Xi^2 cos(t ln n) dt carries the same offset of about
-4e-13 (the float64 accuracy of the degree-3000 Gauss-Legendre nodes at t = 0, where Xi^2 concentrates; it grows
-with the degree), replicated over the 60 prime powers <= 200 and scaled by 2 c^2 -- int Xi^2 itself is good to
-2e-12; t^2 Xi^2 kills the endpoint, hence the odd sector's 1e-13 (round 331 F331-2, a session decomposition). (2) THE ODD
+4e-13 (the float64 accuracy of the degree-3000 Gauss-Legendre WEIGHTS at the endpoint t = 0, where Xi^2
+concentrates -- the first weight's relative error 2e-7, the nodes exact to float64; the offset varies with the
+degree, 1e-12 at 4000-6000 nodes), summed with the weights Lambda(n) n^{-1/2} over the 60 prime powers <= 200
+(their sum 26.2) and scaled by 2 c^2 -- int Xi^2 itself is good to 2e-12; t^2 Xi^2 kills the endpoint, hence the odd sector's 1e-13 (round 331 F331-2, a session decomposition). (2) THE ODD
 GROUND STATE at the cells: the real-zero census of Ghat_1 (K - 2 designed pairs
 plus the sinc zeros; the sum rule; an unlocated pair placed), Hypothesis D_odd
 within the dodging tolerance, epsilon falling, Ghat_1(0)^2 rising toward and
