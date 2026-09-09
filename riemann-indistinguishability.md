@@ -7233,12 +7233,14 @@ zeros are K − 1 designed pairs, the roots of M, and the sinc zeros
 jπ/a, j ≥ K; the census locates all K − 1 designed pairs on the real line at δ = 1, 1.38, 2, 2.3, 2.6, 3 (no complex zero), the sum rule Σ_τ τ⁻² = κ closing within 10⁻¹⁶, and K − 2 of them at δ = 3.5, where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741 (the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells); and below T_D, the first
 zeta zero the ground state misses, the located zeros and the zeta zeros
 agree in number (each zeta zero has its dodging zero within 0.05; no
-zero is double — every designed root is located as a simple sign
-change, the count being complete) —
+zero is double — at the six complete cells every designed root is
+located as a simple sign change, and at δ = 3.5 the 538 located roots
+are simple while the one unlocated root, being single, is simple too) —
 the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀, its first free zero within 0.2 of it. D holds to the
 dodging tolerance, not exactly: the dodging zeros are displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043
-(the low half within 3 × 10⁻¹⁴ at δ ≥ 2, the double-precision floor
-of the zero list, gated; the displacement growing
+(the low half within 3 × 10⁻¹⁴ at δ ≥ 2 — the resolution of the
+double-precision zero list and of the bisection — gated; the
+displacement growing
 toward the edge), which adds below 10⁻⁴ to the bound at r = 3 at
 every cell (gated); from the located zeros, ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D — consistent
 with O(ln T_D/T_D), a rate not proved;
@@ -7254,10 +7256,10 @@ to Ξ's. *(iii) The hole zeros (computed, gated).* At every cell and
 every safely deep rung through rung 12 (the rung's own leakage
 ln(1 − χ_{2k}) < −20, Theorem 1br's threshold; 0, 0, 3, 6, 9, 11, 11 rungs at the cells; the census
 region, min(100, 0.8 × the rung's own dodging edge), covers the
-predicted nodes) the transform of rung k has exactly k − 1 real zeros
-that are not dodging zeros — one dodging zero per zeta zero removed, a
-double zero counted twice — the ground state none, by the census of
-(ii). The first three hole zeros of every rung lie in the zero-free
+predicted nodes) the transform of rung k has exactly k − 1 sign
+changes that are not dodging zeros — one dodging zero per zeta zero
+removed; simple zeros, a double zero giving no sign change and escaping
+the census — the ground state none, by the census of (ii). The first three hole zeros of every rung lie in the zero-free
 interval (0, γ₁ = 14.13); rung 5's fourth sits at the first zeta zero's
 height (15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5, crossing γ₁ between 3.0 and 3.5 toward its Ξ-limit
 13.670); rungs 6–7 have four and rungs 8–12 four or five below γ₁ at
@@ -7286,10 +7288,12 @@ even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0
 the point estimates (at δ = 3.5 within one standard error of zero),
 c_k's mean changes sign across the cells (by more than two standard
 errors between δ = 2.6 and 3.5), and the magnitude is shared — at δ =
-3.5 the residual's part is the larger; four to six rungs per parity,
+3.5 the residual's part is the larger; four to six rungs per parity 5/4, 6/5, 6/5,
 the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18 (at a balanced cell the raw mean difference equals the parity
-fitted with the trend removed; gated as the balance, the signs of the means of o_k and d_k
-and the residual's sign change; not modelled; δ = 2.3's six safely
+fitted with the trend removed; gated as the balance, the counts, the
+signs of the means of o_k and d_k, o_k's at 3.0 against 1br's, d_k's at
+3.5 within one standard error, the residual's sign change by more than
+two, and the standard errors' range; not modelled; δ = 2.3's six safely
 deep rungs give the parities unequal mean ranks and its raw means
 conflate trend and parity, so that cell is not used). *(v) What it says.* The +1 eigenspace and the four
 orders per rung are one fact: the excited states' extra zeros sit at

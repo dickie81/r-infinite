@@ -5538,4 +5538,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-323 sweep commit (prose residues in the block's (ii) and (iv); the verifier's docstring, two dead conjuncts removed, the low-half gate at the double-precision floor, the parity's counts and significance gated; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round324.md`.
 
+**Findings.** 0 MAJOR, 4 minor, 2 cosmetic; all six verified directly by the lead and accepted; swept in this commit (A485). **F324-1 (minor)** "every designed root is located as a simple sign change, the count being complete" false at δ = 3.5 (538 of 539) → the six-cell count and the δ = 3.5 argument (one unlocated root of a real polynomial, single hence simple) stated. **F324-2 (minor)** (iii)'s "a double zero counted twice" and the docstring's (3) kept the dip credit → "sign changes … simple zeros, a double zero giving no sign change and escaping the census". **F324-3 (minor)** the g2 label's "fires nowhere" was a literal → the seven stored counts printed. **F324-4 (minor)** the 4–6 count conjunct could not fail → replaced by the needle "rungs per parity 5/4, 6/5, 6/5" parsed back exactly. **F324-5 (cosmetic)** the floor attributed to the zero list alone → "the resolution of the double-precision zero list and of the bisection". **F324-6 (cosmetic)** the "gated as" enumeration completed. Convergence-test round 325 commissioned.
+
+### Round 325 — convergence test on the round-324 sweep (Theorem 1bu)
+
+**Scope.** The round-324 sweep commit (four prose residues in the block's (ii)–(iv); the verifier's docstring, the g2 label printing the dip counts, the count conjunct replaced by a parsed needle; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round325.md`.
+
 **Findings.** Pending.

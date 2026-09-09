@@ -22,12 +22,13 @@ pairs of the ground state's transform located on the real line at every
 cell with the sum rule kappa = sum tau^-2 closing within 1e-16, or K - 2
 located and the one unlocated pair placed beyond the region by the sum
 rule; the located zeros below the edge matching the zeta zeros below it
-one to one (no zero double: every designed root a simple sign change, the
-count complete) -- with the first zeta zero the ground state misses and its
+one to one (no zero double: at the six complete cells every designed root a
+simple sign change; at delta = 3.5 the 538 located roots simple and the one
+unlocated root, being single, simple too) -- with the first zeta zero the ground state misses and its
 first free zero within 0.2 of each other and at >= 1.4 T_0; D WITHIN THE DODGING
 TOLERANCE (round 322 F322-1): the dodging zeros' displacements below the edge
-stated per cell, the low half within 3e-14 at delta >= 2 (the double list's
-floor), their contribution to the bound at r = 3 below 1e-4; epsilon(delta) =
+stated per cell, the low half within 3e-14 at delta >= 2 (the resolution of
+the double list and of the bisection), their contribution to the bound at r = 3 below 1e-4; epsilon(delta) =
 sum_{|tau| >= T_D} tau^-2 + sum_{gamma >= T_D} gamma^-2 from the located zeros
 (the zeta tail beyond the 800 by the density) falling across the cells, between 0.18 and 0.24 of ln T_D/T_D (the
 rate is not proved: round 321 F5); the exterior mass beyond T_D/2 and T_D at
@@ -37,8 +38,9 @@ the cells and below sum gamma^-2 = -Xi''(0)/(2 Xi(0)) = 0.023105 (not K/2 =
 3.195. (3) THE HOLE ZEROS: at every safely deep rung up to rung 12 (its OWN
 leakage ln(1 - chi_{2k}) < -20, order 4k = index 2k of the even list -- F1;
 Theorem 1br's threshold) the transform of rung k has exactly k - 1 hole zeros
-(the real zeros below min(100, 0.8 x the rung's dodging edge) left after one
-dodging zero per zeta zero is removed; a double zero counted twice) and the
+(the sign changes below min(100, 0.8 x the rung's dodging edge) left after one
+dodging zero per zeta zero is removed -- simple zeros; a double zero, giving no
+sign change, would escape the census) and the
 census region covers the predicted nodes (the weight for the nodes now evaluated in balls: F10);
 the ground state has none by the census of (2); the first three hole zeros of
 every safely deep rung lie below the first zeta zero, rungs 6-7 have four and
@@ -54,7 +56,7 @@ change sign at least twice (not monotone); THE PARITY (round 321 F2, round 322
 F322-2, round 323 F323-1/7): the offsets o_k = ln lambda_k - ln(1 - chi_{2k})
 of Theorem 1br(ii) split as c_k + d_k with d_k = F_k - ln(1 - chi_{2k}); at the
 three balanced cells (delta = 2.6, 3.0, 3.5: the two parities' mean ranks equal,
-four to six rungs per parity) the even-minus-odd means of o_k and of d_k are
+the rungs per parity 5/4, 6/5, 6/5 stated and parsed back) the even-minus-odd means of o_k and of d_k are
 positive, o_k's at delta = 3.0 within 0.02 of 1br(ii)'s +0.22, d_k's at 3.5
 within one standard error of zero, c_k's mean changes sign across the cells by
 more than two standard errors; the standard errors (residuals about a linear
@@ -111,6 +113,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5', 'form': 'ws'},
     {'g': 'g7', 's': 'against the residual c_k −0.31, −0.03, +0.11', 'form': 'ws'},
     {'g': 'g7', 's': 'the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18', 'form': 'ws'},
+    {'g': 'g7', 's': 'rungs per parity 5/4, 6/5, 6/5', 'form': 'ws'},
     {'g': 'g7', 's': '0, 0, 3, 6, 9, 11, 11 rungs at the cells', 'form': 'ws'},
     {'g': 'g7', 's': '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'form': 'ws'},
     {'g': 'g7', 's': '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'form': 'ws'},
@@ -182,7 +185,7 @@ kap = [G[c]["kappa"] for c in ORDER]; g0 = [math.exp(G[c]["ln_g0sq"]) for c in O
 ok &= all(kap[i] < kap[i + 1] for i in range(6)) and kap[-1] < XC["curvature"]               # toward sum gamma^-2, not K/2 (F3)
 ok &= all(g0[i] < g0[i + 1] for i in range(6)) and g0[-1] < XC["g0sq_limit"]
 ok &= all(r2[i] > r2[i + 1] for i in range(6)) and r2[-1] > math.sqrt(XC["t2_mean"])
-gate("g2 the limit shape at the cells: Hypothesis D by the real-zero census, within the dodging tolerance (the dodging zeros displaced from the zeta zeros by at most " + ", ".join(f"{G[c]['disp_max']:.1e}" for c in ORDER) + ", the low half by at most " + ", ".join(f"{G[c]['disp_max_low']:.0e}" if G[c]["disp_max_low"] is not None else "-" for c in ORDER) + ", adding at most " + f"{max(G[c]['disp_term_r3'] for c in ORDER):.1e}" + " to the bound at r = 3; the dip detector fires nowhere -- recorded, not the evidence) (designed zero pairs located " + ", ".join(f"{G[c]['n_designed_real']}/{G[c]['K_minus_1']}" for c in ORDER) + " within " + ", ".join(f"{G[c]['R_ext']:.0f}" for c in ORDER) + "; the sum rule's residual " + ", ".join(f"{G[c]['sum_rule_residual']:.1e}" for c in ORDER) + "; unlocated pairs placed by the sum rule: " + (", ".join(f"{c}: |tau| = {G[c]['missing_pair']['abs_tau']:.0f} ({'real' if G[c]['missing_pair']['real'] else 'imaginary'})" for c in ORDER if G[c]["missing_pair"] is not None) or "none") + "; located/zeta zeros below the edge " + ", ".join(f"{G[c]['n_located_below_edge']}/{G[c]['n_zeta_below_edge']}" for c in ORDER) + "); the first missed zeta zero and the first free zero within 0.2, at " + ", ".join(f"{G[c]['first_missed']/T0[c]:.2f}" for c in ORDER) + " T_0; epsilon " + ", ".join(f"{e:.5f}" for e in eps) + " falling, " + ", ".join(f"{x:.2f}" for x in ratio) + " of ln T_D/T_D; the mass beyond T_D/2 and T_D at most " + f"{max(G[c]['mass_beyond']['TD/2'] for c in ORDER):.1e} and {max(G[c]['mass_beyond']['TD'] for c in ORDER):.1e}" + "; the curvature " + ", ".join(f"{k:.4f}" for k in kap) + f" rising toward sum gamma^-2 = {XC['curvature']:.6f} (K/2 = {XC['K']/2:.6f}); ghat_1(0)^2 " + ", ".join(f"{v:.3f}" for v in g0) + f" rising toward {XC['g0sq_limit']:.4f}; sqrt<r^2> " + ", ".join(f"{v:.3f}" for v in r2) + f" falling toward {math.sqrt(XC['t2_mean']):.3f}", ok)
+gate("g2 the limit shape at the cells: Hypothesis D by the real-zero census, within the dodging tolerance (the dodging zeros displaced from the zeta zeros by at most " + ", ".join(f"{G[c]['disp_max']:.1e}" for c in ORDER) + ", the low half by at most " + ", ".join(f"{G[c]['disp_max_low']:.0e}" if G[c]["disp_max_low"] is not None else "-" for c in ORDER) + ", adding at most " + f"{max(G[c]['disp_term_r3'] for c in ORDER):.1e}" + " to the bound at r = 3; the dip detector's counts " + ", ".join(str(G[c]["n_dips_census"]) for c in ORDER) + " -- recorded, not the evidence) (designed zero pairs located " + ", ".join(f"{G[c]['n_designed_real']}/{G[c]['K_minus_1']}" for c in ORDER) + " within " + ", ".join(f"{G[c]['R_ext']:.0f}" for c in ORDER) + "; the sum rule's residual " + ", ".join(f"{G[c]['sum_rule_residual']:.1e}" for c in ORDER) + "; unlocated pairs placed by the sum rule: " + (", ".join(f"{c}: |tau| = {G[c]['missing_pair']['abs_tau']:.0f} ({'real' if G[c]['missing_pair']['real'] else 'imaginary'})" for c in ORDER if G[c]["missing_pair"] is not None) or "none") + "; located/zeta zeros below the edge " + ", ".join(f"{G[c]['n_located_below_edge']}/{G[c]['n_zeta_below_edge']}" for c in ORDER) + "); the first missed zeta zero and the first free zero within 0.2, at " + ", ".join(f"{G[c]['first_missed']/T0[c]:.2f}" for c in ORDER) + " T_0; epsilon " + ", ".join(f"{e:.5f}" for e in eps) + " falling, " + ", ".join(f"{x:.2f}" for x in ratio) + " of ln T_D/T_D; the mass beyond T_D/2 and T_D at most " + f"{max(G[c]['mass_beyond']['TD/2'] for c in ORDER):.1e} and {max(G[c]['mass_beyond']['TD'] for c in ORDER):.1e}" + "; the curvature " + ", ".join(f"{k:.4f}" for k in kap) + f" rising toward sum gamma^-2 = {XC['curvature']:.6f} (K/2 = {XC['K']/2:.6f}); ghat_1(0)^2 " + ", ".join(f"{v:.3f}" for v in g0) + f" rising toward {XC['g0sq_limit']:.4f}; sqrt<r^2> " + ", ".join(f"{v:.3f}" for v in r2) + f" falling toward {math.sqrt(XC['t2_mean']):.3f}", ok)
 
 # ---------------------------------------------------------------- g3
 ok = True; worst_rel = 0.0; nsafe = 0; below = {}
@@ -231,7 +234,7 @@ for c in ORDER:
             return float(a_.mean() - b_.mean()), float(math.sqrt(s2*(1/len(a_) + 1/len(b_))))
         par[c] = (_em(lambda r: r["ln_lam"] - pro[2*r["k"]]), _em(lambda r: r["Fk"] - pro[2*r["k"]]), _em(lambda r: r["ck"]))
         ok &= par[c][0][0] > 0 and par[c][1][0] > 0                                             # even above odd in the offsets and in the formula's part (point estimates)
-        cnt[c] = (len(ev), len(od)); ok &= 4 <= len(ev) <= 6 and 4 <= len(od) <= 6            # four to six rungs per parity (F323-1)
+        cnt[c] = (len(ev), len(od))                                                             # the rungs per parity, stated in the block and parsed back in g7 (F323-1, F324-4)
 ok &= list(alt) == ["d2.6", "d3.0", "d3.5"] and list(par) == ["d2.6", "d3.0", "d3.5"] and abs(par["d3.0"][0][0] - 0.22) <= 0.02
 ses = [par[c][i][1] for c in par for i in range(3)]; ok &= max(ses) <= 0.25 and min(ses) >= 0.05
 ok &= not all(par[c][2][0] > 0 for c in par) and not all(par[c][2][0] < 0 for c in par)          # the residual's parity changes sign across the cells
@@ -289,6 +292,7 @@ S_ALT = 'change sign 4, 5, 3 times at δ = 2.6, 3.0, 3.5'
 S_PAR = 'even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5'
 S_CKPAR = 'against the residual c_k −0.31, −0.03, +0.11'
 S_SE = 'the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18'
+S_CNT = 'rungs per parity 5/4, 6/5, 6/5'
 S_NSAFE = '0, 0, 3, 6, 9, 11, 11 rungs at the cells'
 S_HOLE35 = '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095'
 S_FOURTH = '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5'
@@ -318,10 +322,11 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'change sign 4, 5, 3 times at δ = 2.6
 ok &= paper_needles.needle(PAPER_NEEDLES, 'even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'against the residual c_k −0.31, −0.03, +0.11', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'rungs per parity 5/4, 6/5, 6/5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '0, 0, 3, 6, 9, 11, 11 rungs at the cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_EDGE, S_KAPPA, S_CURV, S_EPS, S_DISP, S_MISS, S_RESID, S_G0, S_R2, S_HOLE23, S_FIRST, S_XINODES, S_CK, S_ANAT, S_XICONST, S_EXTW, S_SLOPES, S_SHARE, S_TK, S_SP, S_ALT, S_PAR, S_CKPAR, S_SE, S_NSAFE, S_HOLE35, S_FOURTH]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_EDGE, S_KAPPA, S_CURV, S_EPS, S_DISP, S_MISS, S_RESID, S_G0, S_R2, S_HOLE23, S_FIRST, S_XINODES, S_CK, S_ANAT, S_XICONST, S_EXTW, S_SLOPES, S_SHARE, S_TK, S_SP, S_ALT, S_PAR, S_CKPAR, S_SE, S_CNT, S_NSAFE, S_HOLE35, S_FOURTH]
 _re = __import__("re")
 def _num(s): return float(s.strip().replace('−', '-'))
 def _nums(s, pat=r"([-−]?[0-9]+\.[0-9]+)"): return [_num(x) for x in _re.findall(pat, s)]
@@ -354,13 +359,14 @@ _pc = [int(x) for x in _re.findall(r"sign ([0-9]+), ([0-9]+), ([0-9]+) times", S
 _pm = _nums(S_PAR.split(" at δ")[0]); ok &= len(_pm) == 6 and all(abs(x - par[c][0][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm[:3], par)) and all(abs(x - par[c][1][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm[3:], par))
 _pm = _nums(S_CKPAR); ok &= len(_pm) == 3 and all(abs(x - par[c][2][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm, par))
 _se = _nums(S_SE); ok &= len(_se) == 2 and abs(_se[0] - min(ses)) <= 5e-3 + 1e-9 and abs(_se[1] - max(ses)) <= 5e-3 + 1e-9                             # the standard errors' range (0.01)
+_cn = [(int(a), int(b)) for a, b in _re.findall(r"([0-9]+)/([0-9]+)", S_CNT)]; ok &= _cn == [cnt[c] for c in par]                                   # the rungs per parity (exact)
 _dm = _nums(S_DISP); ok &= len(_dm) == 7 and all(abs(x - G[c]["disp_max"]) <= 5e-4 + 1e-9 for x, c in zip(_dm, ORDER))                              # the displacements (nearest 1e-3)
 _ns = [int(x) for x in _re.findall(r"[0-9]+", S_NSAFE.split(" rungs")[0])]; ok &= _ns == [len(safe_rungs(c)) for c in ORDER]
 _m = _nums(S_HOLE35.split(" against the nodes ")[0]) + _nums(S_HOLE35.split(" against the nodes ")[1])
 _h = [v for r in ST["d3.5"]["rungs"][1:5] for v in r["hole"]] + [v for n in ST["d3.5"]["nodes"][:4] for v in n]
 ok &= len(_m) == 20 and len(_h) == 20 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, _h))
 _m = _nums(S_FOURTH.split(" at δ")[0]); ok &= len(_m) == 4 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m, fourth))
-gate("g7 the paper's numbers parsed back from the declared needles: the dodging edges (nearest 0.01 T_0), the curvatures (1e-4) and their limit (1e-6), epsilon (1e-5) and its range against ln T_D/T_D, ghat_1(0)^2 (1e-3), sqrt<r^2> (0.01), the hole zeros and nodes of rungs 2-4 at delta = 2.3 (1e-3), the first hole zeros (1e-3), the Xi-limit nodes (1e-3), c_k at delta = 2.3 (0.01), the anatomy (0.01), Xi's constants, the exterior weight and the slopes and the tail-inclusive shares (0.01), the edge T_k (0.01), the steps at delta = 2.3 (0.01), the sign-change counts, the parity means of the offsets, the formula's part and the residual (0.01) and their standard errors' range (0.01), the dodging displacements (1e-3), the safe-rung counts, the delta = 3.5 zeros and nodes of rungs 2-5 (1e-3), rung 5's fourth zero (1e-3)", ok)
+gate("g7 the paper's numbers parsed back from the declared needles: the dodging edges (nearest 0.01 T_0), the curvatures (1e-4) and their limit (1e-6), epsilon (1e-5) and its range against ln T_D/T_D, ghat_1(0)^2 (1e-3), sqrt<r^2> (0.01), the hole zeros and nodes of rungs 2-4 at delta = 2.3 (1e-3), the first hole zeros (1e-3), the Xi-limit nodes (1e-3), c_k at delta = 2.3 (0.01), the anatomy (0.01), Xi's constants, the exterior weight and the slopes and the tail-inclusive shares (0.01), the edge T_k (0.01), the steps at delta = 2.3 (0.01), the sign-change counts, the parity means of the offsets, the formula's part and the residual (0.01) and their standard errors' range (0.01), the rungs per parity (exact), the dodging displacements (1e-3), the safe-rung counts, the delta = 3.5 zeros and nodes of rungs 2-5 (1e-3), rung 5's fourth zero (1e-3)", ok)
 
 # ---------------------------------------------------------------- g8
 from cascade_tower import chain_ok
