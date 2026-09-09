@@ -5515,3 +5515,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Scope.** The round-319 sweep commit. Full-tower class (verifier executable lines; manifest). Brief `brief_round320.md`.
 
 **Findings.** 0 MAJOR, 0 minor, 3 cosmetic — **converged** (A480): F320-1 the concavity clause's per-arc conclusion loosened to what the mathematics gives (52 arcs still rising at their right end; the extrema's positions now searched over every endpoint, stated and pinned: the minimum at the zero 48.01, the maximum interior at T = 44.54); F320-2 the dead coverage conjunct replaced by a check against the list; F320-3 the gated-in-bands / pinned census made exact. All three swept in the convergence commit with a full battery: members 9/9, 9/9; manifest 29; TOWER PASS 29/29. **Trajectory: 317 (the landing of 1bs, 1bt): 1M+7m+5c → 318: 0M+4m+7c → 319: 0M+2m+2c → 320: 0M+0m+3c — Theorems 1bs, 1bt stable at 09437d32.**
+
+### Round 321 — the landing of Theorem 1bu (the ladder's caster)
+
+**Scope.** The landing commit (one theorem block after Theorem 1bt with two proved parts — the pair-cost lemma and the Ξ-limit of the ground state under Hypothesis D — and the computed hole-zero ladder, the k-level formula with the parity located in its residual, and c(δ)'s anatomy; the footer census 97 / 1i–1bu with the verifier, a three-instrument substrate clause and three classical inputs; verifier `cascade_ladder_caster.py` (member 30, top); substrates `ladder_caster.py` (keyed, seven cells), `xi_limit.py`, `zeta_zeros_precise.py` (data: the 800 zeros to 100 digits); the census literals advanced across the tower; manifest 30). Full-tower class (a landing; every member live). The landing spans the commits after 2539e3b5 (three WIP commits and the landing commit). Brief `brief_round321.md`. Commissioned by the owner: "Hit the open items." (A481).
+
+**Findings.** Pending.
