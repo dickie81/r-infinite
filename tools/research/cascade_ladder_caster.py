@@ -81,26 +81,28 @@ PAPER_NEEDLES = [
     {'s': 'the **97 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
     {'s': 'extended by Theorems 1i–1bu:', 'form': 'ws', 'g': 'g9'},
     {'g': 'g7', 's': 'the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_KAPPA@', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_CURV@', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_EPS@', 'form': 'ws'},
+    {'g': 'g7', 's': 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward Σ_γ γ⁻² = 0.0231', 'form': 'ws'},
+    {'g': 'g7', 's': 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096', 'form': 'ws'},
+    {'g': 'g7', 's': 'ε = 0.02335, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D', 'form': 'ws'},
+    {'g': 'g7', 's': 'K − 2 of them at δ = 3.5, where the sum rule places the one pair beyond the region: |τ| = 14876, real, against the region 7741', 'form': 'ws'},
+    {'g': 'g7', 's': 'the residual there, 4.5 × 10⁻⁹, twenty times the closure elsewhere', 'form': 'ws'},
     {'g': 'g7', 's': 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193', 'form': 'ws'},
     {'g': 'g7', 's': 'the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195', 'form': 'ws'},
     {'g': 'g7', 's': 'the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_CK@', 'form': 'ws'},
+    {'g': 'g7', 's': 'c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37 over rungs 1–7 at δ = 2.3', 'form': 'ws'},
     {'g': 'g7', 's': 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27', 'form': 'ws'},
     {'g': 'g7', 's': 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10', 'form': 'ws'},
     {'g': 'g7', 's': 'slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_SHARE@', 'form': 'ws'},
+    {'g': 'g7', 's': '0.42, 0.40, 0.43, 0.44, 0.48 of Q beyond 3T₀ at δ ≥ 2, the far tail beyond γ₈₀₀ included', 'form': 'ws'},
     {'g': 'g7', 's': 'from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5', 'form': 'ws'},
     {'g': 'g7', 's': 'the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_ALT@', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_PAR@', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_CKPAR@', 'form': 'ws'},
-    {'g': 'g7', 's': '@S_NSAFE@', 'form': 'ws'},
+    {'g': 'g7', 's': 'change sign 4, 5, 3 times at δ = 2.6, 3.0, 3.5', 'form': 'ws'},
+    {'g': 'g7', 's': 'even minus odd means of the offsets o_k +0.27, +0.08, +0.21, +0.16 and of d_k +0.20, +0.39, +0.24, +0.06 at δ = 2.3, 2.6, 3.0, 3.5', 'form': 'ws'},
+    {'g': 'g7', 's': 'against the residual c_k +0.07, −0.31, −0.03, +0.11', 'form': 'ws'},
+    {'g': 'g7', 's': '0, 0, 3, 6, 9, 11, 11 rungs at the cells', 'form': 'ws'},
     {'g': 'g7', 's': '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'form': 'ws'},
     {'g': 'g7', 's': '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'form': 'ws'},
 ]
@@ -159,7 +161,7 @@ for c in ORDER:
     # outside the disc |r| < T_D either way); the located zeros below the edge and the zeta zeros below it equal in number (every zeta zero
     # below the edge has one, a double zero would count twice)
     cen = g["n_designed_real"] == g["K_minus_1"] and abs(g["sum_rule_residual"]) <= 1e-8
-    cen |= g["n_designed_real"] == g["K_minus_1"] - 1 and g["missing_pair"] is not None and g["missing_pair"]["abs_tau"] >= g["R_ext"]
+    cen |= g["n_designed_real"] == g["K_minus_1"] - 1 and g["missing_pair"] is not None and g["missing_pair"]["abs_tau"] >= g["R_ext"] and abs(g["sum_rule_residual"]) >= 1e-9   # the residual well above the curvature's finite-difference closure (<= 3e-10 where all pairs are located)
     ok &= cen and g["n_located_below_edge"] == g["n_zeta_below_edge"]
     ok &= g["mass_beyond"]["TD/2"] <= 1e-3 and g["mass_beyond"]["TD"] <= 1e-5                # the exterior mass (F6)
 eps = [_eps(c) for c in ORDER]; ratio = [eps[i]/(math.log(G[c]["first_missed"])/G[c]["first_missed"]) for i, c in enumerate(ORDER)]
@@ -240,54 +242,58 @@ gate(f"g6 mangle probes: the first rung spacing at delta = 2.3 and 3.5 lies in (
 # ---------------------------------------------------------------- g7
 import paper_needles
 S_EDGE = 'the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀'
-S_KAPPA = '@S_KAPPA@'
-S_CURV = '@S_CURV@'
-S_EPS = '@S_EPS@'
+S_KAPPA = 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward Σ_γ γ⁻² = 0.0231'
+S_CURV = 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096'
+S_EPS = 'ε = 0.02335, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D'
+S_MISS = 'K − 2 of them at δ = 3.5, where the sum rule places the one pair beyond the region: |τ| = 14876, real, against the region 7741'
+S_RESID = 'the residual there, 4.5 × 10⁻⁹, twenty times the closure elsewhere'
 S_G0 = 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729'
 S_R2 = '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19'
 S_HOLE23 = 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193'
 S_FIRST = 'the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195'
 S_XINODES = 'the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670'
-S_CK = '@S_CK@'
+S_CK = 'c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37 over rungs 1–7 at δ = 2.3'
 S_ANAT = 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27'
 S_XICONST = 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729'
 S_EXTW = 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10'
 S_SLOPES = 'slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26'
-S_SHARE = '@S_SHARE@'
+S_SHARE = '0.42, 0.40, 0.43, 0.44, 0.48 of Q beyond 3T₀ at δ ≥ 2, the far tail beyond γ₈₀₀ included'
 S_TK = 'from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5'
 S_SP = 'the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55'
-S_ALT = '@S_ALT@'
-S_PAR = '@S_PAR@'
-S_CKPAR = '@S_CKPAR@'
-S_NSAFE = '@S_NSAFE@'
+S_ALT = 'change sign 4, 5, 3 times at δ = 2.6, 3.0, 3.5'
+S_PAR = 'even minus odd means of the offsets o_k +0.27, +0.08, +0.21, +0.16 and of d_k +0.20, +0.39, +0.24, +0.06 at δ = 2.3, 2.6, 3.0, 3.5'
+S_CKPAR = 'against the residual c_k +0.07, −0.31, −0.03, +0.11'
+S_NSAFE = '0, 0, 3, 6, 9, 11, 11 rungs at the cells'
 S_HOLE35 = '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095'
 S_FOURTH = '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the first missed zero at 1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_KAPPA@', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_CURV@', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_EPS@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward Σ_γ γ⁻² = 0.0231', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'ε = 0.02335, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'K − 2 of them at δ = 3.5, where the sum rule places the one pair beyond the region: |τ| = 14876, real, against the region 7741', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the residual there, 4.5 × 10⁻⁹, twenty times the closure elsewhere', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 2.3 rung 2 at 3.329 against the node 3.328, rung 3 at 2.413, 7.374 against 2.410, 7.366, rung 4 at 2.011, 6.061, 10.221 against 2.005, 6.045, 10.193', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the first hole zero 3.917, 3.594, 3.383, 3.329, 3.292, 3.258, 3.233 falls toward the Ξ-limit 3.195', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the Ξ-limit nodes 3.195; 2.321, 7.124; 1.908, 5.759, 9.730; 1.725, 5.200, 8.781, 13.670', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_CK@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'c_k = 6.45, 5.80, 5.60, 5.01, 4.88, 4.26, 4.37 over rungs 1–7 at δ = 2.3', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'origin −0.46, −0.38, −0.32, −0.30, −0.29, −0.28, −0.27; peak excess 3.86, 4.02, 4.31, 4.48, 4.73, 4.56, 4.83; count 1.30, 1.59, 2.06, 2.28, 2.25, 3.07, 3.27', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Ξ(0) = 0.49712, ∫Ξ² = 2.00906, 2πΞ(0)²/∫Ξ² = 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the exterior weight in units of the balayage level 5.16, 5.60, 6.36, 6.76, 6.99, 7.63, 8.10', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'slopes against ln T₀ over the cells 0.07 (the origin) and 1.19 (the exterior weight), summing to the slope of c, 1.26', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_SHARE@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '0.42, 0.40, 0.43, 0.44, 0.48 of Q beyond 3T₀ at δ ≥ 2, the far tail beyond γ₈₀₀ included', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'from 2.02 T₀ to 1.81 T₀ over the first nine rungs at δ = 3.5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the steps 16.50, 14.72, 13.23, 11.77, 11.19, 9.61, 8.70, 7.42 from rung 1 to rung 9 at δ = 2.3 against 4 ln T₀ = 16.55', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_ALT@', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_PAR@', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_CKPAR@', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '@S_NSAFE@', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'change sign 4, 5, 3 times at δ = 2.6, 3.0, 3.5', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'even minus odd means of the offsets o_k +0.27, +0.08, +0.21, +0.16 and of d_k +0.20, +0.39, +0.24, +0.06 at δ = 2.3, 2.6, 3.0, 3.5', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'against the residual c_k +0.07, −0.31, −0.03, +0.11', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '0, 0, 3, 6, 9, 11, 11 rungs at the cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_EDGE, S_KAPPA, S_CURV, S_EPS, S_G0, S_R2, S_HOLE23, S_FIRST, S_XINODES, S_CK, S_ANAT, S_XICONST, S_EXTW, S_SLOPES, S_SHARE, S_TK, S_SP, S_ALT, S_PAR, S_CKPAR, S_NSAFE, S_HOLE35, S_FOURTH]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == [S_EDGE, S_KAPPA, S_CURV, S_EPS, S_MISS, S_RESID, S_G0, S_R2, S_HOLE23, S_FIRST, S_XINODES, S_CK, S_ANAT, S_XICONST, S_EXTW, S_SLOPES, S_SHARE, S_TK, S_SP, S_ALT, S_PAR, S_CKPAR, S_NSAFE, S_HOLE35, S_FOURTH]
 _re = __import__("re")
 def _num(s): return float(s.strip().replace('−', '-'))
 def _nums(s, pat=r"([-−]?[0-9]+\.[0-9]+)"): return [_num(x) for x in _re.findall(pat, s)]
@@ -296,6 +302,10 @@ _m = _nums(S_KAPPA); ok &= len(_m) == 8 and all(abs(x - k) <= 5e-5 + 1e-9 for x,
 _m = _nums(S_CURV); ok &= len(_m) == 2 and abs(_m[0] - XC["curvature"]) <= 5e-7 + 1e-9 and abs(_m[1] - XC["K"]/2) <= 5e-7 + 1e-9                          # nearest 1e-6
 _m = _nums(S_EPS.split(" at the cells")[0]); ok &= len(_m) == 7 and all(abs(x - e) <= 5e-6 + 1e-9 for x, e in zip(_m, eps))                                 # nearest 1e-5
 _r = _nums(S_EPS.split(" at the cells")[1]); ok &= len(_r) == 2 and _r[0] <= min(ratio) + 5e-3 + 1e-9 and _r[1] >= max(ratio) - 5e-3 - 1e-9
+_i = [int(x) for x in _re.findall(r"[0-9]+", S_MISS)]; _mp = G["d3.5"]["missing_pair"]                                                        # the K - 2 branch at delta = 3.5: |tau| and the region, nearest integers
+ok &= _mp is not None and [c for c in ORDER if G[c]["n_designed_real"] == G[c]["K_minus_1"] - 1] == ["d3.5"] and abs(_i[-2] - _mp["abs_tau"]) <= 0.5 + 1e-9 and _i[-1] == round(G["d3.5"]["R_ext"]) and _mp["real"] and abs(G["d3.5"]["sum_rule_residual"]) >= 1e-9
+_r = _nums(S_RESID); _oth = max(abs(G[c]["sum_rule_residual"]) for c in ORDER if c != "d3.5")                                                  # the residual in units of 1e-9 (nearest 0.1) and "twenty times" the closure elsewhere
+ok &= len(_r) == 1 and abs(_r[0] - abs(G["d3.5"]["sum_rule_residual"])*1e9) <= 0.05 + 1e-9 and 15 <= abs(G["d3.5"]["sum_rule_residual"])/_oth <= 25
 _m = _nums(S_G0); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m[:7], g0)) and abs(_m[7] - XC["g0sq_limit"]) <= 5e-4 + 1e-9
 _m = _nums(S_R2); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-3 + 1e-9 for x, v in zip(_m[:7], r2)) and abs(_m[7] - math.sqrt(XC["t2_mean"])) <= 5e-3 + 1e-9
 _m = _nums(S_HOLE23.split(" rung 2 at ")[1]); _h = ST["d2.3"]["rungs"][1]["hole"] + ST["d2.3"]["nodes"][0] + ST["d2.3"]["rungs"][2]["hole"] + ST["d2.3"]["nodes"][1] + ST["d2.3"]["rungs"][3]["hole"] + ST["d2.3"]["nodes"][2]

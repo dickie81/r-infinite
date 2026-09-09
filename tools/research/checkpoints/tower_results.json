@@ -323,6 +323,12 @@
 "rc": 0,
 "when": "2026-08-28T09:24Z"
 },
+"12571755e7610d8c8411194f": {
+"dt": 13.964176416397095,
+"file": "cascade_ladder_caster.py",
+"rc": 0,
+"when": "2026-09-09T14:26Z"
+},
 "12bea93b4f0268e66e610c4e": {
 "dt": 5.8821189403533936,
 "file": "cascade_twosided_witness.py",
