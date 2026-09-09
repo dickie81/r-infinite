@@ -8089,7 +8089,7 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
 8. **The cross-L-function test as a filter.** Theorem 1bq carries the true
    form, the finite-δ formula, the knife-edge and the linear-response law to
    four other L-functions at the same cells, with the count constant c_L of
-   Theorem 1bs per function. Any prime-side argument for items 1–7 must
+   Theorem 1bs per function. Any prime-side argument for items 1–7 and 11 must
    survive this family; a feature specific to ζ would be diagnostic. Done
    when: the shadow and the caster (Theorems 1br, 1bu) verified for the
    family. Bears on the wall through the generalised Riemann Hypothesis: a

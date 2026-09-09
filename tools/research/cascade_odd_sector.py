@@ -31,7 +31,8 @@ prime sum, not in the integrals: each f(ln n) = (1/2 pi) int Xi^2 cos(t ln n) dt
 4e-13 (the float64 accuracy of the degree-3000 Gauss-Legendre WEIGHTS at the endpoint t = 0, where Xi^2
 concentrates -- the first weight's relative error 2e-7, the nodes exact to float64; the offset varies with the
 degree, 1e-12 at 4000-6000 nodes), summed with the weights Lambda(n) n^{-1/2} over the 60 prime powers <= 200
-(their sum 26.2) and scaled by 2 c^2 -- int Xi^2 itself is good to 2e-12; t^2 Xi^2 kills the endpoint, hence the odd sector's 1e-13 (round 331 F331-2, a session decomposition). (2) THE ODD
+(their sum 26.2) and scaled by 2 c^2 -- int Xi^2 itself is good to 2e-12; t^2 Xi^2 kills the endpoint, hence the odd sector's 1e-13 (rounds 331-332, F331-2 and F332-2: a session decomposition against an mpmath
+reference; the residuals themselves are the instrument's). (2) THE ODD
 GROUND STATE at the cells: the real-zero census of Ghat_1 (K - 2 designed pairs
 plus the sinc zeros; the sum rule; an unlocated pair placed), Hypothesis D_odd
 within the dodging tolerance, epsilon falling, Ghat_1(0)^2 rising toward and
@@ -134,7 +135,7 @@ XO = XI.constants_odd(); XC = XI.constants(); XNO = XI.nodes_odd(5)
 ok = abs(XO["G0sq_limit"] - 0.0757) <= 5e-5 and abs(math.sqrt(XO["r2_mean_odd"]) - 5.418) <= 5e-4
 ok &= abs(XO["pole_odd"] + 0.0383) <= 5e-5 and abs(XO["primes_odd"] - 0.3686) <= 5e-5 and abs(XO["arch_odd"] - 5.0418) <= 5e-5
 ok &= abs(XO["pole_even"] - 1.5637) <= 5e-5 and abs(XO["primes_even"] + 0.0752) <= 5e-5 and abs(XO["arch_even"] - 3.8837) <= 5e-5     # the even limits by the same rule, pinned at the landing (1bu records none)
-ok &= abs(XO["arch_odd_direct"] - XO["arch_odd"]) <= 1e-9 and abs(XO["arch_even_direct"] - XO["arch_even"]) <= 1e-9                            # the archimedean limits directly vs the remainder, at the grid's accuracy (round 330 F330-1, round 331 F331-2: the even residual 7e-11 is the grid's endpoint offset in the prime sum, growing with the degree)
+ok &= abs(XO["arch_odd_direct"] - XO["arch_odd"]) <= 1e-9 and abs(XO["arch_even_direct"] - XO["arch_even"]) <= 1e-9                            # the archimedean limits directly vs the remainder, at the grid's accuracy (round 330 F330-1, round 331 F331-2: the even residual 7e-11 is the grid's endpoint-weight offset in the prime sum, varying with the degree)
 ok &= abs(XNO[0][0] - math.sqrt(XO["r2_mean_odd"])) <= 1e-9                                                                            # the first node is sqrt<t^2> (the orthogonality argument)
 gate(f"g1 the Xi side of the odd sector: int t^2 Xi^2 = {XO['int_t2_Xi2']:.5f}, int t^4 Xi^2 = {XO['int_t4_Xi2']:.4f}; Ghat_1(0)^2 -> {XO['G0sq_limit']:.5f}; sqrt<r^2> -> {math.sqrt(XO['r2_mean_odd']):.4f}; the odd anatomy's limits pole {XO['pole_odd']:+.4f}, primes {XO['primes_odd']:+.4f} (p = 2: {XO['prime_terms_odd'][0][1]:+.4f}), archimedean {XO['arch_odd']:+.4f}; the even sector's by the same rule {XO['pole_even']:+.4f}, {XO['primes_even']:+.4f}, {XO['arch_even']:+.4f}; the nodes of t^2 Xi^2 " + "; ".join(", ".join(f"{v:.3f}" for v in n) for n in XNO[:4]), ok)
 

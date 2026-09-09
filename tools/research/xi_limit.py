@@ -83,8 +83,8 @@ def constants_odd():
     is the endpoint offset of about 4e-13 in every f(ln n) -- the float64 accuracy of the degree-3000 Gauss-Legendre
     weights at t = 0 (the first weight 2e-7 relative; the nodes exact), where Xi^2 concentrates -- summed with the
     weights Lambda(n) n^{-1/2} over the prime powers and scaled by 2 c^2, while int Xi^2 is good to 2e-12; the odd weight
-    t^2 Xi^2 kills the endpoint, residual 1e-13. The 4e-13 and 2e-12 are a session decomposition against an mpmath
-    reference (rounds 330-332); the residuals themselves are the instrument's). The even
+    t^2 Xi^2 kills the endpoint, residual 1e-13. The 4e-13, the 2e-12 and the first weight's 2e-7 are a session
+    decomposition against an mpmath reference (rounds 330-333); the residuals themselves are the instrument's). The even
     sector's limits by the same rule, 1.5637/-5.3722/3.8837/-0.0752, are first computed here (Theorem 1bu records no anatomy limits)."""
     from weil_prime_gram import prime_powers
     x, w = _grid()
