@@ -1,9 +1,9 @@
 {
-"script_sha256": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
-"key": "1996e34543216ed757f1f10127611fe9b31584113184b24eade67df381ed9598",
+"script_sha256": "a66f3c5ea273344410f8e0a269cdf8d56174d1e2f978f72ffee69cc0c4ff149c",
+"key": "41975ed03a829015e856fb58d03c98b008aacce12723ab2a581cc27d99ef53ae",
 "params": {
 "deps": {
-"ladder_caster.py": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
+"ladder_caster.py": "a66f3c5ea273344410f8e0a269cdf8d56174d1e2f978f72ffee69cc0c4ff149c",
 "weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5",
 "weil_spectrum_ladder.py": "db5677bf58d3e766130feaa4687b715ae07428768f3ac900791eab461fbc34b7"
 },
@@ -25,7 +25,7 @@
 "dip": 1e-06,
 "nodes_max": 12,
 "deep": -2.0,
-"round": 5
+"round": 6
 },
 "state": {
 "cell": "d1.0",
@@ -39,15 +39,21 @@
 "ground": {
 "ln_lam1": -13.88247280312349,
 "ln_g0sq": -0.4628278976355751,
-"kappa": 0.014778481515376184,
+"kappa": 0.014778481423765649,
 "r2_mean": 14.86667934184351,
 "first_missed": 25.01085758014569,
 "n_designed_real": 119,
 "K_minus_1": 119,
 "sum_rule": 0.014778481608496674,
-"sum_rule_residual": 9.31204904852656e-11,
+"sum_rule_residual": 1.8473102561533672e-10,
 "R_ext": 1495.3981031087415,
 "missing_pair": null,
+"kappa_fd": 0.014778481567884758,
+"n_dips_census": 0,
+"disp_max": 0.032673749752905934,
+"disp_max_low": null,
+"sum_inv_sq_located_below": 0.007260649585670058,
+"disp_term_r3": 6.822448972049894e-05,
 "n_zeta_below_edge": 2,
 "n_located_below_edge": 2,
 "boundary_value": -0.0024119541195405303,
@@ -142,10 +148,10 @@
 -8.779710461911672e-21,
 -1.0281633957670556e-22
 ],
-"gram_s": 5.720593214035034,
-"eig_s": 4.719921827316284,
-"ground_s": 16.88761878013611,
-"rungs_s": 0.24100685119628906,
+"gram_s": 5.774369478225708,
+"eig_s": 4.701664686203003,
+"ground_s": 49.722766637802124,
+"rungs_s": 0.2719137668609619,
 "verdict": "COMPUTED (approximate eigenvectors; zeros located by sign change and bisection in balls at the working precision)"
 }
 }

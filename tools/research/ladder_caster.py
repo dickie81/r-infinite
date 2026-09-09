@@ -6,9 +6,13 @@
 (the cosine coefficients are the Nyquist samples ghat(omega_k) = (-1)^k a v_k). Stored per cell:
 
 THE GROUND STATE. ln lambda_1 (the approximate eigenvalue), ln ghat_1(0)^2, the curvature kappa' = sum over the
-transform's zeros of 1/tau^2 = -ghat_1''(0)/(2 ghat_1(0)) (arb finite differences), the second moment <r^2> of
-ghat_1^2, the DODGING EDGE (the real zeros of ghat_1 on (0, 2.2 T_0) at step 0.05 refined by bisection: the first
-zeta zero missed and the first zero that is not a zeta zero, both from the double-precision list within 0.05),
+transform's zeros of 1/tau^2 = -ghat_1''(0)/(2 ghat_1(0)) (arb central differences at h = 2e-4 and 1e-4, Richardson-
+extrapolated: the h^2 bias (kappa^2 - sum tau^-4)/2 was the whole of the sum rule's residual -- round 322 F322-3), the
+second moment <r^2> of ghat_1^2, the DODGING EDGE (the real zeros of ghat_1 on (0, 2.2 T_0) at step 0.05 refined by
+bisection: the first zeta zero missed and the first zero that is not a zeta zero, both from the double-precision list
+within 0.05), the DODGING DISPLACEMENTS below the edge (each zeta zero's dodging zero less the zero, the maximum, the
+maximum over the low half, the located zeros' sum tau^-2, and their contribution to Theorem 1bu(ii)'s bound at r = 3 --
+round 322 F322-1), the count of dips (double zeros) in the census (F322-5),
 the FULL REAL-ZERO CENSUS of ghat_1 on (0, R_ext), R_ext = 2 omega_{K-1} doubled (to 8 omega_{K-1} at
 most) while a designed pair is missing -- in the cosine basis ghat_1 = 2 sin(ra) M(r^2)/(r prod_{0<k<K}(r^2 - omega_k^2))
 with M of degree K - 1, so the zeros are K - 1 designed pairs (the roots of M) plus the sinc zeros omega_j (j >= K); a
@@ -141,7 +145,7 @@ def poly_nodes(x, w, mmax):
 def run(cell):
     cfg = CELLS[cell]
     params = {"deps": DEPS, "cell": cell, **cfg, "zeros100": _sha(ZP), "zeros6700": _sha(ZD), "rmax_hole": RMAX_HOLE,
-              "step_hole": STEP_HOLE, "step_dodge": STEP_DODGE, "tol": TOL, "tol_hole": TOL_HOLE, "edge_frac": EDGE_FRAC, "kmax": KMAX, "dip": DIP, "nodes_max": NODES_MAX, "deep": DEEP, "round": 5}
+              "step_hole": STEP_HOLE, "step_dodge": STEP_DODGE, "tol": TOL, "tol_hole": TOL_HOLE, "edge_frac": EDGE_FRAC, "kmax": KMAX, "dip": DIP, "nodes_max": NODES_MAX, "deep": DEEP, "round": 6}
     name = f"ladder_caster_{cell}"
     st = ckpt_key.load(name, KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None: return st
@@ -174,11 +178,23 @@ def run(cell):
         R = 1.6*T0; x, wq = np.polynomial.legendre.leggauss(6000); x = 0.5*R*(x + 1) + 1e-7; wq = 0.5*R*wq
         Ew = np.array([float(gh(arb(float(t))).mid()) for t in x]); w = wq*Ew*Ew; m2 = float(np.sum(w*x*x)/np.sum(w))
         nodes = poly_nodes(x, w, min(deep, NODES_MAX))
-        g0 = gh(arb(10)**(-8)); h = arb(1)/1000
-        g2 = (gh(h) - 2*g0 + gh(-h))/(h*h); kappa = float((-g2/(2*g0)).mid())
+        g0 = gh(arb(10)**(-8))
+        def _kfd(h): return float((-(gh(h) - 2*g0 + gh(-h))/(h*h)/(2*g0)).mid())
+        kappa_fd = _kfd(arb(2)/10000); kappa = (4*_kfd(arb(1)/10000) - kappa_fd)/3        # Richardson: the central difference's h^2 bias (kappa^2 - sum tau^-4)/2 removed (round 322 F322-3)
         z = real_zeros(gh, 2.2*T0, STEP_DODGE, dips=True)
         missed = [float(g) for g in ZS[ZS < 2.2*T0] if not any(abs(x - g) < TOL for x in z)]
         free = [x for x in z if float(np.min(np.abs(ZS - x))) >= TOL]
+        # THE DODGING DISPLACEMENTS below the edge (round 322 F322-1): each zeta zero's dodging zero (the nearest located zero within TOL),
+        # its displacement, the located zeros' sum tau^-2 below the edge (for epsilon), and the displacements' contribution to the bound of
+        # Theorem 1bu(ii) at r = 3: sum |ln|1 - 9/tau^2| - ln|1 - 9/gamma^2||
+        TDv = min(missed) if missed else 2.2*T0
+        disp = []
+        for gmm in ZS[ZS < TDv]:
+            cand = [x for x in z if abs(x - gmm) < TOL]; disp.append((float(gmm), min(cand, key=lambda x: abs(x - gmm)) - float(gmm)))
+        disp_max = max((abs(e) for _, e in disp), default=0.0)
+        lowl = [abs(e) for gm, e in disp if gm < TDv/2]; disp_max_low = max(lowl) if lowl else None
+        sum_inv_sq_located_below = sum(1.0/(gm + e)**2 for gm, e in disp)
+        disp_term_r3 = sum(abs(math.log(abs(1 - 9.0/(gm + e)**2)) - math.log(abs(1 - 9.0/gm**2))) for gm, e in disp)
         # THE FULL REAL-ZERO CENSUS (round 321 F4/F9). In the cosine basis ghat_1(r) = 2 sin(ra) N(r^2)/prod_{k<K}(r^2 - omega_k^2)
         # with N a polynomial of degree K - 1 in r^2: its zeros are K - 1 DESIGNED pairs plus the sinc zeros omega_j, j >= K.
         # All designed pairs are real iff the real census on (0, R_ext) counts K - 1 of them; the sum rule
@@ -192,6 +208,7 @@ def run(cell):
         R_ext = 2.0*float(omf[K - 1]); z_ext = real_zeros(gh, R_ext, STEP_DODGE, dips=True); designed = _designed(z_ext, R_ext)
         while len(designed) < K - 1 and R_ext < 8.0*float(omf[K - 1]) - 1e-9:
             R_ext = 2.0*R_ext; z_ext = real_zeros(gh, R_ext, STEP_DODGE, dips=True); designed = _designed(z_ext, R_ext)
+        n_dips = sum(1 for i in range(1, len(z_ext)) if z_ext[i] == z_ext[i - 1])          # double zeros seen as dips (each stored twice)
         tail_sum = float((aa/arb.pi())**2*arb(K).polygamma(1) if hasattr(arb(K), "polygamma") else (aa/arb.pi())**2*acb(K).polygamma(1).real)
         sum_rule = sum(1.0/(x*x) for x in designed) + tail_sum
         missing = None
@@ -217,6 +234,7 @@ def run(cell):
         mass = {"TD/4": mass_beyond(TD/4), "TD/2": mass_beyond(TD/2), "TD": mass_beyond(TD)}
         ground = {"ln_lam1": ln_lam1, "ln_g0sq": ln_g0sq, "kappa": kappa, "r2_mean": m2, "first_missed": min(missed) if missed else None,
                   "n_designed_real": len(designed), "K_minus_1": K - 1, "sum_rule": sum_rule, "sum_rule_residual": sum_rule - kappa, "R_ext": R_ext, "missing_pair": missing,
+                  "kappa_fd": kappa_fd, "n_dips_census": n_dips, "disp_max": disp_max, "disp_max_low": disp_max_low, "sum_inv_sq_located_below": sum_inv_sq_located_below, "disp_term_r3": disp_term_r3,
                   "n_zeta_below_edge": n_zeta_below_edge, "n_located_below_edge": n_located_below_edge, "boundary_value": ga, "mass_beyond": mass,
                   "first_free": min(free) if free else None, "n_dodged": len(z) - len(free), "ln_zero_side_800": ln_zero, "far_tail": far,
                   "Tstar": T1, "F1": F1, "c1": c1, "origin": ln_g0sq, "peak_excess": peak, "count_800": count, "participation_800": part,

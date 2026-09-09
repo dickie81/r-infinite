@@ -1,9 +1,9 @@
 {
-"script_sha256": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
-"key": "6afa13994c8a1a8fefda5757fb842b17604ebe8a501d453a9de4ffddbe15b012",
+"script_sha256": "a66f3c5ea273344410f8e0a269cdf8d56174d1e2f978f72ffee69cc0c4ff149c",
+"key": "4032885104df74861e923b6df5c8a07249151ea90f5e951728edf0df9b9f2807",
 "params": {
 "deps": {
-"ladder_caster.py": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
+"ladder_caster.py": "a66f3c5ea273344410f8e0a269cdf8d56174d1e2f978f72ffee69cc0c4ff149c",
 "weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5",
 "weil_spectrum_ladder.py": "db5677bf58d3e766130feaa4687b715ae07428768f3ac900791eab461fbc34b7"
 },
@@ -25,7 +25,7 @@
 "dip": 1e-06,
 "nodes_max": 12,
 "deep": -2.0,
-"round": 5
+"round": 6
 },
 "state": {
 "cell": "d1.38",
@@ -39,15 +39,21 @@
 "ground": {
 "ln_lam1": -27.75441714434005,
 "ln_g0sq": -0.3814591571868522,
-"kappa": 0.017695080534128077,
+"kappa": 0.0176950804529313,
 "r2_mean": 12.830411598764096,
 "first_missed": 40.9187190121475,
 "n_designed_real": 139,
 "K_minus_1": 139,
 "sum_rule": 0.01769508067411983,
-"sum_rule_residual": 1.399917542999063e-10,
+"sum_rule_residual": 2.2118853276742456e-10,
 "R_ext": 1263.1687342976181,
 "missing_pair": null,
+"kappa_fd": 0.017695080624353217,
+"n_dips_census": 0,
+"disp_max": 0.02429105720344893,
+"disp_max_low": 1.5163585942445934e-09,
+"sum_inv_sq_located_below": 0.011575579487749113,
+"disp_term_r3": 1.0372025585119772e-05,
 "n_zeta_below_edge": 6,
 "n_located_below_edge": 6,
 "boundary_value": 3.5291862414752642e-06,
@@ -165,10 +171,10 @@
 -4.872147487529519e-21,
 -8.500098800257465e-23
 ],
-"gram_s": 6.695825576782227,
-"eig_s": 7.843698501586914,
-"ground_s": 17.965622663497925,
-"rungs_s": 0.6761462688446045,
+"gram_s": 6.505465984344482,
+"eig_s": 7.755598783493042,
+"ground_s": 50.29989504814148,
+"rungs_s": 0.7472078800201416,
 "verdict": "COMPUTED (approximate eigenvectors; zeros located by sign change and bisection in balls at the working precision)"
 }
 }

@@ -1,9 +1,9 @@
 {
-"script_sha256": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
-"key": "8f18dee6b038b101337830c3d9ec49936764a2ea616632f4fc4fdd4effd657db",
+"script_sha256": "a66f3c5ea273344410f8e0a269cdf8d56174d1e2f978f72ffee69cc0c4ff149c",
+"key": "069326c6395bc6c79f2b798f679ef06b8d0d08a652d9f4108ad8b397c9bc5f5c",
 "params": {
 "deps": {
-"ladder_caster.py": "8923713b759bda8a94ed43d36d16f8028e57bdb103ce9e51348d1b2cc070f87b",
+"ladder_caster.py": "a66f3c5ea273344410f8e0a269cdf8d56174d1e2f978f72ffee69cc0c4ff149c",
 "weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5",
 "weil_spectrum_ladder.py": "db5677bf58d3e766130feaa4687b715ae07428768f3ac900791eab461fbc34b7"
 },
@@ -25,7 +25,7 @@
 "dip": 1e-06,
 "nodes_max": 12,
 "deep": -2.0,
-"round": 5
+"round": 6
 },
 "state": {
 "cell": "d2.0",
@@ -39,15 +39,21 @@
 "ground": {
 "ln_lam1": -67.23319724695043,
 "ln_g0sq": -0.31830800631021805,
-"kappa": 0.02029612627854353,
+"kappa": 0.020296126214283807,
 "r2_mean": 11.428099734250386,
 "first_missed": 82.91038085408603,
 "n_designed_real": 159,
 "K_minus_1": 159,
 "sum_rule": 0.020296126467985388,
-"sum_rule_residual": 1.894418580339341e-10,
+"sum_rule_residual": 2.5370158057702596e-10,
 "R_ext": 999.0264638415542,
 "missing_pair": null,
+"kappa_fd": 0.020296126409748587,
+"n_dips_census": 0,
+"disp_max": 0.02527203906643649,
+"disp_max_low": 2.1316282072803006e-14,
+"sum_inv_sq_located_below": 0.016127211836755608,
+"disp_term_r3": 2.1002250520680155e-06,
 "n_zeta_below_edge": 21,
 "n_located_below_edge": 21,
 "boundary_value": 1.3056583266406647e-14,
@@ -272,10 +278,10 @@
 -2.1660173490231237e-25,
 -5.757288465006421e-27
 ],
-"gram_s": 8.178439140319824,
-"eig_s": 14.426730155944824,
-"ground_s": 18.341475009918213,
-"rungs_s": 3.9196488857269287,
+"gram_s": 9.314882040023804,
+"eig_s": 14.134456872940063,
+"ground_s": 50.90719175338745,
+"rungs_s": 4.192636728286743,
 "verdict": "COMPUTED (approximate eigenvectors; zeros located by sign change and bisection in balls at the working precision)"
 }
 }
