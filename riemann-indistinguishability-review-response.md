@@ -5544,4 +5544,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-324 sweep commit (four prose residues in the block's (ii)–(iv); the verifier's docstring, the g2 label printing the dip counts, the count conjunct replaced by a parsed needle; no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round325.md`.
 
+**Findings.** 0 MAJOR, 2 minor, 3 cosmetic; all five verified directly by the lead and accepted; swept in this commit (A486). **F325-1 (minor)** the entry counts gating "every designed root is a simple sign change" include two equal entries per detected dip, and the dip count was consumed by no gate after round 323 → the dip count gated as the precondition that the entry counts are sign-change counts; no duplicate entry in any safely deep rung's hole list (gated). **F325-2 (minor)** "simple zeros" for the rung census's sign changes → "zeros of odd multiplicity, a sign change each". **F325-3 (cosmetic)** the g2 gate's stale comment → fixed. **F325-4 (cosmetic)** "538" unanchored → "K = 540: 538 of the 539 designed roots" in the census needle, parsed back. **F325-5 (cosmetic)** the parity counts keyed "(even/odd)" on both surfaces. Convergence-test round 326 commissioned.
+
+### Round 326 — convergence test on the round-325 sweep (Theorem 1bu)
+
+**Scope.** The round-325 sweep commit (the dip precondition and the duplicate-entry conjunct in the verifier, two needles extended, four prose residues in the block's (ii)–(iv); no producer change, the seven round-7 checkpoints reused; manifest 30). Full-tower class (verifier executable lines). Brief `brief_round326.md`.
+
 **Findings.** Pending.

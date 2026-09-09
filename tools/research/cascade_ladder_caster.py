@@ -23,8 +23,10 @@ cell with the sum rule kappa = sum tau^-2 closing within 1e-16, or K - 2
 located and the one unlocated pair placed beyond the region by the sum
 rule; the located zeros below the edge matching the zeta zeros below it
 one to one (no zero double: at the six complete cells every designed root a
-simple sign change; at delta = 3.5 the 538 located roots simple and the one
-unlocated root, being single, simple too) -- with the first zeta zero the ground state misses and its
+simple sign change; at delta = 3.5 the located roots simple and the one
+unlocated root, being single, simple too -- the entry counts being sign-change
+counts because no dip was appended, gated as that precondition) -- with the
+first zeta zero the ground state misses and its
 first free zero within 0.2 of each other and at >= 1.4 T_0; D WITHIN THE DODGING
 TOLERANCE (round 322 F322-1): the dodging zeros' displacements below the edge
 stated per cell, the low half within 3e-14 at delta >= 2 (the resolution of
@@ -39,8 +41,8 @@ the cells and below sum gamma^-2 = -Xi''(0)/(2 Xi(0)) = 0.023105 (not K/2 =
 leakage ln(1 - chi_{2k}) < -20, order 4k = index 2k of the even list -- F1;
 Theorem 1br's threshold) the transform of rung k has exactly k - 1 hole zeros
 (the sign changes below min(100, 0.8 x the rung's dodging edge) left after one
-dodging zero per zeta zero is removed -- simple zeros; a double zero, giving no
-sign change, would escape the census) and the
+dodging zero per zeta zero is removed -- zeros of odd multiplicity, a sign change
+each; a double zero, giving no sign change, would escape the census) and the
 census region covers the predicted nodes (the weight for the nodes now evaluated in balls: F10);
 the ground state has none by the census of (2); the first three hole zeros of
 every safely deep rung lie below the first zeta zero, rungs 6-7 have four and
@@ -56,7 +58,7 @@ change sign at least twice (not monotone); THE PARITY (round 321 F2, round 322
 F322-2, round 323 F323-1/7): the offsets o_k = ln lambda_k - ln(1 - chi_{2k})
 of Theorem 1br(ii) split as c_k + d_k with d_k = F_k - ln(1 - chi_{2k}); at the
 three balanced cells (delta = 2.6, 3.0, 3.5: the two parities' mean ranks equal,
-the rungs per parity 5/4, 6/5, 6/5 stated and parsed back) the even-minus-odd means of o_k and of d_k are
+the rungs per parity, even/odd, stated and parsed back) the even-minus-odd means of o_k and of d_k are
 positive, o_k's at delta = 3.0 within 0.02 of 1br(ii)'s +0.22, d_k's at 3.5
 within one standard error of zero, c_k's mean changes sign across the cells by
 more than two standard errors; the standard errors (residuals about a linear
@@ -94,7 +96,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096', 'form': 'ws'},
     {'g': 'g7', 's': 'ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D', 'form': 'ws'},
     {'g': 'g7', 's': 'displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043', 'form': 'ws'},
-    {'g': 'g7', 's': 'K − 2 of them at δ = 3.5, where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'form': 'ws'},
+    {'g': 'g7', 's': 'K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'form': 'ws'},
     {'g': 'g7', 's': 'the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells', 'form': 'ws'},
     {'g': 'g7', 's': 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'form': 'ws'},
     {'g': 'g7', 's': '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'form': 'ws'},
@@ -113,7 +115,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5', 'form': 'ws'},
     {'g': 'g7', 's': 'against the residual c_k −0.31, −0.03, +0.11', 'form': 'ws'},
     {'g': 'g7', 's': 'the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18', 'form': 'ws'},
-    {'g': 'g7', 's': 'rungs per parity 5/4, 6/5, 6/5', 'form': 'ws'},
+    {'g': 'g7', 's': 'rungs per parity (even/odd) 5/4, 6/5, 6/5', 'form': 'ws'},
     {'g': 'g7', 's': '0, 0, 3, 6, 9, 11, 11 rungs at the cells', 'form': 'ws'},
     {'g': 'g7', 's': '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'form': 'ws'},
     {'g': 'g7', 's': '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'form': 'ws'},
@@ -171,12 +173,14 @@ for c in ORDER:
     # the real-zero census (round 321 F4/F9): all K - 1 designed pairs located on the real line and the sum rule closing (none missed, no
     # complex zero) -- or K - 2 located with the sum rule placing the one unlocated pair beyond the region (real or imaginary, |tau| >= R_ext:
     # outside the disc |r| < T_D either way); the located zeros below the edge and the zeta zeros below it equal in number (every zeta zero
-    # below the edge has one, a double zero would count twice)
+    # below the edge has one; a dodging zero turned double would break the equality either way, detected or not)
     cen = g["n_designed_real"] == g["K_minus_1"] and abs(g["sum_rule_residual"]) <= 1e-16                                                   # kappa Richardson-extrapolated about the exact ghat_1(0): the closure is the census's (F322-3)
     cen |= g["n_designed_real"] == g["K_minus_1"] - 1 and g["missing_pair"] is not None and g["missing_pair"]["abs_tau"] >= g["R_ext"] and abs(g["sum_rule_residual"]) >= 1e-9
-    ok &= cen and g["n_located_below_edge"] == g["n_zeta_below_edge"]
-    # no double zero: the complete count of simple sign changes is the evidence (a double root of M would drop the count by one pair); the dip detector,
-    # sensitive only within 5e-5 of a grid point, is recorded, not gated (round 323 F323-5); disp_max <= TOL held by construction and is not gated (F323-4)
+    # the census's entries are sign changes plus two equal entries per detected dip (a double zero within 5e-5 of a grid point): the entry count is
+    # the sign-change count only when no dip was appended -- n_dips_census == 0 is gated as THAT PRECONDITION, not as evidence of absence (round 325
+    # F325-1; the detector's blindness elsewhere is stated in the block); no double zero then follows from the complete count of sign changes
+    # (a double root of M gives no sign change); disp_max <= TOL held by construction and is not gated (F323-4)
+    ok &= cen and g["n_located_below_edge"] == g["n_zeta_below_edge"] and g["n_dips_census"] == 0
     ok &= g["disp_term_r3"] <= 1e-4 and (ST[c]["delta"] < 2.0 or (g["disp_max_low"] is not None and g["disp_max_low"] <= 3e-14))                 # the dodging displacements (F322-1; the low half at the double list's floor, F323-3)
     ok &= g["mass_beyond"]["TD/2"] <= 1e-3 and g["mass_beyond"]["TD"] <= 1e-5                # the exterior mass (F6)
 eps = [_eps(c) for c in ORDER]; ratio = [eps[i]/(math.log(G[c]["first_missed"])/G[c]["first_missed"]) for i, c in enumerate(ORDER)]
@@ -185,14 +189,14 @@ kap = [G[c]["kappa"] for c in ORDER]; g0 = [math.exp(G[c]["ln_g0sq"]) for c in O
 ok &= all(kap[i] < kap[i + 1] for i in range(6)) and kap[-1] < XC["curvature"]               # toward sum gamma^-2, not K/2 (F3)
 ok &= all(g0[i] < g0[i + 1] for i in range(6)) and g0[-1] < XC["g0sq_limit"]
 ok &= all(r2[i] > r2[i + 1] for i in range(6)) and r2[-1] > math.sqrt(XC["t2_mean"])
-gate("g2 the limit shape at the cells: Hypothesis D by the real-zero census, within the dodging tolerance (the dodging zeros displaced from the zeta zeros by at most " + ", ".join(f"{G[c]['disp_max']:.1e}" for c in ORDER) + ", the low half by at most " + ", ".join(f"{G[c]['disp_max_low']:.0e}" if G[c]["disp_max_low"] is not None else "-" for c in ORDER) + ", adding at most " + f"{max(G[c]['disp_term_r3'] for c in ORDER):.1e}" + " to the bound at r = 3; the dip detector's counts " + ", ".join(str(G[c]["n_dips_census"]) for c in ORDER) + " -- recorded, not the evidence) (designed zero pairs located " + ", ".join(f"{G[c]['n_designed_real']}/{G[c]['K_minus_1']}" for c in ORDER) + " within " + ", ".join(f"{G[c]['R_ext']:.0f}" for c in ORDER) + "; the sum rule's residual " + ", ".join(f"{G[c]['sum_rule_residual']:.1e}" for c in ORDER) + "; unlocated pairs placed by the sum rule: " + (", ".join(f"{c}: |tau| = {G[c]['missing_pair']['abs_tau']:.0f} ({'real' if G[c]['missing_pair']['real'] else 'imaginary'})" for c in ORDER if G[c]["missing_pair"] is not None) or "none") + "; located/zeta zeros below the edge " + ", ".join(f"{G[c]['n_located_below_edge']}/{G[c]['n_zeta_below_edge']}" for c in ORDER) + "); the first missed zeta zero and the first free zero within 0.2, at " + ", ".join(f"{G[c]['first_missed']/T0[c]:.2f}" for c in ORDER) + " T_0; epsilon " + ", ".join(f"{e:.5f}" for e in eps) + " falling, " + ", ".join(f"{x:.2f}" for x in ratio) + " of ln T_D/T_D; the mass beyond T_D/2 and T_D at most " + f"{max(G[c]['mass_beyond']['TD/2'] for c in ORDER):.1e} and {max(G[c]['mass_beyond']['TD'] for c in ORDER):.1e}" + "; the curvature " + ", ".join(f"{k:.4f}" for k in kap) + f" rising toward sum gamma^-2 = {XC['curvature']:.6f} (K/2 = {XC['K']/2:.6f}); ghat_1(0)^2 " + ", ".join(f"{v:.3f}" for v in g0) + f" rising toward {XC['g0sq_limit']:.4f}; sqrt<r^2> " + ", ".join(f"{v:.3f}" for v in r2) + f" falling toward {math.sqrt(XC['t2_mean']):.3f}", ok)
+gate("g2 the limit shape at the cells: Hypothesis D by the real-zero census, within the dodging tolerance (the dodging zeros displaced from the zeta zeros by at most " + ", ".join(f"{G[c]['disp_max']:.1e}" for c in ORDER) + ", the low half by at most " + ", ".join(f"{G[c]['disp_max_low']:.0e}" if G[c]["disp_max_low"] is not None else "-" for c in ORDER) + ", adding at most " + f"{max(G[c]['disp_term_r3'] for c in ORDER):.1e}" + " to the bound at r = 3; the dip detector's counts " + ", ".join(str(G[c]["n_dips_census"]) for c in ORDER) + " -- gated as the precondition that the entry counts are sign-change counts) (designed zero pairs located " + ", ".join(f"{G[c]['n_designed_real']}/{G[c]['K_minus_1']}" for c in ORDER) + " within " + ", ".join(f"{G[c]['R_ext']:.0f}" for c in ORDER) + "; the sum rule's residual " + ", ".join(f"{G[c]['sum_rule_residual']:.1e}" for c in ORDER) + "; unlocated pairs placed by the sum rule: " + (", ".join(f"{c}: |tau| = {G[c]['missing_pair']['abs_tau']:.0f} ({'real' if G[c]['missing_pair']['real'] else 'imaginary'})" for c in ORDER if G[c]["missing_pair"] is not None) or "none") + "; located/zeta zeros below the edge " + ", ".join(f"{G[c]['n_located_below_edge']}/{G[c]['n_zeta_below_edge']}" for c in ORDER) + "); the first missed zeta zero and the first free zero within 0.2, at " + ", ".join(f"{G[c]['first_missed']/T0[c]:.2f}" for c in ORDER) + " T_0; epsilon " + ", ".join(f"{e:.5f}" for e in eps) + " falling, " + ", ".join(f"{x:.2f}" for x in ratio) + " of ln T_D/T_D; the mass beyond T_D/2 and T_D at most " + f"{max(G[c]['mass_beyond']['TD/2'] for c in ORDER):.1e} and {max(G[c]['mass_beyond']['TD'] for c in ORDER):.1e}" + "; the curvature " + ", ".join(f"{k:.4f}" for k in kap) + f" rising toward sum gamma^-2 = {XC['curvature']:.6f} (K/2 = {XC['K']/2:.6f}); ghat_1(0)^2 " + ", ".join(f"{v:.3f}" for v in g0) + f" rising toward {XC['g0sq_limit']:.4f}; sqrt<r^2> " + ", ".join(f"{v:.3f}" for v in r2) + f" falling toward {math.sqrt(XC['t2_mean']):.3f}", ok)
 
 # ---------------------------------------------------------------- g3
 ok = True; worst_rel = 0.0; nsafe = 0; below = {}
 for c in ORDER:
     st = ST[c]; below[c] = []
     for r in safe_rungs(c):
-        nsafe += 1; ok &= len(r["hole"]) == r["k"] - 1
+        nsafe += 1; ok &= len(r["hole"]) == r["k"] - 1 and len(set(r["hole"])) == len(r["hole"])   # k - 1 entries, none duplicated (a detected dip appends two equal entries: F325-1)
         ok &= max(st["nodes"][r["k"] - 2]) < min(100.0, 0.8*r["edge"])                       # the census region covers the predicted nodes (F10)
         nb = sum(1 for h in r["hole"] if h < st["gamma1"]); below[c].append(nb)
         ok &= all(h < st["gamma1"] for h in r["hole"][:3])                                   # the first three hole zeros below the first zeta zero (F8)
@@ -240,7 +244,7 @@ ses = [par[c][i][1] for c in par for i in range(3)]; ok &= max(ses) <= 0.25 and 
 ok &= not all(par[c][2][0] > 0 for c in par) and not all(par[c][2][0] < 0 for c in par)          # the residual's parity changes sign across the cells
 zsig = (par["d3.5"][2][0] - par["d2.6"][2][0])/math.sqrt(par["d3.5"][2][1]**2 + par["d2.6"][2][1]**2); ok &= zsig >= 2.0     # ... by more than two standard errors (F323-7)
 ok &= par["d3.5"][1][0] <= par["d3.5"][1][1]                                                       # d_k's mean at 3.5 within one standard error of zero (stated, F323-7)
-gate("g4 the k-level formula: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell (" + ", ".join(f"{ST[c]['rungs'][0]['ck']:.2f}" for c in ORDER) + "); the safely deep rungs' c_k within [c_1 - 3, c_1 + 0.3]; not monotone -- the successive differences from rung 2 change sign " + ", ".join(f"{alt[c]}" for c in alt) + " times at delta = 2.6, 3.0, 3.5; the parity over the safely deep rungs at the balanced cells delta = 2.6, 3.0, 3.5 -- even minus odd means of the offsets " + ", ".join(f"{par[c][0][0]:+.3f}" for c in par) + " (1br(ii)'s +0.22 at 3.0 within 0.02), of the formula's part d_k " + ", ".join(f"{par[c][1][0]:+.3f}" for c in par) + ", of the residual c_k " + ", ".join(f"{par[c][2][0]:+.3f}" for c in par) + " (standard errors " + ", ".join(f"{par[c][i][1]:.2f}" for c in par for i in range(3)) + "); rungs per parity " + ", ".join(f"{cnt[c][0]}/{cnt[c][1]}" for c in par) + f"; c_k's change between 2.6 and 3.5 is {zsig:.1f} standard errors, d_k's mean at 3.5 within one: the formula's part reproduces the parity's sign in the point estimates", ok)
+gate("g4 the k-level formula: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell (" + ", ".join(f"{ST[c]['rungs'][0]['ck']:.2f}" for c in ORDER) + "); the safely deep rungs' c_k within [c_1 - 3, c_1 + 0.3]; not monotone -- the successive differences from rung 2 change sign " + ", ".join(f"{alt[c]}" for c in alt) + " times at delta = 2.6, 3.0, 3.5; the parity over the safely deep rungs at the balanced cells delta = 2.6, 3.0, 3.5 -- even minus odd means of the offsets " + ", ".join(f"{par[c][0][0]:+.3f}" for c in par) + " (1br(ii)'s +0.22 at 3.0 within 0.02), of the formula's part d_k " + ", ".join(f"{par[c][1][0]:+.3f}" for c in par) + ", of the residual c_k " + ", ".join(f"{par[c][2][0]:+.3f}" for c in par) + " (standard errors " + ", ".join(f"{par[c][i][1]:.2f}" for c in par for i in range(3)) + "); rungs per parity (even/odd) " + ", ".join(f"{cnt[c][0]}/{cnt[c][1]}" for c in par) + f"; c_k's change between 2.6 and 3.5 is {zsig:.1f} standard errors, d_k's mean at 3.5 within one: the formula's part reproduces the parity's sign in the point estimates", ok)
 
 # ---------------------------------------------------------------- g5
 ok = True
@@ -273,7 +277,7 @@ S_KAPPA = 'the curvature 0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 
 S_CURV = 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096'
 S_EPS = 'ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D'
 S_DISP = 'displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043'
-S_MISS = 'K − 2 of them at δ = 3.5, where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741'
+S_MISS = 'K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741'
 S_RESID = 'the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells'
 S_G0 = 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729'
 S_R2 = '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19'
@@ -292,7 +296,7 @@ S_ALT = 'change sign 4, 5, 3 times at δ = 2.6, 3.0, 3.5'
 S_PAR = 'even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5'
 S_CKPAR = 'against the residual c_k −0.31, −0.03, +0.11'
 S_SE = 'the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18'
-S_CNT = 'rungs per parity 5/4, 6/5, 6/5'
+S_CNT = 'rungs per parity (even/odd) 5/4, 6/5, 6/5'
 S_NSAFE = '0, 0, 3, 6, 9, 11, 11 rungs at the cells'
 S_HOLE35 = '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095'
 S_FOURTH = '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5'
@@ -303,7 +307,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'the curvature 0.0148, 0.0177, 0.0203,
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Σ_γ γ⁻² = −Ξ″(0)/(2Ξ(0)) = 0.023105, within 10⁻⁵ of K/2 = 0.023096', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ε = 0.02336, 0.01765, 0.01115, 0.00920, 0.00707, 0.00518, 0.00348 at the cells, between 0.18 and 0.24 of ln T_D/T_D', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'K − 2 of them at δ = 3.5, where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'K − 2 of them at δ = 3.5 (K = 540: 538 of the 539 designed roots), where one root of M is unlocated — real, since M has real coefficients and a complex root would bring its conjugate — and the sum rule places it beyond the region: |τ| = 14501, real by the residual’s sign, against the region 7741', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the residual there, 4.8 × 10⁻⁹, against a closure below 10⁻¹⁶ at the six complete cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ĝ₁(0)² = 0.630, 0.683, 0.727, 0.740, 0.749, 0.757, 0.763 rising toward 0.7729', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '√⟨r²⟩ = 3.86, 3.58, 3.38, 3.33, 3.29, 3.26, 3.23 falling toward 3.19', 'ws')
@@ -322,7 +326,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'change sign 4, 5, 3 times at δ = 2.6
 ok &= paper_needles.needle(PAPER_NEEDLES, 'even minus odd means of the offsets o_k +0.08, +0.21, +0.16 and of d_k +0.39, +0.24, +0.06 at δ = 2.6, 3.0, 3.5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'against the residual c_k −0.31, −0.03, +0.11', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the means’ standard errors, from the residuals about a linear trend in k, 0.08–0.18', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'rungs per parity 5/4, 6/5, 6/5', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'rungs per parity (even/odd) 5/4, 6/5, 6/5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '0, 0, 3, 6, 9, 11, 11 rungs at the cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '3.233; 2.346, 7.193; 1.935, 5.836, 9.849; 1.748, 5.269, 8.894, 14.103 against the nodes 3.233; 2.346, 7.193; 1.934, 5.835, 9.847; 1.748, 5.268, 8.892, 14.095', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '15.239, 14.797, 14.402, 14.103 at δ = 2.3, 2.6, 3.0, 3.5', 'ws')
@@ -337,6 +341,7 @@ _m = _nums(S_EPS.split(" at the cells")[0]); ok &= len(_m) == 7 and all(abs(x - 
 _r = _nums(S_EPS.split(" at the cells")[1]); ok &= len(_r) == 2 and _r[0] <= min(ratio) + 5e-3 + 1e-9 and _r[1] >= max(ratio) - 5e-3 - 1e-9
 _i = [int(x) for x in _re.findall(r"[0-9]+", S_MISS)]; _mp = G["d3.5"]["missing_pair"]                                                        # the K - 2 branch at delta = 3.5: |tau| and the region, nearest integers
 ok &= _mp is not None and [c for c in ORDER if G[c]["n_designed_real"] == G[c]["K_minus_1"] - 1] == ["d3.5"] and abs(_i[-2] - _mp["abs_tau"]) <= 0.5 + 1e-9 and _i[-1] == round(G["d3.5"]["R_ext"]) and _mp["real"] and abs(G["d3.5"]["sum_rule_residual"]) >= 1e-9
+ok &= _i[-5:-2] == [ST["d3.5"]["K"], G["d3.5"]["n_designed_real"], G["d3.5"]["K_minus_1"]]                                                     # K = 540: 538 of the 539 designed roots (F325-4)
 _r = _nums(S_RESID); _oth = max(abs(G[c]["sum_rule_residual"]) for c in ORDER if c != "d3.5")                                                  # the residual in units of 1e-9 (nearest 0.1); the closure elsewhere below 1e-16
 ok &= len(_r) == 1 and abs(_r[0] - abs(G["d3.5"]["sum_rule_residual"])*1e9) <= 0.05 + 1e-9 and _oth <= 1e-16
 _m = _nums(S_G0); ok &= len(_m) == 8 and all(abs(x - v) <= 5e-4 + 1e-9 for x, v in zip(_m[:7], g0)) and abs(_m[7] - XC["g0sq_limit"]) <= 5e-4 + 1e-9
@@ -359,7 +364,7 @@ _pc = [int(x) for x in _re.findall(r"sign ([0-9]+), ([0-9]+), ([0-9]+) times", S
 _pm = _nums(S_PAR.split(" at δ")[0]); ok &= len(_pm) == 6 and all(abs(x - par[c][0][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm[:3], par)) and all(abs(x - par[c][1][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm[3:], par))
 _pm = _nums(S_CKPAR); ok &= len(_pm) == 3 and all(abs(x - par[c][2][0]) <= 5e-3 + 1e-9 for x, c in zip(_pm, par))
 _se = _nums(S_SE); ok &= len(_se) == 2 and abs(_se[0] - min(ses)) <= 5e-3 + 1e-9 and abs(_se[1] - max(ses)) <= 5e-3 + 1e-9                             # the standard errors' range (0.01)
-_cn = [(int(a), int(b)) for a, b in _re.findall(r"([0-9]+)/([0-9]+)", S_CNT)]; ok &= _cn == [cnt[c] for c in par]                                   # the rungs per parity (exact)
+_cn = [(int(a), int(b)) for a, b in _re.findall(r"([0-9]+)/([0-9]+)", S_CNT)]; ok &= "(even/odd)" in S_CNT and _cn == [cnt[c] for c in par]      # the rungs per parity, even/odd (exact)
 _dm = _nums(S_DISP); ok &= len(_dm) == 7 and all(abs(x - G[c]["disp_max"]) <= 5e-4 + 1e-9 for x, c in zip(_dm, ORDER))                              # the displacements (nearest 1e-3)
 _ns = [int(x) for x in _re.findall(r"[0-9]+", S_NSAFE.split(" rungs")[0])]; ok &= _ns == [len(safe_rungs(c)) for c in ORDER]
 _m = _nums(S_HOLE35.split(" against the nodes ")[0]) + _nums(S_HOLE35.split(" against the nodes ")[1])
