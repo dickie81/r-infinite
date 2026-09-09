@@ -5496,4 +5496,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The landing commit (two theorem blocks with written proofs after Theorem 1br; the footer census 96 / 1i–1bt with two verifiers, one substrate clause and four classical inputs; verifiers `cascade_count_constant.py` (member 28) and `cascade_pole_indefinite.py` (29, top); substrates `balayage_count.py`, `pole_witness.py`; the census literals advanced across the tower; manifest 29). Full-tower class (a landing). Brief `brief_round317.md`. Commissioned by the owner: "Answer the open questions. Let's get some algebraic theorems proven." (A476).
 
+**Findings.** 1 MAJOR, 7 minor, 5 cosmetic — all verified by the lead and swept (A477). F317-1 (MAJOR) 1bs(iv)'s equation dropped d(δ) = 2s_δ(2T₀) − min_T 2s_δ(T) (1.18 … 0.29 at the cells) and its "≈ 4.8 ln T₀" contradicted 1bm(vii)'s gated 5.04 — the equation now carries −d(δ), the slopes 1.28 / −0.32 / 1.59 (c, d, c − d) and the bookkeeping 7/2 + 1.59 = 5.09 against 5.04 are stated and gated; F317-2 C_Δ's Stirling tail (−0.205; C_Δ = 0.35 with it); F317-3 "10⁻⁸" → 10⁻⁶; F317-4 the witness's smooth-density tail doubled (halved; the values −1.99, −4.04, −9.33, −41.10 now agree with 1bn's prime side to 10⁻⁴, gated); F317-5 the false density/sign sentence replaced by the computed archimedean sums and integrals and the prime side; F317-6 the fit window stated, the characters' band 0.5; F317-7 `temple_lo` in place of `rho`, the uniqueness claim restricted to the even sector; F317-8 three needles that could not miss made unique. Cosmetics C1–C5 swept. Sweep battery: members 9/9, 9/9; manifest 29; TOWER PASS 29/29.
+
+### Round 318 — convergence test on the round-317 sweep (Theorems 1bs, 1bt)
+
+**Scope.** The round-317 sweep commit. Full-tower class (verifier and substrate executable lines; manifest). Brief `brief_round318.md`.
+
 **Findings.** Pending.

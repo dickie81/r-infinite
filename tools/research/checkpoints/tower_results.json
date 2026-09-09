@@ -593,6 +593,12 @@
 "rc": 0,
 "when": "2026-09-02T00:15Z"
 },
+"26fc0feb4bf41bba3034a5ec": {
+"dt": 56.5868775844574,
+"file": "cascade_pole_indefinite.py",
+"rc": 0,
+"when": "2026-09-09T07:30Z"
+},
 "273ae91d370e945e0554969a": {
 "dt": 0.8847105503082275,
 "file": "cascade_oneprime_interval.py",
@@ -1852,6 +1858,12 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-08-28T18:08Z"
+},
+"8227ec6998813db8f401f7d4": {
+"dt": 9.863792419433594,
+"file": "cascade_count_constant.py",
+"rc": 0,
+"when": "2026-09-09T07:30Z"
 },
 "826aa643b119f9383a133afc": {
 "dt": 30.741260766983032,

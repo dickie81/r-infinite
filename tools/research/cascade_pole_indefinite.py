@@ -16,15 +16,18 @@ subintervals (arb interval arithmetic -- a certified evaluation); for a >= 1
 the elementary ratio (1 - e^{-2a})^2 / (8 K' (1 + 2 e^{-a} + e^{-2a})) exceeds
 1 at a = 1 and both its factors are monotone (checked on a grid to a = 15, beyond which they are 1 to double precision);
 the bound fails at a = 0.15 (the threshold is the bound's). (3) THE FORM'S
-VALUE: on the 6700-zero list Q_0(g_a) = 2 sum ghat^2 + tail - 2 ghat(i/2)^2 is
-negative at a = 0.15, 0.2, 0.5, 0.6914, 1.0, 1.75 (floating point; the stated
-four values pinned). (4) AT THE CELLS: the Rayleigh ball of Q_0's lowest
+VALUE: on the 6700-zero list Q_0(g_a) = 2 sum ghat^2 + tail - 2 ghat(i/2)^2 and
+on 1bn's prime side (the constant, the archimedean integral with the closed-form
+autocorrelation, the shells) agree within 1e-3 and are negative at a = 0.15,
+0.2, 0.5, 0.6914, 1.0, 1.75; the archimedean constant plus integral is negative
+with the integral alone positive, the shells negative (floating point; the
+stated values pinned). (4) AT THE CELLS: the Rayleigh ball of Q_0's lowest
 approximate vector re-derived live at delta = 1.0, 1.3828125, 2.0 is negative
 (upper ends within 0.01 of -1.98, -2.82, -4.30) and the first cosine mode's
 positive; the interlacing lambda_2(Q_0) >= lambda_1(Q) holds on the approximate
-spectra; the certified positivity of the form at delta = 1.0 (1bj's Temple
-enclosure) and 1.3828125 (1bl's certificate) loaded and positive -- exactly
-one negative direction there. (5) mangle probes; (6) the paper's numbers
+spectra; the even form's certified positivity at delta = 1.0 (1bj's Temple lower bound)
+and 1.3828125 (1bl's certificate) loaded and positive -- exactly one negative
+direction on the even sector there. (5) mangle probes; (6) the paper's numbers
 parsed back; (7) the chain obligation to cascade_count_constant.py; (8) the
 needles and census.
 
@@ -36,7 +39,7 @@ import math, os, sys, json
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from pole_witness import K_HADAMARD, K_PRIME, EULER, V, ghat, ghat_quad, ghat_pole, bound_lhs, bound_rhs, margin, Q0_zero_side, hadamard_check
+from pole_witness import K_HADAMARD, K_PRIME, EULER, V, ghat, ghat_quad, ghat_pole, bound_lhs, bound_rhs, margin, Q0_zero_side, hadamard_check, Q_prime_side, autocorr
 from weil_prime_gram import gram, rayleigh
 from lfun_gram import gram_L, ZETA
 from oneprime_interval_temple import run as run_T1
@@ -50,7 +53,10 @@ PAPER_NEEDLES = [
     {'s': '`cascade_pole_indefinite.py`', 'min': 2, 'g': 'g8'},
     {'s': 'the **96 scripts cited in place** above', 'form': 'ws', 'g': 'g8'},
     {'s': 'extended by Theorems 1i–1bt:', 'form': 'ws', 'g': 'g8'},
-    {'g': 'g6', 's': '−1.99, −4.03, −9.33, −41.09', 'form': 'ws'},
+    {'g': 'g6', 's': '−1.99, −4.04, −9.33, −41.10', 'form': 'ws'},
+    {'g': 'g6', 's': '−1.98, −2.82, −4.30', 'form': 'ws', 'min': 2},
+    {'g': 'g6', 's': 'their sum −0.09, −0.24, −1.68, −5.47, −14.49 at a = 0.15, 0.2, 0.5, 1.0, 1.75; the integral alone +1.53, +1.92, +3.80, +6.22, +9.90', 'form': 'ws'},
+    {'g': 'g6', 's': '−0.31, −3.86, −26.60 at a = 0.5, 1.0, 1.75', 'form': 'ws'},
 ]
 
 fails = []
@@ -96,10 +102,14 @@ ok &= margin(0.15) < 0 < margin(0.2)
 gate(f"g2 the bound: on [0.2, 1] the margin's lower ball end positive on 2000 subintervals (min {lo_min:.4f}, certified); for a >= 1 the ratio (1 - e^-2a)^2/(8 K'(1 + 2e^-a + e^-2a)) = {ratio(1.0):.3f} at a = 1 with its factors monotone; the bound fails at a = 0.15 (margin {margin(0.15):+.4f}) and holds at 0.2 ({margin(0.2):+.4f})", ok)
 
 # ---------------------------------------------------------------- g3
-ok = True; q0 = {}
+ok = True; q0 = {}; qp = {}
 for a in (0.15, 0.2, 0.5, 0.6914, 1.0, 1.75):
     v, s, t = Q0_zero_side(a, ZS); q0[a] = v; ok &= v < 0 and t < 0.01
-gate("g3 the form's value on the list (computed): Q_0(g_a) = " + ", ".join(f"{q0[a]:+.3f} at a = {a}" for a in q0) + " -- negative at every support, the tail below 0.01", ok)
+    Qp, pole, const, integ, pr = Q_prime_side(a); qp[a] = (Qp - pole, const, integ, pr)
+    ok &= abs((Qp - pole) - v) <= 1e-3 and const + integ < 0 and integ > 0 and pr <= 0       # round 317 F317-4/F317-5: the prime side agrees; the archimedean sum negative, the integral positive, the shells negative
+    ok &= abs(autocorr(0.0, a) - (a + math.sinh(a))) <= 1e-12                                 # f(0) = ||g||^2
+gate("g3 the form's value (computed): Q_0(g_a) on the zero side (smooth tail) and on 1bn's prime side agree within 1e-3 -- " + ", ".join(f"{q0[a]:+.4f} / {qp[a][0]:+.4f} at a = {a}" for a in q0)
+     + "; the archimedean constant plus integral " + ", ".join(f"{qp[a][1] + qp[a][2]:+.2f}" for a in q0) + " (the integral alone " + ", ".join(f"{qp[a][2]:+.2f}" for a in q0) + "), the shells " + ", ".join(f"{qp[a][3]:+.2f}" for a in q0) + " -- negative at every support but the pole's", ok)
 
 # ---------------------------------------------------------------- g4
 CELLS = {"d1.0": (1.0, 120, 600), "d1.38": (1.3828125, 140, 600), "d2.0": (2.0, 160, 700)}
@@ -124,10 +134,10 @@ for c, (d, K, prec) in CELLS.items():
         ok &= mu[0] < 0 < lam1 <= mu[1]*(1 + 1e-9)                      # interlacing on the approximate spectra: lambda_2(Q_0) >= lambda_1(Q)
 PT = run_T1(); even10 = PT.get("even:1", {})
 mech = run_SM("two", "even")
-ok &= bool(even10) and even10.get("certified") and even10["rho"][0] > 0 and mech["final"] > 0
+ok &= bool(even10) and even10.get("certified") and even10.get("temple_lo") is not None and even10["temple_lo"] > 0 and mech["final"] > 0   # round 317 F317-7: the Temple LOWER bound, even sector
 gate("g4 at the cells: Q_0's lowest approximate vector has a certified negative Rayleigh ball at delta = 1.0, 1.3828125, 2.0 (upper ends " + ", ".join(f"{ups[c]:.3f}" for c in CELLS)
-     + ") and the first cosine mode a positive one; lambda_2(Q_0) >= lambda_1(Q) on the approximate spectra; the form's certified positivity loaded at delta = 1.0 (1bj's Temple enclosure, lower end "
-     + f"{even10.get('rho', [0])[0]:.3e}) and 1.3828125 (1bl's certificate {mech['final']:.3e}) -- exactly one negative direction there", ok)
+     + ") and the first cosine mode a positive one; lambda_2(Q_0) >= lambda_1(Q) on the approximate spectra (Weyl's theorem for the pencil -- a consistency check that can fail only numerically); the even form's certified positivity loaded at delta = 1.0 (1bj's Temple lower bound "
+     + f"{even10.get('temple_lo', 0):.3e}) and 1.3828125 (1bl's certificate {mech['final']:.3e}) -- exactly one negative direction on the even sector there", ok)
 
 # ---------------------------------------------------------------- g5
 def bound_ok(a, Kp): return 2*(a + math.sinh(a))**2 - Kp*(4*math.cosh(a/2) - 2)**2*math.exp(a) > 0
@@ -137,16 +147,29 @@ gate("g5 mangle probes: the bound fails with K' tenfold at a = 0.2, with 12 K' a
 
 # ---------------------------------------------------------------- g6
 import paper_needles
-S_Q0 = '−1.99, −4.03, −9.33, −41.09'
+S_Q0 = '−1.99, −4.04, −9.33, −41.10'
+S_UPS = '−1.98, −2.82, −4.30'
+S_ARCH = 'their sum −0.09, −0.24, −1.68, −5.47, −14.49 at a = 0.15, 0.2, 0.5, 1.0, 1.75; the integral alone +1.53, +1.92, +3.80, +6.22, +9.90'
+S_PR = '−0.31, −3.86, −26.60 at a = 0.5, 1.0, 1.75'
 # the call carries its literal (the precheck's clause D); the string equals S_Q0 above by construction
 ok = True
-ok &= paper_needles.needle(PAPER_NEEDLES, '−1.99, −4.03, −9.33, −41.09', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_Q0]
-def _num(s): return float(s.strip().replace('−', '-'))
+ok &= paper_needles.needle(PAPER_NEEDLES, '−1.99, −4.04, −9.33, −41.10', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '−1.98, −2.82, −4.30', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'their sum −0.09, −0.24, −1.68, −5.47, −14.49 at a = 0.15, 0.2, 0.5, 1.0, 1.75; the integral alone +1.53, +1.92, +3.80, +6.22, +9.90', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '−0.31, −3.86, −26.60 at a = 0.5, 1.0, 1.75', 'ws')
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_Q0, S_UPS, S_ARCH, S_PR]
+def _num(s): return float(s.strip().replace('−', '-').replace('+', ''))
 _m = __import__("re").findall(r"(−[0-9]+\.[0-9]{2})", S_Q0)
 ok &= len(_m) == 4 and all(abs(_num(x) - q0[a]) <= 5e-3 + 1e-9 for x, a in zip(_m, (0.5, 0.6914, 1.0, 1.75)))      # nearest 0.01
-ok &= all(abs(ups[c] - EXPECT[c]) <= 0.01 + 1e-9 for c in CELLS) and K_PRIME <= 0.0465 and abs(K_HADAMARD - 0.04619) < 5e-6
-gate("g6 the paper's numbers parsed back from the declared needles: the four zero-side values (nearest 0.01), the three upper ends (ceilings), K' <= 0.0465, K = 0.04619", ok)
+_m = __import__("re").findall(r"(−[0-9]+\.[0-9]{2})", S_UPS)
+ok &= len(_m) == 3 and all(_num(x) >= ups[c] and _num(x) - ups[c] < 0.01 + 1e-9 for x, c in zip(_m, CELLS)) and all(abs(EXPECT[c] - _num(x)) < 1e-12 for x, c in zip(_m, CELLS))   # ceilings
+_m = __import__("re").findall(r"([-−+]?[0-9]+\.[0-9]{2})", S_ARCH.split(" at a = ")[0]) + __import__("re").findall(r"([-−+]?[0-9]+\.[0-9]{2})", S_ARCH.split("the integral alone ")[1])   # the support list (0.15, 1.75) excluded from the parse
+_as = [0.15, 0.2, 0.5, 1.0, 1.75]
+ok &= len(_m) == 10 and all(abs(_num(x) - (qp[a][1] + qp[a][2])) <= 5e-3 + 1e-9 for x, a in zip(_m[:5], _as)) and all(abs(_num(x) - qp[a][2]) <= 5e-3 + 1e-9 for x, a in zip(_m[5:], _as))
+_m = __import__("re").findall(r"(−[0-9]+\.[0-9]{2})", S_PR)
+ok &= len(_m) == 3 and all(abs(_num(x) - qp[a][3]) <= 5e-3 + 1e-9 for x, a in zip(_m, (0.5, 1.0, 1.75)))
+ok &= K_PRIME <= 0.0465 and abs(K_HADAMARD - 0.04619) < 5e-6 and abs(K_PRIME - 0.046486) < 5e-7
+gate("g6 the paper's numbers parsed back from the declared needles: the four zero-side values (nearest 0.01), the three upper ends (ceilings, declared here), the archimedean sums and integrals and the shells (nearest 0.01), K' = 0.046486 <= 0.0465, K = 0.04619", ok)
 
 
 # ---------------------------------------------------------------- g7

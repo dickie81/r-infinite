@@ -15,7 +15,10 @@ for a real primitive character, 11 for Delta (Gamma_C(s + 11/2) = Gamma_R(s +
 then the constant c_L integrates to 4 c_L arccosh(T/gamma_1), the piece below
 gamma_1 (where N = 0) to the constant -4 int_0^{gamma_1} N_0/r, and the S piece
 to 4 int_{gamma_1}^inf S/r + o(1) (Littlewood's mean bound on S). Explicitly
-    C_L = -4 c_L ln(gamma_1/2) - 4 int_0^{gamma_1} N_0(r)/r dr + 4 int_{gamma_1}^inf S(r)/r dr.
+    C_L = -4 c_L ln(gamma_1/2) - 4 int_0^{gamma_1} N_0(r)/r dr + 4 int_{gamma_1}^inf S(r)/r dr,
+the last integral evaluated on the list plus the Stirling remainder's tail 4 kappa_R/T_last
+(S contains, besides the argument of L, the next Stirling term kappa_R/T of the Gamma factors:
+kappa_R = -4.80 for Delta, +0.0066 for zeta and the characters).
 Functions: the forms' constants, B, I, the Stieltjes right-hand side (exact per
 interval), the residual B - I - 4 c_L ln T, least-squares slopes, C_L by its
 formula from a zero list. Floating point on the committed zero lists (data).
@@ -92,8 +95,20 @@ def slope(zs, F, Tlo, Thi, n=12):
     sl, ic = np.linalg.lstsq(A, y, rcond=None)[0]
     return float(sl), float(ic), Ts, y
 
-def C_from_formula(zs, F, Tmax):
-    """C_L = -4 c_L ln(gamma_1/2) - 4 int_0^{gamma_1} N_0/r dr + 4 int_{gamma_1}^{Tmax} S(r)/r dr, S = N - N_0 - c_L."""
+def stirling_remainder(F, T):
+    """R(T) = N_smooth(T) - N_0(T) - c_L with N_smooth = theta(T)/pi + [pole] from the exact log-Gamma: the part of S that is
+    not the argument of L, ~ kappa_R/T (the next Stirling term; -4.80/T for Delta, +0.0066/T for zeta and the characters)."""
+    import mpmath as mp
+    mp.mp.dps = 30
+    q, d = F["q"], F["d"]
+    th = sum(mp.im(mp.loggamma(mp.mpc(0.25 + mp.mpf(k)/2, T/2))) for k in F["kappas"]) - T/2*mp.log(mp.pi**d/q)
+    Ns = float(th/mp.pi) + (1.0 if F["pole"] else 0.0)
+    return Ns - N0(np.array([T]), q, d)[0] - count_constant(F)
+
+def C_from_formula(zs, F, Tmax, tail=True):
+    """C_L = -4 c_L ln(gamma_1/2) - 4 int_0^{gamma_1} N_0/r dr + 4 int_{gamma_1}^{inf} S(r)/r dr, S = N - N_0 - c_L, the integral
+    over the list to Tmax plus the tail 4 int_{Tmax}^inf R(r)/r dr = 4 kappa_R/Tmax of the Stirling remainder (round 317 F317-2:
+    -0.20 for Delta at Tmax = 94, negligible for zeta and the characters); the argument's own tail is the o(1)."""
     q, d, cL = F["q"], F["d"], count_constant(F); g1 = float(zs[0])
     t1 = -4*cL*math.log(g1/2)
     t2 = -4*quad(lambda r: N0(np.array([r]), q, d)[0]/r, 0, g1, limit=200)[0]
@@ -103,7 +118,8 @@ def C_from_formula(zs, F, Tmax):
     for k in range(len(pts) - 1):
         lo, hi = pts[k], pts[k + 1]; n = k + 1
         t3 += 4*((n - cL)*math.log(hi/lo) - quad(lambda r: N0(np.array([r]), q, d)[0]/r, lo, hi, limit=200)[0])
-    return t1 + t2 + t3, (t1, t2, t3)
+    t4 = 4*Tmax*stirling_remainder(F, Tmax)/Tmax if tail else 0.0          # 4 kappa_R / Tmax with kappa_R = Tmax R(Tmax)
+    return t1 + t2 + t3 + t4, (t1, t2, t3, t4)
 
 if __name__ == "__main__":
     for name, F in FORMS.items():
@@ -114,4 +130,4 @@ if __name__ == "__main__":
         Cf, parts = C_from_formula(zs, F, Tmax)
         res = [residual(zs, t, F) for t in Ts]
         print(f"{name:7s} 4c_L {four_cL_formula(F):+.3f} (= 4*{count_constant(F):.3f}); fitted slope {sl:+.3f}; Stieltjes identity |lhs-rhs| {abs(lhs-rhs):.2e} at T={T:.1f}; "
-              f"residual C over T: min {min(res):.3f} max {max(res):.3f}; C by formula {Cf:.3f} (parts {parts[0]:.3f}, {parts[1]:.3f}, {parts[2]:.3f})", flush=True)
+              f"residual C over T: min {min(res):.3f} max {max(res):.3f}; C by formula {Cf:.3f} (parts {parts[0]:.3f}, {parts[1]:.3f}, {parts[2]:.3f}, tail {parts[3]:.3f})", flush=True)

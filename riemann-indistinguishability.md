@@ -7023,7 +7023,7 @@ correction of the finite-δ formula is 4c_L ln T + C_L, c_L the constant
 term of the zero-counting function: 7/2 for ζ, the pole's four less the
 Γ_ℝ's half; `cascade_count_constant.py`).** *(i) Statement.* Let L be
 one of ζ, L(s, χ) for a real primitive character (conductor q, κ = 0 or
-1) or L(Δ, s), with zero-counting function N(T) = N₀(T) + c_L + S(T),
+1; no real zero in (0, 1), as for q = 3, 4, 8) or L(Δ, s), with zero-counting function N(T) = N₀(T) + c_L + S(T),
 N₀(T) = (T/2π)[ln(q(T/2π)^d) − d] the smooth count (n₀ = N₀′ =
 (1/2π)ln(q(r/2π)^d) the density of Theorem 1bm(iv)) and c_L = [pole] +
 Σ_i(κ_i/4 − 1/8) over the Γ_ℝ(s + κ_i) factors — the constant of the
@@ -7044,7 +7044,7 @@ B − I = ∫₀^T φ d(N − N₀), and since (N − N₀)(r) → 0 as r → 0 
 φ(r)N₀(r) = O(r ln² r), Stieltjes integration by parts gives
 B − I = −∫₀^T (N − N₀)φ′ dr = ∫₀^T (N − N₀)(r)·4/(r√(1 − r²/T²)) dr —
 gated as an identity on every list (the right side evaluated exactly
-per interval between zeros, agreement below 10⁻⁸). Below γ₁, N = 0
+per interval between zeros, agreement below 10⁻⁶). Below γ₁, N = 0
 and the integrand is −4N₀(r)/r·(1 + O(r²/T²)), integrable at 0: the
 contribution is −4∫₀^{γ₁}N₀/r dr + o(1). On [γ₁, T], N − N₀ = c_L +
 S: the constant gives 4c_L arccosh(T/γ₁) = 4c_L ln(2T/γ₁) + o(1); the
@@ -7059,35 +7059,45 @@ The classical inputs are the Riemann–von Mangoldt formula with its
 constant, S(T) = O(ln T), and S₁(T) = O(ln T) (Littlewood); for L(Δ, s)
 the last is used as the standard analogue. *(iii) Computed, gated.*
 On the committed zero lists the least-squares slope of B − I against
-ln T is 3.50, 0.44, 0.61, −0.67, 10.92 against 7/2, 1/2, 1/2, −1/2, 11 (gated within 0.05
-for ζ over T ∈ [42, 7000], 0.2 for the characters and 0.15 for Δ on
-their shorter lists); the residual B − I − (7/2)ln T for ζ lies in
-[3.57, 4.39] over that decade and a half, and C_ζ by its formula is 4.05
-(the three terms −6.84, 10.70, 0.19), C_Δ 0.56; the other constants
-2.89, 2.24, 1.22 for χ₋₃, χ₋₄, χ₈. *(iv) What it says for the slack law.* At T = 2T₀ = 4πeᵟ the
+ln T over twelve log-spaced heights on [max(40, 3γ₁), T_last] is 3.50, 0.44, 0.61, −0.67, 10.92 against 7/2, 1/2, 1/2, −1/2, 11: the
+decisive tests are ζ (gated within 0.05 on [42, 7000]) and Δ (within
+0.15 — the theorem's 11 predicted before the fit); the characters'
+lists are too short to fix a slope (the fits move by ±0.3 under the
+window; gated within 0.5). The residual B − I − (7/2)ln T for ζ lies in
+[3.57, 4.39] over those 2.2 decades — the spread is S(T) — and C_ζ by its formula is 4.05
+(the three terms −6.84, 10.70, 0.19; the Stirling remainder's tail
+4κ_R/T_last with κ_R = +0.0066 is nil); for Δ the same tail is not
+nil — S carries the next Stirling term of Γ_ℂ(s + 11/2), κ_R = −4.80
+— and C_Δ with its tail is 0.35 (0.56 without it); the characters'
+constants are 2.89, 2.24, 1.22 for χ₋₃, χ₋₄, χ₈. *(iv) What it says for the slack law.* At T = 2T₀ = 4πeᵟ the
 quantity 1bm(v) recorded as "the difference 2s_δ(2T₀) + 4πeᵟ … O(δ)"
 is B(2T₀) − I(2T₀) exactly, hence
 
   2s_δ(2T₀) + 4πeᵟ = (7/2)(δ + ln 4π) + C_ζ + o(1):
 
 linear in δ with slope 7/2, and the seven values 16.8, 17.8, 19.9, 21.2,
-21.9, 23.5, 25.3 sit within 0.4 of (7/2)ln(4πeᵟ) + C_ζ (gated
-within 0.5 at every cell, the o(1) being the Euler–Maclaurin remainder
-at T = 34–416). So the slack-law exponent reads ln λ₁(δ) = −4πeᵟ +
-(7/2)ln(4πeᵟ) + C_ζ + c(δ) + o(1) with 1bm(v)'s residual c(δ), whose
-own least-squares slope against ln T₀ over the seven cells is 1.28
-(gated in [1.1, 1.5]): of the ground state's ≈ 4.8 ln T₀, the count
-constant supplies 7/2 and the residual the rest. The 7/2 is 4 − ½: the
+21.9, 23.5, 25.3 sit within 0.4 of (7/2)ln(4πeᵟ) + C_ζ at the cells (gated
+within 0.5 at every cell; the o(1) at T = 34–416 is the proof's
+remainder — the arccosh–logarithm difference, the piece below γ₁'s
+O(γ₁²/T²), the S tail and its weight defect). 1bm(v)'s c(δ) is defined
+against the discrete minimum min_T 2s_δ(T), which sits below the value
+at 2T₀ by d(δ) := 2s_δ(2T₀) − min_T 2s_δ(T) = 1.18, 0.69, 0.27, 0.59, 0.14, 0.33, 0.29 at the cells
+(computed, gated; whether d → 0 is not claimed), so the slack-law
+exponent reads ln λ₁(δ) = −4πeᵟ + (7/2)ln(4πeᵟ) + C_ζ + c(δ) − d(δ) +
+o(1). The least-squares slopes against ln T₀ over the seven cells are
+1.28 for c(δ) and −0.32 for d(δ), 1.59 for c − d (gated in [1.4, 1.8]),
+and 7/2 + 1.59 = 5.09 against the directly fitted slope of ln λ₁ + 4πeᵟ, 5.04 (1bm(vii), gated within 0.1): of the ground state's 5.04 ln T₀, the count
+constant supplies 7/2 and c − d the rest. The 7/2 is 4 − ½: the
 pole contributes 4 ln T₀, the single Γ_ℝ(s) contributes −½ ln T₀, and
 for the L-functions without a pole the discrete correction carries
 only Σ_i(κ_i − ½) ln T — negative for χ₈. In Fuchs' fixed-order law
 for the prolate leakage the coefficient of ln c is n + ½ (1bm(vii)):
 the pole is worth four orders, which is where the shadow's rung 1 sits
-(Theorem 1br: order 4, not 0) — to within the residual's own slope.
+(Theorem 1br: order 4, not 0) — to within the slope 1.59 of c − d.
 *(v) What is proved, computed, not claimed.* Proved: (i) with its
 constants, unconditionally. Computed, gated in bands: the slopes and
-constants of (iii), the seven-cell consequence of (iv), the residual's
-slope. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
+constants of (iii), the seven-cell consequence of (iv), d(δ) and the
+slopes of c and c − d. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
 theorem concerns the ground-state formula), about the 2-mod-4 orders,
 or about c(δ) beyond its measured slope; anything about the zeros
 beyond the count; **no Riemann Hypothesis consequence is claimed**.
@@ -7110,7 +7120,7 @@ Weil's explicit formula applied to its autocorrelation reads Q(g) =
 For |Im t| ≤ ½ one integration by parts gives |ĝ(t)| ≤ V(a)e^{a|Im t|}/|t|
 with V(a) = 4cosh(a/2) − 2 (the two jumps 2cosh(a/2) and the variation
 2(cosh(a/2) − 1)), so |Q(g_a)| ≤ V(a)²eᵃ Σ_ρ 1/|t_ρ|². With ρ = β + iγ,
-|t_ρ|² ≥ γ², and Σ_ρ 1/γ² ≤ K(1 + 5/(4γ₁²)) =: K′ = 0.0465 from
+|t_ρ|² ≥ γ², and Σ_ρ 1/γ² ≤ K(1 + 5/(4γ₁²)) =: K′ = 0.046486 ≤ 0.0465 from
 Hadamard's Σ_ρ 1/(ρ(1 − ρ)) = 2 + γ_E − ln 4π = K = 0.04619 (each term's
 real part is at least 1/(γ² + 5/4)) and γ₁ > 14. Meanwhile ĝ_a(i/2) =
 ∫_{−a}^{a} cosh²(u/2) du = a + sinh a. Hence Q₀(g_a) ≤ V(a)²eᵃK′ −
@@ -7120,22 +7130,27 @@ gated) and for a ≥ 1 by the elementary bound 2(a + sinh a)² ≥
 (eᵃ − e^{−a})²/2 against V(a)² ≤ 16cosh²(a/2): the ratio
 (1 − e^{−2a})²/(8K′(1 + 2e^{−a} + e^{−2a})) exceeds 1 at a = 1 and
 increases with a. □ The threshold is the bound's, not the form's: on
-the 6700-zero list Q₀(g_a) evaluates to −1.99, −4.03, −9.33, −41.09 at a = 0.5, 0.6914,
-1.0, 1.75 (computed, the tail by the smooth density), and is already
-negative at a = 0.15 where the bound fails. *(iii) At the cells.* The
+the 6700-zero list Q₀(g_a) evaluates to −1.99, −4.04, −9.33, −41.10 at a = 0.5, 0.6914,
+1.0, 1.75 (computed: the zero side with the smooth-density tail, and
+Theorem 1bn's prime side — the archimedean constant, the archimedean
+integral with the witness's closed-form autocorrelation f(u) = sinh(a −
+u/2) + (a − u/2)cosh(u/2), and the shells — agreeing to 10⁻⁴, gated),
+and is already negative at a = 0.15 where the bound fails. *(iii) At the cells.* The
 form's own negative direction: at δ = 1.0, 1.3828125, 2.0 the Rayleigh
 ball of Q₀'s lowest approximate vector is certified negative (upper
 ends −1.98, −2.82, −4.30, Theorem 1br(iii), re-derived here), and by
-Weyl's interlacing for the rank-one update Q = Q₀ + 2⟨p, ·⟩²,
-λ₂(Q₀) ≥ λ₁(Q): where the form is certified positive — δ = 1.0 (Theorem
-1bj's Temple enclosure) and 1.3828125 (Theorem 1bl's certificate) —
-Q₀ has exactly one negative direction, gated on those certificates.
+Weyl's interlacing for the rank-one update Q = Q₀ + 2⟨p, ·⟩² on the
+even sector — the paper's Gram — λ₂(Q₀) ≥ λ₁(Q): where the even form is
+certified positive — δ = 1.0 (Theorem 1bj's Temple lower bound) and
+1.3828125 (Theorem 1bl's certificate) — Q₀ has exactly one negative
+direction on the even sector, gated on those certificates (nothing is
+claimed for the odd sector, where the pole term is not 2ĝ(i/2)²).
 *(iv) What it says.* Weil positivity, where it holds, is not a property
-of the zero-density kernel alone: the archimedean constant ψ(¼) − log π
-is negative and the smooth density of zeros is negative below the first
-zero, so a function concentrated at low frequency — cosh(u/2), whose
-transform peaks at the pole's own point i/2 — is sent negative by every
-term but the pole's, and the pole's rank-one term 2ĝ(i/2)² is what
+of the zero-density kernel alone. For this witness — cosh(u/2), whose
+transform peaks at the pole's own point i/2 — the archimedean constant
+ψ(¼) − log π is negative and outweighs the positive archimedean
+integral (their sum −0.09, −0.24, −1.68, −5.47, −14.49 at a = 0.15, 0.2, 0.5, 1.0, 1.75; the integral alone +1.53, +1.92, +3.80, +6.22, +9.90), and the prime side is negative
+(−0.31, −3.86, −26.60 at a = 0.5, 1.0, 1.75): every term but the pole's sums negative (gated on 1bn's prime side), and the pole's rank-one term 2ĝ(i/2)² is what
 restores the sign. This is the algebraic content of 1br(iii)'s ladder:
 the rungs from 2 on are cast without the pole, rung 1 is the pole's
 lift of this direction. *(v) What is proved, computed, not claimed.*
