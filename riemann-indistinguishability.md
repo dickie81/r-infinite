@@ -7059,12 +7059,17 @@ The classical inputs are the Riemann–von Mangoldt formula with its
 constant, S(T) = O(ln T), and S₁(T) = O(ln T) (Littlewood); for L(Δ, s)
 the last is used as the standard analogue. *(iii) Computed, gated.*
 On the committed zero lists the least-squares slope of B − I against
-ln T over twelve log-spaced heights on [max(40, 3γ₁), T_last] is 3.50, 0.44, 0.61, −0.67, 10.92 against 7/2, 1/2, 1/2, −1/2, 11: the
-decisive tests are ζ (gated within 0.05 on [42, 7000]) and Δ (within
+ln T over twelve log-spaced heights on [max(40, 3γ₁), T_last] (ζ on [42, 7000]) is 3.50, 0.44, 0.61, −0.67, 10.92 against 7/2, 1/2, 1/2, −1/2, 11: the
+decisive tests are ζ (gated within 0.05) and Δ (within
 0.15 — the theorem's 11 predicted before the fit); the characters'
-lists are too short to fix a slope (the fits move by ±0.3 under the
-window; gated within 0.5). The residual B − I − (7/2)ln T for ζ lies in
-[3.57, 4.39] over those 2.2 decades — the spread is S(T) — and C_ζ by its formula is 4.05
+lists are too short to fix a slope: over the four-window set lo ∈
+{2γ₁, max(40, 3γ₁)}, hi ∈ {T_last, 0.75T_last} (twelve heights each)
+the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ₋₃, χ₋₄, χ₈ (gated,
+outward), every window of χ₈ sitting below −½ (its list ends at
+T = 70), while on the same set ζ spans 3.45–3.51 and Δ 10.78–11.06, each
+enclosing its constant (gated); the stated-window fits are gated
+within 0.5 for the characters. The residual B − I − (7/2)ln T for ζ lies in
+[3.57, 4.39] over those 2.2 decades — the spread is the S(T) fluctuation of the proof's remainder — and C_ζ by its formula is 4.05
 (the three terms −6.84, 10.70, 0.19; the Stirling remainder's tail
 4κ_R/T_last with κ_R = +0.0066 is nil); for Δ the same tail is not
 nil — S carries the next Stirling term of Γ_ℂ(s + 11/2), κ_R = −4.80
@@ -7082,12 +7087,12 @@ remainder — the arccosh–logarithm difference, the piece below γ₁'s
 O(γ₁²/T²), the S tail and its weight defect). 1bm(v)'s c(δ) is defined
 against the discrete minimum min_T 2s_δ(T), which sits below the value
 at 2T₀ by d(δ) := 2s_δ(2T₀) − min_T 2s_δ(T) = 1.18, 0.69, 0.27, 0.59, 0.14, 0.33, 0.29 at the cells
-(computed, gated; whether d → 0 is not claimed), so the slack-law
+(computed, pinned; whether d → 0 is not claimed), so the slack-law
 exponent reads ln λ₁(δ) = −4πeᵟ + (7/2)ln(4πeᵟ) + C_ζ + c(δ) − d(δ) +
 o(1). The least-squares slopes against ln T₀ over the seven cells are
 1.28 for c(δ) and −0.32 for d(δ), 1.59 for c − d (gated in [1.4, 1.8]),
 and 7/2 + 1.59 = 5.09 against the directly fitted slope of ln λ₁ + 4πeᵟ, 5.04 (1bm(vii), gated within 0.1): of the ground state's 5.04 ln T₀, the count
-constant supplies 7/2 and c − d the rest. The 7/2 is 4 − ½: the
+constant supplies 7/2, c − d 1.59, and the cells' o(1) the balance −0.05 (the three slopes sum to the direct slope exactly, gated). The 7/2 is 4 − ½: the
 pole contributes 4 ln T₀, the single Γ_ℝ(s) contributes −½ ln T₀, and
 for the L-functions without a pole the discrete correction carries
 only Σ_i(κ_i − ½) ln T — negative for χ₈. In Fuchs' fixed-order law
@@ -7096,8 +7101,8 @@ the pole is worth four orders, which is where the shadow's rung 1 sits
 (Theorem 1br: order 4, not 0) — to within the slope 1.59 of c − d.
 *(v) What is proved, computed, not claimed.* Proved: (i) with its
 constants, unconditionally. Computed, gated in bands: the slopes and
-constants of (iii), the seven-cell consequence of (iv), d(δ) and the
-slopes of c and c − d. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
+constants of (iii), the seven-cell consequence of (iv), d(δ), the
+slopes of c, d and c − d and the o(1)'s balance. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
 theorem concerns the ground-state formula), about the 2-mod-4 orders,
 or about c(δ) beyond its measured slope; anything about the zeros
 beyond the count; **no Riemann Hypothesis consequence is claimed**.
@@ -7110,7 +7115,8 @@ transitive import closure; the zero lists read as data.
 **Theorem 1bt (the pole-free form is indefinite — for every support
 a ≥ 0.2, unconditionally, with the witness cosh(u/2); at the certified
 cells it has exactly one negative direction; `cascade_pole_indefinite.py`).**
-*(i) Statement.* Let Q be Weil's form of Theorem 1bn on L²(−a, a) and
+*(i) Statement.* Let Q be Weil's form of Theorem 1bn on the even sector
+of L²(−a, a) (the paper's Gram) and
 Q₀ = Q − 2ĝ(i/2)² the form with the pole term removed (Theorem
 1br(iii)). For g_a(u) = cosh(u/2) on [−a, a] and 0 outside,
 Q₀(g_a) < 0 for every a ≥ 0.2. *(ii) Proof.* For an even real g,
@@ -7134,7 +7140,7 @@ the 6700-zero list Q₀(g_a) evaluates to −1.99, −4.04, −9.33, −41.10 at
 1.0, 1.75 (computed: the zero side with the smooth-density tail, and
 Theorem 1bn's prime side — the archimedean constant, the archimedean
 integral with the witness's closed-form autocorrelation f(u) = sinh(a −
-u/2) + (a − u/2)cosh(u/2), and the shells — agreeing to 10⁻⁴, gated),
+u/2) + (a − u/2)cosh(u/2), and the shells — agreeing within 10⁻⁵, gated),
 and is already negative at a = 0.15 where the bound fails. *(iii) At the cells.* The
 form's own negative direction: at δ = 1.0, 1.3828125, 2.0 the Rayleigh
 ball of Q₀'s lowest approximate vector is certified negative (upper
@@ -7146,17 +7152,18 @@ certified positive — δ = 1.0 (Theorem 1bj's Temple lower bound) and
 direction on the even sector, gated on those certificates (nothing is
 claimed for the odd sector, where the pole term is not 2ĝ(i/2)²).
 *(iv) What it says.* Weil positivity, where it holds, is not a property
-of the zero-density kernel alone. For this witness — cosh(u/2), whose
-transform peaks at the pole's own point i/2 — the archimedean constant
+of the zero-density kernel alone. For this witness — cosh(u/2), the
+pole's own mode e^{±u/2} — the archimedean constant
 ψ(¼) − log π is negative and outweighs the positive archimedean
-integral (their sum −0.09, −0.24, −1.68, −5.47, −14.49 at a = 0.15, 0.2, 0.5, 1.0, 1.75; the integral alone +1.53, +1.92, +3.80, +6.22, +9.90), and the prime side is negative
-(−0.31, −3.86, −26.60 at a = 0.5, 1.0, 1.75): every term but the pole's sums negative (gated on 1bn's prime side), and the pole's rank-one term 2ĝ(i/2)² is what
+integral (their sum −0.09, −0.24, −1.68, −5.47, −14.49 at a = 0.15, 0.2, 0.5, 1.0, 1.75; the integral alone +1.53, +1.92, +3.80, +6.22, +9.90), and the prime side is negative once a prime power enters, a > (ln 2)/2 = 0.347
+(−0.31, −3.86, −26.60 at a = 0.5, 1.0, 1.75; zero at 0.15 and 0.2): every term but the pole's sums negative (gated on 1bn's prime side), and the pole's rank-one term 2ĝ(i/2)² is what
 restores the sign. This is the algebraic content of 1br(iii)'s ladder:
 the rungs from 2 on are cast without the pole, rung 1 is the pole's
 lift of this direction. *(v) What is proved, computed, not claimed.*
 Proved: (i), unconditionally (the explicit formula, Hadamard's product,
 the first zero's height, and a certified interval evaluation on
-[0.2, 1]). Computed: the zero-side values of (ii). Certified: the
+[0.2, 1]). Computed: the zero-side and prime-side values of (ii), the
+archimedean and prime-side terms of (iv). Certified: the
 negative balls of (iii); the "exactly one" at two cells rests on the
 cited certificates. Not claimed: any statement about positivity itself
 beyond the cited certificates; anything about the zeros; **no Riemann

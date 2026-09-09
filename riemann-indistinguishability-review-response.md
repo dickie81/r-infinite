@@ -5502,4 +5502,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-317 sweep commit. Full-tower class (verifier and substrate executable lines; manifest). Brief `brief_round318.md`.
 
+**Findings.** 0 MAJOR, 4 minor, 7 cosmetic — all verified by the lead and swept (A478). F318-1 the zero/prime agreement stated "10⁻⁴, gated" against a 10⁻³ gate (now within 10⁻⁵, gated; the observed max 8.9×10⁻⁷); F318-2 "±0.3 under the window" ungated (now a gated four-window set with the spans stated outward: χ₋₃ 0.37–0.55, χ₋₄ 0.45–0.64, χ₈ −0.85 to −0.50 with every window below −½; ζ 3.45–3.51 and Δ 10.78–11.06 enclosing their constants); F318-3 ζ's 3.50 attributed to a window on which the fit is 3.48 (now "(ζ on [42, 7000])"); F318-4 the bookkeeping's 5.09 tolerated 5.10 (now nearest 0.01 and the arithmetic). Cosmetics: the o(1)'s balance −0.05 stated and gated as an exact identity of slopes (C1); "the S(T) fluctuation of the proof's remainder" (C2); the shells zero below a = (ln 2)/2 (C3); the "computed" censuses completed (C4); the tautological `dv > 0` conjunct removed (C5); 1bt(i) scoped to the even sector (C6); the endpoint quadrature handed to an algebraic weight (C7; the identity now closes to 4×10⁻¹¹); and the reviewer's uncounted note on "peaks at i/2" swept ("the pole's own mode e^{±u/2}"). Sweep battery: members 9/9, 9/9; manifest 29; TOWER PASS 29/29.
+
+### Round 319 — convergence test on the round-318 sweep (Theorems 1bs, 1bt)
+
+**Scope.** The round-318 sweep commit. Full-tower class (verifier and substrate executable lines; manifest). Brief `brief_round319.md`.
+
 **Findings.** Pending.

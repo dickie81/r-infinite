@@ -18,10 +18,11 @@ the elementary ratio (1 - e^{-2a})^2 / (8 K' (1 + 2 e^{-a} + e^{-2a})) exceeds
 the bound fails at a = 0.15 (the threshold is the bound's). (3) THE FORM'S
 VALUE: on the 6700-zero list Q_0(g_a) = 2 sum ghat^2 + tail - 2 ghat(i/2)^2 and
 on 1bn's prime side (the constant, the archimedean integral with the closed-form
-autocorrelation, the shells) agree within 1e-3 and are negative at a = 0.15,
-0.2, 0.5, 0.6914, 1.0, 1.75; the archimedean constant plus integral is negative
-with the integral alone positive, the shells negative (floating point; the
-stated values pinned). (4) AT THE CELLS: the Rayleigh ball of Q_0's lowest
+autocorrelation, the shells) agree within 1e-5 (round 318 F318-1) and are
+negative at a = 0.15, 0.2, 0.5, 0.6914, 1.0, 1.75; the archimedean constant
+plus integral is negative with the integral alone positive, the shells zero
+below a = (ln 2)/2 (no prime power below e^{2a}) and negative beyond (round
+318 C318-3) (floating point; the stated values pinned). (4) AT THE CELLS: the Rayleigh ball of Q_0's lowest
 approximate vector re-derived live at delta = 1.0, 1.3828125, 2.0 is negative
 (upper ends within 0.01 of -1.98, -2.82, -4.30) and the first cosine mode's
 positive; the interlacing lambda_2(Q_0) >= lambda_1(Q) holds on the approximate
@@ -106,10 +107,11 @@ ok = True; q0 = {}; qp = {}
 for a in (0.15, 0.2, 0.5, 0.6914, 1.0, 1.75):
     v, s, t = Q0_zero_side(a, ZS); q0[a] = v; ok &= v < 0 and t < 0.01
     Qp, pole, const, integ, pr = Q_prime_side(a); qp[a] = (Qp - pole, const, integ, pr)
-    ok &= abs((Qp - pole) - v) <= 1e-3 and const + integ < 0 and integ > 0 and pr <= 0       # round 317 F317-4/F317-5: the prime side agrees; the archimedean sum negative, the integral positive, the shells negative
+    ok &= abs((Qp - pole) - v) <= 1e-5 and const + integ < 0 and integ > 0                   # round 317 F317-4/F317-5, round 318 F318-1: the prime side agrees within 1e-5; the archimedean sum negative, the integral positive
+    ok &= (pr == 0.0) if a < math.log(2)/2 else (pr < 0)                                      # round 318 C318-3: the shells vanish below a = (ln 2)/2 (no prime power below e^{2a}) and are negative beyond
     ok &= abs(autocorr(0.0, a) - (a + math.sinh(a))) <= 1e-12                                 # f(0) = ||g||^2
-gate("g3 the form's value (computed): Q_0(g_a) on the zero side (smooth tail) and on 1bn's prime side agree within 1e-3 -- " + ", ".join(f"{q0[a]:+.4f} / {qp[a][0]:+.4f} at a = {a}" for a in q0)
-     + "; the archimedean constant plus integral " + ", ".join(f"{qp[a][1] + qp[a][2]:+.2f}" for a in q0) + " (the integral alone " + ", ".join(f"{qp[a][2]:+.2f}" for a in q0) + "), the shells " + ", ".join(f"{qp[a][3]:+.2f}" for a in q0) + " -- negative at every support but the pole's", ok)
+gate("g3 the form's value (computed): Q_0(g_a) on the zero side (smooth tail) and on 1bn's prime side agree within 1e-5 (max |diff| " + f"{max(abs(qp[a][0] - q0[a]) for a in q0):.1e}) -- " + ", ".join(f"{q0[a]:+.4f} / {qp[a][0]:+.4f} at a = {a}" for a in q0)
+     + "; the archimedean constant plus integral " + ", ".join(f"{qp[a][1] + qp[a][2]:+.2f}" for a in q0) + " (the integral alone " + ", ".join(f"{qp[a][2]:+.2f}" for a in q0) + "), the shells " + ", ".join(f"{qp[a][3]:+.2f}" for a in q0) + " (zero below a = (ln 2)/2, negative beyond) -- every term but the pole's sums negative", ok)
 
 # ---------------------------------------------------------------- g4
 CELLS = {"d1.0": (1.0, 120, 600), "d1.38": (1.3828125, 140, 600), "d2.0": (2.0, 160, 700)}

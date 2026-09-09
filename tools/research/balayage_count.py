@@ -79,9 +79,14 @@ def stieltjes_rhs(zs, T, q, d):
         # the constant part: 4 n int dr/(r sqrt(1 - r^2/T^2)) = 4 n [arccosh(T/lo) - arccosh(T/hi)]
         if n:
             total += 4*n*(math.acosh(T/lo) - (0.0 if hi >= T else math.acosh(T/hi)))
-        # the -N_0 part by quadrature (N_0 ~ r ln r near 0, integrable against 1/r)
-        f = lambda r: -N0(np.array([r]), q, d)[0]*w(r)
-        val, err = quad(f, lo, hi, limit=200, epsabs=1e-11, epsrel=1e-11)
+        # the -N_0 part by quadrature (N_0 ~ r ln r near 0, integrable against 1/r); on the last interval the endpoint
+        # singularity 1/sqrt(1 - r^2/T^2) = T/(sqrt(T + r) sqrt(T - r)) is handed to quad's algebraic weight (T - r)^{-1/2}
+        # (round 318 C318-7: the plain quadrature warned of roundoff at the endpoint)
+        if hi >= T:
+            val, err = quad(lambda r: -N0(np.array([r]), q, d)[0]*4.0*T/(r*math.sqrt(T + r)), lo, T, weight="alg", wvar=(0, -0.5), limit=200, epsabs=1e-11, epsrel=1e-11)
+        else:
+            f = lambda r: -N0(np.array([r]), q, d)[0]*w(r)
+            val, err = quad(f, lo, hi, limit=200, epsabs=1e-11, epsrel=1e-11)
         total += val
     return total
 

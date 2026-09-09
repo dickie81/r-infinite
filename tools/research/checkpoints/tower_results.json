@@ -101,6 +101,12 @@
 "rc": 0,
 "when": "2026-09-03T23:39Z"
 },
+"04e625f35cbd7da5da9833d7": {
+"dt": 55.44804406166077,
+"file": "cascade_pole_indefinite.py",
+"rc": 0,
+"when": "2026-09-09T07:58Z"
+},
 "059d2c7fa3bbfa16b946f056": {
 "dt": 0.5407214164733887,
 "file": "cascade_floor_theory.py",
@@ -3016,6 +3022,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-08-27T20:10Z"
+},
+"d38a99e17947934b58788f12": {
+"dt": 10.473309516906738,
+"file": "cascade_count_constant.py",
+"rc": 0,
+"when": "2026-09-09T07:57Z"
 },
 "d420ca7fca4b3805ddba363b": {
 "dt": 3.7619001865386963,
