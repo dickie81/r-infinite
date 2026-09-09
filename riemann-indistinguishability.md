@@ -6750,6 +6750,239 @@ Substrates `weil_knife_edge.py` and `weil_factorisation_bench.py`
 committed, imported, and content-addressed into the verifier's keys by
 the computed transitive import closure.
 
+**Theorem 1bp (the knife-edge is linear response — the certified shift
+is the slack over the form's slope, the pins compose additively, and the
+archimedean constant is pinned to exactly λ₁; `cascade_linear_response.py`).**
+*(i) The slope.* For a prime p write the shells of p in Theorem 1bo's
+Q^η as P_p(η)(g) = 2Σ_k (log p + η)e^{−u_k/2}f_g(u_k), u_k = k(log p + η)
+< 2a, so that Q^η(g) = Q(g) + P_p(0)(g) − P_p(η)(g). At g₁ — 1bo's
+certified minimiser, its stored coefficients — the derivative at η = 0
+is the closed form dP_p/dη = 2Σ_k e^{−u_k/2}[(1 − u_k/2)f(u_k) +
+u_k f′(u_k)], f the autocorrelation of g₁ and f′ its derivative, both
+O(K) closed forms (`weil_linear_response.py`), and D_p :=
+−(dP_p/dη)/‖g₁‖² is the first-order rise of g₁'s Rayleigh quotient per
+unit upward shift of log p. Gated: the closed form against a central
+difference of the shell sum in balls at every cell and prime (below
+10⁻³⁰ relative) and against a central difference of the K × K shifted
+Gram at δ = 1.0 and 2.0 (below 10⁻²⁰). *(ii) The law (computed,
+gated).* At every (cell, prime) — 36 pairs — η_lin := λ₁/D_p lies
+inside 1bo's certified bracket [η_lo, η_hi]: the certified crossing is
+the first-order crossing to the bracket's width 10⁻³, η_lin/η_hi between 0.9993 and 1.0000 at the pairs (gated in [1 − 10⁻³, 1]). And
+D_p > 0 at every pair: to first order g₁'s quotient rises for every
+upward shift, which is why g₁ witnesses only downward crossings — the
+upward crossings of 1bo's two-sided windows are 10²–10⁵ further out and
+need the re-minimised vector. So the knife-edge of 1bo is the ratio of
+two numbers each computed from g₁ alone, η_p = λ₁/D_p — the slack
+divided by the slope of the form in log p — and 1bo's ratio η₂/λ₁ is
+1/D₂ (gated to the bracket's width): D₂ = 0.1876, 0.3189, 0.4199, 0.4462, 0.4644, 0.4807, 0.4931 at the cells, rising through the cells
+(gated increasing) as the ratio falls from 5.33 to 2.03; no limit is
+claimed. *(iii) The dilation edge (certified bracket; the composition
+computed, gated).* Rescale every shell at once, log p → (1 − ε)log p
+for every p ≤ eᵟ in position and weight — the relative scale of the
+finite places against the real place. At every cell the crossing of
+g₁'s quotient is bracketed as in 1bo(ii), [ε_lo, ε_hi] of relative
+width 10⁻³ with a negative ball at ε_hi, so the rescaled form is not
+positive at ε_hi; the first-order composition ε_lin = λ₁/Σ_p(log p)D_p
+lies inside the bracket at every cell, and the harmonic composition
+ε_hi Σ_p log p/η_p is within 10⁻³ of 1 at every cell (0.9996–1.0002, gated): the pins compose additively — the slack
+λ₁ is spent by the primes in proportion to (log p)D_p, and 1/ε = Σ_p
+log p/η_p. The ε_hi ball is re-derived by the K × K path at δ = 1.0 and
+2.0. Every ε_hi below is rounded outward, λ₁ is 1bn's certified upper
+bound, the ratio column is the smallest over the cell's primes, rounded
+down:
+
+| δ | ln λ₁ ≤ | D₂ | min_p η_lin/η_hi | ε_hi: every log p rescaled by | ε_hi Σ log p/η_p |
+|---|---|---|---|---|---|
+| 1.0 | −13.882 | 0.1876 | 0.9993 | 7.194×10⁻⁶ | 0.9997 |
+| 1.3828125 | −27.754 | 0.3189 | 0.9993 | 3.989×10⁻¹² | 1.0001 |
+| 2.0 | −67.233 | 0.4199 | 0.9994 | 2.133×10⁻²⁹ | 1.0000 |
+| 2.3 | −98.267 | 0.4462 | 0.9994 | 6.633×10⁻⁴³ | 1.0000 |
+| 2.6 | −140.713 | 0.4644 | 0.9994 | 2.335×10⁻⁶¹ | 1.0000 |
+| 3.0 | −221.899 | 0.4807 | 0.9994 | 1.236×10⁻⁹⁶ | 1.0000 |
+| 3.5 | −383.282 | 0.4931 | 0.9996 | 9.794×10⁻¹⁶⁷ | 0.9999 |
+
+*(iv) The archimedean pin (exact).* The constant ψ(¼) − log π enters
+the Gram only on the diagonal, as (ψ(¼) − log π)N_kk (Theorem 1bn's
+Gram; `weil_prime_gram.py`): for every vector the Rayleigh quotient of
+the form with log π → log π + ε is the quotient minus ε exactly (gated
+live at δ = 1.0 to the balls' width), so the ground state of the form
+on [−a, a] with log π + ε is λ₁(δ) − ε, and positivity on [−a, a] is
+lost at ε = λ₁(δ) upward and at no downward ε (gated at every cell on
+the stored balls: g₁'s quotient negative at ε = λ₁'s upper end, positive
+at −ε and at ε/2). The archimedean constant is thus pinned from above to
+exactly the slack — at δ = 3.5, log π to within 3.487×10⁻¹⁶⁷ from above — while the primes
+are pinned from below (1bo): the real place's constant and the finite
+places' positions bound the form from opposite sides, each to the
+precision λ₁(δ) up to the slope. *(v) What is proved, computed, not
+claimed.* Proved: the archimedean identity of (iv) (a one-line
+consequence of the Gram's form, gated to the balls' width); every ε_hi
+of (iii) (a negative ball on an explicit vector). Computed, gated: the
+law of (ii) (containment in every bracket, the ratio band), the sign
+D_p > 0, the monotone D₂, the composition of (iii). Not claimed:
+anything about the perturbed forms beyond the certified points — the
+law is a statement about the fixed vector g₁'s quotient, whose
+crossings are the certified ones (1bo's re-minimised crossings sit
+within 1 percent of them at δ ≤ 2.0, gated there); any lower bound on a
+window; anything about the zeros; a limit of D₂ — **no Riemann
+Hypothesis consequence is claimed**. Check 7 clean (a derivative and a
+Rayleigh quotient; no semiclassics; no cascade quantity). Check 8 clean
+(Riemann-side; no hypothesis input). Substrate
+`weil_linear_response.py` committed, imported, and content-addressed
+into the verifier's keys by the computed transitive import closure.
+
+**Theorem 1bq (the cross-L-function test — the true form of four other
+L-functions at the seven cells: certified bounds, the finite-δ formula
+on their own zeros, the knife-edge in both directions with the sign
+rule, and the linear-response law transferred; `cascade_lfunction_test.py`).**
+*(i) The forms and the Gram.* L(s, χ₋₃), L(s, χ₋₄), L(s, χ₈) — the real
+primitive characters of conductors 3, 4, 8 (κ = 1, 1, 0) — and L(Δ, s),
+Ramanujan's cusp form (degree 2, level 1, Γ_ℂ(s + 11/2)). `lfun_gram.py`
+generalises Theorem 1bn's Gram: the Γ-factors ∏Γ_ℝ(s + κ_i) give the
+archimedean kernel Σ_i e^{(½−κ_i)u}/sinh u with digamma and trigamma at
+¼ + κ_i/2 + iω/2 and the same geometric tails; the constant is log q −
+d log π + Σ_i ψ(¼ + κ_i/2); there is no pole; the prime side is
+2Σ(log p)c(p^k)n^{−1/2}f(log n) with the local coefficients (χ(p)^k;
+α^k + β^k for Δ, αβ = 1, α + β = τ(p)p^{−11/2}). With ζ's descriptor it
+reproduces 1bn's Gram entrywise below 10⁻¹⁰⁰ (gated), and for each form
+the prime-side Rayleigh quotient of the C_c^∞ bump equals the explicit
+formula's zero side on the form's own zeros — `lfun_zeros.py`: the sign
+changes of the form's Hardy function on the line, the count checked
+against the smooth count of the argument principle and by a half-step
+rescan, the reality of the completed function checked to 10⁻⁸ for the
+characters (Δ's is real by construction, 2 Re Σ) — plus
+the smooth-density tail, within 10⁻⁴ (gated: the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
+bounds (certified).* At each cell K2 = max(120, 4(2aT₀)/π + 100) and
+K1 = 0.7K2 modes at 600 bits, T₀ = 2π(eᵟ/q)^{1/d} the form's horizon
+(1bm(iv)'s density rule): every Rayleigh ball positive, ln λ₁ at K2 at
+most the K1 value (gated), the pair within 0.1 in ln. *(iii) The
+finite-δ formula on the form's own zeros (computed, gated).* 1bm(v)'s
+ln λ₁ ≈ min_T[4Σ_{γ<T} ln((1 + √(1 − γ²/T²))T/γ) − 2aT] + c(δ) with the
+zeros of L in place of ζ's: its continuum minimum is −2dT₀ (closed form,
+gated to 10⁻⁶), and the offsets c_L(δ) = ln λ₁ − min are χ₋₃: 4.18, 4.86, 5.60, 5.89, 6.37, 6.72, 7.28; χ₋₄: 4.06, 4.81, 5.58, 5.96, 6.15, 6.55, 7.23; χ₈: 3.87, 4.40, 5.37, 5.57, 5.85, 6.31, 6.81; Δ: 4.65, 5.13, 5.66, 5.98, 6.12, 6.46, 6.79 at δ = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5, against
+ζ's 4.70, 5.22, 6.04, 6.45, 6.70, 7.35, 7.83 from the same cosine-basis λ₁ (1bm(v)'s 4.70, …, 7.90 from
+1bm's own λ₁ re-derived live within 0.01): |c_L − c_ζ| ≤ 1.2 at all
+28 (form, cell) pairs the zero lists reach — the finite-δ
+formula's offset is a property of the cell, not of the arithmetic, to
+1.2 nats. *(iv) The knife-edge both ways and the sign rule.* At every
+(form, cell, unramified prime) — 124 triples — the shells of p moved
+by +η and by −η (position and weight, the coefficients c(p^k) carried),
+the fixed-vector search in both directions from η = λ₁ doubling, capped
+at log(p)/2 (`lfun_cells.py`): exactly one direction carries the near
+crossing — a certified negative ball at η_hi, a positive one at η_lo,
+relative width 10⁻³ — and it is downward exactly when c(p) > 0 (χ(p) =
++1; τ(p) > 0), upward when c(p) < 0, at all 124 triples; the other
+direction has no crossing below the cap except one far crossing — χ₋₃ at δ = 2.6, p = 2, downward at 1.2×10¹⁹ times the near one, beside the cap. Theorem 1bp's
+law transferred (live): the slope D_p^L with c(p^k) in the shells has
+the sign of the witnessed direction at every triple, and η_lin = λ₁/|D_p| lies inside the near bracket at every triple in the small-shift regime η_hi T₀² ≤ 10⁻² (105 of the 124), the deviation |η_lin/η_hi − 1| growing by decade of η_hi T₀² — at most 3×10⁻³, 0.11, 0.54 on [10⁻², 10⁻¹), [10⁻¹, 1), ≥ 1 — second order in
+the shift: the knife-edge, its direction and its magnitude are the
+linear response of the form to its own shell coefficients, in four
+L-functions as in ζ. The smallest unramified prime's η_hi/λ₁ runs
+χ₋₃: 1.3/1.2/1.4/1.4/1.5/1.5/1.6; χ₋₄: 2.0/1.6/1.6/1.6/1.6/1.5; χ₈: 2.2/1.3/1.3/1.4/1.4/1.4; Δ: 2.8/2.4/2.2/2.1/2.1/2.0/1.9 at the cells with an unramified prime. Every ln λ₁ below is the certified upper end (ceiling to
+10⁻³), every c_L the computed offset (nearest 10⁻²):
+
+| form | (q, d) | ln λ₁ ≤ at δ = 1.0 | 2.0 | 3.5 | c_L(2.0) | c_L(3.5) | triples | far crossings |
+|---|---|---|---|---|---|---|---|---|
+| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 1 |
+| χ₋₄ | (4, 1) | −1.965 | −14.311 | −92.476 | 5.58 | 7.23 | 29 | 0 |
+| χ₈ | (8, 1) | −1.025 | −6.991 | −46.223 | 5.37 | 6.81 | 29 | 0 |
+| Δ | (1, 2) | −5.381 | −24.765 | −91.050 | 5.66 | 6.79 | 36 | 0 |
+
+*(v) Context.* Kim et al. (arXiv 2026, "A numerical realization of
+Suzuki's Weil-quadratic-form operator") compute the same forms'
+low spectrum in the prime-free regime 2a < log 2 and report the
+conductor and the degree in it (their R2, R2b); Suzuki (arXiv
+2209.12832) is the operator framework; neither is an input here — the
+cells are all inside the prime regime. *(vi) What is proved, computed,
+not claimed.* Proved: every bound of (ii) and every near crossing of
+(iv) (balls). Computed, gated in bands: the normalisation of (i), the
+offsets of (iii), the law's containment and its deviations of (iv).
+Not claimed: any lower bound on any λ₁ or window; anything about the
+zeros beyond the double-precision lists (data, count-checked, not
+certified); anything about the Generalised Riemann Hypothesis — **no
+Riemann Hypothesis consequence is claimed**. Check 7 clean (Rayleigh–Ritz,
+the explicit formula for L-functions, Hardy's Z — classical; no
+semiclassics; no cascade quantity). Check 8 clean (Riemann-side; no
+hypothesis input). Substrates `lfun_gram.py` and `lfun_cells.py`
+committed, imported, and content-addressed into the verifier's keys by
+the computed transitive import closure; `lfun_zeros.py` committed, its
+lists read as data.
+
+**Theorem 1br (the spectrum ladder — the low spectrum of the true form
+is, rung by rung, the prolate leakage ladder of the finite Fourier
+transform at the horizon on its +1 eigenspace, the order-0 prolate
+absent; the pole term load-bearing; `cascade_spectrum_ladder.py`).**
+*(i) The ladder (certified).* On the even sector of L²(−a, a) the form Q
+is the pencil (G, N) of Theorem 1bn's Gram. For the k lowest approximate
+eigenvectors v₁, …, v_k (flint's approximate eigensolver on the
+midpoints) the projected pencil (RᵀGR, RᵀNR), R = [v₁ ⋯ v_k], is a k × k
+pencil in balls, and by Courant–Fischer λ_k(Q) ≤ max_{v ∈ span R}
+Q(v)/‖v‖² = the projected pencil's largest eigenvalue, whatever the
+vectors are: the upper end of flint's certified enclosure of that
+eigenvalue is a rigorous upper bound on λ_k. `weil_spectrum_ladder.py`
+stores it at every cell for k = 1, …, m with m = 10, 12, 18, 22, 28,
+42, 68 (K2 modes, 600–1300 bits; enclosure radii below 10⁻¹⁰⁰ relative;
+the ladder monotone in k, the spans growing; the approximate
+eigenvalues within 10⁻⁹ in ln — convergence, not certification); rung 1
+is 1bo's λ₁; at δ = 1.0 the ten rungs are re-derived live, and at K = 96
+the leakage rungs agree with the K = 120 ones within 0.05 in ln.
+*(ii) The shadow (computed, gated).* Theorem 1bm's leakage 1 − χ₂ =
+1 − √λ₄(c) is the order-4 prolate's at c = T₀ = 2πeᵟ (the paper's χ_j =
+√λ_{2j}); here the whole even ladder ln(1 − √λ_n(c)), n = 0, 2, …, 4m,
+at two Legendre cutoffs (agreeing to 10⁻⁹ on every leakage entry; the
+order-4 entry is 1bn's at every cell). At every cell and every rung in
+the leakage regime — ln(1 − χ_{2k}) < −1, 87 rungs over the seven
+cells — the nearest even order to ln λ_k is 4k, the k-th prolate of
+Fourier eigenvalue +1 beyond ψ₀; in the deep regime (ln(1 − χ_{2k}) <
+−2, 85 of the rungs) the rung sits above its leakage by an offset in
+(0, 2.6] nats, the first rung's offset the largest of its cell and
+increasing with δ (1.64, 1.79, 2.12, 2.18, 2.20, 2.39, 2.47 at the cells), the rest falling along the ladder
+(ranges [0.96, 0.97], [0.93, 1.19], [0.47, 1.47], [0.59, 1.57], [0.42, 1.56], [0.53, 1.72], [0.37, 1.87]); at the top rung of a cell, where the ladder has
+flattened to a spacing of about a nat, the rung is within 0.1 of its
+order; the orders 2 mod 4 are farther than order 4k by at least 0.7
+nats at every rung and by at least 2 where ln(1 − χ_{2k}) < −20, and the
+order-0 prolate (leakage −31.5 at δ = 1.0) appears in no ladder. The alternative convention c = aT₀ is rejected at δ = 1.0
+and 1.3828125: its nearest-order map is not k ↦ 4k and its offsets
+change sign within a cell (δ = 1.0: k1→0 k2→4, offsets +0.92, −1.46; δ = 1.3828125: k1→0 k2→4 k3→8, offsets +4.21, +0.38, −0.60). Every ln λ_k below is the certified
+upper end (ceiling to 10⁻²), every prolate entry the computed leakage:
+
+| δ | deep rungs | ln λ₂ ≤ | ln(1 − χ₄) | ln λ₃ ≤ | ln(1 − χ₆) | rung-1 offset | offsets of rungs 2 on |
+|---|---|---|---|---|---|---|---|
+| 1.0 | 2 | −4.01 | −4.98 | −0.18 | −0.28 | 1.64 | [0.96, 0.97] |
+| 1.3828125 | 3 | −15.54 | −16.73 | −5.87 | −6.81 | 1.79 | [0.93, 1.19] |
+| 2.0 | 7 | −52.11 | −53.58 | −38.75 | −40.10 | 2.12 | [0.47, 1.47] |
+| 2.3 | 9 | −81.77 | −83.34 | −67.05 | −68.42 | 2.18 | [0.59, 1.57] |
+| 2.6 | 13 | −122.98 | −124.51 | −106.67 | −108.23 | 2.20 | [0.42, 1.56] |
+| 3.0 | 19 | −202.48 | −204.21 | −184.56 | −186.19 | 2.39 | [0.53, 1.72] |
+| 3.5 | 32 | −361.73 | −363.61 | −341.85 | −343.48 | 2.47 | [0.37, 1.87] |
+
+*(iii) The pole is load-bearing (computed, gated live at δ = 1.0,
+1.3828125, 2.0).* The pole term 2ĝ(i/2)² is rank one: G − G₀ = 2ppᵀ
+entrywise in balls, G₀ the Gram without it (`lfun_gram.py`'s
+generalised Gram with the pole switched off). Q₀ = Q − 2ĝ(i/2)² has a
+certified negative direction at each of the three cells — the Rayleigh
+ball of its lowest approximate vector is negative, upper ends −1.98, −2.82, −4.30 —
+so the positivity of the form on [−a, a] at these supports is carried
+by the pole term; by Weyl's interlacing for a rank-one positive update
+μ_k ≤ λ_k ≤ μ_{k+1} (μ the eigenvalues of Q₀, gated on the approximate
+μ against the certified rungs), and from rung 2 on the leakage rungs of
+Q₀ sit within 0.5 nats below the true ones, each nearest the same
+order 4k: the ladder from rung 2 is cast without the pole, and rung 1 —
+the slack law's λ₁ — lies between Q₀'s negative eigenvalue and its
+second, the pole term lifting it to the order-4 leakage. *(iv) What is
+proved, computed, not claimed.* Proved: every rung of (i)
+(Courant–Fischer on a certified enclosure); the rank-one identity and
+the negative balls of (iii). Computed, gated in bands: the
+nearest-order map, the offsets, the alternatives' rejection, the
+interlacing on approximate values, the pole-free gaps. Not claimed: any
+lower bound on any eigenvalue; a mechanism for the selection of the +1
+orders or for the offsets — the shadow is identified, the law of its
+caster is not; anything about the zeros — **no Riemann Hypothesis
+consequence is claimed**. Check 7 clean (Courant–Fischer, Weyl,
+Slepian's prolates — classical; no semiclassics; no cascade quantity).
+Check 8 clean (Riemann-side; no hypothesis input). Substrate
+`weil_spectrum_ladder.py` committed, imported, and content-addressed
+into the verifier's keys by the computed transitive import closure.
+
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
 number of linearly independent nowhere-zero tangent vector fields on S^(d−1) is
@@ -7284,4 +7517,4 @@ bounds already press the value:
 
 ---
 
-*Verification suite (round-45 corrected census, extended by Theorems 1i–1bo: the **91 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `verify_selection_rule.py` — the committed classifier at `tools/verifiers/`, cited as the source of Theorem 1al's eight observables, outside the census's `tools/research/` scope, audited not counted *(the exclusion clause appended at the round-260 sweep — the one body-cited name previously carried by the scope wording alone)*; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`, `fold_remainder.py`, `fold_remainder2.py` — the committed instruments at `tools/research/`, named in Theorem 1be's block and honest scope as its substrates, audited not counted; and `twoprime_interval_count.py`, `twoprime_interval_temple.py`, `twoprime_recon.py`, `twoprime_odd_recon.py`, `twoprime_margin.py` — the committed instruments at `tools/research/`, named in Theorem 1bk's block as its substrates and reconnaissance *(and, for `twoprime_margin.py` after the round-283 strike, as the margin curve cited not imported — descriptor amended round 284 F284-4)*, audited not counted; and `slepian_arb_certificate.py`, `mechanism_stage0.py`, `oneprime_slepian_certificate.py` — the committed instruments at `tools/research/`, named in Theorem 1bl's block as its substrate and reconnaissance, audited not counted; and `slack_law_flint.py` — the committed instrument at `tools/research/`, named in Theorem 1bm's block as its substrate (imported and content-addressed into the verifier's keys), audited not counted; and `weil_prime_gram.py`, `ccm_trial_vector.py`, `true_form_cells.py` — the committed instruments at `tools/research/`, named in Theorem 1bn's block as its substrates (imported and content-addressed into the verifier's keys), audited not counted; and `weil_knife_edge.py`, `weil_factorisation_bench.py` — the committed instruments at `tools/research/`, named in Theorem 1bo's block as its substrates (imported and content-addressed into the verifier's keys), audited not counted; and `slack_law.py`, `slack_law_mp.py`, `prolate_rate.py`, `prolate_wkb.py`, `constrained_prolate.py`, and the `slack_law/` instruments (`discrete_balayage.py`, `lw_variational.py`, `lw_lp.py`, `lw_continuum.py`, `lw_semidiscrete.py`, `balayage_check.py`, `probe_test.py`, `probe_profile.py`) — the committed research instruments at `tools/research/`, named in Theorem 1bm's block as its reconnaissance, imported by neither the instrument nor the verifier and in no key, audited not counted; and `witness_offline.py`, `witness_twosided.py` — the committed instruments at `tools/research/`, named in Theorem 1bf's block as its substrates, audited not counted; and `floor_probe.py`, `floor_probe2.py`, `floor_probe3.py`, `floor_probe4.py`, `floor_probe5.py`, `floor_landing.py`, `floor_probe6.py`, `floor_probe7.py`, `floor_probe8.py`, `floor_probe9.py` — the committed instruments at `tools/research/`, named in Theorem 1bg's block and its post-landing correction annotations as its substrates and correcting instruments, audited not counted *(the last four appended at the round-234 sweep)*; and `height_uniformity.py`, `height_anomaly.py`, `height_arith.py`, `height_residue.py`, `height_landing.py` — the committed instruments at `tools/research/`, named in Theorem 1bh's block as its substrates, audited not counted; and `crossing_probe.py`, `floor_theory.py`, `floor_theory2.py`, `floor_theory3.py` — the committed instruments at `tools/research/`, named in Theorem 1bi's block as its substrates, audited not counted; and `oneprime_interval_core.py`, `oneprime_interval_count.py`, `oneprime_interval_pole.py`, `oneprime_interval_temple.py`, `oneprime_fractional.py`, `oneprime_push.py`, `oneprime_bridge.py`, `oneprime_certificate.py`, `oneprime_deflate.py` — the committed instruments at `tools/research/`, named in Theorem 1bj's block as its substrates, fixture chain, and deflation reconnaissance, audited not counted *(the pole instrument and the reconnaissance appended at the even-1.0 landing)* *(fold_D.py, fold_surrogate.py, height_uniformity.py, shared with the 1be/1bh clauses above, complete the computed keying closure)*): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_twosided_witness.py`, `cascade_floor_closure.py`, `cascade_height_uniformity.py`, `cascade_floor_theory.py`, `cascade_oneprime_interval.py`, `cascade_twoprime_interval.py`, `cascade_slepian_mechanism.py`, `cascade_slack_law.py`, `cascade_true_form_bounds.py`, `cascade_prime_ball.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*; Weil, the explicit-formula positivity criterion; Turing, the zero-verification method — cited for spirit, not used *(the two appended at the 1bf landing; at the 1bg landing Weil's explicit formula proper — the unconditional identity, as distinct from the positivity criterion — is consumed as an operator-level input; the criterion remains spirit-only)*; Poisson, the summation formula *(appended at the round-238 sweep, F10 — consumed by the 1bg deflation quintet's τ\* and tight-mean theorems and the 1bh dial's derivation)*; Kato and Temple, the eigenvalue lower bound; Birman and Schwinger, the counting principle; Binet, the second expression for log Γ; Weyl, eigenvalue monotonicity and interlacing; Hurwitz, the zeta-function tails *(the first three appended at the 1bj landing, the last two at its round-252 sweep — consumed by 1bj's odd two-stage and Stage-I majorants; Yoshida and Connes–Consani enter 1bj as context, not inputs; Weil's positivity criterion is consumed only counterfactually, in 1bj(v)'s falsification clause)*; Woodbury, the rank-one resolvent identity *(appended at the even-1.0 landing — consumed by 1bj's pole-inclusive counting certificate)*; Bernstein, the ellipse bound for polynomials, and Trefethen, the Gauss quadrature error for analytic integrands; Stirling and Binet, the asymptotic series for the digamma function with its integral remainder; Cholesky, the factorisation as a positive-definiteness certificate *(the three appended at the 1bl landing — consumed by the mechanism proof's quadrature bound, kernel enclosure, and head certificate; Slepian already listed)*; Hadamard, the factorisation of entire functions of finite order; Cartwright, the class of entire functions of exponential type bounded on the line; Beurling and Landau, the density theorems for sampling and interpolation; Joukowski, the conformal map of the doubly slit plane, and Green, the function it carries; Poincaré and de la Vallée Poussin, balayage and the maximum principle; Euler and Maclaurin, the summation formula *(the six appended at the 1bm landing — consumed by the slack law's reduction, its closed-form solution, and its finite-δ formula; Slepian and Landau–Widom already listed; Fuchs, the fixed-order asymptotic of the prolate eigenvalues — the comparison constant of 1bm(vii), appended at the round-294 sweep)*; Rayleigh and Ritz, the variational upper bound; Yoshida, the periodic localisation class K(a) of the Weil form; Gauss, the series representation of the digamma function *(the three appended at the 1bn landing — consumed by the true-form certificates: the variational bound, the trial class, and the archimedean identities; Weil's explicit formula and Slepian already listed)* *(the 1bo landing consumes no new classical input — Tate's thesis and Poisson, already listed; Krein's screw functions enter 1bo(iii) as context, not input)*.*
+*Verification suite (round-45 corrected census, extended by Theorems 1i–1br: the **94 scripts cited in place** above, a body-only count, census-verified against the body text alone (the round-44 footer's "31 cited in place" was self-referential, counting the prior footer's own four record-verifier names; the intermediate body-only counts 27–31 were each verified the same way, per the audit record) — plus the four §8-record verifiers cited only in this list, marked °; all under `tools/research/`; additionally `cascade_constants.py` — the constants module at `tools/`, named in Theorem 1t's census scope as an audited surface, not a verifier, and not counted; and `cascade_greens_function.py` — the committed instrument at `tools/verifiers/`, quoted as Theorem 1af's substrate, audited not counted; and `verify_selection_rule.py` — the committed classifier at `tools/verifiers/`, cited as the source of Theorem 1al's eight observables, outside the census's `tools/research/` scope, audited not counted *(the exclusion clause appended at the round-260 sweep — the one body-cited name previously carried by the scope wording alone)*; and `sonin_outside.py` — the committed instrument at `tools/research/`, quoted as Theorem 1bd's substrate, audited not counted; and `fold_D.py`, `fold_harden.py`, `fold_surrogate.py`, `fold_remainder.py`, `fold_remainder2.py` — the committed instruments at `tools/research/`, named in Theorem 1be's block and honest scope as its substrates, audited not counted; and `twoprime_interval_count.py`, `twoprime_interval_temple.py`, `twoprime_recon.py`, `twoprime_odd_recon.py`, `twoprime_margin.py` — the committed instruments at `tools/research/`, named in Theorem 1bk's block as its substrates and reconnaissance *(and, for `twoprime_margin.py` after the round-283 strike, as the margin curve cited not imported — descriptor amended round 284 F284-4)*, audited not counted; and `slepian_arb_certificate.py`, `mechanism_stage0.py`, `oneprime_slepian_certificate.py` — the committed instruments at `tools/research/`, named in Theorem 1bl's block as its substrate and reconnaissance, audited not counted; and `slack_law_flint.py` — the committed instrument at `tools/research/`, named in Theorem 1bm's block as its substrate (imported and content-addressed into the verifier's keys), audited not counted; and `weil_prime_gram.py`, `ccm_trial_vector.py`, `true_form_cells.py` — the committed instruments at `tools/research/`, named in Theorem 1bn's block as its substrates (imported and content-addressed into the verifier's keys), audited not counted; and `weil_knife_edge.py`, `weil_factorisation_bench.py` — the committed instruments at `tools/research/`, named in Theorem 1bo's block as its substrates (imported and content-addressed into the verifier's keys), audited not counted; and `weil_linear_response.py` — the committed instrument at `tools/research/`, named in Theorem 1bp's block as its substrate (imported and content-addressed into the verifier's keys), audited not counted; and `lfun_gram.py`, `lfun_cells.py`, `lfun_zeros.py` — the committed instruments at `tools/research/`, named in Theorem 1bq's block as its substrates (the first two imported and content-addressed into the verifier's keys; the third the producer of the zero lists the verifier reads as data), audited not counted; and `weil_spectrum_ladder.py` — the committed instrument at `tools/research/`, named in Theorem 1br's block as its substrate (imported and content-addressed into the verifier's keys), audited not counted; and `slack_law.py`, `slack_law_mp.py`, `prolate_rate.py`, `prolate_wkb.py`, `constrained_prolate.py`, and the `slack_law/` instruments (`discrete_balayage.py`, `lw_variational.py`, `lw_lp.py`, `lw_continuum.py`, `lw_semidiscrete.py`, `balayage_check.py`, `probe_test.py`, `probe_profile.py`) — the committed research instruments at `tools/research/`, named in Theorem 1bm's block as its reconnaissance, imported by neither the instrument nor the verifier and in no key, audited not counted; and `witness_offline.py`, `witness_twosided.py` — the committed instruments at `tools/research/`, named in Theorem 1bf's block as its substrates, audited not counted; and `floor_probe.py`, `floor_probe2.py`, `floor_probe3.py`, `floor_probe4.py`, `floor_probe5.py`, `floor_landing.py`, `floor_probe6.py`, `floor_probe7.py`, `floor_probe8.py`, `floor_probe9.py` — the committed instruments at `tools/research/`, named in Theorem 1bg's block and its post-landing correction annotations as its substrates and correcting instruments, audited not counted *(the last four appended at the round-234 sweep)*; and `height_uniformity.py`, `height_anomaly.py`, `height_arith.py`, `height_residue.py`, `height_landing.py` — the committed instruments at `tools/research/`, named in Theorem 1bh's block as its substrates, audited not counted; and `crossing_probe.py`, `floor_theory.py`, `floor_theory2.py`, `floor_theory3.py` — the committed instruments at `tools/research/`, named in Theorem 1bi's block as its substrates, audited not counted; and `oneprime_interval_core.py`, `oneprime_interval_count.py`, `oneprime_interval_pole.py`, `oneprime_interval_temple.py`, `oneprime_fractional.py`, `oneprime_push.py`, `oneprime_bridge.py`, `oneprime_certificate.py`, `oneprime_deflate.py` — the committed instruments at `tools/research/`, named in Theorem 1bj's block as its substrates, fixture chain, and deflation reconnaissance, audited not counted *(the pole instrument and the reconnaissance appended at the even-1.0 landing)* *(fold_D.py, fold_surrogate.py, height_uniformity.py, shared with the 1be/1bh clauses above, complete the computed keying closure)*): `cascade_formulation_kernel.py`, `cascade_explicit_formula_bridge.py`, `cascade_zero_side_features.py`, `cascade_colour_field_bridge.py`, `cascade_finite_places.py`, `cascade_local_tate.py`, `cascade_witt_weil.py`, `cascade_local_family.py`, `cascade_tate_epsilon.py`, `cascade_torsion_selection.py`, `cascade_adams_loadbearing.py`, `cascade_layer_selection.py`, `cascade_lattice_selection.py`, `cascade_pairing_dictionary.py`, `cascade_pairing_act.py`, `cascade_bridge_asymmetry.py`, `cascade_grammar_need.py`, `cascade_given_irreducibility.py`, `cascade_riemann_kernel.py`, `cascade_colour_count.py`, `cascade_door4_status.py`, `cascade_site_e_pairing.py`, `cascade_endpoint_data.py`, `cascade_forcing_ledger.py`, `cascade_species_census.py`, `cascade_a3_rules.py`, `cascade_unit_source_strength.py`, `cascade_participation_rule.py`, `cascade_participation_dichotomy.py`, `cascade_deeper_grounding.py`, `cascade_spinor_transport.py`, `cascade_c1_closure.py`, `cascade_weil_positivity_status.py`, `cascade_weil_route_traveled.py`, `cascade_quarter_square.py`, `cascade_type_counting.py`, `cascade_riemann_selection.py`, `cascade_windows_overlap.py`, `cascade_unit_ball_rh.py`, `cascade_concentration_regrade.py`, `cascade_neutrino_mass_audit.py`, `cascade_bott_tower_beyond_29.py`, `cascade_d29_sterile_neutrino.py`, `cascade_availability_factors.py`, `cascade_sup_selection.py`, `cascade_zeta_rational.py`, `cascade_gamma_regularity.py`, `cascade_mirror_coherence.py`, `cascade_adelic_compensator.py`, `cascade_arithmetic_increment.py`, `cascade_arithmetic_period.py`, `cascade_arithmetic_sign.py`, `cascade_arithmetic_s5.py`, `cascade_arithmetic_d4.py`, `cascade_increment_rule.py`, `cascade_second_quantized.py`, `cascade_measurement_joint.py`, `cascade_activation_mechanism.py`, `cascade_joints_derived.py`, `cascade_feature_monoid.py`, `cascade_precedence_vacuity.py`, `cascade_ds_audit.py`, `cascade_T4_uniqueness.py`, `cascade_u2_function.py`, `cascade_u2_uniqueness.py`, `cascade_u2_first_principles.py`, `cascade_arithmetic_section.py`, `cascade_lattice_forcing.py`, `cascade_primes_side_ball.py`, `cascade_finite_fill.py`, `cascade_attraction_margins.py`, `cascade_li_two_channels.py`, `cascade_floor_meter.py`, `cascade_heatflow_energy.py`, `cascade_saddle_curvature.py`, `cascade_weil_margin.py`, `cascade_weil_crossover.py`, `cascade_prolate_horizon.py`, `cascade_fluctuation_price.py`, `cascade_sonin_dirac.py`, `cascade_prime_budget_fold.py`, `cascade_twosided_witness.py`, `cascade_floor_closure.py`, `cascade_height_uniformity.py`, `cascade_floor_theory.py`, `cascade_oneprime_interval.py`, `cascade_twoprime_interval.py`, `cascade_slepian_mechanism.py`, `cascade_slack_law.py`, `cascade_true_form_bounds.py`, `cascade_prime_ball.py`, `cascade_linear_response.py`, `cascade_lfunction_test.py`, `cascade_spectrum_ladder.py`, `cascade_leptons.py`°, `cascade_neutrino_closure.py`°, `cascade_E_fit_audit.py`°, `cascade_null_clone.py`°. Classical inputs: Tate's thesis; Weil and Rao, the metaplectic index and its cocycle; Wall, the graded Brauer group; Lam, the Witt groups of local fields; Gauss and Landsberg–Schaar, quadratic sums; Legendre, the duplication formula; Hensel's lemma; Hilbert, the norm-residue symbol; Bohr–Mollerup; Dirichlet, the units of imaginary quadratic fields and the class-number formula; Leibniz, the series for π/4; Li and Bombieri–Lagarias, the positivity ladder; Stieltjes, the Laurent constants of ζ; Poincaré–Hopf; Steenrod–Whitehead, Toda, and Adams, vector fields on spheres; Radon–Hurwitz; Killing–Cartan, the rank-2 root-system classification; Lovelock; Kolmogorov; de Bruijn–Newman and Rodgers–Tao, the heat-flow constant; Bost–Connes, the arithmetic KMS system; Hirschman and Beckner and Białynicki-Birula–Mycielski, the entropic uncertainty bound; Griffin–Ono–Rolen–Zagier, the Jensen hyperbolicity theorems; Lee and Yang, the circle theorem; Montgomery and Odlyzko, the pair-correlation statistics *(the six appended round 198 F5 — the list is a running census, extended as landings consume new classical inputs)*; Dyson, the circular unitary ensemble; Slepian and Landau–Widom, the time–band concentration spectrum and its plunge *(the two appended at the 1bc landing — the second consumed since the 1bb landing; marker order restored round-218 F13)*; Connes and Moscovici, the self-adjoint extension of the prolate operator and the Sonin-space localization of its negative spectrum *(the one appended at the 1bd landing; narrowed round-222 F10 — W_λ itself is the Bell Labs group's, Slepian et al., already listed, and the Sonin space is Sonin/de Branges/Burnol's, per C-M's own credits)*; Mertens, the prime harmonic sum; Berry, the number-variance saturation of the Riemann zeros *(the two appended at the 1be landing)*; Weil, the explicit-formula positivity criterion; Turing, the zero-verification method — cited for spirit, not used *(the two appended at the 1bf landing; at the 1bg landing Weil's explicit formula proper — the unconditional identity, as distinct from the positivity criterion — is consumed as an operator-level input; the criterion remains spirit-only)*; Poisson, the summation formula *(appended at the round-238 sweep, F10 — consumed by the 1bg deflation quintet's τ\* and tight-mean theorems and the 1bh dial's derivation)*; Kato and Temple, the eigenvalue lower bound; Birman and Schwinger, the counting principle; Binet, the second expression for log Γ; Weyl, eigenvalue monotonicity and interlacing; Hurwitz, the zeta-function tails *(the first three appended at the 1bj landing, the last two at its round-252 sweep — consumed by 1bj's odd two-stage and Stage-I majorants; Yoshida and Connes–Consani enter 1bj as context, not inputs; Weil's positivity criterion is consumed only counterfactually, in 1bj(v)'s falsification clause)*; Woodbury, the rank-one resolvent identity *(appended at the even-1.0 landing — consumed by 1bj's pole-inclusive counting certificate)*; Bernstein, the ellipse bound for polynomials, and Trefethen, the Gauss quadrature error for analytic integrands; Stirling and Binet, the asymptotic series for the digamma function with its integral remainder; Cholesky, the factorisation as a positive-definiteness certificate *(the three appended at the 1bl landing — consumed by the mechanism proof's quadrature bound, kernel enclosure, and head certificate; Slepian already listed)*; Hadamard, the factorisation of entire functions of finite order; Cartwright, the class of entire functions of exponential type bounded on the line; Beurling and Landau, the density theorems for sampling and interpolation; Joukowski, the conformal map of the doubly slit plane, and Green, the function it carries; Poincaré and de la Vallée Poussin, balayage and the maximum principle; Euler and Maclaurin, the summation formula *(the six appended at the 1bm landing — consumed by the slack law's reduction, its closed-form solution, and its finite-δ formula; Slepian and Landau–Widom already listed; Fuchs, the fixed-order asymptotic of the prolate eigenvalues — the comparison constant of 1bm(vii), appended at the round-294 sweep)*; Rayleigh and Ritz, the variational upper bound; Yoshida, the periodic localisation class K(a) of the Weil form; Gauss, the series representation of the digamma function *(the three appended at the 1bn landing — consumed by the true-form certificates: the variational bound, the trial class, and the archimedean identities; Weil's explicit formula and Slepian already listed)* *(the 1bo landing consumes no new classical input — Tate's thesis and Poisson, already listed; Krein's screw functions enter 1bo(iii) as context, not input)*; Hardy, the real function on the critical line *(appended at the 1bq landing — consumed by the zero lists of the four L-functions; Kim et al. and Suzuki enter 1bq(v) as context, not input; the 1bp landing consumes no new classical input — a first derivative and Rayleigh's quotient)*; Courant and Fischer, the min–max characterisation of eigenvalues *(appended at the 1br landing — consumed by the certified ladder; Weyl's interlacing and Slepian's prolates already listed)*.*

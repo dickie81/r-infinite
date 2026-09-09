@@ -5467,3 +5467,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Scope.** The round-311 sweep commit. Full-tower class. Brief `brief_round312.md`.
 
 **Findings.** 0 MAJOR, 0 minor, 4 cosmetic — **converged** (A470): F312-1 the g3 label's "relative width ≤ 1 + 1e-2" wording; F312-2 one bracket predicate at both tolerances, the two-sided form probed on three mangles; F312-3 the producer's TOL/TOL2 pinned in g2; F312-4 clause (ii)'s "by construction" restated and 0.9946 η_hi tied to 2^{−1/128} η_hi by a gate. All four swept in the convergence commit with a full battery: member 11/11; manifest 24; TOWER PASS 24/24 (1 live + 23 cached). **Trajectory: 304 (the 1bo landing): 0M+4m+5c → 305: 1M+2m+3c → 306: 0M+2m+2c → 307: 0M+1m+2c → 308: 0M+1m+1c → 309: 0M+1m+5c → 310: 0M+1m+3c → 311: 0M+1m+1c → 312: 0M+0m+4c — Theorem 1bo stable at 3c3f4b7.**
+
+### Round 313 — the landing of Theorems 1bp, 1bq, 1br (the three doors)
+
+**Scope.** The landing commit (three theorem blocks after Theorem 1bo; the footer census 94 / 1i–1br with three verifiers and four substrate clauses; verifiers `cascade_linear_response.py` (member 25), `cascade_lfunction_test.py` (26), `cascade_spectrum_ladder.py` (27, top); substrates `weil_linear_response.py`, `lfun_gram.py`, `lfun_cells.py`, `lfun_zeros.py`, `weil_spectrum_ladder.py`; the census literals advanced across the tower; manifest 27). Full-tower class (a landing). Brief `brief_round313.md`. Commissioned by the owner: "Land all 3 doors and keep in mind we need to find whatever is casting that shadow" (A471).
+
+**Findings.** Pending.

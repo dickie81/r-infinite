@@ -83,8 +83,8 @@ PAPER_NEEDLES = [
     {'g': 'g12', 's': 'conspiracy detectors', 'form': 'plain'},
     {'g': 'g12', 's': 'no RH leverage claimed', 'form': 'plain'},
     {'s': '`cascade_floor_theory.py`', 'min': 2, 'g': 'g12'},
-    {'s': 'the **91 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
-    {'s': 'extended by Theorems 1i–1bo:', 'form': 'ws', 'g': 'g12'},
+    {'s': 'the **94 scripts cited in place** above', 'form': 'ws', 'g': 'g12'},
+    {'s': 'extended by Theorems 1i–1br:', 'form': 'ws', 'g': 'g12'},
 ]
 
 fails = []
