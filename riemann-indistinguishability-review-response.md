@@ -5514,4 +5514,4 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-319 sweep commit. Full-tower class (verifier executable lines; manifest). Brief `brief_round320.md`.
 
-**Findings.** Pending.
+**Findings.** 0 MAJOR, 0 minor, 3 cosmetic — **converged** (A480): F320-1 the concavity clause's per-arc conclusion loosened to what the mathematics gives (52 arcs still rising at their right end; the extrema's positions now searched over every endpoint, stated and pinned: the minimum at the zero 48.01, the maximum interior at T = 44.54); F320-2 the dead coverage conjunct replaced by a check against the list; F320-3 the gated-in-bands / pinned census made exact. All three swept in the convergence commit with a full battery: members 9/9, 9/9; manifest 29; TOWER PASS 29/29. **Trajectory: 317 (the landing of 1bs, 1bt): 1M+7m+5c → 318: 0M+4m+7c → 319: 0M+2m+2c → 320: 0M+0m+3c — Theorems 1bs, 1bt stable at 09437d32.**

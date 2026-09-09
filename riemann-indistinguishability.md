@@ -7070,8 +7070,12 @@ T = 70), while on the same set ζ spans 3.45–3.51 and Δ 10.78–11.06, each
 enclosing its constant (gated); the stated-window fits are gated
 within 0.5 for the characters. The residual B − I − (7/2)ln T for ζ lies in
 [3.52, 4.41] over those 2.2 decades (the exact range, gated: on each
-inter-zero arc the residual is concave, so its minimum sits at a zero
-and its maximum at an interior critical point) — the spread is the
+inter-zero arc the residual is concave with infinite slope at the arc's
+left end, so its minimum over the window sits at a zero or a window
+end — all searched — and its maximum at an interior critical point or an
+arc's right end — the arcs' maxima and both kinds of endpoint searched;
+here the minimum is at the zero 48.01 and the maximum interior, at
+T = 44.54) — the spread is the
 S(T) fluctuation of the proof's remainder — and C_ζ by its formula is 4.05
 (the three terms −6.84, 10.70, 0.19; the Stirling remainder's tail
 4κ_R/T_last with κ_R = +0.0066 is nil); for Δ the same tail is not
@@ -7103,9 +7107,11 @@ for the prolate leakage the coefficient of ln c is n + ½ (1bm(vii)):
 the pole is worth four orders, which is where the shadow's rung 1 sits
 (Theorem 1br: order 4, not 0) — to within the slope 1.59 of c − d.
 *(v) What is proved, computed, not claimed.* Proved: (i) with its
-constants, unconditionally. Computed, gated in bands: the slopes and
-constants of (iii), the seven-cell consequence of (iv); computed,
-pinned: d(δ), the slopes of c, d and c − d and the o(1)'s balance. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
+constants, unconditionally. Computed, gated in bands: the slopes of
+(iii) and C_ζ (its range and mean), the seven-cell consequence of (iv)
+with its bookkeeping, the slopes of c and c − d; computed, pinned: C_ζ's
+three parts, C_Δ and the characters' constants, d(δ), the slope of d
+and the o(1)'s balance. Not claimed: anything about the rungs k ≥ 2 of the ladder (the
 theorem concerns the ground-state formula), about the 2-mod-4 orders,
 or about c(δ) beyond its measured slope; anything about the zeros
 beyond the count; **no Riemann Hypothesis consequence is claimed**.

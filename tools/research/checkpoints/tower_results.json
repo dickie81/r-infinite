@@ -1859,6 +1859,12 @@
 "rc": 0,
 "when": "2026-09-02T19:19Z"
 },
+"80233a6ed951a40b465b2b12": {
+"dt": 55.327980756759644,
+"file": "cascade_pole_indefinite.py",
+"rc": 0,
+"when": "2026-09-09T08:40Z"
+},
 "8038de4212b32a7150a412dd": {
 "dt": 53.709317207336426,
 "file": "cascade_heatflow_energy.py",
@@ -2968,6 +2974,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-08-28T08:36Z"
+},
+"cc7384fc360007b77db02680": {
+"dt": 12.6782066822052,
+"file": "cascade_count_constant.py",
+"rc": 0,
+"when": "2026-09-09T08:39Z"
 },
 "cd8a2cbd733574fbe0907aa0": {
 "dt": 75.87948250770569,

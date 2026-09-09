@@ -27,8 +27,10 @@ each) the fits' spans are as the paper states (outward 0.01), zeta's and
 Delta's spans enclose 7/2 and 11, and chi_8's every window lies below -1/2
 (round 318 F318-2). (3) THE CONSTANTS C_L: the residual
 B - I - 4 c_L ln T for zeta over [max(40, 3 gamma_1), T_last] has an exact range
-(concave per inter-zero arc: the minimum at a zero, the maximum at an interior
-critical point -- round 319 F319-2) of width at most 1.0 (the
+(concave per inter-zero arc with infinite slope at each arc's left end: the
+minimum over the window at a zero or a window end, the maximum at an interior
+critical point or an arc's right end, all searched -- round 319 F319-2, round
+320 F320-1) of width at most 1.0 (the
 S(T) fluctuation) whose mean is C_zeta from the closed formula within 0.1; the formula's three parts
 and the five C_L printed. (4) THE 1bm CONSEQUENCE: at the seven cells B(2T_0)
 - I(2T_0) (= 1bm(v)'s difference, recomputed) lies within 0.5 of (7/2) ln(4
@@ -78,6 +80,7 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'ζ spans 3.45–3.51 and Δ 10.78–11.06', 'form': 'ws'},
     {'g': 'g6', 's': "and the cells' o(1) the balance −0.05", 'form': 'ws'},
     {'g': 'g6', 's': 'the highest −0.51 to the nearest 0.01', 'form': 'ws'},
+    {'g': 'g6', 's': 'here the minimum is at the zero 48.01 and the maximum interior, at T = 44.54', 'form': 'ws'},
 ]
 
 fails = []
@@ -116,7 +119,7 @@ for f in FORDER:
     F = FORMS[f]; zs = ZS[f]
     lo = max(40.0, 3*float(zs[0])); hi = float(zs[-1])            # round 319 F319-1: every height inside the list's coverage (zeta's former [42, 7000] ran past T_last = 6996.89)
     sl, ic, Ts, y = slope(zs, F, lo, hi); slopes[f] = sl
-    ok &= Ts[-1] <= hi + 1e-9 and hi <= float(zs[-1]) + 1e-9
+    ok &= float(np.max(Ts)) <= float(zs[-1]) + 1e-9            # against the list itself, not the alias hi (round 320 F320-2)
     ok &= abs(sl - float(EXACT[f])) <= SLOPE_BAND[f]
 # a wrong constant for zeta fails the band
 ok &= abs(slopes["zeta"] - 4.0) > SLOPE_BAND["zeta"] and abs(slopes["zeta"] - 3.0) > SLOPE_BAND["zeta"]
@@ -140,15 +143,18 @@ zs = ZS["zeta"]; ZLO = max(40.0, 3*float(zs[0])); ZHI = float(zs[-1])
 # sits at an endpoint (a zero) and the maximum at an interior critical point, found by bounded minimisation of the negative
 _f = lambda T: residual(zs, T, FORMS["zeta"])
 _pts = [ZLO] + [float(g) for g in zs[(zs > ZLO) & (zs < ZHI)]] + [ZHI]
-res_min = min(_f(p) for p in _pts); res_max = -1e9
+_vals = [_f(p) for p in _pts]
+res_min = min(_vals); res_argmin = _pts[int(np.argmin(_vals))]
+res_max = max(_vals); res_argmax = _pts[int(np.argmax(_vals))]; res_max_interior = False     # round 320 F320-1: the endpoints (zeros, window ends) searched too
 for _a, _b in zip(_pts[:-1], _pts[1:]):
     _r = minimize_scalar(lambda T: -_f(T), bounds=(_a + 1e-9, _b - 1e-9), method="bounded", options={"xatol": 1e-8})
-    res_max = max(res_max, -float(_r.fun))
+    if -float(_r.fun) > res_max: res_max, res_argmax, res_max_interior = -float(_r.fun), float(_r.x), _b - float(_r.x) > 1e-6 and float(_r.x) - _a > 1e-6
+res_min_at_zero = any(abs(res_argmin - g) < 1e-9 for g in zs)
 Ts = np.exp(np.linspace(math.log(ZLO), math.log(ZHI), 4000))
 res = np.array([_f(T) for T in Ts])
 ok &= res_max - res_min <= 1.0 and abs(res.mean() - Cf["zeta"]) <= 0.1 and res_min <= res.min() and res.max() <= res_max
 ok &= abs(parts["Delta"][3] + 0.205) <= 0.01 and abs(parts["zeta"][3]) <= 1e-4        # round 317 F317-2: Delta's Stirling tail -0.20, zeta's nil
-gate(f"g3 the constants: zeta's residual B - I - (7/2) ln T over T in [{ZLO:.2f}, {ZHI:.2f}] has the exact range [{res_min:.4f}, {res_max:.4f}] (width <= 1.0: the S(T) fluctuation; the 4000-height sample inside it), its 4000-height mean {res.mean():.3f} within 0.1 of the closed formula's C_zeta = {Cf['zeta']:.3f} (parts {parts['zeta'][0]:.3f}, {parts['zeta'][1]:.3f}, {parts['zeta'][2]:.3f}, tail {parts['zeta'][3]:.4f}); "
+gate(f"g3 the constants: zeta's residual B - I - (7/2) ln T over T in [{ZLO:.2f}, {ZHI:.2f}] has the exact range [{res_min:.4f}, {res_max:.4f}] (the minimum at T = {res_argmin:.4f}, a zero: {res_min_at_zero}; the maximum at T = {res_argmax:.4f}, interior: {res_max_interior}; width <= 1.0: the S(T) fluctuation; the 4000-height sample inside it), its 4000-height mean {res.mean():.3f} within 0.1 of the closed formula's C_zeta = {Cf['zeta']:.3f} (parts {parts['zeta'][0]:.3f}, {parts['zeta'][1]:.3f}, {parts['zeta'][2]:.3f}, tail {parts['zeta'][3]:.4f}); "
      + "C_L by formula with the Stirling tail: " + ", ".join(f"{f}: {Cf[f]:.3f} (tail {parts[f][3]:+.3f})" for f in FORDER), ok)
 
 # ---------------------------------------------------------------- g4
@@ -216,12 +222,14 @@ S_SPANS = 'the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ�
 S_SPANZ = 'ζ spans 3.45–3.51 and Δ 10.78–11.06'
 S_BAL = "and the cells' o(1) the balance −0.05"
 S_CHI8 = 'the highest −0.51 to the nearest 0.01'
+S_EXT = 'here the minimum is at the zero 48.01 and the maximum interior, at T = 44.54'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the fits span 0.37–0.55, 0.45–0.64 and −0.85 to −0.50 for χ₋₃, χ₋₄, χ₈', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ζ spans 3.45–3.51 and Δ 10.78–11.06', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, "and the cells' o(1) the balance −0.05", 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the highest −0.51 to the nearest 0.01', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'here the minimum is at the zero 48.01 and the maximum interior, at T = 44.54', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '3.48, 0.44, 0.61, −0.67, 10.92', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '[3.52, 4.41]', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '4.05', 'ws')
@@ -232,7 +240,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'sit within 0.4 of (7/2)ln(4πeᵟ) + 
 ok &= paper_needles.needle(PAPER_NEEDLES, '1.28 for c(δ) and −0.32 for d(δ), 1.59 for c − d', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'd(δ) := 2s_δ(2T₀) − min_T 2s_δ(T) = 1.18, 0.69, 0.27, 0.59, 0.14, 0.33, 0.29 at the cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '7/2 + 1.59 = 5.09 against the directly fitted slope of ln λ₁ + 4πeᵟ, 5.04', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_SLOPES, S_RESZ, S_CZ, S_CZPARTS, S_CD, S_CCHI, S_DEV, S_CSLOPE, S_DLIST, S_BOOK, S_SPANS, S_SPANZ, S_BAL, S_CHI8]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_SLOPES, S_RESZ, S_CZ, S_CZPARTS, S_CD, S_CCHI, S_DEV, S_CSLOPE, S_DLIST, S_BOOK, S_SPANS, S_SPANZ, S_BAL, S_CHI8, S_EXT]
 def _num(s): return float(s.strip().replace('−', '-'))
 _re = __import__("re")
 _m = _re.findall(r"([-−]?[0-9]+\.[0-9]{2})", S_SLOPES)
@@ -242,6 +250,8 @@ ok &= _num(_m.group(1)) <= res_min < _num(_m.group(1)) + 0.01 + 1e-9 and _num(_m
 ok &= abs(_num(S_CZ) - Cf["zeta"]) <= 5e-3 + 1e-9
 _m = _re.findall(r"([-−]?[0-9]+\.[0-9]{2})", S_CHI8.split(" to the")[0])        # the 'nearest 0.01' excluded from the parse
 ok &= len(_m) == 1 and abs(_num(_m[0]) - spans["chi_8"][1]) <= 5e-3 + 1e-9                                      # nearest 0.01 (round 319 C319-1)
+_m = _re.findall(r"([0-9]+\.[0-9]{2})", S_EXT)
+ok &= len(_m) == 2 and abs(_num(_m[0]) - res_argmin) <= 5e-3 + 1e-9 and res_min_at_zero and abs(_num(_m[1]) - res_argmax) <= 5e-3 + 1e-9 and res_max_interior   # round 320 F320-1
 _m = _re.findall(r"([0-9]+\.[0-9]{2})", S_CD)
 ok &= len(_m) == 2 and abs(_num(_m[0]) - Cf["Delta"]) <= 5e-3 + 1e-9 and abs(_num(_m[1]) - C_from_formula(ZS["Delta"], FORMS["Delta"], float(ZS["Delta"][-1]), tail=False)[0]) <= 5e-3 + 1e-9
 _m = _re.findall(r"([-−]?[0-9]+\.[0-9]{2})", S_CZPARTS)
