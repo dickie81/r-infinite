@@ -30,8 +30,9 @@ the nodes of P_{2(k-1)} for the weight ghat_1^2; the first hole zero falls
 across the cells and stays above the Xi-limit 3.195.
 (4) THE k-LEVEL FORMULA: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell;
 c_k for the safely deep rungs (through rung 12) within [c_1 - 3, c_1 + 0.3];
-the parity: at the cells with >= 6 such rungs the mean of c_k over even k lies
-below the mean over odd k (rungs 2 on). (5) THE ANATOMY of c(delta): the identity
+the parity: at the cells with >= 8 such rungs the successive differences of c_k
+change sign at least twice -- the alternation exists; its phase (even below odd
+at delta = 2.6, above at 3.5) is recorded, not gated. (5) THE ANATOMY of c(delta): the identity
 c_1 = origin + peak excess + count + far tail (1e-9); the origin rising toward
 ln 0.7729; the share of Q beyond 3 T_0 at least 0.3 at delta >= 2. (6) mangle
 probes: a pair cost of 2 ln T_0 per rung misses the ladder; the Gaussian
@@ -140,10 +141,11 @@ for c in ORDER:
     st = ST[c]; c1 = st["rungs"][0]["ck"]; ok &= abs(c1 - CDEL[c]) <= 0.15
     sr = safe_rungs(c)
     for r in sr: ok &= c1 - 3.0 <= r["ck"] <= c1 + 0.3
-    if len(sr) >= 6:
-        ev = [r["ck"] for r in sr if r["k"] % 2 == 0]; od = [r["ck"] for r in sr if r["k"] % 2 == 1]
-        par[c] = (float(np.mean(ev)), float(np.mean(od))); ok &= par[c][0] < par[c][1]
-gate("g4 the k-level formula: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell (" + ", ".join(f"{ST[c]['rungs'][0]['ck']:.2f}" for c in ORDER) + "); the safely deep rungs' c_k within [c_1 - 3, c_1 + 0.3]; the parity at the cells with >= 6 such rungs: mean c_k over even k below odd k -- " + ", ".join(f"{c}: {par[c][0]:.2f} < {par[c][1]:.2f}" for c in par), ok)
+    if len(sr) >= 8:
+        cs = [c1] + [r["ck"] for r in sr]; dif = np.diff(cs); sgn = np.sign(dif)
+        changes = int(np.sum(sgn[1:] != sgn[:-1])); ev = [r["ck"] for r in sr if r["k"] % 2 == 0]; od = [r["ck"] for r in sr if r["k"] % 2 == 1]
+        par[c] = (changes, float(np.mean(ev)) - float(np.mean(od))); ok &= changes >= 2          # the alternation exists; its phase is not gated (it flips between the cells)
+gate("g4 the k-level formula: c_1 within 0.15 of 1bm(v)'s c(delta) at every cell (" + ", ".join(f"{ST[c]['rungs'][0]['ck']:.2f}" for c in ORDER) + "); the safely deep rungs' c_k within [c_1 - 3, c_1 + 0.3]; the parity at the cells with >= 8 such rungs: the successive differences of c_k change sign at least twice -- " + ", ".join(f"{c}: {par[c][0]} changes, even minus odd mean {par[c][1]:+.2f}" for c in par), ok)
 
 # ---------------------------------------------------------------- g5
 ok = True

@@ -21,7 +21,9 @@ the higher polynomials spread beyond the census region). For rung k: the real ze
 the ground state's dodging edge)) at step 0.03 refined by bisection, a double zero without sign change detected as
 a dip of |ghat| below 1e-6 times both neighbours (counted twice); the HOLE ZEROS = the located zeros left after one
 dodging zero per zeta zero (the nearest located zero within 0.2) is removed -- a node that converges onto the first
-zeta zero is a hole zero next to a dodging zero, not a displaced dodging zero;
+zeta zero is a hole zero next to a dodging zero, not a displaced dodging zero; the census stops at 0.8 x the RUNG'S OWN
+dodging edge (the first zeta zero in the region it fails to dodge -- the excited states' edges lie inside the ground
+state's, and beyond its edge a rung's zeros are free, not hole zeros);
 the k-LEVEL BALAYAGE FORMULA F_k = min_T [4 sum_{tau < T} arccosh(T/tau) - delta T] over the zeta zeros plus the
 hole zeros, its minimiser T_k, and the residual c_k = ln lambda_k - F_k.
 
@@ -120,7 +122,7 @@ def poly_nodes(x, w, mmax):
 def run(cell):
     cfg = CELLS[cell]
     params = {"deps": DEPS, "cell": cell, **cfg, "zeros100": _sha(ZP), "zeros6700": _sha(ZD), "rmax_hole": RMAX_HOLE,
-              "step_hole": STEP_HOLE, "step_dodge": STEP_DODGE, "tol": TOL, "tol_hole": TOL_HOLE, "edge_frac": EDGE_FRAC, "kmax": KMAX, "dip": DIP, "nodes_max": NODES_MAX, "deep": DEEP, "round": 2}
+              "step_hole": STEP_HOLE, "step_dodge": STEP_DODGE, "tol": TOL, "tol_hole": TOL_HOLE, "edge_frac": EDGE_FRAC, "kmax": KMAX, "dip": DIP, "nodes_max": NODES_MAX, "deep": DEEP, "round": 3}
     name = f"ladder_caster_{cell}"
     st = ckpt_key.load(name, KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None: return st
@@ -183,9 +185,15 @@ def run(cell):
             rmax_k = min(RMAX_HOLE, EDGE_FRAC*(ground["first_free"] or 2.2*T0))      # below the dodging edge only
             zj = real_zeros(ghj, rmax_k, STEP_HOLE, dips=True)
             hole, _nd = classify(zj, ZS[ZS < rmax_k], TOL_HOLE)                         # one dodging zero per zeta zero; the rest are hole zeros
+            # the rung's OWN dodging edge: the first zeta zero in the region with no located zero within the tolerance;
+            # beyond it the rung's zeros are free (the excited states' edges lie inside the ground state's), so the
+            # census of hole zeros stops at EDGE_FRAC times that edge
+            missed_k = [float(g) for g in ZS[ZS < rmax_k] if not any(abs(z - g) < TOL_HOLE for z in zj)]
+            edge_k = min(missed_k) if missed_k else rmax_k/EDGE_FRAC
+            hole = [z for z in hole if z < EDGE_FRAC*edge_k]
             Fk, Tk = balayage_min(np.concatenate([ZS, hole]), d, T0)
             lnl = float(lams[j].log())
-            rungs.append({"k": j + 1, "ln_lam": lnl, "prolate_4k": pro[2*j] if 2*j < len(pro) else None, "hole": hole, "Fk": Fk, "Tk": Tk, "ck": lnl - Fk})
+            rungs.append({"k": j + 1, "ln_lam": lnl, "prolate_4k": pro[2*j] if 2*j < len(pro) else None, "hole": hole, "edge": edge_k, "Fk": Fk, "Tk": Tk, "ck": lnl - Fk})
         t4 = time.time()
     st = {"cell": cell, "delta": d, "T0": T0, "K": K, "prec": prec, "m": m, "deep": deep, "gamma1": float(ZS[0]), "ground": ground,
           "nodes": nodes, "rungs": rungs, "prolate_ln_leakage": pro, "gram_s": t1 - t0, "eig_s": t2 - t1, "ground_s": t3 - t2, "rungs_s": t4 - t3,
