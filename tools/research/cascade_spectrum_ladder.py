@@ -31,8 +31,10 @@ in the deep regime (below -2) the offset ln lambda_k - ln(1 - chi_{2k}) is in
 (0, 2.6], the first rung's offset the largest of the cell, in [1.6, 2.6] and
 increasing with delta; over the deep rungs 2.. the offsets fall in trend (the
 least-squares slope negative at every cell) but not rung by rung -- at delta >=
-3.0 they alternate with the parity of k (orders 4 and 0 mod 8), rises at 6/18
-and 13/31 steps, the largest consecutive rise in [0.3, 0.5] (round 313 F5);
+3.0 they alternate with the parity of k (orders 4 and 0 mod 8), rises at 6 of 17
+and 13 of 30 steps among rungs 2.., the largest rise 0.45 and the largest fall
+0.54, even k above odd by 0.22 in the mean at delta = 3.0 and the parities within
+0.05 at 3.5 (round 313 F5; round 314 F314-1/2);
 87 leakage rungs pinned, the order-0 leakage -31.5 at delta = 1.0 gated; the top rung of a cell (prolate ln in [-2, -1), where
 the ladder has flattened to a spacing of about a nat) within 0.1; the leakage
 rungs number at least 80. (5) ALTERNATIVES REJECTED: the nearest order 2 mod 4
@@ -208,12 +210,22 @@ for c in ORDER:
         slopes[c] = sum((i - xm)*(y - ym) for i, y in enumerate(o))/sum((i - xm)**2 for i in range(n))
         ok &= slopes[c] < 0
     rises[c] = sum(1 for i in range(1, n) if o[i] > o[i - 1]); maxrise[c] = max([o[i] - o[i - 1] for i in range(1, n)] + [0.0])
-ok &= rises["d3.0"] == 6 and rises["d3.5"] == 13 and 0.3 <= max(maxrise["d3.0"], maxrise["d3.5"]) <= 0.5
+ok &= rises["d3.0"] == 6 and rises["d3.5"] == 13 and len(shadow["d3.0"]) - 2 == 17 and len(shadow["d3.5"]) - 2 == 30
+ok &= 0.44 <= max(maxrise["d3.0"], maxrise["d3.5"]) <= 0.45 + 5e-3          # 'the largest rise 0.45'
+maxfall = max(max(o[i - 1] - o[i] for i in range(1, len(o))) for o in (shadow["d3.0"][1:], shadow["d3.5"][1:]))
+ok &= 0.53 <= maxfall <= 0.54 + 5e-3                                          # 'the largest fall 0.54'
+# the parity of k over the deep rungs 2..: even k = orders 0 mod 8, odd k = orders 4 mod 8 (round 314 F314-2)
+par = {}
+for c in ("d3.0", "d3.5"):
+    o = shadow[c]; ev = [o[k - 1] for k in range(2, len(o) + 1) if k % 2 == 0]; od = [o[k - 1] for k in range(3, len(o) + 1) if k % 2 == 1]
+    par[c] = sum(ev)/len(ev) - sum(od)/len(od)
+ok &= 0.15 <= par["d3.0"] <= 0.30 and abs(par["d3.5"]) <= 0.05
+ok &= len(slopes) == 6 and all(c in slopes for c in ORDER[1:])
 gate("g4 the shadow: at every cell and leakage rung the nearest even prolate order to ln lambda_k is 4k; in the deep regime the offset is in (0, " + f"{OFF_MAX}], the first rung's the largest, in {OFF1_BAND} and increasing with delta; leakage rungs {n_leak} ({n_deep} deep); first offsets "
      + ", ".join(f"{shadow[c][0]:.2f}" for c in ORDER) + "; ranges over the deep rungs 2..: " + ", ".join(f"[{min(shadow[c][1:]):.2f}, {max(shadow[c][1:]):.2f}]" for c in ORDER)
      + "; the top rung of a cell (prolate ln in [-2, -1)) within 0.1: " + ", ".join(f"{c}: {top[c]:+.2f}" for c in top)
      + "; 87 leakage rungs pinned, the order-0 leakage -31.5 at delta = 1.0; the trend: least-squares slopes over the deep rungs 2.. " + ", ".join(f"{slopes[c]:+.3f}" for c in ORDER if c in slopes)
-     + " (all negative), rung-to-rung rises " + ", ".join(f"{rises[c]}/{max(len(shadow[c]) - 2, 0)}" for c in ORDER) + f", the largest consecutive rise {max(maxrise['d3.0'], maxrise['d3.5']):.2f} at delta >= 3.0 (in [0.3, 0.5])", ok)
+     + " (all negative), rung-to-rung rises " + ", ".join(f"{rises[c]}/{max(len(shadow[c]) - 2, 0)}" for c in ORDER) + f", the largest consecutive rise {max(maxrise['d3.0'], maxrise['d3.5']):.2f} and fall {maxfall:.2f} at delta >= 3.0 (17 and 30 steps among rungs 2..); even minus odd parity means {par['d3.0']:+.2f} at delta = 3.0, {par['d3.5']:+.2f} at 3.5", ok)
 
 # ---------------------------------------------------------------- g5
 ok = True; margin = 1e9; margin_deep = 1e9
@@ -260,6 +272,8 @@ for c in ("d1.0", "d1.38", "d2.0"):
         v0 = [Rv[i, order[0]].real.mid()/N0[i].sqrt() for i in range(K)]
         r0 = rayleigh(G0, N0, v0, prec)
         ok &= r0.upper() < 0                                   # a certified negative direction of Q_0
+        e1 = [arb(1 if i == 1 else 0) for i in range(K)]
+        ok &= rayleigh(G0, N0, e1, prec).lower() > 0            # and a certified positive one (the first cosine mode): Q_0 indefinite (round 314 C7)
     lam = [float(r["upper"]) for r in st["ladder"]]
     ok &= all(mu[k - 1] <= lam[k - 1]*(1 + 1e-9) and lam[k - 1] <= mu[k]*(1 + 1e-9) for k in range(1, st["m"] + 1))   # interlacing
     P = st["prolate_ln_leakage"][str(KMAX_EXTRA)]; orders = st["prolate_orders"]
@@ -269,7 +283,7 @@ for c in ("d1.0", "d1.38", "d2.0"):
         g = st["ladder"][k - 1]["ln_upper"] - math.log(mu[k - 1]); gaps.append(g)
         ok &= 0 <= g <= POLE_BAND and nearest_order(math.log(mu[k - 1]), P, orders)[0] == 4*k
     pole[c] = (float(r0.upper()), mu[0], dev, gaps)
-gate("g6 the pole is load-bearing (live at delta = 1.0, 1.3828125, 2.0): G - G_0 = 2 p p^T in balls (max dev " + f"{max(v[2] for v in pole.values()):.1e}" + "); the lowest approximate vector of Q_0 has a certified negative Rayleigh ball (upper ends "
+gate("g6 the pole is load-bearing (live at delta = 1.0, 1.3828125, 2.0): G - G_0 = 2 p p^T in balls (max dev " + f"{max(v[2] for v in pole.values()):.1e}" + "); the lowest approximate vector of Q_0 has a certified negative Rayleigh ball and the first cosine mode a certified positive one -- Q_0 indefinite (upper ends "
      + ", ".join(f"{pole[c][0]:.3f}" for c in pole) + "); mu_k <= lambda_k <= mu_(k+1) for every rung (Weyl's theorem for the two pencils -- a consistency check that can fail only numerically); from rung 2 the leakage rungs of Q_0 sit within " + f"{POLE_BAND}" + " nats below the true ones at order 4k (gaps "
      + "; ".join(", ".join(f"{g:.2f}" for g in pole[c][3]) for c in pole) + ")", ok)
 

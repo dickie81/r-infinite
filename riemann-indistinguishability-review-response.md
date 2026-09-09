@@ -5478,4 +5478,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-313 sweep commit. Full-tower class (producer executable change in `lfun_cells.py` with the 28 cells recomputed; verifier executable lines; manifest). Brief `brief_round314.md`.
 
+**Findings.** 0 MAJOR, 4 minor, 7 cosmetic — all verified by the lead and swept (A473): F314-1 the step denominators (17 and 30 among rungs 2 on, not 18 and 31), now gated; F314-2 "alternate with the parity of k" overstated — the exceptions and the reversing phase now stated, the parity means gated; F314-3 "at most a nat" against a 1.0442 gap — "at most 1.05", the band outward; F314-4 the shell at 7 unexercised at δ = 2.0 (lag log 7 ≈ 2a) — "the coefficients at 2, 3, 4, 5", gated by the wrong-rule mangle for Δ; C1–C7 (the cap-fraction range 0.87–0.97 and its pin; a stale label; the largest fall 0.54 stated; the slope clause's six cells; two docstrings — the producer's round-313 rewrite had silently failed to apply; the latent first-sample hole documented and gated; Q₀'s indefiniteness certified both ways). Battery: members 10/10, 11/11 (9/9 unchanged); manifest 27; TOWER PASS 27/27. Round 315 (convergence) commissioned.
+
+### Round 315 — convergence test on the round-314 sweep (Theorems 1bp, 1bq, 1br)
+
+**Scope.** The round-314 sweep commit. Full-tower class (verifier executable lines; manifest; the producer's docstring only, key-neutral). Brief `brief_round315.md`.
+
 **Findings.** Pending.

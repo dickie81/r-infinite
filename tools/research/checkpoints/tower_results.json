@@ -2123,6 +2123,12 @@
 "rc": 0,
 "when": "2026-08-28T13:10Z"
 },
+"9a940ef576ffd4e28f1e815d": {
+"dt": 44.35519075393677,
+"file": "cascade_spectrum_ladder.py",
+"rc": 0,
+"when": "2026-09-09T02:52Z"
+},
 "9ae6264e4e87b2965e7bebf1": {
 "dt": 100.25054693222046,
 "file": "cascade_fluctuation_price.py",
@@ -3340,6 +3346,12 @@
 "file": "cascade_sonin_dirac.py",
 "rc": 0,
 "when": "2026-08-27T21:03Z"
+},
+"f98d25ef738bec049b31ccf7": {
+"dt": 55.0739541053772,
+"file": "cascade_lfunction_test.py",
+"rc": 0,
+"when": "2026-09-09T02:52Z"
 },
 "faa94c4aa2b69567517344f7": {
 "dt": 4.062723875045776,

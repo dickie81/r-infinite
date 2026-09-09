@@ -104,11 +104,11 @@
   },
   {
    "file": "cascade_lfunction_test.py",
-   "sha256": "14eb8e9ae5b6630bb411ea628080253a2f710d508a918376525b3bd544a231f3"
+   "sha256": "62842a6c5252cd560c338d610dd3775063fdbc5476c928b130ceec2be4dbfd75"
   },
   {
    "file": "cascade_spectrum_ladder.py",
-   "sha256": "032ca7ecb8cc170b76e381a674c893438f4573ccaf6f0a512c6a49419fc3da41"
+   "sha256": "7441ff649f2efa7b120662d32dcb2b897031883e31985393d5cb29eb8544a612"
   }
  ],
  "keying": [

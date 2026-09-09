@@ -6857,7 +6857,9 @@ the smooth-density tail, within 10⁻⁴ — gated at δ = 1.0 with 24 modes,
 where the prime side is the single shell n = 2 for χ₋₃ and Δ and empty
 for χ₋₄ and χ₈, and at δ = 2.0 with 40 modes, where the shells 2, 4, 5, 7
 (χ₋₃), 3, 5, 7 (χ₋₄, χ₈) and 2, 3, 4, 5, 7 (Δ) are inside and the local
-coefficients are exercised (the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
+coefficients at 2, 3, 4, 5 are exercised — the shell at 7 sits at lag
+log 7 ≈ 2a where the bump's autocorrelation vanishes — gated by the
+wrong rule c(p^k) = c(p)^k failing for Δ there by more than 0.5 (the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
 bounds (certified).* At each cell K2 = max(120, 4(2aT₀)/π + 100) and
 K1 = 0.7K2 modes at 600 bits, T₀ = 2π(eᵟ/q)^{1/d} the form's horizon
 (1bm(iv)'s density rule): every Rayleigh ball positive, ln λ₁ at K2 at
@@ -6868,11 +6870,11 @@ zeros of L in place of ζ's: its continuum minimum is −2dT₀ (closed form,
 gated to 10⁻⁶), and the offsets c_L(δ) = ln λ₁ − min are χ₋₃: 4.18, 4.86, 5.60, 5.89, 6.37, 6.72, 7.28; χ₋₄: 4.06, 4.81, 5.58, 5.96, 6.15, 6.55, 7.23; χ₈: 3.87, 4.40, 5.37, 5.57, 5.85, 6.31, 6.81; Δ: 4.65, 5.13, 5.66, 5.98, 6.12, 6.46, 6.79 at δ = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5, against
 ζ's 4.70, 5.22, 6.04, 6.45, 6.70, 7.35, 7.83 from the same cosine-basis λ₁ (1bm(v)'s 4.70, …, 7.90 from
 1bm's own λ₁ re-derived live within 0.01): c_L < c_ζ at all 28
-(form, cell) pairs, by 0.05–1.04 nats (gated: every gap in (0, 1.05]),
+(form, cell) pairs, by 0.04–1.05 nats (gated: every gap in [0.04, 1.05]),
 the mean gap growing with the conductor among the characters (0.48,
 0.57, 0.87 for q = 3, 4, 8; 0.50 for Δ, whose gap grows with δ from 0.05
 to 1.04) — the offset is the cell's to within a one-sided systematic of
-at most a nat that the arithmetic sets, recorded here and not modelled. *(iv) The knife-edge both ways and the sign rule.* At every
+at most 1.05 nats that the arithmetic sets, recorded here and not modelled. *(iv) The knife-edge both ways and the sign rule.* At every
 (form, cell, unramified prime) — 124 triples — the shells of p moved
 by +η and by −η (position and weight, the coefficients c(p^k) carried),
 the fixed-vector search in both directions from η = λ₁ doubling, capped
@@ -6885,7 +6887,7 @@ search and of a 64-point log grid up to the cap itself a positive ball
 (computed on the samples, not a certificate; the first search stopped at
 the last doubling sample and missed the interval below the cap, round
 313 F1) — except for χ₋₃ at p = 2, whose downward direction crosses at
-δ = 2.3, 2.6, 3.0 and 3.5 at 0.87–0.98 of the cap (certified negative
+δ = 2.3, 2.6, 3.0 and 3.5 at 0.87–0.97 of the cap (certified negative
 balls at η_hi; 10¹³–10⁵⁴ times the near crossing; at δ ≤ 2.0 the
 quotient at the cap is still positive), a second crossing of the far
 direction that appears between δ = 2.0 and 2.3 and deepens with δ. Theorem 1bp's
@@ -6953,11 +6955,13 @@ Fourier eigenvalue +1 beyond ψ₀; in the deep regime (ln(1 − χ_{2k}) <
 −2, 85 of the rungs) the rung sits above its leakage by an offset in
 (0, 2.6] nats, the first rung's offset the largest of its cell and
 increasing with δ (1.64, 1.79, 2.12, 2.18, 2.20, 2.39, 2.47 at the cells), the rest falling in trend — the
-least-squares slope of the offset against k negative at every cell
-(gated) — but not rung by rung: at δ ≥ 3.0 the offsets alternate with
-the parity of k (orders 4 and 0 mod 8) by up to 0.45 nats between
-consecutive rungs, rises at 6 of 18 and 13 of 31 steps (gated: the
-largest consecutive rise in [0.3, 0.5]) — a fine structure of the
+least-squares slope of the offset against k negative at the six cells
+with more than one such rung (gated) — but not rung by rung: at δ ≥ 3.0
+the offsets rise at 6 of 17 and 13 of 30 steps (gated), the largest
+rise 0.45 and the largest fall 0.54 nats, in runs where one parity of k
+(orders 0 or 4 mod 8) sits above the other — even k above odd by 0.22
+in the mean at δ = 3.0, the two parities within 0.05 at δ = 3.5 with the
+higher one changing along the ladder (gated) — a fine structure of the
 shadow recorded, not modelled
 (ranges [0.96, 0.97], [0.93, 1.19], [0.47, 1.47], [0.59, 1.57], [0.42, 1.56], [0.53, 1.72], [0.37, 1.87]); at the two cells whose top leakage rung lies in [−2, −1) (δ = 3.0
 and 3.5), where the ladder has flattened to a spacing of about a nat,
@@ -6987,7 +6991,8 @@ generalised Gram with the pole switched off). Q₀ = Q − 2ĝ(i/2)² has a
 certified negative direction at each of the three cells — the Rayleigh
 ball of its lowest approximate vector is negative, upper ends −1.98, −2.82, −4.30 —
 so without the pole term the form is indefinite on [−a, a] at these
-supports, and whatever positivity the form has there is carried by the
+supports (a certified positive direction too: the first cosine mode's
+ball), and whatever positivity the form has there is carried by the
 pole term; by Weyl's interlacing for a rank-one positive update
 μ_k ≤ λ_k ≤ μ_{k+1} (μ the eigenvalues of Q₀, gated on the approximate
 μ against the certified rungs), and from rung 2 on the leakage rungs of

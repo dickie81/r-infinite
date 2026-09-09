@@ -13,9 +13,20 @@ delta = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5:
       c(p) != 0 (the unramified primes), the shells of p moved by +eta and by
       -eta (position and weight, as weil_knife_edge.py; the shell weights
       carry the local coefficients c(p^k)), the fixed-vector search in both
-      directions from eta = lambda_1 doubling, capped at eta = log(p)/2: the
-      direction that brackets (a certified negative Rayleigh ball of g_1 at
-      eta_hi) and the direction that does not below the cap. The SIGN RULE the
+      directions from eta = lambda_1 doubling, capped at eta = log(p)/2, the
+      interval between the last doubling sample and the cap sampled on a
+      64-point log grid up to the cap itself (round 313 F1: the first version
+      stopped at the last sample and missed four crossings in that interval):
+      a direction "brackets" when a certified negative Rayleigh ball of g_1
+      is found (eta_hi), and "has no crossing below the cap" when every
+      sample, the cap included, is a positive ball -- a computed statement
+      about the samples, not a certificate; both directions bracket at four
+      triples (chi_-3, p = 2, delta >= 2.3), the near one at O(lambda_1) and
+      the far one beside the cap. The search's first sample is eta = lambda_1's
+      upper end; were that above the cap the grid would descend from it and
+      (0, cap) would go unsampled (round 314 C6, unreachable: lambda_1 is at
+      most 0.17 of the cap at the 28 cells, gated by the verifier). The SIGN
+      RULE the
       verifier gates: the witnessed direction is downward exactly when the
       first shell's coefficient c(p) is positive (chi(p) = +1; tau(p) > 0),
       upward when negative -- the linear response of Theorem 1bp with the
