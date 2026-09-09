@@ -29,13 +29,18 @@ ln(1 - chi_2) at every cell; live at delta = 1.0 the ladder is reproduced to
 (prolate ln(1 - chi_{2k}) < -1) the nearest even order to ln lambda_k is 4k;
 in the deep regime (below -2) the offset ln lambda_k - ln(1 - chi_{2k}) is in
 (0, 2.6], the first rung's offset the largest of the cell, in [1.6, 2.6] and
-increasing with delta; the top rung of a cell (prolate ln in [-2, -1), where
+increasing with delta; over the deep rungs 2.. the offsets fall in trend (the
+least-squares slope negative at every cell) but not rung by rung -- at delta >=
+3.0 they alternate with the parity of k (orders 4 and 0 mod 8), rises at 6/18
+and 13/31 steps, the largest consecutive rise in [0.3, 0.5] (round 313 F5);
+87 leakage rungs pinned, the order-0 leakage -31.5 at delta = 1.0 gated; the top rung of a cell (prolate ln in [-2, -1), where
 the ladder has flattened to a spacing of about a nat) within 0.1; the leakage
 rungs number at least 80. (5) ALTERNATIVES REJECTED: the nearest order 2 mod 4
 is farther than order 4k by at least 0.7 nats at every leakage rung and by at
 least 2 where the prolate ln is below -20; at c = a T_0
-(delta = 1.0, 1.3828125, live) the nearest-order map is not k -> 4k and the
-offsets change sign within a cell. (6) THE POLE (live at delta = 1.0,
+(delta = 1.0, 1.3828125, 2.3, live) the nearest-order map is k -> 4(k-1) with
+offsets of both signs at the first two cells and neither map at 2.3 (the
+conventions coincide at delta = 2.0). (6) THE POLE (live at delta = 1.0,
 1.3828125, 2.0): G - G_0 = 2 p p^T entrywise in balls (the pole is rank one);
 the approximate lowest vector of Q_0 = Q - pole has a certified NEGATIVE
 Rayleigh ball; the approximate eigenvalues mu_k of Q_0 interlace the certified
@@ -122,7 +127,7 @@ for c in ORDER:
         rel = r["enclosure_rad"]/float(r["upper"]); worst_rad = max(worst_rad, rel); ok &= rel <= 1e-100
         worst_ap = max(worst_ap, abs(r["ln_upper"] - r["ln_approx"])); ok &= abs(r["ln_upper"] - r["ln_approx"]) <= 1e-9
         if i: ok &= r["ln_upper"] >= L[i - 1]["ln_upper"] - 1e-12
-gate(f"g1 the certified ladder: every rung a positive certified enclosure (max relative radius {worst_rad:.1e}), the approximate eigenvalue within 1e-9 in ln (max {worst_ap:.1e}), monotone in k at every cell", ok)
+gate(f"g1 the certified ladder: every rung a positive certified enclosure (max relative radius {worst_rad:.1e}), the approximate eigenvalue within 1e-9 in ln (max {worst_ap:.1e}), monotone in k at every cell (a consequence of the nested spans -- a consistency check that can fail only numerically)", ok)
 
 # ---------------------------------------------------------------- g2
 def ladder_live(d, K, prec, m):
@@ -192,10 +197,23 @@ for c in ORDER:
             top[c] = off; ok &= abs(off) <= 0.1
     ok &= offs[0] == max(offs) and OFF1_BAND[0] <= offs[0] <= OFF1_BAND[1]
     shadow[c] = offs
-ok &= n_leak >= 80 and all(shadow[ORDER[i]][0] < shadow[ORDER[i + 1]][0] for i in range(6))
+ok &= n_leak == 87 and all(shadow[ORDER[i]][0] < shadow[ORDER[i + 1]][0] for i in range(6))
+ok &= abs(SL["d1.0"]["prolate_ln_leakage"][str(KMAX_EXTRA)][0] + 31.5) <= 0.005      # the order-0 leakage at delta = 1.0, '-31.5'
+# F5 (round 313): the trend and the alternation over the deep rungs 2..
+slopes = {}; rises = {}; maxrise = {}
+for c in ORDER:
+    o = shadow[c][1:]; n = len(o)
+    if n >= 2:
+        xm = (n - 1)/2; ym = sum(o)/n
+        slopes[c] = sum((i - xm)*(y - ym) for i, y in enumerate(o))/sum((i - xm)**2 for i in range(n))
+        ok &= slopes[c] < 0
+    rises[c] = sum(1 for i in range(1, n) if o[i] > o[i - 1]); maxrise[c] = max([o[i] - o[i - 1] for i in range(1, n)] + [0.0])
+ok &= rises["d3.0"] == 6 and rises["d3.5"] == 13 and 0.3 <= max(maxrise["d3.0"], maxrise["d3.5"]) <= 0.5
 gate("g4 the shadow: at every cell and leakage rung the nearest even prolate order to ln lambda_k is 4k; in the deep regime the offset is in (0, " + f"{OFF_MAX}], the first rung's the largest, in {OFF1_BAND} and increasing with delta; leakage rungs {n_leak} ({n_deep} deep); first offsets "
      + ", ".join(f"{shadow[c][0]:.2f}" for c in ORDER) + "; ranges over the deep rungs 2..: " + ", ".join(f"[{min(shadow[c][1:]):.2f}, {max(shadow[c][1:]):.2f}]" for c in ORDER)
-     + "; the top rung of a cell (prolate ln in [-2, -1)) within 0.1: " + ", ".join(f"{c}: {top[c]:+.2f}" for c in top), ok)
+     + "; the top rung of a cell (prolate ln in [-2, -1)) within 0.1: " + ", ".join(f"{c}: {top[c]:+.2f}" for c in top)
+     + "; 87 leakage rungs pinned, the order-0 leakage -31.5 at delta = 1.0; the trend: least-squares slopes over the deep rungs 2.. " + ", ".join(f"{slopes[c]:+.3f}" for c in ORDER if c in slopes)
+     + " (all negative), rung-to-rung rises " + ", ".join(f"{rises[c]}/{max(len(shadow[c]) - 2, 0)}" for c in ORDER) + f", the largest consecutive rise {max(maxrise['d3.0'], maxrise['d3.5']):.2f} at delta >= 3.0 (in [0.3, 0.5])", ok)
 
 # ---------------------------------------------------------------- g5
 ok = True; margin = 1e9; margin_deep = 1e9
@@ -208,7 +226,7 @@ for c in ORDER:
         margin = min(margin, d2 - d4); ok &= d2 - d4 >= MARGIN_ALL
         if P[2*k] < -20: margin_deep = min(margin_deep, d2 - d4); ok &= d2 - d4 >= MARGIN_DEEP
 alt = {}
-for c in ("d1.0", "d1.38"):
+for c in ("d1.0", "d1.38", "d2.3"):
     st = SL[c]; d = st["delta"]
     with ctx.workprec(400):
         ca = arb(d)/2*2*arb.pi()*arb(d).exp()
@@ -217,9 +235,11 @@ for c in ("d1.0", "d1.38"):
     for k in leakage_rungs(st):
         o, off = nearest_order(st["ladder"][k - 1]["ln_upper"], Pa, orders); maps.append((k, o)); offs.append(off)
     alt[c] = (maps, offs)
-    ok &= any(o != 4*k for k, o in maps) and min(offs) < 0 < max(offs)
-gate(f"g5 alternatives rejected: the nearest order 2 mod 4 is farther than order 4k by at least {MARGIN_ALL} nats at every leakage rung (min margin {margin:.2f}) and by at least {MARGIN_DEEP} where the prolate ln is below -20 (min {margin_deep:.2f}); at c = a T_0 the map is not k -> 4k and the offsets change sign: "
-     + "; ".join(f"{c}: " + " ".join(f"k{k}->{o}" for k, o in alt[c][0]) + " offsets " + ", ".join(f"{x:+.2f}" for x in alt[c][1]) for c in ("d1.0", "d1.38")), ok)
+    ok &= any(o != 4*k for k, o in maps)
+    if c != "d2.3": ok &= min(offs) < 0 < max(offs) and all(o == 4*(k - 1) for k, o in maps)      # the map k -> 4(k-1) at 1.0 and 1.38
+    else: ok &= maps[:3] == [(1, 8), (2, 12), (3, 18)]
+gate(f"g5 alternatives rejected: the nearest order 2 mod 4 is farther than order 4k by at least {MARGIN_ALL} nats at every leakage rung (min margin {margin:.2f}) and by at least {MARGIN_DEEP} where the prolate ln is below -20 (min {margin_deep:.2f}); at c = a T_0 the map is k -> 4(k-1) with offsets of both signs at delta = 1.0 and 1.38, and neither at delta = 2.3 (the two conventions coincide at delta = 2.0): "
+     + "; ".join(f"{c}: " + " ".join(f"k{k}->{o}" for k, o in alt[c][0][:4]) + " offsets " + ", ".join(f"{x:+.2f}" for x in alt[c][1][:4]) for c in ("d1.0", "d1.38", "d2.3")), ok)
 
 # ---------------------------------------------------------------- g6
 ok = True; pole = {}
@@ -250,7 +270,7 @@ for c in ("d1.0", "d1.38", "d2.0"):
         ok &= 0 <= g <= POLE_BAND and nearest_order(math.log(mu[k - 1]), P, orders)[0] == 4*k
     pole[c] = (float(r0.upper()), mu[0], dev, gaps)
 gate("g6 the pole is load-bearing (live at delta = 1.0, 1.3828125, 2.0): G - G_0 = 2 p p^T in balls (max dev " + f"{max(v[2] for v in pole.values()):.1e}" + "); the lowest approximate vector of Q_0 has a certified negative Rayleigh ball (upper ends "
-     + ", ".join(f"{pole[c][0]:.3f}" for c in pole) + "); mu_k <= lambda_k <= mu_(k+1) for every rung; from rung 2 the leakage rungs of Q_0 sit within " + f"{POLE_BAND}" + " nats below the true ones at order 4k (gaps "
+     + ", ".join(f"{pole[c][0]:.3f}" for c in pole) + "); mu_k <= lambda_k <= mu_(k+1) for every rung (Weyl's theorem for the two pencils -- a consistency check that can fail only numerically); from rung 2 the leakage rungs of Q_0 sit within " + f"{POLE_BAND}" + " nats below the true ones at order 4k (gaps "
      + "; ".join(", ".join(f"{g:.2f}" for g in pole[c][3]) for c in pole) + ")", ok)
 
 # ---------------------------------------------------------------- g7

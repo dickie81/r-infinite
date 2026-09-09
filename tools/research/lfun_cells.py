@@ -64,19 +64,33 @@ def prime_shells_c(fg, p, eta, coef, prec):
             k += 1
         return tot
 
+NSCAN = 64              # the far direction: log-spaced samples from the last doubling sample to the cap, inclusive (round 313 F1)
+
 def search(num, den, fg, p, coef, lam_up, prec, sign):
     with ctx.workprec(prec):
         P0 = prime_shells_c(fg, p, 0, coef, prec)
         def q(eta):
             return (num + P0 - prime_shells_c(fg, p, sign*eta, coef, prec))/den
         cap = ETA_CAP_FRAC*math.log(p)
-        evals = 0; eta = float(lam_up); lo = 0.0; r_lo = None
+        evals = 0; eta = float(lam_up); lo = 0.0; r_lo = None; hi = None; r_hi = None; scanned = 0
         while True:
             r = q(eta); evals += 1
             if r.upper() < 0: hi = eta; r_hi = r; break
             if not (r.lower() > 0): return {"status": "ambiguous", "eta": eta, "evals": evals}
             lo = eta; r_lo = r; eta *= 2
-            if eta > cap: return {"status": "no crossing below cap", "cap": cap, "eta_lo": lo, "q_lo": ball_fields(r_lo, prec), "evals": evals}
+            if eta > cap:
+                # the doubling has left the interval (lo, cap]: sample it on a log grid up to the cap itself
+                # (before round 313 this interval was never evaluated, and four crossings sat in it)
+                grid = [lo*(cap/lo)**(i/NSCAN) for i in range(1, NSCAN + 1)]
+                for x in grid:
+                    r = q(x); evals += 1; scanned += 1
+                    if r.upper() < 0: hi = x; r_hi = r; break
+                    if not (r.lower() > 0): return {"status": "ambiguous", "eta": x, "evals": evals, "scanned": scanned}
+                    lo = x; r_lo = r
+                if hi is None:
+                    return {"status": "no crossing below cap", "cap": cap, "eta_lo": lo, "q_lo": ball_fields(r_lo, prec), "evals": evals,
+                            "scanned": scanned, "q_cap": ball_fields(r_lo, prec)}
+                break
         while lo == 0 or hi/lo > 1 + TOL:
             mid = geomid(lo, hi)
             if not (lo < mid < hi): return {"status": "bracket stalled", "eta_lo": lo, "eta_hi": hi, "evals": evals}
@@ -86,11 +100,11 @@ def search(num, den, fg, p, coef, lam_up, prec, sign):
             else: return {"status": "ambiguous", "eta": mid, "evals": evals}
             if evals > 20000: return {"status": "evaluation cap", "eta_lo": lo, "eta_hi": hi, "evals": evals}
         return {"status": "bracketed", "sign": sign, "eta_lo": lo, "eta_hi": hi, "q_lo": ball_fields(r_lo, prec), "q_hi": ball_fields(r_hi, prec),
-                "evals": evals, "hi_over_lambda": hi/float(lam_up)}
+                "evals": evals, "hi_over_lambda": hi/float(lam_up), "scanned": scanned, "hi_over_cap": hi/cap}
 
 def run(form, cell):
     L = FORMS[form](); delta = CELLS[cell]; K2 = K_for(delta, L); K1 = int(0.7*K2)
-    params = {"deps": DEPS, "form": form, "cell": cell, "delta": delta, "K1": K1, "K2": K2, "prec": PREC, "cap_frac": ETA_CAP_FRAC, "round": 1}
+    params = {"deps": DEPS, "form": form, "cell": cell, "delta": delta, "K1": K1, "K2": K2, "prec": PREC, "cap_frac": ETA_CAP_FRAC, "round": 2}
     name = f"lfun_{form}_{cell}"
     st = ckpt_key.load(name, KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None:

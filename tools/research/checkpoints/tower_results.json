@@ -29,6 +29,12 @@
 "rc": 0,
 "when": "2026-08-28T08:31Z"
 },
+"01a990185e55f9e9bae9c722": {
+"dt": 48.76816391944885,
+"file": "cascade_spectrum_ladder.py",
+"rc": 0,
+"when": "2026-09-09T02:28Z"
+},
 "02365aaae13f83f94b0db7a9": {
 "dt": 5.307072162628174,
 "file": "cascade_twosided_witness.py",
@@ -1240,6 +1246,12 @@
 "file": "cascade_primes_side_ball.py",
 "rc": 0,
 "when": "2026-09-02T19:02Z"
+},
+"5b141814e16dde3f7f1ec351": {
+"dt": 50.28833770751953,
+"file": "cascade_lfunction_test.py",
+"rc": 0,
+"when": "2026-09-09T02:28Z"
 },
 "5bf46584d7511d0996052cbd": {
 "dt": 4.660355091094971,

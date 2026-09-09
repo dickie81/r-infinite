@@ -22,7 +22,10 @@ entrywise at delta = 1.0, K = 48 (below 1e-100); one cell re-derived live
 (chi_-4, delta = 2.0) to 1e-10 in ln. (2) THE NORMALISATION: for each form the
 prime-side Rayleigh quotient of the C_c^inf bump equals the explicit
 formula's zero side on the form's own zeros plus the smooth-density tail,
-relative deviation below BAND_Z (floating point; the zero lists' counts
+relative deviation below BAND_Z at delta = 1.0 (K = 24) and at delta = 2.0 (K =
+40, the shells 2,4,5,7 / 3,5,7 / 3,5,7 / 2,3,4,5,7 inside -- round 313 F2: the
+delta = 1.0 cell alone exercises no local coefficient beyond the shell n = 2)
+(floating point; the zero lists' counts
 against the smooth count of the argument principle -- recomputed here from
 the Gamma factors, (T/2pi) ln(qT/2pi e) + kappa/4 - 1/8 and (T/pi) ln(T/2pi e)
 + 11/4 -- within 1, the half-step scan agreeing, the phase check below 1e-8). (3) THE
@@ -36,8 +39,12 @@ c_L grows with the conductor among the three characters; the continuum minimum i
 1e-6). (4) THE SIGN RULE: at every (form, cell, prime) triple exactly one
 direction carries the near crossing (a certified negative ball at eta_hi,
 the bracket of relative width 1e-3), and it is downward iff c(p) > 0; the
-other direction has no crossing below the cap log(p)/2 or a far crossing at
-least FAR_RATIO further (the census printed). (5) THE LAW TRANSFERRED (live):
+other direction has no crossing below the cap log(p)/2 -- every sample of the
+doubling and of the producer's 64-point log grid up to the cap a positive
+ball (round 313 F1: the first producer stopped at the last doubling sample
+and missed four crossings in the unsampled interval below the cap) -- or a
+far crossing at least FAR_RATIO further: the census is chi_-3, p = 2 at delta
+= 2.3, 2.6, 3.0, 3.5, at 0.87-0.98 of the cap, pinned. (5) THE LAW TRANSFERRED (live):
 D_p^L = -(dP_p^L/d eta)/||g||^2 with c(p^k) in the shells; its sign predicts
 the witnessed direction at every triple; eta_lin = lambda_1/|D_p| lies in the
 near bracket at every triple with eta_hi T_0^2 <= SMALL_X (the small-shift
@@ -70,11 +77,11 @@ PAPER_NEEDLES = [
     {'s': '`cascade_lfunction_test.py`', 'min': 2, 'g': 'g9'},
     {'s': 'the **94 scripts cited in place** above', 'form': 'ws', 'g': 'g9'},
     {'s': 'extended by Theorems 1i–1br:', 'form': 'ws', 'g': 'g9'},
-    {'g': 'g7', 's': '| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 1 |', 'form': 'ws'},
+    {'g': 'g7', 's': '| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 4 |', 'form': 'ws'},
     {'g': 'g7', 's': '| χ₋₄ | (4, 1) | −1.965 | −14.311 | −92.476 | 5.58 | 7.23 | 29 | 0 |', 'form': 'ws'},
     {'g': 'g7', 's': '| χ₈ | (8, 1) | −1.025 | −6.991 | −46.223 | 5.37 | 6.81 | 29 | 0 |', 'form': 'ws'},
     {'g': 'g7', 's': '| Δ | (1, 2) | −5.381 | −24.765 | −91.050 | 5.66 | 6.79 | 36 | 0 |', 'form': 'ws'},
-    {'g': 'g7', 's': 'the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ for χ₋₃, χ₋₄, χ₈, Δ', 'form': 'ws'},
+    {'g': 'g7', 's': 'the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ', 'form': 'ws'},
     {'g': 'g7', 's': 'χ₋₃: 4.18, 4.86, 5.60, 5.89, 6.37, 6.72, 7.28; χ₋₄: 4.06, 4.81, 5.58, 5.96, 6.15, 6.55, 7.23; χ₈: 3.87, 4.40, 5.37, 5.57, 5.85, 6.31, 6.81; Δ: 4.65, 5.13, 5.66, 5.98, 6.12, 6.46, 6.79 at δ = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5', 'form': 'ws'},
     {'g': 'g7', 's': '4.70, 5.22, 6.04, 6.45, 6.70, 7.35, 7.83', 'form': 'ws'},
     {'g': 'g7', 's': 'η_lin = λ₁/|D_p| lies inside the near bracket at every triple in the small-shift regime η_hi T₀² ≤ 10⁻² (105 of the 124), the deviation |η_lin/η_hi − 1| growing by decade of η_hi T₀² — at most 3×10⁻³, 0.11, 0.54 on [10⁻², 10⁻¹), [10⁻¹, 1), ≥ 1', 'form': 'ws'},
@@ -140,6 +147,8 @@ gate(f"g1 the certified bounds: every K2 and K1 ball positive, ln K2 <= ln K1, t
 # ---------------------------------------------------------------- g2
 mp.mp.dps = 30
 def selftest(L, zeros, delta, K):
+    """the prime-side Rayleigh quotient of the C_c^inf bump against the zero side on the list plus the smooth tail; returns
+    (relative deviation, tail share, the prime powers inside the Gram)."""
     a = mp.mpf(delta)/2
     bump = lambda t: mp.e**(-1/(1 - (t/a)**2)) if abs(t) < a else mp.mpf(0)
     cb = [mp.quad(lambda t: bump(t)*mp.cos(k*mp.pi*t/a), [-a, 0, a])/(a if k else 2*a) for k in range(K)]
@@ -157,7 +166,7 @@ def selftest(L, zeros, delta, K):
     dens = lambda r: mp.log(L["q"]*(r/(2*mp.pi))**L["d"])/(2*mp.pi)
     tail = 2*mp.quad(lambda r: ghat(r)**2*dens(r), [T, 2*T, 10*T, 100*T])
     zz = (qz + tail)/den
-    return float((zz - qp)/qp), float(tail/den/zz)
+    return float((zz - qp)/qp), float(tail/den/zz), pp
 ok = True; zres = {}
 for f in FORDER:
     z = ZL[f]
@@ -166,9 +175,12 @@ for f in FORDER:
     smooth = (Tl/math.pi*math.log(Tl/(2*math.pi*math.e)) + 11/4) if f == "Delta" else (Tl/(2*math.pi)*math.log(L["q"]*Tl/(2*math.pi*math.e)) + L["kappas"][0]/4 - 1/8)
     ok &= z["half_step_agrees"] and abs(z["count"] - smooth) <= 1.0 and abs(z["smooth_count"] - smooth) <= 1e-6 and z["q"] == L["q"] and z["d"] == L["d"]
     ok &= all(z["zeros"][i] < z["zeros"][i + 1] for i in range(len(z["zeros"]) - 1)) and (z["phase_check"] is None or z["phase_check"] < 1e-8)
-    rel, share = selftest(LDESC[f], z["zeros"], 1.0, 24)
-    zres[f] = (rel, share, z["count"], z["zeros"][-1]); ok &= abs(rel) <= BAND_Z
-gate(f"g2 the normalisation: the prime-side quotient of the C_c^inf bump equals the zero side on each form's own zeros plus the smooth tail within {BAND_Z} (" + ", ".join(f"{f}: {zres[f][0]:+.1e} on {zres[f][2]} zeros to {zres[f][3]:.1f}" if zres[f] else f"{f}: NO ZERO LIST" for f in FORDER)
+    rel, share, pp1 = selftest(LDESC[f], z["zeros"], 1.0, 24)
+    rel2, share2, pp2 = selftest(LDESC[f], z["zeros"], 2.0, 40)           # round 313 F2: the cell where the local coefficients are exercised
+    zres[f] = (rel, share, z["count"], z["zeros"][-1], rel2, pp1, pp2); ok &= abs(rel) <= BAND_Z and abs(rel2) <= BAND_Z
+ok &= zres["chi_-3"][5] == [2] and zres["chi_-4"][5] == [] and zres["chi_8"][5] == [] and zres["Delta"][5] == [2]
+ok &= zres["chi_-3"][6] == [2, 4, 5, 7] and zres["chi_-4"][6] == [3, 5, 7] and zres["chi_8"][6] == [3, 5, 7] and zres["Delta"][6] == [2, 3, 4, 5, 7]
+gate(f"g2 the normalisation: the prime-side quotient of the C_c^inf bump equals the zero side on each form's own zeros plus the smooth tail within {BAND_Z} at delta = 1.0 (K = 24; the prime side the shell 2 for chi_-3 and Delta, empty for chi_-4 and chi_8) and at delta = 2.0 (K = 40; the shells 2,4,5,7 / 3,5,7 / 3,5,7 / 2,3,4,5,7 inside) (" + ", ".join(f"{f}: {zres[f][0]:+.1e} and {zres[f][4]:+.1e} on {zres[f][2]} zeros to {zres[f][3]:.1f}" if zres[f] else f"{f}: NO ZERO LIST" for f in FORDER)
      + "); every list count-checked against the smooth count of the argument principle (recomputed) within 1 and by a half-step rescan, ordered, the phase check below 1e-8", ok)
 
 # ---------------------------------------------------------------- g3
@@ -211,13 +223,18 @@ for f in FORDER:
         cont = min(s_cont(T, d/2, L["q"], L["d"]) for T in np.linspace(0.5*T0, 4*T0, 40001))
         contdev = max(contdev, abs(cont + 2*L["d"]*T0)/(2*L["d"]*T0)); ok &= abs(cont + 2*L["d"]*T0) <= 1e-6*2*L["d"]*T0
 ok &= npairs == 28
-# the conductor trend: the mean of c_zeta - c_L over the cells grows with q among the three characters (computed)
+# the conductor trend: the mean of c_zeta - c_L over the cells grows with q among the three characters (computed); round 313 F4:
+# every gap positive and at most 1.05, Delta's gap increasing in delta
 _gap = {f: sum(cz[ORDER.index(c)] - cL[(f, c)][0] for c in ORDER if cL.get((f, c)))/max(1, sum(1 for c in ORDER if cL.get((f, c)))) for f in FORDER}
 ok &= 0 < _gap["chi_-3"] < _gap["chi_-4"] < _gap["chi_8"]
+_gaps = [cz[ORDER.index(c)] - cL[(f, c)][0] for f in FORDER for c in ORDER if cL.get((f, c))]
+ok &= 0 < min(_gaps) and max(_gaps) <= 1.05
+_dg = [cz[i] - cL[("Delta", c)][0] for i, c in enumerate(ORDER)]
+ok &= all(_dg[i] < _dg[i + 1] for i in range(6))
 gate("g3 the finite-delta formula on each form's own zeros: zeta's offsets from Theorem 1bm's own lambda_1 reproduce 1bm(v) within 0.01 (" + ", ".join(f"{x:.2f}" for x in cz_bm) + "; from 1bn's cosine-basis lambda_1, the basis of the L-forms: "
      + ", ".join(f"{x:.2f}" for x in cz) + f"); |c_L - c_zeta| <= {BAND_C} at every one of {npairs} (form, cell) pairs reached by the zero lists (to 2.5 T_0): "
      + "; ".join(f"{f}: " + ", ".join(f"{cL[(f, c)][0]:.2f}" if cL.get((f, c)) else "-" for c in ORDER) for f in FORDER) + "; minimiser T/T_0 in ["
-     + (f"{min(v[1] for v in cL.values() if v):.2f}, {max(v[1] for v in cL.values() if v):.2f}]" if any(cL.values()) else "-]") + f"; the continuum minimum is -2 d T_0 (max rel dev {contdev:.1e}); mean c_zeta - c_L by form " + ", ".join(f"{f}: {_gap[f]:.2f}" for f in FORDER), ok)
+     + (f"{min(v[1] for v in cL.values() if v):.2f}, {max(v[1] for v in cL.values() if v):.2f}]" if any(cL.values()) else "-]") + f"; the continuum minimum is -2 d T_0 (max rel dev {contdev:.1e}); c_zeta - c_L positive at all 28 pairs, in [{min(_gaps):.2f}, {max(_gaps):.2f}] (gated (0, 1.05]); mean by form " + ", ".join(f"{f}: {_gap[f]:.2f}" for f in FORDER) + "; Delta's gap increasing in delta: " + ", ".join(f"{x:.2f}" for x in _dg), ok)
 
 # ---------------------------------------------------------------- g4
 def near_far(r):
@@ -233,17 +250,20 @@ def sign_ok(r):
     other = "up" if near == "down" else "down"
     if r[other].get("status") == "bracketed":
         return r[other]["eta_hi"]/r[near]["eta_hi"] >= FAR_RATIO
-    return r[other].get("status") == "no crossing below cap"
+    # round 313 F1: 'no crossing below the cap' means every sample of the doubling and of the 64-point log grid up to the cap
+    # itself is a positive ball (the producer's scan); a computed statement about the samples, gated on its census fields
+    o = r[other]
+    return o.get("status") == "no crossing below cap" and o.get("scanned") == 64 and o.get("q_cap", {}).get("positive") is True and abs(o["eta_lo"] - o["cap"]) <= 1e-12*o["cap"]
 ok = True; far_census = []; near_ratio = {}
 for (f, c), st in LF.items():
     for p, r in st["per_prime"].items():
         ok &= sign_ok(r) and r[near_far(r)[0]]["q_hi"]["negative"] and r[near_far(r)[0]]["q_lo"]["positive"]
         ok &= r[near_far(r)[0]]["eta_hi"]/r[near_far(r)[0]]["eta_lo"] <= 1 + TOL + 1e-12
         near, far = near_far(r)
-        if far is not None: far_census.append((f, c, p, r[far]["eta_hi"]/r[near]["eta_hi"]))
+        if far is not None: far_census.append((f, c, p, r[far]["eta_hi"]/r[near]["eta_hi"], r[far]["hi_over_cap"]))
         if int(p) == st["primes"][0]: near_ratio[(f, c)] = r[near]["hi_over_lambda"]
 gate(f"g4 the sign rule at every triple: the near crossing (a certified negative ball at eta_hi, a positive one at eta_lo, width 1e-3) is downward iff c(p) > 0; the other direction has no crossing below the cap or a far one at least {FAR_RATIO:.0e} further (far crossings: "
-     + (", ".join(f"{f} {c} p={p} at {x:.1e}x" for f, c, p, x in far_census) if far_census else "none") + "); the smallest unramified prime's eta_hi/lambda_1: "
+     + (", ".join(f"{f} {c} p={p} at {x:.1e}x, {hc:.3f} cap" for f, c, p, x, hc in far_census) if far_census else "none") + "); the smallest unramified prime's eta_hi/lambda_1: "
      + ", ".join(f"{f}: " + "/".join(f"{near_ratio[(f, c)]:.1f}" for c in ORDER if (f, c) in near_ratio) for f in FORDER), ok)
 
 # ---------------------------------------------------------------- g5
@@ -296,24 +316,26 @@ good = LF[("chi_-3", "d2.0")]["per_prime"]["7"]
 bad1 = json.loads(json.dumps(good)); bad1["c_p"] = -1.0
 bad2 = json.loads(json.dumps(good)); bad2["down"], bad2["up"] = good["up"], good["down"]
 bad3 = json.loads(json.dumps(LF[("chi_-3", "d2.6")]["per_prime"]["2"])); bad3["down"]["eta_hi"] = bad3["up"]["eta_hi"]*10
-ok = sign_ok(good) and not sign_ok(bad1) and not sign_ok(bad2) and sign_ok(LF[("chi_-3", "d2.6")]["per_prime"]["2"]) and not sign_ok(bad3)
-gate("g6 mangle probes: the sign-rule predicate fails on a flipped c(p), on swapped directions, and on a far crossing brought within the ratio", ok)
+bad4 = json.loads(json.dumps(good)); bad4["up"]["scanned"] = 63
+bad5 = json.loads(json.dumps(good)); bad5["up"]["q_cap"]["positive"] = False
+ok = sign_ok(good) and not sign_ok(bad1) and not sign_ok(bad2) and sign_ok(LF[("chi_-3", "d2.6")]["per_prime"]["2"]) and not sign_ok(bad3) and not sign_ok(bad4) and not sign_ok(bad5)
+gate("g6 mangle probes: the sign-rule predicate fails on a flipped c(p), on swapped directions, on a far crossing brought within the ratio, on a 'no crossing' status with an incomplete scan, and on a non-positive cap ball", ok)
 
 # ---------------------------------------------------------------- g7
 import paper_needles
-ROWS = ['| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 1 |', '| χ₋₄ | (4, 1) | −1.965 | −14.311 | −92.476 | 5.58 | 7.23 | 29 | 0 |', '| χ₈ | (8, 1) | −1.025 | −6.991 | −46.223 | 5.37 | 6.81 | 29 | 0 |', '| Δ | (1, 2) | −5.381 | −24.765 | −91.050 | 5.66 | 6.79 | 36 | 0 |']
-S_Z = 'the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ for χ₋₃, χ₋₄, χ₈, Δ'
+ROWS = ['| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 4 |', '| χ₋₄ | (4, 1) | −1.965 | −14.311 | −92.476 | 5.58 | 7.23 | 29 | 0 |', '| χ₈ | (8, 1) | −1.025 | −6.991 | −46.223 | 5.37 | 6.81 | 29 | 0 |', '| Δ | (1, 2) | −5.381 | −24.765 | −91.050 | 5.66 | 6.79 | 36 | 0 |']
+S_Z = 'the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ'
 S_CL = 'χ₋₃: 4.18, 4.86, 5.60, 5.89, 6.37, 6.72, 7.28; χ₋₄: 4.06, 4.81, 5.58, 5.96, 6.15, 6.55, 7.23; χ₈: 3.87, 4.40, 5.37, 5.57, 5.85, 6.31, 6.81; Δ: 4.65, 5.13, 5.66, 5.98, 6.12, 6.46, 6.79 at δ = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5'
 S_CZ = '4.70, 5.22, 6.04, 6.45, 6.70, 7.35, 7.83'
 S_LAW = 'η_lin = λ₁/|D_p| lies inside the near bracket at every triple in the small-shift regime η_hi T₀² ≤ 10⁻² (105 of the 124), the deviation |η_lin/η_hi − 1| growing by decade of η_hi T₀² — at most 3×10⁻³, 0.11, 0.54 on [10⁻², 10⁻¹), [10⁻¹, 1), ≥ 1'
 S_NEAR = 'χ₋₃: 1.3/1.2/1.4/1.4/1.5/1.5/1.6; χ₋₄: 2.0/1.6/1.6/1.6/1.6/1.5; χ₈: 2.2/1.3/1.3/1.4/1.4/1.4; Δ: 2.8/2.4/2.2/2.1/2.1/2.0/1.9 at the cells with an unramified prime'
 # each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
 ok = True
-ok &= paper_needles.needle(PAPER_NEEDLES, '| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 1 |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| χ₋₃ | (3, 1) | −3.855 | −21.079 | −126.292 | 5.60 | 7.28 | 30 | 4 |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '| χ₋₄ | (4, 1) | −1.965 | −14.311 | −92.476 | 5.58 | 7.23 | 29 | 0 |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '| χ₈ | (8, 1) | −1.025 | −6.991 | −46.223 | 5.37 | 6.81 | 29 | 0 |', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '| Δ | (1, 2) | −5.381 | −24.765 | −91.050 | 5.66 | 6.79 | 36 | 0 |', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ for χ₋₃, χ₋₄, χ₈, Δ', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'χ₋₃: 4.18, 4.86, 5.60, 5.89, 6.37, 6.72, 7.28; χ₋₄: 4.06, 4.81, 5.58, 5.96, 6.15, 6.55, 7.23; χ₈: 3.87, 4.40, 5.37, 5.57, 5.85, 6.31, 6.81; Δ: 4.65, 5.13, 5.66, 5.98, 6.12, 6.46, 6.79 at δ = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, '4.70, 5.22, 6.04, 6.45, 6.70, 7.35, 7.83', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'η_lin = λ₁/|D_p| lies inside the near bracket at every triple in the small-shift regime η_hi T₀² ≤ 10⁻² (105 of the 124), the deviation |η_lin/η_hi − 1| growing by decade of η_hi T₀² — at most 3×10⁻³, 0.11, 0.54 on [10⁻², 10⁻¹), [10⁻¹, 1), ≥ 1', 'ws')
@@ -333,10 +355,11 @@ for _row, f in zip(ROWS, FORDER):
     for col, c in zip(fl[5:7], ("d2.0", "d3.5")):
         ok &= cL.get((f, c)) is not None and abs(_num(col) - cL[(f, c)][0]) <= 5e-3 + 1e-9
     ok &= int(fl[7]) == sum(len(LF[(f, c)]["per_prime"]) for c in ORDER)
-    ok &= int(fl[8]) == sum(1 for ff, _c, _p, _x in far_census if ff == f)
+    ok &= int(fl[8]) == sum(1 for ff, _c, _p, _x, _hc in far_census if ff == f)
 # the sentences
 _m = __import__("re").findall(r"([0-9]×10⁻[⁰¹²³⁴⁵⁶⁷⁸⁹]+)", S_Z)
-ok &= len(_m) == 4 and all(abs(zres[f][0]) <= _num(a) < 10*abs(zres[f][0]) + 1e-300 and _num(a) <= BAND_Z for a, f in zip(_m, FORDER))   # one significant figure, up
+ok &= len(_m) == 8 and all(abs(zres[f][0]) <= _num(a) < 10*abs(zres[f][0]) + 1e-300 and _num(a) <= BAND_Z for a, f in zip(_m[:4], FORDER))   # one significant figure, up
+ok &= all(abs(zres[f][4]) <= _num(a) < 10*abs(zres[f][4]) + 1e-300 and _num(a) <= BAND_Z for a, f in zip(_m[4:], FORDER))                   # the delta = 2.0 cell
 _m = __import__("re").findall(r"([0-9]+\.[0-9]{2})", S_CL.split(" at δ")[0])
 _vals = [cL[(f, c)][0] for f in FORDER for c in ORDER if cL.get((f, c))]
 ok &= len(_m) == len(_vals) == npairs and all(abs(float(a) - b) <= 5e-3 + 1e-9 for a, b in zip(_m, _vals))
@@ -351,8 +374,9 @@ ok &= _num(_m.group(1)) <= 2*bands[1][1] + 1e-4 and _num(_m.group(2)) <= bands[2
 _m = __import__("re").findall(r"([0-9]+\.[0-9])", S_NEAR)
 _nr = [near_ratio[(f, c)] for f in FORDER for c in ORDER if (f, c) in near_ratio]
 ok &= len(_m) == len(_nr) and all(abs(float(a) - b) <= 0.05 + 1e-9 for a, b in zip(_m, _nr))
-ok &= len(far_census) == 1 and far_census[0][:3] == ("chi_-3", "d2.6", "2") and far_census[0][3] >= 1e19
-gate("g7 the paper's numbers parsed back from the declared needles: the four rows (ln lambda_1 ceilings to 1e-3 at three cells, c_L to 5e-3, the triple and far-crossing counts), the normalisation deviations, the offset lists (L and zeta) to 5e-3 and their band, the law's census and its deviation decades, the near ratios to 0.05, the one far crossing", ok)
+ok &= len(far_census) == 4 and [(x[0], x[1], x[2]) for x in far_census] == [("chi_-3", c, "2") for c in ("d2.3", "d2.6", "d3.0", "d3.5")]
+ok &= all(x[3] >= 1e13 for x in far_census) and all(0.87 <= x[4] <= 0.98 for x in far_census)
+gate("g7 the paper's numbers parsed back from the declared needles: the four rows (ln lambda_1 ceilings to 1e-3 at three cells, c_L to 5e-3, the triple and far-crossing counts), the normalisation deviations at both cells, the offset lists (L and zeta) to 5e-3 and their band, the law's census and its deviation decades, the near ratios to 0.05, the one far crossing", ok)
 
 
 # ---------------------------------------------------------------- g8
