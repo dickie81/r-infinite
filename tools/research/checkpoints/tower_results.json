@@ -971,6 +971,12 @@
 "rc": 0,
 "when": "2026-08-28T17:31Z"
 },
+"46db365c90131d26e2e9b900": {
+"dt": 42.01946139335632,
+"file": "cascade_spectrum_ladder.py",
+"rc": 0,
+"when": "2026-09-09T03:25Z"
+},
 "474a8dae6d8b448e7022dee0": {
 "dt": 1.0505447387695312,
 "file": "cascade_prime_budget_fold.py",
@@ -3130,6 +3136,12 @@
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
 "when": "2026-09-03T23:26Z"
+},
+"e73b347385bc36a54140dfe7": {
+"dt": 88.53771948814392,
+"file": "cascade_lfunction_test.py",
+"rc": 0,
+"when": "2026-09-09T03:25Z"
 },
 "e7e2fdd66203592cbe5f920a": {
 "dt": 580.4706945419312,

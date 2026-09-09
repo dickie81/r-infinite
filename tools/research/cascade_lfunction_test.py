@@ -185,14 +185,14 @@ ok &= zres["chi_-3"][6] == [2, 4, 5, 7] and zres["chi_-4"][6] == [3, 5, 7] and z
 _Ld = LDESC["Delta"]; _wrong = dict(_Ld, coef=lambda p, k: _Ld["coef"](p, 1)**k)
 _relw, _, _ = selftest(_wrong, ZL["Delta"]["zeros"], 2.0, 40)
 ok &= abs(_relw) > 0.5
-# round 315 C4: dropping any one first shell (2, 3 or 5, where present) at delta = 2.0 moves the deviation by more than 0.1 at every form
+# round 315 C4 / 316 F316-2: dropping every shell of any one of the primes 2, 3, 5 (where present) at delta = 2.0 moves the deviation by more than 0.1 at every form
 _drops = {}
 for f in FORDER:
     for pd in (2, 3, 5):
         if pd not in zres[f][6]: continue
         _Lf = LDESC[f]; _dropped = dict(_Lf, coef=(lambda P: (lambda p, k: 0 if p == P else _Lf["coef"](p, k)))(pd))
         _rd, _, _ = selftest(_dropped, ZL[f]["zeros"], 2.0, 40); _drops[(f, pd)] = _rd; ok &= abs(_rd) > 0.1
-gate(f"g2 the normalisation: the prime-side quotient of the C_c^inf bump equals the zero side on each form's own zeros plus the smooth tail within {BAND_Z} at delta = 1.0 (K = 24; the prime side the shell 2 for chi_-3 and Delta, empty for chi_-4 and chi_8) and at delta = 2.0 (K = 40; the shells 2,4,5,7 / 3,5,7 / 3,5,7 / 2,3,4,5,7 inside, the coefficients at 2, 3, 4, 5 exercised: the wrong rule c(p^k) = c(p)^k for Delta deviates by {_relw:+.2f}; dropping one first shell deviates by " + ", ".join(f"{f} {pd}: {v:+.2f}" for (f, pd), v in _drops.items()) + ") (" + ", ".join(f"{f}: {zres[f][0]:+.1e} and {zres[f][4]:+.1e} on {zres[f][2]} zeros to {zres[f][3]:.1f}" if zres[f] else f"{f}: NO ZERO LIST" for f in FORDER)
+gate(f"g2 the normalisation: the prime-side quotient of the C_c^inf bump equals the zero side on each form's own zeros plus the smooth tail within {BAND_Z} at delta = 1.0 (K = 24; the prime side the shell 2 for chi_-3 and Delta, empty for chi_-4 and chi_8) and at delta = 2.0 (K = 40; the shells 2,4,5,7 / 3,5,7 / 3,5,7 / 2,3,4,5,7 inside, the coefficients at 2, 3, 4, 5 exercised: the wrong rule c(p^k) = c(p)^k for Delta deviates by {_relw:+.2f}; dropping every shell of one prime deviates by " + ", ".join(f"{f} {pd}: {v:+.2f}" for (f, pd), v in _drops.items()) + ") (" + ", ".join(f"{f}: {zres[f][0]:+.1e} and {zres[f][4]:+.1e} on {zres[f][2]} zeros to {zres[f][3]:.1f}" if zres[f] else f"{f}: NO ZERO LIST" for f in FORDER)
      + "); every list count-checked against the smooth count of the argument principle (recomputed) within 1 and by a half-step rescan, ordered, the phase check below 1e-8", ok)
 
 # ---------------------------------------------------------------- g3
@@ -392,7 +392,8 @@ _nr = [near_ratio[(f, c)] for f in FORDER for c in ORDER if (f, c) in near_ratio
 ok &= len(_m) == len(_nr) and all(abs(float(a) - b) <= 0.05 + 1e-9 for a, b in zip(_m, _nr))
 ok &= len(far_census) == 4 and [(x[0], x[1], x[2]) for x in far_census] == [("chi_-3", c, "2") for c in ("d2.3", "d2.6", "d3.0", "d3.5")]
 ok &= all(x[3] >= 1e13 for x in far_census) and all(0.87 <= x[4] <= 0.97 for x in far_census)
-ok &= 1.1e13 <= min(x[3] for x in far_census) and max(x[3] for x in far_census) <= 1.4e54 and all(far_census[i][4] > far_census[i + 1][4] for i in range(3))   # '1.1x10^13-1.4x10^54', the position falling with delta
+ok &= 1.1e13 <= min(x[3] for x in far_census) < 1.2e13 and 1.3e54 < max(x[3] for x in far_census) <= 1.4e54 and all(far_census[i][4] > far_census[i + 1][4] for i in range(3))   # '1.1x10^13-1.4x10^54' (outward, tight to 2 s.f.), the position falling with delta
+ok &= abs(far_census[0][4] - 0.97) <= 5e-3 and abs(far_census[3][4] - 0.87) <= 5e-3                                              # 'from 0.97 to 0.87 of the cap' (nearest; round 316 F316-3)
 gate("g7 the paper's numbers parsed back from the declared needles: the four rows (ln lambda_1 ceilings to 1e-3 at three cells, c_L to 5e-3, the triple and far-crossing counts), the normalisation deviations at both cells, the offset lists (L and zeta) to 5e-3 and their band, the law's census and its deviation decades, the near ratios to 0.05, the four far crossings", ok)
 
 

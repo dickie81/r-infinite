@@ -6860,8 +6860,8 @@ for χ₋₄ and χ₈, and at δ = 2.0 with 40 modes, where the shells 2, 4, 5,
 coefficients at 2, 3, 4, 5 are exercised — the shell at 7 sits at lag
 log 7 ≈ 2a where the bump's autocorrelation vanishes — gated by the
 wrong rule c(p^k) = c(p)^k failing for Δ there by more than 0.5 and by
-the drop of any one first shell (2, 3 or 5) failing by more than 0.1 at
-every form (the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
+the drop of every shell of any one of the primes 2, 3, 5 failing by
+more than 0.1 at every form (the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
 bounds (certified).* At each cell K2 = max(120, 4(2aT₀)/π + 100) and
 K1 = 0.7K2 modes at 600 bits, T₀ = 2π(eᵟ/q)^{1/d} the form's horizon
 (1bm(iv)'s density rule): every Rayleigh ball positive, ln λ₁ at K2 at
@@ -6965,7 +6965,7 @@ the largest rise 0.45 and the largest fall 0.54 nats (gated), in runs
 where one parity of k (orders 0 or 4 mod 8) sits above the other — even
 k above odd by 0.22 in the mean at δ = 3.0, the two parities within 0.05
 at δ = 3.5 where the higher one changes along the ladder, even k above
-over rungs 2–8 and below over 12–26 (all gated) — a fine structure of
+over rungs 2–8, below over 12–26 and above again over 28–31 (all gated) — a fine structure of
 the shadow recorded, not modelled
 (ranges [0.96, 0.97], [0.93, 1.19], [0.47, 1.47], [0.59, 1.57], [0.42, 1.56], [0.53, 1.72], [0.37, 1.87]); at the two cells whose top leakage rung lies in [−2, −1) (δ = 3.0
 and 3.5), where the ladder has flattened to a spacing of about a nat,
