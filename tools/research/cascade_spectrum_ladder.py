@@ -30,11 +30,13 @@ ln(1 - chi_2) at every cell; live at delta = 1.0 the ladder is reproduced to
 in the deep regime (below -2) the offset ln lambda_k - ln(1 - chi_{2k}) is in
 (0, 2.6], the first rung's offset the largest of the cell, in [1.6, 2.6] and
 increasing with delta; over the deep rungs 2.. the offsets fall in trend (the
-least-squares slope negative at every cell) but not rung by rung -- at delta >=
-3.0 they alternate with the parity of k (orders 4 and 0 mod 8), rises at 6 of 17
-and 13 of 30 steps among rungs 2.., the largest rise 0.45 and the largest fall
-0.54, even k above odd by 0.22 in the mean at delta = 3.0 and the parities within
-0.05 at 3.5 (round 313 F5; round 314 F314-1/2);
+least-squares slope negative at the six cells with more than one such rung)
+but not rung by rung -- from delta = 2.3 on they rise at 1/7, 3/11, 6/17 and
+13/30 steps (pinned), the largest rise 0.45 and the largest fall 0.54 (nearest),
+in runs where one parity of k (orders 0 or 4 mod 8) sits above the other: even
+k above odd by 0.22 in the mean at delta = 3.0, the parities within 0.05 at 3.5
+where the higher one changes (even above over rungs 2..8, below over 12..26)
+(round 313 F5; rounds 314-315);
 87 leakage rungs pinned, the order-0 leakage -31.5 at delta = 1.0 gated; the top rung of a cell (prolate ln in [-2, -1), where
 the ladder has flattened to a spacing of about a nat) within 0.1; the leakage
 rungs number at least 80. (5) ALTERNATIVES REJECTED: the nearest order 2 mod 4
@@ -211,21 +213,28 @@ for c in ORDER:
         ok &= slopes[c] < 0
     rises[c] = sum(1 for i in range(1, n) if o[i] > o[i - 1]); maxrise[c] = max([o[i] - o[i - 1] for i in range(1, n)] + [0.0])
 ok &= rises["d3.0"] == 6 and rises["d3.5"] == 13 and len(shadow["d3.0"]) - 2 == 17 and len(shadow["d3.5"]) - 2 == 30
-ok &= 0.44 <= max(maxrise["d3.0"], maxrise["d3.5"]) <= 0.45 + 5e-3          # 'the largest rise 0.45'
+ok &= rises["d2.3"] == 1 and rises["d2.6"] == 3 and len(shadow["d2.3"]) - 2 == 7 and len(shadow["d2.6"]) - 2 == 11 and rises["d2.0"] == 0   # round 315 F315-1
+ok &= 0.445 <= max(maxrise["d3.0"], maxrise["d3.5"]) <= 0.45 + 5e-3         # 'the largest rise 0.45' (nearest)
 maxfall = max(max(o[i - 1] - o[i] for i in range(1, len(o))) for o in (shadow["d3.0"][1:], shadow["d3.5"][1:]))
-ok &= 0.53 <= maxfall <= 0.54 + 5e-3                                          # 'the largest fall 0.54'
+ok &= 0.535 <= maxfall <= 0.54 + 5e-3                                         # 'the largest fall 0.54' (nearest)
 # the parity of k over the deep rungs 2..: even k = orders 0 mod 8, odd k = orders 4 mod 8 (round 314 F314-2)
 par = {}
 for c in ("d3.0", "d3.5"):
     o = shadow[c]; ev = [o[k - 1] for k in range(2, len(o) + 1) if k % 2 == 0]; od = [o[k - 1] for k in range(3, len(o) + 1) if k % 2 == 1]
     par[c] = sum(ev)/len(ev) - sum(od)/len(od)
-ok &= 0.15 <= par["d3.0"] <= 0.30 and abs(par["d3.5"]) <= 0.05
+ok &= abs(par["d3.0"] - 0.22) <= 5e-3 and abs(par["d3.5"]) <= 0.05           # '0.22' (nearest), 'within 0.05'
+# round 315 F315-2: the higher parity changes along the ladder at delta = 3.5 -- even k above odd over rungs 2..8, below over 12..26
+o35 = shadow["d3.5"]
+def _par(lo, hi):
+    ev = [o35[k - 1] for k in range(lo, hi + 1) if k % 2 == 0]; od = [o35[k - 1] for k in range(lo, hi + 1) if k % 2 == 1]
+    return sum(ev)/len(ev) - sum(od)/len(od)
+ok &= _par(2, 8) > 0 and _par(12, 26) < 0
 ok &= len(slopes) == 6 and all(c in slopes for c in ORDER[1:])
 gate("g4 the shadow: at every cell and leakage rung the nearest even prolate order to ln lambda_k is 4k; in the deep regime the offset is in (0, " + f"{OFF_MAX}], the first rung's the largest, in {OFF1_BAND} and increasing with delta; leakage rungs {n_leak} ({n_deep} deep); first offsets "
      + ", ".join(f"{shadow[c][0]:.2f}" for c in ORDER) + "; ranges over the deep rungs 2..: " + ", ".join(f"[{min(shadow[c][1:]):.2f}, {max(shadow[c][1:]):.2f}]" for c in ORDER)
      + "; the top rung of a cell (prolate ln in [-2, -1)) within 0.1: " + ", ".join(f"{c}: {top[c]:+.2f}" for c in top)
      + "; 87 leakage rungs pinned, the order-0 leakage -31.5 at delta = 1.0; the trend: least-squares slopes over the deep rungs 2.. " + ", ".join(f"{slopes[c]:+.3f}" for c in ORDER if c in slopes)
-     + " (all negative), rung-to-rung rises " + ", ".join(f"{rises[c]}/{max(len(shadow[c]) - 2, 0)}" for c in ORDER) + f", the largest consecutive rise {max(maxrise['d3.0'], maxrise['d3.5']):.2f} and fall {maxfall:.2f} at delta >= 3.0 (17 and 30 steps among rungs 2..); even minus odd parity means {par['d3.0']:+.2f} at delta = 3.0, {par['d3.5']:+.2f} at 3.5", ok)
+     + " (all negative), rung-to-rung rises " + ", ".join(f"{rises[c]}/{max(len(shadow[c]) - 2, 0)}" for c in ORDER) + f", the largest consecutive rise {max(maxrise['d3.0'], maxrise['d3.5']):.2f} and fall {maxfall:.2f} at delta >= 3.0 (17 and 30 steps among rungs 2..); even minus odd parity means {par['d3.0']:+.2f} at delta = 3.0, {par['d3.5']:+.2f} at 3.5; at 3.5 even minus odd over rungs 2..8 {_par(2, 8):+.2f}, over 12..26 {_par(12, 26):+.2f}", ok)
 
 # ---------------------------------------------------------------- g5
 ok = True; margin = 1e9; margin_deep = 1e9

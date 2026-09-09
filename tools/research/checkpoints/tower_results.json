@@ -1463,6 +1463,12 @@
 "rc": 0,
 "when": "2026-09-03T15:28Z"
 },
+"690146bff986d9d175fd2ff3": {
+"dt": 85.61215782165527,
+"file": "cascade_lfunction_test.py",
+"rc": 0,
+"when": "2026-09-09T03:09Z"
+},
 "691b57ce9a33126d8b6c388b": {
 "dt": 308.1628329753876,
 "file": "cascade_weil_margin.py",
@@ -1936,6 +1942,12 @@
 "file": "cascade_height_uniformity.py",
 "rc": 0,
 "when": "2026-09-03T11:44Z"
+},
+"8fcd03d56e7fe198b930bb1c": {
+"dt": 48.346713066101074,
+"file": "cascade_spectrum_ladder.py",
+"rc": 0,
+"when": "2026-09-09T03:09Z"
 },
 "8fd318e001e0635be4bb3b62": {
 "dt": 43.32334280014038,

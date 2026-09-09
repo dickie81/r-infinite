@@ -6859,7 +6859,9 @@ for χ₋₄ and χ₈, and at δ = 2.0 with 40 modes, where the shells 2, 4, 5,
 (χ₋₃), 3, 5, 7 (χ₋₄, χ₈) and 2, 3, 4, 5, 7 (Δ) are inside and the local
 coefficients at 2, 3, 4, 5 are exercised — the shell at 7 sits at lag
 log 7 ≈ 2a where the bump's autocorrelation vanishes — gated by the
-wrong rule c(p^k) = c(p)^k failing for Δ there by more than 0.5 (the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
+wrong rule c(p^k) = c(p)^k failing for Δ there by more than 0.5 and by
+the drop of any one first shell (2, 3 or 5) failing by more than 0.1 at
+every form (the relative deviations 6×10⁻¹¹, 5×10⁻⁹, 2×10⁻⁶, 2×10⁻⁶ at δ = 1.0 and 2×10⁻¹², 3×10⁻¹³, 9×10⁻⁸, 4×10⁻⁸ at δ = 2.0, for χ₋₃, χ₋₄, χ₈, Δ). *(ii) The
 bounds (certified).* At each cell K2 = max(120, 4(2aT₀)/π + 100) and
 K1 = 0.7K2 modes at 600 bits, T₀ = 2π(eᵟ/q)^{1/d} the form's horizon
 (1bm(iv)'s density rule): every Rayleigh ball positive, ln λ₁ at K2 at
@@ -6888,9 +6890,10 @@ search and of a 64-point log grid up to the cap itself a positive ball
 the last doubling sample and missed the interval below the cap, round
 313 F1) — except for χ₋₃ at p = 2, whose downward direction crosses at
 δ = 2.3, 2.6, 3.0 and 3.5 at 0.87–0.97 of the cap (certified negative
-balls at η_hi; 10¹³–10⁵⁴ times the near crossing; at δ ≤ 2.0 the
+balls at η_hi; 1.1×10¹³–1.4×10⁵⁴ times the near crossing; at δ ≤ 2.0 the
 quotient at the cap is still positive), a second crossing of the far
-direction that appears between δ = 2.0 and 2.3 and deepens with δ. Theorem 1bp's
+direction that appears between δ = 2.0 and 2.3 and deepens with δ (its
+position falling from 0.97 to 0.87 of the cap, gated). Theorem 1bp's
 law transferred (live): the slope D_p^L with c(p^k) in the shells has
 the sign of the witnessed direction at every triple, and η_lin = λ₁/|D_p| lies inside the near bracket at every triple in the small-shift regime η_hi T₀² ≤ 10⁻² (105 of the 124), the deviation |η_lin/η_hi − 1| growing by decade of η_hi T₀² — at most 3×10⁻³, 0.11, 0.54 on [10⁻², 10⁻¹), [10⁻¹, 1), ≥ 1 — second order in
 the shift: the knife-edge, its direction and its magnitude are the
@@ -6956,13 +6959,14 @@ Fourier eigenvalue +1 beyond ψ₀; in the deep regime (ln(1 − χ_{2k}) <
 (0, 2.6] nats, the first rung's offset the largest of its cell and
 increasing with δ (1.64, 1.79, 2.12, 2.18, 2.20, 2.39, 2.47 at the cells), the rest falling in trend — the
 least-squares slope of the offset against k negative at the six cells
-with more than one such rung (gated) — but not rung by rung: at δ ≥ 3.0
-the offsets rise at 6 of 17 and 13 of 30 steps (gated), the largest
-rise 0.45 and the largest fall 0.54 nats, in runs where one parity of k
-(orders 0 or 4 mod 8) sits above the other — even k above odd by 0.22
-in the mean at δ = 3.0, the two parities within 0.05 at δ = 3.5 with the
-higher one changing along the ladder (gated) — a fine structure of the
-shadow recorded, not modelled
+with more than one such rung (gated) — but not rung by rung: from δ = 2.3 on
+the offsets rise at 1 of 7, 3 of 11, 6 of 17 and 13 of 30 steps (gated),
+the largest rise 0.45 and the largest fall 0.54 nats (gated), in runs
+where one parity of k (orders 0 or 4 mod 8) sits above the other — even
+k above odd by 0.22 in the mean at δ = 3.0, the two parities within 0.05
+at δ = 3.5 where the higher one changes along the ladder, even k above
+over rungs 2–8 and below over 12–26 (all gated) — a fine structure of
+the shadow recorded, not modelled
 (ranges [0.96, 0.97], [0.93, 1.19], [0.47, 1.47], [0.59, 1.57], [0.42, 1.56], [0.53, 1.72], [0.37, 1.87]); at the two cells whose top leakage rung lies in [−2, −1) (δ = 3.0
 and 3.5), where the ladder has flattened to a spacing of about a nat,
 that rung is within 0.1 of its order; the orders 2 mod 4 are farther than order 4k by at least 0.7

@@ -18418,3 +18418,16 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Battery (full-tower class).** `refresh_tower_manifest.py` → 27; `CASCADE_CHAIN=manifest` member runs: `cascade_lfunction_test.py` 10/10 (28 cells REUSED — the producer's docstring edit key-neutral), `cascade_spectrum_ladder.py` 11/11, `cascade_linear_response.py` unchanged; `python3 tools/research/run_tower.py` → manifest integrity 27 / 4 pins; probes 24/24 and 85/85; `census: 2 live PASS + 25 cached PASS + 0 FAIL of 27`; **TOWER PASS (27/27)**.
 
 ---
+
+## Addendum 474 — round 315 (the convergence test on the round-314 sweep): 0 MAJOR, 2 minor, 5 cosmetic — all verified by the lead and swept; round 316 (convergence) commissioned
+
+**Findings, the lead's verification, dispositions.**
+- **F315-1 (minor, ACCEPTED).** 1br(ii) located the failure of rung-by-rung falling "at δ ≥ 3.0", but the stored ladders also rise at δ = 2.3 (1 of 7 steps) and δ = 2.6 (3 of 11) — the lead's own g4 label printed "0/0, 0/1, 0/5, 1/7, 3/11, 6/17, 13/30" while the gate pinned only 6 and 13. Now "from δ = 2.3 on … 1 of 7, 3 of 11, 6 of 17 and 13 of 30 steps", all four pinned with their denominators, and δ = 2.0's zero rises pinned.
+- **F315-2 (minor, ACCEPTED).** The "(gated)" label covered "the higher one changing along the ladder", which no gate tested. The reversal is now gated at δ = 3.5 (even minus odd over rungs 2–8 positive, over 12–26 negative — live +0.30 and −0.27) and stated as such.
+- **Cosmetics (all ACCEPTED, swept).** C1 "0.22" pinned to ±0.005 (was the band [0.15, 0.30]); C2 the lower ends of the rise/fall pins raised to 0.445/0.535 (nearest rounding); C3 the six offset figures (the means 0.48, 0.57, 0.87, 0.50; Δ's 0.05 and 1.04) pinned, the far-crossing ratios stated outward as 1.1×10¹³–1.4×10⁵⁴ and gated, "deepens with δ" given its gated content (the position falling 0.97 → 0.87 of the cap); C4 the wrong-rule mangle covered only c(4) for Δ — drop-one mangles for every first shell (2, 3, 5 where present) at δ = 2.0 added and gated at 0.1 (live: χ₋₃ −1.02 / +1.51 for shells 2 / 5; χ₋₄ −1.14 / −0.15 for 3 / 5; χ₈ −1.08 / +0.41; Δ −1.01 / −0.99 / −0.68 for 2 / 3 / 5), the block naming both; C5 the 1br docstring's retained "alternate with the parity" wording and the producer's "0.17 of the cap at the 28 cells" (per triple: 0.170 at χ₈, δ = 1.3828125, p = 3; the verifier gates 0.25) corrected.
+
+**Checked and held (reviewer).** F314-1..4 closed with recounts (6/17, 13/30; the parity means +0.2226 / −0.0436; the largest rise 0.4493 and fall 0.5396; the gap extremes 0.0495 / 1.0442; the shell-7 share ≤ 4.7×10⁻⁹; the wrong rule −1.030); the round-314 cosmetics; every table row and list re-derived with its rounding; the 124 triples' statuses; the lfun keys unchanged by the docstring edit (28/28 recompute to their stored keys); the manifest and pins; needles and the census 94 body-only; the chains; Checks 7/8.
+
+**Battery (full-tower class).** `refresh_tower_manifest.py` → 27; `CASCADE_CHAIN=manifest` member runs: `cascade_lfunction_test.py` 10/10 (28 cells REUSED), `cascade_spectrum_ladder.py` 11/11, `cascade_linear_response.py` unchanged; `python3 tools/research/run_tower.py` → manifest integrity 27 / 4 pins; probes 24/24 and 85/85; `census: 2 live PASS + 25 cached PASS + 0 FAIL of 27`; **TOWER PASS (27/27)**.
+
+---

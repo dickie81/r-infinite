@@ -5484,4 +5484,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The round-314 sweep commit. Full-tower class (verifier executable lines; manifest; the producer's docstring only, key-neutral). Brief `brief_round315.md`.
 
+**Findings.** 0 MAJOR, 2 minor, 5 cosmetic — all verified by the lead and swept (A474): F315-1 the rises at δ = 2.3 and 2.6 (1/7, 3/11) stated and pinned with the δ ≥ 3.0 ones; F315-2 the parity reversal at δ = 3.5 gated (even above over rungs 2–8, below over 12–26) and the "(gated)" label made exact; C1–C5 (0.22 pinned; the rise/fall pins' lower ends; the six offset figures and the far-crossing ratios/positions pinned; drop-one mangles for every first shell; two docstrings). Battery: members 10/10, 11/11 (9/9 unchanged); manifest 27; TOWER PASS 27/27. Round 316 (convergence) commissioned.
+
+### Round 316 — convergence test on the round-315 sweep (Theorems 1bp, 1bq, 1br)
+
+**Scope.** The round-315 sweep commit. Full-tower class (verifier executable lines; manifest; the producer's docstring only, key-neutral). Brief `brief_round316.md`.
+
 **Findings.** Pending.

@@ -25,7 +25,8 @@ delta = 1.0, 1.3828125, 2.0, 2.3, 2.6, 3.0, 3.5:
       the far one beside the cap. The search's first sample is eta = lambda_1's
       upper end; were that above the cap the grid would descend from it and
       (0, cap) would go unsampled (round 314 C6, unreachable: lambda_1 is at
-      most 0.17 of the cap at the 28 cells, gated by the verifier). The SIGN
+      most 0.170 of the cap over the 124 (form, cell, prime) triples --
+      chi_8, delta = 1.3828125, p = 3 -- and the verifier gates 0.25). The SIGN
       RULE the
       verifier gates: the witnessed direction is downward exactly when the
       first shell's coefficient c(p) is positive (chi(p) = +1; tau(p) > 0),

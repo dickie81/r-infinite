@@ -185,7 +185,14 @@ ok &= zres["chi_-3"][6] == [2, 4, 5, 7] and zres["chi_-4"][6] == [3, 5, 7] and z
 _Ld = LDESC["Delta"]; _wrong = dict(_Ld, coef=lambda p, k: _Ld["coef"](p, 1)**k)
 _relw, _, _ = selftest(_wrong, ZL["Delta"]["zeros"], 2.0, 40)
 ok &= abs(_relw) > 0.5
-gate(f"g2 the normalisation: the prime-side quotient of the C_c^inf bump equals the zero side on each form's own zeros plus the smooth tail within {BAND_Z} at delta = 1.0 (K = 24; the prime side the shell 2 for chi_-3 and Delta, empty for chi_-4 and chi_8) and at delta = 2.0 (K = 40; the shells 2,4,5,7 / 3,5,7 / 3,5,7 / 2,3,4,5,7 inside, the coefficients at 2, 3, 4, 5 exercised: the wrong rule c(p^k) = c(p)^k for Delta deviates by {_relw:+.2f}) (" + ", ".join(f"{f}: {zres[f][0]:+.1e} and {zres[f][4]:+.1e} on {zres[f][2]} zeros to {zres[f][3]:.1f}" if zres[f] else f"{f}: NO ZERO LIST" for f in FORDER)
+# round 315 C4: dropping any one first shell (2, 3 or 5, where present) at delta = 2.0 moves the deviation by more than 0.1 at every form
+_drops = {}
+for f in FORDER:
+    for pd in (2, 3, 5):
+        if pd not in zres[f][6]: continue
+        _Lf = LDESC[f]; _dropped = dict(_Lf, coef=(lambda P: (lambda p, k: 0 if p == P else _Lf["coef"](p, k)))(pd))
+        _rd, _, _ = selftest(_dropped, ZL[f]["zeros"], 2.0, 40); _drops[(f, pd)] = _rd; ok &= abs(_rd) > 0.1
+gate(f"g2 the normalisation: the prime-side quotient of the C_c^inf bump equals the zero side on each form's own zeros plus the smooth tail within {BAND_Z} at delta = 1.0 (K = 24; the prime side the shell 2 for chi_-3 and Delta, empty for chi_-4 and chi_8) and at delta = 2.0 (K = 40; the shells 2,4,5,7 / 3,5,7 / 3,5,7 / 2,3,4,5,7 inside, the coefficients at 2, 3, 4, 5 exercised: the wrong rule c(p^k) = c(p)^k for Delta deviates by {_relw:+.2f}; dropping one first shell deviates by " + ", ".join(f"{f} {pd}: {v:+.2f}" for (f, pd), v in _drops.items()) + ") (" + ", ".join(f"{f}: {zres[f][0]:+.1e} and {zres[f][4]:+.1e} on {zres[f][2]} zeros to {zres[f][3]:.1f}" if zres[f] else f"{f}: NO ZERO LIST" for f in FORDER)
      + "); every list count-checked against the smooth count of the argument principle (recomputed) within 1 and by a half-step rescan, ordered, the phase check below 1e-8", ok)
 
 # ---------------------------------------------------------------- g3
@@ -236,6 +243,8 @@ _gaps = [cz[ORDER.index(c)] - cL[(f, c)][0] for f in FORDER for c in ORDER if cL
 ok &= 0.04 <= min(_gaps) and max(_gaps) <= 1.05
 _dg = [cz[i] - cL[("Delta", c)][0] for i, c in enumerate(ORDER)]
 ok &= all(_dg[i] < _dg[i + 1] for i in range(6))
+ok &= all(abs(_gap[f] - v) <= 5e-3 for f, v in (("chi_-3", 0.48), ("chi_-4", 0.57), ("chi_8", 0.87), ("Delta", 0.50)))   # round 315 C3: the block's means (nearest)
+ok &= abs(_dg[0] - 0.05) <= 5e-3 and abs(_dg[6] - 1.04) <= 5e-3                                                        # 'from 0.05 to 1.04'
 gate("g3 the finite-delta formula on each form's own zeros: zeta's offsets from Theorem 1bm's own lambda_1 reproduce 1bm(v) within 0.01 (" + ", ".join(f"{x:.2f}" for x in cz_bm) + "; from 1bn's cosine-basis lambda_1, the basis of the L-forms: "
      + ", ".join(f"{x:.2f}" for x in cz) + f"); |c_L - c_zeta| <= {BAND_C} at every one of {npairs} (form, cell) pairs reached by the zero lists (to 2.5 T_0): "
      + "; ".join(f"{f}: " + ", ".join(f"{cL[(f, c)][0]:.2f}" if cL.get((f, c)) else "-" for c in ORDER) for f in FORDER) + "; minimiser T/T_0 in ["
@@ -383,6 +392,7 @@ _nr = [near_ratio[(f, c)] for f in FORDER for c in ORDER if (f, c) in near_ratio
 ok &= len(_m) == len(_nr) and all(abs(float(a) - b) <= 0.05 + 1e-9 for a, b in zip(_m, _nr))
 ok &= len(far_census) == 4 and [(x[0], x[1], x[2]) for x in far_census] == [("chi_-3", c, "2") for c in ("d2.3", "d2.6", "d3.0", "d3.5")]
 ok &= all(x[3] >= 1e13 for x in far_census) and all(0.87 <= x[4] <= 0.97 for x in far_census)
+ok &= 1.1e13 <= min(x[3] for x in far_census) and max(x[3] for x in far_census) <= 1.4e54 and all(far_census[i][4] > far_census[i + 1][4] for i in range(3))   # '1.1x10^13-1.4x10^54', the position falling with delta
 gate("g7 the paper's numbers parsed back from the declared needles: the four rows (ln lambda_1 ceilings to 1e-3 at three cells, c_L to 5e-3, the triple and far-crossing counts), the normalisation deviations at both cells, the offset lists (L and zeta) to 5e-3 and their band, the law's census and its deviation decades, the near ratios to 0.05, the four far crossings", ok)
 
 
