@@ -6,8 +6,9 @@
 (the cosine coefficients are the Nyquist samples ghat(omega_k) = (-1)^k a v_k). Stored per cell:
 
 THE GROUND STATE. ln lambda_1 (the approximate eigenvalue), ln ghat_1(0)^2, the curvature kappa' = sum over the
-transform's zeros of 1/tau^2 = -ghat_1''(0)/(2 ghat_1(0)) (arb central differences at h = 2e-4 and 1e-4, Richardson-
-extrapolated: the h^2 bias (kappa^2 - sum tau^-4)/2 was the whole of the sum rule's residual -- round 322 F322-3), the
+transform's zeros of 1/tau^2 = -ghat_1''(0)/(2 ghat_1(0)) (arb central differences at h = 2e-4 and 1e-4 about the exact
+ghat_1(0) = 2 a v_0, Richardson-extrapolated: the h^2 bias (kappa^2 - sum tau^-4)/2 was the whole of the sum rule's
+residual -- round 322 F322-3), the
 second moment <r^2> of ghat_1^2, the DODGING EDGE (the real zeros of ghat_1 on (0, 2.2 T_0) at step 0.05 refined by
 bisection: the first zeta zero missed and the first zero that is not a zeta zero, both from the double-precision list
 within 0.05), the DODGING DISPLACEMENTS below the edge (each zeta zero's dodging zero less the zero, the maximum, the
@@ -145,7 +146,7 @@ def poly_nodes(x, w, mmax):
 def run(cell):
     cfg = CELLS[cell]
     params = {"deps": DEPS, "cell": cell, **cfg, "zeros100": _sha(ZP), "zeros6700": _sha(ZD), "rmax_hole": RMAX_HOLE,
-              "step_hole": STEP_HOLE, "step_dodge": STEP_DODGE, "tol": TOL, "tol_hole": TOL_HOLE, "edge_frac": EDGE_FRAC, "kmax": KMAX, "dip": DIP, "nodes_max": NODES_MAX, "deep": DEEP, "round": 6}
+              "step_hole": STEP_HOLE, "step_dodge": STEP_DODGE, "tol": TOL, "tol_hole": TOL_HOLE, "edge_frac": EDGE_FRAC, "kmax": KMAX, "dip": DIP, "nodes_max": NODES_MAX, "deep": DEEP, "round": 7}
     name = f"ladder_caster_{cell}"
     st = ckpt_key.load(name, KEYFILE, params, kfun=ckpt_key.code_key)
     if st is not None: return st
@@ -178,7 +179,7 @@ def run(cell):
         R = 1.6*T0; x, wq = np.polynomial.legendre.leggauss(6000); x = 0.5*R*(x + 1) + 1e-7; wq = 0.5*R*wq
         Ew = np.array([float(gh(arb(float(t))).mid()) for t in x]); w = wq*Ew*Ew; m2 = float(np.sum(w*x*x)/np.sum(w))
         nodes = poly_nodes(x, w, min(deep, NODES_MAX))
-        g0 = gh(arb(10)**(-8))
+        g0 = 2*aa*vecs[0][0]                       # ghat_1(0) = 2 a v_0 exactly (the k = 0 term's limit; the others vanish at r = 0): a value taken at r = 1e-8 was off by kappa 1e-16 relative, a 1e-8 relative error in the second difference at h = 1e-4
         def _kfd(h): return float((-(gh(h) - 2*g0 + gh(-h))/(h*h)/(2*g0)).mid())
         kappa_fd = _kfd(arb(2)/10000); kappa = (4*_kfd(arb(1)/10000) - kappa_fd)/3        # Richardson: the central difference's h^2 bias (kappa^2 - sum tau^-4)/2 removed (round 322 F322-3)
         z = real_zeros(gh, 2.2*T0, STEP_DODGE, dips=True)
