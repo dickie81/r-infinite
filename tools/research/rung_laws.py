@@ -9,13 +9,13 @@ exterior product) -- and exactly k - 1 hole zeros.
 
 THE CURVATURE LAW. ln C_k(r) = -Dkappa_k r^2 + O(r^4) with Dkappa_k = kappa_k - kappa_1 - sum_h h^-2 (the r^2 coefficient of
 ln prod (1 - r^2/tau^2) is -sum tau^-2: an identity), with the accounting Dkappa_k = [sum_{E_k} tau^-2 - sum_{E_1} tau^-2] -
-sum_{freed} gamma^-2 over the zeta zeros the ground state dodges and rung k does not (the residual of the accounting is the
+sum_{freed} z^-2 over the ground state's dodging zeros at the zeta zeros it dodges and rung k does not (the residual of the accounting is the
 dodging displacements' part); the remainder measured as the ratio (-ln C_k(r)/r^2)/Dkappa_k at r = 5, 10, 20, 40; and
 tau_eff = sqrt((k - 1)/(-Dkappa_k)), the effective height of the exterior pair each hole pair replaces.
 
 THE BI-ORTHOGONAL LAW. The rungs are N-orthogonal, int ghat_j ghat_k = 0, so H_k is orthogonal to H_j (j < k) under the pair
 weight ghat_1^2 C_k C_j: k - 1 linear conditions that determine the even polynomial H_k of degree 2(k - 1) up to scale. The
-law is an interior statement (the Gaussian truncation of C grows beyond the interior), so the integrals run over [0, T_D/2],
+law is an interior statement (the Gaussian truncation of C grows beyond the interior), so the integrals run over [0, T_1/2],
 T_1 the ground state's dodging edge at the hole tolerance 0.2 (1bu's T_D, at 0.05, lies 2.9-8.5% below it), where ghat_1^2 carries
 all but a part below 1e-6 of its mass (mass_interior, the half-line integral against pi; measured 2.4e-8 at delta = 2.3).
 Three solutions, each against the censused holes: (E) the exact census C's and census H_j (the factorisation's check);
