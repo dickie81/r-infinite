@@ -1,11 +1,11 @@
 {
-"script_sha256": "cc4303377a964055fc8e4053e3fe45a5ad66fa4ead4a8bb610feb9fc05718d1f",
-"key": "bf4eec321cd85fd1444a3c4703b8e14cacd2ed459d02b6dce472ef024dfb883e",
+"script_sha256": "8e2c099f219804a8905fff6a298db146840268403294512d2cd5b402555f9324",
+"key": "e56db1d9e3605c8728cf91fa10bd85534b673fbab07e9e4a0601598dd4528b2d",
 "params": {
 "deps": {
 "ladder_caster.py": "957802cf649087534191819d1d1cc216a8dfc7fee6450c2b9627f2b89de32c2b",
 "rung_anatomy.py": "93aea4df29a19b0c2fb686ef32be47c916861b5256cbb582d1ce9ad39d5050ad",
-"rung_laws.py": "cc4303377a964055fc8e4053e3fe45a5ad66fa4ead4a8bb610feb9fc05718d1f",
+"rung_laws.py": "8e2c099f219804a8905fff6a298db146840268403294512d2cd5b402555f9324",
 "weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5",
 "weil_spectrum_ladder.py": "db5677bf58d3e766130feaa4687b715ae07428768f3ac900791eab461fbc34b7"
 },
@@ -1060,7 +1060,7 @@
 }
 ],
 "placed_ground": 14500.812388059092,
-"secs": 146.87525463104248,
-"verdict": "COMPUTED (floating point at 40 digits from the census checkpoint)"
+"secs": 151.04565024375916,
+"verdict": "COMPUTED (floating point, the bi-orthogonal solve at 80 digits, from the census checkpoint)"
 }
 }

@@ -455,6 +455,12 @@
 "rc": 0,
 "when": "2026-09-02T07:52Z"
 },
+"19bcd963c8ca870c60c0b271": {
+"dt": 3.620986223220825,
+"file": "cascade_rung_anatomy.py",
+"rc": 0,
+"when": "2026-09-10T10:47Z"
+},
 "19c833e96dcb5c5f186baef4": {
 "dt": 6.95360803604126,
 "file": "cascade_sonin_dirac.py",
@@ -4072,6 +4078,12 @@
 "file": "cascade_slepian_mechanism.py",
 "rc": 0,
 "when": "2026-09-08T16:19Z"
+},
+"f3b72d0fec910c926d40eb2f": {
+"dt": 3.3603320121765137,
+"file": "cascade_rung_anatomy.py",
+"rc": 0,
+"when": "2026-09-10T10:45Z"
 },
 "f3eaf13272a539179a82a466": {
 "dt": 854.9506437778473,

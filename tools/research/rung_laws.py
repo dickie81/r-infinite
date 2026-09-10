@@ -16,8 +16,8 @@ tau_eff = sqrt((k - 1)/(-Dkappa_k)), the effective height of the exterior pair e
 THE BI-ORTHOGONAL LAW. The rungs are N-orthogonal, int ghat_j ghat_k = 0, so H_k is orthogonal to H_j (j < k) under the pair
 weight ghat_1^2 C_k C_j: k - 1 linear conditions that determine the even polynomial H_k of degree 2(k - 1) up to scale. The
 law is an interior statement (the Gaussian truncation of C grows beyond the interior), so the integrals run over [0, T_D/2],
-T_D the ground state's dodging edge, where ghat_1^2 carries all but a part below 1e-3 of its mass (mass_interior, the half-line
-integral against pi; Theorem 1bu(ii)'s exterior masses).
+T_1 the ground state's dodging edge at the hole tolerance 0.2 (1bu's T_D, at 0.05, lies 2.9-8.5% below it), where ghat_1^2 carries
+all but a part below 1e-6 of its mass (mass_interior, the half-line integral against pi; measured 2.4e-8 at delta = 2.3).
 Three solutions, each against the censused holes: (E) the exact census C's and census H_j (the factorisation's check);
 (G) the Gaussian truncation C_j = exp(-Dkappa_j r^2) with census H_j; (R) the Gaussian truncation with the recursion's own
 H_j -- the whole ladder of hole polynomials from ghat_1 and the numbers Dkappa_2..Dkappa_k alone; (M) the mangle, the
@@ -42,7 +42,7 @@ import ckpt_key
 
 DEPS = {f: ckpt_key.code_sha(os.path.join(HERE, f)) for f in sorted(ckpt_key.producer_closure(("rung_laws.py",), HERE))}
 KEYFILE = os.path.join(HERE, "rung_laws.py")
-CUT = 0.5                      # the interior: [0, CUT x the ground state's dodging edge]
+CUT = 0.5                      # the interior: [0, CUT x T_1], T_1 the ground state's dodging edge at the hole tolerance 0.2
 R_EVAL = (5.0, 10.0, 20.0, 40.0)
 NODES = 6000
 
@@ -139,7 +139,7 @@ def run(cell):
                      "nodes_M": nM, "complex_M": cM, "dev_M": dev(nM),
                      "dev_A": dev(nA) if nA else None, "dev_B": dev(nB), "dev_E": dev(nE), "dev_G": dev(nG), "dev_R": dev(nR)})
     st = {"cell": cell, "delta": d, "T0": T0, "K": K, "cut": Rg, "mass_interior": mass_in, "g1_product_check": g1_check, "n_in_law": len(laws), "laws": laws, "placed_ground": placed(g1), "secs": time.time() - t0,
-          "verdict": "COMPUTED (floating point at 40 digits from the census checkpoint)"}
+          "verdict": "COMPUTED (floating point, the bi-orthogonal solve at 80 digits, from the census checkpoint)"}
     ckpt_key.save(name, KEYFILE, params, st, kfun=ckpt_key.code_key)
     return st
 
