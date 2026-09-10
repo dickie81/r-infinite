@@ -146,7 +146,7 @@ two observer-frame corrections:
 6.996\times 10^{-121}.
 \]
 The cascade bilinear invariant $I = 9\,\Omega_{19}\Omega_{217}/\pi^2 =
-1.0990\times 10^{-120}$ is a Gamma-function theorem (Part~0); the
+1.0989\times 10^{-120}$ is a Gamma-function theorem (Part~0); the
 observer-frame factors ($9/\pi^2$ from the host-frame rescaling and
 $2/\pi$ from the observer's cube--sphere bridge at the 3-dimensional
 spatial slice) are also Gamma-function identities, not fits. Every
@@ -336,7 +336,7 @@ fraction cubed. The geometric-distance form and the density-product form are alg
 equivalent; neither is more fundamental.
 \end{remark}
 
-\subsection{CMB temperature}
+\subsection{CMB temperature}\label{subsec:cmb-temp}
 
 \begin{theorem}[CMB temperature]
 $T_{\rm CMB} = 2.642$~K.
@@ -524,15 +524,40 @@ H_0 \;=\; M_{\rm Pl,red}\,\sqrt{\frac{2\,I}{3\,(\pi-1)}}
 \end{theorem}
 
 \begin{proof}
-$I = 1.0990 \times 10^{-120}$, $\Omega_\Lambda = (\pi-1)/\pi = 0.68169$,
-$M_{\rm Pl,red} = 2.435 \times 10^{18}$~GeV. Steps:
+$I = 1.0989 \times 10^{-120}$ (Part~0's invariant;
+$1.09894538952 \times 10^{-120}$ to twelve digits, gated in
+\texttt{cascade\_h0\_chain.py} --- Part~0's own finest display is
+$1.098945 \times 10^{-120}$), $\Omega_\Lambda = (\pi-1)/\pi = 0.68169$,
+$M_{\rm Pl,red} = 2.4353 \times 10^{18}$~GeV (CODATA,
+$M_{\rm Pl}/\sqrt{8\pi}$). Intermediates are computed from the exact
+inputs and displayed at five significant figures, so each displayed step
+compounds literally to the next (an earlier version displayed four-figure
+intermediates whose literal product, $2.435 \times 5.849 = 1.4242$,
+disagreed with the shown exact-input $1.4244$ in the last digit;
+verified in \texttt{cascade\_h0\_chain.py}):
 \begin{align*}
-2\,I/[3(\pi-1)] &= 3.421 \times 10^{-121},\\
-\sqrt{3.421 \times 10^{-121}} &= 5.849 \times 10^{-61},\\
-M_{\rm Pl,red} \times 5.849 \times 10^{-61} &= 1.4244 \times 10^{-42}~\text{GeV},\\
+2\,I/[3(\pi-1)] &= 3.4210 \times 10^{-121},\\
+\sqrt{3.4210 \times 10^{-121}} &= 5.8489 \times 10^{-61},\\
+M_{\rm Pl,red} \times 5.8489 \times 10^{-61} &= 1.4244 \times 10^{-42}~\text{GeV},\\
 H_0 &= 1.4244 \times 10^{-42}~\text{GeV}\times \frac{\text{Mpc}\cdot\text{km/s}}{\hbar} = 66.78~\text{km/s/Mpc}.\qedhere
 \end{align*}
 \end{proof}
+
+\noindent\emph{Precision note.} The full-precision value is $66.7752$,
+and the second decimal is at the edge of what the inputs support: $G$'s
+relative uncertainty ($2.2\times10^{-5}$) maps to $\pm 0.0007$ on $H_0$
+(a band straddling the rounding boundary $66.775$), and the four-figure
+Planck-mass anchor $2.435\times10^{18}$~GeV --- used in the repository's
+tools and in this paper's own $T_{\rm CMB}$ input (Section~\ref{subsec:cmb-temp}, where
+$T_{\rm CMB} \propto M_{\rm Pl,red}^{1/2}$ shifts by $7\times10^{-5}$
+relative, leaving $2.642$~K unchanged) --- gives $66.766 \to 66.77$.
+The recorded $66.78$ is the correct round of the exact-input chain; the
+operative statement is $H_0 = 66.78 \pm 0.01$, where the width is the
+anchor-sensitivity spread at display precision (the four-figure-anchor
+chain sits $0.009$ below the exact chain; $G$'s band alone is
+$\pm0.0007$), against Planck's $67.4 \pm 0.5$: the $-0.9\%$ leading
+deviation --- and everything downstream of it --- is untouched at this
+precision (gated in \texttt{cascade\_h0\_chain.py}).
 
 \begin{remark}[Why the observer bridge and not a descent lapse]
 Earlier drafts of this paper derived $H_0$ via a ``lapse-corrected Friedmann

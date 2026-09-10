@@ -1,0 +1,436 @@
+#!/usr/bin/env python3
+"""Theorem 1bo -- the prime-built ball, the knife-edge, and the bench: the
+adelic unit ball stated as the object (Tate, in the cascade's shell
+language; every identity gated live), the precision to which Weil
+positivity at support delta pins the primes CERTIFIED at the seven
+slack-law cells (weil_knife_edge.py: for every prime p <= e^delta a shift
+of log p at which the true form has a negative Rayleigh ball), and the
+factorisation bench (weil_factorisation_bench.py) with its calibrations
+gated live. Tower member 24 (top).
+
+THE CLAIMS GATED. (0) THE KNIFE-EDGE CERTIFICATES load at their keys at the
+seven cells with the cells' (delta, K, prec) equal to Theorem 1bn's (delta,
+K2, prec) (the verdict field is informational -- written unconditionally --
+the per-prime statuses are gated in (2)). (1) THE VECTOR: the producer's lambda_1 ball reproduces 1bn's
+stored K2 ball (the same flint eigenvector; upper ends within 1e-20
+relative), K coefficients stored. (2) THE BRACKETS: at every cell and every
+prime p <= e^delta the search is bracketed -- the Rayleigh ball of g_1 on
+Q^{-eta_hi} negative at its upper end, on Q^{-eta_lo} positive at its lower
+end, eta_hi/eta_lo <= 1 + 1e-3 -- the primes equal those of the cell's
+prime-power list, eta_2/lambda_1 lies in [1, 10] at every cell (the
+paper's "comparable with lambda_1 itself"), and between consecutive cells
+every other prime's shift falls at least as fast as eta_2 (round-310
+F310-1). (3) THE TWO-SIDED WINDOWS
+(p = 2, the three cells at delta <= 2.0, the perturbed Gram re-minimised at
+every step): both brackets bracketed with eta_hi/eta_lo <= 1 + 1e-2 (relative width
+1e-2) re-derived from the stored ends (round-311 F311-1), the lower end of
+the downward bracket 2^(-1/128) eta_hi (round-312 F312-4), the twelve balls (both ends of both brackets at the three cells) re-derived live from the stored shifts with their signs --
+the crossing of the re-minimised K2 quotient, an upper bound on the
+perturbed ground state's -- the re-minimised downward crossing within 2
+percent below the fixed-vector eta_hi (its upper end cannot exceed it),
+the upward crossing at least 100 times the downward. (4) INDEPENDENT RE-CERTIFICATION, K x K path: at every cell
+the O(K) shell sum at eta = 0 (the producer's evaluation path) equals the
+Gram's prime part on g_1 computed shell by shell as full matrices (the
+bench's path), to 1e-30 relative; and for p = 2 at every cell the bench's
+shifted Gram at -eta_hi gives g_1 a negative Rayleigh ball, at -eta_lo a
+positive one -- the headline shifts certified twice, by two code paths.
+(5) THE SHELL IDENTITIES LIVE: the shell volumes by residue count (the
+fraction of x mod p^m with v_p(x) = k equals p^(-k)(1 - 1/p) exactly; p =
+2, 3, 5; m = 4) and the p-adic shell series against the Euler factor in
+balls with the exact geometric remainder (p = 2..11, real and complex s;
+1e-50); the archimedean shell series against Gamma_R by
+quadrature (1e-20); the truncated Euler product against zeta within the
+rigorous tail bound P^{1-sigma}/((sigma-1)(1-P^{-sigma})) (s = 2, 3, 2+5i;
+P = 100, 1000); the self-duality character sums of 1_{Z_p} (p = 2, 3, 5;
+m <= 3; 1e-12); theta inversion and Lambda(s) = Lambda(1-s) (1e-30); the
+shell-weight sum sum_{n<=N} Lambda(n) n^{-s} against -zeta'/zeta within its
+tail bound (s = 2, 3). (6) THE BENCH CALIBRATIONS LIVE at delta = 1.0 (floating
+point, relative Rayleigh-quotient deviations): the zero side (6700 zeros +
+the smooth-density tail with its oscillation resolved -- round-305 F305-1)
+on the C_c^inf bump within 1e-13 of the true form and on the K = 48 Gram's
+approximate minimiser within [1e-8, 1e-5] at four cuts of the zero list
+(6700, 6600, 3500, 3000 -- the residual is a draw of the counting function's
+fluctuation at the cut, round-306 F306-1; the sign change 6600 -> 6700 and
+the largest of the four at 3500 gated as the block states them, round-308
+F308-1), the
+fluctuation scale -- the envelope R(T)^2/q, of which ghat(T)^2 = sin^2(aT)
+R(T)^2 is the value at the cut (F308-2) -- in [1e-7, 1e-5]; the archimedean-only candidate rejected by a
+certified margin (its Rayleigh quotient on g_1 above 1e-2, the true below
+1e-6). (7) THE PAPER'S NUMBERS: the block's table rows declared as needles
+and parsed back -- every stated shift at or above (rounded outward) the
+stored eta_hi within 2e-3, the ratios to two decimals, the lambda_1 column
+equal to 1bn's outward pins (the ceiling to 1e-3). (8) mangle probes (the one predicate at both tolerances, one-sided and
+two-sided); (9) the chain obligation to
+cascade_true_form_bounds.py; (10) the paper needles and the census.
+
+WHAT IS NOT CLAIMED. Nothing about the zeros; no lower bound on any
+window; no statement about the perturbed forms beyond the certified points
+(eta_lo is where the witnessing vector -- g_1, or the re-minimised one -- fails to witness, not where positivity holds); no
+Riemann Hypothesis consequence.
+"""
+import math, os, sys, json, cmath
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+
+from weil_knife_edge import run as run_KE, CELLS as KCELLS, TOL, TOL2, Autocorr, prime_shells, primes_of
+from true_form_cells import run as run_TF, CELLS as TCELLS
+from weil_prime_gram import gram, rayleigh
+from weil_factorisation_bench import archimedean, shifted, zeros, bump_vector, compare, _shell_matrix
+from flint import arb, acb, arb_mat, ctx
+import mpmath as mp
+
+PAPER_NEEDLES = [
+    {'g': 'g10', 's': 'Theorem 1bo (the prime-built ball, the knife-edge, and the bench', 'form': 'plain'},
+    {'g': 'g10', 's': 'no Riemann Hypothesis consequence is claimed', 'form': 'plain', 'min': 6},
+    {'s': '`cascade_prime_ball.py`', 'min': 2, 'g': 'g10'},
+    {'s': 'the **99 scripts cited in place** above', 'form': 'ws', 'g': 'g10'},
+    {'s': 'extended by Theorems 1i–1bw:', 'form': 'ws', 'g': 'g10'},
+    # the block's table rows (ws form), parsed back by g7
+    {'g': 'g7', 's': '| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'form': 'ws'},
+    {'g': 'g7', 's': "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'form': 'ws'},
+    {'g': 'g7', 's': 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'form': 'ws'},
+    {'g': 'g7', 's': "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'form': 'ws'},
+    {'g': 'g7', 's': 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'form': 'ws'},
+]
+
+fails = []
+def gate(label, ok):
+    print(("PASS " if ok else "FAIL ") + label, flush=True)
+    if not ok:
+        fails.append(label)
+
+ORDER = ["d1.0", "d1.38", "d2.0", "d2.3", "d2.6", "d3.0", "d3.5"]
+KE = {c: run_KE(c) for c in ORDER}
+TF = {c: run_TF(c) for c in ORDER}
+
+# ---------------------------------------------------------------- g0
+ok = all(KE[c]["cell"] == c for c in ORDER)   # the verdict field is informational (written unconditionally); the statuses are gated in g2 (round-304 C2)
+ok &= all(abs(KCELLS[c]["delta"] - TCELLS[c]["delta"]) < 1e-12 and KCELLS[c]["K"] == TCELLS[c]["K2"] and KCELLS[c]["prec"] == TCELLS[c]["prec"] for c in ORDER)
+ok &= all(abs(KE[c]["delta"] - KCELLS[c]["delta"]) < 1e-12 and KE[c]["K"] == KCELLS[c]["K"] and KE[c]["prec"] == KCELLS[c]["prec"] for c in ORDER)
+ok &= list(KCELLS) == ORDER
+gate("g0 the seven knife-edge certificates load at their keys (the verdict field informational; the statuses are gated in g2); the cells' (delta, K, prec) equal Theorem 1bn's (delta, K2, prec)", ok)
+
+# ---------------------------------------------------------------- g1
+ok = True
+for c in ORDER:
+    lu = float(KE[c]["lambda1"]["upper"]); tu = float(TF[c]["min_K2"]["upper"])
+    ok &= KE[c]["lambda1"]["positive"] and abs(lu - tu) <= 1e-20*tu and len(KE[c]["coeffs"]) == KE[c]["K"]
+    ok &= KE[c]["lambda1"]["rad_log2"] is not None and KE[c]["lambda1"]["rad_log2"] <= -KE[c]["prec"]/2
+gate("g1 the vector: the producer's lambda_1 ball reproduces 1bn's stored K2 ball (upper ends within 1e-20 relative), radii below 2^(-prec/2), K coefficients stored", ok)
+
+# ---------------------------------------------------------------- g2
+ok = TOL == 1e-3 and TOL2 == 1e-2     # the block's 10^-3 and 10^-2 tied to the producer's constants (round-312 F312-3)
+ratio2 = {}; loosest = {}
+for c in ORDER:
+    st = KE[c]; pp = st["prime_powers"]
+    ok &= pp == TF[c]["prime_powers"] and st["primes"] == primes_of(pp)
+    ok &= sorted(int(p) for p in st["per_prime"]) == st["primes"]
+    lam = float(st["lambda1"]["upper"])
+    for p, r in st["per_prime"].items():
+        ok &= r.get("status") == "bracketed" and r["q_hi"]["negative"] and r["q_lo"]["positive"] and not r["q_hi"]["positive"] and not r["q_lo"]["negative"]
+        ok &= 0 < r["eta_lo"] < r["eta_hi"] and r["eta_hi"]/r["eta_lo"] <= 1 + TOL + 1e-12
+        ok &= abs(r["hi_over_lambda"] - r["eta_hi"]/lam) <= 1e-9*r["hi_over_lambda"]
+    ratio2[c] = st["per_prime"]["2"]["hi_over_lambda"]
+    ok &= 1 <= ratio2[c] <= 10
+    loosest[c] = max(st["per_prime"].items(), key=lambda kv: kv[1]["eta_hi"])
+# round-310 F310-1: the block's "the other eta_p at least as fast" -- between consecutive cells, every prime present at both
+# has eta_p(next)/eta_p(prev) <= eta_2(next)/eta_2(prev)
+n_cmp = 0; min_margin = float("inf")
+for c0, c1 in zip(ORDER, ORDER[1:]):
+    f2 = KE[c1]["per_prime"]["2"]["eta_hi"]/KE[c0]["per_prime"]["2"]["eta_hi"]
+    for p_ in KE[c0]["per_prime"]:
+        if p_ != "2" and p_ in KE[c1]["per_prime"]:
+            fp = KE[c1]["per_prime"][p_]["eta_hi"]/KE[c0]["per_prime"][p_]["eta_hi"]
+            ok &= fp <= f2*(1 + 1e-12); n_cmp += 1; min_margin = min(min_margin, f2/fp)
+gate("g2 the brackets: at every cell and every prime, Q^(-eta_hi)(g_1) negative and Q^(-eta_lo)(g_1) positive in balls, eta_hi/eta_lo <= 1 + 1e-3; the primes those of the prime-power lists; eta_2/lambda_1 in [1, 10] ("
+     + ", ".join(f"{ratio2[c]:.2f}" for c in ORDER) + "); the other primes' shifts falling at least as fast as eta_2 between consecutive cells (" + f"{n_cmp} comparisons, minimum margin {min_margin:.3f}" + "); loosest prime per cell " + ", ".join(f"{loosest[c][0]}: {loosest[c][1]['eta_hi']:.3e}" for c in ORDER), ok)
+
+# ---------------------------------------------------------------- g3
+def bracket_ok(r, tol=TOL):   # a bracket: bracketed, certified signs at both ends, eta_hi/eta_lo <= 1 + tol (one-sided TOL, two-sided TOL2)
+    return (r.get("status") == "bracketed" and r["q_hi"]["negative"] and r["q_lo"]["positive"] and 0 < r["eta_lo"] < r["eta_hi"]
+            and r["eta_hi"]/r["eta_lo"] <= 1 + tol + 1e-12)
+def two_ok(r): return bracket_ok(r, TOL2)     # round-311 F311-1; unified with the one-sided predicate at round 312 (F312-2)
+ok = True; asym = {}
+for c in ORDER:
+    two = KE[c]["two_sided"]
+    if KCELLS[c]["two_sided"]:
+        ok &= two is not None and two["p"] == 2
+        m, q = two["minus"], two["plus"]
+        ok &= two_ok(m) and two_ok(q) and m["sign"] == -1 and q["sign"] == 1
+        fx = KE[c]["per_prime"]["2"]["eta_hi"]
+        # the re-minimised upper end can never exceed the fixed-vector eta_hi (the search starts at eta_hi/4 and the
+        # re-minimised quotient is at most g_1's); the content is the LOWER end: the re-minimised quotient still positive
+        # within 2 percent below eta_hi (round-304 F304-2)
+        ok &= 0.98*fx <= m["eta_lo"] < m["eta_hi"] <= fx*(1 + 1e-9)
+        ok &= abs(m["eta_lo"]/fx - 2**(-1/128)) <= 1e-9 and round(2**(-1/128), 4) == 0.9946   # the block's 2^(-1/128) eta_hi = 0.9946 eta_hi (round-312 F312-4)
+        asym[c] = q["eta_hi"]/m["eta_hi"]
+        ok &= asym[c] >= 100
+        # the twelve two-sided balls re-derived live (round-305 observation a; both ends of both brackets at the three cells): the perturbed Gram at the stored eta, its
+        # approximate minimiser, the Rayleigh ball -- the stored signs reproduced by a fresh computation
+        from weil_knife_edge import perturbed_gram
+        from weil_prime_gram import minimiser as _minim
+        _d, _K, _prec = KE[c]["delta"], KE[c]["K"], KE[c]["prec"]
+        _G, _N, _ = gram(_d, _K, _prec)
+        with ctx.workprec(_prec):
+            _a = arb(_d)/2
+            for _r, _sg in ((m, -1), (q, 1)):
+                for _eta, _neg in ((_r["eta_lo"], False), (_r["eta_hi"], True)):
+                    _Ge = perturbed_gram(_G, 2, _sg*_eta, _K, _a, _prec)
+                    _c, _ = _minim(_Ge, _N, _prec)
+                    _rq = rayleigh(_Ge, _N, [arb(x) for x in _c], _prec)
+                    ok &= (_rq.upper() < 0) if _neg else (_rq.lower() > 0)
+    else:
+        ok &= two is None
+gate("g3 the two-sided windows for p = 2 at delta <= 2.0 (re-minimised): both crossings bracketed with certified signs and eta_hi/eta_lo <= 1 + 1e-2 (relative width 1e-2) re-derived from the ends, the downward one within 2 percent below the fixed-vector eta_hi (its upper end cannot exceed it) and its lower end 2^(-1/128) eta_hi, the twelve balls re-derived live with the expected signs, the upward/downward asymmetry >= 100 ("
+     + ", ".join(f"{asym[c]:.3g}" for c in asym) + ")", ok)
+
+# ---------------------------------------------------------------- g4
+ok = True; g4 = []
+for c in ORDER:
+    st = KE[c]; d, K, prec = st["delta"], st["K"], st["prec"]
+    G, N, pp = gram(d, K, prec)
+    with ctx.workprec(prec):
+        a = arb(d)/2
+        cv = [arb(x) for x in st["coeffs"]]
+        v = arb_mat(K, 1)
+        for i in range(K): v[i, 0] = cv[i]
+        den = arb(0)
+        for i in range(K): den += N[i]*cv[i]*cv[i]
+        # (a) the O(K) path at eta = 0 against the K x K shell matrices, prime by prime
+        fg = Autocorr(cv, a, prec)
+        for p in st["primes"]:
+            Pm = arb_mat(K, K); k = 1; lp = arb(p).log()
+            while k*lp < 2*a:
+                Pm = Pm + _shell_matrix(k*lp, lp, K, a, prec); k += 1
+            qK = (v.transpose()*Pm*v)[0, 0]/den
+            qO = prime_shells(fg, p, 0, prec)/den
+            rel = float(abs(qK - qO).upper()/abs(qK).upper()) if abs(qK).upper() > 0 else 0.0
+            g4.append(rel); ok &= rel <= 1e-30
+            ok &= abs(float(st["per_prime"][str(p)]["shell_sum_eta0"]) - float(qO.mid())) <= 1e-20*abs(float(qO.mid()))
+        # (b) the headline shift for p = 2 re-certified through the bench's shifted Gram (K x K)
+        r = st["per_prime"]["2"]
+        Chi, _, _ = shifted(d, K, prec, 2, -r["eta_hi"]); Clo, _, _ = shifted(d, K, prec, 2, -r["eta_lo"])
+        rhi = rayleigh(Chi, N, cv, prec); rlo = rayleigh(Clo, N, cv, prec)
+        ok &= rhi.upper() < 0 and rlo.lower() > 0
+        # the two paths agree on the perturbed value itself
+        ok &= abs(float(rhi.mid()) - float(r["q_hi"]["mid"])) <= 1e-20*abs(float(r["q_hi"]["mid"]))
+gate("g4 independent re-certification, K x K path: the O(K) shell sums at eta = 0 equal the Gram's prime part on g_1 shell by shell at every cell and prime (max rel "
+     + f"{max(g4):.1e}" + " <= 1e-30); the bench's shifted Gram for p = 2 gives g_1 a negative ball at -eta_hi and a positive one at -eta_lo at every cell, the values agreeing to 1e-20", ok)
+
+# ---------------------------------------------------------------- g5
+ok = True; g5 = {}
+# (a) p-adic shell series in balls
+mx = 0.0
+with ctx.workprec(200):
+    for p in (2, 3, 5, 7, 11):
+        for s in (arb(2), arb(1)/2 + arb(1)/1000, acb(arb(3)/2, arb(7))):
+            T = acb if isinstance(s, acb) else arb
+            r = T(p)**(-s); Kc = 200
+            partial = sum((T(p)**(-k*s)) for k in range(Kc))
+            dev = float(abs(partial + r**Kc/(1 - r) - 1/(1 - r)).upper())
+            mx = max(mx, dev)
+g5["a"] = mx; ok &= mx <= 1e-50
+# the shell volumes by residue count: the fraction of x mod p^m with v_p(x) = k equals p^(-k)(1 - 1/p) exactly (round-304 C3:
+# the series identity alone carries no content about the shells)
+from fractions import Fraction as _Fr
+def _vp(x, p):
+    k = 0
+    while x and x % p == 0: x //= p; k += 1
+    return k
+for p in (2, 3, 5):
+    m = 4
+    for k in range(m):
+        cnt = sum(1 for x in range(1, p**m) if _vp(x, p) == k)
+        ok &= _Fr(cnt, p**m) == _Fr(1, p**k)*(1 - _Fr(1, p))
+# (b) archimedean shell series
+mp.mp.dps = 40; mx = 0.0
+for s in (mp.mpf(1), mp.mpf(2), mp.mpf('0.5'), mp.mpf(5), mp.mpc(0.5, 3)):
+    q = 2*mp.quad(lambda x: mp.e**(-mp.pi*x**2)*x**(s - 1), [0, 1, 2, 4, mp.inf])
+    mx = max(mx, float(abs(q - mp.pi**(-s/2)*mp.gamma(s/2))))
+g5["b"] = mx; ok &= mx <= 1e-20
+# (c) the truncated Euler product against zeta within the rigorous tail bound
+def primes_upto(P): return [n for n in range(2, P + 1) if all(n % q for q in range(2, int(n**0.5) + 1))]
+worst = 0.0
+for s in (mp.mpf(2), mp.mpf(3), mp.mpc(2, 5)):
+    for P in (100, 1000):
+        prod = mp.mpf(1)
+        for p in primes_upto(P): prod *= 1/(1 - mp.mpf(p)**(-s))
+        sig = mp.re(s); bound = P**(1 - sig)/((sig - 1)*(1 - P**(-sig)))
+        dev = abs(mp.log(mp.zeta(s)) - mp.log(prod))
+        worst = max(worst, float(dev/bound)); ok &= dev <= bound
+g5["c"] = worst
+# (d) self-duality character sums
+mx = 0.0
+for p in (2, 3, 5):
+    for m in (1, 2, 3):
+        for aa in (1, p - 1, p + 1):
+            if aa % p: mx = max(mx, abs(sum(cmath.exp(2j*math.pi*aa*x/p**m) for x in range(p**m))/p**m))
+        mx = max(mx, abs(sum(cmath.exp(0j*x) for x in range(p**m))/p**m - 1))
+g5["d"] = mx; ok &= mx <= 1e-12
+# (e) theta inversion and the functional equation
+mx = 0.0
+th = lambda t: mp.nsum(lambda n: mp.e**(-mp.pi*n**2*t), [-mp.inf, mp.inf])
+for t in (mp.mpf('0.7'), mp.mpf('1.3'), mp.mpf(2)): mx = max(mx, float(abs(th(1/t) - mp.sqrt(t)*th(t))))
+Lam = lambda s: mp.pi**(-s/2)*mp.gamma(s/2)*mp.zeta(s)
+for s in (mp.mpc(0.3, 2), mp.mpc(2, 7), mp.mpc(0.5, 14.1)): mx = max(mx, float(abs(Lam(s) - Lam(1 - s))/abs(Lam(s))))
+g5["e"] = mx; ok &= mx <= 1e-30
+# (f) the shell-weight sum against -zeta'/zeta within its tail bound
+def Lambda_list(N):
+    out = []
+    for n in range(2, N + 1):
+        p = next(q for q in range(2, n + 1) if n % q == 0); m = n
+        while m % p == 0: m //= p
+        if m == 1: out.append((n, p))
+    return out
+worst = 0.0; LL = Lambda_list(2000)
+for s in (mp.mpf(2), mp.mpf(3)):
+    N = 2000; sm = sum(mp.log(p)*mp.mpf(n)**(-s) for n, p in LL)
+    bound = N**(1 - s)*(mp.log(N)/(s - 1) + 1/(s - 1)**2)
+    dev = abs(sm + mp.zeta(s, derivative=1)/mp.zeta(s))
+    worst = max(worst, float(dev/bound)); ok &= dev <= bound
+g5["f"] = worst
+gate("g5 the shell identities LIVE: (a) the shell volumes by residue count (p = 2, 3, 5, m = 4, exact) and the p-adic shell series vs the Euler factor in balls, max " + f"{g5['a']:.1e}" + " <= 1e-50; (b) archimedean shell series vs Gamma_R, max "
+     + f"{g5['b']:.1e}" + " <= 1e-20; (c) truncated Euler product within the tail bound (worst dev/bound " + f"{g5['c']:.2f}" + "); (d) 1_(Z_p) self-dual character sums, max "
+     + f"{g5['d']:.1e}" + "; (e) theta inversion and Lambda(s) = Lambda(1-s), max " + f"{g5['e']:.1e}" + " <= 1e-30; (f) shell-weight sum vs -zeta'/zeta within the tail bound (worst " + f"{g5['f']:.2f}" + ")", ok)
+
+# ---------------------------------------------------------------- g6
+ok = True
+G1, N1, _ = gram(1.0, 48, 400)
+from weil_prime_gram import minimiser
+c1, _ = minimiser(G1, N1, 400)
+with ctx.workprec(400):
+    vecs = {"minimiser": [arb(x) for x in c1], "bump": bump_vector(1.0, 48)}
+rz = compare(G1, zeros(1.0, 48, 400), N1, vecs, 400)   # the tail with its oscillation resolved (round-305 F305-1)
+# round-306 F306-1: the residual on the minimiser is a draw of the counting function's fluctuation at the cut, of the order of
+# the envelope R(T)^2/q (ghat(T)^2 = sin^2(aT) R(T)^2; round-308 F308-2); three more cuts live, and the scale itself
+_rzc = {cut: compare(G1, zeros(1.0, 48, 400, cut=cut), N1, {"minimiser": vecs["minimiser"]}, 400)["minimiser"] for cut in (6600, 3500, 3000)}
+_rzc[6700] = rz["minimiser"]
+rz_cuts = {c_: _rzc[c_]["rel"] for c_ in _rzc}; rz_signed = {c_: _rzc[c_]["signed"] for c_ in _rzc}
+with ctx.workprec(400):
+    _cm = [mp.mpf(x.mid().str(60, radius=False)) for x in vecs["minimiser"]]
+    _T = mp.mpf(json.load(open(os.path.join(HERE, "checkpoints", "zeta_zeros_6700.json")))[-1]); _a = mp.mpf(1)/2
+    _R = sum(((-1)**k)*_cm[k]*2*_T/(_T*_T - (k*mp.pi/_a)**2) for k in range(48))
+    _den = sum(mp.mpf((N1[i]*vecs["minimiser"][i]*vecs["minimiser"][i]).mid().str(40, radius=False)) for i in range(48))
+    fluct_scale = float(_R*_R/(mp.mpf(rz["minimiser"]["rq_true"].mid().str(40, radius=False))*_den))
+ok &= rz["bump"]["rel"] <= 1e-13 and all(1e-8 <= v <= 1e-5 for v in rz_cuts.values()) and 1e-7 <= fluct_scale <= 1e-5
+ok &= rz_signed[6600] > 0 and rz_signed[6700] < 0 and rz_cuts[3500] == max(rz_cuts.values())   # the sign change and the largest-of-four at 3500 the block states (round-308 F308-1)
+G2, N2, _ = gram(1.0, 120, 600)
+with ctx.workprec(600):
+    cv = [arb(x) for x in KE["d1.0"]["coeffs"]]
+Ca, _, _ = archimedean(1.0, 120, 600)
+ra = compare(G2, Ca, N2, {"g1": cv}, 600)
+ok &= ra["g1"]["rq_cand"].lower() > 1e-2 and ra["g1"]["rq_true"].upper() < 1e-6 and float(ra["max_abs"]) >= 0.1
+gate("g6 the bench calibrations LIVE at delta = 1.0 (floating point, relative Rayleigh-quotient deviations): the zero side (tail resolved) on the bump within 1e-13 (" + f"{rz['bump']['rel']:.1e}" + ") and on the K = 48 minimiser in [1e-8, 1e-5] at the cuts 6700, 6600, 3500, 3000 (signed "
+     + ", ".join(f"{rz_signed[c]:+.1e}" for c in (6700, 6600, 3500, 3000)) + "; the sign change 6600 -> 6700 and the largest of the four at 3500 as the block states; the fluctuation scale, the envelope R(T)^2/q, " + f"{fluct_scale:.1e}" + " in [1e-7, 1e-5]); the archimedean-only candidate rejected -- Rayleigh on g_1 " + ra["g1"]["rq_cand"].str(5) + " against the true " + ra["g1"]["rq_true"].str(5)
+     + ", entrywise max " + ra["max_abs"], ok)
+
+# ---------------------------------------------------------------- g7
+# the paper's own numbers (the round-300 F300-2 standard): the table rows and the (iii) sentences are declared needles
+# (g10 checks their presence); here the literals are parsed and tied to the stored values through the needle API
+import paper_needles, re as _re
+_sup = str.maketrans('⁻⁰¹²³⁴⁵⁶⁷⁸⁹', '-0123456789')
+def _num(t):   # a×10^b (superscript exponent) or a plain decimal
+    t = t.strip().replace('−', '-')
+    m = _re.fullmatch(r'([-+]?)([0-9.]+)×10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)', t)
+    if m: return (-1 if m.group(1) == '-' else 1)*float(m.group(2))*10**int(m.group(3).translate(_sup))
+    return float(t)
+def _outward(stated, certified):   # a stated shift rounded outward: at or above the certified value, within 2e-3
+    return 0 <= stated - certified <= 2e-3*certified
+ROWS = ['| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |']
+S_RATIO = "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5"
+S_EDGE = 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0'
+S_BENCH = "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts"
+S_BENCH2 = 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)'
+# each call carries its literal (the precheck's clause D); the strings equal ROWS / S_* above by construction
+ok = True
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.0 | −67.233 | 1.507×10⁻²⁹ | 2.38 | 7: 1.604×10⁻⁹ | (−1.507×10⁻²⁹, +4.570×10⁻²⁴) |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.3 | −98.267 | 4.716×10⁻⁴³ | 2.24 | 7: 2.336×10⁻²⁸ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 2.6 | −140.713 | 1.669×10⁻⁶¹ | 2.15 | 13: 3.475×10⁻¹⁴ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.0 | −221.899 | 8.882×10⁻⁹⁷ | 2.08 | 19: 8.132×10⁻²⁶ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, '| 3.5 | −383.282 | 7.073×10⁻¹⁶⁷ | 2.03 | 31: 6.003×10⁻⁴⁶ | — |', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "The positivity of Weil's functional at support δ pins log 2 to a precision comparable with λ₁(δ) itself — η₂/λ₁ between 2.02 and 5.34 at the cells (gated in [1, 10]) — so to e^{−382} at δ = 3.5", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 1.0 an upward shift of log 2 by 2.554×10⁻³ loses positivity, a downward one by 4.988×10⁻⁶ already does — the asymmetry 510-fold, 10,000-fold at 1.3828125, 300,000-fold at 2.0', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, "the zero side (the 6700 zeros as doubles, mpmath at 40 digits, the smooth-density tail with its oscillation resolved — floating point, not balls) agrees with the true form's Rayleigh quotient on the C_c^∞ bump below 3×10⁻¹⁶ and on the K = 48 Gram's approximate minimiser to 2.1×10⁻⁷ at the 6700-zero cut — a draw of the counting function's fluctuation at the cut, of the order of the envelope R(T)² ≈ 7×10⁻⁷ of the quotient (ĝ(T)² = sin²(aT)R(T)²) — it changes sign between cuts (zero side minus true, relative: +1.2×10⁻⁶ at 6600, −2.1×10⁻⁷ at 6700) and is largest of the four live cuts (6700, 6600, 3500, 3000) at 3500, 6.1×10⁻⁶, so no lower end is a property of the cuts", 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the archimedean-only candidate (the primes dropped) is rejected by a certified margin, 1.25×10⁻² against 9.35×10⁻⁷ on g₁; the shifted candidate (log 2 down by η_hi) is rejected with a certified negative quotient (−6.10×10⁻¹⁰) while at η_lo it is still positive (+2.31×10⁻¹¹)', 'ws')
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g7'] == ROWS + [S_RATIO, S_EDGE, S_BENCH, S_BENCH2]
+ok &= len(ROWS) == 7
+for c, row in zip(ORDER, ROWS):
+    f = [x.strip() for x in row.strip().strip('|').split('|')]
+    st = KE[c]; r2 = st["per_prime"]["2"]; lam = float(st["lambda1"]["upper"])
+    ok &= len(f) == 6 and abs(float(f[0]) - st["delta"]) < 1e-9
+    ok &= abs(_num(f[1]) - math.ceil(TF[c]["min_K2"]["ln_upper"]*1000)/1000) < 1e-9 and 0 <= _num(f[1]) - TF[c]["min_K2"]["ln_upper"] <= 2e-3   # 1bn's outward pins
+    ok &= _outward(_num(f[2]), r2["eta_hi"])
+    ok &= abs(_num(f[3]) - r2["hi_over_lambda"]) <= 0.005 + 1e-9
+    pl, el = f[4].split(':'); lp, lr = loosest[c]
+    ok &= int(pl) == int(lp) and _outward(_num(el), lr["eta_hi"])
+    if KCELLS[c]["two_sided"]:
+        m = _re.fullmatch(r'\((−[^,]+), \+([^)]+)\)', f[5]); ok &= m is not None
+        if m:
+            two = st["two_sided"]
+            ok &= _outward(-_num(m.group(1)), two["minus"]["eta_hi"]) and _outward(_num(m.group(2)), two["plus"]["eta_hi"])   # the minus end is written with its sign
+    else:
+        ok &= f[5] == '—'
+# (iii): "η₂/λ₁ between R_LO and R_HI" -- the min and max of the stored ratios to two decimals, rounded outward (down / up)
+_m = _re.search(r'between ([0-9.]+) and ([0-9.]+) at the cells', S_RATIO); ok &= _m is not None
+if _m:
+    ok &= 0 <= min(ratio2.values()) - float(_m.group(1)) <= 0.01 + 1e-9 and 0 <= float(_m.group(2)) - max(ratio2.values()) <= 0.01 + 1e-9
+_m = _re.search(r'so to e\^\{−([0-9]+)\} at δ = 3\.5', S_RATIO); ok &= _m is not None
+if _m:   # eta_2(3.5) <= e^{-N}: N <= -ln eta_hi
+    ok &= float(_m.group(1)) <= -math.log(KE["d3.5"]["per_prime"]["2"]["eta_hi"]) < float(_m.group(1)) + 1
+# the edge sentence: the two delta = 1.0 shifts (rounded outward) and the three asymmetries (rounded down: "at least")
+_v = [_num(x) for x in _re.findall(r'[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_EDGE)]
+ok &= len(_v) == 2 and _outward(_v[0], KE["d1.0"]["two_sided"]["plus"]["eta_hi"]) and _outward(_v[1], KE["d1.0"]["two_sided"]["minus"]["eta_hi"])
+_a = [float(x.replace(',', '')) for x in _re.findall(r'([0-9][0-9,]*)-fold', S_EDGE)]
+ok &= len(_a) == 3 and all(0 <= asym[c] - a_ <= 0.10*asym[c] for c, a_ in zip(["d1.0", "d1.38", "d2.0"], _a))   # two significant figures, rounded down; a ratio of two certified crossings, filed under Computed
+# the bench sentences: the zero-side values (the bump's 'below 3e-16' within a factor 2 of a noise-floor quantity, the minimiser's
+# within 10 percent, the envelope scale within a factor 2, the two signed cut values and the largest of the four at 3500 within 10 percent of the live values), the archimedean
+# candidate's and the true quotient on g_1 (within 1 percent of the live balls), the shifted candidate's two signed values
+# (within 1 percent of the stored delta = 1.0 balls for p = 2)
+_b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH)]
+ok &= len(_b) == 6 and rz["bump"]["rel"] <= _b[0] <= 2*rz["bump"]["rel"] and rz["minimiser"]["rel"] <= _b[1] <= 1.1*rz["minimiser"]["rel"]
+ok &= fluct_scale/2 <= _b[2] <= 2*fluct_scale                                              # the envelope scale within a factor 2
+ok &= rz_cuts[6600] <= _b[3] <= 1.1*rz_cuts[6600] and _b[3] > 0 and rz_cuts[6700] <= -_b[4] <= 1.1*rz_cuts[6700] and _b[4] < 0   # the two signed live values, outward
+ok &= rz_cuts[3500] <= _b[5] <= 1.1*rz_cuts[3500]                                          # the largest of the four at 3500, live, within 10 percent (round-308 F308-1)
+_b = [_num(x) for x in _re.findall(r'[−+]?[0-9.]+×10[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', S_BENCH2)]
+_r2 = KE["d1.0"]["per_prime"]["2"]
+ok &= len(_b) == 4 and abs(_b[0] - float(ra["g1"]["rq_cand"].mid())) <= 0.01*_b[0] and abs(_b[1] - float(ra["g1"]["rq_true"].mid())) <= 0.01*_b[1]
+ok &= abs(_b[2] - float(_r2["q_hi"]["mid"])) <= 0.01*abs(_b[2]) and _b[2] < 0 and abs(_b[3] - float(_r2["q_lo"]["mid"])) <= 0.01*_b[3] and _b[3] > 0
+gate("g7 the paper's own numbers: the seven table rows and the two (iii) sentences present as declared needles, tied to the declared entries and parsed back -- "
+     "ln lambda_1 = 1bn's pins; every stated shift at or above the certified eta_hi within 2e-3; the ratios to 0.005; the loosest prime and its shift; the "
+     "two-sided windows; the ratio range outward; e^(-N) with N <= -ln eta_2(3.5); the delta = 1.0 shifts outward; the asymmetries rounded down within 10 percent; the bench sentences' ten values (six zero-side, four balls) against the live gates and the stored delta = 1.0 balls", ok)
+
+# ---------------------------------------------------------------- g8
+good = dict(KE["d2.0"]["per_prime"]["2"])
+bad1 = dict(good); bad1["q_hi"] = dict(good["q_hi"]); bad1["q_hi"]["negative"] = False
+bad2 = dict(good); bad2["eta_hi"] = good["eta_lo"]*1.01
+bad3 = dict(good); bad3["status"] = "ambiguous"
+ok = bracket_ok(good) and not bracket_ok(bad1) and not bracket_ok(bad2) and not bracket_ok(bad3)
+good2 = dict(KE["d1.0"]["two_sided"]["plus"])
+bad4 = dict(good2); bad4["eta_lo"] = good2["eta_hi"]/1.05                                   # widened to 5 percent
+bad5 = dict(good2); bad5["q_lo"] = dict(good2["q_lo"]); bad5["q_lo"]["positive"] = False   # a non-positive lower ball
+bad6 = dict(good2); bad6["status"] = "ambiguous"
+ok &= two_ok(good2) and not two_ok(bad4) and not two_ok(bad5) and not two_ok(bad6)
+gate("g8 mangle probes: the bracket predicate fails on a non-negative upper ball, a bracket wider than 1 + 1e-3, a non-bracketed status; the two-sided predicate on a bracket widened to 1.05, a non-positive lower ball, a non-bracketed status", ok)
+
+# ---------------------------------------------------------------- g9
+from cascade_tower import chain_ok
+gate("g9 the chain obligation to cascade_true_form_bounds.py (Theorem 1bn) met", chain_ok("cascade_true_form_bounds.py"))
+
+# ---------------------------------------------------------------- g10
+import paper_needles
+ok, _miss = paper_needles.verify(PAPER_NEEDLES)
+for _d_, _n in _miss:
+    print(f"  g10 MISSING (count {_n}): {_d_.get('s')!r}", flush=True)
+gate("g10 the 1bo paper needles and the footer census (declared surface)", ok)
+
+print(("\nALL GATES PASS (11/11)" if not fails else f"\nFAILURES: {fails}"), flush=True)
+sys.exit(1 if fails else 0)

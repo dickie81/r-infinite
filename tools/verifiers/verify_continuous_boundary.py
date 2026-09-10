@@ -6,7 +6,10 @@ various boundary-labeling conventions.
 Tests the conjecture (from conversation) that I_P0 / I_cont = 4 exactly,
 where I_cont uses the continuous boundary crossings of p(d).
 
-Also diagnoses an apparent numerical error in Part 0 at p(20).
+(A historical note in this file diagnosed "an apparent numerical
+error in Part 0 at p(20)", asserting the paper claimed 0.6013; the
+current Part 0 states the correct 0.57914 at both sites -- the
+diagnostic is retired, round 69; quote form fixed, round 70.)
 """
 
 import os
@@ -42,19 +45,22 @@ print("-" * 72)
 print(f"Formula: p(d) = (1/2) psi((d+1)/2) - (1/2) ln(pi)")
 print(f"Thresholds: c1 = {mpmath.nstr(c1, 10)}, c2 = {mpmath.nstr(c2, 10)}")
 print()
-print(f"  Part 0 claims: p(19) = 0.5535")
-print(f"  Computed:       p(19) = {mpmath.nstr(p(19), 10)}")
+print(f"  Part 0 states: p(19) = 0.55351")
+print(f"  Computed:      p(19) = {mpmath.nstr(p(19), 10)}")
 print()
-print(f"  Part 0 claims: p(20) = 0.6013")
-print(f"  Computed:       p(20) = {mpmath.nstr(p(20), 10)}")
-print(f"  ** DISCREPANCY: Part 0's p(20) value appears incorrect. **")
-print(f"  ** Correct p(20) ≈ 0.5791, not 0.6013.                   **")
+print(f"  Part 0 states: p(20) = 0.57914")
+print(f"  Computed:      p(20) = {mpmath.nstr(p(20), 10)}")
 print()
-print(f"  Part 0 claims: p(217) = 1.77101")
-print(f"  Computed:       p(217) = {mpmath.nstr(p(217), 10)}")
+print(f"  Part 0 states: p(217) = 1.77101")
+print(f"  Computed:      p(217) = {mpmath.nstr(p(217), 10)}")
 print()
-print(f"  Part 0 claims: p(218) = 1.77331")
-print(f"  Computed:       p(218) = {mpmath.nstr(p(218), 10)}")
+print("  (Round-69 note: an earlier version of this section asserted 'Part 0")
+print("  claims p(20) = 0.6013' with a DISCREPANCY flag; the current Part 0")
+print("  states 0.57914 -- the correct value, matching the computation -- at")
+print("  both of its p(20) sites. The stale diagnostic is retired.)")
+print()
+print(f"  Part 0 states: p(218) = 1.77331")
+print(f"  Computed:      p(218) = {mpmath.nstr(p(218), 10)}")
 
 # ============================================================================
 # SECTION 2: Continuous boundary crossings via high-precision root finding
@@ -120,7 +126,8 @@ print("-" * 72)
 def invariant(o_d0, o_d1, o_d2):
     return (Omega_5 / o_d0) ** 2 * o_d1 * o_d2
 
-# (A) Part 0 mixed convention: (7, 19, 217) -- ceiling at d0, floor at d1, d2
+# (A) Part 0's labeling (7, 19, 217) -- ceiling at d0, floor at d1, d2
+# (a consistent farther-integer rule, = the argmax; see section [7])
 I_P0 = invariant(Omega_7, Omega_19, Omega_217)
 
 # (B) Uniform floor: (6, 19, 217) -- floor of each continuous crossing
@@ -150,7 +157,7 @@ Omega_a1 = (Omega_19 + Omega_20) / 2
 Omega_a2 = (Omega_217 + Omega_218) / 2
 I_arith = invariant(Omega_a0, Omega_a1, Omega_a2)
 
-print(f"  (A) Part 0 mixed (7, 19, 217)    : {mpmath.nstr(I_P0,   15)}")
+print(f"  (A) Part 0 labeling (7, 19, 217) : {mpmath.nstr(I_P0,   15)}")
 print(f"  (B) Uniform floor (6, 19, 217)   : {mpmath.nstr(I_floor, 15)}")
 print(f"  (C) Uniform ceiling (7, 20, 218) : {mpmath.nstr(I_ceil,  15)}")
 print(f"  (D) Nearest integer (6, 20, 218) : {mpmath.nstr(I_near,  15)}")
@@ -159,9 +166,18 @@ print(f"  (F) Continuous crossings          : {mpmath.nstr(I_cont,  15)}")
 print(f"  (G) Geometric mean of each pair   : {mpmath.nstr(I_geom,  15)}")
 print(f"  (H) Arithmetic mean of each pair  : {mpmath.nstr(I_arith, 15)}")
 
-obs = mpmath.mpf("1.10e-120")
-obs_err = mpmath.mpf("0.02e-120")
-print(f"\n  Observed rho_Lambda/M_Pl,red^4   : (1.10 ± 0.02) × 10^-120")
+# Observation in INVARIANT UNITS (unit label corrected, round 69):
+# Planck 2018 observes rho_Lambda/M_Pl,red^4 = (7.150 +/- 0.13)e-121
+# (Part I); Part I's closure is rho_Lambda/M^4 = (2/pi) e^{0.02108} I,
+# so the observation pulled back to invariant units is
+# I_obs = (pi/2) e^{-0.02108} * 7.150e-121 = 1.0997e-120.
+obs = (mpmath.pi / 2) * mpmath.e ** mpmath.mpf("-0.02108") \
+    * mpmath.mpf("7.150e-121")
+obs_err = (mpmath.pi / 2) * mpmath.e ** mpmath.mpf("-0.02108") \
+    * mpmath.mpf("0.13e-121")
+print(f"\n  Observed rho_L/M^4 (Planck 2018) : (7.150 ± 0.13) × 10^-121")
+print(f"  ... in invariant units (I_obs)   : ({mpmath.nstr(obs*10**120, 5)}"
+      f" ± {mpmath.nstr(obs_err*10**120, 2)}) × 10^-120")
 
 # ============================================================================
 # SECTION 5: Deviations from observation
@@ -171,7 +187,7 @@ print("-" * 72)
 print(f"  {'Convention':<35} {'Value':<25} {'Dev%':<10}")
 
 for name, I in [
-    ("(A) Part 0 mixed (7,19,217)", I_P0),
+    ("(A) Part 0 labeling (7,19,217)", I_P0),
     ("(B) Uniform floor (6,19,217)", I_floor),
     ("(C) Uniform ceiling (7,20,218)", I_ceil),
     ("(D) Nearest (6,20,218)", I_near),
@@ -231,7 +247,8 @@ print(f"    |217 - d_2*| = {mpmath.nstr(d2_star - 217, 6)}")
 print(f"    Part 0 picks the FARTHER integer (217).")
 print()
 print(f"  CONCLUSION: Part 0's implicit rule is 'farther integer of each pair'.")
-print(f"  This is a consistent rule, not a mixed convention as I earlier claimed.")
+print(f"  This is a consistent rule, not a mixed convention as an earlier")
+print(f"  draft of this file claimed (labels updated, round 70).")
 
 # ============================================================================
 # SECTION 8: Variational (argmax) characterization
@@ -269,15 +286,17 @@ print(f"  Agreement: {argmax_labels == (7, 19, 217)}")
 print()
 print("  The 0.1% match with observation is the statement that the supremum of")
 print("  the cascade invariant over integer labelings coincides with the observed")
-print("  rho_Lambda/M_Pl_red^4, to within the observational 1-sigma uncertainty.")
+print("  rho_Lambda/M_Pl_red^4 expressed in the invariant's own units (I_obs,")
+print("  above), to within the observational 1-sigma uncertainty.")
 
 # ============================================================================
 # SECTION 9: Summary
 # ============================================================================
 print("\n[9] SUMMARY")
 print("-" * 72)
-print("  * Part 0 has a numerical error in the discrete verification at d=20:")
-print(f"    Claimed p(20) = 0.6013; correct p(20) = {mpmath.nstr(p(20), 10)}.")
+print("  * Part 0's discrete verification values p(19), p(20), p(217) all")
+print(f"    match the computation (p(20) = {mpmath.nstr(p(20), 10)}; the historical")
+print("    '0.6013 discrepancy' diagnostic is retired -- round 69).")
 print()
 print("  * The continuous crossings lie at d_0* = 6.2569, d_1* = 19.7308,")
 print("    d_2* = 217.6267 - each straddled by an integer pair.")
@@ -287,7 +306,8 @@ print("    integer of each pair' rule, equivalently the ARGMAX of the")
 print("    cascade invariant over all 8 possible integer labelings.")
 print()
 print("  * The 0.1% match with observation is the statement that the supremum")
-print("    of I over boundary labelings coincides with rho_Lambda/M_Pl_red^4.")
+print("    of I over boundary labelings coincides with rho_Lambda/M_Pl_red^4")
+print("    expressed in the invariant's own units (I_obs).")
 print()
 print("  * Deviations of alternative conventions from observation:")
 print(f"    - Part 0 argmax (7, 19, 217)      : {mpmath.nstr(((I_P0 - obs)/obs*100), 5)}%")

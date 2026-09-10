@@ -234,7 +234,7 @@ def report_verification():
         ("alpha_s(M_Z)",            1, 0, -1, "1/2 = 0.5",      "0.117917",        "+0.02 sigma"),
         ("m_tau / m_mu",            1, 0, -1, "1/2 = 0.5",      "16.81731",        "+0.24 sigma"),
         ("m_tau (absolute)",        1, 0, -1, "1/2 = 0.5",      "1776.82 MeV",     "-0.31 sigma"),
-        ("ell_A",                   1, 0, -1, "1/2 = 0.5",      "301.44",          "-0.16 sigma"),
+        ("ell_A",                   1, 0, -1, "1/2 = 0.5",      "301.44",          "-1.8 sigma (301.44 vs 301.6(9); earlier -0.16 was abs diff)"),
         ("(g-2) at 1-loop (a_e)",   1, 1,  0, "1",              "1.16e-3",         "Schwinger"),
         ("1/alpha_em (screening)",  0, 1, +1, "chi = 2",        "137.030",         "0.005% match"),
     ]
@@ -250,7 +250,7 @@ def report_verification():
     print("  m-k = -4 (b/s):           verified at 0.014%")
     print("  m-k = -3 (sin^2 theta_W): verified at +0.40 sigma")
     print("  m-k = -2 (theta_C):       verified at +0.03 sigma")
-    print("  m-k = -1 (4 observables): verified at sub-sigma each")
+    print("  m-k = -1 (4 observables): verified within precision each (ell_A at -1.8 sigma; rest sub-sigma)")
     print("  m-k =  0 ((g-2) 1-loop):  reproduces Schwinger structurally")
     print("  m-k = +1 (1/alpha_em):    verified at 0.005%")
     print()

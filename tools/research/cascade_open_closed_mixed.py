@@ -133,7 +133,7 @@ def cascade_observables() -> list[CascadeObservable]:
         primitive_form="+alpha(19)/chi^1",
         k_open=1, m_closed=0, chi_exponent=-1,
         cascade_value="301.44",
-        observed_match="-0.16 sigma",
+        observed_match="-1.8 sigma (301.44 vs 301.6(9); earlier -0.16 was abs diff)",
         family="open-line (k=1)",
     ))
     obs.append(CascadeObservable(
