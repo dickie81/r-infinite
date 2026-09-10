@@ -21,7 +21,7 @@ THE GATES. (0) the census at every cell and safely deep rung: every designed pai
 region or within one census step of a sinc zero (the census's blind spot: two zeros in one cell) -- no dip, exactly k - 1 holes
 with the coarse and fine censuses agreeing, one dodging zero per zeta zero below the edge, the rung's edge inside the ground
 state's T_1 (the edge at the hole tolerance 0.2; 1bu's T_D at 0.05 lies below it at every cell, 2.9-8.5%) and never outward with k; (0b) at delta = 2.3 the rungs' dodging
-zeros against the ground state's by zeta zero (within 1e-12 below gamma = 50-70 at rungs 2-5, 1e-5 below gamma = 40 at rung 8,
+zeros against the ground state's by zeta zero (within 1e-12 below the zeta zeros gamma = 49.8-69.5 at rungs 2-5, 1e-5 below gamma = 40 at rung 8,
 the displacement 0.05-0.2 at its largest, above 0.9 of the rung's edge) and rung 9's touching at gamma_1 (no sign change, the complex pair from
 the local maximum and the curvature, its 2 Re(tau^-2) the sum rule's remainder); (1) the curvature law: the
 accounting residual (the displacements' part) within 1e-5, Dkappa_k < 0 and falling with k, the ratio (-ln C/r^2)/Dkappa at r = 5
@@ -52,7 +52,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'all 159, 259, 319, 399, 539 designed pairs located at every safely deep rung but rung 3 at δ = 3 (398 of 399, the last placed by the sum rule at |τ| = 1470, 0.048 below the sinc zero ω_702 inside one census cell) and every rung at δ = 3.5 (538 of 539, the last placed by the sum rule at |τ| between 8688 and 14501, beyond the region 7741) — 1bu(ii)’s branch', 'form': 'ws'},
     {'g': 'g7', 's': 'T₁ = 121.4 at δ = 2.3 against 1bu’s T_D = 111.0; T_D below T₁ by 2.9–8.5% over the five cells', 'form': 'ws'},
     {'g': 'g7', 's': 'the rungs’ edges 121.4, 111.9, 111.0, 105.4, 103.7, 94.7, 87.4 for rungs 1–7 at δ = 2.3', 'form': 'ws'},
-    {'g': 'g7', 's': 'shared with the ground state’s within 10⁻¹² below γ = 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3)', 'form': 'ws'},
+    {'g': 'g7', 's': 'shared with the ground state’s within 10⁻¹² below the zeta zeros γ = 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), reaching 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3)', 'form': 'ws'},
     {'g': 'g7', 's': 'at δ = 2.3 38 + 0 + 221; 34 + 1 + 224; 33 + 2 + 224; 31 + 3 + 225 for rungs 1–4', 'form': 'ws'},
     {'g': 'g7', 's': 'rungs 9 and 10 (ln λ = −5.14, −0.67) leave 2 and 8 pairs unlocated; at rung 9 the two are complex — the hole zero has met the dodging zero at γ₁: ĝ₉ rises to −7.5 × 10⁻⁴ at r = 14.145 with no sign change on [13.9, 14.3], the pair 14.145 ± 0.081i, whose 2Re(τ⁻²) is the sum rule’s remainder to four digits', 'form': 'ws'},
     {'g': 'g7', 's': 'the accounting residual within 2.7 × 10⁻⁶ at every safely deep rung', 'form': 'ws'},
@@ -118,8 +118,8 @@ ok = all(SH[k]["n"] == len(c23[k - 1]["dodging"]) for k in SH)                  
 ok &= all(SH[k]["low40"] <= 1e-12 for k in (2, 3, 4, 5)) and SH[8]["low40"] <= 1e-5 and all(SH[k]["first"] is not None and SH[k]["first"] >= 40 for k in (2, 3, 4, 5))
 ok &= all(0.05 <= SH[k]["max"] <= 0.2 and SH[k]["arg"] >= 0.9 for k in SH)              # the largest displacement 0.08-0.18, above 0.9 of the rung's edge
 def _shared_sentence():
-    return ("shared with the ground state’s within 10⁻¹² below γ = " + ", ".join(f"{SH[k]['first']:.1f}" for k in (2, 3, 4, 5)) + " at rungs 2–5 and within " + _sci_str(SH[8]["low40"]) +
-            " below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), " + ", ".join(f"{SH[k]['max']:.2f}" for k in range(2, 9)) + " at rungs 2–8 (δ = 2.3)")
+    return ("shared with the ground state’s within 10⁻¹² below the zeta zeros γ = " + ", ".join(f"{SH[k]['first']:.1f}" for k in (2, 3, 4, 5)) + " at rungs 2–5 and within " + _sci_str(SH[8]["low40"]) +
+            " below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), reaching " + ", ".join(f"{SH[k]['max']:.2f}" for k in range(2, 9)) + " at rungs 2–8 (δ = 2.3)")
 def _sci_str(v):
     m, e = f"{v:.1e}".split("e"); return f"{m} × 10" + str(int(e)).translate(str.maketrans("0123456789-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁻"))
 _K23 = CEN["d2.3"]["K"]; _a23 = CEN["d2.3"]["delta"]/2; _om23 = np.arange(_K23)*np.pi/_a23
@@ -129,7 +129,7 @@ _curv = (_ys[_i + 10] - 2*_ys[_i] + _ys[_i - 10])/(1e-3)**2; _y = (abs(_ys[_i])/
 _re2 = 2*(_x*_x - _y*_y)/(_x*_x + _y*_y)**2
 T9 = {"max": float(_ys[_i]), "x": _x, "y": _y, "sign_changes": int(np.sum(np.sign(_ys[1:]) != np.sign(_ys[:-1]))), "re2_match": abs(_re2 + c23[8]["sum_rule_residual"]) <= 5e-4*abs(c23[8]["sum_rule_residual"])}
 ok &= T9["max"] < 0 and T9["sign_changes"] == 0 and _curv < 0 and abs(_x - CEN["d2.3"]["gamma1"]) <= 0.05 and T9["re2_match"]
-gate("g0b the shared dodging zeros at delta = 2.3 (rung k's against the ground state's, by zeta zero): within 1e-12 below gamma = " + ", ".join(f"{SH[k]['first']:.1f}" for k in (2, 3, 4, 5)) + " at rungs 2-5, within 1e-5 below gamma = 40 at rung 8, the largest displacement above 0.9 of the rung's edge, " + ", ".join(f"{SH[k]['max']:.2f}" for k in range(2, 9)) + f" at rungs 2-8; rung 9's touching at gamma_1: ghat_9 rises to {T9['max']:.2e} at r = {_x:.3f} with no sign change, the complex pair {_x:.3f} +- {_y:.3f}i whose 2 Re(tau^-2) is the sum rule's remainder to four digits", ok)
+gate("g0b the shared dodging zeros at delta = 2.3 (rung k's against the ground state's, by zeta zero): within 1e-12 below the zeta zeros gamma = " + ", ".join(f"{SH[k]['first']:.1f}" for k in (2, 3, 4, 5)) + " at rungs 2-5, within 1e-5 below gamma = 40 at rung 8, the largest displacement above 0.9 of the rung's edge, " + ", ".join(f"{SH[k]['max']:.2f}" for k in range(2, 9)) + f" at rungs 2-8; rung 9's touching at gamma_1: ghat_9 rises to {T9['max']:.2e} at r = {_x:.3f} with no sign change, the complex pair {_x:.3f} +- {_y:.3f}i whose 2 Re(tau^-2) is the sum rule's remainder to four digits", ok)
 
 # ---------------------------------------------------------------- g1
 ok = True
@@ -182,7 +182,7 @@ S_SAFE = '3, 6, 9, 11, 11 safely deep rungs at δ = 2, 2.3, 2.6, 3, 3.5'
 S_LOCATED = 'all 159, 259, 319, 399, 539 designed pairs located at every safely deep rung but rung 3 at δ = 3 (398 of 399, the last placed by the sum rule at |τ| = 1470, 0.048 below the sinc zero ω_702 inside one census cell) and every rung at δ = 3.5 (538 of 539, the last placed by the sum rule at |τ| between 8688 and 14501, beyond the region 7741) — 1bu(ii)’s branch'
 S_T1 = 'T₁ = 121.4 at δ = 2.3 against 1bu’s T_D = 111.0; T_D below T₁ by 2.9–8.5% over the five cells'
 S_EDGES = 'the rungs’ edges 121.4, 111.9, 111.0, 105.4, 103.7, 94.7, 87.4 for rungs 1–7 at δ = 2.3'
-S_SHARED = 'shared with the ground state’s within 10⁻¹² below γ = 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3)'
+S_SHARED = 'shared with the ground state’s within 10⁻¹² below the zeta zeros γ = 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), reaching 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3)'
 S_ACCT = 'at δ = 2.3 38 + 0 + 221; 34 + 1 + 224; 33 + 2 + 224; 31 + 3 + 225 for rungs 1–4'
 S_SHALLOW = 'rungs 9 and 10 (ln λ = −5.14, −0.67) leave 2 and 8 pairs unlocated; at rung 9 the two are complex — the hole zero has met the dodging zero at γ₁: ĝ₉ rises to −7.5 × 10⁻⁴ at r = 14.145 with no sign change on [13.9, 14.3], the pair 14.145 ± 0.081i, whose 2Re(τ⁻²) is the sum rule’s remainder to four digits'
 S_ACC = 'the accounting residual within 2.7 × 10⁻⁶ at every safely deep rung'
@@ -203,7 +203,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, '3, 6, 9, 11, 11 safely deep rungs at 
 ok &= paper_needles.needle(PAPER_NEEDLES, 'all 159, 259, 319, 399, 539 designed pairs located at every safely deep rung but rung 3 at δ = 3 (398 of 399, the last placed by the sum rule at |τ| = 1470, 0.048 below the sinc zero ω_702 inside one census cell) and every rung at δ = 3.5 (538 of 539, the last placed by the sum rule at |τ| between 8688 and 14501, beyond the region 7741) — 1bu(ii)’s branch', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'T₁ = 121.4 at δ = 2.3 against 1bu’s T_D = 111.0; T_D below T₁ by 2.9–8.5% over the five cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the rungs’ edges 121.4, 111.9, 111.0, 105.4, 103.7, 94.7, 87.4 for rungs 1–7 at δ = 2.3', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'shared with the ground state’s within 10⁻¹² below γ = 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3)', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'shared with the ground state’s within 10⁻¹² below the zeta zeros γ = 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8, the difference largest near the rung’s edge (above 0.9 of it), reaching 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at δ = 2.3 38 + 0 + 221; 34 + 1 + 224; 33 + 2 + 224; 31 + 3 + 225 for rungs 1–4', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'rungs 9 and 10 (ln λ = −5.14, −0.67) leave 2 and 8 pairs unlocated; at rung 9 the two are complex — the hole zero has met the dodging zero at γ₁: ĝ₉ rises to −7.5 × 10⁻⁴ at r = 14.145 with no sign change on [13.9, 14.3], the pair 14.145 ± 0.081i, whose 2Re(τ⁻²) is the sum rule’s remainder to four digits', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the accounting residual within 2.7 × 10⁻⁶ at every safely deep rung', 'ws')

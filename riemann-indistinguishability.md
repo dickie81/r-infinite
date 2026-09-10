@@ -7451,21 +7451,21 @@ deep rungs at every cell (the rungs’ edges 121.4, 111.9, 111.0, 105.4,
 103.7, 94.7, 87.4 for rungs 1–7 at δ = 2.3); 1bu's T_D, at 0.05, lies
 below T₁ (T₁ = 121.4 at δ = 2.3 against 1bu’s T_D = 111.0; T_D below T₁
 by 2.9–8.5% over the five cells). Below T_k one dodging zero per zeta
-zero, shared with the ground state’s within 10⁻¹² below γ = 69.5, 65.1,
-59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40 at rung 8,
-the difference largest near the rung’s edge (above 0.9 of it), 0.11,
-0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ = 2.3); the k − 1
-hole zeros of 1bu(iii); beyond it the exterior: n_dodge + (k − 1) +
-n_ext = K − 1 at every rung (at δ = 2.3 38 + 0 + 221; 34 + 1 + 224; 33 +
-2 + 224; 31 + 3 + 225 for rungs 1–4). Beyond the safely deep rungs the
-census leaves pairs unlocated: at δ = 2.3 rungs 9 and 10 (ln λ = −5.14,
-−0.67) leave 2 and 8 pairs unlocated; at rung 9 the two are complex —
-the hole zero has met the dodging zero at γ₁: ĝ₉ rises to −7.5 × 10⁻⁴ at
-r = 14.145 with no sign change on [13.9, 14.3], the pair 14.145 ±
-0.081i, whose 2Re(τ⁻²) is the sum rule’s remainder to four digits. *(ii)
-The factorisation and the curvature law (the identities proved;
-computed, gated).* Write ĝ_k/ĝ_k(0) = (ĝ₁/ĝ₁(0))·H_k·C_k with H_k =
-Π_holes(1 − r²/h²), of degree 2(k − 1), and C_k the ratio of the
+zero, shared with the ground state’s within 10⁻¹² below the zeta zeros γ
+= 69.5, 65.1, 59.3, 49.8 at rungs 2–5 and within 2.7 × 10⁻⁶ below γ = 40
+at rung 8, the difference largest near the rung’s edge (above 0.9 of
+it), reaching 0.11, 0.11, 0.16, 0.18, 0.08, 0.11, 0.09 at rungs 2–8 (δ =
+2.3); the k − 1 hole zeros of 1bu(iii); beyond it the exterior: n_dodge
++ (k − 1) + n_ext = K − 1 at every rung (at δ = 2.3 38 + 0 + 221; 34 + 1
++ 224; 33 + 2 + 224; 31 + 3 + 225 for rungs 1–4). Beyond the safely deep
+rungs the census leaves pairs unlocated: at δ = 2.3 rungs 9 and 10 (ln λ
+= −5.14, −0.67) leave 2 and 8 pairs unlocated; at rung 9 the two are
+complex — the hole zero has met the dodging zero at γ₁: ĝ₉ rises to −7.5
+× 10⁻⁴ at r = 14.145 with no sign change on [13.9, 14.3], the pair
+14.145 ± 0.081i, whose 2Re(τ⁻²) is the sum rule’s remainder to four
+digits. *(ii) The factorisation and the curvature law (the identities
+proved; computed, gated).* Write ĝ_k/ĝ_k(0) = (ĝ₁/ĝ₁(0))·H_k·C_k with
+H_k = Π_holes(1 − r²/h²), of degree 2(k − 1), and C_k the ratio of the
 remaining zero products of rung k and the ground state (the sinc zeros
 cancel): exact once every pair is located or placed. Then ln C_k(r) =
 −Δκ_k r² + O(r⁴) with Δκ_k = κ_k − κ₁ − Σ_h h⁻² — the r² coefficient of
