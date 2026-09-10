@@ -84,8 +84,8 @@ PAPER_NEEDLES = [
     {'g': 'g10', 's': 'Theorem 1bo (the prime-built ball, the knife-edge, and the bench', 'form': 'plain'},
     {'g': 'g10', 's': 'no Riemann Hypothesis consequence is claimed', 'form': 'plain', 'min': 6},
     {'s': '`cascade_prime_ball.py`', 'min': 2, 'g': 'g10'},
-    {'s': 'the **98 scripts cited in place** above', 'form': 'ws', 'g': 'g10'},
-    {'s': 'extended by Theorems 1i–1bv:', 'form': 'ws', 'g': 'g10'},
+    {'s': 'the **99 scripts cited in place** above', 'form': 'ws', 'g': 'g10'},
+    {'s': 'extended by Theorems 1i–1bw:', 'form': 'ws', 'g': 'g10'},
     # the block's table rows (ws form), parsed back by g7
     {'g': 'g7', 's': '| 1.0 | −13.882 | 4.988×10⁻⁶ | 5.33 | 2: 4.988×10⁻⁶ | (−4.988×10⁻⁶, +2.554×10⁻³) |', 'form': 'ws'},
     {'g': 'g7', 's': '| 1.3828125 | −27.754 | 2.773×10⁻¹² | 3.14 | 3: 1.396×10⁻⁹ | (−2.773×10⁻¹², +2.995×10⁻⁸) |', 'form': 'ws'},

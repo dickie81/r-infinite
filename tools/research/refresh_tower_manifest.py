@@ -48,6 +48,7 @@ TOWER = [
     "cascade_pole_indefinite.py",
     "cascade_ladder_caster.py",
     "cascade_odd_sector.py",
+    "cascade_rung_anatomy.py",
 ]
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
