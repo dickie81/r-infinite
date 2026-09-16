@@ -1709,6 +1709,12 @@
 "rc": 0,
 "when": "2026-09-09T01:31Z"
 },
+"5278bb7e805dcdd68e096a5c": {
+"dt": 393.91790533065796,
+"file": "cascade_smooth_functional.py",
+"rc": 0,
+"when": "2026-09-16T20:47Z"
+},
 "529c6af4ff409ba5777f17fd": {
 "dt": 27.75085759162903,
 "file": "cascade_finite_fill.py",
