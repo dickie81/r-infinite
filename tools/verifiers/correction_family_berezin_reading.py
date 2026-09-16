@@ -102,7 +102,7 @@ CLOSURES = [
     ("alpha_s(M_Z)",        14, 1, +1, "closes leading -1.7% residual in alpha_s; final +0.02 sigma"),
     ("m_tau/m_mu",          14, 1, +1, "closes leading -1.7% residual in m_tau/m_mu; final +0.24 sigma"),
     ("m_tau absolute",      19, 1, +1, "closes leading -1.2% residual in m_tau abs; final -0.31 sigma"),
-    ("ell_A",               19, 1, +1, "closes leading -1.3% residual in ell_A; final -0.16 sigma"),
+    ("ell_A",               19, 1, +1, "closes leading -1.3% residual in ell_A; final -1.8 sigma (corrected; -0.16 was the absolute difference)"),
     ("sin^2 theta_W",        5, 3, +1, "closes leading -1.1% residual in sin^2 theta_W; final +0.40 sigma"),
     ("Omega_m",              5, 3, -1, "closes leading +1.1% residual in Omega_m; final -0.04 sigma"),
     ("theta_C (Cabibbo)",    7, 2, -1, "closes leading +1.7% residual in tan(theta_C); final +0.03 sigma"),

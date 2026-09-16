@@ -1,0 +1,44 @@
+{
+"script_sha256": "a37a94e58ca7248fd1ef31c56391b715614f3b8e739f5f7c4eade82fcf18553c",
+"key": "683250820a0b2b12f94f0aeec3e1b5207f9d4ff268ade696bbd3f63095f4dace",
+"params": {
+"deps": {
+"slepian_arb_certificate.py": "a37a94e58ca7248fd1ef31c56391b715614f3b8e739f5f7c4eade82fcf18553c"
+},
+"kernel": "two",
+"parity": "odd",
+"prec": 256,
+"NH": 48,
+"h": 0.001953125,
+"Omega": 128.0,
+"round": 1
+},
+"state": {
+"kernel": "two",
+"parity": "odd",
+"a": 0.69140625,
+"delta": 1.3828125,
+"Omega": 128.0,
+"NH": 48,
+"h": 0.001953125,
+"NGL": 30,
+"nmax": 316,
+"prec": 256,
+"lam_head": 3.9537008003253327e-10,
+"eig_radius": 9.696738979405618e-23,
+"normE": 7.696322994443678e-48,
+"Lam_tail": 1.1386712155190827e-44,
+"Pperp2": 6.781494878247061e-47,
+"q_perp": 0.7653243096879216,
+"b": 9.137661972935286e-22,
+"final": 3.9537008003253327e-10,
+"W_out_lo": 0.7653243096879216,
+"M_W": 7.761211260547854,
+"max_quad_err": 7.088186975255777e-21,
+"max_residual": 2.7953300204817755e-46,
+"min_gap": 144.10712586764657,
+"max_eps": 1.0000000274323257e-40,
+"kstar": 50,
+"verdict": "THEOREM: positive for every probe at delta = 1.3828125 (odd), hence on [0, 1.3828125]"
+}
+}

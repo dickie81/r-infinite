@@ -55,7 +55,7 @@ Part IVb precision closures:
   - Multiple precision closures use alpha(d*)/chi^k with k=1,2,3,4
 
 So m_2 = m_37 * alpha(5)/chi sits in the SAME structural family as
-the eight precision closures that match observation to sub-sigma.
+the eight precision closures that match observation within precision (ell_A at -1.8 sigma).
 
 Structurally meaningful: alpha(5) is the cascade volume-maximum
 coupling (d=5 = d_V), and chi=2 is the Euler characteristic.
@@ -314,7 +314,7 @@ def report_status() -> None:
     print()
     print("  Uses cascade-natural primitives:")
     print("    - m_37: 5th Bott source mass (Option epsilon prediction)")
-    print("    - alpha(5)/chi: Part IVb correction family (used in 8 sub-sigma")
+    print("    - alpha(5)/chi: Part IVb correction family (used in 8 precision closures; ell_A -1.8 sigma; rest sub-sigma")
     print("      precision closures)")
     print()
     print("  STATUS: suggestive cascade closure at standing precision (one data")
