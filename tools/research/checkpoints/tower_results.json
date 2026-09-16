@@ -1397,6 +1397,12 @@
 "rc": 0,
 "when": "2026-09-10T09:50Z"
 },
+"443f897c4ffbc006900f0463": {
+"dt": 388.77961707115173,
+"file": "cascade_smooth_functional.py",
+"rc": 0,
+"when": "2026-09-16T22:35Z"
+},
 "44a89d62273d3bffa88f980c": {
 "dt": 3.3329107761383057,
 "file": "cascade_twosided_witness.py",
