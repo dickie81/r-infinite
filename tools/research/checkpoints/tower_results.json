@@ -3371,6 +3371,12 @@
 "rc": 0,
 "when": "2026-09-16T07:08Z"
 },
+"a8544a9ad5f8c178b9c9d762": {
+"dt": 3.8736400604248047,
+"file": "cascade_gap_law.py",
+"rc": 0,
+"when": "2026-09-16T15:42Z"
+},
 "a8f27b36c83edef6ddc9c0b5": {
 "dt": 2.9198648929595947,
 "file": "cascade_height_uniformity.py",
