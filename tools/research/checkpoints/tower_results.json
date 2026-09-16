@@ -1493,6 +1493,12 @@
 "rc": 0,
 "when": "2026-09-02T19:19Z"
 },
+"4ce27a79d5e8fe538b9a27ce": {
+"dt": 221.5188775062561,
+"file": "cascade_wall_law.py",
+"rc": 0,
+"when": "2026-09-16T11:02Z"
+},
 "4d974bf50a79bc98c42e248e": {
 "dt": 122.88858985900879,
 "file": "cascade_lattice_forcing.py",
