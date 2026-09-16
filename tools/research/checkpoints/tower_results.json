@@ -2957,6 +2957,12 @@
 "rc": 0,
 "when": "2026-09-16T06:57Z"
 },
+"9856bd66c89e65fec2d566c2": {
+"dt": 247.3268551826477,
+"file": "cascade_wall_law.py",
+"rc": 0,
+"when": "2026-09-16T12:45Z"
+},
 "986dedddf374209b61e1fad2": {
 "dt": 54.38933444023132,
 "file": "cascade_heatflow_energy.py",

@@ -7690,45 +7690,49 @@ correlation with the neglected term’s proxy (γ_j/γ₆₇₀₀)²|M_tail|/|�
 is 0.99); and the field's growth with height is the locking: at the
 lowest dodged zero M/(λH) is −14.4 and −14.9 for the two ground states
 and between −2.4 and +2.2 for the nine rungs, its magnitude falling to
-0.42 at one zero — at the bottom of the higher rungs the field and λH_j
-are comparable, at the ground state's bottom the field already carries
-fifteen sixteenths of the displacement, and near every edge it is
-thousands of times λH_j, divided by an envelope that has collapsed
-toward the edge. *(ii) The unlocking functional (the law).* Theorem
-1bm(v) writes the ground state's exponent as the minimum over a wall T
-of F₁(T) = 4Σ_{γ<T} ln((1 + √(1 − γ²/T²))T/γ) − 2aT, the dodged zeros'
-Green potentials at the exterior against the type; Theorem 1bx(ii) gives
-the rung's exterior envelope as the ground state's times Π_h σ_h⁻², σ_h
-= ψ(h) at the wall, so the rung's exponent at wall T is F₁(T) + 4Σ_h
-ln(1/σ_h(T)) + 2 ln|ĝ_k(0)/ĝ₁(0)| up to the offset common to the ladder:
-lowering the wall unlocks the zeta zeros between T and T₁ at the cost
-F₁(T) − F₁(T₁) and cheapens the hole pairs' balayage by
-4Σ_h[ln(1/σ_h(T₁)) − ln(1/σ_h(T))] ≈ 4(k − 1)ln(T₁/T). This functional
-is Theorem 1bu(iv)'s k-level formula term by term (arccosh(T/τ) = ln((1
-+ √(1 − τ²/T²))T/τ) = ln(1/σ_τ(T)), the hole zeros added to the zeta
-zeros), whose minimiser 1bu calls the edge T_k and stores in the ladder
-checkpoint — a different object from 1bw's census edge T_k, which this
-block's T_k denotes; what is new is the reading: the hole terms are
-1bx's exterior constant, the minimum's value is the exponent with 1bu's
-slowly varying residual c_k identified as 2 ln|ĝ_k(0)/ĝ₁(0)| plus the
-ladder's offset, and the minimiser is compared with 1bx's wall. **The
-wall is the minimiser: T_u(k) := argmin_T [F₁(T) + 4Σ_h ln(1/σ_h(T))]**,
-and the minimiser is a zeta zero: each newly dodged zero enters as
-4√(2(T − γ)/γ), whose slope is infinite from the right, and between
-zeros F_k is concave — every summand's slope 1/T + (γ²/T³)/(s(1 + s)), s
-= √(1 − γ²/T²), decreases in T, the hole terms are the same function of
-h, and −2aT is linear — so the infimum on every closed spacing is an
-endpoint; the domain's own left endpoint T = h_max, a cusp of the hole
-terms, is excluded by computation, not argument (the domain’s left
-endpoint T = h_max exceeds the minimum by at least 16.1 nats at the 40
-rungs) (g1: the second differences negative on the interior points of 61
-per spacing at all 45 functionals, the minimum on the grid of sixty per
-spacing with the zero first, over [0.5, 1.6]T₁, at a zero for F₁ at the
-five cells and F_k at the forty rungs, the endpoint's gap). The rung's
-exponent is then the minimum's value: ln λ_k − ln λ₁ = 2
-ln|ĝ_k(0)/ĝ₁(0)| + F_k(T_u) − F₁(T_u(1)). *(iii) The continuum law.* In
-1bm(iv)'s reduced problem the holes sit at the origin (h/T₁ ≤ 0.22 at
-every rung) and the exponent is −eᵟf(X) + 4m ln(2XT₀/h) in horizon
+0.42 at one zero; its largest magnitude per rung exceeds a thousand at
+three of the eleven (2154 and 6107 at the ground states, 1185 at δ =
+2.3’s rung 2) and runs 37–500 at the other eight — at the bottom of the
+higher rungs the field and λH_j are comparable, at the ground state's
+bottom the field already carries fifteen sixteenths of the displacement,
+and toward every edge it grows against an envelope that has collapsed
+there, to thousands of times λH_j at the ground states' edges and at δ =
+2.3's rung 2, tens to hundreds at the other eight. *(ii) The unlocking
+functional (the law).* Theorem 1bm(v) writes the ground state's exponent
+as the minimum over a wall T of F₁(T) = 4Σ_{γ<T} ln((1 + √(1 −
+γ²/T²))T/γ) − 2aT, the dodged zeros' Green potentials at the exterior
+against the type; Theorem 1bx(ii) gives the rung's exterior envelope as
+the ground state's times Π_h σ_h⁻², σ_h = ψ(h) at the wall, so the
+rung's exponent at wall T is F₁(T) + 4Σ_h ln(1/σ_h(T)) + 2
+ln|ĝ_k(0)/ĝ₁(0)| up to the offset common to the ladder: lowering the
+wall unlocks the zeta zeros between T and T₁ at the cost F₁(T) − F₁(T₁)
+and cheapens the hole pairs' balayage by 4Σ_h[ln(1/σ_h(T₁)) −
+ln(1/σ_h(T))] ≈ 4(k − 1)ln(T₁/T). This functional is Theorem 1bu(iv)'s
+k-level formula term by term (arccosh(T/τ) = ln((1 + √(1 − τ²/T²))T/τ) =
+ln(1/σ_τ(T)), the hole zeros added to the zeta zeros), whose minimiser
+1bu calls the edge T_k and stores in the ladder checkpoint — a different
+object from 1bw's census edge T_k, which this block's T_k denotes; what
+is new is the reading: the hole terms are 1bx's exterior constant, the
+minimum's value is the exponent with 1bu's slowly varying residual c_k
+identified as 2 ln|ĝ_k(0)/ĝ₁(0)| plus the ladder's offset, and the
+minimiser is compared with 1bx's wall. **The wall is the minimiser:
+T_u(k) := argmin_T [F₁(T) + 4Σ_h ln(1/σ_h(T))]**, and the minimiser is a
+zeta zero: each newly dodged zero enters as 4√(2(T − γ)/γ), whose slope
+is infinite from the right, and between zeros F_k is concave — every
+summand's slope 1/T + (γ²/T³)/(s(1 + s)), s = √(1 − γ²/T²), decreases in
+T, the hole terms are the same function of h, and −2aT is linear — so
+the infimum on every closed spacing is an endpoint; the domain's own
+left endpoint T = h_max, a cusp of the hole terms, is excluded by
+computation, not argument (the domain’s left endpoint T = h_max exceeds
+the minimum by at least 16.1 nats at the 40 rungs) (g1: the second
+differences negative on the interior points of 61 per spacing at all 45
+functionals, the minimum on the grid of sixty per spacing with the zero
+first, over [0.5, 1.6]T₁, at a zero for F₁ at the five cells and F_k at
+the forty rungs, the endpoint's gap). The rung's exponent is then the
+minimum's value: ln λ_k − ln λ₁ = 2 ln|ĝ_k(0)/ĝ₁(0)| + F_k(T_u) −
+F₁(T_u(1)). *(iii) The continuum law.* In 1bm(iv)'s reduced problem the
+holes sit at the origin (h/T₁ ≤ 0.22 at the forty safely deep rungs (the
+largest 0.2189)) and the exponent is −eᵟf(X) + 4m ln(2XT₀/h) in horizon
 units, f(X) = 2πX(1 + ln 2 − ln X); its stationary point is **u ln(2/u)
 = (2m/π)e^{−δ}**, u = T/T₀, and this is exactly the vanishing of the
 inverse-square-root edge coefficient of the rung's outer density — the
@@ -7741,9 +7745,9 @@ inherited here. *(iv) At the cells (computed, gated).* The ground state
 first: F₁’s minimiser is the ground state’s edge: the same zeta zero at
 δ = 2 and 2.3, one zero below it at δ = 2.6 and 3, three zeros above it
 at δ = 3.5 (T_u(1)/T₁ = 1.0000, 1.0000, 0.9901, 0.9961, 1.0117) —
-1bm(v)'s "T ≈ 2T₀" sharpened to the edge zero, or its neighbour, by
-margins that are themselves small: the minimiser’s margin over the
-runner-up zero is 0.041, 0.056, 0.003, 0.041, 0.007 nats at the five
+1bm(v)'s "T ≈ 2T₀" sharpened to the edge zero, or a zero within three of
+it, by margins that are themselves small: the minimiser’s margin over
+the runner-up zero is 0.041, 0.056, 0.003, 0.041, 0.007 nats at the five
 cells, and under 0.02 nats at 11 of the 40 rungs (the closest 0.00008),
 while a half-nat window about the minimum spans 0.088–0.249 of T_u
 (median 0.125) — the minimum is flat, and the identity of the minimising
@@ -7788,20 +7792,22 @@ median and up to a quarter. Against that flatness the sharp wall of 1bx
 is not the same height: T_w/T_u − 1 runs from −2.8% to +14.8% over the
 40 rungs, correlating +0.52 with the hole count and −0.21 with 1bx’s
 onset shortfall at T₁, which itself correlates −0.11 with the hole count
-— the first at t = r√(n − 2)/√(1 − r²) = 3.7, the two negatives within
-two standard errors of zero (a null correlation’s standard error is 0.16
-at n = 40); per hole the functional’s wall descends by 5.43, 4.60, 4.71,
-3.64 against the sharp wall’s 3.08, 3.17, 2.58, 1.68 at δ = 2.3, 2.6, 3,
-3.5, the gap growing from −1.3%, +5.8%, +0.2%, −1.7% at one hole to
-+8.2%, +14.8%, +8.7%, +4.4% at the top rung (at δ = 2, three rungs, 3.60
-against 4.22, the gap +5.6% to +4.5%) (linear fits over each cell's
-safely deep rungs, in the units of T). The gap is not the soft onset's
-(1bx's one departure — the gap's correlation with the hole count stands
-at t = 3.7 (t = r√(n − 2)/√(1 − r²), the figure above), the shortfall's
-with the gap and with the hole count each within two standard errors of
-zero, the figures above): the functional's wall descends with the holes
-faster than the moment-matched sharp wall, and at one hole the two walls
-agree within 2% at 3 of the five cells (not at δ = 2 and 2.6, where the
+— the first at t = r√(n − 2)/√(1 − r²) = 3.7, the excess averaging 4.4%,
+the two negatives within two standard errors of zero (a null
+correlation’s standard error is 0.16 at n = 40); per hole the
+functional’s wall descends by 5.43, 4.60, 4.71, 3.64 against the sharp
+wall’s 3.08, 3.17, 2.58, 1.68 at δ = 2.3, 2.6, 3, 3.5, the gap growing
+from −1.3%, +5.8%, +0.2%, −1.7% at one hole to +8.2%, +14.8%, +8.7%,
++4.4% at the top rung (at δ = 2, three rungs, 3.60 against 4.22, the gap
++5.6% to +4.5%) (linear fits over each cell's safely deep rungs, in the
+units of T). The gap is not the soft onset's (1bx's one departure — the
+gap's correlation with the hole count stands at t = 3.7 (t = r√(n −
+2)/√(1 − r²), the figure above), the shortfall's with the gap and with
+the hole count each within two standard errors of zero, the figures
+above): the functional's wall descends with the holes faster than the
+moment-matched sharp wall at four of the five cells (not at δ = 2, three
+rungs, where 3.60 against 4.22), and at one hole the two walls agree
+within 2% at 3 of the five cells (not at δ = 2 and 2.6, where the
 one-hole gap is +5.6% and +5.8%). That m-proportional gap is quantified,
 not derived; its law — the displacement law of (i) carried through the
 zone between the two walls, where the field M_j is the unlocked zeros'
