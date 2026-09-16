@@ -887,6 +887,12 @@
 "rc": 0,
 "when": "2026-08-28T14:21Z"
 },
+"2c9cef0b3fe86bb663e7aab9": {
+"dt": 3.8924639225006104,
+"file": "cascade_gap_law.py",
+"rc": 0,
+"when": "2026-09-16T17:13Z"
+},
 "2cdf9fb7449369034e1c0ac4": {
 "dt": 53.283732414245605,
 "file": "cascade_heatflow_energy.py",
