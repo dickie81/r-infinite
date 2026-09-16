@@ -7571,14 +7571,15 @@ at 1bm(iv)); the algebra is witnessed numerically in g0. *(iii)
 Hypothesis B at the cells (computed, gated).* Define the wall T_w(k) by
 inverting the law on Theorem 1bw's Δκ_k with the censused holes (one
 number per rung, replacing 1bw's one number per rung). Then everything
-else follows without further input and is checked: the exact ln C_k from
-the census products (rung against ground state, at midpoints between
-zeta zeros) matches the closed form across the interior — the exact ln
-C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w
-at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the
-wall at T₁ for k ≥ 3; the outer counting deficit (n_k − n₁)/(k − 1) on
-[1.5, 6]T₁ (the window: below 1.5T₁ the onset lag stated below, beyond
-6T₁ the census staircase's quantum 1/(k − 1)) fitted by
+else follows without further input and is checked — three confirmations
+and one departure: the exact ln C_k from the census products (rung
+against ground state, at midpoints between zeta zeros) matches the
+closed form across the interior — the exact ln C_k within 0.5%, 1.7%,
+5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep
+rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3;
+the outer counting deficit (n_k − n₁)/(k − 1) on [1.5, 6]T₁ (the window:
+from 1.5T₁, past most of the onset lag stated below, to 6T₁, below the
+census staircase's quantum 1/(k − 1) beyond it) fitted by
 −(2/π)arccos(T_w′/R) returns the same wall — the profile’s wall within
 5.0% of T_w at every safely deep rung with three or more holes and
 within 1.8% at δ ≥ 3; 1bw's interior ratio at r = 40 is the closed
@@ -7588,45 +7589,49 @@ safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at
 deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the
 signed shortfall (observed minus profile, per hole) averaging 0.05 over
 the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at
-1.5 T₁, and pooled over R = 2, 3, 4, 6 T₁ −0.004 — the lag gone by 2T₁;
-no deficit at T₁ (under a quarter of a zero) at δ = 3.5’s rungs 2–5 — a
-soft wall: the deficit sets in later than a hard wall's
-inverse-square-root density, and has caught up by 2T₁. Rung 2's wall is
-the ground state's edge within 1.3% at δ ≤ 3 and 4.8% at δ = 3.5: T_w/T₁
-= 1.002, 0.987, 0.998, 0.998, 0.952 for rung 2 at the five cells;
-−Δκ₂T₁² = 0.498, 0.513, 0.502, 0.502, 0.552 at δ = 2, 2.3, 2.6, 3, 3.5
-against the law’s 0.500, 0.500, 0.500, 0.500, 0.500 with the wall at T₁;
-and T₁ sits within 6% of 1bm's maximiser X* = 2 in horizon units (T₁/T₀
-= 1.88, 1.94, 1.98, 1.97, 1.99 at the five cells), so for the first
-excited state the law reads −Δκ₂ = 1/(2T₁²) ≈ 1/(8T₀²), τ_eff = √2 T₁:
-the hole pair is paid for by the balayage of one pair onto |τ| ≥ T₁,
-whose effective height is √2 T₁ exactly. The wall is non-increasing with
-k from rung 3 at every cell (rung 2's, at δ = 3.5, sits inside rungs
-3–6's and above rung 7's): T_w/T₁ between 0.833 and 1.002 over the 40
-safely deep rungs of the five cells, T_w/T_k between 0.980 and 1.245,
-and T_w/√(T₁T_k) between 0.966 and 1.019 at the 35 rungs with k ≥ 3;
-strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to
-2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2) — near
-the geometric mean of the two edges for k ≥ 3, and neither edge's law
-(T_w/T_k reaches 1.245, T_w/T₁ falls to 0.833). *(iv) What it says.* The
-roadmap's (c) asked for Δκ_k derived: it is the balayage of the hole
-charges onto the complement of the dodging wall, the same equilibrium
-problem that gave Theorem 1bm its 4π, now with the holes as the charges
-— the exterior's correction in 1bw's Gaussian is the Green potential of
-the holes, to every order in R. The one input is the wall T_w(k): for
-rung 2 it is T₁ within the figures above (1bm's X* = 2), for the higher
-rungs it lies at or between T_k and T₁ because the zeta zeros between
-them are unlocked by the rung but still half-held — a soft wall, seen
-also in the onset lag, whose position the census fixes and this block
-does not derive. What remains of (c) is the wall's law: the rung's
-leakage budget (its eigenvalue, the prolate ladder's per Theorem 1br)
-against the cost of unlocking the zeta zeros between T_w and T₁. *(v)
-What is proved, computed, not claimed.* Proved: the identity (i); the
-balayage law (ii) under Hypothesis B — the closed form of ln C_k, Δκ_k,
-the deficit profile and the r⁴ coefficient. Computed, gated: Hypothesis
-B at every safely deep rung of the five cells with one wall per rung
-(the interior profile at three heights, the deficit profile's wall, the
-r = 40 ratio); the onset lag near the wall, B's one departure, gated as
+1.5 T₁, gone by 2T₁ over the 35 rungs with two or more holes (their mean
+at 2T₁ −0.006; a one-hole rung’s staircase quantum is a whole hole) and
+pooled over R = 2, 3, 4, 6 T₁ −0.004; no deficit at T₁ (under a quarter
+of a zero) at 12 rungs, the low rungs of every cell: δ = 2’s rungs 2–3,
+δ = 2.3’s rungs 2–3, δ = 2.6’s rung 2, δ = 3’s rungs 2–4, δ = 3.5’s
+rungs 2–5 — a soft wall: the deficit sets in later than a hard wall's
+inverse-square-root density, and has caught up by 2T₁ wherever the
+staircase can resolve it. Rung 2's wall is the ground state's edge
+within 1.3% at δ ≤ 3 and 4.8% at δ = 3.5: T_w/T₁ = 1.002, 0.987, 0.998,
+0.998, 0.952 for rung 2 at the five cells; −Δκ₂T₁² = 0.498, 0.513,
+0.502, 0.502, 0.552 at δ = 2, 2.3, 2.6, 3, 3.5 against the law’s 0.500,
+0.500, 0.500, 0.500, 0.500 with the wall at T₁; and T₁ sits within 6% of
+1bm's maximiser X* = 2 in horizon units (T₁/T₀ = 1.88, 1.94, 1.98, 1.97,
+1.99 at the five cells), so for the first excited state the law reads
+−Δκ₂ = 1/(2T₁²) ≈ 1/(8T₀²), τ_eff = √2 T₁: the hole pair is paid for by
+the balayage of one pair onto |τ| ≥ T₁, whose effective height is √2 T₁
+exactly. The wall is non-increasing with k from rung 3 at every cell
+(rung 2's, at δ = 3.5, sits inside rungs 3–6's and above rung 7's):
+T_w/T₁ between 0.833 and 1.002 over the 40 safely deep rungs of the five
+cells, T_w/T_k between 0.980 and 1.245, and T_w/√(T₁T_k) between 0.966
+and 1.019 at the 35 rungs with k ≥ 3; strictly between T_k and T₁ at 37
+of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and
+beyond T₁ by 0.2% (δ = 2’s rung 2) — near the geometric mean of the two
+edges for k ≥ 3, and neither edge's law (T_w/T_k reaches 1.245, T_w/T₁
+falls to 0.833). *(iv) What it says.* The roadmap's (c) asked for Δκ_k
+derived: it is the balayage of the hole charges onto the complement of
+the dodging wall, the same equilibrium problem that gave Theorem 1bm its
+4π, now with the holes as the charges — the exterior's correction in
+1bw's Gaussian is the Green potential of the holes, to every order in R.
+The one input is the wall T_w(k): for rung 2 it is T₁ within the figures
+above (1bm's X* = 2), for the higher rungs it lies at or between T_k and
+T₁ because the zeta zeros between them are unlocked by the rung but
+still half-held — a soft wall, seen also in the onset lag, whose
+position the census fixes and this block does not derive. What remains
+of (c) is the wall's law: the rung's leakage budget (its eigenvalue, the
+prolate ladder's per Theorem 1br) against the cost of unlocking the zeta
+zeros between T_w and T₁. *(v) What is proved, computed, not claimed.*
+Proved: the identity (i); the balayage law (ii) under Hypothesis B — the
+closed form of ln C_k, Δκ_k, the deficit profile and the r⁴ coefficient.
+Computed, gated: Hypothesis B with one wall per rung — the interior
+profile at three heights and the r = 40 ratio at every safely deep rung
+of the five cells, the deficit profile's wall at the thirty with three
+or more holes; the onset lag near the wall, B's one departure, gated as
 such; rung 2's wall at T₁ and T₁ at two horizons; the walls' brackets
 and monotonicity. Not claimed: the wall's law; Hypothesis B beyond the
 safely deep rungs or at other supports; the odd sector; anything about
@@ -8211,19 +8216,20 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    C_k a Gaussian on the interior whose coefficient Δκ_k the curvature sum
    rule fixes — and Δκ_k derived by Theorem 1bx as the balayage of the hole
    pairs onto the complement of a wall (the Green function of 1bm's doubly
-   slit plane, Hypothesis B verified at the cells), with the wall T_w(k)
-   computed, not derived; (d) a zero pair at fixed height costs four prolate
-   orders (the pair-cost lemma, Theorem 1bu(i), proved), read as the rung
-   spacing through Theorem 1bm(v)'s formula (1bu(v)), whose reduction is
-   item 4's. Items 5 and 6 are (a) and (b), item 4 holds (d); (c) has no
-   other item. Done when: at one support, (a) and (b) forced by the form's
-   Gram pencil (Theorem 1br; the odd Gram of 1bv(i)) with no zero computed,
-   and (c)'s wall T_w(k) derived (Theorem 1bx's one number per rung: the
-   rung's leakage budget against the cost of unlocking the zeta zeros
-   between T_w and T₁) — a finite advance of the wall by T_D(δ). Bears on
-   the wall: at every support this is the proof itself — (a) and (b)
-   everywhere put Ξ's zeros on the line by item 6's step — Weil positivity,
-   the Riemann Hypothesis, as yet asserted neither true nor false.
+   slit plane, Hypothesis B verified at the cells up to a late onset near
+   the wall), with the wall T_w(k) computed, not derived; (d) a zero pair at
+   fixed height costs four prolate orders (the pair-cost lemma, Theorem
+   1bu(i), proved), read as the rung spacing through Theorem 1bm(v)'s
+   formula (1bu(v)), whose reduction is item 4's. Items 5 and 6 are (a) and
+   (b), item 4 holds (d); (c) has no other item. Done when: at one support,
+   (a) and (b) forced by the form's Gram pencil (Theorem 1br; the odd Gram
+   of 1bv(i)) with no zero computed, and (c)'s wall T_w(k) derived (Theorem
+   1bx's one number per rung: the rung's leakage budget against the cost of
+   unlocking the zeta zeros between T_w and T₁) — a finite advance of the
+   wall by T_D(δ). Bears on the wall: at every support this is the proof
+   itself — (a) and (b) everywhere put Ξ's zeros on the line by item 6's
+   step — Weil positivity, the Riemann Hypothesis, as yet asserted neither
+   true nor false.
 
 2. **The prime-side square root.** The true form is unconditional on the
    prime side — the pole term, the constant, the archimedean integral and

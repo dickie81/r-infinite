@@ -20,14 +20,15 @@ near their geometric mean for k >= 3, non-increasing with k from rung 3 -- compu
 
 THE GATES. (0) the proposition's algebra witnessed numerically (the r^2 coefficient of the closed form against the law, the
 profile's R^-3 moment against 1/(2T^2), the r^4 coefficient against 3/16 at h -> 0); (1) the walls: rung 2's within [0.95, 1.01] T_1,
-every wall within [0.83, 1.01] T_1 and >= 0.98 T_k, for k >= 3 within [0.96, 1.02] of sqrt(T_1 T_k); neither edge is the wall
+every wall within [0.83, 1.01] T_1 and >= 0.98 T_k, for k >= 3 within [0.96, 1.02] of sqrt(T_1 T_k); neither edge is the wall's law
 (T_w/T_k reaches 1.15, T_1/T_w reaches 1.15 at k >= 3); (2) Hypothesis B across the interior: the exact ln C_k within 1.5%,
 2% and 7% of the closed form at 0.3, 0.5, 0.7 T_w at every safely deep rung, and off by 5% or more at 0.5 T_w with the wall at
 T_1 for k >= 3; (3) the deficit profile's wall within 6% of T_w at every rung with three or more holes, within 2.5% at delta >= 3;
 (4) the ratio at r = 40 within 0.014 of the closed form at every safely deep rung, within 6e-4 at delta >= 3; (5) the onset lags the
 harmonic measure near the wall: the signed shortfall positive at three quarters of the rungs at T_1, averaging 0.02-0.1 per hole
-at T_1, 1.25 T_1 and 1.5 T_1 and within 0.2 at every rung, pooled over R = 2, 3, 4, 6 T_1 within 0.02, no deficit (under a quarter of a
-zero) at T_1 at delta = 3.5's rungs 2-5 exactly; (6) the paper's numbers parsed back; (7) the chain obligation;
+at T_1, 1.25 T_1 and 1.5 T_1 and within 0.2 at every rung at T_1, gone by 2 T_1 over the rungs with two or more holes (their mean at 2 T_1
+within 0.02) and pooled over R = 2, 3, 4, 6 T_1 within 0.02; no deficit at T_1 (under a quarter of a zero) at twelve rungs -- the low rungs
+of every cell -- named exactly; (6) the paper's numbers parsed back; (7) the chain obligation;
 (8) the needles and census.
 
 WHAT IS NOT CLAIMED. The wall's law (T_w(k) is computed); the odd sector; anything beyond the safely deep rungs; no Riemann
@@ -55,7 +56,7 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the exact ln C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3', 'form': 'ws'},
     {'g': 'g6', 's': 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3', 'form': 'ws'},
     {'g': 'g6', 's': 'the ratio at r = 40 within 0.0131 of the closed form at every safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at δ ≥ 3', 'form': 'ws'},
-    {'g': 'g6', 's': 'less deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the signed shortfall (observed minus profile, per hole) averaging 0.05 over the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at 1.5 T₁, and pooled over R = 2, 3, 4, 6 T₁ −0.004 — the lag gone by 2T₁; no deficit at T₁ (under a quarter of a zero) at δ = 3.5’s rungs 2–5', 'form': 'ws'},
+    {'g': 'g6', 's': 'less deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the signed shortfall (observed minus profile, per hole) averaging 0.05 over the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at 1.5 T₁, gone by 2T₁ over the 35 rungs with two or more holes (their mean at 2T₁ −0.006; a one-hole rung’s staircase quantum is a whole hole) and pooled over R = 2, 3, 4, 6 T₁ −0.004; no deficit at T₁ (under a quarter of a zero) at 12 rungs, the low rungs of every cell: δ = 2’s rungs 2–3, δ = 2.3’s rungs 2–3, δ = 2.6’s rung 2, δ = 3’s rungs 2–4, δ = 3.5’s rungs 2–5', 'form': 'ws'},
     {'g': 'g6', 's': 'strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2)', 'form': 'ws'},
 ]
 
@@ -135,15 +136,18 @@ wall2 = [W[(c, 2)]["Tw"]/W[(c, 2)]["T1"] for c in ORDER]
 rat1 = [w["Tw"]/w["T1"] for w in W.values()]; ratk = [w["Tw"]/w["Tk"] for w in W.values()]
 ratg = [w["Tw"]/math.sqrt(w["T1"]*w["Tk"]) for w in W.values() if w["k"] >= 3]
 ok = all(0.95 <= x <= 1.01 for x in wall2) and all(0.83 <= x <= 1.01 for x in rat1) and min(ratk) >= 0.98 and all(0.96 <= x <= 1.02 for x in ratg)
-ok &= max(ratk) >= 1.15 and max(w["T1"]/w["Tw"] for w in W.values() if w["k"] >= 3) >= 1.15          # neither edge is the wall
+ok &= max(ratk) >= 1.15 and max(w["T1"]/w["Tw"] for w in W.values() if w["k"] >= 3) >= 1.15          # neither edge is the wall's law
 ok &= all(abs(-w["Dk"]*w["Tw"]**2/sum(1 + psi(h, w["Tw"])**2 for h in w["holes"]) - 0.5) <= 1e-9 for w in W.values())   # the wall is the law's inversion (its residual)
 # the wall non-increasing with k from rung 3 at every cell; rung 2's at or beyond rung 3's at delta <= 3 and inside rungs 3-6's at delta = 3.5
 mono = all(W[(c, k + 1)]["Tw"] <= W[(c, k)]["Tw"] + 1e-9 for c in ORDER for k in range(3, n_safe(c) + 1))
 r2 = all((W[(c, 2)]["Tw"] >= W[(c, 3)]["Tw"]) == (CEN[c]["delta"] <= 3.0) for c in ORDER) and all(W[("d3.5", 2)]["Tw"] < W[("d3.5", k)]["Tw"] for k in (3, 4, 5, 6)) and W[("d3.5", 7)]["Tw"] < W[("d3.5", 2)]["Tw"]
 INSIDE = [(c, k) for (c, k), w in W.items() if w["Tw"] < w["Tk"]]; BEYOND = [(c, k) for (c, k), w in W.items() if w["Tw"] > w["T1"]]
-def _exc(L):   # the exceptions named: one cell, its rungs
-    cs = sorted({c for c, _ in L}); assert len(cs) == 1; ks = sorted(k for _, k in L)
+def _exc(L):   # a set of rungs named: one cell, a contiguous range of its rungs -- anything else renders unmatchable
+    cs = sorted({c for c, _ in L}); ks = sorted(k for _, k in L)
+    if len(cs) != 1 or not ks or ks != list(range(ks[0], ks[-1] + 1)): return "NOT A CELL'S CONTIGUOUS RANGE"
     return f"δ = {CEN[cs[0]]['delta']:g}’s rung" + ("s " + f"{ks[0]}–{ks[-1]}" if len(ks) > 1 else f" {ks[0]}")
+def _cells(L):  # the rungs named cell by cell, in the cells' order
+    return ", ".join(_exc([(c, k) for c, k in L if c == cc]) for cc in ORDER if any(c == cc for c, _ in L))
 ok &= mono and r2
 nb = sum(1 for w in W.values() if w["Tk"] < w["Tw"] < w["T1"])
 
@@ -189,17 +193,20 @@ gate(f"g4 the ratio (-ln C_k/r^2)/Delta kappa_k at r = 40 (Theorem 1bw's laws ch
 
 # ---------------------------------------------------------------- g5: the onset -- the deficit lags the profile near the wall
 # signed lag (observed - profile) per hole at R = T_1, 1.25 T_1, 1.5 T_1 and its absence on [2, 6] T_1; the rungs at delta = 3.5 with no deficit at T_1
-LAGF = (1.0, 1.25, 1.5); FARF = (2.0, 3.0, 4.0, 6.0); lag = {f: [] for f in LAGF}; far = []; none35 = []
+LAGF = (1.0, 1.25, 1.5); FARF = (2.0, 3.0, 4.0, 6.0); lag = {f: [] for f in LAGF}; far = []; lag2 = []; NONE = []
 for c in ORDER:
     S = CEN[c]; g = S["rungs"][0]; T1 = g["edge"]; N1 = nbar(outer(g))
     for r in S["rungs"][1:n_safe(c) + 1]:
         w = W[(c, r["k"])]; Nk = nbar(outer(r)); m = w["m"]
-        for f in LAGF: lag[f].append((Nk(f*T1) - N1(f*T1))/m + (2/math.pi)*math.acos(min(1.0, w["Tw"]/(f*T1))))
-        far.append(float(np.mean([(Nk(f*T1) - N1(f*T1))/m + (2/math.pi)*math.acos(min(1.0, w["Tw"]/(f*T1))) for f in FARF])))
-        if c == "d3.5" and abs(Nk(T1) - N1(T1)) <= 0.25: none35.append(r["k"])          # under a quarter of a zero at T_1
-lm = {f: float(np.mean(lag[f])) for f in LAGF}; nless = sum(1 for x in lag[1.0] if x > 0); lfrac = nless/len(lag[1.0]); lmax = max(lag[1.0]); lmin = min(lag[1.0]); farm = float(np.mean(far))
-ok = all(0.02 <= lm[f] <= 0.1 for f in LAGF) and lfrac >= 0.75 and lmax <= 0.2 and lmin >= -0.2 and abs(farm) <= 0.02 and none35 == [2, 3, 4, 5]
-gate(f"g5 the onset lags the harmonic measure near the wall: the signed shortfall (observed minus profile, per hole) positive at {nless} of {len(lag[1.0])} safely deep rungs at T_1 (gated >= 3/4), averaging {lm[1.0]:.2f} over the forty (gated [0.02, 0.1]) and reaching {lmax:.2f} (gated 0.2; the most negative {lmin:.2f}, gated -0.2), {lm[1.25]:.2f} at 1.25 T_1 and {lm[1.5]:.2f} at 1.5 T_1 (gated [0.02, 0.1]); pooled over R = 2, 3, 4, 6 T_1 {farm:+.3f} per hole (gated |.| <= 0.02); no deficit at T_1 (under a quarter of a zero) at delta = 3.5's rungs {none35} exactly", ok)
+        sh = lambda f: (Nk(f*T1) - N1(f*T1))/m + (2/math.pi)*math.acos(min(1.0, w["Tw"]/(f*T1)))
+        for f in LAGF: lag[f].append(sh(f))
+        far.append(float(np.mean([sh(f) for f in FARF])))
+        if m >= 2: lag2.append(sh(2.0))                                                   # the 2 T_1 height over the rungs with two or more holes
+        if abs(Nk(T1) - N1(T1)) <= 0.25: NONE.append((c, r["k"]))                          # under a quarter of a zero at T_1
+lm = {f: float(np.mean(lag[f])) for f in LAGF}; nless = sum(1 for x in lag[1.0] if x > 0); lfrac = nless/len(lag[1.0]); lmax = max(lag[1.0]); lmin = min(lag[1.0]); farm = float(np.mean(far)); lm2 = float(np.mean(lag2))
+ok = all(0.02 <= lm[f] <= 0.1 for f in LAGF) and lfrac >= 0.75 and lmax <= 0.2 and lmin >= -0.2 and abs(farm) <= 0.02 and abs(lm2) <= 0.02
+ok &= len(NONE) == 12 and all(k == 2 for c, k in NONE if k == min(kk for cc, kk in NONE if cc == c)) and "NOT A" not in _cells(NONE)   # the low rungs of every cell, each a contiguous range from rung 2
+gate(f"g5 the onset lags the harmonic measure near the wall: the signed shortfall (observed minus profile, per hole) positive at {nless} of {len(lag[1.0])} safely deep rungs at T_1 (gated >= 3/4), averaging {lm[1.0]:.2f} over the forty (gated [0.02, 0.1]) and reaching {lmax:.2f} (gated 0.2; the most negative {lmin:.2f}, gated -0.2), {lm[1.25]:.2f} at 1.25 T_1 and {lm[1.5]:.2f} at 1.5 T_1 (gated [0.02, 0.1]); gone by 2 T_1 over the {len(lag2)} rungs with two or more holes (their mean at 2 T_1 {lm2:+.3f}, gated |.| <= 0.02) and pooled over R = 2, 3, 4, 6 T_1 {farm:+.3f} per hole (gated |.| <= 0.02); no deficit at T_1 (under a quarter of a zero) at {len(NONE)} rungs, the low rungs of every cell: {_cells(NONE)}", ok)
 
 # ---------------------------------------------------------------- g6
 import paper_needles
@@ -210,7 +217,7 @@ S_RANGE = 'T_w/T₁ between 0.833 and 1.002 over the 40 safely deep rungs of the
 S_INTERIOR = 'the exact ln C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3'
 S_PROFILE = 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3'
 S_R40 = 'the ratio at r = 40 within 0.0131 of the closed form at every safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at δ ≥ 3'
-S_EDGE = 'less deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the signed shortfall (observed minus profile, per hole) averaging 0.05 over the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at 1.5 T₁, and pooled over R = 2, 3, 4, 6 T₁ −0.004 — the lag gone by 2T₁; no deficit at T₁ (under a quarter of a zero) at δ = 3.5’s rungs 2–5'
+S_EDGE = 'less deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the signed shortfall (observed minus profile, per hole) averaging 0.05 over the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at 1.5 T₁, gone by 2T₁ over the 35 rungs with two or more holes (their mean at 2T₁ −0.006; a one-hole rung’s staircase quantum is a whole hole) and pooled over R = 2, 3, 4, 6 T₁ −0.004; no deficit at T₁ (under a quarter of a zero) at 12 rungs, the low rungs of every cell: δ = 2’s rungs 2–3, δ = 2.3’s rungs 2–3, δ = 2.6’s rung 2, δ = 3’s rungs 2–4, δ = 3.5’s rungs 2–5'
 S_BETWEEN = 'strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2)'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
@@ -221,7 +228,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'T_w/T₁ between 0.833 and 1.002 over
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the exact ln C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the ratio at r = 40 within 0.0131 of the closed form at every safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at δ ≥ 3', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'less deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the signed shortfall (observed minus profile, per hole) averaging 0.05 over the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at 1.5 T₁, and pooled over R = 2, 3, 4, 6 T₁ −0.004 — the lag gone by 2T₁; no deficit at T₁ (under a quarter of a zero) at δ = 3.5’s rungs 2–5', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'less deficit at T₁ than the profile’s at 34 of the 40 safely deep rungs — the signed shortfall (observed minus profile, per hole) averaging 0.05 over the forty and reaching 0.19 at T₁, averaging 0.06 at 1.25 T₁ and 0.06 at 1.5 T₁, gone by 2T₁ over the 35 rungs with two or more holes (their mean at 2T₁ −0.006; a one-hole rung’s staircase quantum is a whole hole) and pooled over R = 2, 3, 4, 6 T₁ −0.004; no deficit at T₁ (under a quarter of a zero) at 12 rungs, the low rungs of every cell: δ = 2’s rungs 2–3, δ = 2.3’s rungs 2–3, δ = 2.6’s rung 2, δ = 3’s rungs 2–4, δ = 3.5’s rungs 2–5', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2)', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_DK2LAW, S_WALL2, S_T1T0, S_RANGE, S_INTERIOR, S_PROFILE, S_R40, S_EDGE, S_BETWEEN]
 _re = __import__("re")
@@ -239,8 +246,8 @@ _m = _nums(S_INTERIOR.split("against ")[1].split("% to")[0]); ok &= len(_m) == 1
 _m = _nums(S_PROFILE); ok &= _m == [round(100*max(pw), 1), round(100*max(pw3), 1)]
 _m = _nums(S_R40); ok &= _m == [round(max(e40), 4), round(max(exc), 3), round(max(e40_3), 4)]
 _m = _nums(S_EDGE.split(" at T₁, averaging")[0]); ok &= _m == [round(lm[1.0], 2), round(lmax, 2)] and _ints(S_EDGE.split(" safely")[0]) == [nless, len(lag[1.0])]
-_m = _nums(S_EDGE.split(" at T₁, averaging ")[1].split(" — the lag")[0]); ok &= _m == [round(lm[1.25], 2), 1.25, round(lm[1.5], 2), 1.5, round(farm, 3)] and "R = 2, 3, 4, 6 T₁" in S_EDGE
-ok &= _ints(S_EDGE.split("rungs ")[-1]) == [none35[0], none35[-1]] and len(none35) == none35[-1] - none35[0] + 1 and "under a quarter of a zero" in S_EDGE
+_m = _nums(S_EDGE.split(" at T₁, averaging ")[1].split("; no deficit")[0]); ok &= _m == [round(lm[1.25], 2), 1.25, round(lm[1.5], 2), 1.5, round(lm2, 3), round(farm, 3)] and "R = 2, 3, 4, 6 T₁" in S_EDGE and _ints(S_EDGE.split("gone by 2T₁ over the ")[1].split(" rungs")[0]) == [len(lag2)]
+ok &= S_EDGE.split("every cell: ")[1] == _cells(NONE) and _ints(S_EDGE.split("quarter of a zero) at ")[1].split(" rungs")[0]) == [len(NONE)] and "under a quarter of a zero" in S_EDGE
 _i = _ints(S_BETWEEN.split(", inside")[0]); ok &= _i == [nb, len(W)] and _nums(S_BETWEEN.split("% (")[0])[-1] == round(100*(1 - min(ratk)), 1) and _nums(S_BETWEEN.split("beyond T₁ by ")[1])[0] == round(100*(max(rat1) - 1), 1)
 ok &= S_BETWEEN.split("% (")[1].split(")")[0] == _exc(INSIDE) and S_BETWEEN.split("% (")[2].split(")")[0] == _exc(BEYOND)
 gate("g6 the paper's numbers parsed back from the declared needles", ok)
