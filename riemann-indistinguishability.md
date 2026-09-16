@@ -8014,11 +8014,11 @@ checkpoints and Theorem 1bm's 6700-zero list, all at their keys.
 **Theorem 1ca (the smooth count in the unlocking functional — the zero
 sum split exactly into Theorem 1bs's smooth count and a leftover
 oscillation; the smooth wall's law with the count constant, T ln(2T₀/T)
-= 4m + 7/2, within two percent of the unlocking height at every rung;
-the leftover's decay at the wall, O(ln T/√T), from Littlewood's bounds;
-and the exterior tail read by the explicit formula — the smooth count's
-integral of the transform squared less the prime shells, exactly, the
-leftover after the shells the Stirling remainder;
+= 4m + 7/2, within two percent rms of the unlocking height over the 40
+rungs; the leftover's decay at the wall, O(ln T/√T), from Littlewood's
+bounds; and the exterior tail read by the explicit formula — the smooth
+count's integral of the transform squared less the prime shells,
+exactly, the leftover after the shells the Stirling remainder;
 `cascade_smooth_functional.py`).** *(i) The split (an identity).* Write
 the zero count as N(T) = N₀(T) + 7/8 + S(T) for T ≥ γ₁, N₀(T) =
 (T/2π)(ln(T/2π) − 1) Theorem 1bs's smooth count, 7/8 its constant, S the
@@ -8037,59 +8037,64 @@ S(r) w_T(r) dr. F_k^s is the unlocking functional with N₀ + 7/8 in place
 of the zeros; nothing else changes. *(ii) The smooth wall (derived).*
 F_k^s is smooth, and with I′ − 2a = ln(T/4π) − 2a = ln(T/2T₀) (T₀ =
 2πe^δ) it is stationary where **ln(2T₀/T) = 4Σ_h (T² − h²)^{−1/2} +
-(7/2)(T² − γ₁²)^{−1/2} + ∫₀^{γ₁} N₀(r) r (T² − r²)^{−3/2} dr**, that is
+(7/2)(T² − γ₁²)^{−1/2} + 4∫₀^{γ₁} N₀(r) r (T² − r²)^{−3/2} dr**, that is
 T ln(2T₀/T) = 4m + 7/2 + [4Σ_h(T/√(T² − h²) − 1) + (7/2)(T/√(T² − γ₁²) −
-1) + T∫₀^{γ₁} N₀ r (T² − r²)^{−3/2} dr], the bracket O((Σ_h h² +
+1) + 4T∫₀^{γ₁} N₀ r (T² − r²)^{−3/2} dr], the bracket O((Σ_h h² +
 γ₁²)/T²): Theorem 1by(iii)'s continuum law u ln(2/u) = (2m/π)e^{−δ} with
 2m replaced by 2m + 7/4 — the count constant, the pole's 7/8 (1bs), is
-worth seven eighths of a hole. On (2T₀/e, 2T₀) the root is unique and is
-the minimum: F_k^s″ = 1/T − 4Σ_h T(T² − h²)^{−3/2} − (7/2)T(T² −
-γ₁²)^{−3/2} + O(T^{−3}) > 0 there whenever 4m + 7/2 < 2T₀/e (the
-condition of 1by(iii) sharpened by 7/8), and the only other critical
-point, a maximum within a spacing of γ₁ from the constant's cusp, lies
-far above the minimum in value. For the ground state, T^s(1) = 2T₀e^{−ε}
-with ε = (7/2)/T^s(1) + O(γ₁²/T₀²): the smooth count puts the ground
-state's wall below two horizons by 7/(4T₀). The minimum's value is
-F_k^s(T^s) = −2T₀ + 4Σ_h ln(4T₀/h) + (7/2) ln(4T₀/γ₁) − 4∫₀^{γ₁} N₀/r dr
-+ (4m + 7/2)²/(4T₀) + O(1/T₀) + O(Σ_h h²/T₀), the piece below γ₁ being
-(2/π)γ₁(2 − ln(γ₁/2π)) = 10.70 (1bs's second term of C_ζ). At the cells
-(computed, gated): T^s/T_u averages 1.003 with rms deviation from 1 of
-0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30
-with three or more holes), against 1.028 with 0.039 for 1by’s law
-without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces
-T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034];
-the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958,
-1.972, 1.983 at the five cells, within 2.1% of its unlocking height
-T_u(1) (T^s/T_u(1) over [0.983, 1.021]); F₁^s(T^s) sits 0.14, 0.10,
-0.07, 0.05, 0.03 nats below the closed form at the five cells, the
-difference falling with δ. *(iii) The leftover oscillation (proved;
-computed).* Let Osc_∞ := ∫_{γ₁}^∞ S(r)·4/r dr (convergent: 1bs's third
-term of C_ζ, 0.19) and S₁(r) := ∫_{γ₁}^r S. Then for every Δ ∈ (0, T −
-γ₁), **|Osc(T) − Osc_∞| ≤ 4 sup_{[T−Δ,T]}|S|·[arccosh(T/(T−Δ)) −
-ln(T/(T−Δ))] + 8 sup_{[γ₁,T]}|S₁|·D_T(T−Δ) + 8 sup_{[T,∞)}|S₁|/T**,
-D_T(r) := (1/r)[(1 − r²/T²)^{−1/2} − 1] the weight defect. Proof: Osc(T)
-− Osc_∞ = 4∫_{γ₁}^T S D_T dr − 4∫_T^∞ S/r dr; the last, by parts, is
-4S₁(T)/T − 4∫_T^∞ S₁/r² dr, at most 8 sup_{≥T}|S₁|/T; on [T − Δ, T] the
-first is bounded by sup|S| times ∫_{T−Δ}^T D_T = arccosh(T/(T−Δ)) −
+worth seven eighths of a hole. The minimum is unique: T·F_k^s″ = 1 −
+T·G(T) with G(T) = 4Σ_h T(T² − h²)^{−3/2} + (7/2)T(T² − γ₁²)^{−3/2} +
+O(T^{−3}), and T·G falls from +∞ at the domain's left endpoint
+max(h_max, γ₁), the cusp of the holes' or the constant's arccosh, to 0,
+so F_k^s′ has one minimum and exactly two zeros — a maximum just above
+that cusp, far above the minimum in value, and the minimum T^s, which
+lies in (2T₀/e, 2T₀) when 4m + 7/2 < 2T₀/e (the condition of 1by(iii)
+sharpened by 7/8; the O(T^{−3}) piece below γ₁ leaves T·F_k^s″ ≥ 0.2 on
+that bracket at the 40 rungs, gated). For the ground state, T^s(1) =
+2T₀e^{−ε} with ε = (7/2)/T^s(1) + O(γ₁²/T₀²): the smooth count puts the
+ground state's wall below two horizons by 7/(4T₀). The minimum's value
+is F_k^s(T^s) = −2T₀ + 4Σ_h ln(4T₀/h) + (7/2) ln(4T₀/γ₁) − 4∫₀^{γ₁} N₀/r
+dr − (4m + 7/2)²/(4T₀) + O((4m + 7/2)³/T₀²) + O(Σ_h h²/T₀), the piece
+below γ₁ being (2/π)γ₁(2 − ln(γ₁/2π)) = 10.70 (1bs's second term of
+C_ζ). At the cells (computed, gated): T^s/T_u averages 1.003 with rms
+deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001
+with 0.015 at the 30 with three or more holes), against 1.028 with 0.039
+for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m +
+7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over
+[0.875, 1.034]; the ground state’s smooth wall sits at T^s/T₀ = 1.923,
+1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its
+unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021]); F₁^s(T^s) sits
+0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the
+five cells, the difference falling with δ, and at the 40 rungs the
+closed form sits within 1.23 nats of F_k^s(T^s). *(iii) The leftover
+oscillation (proved; computed).* Let Osc_∞ := ∫_{γ₁}^∞ S(r)·4/r dr
+(convergent: 1bs's third term of C_ζ, 0.19) and S₁(r) := ∫_{γ₁}^r S.
+Then for every Δ ∈ (0, T − γ₁), **|Osc(T) − Osc_∞| ≤ 4
+sup_{[T−Δ,T]}|S|·[arccosh(T/(T−Δ)) − ln(T/(T−Δ))] + 8
+sup_{[γ₁,T]}|S₁|·D_T(T−Δ) + 8 sup_{[T,∞)}|S₁|/T**, D_T(r) := (1/r)[(1 −
+r²/T²)^{−1/2} − 1] the weight defect. Proof: Osc(T) − Osc_∞ = 4∫_{γ₁}^T
+S D_T dr − 4∫_T^∞ S/r dr; the last, by parts, is 4S₁(T)/T − 4∫_T^∞ S₁/r²
+dr, at most 8 sup_{≥T}|S₁|/T; on [T − Δ, T] the first, 4∫S D_T, is
+bounded by 4 sup|S| times ∫_{T−Δ}^T D_T = arccosh(T/(T−Δ)) −
 ln(T/(T−Δ)); on [γ₁, T − Δ], by parts against S₁ with D_T increasing
-(D_T′ ≥ 0), it is at most 2 sup|S₁|·D_T(T−Δ). □ With Littlewood's S(t) =
-O(ln t) and S₁(t) = O(ln t) (the classical inputs of 1bs) and Δ fixed,
-arccosh(T/(T−Δ)) − ln(T/(T−Δ)) = √(2Δ/T)(1 + O(Δ/T)) and D_T(T−Δ) =
-(2ΔT)^{−1/2}(1 + O(√(Δ/T))), so **Osc(T) = Osc_∞ + O(ln T/√T)**: the
-leftover oscillation is the count's local fluctuation read through the
-Green function's square-root cusp at the wall, with a weight √(2Δ/T) —
-it cannot overwhelm the smooth functional's curvature: since min_T F_k ≤
-F_k(T^s) and F_k(T_u) ≥ F_k^s(T^s) + Osc(T_u), the minimum's value is
-F_k^s(T^s) + Osc_∞ + O(ln T/√T), and by the convexity of (ii),
+(D_T′ ≥ 0), it is at most 8 sup|S₁|·D_T(T−Δ). □ With S(t) = O(ln t) (von
+Mangoldt) and Littlewood's S₁(t) = O(ln t) (the classical inputs of 1bs)
+and Δ fixed, arccosh(T/(T−Δ)) − ln(T/(T−Δ)) = √(2Δ/T)(1 + O(√(Δ/T))) and
+D_T(T−Δ) = (2ΔT)^{−1/2}(1 + O(√(Δ/T))), so **Osc(T) = Osc_∞ + O(ln
+T/√T)**: the leftover oscillation is the count's local fluctuation read
+through the Green function's square-root cusp at the wall, with a weight
+√(2Δ/T) — it cannot overwhelm the smooth functional's curvature: since
+min_T F_k ≤ F_k(T^s) and F_k(T_u) ≥ F_k^s(T^s) + Osc(T_u), the minimum's
+value is F_k^s(T^s) + Osc_∞ + O(ln T/√T), and by the convexity of (ii),
 F_k^s(T_u) − F_k^s(T^s) ≥ (T_u − T^s)²/(2T)(1 + o(1)) is at most
 Osc(T^s) − Osc(T_u), so **|T_u − T^s| = O(T^{1/4}(ln T)^{1/2})**: the
 unlocking height's law is the smooth wall's. On the list (computed,
-gated): on [0.5, 1.6]T₁ the leftover ranges over 0.87, 0.76, 0.67, 0.55,
-0.41 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on
-the list, the range times √T₁ constant to 7% (8.1–8.7); with the list’s
+gated): on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56,
+0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on
+the list, the range times √T₁ constant to 8% (8.2–8.9); with the list’s
 suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1,
 the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the
-observed sup|Osc − Osc_∞| of 0.51, 0.42, 0.39, 0.31, 0.22; F_k(T_u) −
+observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25; F_k(T_u) −
 F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40
 rungs, Osc(T_u) itself averaging −0.06; and the rung's exponent from the
 smooth count and the holes alone — ln λ_k − ln λ₁ = 2 ln|ĝ_k(0)/ĝ₁(0)| +
@@ -8103,75 +8108,75 @@ eigenvalue (S₁(1) = 0.96–0.98, Theorem 1bz). Cut it smoothly: for a
 window [T, T′] and a width Δ let χ(r) := Φ((r − T)/Δ) − Φ((r − T′)/Δ), Φ
 the normal distribution function (an even entire function of r once
 extended by its mirror, equal to 1 on the window and to 0 outside up to
-Gaussian tails). Weil's explicit formula for the even entire h = ĝ²χ (ĝ²
-of exponential type 2a, χ of Gaussian decay in the dual variable, the
-prime sum absolutely convergent) gives, exactly, **2Σ_{γ>0} ĝ(γ)²χ(γ) =
-(1/π)∫₀^∞ ĝ(r)²χ(r) ln(r/2π) dr + E_arch + E_pole − 2Σ_{n≥2} Λ(n)
-n^{−1/2} f_χ(ln n)**, f_χ(u) := (1/π)∫₀^∞ ĝ²χ cos(ru) dr — the smooth
-count's integral of the transform squared (n₀ = (1/2π)ln(r/2π) is N₀′),
-less the prime shells (1bo's language: Λ(n) the shell's weight, n^{−1/2}
-its density, f_χ the cut transform at its position), plus the Stirling
-remainder E_arch := (1/π)∫₀^∞ ĝ²χ [Re ψ(¼ + ir/2) − ln(r/2)] dr and the
-pole term E_pole := 2ĝ(i/2)²χ(i/2). Both leftovers are bounded: by
-Binet's formula ψ(z) = ln z − 1/(2z) − 2∫₀^∞ t dt/((t² + z²)(e^{2πt} −
-1)), |Re ψ(¼ + ir/2) − ln(r/2)| ≤ 3/(2r²) for r ≥ 8 (the remainder is
-−1/(24r²) + O(r⁻⁴), witnessed in g0), so |E_arch| ≤ (3/2π)∫ĝ²χ r⁻² dr ≤
-(3/2)/(T² ln(T/2π)) times the smooth count's integral up to the cut's
-Gaussian tail; and |ĝ(i/2)| ≤ e^{a/2}‖g‖₁ ≤ √(2a)e^{a/2} with |χ(±i/2)|
-≤ 2e^{−(T² − 1/4)/(2Δ²)} give |E_pole| ≤ 8ae^a e^{−(T² − 1/4)/(2Δ²)}. So
-after the prime shells are subtracted the leftover oscillation of the
-exterior tail is the Stirling remainder, below 3/(2T² ln(T/2π)) of the
-smooth count's integral — it cannot overwhelm the tail. At the cells
-(computed, gated; the cut Δ = 1, the transform from 1bw's product form —
-the census's designed zeros, exact to the stored profile's rounding
-beyond the edge — the integrals on a grid of 0.05, the shells to e^{δ +
-7.5}): the identity holds within 4.4 × 10⁻⁶ of the tail at the five
-ground states over the five windows (6.7 × 10⁻¹² away from the cut at
-the edge, where the dodged zeros the cut still weighs carry the stored
-profile’s rounding) and within 2.7 × 10⁻¹¹ at the 40 rungs; the smooth
-count’s integral is 1.87, 1.87, 2.29, 2.88, 2.77 times the actual
-leakage over the whole exterior at the five cells, 2.42, 2.01, 3.06,
-4.21, 3.71 in the near quarter [T₁, 1.25T₁], 1.71, 2.14, 2.00, 2.20,
-3.40 on [1.25, 2]T₁, 1.28, 1.65, 1.60, 1.91, 1.46 on [2, 4]T₁ and 1.119,
-1.151, 1.066, 1.000, 1.003 beyond 4T₁; the leftover after the shells is
-at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴; the
-largest shell is n = 3, 3, 7, 5, 2 over the whole exterior and n = 3, 5,
-7, 5, 2 in the near quarter; at the 40 rungs the smooth count’s integral
-runs 1.58–3.77 times the leakage beyond T₁ and 1.85–7.37 times it in the
-near quarter. *(v) What it says.* The smooth count alone fixes the wall
-and the exponent to the oscillation's size: the zeros enter the
-unlocking functional only through a leftover that is a local read of S
-at the wall, weighted by the square root of a spacing over the wall's
-height, decaying as ln T/√T — the count constant, not the zeros'
-positions, moves 1by's continuum wall onto the unlocking height (the
-bias of 2.8% to 0.3%). On the exterior the arithmetic is not small: the
-smooth count overestimates the leakage beyond the wall by a factor
-1.9–2.9, most at the wall (2.0–4.2 in the near quarter, under 1.2 beyond
-4T₁) — 1bx's soft onset, the zeta zeros beyond the wall still half-held
-— and the prime shells return that excess exactly, carried by the
-smallest primes and the shells at the support's edge ln n ≈ δ; nothing
-is left after them but the Stirling remainder. What was the ground
-state's leakage profile beyond its edge, computed (1bz's residual), is
-now the explicit formula's: the smooth count's integral of the transform
-squared less the shells, given the transform. *(vi) What is proved,
-computed, not claimed.* Proved: the split (i); the smooth wall's law,
-its uniqueness and its minimum's form (ii); the leftover's bound and its
-consequences (iii), with Littlewood's S and S₁ = O(ln t) the named
-classical inputs; the exterior identity and its two leftovers' bounds
-(iv), with Weil's explicit formula and Binet's formula. Computed, gated:
-the walls, the exponent readings, the oscillation's sizes and the
-bound's terms on the list, the identity's residuals, the shells' shares.
-Not claimed: explicit constants for S and S₁ (the list's suprema are
-computed); a bound on the shells' sum in general (computed at the cells,
-it is of the tail's own size); the reduction of 1bm(iii); Hypothesis B;
-the odd sector; anything about the zeros — **no Riemann Hypothesis
-consequence is claimed**. Check 7 clean (Stieltjes integration,
-Littlewood's bounds, Weil's explicit formula, Binet's formula, Stirling
-— classical; no semiclassics). Check 8 clean (Riemann-side; no
-hypothesis input). No new substrate: the verifier computes from Theorem
-1bw's census and laws checkpoints, Theorem 1bu's ladder checkpoints,
-Theorem 1bz's leakage profiles and Theorem 1bm's 6700-zero list, all
-reused at their keys — no checkpoint, no producer.
+Gaussian tails; at the cells the cut sits at T₁, itself a zeta zero,
+which the cut weighs by one half). Weil's explicit formula for the even
+entire h = ĝ²χ (ĝ² of exponential type 2a, χ of Gaussian decay in the
+dual variable, the prime sum absolutely convergent) gives, exactly,
+**2Σ_{γ>0} ĝ(γ)²χ(γ) = (1/π)∫₀^∞ ĝ(r)²χ(r) ln(r/2π) dr + E_arch + E_pole
+− 2Σ_{n≥2} Λ(n) n^{−1/2} f_χ(ln n)**, f_χ(u) := (1/π)∫₀^∞ ĝ²χ cos(ru) dr
+— the smooth count's integral of the transform squared (n₀ =
+(1/2π)ln(r/2π) is N₀′), less the prime shells (1bo's language: Λ(n) the
+shell's weight, n^{−1/2} its density, f_χ the cut transform at its
+position), plus the Stirling remainder E_arch := (1/π)∫₀^∞ ĝ²χ [Re ψ(¼ +
+ir/2) − ln(r/2)] dr and the pole term E_pole := 2ĝ(i/2)²χ(i/2). Both
+leftovers are bounded: by Binet's formula ψ(z) = ln z − 1/(2z) − 2∫₀^∞ t
+dt/((t² + z²)(e^{2πt} − 1)), |Re ψ(¼ + ir/2) − ln(r/2)| ≤ 3/(2r²) for r
+≥ 8 (the remainder is −1/(24r²) + O(r⁻⁴), witnessed in g0), so |E_arch|
+≤ (3/2π)∫ĝ²χ r⁻² dr ≤ (3/2)/(T² ln(T/2π)) times the smooth count's
+integral up to the cut's Gaussian tail; and |ĝ(i/2)| ≤ e^{a/2}‖g‖₁ ≤
+√(2a)e^{a/2} with |χ(±i/2)| ≤ 2e^{−(T² − 1/4)/(2Δ²)} give |E_pole| ≤
+8ae^a e^{−(T² − 1/4)/(2Δ²)}. So after the prime shells are subtracted
+the leftover oscillation of the exterior tail is the Stirling remainder,
+below 3/(2T² ln(T/2π)) of the smooth count's integral — it cannot
+overwhelm the tail. At the cells (computed, gated; the cut Δ = 1, the
+transform from 1bw's product form — the census's designed zeros, exact
+to the stored profile's rounding beyond the edge — the integrals on a
+grid of 0.05, the shells to e^{δ + 7.5}): the identity holds within 4.4
+× 10⁻⁶ of the tail at the five ground states over the five windows (6.7
+× 10⁻¹² away from the cut at the edge, where the dodged zeros the cut
+still weighs carry the stored profile’s rounding) and within 2.7 × 10⁻¹¹
+at the 40 rungs; the smooth count’s integral is 1.87, 1.87, 2.29, 2.88,
+2.77 times the actual leakage over the whole exterior at the five cells,
+2.42, 2.01, 3.06, 4.21, 3.71 in the near quarter [T₁, 1.25T₁], 1.71,
+2.14, 2.00, 2.20, 3.40 on [1.25, 2]T₁, 1.28, 1.65, 1.60, 1.91, 1.46 on
+[2, 4]T₁ and 1.119, 1.151, 1.066, 1.000, 1.003 beyond 4T₁; the leftover
+after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at
+most 1.4 × 10⁻⁴; the largest shell is n = 3, 3, 7, 5, 2 over the whole
+exterior and n = 3, 5, 7, 5, 2 in the near quarter; at the 40 rungs the
+smooth count’s integral runs 1.58–3.77 times the leakage beyond T₁ and
+1.85–7.37 times it in the near quarter. *(v) What it says.* The smooth
+count alone fixes the wall and the exponent to the oscillation's size:
+the zeros enter the unlocking functional only through a leftover that is
+a local read of S at the wall, weighted by the square root of a spacing
+over the wall's height, decaying as ln T/√T — the count constant, not
+the zeros' positions, moves 1by's continuum wall onto the unlocking
+height (the bias of 2.8% to 0.3%). On the exterior the arithmetic is not
+small: the smooth count overestimates the leakage beyond the wall by a
+factor 1.9–2.9, most at the wall (2.0–4.2 in the near quarter, under 1.2
+beyond 4T₁) — 1bx's soft onset, the zeta zeros beyond the wall still
+half-held — and the prime shells return that excess exactly, carried by
+the shells of the smallest primes; nothing is left after them but the
+Stirling remainder. What was the ground state's leakage profile beyond
+its edge, computed (1bz's residual), is now the explicit formula's: the
+smooth count's integral of the transform squared less the shells, given
+the transform. *(vi) What is proved, computed, not claimed.* Proved: the
+split (i); the smooth wall's law, its uniqueness and its minimum's form
+(ii); the leftover's bound and its consequences (iii), with Littlewood's
+S and S₁ = O(ln t) the named classical inputs; the exterior identity and
+its two leftovers' bounds (iv), with Weil's explicit formula and Binet's
+formula. Computed, gated: the walls, the exponent readings, the
+oscillation's sizes and the bound's terms on the list, the identity's
+residuals, the shells' shares. Not claimed: explicit constants for S and
+S₁ (the list's suprema are computed); a bound on the shells' sum in
+general (computed at the cells, it is of the tail's own size); the
+reduction of 1bm(iii); Hypothesis B; the odd sector; anything about the
+zeros — **no Riemann Hypothesis consequence is claimed**. Check 7 clean
+(Stieltjes integration, Littlewood's bounds, Weil's explicit formula,
+Binet's formula, Stirling — classical; no semiclassics). Check 8 clean
+(Riemann-side; no hypothesis input). No new substrate: the verifier
+computes from Theorem 1bw's census and laws checkpoints, Theorem 1bu's
+ladder checkpoints, Theorem 1bz's leakage profiles and Theorem 1bm's
+6700-zero list, all reused at their keys — no checkpoint, no producer.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
