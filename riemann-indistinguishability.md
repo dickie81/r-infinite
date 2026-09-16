@@ -7881,80 +7881,79 @@ T_w 1.5%), the near reading the higher at 39 of the 40 rungs. The
 envelope itself, read at a zeta zero γ by A(γ)² := ĝ(γ)² + ĝ(γ̄)², γ̄
 the midpoint to the next zero (a zero of ĝ displaced by d spacings from
 γ gives ĝ(γ) = A sin πd and ĝ(γ̄) = A cos πd, so A is the envelope and
-ĝ(γ)²/A(γ)² = sin²πd the phase), is not lifted uniformly (the lift per
-rung read as the mean of ln(A_k²/A₁²) over a window's zeta zeros): in
-the leakage’s units, the constant squared less the envelope lift squared
-net of the origin ratio squared (V’s convention, 1bx(ii)) runs +0.34 ±
-0.48 nats on [T₁, 1.25T₁), −0.16 ± 0.32 on [1.25T₁, 1.5T₁) and −0.18 ±
-0.26 on [1.5T₁, 2T₁) (means and rms over the 40 rungs) — the envelope
-rises through the first quarter above T₁, 1bx's onset lag seen in the
-envelope rather than the counts, and overshoots the constant by a sixth
-of a nat in those units beyond; the integrated reading above is what B
-asks of the exterior and what the identity of (ii) uses. The far-field
-excess is read at infinity too. V := ln|ĝ_k/ĝ₁| − ln|ĝ_k(0)/ĝ₁(0)| has,
-by Hadamard's product over the census sets, V(∞) = 2[Σ_{O₁} ln τ −
-Σ_{O_k} ln τ − Σ_h ln h] exactly (the ground state's outer zeros against
-the rung's, the holes restored), and under Hypothesis B the Green
-potentials vanish at infinity (ψ(∞) = ∓i lies on the unit circle), so
-V(∞) is B's constant 2Σ_h ln(1/σ_h(T)): per hole, the deficit's
-log-moment ∫ln R dP_h = ln(1/σ_h) + ln h = ln((1 + s_h)T), s_h = (1 −
-σ_h²)/(1 + σ_h²), witnessed in g0 beside 1bx's R⁻³ moment (1 +
-σ_h²)/(2T²). Solving 2Σ_h ln(1/σ_h(T)) = V(∞) for the wall: the
-log-moment wall lies above T_w at 38 of the 40 rungs, by 1.5% on average
-with a scatter of 0.012 about that offset (T_log/T_w over [0.987,
-1.040]) — the deficit's logarithmic moment, which weights the far field
-more than 1bx's R⁻³ moment does, sees the same far-field excess as the
-envelope, a systematic offset of the harmonic measure's profile and not
-noise; the wall it names is T_w to 1.5% on average and 4% at worst.
-*(ii) The leakage budget (an identity).* Read the rung's exponent twice.
-Theorem 1by reads it at the unlocking height: ln λ_k − ln λ₁ = 2
-ln|ĝ_k(0)/ĝ₁(0)| + F₁(T_u) + cost(T_u) − F₁(T_u(1)) − r₁, with cost(T)
-:= 4Σ_h ln(1/σ_h(T)) the hole pairs' constant and r₁ 1by's residual (the
-formula less the value). Hypothesis B reads the exterior leakage at the
-sharp wall: λ_k s_ext = e^{cost(T_w)}(ĝ_k(0)/ĝ₁(0))² λ₁S₁(1), that is ln
-λ_k − ln λ₁ = 2 ln|ĝ_k(0)/ĝ₁(0)| + cost(T_w) + ln(1/ŝ) +
-ln(‖g₁‖²/‖g_k‖²) − r₂, r₂ its residual in the same sense. Subtracting,
-with U := F₁(T_u) − F₁(T_u(1)) the unlocking cost — the ground state's
-exponent functional's excess at the rung's wall — and the eigenvectors
-N-normalised (the norm ratio exactly 1): **cost(T_w) − cost(T_u) = U −
-ln(1/ŝ) + ε**, ε = r₂ − r₁. This is bookkeeping; its content is the two
-readings, each a verified law. At the cells: cost(T_w) − cost(T_u) = U −
-ln(1/ŝ) within a residual of mean −0.12 and rms 0.23 nats over [−0.61,
-+0.22] at the 40 rungs (the two readings’ residuals within [−0.16,
-+0.43] and ±0.30 nats; the norm ratio 1); T_w recovered from T_u, U and
-the measured share within 1.2% rms at the 40 rungs and 0.9% at the 30
-with three or more holes (T_id/T_w over [0.968, 1.031]) — the sharp wall
-is the unlocking height moved up until the hole pairs' constant has
-absorbed the unlocking cost less the zone's share of the leakage. *(iii)
-The share's law (computed, gated).* The zone [T_u, T₁) is where the
-rung's zeros are loose and the ground state's locked; its share of the
-rung's leakage is what the identity needs, and it has a law: the rung's
-leakage profile is the ground state's attached at the rung's own wall,
-so the exterior share is the ground state's own share beyond T₁/T_u
-times its edge, s_ext = S₁(T₁/T_u) (ŝ = S₁(T₁/T_u)/S₁(1)):
-ln(S₁(T₁/T_u)/s_ext) averages −0.06 with rms 0.11 over [−0.31, +0.15] at
-the 40 rungs (rms 0.10 at the 30 with three or more holes). Hence the
-sharp wall from the ground state alone — T_u and U from the unlocking
-functional (the rung's holes its only rung input), S₁ from the ground
-state's profile, no rung leakage consulted: T_w from the ground state
-alone lies within 0.9% rms of 1bx’s at the 30 rungs with three or more
-holes (T_ss/T_w averages 1.0026 over [0.978, 1.025], beyond one percent
-at 6 of the 30) and within 2.1% rms at all 40, the worst δ = 2.6’s rung
-2 at −10.4%. At one or two holes the profile does not shift (at one hole
-the exterior share is 0.92–0.94 where S₁(T₁/T_u) runs 0.67–0.97, the
-zone at one or two holes 0–9 zeros wide), and there the identity's own
-residual is the gap's size: at the five one-hole rungs the residual is
-+0.09, +0.01, +0.13, +0.04, −0.12 nats, over four hole slopes 0.2–3.2%
-in the wall against one-hole gaps of −1.7% to +5.8% (T_w/T_u − 1 at
-those five rungs, 1by(v)'s one-hole gaps, gated here); the law is the
-multi-hole law. *(iv) The leading law (derived from (ii) in the
-continuum).* F₁′(T) = 4Σ_{γ<T}(T² − γ²)^{−1/2} − 2a, and with the zeta
-density (1/2π) ln(γ/2π) the sum is ln(T/4π) (g0: ∫₀¹ ln x (1 −
-x²)^{−1/2} dx = −(π/2) ln 2), so F₁′ = ln(T/2T₀) and F₁″ = 1/T: U =
-ΔT²/(2T_u(1)) with ΔT := T_u(1) − T_u, to leading order about the ground
-state's minimiser T_u(1) (its edge zero, or one within three of it,
-1by(iv)); and cost′ = 4Σ_h(T² − h²)^{−1/2} = 4m/T for holes deep in the
-interior. The identity then reads ln(T_w/T_u) = ΔT²/(8mT_u(1)) −
+ĝ(γ)²/A(γ)² = sin²πd the phase), is not lifted uniformly (each rung's
+figure the mean of ln(A_k²/A₁²) over a window's zeta zeros): in the
+leakage’s units, the constant squared less the envelope lift squared net
+of the origin ratio squared (V’s convention, 1bx(ii)) runs +0.34 ± 0.48
+nats on [T₁, 1.25T₁), −0.16 ± 0.32 on [1.25T₁, 1.5T₁) and −0.18 ± 0.26
+on [1.5T₁, 2T₁) (means and rms over the 40 rungs) — the envelope rises
+through the first quarter above T₁, 1bx's onset lag seen in the envelope
+rather than the counts, and overshoots the constant by a sixth of a nat
+in those units beyond; the integrated reading above is what B asks of
+the exterior and what the identity of (ii) uses. The far-field excess is
+read at infinity too. V := ln|ĝ_k/ĝ₁| − ln|ĝ_k(0)/ĝ₁(0)| has, by
+Hadamard's product over the census sets, V(∞) = 2[Σ_{O₁} ln τ − Σ_{O_k}
+ln τ − Σ_h ln h] exactly (the ground state's outer zeros against the
+rung's, the holes restored), and under Hypothesis B the Green potentials
+vanish at infinity (ψ(∞) = ∓i lies on the unit circle), so V(∞) is B's
+constant 2Σ_h ln(1/σ_h(T)): per hole, the deficit's log-moment ∫ln R
+dP_h = ln(1/σ_h) + ln h = ln((1 + s_h)T), s_h = (1 − σ_h²)/(1 + σ_h²),
+witnessed in g0 beside 1bx's R⁻³ moment (1 + σ_h²)/(2T²). Solving 2Σ_h
+ln(1/σ_h(T)) = V(∞) for the wall: the log-moment wall lies above T_w at
+38 of the 40 rungs, by 1.5% on average with a scatter of 0.012 about
+that offset (T_log/T_w over [0.987, 1.040]) — the deficit's logarithmic
+moment, which weights the far field more than 1bx's R⁻³ moment does,
+sees the same far-field excess as the envelope, a systematic offset of
+the harmonic measure's profile and not noise; the wall it names is T_w
+to 1.5% on average and 4% at worst. *(ii) The leakage budget (an
+identity).* Read the rung's exponent twice. Theorem 1by reads it at the
+unlocking height: ln λ_k − ln λ₁ = 2 ln|ĝ_k(0)/ĝ₁(0)| + F₁(T_u) +
+cost(T_u) − F₁(T_u(1)) − r₁, with cost(T) := 4Σ_h ln(1/σ_h(T)) the hole
+pairs' constant and r₁ 1by's residual (the formula less the value).
+Hypothesis B reads the exterior leakage at the sharp wall: λ_k s_ext =
+e^{cost(T_w)}(ĝ_k(0)/ĝ₁(0))² λ₁S₁(1), that is ln λ_k − ln λ₁ = 2
+ln|ĝ_k(0)/ĝ₁(0)| + cost(T_w) + ln(1/ŝ) + ln(‖g₁‖²/‖g_k‖²) − r₂, r₂ its
+residual in the same sense. Subtracting, with U := F₁(T_u) − F₁(T_u(1))
+the unlocking cost — the ground state's exponent functional's excess at
+the rung's wall — and the eigenvectors N-normalised (the norm ratio
+exactly 1): **cost(T_w) − cost(T_u) = U − ln(1/ŝ) + ε**, ε = r₂ − r₁.
+This is bookkeeping; its content is the two readings, each a verified
+law. At the cells: cost(T_w) − cost(T_u) = U − ln(1/ŝ) within a residual
+of mean −0.12 and rms 0.23 nats over [−0.61, +0.22] at the 40 rungs (the
+two readings’ residuals within [−0.16, +0.43] and ±0.30 nats; the norm
+ratio 1); T_w recovered from T_u, U and the measured share within 1.2%
+rms at the 40 rungs and 0.9% at the 30 with three or more holes
+(T_id/T_w over [0.968, 1.031]) — the sharp wall is the unlocking height
+moved up until the hole pairs' constant has absorbed the unlocking cost
+less the zone's share of the leakage. *(iii) The share's law (computed,
+gated).* The zone [T_u, T₁) is where the rung's zeros are loose and the
+ground state's locked; its share of the rung's leakage is what the
+identity needs, and it has a law: the rung's leakage profile is the
+ground state's attached at the rung's own wall, so the exterior share is
+the ground state's own share beyond T₁/T_u times its edge, s_ext =
+S₁(T₁/T_u) (ŝ = S₁(T₁/T_u)/S₁(1)): ln(S₁(T₁/T_u)/s_ext) averages −0.06
+with rms 0.11 over [−0.31, +0.15] at the 40 rungs (rms 0.10 at the 30
+with three or more holes). Hence the sharp wall from the ground state
+alone — T_u and U from the unlocking functional (the rung's holes its
+only rung input), S₁ from the ground state's profile, no rung leakage
+consulted: T_w from the ground state alone lies within 0.9% rms of 1bx’s
+at the 30 rungs with three or more holes (T_ss/T_w averages 1.0026 over
+[0.978, 1.025], beyond one percent at 6 of the 30) and within 2.1% rms
+at all 40, the worst δ = 2.6’s rung 2 at −10.4%. At one or two holes the
+profile does not shift (at one hole the exterior share is 0.92–0.94
+where S₁(T₁/T_u) runs 0.67–0.97, the zone at one or two holes 0–9 zeros
+wide), and there the identity's own residual is the gap's size: at the
+five one-hole rungs the residual is +0.09, +0.01, +0.13, +0.04, −0.12
+nats, over four hole slopes 0.2–3.2% in the wall against one-hole gaps
+of −1.7% to +5.8% (T_w/T_u − 1 at those five rungs, 1by(v)'s one-hole
+gaps, gated here); the law is the multi-hole law. *(iv) The leading law
+(derived from (ii) in the continuum).* F₁′(T) = 4Σ_{γ<T}(T² − γ²)^{−1/2}
+− 2a, and with the zeta density (1/2π) ln(γ/2π) the sum is ln(T/4π) (g0:
+∫₀¹ ln x (1 − x²)^{−1/2} dx = −(π/2) ln 2), so F₁′ = ln(T/2T₀) and F₁″ =
+1/T: U = ΔT²/(2T_u(1)) with ΔT := T_u(1) − T_u, to leading order about
+the ground state's minimiser T_u(1) (its edge zero, or one within three
+of it, 1by(iv)); and cost′ = 4Σ_h(T² − h²)^{−1/2} = 4m/T for holes deep
+in the interior. The identity then reads ln(T_w/T_u) = ΔT²/(8mT_u(1)) −
 ln(1/ŝ)/(4m), and with 1by(iii)'s continuum law near u = 2, ΔT ≈ 4m, in
 one factor, **ln(T_w/T_u) = ΔT/(2T_u(1)) − ln(1/ŝ)/(4m)**, that is T_w =
 ŝ^{1/(4m)} √(T_uT_u(1)) to first order in ΔT/T_u(1): the sharp wall is
