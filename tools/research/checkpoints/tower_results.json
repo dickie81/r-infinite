@@ -1955,6 +1955,12 @@
 "rc": 0,
 "when": "2026-08-28T17:31Z"
 },
+"65837ba876b559f8210d0de8": {
+"dt": 228.1388282775879,
+"file": "cascade_wall_law.py",
+"rc": 0,
+"when": "2026-09-16T12:15Z"
+},
 "65d0774ec34d4b629c0f2aa6": {
 "dt": 170.6673927307129,
 "file": "cascade_li_two_channels.py",

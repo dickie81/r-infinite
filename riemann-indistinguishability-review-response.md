@@ -5664,4 +5664,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (Theorem 1by's block regenerated: "at t = 3.7"; the endpoint in the Proved/Computed ledgers; the grid named; the one-hole agreement within 2% at three cells, gated; the half-nat scope in the title and (v); the flatness phrase completed; the head item; verifier `cascade_wall_law.py` at nine gates — g4's label, g2's conjuncts, thirteen needles; manifest 34). Full-tower class. Brief `brief_round345.md`. Convergence test on round 344's nine findings (A509).
 
+**Findings.** 1 MAJOR, 1 minor, 5 cosmetic; all seven verified by the lead and accepted (A510). Major: F345-1 the round-344 sweep's mid-line comment swallowed three g2 conjuncts (the δ = 2 exception, the excess floor and ceiling) while the label still declared them gated — the paper's figures stayed parsed in g6, the label's "gated" was false. Minor: F345-2 t undefined on the block. Cosmetic: the title's "censused rungs"; two implied conjuncts (between == 35, the union's size); "at every rung"; the grid's range unstated; the one-hole gaps unsigned. **Sweep.** The three conjuncts restored on their own line with the note above; t defined on the block and in the needle; "censused range"; the two implied conjuncts dropped; "at the forty safely deep rungs"; "[0.5, 1.6]T₁"; the signs. An AST conjunct census of the touched gate lines against the prior commit is now part of every battery in the arc. Trajectory: 342 (1M+6m+4c) → 343 (0M+5m+5c) → 344 (0M+3m+6c) → 345 (1M+1m+5c) → 346 pending.
+
+### Round 346 — the convergence test on the round-345 sweep of Theorem 1by
+
+**Scope.** The sweep commit (verifier `cascade_wall_law.py`: g2's three conjuncts restored on their own line, the two implied ones dropped, the label; the docstring's t and "forty safely deep rungs"; Theorem 1by's block regenerated: t defined, the title's scope, the grid's range, "the forty safely deep rungs", the signed one-hole gaps; thirteen needles; manifest 34). Full-tower class. Brief `brief_round346.md`. Convergence test on round 345's seven findings (A510).
+
 **Findings.** Pending.
