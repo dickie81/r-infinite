@@ -5706,4 +5706,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (verifier `cascade_gap_law.py`: g1's betweenness witness and ordering count, its label naming the leakage's units and the mediant; g4's implied conjunct dropped; the docstring; Theorem 1bz's block regenerated: (i) the whole's exponential as the rung-leakage-weighted mean of its parts', S_LIFT in the leakage's units, "a sixth of a nat in those units", the scatters referenced to T_w; sixteen needles; manifest 35). Full-tower class. Brief `brief_round352.md`. Convergence test on round 351's four findings (A517).
 
+**Findings.** 0 MAJOR, 1 minor, 2 cosmetic; all three verified by the lead and accepted (A518); no round-351 disposition reopened. Minor: F352-1 the envelope sentence's words omitted the origin ratio the computed quantity subtracts (the lift net of the origin ratio, 1bx(ii)'s V; the class of F351-1). Cosmetic: F352-2 the docstring's far-window scatter unreferenced (F351-3's residue); F352-3 the mediant sentence's antecedent the displayed side rather than the reading, its window ratios undefined. **Sweep.** The needle, block, docstring and label name the quantity computed — the constant squared less the envelope lift squared net of the origin ratio squared (V's convention, 1bx(ii)); "that whole reading's exponential", the window ratios named as the ground state's share to the rung's; "(rms from T_w 1.5%)". Sixteen needles; manifest 35. Trajectory: 348 (1M+7m+5c) → 349 (0M+2m+4c) → 350 (0M+2m+2c) → 351 (0M+2m+2c) → 352 (0M+1m+2c) → 353 pending.
+
+### Round 353 — the convergence test on the round-352 sweep of Theorem 1bz
+
+**Scope.** The sweep commit (verifier `cascade_gap_law.py`: the needle S_LIFT reworded to the quantity computed, the docstring, the g1 label; Theorem 1bz's block regenerated: the envelope sentence, the mediant sentence's antecedent and its window ratios; sixteen needles; manifest 35). Full-tower class. Brief `brief_round353.md`. Convergence test on round 352's three findings (A518).
+
 **Findings.** Pending.
