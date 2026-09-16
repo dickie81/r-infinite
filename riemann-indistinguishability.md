@@ -7651,25 +7651,25 @@ keys.
 
 **Theorem 1by (the wall's law — the unlocking functional: the rung's
 wall is the minimiser of Theorem 1bm(v)'s finite-δ exponent plus the
-hole pairs' balayage cost, its minimum the rung's exponent; the
-continuum law u ln(2/u) = (2m/π)e^{−δ}; and the displacement law, the
-Weil form's stationarity in zero coordinates, verified at every dodged
-zero of eleven rungs; the sharp wall's excess over the minimiser,
-growing with the hole count, quantified, not derived;
-`cascade_wall_law.py`).** *(i) The displacement law (proved).* Let ĝ be
-the transform of any eigenvector of the pencil (G, N) at a cell — the
-ground state or a rung — with its K − 1 designed zeros τ_i (Theorem
-1bw). By partial fractions the coefficient space is the space of
-numerators Q of degree K − 1 in r², so the designed zeros with the
-leading coefficient are complete coordinates on it (moving one root maps
-the coefficients by v_i ↦ v_i(ω_i² − τ′²)/(ω_i² − τ²)), and Rayleigh's
-quotient Q(g)/‖g‖² = 2Σ_γ ĝ(γ)²/((1/π)∫₀^∞ĝ²) is stationary at an
-eigenvector in every coordinate. With ∂ln ĝ/∂τ = 2r²/(τ(τ² − r²)) this
-reads, at every designed zero τ, **2Σ_γ ĝ(γ)²γ²/(τ² − γ²) = (λ/π)∫₀^∞
-ĝ(r)²r²/(τ² − r²) dr** — the sum over every zeta zero, the integral
-regular at r = τ. At a dodged zero τ_j = γ_j − d_j the own term is
-2ĝ(γ_j)²γ_j²/(τ_j² − γ_j²) = −γ_j ĝ(γ_j)ĝ′(γ_j)(1 + O(d_j)), so **d_j =
-(M_j − λH_j)/(γ_j ĝ′(γ_j)²)** with M_j = 2Σ_{l≠j}ĝ(γ_l)²γ_l²/(γ_j² −
+hole pairs' balayage cost, its minimum the rung's exponent to under half
+a nat over the censused rungs; the continuum law u ln(2/u) =
+(2m/π)e^{−δ}; and the displacement law, the Weil form's stationarity in
+zero coordinates, verified at every dodged zero of eleven rungs; the
+sharp wall's excess over the minimiser, growing with the hole count,
+quantified, not derived; `cascade_wall_law.py`).** *(i) The displacement
+law (proved).* Let ĝ be the transform of any eigenvector of the pencil
+(G, N) at a cell — the ground state or a rung — with its K − 1 designed
+zeros τ_i (Theorem 1bw). By partial fractions the coefficient space is
+the space of numerators Q of degree K − 1 in r², so the designed zeros
+with the leading coefficient are complete coordinates on it (moving one
+root maps the coefficients by v_i ↦ v_i(ω_i² − τ′²)/(ω_i² − τ²)), and
+Rayleigh's quotient Q(g)/‖g‖² = 2Σ_γ ĝ(γ)²/((1/π)∫₀^∞ĝ²) is stationary
+at an eigenvector in every coordinate. With ∂ln ĝ/∂τ = 2r²/(τ(τ² − r²))
+this reads, at every designed zero τ, **2Σ_γ ĝ(γ)²γ²/(τ² − γ²) =
+(λ/π)∫₀^∞ ĝ(r)²r²/(τ² − r²) dr** — the sum over every zeta zero, the
+integral regular at r = τ. At a dodged zero τ_j = γ_j − d_j the own term
+is 2ĝ(γ_j)²γ_j²/(τ_j² − γ_j²) = −γ_j ĝ(γ_j)ĝ′(γ_j)(1 + O(d_j)), so **d_j
+= (M_j − λH_j)/(γ_j ĝ′(γ_j)²)** with M_j = 2Σ_{l≠j}ĝ(γ_l)²γ_l²/(γ_j² −
 γ_l²) the field of the other zeros' leakage at γ_j and H_j =
 (1/π)∫₀^∞ĝ²r²/(γ_j² − r²)dr the interior's Cauchy moment: the locked
 zone's displacements are set by the leakage's field against λ times the
@@ -7720,110 +7720,112 @@ zeros F_k is concave — every summand's slope 1/T + (γ²/T³)/(s(1 + s)), s
 h, and −2aT is linear — so the infimum on every closed spacing is an
 endpoint; the domain's own left endpoint T = h_max, a cusp of the hole
 terms, is excluded by computation, not argument (the domain’s left
-endpoint T = h_max exceeds the minimum by at least 16.2 nats at the 40
+endpoint T = h_max exceeds the minimum by at least 16.1 nats at the 40
 rungs) (g1: the second differences negative on the interior points of 61
-per spacing at all 45 functionals, the minimum on that grid at a zero
-for F₁ at the five cells and F_k at the forty rungs, the endpoint's
-gap). The rung's exponent is then the minimum's value: ln λ_k − ln λ₁ =
-2 ln|ĝ_k(0)/ĝ₁(0)| + F_k(T_u) − F₁(T_u(1)). *(iii) The continuum law.*
-In 1bm(iv)'s reduced problem the holes sit at the origin (h/T₁ ≤ 0.22 at
-every rung) and the exponent is −eᵟf(X) + 4m ln(2XT₀/h) in horizon
-units, f(X) = 2πX(1 + ln 2 − ln X); its stationary point is **u ln(2/u)
-= (2m/π)e^{−δ}**, u = T/T₀, and this is exactly the vanishing of the
-inverse-square-root edge coefficient of the rung's outer density — the
-ground state's √(u/2) ln(2/u) (1bm's I(X) = πX ln(X/2)) against the
-holes' m e^{−δ}(2/π)/√(2u) — the admissibility threshold that gave 1bm
-its X* = 2, now with the holes as charges; a root in (2/e, 2) exists iff
-m < (π/e)eᵟ (at equality the double root 2/e). Every step is witnessed
-at 60 digits in g0. The reduction of 1bm(iii) is conjectural there and
-inherited here. *(iv) At the cells (computed, gated).* The ground state
-first: F₁’s minimiser is the ground state’s edge: the same zeta zero at
-δ = 2 and 2.3, one zero below it at δ = 2.6 and 3, three zeros above it
-at δ = 3.5 (T_u(1)/T₁ = 1.0000, 1.0000, 0.9901, 0.9961, 1.0117) —
-1bm(v)'s "T ≈ 2T₀" sharpened to the edge zero, or its neighbour, by
-margins that are themselves small: the minimiser’s margin over the
-runner-up zero is 0.041, 0.056, 0.003, 0.041, 0.007 nats at the five
-cells, and under 0.02 nats at 11 of the 40 rungs (the closest 0.00008),
-while a half-nat window about the minimum spans 0.088–0.249 of T_u
-(median 0.125) — the minimum is flat, and the identity of the minimising
-zero is fragile where these margins are. The rungs: T_u lies between T_k
-and T_w at 35 of the 40 safely deep rungs — above T_w at δ = 2.3’s rung
-2 and δ = 3’s rung 3 and δ = 3.5’s rung 2, below T_k by one zero at δ =
-3.5’s rungs 2, 3 and 5, the last cell’s rung 2 in both sets; T_u/T_k
-averages 1.023 with rms deviation from 1 of 0.036 over [0.997, 1.085],
-and T_u/T_w averages 0.960 with rms deviation from 1 of 0.054 over
-[0.871, 1.029]; T_u is Theorem 1bu(iv)’s stored minimiser at 39 of the
-40 (the exception δ = 3’s rung 3, a 0.0098-nat tie that 1bu’s grid
-resolves the other way); T_u is the ground state’s minimiser at δ =
-2.3’s rung 2 and δ = 3’s rungs 2–3, and is shared with the rung below at
-16 rungs — a hole's marginal cost 4/T against the discrete slopes of F₁
-moves the minimiser one zero at a time, sometimes not at all. The
-exponent, from Theorem 1bw's census (ln λ_k and ĝ_k(0) at every safely
-deep rung): the residual lies within [−0.16, +0.43] nats over the 40
-rungs, mean +0.13, across differences reaching 183 nats, and grows with
-the hole count by +0.028 nats per hole on a linear fit (correlation
-+0.63) — against 1.28 nats with the sharp wall in place of T_u and 0.96
-from the exterior constant alone — the minimum's value is the rung's
-eigenvalue to under half a nat over the censused range, a leading-order
-agreement whose per-hole correction is measured and not derived, and
-neither the sharp wall nor the exterior constant alone does as well. The
-continuum law is the continuum limit of the functional itself, so its
-law is T_u's: uT₀/T_u averages 1.028 with rms deviation from 1 of 0.039
-over [0.988, 1.116] at the 40 rungs, uT₀/T_w 0.986 with 0.033 over
-[0.916, 1.044]; its per-hole descent is 4.43, 4.62, 4.67, 4.50, 4.27 at
-the five cells, nearer the functional’s than the sharp wall’s at 4 of
-them; and for one hole uT₀/T₁ = 1.015, 0.999, 0.988, 1.001, 0.993 — near
-u = 2 the law reads uT₀ ≈ 2T₀ − 4m, four per hole at every cell, the
-finite-u correction the rest, which is why its descent is nearly
-cell-independent where the functional's (3.60–5.43) and the sharp wall's
-(1.68–4.22) are not. *(v) What it says, and what remains.* The wall's
-law is the unlocking functional's: the rung's leakage budget — the
-ground state's exponent functional, which rises when zeta zeros are
-unlocked — against the hole pairs' balayage cost, which falls as the
-wall descends; its minimum is the rung's exponent to under half a nat,
-and its minimiser is a wall determined to the minimum's flatness — a
-half-nat window spans an eighth of T_u in the median and up to a
-quarter. Against that flatness the sharp wall of 1bx is not the same
-height: T_w/T_u − 1 runs from −2.8% to +14.8% over the 40 rungs,
-correlating +0.52 with the hole count and −0.21 with 1bx’s onset
-shortfall at T₁, which itself correlates −0.11 with the hole count — the
-first 3.7 standard errors from zero, the two negatives within two (a
-null correlation’s standard error is 0.16 at n = 40); per hole the
-functional’s wall descends by 5.43, 4.60, 4.71, 3.64 against the sharp
-wall’s 3.08, 3.17, 2.58, 1.68 at δ = 2.3, 2.6, 3, 3.5, the gap growing
-from −1.3%, 5.8%, 0.2%, −1.7% at one hole to +8.2%, +14.8%, +8.7%, +4.4%
-at the top rung (at δ = 2, three rungs, 3.60 against 4.22, the gap +5.6%
-to +4.5%) (linear fits over each cell's safely deep rungs, in the units
-of T). The gap is not the soft onset's (1bx's one departure — the gap's
-correlation with the hole count is 3.7 standard errors from zero, the
-shortfall's with the gap and with the hole count each within two, the
-figures above): the functional's wall descends with the holes faster
-than the moment-matched sharp wall, and the two agree at one hole at
-three of the five cells, not at δ = 2 and 2.6. That m-proportional gap
-is quantified, not derived; its law — the displacement law of (i)
-carried through the zone between the two walls, where the field M_j is
-the unlocked zeros' own — is what remains of (c). *(vi) What is proved,
-computed, not claimed.* Proved: the displacement law (i) — the
-stationarity identity and its dodged-zero form; the minimiser of the
-unlocking functional is a zeta zero (the concavity between zeros); the
-continuum stationarity and its equality with the edge-coefficient
-balance, within the reduced problem. Computed, gated: the functional's
-minimisers against the edges at the five cells and forty rungs, with
-their margins and the minimum's flatness; the exponent at the forty
-rungs; the sharp wall's excess against the hole count; the continuum law
-against T_u and the sharp wall; the displacement law at 295 dodged zeros
-of eleven rungs, to the tail approximation. Not claimed: the law of the
-sharp wall's excess over T_u (T_w/T_u, growing with the hole count); the
-reduction of 1bm(iii); Hypothesis B beyond the safely deep rungs; the
-odd sector; anything about the zeros — **no Riemann Hypothesis
-consequence is claimed**. Check 7 clean (Hadamard's product, Rayleigh's
-quotient, partial fractions, the balayage of 1bm — classical; no
-semiclassics). Check 8 clean (Riemann-side; no hypothesis input). No new
-substrate: the verifier computes from Theorem 1bw's census and laws
-checkpoints, Theorem 1bu's ladder checkpoints and its 800 zeros to 100
-digits, and Theorem 1bm's 6700-zero list, all reused at their keys, and
-recomputes the Gram and polished eigenvectors at δ = 2 and 2.3
-in-process — no checkpoint, no producer.
+per spacing at all 45 functionals, the minimum on the grid of sixty per
+spacing with the zero first at a zero for F₁ at the five cells and F_k
+at the forty rungs, the endpoint's gap). The rung's exponent is then the
+minimum's value: ln λ_k − ln λ₁ = 2 ln|ĝ_k(0)/ĝ₁(0)| + F_k(T_u) −
+F₁(T_u(1)). *(iii) The continuum law.* In 1bm(iv)'s reduced problem the
+holes sit at the origin (h/T₁ ≤ 0.22 at every rung) and the exponent is
+−eᵟf(X) + 4m ln(2XT₀/h) in horizon units, f(X) = 2πX(1 + ln 2 − ln X);
+its stationary point is **u ln(2/u) = (2m/π)e^{−δ}**, u = T/T₀, and this
+is exactly the vanishing of the inverse-square-root edge coefficient of
+the rung's outer density — the ground state's √(u/2) ln(2/u) (1bm's I(X)
+= πX ln(X/2)) against the holes' m e^{−δ}(2/π)/√(2u) — the admissibility
+threshold that gave 1bm its X* = 2, now with the holes as charges; a
+root in (2/e, 2) exists iff m < (π/e)eᵟ (at equality the double root
+2/e). Every step is witnessed at 60 digits in g0. The reduction of
+1bm(iii) is conjectural there and inherited here. *(iv) At the cells
+(computed, gated).* The ground state first: F₁’s minimiser is the ground
+state’s edge: the same zeta zero at δ = 2 and 2.3, one zero below it at
+δ = 2.6 and 3, three zeros above it at δ = 3.5 (T_u(1)/T₁ = 1.0000,
+1.0000, 0.9901, 0.9961, 1.0117) — 1bm(v)'s "T ≈ 2T₀" sharpened to the
+edge zero, or its neighbour, by margins that are themselves small: the
+minimiser’s margin over the runner-up zero is 0.041, 0.056, 0.003,
+0.041, 0.007 nats at the five cells, and under 0.02 nats at 11 of the 40
+rungs (the closest 0.00008), while a half-nat window about the minimum
+spans 0.088–0.249 of T_u (median 0.125) — the minimum is flat, and the
+identity of the minimising zero is fragile where these margins are. The
+rungs: T_u lies between T_k and T_w at 35 of the 40 safely deep rungs —
+above T_w at δ = 2.3’s rung 2 and δ = 3’s rung 3 and δ = 3.5’s rung 2,
+below T_k by one zero at δ = 3.5’s rungs 2, 3 and 5, the last cell’s
+rung 2 in both sets; T_u/T_k averages 1.023 with rms deviation from 1 of
+0.036 over [0.997, 1.085], and T_u/T_w averages 0.960 with rms deviation
+from 1 of 0.054 over [0.871, 1.029]; T_u is Theorem 1bu(iv)’s stored
+minimiser at 39 of the 40 (the exception δ = 3’s rung 3, a 0.0098-nat
+tie that 1bu’s grid resolves the other way); T_u is the ground state’s
+minimiser at δ = 2.3’s rung 2 and δ = 3’s rungs 2–3, and is shared with
+the rung below at 16 rungs — a hole's marginal cost 4/T against the
+discrete slopes of F₁ moves the minimiser one zero at a time, sometimes
+not at all. The exponent, from Theorem 1bw's census (ln λ_k and ĝ_k(0)
+at every safely deep rung): the residual lies within [−0.16, +0.43] nats
+over the 40 rungs, mean +0.13, across differences reaching 183 nats, and
+grows with the hole count by +0.028 nats per hole on a linear fit
+(correlation +0.63) — against 1.28 nats with the sharp wall in place of
+T_u and 0.96 from the exterior constant alone — the minimum's value is
+the rung's eigenvalue to under half a nat over the censused range, a
+leading-order agreement whose per-hole correction is measured and not
+derived, and neither the sharp wall nor the exterior constant alone does
+as well. The continuum law is the continuum limit of the functional
+itself, so its law is T_u's: uT₀/T_u averages 1.028 with rms deviation
+from 1 of 0.039 over [0.988, 1.116] at the 40 rungs, uT₀/T_w 0.986 with
+0.033 over [0.916, 1.044]; its per-hole descent is 4.43, 4.62, 4.67,
+4.50, 4.27 at the five cells, nearer the functional’s than the sharp
+wall’s at 4 of them; and for one hole uT₀/T₁ = 1.015, 0.999, 0.988,
+1.001, 0.993 — near u = 2 the law reads uT₀ ≈ 2T₀ − 4m, four per hole at
+every cell, the finite-u correction the rest, which is why its descent
+is nearly cell-independent where the functional's (3.60–5.43) and the
+sharp wall's (1.68–4.22) are not. *(v) What it says, and what remains.*
+The wall's law is the unlocking functional's: the rung's leakage budget
+— the ground state's exponent functional, which rises when zeta zeros
+are unlocked — against the hole pairs' balayage cost, which falls as the
+wall descends; its minimum is the rung's exponent to under half a nat
+over the censused range, and its minimiser is a wall determined to the
+minimum's flatness — a half-nat window spans an eighth of T_u in the
+median and up to a quarter. Against that flatness the sharp wall of 1bx
+is not the same height: T_w/T_u − 1 runs from −2.8% to +14.8% over the
+40 rungs, correlating +0.52 with the hole count and −0.21 with 1bx’s
+onset shortfall at T₁, which itself correlates −0.11 with the hole count
+— the first at t = 3.7, the two negatives within two standard errors of
+zero (a null correlation’s standard error is 0.16 at n = 40); per hole
+the functional’s wall descends by 5.43, 4.60, 4.71, 3.64 against the
+sharp wall’s 3.08, 3.17, 2.58, 1.68 at δ = 2.3, 2.6, 3, 3.5, the gap
+growing from −1.3%, 5.8%, 0.2%, −1.7% at one hole to +8.2%, +14.8%,
++8.7%, +4.4% at the top rung (at δ = 2, three rungs, 3.60 against 4.22,
+the gap +5.6% to +4.5%) (linear fits over each cell's safely deep rungs,
+in the units of T). The gap is not the soft onset's (1bx's one departure
+— the gap's correlation with the hole count stands at t = 3.7, the
+shortfall's with the gap and with the hole count each within two
+standard errors of zero, the figures above): the functional's wall
+descends with the holes faster than the moment-matched sharp wall, and
+at one hole the two walls agree within 2% at 3 of the five cells (not at
+δ = 2 and 2.6, where the one-hole gap is 5.6% and 5.8%). That
+m-proportional gap is quantified, not derived; its law — the
+displacement law of (i) carried through the zone between the two walls,
+where the field M_j is the unlocked zeros' own — is what remains of (c).
+*(vi) What is proved, computed, not claimed.* Proved: the displacement
+law (i) — the stationarity identity and its dodged-zero form; the
+minimiser of the unlocking functional is a zeta zero or the domain's
+endpoint h_max (the concavity between zeros); the continuum stationarity
+and its equality with the edge-coefficient balance, within the reduced
+problem. Computed, gated: the endpoint excluded at every rung; the
+functional's minimisers against the edges at the five cells and forty
+rungs, with their margins and the minimum's flatness; the exponent at
+the forty rungs; the sharp wall's excess against the hole count; the
+continuum law against T_u and the sharp wall; the displacement law at
+295 dodged zeros of eleven rungs, to the tail approximation. Not
+claimed: the law of the sharp wall's excess over T_u (T_w/T_u, growing
+with the hole count); the reduction of 1bm(iii); Hypothesis B beyond the
+safely deep rungs; the odd sector; anything about the zeros — **no
+Riemann Hypothesis consequence is claimed**. Check 7 clean (Hadamard's
+product, Rayleigh's quotient, partial fractions, the balayage of 1bm —
+classical; no semiclassics). Check 8 clean (Riemann-side; no hypothesis
+input). No new substrate: the verifier computes from Theorem 1bw's
+census and laws checkpoints, Theorem 1bu's ladder checkpoints and its
+800 zeros to 100 digits, and Theorem 1bm's 6700-zero list, all reused at
+their keys, and recomputes the Gram and polished eigenvectors at δ = 2
+and 2.3 in-process — no checkpoint, no producer.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum
@@ -8402,21 +8404,21 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    unlocking functional — 1bm(v)'s finite-δ exponent plus the hole pairs'
    balayage cost — whose minimum is the rung's exponent within half a nat at
    the forty rungs and whose minimiser is a wall determined to that
-   minimum's flatness (a half-nat window an eighth of T_u), the sharp wall's
-   excess over it (4% on average, growing with the hole count) quantified,
-   not derived; (d) a zero pair at fixed height costs four prolate orders
-   (the pair-cost lemma, Theorem 1bu(i), proved), read as the rung spacing
-   through Theorem 1bm(v)'s formula (1bu(v)), whose reduction is item 4's.
-   Items 5 and 6 are (a) and (b), item 4 holds (d); (c) has no other item.
-   Done when: at one support, (a) and (b) forced by the form's Gram pencil
-   (Theorem 1br; the odd Gram of 1bv(i)) with no zero computed, and (c)'s
-   residual derived (Theorem 1by: the sharp wall's excess over the unlocking
-   functional's minimiser, growing with the hole count — the displacement
-   law carried through the zone between the two walls) — a finite advance of
-   the wall by T_D(δ). Bears on the wall: at every support this is the proof
-   itself — (a) and (b) everywhere put Ξ's zeros on the line by item 6's
-   step — Weil positivity, the Riemann Hypothesis, as yet asserted neither
-   true nor false.
+   minimum's flatness (a half-nat window an eighth of T_u in the median),
+   the sharp wall's excess over it (4% on average, growing with the hole
+   count) quantified, not derived; (d) a zero pair at fixed height costs
+   four prolate orders (the pair-cost lemma, Theorem 1bu(i), proved), read
+   as the rung spacing through Theorem 1bm(v)'s formula (1bu(v)), whose
+   reduction is item 4's. Items 5 and 6 are (a) and (b), item 4 holds (d);
+   (c) has no other item. Done when: at one support, (a) and (b) forced by
+   the form's Gram pencil (Theorem 1br; the odd Gram of 1bv(i)) with no zero
+   computed, and (c)'s residual derived (Theorem 1by: the sharp wall's
+   excess over the unlocking functional's minimiser, growing with the hole
+   count — the displacement law carried through the zone between the two
+   walls) — a finite advance of the wall by T_D(δ). Bears on the wall: at
+   every support this is the proof itself — (a) and (b) everywhere put Ξ's
+   zeros on the line by item 6's step — Weil positivity, the Riemann
+   Hypothesis, as yet asserted neither true nor false.
 
 2. **The prime-side square root.** The true form is unconditional on the
    prime side — the pole term, the constant, the archimedean integral and
