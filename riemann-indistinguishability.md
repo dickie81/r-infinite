@@ -8043,21 +8043,38 @@ ln(2T₀/T) = 4m + 7/2 + [4Σ_h(T/√(T² − h²) − 1) + (7/2)(T/√(T² − 
 1) + 4T∫₀^{γ₁} N₀ r (T² − r²)^{−3/2} dr], the bracket O((Σ_h h² +
 γ₁²)/T²): Theorem 1by(iii)'s continuum law u ln(2/u) = (2m/π)e^{−δ} with
 2m replaced by 2m + 7/4 — the count constant, the pole's 7/8 (1bs), is
-worth seven eighths of a hole. The minimum is unique: T·F_k^s″ = 1 −
-T·G(T) with T·G(T) = 4Σ_h T²(T² − h²)^{−3/2} + (7/2)T²(T² − γ₁²)^{−3/2}
-+ 12T²∫₀^{γ₁} N₀(r) r (T² − r²)^{−5/2} dr — the first two terms strictly
-decreasing (d/dT[T²(T² − r²)^{−3/2}] < 0), the third negative and rising
-toward 0 (N₀ < 0 below γ₁, as 2πe > γ₁), of the cusp's own order at T =
-γ₁ with the coefficient 4N₀(γ₁) = −1.70 against the constant's 7/2, and
-rising by less than the others fall: T·G is strictly decreasing from +∞
-at the domain's left endpoint max(h_max, γ₁), the cusp of the holes' or
-the constant's arccosh, to 0 (on a fine grid at the 45 states, gated).
-So F_k^s′ has one minimum; when 4m + 7/2 < 2T₀/e (the condition of
-1by(iii) sharpened by 7/8, holding at the 40 rungs) that minimum is
-negative and F_k^s′ has exactly two zeros — a maximum just above that
-cusp, far above the minimum in value, and the minimum T^s in (2T₀/e,
+worth seven eighths of a hole. The minimum is unique, for every hole
+set: T·F_k^s″ = 1 − T·G(T) with T·G(T) = 4Σ_h T²(T² − h²)^{−3/2} +
+(7/2)T²(T² − γ₁²)^{−3/2} + 12T²∫₀^{γ₁} N₀(r) r (T² − r²)^{−5/2} dr — the
+first two terms strictly decreasing, T·d/dT[T²(T² − r²)^{−3/2}] = −T²(T²
++ 2r²)(T² − r²)^{−5/2}; the third negative and rising toward 0 (N₀ < 0
+below γ₁, as 2πe > γ₁), of the cusp's own order at T = γ₁ with the
+coefficient 4N₀(γ₁) = −1.70 against the constant's 7/2, its rise T·d/dT
+= 12T²∫₀^{γ₁} |N₀| r (3T² + 2r²)(T² − r²)^{−7/2} dr. The constant's fall
+alone exceeds that rise wherever R(T) := 12∫₀^{γ₁} |N₀| r (3T² + 2r²)(T²
+− r²)^{−7/2} dr / [(7/2)(T² + 2γ₁²)(T² − γ₁²)^{−5/2}] < 1, and the
+holes' terms only add to the fall; R < 1 on all of (γ₁, ∞): since |N₀| ≤
+1 on [0, γ₁] (its minimum −1 at r = 2π) and the weight's integral is
+elementary, R(T) ≤ (8/7)[1 − (x − 1)^{5/2}/(x^{3/2}(x + 2))] with x =
+T²/γ₁², a bound strictly decreasing in x (the fraction's log-derivative
+is (9x/2 + 3)/(x(x − 1)(x + 2)) > 0) and equal to 1 at x = 2.274, so R <
+1 for T ≥ 1.51γ₁ by the bound alone, while on (γ₁, 1.51γ₁] R is computed
+and gated: R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁,
+and falls to 0.68 at 1.51γ₁ (at the cusp R → 4|N₀(γ₁)|/(7/2) = 0.49). So
+T·G is strictly decreasing from +∞ at the domain's left endpoint
+max(h_max, γ₁), the cusp of the holes' or the constant's arccosh, to 0
+(seen directly too, on a fine grid at the 45 states, gated), F_k^s′ has
+one minimum, and where that minimum is negative F_k^s′ has exactly two
+zeros — a maximum just above that cusp, far above the minimum in value,
+and the minimum T^s. Here F_k^s′ = ln(T/2T₀) + (4m + 7/2)/T + B(T)/T
+with B the bracket above; without the bracket the minimum would be
+ln((4m + 7/2)/2T₀) + 1, negative exactly when 4m + 7/2 < 2T₀/e (the
+condition of 1by(iii) sharpened by 7/8, holding at the 40 rungs); with
+it, the minimum is computed at the 45 states and is negative at each:
+the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against
+−2.28 without the bracket at δ = 2’s ground state). T^s lies in (2T₀/e,
 2T₀), where T·F_k^s″ ≥ 0.2 at the 40 rungs (gated). For the ground
-state, T^s(1) = 2T₀e^{−ε} with ε = (7/2)/T^s(1) + O(γ₁²/T₀²): the smooth
+state, T^s(1) = 2T₀e^{−ε} with ε = (7/2)/T^s(1) + O(γ₁²/T₀³): the smooth
 count puts the ground state's wall below two horizons by 7/(4T₀). The
 minimum's value is F_k^s(T^s) = −2T₀ + 4Σ_h ln(4T₀/h) + (7/2) ln(4T₀/γ₁)
 − 4∫₀^{γ₁} N₀/r dr − (4m + 7/2)²/(4T₀) + O((4m + 7/2)³/T₀²) + O((Σ_h h²
@@ -8166,11 +8183,14 @@ Stirling remainder. What was the ground state's leakage profile beyond
 its edge, computed (1bz's residual), is now the explicit formula's: the
 smooth count's integral of the transform squared less the shells, given
 the transform. *(vi) What is proved, computed, not claimed.* Proved: the
-split (i); the smooth wall's law, its uniqueness and its minimum's form
-(ii); the leftover's bound and its consequences (iii), with S = O(ln t)
-(von Mangoldt) and Littlewood's S₁ = O(ln t) the named classical inputs;
-the exterior identity and its two leftovers' bounds (iv), with Weil's
-explicit formula and Binet's formula. Computed, gated: the walls, the
+split (i); the smooth wall's law and its minimum's form (ii), and the
+minimum's uniqueness for every hole set given the computed inequality R
+< 1 on (γ₁, 1.51γ₁] (at most 0.69 there; beyond it by the elementary
+bound); the leftover's bound and its consequences (iii), with S = O(ln
+t) (von Mangoldt) and Littlewood's S₁ = O(ln t) the named classical
+inputs; the exterior identity and its two leftovers' bounds (iv), with
+Weil's explicit formula and Binet's formula. Computed, gated: R below
+1.51γ₁ and the minimum of F_k^s′ at the 45 states, the walls, the
 exponent readings, the oscillation's sizes and the bound's terms on the
 list, the identity's residuals, the shells' shares. Not claimed:
 explicit constants for S and S₁ (the list's suprema are computed); a
