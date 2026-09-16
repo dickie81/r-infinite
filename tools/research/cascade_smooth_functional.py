@@ -10,9 +10,12 @@ I(T) = T[ln(T/2 pi) - 1 - ln 2] the continuum of the zero sum, w_T(r) = 1/(r sqr
 Osc(T) = 4 int_{gamma_1}^T S(r) w_T(r) dr. (ii) The smooth wall (derived): F_k^s is stationary where ln(2T_0/T) =
 4 sum_h (T^2 - h^2)^{-1/2} + (7/2)(T^2 - gamma_1^2)^{-1/2} + 4 int_0^{gamma_1} N_0(r) r (T^2 - r^2)^{-3/2} dr, i.e.
 T ln(2T_0/T) = 4m + 7/2 up to O((sum h^2 + gamma_1^2)/T^2) -- 1by(iii)'s continuum law with the count constant, the pole's
-7/8 worth seven eighths of a hole; the minimum T^s unique (T G(T) falling from +inf at the cusp to 0, the piece below gamma_1 rising by less
-than the rest falls, computed at the 45 states); for the ground state
-T^s = 2T_0 e^{-eps}, eps = (7/2)/T^s. Computed: T^s/T_u within 1.9% rms at the 40 rungs against the 3.9% of 1by's law
+7/8 worth seven eighths of a hole; the minimum T^s unique for every hole set (T G(T) falling from +inf at the cusp to 0: the
+constant's fall exceeds the rise of the piece below gamma_1 wherever R(T) = 12 int_0^{gamma_1} |N_0| r (3T^2 + 2r^2)(T^2 - r^2)^{-7/2} dr
+/ [(7/2)(T^2 + 2 gamma_1^2)(T^2 - gamma_1^2)^{-5/2}] < 1, the holes only adding to the fall; R < 1 for T >= 1.51 gamma_1 by the elementary
+bound (8/7)[1 - (x-1)^{5/2}/(x^{3/2}(x+2))], x = T^2/gamma_1^2, from |N_0| <= 1, and computed below it, at most 0.69; the monotonicity
+also seen directly at the 45 states); F^s' has exactly two zeros where its minimum is negative -- to leading order when 4m + 7/2 < 2T_0/e,
+and computed so at the 45 states; for the ground state T^s = 2T_0 e^{-eps}, eps = (7/2)/T^s + O(gamma_1^2/T_0^3). Computed: T^s/T_u within 1.9% rms at the 40 rungs against the 3.9% of 1by's law
 (the bias 2.8% -> 0.3%), the law's closed form within 0.13% rms of T^s, T^s/T_u(1) within 2.1% at the five ground states.
 (iii) The leftover oscillation (proved): |Osc(T) - Osc_inf| <= 4 sup_{[T-D,T]}|S| [arccosh(T/(T-D)) - ln(T/(T-D))]
 + 8 sup_{[gamma_1,T]}|S_1| D_T(T-D) + 8 sup_{>=T}|S_1|/T for every 0 < D < T - gamma_1, Osc_inf = 4 int_{gamma_1}^inf S/r
@@ -63,6 +66,8 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]', 'form': 'ws'},
     {'g': 'g6', 's': 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])', 'form': 'ws'},
     {'g': 'g6', 's': 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)', 'form': 'ws'},
+    {'g': 'g6', 's': 'R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.51γ₁', 'form': 'ws'},
+    {'g': 'g6', 's': 'the minimum of F_k^s′ is at most −0.36 at the 45 states (−1.48 against the leading order’s −2.28 at δ = 2’s ground state)', 'form': 'ws'},
     {'g': 'g6', 's': 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)', 'form': 'ws'},
     {'g': 'g6', 's': 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25', 'form': 'ws'},
     {'g': 'g6', 's': 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06', 'form': 'ws'},
@@ -127,9 +132,17 @@ def dFs(T, a, holes):
     T0 = TWO_PI*math.exp(2*a)
     return math.log(T/(2*T0)) + 4*sum(1/math.sqrt(T*T - h*h) for h in holes) + 3.5/math.sqrt(T*T - G1Z*G1Z) - dbelow(T)
 def below5(T):                   # int_0^gamma_1 N_0 r (T^2 - r^2)^(-5/2) dr: the r-form where its peak ratio is at most 2^(5/2) (T >= sqrt 2 gamma_1);
-    if T*T >= 2*G1Z*G1Z: return _quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z, limit=200)[0]        # nearer the cusp, split at gamma_1/2:
-    return (_quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z/2, limit=200)[0]                          # the r-form below it (tame),
-            + _quad(lambda u: N0(math.sqrt(T*T - math.exp(2*u)))*math.exp(-3*u), 0.5*math.log(T*T - G1Z*G1Z), 0.5*math.log(T*T - G1Z*G1Z/4), limit=200)[0])   # s = sqrt(T^2 - r^2) = e^u above it (r dr = -s ds; the integrand N_0 e^(-3u), no peak)
+    if T*T >= 2*G1Z*G1Z: return _quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z, limit=200, epsabs=0, epsrel=1e-12)[0]        # nearer the cusp, split at gamma_1/2:
+    return (_quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z/2, limit=200, epsabs=0, epsrel=1e-12)[0]                          # the r-form below it (tame),
+            + _quad(lambda u: N0(math.sqrt(T*T - math.exp(2*u)))*math.exp(-3*u), 0.5*math.log(T*T - G1Z*G1Z), 0.5*math.log(T*T - G1Z*G1Z/4), limit=200, epsabs=0, epsrel=1e-12)[0])   # s = sqrt(T^2 - r^2) = e^u above it (r dr = -s ds; the integrand N_0 e^(-3u), no peak)
+def Rnum(T):                     # 12 int_0^gamma_1 |N_0| r (3T^2 + 2r^2)(T^2 - r^2)^(-7/2) dr, the rise of T G's piece below gamma_1 over T^2 (the same split; used at T <= 1.51 gamma_1)
+    return 12*(_quad(lambda r: -N0(r)*r*(3*T*T + 2*r*r)*(T*T - r*r)**-3.5, 0, G1Z/2, limit=200, epsabs=0, epsrel=1e-12)[0]
+               + _quad(lambda u: -N0(math.sqrt(T*T - math.exp(2*u)))*(3*T*T + 2*(T*T - math.exp(2*u)))*math.exp(-5*u), 0.5*math.log(T*T - G1Z*G1Z), 0.5*math.log(T*T - G1Z*G1Z/4), limit=200, epsabs=0, epsrel=1e-12)[0])
+def Rfun(T): return Rnum(T)/(3.5*(T*T + 2*G1Z*G1Z)*(T*T - G1Z*G1Z)**-2.5)          # R(T): the rise against the constant's fall (the block's criterion R < 1)
+def Rbar(T): x = T*T/(G1Z*G1Z); return (8/7)*(1 - (x - 1)**2.5/(x**1.5*(x + 2)))  # the elementary bound with |N_0| <= 1 on [0, gamma_1]
+XSTAR = _brentq(lambda x: (x - 1)**2.5/(x**1.5*(x + 2)) - 0.125, 2, 3)               # Rbar = 1 at x = T^2/gamma_1^2 = 2.274 (T = 1.508 gamma_1)
+def fmin(a, holes, T0):          # the minimum of F^s' on the domain (600 points from the cusp to 3 T_0)
+    lo = max(max(holes) if holes else 0.0, G1Z)*1.001; return min(dFs(T, a, holes) for T in np.linspace(lo, 3*T0, 600))
 def TG(T, holes):                # T G(T) = 1 - T F'': the holes' and the constant's terms with the piece below gamma_1 exact
     return sum(4*T*T*(T*T - h*h)**-1.5 for h in holes) + 3.5*T*T*(T*T - G1Z*G1Z)**-1.5 + 12*T*T*below5(T)
 def mono(holes, T0):             # T G strictly decreasing on 600 log-spaced points from the cusp to 30 T_0
@@ -183,10 +196,20 @@ with _mp.workdps(60):
         r = _mp.mpf(r); eps = _mp.re(_mp.digamma(_mp.mpf(1)/4 + 1j*r/2)) - _mp.log(r/2)
         ok &= abs(eps) <= _mp.mpf(3)/(2*r*r)
     # (c') T G's piece below gamma_1, 12 T^2 int_0^{gamma_1} N_0 r (T^2 - r^2)^{-5/2} dr, at the cusp T = gamma_1 (1 + 1e-6) (where the integrand peaks at 1e14 times its value at gamma_1/2) and at T = 15, against a 60-digit quadrature with the interval refined dyadically toward gamma_1
-    for T in (g1*(1 + _mp.mpf("1e-6")), _mp.mpf(15)):
+    for T in (g1*(1 + _mp.mpf("1e-6")), _mp.mpf(15), _mp.mpf(25)):
         pts = [_mp.mpf(0), g1/2] + [g1 - (g1/2)*_mp.mpf(2)**(-k) for k in range(1, 60)] + [g1]
         ref = _mp.quad(lambda r: (r/(2*pi))*(_mp.log(r/(2*pi)) - 1)*r*(T*T - r*r)**_mp.mpf(-2.5), pts)
         ok &= abs(_mp.mpf(repr(below5(float(T)))) - ref) <= _mp.mpf("1e-9")*abs(ref)
+    # (c'') the uniqueness criterion's ingredients: the weight's elementary integral 12 int_0^{gamma_1} r (3T^2 + 2r^2)(T^2 - r^2)^{-7/2} dr = 6[2T^2 v^{-5/2} - (4/3) v^{-3/2} - (2/3) T^{-3}], v = T^2 - gamma_1^2,
+    # and the bound's form (8/7)[1 - (x-1)^{5/2}/(x^{3/2}(x+2))] at T = 1.3 gamma_1 and 3 gamma_1; the log-derivative (5/2)/(x-1) - (3/2)/x - 1/(x+2) = (9x/2 + 3)/(x(x-1)(x+2)) at x = 2, 5; N_0 >= -1 on [0, gamma_1] with N_0(2 pi) = -1
+    for T in (_mp.mpf("1.3")*g1, 3*g1):
+        v = T*T - g1*g1; x = T*T/(g1*g1); pts = [_mp.mpf(0), g1/2] + [g1 - (g1/2)*_mp.mpf(2)**(-k) for k in range(1, 60)] + [g1]
+        elem = 6*(2*T*T*v**_mp.mpf(-2.5) - _mp.mpf(4)/3*v**_mp.mpf(-1.5) - _mp.mpf(2)/3*T**-3)
+        ok &= abs(12*_mp.quad(lambda r: r*(3*T*T + 2*r*r)*(T*T - r*r)**_mp.mpf(-3.5), pts) - elem) <= _mp.mpf("1e-40")*elem
+        ok &= abs(elem/(_mp.mpf(7)/2*(T*T + 2*g1*g1)*v**_mp.mpf(-2.5)) - _mp.mpf(8)/7*(1 - (x - 1)**_mp.mpf(2.5)/(x**_mp.mpf(1.5)*(x + 2)))) <= _mp.mpf("1e-50")
+    for x in (_mp.mpf(2), _mp.mpf(5)):
+        ok &= abs(_mp.mpf(5)/2/(x - 1) - _mp.mpf(3)/2/x - 1/(x + 2) - (_mp.mpf(9)/2*x + 3)/(x*(x - 1)*(x + 2))) <= _mp.mpf("1e-55")
+    ok &= min(N0(float(r)) for r in np.linspace(1e-6, G1Z, 100001)) >= -1 - 1e-12 and 2.27 <= XSTAR <= 2.28
     # (d) the identity's ingredients: int_{gamma_1}^T w_T = arccosh(T/gamma_1), int_{T-D}^T D_T = arccosh(T/(T-D)) - ln(T/(T-D)), and 4 int_{gamma_1}^T S w_T on the list equals B - I - (7/2) arccosh(T/gamma_1) + below(T)
     T = _mp.mpf("87.4")
     ok &= abs(_mp.quad(lambda r: 1/(r*_mp.sqrt(1 - r*r/(T*T))), [g1, T]) - _mp.acosh(T/g1)) <= _mp.mpf("1e-25")
@@ -205,7 +228,7 @@ for c in ORDER:
         osc = 4*osc - 4*_quad(lambda r: n0r(r)/math.sqrt(1 - (r/T)**2), G1Z, T, limit=400, points=[0.999*T])[0]
         split_ok &= abs(lhs - (Fs(T, a, holes) + osc)) <= 1e-6*abs(lhs) and abs(osc - Osc(T)) <= 1e-6
 ok &= split_ok
-gate(f"g0 the algebra witnessed at 60 digits: the piece below gamma_1 in closed form -4 int_0^gamma_1 N_0/r dr = -(2/pi) gamma_1 (ln(gamma_1/2pi) - 2) = {float(c0):.4f} (1bs's 10.70) and its w_T form at T = 87.4 within 1e-9; the stationarity's closed form against the numerical derivative of F^s within 1e-18 at two heights; the Stirling remainder r^2 [Re psi(1/4 + ir/2) - ln(r/2)] -> -1/24 at r = 100, 1000, 10000 and |Re psi(1/4 + ir/2) - ln(r/2)| <= 3/(2 r^2) at ten heights from 8 to 7000 (the bound the block uses); T G's piece below gamma_1 against a 60-digit quadrature at the cusp gamma_1 (1 + 1e-6) and at T = 15 within 1e-9 relative; int_gamma_1^T w_T = arccosh(T/gamma_1) and int_(T-D)^T D_T = arccosh(T/(T-D)) - ln(T/(T-D)) within 1e-25; the split F_k = F_k^s + Osc as an identity at three heights per cell with two trial holes (within 1e-6, Osc by the exact inter-zero integrals)", ok)
+gate(f"g0 the algebra witnessed at 60 digits: the piece below gamma_1 in closed form -4 int_0^gamma_1 N_0/r dr = -(2/pi) gamma_1 (ln(gamma_1/2pi) - 2) = {float(c0):.4f} (1bs's 10.70) and its w_T form at T = 87.4 within 1e-9; the stationarity's closed form against the numerical derivative of F^s within 1e-18 at two heights; the Stirling remainder r^2 [Re psi(1/4 + ir/2) - ln(r/2)] -> -1/24 at r = 100, 1000, 10000 and |Re psi(1/4 + ir/2) - ln(r/2)| <= 3/(2 r^2) at ten heights from 8 to 7000 (the bound the block uses); T G's piece below gamma_1 against a 60-digit quadrature at the cusp gamma_1 (1 + 1e-6), at T = 15 and at T = 25 (both branches of below5) within 1e-9 relative; the uniqueness criterion's weight integral in its elementary form and the bound's form (8/7)[1 - (x-1)^(5/2)/(x^(3/2)(x+2))] at T = 1.3 gamma_1 and 3 gamma_1 (60 digits), the log-derivative identity at x = 2, 5, N_0 >= -1 on [0, gamma_1] (its minimum -1 at 2 pi), the bound's crossing x* = {XSTAR:.4f} (gated within [2.27, 2.28]); int_gamma_1^T w_T = arccosh(T/gamma_1) and int_(T-D)^T D_T = arccosh(T/(T-D)) - ln(T/(T-D)) within 1e-25; the split F_k = F_k^s + Osc as an identity at three heights per cell with two trial holes (within 1e-6, Osc by the exact inter-zero integrals)", ok)
 
 # ---------------------------------------------------------------- the per-rung quantities
 R = {}; W = {}; G = {}
@@ -226,7 +249,7 @@ for c in ORDER:
     o_lo, o_hi = 0.5*T1, 1.6*T1; o_min, o_max, o_mean = osc_extrema(o_lo, o_hi)
     G[c] = dict(T1=T1, T1u=T1u, a=a, T0=T0, Ts1=Ts1, Fs1=Fs(Ts1, a, []), F1u=F1(T1u, a), Osc1=Osc(T1u), osc_mean=o_mean, osc_min=o_min, osc_max=o_max,
                 osc_sup=max(abs(o_min - osc_inf), abs(o_max - osc_inf)), cf1=-2*T0 + 3.5*math.log(4*T0/G1Z) + c0f - 3.5**2/(4*T0), eps1=math.exp(-3.5/(2*T0)),
-                bound1=4*sup_S*wgt(T1, 1.0) + 8*sup_S1*DT(T1, T1 - 1.0) + 8*sup_S1/T1, curv=d2Fs(Ts1, a, []), mono=mono([], T0))
+                bound1=4*sup_S*wgt(T1, 1.0) + 8*sup_S1*DT(T1, T1 - 1.0) + 8*sup_S1/T1, curv=d2Fs(Ts1, a, []), mono=mono([], T0), fmin=fmin(a, [], T0), lead=math.log(3.5/(2*T0)) + 1)
     for r, p in zip(S["rungs"][1:ns + 1], P["rungs"][1:ns + 1]):
         k = r["k"]; m = k - 1; holes = sorted(r["holes"]); Tw = solve_T(holes, Lw[k]["Dkappa"]); ju = argmin_zero(a, holes, jmax); Tu = ZS[ju]
         Ts = smooth_wall(a, holes)
@@ -236,8 +259,11 @@ for c in ORDER:
         cf = -2*T0 + 4*sum(math.log(4*T0/h) for h in holes) + 3.5*math.log(4*T0/G1Z) + c0f - (4*m + 3.5)**2/(4*T0)
         cvx = min(T*d2Fs(T, a, holes) for T in np.linspace(2*T0/math.e, 2*T0, 200))                                              # T F'' over the bracket (2T_0/e, 2T_0)
         W[(c, k)] = dict(k=k, m=m, holes=holes, Tw=Tw, Tu=Tu, T1=T1, T1u=T1u, Ts=Ts, Tc=Tc, Tc2=Tc2, Osc_u=Osc(Tu), F_u=Fk(Tu, a, holes), Fs_min=Fs(Ts, a, holes), Fs_u=Fs(Tu, a, holes),
-                         c2=c2, dl=dl, cf=cf, curv=d2Fs(Ts, a, holes), cvx=cvx, lawres=Ts*math.log(2*T0/Ts) - 4*m - 3.5, cond=(4*m + 3.5 < 2*T0/math.e), mono=mono(holes, T0))
+                         c2=c2, dl=dl, cf=cf, curv=d2Fs(Ts, a, holes), cvx=cvx, lawres=Ts*math.log(2*T0/Ts) - 4*m - 3.5, cond=(4*m + 3.5 < 2*T0/math.e), mono=mono(holes, T0), fmin=fmin(a, holes, T0))
 ALL = list(W.values()); HM = [w for w in ALL if w["m"] >= 3]
+RT = G1Z*np.exp(np.linspace(math.log(1 + 1e-8), 0.5*math.log(XSTAR), 2000)); RV = [Rfun(float(T)) for T in RT]; RB = [Rbar(float(T)) for T in RT]   # R on (gamma_1, 1.508 gamma_1]
+R_cusp, R_max, T_Rmax, R_end = RV[0], max(RV), float(RT[int(np.argmax(RV))])/G1Z, RV[-1]
+fmins = [w["fmin"] for w in ALL] + [G[c]["fmin"] for c in ORDER]; fmin_max = max(fmins); fmin_d2 = G["d2.0"]["fmin"]; lead_d2 = G["d2.0"]["lead"]
 assert len(ALL) == 40 and len(HM) == 30
 def rms(v): v = np.asarray(v, float); return float(math.sqrt(np.mean(v*v)))
 def rms1(v): return rms(np.asarray(v, float) - 1)
@@ -250,8 +276,9 @@ lawres = [w["lawres"] for w in ALL]; curv_min = min(w["curv"]*w["Ts"] for w in A
 ok = abs(mean(tsu) - 1) <= 0.01 and rms1(tsu) <= 0.025 and min(tsu) >= 0.95 and max(tsu) <= 1.08
 ok &= abs(mean(tsu_hm) - 1) <= 0.005 and rms1(tsu_hm) <= 0.02
 ok &= rms1(tc2s) <= 0.003 and max(abs(x) for x in lawres) <= 0.6 and curv_min >= 0.5 and cvx_min >= 0.2 and n_cond == 40 and n_mono == 45
+ok &= R_max <= 0.75 and abs(R_cusp - 4*abs(N0(G1Z))/3.5) <= 0.01 and all(RV[i] <= RB[i] for i in range(len(RT))) and fmin_max <= -0.3
 ok &= rms1(tcu) >= 1.5*rms1(tsu) and abs(mean(tcu) - 1) >= 3*abs(mean(tsu) - 1) and 0.94 <= mean(tsw) <= 0.98
-gate(f"g1 the smooth wall T^s (the minimum of F_k^s) against Theorem 1by's T_u at the 40 rungs: T^s/T_u mean {mean(tsu):.4f} (gated within 0.01 of 1), rms deviation from 1 {rms1(tsu):.4f} (gated 0.025), range [{min(tsu):.3f}, {max(tsu):.3f}] (gated within [0.95, 1.08]); at the 30 with three or more holes mean {mean(tsu_hm):.4f} (gated within 0.005), rms {rms1(tsu_hm):.4f} (gated 0.02); the law T ln(2T_0/T) = 4m + 7/2 against T^s: rms {rms1(tc2s):.4f} (gated 0.003), its remainder T ln(2T_0/T) - 4m - 7/2 at T^s within {max(abs(x) for x in lawres):.3f} (gated 0.6: the holes' 2 sum h^2/T^2 at up to eleven holes); T F^s'' at T^s at least {curv_min:.3f} (gated 0.5) and at least {cvx_min:.3f} over the bracket (2T_0/e, 2T_0) at every rung (gated 0.2: convex there), 4m + 7/2 < 2T_0/e at {n_cond} of 40 (gated 40), T G(T) strictly decreasing on 600 log-spaced points from the cusp to 30 T_0 at {n_mono} of the 45 states (gated 45: the uniqueness argument's monotonicity, the piece below gamma_1 exact); 1by's continuum law without the constant, uT_0/T_u mean {mean(tcu):.4f} rms {rms1(tcu):.4f} against {mean(tc2u):.4f}, {rms1(tc2u):.4f} with it (gated: the rms at least 1.5 times and the bias at least 3 times the smooth wall's); T^s/T_w mean {mean(tsw):.4f} (gated [0.94, 0.98]) over [{min(tsw):.3f}, {max(tsw):.3f}]", ok)
+gate(f"g1 the smooth wall T^s (the minimum of F_k^s) against Theorem 1by's T_u at the 40 rungs: T^s/T_u mean {mean(tsu):.4f} (gated within 0.01 of 1), rms deviation from 1 {rms1(tsu):.4f} (gated 0.025), range [{min(tsu):.3f}, {max(tsu):.3f}] (gated within [0.95, 1.08]); at the 30 with three or more holes mean {mean(tsu_hm):.4f} (gated within 0.005), rms {rms1(tsu_hm):.4f} (gated 0.02); the law T ln(2T_0/T) = 4m + 7/2 against T^s: rms {rms1(tc2s):.4f} (gated 0.003), its remainder T ln(2T_0/T) - 4m - 7/2 at T^s within {max(abs(x) for x in lawres):.3f} (gated 0.6: the holes' 2 sum h^2/T^2 at up to eleven holes); T F^s'' at T^s at least {curv_min:.3f} (gated 0.5) and at least {cvx_min:.3f} over the bracket (2T_0/e, 2T_0) at every rung (gated 0.2: convex there), 4m + 7/2 < 2T_0/e at {n_cond} of 40 (gated 40), T G(T) strictly decreasing on 600 log-spaced points from the cusp to 30 T_0 at {n_mono} of the 45 states (gated 45: the uniqueness argument's monotonicity, the piece below gamma_1 exact); the uniqueness criterion R(T) on 2000 log-spaced points over (gamma_1, 1.508 gamma_1]: {R_cusp:.4f} at the cusp (gated within 0.01 of 4|N_0(gamma_1)|/(7/2) = {4*abs(N0(G1Z))/3.5:.4f}), at most {R_max:.4f} at T = {T_Rmax:.3f} gamma_1 (gated 0.75), {R_end:.4f} at the end, below its elementary bound at every point (gated; the bound {RB[-1]:.4f} at the end, 1 at x* -- beyond it the bound alone); the minimum of F^s' over the domain at most {fmin_max:.3f} at the 45 states (gated -0.3: negative, so exactly two zeros; at delta = 2's ground state {fmin_d2:.3f} against the leading order ln((7/2)/2T_0) + 1 = {lead_d2:.3f}); 1by's continuum law without the constant, uT_0/T_u mean {mean(tcu):.4f} rms {rms1(tcu):.4f} against {mean(tc2u):.4f}, {rms1(tc2u):.4f} with it (gated: the rms at least 1.5 times and the bias at least 3 times the smooth wall's); T^s/T_w mean {mean(tsw):.4f} (gated [0.94, 0.98]) over [{min(tsw):.3f}, {max(tsw):.3f}]", ok)
 
 # ---------------------------------------------------------------- g2: the ground states
 ts0 = [G[c]["Ts1"]/G[c]["T0"] for c in ORDER]; tsu1 = [G[c]["Ts1"]/G[c]["T1u"] for c in ORDER]; tsT1 = [G[c]["Ts1"]/G[c]["T1"] for c in ORDER]
@@ -340,7 +367,7 @@ gate(f"g5 the exterior tail by the explicit formula (the cut chi = Phi((r - T)/D
 
 if os.environ.get("SMOOTH_DUMP"):
     dump = dict(osc_inf=osc_inf, sup_S=sup_S, sup_S1=sup_S1, c0f=c0f, G={c: {k: v for k, v in G[c].items()} for c in ORDER}, W=[dict((k, v) for k, v in w.items()) for w in ALL],
-                tsu=tsu, tsu_hm=tsu_hm, tsw=tsw, tcu=tcu, tc2u=tc2u, tc2s=tc2s, lawres=lawres, curv_min=curv_min, ts0=ts0, tsu1=tsu1, tsT1=tsT1, epsr=epsr, cfd=cfd, cfd_r=cfd_r,
+                tsu=tsu, tsu_hm=tsu_hm, tsw=tsw, tcu=tcu, tc2u=tc2u, tc2s=tc2s, lawres=lawres, curv_min=curv_min, ts0=ts0, tsu1=tsu1, tsT1=tsT1, epsr=epsr, cfd=cfd, cfd_r=cfd_r, R_cusp=R_cusp, R_max=R_max, T_Rmax=T_Rmax, R_end=R_end, xstar=XSTAR, fmin_max=fmin_max, fmin_d2=fmin_d2, lead_d2=lead_d2,
                 orng=orng, osup=osup, omean=omean, scal=scal, bnd=bnd, oscu=oscu, dmin=dmin, rise=rise, rs=rs, r1=r1,
                 XG={c: XG[c] for c in ORDER}, XR={f"{c}:{k}": v for (c, k), v in XR.items()}, res_g=res_g, res_far=res_far, res_r=res_r, pfm=pfm, ratio_all=ratio_all, ratio_near=ratio_near,
                 ratio_far=ratio_far, ratio_mid=ratio_mid, ratio_2=ratio_2, left=left, lbnd=lbnd, lpole=lpole, tops=tops, tops_near=tops_near, rr_all=rr_all, rr_near=rr_near)
@@ -351,6 +378,8 @@ import paper_needles
 S_WALL = 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]'
 S_GROUND = 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])'
 S_MIN = 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)'
+S_UNIQ = 'R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.51γ₁'
+S_FMIN = 'the minimum of F_k^s′ is at most −0.36 at the 45 states (−1.48 against the leading order’s −2.28 at δ = 2’s ground state)'
 S_OSC = 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)'
 S_BOUND = 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25'
 S_DMIN = 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06'
@@ -365,6 +394,8 @@ ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.51γ₁', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the minimum of F_k^s′ is at most −0.36 at the 45 states (−1.48 against the leading order’s −2.28 at δ = 2’s ground state)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06', 'ws')
@@ -374,7 +405,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'the smooth count’s integral is 1.87
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the largest shell is n = 3, 3, 7, 5, 2 over the whole exterior and n = 3, 5, 7, 5, 2 in the near quarter', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at the 40 rungs the smooth count’s integral runs 1.58–3.77 times the leakage beyond T₁ and 1.85–7.37 times it in the near quarter', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_WALL, S_GROUND, S_MIN, S_OSC, S_BOUND, S_DMIN, S_EXP, S_ID, S_RATIO, S_LEFT, S_TOP, S_RUNGS]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_WALL, S_GROUND, S_MIN, S_UNIQ, S_FMIN, S_OSC, S_BOUND, S_DMIN, S_EXP, S_ID, S_RATIO, S_LEFT, S_TOP, S_RUNGS]
 _re = __import__("re")
 def _num(s): return float(s.strip().replace('−', '-'))
 def _nums(s, pat=r"([-−+]?[0-9]+\.[0-9]+)"): return [_num(x) for x in _re.findall(pat, s)]
@@ -388,6 +419,8 @@ ok &= _nums(S_WALL.split("averages ")[1].split(" at the 40")[0]) == [round(mean(
 ok &= _nums(S_WALL.split("against ")[1].split(" for 1by")[0]) == [round(mean(tcu), 3), round(rms1(tcu), 3)] and _nums(S_WALL.split("within ")[1].split("%")[0]) == [round(100*rms1(tc2s), 2)] and _nums(S_WALL.split("T^s/T_w averages ")[1]) == [round(mean(tsw), 3), round(min(tsw), 3), round(max(tsw), 3)]
 ok &= _nums(S_GROUND.split("T^s/T₀ = ")[1].split(" at the five")[0]) == [round(x, 3) for x in ts0] and _nums(S_GROUND.split("within ")[1].split("%")[0]) == [round(100*max(abs(x - 1) for x in tsu1), 1)] and _nums(S_GROUND.split("over ")[1]) == [round(min(tsu1), 3), round(max(tsu1), 3)]
 ok &= _nums(S_MIN.split("sits ")[1].split(" nats")[0]) == [round(abs(x), 4) for x in cfd] and all(cfd[i] < cfd[i + 1] for i in range(4)) and _nums(S_MIN.split("within ")[1].split(" nats")[0]) == [round(abs(min(cfd_r)), 2)]
+ok &= _nums(S_UNIQ.split("rises from ")[1].split(" at the cusp")[0]) == [round(R_cusp, 2)] and _nums(S_UNIQ.split("at most ")[1].split("γ₁")[0]) == [round(R_max, 2), round(T_Rmax, 2)] and _nums(S_UNIQ.split("falls to ")[1]) == [round(R_end, 2), round(math.sqrt(XSTAR), 2)]
+ok &= _nums(S_FMIN.split("at most ")[1].split(" at the 45")[0]) == [round(fmin_max, 2)] and _nums(S_FMIN.split("(")[1].split(" at δ")[0]) == [round(fmin_d2, 2), round(lead_d2, 2)]
 ok &= _nums(S_OSC.split("ranges over ")[1].split(" nats")[0]) == [round(x, 2) for x in orng] and _nums(S_OSC.split("with means ")[1].split(" against")[0]) == [round(min(omean), 2), round(max(omean), 2)] and _nums(S_OSC.split("Osc_∞ = ")[1].split(" on the list")[0]) == [round(osc_inf, 2)] and _ints(S_OSC.split("constant to ")[1].split("%")[0]) == [round(100*(max(scal)/min(scal) - 1))] and _nums(S_OSC.split("(")[-1].split(")")[0]) == [round(min(scal), 1), round(max(scal), 1)]
 ok &= _nums(S_BOUND.split("sup|S| = ")[1].split(" and")[0]) == [round(sup_S, 2)] and _nums(S_BOUND.split("sup|S₁| = ")[1].split(" below")[0]) == [round(sup_S1, 2)] and _nums(S_BOUND.split("reads ")[1].split(" nats")[0]) == [round(x, 2) for x in bnd] and _nums(S_BOUND.split("Osc_∞| of ")[1]) == [round(x, 2) for x in osup]
 ok &= _nums(S_DMIN.split("averages ")[1].split(" at the 40")[0]) == [round(mean(dmin), 2), round(rms(dmin), 2), round(min(dmin), 2), round(max(dmin), 2)] and _nums(S_DMIN.split("averaging ")[1]) == [round(mean(oscu), 2)]
