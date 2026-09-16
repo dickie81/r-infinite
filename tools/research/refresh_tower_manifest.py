@@ -51,6 +51,7 @@ TOWER = [
     "cascade_rung_anatomy.py",
     "cascade_rung_balayage.py",
     "cascade_wall_law.py",
+    "cascade_gap_law.py",
 ]
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
