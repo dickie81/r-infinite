@@ -5700,4 +5700,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (verifier `cascade_gap_law.py`: g1's window-wall scatters gated and its label naming the identity and the ordering count; Theorem 1bz's block regenerated: (i) "every residual in (i) and (ii) as the formula less the value", the whole named a leakage-weighted mean of its parts with the count on the ordering (S_WIN with the scatters), S_LIFT as the constant less the lift, "to 1.5% on average and 4% at worst"; sixteen needles; manifest 35). Full-tower class. Brief `brief_round351.md`. Convergence test on round 350's four findings (A516).
 
+**Findings.** 0 MAJOR, 2 minor, 2 cosmetic; all four verified by the lead and accepted (A517); no round-350 disposition reopened. Minor: F351-1 the sub-window envelope figures stated in amplitude words while computed in the leakage's units (the lift squared: +0.34 is twice the amplitude figure); F351-2 "a leakage-weighted mean, an identity" exact of the exponentials (the mediant), not of the nats. Cosmetic: the window walls' scatters unreferenced; an implied g4 conjunct. **Sweep.** The units named on the needle, block, docstring and label; the identity stated of the exponentials with a betweenness witness gated at 40 of 40 and the ordering counted directly; "rms deviation from T_w"; the conjunct dropped. Sixteen needles; manifest 35. Trajectory: 348 (1M+7m+5c) → 349 (0M+2m+4c) → 350 (0M+2m+2c) → 351 (0M+2m+2c) → 352 pending.
+
+### Round 352 — the convergence test on the round-351 sweep of Theorem 1bz
+
+**Scope.** The sweep commit (verifier `cascade_gap_law.py`: g1's betweenness witness and ordering count, its label naming the leakage's units and the mediant; g4's implied conjunct dropped; the docstring; Theorem 1bz's block regenerated: (i) the whole's exponential as the rung-leakage-weighted mean of its parts', S_LIFT in the leakage's units, "a sixth of a nat in those units", the scatters referenced to T_w; sixteen needles; manifest 35). Full-tower class. Brief `brief_round352.md`. Convergence test on round 351's four findings (A517).
+
 **Findings.** Pending.
