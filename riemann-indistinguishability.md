@@ -8126,7 +8126,7 @@ smooth count's integral — it cannot overwhelm the tail. At the cells
 the census's designed zeros, exact to the stored profile's rounding
 beyond the edge — the integrals on a grid of 0.05, the shells to e^{δ +
 7.5}): the identity holds within 4.4 × 10⁻⁶ of the tail at the five
-ground states over the five windows (3.3 × 10⁻¹¹ away from the cut at
+ground states over the five windows (6.7 × 10⁻¹² away from the cut at
 the edge, where the dodged zeros the cut still weighs carry the stored
 profile’s rounding) and within 2.7 × 10⁻¹¹ at the 40 rungs; the smooth
 count’s integral is 1.87, 1.87, 2.29, 2.88, 2.77 times the actual
