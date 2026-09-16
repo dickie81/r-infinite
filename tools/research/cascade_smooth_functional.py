@@ -142,7 +142,6 @@ def wgt(T, D): return math.acosh(T/(T - D)) - math.log(T/(T - D))               
 def DT(T, r): return (1/r)*((1 - (r/T)**2)**-0.5 - 1)                           # the weight defect w_T - 1/r
 
 # ---------------------------------------------------------------- g0: the algebra witnessed at 60 digits
-_mp.mp.dps = 60
 ok = True
 with _mp.workdps(60):
     g1 = _mp.mpf(repr(G1Z)); pi = _mp.pi
