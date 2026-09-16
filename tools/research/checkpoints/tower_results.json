@@ -521,6 +521,12 @@
 "rc": 0,
 "when": "2026-08-28T15:47Z"
 },
+"1a018ef232d55bab4e650a92": {
+"dt": 38.574182987213135,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-09-16T19:17Z"
+},
 "1a09b616eed0ea9d21c092fa": {
 "dt": 348.92706274986267,
 "file": "cascade_floor_meter.py",
@@ -2981,6 +2987,12 @@
 "rc": 0,
 "when": "2026-08-27T19:08Z"
 },
+"94819e601d8fdc9d552f1036": {
+"dt": 255.85444045066833,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-09-16T19:17Z"
+},
 "9499f11ec9c972c727c174d9": {
 "dt": 26.18570113182068,
 "file": "cascade_saddle_curvature.py",
@@ -3124,6 +3136,12 @@
 "file": "cascade_floor_theory.py",
 "rc": 0,
 "when": "2026-09-09T01:31Z"
+},
+"98f5289bf68ccd423a6ea1c8": {
+"dt": 103.22133016586304,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-09-16T19:17Z"
 },
 "991f222b7beae926c52c07f9": {
 "dt": 10.586010456085205,
