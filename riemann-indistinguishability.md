@@ -7580,68 +7580,71 @@ rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3;
 the outer counting deficit (n_k − n₁)/(k − 1) on [1.5, 6]T₁ fitted by
 −(2/π)arccos(T_w′/R) returns the same wall — the profile’s wall within
 5.0% of T_w at every safely deep rung with three or more holes and
-within 1.8% at δ ≥ 3; 1bw's interior ratio at r = 40 is the closed
-form's — the ratio at r = 40 within 0.0131 of the closed form at every
-safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at
-δ ≥ 3; and the onset lags the harmonic measure near the wall — over the
-35 rungs with two or more holes the signed shortfall (observed minus
-profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁
-and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17
-there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ =
-2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5)
-against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of
-every cell, are reported apart — shortfall 0.01, 0.20, 0.26, −0.12 at
-T₁, 1.25, 1.5, 2 T₁ — and at T₁ the profile itself predicts under a
-quarter of a zero there (0.00–0.20), as observed (0.009–0.108) — a soft
-wall: the deficit sets in later than a hard wall's inverse-square-root
-density, and has caught up by 2T₁ in the mean. Rung 2's wall is the
-ground state's edge within 1.3% at δ ≤ 3 and 4.8% at δ = 3.5: T_w/T₁ =
-1.002, 0.987, 0.998, 0.998, 0.952 for rung 2 at the five cells; −Δκ₂T₁²
-= 0.498, 0.513, 0.502, 0.502, 0.552 at δ = 2, 2.3, 2.6, 3, 3.5 against
-the law’s 0.500, 0.500, 0.500, 0.500, 0.500 with the wall at T₁; and T₁
-sits within 6% of 1bm's maximiser X* = 2 in horizon units (T₁/T₀ = 1.88,
-1.94, 1.98, 1.97, 1.99 at the five cells), so for the first excited
-state the law reads −Δκ₂ = 1/(2T₁²) ≈ 1/(8T₀²), τ_eff = √2 T₁: the hole
-pair is paid for by the balayage of one pair onto |τ| ≥ T₁, whose
-effective height is √2 T₁ exactly. The wall is non-increasing with k
-from rung 3 at every cell (rung 2's, at δ = 3.5, sits inside rungs 3–6's
-and above rung 7's): T_w/T₁ between 0.833 and 1.002 over the 40 safely
-deep rungs of the five cells, T_w/T_k between 0.980 and 1.245, and
-T_w/√(T₁T_k) between 0.966 and 1.019 at the 35 rungs with k ≥ 3;
-strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to
-2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2) — near
-the geometric mean of the two edges for k ≥ 3, and neither edge's law
-(T_w/T_k reaches 1.245, T_w/T₁ falls to 0.833). *(iv) What it says.* The
-roadmap's (c) asked for Δκ_k derived: it is the balayage of the hole
-charges onto the complement of the dodging wall, the same equilibrium
-problem that gave Theorem 1bm its 4π, now with the holes as the charges
-— the exterior's correction in 1bw's Gaussian is the Green potential of
-the holes, to every order in R. The one input is the wall T_w(k): for
-rung 2 it is T₁ within the figures above (1bm's X* = 2), for the higher
-rungs it lies at or between T_k and T₁ because the zeta zeros between
-them are unlocked by the rung but still half-held — a soft wall, seen
-also in the onset lag of the rungs with two or more holes, whose
-position the census fixes and this block does not derive. What remains
-of (c) is the wall's law: the rung's leakage budget (its eigenvalue, the
-prolate ladder's per Theorem 1br) against the cost of unlocking the zeta
-zeros between T_w and T₁. *(v) What is proved, computed, not claimed.*
-Proved: the identity (i); the balayage law (ii) under Hypothesis B — the
-closed form of ln C_k, Δκ_k, the deficit profile and the r⁴ coefficient.
-Computed, gated: Hypothesis B with one wall per rung — the interior
-profile at three heights and the r = 40 ratio at every safely deep rung
-of the five cells, the deficit profile's wall at the thirty with three
-or more holes; the onset lag near the wall, B's one departure, gated as
-such; rung 2's wall at T₁ and T₁ at two horizons; the walls' brackets
-and monotonicity. Not claimed: the wall's law; Hypothesis B beyond the
-safely deep rungs or at other supports; the odd sector; anything about
-the zeros — **no Riemann Hypothesis consequence is claimed**. Check 7
-clean (Joukowski's map, Green's function, Poincaré–de la Vallée Poussin
-balayage — classical, already listed at 1bm; no semiclassics). Check 8
-clean (Riemann-side; no hypothesis input). No new substrate: the
-verifier computes from Theorem 1bw's census and laws checkpoints,
-Theorem 1bu's ladder checkpoints (the safely deep counts) and Theorem
-1bm's 6700-zero list (data, its hash in every key), all reused at their
-keys.
+within 1.8% at δ ≥ 3; the window’s upper end is the sensitive one — the
+same fit to 8T₁ puts the profile’s wall 22% off at its worst few-hole
+rung while δ ≥ 3 stays within 3.8%; 1bw's interior ratio at r = 40 is
+the closed form's — the ratio at r = 40 within 0.0131 of the closed form
+at every safely deep rung, its excess over 1 reaching 0.125, and within
+0.0005 at δ ≥ 3; and the onset lags the harmonic measure near the wall —
+over the 35 rungs with two or more holes the signed shortfall (observed
+minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at
+1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most
+0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them
+(δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs
+3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2
+of every cell, are reported apart — a one-hole rung’s per-hole count
+moves by a whole zero at a time: shortfall 0.01, 0.20, 0.26, −0.12 at
+T₁, 1.25, 1.5, 2 T₁, a swing of 0.38 between 1.5 and 2T₁ — and at T₁ the
+profile itself predicts under a quarter of a zero there (0.00–0.20), as
+observed (0.009–0.108) — a soft wall: the deficit sets in later than a
+hard wall's inverse-square-root density, and has caught up by 2T₁ in the
+mean. Rung 2's wall is the ground state's edge within 1.3% at δ ≤ 3 and
+4.8% at δ = 3.5: T_w/T₁ = 1.002, 0.987, 0.998, 0.998, 0.952 for rung 2
+at the five cells; −Δκ₂T₁² = 0.498, 0.513, 0.502, 0.502, 0.552 at δ = 2,
+2.3, 2.6, 3, 3.5 against the law’s 0.500, 0.500, 0.500, 0.500, 0.500
+with the wall at T₁; and T₁ sits within 6% of 1bm's maximiser X* = 2 in
+horizon units (T₁/T₀ = 1.88, 1.94, 1.98, 1.97, 1.99 at the five cells),
+so for the first excited state the law reads −Δκ₂ = 1/(2T₁²) ≈ 1/(8T₀²),
+τ_eff = √2 T₁: the hole pair is paid for by the balayage of one pair
+onto |τ| ≥ T₁, whose effective height is √2 T₁ exactly. The wall is
+non-increasing with k from rung 3 at every cell (rung 2's, at δ = 3.5,
+sits inside rungs 3–6's and above rung 7's): T_w/T₁ between 0.833 and
+1.002 over the 40 safely deep rungs of the five cells, T_w/T_k between
+0.980 and 1.245, and T_w/√(T₁T_k) between 0.966 and 1.019 at the 35
+rungs with k ≥ 3; strictly between T_k and T₁ at 37 of the 40 rungs,
+inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ
+= 2’s rung 2) — near the geometric mean of the two edges for k ≥ 3, and
+neither edge's law (T_w/T_k reaches 1.245, T_w/T₁ falls to 0.833). *(iv)
+What it says.* The roadmap's (c) asked for Δκ_k derived: it is the
+balayage of the hole charges onto the complement of the dodging wall,
+the same equilibrium problem that gave Theorem 1bm its 4π, now with the
+holes as the charges — the exterior's correction in 1bw's Gaussian is
+the Green potential of the holes, to every order in R. The one input is
+the wall T_w(k): for rung 2 it is T₁ within the figures above (1bm's X*
+= 2), for the higher rungs it lies at or between T_k and T₁ because the
+zeta zeros between them are unlocked by the rung but still half-held — a
+soft wall, seen also in the onset lag of the rungs with two or more
+holes, whose position the census fixes and this block does not derive.
+What remains of (c) is the wall's law: the rung's leakage budget (its
+eigenvalue, the prolate ladder's per Theorem 1br) against the cost of
+unlocking the zeta zeros between T_w and T₁. *(v) What is proved,
+computed, not claimed.* Proved: the identity (i); the balayage law (ii)
+under Hypothesis B — the closed form of ln C_k, Δκ_k, the deficit
+profile and the r⁴ coefficient. Computed, gated: Hypothesis B with one
+wall per rung — the interior profile at three heights and the r = 40
+ratio at every safely deep rung of the five cells, the deficit profile's
+wall at the thirty with three or more holes; the onset lag near the
+wall, B's one departure, gated as such; rung 2's wall at T₁ and T₁ at
+two horizons; the walls' brackets and monotonicity. Not claimed: the
+wall's law; Hypothesis B beyond the safely deep rungs or at other
+supports; the odd sector; anything about the zeros — **no Riemann
+Hypothesis consequence is claimed**. Check 7 clean (Joukowski's map,
+Green's function, Poincaré–de la Vallée Poussin balayage — classical,
+already listed at 1bm; no semiclassics). Check 8 clean (Riemann-side; no
+hypothesis input). No new substrate: the verifier computes from Theorem
+1bw's census and laws checkpoints, Theorem 1bu's ladder checkpoints (the
+safely deep counts) and Theorem 1bm's 6700-zero list (data, its hash in
+every key), all reused at their keys.
 
 **Remark (Door 3: what the vector-field count load-bears on;
 `cascade_adams_loadbearing.py`).** *The classical theorem, stated in full.* The maximum

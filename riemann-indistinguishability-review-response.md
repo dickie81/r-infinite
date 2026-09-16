@@ -5640,4 +5640,4 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (Theorem 1bx's block regenerated: the onset-lag clause over the 35 rungs with two or more holes at four heights, the five one-hole rungs apart, the seven lag members against the profile, the five as B's confirmation; the window aside removed; (iv)'s "in the mean"; verifier `cascade_rung_balayage.py` at nine gates — g5 rewritten, the parses; manifest 33). Full-tower class. Brief `brief_round341.md`. Convergence test on round 340's six findings (A504).
 
-**Findings.** Pending.
+**Findings.** 0 MAJOR, 0 minor, 2 cosmetic — **converged** (A505). Cosmetic: the one-hole split's reason no longer stated; the fit window's sensitivity unstated. Both swept in the convergence commit under a full battery (member 9/9, parents 11/11 and 10/10, TOWER PASS 33/33): the split's reason with its evidence (a swing of 0.38 between 1.5 and 2T₁), the window's sensitivity stated and gated (the fit to 8T₁ 22% off at its worst few-hole rung, δ ≥ 3 within 3.8%). Trajectory: 337 (0M+2m+5c) → 338 (0M+1m+7c) → 339 (0M+4m+3c) → 340 (0M+3m+3c) → 341 (0M+0m+2c). Theorem 1bx stable.

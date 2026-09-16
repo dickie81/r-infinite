@@ -23,7 +23,8 @@ profile's R^-3 moment against 1/(2T^2), the r^4 coefficient against 3/16 at h ->
 every wall within [0.83, 1.01] T_1 and >= 0.98 T_k, for k >= 3 within [0.96, 1.02] of sqrt(T_1 T_k); neither edge is the wall's law
 (T_w/T_k reaches 1.15, T_1/T_w reaches 1.15 at k >= 3); (2) Hypothesis B across the interior: the exact ln C_k within 1.5%,
 2% and 7% of the closed form at 0.3, 0.5, 0.7 T_w at every safely deep rung, and off by 5% or more at 0.5 T_w with the wall at
-T_1 for k >= 3; (3) the deficit profile's wall within 6% of T_w at every rung with three or more holes, within 2.5% at delta >= 3;
+T_1 for k >= 3; (3) the deficit profile's wall within 6% of T_w at every rung with three or more holes, within 2.5% at delta >= 3, and the window's
+sensitivity (the fit to 8 T_1 at least 15% off at its worst few-hole rung, within 5% at delta >= 3);
 (4) the ratio at r = 40 within 0.014 of the closed form at every safely deep rung, within 6e-4 at delta >= 3; (5) the onset lags the
 harmonic measure near the wall, over the 35 rungs with two or more holes: the signed shortfall averaging 0.02-0.1 per hole at T_1,
 1.25 T_1 and 1.5 T_1 and within 0.02 at 2 T_1, positive at three quarters of them at T_1 and at most 0.2 there; the deficit at T_1
@@ -54,9 +55,9 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'T₁/T₀ = 1.88, 1.94, 1.98, 1.97, 1.99 at the five cells', 'form': 'ws'},
     {'g': 'g6', 's': 'T_w/T₁ between 0.833 and 1.002 over the 40 safely deep rungs of the five cells, T_w/T_k between 0.980 and 1.245, and T_w/√(T₁T_k) between 0.966 and 1.019 at the 35 rungs with k ≥ 3', 'form': 'ws'},
     {'g': 'g6', 's': 'the exact ln C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3', 'form': 'ws'},
-    {'g': 'g6', 's': 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3', 'form': 'ws'},
+    {'g': 'g6', 's': 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3; the window’s upper end is the sensitive one — the same fit to 8T₁ puts the profile’s wall 22% off at its worst few-hole rung while δ ≥ 3 stays within 3.8%', 'form': 'ws'},
     {'g': 'g6', 's': 'the ratio at r = 40 within 0.0131 of the closed form at every safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at δ ≥ 3', 'form': 'ws'},
-    {'g': 'g6', 's': 'over the 35 rungs with two or more holes the signed shortfall (observed minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of every cell, are reported apart — shortfall 0.01, 0.20, 0.26, −0.12 at T₁, 1.25, 1.5, 2 T₁ — and at T₁ the profile itself predicts under a quarter of a zero there (0.00–0.20), as observed (0.009–0.108)', 'form': 'ws'},
+    {'g': 'g6', 's': 'over the 35 rungs with two or more holes the signed shortfall (observed minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of every cell, are reported apart — a one-hole rung’s per-hole count moves by a whole zero at a time: shortfall 0.01, 0.20, 0.26, −0.12 at T₁, 1.25, 1.5, 2 T₁, a swing of 0.38 between 1.5 and 2T₁ — and at T₁ the profile itself predicts under a quarter of a zero there (0.00–0.20), as observed (0.009–0.108)', 'form': 'ws'},
     {'g': 'g6', 's': 'strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2)', 'form': 'ws'},
 ]
 
@@ -168,19 +169,22 @@ ok = all(max(dev[f]) <= t for f, t in zip(FR, TOL)) and min(con) >= 0.05
 gate("g2 Hypothesis B across the interior: the exact ln C_k (the census products, rung against ground) within " + ", ".join(f"{100*max(dev[f]):.1f}%" for f in FR) + " of the Green closed form with the wall T_w at R = 0.3, 0.5, 0.7 T_w over the forty safely deep rungs (gated 1.5%, 2%, 7%); with the wall at T_1 instead, off by " + f"{100*min(con):.1f}% to {100*max(con):.0f}% at 0.5 T_w for k >= 3 (gated >= 5%)", ok)
 
 # ---------------------------------------------------------------- g3: the deficit profile's wall
-pw = []; pw3 = []
+pw = []; pw3 = []; pw8 = []; pw83 = []
+def fit_wall(Nk, N1, m, T1, hi):
+    RR = np.linspace(1.5*T1, hi*T1, 400); Db = (Nk(RR) - N1(RR))/m
+    cands = np.linspace(0.6*T1, 1.2*T1, 1201)
+    err = [float(np.mean((Db + profile(RR, tw))**2)) for tw in cands]; return cands[int(np.argmin(err))]
 for c in ORDER:
     S = CEN[c]; g = S["rungs"][0]; T1 = g["edge"]; N1 = nbar(outer(g))
     for r in S["rungs"][1:n_safe(c) + 1]:
         w = W[(c, r["k"])]; m = w["m"]
         if m < 3: continue
-        Nk = nbar(outer(r)); RR = np.linspace(1.5*T1, 6*T1, 400); Db = (Nk(RR) - N1(RR))/m
-        cands = np.linspace(0.6*T1, 1.2*T1, 1201)
-        err = [float(np.mean((Db + profile(RR, tw))**2)) for tw in cands]; Twp = cands[int(np.argmin(err))]
-        d = abs(Twp/w["Tw"] - 1); pw.append(d)
-        if S["delta"] >= 3.0: pw3.append(d)
-ok = max(pw) <= 0.06 and max(pw3) <= 0.025
-gate(f"g3 the deficit profile (n_k - n_1)/(k - 1) on [1.5, 6] T_1 fitted by -(2/pi) arccos(T_w'/R) returns the wall: T_w' within {100*max(pw):.1f}% of T_w at every rung with three or more holes (gated 6%), within {100*max(pw3):.1f}% at delta >= 3 (gated 2.5%)", ok)
+        Nk = nbar(outer(r))
+        d = abs(fit_wall(Nk, N1, m, T1, 6.0)/w["Tw"] - 1); pw.append(d)
+        d8 = abs(fit_wall(Nk, N1, m, T1, 8.0)/w["Tw"] - 1); pw8.append(d8)             # the window's sensitivity: the same fit to 8 T_1
+        if S["delta"] >= 3.0: pw3.append(d); pw83.append(d8)
+ok = max(pw) <= 0.06 and max(pw3) <= 0.025 and max(pw8) >= 0.15 and max(pw83) <= 0.05
+gate(f"g3 the deficit profile (n_k - n_1)/(k - 1) on [1.5, 6] T_1 fitted by -(2/pi) arccos(T_w'/R) returns the wall: T_w' within {100*max(pw):.1f}% of T_w at every rung with three or more holes (gated 6%), within {100*max(pw3):.1f}% at delta >= 3 (gated 2.5%); the window's upper end is the sensitive one -- the same fit to 8 T_1 puts T_w' {100*max(pw8):.0f}% off at its worst few-hole rung (gated >= 15%) while delta >= 3 stays within {100*max(pw83):.1f}% (gated 5%)", ok)
 
 # ---------------------------------------------------------------- g4: the interior ratio at r = 40 from the laws checkpoint
 e40 = []; e40_3 = []; exc = []
@@ -206,7 +210,7 @@ SEVEN = [key for key in M2 if OBS[key] <= 0.25]; FIVE = M1
 ok = all(0.02 <= mean2[f] <= 0.1 for f in (1.0, 1.25, 1.5)) and abs(mean2[2.0]) <= 0.02 and npos2 >= 0.75*len(M2) and max2 <= 0.2 and len(M2) == 35 and len(M1) == 5
 ok &= len(SEVEN) == 7 and all(PRED[key] >= 0.3 for key in SEVEN) and "NOT A" not in _cells(SEVEN)                        # the lag's members: under a quarter of a zero observed against the profile's 0.3 or more
 ok &= {c for c, _ in FIVE} == set(ORDER) and all(k == 2 for _, k in FIVE) and all(OBS[key] <= 0.25 and PRED[key] <= 0.25 for key in FIVE)   # the one-hole rungs: the profile itself under a quarter at T_1
-gate(f"g5 the onset lags the harmonic measure near the wall, over the {len(M2)} rungs with two or more holes: the signed shortfall (observed minus profile, per hole) averaging {mean2[1.0]:.2f} at T_1, {mean2[1.25]:.2f} at 1.25 T_1, {mean2[1.5]:.2f} at 1.5 T_1 (each gated [0.02, 0.1]) and {mean2[2.0]:+.3f} at 2 T_1 (gated |.| <= 0.02), positive at {npos2} of {len(M2)} at T_1 (gated >= 3/4) and at most {max2:.2f} there (gated 0.2); the deficit at T_1 under a quarter of a zero at {len(SEVEN)} of them ({_cells(SEVEN)}) against the profile's {min(PRED[key] for key in SEVEN):.2f}-{max(PRED[key] for key in SEVEN):.2f} zeros (gated >= 0.3); the {len(M1)} one-hole rungs (rung 2 of every cell) reported apart: shortfall {mean1[1.0]:.2f}, {mean1[1.25]:.2f}, {mean1[1.5]:.2f}, {mean1[2.0]:+.2f} at T_1, 1.25, 1.5, 2 T_1, the profile itself under a quarter of a zero at T_1 there ({min(PRED[key] for key in FIVE):.2f}-{max(PRED[key] for key in FIVE):.2f}) and the observed under a quarter ({min(OBS[key] for key in FIVE):.3f}-{max(OBS[key] for key in FIVE):.3f})", ok)
+gate(f"g5 the onset lags the harmonic measure near the wall, over the {len(M2)} rungs with two or more holes: the signed shortfall (observed minus profile, per hole) averaging {mean2[1.0]:.2f} at T_1, {mean2[1.25]:.2f} at 1.25 T_1, {mean2[1.5]:.2f} at 1.5 T_1 (each gated [0.02, 0.1]) and {mean2[2.0]:+.3f} at 2 T_1 (gated |.| <= 0.02), positive at {npos2} of {len(M2)} at T_1 (gated >= 3/4) and at most {max2:.2f} there (gated 0.2); the deficit at T_1 under a quarter of a zero at {len(SEVEN)} of them ({_cells(SEVEN)}) against the profile's {min(PRED[key] for key in SEVEN):.2f}-{max(PRED[key] for key in SEVEN):.2f} zeros (gated >= 0.3); the {len(M1)} one-hole rungs (rung 2 of every cell) reported apart -- a one-hole rung's per-hole count moves by a whole zero at a time: shortfall {mean1[1.0]:.2f}, {mean1[1.25]:.2f}, {mean1[1.5]:.2f}, {mean1[2.0]:+.2f} at T_1, 1.25, 1.5, 2 T_1 (a swing of {mean1[1.5] - mean1[2.0]:.2f} between 1.5 and 2 T_1), the profile itself under a quarter of a zero at T_1 there ({min(PRED[key] for key in FIVE):.2f}-{max(PRED[key] for key in FIVE):.2f}) and the observed under a quarter ({min(OBS[key] for key in FIVE):.3f}-{max(OBS[key] for key in FIVE):.3f})", ok)
 
 # ---------------------------------------------------------------- g6
 import paper_needles
@@ -215,9 +219,9 @@ S_WALL2 = 'T_w/T₁ = 1.002, 0.987, 0.998, 0.998, 0.952 for rung 2 at the five c
 S_T1T0 = 'T₁/T₀ = 1.88, 1.94, 1.98, 1.97, 1.99 at the five cells'
 S_RANGE = 'T_w/T₁ between 0.833 and 1.002 over the 40 safely deep rungs of the five cells, T_w/T_k between 0.980 and 1.245, and T_w/√(T₁T_k) between 0.966 and 1.019 at the 35 rungs with k ≥ 3'
 S_INTERIOR = 'the exact ln C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3'
-S_PROFILE = 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3'
+S_PROFILE = 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3; the window’s upper end is the sensitive one — the same fit to 8T₁ puts the profile’s wall 22% off at its worst few-hole rung while δ ≥ 3 stays within 3.8%'
 S_R40 = 'the ratio at r = 40 within 0.0131 of the closed form at every safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at δ ≥ 3'
-S_EDGE = 'over the 35 rungs with two or more holes the signed shortfall (observed minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of every cell, are reported apart — shortfall 0.01, 0.20, 0.26, −0.12 at T₁, 1.25, 1.5, 2 T₁ — and at T₁ the profile itself predicts under a quarter of a zero there (0.00–0.20), as observed (0.009–0.108)'
+S_EDGE = 'over the 35 rungs with two or more holes the signed shortfall (observed minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of every cell, are reported apart — a one-hole rung’s per-hole count moves by a whole zero at a time: shortfall 0.01, 0.20, 0.26, −0.12 at T₁, 1.25, 1.5, 2 T₁, a swing of 0.38 between 1.5 and 2T₁ — and at T₁ the profile itself predicts under a quarter of a zero there (0.00–0.20), as observed (0.009–0.108)'
 S_BETWEEN = 'strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2)'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
 ok = True
@@ -226,9 +230,9 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'T_w/T₁ = 1.002, 0.987, 0.998, 0.998
 ok &= paper_needles.needle(PAPER_NEEDLES, 'T₁/T₀ = 1.88, 1.94, 1.98, 1.97, 1.99 at the five cells', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'T_w/T₁ between 0.833 and 1.002 over the 40 safely deep rungs of the five cells, T_w/T_k between 0.980 and 1.245, and T_w/√(T₁T_k) between 0.966 and 1.019 at the 35 rungs with k ≥ 3', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the exact ln C_k within 0.5%, 1.7%, 5.9% of the closed form at R = 0.3, 0.5, 0.7 T_w at every safely deep rung, against 6.9% to 51% off at 0.5 T_w with the wall at T₁ for k ≥ 3', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the profile’s wall within 5.0% of T_w at every safely deep rung with three or more holes and within 1.8% at δ ≥ 3; the window’s upper end is the sensitive one — the same fit to 8T₁ puts the profile’s wall 22% off at its worst few-hole rung while δ ≥ 3 stays within 3.8%', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the ratio at r = 40 within 0.0131 of the closed form at every safely deep rung, its excess over 1 reaching 0.125, and within 0.0005 at δ ≥ 3', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'over the 35 rungs with two or more holes the signed shortfall (observed minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of every cell, are reported apart — shortfall 0.01, 0.20, 0.26, −0.12 at T₁, 1.25, 1.5, 2 T₁ — and at T₁ the profile itself predicts under a quarter of a zero there (0.00–0.20), as observed (0.009–0.108)', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'over the 35 rungs with two or more holes the signed shortfall (observed minus profile, per hole) averages 0.05 at T₁, 0.05 at 1.25 T₁, 0.03 at 1.5 T₁ and −0.006 at 2T₁, positive at 32 of the 35 at T₁ and at most 0.17 there; the deficit at T₁ is under a quarter of a zero at 7 of them (δ = 2’s rung 3, δ = 2.3’s rung 3, δ = 3’s rungs 3–4, δ = 3.5’s rungs 3–5) against the profile’s 0.31–0.66 zeros; the 5 one-hole rungs, rung 2 of every cell, are reported apart — a one-hole rung’s per-hole count moves by a whole zero at a time: shortfall 0.01, 0.20, 0.26, −0.12 at T₁, 1.25, 1.5, 2 T₁, a swing of 0.38 between 1.5 and 2T₁ — and at T₁ the profile itself predicts under a quarter of a zero there (0.00–0.20), as observed (0.009–0.108)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'strictly between T_k and T₁ at 37 of the 40 rungs, inside T_k by up to 2.0% (δ = 3.5’s rungs 2–3) and beyond T₁ by 0.2% (δ = 2’s rung 2)', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_DK2LAW, S_WALL2, S_T1T0, S_RANGE, S_INTERIOR, S_PROFILE, S_R40, S_EDGE, S_BETWEEN]
 _re = __import__("re")
@@ -243,11 +247,11 @@ _m = _nums(S_RANGE); ok &= len(_m) == 6 and [round(v, 3) for v in (min(rat1), ma
 _i = _ints(S_RANGE); ok &= _i == [len(W), len(ratg), 3]
 _m = _nums(S_INTERIOR.split(" at R")[0]); ok &= _m == [round(100*max(dev[f]), 1) for f in FR]
 _m = _nums(S_INTERIOR.split("against ")[1].split("% to")[0]); ok &= len(_m) == 1 and _m[0] == round(100*min(con), 1) and _ints(S_INTERIOR.split("% to ")[1].split("%")[0]) == [round(100*max(con))]
-_m = _nums(S_PROFILE); ok &= _m == [round(100*max(pw), 1), round(100*max(pw3), 1)]
+_m = _nums(S_PROFILE.split("; the window")[0]); ok &= _m == [round(100*max(pw), 1), round(100*max(pw3), 1)] and _ints(S_PROFILE.split("wall ")[-1].split("%")[0]) == [round(100*max(pw8))] and _nums(S_PROFILE.split("stays within ")[1]) == [round(100*max(pw83), 1)] and "fit to 8T₁" in S_PROFILE
 _m = _nums(S_R40); ok &= _m == [round(max(e40), 4), round(max(exc), 3), round(max(e40_3), 4)]
 _m = _nums(S_EDGE.split("; the deficit")[0]); ok &= _m == [round(mean2[1.0], 2), round(mean2[1.25], 2), 1.25, round(mean2[1.5], 2), 1.5, round(mean2[2.0], 3), round(max2, 2)] and _ints(S_EDGE.split(" rungs with")[0]) == [len(M2)] and _ints(S_EDGE.split("positive at ")[1].split(" at T₁")[0]) == [npos2, len(M2)]
 _s = S_EDGE.split("; the deficit")[1].split("; the ")[0]; ok &= _ints(_s.split(" of them")[0]) == [len(SEVEN)] and _s.split("(")[1].split(")")[0] == _cells(SEVEN) and _nums(_s.split("profile’s ")[1]) == [round(min(PRED[key] for key in SEVEN), 2), round(max(PRED[key] for key in SEVEN), 2)]
-_t = S_EDGE.split("reported apart — shortfall ")[1]; ok &= _ints(S_EDGE.split("; the ")[2].split(" one-hole")[0]) == [len(M1)] and _nums(_t.split(" at T₁, 1.25")[0]) == [round(mean1[f], 2) for f in (1.0, 1.25, 1.5, 2.0)] and _nums(_t.split("there (")[1].split(")")[0]) == [round(min(PRED[key] for key in FIVE), 2), round(max(PRED[key] for key in FIVE), 2)] and _nums(_t.split("as observed (")[1].split(")")[0]) == [round(min(OBS[key] for key in FIVE), 3), round(max(OBS[key] for key in FIVE), 3)] and "rung 2 of every cell" in S_EDGE
+_t = S_EDGE.split("whole zero at a time: shortfall ")[1]; ok &= _ints(S_EDGE.split("; the ")[2].split(" one-hole")[0]) == [len(M1)] and _nums(_t.split(" at T₁, 1.25")[0]) == [round(mean1[f], 2) for f in (1.0, 1.25, 1.5, 2.0)] and _nums(_t.split("a swing of ")[1].split(" between")[0]) == [round(mean1[1.5] - mean1[2.0], 2)] and _nums(_t.split("there (")[1].split(")")[0]) == [round(min(PRED[key] for key in FIVE), 2), round(max(PRED[key] for key in FIVE), 2)] and _nums(_t.split("as observed (")[1].split(")")[0]) == [round(min(OBS[key] for key in FIVE), 3), round(max(OBS[key] for key in FIVE), 3)] and "rung 2 of every cell" in S_EDGE
 _i = _ints(S_BETWEEN.split(", inside")[0]); ok &= _i == [nb, len(W)] and _nums(S_BETWEEN.split("% (")[0])[-1] == round(100*(1 - min(ratk)), 1) and _nums(S_BETWEEN.split("beyond T₁ by ")[1])[0] == round(100*(max(rat1) - 1), 1)
 ok &= S_BETWEEN.split("% (")[1].split(")")[0] == _exc(INSIDE) and S_BETWEEN.split("% (")[2].split(")")[0] == _exc(BEYOND)
 gate("g6 the paper's numbers parsed back from the declared needles", ok)
