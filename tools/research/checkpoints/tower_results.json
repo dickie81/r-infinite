@@ -3365,6 +3365,12 @@
 "rc": 0,
 "when": "2026-08-27T21:03Z"
 },
+"a78641713a01135e9bc85007": {
+"dt": 4.940918684005737,
+"file": "cascade_gap_law.py",
+"rc": 0,
+"when": "2026-09-16T16:48Z"
+},
 "a7a70f53bad3f656fc1604ce": {
 "dt": 1.0323410034179688,
 "file": "cascade_prime_budget_fold.py",
