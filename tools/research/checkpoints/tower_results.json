@@ -815,6 +815,12 @@
 "rc": 0,
 "when": "2026-09-03T12:08Z"
 },
+"29c09f9ddd03091ec83dd99b": {
+"dt": 4.052918195724487,
+"file": "cascade_gap_law.py",
+"rc": 0,
+"when": "2026-09-16T16:28Z"
+},
 "29d781f5e791f4e1ab05ca74": {
 "dt": 30.185499668121338,
 "file": "cascade_finite_fill.py",
