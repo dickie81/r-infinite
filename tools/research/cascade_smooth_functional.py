@@ -31,10 +31,10 @@ identity's residual, the smooth count's overestimate of the exterior leakage (a 
 2.0-4.2 in the near quarter, 1.00-1.15 beyond 4 T_1), the shells of the smallest primes carrying it.
 
 THE GATES. (0) the algebra witnessed at 60 digits (the piece below gamma_1 in closed form, the stationarity's closed form,
-the Stirling remainder's -1/24 and its bound, the split as an identity on the list); (1) the smooth wall at the 40 rungs;
-(2) the ground states; (3) the leftover oscillation on the list and the bound's terms; (4) the exponent from the smooth
-count; (5) the exterior identity, the shells' share, the leftover after the shells; (6) the paper's numbers parsed back;
-(7) the chain obligation; (8) the needles and census.
+the Stirling remainder's -1/24 and its bound, T G's piece below gamma_1 at the cusp, the split as an identity on the list);
+(1) the smooth wall at the 40 rungs; (2) the ground states; (3) the leftover oscillation on the list and the bound's terms;
+(4) the exponent from the smooth count; (5) the exterior identity, the shells' share, the leftover after the shells;
+(6) the paper's numbers parsed back; (7) the chain obligation; (8) the needles and census.
 
 WHAT IS NOT CLAIMED. Explicit constants for S and S_1 (the classical O-bounds are the inputs; the list's suprema are computed);
 any bound on the shells' sum in general (computed at the cells); the reduction of 1bm(iii); the odd sector; no Riemann
@@ -126,8 +126,12 @@ def Fs(T, a, holes): return Icont(T) - 2*a*T + 4*sum(math.acosh(T/h) for h in ho
 def dFs(T, a, holes):
     T0 = TWO_PI*math.exp(2*a)
     return math.log(T/(2*T0)) + 4*sum(1/math.sqrt(T*T - h*h) for h in holes) + 3.5/math.sqrt(T*T - G1Z*G1Z) - dbelow(T)
+def below5(T):                   # int_0^gamma_1 N_0 r (T^2 - r^2)^(-5/2) dr: the r-form where its peak ratio is at most 2^(5/2) (T >= sqrt 2 gamma_1);
+    if T*T >= 2*G1Z*G1Z: return _quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z, limit=200)[0]        # nearer the cusp, split at gamma_1/2:
+    return (_quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z/2, limit=200)[0]                          # the r-form below it (tame),
+            + _quad(lambda u: N0(math.sqrt(T*T - math.exp(2*u)))*math.exp(-3*u), 0.5*math.log(T*T - G1Z*G1Z), 0.5*math.log(T*T - G1Z*G1Z/4), limit=200)[0])   # s = sqrt(T^2 - r^2) = e^u above it (r dr = -s ds; the integrand N_0 e^(-3u), no peak)
 def TG(T, holes):                # T G(T) = 1 - T F'': the holes' and the constant's terms with the piece below gamma_1 exact
-    return sum(4*T*T*(T*T - h*h)**-1.5 for h in holes) + 3.5*T*T*(T*T - G1Z*G1Z)**-1.5 + 12*T*T*_quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z, limit=200)[0]
+    return sum(4*T*T*(T*T - h*h)**-1.5 for h in holes) + 3.5*T*T*(T*T - G1Z*G1Z)**-1.5 + 12*T*T*below5(T)
 def mono(holes, T0):             # T G strictly decreasing on 600 log-spaced points from the cusp to 30 T_0
     cusp = max(max(holes) if holes else 0.0, G1Z); v = [TG(T, holes) for T in np.exp(np.linspace(math.log(cusp*(1 + 1e-6)), math.log(30*T0), 600))]
     return all(v[i] > v[i + 1] for i in range(len(v) - 1))
@@ -178,6 +182,11 @@ with _mp.workdps(60):
     for r in (8, 10, 14.13, 20, 50, 87.4, 250, 415, 1000, 7000):
         r = _mp.mpf(r); eps = _mp.re(_mp.digamma(_mp.mpf(1)/4 + 1j*r/2)) - _mp.log(r/2)
         ok &= abs(eps) <= _mp.mpf(3)/(2*r*r)
+    # (c') T G's piece below gamma_1, 12 T^2 int_0^{gamma_1} N_0 r (T^2 - r^2)^{-5/2} dr, at the cusp T = gamma_1 (1 + 1e-6) (where the integrand peaks at 1e14 times its value at gamma_1/2) and at T = 15, against a 60-digit quadrature with the interval refined dyadically toward gamma_1
+    for T in (g1*(1 + _mp.mpf("1e-6")), _mp.mpf(15)):
+        pts = [_mp.mpf(0), g1/2] + [g1 - (g1/2)*_mp.mpf(2)**(-k) for k in range(1, 60)] + [g1]
+        ref = _mp.quad(lambda r: (r/(2*pi))*(_mp.log(r/(2*pi)) - 1)*r*(T*T - r*r)**_mp.mpf(-2.5), pts)
+        ok &= abs(_mp.mpf(repr(below5(float(T)))) - ref) <= _mp.mpf("1e-9")*abs(ref)
     # (d) the identity's ingredients: int_{gamma_1}^T w_T = arccosh(T/gamma_1), int_{T-D}^T D_T = arccosh(T/(T-D)) - ln(T/(T-D)), and 4 int_{gamma_1}^T S w_T on the list equals B - I - (7/2) arccosh(T/gamma_1) + below(T)
     T = _mp.mpf("87.4")
     ok &= abs(_mp.quad(lambda r: 1/(r*_mp.sqrt(1 - r*r/(T*T))), [g1, T]) - _mp.acosh(T/g1)) <= _mp.mpf("1e-25")
@@ -196,7 +205,7 @@ for c in ORDER:
         osc = 4*osc - 4*_quad(lambda r: n0r(r)/math.sqrt(1 - (r/T)**2), G1Z, T, limit=400, points=[0.999*T])[0]
         split_ok &= abs(lhs - (Fs(T, a, holes) + osc)) <= 1e-6*abs(lhs) and abs(osc - Osc(T)) <= 1e-6
 ok &= split_ok
-gate(f"g0 the algebra witnessed at 60 digits: the piece below gamma_1 in closed form -4 int_0^gamma_1 N_0/r dr = -(2/pi) gamma_1 (ln(gamma_1/2pi) - 2) = {float(c0):.4f} (1bs's 10.70) and its w_T form at T = 87.4 within 1e-9; the stationarity's closed form against the numerical derivative of F^s within 1e-18 at two heights; the Stirling remainder r^2 [Re psi(1/4 + ir/2) - ln(r/2)] -> -1/24 at r = 100, 1000, 10000 and |Re psi(1/4 + ir/2) - ln(r/2)| <= 3/(2 r^2) at ten heights from 8 to 7000 (the bound the block uses); int_gamma_1^T w_T = arccosh(T/gamma_1) and int_(T-D)^T D_T = arccosh(T/(T-D)) - ln(T/(T-D)) within 1e-25; the split F_k = F_k^s + Osc as an identity at three heights per cell with two trial holes (within 1e-6, Osc by the exact inter-zero integrals)", ok)
+gate(f"g0 the algebra witnessed at 60 digits: the piece below gamma_1 in closed form -4 int_0^gamma_1 N_0/r dr = -(2/pi) gamma_1 (ln(gamma_1/2pi) - 2) = {float(c0):.4f} (1bs's 10.70) and its w_T form at T = 87.4 within 1e-9; the stationarity's closed form against the numerical derivative of F^s within 1e-18 at two heights; the Stirling remainder r^2 [Re psi(1/4 + ir/2) - ln(r/2)] -> -1/24 at r = 100, 1000, 10000 and |Re psi(1/4 + ir/2) - ln(r/2)| <= 3/(2 r^2) at ten heights from 8 to 7000 (the bound the block uses); T G's piece below gamma_1 against a 60-digit quadrature at the cusp gamma_1 (1 + 1e-6) and at T = 15 within 1e-9 relative; int_gamma_1^T w_T = arccosh(T/gamma_1) and int_(T-D)^T D_T = arccosh(T/(T-D)) - ln(T/(T-D)) within 1e-25; the split F_k = F_k^s + Osc as an identity at three heights per cell with two trial holes (within 1e-6, Osc by the exact inter-zero integrals)", ok)
 
 # ---------------------------------------------------------------- the per-rung quantities
 R = {}; W = {}; G = {}
