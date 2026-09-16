@@ -10,7 +10,8 @@ I(T) = T[ln(T/2 pi) - 1 - ln 2] the continuum of the zero sum, w_T(r) = 1/(r sqr
 Osc(T) = 4 int_{gamma_1}^T S(r) w_T(r) dr. (ii) The smooth wall (derived): F_k^s is stationary where ln(2T_0/T) =
 4 sum_h (T^2 - h^2)^{-1/2} + (7/2)(T^2 - gamma_1^2)^{-1/2} + 4 int_0^{gamma_1} N_0(r) r (T^2 - r^2)^{-3/2} dr, i.e.
 T ln(2T_0/T) = 4m + 7/2 up to O((sum h^2 + gamma_1^2)/T^2) -- 1by(iii)'s continuum law with the count constant, the pole's
-7/8 worth seven eighths of a hole; the minimum T^s is unique on (2T_0/e, 2T_0) (convexity); for the ground state
+7/8 worth seven eighths of a hole; the minimum T^s unique (T G(T) falling from +inf at the cusp to 0, the piece below gamma_1 rising by less
+than the rest falls, computed at the 45 states); for the ground state
 T^s = 2T_0 e^{-eps}, eps = (7/2)/T^s. Computed: T^s/T_u within 1.9% rms at the 40 rungs against the 3.9% of 1by's law
 (the bias 2.8% -> 0.3%), the law's closed form within 0.13% rms of T^s, T^s/T_u(1) within 2.1% at the five ground states.
 (iii) The leftover oscillation (proved): |Osc(T) - Osc_inf| <= 4 sup_{[T-D,T]}|S| [arccosh(T/(T-D)) - ln(T/(T-D))]
@@ -125,6 +126,11 @@ def Fs(T, a, holes): return Icont(T) - 2*a*T + 4*sum(math.acosh(T/h) for h in ho
 def dFs(T, a, holes):
     T0 = TWO_PI*math.exp(2*a)
     return math.log(T/(2*T0)) + 4*sum(1/math.sqrt(T*T - h*h) for h in holes) + 3.5/math.sqrt(T*T - G1Z*G1Z) - dbelow(T)
+def TG(T, holes):                # T G(T) = 1 - T F'': the holes' and the constant's terms with the piece below gamma_1 exact
+    return sum(4*T*T*(T*T - h*h)**-1.5 for h in holes) + 3.5*T*T*(T*T - G1Z*G1Z)**-1.5 + 12*T*T*_quad(lambda r: N0(r)*r*(T*T - r*r)**-2.5, 0, G1Z, limit=200)[0]
+def mono(holes, T0):             # T G strictly decreasing on 600 log-spaced points from the cusp to 30 T_0
+    cusp = max(max(holes) if holes else 0.0, G1Z); v = [TG(T, holes) for T in np.exp(np.linspace(math.log(cusp*(1 + 1e-6)), math.log(30*T0), 600))]
+    return all(v[i] > v[i + 1] for i in range(len(v) - 1))
 def d2Fs(T, a, holes):
     return 1/T - 4*sum(T*(T*T - h*h)**-1.5 for h in holes) - 3.5*T*(T*T - G1Z*G1Z)**-1.5 - (dbelow(T*(1 + 1e-6)) - dbelow(T*(1 - 1e-6)))/(2e-6*T)
 def smooth_wall(a, holes):      # the minimum of F_k^s on (max(h_max, gamma_1), 3 T_0): the grid minimum refined by the stationarity equation
@@ -211,7 +217,7 @@ for c in ORDER:
     o_lo, o_hi = 0.5*T1, 1.6*T1; o_min, o_max, o_mean = osc_extrema(o_lo, o_hi)
     G[c] = dict(T1=T1, T1u=T1u, a=a, T0=T0, Ts1=Ts1, Fs1=Fs(Ts1, a, []), F1u=F1(T1u, a), Osc1=Osc(T1u), osc_mean=o_mean, osc_min=o_min, osc_max=o_max,
                 osc_sup=max(abs(o_min - osc_inf), abs(o_max - osc_inf)), cf1=-2*T0 + 3.5*math.log(4*T0/G1Z) + c0f - 3.5**2/(4*T0), eps1=math.exp(-3.5/(2*T0)),
-                bound1=4*sup_S*wgt(T1, 1.0) + 8*sup_S1*DT(T1, T1 - 1.0) + 8*sup_S1/T1, curv=d2Fs(Ts1, a, []))
+                bound1=4*sup_S*wgt(T1, 1.0) + 8*sup_S1*DT(T1, T1 - 1.0) + 8*sup_S1/T1, curv=d2Fs(Ts1, a, []), mono=mono([], T0))
     for r, p in zip(S["rungs"][1:ns + 1], P["rungs"][1:ns + 1]):
         k = r["k"]; m = k - 1; holes = sorted(r["holes"]); Tw = solve_T(holes, Lw[k]["Dkappa"]); ju = argmin_zero(a, holes, jmax); Tu = ZS[ju]
         Ts = smooth_wall(a, holes)
@@ -221,7 +227,7 @@ for c in ORDER:
         cf = -2*T0 + 4*sum(math.log(4*T0/h) for h in holes) + 3.5*math.log(4*T0/G1Z) + c0f - (4*m + 3.5)**2/(4*T0)
         cvx = min(T*d2Fs(T, a, holes) for T in np.linspace(2*T0/math.e, 2*T0, 200))                                              # T F'' over the bracket (2T_0/e, 2T_0)
         W[(c, k)] = dict(k=k, m=m, holes=holes, Tw=Tw, Tu=Tu, T1=T1, T1u=T1u, Ts=Ts, Tc=Tc, Tc2=Tc2, Osc_u=Osc(Tu), F_u=Fk(Tu, a, holes), Fs_min=Fs(Ts, a, holes), Fs_u=Fs(Tu, a, holes),
-                         c2=c2, dl=dl, cf=cf, curv=d2Fs(Ts, a, holes), cvx=cvx, lawres=Ts*math.log(2*T0/Ts) - 4*m - 3.5, cond=(4*m + 3.5 < 2*T0/math.e))
+                         c2=c2, dl=dl, cf=cf, curv=d2Fs(Ts, a, holes), cvx=cvx, lawres=Ts*math.log(2*T0/Ts) - 4*m - 3.5, cond=(4*m + 3.5 < 2*T0/math.e), mono=mono(holes, T0))
 ALL = list(W.values()); HM = [w for w in ALL if w["m"] >= 3]
 assert len(ALL) == 40 and len(HM) == 30
 def rms(v): v = np.asarray(v, float); return float(math.sqrt(np.mean(v*v)))
@@ -231,19 +237,19 @@ def mean(v): return float(np.mean(v))
 # ---------------------------------------------------------------- g1: the smooth wall at the 40 rungs
 tsu = [w["Ts"]/w["Tu"] for w in ALL]; tsu_hm = [w["Ts"]/w["Tu"] for w in HM]; tsw = [w["Ts"]/w["Tw"] for w in ALL]
 tcu = [w["Tc"]/w["Tu"] for w in ALL]; tc2u = [w["Tc2"]/w["Tu"] for w in ALL]; tc2s = [w["Tc2"]/w["Ts"] for w in ALL]
-lawres = [w["lawres"] for w in ALL]; curv_min = min(w["curv"]*w["Ts"] for w in ALL); cvx_min = min(w["cvx"] for w in ALL); n_cond = sum(w["cond"] for w in ALL)
+lawres = [w["lawres"] for w in ALL]; curv_min = min(w["curv"]*w["Ts"] for w in ALL); cvx_min = min(w["cvx"] for w in ALL); n_cond = sum(w["cond"] for w in ALL); n_mono = sum(w["mono"] for w in ALL) + sum(G[c]["mono"] for c in ORDER)
 ok = abs(mean(tsu) - 1) <= 0.01 and rms1(tsu) <= 0.025 and min(tsu) >= 0.95 and max(tsu) <= 1.08
 ok &= abs(mean(tsu_hm) - 1) <= 0.005 and rms1(tsu_hm) <= 0.02
-ok &= rms1(tc2s) <= 0.003 and max(abs(x) for x in lawres) <= 0.6 and curv_min >= 0.5 and cvx_min >= 0.2 and n_cond == 40
+ok &= rms1(tc2s) <= 0.003 and max(abs(x) for x in lawres) <= 0.6 and curv_min >= 0.5 and cvx_min >= 0.2 and n_cond == 40 and n_mono == 45
 ok &= rms1(tcu) >= 1.5*rms1(tsu) and abs(mean(tcu) - 1) >= 3*abs(mean(tsu) - 1) and 0.94 <= mean(tsw) <= 0.98
-gate(f"g1 the smooth wall T^s (the minimum of F_k^s) against Theorem 1by's T_u at the 40 rungs: T^s/T_u mean {mean(tsu):.4f} (gated within 0.01 of 1), rms deviation from 1 {rms1(tsu):.4f} (gated 0.025), range [{min(tsu):.3f}, {max(tsu):.3f}] (gated within [0.95, 1.08]); at the 30 with three or more holes mean {mean(tsu_hm):.4f} (gated within 0.005), rms {rms1(tsu_hm):.4f} (gated 0.02); the law T ln(2T_0/T) = 4m + 7/2 against T^s: rms {rms1(tc2s):.4f} (gated 0.003), its remainder T ln(2T_0/T) - 4m - 7/2 at T^s within {max(abs(x) for x in lawres):.3f} (gated 0.6: the holes' 2 sum h^2/T^2 at up to eleven holes); T F^s'' at T^s at least {curv_min:.3f} (gated 0.5) and at least {cvx_min:.3f} over the bracket (2T_0/e, 2T_0) at every rung (gated 0.2: convex there), 4m + 7/2 < 2T_0/e at {n_cond} of 40 (gated 40); 1by's continuum law without the constant, uT_0/T_u mean {mean(tcu):.4f} rms {rms1(tcu):.4f} against {mean(tc2u):.4f}, {rms1(tc2u):.4f} with it (gated: the rms at least 1.5 times and the bias at least 3 times the smooth wall's); T^s/T_w mean {mean(tsw):.4f} (gated [0.94, 0.98]) over [{min(tsw):.3f}, {max(tsw):.3f}]", ok)
+gate(f"g1 the smooth wall T^s (the minimum of F_k^s) against Theorem 1by's T_u at the 40 rungs: T^s/T_u mean {mean(tsu):.4f} (gated within 0.01 of 1), rms deviation from 1 {rms1(tsu):.4f} (gated 0.025), range [{min(tsu):.3f}, {max(tsu):.3f}] (gated within [0.95, 1.08]); at the 30 with three or more holes mean {mean(tsu_hm):.4f} (gated within 0.005), rms {rms1(tsu_hm):.4f} (gated 0.02); the law T ln(2T_0/T) = 4m + 7/2 against T^s: rms {rms1(tc2s):.4f} (gated 0.003), its remainder T ln(2T_0/T) - 4m - 7/2 at T^s within {max(abs(x) for x in lawres):.3f} (gated 0.6: the holes' 2 sum h^2/T^2 at up to eleven holes); T F^s'' at T^s at least {curv_min:.3f} (gated 0.5) and at least {cvx_min:.3f} over the bracket (2T_0/e, 2T_0) at every rung (gated 0.2: convex there), 4m + 7/2 < 2T_0/e at {n_cond} of 40 (gated 40), T G(T) strictly decreasing on 600 log-spaced points from the cusp to 30 T_0 at {n_mono} of the 45 states (gated 45: the uniqueness argument's monotonicity, the piece below gamma_1 exact); 1by's continuum law without the constant, uT_0/T_u mean {mean(tcu):.4f} rms {rms1(tcu):.4f} against {mean(tc2u):.4f}, {rms1(tc2u):.4f} with it (gated: the rms at least 1.5 times and the bias at least 3 times the smooth wall's); T^s/T_w mean {mean(tsw):.4f} (gated [0.94, 0.98]) over [{min(tsw):.3f}, {max(tsw):.3f}]", ok)
 
 # ---------------------------------------------------------------- g2: the ground states
 ts0 = [G[c]["Ts1"]/G[c]["T0"] for c in ORDER]; tsu1 = [G[c]["Ts1"]/G[c]["T1u"] for c in ORDER]; tsT1 = [G[c]["Ts1"]/G[c]["T1"] for c in ORDER]
 epsr = [G[c]["Ts1"]/(2*G[c]["T0"])/G[c]["eps1"] for c in ORDER]; cfd = [G[c]["Fs1"] - G[c]["cf1"] for c in ORDER]; cfd_r = [w["Fs_min"] - w["cf"] for w in ALL]
 ok = all(1.9 <= x <= 2.0 for x in ts0) and all(ts0[i] < ts0[i + 1] for i in range(4)) and max(abs(x - 1) for x in tsu1) <= 0.025 and max(abs(x - 1) for x in epsr) <= 0.002
 ok &= all(-0.01 <= x <= 0 for x in cfd) and all(cfd[i] < cfd[i + 1] for i in range(4)) and min(cfd_r) >= -1.5 and max(cfd_r) <= 0
-gate(f"g2 the ground states: T^s/T_0 = " + ", ".join(f"{x:.3f}" for x in ts0) + f" at the five cells (gated within [1.9, 2.0], increasing), T^s/(2T_0) against e^(-7/(4T_0)) within {max(abs(x - 1) for x in epsr):.4f} (gated 0.002); T^s/T_u(1) = " + ", ".join(f"{x:.4f}" for x in tsu1) + f" (gated within 0.025 of 1), T^s/T_1 = " + ", ".join(f"{x:.4f}" for x in tsT1) + "; the minimum F_1^s(T^s) against the closed form -2T_0 + (7/2) ln(4T_0/gamma_1) - 4 int_0^gamma_1 N_0/r dr - (7/2)^2/(4T_0): " + ", ".join(f"{x:+.4f}" for x in cfd) + f" (gated within [-0.01, 0], rising toward 0: the O((7/2)^3/T_0^2) remainder); at the rungs the closed form with the holes' 4 sum ln(4T_0/h) and -(4m + 7/2)^2/(4T_0) sits {min(cfd_r):+.3f} to {max(cfd_r):+.3f} nats from F_k^s(T^s) (gated within [-1.5, 0]: the (4m + 7/2)^3/T_0^2 and arccosh(T/h) - ln(2T/h) remainders grow with the holes)", ok)
+gate(f"g2 the ground states: T^s/T_0 = " + ", ".join(f"{x:.3f}" for x in ts0) + f" at the five cells (gated within [1.9, 2.0], increasing), T^s/(2T_0) against e^(-7/(4T_0)) within {max(abs(x - 1) for x in epsr):.4f} (gated 0.002); T^s/T_u(1) = " + ", ".join(f"{x:.4f}" for x in tsu1) + f" (gated within 0.025 of 1), T^s/T_1 = " + ", ".join(f"{x:.4f}" for x in tsT1) + "; the minimum F_1^s(T^s) against the closed form -2T_0 + (7/2) ln(4T_0/gamma_1) - 4 int_0^gamma_1 N_0/r dr - (7/2)^2/(4T_0): " + ", ".join(f"{x:+.4f}" for x in cfd) + f" (gated within [-0.01, 0], rising toward 0: the O(T_0^-2) remainder -- the cube term and the gamma_1^2 pieces); at the rungs the closed form with the holes' 4 sum ln(4T_0/h) and -(4m + 7/2)^2/(4T_0) sits {min(cfd_r):+.3f} to {max(cfd_r):+.3f} nats from F_k^s(T^s) (gated within [-1.5, 0]: the (4m + 7/2)^3/T_0^2 and sum h^2/T_0^2 remainders grow with the holes)", ok)
 
 # ---------------------------------------------------------------- g3: the leftover oscillation
 orng = [G[c]["osc_max"] - G[c]["osc_min"] for c in ORDER]; osup = [G[c]["osc_sup"] for c in ORDER]; omean = [G[c]["osc_mean"] for c in ORDER]
