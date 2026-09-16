@@ -7865,39 +7865,40 @@ the ground state's own. Hypothesis B says the rung's exterior envelope
 is the ground state's lifted by the constant e^{2Σ_h ln(1/σ_h(T_w))}
 times the origin ratio, so the two exterior leakages stand in the ratio
 of the lifts squared — and they do, at the sharp wall and not at the
-unlocking height (residuals here and below as the formula less the
-value, the convention of (ii)): ln(λ_k s_ext/(λ₁S₁(1))) − 2
-ln|ĝ_k(0)/ĝ₁(0)| equals 4Σ_h ln(1/σ_h(T_w)) within +0.01 ± 0.11 nats
-(mean, rms; 0.30 at most) at the 40 rungs, against −1.09 ± 1.72 with T_u
-in place of T_w. That whole is a balance: the near quarter [T₁, 1.25T₁)
-alone reads +0.39 ± 0.47 nats, a wall 2.8% below T_w, and the field
-beyond −0.20 ± 0.25, a wall 1.2% above, the whole their leakage-weighted
-balance at 39 of the 40 rungs. The envelope itself, read at a zeta zero
-γ by A(γ)² := ĝ(γ)² + ĝ(γ̄)², γ̄ the midpoint to the next zero (a zero
-of ĝ displaced by d spacings from γ gives ĝ(γ) = A sin πd and ĝ(γ̄) = A
-cos πd, so A is the envelope and ĝ(γ)²/A(γ)² = sin²πd the phase), is not
-lifted uniformly: the envelope lift over the ground state’s minus that
-constant runs −0.34 ± 0.48 nats on [T₁, 1.25T₁), +0.16 ± 0.32 on
-[1.25T₁, 1.5T₁) and +0.18 ± 0.26 on [1.5T₁, 2T₁) (means and rms over the
-40 rungs) — the envelope rises through the first quarter above T₁, 1bx's
-onset lag seen in the envelope rather than the counts, and overshoots
-the constant by a sixth of a nat beyond; the integrated reading above is
-what B asks of the exterior and what the identity of (ii) uses. The
-far-field excess is read at infinity too. V := ln|ĝ_k/ĝ₁| −
-ln|ĝ_k(0)/ĝ₁(0)| has, by Hadamard's product over the census sets, V(∞) =
-2[Σ_{O₁} ln τ − Σ_{O_k} ln τ − Σ_h ln h] exactly (the ground state's
-outer zeros against the rung's, the holes restored), and under
-Hypothesis B the Green potentials vanish at infinity (ψ(∞) = ∓i lies on
-the unit circle), so V(∞) is B's constant 2Σ_h ln(1/σ_h(T)): per hole,
-the deficit's log-moment ∫ln R dP_h = ln(1/σ_h) + ln h = ln((1 + s_h)T),
-s_h = (1 − σ_h²)/(1 + σ_h²), witnessed in g0 beside 1bx's R⁻³ moment (1
-+ σ_h²)/(2T²). Solving 2Σ_h ln(1/σ_h(T)) = V(∞) for the wall: the
-log-moment wall lies above T_w at 38 of the 40 rungs, by 1.5% on average
-with a scatter of 0.012 about that offset (T_log/T_w over [0.987,
-1.040]) — the deficit's logarithmic moment, which weights the far field
-more than the inverse-square moment does, sees the same far-field excess
-as the envelope, a systematic offset of the harmonic measure's profile
-and not noise; the wall it names is T_w to 1.5%. *(ii) The leakage
+unlocking height (every residual in (i) and (ii) as the formula less the
+value): ln(λ_k s_ext/(λ₁S₁(1))) − 2 ln|ĝ_k(0)/ĝ₁(0)| equals 4Σ_h
+ln(1/σ_h(T_w)) within +0.01 ± 0.11 nats (mean, rms; 0.30 at most) at the
+40 rungs, against −1.09 ± 1.72 with T_u in place of T_w. That whole is a
+leakage-weighted mean of its parts, an identity, and the parts differ:
+the near quarter [T₁, 1.25T₁) alone reads +0.39 ± 0.47 nats, a wall 2.8%
+below T_w on average (rms deviation 4.7%), and the field beyond −0.20 ±
+0.25, a wall 1.2% above (rms 1.5%), the near reading the higher at 39 of
+the 40 rungs. The envelope itself, read at a zeta zero γ by A(γ)² :=
+ĝ(γ)² + ĝ(γ̄)², γ̄ the midpoint to the next zero (a zero of ĝ displaced
+by d spacings from γ gives ĝ(γ) = A sin πd and ĝ(γ̄) = A cos πd, so A is
+the envelope and ĝ(γ)²/A(γ)² = sin²πd the phase), is not lifted
+uniformly: that constant minus the envelope lift over the ground state’s
+runs +0.34 ± 0.48 nats on [T₁, 1.25T₁), −0.16 ± 0.32 on [1.25T₁, 1.5T₁)
+and −0.18 ± 0.26 on [1.5T₁, 2T₁) (means and rms over the 40 rungs) — the
+envelope rises through the first quarter above T₁, 1bx's onset lag seen
+in the envelope rather than the counts, and overshoots the constant by a
+sixth of a nat beyond; the integrated reading above is what B asks of
+the exterior and what the identity of (ii) uses. The far-field excess is
+read at infinity too. V := ln|ĝ_k/ĝ₁| − ln|ĝ_k(0)/ĝ₁(0)| has, by
+Hadamard's product over the census sets, V(∞) = 2[Σ_{O₁} ln τ − Σ_{O_k}
+ln τ − Σ_h ln h] exactly (the ground state's outer zeros against the
+rung's, the holes restored), and under Hypothesis B the Green potentials
+vanish at infinity (ψ(∞) = ∓i lies on the unit circle), so V(∞) is B's
+constant 2Σ_h ln(1/σ_h(T)): per hole, the deficit's log-moment ∫ln R
+dP_h = ln(1/σ_h) + ln h = ln((1 + s_h)T), s_h = (1 − σ_h²)/(1 + σ_h²),
+witnessed in g0 beside 1bx's R⁻³ moment (1 + σ_h²)/(2T²). Solving 2Σ_h
+ln(1/σ_h(T)) = V(∞) for the wall: the log-moment wall lies above T_w at
+38 of the 40 rungs, by 1.5% on average with a scatter of 0.012 about
+that offset (T_log/T_w over [0.987, 1.040]) — the deficit's logarithmic
+moment, which weights the far field more than the inverse-square moment
+does, sees the same far-field excess as the envelope, a systematic
+offset of the harmonic measure's profile and not noise; the wall it
+names is T_w to 1.5% on average and 4% at worst. *(ii) The leakage
 budget (an identity).* Read the rung's exponent twice. Theorem 1by reads
 it at the unlocking height: ln λ_k − ln λ₁ = 2 ln|ĝ_k(0)/ĝ₁(0)| +
 F₁(T_u) + cost(T_u) − F₁(T_u(1)) − r₁, with cost(T) := 4Σ_h ln(1/σ_h(T))
