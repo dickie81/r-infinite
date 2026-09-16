@@ -5712,4 +5712,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (verifier `cascade_gap_law.py`: the needle S_LIFT reworded to the quantity computed, the docstring, the g1 label; Theorem 1bz's block regenerated: the envelope sentence, the mediant sentence's antecedent and its window ratios; sixteen needles; manifest 35). Full-tower class. Brief `brief_round353.md`. Convergence test on round 352's three findings (A518).
 
+**Findings.** 0 MAJOR, 1 minor, 3 cosmetic; all four verified by the lead and accepted (A519); no round-352 disposition reopened. Minor: F353-2 the one-hole gaps (−1.7% to +5.8%) in a "(computed, gated)" item with no conjunct in the block's verifier (1by(v)'s figures, gated there). Cosmetic: F353-1 the mediant gloss without its common factor; F353-3 one moment under two names and two deficit signs (1bx's R⁻³ moment of n_k − n₁ against the block's R⁻²-moment of n₁ − n_k); F353-4 the sub-window figures' inner aggregation unstated. **Sweep.** The gaps computed, gated and parsed back in g3 and g6, the block attributing them to 1by(v); "a common factor times the mediant"; 1bx's name throughout; "the lift per rung read as the mean of ln(A_k²/A₁²) over a window's zeta zeros". Sixteen needles (unchanged); manifest 35; conjunct census 180 → 184. Trajectory: 348 (1M+7m+5c) → 349 (0M+2m+4c) → 350 (0M+2m+2c) → 351 (0M+2m+2c) → 352 (0M+1m+2c) → 353 (0M+1m+3c) → 354 pending.
+
+### Round 354 — the convergence test on the round-353 sweep of Theorem 1bz
+
+**Scope.** The sweep commit (verifier `cascade_gap_law.py`: g3's one-hole gaps computed, gated and printed, g6's parse of them; the docstring and the g1 label; Theorem 1bz's block regenerated: the sharp wall's descriptor in 1bx's name, the mediant sentence's common factor, the sub-window figures' inner aggregation, the log-moment comparison, (iii)'s attribution of the one-hole gaps; sixteen needles unchanged; manifest 35). Full-tower class. Brief `brief_round354.md`. Convergence test on round 353's four findings (A519).
+
 **Findings.** Pending.
