@@ -4997,6 +4997,12 @@
 "rc": 0,
 "when": "2026-09-09T12:15Z"
 },
+"fee2c36c7d388d8befe40044": {
+"dt": 4.032519102096558,
+"file": "cascade_gap_law.py",
+"rc": 0,
+"when": "2026-09-16T16:08Z"
+},
 "ff3567ef7f7d91ee830b0a1f": {
 "dt": 172.0821704864502,
 "file": "cascade_li_two_channels.py",

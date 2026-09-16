@@ -9,11 +9,12 @@ S_1(x) the ground state's share beyond x T_1 (S_1(1) = 0.96-0.98: the ground lea
 s_hat = s_ext/S_1(1) the rung's exterior share relative to the ground state's own. (i) The exterior reads the sharp wall: under
 Hypothesis B the two exterior leakages stand in the ratio of the envelope lifts squared, so ln(lambda_k s_ext/(lambda_1 S_1(1)))
 - 2 ln|ghat_k(0)/ghat_1(0)| = cost(T_w) := 4 sum_h ln(1/sigma_h(T_w)) -- within 0.11 nats rms at the 40 rungs, and not at T_u
-(1.7 nats rms). The envelope itself, read by the estimator A(gamma)^2 = ghat(gamma)^2 + ghat(mid)^2 (a zero displaced by d
+(1.7 nats rms); that whole is the leakage-weighted balance of the near quarter [T_1, 1.25 T_1), which alone reads a wall 2.8% below
+T_w, against the field beyond, which alone reads one 1.2% above. The envelope itself, read by the estimator A(gamma)^2 = ghat(gamma)^2 + ghat(mid)^2 (a zero displaced by d
 spacings gives ghat(gamma) = A sin(pi d), ghat(mid) = A cos(pi d)), is not lifted uniformly: its lift over the ground state's
 minus B's constant runs a third of a nat low on [T_1, 1.25 T_1) and a sixth high on [1.25, 2) T_1 -- 1bx's onset lag in the
 envelope, and a far-field overshoot; the deficit's log-moment (exact from the census: V(infinity) = 2[sum_{O_1} ln tau -
-sum_{O_k} ln tau - sum_h ln h]) sees the same far-field excess, naming a wall 1.5% above T_w at 38 of 40 rungs -- the harmonic
+sum_{O_k} ln tau - sum_h ln h]) sees the same far-field excess, naming a wall above T_w at 38 of 40 rungs, 1.5% above on average -- the harmonic
 measure's log-mean per hole is ln((1 + s_h) T), s_h = (1 - sigma_h^2)/(1 + sigma_h^2), witnessed in g0. (ii) The leakage budget
 (an identity): the exponent read twice -- Theorem 1by's functional at T_u (the total leakage) and Hypothesis B on the exterior
 at T_w (the exterior leakage) -- gives
@@ -27,7 +28,7 @@ over four hole slopes is the gap's size. (iv) The leading law: F_1' = ln(T/2T_0)
 dT^2/(2 T_1u), dT = T_1u - T_u, and cost' = 4m/T give ln(T_w/T_u) = dT^2/(8m T_1u) - ln(1/s_hat)/(4m); with 1by(iii)'s dT ~ 4m
 in one factor, ln(T_w/T_u) = dT/(2 T_1u) - ln(1/s_hat)/(4m): the sharp wall is the geometric mean sqrt(T_u T_1u) reduced by the
 zone's share, s_hat^{1/(4m)} -- 1bx's "near the geometric mean of the two edges" explained (T_1u is T_1 or a zero within three
-of it; T_u is T_k or a zero above it), and the gap's growth with the hole count is the unlocking cost's; the law's forms are
+of it; T_u is T_k, a zero above it, or one zero below it at three of the 40), and the gap's growth with the hole count is the unlocking cost's; the law's forms are
 gated at their residuals. (v) The zone's anatomy: the zone's zeros are half-held (sin^2(pi d) averages 0.46 over the 537 zone
 zeros), the observed deficit at T_1 (0-3) lies below the sharp profile at T_u (0.5-4.4) at every rung with three or more holes,
 and the zone carries under a fifth of -Delta kappa_k.
@@ -61,6 +62,7 @@ PAPER_NEEDLES = [
     {'s': 'extended by Theorems 1i–1bz:', 'form': 'ws', 'g': 'g8'},
     {'g': 'g6', 's': 'the polished eigenvalues equal the census’s within 10⁻⁸ at all 54 states of the five cells, the pencil residuals lie below 10⁻¹⁵⁰, and the 6700-zero list carries 96.1–99.7% of every state’s leakage', 'form': 'ws'},
     {'g': 'g6', 's': 'ln(λ_k s_ext/(λ₁S₁(1))) − 2 ln|ĝ_k(0)/ĝ₁(0)| equals 4Σ_h ln(1/σ_h(T_w)) within +0.01 ± 0.11 nats (mean, rms; 0.30 at most) at the 40 rungs, against −1.09 ± 1.72 with T_u in place of T_w', 'form': 'ws'},
+    {'g': 'g6', 's': 'the near quarter [T₁, 1.25T₁) alone reads +0.39 ± 0.47 nats, a wall 2.8% below T_w, and the field beyond −0.20 ± 0.25, a wall 1.2% above, the whole their leakage-weighted balance at 39 of the 40 rungs', 'form': 'ws'},
     {'g': 'g6', 's': 'the envelope lift over the ground state’s minus that constant runs −0.34 ± 0.48 nats on [T₁, 1.25T₁), +0.16 ± 0.32 on [1.25T₁, 1.5T₁) and +0.18 ± 0.26 on [1.5T₁, 2T₁) (means and rms over the 40 rungs)', 'form': 'ws'},
     {'g': 'g6', 's': 'the log-moment wall lies above T_w at 38 of the 40 rungs, by 1.5% on average with a scatter of 0.012 about that offset (T_log/T_w over [0.987, 1.040])', 'form': 'ws'},
     {'g': 'g6', 's': 'cost(T_w) − cost(T_u) = U − ln(1/ŝ) within a residual of mean −0.12 and rms 0.23 nats over [−0.61, +0.22] at the 40 rungs (the two readings’ residuals within [−0.16, +0.43] and ±0.30 nats; the norm ratio 1)', 'form': 'ws'},
@@ -202,6 +204,9 @@ for c in ORDER:
         subs = []
         for lo_, hi_ in ((1.0, 1.25), (1.25, 1.5), (1.5, 2.0)):                                              # the envelope lift minus B's constant, by sub-window
             wsub = (ZS >= lo_*T1) & (ZS < hi_*T1) & (Ek > -1e8) & (E1 > -1e8); subs.append((float(np.mean((Ek - E1)[wsub])) - (c2 + cost(holes, Tw)), int(wsub.sum())))
+        wnear = (ZS >= T1) & (ZS < 1.25*T1); sk_near = float(np.sum(wk[wnear])); s1_near = float(np.sum(w1[wnear]))    # the exterior reading by leakage window: the near quarter and the field beyond (the tail included)
+        r_near = c2 + cost(holes, Tw) + math.log(s1_near/sk_near) - dl; r_far = c2 + cost(holes, Tw) + math.log((S1one - s1_near)/(s_ext - sk_near)) - dl
+        T_near = solve_cost(holes, cost(holes, Tw) - r_near, 50*T1); T_far = solve_cost(holes, cost(holes, Tw) - r_far, 50*T1)
         T_id = solve_cost(holes, cost(holes, Tu) + U - math.log(1/sh) - lnN, 50*T1)
         s_ss = S1(T1/Tu); sh_ss = s_ss/S1one; T_ss = solve_cost(holes, cost(holes, Tu) + U - math.log(1/sh_ss) - lnN, 50*T1)
         gm0 = math.sqrt(Tu*T1u); gm = gm0*math.exp(-(math.log(1/sh) + lnN)/(4*m)); dT = T1u - Tu
@@ -214,7 +219,7 @@ for c in ORDER:
         D_T1 = int(np.sum(O1 < T1) - np.sum(Ok < T1)); sharp_u = sharp(T1, Tu, holes)
         U_cont = dT*dT/(2*T1u)
         W[(c, k)] = dict(k=k, m=m, holes=holes, Tw=Tw, Tu=Tu, T1=T1, T1u=T1u, s_below=s_below, s_zone=s_zone, s_ext=s_ext, S1one=S1one, sh=sh, lnN=lnN, c2=c2, dl=dl, U=U, gapc=gapc,
-                         res_g3=res_g3, res_B=res_B, res_Bu=res_Bu, eps=eps, subs=subs, T_id=T_id, s_ss=s_ss, sh_ss=sh_ss, T_ss=T_ss, gm0=gm0, gm=gm, dT=dT,
+                         res_g3=res_g3, res_B=res_B, res_Bu=res_Bu, eps=eps, subs=subs, r_near=r_near, r_far=r_far, T_near=T_near, T_far=T_far, T_id=T_id, s_ss=s_ss, sh_ss=sh_ss, T_ss=T_ss, gm0=gm0, gm=gm, dT=dT,
                          lead_box=lead_box, lead_uc=lead_uc, lead_U=lead_U, lead_2m=lead_2m, Vinf=Vinf, T_log=T_log, Dk_c=Dk_c, Dk=L[k]["Dkappa"],
                          mom_zone=mom_zone, mom_ext=mom_ext, N_zone=N_zone, S_zone=S_zone, D_T1=D_T1, sharp_u=sharp_u, U_cont=U_cont)
 ALL = list(W.values()); HM = [w for w in ALL if w["m"] >= 3]; ONE = [w for w in ALL if w["m"] == 1]; ZN = [w for w in ALL if w["N_zone"] > 0]
@@ -224,11 +229,13 @@ assert len(ALL) == 40 and len(HM) == 30 and len(ONE) == 5                       
 rB = [w["res_B"] for w in ALL]; rBu = [w["res_Bu"] for w in ALL]; s1one = [G1[c]["S1one"] for c in ORDER]
 sub = [[w["subs"][i][0] for w in ALL] for i in range(3)]; subn = [[w["subs"][i][1] for w in ALL] for i in range(3)]
 tl = [w["T_log"]/w["Tw"] for w in ALL]; tl_above = sum(1 for x in tl if x > 1); tl_sd = float(np.std(tl))
+rn = [w["r_near"] for w in ALL]; rf = [w["r_far"] for w in ALL]; tn = [w["T_near"]/w["Tw"] for w in ALL]; tf = [w["T_far"]/w["Tw"] for w in ALL]; n_btw = sum(1 for w in ALL if w["r_far"] < w["res_B"] < w["r_near"])
 ok = abs(float(np.mean(rB))) <= 0.05 and rms(rB) <= 0.15 and max(abs(x) for x in rB) <= 0.35 and min(s1one) >= 0.95 and max(s1one) <= 0.99
 ok &= rms(rBu) >= 1.2 and float(np.mean(rBu)) <= -0.7
 ok &= -0.5 <= float(np.mean(sub[0])) <= -0.2 and 0.05 <= float(np.mean(sub[1])) <= 0.3 and 0.05 <= float(np.mean(sub[2])) <= 0.3 and min(min(x) for x in subn) >= 5
 ok &= tl_above >= 36 and 1.005 <= float(np.mean(tl)) <= 1.025 and tl_sd <= 0.02 and min(tl) >= 0.98 and max(tl) <= 1.05
-gate(f"g1 the exterior reads the sharp wall: the rung's exterior leakage beyond T_1 against the ground state's (the ground's own share beyond its edge S_1(1) = " + ", ".join(f"{x:.3f}" for x in s1one) + f" at the five cells, gated within [0.95, 0.99]) less 2 ln|ghat_k(0)/ghat_1(0)| minus cost(T_w): mean {float(np.mean(rB)):+.3f} (gated |.| <= 0.05), rms {rms(rB):.3f} (gated 0.15), largest {max(abs(x) for x in rB):.2f} (gated 0.35) at the 40 rungs; with T_u in place of T_w mean {float(np.mean(rBu)):+.2f} (gated <= -0.7), rms {rms(rBu):.2f} (gated >= 1.2); the envelope lift over the ground state's (the estimator ghat(gamma)^2 + ghat(mid)^2) minus B's constant by sub-window, [1, 1.25) T_1: mean {float(np.mean(sub[0])):+.3f} rms {rms(sub[0]):.3f} (gated mean in [-0.5, -0.2]); [1.25, 1.5) T_1: {float(np.mean(sub[1])):+.3f}, {rms(sub[1]):.3f} (gated [0.05, 0.3]); [1.5, 2) T_1: {float(np.mean(sub[2])):+.3f}, {rms(sub[2]):.3f} (gated [0.05, 0.3]); the windows hold {min(min(x) for x in subn)}-{max(max(x) for x in subn)} zeros (gated >= 5); the log-moment wall (cost(T) = 2 V(infinity), V(infinity) = 2[sum_(O_1) ln tau - sum_(O_k) ln tau - sum_h ln h] from the census sets): T_log > T_w at {tl_above} of 40 (gated >= 36), T_log/T_w mean {float(np.mean(tl)):.4f} (gated [1.005, 1.025]), standard deviation {tl_sd:.4f} (gated 0.02), range [{min(tl):.4f}, {max(tl):.4f}] (gated within [0.98, 1.05])", ok)
+ok &= 0.25 <= float(np.mean(rn)) <= 0.55 and -0.3 <= float(np.mean(rf)) <= -0.1 and 0.95 <= float(np.mean(tn)) <= 0.99 and 1.0 <= float(np.mean(tf)) <= 1.03 and n_btw >= 36
+gate(f"g1 the exterior reads the sharp wall: the rung's exterior leakage beyond T_1 against the ground state's (the ground's own share beyond its edge S_1(1) = " + ", ".join(f"{x:.3f}" for x in s1one) + f" at the five cells, gated within [0.95, 0.99]) less 2 ln|ghat_k(0)/ghat_1(0)| minus cost(T_w): mean {float(np.mean(rB)):+.3f} (gated |.| <= 0.05), rms {rms(rB):.3f} (gated 0.15), largest {max(abs(x) for x in rB):.2f} (gated 0.35) at the 40 rungs; with T_u in place of T_w mean {float(np.mean(rBu)):+.2f} (gated <= -0.7), rms {rms(rBu):.2f} (gated >= 1.2); the envelope lift over the ground state's (the estimator ghat(gamma)^2 + ghat(mid)^2) minus B's constant by sub-window, [1, 1.25) T_1: mean {float(np.mean(sub[0])):+.3f} rms {rms(sub[0]):.3f} (gated mean in [-0.5, -0.2]); [1.25, 1.5) T_1: {float(np.mean(sub[1])):+.3f}, {rms(sub[1]):.3f} (gated [0.05, 0.3]); [1.5, 2) T_1: {float(np.mean(sub[2])):+.3f}, {rms(sub[2]):.3f} (gated [0.05, 0.3]); the windows hold {min(min(x) for x in subn)}-{max(max(x) for x in subn)} zeros (gated >= 5); the exterior reading by leakage window (formula less value): the near quarter [T_1, 1.25 T_1) mean {float(np.mean(rn)):+.3f} rms {rms(rn):.3f} (gated mean in [0.25, 0.55]), the field beyond {float(np.mean(rf)):+.3f}, {rms(rf):.3f} (gated [-0.3, -0.1]); the wall each names alone, T_near/T_w mean {float(np.mean(tn)):.4f} (gated [0.95, 0.99]) rms deviation {rms1(tn):.4f}, T_far/T_w mean {float(np.mean(tf)):.4f} (gated [1.0, 1.03]) rms {rms1(tf):.4f}; the whole between the two at {n_btw} of 40 (gated >= 36); the log-moment wall (cost(T) = 2 V(infinity), V(infinity) = 2[sum_(O_1) ln tau - sum_(O_k) ln tau - sum_h ln h] from the census sets): T_log > T_w at {tl_above} of 40 (gated >= 36), T_log/T_w mean {float(np.mean(tl)):.4f} (gated [1.005, 1.025]), standard deviation {tl_sd:.4f} (gated 0.02), range [{min(tl):.4f}, {max(tl):.4f}] (gated within [0.98, 1.05])", ok)
 
 # ---------------------------------------------------------------- g2: the leakage budget (the identity) and T_w recovered from T_u, U and the measured share
 lnN_max = max(abs(w["lnN"]) for w in ALL); eps = [w["eps"] for w in ALL]; r3 = [w["res_g3"] for w in ALL]
@@ -248,8 +255,8 @@ ssone = [w["s_ss"] for w in ONE]; nz12 = [w["N_zone"] for w in ALL if w["m"] <= 
 ok = abs(float(np.mean(lss))) <= 0.1 and rms(lss) <= 0.15 and min(lss) >= -0.4 and max(lss) <= 0.3 and rms(lss_hm) <= 0.13
 ok &= abs(float(np.mean(tss_hm)) - 1) <= 0.005 and rms1(tss_hm) <= 0.012 and min(tss_hm) >= 0.965 and max(tss_hm) <= 1.035 and n_over <= 8
 ok &= rms1(tss) <= 0.03 and WORST[1:] == ("d2.6", 2) and WORST[0] <= -0.09
-ok &= min(ssone) <= 0.7 and max(ssone) >= 0.95 and max(nz12) <= 9 and len(nz12) == 10
-gate(f"g3 the share's law s_ext = S_1(T_1/T_u) (the ground state's share beyond T_1/T_u times its edge): ln(S_1/s_ext) mean {float(np.mean(lss)):+.3f} (gated |.| <= 0.1), rms {rms(lss):.3f} (gated 0.15), range [{min(lss):+.3f}, {max(lss):+.3f}] (gated within [-0.4, 0.3]) at the 40 rungs, rms {rms(lss_hm):.3f} at the 30 with three or more holes (gated 0.13); T_w from the ground state alone (T_u, U, S_1): T_ss/T_w at the 30 rungs with three or more holes mean {float(np.mean(tss_hm)):.4f} (gated within 0.005 of 1), rms deviation {rms1(tss_hm):.4f} (gated 0.012), range [{min(tss_hm):.4f}, {max(tss_hm):.4f}] (gated within [0.965, 1.035]), beyond one percent at {n_over} of the 30 (gated <= 8); at all 40 rms {rms1(tss):.4f} (gated 0.03), the worst {WORST[1]} rung {WORST[2]} at {100*WORST[0]:+.1f}% (gated delta = 2.6 rung 2, <= -9%); the one-hole rungs: " + ", ".join(f"{c} {x:.3f}" for c, k, x in TSS1) + f"; at one hole S_1(T_1/T_u) runs {min(ssone):.3f}-{max(ssone):.3f} (gated min <= 0.7, max >= 0.95) against the shares {min(sone):.3f}-{max(sone):.3f}, the zone at one or two holes {min(nz12)}-{max(nz12)} zeros wide over {len(nz12)} rungs (gated <= 9; 10)", ok)
+ok &= min(ssone) <= 0.7 and max(ssone) >= 0.95 and max(nz12) <= 9
+gate(f"g3 the share's law s_ext = S_1(T_1/T_u) (the ground state's share beyond T_1/T_u times its edge): ln(S_1/s_ext) mean {float(np.mean(lss)):+.3f} (gated |.| <= 0.1), rms {rms(lss):.3f} (gated 0.15), range [{min(lss):+.3f}, {max(lss):+.3f}] (gated within [-0.4, 0.3]) at the 40 rungs, rms {rms(lss_hm):.3f} at the 30 with three or more holes (gated 0.13); T_w from the ground state alone (T_u, U, S_1): T_ss/T_w at the 30 rungs with three or more holes mean {float(np.mean(tss_hm)):.4f} (gated within 0.005 of 1), rms deviation {rms1(tss_hm):.4f} (gated 0.012), range [{min(tss_hm):.4f}, {max(tss_hm):.4f}] (gated within [0.965, 1.035]), beyond one percent at {n_over} of the 30 (gated <= 8); at all 40 rms {rms1(tss):.4f} (gated 0.03), the worst {WORST[1]} rung {WORST[2]} at {100*WORST[0]:+.1f}% (gated delta = 2.6 rung 2, <= -9%); the one-hole rungs: " + ", ".join(f"{c} {x:.3f}" for c, k, x in TSS1) + f"; at one hole S_1(T_1/T_u) runs {min(ssone):.3f}-{max(ssone):.3f} (gated min <= 0.7, max >= 0.95) against the shares {min(sone):.3f}-{max(sone):.3f}, the zone at one or two holes {min(nz12)}-{max(nz12)} zeros wide over the {len(nz12)} rungs with one or two holes (gated <= 9; the count is the complement of the thirty)", ok)
 
 # ---------------------------------------------------------------- g4: the leading law -- the geometric mean reduced by the share, and the law's forms
 g0r = [w["gm0"]/w["Tw"] for w in ALL]; gr = [w["gm"]/w["Tw"] for w in ALL]; gr_hm = [w["gm"]/w["Tw"] for w in HM]
@@ -274,6 +281,7 @@ gate(f"g5 the zone's anatomy: sin^2(pi d) = ghat(gamma)^2/A(gamma)^2 averages {s
 import paper_needles
 S_PRO = 'the polished eigenvalues equal the census’s within 10⁻⁸ at all 54 states of the five cells, the pencil residuals lie below 10⁻¹⁵⁰, and the 6700-zero list carries 96.1–99.7% of every state’s leakage'
 S_EXT = 'ln(λ_k s_ext/(λ₁S₁(1))) − 2 ln|ĝ_k(0)/ĝ₁(0)| equals 4Σ_h ln(1/σ_h(T_w)) within +0.01 ± 0.11 nats (mean, rms; 0.30 at most) at the 40 rungs, against −1.09 ± 1.72 with T_u in place of T_w'
+S_WIN = 'the near quarter [T₁, 1.25T₁) alone reads +0.39 ± 0.47 nats, a wall 2.8% below T_w, and the field beyond −0.20 ± 0.25, a wall 1.2% above, the whole their leakage-weighted balance at 39 of the 40 rungs'
 S_LIFT = 'the envelope lift over the ground state’s minus that constant runs −0.34 ± 0.48 nats on [T₁, 1.25T₁), +0.16 ± 0.32 on [1.25T₁, 1.5T₁) and +0.18 ± 0.26 on [1.5T₁, 2T₁) (means and rms over the 40 rungs)'
 S_LOG = 'the log-moment wall lies above T_w at 38 of the 40 rungs, by 1.5% on average with a scatter of 0.012 about that offset (T_log/T_w over [0.987, 1.040])'
 S_ID = 'cost(T_w) − cost(T_u) = U − ln(1/ŝ) within a residual of mean −0.12 and rms 0.23 nats over [−0.61, +0.22] at the 40 rungs (the two readings’ residuals within [−0.16, +0.43] and ±0.30 nats; the norm ratio 1)'
@@ -291,6 +299,7 @@ S_MOM = 'the zone [T_u, T₁) carries at most 18% of −Δκ_k and the exterior 
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the polished eigenvalues equal the census’s within 10⁻⁸ at all 54 states of the five cells, the pencil residuals lie below 10⁻¹⁵⁰, and the 6700-zero list carries 96.1–99.7% of every state’s leakage', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'ln(λ_k s_ext/(λ₁S₁(1))) − 2 ln|ĝ_k(0)/ĝ₁(0)| equals 4Σ_h ln(1/σ_h(T_w)) within +0.01 ± 0.11 nats (mean, rms; 0.30 at most) at the 40 rungs, against −1.09 ± 1.72 with T_u in place of T_w', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the near quarter [T₁, 1.25T₁) alone reads +0.39 ± 0.47 nats, a wall 2.8% below T_w, and the field beyond −0.20 ± 0.25, a wall 1.2% above, the whole their leakage-weighted balance at 39 of the 40 rungs', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the envelope lift over the ground state’s minus that constant runs −0.34 ± 0.48 nats on [T₁, 1.25T₁), +0.16 ± 0.32 on [1.25T₁, 1.5T₁) and +0.18 ± 0.26 on [1.5T₁, 2T₁) (means and rms over the 40 rungs)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the log-moment wall lies above T_w at 38 of the 40 rungs, by 1.5% on average with a scatter of 0.012 about that offset (T_log/T_w over [0.987, 1.040])', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'cost(T_w) − cost(T_u) = U − ln(1/ŝ) within a residual of mean −0.12 and rms 0.23 nats over [−0.61, +0.22] at the 40 rungs (the two readings’ residuals within [−0.16, +0.43] and ±0.30 nats; the norm ratio 1)', 'ws')
@@ -304,7 +313,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'the law’s residual in ln T is 0.017
 ok &= paper_needles.needle(PAPER_NEEDLES, 'U/U_c averages 0.93 over [0.24, 1.21] at the 30 rungs with three or more holes, and runs 0.24–1.64 at the 7 with one or two holes and a wall below the ground state’s minimiser', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'sin²(πd) averages 0.46 over the 537 zeta zeros of the zones (0.48 as the mean of the 39 rungs’ means, standard deviation 0.14); the observed deficit at T₁ lies below the sharp profile at T_u at all 30 rungs with three or more holes, by 0.88 zeros on average, the profile’s count there 0.48–4.39 zeros and the observed 0–3', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the zone [T_u, T₁) carries at most 18% of −Δκ_k and the exterior beyond T₁ at least 82%', 'ws')
-ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_PRO, S_EXT, S_LIFT, S_LOG, S_ID, S_TID, S_SS, S_TSS, S_ONE, S_EPS1, S_GM, S_LAW, S_UC, S_ZONE, S_MOM]
+ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_PRO, S_EXT, S_WIN, S_LIFT, S_LOG, S_ID, S_TID, S_SS, S_TSS, S_ONE, S_EPS1, S_GM, S_LAW, S_UC, S_ZONE, S_MOM]
 _re = __import__("re")
 def _num(s): return float(s.strip().replace('−', '-'))
 def _nums(s, pat=r"([-−+]?[0-9]+\.[0-9]+)"): return [_num(x) for x in _re.findall(pat, s)]
@@ -312,6 +321,7 @@ def _ints(s): return [int(x) for x in _re.findall(r"(?<![0-9.−-])[0-9]+(?![0-9
 _mx = lambda v: round(max(abs(x) for x in v), 2)
 ok &= _ints(S_PRO.split("at all ")[1].split(" states")[0]) == [n_pro] and _nums(S_PRO.split("carries ")[1]) == [round(100*cap_lo, 1), round(100*cap_hi, 1)]
 ok &= _nums(S_EXT.split("within ")[1].split(" nats (mean")[0]) == [round(float(np.mean(rB)), 2), round(rms(rB), 2)] and _nums(S_EXT.split("rms; ")[1].split(" at most")[0]) == [_mx(rB)] and _nums(S_EXT.split("against ")[1].split(" with T_u")[0]) == [round(float(np.mean(rBu)), 2), round(rms(rBu), 2)] and _ints(S_EXT.split("at the ")[1].split(" rungs")[0]) == [len(ALL)]
+ok &= _nums(S_WIN.split("alone reads ")[1].split(" nats")[0]) == [round(float(np.mean(rn)), 2), round(rms(rn), 2)] and _nums(S_WIN.split("a wall ")[1].split("%")[0]) == [round(100*(1 - float(np.mean(tn))), 1)] and _nums(S_WIN.split("beyond ")[1].split(", a wall")[0]) == [round(float(np.mean(rf)), 2), round(rms(rf), 2)] and _nums(S_WIN.split("a wall ")[2].split("%")[0]) == [round(100*(float(np.mean(tf)) - 1), 1)] and _ints(S_WIN.split("balance at ")[1].split(" of the")[0]) == [n_btw]
 ok &= _nums(S_LIFT.split("runs ")[1].split(" nats on")[0]) == [round(float(np.mean(sub[0])), 2), round(rms(sub[0]), 2)] and _nums(S_LIFT.split("[T₁, 1.25T₁), ")[1].split(" on [1.25T₁")[0]) == [round(float(np.mean(sub[1])), 2), round(rms(sub[1]), 2)] and _nums(S_LIFT.split("1.5T₁) and ")[1].split(" on [1.5T₁")[0]) == [round(float(np.mean(sub[2])), 2), round(rms(sub[2]), 2)]
 ok &= _ints(S_LOG.split("above T_w at ")[1].split(" of the")[0]) == [tl_above] and _nums(S_LOG.split("by ")[1].split("%")[0]) == [round(100*(float(np.mean(tl)) - 1), 1)] and _nums(S_LOG.split("scatter of ")[1].split(" about")[0]) == [round(tl_sd, 3)] and _nums(S_LOG.split("over ")[1]) == [round(min(tl), 3), round(max(tl), 3)]
 ok &= _nums(S_ID.split("of mean ")[1].split(" at the")[0]) == [round(float(np.mean(eps)), 2), round(rms(eps), 2), round(min(eps), 2), round(max(eps), 2)] and _ints(S_ID.split("at the ")[1].split(" rungs")[0]) == [len(ALL)]
