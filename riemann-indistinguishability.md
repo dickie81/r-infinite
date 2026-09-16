@@ -7628,26 +7628,26 @@ holes, whose position the census fixes and this block does not derive.
 The wall's law — the rung's leakage budget against the cost of unlocking
 the zeta zeros between the wall and T₁ — is Theorem 1by's: the minimiser
 of 1bm(v)'s exponent functional plus the hole pairs' balayage cost,
-which lies below this block's sharp wall by a gap that grows with the
-hole count (4% on average, 15% at most) — not the soft onset's. *(v)
-What is proved, computed, not claimed.* Proved: the identity (i); the
-balayage law (ii) under Hypothesis B — the closed form of ln C_k, Δκ_k,
-the deficit profile and the r⁴ coefficient. Computed, gated: Hypothesis
-B with one wall per rung — the interior profile at three heights and the
-r = 40 ratio at every safely deep rung of the five cells, the deficit
-profile's wall at the thirty with three or more holes; the onset lag
-near the wall, B's one departure, gated as such; rung 2's wall at T₁ and
-T₁ at two horizons; the walls' brackets and monotonicity. Not claimed
-here: the wall's law (Theorem 1by); Hypothesis B beyond the safely deep
-rungs or at other supports; the odd sector; anything about the zeros —
-**no Riemann Hypothesis consequence is claimed**. Check 7 clean
-(Joukowski's map, Green's function, Poincaré–de la Vallée Poussin
-balayage — classical, already listed at 1bm; no semiclassics). Check 8
-clean (Riemann-side; no hypothesis input). No new substrate: the
-verifier computes from Theorem 1bw's census and laws checkpoints,
-Theorem 1bu's ladder checkpoints (the safely deep counts) and Theorem
-1bm's 6700-zero list (data, its hash in every key), all reused at their
-keys.
+which lies below this block's sharp wall at 37 of the 40 rungs, by a gap
+that grows with the hole count (4% on average, 15% at most) — not the
+soft onset's. *(v) What is proved, computed, not claimed.* Proved: the
+identity (i); the balayage law (ii) under Hypothesis B — the closed form
+of ln C_k, Δκ_k, the deficit profile and the r⁴ coefficient. Computed,
+gated: Hypothesis B with one wall per rung — the interior profile at
+three heights and the r = 40 ratio at every safely deep rung of the five
+cells, the deficit profile's wall at the thirty with three or more
+holes; the onset lag near the wall, B's one departure, gated as such;
+rung 2's wall at T₁ and T₁ at two horizons; the walls' brackets and
+monotonicity. Not claimed here: the wall's law (Theorem 1by); Hypothesis
+B beyond the safely deep rungs or at other supports; the odd sector;
+anything about the zeros — **no Riemann Hypothesis consequence is
+claimed**. Check 7 clean (Joukowski's map, Green's function, Poincaré–de
+la Vallée Poussin balayage — classical, already listed at 1bm; no
+semiclassics). Check 8 clean (Riemann-side; no hypothesis input). No new
+substrate: the verifier computes from Theorem 1bw's census and laws
+checkpoints, Theorem 1bu's ladder checkpoints (the safely deep counts)
+and Theorem 1bm's 6700-zero list (data, its hash in every key), all
+reused at their keys.
 
 **Theorem 1by (the wall's law — the unlocking functional: the rung's
 wall is the minimiser of Theorem 1bm(v)'s finite-δ exponent plus the
@@ -7696,14 +7696,14 @@ three of the eleven (2154 and 6107 at the ground states, 1185 at δ =
 higher rungs the field and λH_j are comparable, at the ground state's
 bottom the field already carries fifteen sixteenths of the displacement,
 and toward every edge it grows against an envelope that has collapsed
-there, to thousands of times λH_j at the ground states' edges and at δ =
-2.3's rung 2, tens to hundreds at the other eight. *(ii) The unlocking
-functional (the law).* Theorem 1bm(v) writes the ground state's exponent
-as the minimum over a wall T of F₁(T) = 4Σ_{γ<T} ln((1 + √(1 −
-γ²/T²))T/γ) − 2aT, the dodged zeros' Green potentials at the exterior
-against the type; Theorem 1bx(ii) gives the rung's exterior envelope as
-the ground state's times Π_h σ_h⁻², σ_h = ψ(h) at the wall, so the
-rung's exponent at wall T is F₁(T) + 4Σ_h ln(1/σ_h(T)) + 2
+there, to thousands of times λH_j at the ground states' edges, over a
+thousand at δ = 2.3's rung 2, tens to hundreds at the other eight. *(ii)
+The unlocking functional (the law).* Theorem 1bm(v) writes the ground
+state's exponent as the minimum over a wall T of F₁(T) = 4Σ_{γ<T} ln((1
++ √(1 − γ²/T²))T/γ) − 2aT, the dodged zeros' Green potentials at the
+exterior against the type; Theorem 1bx(ii) gives the rung's exterior
+envelope as the ground state's times Π_h σ_h⁻², σ_h = ψ(h) at the wall,
+so the rung's exponent at wall T is F₁(T) + 4Σ_h ln(1/σ_h(T)) + 2
 ln|ĝ_k(0)/ĝ₁(0)| up to the offset common to the ladder: lowering the
 wall unlocks the zeta zeros between T and T₁ at the cost F₁(T) − F₁(T₁)
 and cheapens the hole pairs' balayage by 4Σ_h[ln(1/σ_h(T₁)) −

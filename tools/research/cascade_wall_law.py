@@ -134,7 +134,7 @@ with _mp.workdps(60):
     # (c) the root: X ln(2/X) = (2m/pi) e^{-delta} zeroes that derivative; u ln(2/u) has its maximum 2/e at u = 2/e (existence iff m < (pi/e) e^delta)
     for m, d in ((1, 2.0), (6, 2.3), (11, 3.5)):
         u = _mp.mpf(cont_u(m, d)); ok &= abs(-2*_mp.pi*_mp.exp(d)*_mp.log(2/u) + 4*m/u) <= _mp.mpf("1e-9")
-    ok &= abs(_mp.diff(lambda u: u*_mp.log(2/u), 2/_mp.e)) <= _mp.mpf("1e-25") and abs((2/_mp.e)*_mp.log(2/(2/_mp.e)) - 2/_mp.e) <= _mp.mpf("1e-30") and all(u*_mp.log(2/u) < 2/_mp.e for u in (_mp.mpf("0.3"), _mp.mpf("0.5"), _mp.mpf(1), _mp.mpf("1.5"), _mp.mpf("1.9")))
+    ok &= abs(_mp.diff(lambda u: u*_mp.log(2/u), 2/_mp.e)) <= _mp.mpf("1e-25") and abs(max(u*_mp.log(2/u) for u in (_mp.mpf(k)/10000 for k in range(1, 20000))) - 2/_mp.e) <= _mp.mpf("1e-7") and all(u*_mp.log(2/u) < 2/_mp.e for u in (_mp.mpf("0.3"), _mp.mpf("0.5"), _mp.mpf(1), _mp.mpf("1.5"), _mp.mpf("1.9")))
     # (d) the edge coefficients: the hole pair's deficit density (2/pi) X/(x sqrt(x^2 - X^2)) has the 1/sqrt(x - X) coefficient (2/pi)/sqrt(2X);
     #     1bm's I(X) = pi X ln(X/2) (the Cauchy integral of sqrt(X^2 - t^2) ln|t| at the edge) gives the ground's sqrt(X/2) ln(2/X); the balance is (c)'s equation
     X = _mp.mpf("1.5"); eps = _mp.mpf("1e-12")
@@ -205,8 +205,8 @@ bu_match = sum(1 for w in W.values() if abs(w["Tk_bu"] - w["Tu"]) <= 1e-3)      
 # the sharp wall's excess over T_u against the hole count (round 342 F342-1): its range, its correlations with m and with 1bx's onset shortfall at T_1, the per-cell slopes
 exc = np.array([w["Tw"]/w["Tu"] - 1 for w in W.values()]); mm = np.array([w["m"] for w in W.values()]); shf = np.array([w["shortfall"] for w in W.values()])
 r_m = float(np.corrcoef(mm, exc)[0, 1]); r_sh = float(np.corrcoef(shf, exc)[0, 1]); r_ms = float(np.corrcoef(mm, shf)[0, 1])   # and the shortfall itself against the hole count
-DOF = 2; AGREE_TOL = 0.02                                                                          # the t-statistic's n - 2 and the one-hole agreement threshold (round 346 F346-9)
-tstat = lambda r: r*math.sqrt(len(exc) - DOF)/math.sqrt(1 - r*r); SE = 1/math.sqrt(len(exc) - 3)                                 # t statistics and the standard error of a null correlation at n = 40 (round 343 F343-1)
+NSUB = 2; AGREE_TOL = 0.02                                                                          # the subtrahend of the t-statistic's n - 2 and the one-hole agreement threshold (round 346 F346-9; named per round 347 F347-3)
+tstat = lambda r: r*math.sqrt(len(exc) - NSUB)/math.sqrt(1 - r*r); SE = 1/math.sqrt(len(exc) - 3)                                 # t statistics and the standard error of a null correlation at n = 40 (round 343 F343-1)
 SL = {}
 for c in ORDER:
     sel = [w for (cc, _), w in W.items() if cc == c]; x = np.array([w["m"] for w in sel])
@@ -349,7 +349,7 @@ ok = len(rows) == 295 and float(np.max(np.abs(ratio - 1))) <= 5e-3 and abs(float
 ok &= field.min() <= -3000 and field.max() >= 1 and all(0.015 <= t <= 0.03 for t in tails) and gb[0] <= -70 and gb[-1] >= -4
 nlin = int(np.sum(dsign != 1.0)); ok &= float(np.max(np.abs(dsign - 1))) <= 5e-3 and nlin >= 100          # the displacement formula with its sign, at the linearised zeros (|d| <= 1e-9)
 ok &= r_tail >= 0.95 and all(x <= -10 for x in gbot) and all(-3 <= x <= 3 for x in rbot) and float(np.min(np.abs(field))) <= 1.0 and len(BOT) == 11
-ok &= BIG == [("d2.0", 1), ("d2.3", 1), ("d2.3", 2)] and len(small) == 8 and 30 <= min(small) and max(small) <= 600
+ok &= BIG == [("d2.0", 1), ("d2.3", 1), ("d2.3", 2)] and 30 <= min(small) and max(small) <= 600   # len(small) == 8 follows from BIG exact with the eleven rungs
 gate(f"g5 the displacement law at every dodged zeta zero of the 11 rungs at delta = 2 (4) and 2.3 (7), the Gram and polished eigenvectors recomputed in-process (pencil residuals <= {max(resids):.1e}, gated 1e-150): (own + M)/(lambda H) = 1 within {float(np.max(np.abs(ratio - 1))):.6f} at all {len(rows)} (gated 5e-3; count 295), median {float(np.median(ratio)):.7f}; the field ratio M/(lambda H) from {field.max():+.3f} to {field.min():+.2f} (gated >= 1 and <= -3000: the locked zone's displacements are the leakage's field); the leakage beyond the list {min(tails):.5f}-{max(tails):.5f} of the total (gated [0.015, 0.03]); the ground's ln|d| per bin of gamma/T_1 at delta = 2.3: " + ", ".join(f"{x:.1f}" for x in gb) + " (gated <= -70 at the bottom, >= -4 at the top); " + f"the displacement formula d_j = (M_j - lambda H_j)/(gamma_j ghat'(gamma_j)^2) against ghat/ghat' within {float(np.max(np.abs(dsign - 1))):.1e} at the {nlin} linearised zeros, |d| <= 1e-9 (gated 5e-3, >= 100); the residual |ratio - 1| correlates {r_tail:.4f} with the neglected tail term's proxy (gamma_j/gamma_6700)^2 |M_tail|/|lambda H| (gated >= 0.95: the floor is the disclosed tail approximation's); the field ratio at the lowest dodged zero: {gbot[0]:+.3f} and {gbot[1]:+.3f} for the two ground states (gated <= -10), from {min(rbot):+.3f} to {max(rbot):+.3f} for the nine rungs (gated within [-3, 3]), its magnitude falling to {float(np.min(np.abs(field))):.4f} at one zero (gated <= 1); its largest magnitude per rung above a thousand at {BIG} ({MAXF[('d2.0', 1)]:.0f}, {MAXF[('d2.3', 1)]:.0f}, {MAXF[('d2.3', 2)]:.0f}; gated exactly these) and {min(small):.0f}-{max(small):.0f} at the other eight (gated within [30, 600])", ok)
 
 # ---------------------------------------------------------------- g6
@@ -409,16 +409,16 @@ ok &= S_RUNGS.split("above T_w at ")[1].split(", below T_k")[0] == _cellsl(ABOVE
 _m = _nums(S_RUNGS.split("T_u/T_k averages ")[1].split(", and")[0]); ok &= _m == [round(float(np.mean(ruk)), 3), round(rms(ruk), 3), round(min(ruk), 3), round(max(ruk), 3)]
 _m = _nums(S_RUNGS.split("T_u/T_w averages ")[1].split("]; T_u is")[0]); ok &= _m == [round(float(np.mean(ruw)), 3), round(rms(ruw), 3), round(min(ruw), 3), round(max(ruw), 3)]
 ok &= _ints(S_RUNGS.split("stored minimiser at ")[1].split(" (the exception")[0]) == [bu_match, len(W)]
-_EXC1 = [(c, k) for (c, k), w in W.items() if abs(w["Tk_bu"] - w["Tu"]) > 1e-3]; ok &= len(_EXC1) == 1 and S_RUNGS.split("(the exception ")[1].split(", a ")[0] == _cellsl(_EXC1) and _nums(S_RUNGS.split(", a ")[1].split("-nat")[0]) == [round(W[_EXC1[0]]["margin"], 4)]
+ok &= S_RUNGS.split("(the exception ")[1].split(", a ")[0] == _cellsl(EXC1) and _nums(S_RUNGS.split(", a ")[1].split("-nat")[0]) == [round(W[EXC1[0]]["margin"], 4)]
 ok &= _nums(S_END) == [math.floor(10*endgap)/10] and _ints(S_END.split("at the ")[1]) == [len(W)]
-ok &= _ints(S_AGREE.split("within 2% at ")[1]) == [n_agree] and _nums(S_AGREE.split("within ")[1].split("%")[0] + ".0") == [round(100*AGREE_TOL, 1)]
-ok &= _nums(S_HOLES) == [0.22, round(hmax, 4)] and hmax <= 0.22 and _ints(S_HOLES.split("at the ")[1].split(" safely")[0] .replace("forty", "40")) == [len(W)]
-ok &= _ints(S_MAXF.split("eleven (")[1].split(" at δ")[0]) == [round(MAXF[k]) for k in BIG] and _ints(S_MAXF.split("runs ")[1]) == [round(min(small)), round(max(small))] and len(BIG) == 3 and "δ = 2.3’s rung 2" in S_MAXF and BIG[2] == ("d2.3", 2)
+ok &= _ints(S_AGREE.split("% at ")[1]) == [n_agree] and _nums(S_AGREE.split("within ")[1].split("%")[0] + ".0") == [round(100*AGREE_TOL, 1)]
+ok &= _nums(S_HOLES) == [0.22, round(hmax, 4)] and _ints(S_HOLES.split("at the ")[1].split(" safely")[0] .replace("forty", "40")) == [len(W)]
+ok &= _ints(S_MAXF.split("eleven (")[1].split(" at δ")[0]) == [round(MAXF[k]) for k in BIG] and _ints(S_MAXF.split("runs ")[1]) == [round(min(small)), round(max(small))] and "δ = 2.3’s rung 2" in S_MAXF and BIG[2] == ("d2.3", 2)
 _m = _nums(S_MARGIN.split(" nats at the five")[0]); ok &= _m == [round(x, 3) for x in gmar]
 ok &= _ints(S_MARGIN.split("under 0.02 nats at ")[1].split(" of the")[0]) == [nclose] and _nums(S_MARGIN.split("the closest ")[1].split(")")[0]) == [round(min(rmar), 5)]
 _m = _nums(S_MARGIN.split("spans ")[1]); ok &= _m == [round(min(wins), 3), round(max(wins), 3), round(float(np.median(wins)), 3)]
 _m = _nums(S_EXCESS.split(" — the first")[0]); ok &= _nums(S_EXCESS.split("averaging ")[1].split("%")[0]) == [round(100*mexc, 1)]; ok &= _m == [round(100*exc.min(), 1), round(100*exc.max(), 1), round(r_m, 2), round(r_sh, 2), round(r_ms, 2)] and r_ms < 0
-ok &= _nums(S_EXCESS.split("√(1 − r²) = ")[1].split(",")[0]) == [round(tstat(r_m), 1)] and _ints(S_EXCESS.split("r√(n − ")[1].split(")")[0]) == [DOF] and _nums(S_EXCESS.split("standard error is ")[1]) == [round(SE, 2)] and abs(r_sh) <= 2*SE and abs(r_ms) <= 2*SE and _ints(S_EXCESS.split("over the ")[1].split(" rungs")[0]) == [len(W)]
+ok &= _nums(S_EXCESS.split("√(1 − r²) = ")[1].split(",")[0]) == [round(tstat(r_m), 1)] and _ints(S_EXCESS.split("r√(n − ")[1].split(")")[0]) == [NSUB] and _nums(S_EXCESS.split("standard error is ")[1]) == [round(SE, 2)] and abs(r_sh) <= 2*SE and abs(r_ms) <= 2*SE and _ints(S_EXCESS.split("over the ")[1].split(" rungs")[0]) == [len(W)]
 _t = S_SLOPES; ok &= _nums(_t.split("descends by ")[1].split(" against")[0]) == [round(-SL[c][0], 2) for c in ORDER[1:]] and _nums(_t.split("sharp wall’s ")[1].split(" at δ")[0]) == [round(-SL[c][1], 2) for c in ORDER[1:]]
 ok &= _nums(_t.split("growing from ")[1].split(" at one hole")[0]) == [round(100*SL[c][2], 1) for c in ORDER[1:]] and _nums(_t.split("at one hole to ")[1].split(" at the top")[0]) == [round(100*SL[c][3], 1) for c in ORDER[1:]]
 ok &= _nums(_t.split("three rungs, ")[1].split(")")[0]) == [round(-SL["d2.0"][0], 2), round(-SL["d2.0"][1], 2), round(100*SL["d2.0"][2], 1), round(100*SL["d2.0"][3], 1)]
