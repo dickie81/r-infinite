@@ -12,10 +12,10 @@ Osc(T) = 4 int_{gamma_1}^T S(r) w_T(r) dr. (ii) The smooth wall (derived): F_k^s
 T ln(2T_0/T) = 4m + 7/2 up to O((sum h^2 + gamma_1^2)/T^2) -- 1by(iii)'s continuum law with the count constant, the pole's
 7/8 worth seven eighths of a hole; the minimum T^s is unique on (2T_0/e, 2T_0) (convexity); for the ground state
 T^s = 2T_0 e^{-eps}, eps = (7/2)/T^s. Computed: T^s/T_u within 1.9% rms at the 40 rungs against the 3.9% of 1by's law
-(the bias 2.8% -> 0.3%), the law's closed form within 0.13% rms of T^s, T^s/T_u(1) within 2.2% at the five ground states.
+(the bias 2.8% -> 0.3%), the law's closed form within 0.13% rms of T^s, T^s/T_u(1) within 2.1% at the five ground states.
 (iii) The leftover oscillation (proved): |Osc(T) - Osc_inf| <= 4 sup_{[T-D,T]}|S| [arccosh(T/(T-D)) - ln(T/(T-D))]
 + 8 sup_{[gamma_1,T]}|S_1| D_T(T-D) + 8 sup_{>=T}|S_1|/T for every 0 < D < T - gamma_1, Osc_inf = 4 int_{gamma_1}^inf S/r
-(1bs's third term), D_T(r) = w_T(r) - 1/r, S_1 the integral of S -- with Littlewood's S, S_1 = O(ln t) this is O(ln T/sqrt T):
+(1bs's third term), D_T(r) = w_T(r) - 1/r, S_1 the integral of S -- with S = O(ln t) (von Mangoldt) and Littlewood's S_1 = O(ln t) this is O(ln T/sqrt T):
 the wall's square-root cusp reads the count's local fluctuation with a weight sqrt(2D/T). Consequences: min F_k = F_k^s(T^s)
 + Osc_inf + O(ln T/sqrt T); |T_u - T^s| = O(T^{1/4} (ln T)^{1/2}); the rung's exponent from the smooth count and the holes
 alone, ln lambda_k - ln lambda_1 = 2 ln|ghat_k(0)/ghat_1(0)| + F_k^s(T_k^s) - F_1^s(T_1^s), within half a nat (computed).
@@ -27,7 +27,7 @@ E_arch = (1/pi) int ghat^2 chi [Re psi(1/4 + ir/2) - ln(r/2)] dr, |E_arch| <= (3
 the pole term E_pole = 2 ghat(i/2)^2 chi(i/2), |E_pole| <= 8 a e^a e^{-(T^2 - 1/4)/(2 D^2)}: after the shells are subtracted
 the leftover is the Stirling remainder, below 10^-5 of the tail. Computed at the five ground states and the 40 rungs: the
 identity's residual, the smooth count's overestimate of the exterior leakage (a factor 1.9-2.9 over the whole exterior,
-2.0-4.2 in the near quarter, 1.00-1.15 beyond 4 T_1), the shells that carry it.
+2.0-4.2 in the near quarter, 1.00-1.15 beyond 4 T_1), the shells of the smallest primes carrying it.
 
 THE GATES. (0) the algebra witnessed at 60 digits (the piece below gamma_1 in closed form, the stationarity's closed form,
 the Stirling remainder's -1/24 and its bound, the split as an identity on the list); (1) the smooth wall at the 40 rungs;
@@ -61,7 +61,7 @@ PAPER_NEEDLES = [
     {'s': 'extended by Theorems 1i–1ca:', 'form': 'ws', 'g': 'g8'},
     {'g': 'g6', 's': 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]', 'form': 'ws'},
     {'g': 'g6', 's': 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])', 'form': 'ws'},
-    {'g': 'g6', 's': 'F₁^s(T^s) sits 0.14, 0.10, 0.07, 0.05, 0.03 nats below the closed form at the five cells, the difference falling with δ', 'form': 'ws'},
+    {'g': 'g6', 's': 'F₁^s(T^s) sits 0.1360, 0.0999, 0.0736, 0.0491, 0.0296 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 10.45 nats of F_k^s(T^s)', 'form': 'ws'},
     {'g': 'g6', 's': 'on [0.5, 1.6]T₁ the leftover ranges over 0.87, 0.76, 0.67, 0.55, 0.41 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 7% (8.1–8.7)', 'form': 'ws'},
     {'g': 'g6', 's': 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.51, 0.42, 0.39, 0.31, 0.22', 'form': 'ws'},
     {'g': 'g6', 's': 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06', 'form': 'ws'},
@@ -139,6 +139,15 @@ def S1(r):                        # S_1(r) = int_{gamma_1}^r S, exact on the lis
     j = int(np.searchsorted(ZS, r)); return float(np.sum(r - ZS[:j])) - (IN0(r) - IN0(G1Z)) - 0.875*(r - G1Z)
 def intN0r(r): return (r/TWO_PI)*(math.log(r/TWO_PI) - 2)                       # int_0^r N_0(s)/s ds
 def wgt(T, D): return math.acosh(T/(T - D)) - math.log(T/(T - D))                # int_{T-D}^T D_T dr
+def dOsc(T): return 4*float(np.sum((T*T - ZS[ZS < T]**2)**-0.5)) - math.log(T/(4*math.pi)) - 3.5/math.sqrt(T*T - G1Z*G1Z) + dbelow(T)   # Osc' between zeros (analytic; +inf at a zero's right)
+def osc_extrema(lo, hi):          # the exact extrema of Osc on [lo, hi]: the minima at the zeros (the cusps, infinite slope from the right), the maxima by the analytic derivative on each arc
+    zz = ZS[(ZS > lo) & (ZS < hi)]; ends = [lo] + [float(z) for z in zz] + [hi]
+    mins = [Osc(lo), Osc(hi)] + [Osc(float(z)) for z in zz]; maxs = []
+    for a_, b_ in zip(ends[:-1], ends[1:]):
+        x1, x2 = a_ + 1e-7*(b_ - a_), b_ - 1e-7*(b_ - a_)
+        d1, d2 = dOsc(x1), dOsc(x2)
+        maxs.append(Osc(_brentq(dOsc, x1, x2)) if d1 > 0 > d2 else max(Osc(x1), Osc(x2)))   # an interior maximum only where Osc' changes sign on the arc
+    grid = np.linspace(lo, hi, 3000); return min(mins), max(maxs), float(np.mean([Osc(T) for T in grid]))
 def DT(T, r): return (1/r)*((1 - (r/T)**2)**-0.5 - 1)                           # the weight defect w_T - 1/r
 
 # ---------------------------------------------------------------- g0: the algebra witnessed at 60 digits
@@ -199,9 +208,9 @@ for c in ORDER:
     S = CEN[c]; Lw = {l["k"]: l for l in LAW[c]["laws"]}; ns = n_safe(c); g = S["rungs"][0]; T1 = g["edge"]; a = S["delta"]/2; P = PRO[c]; T0 = TWO_PI*math.exp(2*a)
     jmax = int(np.searchsorted(ZS, 3*T1)); j1 = argmin_zero(a, [], jmax); T1u = ZS[j1]
     Ts1 = smooth_wall(a, []); p1 = P["rungs"][0]
-    grid = np.linspace(0.5*T1, 1.6*T1, 3000); ov = np.array([Osc(T) for T in grid])
-    G[c] = dict(T1=T1, T1u=T1u, a=a, T0=T0, Ts1=Ts1, Fs1=Fs(Ts1, a, []), F1u=F1(T1u, a), Osc1=Osc(T1u), osc_mean=float(ov.mean()), osc_min=float(ov.min()), osc_max=float(ov.max()),
-                osc_sup=float(np.max(np.abs(ov - osc_inf))), cf1=-2*T0 + 3.5*math.log(4*T0/G1Z) + c0f + 3.5**2/(4*T0), eps1=math.exp(-3.5/(2*T0)),
+    o_lo, o_hi = 0.5*T1, 1.6*T1; o_min, o_max, o_mean = osc_extrema(o_lo, o_hi)
+    G[c] = dict(T1=T1, T1u=T1u, a=a, T0=T0, Ts1=Ts1, Fs1=Fs(Ts1, a, []), F1u=F1(T1u, a), Osc1=Osc(T1u), osc_mean=o_mean, osc_min=o_min, osc_max=o_max,
+                osc_sup=max(abs(o_min - osc_inf), abs(o_max - osc_inf)), cf1=-2*T0 + 3.5*math.log(4*T0/G1Z) + c0f - 3.5**2/(4*T0), eps1=math.exp(-3.5/(2*T0)),
                 bound1=4*sup_S*wgt(T1, 1.0) + 8*sup_S1*DT(T1, T1 - 1.0) + 8*sup_S1/T1, curv=d2Fs(Ts1, a, []))
     for r, p in zip(S["rungs"][1:ns + 1], P["rungs"][1:ns + 1]):
         k = r["k"]; m = k - 1; holes = sorted(r["holes"]); Tw = solve_T(holes, Lw[k]["Dkappa"]); ju = argmin_zero(a, holes, jmax); Tu = ZS[ju]
@@ -209,9 +218,10 @@ for c in ORDER:
         f = lambda u: u*math.log(2/u) - (2*m/math.pi)*math.exp(-2*a); Tc = _brentq(f, 2/math.e + 1e-9, 2 - 1e-12)*T0                     # 1by(iii)'s law
         f2 = lambda u: u*math.log(2/u) - (4*m + 3.5)/T0; Tc2 = _brentq(f2, 2/math.e + 1e-9, 2 - 1e-12)*T0                                 # with the count constant
         c2 = 2*math.log(abs(p["g0"]/p1["g0"])); dl = p["ln_lam"] - p1["ln_lam"]
-        cf = -2*T0 + 4*sum(math.log(4*T0/h) for h in holes) + 3.5*math.log(4*T0/G1Z) + c0f + (4*m + 3.5)**2/(4*T0)
+        cf = -2*T0 + 4*sum(math.log(4*T0/h) for h in holes) + 3.5*math.log(4*T0/G1Z) + c0f - (4*m + 3.5)**2/(4*T0)
+        cvx = min(T*d2Fs(T, a, holes) for T in np.linspace(2*T0/math.e, 2*T0, 200))                                              # T F'' over the bracket (2T_0/e, 2T_0)
         W[(c, k)] = dict(k=k, m=m, holes=holes, Tw=Tw, Tu=Tu, T1=T1, T1u=T1u, Ts=Ts, Tc=Tc, Tc2=Tc2, Osc_u=Osc(Tu), F_u=Fk(Tu, a, holes), Fs_min=Fs(Ts, a, holes), Fs_u=Fs(Tu, a, holes),
-                         c2=c2, dl=dl, cf=cf, curv=d2Fs(Ts, a, holes), lawres=Ts*math.log(2*T0/Ts) - 4*m - 3.5)
+                         c2=c2, dl=dl, cf=cf, curv=d2Fs(Ts, a, holes), cvx=cvx, lawres=Ts*math.log(2*T0/Ts) - 4*m - 3.5, cond=(4*m + 3.5 < 2*T0/math.e))
 ALL = list(W.values()); HM = [w for w in ALL if w["m"] >= 3]
 assert len(ALL) == 40 and len(HM) == 30
 def rms(v): v = np.asarray(v, float); return float(math.sqrt(np.mean(v*v)))
@@ -221,19 +231,19 @@ def mean(v): return float(np.mean(v))
 # ---------------------------------------------------------------- g1: the smooth wall at the 40 rungs
 tsu = [w["Ts"]/w["Tu"] for w in ALL]; tsu_hm = [w["Ts"]/w["Tu"] for w in HM]; tsw = [w["Ts"]/w["Tw"] for w in ALL]
 tcu = [w["Tc"]/w["Tu"] for w in ALL]; tc2u = [w["Tc2"]/w["Tu"] for w in ALL]; tc2s = [w["Tc2"]/w["Ts"] for w in ALL]
-lawres = [w["lawres"] for w in ALL]; curv_min = min(w["curv"]*w["Ts"] for w in ALL)
+lawres = [w["lawres"] for w in ALL]; curv_min = min(w["curv"]*w["Ts"] for w in ALL); cvx_min = min(w["cvx"] for w in ALL); n_cond = sum(w["cond"] for w in ALL)
 ok = abs(mean(tsu) - 1) <= 0.01 and rms1(tsu) <= 0.025 and min(tsu) >= 0.95 and max(tsu) <= 1.08
 ok &= abs(mean(tsu_hm) - 1) <= 0.005 and rms1(tsu_hm) <= 0.02
-ok &= rms1(tc2s) <= 0.003 and max(abs(x) for x in lawres) <= 0.6 and curv_min >= 0.5
+ok &= rms1(tc2s) <= 0.003 and max(abs(x) for x in lawres) <= 0.6 and curv_min >= 0.5 and cvx_min >= 0.2 and n_cond == 40
 ok &= rms1(tcu) >= 1.5*rms1(tsu) and abs(mean(tcu) - 1) >= 3*abs(mean(tsu) - 1) and 0.94 <= mean(tsw) <= 0.98
-gate(f"g1 the smooth wall T^s (the minimum of F_k^s) against Theorem 1by's T_u at the 40 rungs: T^s/T_u mean {mean(tsu):.4f} (gated within 0.01 of 1), rms deviation from 1 {rms1(tsu):.4f} (gated 0.025), range [{min(tsu):.3f}, {max(tsu):.3f}] (gated within [0.95, 1.08]); at the 30 with three or more holes mean {mean(tsu_hm):.4f} (gated within 0.005), rms {rms1(tsu_hm):.4f} (gated 0.02); the law T ln(2T_0/T) = 4m + 7/2 against T^s: rms {rms1(tc2s):.4f} (gated 0.003), its remainder T ln(2T_0/T) - 4m - 7/2 at T^s within {max(abs(x) for x in lawres):.3f} (gated 0.6: the holes' 2 sum h^2/T^2 at up to eleven holes); T F^s'' at T^s at least {curv_min:.3f} (gated 0.5: convex); 1by's continuum law without the constant, uT_0/T_u mean {mean(tcu):.4f} rms {rms1(tcu):.4f} against {mean(tc2u):.4f}, {rms1(tc2u):.4f} with it (gated: the rms at least 1.5 times and the bias at least 3 times the smooth wall's); T^s/T_w mean {mean(tsw):.4f} (gated [0.94, 0.98]) over [{min(tsw):.3f}, {max(tsw):.3f}]", ok)
+gate(f"g1 the smooth wall T^s (the minimum of F_k^s) against Theorem 1by's T_u at the 40 rungs: T^s/T_u mean {mean(tsu):.4f} (gated within 0.01 of 1), rms deviation from 1 {rms1(tsu):.4f} (gated 0.025), range [{min(tsu):.3f}, {max(tsu):.3f}] (gated within [0.95, 1.08]); at the 30 with three or more holes mean {mean(tsu_hm):.4f} (gated within 0.005), rms {rms1(tsu_hm):.4f} (gated 0.02); the law T ln(2T_0/T) = 4m + 7/2 against T^s: rms {rms1(tc2s):.4f} (gated 0.003), its remainder T ln(2T_0/T) - 4m - 7/2 at T^s within {max(abs(x) for x in lawres):.3f} (gated 0.6: the holes' 2 sum h^2/T^2 at up to eleven holes); T F^s'' at T^s at least {curv_min:.3f} (gated 0.5) and at least {cvx_min:.3f} over the bracket (2T_0/e, 2T_0) at every rung (gated 0.2: convex there), 4m + 7/2 < 2T_0/e at {n_cond} of 40 (gated 40); 1by's continuum law without the constant, uT_0/T_u mean {mean(tcu):.4f} rms {rms1(tcu):.4f} against {mean(tc2u):.4f}, {rms1(tc2u):.4f} with it (gated: the rms at least 1.5 times and the bias at least 3 times the smooth wall's); T^s/T_w mean {mean(tsw):.4f} (gated [0.94, 0.98]) over [{min(tsw):.3f}, {max(tsw):.3f}]", ok)
 
 # ---------------------------------------------------------------- g2: the ground states
 ts0 = [G[c]["Ts1"]/G[c]["T0"] for c in ORDER]; tsu1 = [G[c]["Ts1"]/G[c]["T1u"] for c in ORDER]; tsT1 = [G[c]["Ts1"]/G[c]["T1"] for c in ORDER]
 epsr = [G[c]["Ts1"]/(2*G[c]["T0"])/G[c]["eps1"] for c in ORDER]; cfd = [G[c]["Fs1"] - G[c]["cf1"] for c in ORDER]; cfd_r = [w["Fs_min"] - w["cf"] for w in ALL]
 ok = all(1.9 <= x <= 2.0 for x in ts0) and all(ts0[i] < ts0[i + 1] for i in range(4)) and max(abs(x - 1) for x in tsu1) <= 0.025 and max(abs(x - 1) for x in epsr) <= 0.002
-ok &= all(-0.2 <= x <= 0 for x in cfd) and all(cfd[i] < cfd[i + 1] for i in range(4)) and min(cfd_r) >= -12 and max(cfd_r) <= 0
-gate(f"g2 the ground states: T^s/T_0 = " + ", ".join(f"{x:.3f}" for x in ts0) + f" at the five cells (gated within [1.9, 2.0], increasing), T^s/(2T_0) against e^(-7/(4T_0)) within {max(abs(x - 1) for x in epsr):.4f} (gated 0.002); T^s/T_u(1) = " + ", ".join(f"{x:.4f}" for x in tsu1) + f" (gated within 0.025 of 1), T^s/T_1 = " + ", ".join(f"{x:.4f}" for x in tsT1) + "; the minimum F_1^s(T^s) against the closed form -2T_0 + (7/2) ln(4T_0/gamma_1) - 4 int_0^gamma_1 N_0/r dr + (7/2)^2/(4T_0): " + ", ".join(f"{x:+.3f}" for x in cfd) + f" (gated within [-0.2, 0], rising toward 0); at the rungs the closed form with the holes' 4 sum ln(4T_0/h) and (4m + 7/2)^2/(4T_0) sits {min(cfd_r):+.2f} to {max(cfd_r):+.2f} nats from F_k^s(T^s) (gated within [-12, 0]: the arccosh(T/h) - ln(2T/h) corrections grow with the holes)", ok)
+ok &= all(-0.01 <= x <= 0 for x in cfd) and all(cfd[i] < cfd[i + 1] for i in range(4)) and min(cfd_r) >= -1.5 and max(cfd_r) <= 0
+gate(f"g2 the ground states: T^s/T_0 = " + ", ".join(f"{x:.3f}" for x in ts0) + f" at the five cells (gated within [1.9, 2.0], increasing), T^s/(2T_0) against e^(-7/(4T_0)) within {max(abs(x - 1) for x in epsr):.4f} (gated 0.002); T^s/T_u(1) = " + ", ".join(f"{x:.4f}" for x in tsu1) + f" (gated within 0.025 of 1), T^s/T_1 = " + ", ".join(f"{x:.4f}" for x in tsT1) + "; the minimum F_1^s(T^s) against the closed form -2T_0 + (7/2) ln(4T_0/gamma_1) - 4 int_0^gamma_1 N_0/r dr - (7/2)^2/(4T_0): " + ", ".join(f"{x:+.4f}" for x in cfd) + f" (gated within [-0.01, 0], rising toward 0: the O((7/2)^3/T_0^2) remainder); at the rungs the closed form with the holes' 4 sum ln(4T_0/h) and -(4m + 7/2)^2/(4T_0) sits {min(cfd_r):+.3f} to {max(cfd_r):+.3f} nats from F_k^s(T^s) (gated within [-1.5, 0]: the (4m + 7/2)^3/T_0^2 and arccosh(T/h) - ln(2T/h) remainders grow with the holes)", ok)
 
 # ---------------------------------------------------------------- g3: the leftover oscillation
 orng = [G[c]["osc_max"] - G[c]["osc_min"] for c in ORDER]; osup = [G[c]["osc_sup"] for c in ORDER]; omean = [G[c]["osc_mean"] for c in ORDER]
@@ -243,7 +253,7 @@ ok = all(orng[i] > orng[i + 1] for i in range(4)) and 0.3 <= min(orng) and max(o
 ok &= all(abs(x - osc_inf) <= 0.02 for x in omean) and 0.15 <= osc_inf <= 0.25 and all(osup[i] < bnd[i] for i in range(5)) and all(bnd[i] > bnd[i + 1] for i in range(4))
 ok &= 1.2 <= sup_S <= 1.5 and 1.3 <= sup_S1 <= 1.6 and abs(mean(dmin)) <= 0.1 and rms(dmin) <= 0.12 and min(dmin) >= -0.3 and max(dmin) <= 0.15
 ok &= -0.1 <= mean(oscu) <= 0 and max(rise) <= 0.2 and min(rise) >= 0
-gate(f"g3 the leftover oscillation Osc(T) = 4 int_gamma_1^T S w_T on [0.5, 1.6] T_1 at the five cells: range " + ", ".join(f"{x:.3f}" for x in orng) + f" nats (gated within [0.3, 1.0], decreasing), mean " + ", ".join(f"{x:+.3f}" for x in omean) + f" against Osc_inf = 4 int_gamma_1^6990 S/r dr = {osc_inf:.4f} on the list (gated within 0.02; 1bs's 0.19), range times sqrt(T_1) " + ", ".join(f"{x:.2f}" for x in scal) + f" (gated within 15%: the sqrt(T) decay); sup|Osc - Osc_inf| " + ", ".join(f"{x:.3f}" for x in osup) + " against the block's bound with the list's suprema sup|S| = " + f"{sup_S:.3f} (gated [1.2, 1.5]), sup|S_1| = {sup_S1:.3f} (gated [1.3, 1.6]) and D = 1: " + ", ".join(f"{x:.3f}" for x in bnd) + f" (gated: each supremum below its bound, the bounds decreasing); at the 40 minimisers Osc(T_u) mean {mean(oscu):+.3f} (gated [-0.1, 0]: the selection), the smooth rise F^s(T_u) - F^s(T^s) at most {max(rise):.3f} (gated 0.2), and F_k(T_u) - F_k^s(T^s) mean {mean(dmin):+.3f} (gated |.| <= 0.1) rms {rms(dmin):.3f} (gated 0.12) over [{min(dmin):+.3f}, {max(dmin):+.3f}] (gated within [-0.3, 0.15])", ok)
+gate(f"g3 the leftover oscillation Osc(T) = 4 int_gamma_1^T S w_T on [0.5, 1.6] T_1 at the five cells (its extrema exact: the minima at the zeros' cusps, the maxima by the analytic derivative on each arc): range " + ", ".join(f"{x:.3f}" for x in orng) + f" nats (gated within [0.3, 1.0], decreasing), mean " + ", ".join(f"{x:+.3f}" for x in omean) + f" against Osc_inf = 4 int_gamma_1^6990 S/r dr = {osc_inf:.4f} on the list (gated within 0.02; 1bs's 0.19), range times sqrt(T_1) " + ", ".join(f"{x:.2f}" for x in scal) + f" (gated within 15%: the sqrt(T) decay); sup|Osc - Osc_inf| " + ", ".join(f"{x:.3f}" for x in osup) + " against the block's bound with the list's suprema sup|S| = " + f"{sup_S:.3f} (gated [1.2, 1.5]), sup|S_1| = {sup_S1:.3f} (gated [1.3, 1.6]) and D = 1: " + ", ".join(f"{x:.3f}" for x in bnd) + f" (gated: each supremum below its bound, the bounds decreasing); at the 40 minimisers Osc(T_u) mean {mean(oscu):+.3f} (gated [-0.1, 0]: the selection), the smooth rise F^s(T_u) - F^s(T^s) at most {max(rise):.3f} (gated 0.2), and F_k(T_u) - F_k^s(T^s) mean {mean(dmin):+.3f} (gated |.| <= 0.1) rms {rms(dmin):.3f} (gated 0.12) over [{min(dmin):+.3f}, {max(dmin):+.3f}] (gated within [-0.3, 0.15])", ok)
 
 # ---------------------------------------------------------------- g4: the exponent from the smooth count
 rs = []; r1 = []
@@ -302,7 +312,7 @@ for c in ORDER:
     for r_, p in zip(S["rungs"][1:ns + 1], P["rungs"][1:ns + 1]):
         XR[(c, r_["k"])] = [tail_identity(c, r_, p, T, Tp) for (T, Tp) in ((T1, 6980.0), (T1, 1.25*T1))]
 res_g = [abs(x["resid"]) for c in ORDER for x in XG[c]]; res_far = [abs(x["resid"]) for c in ORDER for x in XG[c][2:]]; res_r = [abs(x["resid"]) for v in XR.values() for x in v]
-pfm = max(x["pfmax"] for c in ORDER for x in XG[c][:1])
+pfm = max([x["pfmax"] for c in ORDER for x in XG[c][:1]] + [v[0]["pfmax"] for v in XR.values()])
 ratio_all = [XG[c][0]["smooth"]/XG[c][0]["tail"] for c in ORDER]; ratio_near = [XG[c][1]["smooth"]/XG[c][1]["tail"] for c in ORDER]; ratio_far = [XG[c][4]["smooth"]/XG[c][4]["tail"] for c in ORDER]
 ratio_mid = [XG[c][2]["smooth"]/XG[c][2]["tail"] for c in ORDER]; ratio_2 = [XG[c][3]["smooth"]/XG[c][3]["tail"] for c in ORDER]
 left = [abs(x["earch"])/x["tail"] for c in ORDER for x in XG[c]]; lbnd = [x["ebound"]/x["tail"] for c in ORDER for x in XG[c]]; ea_ok = all(abs(x["earch"]) <= x["ebound"] for c in ORDER for x in XG[c])
@@ -311,7 +321,7 @@ rr_all = [v[0]["smooth"]/v[0]["tail"] for v in XR.values()]; rr_near = [v[1]["sm
 ok = max(res_g) <= 1e-5 and max(res_far) <= 1e-9 and max(res_r) <= 1e-9 and pfm <= 1e-4 and ea_ok and max(left) <= 1e-5 and max(lbnd) <= 2e-4 and lpole <= -1000
 ok &= all(1.8 <= x <= 3.0 for x in ratio_all) and all(1.9 <= x <= 4.5 for x in ratio_near) and all(0.99 <= x <= 1.2 for x in ratio_far) and all(1.3 <= x <= 3.6 for x in ratio_mid) and all(1.2 <= x <= 2.0 for x in ratio_2)
 ok &= all(t in (2, 3, 5, 7) for t in tops) and 1.5 <= min(rr_all) and max(rr_all) <= 4.0 and 1.5 <= min(rr_near) and max(rr_near) <= 8.0
-gate(f"g5 the exterior tail by the explicit formula (the cut chi = Phi((r - T)/D) - Phi((r - T')/D), D = 1, the grid h = 0.05, the shells to e^(delta + 7.5)): 2 sum ghat^2 chi = (1/pi) int ghat^2 chi ln(r/2pi) dr + E_arch - 2 sum Lambda(n) n^-1/2 f_chi(ln n) within {max(res_g):.1e} relative at the five ground states over the windows [T_1, 6980], [1, 1.25], [1.25, 2], [2, 4], [4, 6980/T_1] T_1 (gated 1e-5; the windows away from the cut at the edge within {max(res_far):.1e}, gated 1e-9 -- the residual at the edge is the stored arb profile's 1e-4 rounding at the dodged zeros the cut still weighs) and within {max(res_r):.1e} at the 40 rungs over [T_1, 6980] and [T_1, 1.25 T_1] (gated 1e-9); the product form against the stored profile beyond the edge within {pfm:.1e} (gated 1e-4); the leftover after the shells, E_arch/tail at most {max(left):.1e} (gated 1e-5), below its Binet bound (3/2pi) int ghat^2 chi r^-2 at every window (gated), the bound at most {max(lbnd):.1e} of the tail (gated 2e-4); the pole term below e^{lpole:.0f} of the tail (gated e^-1000); the smooth count's integral over the actual exterior leakage: " + ", ".join(f"{x:.2f}" for x in ratio_all) + f" over the whole exterior (gated [1.8, 3.0]), " + ", ".join(f"{x:.2f}" for x in ratio_near) + f" in the near quarter [T_1, 1.25 T_1] (gated [1.9, 4.5]), " + ", ".join(f"{x:.2f}" for x in ratio_mid) + " on [1.25, 2] T_1 (gated [1.3, 3.6]), " + ", ".join(f"{x:.2f}" for x in ratio_2) + " on [2, 4] T_1 (gated [1.2, 2.0]), " + ", ".join(f"{x:.3f}" for x in ratio_far) + f" beyond 4 T_1 (gated [0.99, 1.2]); the largest shell over the whole exterior n = " + ", ".join(str(t) for t in tops) + f" (gated among 2, 3, 5, 7), in the near quarter n = " + ", ".join(str(t) for t in tops_near) + f"; at the 40 rungs smooth/tail runs {min(rr_all):.2f}-{max(rr_all):.2f} over the whole exterior (gated within [1.5, 4.0]) and {min(rr_near):.2f}-{max(rr_near):.2f} in the near quarter (gated within [1.5, 8.0])", ok)
+gate(f"g5 the exterior tail by the explicit formula (the cut chi = Phi((r - T)/D) - Phi((r - T')/D), D = 1, the grid h = 0.05, the shells to e^(delta + 7.5)): 2 sum ghat^2 chi = (1/pi) int ghat^2 chi ln(r/2pi) dr + E_arch - 2 sum Lambda(n) n^-1/2 f_chi(ln n) within {max(res_g):.1e} relative at the five ground states over the windows [T_1, 6980], [1, 1.25], [1.25, 2], [2, 4], [4, 6980/T_1] T_1 (gated 1e-5; the windows away from the cut at the edge within {max(res_far):.1e}, gated 1e-9 -- the residual at the edge is the stored arb profile's 1e-4 rounding at the dodged zeros the cut still weighs) and within {max(res_r):.1e} at the 40 rungs over [T_1, 6980] and [T_1, 1.25 T_1] (gated 1e-9); the product form against the stored profile beyond the edge within {pfm:.1e} at the 45 states (gated 1e-4); the leftover after the shells, E_arch/tail at most {max(left):.1e} (gated 1e-5), below its Binet bound (3/2pi) int ghat^2 chi r^-2 at every window (gated), the bound at most {max(lbnd):.1e} of the tail (gated 2e-4); the pole term below e^{lpole:.0f} of the tail (gated e^-1000); the smooth count's integral over the actual exterior leakage: " + ", ".join(f"{x:.2f}" for x in ratio_all) + f" over the whole exterior (gated [1.8, 3.0]), " + ", ".join(f"{x:.2f}" for x in ratio_near) + f" in the near quarter [T_1, 1.25 T_1] (gated [1.9, 4.5]), " + ", ".join(f"{x:.2f}" for x in ratio_mid) + " on [1.25, 2] T_1 (gated [1.3, 3.6]), " + ", ".join(f"{x:.2f}" for x in ratio_2) + " on [2, 4] T_1 (gated [1.2, 2.0]), " + ", ".join(f"{x:.3f}" for x in ratio_far) + f" beyond 4 T_1 (gated [0.99, 1.2]); the largest shell over the whole exterior n = " + ", ".join(str(t) for t in tops) + f" (gated among 2, 3, 5, 7), in the near quarter n = " + ", ".join(str(t) for t in tops_near) + f"; at the 40 rungs smooth/tail runs {min(rr_all):.2f}-{max(rr_all):.2f} over the whole exterior (gated within [1.5, 4.0]) and {min(rr_near):.2f}-{max(rr_near):.2f} in the near quarter (gated within [1.5, 8.0])", ok)
 
 if os.environ.get("SMOOTH_DUMP"):
     dump = dict(osc_inf=osc_inf, sup_S=sup_S, sup_S1=sup_S1, c0f=c0f, G={c: {k: v for k, v in G[c].items()} for c in ORDER}, W=[dict((k, v) for k, v in w.items()) for w in ALL],
@@ -325,7 +335,7 @@ if os.environ.get("SMOOTH_DUMP"):
 import paper_needles
 S_WALL = 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]'
 S_GROUND = 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])'
-S_MIN = 'F₁^s(T^s) sits 0.14, 0.10, 0.07, 0.05, 0.03 nats below the closed form at the five cells, the difference falling with δ'
+S_MIN = 'F₁^s(T^s) sits 0.1360, 0.0999, 0.0736, 0.0491, 0.0296 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 10.45 nats of F_k^s(T^s)'
 S_OSC = 'on [0.5, 1.6]T₁ the leftover ranges over 0.87, 0.76, 0.67, 0.55, 0.41 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 7% (8.1–8.7)'
 S_BOUND = 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.51, 0.42, 0.39, 0.31, 0.22'
 S_DMIN = 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06'
@@ -339,7 +349,7 @@ S_RUNGS = 'at the 40 rungs the smooth count’s integral runs 1.58–3.77 times 
 ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'F₁^s(T^s) sits 0.14, 0.10, 0.07, 0.05, 0.03 nats below the closed form at the five cells, the difference falling with δ', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'F₁^s(T^s) sits 0.1360, 0.0999, 0.0736, 0.0491, 0.0296 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 10.45 nats of F_k^s(T^s)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'on [0.5, 1.6]T₁ the leftover ranges over 0.87, 0.76, 0.67, 0.55, 0.41 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 7% (8.1–8.7)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.51, 0.42, 0.39, 0.31, 0.22', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06', 'ws')
@@ -362,7 +372,7 @@ def _r1(x): return float(f"{x:.1e}")
 ok &= _nums(S_WALL.split("averages ")[1].split(" at the 40")[0]) == [round(mean(tsu), 3), round(rms1(tsu), 3), round(min(tsu), 3), round(max(tsu), 3)] and _nums(S_WALL.split("(")[1].split(" at the 30")[0]) == [round(mean(tsu_hm), 3), round(rms1(tsu_hm), 3)]
 ok &= _nums(S_WALL.split("against ")[1].split(" for 1by")[0]) == [round(mean(tcu), 3), round(rms1(tcu), 3)] and _nums(S_WALL.split("within ")[1].split("%")[0]) == [round(100*rms1(tc2s), 2)] and _nums(S_WALL.split("T^s/T_w averages ")[1]) == [round(mean(tsw), 3), round(min(tsw), 3), round(max(tsw), 3)]
 ok &= _nums(S_GROUND.split("T^s/T₀ = ")[1].split(" at the five")[0]) == [round(x, 3) for x in ts0] and _nums(S_GROUND.split("within ")[1].split("%")[0]) == [round(100*max(abs(x - 1) for x in tsu1), 1)] and _nums(S_GROUND.split("over ")[1]) == [round(min(tsu1), 3), round(max(tsu1), 3)]
-ok &= _nums(S_MIN.split("sits ")[1].split(" nats")[0]) == [round(abs(x), 2) for x in cfd] and all(cfd[i] < cfd[i + 1] for i in range(4))
+ok &= _nums(S_MIN.split("sits ")[1].split(" nats")[0]) == [round(abs(x), 4) for x in cfd] and all(cfd[i] < cfd[i + 1] for i in range(4)) and _nums(S_MIN.split("within ")[1].split(" nats")[0]) == [round(abs(min(cfd_r)), 2)]
 ok &= _nums(S_OSC.split("ranges over ")[1].split(" nats")[0]) == [round(x, 2) for x in orng] and _nums(S_OSC.split("with means ")[1].split(" against")[0]) == [round(min(omean), 2), round(max(omean), 2)] and _nums(S_OSC.split("Osc_∞ = ")[1].split(" on the list")[0]) == [round(osc_inf, 2)] and _ints(S_OSC.split("constant to ")[1].split("%")[0]) == [round(100*(max(scal)/min(scal) - 1))] and _nums(S_OSC.split("(")[-1].split(")")[0]) == [round(min(scal), 1), round(max(scal), 1)]
 ok &= _nums(S_BOUND.split("sup|S| = ")[1].split(" and")[0]) == [round(sup_S, 2)] and _nums(S_BOUND.split("sup|S₁| = ")[1].split(" below")[0]) == [round(sup_S1, 2)] and _nums(S_BOUND.split("reads ")[1].split(" nats")[0]) == [round(x, 2) for x in bnd] and _nums(S_BOUND.split("Osc_∞| of ")[1]) == [round(x, 2) for x in osup]
 ok &= _nums(S_DMIN.split("averages ")[1].split(" at the 40")[0]) == [round(mean(dmin), 2), round(rms(dmin), 2), round(min(dmin), 2), round(max(dmin), 2)] and _nums(S_DMIN.split("averaging ")[1]) == [round(mean(oscu), 2)]
