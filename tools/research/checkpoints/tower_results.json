@@ -2651,6 +2651,12 @@
 "rc": 0,
 "when": "2026-09-02T11:47Z"
 },
+"985632c1d0dc619bf7c3812d": {
+"dt": 17.74579095840454,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-09-16T06:57Z"
+},
 "986dedddf374209b61e1fad2": {
 "dt": 54.38933444023132,
 "file": "cascade_heatflow_energy.py",
@@ -2728,6 +2734,12 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-09-02T02:28Z"
+},
+"9dc92a09a14861ac3e768eaa": {
+"dt": 113.59021949768066,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-09-16T06:57Z"
 },
 "9e0f7659ada1c745d9af9b2a": {
 "dt": 342.4041247367859,
@@ -2986,6 +2998,12 @@
 "file": "cascade_li_two_channels.py",
 "rc": 0,
 "when": "2026-09-02T02:20Z"
+},
+"aef6076eaa1dd7e650e7c4ad": {
+"dt": 48.35270690917969,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-09-16T06:57Z"
 },
 "b05e06d1bdd03b385e3b1ad8": {
 "dt": 177.44670486450195,
