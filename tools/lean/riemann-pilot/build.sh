@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit,
+# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply,
 # through the oleans written to build/.
 set -euo pipefail
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
@@ -18,4 +18,5 @@ run Zeta;     HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" 
 run Roadmap;  HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Roadmap.olean -i $HERE/build/Roadmap.ilean $HERE/src/Roadmap.lean'
 run Limit;    HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Limit.olean -i $HERE/build/Limit.ilean $HERE/src/Limit.lean'
 run Hadamard; lake env lean -R $HERE/src -o $HERE/build/Hadamard.olean -i $HERE/build/Hadamard.ilean $HERE/src/Hadamard.lean
-run HadamardApply; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/HadamardApply.lean'
+run HadamardApply; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/HadamardApply.olean -i $HERE/build/HadamardApply.ilean $HERE/src/HadamardApply.lean'
+run XiBounds; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/XiBounds.lean'
