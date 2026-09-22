@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 85 s.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`.
 
-Every file ends with `#print axioms`. All 74 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 84 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -17,6 +17,7 @@ Every file ends with `#print axioms`. All 74 checked theorems depend only on `pr
 | `Split.lean` | 305 | 1ca(i), and (i)–(iii) assembled |
 | `Exterior.lean` | 677 | 1ca(iv) |
 | `Zeta.lean` | 142 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
+| `Roadmap.lean` | 341 | §11 item 1: the target stated prime-side, and its reduction to `RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -252,3 +253,35 @@ The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with
 - von Mangoldt's and Littlewood's bounds, now on ζ's own `S`.
 
 `exterior_identity_zeta` takes Weil's explicit formula (for the ζ family) as its named input.
+
+## Round 6: §11 roadmap item 1, stated and reduced (Roadmap.lean)
+
+### (i) The target, stated with no zero of ζ
+
+| Definition | Content |
+|---|---|
+| `weilQ a g` | Theorem 1bn(i)'s true form `Q(g) = 2ĝ(i/2)² + (ψ(¼) − log π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^{u/2}/sinh u du − 2Σ Λ(n)n^{−1/2} f(log n)`, with `f` the autocorrelation and support `δ = 2a`. Only primes, `ψ(¼)` and `π` enter. |
+| `Probe a g` | real, even, supported in `[−a, a]`, in `L²`, with the archimedean integral convergent |
+| `IsGroundState a g` | a normalized probe minimizing `Q` among probes |
+| `xi`, `Xi` | Riemann's `ξ(s) = (s(s−1)Λ₀(s) + 1)/2` from Mathlib's `completedRiemannZeta₀`, and `Ξ(t) = ξ(½ + it)` |
+| `HypD a g T_D` | item 1(a), Hypothesis D of 1bu(ii): `ĝ` and `Ξ` have equal analytic orders at every point of `|z| < T_D` |
+| `RealRooted a g` | item 1(b): every zero of `ĝ` is real |
+
+`ghatC_I_div_two` checks that `ĝ(i/2)` in `Q` is the transform at `i/2`.
+
+### (ii) The reductions, proved (no named inputs)
+
+| Theorem | Content |
+|---|---|
+| `xi_eq_zero_of_nontrivial` | every nontrivial zero of `riemannZeta` is a zero of `ξ`; `ξ(2) ≠ 0` |
+| **`zeros_on_line_below`** / `finite_advance` | **item 5's finite advance**: D at one support plus real-rootedness there puts every nontrivial zero with `|t_ρ| < T_D` on `Re s = ½`. Only one direction of D is used: every zero of `Ξ` below `T_D` is a zero of `ĝ`. The ground-state property plays no role; the reduction is about `ĝ` alone. |
+| **`hurwitz_real`** | Hurwitz's theorem in the form needed, proved from the maximum modulus principle: locally uniform limits of entire functions with only real zeros have only real zeros (unless identically zero) |
+| `ghatC_differentiable` | `ĝ` is entire, by differentiation under the integral |
+| **`rh_of_realRooted_limit`** / **`rh_of_ground_states`** | **item 6's step**: real-rooted ground states `g_n` with nonzero `c_n` such that `c_n ĝ_n → Ξ` locally uniformly give Mathlib's `RiemannHypothesis` |
+
+So the roadmap's claim that "(a) and (b) everywhere put Ξ's zeros on the line" is machine-checked in both forms.
+
+- **Finite form:** exact D at a support. By the paper's own 1bu(ii) cell data ("not exactly", displacements up to 0.043), exact D is expected to fail.
+- **Limit form:** real-rootedness with convergence to `Ξ`. This is what 1bu(ii) derives from D and `ε(δ) → 0`. That derivation is step (iii) and is not yet formalized.
+
+What remains open is exactly the mathematics: proving `HypD` / convergence and `RealRooted` for `IsGroundState` from `weilQ`.
