@@ -4,10 +4,10 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 
 Re-run with `./build.sh`, which takes about 85 s.
 
-- `T1bt.lean` and `Exterior.lean` stand alone.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`.
 
-Every file ends with `#print axioms`. All 68 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 74 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -16,6 +16,7 @@ Every file ends with `#print axioms`. All 68 checked theorems depend only on `pr
 | `Osc.lean` | 926 | 1ca(iii) |
 | `Split.lean` | 305 | 1ca(i), and (i)–(iii) assembled |
 | `Exterior.lean` | 677 | 1ca(iv) |
+| `Zeta.lean` | 142 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -230,5 +231,24 @@ The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with
 
 - **The four named classical inputs**: von Mangoldt's and Littlewood's bounds, Weil's explicit formula, and Binet's formula.
 - **Localizing the global unlocking height into the window**, and `T·G(lo) < 1` at the paper's states. Both are computed in the paper.
-- **The zero family's link to Mathlib's `riemannZeta`**: the positive-ordinate subfamily and its local finiteness. T1bt's `zetaZeroFamily` is the starting point.
 - **All computed, gated numerics.**
+
+## Round 5: the zero family is `riemannZeta`'s (Zeta.lean)
+
+1ca's zero family is no longer an abstract hypothesis. It is the positive-ordinate part of T1bt's `zetaZeroFamily`: the nontrivial zeros of Mathlib's `riemannZeta`, each repeated by its analytic order.
+
+| Lemma | Content |
+|---|---|
+| `finite_zeros_below` | **finitely many nontrivial zeros have `0 < Im ρ < T`**, proved from Mathlib. Such zeros lie in a compact ball, by the strip. An accumulation point other than `1` would force `ζ ≡ 0` on the connected set `ℂ ∖ {1}` by the identity theorem, contradicting `ζ(2) ≠ 0`. An accumulation point at `1` is ruled out by `(s − 1)ζ(s) → 1`. |
+| `zetaOrd_finite` | the same with multiplicity: `{p : γ_p < T}` is finite for the family `zetaOrd` of positive ordinates. This discharges the `hfin` hypothesis of `split` and `wall_law_zeros`. |
+| `split_zeta` | **1ca(i) for ζ's own zeros**: `F_k = F_k^s + Osc` with `S = N − N₀ − 7/8`, where `N` is ζ's zero count |
+| **`wall_law_zeta`** | **1ca(i)–(iii) for ζ's own zeros** |
+| `exterior_identity_zeta` | **1ca(iv)** with the zero side summed over Mathlib's nontrivial zeros, with multiplicity |
+| `zetaOrd_ge_of_height`, `fourteen_le_two_pi_e` | T1bt's `h_height` (`14 ≤ |Im ρ|`) gives `G = 14`, and `14 ≤ 2πe` |
+
+`wall_law_zeta` still takes these named inputs:
+
+- the first-zero height, `G ≤ γ` for every zero with `G ∈ [14, 2πe]` (`G = 14` from T1bt's `h_height`);
+- von Mangoldt's and Littlewood's bounds, now on ζ's own `S`.
+
+`exterior_identity_zeta` takes Weil's explicit formula (for the ζ family) as its named input.
