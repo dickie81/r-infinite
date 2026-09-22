@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 85 s.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`.
 
-Every file ends with `#print axioms`. All 84 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 91 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -18,6 +18,7 @@ Every file ends with `#print axioms`. All 84 checked theorems depend only on `pr
 | `Exterior.lean` | 677 | 1ca(iv) |
 | `Zeta.lean` | 142 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
 | `Roadmap.lean` | 341 | §11 item 1: the target stated prime-side, and its reduction to `RiemannHypothesis` |
+| `Limit.lean` | 321 | 1bu(ii)'s convergence to `Ξ` from D, and the chain to `RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -282,6 +283,32 @@ The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with
 So the roadmap's claim that "(a) and (b) everywhere put Ξ's zeros on the line" is machine-checked in both forms.
 
 - **Finite form:** exact D at a support. By the paper's own 1bu(ii) cell data ("not exactly", displacements up to 0.043), exact D is expected to fail.
-- **Limit form:** real-rootedness with convergence to `Ξ`. This is what 1bu(ii) derives from D and `ε(δ) → 0`. That derivation is step (iii) and is not yet formalized.
+- **Limit form:** real-rootedness with convergence to `Ξ`. 1bu(ii) derives the convergence from D and `ε(δ) → 0`; Round 7 formalizes that derivation.
 
 What remains open is exactly the mathematics: proving `HypD` / convergence and `RealRooted` for `IsGroundState` from `weilQ`.
+
+## Round 7: 1bu(ii)'s convergence to Ξ, and the chain to RH (Limit.lean)
+
+Hadamard's factorisations are written in the variable `w = τ⁻²`. `HadamardW f w` states `f(0) ≠ 0`, `Σ‖w_i‖ < ∞` and `f(z) = f(0)Π(1 − z²w_i)`; a padding entry `w_i = 0` is the factor `1`. This is the only named input, taken once for each `ĝ_n` and once for `Ξ`.
+
+| Theorem | Content |
+|---|---|
+| `norm_tprod_sub_tprod_le` | `‖Π(1 + x_i) − Π(1 + y_i)‖ ≤ exp(Σ‖x‖ + Σ‖y‖)·Σ‖x_i − y_i‖` for infinite products, via a finite-product induction and a limit |
+| `hadamard_compare` | for two factorisations over one pairing, `‖f(z)/f(0) − g(z)/g(0)‖ ≤ ‖z‖²·exp(‖z‖²(Σ‖w‖ + Σ‖v‖))·Σ‖w_i − v_i‖` |
+| **`tendstoLocallyUniformly_of_pairing`** | **1bu(ii)'s limit shape**: if `Σ‖w_n‖` is bounded and the pairing error `θ_n = Σ‖w_{n,i} − v_{n,i}‖ → 0`, then `ĝ_n/ĝ_n(0) → Ξ/Ξ(0)` locally uniformly |
+| `rh_of_pairing_and_realRooted` | adding real-rootedness at every support gives Mathlib's `RiemannHypothesis` (via `hurwitz_real`) |
+| `pairing_of_D` | **exact Hypothesis D is a special case**: the zeros below `T_D` matched by D, plus padding for the tails, give a pairing with `θ ≤ ε(δ) = Σ_{|τ|≥T_D}|τ|⁻² + Σ_{|γ|≥T_D}|γ|⁻²` |
+| **`rh_of_D_and_realRooted`** | **the paper's statement end to end**. Suppose ground states at supports `δ_n` have real-rooted transforms, D holds exactly below `T_D(δ_n)`, `Σ_τ τ⁻²` is bounded, and `ε(δ_n) → 0`. Then Mathlib's `RiemannHypothesis` follows. |
+
+What this adds:
+
+- **The paper's route is checked.** Once Hadamard's factorisations are granted, the route from "(a) and (b) everywhere" to RH is machine-checked as the paper states it: D exact, `ε → 0`, real-rootedness, Hurwitz.
+- **Exact D is more than the argument needs.** The pairing form requires only `θ_n → 0`: zeros matched within a summable displacement that vanishes in the limit. This is the "dodging tolerance" situation that 1bu(ii)'s cell data reports. The limit route therefore does not depend on exact D, which that data indicates fails.
+
+Still open is the mathematics:
+
+- real-rootedness of the minimizer of `weilQ`;
+- `θ_n → 0` for it;
+- the bound on `Σ_τ τ⁻²` for it.
+
+The named inputs still to formalize are Hadamard's factorisation for `ĝ_n` (Cartwright class) and for `Ξ`.
