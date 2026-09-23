@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`.
 
-Every file ends with `#print axioms`. All 193 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 212 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -32,6 +32,7 @@ Every file ends with `#print axioms`. All 193 checked theorems depend only on `p
 | `StrictPositivity.lean` | 730 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
 | `UniquenessQ.lean` | 158 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
 | `SpectralGap.lean` | 658 | a certified lower bound `λ_⊥ ≥ λ₁ + 1/40` for `0 < a ≤ 1/40`; `Q`'s ground state is unique there |
+| `FourierGap.lean` | 3154 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -603,5 +604,29 @@ The bound is analytic. Nothing is computed, and the only numbers used are `log 2
 | the gap | `weilQ_perp_ge_meas`, `weilQ0_perp_ge` | `Q(g) − Q(box) ≥ (log 2 + ½)/cosh a − a(1+2a)²/16 − e^a(1 + 4a) ≥ 1/40`. Non-measurable probes are reduced to a measurable `symCut` version, as in round 17. |
 | uniqueness | `groundState_unique_small` | a ground state `v ⊥ w` would have `Q(v) ≥ Q(box) + 1/40 > Q(box) ≥ Q(v)` |
 
-**Scope.** The margin at `a = 1/40` is `0.0357` with the bounds as formalised, or `0.063` with exact `cosh` and `exp`. The method stops near `a ≈ 0.037`, for two reasons: the near-field estimate replaces `K(|t − s|)` by its minimum `K(2a)`, which keeps only `½ + log 2 ≈ 1.19` of the kinetic energy against the box's `1`; and the pole penalty `2ĝ_box(i/2)² ≈ 4a` grows linearly. **The paper's certified cells are far beyond this.** Theorems 1bj, 1bl and 1br work at `δ = 2a ∈ [log 2, 1.3828125]`, i.e. `a ≈ 0.35–0.69`, where prime terms enter and the relevant gaps are about `10⁻²` (the paper records `λ₂` of the pole-free even section `≈ 0.012` at `δ = 1.0`). There the lower bounds come from Kato–Temple ratios and Birman–Schwinger counts on flint interval enclosures. Formalising those needs certified numerical linear algebra in Lean (interval arithmetic for `ψ(¼)`, the kernel integrals and the Gram entries, plus eigenvalue enclosures), which the pilot does not have. Uniqueness of `Q`'s ground state at those supports stays open in the pilot, and the paper does not claim it.
+**Scope.** The margin at `a = 1/40` is `0.0357` with the bounds as formalised, or `0.063` with exact `cosh` and `exp`. The method stops near `a ≈ 0.037`, for two reasons: the near-field estimate replaces `K(|t − s|)` by its minimum `K(2a)`, which keeps only `½ + log 2 ≈ 1.19` of the kinetic energy against the box's `1`; and the pole penalty `2ĝ_box(i/2)² ≈ 4a` grows linearly. **The paper's certified cells are far beyond this.** Theorems 1bj, 1bl and 1br work at `δ = 2a ∈ [log 2, 1.3828125]`, i.e. `a ≈ 0.35–0.69`, where prime terms enter and the relevant gaps are about `10⁻²` (the paper records `λ₂` of the pole-free even section `≈ 0.012` at `δ = 1.0`). There the lower bounds come from Kato–Temple ratios and Birman–Schwinger counts on flint interval enclosures. Formalising those needs certified numerical linear algebra in Lean (interval arithmetic for `ψ(¼)`, the kernel integrals and the Gram entries, plus eigenvalue enclosures), which the pilot does not have. Uniqueness of `Q`'s ground state at those supports stays open in the pilot, and the paper does not claim it. *(Round 20 replaces this method and reaches `a = 0.35`; see below.)*
+
+## Round 20: the certified gap for every `0 < a ≤ 0.35` (FourierGap.lean)
+
+**`weilQ0_perp_ge_035`.** For every `0 < a ≤ 0.35`, every normalised probe `g` with `ĝ(i/2) = ⟨g, w⟩ = 0` has `Q₀(g) = Q(g) ≥ λ₁ + 1/40`. When `2a < log 2`, `weilQ0_perp_ge_fourier` gives `λ₁ + 1/10`. So `λ_⊥ ≥ λ₁ + 1/40` on the whole range, and **`groundState_unique_035`** gives a ground state of the full form `Q` that is unique up to sign at every support `0 < a ≤ 0.35`, i.e. `δ = 2a ≤ 0.7`. The range goes past the first prime, `δ = log 2`.
+
+**Why round 19 stopped at `a ≈ 0.037`.** Numerically (a discretisation that reproduces the paper's `λ₁ ≈ 1.3×10⁻³` at `δ = log 2`), the true gap `λ_⊥ − λ₁` is large throughout: `1.59` at `a = 0.025`, falling to `0.54` at `a = 0.35`. Round 19's position-space bound captured only `1.51` of the true `2.93` for the near-field energy at `a = 0.35`. It replaced `K(|t − s|)` by its minimum on interior pairs. So the barrier was the method, not the truth.
+
+**The method: an exact Fourier representation.** View `g` on a circle of length `8a`. For `0 ≤ u ≤ 2a` the circular and true autocorrelations agree, so `1 − f(u) = Σ_n p_n(1 − cos(πnu/4a))` exactly, with `Σ p_n = 1` (Parseval). The near-field energy is then a positive combination of mode energies `ψ_n`, which grow like `log n`. Truncating at `|n| ≤ 5` loses almost nothing.
+
+| Step | Theorems | Content |
+|---|---|---|
+| A. representation | `cf_shift'`, `hasSum_shift'`, `hasSum_pm`, `hasSum_one_sub_autocorr` | round 12's shift identity, generalised to support `r` and any shift with `r + |s| < 2A`; the mode masses `p_n = 8a|c_n|²` |
+| B. truncation | `sum_modeE_le`, `energy_ge_trunc` | `∫_{(0,2a]} A_g ≥ τ + Σ_{|n|≤5}(ψ_n − τ)p_n` whenever `ψ_n ≥ τ` for every `|n| ≥ 6`; the limit uses `Σ p_n = 1` |
+| C. kernel | `kerK_eq`, `kerK_le'`, `sinh_le_taylor`, `cosh_le_taylor`, `kerK_ge_taylor`, `modeE_ge` | `K(u) = ½csch(u/2) + ½sech(u/2) ∈ [1/u + ½ − r(u), 1/u + ½]` from Mathlib's Taylor bound for `exp`; so `ψ_n ≥ Cin(πn/2) + a(1 − 2sin(πn/2)/(πn)) − err(a)` |
+| D. `Cin` values | `Fk_deriv`, `cin_step`, `cin_quarter`, `piece1`–`piece11`, `pieceH6`–`pieceH60`, `cin_val1`–`cin_val6`, `cinH11`, `cinH21`, `cinH61` | `Cin(x) = ∫₀ˣ (1 − cos s)/s` via a Taylor piece on `[0, π/4]` and tangent-line pieces `1/s ≥ 2/c − s/c²` with exact antiderivatives; trig values at multiples of `π/4` by recursion; `π`, `√2` from Mathlib's bounds. Certified: `Cin(π/2) ≥ 0.5408`, …, `Cin(3π) ≥ 2.7801`, `Cin(61π/2) ≥ 5.098` |
+| E. mode masses | `cs_supp`, `cf_even`, `pm_even`, `integral_sq_perp`, `integral_cos_sub_sq`, `pm_le`, `cval1`–`cval5` | for even `g`, `p_n = (∫ g cos(πnt/4a))²/(8a)`. Orthogonality to `w` gives `∫ g cosh(t/2) = 0`, so `(∫ g)² ≤ ∫(1 − cosh(t/2))² ≤ a⁵/30`. Cauchy–Schwarz against `cos − β_n` then gives `p_1 ≤ 0.0031`, `p_2 ≤ 0.0254`, `p_3 ≤ 0.0799`, `p_4 ≤ 0.1313`, `p_5 ≤ 0.1395` |
+| F–G. no primes | `nearField_box_le'`, `pole_box_le`, `tail_ok`, `nearField_fourier`, `weilQ_perp_ge_fourier` | box: near field `≤ 1 + a/2`, pole `≤ 4a(1 + a²/24 + a⁴/1600)²`. For `2a < log 2`: `Q(g) ≥ Q(box) + 1/10` |
+| H–J. the prime `n = 2` | `primeS_eq_two`, `autocorr_two_a`, `hasSum_autocorr`, `primeD_le`, `energy_prime_trunc`, `tailB_all`, `termB1`–`termB5`, `weilQ_perp_ge_sliver` | for `log 2 ≤ 2a ≤ 0.7` only `n = 2` enters: `−√2 log 2·f(log 2)`. Since `f(2a) = 0`, `f(log 2) = Σ p_n(cos(ω_n log 2) − cos(ω_n 2a))`, and each defect is `≤ min(ω_n(2a − log 2), 2) ≤ min(0.0155|n|, 2)`. It is absorbed mode by mode, with tail levels `n ∈ [6,10], [11,20], [21,60], [61,∞)` |
+
+**Scope and honesty.**
+* The constants are proved, not computed. Every numerical input is a Lean theorem from Mathlib's bounds on `π`, `√2` (via `Real.sqrt`), `log 2` and `e`; there are no floating-point certificates.
+* The margins are thin but positive: `1/10` below `log 2`, `1/40` on the prime sliver. The modelled worst cases were `0.19` and `0.056`.
+* **The paper's certified cells lie beyond this.** They start at `δ = log 2` and run to `δ = 1.3828125`, i.e. `a` up to `0.69`. `a = 0.35` is only the first sliver past `log 2`. Extending further needs more modes (the diagonal Cauchy–Schwarz bound degrades past about `N = 6`, so an eigenvalue bound for the low block would be needed) and more primes (`n = 3` at `δ = log 3`).
+* Check 7: no semiclassical procedure is used. The kernel is the explicit formula's archimedean kernel, handled by Parseval on a circle and elementary calculus. There is no sphere Laplacian, loop integral or effective potential.
 
