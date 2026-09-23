@@ -964,3 +964,40 @@ The per-zero scatter is `0.2–0.33` in `log₁₀`, about a factor of 2. Separa
 * It locates the offsets. They are proportional to the ground-state energy and grow like `e^{aγ_j}` up the pinned range, until they reach `10⁻²–10⁻³`, where zeros stop being pinned.
 * It does not explain the sign. `ε_j > 0` is the same statement as the alternation of `ĝ(γ_j)`, and that alternation is observed, not derived. The Euler–Lagrange equation says each pinned `c_j ≈ −(1/2a) Σ_{k≠j} c_k (S(γ_k − γ_j) + S(γ_k + γ_j))`, with `S(u) = 2 sin(au)/u`. So the alternation would have to come from how the sinc kernel carries the energy-bearing values at the unpinned zeros back onto the pinned range. That is a statement about the zeta zeros themselves.
 * The fit is empirical: two parameters per `δ`, 1–13 points, factor-2 scatter. `C(δ)` has no model yet.
+
+## Round 30: the universality test (numerical, `frontier/universality.py`)
+
+**The question.** Is the zero flow of round 27 a general property of minimisers of truncated forms `Q(g) = (1/π)∫₀^∞|ĝ|²Φ [+ 2ĝ(i/2)²]` over growing supports? If so, it is a candidate for a general theorem. Or is it specific to `ζ`'s symbol `Φ = Re ψ(¼ + ir/2) − log π − 2ΣΛ(n)n^{−½}cos(r log n)` with the pole term?
+
+**The method.**
+* Gram matrices by Fourier quadrature on `(0, 3000]` with an analytic tail, cosine basis `K = 60`, in double precision.
+* The control (`ζ` at `δ = 0.6, 0.9, 1.0`) reproduces the high-precision results: zeros to 4–5 digits, velocities to 3.
+* For each symbol and `δ`: velocities of all zeros below 60, and the sign of `W = ĝ ∂_x∂_δĝ − ∂_δĝ ∂_xĝ` on 6000 points.
+* Double precision is adequate here because every non-`ζ` ground energy is `|λ| ≥ 10⁻⁵`, apart from the `ζ`-identical `all_n` cells.
+
+| symbol | pole | `δ` = 0.6, 0.9, 1.2, 1.6, 2.0: flow holds? (all `v < 0` and `W < 0` everywhere) |
+|---|---|---|
+| `ζ` (control, and high precision to `δ = 2`, round 27) | yes | yes at every `δ` |
+| `log(1 + r)` | no | yes, yes, yes, yes, yes |
+| `|r|` | no | yes, yes, yes, yes, yes |
+| prolate: `1_{|r| > 12}` | no | yes, yes, yes, yes, yes |
+| archimedean `Re ψ − log π`, no primes | no | yes, yes, yes, yes, yes |
+| archimedean, no primes | **yes** | yes (`= ζ` there), **no** (`W > 0` at 898 points), **no**, **no**, **no** (one zero moving up) |
+| `Λ(n)` replaced by `log n` (differs from `ζ` only for `δ ≥ log 4`) | yes | yes, yes, yes, yes, yes |
+| primes' frequencies `log n` jittered by ±4% (1 draw) | yes | yes, yes, yes, **no** (2 zeros up), **no** |
+| prime weights multiplied by `U(0.5, 1.5)` (1 draw) | yes | yes, **no**, **no**, **no**, **no** |
+
+Robustness over 6 random draws each at `δ = 1.2, 1.6, 2.0`:
+
+| perturbation | flow broken in |
+|---|---|
+| `log n` jittered by only **±1%** | 16 of 18 cells (4/6 at `δ = 1.2`, 6/6 at `1.6`, 6/6 at `2.0`) |
+| prime weights jittered by **±10%** | 12 of 18 cells (1/6, 6/6, 5/6) |
+
+**Findings.**
+1. **For monotone symbols without the pole term, the flow looks general.** It holds for `log`, `|r|`, the prolate step and the bare archimedean term at every `δ`. For these, a general theorem (monotone symbol ⇒ zeros of the truncated minimiser flow inward) is a plausible target. The scale-invariant symbols are the easy case of round 28's analysis.
+2. **The pole term alone breaks it.** Adding `2ĝ(i/2)²` to the archimedean symbol destroys the flow from `δ = 0.9` on.
+3. **The true primes restore it, and it is fragile.** With the actual `Λ(n)` at the actual frequencies `log n`, the flow holds through `δ = 2` (at high precision in round 27). A ±1% jitter of the frequencies breaks it in most draws, and so does a ±10% jitter of the weights. The one exception tested is `all_n` (`Λ(4) = log 2` replaced by `log 4`), which keeps it at `δ = 1.6` and `2`. So the flow is not strictly arithmetic, but it is not generic either.
+4. **Consequence for a proof.** For `ζ`'s form the flow depends on the fine structure of the prime sum balancing the pole term. That is the same balance that makes Weil's form nonnegative (`λ₁ > 0` for `ζ`, versus `λ < 0` in every perturbed cell). It fits rounds 28–29: the flow at pinned zeros is the statement `x_j ↓ γ_j`, a property of the zeta zeros. A general "monotone symbol" theorem cannot reach `ζ`'s case, because `ζ`'s symbol is not monotone and carries the pole term. So as far as these tests go, a proof of the flow for `ζ` is not easier than item 1(a).
+
+**Not established.** Negativity of `λ` does not predict failure: the pole-free archimedean term and `all_n` have `λ < 0` and keep the flow. Each "no" in the first table is a single random draw; the robustness table covers 6 draws per perturbation.
