@@ -171,14 +171,13 @@ def Acut(x, sq=lambda v: v**0.5, c87=8/7, ss=SS):   # 12 int_0^{0.85 gamma_1} r 
 def Rbar_x(x, sq=lambda v: v**0.5, c87=8/7): return c87*(1 - (x - 1)**2*sq(x - 1)/(x*sq(x)*(x + 2)))
 def R2(x, sq=lambda v: v**0.5, c87=8/7, ss=SS, csp=CSP): return (1 - csp)*Acut(x, sq, c87, ss) + csp*Rbar_x(x, sq, c87)    # R(T) <= R_2(x) for every T > gamma_1
 X2 = 2.28                                      # R_2 enclosed on [1, X2] (X2 > x*); beyond X2, R_2 <= Rbar(x) <= Rbar(X2) < 1
-def R2_enclosure(n=4000):                      # a rigorous upper bound on R_2 over [1, X2]: interval arithmetic (mpmath.iv, outward rounding) on n subintervals sharing their endpoints, the natural interval extension of the elementary formula with the constants 8/7, 0.7225, 0.673 as intervals
+def R2_enclosure(n=4000):                      # a rigorous upper bound on R_2 over [1, X2]: interval arithmetic (mpmath.iv at its default 53 bits, outward rounding) on n subintervals sharing their endpoints, the natural interval extension of the elementary formula with the constants 8/7, 0.7225, 0.673 as intervals
     from mpmath import iv
-    dps0 = iv.dps; iv.dps = 30; c87 = iv.mpf(8)/7; ss = iv.mpf("0.7225"); csp = iv.mpf("0.673")
+    c87 = iv.mpf(8)/7; ss = iv.mpf("0.7225"); csp = iv.mpf("0.673")
     edges = [1 + (X2 - 1)*k/n for k in range(n + 1)]; up = 0.0
     for k in range(n):
         x = iv.mpf([edges[k], edges[k + 1]]); v = R2(x, iv.sqrt, c87, ss, csp); up = max(up, float(v.b))
-    rb = float(Rbar_x(iv.mpf([X2, X2]), iv.sqrt, c87).b); iv.dps = dps0
-    return up, rb
+    return up, float(Rbar_x(iv.mpf([X2, X2]), iv.sqrt, c87).b)
 JN0 = (G1Z**3/TWO_PI)*(1/9 - (math.log(G1Z/TWO_PI) - 1)/3)                           # J = int_0^gamma_1 |N_0| r dr in closed form (N_0 < 0 there)
 TJ = math.sqrt(G1Z*G1Z + 8*JN0/7)              # F^s'(2T_0) > 0 for every hole set once 2T_0 > T_J: the constant's term outweighs the piece below gamma_1 for T^2 > gamma_1^2 + 8J/7
 def Fs_cusp(a, holes):           # F^s at the domain's left endpoint max(h_max, gamma_1) -- finite, arccosh(1) = 0; at gamma_1 the piece below it by r = gamma_1 sin(theta) (the 1/sqrt singularity removed)
