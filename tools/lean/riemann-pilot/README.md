@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`.
 
-Every file ends with `#print axioms`. All 180 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 193 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -31,6 +31,7 @@ Every file ends with `#print axioms`. All 180 checked theorems depend only on `p
 | `Positivity.lean` | 550 | the pole-free form `Q₀`: a unique, one-signed ground state |
 | `StrictPositivity.lean` | 730 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
 | `UniquenessQ.lean` | 158 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
+| `SpectralGap.lean` | 658 | a certified lower bound `λ_⊥ ≥ λ₁ + 1/40` for `0 < a ≤ 1/40`; `Q`'s ground state is unique there |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -582,4 +583,25 @@ So the pole-free form's ground state is simple (round 16) and strictly positive.
 **Why this is as far as structure goes.** The second branch says `Q₀` has an excited eigenvalue exactly equal to `λ₁`, with an eigenfunction orthogonal to both `w` and `φ₀`. By min–max, `Q = Q₀ + 2⟨·, w⟩²` is a rank-one positive perturbation of `Q₀`, and its lowest eigenvalue lies between `Q₀`'s first two eigenvalues: `λ₀ < λ₁ ≤ μ₁(Q₀)`. The second branch is the boundary case `λ₁ = μ₁(Q₀)`. For a general rank-one perturbation this happens exactly when `w` is orthogonal to the whole `μ₁`-eigenspace of `Q₀`, and nothing about `Q₀` or `w` forbids that. Evenness does not help, since every probe is even. The paper does not claim `λ₁` is simple (round 15). Deciding the second branch at a given support needs a certified lower bound on `Q₀`'s second eigenvalue on `w^⊥`, which neither the pilot nor the paper has. The min–max remark is an explanation and is not formalised.
 
 For the chain, uniqueness is still not needed (round 15, last paragraph).
+
+## Round 19: a certified lower bound orthogonally to `w`, at small support (SpectralGap.lean)
+
+**`weilQ0_perp_ge`.** For `0 < a ≤ 1/40`, every normalised probe `g` with `ĝ(i/2) = ⟨g, w⟩ = 0` has `Q₀(g) = Q(g) ≥ Q(box) + 1/40 ≥ λ₁ + 1/40`. So `λ_⊥ ≥ λ₁ + 1/40`: round 18's second branch cannot occur, and **`groundState_unique_small`** gives a unique ground state of `Q`, up to sign, at every support `0 < a ≤ 1/40`.
+
+The bound is analytic. Nothing is computed, and the only numbers used are `log 2 > 0.6931471803` (Mathlib) and elementary exponential bounds.
+
+| Step | Theorem | Content |
+|---|---|---|
+| no primes | `primeS_eq_zero` | for `2a < log 2`, every `f(log n)` with `Λ(n) ≠ 0` vanishes |
+| kernel | `kerK_ge`, `kerK_ge'`, `kerK_le` | `1/(u cosh(u/2)) ≤ K(u) ≤ e^{u/2}/u`, from `1 − u ≤ e^{−u}` and `u ≤ sinh u` |
+| far field | `archIntegrand_eq_kerK`, `archE_split` | `A_g(u) = K(u)` for `u > 2a` at every normalised probe, so the far field cancels in `Q(g) − Q(box)` |
+| edge mass | `edge`, `edge_reflect`, `autocorr_le_edge` | `m(u) = ∫_{t>a−u} g²` satisfies `m(u) + m(2a−u) = 1` (evenness) and `f(u) ≤ 1 − m(u)` (AM–GM on the overlap, which lies in `t ∈ [−a, a−u]`) |
+| Fubini | `integral_autocorr`, `integral_autocorr_Ioc` | `∫f = (∫g)²`, via the shear `(t, u) ↦ (t, t+u)`; so `∫_{(0,2a]} f = (∫g)²/2` |
+| near field | `integral_edge_ellK`, `integral_edge`, `nearField_ge` | with `A_g = mK + (1 − m − f)K`: reflection gives `∫₀^{2a} m/(u cosh a) ≥ log 2/cosh a` and `∫₀^{2a} m = a`, so `∫_{(0,2a]} A_g ≥ log 2/cosh a + (a − (∫g)²/2)/(2a cosh a)` |
+| the box | `nearField_box_le`, `poleR_box_sq_le` | `∫_{(0,2a]} A_box ≤ e^a` and `2ĝ_box(i/2)² ≤ 4ae^a` |
+| orthogonality | `integral_sq_le_of_perp` | `g ⊥ w` gives `∫g = ∫g(1 − e^{−t/2})`, so `(∫g)² ≤ a²(1+2a)²/4` |
+| the gap | `weilQ_perp_ge_meas`, `weilQ0_perp_ge` | `Q(g) − Q(box) ≥ (log 2 + ½)/cosh a − a(1+2a)²/16 − e^a(1 + 4a) ≥ 1/40`. Non-measurable probes are reduced to a measurable `symCut` version, as in round 17. |
+| uniqueness | `groundState_unique_small` | a ground state `v ⊥ w` would have `Q(v) ≥ Q(box) + 1/40 > Q(box) ≥ Q(v)` |
+
+**Scope.** The margin at `a = 1/40` is `0.0357` with the bounds as formalised, or `0.063` with exact `cosh` and `exp`. The method stops near `a ≈ 0.037`, for two reasons: the near-field estimate replaces `K(|t − s|)` by its minimum `K(2a)`, which keeps only `½ + log 2 ≈ 1.19` of the kinetic energy against the box's `1`; and the pole penalty `2ĝ_box(i/2)² ≈ 4a` grows linearly. **The paper's certified cells are far beyond this.** Theorems 1bj, 1bl and 1br work at `δ = 2a ∈ [log 2, 1.3828125]`, i.e. `a ≈ 0.35–0.69`, where prime terms enter and the relevant gaps are about `10⁻²` (the paper records `λ₂` of the pole-free even section `≈ 0.012` at `δ = 1.0`). There the lower bounds come from Kato–Temple ratios and Birman–Schwinger counts on flint interval enclosures. Formalising those needs certified numerical linear algebra in Lean (interval arithmetic for `ψ(¼)`, the kernel integrals and the Gram entries, plus eigenvalue enclosures), which the pilot does not have. Uniqueness of `Q`'s ground state at those supports stays open in the pilot, and the paper does not claim it.
 
