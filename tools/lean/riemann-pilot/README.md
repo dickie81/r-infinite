@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 246 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 250 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -38,6 +38,7 @@ Every file ends with `#print axioms`. All 246 checked theorems depend only on `p
 | `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
+| `ZeroSwap.lean` | 233 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes (Paley–Wiener, named) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -1494,3 +1495,30 @@ That is the predicted entry from imaginary infinity. So round 30's jitter broke 
   All three look RH-independent in kind, which the jittered cells support: those violate Weil positivity, yet the lemma's conclusion still holds.
 * **The zero flow's role.** It is the continuous path along which simplicity and the sign conditions must be maintained. Monotonicity of the zeros is not needed.
 * **RH is untouched.** The RH content sits in (a), as round 40 found. A proof of (b) for all `δ` along these lines would reduce the pilot's chain to "(a) ⇒ RH", with (a) carrying everything.
+
+## Round 43: the zero-swap lemma in Lean (ZeroSwap.lean)
+
+Round 42's lemma, formalised. It depends on the standard axioms only, with no `sorry` and no warnings. It is built on the existing ground-state machinery (`groundSpace`, `lam_mul_le`, `isGroundState_iff`, from rounds 14–15).
+
+**Definitions.**
+* `SimpleGround a g`: `g` is a ground state, and every element of `groundSpace a` is an a.e. multiple of `g`.
+* `SwapRealization a g σ` is the **named analytic input**. It asks for probes `u, v` such that:
+  * `û(z) + i·v̂(z) = ĝ(z)·(z² − σ̄)/(z² − σ)` whenever `z² ≠ σ`;
+  * `autocorr u + autocorr v = autocorr g` pointwise.
+
+  When `ĝ(w) = 0` and `σ = w²`, this is supplied by Paley–Wiener (the swapped function is entire of type `a` and `L²` on `ℝ`), by evenness, and by Fourier uniqueness for autocorrelations. None of these is in Mathlib; all are standard. Admissibility of `u, v` (the archimedean integral) is part of the input.
+
+**Proved.**
+
+| theorem | statement |
+|---|---|
+| `exists_real_ghatC_ne` | a normalised probe has `ĝ(t) ≠ 0` at some real `t` (Fourier coefficients on `[−2a, 2a]` are values of `ĝ`, and Parseval) |
+| `poleR_swap` | the swap preserves the pole value: `poleR(u)² + poleR(v)² = poleR(g)²`, because `(i/2)² = −¼` is real, so the multiplier has modulus 1 there |
+| `zero_swap_false` | **the core.** Under `SimpleGround` and a realised swap with `Im σ ≠ 0`: `Q(u) + Q(v) = Q(g)` and `‖u‖² + ‖v‖² = ‖g‖²`. So `u`, `v` are in `groundSpace` and hence `αg`, `βg`. So the multiplier is the constant `α + iβ` at every real `t` with `ĝ(t) ≠ 0`. Two such `t` with different squares exist (continuity), which forces `σ = σ̄`: a contradiction. |
+| `zeros_real_or_imag` | under `SimpleGround`, and the realisation for every zero off the cross, every zero `w` of `ĝ` has `w.re = 0 ∨ w.im = 0` |
+
+**How this fits the chain.** `rh_of_prime_side` needs (a) and `RealRooted`. This round gives the weaker conclusion "real or purely imaginary" from simplicity. Connecting it takes two steps not done here:
+* **a Hurwitz variant.** The cross `ℝ ∪ iℝ` is closed, so zeros of the limit `Ξ` lie on it too.
+* **`Ξ(iy) ≠ 0` for real `y ≠ 0`.** This is `ξ(σ) ≠ 0` on the real line, i.e. `ζ(σ) ≠ 0` for `0 < σ < 1`. It is classical, but not in Mathlib as far as I know.
+
+With both in place, the chain would read: (a) + simplicity at every large support + `SwapRealization` ⇒ RH. `groundState_unique_or_excited` (UniquenessQ.lean) already reduces simplicity to excluding an excited state of the pole-free form `Q₀` at energy exactly `λ₁`. Round 42's margins `λ₂(Q₀)/λ₁(Q)` = 10⁴–10⁸ measure how far that is from happening. Proving the exclusion for every support is still open.

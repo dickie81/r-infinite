@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, SpectralGap imports UniquenessQ, FourierGap imports SpectralGap, ParabolaGap imports FourierGap, Polya imports Roadmap, Concave imports Polya, PrimeSide imports Positivity and Concave, Saturation imports only Mathlib, Unconditional imports Concave and Saturation,
+# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, SpectralGap imports UniquenessQ, FourierGap imports SpectralGap, ParabolaGap imports FourierGap, Polya imports Roadmap, Concave imports Polya, PrimeSide imports Positivity and Concave, Saturation imports only Mathlib, Unconditional imports Concave and Saturation, ZeroSwap imports UniquenessQ,
 # through the oleans written to build/.
 set -euo pipefail
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
@@ -37,3 +37,4 @@ run Concave; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" l
 run PrimeSide; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/PrimeSide.lean'
 run Saturation; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Saturation.olean -i $HERE/build/Saturation.ilean $HERE/src/Saturation.lean'
 run Unconditional; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/Unconditional.lean'
+run ZeroSwap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/ZeroSwap.lean'
