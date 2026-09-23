@@ -36,7 +36,7 @@ Every file ends with `#print axioms`. All 242 checked theorems depend only on `p
 | `ParabolaGap.lean` | 658 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
 | `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
 | `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
-| `Saturation.lean` | 118 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
+| `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
