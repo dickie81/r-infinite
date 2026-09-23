@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 242 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 246 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -37,6 +37,7 @@ Every file ends with `#print axioms`. All 242 checked theorems depend only on `p
 | `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
 | `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
+| `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -1184,3 +1185,41 @@ The measurements used `K = 300` / `400` at 1000 / 1100 bits, with zeros of `ĝ` 
 * one extrapolated offset, for `λ₁` only.
 
 Because saturation currently enters through RH, the model describes item 1(a) quantitatively but does not prove it.
+
+## Round 37: saturation without RH (Unconditional.lean, `frontier/unconditional.py`)
+
+**What replaces RH.** `Saturation.lean` (round 35) took the explicit formula with every zero on the line, i.e. RH, as input. Here the inputs are theorems, plus one property of the ground state that is observed numerically:
+* **`hQ`: the unconditional explicit formula** `Q = Σ_ρ ĝ(t_ρ)²`, over all nontrivial zeros with multiplicity. For even `g`, the transform of the autocorrelation is `ĝ²`.
+* **`hRH`: verified RH up to `H`.** Zeros with `|Re t| ≤ H` are real. Platt–Trudgian give `H = 3·10¹²`; this is cited from memory and should be checked against the source.
+* **`hstrip`: the critical strip,** `|Im t| ≤ ½`.
+* **`hS`: a zero-counting bound,** `Σ_{|Re t| > H} (Re t)⁻² ≤ S`. With Trudgian's explicit `N(T)` bound (from memory: `N(T) ≤ (T/2π)log(T/2πe) + 7/8 + 0.112 log T + 0.278 log log T + 2.51`), `S_H = 4∫_H^∞ N⁺(t)/t³ dt = 5.7×10⁻¹²`.
+* **The ground state is even, `≥ 0` and non-increasing on `[0, a]`.** Observed at every support tested (below). Not proved.
+
+**Proved (four theorems, standard axioms only):**
+* `norm_ghatC_le_of_antitone`: for `g` even, `≥ 0` and non-increasing on `[0, a]`, `‖ĝ(z)‖ ≤ 2g(0)cosh(a|Im z|)/‖z‖`. The proof is a layer cake: each level set is a symmetric interval, whose transform is `2 sin(zr)/z`, and `|sin w| ≤ cosh(Im w)`.
+* `sq_le_of_explicit_tail`: every verified zero `t_j` has `‖ĝ(t_j)‖² ≤ Q + B²S`. The low terms are nonnegative squares of real numbers, and each high term is `≥ −B²/(Re t)²`.
+* `ghatC_im_eq_zero`: `ĝ` is real on the real line for even `g`.
+* `pinned_unconditional`: with `B = 2g(0)cosh(a/2)`, `ĝ` has a zero within `√(Q + B²S)/m` of every verified zeta zero near which `|ĝ'| ≥ m`, with fixed sign.
+
+**Numbers** (normalised ground states; `B ≈ 3.5–4.1`, `B²S_H ≈ 7–10×10⁻¹¹`; the bounds use the computed `|ĝ'(γ_j)|`):
+
+| `δ` | `λ₁` | non-increasing on `[0, a]`? | `B²S_H` | Lean bound at `γ₁` | at `γ₂` | at `γ₃` |
+|---|---|---|---|---|---|---|
+| 0.60 | 7.6e-03 | yes (largest step -1e-04) | 7.5e-11 | 2.5e+00 | 9.4e+00 | 9.7e+00 |
+| 1.00 | 9.4e-07 | yes (largest step -1e-04) | 7.0e-11 | 7.9e-02 | 6.5e-01 | 1.5e+00 |
+| 1.20 | 1.6e-09 | yes (largest step -1e-04) | 7.0e-11 | 4.7e-03 | 6.8e-02 | 2.5e-01 |
+| 1.38 | 8.8e-13 | yes (largest step -5e-06) | 7.1e-11 | 1.2e-03 | 2.5e-02 | 1.2e-01 |
+| 2.00 | 6.3e-30 | yes (largest step -5e-13) | 7.6e-11 | 2.1e-03 | 8.2e-02 | 6.9e-01 |
+| 3.00 | 4.3e-97 | yes, up to rounding (largest step 4e-16) | 9.7e-11 | 3.3e-03 | 2.0e-01 | 2.4e+00 |
+
+**Findings.**
+* Where `λ₁ ≫ B²S_H` (`δ ≲ 1.2`), the bound without RH equals the RH-conditional one.
+* Beyond that the tail dominates, but the lowest zeta zeros are still certified. At `δ = 2` the ground state has a zero within `2×10⁻³` of `γ₁` and `0.08` of `γ₂`. At `δ = 3`: `3×10⁻³` and `0.2`.
+* The RH-conditional bound of round 35 reaches much further (`10⁻¹³` at `γ₁`, `δ = 2`), because there the tail `B²S_H ≈ 7×10⁻¹¹` is replaced by `λ₁ = 6×10⁻³⁰`.
+
+**What is still assumed.**
+* **Monotonicity of the ground state**, which gives the decay constant `B`. It is numerically true; for `δ < log 2` a rearrangement argument should prove it (the kernel `e^{u/2}/sinh u` is decreasing and the pole weight `cosh(u/2)` is increasing). With primes present, it is open.
+* **The slope bound** `|ĝ'| ≥ m` on each window. The table uses computed values, not a certified enclosure of the true ground state.
+* **The three external inputs** (the explicit formula, the verified height `H`, the `N(T)` bound). These are published theorems, but they are named inputs, not formalised.
+
+Of these, only monotonicity and the slope bound concern the ground state itself. Neither involves RH.
