@@ -8932,20 +8932,22 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    Ξ understood. Ruled out for (b) at the cells: a shape mechanism. Pólya's
    theorem (1918) — an even probe nonnegative and concave on (−a, a) has a
    real-rooted transform — is the classical route, and every transform in
-   that class has a zero in (0, 2π/a]: for the trapezoid mixture g = β + ∫(a
-   − max(|t|, c)) dμ(c), z²ĝ(z)/2 = βz sin(za) + ∫(cos zc − cos za) dμ(c) is
-   positive for small real z and at most 0 at z = 2π/a. At every cell the
-   first zero of ĝ₁ is γ₁ within the dodging tolerance (Theorem 1bu(ii)) and
-   2π/a = 4π/δ < γ₁ once δ > 4π/γ₁ = 0.889 (every cell has δ ≥ 1), so the
-   ground state is concave at no cell, and the mechanism for (b) there must
-   be tied to the form — the Gram pencil's positivity or interlacing across
-   δ, or a variational argument that a non-real zero raises Q. (The pilot
-   proves Pólya's theorem for concave probes with no representation input,
-   `realRooted_of_concaveOn`; finds the ground state in the paper's Gram
-   numerically concave only for δ ≲ 0.61; and finds Pólya's Hermite–Biehler
-   function, built from g without its zeros, losing its structure between δ
-   = 0.80 and 0.82, where the second zero is pulled onto γ₂.) Both
-   hypotheses at every support are the wall.
+   that class has a zero in (0, 2π/a]: for such a g, integrating the cosine
+   transform by parts, zĝ(z)/2 = g(a−) sin(za) + ∫₀^a h(t) sin(zt) dt with h
+   = −g′ nonnegative and nondecreasing, which is positive for small real z
+   (it tends to z∫g) and at most 0 at z = 2π/a, where sin 2π = 0 and ∫₀^a
+   h(t) sin(2πt/a) dt = ∫₀^{a/2} [h(t) − h(a − t)] sin(2πt/a) dt ≤ 0. At
+   every cell the first zero of ĝ₁ is γ₁ within the dodging tolerance
+   (Theorem 1bu(ii)) and 2π/a = 4π/δ < γ₁ once δ > 4π/γ₁ = 0.889 (every cell
+   has δ ≥ 1), so the ground state is concave at no cell, and the mechanism
+   for (b) there must be tied to the form — the Gram pencil's positivity or
+   interlacing across δ, or a variational argument that a non-real zero
+   raises Q. (The pilot proves Pólya's theorem for concave probes with no
+   representation input, `realRooted_of_concaveOn`; finds the ground state
+   in the paper's Gram numerically concave only for δ ≲ 0.61; and finds
+   Pólya's Hermite–Biehler function, built from g without its zeros, losing
+   its structure between δ = 0.80 and 0.82, where the second zero is pulled
+   onto γ₂.) Both hypotheses at every support are the wall.
 
 7. **The sector tower.** Theorem 1bv(ii): an odd probe's transform is irĜ,
    so the odd sector is the even form with the multiplier γ² on the zero
