@@ -633,6 +633,8 @@ The bound is analytic. Nothing is computed, and the only numbers used are `log 2
 
 ## Round 21: to the limit of the method, `a = 0.36`, and the frontier map (ParabolaGap.lean)
 
+*(Correction, round 23: the frontier map's values for `a ≥ 0.55`, the "gap ≈ 10⁻⁴" and the conclusion that the gap closes by `a ≈ 0.55` came from a double-precision discretisation, which cannot resolve eigenvalues below about `10⁻⁵`. Recomputed at 600–700 bits in the paper's Gram, the gap does not close: `λ_⊥/λ₁` is `1.3×10⁴, 1.3×10⁵, 2.3×10⁶` at `δ = 1, 1.38, 2`. The Lean results of this round are unaffected.)*
+
 **`groundState_unique_036`.** For every `0 < a ≤ 0.36` (i.e. `δ = 2a ≤ 0.72`), `λ_⊥ ≥ λ₁ + 1/50` (`weilQ0_perp_ge_036`), so the ground state of the full form `Q` is unique up to sign.
 
 **What changed.** The trial side. The box overshoots `λ₁` by about `0.19` near `a = 0.35`. The parabola `g = C(1 − t²/a²)` is within about `0.01` of `λ₁` numerically. Its autocorrelation is the explicit polynomial `f(u) = (2a − u)³(4a² + 6au + u²)/(32a⁵)` on `[0, 2a]` (`autocorr_par`, proved by exact polynomial integration). So `K ≤ 1/u + ½` gives the rational bound `∫_{(0,2a]} A_par ≤ 31/30 + 7a/12` (`nearField_par_le`), and cosh's Taylor bound gives `2ĝ_par(i/2)² ≤ (10/3)a(1 + a²/40 + a⁴/3584)²` (`pole_par_le`). On `0.35 ≤ a ≤ 0.36` the round-20 lower bound applies with a larger prime defect `≤ 0.06026|n|`, tail level `τ = 2.7`, and six certified `Cin` levels at `k = 6, 7, 11, 18, 25, 30`; the tightest has slack `0.0011`. It beats the parabola by `1/50`, against a modelled `0.039`.
@@ -656,6 +658,8 @@ The `δ = 1.0` value `0.012` independently reproduces the paper's "λ₂ of the 
 So with elementary means the pilot's certified frontier is `a = 0.36`. The certifiable ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. The mathematical gap closes, to below `10⁻³`, by `a ≈ 0.55`.
 
 ## Round 22: testing the chain's hypotheses on ground states (numerical, `frontier/hrr_test.py`, `frontier/hrr2.py`)
+
+*(**Retracted in round 23.** The states tested here were not the ground states. The double-precision step-function discretisation misses the true ground state by up to 23 orders of magnitude in energy. The "`hκ` fails" conclusion is withdrawn. See round 23.)*
 
 `rh_of_groundStates_dodging` derives RH from ground states `g_n` of `Q` at supports `a_n → ∞`, assuming `hRR` (every `ĝ_n` is real-rooted), `hD` (the zeros of `ĝ_n` below `T_D(n)` pair off with `Ξ`'s, total mismatch `η_n → 0`) and `hκ` (the curvature `κ_n = ∫u²g_n/(2∫g_n)` tends to `Re Σ_j γ_j⁻² = 0.023105`). This round tests all three numerically, before any further investment. Method:
 * the even-sector ground state of the full `Q`, with every prime power, discretised piecewise-constant on `n` cells;
@@ -683,4 +687,29 @@ So with elementary means the pilot's certified frontier is `a = 0.36`. The certi
 * a version of the curvature condition restricted to matched zeros, which is essentially `hD` itself.
 
 Either way, the Lean chain as instantiated with ground states is refuted numerically at `hκ`. The live questions are `hRR` for a family that also converges to `Ξ`, and whether such a family can be the ground states after normalisation.
+
+## Round 23: the test rerun on the paper's ground states, and two corrections (numerical, `frontier/rerun_paper.py`, `frontier/arbiter.py`, `frontier/verify_d3.py`, `frontier/gap_hp.py`)
+
+**What went wrong in round 22.** Theorem 1bu(ii) states Hypothesis D as exact coincidence below `T_D`: "every zero of ĝ₁ with |τ| < T_D is a zero of ζ, every zero of ζ with |γ| < T_D is a zero of ĝ₁ … (the probe dodges every zero below T_D and has no other zero there)". The extra zeros belong to the excited states ("the ground state none"). The paper's curvature at the cells is "0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward Σ_γ γ⁻² = 0.0231". Round 22 agreed with this at `δ = 1` (`κ = 0.0150`) and disagreed from `δ = 1.38` on. The reason is precision. The true ground-state energies are `λ₁ = 9.4×10⁻⁷, 8.8×10⁻¹³, 6.3×10⁻³⁰, 2.1×10⁻⁴³, 4.3×10⁻⁹⁷` at `δ = 1, 1.38, 2, 2.3, 3`, far below what a double-precision dense eigensolver can resolve. Projected into the paper's cosine basis, round 22's state at `δ = 2` has true Rayleigh quotient `1.66×10⁻⁷`, against the ground state's `6.3×10⁻³⁰` (`frontier/arbiter.py`). It was a different state.
+
+**The rerun.** The ground state is computed with the paper's own Gram (`tools/research/weil_prime_gram.py`: even cosine basis, every prime power, 600–1100 bits). `ĝ` is evaluated in the same precision. `hRR` is checked by the argument principle against the real-axis census; `hD` by the nearest zero to each `γ_j < 55`; `hκ` exactly from the coefficients.
+
+| `δ` | `K` | `λ₁` | zeros in `|r| < 60`: all real? | zeros of `ĝ` in `(0, 55)` not at a zeta zero | max distance, dodged `γ_j` | `κ` (paper) |
+|---|---|---|---|---|---|---|
+| 1.0 | 120 | 9.4e-7 | yes (18/18) | above `T_D` only | (only 2 zeros dodged) | 0.01478 (0.0148) |
+| 1.38 | 140 | 8.8e-13 | yes (22/22) | above `T_D` only (≈ 40) | 1e-5 for `γ ≤ 37.6` | 0.01770 (0.0177) |
+| 2.0 | 160 | 6.3e-30 | yes (26/26) | **none** | 2.6e-8 | 0.02030 (0.0203) |
+| 2.3 | 260 | 2.1e-43 | yes (26/26) | **none** | 6.0e-7 | 0.02105 (0.0210) |
+| 3.0 | 400 | 4.3e-97 | yes: 13 of 13 roots of `M` in `|s| < 3600` are real positive (full precision) | **none** | 2.4e-6 | 0.02210 (0.0221) |
+
+At `δ = 3` a first pass with coefficients rounded to double reported spurious non-real zeros. With the exact coefficients the count is 13 real of 13, and rounding alone produces 9 spurious roots (`frontier/verify_d3.py`). That is the same precision trap as round 22.
+
+**Findings.** On the paper's ground states, all three hypotheses of `rh_of_groundStates_dodging` are numerically consistent at every cell tested.
+* `hRR`: every zero in `|r| < 60` is real.
+* `hD`: for `δ ≥ 2` every zero of `ĝ` below 55 is a zeta zero to `10⁻⁶–10⁻⁸`, with no other zeros.
+* `hκ`: `κ` rises monotonically toward `0.023105` (0.0148 → 0.0221), matching the paper's values to 3 digits.
+
+**What it does and does not mean.** This reproduces Theorem 1bu(ii)'s computed facts independently. It is not progress on RH. The ground state's transform vanishing at the zeta zeros is what the explicit formula's zero side `Σ_γ |ĝ(γ)|²` rewards: under RH that side is a sum of squares, which the minimiser drives to `≈ 0` by dodging every zero below `T_D`. §11's own words: "it is the direction RH ⇒ shadow, the shadow's description and not its cause". The open step is still roadmap item 1: derive (a) dodging and (b) real-rootedness from the prime side, with no zero entering. What the test does settle is that the chain's instance is not refuted: it has a numerically viable family. The chain also needs `δ → ∞`; the rate at which `κ → Σγ⁻²` (the paper's `ε(δ) ~ ln T_D/T_D`) is not proved.
+
+**Correction to round 21.** Recomputed at high precision in the paper's Gram with `⟨g, w⟩ = 0` imposed (`frontier/gap_hp.py`), `λ_⊥ = 0.0119, 1.1×10⁻⁷, 1.5×10⁻²³` against `λ₁ = 9.4×10⁻⁷, 8.8×10⁻¹³, 6.3×10⁻³⁰` at `δ = 1, 1.38, 2`. The absolute gap collapses together with the eigenvalues. That is why a Lean certificate past `δ ≈ 1` needs high-precision arithmetic, as round 21 said. But `λ_⊥/λ₁` grows from `10⁴` to `10⁶`, so the ground state is numerically unique at every cell, and there is no near-degeneracy.
 
