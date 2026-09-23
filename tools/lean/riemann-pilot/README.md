@@ -1429,3 +1429,68 @@ Paper 0's ball slices `(1 − x²)^{d/2}` have Bessel transforms `J_ν(t)/t^ν` 
 * **δ = 3** (`T_max = 250`): `ĝ` has 107 real zeros, which equals zeta's count there. No survivors; `r` is at most 1.5–5% of `a = 1.5`.
 * **Why this must happen.** Below the dodging edge the zeros of `ĝ` are the zeta zeros. A slice factor would force an almost-arithmetic progression `j_{ν,k}/r` into that set, and zeta zeros contain none. So geometric factors can only live beyond the edge, with support of order `e^{−2a}`. A Gaussian factor is impossible outright, since `g_a` has compact support.
 * **Consequence.** The closure of Paper 0's slices under convolution (the "Laguerre–Pólya closure" candidate of round 24) cannot explain (b). The factor that carries the zeta-pinned zeros is not geometric.
+
+## Round 42: (b) from spectral simplicity, and what the zero flow is really tracking (`frontier/simplicity/`)
+
+**Known result that settles the mechanism.** Connes and van Suijlekom (*Quadratic Forms, Real Zeros and Echoes of the Spectral Action*, arXiv 2511.23257) prove the following for quadratic forms given by a real even distribution on `[−L, L]`, which includes Weil's form. If the lowest spectral value is a simple, isolated eigenvalue with an even eigenfunction `ξ`, then every zero of `ξ̂` is real. Their proof is a continuous Carathéodory–Fejér argument.
+* So (b) is a spectral non-degeneracy statement, not a statement about the shape of `g`. That explains why every shape mechanism failed (rounds 24–29, 41).
+* It is rigorous at two supports:
+  * at `δ = 1.6` from Zhu's Theorem 6.2;
+  * at `δ = 2` from round 39 (even `λ₁ ≤ 6.04×10⁻³⁰` against odd `λ₁ ≥ 1.31×10⁻²⁶` and even `λ₂ ≥ 1.885×10⁻²³`).
+
+  At both, the true ground state's transform has only real zeros.
+
+**1. Zero-swap lemma (proved here; a short even-sector variant of Carathéodory–Fejér).** Let `g` be an even ground state on `[−a, a]` that is simple within the even sector. Then every zero `w` of `ĝ` has `w²` real, i.e. `w` is real or purely imaginary.
+
+*Proof.*
+1. Suppose `ĝ(w) = 0` with `σ = w² ∉ ℝ`. Set `F₂(z) = ĝ(z)·(z² − σ̄)/(z² − σ)`.
+2. `F₂` is entire, even, of exponential type `a`, and `|F₂| = |ĝ|` on `ℝ`, since `t²` is real. So by Paley–Wiener `F₂ = f̂₂` for a complex even `f₂ ∈ L²[−a, a]`.
+3. At the pole point `z = i/2`, `z² = −¼` is also real, so `|F₂(i/2)| = |ĝ(i/2)|`.
+4. On complex even functions `Q(f) = 2|f̂(i/2)|² + (1/π)∫₀^∞ |f̂|²Φ = Q(Re f) + Q(Im f)`. Hence `Q(f₂) = Q(g)` and `‖f₂‖ = ‖g‖`.
+5. Since `Q(u) ≥ λ₁‖u‖²` for every even `u`, `Re f₂` and `Im f₂` are ground states (or zero). By simplicity `f₂ = c·g`, so `(z² − σ̄)/(z² − σ)` is constant, which forces `σ ∈ ℝ`. Contradiction. ∎
+
+The odd sector would not work this way: there the pole enters with the other sign.
+
+**2. The flow picture this gives.** While the even ground state stays simple, its zeros are confined to the cross `ℝ ∪ iℝ`. A zero can leave the real axis only through the origin (`ĝ(0) = ∫g = 0`) or through imaginary infinity. For `g(a) ≠ 0`, `ĝ(iy) ~ g(a)e^{ay}/y`, so a pair enters from infinity only when `g(a)` changes sign. So (b) holds along the whole `δ`-flow if:
+* the even ground state is simple for all `δ`;
+* `∫g_δ ≠ 0` and `g_δ(a) ≠ 0` for all `δ`;
+* the start is real-rooted (concave regime, round 24).
+
+Zero collisions in the flow correspond to eigenvalue crossings at the bottom of the spectrum.
+
+**3. Tested against round 30's "universality" failures** (`jitter_real.py`, `where.py`, `track.py`). With primes jittered by ±1% in frequency or ±10% in weight, the ground states are still simple (gap ratio O(1)–10²). Wherever non-real zeros occur, they are **purely imaginary**, stable from `K = 60` to `K = 90`, and occur only where `g` changes sign. Every one of the 18 cells fits the lemma.
+
+In the tracked cell (seed 1, ±1% frequencies):
+* `g(a)` changes sign between `δ = 0.95` and `1.0`;
+* one imaginary pair appears at `δ = 1.05`.
+
+That is the predicted entry from imaginary infinity. So round 30's jitter broke the flow's *monotonicity*, not the realness mechanism. The realness failures are exactly the sign changes of `g` at the edge. For `ζ`, `g_δ(a) > 0` at every `δ` tested (`g(a)/g(0)` = 1.6e-3, 2e-11, 1.2e-30 at `δ` = 1, 1.8, 2.6), and `ĝ(0)/‖g‖ ≈ 0.8–0.87`.
+
+**4. A Perron–Frobenius route to simplicity** (`simple_test.py`). Split `Q = Q₀ + 2⟨c, g⟩²`, with `c = cosh(t/2)` (the pole) and `Q₀` = archimedean Dirichlet form − prime shifts.
+* **`Q₀` is Perron–Frobenius.** Its off-diagonal kernel is `≤ 0`: the archimedean kernel `e^{u/2}/sinh u > 0` enters with a minus sign, and so do the prime shifts. So `Q₀(|g|) ≤ Q₀(g)` (the Beurling–Deny criterion). The kernel is positive on the whole window, so the semigroup should be positivity-improving, giving a simple, strictly positive ground state. This is a standard argument, but not formalised here.
+* **Rank-one step.** If `λ₁(Q) < λ₂(Q₀)`, then `λ₁(Q)` is a root of the secular equation and is simple. This uses `⟨c, φ₁(Q₀)⟩ ≠ 0`, which holds automatically because both are positive.
+* **Measured:**
+
+  | `δ` | `λ₁(Q)` | `λ₂(Q)` | `λ₁(Q₀)` | `λ₂(Q₀)` | margin `λ₂(Q₀)/λ₁(Q)` | `φ₁(Q₀)` min/centre |
+  |---|---|---|---|---|---|---|
+  | 1.0 | 9.4081e-7 | 0.018075 | -1.9874 | 0.011939 | 1.3e+04 | 0.58 |
+  | 1.4 | 4.2886e-13 | 8.765e-8 | -2.8671 | 5.6064e-8 | 1.3e+05 | 0.65 |
+  | 1.8 | 4.4732e-23 | 7.7004e-17 | -3.8232 | 4.9228e-17 | 1.1e+06 | 0.78 |
+  | 2.2 | 2.0513e-38 | 1.5772e-31 | -4.8362 | 1.0091e-31 | 4.9e+06 | 0.85 |
+  | 2.6 | 8.2926e-62 | 4.1933e-54 | -5.9636 | 2.6845e-54 | 3.2e+07 | 0.95 |
+  | 3.0 | 4.8634e-97 | 1.3171e-88 | -7.2314 | 8.4362e-89 | 1.7e+08 | 0.95 |
+
+* **Findings:**
+  * `Q₀`'s ground state is positive and simple at every `δ`, as Perron–Frobenius predicts.
+  * `λ₂(Q₀)` tracks `λ₂(Q)`: `λ₂(Q₀) ≈ 0.64·λ₂(Q)`, so `Q`'s second eigenvector is almost orthogonal to the pole.
+  * The simplicity margin grows from about `10⁴` to about `3×10⁷` and beyond.
+* **What remains.** Simplicity for all `δ` needs `λ₁(Q) < λ₂(Q₀)` for all `δ`. Theorem A's `Φ_a` bound (round 40) is too weak for this: at `a = 1` it gives `e^{−29}`, against `λ₂(Q₀) ≈ e^{−52}`. So it is a per-`δ` certificate question (as in round 39), not yet an asymptotic proof.
+
+**What this changes.**
+* (b) is no longer a mystery about shapes. It reduces to:
+  * simplicity of the even ground state (an eigenvalue non-crossing statement);
+  * two sign conditions, `∫g ≠ 0` and `g(a) ≠ 0`.
+
+  All three look RH-independent in kind, which the jittered cells support: those violate Weil positivity, yet the lemma's conclusion still holds.
+* **The zero flow's role.** It is the continuous path along which simplicity and the sign conditions must be maintained. Monotonicity of the zeros is not needed.
+* **RH is untouched.** The RH content sits in (a), as round 40 found. A proof of (b) for all `δ` along these lines would reduce the pilot's chain to "(a) ⇒ RH", with (a) carrying everything.
