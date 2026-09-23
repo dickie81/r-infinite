@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`.
 
-Every file ends with `#print axioms`. All 138 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 145 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -26,6 +26,7 @@ Every file ends with `#print axioms`. All 138 checked theorems depend only on `p
 | `GroundState.lean` | 167 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
 | `Existence.lean` | 485 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
+| `GroundStateExists.lean` | 456 | existence, stage 3: **a ground state of Weil's form exists at every support** |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -437,7 +438,7 @@ It also defines the admissible class `Probe` (real, even, supported in `[−a, a
 
 The lower bound is weak: about `−6.35` at `δ = 1`, against the certified `λ₁ ≤ e^{−13.88}` (Theorem 1bn(ii)). Its role is only to show the minimisation problem is bounded below.
 
-**Not proved: existence.** `IsGroundState` defines the minimiser; nothing here proves one exists. If none existed, `rh_of_groundStates_dodging` would be vacuous. Existence needs compactness. On the Fourier side the archimedean term weights `|ĝ(r)|²` by `Re ψ(¼ + ir/2) − ψ(¼)`, which grows like `log|r|`. Together with the support in `[−a, a]`, that makes bounded-energy sets precompact in `L²`, and the prime term is a bounded perturbation. Mathlib has the `L²` Fourier transform (`Analysis/Fourier/LpSpace.lean`) but no Kolmogorov–Riesz compactness criterion, so this is a foundations project of its own.
+**Not proved in this round: existence.** *(Proved in rounds 12–14: `exists_groundState`.)* `IsGroundState` defines the minimiser; nothing in this round proves one exists. If none existed, `rh_of_groundStates_dodging` would be vacuous. Existence needs compactness. On the Fourier side the archimedean term weights `|ĝ(r)|²` by `Re ψ(¼ + ir/2) − ψ(¼)`, which grows like `log|r|`. Together with the support in `[−a, a]`, that makes bounded-energy sets precompact in `L²`, and the prime term is a bounded perturbation. Mathlib has the `L²` Fourier transform (`Analysis/Fourier/LpSpace.lean`) but no Kolmogorov–Riesz compactness criterion, so this is a foundations project of its own.
 
 ## Round 12: existence of the ground state, stage 1 (Existence.lean)
 
@@ -473,3 +474,22 @@ So probes of bounded archimedean energy have uniformly small high-frequency tail
 - A `normSq`-Cauchy sequence converges in `L²` (`exists_limit_of_cauchy`, through Mathlib's complete `Lp ℝ 2`).
 
 What remains is stage 3: the limit of a minimising sequence is a ground state.
+
+## Round 14: existence of the ground state, stage 3 (GroundStateExists.lean)
+
+**`exists_groundState`: for every `a > 0` there is a `g` with `IsGroundState a g`.** The minimum of `Q(g)/‖g‖²` over the even sector of `L²(−a, a)` is attained. `exists_groundStates` gives ground states for every term of a sequence of supports, so `rh_of_groundStates_dodging` is no longer vacuous.
+
+The proof is the direct method:
+
+| Step | Theorem | Content |
+|---|---|---|
+| non-empty | `box_probe`, `normSq_box` | `c·1_{[−a,a]}`, `c = (2a)^{−1/2}`, is a probe with `‖·‖² = 1`. Its archimedean integral converges because `f(0) − f(u) ≤ c²u` (the shifted box differs on two intervals of length `u`) and `u·e^{u/2}/sinh u ≤ 16e^{−u/4}`. |
+| bounded below | `weilQ_ge` (round 11) | the infimum `λ` is finite |
+| minimising sequence | Mathlib `exists_seq_tendsto_sInf` | `Q(h_j) → λ`, and the archimedean energies are uniformly bounded |
+| compactness | `exists_convergent_subseq` (round 13) | a subsequence converges in `L²` to some `G` |
+| a probe again | `symCut`, `normSq_sub_symCut_le` | `S f = 1_{|u|≤a}(f(u) + f(−u))/2` fixes probes and does not increase `‖·‖²`, so `S G` is even, supported in `[−a, a]` and still the `L²` limit |
+| continuity | `tendsto_integral_mul` | `‖g‖²`, `ĝ(i/2)` and every `f(u)` are `L²` inner products, so they converge; hence the pole, constant and prime terms converge (the prime sum is finite) |
+| semicontinuity | `fatou_real` | the archimedean integrands converge pointwise, so by Fatou the limit's integral converges and is at most the limit of the energies |
+| conclusion | `exists_groundState` | `Q(S G) ≤ λ` and `‖S G‖² = 1`, so `S G` is a ground state |
+
+**Scope.** This proves that *a* minimiser exists, not that it is unique up to sign. The hypotheses of `rh_of_groundStates_dodging` (`∫g_n ≠ 0`, real-rootedness, dodging D, curvature convergence) concern whichever ground states are chosen. The paper's numerics suggest a simple lowest eigenvalue, but that is not proved here.
