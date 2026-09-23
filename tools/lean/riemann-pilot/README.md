@@ -1793,3 +1793,23 @@ Hence:
 So the rotation does make the solution positive, and Lanczos never breaks down in the truncation. But the pole's weakest overlap, `2.1×10⁻⁸` at `δ = 1.4`, is exactly the `ψ₂` overlap. Round 49's identity says it has the size of `μ₂`, so it falls super-exponentially with `δ`.
 
 **Status.** The rotation reduces simplicity to **cyclicity of the pole vector for the pole-free Weil operator**, needed only at the one energy `λ₁`. That is the same open condition in a sharper form. The rotation theorem is standard and rigorous; cyclicity at every support is not proved.
+
+## Round 51: the pole overlap `⟨c, ψ₂⟩`, tracked (`frontier/simplicity/overlap_track.py`), not proved nonzero
+
+The request was to prove `⟨c, ψ₂(Q₀)⟩ ≠ 0` at every support. **It is not proved.** What was found:
+
+**1. It is strictly stronger than the energy gap.** Round 49's identity is
+
+  `2·poleR(g)·⟨c, ψ₂⟩ = (λ₁(Q) − μ₂(Q₀))·⟨g, ψ₂⟩`,
+
+and `poleR(g) ≠ 0` (UniquenessQ's dichotomy). So `⟨c, ψ₂⟩ ≠ 0` ⇔ `λ₁ < μ₂` **and** `⟨g, ψ₂⟩ ≠ 0`. Proving it includes proving the gap of round 49, plus a second non-vanishing. Each is one real condition in a one-parameter family, so neither is excluded by counting.
+
+**2. Numerically it never vanishes, and it follows a clean law.** With `ψ₂` sign-fixed by `ψ₂(0) > 0`, tracked at 43 supports `δ = 0.10, 0.15, …, 2.05`:
+* `⟨c, ψ₂⟩ < 0` at every support; no sign change.
+* The ratio `⟨c, ψ₂⟩/μ₂` runs `−0.018` (`δ = 0.1`), `−0.20` (`0.7`), `−0.365` (`1.0`), `−0.369` (`1.05`, its extreme), `−0.361` (`1.4`), `−0.353` (`1.8`), `−0.350` (`2.05`). It is smooth and slowly drifting.
+* Meanwhile `μ₂` falls from `2.5` to `2×10⁻²⁵`.
+* The kink near `δ ≈ 0.7` is where `log 2` enters the prime sum.
+
+So the overlap is `≈ −κ(δ)·μ₂` with `κ ≈ 0.35` stable. By the identity, `κ ≈ ⟨g, ψ₂⟩/(2·poleR(g))`: the `Q`-ground state keeps a fixed-size projection on `Q₀`'s second eigenfunction.
+
+**3. What a proof would need.** An asymptotic theorem `κ(δ) → κ_∞ > 0`, meaning the limiting shapes of `g` and `ψ₂` at large support, together with a finite certified range. That is the same large-support spectral asymptotics as in round 49, and it is open. The stability of `κ` is a genuine, unexplained regularity. It is the most concrete target this line of work has produced.
