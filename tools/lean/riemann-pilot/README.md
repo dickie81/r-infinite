@@ -841,3 +841,74 @@ Offending zeros with `Re z > 0` (each has a mirror image `−z̄`):
 | `≳ 0.81` | none known | `ĝ` numerically real-rooted, but neither natural structure holds |
 
 The regime that matters for RH is the last row. What remains there is a mechanism tied to the Weil form itself rather than to the shape of `g`: for example, a positivity or interlacing property of the Gram pencil in `δ`, or a variational argument that a non-real zero would lower `Q`. None of these has been tested.
+
+## Round 27: the zero flow in `δ`, and realification (numerical, `frontier/flow.py`, `frontier/flow4.py`, `frontier/realify.py`)
+
+### Test A: the zeros of `ĝ_δ` flow monotonically, at every `δ` tested
+
+**The test.** Ground states at `δ − h`, `δ`, `δ + h` (the paper's Gram, 200–900 bits, full-precision coefficients).
+* Every real zero `x_j < 60` of `ĝ_δ` is refined by Newton at the working precision.
+* Its velocity `v_j = dx_j/dδ` is taken by central difference, with `h = 10⁻³` and `10⁻⁴`; the two agree to 3–4 digits.
+* The Wronskian `W = ĝ ∂_x∂_δĝ − ∂_δĝ ∂_xĝ` is evaluated on 6000 real points. It does not depend on how the ground state is normalised.
+* The chain function `E_δ = ĝ + i ∂_δĝ` is tested for Hermite–Biehler.
+
+`E_δ` is even in `z`, so the right variable is `s = z²`, and Hermite–Biehler means no zeros in the first quadrant of `z`. Near a real zero `x_j`, `E_δ` has a zero at `x_j + i v_j`. So the first quadrant is split in two:
+* the strip `0 < Im z < η`, which is decided by the signs of the `v_j`;
+* the rest, counted by the argument principle on a contour lifted to `Im z = η` (`η = 10⁻³` and `0.05`).
+
+A first pass counted along the real axis itself and reported 1 and 12 spurious zeros at `δ = 1.38` and `2`. The pinned zeros' partners lie within `|v_j| ≈ 10⁻¹¹–10⁻²⁴` of that contour, where the phase unwrapping is unreliable.
+
+| `δ` | zeros `< 60` | all `v_j < 0`? | `v_j` range | `W < 0` on the grid | zeros of `E_δ` off the axis |
+|---|---|---|---|---|---|
+| 0.4 | 3 | yes | `−41` … `−120` | 6000/6000 | 0 |
+| 0.9 | 8 | yes | `−0.16` … `−52` | 6000/6000 | 0 |
+| 1.0 | 9 | yes | `−0.013` … `−51` | 6000/6000 | 0 |
+| 1.2 | 10 | yes | `−6×10⁻⁵` … `−50` | 6000/6000 | 0 (both `η`) |
+| 1.38 | 11 | yes | `−6.7×10⁻⁸` … `−17` | 6000/6000 | 0 |
+| 2.0 | 13 | yes | `−2.4×10⁻²⁴` (at `γ₁`) … `−2.4×10⁻⁵` | 6000/6000 | 0 (both `η`) |
+
+**Findings.**
+* **As `δ` grows, every zero of the ground state's transform moves toward the origin, at every `δ` tested from 0.4 to 2.** The zeros below `T_D` come down onto the zeta zeros from above and freeze there: at `δ = 2` the velocity is `10⁻²⁴` at `γ₁` and `10⁻¹¹` at `γ₈`. The zeros above `T_D` keep moving down, and they are the next ones to be captured.
+* **`ĝ_δ` and `∂_δĝ_δ` interlace strictly.** Equivalently, `E_δ` is Hermite–Biehler in `s = z²` at every `δ` tested.
+* This is the first structure that holds across the whole range, both inside and beyond the dodging regime. The two shape mechanisms fail: Pólya from `δ ≈ 0.61`, and its Hermite–Biehler function `Ẽ` from `0.81`.
+
+**What it would give, and what it does not.**
+* **Why it would matter.** Suppose one could prove that the zeros always move one way. Two real zeros could then never collide. A collision is the only way a pair of real zeros can leave the axis, apart from zeros arriving from infinity. So real-rootedness at small `δ` (Pólya, rounds 24–25) would carry over to every `δ`. That would be a candidate prime-side route to item 1(b).
+* **Why it is not a mechanism yet.** It is an observation about the ground states, and Hermite–Biehler of `E_δ` contains the real-rootedness of `ĝ_δ`. A proof would need a formula for `∂_δ` of the minimiser, for example a Hadamard-type variational formula for moving the endpoint of the support, with a sign that forces interlacing.
+* **Not examined:** zeros above 60, and `δ > 2`.
+
+### Test B: realification does not lower the energy
+
+**The test.** Probes `g = Σ_{k<K} c_k cos(kπt/a)` with `g(±a) = 0`. Their non-real zeros are the non-real roots of a polynomial `P(s)`, with `s = (ra/π)²`. Three maps replace each complex pair `σ, σ̄` of roots by real roots:
+* `R1`: `(s − Re σ)²`;
+* `R2`: `(s − Re σ ∓ |Im σ|)`, which is pointwise smaller in modulus on the real line;
+* `R3`: `(s − |σ|)²`.
+
+Every map also flips negative roots, which are imaginary zeros. Each keeps the degree, so the result is again a probe on `[−a, a]` (Paley–Wiener).
+
+`Q/‖g‖²` is computed on the Fourier side, as `Q = 2ĝ(i/2)² + (1/π)∫₀^∞|ĝ|²Φ` with `Φ = Re ψ(¼ + ir/2) − log π − 2ΣΛ(n)n^{−½}cos(r log n)`. This matches the Gram to `10⁻⁵`–`10⁻⁸`.
+
+| probes | `δ` | `K` | `R1` lowers | `R2` lowers | `R3` lowers |
+|---|---|---|---|---|---|
+| random (800) | 0.5 | 14 | 208/648 | 186/648 | 441/648 |
+| random | 1.0 | 14 | 208/648 | 186/648 | 418/648 |
+| random | 2.0 | 14 | 164/648 | 148/648 | 335/648 |
+| ground state + 0.05·noise | 1.0 | 14 | 408/800 | 380/800 | **799/800** |
+| ground state + 0.05·noise | 2.0 | 14 | 45/800 | 172/800 | 279/800 |
+| ground state + 0.3·noise | 1.0 | 14 | 264/798 | 256/798 | 648/798 |
+| ground state + 0.3·noise | 2.0 | 14 | 173/799 | 177/799 | 339/799 |
+
+`K = 10` gives the same picture.
+
+**Findings.**
+* No realification map lowers the Rayleigh quotient consistently. `R1` and `R2` raise it more often than they lower it.
+* `R3`, which moves each complex zero to its modulus on the real axis, lowers it almost always near the ground state at `δ = 1` (799/800). But it does so only in a minority of cases at `δ = 2`.
+* So no simple "a non-real zero costs energy" argument is visible. Real-rootedness of the minimiser is not enforced by any of these local moves.
+* **Caveat:** this is a `K = 14` space. At `K = 10` its constrained ground state is not even real-rooted, a truncation effect.
+
+**Status of item 1(b) after round 27.** Of the four mechanisms tested, only the monotone zero flow (Test A) holds at every `δ` tested:
+* concavity fails from `δ ≈ 0.61`;
+* Pólya's `Ẽ` fails from `0.81`;
+* realification fails at `δ = 2`.
+
+Proving the flow is the concrete open step it points to: a sign for `∂_δ` of the ground state's transform at its zeros.
