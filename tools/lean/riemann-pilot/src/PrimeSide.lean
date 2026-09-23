@@ -1,6 +1,6 @@
 import Mathlib
 import Positivity
-import Polya
+import Concave
 
 /-! # §11 item 1, restated with prime-side hypotheses only
 
@@ -21,8 +21,9 @@ and `Ξ(0) ≠ 0` is `Xi_zero_ne_zero`.
 the open problem is exactly (a) and (b), and D is one sufficient condition for (a), a
 zero-dependent one.
 
-`realRooted_of_polya_shape`: (b) holds at any support where the ground state is even and concave
-(Pólya's class, `Polya.lean`). -/
+`realRooted_of_polya_shape`: (b) holds at any support where the ground state lies in Pólya's
+class (`Polya.lean`). `realRooted_of_ae_concaveOn` (`Concave.lean`) states the same thing directly
+for concavity. -/
 
 open Real Filter Topology MeasureTheory Complex
 

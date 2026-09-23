@@ -8,8 +8,8 @@ import Roadmap
 a trapezoid: flat top `a − c` on `|t| ≤ c`, linear down to `0` at `|t| = a`. So `g` is even,
 concave on `(−a, a)`, and `g(±a) = β`. Conversely, every even function concave on `(−a, a)` has this
 form: `μ` is `−g''` on `(0, a)` together with an atom `−g'(0+)` at `0`, and `β = g(a−)`. That
-converse (the second-derivative measure of a concave function) is classical and is **not**
-formalised here; the class is used through its representation.
+converse is not needed: `Concave.lean` proves the theorem directly for every even concave `g ≥ 0`
+(`realRooted_of_concaveOn`), with no representation hypothesis.
 
 **The theorem (`realRooted_polya`).** For `β > 0` or `μ([0, a)) ≠ 0`, `ĝ` has only real zeros. This
 is Pólya's 1918 theorem on `∫ f(t) cos zt dt`, stated for even concave `f`. The proof here is

@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Polya.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`.
 
-Every file ends with `#print axioms`. All 233 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 238 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -35,7 +35,8 @@ Every file ends with `#print axioms`. All 233 checked theorems depend only on `p
 | `FourierGap.lean` | 3154 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there |
 | `ParabolaGap.lean` | 658 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
 | `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
-| `PrimeSide.lean` | 107 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
+| `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
+| `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -730,7 +731,7 @@ For ground states `g n` of Weil's form at supports `2a n`, (a) + (b) give Mathli
 **Step 2: (b) at small support (`Polya.lean`).** Pólya's class at half-support `a`:
 * The functions are `g(t) = β + ∫ (a − max(|t|, c)) dμ(c)` on `[−a, a]`, with `β ≥ 0` and `μ` a measure on `[0, a)` with `∫ (a − c) dμ < ∞`.
 * Each `a − max(|t|, c)` is a trapezoid. The class is exactly the even functions concave on `(−a, a)`: `μ` is `−g''` plus an atom `−g'(0+)` at `0`, and `β = g(a−)`.
-* That converse representation is classical and not formalised. Lean uses the class through the representation.
+* That converse representation is not formalised. Round 25 makes it unnecessary: `Concave.lean` proves the theorem for concave functions directly.
 
 `realRooted_polya`: every nonzero member has a real-rooted transform. This is Pólya's 1918 theorem, specialised to even concave `f`. The proof is short and, as far as I know, not the textbook one:
 * `integral_trap`, `ghatC_polya` (Fubini): `z²ĝ(z)/2 = βz sin(za) + ∫ (cos zc − cos za) dμ(c)`.
@@ -764,8 +765,33 @@ What the table shows:
 | | proved in Lean | open |
 |---|---|---|
 | (a) + (b) ⇒ RH | yes, with no zero in any hypothesis (`rh_of_prime_side`) | — |
-| (b) at `δ ≲ 0.61` | modulo the ground state's concavity (`realRooted_of_polya_shape`) | the concavity (numerically true) |
+| (b) at `δ ≲ 0.61` | modulo the ground state's concavity (`realRooted_of_polya_shape`; from round 25 `realRooted_of_ae_concaveOn`) | the concavity (numerically true) |
 | (b) at `δ ≳ 0.61` | — | needs a mechanism other than concavity; provably so for `δ > 0.889` |
 | (a) | only from D (`hypConv_of_D`), which is zero-dependent | a prime-side proof |
 
 This is not RH progress. The small-support real-rootedness says nothing about `ζ`. What it provides is the first mechanism for (b) that is proved rather than observed, and a proof that this mechanism cannot reach the regime that matters. Candidates for the large-`δ` mechanism, none tried: Laguerre–Pólya closure (products of real-rooted transforms, i.e. convolutions of concave pieces); total positivity of the Gram pencil; interlacing of the ground-state transforms across `δ`.
+
+## Round 25: Pólya's theorem for concave probes, with the named input removed (Concave.lean)
+
+Round 24's `realRooted_polya` was stated for Pólya's class through its representation, a mixture of trapezoids with a measure `μ`. The converse, that every even concave function has such a representation, was a named classical input. Round 25 removes it. The theorem is now proved for concave functions directly, and no measure `−g''` is built.
+
+**`realRooted_of_concaveOn`.** Let `g` be even, concave and `≥ 0` on `(−a, a)`, with `g(0) > 0`. Then `ĝ(z) = ∫_{−a}^{a} g(u) e^{izu} du` has only real zeros. Nothing is assumed at `±a`, where a concave function may jump or have infinite slope. `realRooted_of_ae_concaveOn` states the same for any probe equal to such a `g` a.e. on `[−a, a]`, which is the form the ground state enters in.
+
+**The proof.**
+* **The derivative.** `h = −g'₊` is the right derivative of the convex function `−g`. Mathlib gives it as a one-sided derivative at every interior point, together with its monotonicity (`hasDerivWithinAt_rightDeriv_of_mem_interior`, `monotoneOn_rightDeriv`). `h(0) ≥ 0` because `0` is the maximum (`negRD_zero_nonneg`).
+* **Support `b < a` (`realRooted_concave_lt`).**
+  * `ghatC_byParts`: evenness and integration by parts with right derivatives (`integral_mul_deriv_eq_deriv_mul_of_hasDeriv_right`) give `zĝ_b(z)/2 = g(b) sin(zb) + ∫₀^b h(t) sin(zt) dt`.
+  * Dividing by `sin(zb)/z` and taking `Im z · Im(·)` gives `g(b)(Im z)² + ∫₀^b h w`, where `∫_c^b w = Im z · Im[(cos zc − cos zb)/sin zb]` (`tail_W`). By round 24's `trap_ratio_mul_pos`, every tail `∫_c^b w` is `≥ 0`.
+  * `layer_nonneg`: for `h ≥ 0` nondecreasing, nonnegative tails give `∫₀^b h w ≥ 0`. The proof writes `h(s) = ∫₀^H 1[λ < h(s)] dλ` and applies Fubini. For each `λ`, the set `{h > λ}` is a final segment `(c, b]` of `[0, b]` up to one point, and its layer contributes the tail `∫_c^b w`.
+  * `g(b) > 0` for `b < a` (`concave_pos`), so the sum is strictly positive and `ĝ_b` has no non-real zero.
+* **The limit (`realRooted_of_concaveOn`).**
+  * `‖ĝ_a(z) − ĝ_b(z)‖ ≤ 2g(0)e^{‖z‖a}(a − b)`, so `ĝ_{b_n} → ĝ_a` locally uniformly for `b_n = a(n+1)/(n+2)`.
+  * `ĝ_a(0) = ∫g > 0`.
+  * The pilot's `hurwitz_real` then carries real-rootedness to the limit.
+
+**What changes.** Item 1(b) at a support now reduces, with nothing classical in between, to one hypothesis about the ground state: that it agrees a.e. with an even concave nonnegative function (it is already known to be one-signed and even). The numerical picture of round 24 is unchanged:
+* concave for `δ ≲ 0.61`;
+* not concave beyond that;
+* provably not concave for `δ > 0.889`.
+
+The open step at small support is proving that concavity. That is a statement about the minimiser of Weil's form, with no zero and, for `δ < log 2`, no prime.
