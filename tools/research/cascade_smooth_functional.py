@@ -18,10 +18,10 @@ with |N_0| <= 1 on [0, 0.85 gamma_1] and |N_0| <= 0.673 on [0.85 gamma_1, gamma_
 (strictly decreasing, 1 at x* = 2.274) and A the same elementary weight integral cut at 0.85 gamma_1 (A <= Rbar); R_2 is enclosed
 in interval arithmetic on [1, 2.28] (4000 subintervals, at most 0.86) and R_2 <= Rbar < 1 beyond; the computed R, a cross-check, is
 at most 0.69; the monotonicity also seen directly at the 45 states); F^s' -> +inf at both ends of the domain, so it has exactly two zeros
-where its minimum is negative -- without the bracket when 4m + 7/2 < 2T_0/e, and computed so at the 45 states; T^s < 2T_0 for every hole
-set once 2T_0 > 17.01 (F^s'(2T_0) = (4m + 7/2 + B(2T_0))/(2T_0) > 0: the piece below gamma_1, at least -4J(T^2 - gamma_1^2)^{-3/2} with
-J = int_0^gamma_1 |N_0| r dr = 78.3, is outweighed by the constant's (7/2)(T^2 - gamma_1^2)^{-1/2} for T^2 > gamma_1^2 + 8J/7) and
-T^s > 2T_0/e exactly when F^s'(2T_0/e) < 0, computed so at the 45 states; whether T^s is the least value of F^s on its domain (the
+where its minimum is negative -- without the bracket when 4m + 7/2 < 2T_0/e, and computed so at the 45 states; F^s'(2T_0) = (4m + 7/2
++ B(2T_0))/(2T_0) > 0 for every hole set once 2T_0 > 17.01 (the piece below gamma_1, at least -4J(T^2 - gamma_1^2)^{-3/2} with
+J = int_0^gamma_1 |N_0| r dr = 78.3, is outweighed by the constant's (7/2)(T^2 - gamma_1^2)^{-1/2} for T^2 > gamma_1^2 + 8J/7), so
+T^s lies in (2T_0/e, 2T_0) exactly when F^s'(2T_0/e) < 0, computed so at the 45 states; whether T^s is the least value of F^s on its domain (the
 endpoint's value against F^s(T^s)) depends on the hole set and is computed at the 45 states (the endpoint at least 15.9 nats and the
 maximum just above the cusp at least 16.5 nats above the minimum); for the ground state T^s = 2T_0 e^{-eps}, eps = (7/2)/T^s + O(gamma_1^2/T_0^3). Computed: T^s/T_u within 1.9% rms at the 40 rungs against the 3.9% of 1by's law
 (the bias 2.8% -> 0.3%), the law's closed form within 0.13% rms of T^s, T^s/T_u(1) within 2.1% at the five ground states.
@@ -85,9 +85,9 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]', 'form': 'ws'},
     {'g': 'g6', 's': 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])', 'form': 'ws'},
     {'g': 'g6', 's': 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)', 'form': 'ws'},
-    {'g': 'g6', 's': 'R₂ is at most #R2UP# on [1, 2.28], while R̄(2.28) = #RBX2# < 1 covers the rest; the computed R itself, a cross-check (gated), rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁', 'form': 'ws'},
+    {'g': 'g6', 's': 'R₂ is at most 0.86 on [1, 2.28], while R̄(2.28) = 0.9991 < 1 covers the rest; the computed R itself, a cross-check (gated), rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁', 'form': 'ws'},
     {'g': 'g6', 's': 'the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against −2.28 without the bracket at δ = 2’s ground state)', 'form': 'ws'},
-    {'g': 'g6', 's': 'F_k^s′(2T₀/e) is #DFE# or less at the 45 states (F_k^s′(2T₀) positive at each), and T_u lies in (2T₀/e, 2T₀) at the 40 rungs', 'form': 'ws'},
+    {'g': 'g6', 's': 'F_k^s′(2T₀/e) is −0.33 or less at the 45 states (F_k^s′(2T₀) positive at each), and T_u lies in (2T₀/e, 2T₀) at the 40 rungs', 'form': 'ws'},
     {'g': 'g6', 's': 'at the 45 states the maximum just above the cusp lies at least 16.5 nats and the endpoint F_k^s(cusp) at least 15.9 nats above F_k^s(T^s), so T^s is the least value of F_k^s on its domain', 'form': 'ws'},
     {'g': 'g6', 's': 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)', 'form': 'ws'},
     {'g': 'g6', 's': 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25', 'form': 'ws'},
@@ -95,7 +95,7 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'the residual averages +0.15 with rms 0.20 over [−0.11, +0.42] at the 40 rungs, against +0.13, 0.19 and [−0.16, +0.43] for 1by’s reading with the zeros', 'form': 'ws'},
     {'g': 'g6', 's': 'the identity holds within 4.4 × 10⁻⁶ of the tail at the five ground states over the five windows (6.7 × 10⁻¹² away from the cut at the edge, where the dodged zeros the cut still weighs carry the stored profile’s rounding) and within 2.7 × 10⁻¹¹ at the 40 rungs', 'form': 'ws'},
     {'g': 'g6', 's': 'the smooth count’s integral is 1.87, 1.87, 2.29, 2.88, 2.77 times the actual leakage over the whole exterior at the five cells, 2.42, 2.01, 3.06, 4.21, 3.71 in the near quarter [T₁, 1.25T₁], 1.71, 2.14, 2.00, 2.20, 3.40 on [1.25, 2]T₁, 1.28, 1.65, 1.60, 1.91, 1.46 on [2, 4]T₁ and 1.119, 1.151, 1.066, 1.000, 1.003 beyond 4T₁', 'form': 'ws'},
-    {'g': 'g6', 's': 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴, itself at most #EBR# times (3/2)/(T² ln(T/2π)) of the smooth count’s integral', 'form': 'ws'},
+    {'g': 'g6', 's': 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴, itself at most 0.897 times (3/2)/(T² ln(T/2π)) of the smooth count’s integral', 'form': 'ws'},
     {'g': 'g6', 's': 'the largest shell is n = 3, 3, 7, 5, 2 over the whole exterior and n = 3, 5, 7, 5, 2 in the near quarter', 'form': 'ws'},
     {'g': 'g6', 's': 'at the 40 rungs the smooth count’s integral runs 1.58–3.77 times the leakage beyond T₁ and 1.85–7.37 times it in the near quarter', 'form': 'ws'},
 ]
@@ -455,9 +455,9 @@ import paper_needles
 S_WALL = 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]'
 S_GROUND = 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])'
 S_MIN = 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)'
-S_UNIQ = 'R₂ is at most #R2UP# on [1, 2.28], while R̄(2.28) = #RBX2# < 1 covers the rest; the computed R itself, a cross-check (gated), rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁'
+S_UNIQ = 'R₂ is at most 0.86 on [1, 2.28], while R̄(2.28) = 0.9991 < 1 covers the rest; the computed R itself, a cross-check (gated), rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁'
 S_FMIN = 'the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against −2.28 without the bracket at δ = 2’s ground state)'
-S_BRK = 'F_k^s′(2T₀/e) is #DFE# or less at the 45 states (F_k^s′(2T₀) positive at each), and T_u lies in (2T₀/e, 2T₀) at the 40 rungs'
+S_BRK = 'F_k^s′(2T₀/e) is −0.33 or less at the 45 states (F_k^s′(2T₀) positive at each), and T_u lies in (2T₀/e, 2T₀) at the 40 rungs'
 S_GLOB = 'at the 45 states the maximum just above the cusp lies at least 16.5 nats and the endpoint F_k^s(cusp) at least 15.9 nats above F_k^s(T^s), so T^s is the least value of F_k^s on its domain'
 S_OSC = 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)'
 S_BOUND = 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25'
@@ -465,7 +465,7 @@ S_DMIN = 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, 
 S_EXP = 'the residual averages +0.15 with rms 0.20 over [−0.11, +0.42] at the 40 rungs, against +0.13, 0.19 and [−0.16, +0.43] for 1by’s reading with the zeros'
 S_ID = 'the identity holds within 4.4 × 10⁻⁶ of the tail at the five ground states over the five windows (6.7 × 10⁻¹² away from the cut at the edge, where the dodged zeros the cut still weighs carry the stored profile’s rounding) and within 2.7 × 10⁻¹¹ at the 40 rungs'
 S_RATIO = 'the smooth count’s integral is 1.87, 1.87, 2.29, 2.88, 2.77 times the actual leakage over the whole exterior at the five cells, 2.42, 2.01, 3.06, 4.21, 3.71 in the near quarter [T₁, 1.25T₁], 1.71, 2.14, 2.00, 2.20, 3.40 on [1.25, 2]T₁, 1.28, 1.65, 1.60, 1.91, 1.46 on [2, 4]T₁ and 1.119, 1.151, 1.066, 1.000, 1.003 beyond 4T₁'
-S_LEFT = 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴, itself at most #EBR# times (3/2)/(T² ln(T/2π)) of the smooth count’s integral'
+S_LEFT = 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴, itself at most 0.897 times (3/2)/(T² ln(T/2π)) of the smooth count’s integral'
 S_TOP = 'the largest shell is n = 3, 3, 7, 5, 2 over the whole exterior and n = 3, 5, 7, 5, 2 in the near quarter'
 S_RUNGS = 'at the 40 rungs the smooth count’s integral runs 1.58–3.77 times the leakage beyond T₁ and 1.85–7.37 times it in the near quarter'
 # each call carries its literal (the precheck's clause D); the strings equal the S_* above by construction
@@ -473,9 +473,9 @@ ok = True
 ok &= paper_needles.needle(PAPER_NEEDLES, 'T^s/T_u averages 1.003 with rms deviation from 1 of 0.019 over [0.969, 1.063] at the 40 rungs (1.001 with 0.015 at the 30 with three or more holes), against 1.028 with 0.039 for 1by’s law without the constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983 at the five cells, within 2.1% of its unlocking height T_u(1) (T^s/T_u(1) over [0.983, 1.021])', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'R₂ is at most #R2UP# on [1, 2.28], while R̄(2.28) = #RBX2# < 1 covers the rest; the computed R itself, a cross-check (gated), rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'R₂ is at most 0.86 on [1, 2.28], while R̄(2.28) = 0.9991 < 1 covers the rest; the computed R itself, a cross-check (gated), rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against −2.28 without the bracket at δ = 2’s ground state)', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'F_k^s′(2T₀/e) is #DFE# or less at the 45 states (F_k^s′(2T₀) positive at each), and T_u lies in (2T₀/e, 2T₀) at the 40 rungs', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'F_k^s′(2T₀/e) is −0.33 or less at the 45 states (F_k^s′(2T₀) positive at each), and T_u lies in (2T₀/e, 2T₀) at the 40 rungs', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at the 45 states the maximum just above the cusp lies at least 16.5 nats and the endpoint F_k^s(cusp) at least 15.9 nats above F_k^s(T^s), so T^s is the least value of F_k^s on its domain', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25', 'ws')
@@ -483,7 +483,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'F_k(T_u) − F_k^s(T^s) averages −0
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the residual averages +0.15 with rms 0.20 over [−0.11, +0.42] at the 40 rungs, against +0.13, 0.19 and [−0.16, +0.43] for 1by’s reading with the zeros', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the identity holds within 4.4 × 10⁻⁶ of the tail at the five ground states over the five windows (6.7 × 10⁻¹² away from the cut at the edge, where the dodged zeros the cut still weighs carry the stored profile’s rounding) and within 2.7 × 10⁻¹¹ at the 40 rungs', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the smooth count’s integral is 1.87, 1.87, 2.29, 2.88, 2.77 times the actual leakage over the whole exterior at the five cells, 2.42, 2.01, 3.06, 4.21, 3.71 in the near quarter [T₁, 1.25T₁], 1.71, 2.14, 2.00, 2.20, 3.40 on [1.25, 2]T₁, 1.28, 1.65, 1.60, 1.91, 1.46 on [2, 4]T₁ and 1.119, 1.151, 1.066, 1.000, 1.003 beyond 4T₁', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴, itself at most #EBR# times (3/2)/(T² ln(T/2π)) of the smooth count’s integral', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'the leftover after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at most 1.4 × 10⁻⁴, itself at most 0.897 times (3/2)/(T² ln(T/2π)) of the smooth count’s integral', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the largest shell is n = 3, 3, 7, 5, 2 over the whole exterior and n = 3, 5, 7, 5, 2 in the near quarter', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'at the 40 rungs the smooth count’s integral runs 1.58–3.77 times the leakage beyond T₁ and 1.85–7.37 times it in the near quarter', 'ws')
 ok &= [d['s'] for d in paper_needles.declared(PAPER_NEEDLES) if d.get('g') == 'g6'] == [S_WALL, S_GROUND, S_MIN, S_UNIQ, S_FMIN, S_BRK, S_GLOB, S_OSC, S_BOUND, S_DMIN, S_EXP, S_ID, S_RATIO, S_LEFT, S_TOP, S_RUNGS]
