@@ -72,7 +72,7 @@ PAPER_NEEDLES = [
     {'g': 'g6', 's': 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)', 'form': 'ws'},
     {'g': 'g6', 's': 'R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁', 'form': 'ws'},
     {'g': 'g6', 's': 'the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against −2.28 without the bracket at δ = 2’s ground state)', 'form': 'ws'},
-    {'g': 'g6', 's': '#S_GLOB#', 'form': 'ws'},
+    {'g': 'g6', 's': 'at the 45 states the maximum just above the cusp lies at least 16.5 nats and the endpoint F_k^s(cusp) at least 15.9 nats above F_k^s(T^s), so T^s is the least value of F_k^s on its domain', 'form': 'ws'},
     {'g': 'g6', 's': 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)', 'form': 'ws'},
     {'g': 'g6', 's': 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25', 'form': 'ws'},
     {'g': 'g6', 's': 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06', 'form': 'ws'},
@@ -403,7 +403,7 @@ S_GROUND = 'the ground state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.
 S_MIN = 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)'
 S_UNIQ = 'R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁'
 S_FMIN = 'the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against −2.28 without the bracket at δ = 2’s ground state)'
-S_GLOB = '#S_GLOB#'
+S_GLOB = 'at the 45 states the maximum just above the cusp lies at least 16.5 nats and the endpoint F_k^s(cusp) at least 15.9 nats above F_k^s(T^s), so T^s is the least value of F_k^s on its domain'
 S_OSC = 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)'
 S_BOUND = 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25'
 S_DMIN = 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06'
@@ -420,7 +420,7 @@ ok &= paper_needles.needle(PAPER_NEEDLES, 'the ground state’s smooth wall sits
 ok &= paper_needles.needle(PAPER_NEEDLES, 'F₁^s(T^s) sits 0.0041, 0.0022, 0.0012, 0.0005, 0.0002 nats below the closed form at the five cells, the difference falling with δ, and at the 40 rungs the closed form sits within 1.23 nats of F_k^s(T^s)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'R rises from 0.49 at the cusp to at most 0.69, at T = 1.39γ₁, and falls to 0.68 at 1.508γ₁', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'the minimum of F_k^s′ is −0.35 or less at the 45 states (−1.48 against −2.28 without the bracket at δ = 2’s ground state)', 'ws')
-ok &= paper_needles.needle(PAPER_NEEDLES, '#S_GLOB#', 'ws')
+ok &= paper_needles.needle(PAPER_NEEDLES, 'at the 45 states the maximum just above the cusp lies at least 16.5 nats and the endpoint F_k^s(cusp) at least 15.9 nats above F_k^s(T^s), so T^s is the least value of F_k^s on its domain', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'on [0.5, 1.6]T₁ the leftover ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁ constant to 8% (8.2–8.9)', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'with the list’s suprema sup|S| = 1.36 and sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of 0.52, 0.42, 0.40, 0.32, 0.25', 'ws')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'F_k(T_u) − F_k^s(T^s) averages −0.03 with rms 0.08 over [−0.23, +0.08] at the 40 rungs, Osc(T_u) itself averaging −0.06', 'ws')
