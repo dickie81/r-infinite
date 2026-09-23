@@ -912,3 +912,26 @@ Every map also flips negative roots, which are imaginary zeros. Each keeps the d
 * realification fails at `δ = 2`.
 
 Proving the flow is the concrete open step it points to: a sign for `∂_δ` of the ground state's transform at its zeros.
+
+## Round 28: the pinned zeros sit above the zeta zeros (numerical, `frontier/pinned.py`)
+
+**Why this test.** Rescale `g_a(t) = φ(t/a)`. The flow of round 27 is then `d log ρ_j/d log a < 1` for the rescaled zeros `ρ_j = a x_j`. With a pure `log|r|` symbol the ground state is scale-invariant, and the flow holds with room to spare (`d log ρ_j/d log a = 0`).
+
+At the zeros pinned onto zeta zeros, though, the inequality holds only by exponentially small margins. There the flow is the statement that `x_j` decreases onto `γ_j`, i.e. `ε_j = x_j − γ_j > 0`. This round measures the sign of `ε_j` directly:
+* zeros refined by Newton at the working precision;
+* `γ_j` from `mpmath.zetazero` at 60 digits;
+* each cell repeated at two values of `K`.
+
+| `δ` | pinned zeros | `ε_j = x_j − γ_j` (`K` = first / second value) | all `> 0` |
+|---|---|---|---|
+| 1.0 | `γ₁` | `5.63e-4` / `5.62e-4` | yes |
+| 1.2 | `γ₁–γ₃` | `1.79e-6, 2.70e-4, 3.41e-3` / `1.79e-6, 2.69e-4, 3.40e-3` | yes |
+| 1.38 | `γ₁–γ₅` | `1.52e-9 … 3.26e-3` / `1.51e-9 … 3.24e-3` | yes |
+| 1.6 | `γ₁–γ₈` | `4.32e-14 … 1.18e-3` / `4.28e-14 … 1.17e-3` | yes |
+| 2.0 | `γ₁–γ₁₃` | `2.80e-26, 2.83e-23, 1.66e-21, … , 3.82e-7` / `2.71e-26, 2.74e-23, 1.60e-21, … , 3.72e-7` | yes |
+
+**Finding.** Every pinned zero of the ground state's transform lies strictly above its zeta zero. That holds for all 52 zero–cell pairs, and the signs are stable in `K`. The `ε_j` shrink roughly exponentially in `δ` and grow with `j`. So the flow is not contradicted where it is most delicate. The picture is that the ground state's zeros descend monotonically and come to rest on the zeta zeros from above.
+
+**What it means for a proof.** At a pinned zero the flow is equivalent to the sign of an exponentially small displacement `x_j − γ_j` of the minimiser's zeros relative to the zeta zeros. A prime-side proof of the flow must therefore produce that sign. That needs quantitative control of how the ground state locks onto `γ_j`, which is what item 1(a) asks for. So as far as this analysis goes, the flow is not an easier route to 1(b) than 1(a) itself. What it does supply is a sharp and falsifiable target: `x_j(δ) ↓ γ_j`, observed without exception at `δ ≤ 2`.
+
+**Not tested:** `δ = 3` (it needs `K = 400`), and zeros above 60.
