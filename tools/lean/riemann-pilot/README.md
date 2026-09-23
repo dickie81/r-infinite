@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 254 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 259 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -39,7 +39,8 @@ Every file ends with `#print axioms`. All 254 checked theorems depend only on `p
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
 | `ZeroSwap.lean` | 233 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes (Paley–Wiener, named) |
-| `HurwitzCross.lean` | 169 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `HurwitzCross.lean` | 185 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -1546,3 +1547,26 @@ With both in place, the chain would read: (a) + simplicity at every large suppor
 * **(a)** is the RH-strength core (round 40).
 * **Simplicity at every large support** is reduced in `UniquenessQ.lean` (round 15) to excluding one coincidence: an excited state of the pole-free form at energy exactly `λ₁`. It is certified at `δ = 1.6` (Zhu) and `δ = 2` (round 39). The margins measured at `δ = 1–3` are 10⁴–10⁸ (round 42). No proof covers every support.
 * **The two named inputs** are classical analysis and carry no RH content.
+
+## Round 45: `ζ(σ) ≠ 0` on `(0, 1)`, proved (ZetaUnitInterval.lean)
+
+Round 44's named input `ZetaNoZeroInUnitInterval` is discharged. `ZetaUnitInterval.riemannZeta_ne_zero_of_mem_Ioo` imports only Mathlib, uses the standard axioms only, and builds with no warnings. `HurwitzCross.lean` now proves:
+* `zetaNoZeroInUnitInterval`;
+* `rh_of_simple_ground_states'`: (a), positive supports, and eventually simple ground states with the swap realised give Mathlib's `RiemannHypothesis`. No assumption about `ζ` remains.
+
+**The proof.** Mathlib defines `ζ` through the FE-pair of the theta kernel `θ(x) = Σ_{n∈ℤ} e^{−πn²x}`: `Λ(s) = P.Λ(s/2)/2` with `P.Λ(t) = ∫₀^∞ x^{t−1} h(x) dx − 1/t − 1/(½ − t)`. Here `h` is Mathlib's `f_modif`: `θ − 1` on `(1, ∞)` and `θ − x^{−½}` on `(0, 1)`.
+* **Mellin identification** (`f_modif_eq`, `Lambda0_eq`, `integrable_F`). The Mellin integral is the real integral `∫ x^{t−1}h`. Integrability comes from Mathlib's strong FE-pair `hasMellin`.
+* **Comparison integrals** (`integral_G`). For `0 < t < ½`, `1/t + 1/(½ − t) = ∫₀^∞ x^{t−1}m`, with `m = 1` on `(0, 1)` and `m = x^{−½}` on `(1, ∞)`: `integral_rpow` and `integral_Ioi_rpow_of_lt`.
+* **Pointwise sign** (`upper_piece`, `lower_piece`). `h ≤ m`, strictly on `(1, ∞)`.
+  * On `(1, ∞)` this is `θ − 1 < x^{−½}`.
+  * On `(0, 1)`, Mathlib's functional equation gives `θ(x) − x^{−½} = x^{−½}(θ(1/x) − 1)`.
+
+  Both reduce to one bound, `theta_bound`: `√y (θ(y) − 1) < 1` for `y ≥ 1`. It follows from `θ(y) − 1 ≤ 2q/(1 − q)`, `q = e^{−πy}` (termwise, since `n² ≥ |n|`), and from `√y q ≤ e^{(1−π)y} ≤ e^{−2} < 1/7`, with `q < 1/2`.
+* **Strictness** (`integral_F_lt`). `integral_pos_iff_support_of_nonneg_ae`; the support contains `(1, ∞)`.
+
+So `Λ(σ)` is a negative real (`completedRiemannZeta_re_neg`), and `ζ(σ) = Λ(σ)/Γ_ℝ(σ) ≠ 0`.
+
+**What the chain now rests on.**
+* (a) (`HypConv`), the RH-strength core.
+* Eventual simplicity of the ground states. It is reduced in UniquenessQ.lean, and certified at `δ = 1.6` and `2`.
+* `SwapRealization`: Paley–Wiener and Fourier uniqueness. This is the one remaining named analytic input, and it carries no RH content.
