@@ -8948,14 +8948,21 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    of width 0.3 convolved with a box of width 0.2, at δ = 1, is real-rooted
    and not concave, with first zero 5π = 15.71) — and so do routes tied to
    the form: the Gram pencil's positivity or interlacing across δ, or a
-   variational argument that a non-real zero raises Q. None has been tried.
-   (The pilot proves Pólya's theorem for concave probes with no
-   representation input, `realRooted_of_concaveOn`, and reports from its own
-   scripts, not this paper's, the ground state in the paper's Gram concave
-   only at small support, well below the cells, and Pólya's Hermite–Biehler
-   function, built from g without its zeros, losing its structure below the
-   cells at the support where the second zero is pulled onto γ₂.) Both
-   hypotheses at every support are the wall.
+   variational argument that a non-real zero raises Q. (The pilot proves
+   Pólya's theorem for concave probes with no representation input,
+   `realRooted_of_concaveOn`, and reports from its own scripts, not this
+   paper's: the ground state in the paper's Gram concave only at small
+   support, well below the cells; Pólya's Hermite–Biehler function, built
+   from g without its zeros, losing its structure below the cells at the
+   support where the second zero is pulled onto γ₂; moving a probe's
+   non-real zeros onto the real axis not lowering the Rayleigh quotient
+   consistently, so no simple variational argument is visible; and, at every
+   support it tested, the zeros of the ground state's transform descending
+   monotonically in δ with the transform and its δ-derivative interlacing,
+   the pinned zeros resting on the zeta zeros from above — an observed
+   structure whose proof would need the sign of the minimiser's δ-derivative
+   at its zeros, not yet a mechanism.) Both hypotheses at every support are
+   the wall.
 
 7. **The sector tower.** Theorem 1bv(ii): an odd probe's transform is irĜ,
    so the odd sector is the even form with the multiplier γ² on the zero
