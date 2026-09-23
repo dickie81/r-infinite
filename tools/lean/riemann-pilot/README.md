@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 276 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 290 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -43,6 +43,8 @@ Every file ends with `#print axioms`. All 276 checked theorems depend only on `p
 | `SwapRealize.lean` | 518 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 245 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 108 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
+| `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
+| `Commute.lean` | 243 | Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); an edge-flat ground state puts `h''` in the ground space; ODE uniqueness; **a simple ground state is never edge-flat** |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1813,3 +1815,37 @@ and `poleR(g) ≠ 0` (UniquenessQ's dichotomy). So `⟨c, ψ₂⟩ ≠ 0` ⇔ `�
 So the overlap is `≈ −κ(δ)·μ₂` with `κ ≈ 0.35` stable. By the identity, `κ ≈ ⟨g, ψ₂⟩/(2·poleR(g))`: the `Q`-ground state keeps a fixed-size projection on `Q₀`'s second eigenfunction.
 
 **3. What a proof would need.** An asymptotic theorem `κ(δ) → κ_∞ > 0`, meaning the limiting shapes of `g` and `ψ₂` at large support, together with a finite certified range. That is the same large-support spectral asymptotics as in round 49, and it is open. The stability of `κ` is a genuine, unexplained regularity. It is the most concrete target this line of work has produced.
+
+## Round 52: formalising rounds 48–50 (GapCriterion.lean, Commute.lean)
+
+Everything below uses the standard axioms only and builds with no warnings. **Simplicity at every support remains unproved.** This round makes the reductions of rounds 48–50 machine-checked, so the open part is exactly the named statement.
+
+**GapCriterion.lean**
+
+| theorem | statement |
+|---|---|
+| `euler_lagrange_Q` | a ground state `g` of `Q` satisfies `B₀(g, ψ) + 2ĝ(i/2)ψ̂(i/2) = λ₁⟨g, ψ⟩` for every probe `ψ` |
+| `pole_overlap_identity` | round 49's identity: `2ĝ(i/2)ψ̂(i/2) = (λ₁ − μ)⟨g, ψ⟩` for any weak `Q₀`-eigenfunction `ψ` at level `μ` |
+| `lam_le_of_perp` | **interlacing**: `λ₁(Q) ≤ Q₀(ψ)` for every normalised probe `ψ ⊥ φ₀`, i.e. `λ₁(Q) ≤ μ₂(Q₀)` |
+| `simpleGround_of_gap` | the strict **energy gap** (`EnergyGap a`) ⇒ every ground state is simple |
+| `not_simple_gap` | without simplicity, `λ₁(Q)` is attained by `Q₀` on `φ₀^⊥`, so `λ₁(Q) = μ₂(Q₀)` exactly |
+| `jacobi_eigvec_unique` | the eigen-solutions of a Jacobi recurrence with nonzero off-diagonals form a line: round 50's rotation fact |
+
+So "simple ⇔ energy gap" is formal, up to one direction's standard attainment argument: the gap implies simplicity, and non-simplicity forces the gap closed.
+
+**Commute.lean** (round 48's Theorems B and C, for `C²`/`C⁴` functions supported in `[−a, a]`)
+
+| theorem | statement |
+|---|---|
+| `xcorr_deriv2` | `xcorr(f'', k)(u) = xcorr(f, k'')(u)` at every shift (integration by parts twice, `ibp2_line`) |
+| `bil0_deriv2` | the pole-free bilinear form commutes with `∂²` |
+| `poleR_deriv2` | `poleR(f'') = ¼·poleR(f)`: `(i/2)² = −¼` is real |
+| `bilQ_deriv2` | the full bilinear form: `B(f'', k) = B(f, k'')` |
+| `deriv2_mem_groundSpace` | an edge-flat ground state `h` has `h''` in the ground space |
+| `eq_zero_of_deriv2_eq` | ODE uniqueness (Mathlib's `ODE_solution_unique_univ`): a compactly supported `C²` solution of `h'' = c·h` vanishes |
+| `simple_not_flat` | **a simple ground state is never edge-flat** |
+
+**Still not formal:**
+* the converse direction of round 48 (degenerate ⇒ an edge-flat element: the complex swap chain and finite-dimensionality);
+* the density step that extends `Commute.lean` from smooth to `H²` functions;
+* **the open statement itself**: the energy gap, equivalently simplicity, equivalently `⟨c, ψ₂⟩ ≠ 0` with `λ₁ < μ₂`, at every support.
