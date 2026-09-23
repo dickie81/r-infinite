@@ -655,3 +655,32 @@ The `δ = 1.0` value `0.012` independently reproduces the paper's "λ₂ of the 
 
 So with elementary means the pilot's certified frontier is `a = 0.36`. The certifiable ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. The mathematical gap closes, to below `10⁻³`, by `a ≈ 0.55`.
 
+## Round 22: testing the chain's hypotheses on ground states (numerical, `frontier/hrr_test.py`, `frontier/hrr2.py`)
+
+`rh_of_groundStates_dodging` derives RH from ground states `g_n` of `Q` at supports `a_n → ∞`, assuming `hRR` (every `ĝ_n` is real-rooted), `hD` (the zeros of `ĝ_n` below `T_D(n)` pair off with `Ξ`'s, total mismatch `η_n → 0`) and `hκ` (the curvature `κ_n = ∫u²g_n/(2∫g_n)` tends to `Re Σ_j γ_j⁻² = 0.023105`). This round tests all three numerically, before any further investment. Method:
+* the even-sector ground state of the full `Q`, with every prime power, discretised piecewise-constant on `n` cells;
+* `hRR`: all zeros of `ĝ` in `|z| < 60` by the argument principle, compared with the sign changes on the real axis;
+* `hD`: the nearest zero of `ĝ` to each `γ_j < 55`, from the repo's 6700-zero list;
+* `hκ`: the curvature from the ground state directly.
+
+| `a` | `n` | all zeros in `|z|<60` real | zeros of `ĝ` in `(0,60)` | max `|τ − γ_j|`, `γ_j < 55` | `η` (11 zeros) | `κ` | `κ / 0.023105` |
+|---|---|---|---|---|---|---|---|
+| 0.5 | 400 | yes | 9 | 1.9 (too few zeros) | 3.5e-4 | 0.0150 | 0.65 |
+| 0.7 | 560 | yes | 12 | 1.7 | 2.5e-4 | 0.0358 | 1.55 |
+| 1.0 | 800 / 1600 | yes / yes | 18 | 0.029 / 0.059 | 1.4e-6 / 2.8e-6 | 0.0889 / 0.0883 | 3.8 |
+| 1.5 | 1200 | yes | 27 | 0.012 | 9.7e-7 | 0.198 | 8.6 |
+| 2.0 | 1600 / 3200 | yes / yes | 37 | 0.0059 / 0.0033 | 8.2e-7 / 2.5e-7 | 0.389 / 0.369 | 16 |
+| 2.5 | 2000 | yes | 47 | 0.0015 | 2.0e-7 | 0.591 | 26 |
+| 3.0 | 2400 | yes | 56 | 0.0014 | 3.9e-7 | 0.848 | 37 |
+
+**Findings.**
+1. **`hRR` survives.** At every support tested, from `0.3` to `3.0`, every zero of `ĝ` in the disk is real, and the discretisation refinements agree. There is no counterexample.
+2. **`hD` survives, and gets sharper with `a`.** Every `γ_j < 55` has a zero of `ĝ` nearby, with the error falling from `0.03` at `a = 1` to about `0.0015` at `a = 2.5–3`. At `a = 2` doubling `n` halves it, so the trend is not a grid artifact. `ĝ` also has **extra real zeros**, roughly evenly spaced at about `π/a` (e.g. `2.33, 3.92, 5.56, 7.13, …` at `a = 2`). Their count in `(0, 60)` grows like `a` (9, 18, 37, 56 at `a = 0.5, 1, 2, 3`). `hD` allows them: only the matched subset is constrained.
+3. **`hκ` fails, decisively.** `κ` grows like `a²`: `κ ≈ 0.088·a²`, reaching 0.848 at `a = 3`, 37 times the target. It does not converge to `0.023105`. The grid refinements (`0.0889 → 0.0883`, `0.389 → 0.369`) confirm this is structural. The reason is elementary: `κ = ∫u²g/(2∫g)` is the second moment of a positive bump spread over `[−a, a]`, so it scales like `a²`. Equivalently, by the proved sum rule for real-rooted `ĝ` (`ghat_curvature`, round 10), `κ = Σ τ⁻²` over *all* zeros of `ĝ`, and the extra zeros, spaced about `π/a` apart, contribute a sum `Σ τ⁻²` that scales like `a²` (measured `≈ 0.088·a²`).
+
+**What this means for the chain.** For ground states of `Q`, `rh_of_groundStates_dodging` cannot fire: `hκ` is false for them at every large support, and its failure is structural, not near-miss. `hRR` and `hD` look healthy, and `hD` is exactly the sense in which the ground states "see" `Ξ`'s zeros. But the extra zeros, which a support-`a` function must have at density about `a/π`, carry curvature that never goes away. Salvaging the chain needs either:
+* a different family `g_n`, whose extra zeros escape to infinity (e.g. `ĝ_n/(background factor)` or a renormalised limit, as in `1bu(ii)`'s convergence statement); or
+* a version of the curvature condition restricted to matched zeros, which is essentially `hD` itself.
+
+Either way, the Lean chain as instantiated with ground states is refuted numerically at `hκ`. The live questions are `hRR` for a family that also converges to `Ξ`, and whether such a family can be the ground states after normalisation.
+
