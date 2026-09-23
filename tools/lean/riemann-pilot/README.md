@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`.
 
-Every file ends with `#print axioms`. All 160 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 172 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -29,6 +29,7 @@ Every file ends with `#print axioms`. All 160 checked theorems depend only on `p
 | `GroundStateExists.lean` | 456 | existence, stage 3: **a ground state of Weil's form exists at every support** |
 | `Uniqueness.lean` | 391 | the ground-state space; the uniqueness criterion |
 | `Positivity.lean` | 550 | the pole-free form `Q₀`: a unique, one-signed ground state |
+| `StrictPositivity.lean` | 730 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -536,6 +537,28 @@ For the chain, `rh_of_groundStates_dodging` holds for any choice of ground state
 | `groundState0_unique` | **the ground state of `Q₀` is unique up to sign.** For two ground states, `(∫h)g − (∫g)h` lies in the ground-state space with integral `0`. If non-zero, its normalisation is a one-signed ground state with integral `0`, which is impossible. |
 | `exists_unique_groundState0` | **`Q₀` has a ground state `φ ≥ 0` a.e., and every ground state is `±φ` a.e.** |
 
-**Not proved: strict positivity** (`φ > 0` a.e. on `[−a, a]`). The standard argument uses the Euler–Lagrange equation tested against a function supported on `{φ = 0}`. The natural test function, the indicator of that set, need not have finite archimedean energy, and the usual fix, the semigroup being positivity improving, is operator machinery the pilot does not have.
+**Not proved in this round: strict positivity** (`φ > 0` a.e. on `[−a, a]`). *(Proved in round 17, `exists_positive_groundState0`, by truncated test functions; see below.)* The standard argument uses the Euler–Lagrange equation tested against a function supported on `{φ = 0}`. The natural test function, the indicator of that set, need not have finite archimedean energy, and the usual fix, the semigroup being positivity improving, is operator machinery the pilot does not have.
 
 **What this says about `Q`.** Nothing new for the full form `Q`: its pole term is exactly what breaks the Beurling–Deny step, so round 15's criterion stands as the reduction of `Q`'s uniqueness.
+
+## Round 17: the ground state of `Q₀` is strictly positive (StrictPositivity.lean)
+
+**`exists_positive_groundState0`.** For every `a > 0` there is a ground state `φ` of `Q₀` with `φ ≥ 0` everywhere and `φ > 0` a.e. on `[−a, a]`, and every ground state is `±φ` a.e.
+
+Round 16's note said the Euler–Lagrange route fails because the indicator of `{φ = 0}` need not have finite archimedean energy. The fix is to test against truncations of `φ`, which always do.
+
+| Step | Theorem | Content |
+|---|---|---|
+| quadratic expansion | `weilQ0_add_smul` | `Q₀(φ + sψ) = Q₀(φ) + 2sB(φ, ψ) + s²Q₀(ψ)`. The cross archimedean integrand is integrable as `(A_{φ+ψ} − A_{φ−ψ})/4`. |
+| Euler–Lagrange | `euler_lagrange0` | at a ground state, `B(φ, ψ) = λ₀⟨φ, ψ⟩` for every probe `ψ`, since `R(φ + sψ) = 2s·b + s²c ≥ 0` for all `s` forces `b = 0` |
+| cross term | `xcorr_sub_eq` | `x(0) − x(u) = ½∫(φ(t) − φ(t+u))(ψ(t) − ψ(t+u))dt` |
+| test functions | `trunc_probe`, `etaF_probe` | `min(φ, ε)` is a probe (a contraction: `A_{min(φ,ε)} ≤ A_φ`), so `η_ε = (1 − φ/ε)⁺·1_{[−a,a]} = c⁻¹·box − ε⁻¹·min(φ, ε)` is a probe |
+| lower bound | `archX_eta_ge` | the Euler–Lagrange equation with `ψ = η_ε`, the prime cross term `≥ 0` and `⟨φ, η_ε⟩ ≤ aε/2` give `∫_{u>0} archX(φ, η_ε) ≥ −|λ₀ − C|(a/2)ε` |
+| pairwise bound | `pair_le` | `(φ(t) − φ(t+u))(η(t) − η(t+u)) ≤ (ε/4)·1_{strips}(t)`. Inside `[−a, a]` the product is `≤ 0` because `η` decreases in `φ`; across the boundary it is `φ·η ≤ ε/4`, on two strips of width `u`. |
+| exact gap | `integral_gapH` | the non-negative gap `H_ε = (ε/4)·1_{strips} − (pair)` has `K(u)∫H_ε = εuK(u)/2 − 2archX(u)`, so `∫_{u>0}K∫H_ε ≤ ε(M/2 + 2κ) → 0`, with `M = ∫uK < ∞` |
+| limit | `eta_tendsto`, `gapH_tendsto` | `η_ε → 1_Z` pointwise, `Z = {φ = 0} ∩ [−a, a]`; `H_ε → 1_Z(t)φ(t+u) + φ(t)1_Z(t+u)` |
+| Fatou | `gapInf_zero` | Fatou in `t` and then in `u` (lintegral form): `∫1_Z(t)φ(t+u)dt = ∫φ(t)1_Z(t+u)dt = 0` for a.e. `u > 0` |
+| Tonelli | `tonelli_zero` | `(∫⁻ 1_Z)(∫⁻ φ) = 0`, splitting `u` at `0` and reflecting the negative half |
+| conclusion | `groundState0_pos_of_nonneg`, `exists_positive_groundState0` | `∫φ > 0`, so `|Z| = 0`; the positive representative is `symCut` of the absolute value of a measurable version of the round-16 ground state |
+
+So the pole-free form's ground state is simple (round 16) and strictly positive. This is the Perron–Frobenius picture, proved here without operator theory. The full form `Q` is not covered, as round 15 explains: its pole term breaks the `|g|` step.
