@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 274 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 276 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -42,6 +42,7 @@ Every file ends with `#print axioms`. All 274 checked theorems depend only on `p
 | `HurwitzCross.lean` | 186 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
 | `SwapRealize.lean` | 518 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 245 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
+| `SimpleStructure.lean` | 108 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1658,3 +1659,61 @@ Full record: `results/cover_certificate.json`; per-node logs in `results/n*/`; r
 **What this round changes.**
 * Simplicity is now proved (Lean) for `δ ≤ 0.72`, and certified (computer-assisted, Lean-checked logic) on the **whole interval** `δ ≤ 2.07`. Before, it was known at small `δ` and at two isolated points.
 * Simplicity for **every** support remains open. So does "eventual simplicity", which the RH chain needs as `δ → ∞`. No finite certificate reaches it, and the natural structural argument (Perron–Frobenius / rearrangement) is blocked by the pole term and the prime translations.
+
+## Round 48: simplicity at every support, reduced to one edge lemma (SimpleStructure.lean)
+
+The target is simplicity of the even ground state at **every** support, with no further numerical cells. **It is not proved.** This round finds an exact reformulation that holds at every support at once, proves part of it in Lean, and isolates the one missing lemma.
+
+Notation:
+* `V` is the ground space (`groundSpace a`), and `V_ℂ` its complexification.
+* `B_λ(f, k)` is the bilinear form of `Q − λ₁‖·‖²`, whose kernel on probes is `V`.
+* **`D`** ("edge-flat") is the set of even `h` supported in `[−a, a]` with `h ∈ H²(ℝ)` (so `h` and `h'` vanish at `±a`) and `h''` a probe.
+
+**Theorem A (swap closure; Lean, `green_mem_groundSpace`).** Let `g ∈ V` with `ĝ(w) = 0` and `w²` non-real. Then both real parts of the compactly supported Green solution `h = (∂² + w²)⁻¹g` lie in `V` (`ĥ = −ĝ/(z² − w²)`, SwapRealize.lean). The proof: the swapped pair `u, v` satisfies `Q(u) + Q(v) = Q(g)` and `‖u‖² + ‖v‖² = ‖g‖²`, with `Q ≥ λ₁‖·‖²` on each (`swap_pair_mem`); then `Im h = (u − g)/(2 Im σ)` and `Re h = −v/(2 Im σ)`.
+
+**Theorem B (commutation; paper-level).** For `f ∈ H²(ℝ)` supported in `[−a, a]` and `k ∈ C_c^∞(−a, a)`: `B(f'', k) = B(f, k'')`.
+* Each translation-invariant piece (norm, archimedean, primes) is a functional of the cross-correlation, and `xcorr(f'', k) = xcorr(f, k'')` by two integrations by parts.
+* The pole term: `poleR(f'') = ∫f''e^{−u/2} = ¼·poleR(f)`, and likewise for `k`. This holds because `(i/2)² = −¼` is real, the same fact behind the swap.
+
+**Theorem C (flat ⇒ degenerate; paper-level).** Let `h ∈ V ∩ D` with `h ≠ 0`. Then `h'' ∈ V`, so `dim V ≥ 2`.
+* By Theorem B, `B_λ(h'', k) = B_λ(h, k'') = 0` for `k ∈ C_c^∞(−a, a)`.
+* By density of `C_c^∞(−a, a)` in the form domain, and continuity of `B_λ(h'', ·)` (Cauchy–Schwarz for the nonnegative `Q_λ`), `Q_λ(h'') = 0`.
+* `h''` is not a multiple of `h`, since `h'' = μh` has no compactly supported solution.
+
+**Theorem D (degenerate ⇒ flat: the structure theorem; paper-level).** Let `dim V = m ≥ 2`. Then there is a real even `h`, supported in `[−a, a]`, with `h ∈ H^{2m−2}(ℝ)` and
+
+  `V = span{h, h'', …, h^{(2m−2)}}`,  equivalently `V_ℂ = ĥ·{polynomials of degree ≤ m−1 in z²}`.
+
+Moreover every zero of `ĥ` lies on `ℝ ∪ iℝ`. In particular `h ∈ V ∩ D`.
+
+*Proof.*
+1. `V` is finite-dimensional: its unit sphere has bounded energy, hence is precompact (Compactness.lean).
+2. Choose off-cross points `z₁, …, z_{m−1}` with distinct non-real squares `σ_j`. Pick `G ∈ V_ℂ`, `G ≠ 0`, with `Ĝ(z_j) = 0`; these are `m − 1` linear conditions.
+3. Theorem A, extended complex-linearly, gives the chain `H_k = (∂² + σ_k)⁻¹H_{k−1} ∈ V_ℂ`. The extension works because the complex form `Q(Re f) + Q(Im f) = 2|F(i/2)|² + ∫Φ|F|²` sees only `|F|` on `ℝ` and at `i/2`.
+4. The `m` transforms `±Ĝ/∏_{j≤k}(z² − σ_j)` are independent (their polynomial cofactors have distinct degrees). So they span `V_ℂ`, which gives the form stated, with `ĥ` the last one.
+5. `ĥ` can be taken real, because `V_ℂ` is closed under `F ↦ F̄(z̄)`.
+6. An off-cross zero of `ĥ` would add an `(m+1)`-th independent element. ∎
+
+**Corollary (exact reformulation, every support at once).** *The even ground state at support `2a` is simple if and only if no nonzero ground state is edge-flat (`V ∩ D = {0}`).*
+
+**Why the swap symmetry cannot finish the job.**
+* The degenerate structure `V_ℂ = ĥ·P_{m−1}(z²)` is closed under every zero-swap. Swapping at a root `σ` of the polynomial factor returns `ĥ·p/(z² − σ)`, which again lies in `V_ℂ`.
+* It is also closed under the commutation with `∂²`.
+
+So a hypothetical degenerate ground space is fully self-consistent under all the Fourier-side symmetries used so far (rounds 43–48). Any proof must use information about the **edge** `±a`.
+
+**The missing lemma (edge non-flatness).** *No nonzero ground state of Weil's form at support `2a` lies in `D`.* This is a Hopf-lemma / boundary-unique-continuation statement for the Euler–Lagrange operator `A₀ + 2|c⟩⟨c| − λ₁`. Here `A₀` is a logarithmic-Laplacian-type operator (kernel `e^{u/2}/sinh u ~ 1/u`) plus attractive prime shifts, and `c = cosh(t/2)`.
+
+Hopf-type lemmas are known for the logarithmic Laplacian, but only for **nonnegative** solutions (e.g. *Hopf's lemma and radial symmetry for the Logarithmic Laplacian problem*, FCAA 2024; *Optimal boundary regularity and a Hopf-type lemma … logarithmic Laplacian*, DCDS 2024). They do not apply here, for two reasons:
+1. In a degenerate `V`, the pole-free element `v = h/4 − h''` is orthogonal to `Q₀`'s positive ground state, so it changes sign.
+2. For `h`, the equation reads `(A₀ − λ₁)h = −2·poleR(h)·c` with `λ₁ = μ₂(Q₀) > μ₁(Q₀)`. That is above the principal eigenvalue, where the maximum principle fails.
+
+The rank-one pole term is, once again, what breaks Perron–Frobenius.
+
+**Evidence and caution.** The computed ground states are not flat: `g(a) ≠ 0` at every `δ` tested (round 42). But `g(a)/g(0)` falls to about `10⁻³⁰` by `δ = 2.6`, while the simplicity margins grow over the same range. So smallness of the edge value is not the right measure of nearness to degeneracy. A cosine basis also cannot tell a small jump from the logarithmic edge decay expected for such operators.
+
+**What this round changes.**
+* Simplicity at every support is **equivalent** to the edge lemma (Theorems C and D).
+* The swap-closure step is formal (Lean). The commutation, density, compactness and complex-extension steps are standard analysis, written out above but not formalised.
+* The RH chain `rh_of_eventually_simple` now needs, besides (a), only the edge lemma at all large supports.
+* **Nothing here proves simplicity.** The edge lemma for sign-changing solutions is open, and I did not find it in the literature.
