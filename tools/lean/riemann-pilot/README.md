@@ -935,3 +935,32 @@ At the zeros pinned onto zeta zeros, though, the inequality holds only by expone
 **What it means for a proof.** At a pinned zero the flow is equivalent to the sign of an exponentially small displacement `x_j − γ_j` of the minimiser's zeros relative to the zeta zeros. A prime-side proof of the flow must therefore produce that sign. That needs quantitative control of how the ground state locks onto `γ_j`, which is what item 1(a) asks for. So as far as this analysis goes, the flow is not an easier route to 1(b) than 1(a) itself. What it does supply is a sharp and falsifiable target: `x_j(δ) ↓ γ_j`, observed without exception at `δ ≤ 2`.
 
 **Not tested:** `δ = 3` (it needs `K = 400`), and zeros above 60.
+
+## Round 29: a law for the offsets `ε_j = x_j − γ_j` (numerical, `frontier/law.py`)
+
+**The sign, restated.** Put `c_j = ĝ(γ_j)`. To first order, `ε_j = −c_j/ĝ'(γ_j)`, and this reproduces round 28's measured `ε_j` to 3–4 digits at every pinned zero. The pinned zeros are consecutive simple zeros, so `ĝ'(γ_j)` alternates in sign. Therefore **`ε_j > 0` for all `j` is equivalent to the values `ĝ(γ_j)` alternating in sign along the zeta zeros.** They do:
+
+| `δ` | alternation of `sgn ĝ(γ_k)` holds for `k ≤` | pinned zeros |
+|---|---|---|
+| 1.0 | 6 | 1 |
+| 1.38 | 12 | 5 |
+| 2.0 | 29 | 19 (`|ε| < 10⁻²`) |
+
+The alternation extends past the pinned zeros and then breaks: overall only 17–33% of consecutive pairs up to `γ₆₇₀₀` alternate.
+
+**Where the energy sits (a check using the explicit formula, so conditional on RH).**
+* Under RH, `Q(g) = 2Σ_{γ>0} ĝ(γ)²`. The first 6700 zeros give `0.9955 λ₁`, `0.990 λ₁` and `0.980 λ₁` at `δ = 1, 1.38, 2`, consistent with a tail above `γ₆₇₀₀`.
+* The pinned zeros carry almost none of it. Each carries at most `5×10⁻⁴` of `λ₁`, and at `δ = 2` the zeros below 50 carry `< 10⁻²⁶`.
+* The energy sits at the unpinned zeros: 35% in `50–100`, 55% in `100–500` (`δ = 2`).
+* Only this interpretation uses the explicit formula. `ĝ(γ_k)`, `ĝ'(γ_k)` and `ε_j` are computed unconditionally.
+
+**The magnitudes.** A least-squares fit of `log ε_j` against `γ_j` gives slopes `0.70, 0.78, 0.83, 0.97` at `δ = 1.2, 1.38, 1.6, 2`, i.e. `1.16a, 1.13a, 1.04a, 0.97a`. With `λ₁` factored out:
+
+  **`ε_j ≈ C(δ) · λ₁ · e^{aγ_j}`**, with `log₁₀ C = −0.29, −0.36, −0.54, −1.04, −2.49` at `δ = 1, 1.2, 1.38, 1.6, 2`.
+
+The per-zero scatter is `0.2–0.33` in `log₁₀`, about a factor of 2. Separately, `|ĝ'(γ_j)|` decays like `e^{−0.45γ_j}` to `e^{−0.59aγ_j}`, and `|c_j|` grows correspondingly.
+
+**What the law does and does not say.**
+* It locates the offsets. They are proportional to the ground-state energy and grow like `e^{aγ_j}` up the pinned range, until they reach `10⁻²–10⁻³`, where zeros stop being pinned.
+* It does not explain the sign. `ε_j > 0` is the same statement as the alternation of `ĝ(γ_j)`, and that alternation is observed, not derived. The Euler–Lagrange equation says each pinned `c_j ≈ −(1/2a) Σ_{k≠j} c_k (S(γ_k − γ_j) + S(γ_k + γ_j))`, with `S(u) = 2 sin(au)/u`. So the alternation would have to come from how the sinc kernel carries the energy-bearing values at the unpinned zeros back onto the pinned range. That is a statement about the zeta zeros themselves.
+* The fit is empirical: two parameters per `δ`, 1–13 points, factor-2 scatter. `C(δ)` has no model yet.
