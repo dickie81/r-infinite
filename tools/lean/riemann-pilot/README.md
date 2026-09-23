@@ -1001,3 +1001,35 @@ Robustness over 6 random draws each at `δ = 1.2, 1.6, 2.0`:
 4. **Consequence for a proof.** For `ζ`'s form the flow depends on the fine structure of the prime sum balancing the pole term. That is the same balance that makes Weil's form nonnegative (`λ₁ > 0` for `ζ`, versus `λ < 0` in every perturbed cell). It fits rounds 28–29: the flow at pinned zeros is the statement `x_j ↓ γ_j`, a property of the zeta zeros. A general "monotone symbol" theorem cannot reach `ζ`'s case, because `ζ`'s symbol is not monotone and carries the pole term. So as far as these tests go, a proof of the flow for `ζ` is not easier than item 1(a).
 
 **Not established.** Negativity of `λ` does not predict failure: the pole-free archimedean term and `all_n` have `λ < 0` and keep the flow. Each "no" in the first table is a single random draw; the robustness table covers 6 draws per perturbation.
+
+## Round 31: is there a commuting Sturm–Liouville operator? (numerical, `frontier/prolate_test.py`, `frontier/prolate_wide.py`)
+
+**The idea imported.** Slepian's "lucky accident": band-limiting to `|r| < W` on `[−a, a]` commutes with `L = −d/dt((a² − t²)d/dt) + W²t²`. So its eigenfunctions are Sturm–Liouville eigenfunctions, whose zeros are controlled by ODE theory: real, simple, counted, and moving monotonically. If the truncated Weil form commuted with such an `L`, even approximately, real-rootedness could come from ODE theory rather than from positivity. That is the one import found that is not automatically circular.
+
+**The test.** Gram `G` for each symbol (round 30's quadrature, `K = 60`), in `N`-orthonormal coordinates.
+* **Family 1:** `L = −(p g')' + q g` with `p = a² − t²` and `q = Σ_{m=1..4} q_m t^{2m}`.
+* **Family 2:** `p = (a² − t²)(1 + Σ_{m=1..3} p_m t^{2m})` and `q = Σ_{m=1..8} q_m t^{2m}`.
+
+In both families the commutator is linear in the coefficients, so the best `L` is a least-squares fit on the first 30 modes. Three measures:
+* `‖[G, L]‖/‖[G, L₀]‖`;
+* the off-diagonal fraction of `G` in `L`'s eigenbasis (0 means they commute);
+* the ground state's best overlap with a single eigenfunction of `L`.
+
+**The control.** For `Φ = 1_{|r|>12}` the fit recovers `q₁ = 143.9` (exact: `W² = 144`), with off-diagonal fraction `5×10⁻⁴`–`1.2×10⁻³` and overlap `1 − 10⁻⁸`. That is the truncation floor.
+
+| symbol | residual (family 1 / 2) | off-diagonal fraction | ground-state overlap |
+|---|---|---|---|
+| control (band-limit) | 0.002–0.004 | 0.0005–0.0012 | 1.000000 |
+| `log(1 + r)` | 0.95 / 0.87 | 0.42–0.44 | 0.79–0.89 |
+| `|r|` | 0.61 / – | 0.85 | 0.70 |
+| archimedean, no pole | 0.97 / 0.89 | 0.42 | 0.86–0.94 |
+| archimedean + pole | 0.93–0.98 / – | 0.42–0.58 | 0.90–0.98 |
+| **`ζ`** | 0.62–0.93 / **0.15–0.31** | **0.42–0.76** | **0.65–0.93** |
+
+Ranges are over `δ = 0.6, 1.0, 1.6, 2.0` (family 1) and `δ = 1.0, 2.0` (family 2).
+
+**Findings.**
+* **No second-order operator in either family comes close to commuting with `ζ`'s truncated form.** The wider family lowers the fitted residual to 0.15–0.31, but the form stays 46–64% off-diagonal in the operator's eigenbasis, and the ground state is not an eigenfunction of it (overlap 0.78–0.83). The lower residual is fitting, not commutation.
+* **The same holds for the simple monotone symbols** (`log`, `|r|`, bare archimedean), for which the zero flow does hold (round 30). So the flow is not produced by a hidden Slepian structure either.
+* **This is consistent with the bispectral picture (from memory, unchecked here).** Time–frequency limiting admits a commuting differential operator essentially only for bispectral kernels (Duistermaat–Grünbaum), and a log-type symbol with a prime sum is not expected to be one.
+* **Not excluded:** operators of order higher than 2; non-polynomial coefficients; differential operators acting in the frequency variable `r` instead of `t`; the semilocal prolate operators of Connes–Consani–Moscovici, which act on a different space. The test covers only the natural Slepian-type families.

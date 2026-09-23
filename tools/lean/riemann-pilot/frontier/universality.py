@@ -67,6 +67,7 @@ def make_phi(name, a):
     raise ValueError(name)
 
 K, R, STEP = 60, 3000.0, 0.01
+RETURN_GRAM = False
 def ground(name, delta):
     a = delta / 2
     phi, pole = make_phi(name, a)
@@ -88,6 +89,7 @@ def ground(name, delta):
         p = np.array([(2 * np.sinh((0.5 + 1j * x) * a) / (0.5 + 1j * x)).real for x in w])
         G += 2 * np.outer(p, p)
     N = np.diag([2 * a] + [a] * (K - 1))
+    if RETURN_GRAM: return G, N, a
     ev, V = eigh(G, N)
     c = V[:, 0]
     c = c / c.sum() if abs(c.sum()) > 1e-300 else c    # g(0) = 1
