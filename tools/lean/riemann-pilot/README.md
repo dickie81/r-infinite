@@ -1223,3 +1223,55 @@ Because saturation currently enters through RH, the model describes item 1(a) qu
 * **The three external inputs** (the explicit formula, the verified height `H`, the `N(T)` bound). These are published theorems, but they are named inputs, not formalised.
 
 Of these, only monotonicity and the slope bound concern the ground state itself. Neither involves RH.
+
+## Round 38: comparison with Zhu (arXiv 2608.24827) (`frontier/certify_gamma1.py`, `frontier/predict_zhu_results.jsonl`)
+
+Zhu (Sept 2026) studies the same Weil quadratic form on `[−L, L]`; his `L` is our `a = δ/2`. His paper has:
+* certified Weil positivity on `[−0.8, 0.8]` (`λ₁ ≥ 8.9×10⁻¹⁸`);
+* at `L = 0.8` (Theorem 6.2), a certified simple, even ground state, with `λ₁ ∈ [8.9×10⁻¹⁸, 2.523×10⁻¹⁶]`, `λ₂^even ≥ 2.085×10⁻¹²` and `λ₁^odd ≥ 8.206×10⁻¹⁵`;
+* certified upper bounds on `λ*` to `L = 2` (Table 3);
+* a fitted law, `−ln λ* ≈ 2π²·N(T*)/ln N(T*)` with `T* = 2πe^{2L}`;
+* a conditional theorem, `λ* ≤ exp(−Le^L)`.
+
+Numbers quoted from his paper are named inputs, not re-derived here.
+
+**1. Cross-validation.** Our `λ₁` (ball Gram, `tools/research/weil_prime_gram.py`) matches his Table 1 to 3 digits at `δ = 1, 1.2, 2`. At `δ = 1.6` our Rayleigh value `1.673×10⁻¹⁷` lies inside his certified interval.
+
+**2. Our depth model against his certified `−ln λ*`.** The model is the round-36 model (`predict.py`), unchanged. The comparison was run after reading his table, so it is out of sample but not pre-registered. `δ = 2.0` is in-sample for the offset fit.
+
+| `δ` (`L`) | ours | Zhu, certified | difference | his `2π²N/lnN` law |
+|---|---|---|---|---|
+| 2.0 (1.0) | 67.22 | 66.99 | +0.23 | 77.24 |
+| 2.4 (1.2) | 110.79 | 110.53 | +0.26 | 115.31 |
+| 2.8 (1.4) | 176.86 | 176.65 | +0.21 | 176.05 |
+| 3.2 (1.6) | 276.37 | 276.46 | −0.09 | 270.35 |
+| 3.6 (1.8) | 426.06 | 426.22 | −0.16 | 415.27 |
+| 4.0 (2.0) | 649.99 | 650.47 | −0.48 | 636.85 |
+
+The law column uses the smooth `N(T)`. The constrained-equilibrium model tracks the certified values to `≤ 0.5` across the whole range. The one-constant law is off by up to 10 near `δ = 2` and drifts by 13 at `δ = 4`.
+
+**3. Where the dodging happens.** Zhu's `T* = 2πe^{2L}` is a density-crossing heuristic. Our edge is `T_edge ≈ 4πe^{2a}` (round 33), about `2T*` (89.3 vs 46.4 at `L = 1`). The measured pinning fronts (round 36; 82.9 at tolerance 0.1, `δ = 2`) lie well beyond `T*`. So `T*` sets the scale but underestimates how far the zeros of `ĝ` are pinned.
+
+**4. What we took from him: a certified slope at `γ₁`.** His certified gap at `L = 0.8` closes one of the two ground-state gaps left open in round 37, at `δ = 1.6` and `γ₁` only. `certify_gamma1.py` proceeds in five steps:
+* `φ` is the computed ground state (`K = 160`, 800 bits). Its Rayleigh quotient `ρ` is a ball value.
+* Davis–Kahan gives `‖φ − g‖² ≤ 2(ρ − λ₁^lo)/(λ₂^lo − ρ)`, so `‖φ − g‖ ≤ 2.74×10⁻³`.
+* This gives `|ĝ' − φ̂'| ≤ √(2a³/3)·‖φ − g‖ = 1.60×10⁻³`.
+* Ball arithmetic encloses `φ̂'` on `γ₁ ± 5×10⁻³` in `[−5.70, −5.31]×10⁻³`. So the true ground state has `|ĝ'| ≥ 3.71×10⁻³`, with fixed sign, on that window.
+* With the round-37 bound, `ĝ` has a zero within `2.75×10⁻³` of `γ₁`, which is inside the window.
+
+The pinning claim assumes the ground state is non-increasing on `[0, a]` with `g(0) ≤ 2` (computed: 1.65). `L²` closeness does not control `g(0)`, so this remains an assumption. It also relies on the round-37 named inputs.
+
+At `γ₂` the slope is `~2×10⁻⁴`, below the enclosure error, so it is **not** certified. Going further needs a certified gap at larger `δ`, or a pointwise (not `L²`) closeness bound.
+
+**What stays ours.** None of the following appears in Zhu:
+* the edge law and the `2/e` ratio;
+* the transition-zone derivation;
+* the depth model in item 2;
+* the monotone zero flow;
+* the Lean pieces (prime-side reduction, the concave Pólya theorem, the saturation reductions).
+
+**What he has that we don't:**
+* certified positivity;
+* parity and gap theorems;
+* the barrier `T₁ = 2πe^{A_L}`;
+* the conditional theorem.
