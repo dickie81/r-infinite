@@ -633,7 +633,7 @@ The bound is analytic. Nothing is computed, and the only numbers used are `log 2
 
 ## Round 21: to the limit of the method, `a = 0.36`, and the frontier map (ParabolaGap.lean)
 
-*(Correction, round 23: the frontier map's values for `a ≥ 0.55`, the "gap ≈ 10⁻⁴" and the conclusion that the gap closes by `a ≈ 0.55` came from a double-precision discretisation, which cannot resolve eigenvalues below about `10⁻⁵`. Recomputed at 600–700 bits in the paper's Gram, the gap does not close: `λ_⊥/λ₁` is `1.3×10⁴, 1.3×10⁵, 2.3×10⁶` at `δ = 1, 1.38, 2`. The Lean results of this round are unaffected.)*
+*(Corrected in round 23. The frontier map below was first computed in double precision, which cannot resolve eigenvalues below about `10⁻⁵`. Its `λ₁` row was wrong from `δ = 0.9` on, and its gap row and "near-degenerate" reading were wrong from `δ ≈ 1.2` on. The table and the text below now carry the values recomputed at 500–700 bits in the paper's Gram (`frontier/gap_hp.py`). The Lean results of this round are unaffected.)*
 
 **`groundState_unique_036`.** For every `0 < a ≤ 0.36` (i.e. `δ = 2a ≤ 0.72`), `λ_⊥ ≥ λ₁ + 1/50` (`weilQ0_perp_ge_036`), so the ground state of the full form `Q` is unique up to sign.
 
@@ -641,21 +641,22 @@ The bound is analytic. Nothing is computed, and the only numbers used are `log 2
 
 ### The frontier map
 
-Numerically (a piecewise-constant discretisation of the even sector with all prime powers; `frontier/gapp.py`), the true gap `λ_⊥ − λ₁` is:
+Recomputed at high precision in the paper's own Gram (`tools/research/weil_prime_gram.py`, even cosine basis, `K = 100–160`, 500–700 bits; `frontier/gap_hp.py`), with `⟨g, w⟩ = 0` imposed exactly for `λ_⊥`:
 
-| `a` (`δ = 2a`) | 0.35 (0.70) | 0.40 (0.80) | 0.45 (0.90) | 0.50 (1.00) | 0.55 (1.10) | 0.60–1.00 |
-|---|---|---|---|---|---|---|
-| `λ₁` | `1.2×10⁻³` | `2×10⁻⁴` | `4×10⁻⁵` | `3×10⁻⁵` | `3×10⁻⁵` | `≈ 2×10⁻⁵` |
-| `λ_⊥ − λ₁` | `0.53` | `0.23` | `0.066` | `0.012` | `0.001` | `≈ 1–2×10⁻⁴` |
+| `δ = 2a` | 0.70 | 0.80 | 0.90 | 1.00 | 1.10 | 1.20 | 1.38 | 2.00 |
+|---|---|---|---|---|---|---|---|---|
+| `λ₁` | `1.19×10⁻³` | `1.81×10⁻⁴` | `1.62×10⁻⁵` | `9.35×10⁻⁷` | `5.31×10⁻⁸` | `1.61×10⁻⁹` | `8.8×10⁻¹³` | `6.3×10⁻³⁰` |
+| `λ_⊥` | `0.533` | `0.225` | `0.0661` | `0.0119` | `9.2×10⁻⁴` | `6.6×10⁻⁵` | `1.1×10⁻⁷` | `1.5×10⁻²³` |
+| `λ_⊥/λ₁` | `450` | `1.2×10³` | `4.1×10³` | `1.3×10⁴` | `1.7×10⁴` | `4.1×10⁴` | `1.3×10⁵` | `2.3×10⁶` |
 
-The `δ = 1.0` value `0.012` independently reproduces the paper's "λ₂ of the pole-free even section ≈ 0.012". Past `a ≈ 0.55` the gap is at the discretisation's own error level: the even sector is near-degenerate there, as the paper says of its window top. **There is no uniform gap to certify beyond `a ≈ 0.55`.** Whether `Q`'s ground state stays unique there cannot be settled by a gap bound at this resolution.
+The `δ = 1.0` value `0.0119` reproduces the paper's "λ₂ of the pole-free even section ≈ 0.012". The absolute gap collapses fast, together with the eigenvalues themselves: every low eigenvalue tends to `0` as `δ` grows, because the ground state's transform dodges more and more zeta zeros (round 23). But `λ_⊥/λ₁` grows. **The ground state stays well separated, with no near-degeneracy at any tested support.** (The first version of this table, from a double-precision discretisation, showed a false floor of about `10⁻⁵–10⁻⁴` from `δ ≈ 1` on, and read it as near-degeneracy.) What the collapse does mean for certification is that a gap bound past `δ ≈ 1` must resolve `10⁻⁴` at `δ = 1.2`, `10⁻⁷` at `δ = 1.38` and `10⁻²³` at `δ = 2`, i.e. high-precision arithmetic throughout.
 
-**Three barriers between `0.36` and `0.55`.**
+**Three barriers beyond `0.36`.**
 1. **The prime tail.** Past `log 2`, the `n = 2` prime adds `−√2 log 2·(cos(ω_k log 2) − cos(ω_k 2a))` to every mode `k`. Bounded without evaluating the cosines, it reaches `≈ 1.96` in modes `k ≈ 10–40` and pulls the tail level `τ` down. The cos-free method stops at `a ≈ 0.363` (`frontier/reach.py`). Going on needs certified `cos(πk log 2/(4a))` over `a`-subintervals, i.e. interval trigonometry in Lean.
 2. **The low block.** With exact cosines, the ceiling of the Fourier method needs `N ≈ 15–25` low modes (`frontier/ceil_lib.py`, `frontier/lp.py`): `2.75` at `N = 20` against `λ₁`'s `2.57` at `a = 0.4`; `2.78` against `2.73` at `a = 0.45`; `2.882` against `2.875` at `a = 0.5`. Per-mode Cauchy–Schwarz, even with the Parseval budget, plateaus near `2.4–2.5`. A certified top eigenvalue of a `16×16`–`25×25` block is required. The Gram part is `a`-independent in scaled variables, but the prime coefficients are not, so one certificate is needed per `a`-subinterval.
-3. **The precision.** Near `a = 0.5` the whole budget is `0.007`, so every constant (`Cin` values, kernel remainders, the trial energy) must be certified to about `10⁻³`. This is the regime of the paper's own Kato–Temple and Birman–Schwinger certificates, rebuilt in Lean.
+3. **The precision.** Near `a = 0.5` the whole budget is `0.007`, so every constant (`Cin` values, kernel remainders, the trial energy) must be certified to about `10⁻³`, and beyond `a ≈ 0.6` to the size of the absolute gap above (`10⁻⁴` down to `10⁻²³`). This is the regime of the paper's own Kato–Temple and Birman–Schwinger certificates, rebuilt in Lean.
 
-So with elementary means the pilot's certified frontier is `a = 0.36`. The certifiable ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. The mathematical gap closes, to below `10⁻³`, by `a ≈ 0.55`.
+So with elementary means the pilot's certified frontier is `a = 0.36`. The Fourier method's ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. Beyond that the gap remains, in the ratio `λ_⊥/λ₁ ≥ 10⁴`, but its absolute size falls below `10⁻³` by `a ≈ 0.55` and far below after. Certifying it there is the paper's own high-precision regime, not a limit of the mathematics.
 
 ## Round 22: testing the chain's hypotheses on ground states (numerical, `frontier/hrr_test.py`, `frontier/hrr2.py`)
 
@@ -677,16 +678,12 @@ So with elementary means the pilot's certified frontier is `a = 0.36`. The certi
 | 2.5 | 2000 | yes | 47 | 0.0015 | 2.0e-7 | 0.591 | 26 |
 | 3.0 | 2400 | yes | 56 | 0.0014 | 3.9e-7 | 0.848 | 37 |
 
-**Findings.**
-1. **`hRR` survives.** At every support tested, from `0.3` to `3.0`, every zero of `ĝ` in the disk is real, and the discretisation refinements agree. There is no counterexample.
-2. **`hD` survives, and gets sharper with `a`.** Every `γ_j < 55` has a zero of `ĝ` nearby, with the error falling from `0.03` at `a = 1` to about `0.0015` at `a = 2.5–3`. At `a = 2` doubling `n` halves it, so the trend is not a grid artifact. `ĝ` also has **extra real zeros**, roughly evenly spaced at about `π/a` (e.g. `2.33, 3.92, 5.56, 7.13, …` at `a = 2`). Their count in `(0, 60)` grows like `a` (9, 18, 37, 56 at `a = 0.5, 1, 2, 3`). `hD` allows them: only the matched subset is constrained.
-3. **`hκ` fails, decisively.** `κ` grows like `a²`: `κ ≈ 0.088·a²`, reaching 0.848 at `a = 3`, 37 times the target. It does not converge to `0.023105`. The grid refinements (`0.0889 → 0.0883`, `0.389 → 0.369`) confirm this is structural. The reason is elementary: `κ = ∫u²g/(2∫g)` is the second moment of a positive bump spread over `[−a, a]`, so it scales like `a²`. Equivalently, by the proved sum rule for real-rooted `ĝ` (`ghat_curvature`, round 10), `κ = Σ τ⁻²` over *all* zeros of `ĝ`, and the extra zeros, spaced about `π/a` apart, contribute a sum `Σ τ⁻²` that scales like `a²` (measured `≈ 0.088·a²`).
+**Findings (as first written; the states were not the ground states, see round 23).**
+1. `hRR` held on these states.
+2. `hD` held on these states in the weak sense (every `γ_j` near some zero), but with extra zeros. The true ground states have none below `T_D` (round 23).
+3. ~~`hκ` fails, decisively: `κ ≈ 0.088·a²`.~~ **Retracted.** The `a²` growth was a property of the wrong states: a high-energy, box-like state spread over `[−a, a]`. The true ground states have `κ = 0.0148 → 0.0221`, rising toward `0.023105` (round 23).
 
-**What this means for the chain.** For ground states of `Q`, `rh_of_groundStates_dodging` cannot fire: `hκ` is false for them at every large support, and its failure is structural, not near-miss. `hRR` and `hD` look healthy, and `hD` is exactly the sense in which the ground states "see" `Ξ`'s zeros. But the extra zeros, which a support-`a` function must have at density about `a/π`, carry curvature that never goes away. Salvaging the chain needs either:
-* a different family `g_n`, whose extra zeros escape to infinity (e.g. `ĝ_n/(background factor)` or a renormalised limit, as in `1bu(ii)`'s convergence statement); or
-* a version of the curvature condition restricted to matched zeros, which is essentially `hD` itself.
-
-Either way, the Lean chain as instantiated with ground states is refuted numerically at `hκ`. The live questions are `hRR` for a family that also converges to `Ξ`, and whether such a family can be the ground states after normalisation.
+~~**What this means for the chain.** `rh_of_groundStates_dodging` cannot fire … refuted numerically at `hκ`.~~ **Retracted.** On the paper's ground states all three hypotheses are numerically consistent at every tested cell (round 23).
 
 ## Round 23: the test rerun on the paper's ground states, and two corrections (numerical, `frontier/rerun_paper.py`, `frontier/arbiter.py`, `frontier/verify_d3.py`, `frontier/gap_hp.py`)
 

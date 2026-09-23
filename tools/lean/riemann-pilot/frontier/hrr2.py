@@ -1,3 +1,7 @@
+# WARNING (round 23): double precision. Weil-form eigenvalues fall below 1e-5 from delta ~ 0.9
+# (9.4e-7 at delta = 1, 6.3e-30 at delta = 2), which this discretisation cannot resolve: its
+# "ground states" there are wrong states and its low eigenvalues a numerical floor. Use the paper's
+# Gram at >= 500 bits (frontier/gap_hp.py, frontier/rerun_paper.py) for delta >~ 0.9.
 import numpy as np, json, sys
 from scipy.optimize import brentq
 exec(open('hrr_test.py').read().split('if __name__')[0])
