@@ -380,7 +380,7 @@ theorem weighted_le_archE {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a
     intro n
     have := integrableOn_weight b (2 * π * n / (4 * a))
     refine this.congr_fun (fun s _ => ?_) measurableSet_Ioc
-    simp only; congr 3; ring
+    simp only; congr 3; ring_nf
   have hGint : IntegrableOn G (Ioc 0 b) :=
     (integrable_finsetSum S fun n _ => (hwint n).const_mul _).const_mul a
   have hLHS : a * ∑ n ∈ S, ‖cf a g n‖ ^ 2 * wJ a b n = ∫ s in Ioc 0 b, G s := by
@@ -438,7 +438,7 @@ theorem wJ_ge {a b : ℝ} (ha : 0 < a) {n : ℤ} (hn : 1 ≤ 2 * π * |(n : ℝ)
   congr 1
   rw [abs_div, abs_mul, abs_mul, abs_mul, abs_of_pos hs.1, abs_of_pos (by positivity : (0:ℝ) < 4 * a),
     abs_of_pos Real.pi_pos, abs_two]
-  ring
+  ring_nf
 
 /-- **The tail bound**: if `κ = 2πNb/4a ≥ 1` and `L = 2 log κ − 6 > 0`, then
 `Σ_{|n| ≥ N} |c_n|² ≤ E(g)/(aL)`, uniformly in the probe. -/
