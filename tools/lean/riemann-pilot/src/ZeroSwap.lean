@@ -16,12 +16,10 @@ multiples `αg`, `βg`. Then `(z² − σ̄)/(z² − σ) = α + iβ` at every r
 simplicity, and given the realisation for each off-cross zero, every zero `w` of `ĝ` has
 `w.re = 0 ∨ w.im = 0`.
 
-**Named input.** `SwapRealization` is the analytic step. `F₂` is entire of exponential type `a` and
-square-integrable on `ℝ`, so by Paley–Wiener it is the transform of a complex `f₂ ∈ L²[−a, a]`, even
-because `F₂` is. `u = Re f₂` and `v = Im f₂` are the probes. The autocorrelation identity is Fourier
-uniqueness: `|F₂|² = |ĝ|²` on `ℝ` is the transform of `f₂ ⋆ f̃₂* = autocorr u + autocorr v`, whose odd
-imaginary part vanishes. Neither Paley–Wiener nor this form of Fourier uniqueness is in Mathlib; both
-are standard. The admissibility of `u, v` (the archimedean integral) is part of the input.
+**`SwapRealization` is proved in SwapRealize.lean** (`swapRealization_of_zero`), for every probe
+and every zero with non-real square. No Paley–Wiener theorem is needed: `f₂ = g + (σ̄ − σ)h` with `h`
+the Green solution of `h'' + σh = g` started at `−a`, which vanishes beyond `a` because `ĝ(±w) = 0`.
+It is kept as a named proposition here so that this file states the swap argument on its own.
 
 This is an even-sector variant of Carathéodory–Fejér's argument. Connes–van Suijlekom (arXiv
 2511.23257) prove the stronger conclusion (all zeros real) under global simplicity with an even
@@ -100,8 +98,8 @@ theorem exists_real_ghatC_ne {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Prob
 def SimpleGround (a : ℝ) (g : ℝ → ℝ) : Prop :=
   IsGroundState a g ∧ ∀ h ∈ groundSpace a, ∃ c : ℝ, h =ᵐ[volume] fun t => c * g t
 
-/-- **Named analytic input.** The swapped transform `ĝ(z)(z² − σ̄)/(z² − σ)` is `û + iv̂` for probes
-`u, v`, and their autocorrelations add up to `g`'s (Paley–Wiener and Fourier uniqueness). -/
+/-- The swapped transform `ĝ(z)(z² − σ̄)/(z² − σ)` is `û + iv̂` for probes `u, v`, and their
+autocorrelations add up to `g`'s. Proved for every zero in SwapRealize.lean. -/
 def SwapRealization (a : ℝ) (g : ℝ → ℝ) (σ : ℂ) : Prop :=
   ∃ u v : ℝ → ℝ, Probe a u ∧ Probe a v ∧
     (∀ z : ℂ, z ^ 2 ≠ σ →
@@ -211,8 +209,8 @@ theorem zero_swap_false {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hs : SimpleGro
     simp at this
     exact this
 
-/-- **Zeros of a simple ground state lie on `ℝ ∪ iℝ`**, given the swap realisation (Paley–Wiener)
-for every zero off that cross. -/
+/-- **Zeros of a simple ground state lie on `ℝ ∪ iℝ`**, given the swap realisation for every zero
+off that cross (discharged in SwapRealize.lean as `zeros_real_or_imag'`). -/
 theorem zeros_real_or_imag {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hs : SimpleGround a g)
     (hPW : ∀ w : ℂ, ghatC g a w = 0 → (w ^ 2).im ≠ 0 → SwapRealization a g (w ^ 2)) :
     ∀ w : ℂ, ghatC g a w = 0 → w.re = 0 ∨ w.im = 0 := by

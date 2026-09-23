@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 259 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 267 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -38,8 +38,9 @@ Every file ends with `#print axioms`. All 259 checked theorems depend only on `p
 | `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
-| `ZeroSwap.lean` | 233 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes (Paley–Wiener, named) |
-| `HurwitzCross.lean` | 185 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `ZeroSwap.lean` | 231 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
+| `HurwitzCross.lean` | 186 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `SwapRealize.lean` | 518 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1570,3 +1571,38 @@ So `Λ(σ)` is a negative real (`completedRiemannZeta_re_neg`), and `ζ(σ) = Λ
 * (a) (`HypConv`), the RH-strength core.
 * Eventual simplicity of the ground states. It is reduced in UniquenessQ.lean, and certified at `δ = 1.6` and `2`.
 * `SwapRealization`: Paley–Wiener and Fourier uniqueness. This is the one remaining named analytic input, and it carries no RH content.
+
+## Round 46: the swap realisation, proved (SwapRealize.lean)
+
+The last named analytic input, `SwapRealization`, is now a theorem. `swapRealization_of_zero` proves it for **every** probe `g` and every zero `w` of `ĝ` with `w²` non-real. It uses the standard axioms only, and the build prints no warnings. No Paley–Wiener theorem is needed, because the swapped function can be written down explicitly.
+
+**The construction.** Let `σ = w²`. `g` is even, so `ĝ(−w) = ĝ(w) = 0` (`ghatC_neg_of_even`). Let `h` be the Green solution of `h'' + σh = g` started at `−a`:
+
+  `h(x) = ∫_{−a}^{x} sin(w(x − y))/w · g(y) dy = (e^{iwx}P_{−w}(x) − e^{−iwx}P_w(x))/(2iw)`,
+
+where `P_c(x) = ∫_{−a}^{x} g(y)e^{icy} dy`. Put `f₂ = g + (σ̄ − σ)h`, `u = Re f₂` and `v = Im f₂`.
+
+| theorem | statement |
+|---|---|
+| `hSw_supp` | `h` vanishes for `|x| > a`. For `x ≥ a`, `P_{±w}(x) = ĝ(±w) = 0`. `P_{−c}(−x) = ĝ(c) − P_c(x)` (`Pc_neg`) makes `h` even (`hSw_even`), which covers `x ≤ −a`. |
+| `triangle_swap` | `∫_α^β e(x)∫_α^x f(y) dy dx = ∫_α^β f(y)∫_y^β e(x) dx dy`, for continuous `e` and integrable `f` (Fubini on the product with an indicator) |
+| `hSw_hat` | `ĥ(z) = −ĝ(z)/(z² − w²)` for `z² ≠ w²`: `triangle_swap`, then `∫_y^a e^{i(z±w)x}dx` in closed form; the boundary terms carry `ĝ(±w) = 0` |
+| `swap_hat` | **R1:** `û(z) + iv̂(z) = ĝ(z)(z² − σ̄)/(z² − σ)` |
+| `swap_autocorr` | **R2:** `A_u(s) + A_v(s) = A_g(s)` for every `s`. On `[−6a, 6a]` the Fourier coefficients are `ĝ`-values at real points (`cf_eq_ghatC`). There `ĝ_u` and `ĝ_v` are real (`ghatC_im_zero`: even real functions), and the multiplier has modulus 1 (`norm_swapB`). So `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²` (`swap_cf`). Parseval for `g − g(·+s)` (`hasSum_shift'`, which needs only `L²` and the support) gives R2 for `|s| < 3a`. For `|s| > 2a` all three sides vanish (`autocorr_eq_zero_far`). |
+| `arch_dom` | `u` and `v` are admissible: `0 ≤ E_u(x) ≤ E_g(x)` pointwise, from R2 and `archIntegrand_nonneg` |
+| `swapRealization_of_zero` | `SwapRealization a g (w²)`: `u` and `v` are probes (even, supported in `[−a, a]`, in `L²` since `h` is continuous with compact support, archimedean-integrable), with R1 and R2 |
+| `zeros_real_or_imag'` | **every zero of a simple ground state is real or purely imaginary**, with no further input |
+| `rh_of_eventually_simple` | `(a) + eventual simplicity ⇒ RiemannHypothesis` |
+
+**`rh_of_eventually_simple`, stated.** It concludes Mathlib's `RiemannHypothesis` from exactly these hypotheses:
+* supports `a n > 0`, with `g n` a ground state of Weil's form at support `a n`;
+* eventually, `g n` is simple (`SimpleGround`);
+* **(a)** `HypConv a g`: the rescaled transforms converge to `Ξ` locally uniformly.
+
+No named analytic input remains, and no hypothesis mentions a zero of `ζ`.
+
+**What this does and does not change.**
+* The formal chain is now **RH ⇐ (a) + eventual simplicity**. Both remaining inputs are genuine open problems. (a) is RH-strength (round 40). Simplicity is certified at `δ = 1.6` (Zhu) and `δ = 2` (round 39), and its margins at `δ = 1–3` are 10⁴–10⁸ (round 42); no proof covers every support.
+* `zeros_real_or_imag'` is unconditional in the analytic sense: any simple ground state, at any support, has all its transform zeros on `ℝ ∪ iℝ`. This agrees with round 42's numerics, where every non-real zero found was purely imaginary.
+* This is weaker than Connes–van Suijlekom (arXiv 2511.23257), who get all zeros real under their simplicity hypothesis. Here, purely imaginary zeros of `ĝ_n` are allowed. They are excluded only in the limit, through Hurwitz and `ζ(σ) ≠ 0` on `(0, 1)`.
+

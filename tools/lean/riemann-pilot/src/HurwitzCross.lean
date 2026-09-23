@@ -16,7 +16,8 @@ on the imaginary axis is a real zero of `ζ` in `(0, 1)`. Excluding those is the
 
 `rh_of_simple_ground_states`: the chain stated with the zero-swap lemma plugged in.
 `rh_of_simple_ground_states'`: the same with `ζ ≠ 0` on `(0, 1)` discharged. Its only inputs are
-(a), eventual simplicity and the swap realisation (Paley–Wiener, named in ZeroSwap.lean).
+(a), eventual simplicity and the swap realisation. SwapRealize.lean proves the swap realisation and
+states the chain without it (`rh_of_eventually_simple`).
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
@@ -149,7 +150,7 @@ theorem rh_of_prime_side_cross {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ}
   · exact re_eq_half_of_Xi_real him
 
 /-- **The chain with the zero-swap lemma plugged in.** (a), positive supports, eventually simple
-ground states with the swap realised (ZeroSwap.lean's named input) and no zero of `ζ` in `(0, 1)`
+ground states with the swap realised (proved in SwapRealize.lean) and no zero of `ζ` in `(0, 1)`
 give Mathlib's `RiemannHypothesis`. -/
 theorem rh_of_simple_ground_states {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
     (hgs : ∀ n, IsGroundState (a n) (g n))
