@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`.
 
-Every file ends with `#print axioms`. All 172 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 180 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -30,6 +30,7 @@ Every file ends with `#print axioms`. All 172 checked theorems depend only on `p
 | `Uniqueness.lean` | 391 | the ground-state space; the uniqueness criterion |
 | `Positivity.lean` | 550 | the pole-free form `Q₀`: a unique, one-signed ground state |
 | `StrictPositivity.lean` | 730 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
+| `UniquenessQ.lean` | 158 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -520,7 +521,7 @@ The proof is the direct method:
 | `groundState_unique` | **if no ground state is orthogonal to `w`, every two ground states agree up to sign a.e.** |
 | `groundState_unique_of_gap` | the same under a gap `λ₁ < λ_⊥`, where `λ_⊥` is the infimum of `Q` over probes with `ĝ(i/2) = 0`. On those probes `Q` equals the pole-free `Q₀`. |
 
-So uniqueness can fail only if the constrained minimum `λ_⊥` of the pole-free form, orthogonally to `w`, equals `λ₁` exactly. Equivalently, a ground state `v ⊥ w` would satisfy the weak eigen-equation of `Q₀` at `λ₁`, because the pole term's first variation `4ĝ(i/2)⟨h, w⟩` vanishes at `v` (an informal remark, not formalised). Deciding `λ₁ < λ_⊥` at a given support needs a certified lower bound on `λ_⊥`, which neither this pilot nor the paper has.
+So uniqueness can fail only if the constrained minimum `λ_⊥` of the pole-free form, orthogonally to `w`, equals `λ₁` exactly. Equivalently, a ground state `v ⊥ w` would satisfy the weak eigen-equation of `Q₀` at `λ₁`, because the pole term's first variation `4ĝ(i/2)⟨h, w⟩` vanishes at `v` (an informal remark here; proved in round 18 as `euler_lagrange_perp`). Deciding `λ₁ < λ_⊥` at a given support needs a certified lower bound on `λ_⊥`, which neither this pilot nor the paper has.
 
 For the chain, `rh_of_groundStates_dodging` holds for any choice of ground states. Its hypotheses are unchanged by `g ↦ cg`, so uniqueness is not needed there.
 
@@ -561,4 +562,24 @@ Round 16's note said the Euler–Lagrange route fails because the indicator of `
 | Tonelli | `tonelli_zero` | `(∫⁻ 1_Z)(∫⁻ φ) = 0`, splitting `u` at `0` and reflecting the negative half |
 | conclusion | `groundState0_pos_of_nonneg`, `exists_positive_groundState0` | `∫φ > 0`, so `|Z| = 0`; the positive representative is `symCut` of the absolute value of a measurable version of the round-16 ground state |
 
-So the pole-free form's ground state is simple (round 16) and strictly positive. This is the Perron–Frobenius picture, proved here without operator theory. The full form `Q` is not covered, as round 15 explains: its pole term breaks the `|g|` step.
+So the pole-free form's ground state is simple (round 16) and strictly positive. This is the Perron–Frobenius picture, proved here without operator theory. The full form `Q` is not covered, as round 15 explains: its pole term breaks the `|g|` step. Round 18 narrows what can go wrong for `Q`.
+
+## Round 18: uniqueness for the full form `Q` (UniquenessQ.lean)
+
+**Uniqueness for `Q` is still not proved, and the structure of `Q` cannot prove it.** This round uses the `Q₀` results of rounds 16–17 to narrow round 15's criterion as far as it goes. What remains is a precise spectral coincidence that nothing in `Q` excludes.
+
+| Theorem | Content |
+|---|---|
+| `quad_zero` | if `2sb + s²c ≥ 0` for all real `s`, then `b = 0` |
+| `bil0_comm` | the bilinear form `B` of `Q₀` is symmetric |
+| `lam0_le_lam` | `λ₀ ≤ λ₁`, since `Q₀ = Q − 2ĝ(i/2)² ≤ Q` |
+| `poleR_pos` | `ĝ(i/2) = ⟨φ, w⟩ > 0` when `φ ≥ 0` and `φ > 0` a.e. on `[−a, a]` |
+| `lam0_lt_lam` | **strict gap `λ₀ < λ₁`.** If `λ₀ = λ₁`, then a ground state `g` of `Q` has `λ₀ ≤ Q₀(g) = λ₁ − 2ĝ(i/2)²`, so `ĝ(i/2) = 0`, and `g` is a ground state of `Q₀`. By round 17, `g = ±φ₀`, and then `ĝ(i/2) = ±⟨φ₀, w⟩ ≠ 0`. |
+| `euler_lagrange_perp` | **a ground state `v` of `Q` with `ĝ(i/2) = 0` solves `Q₀`'s weak eigen-equation at level `λ₁`**: `B(v, ψ) = λ₁⟨v, ψ⟩` for every probe `ψ`. Here `Q(v + sψ) − λ₁‖v + sψ‖² = 2s(B(v,ψ) − λ₁⟨v,ψ⟩) + s²(…) ≥ 0`, because the pole term of `v + sψ` is `2s²ĥ(i/2)²`. |
+| `perp_groundState0` | **such a `v` is orthogonal to `φ₀`.** Testing the two Euler–Lagrange equations against each other gives `(λ₁ − λ₀)⟨v, φ₀⟩ = 0`. |
+| `groundState_unique_or_excited` | **the dichotomy.** `λ₀ < λ₁`, and `Q₀` has a ground state `φ₀ > 0` a.e. on `[−a, a]` with `⟨φ₀, w⟩ > 0`. Either every two ground states of `Q` agree up to sign a.e., or there is a normalised probe `v` with `v ⊥ w`, `v ⊥ φ₀`, `Q₀(v) = λ₁` that solves `Q₀`'s eigen-equation at `λ₁`. |
+
+**Why this is as far as structure goes.** The second branch says `Q₀` has an excited eigenvalue exactly equal to `λ₁`, with an eigenfunction orthogonal to both `w` and `φ₀`. By min–max, `Q = Q₀ + 2⟨·, w⟩²` is a rank-one positive perturbation of `Q₀`, and its lowest eigenvalue lies between `Q₀`'s first two eigenvalues: `λ₀ < λ₁ ≤ μ₁(Q₀)`. The second branch is the boundary case `λ₁ = μ₁(Q₀)`. For a general rank-one perturbation this happens exactly when `w` is orthogonal to the whole `μ₁`-eigenspace of `Q₀`, and nothing about `Q₀` or `w` forbids that. Evenness does not help, since every probe is even. The paper does not claim `λ₁` is simple (round 15). Deciding the second branch at a given support needs a certified lower bound on `Q₀`'s second eigenvalue on `w^⊥`, which neither the pilot nor the paper has. The min–max remark is an explanation and is not formalised.
+
+For the chain, uniqueness is still not needed (round 15, last paragraph).
+
