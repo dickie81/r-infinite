@@ -1102,3 +1102,40 @@ The exact integral (smoothed Riemann–von Mangoldt density, no fitted parameter
 * the solvability step is the standard Schwarz-integral argument, sketched here rather than formalised.
 
 It gives a parameter-free prediction for the dodging reach, `T_D(δ) ≈ 4πe^{δ}` (`2a = δ`), which is what hypothesis D's `ε(δ) → 0` needs. Proving it would need the constrained-equilibrium asymptotics for this `PW_a`-type extremal problem, a strong-asymptotics result in the style of discrete orthogonal polynomials. Whether that can be done without assuming RH is open. The model uses the zeta-zero density `σ` as input, but not RH.
+
+## Round 34: the transition zone, derived from the same model (`frontier/transition.py`)
+
+**The mechanism.** In the round-33 model the smoothed envelope inside the saturated region is fixed by the same boundary problem:
+
+  `U'(x) = √(T² − x²) · p.v.∫_{−T}^{T} f(t) dt / (√(T² − t²)(x − t))`, with `f = σ − a/π`.
+
+Round 29 showed `ĝ(γ_j) ∝ λ₁e^{−U}` and `|ĝ'(γ_j)| ∝ e^{U}`. So the offsets follow
+
+  `ε(x) ≈ A e^{−2Δ(x)}`, with `Δ(x) = U(x) − U(T_edge)`.
+
+`A` is fixed without fitting: at the edge a zero is free, so its offset is about half a zero spacing, `A = 1/(2σ(T_edge))`. The front `T_pin(τ)` is the root of `2Δ(x) = log(A/τ)`.
+
+**Checks on the envelope.**
+* **Slope.** `log ε_j` against `−2Δ(γ_j)`, over all pinned zeros, has slope `0.79, 0.86, 0.89, 0.93` at `δ = 1.2, 1.38, 1.6, 2`, tending to 1.
+* **Depth.** The model's `2Δ(0)` is `17.8, 24.7, 32.4, 43.8, 72.9` against `−log λ₁ = 13.9, 20.2, 27.8, 38.6, 67.3` at `δ = 1, 1.2, 1.38, 1.6, 2`. This is a near-constant offset of 4–5.6 on depths up to 73, so the model also predicts the ground-state energy to within a factor of about `e^5`.
+
+**The fronts, predicted with no fitted parameter** (`T_pin/T_edge`; brackets: `A = 1/(πσ)`):
+
+| `δ` | `τ = 10⁻¹` predicted | measured | `τ = 10⁻³` predicted | measured | `τ = 10⁻⁶` predicted | measured |
+|---|---|---|---|---|---|---|
+| 1.0 | 0.76 [0.78] | 0.69 | 0.55 [0.57] | 0.46 | 0.31 [0.32] | –* |
+| 1.2 | 0.80 [0.82] | 0.80 | 0.63 [0.64] | 0.55 | 0.42 [0.43] | –* |
+| 1.38 | 0.83 [0.85] | 0.81 | 0.68 [0.69] | 0.65 | 0.50 [0.51] | 0.45 |
+| 1.6 | 0.86 [0.88] | 0.90 | 0.73 [0.74] | 0.70 | 0.58 [0.59] | 0.56 |
+| 1.8 | 0.88 [0.90] | 0.90 | 0.77 [0.78] | 0.78 | 0.64 [0.65] | 0.60 |
+| 2.0 | 0.90 [0.91] | 0.93 | 0.80 [0.81] | 0.81 | 0.69 [0.70] | 0.68 |
+| 2.3 | 0.92 [0.93] | 0.91 | 0.84 [0.85] | 0.83 | 0.75 [0.76] | 0.76 |
+
+\* At `δ = 1` the predicted `10⁻⁶`-front (9.5) lies below `γ₁ = 14.13`, so no zero is pinned at that level; measured `ε₁ = 5.6×10⁻⁴`, consistent. At `δ = 1.2` the prediction (16.0) is just above `γ₁`, while the measured `ε₁ = 1.8×10⁻⁶` is just above `10⁻⁶`: a marginal miss.
+
+**Findings.**
+* **The transition factor is derived.** All three fronts, at every `δ`, are reproduced to within `0.01–0.09` (mostly `≤ 0.04`) by one model with no fitted parameter. The fronts barely depend on the choice of `A`: `1/(2σ)` against `1/(πσ)` moves them by `0.01–0.02`.
+* **The "0.92" is not a constant.** It is the `10⁻¹`-front of a transition zone that narrows relative to `T_edge` as `δ` grows (0.76 → 0.92). Round 32's plateau `T_pin/T_B ≈ 0.68` was the product of this rising factor and the slowly falling edge ratio (0.743 → 0.739). Predicted products are `0.64, 0.65, 0.67, 0.68` at `δ = 1.6, 1.8, 2, 2.3`, against measured `0.67, 0.67, 0.69, 0.67`.
+* **Asymptotically every fixed-tolerance front tends to `T_edge`.** The pinning reach is `T_D(δ) ~ 4πe^{δ}`, and every `T_pin(τ)/T_B → 2/e`.
+
+**Status.** Rounds 32–34 together give a parameter-free heuristic account of the dodging reach, the transition zone, the offset law of round 29 (`ε ∝ λ₁e^{−2U}`), and the order of magnitude of `λ₁`. It rests on the constrained-equilibrium model (saturation below `T`, flat envelope above), which is assumed, not derived from Weil's form. Turning it into a theorem needs strong asymptotics for this extremal problem. That would be the rigorous content of hypothesis D's `ε(δ) → 0`, and whether it can be proved without RH is open. The model uses the zeta-zero density `σ` as input, but not RH.
