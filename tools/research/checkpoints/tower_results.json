@@ -3689,6 +3689,12 @@
 "rc": 0,
 "when": "2026-09-16T06:57Z"
 },
+"af147a151e78d6f3db2fb962": {
+"dt": 420.72305727005005,
+"file": "cascade_smooth_functional.py",
+"rc": 0,
+"when": "2026-09-23T10:54Z"
+},
 "b031b81a1a67a7fa9497a439": {
 "dt": 51.650745153427124,
 "file": "cascade_weil_crossover.py",
