@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`.
 
-Every file ends with `#print axioms`. All 212 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 225 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -33,6 +33,7 @@ Every file ends with `#print axioms`. All 212 checked theorems depend only on `p
 | `UniquenessQ.lean` | 158 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
 | `SpectralGap.lean` | 658 | a certified lower bound `λ_⊥ ≥ λ₁ + 1/40` for `0 < a ≤ 1/40`; `Q`'s ground state is unique there |
 | `FourierGap.lean` | 3154 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there |
+| `ParabolaGap.lean` | 658 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -629,4 +630,28 @@ The bound is analytic. Nothing is computed, and the only numbers used are `log 2
 * The margins are thin but positive: `1/10` below `log 2`, `1/40` on the prime sliver. The modelled worst cases were `0.19` and `0.056`.
 * **The paper's certified cells lie beyond this.** They start at `δ = log 2` and run to `δ = 1.3828125`, i.e. `a` up to `0.69`. `a = 0.35` is only the first sliver past `log 2`. Extending further needs more modes (the diagonal Cauchy–Schwarz bound degrades past about `N = 6`, so an eigenvalue bound for the low block would be needed) and more primes (`n = 3` at `δ = log 3`).
 * Check 7: no semiclassical procedure is used. The kernel is the explicit formula's archimedean kernel, handled by Parseval on a circle and elementary calculus. There is no sphere Laplacian, loop integral or effective potential.
+
+## Round 21: to the limit of the method, `a = 0.36`, and the frontier map (ParabolaGap.lean)
+
+**`groundState_unique_036`.** For every `0 < a ≤ 0.36` (i.e. `δ = 2a ≤ 0.72`), `λ_⊥ ≥ λ₁ + 1/50` (`weilQ0_perp_ge_036`), so the ground state of the full form `Q` is unique up to sign.
+
+**What changed.** The trial side. The box overshoots `λ₁` by about `0.19` near `a = 0.35`. The parabola `g = C(1 − t²/a²)` is within about `0.01` of `λ₁` numerically. Its autocorrelation is the explicit polynomial `f(u) = (2a − u)³(4a² + 6au + u²)/(32a⁵)` on `[0, 2a]` (`autocorr_par`, proved by exact polynomial integration). So `K ≤ 1/u + ½` gives the rational bound `∫_{(0,2a]} A_par ≤ 31/30 + 7a/12` (`nearField_par_le`), and cosh's Taylor bound gives `2ĝ_par(i/2)² ≤ (10/3)a(1 + a²/40 + a⁴/3584)²` (`pole_par_le`). On `0.35 ≤ a ≤ 0.36` the round-20 lower bound applies with a larger prime defect `≤ 0.06026|n|`, tail level `τ = 2.7`, and six certified `Cin` levels at `k = 6, 7, 11, 18, 25, 30`; the tightest has slack `0.0011`. It beats the parabola by `1/50`, against a modelled `0.039`.
+
+### The frontier map
+
+Numerically (a piecewise-constant discretisation of the even sector with all prime powers; `frontier/gapp.py`), the true gap `λ_⊥ − λ₁` is:
+
+| `a` (`δ = 2a`) | 0.35 (0.70) | 0.40 (0.80) | 0.45 (0.90) | 0.50 (1.00) | 0.55 (1.10) | 0.60–1.00 |
+|---|---|---|---|---|---|---|
+| `λ₁` | `1.2×10⁻³` | `2×10⁻⁴` | `4×10⁻⁵` | `3×10⁻⁵` | `3×10⁻⁵` | `≈ 2×10⁻⁵` |
+| `λ_⊥ − λ₁` | `0.53` | `0.23` | `0.066` | `0.012` | `0.001` | `≈ 1–2×10⁻⁴` |
+
+The `δ = 1.0` value `0.012` independently reproduces the paper's "λ₂ of the pole-free even section ≈ 0.012". Past `a ≈ 0.55` the gap is at the discretisation's own error level: the even sector is near-degenerate there, as the paper says of its window top. **There is no uniform gap to certify beyond `a ≈ 0.55`.** Whether `Q`'s ground state stays unique there cannot be settled by a gap bound at this resolution.
+
+**Three barriers between `0.36` and `0.55`.**
+1. **The prime tail.** Past `log 2`, the `n = 2` prime adds `−√2 log 2·(cos(ω_k log 2) − cos(ω_k 2a))` to every mode `k`. Bounded without evaluating the cosines, it reaches `≈ 1.96` in modes `k ≈ 10–40` and pulls the tail level `τ` down. The cos-free method stops at `a ≈ 0.363` (`frontier/reach.py`). Going on needs certified `cos(πk log 2/(4a))` over `a`-subintervals, i.e. interval trigonometry in Lean.
+2. **The low block.** With exact cosines, the ceiling of the Fourier method needs `N ≈ 15–25` low modes (`frontier/ceil_lib.py`, `frontier/lp.py`): `2.75` at `N = 20` against `λ₁`'s `2.57` at `a = 0.4`; `2.78` against `2.73` at `a = 0.45`; `2.882` against `2.875` at `a = 0.5`. Per-mode Cauchy–Schwarz, even with the Parseval budget, plateaus near `2.4–2.5`. A certified top eigenvalue of a `16×16`–`25×25` block is required. The Gram part is `a`-independent in scaled variables, but the prime coefficients are not, so one certificate is needed per `a`-subinterval.
+3. **The precision.** Near `a = 0.5` the whole budget is `0.007`, so every constant (`Cin` values, kernel remainders, the trial energy) must be certified to about `10⁻³`. This is the regime of the paper's own Kato–Temple and Birman–Schwinger certificates, rebuilt in Lean.
+
+So with elementary means the pilot's certified frontier is `a = 0.36`. The certifiable ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. The mathematical gap closes, to below `10⁻³`, by `a ≈ 0.55`.
 

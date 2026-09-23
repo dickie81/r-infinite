@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, SpectralGap imports UniquenessQ, FourierGap imports SpectralGap,
+# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, SpectralGap imports UniquenessQ, FourierGap imports SpectralGap, ParabolaGap imports FourierGap,
 # through the oleans written to build/.
 set -euo pipefail
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
@@ -30,4 +30,5 @@ run Positivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build
 run StrictPositivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/StrictPositivity.olean -i $HERE/build/StrictPositivity.ilean $HERE/src/StrictPositivity.lean'
 run UniquenessQ; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/UniquenessQ.olean -i $HERE/build/UniquenessQ.ilean $HERE/src/UniquenessQ.lean'
 run SpectralGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SpectralGap.olean -i $HERE/build/SpectralGap.ilean $HERE/src/SpectralGap.lean'
-run FourierGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/FourierGap.lean'
+run FourierGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/FourierGap.olean -i $HERE/build/FourierGap.ilean $HERE/src/FourierGap.lean'
+run ParabolaGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/ParabolaGap.lean'
