@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`.
 
-Every file ends with `#print axioms`. All 152 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 160 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -28,6 +28,7 @@ Every file ends with `#print axioms`. All 152 checked theorems depend only on `p
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
 | `GroundStateExists.lean` | 456 | existence, stage 3: **a ground state of Weil's form exists at every support** |
 | `Uniqueness.lean` | 391 | the ground-state space; the uniqueness criterion |
+| `Positivity.lean` | 550 | the pole-free form `Q₀`: a unique, one-signed ground state |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -521,3 +522,20 @@ The proof is the direct method:
 So uniqueness can fail only if the constrained minimum `λ_⊥` of the pole-free form, orthogonally to `w`, equals `λ₁` exactly. Equivalently, a ground state `v ⊥ w` would satisfy the weak eigen-equation of `Q₀` at `λ₁`, because the pole term's first variation `4ĝ(i/2)⟨h, w⟩` vanishes at `v` (an informal remark, not formalised). Deciding `λ₁ < λ_⊥` at a given support needs a certified lower bound on `λ_⊥`, which neither this pilot nor the paper has.
 
 For the chain, `rh_of_groundStates_dodging` holds for any choice of ground states. Its hypotheses are unchanged by `g ↦ cg`, so uniqueness is not needed there.
+
+## Round 16: the pole-free form has a unique, one-signed ground state (Positivity.lean)
+
+`Q₀ = Q − 2ĝ(i/2)² = (ψ(¼) − log π)‖g‖² + E(g) − 2S(g)` is Theorem 1bn(i)'s form without the pole term; its minimum is negative (Theorem 1bt). Round 15 showed that the full form `Q` is `Q₀` plus a positive rank-one term, and that `Q`'s ground state is unique unless `Q₀` has a `λ₁`-level direction orthogonal to `w`. This round proves what the Perron–Frobenius picture gives for `Q₀` itself.
+
+| Theorem | Content |
+|---|---|
+| `exists_groundState0`, `isGroundState0_iff` | existence and the ground-state space, as in rounds 14–15 with the pole term removed |
+| `weilQ0_abs_le` | **Beurling–Deny**: `|g|` is a probe and `Q₀(|g|) ≤ Q₀(g)`. Here `‖|g|‖ = ‖g‖`; `f_{|g|}(u) ≥ f_g(u)`, so the archimedean integrand does not increase; and the prime weights `Λ(n)/√n ≥ 0`, so the subtracted prime term does not decrease. |
+| `one_sign_of_autocorr` | if `f_{|g|}(u) = f_g(u)` for a.e. `u > 0`, then `g ≥ 0` a.e. or `g ≤ 0` a.e. With `g = g⁺ − g⁻`, `f_{|g|}(u) − f_g(u) = 2(X(u) + X(−u))` where `X(u) = ∫g⁺(t)g⁻(t+u)dt ≥ 0`; so `X = 0` a.e., and by Tonelli `(∫g⁺)(∫g⁻) = ∫X = 0`. |
+| `groundState0_one_sign` | **every ground state of `Q₀` has one sign.** At a ground state `Q₀(|g|) = Q₀(g)`, so the archimedean integrals agree, and since the integrands are ordered they agree a.e. on `(0, ∞)`. |
+| `groundState0_unique` | **the ground state of `Q₀` is unique up to sign.** For two ground states, `(∫h)g − (∫g)h` lies in the ground-state space with integral `0`. If non-zero, its normalisation is a one-signed ground state with integral `0`, which is impossible. |
+| `exists_unique_groundState0` | **`Q₀` has a ground state `φ ≥ 0` a.e., and every ground state is `±φ` a.e.** |
+
+**Not proved: strict positivity** (`φ > 0` a.e. on `[−a, a]`). The standard argument uses the Euler–Lagrange equation tested against a function supported on `{φ = 0}`. The natural test function, the indicator of that set, need not have finite archimedean energy, and the usual fix, the semigroup being positivity improving, is operator machinery the pilot does not have.
+
+**What this says about `Q`.** Nothing new for the full form `Q`: its pole term is exactly what breaks the Beurling–Deny step, so round 15's criterion stands as the reduction of `Q`'s uniqueness.
