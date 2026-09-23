@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, SpectralGap imports UniquenessQ, FourierGap imports SpectralGap, ParabolaGap imports FourierGap, Polya imports Roadmap, Concave imports Polya, PrimeSide imports Positivity and Concave, Saturation imports only Mathlib, Unconditional imports Concave and Saturation, ZeroSwap imports UniquenessQ, ZetaUnitInterval imports only Mathlib, HurwitzCross imports PrimeSide, ZeroSwap and ZetaUnitInterval, SwapRealize imports HurwitzCross,
+# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, SpectralGap imports UniquenessQ, FourierGap imports SpectralGap, ParabolaGap imports FourierGap, Polya imports Roadmap, Concave imports Polya, PrimeSide imports Positivity and Concave, Saturation imports only Mathlib, Unconditional imports Concave and Saturation, ZeroSwap imports UniquenessQ, ZetaUnitInterval imports only Mathlib, HurwitzCross imports PrimeSide, ZeroSwap and ZetaUnitInterval, SwapRealize imports HurwitzCross, SimpleCover imports SwapRealize and ParabolaGap,
 # through the oleans written to build/.
 set -euo pipefail
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
@@ -31,7 +31,7 @@ run StrictPositivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE
 run UniquenessQ; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/UniquenessQ.olean -i $HERE/build/UniquenessQ.ilean $HERE/src/UniquenessQ.lean'
 run SpectralGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SpectralGap.olean -i $HERE/build/SpectralGap.ilean $HERE/src/SpectralGap.lean'
 run FourierGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/FourierGap.olean -i $HERE/build/FourierGap.ilean $HERE/src/FourierGap.lean'
-run ParabolaGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/ParabolaGap.lean'
+run ParabolaGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParabolaGap.olean -i $HERE/build/ParabolaGap.ilean $HERE/src/ParabolaGap.lean'
 run Polya; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Polya.olean -i $HERE/build/Polya.ilean $HERE/src/Polya.lean'
 run Concave; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Concave.olean -i $HERE/build/Concave.ilean $HERE/src/Concave.lean'
 run PrimeSide; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PrimeSide.olean -i $HERE/build/PrimeSide.ilean $HERE/src/PrimeSide.lean'
@@ -40,4 +40,5 @@ run Unconditional; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/bu
 run ZeroSwap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ZeroSwap.olean -i $HERE/build/ZeroSwap.ilean $HERE/src/ZeroSwap.lean'
 run ZetaUnitInterval; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ZetaUnitInterval.olean -i $HERE/build/ZetaUnitInterval.ilean $HERE/src/ZetaUnitInterval.lean'
 run HurwitzCross; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/HurwitzCross.olean -i $HERE/build/HurwitzCross.ilean $HERE/src/HurwitzCross.lean'
-run SwapRealize; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/SwapRealize.lean'
+run SwapRealize; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SwapRealize.olean -i $HERE/build/SwapRealize.ilean $HERE/src/SwapRealize.lean'
+run SimpleCover; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/SimpleCover.lean'

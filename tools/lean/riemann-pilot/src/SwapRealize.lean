@@ -19,7 +19,7 @@ written as `(e^{iwx} P_{−w}(x) − e^{−iwx} P_w(x))/(2iw)` with `P_c(x) = �
   `swap_hat`).
 * **R2** (`swap_autocorr`): on `[−6a, 6a]` the Fourier coefficients of `u, v, g` are `ĝ`-values at
   real points, where `ĝ_u, ĝ_v` are real (even real functions) and the multiplier is unimodular. So
-  `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²`, and Parseval for `g − g(· + s)` (`hasSum_shift'`) gives
+  `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²`, and Parseval for `g − g(· + s)` (`hasSum_shift_memLp`) gives
   `A_u(s) + A_v(s) = A_g(s)` for `|s| < 3a`; beyond `2a` all three vanish.
 * The archimedean integrals of `u, v` converge by domination, `0 ≤ E_u(x) ≤ E_g(x)` (`arch_dom`).
 
@@ -355,7 +355,7 @@ theorem norm_sq_add_of_im {x y : ℂ} (hx : x.im = 0) (hy : y.im = 0) :
   simp [Complex.normSq_apply, hx, hy]
 
 /-- `hasSum_shift` needs only `L²` and the support. -/
-theorem hasSum_shift' {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
+theorem hasSum_shift_memLp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
     (hsp : ∀ u, a < |u| → g u = 0) {s : ℝ} (hs : |s| < a) :
     HasSum (fun n : ℤ => ‖cf a g n‖ ^ 2 * (2 - 2 * Real.cos (2 * π * n * s / (4 * a))))
       ((4 * a)⁻¹ * (2 * (autocorr g 0 - autocorr g s))) := by
@@ -438,9 +438,9 @@ theorem swap_autocorr (hp : Probe a g) (ha : 0 < a) (hw : ghatC g a w = 0) (hw0 
   · have ha3 : 0 < 3 * a := by linarith
     have mono : ∀ {f : ℝ → ℝ}, (∀ u, a < |u| → f u = 0) → ∀ u, 3 * a < |u| → f u = 0 :=
       fun hf u hu => hf u (by linarith)
-    have Hu := hasSum_shift' ha3 (memLp_uSw hp hw) (mono hus) hs
-    have Hv := hasSum_shift' ha3 (memLp_vSw hp hw) (mono hvs) hs
-    have Hg := hasSum_shift' ha3 hp.memL2 (mono hp.supp) hs
+    have Hu := hasSum_shift_memLp ha3 (memLp_uSw hp hw) (mono hus) hs
+    have Hv := hasSum_shift_memLp ha3 (memLp_vSw hp hw) (mono hvs) hs
+    have Hg := hasSum_shift_memLp ha3 hp.memL2 (mono hp.supp) hs
     have Nu := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) (memLp_uSw hp hw) hus
     have Nv := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) (memLp_vSw hp hw) hvs
     have Ng := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) hp.memL2 hp.supp

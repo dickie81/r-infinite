@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 267 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 274 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -41,6 +41,7 @@ Every file ends with `#print axioms`. All 267 checked theorems depend only on `p
 | `ZeroSwap.lean` | 231 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
 | `HurwitzCross.lean` | 186 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
 | `SwapRealize.lean` | 518 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
+| `SimpleCover.lean` | 245 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1606,3 +1607,54 @@ No named analytic input remains, and no hypothesis mentions a zero of `ζ`.
 * `zeros_real_or_imag'` is unconditional in the analytic sense: any simple ground state, at any support, has all its transform zeros on `ℝ ∪ iℝ`. This agrees with round 42's numerics, where every non-real zero found was purely imaginary.
 * This is weaker than Connes–van Suijlekom (arXiv 2511.23257), who get all zeros real under their simplicity hypothesis. Here, purely imaginary zeros of `ĝ_n` are allowed. They are excluded only in the limit, through Hurwitz and `ζ(σ) ≠ 0` on `(0, 1)`.
 
+## Round 47: simplicity, support by support (SimpleCover.lean, `frontier/simplicity_cover/`)
+
+Round 46 reduced the chain to **RH ⇐ (a) + eventual simplicity**. This round works on simplicity.
+
+**State of the art (checked).** Suzuki (*Weil's quadratic form via the screw function*, arXiv 2606.09096, Thm 1.4) proves the lowest eigenvalue simple, with an even eigenfunction, **for sufficiently small support** (Dirichlet-form positivity improvement plus perturbation in `a`). Simplicity at every support is open. Connes–van Suijlekom assume it.
+
+**1. Monotone covering (proved, SimpleCover.lean).** Enlarging the support enlarges the probe class. So `λ₁(a)` (`lam_antitone`) and every lower bound `λ₂(a) ≥ s` (`Lam2Ge.mono`) are nonincreasing in `a`. Hence:
+
+* `simpleGround_of_lam2`: `λ₁(a) < s ≤ λ₂(a)` ⇒ every ground state at `a` is simple. It Gram–Schmidts a second ground-space direction against `g`, and every unit combination then has `Q = λ₁ < s`.
+* `simpleGround_of_cover`: **`λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simplicity at every `a ∈ [a₀, a₁]`**.
+* `simpleGround_of_chain`: finitely many such cells cover an interval.
+* `simpleGround_036`: **every support `0 < a ≤ 0.36` has simple ground states**, fully in Lean (ParabolaGap's gap, plus `simpleGround_of_unique`).
+
+So point certificates, which were all that was available before (Zhu at `δ = 1.6`, round 39 at `δ = 2`), now cover intervals.
+
+**2. The certified cells (computer-assisted).** Nodes in `δ = 2a`: `0.72, 1.02, 1.28, 1.50, 1.70, 1.87, 2.02, 2.07`.
+
+| cell `δ` | `λ₁` upper at left | `s` (Lean) | `λ₂(M)` ≥ at right | `L`, `T♯`, `N` | `ε_B` | ratio |
+|---|---|---|---|---|---|---|
+| `[0.72, 1.02]` | `8.500e-04` | `0.01` | `1.0478e-02` | `51/100`, `120`, `67` | `1e-24` | 12.3 |
+| `[1.02, 1.28]` | `5.638e-07` | `6e-06` | `6.4067e-06` | `64/100`, `240`, `137` | `1e-28` | 11.4 |
+| `[1.28, 1.50]` | `9.093e-11` | `1e-09` | `1.0555e-09` | `75/100`, `400`, `248` | `4e-38` | 11.6 |
+| `[1.50, 1.70]` | `3.741e-15` | `2.7e-14` | `2.7991e-14` | `85/100`, `1000`, `666` | `1e-77` | 7.5 |
+| `[1.70, 1.87]` | `4.482e-20` | `4.9e-19` | `4.9193e-19` | `935/1000`, `1000`, `731` | `3e-84` | 11.0 |
+| `[1.87, 2.02]` | `2.681e-25` | `3e-24` | `3.3489e-24` | `101/100`, `2496`, `1936` | `4e-200` | 12.5 |
+| `[2.02, 2.07]` | `1.097e-30` | `4e-26` | `4.4407e-26` | `1035/1000`, `2496`, `1983` | `2e-204` | 40496.9 |
+
+Full record: `results/cover_certificate.json`; per-node logs in `results/n*/`; reproduce with `run_all.sh`.
+
+* Upper bounds: `weil_prime_gram.certify` (cosine basis, `K = 120`, 400 bits), a ball Rayleigh quotient of `Q` at `δ − 10⁻⁹` (valid at the node by monotonicity).
+* Lower bounds: Zhu's one-stroke reduction (arXiv 2608.24827, Thm 1.1, valid for every `L > 0` with `β* > 0`). Round 39's pipeline, generalised to any rational `L`, with `T♯` and `N` per node (`params.py`) and a new `la.py lam2` mode. `λ₂(Q) ≥ s − ε_B`; every `ε_B < 10⁻³⁷` is far below the thresholds.
+* Validation: at Zhu's `L = 0.8`, `T♯ = 200`, the generalised code reproduces `β* = 0.5134667749`, `ε_D ≤ 4.6×10⁻²¹²` and `ε_B ≤ 3.9×10⁻¹⁰²`.
+* **Bug found and fixed** in the inherited `assemble.py`. `x = L·t` was formed at 400 bits before the working precision was raised. That is exact for `L = 1`, where round 39 ran, so round 39 is unaffected. For other `L`, the Bessel recurrence amplifies the rounding by about `2^{1.44x}`. Ball arithmetic turned this into a failed certificate at `δ = 1.5` (entry radii `~10¹⁹`), not a false one.
+
+`simpleGround_le_1035`: given `Round47Certs` (the fourteen inequalities, as a named hypothesis), **every ground state at every support `0 < δ ≤ 2.07` is simple**. Lean checks the logic; the numerics are the computer-assisted part.
+
+**3. Why this does not reach every support.** Zhu's reduction needs `T♯ > T₁ = 2π·exp(A_δ)`, with `A_δ = Σ_{log n<δ} 2Λ(n)/√n ~ 4e^{δ/2}`. That is doubly exponential in `δ`. The cost grows like `(L·T♯)³`:
+
+| `δ` | 2.0 | 2.2 | 2.5 | 3.0 | 4.0 | 5.0 |
+|---|---|---|---|---|---|---|
+| `T₁` | 2.2e3 | 7.4e3 | 3.2e4 | 2.8e6 | 2.4e11 | 1.9e19 |
+
+`δ ≈ 2.5` is a heavy computation, and `δ = 3` is out of reach. Cell widths also shrink: `λ₁` and `λ₂` fall super-exponentially, while `log₁₀(λ₂/λ₁)` grows only about linearly, from 2.7 at `δ = 0.7` to 6.6 at `δ = 2.1` (round 42: 8.4 at `δ = 3`). Certification cannot give "every support".
+
+**4. Structural routes, tested.**
+* **Exact criterion.** Rank-one interlacing with `Q = Q₀ + 2cc^T` (`c = cosh(t/2)`) and UniquenessQ's dichotomy show that simplicity fails only if `λ₁(Q) = μ₂(Q₀)` and `⟨c, ψ⟩ = 0` for an eigenfunction `ψ` of `Q₀` at `μ₂`. If the second even eigenfunction of `Q₀` has nonzero pole overlap, the secular function has a pole at `μ₂`, and simplicity follows with no quantitative margin. Failure requires two independent real conditions at once (codimension 2), so a one-parameter family generically never meets it. That is a heuristic, not a proof.
+* **Nodal/rearrangement route: fails as stated** (`nodal_test.py`). The hoped-for argument: `φ₀` radially decreasing (so `c/φ₀` increasing), and `ψ₂` with one sign change, force `⟨c, ψ₂⟩ ≠ 0`. `ψ₂(Q₀)` does have exactly one sign change at `δ = 1` (`K = 60, 90`). But `φ₀` is **not** monotone. It jumps up at `|u| = log 2 − a`, where the prime shift `log 2` couples the two edge regions. Riesz rearrangement does not apply to the translation kernels `δ_{log n}`. The weaker crossing condition also fails at `δ = 1` (`K = 90`). It needs `c/φ₀` below its value at `ψ₂`'s sign change `r` for `|u| < r`, and above it for `|u| > r`. But `r ≈ 0.218` sits just past the jump at `0.193`, where `c/φ₀ ≈ 0.93`, below the central values of about `1.01`. The overlap `⟨c, ψ₂⟩ = 0.0043` is nonzero, but not for this reason.
+
+**What this round changes.**
+* Simplicity is now proved (Lean) for `δ ≤ 0.72`, and certified (computer-assisted, Lean-checked logic) on the **whole interval** `δ ≤ 2.07`. Before, it was known at small `δ` and at two isolated points.
+* Simplicity for **every** support remains open. So does "eventual simplicity", which the RH chain needs as `δ → ∞`. No finite certificate reaches it, and the natural structural argument (Perron–Frobenius / rearrangement) is blocked by the pole term and the prime translations.
