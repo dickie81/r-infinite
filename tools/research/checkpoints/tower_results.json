@@ -5189,6 +5189,12 @@
 "rc": 0,
 "when": "2026-09-16T19:49Z"
 },
+"fb521a2bf6b5de5cfae2cc9e": {
+"dt": 424.6102170944214,
+"file": "cascade_smooth_functional.py",
+"rc": 0,
+"when": "2026-09-23T12:02Z"
+},
 "fb6cbbd91fa48e2ee1438e62": {
 "dt": 108.41428256034851,
 "file": "cascade_primes_side_ball.py",
