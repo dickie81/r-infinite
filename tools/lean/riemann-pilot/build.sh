@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature,
+# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState,
 # through the oleans written to build/.
 set -euo pipefail
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
@@ -21,4 +21,5 @@ run Hadamard; lake env lean -R $HERE/src -o $HERE/build/Hadamard.olean -i $HERE/
 run HadamardApply; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/HadamardApply.olean -i $HERE/build/HadamardApply.ilean $HERE/src/HadamardApply.lean'
 run XiBounds; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/XiBounds.olean -i $HERE/build/XiBounds.ilean $HERE/src/XiBounds.lean'
 run Curvature; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Curvature.olean -i $HERE/build/Curvature.ilean $HERE/src/Curvature.lean'
-run GroundState; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/GroundState.lean'
+run GroundState; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GroundState.olean -i $HERE/build/GroundState.ilean $HERE/src/GroundState.lean'
+run Existence; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/Existence.lean'

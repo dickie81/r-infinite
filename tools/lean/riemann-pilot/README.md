@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`.
 
-Every file ends with `#print axioms`. All 127 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 135 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -24,6 +24,7 @@ Every file ends with `#print axioms`. All 127 checked theorems depend only on `p
 | `XiBounds.lean` | 403 | `XiGrowth` and `Ξ(0) ≠ 0`, proved; the chain to RH with no `Ξ` inputs |
 | `Curvature.lean` | 506 | dodging D and the curvature sum rule; the chain to RH in its final form |
 | `GroundState.lean` | 167 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
+| `Existence.lean` | 485 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -436,3 +437,26 @@ It also defines the admissible class `Probe` (real, even, supported in `[−a, a
 The lower bound is weak: about `−6.35` at `δ = 1`, against the certified `λ₁ ≤ e^{−13.88}` (Theorem 1bn(ii)). Its role is only to show the minimisation problem is bounded below.
 
 **Not proved: existence.** `IsGroundState` defines the minimiser; nothing here proves one exists. If none existed, `rh_of_groundStates_dodging` would be vacuous. Existence needs compactness. On the Fourier side the archimedean term weights `|ĝ(r)|²` by `Re ψ(¼ + ir/2) − ψ(¼)`, which grows like `log|r|`. Together with the support in `[−a, a]`, that makes bounded-energy sets precompact in `L²`, and the prime term is a bounded perturbation. Mathlib has the `L²` Fourier transform (`Analysis/Fourier/LpSpace.lean`) but no Kolmogorov–Riesz compactness criterion, so this is a foundations project of its own.
+
+## Round 12: existence of the ground state, stage 1 (Existence.lean)
+
+This round starts the proof that a ground state exists, i.e. that the minimum in `IsGroundState` is attained. There are three stages:
+
+1. the energy controls the Fourier tails (this round);
+2. compactness of bounded-energy probes;
+3. lower semicontinuity and assembly.
+
+Stage 1 expands a probe `g` (half-support `a > 0`) in the Fourier series of `[−2a, 2a]`, with period `4a` and `c_n = (4a)⁻¹∫e^{−2πint/4a}g(t)dt`.
+
+| Theorem | Content |
+|---|---|
+| `normSq_sub_shift` | `‖g − g(· + s)‖² = 2(f(0) − f(s))` |
+| `hasSum_cf_sq` | Parseval on `[−2a, 2a]`, from Mathlib's `hasSum_sq_fourierCoeffOn` |
+| `cf_shift` | for `|s| < a`, a shift multiplies `c_n` by `e^{2πins/4a}` (the shifted probe stays inside the period) |
+| `hasSum_shift` | `Σ_n |c_n|²(2 − 2cos(2πns/4a)) = (4a)⁻¹·2(f(0) − f(s))` |
+| `archK_ge` | `e^{s/2}/sinh s ≥ 1/(2s)` on `(0, 1]` |
+| `weight_ge` | `J(k) = ∫₀^b (2 − 2cos ks)/s ds ≥ 2 log(kb) − 6` for `kb ≥ 1`, by parts on `[1/k, b]` |
+| `weighted_le_archE` | `a Σ_{n∈S} |c_n|² J_n ≤ E(g)` for every finite set `S`, where `E` is the archimedean integral, `0 < b ≤ 1` and `b < a` |
+| `tail_le` | **`Σ_{|n|≥N} |c_n|² ≤ E(g) / (a(2 log(2πNb/4a) − 6))`**, uniformly over probes |
+
+So probes of bounded archimedean energy have uniformly small high-frequency tails. The rate is logarithmic, as the `log|r|` growth of the archimedean weight predicts.
