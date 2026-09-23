@@ -8852,9 +8852,9 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    beyond its edge by the explicit formula, given the transform: what
    remains is the transform, (a) and (b)) — a finite advance of the wall by
    T_D(δ). Bears on the wall: at every support this is the proof itself —
-   (a) and (b) everywhere put Ξ's zeros on the line by item 6's step — Weil
-   positivity, the Riemann Hypothesis, as yet asserted neither true nor
-   false.
+   (a) and (b) everywhere put Ξ's zeros on the line by item 5's finite step
+   at each support, or by item 6's with vanishing tails — Weil positivity,
+   the Riemann Hypothesis, as yet asserted neither true nor false.
 
 2. **The prime-side square root.** The true form is unconditional on the
    prime side — the pole term, the constant, the archimedean integral and
@@ -8931,38 +8931,38 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    is a statement about a prime-side variational problem. Done when: M's
    roots proved real and positive at one support beyond the cells from the
    form's structure; the family of M's as a Laguerre–Pólya approximation to
-   Ξ understood. Ruled out for (b) at the cells: a shape mechanism. Pólya's
-   theorem (1918) — an even probe nonnegative and concave on (−a, a) has a
-   real-rooted transform — is the classical route, and every transform in
-   that class has a zero in (0, 2π/a]: for such a g, integrating the cosine
-   transform by parts, zĝ(z)/2 = g(a−) sin(za) + ∫₀^a h(t) sin(zt) dt with h
-   = −g′ nonnegative and nondecreasing, which is positive for small real z
-   (it tends to z∫g) and at most 0 at z = 2π/a, where sin 2π = 0 and ∫₀^a
-   h(t) sin(2πt/a) dt = ∫₀^{a/2} [h(t) − h(a − t)] sin(2πt/a) dt ≤ 0. At
-   every cell the first zero of ĝ₁ is γ₁ within the dodging tolerance
-   (Theorem 1bu(ii)) and 2π/a = 4π/δ < γ₁ once δ > 4π/γ₁ = 0.889 (every cell
-   has δ ≥ 1), so the ground state is concave at no cell: whatever carries
-   (b) there is not concavity. Shape routes that survive the argument exist
-   — the Laguerre–Pólya closure, products of real-rooted transforms, that is
-   convolutions of concave pieces, whose first zero can sit above γ₁ (a tent
-   of width 0.3 convolved with a box of width 0.2, at δ = 1, is real-rooted
-   and not concave, with first zero 5π = 15.71) — and so do routes tied to
-   the form: the Gram pencil's positivity or interlacing across δ, or a
-   variational argument that a non-real zero raises Q. (The pilot proves
-   Pólya's theorem for concave probes with no representation input,
-   `realRooted_of_concaveOn`, and reports from its own scripts, not this
-   paper's: the ground state in the paper's Gram concave only at small
-   support, well below the cells; Pólya's Hermite–Biehler function, built
-   from g without its zeros, losing its structure below the cells at the
-   support where the second zero is pulled onto γ₂; moving a probe's
-   non-real zeros onto the real axis not lowering the Rayleigh quotient
-   consistently, so no simple variational argument is visible; and, at every
-   support it tested, the zeros of the ground state's transform descending
-   monotonically in δ with the transform and its δ-derivative interlacing,
-   the pinned zeros resting on the zeta zeros from above — an observed
-   structure whose proof would need the sign of the minimiser's δ-derivative
-   at its zeros, not yet a mechanism.) Both hypotheses at every support are
-   the wall.
+   Ξ understood. Ruled out for (b) at the cells: concavity, Pólya's shape
+   mechanism. Pólya's theorem (1918) — an even probe nonnegative and concave
+   on (−a, a) has a real-rooted transform — is the classical route, and
+   every transform in that class has a zero in (0, 2π/a]: for such a g,
+   integrating the cosine transform by parts, zĝ(z)/2 = g(a−) sin(za) + ∫₀^a
+   h(t) sin(zt) dt with h = −g′ nonnegative and nondecreasing, which is
+   positive for small real z (it tends to z∫g) and at most 0 at z = 2π/a,
+   where sin 2π = 0 and ∫₀^a h(t) sin(2πt/a) dt = ∫₀^{a/2} [h(t) − h(a − t)]
+   sin(2πt/a) dt ≤ 0. At every cell the first zero of ĝ₁ is γ₁ within the
+   dodging tolerance (Theorem 1bu(ii)) and 2π/a = 4π/δ < γ₁ once δ > 4π/γ₁ =
+   0.889 (every cell has δ ≥ 1), so the ground state is concave at no cell:
+   whatever carries (b) there is not concavity. Shape routes that survive
+   the argument exist — the Laguerre–Pólya closure, products of real-rooted
+   transforms, that is convolutions of concave pieces, whose first zero can
+   sit above γ₁ (a tent on [−0.3, 0.3] convolved with a box on [−0.2, 0.2],
+   at δ = 1, is real-rooted and not concave, with first zero 5π = 15.71) —
+   and so do routes tied to the form: the Gram pencil's positivity or
+   interlacing across δ, or a variational argument that a non-real zero
+   raises Q. (The pilot proves Pólya's theorem for concave probes with no
+   representation input, `realRooted_of_concaveOn`, and reports from its own
+   scripts, not this paper's: the ground state in the paper's Gram concave
+   only at small support, well below the cells; Pólya's Hermite–Biehler
+   function, built from g without its zeros, losing its structure below the
+   cells at the support where the second zero is pulled onto γ₂; moving a
+   probe's non-real zeros onto the real axis not lowering the Rayleigh
+   quotient consistently, so no simple variational argument is visible; and,
+   at every support it tested, the zeros it tracked of the ground state's
+   transform, below a fixed height, descending monotonically in δ with the
+   transform and its δ-derivative interlacing there, the pinned zeros
+   resting on the zeta zeros from above — an observed structure whose proof
+   would need the sign of the minimiser's δ-derivative at its zeros, not yet
+   a mechanism.) Both hypotheses at every support are the wall.
 
 7. **The sector tower.** Theorem 1bv(ii): an odd probe's transform is irĜ,
    so the odd sector is the even form with the multiplier γ² on the zero
