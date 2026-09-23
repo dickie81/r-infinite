@@ -1155,3 +1155,32 @@ So **saturation holds wherever the envelope `|ĝ'|` exceeds `√λ₁`**. That i
 **Against the data** (`frontier/saturation_check.txt`). The bound `√(λ₁/2)/|ĝ'(γ_j)|` holds at all 25 pinned zeros (`δ = 1, 1.38, 2`). It is loose by `e^{Δ}`: from `1.5×10¹³` at `γ₁` down to `47` near the edge, with `bound² ≈ ε_j` up to a factor of 6–20, as the two rates predict. At `δ = 2` it certifies saturation at the `10⁻¹` level through `γ₁₈ ≈ 72.1`, against the measured front `83` and the model edge `89`. These values use the computed `ĝ'`, not a certified envelope bound, and the window condition `√(λ/2)/m ≤ r` is not checked near the edge.
 
 **Unconditional variant (a remark, not formalised).** RH is verified numerically up to height `H ≈ 3×10¹²`. The terms of the explicit formula above `H` can be bounded by `|ĝ(t)| ≤ e^{a/2}‖g‖₁` times a decay factor. That replaces `λ` by `λ + O(log H/H)` in `sq_le_of_explicit`, which is usable where `λ₁` is not smaller than about `10⁻¹¹` (`δ ≲ 1.3`). Making it rigorous needs a decay bound for `ĝ` off the axis, which in turn needs bounded variation of the ground state; that is not proved.
+
+## Round 36: out-of-sample test of the model (pre-registered; `frontier/predict.py`, `frontier/envelope.py`)
+
+**Protocol.** The model's predictions for `δ = 2.6` and `3.0` (`frontier/predictions_round36.jsonl`) were committed in `4b79a57` before any ground state at those supports was computed. The fronts use no fitted parameter. The `λ₁` prediction carries one additive offset, extrapolated linearly from its values at `δ ≤ 2`.
+
+| | `δ = 2.6` predicted | measured | error | `δ = 3.0` predicted | measured | error |
+|---|---|---|---|---|---|---|
+| `T_pin(10⁻¹)` | 155.7 | 156.1 | 0.3% | 237.9 | 241.0 | 1.3% |
+| `T_pin(10⁻³)` | 144.8 | 146.0 | 0.8% | 225.3 | 227.4 | 0.9% |
+| `T_pin(10⁻⁶)` | 132.5 | 131.1 | 1.1% | 211.3 | 211.7 | 0.2% |
+| `−log λ₁` | 140.42 | 140.70 | 0.28 | 221.58 | 222.17 | 0.59 |
+
+The measurements used `K = 300` / `400` at 1000 / 1100 bits, with zeros of `ĝ` tracked to 250 / 300. This round's `T_alt` values are not reliable, because double-precision `γ` was used (see round 32).
+
+**The envelope, a second independent check (round 36b).** A sine-like function has `|ĝ'| ≈ e^{U}·πσ` at its zeros, so `log|ĝ'(γ_j)| − log(πσ(γ_j)) − log ĝ(0)` measures the envelope `U(γ_j)`. It follows the model's `U` (rounds 33–34, nothing fitted) over 36 e-folds:
+* slope `0.979` at `δ = 2` and `0.943` at `δ = 1.38`;
+* a near-constant offset of `0.5–0.9` deep inside;
+* the offset rises to about `1.5` in the transition zone near the edge.
+
+**Finding.** The constrained-equilibrium model predicts the pinning fronts at two unseen supports to `0.2–1.3%`, and `λ₁` to within `0.3–0.6` in `log` over depths of 140–222. Together with the envelope check, it is a quantitatively accurate description of the ground states: of how far they dodge the zeta zeros (`T_D ≈ 4πe^{δ}`), of the transition zone, and of the energy.
+
+**Its assumptions are unchanged** (see the summary under round 35):
+* saturation, which `Saturation.lean` reduces to RH (the explicit formula with the zeros on the line) plus a lower bound on `|ĝ'|`;
+* a flat envelope above the edge;
+* smoothed densities;
+* the half-spacing normalisation `A`;
+* one extrapolated offset, for `λ₁` only.
+
+Because saturation currently enters through RH, the model describes item 1(a) quantitatively but does not prove it.
