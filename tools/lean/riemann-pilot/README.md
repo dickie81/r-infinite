@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib.
 
-Every file ends with `#print axioms`. All 238 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 242 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -36,6 +36,7 @@ Every file ends with `#print axioms`. All 238 checked theorems depend only on `p
 | `ParabolaGap.lean` | 658 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
 | `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
 | `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
+| `Saturation.lean` | 118 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -1139,3 +1140,18 @@ Round 29 showed `ĝ(γ_j) ∝ λ₁e^{−U}` and `|ĝ'(γ_j)| ∝ e^{U}`. So the
 * **Asymptotically every fixed-tolerance front tends to `T_edge`.** The pinning reach is `T_D(δ) ~ 4πe^{δ}`, and every `T_pin(τ)/T_B → 2/e`.
 
 **Status.** Rounds 32–34 together give a parameter-free heuristic account of the dodging reach, the transition zone, the offset law of round 29 (`ε ∝ λ₁e^{−2U}`), and the order of magnitude of `λ₁`. It rests on the constrained-equilibrium model (saturation below `T`, flat envelope above), which is assumed, not derived from Weil's form. Turning it into a theorem needs strong asymptotics for this extremal problem. That would be the rigorous content of hypothesis D's `ε(δ) → 0`, and whether it can be proved without RH is open. The model uses the zeta-zero density `σ` as input, but not RH.
+
+## Round 35: saturation, reduced to an envelope bound (Saturation.lean)
+
+**What can and cannot be proved.** The saturation assumption of rounds 33–34 says that below the edge, every zeta zero has a zero of the ground state's transform `ĝ` exponentially close to it. That is a statement about the zeta zeros, so a proof must pass through the explicit formula `Q(g) = Σ_ρ ĝ(t_ρ)²`. Off the critical line those terms are complex and cannot be bounded one at a time. So full saturation from the prime side alone is as hard as Hypothesis D (item 1(a)), and it is not claimed.
+
+**The reduction, proved** (named input: the explicit formula with the zeros on the line, `Q = 2Σ_{γ>0} ĝ(γ)²`):
+* `sq_le_of_explicit`: `|ĝ(γ_j)| ≤ √(λ/2)` for every `j`, since each term is at most the sum.
+* `zero_near_of_deriv_ge`, `zero_near_of_deriv_le`: a function at most `η` in size at `γ`, with `|F'| ≥ m` of fixed sign on `[γ − r, γ + r]` and `η/m ≤ r`, vanishes within `η/m` of `γ`. The proof uses the mean value theorem and the intermediate value theorem.
+* `pinned_of_explicit`: a zero of `ĝ` lies within `√(λ/2)/m` of every `γ_j` near which `|ĝ'| ≥ m`.
+
+So **saturation holds wherever the envelope `|ĝ'|` exceeds `√λ₁`**. That is the model's saturated region, since the band level of round 33 is `C_b ≈ ½ log λ₁`. The proved rate is `e^{−Δ}`; the model's is `e^{−2Δ}`. The model's assumption is thereby reduced to a lower bound on the envelope. That bound, and the explicit-formula input, are what remain open.
+
+**Against the data** (`frontier/saturation_check.txt`). The bound `√(λ₁/2)/|ĝ'(γ_j)|` holds at all 25 pinned zeros (`δ = 1, 1.38, 2`). It is loose by `e^{Δ}`: from `1.5×10¹³` at `γ₁` down to `47` near the edge, with `bound² ≈ ε_j` up to a factor of 6–20, as the two rates predict. At `δ = 2` it certifies saturation at the `10⁻¹` level through `γ₁₈ ≈ 72.1`, against the measured front `83` and the model edge `89`. These values use the computed `ĝ'`, not a certified envelope bound, and the window condition `√(λ/2)/m ≤ r` is not checked near the edge.
+
+**Unconditional variant (a remark, not formalised).** RH is verified numerically up to height `H ≈ 3×10¹²`. The terms of the explicit formula above `H` can be bounded by `|ĝ(t)| ≤ e^{a/2}‖g‖₁` times a decay factor. That replaces `λ` by `λ + O(log H/H)` in `sq_le_of_explicit`, which is usable where `λ₁` is not smaller than about `10⁻¹¹` (`δ ≲ 1.3`). Making it rigorous needs a decay bound for `ĝ` off the axis, which in turn needs bounded variation of the ground state; that is not proved.
