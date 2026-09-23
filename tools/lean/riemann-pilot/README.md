@@ -1406,3 +1406,26 @@ It has the true double-exponential rate `e^{2a}`, with coefficient `2π` against
 * A located obstruction: step (L3) is RH.
 
 It does not give a proof. Since (a) looks RH-strength, it is not the easier half of the chain it was meant to be. The honest summary: (a) and (b) together are a reformulation, and both halves carry RH content.
+
+## Round 41: two tests of (b) suggested by Paper 0 (`frontier/lp_tests/`)
+
+Paper 0's ball slices `(1 − x²)^{d/2}` have Bessel transforms `J_ν(t)/t^ν` with `ν = (d+1)/2`, which have only real zeros. Products of real-rooted transforms are real-rooted. Two tests follow: whether the ground states pass the classical criterion for real-rootedness, and whether they are convolutions of ball slices.
+
+**A. Pólya–Schur / Jensen test** (`jensen_test.py`).
+* **The criterion.** Write `ĝ_a(z)/ĝ_a(0) = φ(−z²)` with `φ(w) = Σ γ_j w^j/j!` and `γ_j = j!·μ_{2j}/(2j)!`, where `μ_{2j}` are the normalised moments of `g_a`. If `ĝ_a` is real-rooted, then every Jensen polynomial `Σ_i C(d,i) γ_{n+i} w^i` has only real roots. A non-real root proves a non-real zero of `ĝ_a`.
+* **Controls:**
+  * `Ξ` itself (moments of Riemann's `Φ`) passes all 364 polynomials (`d ≤ 14`).
+  * The positive, decreasing probe `1_{[−1,1]} + 2·1_{[−1/3,1/3]}`, whose transform has non-real zeros, fails 11, from degree 4 on.
+* **Ground states** at `δ` = 0.6, 1.0, 1.4, 1.8, 2.2, 2.6, 3.0 pass all 364.
+* **The pass carries little information.** A sensitivity test inserted one non-real pair at `±(T + iη)` into the `δ = 1.4` transform (`sens.py`):
+  * with `d ≤ 14`, only a pair below the first zero (`T = 8`, `η = 2`) is detected;
+  * with 90 moments and `d ≤ 44`, `T = 16` is detected from degree 27 on, and `T = 30` is still missed.
+
+  The criterion's reach grows very slowly with the degree. Counting zeros directly (round 23: all real at `δ = 1–3`) is far stronger evidence. Jensen polynomials are not a useful instrument for (b) here.
+
+**B. Is the ground state a convolution of ball slices?** (`conv_test.py`)
+* **The test.** If `g_a = s ⋆ h` with `s = (1 − u²/r²)^{ν−1/2}` on `[−r, r]`, then every zero `j_{ν,k}/r` of `ŝ` is a zero of `ĝ_a`. Compute the real zeros of `ĝ_a` to high precision, then try every radius that puts the first slice zero on one of them, for `ν = 0, ½, …, 10`.
+* **δ = 2** (`T_max = 180`): `ĝ` has 55 real zeros, the first six equal to the zeta zeros to 7 digits. No candidate survives the check of its second zero. Any slice factor must have `r < j_{ν,2}/180`, i.e. 3–10% of the half-width `a = 1`.
+* **δ = 3** (`T_max = 250`): `ĝ` has 107 real zeros, which equals zeta's count there. No survivors; `r` is at most 1.5–5% of `a = 1.5`.
+* **Why this must happen.** Below the dodging edge the zeros of `ĝ` are the zeta zeros. A slice factor would force an almost-arithmetic progression `j_{ν,k}/r` into that set, and zeta zeros contain none. So geometric factors can only live beyond the edge, with support of order `e^{−2a}`. A Gaussian factor is impossible outright, since `g_a` has compact support.
+* **Consequence.** The closure of Paper 0's slices under convolution (the "Laguerre–Pólya closure" candidate of round 24) cannot explain (b). The factor that carries the zeta-pinned zeros is not geometric.
