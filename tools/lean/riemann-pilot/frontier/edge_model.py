@@ -15,8 +15,8 @@ T0 = brentq(Ns, 5, 14)
 sig = lambda t: math.log(t/(2*math.pi))/(2*math.pi)
 def lhs(T):
     return quad(lambda th: sig(T*math.sin(th)), math.asin(T0/T), math.pi/2, limit=200)[0]
-def t_edge(a): return brentq(lambda T: lhs(T) - a/2, T0*1.01, 1e5)
-def t_budget(a): return brentq(lambda T: Ns(T) - a*T/math.pi, 20, 1e5)
+def t_edge(a): return brentq(lambda T: lhs(T) - a/2, T0*1.01, 1e9)
+def t_budget(a): return brentq(lambda T: Ns(T) - a*T/math.pi, 20, 1e9)
 if __name__ == "__main__":
     for d in map(float, sys.argv[1:]):
         a = d/2; te, tb = t_edge(a), t_budget(a)

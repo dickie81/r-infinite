@@ -1057,3 +1057,48 @@ Ranges are over `δ = 0.6, 1.0, 1.6, 2.0` (family 1) and `δ = 1.0, 2.0` (family
 * **The alternation front of round 29** (`37.6, 56.4, 98.8` at `δ = 1, 1.38, 2`) lies between `T_pin(10⁻¹)` and `T_B`. This round's own alternation values at `δ = 1.8`, `2` are not reliable: `|ĝ(γ)|` is below the rounding error of double-precision `γ` there. Round 29 used 60-digit `γ` and is the one to trust.
 
 **What it gives item 1(a).** An empirical rate. The dodging reach grows like `T_D(δ) ≈ 0.68 · T_B ~ e^{δ}`. With the paper's tail estimate `ε(δ) ~ ln T_D/T_D`, the pairing error would decay like `δ e^{−δ}`. That would be the quantitative form of hypothesis D's `ε(δ) → 0` that `rh_of_D_and_realRooted` needs, if it could be proved. This is an observation over `δ ≤ 2.3` with a fitted constant, not a theorem. The counting side is standard (Riemann–von Mangoldt, Paley–Wiener zero density). The missing piece is why the ground state spends its zero budget on the zeta zeros at all, which is the dodging itself.
+
+## Round 33: deriving the front, via constrained equilibrium (model, `frontier/edge_model.py`)
+
+**The import: Rakhmanov's constrained equilibrium problem (also Dragnev–Saff, Kuijlaars–Rakhmanov; from memory).** Polynomials orthogonal on a discrete node set cannot have zeros denser than the nodes. Where the unconstrained zero density would exceed the node density, the zeros saturate: they sit within exponentially small distance of the nodes. Elsewhere they are free. That is the picture of rounds 27–32:
+* the zeta zeros play the nodes, with density `σ(t) = (1/2π)log(t/2π)`;
+* `ĝ` has type `a`, so its zeros want density `a/π`, which is larger than `σ` at low heights;
+* the pinned zeros sit above `γ_j` within `e^{−cγ}`.
+
+**The model.** The zero density `μ` of `ĝ` satisfies:
+* `μ = σ` on the saturated region `(−T, T)`;
+* on the free region `|x| > T`, the smoothed envelope `log|ĝ|` is flat, i.e. the Hilbert transform of `μ` vanishes there (round 29: the energy sits at the unpinned zeros);
+* `μ → a/π` at infinity (exponential type `a`).
+
+**The derivation.** Put `f = μ − a/π` and let `G` be its Cauchy transform, so `Re G = 0` outside and `Im G = πf` inside on the upper boundary. Then `Λ = G/√(z² − T²)` has `Re Λ = 0` outside and `Re Λ = πf/√(T² − t²)` inside. So `Λ` is a Schwarz integral, and `G = O(1/z)` (density exactly `a/π` at infinity) holds if and only if
+
+  `∫₀^T σ(t)/√(T² − t²) dt = a/2`.
+
+Compare the budget condition of round 32, `∫₀^T σ dt = aT/π`: the same density with a different weight. Using `∫₀^{π/2} log sin θ dθ = −(π/2)log 2`, the left side is `(1/4)log(T/4π)` for large `T`, so
+
+  **`T_edge = 4πe^{2a}`, and `T_edge/T_B → 4πe^{2a}/(2πe^{2a+1}) = 2/e ≈ 0.7358`.**
+
+The exact integral (smoothed Riemann–von Mangoldt density, no fitted parameter) gives ratios `0.7514, 0.7478, 0.7454, 0.7432, 0.7417, 0.7405, 0.7392` at the measured `δ`, and `0.7374, 0.7360, 0.7358` at `δ = 3, 5, 10`.
+
+**Against the measurements.**
+
+| `δ` | `T_edge` | `T_edge/T_B` | measured `T_pin(10⁻¹)` | `T_pin(10⁻¹)/T_edge` | alternation front (round 29) |
+|---|---|---|---|---|---|
+| 1.0 | 30.5 | 0.751 | 21.0 | 0.69 | 37.6 |
+| 1.2 | 38.1 | 0.748 | 30.4 | 0.80 | – |
+| 1.38 | 46.5 | 0.745 | 37.6 | 0.81 | 56.4 |
+| 1.6 | 58.6 | 0.743 | 53.0 | 0.90 | – |
+| 1.8 | 72.4 | 0.742 | 65.1 | 0.90 | – |
+| 2.0 | 89.3 | 0.740 | 82.9 | 0.93 | 98.8 |
+| 2.3 | 121.8 | 0.739 | 111.0 | 0.91 | – |
+
+**Findings.**
+* **The ground state stops saturating where the `1/√(T² − t²)`-weighted density of zeta zeros reaches `a/2`, not where the plain counts cross.** That puts the edge at a fixed fraction of the budget root, tending to `2/e`, and explains why the pinning stops well short of where the count alone would stop it.
+* **The measured fronts bracket the edge.** The strict fronts lie inside it: `T_pin(10⁻¹) ≈ 0.90–0.93 T_edge` from `δ = 1.6` on. The alternation front lies just outside it (`98.8` against `89.3` at `δ = 2`). This is the expected transition zone between the saturated and free regions.
+* **So round 32's `0.68 ≈ (2/e) × 0.92`.** The `2/e` is derived. The `0.92` is where a `10⁻¹`-tolerance criterion sits inside the transition zone, and it is not derived. In discrete orthogonal polynomials that zone has its own local scaling (from memory), which was not modelled here.
+
+**Status.** This is a heuristic model:
+* the flat envelope on the free region and the saturation below `T` are assumed, not proved from Weil's form;
+* the solvability step is the standard Schwarz-integral argument, sketched here rather than formalised.
+
+It gives a parameter-free prediction for the dodging reach, `T_D(δ) ≈ 4πe^{δ}` (`2a = δ`), which is what hypothesis D's `ε(δ) → 0` needs. Proving it would need the constrained-equilibrium asymptotics for this `PW_a`-type extremal problem, a strong-asymptotics result in the style of discrete orthogonal polynomials. Whether that can be done without assuming RH is open. The model uses the zeta-zero density `σ` as input, but not RH.
