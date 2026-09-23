@@ -1033,3 +1033,27 @@ Ranges are over `δ = 0.6, 1.0, 1.6, 2.0` (family 1) and `δ = 1.0, 2.0` (family
 * **The same holds for the simple monotone symbols** (`log`, `|r|`, bare archimedean), for which the zero flow does hold (round 30). So the flow is not produced by a hidden Slepian structure either.
 * **This is consistent with the bispectral picture (from memory, unchecked here).** Time–frequency limiting admits a commuting differential operator essentially only for bispectral kernels (Duistermaat–Grünbaum), and a log-type symbol with a prime sum is not expected to be one.
 * **Not excluded:** operators of order higher than 2; non-polynomial coefficients; differential operators acting in the frequency variable `r` instead of `t`; the semilocal prolate operators of Connes–Consani–Moscovici, which act on a different space. The test covers only the natural Slepian-type families.
+
+## Round 32: a counting law for the pinning front (numerical, `frontier/front.py`)
+
+**The import.** A function in the Paley–Wiener space of type `a` has about `aT/π` zeros below `T`, while `ζ` has `N(T) ≈ (T/2π)log(T/2πe) + 7/8`. The ground state can pin its zeros onto every `γ` only while its zero budget covers theirs. The budget runs out at the root `T_B(a)` of `(T/2π)log(T/2πe) + 7/8 = aT/π`. At leading order that is `T_B ≈ 2πe^{2a+1} = 2πe^{δ+1}`.
+
+**The measurement.** Ground states from the paper's Gram (`K = 160`–`260`, 600–1100 bits). Zeros of `ĝ` below `R = 250`, each matched to its nearest zeta zero. The front `T_pin(τ)` is the largest `γ_k` such that every `γ_j ≤ γ_k` has a zero of `ĝ` within `τ`.
+
+| `δ` | `λ₁` | `T_pin(10⁻⁶)` | `T_pin(10⁻³)` | `T_pin(10⁻¹)` | `T_B` (refined) | `T_pin(10⁻¹)/T_B` |
+|---|---|---|---|---|---|---|
+| 1.0 | 9.3e-7 | – | 14.1 | 21.0 | 40.5 | 0.52 |
+| 1.2 | 1.6e-9 | – | 21.0 | 30.4 | 50.9 | 0.60 |
+| 1.38 | 8.8e-13 | 21.0 | 30.4 | 37.6 | 62.3 | 0.60 |
+| 1.6 | 1.7e-17 | 32.9 | 40.9 | 53.0 | 78.9 | 0.67 |
+| 1.8 | 4.2e-23 | 43.3 | 56.4 | 65.1 | 97.7 | 0.67 |
+| 2.0 | 6.1e-30 | 60.8 | 72.1 | 82.9 | 120.6 | 0.69 |
+| 2.3 | 2.1e-43 | 92.5 | 101.3 | 111.0 | 164.8 | 0.67 |
+
+**Findings.**
+* **The front grows at the rate the counting law predicts.** From `δ = 1.6` to `2.3`, `ln T_pin(10⁻¹)` rises by `0.74` over `Δδ = 0.7`, a slope of `1.06`; the law predicts `≈ 1`.
+* **The prefactor settles.** `T_pin(10⁻¹) ≈ 0.68 · T_B(a)` from `δ = 1.6` on. The tighter fronts `10⁻³` and `10⁻⁶` sit lower, and their ratios rise with `δ`: 0.35 → 0.61 and 0.34 → 0.56.
+* **The ground state does not use its full budget at low heights.** At `δ = 2` it has 13 zeros below 60, all pinned, whereas `aT/π = 19`. The zero-count deficit `N_ζ(T) − N_ĝ(T)` becomes positive near 79 at `δ = 2` and near 104 at `δ = 2.3`, and then grows linearly. So pinning stops at about two-thirds of the height where the count alone would force it to stop.
+* **The alternation front of round 29** (`37.6, 56.4, 98.8` at `δ = 1, 1.38, 2`) lies between `T_pin(10⁻¹)` and `T_B`. This round's own alternation values at `δ = 1.8`, `2` are not reliable: `|ĝ(γ)|` is below the rounding error of double-precision `γ` there. Round 29 used 60-digit `γ` and is the one to trust.
+
+**What it gives item 1(a).** An empirical rate. The dodging reach grows like `T_D(δ) ≈ 0.68 · T_B ~ e^{δ}`. With the paper's tail estimate `ε(δ) ~ ln T_D/T_D`, the pairing error would decay like `δ e^{−δ}`. That would be the quantitative form of hypothesis D's `ε(δ) → 0` that `rh_of_D_and_realRooted` needs, if it could be proved. This is an observation over `δ ≤ 2.3` with a fitted constant, not a theorem. The counting side is standard (Riemann–von Mangoldt, Paley–Wiener zero density). The missing piece is why the ground state spends its zero budget on the zeta zeros at all, which is the dodging itself.
