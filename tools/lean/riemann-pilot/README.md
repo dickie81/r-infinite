@@ -1289,7 +1289,7 @@ Zhu certified the gap at `L = 0.8`. Here the same method is carried out at `L = 
 
 Consequences:
 * The ground state is simple and even. The odd sector clears it by a factor of at least 2100; the second even value clears it by at least 3×10⁶.
-* By Zhu's parity splitting (his Lemma 6.1), `Q(f) ≥ 5.19×10⁻³⁰‖f‖²` for every complex `f` supported in `[−1, 1]`. So Weil's functional is positive on all `g = f ⋆ f̃*` with `supp g ⊆ [−2, 2]`. Zhu's certified range was `[−1.6, 1.6]`.
+* By Zhu's parity splitting (his Lemma 6.1), `Q(f) ≥ 5.19×10⁻³⁰‖f‖²` for every complex `f` supported in `[−1, 1]`. So Weil's functional is positive on all `g = f ⋆ f̃*` with `supp g ⊆ [−2, 2]`. **Correction (round 40):** positivity at this support is not new. Liu ("Certified Weil positivity beyond the unit window", 14 Sept 2026) certified coercivity `2⁻¹⁵¹` at `L = 1` and `2⁻⁴⁹¹⁶²` at `L = 17/16`. What is new here is the sharp constant (`5.19×10⁻³⁰` against a true value of about `5.9×10⁻³⁰`), the gap `λ₂`, and the parity and simplicity statement.
 * The lower bounds are about 12% below Zhu's converged (uncertified) values `5.88×10⁻³⁰` and `2.18×10⁻²³`, as they must be. The upper bound is a ball Rayleigh quotient of `Q` itself (cosine basis, `K = 240`).
 
 **Method.** Zhu's one-stroke reduction (his Theorem 1.1). Before relying on it I rechecked its envelope lemma line by line: Binet's second formula at `5/4 + it/2`, `t ≥ 15/4`.
@@ -1339,3 +1339,70 @@ for k in 0 1 2 3; do python3 assemble.py $k 4 [1] & done; wait
 python3 la.py bisect x 16 [1]
 ```
 The optional `1` selects the odd sector. `GAPCFG=L08` selects the validation run.
+
+## Round 40: work on (a), convergence of the ground state to `Ξ` (`frontier/xi_conv/`)
+
+`(a)` (`HypConv`, `PrimeSide.lean`) says `ĝ_a(z)/ĝ_a(0) → Ξ(z)/Ξ(0)` locally uniformly as the support grows. Throughout, `a` is the half-width, Zhu's `L`.
+
+**Status first.**
+* **Close to a known conjecture.** Connes–Consani–Moscovici (*Zeta Spectral Triples*, arXiv 2511.22755) conjecture the analogous convergence of regularised determinants to `Ξ`. They note that a proof would establish RH.
+* **Our own (a) also looks RH-strength.** If RH fails, `λ₁(a) < 0` for all large `a`. The ground state is then driven by the off-line zero, and nothing suggests its transform tends to `Ξ`. This is a heuristic, not a theorem.
+* **Where RH enters the natural proof.** Showing that a limit of `ĝ_a/ĝ_a(0)` vanishes at every zeta zero uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH. So (a) is not "pure analysis", which corrects what I said before round 40.
+
+What follows is what could be established.
+
+**1. Theorem A (unconditional).** Let `Φ` be Riemann's kernel (`Ξ = ∫ Φ e^{izu}`, up to a constant) and `Φ_a = Φ·1_{[−a,a]}`. Then
+`λ*(a) ≤ Q(Φ_a)/‖Φ_a‖² ≤ S·e₁(a)²/‖Φ_a‖² = exp(−2πe^{2a} + O(a))`.
+
+The terms are:
+* `e₁(a) = 2[Φ(a)cosh(a/2) + ∫_a^∞ |Φ'| cosh(u/2)]`;
+* `S = 2·(197/196)·B = 0.0464`, where `B = Σ_ρ Re(1/ρ) = 1 + γ_E/2 − ½log 4π`.
+
+The proof takes four lines:
+* By the explicit formula, `Q(Φ_a) = Σ_ρ E_a(z_ρ)²`, with `E_a = Ξ − Φ̂_a` (`Ξ` vanishes at every zero, on the line or not).
+* `|E_a(z)| ≤ e₁/|z|` on `|Im z| ≤ ½` (integration by parts, `|sin(zu)| ≤ cosh(u/2)`).
+* `Σ_ρ 1/γ² ≤ S`, by pairing `ρ` with `1 − ρ̄`.
+* No RH is needed.
+
+Values (`thmA_results.jsonl`):
+
+| `a` | `−ln` of bound | Zhu's certified `−ln λ*` | Zhu Theorem 1.3 (assumes RH): `a·e^a` |
+|---|---|---|---|
+| 1.0 | 29.1 | 66.99 | 2.7 |
+| 2.0 | 316.0 | 650.47 | 14.8 |
+
+It has the true double-exponential rate `e^{2a}`, with coefficient `2π` against the conjectured `2π²`. Zhu's RH-conditional Theorem 1.3 reaches only `e^{a}`, and he describes `e^{2a}` as out of reach of his construction. We have not found Theorem A in the literature, but a search is not proof that it is new.
+
+**2. What (a) means, concretely.**
+* **Moment identity (exact).** `ĝ_a(z)/ĝ_a(0) = (Ξ(z)/Ξ(0))(1 + κ(a)z² + O(z⁴))` with `κ(a) = (M₂(Φ) − m₂(g_a))/2`. Here `m₂` is the normalised second moment, and `M₂/2 = Σ_{γ>0} 1/γ² = 0.0231050`. Checked numerically: the moment formula gives `5.3194×10⁻³` against a direct fit of `5.3230×10⁻³` at `δ = 1.4`.
+* **Probabilistic form.** The ground state is positive in every run (`moments.py`; the minimum is at the edge). So `μ_a = g_a/∫g_a` is a probability density, and (a) becomes a limit theorem: `μ_a → Φ/∫Φ` in distribution, with uniformly bounded exponential moments. This follows from Lévy continuity plus Vitali. It is standard, but not formalised here.
+* **Proof skeleton**, with its weak points marked:
+  * (L1) `g_a ≥ 0`: observed, not proved.
+  * (L2) tightness and exponential moments: plausible.
+  * (L3) every limit's transform vanishes at all zeta zeros: **needs RH**, via the sum of squares.
+  * (L4) `κ(a) ≥ 0`: observed at every `δ`.
+  * (L5) no extra zeros of `ĝ_a` inside fixed discs: the D-route again.
+  * Given (L3), the limit is `Ξ·H` with `H` even and of order ≤ 1. (L4) excludes real extra zeros of `H` but not imaginary ones. Excluding those is where (b)-type information enters.
+
+**3. Measurements.**
+* **L² convergence.** The angle between `g_a` and `Φ_a` shrinks steadily, like `e^{−2.2a}`: `sin θ` = 0.135, 0.082, 0.052, 0.033, 0.022, 0.014 at `δ` = 1.0, 1.4, 1.8, 2.2, 2.6, 3.0. So the ground state converges to Riemann's kernel in `L²`, but only exponentially, not double-exponentially. It still beats `Φ_a` by a factor of about 2 in `−ln λ`: `Φ_a` is not the ground state, only its limit.
+* **The error in (a) is `κ(a)z²` to leading order, and `κ` has a derived law.** The Hadamard tails give `κ = Σ_{γ>T} 1/γ² − Σ_{unpinned w} 1/w² ≈ (log(T/2π) + 1 − 2a)/(2πT)`. At the round-33 edge `T = 4πe^{2a}` this is `κ = (1 + log 2)/(8π²)·e^{−2a}`.
+* The prediction was registered at 18:28 UTC, before the `δ = 2.6, 3.0` runs (`predictions_kappa_registered_1828UTC.txt`):
+
+  | `δ` | `κ` measured | `κ` predicted | ratio |
+  |---|---|---|---|
+  | 1.0 | 8.337e-3 | 7.889e-3 | 1.057 |
+  | 1.4 | 5.323e-3 | 5.288e-3 | 1.007 |
+  | 1.8 | 3.466e-3 | 3.545e-3 | 0.978 |
+  | 2.2 | 2.282e-3 | 2.376e-3 | 0.960 |
+  | 2.6 (registered) | 1.513e-3 | 1.593e-3 | 0.950 |
+  | 3.0 (registered) | 1.006e-3 | 1.068e-3 | 0.942 |
+
+  The law holds to 6% out of sample, but there is a systematic drift. `κe^{2a}` falls from 0.0227 to 0.0202 and appears to settle near 0.0200, about 7% below `(1+log 2)/(8π²) = 0.0214`. That corresponds to an effective edge near `14.7e^{2a}` rather than `4πe^{2a} = 12.6e^{2a}`, consistent with the transition zone of round 34. So the constant is leading order, not exact.
+
+**What this gives (a).**
+* A precise target: `κ(a) → 0`, at rate `e^{−2a}`, with a derived constant.
+* An unconditional witness `Φ_a` whose transform satisfies (a) exactly.
+* A located obstruction: step (L3) is RH.
+
+It does not give a proof. Since (a) looks RH-strength, it is not the easier half of the chain it was meant to be. The honest summary: (a) and (b) together are a reformulation, and both halves carry RH content.
