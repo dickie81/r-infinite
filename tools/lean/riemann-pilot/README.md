@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 250 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 254 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -39,6 +39,7 @@ Every file ends with `#print axioms`. All 250 checked theorems depend only on `p
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
 | `ZeroSwap.lean` | 233 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes (Paley–Wiener, named) |
+| `HurwitzCross.lean` | 169 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -1522,3 +1523,26 @@ Round 42's lemma, formalised. It depends on the standard axioms only, with no `s
 * **`Ξ(iy) ≠ 0` for real `y ≠ 0`.** This is `ξ(σ) ≠ 0` on the real line, i.e. `ζ(σ) ≠ 0` for `0 < σ < 1`. It is classical, but not in Mathlib as far as I know.
 
 With both in place, the chain would read: (a) + simplicity at every large support + `SwapRealization` ⇒ RH. `groundState_unique_or_excited` (UniquenessQ.lean) already reduces simplicity to excluding an excited state of the pole-free form `Q₀` at energy exactly `λ₁`. Round 42's margins `λ₂(Q₀)/λ₁(Q)` = 10⁴–10⁸ measure how far that is from happening. Proving the exclusion for every support is still open.
+
+## Round 44: Hurwitz for closed sets, and the chain through the zero-swap lemma (HurwitzCross.lean)
+
+**Proved** (standard axioms only, no warnings):
+
+| theorem | statement |
+|---|---|
+| `hurwitz_closed` | if entire `F n → f` locally uniformly, `f ≢ 0`, and every zero of every `F n` lies in a closed set `S`, then every zero of `f` lies in `S`. `hurwitz_real` is the case `S = ℝ`. The proof is the same maximum-modulus argument, with the disc chosen inside `Sᶜ`. |
+| `isClosed_crossSet` | `ℝ ∪ iℝ` is closed |
+| `rh_of_prime_side_cross` | `rh_of_prime_side` with (b) weakened to "every zero of `ĝ_n` is real or purely imaginary". A zero of `Ξ` on the imaginary axis is a real zero of `ζ` in `(0, 1)`, which the named input excludes. |
+| `rh_of_simple_ground_states` | the chain with round 43's zero-swap lemma plugged in |
+
+**`rh_of_simple_ground_states`, stated.** It concludes Mathlib's `RiemannHypothesis` from these hypotheses:
+* supports `a n > 0`, with ground states `g n`;
+* **(a)** `HypConv`;
+* eventually, every ground state is **simple**;
+* eventually, `SwapRealization` holds for every zero off the cross (named: Paley–Wiener and Fourier uniqueness);
+* `ZetaNoZeroInUnitInterval` (named: `ζ(σ) ≠ 0` for `0 < σ < 1`). This is classical, via `(1 − 2^{1−σ})ζ(σ) = Σ(−1)^{n+1}n^{−σ} > 0`. Mathlib has only `Re s > 1`.
+
+**What is left, and where.**
+* **(a)** is the RH-strength core (round 40).
+* **Simplicity at every large support** is reduced in `UniquenessQ.lean` (round 15) to excluding one coincidence: an excited state of the pole-free form at energy exactly `λ₁`. It is certified at `δ = 1.6` (Zhu) and `δ = 2` (round 39). The margins measured at `δ = 1–3` are 10⁴–10⁸ (round 42). No proof covers every support.
+* **The two named inputs** are classical analysis and carry no RH content.
