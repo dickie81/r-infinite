@@ -1,0 +1,8 @@
+Validation run of the same pipeline at Zhu's parameters (GAPCFG=L08: L = 4/5, T# = 200, N = 200 even modes, n0 = 16).
+beta* = 0.513466774915 (Zhu: 0.5134667...).  K_Psi <= 39.98, eps_D <= 4.6e-212, eps_B <= 3.9e-102.
+Certified eigenvalue counts of the leading block M (la.py s1 s2 16):
+  s = 9.0e-18, 9.4e-18, 9.6e-18, 9.8e-18, 1.00e-17 : 0 eigenvalues below s
+  s = 1.05e-17, 1.1e-17, 1.2e-17                  : 1 eigenvalue below s
+  s = 1.0e-12 ... 2.5e-12, 2.6e-12 ... 3.0e-12    : exactly 1 eigenvalue below s
+So lambda_1(R_200) >= 1.00e-17 (Zhu, Theorem 1.2: certified 8.9e-18 at shift 9e-18), and lambda_2(R_200) >= 3.0e-12
+(Zhu: lambda_2 of R_150 = 2.3175e-12; R_T increases with T). Reproduces his certificate independently.

@@ -1275,3 +1275,67 @@ At `γ₂` the slope is `~2×10⁻⁴`, below the enclosure error, so it is **no
 * parity and gap theorems;
 * the barrier `T₁ = 2πe^{A_L}`;
 * the conditional theorem.
+
+## Round 39: a certified gap at `L = 1` (support 2) (`frontier/gap_L1/`, `frontier/certify_gamma1_delta2.py`)
+
+Zhu certified the gap at `L = 0.8`. Here the same method is carried out at `L = 1` (`δ = 2`), in both parity sectors.
+
+**Theorem (computer-assisted).** Let `λ₁, λ₂` be the first two min–max values of `Q(f)/‖f‖²` over real `f` with `supp f ⊆ [−1, 1]`, taken separately in each parity sector. Then:
+
+| sector | `λ₁` | `λ₂` |
+|---|---|---|
+| even | `5.192×10⁻³⁰ ≤ λ₁ ≤ 6.040×10⁻³⁰` | `≥ 1.885×10⁻²³` |
+| odd | `≥ 1.309×10⁻²⁶` | `≥ 1.962×10⁻²⁰` |
+
+Consequences:
+* The ground state is simple and even. The odd sector clears it by a factor of at least 2100; the second even value clears it by at least 3×10⁶.
+* By Zhu's parity splitting (his Lemma 6.1), `Q(f) ≥ 5.19×10⁻³⁰‖f‖²` for every complex `f` supported in `[−1, 1]`. So Weil's functional is positive on all `g = f ⋆ f̃*` with `supp g ⊆ [−2, 2]`. Zhu's certified range was `[−1.6, 1.6]`.
+* The lower bounds are about 12% below Zhu's converged (uncertified) values `5.88×10⁻³⁰` and `2.18×10⁻²³`, as they must be. The upper bound is a ball Rayleigh quotient of `Q` itself (cosine basis, `K = 240`).
+
+**Method.** Zhu's one-stroke reduction (his Theorem 1.1). Before relying on it I rechecked its envelope lemma line by line: Binet's second formula at `5/4 + it/2`, `t ≥ 15/4`.
+* `T♯ = 2496 > T₁ = 2187`, so `β* = log(T♯/2π) − 1/T♯ − A₁ = 0.13170`.
+* The reduced form `R ≤ Q` is assembled in 1850 Legendre modes per sector.
+* Entry errors: per entry `≤ 4.0×10⁻⁶⁰`. The Legendre tail beyond order 3700 gives `ε_D ≤ 6×10⁻²⁷⁹` and coupling `ε_B ≤ 5×10⁻¹³⁴`.
+
+The steps, all in arb ball arithmetic except where noted:
+* **Quadrature** (`nodes.py`). 46 Gauss–Legendre panels, 6147 nodes. Each panel's error is bounded by Trefethen's Bernstein-ellipse bound, with `M` from:
+  * `|j_n(z)| ≤ e^{|Im z|}`;
+  * `|cos(z log n)| ≤ cosh(b log n)`;
+  * a ball covering of the ellipse boundary for the digamma part. The poles at `±i(2k+½)` are kept outside.
+* **Legendre transforms** (`assemble.py`). `F_n(t) = i^n √(2(2n+1)) j_n(t)`. The two top orders come from the power series with an alternating-tail bound; the rest follow from the downward three-term recurrence. Working precision is up to 4300 bits, because ball radii grow like `2^{1.44t}` on the recurrence. Nodes are carried to 4400 bits for the same reason. `C = Vᵀ diag(h) V` is formed by `arb_mat` products (4 workers, about 4 minutes).
+* **Certificate** (`la.py`). This is a Schur-complement inertia count, not a large Cholesky:
+  * The block of Legendre orders `≥ 32` has `λ_min ≥ μ = 0.0658`. This is certified by a float64 Cholesky with a Higham `γ_n` residual bound.
+  * `X ≈ D⁻¹B` is refined in arb to residual `‖R‖² ≈ 10⁻¹¹³`.
+  * Congruence plus Haynsworth: the number of eigenvalues of `M` below `s` equals the number of negative pivots in a 16×16 ball `LDLᵀ` of the Schur complement, whose entries are widened by `‖R‖²/μ`.
+  * Bisection on `s` gives the table. The certified bracket for `R` is tight: `λ₁(R) ∈ [5.192, 5.202]×10⁻³⁰` and `λ₂(R) ∈ [1.8854, 1.8875]×10⁻²³`.
+  * The lift to the full space is Zhu's two-block bound: `λ_k(Q) ≥ λ_k(R) ≥ min(λ_k(M), β* − ε_D) − ε_B`.
+* The `L = 1` runs took `τ = β*/2` for the high-block Cholesky shift. The committed `la.py` takes half the float64 estimate of `λ_min` instead, because the `L = 0.8` block has an eigenvalue below `β*/2`. Both are certified by the same residual bound.
+* **Validation** (`validation_L08.txt`). The same code at Zhu's parameters (`L = 0.8`, `T♯ = 200`, `N = 200`) gives:
+  * `β* = 0.5134667749`, his value;
+  * `λ₁(R₂₀₀) ∈ [1.00, 1.05]×10⁻¹⁷`, consistent with his certified `8.9×10⁻¹⁸`.
+
+**What the result rests on:**
+* Zhu's reduction. Its two lemmas are elementary and were rechecked here.
+* Trefethen's Gauss error bound (a published theorem, cited from memory).
+* The correctness of arb and FLINT, including `legendre_p_root` weights and `acb_digamma` enclosures.
+* IEEE float64 for the well-conditioned high block, covered by the `γ_n` bound.
+
+No zeta zeros and no RH are used.
+
+**Use: `γ₁` pinned at `δ = 2` from our own gap** (`certify_gamma1_delta2.py`, with the sharper Davis–Kahan bound `sin²θ ≤ (ρ − λ₁^lo)/(λ₂^lo − λ₁^lo)`):
+* `‖φ − g‖ ≤ 3.0×10⁻⁴`, where `φ` is the cosine ground state with `K = 240`, `ρ = 6.039×10⁻³⁰`.
+* So `|ĝ' − φ̂'| ≤ 2.45×10⁻⁴`, and `|ĝ'| ≥ 3.81×10⁻³` with fixed sign on `γ₁ ± 5×10⁻³`.
+* Hence a zero of `ĝ` lies within `2.83×10⁻³` of `γ₁`.
+
+This still assumes monotonicity with `g(0) ≤ 2` (computed 1.62), plus the round-37 inputs.
+
+`γ₂` is not reached: its slope `~1×10⁻⁴` is below the error. Closing that would need `ρ − λ₁^lo ≲ 10⁻³¹`. But `R` itself already sits 12% below `Q`, so a larger `T♯` or a pointwise closeness bound would be needed.
+
+**Reproduce:**
+```
+cd frontier/gap_L1
+python3 nodes.py
+for k in 0 1 2 3; do python3 assemble.py $k 4 [1] & done; wait
+python3 la.py bisect x 16 [1]
+```
+The optional `1` selects the odd sector. `GAPCFG=L08` selects the validation run.
