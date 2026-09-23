@@ -8112,7 +8112,7 @@ more holes), against 1.028 with 0.039 for 1by’s law without the
 constant; the closed form T ln(2T₀/T) = 4m + 7/2 reproduces T^s within
 0.13% rms, and T^s/T_w averages 0.962 over [0.875, 1.034]; the ground
 state’s smooth wall sits at T^s/T₀ = 1.923, 1.943, 1.958, 1.972, 1.983
-at the five cells, within 2.1% of its unlocking height T_u(1)
+at the five cells, within 2.2% of its unlocking height T_u(1)
 (T^s/T_u(1) over [0.983, 1.021]); F₁^s(T^s) sits 0.0041, 0.0022, 0.0012,
 0.0005, 0.0002 nats below the closed form at the five cells, the
 difference falling with δ, and at the 40 rungs the closed form sits
@@ -8139,15 +8139,15 @@ it cannot overwhelm the smooth functional's curvature: since min_T F_k ≤
 F_k(T^s) and, T^s being the least value of F_k^s (computed at the 45
 states in (ii)), F_k(T_u) ≥ F_k^s(T^s) + Osc(T_u), the minimum's value
 is F_k^s(T^s) + Osc_∞ + O(ln T/√T), and with T^s and T_u inside the
-convex bracket (2T₀/e, 2T₀) of (ii) (T^s's lower side and T_u computed,
-at the 45 states and the 40 rungs), F_k^s(T_u) − F_k^s(T^s) ≥ (T_u −
+convex bracket (2T₀/e, 2T₀) of (ii) (T^s's lower side computed at the 45
+states, T_u at the 40 rungs), F_k^s(T_u) − F_k^s(T^s) ≥ (T_u −
 T^s)²/(2T)(1 + o(1)) is at most Osc(T^s) − Osc(T_u), so **|T_u − T^s| =
 O(T^{1/4}(ln T)^{1/2})** — the bound is proved; its two consequences
 rest on those computed inputs: the unlocking height's law is the smooth
 wall's. On the list (computed, gated): on [0.5, 1.6]T₁ the leftover
 ranges over 0.88, 0.76, 0.68, 0.56, 0.44 nats at the five cells with
 means 0.19–0.20 against Osc_∞ = 0.19 on the list, the range times √T₁
-constant to 8% (8.2–8.9); with the list’s suprema sup|S| = 1.36 and
+constant to 8.1% (8.2–8.9); with the list’s suprema sup|S| = 1.36 and
 sup|S₁| = 1.47 below height 6990 and Δ = 1, the bound reads 1.66, 1.42,
 1.21, 1.00, 0.77 nats at T₁ against the observed sup|Osc − Osc_∞| of
 0.52, 0.42, 0.40, 0.32, 0.25 (the third term taken as 8 sup|S₁|/T with
@@ -8183,7 +8183,7 @@ dt/((t² + z²)(e^{2πt} − 1)), |Re ψ(¼ + ir/2) − ln(r/2)| ≤ 3/(2r²) fo
 ≥ 8 (the remainder is −1/(24r²) + O(r⁻⁴), witnessed in g0), so |E_arch|
 ≤ (3/2π)∫_{r≥8}ĝ²χ r⁻² dr plus a piece below r = 8 that the cut makes
 e^{−(T−8)²/(2Δ²)}-small; on [T − 3Δ, ∞) the weight r⁻² is at most (1 +
-8Δ/T)/(T² ln(T/2π)) times the smooth count's ln(r/2π) (for Δ ≤ T/100 and
+8Δ/T)/(T² ln(T/2π)) times the smooth count's ln(r/2π) (for Δ ≤ T/80 and
 T ≥ 80; the shoulder below T, where χ is not small, costs the factor;
 above T the weight only falls), so the Binet bound is at most (3/2)(1 +
 8Δ/T)/(T² ln(T/2π)) times the smooth count's integral, plus the cut's
@@ -8196,7 +8196,7 @@ smooth count's integral up to the cut's tail below T − 3Δ — it cannot
 overwhelm the tail. At the cells (computed, gated; the cut Δ = 1, the
 transform from 1bw's product form — the census's designed zeros, exact
 to the stored profile's rounding beyond the edge — the integrals on a
-grid of 0.05, the shells to e^{δ + 7.5}): the identity holds within 4.4
+grid of 0.05, the shells to e^{δ + 7.5}): the identity holds within 4.5
 × 10⁻⁶ of the tail at the five ground states over the five windows (6.7
 × 10⁻¹² away from the cut at the edge, where the dodged zeros the cut
 still weighs carry the stored profile’s rounding) and within 2.7 × 10⁻¹¹
@@ -8206,7 +8206,7 @@ at the 40 rungs; the smooth count’s integral is 1.87, 1.87, 2.29, 2.88,
 2.14, 2.00, 2.20, 3.40 on [1.25, 2]T₁, 1.28, 1.65, 1.60, 1.91, 1.46 on
 [2, 4]T₁ and 1.119, 1.151, 1.066, 1.000, 1.003 beyond 4T₁; the leftover
 after the shells is at most 4.0 × 10⁻⁶ of the tail, its Binet bound at
-most 1.4 × 10⁻⁴, itself at most 0.897 times (3/2)/(T² ln(T/2π)) of the
+most 1.5 × 10⁻⁴, itself at most 0.897 times (3/2)/(T² ln(T/2π)) of the
 smooth count’s integral; the largest shell is n = 3, 3, 7, 5, 2 over the
 whole exterior and n = 3, 5, 7, 5, 2 in the near quarter; at the 40
 rungs the smooth count’s integral runs 1.58–3.77 times the leakage
@@ -8894,33 +8894,60 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    named. Done when: the five lemmas; then the prime-side derivation.
 
 5. **Hypothesis D from the prime side.** The ground state's transform
-   vanishes at every zeta zero below the dodging edge T_D(δ) and nowhere else
-   there — Hypothesis D of Theorem 1bu(ii), verified at the cells within the
-   dodging tolerance. D at a given support is a finite statement about the
-   prime-side minimiser; a prime-side proof of it, joined to the
-   real-rootedness of item 6 at that support, would put every zero of Ξ
-   with |γ| < T_D(δ) on the real line without a zero being computed (D
-   matches the two zero multisets below T_D; real-rootedness says the
-   probe's are real) — a finite advance of the wall by the height T_D(δ),
-   1.46–1.94 T₀ at the cells. Done when: D proved at one support from the
-   form alone. D and real-rootedness at every support are the wall.
+   vanishes at every zeta zero below the dodging edge T_D(δ) and nowhere
+   else there — Hypothesis D of Theorem 1bu(ii), verified at the cells
+   within the dodging tolerance. D at a given support is a finite statement
+   about the prime-side minimiser; a prime-side proof of it, joined to the
+   real-rootedness of item 6 at that support, would put every zero of Ξ with
+   |γ| < T_D(δ) on the real line without a zero being computed (D matches
+   the two zero multisets below T_D; real-rootedness says the probe's are
+   real) — a finite advance of the wall by the height T_D(δ), 1.46–1.94 T₀
+   at the cells. Done when: D proved at one support from the form alone. D
+   and real-rootedness at every support are the wall; so are the weaker (a′)
+   and (b) of item 6, of which D is one witness.
 
 6. **The real-rooted ladder and Hurwitz's theorem.** In the cosine basis the
    ground state's transform is 2 sin(ra)M(r²)/(rΠ(r² − ω_k²)) with M a real
    polynomial of degree K − 1, and the census of Theorem 1bu(ii) finds every
    root of M real and positive at every cell (all K − 1 at six cells, K − 2
    located and the last placed at δ = 3.5); the transform converges to
-   Riemann's Ξ under D (Theorem 1bu(ii)), and in the odd sector Ĝ₁, with
-   its polynomial N of degree K − 2 (all K − 2 pairs located at every
-   cell), does the same under D_odd (Theorem 1bv(iv)). By Hurwitz's theorem the zeros of a locally
-   uniform limit are limits of zeros: M's roots real and positive at every support,
-   together with D at every support (which is what gives the convergence),
-   puts Ξ's zeros on the real line. Both hypotheses are computed at the
-   cells and neither is proved; each is a statement about a prime-side
-   variational problem. Done when: M's
-   roots proved real and positive at one support beyond the cells from the form's
-   structure; the family of M's as a Laguerre–Pólya approximation to Ξ
-   understood. Both hypotheses at every support are the wall.
+   Riemann's Ξ under D (Theorem 1bu(ii)), and in the odd sector Ĝ₁, with its
+   polynomial N of degree K − 2 (all K − 2 pairs located at every cell),
+   does the same under D_odd (Theorem 1bv(iv)). By Hurwitz's theorem the
+   zeros of a locally uniform limit are limits of zeros, and the reduction
+   is zero-free: (a′) the normalised transform ĝ₁/ĝ₁(0) converging to Ξ/Ξ(0)
+   locally uniformly, and (b) M's roots real and positive at every support
+   beyond some δ, put Ξ's zeros on the real line — for any family of probes,
+   the variational structure entering only through (a′) and (b) themselves;
+   D at every support with vanishing tails is one sufficient condition for
+   (a′), the zero-dependent one Theorem 1bu(ii) verifies at the cells. (The
+   repository's Lean pilot, `tools/lean/riemann-pilot/`, checks the
+   implication against Mathlib's statement of the Riemann Hypothesis —
+   `rh_of_prime_side`, with the D-route `hypConv_of_D` its special case —
+   and so records that no zero of ζ enters any hypothesis.) Both (a′)'s
+   witness D and (b) are computed at the cells and neither is proved; each
+   is a statement about a prime-side variational problem. Done when: M's
+   roots proved real and positive at one support beyond the cells from the
+   form's structure; the family of M's as a Laguerre–Pólya approximation to
+   Ξ understood. Ruled out for (b) at the cells: a shape mechanism. Pólya's
+   theorem (1918) — an even probe nonnegative and concave on (−a, a) has a
+   real-rooted transform — is the classical route, and every transform in
+   that class has a zero in (0, 2π/a]: for such a g, integrating the cosine
+   transform by parts, zĝ(z)/2 = g(a−) sin(za) + ∫₀^a h(t) sin(zt) dt with h
+   = −g′ nonnegative and nondecreasing, which is positive for small real z
+   (it tends to z∫g) and at most 0 at z = 2π/a, where sin 2π = 0 and ∫₀^a
+   h(t) sin(2πt/a) dt = ∫₀^{a/2} [h(t) − h(a − t)] sin(2πt/a) dt ≤ 0. At
+   every cell the first zero of ĝ₁ is γ₁ within the dodging tolerance
+   (Theorem 1bu(ii)) and 2π/a = 4π/δ < γ₁ once δ > 4π/γ₁ = 0.889 (every cell
+   has δ ≥ 1), so the ground state is concave at no cell, and the mechanism
+   for (b) there must be tied to the form — the Gram pencil's positivity or
+   interlacing across δ, or a variational argument that a non-real zero
+   raises Q. (The pilot proves Pólya's theorem for concave probes with no
+   representation input, `realRooted_of_concaveOn`; finds the ground state
+   in the paper's Gram numerically concave only for δ ≲ 0.61; and finds
+   Pólya's Hermite–Biehler function, built from g without its zeros, losing
+   its structure between δ = 0.80 and 0.82, where the second zero is pulled
+   onto γ₂.) Both hypotheses at every support are the wall.
 
 7. **The sector tower.** Theorem 1bv(ii): an odd probe's transform is irĜ,
    so the odd sector is the even form with the multiplier γ² on the zero
