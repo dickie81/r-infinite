@@ -1717,3 +1717,41 @@ The rank-one pole term is, once again, what breaks Perron–Frobenius.
 * The swap-closure step is formal (Lean). The commutation, density, compactness and complex-extension steps are standard analysis, written out above but not formalised.
 * The RH chain `rh_of_eventually_simple` now needs, besides (a), only the edge lemma at all large supports.
 * **Nothing here proves simplicity.** The edge lemma for sign-changing solutions is open, and I did not find it in the literature.
+
+## Round 49: attempts on the edge lemma (not proved)
+
+The edge lemma of round 48 (*no nonzero ground state is `H²`-flat at `±a`*) is **not proved**. This section records what the attempt established, so that the same routes are not retried blindly.
+
+**1. The edge lemma is not a strengthening. It is simplicity itself.** Theorems C and D make it exactly equivalent to simplicity. Degeneracy is also equivalent to a coincidence of two conditions, using round 42's rank-one interlacing. Here `ψ₂` is the second even eigenfunction of the pole-free form `Q₀` and `c = cosh(t/2)` is the pole:
+* (i) `⟨c, ψ₂⟩ = 0`;
+* (ii) `λ₁(Q) = μ₂(Q₀)`.
+
+Given (i), `h = (¼ − ∂²)⁻¹ψ₂` is automatically compactly supported and in `H²`: its transform is `ψ̂₂/(z² + ¼)`, entire because `ψ̂₂(±i/2) = ⟨c, ψ₂⟩ = 0`. It is a ground state exactly when (ii) holds. So "edge-flat ground state" is (i) ∧ (ii) in other words.
+
+**2. Local, boundary-only arguments cannot work.**
+* Hopf-type lemmas for logarithmic-Laplacian operators need **nonnegative** solutions. A degenerate ground space contains the sign-changing `ψ₂` (orthogonal to `Q₀`'s positive ground state).
+* For `h`, the operator sits at `μ₂ > μ₁`, above the principal eigenvalue, where maximum principles fail.
+* The degenerate configuration (`V = span{h, h''}`) satisfies every edge matching condition that the `∂²`-commutation produces. Theorem C derives `h'' ∈ V` from exactly those identities, without contradiction.
+
+A proof must be global.
+
+**3. The orthogonality route (exclude (i)) has no robust margin. Exact identity:**
+
+  `2·poleR(g)·⟨c, ψ₂⟩ = (λ₁(Q) − μ₂(Q₀))·⟨g, ψ₂⟩`   for the `Q`-ground state `g`.
+
+Proof: subtract `Q₀`'s eigen-equation for `ψ₂` (tested against `g`) from `Q`'s Euler–Lagrange equation for `g` (tested against `ψ₂`).
+
+So `⟨c, ψ₂⟩` is of the size of the tiny eigenvalue `μ₂`, not of order one. Round 42's data confirm this: `⟨c, ψ₂⟩/μ₂ = 0.361, 0.353, 0.348, 0.345, 0.343` at `δ = 1.4, 1.8, 2.2, 2.6, 3.0`, with `μ₂` falling from `5.6×10⁻⁸` to `8.4×10⁻⁸⁹`. The overlap vanishes super-exponentially in absolute terms. A structural sign argument for `⟨c, ψ₂⟩ ≠ 0` would have to track that `μ₂ > λ₁`, which is condition (ii) again.
+
+**4. The robust margin is the energy gap (ii).** `λ₂(Q)/λ₁(Q)` runs from `10⁴` to `10⁸` over `δ = 1–3` and grows. Proving `λ₁(Q) < μ₂(Q₀)` at every support needs the large-support asymptotics of the two smallest eigenvalues of Weil's form. That is the prolate / semiclassical regime of Connes–Consani–Moscovici, and it is open.
+
+Exact positivity does not help without RH:
+* Under RH, `λ₁(Q) > 0` at every support, since `Q(f) = Σ|f̂(γ)|²` and `f̂` cannot vanish at all zeta zeros.
+* Using it would make the chain circular.
+
+**Status.** Simplicity is:
+* proved for `δ ≤ 0.72` (Lean);
+* certified for `δ ≤ 2.07` (round 47);
+* equivalent to the edge lemma, or to `λ₁(Q) < μ₂(Q₀)`, at every support.
+
+It is open beyond `δ = 2.07`.
