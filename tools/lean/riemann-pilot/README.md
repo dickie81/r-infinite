@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Polya.lean`.
 
-Every file ends with `#print axioms`. All 225 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 233 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -34,6 +34,8 @@ Every file ends with `#print axioms`. All 225 checked theorems depend only on `p
 | `SpectralGap.lean` | 658 | a certified lower bound `λ_⊥ ≥ λ₁ + 1/40` for `0 < a ≤ 1/40`; `Q`'s ground state is unique there |
 | `FourierGap.lean` | 3154 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there |
 | `ParabolaGap.lean` | 658 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
+| `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
+| `PrimeSide.lean` | 107 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -710,3 +712,60 @@ At `δ = 3` a first pass with coefficients rounded to double reported spurious n
 
 **Correction to round 21.** Recomputed at high precision in the paper's Gram with `⟨g, w⟩ = 0` imposed (`frontier/gap_hp.py`), `λ_⊥ = 0.0119, 1.1×10⁻⁷, 1.5×10⁻²³` against `λ₁ = 9.4×10⁻⁷, 8.8×10⁻¹³, 6.3×10⁻³⁰` at `δ = 1, 1.38, 2`. The absolute gap collapses together with the eigenvalues. That is why a Lean certificate past `δ ≈ 1` needs high-precision arithmetic, as round 21 said. But `λ_⊥/λ₁` grows from `10⁴` to `10⁶`, so the ground state is numerically unique at every cell, and there is no near-degeneracy.
 
+
+## Round 24: the chain with prime-side hypotheses only, and real-rootedness from concavity (PrimeSide.lean, Polya.lean, `frontier/polya_shape.py`)
+
+**Step 1: the reduction, restated without zeros (`PrimeSide.lean`).** Before this round the pilot's chain to RH went through Hypothesis D (`DFamW`, `HypD`). D says the zeros of `ĝ_n` below `T_D` *are* the zeros of `ζ`. It presupposes the zeros it is meant to locate, which is §11's "RH ⇒ shadow" direction. `rh_of_prime_side` removes it:
+
+* **(a) `HypConv a g`**: `ĝ_n(z)/ĝ_n(0) → Ξ(z)/Ξ(0)` locally uniformly. `Ξ` is one explicit entire function, built from Mathlib's `completedRiemannZeta₀`. No zero, and no zero count, enters.
+* **(b) `RealRooted (a n) (g n)`**, required only eventually in `n`.
+
+For ground states `g n` of Weil's form at supports `2a n`, (a) + (b) give Mathlib's `RiemannHypothesis`. No other input is needed:
+* `ĝ_n(0) ≠ 0` eventually is derived from (a) at `z = 0`.
+* `Ξ(0) ≠ 0` is `Xi_zero_ne_zero`.
+* Integrability comes from `Probe`.
+
+`hypConv_of_D` shows the old route is a special case: Hadamard factorisations, D and tails `ε → 0` imply (a). The open problem is exactly (a) and (b), and D is one sufficient condition for (a), a zero-dependent one.
+
+**Step 2: (b) at small support (`Polya.lean`).** Pólya's class at half-support `a`:
+* The functions are `g(t) = β + ∫ (a − max(|t|, c)) dμ(c)` on `[−a, a]`, with `β ≥ 0` and `μ` a measure on `[0, a)` with `∫ (a − c) dμ < ∞`.
+* Each `a − max(|t|, c)` is a trapezoid. The class is exactly the even functions concave on `(−a, a)`: `μ` is `−g''` plus an atom `−g'(0+)` at `0`, and `β = g(a−)`.
+* That converse representation is classical and not formalised. Lean uses the class through the representation.
+
+`realRooted_polya`: every nonzero member has a real-rooted transform. This is Pólya's 1918 theorem, specialised to even concave `f`. The proof is short and, as far as I know, not the textbook one:
+* `integral_trap`, `ghatC_polya` (Fubini): `z²ĝ(z)/2 = βz sin(za) + ∫ (cos zc − cos za) dμ(c)`.
+* `trap_ratio_im_pos`: for `Im z > 0` and `|c| < a`, `(cos zc − cos za)/sin za = 2/(cot A + cot B)` with `A = z(a+c)/2` and `B = z(a−c)/2`.
+* `im_cot_neg`: `Im cot w = −sinh(2 Im w)/(2|sin w|²) < 0` in the upper half-plane. So every trapezoid's ratio has imaginary part of the sign of `Im z`, and so does `βz`.
+* Divide the transform by `sin za` (nonzero off the real axis). The imaginary part is then a strictly signed integral, so it cannot vanish.
+
+`realRooted_of_polya_shape`: any probe equal a.e. on `[−a, a]` to a nonzero member of the class is `RealRooted`. So (b) at a support reduces to one shape statement about the ground state: **concavity**. It involves no zero, no prime (for `δ < log 2`), and no limit.
+
+**Does the ground state have that shape? (numerical, `frontier/polya_shape.py`, `polya_shape_results.jsonl`)** The ground state of `Q` is computed in the paper's Gram (cosine basis, 256 bits, `K = 160`–`240`). It is tested by second differences at step `a/40`, which is coarse against the Gibbs ripple of the truncated series.
+
+| `δ` | 0.2 | 0.4 | 0.6 | 0.62 | 0.64 | 0.69 | 0.8 | 0.9 | 1.0 | 1.2 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| concave? | yes | yes | yes | no | no | no | no | no | no | no |
+| max second difference / `g(0)` | −7e-4 | −8e-4 | −1.3e-4 | +3e-5 | +2e-4 | +9e-4 | +5e-3 | +2e-3 | +2.5e-3 | +3e-3 |
+| first zero of `ĝ` | 37.1 | 19.7 | 14.92 | 14.72 | 14.57 | 14.35 | 14.18 | 14.141 | 14.135 | 14.1347 |
+| `2π/a` | 62.8 | 31.4 | 20.9 | 20.3 | 19.6 | 18.2 | 15.7 | **13.96** | **12.6** | **10.5** |
+
+What the table shows:
+* **The ground state is numerically concave for `δ ≲ 0.61` and not beyond.** The threshold is stable in `K` (160 → 240 at `δ = 0.6` and `0.69`).
+* So for `δ ≲ 0.61`, (b) follows from `realRooted_of_polya_shape` once concavity is proved. That is a statement about the minimiser of an explicit, prime-free variational problem.
+* Proving that concavity is **open**. It is the analogue of the known concavity of the first eigenfunction of the Cauchy process on an interval (Bañuelos–Kulczycki), for the kernel `e^{u/2}/sinh u`. That identification is from memory and not checked here.
+
+**Where the mechanism stops (a structural fact, not just numerics).** For every member of Pólya's class, `Φ(x) = βx sin(xa) + ∫ (cos xc − cos xa) dμ` is positive for small `x > 0` and `≤ 0` at `x = 2π/a`. So `ĝ` has a real zero in `(0, 2π/a]`.
+* The ground state's first zero is pinned near `γ₁ = 14.1347` from `δ ≈ 0.8` on (the dodging of round 23).
+* Once `2π/a < 14.13`, i.e. `δ > 0.889`, the ground state **cannot** be concave.
+* So concavity is at best a small-support mechanism. It covers exactly the regime where real-rootedness carries no information about `ζ`. The ground state's first zero is already at 14.35 at `δ = 0.69`, still with no prime in the form: the dodging of `γ₁` begins before any prime term is present.
+
+**Status of §11 item 1 after this round.**
+
+| | proved in Lean | open |
+|---|---|---|
+| (a) + (b) ⇒ RH | yes, with no zero in any hypothesis (`rh_of_prime_side`) | — |
+| (b) at `δ ≲ 0.61` | modulo the ground state's concavity (`realRooted_of_polya_shape`) | the concavity (numerically true) |
+| (b) at `δ ≳ 0.61` | — | needs a mechanism other than concavity; provably so for `δ > 0.889` |
+| (a) | only from D (`hypConv_of_D`), which is zero-dependent | a prime-side proof |
+
+This is not RH progress. The small-support real-rootedness says nothing about `ζ`. What it provides is the first mechanism for (b) that is proved rather than observed, and a proof that this mechanism cannot reach the regime that matters. Candidates for the large-`δ` mechanism, none tried: Laguerre–Pólya closure (products of real-rooted transforms, i.e. convolutions of concave pieces); total positivity of the Gram pencil; interlacing of the ground-state transforms across `δ`.
