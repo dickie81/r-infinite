@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 2 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`.
 
-Every file ends with `#print axioms`. All 145 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 152 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -27,6 +27,7 @@ Every file ends with `#print axioms`. All 145 checked theorems depend only on `p
 | `Existence.lean` | 485 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
 | `GroundStateExists.lean` | 456 | existence, stage 3: **a ground state of Weil's form exists at every support** |
+| `Uniqueness.lean` | 391 | the ground-state space; the uniqueness criterion |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -492,4 +493,31 @@ The proof is the direct method:
 | semicontinuity | `fatou_real` | the archimedean integrands converge pointwise, so by Fatou the limit's integral converges and is at most the limit of the energies |
 | conclusion | `exists_groundState` | `Q(S G) ≤ λ` and `‖S G‖² = 1`, so `S G` is a ground state |
 
-**Scope.** This proves that *a* minimiser exists, not that it is unique up to sign. The hypotheses of `rh_of_groundStates_dodging` (`∫g_n ≠ 0`, real-rootedness, dodging D, curvature convergence) concern whichever ground states are chosen. The paper's numerics suggest a simple lowest eigenvalue, but that is not proved here.
+**Scope.** This proves that *a* minimiser exists, not that it is unique up to sign *(round 15 reduces uniqueness to a criterion; it is not proved)*. The hypotheses of `rh_of_groundStates_dodging` (`∫g_n ≠ 0`, real-rootedness, dodging D, curvature convergence) concern whichever ground states are chosen. The paper's numerics suggest a simple lowest eigenvalue, but that is not proved here.
+
+## Round 15: the ground-state space and the uniqueness criterion (Uniqueness.lean)
+
+**Uniqueness is not proved, because it is not known to hold at every support.** Nothing in the paper claims `λ₁` is simple. Theorem 1br's ladder separates the rungs numerically, but 1br(i) certifies only upper bounds: "the upper end of flint's certified enclosure of that eigenvalue is a rigorous upper bound on λ_k". The standard Perron–Frobenius argument also fails here. Replacing `g` by `|g|` never increases the archimedean term, since `(|g(t)| − |g(t+u)|)² ≤ (g(t) − g(t+u))²`, nor the prime term, since `f_{|g|} ≥ f_g` and the term enters with a minus sign. But it can increase the pole term `2(∫g e^{−u/2})²`. This round proves the two things that are true.
+
+**1. The ground states are the unit sphere of a linear space.**
+
+| Theorem | Content |
+|---|---|
+| `weilQ_add_sub` | the parallelogram law `Q(g + h) + Q(g − h) = 2Q(g) + 2Q(h)` on probes, term by term (pole, constant, archimedean, primes) |
+| `weilQ_smul` | `Q(cg) = c²Q(g)` |
+| `probe_add_sub`, `probe_smul`, `probe_zero` | probes are closed under sums and multiples. Convergence of the archimedean integral for `g ± h` follows from `A_{g+h} + A_{g−h} = 2A_g + 2A_h` with all four non-negative. |
+| `lam_mul_le` | `Q(g) ≥ λ₁‖g‖²` on probes, where `λ₁ = lam a` is the infimum |
+| `groundSpace` | the submodule `{g : probe, Q(g) = λ₁‖g‖²}`. It is closed under addition because `R = Q − λ₁‖·‖² ≥ 0` satisfies the parallelogram law. |
+| `isGroundState_iff` | `IsGroundState a g ↔ g ∈ groundSpace a ∧ ‖g‖² = 1` |
+
+**2. The uniqueness criterion.** Let `w = 1_{[−a,a]}e^{−u/2}`, so `ĝ(i/2) = ⟨g, w⟩`.
+
+| Theorem | Content |
+|---|---|
+| `exists_perp_of_not_unique` | if two ground states `g, h` are not equal up to sign a.e., then `ĥ(i/2)·g − ĝ(i/2)·h`, normalised, is a ground state orthogonal to `w`. When it vanishes a.e., the norms force `h = ±g`. |
+| `groundState_unique` | **if no ground state is orthogonal to `w`, every two ground states agree up to sign a.e.** |
+| `groundState_unique_of_gap` | the same under a gap `λ₁ < λ_⊥`, where `λ_⊥` is the infimum of `Q` over probes with `ĝ(i/2) = 0`. On those probes `Q` equals the pole-free `Q₀`. |
+
+So uniqueness can fail only if the constrained minimum `λ_⊥` of the pole-free form, orthogonally to `w`, equals `λ₁` exactly. Equivalently, a ground state `v ⊥ w` would satisfy the weak eigen-equation of `Q₀` at `λ₁`, because the pole term's first variation `4ĝ(i/2)⟨h, w⟩` vanishes at `v` (an informal remark, not formalised). Deciding `λ₁ < λ_⊥` at a given support needs a certified lower bound on `λ_⊥`, which neither this pilot nor the paper has.
+
+For the chain, `rh_of_groundStates_dodging` holds for any choice of ground states. Its hypotheses are unchanged by `g ↦ cg`, so uniqueness is not needed there.

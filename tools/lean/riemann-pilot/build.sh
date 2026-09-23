@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness,
+# Roadmap imports T1bt and Exterior, Limit imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists,
 # through the oleans written to build/.
 set -euo pipefail
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
@@ -24,4 +24,5 @@ run Curvature; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build"
 run GroundState; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GroundState.olean -i $HERE/build/GroundState.ilean $HERE/src/GroundState.lean'
 run Existence; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Existence.olean -i $HERE/build/Existence.ilean $HERE/src/Existence.lean'
 run Compactness; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Compactness.olean -i $HERE/build/Compactness.ilean $HERE/src/Compactness.lean'
-run GroundStateExists; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/GroundStateExists.lean'
+run GroundStateExists; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GroundStateExists.olean -i $HERE/build/GroundStateExists.ilean $HERE/src/GroundStateExists.lean'
+run Uniqueness; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/Uniqueness.lean'
