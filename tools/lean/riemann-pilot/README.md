@@ -795,3 +795,49 @@ Round 24's `realRooted_polya` was stated for Pólya's class through its represen
 * provably not concave for `δ > 0.889`.
 
 The open step at small support is proving that concavity. That is a statement about the minimiser of Weil's form, with no zero and, for `δ < log 2`, no prime.
+
+## Round 26: the de Branges test (numerical, `frontier/debranges.py`, `frontier/locate.py`)
+
+**The question.** Pólya's theorem (rounds 24–25) proves real-rootedness through a Hermite–Biehler structure, and that structure needs concavity. Does it survive past the concavity threshold `δ ≈ 0.61`? If it held at every `δ`, it would be the mechanism behind item 1(b).
+
+**Which function.** For `g` decreasing on `[0, a]`, the obvious `E = 2∫₀^a g e^{−izt}` has its zeros in the upper half-plane (Kakeya), so it is never Hermite–Biehler. Pólya's structure sits one derivative down:
+* `Ẽ(z) = g(0) − (iz/2)E(z) = βe^{−iza} + ∫₀^a h(t)e^{−izt} dt`, with `h = −g'` and `β = g(a)`.
+* Its real and imaginary parts are `Ã = g(0) − zB/2` and `B̃ = zA/2 = zĝ/2`.
+* When `h` is nondecreasing (`g` concave), Kakeya puts every zero of `Ẽ` in the lower half-plane. Then `Ẽ` is Hermite–Biehler and `ĝ` is real-rooted, with zeros interlacing those of `Ã`.
+
+A caveat on what this tests. *Some* Hermite–Biehler `E` with `ĝ` as a component exists whenever `ĝ` is real-rooted (for example one built from `ĝ` and `ĝ'`). So the only informative test is on a function built from `g` without its zeros, and `Ẽ` is Pólya's.
+
+**The tests** (the paper's Gram, 200–900 bits, coefficients at full precision):
+* **(T1)** Zeros of `Ẽ` in the upper half-disc `|z| < 60`, by the argument principle.
+* **(T2)** The phase derivative `W/|Ẽ|² = (ÃB̃' − Ã'B̃)/|Ẽ|²` on the real grid `(0, 60]`, step `0.01`. Hermite–Biehler requires it to be positive.
+* `frontier/locate.py` finds the offending zeros.
+
+| `δ` | 0.2 | 0.4 | 0.6 | 0.7 | 0.8 | **0.82** | 0.85 | 0.87 | 0.9 | 1.0 | 1.2 | 1.38 | 2.0 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| zeros of `Ẽ`, upper half-disc | 0 | 0 | 0 | 0 | 0 | **2** | 2 | 4 | 6 | 8 | 10 | 10 | 12 |
+| grid points with `W < 0` (of 6000) | 0 | 0 | 0 | 0 | 0 | 205 | 331 | 580 | 1081 | 1931 | 2339 | 2342 | 2330 |
+
+The results are stable in `K`: 100 → 160 at `δ = 0.8` and `0.9` changes nothing.
+
+Offending zeros with `Re z > 0` (each has a mirror image `−z̄`):
+* `δ = 0.82`: `21.62 + 0.26i`.
+* `δ = 0.9`: `20.86 + 1.38i`, `32.25 + 0.80i`, `45.26 + 0.80i`.
+* `δ = 1.0`: four zeros, at heights `2.1`–`2.7`.
+* `δ = 1.38`: five zeros, at heights `3.6`–`9.5`.
+* `δ = 2`: zeros at heights `4.4`–`13`.
+
+**Findings.**
+* **Pólya's Hermite–Biehler structure outlives concavity, but not by much.** It holds numerically for `δ ≤ 0.80`, past the concavity threshold `0.61`. It breaks between `0.80` and `0.82`.
+* **The break is where dodging begins.** The first zero to cross into the upper half-plane appears near `Re z ≈ 21.6`, at `γ₂ = 21.02`. That is where the ground state's second zero is being pulled onto the zeta zero. From then on the zeros move deep into the upper half-plane.
+* **So above `δ ≈ 0.81`, `ĝ`'s real-rootedness (round 23: every zero real at `δ = 1–3`) is not explained by this mechanism.**
+* For the same reason as round 24's concavity bound, both mechanisms depend only on the *shape* of `g`. From about `δ ≈ 0.8` on, the ground state is shaped by the zeta zeros it dodges, and neither shape condition survives that.
+
+**Status of item 1(b).**
+
+| `δ` | mechanism | status |
+|---|---|---|
+| `≲ 0.61` | concavity ⇒ Pólya (proved in Lean, `realRooted_of_ae_concaveOn`) | concavity of the ground state open, numerically true |
+| `0.61–0.80` | Pólya's Hermite–Biehler function `Ẽ` (numerical) | no proof route beyond the numerics |
+| `≳ 0.81` | none known | `ĝ` numerically real-rooted, but neither natural structure holds |
+
+The regime that matters for RH is the last row. What remains there is a mechanism tied to the Weil form itself rather than to the shape of `g`: for example, a positivity or interlacing property of the Gram pencil in `δ`, or a variational argument that a non-real zero would lower `Q`. None of these has been tested.
