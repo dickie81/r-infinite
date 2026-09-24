@@ -2319,3 +2319,44 @@ After round 66, the chain's one open input is `HypConvStrip` for the top ground 
 4. **The two measures disagree, and that explains finding 2.** `R ≥ sin²θ` always holds. At `δ = 3`, `R = 10⁴¹` while `sin²θ = 2·10⁻⁴`. So `φ_a` differs from the ground state by a piece that is tiny in `L²` but carries enormous energy: the edge defect of the truncation, which lives on the high modes. Variational (energy and gap) arguments cannot see this kind of closeness.
 
 **What this means for the chain.** The one open input can only be reached through `L²` closeness (`rh_of_close_RPhi`). Its proof would need a structural reason why the minimiser tracks the null vector `Φ` away from the edges, not a spectral-gap estimate. The observed rate, `sin θ ~ e^{−2.1a}`, has a large margin over the needed `e^{−a/2}`. It is inferred from supports up to `δ = 3` and is not certified.
+
+## Round 69: the ground state is Φ plus a vanishing Φ″ correction (numerical, `frontier/nullvec/`)
+
+**Faster pipeline** (`nullvec_fast.py`). Cosine coefficients in arb via the Chebyshev recurrence, and inverse iteration for `λ₁`, `λ₂` and the ground vector instead of a full eigensolve. It reproduces `nullvec.py` digit for digit at `δ = 2.0` and `3.0`, 20–30× faster. Data: `results_fast.jsonl`.
+
+**The angle to `Φ`, pushed to `δ = 4.5`.** sin²θ is stable in `K` to about 2·10⁻⁴ relative at the two sizes tested.
+
+| `δ` | `K` | `λ₁` | `R` | `sin²θ` | local rate in `a` | `sin²θ·e^{2δ}` |
+|---|---|---|---|---|---|---|
+| 3.0 | 400 | 4.27e-97 | 1.2e41 | 2.049e-4 | 4.14 | 0.0827 |
+| 3.5 | 550 / 700 | 3.3e-167 | 3.3e75 | 7.340e-5 | 4.11 | 0.0805 |
+| 4.0 | 700 / 900 | 2.2e-283 | 1.1e133 | 2.659e-5 | 4.06 | 0.0793 |
+| 4.5 | 900 | 1.9e-475 | 2.5e228 | 9.688e-6 | 4.04 | 0.0785 |
+
+Over `δ ∈ [2, 4.5]`, `sin²θ·e^{2δ}` runs `0.093, 0.090, 0.087, 0.086, 0.084, 0.083, 0.081, 0.079, 0.0785`, with shrinking steps. So **`sin²θ ≈ C·e^{−4a}` with `C → ≈ 0.077`**. The local rate levels off near 4, four times the rate of 1 that `rh_of_close_top` needs.
+
+**The deviation is `Φ″`** (`defect_fit.py`). The unit component of the ground state orthogonal to `Φ` has a fixed profile, the same at `δ = 2` and `3`. It is positive at `t = 0`, crosses zero near `0.17`, is negative around `0.3–0.5`, and vanishes by `0.9`. So it lives where `Φ` lives, not at the edges. Gram–Schmidt against `Φ, Φ″, Φ⁗, Φ⁽⁶⁾`:
+
+| `δ` | `sin²θ` | share of the deviation along `Φ″` | share within `Φ″, Φ⁗, Φ⁽⁶⁾` | `sin²` outside `span{Φ, …, Φ⁽⁶⁾}` |
+|---|---|---|---|---|
+| 1.0 | 1.8e-2 | 0.99480 | 0.9999919 | 1.5e-7 |
+| 2.0 | 1.7e-3 | 0.99802 | 0.99999996 | 6.7e-11 |
+| 3.0 | 2.0e-4 | 0.99976 | 0.99999999994 | 1.2e-14 |
+
+**The coefficients** (`beta_fit.py`, least squares `g ≈ c₀(Φ + βΦ″ + γΦ⁗)`). So `ĝ ≈ c₀(Ξ/2)(1 − βz² + γz⁴)`.
+
+| `δ` | `β` | `β·e^{δ}` | `γ` | `γ/(β²/2)` |
+|---|---|---|---|---|
+| 1.0 | −7.66e-3 | −0.02082 | 5.64e-5 | 1.92 |
+| 1.5 | −4.65e-3 | −0.02085 | 1.44e-5 | 1.33 |
+| 2.0 | −2.79e-3 | −0.02064 | 4.52e-6 | 1.16 |
+| 2.5 | −1.67e-3 | −0.02037 | 1.52e-6 | 1.09 |
+| 3.0 | −1.00e-3 | −0.02018 | 5.30e-7 | 1.05 |
+
+**Findings.**
+
+1. **The ground state is `Φ + βΦ″ + O(β²)`, with `β ≈ −0.020·e^{−δ}`.** The part outside the span of `Φ`'s even derivatives is extremely small: `sin² ≈ 10⁻¹⁴` at `δ = 3`, falling much faster than the deviation itself.
+2. **To second order the multiplier is Gaussian.** `γ/(β²/2) → 1`, so `1 − βz² + γz⁴ ≈ e^{τz²}` with `τ = −β ≈ 0.020·e^{−δ}`. Conjecture: for `|z| ≪ τ^{−1/2}`, `ĝ_a(z) ≈ c·Ξ(z)·e^{τ_a z²}`. That multiplier has no zeros, which fits the observed dodging (round 23: no zeros other than zeta zeros below `T_D`). It can only be local: `ĝ_a` is bounded on `ℝ`, while `Ξ·e^{τz²}` is not.
+3. **Consequence for the chain.** The family `φ_n = Φ + β_nΦ″ + γ_nΦ⁗` has transforms `(Ξ/2)(1 − β_nz² + γ_nz⁴) → Ξ/2` on the strip, because `β_n, γ_n → 0`. The ground states are closer to this family than to `Φ` by about ten orders at `δ = 3`. Taken as the kernel family in `rh_of_close_top`, the numerical margin of the one remaining hypothesis becomes very large. That substitution is not formalised: it needs `Φ″`, `Φ⁗` and their transforms in Lean.
+
+**Status.** All of this is numerical, on supports up to `δ = 4.5`. The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are inferred, not proved. Proving that the minimiser has this structure for every `a` would prove RH (through `rh_of_close_top`), so these are targets, not results. `Φ`'s even derivatives are, like `Φ`, null directions of Weil's form (their transforms vanish at every zero), so a structural explanation plausibly starts there.
