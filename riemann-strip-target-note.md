@@ -71,11 +71,17 @@ is a probe,
 
 (the pilot's `lam_mul_le`; its `Probe` clause `a < |u| → g u = 0` admits the closed support).
 
-Only (0.1) and the explicit formula for C_c^∞ functions are used in §2.1–2.2;
-§2.3's Corollary 4 also uses Theorem A, whose trial Φ_a has a jump at ±a and
-whose zero-side identity therefore rests on the explicit formula in Weil's
-wider class (h = Φ_a ⋆ Φ̃_a continuous, compactly supported and of bounded
-variation), the class the paper's Theorem 1bn(i) evaluates the form in.
+The form enters §2.1–2.2 only through its defining right side, (0.1) and
+the explicit formula for C_c^∞ functions (with Rosser–Schoenfeld, Backlund's
+count and the first zero's height as the arithmetic inputs); §2.3's
+Corollary 4 also uses Theorem A, whose trial Φ_a has a jump at ±a and
+whose zero-side identity therefore rests on the explicit formula in the
+wider class of Weil (1952) and Barner (1981): h = Φ_a ⋆ Φ̃_a is Lipschitz,
+compactly supported and of bounded variation, since Φ_a is smooth on
+[−a, a] with two jumps of size Φ(a), and the zero sum converges absolutely
+because |Φ̂_a(γ)| = |E_a(γ)| ≤ e₁(a)/|γ|. This is the class the paper's
+Theorem 1bn(i) evaluates the form in (Yoshida's periodic class, with jumps
+at ±a).
 
 **Riemann's kernel.** Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{−πn²e^{2u}},
 even, positive, with Φ(u) ≤ C_B e^{−B|u|} for every B, and
@@ -180,10 +186,12 @@ Hypothesis, provided the truncation is big enough" (abstract; Theorems 8–9
 there), and for the L² window functional a trichotomy: negative, or
 infinitely many off-line zeros, or a linear relation among the x^{−ρ} on the
 window (his Theorem 11 and its corollary). No growth rate in the support
-appears there, and his numerical section reports a critical support beyond
-which the negative eigenvalue converges to a strictly negative value, with
-the eigenfunction's mass concentrating at the boundary of the interval —
-the edge state of Remark (b) below. Theorem 2 is the quantitative form of
+appears there; his numerical section reports a critical support beyond
+which the negative eigenvalue converges to a strictly negative value as
+N → ∞, while below it the eigenvalue tends to 0 with the eigenfunction's
+L²-mass escaping to the boundary of the interval. (This note's Remark (b)
+concerns the supercritical trial's edge concentration; the analogy with
+Bombieri's subcritical observation is this note's, not his.) Theorem 2 is the quantitative form of
 that count for the lowest eigenvalue under (H₁), which trades Bombieri's
 "finitely many off-line zeros" for a condition on the farthest one (his
 introduction anticipates replacing finiteness "by a suitable density
@@ -329,15 +337,17 @@ is the edge-concentrated state referred to in §3.
 If the supremum β* is attained by finitely many zeros, the same proof goes
 through with a trial prescribing purely imaginary values ĝ(γ_j) = i c_j at
 every maximising zero (the evaluation map from real even L²[−a, a] onto
-ℂ^k at k zeros with distinct squares is surjective), at the cost of a Gram
+ℂ^k at one representative per quadruple, k zeros with distinct positive
+real parts t_j, is surjective: cos(t_ju)cosh(βu) and sin(t_ju)sinh(βu) are
+linearly independent; a conjugate pair would give only conjugate values), at the cost of a Gram
 constant depending on that finite configuration; I have not written this
 out. If β* is not attained, the trial above at a zero with β₀ > β* − ε
 loses control of the infinitely many zeros with β′ ∈ (β₀, β*), whose
 contributions are bounded only by e^{2εa} times a convergent sum, and the
 argument gives nothing for a → ∞. A Landau-type Ω-argument on the prime
 side would give λ₁(a) ≤ −e^{2(β*−ε)a} along a sequence a_k → ∞; that route
-is classical but was not carried out here. So the general unconditional
-statement proved is Theorem 3 plus the (H₁) case of Theorem 2, and the
+is classical but was not carried out here. So what is proved in
+general is Theorem 3 plus the (H₁) case of Theorem 2, and the
 contrapositive below is stated with (H₁).
 
 **Corollary 4.** If λ₁(a) ≥ −C e^{2ba} for some b < ½, some C, and all large
@@ -348,8 +358,10 @@ under (H₁) and λ₁(a) ≤ −(1 − η(t₀)) e^{2β*a}/(2eβ*)(1 − o(1)).
 intermediate regime. (The lower bound 0 ≤ λ₁ under RH is Weil's criterion
 on smooth probes, extended to the pilot's L² probe class by mollification:
 the pilot's Mollify.lean gives convergence of box averages in L² and in
-archimedean energy, three box averages give a C² probe (`av3_C2`), and
-the pole and prime terms are L²-continuous on probes of fixed support.)
+archimedean energy, three box averages give a C² probe (`av3_C2`,
+TheoremC.lean; the support grows by 3δ/2, harmless since positivity under
+RH holds at every support), and the pole and prime terms are L²-continuous
+on probes of bounded support.)
 
 *Consequence for the computed cells.* At the paper's cells (a ≤ 1.75)
 Theorem 2's trial is not even defined (it needs a ≥ 2), and its bound turns
@@ -403,8 +415,9 @@ and on the dimension count, not on a theorem, and it is offered as such.
 The pilot's round 68 (its `frontier/nullvec/`, after this note's first
 version) measures exactly this from the arithmetic side alone: the
 truncation's energy is the truncation defect, of order (0.03–0.11)·Φ(a)²;
-the ratio R = (Q(φ_a) − λ₁)/(λ₂ − λ₁) grows from 0.04 to 10⁴¹ over δ ∈
-[0.7, 3] while sin²θ falls to 2·10⁻⁴; its own verdict is "The energy route
+the ratio R = (Q(φ_a) − λ₁)/(λ₂ − λ₁), with φ_a the normalised truncation
+of Φ (this note's Φ̃) and θ its angle to the ground state, grows from 0.04
+to 10⁴¹ over δ ∈ [0.7, 3] while sin²θ falls to 2·10⁻⁴; its own verdict is "The energy route
 is dead" and "The L² route survives", and it names the need as "a
 structural reason why the minimiser tracks the null vector Φ away from
 the edges, not a spectral-gap estimate" — the pilot's numbers and words,
@@ -475,8 +488,7 @@ compacts, by the pilot's `norm_ghatC_sub_le`, not conversely). So under RH and H
 D the transform's convergence rate has a mechanism: it is the tail of the
 zeros beyond the dodging horizon. What is unproved is Hypothesis D itself: that the ground state's
 transform vanishes at every zero below a horizon T_D(a) ≍ e^{2a} and has no
-other zero there. The pilot located where RH enters any natural proof of
-convergence ("uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH", README
+other zero there. The pilot located where RH enters the natural proof of convergence ("uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH", README
 round 40); under RH that obstacle is absent, and D becomes a statement in
 approximation theory about the minimiser of a sum of squares over a
 sampling set of near-critical density, with the zeros' separation
@@ -522,8 +534,9 @@ properties (unknown) as the likely technical input.
    not prove RH, and nothing in this note does.
 
 4. **No numerics were run.** The only quantities used are the constants of
-   Theorem 3, the verified height 3·10¹² for the first off-line zero (used
-   to remark that η(t₀) is then negligible and in the cells arithmetic of
-   §2.3), and Backlund's unit-interval zero
+   Theorem 3, the first zero's height (t₀ ≥ 14, used in Step 1 and Step 5
+   for ε₁^∞ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
+   first off-line zero (used to remark that η(t₀) is then negligible and in
+   the cells arithmetic of §2.3), and Backlund's unit-interval zero
    count with an unspecified absolute constant, which enters only the
    a-independent term C₁.

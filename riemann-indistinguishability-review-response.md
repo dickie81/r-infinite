@@ -5808,4 +5808,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the fourteen edits of A540). No tower obligation. Brief `brief_round369.md` (its text also inside the launch prompt). Convergence test on round 368's ten findings (A540).
 
+**Findings.** 0 MAJOR, 1 minor, 8 cosmetic; all verified by the lead and accepted (A541); every round-368 disposition realised; the round-68 citation exact. Minor: F369-1 Bombieri's boundary concentration attached to the supercritical regime (it is his subcritical observation) and identified with Remark (b). Cosmetic: `av3_C2`'s file and the support growth; the scope sentence's "Only"; the first zero's height in the inventory; one "unconditional"; φ_a and θ undefined; the surjectivity remark's conjugate pairs; "any natural proof"; the BV class uncited. **Sweep (round 370):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 pending.
+
+### Round 370 — the convergence test on the round-370 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the nine edits of A541). No tower obligation. Brief `brief_round370.md` (its text also inside the launch prompt). Convergence test on round 369's nine findings (A541).
+
 **Findings.** PENDING.
