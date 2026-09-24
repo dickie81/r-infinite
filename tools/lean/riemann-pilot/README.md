@@ -2582,3 +2582,38 @@ Equivalently (`Ibal_closed`): `I(x) = πx ln X − πx ln 2 − πs ln x + (πs/
 
 What stays conditional is only the transfer to ζ's ground state, the note's (vii)(a)–(d); (a) is RH-strength (round 75).
 
+## Round 77: the whole multiplier in closed form (numerical, `frontier/nullvec/multiplier_closed.py`)
+
+**What round 76 implies.** Write `x = 2 cosh u` and `s = 2 sinh u`. At the wall, the closed form `τ(x) = ln(2x/(x + s))` becomes `ln(1 + e^{−2u})`. The exterior zero deficit is therefore exactly
+
+`ln x − τ(x) = u = arccosh(x/2)`,
+
+the Green's function of the band `[−2, 2]` with its pole at infinity. For a general wall the deficit is `arccosh(x/X) + (x/s)·ln(X/2)`. `X = 2` is the only wall where the second term, whose edge singularity is the admissibility issue, vanishes identically.
+
+**The multiplier.** Summing `ln(1 − z²/r²)` against this deficit, not just its `r⁻²` moment, gives the whole multiplier:
+
+`ln M(z) = −(1/2π)∫_{2T₀}^∞ ln(1 − z²/r²)·arccosh(r/(2T₀)) dr = T₀[w·arcsin w + √(1 − w²) − 1]`,
+
+with `w = z/(2T₀)` and `T₀ = 2πe^δ`.
+- Proof sketch: expand the log. The moments are `∫₁^∞ y^{−2k} arccosh y dy = (√π/2)Γ(k − ½)/((2k − 1)Γ(k))`. The resulting series has second derivative `1/√(1 − w²)`.
+- The formula was checked against direct quadrature at `w = 0.3` and `0.8` to 10⁻¹⁰.
+- Its small-`w` expansion is `z²/(8T₀) + z⁴/(384T₀³) + …`. So the Gaussian `e^{τz²}` with `τ = e^{−δ}/(16π)` is just the first term, and round 69's `γ/(β²/2) → 1` is automatic from scaling: the quartic cumulant is `O(e^{−3δ})`.
+- On the imaginary axis, `ln M(iy) = −T₀[η·arsinh η − √(1 + η²) + 1]`, with `η = y/(2T₀)`. For large `y` this is `≈ −(y/2) ln(y/T₀) + y/2`. That is exactly the factor turning `Ξ`'s growth `(y/2) ln(y/2πe)` into the exponential type `a = δ/2` that a probe supported on `[−a, a]` must have.
+
+**Measured against the ground state** (`explain.py` at `δ = 2` and `δ = 3`; ratio = measured `ln M` / closed form; no fitted parameter):
+
+| `y/y₀` | 0.05 | 0.3 | 1.0 | 2.0 | 5.0 |
+|---|---|---|---|---|---|
+| `δ = 2` | 1.0430 | 1.0407 | 1.0287 | 1.0183 | 1.0083 |
+| `δ = 3` | 1.0149 | 1.0142 | 1.0102 | 1.0066 | 1.0030 |
+
+At `y = 5y₀` the Gaussian is off by a factor of 2: −1112 against a measured −557 at `δ = 2`, and −2956 against −1506 at `δ = 3`. The closed form is within 0.8% and 0.3% there.
+- The small-`y` ratio is the known offset of `τ` itself: `τ_fit·16πe^δ = 1.037` and `1.014`. Round 70's "remainder `≈ −0.0058e^{−δ}`" fits this.
+- The ratio falls with `δ` roughly like `e^{−δ}` at every `y`, and the real axis agrees: 1.043 at `δ = 2` and 1.015 at `δ = 3` for small `x`.
+
+**Reading.**
+- Within the paper's reduced problem, the ground state's transform is `ĝ_a(z)/ĝ_a(0) ≈ (Ξ(z)/Ξ(0))·exp{T₀[w·arcsin w + √(1 − w²) − 1]}`, uniformly over the range tested (up to five times the Paley–Wiener scale `y₀`), with a relative error of order `e^{−δ}`.
+- The heat-flow picture of rounds 70–73 is this formula's small-`w` limit.
+- The edge layer and caustic of round 71 are where `w` stops being small.
+- The formula's inputs remain those of the note's §3.4 (vii): the transfer from the reduced problem to the actual ground state. It is a prediction of the reduced problem that the data confirm. It is not a theorem about ζ, and nothing about RH follows.
+
