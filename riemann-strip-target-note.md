@@ -690,7 +690,10 @@ coefficient of (i); (3.6) then predicts sin²θ · e^{2δ} → (13.98/(16π))² 
 inline list; its table gives 0.0793 at δ = 4.0) "with
 shrinking steps" and its "`C → ≈ 0.077`" (README round 69; its round 73
 declares round 70's δ = 5 row "unreliable", K = 1300 there giving
-"`sin²θ·e^{2δ} = 0.077`") — the pilot's 13.98 and its angles are its
+"`sin²θ·e^{2δ} = 0.077`"; its round 78 converges δ = 5 at K = 1700 and
+finds the sequence 0.0806, 0.0793, 0.0785, 0.0781 at δ = 3.5, 4, 4.5, 5
+with the excess over 0.0774 shrinking like e^{−δ}: "So the data converge
+to `0.0774`") — the pilot's 13.98 and its angles are its
 numbers, not this note's.
 
 **(vi′) Formal status (the pilot's round 74, cited after this note's
@@ -800,7 +803,25 @@ the pilot's sign and about half its size — while the probe's first free
 zero, "within 0.2" of the wall, contributes at the same order with the
 opposite sign; and on the probe side the edge layer the pilot's round 73
 finds necessary. The pilot's remainder is steady across its walls, so a
-fluctuating term alone cannot be it.
+fluctuating term alone cannot be it. *(Added after the pilot's round 80,
+which supplies a candidate, numerically: on the even functions the window
+chain of its round 79 is a diagonal canonical system with "det H = 1 in
+the window variable" — "the Krein–de Branges type formula: exponential
+type = ∫√det H, and the space at window a has type exactly a" — whence
+"c′ = 1/(4ℓ′)" with ℓ = ln K_a(0, 0) and, if the kernels converge,
+"τ(δ) = ∫_δ^∞ du/(4ℓ′(u)) + r′/ℓ′"; "The paper's exponent law ln K₀₀ ≈
+−ln λ₁ ≈ 4πe^δ (f_∞ = 4π) forces τ ≈ e^{−δ}/(16π)", "The O(1) offset
+ℓ′ − 4πe^δ ≈ −4.5 produces the e^{−2δ} correction. Predicted: ≈
+0.0053–0.0057. Measured: 0.0058–0.0062"; the ratio τ_meas/τ_pred
+"1.001–1.007 at every window from δ = 0.5 to 3.1"; quotations adapted
+from the README's notation. This note's reading: the two derivations
+agree because, within the reduced problem, the exponent's derivative
+d(−ln λ₁)/dδ = 4πe^δ equals the wall T = 2T₀ exactly when f(X*) = 2πX*,
+i.e. ln(X*/2) = 0, the maximiser X* = 2 — so 1/(4ℓ′) and this note's
+1/(4T) are one number; and the O(1) offset in ℓ′ is the slope of the
+paper's 1bm(v) residual, "least-squares slope 5.04 per unit δ", against
+the pilot's −4.5. The correction's home is thereby identified
+numerically, on the pilot's side; not derived here.)*
 
 Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
 RH-strength. So this subsection is a consistency statement, not a
@@ -940,8 +961,9 @@ the pilot's 0.093·e^{−4} = 1.70·10⁻³ (README round 69), and 2.0487·10⁻
 at δ = 3 against its table's 2.049·10⁻⁴ at the same K = 400 (README round
 69). At δ = 3 the total resolves only above 100 working
 digits (λ₁ = 4.267·10⁻⁹⁷): the 80-digit run floors at 10⁻⁸⁰ and is used
-for its lines only; a 120-digit run of the same instrument (its log
-`ledger_d3.0_dps120.txt`, pending at this commit) records the total.
+for its lines only; the 120-digit run of the same instrument (its log
+`ledger_d3.0_dps120.txt`) gives Q(g₁) = 4.2669993198998720563·10⁻⁹⁷,
+the Gram's ball value to 20 digits.
 
 **5.2 The numbers.** All lines for normalised profiles; the last column is
 the ground state's line less the projected kernel's.
@@ -1067,6 +1089,43 @@ e^{2β*a}/(2eβ*)(1 − o(1)) under (H₁) (Theorem 2): the dichotomy of
 Corollary 4, on the prime side, is between a least eigenvalue of size
 e^{−2T₀} and one of size e^{2β*a}, with nothing between. This section
 proves neither.
+
+The pilot's rounds 78–79 (landed while this section was computed) name
+the two objects (quotations below adapted from the README's backticked
+notation). Round 78: with K = 1700 at δ = 5, "sin²θ·e^{2δ} = 0.0806,
+0.0793, 0.0785, 0.0781 at δ = 3.5, 4, 4.5, 5", the excess over §3.4's
+(13.98/16π)² = 0.0774 shrinking "like e^{−δ} (≈ 0.10e^{−δ})", "So the data
+converge to 0.0774"; the closeness hypothesis of `rh_of_close_top` is
+"satisfied with a growing margin at every computed window", the ratio of
+distance to threshold falling "like e^{−3a/2}√a", and "no finite
+computation discharges it, because it is a limit statement"; and the heat
+family at δ = 3 gives c_opt = 0.0197318 against the ground state's
+0.020179, so the least-edge-cost member "crosses the ground state's time
+rather than converging to it". Round 79: the windows a > 0 with Weil's
+form Q_a form "a functor into quadratic spaces, with no hypothesis",
+landing in Hilbert spaces up to window a "iff Q_a ≥ 0", and where positive
+"a de Branges chain" (Suzuki: the Hilbert space built from Weil's
+distribution is a de Branges space, and RH is equivalent to the existence
+of a Krein canonical system generating it); "The ground state of Q_a is,
+up to normalisation, the chain's reproducing kernel at z = 0: k₀ = Q_a⁻¹
+ev₀", the two agreeing "to relative order (λ₁/λ₂)² times an overlap ratio"
+(sin²∠ = 4.0·10⁻¹⁴ and 7.4·10⁻¹⁸ at δ = 2, 3); "The chain exists for all a
+iff RH. The reformulation turns global positivity into positivity of a
+Hamiltonian that is local in t." In the terms of this section: the
+near-null vector of the operator inequality is the chain's reproducing
+kernel at the origin, and the inequality itself is the chain's existence
+at window a — the same statement in de Branges' language, with the
+positivity of H(t) as its local form. This note adds nothing to that
+reading; the pilot's own status line stands: "Nothing here removes the
+open input." Its round 80 makes the chain's Hamiltonian explicit on
+the even functions — "diagonal, has determinant 1, and has potential
+½ d/da ln(dK_a(0, 0)/da)", with "q ≈ 4πe^{2a} − 4.5" asymptotically and
+"structure where prime powers enter at a = ½ log pᵏ" — so that, in the
+terms of this section, the operator inequality's certificate at window a
+is the existence of the chain up to a, a positivity that is local in the
+window variable; "RH is equivalent to this chain existing for every a.
+Our numbers describe it where it provably or numerically exists. Nothing
+here shows it exists for all a."
 
 **5.5 Conclusion of the ledger.** The prime side of the truncated form at
 a cell is a fixed, rapidly convergent arithmetic sum dominated by 2 and 3,
