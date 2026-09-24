@@ -6434,7 +6434,8 @@ the coefficient above. At X = 2 the exterior deficit against ζ's
 deviation is ln x − τ(x) = ln((x + s)/2) = arccosh(x/2): the Green
 function of the band [−2, 2] with pole at infinity, restricted to the
 real exterior (an identity the pilot's README round 77 records; its
-x⁻² moment is ∫₂^∞ arccosh(x/2) x⁻² dx = π/4). The exterior potential is exactly −2π and the interior
+x⁻² moment is ∫₂^∞ arccosh(x/2) x⁻² dx = π/4, by parts and then
+∫₂^∞ dx/(x√(x² − 4)) = ½ arcsec(x/2)|₂^∞ = π/4). The exterior potential is exactly −2π and the interior
 potential falls monotonically from 0 to −2π (both gated live on the
 exact kernel: the exterior value within 3×10⁻³ at five points, the
 monotonicity at twelve interior points). So, *within
@@ -6576,8 +6577,9 @@ the Weil form cited in this clause derives a decay law for λ₁ or
 states the finite-δ formula (Fuchs' Theorem 1, quoted through CCM and
 Connes, is the prolate's). Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
-plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
-semiclassics; no cascade quantity derived). Check 8 clean (no
+plane, balayage, the maximum principle, Euler–Maclaurin, and, since the
+round-381 landing, Euler's series for ln sin and Poisson's kernel —
+classical; no semiclassics; no cascade quantity derived). Check 8 clean (no
 hypothesis input; Riemann-side pure mathematics). Substrate
 `slack_law_flint.py` committed, imported, and content-addressed into
 the verifier's keys (`cascade_slack_law.py`, tower member 22, the top)
