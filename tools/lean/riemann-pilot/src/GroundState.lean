@@ -141,8 +141,8 @@ theorem Probe.intervalIntegrable {a : ℝ} {g : ℝ → ℝ} (hadm : Probe a g) 
   memLp_intervalIntegrable hadm.memL2 _ _
 
 /-- **Roadmap item 1 ⇒ `RiemannHypothesis`, for the ground states of Weil's form.** Let `g_n` be a
-ground state of `Q` at support `2a_n`, with `∫g_n ≠ 0`. If `ĝ_n` is real-rooted, satisfies dodging D
-(`η_n → 0`, `T_D(n) → ∞`) and its curvature `∫u²g_n/(2∫g_n)` converges to `Ξ`'s `Re Σ γ⁻²`, then RH. -/
+ground state of `Q` at support `2a_n`, with `∫g_n ≠ 0`. If `ĝ_n` is real-rooted and satisfies dodging D
+(`η_n → 0`, `T_D(n) → ∞`), then RH. (Round 10's curvature hypothesis is not needed: round 66.) -/
 theorem rh_of_groundStates_dodging {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 ≤ a n)
     (hgs : ∀ n, IsGroundState (a n) (g n))
     (hg0 : ∀ n, (∫ u in (-(a n))..(a n), g n u) ≠ 0)
@@ -151,13 +151,10 @@ theorem rh_of_groundStates_dodging {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (
     (hD : ∀ n, ∃ (p : ZeroIdx (sqF (ghatC (g n) (a n))) → Prop)
       (e : {i // p i} ≃ {j : ZeroIdx (sqF Xi) // t n < ‖j.1⁻¹‖}),
       (∑' i : {i // p i}, ‖i.1.1⁻¹ - (e i).1.1⁻¹‖) ≤ η n)
-    (hη : Tendsto η atTop (𝓝 0)) (ht : Tendsto t atTop (𝓝 0))
-    (hκ : Tendsto (fun n => (∫ u in (-(a n))..(a n), u ^ 2 * g n u)
-        / (2 * ∫ u in (-(a n))..(a n), g n u))
-      atTop (𝓝 (∑' j : ZeroIdx (sqF Xi), j.1⁻¹).re)) :
+    (hη : Tendsto η atTop (𝓝 0)) (ht : Tendsto t atTop (𝓝 0)) :
     RiemannHypothesis :=
-  rh_of_dodging_and_curvature_final ha (fun n => (hgs n).1.intervalIntegrable)
-    (fun n => (hgs n).1.even) hg0 hRR hD hη ht hκ
+  rh_of_dodging_final ha (fun n => (hgs n).1.intervalIntegrable)
+    (fun n => (hgs n).1.even) hg0 hRR hD hη ht
 
 end Pilot1ca
 

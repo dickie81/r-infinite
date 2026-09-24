@@ -1,20 +1,18 @@
 import Mathlib
 import XiBounds
 
-/-! # Dodging D and the curvature sum rule
+/-! # Dodging D, and the curvature sum rule
 
-Two changes to the chain of `rh_of_D_and_realRooted_final`:
-
-* **Approximate D.** The paper's own census finds D only "to the dodging tolerance, not exactly"
-  (Theorem 1bu(ii)): the ground state's zeros sit near the zeta zeros, not on them. Exact D is
-  replaced by a *dodging* hypothesis: every zero of `Ξ` below `T_D(n)` is matched with its own zero
-  of `ĝ_n`, with total displacement `Σ|τ⁻² − γ⁻²| ≤ η_n → 0`. Nothing is assumed about the other
-  zeros of `ĝ_n`.
+* **Dodging D alone gives RH (`rh_of_dodging`, `rh_of_dodging_final`).** The paper's census finds D
+  only "to the dodging tolerance, not exactly" (Theorem 1bu(ii)): every zero of `Ξ` below `T_D(n)` is
+  matched with its own zero of `ĝ_n`, with total displacement `Σ|τ⁻² − γ⁻²| ≤ η_n → 0`. If `ĝ_n` is
+  real-rooted, each of its parameters `τ⁻²` is a non-negative real (`HadamardW.nonneg_real`), so each
+  `γ_j⁻²`, being eventually matched within `η_n`, is one too, and every zero of `Ξ` is real
+  (`rh_of_Xi_params`). Nothing about `ĝ_n`'s unmatched zeros, and no convergence `ĝ_n → Ξ`, is used.
 * **The curvature sum rule.** For a real-rooted `ĝ` of an even integrable `g`,
-  `Σ_τ τ⁻² = ∫u²g / (2∫g)` (`ghat_sum_rule`). The uniform bound `Σ τ⁻² ≤ B` and the tails `ε → 0`
-  are replaced by one scalar condition: the curvature `κ_n = ∫u²g_n / (2∫g_n)` of the ground states
-  converges to `Ξ`'s, `Re Σ_ρ-pairs γ⁻²` (the `z²` coefficient of `Ξ(z)/Ξ(0)`, `0.023105`). Under this,
-  "and no other zero below `T_D`" is a consequence, not a hypothesis.
+  `Σ_τ τ⁻² = ∫u²g / (2∫g)` (`ghat_sum_rule`, `ghat_curvature`). Round 10 used it as a hypothesis on
+  the chain (the curvature of the ground states converging to `Ξ`'s); round 66 shows the chain does
+  not need it.
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
@@ -23,155 +21,99 @@ noncomputable section
 
 namespace Pilot1ca
 
-/-! ## A. Pairings from a matching -/
+/-! ## A. Dodging D alone gives RH -/
 
-/-- **A matching gives a pairing.** Match the entries `p` of `w` to the entries `q` of `v` by `e`, and
-pair each unmatched entry with padding: the pairing error is the matched displacement plus the two
-unmatched sums. (`pairing_of_D` is the case of exact matching below a threshold.) -/
-theorem pairing_of_matching {ι κ : Type*} {f g : ℂ → ℂ} {w : ι → ℂ} {v : κ → ℂ}
-    (hf : HadamardW f w) (hg : HadamardW g v) (p : ι → Prop) (q : κ → Prop)
-    (e : {i // p i} ≃ {j // q j}) :
-    ∃ (P : Type (max u_1 u_2)) (w' v' : P → ℂ), HadamardW f w' ∧ HadamardW g v' ∧
-      (∑' x, ‖w' x‖) = ∑' i, ‖w i‖ ∧
-      (∑' x, ‖w' x - v' x‖) ≤ (∑' i : {i // p i}, ‖w i - v (e i)‖) +
-        ((∑' i : {i // ¬ p i}, ‖w i‖) + ∑' j : {j // ¬ q j}, ‖v j‖) := by
-  classical
-  let Sw := {i // p i}
-  let Swc := {i // ¬ p i}
-  let Svc := {j // ¬ q j}
-  let E1 : Sw ⊕ (Swc ⊕ Svc) ≃ ι ⊕ Svc :=
-    (Equiv.sumAssoc Sw Swc Svc).symm.trans
-      (Equiv.sumCongr (Equiv.sumCompl p) (Equiv.refl _))
-  let E2 : Sw ⊕ (Swc ⊕ Svc) ≃ κ ⊕ Swc :=
-    ((Equiv.sumCongr (Equiv.refl Sw) (Equiv.sumComm Swc Svc)).trans
-      (Equiv.sumAssoc Sw Svc Swc).symm).trans
-      (Equiv.sumCongr ((Equiv.sumCongr e (Equiv.refl _)).trans
-        (Equiv.sumCompl q)) (Equiv.refl _))
-  let w' := (Sum.elim w (fun _ : Svc => (0 : ℂ))) ∘ E1
-  let v' := (Sum.elim v (fun _ : Swc => (0 : ℂ))) ∘ E2
-  have hw' : HadamardW f w' := (hf.pad Svc).comp_equiv E1
-  have hv' : HadamardW g v' := (hg.pad Swc).comp_equiv E2
-  refine ⟨_, w', v', hw', hv', ?_, ?_⟩
-  · have h1 : (∑' x, ‖w' x‖) = ∑' y : ι ⊕ Svc, ‖Sum.elim w (fun _ : Svc => (0 : ℂ)) y‖ :=
-      E1.tsum_eq (fun y => ‖Sum.elim w (fun _ : Svc => (0 : ℂ)) y‖)
-    rw [h1, Summable.tsum_sum (f := fun y => ‖Sum.elim w (fun _ : Svc => (0 : ℂ)) y‖)
-      (show Summable fun i => ‖w i‖ from hf.summ)
-      (show Summable fun _ : Svc => ‖(0 : ℂ)‖ by simp)]
-    simp
-  · have hws : Summable fun i : Swc => ‖w i‖ := hf.summ.subtype _
-    have hvs : Summable fun j : Svc => ‖v j‖ := hg.summ.subtype _
-    have hms : Summable fun i : Sw => ‖w i - v (e i)‖ := by
-      have h1 : Summable fun i : Sw => ‖w i‖ := hf.summ.subtype _
-      have h2 : Summable fun i : Sw => ‖v (e i)‖ :=
-        (e.summable_iff (f := fun j : {j // q j} => ‖v j‖)).2 (hg.summ.subtype _)
-      exact (h1.add h2).of_nonneg_of_le (fun _ => norm_nonneg _) (fun _ => norm_sub_le _ _)
-    set bnd : Sw ⊕ (Swc ⊕ Svc) → ℝ :=
-      Sum.elim (fun i => ‖w i - v (e i)‖) (Sum.elim (fun i => ‖w i‖) (fun j => ‖v j‖)) with hbnd
-    have hbs : HasSum bnd ((∑' i : Sw, ‖w i - v (e i)‖) +
-        ((∑' i : Swc, ‖w i‖) + ∑' j : Svc, ‖v j‖)) :=
-      HasSum.sum (f := bnd) (show HasSum (fun i : Sw => ‖w i - v (e i)‖) _ from hms.hasSum)
-        (HasSum.sum (f := bnd ∘ Sum.inr) (show HasSum (fun i : Swc => ‖w i‖) _ from hws.hasSum)
-          (show HasSum (fun j : Svc => ‖v j‖) _ from hvs.hasSum))
-    have hpt : ∀ x, ‖w' x - v' x‖ ≤ bnd x := by
-      rintro (i | i | j)
-      · simp [w', v', E1, E2, bnd]; try exact le_rfl
-      · simp [w', v', E1, E2, bnd]; try exact le_rfl
-      · simp [w', v', E1, E2, bnd]; try exact le_rfl
-    have hsum : Summable fun x => ‖w' x - v' x‖ :=
-      (hw'.summ.add hv'.summ).of_nonneg_of_le (fun _ => norm_nonneg _) (fun x => norm_sub_le _ _)
-    calc (∑' x, ‖w' x - v' x‖) ≤ ∑' x, bnd x := hsum.tsum_le_tsum hpt hbs.summable
-      _ = _ := hbs.tsum_eq
+/-- A product with a zero factor is zero. -/
+theorem hasProd_eq_zero_of_eq_zero {ι : Type*} {f : ι → ℂ} {p : ℂ} (h : HasProd f p) {i : ι}
+    (hi : f i = 0) : p = 0 := by
+  refine tendsto_nhds_unique h (tendsto_const_nhds.congr' ?_)
+  filter_upwards [eventually_ge_atTop {i}] with s hs
+  exact (Finset.prod_eq_zero (Finset.singleton_subset_iff.1 hs) hi).symm
 
-/-- The part of a summable list above a threshold `t → 0` exhausts it. -/
-theorem tendsto_tsum_above {κ : Type*} {v : κ → ℂ} {t : ℕ → ℝ} (ht : Tendsto t atTop (𝓝 0)) :
-    Tendsto (fun n => ∑' j : {j // t n < ‖v j‖}, ‖v j‖) atTop (𝓝 (∑' j, ‖v j‖)) ∨
-      ¬ Summable (fun j => ‖v j‖) := by
-  by_cases hv : Summable fun j => ‖v j‖
-  swap
-  · exact Or.inr hv
-  left
-  have e : ∀ n, (∑' j : {j // t n < ‖v j‖}, ‖v j‖)
-      = ∑' j, ({j | t n < ‖v j‖} : Set κ).indicator (fun j => ‖v j‖) j :=
-    fun n => tsum_subtype ({j | t n < ‖v j‖} : Set κ) (fun j => ‖v j‖)
-  simp_rw [e]
-  refine tendsto_tsum_of_dominated_convergence hv (fun j => ?_) (Eventually.of_forall fun n j => ?_)
-  · by_cases hj : ‖v j‖ = 0
-    · have : ∀ n, ({j | t n < ‖v j‖} : Set κ).indicator (fun j => ‖v j‖) j = ‖v j‖ := by
-        intro n; simp [Set.indicator_apply, hj]
-      simp only [this]; exact tendsto_const_nhds
-    · have hpos : 0 < ‖v j‖ := lt_of_le_of_ne (norm_nonneg _) (Ne.symm hj)
-      refine tendsto_const_nhds.congr' ?_
-      filter_upwards [ht.eventually (gt_mem_nhds hpos)] with n hn
-      simp [hn]
-  · rw [Real.norm_eq_abs, Set.indicator_apply]
-    split_ifs <;> simp
+/-- **Real roots give real parameters.** If every zero of `f` is real, every parameter `w_i` of a
+factorisation `f(z)/f(0) = ∏(1 − z²w_i)` is a non-negative real: `w_i ≠ 0` puts a zero at
+`z = w_i^{−1/2}`. -/
+theorem HadamardW.nonneg_real {ι : Type*} {f : ℂ → ℂ} {w : ι → ℂ} (h : HadamardW f w)
+    (hRR : ∀ z, f z = 0 → z.im = 0) (i : ι) : (w i).im = 0 ∧ 0 ≤ (w i).re := by
+  by_cases hw : w i = 0
+  · simp [hw]
+  obtain ⟨z, hz⟩ := IsAlgClosed.exists_pow_nat_eq (w i)⁻¹ two_pos
+  have hfz : f z = 0 := by
+    have h0 := hasProd_eq_zero_of_eq_zero (h.prod z) (i := i) (by rw [hz, inv_mul_cancel₀ hw, sub_self])
+    exact (div_eq_zero_iff.1 h0).resolve_right h.f0
+  obtain ⟨x, rfl⟩ : ∃ x : ℝ, z = x := ⟨z.re, Complex.ext rfl (by simp [hRR z hfz])⟩
+  have hwx : w i = ((x ^ 2)⁻¹ : ℝ) := by
+    rw [← inv_inv (w i), ← hz]; push_cast; rfl
+  rw [hwx, Complex.ofReal_im, Complex.ofReal_re]
+  exact ⟨rfl, by positivity⟩
 
-/-- **The chain with dodging D and the curvature condition.** Ground states whose transforms are
-real-rooted, such that below `T_D(n)` (`t n = T_D(n)⁻²`, `t → 0`) every zero of `Ξ` is matched with its
-own zero of `ĝ_n` within total displacement `η_n → 0`, and whose curvature `Σ_τ τ⁻²` converges to
-`Ξ`'s `Re Σ γ⁻²`, give Mathlib's `RiemannHypothesis`. -/
-theorem rh_of_dodging_and_curvature {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ}
-    (hint : ∀ n, IntervalIntegrable (g n) MeasureTheory.volume (-(a n)) (a n))
-    (hRR : ∀ n, RealRooted (a n) (g n))
+/-- **RH from real parameters.** If every parameter of a factorisation of `Ξ` is a non-negative
+real, every zero of `Ξ` is real: the product converges absolutely, so it vanishes only at a vanishing
+factor, and `z²v_j = 1` with `v_j > 0` forces `z` real. -/
+theorem rh_of_Xi_params {κ : Type*} {v : κ → ℂ} (hX : HadamardW Xi v)
+    (hv : ∀ j, (v j).im = 0 ∧ 0 ≤ (v j).re) : RiemannHypothesis := by
+  have hreal : ∀ z, Xi z = 0 → z.im = 0 := by
+    intro z hz
+    by_contra him
+    have hne : ∀ j, 1 + -(z ^ 2 * v j) ≠ 0 := by
+      intro j hj
+      have h1 : z ^ 2 * v j = 1 := by linear_combination -hj
+      have hvr : v j = ((v j).re : ℂ) := Complex.ext rfl (by simp [(hv j).1])
+      rw [hvr] at h1
+      have hre := congrArg Complex.re h1
+      have him' := congrArg Complex.im h1
+      simp only [pow_two, Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+        Complex.one_re, Complex.one_im, mul_zero, sub_zero] at hre him'
+      have hr : (v j).re ≠ 0 := fun h => by rw [h, mul_zero] at hre; exact zero_ne_one hre
+      have hzre : z.re = 0 := by
+        have : (z.re * z.im) * (2 * (v j).re) = 0 := by linarith
+        rcases mul_eq_zero.1 this with h | h
+        · exact (mul_eq_zero.1 h).resolve_right him
+        · exact absurd (by linarith : (v j).re = 0) hr
+      rw [hzre] at hre
+      nlinarith [sq_nonneg z.im, (hv j).2]
+    have := tprod_one_add_ne_zero_of_summable hne (summable_scaled hX.summ z)
+    rw [← hX.eq_tprod z, hz, zero_div] at this
+    exact this rfl
+  intro s hs htriv _
+  apply re_eq_half_of_Xi_real
+  apply hreal
+  rw [Xi_at_ordinate, xi_eq_zero_of_nontrivial ⟨hs, htriv⟩]
+
+/-- **Dodging D and real-rootedness alone give RH.** No curvature condition and no convergence
+`ĝ_n → Ξ`: each parameter `v_j = γ_j⁻²` of `Ξ` is eventually matched, within `η_n → 0`, to a
+parameter of a real-rooted `ĝ_n`, which is a non-negative real, so `v_j` is one too. -/
+theorem rh_of_dodging {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (hRR : ∀ n, RealRooted (a n) (g n))
     {ι : ℕ → Type} {κ : Type} {w : ∀ n, ι n → ℂ} {v : κ → ℂ}
     (hF : ∀ n, HadamardW (ghatC (g n) (a n)) (w n)) (hX : HadamardW Xi v)
     {t η : ℕ → ℝ}
     (hD : ∀ n, ∃ (p : ι n → Prop) (e : {i // p i} ≃ {j // t n < ‖v j‖}),
       (∑' i : {i // p i}, ‖w n i - v (e i)‖) ≤ η n)
-    (hη : Tendsto η atTop (𝓝 0)) (ht : Tendsto t atTop (𝓝 0))
-    (hκ : Tendsto (fun n => ∑' i, ‖w n i‖) atTop (𝓝 (∑' j, v j).re)) :
+    (hη : Tendsto η atTop (𝓝 0)) (ht : Tendsto t atTop (𝓝 0)) :
     RiemannHypothesis := by
-  choose p e he using hD
-  set K := ∑' j, ‖v j‖ with hK
-  set K' := (∑' j, v j).re with hK'
-  have hKK : K' ≤ K := (Complex.re_le_norm _).trans (norm_tsum_le_tsum_norm hX.summ)
-  set Sv : ℕ → ℝ := fun n => ∑' j : {j // t n < ‖v j‖}, ‖v j‖ with hSv
-  have hSvK : Tendsto Sv atTop (𝓝 K) :=
-    (tendsto_tsum_above (v := v) ht).resolve_right (not_not.2 hX.summ)
-  -- the pairings and their errors
-  choose P w' v' hw' hv' hsw hcost using fun n => pairing_of_matching (hF n) hX (p n) _ (e n)
-  set θ : ℕ → ℝ := fun n => η n + (((∑' i, ‖w n i‖) - Sv n + η n) + (K - Sv n)) with hθ
-  have hθb : ∀ n, (∑' x, ‖w' n x - v' n x‖) ≤ θ n := by
-    intro n
-    have hsp : Summable fun i : {i // p n i} => ‖w n i‖ := (hF n).summ.subtype _
-    have hmatch : Summable fun i : {i // p n i} => ‖w n i - v (e n i)‖ := by
-      have h2 : Summable fun i : {i // p n i} => ‖v (e n i)‖ :=
-        ((e n).summable_iff (f := fun j : {j // t n < ‖v j‖} => ‖v j‖)).2 (hX.summ.subtype _)
-      exact (hsp.add h2).of_nonneg_of_le (fun _ => norm_nonneg _) (fun _ => norm_sub_le _ _)
-    -- `Sv ≤ Σ_p ‖w‖ + η`
-    have hSvle : Sv n ≤ (∑' i : {i // p n i}, ‖w n i‖) + η n := by
-      have h1 : Sv n = ∑' i : {i // p n i}, ‖v (e n i)‖ :=
-        ((e n).tsum_eq (fun j : {j // t n < ‖v j‖} => ‖v j‖)).symm
-      rw [h1]
-      calc (∑' i : {i // p n i}, ‖v (e n i)‖)
-          ≤ ∑' i : {i // p n i}, (‖w n i‖ + ‖w n i - v (e n i)‖) :=
-            ((e n).summable_iff (f := fun j : {j // t n < ‖v j‖} => ‖v j‖)).2
-              (hX.summ.subtype _) |>.tsum_le_tsum (fun i => by
-                have := norm_sub_norm_le (v (e n i)) (w n i)
-                rw [norm_sub_rev (v (e n i))] at this; linarith) (hsp.add hmatch)
-        _ = (∑' i : {i // p n i}, ‖w n i‖) + ∑' i : {i // p n i}, ‖w n i - v (e n i)‖ :=
-            hsp.tsum_add hmatch
-        _ ≤ _ := add_le_add le_rfl (he n)
-    -- the unmatched sums
-    have hsplitW : (∑' i : {i // p n i}, ‖w n i‖) + (∑' i : {i // ¬ p n i}, ‖w n i‖)
-        = ∑' i, ‖w n i‖ :=
-      (hF n).summ.tsum_subtype_add_tsum_subtype_compl {i | p n i}
-    have hsplitV : Sv n + (∑' j : {j // ¬ t n < ‖v j‖}, ‖v j‖) = K :=
-      hX.summ.tsum_subtype_add_tsum_subtype_compl {j | t n < ‖v j‖}
-    refine (hcost n).trans ?_
-    simp only [hθ]
-    linarith [he n]
-  have hθ0' : Tendsto θ atTop (𝓝 (0 + ((K' - K + 0) + (K - K)))) :=
-    hη.add (((hκ.sub hSvK).add hη).add (tendsto_const_nhds.sub hSvK))
-  have hθnn : ∀ n, 0 ≤ θ n := fun n =>
-    (tsum_nonneg fun _ => norm_nonneg _).trans (hθb n)
-  have hge : 0 ≤ 0 + ((K' - K + 0) + (K - K)) := ge_of_tendsto' hθ0' hθnn
-  have hθ0 : Tendsto θ atTop (𝓝 0) := by
-    have : 0 + ((K' - K + 0) + (K - K)) = 0 := by linarith
-    rwa [this] at hθ0'
-  obtain ⟨B, hB⟩ := hκ.bddAbove_range
-  exact rh_of_pairing_and_realRooted hint hRR hw' (fun n => hv' n)
-    (fun n => (hsw n).le.trans (hB ⟨n, rfl⟩)) hθb hθ0
+  refine rh_of_Xi_params hX fun j => ?_
+  by_cases hj : v j = 0
+  · simp [hj]
+  set C : Set ℂ := {z | z.im = 0 ∧ 0 ≤ z.re}
+  have hC : IsClosed C := (isClosed_eq Complex.continuous_im continuous_const).inter
+    (isClosed_le continuous_const Complex.continuous_re)
+  have hev : ∀ᶠ n in atTop, ∃ x ∈ C, dist (v j) x ≤ η n := by
+    filter_upwards [ht.eventually (gt_mem_nhds (norm_pos_iff.2 hj))] with n hn
+    obtain ⟨p, e, he⟩ := hD n
+    set i := e.symm ⟨j, hn⟩
+    have hei : (e i : κ) = j := by simp [i]
+    have hs : Summable fun i : {i // p i} => ‖w n i - v (e i)‖ := by
+      have h2 : Summable fun i : {i // p i} => ‖v (e i)‖ :=
+        (e.summable_iff (f := fun j : {j // t n < ‖v j‖} => ‖v j‖)).2 (hX.summ.subtype _)
+      exact (((hF n).summ.subtype _).add h2).of_nonneg_of_le (fun _ => norm_nonneg _)
+        (fun _ => norm_sub_le _ _)
+    refine ⟨w n i, (hF n).nonneg_real (hRR n) i, ?_⟩
+    rw [dist_eq_norm, norm_sub_rev, ← hei]
+    exact (hs.le_tsum i fun _ _ => norm_nonneg _).trans he
+  have hmem : v j ∈ closure C := Metric.mem_closure_iff.2 fun ε hε => by
+    obtain ⟨n, ⟨x, hx, hd⟩, hn⟩ := (hev.and (hη.eventually (gt_mem_nhds hε))).exists
+    exact ⟨x, hx, hd.trans_lt hn⟩
+  rwa [hC.closure_eq] at hmem
 
 /-! ## B. The curvature sum rule -/
 
@@ -462,16 +404,15 @@ theorem xi_expansion (z : ℂ)
       ≤ (‖z‖ ^ 2 * ∑' j : ZeroIdx (sqF Xi), ‖j.1⁻¹‖) ^ 2 :=
   (hadamardW_Xi xiGrowth Xi_zero_ne_zero).expansion z hz
 
-/-! ## C. The chain in its final form -/
+/-! ## C. The chain for the explicit factorisations -/
 
-/-- **Roadmap item 1 ⇒ `RiemannHypothesis`, with dodging D and the curvature condition.**
+/-- **Roadmap item 1 ⇒ `RiemannHypothesis`, with dodging D alone.**
 For even integrable ground states `g_n` on `[−a_n, a_n]` with `∫g_n ≠ 0`:
 * `ĝ_n` real-rooted (item 1(b));
 * dodging D (item 1(a), to tolerance): below `T_D(n)` (`t n = T_D(n)⁻²`, `t → 0`), every zero of `Ξ`
-  is matched with its own zero of `ĝ_n`, the matched `|τ⁻² − γ⁻²|` summing to `η_n → 0`;
-* the curvature `κ_n = ∫u²g_n / (2∫g_n)` converges to `Ξ`'s, `Re Σ_j γ_j⁻²`.
-No bound on `Σ τ⁻²`, no tail condition, and nothing about `ĝ_n`'s unmatched zeros is assumed. -/
-theorem rh_of_dodging_and_curvature_final {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 ≤ a n)
+  is matched with its own zero of `ĝ_n`, the matched `|τ⁻² − γ⁻²|` summing to `η_n → 0`.
+Nothing about `ĝ_n`'s unmatched zeros, and no curvature condition, is assumed. -/
+theorem rh_of_dodging_final {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 ≤ a n)
     (hint : ∀ n, IntervalIntegrable (g n) volume (-(a n)) (a n))
     (heven : ∀ n u, g n (-u) = g n u) (hg0 : ∀ n, (∫ u in (-(a n))..(a n), g n u) ≠ 0)
     (hRR : ∀ n, RealRooted (a n) (g n))
@@ -479,28 +420,24 @@ theorem rh_of_dodging_and_curvature_final {a : ℕ → ℝ} {g : ℕ → ℝ →
     (hD : ∀ n, ∃ (p : ZeroIdx (sqF (ghatC (g n) (a n))) → Prop)
       (e : {i // p i} ≃ {j : ZeroIdx (sqF Xi) // t n < ‖j.1⁻¹‖}),
       (∑' i : {i // p i}, ‖i.1.1⁻¹ - (e i).1.1⁻¹‖) ≤ η n)
-    (hη : Tendsto η atTop (𝓝 0)) (ht : Tendsto t atTop (𝓝 0))
-    (hκ : Tendsto (fun n => (∫ u in (-(a n))..(a n), u ^ 2 * g n u)
-        / (2 * ∫ u in (-(a n))..(a n), g n u))
-      atTop (𝓝 (∑' j : ZeroIdx (sqF Xi), j.1⁻¹).re)) :
+    (hη : Tendsto η atTop (𝓝 0)) (ht : Tendsto t atTop (𝓝 0)) :
     RiemannHypothesis := by
   have h0 : ∀ n, ghatC (g n) (a n) 0 ≠ 0 := fun n => by
     rw [ghatC_zero]; exact_mod_cast hg0 n
-  exact rh_of_dodging_and_curvature hint hRR
+  exact rh_of_dodging hRR
     (w := fun n (i : ZeroIdx (sqF (ghatC (g n) (a n)))) => i.1⁻¹)
     (v := fun j : ZeroIdx (sqF Xi) => j.1⁻¹)
     (fun n => hadamardW_ghat (ha n) (hint n) (heven n) (h0 n))
     (hadamardW_Xi xiGrowth Xi_zero_ne_zero) hD hη ht
-    (hκ.congr fun n => (ghat_curvature (ha n) (hint n) (heven n) (h0 n) (hRR n)).symm)
 
 end Pilot1ca
 
-#print axioms Pilot1ca.pairing_of_matching
-#print axioms Pilot1ca.tendsto_tsum_above
-#print axioms Pilot1ca.rh_of_dodging_and_curvature
+#print axioms Pilot1ca.HadamardW.nonneg_real
+#print axioms Pilot1ca.rh_of_Xi_params
+#print axioms Pilot1ca.rh_of_dodging
 #print axioms Pilot1ca.HadamardW.expansion
 #print axioms Pilot1ca.ghat_expansion
 #print axioms Pilot1ca.ghat_sum_rule
 #print axioms Pilot1ca.ghat_curvature
 #print axioms Pilot1ca.xi_expansion
-#print axioms Pilot1ca.rh_of_dodging_and_curvature_final
+#print axioms Pilot1ca.rh_of_dodging_final

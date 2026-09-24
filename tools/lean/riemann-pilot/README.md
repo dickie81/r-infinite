@@ -22,8 +22,8 @@ Every file ends with `#print axioms`. All 362 checked theorems depend only on `p
 | `Hadamard.lean` | 776 | Hadamard's factorisation in genus zero, proved from Mathlib |
 | `HadamardApply.lean` | 198 | Hadamard for even functions; applied to `ĝ` and `Ξ`; the chain to RH |
 | `XiBounds.lean` | 378 | `XiGrowth`, proved; the chain to RH with no `Ξ` inputs (`Ξ(0) ≠ 0` now comes from `Φ > 0`) |
-| `Curvature.lean` | 506 | dodging D and the curvature sum rule; the chain to RH in its final form |
-| `GroundState.lean` | 170 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
+| `Curvature.lean` | 443 | **dodging D and real-rootedness alone give RH** (`rh_of_dodging`); the curvature sum rule |
+| `GroundState.lean` | 167 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
 | `Existence.lean` | 494 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
 | `GroundStateExists.lean` | 453 | existence, stage 3: **a ground state of Weil's form exists at every support** |
@@ -419,7 +419,7 @@ Two changes to the hypotheses of the round-9 chain.
 - `T_D(n) → ∞`;
 - nothing is assumed about the other zeros of `ĝ_n`.
 
-`pairing_of_matching` turns any such matching into a pairing whose error is the matched displacement plus the two unmatched sums. `pairing_of_D` is the special case of an exact match.
+`pairing_of_matching` *(removed in round 66, no longer needed)* turns any such matching into a pairing whose error is the matched displacement plus the two unmatched sums. `pairing_of_D` is the special case of an exact match.
 
 **The curvature sum rule.** `ghat_sum_rule`: for even integrable `g` with `∫g ≠ 0`, `Σ_τ τ⁻² = ∫u²g / (2∫g)`, summed over the zero pairs of `ĝ`. It is proved by comparing two second-order expansions at small real `x`:
 
@@ -430,7 +430,7 @@ Two changes to the hypotheses of the round-9 chain.
 | `ghat_curvature` | real-rooted case: each term `τ⁻²` is a positive real, so `Σ‖τ⁻²‖ = ∫u²g / (2∫g)` |
 | `xi_expansion` | `Ξ(z)/Ξ(0) = 1 − z²Σ_jγ_j⁻² + O(‖z‖⁴)`, so the target `Σ_jγ_j⁻²` is `Ξ`'s curvature, `−Ξ″(0)/(2Ξ(0)) = 0.023105` in the paper |
 
-**`rh_of_dodging_and_curvature_final`.** Roadmap item 1 ⇒ `RiemannHypothesis`, with hypotheses:
+**`rh_of_dodging_and_curvature_final`.** *(Round 66: removed. `rh_of_dodging_final` proves the same conclusion without the curvature hypothesis.)* Roadmap item 1 ⇒ `RiemannHypothesis`, with hypotheses:
 
 - `g_n` even and integrable on `[−a_n, a_n]`, with `∫g_n ≠ 0`;
 - `ĝ_n` real-rooted;
@@ -682,6 +682,8 @@ The `δ = 1.0` value `0.0119` reproduces the paper's "λ₂ of the pole-free eve
 So with elementary means the pilot's certified frontier is `a = 0.36`. The Fourier method's ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. Beyond that the gap remains, in the ratio `λ_⊥/λ₁ ≥ 10⁴`, but its absolute size falls below `10⁻³` by `a ≈ 0.55` and far below after. Certifying it there is the paper's own high-precision regime, not a limit of the mathematics.
 
 ## Round 22: testing the chain's hypotheses on ground states (numerical, `frontier/hrr_test.py`, `frontier/hrr2.py`)
+
+*(Round 66: `hκ` is no longer a hypothesis of `rh_of_groundStates_dodging`. The curvature numbers below and in round 23 remain evidence about the ground states, not about the chain.)*
 
 *(**Retracted in round 23.** The states tested here were not the ground states. The double-precision step-function discretisation misses the true ground state by up to 23 orders of magnitude in energy. The "`hκ` fails" conclusion is withdrawn. See round 23.)*
 
@@ -2253,3 +2255,24 @@ To make this possible, RiemannKernel.lean now imports only `Roadmap.lean` and bu
   * `rh_of_eventually_simple'` (ZeroCount). Its content is `gdim_le_one_of_simple` plus the `M = 1` case of the zero count.
 
 **A correction to round 10.** Round 10 said the curvature condition is "a statement about the second moment of the ground states, with no zero locations in it." Alone, that is true. But `rh_of_dodging_and_curvature` proves RH by showing that dodging D (`hD`) and the curvature limit (`hκ`) **together** force `Re Σ_j v_j ≥ Σ_j ‖v_j‖` (the step `hge` in Curvature.lean). Since `Re Σ v ≤ Σ‖v‖` always, this is equality, and equality holds only if every `v_j` (the `γ_j⁻²` of `Ξ`'s zeros) is a positive real, i.e. every `γ_j` is real. So the pair of hypotheses cannot hold unless RH does. The round-10 text is annotated.
+
+## Round 66: dodging D alone gives RH (Curvature.lean)
+
+Round 65's analysis found that the curvature hypothesis `hκ` of round 10's chain does no work toward RH. It is now removed from the chain. `rh_of_groundStates_dodging` concludes `RiemannHypothesis` from real-rootedness (`hRR`) and dodging D (`hD`, `η_n → 0`, `T_D(n) → ∞`) alone. The new proofs use the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | content |
+|---|---|
+| `hasProd_eq_zero_of_eq_zero` | a product with a zero factor is zero |
+| `HadamardW.nonneg_real` | **real roots give real parameters.** If every zero of `f` is real, every parameter `w_i` of `f(z)/f(0) = ∏(1 − z²w_i)` is a non-negative real: `w_i ≠ 0` puts a zero at `z = w_i^{−1/2}` |
+| `rh_of_Xi_params` | **RH from real parameters.** If every parameter `v_j` of a factorisation of `Ξ` is a non-negative real, every zero of `Ξ` is real. The product converges absolutely, so by Mathlib's `tprod_one_add_ne_zero_of_summable` it vanishes only at a vanishing factor, and `z²v_j = 1` with `v_j > 0` forces `z` real |
+| `rh_of_dodging` | **dodging D and real-rootedness give RH.** Fix `j` with `v_j ≠ 0`. Since `T_D(n) → ∞`, `v_j` is matched for all large `n`, within `η_n`, to a parameter of the real-rooted `ĝ_n`, which is a non-negative real. The non-negative reals are closed, so `v_j` is one too |
+| `rh_of_dodging_final` | the same for the explicit factorisations of `ĝ_n` and `Ξ` (`hadamardW_ghat`, `hadamardW_Xi`) |
+| `rh_of_groundStates_dodging` (GroundState) | statement **strengthened**: the hypothesis `hκ` is dropped |
+
+Removed:
+* `rh_of_dodging_and_curvature` and `rh_of_dodging_and_curvature_final`, which became special cases with an unused hypothesis;
+* `pairing_of_matching` and `tendsto_tsum_above`, which only served them.
+
+The curvature sum rule (`ghat_sum_rule`, `ghat_curvature`, `xi_expansion`) stays as a result about ground states.
+
+**What this means.** The proof never uses the unmatched zeros of `ĝ_n`, the convergence `ĝ_n → Ξ`, or Hurwitz's theorem. It uses only that each zero of `Ξ` is eventually matched to a real zero of some `ĝ_n`, with error tending to `0`. So, given real-rootedness, dodging D says that every zero of `Ξ` is a limit of real numbers, and that is already RH. Round 10's text reads curvature as the extra ingredient that closes the chain. It is not: the chain was closed by D itself. This sharpens round 65's correction and the paper's own verdict that these chains are "presumably a reformulation, not a proof". The open content of roadmap item 1 is (a) dodging and (b) real-rootedness. The Lean chain now shows that proving (a) and (b) for the ground states *is* proving RH, with nothing left to add.
