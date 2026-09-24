@@ -173,12 +173,11 @@ exponent of the negative part of the ground energy detects the zero
 farthest from the critical line, and that improving the exponent in
 Theorem 3 uniformly in a is then a zero-free-region statement of the
 classical kind. The sign dichotomy itself — λ₁(a) < 0 for all large a if
-and only if RH fails — is Weil's criterion with the monotonicity of λ₁ in
-the support, and the pilot's README states it (round 40). The closest prior
+and only if RH fails — is Weil's criterion with the monotonicity of λ₁ in the support (the pilot's
+README states the RH-false half, round 40). The closest prior
 to Theorem 2 is Bombieri (E. Bombieri, *Remarks on Weil's quadratic
 functional in the theory of prime numbers, I*, Rend. Lincei Mat. Appl. 11
-(2000) 183–233): for the quadratic form in the zero variables truncated to
-the zeros of height at most N, at every support, and "if the Riemann
+(2000) 183–233): for the quadratic form in the zero variables truncated to a finite set of zeros, at every support, and "if the Riemann
 Hypothesis is false but only with finitely many non-trivial zeros off the
 critical line", he shows that "the number of negative eigenvalues is
 precisely one-half of the number of zeros failing to satisfy the Riemann
@@ -186,12 +185,14 @@ Hypothesis, provided the truncation is big enough" (abstract; Theorems 8–9
 there), and for the L² window functional a trichotomy: negative, or
 infinitely many off-line zeros, or a linear relation among the x^{−ρ} on the
 window (his Theorem 11 and its corollary). No growth rate in the support
-appears there; his numerical section reports a critical support beyond
-which the negative eigenvalue converges to a strictly negative value as
-N → ∞, while below it the eigenvalue tends to 0 with the eigenfunction's
-L²-mass escaping to the boundary of the interval. (This note's Remark (b)
-concerns the supercritical trial's edge concentration; the analogy with
-Bombieri's subcritical observation is this note's, not his.) Theorem 2 is the quantitative form of
+appears there. His numerical section inserts a fictitious off-line zero
+(at 0.52 + 3.14i, with the first N zeros of ζ, N up to 160) and reports a
+critical support: below it the resulting negative eigenvalue tends to 0
+as N grows, with the eigenfunction's L²-mass concentrating at the boundary
+of the interval; above it the eigenvalue converges to a strictly negative
+value. (This note's Remark (b) concerns the supercritical trial's edge
+concentration; the analogy with his subcritical observation is this
+note's, not his.) Theorem 2 is the quantitative form of
 that count for the lowest eigenvalue under (H₁), which trades Bombieri's
 "finitely many off-line zeros" for a condition on the farthest one (his
 introduction anticipates replacing finiteness "by a suitable density
@@ -358,9 +359,9 @@ under (H₁) and λ₁(a) ≤ −(1 − η(t₀)) e^{2β*a}/(2eβ*)(1 − o(1)).
 intermediate regime. (The lower bound 0 ≤ λ₁ under RH is Weil's criterion
 on smooth probes, extended to the pilot's L² probe class by mollification:
 the pilot's Mollify.lean gives convergence of box averages in L² and in
-archimedean energy, three box averages give a C² probe (`av3_C2`,
-TheoremC.lean; the support grows by 3δ/2, harmless since positivity under
-RH holds at every support), and the pole and prime terms are L²-continuous
+archimedean energy, three box averages give a C² function (`av3_C2`, TheoremC.lean) that is a
+probe (`probe_Av`, thrice; the support grows by 3δ/2, harmless since
+positivity under RH holds at every support), and the pole and prime terms are L²-continuous
 on probes of bounded support.)
 
 *Consequence for the computed cells.* At the paper's cells (a ≤ 1.75)
@@ -371,9 +372,8 @@ negative term e^{2βa}/(2eβ) wins only for a ≳ (1/2β) ln(C₁ · 2eβ), whic
 about 40 for β = 0.1 and a few hundred for β = 0.01. The positivity of λ₁ at the
 cells is therefore not contradicted by Theorem 2 under either alternative,
 RH or its failure at any height above the verified one. This is not a
-defect of the cells; it is the content of Corollary 4: the RH-false branch is invisible until the support
-exceeds about (ln ln(height) + O(1))/(2β), the O(1) carrying the constants
-of C₁.
+defect of the cells; it is the content of Corollary 4: the RH-false branch is invisible until the half-support a exceeds about
+(ln ln(height) + O(1))/(2β), the O(1) carrying the constants of C₁.
 
 ---
 
@@ -534,8 +534,8 @@ properties (unknown) as the likely technical input.
    not prove RH, and nothing in this note does.
 
 4. **No numerics were run.** The only quantities used are the constants of
-   Theorem 3, the first zero's height (t₀ ≥ 14, used in Step 1 and Step 5
-   for ε₁^∞ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
+   Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+   Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's unit-interval zero
    count with an unspecified absolute constant, which enters only the

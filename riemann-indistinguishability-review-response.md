@@ -5814,4 +5814,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the nine edits of A541). No tower obligation. Brief `brief_round370.md` (its text also inside the launch prompt). Convergence test on round 369's nine findings (A541).
 
+**Findings.** 0 MAJOR, 1 minor, 5 cosmetic; all verified by the lead and accepted (A542); every round-369 disposition realised in substance. Minor: F370-1 Bombieri's numerical section runs on a fictitious off-line zero, unsaid. Cosmetic: his order and his N a count; the inventory's Step 1; "support" for half-support; the README states one half of the dichotomy; `av3_C2` versus `probe_Av`. **Sweep (round 371):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 pending.
+
+### Round 371 — the convergence test on the round-371 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the six edits of A542). No tower obligation. Brief `brief_round371.md` (its text also inside the launch prompt). Convergence test on round 370's six findings (A542).
+
 **Findings.** PENDING.

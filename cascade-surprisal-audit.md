@@ -19568,3 +19568,15 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Battery.** None owed. Round 370 commissioned as the convergence test on the sweep.
 
 ---
+
+## Addendum 542 — round 370 on the round-370 sweep of the working note (0 MAJOR, 1 minor, 5 cosmetic; all verified by the lead and accepted): Bombieri's numerical section runs on a fictitious off-line zero, unsaid; five cosmetics; round 371 commissioned as the convergence test
+
+**The round.** Fresh-context hostile reviewer on the sweep commit 1989a2d, the brief carried inside the launch prompt (its script under `scratchpad/r370/`: `check_note_r370.py`, 21/21 rows). Findings: 0 MAJOR, 1 minor, 5 cosmetic; every round-369 disposition realised in substance (the subcritical attribution, the Remark (b) marking, the mollification argument closed with growing support, the scope sentence, the three "unconditional"s, φ_a and θ, the surjectivity remark's independence by distinct exponents, README 1370, Weil 1952 as Bombieri's [6] and Barner 1981); Theorems 2–3 recomputed a fourth time; Proposition 1 against the Lean statements; the paper unchanged and claiming nothing. Every finding verified by the lead by direct reading (the extraction 7448–7458: "a fictitious zero ρ₀ off the critical line … arbitrarily set at ρ₀ = 0.52 + i 3.14", "the number N of zeros ranges up to N = 160"; README 1369 states the RH-false half only) before acceptance; all accepted.
+
+**F370-1 (minor).** The Bombieri sentence reported his critical support as an observation about ζ's zeros; his §13 experiment inserts a fictitious off-line zero at 0.52 + 3.14i with the first N zeros, and the negative eigenvalue exists in his data only because of it. **Sweep:** the fictitious zero and N stated. **Cosmetics (all swept):** C370-2 his order (subcritical first) and his §13 N a count, not the height truncation — the sentence rewritten in his order with N as a count, and "truncated to the zeros of height at most N" replaced by "truncated to a finite set of zeros"; C370-3 the inventory's t₀ ≥ 14 placed at Theorem 2's statement and Step 5 (Step 1 does not use it); C370-4 "the support exceeds" → "the half-support a exceeds" (the note's δ = 2a convention); C370-5 the README states the RH-false half of the sign dichotomy only; C370-6 `av3_C2` gives a C² function, `probe_Av` thrice its probe-ness.
+
+**Check-1 record (re-read this round).** The Bombieri extraction 7448–7458 and 7469–7474; README 1369; the note's Bombieri paragraph, Corollary 4, §2.3 and §4's inventory before and after; `TheoremC.lean` `av3_C2` (327–330).
+
+**Battery.** None owed. Round 371 commissioned as the convergence test on the sweep.
+
+---
