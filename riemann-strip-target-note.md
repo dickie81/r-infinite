@@ -803,7 +803,25 @@ the pilot's sign and about half its size — while the probe's first free
 zero, "within 0.2" of the wall, contributes at the same order with the
 opposite sign; and on the probe side the edge layer the pilot's round 73
 finds necessary. The pilot's remainder is steady across its walls, so a
-fluctuating term alone cannot be it.
+fluctuating term alone cannot be it. *(Added after the pilot's round 80,
+which supplies a candidate, numerically: on the even functions the window
+chain of its round 79 is a diagonal canonical system with "det H = 1 in
+the window variable" — "the Krein–de Branges type formula: exponential
+type = ∫√det H, and the space at window a has type exactly a" — whence
+"c′ = 1/(4ℓ′)" with ℓ = ln K_a(0, 0) and, if the kernels converge,
+"τ(δ) = ∫_δ^∞ du/(4ℓ′(u)) + r′/ℓ′"; "The paper's exponent law ln K₀₀ ≈
+−ln λ₁ ≈ 4πe^δ (f_∞ = 4π) forces τ ≈ e^{−δ}/(16π)", "The O(1) offset
+ℓ′ − 4πe^δ ≈ −4.5 produces the e^{−2δ} correction. Predicted: ≈
+0.0053–0.0057. Measured: 0.0058–0.0062"; the ratio τ_meas/τ_pred
+"1.001–1.007 at every window from δ = 0.5 to 3.1"; quotations adapted
+from the README's notation. This note's reading: the two derivations
+agree because, within the reduced problem, the exponent's derivative
+d(−ln λ₁)/dδ = 4πe^δ equals the wall T = 2T₀ exactly when f(X*) = 2πX*,
+i.e. ln(X*/2) = 0, the maximiser X* = 2 — so 1/(4ℓ′) and this note's
+1/(4T) are one number; and the O(1) offset in ℓ′ is the slope of the
+paper's 1bm(v) residual, "least-squares slope 5.04 per unit δ", against
+the pilot's −4.5. The correction's home is thereby identified
+numerically, on the pilot's side; not derived here.)*
 
 Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
 RH-strength. So this subsection is a consistency statement, not a
@@ -1098,7 +1116,15 @@ kernel at the origin, and the inequality itself is the chain's existence
 at window a — the same statement in de Branges' language, with the
 positivity of H(t) as its local form. This note adds nothing to that
 reading; the pilot's own status line stands: "Nothing here removes the
-open input."
+open input." Its round 80 makes the chain's Hamiltonian explicit on
+the even functions — "diagonal, has determinant 1, and has potential
+½ d/da ln(dK_a(0, 0)/da)", with "q ≈ 4πe^{2a} − 4.5" asymptotically and
+"structure where prime powers enter at a = ½ log pᵏ" — so that, in the
+terms of this section, the operator inequality's certificate at window a
+is the existence of the chain up to a, a positivity that is local in the
+window variable; "RH is equivalent to this chain existing for every a.
+Our numbers describe it where it provably or numerically exists. Nothing
+here shows it exists for all a."
 
 **5.5 Conclusion of the ledger.** The prime side of the truncated form at
 a cell is a fixed, rapidly convergent arithmetic sum dominated by 2 and 3,
