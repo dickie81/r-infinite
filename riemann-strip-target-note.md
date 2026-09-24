@@ -818,9 +818,11 @@ from the README's notation. This note's reading: the two derivations
 agree because, within the reduced problem, the exponent's derivative
 d(−ln λ₁)/dδ = 4πe^δ equals the wall T = 2T₀ exactly when f(X*) = 2πX*,
 i.e. ln(X*/2) = 0, the maximiser X* = 2 — so 1/(4ℓ′) and this note's
-1/(4T) are one number; and the O(1) offset in ℓ′ is the slope of the
-paper's 1bm(v) residual, "least-squares slope 5.04 per unit δ", against
-the pilot's −4.5. The correction's home is thereby identified
+1/(4T) are one number; and the O(1) offset in ℓ′ corresponds to the slope
+of the paper's 1bm(vii) residual ln λ₁ + 4πe^δ, "least-squares slope 5.04
+per unit δ" — i.e. d(−ln λ₁)/dδ = 4πe^δ − 5.04 — against the pilot's −4.5
+in ℓ′ = d ln K_a(0, 0)/dδ, the two differing also by the slow growth of
+−ln λ₁ − ln K_a(0, 0) (the pilot's 1.01 → 1.38 from δ = 2 to 3). The correction's home is thereby identified
 numerically, on the pilot's side; not derived here.)*
 
 Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
@@ -953,17 +955,19 @@ cosine projection of the truncated kernel Φ·1_{[−a,a]}.
 
 *Validation.* At δ = 2 the ledger's total Q(g₁) equals the Gram's rigorous
 ball value, 6.3240229152055518164·10⁻³⁰, to 20 digits. The zero side over
-the paper's 6700 zeros (Σ_ρ = 2Σ_{γ>0} for even g) reproduces both totals:
-2 × 3.100·10⁻³⁰ plus a tail of order 10⁻³¹ for g₁, and 2 × 5.731·10⁻¹⁵
-plus 2 × 10⁻¹⁶ = 1.165·10⁻¹⁴ for Φ_a^K against the ledger's
-1.16545·10⁻¹⁴. The angle sin²θ(g₁, Φ_a^K) is 1.71·10⁻³ at δ = 2 against
+the paper's 6700 zeros (Σ_ρ = 2Σ_{γ>0} for even g; the committed
+`zeroside.py`, whose tail beyond the last zero is the last hundred zeros'
+mean of γ²ĝ² against the smooth density) reproduces both totals:
+2 × 3.1001·10⁻³⁰ plus a tail 2 × 6.1·10⁻³² = 6.322·10⁻³⁰ for g₁ against
+the ledger's 6.324·10⁻³⁰, and 2 × 5.7313·10⁻¹⁵ plus 2 × 9.6·10⁻¹⁷ =
+1.16543·10⁻¹⁴ for Φ_a^K against the ledger's 1.16545·10⁻¹⁴. The angle sin²θ(g₁, Φ_a^K) is 1.71·10⁻³ at δ = 2 against
 the pilot's 0.093·e^{−4} = 1.70·10⁻³ (README round 69), and 2.0487·10⁻⁴
 at δ = 3 against its table's 2.049·10⁻⁴ at the same K = 400 (README round
 69). At δ = 3 the total resolves only above 100 working
-digits (λ₁ = 4.267·10⁻⁹⁷): the 80-digit run floors at 10⁻⁸⁰ and is used
-for its lines only; the 120-digit run of the same instrument (its log
-`ledger_d3.0_dps120.txt`) gives Q(g₁) = 4.2669993198998720563·10⁻⁹⁷,
-the Gram's ball value to 20 digits.
+digits (λ₁ = 4.267·10⁻⁹⁷): an 80-digit run floors at 10⁻⁸⁰; the committed
+120-digit run (its log `ledger_d3.0_dps120.txt`) gives Q(g₁) =
+4.2669993198998720563·10⁻⁹⁷, the Gram's ball value to 20 digits, and
+supplies the δ = 3 lines below.
 
 **5.2 The numbers.** All lines for normalised profiles; the last column is
 the ground state's line less the projected kernel's.
@@ -987,6 +991,7 @@ the ground state's line less the projected kernel's.
 | line | g₁ | Φ_a^K | difference |
 |---|---|---|---|
 | 2 poleR² | 1.530556 | 1.563713 | −0.03316 |
+| (ψ(¼) − ln π)‖g‖² | −5.372183 | −5.372183 | 0 |
 | ARCH | 3.907855 | 3.883668 | +0.02419 |
 | PRIME₂ | 6.5491·10⁻² | 7.4061·10⁻² | −8.57·10⁻³ |
 | PRIME₃ | 7.3426·10⁻⁴ | 1.1321·10⁻³ | −3.98·10⁻⁴ |
@@ -1015,9 +1020,11 @@ u = 2.95.
 
 (i) *The prime side is the first two prime powers.* For the ground state,
 n = 2 carries 99.47% of the prime side at δ = 2 and 98.89% at δ = 3, n = 3
-the rest to three parts in 10⁶; every further prime power is negligible,
-the n-th falling roughly like e^{−2πn}·poly(n), because Φ(t)Φ(t − u) peaks
-at t = u/2 where Φ(u/2)² ≈ e^{−2πe^{u}}. This is a property of the RH
+the rest to three parts in 10⁶ (δ = 2) and 24 parts in 10⁶ (δ = 3); every
+further prime power is negligible: for Φ_a^K the n-th falls like
+e^{−2πn}·poly(n) (ln PRIME_n + 2πn rises slowly, about 4 ln n), because
+Φ(t)Φ(t − u) peaks at t = u/2 where Φ(u/2)² ≈ e^{−2πe^{u}}, and for the
+ground state faster still ((iii) below). This is a property of the RH
 branch's profile and holds at every support: the arithmetic content the
 truncated form balances at a cell is, to all intents, Λ(2)2^{−1/2}f(ln 2)
 and Λ(3)3^{−1/2}f(ln 3). (A profile of the other branch — Theorem 2's
@@ -1027,13 +1034,15 @@ one.)
 (ii) *The balance is a cancellation among O(1) terms, invisible line by
 line.* 2 poleR² ≈ 1.5, the constant −5.372, ARCH ≈ 3.9, against a prime
 side of 0.05–0.07, net to λ₁ = 6·10⁻³⁰ and 4·10⁻⁹⁷. The ground state's
-departure from Φ_a^K moves every line by 10⁻²–10⁻¹ (the difference
-columns), and the lines net to Q(g₁) − Q(Φ_a^K) = −1.2·10⁻¹⁴ and
+departure from Φ_a^K moves the O(1) lines by 10⁻²–10⁻¹ and the n = 2 line
+by 10⁻² (the difference columns), and the lines net to Q(g₁) − Q(Φ_a^K) = −1.2·10⁻¹⁴ and
 −1.3·10⁻⁴⁷. So the mechanism that takes the energy from the kernel's
 truncation cost, e^{−T₀}·poly (Theorem A; Q(Φ_a^K) = e^{−32.1} at δ = 2
 against T₀ = 46.4, e^{−107.9} at δ = 3 against 126.2), to the ground
 state's e^{−2T₀}·poly (dodging; ln λ₁ = −67.2 and −221.9 against 2T₀ =
-92.9 and 252.4, the offsets 1bm(v)'s c(δ) and the norm's width) is not
+92.9 and 252.4, the offsets 25.6 and 30.5 being the paper's 1bm(vii)
+residuals, of which 1bm(v)'s c(δ) is 5.94 and 7.30 nats and the discrete
+formula's own difference from −4πe^δ the rest) is not
 readable on the prime side. The ledger is an identity; dodging is a
 statement about the zero side, Σ_ρ ĝ(γ_ρ)² with every term below the wall
 ≈ 0; the prime side records only that the identity holds.
@@ -1043,24 +1052,34 @@ bulk f_{g₁} is the backward heat flow of f_Φ with time 2τ_a (§3.4: f̂ = ĝ
 so f_{g₁} = e^{−2τ_a∂²}f_Φ to leading order), whose leading tail law
 f_{g₁}/f_Φ ≈ exp(−(π/2)e^{2u−δ}) gives 0.43, 0.15, 0.034, 5·10⁻³ at
 u = ln 2, ln 3, ln 4, ln 5 at δ = 2 against the measured 0.68, 0.24, 0.035,
-1.4·10⁻³ — the pilot's stated bulk accuracy (README round 71) — and near
+1.4·10⁻³ — the leading tail asymptotic S′ ≈ −2πe^{u} over-damps by a
+factor up to 1.6 at the first two prime logarithms, where it is not yet
+accurate, and is within 1% at ln 4 — and near
 the edge the suppression is far stronger (predicted 3·10⁻⁵ at u = ln 7,
 measured 1.3·10⁻¹⁰; at δ = 3 the n = 19 term is suppressed by 4·10⁻³¹):
 the pilot's edge layer, seen on the prime side as the extinction of the
 last prime powers below e^{2a}. Consistent with rounds 70–71; not new.
 
 (iv) *The exact truncation against its projection.* Q(Φ_a) itself, from
-the zero side (2Σ E_a(γ)² over 400 zeros plus a tail estimate), is about
-4·10⁻¹⁵ at a = 1 against Q(Φ_a^K) = 1.17·10⁻¹⁴: the K-term projection
-roughly triples the energy (its coefficients decay like k⁻² from the
-derivative jump of the periodic extension at ±a). The pilot's R-ratio and
-this note's angles use the projection, as the paper's basis does.
+the zero side (2Σ E_a(γ)² over the 6700 zeros plus a tail estimate, with
+‖Φ_a‖² = 2∫₀^a Φ²; `zeroside.py`), is 1.161·10⁻¹⁴ at a = 1 against
+Q(Φ_a^K) = 1.165·10⁻¹⁴: the projection changes the energy by under one
+percent, as it must — the discarded cosine tail r has ‖r‖² ≈ 10⁻¹⁸ (its
+coefficients decay like k⁻², from the derivative jump of the periodic
+extension at ±a), so on the positive form |Q(Φ_a^K) − Q(Φ_a)| ≤
+2√(Q(Φ_a)Q(r)) + Q(r) ≲ 10⁻¹⁵. *(The first version of this item claimed a
+factor three; round 383 found the error — a session script had normalised
+Φ_a by √(2∫Φ) in place of √(2∫Φ²) — and the corrected computation is the
+committed `zeroside.py`.)* The pilot's R-ratio and this note's angles use
+the projection, as the paper's basis does.
 
 **5.4 The prime-side statement of the difficulty.** At support a, Weil
 positivity on the window is the operator inequality
 
-  A_a − Σ_{n ≤ e^{2a}} w_n T_{ln n} ≥ 0  on L²(−a, a),
+  A_a − Σ_{n ≤ e^{2a}} w_n T_{ln n} ≥ 0  on the even sector of L²(−a, a),
 
+(this note's probes; the odd sector, with the pole term's sign reversed,
+is the paper's Theorem 1bv, and Weil positivity on the window is both),
 A_a the archimedean bilinear form (pole, constant, ARCH), w_n = 2Λ(n)n^{−1/2},
 T_u the symmetrised translation form ⟨g, g(· − u)⟩ = f_g(u): an explicit
 Γ-function form against five (δ = 2) or twelve (δ = 3) translations. Its
@@ -1068,16 +1087,20 @@ least eigenvalue is λ₁ = e^{−2T₀(1+o(1))} within the reduced problem —
 positive, and doubly exponentially small — with near-null vector the
 transported kernel of §3.4, whose transform the pilot's round 77 gives in
 closed form. (A reading, stated up to the form's normalisations and not
-used below: since |ĝ|² for g supported in [−a, a] ranges over the
+used below: since |ĝ|² for complex g supported in [−a, a] ranges over the
 nonnegative integrable functions of exponential type 2a — Fejér–Riesz for
-entire functions — positivity at support a says that the signed density
+entire functions; over this note's real even probes, ĝ² ranges only over
+the squares of real even Paley–Wiener functions of type a, a proper
+subclass — positivity at support a says that the signed density
 the explicit formula puts on the real line, the archimedean density less
 the Dirichlet polynomial Σ_{n ≤ e^{2a}} Λ(n)n^{−1/2}cos(r ln n), with the
 pole's contribution, is nonnegative against every such function: the zero
 counting measure seen at resolution 1/(2a).) A proof of positivity at a
 given support therefore needs a certificate accurate to e^{−2T₀}: the
-paper's Temple certificates (Theorems 1bj, 1bl) reach δ = 1.38 by that
-route; the reduced problem's explicit near-null vector is exact only to
+paper's certified positivity reaches δ = 1.0 on the even sector and 1.10
+on the odd by Temple's route (Theorems 1bj, 1bk) and 1.3828125 by Theorem
+1bl's Slepian-concentration mechanism, which "carries no Temple trial, no
+Birman–Schwinger count, no spectral-gap premise, no zero of ζ"; the reduced problem's explicit near-null vector is exact only to
 relative e^{−δ} (round 77: 3% at δ = 2, 1.5% at δ = 3), so its residual is
 of order e^{−δ} times the spectral gap, far above λ₁, and it cannot serve
 as a Temple trial vector; and no argument that avoids the precision
@@ -1085,7 +1108,7 @@ e^{−2T₀} is visible here — a positivity margin that vanishes doubly
 exponentially is what Weil's criterion looks like from finite support (the
 paper's 1bm(vi)), now with the margin's extremal vector explicit. Under RH
 failure the same operator has a negative eigenvalue, of size at least
-e^{2β*a}/(2eβ*)(1 − o(1)) under (H₁) (Theorem 2): the dichotomy of
+(1 − η(t₀))e^{2β*a}/(2eβ*)(1 − o(1)) under (H₁) (Theorem 2): the dichotomy of
 Corollary 4, on the prime side, is between a least eigenvalue of size
 e^{−2T₀} and one of size e^{2β*a}, with nothing between. This section
 proves neither.
