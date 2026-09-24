@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 369 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 378 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -53,6 +53,7 @@ Every file ends with `#print axioms`. All 369 checked theorems depend only on `p
 | `GapBound.lean` | 459 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
 | `StripConv.lean` | 614 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
+| `RiemannKernel.lean` | 840 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on `|Im z| < 1`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. Discharges `KernelApprox`; `rh_of_close_RPhi` |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2127,7 +2128,7 @@ The target was the second-moment condition `κ(a) → 0`, i.e. `m₂(g_a) → M�
 | `normSq_sub_le_of_gap`, `rh_of_relgap` | min–max: `‖g − φ‖² ≤ 2(Q(φ) − λ₁)/(λ₂ − λ₁)`; hence RH from a relative spectral gap |
 | `tendstoLocallyUniformlyOn_iteratedDeriv`, `moments_of_hypConvStrip` | (a) on the strip makes every Taylor coefficient at `0` converge; `k = 2` is `κ → 0` |
 
-* **The one unformalised input is `KernelApprox`.** For `φ_n = Φ·1_{[−a_n, a_n]}` it is Riemann's formula `Ξ(t) = 2∫₀^∞ Φ(u) cos(ut) du` (Titchmarsh §2.16) together with `Φ`'s decay `exp(−πe^{2|u|})`. It is classical, but not in Mathlib or the pilot.
+* **The one unformalised input is `KernelApprox`.** For `φ_n = Φ·1_{[−a_n, a_n]}` it is Riemann's formula `Ξ(t) = 2∫₀^∞ Φ(u) cos(ut) du` (Titchmarsh §2.16) together with `Φ`'s decay `exp(−πe^{2|u|})`. *(Formalised in round 63.)*
 * **The threshold `½` is the half-width of the critical strip.** Round 40 had required convergence on all of `ℂ`, which is much more than the chain uses.
 
 **3. Measurements** (`angle_gap.py`, paper's Gram, 400–1400 bits; `angle_gap_results.jsonl`)
@@ -2150,7 +2151,33 @@ The target was the second-moment condition `κ(a) → 0`, i.e. `m₂(g_a) → M�
 **What this gives, and what it does not.**
 * (a) is replaced by a sharper, purely Hilbert-space target: the ground state approaches Riemann's kernel in `L²` faster than `e^{−a/2}/√a`. Numerically the rate is `e^{−2a}`, four times the threshold.
 * The second-moment condition follows as the `k = 2` case (`moments_of_hypConvStrip`). Numerically it is the same small parameter as the angle.
-* Nothing here proves the angle bound. It is presumably RH-strength: `rh_of_close_top` derives RH from it with no other open input, apart from the classical `KernelApprox`.
+* Nothing here proves the angle bound. It is presumably RH-strength: `rh_of_close_top` derives RH from it with no other open input, apart from the classical `KernelApprox` (proved in round 63).
 * The measurements stop at `a = 1.7`. The asymptotic rate is inferred, not certified.
 * Whether the reduction is in the literature was not checked. Connes–Consani–Moscovici's related conjecture (round 40) is about determinants on all of `ℂ`.
+
+## Round 63: Riemann's kernel formula, formal (RiemannKernel.lean)
+
+Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formula for `Ξ` as the Fourier transform of his kernel. It is now proved from Mathlib's definitions, so **`rh_of_close_RPhi` derives Mathlib's `RiemannHypothesis` from one hypothesis only**: the `L²` closeness of the top-of-chain ground states to `Φ`. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+**The statement** (`RPhiHat_eq`). With `Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{−πn²e^{2u}}` (`RPhi`) and `Ξ(z) = ξ(½ + iz)` built from Mathlib's `completedRiemannZeta₀`:
+
+  `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2`   for `|Im z| < 1`.
+
+**The proof.**
+
+| step | theorems | content |
+|---|---|---|
+| Euler's integral on the line | `integral_exp_theta_term`, `integrable_exp_theta_term` | `∫_ℝ e^{αu} e^{−ce^{2u}} du = ½(1/c)^{α/2}Γ(α/2)` for `Re α > 0`, via `x = e^{2u}` (`integral_comp_exp`) and `integral_cpow_mul_exp_neg_mul_Ioi` |
+| one term | `phiT_split`, `integral_phiT` | `∫ φ_n(u)e^{izu} du = (s(s−1)/4)(πn²)^{−s/2}Γ(s/2)`, with `s = ½ + iz` and `Im z < −½`; the functional equation of `Γ` combines the two pieces |
+| the sum | `summable_integral_norm_phiT`, `integral_RPhi_halfplane` | the norm integrals are `O(n^{−Re s})`, so the sum integrates termwise (`hasSum_integral_of_summable_integral_norm`). Mathlib's `completedZeta_eq_tsum_of_one_lt_re` gives `ξ(s)/2` for `Im z < −½` |
+| derivatives | `hasDerivAt_thF`, `hasDerivAt_thF1`, `th_all_le`, `hasDerivAt_thG`, `hasDerivAt_thG1` | termwise differentiation of `Σ e^{u/2 − πn²e^{2u}}` twice, with one majorant `K(n⁴ + 1)e^{−rn}` on `|u| ≤ R` |
+| theta kernel | `theta_eq_sum`, `theta_even` | `e^{u/2}θ(e^{2u}) = 2Σ_{n≥0} e^{u/2−πn²e^{2u}} − e^{u/2}` (`hasSum_int_evenKernel`); it is even by `evenKernel_functional_equation` |
+| evenness | `thFF1_odd`, `thFF2_even`, `RPhi_eq`, `RPhi_even` | `4Φ = F'' − F/4` with `F` even, so `Φ` is even |
+| decay, continuity | `RPhi_decay`, `continuous_RPhi`, `memLp_RPhi` | `|Φ(u)| ≤ Ce^{−2|u|}` |
+| continuation | `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi`, `differentiableOn_RPhiHat`, `RPhiHat_eq` | truncations converge uniformly on `|Im z| ≤ 1` (tail `≤ De^{−a/2}`), so `Φ̂` is holomorphic on `|Im z| < 1`. It equals `Ξ/2` on `−1 < Im z < −½`, hence on the whole strip (identity theorem) |
+| conclusion | `kernelApprox_RPhi`, `rh_of_close_RPhi` | `KernelApprox a (fun _ => Φ)` for every `a_n → ∞`; RH from closeness to `Φ` |
+
+**What this gives, and what it does not.**
+* The reduction of rounds 54–62 now rests on Mathlib's definitions and one hypothesis: `√(2a_n) e^{b a_n}‖σ_n·topGS(a_n) − Φ‖ → 0` for every `b < ½`. That hypothesis is round 62's `L²` angle condition, measured to decay like `e^{−2a}`, with threshold `e^{−a/2}`. It is not proved.
+* The formula is proved on `|Im z| < 1`, which is all the chain needs. The same argument with decay `e^{−B|u|}` for every `B` would give it on all of `ℂ`; that extension is not done.
 
