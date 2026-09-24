@@ -2289,3 +2289,33 @@ The certified gaps (round 20's `a ≤ 0.3466` and `log 2 ≤ 2a ≤ 0.7`, round 
 | `sum_lowS_even` | the three unrolled 11-term expansions of `Σ_{|n| ≤ 5}` in the gap assemblies |
 
 **On kernel evaluation.** Round 65's `decide +kernel` applied because the `Cin` chain reduces to closed rational sums. These files' numerics do not: they are inequalities in a real parameter `a` with `π`, `log 2` and `√2`. The rational leftovers after parametrising are single `norm_num` or `linarith` steps, so kernel evaluation would add cast plumbing and no reduction. The reduction here comes from parametrising.
+
+## Round 68: is Riemann's kernel a near-ground-state? (numerical, `frontier/nullvec/`)
+
+After round 66, the chain's one open input is `HypConvStrip` for the top ground states: their transforms converge to `Ξ` on the strip. The proved lemma `rh_of_relgap` offers an energy route to it: RH follows if `R_n = (Q(φ_n) − λ₁)/(λ₂ − λ₁)` tends to `0` faster than `a_n⁻¹e^{−2ba_n}` for every `b < ½`, where `φ_n` is the normalised truncation of Riemann's `Φ` to `[−a_n, a_n]`. The idea behind it: `Φ̂ = Ξ/2` vanishes at every zeta zero, so by the explicit formula `Φ` should be a zero-energy vector of Weil's form. This round tests that numerically.
+
+**Method** (`nullvec.py`). Weil's Gram in the cosine basis comes from `tools/research/weil_prime_gram.py`, unconditional: arithmetic side only, arb balls. `Φ`'s cosine coefficients use 9216-point Gauss–Legendre on 96 panels. The outputs are the enclosure of `Q(φ_a)/‖φ_a‖²`, the two lowest generalised eigenvalues, `R`, and `sin²θ`, where `θ` is the angle between `φ_a` and the ground state (the quantity in `rh_of_close_top`). The results are stable in `K`: at `δ = 1.4`, `K = 120` and `160` give `R = 14.76` and `14.81`; at `δ = 2.0`, `K = 120` and `180` give `4.8e8` and `5.1e8`. `λ₁` reproduces round 23 (`6.3e-30` at `δ = 2`, `4.3e-97` at `δ = 3`). Data: `frontier/nullvec/results.jsonl`.
+
+| `δ` | `K` | `λ₁` | `λ₂` | `Q(φ_a)` | `Q(Φ1_a)/Φ(a)²` | `R` | `sin²θ` | local rate of `sin²θ` in `a` |
+|---|---|---|---|---|---|---|---|---|
+| 0.7 | 120 | 1.19e-3 | 0.649 | 2.42e-2 | 0.11 | 0.0355 | 2.78e-2 | |
+| 1.0 | 120 | 9.35e-7 | 1.80e-2 | 7.04e-4 | 0.06 | 0.039 | 1.83e-2 | 2.80 |
+| 1.2 | 120 | 1.61e-9 | 1.03e-4 | 5.52e-5 | 0.08 | 0.535 | 1.10e-2 | 5.02 |
+| 1.4 | 120 | 4.22e-13 | 8.68e-8 | 1.28e-6 | 0.07 | 14.8 | 6.79e-3 | 4.87 |
+| 1.6 | 120 | 1.71e-17 | 8.55e-12 | 8.86e-9 | 0.05 | 1.04e3 | 4.21e-3 | 4.77 |
+| 1.8 | 120 | 4.47e-23 | 7.70e-17 | 2.38e-11 | 0.06 | 3.09e5 | 2.67e-3 | 4.56 |
+| 2.0 | 120 | 6.44e-30 | 2.42e-23 | 1.17e-14 | 0.05 | 4.83e8 | 1.71e-3 | 4.44 |
+| 2.2 | 120 | 2.17e-38 | 1.61e-31 | 9.08e-19 | 0.04 | 5.64e12 | 1.11e-3 | 4.37 |
+| 2.4 | 220 | 7.21e-49 | 1.36e-41 | 6.98e-24 | 0.04 | 5.13e17 | 7.19e-4 | 4.32 |
+| 2.6 | 280 | 7.94e-62 | 4.00e-54 | 3.34e-30 | 0.03 | 8.36e23 | 4.72e-4 | 4.20 |
+| 2.8 | 340 | 1.26e-77 | 1.42e-69 | 5.03e-38 | 0.03 | 3.54e31 | 3.10e-4 | 4.21 |
+| 3.0 | 400 | 4.27e-97 | 1.15e-88 | 1.33e-47 | 0.03 | 1.16e41 | 2.05e-4 | 4.14 |
+
+**Findings.**
+
+1. **`Φ` behaves as a null vector of Weil's form.** The energy of its truncation is the truncation defect and nothing more: `Q(Φ1_{[−a,a]}) ≈ (0.03–0.11)·Φ(a)²`, down to `10⁻⁴⁷` at `δ = 3`, even though the individual terms of `Q` are of order `1`. This is computed from the arithmetic side alone, so it is unconditional numerical evidence for `Q(Φ) = 0`. That is what the explicit formula predicts, because `Φ̂ = Ξ/2` vanishes at every zero, RH or not. Not proved: the explicit formula for `Φ` is not formalised.
+2. **The energy route is dead.** `R` grows from `0.04` to `10⁴¹`, and faster than exponentially in `e^δ`: `ln R / e^δ` is `2.7` at `δ = 2` and `4.7` at `δ = 3`. The reason is that `λ₂` falls faster than the truncation defect: `ln λ₂ / e^δ` goes from `−7.0` at `δ = 2` to `−10.1` at `δ = 3`, against about `−2π ≈ −6.3` for `Φ(a)²`. The spectral gap collapses faster than any truncation of `Φ` can approach the ground energy. `rh_of_relgap` stays a correct theorem, but it cannot be applied along `a_n → ∞`, as far as these data reach and on this trend.
+3. **The L² route survives.** `sin²θ` falls steadily, from `2.8e-2` to `2.1e-4`. Its local decay rate in `a` is `4.1–5.0`, and `rh_of_close_top` needs a rate above `1`. The rate is drifting down slowly (about `0.5` per unit `a` over `δ ∈ [2, 3]`). If that drift stays linear it would cross `1` only near `δ ≈ 14`. If it levels off, as the last three steps suggest (`4.20, 4.21, 4.14`), closeness holds with room to spare. The data cannot tell these apart.
+4. **The two measures disagree, and that explains finding 2.** `R ≥ sin²θ` always holds. At `δ = 3`, `R = 10⁴¹` while `sin²θ = 2·10⁻⁴`. So `φ_a` differs from the ground state by a piece that is tiny in `L²` but carries enormous energy: the edge defect of the truncation, which lives on the high modes. Variational (energy and gap) arguments cannot see this kind of closeness.
+
+**What this means for the chain.** The one open input can only be reached through `L²` closeness (`rh_of_close_RPhi`). Its proof would need a structural reason why the minimiser tracks the null vector `Φ` away from the edges, not a spectral-gap estimate. The observed rate, `sin θ ~ e^{−2.1a}`, has a large margin over the needed `e^{−a/2}`. It is inferred from supports up to `δ = 3` and is not certified.
