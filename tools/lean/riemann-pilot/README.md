@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 314 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 331 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -47,6 +47,8 @@ Every file ends with `#print axioms`. All 314 checked theorems depend only on `p
 | `Commute.lean` | 243 | Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); an edge-flat ground state puts `h''` in the ground space; ODE uniqueness; **a simple ground state is never edge-flat** |
 | `DegenerateFlat.lean` | 803 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
 | `StructureD.lean` | 708 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
+| `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
+| `TheoremC.lean` | 785 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element** |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1916,4 +1918,46 @@ So the open input is now the single statement "(a) for the top-of-chain ground s
 * It does not prove simplicity; `EnergyGap a` is still open at large support.
 * It does not prove (a). Where the ground space is degenerate, (a) is now asserted for one particular ground state, `ĥ = q^{m−1}ŵ`. Nothing here shows that this choice, rather than some other element of the ground space, converges to `Ξ`.
 * The remaining gap is therefore exactly `HypConv a (topGS ∘ a)`: a convergence statement about one explicit family, with no zero of `ζ` in it.
+
+## Round 55: Theorem C, formal in `H²` form (Mollify.lean, TheoremC.lean)
+
+Round 52 formalised Theorem C (flat ⇒ degenerate) only for `C⁴` functions. Round 55 formalises it at the paper's regularity. `D` is now formal as `FlatH2 a h h₁ h₂`: `h' = h₁` everywhere, `h₁` is the primitive from `−a` of an `L²` function `h₂`, `h` and `h₁` vanish outside `[−a, a]`, and `h₂` is a probe. Both files use the standard axioms only, with no `sorry` and no warnings.
+
+**The argument (Green form).**
+1. **Flat functions are Green solutions** (`flat_green`). Let `f = h₂ − h/4`. Then `∫_{−a}^x f e^{∓y/2} = e^{∓x/2}(h₁ ± h/2)`, by integrating by parts twice. The first integration uses only that `h₁` is a primitive, through Fubini on a triangle. Hence `poleR f = 0` and `G f = h`.
+2. **The cross term vanishes** (`Qlam_green_add`). For every pole-free probe `m`, `Q_λ(G m + r f) = Q_λ(G m) + r² Q_λ(f)`. This is round 53's swap `B(G m, f) = B(m, G f)` plus Euler–Lagrange for `G f = h ∈ V`. With `r = −1`: `Q_λ(f) ≤ Q_λ(G m − f)`.
+3. **`Q_λ` is controlled by norm and energy** (`Qlam_le`, `poleR_sq_le`).
+4. **Density** (`green_dense`). For every probe `f` and `ε > 0` there is a pole-free probe `m` with `‖G m − f‖² ≤ ε` and `E_arch(G m − f) ≤ ε`. Construction:
+   * dilate: `ψ(x) = f(x/l)`, supported in `[−la, la]`;
+   * smooth with three box averages `A₃ = Av_δ³ψ`, which fit inside `[−a, a]`;
+   * `A₃` is `C²` with `A₃'' = δ⁻²(A₁(x + δ) − 2A₁(x) + A₁(x − δ))`, a probe;
+   * so `A₃ = G(A₃'' − A₃/4)` by step 1 (`exists_smooth_green`).
+   The analytic input is in Mollify.lean:
+
+| theorem | statement |
+|---|---|
+| `tendsto_normSq_shift`, `tendsto_normSq_dil` | translation and dilation are continuous in `L²` (by approximation with continuous compactly supported functions) |
+| `normSq_avg_le`, `normSq_Av_le`, `normSq_Av_sub_le`, `tendsto_Av` | box averages: `L²` contraction and convergence to the identity (Jensen plus Fubini over the shift) |
+| `archIntegrand_Av_le`, `probe_Av`, `tendsto_archE_Av` | box averages contract the archimedean energy density `½‖g − g(· + u)‖²K(u)`, preserve probes, and converge in energy (dominated convergence) |
+| `kerK_anti`, `kerK_half_le`, `kerK_far`, `integrableOn_Fsh_half` | the kernel `K(u) = e^{u/2}/sinh u` is decreasing; `F_g(v)K(v/2)` is integrable for a probe |
+| `probe_dil`, `tendsto_integral_pratt`, `tendsto_archE_dil` | dilations of probes are probes; dilation converges in energy, via a dominated-convergence lemma with moving dominators (Pratt/Scheffé) |
+
+5. **Conclusion** (`mem_of_green_dense`, `mem_of_green_mem`). `Q_λ(f) = 0`, so `f ∈ V` and `h₂ = f + h/4 ∈ V`.
+
+| theorem | statement |
+|---|---|
+| `theoremC` | **if `h ∈ V` is `H²`-flat, then `h'' = h₂ ∈ V`** |
+| `theoremC_not_simple` | a nonzero such `h` rules out simplicity: `h'' = c·h` a.e. would make `h` solve `h'' = ch` with zero edge data, hence `h = 0` |
+| `green_flat` | conversely, for a pole-free probe `w`, `G w` is `H²`-flat, with `(G w)' = ½(e^{x/2}I₁ + e^{−x/2}I₂)` and `(G w)'' = w + G w/4` |
+| `simple_iff_no_flat` | **round 48's corollary, formal: the ground state is simple iff no nonzero ground-space element is `H²`-flat at the edges** |
+
+**What this closes, and what it does not.**
+* Round 48's structure theory is now machine-checked at the paper's regularity:
+  * Theorem A (`green_mem_groundSpace`);
+  * Theorem B (Commute.lean);
+  * Theorem C (`theoremC`);
+  * Theorem D (StructureD.lean);
+  * the corollary (`simple_iff_no_flat`).
+* The density step in the paper's proof of C ("density of `C_c^∞(−a, a)` in the form domain") is now proved, not cited.
+* Simplicity itself is still open, and so is `HypConv` for the top-of-chain ground states, the single remaining input of `rh_of_hypConv_top`.
 
