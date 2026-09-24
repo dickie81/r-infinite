@@ -961,8 +961,9 @@ the pilot's 0.093·e^{−4} = 1.70·10⁻³ (README round 69), and 2.0487·10⁻
 at δ = 3 against its table's 2.049·10⁻⁴ at the same K = 400 (README round
 69). At δ = 3 the total resolves only above 100 working
 digits (λ₁ = 4.267·10⁻⁹⁷): the 80-digit run floors at 10⁻⁸⁰ and is used
-for its lines only; a 120-digit run of the same instrument (its log
-`ledger_d3.0_dps120.txt`, pending at this commit) records the total.
+for its lines only; the 120-digit run of the same instrument (its log
+`ledger_d3.0_dps120.txt`) gives Q(g₁) = 4.2669993198998720563·10⁻⁹⁷,
+the Gram's ball value to 20 digits.
 
 **5.2 The numbers.** All lines for normalised profiles; the last column is
 the ground state's line less the projected kernel's.
