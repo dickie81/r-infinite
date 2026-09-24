@@ -5869,3 +5869,9 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Scope.** The sweep commit 3300392 and the citation commit ea3f157 (the note only). No tower obligation. Brief `brief_round379.md` (its text also inside the launch prompt). Convergence test on round 378's seven findings (A550); first review of the round-74 clause.
 
 **Findings.** 0 MAJOR, 2 minor, 5 cosmetic; all verified by the lead and accepted (A551); every round-378 disposition realised; the mathematics held a third time; all 51 quotations verbatim; every Lean name resolved. Minor: F379-1 "the whole of what remains informal" incomplete (the enumerated-sequence bridge; the (iii) bookkeeping); F379-2 "formally" unqualified. Cosmetic: F379-3 the assembly's two hypotheses; F379-4 the header's digit range; F379-5 the fit's description and citation; F379-6 "after" as chronology; F379-7 "every analytic step". Swept in 3db0664. Convergence test: round 380.
+
+### Round 380 — the convergence test on the round-379 sweep of the working note, with the round-75 citation
+
+**Scope.** The sweep commit 3db0664 and the citation commit 6bf29e9 (the note only). No tower obligation. Brief `brief_round380.md` (its text also inside the launch prompt). Convergence test on round 379's seven findings (A551); first review of the round-75 clause.
+
+**Findings.** 0 MAJOR, 0 minor, 5 cosmetic; all verified by the lead and accepted (A552); every round-379 disposition realised; the mathematics held a fourth time; the pilot's closed-form density checked to 30 digits — **converged: the note is stable and the §3.4 arc (rounds 377–380) is closed.** Cosmetic, applied editorially in ec95b39: F380-1 the residual list's omission of the closed form's positivity; F380-2 the formal clause's domain and object; F380-3 "every calculus step" without "in between"; F380-4 the header's Lean sentence; F380-5 the pilot's attribution of the correction to (d) unmarked as the pilot's.
