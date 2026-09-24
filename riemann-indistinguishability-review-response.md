@@ -5802,4 +5802,28 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the twenty-one edits of A539, including the Bombieri citation and the (a′) definition). No tower obligation. Brief `brief_round368.md` (its text also inside the launch prompt). Convergence test on round 367's eighteen findings (A539).
 
+**Findings.** 0 MAJOR, 4 minor, 6 cosmetic; all verified by the lead and accepted (A540); every round-367 disposition realised. Minor: F368-1 §3.3's opening still identified 1bu(ii)'s transform rate with the measured L² angle (F5's residue, direction inverted); F368-2 "unconditional" left in §2's opening (F6's residue); F368-3 the Bombieri prior misdescribed (zero-set truncation, every support, the finiteness antecedent cut; the sign dichotomy is Weil's); F368-4 §2's scope sentence false for Corollary 4's use of Theorem A with the jump trial Φ_a. Six cosmetics. **Sweep (round 369):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 pending.
+
+### Round 369 — the convergence test on the round-369 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the fourteen edits of A540). No tower obligation. Brief `brief_round369.md` (its text also inside the launch prompt). Convergence test on round 368's ten findings (A540).
+
+**Findings.** 0 MAJOR, 1 minor, 8 cosmetic; all verified by the lead and accepted (A541); every round-368 disposition realised; the round-68 citation exact. Minor: F369-1 Bombieri's boundary concentration attached to the supercritical regime (it is his subcritical observation) and identified with Remark (b). Cosmetic: `av3_C2`'s file and the support growth; the scope sentence's "Only"; the first zero's height in the inventory; one "unconditional"; φ_a and θ undefined; the surjectivity remark's conjugate pairs; "any natural proof"; the BV class uncited. **Sweep (round 370):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 pending.
+
+### Round 370 — the convergence test on the round-370 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the nine edits of A541). No tower obligation. Brief `brief_round370.md` (its text also inside the launch prompt). Convergence test on round 369's nine findings (A541).
+
+**Findings.** 0 MAJOR, 1 minor, 5 cosmetic; all verified by the lead and accepted (A542); every round-369 disposition realised in substance. Minor: F370-1 Bombieri's numerical section runs on a fictitious off-line zero, unsaid. Cosmetic: his order and his N a count; the inventory's Step 1; "support" for half-support; the README states one half of the dichotomy; `av3_C2` versus `probe_Av`. **Sweep (round 371):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 pending.
+
+### Round 371 — the convergence test on the round-371 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the six edits of A542). No tower obligation. Brief `brief_round371.md` (its text also inside the launch prompt). Convergence test on round 370's six findings (A542).
+
+**Findings.** 0 MAJOR, 1 minor, 7 cosmetic; all verified by the lead and accepted (A543); every round-370 disposition realised. Minor: F371-1 the tail ε's rate asserted for the transform's exterior zeros without argument, where the paper marks it unproved, and §4's D dropped ε → 0. Cosmetic: "3δ/2" against δ = 2a; ε₁ < 0.08 underived; Bombieri's critical value a half-support, one eigenvalue per sector; "nothing in between" unscoped; Backlund's count also in Step 4(ii) and the inventory's scope; item 3's family unnamed; the zero-side form of B for L² r. **Sweep (round 372):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 pending.
+
+### Round 372 — the convergence test on the round-372 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the nine edits of A543). No tower obligation. Brief `brief_round372.md` (its text also inside the launch prompt). Convergence test on round 371's eight findings (A543).
+
 **Findings.** PENDING.
