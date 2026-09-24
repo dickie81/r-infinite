@@ -2419,3 +2419,37 @@ Round 70's heuristic: on `Φ`'s tail, `e^{−τ∂²}Φ ≈ Φ·exp(−τ(2πx)�
 (That the caustic's source sits at `a + ½·log 2` is a tempting link to the prime `2`. It is untested and may be a coincidence.) The natural derivation route is standard boundary-layer asymptotics: resolve the edge layer by the uniform (Airy-type) expansion at the caustic, impose the window's boundary condition at `t = a`, and read off `c`.
 
 **Status.** Numerical, `δ ≤ 4`. The bulk description (backward heat flow of `Φ`, i.e. classical free transport of its phase) is now established pointwise at these supports. The edge layer and the value of `c` are open.
+
+## Round 72: the edge condition behind `1/(16π)`: partly derived, partly open (`frontier/nullvec/edge_principles.py`)
+
+**Derived (leading order).** Backward heat flow `e^{−τ∂²}Φ` is, in the Hamilton–Jacobi limit (round 71), free classical transport of `S = log Φ ≈ −πe^{2t}`. Along the characteristics, `W = S(t₀) + τp²` with `p = S′(t₀) ≈ −2πx₀`. The caustic sits at `x₀ = 1/(8πτ)`, where `W_c = −1/(16τ)`. So for `τ = c·e^{−δ}` the following conditions are **all equivalent at leading order**, and each selects `c = 1/(16π)`:
+* P1: the amplitude at the caustic equals `Φ` at the window's edge, `W_c = log Φ(a) ≈ −πe^{δ}`;
+* P2: the caustic is fed from `x₀ = 2e^{δ}`, i.e. `t₀ = a + ½·log 2`;
+* P3: the characteristic from the edge `t₀ = a` lands at `a − ¼`;
+* P4: the caustic sits at `a − ½·log(e/2)`.
+
+So the constant is one matching condition between the bulk (transported `Φ`) and the window's edge.
+
+**Discriminating at finite `δ`.** Each condition, evaluated with the exact `S`, predicts its own finite-`δ` correction to `τe^{δ}`:
+
+| `δ` | measured | P1 | P2 | P3 | P4 |
+|---|---|---|---|---|---|
+| 2.0 | 0.020636 | 0.020516 | 0.019880 | 0.022102 | 0.020953 |
+| 3.0 | 0.020179 | 0.020116 | 0.019892 | 0.020638 | 0.020261 |
+| 4.0 | 0.020004 | 0.019975 | 0.019894 | 0.020160 | 0.020026 |
+
+P2 (almost no correction) and P3 (correction 2.5× too large) are excluded. P1 and P4 bracket the measurement, each off by about `25%` in the correction. That is the size of the dropped `W_tt` term in Hamilton–Jacobi, so this test cannot separate them. P4 is also only a restatement of the constant. P1 is the candidate with physical content.
+
+**P1 tested directly on the ground state** (pointwise, `g` normalised to `Φ` in the bulk, at the measured caustic): `log g(t_c)` against `log Φ(a)`:
+
+| `δ` | `log g(t_c)` | `log Φ(a)` | relative gap |
+|---|---|---|---|
+| 2 | −14.79 | −15.80 | 6.4% |
+| 3 | −51.15 | −53.39 | 4.2% |
+| 4 | −154.42 | −159.55 | 3.2% |
+
+It holds at leading order, with a shrinking relative gap, as a leading-order law with subleading corrections should.
+
+**Not derived.** Why the minimiser of Weil's form selects P1 (or whichever exact condition is right) remains open. That needs a model of the form's cost in the edge layer, where the heat-flow representation ends. A controlled next step: a reduced variational problem, with a transported-`Φ` bulk (parameter `τ`) plus an edge-layer ansatz, energy evaluated on the certified Gram, minimised over `τ`. If it reproduces `1/(16π)`, the edge-layer energetics is the explanation.
+
+**Also this round.** The `δ = 4.5` angle is now checked in `K`: `K = 900` and `1100` give `sin²θ = 9.6877e-6` and `9.6893e-6`.
