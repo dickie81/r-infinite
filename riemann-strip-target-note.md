@@ -516,8 +516,11 @@ the span of Φ″, Φ⁗, Φ⁽⁶⁾, with sin² = 1.2·10⁻¹⁴ outside span
 its own status line reads "The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are
 inferred, not proved" (its round 70 sharpens the constant to 1/(16π),
 conjectures g_a ≈ c·e^{−τ_a∂²}Φ with τ_a = 1/(16πe^{2a}), a backward heat
-flow of Φ, and states "the conjecture is RH-strength" with the derivation
-of the constant open), and it remarks that "`Φ`'s even derivatives are,
+flow of Φ, and states "the conjecture is RH-strength" with the derivation of the
+constant open; its round 71 finds the flow pointwise in the window's bulk,
+as classical free transport of Φ's phase, with an edge layer beyond a
+caustic about 0.153 inside the edge, "the edge layer and the value of `c`"
+open), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
