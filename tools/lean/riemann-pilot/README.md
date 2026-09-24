@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 9 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 366 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 379 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -49,6 +49,7 @@ Every file ends with `#print axioms`. All 366 checked theorems depend only on `p
 | `Mollify.lean` | 1026 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
 | `ZeroCount.lean` | 333 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
+| `SixteenPi.lean` | 464 | the strip note's §3.4 derivation of `1/(16π)`, everything but the balayage identity: `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
 | `GapBound.lean` | 443 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
 | `StripConv.lean` | 544 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
@@ -2470,3 +2471,43 @@ At `δ = 2` the optimum converges, from `m = 16` on, to **`c = 0.021960`**. The 
 **Reading.** The least-edge-cost member of `Φ`'s backward-heat family is not the ground state: at `δ = 2` its time is `6%` too large, and its energy is `10⁶` too high. The edge layer, which this family cannot represent, carries most of the energetics and shifts the optimal `τ`. So "minimise the truncation cost of transported `Φ`" is not by itself the principle behind `1/(16π)`. Any derivation must include the edge layer. Whether `c_opt/c_ground → 1` as `δ` grows (the edge layer becoming relatively cheaper) is what the `δ = 3` run will show.
 
 **Also this round.** The `δ = 5` angle is not converged in `K`: `K = 1100` and `1300` give `sin²θ = 3.18e-6` and `3.48e-6`, and `λ₁` moves by 22 orders. The `δ = 5` row of round 70 is therefore unreliable. The `K = 1300` value gives `sin²θ·e^{2δ} = 0.077`, back in line with the trend. Confirming it needs `K ≳ 1500`.
+
+## Round 74: the strip note's `1/(16π)` derivation, formal except for the balayage (SixteenPi.lean)
+
+The owner's working note (`riemann-strip-target-note.md` §3.4) derives this pilot's multiplier time `τ_a = e^{−δ}/(16π)` (rounds 70–73) from the zero side, within the paper's Theorem 1bm(iv) reduced problem. Round 74 formalises every step of that derivation that is ordinary analysis. It uses only the standard axioms and adds no hypothesis beyond the ones listed here.
+
+- **(3.1) The time is the curvature defect** (`multiplier_expansion`). Take Hadamard products `f(z)/f(0) = Π(1 − z²w_i)` and `F(z)/F(0) = Π(1 − z²v_k)`. Then `f(z)/f(0) = (F(z)/F(0))(1 + τz²) + E`, with `τ = Σv − Σw` and `‖E‖ ≤ 3‖z‖⁴(Σ‖w‖ + Σ‖v‖)²` once `‖z‖²(Σ‖w‖ + Σ‖v‖) ≤ 1`. Applied to `ĝ_a` and `Ξ` this gives `τ = Σγ⁻² − Στ⁻² = κ_Ξ − κ(a)`, for any ground state.
+- **(3.2) Under D, only the tails remain** (`defect_sub_tail`, `defect_eq_tail_of_D`, `defect_sub_tail_le`). If the first `N` zeros agree, the defect equals the tails' defect exactly. The paper verifies D only within a tolerance. If the first `N` zeros agree within `Δ_n ≤ γ_n/2`, the defect is within `Σ_{n<N} 10Δ_n/γ_n³` of the tails' defect, via `inv_sq_sub_le`: `|γ⁻² − t⁻²| ≤ Δ(2γ + Δ)/(γ²(γ − Δ)²)`. This is the note's "at most `2Δ/γ³(1 + O(Δ/γ))`".
+- **(iv) The closed forms.**
+  - `∫_X^∞ x⁻² ln x dx = (1 + ln X)/X` for `X ≥ 1` (`integral_log_div_sq_Ioi`).
+  - `P = ∫₀¹ (1 − √(1 − s²))/s² ds = π/2 − 1` (`P_eq`).
+  - `Q = ∫₀¹ ln s·(1 − √(1 − s²))/s² ds = π/2 − 1 − (π/2) ln 2` (`Q_eq`).
+  - `P` and `Q` both use the substitution `s = sin θ` (`integral_subst_sin`, valid for any integrand). `Q` also needs the antiderivative `sin θ ln sin θ/(1 + cos θ) − θ + tan(θ/2)` of `ln sin θ/(1 + cos θ)`, and Mathlib's `∫₀^{π/2} ln sin = −(π/2) ln 2`.
+  - The rescaling `t = Xs`: `∫₀^X (−ln t)h_X(t) dt = (−P ln X − Q)/X` (`balayageSide_eq`).
+  - Hence `J(X) = (π/(2X))(1 + ln(X/2))` (`J_eq`), and `J(2) = π/4`.
+- **(v) The wall and the constant.**
+  - `(1 + ln(X/2))/X ≤ 1/2`, with equality only at `X = 2` (`wall_le`, `wall_eq_iff`), and the deficit is quadratic: at most `(y − 1)²/(2y²)` with `y = X/2` (`wall_quadratic`).
+  - `J(X)/(2πT₀) = (1 + ln(X/2))/(4XT₀)` (`J_div_eq_tauWall`), which equals `e^{−δ}/(16π)` at `X = 2`, `T₀ = 2πe^δ` (`tau_at_wall`).
+  - Assembled: given the balayage identity at the wall, `(∫_2^∞ x⁻²[ln x − τ(x)] dx)/(2πT₀) = e^{−δ}/(16π)` (`sixteenPi_of_balayage`).
+
+**Not formalised.**
+- **The balayage identity** `∫_X^∞ x⁻²τ(x) dx = ∫₀^X (−ln t)h_X(t) dt`: harmonic measure on the doubly slit plane, the hypothesis `hbal` of `exteriorMoment_eq` and `sixteenPi_of_balayage`.
+- **The note's four inputs (vii)(a)–(d).** None of these is touched:
+  - (a) Hypothesis D at the wall, which is RH-strength at every δ;
+  - (b) the reduction's five lemmas;
+  - (c) that the ground state's wall sits at the reduced problem's maximiser `X = 2`;
+  - (d) the continuum density in place of the discrete zeros.
+- Also, `defect_*` take the zeros as enumerated sequences; the bridge to the `ZeroIdx` families of `HadamardApply` is not built.
+
+So the formal status of `1/(16π)` is:
+
+**(balayage identity) ∧ D at the wall ∧ (b)–(d) ⇒ τ_a = e^{−δ}/(16π)**
+
+Every arithmetic and calculus step in between is now checked. Nothing here bears on RH.
+
+**Also this round (numerical).** At `δ = 5`:
+- `K = 1300` gives `sin²θ = 3.4781e-6` at both 3200 and 4000 bits.
+- `K = 1500` gives `3.5426e-6`, a change of `1.9%`, so `K = 1500` is still not converged.
+- `sin²θ·e^{10} = 0.0766` at `K = 1300` and `0.0780` at `K = 1500`, against the note's prediction `(13.98/16π)² = 0.0774`.
+- `K = 1700` is running.
+
