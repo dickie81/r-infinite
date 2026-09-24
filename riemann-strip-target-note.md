@@ -690,7 +690,10 @@ coefficient of (i); (3.6) then predicts sin²θ · e^{2δ} → (13.98/(16π))² 
 inline list; its table gives 0.0793 at δ = 4.0) "with
 shrinking steps" and its "`C → ≈ 0.077`" (README round 69; its round 73
 declares round 70's δ = 5 row "unreliable", K = 1300 there giving
-"`sin²θ·e^{2δ} = 0.077`") — the pilot's 13.98 and its angles are its
+"`sin²θ·e^{2δ} = 0.077`"; its round 78 converges δ = 5 at K = 1700 and
+finds the sequence 0.0806, 0.0793, 0.0785, 0.0781 at δ = 3.5, 4, 4.5, 5
+with the excess over 0.0774 shrinking like e^{−δ}: "So the data converge
+to `0.0774`") — the pilot's 13.98 and its angles are its
 numbers, not this note's.
 
 **(vi′) Formal status (the pilot's round 74, cited after this note's
@@ -1067,6 +1070,35 @@ e^{2β*a}/(2eβ*)(1 − o(1)) under (H₁) (Theorem 2): the dichotomy of
 Corollary 4, on the prime side, is between a least eigenvalue of size
 e^{−2T₀} and one of size e^{2β*a}, with nothing between. This section
 proves neither.
+
+The pilot's rounds 78–79 (landed while this section was computed) name
+the two objects (quotations below adapted from the README's backticked
+notation). Round 78: with K = 1700 at δ = 5, "sin²θ·e^{2δ} = 0.0806,
+0.0793, 0.0785, 0.0781 at δ = 3.5, 4, 4.5, 5", the excess over §3.4's
+(13.98/16π)² = 0.0774 shrinking "like e^{−δ} (≈ 0.10e^{−δ})", "So the data
+converge to 0.0774"; the closeness hypothesis of `rh_of_close_top` is
+"satisfied with a growing margin at every computed window", the ratio of
+distance to threshold falling "like e^{−3a/2}√a", and "no finite
+computation discharges it, because it is a limit statement"; and the heat
+family at δ = 3 gives c_opt = 0.0197318 against the ground state's
+0.020179, so the least-edge-cost member "crosses the ground state's time
+rather than converging to it". Round 79: the windows a > 0 with Weil's
+form Q_a form "a functor into quadratic spaces, with no hypothesis",
+landing in Hilbert spaces up to window a "iff Q_a ≥ 0", and where positive
+"a de Branges chain" (Suzuki: the Hilbert space built from Weil's
+distribution is a de Branges space, and RH is equivalent to the existence
+of a Krein canonical system generating it); "The ground state of Q_a is,
+up to normalisation, the chain's reproducing kernel at z = 0: k₀ = Q_a⁻¹
+ev₀", the two agreeing "to relative order (λ₁/λ₂)² times an overlap ratio"
+(sin²∠ = 4.0·10⁻¹⁴ and 7.4·10⁻¹⁸ at δ = 2, 3); "The chain exists for all a
+iff RH. The reformulation turns global positivity into positivity of a
+Hamiltonian that is local in t." In the terms of this section: the
+near-null vector of the operator inequality is the chain's reproducing
+kernel at the origin, and the inequality itself is the chain's existence
+at window a — the same statement in de Branges' language, with the
+positivity of H(t) as its local form. This note adds nothing to that
+reading; the pilot's own status line stands: "Nothing here removes the
+open input."
 
 **5.5 Conclusion of the ledger.** The prime side of the truncated form at
 a cell is a fixed, rapidly convergent arithmetic sum dominated by 2 and 3,
