@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 339 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 345 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -50,6 +50,7 @@ Every file ends with `#print axioms`. All 339 checked theorems depend only on `p
 | `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 801 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
 | `ZeroCount.lean` | 355 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
+| `GapBound.lean` | 459 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2040,3 +2041,42 @@ No mathematical content changes; the pilot is shorter and each fact has one proo
 * **Theorem C in one place.** Round 52's smooth `C⁴` form (`deriv2_mem_groundSpace`, `deriv2_multiple_of_simple`, `simple_not_flat`) is removed from Commute.lean. `simple_not_flat` is now a corollary of the `H²` theorem in TheoremC.lean (`flatH2_of_C2`, `theoremC_not_simple`). It needs only `h ∈ C²` with `h''` a probe; the old hypotheses on the third and fourth derivatives are gone. Commute.lean keeps Theorem B and the ODE step.
 
 Earlier rounds' sections still name the old locations. The theorems they describe are all still proved, at the places listed in this round.
+
+## Round 60: the pole-overlap gap bound and the Galerkin transfer (GapBound.lean)
+
+Round 50's rotation reduced simplicity to the pole overlap `⟨c, ψ₂⟩`. This round proves the resulting gap bound at operator level, and the transfer from truncations. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+**1. The gap bound, with no spectral decomposition.** Let:
+* `φ₀` be the ground state of `Q₀`, with `μ₁ = λ₀`;
+* `ψ` be a normalised probe `⊥ φ₀` attaining `μ₂ = inf {Q₀(χ)/‖χ‖² : χ ⊥ φ₀}`;
+* `c₁ = φ̂₀(i/2)` and `c₂ = ψ̂(i/2)` be the pole overlaps.
+
+| theorem | statement |
+|---|---|
+| `lam_le_trial` | the trial function `ψ − (c₂/c₁)φ₀` has zero pole term, so `λ₁(c₁² + c₂²) ≤ μ₂c₁² + μ₁c₂²` |
+| `lam2Ge_of_Q0` | interlacing in min–max form: every two-dimensional span has a unit vector `⊥ φ₀`, where `Q ≥ Q₀ ≥ μ₂`. So `λ₂(Q) ≥ μ₂` (`Lam2Ge`) |
+| `lam2Ge_gap` | **`λ₂(Q) ≥ λ₁(Q) + c₂²(μ₂ − μ₁)/(c₁² + c₂²)`** |
+| `simple_of_pole_overlap` | `c₂ ≠ 0` and `μ₂ > μ₁` imply every ground state is simple, with the explicit gap above |
+
+The overlap can come from any minimiser `ψ` on `φ₀^⊥`; `μ₂` itself need not be simple. The bound is sharper than the secular-equation bound `c₂²(λ₁ − μ₁)/c₁²` sketched earlier, because `μ₂ − μ₁ ≥ λ₁ − μ₁`.
+
+**2. The Galerkin transfer.**
+* `TruncDense a T`: every probe is a limit, in `L²` plus archimedean energy, of vectors from the truncation spaces `T K`.
+* `Lam2GeT a S s`: `λ₂(Q|S) ≥ s` in min–max form. Every span of two vectors of `S` contains a vector with `Q ≥ s‖·‖²`, so no orthonormalisation is needed.
+
+| theorem | statement |
+|---|---|
+| `Qlam_add_le`, `normSq_add_le_t` | `Q_λ(x + y) ≤ (1 + t)Q_λ(x) + (1 + 1/t)Q_λ(y)`, from Cauchy–Schwarz for the nonnegative `Q_λ`; the same for `‖·‖²` |
+| `Qlam_le_d` | `Q_λ ≤ C·(‖·‖² + E_arch)` on probes |
+| `lam2Ge_of_trunc` | if `T` is dense and eventually `λ₂(T K) ≥ s_K → s₀`, then `λ₂(Q) ≥ s₀ − ε` for every `ε > 0` |
+| `simple_of_trunc_gap` | **if `T` is dense and eventually `λ₂(T K) ≥ λ₁(T K) + γ`, with `γ > 0` uniform, then every ground state is simple** |
+
+**What this gives, and what it does not.**
+* Simplicity at a support now follows from either of two checkable statements:
+  * a nonzero pole overlap of a second `Q₀`-minimiser, together with `μ₂ > μ₁`;
+  * a uniform gap in dense truncations.
+* Neither is proved at every support.
+* Round 50 measured the overlap `⟨c, ψ₂⟩ ≈ 2×10⁻⁸` at `δ = 1.4`, which falls super-exponentially with `δ`. The gap bound is correspondingly tiny.
+* `TruncDense` for the cosine truncations used in rounds 47–50 is a hypothesis here. Proving it means approximating round 55's smooth approximants by cosine sums in energy, which is not done.
+* The converse direction (simple ⇒ truncated gaps bounded below) needs attainment of `λ₂` by compactness, and is not formalised.
+
