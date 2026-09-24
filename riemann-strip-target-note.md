@@ -5,7 +5,7 @@
 after Addendum 537. No long numerics were run for this note; the closed
 forms of §3.4 were checked by high-precision quadrature, in seconds, by an
 uncommitted script named there (the identities are exact; the quadratures
-agree to 17–19 digits). The Lean pilot was not touched. Every statement below is either proved here in full, or is
+agree to 14 digits or better, 17–19 for P and Q as written). The Lean pilot was not touched for this note (its rounds 74–75, cited in §3.4(vi′), are the pilot's own). Every statement below is either proved here in full, or is
 marked as a proof sketch with the unfinished step named, or is marked as
 heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
 which asserts the Riemann Hypothesis neither true nor false.
@@ -530,9 +530,10 @@ of Weil's form selects P1 (or whichever exact condition is right) remains
 open"; its round 73 tests a reduced variational model and finds "the
 heat family alone does not fix the constant" and "Any derivation must
 include the edge layer"; §3.4 below derives the constant on the zero
-side, within the paper's reduced problem, and its round 74 formalises
-that derivation's analysis, the balayage identity and the inputs left as
-hypotheses), and it remarks that "`Φ`'s even derivatives are,
+side, within the paper's reduced problem; its round 74 formalises that
+derivation's calculus steps and its round 75 the balayage identity, so
+that within the reduced problem the constant is a theorem with no
+hypothesis, the inputs (a)–(d) of §3.4(vii) remaining), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
@@ -573,9 +574,11 @@ the ground state of the prime-side Weil Gram (`weil_prime_gram.py`,
 curvatures are 1bu(ii)'s, from its `ladder_caster.py` ("From the true
 form's Gram (weil_prime_gram, the even cosine basis on [-a, a], delta =
 2a) at the 1bn/1br cells, the lowest eigenvectors"), and the pilot's β is
-its least-squares fit on the same Gram (its round 23: "The ground state
-is computed with the paper's own Gram (`tools/research/weil_prime_gram.py`:
-even cosine basis, every prime power, 600–1100 bits)"): from the paper's
+an L² least-squares fit of the ground state computed from the same Gram
+function (`beta_fit.py` imports `weil_prime_gram`; README round 68:
+"Weil's Gram in the cosine basis comes from
+`tools/research/weil_prime_gram.py`, unconditional: arithmetic side only,
+arb balls"): from the paper's
 published cell curvatures 0.0203, 0.0221, 0.0225 at δ = 2, 3, 3.5 (1bu(ii),
 four decimals, so the products below carry ±0.0004, ±0.0010, ±0.0017),
 (κ_Ξ − κ)e^δ = 0.0207, 0.0202, 0.0200; the pilot's fitted −β·e^δ at the
@@ -686,8 +689,8 @@ declares round 70's δ = 5 row "unreliable", K = 1300 there giving
 "`sin²θ·e^{2δ} = 0.077`") — the pilot's 13.98 and its angles are its
 numbers, not this note's.
 
-**(vi′) Formal status (the pilot's round 74, after this note's round-378
-sweep).** The pilot's `SixteenPi.lean` (commit 85bdb2b) "proves everything
+**(vi′) Formal status (the pilot's round 74, cited after this note's
+round-378 sweep).** The pilot's `SixteenPi.lean` (commit 85bdb2b) "proves everything
 in that derivation except the balayage identity itself": (3.1) as
 `multiplier_expansion` (the z² coefficient of a ratio of Hadamard products
 is Σv − Σw, with an explicit remainder bound); (3.2) as
@@ -697,19 +700,55 @@ agreeing within Δ_n ≤ γ_n/2 move the defect by at most Σ 10Δ_n/γ_n³, via
 (by s = sin θ and Mathlib's ∫₀^{π/2} ln sin = −(π/2) ln 2), the rescaling
 `balayageSide_eq`, `J_eq` and `J_two`; the wall law `wall_le`,
 `wall_eq_iff` (equality only at X = 2) and `wall_quadratic`;
-`tau_at_wall`; and the assembly `sixteenPi_of_balayage`, whose one
-hypothesis `hbal` is the balayage identity ∫_X^∞ x⁻²τ = ∫₀^X(−ln t)h_X dt
-of (iv). Its README states the result as "**(balayage identity) ∧ D at
-the wall ∧ (b)–(d) ⇒ τ_a = e^{−δ}/(16π)**" and "Every arithmetic and
-calculus step in between is now checked. Nothing here bears on RH." The
-harmonic-measure step of (iv) and inputs (a)–(d) below are therefore the
-whole of what remains informal. The Lean was not built or touched for this
-note; the round-74 record is cited as the pilot's. Its δ = 5 angle check
+`tau_at_wall`; and the assembly `sixteenPi_of_balayage`, whose
+hypotheses are the integrability of τ/x² beyond the wall and `hbal`, the
+balayage identity ∫_X^∞ x⁻²τ = ∫₀^X(−ln t)h_X dt of (iv). Its README
+states the result as "**(balayage identity) ∧ D at the wall ∧ (b)–(d) ⇒
+τ_a = e^{−δ}/(16π)**" and "Every arithmetic and calculus step in between
+is now checked. Nothing here bears on RH." What remains informal: the
+harmonic-measure step of (iv); the bookkeeping of (iii) that turns (3.2)
+into (3.3) (the Lean's assembly starts from the continuum integral); the
+bridge from enumerated zero sequences to the zero sets themselves (the
+README: "the bridge to the `ZeroIdx` families of `HadamardApply` is not
+built"); and inputs (a)–(d) below. The Lean was not built or touched for
+this note; the round-74 record is cited as the pilot's. Its δ = 5 angle check
 is "still not converged" in K (sin²θ·e^{10} = 0.0766 at K = 1300, 0.0780
 at K = 1500, "against the note's prediction `(13.98/16π)² = 0.0774`").
 
+The pilot's round 75 (commit cd3a427, cited after this note's round-379
+sweep) removes the balayage hypothesis: `balayage_identity` proves, for
+the paper's explicit density τ(x) = −I(x)/(π√(x² − X²)) and every X > 0,
+that x⁻²τ is integrable on (X, ∞) and ∫_X^∞ x⁻²τ = ∫₀^X(−ln t)h_X(t) dt —
+by exchanging the two integrals, splitting the paired kernel by partial
+fractions into two arctan kernels and integrating each to π/(2c);
+"Harmonic measure is never used." Hence `exteriorMoment_reduced` ((3.4)
+for X ≥ 1) and `sixteenPi_reduced` ((3.6)) carry no hypothesis, and
+`fBalExp_le` proves the paper's f(X) ≤ 4π with equality only at X = 2 —
+"This proves the paper's `X* = 2` and `f_∞ = 4π`." The README also
+records a closed form of the density, τ_X(x) = ln(Xx/(x + s)) −
+x·ln(X/2)/s with s = √(x² − X²), proved on paper by the Fourier series of
+ln sin (not formalised: "This needs the Fourier series of `ln sin`, which
+is not in Mathlib"); at X = 2, τ(x) = ln(2x/(x + √(x² − 4))) > 0 for
+x > 2, ln 2 at the edge, 0 at infinity, which proves the admissibility
+the paper marked "checked to 10⁶X, not proved" (net state: the paper's
+1bm(iv) carries the closed form with a self-contained proof since the
+round-381 landing). This note's check of that
+closed form (seconds, uncommitted): it matches the paper's −I/(π√) at
+(X, x) = (2, 3), (2, 2.5), (1.5, 2), (3, 4), (0.7, 1) to 20 digits, and at
+X = 2 its moment is 0.0611754268825243 and its mass 2(1 − ln 2). The
+pilot's own summary: "`1/(16π)` is now a theorem about the paper's
+reduced problem, and a conjecture about ζ's ground state exactly to the
+extent of (a)–(d)." What remains informal after round 75: the bookkeeping
+of (iii) from (3.2) to (3.3), the enumerated-sequence bridge, the
+density's closed form with its positivity at X = 2 (proved on paper, not
+formalised), and inputs (a)–(d) below.
+
 **(vii) What is established, and what is not.** (3.1), (3.2) and (3.4)–(3.6)
-are proved as stated (and, per (vi′), formally). The identification of the pilot's constant rests on
+are proved as stated (and, per the pilot's round-74 and round-75 records,
+formally: (3.4)–(3.6) as the moment J(X)/(2πT₀) of the paper's explicit
+density, X ≥ 1, with no hypothesis,
+(3.2) for enumerated zero sequences, (3.1) as the abstract product
+lemma). The identification of the pilot's constant rests on
 four inputs, each the paper's and each conjectural or computed, not proved:
 (a) Hypothesis D at the wall, exactly — the paper's is "verified at the
 cells within the dodging tolerance" and "D holds to the dodging tolerance,
@@ -724,7 +763,11 @@ from δ = 2 on with the paper's displacements (0.7% at δ = 2, 0.3% at
 theorem"), and whose balayage is the zero distribution of the reduced
 problem's optimum, transferred to the ground state only by that reduction;
 (c) the wall at X = 2, the reduced problem's maximiser — a boundary optimum
-whose exterior positivity "is checked to 10⁶X, not proved"; (d) the
+whose exterior positivity the paper marked "checked to 10⁶X, not proved"
+(proved on paper by the pilot's round-75 closed form, (vi′), and in the
+paper's 1bm(iv) since the round-381 landing; what stays
+conjectural in (c) is the transfer of the maximiser to the ground state's
+wall); (d) the
 continuum: (3.2) is a sum over discrete zeros, (3.3) its continuum
 density, and they differ at order 1/T² ∝ e^{−2δ} — exactly the order of
 the pilot's measured correction (its remainder "`(β·e^δ + 1/16π)·e^δ` is
@@ -741,7 +784,10 @@ moment — but only through the wall shift of 1ca, ε = 7/(2T), which by
 a coefficient −49/(2048π³) = −0.00077 of e^{−2δ} in τ_a e^δ, one order
 below the pilot's +0.0058e^{−δ} and of the wrong sign (1.8% of it at
 δ = 2, falling like e^{−δ}). The correction lives outside the continuum
-problem and is open. Its home is not identified here. Two candidates,
+problem and is open. Its home is not identified here (the pilot's round
+75 attributes it to the continuum limit (d) as "an approximation whose
+error is the pilot's measured `−0.0058e^{−δ}` term"; this note does not,
+the attribution being uncomputed). Two candidates,
 neither computed: the discrete-minus-continuum difference of ζ's tail,
 −S(T)/T² + 2∫_T^∞ S(r)r⁻³dr, has a fluctuating part of order (ln T)/T²
 and, with the wall just below the first missed zero, a systematic part —
@@ -838,8 +884,9 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    that moment is exactly 1/(8T₀) = e^{−δ}/(16π), by two elementary
    integrals and one harmonic function on the doubly slit plane. The law
    for a general wall, (1 + ln(X/2))/(4XT₀), is itself maximal at X = 2.
-   The pilot's round 74 formalises every analytic step (`SixteenPi.lean`),
-   the balayage identity and the four inputs remaining hypotheses.
+   The pilot's round 74 formalises every calculus step from (3.3) on (`SixteenPi.lean`)
+   and its round 75 the balayage identity, so the constant is a theorem
+   of the reduced problem with no hypothesis; the four inputs remain.
    The inputs — D at the wall, the reduction's five lemmas, the wall at
    the maximiser, the continuum density — are the paper's and conjectural;
    the pilot's e^{−2δ} correction is not derived (the count constant's
