@@ -5844,4 +5844,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the three edits of A546). No tower obligation. Brief `brief_round375.md` (its text also inside the launch prompt). Convergence test on round 374's two findings (A546).
 
+**Findings.** 0 MAJOR, 2 minor, 3 cosmetic; all verified by the lead and accepted (A547); both round-374 dispositions realised; the round-71 clause exact. All five on the illustrative numbers of Step 1's a₀ remark (the crossing rounded unsafely; "within 10⁻³ of 1" false for small β; a double-precision threshold; the inventory; a quotation device). **Sweep (round 376):** the remark cut to its load-bearing core with no numerical illustration. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 (0M+1m+5c) → 373 (0M+2m+4c) → 374 (0M+1m+1c) → 375 (0M+2m+3c) → 376 pending.
+
+### Round 376 — the convergence test on the round-376 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the three edits of A547). No tower obligation. Brief `brief_round376.md` (its text also inside the launch prompt). Convergence test on round 375's five findings (A547).
+
 **Findings.** PENDING.
