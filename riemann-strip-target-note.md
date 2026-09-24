@@ -530,7 +530,9 @@ of Weil's form selects P1 (or whichever exact condition is right) remains
 open"; its round 73 tests a reduced variational model and finds "the
 heat family alone does not fix the constant" and "Any derivation must
 include the edge layer"; §3.4 below derives the constant on the zero
-side, within the paper's reduced problem), and it remarks that "`Φ`'s even derivatives are,
+side, within the paper's reduced problem, and its round 74 formalises
+that derivation's analysis, the balayage identity and the inputs left as
+hypotheses), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
@@ -684,8 +686,30 @@ declares round 70's δ = 5 row "unreliable", K = 1300 there giving
 "`sin²θ·e^{2δ} = 0.077`") — the pilot's 13.98 and its angles are its
 numbers, not this note's.
 
+**(vi′) Formal status (the pilot's round 74, after this note's round-378
+sweep).** The pilot's `SixteenPi.lean` (commit 85bdb2b) "proves everything
+in that derivation except the balayage identity itself": (3.1) as
+`multiplier_expansion` (the z² coefficient of a ratio of Hadamard products
+is Σv − Σw, with an explicit remainder bound); (3.2) as
+`defect_eq_tail_of_D`, and its tolerant form `defect_sub_tail_le` (zeros
+agreeing within Δ_n ≤ γ_n/2 move the defect by at most Σ 10Δ_n/γ_n³, via
+`inv_sq_sub_le`); the integrals `integral_log_div_sq_Ioi`, `P_eq`, `Q_eq`
+(by s = sin θ and Mathlib's ∫₀^{π/2} ln sin = −(π/2) ln 2), the rescaling
+`balayageSide_eq`, `J_eq` and `J_two`; the wall law `wall_le`,
+`wall_eq_iff` (equality only at X = 2) and `wall_quadratic`;
+`tau_at_wall`; and the assembly `sixteenPi_of_balayage`, whose one
+hypothesis `hbal` is the balayage identity ∫_X^∞ x⁻²τ = ∫₀^X(−ln t)h_X dt
+of (iv). Its README states the result as "**(balayage identity) ∧ D at
+the wall ∧ (b)–(d) ⇒ τ_a = e^{−δ}/(16π)**" and "Every arithmetic and
+calculus step in between is now checked. Nothing here bears on RH." The
+harmonic-measure step of (iv) and inputs (a)–(d) below are therefore the
+whole of what remains informal. The Lean was not built or touched for this
+note; the round-74 record is cited as the pilot's. Its δ = 5 angle check
+is "still not converged" in K (sin²θ·e^{10} = 0.0766 at K = 1300, 0.0780
+at K = 1500, "against the note's prediction `(13.98/16π)² = 0.0774`").
+
 **(vii) What is established, and what is not.** (3.1), (3.2) and (3.4)–(3.6)
-are proved as stated. The identification of the pilot's constant rests on
+are proved as stated (and, per (vi′), formally). The identification of the pilot's constant rests on
 four inputs, each the paper's and each conjectural or computed, not proved:
 (a) Hypothesis D at the wall, exactly — the paper's is "verified at the
 cells within the dodging tolerance" and "D holds to the dodging tolerance,
@@ -814,6 +838,8 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    that moment is exactly 1/(8T₀) = e^{−δ}/(16π), by two elementary
    integrals and one harmonic function on the doubly slit plane. The law
    for a general wall, (1 + ln(X/2))/(4XT₀), is itself maximal at X = 2.
+   The pilot's round 74 formalises every analytic step (`SixteenPi.lean`),
+   the balayage identity and the four inputs remaining hypotheses.
    The inputs — D at the wall, the reduction's five lemmas, the wall at
    the maximiser, the continuum density — are the paper's and conjectural;
    the pilot's e^{−2δ} correction is not derived (the count constant's
