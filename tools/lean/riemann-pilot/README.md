@@ -2453,3 +2453,20 @@ It holds at leading order, with a shrinking relative gap, as a leading-order law
 **Not derived.** Why the minimiser of Weil's form selects P1 (or whichever exact condition is right) remains open. That needs a model of the form's cost in the edge layer, where the heat-flow representation ends. A controlled next step: a reduced variational problem, with a transported-`Φ` bulk (parameter `τ`) plus an edge-layer ansatz, energy evaluated on the certified Gram, minimised over `τ`. If it reproduces `1/(16π)`, the edge-layer energetics is the explanation.
 
 **Also this round.** The `δ = 4.5` angle is now checked in `K`: `K = 900` and `1100` give `sin²θ = 9.6877e-6` and `9.6893e-6`.
+
+## Round 73: a reduced variational model: the heat family alone does not fix the constant (`frontier/nullvec/`)
+
+**Rayleigh–Ritz on `span{Φ, Φ″, …, Φ⁽²ᵐ⁾}`** (`ritz.py`, `δ = 2`). Each `Φ⁽²ᵏ⁾` is a null direction on `ℝ`, so the restricted energy is pure edge cost. The Ritz minimiser moves toward the ground state as `m` grows: `c₁/c₀·e^δ = −0.0043, −0.0077, −0.0103, −0.0124` for `m = 1–4`, against the ground state's `−0.0206`, with `λ_Ritz = 2.6e-17 → 3.5e-22` against `λ₁ = 6.3e-30`.
+
+**One-parameter heat family** (`heat_family.py`, fast version `heat_family_fast.py`, which computes all derivative orders per node in one pass and reproduces the slow one exactly, 7–10× faster). Take `h_τ = Σ_{k≤m}(−τ)^kΦ⁽²ᵏ⁾/k!` on `[−a, a]`, with no edge freedom. Minimise `Q(h_τ)/‖h_τ‖²` over `c = τe^δ`.
+
+| `m` | 2 | 4 | 8 | 12 | 16 | 20 | 24 | 28 | 32 |
+|---|---|---|---|---|---|---|---|---|---|
+| `δ = 2`: `c_opt` | 0.00555 | 0.01169 | 0.01628 | 0.01961 | 0.021957 | 0.0219594 | 0.0219596 | 0.0219596 | 0.0219596 |
+| `δ = 3`: `c_opt` | | | | 0.00856 | 0.01159 | 0.01357 | 0.01516 | (running) | |
+
+At `δ = 2` the optimum converges, from `m = 16` on, to **`c = 0.021960`**. The ground state has `0.02064`, and `1/(16π) = 0.01989`. The optimal energy is `2.8e-24`, about `10⁶` times the true `λ₁ = 6.3e-30`. At `δ = 3` the series needs more terms: the number of significant terms scales like `τ(2πX)² ≈ 16`, against `≈ 6` at `δ = 2`. A run to `m = 64` is under way.
+
+**Reading.** The least-edge-cost member of `Φ`'s backward-heat family is not the ground state: at `δ = 2` its time is `6%` too large, and its energy is `10⁶` too high. The edge layer, which this family cannot represent, carries most of the energetics and shifts the optimal `τ`. So "minimise the truncation cost of transported `Φ`" is not by itself the principle behind `1/(16π)`. Any derivation must include the edge layer. Whether `c_opt/c_ground → 1` as `δ` grows (the edge layer becoming relatively cheaper) is what the `δ = 3` run will show.
+
+**Also this round.** The `δ = 5` angle is not converged in `K`: `K = 1100` and `1300` give `sin²θ = 3.18e-6` and `3.48e-6`, and `λ₁` moves by 22 orders. The `δ = 5` row of round 70 is therefore unreliable. The `K = 1300` value gives `sin²θ·e^{2δ} = 0.077`, back in line with the trend. Confirming it needs `K ≳ 1500`.
