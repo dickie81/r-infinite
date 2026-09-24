@@ -730,7 +730,9 @@ x·ln(X/2)/s with s = √(x² − X²), proved on paper by the Fourier series of
 ln sin (not formalised: "This needs the Fourier series of `ln sin`, which
 is not in Mathlib"); at X = 2, τ(x) = ln(2x/(x + √(x² − 4))) > 0 for
 x > 2, ln 2 at the edge, 0 at infinity, which proves the admissibility
-the paper marks "checked to 10⁶X, not proved". This note's check of that
+the paper marked "checked to 10⁶X, not proved" (net state: the paper's
+1bm(iv) carries the closed form with a self-contained proof since the
+round-381 landing). This note's check of that
 closed form (seconds, uncommitted): it matches the paper's −I/(π√) at
 (X, x) = (2, 3), (2, 2.5), (1.5, 2), (3, 4), (0.7, 1) to 20 digits, and at
 X = 2 its moment is 0.0611754268825243 and its mass 2(1 − ln 2). The
@@ -761,8 +763,9 @@ from δ = 2 on with the paper's displacements (0.7% at δ = 2, 0.3% at
 theorem"), and whose balayage is the zero distribution of the reduced
 problem's optimum, transferred to the ground state only by that reduction;
 (c) the wall at X = 2, the reduced problem's maximiser — a boundary optimum
-whose exterior positivity the paper marks "checked to 10⁶X, not proved"
-(proved on paper by the pilot's round-75 closed form, (vi′); what stays
+whose exterior positivity the paper marked "checked to 10⁶X, not proved"
+(proved on paper by the pilot's round-75 closed form, (vi′), and in the
+paper's 1bm(iv) since the round-381 landing; what stays
 conjectural in (c) is the transfer of the maximiser to the ground state's
 wall); (d) the
 continuum: (3.2) is a sum over discrete zeros, (3.3) its continuum
