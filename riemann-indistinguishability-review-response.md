@@ -5838,4 +5838,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the eight edits of A545). No tower obligation. Brief `brief_round374.md` (its text also inside the launch prompt). Convergence test on round 373's six findings (A545).
 
+**Findings.** 0 MAJOR, 1 minor, 1 cosmetic; both verified by the lead and accepted (A546); every round-373 disposition realised; the round-70 clause exact. Minor: F374-1 Step 1's a₀ remark a t₀ = 14 computation stated without its t₀ (not load-bearing). Cosmetic: C374-2 §4's "sharp single-quadruple constant" for the proved constant's ceiling. **Sweep (round 375):** both applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 (0M+1m+5c) → 373 (0M+2m+4c) → 374 (0M+1m+1c) → 375 pending.
+
+### Round 375 — the convergence test on the round-375 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the three edits of A546). No tower obligation. Brief `brief_round375.md` (its text also inside the launch prompt). Convergence test on round 374's two findings (A546).
+
 **Findings.** PENDING.

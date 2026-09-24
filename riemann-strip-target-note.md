@@ -240,11 +240,12 @@ sinh(2βA)/(2β) = e^{2βA}(1 − e^{−4βA})/(4β) and cosh(2βA) ≤ e^{2βA}
 
 The first three terms tend to 0 as a → ∞; the last, ε₁^∞ := 2β(β + t₀)/t₀²,
 is the edge correction to the average of sin² over the window and does not
-depend on a. It is the first part of η(t₀) in the theorem's statement. For
-small β and a near 2, ε₁(a) exceeds 1 (at a = 2 it does for every β ≤ 0.4),
-so every division by (2.1) below is taken for a > a₀(β), where a₀(β) is
-the point at which ε₁(a) = 1 (ε₁ is strictly decreasing in a); the
-theorem's statement is asymptotic and a₀ costs nothing.
+depend on a. It is the first part of η(t₀) in the theorem's statement. ε₁(a) can exceed 1 near a = 2: at t₀ = 14 it does at a = 2 for every
+β ≤ 0.418, while at t₀ = 3·10¹² only for β < 3·10⁻⁶, a₀(β) then lying
+within 10⁻³ of 1. So every division by (2.1) below is taken for a > a₀(β),
+where a₀(β) is the point at which ε₁(a) = 1 (ε₁ is strictly decreasing in
+a, and ε₁ > 1 at a = 1); the theorem's statement is asymptotic and a₀
+costs nothing.
 
 **Step 2: the value at the maximising zero.** Take γ₀ = t₀ + iβ, the
 ordinate of the member ½ − β + it₀ of ρ₀'s quadruple (the four members
@@ -546,9 +547,9 @@ can only be approximate for a compactly supported probe.
    zero-free regions, so the variational structure gives no cheap route to
    those either. The qualitative
    sign dichotomy is Weil's criterion; the count of negative eigenvalues
-   is Bombieri's (2000, cited after Theorem 3); the growth rate with the
-   sharp single-quadruple constant 1/(2β*) is the quantitative form, which
-   I have not found stated elsewhere.
+   is Bombieri's (2000, cited after Theorem 3); the growth rate with constant e^{−2β*}(1 − η(t₀))/(2β*), whose
+   single-quadruple ceiling is 1/(2β*) (Remark (a)), is the quantitative
+   form, which I have not found stated elsewhere.
 
 3. **The honest open problem** that this analysis isolates, conditional and
    well-posed: *under RH, prove Hypothesis D from the form* — that the
@@ -566,7 +567,8 @@ can only be approximate for a compactly supported probe.
    not prove RH, and nothing in this note does.
 
 4. **No numerics were run.** The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
-   Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
+   Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11, and as the value
+   t₀ = 14 in Step 1's remark on a₀), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
    unit-interval zero count with an unspecified absolute constant, which enters the term C₁(a), of a-independent limit, and the summability
