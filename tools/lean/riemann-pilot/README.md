@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 340 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 342 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -50,7 +50,7 @@ Every file ends with `#print axioms`. All 340 checked theorems depend only on `p
 | `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 785 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element** |
 | `DimTwo.lean` | 177 | **`dim V ≤ 2` ⇒ every ground state's zeros lie on `ℝ ∪ iℝ`**; RH from (a) for any ground states with eventually `dim V ≤ 2`; simple ⇒ `dim V = 1` |
-| `HurwitzCount.lean` | 315 | off-cross zeros counted by `dim V`: at most `m − 1` values of `ω²` per ground state; Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `M − 1` zeros with `Re s > ½`** |
+| `HurwitzCount.lean` | 392 | off-cross zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` values of `ω²` per ground state (conjugate parity); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`** |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2009,4 +2009,23 @@ Round 56 handled `dim V ≤ 2`. For larger `m`, off-cross zeros can exist, but o
 **What this gives.**
 * Eventually `dim V ≤ M` bounds the zeros of `ζ` right of the critical line by `M − 1`. `M ≤ 2` gives at most one such zero. Conjugate symmetry `ζ(s̄) = conj ζ(s)` pairs every zero right of the line with a distinct one, since `Im s ≠ 0`, so one zero is impossible. That recovers RH, as in round 56. The conjugate pairing is not formalised here.
 * The bound is about finitely many exceptions. It needs (a) and a uniform dimension bound, and neither is proved.
+
+## Round 58: conjugate parity (HurwitzCount.lean)
+
+Off-cross zeros of a real even transform come in conjugate pairs, and none of their squares is real. So every count in round 57 is even.
+
+| theorem | statement |
+|---|---|
+| `ghatC_conj` | `ĝ(z̄) = conj ĝ(z)` for real even square-integrable `g` |
+| `card_even_of_conj` | a finite set of non-real numbers closed under conjugation has even cardinality |
+| `card_offcross_le_even` | a nonzero ground-space element has at most **`2⌊(m − 1)/2⌋`** off-cross values of `ω²` |
+| `zeros_cross_of_dim_le_two'` | round 56's `dim V ≤ 2` theorem, re-derived as the case `2⌊(m − 1)/2⌋ = 0` |
+| `xi_offcross_card_le`, `zeta_offline_card_le` | now sharpened: under (a) with eventually `dim V ≤ M`, `Ξ` has at most `2⌊(M − 1)/2⌋` off-cross values of `z²`, and `ζ` has at most `2⌊(M − 1)/2⌋` nontrivial zeros with `Re s > ½` |
+
+Reading the bound by `M`:
+* `M ≤ 2`: no zeros right of the line (round 56).
+* `M ∈ {3, 4}`: at most one conjugate pair `s, s̄`.
+* In general, at most `⌊(M − 1)/2⌋` conjugate pairs.
+
+(a) and a uniform dimension bound remain the open inputs. The file uses the standard axioms only, with no `sorry` and no warnings.
 

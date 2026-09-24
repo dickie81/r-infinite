@@ -149,6 +149,81 @@ theorem card_offcross_le {a : ℝ} (ha : 0 < a) {v : ℝ → ℝ} (hv : v ∈ gr
     _ ≤ Pv.natDegree := Polynomial.card_roots' _
     _ ≤ gdim a - 1 := polyOf_natDegree_le _
 
+/-! ## Conjugate parity -/
+
+/-- `ĝ(z̄) = conj ĝ(z)` for a real even square-integrable `g`. -/
+theorem ghatC_conj {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
+    (ha : 0 ≤ a) (z : ℂ) : ghatC f a ((starRingEnd ℂ) z) = (starRingEnd ℂ) (ghatC f a z) := by
+  have : (starRingEnd ℂ) (ghatC f a z) = ghatC f a (-((starRingEnd ℂ) z)) := by
+    unfold ghatC
+    rw [intervalIntegral.integral_of_le (by linarith), intervalIntegral.integral_of_le (by linarith),
+      ← integral_conj]
+    congr 1; funext u
+    rw [map_mul, Complex.conj_ofReal, ← Complex.exp_conj, map_mul, map_mul, Complex.conj_I,
+      Complex.conj_ofReal]
+    congr 2; ring
+  rw [this, ghatC_neg_of_even hf heven]
+
+/-- A finite set of non-real numbers closed under conjugation has even cardinality. -/
+theorem card_even_of_conj (S : Finset ℂ) (hcl : ∀ σ ∈ S, (starRingEnd ℂ) σ ∈ S)
+    (hnr : ∀ σ ∈ S, σ.im ≠ 0) : Even S.card := by
+  classical
+  set Sp := S.filter (fun σ => 0 < σ.im)
+  set Sn := S.filter (fun σ => ¬ 0 < σ.im)
+  have hsplit : Sp.card + Sn.card = S.card := Finset.card_filter_add_card_filter_not _
+  have himg : Sp.image (starRingEnd ℂ) = Sn := by
+    ext τ
+    simp only [Sp, Sn, Finset.mem_image, Finset.mem_filter, not_lt]
+    constructor
+    · rintro ⟨σ, ⟨hσ, hpos⟩, rfl⟩
+      exact ⟨hcl σ hσ, by rw [Complex.conj_im]; linarith⟩
+    · rintro ⟨hτ, hle⟩
+      refine ⟨(starRingEnd ℂ) τ, ⟨hcl τ hτ, ?_⟩, Complex.conj_conj τ⟩
+      rw [Complex.conj_im]
+      have := hnr τ hτ
+      exact neg_pos.2 (lt_of_le_of_ne hle this)
+  have hinj : Set.InjOn (starRingEnd ℂ) Sp := fun x _ y _ h => (starRingEnd ℂ).injective h
+  rw [← himg, Finset.card_image_of_injOn hinj] at hsplit
+  exact ⟨Sp.card, hsplit.symm⟩
+
+/-- **Per support, with parity: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²`.** -/
+theorem card_offcross_le_even {a : ℝ} (ha : 0 < a) {v : ℝ → ℝ} (hv : v ∈ groundSpace a)
+    (hpos : 0 < normSq v) (s : Finset ℂ)
+    (hs : ∀ σ ∈ s, σ.im ≠ 0 ∧ ∃ ω, ω ^ 2 = σ ∧ ghatC v a ω = 0) :
+    s.card ≤ 2 * ((gdim a - 1) / 2) := by
+  classical
+  set S := s ∪ s.image (starRingEnd ℂ)
+  have hS : ∀ σ ∈ S, σ.im ≠ 0 ∧ ∃ ω, ω ^ 2 = σ ∧ ghatC v a ω = 0 := by
+    intro σ hσ
+    rcases Finset.mem_union.1 hσ with h | h
+    · exact hs σ h
+    · obtain ⟨τ, hτ, rfl⟩ := Finset.mem_image.1 h
+      obtain ⟨him, ω, hω2, hω⟩ := hs τ hτ
+      refine ⟨by rw [Complex.conj_im]; exact neg_ne_zero.2 him, (starRingEnd ℂ) ω, ?_, ?_⟩
+      · rw [← map_pow, hω2]
+      · rw [ghatC_conj hv.1.memL2 hv.1.even ha.le, hω, map_zero]
+  have hcl : ∀ σ ∈ S, (starRingEnd ℂ) σ ∈ S := by
+    intro σ hσ
+    rcases Finset.mem_union.1 hσ with h | h
+    · exact Finset.mem_union_right _ (Finset.mem_image_of_mem _ h)
+    · obtain ⟨τ, hτ, rfl⟩ := Finset.mem_image.1 h
+      rw [Complex.conj_conj]; exact Finset.mem_union_left _ hτ
+  have hev := card_even_of_conj S hcl fun σ hσ => (hS σ hσ).1
+  have hle := card_offcross_le ha hv hpos S hS
+  have hsub : s.card ≤ S.card := Finset.card_le_card Finset.subset_union_left
+  obtain ⟨k, hk⟩ := hev
+  omega
+
+/-- **`dim V ≤ 2` ⇒ zeros on the cross**, now as the case "no exceptions" of the parity count. -/
+theorem zeros_cross_of_dim_le_two' {a : ℝ} (ha : 0 < a) (hm : gdim a ≤ 2) {v : ℝ → ℝ}
+    (hv : v ∈ groundSpace a) (hpos : 0 < normSq v) {ω : ℂ} (hω : ghatC v a ω = 0) :
+    (ω ^ 2).im = 0 := by
+  by_contra hσ
+  have := card_offcross_le_even ha hv hpos {ω ^ 2} (by
+    intro σ hσ; rw [Finset.mem_singleton] at hσ; subst hσ; exact ⟨hσ, ω, rfl, hω⟩)
+  rw [Finset.card_singleton] at this
+  omega
+
 /-! ## Hurwitz: zeros of the limit attract zeros of the approximants -/
 
 theorem hurwitz_attract {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Differentiable ℂ (F n))
@@ -172,12 +247,12 @@ theorem hurwitz_attract {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n,
 
 /-! ## The count in the limit -/
 
-/-- **Off-cross zeros of `Ξ`, counted by `z²`, number at most `M − 1`**, if (a) holds for ground
+/-- **Off-cross zeros of `Ξ`, counted by `z²`, number at most `2⌊(M − 1)/2⌋`**, if (a) holds for ground
 states whose ground spaces eventually have dimension `≤ M`. -/
 theorem xi_offcross_card_le {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} {M : ℕ} (ha : ∀ n, 0 < a n)
     (hgs : ∀ n, IsGroundState (a n) (g n)) (hdim : ∀ᶠ n in atTop, gdim (a n) ≤ M)
     (hconv : HypConv a g) (s : Finset ℂ)
-    (hs : ∀ σ ∈ s, σ.im ≠ 0 ∧ ∃ z, z ^ 2 = σ ∧ Xi z = 0) : s.card ≤ M - 1 := by
+    (hs : ∀ σ ∈ s, σ.im ≠ 0 ∧ ∃ z, z ^ 2 = σ ∧ Xi z = 0) : s.card ≤ 2 * ((M - 1) / 2) := by
   classical
   choose! z hz2 hzX using fun σ (hσ : σ ∈ s) => (hs σ hσ).2
   -- a uniform separation `η`
@@ -251,7 +326,7 @@ theorem xi_offcross_card_le {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} {M : ℕ
     have t3 := hηsep σ hσ τ hτ hne
     linarith
   obtain ⟨hV, hN⟩ := (isGroundState_iff (ha n)).1 (hgs n)
-  have hcount := card_offcross_le (ha n) hV (by rw [hN]; norm_num) (s.image fun σ => ζ σ ^ 2)
+  have hcount := card_offcross_le_even (ha n) hV (by rw [hN]; norm_num) (s.image fun σ => ζ σ ^ 2)
     (by
       intro σ' hσ'
       obtain ⟨σ, hσ, rfl⟩ := Finset.mem_image.1 hσ'
@@ -263,13 +338,13 @@ theorem xi_offcross_card_le {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} {M : ℕ
   rw [Finset.card_image_of_injOn hinj] at hcount
   omega
 
-/-- **At most `M − 1` zeros of `ζ` with `Re s > ½`**, under (a) for ground states whose ground
+/-- **At most `2⌊(M − 1)/2⌋` zeros of `ζ` with `Re s > ½`**, under (a) for ground states whose ground
 spaces eventually have dimension `≤ M`. -/
 theorem zeta_offline_card_le {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} {M : ℕ} (ha : ∀ n, 0 < a n)
     (hgs : ∀ n, IsGroundState (a n) (g n)) (hdim : ∀ᶠ n in atTop, gdim (a n) ≤ M)
     (hconv : HypConv a g) (T : Finset ℂ)
     (hT : ∀ s ∈ T, riemannZeta s = 0 ∧ (¬∃ n : ℕ, s = -2 * (n + 1)) ∧ 1 / 2 < s.re) :
-    T.card ≤ M - 1 := by
+    T.card ≤ 2 * ((M - 1) / 2) := by
   classical
   set f : ℂ → ℂ := fun s => ((s - 1 / 2) / I) ^ 2
   have hf : ∀ s, f s = -(s - 1 / 2) ^ 2 := fun s => by
@@ -310,6 +385,8 @@ end Pilot1ca
 
 #print axioms Pilot1ca.offcross_root
 #print axioms Pilot1ca.card_offcross_le
+#print axioms Pilot1ca.card_offcross_le_even
+#print axioms Pilot1ca.zeros_cross_of_dim_le_two'
 #print axioms Pilot1ca.hurwitz_attract
 #print axioms Pilot1ca.xi_offcross_card_le
 #print axioms Pilot1ca.zeta_offline_card_le
