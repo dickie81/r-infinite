@@ -19592,3 +19592,15 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Battery.** None owed. Round 372 commissioned as the convergence test on the sweep.
 
 ---
+
+## Addendum 544 — round 372 on the round-372 sweep of the working note (0 MAJOR, 1 minor, 5 cosmetic; all verified by the lead and accepted): the divisions by the norm bound need a ≥ a₀(β); five cosmetics; round 373 commissioned as the convergence test
+
+**The round.** Fresh-context hostile reviewer on the sweep commit 1374f3d, the brief carried inside the launch prompt (its scripts under `scratchpad/r372/`: `check_note_r372.py`, 19/19 rows; `check_eps1_threshold.py`). Findings: 0 MAJOR, 1 minor, 5 cosmetic; every round-371 disposition realised (the Jensen bound's constants verified on two test functions and the partial-summation identity to 12 digits; the ζ-tail's constant 1/2π; the origin bound marked; D with ε → 0 and the family named; the box-width variable; ε₁^∞ ≤ 0.074 exact at β = ½, t₀ = 14; Bombieri's half-support and sector index; the scoping; Backlund in Step 4(ii); B's zero-side form marked); Theorem 2 recomputed a sixth time; the paper unchanged and claiming nothing. Every finding verified by the lead (ε₁(2) at β = 0.1, t₀ = 14: 0.670 + 0.327 + 0.012 + 0.014 = 1.023 > 1) before acceptance; all accepted.
+
+**F372-1 (minor).** Steps 4–5 divide by (2.1) as if 1 − ε₁(a) > 0 for every a ≥ 2; at a = 2 and every β ≤ 0.4, ε₁(2) > 1, so (2.4), (2.5) and the R-term display were false there and "bounded uniformly in a" and "the a-independent term C₁" were wrong as written. Theorem 2 is asymptotic; the lead's missing qualifier. **Sweep:** a₀(β) introduced at Step 1 (the point past which ε₁ < 1), every division taken for a ≥ a₀(β), C₁(a) named with its a-independent limit, §4's inventory matched. **Cosmetics (all swept):** C372-2 "at half-support a"; C372-3 Jensen's ĝ(0) ≠ 0 (under D from Ξ(0) ≠ 0 and the equal orders); C372-4 the critical half-support per parity sector; C372-5 "The only arithmetic inputs"; C372-6 the corollary's zero-free statement is a strip uniform in height, stronger than the classical regions (two places).
+
+**Check-1 record (re-read this round).** The note's Step 1 (ε₁), (2.4)–(2.5), Step 5, §3.3's Jensen sentence, the Bombieri sentence, §4 items 2 and 4 before and after.
+
+**Battery.** None owed. Round 373 commissioned as the convergence test on the sweep.
+
+---
