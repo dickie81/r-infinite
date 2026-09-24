@@ -3,3 +3,5 @@
 {"delta": 2.0, "K": 180, "beta": "-0.0027928367", "gamma": "4.5212110e-6", "beta_e2a": "-0.0206364", "gamma_e4a": "0.000246850", "extra_zeros_z": "complex s (disc < 0)", "one_over_sqrt_beta": null}
 {"delta": 2.5, "K": 250, "beta": "-0.0016718940", "gamma": "1.5195761e-6", "beta_e2a": "-0.0203678", "gamma_e4a": "0.000225525", "extra_zeros_z": "complex s (disc < 0)", "one_over_sqrt_beta": null}
 {"delta": 3.0, "K": 400, "beta": "-0.0010046626", "gamma": "5.2988651e-7", "beta_e2a": "-0.0201792", "gamma_e4a": "0.000213771", "extra_zeros_z": "complex s (disc < 0)", "one_over_sqrt_beta": null}
+{"delta": 3.5, "K": 550, "beta": "-0.00060604690", "gamma": "1.8903135e-7", "beta_e2a": "-0.0200695", "gamma_e4a": "0.000207298", "extra_zeros_z": "complex s (disc < 0)", "one_over_sqrt_beta": null}
+{"delta": 4.0, "K": 700, "beta": "-0.00036639490", "gamma": "6.8293661e-8", "beta_e2a": "-0.0200045", "gamma_e4a": "0.000203581", "extra_zeros_z": "complex s (disc < 0)", "one_over_sqrt_beta": null}

@@ -2360,3 +2360,39 @@ Over `δ ∈ [2, 4.5]`, `sin²θ·e^{2δ}` runs `0.093, 0.090, 0.087, 0.086, 0.0
 3. **Consequence for the chain.** The family `φ_n = Φ + β_nΦ″ + γ_nΦ⁗` has transforms `(Ξ/2)(1 − β_nz² + γ_nz⁴) → Ξ/2` on the strip, because `β_n, γ_n → 0`. The ground states are closer to this family than to `Φ` by about ten orders at `δ = 3`. Taken as the kernel family in `rh_of_close_top`, the numerical margin of the one remaining hypothesis becomes very large. That substitution is not formalised: it needs `Φ″`, `Φ⁗` and their transforms in Lean.
 
 **Status.** All of this is numerical, on supports up to `δ = 4.5`. The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are inferred, not proved. Proving that the minimiser has this structure for every `a` would prove RH (through `rh_of_close_top`), so these are targets, not results. `Φ`'s even derivatives are, like `Φ`, null directions of Weil's form (their transforms vanish at every zero), so a structural explanation plausibly starts there.
+
+## Round 70: the correction is a backward heat flow of `Φ` with time `e^{−δ}/(16π)` (numerical, `frontier/nullvec/`)
+
+Round 69 found the ground state `g_a ≈ c(Φ + βΦ″ + γΦ⁗)` with `γ ≈ β²/2`. So to second order `g_a ≈ c·e^{−τ∂²}Φ` and `ĝ_a ≈ c(Ξ/2)e^{τz²}`, with `τ = −β > 0`. This round pins down `τ` and tests the multiplier away from `z = 0`.
+
+**The law** (`beta_fit.py`, now to `δ = 4.0`).
+
+| `δ` | `β·e^δ` | `(β·e^δ + 1/16π)·e^δ` | `γ·e^{2δ}` | `γ/(β²/2)` |
+|---|---|---|---|---|
+| 1.0 | −0.020821 | −0.0025 | 4.17e-4 | 1.923 |
+| 1.5 | −0.020853 | −0.0043 | 2.89e-4 | 1.330 |
+| 2.0 | −0.020636 | −0.0055 | 2.47e-4 | 1.159 |
+| 2.5 | −0.020368 | −0.0058 | 2.26e-4 | 1.087 |
+| 3.0 | −0.020179 | −0.0057 | 2.14e-4 | 1.050 |
+| 3.5 | −0.020070 | −0.0058 | 2.07e-4 | 1.029 |
+| 4.0 | −0.020004 | −0.0060 | 2.04e-4 | 1.017 |
+
+With the constant set to `1/(16π) = 0.019894`, the remainder `(β·e^δ + 1/16π)·e^δ` is steady at about `−0.0058` for `δ ≥ 2.5`: a clean leading term plus an `e^{−2δ}` correction. Aitken extrapolation of `β·e^δ` without assuming the constant gives `0.01991`, within `0.08%`. `γ·e^{2δ} → (1/16π)²/2 = 1.98e-4` and `γ/(β²/2) → 1`. **Conjecture:**
+
+  `g_a ≈ c·e^{−τ_a∂²}Φ` with `τ_a = e^{−δ}/(16π) = 1/(16π e^{2a})`.
+
+**What the time `τ_a` means.** On `Φ`'s tail, `Φ ≈ C x^{9/4}e^{−πx}` in the variable `x = e^{2t}`, so `Φ⁽²ᵏ⁾ ≈ (2πx)^{2k}Φ` to leading order. The backward heat flow then multiplies the tail by `exp(−τ(2πx)²) = exp(−(π/4)·x²/e^{2a})`. At the edge `x = e^{2a}` this damping is exactly **one quarter of `Φ`'s own decay exponent `πe^{2a}`**. The minimiser sharpens `Φ`, making it fall faster towards the edge of the window, by a precise fraction.
+
+**The multiplier away from `0`** (`explain.py`, `δ = 2`, `explain_results_d2.json`), with `M = (ĝ/ĝ(0))/(Ξ/Ξ(0))`:
+* On the real axis, `M(x) = e^{τx²}` to `0.1–4%` for `x ≤ 29`, where `e^{τx²} = 10.5`.
+* On the imaginary axis, `log M(iy) = −τy²` to `1%` for `y ≲ 38`. Beyond that `ĝ(iy)` grows like `e^{ay}`, the Paley–Wiener maximum, because the edge of the support takes over.
+
+**Heuristic explanations tried.**
+* A Paley–Wiener argument balances `log Ξ(iy) ≈ (y/2)log(y/2πe)` against the type bound `ay` with a Gaussian `M(iy) = e^{−τy²}`. It gives `τ ≥ e^{−δ}/(4πe²) = 0.0108·e^{−δ}`: the right scaling, but the constant is off by a factor of 2.
+* Balancing the truncation cost (`≈ Φ(a)²e^{−2κX²}`) against the failure of `Ξe^{τz²}` beyond `|z| ≈ π/(8τ)` gives `τ ≈ 0.034·e^{−δ}`: also the right scaling, constant again off.
+
+Both explain why `τ ∝ e^{−δ}`. Neither produces `1/(16π)`, and **a derivation of the quarter-exponent rule is open.**
+
+**The angle at `δ = 5`** (`K = 1100`, `4000` bits): `sin²θ = 3.18e-6`, so `sin²θ·e^{2δ} = 0.070`. That breaks the smooth trend (`0.0793, 0.0785` at `δ = 4.0, 4.5`). It is not yet checked in `K`: `K = 1100` may be too small at `δ = 5`. Until it is, the `C → 0.077` limit of round 69 stands on `δ ≤ 4.5`.
+
+**Status.** All numerical. If the conjecture holds for every `a`, `ĝ_a/ĝ_a(0) → Ξ/Ξ(0)` on the strip follows (`τ_a → 0`), and with it RH through `rh_of_hypConvStrip_top`. So the conjecture is RH-strength. Its value is that it names the exact asymptotic form a proof would have to establish.
