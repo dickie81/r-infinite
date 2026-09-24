@@ -526,8 +526,10 @@ are open"; its round 72 finds four edge conditions "all equivalent at
 leading order", each selecting the constant — P1, "the amplitude at the
 caustic equals `Φ` at the window's edge" — and states "Why the minimiser
 of Weil's form selects P1 (or whichever exact condition is right) remains
-open"; §3.4 below derives the constant on the zero side, within the
-paper's reduced problem), and it remarks that "`Φ`'s even derivatives are,
+open"; its round 73 tests a reduced variational model and finds "the
+heat family alone does not fix the constant" and "Any derivation must
+include the edge layer"; §3.4 below derives the constant on the zero
+side, within the paper's reduced problem), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
@@ -556,12 +558,18 @@ transform's zero pairs ±τ ("no exponential factor: ĝ₁ is even") and
 
 the defect of the paper's curvature κ(a) = Σ_τ τ⁻² = −ĝ₁″(0)/(2ĝ₁(0)) from
 κ_Ξ = Σ_γ γ⁻² = 0.023105 (1bu(ii)). The pilot states the same coefficient
-in moment form in its round 62 ("`ĝ_a(z)/ĝ_a(0) = (Ξ(z)/Ξ(0))(1 + κ(a)z² +
-O(z⁴))` with `κ(a) = (M₂(Φ) − m₂(g_a))/2`"); its round-70 β is the
+in moment form in its round 40 ("`ĝ_a(z)/ĝ_a(0) = (Ξ(z)/Ξ(0))(1 + κ(a)z² +
+O(z⁴))` with `κ(a) = (M₂(Φ) − m₂(g_a))/2`", restated approximately in its
+round 62) — its κ(a) is this note's τ_a, not the paper's κ(a); its round-70 β is the
 coefficient of Φ″ in a least-squares fit g_a ≈ c(Φ + βΦ″ + γΦ⁗) (its round
 69, `beta_fit.py`), and τ = −β is the
 z² coefficient of M when the fit is exact, since the transform of Φ″ is
-−z²Ξ/2. Cross-check, two computations of one quantity: from the paper's
+−z²Ξ/2. Cross-check, two computations of one quantity on two objects —
+the paper's curvatures belong to the ground state of its zero-side model
+("the first 6700 zeros … plus the smooth density"), the pilot's β to the
+ground state of the prime-side Weil Gram ("unconditional: arithmetic side
+only", README round 68), the two ground states agreeing in λ₁ by the
+pilot's own record: from the paper's
 published cell curvatures 0.0203, 0.0221, 0.0225 at δ = 2, 3, 3.5 (1bu(ii),
 four decimals, so the products below carry ±0.0004, ±0.0010, ±0.0017),
 (κ_Ξ − κ)e^δ = 0.0207, 0.0202, 0.0200; the pilot's fitted −β·e^δ at the
@@ -640,13 +648,19 @@ defect, as a function of the wall, is stationary exactly where 1bm(iv)'s
 exponent f(X) = 2πX(1 + ln 2 − ln X) is, and a wall displaced from 2T₀ by
 a relative amount η changes τ_a only at order η². And the pilot's
 "quarter-exponent rule" (round 70: the damping at the edge is one quarter
-of Φ's decay exponent) is, in (3.6), τ_a = 1/(4T): the Gaussian multiplier
-e^{τ_a z²} reaches e^{T/4} at the wall.
+of Φ's decay exponent πe^{2a}) reads, in (3.6), τ_a T₀² = πe^δ/4; at the
+wall itself the multiplier is e^{τ_a T²} = e^{T/4} = e^{πe^δ}, the full
+exponent, i.e. 1/Φ(a) at leading order — the pilot's P1 (round 72) in the
+transform variable.
 
-**(vi) Cross-checks (seconds-scale, uncommitted).** The script
-`scratchpad/r377/sixteen_pi.py` (mpmath, 30 digits, under two seconds)
-checked: P and Q against their closed forms; (3.4) at X = 2, 1.5, 3 and at
-the cells' walls; J(2)/(4π²) = 1/(16π) to 30 digits; the mean-value
+**(vi) Cross-checks (seconds-scale, uncommitted).** An ephemeral session
+script (`sixteen_pi.py` in the session's scratchpad, not in the
+repository; every figure below is reproducible from the formulas above in
+seconds; mpmath at 30 digits, a few seconds' run)
+checked: P and Q against their closed forms (the quadratures agree to 19
+digits); (3.4) at X = 2, 1.5, 3 and at
+the cells' walls; J(2)/(4π²) = 1/(16π), exact by (3.4) and to 19 digits by
+quadrature; the mean-value
 property of h_X at an interior point of Ω; and, independently of the
 harmonic-function argument, the balayage integrals from the paper's own
 explicit density τ(x) = −I(x)/(π√(x² − X²)) at X = 2: ∫_2^∞ τ dx = 0.61371
@@ -655,15 +669,19 @@ against (1/X)[−P ln X − Q] = 0.0611754 (fourteen digits), and τ(2⁺) → l
 the paper's edge value. A second cross-check, on the pilot's angle: its
 round 62 gives "`sin θ ≈ |κ|·‖(Φ'')^⊥‖/‖Φ‖ = 13.98|κ|`" with κ the moment
 coefficient of (i); (3.6) then predicts sin²θ · e^{2δ} → (13.98/(16π))² =
-0.0774, against the pilot's measured sequence ending "0.079, 0.0785" at
-δ = 4.0, 4.5 "with shrinking steps" and its "`C → ≈ 0.077`" (README round
-69) — the pilot's 13.98 and its angles are its numbers, not this note's.
+0.0774, against the pilot's measured sequence of sin²θ·e^{2δ} ending
+0.079, 0.0785 at δ = 4.0, 4.5 (adapted from its backticked table) "with
+shrinking steps" and its "`C → ≈ 0.077`" (README round 69; its round 73
+declares round 70's δ = 5 row "unreliable", K = 1300 there giving
+"`sin²θ·e^{2δ} = 0.077`") — the pilot's 13.98 and its angles are its
+numbers, not this note's.
 
 **(vii) What is established, and what is not.** (3.1), (3.2) and (3.4)–(3.6)
 are proved as stated. The identification of the pilot's constant rests on
 four inputs, each the paper's and each conjectural or computed, not proved:
-(a) Hypothesis D at the wall, exactly — the paper verifies it at the cells
-"within the dodging tolerance, not exactly", the displaced zeros lying in
+(a) Hypothesis D at the wall, exactly — the paper's is "verified at the
+cells within the dodging tolerance" and "D holds to the dodging tolerance,
+not exactly", the displaced zeros lying in
 the upper half of the band ("the low half within 3 × 10⁻¹⁴ at δ ≥ 2"),
 where a displacement Δ moves a term of (3.2) by at most 2Δ/γ³(1 + O(Δ/γ)),
 so the displaced terms contribute at most 4Δ(ln T)/(πT²)(1 + o(1)),
@@ -677,15 +695,23 @@ problem's optimum, transferred to the ground state only by that reduction;
 whose exterior positivity "is checked to 10⁶X, not proved"; (d) the
 continuum: (3.2) is a sum over discrete zeros, (3.3) its continuum
 density, and they differ at order 1/T² ∝ e^{−2δ} — exactly the order of
-the pilot's measured correction (its "(β·e^δ + 1/16π)·e^δ" remainder
-"steady at about −0.0058", i.e. −β·e^δ = 1/(16π) + 0.0058e^{−δ}), which
+the pilot's measured correction (its remainder "`(β·e^δ + 1/16π)·e^δ` is
+steady at about `−0.0058`", i.e. −β·e^δ = 1/(16π) + 0.0058e^{−δ}, the
+measured τ_a *above* the constant), which
 this derivation therefore cannot give and does not. Nor does substituting
 the cells' measured walls into (3.5) give it: X = 1.79, 1.90, 1.94 yield
 τ_a e^δ = 0.01976, 0.01987, 0.01988, *below* 1/(16π) = 0.019894 as (3.5)'s
 maximality requires, while the pilot's values 0.020636, 0.020179, 0.020070
-lie above; the correction lives in the discreteness — the count constant
-of Theorem 1bs and the O(δ) offsets of 1bm(v) — outside the continuum
-problem, and is open.
+lie above. The count constant of Theorem 1bs does not enter (3.2)
+directly — a constant in N contributes −c/T² + 2c/(2T²) = 0 to the
+moment — but only through the wall shift of 1ca, ε = 7/(2T), which by
+(3.5)'s stationarity is second order, τ_a e^δ = (1 − ε²/2 + O(ε³))/(16π),
+a coefficient −49/(2048π³) = −0.00077 of e^{−2δ}: the wrong sign and 13%
+of the pilot's +0.0058. The correction lives outside the continuum
+problem — in ζ's own discreteness beyond the wall (the S(T) ripple of
+Σ_{γ≥T}γ⁻², of order (ln T)/T², fluctuating in sign from wall to wall)
+and on the probe side in the edge layer the pilot's round 73 finds
+necessary — and is open.
 
 Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
 RH-strength. So this subsection is a consistency statement, not a
@@ -696,9 +722,19 @@ quarter-exponent rule is open" (round 70) only in that conditional sense,
 from the zero side. On the pilot's round 72: each of its P1–P4 is, by its
 own leading-order equivalence, equivalent to c = 1/(16π), hence to (3.6);
 the question it leaves open, "Why the minimiser of Weil's form selects
-P1", has on the zero side the paper's answer, "the admissibility
-threshold is the maximiser" — the wall sits at 2T₀ because the balayage's
-edge singularity changes sign there. On its round 71's remark that the
+P1", has on the zero side, within the reduced problem, the paper's
+statement "the admissibility threshold is the maximiser (a boundary
+optimum)": the wall sits at 2T₀, where f(X) is stationary and where the
+balayage's edge singularity changes sign — the coincidence of the two the
+paper records, the transfer to Weil's minimiser being the conjectural
+reduction (the paper's derived statement about the ground state's wall is
+1ca's T ln(2T₀/T) = 7/2). The pilot's round 73 reports from the
+minimiser's side that "the heat family alone does not fix the constant"
+(its least-edge-cost member at δ = 2 has c = 0.021960 against the ground
+state's 0.02064) and that "Any derivation must include the edge layer";
+this zero-side derivation and that finding are consistent — the constant
+is fixed here by the wall, not by the bulk transport — and are not shown
+to be the same mechanism. On its round 71's remark that the
 caustic's source at t₀ = a + ½·log 2 "is a tempting link to the prime `2`"
 that "may be a coincidence": in this reading the 2 is X* = 2, the wall at
 twice the horizon, and the paper's law "carries no arithmetic content" by
@@ -765,4 +801,8 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    for a general wall, (1 + ln(X/2))/(4XT₀), is itself maximal at X = 2.
    The inputs — D at the wall, the reduction's five lemmas, the wall at
    the maximiser, the continuum density — are the paper's and conjectural;
-   the pilot's e^{−2δ} correction is not derived; nothing about RH follows.
+   the pilot's e^{−2δ} correction is not derived (the count constant's
+   wall shift gives the wrong sign and 13% of it); the pilot's round 73
+   finds, from the minimiser's side, that the bulk heat family alone does
+   not fix the constant, consistent with a wall-fixed constant; nothing
+   about RH follows.
