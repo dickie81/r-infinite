@@ -18,10 +18,18 @@ proves everything in that derivation except the balayage identity itself.
   (`defect_eq_tail_of_D`); displaced ones by at most `Δ(2γ + Δ)/(γ²(γ − Δ)²) ≤ 10Δ/γ³` each
   (`inv_sq_sub_le`, `defect_sub_tail_le`), the note's "at most `2Δ/γ³(1 + O(Δ/γ))`".
 
-**Not formalised:** the balayage identity `∫_X^∞ x⁻² τ(x) dx = ∫₀^X (−ln t) h_X(t) dt` — harmonic
-measure of the doubly slit plane, `exteriorMoment_eq`'s hypothesis `hbal` — and everything the note
-lists as its inputs (vii)(a)–(d): Hypothesis D at the wall, the reduction's five lemmas, the wall at
-the maximiser, the continuum limit. Nothing here bears on RH.
+* **The balayage identity, proved (round 75).** With the paper's explicit density
+  `τ(x) = −I(x)/(π√(x² − X²))`, `I(x) = ∫_{−X}^{X} √(X² − t²) ln|t|/(x − t) dt`,
+  `∫_X^∞ x⁻² τ = ∫₀^X (−ln t) h_X(t) dt` (`balayage_identity`), by Fubini and two arctan integrals —
+  no harmonic measure. Hence the reduced problem's `1/(16π)` holds with no hypothesis
+  (`exteriorMoment_reduced`, `sixteenPi_reduced`), and its exponent `2πX(1 + ln 2 − ln X)` is maximal
+  exactly at `X = 2` (`fBalExp_le`).
+
+**Not formalised:** the link from the reduced problem to ζ's ground state — the note's inputs
+(vii)(a)–(d): Hypothesis D at the wall (RH-strength), the reduction's five lemmas, that the ground
+state's wall is the reduced problem's maximiser, the continuum limit. The positivity of `τ` at `X = 2`
+(the balayage's admissibility; closed form `ln(2x/(x + √(x² − 4)))`, README round 75) is not formalised.
+Nothing here bears on RH.
 -/
 
 open Real MeasureTheory Set Filter Topology intervalIntegral
@@ -447,6 +455,295 @@ theorem multiplier_expansion {ι κ : Type*} {f F : ℂ → ℂ} {w : ι → ℂ
     _ ≤ (r * A) ^ 2 + (r * B) ^ 2 * 2 + r ^ 2 * (B * (A + B)) := by linarith
     _ ≤ 3 * r ^ 2 * (A + B) ^ 2 := by nlinarith [mul_nonneg hA hB, sq_nonneg r]
 
+
+/-! ## G. The balayage identity, proved from the paper's explicit density -/
+
+/-- The paper's Cauchy integral (Theorem 1bm(iv)): `I(x) = ∫_{−X}^{X} √(X² − t²) ln|t|/(x − t) dt`. -/
+def Ibal (X x : ℝ) : ℝ := ∫ t in (-X)..X, √(X ^ 2 - t ^ 2) * log |t| / (x - t)
+
+/-- The paper's balayage density on the exterior: `τ(x) = −I(x)/(π√(x² − X²))`. -/
+def tauBal (X x : ℝ) : ℝ := -Ibal X x / (π * √(x ^ 2 - X ^ 2))
+
+/-- The kernel: harmonic measure of the doubly slit plane seen from `t`, divided by `x²`. -/
+def kBal (X t x : ℝ) : ℝ := √(X ^ 2 - t ^ 2) / (π * x ^ 2 * √(x ^ 2 - X ^ 2) * (x - t))
+
+/-- The arctan kernel `x/((x² − X² + c²)√(x² − X²))`. -/
+def gAt (X c x : ℝ) : ℝ := x / ((x ^ 2 - X ^ 2 + c ^ 2) * √(x ^ 2 - X ^ 2))
+
+theorem hasDerivAt_arctanPrim {X c x : ℝ} (hc : 0 < c) (hx : X ^ 2 < x ^ 2) :
+    HasDerivAt (fun x => arctan (√(x ^ 2 - X ^ 2) / c) / c) (gAt X c x) x := by
+  have hu : 0 < x ^ 2 - X ^ 2 := by linarith
+  have h1 : HasDerivAt (fun x => x ^ 2 - X ^ 2) (2 * x) x := by
+    simpa using (hasDerivAt_pow 2 x).sub_const (X ^ 2)
+  have h2 := ((h1.sqrt hu.ne').div_const c).arctan.div_const c
+  convert h2 using 1
+  have hs := Real.sq_sqrt hu.le
+  have hs0 : 0 < √(x ^ 2 - X ^ 2) := Real.sqrt_pos.2 hu
+  unfold gAt
+  rw [div_pow, hs]
+  field_simp
+  ring
+
+theorem tendsto_arctanPrim {X c : ℝ} (hc : 0 < c) :
+    Tendsto (fun x : ℝ => arctan (√(x ^ 2 - X ^ 2) / c) / c) atTop (𝓝 (π / (2 * c))) := by
+  have h1 : Tendsto (fun x : ℝ => x ^ 2 - X ^ 2) atTop atTop :=
+    tendsto_atTop_add_const_right _ _ (tendsto_pow_atTop two_ne_zero)
+  have h2 := ((Real.tendsto_sqrt_atTop.comp h1).atTop_div_const hc)
+  have h3 := (tendsto_arctan_atTop.mono_right nhdsWithin_le_nhds).comp h2
+  have := h3.div_const c
+  rw [show π / (2 * c) = π / 2 / c by ring]
+  exact this
+
+theorem gAt_nonneg {X c x : ℝ} (hX : 0 ≤ X) (hx : X < x) : 0 ≤ gAt X c x := by
+  unfold gAt
+  have : 0 ≤ x ^ 2 - X ^ 2 := by nlinarith
+  exact div_nonneg (by linarith) (mul_nonneg (by nlinarith [sq_nonneg c]) (Real.sqrt_nonneg _))
+
+/-- `∫_X^∞ x dx/((x² − X² + c²)√(x² − X²)) = π/(2c)`, with integrability. -/
+theorem integral_gAt {X c : ℝ} (hX : 0 ≤ X) (hc : 0 < c) :
+    IntegrableOn (gAt X c) (Ioi X) ∧ ∫ x in Ioi X, gAt X c x = π / (2 * c) := by
+  have hcont : ContinuousWithinAt (fun x : ℝ => arctan (√(x ^ 2 - X ^ 2) / c) / c) (Ici X) X :=
+    (by fun_prop : Continuous fun x : ℝ => arctan (√(x ^ 2 - X ^ 2) / c) / c).continuousWithinAt
+  have hder : ∀ x ∈ Ioi X, HasDerivAt (fun x : ℝ => arctan (√(x ^ 2 - X ^ 2) / c) / c)
+      (gAt X c x) x := fun x hx => hasDerivAt_arctanPrim hc (by nlinarith [hx.out])
+  have hpos : ∀ x ∈ Ioi X, 0 ≤ gAt X c x := fun x hx => gAt_nonneg hX hx
+  refine ⟨integrableOn_Ioi_deriv_of_nonneg hcont hder hpos (tendsto_arctanPrim hc), ?_⟩
+  rw [integral_Ioi_of_hasDerivAt_of_nonneg hcont hder hpos (tendsto_arctanPrim hc)]
+  simp
+
+theorem kBal_nonneg {X t x : ℝ} (ht : |t| < X) (hx : X < x) : 0 ≤ kBal X t x := by
+  unfold kBal
+  have := abs_lt.1 ht
+  refine div_nonneg (Real.sqrt_nonneg _) (mul_nonneg (mul_nonneg (by positivity)
+    (Real.sqrt_nonneg _)) (by linarith))
+
+/-- **The pair kernel.** For `0 < |t| < X` and `x > X`, `k(t, x) + k(−t, x)` is a combination of two
+arctan kernels, with `c = √(X² − t²)` and `c = X`. -/
+theorem kBal_pair {X t x : ℝ} (hX : 0 < X) (ht0 : t ≠ 0) (ht : |t| < X) (hx : X < x) :
+    kBal X t x + kBal X (-t) x
+      = 2 * √(X ^ 2 - t ^ 2) / (π * t ^ 2) * (gAt X (√(X ^ 2 - t ^ 2)) x - gAt X X x) := by
+  have htX := abs_lt.1 ht
+  have hc2 : √(X ^ 2 - t ^ 2) ^ 2 = X ^ 2 - t ^ 2 := Real.sq_sqrt (by nlinarith)
+  have hu : 0 < x ^ 2 - X ^ 2 := by nlinarith
+  have hs0 : 0 < √(x ^ 2 - X ^ 2) := Real.sqrt_pos.2 hu
+  have hx0 : 0 < x := by linarith
+  have h1 : 0 < x - t := by linarith
+  have h2 : 0 < x + t := by linarith
+  unfold kBal gAt
+  rw [hc2, neg_sq, sub_neg_eq_add]
+  have e1 : x ^ 2 - X ^ 2 + (X ^ 2 - t ^ 2) = (x - t) * (x + t) := by ring
+  have e2 : x ^ 2 - X ^ 2 + X ^ 2 = x ^ 2 := by ring
+  rw [e1, e2]
+  field_simp
+  ring
+
+theorem hBal_eq' {X : ℝ} (hX : 0 < X) (t : ℝ) :
+    hBal X t = (1 - √(X ^ 2 - t ^ 2) / X) / t ^ 2 := by
+  unfold hBal
+  congr 2
+  rw [show 1 - t ^ 2 / X ^ 2 = (X ^ 2 - t ^ 2) / X ^ 2 by field_simp, Real.sqrt_div' _ (sq_nonneg X),
+    Real.sqrt_sq hX.le]
+
+/-- The pair integral: `∫_X^∞ [k(t, x) + k(−t, x)] dx = h_X(t)`, with both one-sided kernels
+integrable. -/
+theorem kBal_integrals {X t : ℝ} (hX : 0 < X) (ht0 : t ≠ 0) (ht : |t| < X) :
+    IntegrableOn (kBal X t) (Ioi X) ∧ IntegrableOn (kBal X (-t)) (Ioi X) ∧
+      (∫ x in Ioi X, kBal X t x) + (∫ x in Ioi X, kBal X (-t) x) = hBal X t := by
+  have htX := abs_lt.1 ht
+  have hc : 0 < √(X ^ 2 - t ^ 2) := Real.sqrt_pos.2 (by nlinarith)
+  obtain ⟨i1, e1⟩ := integral_gAt hX.le hc
+  obtain ⟨i2, e2⟩ := integral_gAt hX.le hX
+  have ipair : IntegrableOn (fun x => 2 * √(X ^ 2 - t ^ 2) / (π * t ^ 2) *
+      (gAt X (√(X ^ 2 - t ^ 2)) x - gAt X X x)) (Ioi X) := (i1.sub i2).const_mul _
+  have hpair : EqOn (fun x => kBal X t x + kBal X (-t) x) (fun x => 2 * √(X ^ 2 - t ^ 2) /
+      (π * t ^ 2) * (gAt X (√(X ^ 2 - t ^ 2)) x - gAt X X x)) (Ioi X) :=
+    fun x hx => kBal_pair hX ht0 ht hx
+  have ht' : |-t| < X := by rwa [abs_neg]
+  have meas : ∀ s : ℝ, AEStronglyMeasurable (kBal X s) (volume.restrict (Ioi X)) :=
+    fun s => (by unfold kBal; fun_prop : Measurable (kBal X s)).aestronglyMeasurable
+  have one : ∀ s : ℝ, |s| < X → (∀ x ∈ Ioi X, kBal X s x ≤ kBal X t x + kBal X (-t) x) →
+      IntegrableOn (kBal X s) (Ioi X) := by
+    intro s hs hle
+    refine Integrable.mono' (ipair.congr_fun hpair.symm measurableSet_Ioi) (meas s) ?_
+    refine (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun x hx => ?_)
+    rw [Real.norm_eq_abs, abs_of_nonneg (kBal_nonneg hs hx)]
+    exact hle x hx
+  have I1 := one t ht fun x hx => le_add_of_nonneg_right (kBal_nonneg ht' hx)
+  have I2 := one (-t) ht' fun x hx => le_add_of_nonneg_left (kBal_nonneg ht hx)
+  refine ⟨I1, I2, ?_⟩
+  rw [← integral_add I1 I2, setIntegral_congr_fun measurableSet_Ioi hpair, MeasureTheory.integral_const_mul,
+    integral_sub i1 i2, e1, e2, hBal_eq' hX t]
+  field_simp
+
+
+/-- The one-sided kernel mass `A(t) = ∫_X^∞ k(t, x) dx`. -/
+def Abal (X t : ℝ) : ℝ := ∫ x in Ioi X, kBal X t x
+
+theorem kerN_le_one {s : ℝ} (hs : s ≠ 0) (h1 : s ^ 2 ≤ 1) : kerN s ≤ 1 := by
+  rw [kerN_eq hs h1, div_le_one (by positivity)]
+  linarith [Real.sqrt_nonneg (1 - s ^ 2)]
+
+theorem Abal_bounds {X t : ℝ} (hX : 0 < X) (ht0 : t ≠ 0) (ht : |t| < X) :
+    0 ≤ Abal X t ∧ Abal X t ≤ 1 / X ^ 2 := by
+  have ht' : |-t| < X := by rwa [abs_neg]
+  have h0 : ∀ s, |s| < X → 0 ≤ Abal X s := fun s hs =>
+    setIntegral_nonneg measurableSet_Ioi fun x hx => kBal_nonneg hs hx
+  obtain ⟨-, -, e⟩ := kBal_integrals hX ht0 ht
+  refine ⟨h0 t ht, ?_⟩
+  have hh : hBal X t ≤ 1 / X ^ 2 := by
+    rw [hBal_eq hX.ne', div_le_div_iff_of_pos_right (by positivity)]
+    refine kerN_le_one (div_ne_zero ht0 hX.ne') ?_
+    rw [div_pow, div_le_one (by positivity)]
+    exact sq_le_sq' (by linarith [(abs_lt.1 ht).1]) (by linarith [(abs_lt.1 ht).2]) |>.trans_eq rfl
+  have := h0 (-t) ht'
+  unfold Abal at *
+  linarith
+
+/-- **The balayage identity, proved.** With the paper's explicit density
+`τ(x) = −I(x)/(π√(x² − X²))`, `I(x) = ∫_{−X}^{X} √(X² − t²) ln|t|/(x − t) dt`,
+`∫_X^∞ x⁻² τ(x) dx = ∫₀^X (−ln t) h_X(t) dt`, and `x⁻²τ` is integrable on `(X, ∞)`. The proof exchanges
+the two integrals (Fubini) and evaluates the kernel's mass in closed form (`kBal_integrals`); no
+harmonic measure is needed. -/
+theorem balayage_identity {X : ℝ} (hX : 0 < X) :
+    IntegrableOn (fun x => tauBal X x / x ^ 2) (Ioi X) ∧
+      ∫ x in Ioi X, tauBal X x / x ^ 2 = balayageSide X := by
+  set ν : Measure ℝ := volume.restrict (Ioo (-X) X)
+  set μ : Measure ℝ := volume.restrict (Ioi X)
+  set F : ℝ → ℝ → ℝ := fun t x => -log |t| * kBal X t x with hF
+  have hne0 : ∀ᵐ t ∂ν, t ≠ 0 := ae_restrict_of_ae (by simp [ae_iff, measure_singleton])
+  have hmem : ∀ᵐ t ∂ν, t ∈ Ioo (-X) X := ae_restrict_mem measurableSet_Ioo
+  have meas : Measurable (Function.uncurry F) := by
+    change Measurable fun p : ℝ × ℝ => -log |p.1| * kBal X p.1 p.2
+    unfold kBal; fun_prop
+  -- the bound on `ν`
+  have hbound : IntegrableOn (fun t => |log t| / X ^ 2) (Ioo (-X) X) := by
+    have h1 : IntegrableOn (fun t => ‖log t‖) (Ioo (-X) X) :=
+      (intervalIntegrable_iff_integrableOn_Ioo_of_le (by linarith)).1
+        (intervalIntegrable_log' (a := -X) (b := X)).norm
+    have h2 : IntegrableOn (fun t => ‖log t‖ / X ^ 2) (Ioo (-X) X) := h1.div_const _
+    simpa only [Real.norm_eq_abs] using h2
+  have inner : ∀ t, ∫ x, F t x ∂μ = -log |t| * Abal X t := fun t => by
+    simp only [hF, Abal, μ]; exact MeasureTheory.integral_const_mul _ _
+  have innerNorm : ∀ t, |t| < X → ∫ x, ‖F t x‖ ∂μ = abs (log |t|) * Abal X t := fun t ht => by
+    simp only [hF, Abal, μ]
+    rw [← MeasureTheory.integral_const_mul]
+    refine setIntegral_congr_fun measurableSet_Ioi fun x hx => ?_
+    simp only [norm_mul, Real.norm_eq_abs, abs_neg, abs_of_nonneg (kBal_nonneg ht hx)]
+  have hint : Integrable (Function.uncurry F) (ν.prod μ) := by
+    refine (integrable_prod_iff meas.aestronglyMeasurable).2 ⟨?_, ?_⟩
+    · filter_upwards [hmem, hne0] with t ht ht0
+      show Integrable (fun x => -log |t| * kBal X t x) μ
+      exact ((kBal_integrals hX ht0 (abs_lt.2 ht)).1).const_mul _
+    · refine Integrable.mono' hbound meas.aestronglyMeasurable.norm.integral_prod_right' ?_
+      filter_upwards [hmem, hne0] with t ht ht0
+      have ht' : |t| < X := abs_lt.2 ht
+      obtain ⟨hA0, hA1⟩ := Abal_bounds hX ht0 ht'
+      simp only [Function.uncurry_apply_pair]
+      rw [innerNorm t ht', Real.norm_eq_abs, abs_of_nonneg (mul_nonneg (abs_nonneg _) hA0),
+        log_abs, div_eq_mul_one_div]
+      exact mul_le_mul_of_nonneg_left hA1 (abs_nonneg _)
+  -- the left side is the `x`-outer iterated integral
+  have hL : EqOn (fun x => tauBal X x / x ^ 2) (fun x => ∫ t, F t x ∂ν) (Ioi X) := by
+    intro x hx
+    simp only [tauBal, Ibal, hF, ν]
+    rw [intervalIntegral.integral_of_le (by linarith), integral_Ioc_eq_integral_Ioo]
+    have e : ∀ t, -log |t| * kBal X t x = (-1 / (π * √(x ^ 2 - X ^ 2) * x ^ 2)) *
+        (√(X ^ 2 - t ^ 2) * log |t| / (x - t)) := fun t => by
+      simp only [kBal, div_eq_mul_inv, mul_inv]; ring
+    simp_rw [e]
+    rw [MeasureTheory.integral_const_mul]
+    ring
+  have hLint := hint.integral_prod_right
+  have hLint' : IntegrableOn (fun x => tauBal X x / x ^ 2) (Ioi X) :=
+    hLint.congr ((ae_restrict_iff' measurableSet_Ioi).2
+      (Eventually.of_forall fun x hx => (hL hx).symm))
+  refine ⟨hLint', ?_⟩
+  rw [setIntegral_congr_fun measurableSet_Ioi hL]
+  change ∫ x, ∫ t, F t x ∂ν ∂μ = _
+  rw [← integral_integral_swap hint]
+  simp only [inner]
+  -- the right side: fold `t < 0` onto `t > 0`
+  set g : ℝ → ℝ := fun t => -log |t| * Abal X t with hg
+  have gint : IntegrableOn g (Ioo (-X) X) := by
+    have := hint.integral_prod_left
+    simp only [Function.uncurry_apply_pair, inner] at this
+    exact this
+  have hX' : -X ≤ X := by linarith
+  change ∫ t in Ioo (-X) X, g t = _
+  rw [setIntegral_Ioo_eq hX']
+  have gneg : IntervalIntegrable g volume (-X) 0 :=
+    (intervalIntegrable_iff_integrableOn_Ioo_of_le (by linarith)).2
+      (gint.mono_set (Ioo_subset_Ioo le_rfl hX.le))
+  have gpos : IntervalIntegrable g volume 0 X :=
+    (intervalIntegrable_iff_integrableOn_Ioo_of_le hX.le).2
+      (gint.mono_set (Ioo_subset_Ioo (by linarith) le_rfl))
+  have gneg' : IntervalIntegrable (fun t => g (-t)) volume 0 X := by
+    have := (IntervalIntegrable.iff_comp_neg (f := g) (a := -X) (b := 0)).1 gneg
+    simpa using this.symm
+  rw [← intervalIntegral.integral_add_adjacent_intervals gneg gpos]
+  have e1 : ∫ t in (-X)..0, g t = ∫ t in (0 : ℝ)..X, g (-t) := by
+    rw [intervalIntegral.integral_comp_neg]; simp
+  rw [e1, ← intervalIntegral.integral_add gneg' gpos, balayageSide]
+  refine intervalIntegral.integral_congr_ae ?_
+  have hneX : ∀ᵐ t ∂(volume : Measure ℝ), t ≠ X := by simp [ae_iff, measure_singleton]
+  filter_upwards [hneX] with t htX ht
+  rw [uIoc_of_le hX.le] at ht
+  have ht' : |t| < X := abs_lt.2 ⟨by linarith [ht.1], lt_of_le_of_ne ht.2 htX⟩
+  obtain ⟨-, -, e⟩ := kBal_integrals hX ht.1.ne' ht'
+  simp only [hg, Abal, abs_neg, abs_of_pos ht.1] at e ⊢
+  rw [← e]; ring
+
+
+/-! ## H. The reduced problem, unconditionally -/
+
+/-- **The exterior moment of the reduced problem, with no hypothesis.** For every wall `X ≥ 1`, with
+the paper's balayage density `τ = −I/(π√(x² − X²))`:
+`∫_X^∞ x⁻²[ln x − τ(x)] dx = (π/(2X))(1 + ln(X/2))`. -/
+theorem exteriorMoment_reduced {X : ℝ} (hX : 1 ≤ X) :
+    ∫ x in Ioi X, (log x - tauBal X x) / x ^ 2 = π / (2 * X) * (1 + log (X / 2)) :=
+  let h := balayage_identity (by linarith : (0 : ℝ) < X)
+  exteriorMoment_eq hX h.1 h.2
+
+/-- **`1/(16π)` in the reduced problem, with no hypothesis.** At the wall `X = 2`, with `T₀ = 2πe^δ`,
+the exterior moment of the paper's balayage density divided by `2πT₀` is exactly `e^{−δ}/(16π)`. -/
+theorem sixteenPi_reduced (δ : ℝ) :
+    (∫ x in Ioi (2 : ℝ), (log x - tauBal 2 x) / x ^ 2) / (2 * π * (2 * π * exp δ))
+      = exp (-δ) / (16 * π) :=
+  let h := balayage_identity (two_pos : (0 : ℝ) < 2)
+  sixteenPi_of_balayage δ h.1 h.2
+
+/-- The paper's reduced exponent `f(X) = 2πX(1 + ln 2 − ln X)` (Theorem 1bm(iv)). -/
+def fBalExp (X : ℝ) : ℝ := 2 * π * X * (1 + log 2 - log X)
+
+/-- **The wall.** `f(X) ≤ 4π` for `X > 0`, with equality only at `X = 2`: the paper's maximiser
+`X* = 2`, `f_∞ = 4π`. -/
+theorem fBalExp_le {X : ℝ} (hX : 0 < X) : fBalExp X ≤ 4 * π ∧ (fBalExp X = 4 * π ↔ X = 2) := by
+  set y := X / 2 with hy
+  have hy0 : 0 < y := by positivity
+  have hl : log X - log 2 = log y := (log_div hX.ne' two_ne_zero).symm
+  have key : fBalExp X = 4 * π - 4 * π * (1 - y + y * log y) := by
+    unfold fBalExp
+    rw [show 1 + log 2 - log X = 1 - log y by rw [← hl]; ring, hy]; ring
+  -- `y ln y ≥ y − 1`, strictly unless `y = 1`
+  have weak : y - 1 ≤ y * log y := by
+    have := mul_le_mul_of_nonneg_left (Real.one_sub_inv_le_log_of_pos hy0) hy0.le
+    rwa [mul_sub, mul_one, mul_inv_cancel₀ hy0.ne'] at this
+  refine ⟨by rw [key]; nlinarith [pi_pos], ⟨fun h => ?_, fun h => by subst h; unfold fBalExp; ring⟩⟩
+  rw [key] at h
+  have h0 : 1 - y + y * log y = 0 := by
+    have := pi_pos
+    have : 4 * π * (1 - y + y * log y) = 0 := by linarith
+    rcases mul_eq_zero.1 this with h' | h'
+    · linarith
+    · exact h'
+  by_contra hne
+  have hy1 : y ≠ 1 := fun h1 => hne (by rw [hy] at h1; linarith)
+  have hs := Real.log_lt_sub_one_of_pos (inv_pos.2 hy0) (fun h1 => hy1 (inv_eq_one.1 h1))
+  rw [Real.log_inv] at hs
+  have := mul_lt_mul_of_pos_left hs hy0
+  rw [mul_sub, mul_inv_cancel₀ hy0.ne', mul_one] at this
+  linarith
+
 end Pilot1ca
 
 #print axioms Pilot1ca.wall_eq_iff
@@ -462,3 +759,8 @@ end Pilot1ca
 #print axioms Pilot1ca.defect_eq_tail_of_D
 #print axioms Pilot1ca.defect_sub_tail_le
 #print axioms Pilot1ca.multiplier_expansion
+#print axioms Pilot1ca.kBal_integrals
+#print axioms Pilot1ca.balayage_identity
+#print axioms Pilot1ca.exteriorMoment_reduced
+#print axioms Pilot1ca.sixteenPi_reduced
+#print axioms Pilot1ca.fBalExp_le

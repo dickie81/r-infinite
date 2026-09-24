@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 9 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 379 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 384 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -49,7 +49,7 @@ Every file ends with `#print axioms`. All 379 checked theorems depend only on `p
 | `Mollify.lean` | 1026 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
 | `ZeroCount.lean` | 333 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
-| `SixteenPi.lean` | 464 | the strip note's §3.4 derivation of `1/(16π)`, everything but the balayage identity: `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
+| `SixteenPi.lean` | 766 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
 | `GapBound.lean` | 443 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
 | `StripConv.lean` | 544 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
@@ -2510,4 +2510,42 @@ Every arithmetic and calculus step in between is now checked. Nothing here bears
 - `K = 1500` gives `3.5426e-6`, a change of `1.9%`, so `K = 1500` is still not converged.
 - `sin²θ·e^{10} = 0.0766` at `K = 1300` and `0.0780` at `K = 1500`, against the note's prediction `(13.98/16π)² = 0.0774`.
 - `K = 1700` is running.
+
+## Round 75: the reduced problem's `1/(16π)`, with no hypothesis (SixteenPi.lean)
+
+Round 74 kept one hypothesis inside the reduced problem: the balayage identity `hbal`. Round 75 proves it. With it proved, every statement *about the reduced problem* is unconditional.
+
+**The balayage identity** (`balayage_identity`).
+- Take the paper's explicit density (Theorem 1bm(iv)), `τ(x) = −I(x)/(π√(x² − X²))` with `I(x) = ∫_{−X}^{X} √(X² − t²) ln|t|/(x − t) dt`.
+- For every `X > 0`: `x⁻²τ` is integrable on `(X, ∞)`, and `∫_X^∞ x⁻²τ = ∫₀^X (−ln t) h_X(t) dt`.
+- **Method.**
+  1. Write `x⁻²τ(x) = ∫ (−ln|t|) k(t, x) dt`, with the kernel `k(t, x) = √(X² − t²)/(π x² √(x² − X²)(x − t)) ≥ 0`, and exchange the two integrals (`integral_integral_swap`).
+  2. Integrability on the product follows from the bound `0 ≤ ∫_X^∞ k(t, x) dx ≤ 1/X²` (`Abal_bounds`) and the integrability of `ln` near 0.
+  3. The paired kernel `k(t, ·) + k(−t, ·)` splits by partial fractions into two arctan kernels, `x/((x² − X² + c²)√(x² − X²))` with `c = √(X² − t²)` and `c = X` (`kBal_pair`).
+  4. Each arctan kernel integrates to `π/(2c)` (`integral_gAt`). So `∫_X^∞ [k(t, x) + k(−t, x)] dx = h_X(t)` (`kBal_integrals`).
+  5. Folding `t < 0` onto `t > 0` finishes the proof.
+- Harmonic measure is never used.
+
+**Consequences, with no hypothesis.**
+- `∫_X^∞ x⁻²[ln x − τ(x)] dx = (π/(2X))(1 + ln(X/2))` for `X ≥ 1` (`exteriorMoment_reduced`).
+- At the wall, `(∫_2^∞ x⁻²[ln x − τ]) / (2πT₀) = e^{−δ}/(16π)` with `T₀ = 2πe^δ` (`sixteenPi_reduced`).
+- The paper's reduced exponent `f(X) = 2πX(1 + ln 2 − ln X)` satisfies `f ≤ 4π`, with equality only at `X = 2` (`fBalExp_le`). This proves the paper's `X* = 2` and `f_∞ = 4π`.
+
+**Admissibility at the wall: a closed form, proved on paper.** The paper states that the positivity of `τ` on the whole exterior at `X = 2` "is checked to 10⁶X, not proved". The density has a closed form, which proves it.
+- **The closed form.** With `s = √(x² − X²)`, `τ_X(x) = ln(Xx/(x + s)) − x·ln(X/2)/s`.
+- **Proof.**
+  1. Rewrite `√(X² − t²)/(x² − t²)` as `[1 − s²/(x² − t²)]/√(X² − t²)` and substitute `t = X sin θ`. This leaves `L = ∫₀^{π/2} ln sin θ/(x² − X² sin²θ) dθ`.
+  2. Use `ln sin θ = −ln 2 − Σ_k cos(2kθ)/k` together with the classical `∫₀^π cos kφ/(a + b cos φ) dφ = (π/√(a² − b²))·((√(a² − b²) − a)/b)^k`, here with `a = x² − X²/2` and `b = X²/2`. The ratio becomes `−q`, where `q = (x − s)/(x + s)`.
+  3. Summing the series gives `L = (π/(2xs)) ln(x/(x + s))`.
+- **At `X = 2`.** `τ(x) = ln(2x/(x + √(x² − 4)))`. This is strictly positive for `x > 2`, equals `ln 2` at the edge (the paper's edge value) and tends to 0 at infinity.
+- **Numerical checks (`scratchpad`, 30 digits).** The closed form matches the paper's `−I/(π√)` at `X = 0.7, 1.5, 2, 3`. At `X = 2` its moment matches `(ln 2 − π/2 + 1)/2 = 0.0611754…`. Its mass matches `2(1 − ln 2)` to quadrature accuracy.
+- **Not formalised.** This needs the Fourier series of `ln sin`, which is not in Mathlib.
+
+**What remains conditional, and why it cannot be removed here.** These are the note's inputs (vii)(a)–(d), the link from the reduced problem to ζ's actual ground state:
+- (a) Hypothesis D at the wall. At every δ with `T → ∞` it is the strip target itself, so removing it is RH-strength.
+- (b) The five reduction lemmas: the paper's "the reduction is not a theorem".
+- (c) That the *ground state's* wall is the reduced problem's maximiser. Round 75 proves the maximiser inside the reduced problem, not the transfer to the ground state.
+- (d) The continuum limit. This is an approximation whose error is the pilot's measured `−0.0058e^{−δ}` term, not a hypothesis that could be discharged.
+
+So `1/(16π)` is now a theorem about the paper's reduced problem, and a conjecture about ζ's ground state exactly to the extent of (a)–(d).
 
