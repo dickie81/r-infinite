@@ -182,9 +182,9 @@ Hypothesis is false but only with finitely many non-trivial zeros off the
 critical line", he shows that "the number of negative eigenvalues is
 precisely one-half of the number of zeros failing to satisfy the Riemann
 Hypothesis, provided the truncation is big enough" (abstract; Theorems 8–9
-there), and for the L² window functional a trichotomy: negative, or
-infinitely many off-line zeros, or a linear relation among the x^{−ρ} on the
-window (his Theorem 11 and its corollary). No growth rate in the support
+there), and for the L² window functional, if RH fails and the functional is
+nonnegative on the window, a dichotomy: infinitely many off-line zeros,
+or a linear relation among the x^{−ρ} on the window (his Theorem 11 and its corollary). No growth rate in the support
 appears there. His numerical section inserts a fictitious off-line zero
 (at 0.52 + 3.14i, with the first N zeros of ζ, N up to 160) and reports, in each parity sector, a critical half-support: below it the
 sector's negative eigenvalue tends to 0 as N grows, with the eigenfunction's L²-mass concentrating at the boundary
@@ -242,8 +242,9 @@ The first three terms tend to 0 as a → ∞; the last, ε₁^∞ := 2β(β + t�
 is the edge correction to the average of sin² over the window and does not
 depend on a. It is the first part of η(t₀) in the theorem's statement. For
 small β and a near 2, ε₁(a) exceeds 1 (at a = 2 it does for every β ≤ 0.4),
-so every division by (2.1) below is taken for a ≥ a₀(β), the point past
-which ε₁(a) < 1; the theorem's statement is asymptotic and a₀ costs nothing.
+so every division by (2.1) below is taken for a > a₀(β), where a₀(β) is
+the point at which ε₁(a) = 1 (ε₁ is strictly decreasing in a); the
+theorem's statement is asymptotic and a₀ costs nothing.
 
 **Step 2: the value at the maximising zero.** Take γ₀ = t₀ + iβ, the
 ordinate of the member ½ − β + it₀ of ρ₀'s quadruple (the four members
@@ -290,7 +291,7 @@ with A₁ absolute (Σ_k ln(t₀+k+2)/k⁴ ≤ 1.09 ln(t₀+2) + 0.8). Dividing 
 
     (2.4)  Σ_{γ real} ĝ(γ)² / ‖g‖² ≤ C₁(a) := 8β e^{2β} A₁ ln(t₀+2)(β^{−2} + C_w²)/(1 − ε₁(a))
 
-for a ≥ a₀(β), bounded uniformly in a ≥ a₀(β) and tending to the
+for a > a₀(β), bounded on every [a₁, ∞) with a₁ > a₀(β) and tending to the
 a-independent limit with 1 − ε₁^∞ in the denominator; C₁ below means that
 limit.
 
@@ -306,16 +307,18 @@ M(ρ′) does not depend on a, and Σ_{ρ′} M(ρ′) < ∞ by the same unit-in
 count as in (i) (it is bounded by A₂ ln(t₀+2)(β^{−2} + C_w²)). Dividing by
 (2.1),
 
-    Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² ≤ 16β e^{2β}/(1 − ε₁) · e^{2βa} · Σ_{ρ′} e^{−2(β−β′)a} M(ρ′)   (a ≥ a₀(β)).
+    Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² ≤ 16β e^{2β}/(1 − ε₁) · e^{2βa} · Σ_{ρ′} e^{−2(β−β′)a} M(ρ′)   (a > a₀(β)).
 
 Each term of the last sum tends to 0 as a → ∞ because β′ < β, and the sum
 is dominated by Σ M(ρ′) < ∞; by dominated convergence it tends to 0. So
 
   (2.5)  Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² = e^{2βa} · o(1)   (a → ∞).
 
-**Step 5: assembly.** From Steps 2–4, for a ≥ a₀(β),
+**Step 5: assembly.** From Steps 2–4, for a > a₀(β),
 
-  Q(g)/‖g‖² ≤ −4m₀‖g‖² + 4m₀R²/‖g‖² + C₁ + e^{2βa} o(1).
+  Q(g)/‖g‖² ≤ −4m₀‖g‖² + 4m₀R²/‖g‖² + C₁(a) + e^{2βa} o(1),
+
+and C₁(a) − C₁ = o(1) is absorbed into the last term.
 
 By (2.1), −4m₀‖g‖² ≤ −m₀ e^{2β(a−1)}(1 − ε₁)/(2β). By (2.2) and (2.1),
 4m₀R²/‖g‖² ≤ m₀ e^{2βa} · β e^{2β}(‖w′‖_∞ + 1)²/(2t₀²(1 − ε₁)), and the ratio
@@ -505,18 +508,21 @@ other zero there. The pilot located where RH enters the natural proof of converg
 round 40); under RH that obstacle is absent, and D becomes a statement in
 approximation theory about the minimiser of a sum of squares over a
 sampling set of near-critical density, with the zeros' separation properties (unknown) as the likely technical
-input. The pilot's round 69 (its `frontier/nullvec/`, after this note's
-sixth sweep) locates the structure numerically, on supports up to δ = 4.5:
+input. The pilot's round 69 (its `frontier/nullvec/`, after the round-372 sweep) locates the structure numerically, on supports up to δ = 4.5:
 the ground state's deviation from Φ lies almost entirely along Φ″ (share 0.99976 of the deviation at δ = 3, and 0.99999999994 of it within
 the span of Φ″, Φ⁗, Φ⁽⁶⁾, with sin² = 1.2·10⁻¹⁴ outside span{Φ, …, Φ⁽⁶⁾}), with coefficient ≈ −0.020·e^{−δ}, so that locally
 ĝ_a ≈ c·Ξ(z)·e^{τz²} with a zero-free Gaussian multiplier, τ ≈ 0.020·e^{−δ};
 its own status line reads "The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are
-inferred, not proved", and it remarks that "`Φ`'s even derivatives are,
+inferred, not proved" (its round 70 sharpens the constant to 1/(16π),
+conjectures g_a ≈ c·e^{−τ_a∂²}Φ with τ_a = 1/(16πe^{2a}), a backward heat
+flow of Φ, and states "the conjecture is RH-strength" with the derivation
+of the constant open), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
-numbers, conjecture and words, not this note's. That is the same target as
-item 3 of §4, seen from the minimiser's side: the structure to prove is
-that the minimiser stays in the null directions of the form.
+numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
+item 3 of §4, from the L² side (the README ties it to `rh_of_close_top`);
+the two are not shown equivalent here, and "stays in the null directions"
+can only be approximate for a compactly supported probe.
 
 ---
 
@@ -535,9 +541,8 @@ that the minimiser stays in the null directions of the form.
    the truncated Weil ground energy has two regimes, super-exponentially
    small nonnegative under RH, exponentially negative with exponent 2β*
    when RH fails under (H₁), and, assuming RH or (H₁), nothing in between. Under (H₁) the growth
-   exponent of −λ₁ detects the *farthest* zero from the line, and lower
-   bounds on λ₁(a) uniform in a with exponent below 1 are then
-   zero-free-strip statements uniform in height, beyond the classical
+   exponent of −λ₁ detects the *farthest* zero from the line, and lower bounds on λ₁(a) uniform in a with exponent below 1 are then
+   zero-free-strip statements (β* ≤ b) uniform in height, beyond the classical
    zero-free regions, so the variational structure gives no cheap route to
    those either. The qualitative
    sign dichotomy is Weil's criterion; the count of negative eigenvalues

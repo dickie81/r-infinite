@@ -19604,3 +19604,15 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Battery.** None owed. Round 373 commissioned as the convergence test on the sweep.
 
 ---
+
+## Addendum 545 — round 373 on the round-373 sweep of the working note (0 MAJOR, 2 minor, 4 cosmetic; all verified by the lead and accepted): the a₀ endpoint where the divisor vanishes; the round-69 structure over-identified with the D target; four cosmetics; round 374 commissioned as the convergence test
+
+**The round.** Fresh-context hostile reviewer on the sweep bdcf7d0 and the round-69 citation commits 08125d3 and f501151, the brief carried inside the launch prompt (its script under `scratchpad/r373/`: `check_note_r373.py`, 44/44 rows). Findings: 0 MAJOR, 2 minor, 4 cosmetic; every round-372 disposition realised (ε₁ shown strictly decreasing in a by a closed-form derivative, a₀(0.1) = 3.41, a₀(0.01) = 11.6, β_c = 0.418; the Jensen count under D from `HypD` at z = 0 and `Xi_zero_ne_zero`; Bombieri §13 clause by clause; the inventory; the strip reading); the round-69 citation's every figure matched to the README's tables (the two columns consistent: 2.049·10⁻⁴·(1 − 0.99999999994) = 1.23·10⁻¹⁴); Theorem 2 recomputed a seventh time; the paper unchanged and claiming nothing. Every finding verified by the lead by direct reading before acceptance; all accepted.
+
+**F373-1 (minor).** "a ≥ a₀(β), the point past which ε₁(a) < 1" includes a₀ itself, where 1 − ε₁ = 0 and C₁(a₀), the (2.5) prefactor and the R-term bound are undefined, so "bounded uniformly in a ≥ a₀(β)" was false at one point. **Sweep:** a₀ defined as the point where ε₁ = 1 (ε₁ strictly decreasing), every division for a > a₀(β), C₁(a) bounded on every [a₁, ∞) with a₁ > a₀. **F373-2 (minor).** §3.3's closing "That is the same target as item 3 of §4, seen from the minimiser's side" was the note's unhedged reading and inconsistent with item 3 (D, a transform statement) and with the README, which ties the round-69 structure to `rh_of_close_top`. **Sweep:** "This note's reading, not the pilot's: … a candidate structure behind item 3 of §4, from the L² side …; the two are not shown equivalent here, and 'stays in the null directions' can only be approximate for a compactly supported probe." **Cosmetics (all swept):** C373-3 Step 5's first display with C₁(a), the o(1) difference absorbed; C373-4 "(β* ≤ b)" in §4 item 2; C373-5 "after the round-372 sweep"; C373-6 Bombieri's corollary stated with its antecedents (RH false, the functional nonnegative on the window) as a dichotomy.
+
+**Check-1 record (re-read this round).** The note's Step 1, (2.4)–(2.5), Step 5, §3.3's closing, §4 item 2 and the Bombieri paragraph before and after; the extraction 6785–6790.
+
+**Battery.** None owed. Round 374 commissioned as the convergence test on the sweep.
+
+---

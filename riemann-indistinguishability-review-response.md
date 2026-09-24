@@ -5832,4 +5832,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the eleven edits of A544). No tower obligation. Brief `brief_round373.md` (its text also inside the launch prompt). Convergence test on round 372's six findings (A544).
 
+**Findings.** 0 MAJOR, 2 minor, 4 cosmetic; all verified by the lead and accepted (A545); every round-372 disposition realised; the round-69 citation exact. Minor: F373-1 the a₀ endpoint included where the norm bound's divisor vanishes; F373-2 the round-69 structure identified with §4's D target unhedged. Cosmetic: Step 5's C₁ for C₁(a); "(β* ≤ b)" in item 2; "sixth sweep"; the Bombieri corollary's antecedent. **Sweep (round 374):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 (0M+1m+5c) → 373 (0M+2m+4c) → 374 pending.
+
+### Round 374 — the convergence test on the round-374 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the eight edits of A545). No tower obligation. Brief `brief_round374.md` (its text also inside the launch prompt). Convergence test on round 373's six findings (A545).
+
 **Findings.** PENDING.
