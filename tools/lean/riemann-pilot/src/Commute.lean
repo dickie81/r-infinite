@@ -9,7 +9,11 @@ For `C²` functions `f, k` supported in `[−a, a]` (with `f, f'` vanishing outs
 * `bil0_deriv2`: hence `B₀(f'', k) = B₀(f, k'')` for the pole-free bilinear form (constant, archimedean and
   prime terms are all functionals of the cross-correlation);
 * `poleR_deriv2`: `poleR(f'') = ¼·poleR(f)`, because `(e^{−u/2})'' = ¼e^{−u/2}`, i.e. `(i/2)² = −¼` is real;
-* `bilQ_deriv2`: the full bilinear form of `Q` satisfies `B(f'', k) = B(f, k'')`.
+* `bilQ_deriv2`: the full bilinear form of `Q` satisfies `B(f'', k) = B(f, k'')`;
+* `eq_zero_of_deriv2_eq`: the ODE step used by Theorem C.
+
+Theorem C itself (flat ⇒ degenerate) is proved in `H²` generality in TheoremC.lean, where the smooth
+form `simple_not_flat` is derived as a corollary.
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
@@ -160,29 +164,6 @@ theorem normSq_eq_xcorr {f : ℝ → ℝ} (hf : MemLp f 2 volume) : normSq f = x
   rw [e2, normSq_smul] at e
   linarith
 
-/-- **An edge-flat ground state has its second derivative in the ground space.** If `h` is a ground
-state, `h ∈ C⁴` with `h` and its first three derivatives vanishing outside `[−a, a]`, and `h₂ = h''`,
-`h₄ = h''''` are probes, then `h₂` is a ground-space element: `Q(h₂) = λ₁‖h₂‖²`. -/
-theorem deriv2_mem_groundSpace {a : ℝ} (ha : 0 < a) {h h₁ h₂ h₃ h₄ : ℝ → ℝ}
-    (hg : IsGroundState a h) (hc : C2Supp a h h₁ h₂) (hc2 : C2Supp a h₂ h₃ h₄)
-    (hp2 : Probe a h₂) (hp4 : Probe a h₄) : h₂ ∈ groundSpace a := by
-  refine ⟨hp2, ?_⟩
-  have el := euler_lagrange_Q ha hg hp4
-  have cm := bilQ_deriv2 ha.le hc hc2
-  have cx := xcorr_deriv2 hc hc2 0
-  have hQ : weilQ a h₂ = bil0 a h₂ h₂ + 2 * poleR h₂ a * poleR h₂ a := by
-    have : weilQ a h₂ = weilQ0 a h₂ + 2 * poleR h₂ a ^ 2 := by unfold weilQ0; ring
-    rw [this, weilQ0_eq_bil0 hp2]; ring
-  rw [hQ, normSq_eq_xcorr hp2.memL2, cm, cx]
-  linarith
-
-/-- Consequently, **if the ground state is simple, an edge-flat ground state `h` has `h'' = c·h`** a.e.
-(a compactly supported solution of `h'' = c·h` vanishes: the ODE step, left in prose). -/
-theorem deriv2_multiple_of_simple {a : ℝ} (ha : 0 < a) {h h₁ h₂ h₃ h₄ : ℝ → ℝ}
-    (hs : SimpleGround a h) (hc : C2Supp a h h₁ h₂) (hc2 : C2Supp a h₂ h₃ h₄)
-    (hp2 : Probe a h₂) (hp4 : Probe a h₄) : ∃ c : ℝ, h₂ =ᵐ[volume] fun t => c * h t :=
-  hs.2 h₂ (deriv2_mem_groundSpace ha hs.1 hc hc2 hp2 hp4)
-
 /-- **ODE step**: a `C²` function vanishing (with its derivative) outside `[−a, a]` and solving
 `h'' = c·h` everywhere is identically zero (uniqueness for the linear system `(h, h')' = (h', c·h)`). -/
 theorem eq_zero_of_deriv2_eq {a c : ℝ} {h h₁ h₂ : ℝ → ℝ} (hc : C2Supp a h h₁ h₂)
@@ -216,28 +197,10 @@ theorem eq_zero_of_deriv2_eq {a c : ℝ} {h h₁ h₂ : ℝ → ℝ} (hc : C2Sup
   simp only [Prod.mk.injEq] at this
   exact this.1
 
-/-- **A simple ground state is never edge-flat** (smooth form of round 48's Theorem C). If `h` is a
-simple ground state, it cannot be `C⁴` with `h, h', h'', h'''` vanishing outside `[−a, a]` and
-`h'', h''''` probes. -/
-theorem simple_not_flat {a : ℝ} (ha : 0 < a) {h h₁ h₂ h₃ h₄ : ℝ → ℝ}
-    (hs : SimpleGround a h) (hc : C2Supp a h h₁ h₂) (hc2 : C2Supp a h₂ h₃ h₄)
-    (hp2 : Probe a h₂) (hp4 : Probe a h₄) : False := by
-  obtain ⟨c, hce⟩ := deriv2_multiple_of_simple ha hs hc hc2 hp2 hp4
-  have hcont : Continuous fun t => c * h t := continuous_const.mul hc.toC2Fun.cont0
-  have heq : h₂ = fun t => c * h t := (Continuous.ae_eq_iff_eq volume hc.cont2 hcont).1 hce
-  have hz := eq_zero_of_deriv2_eq hc (fun t => congrFun heq t)
-  have hn : normSq h = 0 := by
-    unfold normSq; simp [hz]
-  have := hs.1.2.1
-  linarith
-
 end Pilot1ca
 
 #print axioms Pilot1ca.xcorr_deriv2
 #print axioms Pilot1ca.bil0_deriv2
 #print axioms Pilot1ca.poleR_deriv2
 #print axioms Pilot1ca.bilQ_deriv2
-#print axioms Pilot1ca.deriv2_mem_groundSpace
-#print axioms Pilot1ca.deriv2_multiple_of_simple
 #print axioms Pilot1ca.eq_zero_of_deriv2_eq
-#print axioms Pilot1ca.simple_not_flat

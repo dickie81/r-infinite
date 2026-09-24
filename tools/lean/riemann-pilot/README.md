@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 342 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 339 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -44,13 +44,12 @@ Every file ends with `#print axioms`. All 342 checked theorems depend only on `p
 | `SimpleCover.lean` | 245 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 108 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
 | `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
-| `Commute.lean` | 243 | Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); an edge-flat ground state puts `h''` in the ground space; ODE uniqueness; **a simple ground state is never edge-flat** |
+| `Commute.lean` | 206 | round 48's Theorem B: Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); the ODE step used by Theorem C |
 | `DegenerateFlat.lean` | 803 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
-| `StructureD.lean` | 708 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
+| `StructureD.lean` | 727 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
 | `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
-| `TheoremC.lean` | 785 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element** |
-| `DimTwo.lean` | 177 | **`dim V ≤ 2` ⇒ every ground state's zeros lie on `ℝ ∪ iℝ`**; RH from (a) for any ground states with eventually `dim V ≤ 2`; simple ⇒ `dim V = 1` |
-| `HurwitzCount.lean` | 392 | off-cross zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` values of `ω²` per ground state (conjugate parity); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`** |
+| `TheoremC.lean` | 801 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
+| `ZeroCount.lean` | 355 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2029,3 +2028,15 @@ Reading the bound by `M`:
 
 (a) and a uniform dimension bound remain the open inputs. The file uses the standard axioms only, with no `sorry` and no warnings.
 
+## Round 59: consolidation
+
+No mathematical content changes; the pilot is shorter and each fact has one proof. The full build passes with the standard axioms only, no `sorry`, no warnings.
+
+* **One swap computation.** Before, the identity `P(X)(1 + (¼ + ω²)X) = X·P_v(X)` was derived three times: in `chain_top_zeros`, in round 56's `zeros_cross_of_dim_le_two`, and in `offcross_root`. It now lives only in `offcross_root` (StructureD.lean). Both earlier results are short corollaries:
+  * `chain_top_zeros`: the top element has `P_h = X^{m−1}`, which has no root at `−1/(¼ + ω²) ≠ 0`;
+  * `zeros_cross_of_dim_le_two`: the parity count `2⌊(m − 1)/2⌋` is `0` for `m ≤ 2`.
+  `no_poly` is no longer needed.
+* **DimTwo.lean + HurwitzCount.lean → ZeroCount.lean** (507 → 355 lines). Theorem names are kept, except that `zeros_cross_of_dim_le_two'` is now `zeros_cross_of_dim_le_two`, with the parity proof.
+* **Theorem C in one place.** Round 52's smooth `C⁴` form (`deriv2_mem_groundSpace`, `deriv2_multiple_of_simple`, `simple_not_flat`) is removed from Commute.lean. `simple_not_flat` is now a corollary of the `H²` theorem in TheoremC.lean (`flatH2_of_C2`, `theoremC_not_simple`). It needs only `h ∈ C²` with `h''` a probe; the old hypotheses on the third and fourth derivatives are gone. Commute.lean keeps Theorem B and the ODE step.
+
+Earlier rounds' sections still name the old locations. The theorems they describe are all still proved, at the places listed in this round.

@@ -772,6 +772,21 @@ theorem simple_iff_no_flat {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : IsGrou
       exact (div_eq_zero_iff.1 this).resolve_right hq'
     exact hne t ht this
 
+/-- A `C²` function with `h, h'` vanishing outside `[−a, a]` and `h''` a probe is `H²`-flat. -/
+theorem flatH2_of_C2 {a : ℝ} {h h₁ h₂ : ℝ → ℝ} (hc : C2Supp a h h₁ h₂) (hp : Probe a h₂) :
+    FlatH2 a h h₁ h₂ := by
+  refine ⟨hc.d1, fun x => ?_, hc.supp, hc.supp1, hp⟩
+  have hF := intervalIntegral.integral_eq_sub_of_hasDerivAt (fun y _ => hc.d2 y)
+    (hc.cont2.intervalIntegrable (-a) x)
+  rw [hF, (zero_at_edge hc.toC2Fun.cont1 hc.supp1).2, sub_zero]
+
+/-- **A simple ground state is never edge-flat** (the smooth form of Theorem C from round 52, now a
+corollary of `theoremC_not_simple`; no hypothesis on the third and fourth derivatives is needed). -/
+theorem simple_not_flat {a : ℝ} (ha : 0 < a) {h h₁ h₂ : ℝ → ℝ} (hs : SimpleGround a h)
+    (hc : C2Supp a h h₁ h₂) (hp2 : Probe a h₂) : False := by
+  obtain ⟨hV, hN⟩ := (isGroundState_iff ha).1 hs.1
+  exact theoremC_not_simple ha hV (flatH2_of_C2 hc hp2) (by rw [hN]; norm_num) h hs
+
 end Pilot1ca
 
 
@@ -783,3 +798,4 @@ end Pilot1ca
 #print axioms Pilot1ca.theoremC_not_simple
 #print axioms Pilot1ca.green_flat
 #print axioms Pilot1ca.simple_iff_no_flat
+#print axioms Pilot1ca.simple_not_flat

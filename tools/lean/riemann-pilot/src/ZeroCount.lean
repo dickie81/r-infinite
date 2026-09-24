@@ -1,14 +1,17 @@
 import Mathlib
-import DimTwo
+import StructureD
 
-/-! # Counting off-line zeros by the dimension of the ground space
+/-! # Off-line zeros counted by the dimension of the ground space
 
 For `v` in a ground space of dimension `m`, every off-cross zero `ω` of `v̂` gives a root
-`−1/(¼ + ω²)` of one fixed nonzero real polynomial `P_v` of degree `< m`
-(`offcross_root`). So `v̂` has at most `m − 1` distinct off-cross values of `ω²`
-(`card_offcross_le`). Hurwitz's theorem carries the count to the limit: under (a) with eventually
-`dim V ≤ M`, `Ξ` has at most `M − 1` distinct off-cross values of `z²` (`xi_offcross_card_le`), and
-`ζ` has at most `M − 1` zeros with `Re s > ½` (`zeta_offline_card_le`).
+`−1/(¼ + ω²)` of one fixed nonzero real polynomial `P_v` of degree `< m` (`offcross_root`,
+StructureD.lean). Conjugate zeros pair up, so `v̂` has at most `2⌊(m − 1)/2⌋` distinct off-cross
+values of `ω²` (`card_offcross_le_even`); for `m ≤ 2` there are none (`zeros_cross_of_dim_le_two`).
+
+Hurwitz carries the count to the limit: under (a) with eventually `dim V ≤ M`, `Ξ` has at most
+`2⌊(M − 1)/2⌋` off-cross values of `z²` (`xi_offcross_card_le`) and `ζ` at most `2⌊(M − 1)/2⌋`
+nontrivial zeros with `Re s > ½` (`zeta_offline_card_le`). For `M ≤ 2` this is RH
+(`rh_of_dim_le_two`); eventual simplicity is the case `M = 1` (`rh_of_eventually_simple'`).
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
@@ -18,85 +21,6 @@ noncomputable section
 namespace Pilot1ca
 
 open Pilot1bt
-
-/-- **Each off-cross zero of `v̂` is a root of `P_v`.** -/
-theorem offcross_root {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChain a (gdim a - 1) w)
-    (hwpos : 0 < normSq w) {v : ℝ → ℝ} (hv : v ∈ groundSpace a)
-    {ev : Fin (gdim a - 1 + 1) → ℝ}
-    (hev : ∀ t : ℝ, ghatC v a t
-      = (∑ i : Fin (gdim a - 1 + 1), (ev i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ)) * ghatC w a t)
-    {ω : ℂ} (hω : ghatC v a ω = 0) (hσ : (ω ^ 2).im ≠ 0) :
-    (polyOf fun i : Fin (gdim a - 1 + 1) => (ev i : ℂ)).IsRoot (-1 / (1 / 4 + ω ^ 2)) := by
-  have hω0 : ω ≠ 0 := by rintro rfl; apply hσ; simp
-  obtain ⟨hu, hv'⟩ := green_mem_groundSpace ha hv hω hσ
-  obtain ⟨c, hcu⟩ := chain_span_hat ha hc hwpos hu
-  obtain ⟨d, hdv⟩ := chain_span_hat ha hc hwpos hv'
-  have hw : Probe a w := (hc.1 0 (Nat.zero_le _)).1
-  obtain ⟨α, ε, hα, hε, hne⟩ := exists_interval_ghat ha hw hwpos
-  have hcont := hSw_continuous hv.1.memL2 a ω
-  set P := polyOf (fun i : Fin (gdim a - 1 + 1) => (c i : ℂ) + Complex.I * d i)
-  set Pv := polyOf (fun i : Fin (gdim a - 1 + 1) => (ev i : ℂ))
-  set β : ℂ := 1 / 4 + ω ^ 2
-  have hR : P * (1 + Polynomial.C β * Polynomial.X) - Polynomial.X * Pv = 0 := by
-    refine poly_eq_zero_of_interval _ hα hε fun t ht => ?_
-    obtain ⟨Q, hQe⟩ : ∃ Q : ℂ, Q = ((qr t : ℝ) : ℂ) := ⟨_, rfl⟩
-    rw [← hQe]
-    set D : ℂ := (t : ℂ) ^ 2 + 1 / 4
-    have hD : D ≠ 0 := by
-      have : (0 : ℝ) < t ^ 2 + 1 / 4 := by positivity
-      have : ((t ^ 2 + 1 / 4 : ℝ) : ℂ) ≠ 0 := by exact_mod_cast this.ne'
-      simpa [D] using this
-    have hQ : Q = -1 / D := by rw [hQe]; simp only [D, qr]; push_cast; ring
-    have hz : ((t : ℂ)) ^ 2 ≠ ω ^ 2 := by
-      intro e; apply hσ; rw [← e]; norm_cast
-    have hden : (t : ℂ) ^ 2 - ω ^ 2 ≠ 0 := sub_ne_zero.2 hz
-    have hsplit : (∫ x in (-a)..a, hSw v a ω x * Complex.exp (Complex.I * t * x))
-        = ghatC (fun x => (hSw v a ω x).re) a t + Complex.I * ghatC (fun x => (hSw v a ω x).im) a t := by
-      have ci : ∀ F : ℝ → ℝ, Continuous F →
-          IntervalIntegrable (fun x => ((F x : ℝ) : ℂ) * Complex.exp (Complex.I * t * x)) volume (-a) a :=
-        fun F hF => ((continuous_ofReal.comp hF).mul (by fun_prop)).intervalIntegrable _ _
-      unfold ghatC
-      rw [← intervalIntegral.integral_const_mul, ← intervalIntegral.integral_add
-        (ci (fun x => (hSw v a ω x).re) (Complex.continuous_re.comp hcont))
-        ((ci (fun x => (hSw v a ω x).im) (Complex.continuous_im.comp hcont)).const_mul _)]
-      congr 1; funext x
-      conv_lhs => rw [← Complex.re_add_im (hSw v a ω x)]
-      ring
-    have hhat := hSw_hat' hv.1 ha.le hω hω0 hz
-    rw [hsplit, hcu t, hdv t, hev t, ← hQe] at hhat
-    have hwt := hne t ht
-    have hP : P.eval Q = (∑ i : Fin (gdim a - 1 + 1), (c i : ℂ) * Q ^ (i : ℕ))
-        + Complex.I * ∑ i : Fin (gdim a - 1 + 1), (d i : ℂ) * Q ^ (i : ℕ) := by
-      rw [polyOf_eval, Finset.mul_sum, ← Finset.sum_add_distrib]
-      refine Finset.sum_congr rfl fun i _ => ?_; ring
-    have hPv : Pv.eval Q = ∑ i : Fin (gdim a - 1 + 1), (ev i : ℂ) * Q ^ (i : ℕ) := polyOf_eval _ _
-    have e : P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) = -Pv.eval Q := by
-      have h2 := congrArg (· * ((t : ℂ) ^ 2 - ω ^ 2)) hhat
-      rw [neg_mul, div_mul_cancel₀ _ hden] at h2
-      have h3 : (P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) + Pv.eval Q) * ghatC w a t = 0 := by
-        rw [hP, hPv]; linear_combination h2
-      exact eq_neg_of_add_eq_zero_left ((mul_eq_zero.1 h3).resolve_right hwt)
-    have h1 : 1 + β * Q = ((t : ℂ) ^ 2 - ω ^ 2) * (-Q) := by
-      have hDi : ((t : ℂ) ^ 2 + 1 / 4) * ((t : ℂ) ^ 2 + 1 / 4)⁻¹ = 1 := mul_inv_cancel₀ hD
-      rw [hQ, div_eq_mul_inv]; simp only [β, D]
-      linear_combination -hDi
-    simp only [Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_add, Polynomial.eval_one,
-      Polynomial.eval_C, Polynomial.eval_X]
-    rw [h1]
-    linear_combination (-Q) * e
-  -- evaluate the identity at `X = −1/β`
-  have hβ : β ≠ 0 := by
-    intro h; apply hσ
-    have : (ω ^ 2).im = β.im := by simp [β]
-    rw [this, h, Complex.zero_im]
-  have hx0 : (-1 / β) ≠ 0 := by
-    rw [neg_div]; exact neg_ne_zero.2 (one_div_ne_zero hβ)
-  have hev0 := congrArg (Polynomial.eval (-1 / β)) hR
-  simp only [Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_add, Polynomial.eval_one,
-    Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_zero] at hev0
-  have h1 : 1 + β * (-1 / β) = 0 := by field_simp; ring
-  rw [h1, mul_zero, zero_sub, neg_eq_zero] at hev0
-  exact (mul_eq_zero.1 hev0).resolve_left hx0
 
 /-- `P_v ≠ 0` for nonzero `v`, and its degree is `< m`. -/
 theorem polyOf_ne_zero_of_hat {a : ℝ} (ha : 0 < a) {w v : ℝ → ℝ} (hv : v ∈ groundSpace a)
@@ -215,7 +139,7 @@ theorem card_offcross_le_even {a : ℝ} (ha : 0 < a) {v : ℝ → ℝ} (hv : v �
   omega
 
 /-- **`dim V ≤ 2` ⇒ zeros on the cross**, now as the case "no exceptions" of the parity count. -/
-theorem zeros_cross_of_dim_le_two' {a : ℝ} (ha : 0 < a) (hm : gdim a ≤ 2) {v : ℝ → ℝ}
+theorem zeros_cross_of_dim_le_two {a : ℝ} (ha : 0 < a) (hm : gdim a ≤ 2) {v : ℝ → ℝ}
     (hv : v ∈ groundSpace a) (hpos : 0 < normSq v) {ω : ℂ} (hω : ghatC v a ω = 0) :
     (ω ^ 2).im = 0 := by
   by_contra hσ
@@ -381,12 +305,51 @@ theorem zeta_offline_card_le {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} {M : �
     · exact him h1)
   rwa [Finset.card_image_of_injOn hinj] at hcard
 
+/-- A simple ground state has a one-dimensional ground space. -/
+theorem gdim_le_one_of_simple {a : ℝ} {g : ℝ → ℝ} (ha : 0 < a) (hs : SimpleGround a g) :
+    gdim a ≤ 1 := by
+  have hgV : g ∈ groundSpace a := ((isGroundState_iff ha).1 hs.1).1
+  set y := iotaGS a ⟨g, hgV⟩
+  have hle : LinearMap.range (iotaGS a) ≤ Submodule.span ℝ {y} := by
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨c, hc⟩ := hs.2 x.1 x.2
+    rw [Submodule.mem_span_singleton]
+    refine ⟨c, ?_⟩
+    show c • hgV.1.memL2.toLp g = x.2.1.memL2.toLp x.1
+    rw [← MemLp.toLp_const_smul]
+    have h1 : (c • g) =ᵐ[volume] (fun t => c * g t) := Eventually.of_forall fun t => rfl
+    exact MemLp.toLp_congr _ _ (EventuallyEq.trans h1 hc.symm)
+  unfold gdim
+  exact (Submodule.finrank_mono hle).trans ((finrank_span_le_card _).trans (by simp))
+
+/-- **RH from (a) for any ground states with eventually `dim V ≤ 2`.** -/
+theorem rh_of_dim_le_two {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
+    (hgs : ∀ n, IsGroundState (a n) (g n)) (hdim : ∀ᶠ n in atTop, gdim (a n) ≤ 2)
+    (hconv : HypConv a g) : RiemannHypothesis := by
+  refine rh_of_prime_side_cross hgs ?_ hconv zetaNoZeroInUnitInterval
+  filter_upwards [hdim] with n hn z hz
+  obtain ⟨hV, hN⟩ := (isGroundState_iff (ha n)).1 (hgs n)
+  have him := zeros_cross_of_dim_le_two (ha n) hn hV (by rw [hN]; norm_num) hz
+  have : 2 * z.re * z.im = 0 := by rw [← him]; simp [pow_two]; ring
+  rcases mul_eq_zero.1 this with h | h
+  · left; linarith
+  · right; exact h
+
+/-- The simple case is the special case `m = 1`. -/
+theorem rh_of_eventually_simple' {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
+    (hgs : ∀ n, IsGroundState (a n) (g n)) (hsimple : ∀ᶠ n in atTop, SimpleGround (a n) (g n))
+    (hconv : HypConv a g) : RiemannHypothesis :=
+  rh_of_dim_le_two ha hgs (hsimple.mono fun n hs => (gdim_le_one_of_simple (ha n) hs).trans (by norm_num))
+    hconv
+
 end Pilot1ca
 
-#print axioms Pilot1ca.offcross_root
 #print axioms Pilot1ca.card_offcross_le
 #print axioms Pilot1ca.card_offcross_le_even
-#print axioms Pilot1ca.zeros_cross_of_dim_le_two'
+#print axioms Pilot1ca.zeros_cross_of_dim_le_two
+#print axioms Pilot1ca.gdim_le_one_of_simple
+#print axioms Pilot1ca.rh_of_dim_le_two
+#print axioms Pilot1ca.rh_of_eventually_simple'
 #print axioms Pilot1ca.hurwitz_attract
 #print axioms Pilot1ca.xi_offcross_card_le
 #print axioms Pilot1ca.zeta_offline_card_le

@@ -499,49 +499,25 @@ theorem chain_span_hat {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChain a 
 
 /-! ## Zeros on the cross -/
 
-open Polynomial in
-/-- `P·(1 + βX) = Xⁿ` has no solution with `deg P < n`. -/
-theorem no_poly (P : Polynomial ℂ) (β : ℂ) (n : ℕ) (hdeg : ∀ k, n ≤ k → P.coeff k = 0)
-    (h : P * (1 + C β * X) = X ^ n) : False := by
-  have h' : P + C β * (P * X) = X ^ n := by rw [← h]; ring
-  have hc : ∀ k, P.coeff k = 0 := by
-    intro k
-    induction k with
-    | zero =>
-      rcases Nat.eq_zero_or_pos n with hn | hn
-      · exact hdeg 0 (by omega)
-      · have := congrArg (fun p => Polynomial.coeff p 0) h'
-        simp only [coeff_add, coeff_C_mul, coeff_mul_X_zero, coeff_X_pow] at this
-        simpa [show (0 : ℕ) ≠ n by omega] using this
-    | succ k ih =>
-      rcases le_or_gt n (k + 1) with hn | hn
-      · exact hdeg _ hn
-      · have := congrArg (fun p => Polynomial.coeff p (k + 1)) h'
-        simp only [coeff_add, coeff_C_mul, coeff_mul_X, coeff_X_pow, ih] at this
-        simpa [show k + 1 ≠ n by omega] using this
-  have hP : P = 0 := Polynomial.ext fun k => by rw [hc k, coeff_zero]
-  rw [hP, zero_mul] at h
-  exact pow_ne_zero n X_ne_zero h.symm
-
-/-- **Theorem D, zeros on the cross.** With `h = G^{m−1}w` the top of a full Green chain, every zero
-`ω` of `ĥ` has `ω² ∈ ℝ`, i.e. `ω ∈ ℝ ∪ iℝ`. -/
-theorem chain_top_zeros {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChain a (gdim a - 1) w)
-    (hpos : 0 < normSq w) {ω : ℂ} (hω : ghatC (Gi a (gdim a - 1) w) a ω = 0) :
-    (ω ^ 2).im = 0 := by
-  by_contra hσ
-  set n := gdim a - 1
-  set h := Gi a n w
-  have hV : h ∈ groundSpace a := hc.1 n le_rfl
+/-- **Each off-cross zero of `v̂` is a root of `P_v`.** -/
+theorem offcross_root {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChain a (gdim a - 1) w)
+    (hwpos : 0 < normSq w) {v : ℝ → ℝ} (hv : v ∈ groundSpace a)
+    {ev : Fin (gdim a - 1 + 1) → ℝ}
+    (hev : ∀ t : ℝ, ghatC v a t
+      = (∑ i : Fin (gdim a - 1 + 1), (ev i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ)) * ghatC w a t)
+    {ω : ℂ} (hω : ghatC v a ω = 0) (hσ : (ω ^ 2).im ≠ 0) :
+    (polyOf fun i : Fin (gdim a - 1 + 1) => (ev i : ℂ)).IsRoot (-1 / (1 / 4 + ω ^ 2)) := by
   have hω0 : ω ≠ 0 := by rintro rfl; apply hσ; simp
-  obtain ⟨hu, hv⟩ := green_mem_groundSpace ha hV hω hσ
-  obtain ⟨c, hcu⟩ := chain_span_hat ha hc hpos hu
-  obtain ⟨d, hdv⟩ := chain_span_hat ha hc hpos hv
+  obtain ⟨hu, hv'⟩ := green_mem_groundSpace ha hv hω hσ
+  obtain ⟨c, hcu⟩ := chain_span_hat ha hc hwpos hu
+  obtain ⟨d, hdv⟩ := chain_span_hat ha hc hwpos hv'
   have hw : Probe a w := (hc.1 0 (Nat.zero_le _)).1
-  obtain ⟨α, ε, hα, hε, hne⟩ := exists_interval_ghat ha hw hpos
-  have hcont := hSw_continuous hV.1.memL2 a ω
-  set P := polyOf (fun i : Fin (n + 1) => (c i : ℂ) + Complex.I * d i)
+  obtain ⟨α, ε, hα, hε, hne⟩ := exists_interval_ghat ha hw hwpos
+  have hcont := hSw_continuous hv.1.memL2 a ω
+  set P := polyOf (fun i : Fin (gdim a - 1 + 1) => (c i : ℂ) + Complex.I * d i)
+  set Pv := polyOf (fun i : Fin (gdim a - 1 + 1) => (ev i : ℂ))
   set β : ℂ := 1 / 4 + ω ^ 2
-  have hR : P * (1 + Polynomial.C β * Polynomial.X) - Polynomial.X ^ (n + 1) = 0 := by
+  have hR : P * (1 + Polynomial.C β * Polynomial.X) - Polynomial.X * Pv = 0 := by
     refine poly_eq_zero_of_interval _ hα hε fun t ht => ?_
     obtain ⟨Q, hQe⟩ : ∃ Q : ℂ, Q = ((qr t : ℝ) : ℂ) := ⟨_, rfl⟩
     rw [← hQe]
@@ -554,41 +530,83 @@ theorem chain_top_zeros {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChain a
     have hz : ((t : ℂ)) ^ 2 ≠ ω ^ 2 := by
       intro e; apply hσ; rw [← e]; norm_cast
     have hden : (t : ℂ) ^ 2 - ω ^ 2 ≠ 0 := sub_ne_zero.2 hz
-    -- the transform of the Green solution, two ways
-    have hsplit : (∫ x in (-a)..a, hSw h a ω x * Complex.exp (Complex.I * t * x))
-        = ghatC (fun x => (hSw h a ω x).re) a t + Complex.I * ghatC (fun x => (hSw h a ω x).im) a t := by
+    have hsplit : (∫ x in (-a)..a, hSw v a ω x * Complex.exp (Complex.I * t * x))
+        = ghatC (fun x => (hSw v a ω x).re) a t + Complex.I * ghatC (fun x => (hSw v a ω x).im) a t := by
       have ci : ∀ F : ℝ → ℝ, Continuous F →
           IntervalIntegrable (fun x => ((F x : ℝ) : ℂ) * Complex.exp (Complex.I * t * x)) volume (-a) a :=
         fun F hF => ((continuous_ofReal.comp hF).mul (by fun_prop)).intervalIntegrable _ _
       unfold ghatC
       rw [← intervalIntegral.integral_const_mul, ← intervalIntegral.integral_add
-        (ci (fun x => (hSw h a ω x).re) (Complex.continuous_re.comp hcont))
-        ((ci (fun x => (hSw h a ω x).im) (Complex.continuous_im.comp hcont)).const_mul _)]
+        (ci (fun x => (hSw v a ω x).re) (Complex.continuous_re.comp hcont))
+        ((ci (fun x => (hSw v a ω x).im) (Complex.continuous_im.comp hcont)).const_mul _)]
       congr 1; funext x
-      conv_lhs => rw [← Complex.re_add_im (hSw h a ω x)]
+      conv_lhs => rw [← Complex.re_add_im (hSw v a ω x)]
       ring
-    have hhat := hSw_hat' hV.1 ha.le hω hω0 hz
-    rw [hsplit, hcu t, hdv t, Gi_hat ha.le hc n le_rfl t, ← hQe] at hhat
+    have hhat := hSw_hat' hv.1 ha.le hω hω0 hz
+    rw [hsplit, hcu t, hdv t, hev t, ← hQe] at hhat
     have hwt := hne t ht
-    have hP : P.eval Q = (∑ i : Fin (n + 1), (c i : ℂ) * Q ^ (i : ℕ))
-        + Complex.I * ∑ i : Fin (n + 1), (d i : ℂ) * Q ^ (i : ℕ) := by
+    have hP : P.eval Q = (∑ i : Fin (gdim a - 1 + 1), (c i : ℂ) * Q ^ (i : ℕ))
+        + Complex.I * ∑ i : Fin (gdim a - 1 + 1), (d i : ℂ) * Q ^ (i : ℕ) := by
       rw [polyOf_eval, Finset.mul_sum, ← Finset.sum_add_distrib]
       refine Finset.sum_congr rfl fun i _ => ?_; ring
-    have e : P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) = -Q ^ n := by
+    have hPv : Pv.eval Q = ∑ i : Fin (gdim a - 1 + 1), (ev i : ℂ) * Q ^ (i : ℕ) := polyOf_eval _ _
+    have e : P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) = -Pv.eval Q := by
       have h2 := congrArg (· * ((t : ℂ) ^ 2 - ω ^ 2)) hhat
       rw [neg_mul, div_mul_cancel₀ _ hden] at h2
-      have h3 : (P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) + Q ^ n) * ghatC w a t = 0 := by
-        rw [hP]; linear_combination h2
+      have h3 : (P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) + Pv.eval Q) * ghatC w a t = 0 := by
+        rw [hP, hPv]; linear_combination h2
       exact eq_neg_of_add_eq_zero_left ((mul_eq_zero.1 h3).resolve_right hwt)
     have h1 : 1 + β * Q = ((t : ℂ) ^ 2 - ω ^ 2) * (-Q) := by
       have hDi : ((t : ℂ) ^ 2 + 1 / 4) * ((t : ℂ) ^ 2 + 1 / 4)⁻¹ = 1 := mul_inv_cancel₀ hD
       rw [hQ, div_eq_mul_inv]; simp only [β, D]
       linear_combination -hDi
     simp only [Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_add, Polynomial.eval_one,
-      Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_pow]
-    rw [h1, pow_succ]
+      Polynomial.eval_C, Polynomial.eval_X]
+    rw [h1]
     linear_combination (-Q) * e
-  exact no_poly P β (n + 1) (fun k hk => polyOf_coeff_ge _ hk) (sub_eq_zero.1 hR)
+  -- evaluate the identity at `X = −1/β`
+  have hβ : β ≠ 0 := by
+    intro h; apply hσ
+    have : (ω ^ 2).im = β.im := by simp [β]
+    rw [this, h, Complex.zero_im]
+  have hx0 : (-1 / β) ≠ 0 := by
+    rw [neg_div]; exact neg_ne_zero.2 (one_div_ne_zero hβ)
+  have hev0 := congrArg (Polynomial.eval (-1 / β)) hR
+  simp only [Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_add, Polynomial.eval_one,
+    Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_zero] at hev0
+  have h1 : 1 + β * (-1 / β) = 0 := by field_simp; ring
+  rw [h1, mul_zero, zero_sub, neg_eq_zero] at hev0
+  exact (mul_eq_zero.1 hev0).resolve_left hx0
+
+theorem sum_indicator_pow (n : ℕ) (x : ℂ) :
+    (∑ i : Fin (n + 1), (((if (i : ℕ) = n then (1 : ℝ) else 0 : ℝ)) : ℂ) * x ^ (i : ℕ)) = x ^ n := by
+  rw [Finset.sum_eq_single (Fin.last n)]
+  · simp
+  · intro i _ hi
+    have : (i : ℕ) ≠ n := fun h => hi (Fin.ext (by simp [h]))
+    simp [this]
+  · intro h; exact absurd (Finset.mem_univ _) h
+
+/-- **Theorem D, zeros on the cross.** With `h = G^{m−1}w` the top of a full Green chain, every zero
+`ω` of `ĥ` has `ω² ∈ ℝ`, i.e. `ω ∈ ℝ ∪ iℝ`: `ĥ = q^{m−1}ŵ`, so `P_h = X^{m−1}`, which has no root at
+`−1/(¼ + ω²) ≠ 0` (`offcross_root`). -/
+theorem chain_top_zeros {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChain a (gdim a - 1) w)
+    (hpos : 0 < normSq w) {ω : ℂ} (hω : ghatC (Gi a (gdim a - 1) w) a ω = 0) :
+    (ω ^ 2).im = 0 := by
+  by_contra hσ
+  set n := gdim a - 1
+  set ev : Fin (n + 1) → ℝ := fun i => if (i : ℕ) = n then 1 else 0
+  have hev : ∀ t : ℝ, ghatC (Gi a n w) a t
+      = (∑ i : Fin (n + 1), (ev i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ)) * ghatC w a t := by
+    intro t
+    rw [Gi_hat ha.le hc n le_rfl t, sum_indicator_pow]
+  have hroot := offcross_root ha hc hpos (hc.1 n le_rfl) hev hω hσ
+  rw [Polynomial.IsRoot, polyOf_eval, sum_indicator_pow] at hroot
+  have hβ : (1 / 4 + ω ^ 2 : ℂ) ≠ 0 := by
+    intro h; apply hσ
+    have : (ω ^ 2).im = (1 / 4 + ω ^ 2 : ℂ).im := by simp
+    rw [this, h, Complex.zero_im]
+  exact pow_ne_zero n (div_ne_zero (neg_ne_zero.2 one_ne_zero) hβ) hroot
 
 /-- **Round 48's Theorem D, formal.** With `m = dim V` (finite, `finiteDimensional_groundL2`), there
 is a nonzero `w` whose Green chain `w, Gw, …, G^{m−1}w` lies in the ground space (all but the last
@@ -701,6 +719,7 @@ end Pilot1ca
 #print axioms Pilot1ca.chain_linearIndependent
 #print axioms Pilot1ca.chain_span_ae
 #print axioms Pilot1ca.chain_span_hat
+#print axioms Pilot1ca.offcross_root
 #print axioms Pilot1ca.chain_top_zeros
 #print axioms Pilot1ca.theoremD
 #print axioms Pilot1ca.topGS_cross
