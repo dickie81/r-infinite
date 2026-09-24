@@ -71,7 +71,11 @@ is a probe,
 
 (the pilot's `lam_mul_le`; its `Probe` clause `a < |u| → g u = 0` admits the closed support).
 
-Only (0.1) and the explicit formula for C_c^∞ functions are used in §2.
+Only (0.1) and the explicit formula for C_c^∞ functions are used in §2.1–2.2;
+§2.3's Corollary 4 also uses Theorem A, whose trial Φ_a has a jump at ±a and
+whose zero-side identity therefore rests on the explicit formula in Weil's
+wider class (h = Φ_a ⋆ Φ̃_a continuous, compactly supported and of bounded
+variation), the class the paper's Theorem 1bn(i) evaluates the form in.
 
 **Riemann's kernel.** Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{−πn²e^{2u}},
 even, positive, with Φ(u) ≤ C_B e^{−B|u|} for every B, and
@@ -136,8 +140,9 @@ b about the critical line, which is not known for any b > 0.
 ## 2. What the attempt proves: the energy signature of an off-line zero
 
 The natural first question about S(b) for small b is what the ground states
-look like if RH fails. That question has a sharp, unconditional answer for
-the ground *energy*, which is the theorem of this note.
+look like if RH fails. That question has a sharp answer for the ground
+*energy*, under one genericity assumption, which is the theorem of this
+note.
 
 **Hypothesis (H₁).** β* > 0, and the supremum is attained by exactly one
 zero up to the symmetries: there is ρ₀ = ½ + β* + it₀ with t₀ > 0, of
@@ -161,14 +166,28 @@ Theorem 3 is the statement that no zero has β_ρ > ½, read through Theorem
 exponent of the negative part of the ground energy detects the zero
 farthest from the critical line, and that improving the exponent in
 Theorem 3 uniformly in a is then a zero-free-region statement of the
-classical kind. Bombieri proved the qualitative form of this dichotomy:
-for the truncated Weil functional "the number of negative eigenvalues is
+classical kind. The sign dichotomy itself — λ₁(a) < 0 for all large a if
+and only if RH fails — is Weil's criterion with the monotonicity of λ₁ in
+the support, and the pilot's README states it (round 40). The closest prior
+to Theorem 2 is Bombieri (E. Bombieri, *Remarks on Weil's quadratic
+functional in the theory of prime numbers, I*, Rend. Lincei Mat. Appl. 11
+(2000) 183–233): for the quadratic form in the zero variables truncated to
+the zeros of height at most N, at every support, and "if the Riemann
+Hypothesis is false but only with finitely many non-trivial zeros off the
+critical line", he shows that "the number of negative eigenvalues is
 precisely one-half of the number of zeros failing to satisfy the Riemann
-Hypothesis, provided the truncation is big enough" (E. Bombieri, *Remarks
-on Weil's quadratic functional in the theory of prime numbers, I*, Rend.
-Lincei Mat. Appl. 11 (2000) 183–233, abstract). The growth rate
-e^{2β*a}/(2eβ*) I have not found stated; Theorem 2 should be read as the
-quantitative form of Bombieri's count for the lowest eigenvalue.
+Hypothesis, provided the truncation is big enough" (abstract; Theorems 8–9
+there), and for the L² window functional a trichotomy: negative, or
+infinitely many off-line zeros, or a linear relation among the x^{−ρ} on the
+window (his Theorem 11 and its corollary). No growth rate in the support
+appears there, and his numerical section reports a critical support beyond
+which the negative eigenvalue converges to a strictly negative value, with
+the eigenfunction's mass concentrating at the boundary of the interval —
+the edge state of Remark (b) below. Theorem 2 is the quantitative form of
+that count for the lowest eigenvalue under (H₁), which trades Bombieri's
+"finitely many off-line zeros" for a condition on the farthest one (his
+introduction anticipates replacing finiteness "by a suitable density
+hypothesis").
 
 ### 2.1 Proof of Theorem 3
 
@@ -325,20 +344,22 @@ contrapositive below is stated with (H₁).
 a, then no zero ρ₀ satisfies (H₁) with β_{ρ₀} > b. Assume RH, or else
 (H₁). Then Theorem A and Theorem 2 give a dichotomy: either RH holds and
 0 ≤ λ₁(a) ≤ S₂ e₁(a)²/‖Φ_a‖² = exp(−2πe^{2a} + O(a)) for every a, or RH fails
-under (H₁) and λ₁(a) ≤ −e^{2β*a}/(2eβ*)(1 − o(1)). There is no intermediate
-regime. (The lower bound 0 ≤ λ₁ under RH is Weil's criterion on C_c^∞
-probes, extended to the pilot's L² probe class by mollification: the
-pilot's Mollify.lean gives convergence of box averages in L² and in
-archimedean energy, and the pole and prime terms are L²-continuous.)
+under (H₁) and λ₁(a) ≤ −(1 − η(t₀)) e^{2β*a}/(2eβ*)(1 − o(1)). There is no
+intermediate regime. (The lower bound 0 ≤ λ₁ under RH is Weil's criterion
+on smooth probes, extended to the pilot's L² probe class by mollification:
+the pilot's Mollify.lean gives convergence of box averages in L² and in
+archimedean energy, three box averages give a C² probe (`av3_C2`), and
+the pole and prime terms are L²-continuous on probes of fixed support.)
 
-*Consequence for the computed cells.* At the paper's cells (a ≤ 1.75) the
-trial of Theorem 2 is not yet negative: its positive part C₁ is of order
+*Consequence for the computed cells.* At the paper's cells (a ≤ 1.75)
+Theorem 2's trial is not even defined (it needs a ≥ 2), and its bound turns
+negative only beyond a threshold: its positive part C₁ is of order
 β ln t₀ (β^{−2} + C_w²) with t₀ > 3·10¹² for any off-line zero, so the
 negative term e^{2βa}/(2eβ) wins only for a ≳ (1/2β) ln(C₁ · 2eβ), which is
 about 40 for β = 0.1 and a few hundred for β = 0.01. The positivity of λ₁ at the
-cells is therefore consistent with RH and with its failure at any height
-above the verified one. This is not a defect of the cells; it is the
-content of Corollary 4: the RH-false branch is invisible until the support
+cells is therefore not contradicted by Theorem 2 under either alternative,
+RH or its failure at any height above the verified one. This is not a
+defect of the cells; it is the content of Corollary 4: the RH-false branch is invisible until the support
 exceeds about (ln ln(height) + O(1))/(2β), the O(1) carrying the constants
 of C₁.
 
@@ -384,7 +405,8 @@ as such.
 ### 3.2 What S(b) asks of the ground state when RH fails
 
 Suppose RH fails and (H₁) holds. By Theorem 2 the ground state at large
-support has energy ≤ −e^{2β*a}/(2eβ*). The following inequality is exact.
+support has energy ≤ −(1 − η(t₀)) e^{2β*a}/(2eβ*)(1 − o(1)). The following
+inequality is exact.
 
 **Proposition 5.** Let g be a ground state at half-support a, ‖g‖ = 1,
 Φ̃ = Φ_a/‖Φ_a‖, c = ⟨g, Φ̃⟩, r = g − cΦ̃, q_a = Q(Φ̃), and B the symmetric
@@ -393,7 +415,10 @@ bilinear form of Q. Then |c| · (q_a − λ₁(a)) ≤ 2 |B(Φ̃, r)|.
 *Proof.* Q(g) = c²q_a + 2cB(Φ̃, r) + Q(r) and Q(r) ≥ λ₁‖r‖² = λ₁(1 − c²),
 while Q(g) = λ₁. So λ₁c² ≥ c²q_a + 2cB, i.e. c²(q_a − λ₁) ≤ −2cB ≤ 2|c||B|. ∎
 
-When λ₁ ≤ −e^{2β*a}/(2eβ*), the left side is at least |c| e^{2β*a}/(2eβ*),
+When λ₁ ≤ −(1 − η)e^{2β*a}/(2eβ*)(1 − o(1)), the left side is at least
+|c|[(1 − η)e^{2β*a}/(2eβ*)(1 − o(1)) − |q_a|], and |q_a| ≤ exp(−2πe^{2a} + O(a))
+by Theorem A (its bound is on the modulus, the sign of q_a being unknown
+without RH);
 while B(Φ̃, r) = Σ_ρ Φ̂̃(γ_ρ) r̂(γ_ρ) has every first factor bounded by
 e₁(a)/(|γ_ρ|‖Φ_a‖) = exp(−πe^{2a} + O(a)). *Provided* the zero sum
 Σ_ρ |r̂(γ_ρ)|² is finite with at most exponential growth in a (a sampling
@@ -425,20 +450,25 @@ rigorous in this direction.
 ### 3.3 Where the difficulty sits under RH
 
 Assume RH. Then λ₁(a) ∈ [0, exp(−2πe^{2a} + O(a))] and the pilot's chain would
-be an equivalence if the closeness rate could be proved. The observed rate
-has a mechanism in the paper's own Theorem 1bu(ii): under Hypothesis D at
-support a with horizon T_D(a), the normalised transform satisfies
+be an equivalence if the closeness rate could be proved. The transform's
+convergence has a mechanism in the paper's own Theorem 1bu(ii): under
+Hypothesis D at support a with horizon T_D(a) (the zero multisets of the
+transform and of Ξ agreeing below T_D, with multiplicity), the normalised
+transform satisfies
 |ln[ĝ(r)/ĝ(0)] − ln[Ξ(r)/Ξ(0)]| ≤ 2R²ε(a) for |r| ≤ R ≤ T_D/2, with
 ε(a) = Σ_{|τ|≥T_D}|τ|^{−2} + Σ_{γ≥T_D}γ^{−2} ≍ (ln T_D)/T_D. With T_D of order
 e^{2a}, as the dimension count of §3.1 and the paper's measured horizons
-indicate, ε(a) ≍ a e^{−2a}. That is the pilot's measured decay of the angle
-to Φ_a, e^{−2a} with a slowly drifting local exponent (README round 62), and
-it is four times the threshold ½ of the chain. So under RH and Hypothesis
+indicate, ε(a) ≍ a e^{−2a}. The same exponent 2 appears in the pilot's
+measured decay of the L² angle to Φ_a, e^{−2a} with a slowly drifting local
+exponent (README round 62), four times the threshold ½ of the chain;
+1bu(ii) explains the transform's exponent, and whether the angle's has the
+same origin is not shown here (L² closeness implies transform closeness on
+compacts, by the pilot's `norm_ghatC_sub_le`, not conversely). So under RH and Hypothesis
 D the transform's convergence rate has a mechanism: it is the tail of the
 zeros beyond the dodging horizon. What is unproved is Hypothesis D itself: that the ground state's
 transform vanishes at every zero below a horizon T_D(a) ≍ e^{2a} and has no
 other zero there. The pilot located where RH enters any natural proof of
-convergence ("uses `Q = Σ_γ|ĝ(γ)|²`, a sum of squares, which is RH", README
+convergence ("uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH", README
 round 40); under RH that obstacle is absent, and D becomes a statement in
 approximation theory about the minimiser of a sum of squares over a
 sampling set of near-critical density, with the zeros' separation
@@ -454,7 +484,8 @@ properties (unknown) as the likely technical input.
    all, which, by the heuristic of §3.2, should fail whenever RH fails at
    any distance from the line.
    The audacious framing in the preceding discussion was right about the
-   payoff and wrong about the difficulty; this note corrects it.
+   payoff and, if §3's heuristic is right, wrong about the difficulty; this
+   note corrects it to that extent.
 
 2. **What the attempt proves** is Theorem 2 with Theorem 3 and Corollary 4:
    the truncated Weil ground energy has two regimes, super-exponentially
@@ -464,15 +495,16 @@ properties (unknown) as the likely technical input.
    bounds on λ₁(a) uniform in a with exponent below 1 are then
    zero-free-region statements of the classical kind, so the variational
    structure does not give a cheap route to those either. The qualitative
-   dichotomy is Bombieri's (2000, cited after Theorem 3); the growth rate
-   with the sharp single-quadruple constant 1/(2β*) is the quantitative
-   form, which I have not found stated elsewhere.
+   sign dichotomy is Weil's criterion; the count of negative eigenvalues
+   is Bombieri's (2000, cited after Theorem 3); the growth rate with the
+   sharp single-quadruple constant 1/(2β*) is the quantitative form, which
+   I have not found stated elsewhere.
 
 3. **The honest open problem** that this analysis isolates, conditional and
    well-posed: *under RH, prove Hypothesis D from the form* — that the
    truncated ground state's transform vanishes at every zero below a
-   horizon T_D(a) → ∞ with T_D(a) ≥ c e^{2a}, and at no other point below
-   it. With 1bu(ii)'s bound this would prove, under RH, the locally uniform
+   horizon T_D(a) → ∞ with T_D(a) ≥ c e^{2a}, with the zero's multiplicity,
+   and at no other point below it. With 1bu(ii)'s bound this would prove, under RH, the locally uniform
    convergence of the normalised transform to Ξ/Ξ(0) — the paper's (a′),
    the pilot's `HypConv` — at rate a e^{−2a} on compacts, and with
    Proposition 1 at b = ½ make the chain an equivalence, RH ⟺ (a′). The L²

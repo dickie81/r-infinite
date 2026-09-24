@@ -5802,4 +5802,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the twenty-one edits of A539, including the Bombieri citation and the (a′) definition). No tower obligation. Brief `brief_round368.md` (its text also inside the launch prompt). Convergence test on round 367's eighteen findings (A539).
 
+**Findings.** 0 MAJOR, 4 minor, 6 cosmetic; all verified by the lead and accepted (A540); every round-367 disposition realised. Minor: F368-1 §3.3's opening still identified 1bu(ii)'s transform rate with the measured L² angle (F5's residue, direction inverted); F368-2 "unconditional" left in §2's opening (F6's residue); F368-3 the Bombieri prior misdescribed (zero-set truncation, every support, the finiteness antecedent cut; the sign dichotomy is Weil's); F368-4 §2's scope sentence false for Corollary 4's use of Theorem A with the jump trial Φ_a. Six cosmetics. **Sweep (round 369):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 pending.
+
+### Round 369 — the convergence test on the round-369 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the fourteen edits of A540). No tower obligation. Brief `brief_round369.md` (its text also inside the launch prompt). Convergence test on round 368's ten findings (A540).
+
 **Findings.** PENDING.
