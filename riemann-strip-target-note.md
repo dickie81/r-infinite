@@ -2,8 +2,9 @@
 
 **Working note, not a paper surface.** Written at the owner's commission
 ("try to prove it theoretically before running any long winded numerics")
-after Addendum 537. No numerics were run for this note. The Lean pilot was
-not touched. Every statement below is either proved here in full, or is
+after Addendum 537. No long numerics were run for this note; the closed
+forms of §3.4 were checked at 30 digits, in seconds, by an uncommitted
+script named there. The Lean pilot was not touched. Every statement below is either proved here in full, or is
 marked as a proof sketch with the unfinished step named, or is marked as
 heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
 which asserts the Riemann Hypothesis neither true nor false.
@@ -20,7 +21,10 @@ exponentially negative, with the farthest zero from the line setting the
 exponent. §3 argues, heuristically
 but with the min–max obstruction quantified, that the strip target's
 hypothesis is not attackable below full strength by the methods available,
-and locates where the difficulty sits. §4 states the reformulated open
+and locates where the difficulty sits. §3.4, added after the note's
+review arc closed, derives the constant 1/(16π) of the pilot's round 70
+within the paper's reduced balayage problem, under the paper's own
+conjectural inputs. §4 states the reformulated open
 problem that the analysis leaves as the honest next target.
 
 ---
@@ -240,7 +244,7 @@ sinh(2βA)/(2β) = e^{2βA}(1 − e^{−4βA})/(4β) and cosh(2βA) ≤ e^{2βA}
 
 The first three terms tend to 0 as a → ∞; the last, ε₁^∞ := 2β(β + t₀)/t₀²,
 is the edge correction to the average of sin² over the window and does not
-depend on a. It is the first part of η(t₀) in the theorem's statement. ε₁(1) = 1 + 2β/t₀ + ε₁^∞ > 1 and ε₁ is strictly decreasing in a, so a₀(β),
+depend on a. It is the first part of η(t₀) in the theorem's statement. ε₁(1) = 1 + 2β/t₀ + ε₁^∞ > 1, ε₁ is strictly decreasing in a and ε₁^∞ < 1, so a₀(β),
 the point at which ε₁(a) = 1, exists uniquely in (1, ∞) and can exceed 2
 for small β. Every division by (2.1) below is taken for a > a₀(β); the
 theorem's statement is asymptotic and a₀ costs nothing.
@@ -281,7 +285,7 @@ Also trivially |F(ζ)| ≤ e^{|Im ζ|a}‖w_a S‖₁ ≤ e^{(β+|Im ζ|)a}/β. 
 
 (i) *Zeros on the line.* For real γ, ĝ(γ)² ≤ ½(|F(γ+t₀)|² + |F(γ−t₀)|²). By the
 classical bound on the zero count in unit intervals, the number of γ with
-T < |γ| ≤ T + 1 is at most A₀ ln T for T ≥ 2, with A₀ an absolute constant
+T < |γ| ≤ T + 1 is at most A₀ ln(T + 2) for every T ≥ 0, with A₀ an absolute constant
 (Backlund). Then, using (2.3),
 
   Σ_{γ real} ĝ(γ)² ≤ e^{2βa} · [ 2A₀ ln(t₀+2)/β² + 2A₀C_w² Σ_{k≥1} ln(t₀+k+2)/k⁴ ] ≤ e^{2βa} · A₁ ln(t₀+2) (β^{−2} + C_w²),
@@ -425,7 +429,7 @@ the ratio R = (Q(φ_a) − λ₁)/(λ₂ − λ₁), with φ_a the normalised tr
 of Φ (this note's Φ̃) and θ its angle to the ground state, grows from 0.04
 to 10⁴¹ over δ ∈ [0.7, 3] while sin²θ falls to 2·10⁻⁴; its own verdict is "The energy route
 is dead" and "The L² route survives", and it names the need as "a
-structural reason why the minimiser tracks the null vector Φ away from
+structural reason why the minimiser tracks the null vector `Φ` away from
 the edges, not a spectral-gap estimate" — the pilot's numbers and words,
 not this note's.
 
@@ -517,14 +521,191 @@ conjectures g_a ≈ c·e^{−τ_a∂²}Φ with τ_a = 1/(16πe^{2a}), a backward
 flow of Φ, and states "the conjecture is RH-strength" with the derivation of the
 constant open; its round 71 finds the flow pointwise in the window's bulk,
 as classical free transport of Φ's phase, with an edge layer beyond a
-caustic about 0.153 inside the edge, "the edge layer and the value of `c`"
-open), and it remarks that "`Φ`'s even derivatives are,
+caustic about 0.153 inside the edge, "The edge layer and the value of `c`
+are open"; its round 72 finds four edge conditions "all equivalent at
+leading order", each selecting the constant — P1, "the amplitude at the
+caustic equals `Φ` at the window's edge" — and states "Why the minimiser
+of Weil's form selects P1 (or whichever exact condition is right) remains
+open"; §3.4 below derives the constant on the zero side, within the
+paper's reduced problem), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
 item 3 of §4, from the L² side (the README ties it to `rh_of_close_top`);
 the two are not shown equivalent here, and 'stays in the null directions' can only be approximate for a
 compactly supported probe.
+
+### 3.4 The constant 1/(16π): a derivation within the paper's reduced problem
+
+Written at the owner's request ("See if you can derive 1/(16π)") after the
+arc of rounds 367–376 closed. The result: the pilot's time τ_a is the
+paper's curvature defect, and within Theorem 1bm(iv)'s reduced balayage
+problem, with the wall at the paper's maximiser X* = 2, that defect is
+exactly 1/(8T₀) = e^{−δ}/(16π). The inputs are the paper's, and the paper
+marks them conjectural; nothing here bears on RH. Numbered facts are
+proved; their hypotheses are listed in (vii).
+
+**(i) The time is the curvature defect (exact).** Write the pilot's
+multiplier M(z) := (ĝ_a(z)/ĝ_a(0))/(Ξ(z)/Ξ(0)), whose conjectured form is
+e^{τ_a z²}, and let τ_a denote its z² Taylor coefficient. By the Hadamard
+factorisations of 1bu(ii) — ĝ_a(z)/ĝ_a(0) = Π_{τ>0}(1 − z²/τ²) over the
+transform's zero pairs ±τ ("no exponential factor: ĝ₁ is even") and
+Ξ(z)/Ξ(0) = Π_{γ>0}(1 − z²/γ²) —
+
+  (3.1)  τ_a = Σ_{γ>0} γ⁻² − Σ_{τ>0} τ⁻² = κ_Ξ − κ(a),
+
+the defect of the paper's curvature κ(a) = Σ_τ τ⁻² = −ĝ₁″(0)/(2ĝ₁(0)) from
+κ_Ξ = Σ_γ γ⁻² = 0.023105 (1bu(ii)). The pilot states the same coefficient
+in moment form in its round 62 ("`ĝ_a(z)/ĝ_a(0) = (Ξ(z)/Ξ(0))(1 + κ(a)z² +
+O(z⁴))` with `κ(a) = (M₂(Φ) − m₂(g_a))/2`"); its round-70 β is the
+coefficient of Φ″ in a least-squares fit g_a ≈ c(Φ + βΦ″ + γΦ⁗) (its round
+69, `beta_fit.py`), and τ = −β is the
+z² coefficient of M when the fit is exact, since the transform of Φ″ is
+−z²Ξ/2. Cross-check, two computations of one quantity: from the paper's
+published cell curvatures 0.0203, 0.0221, 0.0225 at δ = 2, 3, 3.5 (1bu(ii),
+four decimals, so the products below carry ±0.0004, ±0.0010, ±0.0017),
+(κ_Ξ − κ)e^δ = 0.0207, 0.0202, 0.0200; the pilot's fitted −β·e^δ at the
+same supports is 0.020636, 0.020179, 0.020070 (README round 70). Consistent
+within the rounding.
+
+**(ii) Under Hypothesis D the defect is an exterior moment (exact).** Under
+D at horizon T, exactly — the zero multisets of ĝ_a and Ξ coinciding below
+T with multiplicity — the terms below T cancel in (3.1), and
+
+  (3.2)  τ_a = Σ_{γ≥T} γ⁻² − Σ_{τ≥T} τ⁻² = ∫_T^∞ r⁻² [dN_ζ(r) − dN_g(r)],
+
+the r⁻² moment of the exterior counting deficit, N_ζ and N_g the counts of
+the positive zeros of Ξ and of ĝ_a (the identity Theorem 1bx uses for its
+Δκ_k, with R⁻³ after one integration by parts). This is the *difference*
+of the two tails whose *sum* is 1bu(ii)'s ε(δ); the difference is what the
+pilot measures, and (3.5) below shows it carries no factor of δ, unlike
+ε ≍ (ln T)/T.
+
+**(iii) The exterior deficit in the reduced problem.** In 1bm(iii)–(iv)'s
+reduced problem, in horizon units r = T₀x with T₀ = 2πe^δ, the probe's
+zeros have the Nyquist density a/π = δ/(2π) per unit r — "a uniform
+density contributing nothing" to the envelope — plus a deviation e^δ dρ(x)
+per unit x; Riemann–von Mangoldt gives ζ's density (1/2π) ln(r/2π) =
+(δ + ln x)/(2π) per unit r, so ζ's deviation is e^δ ln x dx, the paper's
+"dρ_N = ln y dy". On the dodging band [−X, X] the probe's deviation is
+forced to ln|x| dx (it dodges every zero there), and beyond the band (iv)
+takes "the probe's own zeros to be the balayage of −(ln|y| dy on [−X, X])
+onto the exterior", of density τ(x) — the paper's "τ(x) = −I(x)/(π√(x² −
+X²))" — which "makes the potential constant there". So on the exterior the
+deficit dN_ζ − dN_g is [ln x − τ(x)] dr/(2π), and (3.2) reads, with
+X := T/T₀,
+
+  (3.3)  τ_a = J(X)/(2πT₀),   J(X) := ∫_X^∞ x⁻² [ln x − τ(x)] dx.
+
+**(iv) J(X) in closed form (proved).** ∫_X^∞ x⁻² ln x dx = (1 + ln X)/X.
+For the balayage term use the defining property of the balayage μ̂ of
+μ = −ln|t| dt on [−X, X] onto E = ℝ ∖ (−X, X): μ̂ = ∫ ω_z dμ(z) with ω_z the
+harmonic measure of Ω = ℂ ∖ E, so ∫_E h dμ̂ = ∫ h dμ for every h bounded and
+harmonic in Ω with continuous boundary values on E (Ω is mapped onto the
+disk by the paper's ψ, the point ∞ going to the two boundary points ±i,
+of harmonic measure zero, so a bounded harmonic h is the Poisson integral
+of its boundary values). Take h_X := Re f_X, f_X(z) := (1 − √(1 −
+z²/X²))/z² with the branch of the root positive on (−X, X): f_X is analytic
+in Ω (the root's cut lies on E), has a removable singularity at 0 with
+f_X(0) = 1/(2X²), tends to 0 at ∞, and on either side of either ray of E
+the root is imaginary, so h_X = x⁻² on E. Hence, τ being even,
+
+  ∫_X^∞ x⁻² τ(x) dx = ½ ∫_E x⁻² dμ̂ = ∫_0^X (−ln t) h_X(t) dt = (1/X)[−P ln X − Q],
+
+  P := ∫_0^1 (1 − √(1 − s²))/s² ds = π/2 − 1,   Q := ∫_0^1 ln s · (1 − √(1 − s²))/s² ds = π/2 − 1 − (π/2) ln 2,
+
+both by parts with v = −1/s: P leaves ∫_0^1 ds/√(1 − s²) − 1; Q leaves
+P + ∫_0^1 ln s/√(1 − s²) ds = P − (π/2) ln 2 (the boundary terms vanish,
+u ln s/s = O(s ln s) at 0). Therefore
+
+  (3.4)  J(X) = (1 + ln X)/X − (1/X)[1 + ln X − (π/2)(1 + ln(X/2))] = (π/(2X)) (1 + ln(X/2)),
+
+and, by (3.3),
+
+  (3.5)  τ_a(X) = (1 + ln(X/2))/(4XT₀).
+
+**(v) The wall, and the constant.** 1bm(iv)'s optimum is X* = 2, "the
+admissibility threshold is the maximiser": the wall at twice the horizon,
+T = 2T₀ (the paper's finite-δ minimum "sits at T ≈ 2T₀"; its measured
+first missed zeros "1.46, 1.63, 1.79, 1.77, 1.86, 1.90, 1.94 T₀" at the
+cells; Theorem 1ca's smooth wall for the ground state, "T^s(1) =
+2T₀e^{−ε} with ε = (7/2)/T^s(1) + O(γ₁²/T₀³)", at "T^s/T₀ = 1.923, 1.943,
+1.958, 1.972, 1.983 at the five cells"). At X = 2, J(2) = π/4 and
+
+  (3.6)  τ_a = 1/(8T₀) = 1/(4T) = e^{−δ}/(16π) = 1/(16πe^{2a}),
+
+the pilot's constant. Two remarks, both proved. The law (3.5) is itself
+maximal at X = 2: d/dX[(1 + ln(X/2))/X] = −ln(X/2)/X². So the second-moment
+defect, as a function of the wall, is stationary exactly where 1bm(iv)'s
+exponent f(X) = 2πX(1 + ln 2 − ln X) is, and a wall displaced from 2T₀ by
+a relative amount η changes τ_a only at order η². And the pilot's
+"quarter-exponent rule" (round 70: the damping at the edge is one quarter
+of Φ's decay exponent) is, in (3.6), τ_a = 1/(4T): the Gaussian multiplier
+e^{τ_a z²} reaches e^{T/4} at the wall.
+
+**(vi) Cross-checks (seconds-scale, uncommitted).** The script
+`scratchpad/r377/sixteen_pi.py` (mpmath, 30 digits, under two seconds)
+checked: P and Q against their closed forms; (3.4) at X = 2, 1.5, 3 and at
+the cells' walls; J(2)/(4π²) = 1/(16π) to 30 digits; the mean-value
+property of h_X at an interior point of Ω; and, independently of the
+harmonic-function argument, the balayage integrals from the paper's own
+explicit density τ(x) = −I(x)/(π√(x² − X²)) at X = 2: ∫_2^∞ τ dx = 0.61371
+= 2(1 − ln 2) (the balayage preserves mass), ∫_2^∞ τ x⁻² dx = 0.0611754
+against (1/X)[−P ln X − Q] = 0.0611754 (fourteen digits), and τ(2⁺) → ln 2,
+the paper's edge value. A second cross-check, on the pilot's angle: its
+round 62 gives "`sin θ ≈ |κ|·‖(Φ'')^⊥‖/‖Φ‖ = 13.98|κ|`" with κ the moment
+coefficient of (i); (3.6) then predicts sin²θ · e^{2δ} → (13.98/(16π))² =
+0.0774, against the pilot's measured sequence ending "0.079, 0.0785" at
+δ = 4.0, 4.5 "with shrinking steps" and its "`C → ≈ 0.077`" (README round
+69) — the pilot's 13.98 and its angles are its numbers, not this note's.
+
+**(vii) What is established, and what is not.** (3.1), (3.2) and (3.4)–(3.6)
+are proved as stated. The identification of the pilot's constant rests on
+four inputs, each the paper's and each conjectural or computed, not proved:
+(a) Hypothesis D at the wall, exactly — the paper verifies it at the cells
+"within the dodging tolerance, not exactly", the displaced zeros lying in
+the upper half of the band ("the low half within 3 × 10⁻¹⁴ at δ ≥ 2"),
+where a displacement Δ moves a term of (3.2) by at most 2Δ/γ³(1 + O(Δ/γ)),
+so the displaced terms contribute at most 4Δ(ln T)/(πT²)(1 + o(1)),
+against τ_a = 1/(4T): relative order Δ(ln T)/T, below 1% at the cells
+from δ = 2 on with the paper's displacements (0.7% at δ = 2, 0.3% at
+δ = 3.5; 2% at δ = 1); (b) the reduced problem of 1bm(iii), whose
+"five lemmas" the paper marks conjectural ("the reduction is not a
+theorem"), and whose balayage is the zero distribution of the reduced
+problem's optimum, transferred to the ground state only by that reduction;
+(c) the wall at X = 2, the reduced problem's maximiser — a boundary optimum
+whose exterior positivity "is checked to 10⁶X, not proved"; (d) the
+continuum: (3.2) is a sum over discrete zeros, (3.3) its continuum
+density, and they differ at order 1/T² ∝ e^{−2δ} — exactly the order of
+the pilot's measured correction (its "(β·e^δ + 1/16π)·e^δ" remainder
+"steady at about −0.0058", i.e. −β·e^δ = 1/(16π) + 0.0058e^{−δ}), which
+this derivation therefore cannot give and does not. Nor does substituting
+the cells' measured walls into (3.5) give it: X = 1.79, 1.90, 1.94 yield
+τ_a e^δ = 0.01976, 0.01987, 0.01988, *below* 1/(16π) = 0.019894 as (3.5)'s
+maximality requires, while the pilot's values 0.020636, 0.020179, 0.020070
+lie above; the correction lives in the discreteness — the count constant
+of Theorem 1bs and the O(δ) offsets of 1bm(v) — outside the continuum
+problem, and is open.
+
+Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
+RH-strength. So this subsection is a consistency statement, not a
+theorem about ζ: *if* the ground state has the zero-side structure the
+paper conjectures and verifies at its cells, *then* the pilot's time is
+e^{−δ}/(16π), by (3.6). It answers the pilot's "a derivation of the
+quarter-exponent rule is open" (round 70) only in that conditional sense,
+from the zero side. On the pilot's round 72: each of its P1–P4 is, by its
+own leading-order equivalence, equivalent to c = 1/(16π), hence to (3.6);
+the question it leaves open, "Why the minimiser of Weil's form selects
+P1", has on the zero side the paper's answer, "the admissibility
+threshold is the maximiser" — the wall sits at 2T₀ because the balayage's
+edge singularity changes sign there. On its round 71's remark that the
+caustic's source at t₀ = a + ½·log 2 "is a tempting link to the prime `2`"
+that "may be a coincidence": in this reading the 2 is X* = 2, the wall at
+twice the horizon, and the paper's law "carries no arithmetic content" by
+its own statement; the source point is the half-support t₀ whose Nyquist
+density t₀/π equals ζ's density (1/2π) ln(T/2π) at the wall T = 2T₀ — an
+identity of numbers, offered as an observation, not as a derivation of
+P2. Nothing in this subsection proves RH, and the note's header stands.
 
 ---
 
@@ -567,9 +748,21 @@ compactly supported probe.
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. **No numerics were run.** The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. **No long numerics were run** (§3.4's seconds-scale checks of its closed forms are named there). The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
    unit-interval zero count with an unspecified absolute constant, which enters the term C₁(a), of a-independent limit, and the summability
    of M(ρ′) in Step 4(ii). §3 reports the pilot's and the paper's figures as theirs.
+
+5. **The pilot's constant 1/(16π) is derived, conditionally** (§3.4): the
+   pilot's Gaussian-multiplier time is the paper's curvature defect
+   κ_Ξ − κ(a) (exact, by Hadamard's products); under Hypothesis D it is the
+   r⁻² moment of the exterior zero deficit; and in the paper's Theorem
+   1bm(iv) reduced problem, with the wall at the paper's maximiser 2T₀,
+   that moment is exactly 1/(8T₀) = e^{−δ}/(16π), by two elementary
+   integrals and one harmonic function on the doubly slit plane. The law
+   for a general wall, (1 + ln(X/2))/(4XT₀), is itself maximal at X = 2.
+   The inputs — D at the wall, the reduction's five lemmas, the wall at
+   the maximiser, the continuum density — are the paper's and conjectural;
+   the pilot's e^{−2δ} correction is not derived; nothing about RH follows.
