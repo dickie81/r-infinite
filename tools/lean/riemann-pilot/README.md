@@ -2665,3 +2665,32 @@ The two agree to relative order `(λ₁/λ₂)²` times an overlap ratio, and th
 - **Round 27, restated.** Round 27 found `ĝ_δ` and `∂_δĝ_δ` interlacing at every `δ` tested. That is the Hermite–Biehler property of the chain's structure function, which the canonical system `∂_t(A, B) = zJH(t)(A, B)` provides wherever the chain exists. This is a plausible explanation, not checked here.
 - **Status.** Nothing here removes the open input. The chain exists for all `a` iff RH. The reformulation turns global positivity into positivity of a Hamiltonian that is local in `t`.
 
+## Round 80: the window chain's Hamiltonian, and the law behind `1/(16π)` (`frontier/nullvec/kchain*.py`)
+
+**Setting.** On the even functions, the window chain `a ↦ (PW_a, Q)` of round 79 is a diagonal canonical system (a Krein string) `H = diag(h₁, h₂)`. It is determined by two functionals:
+- `ℓ₀(F) = F(0) = ∫g`;
+- `ℓ₂(F) = −[z²]F = ½∫t²g`.
+
+Their kernel matrix is `𝒦(a) = L Q_a⁻¹ Lᵀ = ∫₀^a h₁[1 c; c c²]`, with `c = ∫ h₂ 𝒦₀₀`. Hence, in the window variable `a = δ/2`:
+- `h₁ = d𝒦₀₀/da`;
+- `h₂ = (dc/da)/𝒦₀₀`;
+- `c = r + r′/ℓ′`, where `ℓ = ln 𝒦₀₀` and `r = 𝒦₀₂/𝒦₀₀`.
+
+`kchain.py` computes `𝒦` at `δ = 0.3, 0.35, …, 3.2`, with `K = 20e^δ + 40` and `30e^δ + 40` at `300 + 40e^δ` bits.
+
+**1. `det H = 1` in the window variable.**
+- `det H = h₁h₂ = 4ℓ′c′` (derivatives in `δ`) comes out as `1.004 ± 0.013` over `δ ≥ 1.5` at both `K`. It is within `±0.08` down to `δ = 0.4`.
+- This is the Krein–de Branges type formula: exponential type `= ∫√det H`, and the space at window `a` has type exactly `a`. So it is a check on the extraction, not a discovery.
+- It says the chain is a Dirac system in `a`, with `H = diag(e^{2φ}, e^{−2φ})`, `φ = ½ ln(d𝒦₀₀/da)`, and potential `q = φ′`. Asymptotically `q ≈ 4πe^{2a} − 4.5`, with structure where prime powers enter at `a = ½ log pᵏ`. This is visible as dips in `ℓ′`, not resolved at step 0.05.
+
+**2. The two clues are one law.** `det H = 1` gives `c′ = 1/(4ℓ′)`. If the kernels converge, `c → κ_Ξ = 0.02310499`, so the multiplier time `τ = κ_Ξ − r` satisfies
+
+`τ(δ) = ∫_δ^∞ du/(4ℓ′(u)) + r′/ℓ′`.
+
+Measured against predicted (data up to `δ = 3.15`, then a tail with `ℓ′ ≈ 4πe^u − 4.5`): the ratio `τ_meas/τ_pred` is `1.001–1.007` at every window from `δ = 0.5` to `3.1`, at both `K`. Consequences:
+- The paper's exponent law `ln 𝒦₀₀ ≈ −ln λ₁ ≈ 4πe^δ` (`f_∞ = 4π`) forces `τ ≈ e^{−δ}/(16π)`. The constant is `1/(4·4π)`, so round 70's quarter-exponent rule `τ = 1/(4T)` is this identity.
+- The `O(1)` offset `ℓ′ − 4πe^δ ≈ −4.5` produces the `e^{−2δ}` correction. Predicted: `≈ 0.0053–0.0057`. Measured: `0.0058–0.0062`, consistent with round 70's `≈ 0.0058`. The remaining gap is the tail extrapolation.
+- So the whole multiplier time follows from the growth of one number, the reproducing kernel at 0.
+
+**Status.** The Hamiltonian of the window chain is explicit in terms of `K_a(0, 0)`: it is diagonal, has determinant 1, and has potential `½ d/da ln(dK_a(0, 0)/da)`. Its asymptotics are fixed by the reduced problem's `4π`. RH is equivalent to this chain existing for every `a`. Our numbers describe it where it provably or numerically exists. Nothing here shows it exists for all `a`.
+
