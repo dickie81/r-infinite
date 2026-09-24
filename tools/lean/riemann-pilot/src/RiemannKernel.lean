@@ -5,7 +5,7 @@ import StripConv
 
 Riemann's kernel `Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{−πn²e^{2u}}` (`RPhi`) satisfies
 
-  `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2`   for `|Im z| < 1`   (`RPhiHat_eq`),
+  `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2`   for every `z ∈ ℂ`   (`RPhiHat_eq`),
 
 with `Ξ(z) = ξ(½ + iz)` built from Mathlib's `completedRiemannZeta₀`. This discharges round 62's
 `KernelApprox` for `φ_n = Φ` whenever `a_n → ∞` (`kernelApprox_RPhi`), so `rh_of_close_RPhi` derives
@@ -18,10 +18,11 @@ RH from the `L²` closeness hypothesis alone.
 * **Evenness (`RPhi_even`).** With `F(u) = e^{u/2}θ(e^{2u})` (`θ` = Mathlib's `evenKernel 0`), termwise
   differentiation gives `4Φ = F'' − F/4` (`RPhi_eq`), and the theta functional equation gives
   `F(−u) = F(u)` (`theta_even`). So `F''` and `Φ` are even.
-* **Decay (`RPhi_decay`).** `|Φ(u)| ≤ C e^{−2|u|}`: the series bound for `u ≥ 0`, then evenness.
-* **Continuation (`RPhiHat_eq`).** The truncated transforms converge uniformly on `|Im z| ≤ 1`, so
-  `Φ̂` is holomorphic on `|Im z| < 1`. It agrees with `Ξ/2` on `−1 < Im z < −½`, hence everywhere there
-  by the identity theorem.
+* **Decay (`RPhi_decay_gen`).** `|Φ(u)| ≤ C_B e^{−B|u|}` for every `B`: the series bound for `u ≥ 0`,
+  then evenness.
+* **Continuation (`RPhiHat_eq`).** The truncated transforms converge uniformly on every strip
+  `|Im z| ≤ M`, so `Φ̂` is entire (`differentiable_RPhiHat`). It agrees with `Ξ/2` on `Im z < −½`,
+  hence on all of `ℂ` by the identity theorem.
 -/
 
 open Real MeasureTheory Set Filter Topology
@@ -610,65 +611,77 @@ theorem summable_phiT_coef :
         mul_le_mul hp he (Real.exp_pos _).le (by positivity)
     _ = _ := by ring
 
-/-- **Decay of Riemann's kernel**: `|Φ(u)| ≤ C e^{−2|u|}`. -/
-theorem RPhi_decay : ∃ C, 0 ≤ C ∧ ∀ u, |RPhi u| ≤ C * Real.exp (-2 * |u|) := by
+/-- **Decay of Riemann's kernel at every exponential rate**: `|Φ(u)| ≤ C e^{−B|u|}`. -/
+theorem RPhi_decay_gen (B : ℝ) : ∃ C, 0 ≤ C ∧ ∀ u, |RPhi u| ≤ C * Real.exp (-B * |u|) := by
   set S := ∑' n : ℕ, (2 * π ^ 2 * (n : ℝ) ^ 4 + 3 * π * (n : ℝ) ^ 2)
       * Real.exp (-(π / 2) * (n : ℝ) ^ 2)
   have hS : 0 ≤ S := tsum_nonneg fun n => by positivity
-  set C := S * (24 * (2 / π) ^ 4)
+  set m' := ⌈B / 2⌉₊
+  set m := m' + 3
+  set K : ℝ := (m.factorial : ℝ) * (2 / π) ^ m
+  set C := S * K
   refine ⟨C, by positivity, ?_⟩
-  -- first `u ≥ 0`
-  have hpos : ∀ u, 0 ≤ u → |RPhi u| ≤ C * Real.exp (-2 * u) := by
+  have hpos : ∀ u, 0 ≤ u → |RPhi u| ≤ C * Real.exp (-B * u) := by
     intro u hu
     set X := Real.exp (2 * u)
     have hX : 1 ≤ X := by simp only [X]; exact Real.one_le_exp (by linarith)
-    set B := X ^ 2 * Real.exp (u / 2) * Real.exp (-(π / 2) * X)
-    have h1 : |RPhi u| ≤ S * B := by
+    have hX0 : 0 < X := by linarith
+    set Bd := X ^ 2 * Real.exp (u / 2) * Real.exp (-(π / 2) * X)
+    have h1 : |RPhi u| ≤ S * Bd := by
       unfold RPhi
       have habs := (summable_phiT u).abs
       calc |∑' n, phiT n u| ≤ ∑' n, |phiT n u| := by
             rw [← Real.norm_eq_abs]
             exact (norm_tsum_le_tsum_norm (by simpa using habs)).trans (le_of_eq (by simp))
         _ ≤ ∑' n : ℕ, (2 * π ^ 2 * (n : ℝ) ^ 4 + 3 * π * (n : ℝ) ^ 2)
-              * Real.exp (-(π / 2) * (n : ℝ) ^ 2) * B :=
-            habs.tsum_le_tsum (fun n => phiT_le_pos hu n) (summable_phiT_coef.mul_right B)
-        _ = S * B := tsum_mul_right
-    -- `X³ e^{u/2} e^{−πX/2} ≤ 24 (2/π)⁴`
+              * Real.exp (-(π / 2) * (n : ℝ) ^ 2) * Bd :=
+            habs.tsum_le_tsum (fun n => phiT_le_pos hu n) (summable_phiT_coef.mul_right Bd)
+        _ = S * Bd := tsum_mul_right
     have hu2 : Real.exp (u / 2) ≤ X := Real.exp_le_exp.2 (by linarith)
-    have h4 := Real.pow_div_factorial_le_exp (π / 2 * X) (by positivity) 4
-    have hfac : ((4 : ℕ).factorial : ℝ) = 24 := by norm_num [Nat.factorial]
-    rw [hfac] at h4
-    have hE : X ^ 4 * Real.exp (-(π / 2) * X) ≤ 24 * (2 / π) ^ 4 := by
+    have hBu : Real.exp (B * u) ≤ X ^ m' := by
+      have hm : B ≤ 2 * m' := by
+        have := Nat.le_ceil (B / 2); linarith
+      simp only [X]; rw [← Real.exp_nat_mul]
+      exact Real.exp_le_exp.2 (by nlinarith)
+    have hE : X ^ m * Real.exp (-(π / 2) * X) ≤ K := by
+      have h4 := Real.pow_div_factorial_le_exp (π / 2 * X) (by positivity) m
+      have hf : (0 : ℝ) < m.factorial := by exact_mod_cast Nat.factorial_pos m
+      rw [div_le_iff₀ hf] at h4
       have hpe : Real.exp (-(π / 2) * X) * Real.exp (π / 2 * X) = 1 := by
         rw [← Real.exp_add]; simp
-      have hq : X ^ 4 = (π / 2 * X) ^ 4 * (2 / π) ^ 4 := by field_simp
+      have hq : X ^ m = (π / 2 * X) ^ m * (2 / π) ^ m := by
+        rw [← mul_pow]; congr 1; field_simp
       rw [hq]
-      have h0 : 0 ≤ Real.exp (-(π / 2) * X) := (Real.exp_pos _).le
-      have : (π / 2 * X) ^ 4 ≤ 24 * Real.exp (π / 2 * X) := by linarith
-      calc (π / 2 * X) ^ 4 * (2 / π) ^ 4 * Real.exp (-(π / 2) * X)
-          ≤ 24 * Real.exp (π / 2 * X) * (2 / π) ^ 4 * Real.exp (-(π / 2) * X) := by gcongr
-        _ = 24 * (2 / π) ^ 4 * (Real.exp (-(π / 2) * X) * Real.exp (π / 2 * X)) := by ring
-        _ = _ := by rw [hpe, mul_one]
-    have hXe : Real.exp (-2 * u) * X = 1 := by
-      simp only [X]; rw [← Real.exp_add]; simp
-    have hB : B ≤ 24 * (2 / π) ^ 4 * Real.exp (-2 * u) := by
-      have hB' : B * X ≤ X ^ 4 * Real.exp (-(π / 2) * X) := by
-        simp only [B]
-        have := mul_le_mul_of_nonneg_left hu2 (mul_nonneg (sq_nonneg X) (Real.exp_pos (-(π / 2) * X)).le)
-        nlinarith [Real.exp_pos (-(π / 2) * X), sq_nonneg X]
-      have hBX : B * X ≤ 24 * (2 / π) ^ 4 := hB'.trans hE
-      have hX0 : 0 < X := by linarith
-      calc B = B * X * Real.exp (-2 * u) := by
-            rw [mul_assoc, mul_comm X, hXe, mul_one]
-        _ ≤ 24 * (2 / π) ^ 4 * Real.exp (-2 * u) :=
-            mul_le_mul_of_nonneg_right hBX (Real.exp_pos _).le
-    calc |RPhi u| ≤ S * B := h1
-      _ ≤ S * (24 * (2 / π) ^ 4 * Real.exp (-2 * u)) := mul_le_mul_of_nonneg_left hB hS
-      _ = C * Real.exp (-2 * u) := by simp only [C]; ring
+      calc (π / 2 * X) ^ m * (2 / π) ^ m * Real.exp (-(π / 2) * X)
+          ≤ Real.exp (π / 2 * X) * m.factorial * (2 / π) ^ m * Real.exp (-(π / 2) * X) := by
+            gcongr
+        _ = (m.factorial : ℝ) * (2 / π) ^ m * (Real.exp (-(π / 2) * X) * Real.exp (π / 2 * X)) := by
+            ring
+        _ = K := by rw [hpe, mul_one]
+    have hBd : Bd * Real.exp (B * u) ≤ K := by
+      have e : X ^ m = X ^ 2 * X * X ^ m' := by simp only [m]; ring
+      calc Bd * Real.exp (B * u)
+          = X ^ 2 * Real.exp (u / 2) * Real.exp (B * u) * Real.exp (-(π / 2) * X) := by
+            simp only [Bd]; ring
+        _ ≤ X ^ 2 * X * X ^ m' * Real.exp (-(π / 2) * X) := by
+            gcongr
+        _ = X ^ m * Real.exp (-(π / 2) * X) := by rw [e]
+        _ ≤ K := hE
+    have hinv : Real.exp (B * u) * Real.exp (-B * u) = 1 := by rw [← Real.exp_add]; simp
+    have hBd' : Bd ≤ K * Real.exp (-B * u) := by
+      calc Bd = Bd * Real.exp (B * u) * Real.exp (-B * u) := by rw [mul_assoc, hinv, mul_one]
+        _ ≤ K * Real.exp (-B * u) := mul_le_mul_of_nonneg_right hBd (Real.exp_pos _).le
+    calc |RPhi u| ≤ S * Bd := h1
+      _ ≤ S * (K * Real.exp (-B * u)) := mul_le_mul_of_nonneg_left hBd' hS
+      _ = C * Real.exp (-B * u) := by simp only [C]; ring
   intro u
   rcases le_or_gt 0 u with hu | hu
   · rw [abs_of_nonneg hu]; exact hpos u hu
   · rw [abs_of_neg hu, ← RPhi_even]; exact hpos (-u) (by linarith)
+
+/-- **Decay of Riemann's kernel**: `|Φ(u)| ≤ C e^{−2|u|}`. -/
+theorem RPhi_decay : ∃ C, 0 ≤ C ∧ ∀ u, |RPhi u| ≤ C * Real.exp (-2 * |u|) :=
+  RPhi_decay_gen 2
 
 theorem continuous_RPhi : Continuous RPhi := by
   refine continuous_iff_continuousAt.2 fun y => ?_
@@ -677,43 +690,42 @@ theorem continuous_RPhi : Continuous RPhi := by
       (fun n v hv => by rw [Real.norm_eq_abs]; exact (th_all_le (abs_le_of_mem_Ioo hv) n).2.2.2)
   exact hc.continuousAt (Ioo_mem_nhds (by linarith) (by linarith))
 
-/-! ## Analytic continuation to `|Im z| < 1` -/
+/-! ## Analytic continuation to all of `ℂ` -/
 
 /-- `Φ̂(z) = ∫ Φ(u) e^{izu} du`. -/
 def RPhiHat (z : ℂ) : ℂ := ∫ u : ℝ, (RPhi u : ℂ) * Complex.exp (Complex.I * z * u)
 
-theorem norm_RPhi_exp_le {C : ℝ} (hC : ∀ u, |RPhi u| ≤ C * Real.exp (-2 * |u|)) {z : ℂ}
-    (hz : |z.im| ≤ 1) (u : ℝ) :
+theorem norm_RPhi_exp_le {C M : ℝ} (hC : ∀ u, |RPhi u| ≤ C * Real.exp (-(M + 1) * |u|)) {z : ℂ}
+    (hz : |z.im| ≤ M) (u : ℝ) :
     ‖(RPhi u : ℂ) * Complex.exp (Complex.I * z * u)‖ ≤ C * Real.exp (-1 * |u|) := by
   rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_exp]
   have e : (Complex.I * z * (u : ℂ)).re = -(z.im * u) := by simp [Complex.mul_re]
   rw [e]
-  have h1 : Real.exp (-(z.im * u)) ≤ Real.exp |u| := by
+  have h1 : Real.exp (-(z.im * u)) ≤ Real.exp (M * |u|) := by
     apply Real.exp_le_exp.2
     calc -(z.im * u) ≤ |z.im * u| := neg_le_abs _
       _ = |z.im| * |u| := abs_mul _ _
-      _ ≤ 1 * |u| := mul_le_mul_of_nonneg_right hz (abs_nonneg _)
-      _ = |u| := one_mul _
-  calc |RPhi u| * Real.exp (-(z.im * u)) ≤ (C * Real.exp (-2 * |u|)) * Real.exp |u| :=
+      _ ≤ M * |u| := mul_le_mul_of_nonneg_right hz (abs_nonneg _)
+  calc |RPhi u| * Real.exp (-(z.im * u)) ≤ (C * Real.exp (-(M + 1) * |u|)) * Real.exp (M * |u|) :=
         mul_le_mul (hC u) h1 (Real.exp_pos _).le (le_trans (abs_nonneg _) (hC u))
     _ = C * Real.exp (-1 * |u|) := by rw [mul_assoc, ← Real.exp_add]; ring_nf
 
-theorem integrable_RPhi_exp {z : ℂ} (hz : |z.im| ≤ 1) :
+theorem integrable_RPhi_exp (z : ℂ) :
     Integrable fun u : ℝ => (RPhi u : ℂ) * Complex.exp (Complex.I * z * u) := by
-  obtain ⟨C, hC0, hC⟩ := RPhi_decay
+  obtain ⟨C, hC0, hC⟩ := RPhi_decay_gen (|z.im| + 1)
   refine ((integrable_exp_neg_abs one_pos).const_mul C).mono'
     (show Continuous (fun u : ℝ => (RPhi u : ℂ) * Complex.exp (Complex.I * z * u)) by
       have := continuous_RPhi; fun_prop).aestronglyMeasurable
-    (Eventually.of_forall fun u => norm_RPhi_exp_le hC hz u)
+    (Eventually.of_forall fun u => norm_RPhi_exp_le hC le_rfl u)
 
-/-- **Tail bound**: `|Φ̂(z) − ∫_{−a}^{a} Φ e^{izu}| ≤ C e^{−a/2} ∫ e^{−|u|/2}` on `|Im z| ≤ 1`. -/
-theorem norm_RPhiHat_sub_le : ∃ D, ∀ {a : ℝ}, 0 ≤ a → ∀ {z : ℂ}, |z.im| ≤ 1 →
+/-- **Tail bound** on the strip `|Im z| ≤ M`: `|Φ̂(z) − ∫_{−a}^{a} Φ e^{izu}| ≤ D e^{−a/2}`. -/
+theorem norm_RPhiHat_sub_le (M : ℝ) : ∃ D, ∀ {a : ℝ}, 0 ≤ a → ∀ {z : ℂ}, |z.im| ≤ M →
     ‖RPhiHat z - ghatC RPhi a z‖ ≤ D * Real.exp (-(a / 2)) := by
-  obtain ⟨C, hC0, hC⟩ := RPhi_decay
+  obtain ⟨C, hC0, hC⟩ := RPhi_decay_gen (M + 1)
   set I0 := ∫ u : ℝ, Real.exp (-(1 / 2) * |u|)
   refine ⟨C * I0, fun {a} ha {z} hz => ?_⟩
   set f : ℝ → ℂ := fun u => (RPhi u : ℂ) * Complex.exp (Complex.I * z * u)
-  have hf : Integrable f := integrable_RPhi_exp hz
+  have hf : Integrable f := integrable_RPhi_exp z
   have hs : MeasurableSet (Ioc (-a) a) := measurableSet_Ioc
   have e : RPhiHat z - ghatC RPhi a z = ∫ u in (Ioc (-a) a)ᶜ, f u := by
     have := integral_add_compl hs hf
@@ -739,19 +751,14 @@ theorem norm_RPhiHat_sub_le : ∃ D, ∀ {a : ℝ}, 0 ≤ a → ∀ {z : ℂ}, |
         setIntegral_le_integral hg (Eventually.of_forall fun u => by positivity)
     _ = C * I0 * Real.exp (-(a / 2)) := by rw [integral_const_mul]; ring
 
-def closedStrip1 : Set ℂ := {z | |z.im| ≤ 1}
-def openStrip1 : Set ℂ := {z | z.im < 1} ∩ {z | -1 < z.im}
+/-- The closed strip `|Im z| ≤ M`. -/
+def closedStrip (M : ℝ) : Set ℂ := {z | |z.im| ≤ M}
 
-theorem openStrip1_sub : openStrip1 ⊆ closedStrip1 := fun z hz => by
-  simp only [closedStrip1, Set.mem_ofPred_eq, abs_le]; exact ⟨hz.2.le, hz.1.le⟩
-
-theorem isOpen_openStrip1 : IsOpen openStrip1 :=
-  (isOpen_lt Complex.continuous_im continuous_const).inter (isOpen_lt continuous_const Complex.continuous_im)
-
-/-- Truncated transforms converge to `Φ̂` uniformly on `|Im z| ≤ 1`. -/
-theorem tendstoUniformlyOn_ghatC_RPhi {a : ℕ → ℝ} (hlim : Tendsto a atTop atTop) :
-    TendstoUniformlyOn (fun n z => ghatC RPhi (a n) z) RPhiHat atTop closedStrip1 := by
-  obtain ⟨D, hD⟩ := norm_RPhiHat_sub_le
+/-- Truncated transforms converge to `Φ̂` uniformly on every strip `|Im z| ≤ M`. -/
+theorem tendstoUniformlyOn_ghatC_RPhi (M : ℝ) {a : ℕ → ℝ}
+    (hlim : Tendsto a atTop atTop) :
+    TendstoUniformlyOn (fun n z => ghatC RPhi (a n) z) RPhiHat atTop (closedStrip M) := by
+  obtain ⟨D, hD⟩ := norm_RPhiHat_sub_le M
   rw [Metric.tendstoUniformlyOn_iff]
   intro ε hε
   have ht : Tendsto (fun n => D * Real.exp (-(a n / 2))) atTop (𝓝 (D * 0)) := by
@@ -763,28 +770,32 @@ theorem tendstoUniformlyOn_ghatC_RPhi {a : ℕ → ℝ} (hlim : Tendsto a atTop 
   rw [dist_eq_norm]
   exact lt_of_le_of_lt (hD ha hz) hn
 
-theorem differentiableOn_RPhiHat : DifferentiableOn ℂ RPhiHat openStrip1 := by
+/-- `Φ̂` is entire. -/
+theorem differentiable_RPhiHat : Differentiable ℂ RPhiHat := by
+  intro z
+  set M := |z.im| + 1
+  set U : Set ℂ := {w | |w.im| < M}
+  have hU : IsOpen U := isOpen_lt (continuous_abs.comp Complex.continuous_im) continuous_const
+  have hzU : z ∈ U := by simp [U, M]
+  have hUs : U ⊆ closedStrip M := fun w hw => show |w.im| ≤ M from le_of_lt hw
   have hlim : Tendsto (fun n : ℕ => (n : ℝ)) atTop atTop := tendsto_natCast_atTop_atTop
-  have h := ((tendstoUniformlyOn_ghatC_RPhi hlim).mono openStrip1_sub).tendstoLocallyUniformlyOn
-  exact h.differentiableOn (Eventually.of_forall fun n =>
-    (ghatC_differentiable (continuous_RPhi.intervalIntegrable _ _)).differentiableOn)
-    isOpen_openStrip1
+  have h := ((tendstoUniformlyOn_ghatC_RPhi M hlim).mono hUs).tendstoLocallyUniformlyOn
+  have hd := h.differentiableOn (Eventually.of_forall fun n =>
+    (ghatC_differentiable (continuous_RPhi.intervalIntegrable _ _)).differentiableOn) hU
+  exact hd.differentiableAt (hU.mem_nhds hzU)
 
-/-- **Riemann's formula**: `∫ Φ(u) e^{izu} du = Ξ(z)/2` for `|Im z| < 1`. -/
-theorem RPhiHat_eq {z : ℂ} (hz : z ∈ openStrip1) : RPhiHat z = Xi z / 2 := by
-  have hA := differentiableOn_RPhiHat.analyticOnNhd isOpen_openStrip1
-  have hB : AnalyticOnNhd ℂ (fun z => Xi z / 2) openStrip1 :=
-    (differentiable_Xi.div_const 2).differentiableOn.analyticOnNhd isOpen_openStrip1
-  have hconn : IsPreconnected openStrip1 :=
-    ((convex_halfSpace_im_lt 1).inter (convex_halfSpace_im_gt (-1))).isPreconnected
+/-- **Riemann's formula**: `∫ Φ(u) e^{izu} du = Ξ(z)/2` for every `z ∈ ℂ`. -/
+theorem RPhiHat_eq (z : ℂ) : RPhiHat z = Xi z / 2 := by
+  have hA : AnalyticOnNhd ℂ RPhiHat univ :=
+    differentiable_RPhiHat.differentiableOn.analyticOnNhd isOpen_univ
+  have hB : AnalyticOnNhd ℂ (fun z => Xi z / 2) univ :=
+    (differentiable_Xi.div_const 2).differentiableOn.analyticOnNhd isOpen_univ
   set z₀ : ℂ := ⟨0, -3 / 4⟩
-  have hz₀ : z₀ ∈ openStrip1 := by simp [openStrip1, z₀]; norm_num
-  have hV : IsOpen ({z : ℂ | z.im < -1 / 2} ∩ {z | -1 < z.im}) :=
-    (isOpen_lt Complex.continuous_im continuous_const).inter (isOpen_lt continuous_const Complex.continuous_im)
-  have hz₀V : z₀ ∈ {z : ℂ | z.im < -1 / 2} ∩ {z | -1 < z.im} := by simp [z₀]; norm_num
+  have hV : IsOpen {z : ℂ | z.im < -1 / 2} := isOpen_lt Complex.continuous_im continuous_const
+  have hz₀V : z₀ ∈ {z : ℂ | z.im < -1 / 2} := by simp [z₀]; norm_num
   have heq : RPhiHat =ᶠ[𝓝 z₀] fun z => Xi z / 2 :=
-    Filter.eventually_of_mem (hV.mem_nhds hz₀V) fun z hz => integral_RPhi_halfplane hz.1
-  exact hA.eqOn_of_preconnected_of_eventuallyEq hB hconn hz₀ heq hz
+    Filter.eventually_of_mem (hV.mem_nhds hz₀V) fun z hz => integral_RPhi_halfplane hz
+  exact hA.eqOn_of_preconnected_of_eventuallyEq hB isPreconnected_univ (mem_univ z₀) heq (mem_univ z)
 
 theorem memLp_RPhi : MemLp RPhi 2 volume := by
   obtain ⟨C, hC0, hC⟩ := RPhi_decay
@@ -802,15 +813,12 @@ theorem memLp_RPhi : MemLp RPhi 2 volume := by
 theorem kernelApprox_RPhi {a : ℕ → ℝ} (hlim : Tendsto a atTop atTop) :
     KernelApprox a fun _ => RPhi := by
   refine ⟨fun _ => memLp_RPhi, 1 / 2, by norm_num, ?_⟩
-  have hsub : stripSet ⊆ closedStrip1 := fun z hz => by
+  have hsub : stripSet ⊆ closedStrip 1 := fun z hz => by
     simp only [stripSet, Set.mem_ofPred_eq] at hz
-    simp only [closedStrip1, Set.mem_ofPred_eq]; linarith
-  have hsub' : stripSet ⊆ openStrip1 := fun z hz => by
-    simp only [stripSet, Set.mem_ofPred_eq, abs_lt] at hz
-    exact ⟨show z.im < 1 by linarith [hz.2], show -1 < z.im by linarith [hz.1]⟩
-  have h := (tendstoUniformlyOn_ghatC_RPhi hlim).mono hsub
+    simp only [closedStrip, Set.mem_ofPred_eq]; linarith
+  have h := (tendstoUniformlyOn_ghatC_RPhi 1 hlim).mono hsub
   have h2 : TendstoUniformlyOn (fun n z => ghatC RPhi (a n) z) (fun z => 1 / 2 * Xi z) atTop stripSet :=
-    h.congr_right fun z hz => by rw [RPhiHat_eq (hsub' hz)]; ring
+    h.congr_right fun z _ => by rw [RPhiHat_eq]; ring
   exact h2.tendstoLocallyUniformlyOn
 
 /-- **RH from `L²` closeness to Riemann's kernel**, with no unproved input other than the closeness:
@@ -830,7 +838,8 @@ end Pilot1ca
 #print axioms Pilot1ca.integral_RPhi_halfplane
 #print axioms Pilot1ca.theta_even
 #print axioms Pilot1ca.RPhi_even
-#print axioms Pilot1ca.RPhi_decay
+#print axioms Pilot1ca.RPhi_decay_gen
+#print axioms Pilot1ca.differentiable_RPhiHat
 #print axioms Pilot1ca.RPhiHat_eq
 #print axioms Pilot1ca.kernelApprox_RPhi
 #print axioms Pilot1ca.rh_of_close_RPhi

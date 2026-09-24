@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 378 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 379 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -53,7 +53,7 @@ Every file ends with `#print axioms`. All 378 checked theorems depend only on `p
 | `GapBound.lean` | 459 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
 | `StripConv.lean` | 614 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
-| `RiemannKernel.lean` | 840 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on `|Im z| < 1`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. Discharges `KernelApprox`; `rh_of_close_RPhi` |
+| `RiemannKernel.lean` | 849 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. Discharges `KernelApprox`; `rh_of_close_RPhi` |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2179,5 +2179,18 @@ Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formul
 
 **What this gives, and what it does not.**
 * The reduction of rounds 54–62 now rests on Mathlib's definitions and one hypothesis: `√(2a_n) e^{b a_n}‖σ_n·topGS(a_n) − Φ‖ → 0` for every `b < ½`. That hypothesis is round 62's `L²` angle condition, measured to decay like `e^{−2a}`, with threshold `e^{−a/2}`. It is not proved.
-* The formula is proved on `|Im z| < 1`, which is all the chain needs. The same argument with decay `e^{−B|u|}` for every `B` would give it on all of `ℂ`; that extension is not done.
+* The formula is proved on `|Im z| < 1`, which is all the chain needs. *(Extended to all of `ℂ` in round 64.)*
+
+## Round 64: Riemann's formula on all of `ℂ` (RiemannKernel.lean)
+
+`RPhiHat_eq` now reads `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2` for **every** `z ∈ ℂ`. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | change |
+|---|---|
+| `RPhi_decay_gen` | `|Φ(u)| ≤ C_B e^{−B|u|}` for every real `B`, from `X^m e^{−πX/2} ≤ m!(2/π)^m` with `m = ⌈B/2⌉ + 3` and `X = e^{2u}`; evenness for `u < 0`. `RPhi_decay` is the case `B = 2` |
+| `norm_RPhi_exp_le`, `integrable_RPhi_exp`, `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi` | now on every strip `|Im z| ≤ M`, using the decay rate `M + 1` |
+| `differentiable_RPhiHat` | `Φ̂` is entire: each `z` lies in an open strip where the truncations converge uniformly |
+| `RPhiHat_eq` | the identity theorem on `ℂ` (preconnected), from agreement on `Im z < −½` |
+
+`kernelApprox_RPhi` and `rh_of_close_RPhi` are unchanged in statement and now use the entire version.
 
