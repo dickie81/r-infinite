@@ -5796,4 +5796,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** Commit ad31be6 (the note only; the paper and every verifier unchanged): Proposition 1 (S(b) ⇒ ZFS(b)), Theorem 2 (the energy signature of an off-line zero under (H₁), every constant explicit), Theorem 3 (the unconditional prime-side floor), Corollary 4 (the dichotomy), Proposition 5 (the exact orthogonality inequality), the marked heuristics of §3.2, the reformulated target of §4. No tower obligation (the note is outside the reach); short symbolic checks only, by the owner's instruction. Brief `brief_round367.md` (its text also inside the launch prompt). First review of the note (A538).
 
+**Findings.** 0 MAJOR, 6 minor, 12 cosmetic; all verified by the lead and accepted (A539); every proof held under full recomputation. Minor: F1 a false intermediate inequality in Step 4 (the conclusion true pointwise); F2 the cells threshold summarised as ln(height)/β against the note's own (ln ln height + O(1))/(2β); F3 the sampling sketch's lemma misattributed and its on-line half unwritten; F4 marked heuristics restated as established in the headline sentences; F5 1bu(ii)'s transform convergence conflated with the measured L² angle, "(a′)" undefined; F6 (H₁)-conditional results stated unconditionally. Twelve cosmetics (a sign, the Hurwitz paraphrase, ĝ_n(0) ≠ 0, S(b)'s divergence clause, (0.1)'s support, γ₀'s member, the zero count's o(T), S versus S₂, Corollary 4's phrasing, the height's second use, `normSq_sub_le_of_gap`'s hypotheses, mollification for 0 ≤ λ₁). Literature: Bombieri 2000 located as the qualitative prior, verified and cited. **Sweep (round 368):** all applied to the note. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 pending.
+
+### Round 368 — the convergence test on the round-368 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the twenty-one edits of A539, including the Bombieri citation and the (a′) definition). No tower obligation. Brief `brief_round368.md` (its text also inside the launch prompt). Convergence test on round 367's eighteen findings (A539).
+
 **Findings.** PENDING.
