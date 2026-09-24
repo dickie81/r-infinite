@@ -6389,8 +6389,11 @@ landed at round 381 — the form first recorded, with its proof, in the
 Lean pilot's README round 75 under `tools/lean/riemann-pilot/`, whose
 committed `frontier/nullvec/tau_closed_form.py` prints, at 30 digits and
 without an assertion, exp(τ + x ln(X/2)/s − ln X) beside x/(x + s) at
-eight points and the X = 2 mass and moment — a record, not a gate; the
-proof here is self-contained and rests on neither).** With s := √(x² − X²), for every
+eight points and the X = 2 mass and moment — a record, not a gate; and
+formalised in Lean in its round 76, `src/SixteenPi.lean`, `tauBal_closed`
+and `tauBal_two`, by the logarithm's integral representation and Fubini,
+a route without the Fourier series; the proof here is self-contained and
+rests on none of these).** With s := √(x² − X²), for every
 x > X,
 
 τ(x) = ln(2x/(x + s)) + ln(2/X)·(x/s − 1).
@@ -6427,7 +6430,11 @@ theorem, not by census. For X > 2 the second term is −ln(X/2)(x/s − 1) →
 √(X/2) ln(2/X) already showed — the threshold is exactly X = 2. The
 closed form reproduces the edge identity I(X) = πX ln(X/2) (s → 0) and,
 near the edge, s ≈ √(2X(x − X)) gives τ ≈ ln X + √(X/2) ln(2/X)/√(x − X),
-the coefficient above. The exterior potential is exactly −2π and the interior
+the coefficient above. At X = 2 the exterior deficit against ζ's
+deviation is ln x − τ(x) = ln((x + s)/2) = arccosh(x/2): the Green
+function of the band [−2, 2] with pole at infinity, restricted to the
+real exterior (an identity the pilot's README round 77 records; its
+x⁻² moment is ∫₂^∞ arccosh(x/2) x⁻² dx = π/4). The exterior potential is exactly −2π and the interior
 potential falls monotonically from 0 to −2π (both gated live on the
 exact kernel: the exterior value within 3×10⁻³ at five points, the
 monotonicity at twelve interior points). So, *within
