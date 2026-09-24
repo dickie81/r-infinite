@@ -240,10 +240,9 @@ sinh(2βA)/(2β) = e^{2βA}(1 − e^{−4βA})/(4β) and cosh(2βA) ≤ e^{2βA}
 
 The first three terms tend to 0 as a → ∞; the last, ε₁^∞ := 2β(β + t₀)/t₀²,
 is the edge correction to the average of sin² over the window and does not
-depend on a. It is the first part of η(t₀) in the theorem's statement. For
-small β and a near 2, ε₁(a) exceeds 1 (at a = 2 it does for every β ≤ 0.4),
-so every division by (2.1) below is taken for a > a₀(β), where a₀(β) is
-the point at which ε₁(a) = 1 (ε₁ is strictly decreasing in a); the
+depend on a. It is the first part of η(t₀) in the theorem's statement. ε₁(1) = 1 + 2β/t₀ + ε₁^∞ > 1 and ε₁ is strictly decreasing in a, so a₀(β),
+the point at which ε₁(a) = 1, exists uniquely in (1, ∞) and can exceed 2
+for small β. Every division by (2.1) below is taken for a > a₀(β); the
 theorem's statement is asymptotic and a₀ costs nothing.
 
 **Step 2: the value at the maximising zero.** Take γ₀ = t₀ + iβ, the
@@ -515,14 +514,17 @@ the span of Φ″, Φ⁗, Φ⁽⁶⁾, with sin² = 1.2·10⁻¹⁴ outside span
 its own status line reads "The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are
 inferred, not proved" (its round 70 sharpens the constant to 1/(16π),
 conjectures g_a ≈ c·e^{−τ_a∂²}Φ with τ_a = 1/(16πe^{2a}), a backward heat
-flow of Φ, and states "the conjecture is RH-strength" with the derivation
-of the constant open), and it remarks that "`Φ`'s even derivatives are,
+flow of Φ, and states "the conjecture is RH-strength" with the derivation of the
+constant open; its round 71 finds the flow pointwise in the window's bulk,
+as classical free transport of Φ's phase, with an edge layer beyond a
+caustic about 0.153 inside the edge, "the edge layer and the value of `c`"
+open), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
 item 3 of §4, from the L² side (the README ties it to `rh_of_close_top`);
-the two are not shown equivalent here, and "stays in the null directions"
-can only be approximate for a compactly supported probe.
+the two are not shown equivalent here, and 'stays in the null directions' can only be approximate for a
+compactly supported probe.
 
 ---
 
@@ -546,9 +548,9 @@ can only be approximate for a compactly supported probe.
    zero-free regions, so the variational structure gives no cheap route to
    those either. The qualitative
    sign dichotomy is Weil's criterion; the count of negative eigenvalues
-   is Bombieri's (2000, cited after Theorem 3); the growth rate with the
-   sharp single-quadruple constant 1/(2β*) is the quantitative form, which
-   I have not found stated elsewhere.
+   is Bombieri's (2000, cited after Theorem 3); the growth rate with constant e^{−2β*}(1 − η(t₀))/(2β*), whose
+   single-quadruple ceiling is 1/(2β*) (Remark (a)), is the quantitative
+   form, which I have not found stated elsewhere.
 
 3. **The honest open problem** that this analysis isolates, conditional and
    well-posed: *under RH, prove Hypothesis D from the form* — that the

@@ -19616,3 +19616,27 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Battery.** None owed. Round 374 commissioned as the convergence test on the sweep.
 
 ---
+
+## Addendum 546 — round 374 on the round-374 sweep of the working note (0 MAJOR, 1 minor, 1 cosmetic; both verified by the lead and accepted): the a₀ remark a t₀ = 14 computation stated without its t₀; §4's constant; round 375 commissioned as the convergence test
+
+**The round.** Fresh-context hostile reviewer on the sweep 9cc12e9 and the round-70 clause b4a6f35, the brief carried inside the launch prompt (its scripts under `scratchpad/r374/`: `check_note_r374.py`, 63/67 rows with the four designed failures behind the finding; `a3_mp.py`). Findings: 0 MAJOR, 1 minor, 1 cosmetic; every round-373 disposition realised (ε₁ strictly decreasing for every β, t₀ and A by the closed-form derivative; a₀ unique in (1, ∞) at 50 digits; a > a₀ at every division; the §3.3 closing against README 2362; Step 5's C₁(a); "(β* ≤ b)"; the commit clock for "after the round-372 sweep"; the Bombieri corollary's exact contrapositive; the round-70 clause's every phrase against README 2364–2398); Theorem 2 recomputed an eighth time; the paper unchanged and claiming nothing. Both findings verified by the lead (ε₁(2; 0.4, 15) = 0.2019 + 0.7189 + 0.0240 + 0.0548 = 0.9996 < 1) before acceptance; both accepted.
+
+**F374-1 (minor).** Step 1's "(at a = 2 it does for every β ≤ 0.4)" was a t₀ = 14 computation with no t₀ stated; at t₀ = 3·10¹² it holds only for β < 3·10⁻⁶ and a₀(β) lies within 10⁻³ of 1; nothing downstream depends on it. **Sweep:** the remark stated with both values of t₀, "ε₁ > 1 at a = 1" added, and §4's inventory extended with the value t₀ = 14 in Step 1's remark. **C374-2 (cosmetic).** §4 item 2 named "the sharp single-quadruple constant 1/(2β*)" as the theorem's constant; the proved constant is e^{−2β*}(1 − η(t₀))/(2β*), and 1/(2β*) is Remark (a)'s ceiling. **Sweep:** so stated.
+
+**Check-1 record (re-read this round).** The note's Step 1 remark, §4 items 2 and 4 before and after.
+
+**Battery.** None owed. Round 375 commissioned as the convergence test on the sweep.
+
+---
+
+## Addendum 547 — round 375 on the round-375 sweep of the working note (0 MAJOR, 2 minor, 3 cosmetic; all verified by the lead and accepted): the illustrative numbers of Step 1's a₀ remark wrong at their endpoints, twice re-expanded; the remark cut to its load-bearing core; round 376 commissioned as the convergence test
+
+**The round.** Fresh-context hostile reviewer on the sweep 4af7816 and the round-71 clause 948df4c, the brief carried inside the launch prompt (its scripts under `scratchpad/r375/`: `check_note_r375.py`, `float_scan_r375.py`, 50-digit). Findings: 0 MAJOR, 2 minor, 3 cosmetic, all five on the numbers of Step 1's a₀ remark (the crossing β_c = 0.41788 rounded to the unsafe 0.418; "a₀ within 10⁻³ of 1" false below β = 0.0224 at the verified height, a₀ − 1 ≈ (1.5/(β²t₀))^{1/3}; the threshold 3·10⁻⁶ a double-precision floor, the true crossing 7.1·10⁻⁷; the 3·10¹² entry of the inventory not extended; the single-quoted phrase); both round-374 dispositions realised; the round-71 clause phrase by phrase against README 2400–2421; Steps 1–5 recomputed a ninth time; the Lean hypotheses discharged; the paper unchanged and claiming nothing. Every finding verified by the lead (ε₁(2; 0.418, 14) − 1 = −3.6·10⁻⁵ recomputed; the small-β expansion) before acceptance; all accepted.
+
+**F375-1, F375-2 (minor), C375-3, C375-4 (cosmetic).** The remark's illustrative figures were wrong at their endpoints or unquantified, in the sweep of the previous round's finding on the same remark; none is load-bearing. **Sweep:** the remark cut to what the proof uses — ε₁(1) > 1, ε₁ strictly decreasing, a₀(β) unique in (1, ∞) and possibly above 2 for small β, every division for a > a₀(β) — with no numerical illustration, and the inventory's Step-1 clause removed. **C375-5 (cosmetic).** The note's own phrase in double quotes among verbatim quotations. **Sweep:** single quotes.
+
+**Check-1 record (re-read this round).** The note's Step 1 remark, §3.3's closing and §4's inventory before and after.
+
+**Battery.** None owed. Round 376 commissioned as the convergence test on the sweep.
+
+---
