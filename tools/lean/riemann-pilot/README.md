@@ -2617,3 +2617,29 @@ At `y = 5y₀` the Gaussian is off by a factor of 2: −1112 against a measured 
 - The edge layer and caustic of round 71 are where `w` stops being small.
 - The formula's inputs remain those of the note's §3.4 (vii): the transfer from the reduced problem to the actual ground state. It is a prediction of the reduced problem that the data confirm. It is not a theorem about ζ, and nothing about RH follows.
 
+## Round 78: the pole overlap at large support, and δ = 5 confirmed (numerical)
+
+**The pole overlap of the second pole-free mode** (`frontier/simplicity/overlap_big.py`).
+- **Method.** Block inverse iteration in arb. `Q₀` has exactly one negative eigenvalue (≈ −4.3), so `ψ₂` belongs to the smallest nonnegative eigenvalue `μ₂`.
+- **Results.** `κ = ⟨c, ψ₂⟩/μ₂`, with `ψ₂(0) > 0`:
+
+| `δ` | 2.0 | 2.5 | 3.0 | 3.5 | 4.0 |
+|---|---|---|---|---|---|
+| `κ` | −0.35022 | −0.34543 | −0.34269 | −0.34108 | −0.34013 |
+| `μ₂` | 1.5e-23 | 1.0e-47 | 7.4e-89 | 5.1e-158 | 2.7e-273 |
+
+- `κ` is stable in `K` to 6 digits (`K = 120/180` at `δ = 2`, `300/400` at `δ = 3`). It continues round 51's trend and settles near `−0.34`, but it is not proved.
+- The overlap itself, `κμ₂`, collapses super-exponentially. So the gap bound `simple_of_pole_overlap` certifies simplicity window by window, but with a gap of size `μ₂²`.
+- Simplicity is not an input of the RH chain since `StructureD.lean` (`topGS`, "simplicity is no longer a separate input"). The overlap's role is only to identify `topGS` with the computed ground state.
+
+**The closeness hypothesis of `rh_of_close_top`, measured.** Distance `‖Φ‖ sin θ` against the threshold `e^{−a/2}/√(2a)`:
+- the ratio is `2.7e-2, 1.5e-2, 7.9e-3, 4.2e-3` at `δ = 2, 3, 4, 5`, decreasing like `e^{−3a/2}√a`;
+- the hypothesis is satisfied with a growing margin at every computed window;
+- no finite computation discharges it, because it is a limit statement.
+
+**`δ = 5` converged.** `K = 1700` (3600 bits) gives `sin²θ = 3.5437e-6`, against `3.5426e-6` at `K = 1500`: stable to 3 parts in `10⁴`. So `sin²θ·e^{2δ} = 0.0806, 0.0793, 0.0785, 0.0781` at `δ = 3.5, 4, 4.5, 5`.
+- The excess over the note's prediction `(13.98/16π)² = 0.0774` is `0.0019, 0.0011, 0.0007` at `δ = 4, 4.5, 5`. It shrinks by `≈ 0.6 = e^{−1/2}` per half-unit of `δ`, i.e. like `e^{−δ}` (`≈ 0.10e^{−δ}`), the same order as round 77's corrections.
+- So the data converge to `0.0774`.
+
+**The heat family at `δ = 3`, converged** (`m = 64`). `c_opt = 0.0197318`, against the ground state's `0.020179` and `1/(16π) = 0.019894`. The ratio `c_opt/c_ground` is `1.064` at `δ = 2` and `0.978` at `δ = 3`. The least-edge-cost heat member crosses the ground state's time rather than converging to it. This confirms round 73: the family alone does not fix the constant.
+
