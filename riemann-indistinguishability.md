@@ -8942,10 +8942,12 @@ physical ledger; the arithmetic of the Riemann side is not finished arguing.
    reaches that from an L² statement: the top ground state, up to a nonzero
    scalar, within o(e^{−ba}/√a) of a kernel family whose transforms converge
    on the strip to a nonzero multiple of Ξ, for every b < ½ — Riemann's Φ
-   truncated to [−a, a] is such a family by his integral formula for Ξ, the
-   one classical input the pilot leaves unformalised. The pilot reports,
-   from its own scripts, the ground state's angle to the truncated Φ falling
-   at a rate well beyond the threshold over the supports it measured, the
+   itself is such a family by his integral formula for Ξ, which the pilot
+   proves from Mathlib's definitions on the wider strip |Im z| < 1, so that
+   `rh_of_close_RPhi` derives the Riemann Hypothesis from that closeness to
+   Φ alone, along supports tending to infinity. The pilot reports, from its
+   own scripts, the ground state's angle to the truncated Φ falling at a
+   rate well beyond the threshold over the supports it measured, the
    asymptotic rate inferred and not certified, and judges the closeness
    bound presumably RH-strength: its chain is a reformulation of the
    hypothesis with the analytic difficulty isolated in one rate, not a
