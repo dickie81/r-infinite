@@ -1,0 +1,448 @@
+# The strip target: a theoretical attempt, and what it proves
+
+**Working note, not a paper surface.** Written at the owner's commission
+("try to prove it theoretically before running any long winded numerics")
+after Addendum 537. No numerics were run for this note. The Lean pilot was
+not touched. Every statement below is either proved here in full, or is
+marked as a proof sketch with the unfinished step named, or is marked as
+heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
+which asserts the Riemann Hypothesis neither true nor false.
+
+**The target that was set.** The pilot's chain (README rounds 54–65) derives
+Mathlib's `RiemannHypothesis` from one hypothesis: the top-of-chain ground
+states of Weil's truncated form converge, after normalisation, to Riemann's
+Ξ locally uniformly on the strip |Im z| < ½. The proposal was to prove the
+convergence on a smaller strip |Im z| < b₀ and collect a zero-free strip of
+width b₀ as the payoff. §1 proves the payoff would be real. §2 proves the
+theorem this attempt actually yields, unconditional and quantitative: an
+off-line zero forces the ground energy exponentially negative, with the
+farthest zero from the line setting the exponent. §3 shows why the strip
+target's hypothesis cannot be attacked below full strength by the methods
+available, and where the difficulty sits. §4 states the reformulated open
+problem that the analysis leaves as the honest next target.
+
+---
+
+## 0. Setting and conventions
+
+Throughout, a > 0 is the half-support and δ = 2a the support.
+
+**Probes.** A probe at half-support a is a real even g ∈ L²(ℝ) supported in
+[−a, a] with the archimedean integral of the paper's Theorem 1bn(i) finite
+(the pilot's `Probe a g`, Roadmap.lean). Its transform is
+
+  ĝ(z) = ∫ g(u) e^{izu} du = 2 ∫₀^a g(u) cos(zu) du,
+
+entire, even, real on ℝ and on iℝ, with ĝ(z̄) = conj ĝ(z) and
+|ĝ(z)| ≤ ‖g‖₁ e^{a|Im z|}. Every C_c^∞ even real function supported in
+[−a, a] is a probe.
+
+**Zeros.** ρ runs over the nontrivial zeros of ζ with multiplicity, written
+ρ = ½ + iγ_ρ, γ_ρ ∈ ℂ, |Im γ_ρ| < ½. The set of γ_ρ is closed under
+γ ↦ −γ and γ ↦ γ̄ (the functional equation and conjugation). For a zero off
+the line, the four zeros ρ, ρ̄, 1 − ρ, 1 − ρ̄ have γ ∈ {γ, −γ̄, −γ, γ̄},
+and for even real g their contributions to Σ ĝ(γ)² sum to 4 Re ĝ(γ)².
+Write β_ρ = |Re ρ − ½| = |Im γ_ρ| and
+
+  β* := sup_ρ β_ρ ∈ [0, ½].
+
+RH is the statement β* = 0 (and then the sup is attained).
+
+**The form.** For g ∈ C_c^∞ even, Weil's explicit formula gives
+
+  Q(g) := Σ_ρ ĝ(γ_ρ)²  =  2 poleR(g)² + (ψ(¼) − ln π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^{u/2}/sinh u du − 2 Σ_n Λ(n) n^{−1/2} f(ln n),
+
+with f = g ⋆ g̃ the autocorrelation and poleR(g) = ĝ(i/2) = ∫ g e^{−u/2}.
+The right side is the pilot's `weilQ a g` and the paper's Theorem 1bn(i)
+form; the left side is the zero side, summed symmetrically, and for
+g ∈ C_c^∞ every zero sum below converges absolutely. Q(g) is real. For
+probes in general the pilot defines the form by the right side. The ground
+energy is
+
+  λ₁(a) := inf { weilQ(g) : g a probe at half-support a, ‖g‖ = 1 },
+
+attained (the pilot's `exists_groundState`); a ground state is a normalised
+minimiser. Since every normalised C_c^∞ even function supported in [−a, a]
+is a probe,
+
+  (0.1)  λ₁(a) ≤ Q(g)/‖g‖²  for every nonzero even real g ∈ C_c^∞((−a, a)).
+
+Only (0.1) and the explicit formula for C_c^∞ functions are used in §2.
+
+**Riemann's kernel.** Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{−πn²e^{2u}},
+even, positive, with Φ(u) ≤ C_B e^{−B|u|} for every B, and
+
+  (0.2)  ∫ Φ(u) e^{izu} du = Ξ(z)/2  for every z ∈ ℂ,   Ξ(z) = ξ(½ + iz),
+
+the pilot's `RPhiHat_eq` (round 64). Write Φ_a = Φ·1_{[−a,a]} and
+E_a(z) = ∫_{|u|>a} Φ(u) e^{izu} du, so Φ̂_a = Ξ/2 − E_a.
+
+**The two statements.** For 0 < b ≤ ½:
+
+- S(b): for some sequence a_n → ∞, the normalised transforms
+  ĝ_n(z)/ĝ_n(0) of the top-of-chain ground states g_n = topGS(a_n)
+  converge to Ξ(z)/Ξ(0) locally uniformly on U_b := {|Im z| < b}.
+- ZFS(b): ζ has no zero with 0 < |Re ρ − ½| < b.
+
+S(½) is the pilot's hypothesis `HypConvStrip`; ZFS(½) is RH.
+
+**Pilot facts used, by name.** `topGS_cross` (StructureD.lean): at every
+a > 0 every zero z of the top ground state's transform has z ∈ ℝ ∪ iℝ, with
+no hypothesis beyond a > 0. `hurwitz_closed_on` (Roadmap.lean): if entire
+F_n → F locally uniformly on an open set U, F not identically zero on a
+component, and every zero of every F_n in U lies in a closed set C, then
+every zero of F in U lies in C. `xi_real_ne_zero` (RiemannKernel.lean):
+ξ(σ) ≠ 0 for every real σ. Theorem A (README round 40, paper-level):
+Q(Φ_a) ≤ S·e₁(a)² with e₁(a) = 2[Φ(a)cosh(a/2) + ∫_a^∞|Φ′|cosh(u/2)] and
+S = Σ_ρ 1/|γ_ρ|²; re-proved in §3.1 below.
+
+---
+
+## 1. The payoff would be real: S(b) implies ZFS(b)
+
+**Proposition 1.** For every 0 < b ≤ ½, S(b) implies ZFS(b).
+
+*Proof.* Let F_n(z) = ĝ_n(z)/ĝ_n(0) with g_n = topGS(a_n) and suppose
+F_n → Ξ/Ξ(0) locally uniformly on U_b. Ξ(0) = ξ(½) ≠ 0 by `xi_real_ne_zero`,
+so the limit is not identically zero. By `topGS_cross` every zero of every
+F_n lies in the closed set C = ℝ ∪ iℝ. U_b is open and connected. By
+`hurwitz_closed_on`, every zero z₀ of Ξ in U_b lies in C. If z₀ = iy with
+y ≠ 0 then |y| < b ≤ ½ and Ξ(iy) = ξ(½ − y) with ½ − y a real number, so
+Ξ(iy) ≠ 0 by `xi_real_ne_zero`; hence z₀ ∈ ℝ. Now ξ(s) = 0 exactly at the
+nontrivial zeros, and s = ½ + iz₀ has Re s − ½ = −Im z₀. So every zero
+ρ = ½ + iz₀ of ζ with |Re ρ − ½| < b has Im z₀ = 0, i.e. Re ρ = ½. ∎
+
+For b = ½ this is the pilot's `rh_of_hypConvStrip_top`; the proof above is
+its restriction to a sub-strip and adds nothing to it. The point of
+recording it is only that the conclusion of the strip target is genuinely
+graded: a proof of S(b) for any b > 0 would give a zero-free strip of width
+b about the critical line, which is not known for any b > 0.
+
+---
+
+## 2. What the attempt proves: the energy signature of an off-line zero
+
+The natural first question about S(b) for small b is what the ground states
+look like if RH fails. That question has a sharp, unconditional answer for
+the ground *energy*, which is the theorem of this note.
+
+**Hypothesis (H₁).** β* > 0, and the supremum is attained by exactly one
+zero up to the symmetries: there is ρ₀ = ½ + β* + it₀ with t₀ > 0, of
+multiplicity m₀ ≥ 1, such that every zero not in {ρ₀, ρ̄₀, 1−ρ₀, 1−ρ̄₀}
+has β_ρ < β*.
+
+(H₁) is a genericity assumption; §2.3 says what survives without it.
+
+**Theorem 2 (energy signature).** Under (H₁), with η(t₀) := 2β*(β* + t₀)/t₀² + 20/t₀² (so η(t₀) < 0.2 for t₀ ≥ 14 and η(t₀) < 10⁻¹¹ for t₀ > 3·10¹²), as a → ∞,
+
+  λ₁(a) ≤ − (1 − η(t₀)) · (m₀ e^{−2β*} / (2β*)) · e^{2β* a} · (1 − o(1)) ≤ − (1 − η(t₀)) · e^{2β* a} / (2e β*) · (1 − o(1)).
+
+In particular −λ₁(a) grows at least exponentially with exponent 2β*.
+
+**Theorem 3 (the trivial lower bound, unconditional).** For every a > 0,
+
+  λ₁(a) ≥ (ψ(¼) − ln π) − 2·1.03883·(2e^{a} − 1) > −5.3722 − 4.1554 e^{a}.
+
+Theorem 3 is the statement that no zero has β_ρ > ½, read through Theorem
+2: the exponent 1 = 2·½. Together they say that the growth exponent of the
+negative part of the ground energy detects the zero farthest from the
+critical line, and that improving the exponent in Theorem 3 uniformly in a
+is a zero-free-region statement of the classical kind.
+
+### 2.1 Proof of Theorem 3
+
+Take a probe g with ‖g‖ = 1 and f = g ⋆ g̃. On the right side of the
+explicit formula: 2 poleR(g)² ≥ 0; the archimedean integral is ≥ 0, since
+f(0) = ‖g‖² ≥ |f(u)| by Cauchy–Schwarz and e^{u/2}/sinh u > 0 for u > 0;
+the constant is ψ(¼) − ln π = −γ_E − π/2 − 3 ln 2 − ln π = −5.37218…; and f
+vanishes outside [−2a, 2a], so the prime sum runs over n ≤ e^{2a} with
+|f(ln n)| ≤ 1. Rosser–Schoenfeld give ψ(x) < 1.03883 x for all x > 0, and
+partial summation gives Σ_{n≤x} Λ(n) n^{−1/2} = ψ(x) x^{−1/2} + ½∫₁^x ψ(t) t^{−3/2} dt
+≤ 1.03883 (√x + (√x − 1)) = 1.03883 (2√x − 1). With x = e^{2a} the prime
+term is ≥ −2·1.03883·(2e^{a} − 1). ∎
+
+### 2.2 Proof of Theorem 2
+
+Fix a smooth step w: ℝ → [0, 1] with w(s) = 0 for s ≤ 0, w(s) = 1 for
+s ≥ 1, w′(0) = w′(1) = 0, and set C_w := ‖w″‖_∞ + 2‖w′‖_∞ + ½. (A concrete
+choice has ‖w′‖_∞ ≤ 2, which is all that is used of it, at one place.)
+For a ≥ 2 put w_a(u) := w(a − |u|), even, C^∞, equal to 1 on |u| ≤ a − 1
+and to 0 for |u| ≥ a. Write β := β* and S(u) := sinh(βu). The trial function
+is
+
+  g(u) := w_a(u) · sinh(βu) · sin(t₀u),
+
+real, even (odd × odd), C_c^∞ with support in [−a, a]. By (0.1),
+λ₁(a) ≤ Q(g)/‖g‖², and Q(g) = Σ_ρ ĝ(γ_ρ)² absolutely.
+
+**Step 1: the norm.** ‖g‖² = ∫ w_a² S² sin²(t₀u) du ≥ ∫_{|u|≤a−1} S² sin²(t₀u) du.
+With A = a − 1 and sin² = (1 − cos 2t₀u)/2,
+
+  ∫_{−A}^{A} S² sin²(t₀u) du = ½ [ sinh(2βA)/(2β) − A ] − ½ ∫_{−A}^{A} sinh²(βu) cos(2t₀u) du.
+
+The oscillatory term, with sinh² = (cosh 2βu − 1)/2 and the elementary
+∫_{−A}^{A} cosh(2βu) cos(2t₀u) du = [2β sinh(2βA) cos(2t₀A) + 2t₀ cosh(2βA) sin(2t₀A)]/(2β² + 2t₀²),
+is bounded in modulus by ¼[(β + t₀) cosh(2βA)/t₀² + 1/t₀]. Writing
+sinh(2βA)/(2β) = e^{2βA}(1 − e^{−4βA})/(4β) and cosh(2βA) ≤ e^{2βA},
+
+  (2.1)  ‖g‖² ≥ e^{2β(a−1)}/(8β) · (1 − ε₁(a)),
+         ε₁(a) := e^{−4βA} + 4βA e^{−2βA} + 2β e^{−2βA}/t₀ + 2β(β + t₀)/t₀²,   A = a − 1.
+
+The first three terms tend to 0 as a → ∞; the last, ε₁^∞ := 2β(β + t₀)/t₀²,
+is the edge correction to the average of sin² over the window and does not
+depend on a. It is the first part of η(t₀) in the theorem's statement.
+
+**Step 2: the value at the maximising zero.** At γ₀ = t₀ + iβ,
+e^{iγ₀u} = e^{−βu}(cos t₀u + i sin t₀u). Since g is even, the odd parts
+integrate to zero and
+
+  ĝ(γ₀) = ∫ g cosh(βu) cos(t₀u) du − i ∫ g sinh(βu) sin(t₀u) du = R − iJ,
+
+  R := ¼ ∫ w_a sinh(2βu) sin(2t₀u) du,   J := ∫ w_a sinh²(βu) sin²(t₀u) du.
+
+Because 0 ≤ w_a ≤ 1, J ≥ ∫ w_a² S² sin² = ‖g‖². Hence Re ĝ(γ₀)² = R² − J² ≤ R² − ‖g‖⁴.
+The quadruple of ρ₀ contributes m₀ · 4 Re ĝ(γ₀)² ≤ 4m₀R² − 4m₀‖g‖⁴ to Q(g).
+
+**Step 3: R is small.** Integrate by parts once (w_a vanishes at ±a):
+R = −¼ ∫ (w_a sinh 2βu)′ cos(2t₀u)/(2t₀) du, so |R| ≤ ‖(w_a sinh 2βu)′‖₁/(8t₀).
+Now (w_a sinh 2βu)′ = w_a′ sinh 2βu + 2β w_a cosh 2βu, w_a′ is supported in
+a − 1 ≤ |u| ≤ a with |w_a′| ≤ ‖w′‖_∞, and ∫_{a−1}^{a} sinh 2βu du ≤ e^{2βa}(1 − e^{−2β})/(4β) ≤ e^{2βa}/2,
+∫_{−a}^{a} cosh 2βu du = sinh(2βa)/β ≤ e^{2βa}/(2β). So
+‖(w_a sinh 2βu)′‖₁ ≤ e^{2βa}(‖w′‖_∞ + 1) and
+
+  (2.2)  |R| ≤ e^{2βa} (‖w′‖_∞ + 1)/(8t₀).
+
+**Step 4: the other zeros.** Write sin(t₀u) = (e^{it₀u} − e^{−it₀u})/(2i), so
+ĝ(z) = (1/2i)[F(z + t₀) − F(z − t₀)] with F(ζ) := ∫ w_a S e^{iζu} du. For
+any ζ ∈ ℂ, |e^{iζu}| ≤ e^{|Im ζ| a} on the support, and two integrations by
+parts (w_a S and its derivative vanish at ±a) give
+|F(ζ)| ≤ e^{|Im ζ|a} ‖(w_a S)″‖₁/|ζ|². Here (w_a S)″ = w_a″S + 2w_a′S′ + w_aS″,
+and with ∫_{a−1}^{a} sinh βu ≤ e^{βa}(1 − e^{−β})/(2β) ≤ e^{βa}/2,
+∫_{a−1}^{a} cosh βu ≤ e^{βa}/(2β)·(1 − e^{−β}) + 1 ≤ e^{βa}, and
+∫_{−a}^{a}|S| ≤ e^{βa}/β, one gets ‖(w_a S)″‖₁ ≤ e^{βa}(‖w″‖_∞ + 2‖w′‖_∞ + β) ≤ C_w e^{βa}.
+Also trivially |F(ζ)| ≤ e^{|Im ζ|a}‖w_a S‖₁ ≤ e^{(β+|Im ζ|)a}/β. So for every ζ,
+
+  (2.3)  |F(ζ)| ≤ e^{(β + |Im ζ|) a} · min( 1/β, C_w/|ζ|² ).
+
+(i) *Zeros on the line.* For real γ, ĝ(γ)² ≤ ½(|F(γ+t₀)|² + |F(γ−t₀)|²). By the
+classical bound on the zero count in unit intervals, the number of γ with
+T < |γ| ≤ T + 1 is at most A₀ ln T for T ≥ 2, with A₀ an absolute constant
+(Backlund). Then, using (2.3),
+
+  Σ_{γ real} ĝ(γ)² ≤ e^{2βa} · [ 2A₀ ln(t₀+2)/β² + 2A₀C_w² Σ_{k≥1} ln(t₀+k+2)/k⁴ ] ≤ e^{2βa} · A₁ ln(t₀+2) (β^{−2} + C_w²),
+
+with A₁ absolute (Σ_k ln(t₀+k+2)/k⁴ ≤ 1.09 ln(t₀+2) + 0.8). Dividing by (2.1):
+
+  (2.4)  Σ_{γ real} ĝ(γ)² / ‖g‖² ≤ C₁ := 8β e^{2β} A₁ ln(t₀+2)(β^{−2} + C_w²)/(1 − ε₁(a)),
+
+bounded uniformly in a.
+
+(ii) *Zeros off the line other than ρ₀'s quadruple.* Group them into
+quadruples with representative γ′ = t′ + iβ′, t′ > 0, 0 < β′ < β (the strict
+inequality is (H₁)); a quadruple contributes 4 Re ĝ(γ′)² ≤ 4|ĝ(γ′)|² (times
+multiplicity, which is absorbed into the enumeration). By (2.3) with
+|Im ζ| = β′ and |ζ| ≥ |t′ ∓ t₀|,
+
+  |ĝ(γ′)|² ≤ ½ e^{2(β+β′)a} [ min(β^{−2}, C_w²/(t′−t₀)⁴) + C_w²/(t′+t₀)⁴ ] =: e^{2(β+β′)a} M(ρ′)/2.
+
+M(ρ′) does not depend on a, and Σ_{ρ′} M(ρ′) < ∞ by the same unit-interval
+count as in (i) (it is bounded by A₂ ln(t₀+2)(β^{−2} + C_w²)). Dividing by
+(2.1),
+
+  Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² ≤ 16β e^{2β}/(1 − ε₁) · e^{2βa} · Σ_{ρ′} e^{−2(β−β′)a} M(ρ′).
+
+Each term of the last sum tends to 0 as a → ∞ because β′ < β, and the sum
+is dominated by Σ M(ρ′) < ∞; by dominated convergence it tends to 0. So
+
+  (2.5)  Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² = e^{2βa} · o(1)   (a → ∞).
+
+**Step 5: assembly.** From Steps 2–4,
+
+  Q(g)/‖g‖² ≤ −4m₀‖g‖² + 4m₀R²/‖g‖² + C₁ + e^{2βa} o(1).
+
+By (2.1), −4m₀‖g‖² ≤ −m₀ e^{2β(a−1)}(1 − ε₁)/(2β). By (2.2) and (2.1),
+4m₀R²/‖g‖² ≤ m₀ e^{2βa} · β e^{2β}(‖w′‖_∞ + 1)²/(2t₀²(1 − ε₁)), and the ratio
+of this to the negative main term is β² e^{4β}(‖w′‖_∞ + 1)²/(t₀²(1 − ε₁)²),
+which with β < ½, ‖w′‖_∞ ≤ 2, t₀ ≥ 14 and ε₁ < 0.08 is at most 20/t₀² < 0.11,
+strictly less than 1. Hence, with ε₁(a) → ε₁^∞,
+
+  λ₁(a) ≤ Q(g)/‖g‖² ≤ − m₀ e^{−2β} e^{2βa}/(2β) · (1 − ε₁^∞ − 20/t₀² − o(1)) + C₁.
+
+Since m₀ ≥ 1 and e^{−2β} ≥ e^{−1}, and η(t₀) = ε₁^∞ + 20/t₀², the stated
+bound follows. The verified height 3·10¹² is used nowhere in the proof; it
+enters only the remark that η(t₀) is then below 10⁻¹¹. ∎
+
+*Remarks on the proof.* (a) The trial is the Cauchy–Schwarz maximiser of
+−Im ĝ(γ₀) at fixed norm: −Im ĝ(γ₀) = ∫ g sinh(βu) sin(t₀u), maximised by
+g ∝ sinh(βu) sin(t₀u), and the window w_a only makes the explicit formula
+apply in its classical class. The constant 1/(2β) is therefore the sharp
+constant for a single-quadruple trial. (b) The whole negativity comes from
+the u = ±a edges: sinh²(βu) has its mass within O(1/β) of the edge. This
+is the edge-concentrated state referred to in §3.
+
+### 2.3 Without (H₁)
+
+If the supremum β* is attained by finitely many zeros, the same proof goes
+through with a trial prescribing purely imaginary values ĝ(γ_j) = i c_j at
+every maximising zero (the evaluation map from real even L²[−a, a] onto
+ℂ^k at k zeros with distinct squares is surjective), at the cost of a Gram
+constant depending on that finite configuration; I have not written this
+out. If β* is not attained, the trial above at a zero with β₀ > β* − ε
+loses control of the infinitely many zeros with β′ ∈ (β₀, β*), whose
+contributions are bounded only by e^{2εa} times a convergent sum, and the
+argument gives nothing for a → ∞. A Landau-type Ω-argument on the prime
+side would give λ₁(a) ≤ −e^{2(β*−ε)a} along a sequence a_k → ∞; that route
+is classical but was not carried out here. So the general unconditional
+statement proved is Theorem 3 plus the (H₁) case of Theorem 2, and the
+contrapositive below is stated with (H₁).
+
+**Corollary 4.** If λ₁(a) ≥ −C e^{2ba} for some b < ½, some C, and all large
+a, then no zero ρ₀ satisfies (H₁) with β_{ρ₀} > b. Under (H₁), Theorem A
+and Theorem 2 give a dichotomy: either RH holds and
+0 ≤ λ₁(a) ≤ S e₁(a)²/‖Φ_a‖² = exp(−2πe^{2a} + O(a)) for every a, or RH fails
+and λ₁(a) ≤ −e^{2β*a}/(2eβ*)(1 − o(1)). There is no intermediate regime.
+
+*Consequence for the computed cells.* At the paper's cells (a ≤ 1.75) the
+trial of Theorem 2 is not yet negative: its positive part C₁ is of order
+β ln t₀ (β^{−2} + C_w²) with t₀ > 3·10¹² for any off-line zero, so the
+negative term e^{2βa}/(2eβ) wins only for a ≳ (1/2β) ln(C₁ · 2eβ), which is
+about 40 for β = 0.1 and a few hundred for β = 0.01. The positivity of λ₁ at the
+cells is therefore consistent with RH and with its failure at any height
+above the verified one. This is not a defect of the cells; it is the
+content of Corollary 4: the RH-false branch is invisible until the support
+exceeds ln(height)/β.
+
+---
+
+## 3. Why the strip target's hypothesis is not graded
+
+### 3.1 The min–max route, and why it fails quantitatively
+
+Theorem A (re-proved). Φ̂(γ_ρ) = Ξ(γ_ρ)/2 = 0 at every zero, on or off the
+line, by (0.2). So Q(Φ_a) = Σ_ρ E_a(γ_ρ)² ≤ Σ_ρ |E_a(γ_ρ)|². Integrating
+E_a(z) = 2∫_a^∞ Φ(u) cos(zu) du by parts and using |sin(zu)| ≤ cosh(u/2)
+for |Im z| ≤ ½ gives |E_a(z)| ≤ e₁(a)/|z| on the strip, hence
+Q(Φ_a) ≤ e₁(a)² Σ_ρ |γ_ρ|^{−2}, unconditionally, with e₁(a) = exp(−πe^{2a} + O(a)).
+So the ground energy, when nonnegative, is at most exp(−2πe^{2a} + O(a)).
+
+The pilot's min–max bound (`normSq_sub_le_of_gap`) reads
+‖g − φ‖² ≤ 2(Q(φ) − λ₁)/(λ₂ − λ₁) for a normalised trial φ, where λ₂ is the
+second eigenvalue. To reach S(b) from it one needs Q(φ) − λ₁ ≤ e^{−2ba}(λ₂ − λ₁),
+i.e. a trial whose excess energy over the ground energy is a fraction
+e^{−2ba} of the spectral gap. The pilot's measurements (README round 62,
+its own scripts) put λ₂ many orders of magnitude below Q(Φ_a); in its words,
+"A usable trial would need `Q(φ) ≪ λ₂`." The structural reason is the
+dimension count: the even probes of half-support a have about aT/π
+degrees of freedom below height T (the cosine modes cos(kπu/a) with
+kπ/a ≤ T; an even entire function of type a has at most aT/π + O(1) zeros
+in [0, T]), while the zeros number (T/2π) ln(T/2πe) there; the two agree at
+T = 2πe^{2a+1} = e·T₀, above the paper's measured wall (2T₀/e, 2T₀). Below that
+height a probe can vanish at every zero and pay nothing, so the form has a
+near-null space of dimension of order a e^{2a}, and its second eigenvalue
+is set by the tail of the zeros beyond the height the second state can
+reach, not by a gap of order one. Any trial that is only e^{−ba}-close to
+Φ_a in L² may differ from it pointwise at the zeros by that much and can
+be made to vanish there, but the residual energy of Φ_a-based trials is
+governed by e₁(a)² ≈ exp(−2πe^{2a}), and to push it below λ₂ the trial
+would have to reproduce the ground state's own dodging up to its own
+horizon, i.e. be the ground state. The route is closed, not merely hard.
+
+### 3.2 What S(b) asks of the ground state when RH fails
+
+Suppose RH fails and (H₁) holds. By Theorem 2 the ground state at large
+support has energy ≤ −e^{2β*a}/(2eβ*). The following inequality is exact.
+
+**Proposition 5.** Let g be a ground state at half-support a, ‖g‖ = 1,
+Φ̃ = Φ_a/‖Φ_a‖, c = ⟨g, Φ̃⟩, r = g − cΦ̃, q_a = Q(Φ̃), and B the symmetric
+bilinear form of Q. Then |c| · (q_a − λ₁(a)) ≤ 2 |B(Φ̃, r)|.
+
+*Proof.* Q(g) = c²q_a + 2cB(Φ̃, r) + Q(r) and Q(r) ≥ λ₁‖r‖² = λ₁(1 − c²),
+while Q(g) = λ₁. So λ₁c² ≥ c²q_a + 2cB, i.e. c²(q_a − λ₁) ≤ −2cB ≤ 2|c||B|. ∎
+
+When λ₁ ≤ −e^{2β*a}/(2eβ*), the left side is at least |c| e^{2β*a}/(2eβ*),
+while B(Φ̃, r) = Σ_ρ Φ̂̃(γ_ρ) r̂(γ_ρ) has every first factor bounded by
+e₁(a)/(|γ_ρ|‖Φ_a‖) = exp(−πe^{2a} + O(a)). *Provided* the zero sum
+Σ_ρ |r̂(γ_ρ)|² is finite with at most exponential growth in a (a sampling
+bound for probes at the zeros, which for zeros on the line follows from the
+archimedean energy controlling a logarithmically weighted L² norm of the
+transform, the pilot's `archE_le_of_mem`; for the off-line zeros the
+corresponding bound is not written out here), Cauchy–Schwarz gives
+|c| ≤ exp(−πe^{2a} + O(a)): the ground state is super-exponentially
+orthogonal to Φ_a. This is the one step of this section that is a sketch.
+
+What the sketch shows is what S(b) would have to mean if RH failed: the
+ground state's mass sits in the edge-concentrated, high-frequency state of
+Theorem 2, orthogonal to Φ_a; S(b) is a statement about the *shape* of the
+normalised transform near the origin, scale-free, and is not formally
+contradicted by |c| → 0, because ĝ(0) may be tiny with ĝ/ĝ(0) still of the
+right shape on compacts. But nothing in the variational problem supplies
+that shape: the Euler–Lagrange equation Σ_ρ ĝ(γ_ρ) φ̂(γ_ρ) = λ₁⟨g, φ⟩ couples
+the low-frequency part of g to the edge state through the far zero, at
+relative size of order 1/t₀ per unit of e^{2β*a}, and drives it with the
+eigenvalue λ₁ ≈ −e^{2β*a}, not toward Ξ. I therefore expect S(b) for any
+b > 0 to fail whenever RH fails, which would make S(b) equivalent in
+strength to RH for every b, and its conclusion ZFS(b) graded only because
+Proposition 1 discards information. This expectation is heuristic; I have
+not proved that S(b) fails when RH fails, and Proposition 1 is all that is
+rigorous in this direction.
+
+### 3.3 Where the difficulty sits under RH
+
+Assume RH. Then λ₁(a) ∈ [0, exp(−2πe^{2a} + O(a))] and the pilot's chain would
+be an equivalence if the closeness rate could be proved. The observed rate
+has a mechanism in the paper's own Theorem 1bu(ii): under Hypothesis D at
+support a with horizon T_D(a), the normalised transform satisfies
+|ln[ĝ(r)/ĝ(0)] − ln[Ξ(r)/Ξ(0)]| ≤ 2R²ε(a) for |r| ≤ R ≤ T_D/2, with
+ε(a) = Σ_{|τ|≥T_D}|τ|^{−2} + Σ_{γ≥T_D}γ^{−2} ≍ (ln T_D)/T_D. With T_D of order
+e^{2a}, as the dimension count of §3.1 and the paper's measured horizons
+indicate, ε(a) ≍ a e^{−2a}. That is the pilot's measured decay of the angle
+to Φ_a, e^{−2a} with a slowly drifting local exponent (README round 62), and
+it is four times the threshold ½ of the chain. So under RH the closeness
+rate is not mysterious: it is the tail of the zeros beyond the dodging
+horizon. What is unproved is Hypothesis D itself: that the ground state's
+transform vanishes at every zero below a horizon T_D(a) ≍ e^{2a} and has no
+other zero there. The pilot located where RH enters any natural proof of
+convergence ("uses `Q = Σ_γ|ĝ(γ)|²`, a sum of squares, which is RH", README
+round 40); under RH that obstacle is absent, and D becomes a statement in
+approximation theory about the minimiser of a sum of squares over a
+sampling set of near-critical density, with the zeros' separation
+properties (unknown) as the likely technical input.
+
+---
+
+## 4. Conclusion, and the honest next target
+
+1. **The strip target as posed cannot be attacked below full strength.**
+   Its conclusion is graded (Proposition 1), its hypothesis is not: S(b)
+   requires the ground states to converge to Ξ at all, which, by §3.2,
+   is expected to fail whenever RH fails at any distance from the line.
+   The audacious framing in the preceding discussion was right about the
+   payoff and wrong about the difficulty; this note corrects it.
+
+2. **What the attempt proves** is Theorem 2 with Theorem 3 and Corollary 4:
+   the truncated Weil ground energy has two regimes, super-exponentially
+   small nonnegative under RH, exponentially negative with exponent 2β*
+   when RH fails under (H₁), and nothing in between. The growth exponent
+   of −λ₁ detects the *farthest* zero from the line. Lower bounds on λ₁(a)
+   uniform in a with exponent below 1 are zero-free-region statements
+   of the classical kind, so the variational structure does not give a
+   cheap route to those either. Whether Theorem 2 is in the literature was
+   not checked; the Weil criterion is classical, and quantitative forms of
+   it exist, so the theorem should be regarded as a folklore-level
+   statement made explicit for this form, with the sharp single-quadruple
+   constant 1/(2β*).
+
+3. **The honest open problem** that this analysis isolates, conditional and
+   well-posed: *under RH, prove Hypothesis D from the form* — that the
+   truncated ground state's transform vanishes at every zero below a
+   horizon T_D(a) → ∞ with T_D(a) ≥ c e^{2a}, and at no other point below
+   it. With 1bu(ii) this would prove the closeness rate a e^{−2a} under RH
+   and make the pilot's chain an equivalence, RH ⟺ (a′), turning the
+   measured rate into a test statistic with a theorem behind it. It does
+   not prove RH, and nothing in this note does.
+
+4. **No numerics were run.** The only quantities used are the constants of
+   Theorem 3, the verified height 3·10¹² for the first off-line zero (used only to
+   remark that η(t₀) is then negligible), and Backlund's unit-interval zero
+   count with an unspecified absolute constant, which enters only the
+   a-independent term C₁.
